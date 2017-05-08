@@ -139,7 +139,7 @@ final class AssessApi(
     import AutoAnalysis.Reason._
 
     def manyBlurs(player: Player) =
-      (player.blurs.toDouble / game.playerMoves(player.color)) >= 0.7
+      game.playerBlurPercent(player.color) >= 70
 
     def winnerGreatProgress(player: Player): Boolean = {
       game.winner ?? (player ==)

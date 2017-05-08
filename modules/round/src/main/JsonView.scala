@@ -285,7 +285,7 @@ final class JsonView(
   private def blurs(game: Game, player: lila.game.Player) = {
     val percent = game.playerBlurPercent(player.color)
     (percent > 30) option Json.obj(
-      "nb" -> player.blurs,
+      "nb" -> player.blurs.nb,
       "percent" -> percent
     )
   }

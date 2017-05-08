@@ -1,5 +1,6 @@
 package lila.db
 
+import ornicar.scalalib.Zero
 import org.joda.time.DateTime
 import reactivemongo.bson._
 
@@ -122,6 +123,8 @@ object BSON extends Handlers {
       reader.asInstanceOf[BSONReader[BSONValue, A]] read map(k)
     def getO[A](k: String)(implicit reader: BSONReader[_ <: BSONValue, A]): Option[A] =
       map get k flatMap reader.asInstanceOf[BSONReader[BSONValue, A]].readOpt
+    def getD[A](k: String)(implicit zero: Zero[A], reader: BSONReader[_ <: BSONValue, A]): A =
+      getO[A](k) getOrElse zero.zero
     def getD[A](k: String, default: => A)(implicit reader: BSONReader[_ <: BSONValue, A]): A =
       getO[A](k) getOrElse default
     def getsD[A](k: String)(implicit reader: BSONReader[_ <: BSONValue, List[A]]) =

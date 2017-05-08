@@ -194,12 +194,10 @@ case class Game(
     val (history, situation) = (game.board.history, game.situation)
 
     def copyPlayer(player: Player) =
-      if (blur) player.copy(
-        blurs = math.min(
-          playerMoves(player.color),
-          player.blurs + (moveOrDrop.fold(_.color, _.color) == player.color).fold(1, 0)
+      if (blur && moveOrDrop.fold(_.color, _.color) == player.color)
+        player.copy(
+          blurs = player.blurs.add(playerMoves(player.color))
         )
-      )
       else player
 
     val updated = copy(
@@ -496,10 +494,9 @@ case class Game(
 
   def playerHasMoved(color: Color) = playerMoves(color) > 0
 
-  def playerBlurPercent(color: Color): Int = (playedTurns > 5).fold(
-    (player(color).blurs * 100) / playerMoves(color),
-    0
-  )
+  def playerBlurPercent(color: Color): Int =
+    if (playedTurns > 5) (player(color).blurs.nb * 100) / playerMoves(color)
+    else 0
 
   def isBeingPlayed = !isPgnImport && !finishedOrAborted
 

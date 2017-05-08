@@ -19,7 +19,7 @@ case class Player(
     rating: Option[Int] = None,
     ratingDiff: Option[Int] = None,
     provisional: Boolean = false,
-    blurs: Int = 0,
+    blurs: Blurs = Blurs.blursZero.zero,
     holdAlert: Option[Player.HoldAlert] = None,
     berserk: Boolean = false,
     name: Option[String] = None
@@ -158,6 +158,7 @@ object Player {
   implicit val playerBSONHandler = new BSON[Builder] {
 
     import BSONFields._
+    import Blurs.{ BlursBSONHandler, blursZero }
 
     def reads(r: BSON.Reader) = color => id => userId => win => Player(
       id = id,
@@ -172,7 +173,7 @@ object Player {
       rating = r intO rating flatMap ratingRange(userId),
       ratingDiff = r intO ratingDiff flatMap ratingDiffRange(userId),
       provisional = r boolD provisional,
-      blurs = r intD blurs,
+      blurs = r.getD[Blurs](blurs),
       holdAlert = r.getO[HoldAlert](holdAlert),
       berserk = r boolD berserk,
       name = r strO name
@@ -189,7 +190,10 @@ object Player {
           rating -> p.rating,
           ratingDiff -> p.ratingDiff,
           provisional -> w.boolO(p.provisional),
-          blurs -> w.intO(p.blurs),
+          blurs -> {
+            if (p.blurs.isEmpty) none
+            else p.blurs.some
+          },
           holdAlert -> p.holdAlert,
           name -> p.name
         )
