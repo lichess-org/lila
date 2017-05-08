@@ -54,9 +54,8 @@ export function presetView(ctrl: PresetCtrl): VNode | undefined {
   const said = ctrl.said();
   return (sets && said.length < 2) ? h('div.presets', sets.map((p: Preset) => {
     const disabled = said.indexOf(p.key) !== -1;
-    return h('span', {
+    return h('span.hint--top', {
       class: {
-        'hint--top': true,
         disabled: disabled
       },
       attrs: {
