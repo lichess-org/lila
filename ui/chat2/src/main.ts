@@ -8,10 +8,9 @@ import view from './view';
 import { ChatOpts, Ctrl } from './interfaces'
 
 import klass from 'snabbdom/modules/class';
-import props from 'snabbdom/modules/props';
 import attributes from 'snabbdom/modules/attributes';
 
-const patch = init([klass, props, attributes]);
+const patch = init([klass, attributes]);
 
 export default function LichessChat(element: Element, opts: ChatOpts) {
 

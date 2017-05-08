@@ -4,12 +4,13 @@ import { VNode } from 'snabbdom/vnode'
 export function userLink(u: string) {
   const split = u.split(' ');
   return h('a', {
+    // can't be inlined because of thunks
     class: {
       user_link: true,
       ulpt: true
     },
     attrs: {
-      href: '/@/' + (split.length == 1 ? split[0] : split[1])
+      href: '/@/' + split[split.length === 1 ? 0 : 1]
     }
   }, u.substring(0, 14));
 }

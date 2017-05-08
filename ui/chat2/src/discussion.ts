@@ -1,5 +1,5 @@
 import { h, thunk } from 'snabbdom'
-import { VNode } from 'snabbdom/vnode'
+import { VNode, VNodeData } from 'snabbdom/vnode'
 import { Ctrl, Line } from './interfaces'
 import * as spam from './spam'
 import enhance from './enhance';
@@ -95,17 +95,28 @@ function selectLines(ctrl: Ctrl): Array<Line> {
   return ls;
 }
 
+function updateText(parseMoves: boolean) {
+  return (oldVnode: VNode, vnode: VNode) => {
+    if ((vnode.data as VNodeData).lichessChat !== (oldVnode.data as VNodeData).lichessChat) {
+      (vnode.elm as HTMLElement).innerHTML = enhance((vnode.data as VNodeData).lichessChat, parseMoves);
+    }
+  };
+}
+
 function renderText(t: string, parseMoves: boolean) {
+  const hook = updateText(parseMoves);
   return h('t', {
-    props: {
-      innerHTML: enhance(t, parseMoves)
+    lichessChat: t,
+    hook: {
+      create: hook,
+      update: hook
     }
   });
 }
 
 function renderLine(ctrl: Ctrl, line: Line) {
 
-  const textNode = thunk('t', line.t, renderText, [line.t, ctrl.opts.parseMoves]);
+  const textNode = renderText(line.t, ctrl.opts.parseMoves);
 
   if (line.u === 'lichess') return h('li.system', textNode);
 
@@ -115,9 +126,9 @@ function renderLine(ctrl: Ctrl, line: Line) {
   ]);
   var userNode = thunk('a', line.u, userLink, [line.u]);
 
-  return ctrl.moderation ? h('li', [
+  return h('li', ctrl.moderation ? [
     lineAction(() => ctrl.moderation && line.u && ctrl.moderation.open(line.u.split(' ')[0])),
     userNode,
     textNode
-  ]) : h('li', [userNode, textNode]);
+  ] : [userNode, textNode]);
 }
