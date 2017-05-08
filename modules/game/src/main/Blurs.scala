@@ -1,14 +1,10 @@
 package lila.game
 
 import ornicar.scalalib.Zero
-import scala.collection.immutable.BitSet
 
 sealed trait Blurs extends Any {
 
   def nb: Int
-
-  def bitsOption: Option[Long]
-  def bitSetOption: Option[BitSet]
 
   def isEmpty = nb == 0
 
@@ -21,9 +17,6 @@ object Blurs {
 
   case class Nb(nb: Int) extends AnyVal with Blurs {
 
-    def bitsOption = none
-    def bitSetOption = none
-
     def add(moveIndex: Int) = blursZero.zero add moveIndex
 
     override def toString = s"Blurs.Nb($nb)"
@@ -31,12 +24,7 @@ object Blurs {
 
   case class Bits(bits: Long) extends AnyVal with Blurs {
 
-    def bitSet = new BitSet.BitSet1(bits)
-
     def nb = java.lang.Long.bitCount(bits)
-
-    def bitsOption = bits.some
-    def bitSetOption = bitSet.some
 
     def add(moveIndex: Int) =
       if (moveIndex < 0 || moveIndex > 63) this
