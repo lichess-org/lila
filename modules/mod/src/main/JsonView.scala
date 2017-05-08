@@ -5,6 +5,7 @@ import play.api.libs.json._
 import chess.format.FEN
 import lila.common.PimpedJson._
 import lila.evaluation._
+import lila.game.JsonView.blursWriter
 import lila.game.{ Game, GameRepo }
 import lila.user.User
 
@@ -63,7 +64,11 @@ final class JsonView(
       // "createdAt" -> g.createdAt.getDate,
       "pgn" -> g.pgnMoves.mkString(" "),
       "variant" -> g.variant.exotic.option(g.variant.key),
-      "emts" -> g.clockHistory.isDefined ?? g.moveTimes.map(_.map(_.centis))
+      "emts" -> g.clockHistory.isDefined ?? g.moveTimes.map(_.map(_.centis)),
+      "blurs" -> Json.obj(
+        "white" -> g.whitePlayer.blurs,
+        "black" -> g.blackPlayer.blurs
+      )
     ).noNull
   }
 }
