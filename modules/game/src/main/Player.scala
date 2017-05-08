@@ -131,7 +131,8 @@ object Player {
     val rating = "e"
     val ratingDiff = "d"
     val provisional = "p"
-    val blurs = "b"
+    val blursNb = "b"
+    val blursBits = "l"
     val holdAlert = "h"
     val berserk = "be"
     val name = "na"
@@ -158,7 +159,7 @@ object Player {
   implicit val playerBSONHandler = new BSON[Builder] {
 
     import BSONFields._
-    import Blurs.{ BlursBSONHandler, blursZero }
+    import Blurs._
 
     def reads(r: BSON.Reader) = color => id => userId => win => Player(
       id = id,
@@ -173,7 +174,7 @@ object Player {
       rating = r intO rating flatMap ratingRange(userId),
       ratingDiff = r intO ratingDiff flatMap ratingDiffRange(userId),
       provisional = r boolD provisional,
-      blurs = r.getD[Blurs](blurs),
+      blurs = r.getO[Blurs.Bits](blursBits) orElse r.getO[Blurs.Nb](blursNb) getOrElse blursZero.zero,
       holdAlert = r.getO[HoldAlert](holdAlert),
       berserk = r boolD berserk,
       name = r strO name
@@ -190,10 +191,7 @@ object Player {
           rating -> p.rating,
           ratingDiff -> p.ratingDiff,
           provisional -> w.boolO(p.provisional),
-          blurs -> {
-            if (p.blurs.isEmpty) none
-            else p.blurs.some
-          },
+          blursBits -> (!p.blurs.isEmpty).option(BlursBSONWriter write p.blurs),
           holdAlert -> p.holdAlert,
           name -> p.name
         )

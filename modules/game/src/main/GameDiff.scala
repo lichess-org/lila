@@ -9,7 +9,7 @@ import reactivemongo.bson._
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.ByteArray
 import lila.db.ByteArray.ByteArrayBSONHandler
-import Blurs.BlursBSONHandler
+import Blurs.BlursBSONWriter
 import chess.Centis
 
 private[game] object GameDiff {
@@ -81,7 +81,7 @@ private[game] object GameDiff {
       dOpt(s"$name$isOfferingDraw", player(_).isOfferingDraw, w.boolO)
       dOpt(s"$name$isOfferingRematch", player(_).isOfferingRematch, w.boolO)
       dOpt(s"$name$proposeTakebackAt", player(_).proposeTakebackAt, w.intO)
-      d(s"$name$blurs", player(_).blurs, BlursBSONHandler.write)
+      d(s"$name$blursBits", player(_).blurs, BlursBSONWriter.write)
     }
     d(movedAt, _.movedAt, BSONJodaDateTimeHandler.write)
 

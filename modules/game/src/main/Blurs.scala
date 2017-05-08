@@ -7,7 +7,8 @@ sealed trait Blurs extends Any {
 
   def nb: Int
 
-  def bitsOption: Option[BitSet]
+  def bitsOption: Option[Long]
+  def bitSetOption: Option[BitSet]
 
   def isEmpty = nb == 0
 
@@ -21,6 +22,7 @@ object Blurs {
   case class Nb(nb: Int) extends AnyVal with Blurs {
 
     def bitsOption = none
+    def bitSetOption = none
 
     def add(moveIndex: Int) = blursZero.zero add moveIndex
   }
@@ -31,26 +33,39 @@ object Blurs {
 
     def nb = java.lang.Long.bitCount(bits)
 
-    def bitsOption = bitSet.some
+    def bitsOption = bits.some
+    def bitSetOption = bitSet.some
 
     def add(moveIndex: Int) =
       if (moveIndex < 0 || moveIndex > 63) this
       else Bits(bits | (1L << moveIndex))
+
+    def asInt = (bits <= Int.MaxValue) option bits.toInt
+
+    override def toString = java.lang.Long toBinaryString bits
   }
 
   implicit val blursZero = Zero.instance[Blurs](Bits(0l))
 
   import reactivemongo.bson._
 
-  implicit val BlursBSONHandler = new BSONHandler[BSONValue, Blurs] {
-    def read(bv: BSONValue): Blurs = bv match {
-      case BSONInteger(nb) => Nb(nb)
+  private[game] implicit val BlursBitsBSONHandler = new BSONHandler[BSONValue, Bits] {
+    def read(bv: BSONValue): Bits = bv match {
+      case BSONInteger(bits) => Bits(bits)
       case BSONLong(bits) => Bits(bits)
-      case v => sys error s"Invalid blurs $v"
+      case v => sys error s"Invalid blurs bits $v"
     }
-    def write(b: Blurs) = b match {
-      case Nb(nb) => BSONInteger(nb)
-      case Bits(bits) => BSONLong(bits)
+    def write(b: Bits): BSONValue =
+      b.asInt.fold[BSONValue](BSONLong(b.bits))(BSONInteger.apply)
+  }
+
+  private[game] implicit val BlursNbBSONReader = Macros.reader[Nb]
+
+  private[game] implicit val BlursBSONWriter = new BSONWriter[Blurs, BSONValue] {
+    def write(b: Blurs): BSONValue = b match {
+      case bits: Bits => BlursBitsBSONHandler write bits
+      // only Bits can be written; Nb results to Bits(0)
+      case _ => BSONInteger(0)
     }
   }
 }

@@ -6,8 +6,8 @@ import scala.math
 import org.apache.commons.lang3.StringEscapeUtils.escapeHtml4
 import play.api.libs.json._
 
-import lila.common.PimpedJson._
 import lila.common.ApiVersion
+import lila.common.PimpedJson._
 import lila.game.JsonView._
 import lila.game.{ Pov, Game, PerfPicker, Source, GameRepo, CorrespondenceClock }
 import lila.pref.Pref
@@ -282,13 +282,11 @@ final class JsonView(
     "createdAt" -> game.createdAt
   ).noNull
 
-  private def blurs(game: Game, player: lila.game.Player) = {
-    val percent = game.playerBlurPercent(player.color)
-    (percent > 30) option Json.obj(
-      "nb" -> player.blurs.nb,
-      "percent" -> percent
-    )
-  }
+  private def blurs(game: Game, player: lila.game.Player) =
+    !player.blurs.isEmpty option {
+      blursWriter.writes(player.blurs) +
+        ("percent" -> JsNumber(game.playerBlurPercent(player.color)))
+    }
 
   private def hold(player: lila.game.Player) = player.holdAlert map { h =>
     Json.obj(

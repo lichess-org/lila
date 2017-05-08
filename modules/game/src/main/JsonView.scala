@@ -2,6 +2,7 @@ package lila.game
 
 import play.api.libs.json._
 
+import lila.common.PimpedJson._
 import chess.variant.Crazyhouse
 
 object JsonView {
@@ -37,5 +38,12 @@ object JsonView {
 
   implicit val crazyhouseDataWriter: OWrites[chess.variant.Crazyhouse.Data] = OWrites { v =>
     Json.obj("pockets" -> List(v.pockets.white, v.pockets.black))
+  }
+
+  implicit val blursWriter: OWrites[Blurs] = OWrites { blurs =>
+    Json.obj("nb" -> blurs.nb).add("bits" -> (blurs match {
+      case bits: Blurs.Bits => bits.toString.some
+      case _ => none
+    }))
   }
 }
