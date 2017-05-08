@@ -59,7 +59,9 @@ object Blurs {
       b.asInt.fold[BSONValue](BSONLong(b.bits))(BSONInteger.apply)
   }
 
-  private[game] implicit val BlursNbBSONReader = Macros.reader[Nb]
+  private[game] implicit val BlursNbBSONReader = new BSONReader[BSONInteger, Nb] {
+    def read(bi: BSONInteger) = Nb(bi.value)
+  }
 
   private[game] implicit val BlursBSONWriter = new BSONWriter[Blurs, BSONValue] {
     def write(b: Blurs): BSONValue = b match {
