@@ -30,7 +30,7 @@ object Blurs {
       if (moveIndex < 0 || moveIndex > 63) this
       else Bits(bits | (1L << moveIndex))
 
-    def asInt = (bits <= Int.MaxValue) option bits.toInt
+    def asInt = ((bits & ~0xffffffffL) == 0) option bits.toInt
 
     def binaryString = java.lang.Long.toBinaryString(bits).reverse
 
