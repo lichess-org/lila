@@ -1,3 +1,6 @@
+function toBlurArray(player) {
+  return player.blurs && player.blurs.bits ? player.blurs.bits.split('') : [];
+}
 lichess.advantageChart = function(data) {
   lichess.loadScript('/assets/javascripts/chart/common.js').done(function() {
     lichess.loadScript('/assets/javascripts/chart/division.js').done(function() {
@@ -9,12 +12,18 @@ lichess.advantageChart = function(data) {
 
         var $elem = $('#adv_chart');
 
+        var blurs = [ toBlurArray(data.player), toBlurArray(data.opponent) ];
+        if (data.player.color === 'white') blurs.reverse();
+
         var makeSerieData = function(d) {
-          return d.treeParts.slice(1).map(function(node) {
+          return d.treeParts.slice(1).map(function(node, i) {
+
+            var color = node.ply & 1;
+
             if (node.eval && node.eval.mate) {
               var cp = node.eval.mate > 0 ? Infinity : -Infinity;
             } else if (node.san.indexOf('#') > 0) {
-              var cp = node.ply % 2 === 1 ? Infinity : -Infinity;
+              var cp = color === 1 ? Infinity : -Infinity;
               if (d.game.variant.key === 'antichess') cp = -cp;
             } else if (node.eval && typeof node.eval.cp !== 'undefined') {
               var cp = node.eval.cp;
@@ -23,11 +32,22 @@ lichess.advantageChart = function(data) {
             };
 
             var turn = Math.floor((node.ply - 1) / 2) + 1;
-            var dots = node.ply % 2 === 1 ? '.' : '...';
-            return {
+            var dots = color === 1 ? '.' : '...';
+            var point = {
               name: turn + dots + ' ' + node.san,
               y: 2 / (1 + Math.exp(-0.004 * cp)) - 1
             };
+            if (blurs[color].shift() === '1') {
+              point.marker = {
+                symbol: 'square',
+                radius: 3,
+                lineWidth: '1px',
+                lineColor: '#d85000',
+                fillColor: color ? '#fff' : '#333'
+              };
+              point.name += ' [blur]';
+            }
+            return point;
           });
         };
 

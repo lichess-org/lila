@@ -42,7 +42,7 @@ object Blurs {
 
     def asInt = (bits <= Int.MaxValue) option bits.toInt
 
-    override def toString = java.lang.Long toBinaryString bits
+    override def toString = java.lang.Long.toBinaryString(bits).reverse
   }
 
   implicit val blursZero = Zero.instance[Blurs](Bits(0l))
