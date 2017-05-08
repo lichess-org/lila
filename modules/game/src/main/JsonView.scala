@@ -42,7 +42,7 @@ object JsonView {
 
   implicit val blursWriter: OWrites[Blurs] = OWrites { blurs =>
     Json.obj("nb" -> blurs.nb).add("bits" -> (blurs match {
-      case bits: Blurs.Bits => bits.toString.some
+      case bits: Blurs.Bits => bits.binaryString.some
       case _ => none
     }))
   }
