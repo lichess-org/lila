@@ -67,7 +67,7 @@ final class JsonView(
               "checks" -> checkCount(game, player.color),
               "berserk" -> player.berserk.option(true),
               "hold" -> (withFlags.blurs option hold(player)),
-              "blurs" -> (withFlags.blurs option blurs(game, player))
+              "blurs" -> (withFlags.blurs ?? blurs(game, player))
             ).noNull,
             "opponent" -> Json.obj(
               "color" -> opponent.color.name,
@@ -84,7 +84,7 @@ final class JsonView(
               "checks" -> checkCount(game, opponent.color),
               "berserk" -> opponent.berserk.option(true),
               "hold" -> (withFlags.blurs option hold(opponent)),
-              "blurs" -> (withFlags.blurs option blurs(game, opponent))
+              "blurs" -> (withFlags.blurs ?? blurs(game, opponent))
             ).noNull,
             "url" -> Json.obj(
               "socket" -> s"/$fullId/socket/v$apiVersion",
@@ -164,7 +164,7 @@ final class JsonView(
               "checks" -> checkCount(game, player.color),
               "berserk" -> player.berserk.option(true),
               "hold" -> (withFlags.blurs option hold(player)),
-              "blurs" -> (withFlags.blurs option blurs(game, player))
+              "blurs" -> (withFlags.blurs ?? blurs(game, player))
             ).noNull,
             "opponent" -> Json.obj(
               "color" -> opponent.color.name,
@@ -178,7 +178,7 @@ final class JsonView(
               "checks" -> checkCount(game, opponent.color),
               "berserk" -> opponent.berserk.option(true),
               "hold" -> (withFlags.blurs option hold(opponent)),
-              "blurs" -> (withFlags.blurs option blurs(game, opponent))
+              "blurs" -> (withFlags.blurs ?? blurs(game, opponent))
             ).noNull,
             "orientation" -> pov.color.name,
             "url" -> Json.obj(

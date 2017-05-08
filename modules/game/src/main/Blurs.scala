@@ -25,6 +25,8 @@ object Blurs {
     def bitSetOption = none
 
     def add(moveIndex: Int) = blursZero.zero add moveIndex
+
+    override def toString = s"Blurs.Nb($nb)"
   }
 
   case class Bits(bits: Long) extends AnyVal with Blurs {
@@ -42,7 +44,9 @@ object Blurs {
 
     def asInt = (bits <= Int.MaxValue) option bits.toInt
 
-    override def toString = java.lang.Long.toBinaryString(bits).reverse
+    def binaryString = java.lang.Long.toBinaryString(bits).reverse
+
+    override def toString = s"Blurs.Bits($binaryString)"
   }
 
   implicit val blursZero = Zero.instance[Blurs](Bits(0l))
