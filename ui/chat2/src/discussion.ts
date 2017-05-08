@@ -5,7 +5,7 @@ import * as spam from './spam'
 import enhance from './enhance';
 import { presetView } from './preset';
 import { lineAction } from './moderation';
-import { userLink } from './util';
+import { userLink, bind } from './util';
 
 const whisperRegex = /^\/w(?:hisper)?\s/;
 
@@ -59,24 +59,22 @@ function renderInput(ctrl: Ctrl) {
       maxlength: 140,
       disabled: ctrl.vm.timeout || !ctrl.vm.writeable
     },
-    on: {
-      keyup(e: KeyboardEvent) {
-        const el = e.target as HTMLInputElement;
-        const txt = el.value;
-        if (e.which == 10 || e.which == 13) {
-          if (txt === '') {
-            const kbm = document.querySelector('.keyboard-move input') as HTMLElement;
-            if (kbm) kbm.focus();
-          } else {
-            spam.report(txt);
-            if (ctrl.opts.public && spam.hasTeamUrl(txt)) alert("Please don't advertise teams in the chat.");
-            else ctrl.post(txt);
-            el.value = '';
-            el.classList.remove('whisper');
-          }
-        } else el.classList.toggle('whisper', !!txt.match(whisperRegex));
-      }
-    }
+    hook: bind('keyup', (e: KeyboardEvent) => {
+      const el = e.target as HTMLInputElement;
+      const txt = el.value;
+      if (e.which == 10 || e.which == 13) {
+        if (txt === '') {
+          const kbm = document.querySelector('.keyboard-move input') as HTMLElement;
+          if (kbm) kbm.focus();
+        } else {
+          spam.report(txt);
+          if (ctrl.opts.public && spam.hasTeamUrl(txt)) alert("Please don't advertise teams in the chat.");
+          else ctrl.post(txt);
+          el.value = '';
+          el.classList.remove('whisper');
+        }
+      } else el.classList.toggle('whisper', !!txt.match(whisperRegex));
+    })
   })
 }
 

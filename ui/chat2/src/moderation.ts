@@ -2,7 +2,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { ModerationCtrl, ModerationOpts, ModerationData, ModerationReason } from './interfaces'
 import { userModInfo } from './xhr'
-import { userLink, spinner } from './util';
+import { userLink, spinner, bind } from './util';
 
 function isToday(timestamp: number) {
   return window.moment(timestamp).isSame(Date.now(), 'day');
@@ -54,9 +54,7 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
 
 export function lineAction(onClick: (e: Event) => void) {
   return h('i.mod', {
-    on: {
-      click: onClick
-    },
+    hook: bind('click', onClick),
     attrs: {
       'data-icon': '',
       title: 'Moderation'
@@ -76,7 +74,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
       }, [userLink(data.username)]),
       h('span.toggle_chat', {
         attrs: {'data-icon': 'L'},
-        on: {click: ctrl.close}
+        hook: bind('click', ctrl.close)
       })
     ]),
     h('div.content.moderation', [
@@ -104,14 +102,14 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
         ...ctrl.reasons.map(r => {
           return h('a.text', {
             attrs: { 'data-icon': 'p' },
-            on: { click: [ctrl.timeout, r] }
+            hook: bind('click', () => ctrl.timeout(r))
           }, r.name);
         }),
         ...(
           (data.troll || !ctrl.permissions.shadowban) ? [] : [h('div.shadowban', [
             'Or ',
             h('button.button', {
-              on: { click: [ctrl.shadowban, data.username] }
+              hook: bind('click', ctrl.shadowban)
             }, 'shadowban')
           ])])
       ]),

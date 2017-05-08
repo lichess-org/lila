@@ -1,6 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { PresetCtrl, PresetOpts, Preset, PresetGroups } from './interfaces'
+import { bind } from './util'
 
 function splitIt(s: string): Preset {
   const parts = s.split('/');
@@ -62,9 +63,7 @@ export function presetView(ctrl: PresetCtrl): VNode | undefined {
         'data-hint': p.text,
         disabled: disabled
       },
-      on: {
-        click: disabled ? null : [ctrl.post, p]
-      }
+      hook: bind('click', () => { !disabled && ctrl.post(p) })
     }, p.key);
   })) : undefined;
 }

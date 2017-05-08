@@ -10,9 +10,8 @@ import { ChatOpts, Ctrl } from './interfaces'
 import klass from 'snabbdom/modules/class';
 import props from 'snabbdom/modules/props';
 import attributes from 'snabbdom/modules/attributes';
-import listeners from 'snabbdom/modules/eventlisteners';
 
-const patch = init([klass, props, attributes, listeners]);
+const patch = init([klass, props, attributes]);
 
 export default function LichessChat(element: Element, opts: ChatOpts) {
 

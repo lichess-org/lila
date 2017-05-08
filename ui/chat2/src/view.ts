@@ -3,13 +3,12 @@ import { Ctrl, Tab } from './interfaces'
 import discussionView from './discussion'
 import { noteView } from './note'
 import { moderationView } from './moderation'
+import { bind } from './util'
 
 export default function(ctrl: Ctrl) {
 
-  return h('div#chat', {
+  return h('div#chat.side_box.mchat', {
     class: {
-      side_box: true,
-      mchat: true,
       mod: ctrl.opts.permissions.timeout
     }
   }, moderationView(ctrl.moderation) || normalView(ctrl))
@@ -20,29 +19,21 @@ function normalView(ctrl: Ctrl) {
   const tabs: Array<Tab> = ['discussion'];
   if (ctrl.note) tabs.push('note');
   return [
-    h('div', {
+    h('div.chat_tabs', {
       class: {
-        chat_tabs: true,
         ['nb_' + tabs.length]: true
       }
     }, tabs.map(t => renderTab(ctrl, t, active))),
-    h('div', {
-      class: {
-        content: true,
-        [active]: true
-      }
-    }, (active === 'note' && ctrl.note) ? [noteView(ctrl.note)] : discussionView(ctrl))
+    h('div.content.' + active, (active === 'note' && ctrl.note) ? [noteView(ctrl.note)] : discussionView(ctrl))
   ]
 }
 
 function renderTab(ctrl: Ctrl, tab: Tab, active: Tab) {
-  return h('div', {
+  return h('div.tab.' + tab, {
     class: {
-      tab: true,
-      [tab]: true,
       active: tab === active
     },
-    on: { click: [ctrl.setTab, tab] }
+    hook: bind('click', () => ctrl.setTab(tab))
   }, tabName(ctrl, tab));
 }
 
@@ -52,15 +43,13 @@ function tabName(ctrl: Ctrl, tab: Tab) {
     h('input.toggle_chat', {
       attrs: {
         type: 'checkbox',
-        title: ctrl.trans('toggleTheChat'),
+        title: ctrl.trans.noarg('toggleTheChat'),
         checked: ctrl.vm.enabled
       },
-      on: {
-        change: (e: Event) => {
-          ctrl.setEnabled((e.target as HTMLInputElement).checked);
-        }
-      }
+      hook: bind('change', (e: Event) => {
+        ctrl.setEnabled((e.target as HTMLInputElement).checked);
+      })
     })
   ];
-  if (tab === 'note') return ctrl.trans('notes');
+  if (tab === 'note') return ctrl.trans.noarg('notes');
 }

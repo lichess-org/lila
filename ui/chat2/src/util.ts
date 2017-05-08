@@ -1,4 +1,5 @@
 import { h } from 'snabbdom'
+import { VNode } from 'snabbdom/vnode'
 
 export function userLink(u: string) {
   const split = u.split(' ');
@@ -19,4 +20,12 @@ export function spinner() {
       h('circle', {
         attrs: { cx: 20, cy: 20, r: 18, fill: 'none' }
       })])]);
+}
+
+export function bind(eventName: string, f: (e: Event) => void) {
+  return {
+    insert: (vnode: VNode) => {
+      (vnode.elm as HTMLElement).addEventListener(eventName, f);
+    }
+  };
 }
