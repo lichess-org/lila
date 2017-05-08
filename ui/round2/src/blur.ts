@@ -1,7 +1,7 @@
 // Register blur events to be sent as move metadata
 
 let lastFocus;
-let lastMove = Date.now();
+let lastMove;
 
 export function init() {
   window.addEventListener('focus', () => lastFocus = Date.now());
