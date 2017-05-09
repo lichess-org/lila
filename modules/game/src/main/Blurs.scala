@@ -43,7 +43,7 @@ object Blurs {
 
   private[game] implicit val BlursBitsBSONHandler = new BSONHandler[BSONValue, Bits] {
     def read(bv: BSONValue): Bits = bv match {
-      case BSONInteger(bits) => Bits(bits)
+      case BSONInteger(bits) => Bits(bits & 0xffffffffL)
       case BSONLong(bits) => Bits(bits)
       case v => sys error s"Invalid blurs bits $v"
     }
