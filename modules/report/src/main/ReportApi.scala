@@ -2,6 +2,7 @@ package lila.report
 
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
+import reactivemongo.bson._
 import scala.concurrent.duration._
 
 import lila.db.dsl._
@@ -17,7 +18,8 @@ final class ReportApi(
 ) {
 
   import lila.db.BSON.BSONJodaDateTimeHandler
-  private implicit val ReportBSONHandler = reactivemongo.bson.Macros.handler[Report]
+  private implicit val ReasonBSONHandler = isoHandler[Reason, String, BSONString](Reason.reasonIso)
+  private implicit val ReportBSONHandler = Macros.handler[Report]
 
   def create(setup: ReportSetup, by: User): Funit = create(Report.make(
     user = setup.user,
@@ -29,13 +31,13 @@ final class ReportApi(
   def create(report: Report, reported: User, by: User): Funit = !by.troll ?? {
     !isAlreadySlain(report, reported) ?? {
 
-      lila.mon.mod.report.create(report.realReason.key)()
+      lila.mon.mod.report.create(report.reason.key)()
 
       def insert = coll.insert(report).void >>-
-        bus.publish(lila.hub.actorApi.report.Created(reported.id, report.reason), 'report)
+        bus.publish(lila.hub.actorApi.report.Created(reported.id, report.reason.key), 'report)
 
       if (by.id == UserRepo.lichessId) coll.update(
-        selectRecent(reported, report.realReason),
+        selectRecent(reported, report.reason),
         $doc("$set" -> ReportBSONHandler.write(report).remove("processedBy", "_id"))
       ) flatMap { res => (res.n == 0) ?? insert }
       else insert
@@ -133,7 +135,7 @@ final class ReportApi(
       ).void >>- {
           monitorUnprocessed
           lila.mon.mod.report.close()
-          publishProcessed(report.user, report.realReason)
+          publishProcessed(report.user, report.reason)
         }
     }
   }

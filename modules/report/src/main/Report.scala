@@ -7,24 +7,24 @@ import lila.user.{ User, Note }
 
 case class Report(
     _id: String, // also the url slug
-    user: String, // the reportee
-    reason: String,
+    user: User.ID, // the reportee
+    reason: Reason,
     text: String,
-    processedBy: Option[String],
+    processedBy: Option[User.ID],
     createdAt: DateTime,
-    createdBy: String
+    createdBy: User.ID
 ) {
 
   def id = _id
   def slug = _id
 
-  def isCreator(user: String) = user == createdBy
+  def isCreator(user: User.ID) = user == createdBy
 
-  def isCheat = realReason == Reason.Cheat
-  def isOther = realReason == Reason.Other
-  def isTroll = realReason == Reason.Troll
-  def isInsult = realReason == Reason.Insult
-  def isTrollOrInsult = realReason == Reason.Troll || realReason == Reason.Insult
+  def isCheat = reason == Reason.Cheat
+  def isOther = reason == Reason.Other
+  def isTroll = reason == Reason.Troll
+  def isInsult = reason == Reason.Insult
+  def isTrollOrInsult = reason == Reason.Troll || reason == Reason.Insult
 
   def unprocessedCheat = unprocessed && isCheat
   def unprocessedOther = unprocessed && isOther
@@ -32,7 +32,7 @@ case class Report(
   def unprocessedInsult = unprocessed && isInsult
   def unprocessedTrollOrInsult = unprocessed && isTrollOrInsult
 
-  def isCommunication = Reason.communication contains realReason
+  def isCommunication = Reason.communication contains reason
 
   def isAutomatic = createdBy == "lichess"
   def isManual = !isAutomatic
@@ -43,8 +43,6 @@ case class Report(
   def processed = processedBy.isDefined
 
   def userIds = List(user, createdBy)
-
-  lazy val realReason: Reason = Reason byKey reason
 }
 
 object Report {
@@ -78,7 +76,7 @@ object Report {
   ): Report = new Report(
     _id = Random nextString 8,
     user = user.id,
-    reason = reason.key,
+    reason = reason,
     text = text,
     processedBy = none,
     createdAt = DateTime.now,
