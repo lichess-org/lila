@@ -16,7 +16,7 @@ case class PageData(
   blindMode: Boolean,
   hasFingerprint: Boolean,
   assetVersion: AssetVersion,
-  inquiry: Option[lila.report.Report]
+  inquiry: Option[lila.mod.Inquiry]
 )
 
 object PageData {

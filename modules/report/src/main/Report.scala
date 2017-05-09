@@ -10,7 +10,7 @@ case class Report(
     user: User.ID, // the reportee
     reason: Reason,
     text: String,
-    inquiry: Option[Inquiry],
+    inquiry: Option[Report.Inquiry],
     processedBy: Option[User.ID],
     createdAt: DateTime,
     createdBy: User.ID
@@ -47,6 +47,8 @@ case class Report(
 }
 
 object Report {
+
+  case class Inquiry(mod: User.ID, seenAt: DateTime)
 
   case class WithUser(report: Report, user: User, isOnline: Boolean) {
 

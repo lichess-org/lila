@@ -19,6 +19,7 @@ final class ReportApi(
 
   import lila.db.BSON.BSONJodaDateTimeHandler
   private implicit val ReasonBSONHandler = isoHandler[Reason, String, BSONString](Reason.reasonIso)
+  import Report.Inquiry
   private implicit val InquiryBSONHandler = Macros.handler[Inquiry]
   private implicit val ReportBSONHandler = Macros.handler[Report]
 
@@ -129,8 +130,7 @@ final class ReportApi(
       coll.update(
         $doc(
           "user" -> report.user,
-          "reason" -> report.reason,
-          "processedBy" $exists false
+          "reason" -> report.reason
         ),
         $set("processedBy" -> by.id) ++ $unset("inquiry"),
         multi = true
@@ -148,7 +148,7 @@ final class ReportApi(
       "reason" $in List(Reason.Cheat.key, Reason.CheatPrint.key),
       "processedBy" $exists false
     ),
-    $set("processedBy" -> byModId) ++ $unset("inquiry"),
+    $set("processedBy" -> byModId),
     multi = true
   ).void >>- {
       monitorUnprocessed
@@ -161,7 +161,7 @@ final class ReportApi(
       "reason" $in List(Reason.Insult.key, Reason.Troll.key, Reason.Other.key),
       "processedBy" $exists false
     ),
-    $set("processedBy" -> byModId) ++ $unset("inquiry"),
+    $set("processedBy" -> byModId),
     multi = true
   ).void >>- monitorUnprocessed
 
@@ -264,6 +264,18 @@ final class ReportApi(
     def all: Fu[List[Report]] = coll.list[Report]($doc("inquiry.mod" $exists true))
 
     def ofModId(modId: User.ID): Fu[Option[Report]] = coll.uno[Report]($doc("inquiry.mod" -> modId))
+
+    def toggle(mod: User, id: String): Funit =
+      ofModId(mod.id) flatMap { current =>
+        current.??(cancel) >>
+          (!current.exists(_.id == id) ?? coll.updateField(
+            $id(id),
+            "inquiry",
+            Report.Inquiry(mod.id, DateTime.now)
+          ).void)
+      }
+
+    def cancel(report: Report): Funit = coll.unsetField($id(report.id), "inquiry").void
   }
 
   private def findRecent(nb: Int, selector: Bdoc) =

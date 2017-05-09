@@ -1,0 +1,84 @@
+.inquiry {
+  height: 40px;
+  background: #444;
+  color: #f0f0f0!important;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  border-bottom: 1px solid #666;
+  margin-bottom: 5px;
+  box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
+}
+.inquiry > .icon {
+  flex: 0 0 160px;
+  height: 160px;
+  width: 160px;
+  margin: -80px 0 0 -80px;
+  background: #444 no-repeat url(../images/icons/octopus.svg);
+  background-size: 37% 37%;
+  background-position: 82% 82%;
+  border-radius: 0 0 50% 0;
+  border: 2px solid #666;
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+}
+.inquiry a {
+  color: #f0f0f0!important;
+}
+.inquiry .meat {
+  flex: 1 1 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  overflow: hidden;
+}
+.inquiry h2 .user_link {
+  font-size: 1.3em;
+}
+.inquiry .report {
+  margin: 0 20px;
+  opacity: 0.8;
+}
+.inquiry .report h3 {
+  margin: 0;
+}
+.inquiry .report p {
+  white-space: nowrap;
+  overflow: hidden;
+  font-style: italic;
+}
+.inquiry .actions,
+.inquiry .links {
+  margin-right: 10px;
+  white-space: nowrap;
+  height: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+.inquiry .actions:not(.close),
+.inquiry .links {
+  padding-right: 10px;
+  border-right: 1px solid #666;
+}
+.inquiry .actions form {
+  height: 100%;
+}
+.inquiry .fbt {
+  height: 100%;
+  background: #444;
+  color: #f0f0f0!important;
+}
+.inquiry .fbt.active {
+  color: #fff!important;
+}
+.inquiry .links {
+  padding: 0 10px;
+  border-left: 1px solid #666;
+}
+.inquiry .links a {
+  padding: 10px 13px;
+}
+.inquiry .links a:hover {
+  color: #3893E8!important;
+}

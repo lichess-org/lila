@@ -29,6 +29,10 @@ object Report extends LilaController {
             Ok(html.report.list(reports, reason, counts))
       }
 
+  def inquiry(id: String) = Secure(_.SeeReport) { implicit ctx => me =>
+    api.inquiries.toggle(me, id) inject Redirect(routes.Report.list)
+  }
+
   def process(id: String) = Secure(_.SeeReport) { implicit ctx => me =>
     api.process(id, me) inject Redirect(routes.Report.list)
   }

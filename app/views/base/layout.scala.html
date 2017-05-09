@@ -38,6 +38,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     }
     @if(ctx.pref.is3d) { @cssTag("board-3d.css") }
     @if(ctx.pref.coords == 1) { @cssTag("board.coords.inner.css") }
+    @if(ctx.pageData.inquiry.isDefined) { @cssTag("inquiry.css") }
     @moreCss
     <link id="piece-sprite" href="@staticUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css?v=${ctx.pageData.assetVersion}")" type="text/css" rel="stylesheet"/>
     <meta content="@openGraph.fold(trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents())(o => Html(escapeHtml(o.description)))" name="description">
@@ -80,6 +81,9 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
       <button type="submit">Accessibility: @ctx.blindMode.fold("Disable", "Enable") blind mode</button>
     </form>
     <div id="site_description">@trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents()</div>
+    @ctx.pageData.inquiry.map { inquiry =>
+    @mod.inquiry(inquiry)
+    }
     <div id="top" class="@ctx.pref.is3d.fold("is3d", "is2d")">
       @topmenu()
       <div id="ham-plate" class="link hint--bottom" data-hint="@trans.menu()">
