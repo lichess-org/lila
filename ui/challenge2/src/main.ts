@@ -23,15 +23,15 @@ export default function LichessChallenge(element: Element, opts: ChallengeOpts) 
 
   function update(d: ChallengeData) {
     if (ctrl) ctrl.update(d);
-    else ctrl = makeCtrl(opts, d);
+    else {
+      ctrl = makeCtrl(opts, d);
+      element.innerHTML = '';
+    }
     redraw();
   }
 
   if (opts.data) update(opts.data);
-  else {
-    load().then(update);
-    redraw();
-  }
+  else load().then(update);
 
   return {
     update

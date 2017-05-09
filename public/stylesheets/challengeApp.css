@@ -2,10 +2,12 @@
   width: 250px;
   z-index: 2;
   left: -106px;
+  text-align: center;
+}
+#challenge_app.rendered {
   background: transparent!important;
   box-shadow: none!important;
   border: 0!important;
-  text-align: center;
 }
 #challenge_app .challenge {
   padding: 10px 10px;

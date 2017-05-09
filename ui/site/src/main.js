@@ -383,7 +383,7 @@ lichess.topMenuIntent = function() {
           var isDev = $('body').data('dev');
           lichess.loadCss('/assets/stylesheets/challengeApp.css');
           lichess.loadScript("/assets/compiled/lichess.challenge2" + (isDev ? '' : '.min') + '.js').done(function() {
-            instance = LichessChallenge.default($('#challenge_app').empty()[0], {
+            instance = LichessChallenge.default(document.getElementById('challenge_app'), {
               data: data,
               show: function() {
                 if (!$('#challenge_app').is(':visible')) $toggle.click();

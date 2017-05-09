@@ -3,11 +3,11 @@ import { VNode } from 'snabbdom/vnode'
 import { Ctrl, Challenge, ChallengeData, ChallengeDirection, ChallengeUser, TimeControl } from './interfaces'
 
 export function loaded(ctrl: Ctrl): VNode {
-  return h('div#challenge_app.links.dropdown', renderContent(ctrl));
+  return h('div#challenge_app.links.dropdown.rendered', renderContent(ctrl));
 }
 
 export function loading(): VNode {
-  return h('div#challenge_app.links.dropdown', [
+  return h('div#challenge_app.links.dropdown.rendered', [
     h('div.empty.loading', '-'),
     create()
   ]);
