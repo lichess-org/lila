@@ -13,11 +13,16 @@
       </div>
       <div class="links">
         @if(isGranted(_.MarkTroll)) {
-        <a href="@routes.Mod.communication(in.user.id)">View Coms</a>
+        <a href="@routes.Mod.communication(in.user.id)">View<br />Coms</a>
         }
-        <a href="@routes.User.show(in.user.username)?mod">Mod tools</a>
+        <a href="@routes.User.show(in.user.username)?mod">Mod<br />tools</a>
       </div>
       <div class="actions">
+        @defining(in.report.isCommunication.fold("Warning: Offensive language", "")) { subject =>
+        <form method="post" action="@routes.Mod.warn(in.user.username, subject)" data-hint="Send a moderator message" class="hint--bottom-left">
+          <input class="fbt" type="submit" value="Warn" />
+        </form>
+        }
         @if(isGranted(_.MarkEngine)) {
         <form method="post" action="@routes.Mod.engine(in.user.username)" data-hint="This user is clearly cheating." class="hint--bottom-left">
           <input class="fbt@when(in.user.engine, " active")" type="submit" value="Engine" />
