@@ -15,13 +15,14 @@ case class PageData(
   pref: Pref,
   blindMode: Boolean,
   hasFingerprint: Boolean,
-  assetVersion: AssetVersion
+  assetVersion: AssetVersion,
+  inquiry: Option[lila.report.Report]
 )
 
 object PageData {
 
   def empty(v: AssetVersion) =
-    PageData(OnlineFriends.empty, 0, 0, 0, Pref.default, false, false, v)
+    PageData(OnlineFriends.empty, 0, 0, 0, Pref.default, false, false, v, none)
 
   def anon(req: RequestHeader, v: AssetVersion, blindMode: Boolean = false) = PageData(
     OnlineFriends.empty,
@@ -31,7 +32,8 @@ object PageData {
     Pref fromRequest req,
     blindMode = blindMode,
     hasFingerprint = false,
-    assetVersion = v
+    assetVersion = v,
+    none
   )
 }
 

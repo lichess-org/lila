@@ -10,6 +10,7 @@ case class Report(
     user: User.ID, // the reportee
     reason: Reason,
     text: String,
+    inquiry: Option[Inquiry],
     processedBy: Option[User.ID],
     createdAt: DateTime,
     createdBy: User.ID
@@ -78,6 +79,7 @@ object Report {
     user = user.id,
     reason = reason,
     text = text,
+    inquiry = none,
     processedBy = none,
     createdAt = DateTime.now,
     createdBy = createdBy.id

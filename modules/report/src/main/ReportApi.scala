@@ -19,6 +19,7 @@ final class ReportApi(
 
   import lila.db.BSON.BSONJodaDateTimeHandler
   private implicit val ReasonBSONHandler = isoHandler[Reason, String, BSONString](Reason.reasonIso)
+  private implicit val InquiryBSONHandler = Macros.handler[Inquiry]
   private implicit val ReportBSONHandler = Macros.handler[Report]
 
   def create(setup: ReportSetup, by: User): Funit = create(Report.make(
@@ -128,9 +129,10 @@ final class ReportApi(
       coll.update(
         $doc(
           "user" -> report.user,
-          "reason" -> report.reason
-        ) ++ unprocessedSelect,
-        $set("processedBy" -> by.id),
+          "reason" -> report.reason,
+          "processedBy" $exists false
+        ),
+        $set("processedBy" -> by.id) ++ $unset("inquiry"),
         multi = true
       ).void >>- {
           monitorUnprocessed
@@ -143,9 +145,10 @@ final class ReportApi(
   def processEngine(userId: String, byModId: String): Funit = coll.update(
     $doc(
       "user" -> userId,
-      "reason" $in List(Reason.Cheat.key, Reason.CheatPrint.key)
-    ) ++ unprocessedSelect,
-    $set("processedBy" -> byModId),
+      "reason" $in List(Reason.Cheat.key, Reason.CheatPrint.key),
+      "processedBy" $exists false
+    ),
+    $set("processedBy" -> byModId) ++ $unset("inquiry"),
     multi = true
   ).void >>- {
       monitorUnprocessed
@@ -155,9 +158,10 @@ final class ReportApi(
   def processTroll(userId: String, byModId: String): Funit = coll.update(
     $doc(
       "user" -> userId,
-      "reason" $in List(Reason.Insult.key, Reason.Troll.key, Reason.Other.key)
-    ) ++ unprocessedSelect,
-    $set("processedBy" -> byModId),
+      "reason" $in List(Reason.Insult.key, Reason.Troll.key, Reason.Other.key),
+      "processedBy" $exists false
+    ),
+    $set("processedBy" -> byModId) ++ $unset("inquiry"),
     multi = true
   ).void >>- monitorUnprocessed
 
@@ -174,7 +178,10 @@ final class ReportApi(
     }
   } >>- monitorUnprocessed
 
-  private val unprocessedSelect: Bdoc = "processedBy" $exists false
+  private val unprocessedSelect: Bdoc = $doc(
+    "processedBy" $exists false,
+    "inquiry" $exists false
+  )
   private val processedSelect: Bdoc = "processedBy" $exists true
   private def reasonSelect(reason: Option[Reason]): Bdoc =
     reason.?? { r => $doc("reason" -> r.key) }
@@ -251,6 +258,13 @@ final class ReportApi(
       Some($doc("reason" -> Reason.Cheat.key) ++ unprocessedSelect),
       ReadPreference.secondaryPreferred
     )
+
+  object inquiries {
+
+    def all: Fu[List[Report]] = coll.list[Report]($doc("inquiry.mod" $exists true))
+
+    def ofModId(modId: User.ID): Fu[Option[Report]] = coll.uno[Report]($doc("inquiry.mod" -> modId))
+  }
 
   private def findRecent(nb: Int, selector: Bdoc) =
     coll.find(selector).sort($sort.createdDesc).list[Report](nb)

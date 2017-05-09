@@ -298,16 +298,18 @@ private[controllers] trait LilaController
           Env.relation.online.friendsOf(me.id) zip
             Env.team.api.nbRequests(me.id) zip
             Env.challenge.api.countInFor.get(me.id) zip
-            Env.notifyModule.api.unreadCount(Notifies(me.id)).dmap(_.value)
+            Env.notifyModule.api.unreadCount(Notifies(me.id)).dmap(_.value) zip
+            Granter(_.Hunter)(me).??(Env.report.api.inquiries.ofModId(me.id))
         } else fuccess {
-          (((OnlineFriends.empty, 0), 0), 0)
+          ((((OnlineFriends.empty, 0), 0), 0), none)
         }
       } map {
-        case (pref, (onlineFriends ~ teamNbRequests ~ nbChallenges ~ nbNotifications)) =>
+        case (pref, (onlineFriends ~ teamNbRequests ~ nbChallenges ~ nbNotifications ~ inquiry)) =>
           PageData(onlineFriends, teamNbRequests, nbChallenges, nbNotifications, pref,
             blindMode = blindMode(ctx),
             hasFingerprint = hasFingerprint,
-            getAssetVersion)
+            assetVersion = getAssetVersion,
+            inquiry = inquiry)
       }
     }
 
