@@ -1,5 +1,6 @@
 package lila.report
 
+import scala.concurrent.duration._
 import akka.actor._
 import com.typesafe.config.Config
 
@@ -45,6 +46,10 @@ final class Env(
         api.autoBoostReport(userId, accomplice)
     }
   }), name = ActorName)
+
+  system.scheduler.schedule(1 minute, 1 minute) {
+    api.inquiries.cleanUp
+  }
 
   lazy val reportColl = db(CollectionReport)
 }

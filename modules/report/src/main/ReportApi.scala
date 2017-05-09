@@ -276,6 +276,15 @@ final class ReportApi(
       }
 
     def cancel(report: Report): Funit = coll.unsetField($id(report.id), "inquiry").void
+
+    private[report] def cleanUp: Funit = coll.update(
+      $doc(
+        "inquiry.mod" $exists true,
+        "inquiry.seenAt" $lt DateTime.now.minusMinutes(10)
+      ),
+      $unset("inquiry"),
+      multi = true
+    ).void
   }
 
   private def findRecent(nb: Int, selector: Bdoc) =
