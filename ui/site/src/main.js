@@ -380,10 +380,11 @@ lichess.topMenuIntent = function() {
         var load = function(data) {
           if (booted) return;
           booted = true;
+          var $el = $('#challenge_app').html(lichess.initiatingHtml);
           var isDev = $('body').data('dev');
           lichess.loadCss('/assets/stylesheets/challengeApp.css');
           lichess.loadScript("/assets/compiled/lichess.challenge2" + (isDev ? '' : '.min') + '.js').done(function() {
-            instance = LichessChallenge.default(document.getElementById('challenge_app'), {
+            instance = LichessChallenge.default($el[0], {
               data: data,
               show: function() {
                 if (!$('#challenge_app').is(':visible')) $toggle.click();
@@ -418,10 +419,11 @@ lichess.topMenuIntent = function() {
         var load = function(data, incoming) {
           if (booted) return;
           booted = true;
+          var $el = $('#notify_app').html(lichess.initiatingHtml);
           var isDev = $('body').data('dev');
           lichess.loadCss('/assets/stylesheets/notifyApp.css');
           lichess.loadScript("/assets/compiled/lichess.notify2" + (isDev ? '' : '.min') + '.js').done(function() {
-            instance = LichessNotify.default($('#notify_app').empty()[0], {
+            instance = LichessNotify.default($el.empty()[0], {
               data: data,
               incoming: incoming,
               isVisible: isVisible,
@@ -516,8 +518,8 @@ lichess.topMenuIntent = function() {
         $('#top .dasher .toggle').one('mouseover click', function() {
           if (booted) return;
           booted = true;
+          var $el = $('#dasher_app').html(lichess.initiatingHtml);
           var isDev = $('body').data('dev');
-          var $el = $('#dasher_app');
           lichess.loadCss('/assets/stylesheets/dasherApp.css');
           lichess.loadScript("/assets/compiled/lichess.dasher" + (isDev ? '' : '.min') + '.js').done(function() {
             instance = LichessDasher.default($el.empty()[0], {

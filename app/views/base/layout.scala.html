@@ -69,7 +69,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     ctx.isMobileBrowser ?? "mobile",
     playing ?? "fixed-scroll").mkString(" ")"
     @if(!isProd){data-dev="true"}
-    data-user="@ctx.userId"
+    @ctx.userId.map {id => data-user="@id"}
     data-sound-set="@ctx.currentSoundSet"
     data-asset-url="@assetBaseUrl"
     data-asset-version="@ctx.pageData.assetVersion"
@@ -88,9 +88,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
       @ctx.me.map { me =>
       <div class="dasher">
         <a id="user_tag" class="toggle link">@me.username</a>
-        <div id="dasher_app" class="dropdown" data-playing="@playing">
-          <div class="initiating">@base.spinner()</div>
-        </div>
+        <div id="dasher_app" class="dropdown"@if(playing){ data-playing="true"}></div>
       </div>
       <div class="challenge_notifications">
         <a id="challenge_notifications_tag" class="toggle link data-count" data-count="@ctx.nbChallenges">
@@ -98,9 +96,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
             <span data-icon="U"></span>
           </span>
         </a>
-        <div id="challenge_app" class="dropdown">
-          <div class="initiating">@base.spinner()</div>
-        </div>
+        <div id="challenge_app" class="dropdown"></div>
       </div>
       <div class="site_notifications">
         <a id="site_notifications_tag" class="toggle link data-count" data-count="@ctx.nbNotifications">
@@ -108,9 +104,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
             <span data-icon=""></span>
           </span>
         </a>
-        <div id="notify_app" class="dropdown">
-          <div class="initiating">@base.spinner()</div>
-        </div>
+        <div id="notify_app" class="dropdown"></div>
       </div>
       }.getOrElse {
       <div class="dasher">
@@ -119,9 +113,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
             <span data-icon="%"></span>
           </span>
         </a>
-        <div id="dasher_app" class="dropdown" data-playing="@playing">
-          <div class="initiating">@base.spinner()</div>
-        </div>
+        <div id="dasher_app" class="dropdown"@if(playing){ data-playing="true"}></div>
       </div>
       <a href="@routes.Auth.login" class="signin button text">@trans.signIn()</a>
       }
