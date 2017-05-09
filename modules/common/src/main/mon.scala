@@ -108,11 +108,6 @@ object mon {
       val hookSubscribers = rec("lobby.socket.hook_subscribers")
       val mobile = rec(s"lobby.socket.mobile")
     }
-    object cache {
-      val user = inc("lobby.cache.count.user")
-      val anon = inc("lobby.cache.count.anon")
-      val miss = inc("lobby.cache.count.miss")
-    }
     object pool {
       object wave {
         def scheduled(id: String) = inc(s"lobby.pool.$id.wave.scheduled")
