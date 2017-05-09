@@ -11,6 +11,7 @@ final class Env(
     system: ActorSystem,
     scheduler: lila.common.Scheduler,
     tournamentApi: TournamentApi,
+    modApi: lila.mod.ModApi,
     userCache: lila.user.Cached,
     db: lila.db.Env
 ) {
@@ -20,7 +21,8 @@ final class Env(
 
   val api = new IrwinApi(
     reportColl = reportColl,
-    requestColl = requestColl
+    requestColl = requestColl,
+    modApi = modApi
   )
 
   scheduler.future(5 minutes, "irwin tournament leaders") {
@@ -48,6 +50,7 @@ object Env {
     db = lila.db.Env.current,
     config = lila.common.PlayApp loadConfig "irwin",
     tournamentApi = lila.tournament.Env.current.api,
+    modApi = lila.mod.Env.current.api,
     userCache = lila.user.Env.current.cached,
     scheduler = lila.common.PlayApp.scheduler,
     system = lila.common.PlayApp.system

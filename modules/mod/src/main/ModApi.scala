@@ -7,7 +7,7 @@ import lila.user.{ User, UserRepo, LightUserApi }
 
 final class ModApi(
     logApi: ModlogApi,
-    userSpy: String => Fu[UserSpy],
+    userSpy: User.ID => Fu[UserSpy],
     firewall: Firewall,
     reporter: akka.actor.ActorSelection,
     notifier: ModNotifier,

@@ -10,7 +10,8 @@ import lila.user.User
 
 final class IrwinApi(
     reportColl: Coll,
-    requestColl: Coll
+    requestColl: Coll,
+    modApi: lila.mod.ModApi
 ) {
 
   import BSONHandlers._
@@ -22,7 +23,8 @@ final class IrwinApi(
 
     def insert(report: IrwinReport) =
       reportColl.update($id(report.id), report, upsert = true) >>
-        requests.drop(report.userId)
+        requests.drop(report.userId) >>
+        actAsMod(report)
 
     def get(user: User): Fu[Option[IrwinReport]] =
       reportColl.find($id(user.id)).uno[IrwinReport]
@@ -37,6 +39,11 @@ final class IrwinApi(
         }
       }
     }
+
+    private def actAsMod(report: IrwinReport): Funit =
+      if (report.totallyCheating) modApi.setEngine("irwin", report.userId, true)
+      else if (report.totallyNotCheating) modApi.setEngine("irwin", report.userId, false)
+      else funit // keep the report open for mods to review
   }
 
   object requests {
