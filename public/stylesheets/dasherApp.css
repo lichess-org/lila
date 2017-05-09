@@ -220,11 +220,11 @@
   height: 75px;
   position: relative;
 }
-#dasher_app .piece .no-square.active {
-  background: rgba(56, 147, 232, 0.5);
-}
 #dasher_app .piece .no-square:hover {
   background: rgba(250, 250, 250, 0.15);
+}
+#dasher_app .piece .no-square.active {
+  background: rgba(56, 147, 232, 0.5);
 }
 #dasher_app .piece piece {
   width: 100%;
