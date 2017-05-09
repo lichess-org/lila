@@ -264,14 +264,11 @@ lichess.desktopNotification = (function() {
 })();
 
 lichess.numberFormat = (function() {
-  if (window.Intl && Intl.NumberFormat) {
-    var formatter = new Intl.NumberFormat();
-    return function(n) {
-      return formatter.format(n);
-    }
-  }
+  var formatter = false;
   return function(n) {
-    return n;
+    if (formatter === false) formatter = (window.Intl && Intl.NumberFormat) ? new Intl.NumberFormat() : null;
+    if (formatter === null) return n;
+    return formatter.format(n);
   };
 })();
 lichess.idleTimer = function(delay, onIdle, onWakeUp) {
