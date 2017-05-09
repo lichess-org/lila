@@ -13,15 +13,14 @@ function renderContent(ctrl: Ctrl, d: ChallengeData): VNode {
   return nb ? allChallenges(ctrl, d, nb) : empty();
 }
 
-function userPowertips(vnode: any) {
+function userPowertips(vnode: VNode) {
   window.lichess.powertip.manualUserIn(vnode.elm);
 }
 
 function allChallenges(ctrl: Ctrl, d: ChallengeData, nb: number) {
-  return h('div', {
+  return h('div.challenges', {
     key: 'all',
     class: {
-      challenges: true,
       reloading: ctrl.reloading(),
       many: nb > 3
     },
@@ -34,11 +33,9 @@ function allChallenges(ctrl: Ctrl, d: ChallengeData, nb: number) {
 
 function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
   return (c: Challenge) => {
-    return h('div', {
+    return h('div.challenge.' + dir, {
       key: c.id,
       class: {
-        challenge: true,
-        [dir]: true,
         declined: c.declined
       }
     }, [
