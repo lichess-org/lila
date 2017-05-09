@@ -1,6 +1,9 @@
 #!/bin/sh
 set -e
 
+# might help some people dealing with vendor updates
+git submodule update
+
 dir=$(mktemp -d)
 echo "Building in $dir"
 cd "$dir"
