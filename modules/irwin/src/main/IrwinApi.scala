@@ -40,10 +40,14 @@ final class IrwinApi(
       }
     }
 
-    private def actAsMod(report: IrwinReport): Funit =
-      if (report.totallyCheating) modApi.setEngine("irwin", report.userId, true)
-      else if (report.totallyNotCheating) modApi.setEngine("irwin", report.userId, false)
-      else funit // keep the report open for mods to review
+    private val hasTheSlaveWhip = false
+
+    private def actAsMod(report: IrwinReport): Funit = hasTheSlaveWhip ?? {
+      report.isLegit ?? {
+        case false => modApi.setEngine("irwin", report.userId, true)
+        case _ => funit // don't close report of legit player
+      }
+    }
   }
 
   object requests {

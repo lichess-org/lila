@@ -15,10 +15,6 @@ case class IrwinReport(
 
   def id = _id
   def userId = _id
-
-  def totallyCheating = isLegit.has(false) && activation > 80
-
-  def totallyNotCheating = isLegit.has(true) && activation < 20
 }
 
 case class IrwinStatus(report: Option[IrwinReport.WithPovs], request: Option[IrwinRequest])
