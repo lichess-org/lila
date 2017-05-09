@@ -24,9 +24,9 @@ export default function(opts: ChallengeOpts, redraw: Redraw): Ctrl {
   }
 
   function notifyNew() {
-    data && data.in.forEach(c => {
+    if (data) data.in.forEach(c => {
       if (window.lichess.once('c-' + c.id)) {
-        if (!window.lichess.quietMode) {
+        if (!window.lichess.quietMode && (data as ChallengeData).in.length <= 3) {
           opts.show();
           window.lichess.sound.newChallenge();
         }
