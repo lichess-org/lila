@@ -481,6 +481,9 @@ body > div.content {
 #top .shown .dropdown {
   display: block;
 }
+#top .dropdown .initiating .spinner {
+  padding: 10px 30px;
+}
 #top .shown a.toggle {
   background: #fff;
   height: 28px;

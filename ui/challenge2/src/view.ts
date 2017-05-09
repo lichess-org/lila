@@ -2,28 +2,33 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { Ctrl, Challenge, ChallengeData, ChallengeDirection, ChallengeUser, TimeControl } from './interfaces'
 
-export default function(ctrl: Ctrl): VNode {
-  const d = ctrl.data();
-  return h('div#challenge_app.links.dropdown',
-    d && !ctrl.initiating() ? renderContent(ctrl, d) : [h('div.initiating', spinner())]);
+export function loaded(ctrl: Ctrl): VNode {
+  return h('div#challenge_app.links.dropdown', renderContent(ctrl));
 }
 
-function renderContent(ctrl: Ctrl, d: ChallengeData): VNode {
+export function loading(): VNode {
+  return h('div#challenge_app.links.dropdown', [
+    h('div.empty.loading', '-'),
+    create()
+  ]);
+}
+
+function renderContent(ctrl: Ctrl): VNode[] {
+  let d = ctrl.data();
   const nb = d.in.length + d.out.length;
-  return nb ? allChallenges(ctrl, d, nb) : empty();
+  return nb ? [allChallenges(ctrl, d, nb)] : [
+    empty(),
+    create()
+  ];
 }
 
 function userPowertips(vnode: VNode) {
   window.lichess.powertip.manualUserIn(vnode.elm);
 }
 
-function allChallenges(ctrl: Ctrl, d: ChallengeData, nb: number) {
+function allChallenges(ctrl: Ctrl, d: ChallengeData, nb: number): VNode {
   return h('div.challenges', {
-    key: 'all',
-    class: {
-      reloading: ctrl.reloading(),
-      many: nb > 3
-    },
+    class: { many: nb > 3 },
     hook: {
       insert: userPowertips,
       postpatch: userPowertips
@@ -33,8 +38,7 @@ function allChallenges(ctrl: Ctrl, d: ChallengeData, nb: number) {
 
 function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
   return (c: Challenge) => {
-    return h('div.challenge.' + dir, {
-      key: c.id,
+    return h('div.challenge.' + dir + '.c-' + c.id, {
       class: {
         declined: c.declined
       }
@@ -86,7 +90,7 @@ function inButtons(ctrl: Ctrl, c: Challenge): VNode[] {
 function outButtons(ctrl: Ctrl, c: Challenge) {
   return [
     h('div.owner', [
-      h('span.waiting', ctrl.trans('waiting')),
+      h('span.waiting', ctrl.trans()('waiting')),
       h('a.view', {
         attrs: {
           'data-icon': 'v',
@@ -128,19 +132,20 @@ function renderUser(u?: ChallengeUser): VNode {
   ]);
 }
 
-function empty() {
+function create(): VNode {
+  return h('a.create', {
+    attrs: {
+      href: '/?any#friend',
+      'data-icon': 'O'
+    },
+    title: 'Challenge someone'
+  });
+}
+
+function empty(): VNode {
   return h('div.empty.text', {
-    key: 'empty',
     attrs: {
       'data-icon': '',
     }
   }, 'No challenges.');
-}
-
-function spinner() {
-  return h('div.spinner', [
-    h('svg', { attrs: { viewBox: '0 0 40 40' } }, [
-      h('circle', {
-        attrs: { cx: 20, cy: 20, r: 18, fill: 'none' }
-      })])]);
 }

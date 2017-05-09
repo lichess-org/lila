@@ -4,9 +4,9 @@ import { init } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode'
 
 import makeCtrl from './ctrl';
-import view from './view';
+import { loaded, loading } from './view';
 import { load } from './xhr'
-import { ChallengeOpts, Ctrl } from './interfaces'
+import { ChallengeOpts, ChallengeData, Ctrl } from './interfaces'
 
 import klass from 'snabbdom/modules/class';
 import attributes from 'snabbdom/modules/attributes';
@@ -15,20 +15,25 @@ const patch = init([klass, attributes]);
 
 export default function LichessChallenge(element: Element, opts: ChallengeOpts) {
 
-  let vnode: VNode, ctrl: Ctrl
+  let vnode: VNode, ctrl: Ctrl;
 
   function redraw() {
-    vnode = patch(vnode, view(ctrl));
+    vnode = patch(vnode || element, ctrl ? loaded(ctrl) : loading());
   }
 
-  ctrl = makeCtrl(opts, redraw);
+  function update(d: ChallengeData) {
+    if (ctrl) ctrl.update(d);
+    else ctrl = makeCtrl(opts, d);
+    redraw();
+  }
 
-  vnode = patch(element, view(ctrl));
-
-  if (opts.data) ctrl.update(opts.data);
-  else load().then(ctrl.update);
+  if (opts.data) update(opts.data);
+  else {
+    load().then(update);
+    redraw();
+  }
 
   return {
-    update: ctrl.update
+    update
   };
 };

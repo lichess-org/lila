@@ -1,10 +1,11 @@
 #challenge_app {
   width: 250px;
   z-index: 2;
-  left: -104px;
+  left: -106px;
   background: transparent!important;
   box-shadow: none!important;
   border: 0!important;
+  text-align: center;
 }
 #challenge_app .challenge {
   padding: 10px 10px;
@@ -40,7 +41,6 @@
   top: 0;
   left: 0;
   width: 50%;
-  text-align: center;
 }
 #challenge_app .challenge .buttons > *:last-child {
   left: 50%;
@@ -105,6 +105,7 @@
   left: 12px;
   display: block;
   width: 196px;
+  text-align: left;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -118,9 +119,22 @@
   margin-left: -5px;
 }
 
-#challenge_app .empty,
-#challenge_app .initiating {
-  text-align: center;
+#challenge_app .create {
+  display: inline-block;
+  padding: 0 28px 3px 28px;
+  margin: auto;
+  background: rgba(56,147,232,0.5);
+  color: rgba(255,255,255,0.6);
+  transition: 0.13s;
+  border-radius: 0 0 3px 3px;
+}
+#challenge_app .create:hover {
+  background: rgba(56,147,232,0.9);
+  color: rgba(255,255,255,0.6);
+  padding-top: 4px;
+}
+
+#challenge_app .empty {
   padding: 20px 0;
   background: #fff;
   box-shadow: 0 1px 7px rgba(0, 0, 0, 0.3);

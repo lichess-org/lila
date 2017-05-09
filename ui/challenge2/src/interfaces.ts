@@ -7,10 +7,8 @@ export interface ChallengeOpts {
 
 export interface Ctrl {
   update(data: ChallengeData): void
-  data(): ChallengeData | undefined
-  trans: Trans
-  initiating(): boolean
-  reloading(): boolean
+  data(): ChallengeData
+  trans(): Trans
   decline(id: string): void
   cancel(id: string): void
 }

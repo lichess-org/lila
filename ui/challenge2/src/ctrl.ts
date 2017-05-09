@@ -1,32 +1,25 @@
 import * as xhr from './xhr'
-import { Ctrl, ChallengeOpts, ChallengeData, ChallengeUser, Redraw } from './interfaces'
+import { Ctrl, ChallengeOpts, ChallengeData, ChallengeUser } from './interfaces'
 
-export default function(opts: ChallengeOpts, redraw: Redraw): Ctrl {
+export default function(opts: ChallengeOpts, data: ChallengeData): Ctrl {
 
-  let data: ChallengeData | undefined;
-
-  let initiating = true;
-  let reloading = false;
   let trans: Trans = (key: string) => key;
 
   function update(d: ChallengeData) {
     data = d;
     if (d.i18n) trans = window.lichess.trans(d.i18n);
-    initiating = false;
-    reloading = false;
     opts.setCount(countActiveIn());
     notifyNew();
-    redraw();
   }
 
   function countActiveIn() {
-    return data ? data.in.filter(c => !c.declined).length : 0;
+    return data.in.filter(c => !c.declined).length;
   }
 
   function notifyNew() {
-    if (data) data.in.forEach(c => {
+    data.in.forEach(c => {
       if (window.lichess.once('c-' + c.id)) {
-        if (!window.lichess.quietMode && (data as ChallengeData).in.length <= 3) {
+        if (!window.lichess.quietMode && data.in.length <= 3) {
           opts.show();
           window.lichess.sound.newChallenge();
         }
@@ -42,14 +35,14 @@ export default function(opts: ChallengeOpts, redraw: Redraw): Ctrl {
     return fullName + ' (' + rating + ')';
   }
 
+  update(data);
+
   return {
     data: () => data,
-    initiating: () => initiating,
-    reloading: () => reloading,
-    trans,
+    trans: () => trans,
     update,
     decline(id) {
-      data && data.in.forEach(c => {
+      data.in.forEach(c => {
         if (c.id === id) {
           c.declined = true;
           xhr.decline(id);
@@ -57,7 +50,7 @@ export default function(opts: ChallengeOpts, redraw: Redraw): Ctrl {
       });
     },
     cancel(id) {
-      data && data.out.forEach(c => {
+      data.out.forEach(c => {
         if (c.id === id) {
           c.declined = true;
           xhr.cancel(id);
