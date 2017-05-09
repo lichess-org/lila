@@ -217,7 +217,7 @@
       <ul>
         @reports.by.map { r =>
         <li>
-          @userIdLink(r.user.some) for @r.realReason @momentFromNow(r.createdAt) @shorten(r.text, 200)
+          @userIdLink(r.user.some) for @r.reason.name @momentFromNow(r.createdAt) @shorten(r.text, 200)
         </li>
         }
       </ul>
@@ -230,7 +230,7 @@
       <ul>
         @reports.about.map { r =>
         <li>
-          @userIdLink(r.createdBy.some) for @r.realReason @momentFromNow(r.createdAt) @shorten(r.text, 200)
+          @userIdLink(r.createdBy.some) for @r.reason.name @momentFromNow(r.createdAt) @shorten(r.text, 200)
         </li>
         }
       </ul>
