@@ -173,6 +173,12 @@ object Mod extends LilaController {
       redirect(username)
   }
 
+  def spontaneousInquiry(username: String) = Secure(_.SeeReport) { implicit ctx => me =>
+    OptionFuResult(UserRepo named username) { user =>
+      Env.report.api.inquiries.spontaneous(user, me) inject Redirect(routes.User.show(user.username) + "?mod")
+    }
+  }
+
   def gamify = Secure(_.SeeReport) { implicit ctx => me =>
     Env.mod.gamify.leaderboards zip
       Env.mod.gamify.history(orCompute = true) map {

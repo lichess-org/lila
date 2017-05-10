@@ -5,6 +5,17 @@
   width: 100%;
   text-align: center;
 }
+.mod_zone .actions .inquiry {
+  height: 30px;
+  width: 30px;
+  background: #484541 no-repeat url(../images/icons/octopus.svg);
+  background-size: 80%;
+  background-position: 50% 50%;
+  border-radius: 3px;
+  margin: 0;
+  border: 0;
+  vertical-align: top;
+}
 .mod_zone .neural,
 .mod_zone .mod_roles {
   padding: 10px 0;
