@@ -48,6 +48,8 @@ object Query {
 
   def clock(c: Boolean): Bdoc = F.clock $exists c
 
+  def clockHistory(c: Boolean): Bdoc = F.whiteClockHistory $exists c
+
   def user(u: String): Bdoc = F.playerUids $eq u
   def user(u: User): Bdoc = F.playerUids $eq u.id
 

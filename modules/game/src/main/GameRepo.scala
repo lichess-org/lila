@@ -83,7 +83,7 @@ object GameRepo {
       ++ Query.user(userId)
       ++ Query.analysed(true)
       ++ Query.turnsMoreThan(20)
-      ++ Query.clock(true)
+      ++ Query.clockHistory(true)
   )
     .sort($sort asc F.createdAt)
     .list[Game](nb, ReadPreference.secondaryPreferred)
