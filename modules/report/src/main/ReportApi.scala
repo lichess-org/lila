@@ -286,7 +286,7 @@ final class ReportApi(
     def toggle(mod: User, id: String): Fu[Option[Report]] = for {
       report <- coll.byId[Report](id) flatten s"No report $id found"
       current <- ofModId(mod.id)
-      _ <- current ?? cancel
+      _ <- current ?? cancel(mod)
       isSame = current.exists(_.id == report.id)
       _ <- !isSame ?? coll.updateField(
         $id(report.id),
@@ -295,13 +295,15 @@ final class ReportApi(
       ).void
     } yield !isSame option report
 
-    def cancel(report: Report): Funit = coll.update(
-      $id(report.id),
-      $unset("inquiry", "processedBy")
-    ).void
+    def cancel(mod: User)(report: Report): Funit =
+      if (report.isOther && report.createdBy == mod.id) coll.remove($id(report.id)).void
+      else coll.update(
+        $id(report.id),
+        $unset("inquiry", "processedBy")
+      ).void
 
     def spontaneous(user: User, mod: User): Fu[Report] = ofModId(mod.id) flatMap { current =>
-      current.??(cancel) >> {
+      current.??(cancel(mod)) >> {
         val report = Report.make(
           user, Reason.Other, "Spontaneous inquiry", mod
         ).copy(inquiry = Report.Inquiry(mod.id, DateTime.now).some)
