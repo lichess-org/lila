@@ -44,6 +44,8 @@ case class Report(
   def processed = processedBy.isDefined
 
   def userIds = List(user, createdBy)
+
+  def simplifiedText = text.lines.filterNot(_ startsWith "[AUTOREPORT]") mkString "\n"
 }
 
 object Report {
