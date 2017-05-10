@@ -10,8 +10,8 @@
   box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
 }
 @keyframes octopus {
-  50% { transform: scale(1.03); }
-  100% { transform: scale(1); }
+  50% { transform: scale(1.03); background-color: #4a4a4a; }
+  100% { transform: scale(1); background-color: #444; }
 }
 .inquiry > .icon {
   flex: 0 0 160px;
@@ -25,7 +25,7 @@
   border: 2px solid #666;
   box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
 }
-.inquiry:hover > .icon {
+.inquiry > .icon:hover {
   animation: octopus 0.5s ease-in-out;
 }
 .inquiry a {
