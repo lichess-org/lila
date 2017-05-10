@@ -4,21 +4,22 @@
   <i class="icon"></i>
   <div class="meat">
     <h2 class="user">
-      @Html(userLink(in.user, withBestRating = true).body.replace("<a ", "<a data-pt-pos=\"se\" "))
+      @Html(userLink(in.user, withBestRating = true, params = "?mod").body.replace("<a ", "<a data-pt-pos=\"se\" "))
         </h2>
         <div class="report">
-          <h3>Reported by @userIdLink(in.report.createdBy.some, withOnline = false) for @in.report.reason.name</h3>
-          <p>@autoLink(in.report.text.replace("\n", " "))</p>
+          <div class="expendable">
+            <h3>Reported by @userIdLink(in.report.createdBy.some, withOnline = false) for @in.report.reason.name</h3>
+            <p>@autoLink(in.report.text)</p>
+          </div>
         </div>
       </div>
       <div class="links">
         @if(isGranted(_.MarkTroll)) {
         <a href="@routes.Mod.communication(in.user.id)">View<br />Coms</a>
         }
-        <a href="@routes.User.show(in.user.username)?mod">Mod<br />tools</a>
       </div>
       <div class="actions">
-        @defining(in.report.isCommunication.fold("Warning: Offensive language", "")) { subject =>
+        @defining("Warning: Offensive language") { subject =>
         <form method="post" action="@routes.Mod.warn(in.user.username, subject)" data-hint="Send a moderator message" class="hint--bottom-left">
           <input class="fbt" type="submit" value="Warn" />
         </form>
