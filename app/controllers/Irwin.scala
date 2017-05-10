@@ -63,6 +63,12 @@ object Irwin extends LilaController {
     }
   }
 
+  def eventStream = Open { implicit ctx =>
+    ModExternalBot {
+      Ok.chunked(Env.irwin.stream.enumerator).fuccess
+    }
+  }
+
   private def ModExternalBot(f: => Fu[Result])(implicit ctx: Context) =
     if (get("api_key") contains Env.mod.ApiKey) f
     else fuccess(NotFound)

@@ -10,7 +10,7 @@ private[tournament] final class ApiActor(api: TournamentApi) extends Actor {
 
     case FinishGame(game, _, _) => api finishGame game
 
-    case lila.hub.actorApi.mod.MarkCheater(userId) => api ejectLame userId
+    case lila.hub.actorApi.mod.MarkCheater(userId, true) => api ejectLame userId
 
     case lila.hub.actorApi.mod.MarkBooster(userId) => api ejectLame userId
 

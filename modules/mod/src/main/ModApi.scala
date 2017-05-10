@@ -24,8 +24,8 @@ final class ModApi(
     (user.engine != v) ?? {
       logApi.engine(mod, user.id, v) zip
         UserRepo.setEngine(user.id, v) >>- {
+          lilaBus.publish(lila.hub.actorApi.mod.MarkCheater(user.id, v), 'adjustCheater)
           if (v) {
-            lilaBus.publish(lila.hub.actorApi.mod.MarkCheater(user.id), 'adjustCheater)
             notifier.reporters(user)
             refunder schedule user
           }

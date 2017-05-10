@@ -27,6 +27,8 @@ final class Env(
     notifyApi = notifyApi
   )
 
+  lazy val stream = new IrwinStream(system)
+
   scheduler.future(5 minutes, "irwin tournament leaders") {
     tournamentApi.allCurrentLeadersInStandard flatMap api.requests.fromTournamentLeaders
   }

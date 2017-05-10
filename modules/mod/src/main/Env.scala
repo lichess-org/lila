@@ -112,7 +112,6 @@ final class Env(
   // api actor
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
-      case lila.hub.actorApi.mod.MarkCheater(userId) => api autoAdjust userId
       case lila.analyse.actorApi.AnalysisReady(game, analysis) =>
         assessApi.onAnalysisReady(game, analysis)
       case lila.game.actorApi.FinishGame(game, whiteUserOption, blackUserOption) if !game.aborted =>

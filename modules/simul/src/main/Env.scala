@@ -83,7 +83,7 @@ final class Env(
     import akka.pattern.pipe
     def receive = {
       case lila.game.actorApi.FinishGame(game, _, _) => api finishGame game
-      case lila.hub.actorApi.mod.MarkCheater(userId) => api ejectCheater userId
+      case lila.hub.actorApi.mod.MarkCheater(userId, true) => api ejectCheater userId
       case lila.hub.actorApi.simul.GetHostIds => api.currentHostIds pipeTo sender
       case move: lila.hub.actorApi.round.MoveEvent =>
         move.simulId foreach { simulId =>
