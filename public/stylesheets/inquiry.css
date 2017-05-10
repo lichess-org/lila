@@ -1,3 +1,7 @@
+body {
+  margin-top: 45px;
+}
+
 .inquiry {
   height: 40px;
   background: #484541;
@@ -6,8 +10,12 @@
   flex-flow: row nowrap;
   justify-content: space-between;
   border-bottom: 1px solid #666;
-  margin-bottom: 5px;
   box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
 }
 @keyframes octopus {
   50% { transform: scale(1.03); background-color: #4a4a4a; }
