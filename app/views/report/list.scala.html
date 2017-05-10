@@ -1,4 +1,4 @@
-@(reports: List[lila.report.Report.WithUserAndNotes], filter: String, counts: Map[lila.report.Room, Int])(implicit ctx: Context)
+@(reports: List[lila.report.Report.WithUserAndNotes], filter: String, counts: lila.report.Room.Counts)(implicit ctx: Context)
 
 @import lila.report.Report.{WithUser,WithUserAndNotes}
 
@@ -6,8 +6,8 @@
 
 @tab(reports: List[WithUserAndNotes], room: lila.report.Room) = {
 <a href="@routes.Report.listWithFilter(room.key)"
-  class="@when(counts.contains(room), "new") @filter.active(room.key)"
-  @counts.get(room).map { nb => data-count="@nb" }>@room.name</a>
+  class="@when(counts.value.contains(room), "new") @filter.active(room.key)">
+  <count>@counts.get(room)</count>@room.name</a>
 }
 
 @mod.layout(
@@ -17,11 +17,11 @@ moreCss = cssTag("report.css")) {
 
 <div id="report_list" class="content_box no_padding">
   <div class="header">
-    <h1 data-icon="@icon.mod" class="text">@title</h1>
+    <i class="icon"></i>
     <span class="tabs">
       <a href="@routes.Report.listWithFilter("all")"
-        class="@when(counts.nonEmpty, "new") @filter.active("all")"
-        @if(counts.nonEmpty) { data-count="@counts.values.sum" }>All</a>
+        class="@when(counts.sum > 0, "new") @filter.active("all")">
+        <count>@if(counts.sum > 0) {@counts.sum}</count>All</a>
       @lila.report.Room.all.map { r =>
       @tab(reports, r)
       }

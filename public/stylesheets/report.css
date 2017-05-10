@@ -43,7 +43,16 @@
 #report_list .header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: stretch;
+  background: #484541;
+  color: #eee!important;
+}
+#report_list .header .icon {
+  display: block;
+  height: 50px;
+  width: 50px;
+  margin: 5px 0 5px 8px;
+  background: #484541 no-repeat url(../images/icons/octopus.svg);
 }
 #report_list .tabs {
   display: flex;
@@ -51,20 +60,30 @@
   font-size: 1.2em;
 }
 #report_list .tabs a {
+  color: #eee!important;
   text-transform: uppercase;
-  color: #3893E8;
-  padding: 6px 15px;
+  padding: 6px 20px;
   font-family: Roboto;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+}
+#report_list .tabs a:hover {
+  background: rgba(56, 147, 232, 0.5);
+  color: #fff!important;
 }
 #report_list .tabs a.active {
   background: #3893E8;
-  color: #fff;
+  color: #fff!important;
 }
-#report_list .tabs a::after {
-  content: attr(data-count);
-  font-size: 0.75em;
-  vertical-align:super;
-  margin-left: 3px;
+#report_list .tabs a count {
+  font-size: 0.8em;
+  display: block;
+  height: 1.2em;
+}
+#report_list table.see {
+  border-top: 3px solid #3893E8;
 }
 #report_list table.see td {
   padding: 15px 10px 15px 10px;

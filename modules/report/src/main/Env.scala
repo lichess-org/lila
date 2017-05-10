@@ -47,9 +47,8 @@ final class Env(
     }
   }), name = ActorName)
 
-  system.scheduler.schedule(1 minute, 1 minute) {
-    api.inquiries.cleanUp
-  }
+  system.scheduler.schedule(1 minute, 1 minute) { api.inquiries.expire }
+  system.scheduler.schedule(1 hour, 1 hour) { api.moveToXfiles }
 
   lazy val reportColl = db(CollectionReport)
 }

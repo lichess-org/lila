@@ -30,4 +30,9 @@ object Room {
     case Reason.Troll | Reason.Insult => Coms
     case Reason.Boost | Reason.Other => Other
   }
+
+  case class Counts(value: Map[Room, Int]) {
+    def get = value.get _
+    lazy val sum = value.filterKeys(Xfiles !=).values.sum
+  }
 }

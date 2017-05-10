@@ -236,19 +236,19 @@ final class ReportApi(
     }
   } yield withNotes
 
-  def countUnprocesssedByRooms: Fu[Map[Room, Int]] = {
+  def countUnprocesssedByRooms: Fu[Room.Counts] = {
     import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
     coll.aggregate(
       Match(unprocessedSelect),
       List(
         GroupField("room")("nb" -> SumValue(1))
       )
-    ).map {
-        _.firstBatch.flatMap { doc =>
+    ).map { res =>
+        Room.Counts(res.firstBatch.flatMap { doc =>
           doc.getAs[String]("_id") flatMap Room.apply flatMap { room =>
             doc.getAs[Int]("nb") map { room -> _ }
           }
-        }(scala.collection.breakOut)
+        }.toMap)
       }
   }
 
@@ -258,6 +258,21 @@ final class ReportApi(
       Some($doc("reason" -> Reason.Cheat.key) ++ unprocessedSelect),
       ReadPreference.secondaryPreferred
     )
+
+  private[report] def moveToXfiles: Funit = coll.update(
+    unprocessedSelect ++ roomSelect(none) ++ $doc("createdAt" $lt DateTime.now.minusDays(7)),
+    $set("room" -> Room.Xfiles.key),
+    multi = true
+  ).void
+
+  private def findRecent(nb: Int, selector: Bdoc) =
+    coll.find(selector).sort($sort.createdDesc).list[Report](nb)
+
+  private def selectRecent(user: User, reason: Reason): Bdoc = $doc(
+    "createdAt" $gt DateTime.now.minusDays(7),
+    "user" -> user.id,
+    "reason" -> reason.key
+  )
 
   object inquiries {
 
@@ -279,7 +294,7 @@ final class ReportApi(
 
     def cancel(report: Report): Funit = coll.unsetField($id(report.id), "inquiry").void
 
-    private[report] def cleanUp: Funit = coll.update(
+    private[report] def expire: Funit = coll.update(
       $doc(
         "inquiry.mod" $exists true,
         "inquiry.seenAt" $lt DateTime.now.minusMinutes(20)
@@ -288,13 +303,4 @@ final class ReportApi(
       multi = true
     ).void
   }
-
-  private def findRecent(nb: Int, selector: Bdoc) =
-    coll.find(selector).sort($sort.createdDesc).list[Report](nb)
-
-  private def selectRecent(user: User, reason: Reason): Bdoc = $doc(
-    "createdAt" $gt DateTime.now.minusDays(7),
-    "user" -> user.id,
-    "reason" -> reason.key
-  )
 }
