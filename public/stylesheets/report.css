@@ -70,6 +70,10 @@
   padding: 15px 10px 15px 10px;
   word-break: break-all;
 }
+#report_list table.see button {
+  padding: 20px;
+  font-size: 1.4em;
+}
 #report_list tr.new td:first-child {
   border-left: 3px solid #3893E8;
 }
