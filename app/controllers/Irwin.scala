@@ -34,12 +34,13 @@ object Irwin extends LilaController {
   def assessment(username: String) = Open { implicit ctx =>
     ModExternalBot {
       OptionFuResult(UserRepo named username) { user =>
-        Env.mod.jsonView(user) flatMap {
-          case None => NotFound.fuccess
-          case Some(data) => Env.mod.userHistory(user) map { history =>
-            Ok(data + ("history" -> history))
-          }
-        } map (_ as JSON)
+        Env.mod.assessApi.refreshAssessByUsername(user.id) >>
+          Env.mod.jsonView(user).flatMap {
+            case None => NotFound.fuccess
+            case Some(data) => Env.mod.userHistory(user) map { history =>
+              Ok(data + ("history" -> history))
+            }
+          }.map(_ as JSON)
       }
     }
   }
