@@ -30,7 +30,15 @@ object Report extends LilaController {
       }
 
   def inquiry(id: String) = Secure(_.SeeReport) { implicit ctx => me =>
-    api.inquiries.toggle(me, id) inject Redirect(routes.Report.list)
+    api.inquiries.toggle(me, id) map {
+      _.fold(Redirect(routes.Report.list)) { report =>
+        import lila.report.Reason._
+        Redirect(report.reason match {
+          case Insult | Troll => routes.Mod.communication(report.user).url
+          case _ => routes.User.show(report.user).url + "?mod"
+        })
+      }
+    }
   }
 
   def process(id: String) = Secure(_.SeeReport) { implicit ctx => me =>

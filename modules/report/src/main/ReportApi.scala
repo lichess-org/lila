@@ -265,15 +265,17 @@ final class ReportApi(
 
     def ofModId(modId: User.ID): Fu[Option[Report]] = coll.uno[Report]($doc("inquiry.mod" -> modId))
 
-    def toggle(mod: User, id: String): Funit =
-      ofModId(mod.id) flatMap { current =>
-        current.??(cancel) >>
-          (!current.exists(_.id == id) ?? coll.updateField(
-            $id(id),
-            "inquiry",
-            Report.Inquiry(mod.id, DateTime.now)
-          ).void)
-      }
+    def toggle(mod: User, id: String): Fu[Option[Report]] = for {
+      report <- coll.byId[Report](id) flatten s"No report $id found"
+      current <- ofModId(mod.id)
+      _ <- current ?? cancel
+      isSame = current.exists(_.id == report.id)
+      _ <- !isSame ?? coll.updateField(
+        $id(report.id),
+        "inquiry",
+        Report.Inquiry(mod.id, DateTime.now)
+      ).void
+    } yield !isSame option report
 
     def cancel(report: Report): Funit = coll.unsetField($id(report.id), "inquiry").void
 
