@@ -184,8 +184,8 @@ final class ReportApi(
     "inquiry" $exists false
   )
   private val processedSelect: Bdoc = "processedBy" $exists true
-  private def reasonSelect(reason: Option[Reason]): Bdoc =
-    reason.?? { r => $doc("reason" -> r.key) }
+  private def roomSelect(room: Option[Room]): Bdoc =
+    room.fold($doc("room" $ne Room.Xfiles.key)) { r => $doc("room" -> r) }
 
   val nbUnprocessedCache = asyncCache.single[Int](
     name = "report.nbUnprocessed",
@@ -211,14 +211,14 @@ final class ReportApi(
     ).some,
       ReadPreference.secondaryPreferred)
 
-  def unprocessedAndRecentWithFilter(nb: Int, reason: Option[Reason]): Fu[List[Report.WithUserAndNotes]] = for {
-    unprocessed <- findRecent(nb, unprocessedSelect ++ reasonSelect(reason))
-    processed <- findRecent(nb - unprocessed.size, processedSelect ++ reasonSelect(reason))
+  def unprocessedAndRecentWithFilter(nb: Int, room: Option[Room]): Fu[List[Report.WithUserAndNotes]] = for {
+    unprocessed <- findRecent(nb, unprocessedSelect ++ roomSelect(room))
+    processed <- findRecent(nb - unprocessed.size, processedSelect ++ roomSelect(room))
     withNotes <- addUsersAndNotes(unprocessed ++ processed)
   } yield withNotes
 
-  def unprocessedWithFilter(nb: Int, reason: Option[Reason]): Fu[List[Report.WithUserAndNotes]] =
-    findRecent(nb, unprocessedSelect ++ reasonSelect(reason)) flatMap addUsersAndNotes
+  def unprocessedWithFilter(nb: Int, room: Option[Room]): Fu[List[Report.WithUserAndNotes]] =
+    findRecent(nb, unprocessedSelect ++ roomSelect(room)) flatMap addUsersAndNotes
 
   private def addUsersAndNotes(reports: List[Report]): Fu[List[Report.WithUserAndNotes]] = for {
     withUsers <- UserRepo byIdsSecondary reports.map(_.user).distinct map { users =>
@@ -236,18 +236,17 @@ final class ReportApi(
     }
   } yield withNotes
 
-  def countUnprocesssedByReasons: Fu[Map[Reason, Int]] = {
+  def countUnprocesssedByRooms: Fu[Map[Room, Int]] = {
     import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
-    coll.aggregateWithReadPreference(
+    coll.aggregate(
       Match(unprocessedSelect),
       List(
-        GroupField("reason")("nb" -> SumValue(1))
-      ),
-      ReadPreference.secondaryPreferred
+        GroupField("room")("nb" -> SumValue(1))
+      )
     ).map {
         _.firstBatch.flatMap { doc =>
-          doc.getAs[String]("_id") flatMap Reason.apply flatMap { reason =>
-            doc.getAs[Int]("nb") map { reason -> _ }
+          doc.getAs[String]("_id") flatMap Room.apply flatMap { room =>
+            doc.getAs[Int]("nb") map { room -> _ }
           }
         }(scala.collection.breakOut)
       }

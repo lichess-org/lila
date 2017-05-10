@@ -17,8 +17,7 @@ object Room {
     override def name = "X-Files"
   }
 
-  val all = List(Cheat, Print, Coms, Other, Xfiles)
-  val keys = all map (_.key)
+  val all: List[Room] = List(Cheat, Print, Coms, Other, Xfiles)
   val byKey = all map { v => (v.key, v) } toMap
 
   implicit val roomIso = lila.common.Iso[String, Room](k => byKey.getOrElse(k, Other), _.key)

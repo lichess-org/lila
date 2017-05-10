@@ -1,13 +1,13 @@
-@(reports: List[lila.report.Report.WithUserAndNotes], filter: String, counts: Map[lila.report.Reason, Int])(implicit ctx: Context)
+@(reports: List[lila.report.Report.WithUserAndNotes], filter: String, counts: Map[lila.report.Room, Int])(implicit ctx: Context)
 
 @import lila.report.Report.{WithUser,WithUserAndNotes}
 
 @title = @{ "Reports" }
 
-@tab(reports: List[WithUserAndNotes], reason: lila.report.Reason) = {
-<a href="@routes.Report.listWithFilter(reason.key)"
-  class="@when(counts.contains(reason), "new") @filter.active(reason.key)"
-  @counts.get(reason).map { nb => data-count="@nb" }>@reason.name</a>
+@tab(reports: List[WithUserAndNotes], room: lila.report.Room) = {
+<a href="@routes.Report.listWithFilter(room.key)"
+  class="@when(counts.contains(room), "new") @filter.active(room.key)"
+  @counts.get(room).map { nb => data-count="@nb" }>@room.name</a>
 }
 
 @mod.layout(
@@ -22,7 +22,7 @@ moreCss = cssTag("report.css")) {
       <a href="@routes.Report.listWithFilter("all")"
         class="@when(counts.nonEmpty, "new") @filter.active("all")"
         @if(counts.nonEmpty) { data-count="@counts.values.sum" }>All</a>
-      @lila.report.Reason.all.map { r =>
+      @lila.report.Room.all.map { r =>
       @tab(reports, r)
       }
     </span>
@@ -43,7 +43,7 @@ moreCss = cssTag("report.css")) {
         <td>@userIdLink(r.createdBy.some)<br />@momentFormat(r.createdAt)</td>
         <td>@userLink(u, params = "?mod")<br />@showBestPerf(u)</td>
         <td>
-          <strong>@r.reason.name.capitalize</strong>
+          <strong>@r.room.name.capitalize</strong>
           - @autoLink(r.text)
           @if(notes.nonEmpty) {
           <br />

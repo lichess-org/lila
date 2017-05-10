@@ -4,7 +4,7 @@ import views._
 
 import lila.api.Context
 import lila.app._
-import lila.report.Reason
+import lila.report.Room
 import lila.user.UserRepo
 
 object Report extends LilaController {
@@ -16,25 +16,24 @@ object Report extends LilaController {
     renderList(env.modFilters.get(me).fold("all")(_.key))
   }
 
-  def listWithFilter(reason: String) = Secure(_.SeeReport) { implicit ctx => me =>
-    env.modFilters.set(me, Reason(reason))
-    renderList(reason)
+  def listWithFilter(room: String) = Secure(_.SeeReport) { implicit ctx => me =>
+    env.modFilters.set(me, Room(room))
+    renderList(room)
   }
 
-  private def renderList(reason: String)(implicit ctx: Context) =
-    api.unprocessedAndRecentWithFilter(50, Reason(reason)) zip
-      api.countUnprocesssedByReasons flatMap {
+  private def renderList(room: String)(implicit ctx: Context) =
+    api.unprocessedAndRecentWithFilter(50, Room(room)) zip
+      api.countUnprocesssedByRooms flatMap {
         case reports ~ counts =>
           (Env.user.lightUserApi preloadMany reports.flatMap(_.userIds)) inject
-            Ok(html.report.list(reports, reason, counts))
+            Ok(html.report.list(reports, room, counts))
       }
 
   def inquiry(id: String) = Secure(_.SeeReport) { implicit ctx => me =>
     api.inquiries.toggle(me, id) map {
       _.fold(Redirect(routes.Report.list)) { report =>
-        import lila.report.Reason._
-        Redirect(report.reason match {
-          case Insult | Troll => routes.Mod.communication(report.user).url
+        Redirect(report.room match {
+          case lila.report.Room.Coms => routes.Mod.communication(report.user).url
           case _ => routes.User.show(report.user).url + "?mod"
         })
       }
