@@ -282,7 +282,7 @@ final class ReportApi(
     private[report] def cleanUp: Funit = coll.update(
       $doc(
         "inquiry.mod" $exists true,
-        "inquiry.seenAt" $lt DateTime.now.minusMinutes(10)
+        "inquiry.seenAt" $lt DateTime.now.minusMinutes(20)
       ),
       $unset("inquiry"),
       multi = true
