@@ -7,10 +7,14 @@ import lila.report.{ Report, ReportApi }
 import lila.user.{ User, UserRepo }
 
 case class Inquiry(
-  mod: LightUser,
-  report: Report,
-  user: User
-)
+    mod: LightUser,
+    report: Report,
+    moreReports: List[Report],
+    user: User
+) {
+
+  def allReports = report :: moreReports
+}
 
 final class InquiryApi(reportApi: ReportApi) {
 
@@ -18,10 +22,11 @@ final class InquiryApi(reportApi: ReportApi) {
     lila.security.Granter(_.Hunter)(mod).?? {
       reportApi.inquiries.ofModId(mod.id).flatMap {
         _ ?? { report =>
-          UserRepo named report.user map {
-            _ ?? { user =>
-              Inquiry(mod.light, report, user).some
-            }
+          reportApi.moreLike(report, 10) zip UserRepo.named(report.user) map {
+            case (moreReports, userOption) =>
+              userOption ?? { user =>
+                Inquiry(mod.light, report, moreReports, user).some
+              }
           }
         }
       }

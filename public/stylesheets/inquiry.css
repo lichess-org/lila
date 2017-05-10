@@ -49,7 +49,7 @@ body {
 #inquiry h2 .user_link {
   font-size: 1.3em;
 }
-#inquiry .report {
+#inquiry .reports {
   position: relative;
   flex: 0 0 40%;
   height: 100%;
@@ -57,14 +57,14 @@ body {
   overflow: hidden;
   color: #ccc;
 }
-#inquiry .report .expendable {
+#inquiry .reports .expendable {
   padding: 4px 20px 20px 20px;
   background: #525252;
 }
-#inquiry .report:hover {
+#inquiry .reports:hover {
   overflow: visible;
 }
-#inquiry .report:hover .expendable {
+#inquiry .reports:hover .expendable {
   position: absolute;
   top: 0;
   left: 0;
@@ -72,12 +72,18 @@ body {
   z-index: 2;
   border-bottom: 1px solid #666;
   box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.4);
+  max-height: 500px;
+  overflow-y: auto;
+}
+#inquiry .report:not(:last-child) {
+  padding-bottom: 8px;
+  border-bottom: 1px dotted #777;
+  margin-bottom: 8px;
 }
 #inquiry .report h3 {
   margin: 0;
 }
 #inquiry .report p {
-  font-style: italic;
 }
 #inquiry .actions,
 #inquiry .links {

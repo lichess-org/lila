@@ -196,7 +196,10 @@ final class ReportApi(
   def nbUnprocessed = nbUnprocessedCache.get
 
   def recent(user: User, nb: Int, readPreference: ReadPreference = ReadPreference.secondaryPreferred): Fu[List[Report]] =
-    coll.find($doc("user" -> user.id)).sort($sort.createdDesc).list[Report](nb)
+    coll.find($doc("user" -> user.id)).sort($sort.createdDesc).list[Report](nb, readPreference)
+
+  def moreLike(report: Report, nb: Int): Fu[List[Report]] =
+    coll.find($doc("user" -> report.user, "_id" $ne report.id)).sort($sort.createdDesc).list[Report](nb)
 
   def byAndAbout(user: User, nb: Int): Fu[Report.ByAndAbout] = for {
     by <- coll.find($doc("createdBy" -> user.id)).sort($sort.createdDesc).list[Report](nb, ReadPreference.secondaryPreferred)

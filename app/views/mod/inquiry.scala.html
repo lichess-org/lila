@@ -1,15 +1,21 @@
 @(in: lila.mod.Inquiry)(implicit ctx: Context)
 
+@renderReport(r: lila.report.Report) = {
+<div class="report">
+  <h3>by @userIdLink(r.createdBy.some, withOnline = false) for <strong>@r.reason.name</strong>, @momentFromNow(r.createdAt)</h3>
+  <p>@autoLink(r.simplifiedText)</p>
+</div>
+}
+
 <div id="inquiry">
   <i title="Costello the Inquiry Octopus" class="icon"></i>
   <div class="meat">
     <h2 class="user">
       @Html(userLink(in.user, withBestRating = true, params = "?mod").body.replace("<a ", "<a data-pt-pos=\"se\" "))
         </h2>
-        <div class="report">
+        <div class="reports">
           <div class="expendable">
-            <h3>Reported by @userIdLink(in.report.createdBy.some, withOnline = false) for @in.report.reason.name, @momentFromNow(in.report.createdAt)</h3>
-            <p>@autoLink(in.report.simplifiedText)</p>
+            @in.allReports.map(renderReport)
           </div>
         </div>
       </div>
