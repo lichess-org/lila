@@ -9,6 +9,7 @@ case class Report(
     _id: String, // also the url slug
     user: User.ID, // the reportee
     reason: Reason,
+    room: Room,
     text: String,
     inquiry: Option[Report.Inquiry],
     processedBy: Option[User.ID],
@@ -82,6 +83,7 @@ object Report {
     _id = Random nextString 8,
     user = user.id,
     reason = reason,
+    room = Room(reason),
     text = text,
     inquiry = none,
     processedBy = none,

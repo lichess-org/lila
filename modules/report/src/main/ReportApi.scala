@@ -19,6 +19,7 @@ final class ReportApi(
 
   import lila.db.BSON.BSONJodaDateTimeHandler
   private implicit val ReasonBSONHandler = isoHandler[Reason, String, BSONString](Reason.reasonIso)
+  private implicit val RoomBSONHandler = isoHandler[Room, String, BSONString](Room.roomIso)
   import Report.Inquiry
   private implicit val InquiryBSONHandler = Macros.handler[Inquiry]
   private implicit val ReportBSONHandler = Macros.handler[Report]
