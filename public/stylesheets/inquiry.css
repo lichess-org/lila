@@ -2,7 +2,7 @@ body {
   margin-top: 45px;
 }
 
-.inquiry {
+#inquiry {
   height: 40px;
   background: #484541;
   color: #f0f0f0!important;
@@ -21,7 +21,7 @@ body {
   50% { transform: scale(1.03); background-color: #4a4a4a; }
   100% { transform: scale(1); background-color: #484541; }
 }
-.inquiry > .icon {
+#inquiry > .icon {
   flex: 0 0 160px;
   height: 160px;
   width: 160px;
@@ -33,23 +33,23 @@ body {
   border: 2px solid #666;
   box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
 }
-.inquiry > .icon:hover {
+#inquiry > .icon:hover {
   animation: octopus 0.5s ease-in-out;
 }
-.inquiry a {
+#inquiry a {
   color: #f0f0f0!important;
 }
-.inquiry .meat {
+#inquiry .meat {
   flex: 1 1 100%;
   height: 100%;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
 }
-.inquiry h2 .user_link {
+#inquiry h2 .user_link {
   font-size: 1.3em;
 }
-.inquiry .report {
+#inquiry .report {
   position: relative;
   flex: 0 0 40%;
   height: 100%;
@@ -57,14 +57,14 @@ body {
   overflow: hidden;
   color: #ccc;
 }
-.inquiry .report .expendable {
+#inquiry .report .expendable {
   padding: 4px 20px 20px 20px;
   background: #525252;
 }
-.inquiry .report:hover {
+#inquiry .report:hover {
   overflow: visible;
 }
-.inquiry .report:hover .expendable {
+#inquiry .report:hover .expendable {
   position: absolute;
   top: 0;
   left: 0;
@@ -73,14 +73,14 @@ body {
   border-bottom: 1px solid #666;
   box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.4);
 }
-.inquiry .report h3 {
+#inquiry .report h3 {
   margin: 0;
 }
-.inquiry .report p {
+#inquiry .report p {
   font-style: italic;
 }
-.inquiry .actions,
-.inquiry .links {
+#inquiry .actions,
+#inquiry .links {
   margin-right: 10px;
   white-space: nowrap;
   height: 100%;
@@ -88,42 +88,42 @@ body {
   flex-flow: row nowrap;
   align-items: center;
 }
-.inquiry .actions:not(.close),
-.inquiry .links {
+#inquiry .actions:not(.close),
+#inquiry .links {
   padding-right: 10px;
   border-right: 1px solid #666;
 }
-.inquiry .actions form {
+#inquiry .actions form {
   height: 100%;
 }
-.inquiry .fbt {
+#inquiry .fbt {
   height: 100%;
   background: #484541;
   color: #f0f0f0!important;
 }
-.inquiry .fbt.active {
+#inquiry .fbt.active {
   color: #fff!important;
 }
-.inquiry .links {
+#inquiry .links {
   padding: 0 10px;
   border-left: 1px solid #666;
 }
-.inquiry .links a {
+#inquiry .links a {
   padding: 10px 13px;
 }
-.inquiry .links a:hover,
-.inquiry .report a:hover {
+#inquiry .links a:hover,
+#inquiry .report a:hover {
   color: #3893E8!important;
 }
-.inquiry .process button {
+#inquiry .process button {
   background: #525252;
   font-size: 1.8em;
   padding: 0 25px;
 }
-.inquiry .process button:hover {
+#inquiry .process button:hover {
   background: #639B24;
 }
-.inquiry .cancel button {
+#inquiry .cancel button {
   margin-left: 5px;
   font-size: 0.8em;
   padding: 0 8px;
