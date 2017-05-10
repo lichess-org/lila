@@ -99,6 +99,10 @@ body {
 #inquiry .fbt {
   height: 100%;
   color: #f0f0f0!important;
+  background: transparent;
+}
+#inquiry .fbt:hover {
+  background: rgba(56,147,232,0.8);
 }
 #inquiry .fbt.active {
   color: #fff!important;
