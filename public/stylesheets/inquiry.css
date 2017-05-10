@@ -1,6 +1,6 @@
 .inquiry {
   height: 40px;
-  background: #444;
+  background: #484541;
   color: #f0f0f0!important;
   display: flex;
   flex-flow: row nowrap;
@@ -11,14 +11,14 @@
 }
 @keyframes octopus {
   50% { transform: scale(1.03); background-color: #4a4a4a; }
-  100% { transform: scale(1); background-color: #444; }
+  100% { transform: scale(1); background-color: #484541; }
 }
 .inquiry > .icon {
   flex: 0 0 160px;
   height: 160px;
   width: 160px;
   margin: -80px 0 0 -80px;
-  background: #444 no-repeat url(../images/icons/octopus.svg);
+  background: #484541 no-repeat url(../images/icons/octopus.svg);
   background-size: 37% 37%;
   background-position: 82% 82%;
   border-radius: 0 0 50% 0;
@@ -90,7 +90,7 @@
 }
 .inquiry .fbt {
   height: 100%;
-  background: #444;
+  background: #484541;
   color: #f0f0f0!important;
 }
 .inquiry .fbt.active {
