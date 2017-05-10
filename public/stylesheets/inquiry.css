@@ -107,3 +107,16 @@
 .inquiry .report a:hover {
   color: #3893E8!important;
 }
+.inquiry .process button {
+  background: #525252;
+  font-size: 1.8em;
+  padding: 0 25px;
+}
+.inquiry .process button:hover {
+  background: #639B24;
+}
+.inquiry .cancel button {
+  margin-left: 5px;
+  font-size: 0.8em;
+  padding: 0 8px;
+}

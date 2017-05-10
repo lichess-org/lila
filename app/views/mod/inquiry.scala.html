@@ -1,7 +1,7 @@
 @(in: lila.mod.Inquiry)(implicit ctx: Context)
 
 <div class="inquiry">
-  <i class="icon"></i>
+  <i title="Costello the Inquiry Octopus" class="icon"></i>
   <div class="meat">
     <h2 class="user">
       @Html(userLink(in.user, withBestRating = true, params = "?mod").body.replace("<a ", "<a data-pt-pos=\"se\" "))
@@ -41,10 +41,10 @@
         }
       </div>
       <div class="actions close">
-        <form action="@routes.Report.process(in.report.id)" method="post" data-hint="Dismiss this report as processed." class="hint--bottom-left">
+        <form action="@routes.Report.process(in.report.id)" method="post" data-hint="Dismiss this report as processed." class="process hint--bottom-left">
           <button type="submit" data-icon="E" class="fbt"></button>
         </form>
-        <form action="@routes.Report.inquiry(in.report.id)" method="post" data-hint="Cancel the inquiry, re-instore the report" class="hint--bottom-left">
+        <form action="@routes.Report.inquiry(in.report.id)" method="post" data-hint="Cancel the inquiry, re-instore the report" class="cancel hint--bottom-left">
           <button type="submit" data-icon="L" class="fbt"></button>
         </form>
       </div>
