@@ -12,6 +12,7 @@ final class Env(
     scheduler: lila.common.Scheduler,
     tournamentApi: TournamentApi,
     modApi: lila.mod.ModApi,
+    notifyApi: lila.notify.NotifyApi,
     userCache: lila.user.Cached,
     db: lila.db.Env
 ) {
@@ -22,7 +23,8 @@ final class Env(
   val api = new IrwinApi(
     reportColl = reportColl,
     requestColl = requestColl,
-    modApi = modApi
+    modApi = modApi,
+    notifyApi = notifyApi
   )
 
   scheduler.future(5 minutes, "irwin tournament leaders") {
@@ -37,9 +39,10 @@ final class Env(
   }
 
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {
+    import lila.hub.actorApi.report._
     def receive = {
-      case lila.hub.actorApi.report.Created(userId, "cheat" | "cheatprint") => api.requests.insert(userId, _.Report)
-      case lila.hub.actorApi.report.Processed(userId, "cheat" | "cheatprint") => api.requests.drop(userId)
+      case Created(userId, "cheat" | "cheatprint", reporterId) => api.requests.insert(userId, _.Report, reporterId.some)
+      case Processed(userId, "cheat" | "cheatprint") => api.requests.drop(userId)
     }
   })), 'report)
 }
@@ -51,6 +54,7 @@ object Env {
     config = lila.common.PlayApp loadConfig "irwin",
     tournamentApi = lila.tournament.Env.current.api,
     modApi = lila.mod.Env.current.api,
+    notifyApi = lila.notify.Env.current.api,
     userCache = lila.user.Env.current.cached,
     scheduler = lila.common.PlayApp.scheduler,
     system = lila.common.PlayApp.system

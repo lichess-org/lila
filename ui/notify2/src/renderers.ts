@@ -171,6 +171,16 @@ export const renderers: Renderers = {
       h('span', 'Game vs ' + n.content.op)
     ]),
     text: _ => 'Time is almost up!'
+  },
+  irwinDone: {
+    html: n => generic(n, '/@/' + n.content.user.name + '?mod', '', [
+      h('span', [
+        h('strong', userFullName(n.content.user)),
+        drawTime(n)
+      ]),
+      h('span', 'Irwin job complete!')
+    ]),
+    text: n => n.content.user.name + ': Irwin job complete!'
   }
 };
 

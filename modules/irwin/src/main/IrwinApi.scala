@@ -11,7 +11,8 @@ import lila.user.User
 final class IrwinApi(
     reportColl: Coll,
     requestColl: Coll,
-    modApi: lila.mod.ModApi
+    modApi: lila.mod.ModApi,
+    notifyApi: lila.notify.NotifyApi
 ) {
 
   import BSONHandlers._
@@ -21,10 +22,13 @@ final class IrwinApi(
 
   object reports {
 
-    def insert(report: IrwinReport) =
-      reportColl.update($id(report.id), report, upsert = true) >>
-        requests.drop(report.userId) >>
-        actAsMod(report)
+    def insert(report: IrwinReport) = for {
+      _ <- reportColl.update($id(report.id), report, upsert = true)
+      request <- requests get report.id
+      _ <- request.??(r => requests.drop(r.id))
+      _ <- request.??(notifyRequester)
+      _ <- actAsMod(report)
+    } yield ()
 
     def get(user: User): Fu[Option[IrwinReport]] =
       reportColl.find($id(user.id)).uno[IrwinReport]
@@ -67,12 +71,12 @@ final class IrwinApi(
     def get(reportedId: User.ID): Fu[Option[IrwinRequest]] =
       requestColl.byId[IrwinRequest](reportedId)
 
-    def fromMod(reportedId: User.ID) = insert(reportedId, _.Moderator)
+    def fromMod(reportedId: User.ID, mod: User) = insert(reportedId, _.Moderator, mod.id.some)
 
     private[irwin] def drop(reportedId: User.ID): Funit = requestColl.remove($id(reportedId)).void
 
-    private[irwin] def insert(reportedId: User.ID, origin: Origin.type => Origin) = {
-      val request = IrwinRequest.make(reportedId, origin(Origin))
+    private[irwin] def insert(reportedId: User.ID, origin: Origin.type => Origin, notifyUserId: Option[User.ID]) = {
+      val request = IrwinRequest.make(reportedId, origin(Origin), notifyUserId)
       get(reportedId) flatMap {
         case Some(prev) if prev.isInProgress => funit
         case Some(prev) if prev.priority isAfter request.priority =>
@@ -87,13 +91,20 @@ final class IrwinApi(
         case (tour, rps) =>
           val userIds = rps.filter(_.rank <= tour.nbPlayers / 10).map(_.player.userId)
           lila.common.Future.applySequentially(userIds) { userId =>
-            insert(userId, _.Tournament)
+            insert(userId, _.Tournament, none)
           }
       }
 
     private[irwin] def fromLeaderboard(leaders: List[User.ID]): Funit =
       lila.common.Future.applySequentially(leaders) { userId =>
-        insert(userId, _.Leaderboard)
+        insert(userId, _.Leaderboard, none)
       }
+  }
+
+  private def notifyRequester(request: IrwinRequest): Funit = request.notifyUserId ?? { userId =>
+    import lila.notify.{ Notification, IrwinDone }
+    notifyApi.addNotificationWithoutSkipOrEvent(
+      Notification.make(Notification.Notifies(userId), IrwinDone(request.id))
+    )
   }
 }

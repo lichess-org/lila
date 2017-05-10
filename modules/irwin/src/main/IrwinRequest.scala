@@ -9,7 +9,8 @@ case class IrwinRequest(
     origin: IrwinRequest.Origin,
     priority: DateTime, // older = more prioritary; affected by origin
     createdAt: DateTime,
-    startedAt: Option[DateTime]
+    startedAt: Option[DateTime],
+    notifyUserId: Option[User.ID]
 ) {
 
   def id = _id
@@ -30,12 +31,13 @@ object IrwinRequest {
     case object Leaderboard extends Origin
   }
 
-  def make(userId: User.ID, origin: Origin) = IrwinRequest(
+  def make(userId: User.ID, origin: Origin, notifyUserId: Option[User.ID]) = IrwinRequest(
     _id = userId,
     origin = origin,
     priority = DateTime.now minusHours originPriorityDays(origin),
     createdAt = DateTime.now,
-    startedAt = none
+    startedAt = none,
+    notifyUserId = notifyUserId
   )
 
   private def originPriorityDays(origin: Origin) = origin match {

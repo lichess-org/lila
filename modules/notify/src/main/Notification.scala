@@ -136,3 +136,7 @@ case class CorresAlarm(
   gameId: lila.game.Game.ID,
   opponent: String
 ) extends NotificationContent("corresAlarm")
+
+case class IrwinDone(
+  userId: lila.user.User.ID
+) extends NotificationContent("irwinDone")

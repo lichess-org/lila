@@ -37,7 +37,7 @@ final class ReportApi(
       lila.mon.mod.report.create(report.reason.key)()
 
       def insert = coll.insert(report).void >>-
-        bus.publish(lila.hub.actorApi.report.Created(reported.id, report.reason.key), 'report)
+        bus.publish(lila.hub.actorApi.report.Created(reported.id, report.reason.key, by.id), 'report)
 
       if (by.id == UserRepo.lichessId) coll.update(
         selectRecent(reported, report.reason),

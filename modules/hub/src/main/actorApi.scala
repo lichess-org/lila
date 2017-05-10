@@ -45,7 +45,7 @@ package report {
   case class MarkTroll(userId: String, by: String)
   case class Shutup(userId: String, text: String)
   case class Booster(userId: String, accomplice: String)
-  case class Created(userId: String, reason: String)
+  case class Created(userId: String, reason: String, reporterId: String)
   case class Processed(userId: String, reason: String)
 }
 
