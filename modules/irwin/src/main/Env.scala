@@ -38,8 +38,8 @@ final class Env(
 
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
-      case lila.hub.actorApi.report.Created(userId, "cheat") => api.requests.insert(userId, _.Report)
-      case lila.hub.actorApi.report.Processed(userId, "cheat") => api.requests.drop(userId)
+      case lila.hub.actorApi.report.Created(userId, "cheat" | "cheatprint") => api.requests.insert(userId, _.Report)
+      case lila.hub.actorApi.report.Processed(userId, "cheat" | "cheatprint") => api.requests.drop(userId)
     }
   })), 'report)
 }
