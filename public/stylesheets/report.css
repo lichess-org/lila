@@ -53,6 +53,7 @@
   width: 50px;
   margin: 5px 0 5px 8px;
   background: #484541 no-repeat url(../images/icons/octopus.svg);
+  opacity: 0.9;
 }
 #report_list .tabs {
   display: flex;
@@ -90,8 +91,22 @@
   word-break: break-all;
 }
 #report_list table.see button {
-  padding: 20px;
+  width: 100px;
+  box-sizing: border-box;
+}
+#report_list table.see .inquiry button {
+  padding: 15px 20px;
   font-size: 1.4em;
+}
+#report_list table.see button.thin {
+  font-size: 0.9em;
+}
+#report_list table.see .text {
+  max-height: 100px;
+  overflow: hidden;
+}
+#report_list table.see .text.large {
+  font-size: 0.8em;
 }
 #report_list tr.new td:first-child {
   border-left: 3px solid #3893E8;
