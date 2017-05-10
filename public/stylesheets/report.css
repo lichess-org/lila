@@ -98,6 +98,10 @@
   padding: 15px 20px;
   font-size: 1.4em;
 }
+#report_list table.see .inquiry button:hover {
+  background: rgba(56, 147, 232, 1);
+  color: #fff!important;
+}
 #report_list table.see button.thin {
   font-size: 0.9em;
 }

@@ -19,11 +19,11 @@
         }
       </div>
       <div class="actions">
-        @defining("Warning: Offensive language") { subject =>
-        <form method="post" action="@routes.Mod.warn(in.user.username, subject)" data-hint="Send a moderator message" class="hint--bottom-left">
+        <form method="get" action="@routes.Message.form" data-hint="Send a moderator message" class="hint--bottom-left">
+          <input type="hidden" name="mod" value="1" />
+          <input type="hidden" name="user" value="@in.user.id" />
           <input class="fbt" type="submit" value="Warn" />
         </form>
-        }
         @if(isGranted(_.MarkEngine)) {
         <form method="post" action="@routes.Mod.engine(in.user.username)" data-hint="This user is clearly cheating." class="hint--bottom-left">
           <input class="fbt@when(in.user.engine, " active")" type="submit" value="Engine" />

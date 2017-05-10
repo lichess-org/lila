@@ -98,7 +98,6 @@ body {
 }
 #inquiry .fbt {
   height: 100%;
-  background: #484541;
   color: #f0f0f0!important;
 }
 #inquiry .fbt.active {
@@ -109,7 +108,7 @@ body {
   border-left: 1px solid #666;
 }
 #inquiry .links a {
-  padding: 10px 13px;
+  padding: 0 13px;
 }
 #inquiry .links a:hover,
 #inquiry .report a:hover {
