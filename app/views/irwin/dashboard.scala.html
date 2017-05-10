@@ -1,11 +1,31 @@
 @(dashboard: lila.irwin.IrwinDashboard)(implicit ctx: Context)
 
+@percentClass(percent: Int) = { @percent match {
+case p if p < 30 => {green}
+case p if p < 60 => {yellow}
+case p if p < 80 => {orange}
+case _ => {red}
+} }
+
 @mod.layout(
 title = "Irwin dashboard",
 active = "irwin",
 moreCss = cssTag("mod-irwin.css")) {
-<div class="content_box irwin">
-  <h1 data-icon="" class="text lichess_title">Irwin Dashboard</h1>
+<div class="content_box irwin no_padding">
+  <h1 class="text lichess_title">
+    Irwin status:
+    @if(dashboard.seenRecently) {
+    <span class="up">Operational</span>
+    } else {
+    <span class="down">
+      @dashboard.lastSeenAt.map { seenAt =>
+      Last seen @momentFromNow(seenAt)
+      }.getOrElse {
+      Unknown
+      }
+    </span>
+    }
+  </h1>
   <div class="both">
     <div class="queue">
       <table class="slist">
@@ -58,7 +78,7 @@ moreCss = cssTag("mod-irwin.css")) {
             <td class="little completed">
               @momentFromNow(rep.date)
             </td>
-            <td class="little activation">
+            <td class="little activation @percentClass(rep.activation)">
               <strong>@rep.activation%</strong>
               over @rep.games.size games
             </td>

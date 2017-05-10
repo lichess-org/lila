@@ -86,6 +86,8 @@
 #report_list table.see {
   border-top: 3px solid #3893E8;
 }
+#report_list table.see thead {
+}
 #report_list table.see td {
   padding: 15px 10px 15px 10px;
   word-break: break-all;

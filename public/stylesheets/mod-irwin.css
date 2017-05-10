@@ -1,12 +1,25 @@
+.irwin h1 span {
+}
+.irwin h1 .up {
+  text-transform: uppercase;
+  color: #759900;
+}
+.irwin h1 .down {
+  color: #dc322f;
+}
 .irwin .both {
   display: flex;
+  justify-content: space-between;
 }
-.irwin .both > * {
-  flex: 1 1 50%;
+.irwin .both > div {
+  flex: 0 0 49%;
   width: auto;
-  border: 1px solid #ccc;
+  border-left: 1px solid #ccc;
   border-width: 0 1px;
-  margin: 5px;
+}
+.irwin .both > div:first-child {
+  border-left: none;
+  border-right: 1px solid #ccc;
 }
 .irwin .little {
   font-size: 0.8em;
@@ -15,11 +28,16 @@
 .irwin .slist {
   white-space: nowrap;
 }
+.irwin .slist td {
+  padding-top: 1.5em;
+  padding-bottom: 1.5em;
+}
 .irwin .slist td:first-child, .irwin .slist th:first-child {
     padding-left: 15px;
 }
 .irwin .slist strong {
   display: block;
+  text-align: center;
 }
 .irwin .queue tbody tr {
 }
@@ -28,4 +46,20 @@
 }
 body.dark .irwin .both > * {
   border-color: #444;
+}
+body.dark .irwin .activation {
+  color: #fff;
+}
+.irwin .green {
+  /* actually blue */
+  background-color: rgba(32, 119, 192, 0.3);
+}
+.irwin .yellow {
+  background-color: rgba(221, 207, 63, 0.3);
+}
+.irwin .orange {
+  background-color: rgba(231, 155, 100, 0.3);
+}
+.irwin .red {
+  background-color: rgba(231, 59, 56, 0.3);
 }
