@@ -373,6 +373,7 @@ POST  /mod/:username/permissions       controllers.Mod.savePermissions(username:
 GET   /mod/public-chat                 controllers.Mod.publicChat
 
 # Irwin
+GET   /irwin                               controllers.Irwin.dashboard
 POST  /irwin/report                        controllers.Irwin.saveReport
 GET   /irwin/request                       controllers.Irwin.getRequest
 GET   /irwin/:username/assessment          controllers.Irwin.assessment(username: String)

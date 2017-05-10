@@ -88,7 +88,7 @@
     @if(pref.keyboardMove != Pref.KeyboardMove.NO) { [keyboard moves] } else { none }
   </div>
   @irwinStatus.report.map { report =>
-    @views.html.mod.irwinReport(report, irwinStatus.request)
+    @views.html.irwin.irwinReport(report, irwinStatus.request)
   }.getOrElse {
   @irwinStatus.request.map { request =>
     <strong class="inline text" data-icon="">Irwin request:</strong>

@@ -27,6 +27,9 @@
 @if(isGranted(_.SeeReport)) {
 <a class="@active.active("log")" href="@routes.Mod.log">Mod log</a>
 }
+@if(isGranted(_.SeeReport)) {
+<a class="@active.active("irwin")" href="@routes.Irwin.dashboard">Irwin dashboard</a>
+}
 @if(isGranted(_.StaffForum)) {
 <a class="@active.active("forum")" href="@routes.ForumCateg.show("staff")">Staff Forum</a>
 }

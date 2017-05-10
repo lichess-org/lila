@@ -20,6 +20,11 @@ final class IrwinApi(
   def status(user: User): Fu[IrwinStatus] =
     reports.withPovs(user) zip requests.get(user.id) map { (IrwinStatus.apply _).tupled }
 
+  def dashboard: Fu[IrwinDashboard] = for {
+    queue <- requestColl.find($empty).sort($sort asc "priority").list[IrwinRequest](20)
+    recent <- reportColl.find($empty).sort($sort desc "date").list[IrwinReport](20)
+  } yield IrwinDashboard(queue, recent)
+
   object reports {
 
     def insert(report: IrwinReport) = for {

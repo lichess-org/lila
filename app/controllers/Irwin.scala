@@ -11,6 +11,12 @@ object Irwin extends LilaController {
 
   import lila.irwin.JSONHandlers.reportReader
 
+  def dashboard = Secure(_.SeeReport) { implicit ctx => me =>
+    Env.irwin.api.dashboard map { d =>
+      Ok(views.html.irwin.dashboard(d))
+    }
+  }
+
   def saveReport = OpenBody(parse.json) { implicit ctx =>
     ModExternalBot {
       UserRepo.irwin.flatten("Missing irwin user") flatMap { irwin =>

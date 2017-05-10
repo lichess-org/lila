@@ -1,0 +1,31 @@
+.irwin .both {
+  display: flex;
+}
+.irwin .both > * {
+  flex: 1 1 50%;
+  width: auto;
+  border: 1px solid #ccc;
+  border-width: 0 1px;
+  margin: 5px;
+}
+.irwin .little {
+  font-size: 0.8em;
+  opacity: 0.8;
+}
+.irwin .slist {
+  white-space: nowrap;
+}
+.irwin .slist td:first-child, .irwin .slist th:first-child {
+    padding-left: 15px;
+}
+.irwin .slist strong {
+  display: block;
+}
+.irwin .queue tbody tr {
+}
+.irwin .queue tbody tr.started {
+  background: linear-gradient(to right, rgba(99,155,36,0.7) 0px, rgba(99,155,36,0.7) 5px, rgba(0,0,0,0) 5px, rgba(0,0,0,0) 100%);
+}
+body.dark .irwin .both > * {
+  border-color: #444;
+}
