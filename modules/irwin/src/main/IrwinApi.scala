@@ -108,7 +108,7 @@ final class IrwinApi(
 
   private def notifyRequester(request: IrwinRequest): Funit = request.notifyUserId ?? { userId =>
     import lila.notify.{ Notification, IrwinDone }
-    notifyApi.addNotificationWithoutSkipOrEvent(
+    notifyApi.addNotification(
       Notification.make(Notification.Notifies(userId), IrwinDone(request.id))
     )
   }
