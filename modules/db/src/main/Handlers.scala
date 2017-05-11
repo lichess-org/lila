@@ -36,6 +36,12 @@ trait Handlers {
 
   def dateIsoHandler[A](implicit iso: Iso[DateTime, A]): BSONHandler[BSONDateTime, A] = isoHandler[A, DateTime, BSONDateTime](iso)
 
+  implicit def nullableHandler[T, B <: BSONValue](implicit reader: BSONReader[B, T], writer: BSONWriter[T, B]): BSONHandler[BSONValue, Option[T]] = new BSONHandler[BSONValue, Option[T]] {
+    private val generalizedReader = reader.asInstanceOf[BSONReader[BSONValue, T]]
+    def read(bv: BSONValue): Option[T] = generalizedReader.readOpt(bv)
+    def write(v: Option[T]): BSONValue = v.fold[BSONValue](BSONNull)(writer.write)
+  }
+
   implicit def bsonArrayToListHandler[T](implicit reader: BSONReader[_ <: BSONValue, T], writer: BSONWriter[T, _ <: BSONValue]): BSONHandler[BSONArray, List[T]] = new BSONHandler[BSONArray, List[T]] {
     def read(array: BSONArray) = readStreamList(array, reader.asInstanceOf[BSONReader[BSONValue, T]])
     def write(repr: List[T]) =

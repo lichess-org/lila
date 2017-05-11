@@ -34,6 +34,7 @@ object BSONHandlers {
   }
 
   private implicit val GameReportBSONHandler = Macros.handler[GameReport]
+  private implicit val PvBSONHandler = nullableHandler[Int, BSONInteger]
   implicit val ReportBSONHandler = Macros.handler[IrwinReport]
 
   private implicit val RequestOriginBSONHandler: BSONHandler[BSONString, IrwinRequest.Origin] =

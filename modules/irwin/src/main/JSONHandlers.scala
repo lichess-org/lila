@@ -10,12 +10,14 @@ object JSONHandlers {
   private implicit val moveReportReader = Json.reads[MoveReport]
   private implicit val gameReportReader = Json.reads[GameReport]
 
+  private implicit val pvReader: Reads[Option[Int]] = Reads.of[Option[Int]]
+
   implicit val reportReader: Reads[IrwinReport] = (
     (__ \ "userId").read[String] and
     (__ \ "isLegit").readNullable[Boolean] and
     (__ \ "activation").read[Int] and
     (__ \ "games").read[List[GameReport]] and
-    (__ \ "pv0ByAmbiguity").readNullable[List[Int]] and
+    (__ \ "pv0ByAmbiguity").read[List[Option[Int]]] and
     Reads(_ => JsSuccess(DateTime.now))
   )(IrwinReport.apply _)
 }
