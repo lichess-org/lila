@@ -216,7 +216,8 @@ final class ReportApi(
 
   def unprocessedAndRecentWithFilter(nb: Int, room: Option[Room]): Fu[List[Report.WithUserAndNotes]] = for {
     unprocessed <- findRecent(nb, unprocessedSelect ++ roomSelect(room))
-    processed <- findRecent(nb - unprocessed.size, processedSelect ++ roomSelect(room))
+    processed <- if (room has Room.Xfiles) fuccess(Nil)
+    else findRecent(nb - unprocessed.size, processedSelect ++ roomSelect(room))
     withNotes <- addUsersAndNotes(unprocessed ++ processed)
   } yield withNotes
 
