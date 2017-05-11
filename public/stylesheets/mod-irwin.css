@@ -41,8 +41,9 @@
 }
 .irwin .queue tbody tr {
 }
-.irwin .queue tbody tr.started {
-  background: linear-gradient(to right, rgba(99,155,36,0.7) 0px, rgba(99,155,36,0.7) 5px, rgba(0,0,0,0) 5px, rgba(0,0,0,0) 100%);
+.irwin .queue tbody tr.started,
+body.dark .irwin .queue tbody tr.started {
+  background-image: linear-gradient(to right, rgba(99,155,36,0.7) 0px, rgba(99,155,36,0.7) 5px, rgba(0,0,0,0) 5px, rgba(0,0,0,0) 100%);
 }
 body.dark .irwin .both > * {
   border-color: #444;
