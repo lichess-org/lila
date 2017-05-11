@@ -15,7 +15,7 @@ object JSONHandlers {
     (__ \ "isLegit").readNullable[Boolean] and
     (__ \ "activation").read[Int] and
     (__ \ "games").read[List[GameReport]] and
-    (__ \ "pv0ByAmbiguity").read[List[Int]].map(some) and
+    (__ \ "pv0ByAmbiguity").readNullable[List[Int]] and
     Reads(_ => JsSuccess(DateTime.now))
   )(IrwinReport.apply _)
 }
