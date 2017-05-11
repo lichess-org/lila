@@ -4,7 +4,7 @@ db.report.find().forEach(r => {
 
   var room = 'others';
   if (!r.processedBy && r.createdAt < lastWeek) room = 'xfiles';
-  if (r.reason === 'cheat') room = 'cheat';
+  else if (r.reason === 'cheat') room = 'cheat';
   else if (r.reason === 'cheatprint') room = 'print';
   else if (r.reason === 'troll') room = 'coms';
   else if (r.reason === 'insult') room = 'coms';
