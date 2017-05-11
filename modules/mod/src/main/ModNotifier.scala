@@ -8,9 +8,9 @@ private final class ModNotifier(
     reportApi: lila.report.ReportApi
 ) {
 
-  def reporters(user: User): Funit =
+  def reporters(user: User, modId: User.ID): Funit =
     reportApi.recentReportersOf(user) flatMap {
-      _.map { reporterId =>
+      _.filter(modId !=).map { reporterId =>
         notifyApi.addNotification(Notification.make(
           notifies = Notification.Notifies(reporterId),
           content = lila.notify.ReportedBanned

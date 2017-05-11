@@ -26,7 +26,7 @@ final class ModApi(
         UserRepo.setEngine(user.id, v) >>- {
           lilaBus.publish(lila.hub.actorApi.mod.MarkCheater(user.id, v), 'adjustCheater)
           if (v) {
-            notifier.reporters(user)
+            notifier.reporters(user, mod)
             refunder schedule user
           }
           reporter ! lila.hub.actorApi.report.MarkCheater(user.id, mod)
@@ -51,7 +51,7 @@ final class ModApi(
         UserRepo.setBooster(user.id, v) >>- {
           if (v) {
             lilaBus.publish(lila.hub.actorApi.mod.MarkBooster(user.id), 'adjustBooster)
-            notifier.reporters(user)
+            notifier.reporters(user, mod)
           }
         } void
     }
@@ -70,7 +70,7 @@ final class ModApi(
       UserRepo.updateTroll(user).void >>-
         logApi.troll(mod, user.id, user.troll)
     } >>- {
-      if (value) notifier.reporters(user)
+      if (value) notifier.reporters(user, mod)
       (reporter ! lila.hub.actorApi.report.MarkTroll(user.id, mod))
     } inject user.troll
   }
