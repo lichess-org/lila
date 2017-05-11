@@ -13,6 +13,11 @@
 </div>
 }
 }
+@info.allTrophies.find(_.kind == lila.user.Trophy.Kind.ZugMiracle).map { t =>
+<a @t.kind.url.map { url => href="@url" } class="trophy award @t.kind.key @t.kind.klass hint--left" data-hint="@t.kind.name">
+  <img src="@staticUrl("images/trophy/zug-trophy.png")" height=80 />
+</a>
+}
 @defining(info.allTrophies.filter(_.kind.klass.has("icon3d"))) { iconTrophies =>
 @iconTrophies.sorted.map { trophy =>
 @trophy.kind.icon.map { iconChar =>
