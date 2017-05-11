@@ -19,7 +19,7 @@ final class JsonView(
     assessApi.getPlayerAggregateAssessmentWithGames(user.id) flatMap {
       _ ?? {
         case PlayerAggregateAssessment.WithGames(pag, games) => for {
-          gamesWithFen <- GameRepo withInitialFens games
+          gamesWithFen <- GameRepo withInitialFens games.filter(_.clockHistory.isDefined)
           moreGames <- GameRepo.extraGamesForIrwin(user.id, 25) map {
             _.filter { g => !games.exists(_.id == g.id) } take 20
           }
