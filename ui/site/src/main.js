@@ -528,9 +528,6 @@ lichess.topMenuIntent = function() {
             });
           });
         });
-        lichess.requestIdleCallback(function() {
-          if ($('#user_tag').length && lichess.once('dasher')) $('#top .dasher .toggle').click();
-        });
       })();
 
       function translateTexts() {
