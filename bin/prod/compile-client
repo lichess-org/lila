@@ -12,6 +12,6 @@ for file in tv.js puzzle.js user.js coordinate.js; do
   if [[ ! -f $comp || $orig -nt $comp ]]; then
     lilalog "Compiling javascript - $file"
     # closure-compiler --js $orig --js_output_file $comp
-    uglifyjs -c -m -v $orig > $comp
+    uglifyjs -c -m -- $orig > $comp
   fi
 done
