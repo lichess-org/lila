@@ -43,7 +43,7 @@ moreCss = cssTag("report.css")) {
         <td>@userIdLink(r.createdBy.some)<br />@momentFormat(r.createdAt)</td>
         <td>@userLink(u, params = "?mod")<br />@showBestPerf(u)</td>
         <td>
-          <div class="text@if(r.text.size > 200){ large}">
+          <div class="text@if(r.text.size > 200 || r.text.lines.size > 5){ large}">
             <strong>@r.reason.name.capitalize</strong>
             - @autoLink(r.text)
             @if(notes.nonEmpty) {
