@@ -264,7 +264,7 @@ final class ReportApi(
     )
 
   private[report] def moveToXfiles: Funit = coll.update(
-    unprocessedSelect ++ roomSelect(none) ++ $doc("createdAt" $lt DateTime.now.minusDays(7)),
+    unprocessedSelect ++ roomSelect(none) ++ $doc("createdAt" $lt DateTime.now.minusDays(5)),
     $set("room" -> Room.Xfiles.key),
     multi = true
   ).void
@@ -306,19 +306,19 @@ final class ReportApi(
     def spontaneous(user: User, mod: User): Fu[Report] = ofModId(mod.id) flatMap { current =>
       current.??(cancel(mod)) >> {
         val report = Report.make(
-          user, Reason.Other, "Spontaneous inquiry", mod
+          user, Reason.Other, Report.spontaneousText, mod
         ).copy(inquiry = Report.Inquiry(mod.id, DateTime.now).some)
         coll.insert(report) inject report
       }
     }
 
-    private[report] def expire: Funit = coll.update(
-      $doc(
+    private[report] def expire: Funit = {
+      val selector = $doc(
         "inquiry.mod" $exists true,
         "inquiry.seenAt" $lt DateTime.now.minusMinutes(20)
-      ),
-      $unset("inquiry"),
-      multi = true
-    ).void
+      )
+      coll.remove(selector ++ $doc("text" -> Report.spontaneousText)) >>
+        coll.update(selector, $unset("inquiry"), multi = true).void
+    }
   }
 }

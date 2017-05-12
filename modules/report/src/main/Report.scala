@@ -74,6 +74,8 @@ object Report {
     def userIds = by.flatMap(_.userIds) ::: about.flatMap(_.userIds)
   }
 
+  private[report] val spontaneousText = "Spontaneous inquiry"
+
   def make(
     user: User,
     reason: Reason,
