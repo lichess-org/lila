@@ -112,6 +112,16 @@ body.dark .mod_zone .reports .half:first-child {
 .mod_zone .reports .half:hover {
   flex: 0 0 90%;
 }
+.mod_zone .reports form {
+  display: block;
+}
+.mod_zone .reports button:not(:hover) {
+  border-color: transparent;
+  background: transparent;
+}
+.mod_zone .reports button strong {
+  display: inline;
+}
 .mod_zone .evaluation table {
   margin-top: 10px;
 }

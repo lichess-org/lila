@@ -91,34 +91,34 @@
     @if(pref.keyboardMove != Pref.KeyboardMove.NO) { [keyboard moves] } else { none }
   </div>
   @irwinStatus.report.map { report =>
-    @views.html.irwin.irwinReport(report, irwinStatus.request)
+  @views.html.irwin.irwinReport(report, irwinStatus.request)
   }.getOrElse {
   @irwinStatus.request.map { request =>
-    <strong class="inline text" data-icon="">Irwin request:</strong>
-    in progress, requested @momentFromNow(request.createdAt) by: @request.origin
+  <strong class="inline text" data-icon="">Irwin request:</strong>
+  in progress, requested @momentFromNow(request.createdAt) by: @request.origin
   }
   }
   @optionAggregateAssessment.map { pag =>
   <div class="evaluation results">
     @pag.pag.sfAvgBlurs.map { blursYes =>
     <p class="text" data-icon="j">ACPL in games with blurs is <strong>@blursYes</strong>
-    @pag.pag.sfAvgNoBlurs.map { blursNo =>
-    against <strong>@blursNo</strong> in games without blurs.
-    }
+      @pag.pag.sfAvgNoBlurs.map { blursNo =>
+      against <strong>@blursNo</strong> in games without blurs.
+      }
     </p>
     }
     @pag.pag.sfAvgLowVar.map { lowVar =>
     <p class="text" data-icon="j">ACPL in games with consistent move times is <strong>@lowVar</strong>
-    @pag.pag.sfAvgHighVar.map { highVar =>
-    against <strong>@highVar</strong> in games with random move times.
-    }
+      @pag.pag.sfAvgHighVar.map { highVar =>
+      against <strong>@highVar</strong> in games with random move times.
+      }
     </p>
     }
     @pag.pag.sfAvgHold.map { holdYes =>
     <p class="text" data-icon="j">ACPL in games with bot signature <strong>@holdYes</strong>
-    @pag.pag.sfAvgNoHold.map { holdNo =>
-    against <strong>@holdNo</strong> in games without bot signature.
-    }
+      @pag.pag.sfAvgNoHold.map { holdNo =>
+      against <strong>@holdNo</strong> in games without bot signature.
+      }
     </p>
     }
     <table class="slist">
@@ -217,26 +217,26 @@
     <div class="half">
       <strong class="text" data-icon="!">Reports sent by @u.username@if(reports.by.isEmpty){: nothing to show.}</strong>
       @if(reports.by.nonEmpty) {
-      <ul>
-        @reports.by.map { r =>
-        <li>
-          @userIdLink(r.user.some) for @r.reason.name @momentFromNow(r.createdAt) @shorten(r.text, 200)
-        </li>
-        }
-      </ul>
+      @reports.by.map { r =>
+      <form action="@routes.Report.inquiry(r.id)" method="post">
+        <button type="submit">
+          @userIdSpanMini(r.user) for <strong>@r.reason.name</strong> @momentFromNow(r.createdAt) @shorten(r.text, 200)
+        </button>
+      </form>
+      }
       <br />
       }
     </div>
     <div class="half">
       <strong class="text" data-icon="!">Reports concerning @u.username@if(reports.about.isEmpty){: nothing to show.}</strong>
       @if(reports.about.nonEmpty) {
-      <ul>
-        @reports.about.map { r =>
-        <li>
-          @userIdLink(r.createdBy.some) for @r.reason.name @momentFromNow(r.createdAt) @shorten(r.text, 200)
-        </li>
-        }
-      </ul>
+      @reports.about.map { r =>
+      <form action="@routes.Report.inquiry(r.id)" method="post">
+        <button type="submit">
+          @userIdSpanMini(r.createdBy) for <strong>@r.reason.name</strong> @momentFromNow(r.createdAt) @shorten(r.text, 200)
+        </button>
+      </form>
+      }
       <br />
       }
     </div>
