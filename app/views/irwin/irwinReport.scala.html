@@ -24,61 +24,64 @@ case _ => {red}
       }
     </div>
     <div class="pv0">
-      PV 0 Rate by Ambiguity
-    </a>
-    @report.report.pv0ByAmbiguity.map { values =>
-    <div class="rates text">
-      @values.zipWithIndex.map {
-      case (v, i) => {
-      <div><strong class="@percentClass(v)">@v%</strong>@(i + 1)</div>
-      }
-      }
+      <h3>PV 0 Rate by Ambiguity</h3>
+      <div class="rates text">
+        @report.report.pv0ByAmbiguity.zipWithIndex.map {
+        case (vo, i) => {
+        <div>
+          @vo.map { v =>
+          <strong class="@percentClass(v)">@v%</strong>
+          }.getOrElse {
+          <strong>-</strong>
+          } @(i + 1)
+        </div>
+        }
+        }
+      </div>
     </div>
-    }
-  </div>
-  <div class="assess text">
-    <strong class="@percentClass(report.report.activation)">@report.report.activation%</strong>
-    Overall assessment
-  </div>
-</header>
-<table class="slist">
-  <tbody>
-    @report.withPovs.sortBy(-_.report.activation).map {
-    case lila.irwin.IrwinReport.GameReport.WithPov(gameReport, pov) => {
-    <tr class="text">
-      <td class="moves">
-        <a href="@routes.Round.watcher(pov.gameId, pov.color.name)">
-          @gameReport.moves.map { move => <span class="@percentClass(move.activation)" title="@move" style="height:@move.activation%"></span> }
-        </a>
-      </td>
-      <td>
-        <a href="@routes.Round.watcher(pov.gameId, pov.color.name)">
-          @playerLink(pov.opponent, withRating = true, withDiff = true, withOnline = false, link = false)
-          <br />
-          @if(pov.game.isTournament) { <span data-icon="g"></span> }
-          @pov.game.perfType.map { pt => <span data-icon="@pt.iconChar"></span> }
-          @shortClockName(pov.game.clock.map(_.config)) -
-          @momentFromNow(pov.game.createdAt)
-        </a>
-      </td>
-      <td>
-        <strong class="@percentClass(gameReport.activation)">@gameReport.activation%</strong>
-        <em>assessment</em>
-      </td>
-      <td>
-        @defining(pov.game.playerBlurPercent(pov.color)) { blurs =>
-        <strong class="@percentClass(blurs)">@blurs%</strong>
-        }
-        <em>blurs</em>
-      </td>
-      <td>
-        @if(pov.player.holdAlert.??(_.suspicious)) {
-        <strong class="@percentClass(50)">Bot?</strong>
-        }
-      </td>
-    </tr>
-    }
-    }
-  </tbody>
-</table>
+    <div class="assess text">
+      <strong class="@percentClass(report.report.activation)">@report.report.activation%</strong>
+      Overall assessment
+    </div>
+  </header>
+  <table class="slist">
+    <tbody>
+      @report.withPovs.sortBy(-_.report.activation).map {
+      case lila.irwin.IrwinReport.GameReport.WithPov(gameReport, pov) => {
+      <tr class="text">
+        <td class="moves">
+          <a href="@routes.Round.watcher(pov.gameId, pov.color.name)">
+            @gameReport.moves.map { move => <span class="@percentClass(move.activation)" title="@move" style="height:@move.activation%"></span> }
+          </a>
+        </td>
+        <td>
+          <a href="@routes.Round.watcher(pov.gameId, pov.color.name)">
+            @playerLink(pov.opponent, withRating = true, withDiff = true, withOnline = false, link = false)
+            <br />
+            @if(pov.game.isTournament) { <span data-icon="g"></span> }
+            @pov.game.perfType.map { pt => <span data-icon="@pt.iconChar"></span> }
+            @shortClockName(pov.game.clock.map(_.config)) -
+            @momentFromNow(pov.game.createdAt)
+          </a>
+        </td>
+        <td>
+          <strong class="@percentClass(gameReport.activation)">@gameReport.activation%</strong>
+          <em>assessment</em>
+        </td>
+        <td>
+          @defining(pov.game.playerBlurPercent(pov.color)) { blurs =>
+          <strong class="@percentClass(blurs)">@blurs%</strong>
+          }
+          <em>blurs</em>
+        </td>
+        <td>
+          @if(pov.player.holdAlert.??(_.suspicious)) {
+          <strong class="@percentClass(50)">Bot?</strong>
+          }
+        </td>
+      </tr>
+      }
+      }
+    </tbody>
+  </table>
 </div>
