@@ -54,6 +54,7 @@ function makeBindings(opts, submit, clear) {
 }
 
 function sanToUci(san, sans) {
+  if (san in sans) return sans[san];
   var lowered = san.toLowerCase();
   for (var i in sans)
     if (i.toLowerCase() === lowered) return sans[i];
