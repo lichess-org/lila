@@ -43,7 +43,7 @@ final class Env(
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     import lila.hub.actorApi.report._
     def receive = {
-      case Created(userId, "cheat" | "cheatprint", reporterId) => api.requests.insert(userId, _.Report, reporterId.some)
+      case Created(userId, "cheat" | "cheatprint", reporterId) => api.requests.insert(userId, _.Report, none)
       case Processed(userId, "cheat" | "cheatprint") => api.requests.drop(userId)
     }
   })), 'report)
