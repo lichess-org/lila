@@ -98,8 +98,7 @@ function makeBundle(filename) {
       './dep/mousetrap.min.js',
       './dep/hoverintent.min.js',
       './dist/' + filename,
-      './dist/ab.js',
-      '../../public/javascripts/ga.js'
+      './dist/ab.js'
     ])
       .pipe(concat(filename.replace('source.', '')))
       .pipe(gulp.dest(destination));

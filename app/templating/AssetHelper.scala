@@ -49,10 +49,6 @@ trait AssetHelper { self: I18nHelper =>
     s"""<script src="${staticUrl("javascripts/vendor/jquery.min.js")}"></script>"""
   }
 
-  val gaTag = Html {
-    s"""<script src="${staticUrl("javascripts/ga.js")}"></script>"""
-  }
-
   val highchartsTag = cdnOrLocal(
     cdn = "//code.highcharts.com/4.1.4/highcharts.js",
     test = "window.Highcharts",
