@@ -89,4 +89,3 @@ Lichess as deployed on https://lichess.org/ also uses these external services:
 * [check.torproject.org](https://check.torproject.org/exit-addresses) for a list or Tor exit nodes
 * [getipintel.net](https://getipintel.net/)
 * [Google Fonts](https://fonts.google.com/)
-* [Google Analytics](https://analytics.google.com/)
