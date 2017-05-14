@@ -189,7 +189,7 @@ final class ReportApi(
 
   val nbUnprocessedCache = asyncCache.single[Int](
     name = "report.nbUnprocessed",
-    f = coll.countSel(unprocessedSelect),
+    f = coll.countSel(unprocessedSelect ++ roomSelect(none)),
     expireAfter = _.ExpireAfterWrite(1 hour)
   )
 
