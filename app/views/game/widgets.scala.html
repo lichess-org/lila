@@ -48,7 +48,7 @@
         @g.variant.name.toUpperCase
         }
         } else {
-        @g.clock.map(_.show).getOrElse {
+        @g.clock.map(_.config.show).getOrElse {
         @g.daysPerTurn.map { days =>
         <span data-hint="@trans.correspondence()" class="hint--top">@if(days == 1) {@trans.oneDay()} else {@trans.nbDays(days)}</span>
         }.getOrElse {

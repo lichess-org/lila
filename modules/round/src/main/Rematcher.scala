@@ -77,7 +77,7 @@ private[round] final class Rematcher(
       board = Board(pieces, variant = pov.game.variant).withCastles {
         situation.fold(Castles.init)(_.situation.board.history.castles)
       },
-      clock = pov.game.clock map (_.reset),
+      clock = pov.game.clock map { c => Clock(c.config) },
       turns = situation ?? (_.turns),
       startedAtTurn = situation ?? (_.turns)
     ),
