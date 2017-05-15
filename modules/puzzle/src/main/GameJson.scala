@@ -31,7 +31,7 @@ private final class GameJson(
       tree = TreeBuilder(game, plies)
     } yield Json.obj(
       "id" -> game.id,
-      "clock" -> game.clock.map(_.show),
+      "clock" -> game.clock.map(_.config.show),
       "perf" -> Json.obj(
         "icon" -> perfType.iconChar.toString,
         "name" -> perfType.name

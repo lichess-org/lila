@@ -220,7 +220,7 @@ case class Game(
           binaryMoveTimes.?? { t =>
             BinaryFormat.moveTime.read(t, playedTurns)
           } :+ {
-            (Centis(nowCentis - movedAt.getCentis) - ~lag) nonNeg
+            Centis(nowCentis - movedAt.getCentis) nonNeg
           }
         }
       },
@@ -365,7 +365,7 @@ case class Game(
 
   def goBerserk(color: Color) =
     clock.ifTrue(berserkable && !player(color).berserk).map { c =>
-      val newClock = c berserk color
+      val newClock = c goBerserk color
       Progress(this, copy(
         clock = Some(newClock),
         clockHistory = clockHistory.map(history => {
@@ -456,7 +456,7 @@ case class Game(
   }
 
   private def outoftimeCorrespondence: Boolean =
-    playableCorrespondenceClock ?? { _ outoftime player.color }
+    playableCorrespondenceClock ?? { _ outoftime turnColor }
 
   def isCorrespondence = speed == chess.Speed.Correspondence
 
