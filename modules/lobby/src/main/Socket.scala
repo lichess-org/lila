@@ -121,9 +121,11 @@ private[lobby] final class Socket(
         notifyPlayerStart(game, !creatorColor)(member)
       }
 
-    case lila.pool.PoolApi.Pairing(game, whiteUid, blackUid) =>
-      withMember(whiteUid.value)(notifyPlayerStart(game, chess.White))
-      withMember(blackUid.value)(notifyPlayerStart(game, chess.Black))
+    case pairing: lila.pool.PoolApi.Pairing =>
+      def goPlayTheGame = redirectPlayers(pairing)
+      goPlayTheGame // go play the game now
+      context.system.scheduler.scheduleOnce(1 second)(goPlayTheGame) // I said go
+      context.system.scheduler.scheduleOnce(3 second)(goPlayTheGame) // Darn it
 
     case HookIds(ids) =>
       val msg = makeMessage("hli", ids mkString "")
@@ -146,6 +148,11 @@ private[lobby] final class Socket(
     case AllHooksFor(member, hooks) =>
       notifyMember("hooks", JsArray(hooks.map(_.render)))(member)
       hookSubscriberUids += member.uid
+  }
+
+  def redirectPlayers(p: lila.pool.PoolApi.Pairing) = {
+    withMember(p.whiteUid.value)(notifyPlayerStart(p.game, chess.White))
+    withMember(p.blackUid.value)(notifyPlayerStart(p.game, chess.Black))
   }
 
   def notifyPlayerStart(game: Game, color: chess.Color) =
