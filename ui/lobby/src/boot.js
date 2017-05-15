@@ -66,6 +66,7 @@ module.exports = function(cfg, element) {
           lichess.pubsub.emit('content_loaded')();
         },
         redirect: function(e) {
+          lobby.leavePool();
           lobby.setRedirecting();
           $.redirect(e);
         },
