@@ -6,7 +6,7 @@ import scala.concurrent.Promise
 import akka.actor._
 import akka.pattern.ask
 import chess.format.Uci
-import chess.Centis
+import chess.{ Centis, MoveMetrics }
 import play.api.libs.json.{ JsObject, Json }
 
 import actorApi._, round._
@@ -187,8 +187,10 @@ private[round] final class SocketHandler(
     blur = d int "b" contains 1
   } yield (drop, blur, parseLag(d))
 
-  private def parseLag(d: JsObject) =
-    Centis.ofMillis(d.int("l") orElse d.int("lag") getOrElse 0)
+  private def parseLag(d: JsObject) = MoveMetrics(
+    d.int("l") orElse d.int("lag") map Centis.ofMillis,
+    d.int("s") map Centis.apply
+  )
 
   private val ackEvent = Json.obj("t" -> "ack")
 }

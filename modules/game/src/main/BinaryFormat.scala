@@ -80,11 +80,24 @@ object BinaryFormat {
   }
 
   case class clock(start: Timestamp) {
+
+    def legacyElapsed(clock: Clock, color: Color) =
+      clock.limit - clock.players(color).remaining
+
+    def computeRemaining(config: Clock.Config, legacyElapsed: Centis) =
+      config.limit - legacyElapsed
+
+    // TODO: new binary clock format
+    // - clock history
+    // - berserk bits
+    // - "real" elapsed
+    // - lag stats
+
     def write(clock: Clock): ByteArray = {
       Array(writeClockLimit(clock.limitSeconds), clock.incrementSeconds.toByte) ++
-        writeSignedInt24(clock.whiteTime.centis) ++
-        writeSignedInt24(clock.blackTime.centis) ++
-        (clock.timerOption map writeTimer getOrElse Array())
+        writeSignedInt24(legacyElapsed(clock, White).centis) ++
+        writeSignedInt24(legacyElapsed(clock, Black).centis) ++
+        (clock.timer map writeTimer getOrElse Array())
     }
 
     def read(ba: ByteArray, whiteBerserk: Boolean, blackBerserk: Boolean): Color => Clock = color => {
@@ -101,27 +114,23 @@ object BinaryFormat {
       ia match {
         case Array(b1, b2, b3, b4, b5, b6, b7, b8, _*) => {
           val config = Clock.Config(readClockLimit(b1), b2)
-          val whiteTime = Centis(readSignedInt24(b3, b4, b5))
-          val blackTime = Centis(readSignedInt24(b6, b7, b8))
-          timer.fold[Clock](
-            PausedClock(
-              config = config,
-              color = color,
-              whiteTime = whiteTime,
-              blackTime = blackTime,
-              whiteBerserk = whiteBerserk,
-              blackBerserk = blackBerserk
-            )
-          )(t =>
-              RunningClock(
+          val legacyWhite = Centis(readSignedInt24(b3, b4, b5))
+          val legacyBlack = Centis(readSignedInt24(b6, b7, b8))
+          Clock(
+            config = config,
+            color = color,
+            players = Color.Map(
+              ClockPlayer(
                 config = config,
-                color = color,
-                whiteTime = whiteTime,
-                blackTime = blackTime,
-                whiteBerserk = whiteBerserk,
-                blackBerserk = blackBerserk,
-                timer = t
-              ))
+                berserk = whiteBerserk
+              ).setRemaining(computeRemaining(config, legacyWhite)),
+              ClockPlayer(
+                config = config,
+                berserk = blackBerserk
+              ).setRemaining(computeRemaining(config, legacyBlack))
+            ),
+            timer = timer
+          )
         }
         case _ => sys error s"BinaryFormat.clock.read invalid bytes: ${ba.showBytes}"
       }

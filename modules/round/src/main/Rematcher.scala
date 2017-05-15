@@ -2,7 +2,7 @@ package lila.round
 
 import chess.format.Forsyth
 import chess.variant._
-import chess.{ Game => ChessGame, Board, Color => ChessColor, Castles }
+import chess.{ Game => ChessGame, Board, Color => ChessColor, Castles, Clock }
 import ChessColor.{ White, Black }
 
 import lila.game.{ GameRepo, Game, Event, Progress, Pov, Source, AnonCookie, PerfPicker }

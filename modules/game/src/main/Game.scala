@@ -6,7 +6,7 @@ import chess.Color.{ White, Black }
 import chess.format.{ Uci, FEN }
 import chess.opening.{ FullOpening, FullOpeningDB }
 import chess.variant.{ Variant, Crazyhouse }
-import chess.{ History => ChessHistory, CheckCount, Castles, Board, MoveOrDrop, Pos, Game => ChessGame, Clock, Status, Color, Mode, PositionHash, UnmovedRooks, Centis }
+import chess.{ MoveMetrics, History => ChessHistory, CheckCount, Castles, Board, MoveOrDrop, Pos, Game => ChessGame, Clock, Status, Color, Mode, PositionHash, UnmovedRooks, Centis }
 import org.joda.time.DateTime
 
 import lila.common.Sequence
@@ -189,7 +189,7 @@ case class Game(
     game: ChessGame,
     moveOrDrop: MoveOrDrop,
     blur: Boolean = false,
-    lag: Option[Centis] = None
+    moveMetrics: MoveMetrics = MoveMetrics()
   ): Progress = {
     val (history, situation) = (game.board.history, game.situation)
 
@@ -446,12 +446,12 @@ case class Game(
 
   def drawn = finished && winner.isEmpty
 
-  def outoftime(playerLag: Color => Centis): Boolean =
-    outoftimeClock(playerLag) || outoftimeCorrespondence
+  def outoftime: Boolean =
+    if (isCorrespondence) outoftimeCorrespondence else outoftimeClock
 
-  private def outoftimeClock(playerLag: Color => Centis): Boolean = clock ?? { c =>
+  private def outoftimeClock: Boolean = clock ?? { c =>
     started && playable && (bothPlayersHaveMoved || isSimul) && {
-      (!c.isRunning && !c.isInit) || c.outoftimeWithGrace(turnColor, playerLag(turnColor))
+      (!c.isRunning && !c.isInit) || c.outOfTimeWithGrace(turnColor)
     }
   }
 

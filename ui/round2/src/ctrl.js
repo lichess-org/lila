@@ -20,6 +20,8 @@ var renderUser = require('./view/user');
 var cevalSub = require('./cevalSub');
 var keyboard = require('./keyboard');
 
+var nowMillis = Performance.now || Date.now;
+
 module.exports = function(opts, redraw) {
 
   this.data = round.merge({}, opts.data).data;
@@ -44,7 +46,8 @@ module.exports = function(opts, redraw) {
     justDropped: null,
     justCaptured: null,
     preDrop: null,
-    lastDrawOfferAtPly: null
+    lastDrawOfferAtPly: null,
+    lastMoveMillis: null
   };
   this.vm.goneBerserk[this.data.player.color] = opts.data.player.berserk;
   this.vm.goneBerserk[this.data.opponent.color] = opts.data.opponent.berserk;
@@ -224,6 +227,8 @@ module.exports = function(opts, redraw) {
   this.apiMove = function(o) {
     var d = this.data,
       playing = game.isPlayerPlaying(d);
+
+    if (playing) this.vm.lastMoveMillis = nowMillis();
     d.game.turns = o.ply;
     d.game.player = o.ply % 2 === 0 ? 'white' : 'black';
     var playedColor = o.ply % 2 === 0 ? 'black' : 'white';
@@ -481,16 +486,18 @@ module.exports = function(opts, redraw) {
 
   this.submitMove = function(v) {
     if (v && (this.vm.moveToSubmit || this.vm.dropToSubmit)) {
-      if (this.vm.moveToSubmit)
-      this.socket.send('move', this.vm.moveToSubmit, {
+      var socketOpts = {
         ackable: true,
         withLag: !!this.clock
-      });
-      else if (this.vm.dropToSubmit)
-      this.socket.send('drop', this.vm.dropToSubmit, {
-        ackable: true,
-        withLag: !!this.clock
-      });
+      }
+      var startTime = this.vm.lastMoveMillis;
+      if (startTime !== null) socketOpts.timeMillis = nowMillis() - startTime;
+
+      if (this.vm.moveToSubmit) {
+        this.socket.send('move', this.vm.moveToSubmit, socketOpts);
+      } else if (this.vm.dropToSubmit) {
+        this.socket.send('drop', this.vm.dropToSubmit, socketOpts);
+      }
       lichess.sound.confirmation();
     } else this.jump(this.vm.ply);
     this.cancelMove();

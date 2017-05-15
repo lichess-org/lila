@@ -1,7 +1,7 @@
 package lila.round
 
 import chess.format.{ Forsyth, FEN, Uci }
-import chess.{ Centis, Status, Color, MoveOrDrop }
+import chess.{ MoveMetrics, Centis, Status, Color, MoveOrDrop }
 
 import actorApi.round.{ HumanPlay, DrawNo, TakebackNo, ForecastPlay }
 import akka.actor.ActorRef
@@ -19,7 +19,7 @@ private[round] final class Player(
   def human(play: HumanPlay, round: ActorRef)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = play match {
     case p @ HumanPlay(playerId, uci, blur, lag, promiseOption) => pov match {
       case Pov(game, color) if game playableBy color =>
-        p.trace.segmentSync("applyUci", "logic")(applyUci(game, uci, blur, lag + humanLag)).prefixFailuresWith(s"$pov ")
+        p.trace.segmentSync("applyUci", "logic")(applyUci(game, uci, blur, lag)).prefixFailuresWith(s"$pov ")
           .fold(errs => fufail(ClientError(errs.shows)), fuccess).flatMap {
             case (progress, moveOrDrop) =>
               p.trace.segment("save", "db")(proxy save progress) >>- {
@@ -49,8 +49,8 @@ private[round] final class Player(
   def fishnet(game: Game, uci: Uci, currentFen: FEN, round: ActorRef)(implicit proxy: GameProxy): Fu[Events] =
     if (game.playable && game.player.isAi) {
       if (currentFen == FEN(Forsyth >> game.toChess))
-        if (game.outoftime(_ => fishnetLag)) finisher.outOfTime(game)
-        else applyUci(game, uci, blur = false, lag = fishnetLag)
+        if (game.outoftime) finisher.outOfTime(game)
+        else applyUci(game, uci, blur = false, metrics = fishnetLag)
           .fold(errs => fufail(ClientError(errs.shows)), fuccess).flatMap {
             case (progress, moveOrDrop) =>
               proxy.save(progress) >>-
@@ -70,21 +70,18 @@ private[round] final class Player(
     else fuccess(round ! actorApi.round.ResignAi)
   }
 
-  private val clientLag = Centis(3)
-  private val serverLag = Centis(1)
-  private val humanLag = clientLag + serverLag
-  private val fishnetLag = Centis(1) + serverLag
+  private val fishnetLag = MoveMetrics()
 
-  private def applyUci(game: Game, uci: Uci, blur: Boolean, lag: Centis) = (uci match {
-    case Uci.Move(orig, dest, prom) => game.toChess.apply(orig, dest, prom, lag) map {
+  private def applyUci(game: Game, uci: Uci, blur: Boolean, metrics: MoveMetrics) = (uci match {
+    case Uci.Move(orig, dest, prom) => game.toChess.apply(orig, dest, prom, metrics) map {
       case (ncg, move) => ncg -> (Left(move): MoveOrDrop)
     }
-    case Uci.Drop(role, pos) => game.toChess.drop(role, pos, lag) map {
+    case Uci.Drop(role, pos) => game.toChess.drop(role, pos, metrics) map {
       case (ncg, drop) => ncg -> (Right(drop): MoveOrDrop)
     }
   }).map {
     case (newChessGame, moveOrDrop) =>
-      game.update(newChessGame, moveOrDrop, blur, lag.some) -> moveOrDrop
+      game.update(newChessGame, moveOrDrop, blur, metrics) -> moveOrDrop
   }
 
   private def notifyMove(moveOrDrop: MoveOrDrop, game: Game) {

@@ -72,7 +72,7 @@ class BinaryClockTest extends Specification {
       isomorphism(c3) must_== c3
 
       val c4 = clock.start
-      isomorphism(c4).timerOption.get.value must beCloseTo(c4.timer.value, 10)
+      isomorphism(c4).timer.get.value must beCloseTo(c4.timer.get.value, 10)
 
       Clock(120, 60) |> { c =>
         isomorphism(c) must_== c

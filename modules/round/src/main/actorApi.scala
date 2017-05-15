@@ -4,7 +4,7 @@ package actorApi
 import scala.concurrent.duration.FiniteDuration
 import scala.concurrent.Promise
 
-import chess.{ Centis, Color }
+import chess.{ MoveMetrics, Color }
 import chess.format.Uci
 
 import lila.common.{ IpAddress, ApiVersion }
@@ -107,7 +107,7 @@ package round {
       playerId: String,
       uci: Uci,
       blur: Boolean,
-      lag: Centis,
+      moveMetrics: MoveMetrics = MoveMetrics(),
       promise: Option[Promise[Unit]] = None
   ) {
 
