@@ -51,6 +51,7 @@ after_success:
 cache:
   directories:
     - $HOME/.ivy2/cache
+    - $HOME/.ivy2/local
     - $HOME/.sbt
 
 before_cache:
