@@ -41,11 +41,11 @@ export default function(ctrl, trans, color, position, runningColor) {
       running: runningColor === color
     }
   }, [
-    ctrl.data.showBar ? h('div.bar',
+    ctrl.data.showBar ? h('div.bar', [
       h('span', {
-        attrs: { style: { width: ctrl.timePercent(color) + '%'} }
+        attrs: { style: `width: ${ctrl.timePercent(color)}%` }
       })
-    ) : null,
+    ]) : null,
     h('div.time', {
       hook: {
         insert: vnode => update(vnode.elm as HTMLElement),
