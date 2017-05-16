@@ -9,7 +9,7 @@ export default function(ctrl: Ctrl) {
 
   return h('div#chat.side_box.mchat', {
     class: {
-      mod: ctrl.opts.permissions.timeout
+      mod: !!ctrl.opts.permissions.timeout
     }
   }, moderationView(ctrl.moderation) || normalView(ctrl))
 }
