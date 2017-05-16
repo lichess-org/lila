@@ -48,6 +48,16 @@ after_success:
   - git log -n 1 --pretty=oneline > commit.txt
   - tar -zcf "lila-${TRAVIS_BRANCH}.tar.gz" target/universal/stage public LICENSE COPYING.md README.md commit.txt
 
+cache:
+  directories:
+    - $HOME/.ivy2/cache
+    - $HOME/.ivy2/local
+    - $HOME/.sbt
+
+before_cache:
+  - find $HOME/.ivy2/cache -name "ivydata-*.properties" -delete
+  - find $HOME/.sbt -name "*.lock" -delete
+
 addons:
   artifacts:
     bucket: lichess.org
