@@ -36,7 +36,6 @@ install:
   - npm install -g gulp
 
   - ./bin/submodule-setup.sh
-  - ./bin/build-deps.sh
 
 script:
   - ./ui/build
