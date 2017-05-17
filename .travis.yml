@@ -38,8 +38,7 @@ install:
   - ./bin/submodule-setup.sh
 
 script:
-  - ./ui/build
-  - sbt compile
+  - ./ui/build prod
   - sbt test
 
 after_success:
