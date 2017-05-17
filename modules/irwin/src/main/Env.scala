@@ -35,7 +35,7 @@ final class Env(
   scheduler.future(15 minutes, "irwin leaderboards") {
     lila.common.Future.applySequentially(lila.rating.PerfType.standard) { pt =>
       userCache.top200Perf(pt.id) flatMap { users =>
-        api.requests.fromLeaderboard(users.take(50).map(_.user.id))
+        api.requests.fromLeaderboard(users.map(_.user.id))
       }
     }
   }
