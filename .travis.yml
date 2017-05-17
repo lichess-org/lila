@@ -55,6 +55,7 @@ cache:
 before_cache:
   - find $HOME/.ivy2/cache -name "ivydata-*.properties" -delete
   - find $HOME/.sbt -name "*.lock" -delete
+  - rm -rf $HOME/.sbt/0.13/dependency/module/dynamic
 
 addons:
   artifacts:
