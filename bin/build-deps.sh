@@ -13,11 +13,6 @@ cd Kamon
 sbt publish-local
 cd ..
 
-git clone --depth 1 https://github.com/gilt/gfc-semver
-cd gfc-semver
-sbt publish-local
-cd ..
-
 git clone --depth 1 https://github.com/ornicar/scalalib
 cd scalalib
 sbt publish-local
