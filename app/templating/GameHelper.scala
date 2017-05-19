@@ -34,7 +34,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     val speedAndClock =
       if (game.imported) "imported"
       else game.clock.fold(chess.Speed.Correspondence.name) { c =>
-        s"${chess.Speed(c.config).name} (${c.show})"
+        s"${chess.Speed(c.config).name} (${c.config.show})"
       }
     val mode = game.mode.name
     val variant = if (game.variant == chess.variant.FromPosition) "position setup chess"
@@ -174,7 +174,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   private def gameTitle(game: Game, color: Color): String = {
     val u1 = playerText(game player color, withRating = true)
     val u2 = playerText(game opponent color, withRating = true)
-    val clock = game.clock ?? { c => " • " + c.show }
+    val clock = game.clock ?? { c => " • " + c.config.show }
     val variant = game.variant.exotic ?? s" • ${game.variant.name}"
     s"$u1 vs $u2$clock$variant"
   }
