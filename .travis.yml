@@ -18,7 +18,6 @@ notifications:
 env:
   global:
    - secure: "VkgJ78marLdG8JQrWV3UhcxXyWmdy6BV3gYLTyXpK2ltPA4vGkFilZDc8hMx2VhYeeTXyvXB+PM4xkB40PUnDlmNXIWQlG7IxKIb/zxwUVS+WcvAzM6yqEV9B/UbZO+Mgp2Hl4/F1lMoIpdQ0tkRvHmfw01L9VDrQs4Otdmd38o=" # GITHUB_API_TOKEN
-   - TRAVIS_NODE_VERSION="4.0.0"
 
 git:
   depth: 3
@@ -38,8 +37,8 @@ jobs:
        - git log -n 1 --pretty=oneline > commit.txt
        - tar -zcf "lila-server-${TRAVIS_BRANCH}.tar.gz" target/universal/stage LICENSE COPYING.md README.md commit.txt
       before_cache:
-       - find $HOME/.ivy2/cache -name "ivydata-*.properties" -delete
-       - find $HOME/.sbt -name "*.lock" -delete
+       - find $HOME/.ivy2/cache -name 'ivydata-*.properties' -delete
+       - find $HOME/.sbt -name '*.lock' -delete
        - rm -rf $HOME/.sbt/0.13/dependency/module/dynamic
       cache:
         directories:
@@ -55,6 +54,12 @@ jobs:
       after_success:
        - git log -n 1 --pretty=oneline > commit.txt
        - tar -zcf "lila-assets-${TRAVIS_BRANCH}.tar.gz" public LICENSE COPYING.md README.md commit.txt
+      before_cache:
+       - yarn cache dir
+       - rm -rf $HOME/.cache/yarn/v1/npm-{types,common,chess,game,tree,ceval}-*
+      cache:
+        directories:
+          - $HOME/.cache/yarn
 
 addons:
   artifacts:

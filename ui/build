@@ -15,8 +15,8 @@ build_ts() {
   rm -rf node_modules/types
   rm -rf node_modules/common
   rm -rf node_modules/chess
-  npm install --no-optional
-  npm run compile
+  yarn install --check-files
+  yarn run compile
   cd -
 }
 
@@ -30,7 +30,8 @@ build() {
   rm -rf node_modules/game
   rm -rf node_modules/tree
   rm -rf node_modules/ceval
-  npm install --no-optional && gulp $target
+  yarn install --check-files
+  gulp $target
   cd -
 }
 
