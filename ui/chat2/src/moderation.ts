@@ -52,11 +52,11 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
   };
 }
 
-export function lineAction(onClick: (e: Event) => void) {
+export function lineAction(username: string) {
   return h('i.mod', {
-    hook: bind('click', onClick),
     attrs: {
       'data-icon': '',
+      'data-username': username,
       title: 'Moderation'
     }
   });
@@ -65,10 +65,12 @@ export function lineAction(onClick: (e: Event) => void) {
 export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
   if (!ctrl) return;
   if (ctrl.loading()) return [h('div.loading', spinner())];
-  var data = ctrl.data();
+  const data = ctrl.data();
   if (!data) return;
   return [
-    h('div.top', [
+    h('div.top', {
+      key: 'mod-' + data.id,
+    }, [
       h('span.text', {
         attrs: {'data-icon': '' },
       }, [userLink(data.username)]),

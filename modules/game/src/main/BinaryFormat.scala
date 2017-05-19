@@ -79,60 +79,58 @@ object BinaryFormat {
     }.take(turns).map(Centis.apply)(breakOut)
   }
 
-  case class clock(since: DateTime) {
-
+  case class clock(start: Timestamp) {
     def write(clock: Clock): ByteArray = {
       Array(writeClockLimit(clock.limitSeconds), clock.incrementSeconds.toByte) ++
         writeSignedInt24(clock.whiteTime.centis) ++
         writeSignedInt24(clock.blackTime.centis) ++
-        writeTimer(clock.timerOption.fold(0l)(_.value / 10l))
+        clock.timerOption.fold(Array.empty[Byte])(writeTimer)
     }
 
-    def read(ba: ByteArray, whiteBerserk: Boolean, blackBerserk: Boolean): Color => Clock = color => ba.value map toInt match {
-      case Array(b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12) =>
-        readTimer(b9, b10, b11, b12) match {
-          case 0 => PausedClock(
-            config = Clock.Config(readClockLimit(b1), b2),
-            color = color,
-            whiteTime = Centis(readSignedInt24(b3, b4, b5)),
-            blackTime = Centis(readSignedInt24(b6, b7, b8)),
-            whiteBerserk = whiteBerserk,
-            blackBerserk = blackBerserk
-          )
-          case timer => RunningClock(
-            config = Clock.Config(readClockLimit(b1), b2),
-            color = color,
-            whiteTime = Centis(readSignedInt24(b3, b4, b5)),
-            blackTime = Centis(readSignedInt24(b6, b7, b8)),
-            whiteBerserk = whiteBerserk,
-            blackBerserk = blackBerserk,
-            timer = Timestamp(timer * 10l)
-          )
+    def read(ba: ByteArray, whiteBerserk: Boolean, blackBerserk: Boolean): Color => Clock = color => {
+      val ia = ba.value map toInt
+
+      // ba.size might be greater than 12 with 5 bytes timers
+      // ba.size might be 8 if there was no timer.
+      // #TODO remove 5 byte timer case! But fix the DB first!
+      val timer = {
+        if (ia.size == 12) readTimer(readInt(ia(8), ia(9), ia(10), ia(11)))
+        else None
+      }
+
+      ia match {
+        case Array(b1, b2, b3, b4, b5, b6, b7, b8, _*) => {
+          val config = Clock.Config(readClockLimit(b1), b2)
+          val whiteTime = Centis(readSignedInt24(b3, b4, b5))
+          val blackTime = Centis(readSignedInt24(b6, b7, b8))
+          timer.fold[Clock](
+            PausedClock(
+              config = config,
+              color = color,
+              whiteTime = whiteTime,
+              blackTime = blackTime,
+              whiteBerserk = whiteBerserk,
+              blackBerserk = blackBerserk
+            )
+          )(t =>
+              RunningClock(
+                config = config,
+                color = color,
+                whiteTime = whiteTime,
+                blackTime = blackTime,
+                whiteBerserk = whiteBerserk,
+                blackBerserk = blackBerserk,
+                timer = t
+              ))
         }
-      // compatibility with 5 bytes timers
-      // #TODO remove me! But fix the DB first!
-      case Array(b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, _) =>
-        PausedClock(
-          config = Clock.Config(readClockLimit(b1), b2),
-          color = color,
-          whiteTime = Centis(readSignedInt24(b3, b4, b5)),
-          blackTime = Centis(readSignedInt24(b6, b7, b8)),
-          whiteBerserk = whiteBerserk,
-          blackBerserk = blackBerserk
-        )
-      case _ => sys error s"BinaryFormat.clock.read invalid bytes: ${ba.showBytes}"
+        case _ => sys error s"BinaryFormat.clock.read invalid bytes: ${ba.showBytes}"
+      }
     }
 
-    private def decay = (since.getMillis / 10) - 10
+    private def writeTimer(timer: Timestamp) = writeInt((timer - start).centis)
 
-    private def writeTimer(long: Long) = {
-      writeInt(math.max(0l, long - decay).toInt)
-    }
-
-    private def readTimer(b1: Int, b2: Int, b3: Int, b4: Int) = {
-      val l = readInt(b1, b2, b3, b4)
-      if (l == 0) 0 else l + decay
-    }
+    private def readTimer(l: Int) =
+      if (l != 0) Some(start + Centis(l)) else None
 
     private def writeClockLimit(limit: Int): Byte = {
       // The database expects a byte for a limit, and this is limit / 60.
@@ -147,6 +145,10 @@ object BinaryFormat {
     private def readClockLimit(i: Int) = {
       if (i < 181) i * 60 else (i - 180) * 15
     }
+  }
+
+  object clock {
+    def apply(start: DateTime) = new clock(Timestamp(start.getMillis))
   }
 
   object castleLastMoveTime {

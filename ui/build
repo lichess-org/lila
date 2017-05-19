@@ -1,16 +1,15 @@
-#!/bin/sh -e
-. bin/lilarc
-
+#!/bin/bash -ea
 target=${1-dev}
 
 mkdir -p public/compiled
 
-ts_apps="common chess ceval game tree"
+ts_apps1="common chess"
+ts_apps2="ceval game tree"
 apps="site chat2 challenge2 notify2 learn insight editor puzzle round2 analyse lobby tournament tournamentSchedule simul perfStat dasher"
 
-prll_sh=${PRLLSH-/etc/profile.d/prll.sh}
-
 build_ts() {
+  echo "build_ts" "$@"
+  set -ex
   cd ui/$1
   rm -rf node_modules/types
   rm -rf node_modules/common
@@ -21,8 +20,9 @@ build_ts() {
 }
 
 build() {
+  echo "build" "$@"
+  set -ex
   app=$1
-  echo "Building $app"
   cd ui/$app
   rm -rf node_modules/types
   rm -rf node_modules/common
@@ -35,13 +35,15 @@ build() {
   cd -
 }
 
-if [ -f $prll_sh ]; then # parallel execution!
-  export PRLL_NRJOBS="${PRLL_NRJOBS-10}"
-  echo "Building up to $PRLL_NRJOBS in parallel!"
-  . $prll_sh
-  prll build_ts $ts_apps
-  prll build $apps
+if command -v parallel >/dev/null; then # parallel execution!
+  if [ -z "$P_OPTS" -a ! -e ~/.parallel/config ]; then
+      P_OPTS="-j+4"
+      [ "$TRAVIS" = "true" ] || P_OPTS+=" --bar"
+  fi
+  parallel --gnu $P_OPTS build_ts ::: $ts_apps1
+  parallel --gnu $P_OPTS build_ts ::: $ts_apps2
+  parallel --gnu $P_OPTS build ::: $apps
 else # sequential execution
-  for app in $ts_apps; do build_ts $app; done
+  for app in $ts_apps1 $ts_apps2; do build_ts $app; done
   for app in $apps; do build $app; done
 fi

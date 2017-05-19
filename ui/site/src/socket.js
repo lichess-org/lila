@@ -3,9 +3,7 @@ var makeAckable = require('./ackable');
 // versioned events, acks, retries, resync
 lichess.StrongSocket = function(url, version, settings) {
 
-  var now = function() {
-    return Date.now();
-  };
+  var now = Date.now;
 
   var settings = $.extend(true, {}, lichess.StrongSocket.defaults, settings);
   var url = url;
