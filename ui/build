@@ -33,9 +33,9 @@ build() {
 
 if command -v parallel >/dev/null; then # parallel execution!
   export -f build_ts build
-  if [ ! -e ~/.parallel/config ]; then
+  if [ -z "$P_OPTS" -a ! -e ~/.parallel/config ]; then
       P_OPTS="-j+4"
-      [ ! -t 1 ] || P_OPTS+=" --bar"
+      [ "$TRAVIS" = "true" ] || P_OPTS+=" --bar"
   fi
   parallel --gnu $P_OPTS build_ts ::: $ts_apps
   parallel --gnu $P_OPTS build ::: $apps
