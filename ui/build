@@ -31,10 +31,14 @@ build() {
   cd -
 }
 
-if command -v parallel; then # parallel execution!
+if command -v parallel >/dev/null; then # parallel execution!
   export -f build_ts build
-  parallel -j+2 --gnu --bar build_ts ::: $ts_apps
-  parallel -j+2 --gnu --bar build ::: $apps
+  if [ ! -e ~/.parallel/config ]; then
+      P_OPTS="-j+4"
+      [ ! -t 1 ] || P_OPTS+=" --bar"
+  fi
+  parallel --gnu $P_OPTS build_ts ::: $ts_apps
+  parallel --gnu $P_OPTS build ::: $apps
 else # sequential execution
   for app in $ts_apps; do build_ts $app; done
   for app in $apps; do build $app; done
