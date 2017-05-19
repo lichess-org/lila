@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -ex
 export target=${1-dev}
 
 mkdir -p public/compiled
