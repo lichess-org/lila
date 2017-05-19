@@ -3,7 +3,8 @@ target=${1-dev}
 
 mkdir -p public/compiled
 
-ts_apps="common chess ceval game tree"
+ts_apps1="common chess"
+ts_apps2="ceval game tree"
 apps="site chat2 challenge2 notify2 learn insight editor puzzle round2 analyse lobby tournament tournamentSchedule simul perfStat dasher"
 
 build_ts() {
@@ -38,9 +39,10 @@ if command -v parallel >/dev/null; then # parallel execution!
       P_OPTS="-j+4"
       [ "$TRAVIS" = "true" ] || P_OPTS+=" --bar"
   fi
-  parallel --gnu $P_OPTS build_ts ::: $ts_apps
+  parallel --gnu $P_OPTS build_ts ::: $ts_apps1
+  parallel --gnu $P_OPTS build_ts ::: $ts_apps2
   parallel --gnu $P_OPTS build ::: $apps
 else # sequential execution
-  for app in $ts_apps; do build_ts $app; done
+  for app in $ts_apps1 $ts_apps2; do build_ts $app; done
   for app in $apps; do build $app; done
 fi
