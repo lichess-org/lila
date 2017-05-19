@@ -1,3 +1,4 @@
+/// <reference types="types/lichess" />
 /// <reference types="types/lichess-jquery" />
 
 import makeCtrl = require('./ctrl');
