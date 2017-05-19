@@ -491,7 +491,7 @@ module.exports = function(opts, redraw) {
         withLag: !!this.clock
       }
       var startTime = this.vm.lastMoveMillis;
-      if (startTime !== null) socketOpts.timeMillis = nowMillis() - startTime;
+      if (startTime !== null) socketOpts.millis = nowMillis() - startTime;
 
       if (this.vm.moveToSubmit) {
         this.socket.send('move', this.vm.moveToSubmit, socketOpts);
