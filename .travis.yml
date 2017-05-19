@@ -49,7 +49,7 @@ jobs:
     - stage: test
       language: node_js
       node_js: "4"
-      before_install: npm install -g gulp-cli
+      before_install: yarn global add gulp-cli
       script: ./ui/build prod
       after_success:
        - git log -n 1 --pretty=oneline > commit.txt
