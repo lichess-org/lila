@@ -1,5 +1,5 @@
-#!/bin/bash -ex
-export target=${1-dev}
+#!/bin/bash -ea
+target=${1-dev}
 
 mkdir -p public/compiled
 
@@ -8,6 +8,7 @@ apps="site chat2 challenge2 notify2 learn insight editor puzzle round2 analyse l
 
 build_ts() {
   echo "build_ts" "$@"
+  set -ex
   cd ui/$1
   rm -rf node_modules/types
   rm -rf node_modules/common
@@ -19,6 +20,7 @@ build_ts() {
 
 build() {
   echo "build" "$@"
+  set -ex
   app=$1
   cd ui/$app
   rm -rf node_modules/types
@@ -32,7 +34,6 @@ build() {
 }
 
 if command -v parallel >/dev/null; then # parallel execution!
-  export -f build_ts build
   if [ -z "$P_OPTS" -a ! -e ~/.parallel/config ]; then
       P_OPTS="-j+4"
       [ "$TRAVIS" = "true" ] || P_OPTS+=" --bar"
