@@ -355,7 +355,7 @@ object JsonView {
       "increment" -> c.incrementSeconds,
       "white" -> c.remainingTime(Color.White).toSeconds,
       "black" -> c.remainingTime(Color.Black).toSeconds,
-      "emerg" -> c.emergTime
+      "emerg" -> c.config.emergSeconds
     )
   }
 
