@@ -65,9 +65,12 @@ trait AssetHelper { self: I18nHelper =>
     """<script src="//code.highcharts.com/4.1.4/highcharts-more.js"></script>"""
   }
 
+  private val momentJsMissingLangs = Set("le", "pi", "tp", "ky", "ga", "zu", "la", "tg", "mg", "as", "yo", "ps", "fp", "ur", "tc", "ia", "jb", "gu", "kn", "gd", "kb", "io", "sw", "sa", "kk", "mn")
+
   def momentLangUrl(implicit ctx: lila.api.Context): Option[String] = {
     val l = lang(ctx)
-    ((l.language, l.country.toLowerCase) match {
+    if (momentJsMissingLangs contains l.language) none
+    else ((l.language, l.country.toLowerCase) match {
       case ("en", "us") => none
       case ("en", "au" | "ca" | "gb") => l.code.some
       case ("pt", "br") => l.code.some

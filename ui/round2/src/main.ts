@@ -1,3 +1,6 @@
+/// <reference types="types/lichess" />
+/// <reference types="types/lichess-jquery" />
+
 import makeCtrl = require('./ctrl');
 import view = require('./view/main');
 import boot = require('./boot');

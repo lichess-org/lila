@@ -40,7 +40,7 @@ function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
   return (c: Challenge) => {
     return h('div.challenge.' + dir + '.c-' + c.id, {
       class: {
-        declined: c.declined
+        declined: !!c.declined
       }
     }, [
       h('div.content', [
@@ -125,7 +125,7 @@ function renderUser(u?: ChallengeUser): VNode {
   const rating = u.rating + (u.provisional ? '?' : '');
   return h('a.ulpt.user_link', {
     attrs: { href: `/@/${u.name}`},
-    class: { online: u.online }
+    class: { online: !!u.online }
   }, [
     h('i.line' + (u.patron ? '.patron' : '')),
     h('name', (u.title ? u.title + ' ' : '') + u.name + ' (' + rating + ')')

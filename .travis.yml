@@ -1,7 +1,5 @@
 sudo: false
-language: scala
 
-# https://docs.travis-ci.com/user/notifications/#IRC-notification
 notifications:
   irc:
     channels:
@@ -12,41 +10,51 @@ notifications:
     skip_join: true
   slack:
     rooms:
-      - lichess:sVTqlE0OQNMPq1n6qRnVnfrz
+      - secure: "LdcLNNeKKSOlHzX8n2+hqFZw6QqnKBfP+/BFtgEYe4QPb25sKxlxwnf28T7AVkf1F+/OA9KMcL+ZsCcXS6kB/0mI3P49hJfQT9XyUSvfpI81196oiEkCM5I+xDuzi5ejR0Sxt80OUOqw+vHOZYzGVtlfxtTbNxcT94V8j141hwY="
     on_success: change
     on_failure: always
   email: false
 
-# https://docs.travis-ci.com/user/languages/java/#Testing-Against-Multiple-JDKs
-jdk:
-  - oraclejdk8
-
 env:
   global:
-   - secure: "VkgJ78marLdG8JQrWV3UhcxXyWmdy6BV3gYLTyXpK2ltPA4vGkFilZDc8hMx2VhYeeTXyvXB+PM4xkB40PUnDlmNXIWQlG7IxKIb/zxwUVS+WcvAzM6yqEV9B/UbZO+Mgp2Hl4/F1lMoIpdQ0tkRvHmfw01L9VDrQs4Otdmd38o="
+   - secure: "VkgJ78marLdG8JQrWV3UhcxXyWmdy6BV3gYLTyXpK2ltPA4vGkFilZDc8hMx2VhYeeTXyvXB+PM4xkB40PUnDlmNXIWQlG7IxKIb/zxwUVS+WcvAzM6yqEV9B/UbZO+Mgp2Hl4/F1lMoIpdQ0tkRvHmfw01L9VDrQs4Otdmd38o=" # GITHUB_API_TOKEN
    - TRAVIS_NODE_VERSION="4.0.0"
 
 git:
   depth: 3
   submodules: false
 
-install:
-  # http://austinpray.com/ops/2015/09/20/change-travis-node-version.html
-  - rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install "$TRAVIS_NODE_VERSION"
-  - npm install -g gulp
+install: ./bin/submodule-setup.sh
 
-  - ./bin/submodule-setup.sh
-  - ./bin/build-deps.sh
+jobs:
+  include:
+    # Build server
+    - stage: test
+      language: scala
+      jdk: oraclejdk8
+      script: sbt test
+      after_success:
+       - sbt stage
+       - git log -n 1 --pretty=oneline > commit.txt
+       - tar -zcf "lila-server-${TRAVIS_BRANCH}.tar.gz" target/universal/stage LICENSE COPYING.md README.md commit.txt
+      before_cache:
+       - find $HOME/.ivy2/cache -name "ivydata-*.properties" -delete
+       - find $HOME/.sbt -name "*.lock" -delete
+       - rm -rf $HOME/.sbt/0.13/dependency/module/dynamic
+      cache:
+        directories:
+          - $HOME/.ivy2/cache
+          - $HOME/.sbt
 
-script:
-  - ./ui/build
-  - sbt compile
-  - sbt test
-
-after_success:
-  - sbt stage
-  - git log -n 1 --pretty=oneline > commit.txt
-  - tar -zcf "lila-${TRAVIS_BRANCH}.tar.gz" target/universal/stage public LICENSE COPYING.md README.md commit.txt
+    # Build assets
+    - stage: test
+      language: node_js
+      node_js: "4"
+      before_install: npm install -g gulp-cli
+      script: ./ui/build prod
+      after_success:
+       - git log -n 1 --pretty=oneline > commit.txt
+       - tar -zcf "lila-assets-${TRAVIS_BRANCH}.tar.gz" public LICENSE COPYING.md README.md commit.txt
 
 addons:
   artifacts:

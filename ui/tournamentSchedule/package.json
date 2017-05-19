@@ -32,7 +32,7 @@
     "watchify": "^3"
   },
   "dependencies": {
-    "snabbdom": "ornicar/snabbdom.git#lilabuild",
+    "snabbdom": "^0.6",
     "types": "file:../types"
   }
 }

@@ -191,7 +191,7 @@ function generic(n: Notification, url: string | undefined, icon: string, content
       [n.type]: true,
       'new': !n.read
     },
-    attrs: { href: url}
+    attrs: url ? { href: url } : undefined
   }, [
     h('i', {
       attrs: { 'data-icon': icon }

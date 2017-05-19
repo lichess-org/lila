@@ -313,7 +313,7 @@ module.exports = function(cfg, element) {
         $input.hide().after($('<div>').slider({
           value: sliderInitVal(parseFloat($input.val()), isTimeSlider ? sliderTime : sliderIncrement, 100),
           min: 0,
-          max: isTimeSlider ? 33 : 30,
+          max: isTimeSlider ? 34 : 30,
           range: 'min',
           step: 1,
           slide: function(event, ui) {
