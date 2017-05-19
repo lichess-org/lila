@@ -126,8 +126,14 @@ function renderLine(ctrl: Ctrl, line: Line) {
   ]);
   var userNode = thunk('a', line.u, userLink, [line.u]);
 
-  return h('li', ctrl.moderation ? [
-    lineAction(() => ctrl.moderation && line.u && ctrl.moderation.open(line.u.split(' ')[0])),
+  return h('li', {
+    hook: ctrl.moderation ? bind('click', (e: Event) => {
+      const target = e.target as HTMLElement;
+      if (ctrl.moderation && target.classList.contains('mod'))
+      ctrl.moderation.open((target.getAttribute('data-username') as string).split(' ')[0]);
+    }) : {}
+  }, ctrl.moderation ? [
+    line.u ? lineAction(line.u) : null,
     userNode,
     textNode
   ] : [userNode, textNode]);
