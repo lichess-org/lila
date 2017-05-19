@@ -1,7 +1,8 @@
-var util = require('chessground/util');
+import * as util from 'chessground/util';
+import * as cg from 'chessground/types';
 
-function capture(ctrl, key) {
-  var exploding = [];
+export function capture(ctrl, key: cg.Key) {
+  var exploding: cg.Key[] = [];
   var diff = {};
   var orig = util.key2pos(key);
   var minX = Math.max(1, orig[0] - 1),
@@ -24,13 +25,8 @@ function capture(ctrl, key) {
 }
 
 // needs to explicitly destroy the capturing pawn
-function enpassant(ctrl, key, color) {
-  var pos = util.key2pos(key);
-  var pawnPos = [pos[0], pos[1] + (color === 'white' ? -1 : 1)];
+export function enpassant(ctrl, key: cg.Key, color: cg.Color) {
+  const pos = util.key2pos(key);
+  const pawnPos: cg.Pos = [pos[0], pos[1] + (color === 'white' ? -1 : 1)];
   capture(ctrl, util.pos2key(pawnPos));
 }
-
-module.exports = {
-  capture: capture,
-  enpassant: enpassant
-};
