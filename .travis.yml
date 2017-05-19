@@ -1,7 +1,6 @@
 sudo: false
 language: scala
 
-# https://docs.travis-ci.com/user/notifications/#IRC-notification
 notifications:
   irc:
     channels:
@@ -12,7 +11,7 @@ notifications:
     skip_join: true
   slack:
     rooms:
-      - lichess:sVTqlE0OQNMPq1n6qRnVnfrz
+      - secure: "LdcLNNeKKSOlHzX8n2+hqFZw6QqnKBfP+/BFtgEYe4QPb25sKxlxwnf28T7AVkf1F+/OA9KMcL+ZsCcXS6kB/0mI3P49hJfQT9XyUSvfpI81196oiEkCM5I+xDuzi5ejR0Sxt80OUOqw+vHOZYzGVtlfxtTbNxcT94V8j141hwY="
     on_success: change
     on_failure: always
   email: false
