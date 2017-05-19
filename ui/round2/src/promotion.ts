@@ -22,7 +22,7 @@ export function start(ctrl, orig, dest, meta) {
     (dest[1] == 8 && d.player.color === 'white') ||
       (dest[1] == 1 && d.player.color === 'black'))) {
     if (prePromotionRole && meta.premove) return sendPromotion(ctrl, orig, dest, prePromotionRole, meta);
-    if (!meta.ctrlKey && (d.pref.autoQueen === 3 || (d.pref.autoQueen === 2 && premovePiece))) {
+    if (!meta.ctrlKey && !promoting && (d.pref.autoQueen === 3 || (d.pref.autoQueen === 2 && premovePiece))) {
       if (premovePiece) setPrePromotion(ctrl, dest, 'queen');
       else sendPromotion(ctrl, orig, dest, 'queen', meta);
       return true;
@@ -60,10 +60,11 @@ export function cancelPrePromotion(ctrl) {
 
 function finish(ctrl, role) {
   if (promoting) {
-    if (promoting.pre) setPrePromotion(ctrl, promoting.move[1], role);
-    else sendPromotion(ctrl, promoting.move[0], promoting.move[1], role, promoting.meta);
+    const info = promoting;
+    promoting = undefined;
+    if (info.pre) setPrePromotion(ctrl, info.move[1], role);
+    else sendPromotion(ctrl, info.move[0], info.move[1], role, info.meta);
   }
-  promoting = undefined;
 }
 
 export function cancel(ctrl) {
