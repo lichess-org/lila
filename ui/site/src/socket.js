@@ -70,7 +70,7 @@ lichess.StrongSocket = function(url, version, settings) {
       d: d == null ? {} : d;
     }
     if (o.withLag) msg.d.l = Math.round(averageLag);
-    if (o.millis !== undefined) msg.s = Math.round(o.millis / 10).toString(32);
+    if (o.millis !== undefined) msg.s = Math.floor(o.millis * 0.1).toString(36);
     if (o.ackable) ackable.register(t, msg.d);
     var message = JSON.stringify(msg);
     debug("send " + message);

@@ -189,7 +189,7 @@ private[round] final class SocketHandler(
 
   private def parseLag(d: JsObject) = MoveMetrics(
     d.int("l") orElse d.int("lag") map Centis.ofMillis,
-    d.int("s") flatMap { v => Try(Centis(Integer.parseInt(v, 32))).toOption }
+    d.int("s") flatMap { v => Try(Centis(Integer.parseInt(v, 36))).toOption }
   )
 
   private val ackEvent = Json.obj("t" -> "ack")
