@@ -32,9 +32,8 @@ jobs:
     - stage: test
       language: scala
       jdk: oraclejdk8
-      script: sbt test
+      script: sbt stage;test
       after_success:
-       - sbt stage
        - git log -n 1 --pretty=oneline > commit.txt
        - tar -zcf "lila-server-${TRAVIS_BRANCH}.tar.gz" target/universal/stage LICENSE COPYING.md README.md commit.txt
       before_cache:
