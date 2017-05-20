@@ -19,7 +19,7 @@ $(function() {
         return $editor.find('img.picture').length;
       }
     }, {
-      html: 'Fill in basic informations',
+      html: 'Fill in basic information',
       check: function() {
         ['profile.headline', 'profile.languages'].forEach(function(name) {
           if (!$editor.find('[name="' + name + '"]').val()) return false;
