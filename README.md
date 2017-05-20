@@ -275,8 +275,8 @@ name | type | default | description
             "inaccuracy": 0,
             "mistake": 2
           },
-        // rounded move times in tenths of seconds
-        "moveTimes":[30,40,10,40,40,100,50,200,400,150,150,40,50,200,80]
+          // time taken for each move in hundreths of seconds
+          "moveCentis": [0, 812, 2516, 7644, 12660, 15740, 4044, ...]
         },
         "black": ... // other player
       }
@@ -309,7 +309,7 @@ name | type | default | description
 }
 ```
 
-(1) All game statuses: https://github.com/ornicar/scalachess/blob/master/src/main/scala/Status.scala#L16-L25
+(1) All game statuses: https://github.com/ornicar/scalachess/blob/master/src/main/scala/Status.scala#L16-L28
 
 ### `GET /api/games/vs/<username>/<username>` fetch games between 2 users
 
@@ -374,8 +374,8 @@ name | type | default | description
         "inaccuracy": 0,
         "mistake": 2
       },
-      // rounded move times in tenths of seconds
-      "moveTimes":[30,40,10,40,40,100,50,200,400,150,150,40,50,200,80]
+      // time taken for each move in hundreths of seconds
+      "moveCentis": [0, 812, 2516, 7644, 12660, 15740, 4044, ...]
     },
     "black": ... // other player
   },
@@ -412,7 +412,7 @@ name | type | default | description
 }
 ```
 
-(1) All game statuses: https://github.com/ornicar/scalachess/blob/master/src/main/scala/Status.scala#L16-L25
+(1) All game statuses: https://github.com/ornicar/scalachess/blob/master/src/main/scala/Status.scala#L16-L28
 
 ### `POST /api/games` fetch many games by ID
 
