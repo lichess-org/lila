@@ -58,12 +58,7 @@ jobs:
       after_success:
        - git log -n 1 --pretty=oneline > commit.txt
        - tar -zcf "lila-assets-${TRAVIS_BRANCH}.tar.gz" public LICENSE COPYING.md README.md commit.txt
-      before_cache:
-       - yarn cache dir
-       - rm -rf $HOME/.cache/yarn/v1/npm-{types,common,chess,game,tree,ceval}-*
-      cache:
-        directories:
-          - $HOME/.cache/yarn
+      cache: yarn
 
 addons:
   artifacts:
