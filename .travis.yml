@@ -50,6 +50,10 @@ jobs:
     - stage: test
       language: node_js
       node_js: "4"
+      addons:
+        apt:
+          packages:
+           - parallel
       before_install: npm install -g gulp-cli
       script: ./ui/build prod
       after_success:

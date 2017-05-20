@@ -97,7 +97,7 @@ object BinaryFormat {
       Array(writeClockLimit(clock.limitSeconds), clock.incrementSeconds.toByte) ++
         writeSignedInt24(legacyElapsed(clock, White).centis) ++
         writeSignedInt24(legacyElapsed(clock, Black).centis) ++
-        (clock.timer map writeTimer getOrElse Array())
+        clock.timer.fold(Array.empty[Byte])(writeTimer)
     }
 
     def read(ba: ByteArray, whiteBerserk: Boolean, blackBerserk: Boolean): Color => Clock = color => {
