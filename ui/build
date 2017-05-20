@@ -11,11 +11,10 @@ build_ts() {
   echo "build_ts" "$@"
   set -ex
   cd ui/$1
-  rm -rf node_modules/types
-  rm -rf node_modules/common
-  rm -rf node_modules/chess
-  yarn install --check-files
+  grep -oP '"\K(.*)(?=": "file:)' package.json | xargs yarn link
+  yarn install
   yarn run compile
+  yarn link
   cd -
 }
 
@@ -24,16 +23,15 @@ build() {
   set -ex
   app=$1
   cd ui/$app
-  rm -rf node_modules/types
-  rm -rf node_modules/common
-  rm -rf node_modules/chess
-  rm -rf node_modules/game
-  rm -rf node_modules/tree
-  rm -rf node_modules/ceval
-  yarn install --check-files
+  grep -oP '"\K(.*)(?=": "file:)' package.json | xargs yarn link
+  yarn install
   gulp $target
   cd -
 }
+
+cd ui/types
+yarn link
+cd -
 
 if command -v parallel >/dev/null; then # parallel execution!
   if [ -z "$P_OPTS" -a ! -e ~/.parallel/config ]; then
