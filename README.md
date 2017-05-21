@@ -233,8 +233,8 @@ name | type | default | description
 **page** | int | 1 | for pagination
 **with_analysis** | 1 or 0 | 0 | include deep analysis data in the result
 **with_moves** | 1 or 0 | 0 | include a list of PGN moves
-**with_opening** | 1 or 0 | 0 | include opening informations
-**with_movetimes** | 1 or 0 | 0 | include move time informations
+**with_opening** | 1 or 0 | 0 | include opening information
+**with_movetimes** | 1 or 0 | 0 | include move time information
 **rated** | 1 or 0 | - | rated games only
 **playing** | 1 or 0 | - | games in progress only
 
@@ -275,8 +275,8 @@ name | type | default | description
             "inaccuracy": 0,
             "mistake": 2
           },
-        // rounded move times in tenths of seconds
-        "moveTimes":[30,40,10,40,40,100,50,200,400,150,150,40,50,200,80]
+          // time taken for each move in hundreths of seconds
+          "moveCentis": [0, 812, 2516, 7644, 12660, 15740, 4044, ...]
         },
         "black": ... // other player
       }
@@ -309,7 +309,7 @@ name | type | default | description
 }
 ```
 
-(1) All game statuses: https://github.com/ornicar/scalachess/blob/master/src/main/scala/Status.scala#L16-L25
+(1) All game statuses: https://github.com/ornicar/scalachess/blob/master/src/main/scala/Status.scala#L16-L28
 
 ### `GET /api/games/vs/<username>/<username>` fetch games between 2 users
 
@@ -340,8 +340,8 @@ name | type | default | description
 --- | --- | --- | ---
 **with_analysis** | 1 or 0 | 0 | include deep analysis data in the result
 **with_moves** | 1 or 0 | 0 | include a list of PGN moves
-**with_movetimes** | 1 or 0 | 0 | include move time informations
-**with_opening** | 1 or 0 | 0 | include opening informations
+**with_movetimes** | 1 or 0 | 0 | include move time information
+**with_opening** | 1 or 0 | 0 | include opening information
 **with_fens** | 1 or 0 | 0 | include a list of FEN states
 
 ```javascript
@@ -374,8 +374,8 @@ name | type | default | description
         "inaccuracy": 0,
         "mistake": 2
       },
-      // rounded move times in tenths of seconds
-      "moveTimes":[30,40,10,40,40,100,50,200,400,150,150,40,50,200,80]
+      // time taken for each move in hundreths of seconds
+      "moveCentis": [0, 812, 2516, 7644, 12660, 15740, 4044, ...]
     },
     "black": ... // other player
   },
@@ -412,7 +412,7 @@ name | type | default | description
 }
 ```
 
-(1) All game statuses: https://github.com/ornicar/scalachess/blob/master/src/main/scala/Status.scala#L16-L25
+(1) All game statuses: https://github.com/ornicar/scalachess/blob/master/src/main/scala/Status.scala#L16-L28
 
 ### `POST /api/games` fetch many games by ID
 

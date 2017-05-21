@@ -219,7 +219,7 @@ object Schedule {
 
         case (Daily | Eastern, UltraBullet | HyperBullet | Bullet) => 20
         case (Daily | Eastern, HippoBullet | SuperBlitz | Blitz) => 15
-        case (Daily | Eastern, Classical) => 10
+        case (Daily | Eastern, Classical) => 15
 
         case (Weekly | Monthly, UltraBullet | HyperBullet | Bullet) => 30
         case (Weekly | Monthly, HippoBullet | SuperBlitz | Blitz) => 20
