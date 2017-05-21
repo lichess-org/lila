@@ -612,10 +612,9 @@ lichess.topMenuIntent = function() {
         return false;
       });
 
-      $('#ham-plate').one('mouseover', function() {
+      $('#ham-plate').one('mouseover click', function() {
+        if (!$('#fpmenu').length) $('body').append($('<div id=fpmenu>').load('/fpmenu'));
         lichess.loadCss('/assets/stylesheets/fpmenu.css');
-      }).one('click', function() {
-        $('body').append($('<div id=fpmenu>').load('/fpmenu'));
       }).click(function() {
         document.body.classList.toggle('fpmenu');
       });
