@@ -1,5 +1,7 @@
-#!/bin/bash -ea
+#!/bin/bash -eav
 target=${1-dev}
+
+cd "$(git rev-parse --show-toplevel)"
 
 mkdir -p public/compiled
 
@@ -7,41 +9,38 @@ ts_apps1="common chess"
 ts_apps2="ceval game tree"
 apps="site chat2 challenge2 notify2 learn insight editor puzzle round2 analyse lobby tournament tournamentSchedule simul perfStat dasher"
 
+YARN_MUTEX="${TMPDIR-/tmp}/.yarn-mutex"
 build_ts() {
   echo "build_ts" "$@"
-  set -ex
+  set -ev
   cd ui/$1
-  grep -oP '"\K(.*)(?=": "file:)' package.json | xargs yarn link
-  yarn install
+  grep ': "file:' package.json | cut -d'"' -f2 | xargs -t yarn link
+  yarn install --mutex file:$YARN_MUTEX
   yarn run compile
   yarn link
-  cd -
 }
 
 build() {
   echo "build" "$@"
-  set -ex
+  set -ev
   app=$1
   cd ui/$app
-  grep -oP '"\K(.*)(?=": "file:)' package.json | xargs yarn link
-  yarn install
+  grep ': "file:' package.json | cut -d'"' -f2 | xargs -t yarn link
+  yarn install --mutex file:$YARN_MUTEX
   gulp $target
-  cd -
 }
 
-cd ui/types
-yarn link
-cd -
+(cd ui/types && yarn link)
 
-if command -v parallel >/dev/null; then # parallel execution!
+if type -p parallel; then # parallel execution!
   if [ -z "$P_OPTS" -a ! -e ~/.parallel/config ]; then
-      P_OPTS="-j+4"
-      [ "$TRAVIS" = "true" ] || P_OPTS+=" --bar"
+    P_OPTS="-j+4"
+    [ "$TRAVIS" = "true" ] || P_OPTS+=" --bar"
   fi
   parallel --gnu $P_OPTS build_ts ::: $ts_apps1
   parallel --gnu $P_OPTS build_ts ::: $ts_apps2
   parallel --gnu $P_OPTS build ::: $apps
 else # sequential execution
-  for app in $ts_apps1 $ts_apps2; do build_ts $app; done
-  for app in $apps; do build $app; done
+  for app in $ts_apps1 $ts_apps2; do (build_ts $app); done
+  for app in $apps; do (build $app); done
 fi
