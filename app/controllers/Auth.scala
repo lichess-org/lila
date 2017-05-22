@@ -26,6 +26,12 @@ object Auth extends LilaController {
       }
     }
 
+  private def goodReferrer(referrer: String): Boolean = {
+    referrer.nonEmpty &&
+      referrer.stripPrefix("/") != "mobile" &&
+      """(?:\w|(:?\/\w))*\/?""".r.matches(referrer)
+  }
+
   private def authenticateUser(u: UserModel)(implicit ctx: Context): Fu[Result] = {
     implicit val req = ctx.req
     u.ipBan.fold(
@@ -33,7 +39,7 @@ object Auth extends LilaController {
       api.saveAuthentication(u.id, ctx.mobileApiVersion) flatMap { sessionId =>
         negotiate(
           html = Redirect {
-            get("referrer").filter(_.nonEmpty) orElse req.session.get(api.AccessUri) getOrElse routes.Lobby.home.url
+            get("referrer").filter(goodReferrer) orElse req.session.get(api.AccessUri) getOrElse routes.Lobby.home.url
           }.fuccess,
           api = _ => mobileUserOk(u)
         ) map {
@@ -53,9 +59,7 @@ object Auth extends LilaController {
   }
 
   def login = Open { implicit ctx =>
-    val referrer = get("referrer") orElse {
-      getBool("autoref") ?? HTTPRequest.referer(ctx.req)
-    }
+    val referrer = get("referrer")
     Ok(html.auth.login(api.loginForm, referrer)).fuccess
   }
 

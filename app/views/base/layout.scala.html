@@ -119,7 +119,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
         </a>
         <div id="dasher_app" class="dropdown"@if(playing){ data-playing="true"}></div>
       </div>
-      <a href="@routes.Auth.login" class="signin button text">@trans.signIn()</a>
+      <a href="@routes.Auth.login?referrer=@currentPath" class="signin button text">@trans.signIn()</a>
       }
       @if(!zen) {
       @if(ctx.teamNbRequests > 0) {

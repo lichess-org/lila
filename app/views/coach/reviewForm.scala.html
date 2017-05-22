@@ -10,7 +10,7 @@
   @if(ctx.isAuth) {
   <a class="button toggle">Write a review</a>
   } else {
-  <a href="@routes.Auth.login?autoref=1" class="button">Review this coach</a>
+  <a href="@routes.Auth.login?referrer=@currentPath" class="button">Review this coach</a>
   }
   }
 
