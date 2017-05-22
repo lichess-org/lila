@@ -46,7 +46,7 @@ private[round] final class Titivate(
             if (game.finished || game.isPgnImport || game.playedThenAborted)
               GameRepo unsetCheckAt game
 
-            else if (game.outoftime) fuccess {
+            else if (game.outoftime(withGrace = true)) fuccess {
               roundMap ! Tell(game.id, Outoftime)
             }
 

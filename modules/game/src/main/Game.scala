@@ -446,12 +446,12 @@ case class Game(
 
   def drawn = finished && winner.isEmpty
 
-  def outoftime: Boolean =
-    if (isCorrespondence) outoftimeCorrespondence else outoftimeClock
+  def outoftime(withGrace: Boolean): Boolean =
+    if (isCorrespondence) outoftimeCorrespondence else outoftimeClock(withGrace)
 
-  private def outoftimeClock: Boolean = clock ?? { c =>
+  private def outoftimeClock(withGrace: Boolean): Boolean = clock ?? { c =>
     started && playable && (bothPlayersHaveMoved || isSimul) && {
-      (!c.isRunning && !c.isInit) || c.outOfTimeWithGrace(turnColor)
+      (!c.isRunning && !c.isInit) || c.outOfTime(turnColor, withGrace)
     }
   }
 

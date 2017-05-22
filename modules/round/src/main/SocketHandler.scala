@@ -2,6 +2,7 @@ package lila.round
 
 import scala.concurrent.duration._
 import scala.concurrent.Promise
+import scala.util.Try
 
 import akka.actor._
 import akka.pattern.ask
@@ -87,7 +88,7 @@ private[round] final class SocketHandler(
         case ("draw-force", _) => send(DrawForce(playerId))
         case ("abort", _) => send(Abort(playerId))
         case ("moretime", _) => send(Moretime(playerId))
-        case ("outoftime", _) => send(Outoftime)
+        case ("outoftime", _) => send(Outoftime(playerId))
         case ("bye2", _) => socket ! Bye(ref.color)
         case ("talk", o) => o str "d" foreach { messenger.owner(gameId, member, _) }
         case ("hold", o) => for {
@@ -189,7 +190,7 @@ private[round] final class SocketHandler(
 
   private def parseLag(d: JsObject) = MoveMetrics(
     d.int("l") orElse d.int("lag") map Centis.ofMillis,
-    d.int("s") flatMap { v => Try(Centis(Integer.parseInt(v, 36))).toOption }
+    d.str("s") flatMap { v => Try(Centis(Integer.parseInt(v, 36))).toOption }
   )
 
   private val ackEvent = Json.obj("t" -> "ack")

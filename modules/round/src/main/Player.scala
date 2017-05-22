@@ -49,7 +49,7 @@ private[round] final class Player(
   def fishnet(game: Game, uci: Uci, currentFen: FEN, round: ActorRef)(implicit proxy: GameProxy): Fu[Events] =
     if (game.playable && game.player.isAi) {
       if (currentFen == FEN(Forsyth >> game.toChess))
-        if (game.outoftime) finisher.outOfTime(game)
+        if (game.outoftime(withGrace = false)) finisher.outOfTime(game)
         else applyUci(game, uci, blur = false, metrics = fishnetLag)
           .fold(errs => fufail(ClientError(errs.shows)), fuccess).flatMap {
             case (progress, moveOrDrop) =>

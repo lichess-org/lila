@@ -52,7 +52,7 @@ private[round] final class Round(
     case p: HumanPlay =>
       p.trace.finishFirstSegment()
       handleHumanPlay(p) { pov =>
-        if (pov.game outoftime) finisher.outOfTime(pov.game)
+        if (pov.game.outoftime(withGrace = false)) finisher.outOfTime(pov.game)
         else {
           reportNetworkLag(pov)
           player.human(p, self)(pov)
@@ -109,8 +109,8 @@ private[round] final class Round(
       }
     }
 
-    case Outoftime => handle { game =>
-      game.outoftime ?? finisher.outOfTime(game)
+    case Outoftime(playerId) => handle(playerId) { pov =>
+      pov.game.outoftime(withGrace = !pov.isMyTurn) ?? finisher.outOfTime(pov.game)
     }
 
     // exceptionally we don't block nor publish events
@@ -221,7 +221,7 @@ private[round] final class Round(
       for {
         clock <- pov.game.clock
         color <- Color.all
-        lag <- clock.players(color).lag
+        lag <- clock.lag(color)
       } lila.mon.round.move.networkLag(lag.millis)
     }
 

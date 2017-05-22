@@ -134,7 +134,7 @@ package round {
   case class TakebackYes(playerId: String)
   case class TakebackNo(playerId: String)
   case class Moretime(playerId: String)
-  case object Outoftime
+  case class Outoftime(playerId: String)
   case object Abandon
   case class ForecastPlay(lastMove: chess.Move)
   case class Cheat(color: Color)
