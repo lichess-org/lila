@@ -6,7 +6,7 @@ import play.api.mvc._
 import lila.api.Context
 import lila.app._
 import lila.common.{ HTTPRequest, ApiVersion }
-import lila.game.{ Pov, GameRepo, Game => GameModel }
+import lila.game.{ Pov, GameRepo, Game => GameModel, PgnDump }
 import lila.tournament.MiniStanding
 import lila.user.{ User => UserModel }
 import views._
@@ -178,7 +178,7 @@ object Round extends LilaController with TheftPrevention {
                 }
           else for { // web crawlers don't need the full thing
             initialFen <- GameRepo.initialFen(pov.game.id)
-            pgn <- Env.api.pgnDump(pov.game, initialFen)
+            pgn <- Env.api.pgnDump(pov.game, initialFen, PgnDump.WithFlags(clocks = false))
           } yield Ok(html.round.watcherBot(pov, initialFen, pgn))
         }.mon(_.http.response.watcher.website),
         api = apiVersion => for {
@@ -303,7 +303,7 @@ object Round extends LilaController with TheftPrevention {
   def atom(gameId: String, color: String) = Action.async { implicit req =>
     GameRepo.pov(gameId, color) flatMap {
       case Some(pov) => GameRepo initialFen pov.game map { initialFen =>
-        val pgn = Env.game.pgnDump(pov.game, initialFen)
+        val pgn = Env.game.pgnDump(pov.game, initialFen, PgnDump.WithFlags(clocks = false))
         Ok(views.xml.round.atom(pov, pgn)) as XML
       }
       case _ => NotFound("no such game").fuccess

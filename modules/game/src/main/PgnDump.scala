@@ -1,9 +1,9 @@
 package lila.game
 
-import chess.{ Centis, Color }
 import chess.format.Forsyth
 import chess.format.pgn.{ Pgn, Tag, Parser, ParsedPgn }
 import chess.format.{ pgn => chessPgn }
+import chess.{ Centis, Color }
 import org.joda.time.format.DateTimeFormat
 
 import lila.common.LightUser
@@ -15,14 +15,20 @@ final class PgnDump(
 
   import PgnDump._
 
-  def apply(game: Game, initialFen: Option[String]): Pgn = {
+  def apply(game: Game, initialFen: Option[String], flags: WithFlags): Pgn = {
     val imported = game.pgnImport.flatMap { pgni =>
       Parser.full(pgni.pgn).toOption
     }
     val ts = tags(game, initialFen, imported)
     val fenSituation = ts find (_.name == Tag.FEN) flatMap { case Tag(_, fen) => Forsyth <<< fen }
     val moves2 = fenSituation.??(_.situation.color.black).fold(".." :: game.pgnMoves, game.pgnMoves)
-    Pgn(ts, turns(moves2, fenSituation.map(_.fullMoveNumber) | 1, ~game.bothClockStates, game.startColor))
+    val turns = makeTurns(
+      moves2,
+      fenSituation.map(_.fullMoveNumber) | 1,
+      flags.clocks ?? ~game.bothClockStates,
+      game.startColor
+    )
+    Pgn(ts, turns)
   }
 
   private val fileR = """[\s,]""".r
@@ -93,7 +99,7 @@ final class PgnDump(
       ))
   }
 
-  private def turns(moves: List[String], from: Int, clocks: Vector[Centis], startColor: Color): List[chessPgn.Turn] =
+  private def makeTurns(moves: List[String], from: Int, clocks: Vector[Centis], startColor: Color): List[chessPgn.Turn] =
     (moves grouped 2).zipWithIndex.toList map {
       case (moves, index) =>
         val clockOffset = startColor.fold(0, 1)
@@ -117,8 +123,11 @@ final class PgnDump(
 
 object PgnDump {
 
-  def result(game: Game) = game.finished.fold(
-    game.winnerColor.fold("1/2-1/2")(color => color.white.fold("1-0", "0-1")),
-    "*"
+  case class WithFlags(
+    clocks: Boolean = true
   )
+
+  def result(game: Game) =
+    if (game.finished) game.winnerColor.fold("1/2-1/2")(_.fold("1-0", "0-1"))
+    else "*"
 }
