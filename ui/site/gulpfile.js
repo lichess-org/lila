@@ -107,7 +107,8 @@ function makeBundle(filename) {
 
 gulp.task('standalones', function() {
   return gulp.src([
-    './src/util.js'
+    './src/util.js',
+    './src/user-mod.js'
   ])
     .pipe(streamify(uglify()))
     .pipe(gulp.dest(destination));
