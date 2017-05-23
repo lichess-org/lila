@@ -48,7 +48,7 @@ function rematchButton(ctrl) {
       ctrl.redraw();
     })
   }, [
-    me ? util.spinner() : ctrl.trans.noarg('rematch')
+    me ? util.spinner() : h('span', ctrl.trans.noarg('rematch'))
   ]);
 }
 
