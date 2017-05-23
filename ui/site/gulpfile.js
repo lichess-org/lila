@@ -107,9 +107,20 @@ function makeBundle(filename) {
 
 gulp.task('standalones', function() {
   return gulp.src([
-    './src/util.js',
-    './src/user-mod.js'
+    './src/util.js'
   ])
+    .pipe(streamify(uglify()))
+    .pipe(gulp.dest(destination));
+});
+
+gulp.task('user-mod', function() {
+  return browserify([
+    './src/user-mod.js'
+  ], {
+    standalone: standalone
+  }).bundle()
+    .on('error', onError)
+    .pipe(source('user-mod.js'))
     .pipe(streamify(uglify()))
     .pipe(gulp.dest(destination));
 });
@@ -123,7 +134,7 @@ if (!process.env.TRAVIS || process.env.GITHUB_API_TOKEN) {
 gulp.task('dev', tasks.concat(['dev-source']), makeBundle('lichess.site.source.js'));
 gulp.task('prod', tasks.concat(['prod-source']), makeBundle('lichess.site.source.min.js'));
 
-gulp.task('watch', ['jquery-fill', 'ab', 'standalones', 'dev-source'], makeBundle('lichess.site.source.js'));
+gulp.task('watch', ['jquery-fill', 'ab', 'standalones', 'user-mod', 'dev-source'], makeBundle('lichess.site.source.js'));
 
 gulp.task('default', ['watch'], function() {
   return gulp.watch('src/*.js', ['watch']);
