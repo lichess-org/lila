@@ -11,10 +11,6 @@ const download = require('gulp-download-stream');
 const destination = '../../public/compiled/';
 const standalone = 'Lichess';
 
-function onError(error) {
-  gutil.log(gutil.colors.red(error.message));
-}
-
 const abFile = process.env.LILA_AB_FILE;
 
 gulp.task('jquery-fill', function() {
@@ -72,7 +68,6 @@ gulp.task('prod-source', function() {
   return browserify('./src/index.js', {
     standalone: standalone
   }).bundle()
-    .on('error', onError)
     .pipe(source('lichess.site.source.min.js'))
     .pipe(streamify(uglify()))
     .pipe(gulp.dest('./dist'));
@@ -82,7 +77,6 @@ gulp.task('dev-source', function() {
   return browserify('./src/index.js', {
     standalone: standalone
   }).bundle()
-    .on('error', onError)
     .pipe(source('lichess.site.source.js'))
     .pipe(gulp.dest('./dist'));
 });
