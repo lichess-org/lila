@@ -113,7 +113,6 @@ gulp.task('user-mod', function() {
   ], {
     standalone: standalone
   }).bundle()
-    .on('error', onError)
     .pipe(source('user-mod.js'))
     .pipe(streamify(uglify()))
     .pipe(gulp.dest(destination));
