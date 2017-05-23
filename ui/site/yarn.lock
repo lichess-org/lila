@@ -1976,6 +1976,10 @@ syntax-error@^1.1.1:
   dependencies:
     acorn "^4.0.3"
 
+tablesort@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/tablesort/-/tablesort-5.0.0.tgz#66b4c3a4603bd8b5f67e2696f28dd784a1cbb00b"
+
 through2@^0.6.1:
   version "0.6.5"
   resolved "https://registry.yarnpkg.com/through2/-/through2-0.6.5.tgz#41ab9c67b29d57209071410e1d7a7a968cd3ad48"
