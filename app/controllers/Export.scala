@@ -4,7 +4,7 @@ import scala.concurrent.duration._
 
 import lila.app._
 import lila.common.HTTPRequest
-import lila.game.{ Game => GameModel, GameRepo }
+import lila.game.{ Game => GameModel, GameRepo, PgnDump }
 
 object Export extends LilaController {
 
@@ -34,7 +34,7 @@ object Export extends LilaController {
       case Some(i) => fuccess(i.pgn)
       case None => for {
         initialFen <- GameRepo initialFen game
-        pgn <- Env.api.pgnDump(game, initialFen)
+        pgn <- Env.api.pgnDump(game, initialFen, PgnDump.WithFlags(clocks = true))
         analysis ← !asRaw ?? (Env.analyse.analyser get game.id)
       } yield Env.analyse.annotator(pgn, analysis, game.opening, game.winnerColor, game.status, game.clock).toString
     })

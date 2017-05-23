@@ -5,7 +5,7 @@ import play.api.mvc._
 import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
-import lila.game.{ Pov, GameRepo }
+import lila.game.{ Pov, GameRepo, PgnDump }
 import lila.round.JsonView.WithFlags
 import views._
 
@@ -37,7 +37,7 @@ object Analyse extends LilaController {
           Round.getWatcherChat(pov.game) zip
           Env.game.crosstableApi(pov.game) zip
           Env.bookmark.api.exists(pov.game, ctx.me) zip
-          Env.api.pgnDump(pov.game, initialFen) flatMap {
+          Env.api.pgnDump(pov.game, initialFen, PgnDump.WithFlags(clocks = false)) flatMap {
             case analysis ~ analysisInProgress ~ simul ~ chat ~ crosstable ~ bookmarked ~ pgn =>
               Env.api.roundApi.review(pov, lila.api.Mobile.Api.currentVersion,
                 tv = userTv.map { u => lila.round.OnUserTv(u.id) },
@@ -99,7 +99,7 @@ object Analyse extends LilaController {
     analysis <- env.analyser get pov.game.id
     simul <- pov.game.simulId ?? Env.simul.repo.find
     crosstable <- Env.game.crosstableApi(pov.game)
-    pgn <- Env.api.pgnDump(pov.game, initialFen)
+    pgn <- Env.api.pgnDump(pov.game, initialFen, PgnDump.WithFlags(clocks = false))
   } yield Ok(html.analyse.replayBot(
     pov,
     initialFen,

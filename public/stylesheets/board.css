@@ -783,6 +783,9 @@ div.control .button.disabled {
 .lichess_ground .negotiation a.decline:hover {
   background: #dc322f!important;
 }
+.lichess_ground .follow_up {
+  position: relative;
+}
 .lichess_ground .follow_up .button {
   display: block;
   width: 100%;
@@ -815,21 +818,49 @@ div.control .button.disabled {
 .lichess_ground .rematch.me {
   background: rgba(56,147,232,0.8);
 }
-@keyframes flicker-1 {
-    0%, 100% {
-      background: rgba(56,147,232,0.8);
-      color: #fff;
-    }
+@keyframes rubberBand {
+  from { transform: scale3d(1, 1, 1); }
+  6% { transform: scale3d(1.25, 0.75, 1); }
+  8% { transform: scale3d(0.75, 1.25, 1); }
+  10% { transform: scale3d(1.15, 0.85, 1); }
+  13% { transform: scale3d(.95, 1.05, 1); }
+  15% { transform: scale3d(1.05, .95, 1); }
+  20% { transform: scale3d(1, 1, 1); }
 }
 .lichess_ground .rematch.them {
   background: none;
-  animation: fbt-glowing 1.5s ease-in-out infinite, flicker-1 0.1s linear;
+  animation: fbt-glowing 1.5s ease-in-out infinite;
+}
+.lichess_ground .rematch.them span {
+  animation: rubberBand 5s infinite;
 }
 .lichess_ground .rematch.button:hover {
   background: rgba(56,147,232,0.8);
   color: #fff!important;
   animation: none;
   text-shadow: none;
+}
+.lichess_ground .rematch-decline {
+  position: absolute;
+  top: 0;
+  right: -25px;
+  width: 25px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-left: 0;
+  border-radius: 0 5px 5px 0;
+  box-sizing: border-box;
+  opacity: 0.7;
+  transition: 0.3s;
+}
+.lichess_ground .rematch-decline:hover {
+  background: #dc322f;
+  color: #fff;
+  right: -35px;
+  width: 35px;
 }
 .lichess_ground .follow_up .fbt.strong {
   display: block;

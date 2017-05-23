@@ -8,6 +8,7 @@ import play.api.Play.current
 import lila.api.Context
 import lila.app._
 import lila.puzzle.{ PuzzleId, Result, Puzzle => PuzzleModel, UserInfos }
+import lila.game.PgnDump
 import lila.user.UserRepo
 import views._
 
@@ -175,7 +176,7 @@ object Puzzle extends LilaController {
       Env.game.recentGoodGameActor ? true mapTo manifest[Option[String]] flatMap {
         _ ?? lila.game.GameRepo.gameWithInitialFen flatMap {
           case Some((game, initialFen)) =>
-            Env.api.pgnDump(game, initialFen.map(_.value)) map { pgn =>
+            Env.api.pgnDump(game, initialFen.map(_.value), PgnDump.WithFlags(clocks = false)) map { pgn =>
               Ok(pgn.render)
             }
           case _ =>
@@ -183,7 +184,7 @@ object Puzzle extends LilaController {
             lila.game.GameRepo.findRandomFinished(1000) flatMap {
               _ ?? { game =>
                 lila.game.GameRepo.initialFen(game) flatMap { fen =>
-                  Env.api.pgnDump(game, fen) map { pgn =>
+                  Env.api.pgnDump(game, fen, PgnDump.WithFlags(clocks = false)) map { pgn =>
                     Ok(pgn.render)
                   }
                 }

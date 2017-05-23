@@ -36,7 +36,7 @@ module.exports = {
   join: join,
   joinWithdraw: function(ctrl) {
     if (!ctrl.userId) return m('a.fbt.text.highlight', {
-      href: '/login?autoref=1',
+      href: '/login?referrer=' + window.location.pathname,
       'data-icon': 'G'
     }, ctrl.trans('signIn'));
     if (ctrl.data.isFinished) return null;

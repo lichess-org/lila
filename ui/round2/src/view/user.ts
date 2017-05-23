@@ -1,6 +1,7 @@
 import { game } from 'game';
 
 import { h } from 'snabbdom'
+import { dataIcon } from '../util'
 
 function ratingDiff(player) {
   if (player.ratingDiff === 0) return h('span.rp.null', '±0');
@@ -11,7 +12,7 @@ function ratingDiff(player) {
 
 function relayUser(player) {
   return h('span.text', {
-    attrs: {'data-icon': '8'}
+    attrs: dataIcon('8')
   },
   (player.title ? player.title + ' ' : '') + player.name + ' ' +
   (player.rating ? ' (' + player.rating + ')' : '')

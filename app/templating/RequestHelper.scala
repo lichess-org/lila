@@ -5,5 +5,5 @@ import lila.api.Context
 
 trait RequestHelper {
 
-  def currentUrl(implicit ctx: Context) = ctx.req.host + ctx.req.uri
+  def currentPath(implicit ctx: Context) = ctx.req.path
 }
