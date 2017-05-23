@@ -1,5 +1,5 @@
 import * as button from '../view/button';
-import { bind } from '../util';
+import { bind, dataIcon } from '../util';
 import { game } from 'game';
 
 import { h } from 'snabbdom'
@@ -92,7 +92,7 @@ function showBerserk(ctrl, color) {
 
 function renderBerserk(ctrl, color, position) {
   return showBerserk(ctrl, color) ? h('div.berserk_alert.' + position, {
-    attrs: {'data-icon': '`'}
+    attrs: dataIcon('`')
   }) : null;
 }
 
@@ -103,13 +103,13 @@ function goBerserk(ctrl) {
     attrs: { 'data-hint': "GO BERSERK! Half the time, bonus point" },
     hook: bind('click', ctrl.goBerserk)
   }, [
-    h('span', { attrs: {'data-icon': '`'} })
+    h('span', { attrs: dataIcon('`') })
   ]);
 }
 
 function tourRank(ctrl, color, position) {
   var d = ctrl.data;
-  return (d.tournament && d.tournament.ranks && !showBerserk(ctrl, color)) ? 
+  return (d.tournament && d.tournament.ranks && !showBerserk(ctrl, color)) ?
   h('div.tournament_rank.' + position, {
     attrs: {title: 'Current tournament rank'}
   }, '#' + d.tournament.ranks[color]) : null;

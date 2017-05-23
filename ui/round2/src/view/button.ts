@@ -70,7 +70,7 @@ export function standard(ctrl, condition, icon, hint, socketMsg, onclick): VNode
       }
     }
   }, [
-    h('span', { attrs: {'data-icon': icon} })
+    h('span', { attrs: util.dataIcon(icon) })
   ]);
 };
 export function forceResign(ctrl) {
@@ -89,11 +89,11 @@ export function resignConfirm(ctrl): VNode {
     h('button.fbt.no.hint--bottom', {
       attrs: { 'data-hint': ctrl.trans.noarg('cancel') },
       hook: util.bind('click', () => ctrl.resign(false))
-    }, [h('span', { attrs: {'data-icon': 'L'} })]),
+    }, [h('span', { attrs: util.dataIcon('L') })]),
     h('button.fbt.yes.active.hint--bottom', {
       attrs: {'data-hint': ctrl.trans.noarg('resign') },
       hook: util.bind('click', () => ctrl.resign(true))
-    }, [h('span', { attrs: { 'data-icon': 'b'} })])
+    }, [h('span', { attrs: util.dataIcon('b') })])
   ]);
 };
 export function threefoldClaimDraw(ctrl) {
@@ -190,7 +190,7 @@ export function backToTournament(ctrl): VNode | undefined {
         action: '/tournament/' + d.tournament.id + '/withdraw'
       }
     }, [
-      h('button.text.button.weak', { attrs: {'data-icon': 'Z'} }, 'Pause')
+      h('button.text.button.weak', { attrs: util.dataIcon('Z') }, 'Pause')
     ]),
     analysisButton(ctrl)
   ]) : undefined;
@@ -200,7 +200,7 @@ export function moretime(ctrl) {
     attrs: { 'data-hint': ctrl.trans('giveNbSeconds', ctrl.data.clock.moretime) },
     hook: util.bind('click', ctrl.socket.moreTime)
   }, [
-    h('span', { attrs: {'data-icon': 'O'}})
+    h('span', { attrs: util.dataIcon('O')})
   ]) : null;
 };
 export function followUp(ctrl): VNode {

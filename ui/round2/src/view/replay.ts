@@ -121,13 +121,13 @@ function analyseButton(ctrl) {
   return [
     h('a.fbt.analysis', data, [
       h('span', {
-        attrs: {'data-icon': 'A'},
+        attrs: util.dataIcon('A'),
         class: {text: ctrl.data.forecastCount}
       }),
       ctrl.data.forecastCount
     ]),
     showInfo ? h('div.forecast-info.info.none', [
-      h('strong.title.text', { attrs: {'data-icon': ''} }, 'Speed up your game!'),
+      h('strong.title.text', { attrs: util.dataIcon('') }, 'Speed up your game!'),
       h('span.content', 'Use the analysis board to create conditional premoves.')
     ]) : null
   ];
@@ -159,7 +159,7 @@ function renderButtons(ctrl) {
         'data-act': 'flip'
       }
     }, [
-      h('span', {attrs: {'data-icon': 'B'}})
+      h('span', {attrs: util.dataIcon('B')})
     ]),
     h('nav', [
       ['W', firstPly],
@@ -185,7 +185,7 @@ function racingKingsInit(d) {
   if (d.game.variant.key === 'racingKings' && d.game.turns === 0 && !d.player.spectator) {
     const yourTurn = d.player.color === 'white' ? [h('br'), h('strong', "it's your turn!")] : [];
     return h('div.message', {
-      attrs: {'data-icon': ''},
+      attrs: util.dataIcon(''),
     }, [
       h('span', "You have the " + d.player.color + " pieces"),
       ...yourTurn

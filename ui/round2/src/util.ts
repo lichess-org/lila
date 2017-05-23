@@ -13,6 +13,12 @@ const pieceScores = {
   king: 0
 };
 
+export function dataIcon(icon: string) {
+  return {
+    'data-icon': icon
+  };
+}
+
 export function uci2move(uci: string): cg.Key[] | undefined {
   if (!uci) return undefined;
   if (uci[1] === '@') return [uci.slice(2, 4) as cg.Key];
