@@ -783,6 +783,9 @@ div.control .button.disabled {
 .lichess_ground .negotiation a.decline:hover {
   background: #dc322f!important;
 }
+.lichess_ground .follow_up {
+  position: relative;
+}
 .lichess_ground .follow_up .button {
   display: block;
   width: 100%;
@@ -836,6 +839,28 @@ div.control .button.disabled {
   color: #fff!important;
   animation: none;
   text-shadow: none;
+}
+.lichess_ground .rematch-decline {
+  position: absolute;
+  top: 0;
+  right: -25px;
+  width: 25px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-left: 0;
+  border-radius: 0 5px 5px 0;
+  box-sizing: border-box;
+  opacity: 0.7;
+  transition: 0.3s;
+}
+.lichess_ground .rematch-decline:hover {
+  background: #dc322f;
+  color: #fff;
+  right: -35px;
+  width: 35px;
 }
 .lichess_ground .follow_up .fbt.strong {
   display: block;

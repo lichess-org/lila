@@ -24,32 +24,43 @@ function analysisButton(ctrl) {
   }, ctrl.trans.noarg('analysis')) : null;
 }
 
-function rematchButton(ctrl) {
+function rematchButtons(ctrl): Array<VNode | null> {
   var d = ctrl.data;
   var me = d.player.offeringRematch, them = d.opponent.offeringRematch;
-  return h('a.button.rematch.white', {
-    class: { me, them },
-    attrs: {
-      title: them ? ctrl.trans.noarg('yourOpponentWantsToPlayANewGameWithYou') : (
-        me ? ctrl.trans.noarg('rematchOfferSent') : '')
-    },
-    hook: util.bind('click', () => {
-      var d = ctrl.data;
-      if (d.game.rematch) location.href = router.game(d.game.rematch, d.opponent.color);
-      else if (d.player.offeringRematch) {
-        d.player.offeringRematch = false;
+  return [
+    them ? h('a.rematch-decline', {
+      attrs: {
+        'data-icon': 'L',
+        title: ctrl.trans.noarg('decline')
+      },
+      hook: util.bind('click', () => {
         ctrl.socket.send('rematch-no');
-      }
-      else if (d.opponent.onGame) {
-        d.player.offeringRematch = true;
-        ctrl.socket.send('rematch-yes');
-      }
-      else ctrl.challengeRematch();
-      ctrl.redraw();
-    })
-  }, [
-    me ? util.spinner() : h('span', ctrl.trans.noarg('rematch'))
-  ]);
+      })
+    }) : null,
+    h('a.button.rematch.white', {
+      class: { me, them },
+      attrs: {
+        title: them ? ctrl.trans.noarg('yourOpponentWantsToPlayANewGameWithYou') : (
+          me ? ctrl.trans.noarg('rematchOfferSent') : '')
+      },
+      hook: util.bind('click', () => {
+        var d = ctrl.data;
+        if (d.game.rematch) location.href = router.game(d.game.rematch, d.opponent.color);
+        else if (d.player.offeringRematch) {
+          d.player.offeringRematch = false;
+          ctrl.socket.send('rematch-no');
+        }
+        else if (d.opponent.onGame) {
+          d.player.offeringRematch = true;
+          ctrl.socket.send('rematch-yes');
+        }
+        else ctrl.challengeRematch();
+        ctrl.redraw();
+      })
+    }, [
+      me ? util.spinner() : h('span', ctrl.trans.noarg('rematch'))
+    ])
+  ];
 }
 
 export function standard(ctrl, condition, icon, hint, socketMsg, onclick): VNode {
@@ -209,11 +220,12 @@ export function followUp(ctrl): VNode {
   var newable = (status.finished(d) || status.aborted(d)) && (
     d.game.source === 'lobby' ||
       d.game.source === 'pool');
+  const rematchZone = ctrl.vm.challengeRematched ? [h('div.suggestion.text', {
+    attrs: util.dataIcon('j')
+  }, ctrl.trans.noarg('rematchOfferSent')
+  )] : (rematchable || d.game.rematch ? rematchButtons(ctrl) : []);
   return h('div.follow_up', [
-    ctrl.vm.challengeRematched ? h('div.suggestion.text', {
-      attrs: {'data-icon': 'j' }
-    }, ctrl.trans.noarg('rematchOfferSent')
-    ) : (rematchable || d.game.rematch ? rematchButton(ctrl) : null),
+    ...rematchZone,
     d.tournament ? h('a.button', {
       attrs: {href: '/tournament/' + d.tournament.id}
     }, ctrl.trans.noarg('viewTournament')) : null,
