@@ -19,20 +19,19 @@ module.exports = function(data, opts) {
 
   var emergMs = 1000 * Math.min(60, Math.max(10, data.initial * .125));
 
-  var times;
+  var times = { lastUpdate: 0 };
 
   function update(white, black) {
     times = {
       white: white * 1000,
       black: black * 1000,
-      lastUpdate: Date.now()
+      lastUpdate: performance.now()
     };
   };
 
   update(data.white, data.black);
 
-  function tick(ctrl, color) {
-    var now = Date.now();
+  function tick(ctrl, color, now) {
     var millis = times[color] -= now - times.lastUpdate;
     times.lastUpdate = now;
 
@@ -42,7 +41,7 @@ module.exports = function(data, opts) {
     if (opts.soundColor == color) {
       if (emergSound.playable[color]) {
         if (millis < emergMs && !(now < emergSound.next)) {
-          emergSound.play();
+          setTimeout(emergSound.play, 0);
           emergSound.next = now + emergSound.delay;
           emergSound.playable[color] = false;
         }
