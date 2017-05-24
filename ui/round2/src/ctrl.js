@@ -20,8 +20,6 @@ var renderUser = require('./view/user');
 var cevalSub = require('./cevalSub');
 var keyboard = require('./keyboard');
 
-var nowMillis = Performance.now || Date.now;
-
 module.exports = function(opts, redraw) {
 
   this.data = round.merge({}, opts.data).data;
@@ -173,7 +171,7 @@ module.exports = function(opts, redraw) {
       // withLag: !!this.clock
     }
     var startTime = this.vm.lastMoveMillis;
-    if (startTime !== null) socketOpts.millis = nowMillis() - startTime;
+    if (startTime !== null) socketOpts.millis = performance.now() - startTime;
     this.socket.send(type, action, socketOpts);
 
     this.vm.justDropped = meta.justDropped;
@@ -236,7 +234,7 @@ module.exports = function(opts, redraw) {
     var d = this.data,
       playing = game.isPlayerPlaying(d);
 
-    if (playing) this.vm.lastMoveMillis = nowMillis();
+    if (playing) this.vm.lastMoveMillis = performance.now();
     d.game.turns = o.ply;
     d.game.player = o.ply % 2 === 0 ? 'white' : 'black';
     var playedColor = o.ply % 2 === 0 ? 'black' : 'white';
