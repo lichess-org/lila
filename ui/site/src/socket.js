@@ -66,13 +66,13 @@ lichess.StrongSocket = function(url, version, settings) {
 
   var send = function(t, d, o, noRetry) {
     o = o || {};
-    var msg = {
-      t: t,
-      d: d === undefined ? {} : d
-    };
-    if (o.withLag) msg.d.l = Math.round(averageLag);
-    if (o.millis !== undefined) msg.d.s = Math.floor(o.millis * 0.1).toString(36);
-    if (o.ackable) ackable.register(t, msg.d);
+    var msg = { t: t };
+    if (d !== undefined) {
+      if (o.withLag) d.l = Math.round(averageLag);
+      if (o.millis !== undefined) d.s = Math.floor(o.millis * 0.1).toString(36);
+      msg.d = d;
+    }
+    if (o.ackable) ackable.register(t, d);
     var message = JSON.stringify(msg);
     debug("send " + message);
     try {
