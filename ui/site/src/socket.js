@@ -65,10 +65,11 @@ lichess.StrongSocket = function(url, version, settings) {
   };
 
   var send = function(t, d, o, noRetry) {
+    o = o || {};
     var msg = {
       t: t,
-      d: d == null ? {} : d
-    }
+      d: d === undefined ? {} : d
+    };
     if (o.withLag) msg.d.l = Math.round(averageLag);
     if (o.millis !== undefined) msg.d.s = Math.floor(o.millis * 0.1).toString(36);
     if (o.ackable) ackable.register(t, msg.d);
