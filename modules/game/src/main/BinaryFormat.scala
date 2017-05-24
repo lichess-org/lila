@@ -127,7 +127,18 @@ object BinaryFormat {
       }
     }
 
-    private def writeTimer(timer: Timestamp) = writeInt((timer - start).centis)
+    private def writeTimer(timer: Timestamp) = {
+      val centis = (timer - start).centis
+      /*
+       * A zero timer is resolved by `readTimer` as the absence of a timer.
+       * As a result, a clock that is started with a timer = 0
+       * resolves as a clock that is not started.
+       * This can happen when the clock was started at the same time as the game
+       * For instance in simuls
+       */
+      val nonZero = centis atLeast 1
+      writeInt(nonZero)
+    }
 
     private def readTimer(l: Int) =
       if (l != 0) Some(start + Centis(l)) else None

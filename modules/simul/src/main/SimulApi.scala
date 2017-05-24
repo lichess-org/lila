@@ -18,7 +18,7 @@ import makeTimeout.short
 private[simul] final class SimulApi(
     system: ActorSystem,
     sequencers: ActorRef,
-    onGameStart: String => Unit,
+    onGameStart: Game.ID => Unit,
     socketHub: ActorRef,
     site: ActorSelection,
     renderer: ActorSelection,
