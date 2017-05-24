@@ -416,8 +416,9 @@ module.exports = function(opts, redraw) {
       if (now - lastUpdate > 50) {
         lastUpdate = now;
         clockTick(now);
+        if (!game.playable(this.data)) return;
       }
-      if (game.playable(this.data)) requestAnimationFrame(tickNow);
+      requestAnimationFrame(tickNow);
     }.bind(this);
     requestAnimationFrame(tickNow);
   } else setInterval(correspondenceClockTick, 1000);
