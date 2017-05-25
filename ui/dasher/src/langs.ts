@@ -62,7 +62,7 @@ export function view(ctrl: LangsCtrl): VNode {
 function langLinks(ctrl: LangsCtrl, list: Lang[]) {
   const links = list.map(langView(ctrl.data.current, ctrl.data.accepted));
   links.push(h('a', {
-    attrs: { href: '/translation/contribute' }
+    attrs: { href: 'https://crowdin.com/project/lichess' }
   }, 'Help translate lichess'));
   return links;
 }
