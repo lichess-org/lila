@@ -44,6 +44,6 @@ object IrwinRequest {
     case Origin.Moderator => 100
     case Origin.Report => 20
     case Origin.Tournament => -1000
-    case Origin.Leaderboard => -3000
+    case Origin.Leaderboard => -1000
   }
 }
