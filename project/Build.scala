@@ -321,8 +321,9 @@ object ApplicationBuild extends Build {
   lazy val i18n = project("i18n", Seq(common, db, user, hub)).settings(
     sourceGenerators in Compile += Def.task {
       MessageCompiler(
-        new File("translation/dest/site"),
-        (sourceManaged in Compile).value / "messages"
+        sourceFile = new File("translation/source/site.csv"),
+        destDir = new File("translation/dest/site"),
+        compileTo = (sourceManaged in Compile).value / "messages"
       )
     }.taskValue,
     libraryDependencies ++= provided(play.api, reactivemongo.driver)

@@ -4,32 +4,30 @@ import sbt._, Keys._
 
 object MessageCompiler {
 
-  def apply(src: File, dst: File): Seq[File] = {
+  def apply(sourceFile: File, destDir: File, compileTo: File): Seq[File] = {
     val startsAt = System.currentTimeMillis()
-    val sourceFiles = Option(src.list) getOrElse Array() filter (_ endsWith ".csv")
-    val registry = sourceFiles.toList.map { f =>
-      f.takeWhile('.' !=) -> f
+    val registry = ("en-EN" -> sourceFile) :: destDir.list.toList.map { f =>
+      f.takeWhile('.' !=) -> (destDir / f)
     }
-    dst.mkdirs()
-    val registryFile = writeRegistry(dst, registry)
+    compileTo.mkdirs()
+    val registryFile = writeRegistry(compileTo, registry)
     val res = for (entry <- registry) yield {
       val (locale, file) = entry
-      val srcFile = src / file
-      val dstFile = dst / s"$locale.scala"
-      if (srcFile.lastModified > dstFile.lastModified) {
-        val pairs = readLines(srcFile) flatMap makePair
-        printToFile(dstFile) {
+      val compileToFile = compileTo / s"$locale.scala"
+      if (file.lastModified > compileToFile.lastModified) {
+        val pairs = readLines(file) flatMap makePair
+        printToFile(compileToFile) {
           render(locale, pairs)
         }
       }
-      dstFile
+      compileToFile
     }
     println(s"MessageCompiler took ${System.currentTimeMillis() - startsAt}ms")
     registryFile :: res
   }
 
-  private def writeRegistry(dst: File, registry: List[(String, String)]) = {
-    val file = dst / "Registry.scala"
+  private def writeRegistry(compileTo: File, registry: List[(String, File)]) = {
+    val file = compileTo / "Registry.scala"
     printToFile(file) {
       val content = registry.map {
         case (locale, _) => s""""$locale"->`$locale`.load"""
