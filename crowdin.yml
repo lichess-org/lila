@@ -1,4 +1,4 @@
 files:
-  - source: /modules/i18n/crowdin/sources/*.csv
-    translation: /modules/i18n/crowdin/translated/%locale%_%original_file_name%
+  - source: /translation/source/*.csv
+    translation: /translation/dest/%file_name%/%locale%.%file_extension%
     scheme: 'identifier,context,source_phrase,translation'
