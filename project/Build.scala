@@ -33,8 +33,8 @@ object ApplicationBuild extends Build {
       scriptClasspath := Seq("*"),
       // offline := true,
       libraryDependencies ++= Seq(
-        scalaz, scalalib, hasher, config, apache,
-        jgit, findbugs, reactivemongo.driver, reactivemongo.iteratees, akka.actor, akka.slf4j,
+        scalaz, scalalib, hasher, config, apache, findbugs,
+        reactivemongo.driver, reactivemongo.iteratees, akka.actor, akka.slf4j,
         maxmind, prismic, netty, guava,
         kamon.core, kamon.influxdb,
         java8compat, semver, scrimage, configs, scaffeine),
@@ -70,7 +70,7 @@ object ApplicationBuild extends Build {
   lazy val api = project("api", moduleCPDeps)
     .settings(
       libraryDependencies ++= provided(
-        play.api, hasher, config, apache, jgit, findbugs,
+        play.api, hasher, config, apache, findbugs,
         reactivemongo.driver, reactivemongo.iteratees,
         kamon.core, kamon.influxdb)
     ) aggregate (moduleRefs: _*)
@@ -325,7 +325,7 @@ object ApplicationBuild extends Build {
         (sourceManaged in Compile).value / "messages"
       )
     }.taskValue,
-    libraryDependencies ++= provided(play.api, reactivemongo.driver, jgit)
+    libraryDependencies ++= provided(play.api, reactivemongo.driver)
   )
 
   lazy val bookmark = project("bookmark", Seq(common, memo, db, hub, user, game)).settings(
