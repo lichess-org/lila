@@ -1,28 +1,25 @@
 import _root_.java.io.File
-import _root_.java.nio.file.{ Files, StandardCopyOption }
+import _root_.java.nio.file.{Files, StandardCopyOption}
 import sbt._, Keys._
 
 object MessageCompiler {
 
   def apply(src: File, dst: File): Seq[File] = {
     val startsAt = System.currentTimeMillis()
-    val sourceFiles = Option(src.list) getOrElse Array() filter (_ startsWith "messages")
+    val sourceFiles = Option(src.list) getOrElse Array() filter (_ endsWith ".csv")
     val registry = sourceFiles.toList.map { f =>
-      f.split('.') match {
-        case Array("messages", lang) => lang -> f
-        case Array("messages")       => "default" -> f
-      }
+      f.takeWhile('.' !=) -> f
     }
     dst.mkdirs()
     val registryFile = writeRegistry(dst, registry)
     val res = for (entry <- registry) yield {
-      val (lang, file) = entry
+      val (locale, file) = entry
       val srcFile = src / file
-      val dstFile = dst / s"$lang.scala"
+      val dstFile = dst / s"$locale.scala"
       if (srcFile.lastModified > dstFile.lastModified) {
-        val pairs = readLines(srcFile) map makePair
+        val pairs = readLines(srcFile) flatMap makePair
         printToFile(dstFile) {
-          render(lang, pairs)
+          render(locale, pairs)
         }
       }
       dstFile
@@ -35,7 +32,7 @@ object MessageCompiler {
     val file = dst / "Registry.scala"
     printToFile(file) {
       val content = registry.map {
-        case (lang, _) => s""""$lang"->$lang.load"""
+        case (locale, _) => s""""$locale"->`$locale`.load"""
       } mkString ",\n"
       s"""package lila.i18n
 package db
@@ -50,7 +47,7 @@ object Registry {
     file
   }
 
-  private def render(lang: String, pairs: List[(String, String)]) = {
+  private def render(locale: String, pairs: List[(String, String)]) = {
     def quote(msg: String) = s"""""\"$msg""\""""
     val content = pairs.map {
       case (key, message) => s""""$key"->${quote(message)}"""
@@ -59,17 +56,18 @@ object Registry {
 package db
 
 // format: OFF
-private object $lang {
+private object `$locale` {
 
   def load = Map[String, String]($content)
 }
 """
   }
 
-  private def makePair(str: String): (String, String) = {
-    val p = str.splitAt(str indexOf "=")
-    p._1 -> p._2.drop(1)
-  }
+  private def makePair(str: String): Option[(String, String)] = for {
+    fields <- CSVParser.parse(str, ',', '"')
+    key <- fields.headOption
+    translation <- fields.lift(3)
+  } yield (key, translation)
 
   private def readLines(f: File) =
     scala.io.Source.fromFile(f)("UTF-8").getLines.toList
