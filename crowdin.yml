@@ -1,0 +1,3 @@
+files:
+  - source: /modules/i18n/crowdin/sources/*.csv
+    translation: /modules/i18n/crowdin/translated/%original_file_name%.%locale%.csv
