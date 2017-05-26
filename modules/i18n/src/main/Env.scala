@@ -6,7 +6,6 @@ import play.api.libs.json._
 
 final class Env(
     config: Config,
-    system: akka.actor.ActorSystem,
     appPath: String
 ) {
 
@@ -28,7 +27,6 @@ object Env {
 
   lazy val current = "i18n" boot new Env(
     config = lila.common.PlayApp loadConfig "i18n",
-    system = PlayApp.system,
     appPath = PlayApp withApp (_.path.getCanonicalPath)
   )
 }
