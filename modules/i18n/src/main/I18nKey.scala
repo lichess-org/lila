@@ -14,7 +14,7 @@ trait I18nKey {
 
   def to(lang: Lang)(args: Any*): String
 
-  def en(args: Any*): String = to(I18nKey.en)(args: _*)
+  def en(args: Any*): String = to(enLang)(args: _*)
 }
 
 case class Untranslated(key: String) extends I18nKey {
@@ -28,9 +28,7 @@ case class Untranslated(key: String) extends I18nKey {
 
 object I18nKey {
 
-  val en = Lang("en", "GB")
-
-  type Select = I18nKeys => I18nKey
+  type Select = I18nKeys.type => I18nKey
 
   def untranslated(key: String) = Untranslated(key)
 }

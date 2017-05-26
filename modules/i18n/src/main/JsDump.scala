@@ -6,11 +6,7 @@ import scala.concurrent.Future
 import play.api.i18n.Lang
 import play.api.libs.json.{ JsString, JsObject }
 
-private[i18n] final class JsDump(
-    path: String,
-    pool: I18nPool,
-    keys: I18nKeys
-) {
+private[i18n] final class JsDump(path: String) {
 
   def keysToObject(keys: Seq[I18nKey], lang: Lang) = JsObject {
     keys.map { k =>
@@ -38,7 +34,7 @@ private[i18n] final class JsDump(
     }.mkString("{", ",", "}")
 
   private def writeRefs {
-    val code = pool.names.toList.sortBy(_._1).map {
+    val code = LangList.all.toList.sortBy(_._1.toString).map {
       case (code, name) => s"""["$code","$name"]"""
     }.mkString("[", ",", "]")
     val file = new File("%s/refs.json".format(pathFile.getCanonicalPath))
@@ -48,8 +44,8 @@ private[i18n] final class JsDump(
   }
 
   private def writeFullJson {
-    pool.langs foreach { lang =>
-      val code = dumpFromKey(keys.keys, lang)
+    I18nDb.langs foreach { lang =>
+      val code = dumpFromKey(I18nKeys.keys, lang)
       val file = new File("%s/%s.all.json".format(pathFile.getCanonicalPath, lang.language))
       val out = new PrintWriter(file)
       try { out.print(code) }

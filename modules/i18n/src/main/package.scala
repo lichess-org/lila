@@ -14,4 +14,7 @@ package object i18n extends PackageObject with WithPlay {
     "kb" -> Lang("kab", "KAB"),
     "tc" -> Lang("zh", "CN")
   )
+
+  val enLang = Lang("en", "GB")
+  val defaultLang = enLang
 }

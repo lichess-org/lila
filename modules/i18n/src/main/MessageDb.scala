@@ -1,13 +1,15 @@
 package lila.i18n
 
-private object MessageDb {
+object I18nDb {
 
-  def load: Messages =
+  val all: Messages =
     lila.common.Chronometer.syncEffect(
       lila.i18n.db.Registry.load // .+("default.play" -> playDefaultMessages)
     ) { lap =>
       logger.info(s"${lap.millis}ms MessageDb")
     }
+
+  val langs = all.keySet
 
   private def playDefaultMessages: Map[String, String] = Map(
     "constraint.required" -> "Required",

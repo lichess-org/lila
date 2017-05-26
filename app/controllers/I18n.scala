@@ -1,6 +1,8 @@
 package controllers
 
-import play.api.data.Form
+import play.api.data._
+import play.api.data.Forms._
+import play.api.i18n.Lang
 import play.api.libs.json.Json
 
 import lila.app._
@@ -8,15 +10,18 @@ import lila.common.{ LilaCookie, HTTPRequest }
 
 object I18n extends LilaController {
 
+  private val form = Form(single("lang" -> text.verifying { code =>
+    Lang.get(code) ?? lila.i18n.I18nDb.langs.contains
+  }))
+
   def select = OpenBody { implicit ctx =>
-    import play.api.data.Forms._
-    import play.api.data._
     implicit val req = ctx.body
-    Form(single("lang" -> text.verifying(Env.i18n.pool contains _))).bindFromRequest.fold(
+    form.bindFromRequest.fold(
       _ => notFound,
-      lang => {
-        ctx.me.filterNot(_.lang contains lang) ?? { me =>
-          lila.user.UserRepo.setLang(me.id, lang)
+      code => {
+        val lang = Lang(code)
+        ctx.me.filterNot(_.lang contains lang.code) ?? { me =>
+          lila.user.UserRepo.setLang(me.id, lang.code)
         }
       } >> negotiate(
         html = {
@@ -35,10 +40,10 @@ object I18n extends LilaController {
               }
             }
           }
-          if (ctx.isAnon) redir.withCookies(LilaCookie.session("lang", lang))
+          if (ctx.isAnon) redir.withCookies(LilaCookie.session("lang", lang.code))
           else redir
         }.fuccess,
-        api = _ => Ok(Json.obj("lang" -> lang)).fuccess
+        api = _ => Ok(Json.obj("lang" -> lang.code)).fuccess
       )
     )
   }

@@ -41,7 +41,8 @@ private[controllers] trait LilaController
       api = _ => fuccess(Ok(jsonOkBody) as JSON)
     )
 
-  implicit def lang(implicit req: RequestHeader) = Env.i18n.pool lang req
+  // implicit def lang(implicit req: RequestHeader) = Env.i18n.pool lang req
+  implicit def lang(implicit ctx: Context) = ctx.lang
 
   protected def NoCache(res: Result): Result = res.withHeaders(
     CACHE_CONTROL -> "no-cache, no-store, must-revalidate", EXPIRES -> "0"
@@ -56,7 +57,7 @@ private[controllers] trait LilaController
   protected def Open[A](p: BodyParser[A])(f: Context => Fu[Result]): Action[A] =
     Action.async(p) { req =>
       CSRF(req) {
-        reqToCtx(req) flatMap maybeI18nRedirect(f)
+        reqToCtx(req) flatMap f
       }
     }
 
@@ -66,7 +67,7 @@ private[controllers] trait LilaController
   protected def OpenBody[A](p: BodyParser[A])(f: BodyContext[A] => Fu[Result]): Action[A] =
     Action.async(p) { req =>
       CSRF(req) {
-        reqToCtx(req) flatMap maybeI18nRedirect(f)
+        reqToCtx(req) flatMap f
       }
     }
 
@@ -77,9 +78,7 @@ private[controllers] trait LilaController
     Action.async(p) { req =>
       CSRF(req) {
         reqToCtx(req) flatMap { ctx =>
-          ctx.me.fold(authenticationFailed(ctx)) { me =>
-            maybeI18nRedirect((c: Context) => f(c)(me))(ctx)
-          }
+          ctx.me.fold(authenticationFailed(ctx))(f(ctx))
         }
       }
     }
@@ -90,10 +89,8 @@ private[controllers] trait LilaController
   protected def AuthBody[A](p: BodyParser[A])(f: BodyContext[A] => UserModel => Fu[Result]): Action[A] =
     Action.async(p) { req =>
       CSRF(req) {
-        reqToCtx(req) flatMap { implicit ctx =>
-          ctx.me.fold(authenticationFailed) { me =>
-            maybeI18nRedirect((c: BodyContext[A]) => f(c)(me))(ctx)
-          }
+        reqToCtx(req) flatMap { ctx =>
+          ctx.me.fold(authenticationFailed(ctx))(f(ctx))
         }
       }
     }
@@ -121,9 +118,6 @@ private[controllers] trait LilaController
 
   protected def SecureBody(perm: Permission.type => Permission)(f: BodyContext[_] => UserModel => Fu[Result]): Action[AnyContent] =
     SecureBody(BodyParsers.parse.anyContent)(perm(Permission))(f)
-
-  private def maybeI18nRedirect[C <: Context](f: C => Fu[Result])(ctx: C): Fu[Result] =
-    Env.i18n.requestHandler(ctx.req, ctx.me, ctx.lang).fold(f(ctx))(fuccess)
 
   protected def Firewall[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     Env.security.firewall.accepts(ctx.req) flatMap {
@@ -278,13 +272,13 @@ private[controllers] trait LilaController
     }).dmap(_.withHeaders("Vary" -> "Accept"))
 
   protected def reqToCtx(req: RequestHeader): Fu[HeaderContext] = restoreUser(req) flatMap { d =>
-    val ctx = UserContext(req, d.map(_.user), Env.i18n.langPicker(req, d.map(_.user)))
+    val ctx = UserContext(req, d.map(_.user), lila.i18n.I18nLangPicker(req, d.map(_.user)))
     pageDataBuilder(ctx, d.exists(_.hasFingerprint)) dmap { Context(ctx, _) }
   }
 
   protected def reqToCtx[A](req: Request[A]): Fu[BodyContext[A]] =
     restoreUser(req) flatMap { d =>
-      val ctx = UserContext(req, d.map(_.user), Env.i18n.langPicker(req, d.map(_.user)))
+      val ctx = UserContext(req, d.map(_.user), lila.i18n.I18nLangPicker(req, d.map(_.user)))
       pageDataBuilder(ctx, d.exists(_.hasFingerprint)) dmap { Context(ctx, _) }
     }
 

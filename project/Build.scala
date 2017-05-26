@@ -45,6 +45,7 @@ object ApplicationBuild extends Build {
         "lila.security.Permission",
         "lila.app.templating.Environment._",
         "lila.api.Context",
+        "lila.i18n.{ I18nKeys => trans }",
         "lila.common.paginator.Paginator"),
       // trump sbt-web into not looking at public/
       resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets",

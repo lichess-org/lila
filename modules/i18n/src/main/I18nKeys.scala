@@ -6,18 +6,18 @@ import play.api.i18n.Lang
 
 import lila.user.UserContext
 
-final class I18nKeys(translator: Translator) {
+object I18nKeys {
 
   final class Key(val key: String) extends I18nKey {
 
     def apply(args: Any*)(implicit ctx: UserContext): Html =
-      translator.html(key, args.toList, ctx.lang)
+      Translator.html(key, args.toList, ctx.lang)
 
     def str(args: Any*)(implicit ctx: UserContext): String =
-      translator.str(key, args.toList, ctx.lang)
+      Translator.str(key, args.toList, ctx.lang)
 
     def to(lang: Lang)(args: Any*): String =
-      translator.transTo(key, args.toList, lang)
+      Translator.transTo(key, args.toList, lang)
   }
 
   def untranslated(message: String) = Untranslated(message)

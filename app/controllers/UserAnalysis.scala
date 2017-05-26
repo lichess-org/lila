@@ -12,6 +12,7 @@ import scala.concurrent.duration._
 
 import lila.app._
 import lila.game.{ GameRepo, Pov }
+import lila.i18n.I18nKeys
 import lila.round.Forecast.{ forecastStepJsonFormat, forecastJsonWriter }
 import views._
 
@@ -41,19 +42,18 @@ object UserAnalysis extends LilaController with TheftPrevention {
   }
 
   private lazy val keyboardI18nKeys = {
-    val trans = Env.i18n.keys
     Seq(
-      trans.keyboardShortcuts,
-      trans.keyMoveBackwardOrForward,
-      trans.keyGoToStartOrEnd,
-      trans.keyShowOrHideComments,
-      trans.keyEnterOrExitVariation,
-      trans.youCanAlsoScrollOverTheBoardToMoveInTheGame,
-      trans.pressShiftPlusClickOrRightClickToDrawCirclesAndArrowsOnTheBoard
+      I18nKeys.keyboardShortcuts,
+      I18nKeys.keyMoveBackwardOrForward,
+      I18nKeys.keyGoToStartOrEnd,
+      I18nKeys.keyShowOrHideComments,
+      I18nKeys.keyEnterOrExitVariation,
+      I18nKeys.youCanAlsoScrollOverTheBoardToMoveInTheGame,
+      I18nKeys.pressShiftPlusClickOrRightClickToDrawCirclesAndArrowsOnTheBoard
     )
   }
 
-  def keyboardI18n = Action.async { implicit req =>
+  def keyboardI18n = Open { implicit ctx =>
     JsonOk(fuccess(Env.i18n.jsDump.keysToObject(keyboardI18nKeys, lang)))
   }
 

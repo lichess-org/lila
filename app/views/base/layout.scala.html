@@ -14,7 +14,6 @@ playing: Boolean = false,
 openGraph: Option[lila.app.ui.OpenGraph] = None,
 atom: Option[Html] = None,
 chessground: Boolean = true,
-withLangAnnotations: Boolean = true,
 zoomable: Boolean = false,
 asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
 <!doctype html>
@@ -52,7 +51,6 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     <link href="@routes.Blog.atom()" type="application/atom+xml" rel="alternate" title="Latest blog posts" />
     }
     <link rel="mask-icon" href="@staticUrl("favicon.svg")" color="black">
-    @if(withLangAnnotations && ctx.isAnon && lila.common.HTTPRequest.isBot(ctx.req)){@langAnnotations}
     @ctx.transpBgImg.map { img =>
     <style type="text/css" id="bg-data">body.transp::before{background-image:url('@img');}</style>
     }

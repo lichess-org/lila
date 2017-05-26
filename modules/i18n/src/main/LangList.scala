@@ -1,14 +1,12 @@
 package lila.i18n
 
+import play.api.i18n.Lang
+
 object LangList {
 
-  def name(code: String) = all get code
+  def name(lang: Lang): String = all.getOrElse(lang, lang.code)
 
-  def nameOrCode(code: String) = name(code) | code
-
-  def exists(code: String) = all contains code
-
-  lazy val sortedList = all.toList sortBy (_._1)
+  def nameByStr(str: String): String = I18nLangPicker.byStr(str).fold(str)(name)
 
   val all = Map(
     Lang("en", "GB") -> "English",

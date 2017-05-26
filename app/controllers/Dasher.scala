@@ -8,26 +8,27 @@ import lila.api.Context
 import lila.app._
 import lila.common.LightUser.lightUserWrites
 import lila.pref.JsonView._
+import lila.i18n.I18nKeys
 
 object Dasher extends LilaController {
 
   private def translations(implicit ctx: Context) = Env.i18n.jsDump.keysToObject(
     ctx.isAnon.fold(
       List(
-        Env.i18n.keys.signIn,
-        Env.i18n.keys.signUp
+        I18nKeys.signIn,
+        I18nKeys.signUp
       ),
       List(
-        Env.i18n.keys.profile,
-        Env.i18n.keys.inbox,
-        Env.i18n.keys.preferences,
-        Env.i18n.keys.logOut
+        I18nKeys.profile,
+        I18nKeys.inbox,
+        I18nKeys.preferences,
+        I18nKeys.logOut
       )
     ) ::: List(
-        Env.i18n.keys.networkLagBetweenYouAndLichess,
-        Env.i18n.keys.timeToProcessAMoveOnLichessServer,
-        Env.i18n.keys.sound
-      ), Env.i18n.pool lang ctx.req
+        I18nKeys.networkLagBetweenYouAndLichess,
+        I18nKeys.timeToProcessAMoveOnLichessServer,
+        I18nKeys.sound
+      ), ctx.lang
   )
 
   def get = Open { implicit ctx =>
@@ -37,8 +38,8 @@ object Dasher extends LilaController {
       Json.obj(
         "user" -> ctx.me.map(_.light),
         "lang" -> Json.obj(
-          "current" -> Env.i18n.pool.lang(ctx.req).language.toString,
-          "accepted" -> (ctx.req.acceptLanguages.map(_.language.toString)(breakOut): List[String]).distinct
+          "current" -> ctx.lang.code,
+          "accepted" -> (ctx.req.acceptLanguages.map(_.code)(breakOut): List[String]).distinct
         ),
         "sound" -> Json.obj(
           "list" -> lila.pref.SoundSet.list.map { set =>

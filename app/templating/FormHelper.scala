@@ -1,16 +1,18 @@
 package lila.app
 package templating
 
-import lila.api.Context
 import play.api.data._
 import play.twirl.api.Html
+
+import lila.api.Context
+import lila.i18n.I18nKeys
 
 trait FormHelper { self: I18nHelper =>
 
   private val errNames = Map(
-    "error.minLength" -> trans.textIsTooShort,
-    "error.maxLength" -> trans.textIsTooLong,
-    "captcha.fail" -> trans.notACheckmate
+    "error.minLength" -> I18nKeys.textIsTooShort,
+    "error.maxLength" -> I18nKeys.textIsTooLong,
+    "captcha.fail" -> I18nKeys.notACheckmate
   )
 
   def errMsg(form: Field)(implicit ctx: Context): Html = errMsg(form.errors)

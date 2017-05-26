@@ -7,25 +7,26 @@ import lila.pref.Pref
 import lila.report.Reason
 import lila.setup.TimeMode
 import lila.tournament.System
+import lila.i18n.I18nKeys
 
 trait SetupHelper { self: I18nHelper =>
 
   def translatedTimeModeChoices(implicit ctx: Context) = List(
-    (TimeMode.RealTime.id.toString, trans.realTime.str(), none),
-    (TimeMode.Correspondence.id.toString, trans.correspondence.str(), none),
-    (TimeMode.Unlimited.id.toString, trans.unlimited.str(), none)
+    (TimeMode.RealTime.id.toString, I18nKeys.realTime.str(), none),
+    (TimeMode.Correspondence.id.toString, I18nKeys.correspondence.str(), none),
+    (TimeMode.Unlimited.id.toString, I18nKeys.unlimited.str(), none)
   )
 
   def translatedReasonChoices(implicit ctx: Context) = List(
-    (Reason.Cheat.key, trans.cheat.str()),
-    (Reason.Insult.key, trans.insult.str()),
-    (Reason.Troll.key, trans.troll.str()),
-    (Reason.Other.key, trans.other.str())
+    (Reason.Cheat.key, I18nKeys.cheat.str()),
+    (Reason.Insult.key, I18nKeys.insult.str()),
+    (Reason.Troll.key, I18nKeys.troll.str()),
+    (Reason.Other.key, I18nKeys.other.str())
   )
 
   def translatedModeChoices(implicit ctx: Context) = List(
-    (Mode.Casual.id.toString, trans.casual.str(), none),
-    (Mode.Rated.id.toString, trans.rated.str(), none)
+    (Mode.Casual.id.toString, I18nKeys.casual.str(), none),
+    (Mode.Rated.id.toString, I18nKeys.rated.str(), none)
   )
 
   def translatedSystemChoices(implicit ctx: Context) = List(
@@ -36,7 +37,7 @@ trait SetupHelper { self: I18nHelper =>
     (variant.id.toString, variant.name, variant.title.some)
 
   def translatedVariantChoices(implicit ctx: Context) = List(
-    (chess.variant.Standard.id.toString, trans.standard.str(), chess.variant.Standard.title.some)
+    (chess.variant.Standard.id.toString, I18nKeys.standard.str(), chess.variant.Standard.title.some)
   )
 
   def translatedVariantChoicesWithVariants(implicit ctx: Context) =
@@ -74,88 +75,88 @@ trait SetupHelper { self: I18nHelper =>
   def translatedSpeedChoices(implicit ctx: Context) = Speed.limited map { s =>
     (s.id.toString, {
       (s.range.min, s.range.max) match {
-        case (0, y) => s.toString + " - " + trans.lessThanNbMinutes(y / 60 + 1)
-        case (x, y) => s.toString + " - " + trans.xToYMinutes(x / 60, y / 60 + 1)
+        case (0, y) => s.toString + " - " + I18nKeys.lessThanNbMinutes(y / 60 + 1)
+        case (x, y) => s.toString + " - " + I18nKeys.xToYMinutes(x / 60, y / 60 + 1)
       }
     }, none)
   }
 
   def translatedAnimationChoices(implicit ctx: Context) = List(
-    (Pref.Animation.NONE, trans.none.str()),
-    (Pref.Animation.FAST, trans.fast.str()),
-    (Pref.Animation.NORMAL, trans.normal.str()),
-    (Pref.Animation.SLOW, trans.slow.str())
+    (Pref.Animation.NONE, I18nKeys.none.str()),
+    (Pref.Animation.FAST, I18nKeys.fast.str()),
+    (Pref.Animation.NORMAL, I18nKeys.normal.str()),
+    (Pref.Animation.SLOW, I18nKeys.slow.str())
   )
 
   def translatedBoardCoordinateChoices(implicit ctx: Context) = List(
-    (Pref.Coords.NONE, trans.no.str()),
-    (Pref.Coords.INSIDE, trans.insideTheBoard.str()),
-    (Pref.Coords.OUTSIDE, trans.outsideTheBoard.str())
+    (Pref.Coords.NONE, I18nKeys.no.str()),
+    (Pref.Coords.INSIDE, I18nKeys.insideTheBoard.str()),
+    (Pref.Coords.OUTSIDE, I18nKeys.outsideTheBoard.str())
   )
 
   def translatedMoveListWhilePlayingChoices(implicit ctx: Context) = List(
-    (Pref.Replay.NEVER, trans.never.str()),
-    (Pref.Replay.SLOW, trans.onSlowGames.str()),
-    (Pref.Replay.ALWAYS, trans.always.str())
+    (Pref.Replay.NEVER, I18nKeys.never.str()),
+    (Pref.Replay.SLOW, I18nKeys.onSlowGames.str()),
+    (Pref.Replay.ALWAYS, I18nKeys.always.str())
   )
 
   def translatedClockTenthsChoices(implicit ctx: Context) = List(
-    (Pref.ClockTenths.NEVER, trans.never.str()),
-    (Pref.ClockTenths.LOWTIME, trans.whenTimeRemainingLessThanTenSeconds.str()),
-    (Pref.ClockTenths.ALWAYS, trans.always.str())
+    (Pref.ClockTenths.NEVER, I18nKeys.never.str()),
+    (Pref.ClockTenths.LOWTIME, I18nKeys.whenTimeRemainingLessThanTenSeconds.str()),
+    (Pref.ClockTenths.ALWAYS, I18nKeys.always.str())
   )
 
   def translatedTakebackChoices(implicit ctx: Context) = List(
-    (Pref.Takeback.NEVER, trans.never.str()),
-    (Pref.Takeback.ALWAYS, trans.always.str()),
-    (Pref.Takeback.CASUAL, trans.inCasualGamesOnly.str())
+    (Pref.Takeback.NEVER, I18nKeys.never.str()),
+    (Pref.Takeback.ALWAYS, I18nKeys.always.str()),
+    (Pref.Takeback.CASUAL, I18nKeys.inCasualGamesOnly.str())
   )
 
   def translatedAutoQueenChoices(implicit ctx: Context) = List(
-    (Pref.AutoQueen.NEVER, trans.never.str()),
-    (Pref.AutoQueen.PREMOVE, trans.whenPremoving.str()),
-    (Pref.AutoQueen.ALWAYS, trans.always.str())
+    (Pref.AutoQueen.NEVER, I18nKeys.never.str()),
+    (Pref.AutoQueen.PREMOVE, I18nKeys.whenPremoving.str()),
+    (Pref.AutoQueen.ALWAYS, I18nKeys.always.str())
   )
 
   def translatedAutoThreefoldChoices(implicit ctx: Context) = List(
-    (Pref.AutoThreefold.NEVER, trans.never.str()),
-    (Pref.AutoThreefold.ALWAYS, trans.always.str()),
-    (Pref.AutoThreefold.TIME, trans.whenTimeRemainingLessThanThirtySeconds.str())
+    (Pref.AutoThreefold.NEVER, I18nKeys.never.str()),
+    (Pref.AutoThreefold.ALWAYS, I18nKeys.always.str()),
+    (Pref.AutoThreefold.TIME, I18nKeys.whenTimeRemainingLessThanThirtySeconds.str())
   )
 
   def submitMoveChoices(implicit ctx: Context) = List(
-    (Pref.SubmitMove.NEVER, trans.never.str()),
-    (Pref.SubmitMove.CORRESPONDENCE_ONLY, trans.inCorrespondenceGames.str()),
-    (Pref.SubmitMove.CORRESPONDENCE_UNLIMITED, trans.correspondenceAndUnlimited.str()),
-    (Pref.SubmitMove.ALWAYS, trans.always.str())
+    (Pref.SubmitMove.NEVER, I18nKeys.never.str()),
+    (Pref.SubmitMove.CORRESPONDENCE_ONLY, I18nKeys.inCorrespondenceGames.str()),
+    (Pref.SubmitMove.CORRESPONDENCE_UNLIMITED, I18nKeys.correspondenceAndUnlimited.str()),
+    (Pref.SubmitMove.ALWAYS, I18nKeys.always.str())
   )
 
   def confirmResignChoices(implicit ctx: Context) = List(
-    (Pref.ConfirmResign.NO, trans.no.str()),
-    (Pref.ConfirmResign.YES, trans.yes.str())
+    (Pref.ConfirmResign.NO, I18nKeys.no.str()),
+    (Pref.ConfirmResign.YES, I18nKeys.yes.str())
   )
 
   def translatedChallengeChoices(implicit ctx: Context) = List(
-    (Pref.Challenge.NEVER, trans.never.str()),
-    (Pref.Challenge.RATING, trans.ifRatingIsPlusMinusX(lila.pref.Pref.Challenge.ratingThreshold).toString()),
-    (Pref.Challenge.FRIEND, trans.onlyFriends.str()),
-    (Pref.Challenge.ALWAYS, trans.always.str())
+    (Pref.Challenge.NEVER, I18nKeys.never.str()),
+    (Pref.Challenge.RATING, I18nKeys.ifRatingIsPlusMinusX(lila.pref.Pref.Challenge.ratingThreshold).toString()),
+    (Pref.Challenge.FRIEND, I18nKeys.onlyFriends.str()),
+    (Pref.Challenge.ALWAYS, I18nKeys.always.str())
   )
 
   def translatedMessageChoices(implicit ctx: Context) = List(
-    (Pref.Message.NEVER, trans.never.str()),
-    (Pref.Message.FRIEND, trans.onlyFriends.str()),
-    (Pref.Message.ALWAYS, trans.always.str())
+    (Pref.Message.NEVER, I18nKeys.never.str()),
+    (Pref.Message.FRIEND, I18nKeys.onlyFriends.str()),
+    (Pref.Message.ALWAYS, I18nKeys.always.str())
   )
 
   def translatedStudyInviteChoices(implicit ctx: Context) = List(
-    (Pref.StudyInvite.NEVER, trans.never.str()),
-    (Pref.StudyInvite.FRIEND, trans.onlyFriends.str()),
-    (Pref.StudyInvite.ALWAYS, trans.always.str())
+    (Pref.StudyInvite.NEVER, I18nKeys.never.str()),
+    (Pref.StudyInvite.FRIEND, I18nKeys.onlyFriends.str()),
+    (Pref.StudyInvite.ALWAYS, I18nKeys.always.str())
   )
 
   def translatedBlindfoldChoices(implicit ctx: Context) = List(
-    Pref.Blindfold.NO -> trans.no.str(),
-    Pref.Blindfold.YES -> trans.yes.str()
+    Pref.Blindfold.NO -> I18nKeys.no.str(),
+    Pref.Blindfold.YES -> I18nKeys.yes.str()
   )
 }

@@ -29,7 +29,6 @@ final class Env(
     getSimulName: Simul.ID => Fu[Option[String]],
     getTournamentName: String => Option[String],
     pools: List[lila.pool.PoolConfig],
-    i18nLangPicker: lila.i18n.I18nLangPicker,
     val isProd: Boolean
 ) {
 
@@ -158,7 +157,6 @@ object Env {
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
     pools = lila.pool.Env.current.api.configs,
-    i18nLangPicker = lila.i18n.Env.current.langPicker,
     isProd = lila.common.PlayApp.isProd
   )
 }

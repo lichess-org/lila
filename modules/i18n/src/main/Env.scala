@@ -7,45 +7,12 @@ import play.api.libs.json._
 final class Env(
     config: Config,
     system: akka.actor.ActorSystem,
-    messages: Messages,
     appPath: String
 ) {
 
-  private val settings = new {
-    val WebPathRelative = config getString "web_path.relative"
-    val FilePathRelative = config getString "file_path.relative"
-    val CdnDomain = config getString "cdn_domain"
-  }
-  import settings._
+  private val WebPathRelative = config getString "web_path.relative"
 
-  // public settings
-  val RequestHandlerProtocol = config getString "request_handler.protocol"
-
-  lazy val pool = new I18nPool(
-    langs = messages.keySet,
-    default = I18nKey.en
-  )
-
-  lazy val langPicker = new I18nLangPicker(pool)
-
-  lazy val translator = new Translator(
-    messages = messages,
-    pool = pool
-  )
-
-  lazy val keys = new I18nKeys(translator)
-
-  lazy val requestHandler = new I18nRequestHandler(
-    pool,
-    RequestHandlerProtocol,
-    CdnDomain
-  )
-
-  lazy val jsDump = new JsDump(
-    path = appPath + "/" + WebPathRelative,
-    pool = pool,
-    keys = keys
-  )
+  lazy val jsDump = new JsDump(path = appPath + "/" + WebPathRelative)
 
   def cli = new lila.common.Cli {
     def process = {
@@ -62,7 +29,6 @@ object Env {
   lazy val current = "i18n" boot new Env(
     config = lila.common.PlayApp loadConfig "i18n",
     system = PlayApp.system,
-    messages = MessageDb.load,
     appPath = PlayApp withApp (_.path.getCanonicalPath)
   )
 }

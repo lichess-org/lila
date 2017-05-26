@@ -8,19 +8,16 @@ import lila.game.Game
 import lila.i18n.I18nKey.{ Select => SelectI18nKey }
 import lila.i18n.I18nKeys
 
-final class Messenger(
-    val chat: ActorSelection,
-    i18nKeys: I18nKeys
-) {
+final class Messenger(val chat: ActorSelection) {
 
   def system(game: Game, message: SelectI18nKey, args: Any*) {
-    val translated = message(i18nKeys).en(args: _*)
+    val translated = message(I18nKeys).en(args: _*)
     chat ! SystemTalk(watcherId(game.id), translated)
     if (game.nonAi) chat ! SystemTalk(game.id, translated)
   }
 
   def systemForOwners(gameId: String, message: SelectI18nKey, args: Any*) {
-    val translated = message(i18nKeys).en(args: _*)
+    val translated = message(I18nKeys).en(args: _*)
     chat ! SystemTalk(gameId, translated)
   }
 
