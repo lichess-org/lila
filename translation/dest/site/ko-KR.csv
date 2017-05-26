@@ -53,7 +53,8 @@
 "claimADraw","Clicking this draws the game. This a button that appears to players when threefold repetition occurs.","Claim a draw","무승부 처리"
 "offerDraw","Clicking this send an offer to draw the game to your opponent. This is a small button in the right-hand side box.","Offer draw","무승부 요청"
 "draw","This appears in various places, including players' profiles and the right-hand side boxes in individual games. It should be translated as a noun, NOT as a verb.","Draw","무승부"
-"nbConnectedPlayers","The %s is the counter of how many players are connected right now. This sentence is displayed at the top of every page on lichess.","%s players","%s명의 플레이어"
+"nbConnectedPlayers","nbConnectedPlayers
+The %s is the counter of how many players are connected right now. This sentence is displayed at the top of every page on lichess.","%d players","%s명의 플레이어"
 "gamesBeingPlayedRightNow","This is a shorter phrase for ""Games being played right now"". It is what the link at the top that says ""Games"" links to (https://lichess.org/games). Please try to keep your translation as short as possible.","Current games","진행 중인 게임"
 "viewAllNbGames","%s here is the number of all the games ever played on Lichess. Links to https://lichess.org/games/all.","%s Games","%s개의 게임"
 "viewNbCheckmates","%s is the number of all the games that ended in checkmate on Lichess. Links to https://lichess.org/games/checkmate and is found on the left hand side of the ""Games"" pages.","%s Checkmates","%s건의 체크메이트"
