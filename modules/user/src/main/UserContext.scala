@@ -1,5 +1,6 @@
 package lila.user
 
+import play.api.i18n.Lang
 import play.api.mvc.{ Request, RequestHeader }
 
 sealed trait UserContext {
@@ -7,6 +8,8 @@ sealed trait UserContext {
   val req: RequestHeader
 
   val me: Option[User]
+
+  val lang: Lang
 
   def isAuth = me.isDefined
 
@@ -28,7 +31,11 @@ sealed trait UserContext {
   def noKid = !kid
 }
 
-sealed abstract class BaseUserContext(val req: RequestHeader, val me: Option[User]) extends UserContext {
+sealed abstract class BaseUserContext(
+    val req: RequestHeader,
+    val me: Option[User],
+    val lang: Lang
+) extends UserContext {
 
   override def toString = "%s %s %s".format(
     me.fold("Anonymous")(_.username),
@@ -37,11 +44,11 @@ sealed abstract class BaseUserContext(val req: RequestHeader, val me: Option[Use
   )
 }
 
-final class BodyUserContext[A](val body: Request[A], m: Option[User])
-  extends BaseUserContext(body, m)
+final class BodyUserContext[A](val body: Request[A], m: Option[User], l: Lang)
+  extends BaseUserContext(body, m, l)
 
-final class HeaderUserContext(r: RequestHeader, m: Option[User])
-  extends BaseUserContext(r, m)
+final class HeaderUserContext(r: RequestHeader, m: Option[User], l: Lang)
+  extends BaseUserContext(r, m, l)
 
 trait UserContextWrapper extends UserContext {
   val userContext: UserContext
@@ -51,9 +58,9 @@ trait UserContextWrapper extends UserContext {
 
 object UserContext {
 
-  def apply(req: RequestHeader, me: Option[User]): HeaderUserContext =
-    new HeaderUserContext(req, me)
+  def apply(req: RequestHeader, me: Option[User], lang: Lang): HeaderUserContext =
+    new HeaderUserContext(req, me, lang)
 
-  def apply[A](req: Request[A], me: Option[User]): BodyUserContext[A] =
-    new BodyUserContext(req, me)
+  def apply[A](req: Request[A], me: Option[User], lang: Lang): BodyUserContext[A] =
+    new BodyUserContext(req, me, lang)
 }

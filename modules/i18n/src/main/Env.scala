@@ -22,7 +22,7 @@ final class Env(
   val RequestHandlerProtocol = config getString "request_handler.protocol"
 
   lazy val pool = new I18nPool(
-    langs = Lang.availables(play.api.Play.current).toSet,
+    langs = messages.keySet,
     default = I18nKey.en
   )
 

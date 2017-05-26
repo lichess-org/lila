@@ -6,7 +6,7 @@ object MessageCompiler {
 
   def apply(sourceFile: File, destDir: File, compileTo: File): Seq[File] = {
     val startsAt = System.currentTimeMillis()
-    val registry = ("en-EN" -> sourceFile) :: destDir.list.toList.map { f =>
+    val registry = ("en-GB" -> sourceFile) :: destDir.list.toList.map { f =>
       f.takeWhile('.' !=) -> (destDir / f)
     }
     compileTo.mkdirs()
@@ -30,15 +30,17 @@ object MessageCompiler {
     val file = compileTo / "Registry.scala"
     printToFile(file) {
       val content = registry.map {
-        case (locale, _) => s""""$locale"->`$locale`.load"""
+        case (locale, _) => s"""Lang("$locale")->`$locale`.load"""
       } mkString ",\n"
       s"""package lila.i18n
 package db
 
+import play.api.i18n.Lang
+
 // format: OFF
 object Registry {
 
-  def load = Map[String, Map[String, String]]($content)
+  def load = Map[Lang, Map[String, String]]($content)
 }
 """
     }

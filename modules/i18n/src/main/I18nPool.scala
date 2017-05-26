@@ -16,7 +16,7 @@ private[i18n] case class I18nPool(val langs: Set[Lang], val default: Lang) {
   private def langNames(lang: Lang): (String, String) =
     lang.language -> LangList.nameOrCode(lang.language)
 
-  def lang(req: RequestHeader) =
+  def lang(req: RequestHeader): Lang =
     withReqCountry(domainLang(req) getOrElse default, req)
 
   private val nonUsEnglish = Lang("en", "gb")

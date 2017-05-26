@@ -93,14 +93,14 @@ final class HeaderContext(
   data: PageData
 ) extends BaseContext(headerContext, data)
 
-object Context {
+final class ContextMaker(reqLang: RequestHeader => Lang) {
 
   def apply(req: RequestHeader, v: AssetVersion): HeaderContext =
-    new HeaderContext(UserContext(req, none), PageData.anon(req, v))
+    new HeaderContext(UserContext(req, none), PageData.anon(req, v), i18nPool lang req)
 
   def apply(userContext: HeaderUserContext, pageData: PageData): HeaderContext =
-    new HeaderContext(userContext, pageData)
+    new HeaderContext(userContext, pageData, i18nPool lang req)
 
   def apply[A](userContext: BodyUserContext[A], pageData: PageData): BodyContext[A] =
-    new BodyContext(userContext, pageData)
+    new BodyContext(userContext, pageData, i18nPool lang req)
 }

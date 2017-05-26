@@ -29,6 +29,7 @@ final class Env(
     getSimulName: Simul.ID => Fu[Option[String]],
     getTournamentName: String => Option[String],
     pools: List[lila.pool.PoolConfig],
+    i18nPool: lila.i18n.I18nPool,
     val isProd: Boolean
 ) {
 
@@ -117,6 +118,8 @@ final class Env(
     pools = pools
   )
 
+  val contextMaker = new ContextMaker(i18nPool)
+
   private def makeUrl(path: String): String = s"${Net.BaseUrl}/$path"
 
   lazy val cli = new Cli(system.lilaBus, renderer)
@@ -157,6 +160,7 @@ object Env {
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
     pools = lila.pool.Env.current.api.configs,
+    i18nPool = lila.i18n.Env.current.pool,
     isProd = lila.common.PlayApp.isProd
   )
 }
