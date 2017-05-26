@@ -7,29 +7,20 @@ import lila.user.User
 
 object I18nLangPicker {
 
-  def apply(req: RequestHeader, user: Option[User]): Lang = {
-    ???
-    // user.flatMap(_.lang).orElse(req.session get "lang").map(Lang.get) match {
-    //   case Some(lang) => findCloser(lang) orElse {
-    //     pool.domainLang(req) match {
-    //   }
-    //   // // user has a lang that doesn't match the request, redirect to user lang
-    //   // case Some(userLang) if !pool.domainLang(req).exists(_.language == userLang) =>
-    //   //   Redirect(redirectUrlLang(req, userLang)).some
-    //   // // no user lang
-    //   // case None => pool.domainLang(req) match {
-    //   //   // header accepts the req lang, just proceed
-    //   //   case Some(reqLang) if req.acceptLanguages.has(reqLang) => none
-    //   //   // header refuses the req lang, redirect if a better lang can be found
-    //   //   case Some(reqLang) =>
-    //   //     val preferred = pool preferred req
-    //   //     (preferred != reqLang) option Redirect(redirectUrlLang(req, preferred.language))
-    //   //   // no req lang, redirect based on header
-    //   //   case None => Redirect(redirectUrlLang(req, pool.preferred(req).language)).some
-    //   // }
-    //   // case _ => none
-    // }
-  }
+  def apply(req: RequestHeader, user: Option[User]): Lang =
+    user
+      .flatMap(_.lang)
+      .orElse(req.session get "lang")
+      .flatMap(Lang.get)
+      .flatMap(findCloser)
+      .orElse(fromRequestHeaders(req))
+      .getOrElse(defaultLang)
+
+  private def fromRequestHeaders(req: RequestHeader): Option[Lang] =
+    req.acceptLanguages.foldLeft(none[Lang]) {
+      case (None, lang) => findCloser(lang)
+      case (found, _) => found
+    }
 
   def byStr(str: String): Option[Lang] =
     Lang get str flatMap findCloser
