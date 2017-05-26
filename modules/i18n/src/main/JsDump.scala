@@ -28,9 +28,9 @@ private[i18n] final class JsDump(path: String) {
 
   private val pathFile = new File(path)
 
-  private def dumpFromKey(messages: List[I18nKey], lang: Lang): String =
-    messages.map { key =>
-      """"%s":"%s"""".format(key.key, escape(key.to(lang)()))
+  private def dumpFromKey(keys: Iterable[String], lang: Lang): String =
+    keys.map { key =>
+      """"%s":"%s"""".format(key, escape(Translator.str(key, Nil, lang)))
     }.mkString("{", ",", "}")
 
   private def writeRefs {
@@ -44,8 +44,9 @@ private[i18n] final class JsDump(path: String) {
   }
 
   private def writeFullJson {
+    val keys = I18nDb.all(defaultLang).keys
     I18nDb.langs foreach { lang =>
-      val code = dumpFromKey(I18nKeys.keys, lang)
+      val code = dumpFromKey(keys, lang)
       val file = new File("%s/%s.all.json".format(pathFile.getCanonicalPath, lang.language))
       val out = new PrintWriter(file)
       try { out.print(code) }

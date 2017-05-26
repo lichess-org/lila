@@ -4,7 +4,7 @@ import play.api.i18n.Lang
 import play.twirl.api.Html
 import lila.user.UserContext
 
-trait I18nKey {
+sealed trait I18nKey {
 
   val key: String
 
@@ -17,7 +17,19 @@ trait I18nKey {
   def en(args: Any*): String = to(enLang)(args: _*)
 }
 
-case class Untranslated(key: String) extends I18nKey {
+final class Translated(val key: String) extends I18nKey {
+
+  def apply(args: Any*)(implicit ctx: UserContext): Html =
+    Translator.html(key, args.toList, ctx.lang)
+
+  def str(args: Any*)(implicit ctx: UserContext): String =
+    Translator.str(key, args.toList, ctx.lang)
+
+  def to(lang: Lang)(args: Any*): String =
+    Translator.transTo(key, args.toList, lang)
+}
+
+final class Untranslated(val key: String) extends I18nKey {
 
   def apply(args: Any*)(implicit ctx: UserContext) = Html(key)
 
@@ -29,6 +41,4 @@ case class Untranslated(key: String) extends I18nKey {
 object I18nKey {
 
   type Select = I18nKeys.type => I18nKey
-
-  def untranslated(key: String) = Untranslated(key)
 }
