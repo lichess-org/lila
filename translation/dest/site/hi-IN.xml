@@ -62,7 +62,6 @@
   <!-- This is what a spectator sees in the right-hand box when watching a game and it is Black's turn to play. -->
   <string name="blackPlays">काले की चाल</string>
   <!-- This appears after 3 minutes have elapsed with one player disconnected. Below it are two buttons: "Claim victory" and "Call draw". -->
-  <string name="theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim">आपका प्रतिद्वंदी ये खेल छोड़ कर चला गया है। आप चाहे तो जीत का दावा कर सकते हैं , खेल रद्द कर सकते हैं, या फिर अपने प्रतिद्वंद्वी के लौटने की प्रतीक्षा कर सकते हैं|</string>
   <!-- The mouseover text of "Claim victory". You do not have to translate it like this; you can translate to e.g. "Force victory", or whatever best explains the button in your language. Mouseover texts can be as long as you want, within reason. -->
   <string name="makeYourOpponentResign">अपने प्रतिद्वंदी को हारने पे मजबूर करें</string>
   <!-- Clicking this ends the game and grants you the win. One of the two buttons that appears when your opponent leaves the game. -->
@@ -357,7 +356,6 @@
   <string name="backToTournament">प्रतियोगिता पर वापिस जाएँ</string>
   <string name="backToGame">खेल पर लौटें।</string>
   <!-- This is what search engines (like Google, Baidu or Yandex) see when Lichess.org appears as a search result. Keep it as short as possible and make Lichess sound good! -->
-  <string name="freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents">खेलें शतरंज मुफ्त और ऑनलाइन साफ़ सुथरे अंदाज में| न कोई पंजीकरण, न कोई प्रचार और न ही किसी अन्य बहरी चीज की आव्यशकता| शतरंज कम्प्युटर, दोस्तों या किसी भी प्रतिद्वंदी के साथ खेलें|</string>
   <!-- Teams on lichess are groups of people with their own forum boards and chat channels. Appears at the top of every page on lichess. -->
   <string name="teams">समूह</string>
   <!-- %s is the number of members. Appears on the top-right hand side on a team's page (e.g. https://lichess.org/team/linux). -->
@@ -989,8 +987,6 @@
   <string name="keyShowOrHideComments">टिपण्णी दिखाएँ/छिपाएँ</string>
   <!-- Explains that the preceding keyboard shortcuts enter or exit variations. Appears on the bottom left side of pages with analyzed games under Keyboard Shortcuts dropdown. -->
   <string name="keyEnterOrExitVariation">अंदर बाहर करे</string>
-  <!-- Explains that using Shift+Click or right-clicking draws arrows and circles on the game board and that one can use the mouse scroll to play through game. Appears on the bottom left side of pages with analyzed games under Keyboard Shortcuts dropdown. -->
-  <string name="keyYouCanDrawArrowsCirclesAndScrollToMove">बाण  व गोल आकर मंडल पर बनाने के लिए shift+click या right-click का इस्तेमाल करें . आप स्क्रोल करके खेल के अलग अलग बारी भी देख सकते हैं</string>
   <!-- The title of the page where you can create a new tournament, https://lichess.org/tournament/new -->
   <string name="newTournament">नया टूर्नमेंट बनायें</string>
   <!-- The title of the tournaments home page (https://lichess.org/tournament) which is used for search engines. -->
