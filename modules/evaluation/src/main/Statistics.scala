@@ -33,7 +33,7 @@ object Statistics {
 
   // ups all values by 0.5s
   // as to avoid very high variation on bullet games
-  // where all move times are low (https://en.lichess.org/@/AlisaP?mod)
+  // where all move times are low (https://lichess.org/@/AlisaP?mod)
   def moveTimeCoefVariation(a: NonEmptyList[Centis]): Double =
     coefVariation(a.map(_.roundTenths + 5))
 

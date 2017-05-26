@@ -35,13 +35,13 @@ final class CSRFRequestHandler(domain: String, enabled: Boolean) {
   private val topDomain = s"://$domain"
   private val subDomain = s".$domain"
 
-  // origin = "https://en.lichess.org"
+  // origin = "https://lichess.org"
   // domain = "lichess.org"
   private def isSubdomain(origin: String) =
     origin.endsWith(subDomain) || origin.endsWith(topDomain)
 
-  // input  = "https://en.lichess.org/some/path?a=b&c=d"
-  // output = "https://en.lichess.org"
+  // input  = "https://lichess.org/some/path?a=b&c=d"
+  // output = "https://lichess.org"
   private val RefererToOriginRegex = """^([^:]+://[^/]+).*""".r // a.k.a. pokemon face regex
   private def refererToOrigin(r: String): Option[String] = r match {
     case RefererToOriginRegex(origin) => origin.some

@@ -57,7 +57,7 @@ Lichess is intended to be a fun and friendly environment for everyone. Please no
 
 En passant
 
-This is called "en passant" and is one of the rules of chess. Check https://en.lichess.org/learn#/15 to learn more about it.
+This is called "en passant" and is one of the rules of chess. Check https://lichess.org/learn#/15 to learn more about it.
 
 """, /* ---------------------------------------------------------------*/ """
 

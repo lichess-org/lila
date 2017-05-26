@@ -5,7 +5,7 @@
 Returns an authentication cookie and a `user` object.
 
 ```sh
-http --form POST en.l.org/login username=thibault password=xxxxxxxx 'Accept:application/vnd.lichess.v1+json'
+http --form POST l.org/login username=thibault password=xxxxxxxx 'Accept:application/vnd.lichess.v1+json'
 ```
 
 Response: `200 OK`
@@ -85,7 +85,7 @@ Set-Cookie: lila2="3b5cc8c80f0af258a31dc4fd1b5381cabe7388c7-sessionId=80q7V5stkK
 Requires authentication.
 
 ```sh
-http GET en.l.org/account/info
+http GET l.org/account/info
 ```
 
 Response: `200` OK
@@ -94,7 +94,7 @@ See `user` object in `Login` section, above.
 ## Logout
 
 ```sh
-http GET en.l.org/logout
+http GET l.org/logout
 ```
 
 Response: `200` OK
