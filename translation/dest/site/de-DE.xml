@@ -62,7 +62,6 @@
   <!-- This is what a spectator sees in the right-hand box when watching a game and it is Black's turn to play. -->
   <string name="blackPlays">Schwarz am Zug</string>
   <!-- This appears after 3 minutes have elapsed with one player disconnected. Below it are two buttons: "Claim victory" and "Call draw". -->
-  <string name="theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim">Dein Gegner hat die Partie verlassen. Du kannst den Sieg beanspruchen, das Spiel remis erklären oder auf deinen Gegner warten.</string>
   <!-- The mouseover text of "Claim victory". You do not have to translate it like this; you can translate to e.g. "Force victory", or whatever best explains the button in your language. Mouseover texts can be as long as you want, within reason. -->
   <string name="makeYourOpponentResign">Zwinge deinen Gegener zur Aufgabe</string>
   <!-- Clicking this ends the game and grants you the win. One of the two buttons that appears when your opponent leaves the game. -->
@@ -357,7 +356,6 @@
   <string name="backToTournament">Zurück zum Turnier</string>
   <string name="backToGame">Zurück zum Spiel</string>
   <!-- This is what search engines (like Google, Baidu or Yandex) see when Lichess.org appears as a search result. Keep it as short as possible and make Lichess sound good! -->
-  <string name="freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents">Kostenloses Online-Schach. Spiele jetzt in einer einladenden Umgebung Schach! Keine Werbung, keine Registrierung oder Plugins erforderlich. Spiele gegen den Computer, Freunde oder zufällige Gegner!</string>
   <!-- Teams on lichess are groups of people with their own forum boards and chat channels. Appears at the top of every page on lichess. -->
   <string name="teams">Teams</string>
   <!-- %s is the number of members. Appears on the top-right hand side on a team's page (e.g. https://lichess.org/team/linux). -->
@@ -989,8 +987,6 @@
   <string name="keyShowOrHideComments">zeige/verberge Kommentare</string>
   <!-- Explains that the preceding keyboard shortcuts enter or exit variations. Appears on the bottom left side of pages with analyzed games under Keyboard Shortcuts dropdown. -->
   <string name="keyEnterOrExitVariation">Variante wählen/verlassen</string>
-  <!-- Explains that using Shift+Click or right-clicking draws arrows and circles on the game board and that one can use the mouse scroll to play through game. Appears on the bottom left side of pages with analyzed games under Keyboard Shortcuts dropdown. -->
-  <string name="keyYouCanDrawArrowsCirclesAndScrollToMove">Drücke Umschalt+Mausklick oder Rechtsklick, um Kreise und Pfeile auf dem Brett zu zeichnen. Ebenso ist scrollen über dem Brett möglich, um die Züge zu durchlaufen.</string>
   <!-- The title of the page where you can create a new tournament, https://lichess.org/tournament/new -->
   <string name="newTournament">Neues Turnier</string>
   <!-- The title of the tournaments home page (https://lichess.org/tournament) which is used for search engines. -->
@@ -1043,7 +1039,6 @@
   <!-- Appears when hovering KeyboardShortcuts sign under the chess board. (https://lichess.org/g4XbumIh) -->
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kannst auch auf dem Brett scrollen, um Züge in der Partie auszuführen.</string>
   <!-- Appears when hovering KeyboardShortcuts sign under the chess board. (https://lichess.org/g4XbumIh) -->
-  <string name="pressShiftPlusClickOrRightClickToDrawCirclesAndArrowsOnTheBoard">Drücke Shift+Mausklick oder Rechtsklick, um Kreise und Pfeile auf dem Brett zu zeichnen.</string>
   <!-- An option at game preferences. (https://lichess.org/account/preferences/game-behavior) -->
   <string name="confirmResignation">Aufgabe bestätigen</string>
   <!-- Appears at privacy settings. (https://lichess.org/account/preferences/privacy) -->
