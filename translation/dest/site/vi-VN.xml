@@ -62,7 +62,6 @@
   <!-- This is what a spectator sees in the right-hand box when watching a game and it is Black's turn to play. -->
   <string name="blackPlays">Lượt Đen đi</string>
   <!-- This appears after 3 minutes have elapsed with one player disconnected. Below it are two buttons: "Claim victory" and "Call draw". -->
-  <string name="theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim">Đối thủ đã rời khỏi ván cờ. Bạn có thể buộc đối phương chịu thua, hỏi hòa hoặc đợi</string>
   <!-- The mouseover text of "Claim victory". You do not have to translate it like this; you can translate to e.g. "Force victory", or whatever best explains the button in your language. Mouseover texts can be as long as you want, within reason. -->
   <string name="makeYourOpponentResign">Buộc đối thủ chịu thua</string>
   <!-- Clicking this ends the game and grants you the win. One of the two buttons that appears when your opponent leaves the game. -->
@@ -345,7 +344,6 @@
   <string name="backToTournament">Quay lại giải</string>
   <string name="backToGame">Quay lại ván đấu</string>
   <!-- This is what search engines (like Google, Baidu or Yandex) see when Lichess.org appears as a search result. Keep it as short as possible and make Lichess sound good! -->
-  <string name="freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents">Chơi Cờ Vua online miễn phí. Chơi Cờ Vua với giao diện đẹp. Không cần đăng ký, không quảng cáo, không yêu cầu plugin. Chơi Cờ Vua với máy tính, bạn bè hoặc đấu thủ.</string>
   <!-- Teams on lichess are groups of people with their own forum boards and chat channels. Appears at the top of every page on lichess. -->
   <string name="teams">Đội</string>
   <!-- %s is the number of members. Appears on the top-right hand side on a team's page (e.g. https://lichess.org/team/linux). -->
@@ -965,8 +963,6 @@
   <string name="keyShowOrHideComments">hiện/ẩn bình luận</string>
   <!-- Explains that the preceding keyboard shortcuts enter or exit variations. Appears on the bottom left side of pages with analyzed games under Keyboard Shortcuts dropdown. -->
   <string name="keyEnterOrExitVariation">vào/thoát biến thể cờ</string>
-  <!-- Explains that using Shift+Click or right-clicking draws arrows and circles on the game board and that one can use the mouse scroll to play through game. Appears on the bottom left side of pages with analyzed games under Keyboard Shortcuts dropdown. -->
-  <string name="keyYouCanDrawArrowsCirclesAndScrollToMove">Nhấn shift+chuột trái hoặc chuột phải để vẽ các vòng tròn và mũi tên trên bàn cờ. Bạn còn có thể lăn chuột giữa trên bàn cờ để đi các nước trong ván.</string>
   <!-- The title of the page where you can create a new tournament, https://lichess.org/tournament/new -->
   <string name="newTournament">Giải đấu mới</string>
   <!-- The title of the tournaments home page (https://lichess.org/tournament) which is used for search engines. -->
