@@ -32,7 +32,10 @@ object Team {
 
   case class IdsStr(value: String) extends AnyVal {
 
-    def contains(teamId: ID) = value contains teamId
+    def contains(teamId: ID) =
+      value.startsWith(teamId) ||
+        value.endsWith(teamId) ||
+        value.contains(s"${IdsStr.separator}$teamId${IdsStr.separator}")
 
     def toArray: Array[String] = value.split(IdsStr.separator)
     def toList = if (value.isEmpty) Nil else toArray.toList
