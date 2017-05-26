@@ -10,7 +10,7 @@ final class I18nLangPicker(pool: I18nPool) {
   def apply(req: RequestHeader, user: Option[User]): Lang = {
     user.flatMap(_.lang).orElse(req.session get "lang").map(Lang.get) match {
       case Some(lang) => findCloser(lang) orElse {
-pool.domainLang(req) match {
+        pool.domainLang(req) match {
       }
       // // user has a lang that doesn't match the request, redirect to user lang
       // case Some(userLang) if !pool.domainLang(req).exists(_.language == userLang) =>
@@ -30,6 +30,11 @@ pool.domainLang(req) match {
     }
   }
 
+  private val defaultByLanguage: Map[String, Lang] =
+    pool.langs.foldLeft(Map.empty[String, Lang]) {
+      case (acc, lang) => acc + (lang.language -> lang)
+    }
+
   private def findCloser(to: Lang): Option[Lang] =
     if (pool.langs contains to) Some(to)
     else lichessCodes.get(to.language) orElse
@@ -37,15 +42,4 @@ pool.domainLang(req) match {
 }
 
   object I18nLangPicker {
-
-  private val lichessCodes: Map[String, Lang] = Map(
-    "fp" -> Lang("frp", "IT"),
-    "jb" -> Lang("jbo", "EN"),
-    "kb" -> Lang("kab", "KAB"),
-    "tc" -> Lang("zh", "CN"))
-
-  private val defaultByLanguage: Map[String, Lang] =
-    pool.langs.foldLeft(Map.empty[String, Lang]) {
-      case (acc, lang) => acc + (lang.language -> lang)
-    }
   }

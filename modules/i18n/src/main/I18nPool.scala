@@ -28,6 +28,11 @@ private[i18n] case class I18nPool(val langs: Set[Lang], val default: Lang) {
     case l => l
   }
 
+  private val defaultByLanguage: Map[String, Lang] =
+    pool.langs.foldLeft(Map.empty[String, Lang]) {
+      case (acc, lang) => acc + (lang.language -> lang)
+    }
+
   def preferred(req: RequestHeader) =
     (req.acceptLanguages find langs.contains) getOrElse default
 
