@@ -53,7 +53,8 @@
 "claimADraw","Clicking this draws the game. This a button that appears to players when threefold repetition occurs.","Claim a draw","xusra lo du'u no da cu jinga"
 "offerDraw","Clicking this send an offer to draw the game to your opponent. This is a small button in the right-hand side box.","Offer draw","friti lo nu no da cu jinga"
 "draw","This appears in various places, including players' profiles and the right-hand side boxes in individual games. It should be translated as a noun, NOT as a verb.","Draw","lo nu no da cu jinga"
-"nbConnectedPlayers","The %s is the counter of how many players are connected right now. This sentence is displayed at the top of every page on lichess.","%s players","%s jvikei"
+"nbConnectedPlayers","nbConnectedPlayers
+The %s is the counter of how many players are connected right now. This sentence is displayed at the top of every page on lichess.","%d players","%s jvikei"
 "gamesBeingPlayedRightNow","This is a shorter phrase for ""Games being played right now"". It is what the link at the top that says ""Games"" links to (https://lichess.org/games). Please try to keep your translation as short as possible.","Current games","lo cabna nunjvi"
 "viewAllNbGames","%s here is the number of all the games ever played on Lichess. Links to https://lichess.org/games/all.","%s Games","%s pu se ci'erkei"
 "viewNbCheckmates","%s is the number of all the games that ended in checkmate on Lichess. Links to https://lichess.org/games/checkmate and is found on the left hand side of the ""Games"" pages.","%s Checkmates","%s caxmati"
