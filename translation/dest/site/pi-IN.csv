@@ -58,8 +58,6 @@
 "viewAllNbGames","%s here is the number of all the games ever played on Lichess. Links to https://lichess.org/games/all.","%s Games","%ssa kīḷā"
 "viewNbCheckmates","%s is the number of all the games that ended in checkmate on Lichess. Links to https://lichess.org/games/checkmate and is found on the left hand side of the ""Games"" pages.","%s Checkmates",""
 "nbBookmarks","%s is the number of games you have bookmarked. Links to https://lichess.org/games/bookmark. It only appears to registered users that have bookmarked certain games. It displays a list of your bookmarked games.","%s Bookmarks",""
-"nbPopularGames","%s is the number of games with one or more bookmarks. Links to https://lichess.org/games/popular. It is a list of games bookmarked by many people.","%s Popular games",""
-"nbAnalysedGames","%s is the number of games with a complete computer analysis. Links to https://lichess.org/games/analysed. It is a list of any game that has had a computer analysis performed on it.","%s Analysed games",""
 "viewInFullSize","Clicking one of these small boards brings you to the game's unique page. This is the mouseover text of the small chess boards dotted around the site. These small boards are most prominent in the ""Games"" pages (https://lichess.org/games).","View in full size",""
 "logOut","Clicking this signs you out of your lichess profile. This is part of the profile drop-down menu on the top of every page when you are signed in to an account.","Sign out",""
 "signIn","Clicking takes you to a form that allows you to sign into your lichess profile (account). This is a red-coloured button that appears at the navigation bar at the top when you are not signed in to an account, or playing anonymously. Please keep it as short as possible.","Sign in",""
