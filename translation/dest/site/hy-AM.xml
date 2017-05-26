@@ -61,7 +61,6 @@
   <!-- This is what a spectator sees in the right-hand box when watching a game and it is Black's turn to play. -->
   <string name="blackPlays">Խաղում են սևերը</string>
   <!-- This appears after 3 minutes have elapsed with one player disconnected. Below it are two buttons: "Claim victory" and "Call draw". -->
-  <string name="theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim">Հակառակորդը լքել է խաղը։ Դուք կարող եք ստիպել նրան հանձնվել կամ սպասել նրան։</string>
   <!-- The mouseover text of "Claim victory". You do not have to translate it like this; you can translate to e.g. "Force victory", or whatever best explains the button in your language. Mouseover texts can be as long as you want, within reason. -->
   <string name="makeYourOpponentResign">Ստիպել խաղը լքած հակառակորդին հանձնվել</string>
   <!-- Clicking this ends the game and grants you the win. One of the two buttons that appears when your opponent leaves the game. -->
@@ -355,7 +354,6 @@
   <string name="backToTournament">Վերադարձ դեպի մրցաշարը</string>
   <string name="backToGame">վերադառնալ խաղին</string>
   <!-- This is what search engines (like Google, Baidu or Yandex) see when Lichess.org appears as a search result. Keep it as short as possible and make Lichess sound good! -->
-  <string name="freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents">Անճար օնլայն շախմատ: Խաղացցեք հաճելի ինտերֆեյսով, առանց գրանցման և գովազդի: Խաղացեք համակարգչի, ընկերների կամ անծանոթների հետ:</string>
   <!-- Teams on lichess are groups of people with their own forum boards and chat channels. Appears at the top of every page on lichess. -->
   <string name="teams">Թիմեր</string>
   <!-- %s is the number of members. Appears on the top-right hand side on a team's page (e.g. https://lichess.org/team/linux). -->
@@ -907,7 +905,6 @@
   <!-- Explains that the preceding keyboard shortcuts move the game to the start or end position. Appears on the bottom left side of pages with analyzed games under Keyboard Shortcuts dropdown. -->
   <!-- Explains that the preceding keyboard shortcuts show or hide comments. Appears on the bottom left side of pages with analyzed games under Keyboard Shortcuts dropdown. -->
   <!-- Explains that the preceding keyboard shortcuts enter or exit variations. Appears on the bottom left side of pages with analyzed games under Keyboard Shortcuts dropdown. -->
-  <!-- Explains that using Shift+Click or right-clicking draws arrows and circles on the game board and that one can use the mouse scroll to play through game. Appears on the bottom left side of pages with analyzed games under Keyboard Shortcuts dropdown. -->
   <!-- The title of the page where you can create a new tournament, https://lichess.org/tournament/new -->
   <!-- The title of the tournaments home page (https://lichess.org/tournament) which is used for search engines. -->
   <!-- The description of the tournaments home page (https://lichess.org/tournament) which is used for search engines. -->
