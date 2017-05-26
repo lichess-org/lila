@@ -62,7 +62,6 @@
   <!-- This is what a spectator sees in the right-hand box when watching a game and it is Black's turn to play. -->
   <string name="blackPlays">കറുപ്പു കളിക്കുക</string>
   <!-- This appears after 3 minutes have elapsed with one player disconnected. Below it are two buttons: "Claim victory" and "Call draw". -->
-  <string name="theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim">മറ്റേ കളിക്കാര൯ പോയിരിക്കാം. വിജയം വിളിക്കാം, കളി സമനിലയിൽ വിളിക്കാം, അല്ലെങ്കിൽ കാത്തിരിക്കാം.</string>
   <!-- The mouseover text of "Claim victory". You do not have to translate it like this; you can translate to e.g. "Force victory", or whatever best explains the button in your language. Mouseover texts can be as long as you want, within reason. -->
   <string name="makeYourOpponentResign">എതിരാളിയെ രാജി വെപ്പിക്കുക</string>
   <!-- Clicking this ends the game and grants you the win. One of the two buttons that appears when your opponent leaves the game. -->
@@ -357,7 +356,6 @@
   <string name="backToTournament">ടൂര്‍ണമെന്‍റിലേക്ക് തിരികെ പോവുക</string>
   <string name="backToGame">മത്സരത്തിലേക്ക് തിരികെ പോവുക</string>
   <!-- This is what search engines (like Google, Baidu or Yandex) see when Lichess.org appears as a search result. Keep it as short as possible and make Lichess sound good! -->
-  <string name="freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents">സൗജന്യ ഓണ്‍ലൈന്‍ ചെസ്സ്‌ സെര്‍വര്‍. ഇപ്പോള്‍ മികച്ച രീതിയില്‍ ചെസ്സ്‌ കളിക്കാം. രജിസ്റ്റര്‍ ചെയ്യണ്ട, പരസ്യങ്ങള്‍ ഇല്ല, പ്ലഗിനുകള്‍ വേണ്ട. കമ്പ്യൂട്ടറുമായോ സുഹൃത്തുക്കളുമായോ പുതിയ എതിരാളികളുമായോ ചെസ്സ്‌ കളിക്കാം.</string>
   <!-- Teams on lichess are groups of people with their own forum boards and chat channels. Appears at the top of every page on lichess. -->
   <string name="teams">ടീമുകള്‍</string>
   <!-- %s is the number of members. Appears on the top-right hand side on a team's page (e.g. https://lichess.org/team/linux). -->
@@ -972,7 +970,6 @@
   <!-- Explains that the preceding keyboard shortcuts show or hide comments. Appears on the bottom left side of pages with analyzed games under Keyboard Shortcuts dropdown. -->
   <string name="keyShowOrHideComments">അഭിപ്രായ പ്രകടനം കാണിക്കുക/മറയ്ക്കുക</string>
   <!-- Explains that the preceding keyboard shortcuts enter or exit variations. Appears on the bottom left side of pages with analyzed games under Keyboard Shortcuts dropdown. -->
-  <!-- Explains that using Shift+Click or right-clicking draws arrows and circles on the game board and that one can use the mouse scroll to play through game. Appears on the bottom left side of pages with analyzed games under Keyboard Shortcuts dropdown. -->
   <!-- The title of the page where you can create a new tournament, https://lichess.org/tournament/new -->
   <string name="newTournament">പുതിയ പരമ്പര</string>
   <!-- The title of the tournaments home page (https://lichess.org/tournament) which is used for search engines. -->
@@ -1014,7 +1011,6 @@
   <!-- Appears when hovering KeyboardShortcuts sign under the chess board. (https://lichess.org/g4XbumIh) -->
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">ചതുരംഗ പലകയിൽ സ്ക്രോൾ ചെയ്തും കളിയുടെ നീക്കം നടത്താവുന്നതാണ്.</string>
   <!-- Appears when hovering KeyboardShortcuts sign under the chess board. (https://lichess.org/g4XbumIh) -->
-  <string name="pressShiftPlusClickOrRightClickToDrawCirclesAndArrowsOnTheBoard">ചതുരംഗ പലകയിൽ വൃത്തങ്ങളും രേഖകളും വരക്കാൻ ഷിഫ്റ്റ്+ക്ലിക്ക് അല്ലെങ്കിൽ റൈറ്റ് ക്ലിക്ക് അമർത്തുക</string>
   <!-- An option at game preferences. (https://lichess.org/account/preferences/game-behavior) -->
   <string name="confirmResignation">രജിസ്‌ട്രേഷൻ സ്ഥിരീകരണം</string>
   <!-- Appears at privacy settings. (https://lichess.org/account/preferences/privacy) -->
