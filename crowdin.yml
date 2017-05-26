@@ -1,4 +1,3 @@
 files:
-  - source: /translation/source/*.csv
+  - source: /translation/source/*.xml
     translation: /translation/dest/%file_name%/%locale%.%file_extension%
-    scheme: 'identifier,context,source_phrase,translation'
