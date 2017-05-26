@@ -29,7 +29,7 @@ object I18n extends LilaController {
             val redir = Redirect {
               HTTPRequest.referer(ctx.req).fold(routes.Lobby.home.url) { str =>
                 try {
-                  val pageUrl = new java.net.URL(str);
+                  val pageUrl = new java.net.URL(str)
                   val path = pageUrl.getPath
                   val query = pageUrl.getQuery
                   if (query == null) path
