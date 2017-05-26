@@ -62,7 +62,6 @@
   <!-- This is what a spectator sees in the right-hand box when watching a game and it is Black's turn to play. -->
   <string name="blackPlays">黑方走棋</string>
   <!-- This appears after 3 minutes have elapsed with one player disconnected. Below it are two buttons: "Claim victory" and "Call draw". -->
-  <string name="theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim">对方可能已经离开游戏。你可以选择：取胜、和棋，也可以等待对方走棋。</string>
   <!-- The mouseover text of "Claim victory". You do not have to translate it like this; you can translate to e.g. "Force victory", or whatever best explains the button in your language. Mouseover texts can be as long as you want, within reason. -->
   <string name="makeYourOpponentResign">取胜</string>
   <!-- Clicking this ends the game and grants you the win. One of the two buttons that appears when your opponent leaves the game. -->
@@ -347,7 +346,6 @@
   <string name="backToTournament">返回比赛</string>
   <string name="backToGame">返回游戏</string>
   <!-- This is what search engines (like Google, Baidu or Yandex) see when Lichess.org appears as a search result. Keep it as short as possible and make Lichess sound good! -->
-  <string name="freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents">界面清新的免费在线国际象棋平台。不用注册，没有广告，无需插件。快来与电脑、朋友和陌生人一起对战吧！</string>
   <!-- Teams on lichess are groups of people with their own forum boards and chat channels. Appears at the top of every page on lichess. -->
   <string name="teams">团队</string>
   <!-- %s is the number of members. Appears on the top-right hand side on a team's page (e.g. https://lichess.org/team/linux). -->
@@ -968,8 +966,6 @@
   <string name="keyShowOrHideComments">显示/隐藏评论</string>
   <!-- Explains that the preceding keyboard shortcuts enter or exit variations. Appears on the bottom left side of pages with analyzed games under Keyboard Shortcuts dropdown. -->
   <string name="keyEnterOrExitVariation">进入/退出变体</string>
-  <!-- Explains that using Shift+Click or right-clicking draws arrows and circles on the game board and that one can use the mouse scroll to play through game. Appears on the bottom left side of pages with analyzed games under Keyboard Shortcuts dropdown. -->
-  <string name="keyYouCanDrawArrowsCirclesAndScrollToMove">按住shift点击或右击在棋盘上画圆圈和箭头。您也可以滚动棋盘在对局中走棋。</string>
   <!-- The title of the page where you can create a new tournament, https://lichess.org/tournament/new -->
   <string name="newTournament">新比赛</string>
   <!-- The title of the tournaments home page (https://lichess.org/tournament) which is used for search engines. -->
@@ -1022,7 +1018,6 @@
   <!-- Appears when hovering KeyboardShortcuts sign under the chess board. (https://lichess.org/g4XbumIh) -->
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">您也可以用滚动键在棋盘游戏中移动。</string>
   <!-- Appears when hovering KeyboardShortcuts sign under the chess board. (https://lichess.org/g4XbumIh) -->
-  <string name="pressShiftPlusClickOrRightClickToDrawCirclesAndArrowsOnTheBoard">按shift点击或右键棋盘上绘制圆圈和箭头。</string>
   <!-- An option at game preferences. (https://lichess.org/account/preferences/game-behavior) -->
   <string name="confirmResignation">确认认输？</string>
   <!-- Appears at privacy settings. (https://lichess.org/account/preferences/privacy) -->
