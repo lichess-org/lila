@@ -59,7 +59,7 @@ object Global extends GlobalSettings {
       if (lila.common.PlayApp.isProd) {
         lila.mon.http.response.code500()
         fuccess(InternalServerError(views.html.base.errorPage(ex) {
-          lila.api.Context(req, lila.app.Env.api.assetVersion.get)
+          lila.api.Context(req, lila.app.Env.api.assetVersion.get, lila.i18n.I18nKey.en)
         }))
       } else super.onError(req, ex)
     } else fuccess(InternalServerError(ex.getMessage))

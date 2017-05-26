@@ -123,7 +123,7 @@ private[controllers] trait LilaController
     SecureBody(BodyParsers.parse.anyContent)(perm(Permission))(f)
 
   private def maybeI18nRedirect[C <: Context](f: C => Fu[Result])(ctx: C): Fu[Result] =
-    Env.i18n.requestHandler(ctx.req, ctx.me).fold(f(ctx))(fuccess)
+    Env.i18n.requestHandler(ctx.req, ctx.me, ctx.lang).fold(f(ctx))(fuccess)
 
   protected def Firewall[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     Env.security.firewall.accepts(ctx.req) flatMap {
@@ -278,13 +278,13 @@ private[controllers] trait LilaController
     }).dmap(_.withHeaders("Vary" -> "Accept"))
 
   protected def reqToCtx(req: RequestHeader): Fu[HeaderContext] = restoreUser(req) flatMap { d =>
-    val ctx = UserContext(req, d.map(_.user))
+    val ctx = UserContext(req, d.map(_.user), Env.i18n.langPicker(req, d.map(_.user)))
     pageDataBuilder(ctx, d.exists(_.hasFingerprint)) dmap { Context(ctx, _) }
   }
 
   protected def reqToCtx[A](req: Request[A]): Fu[BodyContext[A]] =
     restoreUser(req) flatMap { d =>
-      val ctx = UserContext(req, d.map(_.user))
+      val ctx = UserContext(req, d.map(_.user), Env.i18n.langPicker(req, d.map(_.user)))
       pageDataBuilder(ctx, d.exists(_.hasFingerprint)) dmap { Context(ctx, _) }
     }
 

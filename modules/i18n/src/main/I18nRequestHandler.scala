@@ -2,6 +2,7 @@ package lila.i18n
 
 import play.api.mvc.Results.Redirect
 import play.api.mvc.{ Action, RequestHeader, Handler, Result }
+import play.api.i18n.Lang
 
 import lila.common.HTTPRequest
 
@@ -11,7 +12,7 @@ final class I18nRequestHandler(
     cdnDomain: String
 ) {
 
-  def apply(req: RequestHeader, userOption: Option[lila.user.User]): Option[Result] =
+  def apply(req: RequestHeader, userOption: Option[lila.user.User], lang: Lang): Option[Result] =
     if (appliesTo(req))
       userOption.flatMap(_.lang).orElse(req.session get "lang") match {
         // user has a lang that doesn't match the request, redirect to user lang

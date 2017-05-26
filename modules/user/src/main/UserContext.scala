@@ -9,7 +9,7 @@ sealed trait UserContext {
 
   val me: Option[User]
 
-  val lang: Lang
+  def lang: Lang
 
   def isAuth = me.isDefined
 

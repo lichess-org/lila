@@ -26,6 +26,8 @@ final class Env(
     default = I18nKey.en
   )
 
+  lazy val langPicker = new I18nLangPicker(pool)
+
   lazy val translator = new Translator(
     messages = messages,
     pool = pool

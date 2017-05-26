@@ -4,10 +4,10 @@ private object MessageDb {
 
   def load: Messages =
     lila.common.Chronometer.syncEffect(
-      lila.i18n.db.Registry.load.+("default.play" -> playDefaultMessages)
+      lila.i18n.db.Registry.load // .+("default.play" -> playDefaultMessages)
     ) { lap =>
-        logger.info(s"${lap.millis}ms MessageDb")
-      }
+      logger.info(s"${lap.millis}ms MessageDb")
+    }
 
   private def playDefaultMessages: Map[String, String] = Map(
     "constraint.required" -> "Required",

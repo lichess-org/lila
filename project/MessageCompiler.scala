@@ -8,7 +8,7 @@ object MessageCompiler {
     val startsAt = System.currentTimeMillis()
     val registry = ("en-GB" -> sourceFile) :: destDir.list.toList.map { f =>
       f.takeWhile('.' !=) -> (destDir / f)
-    }
+    }.sortBy(_._1)
     compileTo.mkdirs()
     val registryFile = writeRegistry(compileTo, registry)
     val res = for (entry <- registry) yield {
@@ -30,7 +30,7 @@ object MessageCompiler {
     val file = compileTo / "Registry.scala"
     printToFile(file) {
       val content = registry.map {
-        case (locale, _) => s"""Lang("$locale")->`$locale`.load"""
+        case (locale, _) => s"""Lang("${locale.replace("-", "\",\"")}")->`$locale`.load"""
       } mkString ",\n"
       s"""package lila.i18n
 package db

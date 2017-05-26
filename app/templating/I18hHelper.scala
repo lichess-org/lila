@@ -21,7 +21,7 @@ trait I18nHelper {
   implicit def lang(implicit ctx: UserContext) = pool lang ctx.req
 
   def transKey(key: String, args: Seq[Any] = Nil)(implicit lang: Lang): String =
-    i18nEnv.translator.transTo(key, args)(lang)
+    i18nEnv.translator.transTo(key, args, lang)
 
   def i18nJsObjectMessage(keys: Seq[I18nKey])(implicit lang: Lang): JsObject =
     i18nEnv.jsDump.keysToMessageObject(keys, lang)
