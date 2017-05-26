@@ -62,7 +62,6 @@
   <!-- This is what a spectator sees in the right-hand box when watching a game and it is Black's turn to play. -->
   <string name="blackPlays">Radha e të Ziut</string>
   <!-- This appears after 3 minutes have elapsed with one player disconnected. Below it are two buttons: "Claim victory" and "Call draw". -->
-  <string name="theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim">Lojtari tjetër mund të ketë lënë lojën. Mund të pretendoni fitoren, të caktoni barazim, ose të prisni.</string>
   <!-- The mouseover text of "Claim victory". You do not have to translate it like this; you can translate to e.g. "Force victory", or whatever best explains the button in your language. Mouseover texts can be as long as you want, within reason. -->
   <string name="makeYourOpponentResign">Detyrojeni kundërshtarin të dorëzohet.</string>
   <!-- Clicking this ends the game and grants you the win. One of the two buttons that appears when your opponent leaves the game. -->
@@ -357,7 +356,6 @@
   <string name="backToTournament">Kthehu në turne</string>
   <string name="backToGame">Kthehu te loja</string>
   <!-- This is what search engines (like Google, Baidu or Yandex) see when Lichess.org appears as a search result. Keep it as short as possible and make Lichess sound good! -->
-  <string name="freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents">Lojë shahu pa pagesë në-linjë. Luani shah përmes një ndërfaqeje të pastër. Pa regjistrim, pa reklama, pa u dashur shtojca. Luani shah me kompjuterin, miqtë ose kundërshtarë të rastësishëm.</string>
   <!-- Teams on lichess are groups of people with their own forum boards and chat channels. Appears at the top of every page on lichess. -->
   <string name="teams">Ekipet</string>
   <!-- %s is the number of members. Appears on the top-right hand side on a team's page (e.g. https://lichess.org/team/linux). -->
@@ -989,8 +987,6 @@
   <string name="keyShowOrHideComments">shfaq/fshih komentet</string>
   <!-- Explains that the preceding keyboard shortcuts enter or exit variations. Appears on the bottom left side of pages with analyzed games under Keyboard Shortcuts dropdown. -->
   <string name="keyEnterOrExitVariation">hyr/dil nga variacioni</string>
-  <!-- Explains that using Shift+Click or right-clicking draws arrows and circles on the game board and that one can use the mouse scroll to play through game. Appears on the bottom left side of pages with analyzed games under Keyboard Shortcuts dropdown. -->
-  <string name="keyYouCanDrawArrowsCirclesAndScrollToMove">Shtypni shift+klikoni ose klikoni me të djathën për të vizatuar rrathë dhe shigjeta në fushë. Ju mund të përdorni rrotën për të lëvizur gjatë lojës.</string>
   <!-- The title of the page where you can create a new tournament, https://lichess.org/tournament/new -->
   <string name="newTournament">Turne i ri</string>
   <!-- The title of the tournaments home page (https://lichess.org/tournament) which is used for search engines. -->
@@ -1043,7 +1039,6 @@
   <!-- Appears when hovering KeyboardShortcuts sign under the chess board. (https://lichess.org/g4XbumIh) -->
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Ju mund edhe të rrotulloni rrotën mbi fushë për të lëvizur gjatë lojës.</string>
   <!-- Appears when hovering KeyboardShortcuts sign under the chess board. (https://lichess.org/g4XbumIh) -->
-  <string name="pressShiftPlusClickOrRightClickToDrawCirclesAndArrowsOnTheBoard">Shtypni shift+klikim ose klikoni me të djathtën për të vizatuar rrathë dhe shigjeta mbi fushë.</string>
   <!-- An option at game preferences. (https://lichess.org/account/preferences/game-behavior) -->
   <string name="confirmResignation">Mirato dorëheqjen</string>
   <!-- Appears at privacy settings. (https://lichess.org/account/preferences/privacy) -->
