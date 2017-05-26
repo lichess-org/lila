@@ -10,8 +10,11 @@ final class Env(
 ) {
 
   private val WebPathRelative = config getString "web_path.relative"
+  private val NetDomain = config getString "net.domain"
 
   lazy val jsDump = new JsDump(path = appPath + "/" + WebPathRelative)
+
+  lazy val subdomainKiller = new SubdomainKiller(NetDomain)
 
   def cli = new lila.common.Cli {
     def process = {
