@@ -1,4 +1,4 @@
-// Generated with bin/gen/trans-dump at 2017-05-26 16:35:36 UTC
+// Generated with bin/gen/trans-dump at 2017-05-26 17:44:48 UTC
 package lila.i18n
 
 object I18nKeys {
@@ -65,8 +65,6 @@ object I18nKeys {
   val `viewAllNbGames` = new Translated("viewAllNbGames")
   val `viewNbCheckmates` = new Translated("viewNbCheckmates")
   val `nbBookmarks` = new Translated("nbBookmarks")
-  val `nbPopularGames` = new Translated("nbPopularGames")
-  val `nbAnalysedGames` = new Translated("nbAnalysedGames")
   val `viewInFullSize` = new Translated("viewInFullSize")
   val `logOut` = new Translated("logOut")
   val `signIn` = new Translated("signIn")
