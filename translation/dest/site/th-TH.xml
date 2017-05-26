@@ -62,7 +62,6 @@
   <!-- This is what a spectator sees in the right-hand box when watching a game and it is Black's turn to play. -->
   <string name="blackPlays">ดำเล่น</string>
   <!-- This appears after 3 minutes have elapsed with one player disconnected. Below it are two buttons: "Claim victory" and "Call draw". -->
-  <string name="theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim">ผู้เล่นอีกฝ่ายอาจทิ้งเกมไปแล้ว คุณสามารถใช้สิทธิ์ชนะ, ให้เสมอกัน หรือรอต่อไป</string>
   <!-- The mouseover text of "Claim victory". You do not have to translate it like this; you can translate to e.g. "Force victory", or whatever best explains the button in your language. Mouseover texts can be as long as you want, within reason. -->
   <string name="makeYourOpponentResign">ทำให้คู่แข่งยอมแพ้</string>
   <!-- Clicking this ends the game and grants you the win. One of the two buttons that appears when your opponent leaves the game. -->
@@ -347,7 +346,6 @@
   <string name="backToTournament">กลับสู่ทัวร์นาเมนต์</string>
   <string name="backToGame">กลับสู่เกม</string>
   <!-- This is what search engines (like Google, Baidu or Yandex) see when Lichess.org appears as a search result. Keep it as short as possible and make Lichess sound good! -->
-  <string name="freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents">เกมหมากรุกสากลออนไลน์ฟรี เล่นได้ทันทีในรูปลักษณ์ที่สะอาดตา โดยไม่จำเป็นต้องลงทะเบียน, ไม่มีโฆษณา, ไม่ต้องการปลั๊กอิน, เล่นหมากรุกกับคอมพิวเตอร์หรือเพื่อน หรือสุ่มคู่แข่งก็ได้</string>
   <!-- Teams on lichess are groups of people with their own forum boards and chat channels. Appears at the top of every page on lichess. -->
   <string name="teams">ทีม</string>
   <!-- %s is the number of members. Appears on the top-right hand side on a team's page (e.g. https://lichess.org/team/linux). -->
@@ -968,8 +966,6 @@
   <string name="keyShowOrHideComments">แสดง/ซ่อนความคิดเห็น</string>
   <!-- Explains that the preceding keyboard shortcuts enter or exit variations. Appears on the bottom left side of pages with analyzed games under Keyboard Shortcuts dropdown. -->
   <string name="keyEnterOrExitVariation">เข้าสู่/ออกจากตัวแปรกติกา</string>
-  <!-- Explains that using Shift+Click or right-clicking draws arrows and circles on the game board and that one can use the mouse scroll to play through game. Appears on the bottom left side of pages with analyzed games under Keyboard Shortcuts dropdown. -->
-  <string name="keyYouCanDrawArrowsCirclesAndScrollToMove">กด Shift+คลิก หรือ คลิกขวา เพื่อวาดวงกลมและลูกศรบนกระดาน คุณยังสามารถหมุนเลื่อนบนกระดานเพื่อเดินเกมได้ด้วย</string>
   <!-- The title of the page where you can create a new tournament, https://lichess.org/tournament/new -->
   <string name="newTournament">ทัวร์นาเมนต์ใหม่</string>
   <!-- The title of the tournaments home page (https://lichess.org/tournament) which is used for search engines. -->
@@ -1022,7 +1018,6 @@
   <!-- Appears when hovering KeyboardShortcuts sign under the chess board. (https://lichess.org/g4XbumIh) -->
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">คุณสามารถหมุนเลื่อนเหนือกระดานเพื่อเดินในเกมได้ด้วย</string>
   <!-- Appears when hovering KeyboardShortcuts sign under the chess board. (https://lichess.org/g4XbumIh) -->
-  <string name="pressShiftPlusClickOrRightClickToDrawCirclesAndArrowsOnTheBoard">กด shift+คลิก หรือ คลิกขวา เพื่อวาดวงกลมและลูกศรบนกระดาน</string>
   <!-- An option at game preferences. (https://lichess.org/account/preferences/game-behavior) -->
   <string name="confirmResignation">ยืนยันการยอมแพ้</string>
   <!-- Appears at privacy settings. (https://lichess.org/account/preferences/privacy) -->
