@@ -33,25 +33,23 @@ private[i18n] final class JsDump(path: String) {
       """"%s":"%s"""".format(key, escape(Translator.str(key, Nil, lang)))
     }.mkString("{", ",", "}")
 
-  private def writeRefs {
-    val code = LangList.all.toList.sortBy(_._1.toString).map {
-      case (code, name) => s"""["$code","$name"]"""
+  private def writeRefs = writeFile(
+    new File("%s/refs.json".format(pathFile.getCanonicalPath)),
+    LangList.all.toList.sortBy(_._1.code).map {
+      case (lang, name) => s"""["${lang.code}","$name"]"""
     }.mkString("[", ",", "]")
-    val file = new File("%s/refs.json".format(pathFile.getCanonicalPath))
-    val out = new PrintWriter(file)
-    try { out.print(code) }
-    finally { out.close }
+  )
+
+  private def writeFullJson = I18nDb.langs foreach { lang =>
+    val code = dumpFromKey(I18nDb.all(defaultLang).keys, lang)
+    val file = new File("%s/%s.all.json".format(pathFile.getCanonicalPath, lang.language))
+    writeFile(new File("%s/%s.all.json".format(pathFile.getCanonicalPath, lang.language)), code)
   }
 
-  private def writeFullJson {
-    val keys = I18nDb.all(defaultLang).keys
-    I18nDb.langs foreach { lang =>
-      val code = dumpFromKey(keys, lang)
-      val file = new File("%s/%s.all.json".format(pathFile.getCanonicalPath, lang.language))
-      val out = new PrintWriter(file)
-      try { out.print(code) }
-      finally { out.close }
-    }
+  private def writeFile(file: File, content: String) = {
+    val out = new PrintWriter(file)
+    try { out.print(content) }
+    finally { out.close }
   }
 
   private def escape(text: String) = text.replace(""""""", """\"""")

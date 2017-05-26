@@ -39,7 +39,7 @@ object Dasher extends LilaController {
         "user" -> ctx.me.map(_.light),
         "lang" -> Json.obj(
           "current" -> ctx.lang.code,
-          "accepted" -> (ctx.req.acceptLanguages.map(_.code)(breakOut): List[String]).distinct
+          "accepted" -> lila.i18n.I18nLangPicker.allFromRequestHeaders(ctx.req).map(_.code)
         ),
         "sound" -> Json.obj(
           "list" -> lila.pref.SoundSet.list.map { set =>
