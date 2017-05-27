@@ -16,7 +16,6 @@
   <!-- This appears in the box while you are playing a game. It indicates it is your turn to play. -->
   <string name="yourTurn">तुमची चाल</string>
   <!-- AI name and level, e.g. "Stockfish level 3". Note that the "Stockfish" part will always be first no matter where you place the %s, though you can rearrange them to e.g. "%s at %s levels", which would produce e.g. "Stockfish at 3 levels". Use the translation that sounds best in your language. Appears in the box on the left-hand side in the page of the game, and also on your profile, in the list of games. -->
-  <string name="aiNameLevelAiLevel">%1$s, पातळी %2$s</string>
   <!-- This appears in the "Play with the machine" menu (https://lichess.org/setup/ai) as a heading. Below it are skill levels (1 through 8) of the AI that you can play against. -->
   <string name="level">पातळी</string>
   <!-- Turns the chat room (or player chat) on or off. This is the mouseover text of the checkbox on the top-right of the chat box. -->
@@ -58,6 +57,7 @@
   <!-- This is what a spectator sees in the right-hand box when watching a game and it is Black's turn to play. -->
   <string name="blackPlays">काळा खेळतो</string>
   <!-- This appears after 3 minutes have elapsed with one player disconnected. Below it are two buttons: "Claim victory" and "Call draw". -->
+  <string name="opponentLeftChoices">दुसर्या खेळाडूने खेळ सोडला आहे. तुम्ही जबरदस्ती त्यांची हार कबूल करू शकतात, नाही तर त्यांची वाट पाहू शकतात.</string>
   <!-- The mouseover text of "Claim victory". You do not have to translate it like this; you can translate to e.g. "Force victory", or whatever best explains the button in your language. Mouseover texts can be as long as you want, within reason. -->
   <string name="makeYourOpponentResign">विरोधकांना हार मानायला लावा</string>
   <!-- Clicking this ends the game and grants you the win. One of the two buttons that appears when your opponent leaves the game. -->
@@ -107,21 +107,17 @@
   <!-- This appears in various places, including players' profiles and the right-hand side boxes in individual games. It should be translated as a noun, NOT as a verb. -->
   <string name="draw">डाव अनिर्णीत राहिला</string>
   <!-- The %s is the counter of how many players are connected right now. This sentence is displayed at the top of every page on lichess. -->
-  <plurals name="nbPlayers">
-    <item quantity="one">%d खेळाडू जोडुन आहेत</item>
-    <item quantity="other">%d खेळाडू जोडुन आहेत</item>
-  </plurals>
   <!-- This is a shorter phrase for "Games being played right now". It is what the link at the top that says "Games" links to (https://lichess.org/games). Please try to keep your translation as short as possible. -->
   <string name="currentGames">या वेळी खेळले जाणारे डाव</string>
   <!-- %s here is the number of all the games ever played on Lichess. Links to https://lichess.org/games/all. -->
   <plurals name="nbGames">
-    <item quantity="one">सर्व %d डाव पाहा</item>
-    <item quantity="other">सर्व %d डाव पाहा</item>
+    <item quantity="one">सर्व %s डाव पाहा</item>
+    <item quantity="other">सर्व %s डाव पाहा</item>
   </plurals>
   <!-- %s is the number of games you have bookmarked. Links to https://lichess.org/games/bookmark. It only appears to registered users that have bookmarked certain games. It displays a list of your bookmarked games. -->
   <plurals name="nbBookmarks">
-    <item quantity="one">%d आवडते</item>
-    <item quantity="other">%d आवडते</item>
+    <item quantity="one">%s आवडते</item>
+    <item quantity="other">%s आवडते</item>
   </plurals>
   <!-- Clicking one of these small boards brings you to the game's unique page. This is the mouseover text of the small chess boards dotted around the site. These small boards are most prominent in the "Games" pages (https://lichess.org/games). -->
   <string name="viewInFullSize">अधिकतम आकारात पाहा</string>
@@ -141,7 +137,6 @@
   <!-- It is Lichess's webforum, where users can discuss various topics, chess-related or not. These are sometimes called "bulletin boards". "Forum" is one of the links at the top of every page, so keep it as short as possible. Links to https://lichess.org/forum -->
   <string name="forum">चर्चामंडळ</string>
   <!-- The first %s is the player's name and the second %s is the title of the topic in the forum. By "topic" here we mean a discussion, sometimes called a "thread" in this context. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xPostedInForumY">%1$s forum madhe lihile</string>
   <!-- A list of the most recent posts on the forum. Appears as a heading to a box near the bottom of the "Play" page (https://lichess.org/). -->
   <string name="latestForumPosts">ताज्या  प्रतिक्रिया</string>
   <!-- Some have been translating as "[Chess] Players". This is acceptable only if it is one word (e.g. "Szachiści" in Polish). Otherwise, keep just translate to "Players". This appears as one of the links on the navigation bar at the top of every page.  Links to https://lichess.org/people -->
@@ -163,13 +158,13 @@
   <string name="oneDay">एक दिवस</string>
   <!-- %s is maximum number of days for each turn. This appears next to the slider for the correspondence chess time control in the game creation menus (e.g. "Create a game", "Play with a friend"). It also appears on the clock and information box in correspondence chess games. Please keep this sentence as short as possible. -->
   <plurals name="nbDays">
-    <item quantity="one">%d  दिवस</item>
-    <item quantity="other">%d  दिवस</item>
+    <item quantity="one">%s  दिवस</item>
+    <item quantity="other">%s  दिवस</item>
   </plurals>
   <!-- %s is number of hours. Used to display correspondence clocks. -->
   <plurals name="nbHours">
-    <item quantity="one">%d तास</item>
-    <item quantity="other">%d तास</item>
+    <item quantity="one">%s तास</item>
+    <item quantity="other">%s तास</item>
   </plurals>
   <!-- The time control for the game. This appears as a column heading in the table of games you can join on the "Play" page (https://lichess.org/). -->
   <string name="time">vel</string>
@@ -202,8 +197,8 @@
   <string name="gamesPlayed">खेळलेले डाव</string>
   <!-- %s is the number of games this player has played with you. This appears as a tab on the profile pages of people that you have played with. Try to keep it fairly short. -->
   <plurals name="nbGamesWithYou">
-    <item quantity="one">%d  तुमच्याशी खेळलेले डाव</item>
-    <item quantity="other">%d  तुमच्याशी खेळलेले डाव</item>
+    <item quantity="one">%s  तुमच्याशी खेळलेले डाव</item>
+    <item quantity="other">%s  तुमच्याशी खेळलेले डाव</item>
   </plurals>
   <!-- This is a generic word that appears in a wide variety of places and is used to cancel actions of all sorts. It is recommended to translate it according to whatever your operating system (e.g. Microsoft Windows) uses for your language. -->
   <string name="cancel">रद्द करा</string>
@@ -291,28 +286,24 @@
   <string name="spectators">प्रेक्षक</string>
   <!-- This appears as a clickable tab in player profiles. The %s is the number of games won. -->
   <plurals name="nbWins">
-    <item quantity="one">%d विजय</item>
-    <item quantity="other">%d विजय</item>
+    <item quantity="one">%s विजय</item>
+    <item quantity="other">%s विजय</item>
   </plurals>
   <!-- This appears as a clickable tab in player profiles. The %s is the number of games lost. -->
   <plurals name="nbLosses">
-    <item quantity="one">%d पराभव</item>
-    <item quantity="other">%d पराभव</item>
+    <item quantity="one">%s पराभव</item>
+    <item quantity="other">%s पराभव</item>
   </plurals>
   <!-- This appears as a clickable tab in player profiles. The %s is the number of games that ended in draw. -->
   <plurals name="nbDraws">
-    <item quantity="one">%d अनिर्णीत</item>
-    <item quantity="other">%d अनिर्णीत</item>
+    <item quantity="one">%s अनिर्णीत</item>
+    <item quantity="other">%s अनिर्णीत</item>
   </plurals>
   <!-- This function lets you download a table of all your games in CSV format. The button in question is a folder with an arrow pointing downwards overlayed on it. It can be seen at profile pages, e.g. https://lichess.org/@/thibault. -->
   <string name="exportGames">खेळ निर्यात करा</string>
   <!-- Below this is a slider that lets you choose the accepted player ratings. The sentence appears in the "Create a game" (https://lichess.org/setup/hook) and "Filter games" menus. Please do NOT translate "rating" to "Elo", because lichess has been using the superior Glicko-2 rating system since late 2013. -->
   <string name="ratingRange">इलो श्रेणी</string>
   <!-- %s here is the number of seconds, usually 15. This is the mouseover text of the "+" button that appears next to players' names in timed matches. Clicking it adds "%s" seconds to the player's clock. -->
-  <plurals name="giveNbSeconds">
-    <item quantity="one">%d सेकंद द्या</item>
-    <item quantity="other">%d सेकंद द्या</item>
-  </plurals>
   <!-- Appears in a red box on player profiles that have been marked as cheater accounts by the site moderators. An example is https://lichess.org/@/ko1. -->
   <string name="thisPlayerUsesChessComputerAssistance">हा खेळाडू संगणकाची मदत घेतो.</string>
   <!-- Appears as a red box on the profiles of players that have been trying to cheat the rating system. An example is https://lichess.org/@/GrandMasterGnel1. -->
@@ -351,8 +342,8 @@
   <string name="teams">संघ</string>
   <!-- %s is the number of members. Appears on the top-right hand side on a team's page (e.g. https://lichess.org/team/linux). -->
   <plurals name="nbMembers">
-    <item quantity="one">%d सदस्य</item>
-    <item quantity="other">%d सदस्य</item>
+    <item quantity="one">%s सदस्य</item>
+    <item quantity="other">%s सदस्य</item>
   </plurals>
   <!-- A list of all teams on lichess. Links to https://lichess.org/team. Appears as a tab in the "Teams" page. -->
   <string name="allTeams">सर्व संघ</string>
