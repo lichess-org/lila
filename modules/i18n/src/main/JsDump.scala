@@ -10,13 +10,13 @@ private[i18n] final class JsDump(path: String) {
 
   def keysToObject(keys: Seq[I18nKey], lang: Lang) = JsObject {
     keys.map { k =>
-      k.key -> JsString(k.literalTo(lang, Nil))
+      k.key -> JsString(k.literalTxtTo(lang, Nil))
     }
   }
 
   def keysToMessageObject(keys: Seq[I18nKey], lang: Lang) = JsObject {
     keys.map { k =>
-      k.literalEn() -> JsString(k.literalTo(lang, Nil))
+      k.literalTxtTo(enLang, Nil) -> JsString(k.literalTxtTo(lang, Nil))
     }
   }
 
@@ -30,7 +30,7 @@ private[i18n] final class JsDump(path: String) {
 
   private def dumpFromKey(keys: Iterable[String], lang: Lang): String =
     keys.map { key =>
-      """"%s":"%s"""".format(key, escape(Translator.literal(key, Nil, lang)))
+      """"%s":"%s"""".format(key, escape(Translator.txt.literal(key, Nil, lang)))
     }.mkString("{", ",", "}")
 
   private def writeRefs = writeFile(
