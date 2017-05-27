@@ -7,7 +7,7 @@ sealed trait I18nQuantity
  * https://github.com/populov/android-i18n-plurals/tree/master/library/src/main/java/com/seppius/i18n/plurals
  *
  * Removed: boilerplate
- * Added: type safety
+ * Added: type safety, tp, io, ia
  */
 object I18nQuantity {
 
@@ -115,7 +115,7 @@ object I18nQuantity {
       if (c == 0 || c == 1) One
       else Other
 
-    case "az" | "bm" | "fa" | "ig" | "hu" | "ja" | "kde" | "kea" | "ko" | "my" | "ses" | "sg" | "to" | "tr" | "vi" | "wo" | "yo" | "zh" | "bo" | "dz" | "id" | "jv" | "ka" | "km" | "kn" | "ms" | "th" =>
+    case "az" | "bm" | "fa" | "ig" | "hu" | "ja" | "kde" | "kea" | "ko" | "my" | "ses" | "sg" | "to" | "tr" | "vi" | "wo" | "yo" | "zh" | "bo" | "dz" | "id" | "jv" | "ka" | "km" | "kn" | "ms" | "th" | "tp" | "io" | "ia" =>
       Other
 
     case _ =>
