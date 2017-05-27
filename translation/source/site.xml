@@ -15,7 +15,7 @@
   <!-- This appears in the box while you are playing a game. It indicates it is your turn to play. -->
   <string name="yourTurn">Your turn</string>
   <!-- AI name and level, e.g. "Stockfish level 3". Note that the "Stockfish" part will always be first no matter where you place the %s, though you can rearrange them to e.g. "%s at %s levels", which would produce e.g. "Stockfish at 3 levels". Use the translation that sounds best in your language. Appears in the box on the left-hand side in the page of the game, and also on your profile, in the list of games. -->
-  <string name="aiNameLevelAiLevel">%1$s level %2$s</string>
+  <string name="aiNameLevelAiLevel">%1 level %2</string>
   <!-- This appears in the "Play with the machine" menu (https://lichess.org/setup/ai) as a heading. Below it are skill levels (1 through 8) of the AI that you can play against. -->
   <string name="level">Level</string>
   <!-- Turns the chat room (or player chat) on or off. This is the mouseover text of the checkbox on the top-right of the chat box. -->
@@ -112,20 +112,20 @@
   <string name="draw">Draw</string>
   <!-- The %s is the counter of how many players are connected right now. This sentence is displayed at the top of every page on lichess. -->
   <plurals name="nbPlayers">
-    <item quantity="one">%d players</item>
-    <item quantity="other">%d players</item>
+    <item quantity="one">%s players</item>
+    <item quantity="other">%s players</item>
   </plurals>
   <!-- This is a shorter phrase for "Games being played right now". It is what the link at the top that says "Games" links to (https://lichess.org/games). Please try to keep your translation as short as possible. -->
   <string name="currentGames">Current games</string>
   <!-- %s here is the number of all the games ever played on Lichess. Links to https://lichess.org/games/all. -->
   <plurals name="nbGames">
     <item quantity="one">One game</item>
-    <item quantity="other">%d Games</item>
+    <item quantity="other">%s Games</item>
   </plurals>
   <!-- %s is the number of games you have bookmarked. Links to https://lichess.org/games/bookmark. It only appears to registered users that have bookmarked certain games. It displays a list of your bookmarked games. -->
   <plurals name="nbBookmarks">
     <item quantity="one">One bookmark</item>
-    <item quantity="other">%d Bookmarks</item>
+    <item quantity="other">%s Bookmarks</item>
   </plurals>
   <!-- Clicking one of these small boards brings you to the game's unique page. This is the mouseover text of the small chess boards dotted around the site. These small boards are most prominent in the "Games" pages (https://lichess.org/games). -->
   <string name="viewInFullSize">View in full size</string>
@@ -146,7 +146,7 @@
   <!-- It is Lichess's webforum, where users can discuss various topics, chess-related or not. These are sometimes called "bulletin boards". "Forum" is one of the links at the top of every page, so keep it as short as possible. Links to https://lichess.org/forum -->
   <string name="forum">Forum</string>
   <!-- The first %s is the player's name and the second %s is the title of the topic in the forum. By "topic" here we mean a discussion, sometimes called a "thread" in this context. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xPostedInForumY">%1$s posted in topic %2$s</string>
+  <string name="xPostedInForumY">%1 posted in topic %2</string>
   <!-- A list of the most recent posts on the forum. Appears as a heading to a box near the bottom of the "Play" page (https://lichess.org/). -->
   <string name="latestForumPosts">Latest forum posts</string>
   <!-- Some have been translating as "[Chess] Players". This is acceptable only if it is one word (e.g. "Szachiści" in Polish). Otherwise, keep just translate to "Players". This appears as one of the links on the navigation bar at the top of every page.  Links to https://lichess.org/people -->
@@ -170,12 +170,12 @@
   <!-- %s is maximum number of days for each turn. This appears next to the slider for the correspondence chess time control in the game creation menus (e.g. "Create a game", "Play with a friend"). It also appears on the clock and information box in correspondence chess games. Please keep this sentence as short as possible. -->
   <plurals name="nbDays">
     <item quantity="one">One day</item>
-    <item quantity="other">%d days</item>
+    <item quantity="other">%s days</item>
   </plurals>
   <!-- %s is number of hours. Used to display correspondence clocks. -->
   <plurals name="nbHours">
     <item quantity="one">One hour</item>
-    <item quantity="other">%d hours</item>
+    <item quantity="other">%s hours</item>
   </plurals>
   <!-- The time control for the game. This appears as a column heading in the table of games you can join on the "Play" page (https://lichess.org/). -->
   <string name="time">Time</string>
@@ -210,7 +210,7 @@
   <!-- %s is the number of games this player has played with you. This appears as a tab on the profile pages of people that you have played with. Try to keep it fairly short. -->
   <plurals name="nbGamesWithYou">
     <item quantity="one">One game with you</item>
-    <item quantity="other">%d games with you</item>
+    <item quantity="other">%s games with you</item>
   </plurals>
   <!-- This is a generic word that appears in a wide variety of places and is used to cancel actions of all sorts. It is recommended to translate it according to whatever your operating system (e.g. Microsoft Windows) uses for your language. -->
   <string name="cancel">Cancel</string>
@@ -299,17 +299,17 @@
   <!-- This appears as a clickable tab in player profiles. The %s is the number of games won. -->
   <plurals name="nbWins">
     <item quantity="one">One win</item>
-    <item quantity="other">%d wins</item>
+    <item quantity="other">%s wins</item>
   </plurals>
   <!-- This appears as a clickable tab in player profiles. The %s is the number of games lost. -->
   <plurals name="nbLosses">
     <item quantity="one">One loss</item>
-    <item quantity="other">%d losses</item>
+    <item quantity="other">%s losses</item>
   </plurals>
   <!-- This appears as a clickable tab in player profiles. The %s is the number of games that ended in draw. -->
   <plurals name="nbDraws">
     <item quantity="one">One draw</item>
-    <item quantity="other">%d draws</item>
+    <item quantity="other">%s draws</item>
   </plurals>
   <!-- This function lets you download a table of all your games in CSV format. The button in question is a folder with an arrow pointing downwards overlayed on it. It can be seen at profile pages, e.g. https://lichess.org/@/thibault. -->
   <string name="exportGames">Export games</string>
@@ -317,8 +317,8 @@
   <string name="ratingRange">Rating range</string>
   <!-- %s here is the number of seconds, usually 15. This is the mouseover text of the "+" button that appears next to players' names in timed matches. Clicking it adds "%s" seconds to the player's clock. -->
   <plurals name="giveNbSeconds">
-    <item quantity="one">Give %d seconds</item>
-    <item quantity="other">Give %d seconds</item>
+    <item quantity="one">Give %s seconds</item>
+    <item quantity="other">Give %s seconds</item>
   </plurals>
   <!-- Appears in a red box on player profiles that have been marked as cheater accounts by the site moderators. An example is https://lichess.org/@/ko1. -->
   <string name="thisPlayerUsesChessComputerAssistance">This player uses chess computer assistance</string>
@@ -362,7 +362,7 @@
   <!-- %s is the number of members. Appears on the top-right hand side on a team's page (e.g. https://lichess.org/team/linux). -->
   <plurals name="nbMembers">
     <item quantity="one">One member</item>
-    <item quantity="other">%d members</item>
+    <item quantity="other">%s members</item>
   </plurals>
   <!-- A list of all teams on lichess. Links to https://lichess.org/team. Appears as a tab in the "Teams" page. -->
   <string name="allTeams">All teams</string>
@@ -389,9 +389,9 @@
   <!-- This is for teams. It is a listing of all players in the team sorted by who joined most recently. It appears on the left-hand side of any team's page (e.g. https://lichess.org/team/saloon). -->
   <string name="teamRecentMembers">Recent members</string>
   <!-- The first %s is the name of the player, and the second %s is the team the player joined. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xJoinedTeamY">%1$s joined team %2$s</string>
+  <string name="xJoinedTeamY">%1 joined team %2</string>
   <!-- The first %s is the name of the player, and the second %s is the team the player created. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xCreatedTeamY">%1$s created team %2$s</string>
+  <string name="xCreatedTeamY">%1 created team %2</string>
   <!-- This is the mean average rating of all players in the team. Appears on the information box on team pages. Example: https://lichess.org/team/linux -->
   <string name="averageElo">Average rating</string>
   <!-- This is before an input box that lets you write where you are located (a city, town, or whatever you want to write in it). Appears in the "Edit profile" page (https://lichess.org/account/profile). -->
@@ -418,7 +418,7 @@
   <!-- %s is the number of games imported into the Lichess database using the "Import games" tool. Links to https://lichess.org/games/imported and is found on the left hand side of the "Games" pages. -->
   <plurals name="nbImportedGames">
     <item quantity="one">One imported game</item>
-    <item quantity="other">%d Imported games</item>
+    <item quantity="other">%s Imported games</item>
   </plurals>
   <!-- A "CAPTCHA" is, in short, a test to see if the user is human or a bot. You have probably comes across them before; they usually involve putting in a word or answering a question that only a human would know the answer to. CAPTCHAs appear before registering and when posting on the forum. -->
   <string name="thisIsAChessCaptcha">This is a chess CAPTCHA.</string>
@@ -455,16 +455,16 @@
   <!-- Indicates that this player is following you. Appears on the informative popups that appear when you hover the mouse cursor over players' names. -->
   <string name="followsYou">Follows you</string>
   <!-- The two %s's are players' names. The first %s is the name of the follower, and the second %s is the name of the followed. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xStartedFollowingY">%1$s started following %2$s</string>
+  <string name="xStartedFollowingY">%1 started following %2</string>
   <!-- %s is the number of people that follow this player. Example: https://lichess.org/@/thibault — as of the time of writing, Thibault has 263 people following him. -->
   <plurals name="nbFollowers">
     <item quantity="one">One follower</item>
-    <item quantity="other">%d followers</item>
+    <item quantity="other">%s followers</item>
   </plurals>
   <!-- %s is the number of players this player is following. Example: https://lichess.org/@/thibault — as of the time of writing, Thibault is following 81 players. -->
   <plurals name="nbFollowing">
-    <item quantity="one">%d following</item>
-    <item quantity="other">%d following</item>
+    <item quantity="one">%s following</item>
+    <item quantity="other">%s following</item>
   </plurals>
   <!-- Generic message that lets you view more. Appears on the left-hand side of https://lichess.org/people, which lets you view a list of connected players. Also appears on the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) if there are too many messages in the timeline. "More" may be used in other places around Lichess in the future, so please make your translation as generic as possible. -->
   <string name="more">More</string>
@@ -483,7 +483,7 @@
   <!-- %s is the number of minutes. Ticking this checkbox means that games that last less than 3 minutes will show up in the list of games. The sentence appears in the "Filter games" menu, which can be accessed through the "Play" page (https://lichess.org). -->
   <plurals name="lessThanNbMinutes">
     <item quantity="one">Less than a minute</item>
-    <item quantity="other">Less than %d minutes</item>
+    <item quantity="other">Less than %s minutes</item>
   </plurals>
   <!-- Error message that indicates the text put in the form is too short. Appears in forms around the site of all kinds, including registration and team creation. -->
   <string name="textIsTooShort">Text is too short.</string>
@@ -602,7 +602,7 @@
   <!-- %s is the number of times this puzzle has been played. Appears in the box on the right-hand side the "Training" page (https://lichess.org/training/) after you have succeeded at or failed the puzzle. -->
   <plurals name="playedXTimes">
     <item quantity="one">Played one time</item>
-    <item quantity="other">Played %d times</item>
+    <item quantity="other">Played %s times</item>
   </plurals>
   <!-- %s is the name of the game. Appears as a button title at the bottom of the "Training" page (https://lichess.org/training/) after you have succeeded or failed at the puzzle. -->
   <string name="fromGameLink">From game %s</string>
@@ -618,13 +618,13 @@
   <string name="thisPuzzleIsWrong">This puzzle is wrong or boring</string>
   <!-- Explains the rule for the pools feature. If you do not play in the first, say, 30 seconds, you automatically resign the game. Appears when playing a game in a pool, such as https://lichess.org/pool/3-0 -->
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">You have %d seconds to make your first move!</item>
-    <item quantity="other">You have %d seconds to make your first move!</item>
+    <item quantity="one">You have %s seconds to make your first move!</item>
+    <item quantity="other">You have %s seconds to make your first move!</item>
   </plurals>
   <!-- %s is the number of games. Appears below the title of "lichess.org" on the "Play" page (https://lichess.org). Could be translated as "%s games being played". -->
   <plurals name="nbGamesInPlay">
     <item quantity="one">One game in play</item>
-    <item quantity="other">%d games in play</item>
+    <item quantity="other">%s games in play</item>
   </plurals>
   <!-- Informs the player what the button does. This appears as the mouseover text of "Auto switch", a button that appears when you are playing more than one game. See the explanation for "Auto switch" for more details. -->
   <string name="automaticallyProceedToNextGameAfterMoving">Automatically proceed to next game after moving</string>
@@ -796,15 +796,15 @@
   <!-- Click this button to select hard as your difficulty. Appears on the training page when solving puzzles https://lichess.org/training/ -->
   <string name="difficultyHard">Hard</string>
   <!-- First %s is the name of the player that left a note, and the second %s is the player who got a note on their profile. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xLeftANoteOnY">%1$s left a note on %2$s</string>
+  <string name="xLeftANoteOnY">%1 left a note on %2</string>
   <!-- First %s is the name of the player that competes in a tournament, and the second %s is the tournament name. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xCompetesInY">%1$s competes in %2$s</string>
+  <string name="xCompetesInY">%1 competes in %2</string>
   <!-- First %s is the name of the player that asked, and the second %s is the title of the question in Q&A. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xAskedY">%1$s asked %2$s</string>
+  <string name="xAskedY">%1 asked %2</string>
   <!-- First %s is the name of the player that answered, and the second %s is the title of the question in Q&A. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xAnsweredY">%1$s answered %2$s</string>
+  <string name="xAnsweredY">%1 answered %2</string>
   <!-- First %s is the name of the player that commented, and the second %s is the title of the question in Q&A. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xCommentedY">%1$s commented %2$s</string>
+  <string name="xCommentedY">%1 commented %2</string>
   <!-- An activity timeline showing what people you follow on lichess have been up to. Appears on the main page under logotype https://lichess.org and https://lichess.org/timeline/more. Note: this only appears as soon as you follow a player on lichess. -->
   <string name="timeline">Timeline</string>
   <!-- This text appears when you hover over the "more" link for "open tournaments" on the main page https://lichess.org/ -->
@@ -819,13 +819,13 @@
   <string name="biographyDescription">Tell about you, what you like in chess, your favorite openings, games, players…</string>
   <!-- This text appears under the biography description box to inform you the maximum length your description can have. https://lichess.org/account/profile -->
   <plurals name="maximumNbCharacters">
-    <item quantity="one">Maximum: %d characters.</item>
-    <item quantity="other">Maximum: %d characters.</item>
+    <item quantity="one">Maximum: %s characters.</item>
+    <item quantity="other">Maximum: %s characters.</item>
   </plurals>
   <!-- %s is the number of players you have blocked. Consider translating to "%s blocked players" if you think the context is not sufficient. Appears as a heading on your list of blocked players at https://lichess.org/rel/blocks -->
   <plurals name="blocks">
-    <item quantity="one">%d blocks</item>
-    <item quantity="other">%d blocks</item>
+    <item quantity="one">%s blocks</item>
+    <item quantity="other">%s blocks</item>
   </plurals>
   <!-- "List" is used as a verb here. This is a descriptive sentence which appears when you hover the mouse over the block icon on your own profile. Clicking the icon will show you a list of players you have blocked. -->
   <string name="listBlockedPlayers">List players that you have blocked</string>
@@ -908,7 +908,7 @@
   <!-- %s The number of times the user has posted on the forum (https://lichess.org/forum). Appears on profile pages. Example: https://lichess.org/@/thibault — Thibault has 3038 forum points as of the time of writing. -->
   <plurals name="nbForumPosts">
     <item quantity="one">One forum post</item>
-    <item quantity="other">%d Forum Posts</item>
+    <item quantity="other">%s Forum Posts</item>
   </plurals>
   <!-- %s The total time the user has spent playing on Lichess. Appears on profile pages. Example: https://lichess.org/@/thibault/ has spent 15 days, 9 hours and 25 minutes playing at the time of writing. -->
   <string name="tpTimeSpentPlaying">Time spent playing: %s</string>
@@ -1010,9 +1010,9 @@
     <item quantity="other">%1$d %2$s players this week.</item>
   </plurals>
   <!-- Current user rating, on the rating stats page: https://lichess.org/stat/rating/distribution/blitz. The first %s is the the variant name (like Bullet, Blitz, or Chess960), the second %s is the rating itself (like 1900). -->
-  <string name="yourPerfTypeRatingIsRating">Your %1$s rating is %2$s.</string>
+  <string name="yourPerfTypeRatingIsRating">Your %1 rating is %2.</string>
   <!-- Current user ranking, on the rating stats page: https://lichess.org/stat/rating/distribution/blitz. The first %s is the percentage, the second %s is the variant name (like Bullet, Blitz, or Chess960). -->
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">You are better than %1$s of %2$s players.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">You are better than %1 of %2 players.</string>
   <!-- When the user rating is provisional, on the rating stats page: https://lichess.org/stat/rating/distribution/blitz. %s is a variant name (like Bullet, Blitz, or Chess960). -->
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">You do not have an established %s rating.</string>
   <!-- Appears when signup is finished and email is sent. (https://lichess.org/signup/check-your-email/test) -->
@@ -1083,8 +1083,8 @@
   <string name="followAndChallengeFriends">Follow and challenge friends</string>
   <!-- Description of mobile app. The number is goind to be between 80 and 100. (https://lichess.org/mobile) -->
   <plurals name="availableInNbLanguages">
-    <item quantity="one">Available in %d languages!</item>
-    <item quantity="other">Available in %d languages!</item>
+    <item quantity="one">Available in %s languages!</item>
+    <item quantity="other">Available in %s languages!</item>
   </plurals>
   <!-- Description of mobile app. (https://lichess.org/mobile) -->
   <string name="gameAnalysis">Game analysis</string>
