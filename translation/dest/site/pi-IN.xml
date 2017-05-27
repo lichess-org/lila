@@ -340,7 +340,6 @@
   <!-- Here you can change the speed of your piece animation or select none (https://lichess.org/account/preferences). -->
   <!-- Choose if you want to see the difference in material while playing a game. (https://lichess.org/account/preferences). -->
   <!-- Clicking this lets you close your account. Appears in the menu on the preferences page https://lichess.org/account/preferences and as a heading on the "Close account" page. Please do not translate to "delete account" unless you have to, as some data like the games you played on the site are retained. -->
-  <!-- Appears as a heading on the page for closing your account https://lichess.org/account/close -->
   <!-- This sentence appears on the page for closing your account https://lichess.org/account/close. You can click this button if you do not want to close your account. When you click the button you will get redirected to your profile page. -->
   <!-- These sentences appear under the heading on the page for closing your account https://lichess.org/account/close. -->
   <!-- This text appears after you have clicked the "Close my account" button. https://lichess.org/account/close -->
