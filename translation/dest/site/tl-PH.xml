@@ -26,7 +26,6 @@
   <!-- Clicking this makes you resign from the game. Small button in the box on the right while playing a game. -->
   <string name="resign">Magbitiw</string>
   <!-- Appears in the box of a game if you end a game by checkmate. -->
-  <string name="checkmate">Checkmate</string>
   <!-- If you do not know what this rule is, see https://www.chessvariants.org/d.chess/matefaq.html. Appears in the box of a game if you end a game by stalemate. Please use the official term used by your country's or locale's chess federation or club. -->
   <!-- The mouseover text of the White King button in the game creation menus (e.g. "Create a game", "Play with a friend") on the "Play" page. -->
   <string name="white">Puti</string>
@@ -79,7 +78,6 @@
   <!-- Clicking this puts the game in the queue for computer analysis, which is usually completed within a minute. This is one of the actions below the board in the "Replay and analyse" view. -->
   <string name="requestAComputerAnalysis">Humingi ng computer analysis</string>
   <!-- An automated analysis of a game performed by lichess. It provides an advantage charts and possible variation for a game. Appears as a tab below the chess board in replay and analysis views. Example: https://lichess.org/vyvcbk8s -->
-  <string name="computerAnalysis">Computer analysis</string>
   <!-- Button that leads to analysis page. Appears only on your own games, after they have finished. -->
   <!-- This is one of the categories of problems discovered by the computer analysis. If no equivalent word exists, translate to "Serious mistakes". -->
   <!-- This is one of the categories of problems discovered by the computer analysis. Appears on the right hand side of pages with analyzed games. Example: https://lichess.org/vyvcbk8s -->
@@ -146,7 +144,6 @@
   <!-- Appears as a menu item and heading on the "Preferences" pages (https://lichess.org/account/email). -->
   <string name="changeEmail">Palitan ang email</string>
   <!-- Short for "Your email address", but please keep this sentence as short as possible. This appears above text boxes where you can type in your email, on the "Preferences" page. -->
-  <string name="email">Email</string>
   <!-- This is a help text, explaining how email works on lichess. Appears on the "Change email" page (https://lichess.org/account/email). -->
   <!-- Appears as a heading in the link you are given after you asked for an email to reset (change) your password if you have forgotten it. -->
   <!-- You click here if you forgot your password and want it reset. Please adopt an inviting tone to the user. Also see how other popular websites (e.g. YouTube) phrase the same question in your language. Appears on the "Sign in" page. -->
