@@ -16,7 +16,7 @@
   <!-- This appears in the box while you are playing a game. It indicates it is your turn to play. -->
   <string name="yourTurn">Tira mo</string>
   <!-- AI name and level, e.g. "Stockfish level 3". Note that the "Stockfish" part will always be first no matter where you place the %s, though you can rearrange them to e.g. "%s at %s levels", which would produce e.g. "Stockfish at 3 levels". Use the translation that sounds best in your language. Appears in the box on the left-hand side in the page of the game, and also on your profile, in the list of games. -->
-  <string name="aiNameLevelAiLevel">%1$s antas %2$s</string>
+  <string name="aiNameLevelAiLevel">%1 antas %2</string>
   <!-- This appears in the "Play with the machine" menu (https://lichess.org/setup/ai) as a heading. Below it are skill levels (1 through 8) of the AI that you can play against. -->
   <string name="level">Antas</string>
   <!-- Turns the chat room (or player chat) on or off. This is the mouseover text of the checkbox on the top-right of the chat box. -->
@@ -55,6 +55,7 @@
   <!-- This is what a spectator sees in the right-hand box when watching a game and it is Black's turn to play. -->
   <string name="blackPlays">Galaw ng itim</string>
   <!-- This appears after 3 minutes have elapsed with one player disconnected. Below it are two buttons: "Claim victory" and "Call draw". -->
+  <string name="opponentLeftChoices">Maaaring umalis na ang kalaban sa laro. Puwede mo nang angkinin ang panalo, tawagin itong draw, o maghintay.</string>
   <!-- The mouseover text of "Claim victory". You do not have to translate it like this; you can translate to e.g. "Force victory", or whatever best explains the button in your language. Mouseover texts can be as long as you want, within reason. -->
   <!-- Clicking this ends the game and grants you the win. One of the two buttons that appears when your opponent leaves the game. -->
   <string name="forceResignation">Angkinin ang tagumpay</string>
@@ -93,15 +94,15 @@
   <!-- This appears in various places, including players' profiles and the right-hand side boxes in individual games. It should be translated as a noun, NOT as a verb. -->
   <!-- The %s is the counter of how many players are connected right now. This sentence is displayed at the top of every page on lichess. -->
   <plurals name="nbPlayers">
-    <item quantity="one">%d na Manlalaro</item>
-    <item quantity="other">%d na Manlalaro</item>
+    <item quantity="one">%s na Manlalaro</item>
+    <item quantity="other">%s na Manlalaro</item>
   </plurals>
   <!-- This is a shorter phrase for "Games being played right now". It is what the link at the top that says "Games" links to (https://lichess.org/games). Please try to keep your translation as short as possible. -->
   <string name="currentGames">Mga laro ngayon</string>
   <!-- %s here is the number of all the games ever played on Lichess. Links to https://lichess.org/games/all. -->
   <plurals name="nbGames">
-    <item quantity="one">%d na Laro</item>
-    <item quantity="other">%d na Laro</item>
+    <item quantity="one">%s na Laro</item>
+    <item quantity="other">%s na Laro</item>
   </plurals>
   <!-- %s is the number of games you have bookmarked. Links to https://lichess.org/games/bookmark. It only appears to registered users that have bookmarked certain games. It displays a list of your bookmarked games. -->
   <!-- Clicking one of these small boards brings you to the game's unique page. This is the mouseover text of the small chess boards dotted around the site. These small boards are most prominent in the "Games" pages (https://lichess.org/games). -->
@@ -156,8 +157,8 @@
   <string name="gamesPlayed">Games Na Nalaro</string>
   <!-- %s is the number of games this player has played with you. This appears as a tab on the profile pages of people that you have played with. Try to keep it fairly short. -->
   <plurals name="nbGamesWithYou">
-    <item quantity="one">%d  laro sa iyo</item>
-    <item quantity="other">%d  laro sa iyo</item>
+    <item quantity="one">%s  laro sa iyo</item>
+    <item quantity="other">%s  laro sa iyo</item>
   </plurals>
   <!-- This is a generic word that appears in a wide variety of places and is used to cancel actions of all sorts. It is recommended to translate it according to whatever your operating system (e.g. Microsoft Windows) uses for your language. -->
   <string name="cancel">Ikansela</string>
@@ -213,13 +214,13 @@
   <string name="spectators">Manonood</string>
   <!-- This appears as a clickable tab in player profiles. The %s is the number of games won. -->
   <plurals name="nbWins">
-    <item quantity="one">%d Panalo</item>
-    <item quantity="other">%d Panalo</item>
+    <item quantity="one">%s Panalo</item>
+    <item quantity="other">%s Panalo</item>
   </plurals>
   <!-- This appears as a clickable tab in player profiles. The %s is the number of games lost. -->
   <plurals name="nbLosses">
-    <item quantity="one">%d Talo</item>
-    <item quantity="other">%d Talo</item>
+    <item quantity="one">%s Talo</item>
+    <item quantity="other">%s Talo</item>
   </plurals>
   <!-- This appears as a clickable tab in player profiles. The %s is the number of games that ended in draw. -->
   <!-- This function lets you download a table of all your games in CSV format. The button in question is a folder with an arrow pointing downwards overlayed on it. It can be seen at profile pages, e.g. https://lichess.org/@/thibault. -->

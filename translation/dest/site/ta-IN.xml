@@ -16,7 +16,7 @@
   <!-- This appears in the box while you are playing a game. It indicates it is your turn to play. -->
   <string name="yourTurn">தங்கள் முறை</string>
   <!-- AI name and level, e.g. "Stockfish level 3". Note that the "Stockfish" part will always be first no matter where you place the %s, though you can rearrange them to e.g. "%s at %s levels", which would produce e.g. "Stockfish at 3 levels". Use the translation that sounds best in your language. Appears in the box on the left-hand side in the page of the game, and also on your profile, in the list of games. -->
-  <string name="aiNameLevelAiLevel">%1$s நிலைமட்டம் %2$s</string>
+  <string name="aiNameLevelAiLevel">%1 நிலைமட்டம் %2</string>
   <!-- This appears in the "Play with the machine" menu (https://lichess.org/setup/ai) as a heading. Below it are skill levels (1 through 8) of the AI that you can play against. -->
   <string name="level">நிலைமட்டம்</string>
   <!-- Turns the chat room (or player chat) on or off. This is the mouseover text of the checkbox on the top-right of the chat box. -->
@@ -62,6 +62,7 @@
   <!-- This is what a spectator sees in the right-hand box when watching a game and it is Black's turn to play. -->
   <string name="blackPlays">கருப்பு விளையாடுகின்றது</string>
   <!-- This appears after 3 minutes have elapsed with one player disconnected. Below it are two buttons: "Claim victory" and "Call draw". -->
+  <string name="opponentLeftChoices">எதிராளி ஆட்டத்தை விட்டுவிட்டார். அவரை விலக வற்புறுத்தலாம் அல்லது காத்திருக்கலாம்</string>
   <!-- The mouseover text of "Claim victory". You do not have to translate it like this; you can translate to e.g. "Force victory", or whatever best explains the button in your language. Mouseover texts can be as long as you want, within reason. -->
   <string name="makeYourOpponentResign">எதிராளியை விலகவை</string>
   <!-- Clicking this ends the game and grants you the win. One of the two buttons that appears when your opponent leaves the game. -->
@@ -112,20 +113,20 @@
   <string name="draw">இழுபறி</string>
   <!-- The %s is the counter of how many players are connected right now. This sentence is displayed at the top of every page on lichess. -->
   <plurals name="nbPlayers">
-    <item quantity="one">%d விளையாடிகள்</item>
-    <item quantity="other">%d விளையாடிகள்</item>
+    <item quantity="one">%s விளையாடிகள்</item>
+    <item quantity="other">%s விளையாடிகள்</item>
   </plurals>
   <!-- This is a shorter phrase for "Games being played right now". It is what the link at the top that says "Games" links to (https://lichess.org/games). Please try to keep your translation as short as possible. -->
   <string name="currentGames">இப்பொழுதைய ஆட்டங்கள்</string>
   <!-- %s here is the number of all the games ever played on Lichess. Links to https://lichess.org/games/all. -->
   <plurals name="nbGames">
-    <item quantity="one">%d ஆட்டங்கள்</item>
-    <item quantity="other">%d ஆட்டங்கள்</item>
+    <item quantity="one">%s ஆட்டங்கள்</item>
+    <item quantity="other">%s ஆட்டங்கள்</item>
   </plurals>
   <!-- %s is the number of games you have bookmarked. Links to https://lichess.org/games/bookmark. It only appears to registered users that have bookmarked certain games. It displays a list of your bookmarked games. -->
   <plurals name="nbBookmarks">
-    <item quantity="one">%d நினைவுக்குறிகள்</item>
-    <item quantity="other">%d நினைவுக்குறிகள்</item>
+    <item quantity="one">%s நினைவுக்குறிகள்</item>
+    <item quantity="other">%s நினைவுக்குறிகள்</item>
   </plurals>
   <!-- Clicking one of these small boards brings you to the game's unique page. This is the mouseover text of the small chess boards dotted around the site. These small boards are most prominent in the "Games" pages (https://lichess.org/games). -->
   <string name="viewInFullSize">முழு அளவில் காண்க</string>
@@ -146,7 +147,7 @@
   <!-- It is Lichess's webforum, where users can discuss various topics, chess-related or not. These are sometimes called "bulletin boards". "Forum" is one of the links at the top of every page, so keep it as short as possible. Links to https://lichess.org/forum -->
   <string name="forum">மன்றம்</string>
   <!-- The first %s is the player's name and the second %s is the title of the topic in the forum. By "topic" here we mean a discussion, sometimes called a "thread" in this context. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xPostedInForumY">%1$s இடுகைகள் %2$s என்ற மன்றத்தில்</string>
+  <string name="xPostedInForumY">%1 இடுகைகள் %2 என்ற மன்றத்தில்</string>
   <!-- A list of the most recent posts on the forum. Appears as a heading to a box near the bottom of the "Play" page (https://lichess.org/). -->
   <string name="latestForumPosts">சமீபத்திய மன்ற பதிவுகள்</string>
   <!-- Some have been translating as "[Chess] Players". This is acceptable only if it is one word (e.g. "Szachiści" in Polish). Otherwise, keep just translate to "Players". This appears as one of the links on the navigation bar at the top of every page.  Links to https://lichess.org/people -->
@@ -169,13 +170,13 @@
   <string name="oneDay">ஒரு நாள்</string>
   <!-- %s is maximum number of days for each turn. This appears next to the slider for the correspondence chess time control in the game creation menus (e.g. "Create a game", "Play with a friend"). It also appears on the clock and information box in correspondence chess games. Please keep this sentence as short as possible. -->
   <plurals name="nbDays">
-    <item quantity="one">%d நாட்கள்</item>
-    <item quantity="other">%d நாட்கள்</item>
+    <item quantity="one">%s நாட்கள்</item>
+    <item quantity="other">%s நாட்கள்</item>
   </plurals>
   <!-- %s is number of hours. Used to display correspondence clocks. -->
   <plurals name="nbHours">
-    <item quantity="one">%d மணி நேரம்</item>
-    <item quantity="other">%d மணி நேரம்</item>
+    <item quantity="one">%s மணி நேரம்</item>
+    <item quantity="other">%s மணி நேரம்</item>
   </plurals>
   <!-- The time control for the game. This appears as a column heading in the table of games you can join on the "Play" page (https://lichess.org/). -->
   <string name="time">நேரம்</string>
@@ -209,8 +210,8 @@
   <string name="gamesPlayed">ஆடின ஆட்டங்கள்</string>
   <!-- %s is the number of games this player has played with you. This appears as a tab on the profile pages of people that you have played with. Try to keep it fairly short. -->
   <plurals name="nbGamesWithYou">
-    <item quantity="one">%d ஆட்டங்கள் நும்மோடு</item>
-    <item quantity="other">%d ஆட்டங்கள் நும்மோடு</item>
+    <item quantity="one">%s ஆட்டங்கள் நும்மோடு</item>
+    <item quantity="other">%s ஆட்டங்கள் நும்மோடு</item>
   </plurals>
   <!-- This is a generic word that appears in a wide variety of places and is used to cancel actions of all sorts. It is recommended to translate it according to whatever your operating system (e.g. Microsoft Windows) uses for your language. -->
   <string name="cancel">கழி</string>
@@ -298,18 +299,18 @@
   <string name="spectators">பார்வையாளர்கள்</string>
   <!-- This appears as a clickable tab in player profiles. The %s is the number of games won. -->
   <plurals name="nbWins">
-    <item quantity="one">%d வெற்றிகள்</item>
-    <item quantity="other">%d வெற்றிகள்</item>
+    <item quantity="one">%s வெற்றிகள்</item>
+    <item quantity="other">%s வெற்றிகள்</item>
   </plurals>
   <!-- This appears as a clickable tab in player profiles. The %s is the number of games lost. -->
   <plurals name="nbLosses">
-    <item quantity="one">%d தோல்விகள்</item>
-    <item quantity="other">%d தோல்விகள்</item>
+    <item quantity="one">%s தோல்விகள்</item>
+    <item quantity="other">%s தோல்விகள்</item>
   </plurals>
   <!-- This appears as a clickable tab in player profiles. The %s is the number of games that ended in draw. -->
   <plurals name="nbDraws">
-    <item quantity="one">%d இழுபறிகள்</item>
-    <item quantity="other">%d இழுபறிகள்</item>
+    <item quantity="one">%s இழுபறிகள்</item>
+    <item quantity="other">%s இழுபறிகள்</item>
   </plurals>
   <!-- This function lets you download a table of all your games in CSV format. The button in question is a folder with an arrow pointing downwards overlayed on it. It can be seen at profile pages, e.g. https://lichess.org/@/thibault. -->
   <string name="exportGames">ஆட்டங்களை வெளியேற்று</string>
@@ -317,8 +318,8 @@
   <string name="ratingRange">ஏலோ (Elo) அளவு</string>
   <!-- %s here is the number of seconds, usually 15. This is the mouseover text of the "+" button that appears next to players' names in timed matches. Clicking it adds "%s" seconds to the player's clock. -->
   <plurals name="giveNbSeconds">
-    <item quantity="one">%d நொடிகள் அளி</item>
-    <item quantity="other">%d நொடிகள் அளி</item>
+    <item quantity="one">%s நொடிகள் அளி</item>
+    <item quantity="other">%s நொடிகள் அளி</item>
   </plurals>
   <!-- Appears in a red box on player profiles that have been marked as cheater accounts by the site moderators. An example is https://lichess.org/@/ko1. -->
   <string name="thisPlayerUsesChessComputerAssistance">இந்த விளையாடி கணினிச் சதுரங்க உதவியைப் புழங்குகிறார்</string>
@@ -356,12 +357,13 @@
   <string name="backToTournament">போட்டிக்குத் திரும்பு</string>
   <string name="backToGame">ஆட்டத்துக்கு திரும்பிச்செல்</string>
   <!-- This is what search engines (like Google, Baidu or Yandex) see when Lichess.org appears as a search result. Keep it as short as possible and make Lichess sound good! -->
+  <string name="siteDescription">இலவச இணையச் சதுரங்க ஆட்டம். தெளிவான முகப்பைக்கொண்டு சதுரங்கமாடுக. பதிவில்லை, விளம்பரமில்லை, எந்தச் செருகலும் தேவையல்ல. கணினியோடோ, ஒரு தோழரோடோ அல்லது நேர்ந்தபடி ஓர் எதிராளியோடுமோ விளையாடுக.</string>
   <!-- Teams on lichess are groups of people with their own forum boards and chat channels. Appears at the top of every page on lichess. -->
   <string name="teams">அணிகள்</string>
   <!-- %s is the number of members. Appears on the top-right hand side on a team's page (e.g. https://lichess.org/team/linux). -->
   <plurals name="nbMembers">
-    <item quantity="one">%d உறுப்பினர்கள்</item>
-    <item quantity="other">%d உறுப்பினர்கள்</item>
+    <item quantity="one">%s உறுப்பினர்கள்</item>
+    <item quantity="other">%s உறுப்பினர்கள்</item>
   </plurals>
   <!-- A list of all teams on lichess. Links to https://lichess.org/team. Appears as a tab in the "Teams" page. -->
   <string name="allTeams">எல்லா அணிகளும்</string>
@@ -388,9 +390,9 @@
   <!-- This is for teams. It is a listing of all players in the team sorted by who joined most recently. It appears on the left-hand side of any team's page (e.g. https://lichess.org/team/saloon). -->
   <string name="teamRecentMembers">அணியின் அண்மை உறுப்பினர்கள்</string>
   <!-- The first %s is the name of the player, and the second %s is the team the player joined. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xJoinedTeamY">%1$s என்கிற அணியிலே %2$s சேர்ந்தார்</string>
+  <string name="xJoinedTeamY">%1 என்கிற அணியிலே %2 சேர்ந்தார்</string>
   <!-- The first %s is the name of the player, and the second %s is the team the player created. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xCreatedTeamY">%1$s என்பவர் %2$s  என்ற அணியைப் படைத்தார்</string>
+  <string name="xCreatedTeamY">%1 என்பவர் %2  என்ற அணியைப் படைத்தார்</string>
   <!-- This is the mean average rating of all players in the team. Appears on the information box on team pages. Example: https://lichess.org/team/linux -->
   <string name="averageElo">தோராய Elo</string>
   <!-- This is before an input box that lets you write where you are located (a city, town, or whatever you want to write in it). Appears in the "Edit profile" page (https://lichess.org/account/profile). -->
@@ -416,8 +418,8 @@
   <string name="importGame">ஆட்டத்தை உள்ளேற்று</string>
   <!-- %s is the number of games imported into the Lichess database using the "Import games" tool. Links to https://lichess.org/games/imported and is found on the left hand side of the "Games" pages. -->
   <plurals name="nbImportedGames">
-    <item quantity="one">%d உள்ளேற்றின ஆட்டங்கள்</item>
-    <item quantity="other">%d உள்ளேற்றின ஆட்டங்கள்</item>
+    <item quantity="one">%s உள்ளேற்றின ஆட்டங்கள்</item>
+    <item quantity="other">%s உள்ளேற்றின ஆட்டங்கள்</item>
   </plurals>
   <!-- A "CAPTCHA" is, in short, a test to see if the user is human or a bot. You have probably comes across them before; they usually involve putting in a word or answering a question that only a human would know the answer to. CAPTCHAs appear before registering and when posting on the forum. -->
   <string name="thisIsAChessCaptcha">இது ஒரு சதுரங்கமுறை மாந்தத்தேர்வு (CAPTCHA)</string>
@@ -454,16 +456,16 @@
   <!-- Indicates that this player is following you. Appears on the informative popups that appear when you hover the mouse cursor over players' names. -->
   <string name="followsYou">நும்மைப் பின்தொடர்கின்றார்</string>
   <!-- The two %s's are players' names. The first %s is the name of the follower, and the second %s is the name of the followed. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xStartedFollowingY">%1$s என்பவர் %2$s-ஐப் பின்தொடரத் தொடங்கினார்</string>
+  <string name="xStartedFollowingY">%1 என்பவர் %2-ஐப் பின்தொடரத் தொடங்கினார்</string>
   <!-- %s is the number of people that follow this player. Example: https://lichess.org/@/thibault — as of the time of writing, Thibault has 263 people following him. -->
   <plurals name="nbFollowers">
-    <item quantity="one">%d பின்தொடர்நர்கள்</item>
-    <item quantity="other">%d பின்தொடர்நர்கள்</item>
+    <item quantity="one">%s பின்தொடர்நர்கள்</item>
+    <item quantity="other">%s பின்தொடர்நர்கள்</item>
   </plurals>
   <!-- %s is the number of players this player is following. Example: https://lichess.org/@/thibault — as of the time of writing, Thibault is following 81 players. -->
   <plurals name="nbFollowing">
-    <item quantity="one">%d -ஐப் பின்தொடர்கின்றார்</item>
-    <item quantity="other">%d -ஐப் பின்தொடர்கின்றார்</item>
+    <item quantity="one">%s -ஐப் பின்தொடர்கின்றார்</item>
+    <item quantity="other">%s -ஐப் பின்தொடர்கின்றார்</item>
   </plurals>
   <!-- Generic message that lets you view more. Appears on the left-hand side of https://lichess.org/people, which lets you view a list of connected players. Also appears on the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) if there are too many messages in the timeline. "More" may be used in other places around Lichess in the future, so please make your translation as generic as possible. -->
   <string name="more">மேலும்</string>
@@ -481,8 +483,8 @@
   <string name="graph">வரைவு</string>
   <!-- %s is the number of minutes. Ticking this checkbox means that games that last less than 3 minutes will show up in the list of games. The sentence appears in the "Filter games" menu, which can be accessed through the "Play" page (https://lichess.org). -->
   <plurals name="lessThanNbMinutes">
-    <item quantity="one">%d விடக் குறைந்த நிமிடங்கள்</item>
-    <item quantity="other">%d விடக் குறைந்த நிமிடங்கள்</item>
+    <item quantity="one">%s விடக் குறைந்த நிமிடங்கள்</item>
+    <item quantity="other">%s விடக் குறைந்த நிமிடங்கள்</item>
   </plurals>
   <!-- Error message that indicates the text put in the form is too short. Appears in forms around the site of all kinds, including registration and team creation. -->
   <string name="textIsTooShort">உரை மிகவும் குறுகல்</string>
@@ -600,8 +602,8 @@
   <string name="ratingX">மதிப்பீடு: %s</string>
   <!-- %s is the number of times this puzzle has been played. Appears in the box on the right-hand side the "Training" page (https://lichess.org/training/) after you have succeeded at or failed the puzzle. -->
   <plurals name="playedXTimes">
-    <item quantity="one">%d முறை விளையாடப்பட்டுள்ளது</item>
-    <item quantity="other">%d முறை விளையாடப்பட்டுள்ளது</item>
+    <item quantity="one">%s முறை விளையாடப்பட்டுள்ளது</item>
+    <item quantity="other">%s முறை விளையாடப்பட்டுள்ளது</item>
   </plurals>
   <!-- %s is the name of the game. Appears as a button title at the bottom of the "Training" page (https://lichess.org/training/) after you have succeeded or failed at the puzzle. -->
   <string name="fromGameLink">%s விளையாட்டில் இருந்து</string>
@@ -617,13 +619,13 @@
   <string name="thisPuzzleIsWrong">இப்புதிர் தவறானது மற்றும் சலிப்பூட்டுவது</string>
   <!-- Explains the rule for the pools feature. If you do not play in the first, say, 30 seconds, you automatically resign the game. Appears when playing a game in a pool, such as https://lichess.org/pool/3-0 -->
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">நீங்கள் உங்கள் முதல் காயை நகர்த்த %d விநாடிகளே உள்ளது!</item>
-    <item quantity="other">நீங்கள் உங்கள் முதல் காயை நகர்த்த %d விநாடிகளே உள்ளது!</item>
+    <item quantity="one">நீங்கள் உங்கள் முதல் காயை நகர்த்த %s விநாடிகளே உள்ளது!</item>
+    <item quantity="other">நீங்கள் உங்கள் முதல் காயை நகர்த்த %s விநாடிகளே உள்ளது!</item>
   </plurals>
   <!-- %s is the number of games. Appears below the title of "lichess.org" on the "Play" page (https://lichess.org). Could be translated as "%s games being played". -->
   <plurals name="nbGamesInPlay">
-    <item quantity="one">%d விளையாட்டுக்கள்</item>
-    <item quantity="other">%d விளையாட்டுக்கள்</item>
+    <item quantity="one">%s விளையாட்டுக்கள்</item>
+    <item quantity="other">%s விளையாட்டுக்கள்</item>
   </plurals>
   <!-- Informs the player what the button does. This appears as the mouseover text of "Auto switch", a button that appears when you are playing more than one game. See the explanation for "Auto switch" for more details. -->
   <string name="automaticallyProceedToNextGameAfterMoving">நகரும் பிறகு தானாகவே அடுத்த விளையாட்டு தொடர</string>

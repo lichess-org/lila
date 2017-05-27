@@ -16,7 +16,7 @@
   <!-- This appears in the box while you are playing a game. It indicates it is your turn to play. -->
   <string name="yourTurn">Ваш хід</string>
   <!-- AI name and level, e.g. "Stockfish level 3". Note that the "Stockfish" part will always be first no matter where you place the %s, though you can rearrange them to e.g. "%s at %s levels", which would produce e.g. "Stockfish at 3 levels". Use the translation that sounds best in your language. Appears in the box on the left-hand side in the page of the game, and also on your profile, in the list of games. -->
-  <string name="aiNameLevelAiLevel">%1$s рівень %2$s</string>
+  <string name="aiNameLevelAiLevel">%1 рівень %2</string>
   <!-- This appears in the "Play with the machine" menu (https://lichess.org/setup/ai) as a heading. Below it are skill levels (1 through 8) of the AI that you can play against. -->
   <string name="level">Рівень</string>
   <!-- Turns the chat room (or player chat) on or off. This is the mouseover text of the checkbox on the top-right of the chat box. -->
@@ -62,6 +62,7 @@
   <!-- This is what a spectator sees in the right-hand box when watching a game and it is Black's turn to play. -->
   <string name="blackPlays">Хід чорних</string>
   <!-- This appears after 3 minutes have elapsed with one player disconnected. Below it are two buttons: "Claim victory" and "Call draw". -->
+  <string name="opponentLeftChoices">Ваш суперник залишив гру. Ви можете оголосити перемогу чи нічию, або зачекати.</string>
   <!-- The mouseover text of "Claim victory". You do not have to translate it like this; you can translate to e.g. "Force victory", or whatever best explains the button in your language. Mouseover texts can be as long as you want, within reason. -->
   <string name="makeYourOpponentResign">Примусити вашого суперника здатися</string>
   <!-- Clicking this ends the game and grants you the win. One of the two buttons that appears when your opponent leaves the game. -->
@@ -134,7 +135,7 @@
   <!-- It is Lichess's webforum, where users can discuss various topics, chess-related or not. These are sometimes called "bulletin boards". "Forum" is one of the links at the top of every page, so keep it as short as possible. Links to https://lichess.org/forum -->
   <string name="forum">Форум</string>
   <!-- The first %s is the player's name and the second %s is the title of the topic in the forum. By "topic" here we mean a discussion, sometimes called a "thread" in this context. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xPostedInForumY">%1$s опублікованих на форумі %2$s</string>
+  <string name="xPostedInForumY">%1 опублікованих на форумі %2</string>
   <!-- A list of the most recent posts on the forum. Appears as a heading to a box near the bottom of the "Play" page (https://lichess.org/). -->
   <string name="latestForumPosts">Останні дописи форуму</string>
   <!-- Some have been translating as "[Chess] Players". This is acceptable only if it is one word (e.g. "Szachiści" in Polish). Otherwise, keep just translate to "Players". This appears as one of the links on the navigation bar at the top of every page.  Links to https://lichess.org/people -->
@@ -316,6 +317,7 @@
   <string name="backToTournament">Повернутися до турніру</string>
   <string name="backToGame">Повернутися до гри</string>
   <!-- This is what search engines (like Google, Baidu or Yandex) see when Lichess.org appears as a search result. Keep it as short as possible and make Lichess sound good! -->
+  <string name="siteDescription">Безкоштовні Інтернет-шахи. Грайте в шахи зараз із чистим інтерфейсом. Без реєстрації, без реклами, без додаткових програм. Грайте в шахи з комп\'ютером, друзями або випадковими суперниками.</string>
   <!-- Teams on lichess are groups of people with their own forum boards and chat channels. Appears at the top of every page on lichess. -->
   <string name="teams">Команди</string>
   <!-- %s is the number of members. Appears on the top-right hand side on a team's page (e.g. https://lichess.org/team/linux). -->
@@ -344,9 +346,9 @@
   <!-- This is for teams. It is a listing of all players in the team sorted by who joined most recently. It appears on the left-hand side of any team's page (e.g. https://lichess.org/team/saloon). -->
   <string name="teamRecentMembers">Нові гравці команди</string>
   <!-- The first %s is the name of the player, and the second %s is the team the player joined. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xJoinedTeamY">%1$s приєдналися до команди %2$s</string>
+  <string name="xJoinedTeamY">%1 приєдналися до команди %2</string>
   <!-- The first %s is the name of the player, and the second %s is the team the player created. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xCreatedTeamY">%1$s створили команду %2$s</string>
+  <string name="xCreatedTeamY">%1 створили команду %2</string>
   <!-- This is the mean average rating of all players in the team. Appears on the information box on team pages. Example: https://lichess.org/team/linux -->
   <string name="averageElo">Середній рейтинґ</string>
   <!-- This is before an input box that lets you write where you are located (a city, town, or whatever you want to write in it). Appears in the "Edit profile" page (https://lichess.org/account/profile). -->
@@ -406,7 +408,7 @@
   <!-- Indicates that this player is following you. Appears on the informative popups that appear when you hover the mouse cursor over players' names. -->
   <string name="followsYou">Спостерігає за вами</string>
   <!-- The two %s's are players' names. The first %s is the name of the follower, and the second %s is the name of the followed. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xStartedFollowingY">%1$s розпочали спостерігати за %2$s</string>
+  <string name="xStartedFollowingY">%1 розпочали спостерігати за %2</string>
   <!-- %s is the number of people that follow this player. Example: https://lichess.org/@/thibault — as of the time of writing, Thibault has 263 people following him. -->
   <!-- %s is the number of players this player is following. Example: https://lichess.org/@/thibault — as of the time of writing, Thibault is following 81 players. -->
   <!-- Generic message that lets you view more. Appears on the left-hand side of https://lichess.org/people, which lets you view a list of connected players. Also appears on the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) if there are too many messages in the timeline. "More" may be used in other places around Lichess in the future, so please make your translation as generic as possible. -->
@@ -722,15 +724,15 @@
   <!-- Click this button to select hard as your difficulty. Appears on the training page when solving puzzles https://lichess.org/training/ -->
   <string name="difficultyHard">Складно</string>
   <!-- First %s is the name of the player that left a note, and the second %s is the player who got a note on their profile. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xLeftANoteOnY">%1$s накинули оком на %2$s</string>
+  <string name="xLeftANoteOnY">%1 накинули оком на %2</string>
   <!-- First %s is the name of the player that competes in a tournament, and the second %s is the tournament name. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xCompetesInY">%1$s грає у %2$s</string>
+  <string name="xCompetesInY">%1 грає у %2</string>
   <!-- First %s is the name of the player that asked, and the second %s is the title of the question in Q&A. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xAskedY">%1$s має запитання %2$s</string>
+  <string name="xAskedY">%1 має запитання %2</string>
   <!-- First %s is the name of the player that answered, and the second %s is the title of the question in Q&A. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xAnsweredY">%1$s має відповідь на %2$s</string>
+  <string name="xAnsweredY">%1 має відповідь на %2</string>
   <!-- First %s is the name of the player that commented, and the second %s is the title of the question in Q&A. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xCommentedY">%1$s має коментар на %2$s</string>
+  <string name="xCommentedY">%1 має коментар на %2</string>
   <!-- An activity timeline showing what people you follow on lichess have been up to. Appears on the main page under logotype https://lichess.org and https://lichess.org/timeline/more. Note: this only appears as soon as you follow a player on lichess. -->
   <string name="timeline">Смуга подій</string>
   <!-- This text appears when you hover over the "more" link for "open tournaments" on the main page https://lichess.org/ -->
@@ -920,8 +922,9 @@
   <!-- Title of the rating stats page: https://lichess.org/stat/rating/distribution/blitz. %s is a variant name (like Bullet, Blitz, or Chess960). -->
   <string name="weeklyPerfTypeRatingDistribution">Місячний %s розподіл за рейтинґом</string>
   <!-- Current user rating, on the rating stats page: https://lichess.org/stat/rating/distribution/blitz. The first %s is the the variant name (like Bullet, Blitz, or Chess960), the second %s is the rating itself (like 1900). -->
-  <string name="yourPerfTypeRatingisRating">Ваш %1$s рейтинг становить %2$s.</string>
+  <string name="yourPerfTypeRatingIsRating">Ваш %1 рейтинг становить %2.</string>
   <!-- Current user ranking, on the rating stats page: https://lichess.org/stat/rating/distribution/blitz. The first %s is the percentage, the second %s is the variant name (like Bullet, Blitz, or Chess960). -->
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Ви кращі від %1 із %2 гравців.</string>
   <!-- When the user rating is provisional, on the rating stats page: https://lichess.org/stat/rating/distribution/blitz. %s is a variant name (like Bullet, Blitz, or Chess960). -->
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ваш рейтинґ %s ще не визначений.</string>
   <!-- Appears when signup is finished and email is sent. (https://lichess.org/signup/check-your-email/test) -->
@@ -955,6 +958,7 @@
   <!-- Appears when hovering KeyboardShortcuts sign under the chess board. (https://lichess.org/g4XbumIh) -->
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Також ви можете використовувати прокрутку над шахівницею для перегляду ходів у грі.</string>
   <!-- Appears when hovering KeyboardShortcuts sign under the chess board. (https://lichess.org/g4XbumIh) -->
+  <string name="analysisShapesHowTo">Натисніть shift+ЛКМ або ПКМ, щоби намалювати кола та стрілки на шахівниці.</string>
   <!-- An option at game preferences. (https://lichess.org/account/preferences/game-behavior) -->
   <string name="confirmResignation">Підтвердження здачі</string>
   <!-- Appears at privacy settings. (https://lichess.org/account/preferences/privacy) -->

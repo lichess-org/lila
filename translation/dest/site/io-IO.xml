@@ -16,7 +16,6 @@
   <!-- This appears in the box while you are playing a game. It indicates it is your turn to play. -->
   <string name="yourTurn">Vua stroko</string>
   <!-- AI name and level, e.g. "Stockfish level 3". Note that the "Stockfish" part will always be first no matter where you place the %s, though you can rearrange them to e.g. "%s at %s levels", which would produce e.g. "Stockfish at 3 levels". Use the translation that sounds best in your language. Appears in the box on the left-hand side in the page of the game, and also on your profile, in the list of games. -->
-  <string name="aiNameLevelAiLevel">%1$s rango %2$s</string>
   <!-- This appears in the "Play with the machine" menu (https://lichess.org/setup/ai) as a heading. Below it are skill levels (1 through 8) of the AI that you can play against. -->
   <string name="level">Rango</string>
   <!-- Turns the chat room (or player chat) on or off. This is the mouseover text of the checkbox on the top-right of the chat box. -->
@@ -57,6 +56,7 @@
   <!-- This is what a spectator sees in the right-hand box when watching a game and it is Black's turn to play. -->
   <string name="blackPlays">Nigro strokas</string>
   <!-- This appears after 3 minutes have elapsed with one player disconnected. Below it are two buttons: "Claim victory" and "Call draw". -->
+  <string name="opponentLeftChoices">La altra ludero livis la ludo. Vu povas igar lua rezigno, o vartar lu.</string>
   <!-- The mouseover text of "Claim victory". You do not have to translate it like this; you can translate to e.g. "Force victory", or whatever best explains the button in your language. Mouseover texts can be as long as you want, within reason. -->
   <string name="makeYourOpponentResign">Igar vua adverso rezignar</string>
   <!-- Clicking this ends the game and grants you the win. One of the two buttons that appears when your opponent leaves the game. -->
@@ -96,21 +96,15 @@
   <!-- This appears in various places, including players' profiles and the right-hand side boxes in individual games. It should be translated as a noun, NOT as a verb. -->
   <string name="draw">Egaligo</string>
   <!-- The %s is the counter of how many players are connected right now. This sentence is displayed at the top of every page on lichess. -->
-  <plurals name="nbPlayers">
-    <item quantity="one">%d luderi</item>
-    <item quantity="other">%d luderi</item>
-  </plurals>
   <!-- This is a shorter phrase for "Games being played right now". It is what the link at the top that says "Games" links to (https://lichess.org/games). Please try to keep your translation as short as possible. -->
   <string name="currentGames">Nuna Ludi</string>
   <!-- %s here is the number of all the games ever played on Lichess. Links to https://lichess.org/games/all. -->
   <plurals name="nbGames">
-    <item quantity="one">%d Ludi</item>
-    <item quantity="other">%d Ludi</item>
+    <item quantity="other">%s Ludi</item>
   </plurals>
   <!-- %s is the number of games you have bookmarked. Links to https://lichess.org/games/bookmark. It only appears to registered users that have bookmarked certain games. It displays a list of your bookmarked games. -->
   <plurals name="nbBookmarks">
-    <item quantity="one">%d Paginomarki</item>
-    <item quantity="other">%d Paginomarki</item>
+    <item quantity="other">%s Paginomarki</item>
   </plurals>
   <!-- Clicking one of these small boards brings you to the game's unique page. This is the mouseover text of the small chess boards dotted around the site. These small boards are most prominent in the "Games" pages (https://lichess.org/games). -->
   <string name="viewInFullSize">Vidar plengrande</string>
@@ -242,28 +236,21 @@
   <string name="spectators">Spekteri:</string>
   <!-- This appears as a clickable tab in player profiles. The %s is the number of games won. -->
   <plurals name="nbWins">
-    <item quantity="one">%d vinki</item>
-    <item quantity="other">%d vinki</item>
+    <item quantity="other">%s vinki</item>
   </plurals>
   <!-- This appears as a clickable tab in player profiles. The %s is the number of games lost. -->
   <plurals name="nbLosses">
-    <item quantity="one">%d desvinki</item>
-    <item quantity="other">%d desvinki</item>
+    <item quantity="other">%s desvinki</item>
   </plurals>
   <!-- This appears as a clickable tab in player profiles. The %s is the number of games that ended in draw. -->
   <plurals name="nbDraws">
-    <item quantity="one">%d egaligi</item>
-    <item quantity="other">%d egaligi</item>
+    <item quantity="other">%s egaligi</item>
   </plurals>
   <!-- This function lets you download a table of all your games in CSV format. The button in question is a folder with an arrow pointing downwards overlayed on it. It can be seen at profile pages, e.g. https://lichess.org/@/thibault. -->
   <string name="exportGames">Exportacar ludi</string>
   <!-- Below this is a slider that lets you choose the accepted player ratings. The sentence appears in the "Create a game" (https://lichess.org/setup/hook) and "Filter games" menus. Please do NOT translate "rating" to "Elo", because lichess has been using the superior Glicko-2 rating system since late 2013. -->
   <string name="ratingRange">Elo-rango</string>
   <!-- %s here is the number of seconds, usually 15. This is the mouseover text of the "+" button that appears next to players' names in timed matches. Clicking it adds "%s" seconds to the player's clock. -->
-  <plurals name="giveNbSeconds">
-    <item quantity="one">Donar %d sekundi</item>
-    <item quantity="other">Donar %d sekundi</item>
-  </plurals>
   <!-- Appears in a red box on player profiles that have been marked as cheater accounts by the site moderators. An example is https://lichess.org/@/ko1. -->
   <string name="thisPlayerUsesChessComputerAssistance">Ica ludero uzas helpo di shakokomputero</string>
   <!-- Appears as a red box on the profiles of players that have been trying to cheat the rating system. An example is https://lichess.org/@/GrandMasterGnel1. -->
@@ -293,12 +280,12 @@
   <string name="tournamentPoints">Turniropunti</string>
   <!-- Clicking this button takes you to the tournament overview page. Can also be translated to "Watch tournament" (watch being a verb). Appears when you are watching a game that is part of a tournament. This button only appears when watching a tournament game when the tournament is still running. -->
   <!-- This is what search engines (like Google, Baidu or Yandex) see when Lichess.org appears as a search result. Keep it as short as possible and make Lichess sound good! -->
+  <string name="siteDescription">Libera enlinea Shakoludo. Shakoludez nun en neta interfaco. Nula enrejistro, nula reklamo, nula extensoprogramo necesa. Shakoludez kun komputero, amiki o hazarda adversi.</string>
   <!-- Teams on lichess are groups of people with their own forum boards and chat channels. Appears at the top of every page on lichess. -->
   <string name="teams">Esquadi</string>
   <!-- %s is the number of members. Appears on the top-right hand side on a team's page (e.g. https://lichess.org/team/linux). -->
   <plurals name="nbMembers">
-    <item quantity="one">%d membri</item>
-    <item quantity="other">%d membri</item>
+    <item quantity="other">%s membri</item>
   </plurals>
   <!-- A list of all teams on lichess. Links to https://lichess.org/team. Appears as a tab in the "Teams" page. -->
   <string name="allTeams">Omna esquadi</string>

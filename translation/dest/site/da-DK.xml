@@ -16,7 +16,6 @@
   <!-- This appears in the box while you are playing a game. It indicates it is your turn to play. -->
   <string name="yourTurn">Din tur</string>
   <!-- AI name and level, e.g. "Stockfish level 3". Note that the "Stockfish" part will always be first no matter where you place the %s, though you can rearrange them to e.g. "%s at %s levels", which would produce e.g. "Stockfish at 3 levels". Use the translation that sounds best in your language. Appears in the box on the left-hand side in the page of the game, and also on your profile, in the list of games. -->
-  <string name="aiNameLevelAiLevel">%1$s niveau %2$s</string>
   <!-- This appears in the "Play with the machine" menu (https://lichess.org/setup/ai) as a heading. Below it are skill levels (1 through 8) of the AI that you can play against. -->
   <string name="level">Niveau</string>
   <!-- Turns the chat room (or player chat) on or off. This is the mouseover text of the checkbox on the top-right of the chat box. -->
@@ -62,6 +61,7 @@
   <!-- This is what a spectator sees in the right-hand box when watching a game and it is Black's turn to play. -->
   <string name="blackPlays">Sort i trækket</string>
   <!-- This appears after 3 minutes have elapsed with one player disconnected. Below it are two buttons: "Claim victory" and "Call draw". -->
+  <string name="opponentLeftChoices">Din modspiller har forladt spillet. Du kan fremtvinge modstanderens opgivelse eller vente</string>
   <!-- The mouseover text of "Claim victory". You do not have to translate it like this; you can translate to e.g. "Force victory", or whatever best explains the button in your language. Mouseover texts can be as long as you want, within reason. -->
   <string name="makeYourOpponentResign">Tving din modspiller til at opgive</string>
   <!-- Clicking this ends the game and grants you the win. One of the two buttons that appears when your opponent leaves the game. -->
@@ -111,21 +111,17 @@
   <!-- This appears in various places, including players' profiles and the right-hand side boxes in individual games. It should be translated as a noun, NOT as a verb. -->
   <string name="draw">Remis</string>
   <!-- The %s is the counter of how many players are connected right now. This sentence is displayed at the top of every page on lichess. -->
-  <plurals name="nbPlayers">
-    <item quantity="one">%d spillere online</item>
-    <item quantity="other">%d spillere online</item>
-  </plurals>
   <!-- This is a shorter phrase for "Games being played right now". It is what the link at the top that says "Games" links to (https://lichess.org/games). Please try to keep your translation as short as possible. -->
   <string name="currentGames">Partier der bliver spillet nu</string>
   <!-- %s here is the number of all the games ever played on Lichess. Links to https://lichess.org/games/all. -->
   <plurals name="nbGames">
-    <item quantity="one">Se alle %d partier</item>
-    <item quantity="other">Se alle %d partier</item>
+    <item quantity="one">Se alle %s partier</item>
+    <item quantity="other">Se alle %s partier</item>
   </plurals>
   <!-- %s is the number of games you have bookmarked. Links to https://lichess.org/games/bookmark. It only appears to registered users that have bookmarked certain games. It displays a list of your bookmarked games. -->
   <plurals name="nbBookmarks">
-    <item quantity="one">%d bogmærker</item>
-    <item quantity="other">%d bogmærker</item>
+    <item quantity="one">%s bogmærker</item>
+    <item quantity="other">%s bogmærker</item>
   </plurals>
   <!-- Clicking one of these small boards brings you to the game's unique page. This is the mouseover text of the small chess boards dotted around the site. These small boards are most prominent in the "Games" pages (https://lichess.org/games). -->
   <string name="viewInFullSize">Se i fuldskærm</string>
@@ -146,7 +142,6 @@
   <!-- It is Lichess's webforum, where users can discuss various topics, chess-related or not. These are sometimes called "bulletin boards". "Forum" is one of the links at the top of every page, so keep it as short as possible. Links to https://lichess.org/forum -->
   <string name="forum">Forum</string>
   <!-- The first %s is the player's name and the second %s is the title of the topic in the forum. By "topic" here we mean a discussion, sometimes called a "thread" in this context. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xPostedInForumY">%1$s skrev i forum %2$s</string>
   <!-- A list of the most recent posts on the forum. Appears as a heading to a box near the bottom of the "Play" page (https://lichess.org/). -->
   <string name="latestForumPosts">Seneste debatindlæg</string>
   <!-- Some have been translating as "[Chess] Players". This is acceptable only if it is one word (e.g. "Szachiści" in Polish). Otherwise, keep just translate to "Players". This appears as one of the links on the navigation bar at the top of every page.  Links to https://lichess.org/people -->
@@ -169,13 +164,13 @@
   <string name="oneDay">En dag</string>
   <!-- %s is maximum number of days for each turn. This appears next to the slider for the correspondence chess time control in the game creation menus (e.g. "Create a game", "Play with a friend"). It also appears on the clock and information box in correspondence chess games. Please keep this sentence as short as possible. -->
   <plurals name="nbDays">
-    <item quantity="one">%d dage</item>
-    <item quantity="other">%d dage</item>
+    <item quantity="one">%s dage</item>
+    <item quantity="other">%s dage</item>
   </plurals>
   <!-- %s is number of hours. Used to display correspondence clocks. -->
   <plurals name="nbHours">
-    <item quantity="one">%d timer</item>
-    <item quantity="other">%d timer</item>
+    <item quantity="one">%s timer</item>
+    <item quantity="other">%s timer</item>
   </plurals>
   <!-- The time control for the game. This appears as a column heading in the table of games you can join on the "Play" page (https://lichess.org/). -->
   <string name="time">Tid</string>
@@ -209,8 +204,8 @@
   <string name="gamesPlayed">Antal partier spillet</string>
   <!-- %s is the number of games this player has played with you. This appears as a tab on the profile pages of people that you have played with. Try to keep it fairly short. -->
   <plurals name="nbGamesWithYou">
-    <item quantity="one">%d partier med dig</item>
-    <item quantity="other">%d partier med dig</item>
+    <item quantity="one">%s partier med dig</item>
+    <item quantity="other">%s partier med dig</item>
   </plurals>
   <!-- This is a generic word that appears in a wide variety of places and is used to cancel actions of all sorts. It is recommended to translate it according to whatever your operating system (e.g. Microsoft Windows) uses for your language. -->
   <string name="cancel">Afbryd</string>
@@ -298,28 +293,24 @@
   <string name="spectators">Tilskuere</string>
   <!-- This appears as a clickable tab in player profiles. The %s is the number of games won. -->
   <plurals name="nbWins">
-    <item quantity="one">%d sejre</item>
-    <item quantity="other">%d sejre</item>
+    <item quantity="one">%s sejre</item>
+    <item quantity="other">%s sejre</item>
   </plurals>
   <!-- This appears as a clickable tab in player profiles. The %s is the number of games lost. -->
   <plurals name="nbLosses">
-    <item quantity="one">%d nederlag</item>
-    <item quantity="other">%d nederlag</item>
+    <item quantity="one">%s nederlag</item>
+    <item quantity="other">%s nederlag</item>
   </plurals>
   <!-- This appears as a clickable tab in player profiles. The %s is the number of games that ended in draw. -->
   <plurals name="nbDraws">
-    <item quantity="one">%d remiser</item>
-    <item quantity="other">%d remiser</item>
+    <item quantity="one">%s remiser</item>
+    <item quantity="other">%s remiser</item>
   </plurals>
   <!-- This function lets you download a table of all your games in CSV format. The button in question is a folder with an arrow pointing downwards overlayed on it. It can be seen at profile pages, e.g. https://lichess.org/@/thibault. -->
   <string name="exportGames">Eksporter spil</string>
   <!-- Below this is a slider that lets you choose the accepted player ratings. The sentence appears in the "Create a game" (https://lichess.org/setup/hook) and "Filter games" menus. Please do NOT translate "rating" to "Elo", because lichess has been using the superior Glicko-2 rating system since late 2013. -->
   <string name="ratingRange">Rating-interval</string>
   <!-- %s here is the number of seconds, usually 15. This is the mouseover text of the "+" button that appears next to players' names in timed matches. Clicking it adds "%s" seconds to the player's clock. -->
-  <plurals name="giveNbSeconds">
-    <item quantity="one">Giv %d sekunder</item>
-    <item quantity="other">Giv %d sekunder</item>
-  </plurals>
   <!-- Appears in a red box on player profiles that have been marked as cheater accounts by the site moderators. An example is https://lichess.org/@/ko1. -->
   <string name="thisPlayerUsesChessComputerAssistance">Denne spiller bruger skakcomputerassistance</string>
   <!-- Appears as a red box on the profiles of players that have been trying to cheat the rating system. An example is https://lichess.org/@/GrandMasterGnel1. -->
@@ -356,12 +347,13 @@
   <string name="backToTournament">Tilbage til turneringen</string>
   <string name="backToGame">Vend tilbage til spil</string>
   <!-- This is what search engines (like Google, Baidu or Yandex) see when Lichess.org appears as a search result. Keep it as short as possible and make Lichess sound good! -->
+  <string name="siteDescription">Gratis online skakspil. Spil skak med det samme i et rent design. Ingen registrering, ingen reklamer, ingen plugins nødvendige. Spil skak mod computeren, venner eller tilfældige modstandere.</string>
   <!-- Teams on lichess are groups of people with their own forum boards and chat channels. Appears at the top of every page on lichess. -->
   <string name="teams">Hold</string>
   <!-- %s is the number of members. Appears on the top-right hand side on a team's page (e.g. https://lichess.org/team/linux). -->
   <plurals name="nbMembers">
-    <item quantity="one">%d medlemmer</item>
-    <item quantity="other">%d medlemmer</item>
+    <item quantity="one">%s medlemmer</item>
+    <item quantity="other">%s medlemmer</item>
   </plurals>
   <!-- A list of all teams on lichess. Links to https://lichess.org/team. Appears as a tab in the "Teams" page. -->
   <string name="allTeams">Alle hold</string>
@@ -388,9 +380,7 @@
   <!-- This is for teams. It is a listing of all players in the team sorted by who joined most recently. It appears on the left-hand side of any team's page (e.g. https://lichess.org/team/saloon). -->
   <string name="teamRecentMembers">Nye holdmedlemmer</string>
   <!-- The first %s is the name of the player, and the second %s is the team the player joined. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xJoinedTeamY">%1$s er medlem af holdet %2$s</string>
   <!-- The first %s is the name of the player, and the second %s is the team the player created. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xCreatedTeamY">%1$s oprettede holdet %2$s</string>
   <!-- This is the mean average rating of all players in the team. Appears on the information box on team pages. Example: https://lichess.org/team/linux -->
   <string name="averageElo">Gennemsnitlig rating</string>
   <!-- This is before an input box that lets you write where you are located (a city, town, or whatever you want to write in it). Appears in the "Edit profile" page (https://lichess.org/account/profile). -->
@@ -416,8 +406,8 @@
   <string name="importGame">Importér spil</string>
   <!-- %s is the number of games imported into the Lichess database using the "Import games" tool. Links to https://lichess.org/games/imported and is found on the left hand side of the "Games" pages. -->
   <plurals name="nbImportedGames">
-    <item quantity="one">%d importerede spil</item>
-    <item quantity="other">%d importerede spil</item>
+    <item quantity="one">%s importerede spil</item>
+    <item quantity="other">%s importerede spil</item>
   </plurals>
   <!-- A "CAPTCHA" is, in short, a test to see if the user is human or a bot. You have probably comes across them before; they usually involve putting in a word or answering a question that only a human would know the answer to. CAPTCHAs appear before registering and when posting on the forum. -->
   <string name="thisIsAChessCaptcha">Dette er en skak-CAPTCHA.</string>
@@ -454,17 +444,12 @@
   <!-- Indicates that this player is following you. Appears on the informative popups that appear when you hover the mouse cursor over players' names. -->
   <string name="followsYou">Følger dig</string>
   <!-- The two %s's are players' names. The first %s is the name of the follower, and the second %s is the name of the followed. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xStartedFollowingY">%1$s følger nu %2$s</string>
   <!-- %s is the number of people that follow this player. Example: https://lichess.org/@/thibault — as of the time of writing, Thibault has 263 people following him. -->
   <plurals name="nbFollowers">
-    <item quantity="one">%d som følger</item>
-    <item quantity="other">%d som følger</item>
+    <item quantity="one">%s som følger</item>
+    <item quantity="other">%s som følger</item>
   </plurals>
   <!-- %s is the number of players this player is following. Example: https://lichess.org/@/thibault — as of the time of writing, Thibault is following 81 players. -->
-  <plurals name="nbFollowing">
-    <item quantity="one">%d følger</item>
-    <item quantity="other">%d følger</item>
-  </plurals>
   <!-- Generic message that lets you view more. Appears on the left-hand side of https://lichess.org/people, which lets you view a list of connected players. Also appears on the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) if there are too many messages in the timeline. "More" may be used in other places around Lichess in the future, so please make your translation as generic as possible. -->
   <string name="more">Mere</string>
   <!-- Tells how long the player has been a member of lichess. Appears on profile pages. For example, https://lichess.org/@/thibault has been a member since 2010-11-22. -->
@@ -481,8 +466,8 @@
   <string name="graph">Graf</string>
   <!-- %s is the number of minutes. Ticking this checkbox means that games that last less than 3 minutes will show up in the list of games. The sentence appears in the "Filter games" menu, which can be accessed through the "Play" page (https://lichess.org). -->
   <plurals name="lessThanNbMinutes">
-    <item quantity="one">mindre end %d minutter</item>
-    <item quantity="other">mindre end %d minutter</item>
+    <item quantity="one">mindre end %s minutter</item>
+    <item quantity="other">mindre end %s minutter</item>
   </plurals>
   <!-- Error message that indicates the text put in the form is too short. Appears in forms around the site of all kinds, including registration and team creation. -->
   <string name="textIsTooShort">teksten er for kort</string>
@@ -600,8 +585,8 @@
   <string name="ratingX">Rating: %s</string>
   <!-- %s is the number of times this puzzle has been played. Appears in the box on the right-hand side the "Training" page (https://lichess.org/training/) after you have succeeded at or failed the puzzle. -->
   <plurals name="playedXTimes">
-    <item quantity="one">Spillet %d gange</item>
-    <item quantity="other">Spillet %d gange</item>
+    <item quantity="one">Spillet %s gange</item>
+    <item quantity="other">Spillet %s gange</item>
   </plurals>
   <!-- %s is the name of the game. Appears as a button title at the bottom of the "Training" page (https://lichess.org/training/) after you have succeeded or failed at the puzzle. -->
   <string name="fromGameLink">Fra spil %s</string>
@@ -616,14 +601,10 @@
   <!-- The mouseover text of the downwards-pointing triangle (▾), which is a negative (-1) vote for a puzzle. Appears in the box on the right-hand side of the "Training" page (https://lichess.org/training/) after you have succeeded or failed at the puzzle. -->
   <string name="thisPuzzleIsWrong">Denne opgave er forkert eller kedelig</string>
   <!-- Explains the rule for the pools feature. If you do not play in the first, say, 30 seconds, you automatically resign the game. Appears when playing a game in a pool, such as https://lichess.org/pool/3-0 -->
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Du har %d sekunder til at udføre dit første træk!</item>
-    <item quantity="other">Du har %d sekunder til at udføre dit første træk!</item>
-  </plurals>
   <!-- %s is the number of games. Appears below the title of "lichess.org" on the "Play" page (https://lichess.org). Could be translated as "%s games being played". -->
   <plurals name="nbGamesInPlay">
-    <item quantity="one">%d partier i gang</item>
-    <item quantity="other">%d partier i gang</item>
+    <item quantity="one">%s partier i gang</item>
+    <item quantity="other">%s partier i gang</item>
   </plurals>
   <!-- Informs the player what the button does. This appears as the mouseover text of "Auto switch", a button that appears when you are playing more than one game. See the explanation for "Auto switch" for more details. -->
   <string name="automaticallyProceedToNextGameAfterMoving">Automatisk videre til næste spil efter træk</string>
@@ -794,15 +775,10 @@
   <!-- Click this button to select hard as your difficulty. Appears on the training page when solving puzzles https://lichess.org/training/ -->
   <string name="difficultyHard">Svært</string>
   <!-- First %s is the name of the player that left a note, and the second %s is the player who got a note on their profile. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xLeftANoteOnY">%1$s efterlod en note hos %2$s</string>
   <!-- First %s is the name of the player that competes in a tournament, and the second %s is the tournament name. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xCompetesInY">%1$s konkurrerer i %2$s</string>
   <!-- First %s is the name of the player that asked, and the second %s is the title of the question in Q&A. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xAskedY">%1$s spurgte %2$s</string>
   <!-- First %s is the name of the player that answered, and the second %s is the title of the question in Q&A. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xAnsweredY">%1$s svarede %2$s</string>
   <!-- First %s is the name of the player that commented, and the second %s is the title of the question in Q&A. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xCommentedY">%1$s kommenterede %2$s</string>
   <!-- An activity timeline showing what people you follow on lichess have been up to. Appears on the main page under logotype https://lichess.org and https://lichess.org/timeline/more. Note: this only appears as soon as you follow a player on lichess. -->
   <string name="timeline">Tidslinje</string>
   <!-- This text appears when you hover over the "more" link for "open tournaments" on the main page https://lichess.org/ -->
@@ -816,15 +792,7 @@
   <!-- This sentence appears under the biography description box on the page where you edit your profile https://lichess.org/account/profile -->
   <string name="biographyDescription">Fortæl om dig selv, hvad du kan lide ved skak, dine favoritåbninger, partier, spillere...</string>
   <!-- This text appears under the biography description box to inform you the maximum length your description can have. https://lichess.org/account/profile -->
-  <plurals name="maximumNbCharacters">
-    <item quantity="one">Maximum: %d tegn.</item>
-    <item quantity="other">Maximum: %d tegn.</item>
-  </plurals>
   <!-- %s is the number of players you have blocked. Consider translating to "%s blocked players" if you think the context is not sufficient. Appears as a heading on your list of blocked players at https://lichess.org/rel/blocks -->
-  <plurals name="blocks">
-    <item quantity="one">%d blokerede spillere</item>
-    <item quantity="other">%d blokerede spillere</item>
-  </plurals>
   <!-- "List" is used as a verb here. This is a descriptive sentence which appears when you hover the mouse over the block icon on your own profile. Clicking the icon will show you a list of players you have blocked. -->
   <string name="listBlockedPlayers">Vis spillere du har blokeret</string>
   <!-- Press this to play against a human player (instead of playing against the computer). Appears in the "Create a game" menu of the lichess mobile app: https://raw.githubusercontent.com/veloce/lichobile/1.5.x/screens/android/create-human.png. All mobile app sentences *must* be kept compact, as they need to scale to small devices. -->
@@ -905,8 +873,8 @@
   <string name="blackCastlingQueenside">Sort O-O-O</string>
   <!-- %s The number of times the user has posted on the forum (https://lichess.org/forum). Appears on profile pages. Example: https://lichess.org/@/thibault — Thibault has 3038 forum points as of the time of writing. -->
   <plurals name="nbForumPosts">
-    <item quantity="one">%d Forum poster</item>
-    <item quantity="other">%d Forum poster</item>
+    <item quantity="one">%s Forum poster</item>
+    <item quantity="other">%s Forum poster</item>
   </plurals>
   <!-- %s The total time the user has spent playing on Lichess. Appears on profile pages. Example: https://lichess.org/@/thibault/ has spent 15 days, 9 hours and 25 minutes playing at the time of writing. -->
   <string name="tpTimeSpentPlaying">Spilletid: %s</string>
@@ -1004,7 +972,6 @@
   <!-- Title of the rating stats page: https://lichess.org/stat/rating/distribution/blitz. %s is a variant name (like Bullet, Blitz, or Chess960). -->
   <string name="weeklyPerfTypeRatingDistribution">Månedlig %s rating fordelning</string>
   <!-- Current user rating, on the rating stats page: https://lichess.org/stat/rating/distribution/blitz. The first %s is the the variant name (like Bullet, Blitz, or Chess960), the second %s is the rating itself (like 1900). -->
-  <string name="yourPerfTypeRatingisRating">Din %1$s rating er %2$s</string>
   <!-- Current user ranking, on the rating stats page: https://lichess.org/stat/rating/distribution/blitz. The first %s is the percentage, the second %s is the variant name (like Bullet, Blitz, or Chess960). -->
   <!-- When the user rating is provisional, on the rating stats page: https://lichess.org/stat/rating/distribution/blitz. %s is a variant name (like Bullet, Blitz, or Chess960). -->
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har ikke en fastsat %s rating</string>
@@ -1039,6 +1006,7 @@
   <!-- Appears when hovering KeyboardShortcuts sign under the chess board. (https://lichess.org/g4XbumIh) -->
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kan også rulle over bord for at bevæge sig i spillet.</string>
   <!-- Appears when hovering KeyboardShortcuts sign under the chess board. (https://lichess.org/g4XbumIh) -->
+  <string name="analysisShapesHowTo">Tryk shift + klik eller højreklik for at tegne cirkler og pile på brættet.</string>
   <!-- An option at game preferences. (https://lichess.org/account/preferences/game-behavior) -->
   <string name="confirmResignation">Bekræft at du opgiver</string>
   <!-- Appears at privacy settings. (https://lichess.org/account/preferences/privacy) -->
@@ -1074,10 +1042,6 @@
   <!-- Description of mobile app. (https://lichess.org/mobile) -->
   <string name="followAndChallengeFriends">Følg og udfordre dine venner</string>
   <!-- Description of mobile app. The number is goind to be between 80 and 100. (https://lichess.org/mobile) -->
-  <plurals name="availableInNbLanguages">
-    <item quantity="one">Tilgængelig i %d sprog!</item>
-    <item quantity="other">Tilgængelig i %d sprog!</item>
-  </plurals>
   <!-- Description of mobile app. (https://lichess.org/mobile) -->
   <string name="gameAnalysis">Spilanalyse</string>
 </resources>

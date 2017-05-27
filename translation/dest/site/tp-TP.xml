@@ -16,7 +16,7 @@
   <!-- This appears in the box while you are playing a game. It indicates it is your turn to play. -->
   <string name="yourTurn">sina o musi</string>
   <!-- AI name and level, e.g. "Stockfish level 3". Note that the "Stockfish" part will always be first no matter where you place the %s, though you can rearrange them to e.g. "%s at %s levels", which would produce e.g. "Stockfish at 3 levels". Use the translation that sounds best in your language. Appears in the box on the left-hand side in the page of the game, and also on your profile, in the list of games. -->
-  <string name="aiNameLevelAiLevel">musi %1$s pi nanpa pona %2$s</string>
+  <string name="aiNameLevelAiLevel">musi %1 pi nanpa pona %2</string>
   <!-- This appears in the "Play with the machine" menu (https://lichess.org/setup/ai) as a heading. Below it are skill levels (1 through 8) of the AI that you can play against. -->
   <string name="level">mute pona</string>
   <!-- Turns the chat room (or player chat) on or off. This is the mouseover text of the checkbox on the top-right of the chat box. -->
@@ -62,6 +62,7 @@
   <!-- This is what a spectator sees in the right-hand box when watching a game and it is Black's turn to play. -->
   <string name="blackPlays">pimeja li musi</string>
   <!-- This appears after 3 minutes have elapsed with one player disconnected. Below it are two buttons: "Claim victory" and "Call draw". -->
+  <string name="opponentLeftChoices">jan ante li tawa. sina wile pini ala pini e musi ni?</string>
   <!-- The mouseover text of "Claim victory". You do not have to translate it like this; you can translate to e.g. "Force victory", or whatever best explains the button in your language. Mouseover texts can be as long as you want, within reason. -->
   <string name="makeYourOpponentResign">jan ante o pini</string>
   <!-- Clicking this ends the game and grants you the win. One of the two buttons that appears when your opponent leaves the game. -->
@@ -112,20 +113,17 @@
   <string name="draw">musi li moli</string>
   <!-- The %s is the counter of how many players are connected right now. This sentence is displayed at the top of every page on lichess. -->
   <plurals name="nbPlayers">
-    <item quantity="one">jan %d li lon</item>
-    <item quantity="other">jan %d li lon</item>
+    <item quantity="other">jan %s li lon</item>
   </plurals>
   <!-- This is a shorter phrase for "Games being played right now". It is what the link at the top that says "Games" links to (https://lichess.org/games). Please try to keep your translation as short as possible. -->
   <string name="currentGames">musi pi tenpo ni</string>
   <!-- %s here is the number of all the games ever played on Lichess. Links to https://lichess.org/games/all. -->
   <plurals name="nbGames">
-    <item quantity="one">sina ken lukin e musi pi mute %d</item>
-    <item quantity="other">sina ken lukin e musi pi mute %d</item>
+    <item quantity="other">sina ken lukin e musi pi mute %s</item>
   </plurals>
   <!-- %s is the number of games you have bookmarked. Links to https://lichess.org/games/bookmark. It only appears to registered users that have bookmarked certain games. It displays a list of your bookmarked games. -->
   <plurals name="nbBookmarks">
-    <item quantity="one">ilo %d pi lukin sin</item>
-    <item quantity="other">ilo %d pi lukin sin</item>
+    <item quantity="other">ilo %s pi lukin sin</item>
   </plurals>
   <!-- Clicking one of these small boards brings you to the game's unique page. This is the mouseover text of the small chess boards dotted around the site. These small boards are most prominent in the "Games" pages (https://lichess.org/games). -->
   <string name="viewInFullSize">lukin ale</string>
@@ -146,7 +144,7 @@
   <!-- It is Lichess's webforum, where users can discuss various topics, chess-related or not. These are sometimes called "bulletin boards". "Forum" is one of the links at the top of every page, so keep it as short as possible. Links to https://lichess.org/forum -->
   <string name="forum">ma toki</string>
   <!-- The first %s is the player's name and the second %s is the title of the topic in the forum. By "topic" here we mean a discussion, sometimes called a "thread" in this context. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xPostedInForumY">%1$s li sitelen lon ma toki %2$s</string>
+  <string name="xPostedInForumY">%1 li sitelen lon ma toki %2</string>
   <!-- A list of the most recent posts on the forum. Appears as a heading to a box near the bottom of the "Play" page (https://lichess.org/). -->
   <string name="latestForumPosts">toki sin lon ma toki</string>
   <!-- Some have been translating as "[Chess] Players". This is acceptable only if it is one word (e.g. "Szachiści" in Polish). Otherwise, keep just translate to "Players". This appears as one of the links on the navigation bar at the top of every page.  Links to https://lichess.org/people -->
@@ -169,13 +167,11 @@
   <string name="oneDay">tenpo suno wan</string>
   <!-- %s is maximum number of days for each turn. This appears next to the slider for the correspondence chess time control in the game creation menus (e.g. "Create a game", "Play with a friend"). It also appears on the clock and information box in correspondence chess games. Please keep this sentence as short as possible. -->
   <plurals name="nbDays">
-    <item quantity="one">tenpo suno pi mute %d</item>
-    <item quantity="other">tenpo suno pi mute %d</item>
+    <item quantity="other">tenpo suno pi mute %s</item>
   </plurals>
   <!-- %s is number of hours. Used to display correspondence clocks. -->
   <plurals name="nbHours">
-    <item quantity="one">tenpo pi mute %d lon tenpo suno</item>
-    <item quantity="other">tenpo pi mute %d lon tenpo suno</item>
+    <item quantity="other">tenpo pi mute %s lon tenpo suno</item>
   </plurals>
   <!-- The time control for the game. This appears as a column heading in the table of games you can join on the "Play" page (https://lichess.org/). -->
   <string name="time">tenpo</string>
@@ -209,8 +205,7 @@
   <string name="gamesPlayed">sina pini e musi ni</string>
   <!-- %s is the number of games this player has played with you. This appears as a tab on the profile pages of people that you have played with. Try to keep it fairly short. -->
   <plurals name="nbGamesWithYou">
-    <item quantity="one">musi pona sina pi mute %d</item>
-    <item quantity="other">musi pona sina pi mute %d</item>
+    <item quantity="other">musi pona sina pi mute %s</item>
   </plurals>
   <!-- This is a generic word that appears in a wide variety of places and is used to cancel actions of all sorts. It is recommended to translate it according to whatever your operating system (e.g. Microsoft Windows) uses for your language. -->
   <string name="cancel">pali ala</string>
@@ -298,18 +293,15 @@
   <string name="spectators">jan lukin</string>
   <!-- This appears as a clickable tab in player profiles. The %s is the number of games won. -->
   <plurals name="nbWins">
-    <item quantity="one">%d li pini pona</item>
-    <item quantity="other">%d li pini pona</item>
+    <item quantity="other">%s li pini pona</item>
   </plurals>
   <!-- This appears as a clickable tab in player profiles. The %s is the number of games lost. -->
   <plurals name="nbLosses">
-    <item quantity="one">%d li pini ike</item>
-    <item quantity="other">%d li pini ike</item>
+    <item quantity="other">%s li pini ike</item>
   </plurals>
   <!-- This appears as a clickable tab in player profiles. The %s is the number of games that ended in draw. -->
   <plurals name="nbDraws">
-    <item quantity="one">%d li pini sama</item>
-    <item quantity="other">%d li pini sama</item>
+    <item quantity="other">%s li pini sama</item>
   </plurals>
   <!-- This function lets you download a table of all your games in CSV format. The button in question is a folder with an arrow pointing downwards overlayed on it. It can be seen at profile pages, e.g. https://lichess.org/@/thibault. -->
   <string name="exportGames">kama jo musi</string>
@@ -317,8 +309,7 @@
   <string name="ratingRange">nanpa Glicko</string>
   <!-- %s here is the number of seconds, usually 15. This is the mouseover text of the "+" button that appears next to players' names in timed matches. Clicking it adds "%s" seconds to the player's clock. -->
   <plurals name="giveNbSeconds">
-    <item quantity="one">o pana e tenpo %d</item>
-    <item quantity="other">o pana e tenpo %d</item>
+    <item quantity="other">o pana e tenpo %s</item>
   </plurals>
   <!-- Appears in a red box on player profiles that have been marked as cheater accounts by the site moderators. An example is https://lichess.org/@/ko1. -->
   <string name="thisPlayerUsesChessComputerAssistance">jan ni li musi kepeken ilo sona</string>
@@ -356,12 +347,12 @@
   <string name="backToTournament">tawa musi</string>
   <string name="backToGame">tawa musi</string>
   <!-- This is what search engines (like Google, Baidu or Yandex) see when Lichess.org appears as a search result. Keep it as short as possible and make Lichess sound good! -->
+  <string name="siteDescription">musi pi mani ala. musi lon lipu pona. sina ken musi li wile pana ala e nimi sina. lipu li jo ala e sitelen mani. lipu li kepeken ala e ilo namako. sina ken musi tawa ilo sona anu tawa jan pona anu tawa jan ken.</string>
   <!-- Teams on lichess are groups of people with their own forum boards and chat channels. Appears at the top of every page on lichess. -->
   <string name="teams">kulupu</string>
   <!-- %s is the number of members. Appears on the top-right hand side on a team's page (e.g. https://lichess.org/team/linux). -->
   <plurals name="nbMembers">
-    <item quantity="one">jan kulupu pi mute %d</item>
-    <item quantity="other">jan kulupu pi mute %d</item>
+    <item quantity="other">jan kulupu pi mute %s</item>
   </plurals>
   <!-- A list of all teams on lichess. Links to https://lichess.org/team. Appears as a tab in the "Teams" page. -->
   <string name="allTeams">kulupu ale</string>
@@ -388,9 +379,9 @@
   <!-- This is for teams. It is a listing of all players in the team sorted by who joined most recently. It appears on the left-hand side of any team's page (e.g. https://lichess.org/team/saloon). -->
   <string name="teamRecentMembers">jan sin kulupu</string>
   <!-- The first %s is the name of the player, and the second %s is the team the player joined. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xJoinedTeamY">%1$s li tawa kulupu %2$s</string>
+  <string name="xJoinedTeamY">%1 li tawa kulupu %2</string>
   <!-- The first %s is the name of the player, and the second %s is the team the player created. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xCreatedTeamY">%1$s li pali e kulupu %2$s</string>
+  <string name="xCreatedTeamY">%1 li pali e kulupu %2</string>
   <!-- This is the mean average rating of all players in the team. Appears on the information box on team pages. Example: https://lichess.org/team/linux -->
   <string name="averageElo">nanpa Elo kulupu</string>
   <!-- This is before an input box that lets you write where you are located (a city, town, or whatever you want to write in it). Appears in the "Edit profile" page (https://lichess.org/account/profile). -->
@@ -416,8 +407,7 @@
   <string name="importGame">pana musi tawa ni</string>
   <!-- %s is the number of games imported into the Lichess database using the "Import games" tool. Links to https://lichess.org/games/imported and is found on the left hand side of the "Games" pages. -->
   <plurals name="nbImportedGames">
-    <item quantity="one">musi %d tan ante</item>
-    <item quantity="other">musi %d tan ante</item>
+    <item quantity="other">musi %s tan ante</item>
   </plurals>
   <!-- A "CAPTCHA" is, in short, a test to see if the user is human or a bot. You have probably comes across them before; they usually involve putting in a word or answering a question that only a human would know the answer to. CAPTCHAs appear before registering and when posting on the forum. -->
   <string name="thisIsAChessCaptcha">ilo pi sona e ni: sina jan anu ilo</string>
@@ -454,16 +444,14 @@
   <!-- Indicates that this player is following you. Appears on the informative popups that appear when you hover the mouse cursor over players' names. -->
   <string name="followsYou">jan pi tawa poka sina</string>
   <!-- The two %s's are players' names. The first %s is the name of the follower, and the second %s is the name of the followed. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xStartedFollowingY">%1$s li kama tawa poka %2$s</string>
+  <string name="xStartedFollowingY">%1 li kama tawa poka %2</string>
   <!-- %s is the number of people that follow this player. Example: https://lichess.org/@/thibault — as of the time of writing, Thibault has 263 people following him. -->
   <plurals name="nbFollowers">
-    <item quantity="one">jan tawa poka pi mute %d</item>
-    <item quantity="other">jan tawa poka pi mute %d</item>
+    <item quantity="other">jan tawa poka pi mute %s</item>
   </plurals>
   <!-- %s is the number of players this player is following. Example: https://lichess.org/@/thibault — as of the time of writing, Thibault is following 81 players. -->
   <plurals name="nbFollowing">
-    <item quantity="one">tawa poka jan pi mute %d</item>
-    <item quantity="other">tawa poka jan pi mute %d</item>
+    <item quantity="other">tawa poka jan pi mute %s</item>
   </plurals>
   <!-- Generic message that lets you view more. Appears on the left-hand side of https://lichess.org/people, which lets you view a list of connected players. Also appears on the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) if there are too many messages in the timeline. "More" may be used in other places around Lichess in the future, so please make your translation as generic as possible. -->
   <string name="more">o sona e mute</string>
@@ -481,8 +469,7 @@
   <string name="graph">sitelen</string>
   <!-- %s is the number of minutes. Ticking this checkbox means that games that last less than 3 minutes will show up in the list of games. The sentence appears in the "Filter games" menu, which can be accessed through the "Play" page (https://lichess.org). -->
   <plurals name="lessThanNbMinutes">
-    <item quantity="one">musi li jo e tenpo tawa tenpo lili %d</item>
-    <item quantity="other">musi li jo e tenpo tawa tenpo lili %d</item>
+    <item quantity="other">musi li jo e tenpo tawa tenpo lili %s</item>
   </plurals>
   <!-- Error message that indicates the text put in the form is too short. Appears in forms around the site of all kinds, including registration and team creation. -->
   <string name="textIsTooShort">ike a, nimi li lili</string>
@@ -597,8 +584,7 @@
   <!-- %s is the numerical rating and rating deviation for the puzzle. This is the rating of individual chess puzzles in the "Training" pages (https://lichess.org/training/5705). Appears on the right-hand side box after you have succeeded at or failed at the puzzle. Note that this is the rating of the puzzle, NOT the player. -->
   <!-- %s is the number of times this puzzle has been played. Appears in the box on the right-hand side the "Training" page (https://lichess.org/training/) after you have succeeded at or failed the puzzle. -->
   <plurals name="playedXTimes">
-    <item quantity="one">jan li musi e ni la tenpo wan %d</item>
-    <item quantity="other">jan li musi e ni la tenpo wan %d</item>
+    <item quantity="other">jan li musi e ni la tenpo wan %s</item>
   </plurals>
   <!-- %s is the name of the game. Appears as a button title at the bottom of the "Training" page (https://lichess.org/training/) after you have succeeded or failed at the puzzle. -->
   <string name="fromGameLink">tan musi nanpa %s</string>
@@ -614,13 +600,11 @@
   <string name="thisPuzzleIsWrong">musi ni li ike</string>
   <!-- Explains the rule for the pools feature. If you do not play in the first, say, 30 seconds, you automatically resign the game. Appears when playing a game in a pool, such as https://lichess.org/pool/3-0 -->
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">tenpo lili %d la sina wile pali nanpa wan!</item>
-    <item quantity="other">tenpo lili %d la sina wile pali nanpa wan!</item>
+    <item quantity="other">tenpo lili %s la sina wile pali nanpa wan!</item>
   </plurals>
   <!-- %s is the number of games. Appears below the title of "lichess.org" on the "Play" page (https://lichess.org). Could be translated as "%s games being played". -->
   <plurals name="nbGamesInPlay">
-    <item quantity="one">musi %d li lon</item>
-    <item quantity="other">musi %d li lon</item>
+    <item quantity="other">musi %s li lon</item>
   </plurals>
   <!-- Informs the player what the button does. This appears as the mouseover text of "Auto switch", a button that appears when you are playing more than one game. See the explanation for "Auto switch" for more details. -->
   <string name="automaticallyProceedToNextGameAfterMoving">pali wan li pini la ilo sona o tawa musi poka</string>
@@ -766,13 +750,13 @@
   <!-- Click this button to select hard as your difficulty. Appears on the training page when solving puzzles https://lichess.org/training/ -->
   <!-- First %s is the name of the player that left a note, and the second %s is the player who got a note on their profile. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
   <!-- First %s is the name of the player that competes in a tournament, and the second %s is the tournament name. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xCompetesInY">jan %1$s li musi lon musi %2$s</string>
+  <string name="xCompetesInY">jan %1 li musi lon musi %2</string>
   <!-- First %s is the name of the player that asked, and the second %s is the title of the question in Q&A. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xAskedY">jan %1$s li toki e ni: %2$s</string>
+  <string name="xAskedY">jan %1 li toki e ni: %2</string>
   <!-- First %s is the name of the player that answered, and the second %s is the title of the question in Q&A. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xAnsweredY">jan %1$s li toki e ni: %2$s</string>
+  <string name="xAnsweredY">jan %1 li toki e ni: %2</string>
   <!-- First %s is the name of the player that commented, and the second %s is the title of the question in Q&A. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xCommentedY">jan %1$s li toki e ni: %2$s</string>
+  <string name="xCommentedY">jan %1 li toki e ni: %2</string>
   <!-- An activity timeline showing what people you follow on lichess have been up to. Appears on the main page under logotype https://lichess.org and https://lichess.org/timeline/more. Note: this only appears as soon as you follow a player on lichess. -->
   <!-- This text appears when you hover over the "more" link for "open tournaments" on the main page https://lichess.org/ -->
   <string name="seeAllTournaments">o lukin e musi pi musi mute</string>
@@ -908,7 +892,7 @@
   <string name="returnToTournamentsHomepage">o tawa lon lipu monsi pi musi ale</string>
   <!-- Title of the rating stats page: https://lichess.org/stat/rating/distribution/blitz. %s is a variant name (like Bullet, Blitz, or Chess960). -->
   <!-- Current user rating, on the rating stats page: https://lichess.org/stat/rating/distribution/blitz. The first %s is the the variant name (like Bullet, Blitz, or Chess960), the second %s is the rating itself (like 1900). -->
-  <string name="yourPerfTypeRatingisRating">nanpa %1$s sina li nanpa %2$s</string>
+  <string name="yourPerfTypeRatingIsRating">nanpa %1 sina li nanpa %2</string>
   <!-- Current user ranking, on the rating stats page: https://lichess.org/stat/rating/distribution/blitz. The first %s is the percentage, the second %s is the variant name (like Bullet, Blitz, or Chess960). -->
   <!-- When the user rating is provisional, on the rating stats page: https://lichess.org/stat/rating/distribution/blitz. %s is a variant name (like Bullet, Blitz, or Chess960). -->
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">sina jo ala e nanpa %s</string>

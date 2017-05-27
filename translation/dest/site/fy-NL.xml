@@ -16,7 +16,6 @@
   <!-- This appears in the box while you are playing a game. It indicates it is your turn to play. -->
   <string name="yourTurn">Dyn bar</string>
   <!-- AI name and level, e.g. "Stockfish level 3". Note that the "Stockfish" part will always be first no matter where you place the %s, though you can rearrange them to e.g. "%s at %s levels", which would produce e.g. "Stockfish at 3 levels". Use the translation that sounds best in your language. Appears in the box on the left-hand side in the page of the game, and also on your profile, in the list of games. -->
-  <string name="aiNameLevelAiLevel">%1$s nivo %2$s</string>
   <!-- This appears in the "Play with the machine" menu (https://lichess.org/setup/ai) as a heading. Below it are skill levels (1 through 8) of the AI that you can play against. -->
   <string name="level">Nivo</string>
   <!-- Turns the chat room (or player chat) on or off. This is the mouseover text of the checkbox on the top-right of the chat box. -->
@@ -62,6 +61,7 @@
   <!-- This is what a spectator sees in the right-hand box when watching a game and it is Black's turn to play. -->
   <string name="blackPlays">Bar fan swart</string>
   <!-- This appears after 3 minutes have elapsed with one player disconnected. Below it are two buttons: "Claim victory" and "Call draw". -->
+  <string name="opponentLeftChoices">De oare spiler kin it spul ferlette hawwe. Jo kin oerwinning opeaskje, it spul Pat neame of wachtsje.</string>
   <!-- The mouseover text of "Claim victory". You do not have to translate it like this; you can translate to e.g. "Force victory", or whatever best explains the button in your language. Mouseover texts can be as long as you want, within reason. -->
   <!-- Clicking this ends the game and grants you the win. One of the two buttons that appears when your opponent leaves the game. -->
   <!-- Clicking this draws the game. It is considered the more "chivalrous" option of the two. One of the two buttons that appears when your opponent leaves the game. -->
@@ -100,10 +100,6 @@
   <!-- Clicking this send an offer to draw the game to your opponent. This is a small button in the right-hand side box. -->
   <!-- This appears in various places, including players' profiles and the right-hand side boxes in individual games. It should be translated as a noun, NOT as a verb. -->
   <!-- The %s is the counter of how many players are connected right now. This sentence is displayed at the top of every page on lichess. -->
-  <plurals name="nbPlayers">
-    <item quantity="one">%d spilers</item>
-    <item quantity="other">%d spilers</item>
-  </plurals>
   <!-- This is a shorter phrase for "Games being played right now". It is what the link at the top that says "Games" links to (https://lichess.org/games). Please try to keep your translation as short as possible. -->
   <!-- %s here is the number of all the games ever played on Lichess. Links to https://lichess.org/games/all. -->
   <!-- %s is the number of games you have bookmarked. Links to https://lichess.org/games/bookmark. It only appears to registered users that have bookmarked certain games. It displays a list of your bookmarked games. -->
@@ -139,13 +135,13 @@
   <string name="oneDay">Ien dei</string>
   <!-- %s is maximum number of days for each turn. This appears next to the slider for the correspondence chess time control in the game creation menus (e.g. "Create a game", "Play with a friend"). It also appears on the clock and information box in correspondence chess games. Please keep this sentence as short as possible. -->
   <plurals name="nbDays">
-    <item quantity="one">%d dagen</item>
-    <item quantity="other">%d dagen</item>
+    <item quantity="one">%s dagen</item>
+    <item quantity="other">%s dagen</item>
   </plurals>
   <!-- %s is number of hours. Used to display correspondence clocks. -->
   <plurals name="nbHours">
-    <item quantity="one">%d oeren</item>
-    <item quantity="other">%d oeren</item>
+    <item quantity="one">%s oeren</item>
+    <item quantity="other">%s oeren</item>
   </plurals>
   <!-- The time control for the game. This appears as a column heading in the table of games you can join on the "Play" page (https://lichess.org/). -->
   <string name="time">Tiid</string>
@@ -170,8 +166,8 @@
   <!-- Before it is the number of games the player has played. For example, https://lichess.org/@/thibault/ currently reads "2037 Games Played". Make sure you take the number that appears before this sentence into account when preparing your translation. This sentence appears as a tab on player profiles, just above the list of games. -->
   <!-- %s is the number of games this player has played with you. This appears as a tab on the profile pages of people that you have played with. Try to keep it fairly short. -->
   <plurals name="nbGamesWithYou">
-    <item quantity="one">%d spullen mei jo</item>
-    <item quantity="other">%d spullen mei jo</item>
+    <item quantity="one">%s spullen mei jo</item>
+    <item quantity="other">%s spullen mei jo</item>
   </plurals>
   <!-- This is a generic word that appears in a wide variety of places and is used to cancel actions of all sorts. It is recommended to translate it according to whatever your operating system (e.g. Microsoft Windows) uses for your language. -->
   <string name="cancel">Annulearje</string>
@@ -616,10 +612,6 @@
   <string name="onlineAndOfflinePlay">Online en offline spylje</string>
   <!-- Description of mobile app. (https://lichess.org/mobile) -->
   <!-- Description of mobile app. The number is goind to be between 80 and 100. (https://lichess.org/mobile) -->
-  <plurals name="availableInNbLanguages">
-    <item quantity="one">Beskikber yn %d tale!</item>
-    <item quantity="other">Beskikber yn %d tale!</item>
-  </plurals>
   <!-- Description of mobile app. (https://lichess.org/mobile) -->
   <string name="gameAnalysis">Spul analyze</string>
 </resources>
