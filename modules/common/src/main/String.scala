@@ -55,14 +55,16 @@ object String {
     def escape(s: String): String = {
       val sb = new StringBuilder
       var i = 0
-      while (i < s.length) sb.append {
-        s.charAt(i) match {
-          case '<' => "&lt;"
-          case '>' => "&gt;"
-          case '&' => "&amp;"
-          case '"' => "&quot;"
-          case '\'' => "&#39;"
-          case c => c
+      while (i < s.length) {
+        sb.append {
+          s.charAt(i) match {
+            case '<' => "&lt;"
+            case '>' => "&gt;"
+            case '&' => "&amp;"
+            case '"' => "&quot;"
+            case '\'' => "&#39;"
+            case c => c
+          }
         }
         i += 1
       }
