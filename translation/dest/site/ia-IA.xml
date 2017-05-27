@@ -16,6 +16,7 @@
   <!-- This appears in the box while you are playing a game. It indicates it is your turn to play. -->
   <string name="yourTurn">Tu torno</string>
   <!-- AI name and level, e.g. "Stockfish level 3". Note that the "Stockfish" part will always be first no matter where you place the %s, though you can rearrange them to e.g. "%s at %s levels", which would produce e.g. "Stockfish at 3 levels". Use the translation that sounds best in your language. Appears in the box on the left-hand side in the page of the game, and also on your profile, in the list of games. -->
+  <string name="aiNameLevelAiLevel">%1$s nivello %2$s</string>
   <!-- This appears in the "Play with the machine" menu (https://lichess.org/setup/ai) as a heading. Below it are skill levels (1 through 8) of the AI that you can play against. -->
   <string name="level">Nivello</string>
   <!-- Turns the chat room (or player chat) on or off. This is the mouseover text of the checkbox on the top-right of the chat box. -->
@@ -23,6 +24,7 @@
   <!-- Clicking this turns sound on or off. This is a button on the top-right hand corner of the screen. If you use the Internet Explorer browser, you may not be able to see this. -->
   <string name="toggleSound">Alternar sono</string>
   <!-- Start a conversation with a player. Appears in the user tooltip when hovering a user name. -->
+  <string name="chat">Chat</string>
   <!-- Clicking this makes you resign from the game. Small button in the box on the right while playing a game. -->
   <string name="resign">Resignar se</string>
   <!-- Appears in the box of a game if you end a game by checkmate. -->
@@ -142,6 +144,7 @@
   <!-- It is Lichess's webforum, where users can discuss various topics, chess-related or not. These are sometimes called "bulletin boards". "Forum" is one of the links at the top of every page, so keep it as short as possible. Links to https://lichess.org/forum -->
   <string name="forum">Foro</string>
   <!-- The first %s is the player's name and the second %s is the title of the topic in the forum. By "topic" here we mean a discussion, sometimes called a "thread" in this context. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
+  <string name="xPostedInForumY">%1$s postava in topico %2$s</string>
   <!-- A list of the most recent posts on the forum. Appears as a heading to a box near the bottom of the "Play" page (https://lichess.org/). -->
   <string name="latestForumPosts">Ultime messages del foro</string>
   <!-- Some have been translating as "[Chess] Players". This is acceptable only if it is one word (e.g. "Szachiści" in Polish). Otherwise, keep just translate to "Players". This appears as one of the links on the navigation bar at the top of every page.  Links to https://lichess.org/people -->
@@ -239,6 +242,7 @@
   <!-- Indicates that the game has been aborted. Appears in the left and right hand side boxes, as well as in the games list, for aborted games. Note that aborted games are removed from the database after 48 hours. -->
   <string name="gameAborted">Partita cancellate</string>
   <!-- "Standard" here means "not a variant". Selecting this means you play international standard chess, not Chess960 or another variant. Appears in the game creation menus (e.g. "Create a game", "Play with a friend") on the "Play" page. -->
+  <string name="standard">Standard</string>
   <!-- This is short for "Unlimited time". It describes games that have no time controls and can therefore run for an infinite amount of time. This sentence appears in many locations, including game pages and the "Create a game" menu. Please keep this sentence as short as possible. -->
   <string name="unlimited">Illimitate</string>
   <!-- "Mode" here is in the context of filtering between Casual (casual games are not rated) and Rated games. The sentence appears in the "Filter games" menu, which is just above the list of games on the "Play" page (https://lichess.org/). -->
@@ -375,7 +379,9 @@
   <!-- This is for teams. It is a listing of all players in the team sorted by who joined most recently. It appears on the left-hand side of any team's page (e.g. https://lichess.org/team/saloon). -->
   <string name="teamRecentMembers">Membros recente</string>
   <!-- The first %s is the name of the player, and the second %s is the team the player joined. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
+  <string name="xJoinedTeamY">%1$s adhereva a %2$s</string>
   <!-- The first %s is the name of the player, and the second %s is the team the player created. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
+  <string name="xCreatedTeamY">%1$s creava le equipa %2$s</string>
   <!-- This is the mean average rating of all players in the team. Appears on the information box on team pages. Example: https://lichess.org/team/linux -->
   <string name="averageElo">Classification medie</string>
   <!-- This is before an input box that lets you write where you are located (a city, town, or whatever you want to write in it). Appears in the "Edit profile" page (https://lichess.org/account/profile). -->
@@ -438,6 +444,7 @@
   <!-- Indicates that this player is following you. Appears on the informative popups that appear when you hover the mouse cursor over players' names. -->
   <string name="followsYou">Te seque</string>
   <!-- The two %s's are players' names. The first %s is the name of the follower, and the second %s is the name of the followed. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
+  <string name="xStartedFollowingY">%1$s comenciava a sequer %2$s</string>
   <!-- %s is the number of people that follow this player. Example: https://lichess.org/@/thibault — as of the time of writing, Thibault has 263 people following him. -->
   <plurals name="nbFollowers">
     <item quantity="other">%s sequitores</item>
@@ -473,6 +480,7 @@
   <!-- "Open" here means you can join the tournament. Below it is a list of tournaments you are able to join. Appears as a heading on https://lichess.org/tournament and also on the "Play" page (https://lichess.org/) -->
   <string name="openTournaments">Torneos aperte</string>
   <!-- Length of the tournament in minutes. Appears on the left-hand side box on the pages of tournaments. Example: https://lichess.org/tournament/67hj23c2 -->
+  <string name="duration">Duration</string>
   <!-- Indicates the player won the tournament. This is the mouseover text of the trophy icon on tournaments pages. Example: https://lichess.org/tournament/67hj23c2 -->
   <string name="winner">Vincitor</string>
   <!-- Shows the order of the players in a tournament, ordered by their score. Could be translated as "position" or "score" if your language has no equivalent. Appears in the left-most column on the pages of individual tournaments. Example: https://lichess.org/tournament/67hj23c2 -->
@@ -508,6 +516,7 @@
   <!-- Clicking this opens a form that lets you paste a FEN text (FEN is a notation system used to store precise positions on a board). Being a board editor feature, it appears on the board editor's page — https://lichess.org/editor -->
   <string name="loadPosition">Cargar position</string>
   <!-- Means the tournament you are looking at is protected with a password. Appears in the information box on the tournament's page. Example: https://lichess.org/tournament/67hj23c2 -->
+  <string name="isPrivate">Private</string>
   <!-- %s is the name of the player. Clicking this will take you to a form where you can report the player for things like cheating and trolling. Appears on player profiles. -->
   <string name="reportXToModerators">Reportar %s al moderatores</string>
   <!-- Links to your player profile (account). Appears in the drop-down menu for your name at the navigation bar on the top of every page on lichess. -->
@@ -615,7 +624,9 @@
   <!-- This appears in the form for creating a new team (https://lichess.org/team/new). You choose your team name in this field. -->
   <string name="name">Nomine</string>
   <!-- This appears in the form for creating a new team (https://lichess.org/team/new). You can write a description for your team in this field. -->
+  <string name="description">Description</string>
   <!-- Appears in the preferences page for multiple options (https://lichess.org/account/preferences). -->
+  <string name="no">No</string>
   <!-- Appears in the preferences page for multiple options (https://lichess.org/account/preferences). -->
   <string name="yes">Si</string>
   <!-- Appears next to chess CAPTCHAs when signing up, posting on the forum and other actions with a link to the game it is referenced from. -->
@@ -637,6 +648,7 @@
   <!-- The button at the bottom of a topic page. Click the button to reply to a topic. -->
   <string name="reply">Responder</string>
   <!-- This is where you write your message for replying to a topic or creating a topic in the forum. -->
+  <string name="message">Message</string>
   <!-- The button at the bottom of forum pages (https://lichess.org/forum/general-chess-discussion/form). Click it to create your topic. -->
   <string name="createTheTopic">Crear le topico</string>
   <!-- Appears as a heading for this form (https://lichess.org/report). Use this form to report a user. -->
@@ -652,6 +664,7 @@
   <!-- Choose this option if a user insulted you. Appears in the drop-down menu for reasons in the report form (https://lichess.org/report). -->
   <string name="insult">Insulto</string>
   <!-- Choose this option if a user is trolling. Appears in the dropdown menu for reasons in the report form (https://lichess.org/report). -->
+  <string name="troll">Troll</string>
   <!-- Choose this option if you have another reason than the ones in the dropdown list. Appears in the drop-down menu for reasons in the report form(https://lichess.org/report). -->
   <string name="other">Altere</string>
   <!-- Appears under the description box on the page for reporting a user (https://lichess.org/report). -->
@@ -665,6 +678,7 @@
   <!-- Click this button (at the bottom of all pages) to make a donation. -->
   <string name="donate">Donar</string>
   <!-- Appears in the bottom left of any page and links to the blog. -->
+  <string name="blog">Blog</string>
   <!-- Appears when you hover over "Q&A" (https://lichess.org/qa) at the bottom left on any page. Translate freely. If you cannot find a good translation, consider leaving this untranslated so another speaker of your language can look at it. -->
   <string name="questionsAndAnswers">Questiones e responsas</string>
   <!-- Appears on the left side while playing a game. You can type your private notes on the game in this tab. -->
@@ -679,8 +693,6 @@
   <string name="materialDifference">Differentia material</string>
   <!-- Clicking this lets you close your account. Appears in the menu on the preferences page https://lichess.org/account/preferences and as a heading on the "Close account" page. Please do not translate to "delete account" unless you have to, as some data like the games you played on the site are retained. -->
   <string name="closeAccount">Terminar conto</string>
-  <!-- Appears as a heading on the page for closing your account https://lichess.org/account/close -->
-  <string name="closeYourAccount">Terminar tu conto</string>
   <!-- This sentence appears on the page for closing your account https://lichess.org/account/close. You can click this button if you do not want to close your account. When you click the button you will get redirected to your profile page. -->
   <string name="changedMindDoNotCloseAccount">Io cambiava de idea, non termina mi conto</string>
   <!-- These sentences appear under the heading on the page for closing your account https://lichess.org/account/close. -->
@@ -740,6 +752,7 @@
   <!-- Choose this option if you want your piece animation (movement) to be fast. Appears on your account preferences page: https://lichess.org/account/preferences -->
   <string name="fast">Rapide</string>
   <!-- Choose this option if you want your piece animation (movement) to be normal. Appears on your account preferences page: https://lichess.org/account/preferences -->
+  <string name="normal">Normal</string>
   <!-- Choose this option if you want your piece animation (movement) to be slow. Appears on your account preferences page: https://lichess.org/account/preferences -->
   <string name="slow">Lente</string>
   <!-- Choose if you want to see the coordinates on the game board. Appears on your account preferences page: https://lichess.org/account/preferences -->
@@ -759,13 +772,19 @@
   <!-- Click this button to select easy as your difficulty. Appears on the training page when solving puzzles https://lichess.org/training/ -->
   <string name="difficultyEasy">Facile</string>
   <!-- Choose this option if you want your piece animation (movement) to be normal. Appears on your account preferences page: https://lichess.org/account/preferences -->
+  <string name="difficultyNormal">Normal</string>
   <!-- Click this button to select hard as your difficulty. Appears on the training page when solving puzzles https://lichess.org/training/ -->
   <string name="difficultyHard">Difficile</string>
   <!-- First %s is the name of the player that left a note, and the second %s is the player who got a note on their profile. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
+  <string name="xLeftANoteOnY">%1$s lassava un nota a %2$s</string>
   <!-- First %s is the name of the player that competes in a tournament, and the second %s is the tournament name. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
+  <string name="xCompetesInY">%1$s compete in %2$s</string>
   <!-- First %s is the name of the player that asked, and the second %s is the title of the question in Q&A. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
+  <string name="xAskedY">%1$s demandava %2$s</string>
   <!-- First %s is the name of the player that answered, and the second %s is the title of the question in Q&A. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
+  <string name="xAnsweredY">%1$s respondeva %2$s</string>
   <!-- First %s is the name of the player that commented, and the second %s is the title of the question in Q&A. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
+  <string name="xCommentedY">%1$s commentava %2$s</string>
   <!-- An activity timeline showing what people you follow on lichess have been up to. Appears on the main page under logotype https://lichess.org and https://lichess.org/timeline/more. Note: this only appears as soon as you follow a player on lichess. -->
   <string name="timeline">Chronologia</string>
   <!-- This text appears when you hover over the "more" link for "open tournaments" on the main page https://lichess.org/ -->
@@ -853,6 +872,7 @@
   <!-- Appears as a selectable option for the "let other players challenge you" option. The user may choose to only accept challenges from friends. -->
   <string name="onlyFriends">Solmente amicos</string>
   <!-- Tooltip displayed when mouseover menu button viewable at the top of every lichess page. -->
+  <string name="menu">Menu</string>
   <!-- Castling is a move in the game of chess involving a player's king and either of the player's original rooks. It is the only move in chess in which a player moves two pieces in the same move. Appears on board editor page (https://lichess.org/editor). -->
   <string name="castling">Roc</string>
   <!-- The option of whether white can still castle on the kingside. Appears as a setting on board editor page (https://lichess.org/editor). -->
@@ -882,6 +902,7 @@
   <!-- Lichess' very own free and open source Android and IOS application. Appears on the footer of the menu page. Links to https://lichess.org/mobile -->
   <string name="mobileApp">Application mobile</string>
   <!-- Information on how webmasters can embed Lichess features such as the daily puzzle or Lichess TV. Appears on the footer of the menu page. Links to https://lichess.org/developers -->
+  <string name="webmasters">Webmasters</string>
   <!-- Information on how people can contribute to Lichess whether it be through code, translation or donation. Appears on the footer of the menu page. Links to https://lichess.org/help-lichess -->
   <string name="contribute">Contribuer</string>
   <!-- A page detailing the ways in which one can contact Lichess. Appears on the footer of the menu page. Links to https://lichess.org/contact -->
@@ -930,6 +951,7 @@
   <!-- A link to an FAQ page for Lichess tournaments. Links to https://lichess.org/tournament/help?system=arena and found on every tournament page as a small question mark. -->
   <string name="tournamentFAQ">Questiones frequente sur le torneos Arena</string>
   <!-- All official (not user created) Lichess tournaments have this shown in said tournament's information box shows that appears on the top left of the screen. -->
+  <string name="tournamentOfficial">Official</string>
   <!-- Users creating new tournaments can decide when their tournament begins. Appears on the form used to create a new tournament (https://lichess.org/tournament/new) -->
   <string name="timeBeforeTournamentStarts">Tempore ante le initio del torneo</string>
   <!-- ACPL. This is one of the categories of problems discovered by the computer analysis. Appears on the right hand side of pages with analyzed games. -->
@@ -961,7 +983,9 @@
   <!-- Title of the rating stats page: https://lichess.org/stat/rating/distribution/blitz. %s is a variant name (like Bullet, Blitz, or Chess960). -->
   <string name="weeklyPerfTypeRatingDistribution">Distribution del classification septimanal de %s</string>
   <!-- Current user rating, on the rating stats page: https://lichess.org/stat/rating/distribution/blitz. The first %s is the the variant name (like Bullet, Blitz, or Chess960), the second %s is the rating itself (like 1900). -->
+  <string name="yourPerfTypeRatingIsRating">Tu classification de %1$s es %2$s.</string>
   <!-- Current user ranking, on the rating stats page: https://lichess.org/stat/rating/distribution/blitz. The first %s is the percentage, the second %s is the variant name (like Bullet, Blitz, or Chess960). -->
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Tu es melior que %1$s intra %2$s jocatores.</string>
   <!-- When the user rating is provisional, on the rating stats page: https://lichess.org/stat/rating/distribution/blitz. %s is a variant name (like Bullet, Blitz, or Chess960). -->
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Tu non ha establite un classification de %s.</string>
   <!-- Appears when signup is finished and email is sent. (https://lichess.org/signup/check-your-email/test) -->
