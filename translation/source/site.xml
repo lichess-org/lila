@@ -1006,8 +1006,8 @@
   <!-- Title of the rating stats page: https://lichess.org/stat/rating/distribution/blitz. %s is a variant name (like Bullet, Blitz, or Chess960). -->
   <string name="weeklyPerfTypeRatingDistribution">Weekly %s rating distribution</string>
   <plurals name="nbPerfTypePlayersThisWeek">
-    <item quantity="one">One %2$s players this week.</item>
-    <item quantity="other">%1$d %2$s players this week.</item>
+    <item quantity="one">One %2$s player this week.</item>
+    <item quantity="other">%1$s %2$s players this week.</item>
   </plurals>
   <!-- Current user rating, on the rating stats page: https://lichess.org/stat/rating/distribution/blitz. The first %s is the the variant name (like Bullet, Blitz, or Chess960), the second %s is the rating itself (like 1900). -->
   <string name="yourPerfTypeRatingIsRating">Your %1$s rating is %2$s.</string>
