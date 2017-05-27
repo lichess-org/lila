@@ -8,7 +8,6 @@
   <!-- This appears after you have created a game for a friend (through the "Play with a friend" menu). Feel free to translate "URL" as "address", or whatever is most familiar in your language. -->
   <string name="toInviteSomeoneToPlayGiveThisUrl">Ukuze umeme othile ukudlala, unike lolu kheli</string>
   <!-- This appears in the right-hand side box when a game ends. -->
-  <string name="gameOver">Game Over</string>
   <!-- Indicates you are waiting for an opponent to join your game. This appears after you have created a public game (through the "Create a game" menu). -->
   <string name="waitingForOpponent">Elinde isitha</string>
   <!-- This appears in the challenges box, when you are waiting for the opponent the accept the challenge. -->
