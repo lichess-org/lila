@@ -6,8 +6,10 @@ import chess.{ Status => S, Color, Clock, Mode }
 import controllers.routes
 import play.twirl.api.Html
 
+import lila.common.String.html.{ escape => escapeHtml }
 import lila.game.{ Game, Player, Namer, Pov }
 import lila.user.{ User, UserContext }
+import lila.i18n.{ I18nKeys, enLang }
 
 trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHelper with ChessgroundHelper =>
 
@@ -64,30 +66,30 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   }
 
   def variantName(variant: chess.variant.Variant)(implicit ctx: UserContext) = variant match {
-    case chess.variant.Standard => trans.standard.str()
-    case chess.variant.FromPosition => trans.fromPosition.str()
+    case chess.variant.Standard => I18nKeys.standard.txt()
+    case chess.variant.FromPosition => I18nKeys.fromPosition.txt()
     case v => v.name
   }
 
   def variantNameNoCtx(variant: chess.variant.Variant) = variant match {
-    case chess.variant.Standard => trans.standard.en()
-    case chess.variant.FromPosition => trans.fromPosition.en()
+    case chess.variant.Standard => I18nKeys.standard.literalTxtTo(enLang)
+    case chess.variant.FromPosition => I18nKeys.fromPosition.literalTxtTo(enLang)
     case v => v.name
   }
 
   def shortClockName(clock: Option[Clock.Config])(implicit ctx: UserContext): Html =
-    clock.fold(trans.unlimited())(shortClockName)
+    clock.fold(I18nKeys.unlimited())(shortClockName)
 
   def shortClockName(clock: Clock.Config): Html = Html(clock.show)
 
   def modeName(mode: Mode)(implicit ctx: UserContext): String = mode match {
-    case Mode.Casual => trans.casual.str()
-    case Mode.Rated => trans.rated.str()
+    case Mode.Casual => I18nKeys.casual.txt()
+    case Mode.Rated => I18nKeys.rated.txt()
   }
 
   def modeNameNoCtx(mode: Mode): String = mode match {
-    case Mode.Casual => trans.casual.en()
-    case Mode.Rated => trans.rated.en()
+    case Mode.Casual => I18nKeys.casual.literalTxtTo(enLang)
+    case Mode.Rated => I18nKeys.rated.literalTxtTo(enLang)
   }
 
   def playerUsername(player: Player, withRating: Boolean = true, withTitle: Boolean = true) =
@@ -133,7 +135,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
         val href = s"${routes.User show user.name}${if (mod) "?mod" else ""}"
         val content = playerUsername(player, withRating)
         val diff = (player.ratingDiff ifTrue withDiff).fold(Html(""))(showRatingDiff)
-        val mark = engine ?? s"""<span class="engine_mark" title="${trans.thisPlayerUsesChessComputerAssistance()}"></span>"""
+        val mark = engine ?? s"""<span class="engine_mark" title="${I18nKeys.thisPlayerUsesChessComputerAssistance()}"></span>"""
         val dataIcon = withOnline ?? """data-icon="r""""
         val space = if (withOnline) "&nbsp;" else ""
         val tag = if (link) "a" else "span"
@@ -142,31 +144,31 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   }
 
   def gameEndStatus(game: Game)(implicit ctx: UserContext): Html = game.status match {
-    case S.Aborted => trans.gameAborted()
-    case S.Mate => trans.checkmate()
+    case S.Aborted => I18nKeys.gameAborted()
+    case S.Mate => I18nKeys.checkmate()
     case S.Resign => game.loser match {
-      case Some(p) if p.color.white => trans.whiteResigned()
-      case _ => trans.blackResigned()
+      case Some(p) if p.color.white => I18nKeys.whiteResigned()
+      case _ => I18nKeys.blackResigned()
     }
-    case S.UnknownFinish => trans.finished()
-    case S.Stalemate => trans.stalemate()
+    case S.UnknownFinish => I18nKeys.finished()
+    case S.Stalemate => I18nKeys.stalemate()
     case S.Timeout => game.loser match {
-      case Some(p) if p.color.white => trans.whiteLeftTheGame()
-      case Some(_) => trans.blackLeftTheGame()
-      case None => trans.draw()
+      case Some(p) if p.color.white => I18nKeys.whiteLeftTheGame()
+      case Some(_) => I18nKeys.blackLeftTheGame()
+      case None => I18nKeys.draw()
     }
-    case S.Draw => trans.draw()
-    case S.Outoftime => trans.timeOut()
+    case S.Draw => I18nKeys.draw()
+    case S.Outoftime => I18nKeys.timeOut()
     case S.NoStart => Html {
       val color = game.loser.fold(Color.white)(_.color).name.capitalize
       s"$color didn't move"
     }
     case S.Cheat => Html("Cheat detected")
     case S.VariantEnd => game.variant match {
-      case chess.variant.KingOfTheHill => trans.kingInTheCenter()
-      case chess.variant.ThreeCheck => trans.threeChecks()
-      case chess.variant.RacingKings => trans.raceFinished()
-      case _ => trans.variantEnding()
+      case chess.variant.KingOfTheHill => I18nKeys.kingInTheCenter()
+      case chess.variant.ThreeCheck => I18nKeys.threeChecks()
+      case chess.variant.RacingKings => I18nKeys.raceFinished()
+      case _ => I18nKeys.variantEnding()
     }
     case _ => Html("")
   }
@@ -240,7 +242,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   }
 
   def challengeTitle(c: lila.challenge.Challenge)(implicit ctx: UserContext) = {
-    val speed = c.clock.map(_.config).fold(trans.unlimited.str()) { clock =>
+    val speed = c.clock.map(_.config).fold(I18nKeys.unlimited.txt()) { clock =>
       s"${chess.Speed(clock).name} (${clock.show})"
     }
     val variant = c.variant.exotic ?? s" ${c.variant.name}"

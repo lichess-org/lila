@@ -5,11 +5,11 @@
 }
 
 @layout(
-title = trans.questionsAndAnswers.str(),
+title = trans.questionsAndAnswers.txt(),
 moreJs = jsTag("vendor/jquery.infinitescroll.min.js"),
 side = side.some,
 openGraph = lila.app.ui.OpenGraph(
-title = trans.questionsAndAnswers.str(),
+title = trans.questionsAndAnswers.txt(),
 url = s"$netBaseUrl${routes.QaQuestion.index().url}",
 description = "Community knowledge and frequently asked questions about lichess.org").some) {
 

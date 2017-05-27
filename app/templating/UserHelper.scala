@@ -9,6 +9,7 @@ import lila.api.Context
 import lila.common.LightUser
 import lila.rating.{ PerfType, Perf }
 import lila.user.{ User, UserContext }
+import lila.i18n.I18nKeys
 
 trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
 
@@ -247,18 +248,18 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
   def userGameFilterTitle(info: UserInfo, filter: GameFilter)(implicit ctx: UserContext) =
     splitNumber(userGameFilterTitleNoTag(info, filter))
 
-  def userGameFilterTitleNoTag(info: UserInfo, filter: GameFilter)(implicit ctx: UserContext) = Html((filter match {
-    case GameFilter.All => info.user.count.game + " " + trans.gamesPlayed()
-    case GameFilter.Me => ctx.me ?? (me => trans.nbGamesWithYou.str(info.nbWithMe))
-    case GameFilter.Rated => info.nbRated + " " + trans.rated()
-    case GameFilter.Win => trans.nbWins(info.user.count.win)
-    case GameFilter.Loss => trans.nbLosses(info.user.count.loss)
-    case GameFilter.Draw => trans.nbDraws(info.user.count.draw)
-    case GameFilter.Playing => info.nbPlaying + " playing"
-    case GameFilter.Bookmark => trans.nbBookmarks(info.nbBookmark)
-    case GameFilter.Imported => trans.nbImportedGames(info.nbImported)
-    case GameFilter.Search => Html(trans.advancedSearch.str().replaceFirst(" ", "\n"))
-  }).toString)
+  def userGameFilterTitleNoTag(info: UserInfo, filter: GameFilter)(implicit ctx: UserContext): Html = (filter match {
+    case GameFilter.All => Html(info.user.count.game + " " + I18nKeys.gamesPlayed().body)
+    case GameFilter.Me => ctx.me ?? (me => I18nKeys.nbGamesWithYou.pluralSame(info.nbWithMe))
+    case GameFilter.Rated => Html(info.nbRated + " " + I18nKeys.rated().body)
+    case GameFilter.Win => I18nKeys.nbWins.pluralSame(info.user.count.win)
+    case GameFilter.Loss => I18nKeys.nbLosses.pluralSame(info.user.count.loss)
+    case GameFilter.Draw => I18nKeys.nbDraws.pluralSame(info.user.count.draw)
+    case GameFilter.Playing => Html(info.nbPlaying + " playing")
+    case GameFilter.Bookmark => I18nKeys.nbBookmarks.pluralSame(info.nbBookmark)
+    case GameFilter.Imported => I18nKeys.nbImportedGames.pluralSame(info.nbImported)
+    case GameFilter.Search => Html(I18nKeys.advancedSearch().body.replaceFirst(" ", "\n"))
+  })
 
   def describeUser(user: User) = {
     val name = user.titleUsername

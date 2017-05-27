@@ -13,7 +13,7 @@
       <section class="team-data">
       <label>
         <span>@trans.joiningPolicy()</span>
-        @base.form.select(form("open"), Seq(0 -> trans.aConfirmationIsRequiredToJoin.str(), 1 -> trans.anyoneCanJoin.str()))
+        @base.form.select(form("open"), Seq(0 -> trans.aConfirmationIsRequiredToJoin.txt(), 1 -> trans.anyoneCanJoin.txt()))
       </label>
       <label>
         <span>@trans.location()</span>

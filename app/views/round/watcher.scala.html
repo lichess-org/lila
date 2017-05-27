@@ -10,7 +10,7 @@ LichessRound.boot({
 data: @Html(J.stringify(data)),
 i18n: @jsI18n(),
 chat: @jsOrNull(chatOption map { c =>
-chat.ChatJsData.json(c.chat, name = trans.spectatorRoom.str(), timeout = c.timeout, withNote = ctx.isAuth, public = true)
+chat.ChatJsData.json(c.chat, name = trans.spectatorRoom.txt(), timeout = c.timeout, withNote = ctx.isAuth, public = true)
 })
 }, document.getElementById('lichess'));
 };

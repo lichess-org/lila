@@ -1,0 +1,15 @@
+{
+  "name": "lila",
+  "version": "1.0.0",
+  "description": "Maintenance scripts for lichess.org",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "AGPL-3.0",
+  "dependencies": {
+    "fs-extra": "^3.0.1",
+    "xml2js": "^0.4.17"
+  }
+}

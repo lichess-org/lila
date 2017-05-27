@@ -1,26 +1,41 @@
 package lila.i18n
 
-import org.joda.time.DateTime
+import play.twirl.api.Html
 
-private[i18n] case class Translation(
-    _id: Int,
-    code: String, // 2-chars code
-    text: String,
-    author: Option[String] = None,
-    comment: Option[String] = None,
-    createdAt: DateTime
-) {
+import lila.common.String.html.{ escape => escapeHtml }
 
-  def id = _id
+private sealed trait Translation extends Any
 
-  def lines = text.split("\n").toList
+private case class Literal(message: String) extends AnyVal with Translation {
 
-  override def toString = "#%d %s".format(id, code)
+  private def escaped = escapeHtml(message)
+
+  def formatTxt(args: Seq[Any]): String =
+    if (args.isEmpty) message
+    else message.format(args: _*)
+
+  def formatHtml(args: Seq[Html]): Html =
+    if (args.isEmpty) escaped
+    else Html(escaped.body.format(args.map(_.body): _*))
 }
 
-private[i18n] object Translation {
+private case class Plurals(messages: Map[I18nQuantity, String]) extends AnyVal with Translation {
 
-  import play.api.libs.json._
+  private def messageFor(quantity: I18nQuantity): Option[String] =
+    messages.get(quantity)
+      .orElse(messages.get(I18nQuantity.Other))
+      .orElse(messages.headOption.map(_._2))
 
-  private[i18n] implicit val translationI18nFormat = Json.format[Translation]
+  def formatTxt(quantity: I18nQuantity, args: Seq[Any]): Option[String] =
+    messageFor(quantity).map { message =>
+      if (args.isEmpty) message
+      else message.format(args: _*)
+    }
+
+  def formatHtml(quantity: I18nQuantity, args: Seq[Html]): Option[Html] =
+    messageFor(quantity).map { message =>
+      val escaped = escapeHtml(message)
+      if (args.isEmpty) escaped
+      else Html(escaped.body.format(args.map(_.body): _*))
+    }
 }

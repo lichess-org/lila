@@ -2,6 +2,7 @@ package lila.common
 
 import java.text.Normalizer
 import java.util.regex.Matcher.quoteReplacement
+import play.twirl.api.Html
 
 object String {
 
@@ -46,6 +47,29 @@ object String {
     }
     catch {
       case _: java.lang.IllegalArgumentException => none
+    }
+  }
+
+  object html {
+
+    // from https://github.com/android/platform_frameworks_base/blob/d59921149bb5948ffbcb9a9e832e9ac1538e05a0/core/java/android/text/TextUtils.java#L1361
+    def escape(s: String): Html = {
+      val sb = new StringBuilder
+      var i = 0
+      while (i < s.length) {
+        sb.append {
+          s.charAt(i) match {
+            case '<' => "&lt;"
+            case '>' => "&gt;"
+            case '&' => "&amp;"
+            case '"' => "&quot;"
+            case '\'' => "&#39;"
+            case c => c
+          }
+        }
+        i += 1
+      }
+      Html(sb.toString)
     }
   }
 }

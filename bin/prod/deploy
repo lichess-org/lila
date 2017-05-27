@@ -47,7 +47,7 @@ fi
 
 SBT_OPTS=""
 export JAVA_OPTS="-Xms1024M -Xmx1024M -XX:ReservedCodeCacheSize=64m -XX:+UseConcMarkSweepGC"
-sbt ";stage;exit"
+sbt stage exit
 if [ $? != 0 ]; then
   lilalog "Deploy canceled"
   exit 1
@@ -74,7 +74,8 @@ RSYNC_OPTIONS=" \
   --exclude '*.h' \
   --exclude '*.cpp' \
   --exclude '.git/' \
-  --exclude bin/.translate_version"
+  --exclude bin/.translate_version
+  --exclude bin/node_modules"
 
 if [ $mode != "main" ] && [ $mode != "stage" ] && [ $mode != "koala" ]; then
   RSYNC_OPTIONS="$RSYNC_OPTIONS \

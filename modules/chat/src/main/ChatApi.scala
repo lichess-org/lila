@@ -142,7 +142,7 @@ final class ChatApi(
     $id(chatId),
     $doc("$push" -> $doc(
       Chat.BSONFields.lines -> $doc(
-        "$each" -> List(Line.lineBSONHandler(false).write(line)),
+        "$each" -> List(line),
         "$slice" -> -maxLinesPerChat
       )
     )),

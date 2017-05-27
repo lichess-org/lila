@@ -2,7 +2,7 @@
 
 @import lila.report.Reason
 
-@title = @{ trans.reportAUser.str() }
+@title = @{ trans.reportAUser.txt() }
 
 @base.layout(title = title, moreCss = cssTag("report.css")) {
 <div class="content_box" id="report">
@@ -29,7 +29,7 @@
     </div>
     <div class="field_reason">
       <label for="@form("reason").id">@trans.reason()</label>
-      @base.form.select(form("reason"), translatedReasonChoices, trans.whatIsIheMatter.str().some)
+      @base.form.select(form("reason"), translatedReasonChoices, trans.whatIsIheMatter.txt().some)
       @errMsg(form("reason"))
     </div>
     <div class="field_body">

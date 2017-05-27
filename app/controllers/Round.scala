@@ -24,8 +24,7 @@ object Round extends LilaController with TheftPrevention {
         uid = uid,
         user = ctx.me,
         ip = ctx.ip,
-        userTv = get("userTv"),
-        apiVersion = lila.api.Mobile.Api.currentVersion // yeah it should be in the URL
+        userTv = get("userTv")
       )
     }
   }
@@ -37,7 +36,7 @@ object Round extends LilaController with TheftPrevention {
         else getSocketUid("sri") match {
           case Some(uid) =>
             requestAiMove(pov) >>
-              env.socketHandler.player(pov, uid, ctx.me, ctx.ip, ApiVersion(apiVersion)) map Right.apply
+              env.socketHandler.player(pov, uid, ctx.me, ctx.ip) map Right.apply
           case None => fuccess(Left(NotFound))
         }
       case None => fuccess(Left(NotFound))
@@ -76,7 +75,7 @@ object Round extends LilaController with TheftPrevention {
         else Env.api.roundApi.player(pov, apiVersion) zip
           getPlayerChat(pov.game) map {
             case (data, chat) => Ok(chat.fold(data) { c =>
-              data + ("chat" -> lila.chat.JsonView(c.chat, mobileEscape = apiVersion.v1))
+              data + ("chat" -> lila.chat.JsonView(c.chat))
             })
           }
       }.mon(_.http.response.player.mobile)

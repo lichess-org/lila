@@ -8,20 +8,15 @@ import play.api.libs.json.JsObject
 import play.twirl.api.Html
 
 import lila.i18n.Env.{ current => i18nEnv }
-import lila.i18n.{ LangList, I18nDomain, I18nKey }
+import lila.i18n.{ LangList, I18nKey, Translator }
 import lila.user.UserContext
 
 trait I18nHelper {
 
-  private def pool = i18nEnv.pool
-
-  lazy val trans = i18nEnv.keys
-  lazy val protocol = i18nEnv.RequestHandlerProtocol
-
-  implicit def lang(implicit ctx: UserContext) = pool lang ctx.req
+  implicit def lang(implicit ctx: UserContext) = ctx.lang
 
   def transKey(key: String, args: Seq[Any] = Nil)(implicit lang: Lang): String =
-    i18nEnv.translator.transTo(key, args)(lang)
+    Translator.txt.literal(key, args, lang)
 
   def i18nJsObjectMessage(keys: Seq[I18nKey])(implicit lang: Lang): JsObject =
     i18nEnv.jsDump.keysToMessageObject(keys, lang)
@@ -32,29 +27,12 @@ trait I18nHelper {
   def i18nOptionJsObject(keys: Option[I18nKey]*)(implicit lang: Lang): JsObject =
     i18nEnv.jsDump.keysToObject(keys.flatten, lang)
 
-  def langName(lang: Lang): Option[String] = langName(lang.language)
-  def langName(lang: String): Option[String] = LangList name lang
+  // def langName(lang: Lang): Option[String] = langName(lang.language)
+  def langName = LangList.nameByStr _
 
-  def shortLangName(lang: Lang): Option[String] = shortLangName(lang.language)
-  def shortLangName(lang: String): Option[String] = langName(lang) map (_ takeWhile (','!=))
-
-  def transValidationPattern(trans: String) =
-    (trans contains "%s") option ".*%s.*"
-
-  private lazy val langAnnotationsBase: String =
-    pool.names.keySet diff Set("fp", "kb", "le", "tp", "pi", "io") map { code =>
-      s"""<link rel="alternate" hreflang="$code" href="//$code.lichess.org%"/>"""
-    } mkString ""
-
-  def langAnnotations(implicit ctx: UserContext) = Html {
-    langAnnotationsBase.replace("%", ctx.req.uri)
-  }
-
-  def commonDomain(implicit ctx: UserContext): String =
-    I18nDomain(ctx.req.domain).commonDomain
+  // def shortLangName(lang: Lang): Option[String] = shortLangName(lang.language)
+  def shortLangName(str: String) = langName(str).takeWhile(','!=)
 
   def acceptsLanguage(lang: Lang)(implicit ctx: UserContext): Boolean =
     ctx.req.acceptLanguages exists (_.language == lang.language)
-
-  private val uriPlaceholder = "[URI]"
 }

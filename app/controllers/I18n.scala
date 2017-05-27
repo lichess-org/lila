@@ -1,35 +1,35 @@
 package controllers
 
-import play.api.data.Form
+import play.api.data._
+import play.api.data.Forms._
+import play.api.i18n.Lang
 import play.api.libs.json.Json
 
-import lila.api.Context
 import lila.app._
-import lila.common.{ Captcha, LilaCookie, HTTPRequest }
-import lila.i18n.TransInfo
-import views._
+import lila.common.{ LilaCookie, HTTPRequest }
 
 object I18n extends LilaController {
 
-  private def env = Env.i18n
+  private def toLang = lila.i18n.I18nLangPicker.byStr _
+
+  private val form = Form(single("lang" -> text.verifying { code =>
+    toLang(code).isDefined
+  }))
 
   def select = OpenBody { implicit ctx =>
-    import play.api.data.Forms._
-    import play.api.data._
     implicit val req = ctx.body
-    Form(single("lang" -> text.verifying(env.pool contains _))).bindFromRequest.fold(
+    form.bindFromRequest.fold(
       _ => notFound,
-      lang => {
-        ctx.me.filterNot(_.lang contains lang) ?? { me =>
-          lila.user.UserRepo.setLang(me.id, lang)
-        }
-      } >> negotiate(
-        html = {
-          val redir = Redirect {
-            s"${Env.api.Net.Protocol}${lang}.${Env.api.Net.Domain}" + {
+      code => {
+        val lang = toLang(code) err "Universe is collapsing"
+        ctx.me.filterNot(_.lang contains lang.code).?? { me =>
+          lila.user.UserRepo.setLang(me.id, lang.code)
+        } >> negotiate(
+          html = {
+            val redir = Redirect {
               HTTPRequest.referer(ctx.req).fold(routes.Lobby.home.url) { str =>
                 try {
-                  val pageUrl = new java.net.URL(str);
+                  val pageUrl = new java.net.URL(str)
                   val path = pageUrl.getPath
                   val query = pageUrl.getQuery
                   if (query == null) path
@@ -39,68 +39,12 @@ object I18n extends LilaController {
                 }
               }
             }
-          }
-          if (ctx.isAnon) redir.withCookies(LilaCookie.session("lang", lang))
-          else redir
-        }.fuccess,
-        api = _ => Ok(Json.obj("lang" -> lang)).fuccess
-      )
-    )
-  }
-
-  def contribute = Open { implicit ctx =>
-    val mines = (ctx.req.acceptLanguages map env.transInfos.get).toList.flatten.distinct
-    Ok(html.i18n.contribute(env.transInfos.all, mines)).fuccess
-  }
-
-  def translationForm(lang: String) = Auth { implicit ctx => me =>
-    OptionFuOk(infoAndContext(lang)) {
-      case (info, context) => env.forms.translationWithCaptcha map {
-        case (form, captcha) => renderTranslationForm(form, info, captcha, context = context)
+            if (ctx.isAnon) redir.withCookies(LilaCookie.session("lang", lang.code))
+            else redir
+          }.fuccess,
+          api = _ => Ok(Json.obj("lang" -> lang.code)).fuccess
+        )
       }
-    }
-  }
-
-  def translationPost(lang: String) = AuthBody { implicit ctx => me =>
-    OptionFuResult(infoAndContext(lang)) {
-      case (info, context) =>
-        implicit val req = ctx.body
-        val data = env.forms.decodeTranslationBody
-        FormFuResult(env.forms.translation) { form =>
-          env.forms.anyCaptcha map { captcha =>
-            renderTranslationForm(form, info, captcha, data = data, context = context)
-          }
-        } { metadata =>
-          env.forms.process(lang, metadata, data, me.username) inject {
-            Redirect(routes.I18n.contribute).flashing("success" -> "1")
-          }
-        }
-    }
-  }
-
-  private def infoAndContext(lang: String) = env.transInfos.get(lang) ?? { i =>
-    env.context.get map (i -> _) map (_.some)
-  }
-
-  private def renderTranslationForm(
-    form: Form[_],
-    info: TransInfo,
-    captcha: Captcha,
-    context: Map[String, String],
-    data: Map[String, String] = Map.empty
-  )(implicit ctx: Context) =
-    html.i18n.translationForm(
-      info,
-      form,
-      env.keys,
-      env.pool.default,
-      env.translator.rawTranslation(info.lang) _,
-      captcha,
-      data = data,
-      context = context
     )
-
-  def fetch(from: Int) = Open { implicit ctx =>
-    JsonOk(env jsonFromVersion from)
   }
 }

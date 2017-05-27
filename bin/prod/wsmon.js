@@ -132,7 +132,7 @@ setInterval(function() {
   }
 
   function httpCheck() {
-    HttpClient.get('http://en.lichess.org').on('response', function(res) {
+    HttpClient.get('http://lichess.org').on('response', function(res) {
       if (res.statusCode != 200) return onError(res.statusCode);
       errorCount = 0;
       errorRetryDelay = initialErrorRetryDelay;

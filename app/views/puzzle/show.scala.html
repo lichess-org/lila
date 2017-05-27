@@ -23,12 +23,11 @@ i18n: @jsI18n()
 }
 
 @base.layout(
-title = trans.training.str(),
+title = trans.training.txt(),
 side = side.some,
 moreCss = moreCss,
 moreJs = moreJs,
 chessground = false,
-withLangAnnotations = false,
 openGraph = lila.app.ui.OpenGraph(
 image = cdnUrl(routes.Export.puzzlePng(puzzle.id).url).some,
 title = s"Chess tactic #${puzzle.id} - ${puzzle.color.name.capitalize} to play",
@@ -36,7 +35,7 @@ url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id).url}",
 description = s"Lichess tactic trainer: " + puzzle.color.fold(
 trans.findTheBestMoveForWhite,
 trans.findTheBestMoveForBlack
-).str() + s" Played by ${puzzle.attempts} players.").some,
+).txt() + s" Played by ${puzzle.attempts} players.").some,
 zoomable = true) {
 <div id="puzzle" class="cg-512">
   @board.domPreload(none)

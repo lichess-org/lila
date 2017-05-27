@@ -5,6 +5,7 @@ import play.api.libs.json.Json
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.common.PimpedJson._
+import lila.i18n.I18nKeys
 
 object ChatJsData {
 
@@ -51,9 +52,9 @@ object ChatJsData {
   )
 
   def i18n(withNote: Boolean)(implicit ctx: Context) = i18nOptionJsObject(
-    trans.talkInChat.some,
-    trans.toggleTheChat.some,
-    withNote option trans.notes,
-    withNote option trans.typePrivateNotesHere
+    I18nKeys.talkInChat.some,
+    I18nKeys.toggleTheChat.some,
+    withNote option I18nKeys.notes,
+    withNote option I18nKeys.typePrivateNotesHere
   )
 }

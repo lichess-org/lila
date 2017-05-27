@@ -3,7 +3,7 @@
 ## Fetch a game as a player (POV)
 
 ```sh
-http GET en.l.org/39b12IklErMy 'Accept:application/vnd.lichess.v1+json'
+http GET l.org/39b12IklErMy 'Accept:application/vnd.lichess.v1+json'
 ```
 
 Response: `200 OK`
@@ -98,7 +98,7 @@ you may call the `end` URL provided by the API
 to retrieve information about the result of the game.
 
 ```sh
-http GET en.l.org/39b12IklErMy/end 'Accept:application/vnd.lichess.v1+json'
+http GET l.org/39b12IklErMy/end 'Accept:application/vnd.lichess.v1+json'
 ```
 
 Response: `200 OK`
@@ -125,7 +125,7 @@ var baseUrl; // obtained from game creation API (`url.socket`)
 var clientId = Math.random().toString(36).substring(2); // created and stored by the client
 var socketVersion = 0; // last message version number seen on this socket. Starts at zero.
 
-var socketUrl = 'http://socket.en.l.org:9021' + baseUrl + '?sri=' + clientId + '&version=' + socketVersion;
+var socketUrl = 'http://socket.l.org:9021' + baseUrl + '?sri=' + clientId + '&version=' + socketVersion;
 
 var socket = new WebSocket(socketUrl);
 ```

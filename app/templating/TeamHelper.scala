@@ -6,6 +6,7 @@ import play.twirl.api.Html
 
 import lila.api.Context
 import lila.team.Env.{ current => teamEnv }
+import lila.common.String.html.{ escape => escapeHtml }
 
 trait TeamHelper {
 
@@ -14,7 +15,7 @@ trait TeamHelper {
   def myTeam(teamId: String)(implicit ctx: Context): Boolean =
     ctx.me.??(me => api.syncBelongsTo(teamId, me.id))
 
-  def teamIdToName(id: String): String = api teamName id getOrElse id
+  def teamIdToName(id: String): Html = escapeHtml(api teamName id getOrElse id)
 
   def teamLink(id: String, cssClass: Option[String] = None, withIcon: Boolean = true): Html = Html {
     val klass = cssClass.??(c => s""" class="$c"""")
