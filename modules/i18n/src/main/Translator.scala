@@ -45,7 +45,7 @@ object Translator {
   }
   catch {
     case e: Exception =>
-      logger.warn(s"Failed to translate $key -> $translation ($args)", e)
+      logger.warn(s"Failed to translate $key -> $translation (${args.toList})", e)
       None
   }
 }
