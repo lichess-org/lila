@@ -10,7 +10,7 @@ myRating: @ctx.me.fold("null")(_.perfs(perfType).intRating.toString)
 }
 }
 
-@title = { @trans.weeklyPerfTypeRatingDistribution(perfType.name) }
+@title = { @trans.weeklyPerfTypeRatingDistribution.literal(perfType.name) }
 
 @layout(
 title = title.toString,
@@ -23,14 +23,14 @@ moreJs = moreJs) {
     @ctx.me.flatMap(_.perfs(perfType).glicko.establishedIntRating).map { rating =>
     @lila.user.Stat.percentile(data, rating) match {
     case (under, sum) => {
-    @trans.nbPerfTypePlayersThisWeek(s"""<strong>${sum.localize}</strong>""", perfType.name)<br />
-    @trans.yourPerfTypeRatingisRating(perfType.name, s"""<strong>$rating</strong>""")<br />
-    @trans.youAreBetterThanPercentOfPerfTypePlayers(s"""<strong>${"%.1f" format under * 100.0 / sum}%</strong>""", perfType.name)
+    @trans.nbPerfTypePlayersThisWeek.literal(s"""<strong>${sum.localize}</strong>""", perfType.name)<br />
+    @trans.yourPerfTypeRatingIsRating.literal(perfType.name, s"""<strong>$rating</strong>""")<br />
+    @trans.youAreBetterThanPercentOfPerfTypePlayers.literal(s"""<strong>${"%.1f" format under * 100.0 / sum}%</strong>""", perfType.name)
     }
     }
     }.getOrElse {
-    @trans.nbPerfTypePlayersThisWeek(s"""<strong>${data.sum.localize}</strong>""", perfType.name)<br />
-    @trans.youDoNotHaveAnEstablishedPerfTypeRating(perfType.name)<br />
+    @trans.nbPerfTypePlayersThisWeek.plural(data.sum, s"""<strong>${data.sum.localize}</strong>""", perfType.name)<br />
+    @trans.youDoNotHaveAnEstablishedPerfTypeRating.literal(perfType.name)<br />
     }
   </p>
   <div id="rating_distribution_chart">

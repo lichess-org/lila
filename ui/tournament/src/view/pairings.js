@@ -43,7 +43,7 @@ function nextTournament(ctrl) {
         m('span', 'Next ' + t.perf.name + ' tournament:'),
         m('span.name', t.name),
         m('span.more', [
-          ctrl.trans('nbConnectedPlayers', t.nbPlayers),
+          ctrl.trans('nbPlayers', t.nbPlayers),
           ' • ',
           t.finishesAt ? [
             'finishes ',

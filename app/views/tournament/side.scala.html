@@ -51,7 +51,7 @@
   }
   }
   } else {
-  @trans.by(usernameOrId(tour.createdBy))
+  @trans.by.literal(usernameOrId(tour.createdBy))
   }
   • @momentFormat(tour.startsAt)
   @if(!tour.position.initial) {

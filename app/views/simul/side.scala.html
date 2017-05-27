@@ -15,5 +15,5 @@
     <br />
     Host color: @sim.color.getOrElse("random").capitalize
   </div>
-  @trans.by(usernameOrId(sim.hostId)), <span title="@showDateTime(sim.createdAt)">@momentFormat(sim.createdAt)</span>
+  @trans.by.literal(usernameOrId(sim.hostId)), <span title="@showDateTime(sim.createdAt)">@momentFormat(sim.createdAt)</span>
 </div>

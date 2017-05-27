@@ -1,4 +1,4 @@
-// Generated with bin/trans-dump.js Sat May 27 2017 11:28:16 GMT+0200 (CEST)
+// Generated with bin/trans-dump.js Sat May 27 2017 12:50:51 GMT+0200 (CEST)
 package lila.i18n
 
 object I18nKeys {
@@ -458,7 +458,8 @@ object I18nKeys {
   val `tournamentMayHaveBeenCanceled` = new Translated("tournamentMayHaveBeenCanceled")
   val `returnToTournamentsHomepage` = new Translated("returnToTournamentsHomepage")
   val `weeklyPerfTypeRatingDistribution` = new Translated("weeklyPerfTypeRatingDistribution")
-  val `yourPerfTypeRatingisRating` = new Translated("yourPerfTypeRatingisRating")
+  val `yourPerfTypeRatingIsRating` = new Translated("yourPerfTypeRatingIsRating")
+  val `youAreBetterThanPercentOfPerfTypePlayers` = new Translated("youAreBetterThanPercentOfPerfTypePlayers")
   val `youDoNotHaveAnEstablishedPerfTypeRating` = new Translated("youDoNotHaveAnEstablishedPerfTypeRating")
   val `checkYourEmail` = new Translated("checkYourEmail")
   val `weHaveSentYouAnEmailClickTheLink` = new Translated("weHaveSentYouAnEmailClickTheLink")
@@ -517,6 +518,5 @@ object I18nKeys {
   val `blocks` = new Translated("blocks")
   val `nbForumPosts` = new Translated("nbForumPosts")
   val `nbPerfTypePlayersThisWeek` = new Translated("nbPerfTypePlayersThisWeek")
-  val `youAreBetterThanPercentOfPerfTypePlayers` = new Translated("youAreBetterThanPercentOfPerfTypePlayers")
   val `availableInNbLanguages` = new Translated("availableInNbLanguages")
 }
