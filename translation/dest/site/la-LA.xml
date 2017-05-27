@@ -195,7 +195,6 @@
   <!-- Appears as a menu item and heading on the "Preferences" pages (https://lichess.org/account/email). -->
   <string name="changeEmail">Email mutare</string>
   <!-- Short for "Your email address", but please keep this sentence as short as possible. This appears above text boxes where you can type in your email, on the "Preferences" page. -->
-  <string name="email">Email</string>
   <!-- This is a help text, explaining how email works on lichess. Appears on the "Change email" page (https://lichess.org/account/email). -->
   <string name="emailIsOptional">Email voluntarium est. Lichess email tuo utetur ad tuam tesseram reponendam si eam oblivisceris.</string>
   <!-- Appears as a heading in the link you are given after you asked for an email to reset (change) your password if you have forgotten it. -->
@@ -274,7 +273,6 @@
   <!-- One of the four menu sections. Contains links to game creation, tournaments, simuls, and lichess TV. "Play" in this context is a verb. -->
   <string name="play">Ludere</string>
   <!-- This is in the title for the "Inbox" page (https://lichess.org/inbox) that you can go to by clicking the mail link at the top when you are signed in. The translation should match whatever is used for popular email clients such as GMail and Outlook in your language. -->
-  <string name="inbox">Inbox</string>
   <!-- The chat function for one-to-one chat. A box on the left-hand side on games pages. Appears only in games you are in, not games you are spectating. -->
   <string name="chatRoom">Fenestra disputationis</string>
   <!-- The chat room for spectators. Appears in a box to the left-hand side on analysis pages, as well as games pages while the game is playing. Example: https://lichess.org/vyvcbk8s -->
@@ -398,7 +396,6 @@
   <!-- Clicking this opens a menu that lets you define criteria by which you can filter games in the game list. This appears above and to the right of the game list on the "Play" page (https://lichess.org/). Note that "filter" does not necessarily mean "reduce". It is recommended to translate this as search engines such as Google Search, Yandex or Baidu do. -->
   <string name="filterGames">Lusiones percolare</string>
   <!-- Clicking it resets all options back to their defaults. Appears in the "Filter games" sub-menu and your profile configuration (https://lichess.org/account/profile). -->
-  <string name="reset">Reset</string>
   <string name="apply">Adhibere</string>
   <!-- A table of the best players on Lichess. Appears on the "Players" page (https://lichess.org/people). Could be translated as "Score table" or even "Best players" (though it is recommended to avoid this) if your language has no equivalent. -->
   <string name="leaderboard">Ordines</string>
