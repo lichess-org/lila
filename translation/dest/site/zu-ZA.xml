@@ -16,7 +16,7 @@
   <!-- This appears in the box while you are playing a game. It indicates it is your turn to play. -->
   <string name="yourTurn">Ithuba lakho</string>
   <!-- AI name and level, e.g. "Stockfish level 3". Note that the "Stockfish" part will always be first no matter where you place the %s, though you can rearrange them to e.g. "%s at %s levels", which would produce e.g. "Stockfish at 3 levels". Use the translation that sounds best in your language. Appears in the box on the left-hand side in the page of the game, and also on your profile, in the list of games. -->
-  <string name="aiNameLevelAiLevel">%1$s Izinga %2$s</string>
+  <string name="aiNameLevelAiLevel">%1 Izinga %2</string>
   <!-- This appears in the "Play with the machine" menu (https://lichess.org/setup/ai) as a heading. Below it are skill levels (1 through 8) of the AI that you can play against. -->
   <!-- Turns the chat room (or player chat) on or off. This is the mouseover text of the checkbox on the top-right of the chat box. -->
   <!-- Clicking this turns sound on or off. This is a button on the top-right hand corner of the screen. If you use the Internet Explorer browser, you may not be able to see this. -->
