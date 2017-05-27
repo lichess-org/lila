@@ -16,6 +16,7 @@
   <!-- This appears in the box while you are playing a game. It indicates it is your turn to play. -->
   <string name="yourTurn">Сенің жүрісін</string>
   <!-- AI name and level, e.g. "Stockfish level 3". Note that the "Stockfish" part will always be first no matter where you place the %s, though you can rearrange them to e.g. "%s at %s levels", which would produce e.g. "Stockfish at 3 levels". Use the translation that sounds best in your language. Appears in the box on the left-hand side in the page of the game, and also on your profile, in the list of games. -->
+  <string name="aiNameLevelAiLevel">%1$s шеберлік %2$s</string>
   <!-- This appears in the "Play with the machine" menu (https://lichess.org/setup/ai) as a heading. Below it are skill levels (1 through 8) of the AI that you can play against. -->
   <string name="level">Шеберлік</string>
   <!-- Turns the chat room (or player chat) on or off. This is the mouseover text of the checkbox on the top-right of the chat box. -->
@@ -476,7 +477,6 @@
   <!-- Here you can change the speed of your piece animation or select none (https://lichess.org/account/preferences). -->
   <!-- Choose if you want to see the difference in material while playing a game. (https://lichess.org/account/preferences). -->
   <!-- Clicking this lets you close your account. Appears in the menu on the preferences page https://lichess.org/account/preferences and as a heading on the "Close account" page. Please do not translate to "delete account" unless you have to, as some data like the games you played on the site are retained. -->
-  <!-- Appears as a heading on the page for closing your account https://lichess.org/account/close -->
   <!-- This sentence appears on the page for closing your account https://lichess.org/account/close. You can click this button if you do not want to close your account. When you click the button you will get redirected to your profile page. -->
   <!-- These sentences appear under the heading on the page for closing your account https://lichess.org/account/close. -->
   <!-- This text appears after you have clicked the "Close my account" button. https://lichess.org/account/close -->
