@@ -9,7 +9,7 @@ sealed trait Translation extends Any {
   def format(args: Seq[Any]): Option[String]
 }
 
-case class Singular(message: String) extends AnyVal with Translation {
+case class Literal(message: String) extends AnyVal with Translation {
 
   def format(args: Seq[Any]) = Some {
     if (args.isEmpty) message

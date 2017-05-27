@@ -55,7 +55,7 @@ object Registry {
     val xml = XML.loadFile(file)
     def quote(msg: String) = s"""""\"$msg""\""""
     val content = xml.child.collect {
-      case e if e.label == "string" => s"""${toKey(e)}->Singular(\"\"\"${e.text}\"\"\")"""
+      case e if e.label == "string" => s"""${toKey(e)}->Literal(\"\"\"${e.text}\"\"\")"""
       case e if e.label == "plurals" =>
         val items = e.child.filter(_.label == "item").map { i =>
           s"""${ucfirst(i.\("@quantity").toString)}->\"\"\"${i.text}\"\"\""""
