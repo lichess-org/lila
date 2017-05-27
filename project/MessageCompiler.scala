@@ -40,7 +40,7 @@ import play.api.i18n.Lang
 // format: OFF
 object Registry {
 
-  def load = Map[Lang, Map[String, String]]($content)
+  def load = Map[Lang, Map[MessageKey, Translation]]($content)
 }
 """
     }
@@ -49,16 +49,17 @@ object Registry {
 
   private def render(locale: String, pairs: List[(String, String)]) = {
     def quote(msg: String) = s"""""\"$msg""\""""
-    val content = pairs.map {
-      case (key, message) => s""""$key"->${quote(message)}"""
-    } mkString ",\n"
+    // val content = pairs.map {
+    //   case (key, message) => s""""$key"->${quote(message)}"""
+    // } mkString ",\n"
+    val content = ""
     s"""package lila.i18n
 package db
 
 // format: OFF
 private object `$locale` {
 
-  def load = Map[String, String]($content)
+  def load = Map[MessageKey, Translation]($content)
 }
 """
   }

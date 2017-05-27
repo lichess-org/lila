@@ -322,7 +322,7 @@ object ApplicationBuild extends Build {
   lazy val i18n = project("i18n", Seq(common, db, user, hub)).settings(
     sourceGenerators in Compile += Def.task {
       MessageCompiler(
-        sourceFile = new File("translation/source/site.csv"),
+        sourceFile = new File("translation/source/site.xml"),
         destDir = new File("translation/dest/site"),
         compileTo = (sourceManaged in Compile).value / "messages"
       )
