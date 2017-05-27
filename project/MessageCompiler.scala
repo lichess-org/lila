@@ -1,7 +1,6 @@
 import _root_.java.io.File
 import sbt._, Keys._
 import scala.xml.XML
-import org.apache.commons.lang3.StringEscapeUtils.escapeHtml4
 
 object MessageCompiler {
 
@@ -51,10 +50,9 @@ private[i18n] object Registry {
 
   private def toKey(e: scala.xml.Node) = s""""${e.\("@name")}""""
 
-  private def escape(str: String) = {
+  private def escape(str: String) =
     if (str contains "\"\"\"") sys error s"Skipped translation: $str"
-    else escapeHtml4(str)
-  }
+    else str
 
   private def render(locale: String, file: File) = {
     val xml = XML.loadFile(file)
