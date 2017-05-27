@@ -19,7 +19,7 @@
     <span class="name">@tour.fullName</span>
     <span class="headline">@spot.headline</span>
     <span class="more">
-      @trans.nbConnectedPlayers(tour.nbPlayers.localize) •
+      @trans.nbPlayers(tour.nbPlayers.localize) •
       @if(tour.isStarted) {
       finishes@momentFromNow(tour.finishesAt)
       } else { @momentFromNow(tour.startsAt) }
@@ -40,7 +40,7 @@
   <span class="content">
     <span class="name">@tour.fullName</span>
     <span class="more">
-      @trans.nbConnectedPlayers(tour.nbPlayers.localize) •
+      @trans.nbPlayers(tour.nbPlayers.localize) •
       @if(tour.isStarted) { @trans.playingRightNow() } else { @momentFromNow(tour.startsAt) }
     </span>
   </span>

@@ -38,7 +38,7 @@
 }
 @ctx.userId.map { myId =>
 @crosstable.filter(_.nonEmpty).map { cross =>
-<a class="score hint--bottom" href="@routes.User.showFilter(u.username, "me")#games" data-hint="@trans.viewAllNbGames(cross.nbGames)">
+<a class="score hint--bottom" href="@routes.User.showFilter(u.username, "me")#games" data-hint="@trans.nbGames(cross.nbGames)">
   Your score:
   <strong>@cross.showScore(myId)</strong> - <strong>@cross.showOpponentScore(myId)</strong>
 </a>

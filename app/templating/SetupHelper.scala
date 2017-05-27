@@ -3,11 +3,11 @@ package templating
 
 import chess.{ Mode, Speed }
 import lila.api.Context
+import lila.i18n.I18nKeys
 import lila.pref.Pref
 import lila.report.Reason
 import lila.setup.TimeMode
 import lila.tournament.System
-import lila.i18n.I18nKeys
 
 trait SetupHelper { self: I18nHelper =>
 
@@ -73,12 +73,11 @@ trait SetupHelper { self: I18nHelper =>
       variantTuple(chess.variant.FromPosition)
 
   def translatedSpeedChoices(implicit ctx: Context) = Speed.limited map { s =>
-    (s.id.toString, {
-      (s.range.min, s.range.max) match {
-        case (0, y) => s.toString + " - " + I18nKeys.lessThanNbMinutes(y / 60 + 1)
-        case (x, y) => s.toString + " - " + I18nKeys.xToYMinutes(x / 60, y / 60 + 1)
-      }
-    }, none)
+    (
+      s.id.toString,
+      s.toString + " - " + I18nKeys.lessThanNbMinutes(s.range.max / 60 + 1),
+      none
+    )
   }
 
   def translatedAnimationChoices(implicit ctx: Context) = List(

@@ -1,7 +1,7 @@
 @(playing: List[Pov])(implicit ctx: Context)
 @defining("round-toggle-autoswitch") { id =>
 <h3>
-  @trans.gamesBeingPlayedRightNow()
+  @trans.currentGames()
   <span class="move_on hint--bottom-left" data-hint="@trans.automaticallyProceedToNextGameAfterMoving()">
     <label for="@id">@trans.autoSwitch()</label>
     <span class="switch">

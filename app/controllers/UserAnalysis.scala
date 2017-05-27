@@ -49,7 +49,7 @@ object UserAnalysis extends LilaController with TheftPrevention {
       I18nKeys.keyShowOrHideComments,
       I18nKeys.keyEnterOrExitVariation,
       I18nKeys.youCanAlsoScrollOverTheBoardToMoveInTheGame,
-      I18nKeys.pressShiftPlusClickOrRightClickToDrawCirclesAndArrowsOnTheBoard
+      I18nKeys.analysisShapesHowTo
     )
   }
 

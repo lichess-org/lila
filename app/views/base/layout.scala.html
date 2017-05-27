@@ -40,7 +40,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     @if(ctx.pageData.inquiry.isDefined) { @cssTag("inquiry.css") }
     @moreCss
     <link id="piece-sprite" href="@staticUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css?v=${ctx.pageData.assetVersion}")" type="text/css" rel="stylesheet"/>
-    <meta content="@openGraph.fold(trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents())(o => Html(escapeHtml(o.description)))" name="description">
+    <meta content="@openGraph.fold(trans.siteDescription())(o => Html(escapeHtml(o.description)))" name="description">
     <link id="favicon" rel="shortcut icon" href="@staticUrl("images/favicon-32-white.png")" type="image/x-icon" />
     @if(!robots) {
     <meta content="noindex, nofollow" name="robots">
@@ -78,7 +78,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
       <input type="hidden" name="redirect" value="@ctx.req.path" />
       <button type="submit">Accessibility: @ctx.blindMode.fold("Disable", "Enable") blind mode</button>
     </form>
-    <div id="site_description">@trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents()</div>
+    <div id="site_description">@trans.siteDescription()</div>
     @ctx.pageData.inquiry.map { inquiry =>
     @mod.inquiry(inquiry)
     }
