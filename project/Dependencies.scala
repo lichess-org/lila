@@ -24,7 +24,6 @@ object Dependencies {
   val scalaz = "org.scalaz" %% "scalaz-core" % "7.1.11"
   val scalalib = "com.github.ornicar" %% "scalalib" % "5.7"
   val config = "com.typesafe" % "config" % "1.3.1"
-  val apache = "org.apache.commons" % "commons-lang3" % "3.5"
   val findbugs = "com.google.code.findbugs" % "jsr305" % "3.0.1"
   val hasher = "com.roundeights" %% "hasher" % "1.2.0"
   val jodaTime = "joda-time" % "joda-time" % "2.9.7"

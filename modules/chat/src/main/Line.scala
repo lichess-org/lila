@@ -39,7 +39,6 @@ case class PlayerLine(
 object Line {
 
   import reactivemongo.bson.{ BSONHandler, BSONString }
-  import org.apache.commons.lang3.StringEscapeUtils.unescapeHtml4
 
   private val invalidLine = UserLine("", "[invalid character]", troll = false, deleted = true)
 
