@@ -16,6 +16,7 @@
   <!-- This appears in the box while you are playing a game. It indicates it is your turn to play. -->
   <string name="yourTurn">আপনার চাল</string>
   <!-- AI name and level, e.g. "Stockfish level 3". Note that the "Stockfish" part will always be first no matter where you place the %s, though you can rearrange them to e.g. "%s at %s levels", which would produce e.g. "Stockfish at 3 levels". Use the translation that sounds best in your language. Appears in the box on the left-hand side in the page of the game, and also on your profile, in the list of games. -->
+  <string name="aiNameLevelAiLevel">%1$s এর লেভেল %2$s</string>
   <!-- This appears in the "Play with the machine" menu (https://lichess.org/setup/ai) as a heading. Below it are skill levels (1 through 8) of the AI that you can play against. -->
   <string name="level">লেভেল</string>
   <!-- Turns the chat room (or player chat) on or off. This is the mouseover text of the checkbox on the top-right of the chat box. -->
@@ -145,6 +146,7 @@
   <!-- It is Lichess's webforum, where users can discuss various topics, chess-related or not. These are sometimes called "bulletin boards". "Forum" is one of the links at the top of every page, so keep it as short as possible. Links to https://lichess.org/forum -->
   <string name="forum">ফোরাম</string>
   <!-- The first %s is the player's name and the second %s is the title of the topic in the forum. By "topic" here we mean a discussion, sometimes called a "thread" in this context. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
+  <string name="xPostedInForumY">%1$s লিখেছেন %2$s ফোরামে</string>
   <!-- A list of the most recent posts on the forum. Appears as a heading to a box near the bottom of the "Play" page (https://lichess.org/). -->
   <string name="latestForumPosts">সর্বশেষ ফোরাম বার্তা</string>
   <!-- Some have been translating as "[Chess] Players". This is acceptable only if it is one word (e.g. "Szachiści" in Polish). Otherwise, keep just translate to "Players". This appears as one of the links on the navigation bar at the top of every page.  Links to https://lichess.org/people -->
@@ -384,7 +386,9 @@
   <!-- This is for teams. It is a listing of all players in the team sorted by who joined most recently. It appears on the left-hand side of any team's page (e.g. https://lichess.org/team/saloon). -->
   <string name="teamRecentMembers">দলের নবীন সদস্যগণ</string>
   <!-- The first %s is the name of the player, and the second %s is the team the player joined. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
+  <string name="xJoinedTeamY">%1$s যোগ দিলেন %2$s দলে</string>
   <!-- The first %s is the name of the player, and the second %s is the team the player created. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
+  <string name="xCreatedTeamY">%1$s বানালেন %2$s দল</string>
   <!-- This is the mean average rating of all players in the team. Appears on the information box on team pages. Example: https://lichess.org/team/linux -->
   <string name="averageElo">গড় ইলো</string>
   <!-- This is before an input box that lets you write where you are located (a city, town, or whatever you want to write in it). Appears in the "Edit profile" page (https://lichess.org/account/profile). -->
@@ -448,6 +452,7 @@
   <!-- Indicates that this player is following you. Appears on the informative popups that appear when you hover the mouse cursor over players' names. -->
   <string name="followsYou">আপনাকে অনুসরণ করছে</string>
   <!-- The two %s's are players' names. The first %s is the name of the follower, and the second %s is the name of the followed. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
+  <string name="xStartedFollowingY">%1$s অনুসরণ করা শুরু করেছেন %2$s</string>
   <!-- %s is the number of people that follow this player. Example: https://lichess.org/@/thibault — as of the time of writing, Thibault has 263 people following him. -->
   <plurals name="nbFollowers">
     <item quantity="one">%s অনুসরণকারী</item>
@@ -590,6 +595,7 @@
   <!-- Politely thanks the players for voting. Appears on the "Training" page (https://lichess.org/training) after voting for a puzzle. Also, a page thanking all contributors of Lichess. Appears on the footer of the menu page. Links to https://lichess.org/thanks . Please use the polite version of "Thank you" in your language. -->
   <string name="thankYou">ধন্যবাদ</string>
   <!-- %s is the numerical rating and rating deviation for the puzzle. This is the rating of individual chess puzzles in the "Training" pages (https://lichess.org/training/5705). Appears on the right-hand side box after you have succeeded at or failed at the puzzle. Note that this is the rating of the puzzle, NOT the player. -->
+  <string name="ratingX">Rating: %s</string>
   <!-- %s is the number of times this puzzle has been played. Appears in the box on the right-hand side the "Training" page (https://lichess.org/training/) after you have succeeded at or failed the puzzle. -->
   <plurals name="playedXTimes">
     <item quantity="one">%s বার খেলা হয়েছে</item>
@@ -624,6 +630,7 @@
   <!-- One of the 3 rectangular buttons on the "training" page (https://lichess.org/training). This chooses puzzles as your training type. -->
   <string name="puzzles">ধাঁধা</string>
   <!-- One of the 3 rectangular buttons on the "training" page (https://lichess.org/training). This chooses coordinates as your training type. -->
+  <string name="coordinates">Coordinates</string>
   <!-- A list of the last blog updates. Appears as a heading to a box at the bottom of the "Play" page (https://lichess.org/). -->
   <string name="latestUpdates">সাম্প্রতিক তথ্য</string>
   <!-- A list of tournament winners. Appears on the "Play" page (https://lichess.org) as a heading to a box that contains a list of the recent winners. -->
@@ -700,8 +707,6 @@
   <string name="materialDifference">গুটির মধ্যে ব্যবধান</string>
   <!-- Clicking this lets you close your account. Appears in the menu on the preferences page https://lichess.org/account/preferences and as a heading on the "Close account" page. Please do not translate to "delete account" unless you have to, as some data like the games you played on the site are retained. -->
   <string name="closeAccount">ACCOUNT বন্ধ করুন</string>
-  <!-- Appears as a heading on the page for closing your account https://lichess.org/account/close -->
-  <string name="closeYourAccount">নিজের ACCOUNT বন্ধ করুন</string>
   <!-- This sentence appears on the page for closing your account https://lichess.org/account/close. You can click this button if you do not want to close your account. When you click the button you will get redirected to your profile page. -->
   <string name="changedMindDoNotCloseAccount">আমি নিজের মত পরিবর্তন করেছি এবং আমার ACCOUNT বন্ধ করতে চাই না</string>
   <!-- These sentences appear under the heading on the page for closing your account https://lichess.org/account/close. -->
