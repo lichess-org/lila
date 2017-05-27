@@ -2,12 +2,6 @@ package lila.i18n
 
 import play.api.i18n.Lang
 
-sealed trait Translation extends Any
-
-case class Singular(message: String) extends AnyVal with Translation
-
-case class Plurals(messages: Map[I18nQuantity, String]) extends AnyVal with Translation
-
 object I18nDb {
 
   val all: Messages =

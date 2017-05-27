@@ -4,31 +4,48 @@ import play.api.i18n.Lang
 import play.api.mvc.RequestHeader
 import play.twirl.api.Html
 
+sealed trait Translation extends Any {
+
+  def format(args: Seq[Any]): Option[String]
+}
+
+case class Singular(message: String) extends AnyVal with Translation {
+
+  def format(args: Seq[Any]) = Some {
+    if (args.isEmpty) message
+    else message.format(args: _*)
+  }
+}
+
+case class Plurals(messages: Map[I18nQuantity, String]) extends AnyVal with Translation {
+
+  def format(args: Seq[Any]) = messages.collectFirst {
+    case (quantity, message) => message.format(args: _*)
+  }
+}
+
 object Translator {
 
-  def html(key: String, args: List[Any], lang: Lang): Html =
+  def html(key: MessageKey, args: List[Any], lang: Lang): Html =
     Html(str(key, args, lang))
 
-  def str(key: String, args: List[Any], lang: Lang): String =
+  def str(key: MessageKey, args: List[Any], lang: Lang): String =
     translate(key, args, lang) getOrElse key
 
-  def transTo(key: String, args: Seq[Any], lang: Lang): String =
+  def transTo(key: MessageKey, args: Seq[Any], lang: Lang): String =
     translate(key, args, lang) getOrElse key
 
-  def rawTranslation(lang: Lang)(key: String): Option[String] =
-    I18nDb.all get lang flatMap (_ get key)
-
-  private def translate(key: String, args: Seq[Any], lang: Lang): Option[String] =
+  private def translate(key: MessageKey, args: Seq[Any], lang: Lang): Option[String] =
     I18nDb.all.get(lang) orElse I18nDb.all.get(defaultLang) flatMap (_ get key) flatMap {
       formatTranslation(key, _, args)
     }
 
-  private def formatTranslation(key: String, pattern: String, args: Seq[Any]) = try {
-    Some(if (args.isEmpty) pattern else pattern.format(args: _*))
+  private def formatTranslation(key: MessageKey, translation: Translation, args: Seq[Any]) = try {
+    translation.format(args)
   }
   catch {
     case e: Exception =>
-      logger.warn(s"Failed to translate $key -> $pattern ($args)", e)
+      logger.warn(s"Failed to translate $key -> $translation ($args)", e)
       None
   }
 }
