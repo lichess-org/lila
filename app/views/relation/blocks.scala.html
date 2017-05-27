@@ -1,10 +1,10 @@
 @(u: User, pag: Paginator[lila.relation.Related])(implicit ctx: Context)
 
-@user.layout(title = u.username + " - " + trans.blocks(pag.nbResults)) {
+@user.layout(title = u.username + " - " + trans.blocks.pluralSameStr(pag.nbResults)) {
 <div class="content_box no_padding">
   <h1>
     @userLink(u, withOnline = false)
-    @trans.blocks(pag.nbResults)
+    @trans.blocks.pluralSame(pag.nbResults)
   </h1>
   @user.simpleTable(pag, routes.Relation.blocks())
 </div>

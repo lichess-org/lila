@@ -62,7 +62,7 @@
       @c.user.seenAt.map { seen =>
       <tr class="seen">
         <th></th>
-        <td>@trans.lastSeenActive(momentFromNow(seen))</td>
+        <td>@trans.lastSeenActive.literal(momentFromNow(seen))</td>
       </tr>
       }
     </tbody>

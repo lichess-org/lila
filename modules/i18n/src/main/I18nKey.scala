@@ -8,34 +8,51 @@ sealed trait I18nKey {
 
   val key: String
 
-  def apply(args: Any*)(implicit ctx: UserContext): Html
+  def literalTo(lang: Lang, args: Any*): String
 
-  def str(args: Any*)(implicit ctx: UserContext): String
+  def pluralTo(lang: Lang, count: Count, args: Any*): String
 
-  def to(lang: Lang)(args: Any*): String
+  /* Implicit context convenience functions */
 
-  def en(args: Any*): String = to(enLang)(args: _*)
+  def literalStr(args: Any*)(implicit ctx: UserContext): String = literalTo(ctx.lang, args)
+
+  def pluralStr(count: Count, args: Any*)(implicit ctx: UserContext): String = pluralTo(ctx.lang, count, args)
+
+  def literal(args: Any*)(implicit ctx: UserContext): Html = Html(literalTo(ctx.lang, args))
+
+  def plural(count: Count, args: Any*)(implicit ctx: UserContext): Html = Html(pluralTo(ctx.lang, count, args))
+
+  /* Shortcuts */
+
+  def apply()(implicit ctx: UserContext): Html = literal()
+
+  def str()(implicit ctx: UserContext): String = literalStr()
+
+  // reuses the count as the single argument
+  // allows `plural(nb)` instead of `plural(nb, nb)`
+  def pluralSame(count: Int)(implicit ctx: UserContext): Html = plural(count, count)
+  def pluralSameStr(count: Int)(implicit ctx: UserContext): String = pluralStr(count, count)
+
+  /* English translations */
+
+  def literalEn(args: Any*): String = literalTo(enLang, args: _*)
+  def pluralEn(count: Count, args: Any*): String = pluralTo(enLang, count, args: _*)
 }
 
 final class Translated(val key: String) extends I18nKey {
 
-  def apply(args: Any*)(implicit ctx: UserContext): Html =
-    Translator.html(key, args.toList, ctx.lang)
+  def literalTo(lang: Lang, args: Any*): String =
+    Translator.literal(key, args, lang)
 
-  def str(args: Any*)(implicit ctx: UserContext): String =
-    Translator.str(key, args.toList, ctx.lang)
-
-  def to(lang: Lang)(args: Any*): String =
-    Translator.transTo(key, args.toList, lang)
+  def pluralTo(lang: Lang, count: Count, args: Any*): String =
+    Translator.plural(key, count, args, lang)
 }
 
 final class Untranslated(val key: String) extends I18nKey {
 
-  def apply(args: Any*)(implicit ctx: UserContext) = Html(key)
+  def literalTo(lang: Lang, args: Any*) = key
 
-  def str(args: Any*)(implicit ctx: UserContext) = key
-
-  def to(lang: Lang)(args: Any*) = key
+  def pluralTo(lang: Lang, count: Count, args: Any*) = key
 }
 
 object I18nKey {

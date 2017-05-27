@@ -73,9 +73,10 @@ trait SetupHelper { self: I18nHelper =>
       variantTuple(chess.variant.FromPosition)
 
   def translatedSpeedChoices(implicit ctx: Context) = Speed.limited map { s =>
+    val minutes = s.range.max / 60 + 1
     (
       s.id.toString,
-      s.toString + " - " + I18nKeys.lessThanNbMinutes(s.range.max / 60 + 1),
+      s.toString + " - " + I18nKeys.lessThanNbMinutes.pluralStr(minutes, minutes),
       none
     )
   }
@@ -137,7 +138,7 @@ trait SetupHelper { self: I18nHelper =>
 
   def translatedChallengeChoices(implicit ctx: Context) = List(
     (Pref.Challenge.NEVER, I18nKeys.never.str()),
-    (Pref.Challenge.RATING, I18nKeys.ifRatingIsPlusMinusX(lila.pref.Pref.Challenge.ratingThreshold).toString()),
+    (Pref.Challenge.RATING, I18nKeys.ifRatingIsPlusMinusX.literalStr(lila.pref.Pref.Challenge.ratingThreshold)),
     (Pref.Challenge.FRIEND, I18nKeys.onlyFriends.str()),
     (Pref.Challenge.ALWAYS, I18nKeys.always.str())
   )

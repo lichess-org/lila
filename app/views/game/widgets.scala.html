@@ -39,7 +39,7 @@
         @if(g.imported) {
         <span>IMPORT</span>
         @g.pgnImport.flatMap(_.user).map { user =>
-        @trans.by(userIdLink(user.some, None, false))
+        @trans.by.literal(userIdLink(user.some, None, false))
         }
         •
         @if(g.variant.exotic) {
@@ -50,7 +50,7 @@
         } else {
         @g.clock.map(_.config.show).getOrElse {
         @g.daysPerTurn.map { days =>
-        <span data-hint="@trans.correspondence()" class="hint--top">@if(days == 1) {@trans.oneDay()} else {@trans.nbDays(days)}</span>
+        <span data-hint="@trans.correspondence()" class="hint--top">@if(days == 1) {@trans.oneDay()} else {@trans.nbDays.pluralSame(days)}</span>
         }.getOrElse {
         <span data-hint="@trans.unlimited()" class="hint--top">∞</span>
         }

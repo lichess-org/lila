@@ -250,14 +250,14 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
 
   def userGameFilterTitleNoTag(info: UserInfo, filter: GameFilter)(implicit ctx: UserContext) = Html((filter match {
     case GameFilter.All => info.user.count.game + " " + I18nKeys.gamesPlayed()
-    case GameFilter.Me => ctx.me ?? (me => I18nKeys.nbGamesWithYou.str(info.nbWithMe))
+    case GameFilter.Me => ctx.me ?? (me => I18nKeys.nbGamesWithYou.pluralSameStr(info.nbWithMe))
     case GameFilter.Rated => info.nbRated + " " + I18nKeys.rated()
-    case GameFilter.Win => I18nKeys.nbWins(info.user.count.win)
-    case GameFilter.Loss => I18nKeys.nbLosses(info.user.count.loss)
-    case GameFilter.Draw => I18nKeys.nbDraws(info.user.count.draw)
+    case GameFilter.Win => I18nKeys.nbWins.pluralSameStr(info.user.count.win)
+    case GameFilter.Loss => I18nKeys.nbLosses.pluralSameStr(info.user.count.loss)
+    case GameFilter.Draw => I18nKeys.nbDraws.pluralSameStr(info.user.count.draw)
     case GameFilter.Playing => info.nbPlaying + " playing"
-    case GameFilter.Bookmark => I18nKeys.nbBookmarks(info.nbBookmark)
-    case GameFilter.Imported => I18nKeys.nbImportedGames(info.nbImported)
+    case GameFilter.Bookmark => I18nKeys.nbBookmarks.pluralSameStr(info.nbBookmark)
+    case GameFilter.Imported => I18nKeys.nbImportedGames.pluralSameStr(info.nbImported)
     case GameFilter.Search => Html(I18nKeys.advancedSearch.str().replaceFirst(" ", "\n"))
   }).toString)
 

@@ -36,10 +36,10 @@
 
 @baseline = {
 <a id="nb_connected_players" href="@routes.User.list">
-  @trans.nbPlayers("<strong>-,---</strong>")
+  @trans.nbPlayers.literal("<strong>-,---</strong>")
 </a>
 <a id="nb_games_in_play" href="@routes.Tv.games">
-  @trans.nbGamesInPlay(s"<span>${nbRounds}</span>")
+  @trans.nbGamesInPlay.plural(nbRounds, s"<span>${nbRounds}</span>")
 </a>
 @if(ctx.isMobileBrowser) {
 @if(lila.common.HTTPRequest.isAndroid(ctx.req)) {

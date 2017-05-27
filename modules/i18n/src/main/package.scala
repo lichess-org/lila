@@ -4,6 +4,7 @@ import play.api.i18n.Lang
 
 package object i18n extends PackageObject with WithPlay {
 
+  type Count = Int
   type MessageKey = String
   type Messages = Map[Lang, Map[MessageKey, Translation]]
 

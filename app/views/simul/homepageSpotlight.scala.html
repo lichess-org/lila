@@ -4,6 +4,6 @@
   <img class="img icon" src="@staticUrl("images/fire-silhouette.svg")" />
   <span class="content">
     <span class="name">@s.name simul</span>
-    <span class="more">@trans.nbPlayers(s.applicants.size.localize) • @trans.join()</span>
+    <span class="more">@trans.nbPlayers.plural(s.applicants.size, s.applicants.size.localize) • @trans.join()</span>
   </span>
 </a>

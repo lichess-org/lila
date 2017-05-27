@@ -71,8 +71,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   }
 
   def variantNameNoCtx(variant: chess.variant.Variant) = variant match {
-    case chess.variant.Standard => I18nKeys.standard.en()
-    case chess.variant.FromPosition => I18nKeys.fromPosition.en()
+    case chess.variant.Standard => I18nKeys.standard.literalEn()
+    case chess.variant.FromPosition => I18nKeys.fromPosition.literalEn()
     case v => v.name
   }
 
@@ -87,8 +87,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   }
 
   def modeNameNoCtx(mode: Mode): String = mode match {
-    case Mode.Casual => I18nKeys.casual.en()
-    case Mode.Rated => I18nKeys.rated.en()
+    case Mode.Casual => I18nKeys.casual.literalEn()
+    case Mode.Rated => I18nKeys.rated.literalEn()
   }
 
   def playerUsername(player: Player, withRating: Boolean = true, withTitle: Boolean = true) =
