@@ -2,27 +2,13 @@ package lila.chat
 
 import lila.common.LightUser
 import lila.common.PimpedJson._
-import lila.common.String.html.{ escape => escapeHtml }
 import play.api.libs.json._
 
 object JsonView {
 
-  def apply(chat: AnyChat, mobileEscape: Boolean = false): JsValue = {
-    if (mobileEscape) escapeHtmlForMobile(chat)
-    else chat
-  } match {
+  def apply(chat: AnyChat): JsValue = chat match {
     case c: MixedChat => mixedChatWriter writes c
     case c: UserChat => userChatWriter writes c
-  }
-
-  private def escapeHtmlForMobile(chat: AnyChat) = chat match {
-    case c: MixedChat => c.mapLines {
-      case l: UserLine => l.copy(text = escapeHtml(l.text))
-      case l: PlayerLine => l.copy(text = escapeHtml(l.text))
-    }
-    case c: UserChat => c.mapLines { l =>
-      l.copy(text = escapeHtml(l.text))
-    }
   }
 
   def apply(line: Line): JsValue = lineWriter writes line

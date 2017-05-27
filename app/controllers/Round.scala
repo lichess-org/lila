@@ -75,7 +75,7 @@ object Round extends LilaController with TheftPrevention {
         else Env.api.roundApi.player(pov, apiVersion) zip
           getPlayerChat(pov.game) map {
             case (data, chat) => Ok(chat.fold(data) { c =>
-              data + ("chat" -> lila.chat.JsonView(c.chat, mobileEscape = apiVersion.v1))
+              data + ("chat" -> lila.chat.JsonView(c.chat))
             })
           }
       }.mon(_.http.response.player.mobile)
