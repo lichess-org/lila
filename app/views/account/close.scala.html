@@ -5,7 +5,7 @@
 @account.layout(title = title, active = "close") {
 <div class="content_box small_box high">
   <div class="signup_box">
-    <h1 class="lichess_title">@trans.closeYourAccount()</h1>
+    <h1 class="lichess_title">@trans.closeAccount()</h1>
     <p class="explanation">
       @trans.closeAccountExplanation()
     </p>
@@ -14,7 +14,7 @@
         @account.passwdFormField(form("passwd"), trans.password())
         <li>@errMsg(form)</li>
         <li>
-          <button type="submit" class="submit button">@trans.closeYourAccount()</button>
+          <button type="submit" class="submit button">@trans.closeAccount()</button>
         </li>
         <li>
           <a href="@routes.User.show(u.username)">
