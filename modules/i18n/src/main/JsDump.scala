@@ -10,13 +10,13 @@ private[i18n] final class JsDump(path: String) {
 
   def keysToObject(keys: Seq[I18nKey], lang: Lang) = JsObject {
     keys.map { k =>
-      k.key -> JsString(k.literalTo(lang))
+      k.key -> JsString(k.literalTo(lang, Nil))
     }
   }
 
   def keysToMessageObject(keys: Seq[I18nKey], lang: Lang) = JsObject {
     keys.map { k =>
-      k.literalEn() -> JsString(k.literalTo(lang))
+      k.literalEn() -> JsString(k.literalTo(lang, Nil))
     }
   }
 

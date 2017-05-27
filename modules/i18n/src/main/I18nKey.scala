@@ -8,9 +8,9 @@ sealed trait I18nKey {
 
   val key: String
 
-  def literalTo(lang: Lang, args: Any*): String
+  def literalTo(lang: Lang, args: Seq[Any]): String
 
-  def pluralTo(lang: Lang, count: Count, args: Any*): String
+  def pluralTo(lang: Lang, count: Count, args: Seq[Any]): String
 
   /* Implicit context convenience functions */
 
@@ -35,24 +35,24 @@ sealed trait I18nKey {
 
   /* English translations */
 
-  def literalEn(args: Any*): String = literalTo(enLang, args: _*)
-  def pluralEn(count: Count, args: Any*): String = pluralTo(enLang, count, args: _*)
+  def literalEn(args: Any*): String = literalTo(enLang, args)
+  def pluralEn(count: Count, args: Any*): String = pluralTo(enLang, count, args)
 }
 
 final class Translated(val key: String) extends I18nKey {
 
-  def literalTo(lang: Lang, args: Any*): String =
+  def literalTo(lang: Lang, args: Seq[Any]): String =
     Translator.literal(key, args, lang)
 
-  def pluralTo(lang: Lang, count: Count, args: Any*): String =
+  def pluralTo(lang: Lang, count: Count, args: Seq[Any]): String =
     Translator.plural(key, count, args, lang)
 }
 
 final class Untranslated(val key: String) extends I18nKey {
 
-  def literalTo(lang: Lang, args: Any*) = key
+  def literalTo(lang: Lang, args: Seq[Any]) = key
 
-  def pluralTo(lang: Lang, count: Count, args: Any*) = key
+  def pluralTo(lang: Lang, count: Count, args: Seq[Any]) = key
 }
 
 object I18nKey {
