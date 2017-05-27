@@ -607,7 +607,6 @@
   <!-- Choose this option if a user insulted you. Appears in the drop-down menu for reasons in the report form (https://lichess.org/report). -->
   <string name="insult">Mosach</string>
   <!-- Choose this option if a user is trolling. Appears in the dropdown menu for reasons in the report form (https://lichess.org/report). -->
-  <string name="troll">Troll</string>
   <!-- Choose this option if you have another reason than the ones in the dropdown list. Appears in the drop-down menu for reasons in the report form(https://lichess.org/report). -->
   <string name="other">Adhbhar eile</string>
   <!-- Appears under the description box on the page for reporting a user (https://lichess.org/report). -->
