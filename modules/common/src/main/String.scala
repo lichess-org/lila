@@ -48,4 +48,21 @@ object String {
       case _: java.lang.IllegalArgumentException => none
     }
   }
+
+  object html {
+
+    def encode(s: String): String = {
+      val sb = new StringBuilder
+      for (i <- 0 to s.length) sb.append {
+        s.charAt(i) match {
+          case '<' => "&lt;"
+          case '>' => "&gt;"
+          case '&' => "&amp;"
+          case '"' => "&quot;"
+          case c => c
+        }
+      }
+      sb.toString
+    }
+  }
 }
