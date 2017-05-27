@@ -1,6 +1,6 @@
 #!/bin/sh
 
-PROD_URL="http://lichess.org"
+PROD_URL="https://lichess.org"
 
 lilalog () {
   echo -e "\x1b[7m[lila]\x1b[0m $1"
