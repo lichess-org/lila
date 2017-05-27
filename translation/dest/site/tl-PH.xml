@@ -16,6 +16,7 @@
   <!-- This appears in the box while you are playing a game. It indicates it is your turn to play. -->
   <string name="yourTurn">Tira mo</string>
   <!-- AI name and level, e.g. "Stockfish level 3". Note that the "Stockfish" part will always be first no matter where you place the %s, though you can rearrange them to e.g. "%s at %s levels", which would produce e.g. "Stockfish at 3 levels". Use the translation that sounds best in your language. Appears in the box on the left-hand side in the page of the game, and also on your profile, in the list of games. -->
+  <string name="aiNameLevelAiLevel">%1$s antas %2$s</string>
   <!-- This appears in the "Play with the machine" menu (https://lichess.org/setup/ai) as a heading. Below it are skill levels (1 through 8) of the AI that you can play against. -->
   <string name="level">Antas</string>
   <!-- Turns the chat room (or player chat) on or off. This is the mouseover text of the checkbox on the top-right of the chat box. -->
@@ -25,6 +26,7 @@
   <!-- Clicking this makes you resign from the game. Small button in the box on the right while playing a game. -->
   <string name="resign">Magbitiw</string>
   <!-- Appears in the box of a game if you end a game by checkmate. -->
+  <string name="checkmate">Checkmate</string>
   <!-- If you do not know what this rule is, see https://www.chessvariants.org/d.chess/matefaq.html. Appears in the box of a game if you end a game by stalemate. Please use the official term used by your country's or locale's chess federation or club. -->
   <!-- The mouseover text of the White King button in the game creation menus (e.g. "Create a game", "Play with a friend") on the "Play" page. -->
   <string name="white">Puti</string>
@@ -77,6 +79,7 @@
   <!-- Clicking this puts the game in the queue for computer analysis, which is usually completed within a minute. This is one of the actions below the board in the "Replay and analyse" view. -->
   <string name="requestAComputerAnalysis">Humingi ng computer analysis</string>
   <!-- An automated analysis of a game performed by lichess. It provides an advantage charts and possible variation for a game. Appears as a tab below the chess board in replay and analysis views. Example: https://lichess.org/vyvcbk8s -->
+  <string name="computerAnalysis">Computer analysis</string>
   <!-- Button that leads to analysis page. Appears only on your own games, after they have finished. -->
   <!-- This is one of the categories of problems discovered by the computer analysis. If no equivalent word exists, translate to "Serious mistakes". -->
   <!-- This is one of the categories of problems discovered by the computer analysis. Appears on the right hand side of pages with analyzed games. Example: https://lichess.org/vyvcbk8s -->
@@ -143,6 +146,7 @@
   <!-- Appears as a menu item and heading on the "Preferences" pages (https://lichess.org/account/email). -->
   <string name="changeEmail">Palitan ang email</string>
   <!-- Short for "Your email address", but please keep this sentence as short as possible. This appears above text boxes where you can type in your email, on the "Preferences" page. -->
+  <string name="email">Email</string>
   <!-- This is a help text, explaining how email works on lichess. Appears on the "Change email" page (https://lichess.org/account/email). -->
   <!-- Appears as a heading in the link you are given after you asked for an email to reset (change) your password if you have forgotten it. -->
   <!-- You click here if you forgot your password and want it reset. Please adopt an inviting tone to the user. Also see how other popular websites (e.g. YouTube) phrase the same question in your language. Appears on the "Sign in" page. -->
@@ -422,7 +426,6 @@
   <!-- Here you can change the speed of your piece animation or select none (https://lichess.org/account/preferences). -->
   <!-- Choose if you want to see the difference in material while playing a game. (https://lichess.org/account/preferences). -->
   <!-- Clicking this lets you close your account. Appears in the menu on the preferences page https://lichess.org/account/preferences and as a heading on the "Close account" page. Please do not translate to "delete account" unless you have to, as some data like the games you played on the site are retained. -->
-  <!-- Appears as a heading on the page for closing your account https://lichess.org/account/close -->
   <!-- This sentence appears on the page for closing your account https://lichess.org/account/close. You can click this button if you do not want to close your account. When you click the button you will get redirected to your profile page. -->
   <!-- These sentences appear under the heading on the page for closing your account https://lichess.org/account/close. -->
   <!-- This text appears after you have clicked the "Close my account" button. https://lichess.org/account/close -->
