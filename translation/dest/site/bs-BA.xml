@@ -16,6 +16,7 @@
   <!-- This appears in the box while you are playing a game. It indicates it is your turn to play. -->
   <string name="yourTurn">Vi ste na potezu</string>
   <!-- AI name and level, e.g. "Stockfish level 3". Note that the "Stockfish" part will always be first no matter where you place the %s, though you can rearrange them to e.g. "%s at %s levels", which would produce e.g. "Stockfish at 3 levels". Use the translation that sounds best in your language. Appears in the box on the left-hand side in the page of the game, and also on your profile, in the list of games. -->
+  <string name="aiNameLevelAiLevel">%1$s nivo %2$s</string>
   <!-- This appears in the "Play with the machine" menu (https://lichess.org/setup/ai) as a heading. Below it are skill levels (1 through 8) of the AI that you can play against. -->
   <string name="level">Nivo</string>
   <!-- Turns the chat room (or player chat) on or off. This is the mouseover text of the checkbox on the top-right of the chat box. -->
@@ -132,7 +133,9 @@
   <!-- The page displays games currently being played and has links to various other tools on the site to find out about past games on lichess, such as a search engine that queries the database of games. "Games" is one of the links at the top of every page, so keep it as short as possible. Links to https://lichess.org/games -->
   <string name="games">Partije</string>
   <!-- It is Lichess's webforum, where users can discuss various topics, chess-related or not. These are sometimes called "bulletin boards". "Forum" is one of the links at the top of every page, so keep it as short as possible. Links to https://lichess.org/forum -->
+  <string name="forum">Forum</string>
   <!-- The first %s is the player's name and the second %s is the title of the topic in the forum. By "topic" here we mean a discussion, sometimes called a "thread" in this context. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
+  <string name="xPostedInForumY">%1$s je pisao na forumskoj temi %2$s</string>
   <!-- A list of the most recent posts on the forum. Appears as a heading to a box near the bottom of the "Play" page (https://lichess.org/). -->
   <string name="latestForumPosts">Zadnje poruke na forumu</string>
   <!-- Some have been translating as "[Chess] Players". This is acceptable only if it is one word (e.g. "Szachiści" in Polish). Otherwise, keep just translate to "Players". This appears as one of the links on the navigation bar at the top of every page.  Links to https://lichess.org/people -->
@@ -343,7 +346,9 @@
   <!-- This is for teams. It is a listing of all players in the team sorted by who joined most recently. It appears on the left-hand side of any team's page (e.g. https://lichess.org/team/saloon). -->
   <string name="teamRecentMembers">Najnoviji članovi</string>
   <!-- The first %s is the name of the player, and the second %s is the team the player joined. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
+  <string name="xJoinedTeamY">%1$s se pridružio ekipi %2$s</string>
   <!-- The first %s is the name of the player, and the second %s is the team the player created. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
+  <string name="xCreatedTeamY">%1$s je sastavio ekipu %2$s</string>
   <!-- This is the mean average rating of all players in the team. Appears on the information box on team pages. Example: https://lichess.org/team/linux -->
   <string name="averageElo">Prosječni rejting</string>
   <!-- This is before an input box that lets you write where you are located (a city, town, or whatever you want to write in it). Appears in the "Edit profile" page (https://lichess.org/account/profile). -->
@@ -403,6 +408,7 @@
   <!-- Indicates that this player is following you. Appears on the informative popups that appear when you hover the mouse cursor over players' names. -->
   <string name="followsYou">Prati vas</string>
   <!-- The two %s's are players' names. The first %s is the name of the follower, and the second %s is the name of the followed. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
+  <string name="xStartedFollowingY">%1$s je počeo pratiti %2$s</string>
   <!-- %s is the number of people that follow this player. Example: https://lichess.org/@/thibault — as of the time of writing, Thibault has 263 people following him. -->
   <!-- %s is the number of players this player is following. Example: https://lichess.org/@/thibault — as of the time of writing, Thibault is following 81 players. -->
   <!-- Generic message that lets you view more. Appears on the left-hand side of https://lichess.org/people, which lets you view a list of connected players. Also appears on the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) if there are too many messages in the timeline. "More" may be used in other places around Lichess in the future, so please make your translation as generic as possible. -->
@@ -618,6 +624,7 @@
   <!-- Click this button (at the bottom of all pages) to make a donation. -->
   <string name="donate">Donacija</string>
   <!-- Appears in the bottom left of any page and links to the blog. -->
+  <string name="blog">Blog</string>
   <!-- Appears when you hover over "Q&A" (https://lichess.org/qa) at the bottom left on any page. Translate freely. If you cannot find a good translation, consider leaving this untranslated so another speaker of your language can look at it. -->
   <string name="questionsAndAnswers">Pitanja i odgovori</string>
   <!-- Appears on the left side while playing a game. You can type your private notes on the game in this tab. -->
@@ -632,8 +639,6 @@
   <string name="materialDifference">Razlika materijala</string>
   <!-- Clicking this lets you close your account. Appears in the menu on the preferences page https://lichess.org/account/preferences and as a heading on the "Close account" page. Please do not translate to "delete account" unless you have to, as some data like the games you played on the site are retained. -->
   <string name="closeAccount">Zatvorite račun</string>
-  <!-- Appears as a heading on the page for closing your account https://lichess.org/account/close -->
-  <string name="closeYourAccount">Zatvorite Vaš račun</string>
   <!-- This sentence appears on the page for closing your account https://lichess.org/account/close. You can click this button if you do not want to close your account. When you click the button you will get redirected to your profile page. -->
   <string name="changedMindDoNotCloseAccount">Predomislio sam se, nemojte zatvoriti moj račun</string>
   <!-- These sentences appear under the heading on the page for closing your account https://lichess.org/account/close. -->
@@ -717,10 +722,15 @@
   <!-- Click this button to select hard as your difficulty. Appears on the training page when solving puzzles https://lichess.org/training/ -->
   <string name="difficultyHard">Teško</string>
   <!-- First %s is the name of the player that left a note, and the second %s is the player who got a note on their profile. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
+  <string name="xLeftANoteOnY">%1$s je ostavio bilješku na %2$s</string>
   <!-- First %s is the name of the player that competes in a tournament, and the second %s is the tournament name. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
+  <string name="xCompetesInY">%1$s se takmiči u %2$s</string>
   <!-- First %s is the name of the player that asked, and the second %s is the title of the question in Q&A. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
+  <string name="xAskedY">%1$s je pitao %2$s</string>
   <!-- First %s is the name of the player that answered, and the second %s is the title of the question in Q&A. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
+  <string name="xAnsweredY">%1$s je odgovorio %2$s</string>
   <!-- First %s is the name of the player that commented, and the second %s is the title of the question in Q&A. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
+  <string name="xCommentedY">%1$s je komentarisao %2$s</string>
   <!-- An activity timeline showing what people you follow on lichess have been up to. Appears on the main page under logotype https://lichess.org and https://lichess.org/timeline/more. Note: this only appears as soon as you follow a player on lichess. -->
   <string name="timeline">Hronologija</string>
   <!-- This text appears when you hover over the "more" link for "open tournaments" on the main page https://lichess.org/ -->
@@ -910,7 +920,9 @@
   <!-- Title of the rating stats page: https://lichess.org/stat/rating/distribution/blitz. %s is a variant name (like Bullet, Blitz, or Chess960). -->
   <string name="weeklyPerfTypeRatingDistribution">Mjesečna %s rejting raspodjela</string>
   <!-- Current user rating, on the rating stats page: https://lichess.org/stat/rating/distribution/blitz. The first %s is the the variant name (like Bullet, Blitz, or Chess960), the second %s is the rating itself (like 1900). -->
+  <string name="yourPerfTypeRatingIsRating">Vaš %1$s rejting je %2$s.</string>
   <!-- Current user ranking, on the rating stats page: https://lichess.org/stat/rating/distribution/blitz. The first %s is the percentage, the second %s is the variant name (like Bullet, Blitz, or Chess960). -->
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Bolji ste nego %1$s od %2$s igrača.</string>
   <!-- When the user rating is provisional, on the rating stats page: https://lichess.org/stat/rating/distribution/blitz. %s is a variant name (like Bullet, Blitz, or Chess960). -->
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nemate tačno uspostavljen %s rejting.</string>
   <!-- Appears when signup is finished and email is sent. (https://lichess.org/signup/check-your-email/test) -->
