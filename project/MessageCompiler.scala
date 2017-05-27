@@ -50,9 +50,12 @@ private[i18n] object Registry {
 
   private def toKey(e: scala.xml.Node) = s""""${e.\("@name")}""""
 
-  private def escape(str: String) =
+  private def escape(str: String) = {
+    // is someone trying to inject scala code?
     if (str contains "\"\"\"") sys error s"Skipped translation: $str"
-    else str
+    // crowdin escapes ' and " with \, and encodes &. We'll do it at runtime instead.
+    else str.replace("\\'", "'").replace("\\\"", "\"")
+  }
 
   private def render(locale: String, file: File) = {
     val xml = XML.loadFile(file)
