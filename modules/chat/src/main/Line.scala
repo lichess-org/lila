@@ -43,17 +43,13 @@ object Line {
 
   private val invalidLine = UserLine("", "[invalid character]", troll = false, deleted = true)
 
-  def userLineBSONHandler(encoded: Boolean) = new BSONHandler[BSONString, UserLine] {
-    def read(bsonStr: BSONString) = strToUserLine {
-      if (encoded) unescapeHtml4(bsonStr.value) else bsonStr.value
-    } | invalidLine
+  private[chat] implicit val userLineBSONHandler = new BSONHandler[BSONString, UserLine] {
+    def read(bsonStr: BSONString) = strToUserLine(bsonStr.value) getOrElse invalidLine
     def write(x: UserLine) = BSONString(userLineToStr(x))
   }
 
-  def lineBSONHandler(encoded: Boolean) = new BSONHandler[BSONString, Line] {
-    def read(bsonStr: BSONString) = strToLine {
-      if (encoded) unescapeHtml4(bsonStr.value) else bsonStr.value
-    } | invalidLine
+  private[chat] implicit val lineBSONHandler = new BSONHandler[BSONString, Line] {
+    def read(bsonStr: BSONString) = strToLine(bsonStr.value) getOrElse invalidLine
     def write(x: Line) = BSONString(lineToStr(x))
   }
 
