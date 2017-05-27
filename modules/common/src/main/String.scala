@@ -59,6 +59,7 @@ object String {
           case '>' => "&gt;"
           case '&' => "&amp;"
           case '"' => "&quot;"
+          case '\'' => "&#39;"
           case c => c
         }
       }
