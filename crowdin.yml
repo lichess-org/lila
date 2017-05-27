@@ -1,3 +1,4 @@
 files:
   - source: /translation/source/*.xml
     translation: /translation/dest/%file_name%/%locale%.%file_extension%
+    translate_attributes: '0'
