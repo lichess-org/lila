@@ -1,7 +1,7 @@
 import _root_.java.io.File
-import _root_.java.nio.file.{Files, StandardCopyOption}
 import sbt._, Keys._
 import scala.xml.XML
+import org.apache.commons.lang3.StringEscapeUtils.escapeHtml4
 
 object MessageCompiler {
 
@@ -51,19 +51,19 @@ private[i18n] object Registry {
 
   private def toKey(e: scala.xml.Node) = s""""${e.\("@name")}""""
 
-  private def escapeScala(str: String) = {
+  private def escape(str: String) = {
     if (str contains "\"\"\"") sys error s"Skipped translation: $str"
-    else str
+    else escapeHtml4(str)
   }
 
   private def render(locale: String, file: File) = {
     val xml = XML.loadFile(file)
     def quote(msg: String) = s"""""\"$msg""\""""
     val content = xml.child.collect {
-      case e if e.label == "string" => s"""${toKey(e)}->Literal(\"\"\"${escapeScala(e.text)}\"\"\")"""
+      case e if e.label == "string" => s"""${toKey(e)}->Literal(\"\"\"${escape(e.text)}\"\"\")"""
       case e if e.label == "plurals" =>
         val items = e.child.filter(_.label == "item").map { i =>
-          s"""${ucfirst(i.\("@quantity").toString)}->\"\"\"${escapeScala(i.text)}\"\"\""""
+          s"""${ucfirst(i.\("@quantity").toString)}->\"\"\"${escape(i.text)}\"\"\""""
         }
         s"""${toKey(e)}->Plurals(Map(${items mkString ","}))"""
     }
