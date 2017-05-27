@@ -144,7 +144,6 @@
   <!-- The page displays games currently being played and has links to various other tools on the site to find out about past games on lichess, such as a search engine that queries the database of games. "Games" is one of the links at the top of every page, so keep it as short as possible. Links to https://lichess.org/games -->
   <string name="games">Lojra</string>
   <!-- It is Lichess's webforum, where users can discuss various topics, chess-related or not. These are sometimes called "bulletin boards". "Forum" is one of the links at the top of every page, so keep it as short as possible. Links to https://lichess.org/forum -->
-  <string name="forum">Forum</string>
   <!-- The first %s is the player's name and the second %s is the title of the topic in the forum. By "topic" here we mean a discussion, sometimes called a "thread" in this context. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
   <!-- A list of the most recent posts on the forum. Appears as a heading to a box near the bottom of the "Play" page (https://lichess.org/). -->
   <string name="latestForumPosts">Postimet e fundit në forum</string>
@@ -195,7 +194,6 @@
   <!-- Appears as a menu item and heading on the "Preferences" pages (https://lichess.org/account/email). -->
   <string name="changeEmail">Ndrysho emailin</string>
   <!-- Short for "Your email address", but please keep this sentence as short as possible. This appears above text boxes where you can type in your email, on the "Preferences" page. -->
-  <string name="email">Email</string>
   <!-- This is a help text, explaining how email works on lichess. Appears on the "Change email" page (https://lichess.org/account/email). -->
   <string name="emailIsOptional">Email është fakultative. Lichess do ta përdorë për të rivendosur fjalëkalimin tuaj nëse ju harroni atë.</string>
   <!-- Appears as a heading in the link you are given after you asked for an email to reset (change) your password if you have forgotten it. -->
@@ -691,7 +689,6 @@
   <!-- Click this button (at the bottom of all pages) to make a donation. -->
   <string name="donate">Dhuro</string>
   <!-- Appears in the bottom left of any page and links to the blog. -->
-  <string name="blog">Blog</string>
   <!-- Appears when you hover over "Q&A" (https://lichess.org/qa) at the bottom left on any page. Translate freely. If you cannot find a good translation, consider leaving this untranslated so another speaker of your language can look at it. -->
   <string name="questionsAndAnswers">Pyetje &amp; Përgjigje</string>
   <!-- Appears on the left side while playing a game. You can type your private notes on the game in this tab. -->
@@ -767,7 +764,6 @@
   <!-- Choose this option if you want your piece animation (movement) to be fast. Appears on your account preferences page: https://lichess.org/account/preferences -->
   <string name="fast">Shpejt</string>
   <!-- Choose this option if you want your piece animation (movement) to be normal. Appears on your account preferences page: https://lichess.org/account/preferences -->
-  <string name="normal">Normal</string>
   <!-- Choose this option if you want your piece animation (movement) to be slow. Appears on your account preferences page: https://lichess.org/account/preferences -->
   <string name="slow">Ngadalë</string>
   <!-- Choose if you want to see the coordinates on the game board. Appears on your account preferences page: https://lichess.org/account/preferences -->
@@ -787,7 +783,6 @@
   <!-- Click this button to select easy as your difficulty. Appears on the training page when solving puzzles https://lichess.org/training/ -->
   <string name="difficultyEasy">Lehtë</string>
   <!-- Choose this option if you want your piece animation (movement) to be normal. Appears on your account preferences page: https://lichess.org/account/preferences -->
-  <string name="difficultyNormal">Normal</string>
   <!-- Click this button to select hard as your difficulty. Appears on the training page when solving puzzles https://lichess.org/training/ -->
   <string name="difficultyHard">Vështirë</string>
   <!-- First %s is the name of the player that left a note, and the second %s is the player who got a note on their profile. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
@@ -884,7 +879,6 @@
   <!-- Appears as a selectable option for the "let other players challenge you" option. The user may choose to only accept challenges from friends. -->
   <string name="onlyFriends">Vetëm miqtë</string>
   <!-- Tooltip displayed when mouseover menu button viewable at the top of every lichess page. -->
-  <string name="menu">Menu</string>
   <!-- Castling is a move in the game of chess involving a player's king and either of the player's original rooks. It is the only move in chess in which a player moves two pieces in the same move. Appears on board editor page (https://lichess.org/editor). -->
   <string name="castling">Rrokada</string>
   <!-- The option of whether white can still castle on the kingside. Appears as a setting on board editor page (https://lichess.org/editor). -->
@@ -913,7 +907,6 @@
   <!-- A carefully curated library of free chess videos. Appears as a dropdown option on the menu bar as well as on menu page. Links to https://lichess.org/video -->
   <string name="videoLibrary">Videoteka</string>
   <!-- Lichess' very own free and open source Android and IOS application. Appears on the footer of the menu page. Links to https://lichess.org/mobile -->
-  <string name="mobileApp">Mobile App</string>
   <!-- Information on how webmasters can embed Lichess features such as the daily puzzle or Lichess TV. Appears on the footer of the menu page. Links to https://lichess.org/developers -->
   <string name="webmasters">Webmaster</string>
   <!-- Information on how people can contribute to Lichess whether it be through code, translation or donation. Appears on the footer of the menu page. Links to https://lichess.org/help-lichess -->
@@ -922,7 +915,6 @@
   <string name="contact">Kontakto</string>
   <string name="termsOfService">Kushtet e përdorimit</string>
   <!-- Lichess' source code repository. Appears on the footer of the menu page. Links to https://github.com/ornicar/lila -->
-  <string name="sourceCode">Source Code</string>
   <!-- Clicking this takes you to a page all about simuls on Lichess, where you can see open, running and finished simuls, as well as create your own. Appears as one of the links at the top of the navigation bar and on menu page. Links to https://lichess.org/simul -->
   <string name="simultaneousExhibitions">Simultane</string>
   <!-- The person who created the simul. Appears as a column heading on https://lichess.org/simul -->

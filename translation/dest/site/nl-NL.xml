@@ -23,7 +23,6 @@
   <!-- Clicking this turns sound on or off. This is a button on the top-right hand corner of the screen. If you use the Internet Explorer browser, you may not be able to see this. -->
   <string name="toggleSound">Geluid aan-/uitzetten</string>
   <!-- Start a conversation with a player. Appears in the user tooltip when hovering a user name. -->
-  <string name="chat">Chat</string>
   <!-- Clicking this makes you resign from the game. Small button in the box on the right while playing a game. -->
   <string name="resign">Geef op</string>
   <!-- Appears in the box of a game if you end a game by checkmate. -->
@@ -93,7 +92,6 @@
   <!-- Button that leads to analysis page. Appears only on your own games, after they have finished. -->
   <string name="analysis">Analyse</string>
   <!-- This is one of the categories of problems discovered by the computer analysis. If no equivalent word exists, translate to "Serious mistakes". -->
-  <string name="blunders">Blunders</string>
   <!-- This is one of the categories of problems discovered by the computer analysis. Appears on the right hand side of pages with analyzed games. Example: https://lichess.org/vyvcbk8s -->
   <string name="mistakes">Fouten</string>
   <!-- The most minor of errors a player can make. This is one of the categories of problems discovered by the computer analysis. -->
@@ -144,7 +142,6 @@
   <!-- The page displays games currently being played and has links to various other tools on the site to find out about past games on lichess, such as a search engine that queries the database of games. "Games" is one of the links at the top of every page, so keep it as short as possible. Links to https://lichess.org/games -->
   <string name="games">Partijen</string>
   <!-- It is Lichess's webforum, where users can discuss various topics, chess-related or not. These are sometimes called "bulletin boards". "Forum" is one of the links at the top of every page, so keep it as short as possible. Links to https://lichess.org/forum -->
-  <string name="forum">Forum</string>
   <!-- The first %s is the player's name and the second %s is the title of the topic in the forum. By "topic" here we mean a discussion, sometimes called a "thread" in this context. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
   <!-- A list of the most recent posts on the forum. Appears as a heading to a box near the bottom of the "Play" page (https://lichess.org/). -->
   <string name="latestForumPosts">Recente forum berichten</string>
@@ -153,7 +150,6 @@
   <!-- This appears in all the game creation menus (e.g. "Create a game", "Play with a friend") after you have ticked "Time control". Below it is a slider that lets you select how many minutes each player will have on their chess clock. -->
   <string name="minutesPerSide">Minuten per speler</string>
   <!-- This appears in all the game creation menus (e.g. "Create a game", "Play with a friend"). Below it is a selection of variants the player can choose from, such as Standard, Chess960, or King of the Hill. -->
-  <string name="variant">Variant</string>
   <!-- This appears in the simul creation page (https://lichess.org/simul/new). Below it is a selection of variants the player can choose from, such as Standard, Chess960, or King of the Hill. -->
   <string name="variants">Varianten</string>
   <!-- This sentence is a heading to time controls for the game. This appears in all the game creation menus (e.g. "Create a game", "Play with a friend") that can be found on the "Play" page. -->
@@ -179,7 +175,6 @@
   <!-- The time control for the game. This appears as a column heading in the table of games you can join on the "Play" page (https://lichess.org/). -->
   <string name="time">Tijd</string>
   <!-- The rating of the player (e.g. 1500). Appears on the lobby list on https://lichess.org/ -->
-  <string name="rating">Rating</string>
   <!-- Link to the rating distribution stats page (https://lichess.org/stat/rating/distribution/blitz), in the top menu, under "Community". -->
   <string name="ratingStats">Ratingsstatistieken</string>
   <!-- The name you use to sign in, e.g. "thibault". Appears on the registration page (https://lichess.org/signup). -->
@@ -195,7 +190,6 @@
   <!-- Appears as a menu item and heading on the "Preferences" pages (https://lichess.org/account/email). -->
   <string name="changeEmail">Verander email</string>
   <!-- Short for "Your email address", but please keep this sentence as short as possible. This appears above text boxes where you can type in your email, on the "Preferences" page. -->
-  <string name="email">Email</string>
   <!-- This is a help text, explaining how email works on lichess. Appears on the "Change email" page (https://lichess.org/account/email). -->
   <string name="emailIsOptional">Email is optioneel. Lichess gebruikt het om een nieuw wachtwoord te verzenden indien u het vergeet.</string>
   <!-- Appears as a heading in the link you are given after you asked for an email to reset (change) your password if you have forgotten it. -->
@@ -357,7 +351,6 @@
   <!-- This is what search engines (like Google, Baidu or Yandex) see when Lichess.org appears as a search result. Keep it as short as possible and make Lichess sound good! -->
   <string name="siteDescription">Gratis online schaken. Schaak nu met een heldere vormgeving. Geen registratie nodig, geen advertenties, geen plug-ins vereist. Schaak tegen de computer, vrienden of willekeurige tegenstanders.</string>
   <!-- Teams on lichess are groups of people with their own forum boards and chat channels. Appears at the top of every page on lichess. -->
-  <string name="teams">Teams</string>
   <!-- %s is the number of members. Appears on the top-right hand side on a team's page (e.g. https://lichess.org/team/linux). -->
   <plurals name="nbMembers">
     <item quantity="one">%s leden</item>
@@ -556,7 +549,6 @@
   <!-- Warning message that appears when you are about to join a game of unlimited time. This is only for games created via the "Play with a friend" menu (https://lichess.org/setup/friend), as creating public rated games with no time control is not allowed. -->
   <string name="bewareTheGameIsRatedButHasNoClock">Let op, de partij is met rating maar heeft geen klok!</string>
   <!-- A page that offers chess puzzles. These help you improve how you play chess. Could also be translated as "Practise" (verb) or a similar word. This appears as one of the links on the navigation bar at the top of every page, so it should be kept as short as possible. Links to https://lichess.org/training -->
-  <string name="training">Training</string>
   <!-- %s is your numerical puzzle rating. Appears in a box left of the board on the "Training" page (https://lichess.org/training), above the graph. -->
   <string name="yourPuzzleRatingX">Je puzzelscore: %s</string>
   <!-- Informs the player what side they are playing. Appears on the right-hand side of the puzzle trainer, on the "Training" page (https://lichess.org/training). -->
@@ -594,7 +586,6 @@
   <!-- Politely thanks the players for voting. Appears on the "Training" page (https://lichess.org/training) after voting for a puzzle. Also, a page thanking all contributors of Lichess. Appears on the footer of the menu page. Links to https://lichess.org/thanks . Please use the polite version of "Thank you" in your language. -->
   <string name="thankYou">Bedankt!</string>
   <!-- %s is the numerical rating and rating deviation for the puzzle. This is the rating of individual chess puzzles in the "Training" pages (https://lichess.org/training/5705). Appears on the right-hand side box after you have succeeded at or failed at the puzzle. Note that this is the rating of the puzzle, NOT the player. -->
-  <string name="ratingX">Rating: %s</string>
   <!-- %s is the number of times this puzzle has been played. Appears in the box on the right-hand side the "Training" page (https://lichess.org/training/) after you have succeeded at or failed the puzzle. -->
   <plurals name="playedXTimes">
     <item quantity="one">%s keer gespeeld</item>
@@ -643,11 +634,9 @@
   <!-- Appears in the preferences page for multiple options (https://lichess.org/account/preferences). -->
   <string name="yes">Ja</string>
   <!-- Appears next to chess CAPTCHAs when signing up, posting on the forum and other actions with a link to the game it is referenced from. -->
-  <string name="help">Help:</string>
   <!-- Click this button in the forum (https://lichess.org/forum/general-chess-discussion) to create a new topic. -->
   <string name="createANewTopic">Maak een nieuw topic</string>
   <!-- Appears as a column in the forum and shows how many topics a category has (https://lichess.org/forum). -->
-  <string name="topics">Topics</string>
   <!-- Appears in the forum and shows how many posts a category has (https://lichess.org/forum). -->
   <string name="posts">Berichten</string>
   <!-- shows the time the most recent post was made. Appears in the forum (https://lichess.org/forum) as a column. Translation must be kept short. -->
@@ -691,7 +680,6 @@
   <!-- Click this button (at the bottom of all pages) to make a donation. -->
   <string name="donate">Doneer</string>
   <!-- Appears in the bottom left of any page and links to the blog. -->
-  <string name="blog">Blog</string>
   <!-- Appears when you hover over "Q&A" (https://lichess.org/qa) at the bottom left on any page. Translate freely. If you cannot find a good translation, consider leaving this untranslated so another speaker of your language can look at it. -->
   <string name="questionsAndAnswers">Vragen &amp; Antwoorden</string>
   <!-- Appears on the left side while playing a game. You can type your private notes on the game in this tab. -->
@@ -753,7 +741,6 @@
   <!-- Choose if you want the pawn to promote to a queen automatically when you reach the other side of the board. (https://lichess.org/account/preferences) -->
   <string name="promoteToQueenAutomatically">Automatisch promoveren tot dame</string>
   <!-- One of the subheadings on your account preferences page (https://lichess.org/account/preferences). In this section you can choose between different options regarding your privacy. -->
-  <string name="privacy">Privacy</string>
   <!-- Choose if you want to let other players be able to follow you. It is an option on your account preferences page: https://lichess.org/account/preferences -->
   <string name="letOtherPlayersFollowYou">Andere spelers mogen je volgen</string>
   <!-- Lets you choose if you want to let other players be able to challenge you to a game. It is an option on your account preferences page: https://lichess.org/account/preferences -->
@@ -822,7 +809,6 @@
   <!-- Press this to play against a human player (instead of playing against the computer). Appears in the "Create a game" menu of the lichess mobile app: https://raw.githubusercontent.com/veloce/lichobile/1.5.x/screens/android/create-human.png. All mobile app sentences *must* be kept compact, as they need to scale to small devices. -->
   <string name="human">Menselijke speler</string>
   <!-- Press this button to play against a computer player (instead of playing against a human being). Appears in the "Create a game" menu of the lichess mobile app: https://raw.githubusercontent.com/veloce/lichobile/1.5.x/screens/android/create-human.png. All mobile app sentences *must* be kept compact, as they need to scale to small devices. -->
-  <string name="computer">Computer</string>
   <!-- Lets you select what side you want to play as (White, Black, or random). Appears in the "Create a game" menu of the lichess mobile app: https://raw.githubusercontent.com/veloce/lichobile/1.5.x/screens/android/create-human.png. All mobile app sentences *must* be kept compact, as they need to scale to small devices. -->
   <string name="side">Kleur</string>
   <!-- Lets you select what time control you want to play with. Appears in the "Create a game" menu of the lichess mobile app: https://raw.githubusercontent.com/veloce/lichobile/1.5.x/screens/android/create-human.png. All mobile app sentences *must* be kept compact, as they need to scale to small devices. -->
@@ -884,7 +870,6 @@
   <!-- Appears as a selectable option for the "let other players challenge you" option. The user may choose to only accept challenges from friends. -->
   <string name="onlyFriends">Alleen vrienden</string>
   <!-- Tooltip displayed when mouseover menu button viewable at the top of every lichess page. -->
-  <string name="menu">Menu</string>
   <!-- Castling is a move in the game of chess involving a player's king and either of the player's original rooks. It is the only move in chess in which a player moves two pieces in the same move. Appears on board editor page (https://lichess.org/editor). -->
   <string name="castling">Rokeren</string>
   <!-- The option of whether white can still castle on the kingside. Appears as a setting on board editor page (https://lichess.org/editor). -->
@@ -915,11 +900,9 @@
   <!-- Lichess' very own free and open source Android and IOS application. Appears on the footer of the menu page. Links to https://lichess.org/mobile -->
   <string name="mobileApp">App voor smartphones/tablets</string>
   <!-- Information on how webmasters can embed Lichess features such as the daily puzzle or Lichess TV. Appears on the footer of the menu page. Links to https://lichess.org/developers -->
-  <string name="webmasters">Webmasters</string>
   <!-- Information on how people can contribute to Lichess whether it be through code, translation or donation. Appears on the footer of the menu page. Links to https://lichess.org/help-lichess -->
   <string name="contribute">Draag bij</string>
   <!-- A page detailing the ways in which one can contact Lichess. Appears on the footer of the menu page. Links to https://lichess.org/contact -->
-  <string name="contact">Contact</string>
   <string name="termsOfService">Algemene voorwaarden</string>
   <!-- Lichess' source code repository. Appears on the footer of the menu page. Links to https://github.com/ornicar/lila -->
   <string name="sourceCode">Broncode</string>
@@ -970,7 +953,6 @@
   <!-- ACPL. This is one of the categories of problems discovered by the computer analysis. Appears on the right hand side of pages with analyzed games. -->
   <string name="averageCentipawnLoss">Gemiddelde centipion verlies</string>
   <!-- A heading appearing in the bottom left side of pages with analyzed games under which are available keyboard shortcuts. -->
-  <string name="keyboardShortcuts">Keyboard shortcuts</string>
   <!-- Explains that the preceding keyboard shortcuts move the game backward or forward. Appears on the bottom left side of pages with analyzed games under Keyboard Shortcuts dropdown. -->
   <string name="keyMoveBackwardOrForward">zet achteruit/vooruit</string>
   <!-- Explains that the preceding keyboard shortcuts move the game to the start or end position. Appears on the bottom left side of pages with analyzed games under Keyboard Shortcuts dropdown. -->

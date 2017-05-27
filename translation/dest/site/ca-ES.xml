@@ -153,9 +153,7 @@
   <!-- This appears in all the game creation menus (e.g. "Create a game", "Play with a friend") after you have ticked "Time control". Below it is a slider that lets you select how many minutes each player will have on their chess clock. -->
   <string name="minutesPerSide">Minuts per jugador</string>
   <!-- This appears in all the game creation menus (e.g. "Create a game", "Play with a friend"). Below it is a selection of variants the player can choose from, such as Standard, Chess960, or King of the Hill. -->
-  <string name="variant">Variant</string>
   <!-- This appears in the simul creation page (https://lichess.org/simul/new). Below it is a selection of variants the player can choose from, such as Standard, Chess960, or King of the Hill. -->
-  <string name="variants">Variants</string>
   <!-- This sentence is a heading to time controls for the game. This appears in all the game creation menus (e.g. "Create a game", "Play with a friend") that can be found on the "Play" page. -->
   <string name="timeControl">Control de temps</string>
   <!-- Real time chess is chess played over a short period of time, using a chess clock. This is one of three time control settings in the game creation menus (e.g. "Create a game", "Play with a friend") on the "Play" page. Please do NOT translate literally; if your language does not have an equivalent, established term, translate to "quick" games or something similar. -->
@@ -250,7 +248,6 @@
   <!-- This is short for "Unlimited time". It describes games that have no time controls and can therefore run for an infinite amount of time. This sentence appears in many locations, including game pages and the "Create a game" menu. Please keep this sentence as short as possible. -->
   <string name="unlimited">Il·limitat</string>
   <!-- "Mode" here is in the context of filtering between Casual (casual games are not rated) and Rated games. The sentence appears in the "Filter games" menu, which is just above the list of games on the "Play" page (https://lichess.org/). -->
-  <string name="mode">Mode</string>
   <!-- "Casual" in this context means the game is unrated; players will not gain or lose points. Has been translated to "Friendly" (after the football term) and simply "Unrated" in some languages. Be creative. The sentence appears in the "Filter games" menu, which can be accessed through the "Play" page (https://lichess.org). -->
   <string name="casual">Amistós</string>
   <!-- "Rated" means that the outcome of the game will result in a gain or loss of rating points for either players. This sentence appears in a variety of places, including the pages of individual games (which are rated) and the "Filter games" page. -->
@@ -639,7 +636,6 @@
   <!-- This appears in the form for creating a new team (https://lichess.org/team/new). You can write a description for your team in this field. -->
   <string name="description">Descripció</string>
   <!-- Appears in the preferences page for multiple options (https://lichess.org/account/preferences). -->
-  <string name="no">No</string>
   <!-- Appears in the preferences page for multiple options (https://lichess.org/account/preferences). -->
   <string name="yes">Sí</string>
   <!-- Appears next to chess CAPTCHAs when signing up, posting on the forum and other actions with a link to the game it is referenced from. -->
@@ -649,7 +645,6 @@
   <!-- Appears as a column in the forum and shows how many topics a category has (https://lichess.org/forum). -->
   <string name="topics">Temes</string>
   <!-- Appears in the forum and shows how many posts a category has (https://lichess.org/forum). -->
-  <string name="posts">Posts</string>
   <!-- shows the time the most recent post was made. Appears in the forum (https://lichess.org/forum) as a column. Translation must be kept short. -->
   <string name="lastPost">Darrer post</string>
   <!-- Appears in the forum and shows how many views a topic has (https://lichess.org/forum/general-chess-discussion). -->
@@ -675,9 +670,7 @@
   <!-- Choose this option if a user cheated. Appears in the drop-down menu for reasons in the report form (https://lichess.org/report). -->
   <string name="cheat">Trampós</string>
   <!-- Choose this option if a user insulted you. Appears in the drop-down menu for reasons in the report form (https://lichess.org/report). -->
-  <string name="insult">Insult</string>
   <!-- Choose this option if a user is trolling. Appears in the dropdown menu for reasons in the report form (https://lichess.org/report). -->
-  <string name="troll">Troll</string>
   <!-- Choose this option if you have another reason than the ones in the dropdown list. Appears in the drop-down menu for reasons in the report form(https://lichess.org/report). -->
   <string name="other">Altres</string>
   <!-- Appears under the description box on the page for reporting a user (https://lichess.org/report). -->
@@ -691,11 +684,9 @@
   <!-- Click this button (at the bottom of all pages) to make a donation. -->
   <string name="donate">Donacions</string>
   <!-- Appears in the bottom left of any page and links to the blog. -->
-  <string name="blog">Blog</string>
   <!-- Appears when you hover over "Q&A" (https://lichess.org/qa) at the bottom left on any page. Translate freely. If you cannot find a good translation, consider leaving this untranslated so another speaker of your language can look at it. -->
   <string name="questionsAndAnswers">Preguntes i Respostes</string>
   <!-- Appears on the left side while playing a game. You can type your private notes on the game in this tab. -->
-  <string name="notes">Notes</string>
   <!-- Click in the box to type your private notes. This is the placeholder text (greyed-out text that disappears when you click) for the "Notes" box on the left side while playing a game. Please use a verb and active voice to address the user in this sentence -->
   <string name="typePrivateNotesHere">Escriu notes privades aquí</string>
   <!-- The title on your account preferences page where you can change how the board and pieces are displayed, among other things (https://lichess.org/account/preferences). -->
@@ -767,7 +758,6 @@
   <!-- Choose this option if you want your piece animation (movement) to be fast. Appears on your account preferences page: https://lichess.org/account/preferences -->
   <string name="fast">Ràpid</string>
   <!-- Choose this option if you want your piece animation (movement) to be normal. Appears on your account preferences page: https://lichess.org/account/preferences -->
-  <string name="normal">Normal</string>
   <!-- Choose this option if you want your piece animation (movement) to be slow. Appears on your account preferences page: https://lichess.org/account/preferences -->
   <string name="slow">Lent</string>
   <!-- Choose if you want to see the coordinates on the game board. Appears on your account preferences page: https://lichess.org/account/preferences -->
@@ -787,7 +777,6 @@
   <!-- Click this button to select easy as your difficulty. Appears on the training page when solving puzzles https://lichess.org/training/ -->
   <string name="difficultyEasy">Fàcil</string>
   <!-- Choose this option if you want your piece animation (movement) to be normal. Appears on your account preferences page: https://lichess.org/account/preferences -->
-  <string name="difficultyNormal">Normal</string>
   <!-- Click this button to select hard as your difficulty. Appears on the training page when solving puzzles https://lichess.org/training/ -->
   <string name="difficultyHard">Difícil</string>
   <!-- First %s is the name of the player that left a note, and the second %s is the player who got a note on their profile. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
@@ -850,7 +839,6 @@
   <!-- One of the four menu sections. Contains links to board editor, analysis, import game, and advanced search. -->
   <string name="tools">Eines</string>
   <!-- Increment of the game. As increment in seconds. It appears only in mobile app in the game creation form. You can see it here: https://raw.githubusercontent.com/veloce/lichobile/1.5.x/screens/android/create-human.png -->
-  <string name="increment">Increment</string>
   <!-- appears in mobile app on settings screen, let you choose the board theme. Just translate 'board' -->
   <string name="board">Tauler</string>
   <!-- appears in mobile app on settings screen, let you choose the pieces theme. Just translate 'pieces' -->
@@ -915,7 +903,6 @@
   <!-- Lichess' very own free and open source Android and IOS application. Appears on the footer of the menu page. Links to https://lichess.org/mobile -->
   <string name="mobileApp">Aplicació mòbil</string>
   <!-- Information on how webmasters can embed Lichess features such as the daily puzzle or Lichess TV. Appears on the footer of the menu page. Links to https://lichess.org/developers -->
-  <string name="webmasters">Webmasters</string>
   <!-- Information on how people can contribute to Lichess whether it be through code, translation or donation. Appears on the footer of the menu page. Links to https://lichess.org/help-lichess -->
   <string name="contribute">Contribuïu-hi</string>
   <!-- A page detailing the ways in which one can contact Lichess. Appears on the footer of the menu page. Links to https://lichess.org/contact -->

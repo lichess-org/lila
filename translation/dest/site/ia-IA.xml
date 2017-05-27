@@ -23,7 +23,6 @@
   <!-- Clicking this turns sound on or off. This is a button on the top-right hand corner of the screen. If you use the Internet Explorer browser, you may not be able to see this. -->
   <string name="toggleSound">Alternar sono</string>
   <!-- Start a conversation with a player. Appears in the user tooltip when hovering a user name. -->
-  <string name="chat">Chat</string>
   <!-- Clicking this makes you resign from the game. Small button in the box on the right while playing a game. -->
   <string name="resign">Resignar se</string>
   <!-- Appears in the box of a game if you end a game by checkmate. -->
@@ -240,7 +239,6 @@
   <!-- Indicates that the game has been aborted. Appears in the left and right hand side boxes, as well as in the games list, for aborted games. Note that aborted games are removed from the database after 48 hours. -->
   <string name="gameAborted">Partita cancellate</string>
   <!-- "Standard" here means "not a variant". Selecting this means you play international standard chess, not Chess960 or another variant. Appears in the game creation menus (e.g. "Create a game", "Play with a friend") on the "Play" page. -->
-  <string name="standard">Standard</string>
   <!-- This is short for "Unlimited time". It describes games that have no time controls and can therefore run for an infinite amount of time. This sentence appears in many locations, including game pages and the "Create a game" menu. Please keep this sentence as short as possible. -->
   <string name="unlimited">Illimitate</string>
   <!-- "Mode" here is in the context of filtering between Casual (casual games are not rated) and Rated games. The sentence appears in the "Filter games" menu, which is just above the list of games on the "Play" page (https://lichess.org/). -->
@@ -475,7 +473,6 @@
   <!-- "Open" here means you can join the tournament. Below it is a list of tournaments you are able to join. Appears as a heading on https://lichess.org/tournament and also on the "Play" page (https://lichess.org/) -->
   <string name="openTournaments">Torneos aperte</string>
   <!-- Length of the tournament in minutes. Appears on the left-hand side box on the pages of tournaments. Example: https://lichess.org/tournament/67hj23c2 -->
-  <string name="duration">Duration</string>
   <!-- Indicates the player won the tournament. This is the mouseover text of the trophy icon on tournaments pages. Example: https://lichess.org/tournament/67hj23c2 -->
   <string name="winner">Vincitor</string>
   <!-- Shows the order of the players in a tournament, ordered by their score. Could be translated as "position" or "score" if your language has no equivalent. Appears in the left-most column on the pages of individual tournaments. Example: https://lichess.org/tournament/67hj23c2 -->
@@ -511,7 +508,6 @@
   <!-- Clicking this opens a form that lets you paste a FEN text (FEN is a notation system used to store precise positions on a board). Being a board editor feature, it appears on the board editor's page — https://lichess.org/editor -->
   <string name="loadPosition">Cargar position</string>
   <!-- Means the tournament you are looking at is protected with a password. Appears in the information box on the tournament's page. Example: https://lichess.org/tournament/67hj23c2 -->
-  <string name="isPrivate">Private</string>
   <!-- %s is the name of the player. Clicking this will take you to a form where you can report the player for things like cheating and trolling. Appears on player profiles. -->
   <string name="reportXToModerators">Reportar %s al moderatores</string>
   <!-- Links to your player profile (account). Appears in the drop-down menu for your name at the navigation bar on the top of every page on lichess. -->
@@ -619,9 +615,7 @@
   <!-- This appears in the form for creating a new team (https://lichess.org/team/new). You choose your team name in this field. -->
   <string name="name">Nomine</string>
   <!-- This appears in the form for creating a new team (https://lichess.org/team/new). You can write a description for your team in this field. -->
-  <string name="description">Description</string>
   <!-- Appears in the preferences page for multiple options (https://lichess.org/account/preferences). -->
-  <string name="no">No</string>
   <!-- Appears in the preferences page for multiple options (https://lichess.org/account/preferences). -->
   <string name="yes">Si</string>
   <!-- Appears next to chess CAPTCHAs when signing up, posting on the forum and other actions with a link to the game it is referenced from. -->
@@ -643,7 +637,6 @@
   <!-- The button at the bottom of a topic page. Click the button to reply to a topic. -->
   <string name="reply">Responder</string>
   <!-- This is where you write your message for replying to a topic or creating a topic in the forum. -->
-  <string name="message">Message</string>
   <!-- The button at the bottom of forum pages (https://lichess.org/forum/general-chess-discussion/form). Click it to create your topic. -->
   <string name="createTheTopic">Crear le topico</string>
   <!-- Appears as a heading for this form (https://lichess.org/report). Use this form to report a user. -->
@@ -659,7 +652,6 @@
   <!-- Choose this option if a user insulted you. Appears in the drop-down menu for reasons in the report form (https://lichess.org/report). -->
   <string name="insult">Insulto</string>
   <!-- Choose this option if a user is trolling. Appears in the dropdown menu for reasons in the report form (https://lichess.org/report). -->
-  <string name="troll">Troll</string>
   <!-- Choose this option if you have another reason than the ones in the dropdown list. Appears in the drop-down menu for reasons in the report form(https://lichess.org/report). -->
   <string name="other">Altere</string>
   <!-- Appears under the description box on the page for reporting a user (https://lichess.org/report). -->
@@ -673,7 +665,6 @@
   <!-- Click this button (at the bottom of all pages) to make a donation. -->
   <string name="donate">Donar</string>
   <!-- Appears in the bottom left of any page and links to the blog. -->
-  <string name="blog">Blog</string>
   <!-- Appears when you hover over "Q&A" (https://lichess.org/qa) at the bottom left on any page. Translate freely. If you cannot find a good translation, consider leaving this untranslated so another speaker of your language can look at it. -->
   <string name="questionsAndAnswers">Questiones e responsas</string>
   <!-- Appears on the left side while playing a game. You can type your private notes on the game in this tab. -->
@@ -749,7 +740,6 @@
   <!-- Choose this option if you want your piece animation (movement) to be fast. Appears on your account preferences page: https://lichess.org/account/preferences -->
   <string name="fast">Rapide</string>
   <!-- Choose this option if you want your piece animation (movement) to be normal. Appears on your account preferences page: https://lichess.org/account/preferences -->
-  <string name="normal">Normal</string>
   <!-- Choose this option if you want your piece animation (movement) to be slow. Appears on your account preferences page: https://lichess.org/account/preferences -->
   <string name="slow">Lente</string>
   <!-- Choose if you want to see the coordinates on the game board. Appears on your account preferences page: https://lichess.org/account/preferences -->
@@ -769,7 +759,6 @@
   <!-- Click this button to select easy as your difficulty. Appears on the training page when solving puzzles https://lichess.org/training/ -->
   <string name="difficultyEasy">Facile</string>
   <!-- Choose this option if you want your piece animation (movement) to be normal. Appears on your account preferences page: https://lichess.org/account/preferences -->
-  <string name="difficultyNormal">Normal</string>
   <!-- Click this button to select hard as your difficulty. Appears on the training page when solving puzzles https://lichess.org/training/ -->
   <string name="difficultyHard">Difficile</string>
   <!-- First %s is the name of the player that left a note, and the second %s is the player who got a note on their profile. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
@@ -864,7 +853,6 @@
   <!-- Appears as a selectable option for the "let other players challenge you" option. The user may choose to only accept challenges from friends. -->
   <string name="onlyFriends">Solmente amicos</string>
   <!-- Tooltip displayed when mouseover menu button viewable at the top of every lichess page. -->
-  <string name="menu">Menu</string>
   <!-- Castling is a move in the game of chess involving a player's king and either of the player's original rooks. It is the only move in chess in which a player moves two pieces in the same move. Appears on board editor page (https://lichess.org/editor). -->
   <string name="castling">Roc</string>
   <!-- The option of whether white can still castle on the kingside. Appears as a setting on board editor page (https://lichess.org/editor). -->
@@ -894,7 +882,6 @@
   <!-- Lichess' very own free and open source Android and IOS application. Appears on the footer of the menu page. Links to https://lichess.org/mobile -->
   <string name="mobileApp">Application mobile</string>
   <!-- Information on how webmasters can embed Lichess features such as the daily puzzle or Lichess TV. Appears on the footer of the menu page. Links to https://lichess.org/developers -->
-  <string name="webmasters">Webmasters</string>
   <!-- Information on how people can contribute to Lichess whether it be through code, translation or donation. Appears on the footer of the menu page. Links to https://lichess.org/help-lichess -->
   <string name="contribute">Contribuer</string>
   <!-- A page detailing the ways in which one can contact Lichess. Appears on the footer of the menu page. Links to https://lichess.org/contact -->
@@ -943,7 +930,6 @@
   <!-- A link to an FAQ page for Lichess tournaments. Links to https://lichess.org/tournament/help?system=arena and found on every tournament page as a small question mark. -->
   <string name="tournamentFAQ">Questiones frequente sur le torneos Arena</string>
   <!-- All official (not user created) Lichess tournaments have this shown in said tournament's information box shows that appears on the top left of the screen. -->
-  <string name="tournamentOfficial">Official</string>
   <!-- Users creating new tournaments can decide when their tournament begins. Appears on the form used to create a new tournament (https://lichess.org/tournament/new) -->
   <string name="timeBeforeTournamentStarts">Tempore ante le initio del torneo</string>
   <!-- ACPL. This is one of the categories of problems discovered by the computer analysis. Appears on the right hand side of pages with analyzed games. -->

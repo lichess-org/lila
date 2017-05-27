@@ -19,17 +19,13 @@
   <!-- This appears in the "Play with the machine" menu (https://lichess.org/setup/ai) as a heading. Below it are skill levels (1 through 8) of the AI that you can play against. -->
   <string name="level">Ambaratonga</string>
   <!-- Turns the chat room (or player chat) on or off. This is the mouseover text of the checkbox on the top-right of the chat box. -->
-  <string name="toggleTheChat">Toggle the chat</string>
   <!-- Clicking this turns sound on or off. This is a button on the top-right hand corner of the screen. If you use the Internet Explorer browser, you may not be able to see this. -->
-  <string name="toggleSound">Toggle sound</string>
   <!-- Start a conversation with a player. Appears in the user tooltip when hovering a user name. -->
-  <string name="chat">Chat</string>
   <!-- Clicking this makes you resign from the game. Small button in the box on the right while playing a game. -->
   <string name="resign">Manaiky resy</string>
   <!-- Appears in the box of a game if you end a game by checkmate. -->
   <string name="checkmate">Echéc et mat</string>
   <!-- If you do not know what this rule is, see https://www.chessvariants.org/d.chess/matefaq.html. Appears in the box of a game if you end a game by stalemate. Please use the official term used by your country's or locale's chess federation or club. -->
-  <string name="stalemate">Stalemate</string>
   <!-- The mouseover text of the White King button in the game creation menus (e.g. "Create a game", "Play with a friend") on the "Play" page. -->
   <string name="white">Fotsy</string>
   <!-- The mouseover text of the Black King button in the game creation menus (e.g. "Create a game", "Play with a friend") on the "Play" page. -->
@@ -118,10 +114,6 @@
     <item quantity="other">%s lalao</item>
   </plurals>
   <!-- %s is the number of games you have bookmarked. Links to https://lichess.org/games/bookmark. It only appears to registered users that have bookmarked certain games. It displays a list of your bookmarked games. -->
-  <plurals name="nbBookmarks">
-    <item quantity="one">%s Bookmarks</item>
-    <item quantity="other">%s Bookmarks</item>
-  </plurals>
   <!-- Clicking one of these small boards brings you to the game's unique page. This is the mouseover text of the small chess boards dotted around the site. These small boards are most prominent in the "Games" pages (https://lichess.org/games). -->
   <string name="viewInFullSize">Alehibiazo</string>
   <!-- Clicking this signs you out of your lichess profile. This is part of the profile drop-down menu on the top of every page when you are signed in to an account. -->
@@ -146,7 +138,6 @@
   <!-- This appears in all the game creation menus (e.g. "Create a game", "Play with a friend") after you have ticked "Time control". Below it is a slider that lets you select how many minutes each player will have on their chess clock. -->
   <string name="minutesPerSide">Minitra ho an\'ny mpilalao tsirairay</string>
   <!-- This appears in all the game creation menus (e.g. "Create a game", "Play with a friend"). Below it is a selection of variants the player can choose from, such as Standard, Chess960, or King of the Hill. -->
-  <string name="variant">Variant</string>
   <!-- This appears in the simul creation page (https://lichess.org/simul/new). Below it is a selection of variants the player can choose from, such as Standard, Chess960, or King of the Hill. -->
   <!-- This sentence is a heading to time controls for the game. This appears in all the game creation menus (e.g. "Create a game", "Play with a friend") that can be found on the "Play" page. -->
   <string name="timeControl">Fanaraha-maso ny fotoana</string>
@@ -193,7 +184,6 @@
     <item quantity="other">%s lalao niaraka taminao</item>
   </plurals>
   <!-- This is a generic word that appears in a wide variety of places and is used to cancel actions of all sorts. It is recommended to translate it according to whatever your operating system (e.g. Microsoft Windows) uses for your language. -->
-  <string name="cancel">Cancel</string>
   <!-- This is the condition of a game ending by time-out, which is when one player's clock runs out of time. This sentence appears in the list of games in the profile page and in the game view. -->
   <string name="timeOut">Lany fotoana</string>
   <!-- Informs that a draw offer has been sent. This is a system message that appears in the chat box. -->
@@ -227,11 +217,9 @@
   <!-- Indicates that the game has been aborted. Appears in the left and right hand side boxes, as well as in the games list, for aborted games. Note that aborted games are removed from the database after 48 hours. -->
   <string name="gameAborted">Tapaka ny lalao</string>
   <!-- "Standard" here means "not a variant". Selecting this means you play international standard chess, not Chess960 or another variant. Appears in the game creation menus (e.g. "Create a game", "Play with a friend") on the "Play" page. -->
-  <string name="standard">Standard</string>
   <!-- This is short for "Unlimited time". It describes games that have no time controls and can therefore run for an infinite amount of time. This sentence appears in many locations, including game pages and the "Create a game" menu. Please keep this sentence as short as possible. -->
   <string name="unlimited">Tsy misy fetra</string>
   <!-- "Mode" here is in the context of filtering between Casual (casual games are not rated) and Rated games. The sentence appears in the "Filter games" menu, which is just above the list of games on the "Play" page (https://lichess.org/). -->
-  <string name="mode">Mode</string>
   <!-- "Casual" in this context means the game is unrated; players will not gain or lose points. Has been translated to "Friendly" (after the football term) and simply "Unrated" in some languages. Be creative. The sentence appears in the "Filter games" menu, which can be accessed through the "Play" page (https://lichess.org). -->
   <string name="casual">Lalaom-pirahalahiana</string>
   <!-- "Rated" means that the outcome of the game will result in a gain or loss of rating points for either players. This sentence appears in a variety of places, including the pages of individual games (which are rated) and the "Filter games" page. -->
@@ -257,7 +245,6 @@
   <!-- This is in the title for the "Inbox" page (https://lichess.org/inbox) that you can go to by clicking the mail link at the top when you are signed in. The translation should match whatever is used for popular email clients such as GMail and Outlook in your language. -->
   <string name="inbox">Mailaka/Hafatra voaray</string>
   <!-- The chat function for one-to-one chat. A box on the left-hand side on games pages. Appears only in games you are in, not games you are spectating. -->
-  <string name="chatRoom">Chat room</string>
   <!-- The chat room for spectators. Appears in a box to the left-hand side on analysis pages, as well as games pages while the game is playing. Example: https://lichess.org/vyvcbk8s -->
   <string name="spectatorRoom">Efitry ny mpijery</string>
   <!-- Another word for this could be "Create message". This is a link on the left-hand side of https://lichess.org/inbox. Please follow the standard set by popular email clients such as GMail or Outlook in translating this sentence. -->
@@ -271,7 +258,6 @@
   <!-- This is the button you use to send messages in the compose message page. (https://lichess.org/inbox/new) -->
   <string name="send">Alefaso</string>
   <!-- Increment in this context means how many seconds are added every time you make a move. So if you set time to 5 minutes and increment in seconds to 2, it would be a "5+2" game. This means that each player would have 5 minutes on the clock, and every time the player makes a move, 2 seconds are added. Appears in the game creation menus (e.g. "Create a game", "Play with a friend") on the "Play" page with the "Clock" time control. -->
-  <string name="incrementInSeconds">Increment in seconds</string>
   <!-- This sentence appears in the title of every page e.g. "lichess  • Free Online Chess" on the "Play" page as it appears in the English version. This means it shows up as the title of browser windows and tabs. Technical information: by title here we are literally referring to the HTML <title> tag that carries this. -->
   <string name="freeOnlineChess">Echéc maimaimpoana amin\'ny tranon\'kala</string>
   <!-- "Spectators:" precedes a list of spectators. It appears just below the chat box on any game that is being spectated, such as the games on Lichess TV (https://lichess.org/tv). -->
@@ -294,7 +280,6 @@
   <!-- This function lets you download a table of all your games in CSV format. The button in question is a folder with an arrow pointing downwards overlayed on it. It can be seen at profile pages, e.g. https://lichess.org/@/thibault. -->
   <string name="exportGames">Exporter-o ny lalao</string>
   <!-- Below this is a slider that lets you choose the accepted player ratings. The sentence appears in the "Create a game" (https://lichess.org/setup/hook) and "Filter games" menus. Please do NOT translate "rating" to "Elo", because lichess has been using the superior Glicko-2 rating system since late 2013. -->
-  <string name="ratingRange">Rating range</string>
   <!-- %s here is the number of seconds, usually 15. This is the mouseover text of the "+" button that appears next to players' names in timed matches. Clicking it adds "%s" seconds to the player's clock. -->
   <plurals name="giveNbSeconds">
     <item quantity="one">Omeo %s segondra</item>
@@ -406,7 +391,6 @@
   <!-- Clicking this clears the board and lets you try again. Appears as a button when you get a chess CAPTCHA wrong. CAPTCHAs appear before registering and when posting on the forum. -->
   <string name="retry">Avereno andramana</string>
   <!-- Informs the player that lichess is in the process of re-establishing a connection. Appears at the top of the page in red colour when lichess loses connection. -->
-  <string name="reconnecting">Reconnecting</string>
   <!-- Appears as a heading for the friends box on the bottom-right hand corner of the screen; it is a list of friends that are on lichess right now. Translate simply as "Friends" if no good-sounding equivalent to "Online friends" or "Connected friends" exists in your language. -->
   <string name="onlineFriends">Namana connectés</string>
   <!-- Informs you that none of your friends are on lichess right now. Appears when the friends box is raised on the bottom-right hand corner of the page. -->
@@ -422,7 +406,6 @@
   <!-- Clicking this makes you stop following that player. Appears when you hover the mouse cursor over the "Following" button, after you have followed the player. It is recommended to use the same translation for this as the one on Twitter, where the words were taken from in the interests of familiarity. Should be translated as a verb if possible. -->
   <string name="unfollow">Tsy manaraka</string>
   <!-- Clicking this blocks the user, which prevents you from challenging them to games and talking to them privately, among other things. Appears in profile pages and popups over players' names. Should be translated as a verb. -->
-  <string name="block">Block</string>
   <!-- Indicates that you have blocked the player. Replaces the "Block" button, which appears in profile pages and popups over players' names. -->
   <string name="blocked">Bahano</string>
   <!-- Appears when you hover the mouse cursor over the "Blocked" button, after you have blocked the player. Should be translated as a verb if possible. -->
@@ -447,7 +430,6 @@
   <!-- The last time a player was seen on the site; %s is a duration. Appears on profile pages. Example: https://lichess.org/@/thibault — "Active 4 minutes ago" (as of the time of writing). -->
   <string name="lastSeenActive">Niditra farany tamin\'ny %s</string>
   <!-- Clicking this lets you ask the player to play a game with you, and takes you to the game set-up view. Appears on profile pages and popups over player names as a mouseover text for the crossed swords symbol. Please translate "Challenge" as a verb if possible. Example. https://lichess.org/@/thibault. -->
-  <string name="challengeToPlay">Challenge to a game</string>
   <!-- Clicking on this lets you sort the list of games by player names. Appears as a column heading in the list of open games on the "Play" page (https://lichess.org/). -->
   <string name="player">Mpilalao</string>
   <!-- This is one of the two ways of sorting open games on the "Play" page (https://lichess.org/). Clicking it presents all games you can join in a list format. -->
@@ -494,7 +476,6 @@
   <!-- Ticking this checkbox makes the game so only lichess members can join it. Appears in the game creation menu (https://lichess.org/setup/hook). -->
   <string name="membersOnly">Mpikambana ihany</string>
   <!-- The board editor lets you prepare a chess board and play from the position you set up. Appears as a heading on the editor page, and also as a tab in the "Games" pages. Links to https://lichess.org/editor -->
-  <string name="boardEditor">Board editor</string>
   <!-- Clicking this resets the state of the board to the starting position in standard chess. Being a board editor feature, it appears on the board editor's page — https://lichess.org/editor -->
   <string name="startPosition">Fipetrahana eo am-panombohana</string>
   <!-- Clicking this removes all the pieces from the chess board you are setting up. Being a board editor feature, it appears on the board editor's page — https://lichess.org/editor -->
@@ -520,7 +501,6 @@
   <!-- This is a field for the country you are located at. Appears on player profiles (example: https://lichess.org/@/thibault). The sentence appears in the "Edit profile" menu (https://lichess.org/account/profile). -->
   <string name="country">Firenena</string>
   <!-- Lets you configure lichess so it responds the way you prefer. Appears in the profile drop-down menu at the top of all pages when signed in. Links to https://lichess.org/account/preferences -->
-  <string name="preferences">Preferences</string>
   <!-- Clicking this take you to the TV page, where you can watch the current game being aired on lichess TV. Appears on the "Play" page (https://lichess.org/) below the miniboard showing the current TV game, as well as appearing as a tab on the "Games" pages (https://lichess.org/games). Links to https://lichess.org/tv — the TV page. Please keep this sentence as short as possible. -->
   <string name="watchLichessTV">Mijereva Lichess TV</string>
   <!-- A list of games that were aired on lichess TV before. Appears as a heading to a box below the board on the TV page (https://lichess.org/tv). -->
@@ -771,7 +751,6 @@
   <!-- A carefully curated library of free chess videos. Appears as a dropdown option on the menu bar as well as on menu page. Links to https://lichess.org/video -->
   <!-- Lichess' very own free and open source Android and IOS application. Appears on the footer of the menu page. Links to https://lichess.org/mobile -->
   <!-- Information on how webmasters can embed Lichess features such as the daily puzzle or Lichess TV. Appears on the footer of the menu page. Links to https://lichess.org/developers -->
-  <string name="webmasters">Webmasters</string>
   <!-- Information on how people can contribute to Lichess whether it be through code, translation or donation. Appears on the footer of the menu page. Links to https://lichess.org/help-lichess -->
   <!-- A page detailing the ways in which one can contact Lichess. Appears on the footer of the menu page. Links to https://lichess.org/contact -->
   <!-- Lichess' source code repository. Appears on the footer of the menu page. Links to https://github.com/ornicar/lila -->

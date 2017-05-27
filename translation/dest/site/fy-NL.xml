@@ -23,7 +23,6 @@
   <!-- Clicking this turns sound on or off. This is a button on the top-right hand corner of the screen. If you use the Internet Explorer browser, you may not be able to see this. -->
   <string name="toggleSound">Skeakelje fan it lûd</string>
   <!-- Start a conversation with a player. Appears in the user tooltip when hovering a user name. -->
-  <string name="chat">Chat</string>
   <!-- Clicking this makes you resign from the game. Small button in the box on the right while playing a game. -->
   <string name="resign">Opjaan</string>
   <!-- Appears in the box of a game if you end a game by checkmate. -->
@@ -161,7 +160,6 @@
   <!-- Appears as a menu item and heading on the "Preferences" pages (https://lichess.org/account/email). -->
   <string name="changeEmail">Email feroarje</string>
   <!-- Short for "Your email address", but please keep this sentence as short as possible. This appears above text boxes where you can type in your email, on the "Preferences" page. -->
-  <string name="email">Email</string>
   <!-- This is a help text, explaining how email works on lichess. Appears on the "Change email" page (https://lichess.org/account/email). -->
   <!-- Appears as a heading in the link you are given after you asked for an email to reset (change) your password if you have forgotten it. -->
   <!-- You click here if you forgot your password and want it reset. Please adopt an inviting tone to the user. Also see how other popular websites (e.g. YouTube) phrase the same question in your language. Appears on the "Sign in" page. -->
@@ -261,7 +259,6 @@
   <string name="backToGame">Weromgean nei it spul</string>
   <!-- This is what search engines (like Google, Baidu or Yandex) see when Lichess.org appears as a search result. Keep it as short as possible and make Lichess sound good! -->
   <!-- Teams on lichess are groups of people with their own forum boards and chat channels. Appears at the top of every page on lichess. -->
-  <string name="teams">Teams</string>
   <!-- %s is the number of members. Appears on the top-right hand side on a team's page (e.g. https://lichess.org/team/linux). -->
   <!-- A list of all teams on lichess. Links to https://lichess.org/team. Appears as a tab in the "Teams" page. -->
   <!-- Clicking this takes you to a form for creating a new team. Links to https://lichess.org/team/new. Appears as a tab on the "Teams" pages. -->
