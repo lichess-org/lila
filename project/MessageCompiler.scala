@@ -51,14 +51,19 @@ private[i18n] object Registry {
 
   private def toKey(e: scala.xml.Node) = s""""${e.\("@name")}""""
 
+  private def escapeScala(str: String) = {
+    if (str contains "\"\"\"") sys error s"Skipped translation: $str"
+    else str
+  }
+
   private def render(locale: String, file: File) = {
     val xml = XML.loadFile(file)
     def quote(msg: String) = s"""""\"$msg""\""""
     val content = xml.child.collect {
-      case e if e.label == "string" => s"""${toKey(e)}->Literal(\"\"\"${e.text}\"\"\")"""
+      case e if e.label == "string" => s"""${toKey(e)}->Literal(\"\"\"${escapeScala(e.text)}\"\"\")"""
       case e if e.label == "plurals" =>
         val items = e.child.filter(_.label == "item").map { i =>
-          s"""${ucfirst(i.\("@quantity").toString)}->\"\"\"${i.text}\"\"\""""
+          s"""${ucfirst(i.\("@quantity").toString)}->\"\"\"${escapeScala(i.text)}\"\"\""""
         }
         s"""${toKey(e)}->Plurals(Map(${items mkString ","}))"""
     }
