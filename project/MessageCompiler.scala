@@ -51,10 +51,7 @@ private[i18n] object Registry {
 
   private def toKey(e: scala.xml.Node) = s""""${e.\("@name")}""""
 
-  private def escape(str: String) = {
-    if (str contains "\"\"\"") sys error s"Skipped translation: $str"
-    else escapeHtml4(str)
-  }
+  private def escape(str: String) = escapeHtml4(str)
 
   private def render(locale: String, file: File) = {
     val xml = XML.loadFile(file)
