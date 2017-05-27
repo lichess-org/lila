@@ -2,7 +2,7 @@ package lila.i18n
 
 import play.api.i18n.Lang
 
-sealed trait I18nQuantity
+private sealed trait I18nQuantity
 
 /*
  * Ported from
@@ -11,7 +11,7 @@ sealed trait I18nQuantity
  * Removed: boilerplate, lag, shi
  * Added: type safety, tp, io, ia
  */
-object I18nQuantity {
+private object I18nQuantity {
 
   case object Zero extends I18nQuantity
   case object One extends I18nQuantity
@@ -21,7 +21,6 @@ object I18nQuantity {
   case object Other extends I18nQuantity
 
   type Language = String
-  type Count = Int
   type Selector = Count => I18nQuantity
 
   def apply(lang: Lang, c: Count): I18nQuantity =

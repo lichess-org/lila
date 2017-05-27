@@ -38,7 +38,7 @@ package db
 import play.api.i18n.Lang
 
 // format: OFF
-object Registry {
+private[i18n] object Registry {
 
   def load = Map[Lang, Map[MessageKey, Translation]]($content)
 }

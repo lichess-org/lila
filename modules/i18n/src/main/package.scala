@@ -6,7 +6,7 @@ package object i18n extends PackageObject with WithPlay {
 
   type Count = Int
   type MessageKey = String
-  type Messages = Map[Lang, Map[MessageKey, Translation]]
+  private[i18n]type Messages = Map[Lang, Map[MessageKey, Translation]]
 
   private[i18n] def logger = lila.log("i18n")
 
