@@ -735,329 +735,319 @@
   <!-- Choose if you want the pawn to promote to a queen automatically when you reach the other side of the board. (https://lichess.org/account/preferences) -->
   <string name="promoteToQueenAutomatically">自動升後</string>
   <!-- One of the subheadings on your account preferences page (https://lichess.org/account/preferences). In this section you can choose between different options regarding your privacy. -->
-  <string name="privacy"></string>
+  <string name="privacy">隱私</string>
   <!-- Choose if you want to let other players be able to follow you. It is an option on your account preferences page: https://lichess.org/account/preferences -->
-  <string name="letOtherPlayersFollowYou"></string>
+  <string name="letOtherPlayersFollowYou">允許其他玩家關注</string>
   <!-- Lets you choose if you want to let other players be able to challenge you to a game. It is an option on your account preferences page: https://lichess.org/account/preferences -->
-  <string name="letOtherPlayersChallengeYou"></string>
+  <string name="letOtherPlayersChallengeYou">允許其他玩家挑戰</string>
   <!-- Subheading for the last section on your account preferences page (https://lichess.org/account/preferences). -->
-  <string name="sound"></string>
+  <string name="sound">聲音</string>
   <!-- This sentence appears on the bottom of your account preferences page. https://lichess.org/account/preferences. It informs you that all the changes you have made have been saved. -->
-  <string name="yourPreferencesHaveBeenSaved"></string>
+  <string name="yourPreferencesHaveBeenSaved">您的設置已保存。</string>
   <!-- Choose this option if you want to disable piece animation (movement). Appears on your account preferences page: https://lichess.org/account/preferences -->
-  <string name="none"></string>
+  <string name="none">無</string>
   <!-- Choose this option if you want your piece animation (movement) to be fast. Appears on your account preferences page: https://lichess.org/account/preferences -->
-  <string name="fast"></string>
+  <string name="fast">快</string>
   <!-- Choose this option if you want your piece animation (movement) to be normal. Appears on your account preferences page: https://lichess.org/account/preferences -->
-  <string name="normal"></string>
+  <string name="normal">普通</string>
   <!-- Choose this option if you want your piece animation (movement) to be slow. Appears on your account preferences page: https://lichess.org/account/preferences -->
-  <string name="slow"></string>
+  <string name="slow">慢</string>
   <!-- Choose if you want to see the coordinates on the game board. Appears on your account preferences page: https://lichess.org/account/preferences -->
-  <string name="insideTheBoard"></string>
+  <string name="insideTheBoard">棋盤內</string>
   <!-- Choose if you want to see the coordinates outside the game board. Appears on your account preferences page: https://lichess.org/account/preferences -->
-  <string name="outsideTheBoard"></string>
+  <string name="outsideTheBoard">棋盤外</string>
   <!-- Choose this option if you only want to see the list of moves on slow games. Appears on your account preferences page: https://lichess.org/account/preferences -->
-  <string name="onSlowGames"></string>
+  <string name="onSlowGames">慢棋時</string>
   <!-- Appears on the preferences page https://lichess.org/account/preferences -->
-  <string name="always"></string>
+  <string name="always">總是</string>
   <!-- Choose this if you only want to allow takebacks on casual games. Casual games are games which are not rated, so you cannot gain or lose points from them. Appears on your account preferences page: https://lichess.org/account/preferences -->
-  <string name="inCasualGamesOnly"></string>
+  <string name="inCasualGamesOnly">僅限非正式遊戲</string>
   <!-- One of the options for promoting to a queen automatically. Appears on your account preferences page: https://lichess.org/account/preferences -->
-  <string name="whenPremoving"></string>
+  <string name="whenPremoving">預先走棋時</string>
   <!-- One of the options for claiming a draw when threefold repetition occurs. Appears on your account preferences page: https://lichess.org/account/preferences -->
-  <string name="whenTimeRemainingLessThanThirtySeconds"></string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">當剩餘時間小於30秒</string>
   <!-- Click this button to select easy as your difficulty. Appears on the training page when solving puzzles https://lichess.org/training/ -->
-  <string name="difficultyEasy"></string>
+  <string name="difficultyEasy">容易</string>
   <!-- Choose this option if you want your piece animation (movement) to be normal. Appears on your account preferences page: https://lichess.org/account/preferences -->
-  <string name="difficultyNormal"></string>
+  <string name="difficultyNormal">普通</string>
   <!-- Click this button to select hard as your difficulty. Appears on the training page when solving puzzles https://lichess.org/training/ -->
-  <string name="difficultyHard"></string>
+  <string name="difficultyHard">困難</string>
   <!-- First %s is the name of the player that left a note, and the second %s is the player who got a note on their profile. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xLeftANoteOnY"></string>
   <!-- First %s is the name of the player that competes in a tournament, and the second %s is the tournament name. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xCompetesInY"></string>
   <!-- First %s is the name of the player that asked, and the second %s is the title of the question in Q&A. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xAskedY"></string>
   <!-- First %s is the name of the player that answered, and the second %s is the title of the question in Q&A. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xAnsweredY"></string>
   <!-- First %s is the name of the player that commented, and the second %s is the title of the question in Q&A. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xCommentedY"></string>
   <!-- An activity timeline showing what people you follow on lichess have been up to. Appears on the main page under logotype https://lichess.org and https://lichess.org/timeline/more. Note: this only appears as soon as you follow a player on lichess. -->
-  <string name="timeline"></string>
+  <string name="timeline">時間線</string>
   <!-- This text appears when you hover over the "more" link for "open tournaments" on the main page https://lichess.org/ -->
-  <string name="seeAllTournaments"></string>
+  <string name="seeAllTournaments">顯示所有比賽</string>
   <!-- This text appears to the left of the "join" button and it informs you when the tournament is starting. To see an example click on an open tournament from the tournament page https://lichess.org/tournament. -->
-  <string name="starting"></string>
+  <string name="starting">開始時間：</string>
   <!-- This sentence appears under the header on the page where you change your profile https://lichess.org/account/profile -->
-  <string name="allInformationIsPublicAndOptional"></string>
+  <string name="allInformationIsPublicAndOptional">所有資料公開選填。</string>
   <!-- This text appears under the field where you write your location. You can leave out the word "your" if it helps you. Appears in the profile editor: https://lichess.org/account/profile -->
-  <string name="yourCityRegionOrDepartment"></string>
+  <string name="yourCityRegionOrDepartment">您的城市、區域或省份。</string>
   <!-- This sentence appears under the biography description box on the page where you edit your profile https://lichess.org/account/profile -->
-  <string name="biographyDescription"></string>
+  <string name="biographyDescription">請自我介紹，喜歡國際象棋的哪一方面，最喜歡的開局，遊戲，玩家等。</string>
   <!-- This text appears under the biography description box to inform you the maximum length your description can have. https://lichess.org/account/profile -->
   <plurals name="maximumNbCharacters">
-    <item quantity="other"></item>
+    <item quantity="other">最多%s個字符</item>
   </plurals>
   <!-- %s is the number of players you have blocked. Consider translating to "%s blocked players" if you think the context is not sufficient. Appears as a heading on your list of blocked players at https://lichess.org/rel/blocks -->
   <plurals name="blocks">
-    <item quantity="other"></item>
+    <item quantity="other">%s位黑名單用戶</item>
   </plurals>
   <!-- "List" is used as a verb here. This is a descriptive sentence which appears when you hover the mouse over the block icon on your own profile. Clicking the icon will show you a list of players you have blocked. -->
-  <string name="listBlockedPlayers"></string>
+  <string name="listBlockedPlayers">顯示黑名單用戶列表</string>
   <!-- Press this to play against a human player (instead of playing against the computer). Appears in the "Create a game" menu of the lichess mobile app: https://raw.githubusercontent.com/veloce/lichobile/1.5.x/screens/android/create-human.png. All mobile app sentences *must* be kept compact, as they need to scale to small devices. -->
-  <string name="human"></string>
+  <string name="human">人類</string>
   <!-- Press this button to play against a computer player (instead of playing against a human being). Appears in the "Create a game" menu of the lichess mobile app: https://raw.githubusercontent.com/veloce/lichobile/1.5.x/screens/android/create-human.png. All mobile app sentences *must* be kept compact, as they need to scale to small devices. -->
-  <string name="computer"></string>
+  <string name="computer">電腦</string>
   <!-- Lets you select what side you want to play as (White, Black, or random). Appears in the "Create a game" menu of the lichess mobile app: https://raw.githubusercontent.com/veloce/lichobile/1.5.x/screens/android/create-human.png. All mobile app sentences *must* be kept compact, as they need to scale to small devices. -->
-  <string name="side"></string>
+  <string name="side">方</string>
   <!-- Lets you select what time control you want to play with. Appears in the "Create a game" menu of the lichess mobile app: https://raw.githubusercontent.com/veloce/lichobile/1.5.x/screens/android/create-human.png. All mobile app sentences *must* be kept compact, as they need to scale to small devices. -->
-  <string name="clock"></string>
+  <string name="clock">鐘</string>
   <!-- This is a generic sentence that usually appears when the player is not signed in, or when an incorrect password is entered. The sentence is only found in the lichess mobile app, and *must* be kept compact, as mobile sentences need to scale to small devices. -->
-  <string name="unauthorizedError"></string>
+  <string name="unauthorizedError">無權訪問。</string>
   <!-- Descriptive sentence. Is only shown when your mobile device is lacking connectivity to the internet. The sentence is only found in the lichess mobile app, and *must* be kept compact, as mobile sentences need to scale to small devices. -->
-  <string name="noInternetConnection"></string>
+  <string name="noInternetConnection">無網絡。您仍然可以從菜單欄離線對弈。</string>
   <!-- Notifies the player they are successfully connected to the site. This is only for mobile users, because the mobile app can also work offline. The sentence is only found in the lichess mobile app, and *must* be kept compact, as mobile sentences need to scale to small devices. -->
-  <string name="connectedToLichess"></string>
+  <string name="connectedToLichess">您已接入lichess.org</string>
   <!-- Notifies the player that they have successfully signed out of their account. The sentence is only found in the lichess mobile app, and *must* be kept compact, as mobile sentences need to scale to small devices. -->
-  <string name="signedOut"></string>
+  <string name="signedOut">您已登出</string>
   <!-- Notifies the player they are successfully logged in with their lichess username. The sentence is only found in the lichess mobile app, and *must* be kept compact, as mobile sentences need to scale to small devices. -->
-  <string name="loginSuccessful"></string>
+  <string name="loginSuccessful">您已登錄</string>
   <!-- "Over the board" means playing locally, on the device, usually between two players sitting across from each other. Offline play is only available on the lichess mobile app and thus *must* be kept compact, as mobile sentences need to scale to small devices. -->
-  <string name="playOnTheBoardOffline"></string>
+  <string name="playOnTheBoardOffline">面對面</string>
   <!-- Press this button to play against a computer player (instead of playing against a human being). Appears in the "Create a game" menu of the lichess mobile app: https://raw.githubusercontent.com/veloce/lichobile/1.5.x/screens/android/create-human.png. All mobile app sentences *must* be kept compact, as they need to scale to small devices. -->
-  <string name="playOfflineComputer"></string>
+  <string name="playOfflineComputer">電腦</string>
   <!-- The name of your opponent. Currently appears only in the mobile app. You can see how it looks here: https://raw.githubusercontent.com/veloce/lichobile/1.5.x/screens/android/ai-menu.png -->
-  <string name="opponent"></string>
+  <string name="opponent">對手</string>
   <!-- One of the four menu sections. Contains links to training, openings, coordinates, and video library. "Learn" in this context is a verb. -->
-  <string name="learn"></string>
+  <string name="learn">學習</string>
   <!-- One of the four menu sections. Contains links to list of players, teams, forums, and Q&A. -->
-  <string name="community"></string>
+  <string name="community">社區</string>
   <!-- One of the four menu sections. Contains links to board editor, analysis, import game, and advanced search. -->
-  <string name="tools"></string>
+  <string name="tools">工具</string>
   <!-- Increment of the game. As increment in seconds. It appears only in mobile app in the game creation form. You can see it here: https://raw.githubusercontent.com/veloce/lichobile/1.5.x/screens/android/create-human.png -->
-  <string name="increment"></string>
+  <string name="increment">加秒</string>
   <!-- appears in mobile app on settings screen, let you choose the board theme. Just translate 'board' -->
-  <string name="board"></string>
+  <string name="board">棋盤</string>
   <!-- appears in mobile app on settings screen, let you choose the pieces theme. Just translate 'pieces' -->
-  <string name="pieces"></string>
+  <string name="pieces">棋子</string>
   <!-- Pressing this button opens native share widget to share the PGN record. PGN is short for "Portable Game Notation"; it is the way chess moves are recorded (1. e4 e5, and so on). The sentence is only found in the lichess mobile app, and *must* be kept short, as mobile sentences need to scale to small devices. -->
-  <string name="sharePGN"></string>
+  <string name="sharePGN">分享PGN</string>
   <!-- only in mobile app, on side menu. It is a menu label that helps to separate visually what is online from what is offline. *Must* be short -->
-  <string name="playOnline"></string>
+  <string name="playOnline">在線對弈</string>
   <!-- only in mobile app, on side menu. It is a menu label that helps to separate visually what is online from what is offline. *Must* be short -->
-  <string name="playOffline"></string>
+  <string name="playOffline">離線對弈</string>
   <!-- In mobile app settings, toggle to allow or not sending of anonymous app usage for statistics. Should be as short as possible. -->
-  <string name="allowAnalytics"></string>
+  <string name="allowAnalytics">允許發送匿名統計數據</string>
   <!-- in mobile app on the game context menu, this button opens the native share widget to send the game URL. To keep very short. -->
-  <string name="shareGameURL"></string>
+  <string name="shareGameURL">分享對局網址</string>
   <!-- Error message when a text input fields is left blank. Appears in the registration form and preferences menu (https://lichess.org/account/email). -->
-  <string name="error.required"></string>
+  <string name="error.required">本項必填</string>
   <!-- Error message for when the email address was typed in incorrectly. Appears in the registration form and preferences menu (https://lichess.org/account/email). -->
-  <string name="error.email"></string>
+  <string name="error.email">電郵地址無效</string>
   <!-- Error message for when people associate a disposable email address with their account (e.g. https://www.guerrillamail.com/) - only permanent email addresses are permitted. Appears in the registration form and preferences menu (https://lichess.org/account/email). -->
-  <string name="error.email_acceptable"></string>
+  <string name="error.email_acceptable">不接受此電郵地址</string>
   <!-- Error message for when you associate an account with an email address that is already in use by another account. Appears in the registration form and preferences menu (https://lichess.org/account/email). -->
-  <string name="error.email_unique"></string>
+  <string name="error.email_unique">電郵地址已被使用</string>
   <!-- Appears as a preference on the preference page. The user may choose to hide their pieces in order to emulate playing blindfold chess. -->
-  <string name="blindfoldChess"></string>
+  <string name="blindfoldChess">蒙眼象棋(看不見棋子)</string>
   <!-- Appears as a preference on the preference page. The user may choose to use an additional confirmation step when they make moves on the chess board. -->
-  <string name="moveConfirmation"></string>
+  <string name="moveConfirmation">走棋確認</string>
   <!-- Appears as a selectable option for the "move confirmation" setting on the preference page. The user may choose to only have an extra confirmation step for moves they make in correspondence games. -->
-  <string name="inCorrespondenceGames"></string>
+  <string name="inCorrespondenceGames">在長期對局中</string>
   <!-- Appears as a selectable option for the "let other players challenge you" option. The user may choose to only accept challenges from within a certain rating range. -->
-  <string name="ifRatingIsPlusMinusX"></string>
+  <string name="ifRatingIsPlusMinusX">允許評級範圍±%s</string>
   <!-- Appears as a selectable option for the "let other players challenge you" option. The user may choose to only accept challenges from friends. -->
-  <string name="onlyFriends"></string>
+  <string name="onlyFriends">只允許朋友</string>
   <!-- Tooltip displayed when mouseover menu button viewable at the top of every lichess page. -->
-  <string name="menu"></string>
+  <string name="menu">菜單</string>
   <!-- Castling is a move in the game of chess involving a player's king and either of the player's original rooks. It is the only move in chess in which a player moves two pieces in the same move. Appears on board editor page (https://lichess.org/editor). -->
-  <string name="castling"></string>
+  <string name="castling">王車易位</string>
   <!-- The option of whether white can still castle on the kingside. Appears as a setting on board editor page (https://lichess.org/editor). -->
-  <string name="whiteCastlingKingside"></string>
+  <string name="whiteCastlingKingside">白方短易位</string>
   <!-- The option of whether white can still castle on the queenside. Appears as a setting on board editor page (https://lichess.org/editor). -->
-  <string name="whiteCastlingQueenside"></string>
+  <string name="whiteCastlingQueenside">白方長易位</string>
   <!-- The option of whether black can still castle on the kingside. Appears as a setting on board editor page (https://lichess.org/editor). -->
-  <string name="blackCastlingKingside"></string>
+  <string name="blackCastlingKingside">黑方短易位</string>
   <!-- The option of whether black can still castle on the queenside. Appears as a setting on board editor page (https://lichess.org/editor). -->
-  <string name="blackCastlingQueenside"></string>
+  <string name="blackCastlingQueenside">黑方長易位</string>
   <!-- %s The number of times the user has posted on the forum (https://lichess.org/forum). Appears on profile pages. Example: https://lichess.org/@/thibault — Thibault has 3038 forum points as of the time of writing. -->
   <plurals name="nbForumPosts">
-    <item quantity="other"></item>
+    <item quantity="other">%s個論壇帖子</item>
   </plurals>
   <!-- %s The total time the user has spent playing on Lichess. Appears on profile pages. Example: https://lichess.org/@/thibault/ has spent 15 days, 9 hours and 25 minutes playing at the time of writing. -->
-  <string name="tpTimeSpentPlaying"></string>
+  <string name="tpTimeSpentPlaying">花在下棋上的時間：%s</string>
   <!-- A button that allows users to watch the chess games of a particular player. Appears on profile pages. Example: Links to https://lichess.org/@/thibault/tv -->
-  <string name="watchGames"></string>
+  <string name="watchGames">觀看對局</string>
   <!-- %s The total time the user has spent watching Lichess TV (https://lichess.org/tv). Appears on profile pages. Example: https://lichess.org/@/thibault/ has spent 12 minutes watching at the time of writing. -->
-  <string name="tpTimeSpentOnTV"></string>
+  <string name="tpTimeSpentOnTV">花在Lichess直播上的時間：%s</string>
   <!-- One of the four menu sections. Contains links to Lichess TV, international events and the curated video library. -->
-  <string name="watch"></string>
+  <string name="watch">觀看</string>
   <!-- Real-time worldwide chess tournaments, powered by FICS. Appears as a dropdown option on the menu bar as well as on menu page. Links to https://lichess.org/watch -->
-  <string name="internationalEvents"></string>
+  <string name="internationalEvents">國際賽事</string>
   <!-- A carefully curated library of free chess videos. Appears as a dropdown option on the menu bar as well as on menu page. Links to https://lichess.org/video -->
-  <string name="videoLibrary"></string>
+  <string name="videoLibrary">視頻庫</string>
   <!-- Lichess' very own free and open source Android and IOS application. Appears on the footer of the menu page. Links to https://lichess.org/mobile -->
-  <string name="mobileApp"></string>
+  <string name="mobileApp">手機app</string>
   <!-- Information on how webmasters can embed Lichess features such as the daily puzzle or Lichess TV. Appears on the footer of the menu page. Links to https://lichess.org/developers -->
-  <string name="webmasters"></string>
+  <string name="webmasters">網站管理員</string>
   <!-- Information on how people can contribute to Lichess whether it be through code, translation or donation. Appears on the footer of the menu page. Links to https://lichess.org/help-lichess -->
-  <string name="contribute"></string>
+  <string name="contribute">協助</string>
   <!-- A page detailing the ways in which one can contact Lichess. Appears on the footer of the menu page. Links to https://lichess.org/contact -->
-  <string name="contact"></string>
-  <string name="termsOfService"></string>
+  <string name="contact">聯繫我們</string>
+  <string name="termsOfService">服務守則</string>
   <!-- Lichess' source code repository. Appears on the footer of the menu page. Links to https://github.com/ornicar/lila -->
-  <string name="sourceCode"></string>
+  <string name="sourceCode">源代碼</string>
   <!-- Clicking this takes you to a page all about simuls on Lichess, where you can see open, running and finished simuls, as well as create your own. Appears as one of the links at the top of the navigation bar and on menu page. Links to https://lichess.org/simul -->
-  <string name="simultaneousExhibitions"></string>
+  <string name="simultaneousExhibitions">同步表演賽</string>
   <!-- The person who created the simul. Appears as a column heading on https://lichess.org/simul -->
-  <string name="host"></string>
+  <string name="host">主持</string>
   <!-- Appears as a heading on https://lichess.org/simul under which currently running and starting simuls are listed. -->
-  <string name="createdSimuls"></string>
+  <string name="createdSimuls">最近開始的同步賽</string>
   <!-- A button that allows players to create a new simul event. Appears on https://lichess.org/simul and links to https://lichess.org/simul/new -->
-  <string name="hostANewSimul"></string>
+  <string name="hostANewSimul">主持新同步賽</string>
   <!-- A header warning when a simul event cannot be found. Displayed here https://lichess.org/simul/notfound -->
-  <string name="noSimulFound"></string>
+  <string name="noSimulFound">找不到該同步賽</string>
   <!-- When a simul event cannot be found a new page is displayed here https://lichess.org/simul/notfound notifying the user why and how to proceed. -->
-  <string name="noSimulExplanation"></string>
+  <string name="noSimulExplanation">這個同步表演賽不存在。</string>
   <!-- A link to the simul homepage (https://lichess.org/simul/) displayed here https://lichess.org/simul/notfound -->
-  <string name="returnToSimulHomepage"></string>
+  <string name="returnToSimulHomepage">返回表演賽主頁</string>
   <!-- A short explanation about what a simul is on the simul homepage (https://lichess.org/simul) -->
-  <string name="aboutSimul"></string>
+  <string name="aboutSimul">同步表演賽涉及到一個人同時和幾位棋手下棋。</string>
   <!-- A short caption for the Bobby Fischer image found on the simul homepage (https://lichess.org/simul) after clicking'More...' -->
-  <string name="aboutSimulImage"></string>
+  <string name="aboutSimulImage">在50個對手中，菲舍爾贏了47局，和了2局，輸了1局。</string>
   <!-- A short explanation about what a simul is on the simul homepage (https://lichess.org/simul) after clicking'More...' -->
-  <string name="aboutSimulRealLife"></string>
+  <string name="aboutSimulRealLife">這個概念來自真實的國際賽事。在現實中，這涉及到主持在桌與桌之間來回穿梭走棋。</string>
   <!-- A short explanation about the rules of a simul found on the simul homepage (https://lichess.org/simul) after clicking'More...' -->
-  <string name="aboutSimulRules"></string>
+  <string name="aboutSimulRules">當表演賽開始的時候， 每個玩家都與主持開始對弈， 而主持用白方。當所有的對局都結束時，表演賽就結束了。</string>
   <!-- More explanations about lichess simuls, on the simul homepage (https://lichess.org/simul). -->
-  <string name="aboutSimulSettings"></string>
+  <string name="aboutSimulSettings">表演賽總是不定級的。複賽、悔棋和\"加時\"功能將被禁用。</string>
   <!-- A button that finalises the creation of some event. Found, for insance, at the bottom of the create simul form page (https://lichess.org/simul/new) -->
-  <string name="create"></string>
+  <string name="create">創建</string>
   <!-- A short explanation of what to expect from creating a simul. Found on the create simul form page (https://lichess.org/simul/new) -->
-  <string name="whenCreateSimul"></string>
+  <string name="whenCreateSimul">當你創建一個同步賽時，你要一次同時跟幾個棋手一起下棋。</string>
   <!-- Explains the variants checkboxes found on the create simul form page (https://lichess.org/simul/new) -->
-  <string name="simulVariantsHint"></string>
+  <string name="simulVariantsHint">如果您選擇幾個變體，每個玩家都要選擇下哪一種。</string>
   <!-- Explains the Fischer clock time control settings found on the create simul form page (https://lichess.org/simul/new) -->
-  <string name="simulClockHint"></string>
+  <string name="simulClockHint">菲舍爾時鐘設置。棋手越多，你需要的時間可能就越多。</string>
   <!-- Suggests adding extra time for the simul. Found on the create simul form page (https://lichess.org/simul/new) -->
-  <string name="simulAddExtraTime"></string>
+  <string name="simulAddExtraTime">您可以給時鐘多加點時間以幫助應對同步賽。</string>
   <!-- A setting for the simul host to add extra time. Found on the create simul form page (https://lichess.org/simul/new) -->
-  <string name="simulHostExtraTime"></string>
+  <string name="simulHostExtraTime">主持人的額外時間</string>
   <!-- A heading on the side of the tournaments homepage (https://lichess.org/tournament) under which the official tournaments of Lichess are listed. -->
-  <string name="lichessTournaments"></string>
+  <string name="lichessTournaments">Lichess比賽</string>
   <!-- A link to an FAQ page for Lichess tournaments. Links to https://lichess.org/tournament/help?system=arena and found on every tournament page as a small question mark. -->
-  <string name="tournamentFAQ"></string>
+  <string name="tournamentFAQ">比賽常見問題</string>
   <!-- All official (not user created) Lichess tournaments have this shown in said tournament's information box shows that appears on the top left of the screen. -->
-  <string name="tournamentOfficial"></string>
+  <string name="tournamentOfficial">官方</string>
   <!-- Users creating new tournaments can decide when their tournament begins. Appears on the form used to create a new tournament (https://lichess.org/tournament/new) -->
-  <string name="timeBeforeTournamentStarts"></string>
+  <string name="timeBeforeTournamentStarts">比賽準備時間</string>
   <!-- ACPL. This is one of the categories of problems discovered by the computer analysis. Appears on the right hand side of pages with analyzed games. -->
-  <string name="averageCentipawnLoss"></string>
+  <string name="averageCentipawnLoss">平均厘兵損失</string>
   <!-- A heading appearing in the bottom left side of pages with analyzed games under which are available keyboard shortcuts. -->
-  <string name="keyboardShortcuts"></string>
+  <string name="keyboardShortcuts">快捷鍵</string>
   <!-- Explains that the preceding keyboard shortcuts move the game backward or forward. Appears on the bottom left side of pages with analyzed games under Keyboard Shortcuts dropdown. -->
-  <string name="keyMoveBackwardOrForward"></string>
+  <string name="keyMoveBackwardOrForward">後退/前進</string>
   <!-- Explains that the preceding keyboard shortcuts move the game to the start or end position. Appears on the bottom left side of pages with analyzed games under Keyboard Shortcuts dropdown. -->
-  <string name="keyGoToStartOrEnd"></string>
+  <string name="keyGoToStartOrEnd">跳到開始/結束</string>
   <!-- Explains that the preceding keyboard shortcuts show or hide comments. Appears on the bottom left side of pages with analyzed games under Keyboard Shortcuts dropdown. -->
-  <string name="keyShowOrHideComments"></string>
+  <string name="keyShowOrHideComments">顯示/隱藏評論</string>
   <!-- Explains that the preceding keyboard shortcuts enter or exit variations. Appears on the bottom left side of pages with analyzed games under Keyboard Shortcuts dropdown. -->
-  <string name="keyEnterOrExitVariation"></string>
+  <string name="keyEnterOrExitVariation">進入/退出變體</string>
   <!-- The title of the page where you can create a new tournament, https://lichess.org/tournament/new -->
-  <string name="newTournament"></string>
+  <string name="newTournament">新比賽</string>
   <!-- The title of the tournaments home page (https://lichess.org/tournament) which is used for search engines. -->
-  <string name="tournamentHomeTitle"></string>
+  <string name="tournamentHomeTitle">國際象棋賽事均設有不同的時間控制和變體</string>
   <!-- The description of the tournaments home page (https://lichess.org/tournament) which is used for search engines. -->
-  <string name="tournamentHomeDescription"></string>
+  <string name="tournamentHomeDescription">加入快節奏的國際象棋比賽！加入定時賽事，或創建自己的。子彈，閃電，經典，菲舍爾任意制，王到中心，三次將軍，並提供更多的選擇為無盡的國際象棋樂趣。</string>
   <!-- The heading that shows up when you go to a tournament that does not exist, or has been canceled. -->
-  <string name="tournamentNotFound"></string>
+  <string name="tournamentNotFound">找不到該比賽</string>
   <!-- This is the first sentence that shows up under the "Tournament not found" header when you go to a tournament that does not exist. -->
-  <string name="tournamentDoesNotExist"></string>
+  <string name="tournamentDoesNotExist">這個比賽不存在。</string>
   <!-- This is the second sentence that shows up under the "Tournament not found" header when you go to a tournament that does not exist. -->
-  <string name="tournamentMayHaveBeenCanceled"></string>
+  <string name="tournamentMayHaveBeenCanceled">它可能已被取消，假如所有的對手在比賽開始之前離開。</string>
   <!-- This link shows up on a page of a tournament that does not exist. It leads to the tournaments home page. -->
-  <string name="returnToTournamentsHomepage"></string>
+  <string name="returnToTournamentsHomepage">返回比賽主頁</string>
   <!-- Title of the rating stats page: https://lichess.org/stat/rating/distribution/blitz. %s is a variant name (like Bullet, Blitz, or Chess960). -->
-  <string name="weeklyPerfTypeRatingDistribution"></string>
-  <plurals name="nbPerfTypePlayersThisWeek">
-    <item quantity="other"></item>
-  </plurals>
+  <string name="weeklyPerfTypeRatingDistribution">本月%s的分數分佈</string>
   <!-- Current user rating, on the rating stats page: https://lichess.org/stat/rating/distribution/blitz. The first %s is the the variant name (like Bullet, Blitz, or Chess960), the second %s is the rating itself (like 1900). -->
-  <string name="yourPerfTypeRatingIsRating"></string>
   <!-- Current user ranking, on the rating stats page: https://lichess.org/stat/rating/distribution/blitz. The first %s is the percentage, the second %s is the variant name (like Bullet, Blitz, or Chess960). -->
-  <string name="youAreBetterThanPercentOfPerfTypePlayers"></string>
   <!-- When the user rating is provisional, on the rating stats page: https://lichess.org/stat/rating/distribution/blitz. %s is a variant name (like Bullet, Blitz, or Chess960). -->
-  <string name="youDoNotHaveAnEstablishedPerfTypeRating"></string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">您沒有準確的%s評級。</string>
   <!-- Appears when signup is finished and email is sent. (https://lichess.org/signup/check-your-email/test) -->
-  <string name="checkYourEmail"></string>
+  <string name="checkYourEmail">請查看您的電子郵件</string>
   <!-- That is shown to a new user at the registration finish page. (https://ru.lichess.org/signup/check-your-email/test) -->
-  <string name="weHaveSentYouAnEmailClickTheLink"></string>
+  <string name="weHaveSentYouAnEmailClickTheLink">一封電子郵件已發到您的郵箱. 點擊郵件中的鏈接以激活您的賬號.</string>
   <!-- A part of post-signup or password reset message. (https://lichess.org/password/reset/sent/test@test.com) -->
-  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces"></string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">如果您沒有收到我們的郵件, 請檢查您的其他收件箱, 例如垃圾箱, 廣告, 社交等.</string>
   <!-- Appears when trying to reset the password and specified email is not found. (https://lichess.org/password/reset/send) -->
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess"></string>
+  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">您確定您登記過您的（電子）郵箱嗎？</string>
   <!-- The second part of failed password reset message when email is not found. (https://lichess.org/password/reset/send) -->
-  <string name="itWasNotRequiredForYourRegistration"></string>
+  <string name="itWasNotRequiredForYourRegistration">登記時是沒有需要的。</string>
   <!-- Appears on password resetting and also shows an email address of the user. (https://lichess.org/password/reset/sent/test@test.com) -->
-  <string name="weHaveSentYouAnEmailTo"></string>
+  <string name="weHaveSentYouAnEmailTo">我們給您的郵箱（%s）發了從新設密碼的鏈接。</string>
   <!-- Is a first part of sentence at the registration page. Link to ToS is inserted inside it. (https://lichess.org/signup) -->
-  <string name="byRegisteringYouAgreeToBeBoundByOur"></string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">您一登記，我們就假設您同意尊重我們的使用規則（%s）。</string>
   <!-- Is an explanations of what PING is and it is shown at the window which opens when clicking on the login at the top of the site. -->
-  <string name="networkLagBetweenYouAndLichess"></string>
+  <string name="networkLagBetweenYouAndLichess">你和lichess 之間的網絡時滯</string>
   <!-- Is an explanations of what SERVER is and it is shown at the window which opens when clicking on the login at the top of the site. -->
-  <string name="timeToProcessAMoveOnLichessServer"></string>
+  <string name="timeToProcessAMoveOnLichessServer">lichess 服務器上處理步數的時間</string>
   <!-- Button for downloading a game PGN with lichess annotations. (https://lichess.org/EE5OajWy, FEN&PGN tab) -->
-  <string name="downloadAnnotated"></string>
+  <string name="downloadAnnotated">下載帶筆記的記錄</string>
   <!-- Button for downloading a game PGN without lichess annotations. (https://lichess.org/EE5OajWy, FEN&PGN tab) -->
-  <string name="downloadRaw"></string>
+  <string name="downloadRaw">下載無筆記的記錄</string>
   <!-- Button which appears in the FEN & PGN tab under at Analysis for downloading the original PGN of an imported game. -->
-  <string name="downloadImported"></string>
+  <string name="downloadImported">下載已導入棋局</string>
   <!-- Downloads a game in PDF format. It is located near the other downloads buttons in FEN & PGN tab under the finished game. (https://lichess.org/EE5OajWy, FEN&PGN tab) -->
-  <string name="printFriendlyPDF"></string>
+  <string name="printFriendlyPDF">下載列印版PDF文檔</string>
   <!-- The name of the tab which shows a total points sum between two players calculated based on their finished games. Shown under the board. (https://lichess.org/EE5OajWy, Crosstable tab) -->
-  <string name="crosstable"></string>
+  <string name="crosstable">歷史表</string>
   <!-- Appears when hovering KeyboardShortcuts sign under the chess board. (https://lichess.org/g4XbumIh) -->
-  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame"></string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">您也可以用滾動鍵在棋盤遊戲中移動。</string>
   <!-- Appears when hovering KeyboardShortcuts sign under the chess board. (https://lichess.org/g4XbumIh) -->
-  <string name="analysisShapesHowTo"></string>
+  <string name="analysisShapesHowTo">按shift點擊或右鍵棋盤上繪製圓圈和箭頭。</string>
   <!-- An option at game preferences. (https://lichess.org/account/preferences/game-behavior) -->
-  <string name="confirmResignation"></string>
+  <string name="confirmResignation">確認認輸？</string>
   <!-- Appears at privacy settings. (https://lichess.org/account/preferences/privacy) -->
-  <string name="letOtherPlayersMessageYou"></string>
+  <string name="letOtherPlayersMessageYou">然其他人給你發信息。</string>
   <!-- Appears at privacy settings. (https://lichess.org/account/preferences/privacy) -->
-  <string name="shareYourInsightsData"></string>
+  <string name="shareYourInsightsData">分享您的慧眼數據</string>
   <!-- Is a message that is shown to a user at email settings when you already have an email connected with your account. (https://lichess.org/account/email) -->
-  <string name="youHaveAlreadyRegisteredTheEmail"></string>
+  <string name="youHaveAlreadyRegisteredTheEmail">你已經用《%s》登記過賬戶。</string>
   <!-- Is an option at preferences menu. (https://lichess.org/account/kid) -->
-  <string name="kidMode"></string>
+  <string name="kidMode">受限模式</string>
   <!-- Description of mobile app. (https://lichess.org/mobile) -->
-  <string name="playChessEverywhere"></string>
+  <string name="playChessEverywhere">隨處下棋！</string>
   <!-- Description of mobile app. (https://lichess.org/mobile) -->
-  <string name="asFreeAsLichess"></string>
+  <string name="asFreeAsLichess">完全又永遠的免費。</string>
   <!-- Description of mobile app. (https://lichess.org/mobile) -->
-  <string name="builtForTheLoveOfChessNotMoney"></string>
+  <string name="builtForTheLoveOfChessNotMoney">不是為了錢，而是為了棋所創建。</string>
   <!-- Description of mobile app. (https://lichess.org/mobile) -->
-  <string name="everybodyGetsAllFeaturesForFree"></string>
+  <string name="everybodyGetsAllFeaturesForFree">每個人都能免費使用所有功能</string>
   <!-- Description of mobile app. (https://lichess.org/mobile) -->
-  <string name="zeroAdvertisement"></string>
+  <string name="zeroAdvertisement">無廣告</string>
   <!-- Description of mobile app. (https://lichess.org/mobile) -->
-  <string name="fullFeatured"></string>
+  <string name="fullFeatured">功能全面</string>
   <!-- Description of mobile app. (https://lichess.org/mobile) -->
-  <string name="phoneAndTablet"></string>
+  <string name="phoneAndTablet">手機和平板電腦</string>
   <!-- Description of mobile app. (https://lichess.org/mobile) -->
-  <string name="bulletBlitzClassical"></string>
+  <string name="bulletBlitzClassical">快棋與慢棋</string>
   <!-- Description of mobile app. (https://lichess.org/mobile) -->
-  <string name="correspondenceChess"></string>
+  <string name="correspondenceChess">通訊賽</string>
   <!-- Description of mobile app. (https://lichess.org/mobile) -->
-  <string name="onlineAndOfflinePlay"></string>
-  <string name="correspondenceAndUnlimited"></string>
-  <string name="viewTheSolution"></string>
+  <string name="onlineAndOfflinePlay">有線或者無線下棋</string>
+  <string name="correspondenceAndUnlimited">通信和無限</string>
+  <string name="viewTheSolution">看解答</string>
   <!-- Description of mobile app. (https://lichess.org/mobile) -->
-  <string name="followAndChallengeFriends"></string>
+  <string name="followAndChallengeFriends">添加和挑戰朋友</string>
   <!-- Description of mobile app. The number is goind to be between 80 and 100. (https://lichess.org/mobile) -->
   <plurals name="availableInNbLanguages">
-    <item quantity="other"></item>
+    <item quantity="other">%s 種語言!</item>
   </plurals>
   <!-- Description of mobile app. (https://lichess.org/mobile) -->
-  <string name="gameAnalysis"></string>
+  <string name="gameAnalysis">象棋分析研究</string>
 </resources>
