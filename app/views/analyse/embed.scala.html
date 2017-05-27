@@ -1,6 +1,6 @@
 @(pov: Pov, data: play.api.libs.json.JsObject)(implicit ctx: Context)
 
-@title = @{ s"${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)} in ${pov.gameId} : ${pov.game.opening.fold(trans.analysis.str())(_.opening.ecoName)}" }
+@title = @{ s"${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)} in ${pov.gameId} : ${pov.game.opening.fold(trans.analysis.txt())(_.opening.ecoName)}" }
 
 <!doctype html>
 <html>

@@ -30,7 +30,7 @@
           @game.perfType.map { pt =>
           <span class="hint--top" data-hint="@pt.title">@pt.name.toUpperCase</span>
           }
-          } • @game.rated.fold(trans.rated.str(), trans.casual.str()).toUpperCase
+          } • @game.rated.fold(trans.rated.txt(), trans.casual.txt()).toUpperCase
           }
         </span>
         @game.pgnImport.flatMap(_.date).getOrElse(

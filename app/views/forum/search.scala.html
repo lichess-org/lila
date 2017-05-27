@@ -1,6 +1,6 @@
 @(text: String, views: Paginator[lila.forum.PostView])(implicit ctx: Context)
 
-@title = @{ trans.search.str() + " \"" + text.trim + "\"" }
+@title = @{ trans.search.txt() + " \"" + text.trim + "\"" }
 
 @forum.layout(
 title = title,

@@ -1,6 +1,6 @@
 @(u: User, form: Form[_])(implicit ctx: Context)
 
-@title = @{ s"${u.username} - ${trans.closeAccount.str()}" }
+@title = @{ s"${u.username} - ${trans.closeAccount.txt()}" }
 
 @account.layout(title = title, active = "close") {
 <div class="content_box small_box high">

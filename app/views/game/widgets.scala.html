@@ -39,7 +39,7 @@
         @if(g.imported) {
         <span>IMPORT</span>
         @g.pgnImport.flatMap(_.user).map { user =>
-        @trans.by.literal(userIdLink(user.some, None, false))
+        @trans.by(userIdLink(user.some, None, false))
         }
         •
         @if(g.variant.exotic) {

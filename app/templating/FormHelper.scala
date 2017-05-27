@@ -22,7 +22,7 @@ trait FormHelper { self: I18nHelper =>
   def errMsg(errors: Seq[FormError])(implicit ctx: Context): Html = Html {
     errors map { e =>
       val msg = transKey(e.message, e.args) match {
-        case m if m == e.message => errNames.get(e.message).fold(e.message)(_.str())
+        case m if m == e.message => errNames.get(e.message).fold(e.message)(_.txt())
         case m => m
       }
       s"""<p class="error">$msg</p>"""

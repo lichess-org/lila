@@ -74,7 +74,7 @@ description = describeUser(u)).some) {
       @if(ctx.isAuth && !ctx.is(u)) {
       @relation.actions(u.id, relation = rel, followable = followable, blocked = blocked)
       @NotForKids {
-      <a data-hint="@trans.reportXToModerators.literal(u.username)" class="button hint--bottom-left" href="@routes.Report.form?username=@u.username">
+      <a data-hint="@trans.reportXToModerators(u.username)" class="button hint--bottom-left" href="@routes.Report.form?username=@u.username">
         <span data-icon="!"></span>
       </a>
       }
@@ -173,7 +173,7 @@ description = describeUser(u)).some) {
         }
         <p class="thin">@trans.memberSince() @showDate(u.createdAt)</p>
         @u.seenAt.map { seen =>
-        <p class="thin">@trans.lastSeenActive.literal(momentFromNow(seen))</p>
+        <p class="thin">@trans.lastSeenActive(momentFromNow(seen))</p>
         }
         @info.completionRatePercent.map { c =>
         <p class="thin">Game completion rate: @c%</p>
@@ -188,9 +188,9 @@ description = describeUser(u)).some) {
         @info.playTime.map { playTime =>
         <br />
         <br />
-        <p>@trans.tpTimeSpentPlaying.literal(showPeriod(playTime.totalPeriod))</p>
+        <p>@trans.tpTimeSpentPlaying(showPeriod(playTime.totalPeriod))</p>
         @playTime.nonEmptyTvPeriod.map { tvPeriod =>
-        <p>@trans.tpTimeSpentOnTV.literal(showPeriod(tvPeriod))</p>
+        <p>@trans.tpTimeSpentOnTV(showPeriod(tvPeriod))</p>
         }
         }
         <div class="teams">

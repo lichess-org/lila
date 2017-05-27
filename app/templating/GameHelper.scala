@@ -9,7 +9,7 @@ import play.twirl.api.Html
 import lila.common.String.html.{ escape => escapeHtml }
 import lila.game.{ Game, Player, Namer, Pov }
 import lila.user.{ User, UserContext }
-import lila.i18n.I18nKeys
+import lila.i18n.{ I18nKeys, enLang }
 
 trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHelper with ChessgroundHelper =>
 
@@ -66,14 +66,14 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   }
 
   def variantName(variant: chess.variant.Variant)(implicit ctx: UserContext) = variant match {
-    case chess.variant.Standard => I18nKeys.standard.str()
-    case chess.variant.FromPosition => I18nKeys.fromPosition.str()
+    case chess.variant.Standard => I18nKeys.standard.txt()
+    case chess.variant.FromPosition => I18nKeys.fromPosition.txt()
     case v => v.name
   }
 
   def variantNameNoCtx(variant: chess.variant.Variant) = variant match {
-    case chess.variant.Standard => I18nKeys.standard.literalEn()
-    case chess.variant.FromPosition => I18nKeys.fromPosition.literalEn()
+    case chess.variant.Standard => I18nKeys.standard.literalTxtTo(enLang)
+    case chess.variant.FromPosition => I18nKeys.fromPosition.literalTxtTo(enLang)
     case v => v.name
   }
 
@@ -83,13 +83,13 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   def shortClockName(clock: Clock.Config): Html = Html(clock.show)
 
   def modeName(mode: Mode)(implicit ctx: UserContext): String = mode match {
-    case Mode.Casual => I18nKeys.casual.str()
-    case Mode.Rated => I18nKeys.rated.str()
+    case Mode.Casual => I18nKeys.casual.txt()
+    case Mode.Rated => I18nKeys.rated.txt()
   }
 
   def modeNameNoCtx(mode: Mode): String = mode match {
-    case Mode.Casual => I18nKeys.casual.literalEn()
-    case Mode.Rated => I18nKeys.rated.literalEn()
+    case Mode.Casual => I18nKeys.casual.literalTxtTo(enLang)
+    case Mode.Rated => I18nKeys.rated.literalTxtTo(enLang)
   }
 
   def playerUsername(player: Player, withRating: Boolean = true, withTitle: Boolean = true) =
@@ -242,7 +242,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   }
 
   def challengeTitle(c: lila.challenge.Challenge)(implicit ctx: UserContext) = {
-    val speed = c.clock.map(_.config).fold(I18nKeys.unlimited.str()) { clock =>
+    val speed = c.clock.map(_.config).fold(I18nKeys.unlimited.txt()) { clock =>
       s"${chess.Speed(clock).name} (${clock.show})"
     }
     val variant = c.variant.exotic ?? s" ${c.variant.name}"

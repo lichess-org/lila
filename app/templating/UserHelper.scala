@@ -248,18 +248,18 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
   def userGameFilterTitle(info: UserInfo, filter: GameFilter)(implicit ctx: UserContext) =
     splitNumber(userGameFilterTitleNoTag(info, filter))
 
-  def userGameFilterTitleNoTag(info: UserInfo, filter: GameFilter)(implicit ctx: UserContext) = Html((filter match {
-    case GameFilter.All => info.user.count.game + " " + I18nKeys.gamesPlayed()
-    case GameFilter.Me => ctx.me ?? (me => I18nKeys.nbGamesWithYou.pluralSameStr(info.nbWithMe))
-    case GameFilter.Rated => info.nbRated + " " + I18nKeys.rated()
-    case GameFilter.Win => I18nKeys.nbWins.pluralSameStr(info.user.count.win)
-    case GameFilter.Loss => I18nKeys.nbLosses.pluralSameStr(info.user.count.loss)
-    case GameFilter.Draw => I18nKeys.nbDraws.pluralSameStr(info.user.count.draw)
-    case GameFilter.Playing => info.nbPlaying + " playing"
-    case GameFilter.Bookmark => I18nKeys.nbBookmarks.pluralSameStr(info.nbBookmark)
-    case GameFilter.Imported => I18nKeys.nbImportedGames.pluralSameStr(info.nbImported)
-    case GameFilter.Search => Html(I18nKeys.advancedSearch.str().replaceFirst(" ", "\n"))
-  }).toString)
+  def userGameFilterTitleNoTag(info: UserInfo, filter: GameFilter)(implicit ctx: UserContext): Html = (filter match {
+    case GameFilter.All => Html(info.user.count.game + " " + I18nKeys.gamesPlayed().body)
+    case GameFilter.Me => ctx.me ?? (me => I18nKeys.nbGamesWithYou.pluralSame(info.nbWithMe))
+    case GameFilter.Rated => Html(info.nbRated + " " + I18nKeys.rated().body)
+    case GameFilter.Win => I18nKeys.nbWins.pluralSame(info.user.count.win)
+    case GameFilter.Loss => I18nKeys.nbLosses.pluralSame(info.user.count.loss)
+    case GameFilter.Draw => I18nKeys.nbDraws.pluralSame(info.user.count.draw)
+    case GameFilter.Playing => Html(info.nbPlaying + " playing")
+    case GameFilter.Bookmark => I18nKeys.nbBookmarks.pluralSame(info.nbBookmark)
+    case GameFilter.Imported => I18nKeys.nbImportedGames.pluralSame(info.nbImported)
+    case GameFilter.Search => Html(I18nKeys.advancedSearch().body.replaceFirst(" ", "\n"))
+  })
 
   def describeUser(user: User) = {
     val name = user.titleUsername

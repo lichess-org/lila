@@ -5,23 +5,23 @@
 @e.decode.map { decoded =>
 @decoded match {
 case Follow(u1, u2) => {
-@trans.xStartedFollowingY.literal(userIdLink(u1.some, withOnline = false), userIdLink(u2.some, withOnline = false))
+@trans.xStartedFollowingY(userIdLink(u1.some, withOnline = false), userIdLink(u2.some, withOnline = false))
 }
 case TeamJoin(userId, teamId) => {
-@trans.xJoinedTeamY.literal(userIdLink(userId.some, withOnline = false), teamLink(teamId, withIcon = false))
+@trans.xJoinedTeamY(userIdLink(userId.some, withOnline = false), teamLink(teamId, withIcon = false))
 }
 case TeamCreate(userId, teamId) => {
-@trans.xCreatedTeamY.literal(userIdLink(userId.some, withOnline = false), teamLink(teamId, withIcon = false))
+@trans.xCreatedTeamY(userIdLink(userId.some, withOnline = false), teamLink(teamId, withIcon = false))
 }
 case ForumPost(userId, topicId, topicName, postId) => {
-@trans.xPostedInForumY.literal(userIdLink(userId.some, withOnline = false),
+@trans.xPostedInForumY(userIdLink(userId.some, withOnline = false),
 """<a href="%s" title="%s">%s</a>""".format(routes.ForumPost.redirect(postId), escapeHtml(topicName), shorten(topicName, 30)))
 }
 case NoteCreate(fromId, toId) => {
-@trans.xLeftANoteOnY.literal(userIdLink(fromId.some, withOnline = false), userIdLink(toId.some, withOnline = false, params = "?note"))
+@trans.xLeftANoteOnY(userIdLink(fromId.some, withOnline = false), userIdLink(toId.some, withOnline = false, params = "?note"))
 }
 case TourJoin(userId, tourId, tourName) => {
-@trans.xCompetesInY.literal(userIdLink(userId.some, withOnline = false), """<a href="%s">%s</a>""".format(routes.Tournament.show(tourId), tourName))
+@trans.xCompetesInY(userIdLink(userId.some, withOnline = false), """<a href="%s">%s</a>""".format(routes.Tournament.show(tourId), tourName))
 }
 case SimulCreate(userId, simulId, simulName) => {
 @userIdLink(userId.some, withOnline = false) hosts the <a href="@routes.Simul.show(simulId)">@simulName</a>
@@ -30,13 +30,13 @@ case SimulJoin(userId, simulId, simulName) => {
 @userIdLink(userId.some, withOnline = false) joins the <a href="@routes.Simul.show(simulId)">@simulName</a>
 }
 case QaQuestion(userId, id, title) => {
-@trans.xAskedY.literal(userIdLink(userId.some, withOnline = false), """<a href="%s">%s</a>""".format(routes.QaQuestion.show(id, "redirect"), title))
+@trans.xAskedY(userIdLink(userId.some, withOnline = false), """<a href="%s">%s</a>""".format(routes.QaQuestion.show(id, "redirect"), title))
 }
 case QaAnswer(userId, id, title, answerId) => {
-@trans.xAnsweredY.literal(userIdLink(userId.some, withOnline = false), """<a href="%s#answer-%s">%s</a>""".format(routes.QaQuestion.show(id, "redirect"), answerId, title))
+@trans.xAnsweredY(userIdLink(userId.some, withOnline = false), """<a href="%s#answer-%s">%s</a>""".format(routes.QaQuestion.show(id, "redirect"), answerId, title))
 }
 case QaComment(userId, id, title, commentId) => {
-@trans.xCommentedY.literal(userIdLink(userId.some, withOnline = false), """<a href="%s#comment-%s">%s</a>""".format(routes.QaQuestion.show(id, "redirect"), commentId, title))
+@trans.xCommentedY(userIdLink(userId.some, withOnline = false), """<a href="%s#comment-%s">%s</a>""".format(routes.QaQuestion.show(id, "redirect"), commentId, title))
 }
 case GameEnd(playerId, opponent, win, perfKey) => {
 @lila.rating.PerfType(perfKey).map { perf =>

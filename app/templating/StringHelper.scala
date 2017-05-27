@@ -2,12 +2,15 @@ package lila.app
 package templating
 
 import play.twirl.api.Html
+import ornicar.scalalib.Zero
 
 import lila.user.{ User, UserContext }
 
 trait StringHelper { self: NumberHelper =>
 
   def netDomain: String
+
+  implicit val LilaHtmlZero: Zero[Html] = Zero.instance(Html(""))
 
   val slugify = lila.common.String.slugify _
 

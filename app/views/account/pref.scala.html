@@ -3,7 +3,7 @@
 @import lila.pref.{Pref,PrefCateg}
 
 @name = @{ categName(categ) }
-@title = @{ s"$name - ${u.username} - ${trans.preferences.str()}" }
+@title = @{ s"$name - ${u.username} - ${trans.preferences.txt()}" }
 
 @account.layout(title = title, active = categ.slug, evenMoreCss = cssTag("pref.css")) {
 <div class="content_box small_box prefs">
@@ -18,15 +18,15 @@
         </li>
         <li>
           <h2>@trans.materialDifference()</h2>
-          @base.form.radios(form("display.captured"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
+          @base.form.radios(form("display.captured"), Seq(0 -> trans.no.txt(), 1 -> trans.yes.txt()))
         </li>
         <li>
           <h2>@trans.boardHighlights()</h2>
-          @base.form.radios(form("display.highlight"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
+          @base.form.radios(form("display.highlight"), Seq(0 -> trans.no.txt(), 1 -> trans.yes.txt()))
         </li>
         <li>
           <h2>@trans.pieceDestinations()</h2>
-          @base.form.radios(form("display.destination"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
+          @base.form.radios(form("display.destination"), Seq(0 -> trans.no.txt(), 1 -> trans.yes.txt()))
         </li>
         <li>
           <h2>@trans.boardCoordinates()</h2>
@@ -54,11 +54,11 @@
         </li>
         <li>
           <h2>@trans.horizontalGreenProgressBars()</h2>
-          @base.form.radios(form("clockBar"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
+          @base.form.radios(form("clockBar"), Seq(0 -> trans.no.txt(), 1 -> trans.yes.txt()))
         </li>
         <li>
           <h2>@trans.soundWhenTimeGetsCritical()</h2>
-          @base.form.radios(form("clockSound"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
+          @base.form.radios(form("clockSound"), Seq(0 -> trans.no.txt(), 1 -> trans.yes.txt()))
         </li>
       </ul>
       }
@@ -70,7 +70,7 @@
         </li>
         <li>
           <h2>@trans.premovesPlayingDuringOpponentTurn()</h2>
-          @base.form.radios(form("behavior.premove"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
+          @base.form.radios(form("behavior.premove"), Seq(0 -> trans.no.txt(), 1 -> trans.yes.txt()))
         </li>
         <li>
           <h2>@trans.takebacksWithOpponentApproval()</h2>
@@ -106,7 +106,7 @@
       <ul>
         <li>
           <h2>@trans.letOtherPlayersFollowYou()</h2>
-          @base.form.radios(form("follow"), Seq(0 -> trans.no.str(), 1 -> trans.yes.str()))
+          @base.form.radios(form("follow"), Seq(0 -> trans.no.txt(), 1 -> trans.yes.txt()))
         </li>
         <li>
           <h2>@trans.letOtherPlayersChallengeYou()</h2>
