@@ -6,7 +6,7 @@ import actorApi.Member
 import chess.Color
 import lila.common.ApiVersion
 import lila.game.Event
-import org.apache.commons.lang3.StringEscapeUtils.escapeHtml4
+import lila.common.String.html.{ encode => escapeHtml }
 
 case class VersionedEvent(
     version: Int,
@@ -34,7 +34,7 @@ case class VersionedEvent(
   else Json.obj("v" -> version)
 
   private val mobileV1Escaper: Reads[JsObject] = (__ \ 't).json.update(
-    __.read[JsString].map { s => JsString(escapeHtml4(s.value)) }
+    __.read[JsString].map { s => JsString(escapeHtml(s.value)) }
   )
 
   private def dataForApiVersion(typ: String, data: JsValue, apiVersion: ApiVersion): JsValue =

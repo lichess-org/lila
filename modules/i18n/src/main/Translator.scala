@@ -2,7 +2,6 @@ package lila.i18n
 
 import play.api.i18n.Lang
 import play.api.mvc.RequestHeader
-import play.twirl.api.Html
 
 private sealed trait Translation extends Any
 

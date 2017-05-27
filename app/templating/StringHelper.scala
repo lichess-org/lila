@@ -1,14 +1,14 @@
 package lila.app
 package templating
 
-import lila.user.{ User, UserContext }
 import play.twirl.api.Html
+
+import lila.common.String.html.{ encode => escapeHtml }
+import lila.user.{ User, UserContext }
 
 trait StringHelper { self: NumberHelper =>
 
   def netDomain: String
-
-  val escapeHtml: String => String = org.apache.commons.lang3.StringEscapeUtils.escapeHtml4 _
 
   val slugify = lila.common.String.slugify _
 

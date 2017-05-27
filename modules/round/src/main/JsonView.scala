@@ -3,11 +3,11 @@ package lila.round
 import scala.concurrent.duration._
 import scala.math
 
-import org.apache.commons.lang3.StringEscapeUtils.escapeHtml4
 import play.api.libs.json._
 
 import lila.common.ApiVersion
 import lila.common.PimpedJson._
+import lila.common.String.html.{ encode => escapeHtml }
 import lila.game.JsonView._
 import lila.game.{ Pov, Game, PerfPicker, Source, GameRepo, CorrespondenceClock }
 import lila.pref.Pref
@@ -156,7 +156,7 @@ final class JsonView(
               "spectator" -> true,
               "ai" -> player.aiLevel,
               "user" -> playerUser.map { userJsonView.minimal(_, game.perfType) },
-              "name" -> player.name.map(escapeHtml4),
+              "name" -> player.name.map(escapeHtml),
               "rating" -> player.rating,
               "ratingDiff" -> player.ratingDiff,
               "provisional" -> player.provisional.option(true),
@@ -170,7 +170,7 @@ final class JsonView(
               "color" -> opponent.color.name,
               "ai" -> opponent.aiLevel,
               "user" -> opponentUser.map { userJsonView.minimal(_, game.perfType) },
-              "name" -> opponent.name.map(escapeHtml4),
+              "name" -> opponent.name.map(escapeHtml),
               "rating" -> opponent.rating,
               "ratingDiff" -> opponent.ratingDiff,
               "provisional" -> opponent.provisional.option(true),
