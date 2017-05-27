@@ -13,22 +13,19 @@ trait StringHelper { self: NumberHelper =>
 
   val escapeHtml = lila.common.String.html.escape _
 
-  def shorten(text: String, length: Int, sep: String = "…") = Html {
+  def shorten(text: String, length: Int, sep: String = "…"): Html = {
     val t = text.replace("\n", " ")
-    if (t.size > (length + sep.size)) escapeHtml(t take length) ++ sep
+    if (t.size > (length + sep.size)) Html(escapeHtml(t take length).body ++ sep)
     else escapeHtml(t)
   }
 
   def shortenWithBr(text: String, length: Int) = Html {
-    nl2br(escapeHtml(text).take(length)).replace("<br /><br />", "<br />")
+    nl2br(escapeHtml(text).body.take(length)).replace("<br /><br />", "<br />")
   }
 
   def pluralize(s: String, n: Int) = s"$n $s${if (n > 1) "s" else ""}"
 
-  private val autoLinkFun: String => String =
-    nl2br _ compose addUserProfileLinks _ compose addLinks _ compose escapeHtml
-
-  def autoLink(text: String) = Html { autoLinkFun(text) }
+  def autoLink(text: String): Html = Html(nl2br(addUserProfileLinks(addLinks(escapeHtml(text).body))))
 
   def nl2br(text: String) = text.replace("\r\n", "<br />").replace("\n", "<br />")
 
@@ -36,7 +33,7 @@ trait StringHelper { self: NumberHelper =>
 
   def markdownLinks(text: String) = Html {
     nl2br {
-      markdownLinkRegex.replaceAllIn(escapeHtml(text), m => {
+      markdownLinkRegex.replaceAllIn(escapeHtml(text).body, m => {
         s"""<a href="${m group 2}">${m group 1}</a>"""
       })
     }
