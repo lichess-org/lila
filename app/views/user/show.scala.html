@@ -44,7 +44,7 @@ description = describeUser(u)).some) {
     }
   </div>
   <div class="social content_box_inter">
-    <a class="intertab" href="@routes.Relation.followers(u.username)">@splitNumber(trans.nbFollowers.plural(info.nbFollowers, info.nbFollowers.localize))</a>
+    <a class="intertab" href="@routes.Relation.followers(u.username)">@splitNumber(trans.nbFollowers.pluralSame(info.nbFollowers))</a>
     @info.nbBlockers.map { nb =>
     <a class="intertab">@splitNumber(nb + " Blockers")</a>
     }
@@ -52,7 +52,7 @@ description = describeUser(u)).some) {
     <a href="@routes.Study.byOwnerDefault(u.username)" class="intertab">@splitNumber(info.nbStudies + " studies")</a>
     <a class="intertab" @NotForKids {
       href="@routes.ForumPost.search("user:" + u.username, 1)"
-      }>@splitNumber(trans.nbForumPosts.plural(info.nbPosts, info.nbPosts.localize))</a>
+      }>@splitNumber(trans.nbForumPosts.pluralSame(info.nbPosts))</a>
     @NotForKids {
     @if(ctx.isAuth && !ctx.is(u)) {
     <a class="intertab note_zone_toggle">@splitNumber(notes.size + " Notes")</a>
