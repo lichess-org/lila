@@ -33,7 +33,7 @@ object ApplicationBuild extends Build {
       scriptClasspath := Seq("*"),
       // offline := true,
       libraryDependencies ++= Seq(
-        scalaz, scalalib, hasher, config, apache, findbugs,
+        scalaz, scalalib, hasher, config, findbugs,
         reactivemongo.driver, reactivemongo.iteratees, akka.actor, akka.slf4j,
         maxmind, prismic, netty, guava,
         kamon.core, kamon.influxdb,
@@ -71,7 +71,7 @@ object ApplicationBuild extends Build {
   lazy val api = project("api", moduleCPDeps)
     .settings(
       libraryDependencies ++= provided(
-        play.api, hasher, config, apache, findbugs,
+        play.api, hasher, config, findbugs,
         reactivemongo.driver, reactivemongo.iteratees,
         kamon.core, kamon.influxdb)
     ) aggregate (moduleRefs: _*)
