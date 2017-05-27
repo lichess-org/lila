@@ -60,6 +60,7 @@
   <!-- This is what a spectator sees in the right-hand box when watching a game and it is Black's turn to play. -->
   <string name="blackPlays">ಕಪ್ಪು ನಾಟಕಗಳು</string>
   <!-- This appears after 3 minutes have elapsed with one player disconnected. Below it are two buttons: "Claim victory" and "Call draw". -->
+  <string name="opponentLeftChoices">ಇತರ ಆಟಗಾರ ಆಟದ ಬಿಟ್ಟಿದ್ದಾರೆ. ನೀವು ಆಟಗಾರರ ರಾಜೀನಾಮೆ ಒತ್ತಾಯಿಸಲು ಅಥವಾ ನಿರೀಕ್ಷಿಸಿ.</string>
   <!-- The mouseover text of "Claim victory". You do not have to translate it like this; you can translate to e.g. "Force victory", or whatever best explains the button in your language. Mouseover texts can be as long as you want, within reason. -->
   <string name="makeYourOpponentResign">ನಿಮ್ಮ ಎದುರಾಳಿಯ ಬಿಟ್ಟುಬಿಡುತ್ತಾರೆ ಮಾಡಿ</string>
   <!-- Clicking this ends the game and grants you the win. One of the two buttons that appears when your opponent leaves the game. -->
