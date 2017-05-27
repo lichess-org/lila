@@ -62,6 +62,7 @@
   <!-- This is what a spectator sees in the right-hand box when watching a game and it is Black's turn to play. -->
   <string name="blackPlays">Zwart aan zet</string>
   <!-- This appears after 3 minutes have elapsed with one player disconnected. Below it are two buttons: "Claim victory" and "Call draw". -->
+  <string name="opponentLeftChoices">De andere speler is weggegaan. U kan de overwinning of een gelijkspel opeisen, op wachten.</string>
   <!-- The mouseover text of "Claim victory". You do not have to translate it like this; you can translate to e.g. "Force victory", or whatever best explains the button in your language. Mouseover texts can be as long as you want, within reason. -->
   <string name="makeYourOpponentResign">U wint de partij</string>
   <!-- Clicking this ends the game and grants you the win. One of the two buttons that appears when your opponent leaves the game. -->
@@ -356,6 +357,7 @@
   <string name="backToTournament">Terug naar het toernooi</string>
   <string name="backToGame">Terug naar partij</string>
   <!-- This is what search engines (like Google, Baidu or Yandex) see when Lichess.org appears as a search result. Keep it as short as possible and make Lichess sound good! -->
+  <string name="siteDescription">Gratis online schaken. Speel Schaken nu in een schone omgeving. Geen registratie, geen advertenties, geen plug-ins vereist. Speel Schaken met de computer, vrienden, of willekeurige tegenstanders.</string>
   <!-- Teams on lichess are groups of people with their own forum boards and chat channels. Appears at the top of every page on lichess. -->
   <string name="teams">Teams</string>
   <!-- %s is the number of members. Appears on the top-right hand side on a team's page (e.g. https://lichess.org/team/linux). -->
