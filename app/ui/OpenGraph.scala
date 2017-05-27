@@ -1,7 +1,7 @@
 package lila.app
 package ui
 
-import lila.common.String.html.{ encode => escapeHtml }
+import lila.common.String.html.{ escape => escapeHtml }
 import play.twirl.api.Html
 
 case class OpenGraph(

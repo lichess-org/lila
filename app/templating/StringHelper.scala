@@ -3,7 +3,6 @@ package templating
 
 import play.twirl.api.Html
 
-import lila.common.String.html.{ encode => escapeHtml }
 import lila.user.{ User, UserContext }
 
 trait StringHelper { self: NumberHelper =>
@@ -11,6 +10,8 @@ trait StringHelper { self: NumberHelper =>
   def netDomain: String
 
   val slugify = lila.common.String.slugify _
+
+  val escapeHtml = lila.common.String.html.escape _
 
   def shorten(text: String, length: Int, sep: String = "…") = Html {
     val t = text.replace("\n", " ")

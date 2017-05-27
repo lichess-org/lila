@@ -7,7 +7,7 @@ import play.api.libs.json._
 
 import lila.common.ApiVersion
 import lila.common.PimpedJson._
-import lila.common.String.html.{ encode => escapeHtml }
+import lila.common.String.html.{ escape => escapeHtml }
 import lila.game.JsonView._
 import lila.game.{ Pov, Game, PerfPicker, Source, GameRepo, CorrespondenceClock }
 import lila.pref.Pref

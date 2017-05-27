@@ -52,9 +52,10 @@ object String {
   object html {
 
     // from https://github.com/android/platform_frameworks_base/blob/d59921149bb5948ffbcb9a9e832e9ac1538e05a0/core/java/android/text/TextUtils.java#L1361
-    def encode(s: String): String = {
+    def escape(s: String): String = {
       val sb = new StringBuilder
-      for (i <- 0 to s.length) sb.append {
+      var i = 0
+      while (i < s.length) sb.append {
         s.charAt(i) match {
           case '<' => "&lt;"
           case '>' => "&gt;"
@@ -63,6 +64,7 @@ object String {
           case '\'' => "&#39;"
           case c => c
         }
+        i += 1
       }
       sb.toString
     }

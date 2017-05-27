@@ -2,7 +2,7 @@ package lila.chat
 
 import lila.common.LightUser
 import lila.common.PimpedJson._
-import lila.common.String.html.{ encode => escapeHtml }
+import lila.common.String.html.{ escape => escapeHtml }
 import play.api.libs.json._
 
 object JsonView {
