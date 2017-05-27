@@ -16,7 +16,6 @@
   <!-- This appears in the box while you are playing a game. It indicates it is your turn to play. -->
   <string name="yourTurn">Anjaranao izao</string>
   <!-- AI name and level, e.g. "Stockfish level 3". Note that the "Stockfish" part will always be first no matter where you place the %s, though you can rearrange them to e.g. "%s at %s levels", which would produce e.g. "Stockfish at 3 levels". Use the translation that sounds best in your language. Appears in the box on the left-hand side in the page of the game, and also on your profile, in the list of games. -->
-  <string name="aiNameLevelAiLevel">%1$s ambaratonga %2$s</string>
   <!-- This appears in the "Play with the machine" menu (https://lichess.org/setup/ai) as a heading. Below it are skill levels (1 through 8) of the AI that you can play against. -->
   <string name="level">Ambaratonga</string>
   <!-- Turns the chat room (or player chat) on or off. This is the mouseover text of the checkbox on the top-right of the chat box. -->
@@ -58,6 +57,7 @@
   <!-- This is what a spectator sees in the right-hand box when watching a game and it is Black's turn to play. -->
   <string name="blackPlays">Milalao ny mainty</string>
   <!-- This appears after 3 minutes have elapsed with one player disconnected. Below it are two buttons: "Claim victory" and "Call draw". -->
+  <string name="opponentLeftChoices">Mety nandao ny lalao ny mpifanandrina. Afaka mitaky ny fandresena na miandry ny fiverenany, na manery azy hiala ilany ianao.</string>
   <!-- The mouseover text of "Claim victory". You do not have to translate it like this; you can translate to e.g. "Force victory", or whatever best explains the button in your language. Mouseover texts can be as long as you want, within reason. -->
   <string name="makeYourOpponentResign">Manao ny mpifanandrina aminao ho resy</string>
   <!-- Clicking this ends the game and grants you the win. One of the two buttons that appears when your opponent leaves the game. -->
@@ -106,21 +106,17 @@
   <!-- This appears in various places, including players' profiles and the right-hand side boxes in individual games. It should be translated as a noun, NOT as a verb. -->
   <string name="draw">Sahala</string>
   <!-- The %s is the counter of how many players are connected right now. This sentence is displayed at the top of every page on lichess. -->
-  <plurals name="nbPlayers">
-    <item quantity="one">%d mpilalao</item>
-    <item quantity="other">%d mpilalao</item>
-  </plurals>
   <!-- This is a shorter phrase for "Games being played right now". It is what the link at the top that says "Games" links to (https://lichess.org/games). Please try to keep your translation as short as possible. -->
   <string name="currentGames">Ireo lalao amin\'izao fotoana</string>
   <!-- %s here is the number of all the games ever played on Lichess. Links to https://lichess.org/games/all. -->
   <plurals name="nbGames">
-    <item quantity="one">%d lalao</item>
-    <item quantity="other">%d lalao</item>
+    <item quantity="one">%s lalao</item>
+    <item quantity="other">%s lalao</item>
   </plurals>
   <!-- %s is the number of games you have bookmarked. Links to https://lichess.org/games/bookmark. It only appears to registered users that have bookmarked certain games. It displays a list of your bookmarked games. -->
   <plurals name="nbBookmarks">
-    <item quantity="one">%d Bookmarks</item>
-    <item quantity="other">%d Bookmarks</item>
+    <item quantity="one">%s Bookmarks</item>
+    <item quantity="other">%s Bookmarks</item>
   </plurals>
   <!-- Clicking one of these small boards brings you to the game's unique page. This is the mouseover text of the small chess boards dotted around the site. These small boards are most prominent in the "Games" pages (https://lichess.org/games). -->
   <string name="viewInFullSize">Alehibiazo</string>
@@ -140,7 +136,6 @@
   <!-- It is Lichess's webforum, where users can discuss various topics, chess-related or not. These are sometimes called "bulletin boards". "Forum" is one of the links at the top of every page, so keep it as short as possible. Links to https://lichess.org/forum -->
   <string name="forum">Serasera</string>
   <!-- The first %s is the player's name and the second %s is the title of the topic in the forum. By "topic" here we mean a discussion, sometimes called a "thread" in this context. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xPostedInForumY">%1$s dia niserasera tao amin\'ny dinika %2$s</string>
   <!-- A list of the most recent posts on the forum. Appears as a heading to a box near the bottom of the "Play" page (https://lichess.org/). -->
   <!-- Some have been translating as "[Chess] Players". This is acceptable only if it is one word (e.g. "Szachiści" in Polish). Otherwise, keep just translate to "Players". This appears as one of the links on the navigation bar at the top of every page.  Links to https://lichess.org/people -->
   <string name="players">Ireo mpilalao</string>
@@ -158,13 +153,13 @@
   <string name="oneDay">Iray andro</string>
   <!-- %s is maximum number of days for each turn. This appears next to the slider for the correspondence chess time control in the game creation menus (e.g. "Create a game", "Play with a friend"). It also appears on the clock and information box in correspondence chess games. Please keep this sentence as short as possible. -->
   <plurals name="nbDays">
-    <item quantity="one">%d andro</item>
-    <item quantity="other">%d andro</item>
+    <item quantity="one">%s andro</item>
+    <item quantity="other">%s andro</item>
   </plurals>
   <!-- %s is number of hours. Used to display correspondence clocks. -->
   <plurals name="nbHours">
-    <item quantity="one">%d ora</item>
-    <item quantity="other">%d ora</item>
+    <item quantity="one">%s ora</item>
+    <item quantity="other">%s ora</item>
   </plurals>
   <!-- The time control for the game. This appears as a column heading in the table of games you can join on the "Play" page (https://lichess.org/). -->
   <string name="time">Fotoana</string>
@@ -190,8 +185,8 @@
   <string name="gamesPlayed">Lalao nolalaovina</string>
   <!-- %s is the number of games this player has played with you. This appears as a tab on the profile pages of people that you have played with. Try to keep it fairly short. -->
   <plurals name="nbGamesWithYou">
-    <item quantity="one">%d lalao niaraka taminao</item>
-    <item quantity="other">%d lalao niaraka taminao</item>
+    <item quantity="one">%s lalao niaraka taminao</item>
+    <item quantity="other">%s lalao niaraka taminao</item>
   </plurals>
   <!-- This is a generic word that appears in a wide variety of places and is used to cancel actions of all sorts. It is recommended to translate it according to whatever your operating system (e.g. Microsoft Windows) uses for your language. -->
   <string name="cancel">Cancel</string>
@@ -279,28 +274,24 @@
   <string name="spectators">Mpijery:</string>
   <!-- This appears as a clickable tab in player profiles. The %s is the number of games won. -->
   <plurals name="nbWins">
-    <item quantity="one">Fandresena %d</item>
-    <item quantity="other">Fandresena %d</item>
+    <item quantity="one">Fandresena %s</item>
+    <item quantity="other">Fandresena %s</item>
   </plurals>
   <!-- This appears as a clickable tab in player profiles. The %s is the number of games lost. -->
   <plurals name="nbLosses">
-    <item quantity="one">Faharesena %d</item>
-    <item quantity="other">Faharesena %d</item>
+    <item quantity="one">Faharesena %s</item>
+    <item quantity="other">Faharesena %s</item>
   </plurals>
   <!-- This appears as a clickable tab in player profiles. The %s is the number of games that ended in draw. -->
   <plurals name="nbDraws">
-    <item quantity="one">Lalao sahala %d</item>
-    <item quantity="other">Lalao sahala %d</item>
+    <item quantity="one">Lalao sahala %s</item>
+    <item quantity="other">Lalao sahala %s</item>
   </plurals>
   <!-- This function lets you download a table of all your games in CSV format. The button in question is a folder with an arrow pointing downwards overlayed on it. It can be seen at profile pages, e.g. https://lichess.org/@/thibault. -->
   <string name="exportGames">Exporter-o ny lalao</string>
   <!-- Below this is a slider that lets you choose the accepted player ratings. The sentence appears in the "Create a game" (https://lichess.org/setup/hook) and "Filter games" menus. Please do NOT translate "rating" to "Elo", because lichess has been using the superior Glicko-2 rating system since late 2013. -->
   <string name="ratingRange">Rating range</string>
   <!-- %s here is the number of seconds, usually 15. This is the mouseover text of the "+" button that appears next to players' names in timed matches. Clicking it adds "%s" seconds to the player's clock. -->
-  <plurals name="giveNbSeconds">
-    <item quantity="one">Omeo %d segondra</item>
-    <item quantity="other">Omeo %d segondra</item>
-  </plurals>
   <!-- Appears in a red box on player profiles that have been marked as cheater accounts by the site moderators. An example is https://lichess.org/@/ko1. -->
   <string name="thisPlayerUsesChessComputerAssistance">Mampiasa solosaina mpanampy ity mpilalao ity</string>
   <!-- Appears as a red box on the profiles of players that have been trying to cheat the rating system. An example is https://lichess.org/@/GrandMasterGnel1. -->
@@ -334,12 +325,13 @@
   <string name="viewTournament">Jereo ny fifaninanana</string>
   <string name="backToGame">Hiverina any amin\'ny lalao</string>
   <!-- This is what search engines (like Google, Baidu or Yandex) see when Lichess.org appears as a search result. Keep it as short as possible and make Lichess sound good! -->
+  <string name="siteDescription">Lalao échec maimaimpoana. Milalaova échec miraka amina interface tsara voatra. Tsy mila fisoratana anarana, tsy misy dokam-barotra, tsy mila plugin. Milalaova échec miraka amin\'ny solosaina, namana na mpandray anjara voafantina.</string>
   <!-- Teams on lichess are groups of people with their own forum boards and chat channels. Appears at the top of every page on lichess. -->
   <string name="teams">vondrona</string>
   <!-- %s is the number of members. Appears on the top-right hand side on a team's page (e.g. https://lichess.org/team/linux). -->
   <plurals name="nbMembers">
-    <item quantity="one">mpiray vondrona %d</item>
-    <item quantity="other">mpiray vondrona %d</item>
+    <item quantity="one">mpiray vondrona %s</item>
+    <item quantity="other">mpiray vondrona %s</item>
   </plurals>
   <!-- A list of all teams on lichess. Links to https://lichess.org/team. Appears as a tab in the "Teams" page. -->
   <string name="allTeams">Ny vondrona rehetra</string>
@@ -366,9 +358,7 @@
   <!-- This is for teams. It is a listing of all players in the team sorted by who joined most recently. It appears on the left-hand side of any team's page (e.g. https://lichess.org/team/saloon). -->
   <string name="teamRecentMembers">Mpilalao vao niditra</string>
   <!-- The first %s is the name of the player, and the second %s is the team the player joined. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xJoinedTeamY">%1$s dia niditra tao amin\'ny %2$s</string>
   <!-- The first %s is the name of the player, and the second %s is the team the player created. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xCreatedTeamY">Namorona ny vondrona %1$s i %2$s</string>
   <!-- This is the mean average rating of all players in the team. Appears on the information box on team pages. Example: https://lichess.org/team/linux -->
   <string name="averageElo">Filaharana ankapobeny</string>
   <!-- This is before an input box that lets you write where you are located (a city, town, or whatever you want to write in it). Appears in the "Edit profile" page (https://lichess.org/account/profile). -->
@@ -394,8 +384,8 @@
   <string name="importGame">Ampidiro ny lalao</string>
   <!-- %s is the number of games imported into the Lichess database using the "Import games" tool. Links to https://lichess.org/games/imported and is found on the left hand side of the "Games" pages. -->
   <plurals name="nbImportedGames">
-    <item quantity="one">Lalao nampidirina %d</item>
-    <item quantity="other">Lalao nampidirina %d</item>
+    <item quantity="one">Lalao nampidirina %s</item>
+    <item quantity="other">Lalao nampidirina %s</item>
   </plurals>
   <!-- A "CAPTCHA" is, in short, a test to see if the user is human or a bot. You have probably comes across them before; they usually involve putting in a word or answering a question that only a human would know the answer to. CAPTCHAs appear before registering and when posting on the forum. -->
   <string name="thisIsAChessCaptcha">CAPTCHAn\'ny échec ito.</string>
@@ -432,17 +422,12 @@
   <!-- Indicates that this player is following you. Appears on the informative popups that appear when you hover the mouse cursor over players' names. -->
   <string name="followsYou">Manaraka anao</string>
   <!-- The two %s's are players' names. The first %s is the name of the follower, and the second %s is the name of the followed. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xStartedFollowingY">%1$s dia nanomboka nanaraka an\'i %2$s</string>
   <!-- %s is the number of people that follow this player. Example: https://lichess.org/@/thibault — as of the time of writing, Thibault has 263 people following him. -->
   <plurals name="nbFollowers">
-    <item quantity="one">%d mpanaraka</item>
-    <item quantity="other">%d mpanaraka</item>
+    <item quantity="one">%s mpanaraka</item>
+    <item quantity="other">%s mpanaraka</item>
   </plurals>
   <!-- %s is the number of players this player is following. Example: https://lichess.org/@/thibault — as of the time of writing, Thibault is following 81 players. -->
-  <plurals name="nbFollowing">
-    <item quantity="one">%d manaraka</item>
-    <item quantity="other">%d manaraka</item>
-  </plurals>
   <!-- Generic message that lets you view more. Appears on the left-hand side of https://lichess.org/people, which lets you view a list of connected players. Also appears on the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) if there are too many messages in the timeline. "More" may be used in other places around Lichess in the future, so please make your translation as generic as possible. -->
   <string name="more">Tohiny</string>
   <!-- Tells how long the player has been a member of lichess. Appears on profile pages. For example, https://lichess.org/@/thibault has been a member since 2010-11-22. -->
@@ -459,8 +444,8 @@
   <string name="graph">Graphe</string>
   <!-- %s is the number of minutes. Ticking this checkbox means that games that last less than 3 minutes will show up in the list of games. The sentence appears in the "Filter games" menu, which can be accessed through the "Play" page (https://lichess.org). -->
   <plurals name="lessThanNbMinutes">
-    <item quantity="one">Latsaky ny %d minitra</item>
-    <item quantity="other">Latsaky ny %d minitra</item>
+    <item quantity="one">Latsaky ny %s minitra</item>
+    <item quantity="other">Latsaky ny %s minitra</item>
   </plurals>
   <!-- Error message that indicates the text put in the form is too short. Appears in forms around the site of all kinds, including registration and team creation. -->
   <string name="textIsTooShort">Fohy loatra ny soratra.</string>
@@ -566,8 +551,8 @@
   <!-- %s is the numerical rating and rating deviation for the puzzle. This is the rating of individual chess puzzles in the "Training" pages (https://lichess.org/training/5705). Appears on the right-hand side box after you have succeeded at or failed at the puzzle. Note that this is the rating of the puzzle, NOT the player. -->
   <!-- %s is the number of times this puzzle has been played. Appears in the box on the right-hand side the "Training" page (https://lichess.org/training/) after you have succeeded at or failed the puzzle. -->
   <plurals name="playedXTimes">
-    <item quantity="one">Nanao andrana in-%d</item>
-    <item quantity="other">Nanao andrana in-%d</item>
+    <item quantity="one">Nanao andrana in-%s</item>
+    <item quantity="other">Nanao andrana in-%s</item>
   </plurals>
   <!-- %s is the name of the game. Appears as a button title at the bottom of the "Training" page (https://lichess.org/training/) after you have succeeded or failed at the puzzle. -->
   <!-- Clicking this takes you to a new puzzle. Only happens for links to individual puzzles, e.g. https://lichess.org/training/6958. Appears as a button underneath the box on the right hand side after you have succeeded or failed at the puzzle. "Training" should be translated as a verb, or as "[the process of] training" for this sentence. -->
@@ -581,14 +566,10 @@
   <!-- The mouseover text of the downwards-pointing triangle (▾), which is a negative (-1) vote for a puzzle. Appears in the box on the right-hand side of the "Training" page (https://lichess.org/training/) after you have succeeded or failed at the puzzle. -->
   <string name="thisPuzzleIsWrong">Tsy marina ity piozila ity ary mankaleo</string>
   <!-- Explains the rule for the pools feature. If you do not play in the first, say, 30 seconds, you automatically resign the game. Appears when playing a game in a pool, such as https://lichess.org/pool/3-0 -->
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Manana %d segondra ianao hanaovana ny hetsika voalohany!</item>
-    <item quantity="other">Manana %d segondra ianao hanaovana ny hetsika voalohany!</item>
-  </plurals>
   <!-- %s is the number of games. Appears below the title of "lichess.org" on the "Play" page (https://lichess.org). Could be translated as "%s games being played". -->
   <plurals name="nbGamesInPlay">
-    <item quantity="one">%d ireo lalao amin\'izao fotoana izao</item>
-    <item quantity="other">%d ireo lalao amin\'izao fotoana izao</item>
+    <item quantity="one">%s ireo lalao amin\'izao fotoana izao</item>
+    <item quantity="other">%s ireo lalao amin\'izao fotoana izao</item>
   </plurals>
   <!-- Informs the player what the button does. This appears as the mouseover text of "Auto switch", a button that appears when you are playing more than one game. See the explanation for "Auto switch" for more details. -->
   <!-- Short for "automatically switch [to the next game]". A toggleable button that appears below the board when playing multiple games. It makes lichess switch to the next game you are playing automatically for you. When enabled: in correspondence, it cycles through your current games; in simuls, it quickly switches game, focusing on urgent ones. Please keep this as short as possible, as it has an explanatory text that appears when you hover the mouse over. -->
