@@ -12,6 +12,7 @@ fs.readFile('translation/source/site.xml', { encoding: 'utf8' }).then(txt => {
     const code = `// Generated with bin/trans-dump.js ${new Date()}
 package lila.i18n
 
+// format: OFF
 object I18nKeys {
 
 def untranslated(message: String) = new Untranslated(message)

@@ -1,6 +1,7 @@
 // Generated with bin/trans-dump.js Sat May 27 2017 23:18:59 GMT+0200 (CEST)
 package lila.i18n
 
+// format: OFF
 object I18nKeys {
 
 def untranslated(message: String) = new Untranslated(message)
