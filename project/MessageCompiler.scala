@@ -1,6 +1,7 @@
 import _root_.java.io.File
 import _root_.java.nio.file.{Files, StandardCopyOption}
 import sbt._, Keys._
+import scala.xml.XML
 
 object MessageCompiler {
 
@@ -15,9 +16,8 @@ object MessageCompiler {
       val (locale, file) = entry
       val compileToFile = compileTo / s"$locale.scala"
       if (file.lastModified > compileToFile.lastModified) {
-        val pairs = readLines(file) flatMap makePair
         printToFile(compileToFile) {
-          render(locale, pairs)
+          render(locale, file)
         }
       }
       compileToFile
@@ -47,31 +47,33 @@ object Registry {
     file
   }
 
-  private def render(locale: String, pairs: List[(String, String)]) = {
+  private def ucfirst(str: String) = str(0).toUpper + str.drop(1)
+
+  private def toKey(e: scala.xml.Node) = s""""${e.\("@name")}""""
+
+  private def render(locale: String, file: File) = {
+    val xml = XML.loadFile(file)
     def quote(msg: String) = s"""""\"$msg""\""""
-    // val content = pairs.map {
-    //   case (key, message) => s""""$key"->${quote(message)}"""
-    // } mkString ",\n"
-    val content = ""
+    val content = xml.child.collect {
+      case e if e.label == "string" => s"""${toKey(e)}->Singular(\"\"\"${e.text}\"\"\")"""
+      case e if e.label == "plurals" =>
+        val items = e.child.filter(_.label == "item").map { i =>
+          s"""${ucfirst(i.\("@quantity").toString)}->\"\"\"${i.text}\"\"\""""
+        }
+        s"""${toKey(e)}->Plurals(Map(${items mkString ","}))"""
+    }
     s"""package lila.i18n
 package db
+
+import I18nQuantity._
 
 // format: OFF
 private object `$locale` {
 
-  def load = Map[MessageKey, Translation]($content)
+  def load = Map[MessageKey, Translation](\n${content mkString ",\n"})
 }
 """
   }
-
-  private def makePair(str: String): Option[(String, String)] = for {
-    fields <- CSVParser.parse(str, ',', '"')
-    key <- fields.headOption
-    translation <- fields.lift(3)
-  } yield (key, translation)
-
-  private def readLines(f: File) =
-    scala.io.Source.fromFile(f)("UTF-8").getLines.toList
 
   private def printToFile(f: File)(content: String): Unit = {
     val p = new java.io.PrintWriter(f, "UTF-8")
