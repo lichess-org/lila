@@ -897,7 +897,6 @@
   <string name="contact">Ҫыхӑну</string>
   <string name="termsOfService">Шыв-йӗркипе</string>
   <!-- Lichess' source code repository. Appears on the footer of the menu page. Links to https://github.com/ornicar/lila -->
-  <string name="sourceCode">Source Code</string>
   <!-- Clicking this takes you to a page all about simuls on Lichess, where you can see open, running and finished simuls, as well as create your own. Appears as one of the links at the top of the navigation bar and on menu page. Links to https://lichess.org/simul -->
   <string name="simultaneousExhibitions">Пӗр вӑхӑтри вӑйӑсем</string>
   <!-- The person who created the simul. Appears as a column heading on https://lichess.org/simul -->
