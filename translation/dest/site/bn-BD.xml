@@ -595,7 +595,6 @@
   <!-- Politely thanks the players for voting. Appears on the "Training" page (https://lichess.org/training) after voting for a puzzle. Also, a page thanking all contributors of Lichess. Appears on the footer of the menu page. Links to https://lichess.org/thanks . Please use the polite version of "Thank you" in your language. -->
   <string name="thankYou">ধন্যবাদ</string>
   <!-- %s is the numerical rating and rating deviation for the puzzle. This is the rating of individual chess puzzles in the "Training" pages (https://lichess.org/training/5705). Appears on the right-hand side box after you have succeeded at or failed at the puzzle. Note that this is the rating of the puzzle, NOT the player. -->
-  <string name="ratingX">Rating: %s</string>
   <!-- %s is the number of times this puzzle has been played. Appears in the box on the right-hand side the "Training" page (https://lichess.org/training/) after you have succeeded at or failed the puzzle. -->
   <plurals name="playedXTimes">
     <item quantity="one">%s বার খেলা হয়েছে</item>
@@ -630,7 +629,6 @@
   <!-- One of the 3 rectangular buttons on the "training" page (https://lichess.org/training). This chooses puzzles as your training type. -->
   <string name="puzzles">ধাঁধা</string>
   <!-- One of the 3 rectangular buttons on the "training" page (https://lichess.org/training). This chooses coordinates as your training type. -->
-  <string name="coordinates">Coordinates</string>
   <!-- A list of the last blog updates. Appears as a heading to a box at the bottom of the "Play" page (https://lichess.org/). -->
   <string name="latestUpdates">সাম্প্রতিক তথ্য</string>
   <!-- A list of tournament winners. Appears on the "Play" page (https://lichess.org) as a heading to a box that contains a list of the recent winners. -->
