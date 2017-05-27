@@ -42,8 +42,8 @@ private[i18n] final class JsDump(path: String) {
 
   private def writeFullJson = I18nDb.langs foreach { lang =>
     val code = dumpFromKey(I18nDb.all(defaultLang).keys, lang)
-    val file = new File("%s/%s.all.json".format(pathFile.getCanonicalPath, lang.language))
-    writeFile(new File("%s/%s.all.json".format(pathFile.getCanonicalPath, lang.language)), code)
+    val file = new File("%s/%s.all.json".format(pathFile.getCanonicalPath, lang.code))
+    writeFile(new File("%s/%s.all.json".format(pathFile.getCanonicalPath, lang.code)), code)
   }
 
   private def writeFile(file: File, content: String) = {
