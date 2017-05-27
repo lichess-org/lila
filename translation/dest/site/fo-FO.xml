@@ -119,7 +119,6 @@
   <!-- The time control for the game. This appears as a column heading in the table of games you can join on the "Play" page (https://lichess.org/). -->
   <string name="time">Tíð</string>
   <!-- The rating of the player (e.g. 1500). Appears on the lobby list on https://lichess.org/ -->
-  <string name="rating">Rating</string>
   <!-- Link to the rating distribution stats page (https://lichess.org/stat/rating/distribution/blitz), in the top menu, under "Community". -->
   <!-- The name you use to sign in, e.g. "thibault". Appears on the registration page (https://lichess.org/signup). -->
   <string name="username">Brúkara navn</string>
