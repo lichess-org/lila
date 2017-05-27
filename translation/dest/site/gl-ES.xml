@@ -111,6 +111,10 @@
   <!-- This appears in various places, including players' profiles and the right-hand side boxes in individual games. It should be translated as a noun, NOT as a verb. -->
   <string name="draw">Táboas</string>
   <!-- The %s is the counter of how many players are connected right now. This sentence is displayed at the top of every page on lichess. -->
+  <plurals name="nbPlayers">
+    <item quantity="one">%s xogadores</item>
+    <item quantity="other">%s xogadores</item>
+  </plurals>
   <!-- This is a shorter phrase for "Games being played right now". It is what the link at the top that says "Games" links to (https://lichess.org/games). Please try to keep your translation as short as possible. -->
   <string name="currentGames">Partidas en curso</string>
   <!-- %s here is the number of all the games ever played on Lichess. Links to https://lichess.org/games/all. -->
@@ -311,6 +315,10 @@
   <!-- Below this is a slider that lets you choose the accepted player ratings. The sentence appears in the "Create a game" (https://lichess.org/setup/hook) and "Filter games" menus. Please do NOT translate "rating" to "Elo", because lichess has been using the superior Glicko-2 rating system since late 2013. -->
   <string name="ratingRange">Rango de puntuación</string>
   <!-- %s here is the number of seconds, usually 15. This is the mouseover text of the "+" button that appears next to players' names in timed matches. Clicking it adds "%s" seconds to the player's clock. -->
+  <plurals name="giveNbSeconds">
+    <item quantity="one">Dar %s segundos</item>
+    <item quantity="other">Dar %s segundos</item>
+  </plurals>
   <!-- Appears in a red box on player profiles that have been marked as cheater accounts by the site moderators. An example is https://lichess.org/@/ko1. -->
   <string name="thisPlayerUsesChessComputerAssistance">Este xogador axúdase de programas de xadrez</string>
   <!-- Appears as a red box on the profiles of players that have been trying to cheat the rating system. An example is https://lichess.org/@/GrandMasterGnel1. -->
@@ -450,6 +458,10 @@
     <item quantity="other">%s seguidores</item>
   </plurals>
   <!-- %s is the number of players this player is following. Example: https://lichess.org/@/thibault — as of the time of writing, Thibault is following 81 players. -->
+  <plurals name="nbFollowing">
+    <item quantity="one">%s seguindo</item>
+    <item quantity="other">%s seguindo</item>
+  </plurals>
   <!-- Generic message that lets you view more. Appears on the left-hand side of https://lichess.org/people, which lets you view a list of connected players. Also appears on the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) if there are too many messages in the timeline. "More" may be used in other places around Lichess in the future, so please make your translation as generic as possible. -->
   <string name="more">Máis</string>
   <!-- Tells how long the player has been a member of lichess. Appears on profile pages. For example, https://lichess.org/@/thibault has been a member since 2010-11-22. -->
@@ -601,6 +613,10 @@
   <!-- The mouseover text of the downwards-pointing triangle (▾), which is a negative (-1) vote for a puzzle. Appears in the box on the right-hand side of the "Training" page (https://lichess.org/training/) after you have succeeded or failed at the puzzle. -->
   <string name="thisPuzzleIsWrong">Este problema é erróneo ou aburrido</string>
   <!-- Explains the rule for the pools feature. If you do not play in the first, say, 30 seconds, you automatically resign the game. Appears when playing a game in a pool, such as https://lichess.org/pool/3-0 -->
+  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
+    <item quantity="one">Tes %s segundos para facer a túa primeira xogada!</item>
+    <item quantity="other">Tes %s segundos para facer a túa primeira xogada!</item>
+  </plurals>
   <!-- %s is the number of games. Appears below the title of "lichess.org" on the "Play" page (https://lichess.org). Could be translated as "%s games being played". -->
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partidas en xogo</item>
@@ -792,7 +808,15 @@
   <!-- This sentence appears under the biography description box on the page where you edit your profile https://lichess.org/account/profile -->
   <string name="biographyDescription">Fala de ti, que che gusta no xadrez, as túas aperturas favoritas, partidas, xogadores...</string>
   <!-- This text appears under the biography description box to inform you the maximum length your description can have. https://lichess.org/account/profile -->
+  <plurals name="maximumNbCharacters">
+    <item quantity="one">Máximo: %s caracteres.</item>
+    <item quantity="other">Máximo: %s caracteres.</item>
+  </plurals>
   <!-- %s is the number of players you have blocked. Consider translating to "%s blocked players" if you think the context is not sufficient. Appears as a heading on your list of blocked players at https://lichess.org/rel/blocks -->
+  <plurals name="blocks">
+    <item quantity="one">%s bloqueos</item>
+    <item quantity="other">%s bloqueos</item>
+  </plurals>
   <!-- "List" is used as a verb here. This is a descriptive sentence which appears when you hover the mouse over the block icon on your own profile. Clicking the icon will show you a list of players you have blocked. -->
   <string name="listBlockedPlayers">Listar os xogadores que bloqueaches</string>
   <!-- Press this to play against a human player (instead of playing against the computer). Appears in the "Create a game" menu of the lichess mobile app: https://raw.githubusercontent.com/veloce/lichobile/1.5.x/screens/android/create-human.png. All mobile app sentences *must* be kept compact, as they need to scale to small devices. -->
@@ -1042,6 +1066,10 @@
   <!-- Description of mobile app. (https://lichess.org/mobile) -->
   <string name="followAndChallengeFriends">Segue e reta amigos</string>
   <!-- Description of mobile app. The number is goind to be between 80 and 100. (https://lichess.org/mobile) -->
+  <plurals name="availableInNbLanguages">
+    <item quantity="one">Dispoñible en %s idiomas!</item>
+    <item quantity="other">Dispoñible en %s idiomas!</item>
+  </plurals>
   <!-- Description of mobile app. (https://lichess.org/mobile) -->
   <string name="gameAnalysis">Análise da partida</string>
 </resources>
