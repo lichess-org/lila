@@ -100,6 +100,10 @@
   <!-- Clicking this send an offer to draw the game to your opponent. This is a small button in the right-hand side box. -->
   <!-- This appears in various places, including players' profiles and the right-hand side boxes in individual games. It should be translated as a noun, NOT as a verb. -->
   <!-- The %s is the counter of how many players are connected right now. This sentence is displayed at the top of every page on lichess. -->
+  <plurals name="nbPlayers">
+    <item quantity="one">%s spilers</item>
+    <item quantity="other">%s spilers</item>
+  </plurals>
   <!-- This is a shorter phrase for "Games being played right now". It is what the link at the top that says "Games" links to (https://lichess.org/games). Please try to keep your translation as short as possible. -->
   <!-- %s here is the number of all the games ever played on Lichess. Links to https://lichess.org/games/all. -->
   <!-- %s is the number of games you have bookmarked. Links to https://lichess.org/games/bookmark. It only appears to registered users that have bookmarked certain games. It displays a list of your bookmarked games. -->
@@ -612,6 +616,10 @@
   <string name="onlineAndOfflinePlay">Online en offline spylje</string>
   <!-- Description of mobile app. (https://lichess.org/mobile) -->
   <!-- Description of mobile app. The number is goind to be between 80 and 100. (https://lichess.org/mobile) -->
+  <plurals name="availableInNbLanguages">
+    <item quantity="one">Beskikber yn %s tale!</item>
+    <item quantity="other">Beskikber yn %s tale!</item>
+  </plurals>
   <!-- Description of mobile app. (https://lichess.org/mobile) -->
   <string name="gameAnalysis">Spul analyze</string>
 </resources>
