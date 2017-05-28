@@ -139,13 +139,13 @@
   <string name="casual">Urangert</string>
   <string name="rated">Rangert</string>
   <string name="thisGameIsRated">Dette partiet er rangert</string>
-  <string name="rematch">Revansj</string>
-  <string name="rematchOfferSent">Tilbud om revansj sendt</string>
-  <string name="rematchOfferAccepted">Tilbud om revansj godtatt</string>
+  <string name="rematch">Omkamp</string>
+  <string name="rematchOfferSent">Tilbud om omkamp sendt</string>
+  <string name="rematchOfferAccepted">Tilbud om omkamp godtatt</string>
   <string name="rematchOfferCanceled">Tilbud om revansj trukket tilbake</string>
-  <string name="rematchOfferDeclined">Tilbud om revansj avslått</string>
-  <string name="cancelRematchOffer">Avbryt tilbud om revansj</string>
-  <string name="viewRematch">Se revansj</string>
+  <string name="rematchOfferDeclined">Tilbud om omkamp avslått</string>
+  <string name="cancelRematchOffer">Avbryt tilbud om omkamp</string>
+  <string name="viewRematch">Se omkamp</string>
   <string name="play">Spill</string>
   <string name="inbox">Innboks</string>
   <string name="chatRoom">Chatterom</string>
@@ -222,8 +222,8 @@
   <string name="reset">Tilbakestill</string>
   <string name="apply">Bruk</string>
   <string name="leaderboard">Ledertabell</string>
-  <string name="pasteTheFenStringHere">Lim inn FEN-strengen her</string>
-  <string name="pasteThePgnStringHere">Lim inn PGN-strengen her</string>
+  <string name="pasteTheFenStringHere">Lim inn FEN teksten her</string>
+  <string name="pasteThePgnStringHere">Lim inn PGN teksten her</string>
   <string name="fromPosition">Fra stilling</string>
   <string name="continueFromHere">Fortsett herfra</string>
   <string name="importGame">Importer parti</string>
@@ -231,7 +231,7 @@
     <item quantity="one">%s Importerte partier</item>
     <item quantity="other">%s Importerte partier</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Dette er en sjakk-CAPTCHA.</string>
+  <string name="thisIsAChessCaptcha">Dette er en sjakk CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Klikk på brettet for å gjøre et trekk og bevise at du er et menneske.</string>
   <string name="notACheckmate">Ikke sjakk matt</string>
   <string name="colorPlaysCheckmateInOne">%s setter sjakk matt i ett trekk</string>
@@ -243,10 +243,10 @@
   <string name="favoriteOpponents">Favorittmotstandere</string>
   <string name="follow">Følg</string>
   <string name="following">Følger</string>
-  <string name="unfollow">Stopp å følge</string>
+  <string name="unfollow">Slutt å følge</string>
   <string name="block">Blokker</string>
   <string name="blocked">Blokkert</string>
-  <string name="unblock">Avblokker</string>
+  <string name="unblock">Fjern blokkering</string>
   <string name="followsYou">Følger deg</string>
   <string name="xStartedFollowingY">%1$s begynte å følge %2$s</string>
   <plurals name="nbFollowers">
