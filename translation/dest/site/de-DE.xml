@@ -558,7 +558,7 @@
   <string name="downloadImported">Importiertes Spiel herunterladen</string>
   <string name="printFriendlyPDF">druckfreundliches PDF</string>
   <string name="crosstable">Wertungstabelle</string>
-  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kannst auch auf dem Brett scrollen, um Züge in der Partie auszuführen.</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kannst auch auf dem Brett scrollen, um die Partie durchzugehen.</string>
   <string name="analysisShapesHowTo">Drücke Shift+Mausklick oder Rechtsklick, um Kreise und Pfeile auf dem Brett zu zeichnen.</string>
   <string name="confirmResignation">Aufgabe bestätigen</string>
   <string name="letOtherPlayersMessageYou">Erlaube anderen Spielern dich zu kontaktieren</string>
@@ -566,7 +566,7 @@
   <string name="youHaveAlreadyRegisteredTheEmail">Du hast die folgende Emailadresse schon registriert: %s</string>
   <string name="kidMode">Kindermodus</string>
   <string name="playChessEverywhere">Spiele Schach überall</string>
-  <string name="asFreeAsLichess">Kostenlos wie Lichess</string>
+  <string name="asFreeAsLichess">Frei wie Lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Aus Liebe zum Schach</string>
   <string name="everybodyGetsAllFeaturesForFree">Jeder erhält alle Funktionen völlig kostenlos</string>
   <string name="zeroAdvertisement">Keine Werbung</string>
@@ -579,9 +579,11 @@
   <string name="viewTheSolution">Lösung ansehen</string>
   <string name="followAndChallengeFriends">Folge deinen Freunden und fordere sie heraus</string>
   <plurals name="availableInNbLanguages">
-    <item quantity="one">Verfügbar in %s Sprachen!</item>
+    <item quantity="one">Verfügbar in einer Sprache!</item>
     <item quantity="other">Verfügbar in %s Sprachen!</item>
   </plurals>
   <string name="gameAnalysis">Spielanalyse</string>
+  <string name="xJoinsY">%1$s ist %2$s beigetreten</string>
+  <string name="xLikesY">%1$s gefällt %2$s</string>
   <string name="lobby">Lobby</string>
 </resources>
