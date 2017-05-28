@@ -362,7 +362,7 @@
   <string name="teams">Teams</string>
   <!-- %s is the number of members. Appears on the top-right hand side on a team's page (e.g. https://lichess.org/team/linux). -->
   <plurals name="nbMembers">
-    <item quantity="one">%s leden</item>
+    <item quantity="one">%s lid</item>
     <item quantity="other">%s leden</item>
   </plurals>
   <!-- A list of all teams on lichess. Links to https://lichess.org/team. Appears as a tab in the "Teams" page. -->
@@ -418,7 +418,7 @@
   <string name="importGame">Importeer partij</string>
   <!-- %s is the number of games imported into the Lichess database using the "Import games" tool. Links to https://lichess.org/games/imported and is found on the left hand side of the "Games" pages. -->
   <plurals name="nbImportedGames">
-    <item quantity="one">%s Geïmporteerde partijen</item>
+    <item quantity="one">%s Geïmporteerde partij</item>
     <item quantity="other">%s Geïmporteerde partijen</item>
   </plurals>
   <!-- A "CAPTCHA" is, in short, a test to see if the user is human or a bot. You have probably comes across them before; they usually involve putting in a word or answering a question that only a human would know the answer to. CAPTCHAs appear before registering and when posting on the forum. -->
@@ -1073,21 +1073,22 @@
   <!-- Description of mobile app. (https://lichess.org/mobile) -->
   <string name="bulletBlitzClassical">Bullet, blitz, klassiek</string>
   <!-- Description of mobile app. (https://lichess.org/mobile) -->
-  <string name="correspondenceChess">Correspondentiepartij</string>
+  <string name="correspondenceChess">Correspondentiepartijen</string>
   <!-- Description of mobile app. (https://lichess.org/mobile) -->
   <string name="onlineAndOfflinePlay">Online en offline spelen</string>
-  <string name="correspondenceAndUnlimited">Correspondentiepartij zonder klok</string>
+  <string name="correspondenceAndUnlimited">Correspondentiepartij en zonder klok</string>
   <string name="viewTheSolution">Bekijk de oplossing</string>
   <!-- Description of mobile app. (https://lichess.org/mobile) -->
   <string name="followAndChallengeFriends">Volg vrienden en daag ze uit</string>
   <!-- Description of mobile app. The number is goind to be between 80 and 100. (https://lichess.org/mobile) -->
   <plurals name="availableInNbLanguages">
-    <item quantity="one">Beschikbaar in %s talen!</item>
+    <item quantity="one">Beschikbaar in %s taal!</item>
     <item quantity="other">Beschikbaar in %s talen!</item>
   </plurals>
   <!-- Description of mobile app. (https://lichess.org/mobile) -->
   <string name="gameAnalysis">Partijanalyse</string>
   <!-- When a player creates an event, such as a simul or a study. The first %s is the player's name and the second %s is the event name (like "Radon simul" or "King Gambit study"). Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
+  <string name="xHostsTheY">%1$s organiseert %2$s</string>
   <!-- The first %s is the player's name and the second %s is the title of the simul (like "Radon simul"). Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
   <string name="xJoinsTheY">%1$s neemt deel aan de %2$s</string>
 </resources>
