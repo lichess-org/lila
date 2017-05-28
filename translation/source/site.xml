@@ -593,4 +593,6 @@
   <string name="pieceSet">Piece set</string>
   <string name="embedInYourWebsite">Embed in your website</string>
   <string name="usernameAlreadyUsed">This username is already in use, please try another one.</string>
+  <string name="directlySupportLichess">Directly support Lichess</string>
+  <string name="playChessInStyle">Play chess in style</string>
 </resources>
