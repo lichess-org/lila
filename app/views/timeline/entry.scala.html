@@ -24,10 +24,10 @@ case TourJoin(userId, tourId, tourName) => {
 @trans.xCompetesInY(userIdLink(userId.some, withOnline = false), Html("""<a href="%s">%s</a>""".format(routes.Tournament.show(tourId), escapeHtml(tourName))))
 }
 case SimulCreate(userId, simulId, simulName) => {
-@userIdLink(userId.some, withOnline = false) hosts the <a href="@routes.Simul.show(simulId)">@simulName</a>
+@trans.xHostsTheY(userIdLink(userId.some, withOnline = false), Html(s"""<a href="${routes.Simul.show(simulId)}">${escapeHtml(simulName)}</a>"""))
 }
 case SimulJoin(userId, simulId, simulName) => {
-@userIdLink(userId.some, withOnline = false) joins the <a href="@routes.Simul.show(simulId)">@simulName</a>
+@trans.xJoinsTheY(userIdLink(userId.some, withOnline = false), Html(s"""<a href="${routes.Simul.show(simulId)}">${escapeHtml(simulName)}</a>"""))
 }
 case QaQuestion(userId, id, title) => {
 @trans.xAskedY(userIdLink(userId.some, withOnline = false), Html("""<a href="%s">%s</a>""".format(routes.QaQuestion.show(id, "redirect"), escapeHtml(title))))
