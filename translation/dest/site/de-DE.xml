@@ -24,6 +24,7 @@
   <!-- Clicking this turns sound on or off. This is a button on the top-right hand corner of the screen. If you use the Internet Explorer browser, you may not be able to see this. -->
   <string name="toggleSound">Ton ein-/ausschalten</string>
   <!-- Start a conversation with a player. Appears in the user tooltip when hovering a user name. -->
+  <string name="chat">Chat</string>
   <!-- Clicking this makes you resign from the game. Small button in the box on the right while playing a game. -->
   <string name="resign">Aufgeben</string>
   <!-- Appears in the box of a game if you end a game by checkmate. -->
