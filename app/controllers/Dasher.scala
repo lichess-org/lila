@@ -27,7 +27,12 @@ object Dasher extends LilaController {
     ) ::: List(
         I18nKeys.networkLagBetweenYouAndLichess,
         I18nKeys.timeToProcessAMoveOnLichessServer,
-        I18nKeys.sound
+        I18nKeys.sound,
+        I18nKeys.background,
+        I18nKeys.boardGeometry,
+        I18nKeys.boardTheme,
+        I18nKeys.boardSize,
+        I18nKeys.pieceSet
       ), ctx.lang
   )
 

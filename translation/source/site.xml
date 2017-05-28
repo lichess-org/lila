@@ -462,8 +462,6 @@
   <string name="community">Community</string>
   <string name="tools">Tools</string>
   <string name="increment">Increment</string>
-  <string name="board">Board</string>
-  <string name="pieces">Pieces</string>
   <string name="sharePGN">Share PGN</string>
   <string name="playOnline">Play online</string>
   <string name="playOffline">Play offline</string>
@@ -588,4 +586,9 @@
   <string name="quickPairing">Quick pairing</string>
   <string name="lobby">Lobby</string>
   <string name="yourScore">Your score: %s</string>
+  <string name="background">Background</string>
+  <string name="boardGeometry">Board geometry</string>
+  <string name="boardTheme">Board theme</string>
+  <string name="boardSize">Board size</string>
+  <string name="pieceSet">Piece set</string>
 </resources>
