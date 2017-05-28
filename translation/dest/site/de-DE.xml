@@ -156,7 +156,7 @@
   <string name="recipient">Empfänger</string>
   <string name="send">Senden</string>
   <string name="incrementInSeconds">Inkrement in Sekunden</string>
-  <string name="freeOnlineChess">Kostenloses Online-Schach</string>
+  <string name="freeOnlineChess">Gratis Online-Schach</string>
   <string name="spectators">Zuschauer:</string>
   <plurals name="nbWins">
     <item quantity="one">Ein Sieg</item>
