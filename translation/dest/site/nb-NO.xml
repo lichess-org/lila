@@ -584,9 +584,14 @@
   <string name="xHostsY">%1$s opprettet %2$s</string>
   <string name="xJoinsY">%1$s ble med %2$s</string>
   <string name="xLikesY">%1$s liker %2$s</string>
+  <string name="quickPairing">Raskt pairing</string>
   <string name="lobby">Lobby</string>
   <string name="yourScore">Din poengsum: %s</string>
   <string name="background">Bakgrunn</string>
   <string name="boardGeometry">Brett geometri</string>
   <string name="boardTheme">Brett tema</string>
+  <string name="boardSize">Brett størrelse</string>
+  <string name="pieceSet">Brikkesett</string>
+  <string name="embedInYourWebsite">Embed på nettsiden din</string>
+  <string name="usernameAlreadyUsed">Brukernavnet er allerede i bruk, prøv et annet et.</string>
 </resources>
