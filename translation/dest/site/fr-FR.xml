@@ -589,4 +589,7 @@
   <string name="yourScore">Votre score : %s</string>
   <string name="background">Arrière-plan</string>
   <string name="boardGeometry">Forme de l\'échiquier</string>
+  <string name="boardTheme">Thème de l\'échiquier</string>
+  <string name="boardSize">Taile de l\'échiquier</string>
+  <string name="pieceSet">Jeu de pièces</string>
 </resources>
