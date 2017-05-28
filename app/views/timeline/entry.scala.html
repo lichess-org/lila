@@ -24,10 +24,10 @@ case TourJoin(userId, tourId, tourName) => {
 @trans.xCompetesInY(userIdLink(userId.some, withOnline = false), Html("""<a href="%s">%s</a>""".format(routes.Tournament.show(tourId), escapeHtml(tourName))))
 }
 case SimulCreate(userId, simulId, simulName) => {
-@trans.xHostsTheY(userIdLink(userId.some, withOnline = false), Html(s"""<a href="${routes.Simul.show(simulId)}">${escapeHtml(simulName)}</a>"""))
+@trans.xHostsY(userIdLink(userId.some, withOnline = false), Html(s"""<a href="${routes.Simul.show(simulId)}">${escapeHtml(simulName)}</a>"""))
 }
 case SimulJoin(userId, simulId, simulName) => {
-@trans.xJoinsTheY(userIdLink(userId.some, withOnline = false), Html(s"""<a href="${routes.Simul.show(simulId)}">${escapeHtml(simulName)}</a>"""))
+@trans.xJoinsY(userIdLink(userId.some, withOnline = false), Html(s"""<a href="${routes.Simul.show(simulId)}">${escapeHtml(simulName)}</a>"""))
 }
 case QaQuestion(userId, id, title) => {
 @trans.xAskedY(userIdLink(userId.some, withOnline = false), Html("""<a href="%s">%s</a>""".format(routes.QaQuestion.show(id, "redirect"), escapeHtml(title))))
@@ -50,10 +50,10 @@ in @perf.name
 }
 }
 case StudyCreate(userId, studyId, studyName) => {
-@trans.xHostsTheY(userIdLink(userId.some, withOnline = false), Html(s"""<a href="${routes.Study.show(studyId)}">${escapeHtml(studyName)}</a>"""))
+@trans.xHostsY(userIdLink(userId.some, withOnline = false), Html(s"""<a href="${routes.Study.show(studyId)}">${escapeHtml(studyName)}</a>"""))
 }
 case StudyLike(userId, studyId, studyName) => {
-@userIdLink(userId.some, withOnline = false) likes <a href="@routes.Study.show(studyId)">@studyName</a>
+@trans.xLikesY(userIdLink(userId.some, withOnline = false), Html(s"""<a href="${routes.Study.show(studyId)}">${escapeHtml(studyName)}</a>"""))
 }
 case PlanStart(userId) => {
 @userIdLink(userId.some, withOnline = true) became a <a href="@routes.Plan.index">Patron</a>
