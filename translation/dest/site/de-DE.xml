@@ -524,7 +524,7 @@
   <string name="tournamentOfficial">Offiziell</string>
   <string name="timeBeforeTournamentStarts">Zeit bis zum Start des Turniers</string>
   <string name="averageCentipawnLoss">Ø Verlust von 1/100 Bauer p. Zug</string>
-  <string name="keyboardShortcuts">Tastenkombinationen</string>
+  <string name="keyboardShortcuts">Tastaturkürzel</string>
   <string name="keyMoveBackwardOrForward">Zug zurück/vor</string>
   <string name="keyGoToStartOrEnd">zum Anfang/Ende</string>
   <string name="keyShowOrHideComments">zeige/verberge Kommentare</string>
@@ -586,5 +586,6 @@
   <string name="xHostsY">%1$s hat %2$s erstellt</string>
   <string name="xJoinsY">%1$s ist %2$s beigetreten</string>
   <string name="xLikesY">%1$s gefällt %2$s</string>
+  <string name="quickPairing">Pools</string>
   <string name="lobby">Lobby</string>
 </resources>
