@@ -486,8 +486,8 @@
   <string name="blackCastlingKingside">Schwarz O-O</string>
   <string name="blackCastlingQueenside">Schwarz O-O-O</string>
   <plurals name="nbForumPosts">
-    <item quantity="one">%s Forumbeiträge</item>
-    <item quantity="other">%s Forumbeiträge</item>
+    <item quantity="one">Ein Forenbeitrag</item>
+    <item quantity="other">%s Forenbeiträge</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Gesamte Spielzeit: %s</string>
   <string name="watchGames">Partien ansehen</string>
