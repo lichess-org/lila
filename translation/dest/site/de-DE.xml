@@ -468,12 +468,12 @@
   <string name="sharePGN">Teile PGN</string>
   <string name="playOnline">Spiele online</string>
   <string name="playOffline">Spiele offline</string>
-  <string name="allowAnalytics">Erlaube anonyme Statistiken</string>
+  <string name="allowAnalytics">Anonyme Statistiken senden</string>
   <string name="shareGameURL">Teile Partie-URL</string>
   <string name="error.required">Dieses Feld muss ausgefüllt werden</string>
-  <string name="error.email">Diese Email-Adresse ist unzulässig</string>
-  <string name="error.email_acceptable">Diese Email-Adresse wird nicht akzeptiert</string>
-  <string name="error.email_unique">Diese Email-Adresse ist schon vergeben</string>
+  <string name="error.email">Diese E-Mail Adresse ist ungültig</string>
+  <string name="error.email_acceptable">Diese E-Mail Adresse wird nicht akzeptiert</string>
+  <string name="error.email_unique">Diese E-Mail Adresse ist schon vergeben</string>
   <string name="blindfoldChess">Blindschach (unsichtbare Figuren)</string>
   <string name="moveConfirmation">Zugbestätigung</string>
   <string name="inCorrespondenceGames">Im Fernschach</string>
