@@ -580,4 +580,6 @@
   <!-- Description of mobile app. (https://lichess.org/mobile) -->
   <!-- Description of mobile app. The number is goind to be between 80 and 100. (https://lichess.org/mobile) -->
   <!-- Description of mobile app. (https://lichess.org/mobile) -->
+  <!-- When a player creates an event, such as a simul or a study. The first %s is the player's name and the second %s is the event name (like "Radon simul" or "King Gambit study"). Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
+  <!-- The first %s is the player's name and the second %s is the title of the simul (like "Radon simul"). Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
 </resources>

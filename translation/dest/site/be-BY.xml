@@ -392,7 +392,6 @@
   <!-- Clicking on this takes you to a page that suggests players that could be made friends based on how many times you have played with them. Appears as a button when you hover the mouse cursor over the friends box (when raised) on the bottom-right hand corner of the page, when none of your friends are online. Also appears as a heading on the page with suggested friends. Example: these are Thibault's suggested friends: https://lichess.org/@/thibault/suggestions -->
   <string name="findFriends">Знайсьці сяброў</string>
   <!-- The players you play most against. Appears in profile pages and leads to a table of favorite opponents. Example https://lichess.org/@/thibault/opponents — this lists the players Thibault plays most against. -->
-  <string name="favoriteOpponents">Улюбёныя супернікі</string>
   <!-- Clicking this lets you follow the player and find out what they have been up doing around lichess through the activity timeline. Appears as a mouseover text of the thumbs up symbol, which in turn appears on profile pages and player name information boxes. It is recommended to use the translation for this on Twitter, where the words were taken from in the interests of familiarity. Should be translated as a verb. -->
   <string name="follow">Сачыць</string>
   <!-- Indicates that you are following the player. Replaces the "Follow" button, which appears on profile pages and in popups over player names. It is recommended to use the same translation for this as the one on Twitter, where the words were taken from in the interests of familiarity. -->
@@ -742,7 +741,6 @@
   <!-- This text appears under the field where you write your location. You can leave out the word "your" if it helps you. Appears in the profile editor: https://lichess.org/account/profile -->
   <string name="yourCityRegionOrDepartment">Ваш горад, вобласць ці акруга</string>
   <!-- This sentence appears under the biography description box on the page where you edit your profile https://lichess.org/account/profile -->
-  <string name="biographyDescription">Раскажыце пра сябе, што вы кахайце ў шахматах, вашы любыя дэбюты, партыі, гульцы...</string>
   <!-- This text appears under the biography description box to inform you the maximum length your description can have. https://lichess.org/account/profile -->
   <!-- %s is the number of players you have blocked. Consider translating to "%s blocked players" if you think the context is not sufficient. Appears as a heading on your list of blocked players at https://lichess.org/rel/blocks -->
   <!-- "List" is used as a verb here. This is a descriptive sentence which appears when you hover the mouse over the block icon on your own profile. Clicking the icon will show you a list of players you have blocked. -->
@@ -994,4 +992,6 @@
   <!-- Description of mobile app. The number is goind to be between 80 and 100. (https://lichess.org/mobile) -->
   <!-- Description of mobile app. (https://lichess.org/mobile) -->
   <string name="gameAnalysis">Аналіз гульні</string>
+  <!-- When a player creates an event, such as a simul or a study. The first %s is the player's name and the second %s is the event name (like "Radon simul" or "King Gambit study"). Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
+  <!-- The first %s is the player's name and the second %s is the title of the simul (like "Radon simul"). Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
 </resources>

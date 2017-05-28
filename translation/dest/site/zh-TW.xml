@@ -428,7 +428,6 @@
   <!-- Clicking on this takes you to a page that suggests players that could be made friends based on how many times you have played with them. Appears as a button when you hover the mouse cursor over the friends box (when raised) on the bottom-right hand corner of the page, when none of your friends are online. Also appears as a heading on the page with suggested friends. Example: these are Thibault's suggested friends: https://lichess.org/@/thibault/suggestions -->
   <string name="findFriends">寻找好友</string>
   <!-- The players you play most against. Appears in profile pages and leads to a table of favorite opponents. Example https://lichess.org/@/thibault/opponents — this lists the players Thibault plays most against. -->
-  <string name="favoriteOpponents">最喜爱的对手</string>
   <!-- Clicking this lets you follow the player and find out what they have been up doing around lichess through the activity timeline. Appears as a mouseover text of the thumbs up symbol, which in turn appears on profile pages and player name information boxes. It is recommended to use the translation for this on Twitter, where the words were taken from in the interests of familiarity. Should be translated as a verb. -->
   <string name="follow">关注</string>
   <!-- Indicates that you are following the player. Replaces the "Follow" button, which appears on profile pages and in popups over player names. It is recommended to use the same translation for this as the one on Twitter, where the words were taken from in the interests of familiarity. -->
@@ -796,7 +795,6 @@
   <!-- This text appears under the field where you write your location. You can leave out the word "your" if it helps you. Appears in the profile editor: https://lichess.org/account/profile -->
   <string name="yourCityRegionOrDepartment">您的城市、区域或省份。</string>
   <!-- This sentence appears under the biography description box on the page where you edit your profile https://lichess.org/account/profile -->
-  <string name="biographyDescription">请自我介绍，喜欢国际象棋的哪一方面，最喜欢的开局，游戏，玩家等。</string>
   <!-- This text appears under the biography description box to inform you the maximum length your description can have. https://lichess.org/account/profile -->
   <plurals name="maximumNbCharacters">
     <item quantity="other">最多%s个字符</item>
@@ -1060,4 +1058,9 @@
   </plurals>
   <!-- Description of mobile app. (https://lichess.org/mobile) -->
   <string name="gameAnalysis">象棋分析研究</string>
+  <!-- When a player creates an event, such as a simul or a study. The first %s is the player's name and the second %s is the event name (like "Radon simul" or "King Gambit study"). Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
+  <!-- When a player joins an event, such as a simul. The first %s is the player's name and the second %s is the event name (like "Radon simul"). Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
+  <!-- When a player likes an event, such as a study. The first %s is the player's name and the second %s is the event name (like "King Gambit study"). Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
+  <!-- Homepage tab to the pairing pool. -->
+  <!-- Homepage tab. Might be better left untranslated, if your language doesn't have a good word for it. -->
 </resources>
