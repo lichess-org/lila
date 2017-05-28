@@ -380,8 +380,6 @@
   <string name="community">Skupnost</string>
   <string name="tools">Orodja</string>
   <string name="increment">Dodan čas</string>
-  <string name="board">Šahovnica</string>
-  <string name="pieces">Figure</string>
   <string name="sharePGN">Deli PGN z drugimi</string>
   <string name="playOnline">Igraj online</string>
   <string name="playOffline">Igraj offline</string>
