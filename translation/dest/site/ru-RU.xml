@@ -380,8 +380,6 @@
   <string name="community">Сообщество</string>
   <string name="tools">Инструменты</string>
   <string name="increment">Прибавка</string>
-  <string name="board">Доска</string>
-  <string name="pieces">Фигуры</string>
   <string name="sharePGN">Экспорт PGN</string>
   <string name="playOnline">Играть онлайн</string>
   <string name="playOffline">Играть оффлайн</string>
