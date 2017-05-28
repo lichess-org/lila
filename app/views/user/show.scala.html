@@ -151,7 +151,7 @@ description = describeUser(u)).some) {
       <strong class="name">@name</strong>
       }
       @profile.nonEmptyBio.ifTrue(!u.troll || ctx.is(u)).map { bio =>
-      <p class="bio">@Html(addUserProfileLinks(addLinks(shorten(bio, 400).body)))</p>
+      <p class="bio">@addUserProfileLinks(addLinks(shorten(bio, 400).body).body)</p>
       }
       }
       <div class="stats">
