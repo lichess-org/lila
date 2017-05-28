@@ -240,6 +240,7 @@
   <string name="onlineFriends">Amici conexi</string>
   <string name="noFriendsOnline">Nullus amicorum conexus</string>
   <string name="findFriends">Reperire amici</string>
+  <string name="favoriteOpponents">Adversarii secundi</string>
   <string name="follow">Spectare</string>
   <string name="following">Spectans</string>
   <string name="unfollow">Non Spectare</string>
@@ -435,6 +436,7 @@
   <string name="starting">Initium:</string>
   <string name="allInformationIsPublicAndOptional">Omnes informationes publicae voluntariaeque sunt.</string>
   <string name="yourCityRegionOrDepartment">Tua urbs, regio, an provincia.</string>
+  <string name="biographyDescription">Scribere de te, dilectis initiis, ludis, lusoribus, et quae tibi in scaccis libent…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maximum: %s litterae.</item>
     <item quantity="other">Maximum: %s litterae.</item>
