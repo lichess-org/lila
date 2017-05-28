@@ -138,7 +138,13 @@ lichess.powertip = (function() {
 lichess.trans = function(i18n) {
   var trans = function(key) {
     var str = i18n[key] || key;
-    Array.prototype.slice.call(arguments, 1).forEach(function(arg) {
+    var args = Array.prototype.slice.call(arguments, 1);
+    if (args.length && str.indexOf('$s') > -1) {
+      for (var i = 1; i < 4; i++) {
+        str = str.replace('%' + i + '$s', args[i - 1]);
+      }
+    }
+    args.forEach(function(arg) {
       str = str.replace('%s', arg);
     });
     return str;
