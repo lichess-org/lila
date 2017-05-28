@@ -440,8 +440,6 @@
   <string name="community">Communitate</string>
   <string name="tools">Instrumentos</string>
   <string name="increment">Incremento</string>
-  <string name="board">Tabuliero</string>
-  <string name="pieces">Pecias</string>
   <string name="sharePGN">Publicar PGN</string>
   <string name="playOnline">Jocar in linea</string>
   <string name="playOffline">Jocar disconnectite</string>
