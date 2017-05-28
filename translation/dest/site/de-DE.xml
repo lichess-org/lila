@@ -210,7 +210,7 @@
   <string name="gamesPlayed">Gespielte Partien</string>
   <!-- %s is the number of games this player has played with you. This appears as a tab on the profile pages of people that you have played with. Try to keep it fairly short. -->
   <plurals name="nbGamesWithYou">
-    <item quantity="one">%s Spiele mit dir</item>
+    <item quantity="one">Ein Spiel mit dir</item>
     <item quantity="other">%s Spiele mit dir</item>
   </plurals>
   <!-- This is a generic word that appears in a wide variety of places and is used to cancel actions of all sorts. It is recommended to translate it according to whatever your operating system (e.g. Microsoft Windows) uses for your language. -->
@@ -226,15 +226,15 @@
   <!-- Informs that the player that sent the draw offer canceled it before his/her opponent responded. This is a system message that appears in the chat box -->
   <string name="drawOfferCanceled">Remisangebot zurückgezogen</string>
   <!-- Informs that the White player wants to draw the game. This is a system message that appears in the chat box. -->
-  <string name="whiteOffersDraw">Weiß bietet Remis an</string>
+  <string name="whiteOffersDraw">Weiß bietet Remis</string>
   <!-- Informs that the Black player wants to draw the game. This is a system message that appears in the chat box. -->
-  <string name="blackOffersDraw">Schwarz bietet Remis an</string>
+  <string name="blackOffersDraw">Schwarz bietet Remis</string>
   <!-- Informs that the White player declined Black's offer to draw the game. This is a system message that appears in the chat box. -->
   <string name="whiteDeclinesDraw">Weiß lehnt Remis ab</string>
   <!-- Informs that the Black player declined White's offer to draw the game. This is a system message that appears in the chat box. -->
   <string name="blackDeclinesDraw">Schwarz lehnt Remis ab</string>
   <!-- This sentence appears in the right-hand side box while playing a game after your opponent offers you a draw. -->
-  <string name="yourOpponentOffersADraw">Dein Gegner bietet ein Remis an</string>
+  <string name="yourOpponentOffersADraw">Dein Gegner bietet ein Remis</string>
   <!-- Clicking this will accept your opponent's offer and let the action the opponent requested happen. A generic word that appears as a button when your opponent sends an offer to do something (such as a takeback or ending the game by draw). Please translate as a verb if possible. -->
   <string name="accept">Annehmen</string>
   <!-- Clicking this will reject your opponent's offer. A generic word that appears as a button when your opponent sends an offer to do something (such as a takeback or ending the game by draw). Please translate as a verb if possible. -->
@@ -440,7 +440,6 @@
   <!-- Clicking on this takes you to a page that suggests players that could be made friends based on how many times you have played with them. Appears as a button when you hover the mouse cursor over the friends box (when raised) on the bottom-right hand corner of the page, when none of your friends are online. Also appears as a heading on the page with suggested friends. Example: these are Thibault's suggested friends: https://lichess.org/@/thibault/suggestions -->
   <string name="findFriends">Freunde finden</string>
   <!-- The players you play most against. Appears in profile pages and leads to a table of favorite opponents. Example https://lichess.org/@/thibault/opponents — this lists the players Thibault plays most against. -->
-  <string name="favoriteOpponents">Häufigste Gegner</string>
   <!-- Clicking this lets you follow the player and find out what they have been up doing around lichess through the activity timeline. Appears as a mouseover text of the thumbs up symbol, which in turn appears on profile pages and player name information boxes. It is recommended to use the translation for this on Twitter, where the words were taken from in the interests of familiarity. Should be translated as a verb. -->
   <string name="follow">Folgen</string>
   <!-- Indicates that you are following the player. Replaces the "Follow" button, which appears on profile pages and in popups over player names. It is recommended to use the same translation for this as the one on Twitter, where the words were taken from in the interests of familiarity. -->
@@ -815,7 +814,6 @@
   <!-- This text appears under the field where you write your location. You can leave out the word "your" if it helps you. Appears in the profile editor: https://lichess.org/account/profile -->
   <string name="yourCityRegionOrDepartment">Deine Stadt, Region oder Bundesland.</string>
   <!-- This sentence appears under the biography description box on the page where you edit your profile https://lichess.org/account/profile -->
-  <string name="biographyDescription">Erzähle über dich, was du an Schach magst, was deine Lieblings -Eröffnungen, -Partien, -Spiele sind--</string>
   <!-- This text appears under the biography description box to inform you the maximum length your description can have. https://lichess.org/account/profile -->
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maximal: %s Zeichen.</item>
