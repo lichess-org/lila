@@ -392,7 +392,7 @@
   <!-- The first %s is the name of the player, and the second %s is the team the player joined. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
   <string name="xJoinedTeamY">%1$s trat der Gruppe %2$s bei</string>
   <!-- The first %s is the name of the player, and the second %s is the team the player created. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xCreatedTeamY">%1$s hat Gruppe %2$s gegründet</string>
+  <string name="xCreatedTeamY">%1$s hat die Gruppe %2$s gegründet</string>
   <!-- This is the mean average rating of all players in the team. Appears on the information box on team pages. Example: https://lichess.org/team/linux -->
   <string name="averageElo">Durchschnittswertung</string>
   <!-- This is before an input box that lets you write where you are located (a city, town, or whatever you want to write in it). Appears in the "Edit profile" page (https://lichess.org/account/profile). -->
@@ -424,7 +424,7 @@
   <!-- A "CAPTCHA" is, in short, a test to see if the user is human or a bot. You have probably comes across them before; they usually involve putting in a word or answering a question that only a human would know the answer to. CAPTCHAs appear before registering and when posting on the forum. -->
   <string name="thisIsAChessCaptcha">Dies ist ein Schach-CAPTCHA.</string>
   <!-- Informs the player on how to complete the CAPTCHA test. Appears next to the chess CAPTCHA. CAPTCHAs appear before registering and when posting on the forum. -->
-  <string name="clickOnTheBoardToMakeYourMove">Klicke auf das Brett und ziehe, um zu beweisen, dass du ein Mensch bist.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Mach einen Zug, um zu beweisen, dass du ein Mensch bist.</string>
   <!-- Appears next to the chess CAPTCHA when you make a wrong move. CAPTCHAs appear before registering and when posting on the forum. -->
   <string name="notACheckmate">Kein Matt</string>
   <!-- %s is the side that you are playing. Appears next to the chess CAPTCHA. CAPTCHAs appear before registering and when posting on the forum. -->
@@ -521,7 +521,7 @@
   <!-- Ticking this checkbox makes the game so only lichess members can join it. Appears in the game creation menu (https://lichess.org/setup/hook). -->
   <string name="membersOnly">Nur für Mitglieder</string>
   <!-- The board editor lets you prepare a chess board and play from the position you set up. Appears as a heading on the editor page, and also as a tab in the "Games" pages. Links to https://lichess.org/editor -->
-  <string name="boardEditor">Bretteditor</string>
+  <string name="boardEditor">Stellung aufbauen</string>
   <!-- Clicking this resets the state of the board to the starting position in standard chess. Being a board editor feature, it appears on the board editor's page — https://lichess.org/editor -->
   <string name="startPosition">Anfangsposition</string>
   <!-- Clicking this removes all the pieces from the chess board you are setting up. Being a board editor feature, it appears on the board editor's page — https://lichess.org/editor -->
