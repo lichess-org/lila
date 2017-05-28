@@ -591,4 +591,5 @@
   <string name="boardTheme">Board theme</string>
   <string name="boardSize">Board size</string>
   <string name="pieceSet">Piece set</string>
+  <string name="embedInYourWebsite">Embed in your website</string>
 </resources>

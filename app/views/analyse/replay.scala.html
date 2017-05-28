@@ -75,7 +75,7 @@ atom = atom.some) {
           @if(game.isPgnImport) {
           <a data-icon="x" class="text" rel="nofollow" href="@routes.Export.pgn(game.id)?as=imported">@trans.downloadImported()</a>
           }
-          <a data-icon="=" class="text embed_howto" target="_blank">Embed in your website</a>
+          <a data-icon="=" class="text embed_howto" target="_blank">@trans.embedInYourWebsite()</a>
         </div>
       </div>
       <div class="pgn">@pgn</div>
