@@ -15,8 +15,8 @@ trait I18nHelper {
 
   implicit def lang(implicit ctx: UserContext) = ctx.lang
 
-  def transKey(key: String, args: Seq[Any] = Nil)(implicit lang: Lang): String =
-    Translator.txt.literal(key, args, lang)
+  def transKey(key: String, args: Seq[Any] = Nil)(implicit lang: Lang) =
+    Translator.html.literal(key, args, lang)
 
   def i18nJsObjectMessage(keys: Seq[I18nKey])(implicit lang: Lang): JsObject =
     i18nEnv.jsDump.keysToMessageObject(keys, lang)
@@ -27,12 +27,7 @@ trait I18nHelper {
   def i18nOptionJsObject(keys: Option[I18nKey]*)(implicit lang: Lang): JsObject =
     i18nEnv.jsDump.keysToObject(keys.flatten, lang)
 
-  // def langName(lang: Lang): Option[String] = langName(lang.language)
   def langName = LangList.nameByStr _
 
-  // def shortLangName(lang: Lang): Option[String] = shortLangName(lang.language)
   def shortLangName(str: String) = langName(str).takeWhile(','!=)
-
-  def acceptsLanguage(lang: Lang)(implicit ctx: UserContext): Boolean =
-    ctx.req.acceptLanguages exists (_.language == lang.language)
 }

@@ -29,5 +29,11 @@ trait FormHelper { self: I18nHelper =>
     } mkString
   }
 
+  def globalError(form: Form[_])(implicit ctx: Context): Option[Html] =
+    form.globalError.map { e =>
+      val msg = transKey(e.message, e.args)
+      Html(s"""<p class="error">$msg</p>""")
+    }
+
   val booleanChoices = Seq("true" -> "Yes", "false" -> "No")
 }
