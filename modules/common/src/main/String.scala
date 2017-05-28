@@ -52,7 +52,7 @@ object String {
 
     def escapeUnsafe(s: String): String = {
       if (badChars.matcher(s).find) {
-        val sb = new StringBuilder
+        val sb = new StringBuilder(s.size + 10) // wet finger style
         var i = 0
         while (i < s.length) {
           sb.append {
