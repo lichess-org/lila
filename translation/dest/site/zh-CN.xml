@@ -440,8 +440,6 @@
   <string name="community">社區</string>
   <string name="tools">工具</string>
   <string name="increment">加秒</string>
-  <string name="board">棋盤</string>
-  <string name="pieces">棋子</string>
   <string name="sharePGN">分享PGN</string>
   <string name="playOnline">在線對弈</string>
   <string name="playOffline">離線對弈</string>
