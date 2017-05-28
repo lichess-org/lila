@@ -696,7 +696,6 @@
   <!-- Click this button (at the bottom of all pages) to make a donation. -->
   <string name="donate">Támogatás</string>
   <!-- Appears in the bottom left of any page and links to the blog. -->
-  <string name="blog">Blog</string>
   <!-- Appears when you hover over "Q&A" (https://lichess.org/qa) at the bottom left on any page. Translate freely. If you cannot find a good translation, consider leaving this untranslated so another speaker of your language can look at it. -->
   <string name="questionsAndAnswers">Kérdések &amp; Válaszok</string>
   <!-- Appears on the left side while playing a game. You can type your private notes on the game in this tab. -->

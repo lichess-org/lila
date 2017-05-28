@@ -24,7 +24,6 @@
   <!-- Clicking this turns sound on or off. This is a button on the top-right hand corner of the screen. If you use the Internet Explorer browser, you may not be able to see this. -->
   <string name="toggleSound">Lyd av/på</string>
   <!-- Start a conversation with a player. Appears in the user tooltip when hovering a user name. -->
-  <string name="chat">Chat</string>
   <!-- Clicking this makes you resign from the game. Small button in the box on the right while playing a game. -->
   <string name="resign">Gi opp</string>
   <!-- Appears in the box of a game if you end a game by checkmate. -->
@@ -145,7 +144,6 @@
   <!-- The page displays games currently being played and has links to various other tools on the site to find out about past games on lichess, such as a search engine that queries the database of games. "Games" is one of the links at the top of every page, so keep it as short as possible. Links to https://lichess.org/games -->
   <string name="games">Partier</string>
   <!-- It is Lichess's webforum, where users can discuss various topics, chess-related or not. These are sometimes called "bulletin boards". "Forum" is one of the links at the top of every page, so keep it as short as possible. Links to https://lichess.org/forum -->
-  <string name="forum">Forum</string>
   <!-- The first %s is the player's name and the second %s is the title of the topic in the forum. By "topic" here we mean a discussion, sometimes called a "thread" in this context. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
   <string name="xPostedInForumY">%1$s postet i innlegg %2$s</string>
   <!-- A list of the most recent posts on the forum. Appears as a heading to a box near the bottom of the "Play" page (https://lichess.org/). -->
@@ -155,7 +153,6 @@
   <!-- This appears in all the game creation menus (e.g. "Create a game", "Play with a friend") after you have ticked "Time control". Below it is a slider that lets you select how many minutes each player will have on their chess clock. -->
   <string name="minutesPerSide">Minutter per spiller</string>
   <!-- This appears in all the game creation menus (e.g. "Create a game", "Play with a friend"). Below it is a selection of variants the player can choose from, such as Standard, Chess960, or King of the Hill. -->
-  <string name="variant">Variant</string>
   <!-- This appears in the simul creation page (https://lichess.org/simul/new). Below it is a selection of variants the player can choose from, such as Standard, Chess960, or King of the Hill. -->
   <string name="variants">Varianter</string>
   <!-- This sentence is a heading to time controls for the game. This appears in all the game creation menus (e.g. "Create a game", "Play with a friend") that can be found on the "Play" page. -->
@@ -181,7 +178,6 @@
   <!-- The time control for the game. This appears as a column heading in the table of games you can join on the "Play" page (https://lichess.org/). -->
   <string name="time">Tid</string>
   <!-- The rating of the player (e.g. 1500). Appears on the lobby list on https://lichess.org/ -->
-  <string name="rating">Rating</string>
   <!-- Link to the rating distribution stats page (https://lichess.org/stat/rating/distribution/blitz), in the top menu, under "Community". -->
   <string name="ratingStats">Ratingstatistikk</string>
   <!-- The name you use to sign in, e.g. "thibault". Appears on the registration page (https://lichess.org/signup). -->
@@ -248,7 +244,6 @@
   <!-- Indicates that the game has been aborted. Appears in the left and right hand side boxes, as well as in the games list, for aborted games. Note that aborted games are removed from the database after 48 hours. -->
   <string name="gameAborted">Partiet er avbrutt</string>
   <!-- "Standard" here means "not a variant". Selecting this means you play international standard chess, not Chess960 or another variant. Appears in the game creation menus (e.g. "Create a game", "Play with a friend") on the "Play" page. -->
-  <string name="standard">Standard</string>
   <!-- This is short for "Unlimited time". It describes games that have no time controls and can therefore run for an infinite amount of time. This sentence appears in many locations, including game pages and the "Create a game" menu. Please keep this sentence as short as possible. -->
   <string name="unlimited">Ubegrenset</string>
   <!-- "Mode" here is in the context of filtering between Casual (casual games are not rated) and Rated games. The sentence appears in the "Filter games" menu, which is just above the list of games on the "Play" page (https://lichess.org/). -->
@@ -290,7 +285,6 @@
   <!-- Next to this is a field where you can input the name of the player that receives this message. -->
   <string name="recipient">Mottaker</string>
   <!-- This is the button you use to send messages in the compose message page. (https://lichess.org/inbox/new) -->
-  <string name="send">Send</string>
   <!-- Increment in this context means how many seconds are added every time you make a move. So if you set time to 5 minutes and increment in seconds to 2, it would be a "5+2" game. This means that each player would have 5 minutes on the clock, and every time the player makes a move, 2 seconds are added. Appears in the game creation menus (e.g. "Create a game", "Play with a friend") on the "Play" page with the "Clock" time control. -->
   <string name="incrementInSeconds">Tillegg i sekunder per trekk</string>
   <!-- This sentence appears in the title of every page e.g. "lichess  • Free Online Chess" on the "Play" page as it appears in the English version. This means it shows up as the title of browser windows and tabs. Technical information: by title here we are literally referring to the HTML <title> tag that carries this. -->
@@ -599,7 +593,6 @@
   <!-- Politely thanks the players for voting. Appears on the "Training" page (https://lichess.org/training) after voting for a puzzle. Also, a page thanking all contributors of Lichess. Appears on the footer of the menu page. Links to https://lichess.org/thanks . Please use the polite version of "Thank you" in your language. -->
   <string name="thankYou">Takk!</string>
   <!-- %s is the numerical rating and rating deviation for the puzzle. This is the rating of individual chess puzzles in the "Training" pages (https://lichess.org/training/5705). Appears on the right-hand side box after you have succeeded at or failed at the puzzle. Note that this is the rating of the puzzle, NOT the player. -->
-  <string name="ratingX">Rating: %s</string>
   <!-- %s is the number of times this puzzle has been played. Appears in the box on the right-hand side the "Training" page (https://lichess.org/training/) after you have succeeded at or failed the puzzle. -->
   <plurals name="playedXTimes">
     <item quantity="one">Forsøkt %s ganger</item>
@@ -682,7 +675,6 @@
   <!-- Choose this option if a user insulted you. Appears in the drop-down menu for reasons in the report form (https://lichess.org/report). -->
   <string name="insult">Fornærmelse</string>
   <!-- Choose this option if a user is trolling. Appears in the dropdown menu for reasons in the report form (https://lichess.org/report). -->
-  <string name="troll">Troll</string>
   <!-- Choose this option if you have another reason than the ones in the dropdown list. Appears in the drop-down menu for reasons in the report form(https://lichess.org/report). -->
   <string name="other">Annet</string>
   <!-- Appears under the description box on the page for reporting a user (https://lichess.org/report). -->
@@ -770,7 +762,6 @@
   <!-- Choose this option if you want your piece animation (movement) to be fast. Appears on your account preferences page: https://lichess.org/account/preferences -->
   <string name="fast">Rask</string>
   <!-- Choose this option if you want your piece animation (movement) to be normal. Appears on your account preferences page: https://lichess.org/account/preferences -->
-  <string name="normal">Normal</string>
   <!-- Choose this option if you want your piece animation (movement) to be slow. Appears on your account preferences page: https://lichess.org/account/preferences -->
   <string name="slow">Sakte</string>
   <!-- Choose if you want to see the coordinates on the game board. Appears on your account preferences page: https://lichess.org/account/preferences -->
@@ -790,7 +781,6 @@
   <!-- Click this button to select easy as your difficulty. Appears on the training page when solving puzzles https://lichess.org/training/ -->
   <string name="difficultyEasy">Lett</string>
   <!-- Choose this option if you want your piece animation (movement) to be normal. Appears on your account preferences page: https://lichess.org/account/preferences -->
-  <string name="difficultyNormal">Normal</string>
   <!-- Click this button to select hard as your difficulty. Appears on the training page when solving puzzles https://lichess.org/training/ -->
   <string name="difficultyHard">Vanskelig</string>
   <!-- First %s is the name of the player that left a note, and the second %s is the player who got a note on their profile. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->

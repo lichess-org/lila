@@ -177,7 +177,6 @@
   <!-- Appears as a menu item and heading on the "Preferences" pages (https://lichess.org/account/email). -->
   <string name="changeEmail">Змінити email</string>
   <!-- Short for "Your email address", but please keep this sentence as short as possible. This appears above text boxes where you can type in your email, on the "Preferences" page. -->
-  <string name="email">Email</string>
   <!-- This is a help text, explaining how email works on lichess. Appears on the "Change email" page (https://lichess.org/account/email). -->
   <string name="emailIsOptional">Вказувати email необов\'язково. Lichess використає його в разі, якщо ви забудете пароль.</string>
   <!-- Appears as a heading in the link you are given after you asked for an email to reset (change) your password if you have forgotten it. -->

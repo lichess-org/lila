@@ -133,7 +133,6 @@
   <!-- The page displays games currently being played and has links to various other tools on the site to find out about past games on lichess, such as a search engine that queries the database of games. "Games" is one of the links at the top of every page, so keep it as short as possible. Links to https://lichess.org/games -->
   <string name="games">Igre</string>
   <!-- It is Lichess's webforum, where users can discuss various topics, chess-related or not. These are sometimes called "bulletin boards". "Forum" is one of the links at the top of every page, so keep it as short as possible. Links to https://lichess.org/forum -->
-  <string name="forum">Forum</string>
   <!-- The first %s is the player's name and the second %s is the title of the topic in the forum. By "topic" here we mean a discussion, sometimes called a "thread" in this context. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
   <string name="xPostedInForumY">%1$s poslal v temo %2$s</string>
   <!-- A list of the most recent posts on the forum. Appears as a heading to a box near the bottom of the "Play" page (https://lichess.org/). -->
@@ -161,7 +160,6 @@
   <!-- The time control for the game. This appears as a column heading in the table of games you can join on the "Play" page (https://lichess.org/). -->
   <string name="time">Čas</string>
   <!-- The rating of the player (e.g. 1500). Appears on the lobby list on https://lichess.org/ -->
-  <string name="rating">Rating</string>
   <!-- Link to the rating distribution stats page (https://lichess.org/stat/rating/distribution/blitz), in the top menu, under "Community". -->
   <string name="ratingStats">Rating statistika</string>
   <!-- The name you use to sign in, e.g. "thibault". Appears on the registration page (https://lichess.org/signup). -->
@@ -539,7 +537,6 @@
   <!-- Politely thanks the players for voting. Appears on the "Training" page (https://lichess.org/training) after voting for a puzzle. Also, a page thanking all contributors of Lichess. Appears on the footer of the menu page. Links to https://lichess.org/thanks . Please use the polite version of "Thank you" in your language. -->
   <string name="thankYou">Hvala!</string>
   <!-- %s is the numerical rating and rating deviation for the puzzle. This is the rating of individual chess puzzles in the "Training" pages (https://lichess.org/training/5705). Appears on the right-hand side box after you have succeeded at or failed at the puzzle. Note that this is the rating of the puzzle, NOT the player. -->
-  <string name="ratingX">Rating: %s</string>
   <!-- %s is the number of times this puzzle has been played. Appears in the box on the right-hand side the "Training" page (https://lichess.org/training/) after you have succeeded at or failed the puzzle. -->
   <!-- %s is the name of the game. Appears as a button title at the bottom of the "Training" page (https://lichess.org/training/) after you have succeeded or failed at the puzzle. -->
   <string name="fromGameLink">Iz igre %s</string>
@@ -624,7 +621,6 @@
   <!-- Click this button (at the bottom of all pages) to make a donation. -->
   <string name="donate">Donacije</string>
   <!-- Appears in the bottom left of any page and links to the blog. -->
-  <string name="blog">Blog</string>
   <!-- Appears when you hover over "Q&A" (https://lichess.org/qa) at the bottom left on any page. Translate freely. If you cannot find a good translation, consider leaving this untranslated so another speaker of your language can look at it. -->
   <string name="questionsAndAnswers">Vprašanja in Odgovori</string>
   <!-- Appears on the left side while playing a game. You can type your private notes on the game in this tab. -->
