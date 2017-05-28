@@ -755,6 +755,7 @@
   <string name="takebacksWithOpponentApproval">Zugrücknahme (mit Erlaubnis des Gegners)</string>
   <!-- Choose if you want the pawn to promote to a queen automatically when you reach the other side of the board. (https://lichess.org/account/preferences) -->
   <string name="promoteToQueenAutomatically">Automatische Umwandlung zur Dame</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Reklamiere automatisch Remis bei dreifacher Stellungswiederholung</string>
   <!-- One of the subheadings on your account preferences page (https://lichess.org/account/preferences). In this section you can choose between different options regarding your privacy. -->
   <string name="privacy">Privatsphäre</string>
   <!-- Choose if you want to let other players be able to follow you. It is an option on your account preferences page: https://lichess.org/account/preferences -->
