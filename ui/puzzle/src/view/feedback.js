@@ -7,7 +7,7 @@ function viewSolution(ctrl) {
     },
     m('a.button', {
       onclick: ctrl.viewSolution
-    }, 'View the solution')
+    }, ctrl.trans.noarg('viewTheSolution'))
   );
 }
 
