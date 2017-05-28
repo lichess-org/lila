@@ -141,7 +141,7 @@
   <!-- Clicking this allows you to register an account. Appears as a button on the "Sign in" page and the "Training" page (https://lichess.org/training) when playing unregistered (encouraging the player to register an account with Lichess). It is recommended to translate this word as a verb. -->
   <string name="signUp">Registrieren</string>
   <!-- The text users read when creating an account. Appears in the registration (new account) form (https://lichess.org/signup). -->
-  <string name="computersAreNotAllowedToPlay">Computern und computerunterstützten Spielern ist es nicht erlaubt, zu spielen. Bitte keine Hilfe von Schachprogrammen, Datenbanken oder anderen Spielern während einer Partie beanspruchen. Bitte beachten Sie auch, dass die Erstellung mehrerer Benutzerkonten ungern gesehen ist und die Missachtung dieser Regel, bis auf Kulanz von Seiten des Teams, zu einem Ausschluss aller betroffenen Konten führt.</string>
+  <string name="computersAreNotAllowedToPlay">Unterstützung von Schachprogrammen, Datenbanken oder anderen Spielern ist während einer Partie nicht erlaubt. Bitte beachte auch, dass die Erstellung mehrerer Benutzerkonten ungern gesehen ist und die Missachtung dieser Regel, bis auf Kulanz von Seiten des Teams, zu einem Ausschluss aller betroffenen Konten führt.</string>
   <!-- The page displays games currently being played and has links to various other tools on the site to find out about past games on lichess, such as a search engine that queries the database of games. "Games" is one of the links at the top of every page, so keep it as short as possible. Links to https://lichess.org/games -->
   <string name="games">Partien</string>
   <!-- It is Lichess's webforum, where users can discuss various topics, chess-related or not. These are sometimes called "bulletin boards". "Forum" is one of the links at the top of every page, so keep it as short as possible. Links to https://lichess.org/forum -->
@@ -149,15 +149,15 @@
   <!-- The first %s is the player's name and the second %s is the title of the topic in the forum. By "topic" here we mean a discussion, sometimes called a "thread" in this context. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
   <string name="xPostedInForumY">%1$s postete im Thread %2$s</string>
   <!-- A list of the most recent posts on the forum. Appears as a heading to a box near the bottom of the "Play" page (https://lichess.org/). -->
-  <string name="latestForumPosts">Neueste Forumbeiträge</string>
+  <string name="latestForumPosts">Neueste Forenbeiträge</string>
   <!-- Some have been translating as "[Chess] Players". This is acceptable only if it is one word (e.g. "Szachiści" in Polish). Otherwise, keep just translate to "Players". This appears as one of the links on the navigation bar at the top of every page.  Links to https://lichess.org/people -->
   <string name="players">Schachspieler</string>
   <!-- This appears in all the game creation menus (e.g. "Create a game", "Play with a friend") after you have ticked "Time control". Below it is a slider that lets you select how many minutes each player will have on their chess clock. -->
   <string name="minutesPerSide">Minuten pro Spieler</string>
   <!-- This appears in all the game creation menus (e.g. "Create a game", "Play with a friend"). Below it is a selection of variants the player can choose from, such as Standard, Chess960, or King of the Hill. -->
-  <string name="variant">Schach-Variante</string>
+  <string name="variant">Schachvariante</string>
   <!-- This appears in the simul creation page (https://lichess.org/simul/new). Below it is a selection of variants the player can choose from, such as Standard, Chess960, or King of the Hill. -->
-  <string name="variants">Schach-Varianten</string>
+  <string name="variants">Schachvarianten</string>
   <!-- This sentence is a heading to time controls for the game. This appears in all the game creation menus (e.g. "Create a game", "Play with a friend") that can be found on the "Play" page. -->
   <string name="timeControl">Zeitmodus</string>
   <!-- Real time chess is chess played over a short period of time, using a chess clock. This is one of three time control settings in the game creation menus (e.g. "Create a game", "Play with a friend") on the "Play" page. Please do NOT translate literally; if your language does not have an equivalent, established term, translate to "quick" games or something similar. -->
@@ -170,12 +170,12 @@
   <string name="oneDay">Ein Tag</string>
   <!-- %s is maximum number of days for each turn. This appears next to the slider for the correspondence chess time control in the game creation menus (e.g. "Create a game", "Play with a friend"). It also appears on the clock and information box in correspondence chess games. Please keep this sentence as short as possible. -->
   <plurals name="nbDays">
-    <item quantity="one">%s Tage</item>
+    <item quantity="one">Ein Tag</item>
     <item quantity="other">%s Tage</item>
   </plurals>
   <!-- %s is number of hours. Used to display correspondence clocks. -->
   <plurals name="nbHours">
-    <item quantity="one">%s Stunden</item>
+    <item quantity="one">Eine Stunde</item>
     <item quantity="other">%s Stunden</item>
   </plurals>
   <!-- The time control for the game. This appears as a column heading in the table of games you can join on the "Play" page (https://lichess.org/). -->
@@ -187,15 +187,15 @@
   <!-- The name you use to sign in, e.g. "thibault". Appears on the registration page (https://lichess.org/signup). -->
   <string name="username">Benutzername</string>
   <!-- The name or email you use to sign in, e.g. "thibault". Appears on the sign-in page. -->
-  <string name="usernameOrEmail">Benutzername oder Email</string>
+  <string name="usernameOrEmail">Benutzername oder E-Mail</string>
   <!-- This is the password you must type to sign in to your profile. Appears on the sign-in, registration, tournament creation and "Preferences" pages. Please keep this sentence as short as possible. Next to the sentence is a box where you can type in your password. -->
   <string name="password">Passwort</string>
   <!-- This appears on the top-right of the registration page (https://lichess.org/signup - must be signed out to see this). Next to it is a "sign in" button. -->
-  <string name="haveAnAccount">Hast du ein Benutzerkonto?</string>
+  <string name="haveAnAccount">Hast du schon ein Benutzerkonto?</string>
   <!-- This is a link in the preferences page to a menu that allows you to change your password (https://lichess.org/account/passwd). -->
   <string name="changePassword">Passwort ändern</string>
   <!-- Appears as a menu item and heading on the "Preferences" pages (https://lichess.org/account/email). -->
-  <string name="changeEmail">Email-Adresse ändern</string>
+  <string name="changeEmail">E-Mail Adresse ändern</string>
   <!-- Short for "Your email address", but please keep this sentence as short as possible. This appears above text boxes where you can type in your email, on the "Preferences" page. -->
   <string name="email">Email</string>
   <!-- This is a help text, explaining how email works on lichess. Appears on the "Change email" page (https://lichess.org/account/email). -->
