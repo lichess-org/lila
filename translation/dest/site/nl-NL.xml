@@ -120,12 +120,12 @@
   <string name="currentGames">Lopende partijen</string>
   <!-- %s here is the number of all the games ever played on Lichess. Links to https://lichess.org/games/all. -->
   <plurals name="nbGames">
-    <item quantity="one">Alle %s partijen</item>
-    <item quantity="other">Alle %s partijen</item>
+    <item quantity="one">%s partij</item>
+    <item quantity="other">%s partijen</item>
   </plurals>
   <!-- %s is the number of games you have bookmarked. Links to https://lichess.org/games/bookmark. It only appears to registered users that have bookmarked certain games. It displays a list of your bookmarked games. -->
   <plurals name="nbBookmarks">
-    <item quantity="one">%s Favorieten</item>
+    <item quantity="one">%s Favoriet</item>
     <item quantity="other">%s Favorieten</item>
   </plurals>
   <!-- Clicking one of these small boards brings you to the game's unique page. This is the mouseover text of the small chess boards dotted around the site. These small boards are most prominent in the "Games" pages (https://lichess.org/games). -->
@@ -147,9 +147,9 @@
   <!-- It is Lichess's webforum, where users can discuss various topics, chess-related or not. These are sometimes called "bulletin boards". "Forum" is one of the links at the top of every page, so keep it as short as possible. Links to https://lichess.org/forum -->
   <string name="forum">Forum</string>
   <!-- The first %s is the player's name and the second %s is the title of the topic in the forum. By "topic" here we mean a discussion, sometimes called a "thread" in this context. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xPostedInForumY">%1$s plaatste een bericht in forum %2$s</string>
+  <string name="xPostedInForumY">%1$s plaatste een bericht in topic %2$s</string>
   <!-- A list of the most recent posts on the forum. Appears as a heading to a box near the bottom of the "Play" page (https://lichess.org/). -->
-  <string name="latestForumPosts">Recente forum berichten</string>
+  <string name="latestForumPosts">Recente forumberichten</string>
   <!-- Some have been translating as "[Chess] Players". This is acceptable only if it is one word (e.g. "Szachiści" in Polish). Otherwise, keep just translate to "Players". This appears as one of the links on the navigation bar at the top of every page.  Links to https://lichess.org/people -->
   <string name="players">Spelers</string>
   <!-- This appears in all the game creation menus (e.g. "Create a game", "Play with a friend") after you have ticked "Time control". Below it is a slider that lets you select how many minutes each player will have on their chess clock. -->
@@ -170,12 +170,12 @@
   <string name="oneDay">Eén dag</string>
   <!-- %s is maximum number of days for each turn. This appears next to the slider for the correspondence chess time control in the game creation menus (e.g. "Create a game", "Play with a friend"). It also appears on the clock and information box in correspondence chess games. Please keep this sentence as short as possible. -->
   <plurals name="nbDays">
-    <item quantity="one">%s dagen</item>
+    <item quantity="one">%s dag</item>
     <item quantity="other">%s dagen</item>
   </plurals>
   <!-- %s is number of hours. Used to display correspondence clocks. -->
   <plurals name="nbHours">
-    <item quantity="one">%s uren</item>
+    <item quantity="one">%s uur</item>
     <item quantity="other">%s uren</item>
   </plurals>
   <!-- The time control for the game. This appears as a column heading in the table of games you can join on the "Play" page (https://lichess.org/). -->
@@ -199,7 +199,7 @@
   <!-- Short for "Your email address", but please keep this sentence as short as possible. This appears above text boxes where you can type in your email, on the "Preferences" page. -->
   <string name="email">Email</string>
   <!-- This is a help text, explaining how email works on lichess. Appears on the "Change email" page (https://lichess.org/account/email). -->
-  <string name="emailIsOptional">Email is optioneel. Lichess gebruikt het om een nieuw wachtwoord te verzenden indien u het vergeet.</string>
+  <string name="emailIsOptional">Email is optioneel. Lichess gebruikt het om uw wachtwoord te herstellen indien u het vergeet.</string>
   <!-- Appears as a heading in the link you are given after you asked for an email to reset (change) your password if you have forgotten it. -->
   <string name="passwordReset">Nieuw wachtwoord</string>
   <!-- You click here if you forgot your password and want it reset. Please adopt an inviting tone to the user. Also see how other popular websites (e.g. YouTube) phrase the same question in your language. Appears on the "Sign in" page. -->
@@ -318,14 +318,14 @@
   <string name="ratingRange">Ratingbereik</string>
   <!-- %s here is the number of seconds, usually 15. This is the mouseover text of the "+" button that appears next to players' names in timed matches. Clicking it adds "%s" seconds to the player's clock. -->
   <plurals name="giveNbSeconds">
-    <item quantity="one">Geef %s seconden</item>
+    <item quantity="one">Geef %s seconde</item>
     <item quantity="other">Geef %s seconden</item>
   </plurals>
   <!-- Appears in a red box on player profiles that have been marked as cheater accounts by the site moderators. An example is https://lichess.org/@/ko1. -->
   <string name="thisPlayerUsesChessComputerAssistance">Deze speler maakt gebruik van een schaakprogramma</string>
   <!-- Appears as a red box on the profiles of players that have been trying to cheat the rating system. An example is https://lichess.org/@/GrandMasterGnel1. -->
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Deze speler verhoogt/verlaagt zijn rating kunstmatig</string>
-  <string name="openingExplorer">Openingverkenner</string>
+  <string name="openingExplorer">Openingverkenner &amp; tablebase</string>
   <!-- This is an action you can take in-game that undoes a move. Clicking it sends an offer to your opponent. Appears in the box on right right-hand side. Translate freely, but keep it short. For instance, this has been translated to "Cancel move" in several languages. -->
   <string name="takeback">Neem zet terug</string>
   <!-- The mouseover text of "Takeback". See its description for details. -->
@@ -459,7 +459,7 @@
   <string name="xStartedFollowingY">%1$s volgt nu %2$s</string>
   <!-- %s is the number of people that follow this player. Example: https://lichess.org/@/thibault — as of the time of writing, Thibault has 263 people following him. -->
   <plurals name="nbFollowers">
-    <item quantity="one">%s volgers</item>
+    <item quantity="one">%s volger</item>
     <item quantity="other">%s volgers</item>
   </plurals>
   <!-- %s is the number of players this player is following. Example: https://lichess.org/@/thibault — as of the time of writing, Thibault is following 81 players. -->
@@ -483,7 +483,7 @@
   <string name="graph">Grafiek</string>
   <!-- %s is the number of minutes. Ticking this checkbox means that games that last less than 3 minutes will show up in the list of games. The sentence appears in the "Filter games" menu, which can be accessed through the "Play" page (https://lichess.org). -->
   <plurals name="lessThanNbMinutes">
-    <item quantity="one">Minder dan %s minuten</item>
+    <item quantity="one">Minder dan %s minuut</item>
     <item quantity="other">Minder dan %s minuten</item>
   </plurals>
   <!-- Error message that indicates the text put in the form is too short. Appears in forms around the site of all kinds, including registration and team creation. -->
@@ -702,11 +702,11 @@
   <!-- Appears on the left side while playing a game. You can type your private notes on the game in this tab. -->
   <string name="notes">Notities</string>
   <!-- Click in the box to type your private notes. This is the placeholder text (greyed-out text that disappears when you click) for the "Notes" box on the left side while playing a game. Please use a verb and active voice to address the user in this sentence -->
-  <string name="typePrivateNotesHere">Type privé notities hier</string>
+  <string name="typePrivateNotesHere">Type privénotities hier</string>
   <!-- The title on your account preferences page where you can change how the board and pieces are displayed, among other things (https://lichess.org/account/preferences). -->
-  <string name="gameDisplay">Spel uiterlijk</string>
+  <string name="gameDisplay">Speluiterlijk</string>
   <!-- Here you can change the speed of your piece animation or select none (https://lichess.org/account/preferences). -->
-  <string name="pieceAnimation">Stuk animatie</string>
+  <string name="pieceAnimation">Stukanimatie</string>
   <!-- Choose if you want to see the difference in material while playing a game. (https://lichess.org/account/preferences). -->
   <string name="materialDifference">Materiaalverschil</string>
   <!-- Clicking this lets you close your account. Appears in the menu on the preferences page https://lichess.org/account/preferences and as a heading on the "Close account" page. Please do not translate to "delete account" unless you have to, as some data like the games you played on the site are retained. -->
