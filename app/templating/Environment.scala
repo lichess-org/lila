@@ -71,9 +71,6 @@ object Environment
   def reportNbUnprocessed: Int =
     lila.report.Env.current.api.nbUnprocessed.awaitOrElse(10.millis, 0)
 
-  val openingBrace = "{"
-  val closingBrace = "}"
-
   object icon {
     // val dev = Html("&#xe000;")
     val mod = Html("&#xe002;")
