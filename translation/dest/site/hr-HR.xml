@@ -56,6 +56,11 @@
   <string name="claimADraw">Proglasi remi</string>
   <string name="offerDraw">Ponudi remi</string>
   <string name="draw">Remi</string>
+  <plurals name="nbPlayers">
+    <item quantity="one">%s igrača</item>
+    <item quantity="few">%s igrača</item>
+    <item quantity="other">%s igrača</item>
+  </plurals>
   <string name="currentGames">Partije koje se upravo igraju</string>
   <string name="viewInFullSize">Pogledaj u punoj veličini</string>
   <string name="logOut">Odjavi se</string>
@@ -335,6 +340,7 @@
   <string name="premovesPlayingDuringOpponentTurn">Pretpotezi (potezi dok je protivnikov red)</string>
   <string name="takebacksWithOpponentApproval">Povlačenje poteza (ako se protivnik složi)</string>
   <string name="promoteToQueenAutomatically">Auto-promocija u damu</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatski proglasi remi po trostrukom ponavljanju poteza</string>
   <string name="privacy">Privatnost</string>
   <string name="letOtherPlayersFollowYou">Dopusti drugim igračima da te prate</string>
   <string name="letOtherPlayersChallengeYou">Dopusti drugim igračima da te izazovu</string>
@@ -364,6 +370,7 @@
   <string name="starting">Počinje:</string>
   <string name="allInformationIsPublicAndOptional">Sve informacije su javne.</string>
   <string name="yourCityRegionOrDepartment">Tvoj grad, regija ili pokrajina.</string>
+  <string name="biographyDescription">Nešto više o vama, što volite u šahu, omiljena otvaranja, igre, igrači…</string>
   <string name="listBlockedPlayers">Popis blokiranih igrača</string>
   <string name="human">Osobe</string>
   <string name="computer">Računalo</string>
@@ -489,4 +496,8 @@
   <string name="viewTheSolution">Pogledaj rješenje</string>
   <string name="followAndChallengeFriends">Prati i izazovi prijatelje</string>
   <string name="gameAnalysis">Analiza partije</string>
+  <string name="xLikesY">%1$s se sviđa %2$s</string>
+  <string name="quickPairing">Brzo uparivanje</string>
+  <string name="lobby">Lobi</string>
+  <string name="yourScore">Tvoj rezultat: %s</string>
 </resources>
