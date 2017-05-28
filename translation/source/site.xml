@@ -1092,4 +1092,8 @@
   <string name="xJoinsY">%1$s joins %2$s</string>
   <!-- When a player likes an event, such as a study. The first %s is the player's name and the second %s is the event name (like "King Gambit study"). Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
   <string name="xLikesY">%1$s likes %2$s</string>
+  <!-- Homepage tab. -->
+  <string name="quickGame">Quick game</string>
+  <!-- Homepage tab. Might be better left untranslated, if your language doesn't have a good word for it. -->
+  <string name="lobby">Lobby</string>
 </resources>

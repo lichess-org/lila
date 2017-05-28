@@ -16,9 +16,9 @@ module.exports = function(ctrl) {
   }).length;
   var active = ctrl.vm.tab;
   return [
-    tab(ctrl, 'pools', active, 'Quick game'),
-    tab(ctrl, 'real_time', active, 'Lobby'),
-    tab(ctrl, 'seeks', active, ctrl.trans('correspondence')),
+    tab(ctrl, 'pools', active, ctrl.trans.noarg('quickGame')),
+    tab(ctrl, 'real_time', active, ctrl.trans.noarg('lobby')),
+    tab(ctrl, 'seeks', active, ctrl.trans.noarg('correspondence')),
     (active === 'now_playing' || ctrl.data.nbNowPlaying > 0) ? tab(ctrl, 'now_playing', active, [
       ctrl.trans('nbGamesInPlay', ctrl.data.nbNowPlaying),
       myTurnPovsNb > 0 ? m('span.unread', myTurnPovsNb) : null
