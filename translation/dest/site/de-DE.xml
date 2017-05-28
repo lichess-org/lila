@@ -315,14 +315,14 @@
   <string name="puzzleOfTheDay">Aufgabe des Tages</string>
   <string name="clickToSolve">Zum Lösen klicken</string>
   <string name="goodMove">Guter Zug</string>
-  <string name="butYouCanDoBetter">Aber das kannst du besser.</string>
+  <string name="butYouCanDoBetter">Aber es geht besser.</string>
   <string name="bestMove">Bester Zug!</string>
   <string name="keepGoing">Mach weiter...</string>
   <string name="puzzleFailed">Nicht gelöst</string>
   <string name="butYouCanKeepTrying">Aber du kannst es trotzdem weiterversuchen.</string>
   <string name="victory">Geschafft!</string>
   <string name="wasThisPuzzleAnyGood">Wie fandest du diese Aufgabe?</string>
-  <string name="pleaseVotePuzzle">Verbessere lichess, indem du mit den Pfeilen abstimmst.</string>
+  <string name="pleaseVotePuzzle">Verbessere Lichess, indem du mit den Pfeilen abstimmst:</string>
   <string name="thankYou">Vielen Dank!</string>
   <string name="ratingX">Schwierigkeitsgrad: %s</string>
   <plurals name="playedXTimes">
@@ -462,7 +462,7 @@
   <string name="learn">Lernen</string>
   <string name="community">Gemeinschaft</string>
   <string name="tools">Werkzeuge</string>
-  <string name="increment">Zeitbonus</string>
+  <string name="increment">Inkrement</string>
   <string name="board">Brett</string>
   <string name="pieces">Figuren</string>
   <string name="sharePGN">Teile PGN</string>
