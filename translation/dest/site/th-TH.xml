@@ -440,8 +440,6 @@
   <string name="community">ชุมชน</string>
   <string name="tools">เครื่องมือ</string>
   <string name="increment">เพิ่มขึ้น</string>
-  <string name="board">กระดาน</string>
-  <string name="pieces">หมาก</string>
   <string name="sharePGN">แชร์ PGN</string>
   <string name="playOnline">เล่นออนไลน์</string>
   <string name="playOffline">เล่นออฟไลน์</string>
