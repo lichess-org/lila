@@ -68,7 +68,7 @@ description = describeUser(u)).some) {
       </a>
       }
       @if(isGranted(_.UserSpy)) {
-      <a class="button mod_zone_toggle hint--bottom-left" href="@routes.User.mod(u.username)" data-hint="Mod zone"><span data-icon="@icon.mod"></span></a>
+      <a class="button mod_zone_toggle hint--bottom-left" href="@routes.User.mod(u.username)" data-hint="Mod zone"><span data-icon=""></span></a>
       }
       <a class="button hint--bottom-left" href="@routes.User.tv(u.username)" data-hint="@trans.watchGames()"><span data-icon="1"></span></a>
       @if(ctx.isAuth && !ctx.is(u)) {
