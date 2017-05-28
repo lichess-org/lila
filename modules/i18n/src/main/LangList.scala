@@ -25,6 +25,7 @@ object LangList {
     Lang("da", "DK") -> "Dansk",
     Lang("de", "DE") -> "Deutsch",
     Lang("el", "GR") -> "Ελληνικά",
+    Lang("en", "US") -> "English (US)",
     Lang("eo", "UY") -> "Esperanto",
     Lang("es", "ES") -> "español, castellano",
     Lang("et", "EE") -> "eesti keel",
