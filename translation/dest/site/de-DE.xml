@@ -107,7 +107,7 @@
   <string name="changePassword">Passwort ändern</string>
   <string name="changeEmail">E-Mail Adresse ändern</string>
   <string name="email">Email</string>
-  <string name="emailIsOptional">Die Email-Adresse ist optional. Lichess verwendet sie, um dein Passwort zurückzusetzen, wenn du es vergisst.</string>
+  <string name="emailIsOptional">Die E-Mail Adresse ist optional. Lichess verwendet sie, um dein Passwort zurückzusetzen, wenn du es vergisst.</string>
   <string name="passwordReset">Passwort zurücksetzen</string>
   <string name="forgotPassword">Passwort vergessen?</string>
   <string name="rank">Rang</string>
@@ -583,6 +583,7 @@
     <item quantity="other">Verfügbar in %s Sprachen!</item>
   </plurals>
   <string name="gameAnalysis">Spielanalyse</string>
+  <string name="xHostsY">%1$s hat %2$s erstellt</string>
   <string name="xJoinsY">%1$s ist %2$s beigetreten</string>
   <string name="xLikesY">%1$s gefällt %2$s</string>
   <string name="lobby">Lobby</string>
