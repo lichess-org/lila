@@ -6,7 +6,7 @@
   <!-- One of the 3 rectangular buttons on the "Play" page (https://lichess.org/). Translate "machine" as "[chess] engine" if it sounds better in your language, omitting the word "chess". -->
   <string name="playWithTheMachine">Spiele mit dem Computer</string>
   <!-- This appears after you have created a game for a friend (through the "Play with a friend" menu). Feel free to translate "URL" as "address", or whatever is most familiar in your language. -->
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Um jemanden zum Spiel einzuladen, versende diese URL</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Versende diese URL, um jemanden zum Spiel einzuladen</string>
   <!-- This appears in the right-hand side box when a game ends. -->
   <string name="gameOver">Spiel vorbei</string>
   <!-- Indicates you are waiting for an opponent to join your game. This appears after you have created a public game (through the "Create a game" menu). -->
@@ -1004,6 +1004,10 @@
   <string name="returnToTournamentsHomepage">Zurück zur Turnier-Homepage</string>
   <!-- Title of the rating stats page: https://lichess.org/stat/rating/distribution/blitz. %s is a variant name (like Bullet, Blitz, or Chess960). -->
   <string name="weeklyPerfTypeRatingDistribution">Wöchentliche %s-Wertungsverteilung</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">Ein %2$s Spieler diese Woche.</item>
+    <item quantity="other">%1$s %2$s Spieler diese Woche.</item>
+  </plurals>
   <!-- Current user rating, on the rating stats page: https://lichess.org/stat/rating/distribution/blitz. The first %s is the the variant name (like Bullet, Blitz, or Chess960), the second %s is the rating itself (like 1900). -->
   <string name="yourPerfTypeRatingIsRating">Ihre %1$s-Wertungszahl ist %2$s.</string>
   <!-- Current user ranking, on the rating stats page: https://lichess.org/stat/rating/distribution/blitz. The first %s is the percentage, the second %s is the variant name (like Bullet, Blitz, or Chess960). -->
