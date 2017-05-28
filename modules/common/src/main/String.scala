@@ -48,23 +48,28 @@ object String {
     // from https://github.com/android/platform_frameworks_base/blob/d59921149bb5948ffbcb9a9e832e9ac1538e05a0/core/java/android/text/TextUtils.java#L1361
     def escape(s: String): Html = Html(escapeUnsafe(s))
 
+    private val badChars = "[<>&\"']".r.pattern
+
     def escapeUnsafe(s: String): String = {
-      val sb = new StringBuilder
-      var i = 0
-      while (i < s.length) {
-        sb.append {
-          s.charAt(i) match {
-            case '<' => "&lt;"
-            case '>' => "&gt;"
-            case '&' => "&amp;"
-            case '"' => "&quot;"
-            case '\'' => "&#39;"
-            case c => c
+      if (badChars.matcher(s).find) {
+        val sb = new StringBuilder
+        var i = 0
+        while (i < s.length) {
+          sb.append {
+            s.charAt(i) match {
+              case '<' => "&lt;"
+              case '>' => "&gt;"
+              case '&' => "&amp;"
+              case '"' => "&quot;"
+              case '\'' => "&#39;"
+              case c => c
+            }
           }
+          i += 1
         }
-        i += 1
+        sb.toString
       }
-      sb.toString
+      else s
     }
   }
 }
