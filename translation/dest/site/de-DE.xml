@@ -71,7 +71,7 @@
   </plurals>
   <string name="viewInFullSize">In voller Größe anzeigen</string>
   <string name="logOut">Abmelden</string>
-  <string name="signIn">Anmelden</string>
+  <string name="signIn">Einloggen</string>
   <string name="newToLichess">Neu bei Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Dazu brauchst du ein Benutzerkonto</string>
   <string name="signUp">Registrieren</string>
