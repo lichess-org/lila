@@ -463,8 +463,6 @@
   <string name="community">Gemeenschap</string>
   <string name="tools">Gereedschap</string>
   <string name="increment">Extra tijd</string>
-  <string name="board">Bord</string>
-  <string name="pieces">Stukken</string>
   <string name="sharePGN">Deel PGN</string>
   <string name="playOnline">Speel online</string>
   <string name="playOffline">Speel offline</string>
@@ -588,4 +586,11 @@
   <string name="xLikesY">%1$s vindt %2$s leuk</string>
   <string name="quickPairing">Snel koppelen</string>
   <string name="lobby">Lobby</string>
+  <string name="yourScore">Uw score: %s</string>
+  <string name="background">Achtergrond</string>
+  <string name="boardGeometry">Bordgeometrie</string>
+  <string name="boardTheme">Bordthema</string>
+  <string name="boardSize">Bordgrootte</string>
+  <string name="pieceSet">Schaakstukken</string>
+  <string name="embedInYourWebsite">Insluiten in uw website</string>
 </resources>

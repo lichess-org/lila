@@ -460,8 +460,6 @@
   <string name="community">Community</string>
   <string name="tools">Strumenti</string>
   <string name="increment">Incremento</string>
-  <string name="board">Scacchiera</string>
-  <string name="pieces">Pezzi</string>
   <string name="sharePGN">Condividi PGN</string>
   <string name="playOnline">Gioca online</string>
   <string name="playOffline">Gioca offline</string>

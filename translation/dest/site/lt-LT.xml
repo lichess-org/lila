@@ -380,8 +380,6 @@
   <string name="community">Bendruomenė</string>
   <string name="tools">Įrankiai</string>
   <string name="increment">Prieaugis</string>
-  <string name="board">Lenta</string>
-  <string name="pieces">Figūros</string>
   <string name="sharePGN">Dalintis PGN</string>
   <string name="playOnline">Žaisti internete</string>
   <string name="playOffline">Žaisti be interneto</string>

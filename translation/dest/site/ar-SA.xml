@@ -380,8 +380,6 @@
   <string name="community">المجتمع</string>
   <string name="tools">أدوات</string>
   <string name="increment">الزيادة</string>
-  <string name="board">الرقعة</string>
-  <string name="pieces">القطع</string>
   <string name="sharePGN">شارك PGN</string>
   <string name="playOnline">العب على الإنترنت</string>
   <string name="playOffline">العب دون اتصال</string>

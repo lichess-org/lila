@@ -463,8 +463,6 @@
   <string name="community">Gemeinschaft</string>
   <string name="tools">Werkzeuge</string>
   <string name="increment">Inkrement</string>
-  <string name="board">Brett</string>
-  <string name="pieces">Figuren</string>
   <string name="sharePGN">Teile PGN</string>
   <string name="playOnline">Spiele online</string>
   <string name="playOffline">Spiele offline</string>
@@ -588,4 +586,5 @@
   <string name="xLikesY">%1$s gefällt %2$s</string>
   <string name="quickPairing">Pools</string>
   <string name="lobby">Lobby</string>
+  <string name="yourScore">Deine Punkte: %s</string>
 </resources>

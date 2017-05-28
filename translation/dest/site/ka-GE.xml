@@ -460,8 +460,6 @@
   <string name="community">საზოგადოება</string>
   <string name="tools">ინსტრუმენთა პანელი</string>
   <string name="increment">დანამატი</string>
-  <string name="board">დაფა</string>
-  <string name="pieces">ფიგურები</string>
   <string name="sharePGN">PGN-ის გაზიარება</string>
   <string name="playOnline">ქსელში თამაში</string>
   <string name="playOffline">ადგილობრივი თამაში</string>

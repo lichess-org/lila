@@ -440,8 +440,6 @@
   <string name="community">커뮤니티</string>
   <string name="tools">도구</string>
   <string name="increment">시간 증가</string>
-  <string name="board">판</string>
-  <string name="pieces">기물</string>
   <string name="sharePGN">PGN 공유</string>
   <string name="playOnline">온라인 플레이</string>
   <string name="playOffline">오프라인 플레이</string>

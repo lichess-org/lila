@@ -463,8 +463,6 @@
   <string name="community">Communauté</string>
   <string name="tools">Outils</string>
   <string name="increment">Incrément</string>
-  <string name="board">Échiquier</string>
-  <string name="pieces">Pièces</string>
   <string name="sharePGN">Partager le PGN</string>
   <string name="playOnline">Jouer en ligne</string>
   <string name="playOffline">Jouer hors ligne</string>
@@ -588,4 +586,10 @@
   <string name="xLikesY">%1$s aime %2$s</string>
   <string name="quickPairing">Appariement rapide</string>
   <string name="lobby">Lobby</string>
+  <string name="yourScore">Votre score : %s</string>
+  <string name="background">Arrière-plan</string>
+  <string name="boardGeometry">Forme de l\'échiquier</string>
+  <string name="boardTheme">Thème de l\'échiquier</string>
+  <string name="boardSize">Taile de l\'échiquier</string>
+  <string name="pieceSet">Jeu de pièces</string>
 </resources>

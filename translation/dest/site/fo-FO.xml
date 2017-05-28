@@ -95,8 +95,6 @@
   <string name="difficultyNormal">Vanligt</string>
   <string name="difficultyHard">Ringt</string>
   <string name="clock">Klokka</string>
-  <string name="board">Borð</string>
-  <string name="pieces">Prikkar</string>
   <string name="playOnline">Spæl online</string>
   <string name="playOffline">Spæl offline</string>
   <string name="onlyFriends">Bert vinir</string>

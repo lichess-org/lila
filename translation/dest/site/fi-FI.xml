@@ -460,8 +460,6 @@
   <string name="community">Yhteisö</string>
   <string name="tools">Työkalut</string>
   <string name="increment">Lisäaika</string>
-  <string name="board">Lauta</string>
-  <string name="pieces">Nappulat</string>
   <string name="sharePGN">Jaa PGN</string>
   <string name="playOnline">Pelaa verkossa</string>
   <string name="playOffline">Pelaa paikallisesti</string>

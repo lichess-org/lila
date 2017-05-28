@@ -460,8 +460,6 @@
   <string name="community">Comunidade</string>
   <string name="tools">Ferramentas</string>
   <string name="increment">Incremento</string>
-  <string name="board">Tabuleiro</string>
-  <string name="pieces">Peças</string>
   <string name="sharePGN">Compartilhar PGN</string>
   <string name="playOnline">Jogar online</string>
   <string name="playOffline">Jogar offline</string>

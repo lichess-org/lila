@@ -460,8 +460,6 @@
   <string name="community">Общност</string>
   <string name="tools">Инструменти</string>
   <string name="increment">Прибавяне</string>
-  <string name="board">Дъска</string>
-  <string name="pieces">Фигури</string>
   <string name="sharePGN">Сподели PGN</string>
   <string name="playOnline">Играй онлайн</string>
   <string name="playOffline">Играй офлайн</string>

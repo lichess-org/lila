@@ -380,8 +380,6 @@
   <string name="community">Społeczność</string>
   <string name="tools">Narzędzia</string>
   <string name="increment">Dodawany czas</string>
-  <string name="board">Szachownica</string>
-  <string name="pieces">Figury</string>
   <string name="sharePGN">Udostępnij PGN</string>
   <string name="playOnline">Graj online</string>
   <string name="playOffline">Graj offline</string>
