@@ -460,8 +460,6 @@
   <string name="community">Κοινότητα</string>
   <string name="tools">Εργαλεία</string>
   <string name="increment">Προσαύξηση</string>
-  <string name="board">Σκακιέρα</string>
-  <string name="pieces">Κομμάτια</string>
   <string name="sharePGN">Κοινοποιήστε PGN</string>
   <string name="playOnline">Παίξτε σε ζωντανή σύνδεση</string>
   <string name="playOffline">Παίξτε χωρίς σύνδεση</string>
