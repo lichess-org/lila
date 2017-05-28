@@ -61,12 +61,12 @@ private[i18n] object Registry {
     val xml = XML.loadFile(file)
     def quote(msg: String) = s"""""\"$msg""\""""
     val content = xml.child.collect {
-      case e if e.label == "string" => s"""(${toKey(e)},Literal(\"\"\"${escape(e.text)}\"\"\"))"""
+      case e if e.label == "string" => s"""(${toKey(e)},new Literal(\"\"\"${escape(e.text)}\"\"\"))"""
       case e if e.label == "plurals" =>
         val items = e.child.filter(_.label == "item").map { i =>
           s"""${ucfirst(i.\("@quantity").toString)}->\"\"\"${escape(i.text)}\"\"\""""
         }
-        s"""(${toKey(e)},Plurals(Map(${items mkString ","})))"""
+        s"""(${toKey(e)},new Plurals(Map(${items mkString ","})))"""
     }
     s"""package lila.i18n
 package db

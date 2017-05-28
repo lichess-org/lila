@@ -4,11 +4,11 @@ import play.twirl.api.Html
 
 import lila.common.String.html.{ escape => escapeHtml }
 
-private sealed trait Translation extends Any
+private sealed trait Translation
 
-private case class Literal(message: String) extends AnyVal with Translation {
+private class Literal(message: String) extends Translation {
 
-  private def escaped = escapeHtml(message)
+  lazy val escaped = escapeHtml(message)
 
   def formatTxt(args: Seq[Any]): String =
     if (args.isEmpty) message
@@ -19,7 +19,7 @@ private case class Literal(message: String) extends AnyVal with Translation {
     else Html(escaped.body.format(args.map(_.body): _*))
 }
 
-private case class Plurals(messages: Map[I18nQuantity, String]) extends AnyVal with Translation {
+private class Plurals(messages: Map[I18nQuantity, String]) extends Translation {
 
   private def messageFor(quantity: I18nQuantity): Option[String] =
     messages.get(quantity)
