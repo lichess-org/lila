@@ -176,9 +176,9 @@
     <item quantity="one">Dem Gegner %s Sekunde geben</item>
     <item quantity="other">Dem Gegner %s Sekunden geben</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Dieser Spieler verwendet einen Schachcomputer zur Unterstützung</string>
+  <string name="thisPlayerUsesChessComputerAssistance">Dieser Spieler verwendet ein Schachprogramm zur Unterstützung</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Dieser Spieler manipuliert seine Wertungszahl</string>
-  <string name="openingExplorer">Eröffnungsdatenbank</string>
+  <string name="openingExplorer">Eröffnungsdatenbank &amp; Tablebases</string>
   <string name="takeback">Zugrücknahme</string>
   <string name="proposeATakeback">Zugrücknahme vorschlagen</string>
   <string name="takebackPropositionSent">Zugrücknahme angefordert</string>
@@ -451,11 +451,11 @@
   <string name="computer">Computer</string>
   <string name="side">Farbe</string>
   <string name="clock">Uhr</string>
-  <string name="unauthorizedError">Zugriff nicht erlaubt.</string>
+  <string name="unauthorizedError">Zugriff verweigert.</string>
   <string name="noInternetConnection">Keine Internet Verbindung. Offline Spielen möglich.</string>
   <string name="connectedToLichess">Verbindung hergestellt</string>
   <string name="signedOut">Erfolgreich ausgeloggt</string>
-  <string name="loginSuccessful">Anmeldung ist erfolgt</string>
+  <string name="loginSuccessful">Du bist jetzt eingeloggt</string>
   <string name="playOnTheBoardOffline">Spiele offline gegen Mensch</string>
   <string name="playOfflineComputer">Spiele offline gegen Computer</string>
   <string name="opponent">Gegner</string>
@@ -491,7 +491,7 @@
   </plurals>
   <string name="tpTimeSpentPlaying">Gesamte Spielzeit: %s</string>
   <string name="watchGames">Partien ansehen</string>
-  <string name="tpTimeSpentOnTV">Zeit im TV: %s</string>
+  <string name="tpTimeSpentOnTV">Gesamtzeit TV: %s</string>
   <string name="watch">Zuschauen</string>
   <string name="internationalEvents">Internationale Events</string>
   <string name="videoLibrary">Video Bibliothek</string>
@@ -514,8 +514,8 @@
   <string name="aboutSimulRules">Beim Start des Simultan beginnt der Alleinspieler mit Weiß und spielt so lange mit wechselnden Gegnern, bis alle Partien beendet sind.</string>
   <string name="aboutSimulSettings">Simultane sind immer ungewertet. Revanchen, Zugrücknahme und zusätzliche Zeit sind deaktiviert.</string>
   <string name="create">Erstellen</string>
-  <string name="whenCreateSimul">Wenn du ein Simultan erzeugst, spielst du mit mehreren Gegnern gleichzeitig.</string>
-  <string name="simulVariantsHint">Wurden mehrere Varianten gewählt, kann jeder Spieler eine Variante wählen.</string>
+  <string name="whenCreateSimul">Wenn du ein Simultan erstellst, spielst du mit mehreren Gegnern gleichzeitig.</string>
+  <string name="simulVariantsHint">Wurden mehrere Varianten gewählt, kann jeder Spieler eine Variante aussuchen.</string>
   <string name="simulClockHint">Fischer Bedenkzeit. Je mehr Gegner du hast, desto mehr Zeit wirst du benötigen.</string>
   <string name="simulAddExtraTime">Du kannst dir selbst zusätzliche Zeit hinzufügen, um mit dem Simultan zurechtzukommen.</string>
   <string name="simulHostExtraTime">Extra Bedenkzeit für Alleinspieler</string>
