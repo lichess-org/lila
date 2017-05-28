@@ -166,7 +166,7 @@ module.exports = function(element, cfg) {
     var url = 'https://lichess.org/embed/' + data.game.id + location.hash;
     var iframe = '<iframe src="' + url + '?theme=auto&bg=auto"\nwidth=600 height=397 frameborder=0></iframe>';
     $.modal($(
-      '<strong style="font-size:1.5em">Embed in your website</strong><br /><br />' +
+      '<strong style="font-size:1.5em">' + $(this).html() + '</strong><br /><br />' +
       '<pre>' + lichess.escapeHtml(iframe) + '</pre><br />' +
       iframe + '<br /><br />' +
       '<a class="text" data-icon="" href="/developers#embed-game">Read more about embedding games</a>'

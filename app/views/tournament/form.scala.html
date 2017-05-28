@@ -16,9 +16,7 @@ moreJs = moreJs) {
 
     <form class="plain create content_box_content" action="@routes.Tournament.create" method="POST">
       <input type="hidden" name="@form("system").id" value="1" />
-      @form.globalError.map { error =>
-      <p class="error">@error.message</p>
-      }
+      @globalError(form)
       <table>
         <tr>
           <th><label for="isprivate">@trans.isPrivate()</label></th>

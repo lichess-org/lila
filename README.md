@@ -1,7 +1,9 @@
-[lichess.org](https://lichess.org) [![Build Status](https://travis-ci.org/ornicar/lila.svg?branch=master)](https://travis-ci.org/ornicar/lila)
----------------------------------
+[lichess.org](https://lichess.org)
+==================================
 
-[@lichessorg](https://twitter.com/lichessorg)
+[![Build Status](https://travis-ci.org/ornicar/lila.svg?branch=master)](https://travis-ci.org/ornicar/lila)
+[![Crowdin](https://d322cqt584bo4o.cloudfront.net/lichess/localized.svg)](https://crowdin.com/project/lichess)
+[![Twitter](https://img.shields.io/badge/Twitter-%40lichessorg-blue.svg)](https://twitter.com/lichessorg)
 
 <img src="https://raw.githubusercontent.com/ornicar/lila/master/public/images/homepage_light.1200.png" alt="lichess.org" />
 
@@ -16,7 +18,7 @@ It features a [search engine](https://lichess.org/games/search),
 [tactic trainer](https://lichess.org/training),
 a [mobile app](https://lichess.org/mobile),
 and a [shared analysis board](https://lichess.org/study).
-The UI is available in more than [80 languages](https://lichess.org/translation/contribute) thanks to the community.
+The UI is available in more than [80 languages](https://crowdin.com/project/lichess) thanks to the community.
 
 Lichess is written in [Scala 2.11](https://www.scala-lang.org/),
 and relies on [Play 2.4](https://www.playframework.com/) for the routing, templating, and JSON.
@@ -31,7 +33,7 @@ Browser testing done with [![](https://raw.githubusercontent.com/ornicar/lila/ma
 Translations powered by [Crowdin](https://crowdin.com).
 
 [Join us on discord](https://discord.gg/AWSze7n) or in the #lichess freenode IRC channel for more info.
-Use [github issues](https://github.com/ornicar/lila/issues) for bug reports and feature requests.
+Use [GitHub issues](https://github.com/ornicar/lila/issues) for bug reports and feature requests.
 
 Installation
 ------------

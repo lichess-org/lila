@@ -9,9 +9,7 @@ title = trans.hostANewSimul.txt()) {
     <h1>@trans.hostANewSimul()</h1>
     <form class="plain create content_box_content" action="@routes.Simul.create" method="POST">
       <p class="help">@trans.whenCreateSimul()</p>
-      @form.globalError.map { error =>
-      <p class="error">@error.message</p>
-      }
+      @globalError(form)
       <table>
         <tr class="help">
           <th colspan="2">

@@ -1,5 +1,5 @@
 export default function(text: string, parseMoves: boolean): string {
-  const escaped = escapeHtml(delocalize(text));
+  const escaped = escapeHtml(text);
   const linked = autoLink(escaped);
   const plied = parseMoves && linked === escaped ? addPlies(linked) : linked;
   return plied;
@@ -15,12 +15,6 @@ function linkReplace(_: string, before: string, url: string) {
 
 function autoLink(html: string) {
   return html.replace(linkPattern, linkReplace);
-}
-
-const delocalizePattern = /(^|[\s\n]|<[A-Za-z]*\/?>)\w{2}\.lichess\.org/gi;
-
-function delocalize(html: string) {
-  return html.replace(delocalizePattern, '$1lichess.org');
 }
 
 function escapeHtml(html: string) {

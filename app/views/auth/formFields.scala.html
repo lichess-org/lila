@@ -10,7 +10,7 @@
   value="@username.value"
   autofocus="true" />
   @errMsg(username)
-  <p class="error exists none">This username is already in use, please try another one.</p>
+  <p class="error exists none">@trans.usernameAlreadyUsed()</p>
 </li>
 <li class="password">
   <label for="@password.id">@trans.password()</label>

@@ -5,9 +5,7 @@
   <div class="signup_box">
     <h1 class="lichess_title">@trans.signIn()</h1>
     <form action="@routes.Auth.authenticate?referrer=@referrer" method="POST">
-      @form.globalError.map { error =>
-      <p class="error">@error.message</p>
-      }
+      @globalError(form)
       <ul>
         @auth.formFields(form("username"), form("password"), none, register = false)
         <li>
