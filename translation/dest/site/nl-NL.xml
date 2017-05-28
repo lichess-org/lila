@@ -710,13 +710,13 @@
   <!-- Choose if you want to see the difference in material while playing a game. (https://lichess.org/account/preferences). -->
   <string name="materialDifference">Materiaalverschil</string>
   <!-- Clicking this lets you close your account. Appears in the menu on the preferences page https://lichess.org/account/preferences and as a heading on the "Close account" page. Please do not translate to "delete account" unless you have to, as some data like the games you played on the site are retained. -->
-  <string name="closeAccount">Verwijder account</string>
+  <string name="closeAccount">Sluit account</string>
   <!-- This sentence appears on the page for closing your account https://lichess.org/account/close. You can click this button if you do not want to close your account. When you click the button you will get redirected to your profile page. -->
-  <string name="changedMindDoNotCloseAccount">Ik ben van gedachten veranderd; verwijder mijn account niet.</string>
+  <string name="changedMindDoNotCloseAccount">Ik ben van gedachten veranderd; sluit mijn account niet</string>
   <!-- These sentences appear under the heading on the page for closing your account https://lichess.org/account/close. -->
-  <string name="closeAccountExplanation">Weet je zeker dat je je account wilt verwijderen? Het verwijderen van uw account is een permanente keuze. U kunt dan niet langer inloggen en uw profielpagina zal dan niet langer toegankelijk zijn.</string>
+  <string name="closeAccountExplanation">Weet je zeker dat je je account wilt sluiten? Het sluiten van uw account is een permanente keuze. U kunt dan niet langer inloggen en uw profielpagina zal dan niet langer toegankelijk zijn.</string>
   <!-- This text appears after you have clicked the "Close my account" button. https://lichess.org/account/close -->
-  <string name="thisAccountIsClosed">Dit account is verwijderd.</string>
+  <string name="thisAccountIsClosed">Dit account is gesloten.</string>
   <!-- This text appears on the log in page when you enter the wrong username/password https://lichess.org/login -->
   <string name="invalidUsernameOrPassword">Ongeldige gebruikersnaam of wachtwoord</string>
   <!-- Click this button to reset your password https://lichess.org/password/reset -->
@@ -755,7 +755,7 @@
   <string name="takebacksWithOpponentApproval">Terugnames (met goedkeuring van tegenstander)</string>
   <!-- Choose if you want the pawn to promote to a queen automatically when you reach the other side of the board. (https://lichess.org/account/preferences) -->
   <string name="promoteToQueenAutomatically">Automatisch promoveren tot dame</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically">Eis automatisch gelijkspel op bij driemaal dezelfde stelling</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Eis automatisch remise op bij driemaal dezelfde stelling</string>
   <!-- One of the subheadings on your account preferences page (https://lichess.org/account/preferences). In this section you can choose between different options regarding your privacy. -->
   <string name="privacy">Privacy</string>
   <!-- Choose if you want to let other players be able to follow you. It is an option on your account preferences page: https://lichess.org/account/preferences -->
@@ -849,7 +849,7 @@
   <!-- "Over the board" means playing locally, on the device, usually between two players sitting across from each other. Offline play is only available on the lichess mobile app and thus *must* be kept compact, as mobile sentences need to scale to small devices. -->
   <string name="playOnTheBoardOffline">Speel offline</string>
   <!-- Press this button to play against a computer player (instead of playing against a human being). Appears in the "Create a game" menu of the lichess mobile app: https://raw.githubusercontent.com/veloce/lichobile/1.5.x/screens/android/create-human.png. All mobile app sentences *must* be kept compact, as they need to scale to small devices. -->
-  <string name="playOfflineComputer">Speel tegen de offline computer</string>
+  <string name="playOfflineComputer">Computer</string>
   <!-- The name of your opponent. Currently appears only in the mobile app. You can see how it looks here: https://raw.githubusercontent.com/veloce/lichobile/1.5.x/screens/android/ai-menu.png -->
   <string name="opponent">Tegenstander</string>
   <!-- One of the four menu sections. Contains links to training, openings, coordinates, and video library. "Learn" in this context is a verb. -->
@@ -906,7 +906,7 @@
   <string name="blackCastlingQueenside">Zwart O-O-O</string>
   <!-- %s The number of times the user has posted on the forum (https://lichess.org/forum). Appears on profile pages. Example: https://lichess.org/@/thibault — Thibault has 3038 forum points as of the time of writing. -->
   <plurals name="nbForumPosts">
-    <item quantity="one">%s Forumberichten</item>
+    <item quantity="one">%s Forumbericht</item>
     <item quantity="other">%s Forumberichten</item>
   </plurals>
   <!-- %s The total time the user has spent playing on Lichess. Appears on profile pages. Example: https://lichess.org/@/thibault/ has spent 15 days, 9 hours and 25 minutes playing at the time of writing. -->
@@ -922,7 +922,7 @@
   <!-- A carefully curated library of free chess videos. Appears as a dropdown option on the menu bar as well as on menu page. Links to https://lichess.org/video -->
   <string name="videoLibrary">Videobibliotheek</string>
   <!-- Lichess' very own free and open source Android and IOS application. Appears on the footer of the menu page. Links to https://lichess.org/mobile -->
-  <string name="mobileApp">App voor smartphones/tablets</string>
+  <string name="mobileApp">Mobiele app</string>
   <!-- Information on how webmasters can embed Lichess features such as the daily puzzle or Lichess TV. Appears on the footer of the menu page. Links to https://lichess.org/developers -->
   <string name="webmasters">Webmasters</string>
   <!-- Information on how people can contribute to Lichess whether it be through code, translation or donation. Appears on the footer of the menu page. Links to https://lichess.org/help-lichess -->
@@ -1087,8 +1087,7 @@
   </plurals>
   <!-- Description of mobile app. (https://lichess.org/mobile) -->
   <string name="gameAnalysis">Partijanalyse</string>
-  <!-- The first %s is the player's name and the second %s is the title of the simul (like "Radon simul"). Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
-  <string name="xHostsTheY">%1$s organiseert de %2$s</string>
+  <!-- When a player creates an event, such as a simul or a study. The first %s is the player's name and the second %s is the event name (like "Radon simul" or "King Gambit study"). Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
   <!-- The first %s is the player's name and the second %s is the title of the simul (like "Radon simul"). Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
   <string name="xJoinsTheY">%1$s neemt deel aan de %2$s</string>
 </resources>
