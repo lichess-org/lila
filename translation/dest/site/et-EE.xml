@@ -460,8 +460,6 @@
   <string name="community">Kogukond</string>
   <string name="tools">Tööriistad</string>
   <string name="increment">lisa sek</string>
-  <string name="board">Laud</string>
-  <string name="pieces">malendid</string>
   <string name="sharePGN">Jaga PGN</string>
   <string name="playOnline">Mängi online</string>
   <string name="playOffline">Mängi offline</string>
