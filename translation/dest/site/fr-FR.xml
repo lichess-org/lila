@@ -592,4 +592,5 @@
   <string name="boardTheme">Thème de l\'échiquier</string>
   <string name="boardSize">Taile de l\'échiquier</string>
   <string name="pieceSet">Jeu de pièces</string>
+  <string name="embedInYourWebsite">Intégrer dans votre site web</string>
 </resources>

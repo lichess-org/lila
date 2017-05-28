@@ -139,13 +139,13 @@
   <string name="casual">Urangert</string>
   <string name="rated">Rangert</string>
   <string name="thisGameIsRated">Dette partiet er rangert</string>
-  <string name="rematch">Revansj</string>
-  <string name="rematchOfferSent">Tilbud om revansj sendt</string>
-  <string name="rematchOfferAccepted">Tilbud om revansj godtatt</string>
+  <string name="rematch">Omkamp</string>
+  <string name="rematchOfferSent">Tilbud om omkamp sendt</string>
+  <string name="rematchOfferAccepted">Tilbud om omkamp godtatt</string>
   <string name="rematchOfferCanceled">Tilbud om revansj trukket tilbake</string>
-  <string name="rematchOfferDeclined">Tilbud om revansj avslått</string>
-  <string name="cancelRematchOffer">Avbryt tilbud om revansj</string>
-  <string name="viewRematch">Se revansj</string>
+  <string name="rematchOfferDeclined">Tilbud om omkamp avslått</string>
+  <string name="cancelRematchOffer">Avbryt tilbud om omkamp</string>
+  <string name="viewRematch">Se omkamp</string>
   <string name="play">Spill</string>
   <string name="inbox">Innboks</string>
   <string name="chatRoom">Chatterom</string>
@@ -222,8 +222,8 @@
   <string name="reset">Tilbakestill</string>
   <string name="apply">Bruk</string>
   <string name="leaderboard">Ledertabell</string>
-  <string name="pasteTheFenStringHere">Lim inn FEN-strengen her</string>
-  <string name="pasteThePgnStringHere">Lim inn PGN-strengen her</string>
+  <string name="pasteTheFenStringHere">Lim inn FEN teksten her</string>
+  <string name="pasteThePgnStringHere">Lim inn PGN teksten her</string>
   <string name="fromPosition">Fra stilling</string>
   <string name="continueFromHere">Fortsett herfra</string>
   <string name="importGame">Importer parti</string>
@@ -231,7 +231,7 @@
     <item quantity="one">%s Importerte partier</item>
     <item quantity="other">%s Importerte partier</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Dette er en sjakk-CAPTCHA.</string>
+  <string name="thisIsAChessCaptcha">Dette er en sjakk CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Klikk på brettet for å gjøre et trekk og bevise at du er et menneske.</string>
   <string name="notACheckmate">Ikke sjakk matt</string>
   <string name="colorPlaysCheckmateInOne">%s setter sjakk matt i ett trekk</string>
@@ -240,12 +240,13 @@
   <string name="onlineFriends">Påloggede venner</string>
   <string name="noFriendsOnline">Ingen venner pålogget</string>
   <string name="findFriends">Finn venner</string>
+  <string name="favoriteOpponents">Favorittmotstandere</string>
   <string name="follow">Følg</string>
   <string name="following">Følger</string>
-  <string name="unfollow">Stopp å følge</string>
+  <string name="unfollow">Slutt å følge</string>
   <string name="block">Blokker</string>
   <string name="blocked">Blokkert</string>
-  <string name="unblock">Avblokker</string>
+  <string name="unblock">Fjern blokkering</string>
   <string name="followsYou">Følger deg</string>
   <string name="xStartedFollowingY">%1$s begynte å følge %2$s</string>
   <plurals name="nbFollowers">
@@ -406,6 +407,7 @@
   <string name="premovesPlayingDuringOpponentTurn">Førtrekk (gjør trekk når det er motstanders trekk)</string>
   <string name="takebacksWithOpponentApproval">Angre trekk (med motstanders godkjennelse)</string>
   <string name="promoteToQueenAutomatically">Forvandle til dronning automatisk</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Krev remis ved trekkgjentakelse automatisk</string>
   <string name="privacy">Personvern</string>
   <string name="letOtherPlayersFollowYou">La andre spillere følge deg</string>
   <string name="letOtherPlayersChallengeYou">La andre spillere utfordre deg</string>
@@ -435,6 +437,7 @@
   <string name="starting">Starter:</string>
   <string name="allInformationIsPublicAndOptional">All informasjon er offentlig og valgfri.</string>
   <string name="yourCityRegionOrDepartment">Din by, region eller sted.</string>
+  <string name="biographyDescription">Fortell litt om deg selv, hva du liker med sjakk, din favorittåpning, partier, spillere…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maksimum: %s bokstaver.</item>
     <item quantity="other">Maksimum: %s bokstaver.</item>
@@ -532,6 +535,10 @@
   <string name="tournamentMayHaveBeenCanceled">Den kan ha blitt avlyst fordi alle spillerne trakk seg før den startet.</string>
   <string name="returnToTournamentsHomepage">Tilbake til turneringsoversikt</string>
   <string name="weeklyPerfTypeRatingDistribution">Månedlig %s-fordeling</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">En %2$s spiller denne uken.</item>
+    <item quantity="other">%1$s %2$s spiller denne uken.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">Din %1$s-rating er %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du er bedre enn %1$s av %2$s-spillerne.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har ikke etablert en %s-rating.</string>
@@ -574,4 +581,17 @@
     <item quantity="other">Tilgjengelig på %s språk!</item>
   </plurals>
   <string name="gameAnalysis">Analyse av parti</string>
+  <string name="xHostsY">%1$s opprettet %2$s</string>
+  <string name="xJoinsY">%1$s ble med %2$s</string>
+  <string name="xLikesY">%1$s liker %2$s</string>
+  <string name="quickPairing">Raskt pairing</string>
+  <string name="lobby">Lobby</string>
+  <string name="yourScore">Din poengsum: %s</string>
+  <string name="background">Bakgrunn</string>
+  <string name="boardGeometry">Brett geometri</string>
+  <string name="boardTheme">Brett tema</string>
+  <string name="boardSize">Brett størrelse</string>
+  <string name="pieceSet">Brikkesett</string>
+  <string name="embedInYourWebsite">Embed på nettsiden din</string>
+  <string name="usernameAlreadyUsed">Brukernavnet er allerede i bruk, prøv et annet et.</string>
 </resources>
