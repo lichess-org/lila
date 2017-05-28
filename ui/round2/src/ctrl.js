@@ -392,8 +392,8 @@ module.exports = function(opts, redraw) {
     ((this.data.game.turns - this.data.game.startedAtTurn) > 1 || this.data.clock.running);
   }.bind(this);
 
-  var clockTick = function() {
-    if (this.isClockRunning()) this.clock.tick(this, this.data.game.player);
+  var clockTick = function(now) {
+    if (this.isClockRunning()) this.clock.tick(this, this.data.game.player, now);
   }.bind(this);
 
   var makeCorrespondenceClock = function() {
@@ -411,11 +411,16 @@ module.exports = function(opts, redraw) {
   }.bind(this);
 
   if (this.clock) {
-    var tickNow = function() {
-      clockTick();
-      if (game.playable(this.data)) setTimeout(tickNow, 100);
+    var lastUpdate = 0;
+    var tickNow = function(now) {
+      if (now - lastUpdate > 50) {
+        lastUpdate = now;
+        clockTick(now);
+        if (!game.playable(this.data)) return;
+      }
+      requestAnimationFrame(tickNow);
     }.bind(this);
-    setTimeout(tickNow, 100);
+    requestAnimationFrame(tickNow);
   } else setInterval(correspondenceClockTick, 1000);
 
   var setQuietMode = function() {
