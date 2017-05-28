@@ -460,8 +460,6 @@
   <string name="community">Гишүүд</string>
   <string name="tools">Хэрэглүүр</string>
   <string name="increment">Нэмэгдэл</string>
-  <string name="board">Хөлгийн тавцан</string>
-  <string name="pieces">Шатрын хөлөг</string>
   <string name="sharePGN">Тэмцээний тэмдэглэлийг бусадтай хуваалцах</string>
   <string name="playOnline">Сүлжээний орчинд тоглох</string>
   <string name="playOffline">Сүлжээний бус орчинд тоглох</string>
