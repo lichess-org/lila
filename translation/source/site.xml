@@ -592,4 +592,5 @@
   <string name="boardSize">Board size</string>
   <string name="pieceSet">Piece set</string>
   <string name="embedInYourWebsite">Embed in your website</string>
+  <string name="usernameAlreadyUsed">This username is already in use, please try another one.</string>
 </resources>
