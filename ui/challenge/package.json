@@ -1,7 +1,7 @@
 {
-  "name": "notify2",
+  "name": "challenge",
   "version": "2.0.0",
-  "description": "lichess.org notifications UI",
+  "description": "lichess.org challenge UI",
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0",
   "dependencies": {
