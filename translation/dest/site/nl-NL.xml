@@ -12,7 +12,7 @@
   <!-- Indicates you are waiting for an opponent to join your game. This appears after you have created a public game (through the "Create a game" menu). -->
   <string name="waitingForOpponent">Wachten op een tegenstander</string>
   <!-- This appears in the challenges box, when you are waiting for the opponent the accept the challenge. -->
-  <string name="waiting">Even wachten</string>
+  <string name="waiting">Even geduld a.u.b.</string>
   <!-- This appears in the box while you are playing a game. It indicates it is your turn to play. -->
   <string name="yourTurn">U bent aan zet</string>
   <!-- AI name and level, e.g. "Stockfish level 3". Note that the "Stockfish" part will always be first no matter where you place the %s, though you can rearrange them to e.g. "%s at %s levels", which would produce e.g. "Stockfish at 3 levels". Use the translation that sounds best in your language. Appears in the box on the left-hand side in the page of the game, and also on your profile, in the list of games. -->
@@ -113,7 +113,7 @@
   <string name="draw">Remise</string>
   <!-- The %s is the counter of how many players are connected right now. This sentence is displayed at the top of every page on lichess. -->
   <plurals name="nbPlayers">
-    <item quantity="one">%s spelers</item>
+    <item quantity="one">%s speler</item>
     <item quantity="other">%s spelers</item>
   </plurals>
   <!-- This is a shorter phrase for "Games being played right now". It is what the link at the top that says "Games" links to (https://lichess.org/games). Please try to keep your translation as short as possible. -->
@@ -210,7 +210,7 @@
   <string name="gamesPlayed">Gespeelde partijen</string>
   <!-- %s is the number of games this player has played with you. This appears as a tab on the profile pages of people that you have played with. Try to keep it fairly short. -->
   <plurals name="nbGamesWithYou">
-    <item quantity="one">%s partijen met u</item>
+    <item quantity="one">%s partij met u</item>
     <item quantity="other">%s partijen met u</item>
   </plurals>
   <!-- This is a generic word that appears in a wide variety of places and is used to cancel actions of all sorts. It is recommended to translate it according to whatever your operating system (e.g. Microsoft Windows) uses for your language. -->
@@ -258,7 +258,7 @@
   <!-- "Rated" means that the outcome of the game will result in a gain or loss of rating points for either players. This sentence appears in a variety of places, including the pages of individual games (which are rated) and the "Filter games" page. -->
   <string name="rated">Met rating</string>
   <!-- "Rated" means that the outcome of the game will result in a gain or loss of rating points for either players. This sentence appears in profile page listings of games and games lists (e.g. https://lichess.org/games/all). -->
-  <string name="thisGameIsRated">Deze artij telt mee voor rating</string>
+  <string name="thisGameIsRated">Deze partij telt mee voor rating</string>
   <!-- Translated as a verb if possible. This is a button that appears at the end of a game in the right hand side box. Clicking it sends a rematch offer. -->
   <string name="rematch">Opnieuw spelen</string>
   <!-- Informs you that your offer of a rematch has been sent to your opponent. This is a system message that appears in the chat box, and also in the right-hand side box. -->
