@@ -730,7 +730,7 @@
   <!-- Choose if you want to see highlights, on the game board, for last move and check. https://lichess.org/account/preferences -->
   <string name="boardHighlights">Markierungen auf dem Brett (letzter Zug und Schach)</string>
   <!-- Choose if you want to see where all the pieces can move to on the board. https://lichess.org/account/preferences -->
-  <string name="pieceDestinations">Zielfelder markieren (gültige Züge und Premoves)</string>
+  <string name="pieceDestinations">Zielfelder markieren (gültige Züge und Vorauszüge)</string>
   <!-- Choose if you want to see the coordinates on the board, and where to show them. https://lichess.org/account/preferences. A-H and 1-8 are rank and file as they appear on lichess. So even if your language uses different notation, please leave A-H and 1-8 unchanged because that is how they appear on the site. -->
   <string name="boardCoordinates">Koordinaten (A-H, 1-8)</string>
   <!-- Choose if you want to see a list of all moves made, on the right side of the board. https://lichess.org/account/preferences -->
@@ -805,7 +805,7 @@
   <!-- First %s is the name of the player that commented, and the second %s is the title of the question in Q&A. Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
   <string name="xCommentedY">%1$s kommentierte %2$s</string>
   <!-- An activity timeline showing what people you follow on lichess have been up to. Appears on the main page under logotype https://lichess.org and https://lichess.org/timeline/more. Note: this only appears as soon as you follow a player on lichess. -->
-  <string name="timeline">Zeitleiste</string>
+  <string name="timeline">Verlauf</string>
   <!-- This text appears when you hover over the "more" link for "open tournaments" on the main page https://lichess.org/ -->
   <string name="seeAllTournaments">Alle Turniere anzeigen</string>
   <!-- This text appears to the left of the "join" button and it informs you when the tournament is starting. To see an example click on an open tournament from the tournament page https://lichess.org/tournament. -->
@@ -818,12 +818,12 @@
   <string name="biographyDescription">Erzähl über dich, was du an Schach magst, deine Lieblingseröffnungen, Partien, Spieler, …</string>
   <!-- This text appears under the biography description box to inform you the maximum length your description can have. https://lichess.org/account/profile -->
   <plurals name="maximumNbCharacters">
-    <item quantity="one">Maximal: %s Zeichen.</item>
-    <item quantity="other">Maximal: %s Zeichen.</item>
+    <item quantity="one">Höchstens %s Zeichen.</item>
+    <item quantity="other">Höchstens %s Zeichen.</item>
   </plurals>
   <!-- %s is the number of players you have blocked. Consider translating to "%s blocked players" if you think the context is not sufficient. Appears as a heading on your list of blocked players at https://lichess.org/rel/blocks -->
   <plurals name="blocks">
-    <item quantity="one">%s gesperrte Spieler</item>
+    <item quantity="one">%s gesperrter Spieler</item>
     <item quantity="other">%s gesperrte Spieler</item>
   </plurals>
   <!-- "List" is used as a verb here. This is a descriptive sentence which appears when you hover the mouse over the block icon on your own profile. Clicking the icon will show you a list of players you have blocked. -->
@@ -1087,6 +1087,6 @@
   </plurals>
   <!-- Description of mobile app. (https://lichess.org/mobile) -->
   <string name="gameAnalysis">Spielanalyse</string>
-  <!-- The first %s is the player's name and the second %s is the title of the simul (like "Radon simul"). Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
+  <!-- When a player creates an event, such as a simul or a study. The first %s is the player's name and the second %s is the event name (like "Radon simul" or "King Gambit study"). Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
   <!-- The first %s is the player's name and the second %s is the title of the simul (like "Radon simul"). Appears in the activity timeline on the left-hand side of the "Play" page (https://lichess.org/) after you have started following a player. -->
 </resources>
