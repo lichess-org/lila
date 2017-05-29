@@ -594,4 +594,8 @@
   <string name="pieceSet">Jeu de pièces</string>
   <string name="embedInYourWebsite">Intégrer dans votre site web</string>
   <string name="usernameAlreadyUsed">Ce nom d\'utilisateur existe déjà. Merci d\'en choisir un autre.</string>
+  <string name="chessBasics">Bases des échecs</string>
+  <string name="coaches">Coachs</string>
+  <string name="invalidPgn">PGN non valide</string>
+  <string name="invalidFen">FEN non valide</string>
 </resources>
