@@ -267,8 +267,6 @@
     <item quantity="one">%s dəqiqədən daha az</item>
     <item quantity="other">%s dəqiqədən daha az</item>
   </plurals>
-  <string name="textIsTooShort">Mətn çox qısadır.</string>
-  <string name="textIsTooLong">Mətn çox uzundur.</string>
   <string name="required">Tələb olunur.</string>
   <string name="openTournaments">Turnir açın.</string>
   <string name="duration">Vaxt.</string>
