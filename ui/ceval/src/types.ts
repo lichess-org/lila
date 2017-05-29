@@ -101,7 +101,7 @@ export interface ParentController {
   currentEvals: () => NodeEvals;
   ongoing: boolean;
   playUci: (uci: string) => void;
-  getOrientation: () => Color;
+  bottomColor: () => Color;
 }
 
 export interface ParentVm {
