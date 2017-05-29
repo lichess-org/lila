@@ -57,7 +57,7 @@
   <string name="offerDraw">Ponudi remi</string>
   <string name="draw">Remi</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s igrača</item>
+    <item quantity="one">%s igrač</item>
     <item quantity="few">%s igrača</item>
     <item quantity="other">%s igrača</item>
   </plurals>
