@@ -6,17 +6,17 @@ import lila.common.String.html.{ escape => escapeHtml }
 
 private sealed trait Translation
 
-private class Literal(message: String) extends Translation {
+private class Literal(message: String, escapedOption: Option[String]) extends Translation {
 
-  lazy val escaped = escapeHtml(message)
+  @inline private def escaped = escapedOption getOrElse message
 
   def formatTxt(args: Seq[Any]): String =
     if (args.isEmpty) message
     else message.format(args: _*)
 
   def formatHtml(args: Seq[Html]): Html =
-    if (args.isEmpty) escaped
-    else Html(escaped.body.format(args.map(_.body): _*))
+    if (args.isEmpty) Html(escaped)
+    else Html(escaped.format(args.map(_.body): _*))
 }
 
 private class Plurals(messages: Map[I18nQuantity, String]) extends Translation {

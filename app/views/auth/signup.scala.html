@@ -23,7 +23,6 @@ zen = true) {
     <form action="@routes.Auth.signupPost" method="POST">
       <ul>
         @auth.formFields(form("username"), form("password"), form("email").some, register = true)
-        @errMsg(form)
         <li data-icon="">&nbsp;
           @trans.computersAreNotAllowedToPlay()<br />
           <small>

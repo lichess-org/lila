@@ -41,7 +41,7 @@ private[setup] final class FormFactory(casualOnly: Boolean) {
       "color" -> color,
       "fen" -> fen
     )(AiConfig.<<)(_.>>)
-      .verifying("Invalid FEN", _.validFen)
+      .verifying("invalidFen", _.validFen)
   )
 
   def aiConfig(implicit ctx: UserContext): Fu[AiConfig] = savedConfig map (_.ai)
@@ -65,7 +65,7 @@ private[setup] final class FormFactory(casualOnly: Boolean) {
       "fen" -> fen
     )(FriendConfig.<<)(_.>>)
       .verifying("Invalid clock", _.validClock)
-      .verifying("Invalid FEN", _.validFen)
+      .verifying("invalidFen", _.validFen)
   )
 
   def friendConfig(implicit ctx: UserContext): Fu[FriendConfig] = savedConfig map (_.friend)
