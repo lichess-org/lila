@@ -46,10 +46,6 @@
     <item quantity="other">%s joyor conectàs</item>
   </plurals>
   <string name="currentGames">Passes joyìyes yóra</string>
-  <plurals name="nbGames">
-    <item quantity="one">Véyre totes les %s passes</item>
-    <item quantity="other">Véyre totes les %s passes</item>
-  </plurals>
   <string name="viewInFullSize">Vèyre èn plléna talyi</string>
   <string name="logOut">Modar</string>
   <string name="signIn">Se conectar</string>
