@@ -267,8 +267,6 @@
     <item quantity="one">Menys de %s minuts</item>
     <item quantity="other">Menys de %s minuts</item>
   </plurals>
-  <string name="textIsTooShort">El text és massa curt.</string>
-  <string name="textIsTooLong">El text és massa llarg.</string>
   <string name="required">Necessari.</string>
   <string name="openTournaments">Tornejos oberts</string>
   <string name="duration">Durada</string>
