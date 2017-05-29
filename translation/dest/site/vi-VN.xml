@@ -250,8 +250,6 @@
   <plurals name="lessThanNbMinutes">
     <item quantity="other">Ít hơn %s phút</item>
   </plurals>
-  <string name="textIsTooShort">Câu quá ngắn</string>
-  <string name="textIsTooLong">Câu quá dài</string>
   <string name="required">Bắt buộc</string>
   <string name="openTournaments">Những giải đấu mở</string>
   <string name="duration">Thời gian</string>
