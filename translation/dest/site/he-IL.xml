@@ -207,8 +207,6 @@
   <string name="player">שחקן</string>
   <string name="list">רשימה</string>
   <string name="graph">גרף</string>
-  <string name="textIsTooShort">הטקסט קצר מדי.</string>
-  <string name="textIsTooLong">הטקסט ארוך מדי.</string>
   <string name="required">נדרש.</string>
   <string name="openTournaments">הטורנירים הפתוחים</string>
   <string name="duration">משך</string>
