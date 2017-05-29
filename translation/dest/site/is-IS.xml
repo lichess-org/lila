@@ -267,8 +267,6 @@
     <item quantity="one">Minna en %s mínútur</item>
     <item quantity="other">Minna en %s mínútur</item>
   </plurals>
-  <string name="textIsTooShort">Texti er of stuttur.</string>
-  <string name="textIsTooLong">Texti er of langur.</string>
   <string name="required">Krafist.</string>
   <string name="openTournaments">Opin mót</string>
   <string name="duration">Lengd</string>
