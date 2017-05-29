@@ -250,8 +250,6 @@
   <plurals name="lessThanNbMinutes">
     <item quantity="other">%s минутран сахал</item>
   </plurals>
-  <string name="textIsTooShort">Ытлӑ та кӗске текст.</string>
-  <string name="textIsTooLong">Ытлӑ та вӑрӑм текст.</string>
   <string name="required">Тивӗҫлӗ.</string>
   <string name="openTournaments">Уҫӑ турнирсем</string>
   <string name="duration">Вӑрӑмӑш</string>
