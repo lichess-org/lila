@@ -61,7 +61,7 @@
     <item quantity="few">%s igrača</item>
     <item quantity="other">%s igrača</item>
   </plurals>
-  <string name="currentGames">Partije koje se upravo igraju</string>
+  <string name="currentGames">Partije u tijeku</string>
   <plurals name="nbGames">
     <item quantity="one">Jedna partija</item>
     <item quantity="few">%s partija</item>
@@ -578,7 +578,7 @@
   <string name="downloadImported">Preuzmi uvezeno</string>
   <string name="printFriendlyPDF">Preuzmi PDF igre</string>
   <string name="crosstable">Tablica križanja</string>
-  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">možeš povuci klizač preko ploče za micanje u igri</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Možeš skrolirati preko ploče za micanje u partiji.</string>
   <string name="analysisShapesHowTo">Pritisni shift + lijevi klik ili desni klik kako bi crtao/la krugove i strelice na ploči.</string>
   <string name="confirmResignation">Potvrdi predaju</string>
   <string name="letOtherPlayersMessageYou">Dopusti drugim igračima da ti pošalju poruku</string>
