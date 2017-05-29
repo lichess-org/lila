@@ -252,8 +252,6 @@
   <plurals name="lessThanNbMinutes">
     <item quantity="other">Minus de %s minutas</item>
   </plurals>
-  <string name="textIsTooShort">Texto es troppo curte.</string>
-  <string name="textIsTooLong">Texto es troppo longe.</string>
   <string name="required">Requirite.</string>
   <string name="openTournaments">Torneos aperte</string>
   <string name="duration">Duration</string>
