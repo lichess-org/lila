@@ -449,7 +449,7 @@
   <string name="xCompetesInY">%1$s se natječe u %2$s</string>
   <string name="xAskedY">%1$s je pitao %2$s</string>
   <string name="xAnsweredY">%1$s je odgovorio %2$s</string>
-  <string name="xCommentedY">%1$s je  komentirao %2$s</string>
+  <string name="xCommentedY">%1$s je komentirao %2$s</string>
   <string name="timeline">Vremenska crta</string>
   <string name="seeAllTournaments">Vidi sve turnire</string>
   <string name="starting">Počinje:</string>
