@@ -61,7 +61,7 @@
     <item quantity="few">%s igrača</item>
     <item quantity="other">%s igrača</item>
   </plurals>
-  <string name="currentGames">partija u tijeku</string>
+  <string name="currentGames">Partije koje se upravo igraju</string>
   <plurals name="nbGames">
     <item quantity="one">Jedna partija</item>
     <item quantity="few">%s partija</item>
@@ -472,7 +472,7 @@
   <string name="side">Strana</string>
   <string name="clock">Sat</string>
   <string name="unauthorizedError">Pristup neodobren.</string>
-  <string name="noInternetConnection">Nedostupan internet. Možeš i dalje igrati bez mreže preko izbornika</string>
+  <string name="noInternetConnection">Nedostupna internetska veza. Možeš i dalje igrati bez internetske veze preko izbornika.</string>
   <string name="connectedToLichess">Spojen/a si na lichess.org</string>
   <string name="signedOut">Odjavljen/a si</string>
   <string name="loginSuccessful">Prijavljen/a si</string>
@@ -590,7 +590,7 @@
   <string name="builtForTheLoveOfChessNotMoney">Napravljeno iz ljubavi prema šahu, ne novcu</string>
   <string name="everybodyGetsAllFeaturesForFree">Svi dobivaju sve usluge besplatno</string>
   <string name="zeroAdvertisement">Bez reklama</string>
-  <string name="fullFeatured">potpuno opremljena</string>
+  <string name="fullFeatured">Potpuno opremljena</string>
   <string name="phoneAndTablet">Mobitel i tablet</string>
   <string name="bulletBlitzClassical">Bullet, blitz, klasika</string>
   <string name="correspondenceChess">Dopisni šah</string>
