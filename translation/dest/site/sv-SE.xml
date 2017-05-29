@@ -267,8 +267,6 @@
     <item quantity="one">Mindre än %s minuter</item>
     <item quantity="other">Mindre än %s minuter</item>
   </plurals>
-  <string name="textIsTooShort">Texten är för kort.</string>
-  <string name="textIsTooLong">Texten är för lång.</string>
   <string name="required">Obligatoriskt.</string>
   <string name="openTournaments">Öppna turneringar</string>
   <string name="duration">Varaktighet</string>
