@@ -12,7 +12,7 @@ import play.api.libs.json.{ JsObject, Json }
 
 import actorApi._, round._
 import lila.common.PimpedJson._
-import lila.common.{ IpAddress, ApiVersion }
+import lila.common.IpAddress
 import lila.game.{ Pov, PovRef, GameRepo }
 import lila.hub.actorApi.map._
 import lila.hub.actorApi.round.Berserk
@@ -119,21 +119,19 @@ private[round] final class SocketHandler(
     uid: Uid,
     user: Option[User],
     ip: IpAddress,
-    userTv: Option[String],
-    apiVersion: ApiVersion
+    userTv: Option[String]
   ): Fu[Option[JsSocketHandler]] =
     GameRepo.pov(gameId, colorName) flatMap {
-      _ ?? { join(_, none, uid, user, ip, userTv = userTv, apiVersion) map some }
+      _ ?? { join(_, none, uid, user, ip, userTv = userTv) map some }
     }
 
   def player(
     pov: Pov,
     uid: Uid,
     user: Option[User],
-    ip: IpAddress,
-    apiVersion: ApiVersion
+    ip: IpAddress
   ): Fu[JsSocketHandler] =
-    join(pov, Some(pov.playerId), uid, user, ip, userTv = none, apiVersion)
+    join(pov, Some(pov.playerId), uid, user, ip, userTv = none)
 
   private def join(
     pov: Pov,
@@ -141,8 +139,7 @@ private[round] final class SocketHandler(
     uid: Uid,
     user: Option[User],
     ip: IpAddress,
-    userTv: Option[String],
-    apiVersion: ApiVersion
+    userTv: Option[String]
   ): Fu[JsSocketHandler] = {
     val join = Join(
       uid = uid,
@@ -150,8 +147,7 @@ private[round] final class SocketHandler(
       color = pov.color,
       playerId = playerId,
       ip = ip,
-      userTv = userTv,
-      apiVersion = apiVersion
+      userTv = userTv
     )
     socketHub ? Get(pov.gameId) mapTo manifest[ActorRef] flatMap { socket =>
       Handler(hub, socket, uid, join) {

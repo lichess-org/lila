@@ -59,7 +59,7 @@ final class EmailAddressValidator(disposable: DisposableEmailDomain) {
 
   def uniqueConstraint(forUser: Option[User]) = Constraint[String]("constraint.email_unique") { e =>
     if (isTakenBySomeoneElse(EmailAddress(e), forUser))
-      Invalid(ValidationError(s"Email address is already in use by another account"))
+      Invalid(ValidationError(s"error.email_unique"))
     else Valid
   }
 

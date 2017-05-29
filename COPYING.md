@@ -91,3 +91,4 @@ Lichess as deployed on https://lichess.org/ also uses these external services:
 * [Google Fonts](https://fonts.google.com/)
 * [Google Cloud Messaging](https://developers.google.com/cloud-messaging/) and [OneSignal](https://onesignal.com/) for mobile notifications
 * [reCAPTCHA](https://www.google.com/recaptcha/)
+* [crowdin](https://crowdin.com/project/lichess) for localization

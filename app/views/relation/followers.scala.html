@@ -1,12 +1,12 @@
 @(u: User, pag: Paginator[lila.relation.Related], nbFollowing: Int)(implicit ctx: Context)
 
-@user.layout(title = u.username + " - " + trans.nbFollowers(pag.nbResults)) {
+@user.layout(title = u.username + " - " + trans.nbFollowers.pluralSameTxt(pag.nbResults)) {
 <div class="content_box no_padding">
   <h1>
     @userLink(u, withOnline = false)
-    @trans.nbFollowers(pag.nbResults)
+    @trans.nbFollowers.pluralSame(pag.nbResults)
     &amp;
-    <a href="@routes.Relation.following(u.username)">@trans.nbFollowing(nbFollowing)</a>
+    <a href="@routes.Relation.following(u.username)">@trans.nbFollowing.pluralSame(nbFollowing)</a>
   </h1>
   @user.simpleTable(pag, routes.Relation.followers(u.username))
 </div>

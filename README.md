@@ -1,7 +1,9 @@
-[lichess.org](https://lichess.org) [![Build Status](https://travis-ci.org/ornicar/lila.svg?branch=master)](https://travis-ci.org/ornicar/lila)
----------------------------------
+[lichess.org](https://lichess.org)
+==================================
 
-[@lichessorg](https://twitter.com/lichessorg)
+[![Build Status](https://travis-ci.org/ornicar/lila.svg?branch=master)](https://travis-ci.org/ornicar/lila)
+[![Crowdin](https://d322cqt584bo4o.cloudfront.net/lichess/localized.svg)](https://crowdin.com/project/lichess)
+[![Twitter](https://img.shields.io/badge/Twitter-%40lichessorg-blue.svg)](https://twitter.com/lichessorg)
 
 <img src="https://raw.githubusercontent.com/ornicar/lila/master/public/images/homepage_light.1200.png" alt="lichess.org" />
 
@@ -16,7 +18,7 @@ It features a [search engine](https://lichess.org/games/search),
 [tactic trainer](https://lichess.org/training),
 a [mobile app](https://lichess.org/mobile),
 and a [shared analysis board](https://lichess.org/study).
-The UI is available in more than [80 languages](https://lichess.org/translation/contribute) thanks to the community.
+The UI is available in more than [80 languages](https://crowdin.com/project/lichess) thanks to the community.
 
 Lichess is written in [Scala 2.11](https://www.scala-lang.org/),
 and relies on [Play 2.4](https://www.playframework.com/) for the routing, templating, and JSON.
@@ -28,9 +30,10 @@ HTTP requests and websocket connections are proxied by [nginx 1.8](http://nginx.
 Client-side is written in [mithril.js](http://mithril.js.org/).
 The [blog](https://lichess.org/blog) uses a free open content plan from [prismic.io](https://prismic.io).
 Browser testing done with [![](https://raw.githubusercontent.com/ornicar/lila/master/public/images/browserstack.png)](https://www.browserstack.com).
+Translations powered by [Crowdin](https://crowdin.com).
 
 [Join us on discord](https://discord.gg/AWSze7n) or in the #lichess freenode IRC channel for more info.
-Use [github issues](https://github.com/ornicar/lila/issues) for bug reports and feature requests.
+Use [GitHub issues](https://github.com/ornicar/lila/issues) for bug reports and feature requests.
 
 Installation
 ------------
@@ -58,7 +61,7 @@ Please do not automate computer analysis requests. They're very expensive.
 ### `GET /api/user/<username>` fetch one user
 
 ```
-> curl https://en.lichess.org/api/user/thibault
+> curl https://lichess.org/api/user/thibault
 ```
 
 ```javascript
@@ -121,7 +124,7 @@ Example usage with JSONP:
 
 ```javascript
 $.ajax({
-  url:'https://en.lichess.org/api/user/thibault',
+  url:'https://lichess.org/api/user/thibault',
   dataType:'jsonp',
   jsonp:'callback',
   success: function(data) {
@@ -134,7 +137,7 @@ $.ajax({
 ### `GET /api/user` fetch many users from a team
 
 ```
-> curl https://en.lichess.org/api/user?team=coders&nb=10&page=1
+> curl https://lichess.org/api/user?team=coders&nb=10&page=1
 ```
 
 The team parameter is mandatory.
@@ -166,7 +169,7 @@ Example usage with JSONP:
 
 ```javascript
 $.ajax({
-  url:'https://en.lichess.org/api/user',
+  url:'https://lichess.org/api/user',
   data: {
     team: 'coders',
     nb: 100
@@ -183,7 +186,7 @@ $.ajax({
 ### `POST /api/users` fetch many users by ID
 
 ```
-> curl --data "legend,lovlas" 'https://en.lichess.org/api/users'
+> curl --data "legend,lovlas" 'https://lichess.org/api/users'
 ```
 
 Users are returned in the order same order as the ids.
@@ -191,7 +194,7 @@ Users are returned in the order same order as the ids.
 ### `GET /api/users/status` fetch many users `online` and `playing` flags
 
 ```
-> curl -s 'https://en.lichess.org/api/users/status?ids=thibault,chess-network'
+> curl -s 'https://lichess.org/api/users/status?ids=thibault,chess-network'
 ```
 
 name | type | default | description
@@ -221,7 +224,7 @@ name | type | default | description
 ### `GET /api/user/<username>/games` fetch user games
 
 ```
-> curl https://en.lichess.org/api/user/thibault/games?nb=10&page=2
+> curl https://lichess.org/api/user/thibault/games?nb=10&page=2
 ```
 
 Games are returned by descendant chronological order.
@@ -314,7 +317,7 @@ name | type | default | description
 ### `GET /api/games/vs/<username>/<username>` fetch games between 2 users
 
 ```
-> curl https://en.lichess.org/api/games/vs/thibault/legend?nb=10&page=2
+> curl https://lichess.org/api/games/vs/thibault/legend?nb=10&page=2
 ```
 
 Parameters and result are similar to the users games API.
@@ -322,7 +325,7 @@ Parameters and result are similar to the users games API.
 ### `GET /api/games/team/<teamId>` fetch games between players of a team
 
 ```
-> curl https://en.lichess.org/api/games/team/freenode?nb=10&page=2
+> curl https://lichess.org/api/games/team/freenode?nb=10&page=2
 ```
 
 Parameters and result are similar to the users games API.
@@ -330,7 +333,7 @@ Parameters and result are similar to the users games API.
 ### `GET /api/game/{id}` fetch one game by ID
 
 ```
-> curl https://en.lichess.org/api/game/x2kpaixn
+> curl https://lichess.org/api/game/x2kpaixn
 ```
 
 A single game is returned.
@@ -417,7 +420,7 @@ name | type | default | description
 ### `POST /api/games` fetch many games by ID
 
 ```
-> curl --data "x2kpaixn,gtSLJGOK" 'https://en.lichess.org/api/games'
+> curl --data "x2kpaixn,gtSLJGOK" 'https://lichess.org/api/games'
 ```
 
 Games are returned in the order same order as the ids.
@@ -429,7 +432,7 @@ name | type | default | description
 
 ### `GET /game/export/{id}.pgn` fetch one game PGN by ID
 
-https://en.lichess.org/game/export/Qa7FJNk2.pgn
+https://lichess.org/game/export/Qa7FJNk2.pgn
 
 This returns the raw PGN for a game.
 
@@ -459,7 +462,7 @@ This returns the raw PGN for a game.
 Returns tournaments displayed on the schedule: https://lichess.org/tournament
 
 ```
-> curl https://en.lichess.org/api/tournament
+> curl https://lichess.org/api/tournament
 ```
 
 ```javascript
@@ -518,7 +521,7 @@ name | type | default | description
 **page** | int | 1 | for standing pagination
 
 ```
-curl 'https://en.lichess.org/api/tournament/x5WNIngd?page=1'
+curl 'https://lichess.org/api/tournament/x5WNIngd?page=1'
 ```
 
 ```javascript

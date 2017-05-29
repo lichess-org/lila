@@ -1,6 +1,6 @@
 @(u: User, form: Form[_], ok: Option[Boolean] = None)(implicit ctx: Context)
 
-@title = @{ s"${u.username} - ${trans.changeEmail.str()}" }
+@title = @{ s"${u.username} - ${trans.changeEmail.txt()}" }
 
 @account.layout(title = title, active = "email") {
 <div class="content_box small_box">

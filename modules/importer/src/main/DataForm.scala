@@ -12,7 +12,7 @@ import lila.game._
 private[importer] final class DataForm {
 
   lazy val importForm = Form(mapping(
-    "pgn" -> nonEmptyText.verifying("Invalid PGN", checkPgn _),
+    "pgn" -> nonEmptyText.verifying("invalidPgn", checkPgn _),
     "analyse" -> optional(nonEmptyText)
   )(ImportData.apply)(ImportData.unapply))
 

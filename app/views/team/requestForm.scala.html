@@ -1,6 +1,6 @@
 @(t: lila.team.Team, form: Form[_], captcha: lila.common.Captcha)(implicit ctx: Context)
 
-@title = @{ trans.joinTeam.str() + " " + t.name }
+@title = @{ trans.joinTeam.txt() + " " + t.name }
 
 @team.layout(title = title) {
 <div id="team">

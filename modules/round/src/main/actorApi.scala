@@ -7,7 +7,7 @@ import scala.concurrent.Promise
 import chess.{ MoveMetrics, Color }
 import chess.format.Uci
 
-import lila.common.{ IpAddress, ApiVersion }
+import lila.common.IpAddress
 import lila.game.Event
 import lila.socket.SocketMember
 import lila.socket.Socket.Uid
@@ -22,7 +22,6 @@ sealed trait Member extends SocketMember {
   val troll: Boolean
   val ip: IpAddress
   val userTv: Option[String]
-  val apiVersion: ApiVersion
 
   def owner = playerIdOption.isDefined
   def watcher = !owner
@@ -37,13 +36,12 @@ object Member {
     color: Color,
     playerIdOption: Option[String],
     ip: IpAddress,
-    userTv: Option[String],
-    apiVersion: ApiVersion
+    userTv: Option[String]
   ): Member = {
     val userId = user map (_.id)
     val troll = user.??(_.troll)
-    playerIdOption.fold[Member](Watcher(channel, userId, color, troll, ip, userTv, apiVersion)) { playerId =>
-      Owner(channel, userId, playerId, color, troll, ip, apiVersion)
+    playerIdOption.fold[Member](Watcher(channel, userId, color, troll, ip, userTv)) { playerId =>
+      Owner(channel, userId, playerId, color, troll, ip)
     }
   }
 }
@@ -54,8 +52,7 @@ case class Owner(
     playerId: String,
     color: Color,
     troll: Boolean,
-    ip: IpAddress,
-    apiVersion: ApiVersion
+    ip: IpAddress
 ) extends Member {
 
   val playerIdOption = playerId.some
@@ -68,8 +65,7 @@ case class Watcher(
     color: Color,
     troll: Boolean,
     ip: IpAddress,
-    userTv: Option[String],
-    apiVersion: ApiVersion
+    userTv: Option[String]
 ) extends Member {
 
   val playerIdOption = none
@@ -81,8 +77,7 @@ case class Join(
   color: Color,
   playerId: Option[String],
   ip: IpAddress,
-  userTv: Option[String],
-  apiVersion: ApiVersion
+  userTv: Option[String]
 )
 case class Connected(enumerator: JsEnumerator, member: Member)
 case class Bye(color: Color)

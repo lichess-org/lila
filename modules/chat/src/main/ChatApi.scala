@@ -58,7 +58,7 @@ final class ChatApi(
     def clear(chatId: ChatId) = coll.remove($id(chatId)).void
 
     def system(chatId: ChatId, text: String) = {
-      val line = UserLine(systemUserId, Writer delocalize text, troll = false, deleted = false)
+      val line = UserLine(systemUserId, text, troll = false, deleted = false)
       pushLine(chatId, line) >>-
         lilaBus.publish(actorApi.ChatLine(chatId, line), channelOf(chatId)) inject line.some
     }
@@ -142,7 +142,7 @@ final class ChatApi(
     $id(chatId),
     $doc("$push" -> $doc(
       Chat.BSONFields.lines -> $doc(
-        "$each" -> List(Line.lineBSONHandler(false).write(line)),
+        "$each" -> List(line),
         "$slice" -> -maxLinesPerChat
       )
     )),
@@ -155,10 +155,9 @@ final class ChatApi(
 
     import java.util.regex.Matcher.quoteReplacement
 
-    def preprocessUserInput(in: String) = multiline(noShouting(delocalize(noPrivateUrl(in))))
+    def preprocessUserInput(in: String) = multiline(noShouting(noPrivateUrl(in)))
 
     def cut(text: String) = Some(text.trim take 140) filter (_.nonEmpty)
-    val delocalize = new lila.common.String.Delocalizer(netDomain)
 
     private val domainRegex = netDomain.replace(".", """\.""")
     private val gameUrlRegex = (domainRegex + """\b/([\w]{8})[\w]{4}\b""").r

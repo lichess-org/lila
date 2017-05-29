@@ -1,6 +1,6 @@
 @(u: User, form: Form[_])(implicit ctx: Context)
 
-@title = @{ s"${u.username} - ${trans.editProfile.str()}" }
+@title = @{ s"${u.username} - ${trans.editProfile.txt()}" }
 
 @account.layout(
 title = title,
@@ -20,7 +20,7 @@ evenMoreCss =cssTag("material.form.css")) {
         }
       </div>
       @NotForKids {
-      @base.form.group(form("bio"), Html(s"${trans.biography.str()}")) {
+      @base.form.group(form("bio"), Html(s"${trans.biography.txt()}")) {
       <textarea name="@form("bio").name" id="@form("bio").id" rows=5 maxlength=600>@form("bio").value</textarea>
       <p class="form-help">@trans.biographyDescription()</p>
       }

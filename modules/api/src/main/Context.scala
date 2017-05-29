@@ -1,6 +1,7 @@
 package lila.api
 
 import play.api.mvc.RequestHeader
+import play.api.i18n.Lang
 
 import lila.common.{ HTTPRequest, AssetVersion }
 import lila.pref.Pref
@@ -41,6 +42,8 @@ sealed trait Context extends lila.user.UserContextWrapper {
 
   val userContext: UserContext
   val pageData: PageData
+
+  def lang = userContext.lang
 
   def onlineFriends = pageData.onlineFriends
 
@@ -95,8 +98,8 @@ final class HeaderContext(
 
 object Context {
 
-  def apply(req: RequestHeader, v: AssetVersion): HeaderContext =
-    new HeaderContext(UserContext(req, none), PageData.anon(req, v))
+  def apply(req: RequestHeader, v: AssetVersion, lang: Lang): HeaderContext =
+    new HeaderContext(UserContext(req, none, lang), PageData.anon(req, v))
 
   def apply(userContext: HeaderUserContext, pageData: PageData): HeaderContext =
     new HeaderContext(userContext, pageData)

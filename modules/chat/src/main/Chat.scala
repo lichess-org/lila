@@ -85,15 +85,14 @@ object Chat {
   object BSONFields {
     val id = "_id"
     val lines = "l"
-    val encoded = "e"
   }
 
   import BSONFields._
   import reactivemongo.bson.BSONDocument
+  import Line.{ lineBSONHandler, userLineBSONHandler }
 
   implicit val mixedChatBSONHandler = new BSON[MixedChat] {
     def reads(r: BSON.Reader): MixedChat = {
-      implicit val lineReader = Line.lineBSONHandler(r.boolO(encoded) | true)
       MixedChat(
         id = r str id,
         lines = r.get[List[Line]](lines)
@@ -101,14 +100,12 @@ object Chat {
     }
     def writes(w: BSON.Writer, o: MixedChat) = BSONDocument(
       id -> o.id,
-      lines -> o.lines.map(Line.lineBSONHandler(false).write),
-      encoded -> false
+      lines -> o.lines
     )
   }
 
   implicit val userChatBSONHandler = new BSON[UserChat] {
     def reads(r: BSON.Reader): UserChat = {
-      implicit val lineReader = Line.userLineBSONHandler(r.boolO(encoded) | true)
       UserChat(
         id = r str id,
         lines = r.get[List[UserLine]](lines)
@@ -116,8 +113,7 @@ object Chat {
     }
     def writes(w: BSON.Writer, o: UserChat) = BSONDocument(
       id -> o.id,
-      lines -> o.lines.map(Line.lineBSONHandler(false).write),
-      encoded -> false
+      lines -> o.lines
     )
   }
 }

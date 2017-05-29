@@ -1,7 +1,7 @@
 @(form: Form[_], captcha: lila.common.Captcha)(implicit ctx: Context)
 
 @team.layout(
-title = trans.newTeam.str(),
+title = trans.newTeam.txt(),
 currentTab = "form".some) {
 <div id="team">
   <div class="content_box team_box">
@@ -15,7 +15,7 @@ currentTab = "form".some) {
       </label>
       <label>
         <span>@trans.joiningPolicy()</span>
-        @base.form.select(form("open"), Seq(0 -> trans.aConfirmationIsRequiredToJoin.str(), 1 -> trans.anyoneCanJoin.str()))
+        @base.form.select(form("open"), Seq(0 -> trans.aConfirmationIsRequiredToJoin.txt(), 1 -> trans.anyoneCanJoin.txt()))
       </label>
       <label>
         <span>@trans.location()</span>

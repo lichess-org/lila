@@ -1,6 +1,6 @@
 @(q: String, questions: List[lila.qa.Question], popular: List[lila.qa.Question])(implicit ctx: Context)
 
-@title = @{ trans.search.str() + " \"" + q.trim + "\"" }
+@title = @{ trans.search.txt() + " \"" + q.trim + "\"" }
 
 @layout(title = title) {
 

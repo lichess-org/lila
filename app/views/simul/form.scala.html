@@ -3,15 +3,13 @@
 @import config._
 
 @simul.layout(
-title = trans.hostANewSimul.str()) {
+title = trans.hostANewSimul.txt()) {
 <div id="simul" class="form">
   <div class="content_box small_box simul_box">
     <h1>@trans.hostANewSimul()</h1>
     <form class="plain create content_box_content" action="@routes.Simul.create" method="POST">
       <p class="help">@trans.whenCreateSimul()</p>
-      @form.globalError.map { error =>
-      <p class="error">@error.message</p>
-      }
+      @globalError(form)
       <table>
         <tr class="help">
           <th colspan="2">

@@ -44,7 +44,7 @@ description = describeUser(u)).some) {
     }
   </div>
   <div class="social content_box_inter">
-    <a class="intertab" href="@routes.Relation.followers(u.username)">@splitNumber(trans.nbFollowers(info.nbFollowers))</a>
+    <a class="intertab" href="@routes.Relation.followers(u.username)">@splitNumber(trans.nbFollowers.pluralSame(info.nbFollowers))</a>
     @info.nbBlockers.map { nb =>
     <a class="intertab">@splitNumber(nb + " Blockers")</a>
     }
@@ -52,7 +52,7 @@ description = describeUser(u)).some) {
     <a href="@routes.Study.byOwnerDefault(u.username)" class="intertab">@splitNumber(info.nbStudies + " studies")</a>
     <a class="intertab" @NotForKids {
       href="@routes.ForumPost.search("user:" + u.username, 1)"
-      }>@splitNumber(trans.nbForumPosts(info.nbPosts))</a>
+      }>@splitNumber(trans.nbForumPosts.pluralSame(info.nbPosts))</a>
     @NotForKids {
     @if(ctx.isAuth && !ctx.is(u)) {
     <a class="intertab note_zone_toggle">@splitNumber(notes.size + " Notes")</a>
@@ -68,7 +68,7 @@ description = describeUser(u)).some) {
       </a>
       }
       @if(isGranted(_.UserSpy)) {
-      <a class="button mod_zone_toggle hint--bottom-left" href="@routes.User.mod(u.username)" data-hint="Mod zone"><span data-icon="@icon.mod"></span></a>
+      <a class="button mod_zone_toggle hint--bottom-left" href="@routes.User.mod(u.username)" data-hint="Mod zone"><span data-icon=""></span></a>
       }
       <a class="button hint--bottom-left" href="@routes.User.tv(u.username)" data-hint="@trans.watchGames()"><span data-icon="1"></span></a>
       @if(ctx.isAuth && !ctx.is(u)) {
@@ -151,7 +151,7 @@ description = describeUser(u)).some) {
       <strong class="name">@name</strong>
       }
       @profile.nonEmptyBio.ifTrue(!u.troll || ctx.is(u)).map { bio =>
-      <p class="bio">@Html(addUserProfileLinks(addLinks(shorten(bio, 400).body)))</p>
+      <p class="bio">@addUserProfileLinks(addLinks(shorten(bio, 400).body).body)</p>
       }
       }
       <div class="stats">
@@ -168,7 +168,7 @@ description = describeUser(u)).some) {
         <span class="country"><img class="flag" src="@staticUrl(s"images/flags/$code.png")" /> @name</span>
         }
         }
-        @u.lang.flatMap(langName).map { name =>
+        @u.lang.map(langName).map { name =>
         <span data-icon="c"> @name</span>
         }
         <p class="thin">@trans.memberSince() @showDate(u.createdAt)</p>
@@ -195,7 +195,7 @@ description = describeUser(u)).some) {
         }
         <div class="teams">
           @info.teamIds.toList.map(t => t -> myTeam(t)).sortBy(t => (!t._2, t._1)).map { t =>
-          @teamLink(t._1, t._2.option("mine"))
+          @teamLink(t._1, cssClass = t._2.option("mine"))
           }
         </div>
       </div>

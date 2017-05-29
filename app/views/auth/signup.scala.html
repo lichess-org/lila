@@ -10,7 +10,7 @@
 }
 
 @auth.layout(
-title = trans.signUp.str(),
+title = trans.signUp.txt(),
 moreJs = moreJs,
 zen = true) {
 <div class="content_box small_box signup">
@@ -23,7 +23,6 @@ zen = true) {
     <form action="@routes.Auth.signupPost" method="POST">
       <ul>
         @auth.formFields(form("username"), form("password"), form("email").some, register = true)
-        @errMsg(form)
         <li data-icon="">&nbsp;
           @trans.computersAreNotAllowedToPlay()<br />
           <small>

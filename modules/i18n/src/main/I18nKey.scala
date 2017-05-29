@@ -4,33 +4,63 @@ import play.api.i18n.Lang
 import play.twirl.api.Html
 import lila.user.UserContext
 
-trait I18nKey {
+sealed trait I18nKey {
 
   val key: String
 
-  def apply(args: Any*)(implicit ctx: UserContext): Html
+  def literalHtmlTo(lang: Lang, args: Seq[Any]): Html
 
-  def str(args: Any*)(implicit ctx: UserContext): String
+  def pluralHtmlTo(lang: Lang, count: Count, args: Seq[Any]): Html
 
-  def to(lang: Lang)(args: Any*): String
+  def literalTxtTo(lang: Lang, args: Seq[Any]): String
 
-  def en(args: Any*): String = to(I18nKey.en)(args: _*)
+  def pluralTxtTo(lang: Lang, count: Count, args: Seq[Any]): String
+
+  /* Implicit context convenience functions */
+
+  // literal
+  def apply(args: Any*)(implicit ctx: UserContext): Html = literalHtmlTo(ctx.lang, args)
+
+  def plural(count: Count, args: Any*)(implicit ctx: UserContext): Html = pluralHtmlTo(ctx.lang, count, args)
+
+  // literalTxt
+  def txt(args: Any*)(implicit ctx: UserContext): String = literalTxtTo(ctx.lang, args)
+
+  def pluralTxt(count: Count, args: Any*)(implicit ctx: UserContext): String = pluralTxtTo(ctx.lang, count, args)
+
+  // reuses the count as the single argument
+  // allows `plural(nb)` instead of `plural(nb, nb)`
+  def pluralSame(count: Int)(implicit ctx: UserContext): Html = plural(count, count)
+  def pluralSameTxt(count: Int)(implicit ctx: UserContext): String = pluralTxt(count, count)
 }
 
-case class Untranslated(key: String) extends I18nKey {
+final class Translated(val key: String) extends I18nKey {
 
-  def apply(args: Any*)(implicit ctx: UserContext) = Html(key)
+  def literalHtmlTo(lang: Lang, args: Seq[Any] = Nil): Html =
+    Translator.html.literal(key, args, lang)
 
-  def str(args: Any*)(implicit ctx: UserContext) = key
+  def pluralHtmlTo(lang: Lang, count: Count, args: Seq[Any] = Nil): Html =
+    Translator.html.plural(key, count, args, lang)
 
-  def to(lang: Lang)(args: Any*) = key
+  def literalTxtTo(lang: Lang, args: Seq[Any] = Nil): String =
+    Translator.txt.literal(key, args, lang)
+
+  def pluralTxtTo(lang: Lang, count: Count, args: Seq[Any] = Nil): String =
+    Translator.txt.plural(key, count, args, lang)
+}
+
+final class Untranslated(val key: String) extends I18nKey {
+
+  def literalHtmlTo(lang: Lang, args: Seq[Any]) = Html(key)
+
+  def pluralHtmlTo(lang: Lang, count: Count, args: Seq[Any]) = Html(key)
+
+  def literalTxtTo(lang: Lang, args: Seq[Any]) = key
+
+  def pluralTxtTo(lang: Lang, count: Count, args: Seq[Any]) = key
 }
 
 object I18nKey {
 
-  val en = Lang("en")
-
-  type Select = I18nKeys => I18nKey
-
-  def untranslated(key: String) = Untranslated(key)
+  type Select = I18nKeys.type => I18nKey
 }

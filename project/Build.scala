@@ -33,8 +33,8 @@ object ApplicationBuild extends Build {
       scriptClasspath := Seq("*"),
       // offline := true,
       libraryDependencies ++= Seq(
-        scalaz, scalalib, hasher, config, apache,
-        jgit, findbugs, reactivemongo.driver, reactivemongo.iteratees, akka.actor, akka.slf4j,
+        scalaz, scalalib, hasher, config, findbugs,
+        reactivemongo.driver, reactivemongo.iteratees, akka.actor, akka.slf4j,
         maxmind, prismic, netty, guava,
         kamon.core, kamon.influxdb,
         java8compat, semver, scrimage, configs, scaffeine),
@@ -45,6 +45,7 @@ object ApplicationBuild extends Build {
         "lila.security.Permission",
         "lila.app.templating.Environment._",
         "lila.api.Context",
+        "lila.i18n.{ I18nKeys => trans }",
         "lila.common.paginator.Paginator"),
       // trump sbt-web into not looking at public/
       resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets",
@@ -70,7 +71,7 @@ object ApplicationBuild extends Build {
   lazy val api = project("api", moduleCPDeps)
     .settings(
       libraryDependencies ++= provided(
-        play.api, hasher, config, apache, jgit, findbugs,
+        play.api, hasher, config, findbugs,
         reactivemongo.driver, reactivemongo.iteratees,
         kamon.core, kamon.influxdb)
     ) aggregate (moduleRefs: _*)
@@ -321,11 +322,12 @@ object ApplicationBuild extends Build {
   lazy val i18n = project("i18n", Seq(common, db, user, hub)).settings(
     sourceGenerators in Compile += Def.task {
       MessageCompiler(
-        (baseDirectory in Compile).value / "messages",
-        (sourceManaged in Compile).value / "messages"
+        sourceFile = new File("translation/source/site.xml"),
+        destDir = new File("translation/dest/site"),
+        compileTo = (sourceManaged in Compile).value / "messages"
       )
     }.taskValue,
-    libraryDependencies ++= provided(play.api, reactivemongo.driver, jgit)
+    libraryDependencies ++= provided(play.api, reactivemongo.driver)
   )
 
   lazy val bookmark = project("bookmark", Seq(common, memo, db, hub, user, game)).settings(

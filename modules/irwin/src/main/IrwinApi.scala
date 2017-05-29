@@ -94,7 +94,7 @@ final class IrwinApi(
     private[irwin] def fromTournamentLeaders(leaders: Map[Tournament, List[RankedPlayer]]): Funit =
       lila.common.Future.applySequentially(leaders.toList) {
         case (tour, rps) =>
-          val userIds = rps.filter(_.rank <= tour.nbPlayers * 5 / 100).map(_.player.userId)
+          val userIds = rps.filter(_.rank <= tour.nbPlayers * 2 / 100).map(_.player.userId)
           lila.common.Future.applySequentially(userIds) { userId =>
             insert(userId, _.Tournament, none)
           }

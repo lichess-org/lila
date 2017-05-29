@@ -100,7 +100,7 @@ description = shorten(posts.currentPageResults.headOption.??(_.text).replace("\n
     <form class="wide" action="@routes.ForumPost.create(categ.slug, topic.slug, posts.currentPage)#reply" method="POST" novalidate>
       @forum.post.formFields(form("text"), form("author"), topic.some)
       @base.captcha(form("move"), form("gameId"), captcha)
-      @errMsg(form)
+      @globalError(form)
       <button type="submit" class="submit button" data-icon="E"> @trans.reply()</button>
       <a href="@routes.ForumCateg.show(categ.slug)" style="margin-left:20px">@trans.cancel()</a>
     </form>

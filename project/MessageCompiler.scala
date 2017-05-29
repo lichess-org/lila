@@ -1,78 +1,106 @@
 import _root_.java.io.File
-import _root_.java.nio.file.{ Files, StandardCopyOption }
 import sbt._, Keys._
+import scala.xml.XML
 
 object MessageCompiler {
 
-  def apply(src: File, dst: File): Seq[File] = {
+  def apply(sourceFile: File, destDir: File, compileTo: File): Seq[File] = {
     val startsAt = System.currentTimeMillis()
-    val sourceFiles = Option(src.list) getOrElse Array() filter (_ startsWith "messages")
-    val registry = sourceFiles.toList.map { f =>
-      f.split('.') match {
-        case Array("messages", lang) => lang -> f
-        case Array("messages")       => "default" -> f
-      }
-    }
-    dst.mkdirs()
-    val registryFile = writeRegistry(dst, registry)
+    val registry = ("en-GB" -> sourceFile) :: destDir.list.toList.map { f =>
+      f.takeWhile('.' !=) -> (destDir / f)
+    }.sortBy(_._1)
+    compileTo.mkdirs()
+    val registryFile = writeRegistry(compileTo, registry)
     val res = for (entry <- registry) yield {
-      val (lang, file) = entry
-      val srcFile = src / file
-      val dstFile = dst / s"$lang.scala"
-      if (srcFile.lastModified > dstFile.lastModified) {
-        val pairs = readLines(srcFile) map makePair
-        printToFile(dstFile) {
-          render(lang, pairs)
+      val (locale, file) = entry
+      val compileToFile = compileTo / s"$locale.scala"
+      if (file.lastModified > compileToFile.lastModified) {
+        printToFile(compileToFile) {
+          render(locale, file)
         }
       }
-      dstFile
+      compileToFile
     }
     println(s"MessageCompiler took ${System.currentTimeMillis() - startsAt}ms")
     registryFile :: res
   }
 
-  private def writeRegistry(dst: File, registry: List[(String, String)]) = {
-    val file = dst / "Registry.scala"
+  private def writeRegistry(compileTo: File, registry: List[(String, File)]) = {
+    val file = compileTo / "Registry.scala"
     printToFile(file) {
       val content = registry.map {
-        case (lang, _) => s""""$lang"->$lang.load"""
+        case (locale, _) => s"""Lang("${locale.replace("-", "\",\"")}")->`$locale`.load"""
       } mkString ",\n"
       s"""package lila.i18n
 package db
 
-// format: OFF
-object Registry {
+import play.api.i18n.Lang
 
-  def load = Map[String, Map[String, String]]($content)
+// format: OFF
+private[i18n] object Registry {
+
+  def load = Map[Lang, Map[MessageKey, Translation]]($content)
 }
 """
     }
     file
   }
 
-  private def render(lang: String, pairs: List[(String, String)]) = {
+  private def ucfirst(str: String) = str(0).toUpper + str.drop(1)
+
+  private def toKey(e: scala.xml.Node) = s""""${e.\("@name")}""""
+
+  private def escape(str: String) = {
+    // is someone trying to inject scala code?
+    if (str contains "\"\"\"") sys error s"Skipped translation: $str"
+    // crowdin escapes ' and " with \, and encodes &. We'll do it at runtime instead.
+    else str.replace("\\'", "'").replace("\\\"", "\"")
+  }
+
+  private def render(locale: String, file: File) = {
+    val xml = XML.loadFile(file)
     def quote(msg: String) = s"""""\"$msg""\""""
-    val content = pairs.map {
-      case (key, message) => s""""$key"->${quote(message)}"""
-    } mkString ",\n"
+    val content = xml.child.collect {
+      case e if e.label == "string" =>
+        val safe = escape(e.text)
+        val escaped = escapeHtmlOption(safe).fold("None")(e => s"""Some(\"\"\"$e\"\"\")""")
+        s"""(${toKey(e)},new Literal(\"\"\"$safe\"\"\",$escaped))"""
+      case e if e.label == "plurals" =>
+        val items = e.child.filter(_.label == "item").map { i =>
+          s"""${ucfirst(i.\("@quantity").toString)}->\"\"\"${escape(i.text)}\"\"\""""
+        }
+        s"""(${toKey(e)},new Plurals(Map(${items mkString ","})))"""
+    }
     s"""package lila.i18n
 package db
 
-// format: OFF
-private object $lang {
+import I18nQuantity._
 
-  def load = Map[String, String]($content)
+// format: OFF
+private object `$locale` {
+
+  def load = Map[MessageKey, Translation](\n${content mkString ",\n"})
 }
 """
   }
 
-  private def makePair(str: String): (String, String) = {
-    val p = str.splitAt(str indexOf "=")
-    p._1 -> p._2.drop(1)
-  }
-
-  private def readLines(f: File) =
-    scala.io.Source.fromFile(f)("UTF-8").getLines.toList
+  private val badChars = "[<>&\"']".r.pattern
+  private def escapeHtmlOption(s: String): Option[String] = {
+      if (badChars.matcher(s).find) Some {
+        val sb = new StringBuilder(s.size + 10) // wet finger style
+        var i = 0
+        while (i < s.length) {
+          sb.append {
+            s.charAt(i) match {
+              case '<' => "&lt;"; case '>' => "&gt;"; case '&' => "&amp;"; case '"' => "&quot;"; case '\'' => "&#39;"; case c => c
+            }
+          }
+          i += 1
+        }
+        sb.toString
+      }
+      else None
+    }
 
   private def printToFile(f: File)(content: String): Unit = {
     val p = new java.io.PrintWriter(f, "UTF-8")

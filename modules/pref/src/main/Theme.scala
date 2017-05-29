@@ -28,7 +28,7 @@ object Theme extends ThemeObject {
   case class HexColor(value: String) extends AnyVal with StringValue
   type HexColors = (HexColor, HexColor)
 
-  private[pref] val defaultHexColors = (HexColor("8a8a8a"), HexColor("c0c0c0"))
+  private[pref] val defaultHexColors = (HexColor("b0b0b0"), HexColor("909090"))
 
   private val colors: Map[String, HexColors] = Map(
     "blue" -> (HexColor("dee3e6"), HexColor("8ca2ad")),

@@ -1,7 +1,7 @@
 @(form: Form[_], reqUser: Option[User], reqTitle: Option[String], reqMod: Boolean, canMessage: Boolean)(implicit ctx: Context)
 
 @message.layout(
-title = trans.composeMessage.str()) {
+title = trans.composeMessage.txt()) {
 <div id="lichess_message" class="content_box">
   <div class="message_new">
     <h1>@trans.composeMessage()</h1>

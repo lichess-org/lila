@@ -17,8 +17,8 @@ final class DataForm(
   case class Empty(gameId: String, move: String)
 
   val empty = Form(mapping(
-    "gameId" -> nonEmptyText,
-    "move" -> nonEmptyText
+    "gameId" -> text,
+    "move" -> text
   )(Empty.apply)(_ => None)
     .verifying(captchaFailMessage, validateCaptcha _))
 
@@ -36,14 +36,14 @@ final class DataForm(
       Constraints maxLength 20,
       Constraints.pattern(
         regex = User.usernameRegex,
-        error = "Invalid username. Please use only letters, numbers, underscore and dash"
+        error = "usernameInvalid"
       ),
       Constraints.pattern(
         regex = """^[^\d].+$""".r,
-        error = "The username must not start with a number"
+        error = "usernameStartNoNumber"
       )
-    ).verifying("This user already exists", u => !UserRepo.nameExists(u).awaitSeconds(4))
-      .verifying("This username is not acceptable", u => !LameName(u))
+    ).verifying("", u => !UserRepo.nameExists(u).awaitSeconds(4))
+      .verifying("usernameUnacceptable", u => !LameName(u))
 
     val website = Form(mapping(
       "username" -> username,
@@ -61,8 +61,8 @@ final class DataForm(
 
   val passwordReset = Form(mapping(
     "email" -> anyEmail, // allow unacceptable emails for BC
-    "gameId" -> nonEmptyText,
-    "move" -> nonEmptyText
+    "gameId" -> text,
+    "move" -> text
   )(PasswordReset.apply)(_ => None)
     .verifying(captchaFailMessage, validateCaptcha _))
 

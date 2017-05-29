@@ -21,7 +21,7 @@
 </div>
 }
 
-@title = @{ trans.simultaneousExhibitions.str() }
+@title = @{ trans.simultaneousExhibitions.txt() }
 
 @simul.layout(
 title = title,
@@ -29,7 +29,7 @@ side = side.some,
 openGraph = lila.app.ui.OpenGraph(
 title = title,
 url = s"$netBaseUrl${routes.Simul.home}",
-description = trans.aboutSimul.str()).some) {
+description = trans.aboutSimul.txt()).some) {
 <div id="simul_list" data-href="@routes.Simul.homeReload()">
   @simul.homeInner(opens, starteds, finisheds)
 </div>

@@ -36,10 +36,10 @@
 
 @baseline = {
 <a id="nb_connected_players" href="@routes.User.list">
-  @trans.nbConnectedPlayers("<strong>-,---</strong>")
+  @trans.nbPlayers(Html("<strong>-,---</strong>"))
 </a>
 <a id="nb_games_in_play" href="@routes.Tv.games">
-  @trans.nbGamesInPlay(s"<span>${nbRounds}</span>")
+  @trans.nbGamesInPlay.plural(nbRounds, Html(s"<span>${nbRounds}</span>"))
 </a>
 @if(ctx.isMobileBrowser) {
 @if(lila.common.HTTPRequest.isAndroid(ctx.req)) {
@@ -71,7 +71,7 @@ i18n: @jsI18n()
 
 @base.layout(
 title = "",
-fullTitle = Some("lichess.org • " + trans.freeOnlineChess.str()),
+fullTitle = Some("lichess.org • " + trans.freeOnlineChess.txt()),
 baseline = baseline.some,
 side = side.some,
 moreJs = moreJs,
@@ -82,7 +82,7 @@ openGraph = lila.app.ui.OpenGraph(
 image = staticUrl("images/large_tile.png").some,
 title = "The best free, adless Chess server",
 url = netBaseUrl,
-description = trans.freeOnlineChessGamePlayChessNowInACleanInterfaceNoRegistrationNoAdsNoPluginRequiredPlayChessWithComputerFriendsOrRandomOpponents.str()
+description = trans.siteDescription.txt()
 ).some,
 asyncJs = true) {
 <div class="lobby_and_ground@if(playban.isDefined){ playban}@if(currentGame.isDefined){ current_game}">
@@ -208,12 +208,12 @@ asyncJs = true) {
   <a href="@routes.Plan.index">
     <i data-icon="@patronIconChar"></i>
     <strong>Lichess Patron</strong>
-    <span>Directly support lichess</span>
+    <span>@trans.directlySupportLichess()</span>
   </a>
   <a href="@routes.Page.swag">
     <i data-icon=""></i>
     <strong>Swag Store</strong>
-    <span>Play chess in style</span>
+    <span>@trans.playChessInStyle()</span>
   </a>
 </div>
 }

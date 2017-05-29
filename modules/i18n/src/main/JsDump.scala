@@ -6,21 +6,17 @@ import scala.concurrent.Future
 import play.api.i18n.Lang
 import play.api.libs.json.{ JsString, JsObject }
 
-private[i18n] final class JsDump(
-    path: String,
-    pool: I18nPool,
-    keys: I18nKeys
-) {
+private[i18n] final class JsDump(path: String) {
 
   def keysToObject(keys: Seq[I18nKey], lang: Lang) = JsObject {
     keys.map { k =>
-      k.key -> JsString(k.to(lang)())
+      k.key -> JsString(k.literalTxtTo(lang, Nil))
     }
   }
 
   def keysToMessageObject(keys: Seq[I18nKey], lang: Lang) = JsObject {
     keys.map { k =>
-      k.en() -> JsString(k.to(lang)())
+      k.literalTxtTo(enLang, Nil) -> JsString(k.literalTxtTo(lang, Nil))
     }
   }
 
@@ -32,29 +28,28 @@ private[i18n] final class JsDump(
 
   private val pathFile = new File(path)
 
-  private def dumpFromKey(messages: List[I18nKey], lang: Lang): String =
-    messages.map { key =>
-      """"%s":"%s"""".format(key.key, escape(key.to(lang)()))
+  private def dumpFromKey(keys: Iterable[String], lang: Lang): String =
+    keys.map { key =>
+      """"%s":"%s"""".format(key, escape(Translator.txt.literal(key, Nil, lang)))
     }.mkString("{", ",", "}")
 
-  private def writeRefs {
-    val code = pool.names.toList.sortBy(_._1).map {
-      case (code, name) => s"""["$code","$name"]"""
+  private def writeRefs = writeFile(
+    new File("%s/refs.json".format(pathFile.getCanonicalPath)),
+    LangList.all.toList.sortBy(_._1.code).map {
+      case (lang, name) => s"""["${lang.code}","$name"]"""
     }.mkString("[", ",", "]")
-    val file = new File("%s/refs.json".format(pathFile.getCanonicalPath))
-    val out = new PrintWriter(file)
-    try { out.print(code) }
-    finally { out.close }
+  )
+
+  private def writeFullJson = I18nDb.langs foreach { lang =>
+    val code = dumpFromKey(I18nDb.all(defaultLang).keys, lang)
+    val file = new File("%s/%s.all.json".format(pathFile.getCanonicalPath, lang.code))
+    writeFile(new File("%s/%s.all.json".format(pathFile.getCanonicalPath, lang.code)), code)
   }
 
-  private def writeFullJson {
-    pool.langs foreach { lang =>
-      val code = dumpFromKey(keys.keys, lang)
-      val file = new File("%s/%s.all.json".format(pathFile.getCanonicalPath, lang.language))
-      val out = new PrintWriter(file)
-      try { out.print(code) }
-      finally { out.close }
-    }
+  private def writeFile(file: File, content: String) = {
+    val out = new PrintWriter(file)
+    try { out.print(content) }
+    finally { out.close }
   }
 
   private def escape(text: String) = text.replace(""""""", """\"""")

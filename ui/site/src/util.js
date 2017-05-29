@@ -138,7 +138,13 @@ lichess.powertip = (function() {
 lichess.trans = function(i18n) {
   var trans = function(key) {
     var str = i18n[key] || key;
-    Array.prototype.slice.call(arguments, 1).forEach(function(arg) {
+    var args = Array.prototype.slice.call(arguments, 1);
+    if (args.length && str.indexOf('$s') > -1) {
+      for (var i = 1; i < 4; i++) {
+        str = str.replace('%' + i + '$s', args[i - 1]);
+      }
+    }
+    args.forEach(function(arg) {
       str = str.replace('%s', arg);
     });
     return str;
@@ -222,7 +228,7 @@ lichess.makeChat = function(id, data, callback) {
   var isDev = document.body.getAttribute('data-dev');
   lichess.loadCss('/assets/stylesheets/chat.css');
   if (data.permissions.timeout) lichess.loadCss('/assets/stylesheets/chat.mod.css');
-  lichess.loadScript("/assets/compiled/lichess.chat2" + (isDev ? '' : '.min') + '.js').done(function() {
+  lichess.loadScript("/assets/compiled/lichess.chat" + (isDev ? '' : '.min') + '.js').done(function() {
     (callback || $.noop)(LichessChat.default(document.getElementById(id), data));
   });
 };

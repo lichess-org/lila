@@ -9,7 +9,7 @@
     </span>
     }
     }.getOrElse {
-    @u.lang.flatMap(shortLangName).map { name =>
+    @u.lang.map(shortLangName).map { name =>
     <span class="countrylang" data-icon="c">&nbsp;@name</span>
     }
     }
@@ -38,9 +38,10 @@
 }
 @ctx.userId.map { myId =>
 @crosstable.filter(_.nonEmpty).map { cross =>
-<a class="score hint--bottom" href="@routes.User.showFilter(u.username, "me")#games" data-hint="@trans.viewAllNbGames(cross.nbGames)">
-  Your score:
+<a class="score hint--bottom" href="@routes.User.showFilter(u.username, "me")#games" data-hint="@trans.nbGames.plural(cross.nbGames, cross.nbGames.localize)">
+  @trans.yourScore {
   <strong>@cross.showScore(myId)</strong> - <strong>@cross.showOpponentScore(myId)</strong>
+  }
 </a>
 }
 @if(myId != u.id) {

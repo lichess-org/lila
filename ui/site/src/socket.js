@@ -281,7 +281,7 @@ lichess.StrongSocket.defaults = {
     autoReconnectDelay: 2000,
     protocol: location.protocol === 'https:' ? 'wss:' : 'ws:',
     baseUrls: (function(domain) {
-      var main = 'socket.' + domain.split('.').slice(1).join('.');
+      var main = 'socket.' + domain;
       var isProduction = /lichess\.org/.test(main);
       var extraPorts = [];
       if (isProduction) {

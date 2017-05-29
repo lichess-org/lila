@@ -23,13 +23,13 @@ moreJs = moreJs) {
     @ctx.me.flatMap(_.perfs(perfType).glicko.establishedIntRating).map { rating =>
     @lila.user.Stat.percentile(data, rating) match {
     case (under, sum) => {
-    @trans.nbPerfTypePlayersThisWeek(s"""<strong>${sum.localize}</strong>""", perfType.name)<br />
-    @trans.yourPerfTypeRatingisRating(perfType.name, s"""<strong>$rating</strong>""")<br />
-    @trans.youAreBetterThanPercentOfPerfTypePlayers(s"""<strong>${"%.1f" format under * 100.0 / sum}%</strong>""", perfType.name)
+    @trans.nbPerfTypePlayersThisWeek(Html(s"""<strong>${sum.localize}</strong>"""), perfType.name)<br />
+    @trans.yourPerfTypeRatingIsRating(perfType.name, Html(s"""<strong>$rating</strong>"""))<br />
+    @trans.youAreBetterThanPercentOfPerfTypePlayers(Html(s"""<strong>${"%.1f" format under * 100.0 / sum}%</strong>"""), perfType.name)
     }
     }
     }.getOrElse {
-    @trans.nbPerfTypePlayersThisWeek(s"""<strong>${data.sum.localize}</strong>""", perfType.name)<br />
+    @trans.nbPerfTypePlayersThisWeek.plural(data.sum, Html(s"""<strong>${data.sum.localize}</strong>"""), perfType.name)<br />
     @trans.youDoNotHaveAnEstablishedPerfTypeRating(perfType.name)<br />
     }
   </p>

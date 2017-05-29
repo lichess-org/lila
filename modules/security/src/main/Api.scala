@@ -35,7 +35,7 @@ final class Api(
     "username" -> nonEmptyText,
     "password" -> nonEmptyText
   )(authenticateCandidate(candidate))(_.map(u => (u.username, "")))
-    .verifying("Invalid username or password", _.isDefined))
+    .verifying("invalidUsernameOrPassword", _.isDefined))
 
   def loadLoginForm(str: String): Fu[Form[Option[User]]] = {
     emailValidator.validate(EmailAddress(str)) match {

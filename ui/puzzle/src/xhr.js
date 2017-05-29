@@ -6,7 +6,7 @@ module.exports = {
   round: function(puzzleId, win) {
     return $.ajax({
       method: 'POST',
-      url: '/training/' + puzzleId + '/round2',
+      url: '/training/' + puzzleId + '/round',
       data: {
         win: win ? 1 : 0
       }

@@ -31,7 +31,6 @@ final class Env(
     isRematchCache: lila.memo.ExpireSetMemo,
     onStart: String => Unit,
     divider: lila.game.Divider,
-    i18nKeys: lila.i18n.I18nKeys,
     prefApi: lila.pref.PrefApi,
     historyApi: lila.history.HistoryApi,
     evalCache: lila.evalCache.EvalCacheApi,
@@ -178,10 +177,7 @@ final class Env(
     finisher = finisher
   )
 
-  lazy val messenger = new Messenger(
-    chat = hub.actor.chat,
-    i18nKeys = i18nKeys
-  )
+  lazy val messenger = new Messenger(chat = hub.actor.chat)
 
   def version(gameId: String): Fu[Int] =
     socketHub ? Ask(gameId, GetVersion) mapTo manifest[Int]
@@ -261,7 +257,6 @@ object Env {
     isRematchCache = lila.game.Env.current.cached.isRematch,
     onStart = lila.game.Env.current.onStart,
     divider = lila.game.Env.current.divider,
-    i18nKeys = lila.i18n.Env.current.keys,
     prefApi = lila.pref.Env.current.api,
     historyApi = lila.history.Env.current.api,
     evalCache = lila.evalCache.Env.current.api,

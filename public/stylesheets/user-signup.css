@@ -24,6 +24,10 @@ div.content_box.signup div.alternative {
   float: right;
 }
 
+div.alternative a {
+  color: #3893E8;
+}
+
 .content_box form {
   font-size: 1.3em;
 }
