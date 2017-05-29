@@ -267,8 +267,6 @@
     <item quantity="one">Kevesebb mint %s perc</item>
     <item quantity="other">Kevesebb mint %s perc</item>
   </plurals>
-  <string name="textIsTooShort">A szöveg túl rövid.</string>
-  <string name="textIsTooLong">A szöveg túl hosszú.</string>
   <string name="required">Szükséges.</string>
   <string name="openTournaments">Nyílt versenyek</string>
   <string name="duration">Időtartam</string>
