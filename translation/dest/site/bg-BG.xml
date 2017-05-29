@@ -267,8 +267,6 @@
     <item quantity="one">По-малко от %s минути.</item>
     <item quantity="other">По-малко от %s минути.</item>
   </plurals>
-  <string name="textIsTooShort">Текстът е твърде къс.</string>
-  <string name="textIsTooLong">Текстът е твърде дълъг.</string>
   <string name="required">Задължителни.</string>
   <string name="openTournaments">Отворени турнири</string>
   <string name="duration">Продължителност</string>
