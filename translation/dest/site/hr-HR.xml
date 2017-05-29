@@ -462,9 +462,9 @@
     <item quantity="other">Maksimalno: %s znakova.</item>
   </plurals>
   <plurals name="blocks">
-    <item quantity="one">%s blokira</item>
-    <item quantity="few">%s blokira</item>
-    <item quantity="other">%s blokira</item>
+    <item quantity="one">%s blokirani igrač</item>
+    <item quantity="few">%s blokiranih igrača</item>
+    <item quantity="other">%s blokiranih igrača</item>
   </plurals>
   <string name="listBlockedPlayers">Popis blokiranih igrača</string>
   <string name="human">Osobe</string>
