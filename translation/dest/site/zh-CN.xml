@@ -252,8 +252,6 @@
   <plurals name="lessThanNbMinutes">
     <item quantity="other">小於%s分鐘</item>
   </plurals>
-  <string name="textIsTooShort">字數過少。</string>
-  <string name="textIsTooLong">字數過多。</string>
   <string name="required">必填項目。</string>
   <string name="openTournaments">公開賽</string>
   <string name="duration">持續時間</string>
