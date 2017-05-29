@@ -267,8 +267,6 @@
     <item quantity="one">Malpli ol %s minutoj</item>
     <item quantity="other">Malpli ol %s minutoj</item>
   </plurals>
-  <string name="textIsTooShort">Teksto estas tro mallonga.</string>
-  <string name="textIsTooLong">Teksto estas tro longa.</string>
   <string name="required">Necesa.</string>
   <string name="openTournaments">Enireblaj turniroj</string>
   <string name="duration">Daŭro</string>
