@@ -267,8 +267,6 @@
     <item quantity="one">Alla %s minuti</item>
     <item quantity="other">Alla %s minuti</item>
   </plurals>
-  <string name="textIsTooShort">Tekst on liiga lühike</string>
-  <string name="textIsTooLong">Tekst on liiga pikk</string>
   <string name="required">Nõutud</string>
   <string name="openTournaments">Avatud turniirid</string>
   <string name="duration">Kestvus</string>
