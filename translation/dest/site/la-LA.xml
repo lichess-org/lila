@@ -575,6 +575,7 @@
   </plurals>
   <string name="gameAnalysis">Analysis ludi</string>
   <string name="invalidPgn">Irritum ludum notatio</string>
+  <string name="invalidFen">Invalida positio notatio</string>
   <string name="error.minLength">Minimum est longitudinem %s</string>
   <string name="error.maxLength">Maximum est longitudinem %s</string>
   <string name="error.min">%s paribus maius esse</string>
