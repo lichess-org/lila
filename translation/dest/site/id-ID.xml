@@ -252,8 +252,6 @@
   <plurals name="lessThanNbMinutes">
     <item quantity="other">Kurang dari %s menit</item>
   </plurals>
-  <string name="textIsTooShort">Kalimat terlalu pendek.</string>
-  <string name="textIsTooLong">Kalimat terlalu panjang.</string>
   <string name="required">Dibutuhkan.</string>
   <string name="openTournaments">Turnamen terbuka</string>
   <string name="duration">Durasi</string>
