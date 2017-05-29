@@ -267,8 +267,6 @@
     <item quantity="one">%s விடக் குறைந்த நிமிடங்கள்</item>
     <item quantity="other">%s விடக் குறைந்த நிமிடங்கள்</item>
   </plurals>
-  <string name="textIsTooShort">உரை மிகவும் குறுகல்</string>
-  <string name="textIsTooLong">உரை மிகவும் நீளம்</string>
   <string name="required">கட்டாயம்</string>
   <string name="openTournaments">நுழைவேற்கும் போட்டிகள்</string>
   <string name="duration">நேரம்</string>
