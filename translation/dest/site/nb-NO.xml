@@ -233,6 +233,7 @@
   </plurals>
   <string name="thisIsAChessCaptcha">Dette er en sjakk CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Klikk på brettet for å gjøre et trekk og bevise at du er et menneske.</string>
+  <string name="captcha.fail">Vennligst løs sjakk-captchaen.</string>
   <string name="notACheckmate">Ikke sjakk matt</string>
   <string name="colorPlaysCheckmateInOne">%s setter sjakk matt i ett trekk</string>
   <string name="retry">Prøv igjen</string>
@@ -592,4 +593,17 @@
   <string name="pieceSet">Brikkesett</string>
   <string name="embedInYourWebsite">Embed på nettsiden din</string>
   <string name="usernameAlreadyUsed">Brukernavnet er allerede i bruk, prøv et annet et.</string>
+  <string name="usernameInvalid">Ugyldig brukernavn. Vennligst bare bruk bokstaver, tall, under- og bindestrek.</string>
+  <string name="usernameStartNoNumber">Brukernavnet kan ikke begynne med et tall.</string>
+  <string name="usernameUnacceptable">Dette brukernavnet er ikke akseptabelt.</string>
+  <string name="directlySupportLichess">Støtt Lichess direkte</string>
+  <string name="playChessInStyle">Spill sjakk med stil</string>
+  <string name="chessBasics">Grunnleggende sjakk</string>
+  <string name="coaches">Trenere</string>
+  <string name="invalidPgn">Ugyldig PGN</string>
+  <string name="invalidFen">Ugyldig FEN</string>
+  <string name="error.minLength">Minste tillatte lengde er %s</string>
+  <string name="error.maxLength">Maksimumslengden er %s</string>
+  <string name="error.min">Må være større eller lik %s</string>
+  <string name="error.max">Må være mindre eller lik %s</string>
 </resources>
