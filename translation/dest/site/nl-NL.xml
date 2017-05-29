@@ -268,8 +268,6 @@
     <item quantity="one">Minder dan %s minuut</item>
     <item quantity="other">Minder dan %s minuten</item>
   </plurals>
-  <string name="textIsTooShort">Te weinig tekst.</string>
-  <string name="textIsTooLong">Te veel tekst.</string>
   <string name="required">Vereist.</string>
   <string name="openTournaments">Open toernooien</string>
   <string name="duration">Tijdsduur</string>
