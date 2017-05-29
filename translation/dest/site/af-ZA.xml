@@ -267,8 +267,6 @@
     <item quantity="one">Minder as %s minute</item>
     <item quantity="other">Minder as %s minute</item>
   </plurals>
-  <string name="textIsTooShort">Teks is te min.</string>
-  <string name="textIsTooLong">Teks is te veel.</string>
   <string name="required">Vereiste.</string>
   <string name="openTournaments">Oop tornooie</string>
   <string name="duration">Duur</string>
