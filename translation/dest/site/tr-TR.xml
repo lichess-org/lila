@@ -267,8 +267,6 @@
     <item quantity="one">%s dakikadan daha az</item>
     <item quantity="other">%s dakikadan daha az</item>
   </plurals>
-  <string name="textIsTooShort">Yazı çok kısa.</string>
-  <string name="textIsTooLong">Yazı çok uzun.</string>
   <string name="required">Gerekli.</string>
   <string name="openTournaments">Açık Turnuvalar</string>
   <string name="duration">Süre</string>
