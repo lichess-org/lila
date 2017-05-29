@@ -204,8 +204,6 @@
   <string name="player">Cluicheadair</string>
   <string name="list">Liosta</string>
   <string name="graph">Graf</string>
-  <string name="textIsTooShort">Tha an teacsa ro ghoirid.</string>
-  <string name="textIsTooLong">Tha an teacsa ro fhada.</string>
   <string name="required">Riatanach.</string>
   <string name="openTournaments">Fèill-chluichean fosgailte</string>
   <string name="duration">Faid</string>
