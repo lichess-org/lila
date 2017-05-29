@@ -577,8 +577,12 @@
   <string name="xHostsY">%1$s exercituum %2$s</string>
   <string name="xJoinsY">%1$s iungit %2$s</string>
   <string name="xLikesY">%1$s velit %2$s</string>
+  <string name="quickPairing">Velox partes</string>
   <string name="lobby">Vestibulum</string>
   <string name="yourScore">Score tuum: %s</string>
+  <string name="directlySupportLichess">Lichess directe auxilium</string>
+  <string name="playChessInStyle">In scaccum ludo style</string>
+  <string name="chessBasics">Scacci fundamenta</string>
   <string name="invalidPgn">Irritum ludum notatio</string>
   <string name="invalidFen">Invalida positio notatio</string>
   <string name="error.minLength">Minimum est longitudinem %s</string>
