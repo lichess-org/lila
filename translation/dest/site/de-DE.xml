@@ -586,5 +586,5 @@
   <string name="xLikesY">%1$s gefällt %2$s</string>
   <string name="quickPairing">Pools</string>
   <string name="lobby">Lobby</string>
-  <string name="yourScore">Deine Punkte: %s</string>
+  <string name="yourScore">Punktestand: %s</string>
 </resources>
