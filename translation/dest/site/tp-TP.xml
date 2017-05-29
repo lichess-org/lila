@@ -252,8 +252,6 @@
   <plurals name="lessThanNbMinutes">
     <item quantity="other">musi li jo e tenpo tawa tenpo lili %s</item>
   </plurals>
-  <string name="textIsTooShort">ike a, nimi li lili</string>
-  <string name="textIsTooLong">ike a, nimi li suli</string>
   <string name="required">wile</string>
   <string name="openTournaments">musi open</string>
   <string name="duration">tenpo</string>
