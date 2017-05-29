@@ -245,8 +245,6 @@
     <item quantity="one">Latsaky ny %s minitra</item>
     <item quantity="other">Latsaky ny %s minitra</item>
   </plurals>
-  <string name="textIsTooShort">Fohy loatra ny soratra.</string>
-  <string name="textIsTooLong">Lava loatra ny soratra.</string>
   <string name="required">Ilaina.</string>
   <string name="openTournaments">Fifaninanana misokatra</string>
   <string name="duration">Halavany</string>
