@@ -86,7 +86,7 @@ export function standard(ctrl, condition, icon, hint, socketMsg, onclick): VNode
 };
 export function forceResign(ctrl) {
   return ctrl.forceResignable() ?  h('div.suggestion', [
-    h('p', ctrl.trans.noarg('theOtherPlayerHasLeftTheGameYouCanForceResignationOrWaitForHim')),
+    h('p', ctrl.trans.noarg('opponentLeftChoices')),
     h('a.button', {
       hook: util.bind('click', () => ctrl.socket.sendLoading('resign-force'))
     }, ctrl.trans.noarg('forceResignation')),
