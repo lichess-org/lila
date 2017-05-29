@@ -587,4 +587,10 @@
   <string name="quickPairing">Pools</string>
   <string name="lobby">Lobby</string>
   <string name="yourScore">Punktestand: %s</string>
+  <string name="background">Hintergrund</string>
+  <string name="boardSize">Brettgröße</string>
+  <string name="directlySupportLichess">Direkt Lichess unterstützen</string>
+  <string name="playChessInStyle">Schachspielen mit Style</string>
+  <string name="chessBasics">Grundlagen</string>
+  <string name="coaches">Coaches</string>
 </resources>
