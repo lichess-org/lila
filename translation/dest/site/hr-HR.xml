@@ -283,8 +283,6 @@
     <item quantity="few">Manje od %s minuta</item>
     <item quantity="other">Manje od %s minuta</item>
   </plurals>
-  <string name="textIsTooShort">Tekst je prekratak.</string>
-  <string name="textIsTooLong">Tekst je predug.</string>
   <string name="required">Obvezno.</string>
   <string name="openTournaments">Otvoreni turniri</string>
   <string name="duration">Trajanje</string>
