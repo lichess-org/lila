@@ -267,8 +267,6 @@
     <item quantity="one">کمتر از %s دقیقه</item>
     <item quantity="other">کمتر از %s دقیقه</item>
   </plurals>
-  <string name="textIsTooShort">متن بیش از حد کوتاه است</string>
-  <string name="textIsTooLong">متن بیش از حد بلند است</string>
   <string name="required">مورد نیاز است</string>
   <string name="openTournaments">باز کردن مسابقه</string>
   <string name="duration">مدت</string>
