@@ -268,8 +268,6 @@
     <item quantity="one">Minus quam %s minutas</item>
     <item quantity="other">Minus quam %s minutas</item>
   </plurals>
-  <string name="textIsTooShort">Nimis brevis est textus</string>
-  <string name="textIsTooLong">Nimis longus est textus</string>
   <string name="required">Necesse est</string>
   <string name="openTournaments">Certamina publica</string>
   <string name="duration">Duratio</string>
