@@ -267,8 +267,6 @@
     <item quantity="one">Λιγότερο από %s λεπτά</item>
     <item quantity="other">Λιγότερο από %s λεπτά</item>
   </plurals>
-  <string name="textIsTooShort">Το κείμενο είναι πολύ μικρό.</string>
-  <string name="textIsTooLong">Το κείμενο είναι πολύ μακρύ.</string>
   <string name="required">Απαιτείται.</string>
   <string name="openTournaments">Ανοικτά πρωταθλήματα</string>
   <string name="duration">Διάρκεια</string>
