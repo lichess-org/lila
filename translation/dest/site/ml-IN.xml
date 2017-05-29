@@ -267,8 +267,6 @@
     <item quantity="one">%s നിമിഷങ്ങൾക്ക് ഉള്ളിൽ</item>
     <item quantity="other">%s നിമിഷങ്ങൾക്ക് ഉള്ളിൽ</item>
   </plurals>
-  <string name="textIsTooShort">വാചകം വളരെ ചെറുതാണ്.</string>
-  <string name="textIsTooLong">വാചകം വളരെ വലുതാണ്.</string>
   <string name="required">നിർബന്ധമാണ്.</string>
   <string name="openTournaments">തുറന്ന മൽസര പരമ്പരകൾ</string>
   <string name="duration">ദൈര്‍ഘ്യം</string>
