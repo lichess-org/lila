@@ -62,8 +62,12 @@
   </plurals>
   <string name="currentGames">Lopende partijen</string>
   <plurals name="nbGames">
-    <item quantity="one">%s partij</item>
-    <item quantity="other">%s partijen</item>
+    <item quantity="one">%s Partij</item>
+    <item quantity="other">%s Partijen</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s Favoriet</item>
+    <item quantity="other">%s Favorieten</item>
   </plurals>
   <string name="viewInFullSize">Bekijk op volledige grootte</string>
   <string name="logOut">Afmelden</string>
@@ -85,6 +89,14 @@
   <string name="correspondence">Correspondentie</string>
   <string name="daysPerTurn">Dagen per zet</string>
   <string name="oneDay">Eén dag</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s dag</item>
+    <item quantity="other">%s dagen</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s uur</item>
+    <item quantity="other">%s uren</item>
+  </plurals>
   <string name="time">Tijd</string>
   <string name="rating">Rating</string>
   <string name="ratingStats">Ratingsstatistieken</string>
@@ -100,6 +112,10 @@
   <string name="forgotPassword">Wachtwoord vergeten?</string>
   <string name="rank">Positie</string>
   <string name="gamesPlayed">Gespeelde partijen</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s partij met u</item>
+    <item quantity="other">%s partijen met u</item>
+  </plurals>
   <string name="cancel">Annuleren</string>
   <string name="timeOut">Tijd voorbij</string>
   <string name="drawOfferSent">Remiseaanbod verstuurd</string>
@@ -142,6 +158,18 @@
   <string name="incrementInSeconds">Seconden extra per zet</string>
   <string name="freeOnlineChess">Gratis online schaken</string>
   <string name="spectators">Toeschouwers:</string>
+  <plurals name="nbWins">
+    <item quantity="one">%s gewonnen</item>
+    <item quantity="other">%s gewonnen</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s verloren</item>
+    <item quantity="other">%s verloren</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s remise</item>
+    <item quantity="other">%s remise</item>
+  </plurals>
   <string name="exportGames">Partijen exporteren</string>
   <string name="ratingRange">Ratingbereik</string>
   <plurals name="giveNbSeconds">
@@ -169,6 +197,10 @@
   <string name="backToGame">Terug naar partij</string>
   <string name="siteDescription">Gratis online schaken. Schaak nu met een heldere vormgeving. Geen registratie nodig, geen advertenties, geen plug-ins vereist. Schaak tegen de computer, vrienden of willekeurige tegenstanders.</string>
   <string name="teams">Teams</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s lid</item>
+    <item quantity="other">%s leden</item>
+  </plurals>
   <string name="allTeams">Alle teams</string>
   <string name="newTeam">Nieuw team</string>
   <string name="myTeams">Mijn teams</string>
@@ -195,6 +227,10 @@
   <string name="fromPosition">Vanuit een stelling</string>
   <string name="continueFromHere">Ga vanaf hier verder</string>
   <string name="importGame">Importeer partij</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s Geïmporteerde partij</item>
+    <item quantity="other">%s Geïmporteerde partijen</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">Dit is een schaak CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Klik op het bord om je zet te spelen en te bewijzen dat je een mens bent.</string>
   <string name="captcha.fail">Gelieve de schaak-captcha op te lossen.</string>
@@ -214,6 +250,10 @@
   <string name="unblock">Deblokkeren</string>
   <string name="followsYou">Volgt u</string>
   <string name="xStartedFollowingY">%1$s volgt nu %2$s</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s volger</item>
+    <item quantity="other">%s volgers</item>
+  </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s volgend</item>
     <item quantity="other">%s volgend</item>
@@ -284,6 +324,10 @@
   <string name="pleaseVotePuzzle">Verbeter lichess door te stemmen met de pijl naar boven of beneden.</string>
   <string name="thankYou">Bedankt!</string>
   <string name="ratingX">Rating: %s</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">%s keer gespeeld</item>
+    <item quantity="other">%s keer gespeeld</item>
+  </plurals>
   <string name="fromGameLink">Van partij %s</string>
   <string name="startTraining">Begin training</string>
   <string name="continueTraining">Ga verder met de training</string>
@@ -293,6 +337,10 @@
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">Je hebt %s seconde om je eerste zet te doen!</item>
     <item quantity="other">Je hebt %s seconden om je eerste zet te doen!</item>
+  </plurals>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s partij bezig</item>
+    <item quantity="other">%s partijen bezig</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Automatisch doorgaan naar de volgende partij na uw zet</string>
   <string name="autoSwitch">Automatische switch</string>
@@ -434,6 +482,10 @@
   <string name="whiteCastlingQueenside">Wit O-O-O</string>
   <string name="blackCastlingKingside">Zwart O-O</string>
   <string name="blackCastlingQueenside">Zwart O-O-O</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s Forumbericht</item>
+    <item quantity="other">%s Forumberichten</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">Tijd schakend besteed: %s</string>
   <string name="watchGames">Bekijk partijen</string>
   <string name="tpTimeSpentOnTV">Tijd op TV: %s</string>
