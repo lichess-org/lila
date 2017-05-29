@@ -207,8 +207,6 @@
   <string name="player">Jucător</string>
   <string name="list">Listă</string>
   <string name="graph">Grafic</string>
-  <string name="textIsTooShort">Textul este prea scurt.</string>
-  <string name="textIsTooLong">Textul este prea lung.</string>
   <string name="required">Obligatoriu.</string>
   <string name="openTournaments">Turnee deschise</string>
   <string name="duration">Durată</string>
