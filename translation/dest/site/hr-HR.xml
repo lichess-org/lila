@@ -625,4 +625,7 @@
   <string name="chessBasics">Šahovske osnove</string>
   <string name="coaches">Treneri</string>
   <string name="invalidPgn">Nevaljan PGN</string>
+  <string name="invalidFen">Nevaljan FEN</string>
+  <string name="error.minLength">Minimalna dužina je %s znakova</string>
+  <string name="error.maxLength">Maksimalna dužina je %s znakova</string>
 </resources>
