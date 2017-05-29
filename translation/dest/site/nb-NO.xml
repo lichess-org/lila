@@ -57,16 +57,16 @@
   <string name="offerDraw">Tilby remis</string>
   <string name="draw">Remis</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s spillere</item>
+    <item quantity="one">%s spiller</item>
     <item quantity="other">%s spillere</item>
   </plurals>
   <string name="currentGames">Partier som spilles nå</string>
   <plurals name="nbGames">
-    <item quantity="one">%s partier</item>
+    <item quantity="one">%s parti</item>
     <item quantity="other">%s partier</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s bokmerker</item>
+    <item quantity="one">%s bokmerke</item>
     <item quantity="other">%s bokmerker</item>
   </plurals>
   <string name="viewInFullSize">Se i full størrelse</string>
@@ -90,11 +90,11 @@
   <string name="daysPerTurn">Dager per trekk</string>
   <string name="oneDay">Én dag</string>
   <plurals name="nbDays">
-    <item quantity="one">%s dager</item>
+    <item quantity="one">En dag</item>
     <item quantity="other">%s dager</item>
   </plurals>
   <plurals name="nbHours">
-    <item quantity="one">%s timer</item>
+    <item quantity="one">En time</item>
     <item quantity="other">%s timer</item>
   </plurals>
   <string name="time">Tid</string>
@@ -220,7 +220,7 @@
   <string name="settings">Innstillinger</string>
   <string name="filterGames">Filtrer partier</string>
   <string name="reset">Tilbakestill</string>
-  <string name="apply">Bruk</string>
+  <string name="apply">Send inn</string>
   <string name="leaderboard">Ledertabell</string>
   <string name="pasteTheFenStringHere">Lim inn FEN teksten her</string>
   <string name="pasteThePgnStringHere">Lim inn PGN teksten her</string>
@@ -281,16 +281,16 @@
   <string name="wins">Seire</string>
   <string name="losses">Tap</string>
   <string name="winStreak">Seiersrekke</string>
-  <string name="createdBy">Lagd av</string>
+  <string name="createdBy">Opprettet av</string>
   <string name="tournamentIsStarting">Turneringen begynner</string>
   <string name="membersOnly">Kun for medlemmer</string>
-  <string name="boardEditor">Oppsett</string>
-  <string name="startPosition">Utgangsstilling</string>
+  <string name="boardEditor">Bord oppsett</string>
+  <string name="startPosition">Startposisjon</string>
   <string name="clearBoard">Tøm brett</string>
   <string name="savePosition">Lagre stilling</string>
   <string name="loadPosition">Last stilling</string>
   <string name="isPrivate">Privat</string>
-  <string name="reportXToModerators">Rapporter %s til moderatorer</string>
+  <string name="reportXToModerators">Rapporter %s til moderatorene</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Rediger profil</string>
   <string name="firstName">Fornavn</string>
