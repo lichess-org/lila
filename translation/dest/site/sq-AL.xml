@@ -267,8 +267,6 @@
     <item quantity="one">Më pak se %s minuta</item>
     <item quantity="other">Më pak se %s minuta</item>
   </plurals>
-  <string name="textIsTooShort">Teksti është shumë i shkurtër.</string>
-  <string name="textIsTooLong">Teksti është shumë i gjatë.</string>
   <string name="required">E detyrueshme.</string>
   <string name="openTournaments">Turne të hapur</string>
   <string name="duration">Kohëzgjatja</string>
