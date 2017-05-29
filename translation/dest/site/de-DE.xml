@@ -268,8 +268,6 @@
     <item quantity="one">Weniger als eine Minute</item>
     <item quantity="other">Weniger als %s Minuten</item>
   </plurals>
-  <string name="textIsTooShort">Text ist zu kurz.</string>
-  <string name="textIsTooLong">Text ist zu lang.</string>
   <string name="required">Pflichtfeld.</string>
   <string name="openTournaments">Offene Turniere</string>
   <string name="duration">Dauer</string>
