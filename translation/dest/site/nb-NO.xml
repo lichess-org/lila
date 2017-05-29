@@ -268,8 +268,6 @@
     <item quantity="one">Mindre enn %s minutter</item>
     <item quantity="other">Mindre enn %s minutter</item>
   </plurals>
-  <string name="textIsTooShort">Teksten er for kort.</string>
-  <string name="textIsTooLong">Teksten er for lang.</string>
   <string name="required">Påkrevd.</string>
   <string name="openTournaments">Åpne turneringer</string>
   <string name="duration">Varighet</string>
