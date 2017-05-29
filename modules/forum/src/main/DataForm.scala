@@ -10,8 +10,8 @@ private[forum] final class DataForm(val captcher: akka.actor.ActorSelection) ext
   val postMapping = mapping(
     "text" -> text(minLength = 3),
     "author" -> optional(text),
-    "gameId" -> nonEmptyText,
-    "move" -> nonEmptyText
+    "gameId" -> text,
+    "move" -> text
   )(PostData.apply)(PostData.unapply)
     .verifying(captchaFailMessage, validateCaptcha _)
 

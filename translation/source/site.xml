@@ -232,6 +232,7 @@
   </plurals>
   <string name="thisIsAChessCaptcha">This is a chess CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Click on the board to make your move, and prove you are human.</string>
+  <string name="captcha.fail">Please solve the chess captcha.</string>
   <string name="notACheckmate">Not a checkmate</string>
   <string name="colorPlaysCheckmateInOne">%s plays; checkmate in one move</string>
   <string name="retry">Retry</string>
@@ -267,8 +268,6 @@
     <item quantity="one">Less than a minute</item>
     <item quantity="other">Less than %s minutes</item>
   </plurals>
-  <string name="textIsTooShort">Text is too short.</string>
-  <string name="textIsTooLong">Text is too long.</string>
   <string name="required">Required.</string>
   <string name="openTournaments">Open tournaments</string>
   <string name="duration">Duration</string>
