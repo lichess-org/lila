@@ -267,8 +267,6 @@
     <item quantity="one">%s منٹ سے کم</item>
     <item quantity="other">%s منٹ سے کم</item>
   </plurals>
-  <string name="textIsTooShort">ضروری مقدار سے کم ہے</string>
-  <string name="textIsTooLong">ضروری مقدار سے زائد ہے</string>
   <string name="required">ضروری ہے</string>
   <string name="openTournaments">جاری مسابقہ جات</string>
   <string name="duration">دورانیہ</string>
