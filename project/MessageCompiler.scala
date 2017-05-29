@@ -92,7 +92,7 @@ private object `$locale` {
         while (i < s.length) {
           sb.append {
             s.charAt(i) match {
-              case '<' => "&lt;"; case '>' => "&gt;"; case '&' => "&amp;"; case '"' => "&quot;"; case c => c
+              case '<' => "&lt;"; case '>' => "&gt;"; case '&' => "&amp;"; case '"' => "&quot;"; case '\'' => "&#39;"; case c => c
             }
           }
           i += 1
