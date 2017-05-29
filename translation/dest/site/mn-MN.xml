@@ -267,8 +267,6 @@
     <item quantity="one">%s минутаас бага</item>
     <item quantity="other">%s минутаас бага</item>
   </plurals>
-  <string name="textIsTooShort">Бичвэр хэт богино байна.</string>
-  <string name="textIsTooLong">Бичвэр хэт урт байна.</string>
   <string name="required">Мэдээлэл заавал оруулах шаардлагатай.</string>
   <string name="openTournaments">Бүгдэд нээлттэй тэмцээнүүд</string>
   <string name="duration">Үргэлжлэх хугацаа</string>
