@@ -226,8 +226,6 @@
   <string name="player">खेळाडू</string>
   <string name="list">यादी</string>
   <string name="graph">आलेख</string>
-  <string name="textIsTooShort">मजकूर खूप लहान आहे</string>
-  <string name="textIsTooLong">मजकूर खूप मोठा आहे</string>
   <string name="required">गरजेचे आहे</string>
   <string name="openTournaments">खुली स्पर्धा</string>
   <string name="duration">कालावधी</string>
