@@ -267,8 +267,6 @@
     <item quantity="one">Alle %s minuuttia</item>
     <item quantity="other">Alle %s minuuttia</item>
   </plurals>
-  <string name="textIsTooShort">Teksti on liian lyhyt.</string>
-  <string name="textIsTooLong">Teksti on liian pitkä.</string>
   <string name="required">Vaadittu.</string>
   <string name="openTournaments">Avoimet turnaukset</string>
   <string name="duration">Kesto</string>
