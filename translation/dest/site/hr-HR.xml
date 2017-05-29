@@ -615,5 +615,6 @@
   <string name="boardTheme">Tema ploče</string>
   <string name="boardSize">Veličina ploče</string>
   <string name="pieceSet">Set figura</string>
+  <string name="embedInYourWebsite">Ugradi u svoju stranicu</string>
   <string name="usernameAlreadyUsed">Ovo korisničko ime je već u uporabi, molimo probaj s drugim.</string>
 </resources>

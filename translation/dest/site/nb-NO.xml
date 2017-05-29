@@ -274,7 +274,7 @@
   <string name="openTournaments">Åpne turneringer</string>
   <string name="duration">Varighet</string>
   <string name="winner">Vinner</string>
-  <string name="standing">Tabell</string>
+  <string name="standing">Resultatliste</string>
   <string name="createANewTournament">Opprett en ny turnering</string>
   <string name="join">Bli med</string>
   <string name="withdraw">Trekk deg</string>
@@ -332,7 +332,7 @@
   <string name="fromGameLink">Fra parti %s</string>
   <string name="startTraining">Start treningen</string>
   <string name="continueTraining">Fortsett treningen</string>
-  <string name="retryThisPuzzle">Prøv dette problemet på nytt</string>
+  <string name="retryThisPuzzle">Prøv oppgaven om igjen</string>
   <string name="thisPuzzleIsCorrect">Dette problemet er riktig og interessant</string>
   <string name="thisPuzzleIsWrong">Dette problemet er feil eller kjedelig</string>
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
