@@ -267,8 +267,6 @@
     <item quantity="one">%s minutu baino gutxiago</item>
     <item quantity="other">%s minutu baino gutxiago</item>
   </plurals>
-  <string name="textIsTooShort">Testua laburregia da</string>
-  <string name="textIsTooLong">Testua luzeegia da</string>
   <string name="required">Beharrezkoa.</string>
   <string name="openTournaments">Txapelketa irekiak</string>
   <string name="duration">Iraupena</string>
