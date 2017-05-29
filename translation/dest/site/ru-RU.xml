@@ -207,8 +207,6 @@
   <string name="player">Игрок</string>
   <string name="list">Список</string>
   <string name="graph">График</string>
-  <string name="textIsTooShort">Текст слишком короткий.</string>
-  <string name="textIsTooLong">Текст слишком длинный.</string>
   <string name="required">Требуется заполнить.</string>
   <string name="openTournaments">Открытые турниры</string>
   <string name="duration">Длительность</string>
