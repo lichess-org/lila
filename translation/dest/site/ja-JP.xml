@@ -252,8 +252,6 @@
   <plurals name="lessThanNbMinutes">
     <item quantity="other">%s 分未満</item>
   </plurals>
-  <string name="textIsTooShort">テキストが短すぎます。</string>
-  <string name="textIsTooLong">テキストが長すぎます。</string>
   <string name="required">必須です。</string>
   <string name="openTournaments">参加募集中のトーナメント</string>
   <string name="duration">打ち切りまでの時間</string>
