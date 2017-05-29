@@ -265,8 +265,6 @@
     <item quantity="one">ավելի քիչ քան %s րոպե</item>
     <item quantity="other">ավելի քիչ քան %s րոպե</item>
   </plurals>
-  <string name="textIsTooShort">Տեքստը շատ կարճ է</string>
-  <string name="textIsTooLong">Տեքստը շատ երկար է</string>
   <string name="required">Պարտադիր.</string>
   <string name="openTournaments">Բաց մրցաշարեր</string>
   <string name="duration">Տևողություն</string>
