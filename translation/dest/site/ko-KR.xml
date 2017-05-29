@@ -252,8 +252,6 @@
   <plurals name="lessThanNbMinutes">
     <item quantity="other">%s분 미만</item>
   </plurals>
-  <string name="textIsTooShort">입력한 텍스트가 너무 짧습니다.</string>
-  <string name="textIsTooLong">입력한 텍스트가 너무 깁니다.</string>
   <string name="required">필수 항목</string>
   <string name="openTournaments">시작 예정 토너먼트</string>
   <string name="duration">경기 시간</string>
