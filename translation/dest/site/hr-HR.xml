@@ -7,7 +7,7 @@
   <string name="gameOver">Igra gotova</string>
   <string name="waitingForOpponent">Čekam protivnika</string>
   <string name="waiting">Čekanje</string>
-  <string name="yourTurn">Vaš potez</string>
+  <string name="yourTurn">Tvoj potez</string>
   <string name="aiNameLevelAiLevel">%1$s razina %2$s</string>
   <string name="level">Razina</string>
   <string name="toggleTheChat">Uključi/isključi chat</string>
