@@ -252,8 +252,6 @@
   <plurals name="lessThanNbMinutes">
     <item quantity="other">น้อยกว่า %s นาที</item>
   </plurals>
-  <string name="textIsTooShort">ข้อความสั้นไป</string>
-  <string name="textIsTooLong">ข้อความยาวไป</string>
   <string name="required">ต้องการ</string>
   <string name="openTournaments">ทัวร์นาเมนต์ที่เปิด</string>
   <string name="duration">ระยะเวลา</string>
