@@ -61,7 +61,10 @@ private[i18n] object Registry {
     val xml = XML.loadFile(file)
     def quote(msg: String) = s"""""\"$msg""\""""
     val content = xml.child.collect {
-      case e if e.label == "string" => s"""(${toKey(e)},new Literal(\"\"\"${escape(e.text)}\"\"\"))"""
+      case e if e.label == "string" =>
+        val safe = escape(e.text)
+        val escaped = escapeHtmlOption(safe).fold("None")(e => s"""Some(\"\"\"$e\"\"\")""")
+        s"""(${toKey(e)},new Literal(\"\"\"$safe\"\"\",$escaped))"""
       case e if e.label == "plurals" =>
         val items = e.child.filter(_.label == "item").map { i =>
           s"""${ucfirst(i.\("@quantity").toString)}->\"\"\"${escape(i.text)}\"\"\""""
@@ -80,6 +83,24 @@ private object `$locale` {
 }
 """
   }
+
+  private val badChars = "[<>&\"']".r.pattern
+  private def escapeHtmlOption(s: String): Option[String] = {
+      if (badChars.matcher(s).find) Some {
+        val sb = new StringBuilder(s.size + 10) // wet finger style
+        var i = 0
+        while (i < s.length) {
+          sb.append {
+            s.charAt(i) match {
+              case '<' => "&lt;"; case '>' => "&gt;"; case '&' => "&amp;"; case '"' => "&quot;"; case c => c
+            }
+          }
+          i += 1
+        }
+        sb.toString
+      }
+      else None
+    }
 
   private def printToFile(f: File)(content: String): Unit = {
     val p = new java.io.PrintWriter(f, "UTF-8")
