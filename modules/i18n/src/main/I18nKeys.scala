@@ -1,4 +1,4 @@
-// Generated with bin/trans-dump.js Mon May 29 2017 08:38:41 GMT+0200 (CEST)
+// Generated with bin/trans-dump.js Mon May 29 2017 09:01:56 GMT+0200 (CEST)
 package lila.i18n
 
 // format: OFF
@@ -515,6 +515,11 @@ val `playChessInStyle` = new Translated("playChessInStyle")
 val `chessBasics` = new Translated("chessBasics")
 val `coaches` = new Translated("coaches")
 val `invalidPgn` = new Translated("invalidPgn")
+val `invalidFen` = new Translated("invalidFen")
+val `error.minLength` = new Translated("error.minLength")
+val `error.maxLength` = new Translated("error.maxLength")
+val `error.min` = new Translated("error.min")
+val `error.max` = new Translated("error.max")
 val `nbPlayers` = new Translated("nbPlayers")
 val `nbGames` = new Translated("nbGames")
 val `nbBookmarks` = new Translated("nbBookmarks")
