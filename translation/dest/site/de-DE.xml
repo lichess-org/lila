@@ -588,9 +588,23 @@
   <string name="lobby">Lobby</string>
   <string name="yourScore">Punktestand: %s</string>
   <string name="background">Hintergrund</string>
+  <string name="boardGeometry">Brettgröße und 3D</string>
+  <string name="boardTheme">Brettdesign</string>
   <string name="boardSize">Brettgröße</string>
+  <string name="pieceSet">Figurenstil</string>
+  <string name="embedInYourWebsite">In meine Webseite einbetten</string>
+  <string name="usernameAlreadyUsed">Dieser Benutzername ist bereits vergeben. Bitte versuche es mit einem anderen.</string>
+  <string name="usernameInvalid">Ungültiger Benutzername. Bitte verwenden Sie nur Buchstaben, Ziffern, Unterstrich und Bindestrich.</string>
+  <string name="usernameStartNoNumber">Ihr Benutzername muss mit einem Buchstaben beginnen.</string>
+  <string name="usernameUnacceptable">Dieser Benutzername ist nicht akzeptabel.</string>
   <string name="directlySupportLichess">Direkt Lichess unterstützen</string>
   <string name="playChessInStyle">Schachspielen mit Style</string>
   <string name="chessBasics">Grundlagen</string>
   <string name="coaches">Coaches</string>
+  <string name="invalidPgn">Fehlerhaftes PGN</string>
+  <string name="invalidFen">Fehlerhafte FEN</string>
+  <string name="error.minLength">Mindestens %s Zeichen</string>
+  <string name="error.maxLength">Höchstens %s Zeichen</string>
+  <string name="error.min">Muss mindestens %s sein</string>
+  <string name="error.max">Darf höchstens %s sein</string>
 </resources>
