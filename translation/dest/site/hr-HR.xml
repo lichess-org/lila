@@ -75,10 +75,10 @@
   <string name="viewInFullSize">Pogledaj u punoj veličini</string>
   <string name="logOut">Odjavi se</string>
   <string name="signIn">Prijavi se</string>
-  <string name="newToLichess">Nov na Lichessu?</string>
+  <string name="newToLichess">Nov(a) na Lichessu?</string>
   <string name="youNeedAnAccountToDoThat">Treba ti račun za to</string>
   <string name="signUp">Registriraj se</string>
-  <string name="computersAreNotAllowedToPlay">Računala i računalni programi ne smiju igrati. Molimo da ne koristiš pomoć programa, baze podataka ili drugih igrača dok igrate. Također, imaj na umu da stvaranje više korisničkih računa ne ohrabruje i da prekomjerno korištenje istih može rezultirati zabranom pristupa.</string>
+  <string name="computersAreNotAllowedToPlay">Računala i računalni programi ne smiju igrati. Molimo da ne koristiš pomoć programa, baze podataka ili drugih igrača za vrijeme igranja. Također, imaj na umu da se stvaranje više korisničkih računa ne ohrabruje i da prekomjerno korištenje istih može rezultirati zabranom pristupa.</string>
   <string name="games">Partije</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s objavljuje na forumu %2$s</string>
@@ -424,7 +424,7 @@
   <string name="premovesPlayingDuringOpponentTurn">Pretpotezi (potezi dok je protivnikov red)</string>
   <string name="takebacksWithOpponentApproval">Povlačenje poteza (ako se protivnik složi)</string>
   <string name="promoteToQueenAutomatically">Auto-promocija u damu</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatski proglasi remi po trostrukom ponavljanju poteza</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatski proglasi remi po trostrukom ponavljanju pozicije</string>
   <string name="privacy">Privatnost</string>
   <string name="letOtherPlayersFollowYou">Dopusti drugim igračima da te prate</string>
   <string name="letOtherPlayersChallengeYou">Dopusti drugim igračima da te izazovu</string>
@@ -440,7 +440,7 @@
   <string name="always">Uvijek</string>
   <string name="inCasualGamesOnly">Samo u prijateljskim partijama</string>
   <string name="whenPremoving">Kada odigraš pretpotez</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Kada je vrijeme &lt;30 sekundi</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Kada je vrijeme &lt; 30 sekundi</string>
   <string name="difficultyEasy">Lagano</string>
   <string name="difficultyNormal">Normalno</string>
   <string name="difficultyHard">Teško</string>
