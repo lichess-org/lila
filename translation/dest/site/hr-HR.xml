@@ -300,8 +300,8 @@
   <string name="tournamentIsStarting">Turnir počinje</string>
   <string name="membersOnly">Samo za članove</string>
   <string name="boardEditor">Uredi ploču</string>
-  <string name="startPosition">Početni položaj</string>
-  <string name="clearBoard">Počisti ploču</string>
+  <string name="startPosition">Početna pozicija</string>
+  <string name="clearBoard">Očisti ploču</string>
   <string name="savePosition">Spremi poziciju</string>
   <string name="loadPosition">Učitaj poziciju</string>
   <string name="isPrivate">Privatno</string>
@@ -313,8 +313,8 @@
   <string name="biography">Životopis</string>
   <string name="country">Zemlja</string>
   <string name="preferences">Postavke</string>
-  <string name="watchLichessTV">Gledajte Lichess TV</string>
-  <string name="previouslyOnLichessTV">Prethodno na Lichess TV</string>
+  <string name="watchLichessTV">Gledaj Lichess TV</string>
+  <string name="previouslyOnLichessTV">Prethodno na Lichess TV-u</string>
   <string name="onlinePlayers">Online igrači</string>
   <string name="activeToday">Danas aktivni</string>
   <string name="activePlayers">Aktivni igrači</string>
