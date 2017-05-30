@@ -516,6 +516,9 @@
     <item quantity="other">Διαθέσιμο σε %s γλώσσες!</item>
   </plurals>
   <string name="gameAnalysis">Ανάλυση παιχνιδιού</string>
+  <string name="xLikesY">%1$s αρέσει %2$s</string>
+  <string name="quickPairing">Γρήγορη ζεύξη</string>
+  <string name="lobby">Χώρος αναμονής</string>
   <string name="yourScore">Αποτέλεσμα: %s</string>
   <string name="background">Παρασκήνιο</string>
   <string name="boardGeometry">Γεωμετρία σκακιέρας</string>
