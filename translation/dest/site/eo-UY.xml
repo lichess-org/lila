@@ -533,6 +533,10 @@
   <string name="tournamentMayHaveBeenCanceled">Eble ĝi ne okazos ĉar malaliĝis ĉiuj ludontoj antaŭ la komenco de la konkurso.</string>
   <string name="returnToTournamentsHomepage">Returni al la hejmpaĝo de la konkursoj</string>
   <string name="weeklyPerfTypeRatingDistribution">Monata takso distribuo de %s.</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">Unu %2$s ludanto ĉi tiu semajno.</item>
+    <item quantity="other">%1$s %2$s ludantoj ĉi tiu semajno.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">Via taksado je %1$s estas %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Vi estas pli bona ol %1$s de %2$s ludantoj.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Vi ne havas stabilan takson je %s.</string>
