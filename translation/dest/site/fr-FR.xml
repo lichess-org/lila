@@ -61,6 +61,10 @@
     <item quantity="other">%s joueurs</item>
   </plurals>
   <string name="currentGames">Parties en cours</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s partie</item>
+    <item quantity="other">%s parties</item>
+  </plurals>
   <string name="viewInFullSize">Agrandir</string>
   <string name="logOut">Déconnexion</string>
   <string name="signIn">Connexion</string>
