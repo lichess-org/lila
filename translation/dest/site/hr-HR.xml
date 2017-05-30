@@ -196,7 +196,7 @@
   <string name="takebackPropositionAccepted">Ponuda o vraćanju poteza prihvaćena</string>
   <string name="takebackPropositionCanceled">Ponuda o vraćanju poteza prekinuta</string>
   <string name="yourOpponentProposesATakeback">Vaš protivnik predlaže vraćanje poteza</string>
-  <string name="bookmarkThisGame">Zabilježi ovu igru</string>
+  <string name="bookmarkThisGame">Spremi ovu partiju u favorite</string>
   <string name="search">Traži</string>
   <string name="advancedSearch">Napredno pretraživanje</string>
   <string name="tournament">Turnir</string>
@@ -205,7 +205,7 @@
   <string name="viewTournament">Pogledaj turnir</string>
   <string name="backToTournament">Povratak na turnir</string>
   <string name="backToGame">Natrag na partiju</string>
-  <string name="siteDescription">Besplatni internetski šah. Igrajte odmah, u čistom sučelju. Bez registriranja, bez reklama, bez dodatnih preuzimanja. Igrajte šah protiv računala, prijatelja ili slučajnih protivnika.</string>
+  <string name="siteDescription">Besplatni internetski šah. Igrajte odmah, u čistom sučelju. Bez registriranja, bez reklama, bez dodatnih preuzimanja. Igrajte šah protiv računala, prijatelja ili nasumičnih protivnika.</string>
   <string name="teams">Ekipe</string>
   <plurals name="nbMembers">
     <item quantity="one">%s član</item>
