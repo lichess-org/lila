@@ -52,7 +52,7 @@ private[round] final class Round(
     case p: HumanPlay =>
       p.trace.finishFirstSegment()
       handleHumanPlay(p) { pov =>
-        if (pov.game.outoftime(withGrace = false)) finisher.outOfTime(pov.game)
+        if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
         else {
           reportNetworkLag(pov)
           player.human(p, self)(pov)
