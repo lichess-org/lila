@@ -168,7 +168,7 @@
   </plurals>
   <plurals name="nbDraws">
     <item quantity="one">%s Remis</item>
-    <item quantity="other">%s Remisen</item>
+    <item quantity="other">%s Remis</item>
   </plurals>
   <string name="exportGames">Partien exportieren</string>
   <string name="ratingRange">Ratingbereich</string>
@@ -601,7 +601,7 @@
   <string name="chessBasics">Grundlagen</string>
   <string name="coaches">Coaches</string>
   <string name="invalidPgn">Fehlerhaftes PGN</string>
-  <string name="invalidFen">Fehlerhafte FEN</string>
+  <string name="invalidFen">FEN ungültig</string>
   <string name="error.minLength">Mindestens %s Zeichen</string>
   <string name="error.maxLength">Höchstens %s Zeichen</string>
   <string name="error.min">Muss mindestens %s sein</string>
