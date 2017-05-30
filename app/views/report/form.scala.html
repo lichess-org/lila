@@ -39,11 +39,12 @@
         required="required"
         id="@form("text").id">@form("text").value</textarea>
       <p class="help">
-      @trans.reportDescriptionHelp()
+        @trans.reportDescriptionHelp()
       </p>
       @errMsg(form("text"))
     </div>
     @base.captcha(form("move"), form("gameId"), captcha)
+    @globalError(form)
     <div class="actions">
       <input class="send button" type="submit" value="@trans.send()" />
       <a class="cancel" href="@routes.Lobby.home()">@trans.cancel()</a>

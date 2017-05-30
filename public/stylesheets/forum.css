@@ -297,10 +297,6 @@ div.bar div.pagination {
   float: right;
 }
 
-#lichess_forum div.checkmateCaptcha p.error {
-  margin-left: 0;
-}
-
 #lichess_forum div.topic form.mod {
   float: right;
   margin-right: 24px;

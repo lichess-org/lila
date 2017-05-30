@@ -15,7 +15,7 @@ trait I18nHelper {
 
   implicit def lang(implicit ctx: UserContext) = ctx.lang
 
-  def transKey(key: String, args: Seq[Any] = Nil)(implicit lang: Lang) =
+  def transKey(key: String, args: Seq[Any] = Nil)(implicit lang: Lang): Html =
     Translator.html.literal(key, args, lang)
 
   def i18nJsObjectMessage(keys: Seq[I18nKey])(implicit lang: Lang): JsObject =

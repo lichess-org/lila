@@ -1,4 +1,4 @@
-// Generated with bin/trans-dump.js Mon May 29 2017 09:01:56 GMT+0200 (CEST)
+// Generated with bin/trans-dump.js Mon May 29 2017 11:38:58 GMT+0200 (CEST)
 package lila.i18n
 
 // format: OFF
@@ -190,6 +190,7 @@ val `continueFromHere` = new Translated("continueFromHere")
 val `importGame` = new Translated("importGame")
 val `thisIsAChessCaptcha` = new Translated("thisIsAChessCaptcha")
 val `clickOnTheBoardToMakeYourMove` = new Translated("clickOnTheBoardToMakeYourMove")
+val `captcha.fail` = new Translated("captcha.fail")
 val `notACheckmate` = new Translated("notACheckmate")
 val `colorPlaysCheckmateInOne` = new Translated("colorPlaysCheckmateInOne")
 val `retry` = new Translated("retry")
@@ -213,8 +214,6 @@ val `challengeToPlay` = new Translated("challengeToPlay")
 val `player` = new Translated("player")
 val `list` = new Translated("list")
 val `graph` = new Translated("graph")
-val `textIsTooShort` = new Translated("textIsTooShort")
-val `textIsTooLong` = new Translated("textIsTooLong")
 val `required` = new Translated("required")
 val `openTournaments` = new Translated("openTournaments")
 val `duration` = new Translated("duration")

@@ -17,8 +17,8 @@ final class DataForm(
   case class Empty(gameId: String, move: String)
 
   val empty = Form(mapping(
-    "gameId" -> nonEmptyText,
-    "move" -> nonEmptyText
+    "gameId" -> text,
+    "move" -> text
   )(Empty.apply)(_ => None)
     .verifying(captchaFailMessage, validateCaptcha _))
 
@@ -61,8 +61,8 @@ final class DataForm(
 
   val passwordReset = Form(mapping(
     "email" -> anyEmail, // allow unacceptable emails for BC
-    "gameId" -> nonEmptyText,
-    "move" -> nonEmptyText
+    "gameId" -> text,
+    "move" -> text
   )(PasswordReset.apply)(_ => None)
     .verifying(captchaFailMessage, validateCaptcha _))
 
