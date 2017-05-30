@@ -85,6 +85,14 @@
   <string name="correspondence">Correspondance</string>
   <string name="daysPerTurn">Jours par coup</string>
   <string name="oneDay">Un jour</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s jour</item>
+    <item quantity="other">%s jours</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s heure</item>
+    <item quantity="other">%s heures</item>
+  </plurals>
   <string name="time">Temps</string>
   <string name="rating">Classement</string>
   <string name="ratingStats">Statistiques de classement</string>
@@ -142,6 +150,10 @@
   <string name="incrementInSeconds">Incrément en secondes</string>
   <string name="freeOnlineChess">Jeu d\'échecs gratuit en ligne</string>
   <string name="spectators">Spectateurs :</string>
+  <plurals name="nbDraws">
+    <item quantity="one">%s nul</item>
+    <item quantity="other">%s nuls</item>
+  </plurals>
   <string name="exportGames">Exporter les parties</string>
   <string name="ratingRange">Classement</string>
   <plurals name="giveNbSeconds">
@@ -169,6 +181,10 @@
   <string name="backToGame">Retour à la partie</string>
   <string name="siteDescription">Jeu d\'échecs gratuit en ligne. Jouez aux échecs immédiatement avec une interface simple. Pas d\'inscription obligatoire, pas de publicité, pas de plugin. Jouez aux échecs contre l\'ordinateur, des amis ou des adversaires en ligne.</string>
   <string name="teams">Équipes</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s membre</item>
+    <item quantity="other">%s membres</item>
+  </plurals>
   <string name="allTeams">Toutes les équipes</string>
   <string name="newTeam">Nouvelle équipe</string>
   <string name="myTeams">Mes équipes</string>
@@ -195,6 +211,10 @@
   <string name="fromPosition">Depuis une position</string>
   <string name="continueFromHere">Continuer depuis cette position</string>
   <string name="importGame">Importer une partie</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s partie importée</item>
+    <item quantity="other">%s parties importées</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">Ceci est un CAPTCHA d\'échecs.</string>
   <string name="clickOnTheBoardToMakeYourMove">Cliquez sur le plateau pour jouer un coup, et prouvez que vous êtes humain.</string>
   <string name="captcha.fail">Tapez le captcha, SVP.</string>
@@ -438,6 +458,10 @@
   <string name="whiteCastlingQueenside">Blancs O-O-O</string>
   <string name="blackCastlingKingside">Noirs O-O</string>
   <string name="blackCastlingQueenside">Noirs O-O-O</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s message posté</item>
+    <item quantity="other">%s messages postés</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">Temps total joué : %s</string>
   <string name="watchGames">Regarder ses parties</string>
   <string name="tpTimeSpentOnTV">Temps passé à la TV : %s</string>
@@ -545,6 +569,8 @@
   <string name="pieceSet">Jeu de pièces</string>
   <string name="embedInYourWebsite">Intégrer dans votre site web</string>
   <string name="usernameAlreadyUsed">Ce nom d\'utilisateur existe déjà. Merci d\'en choisir un autre.</string>
+  <string name="usernameStartNoNumber">Le premier caractère du nom ne peut pas être un chiffre.</string>
+  <string name="directlySupportLichess">Financer Lichess</string>
   <string name="chessBasics">Bases des échecs</string>
   <string name="coaches">Coachs</string>
   <string name="invalidPgn">PGN non valide</string>
