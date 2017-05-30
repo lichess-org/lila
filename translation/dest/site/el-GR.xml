@@ -381,6 +381,7 @@
   <string name="starting">Αρχίζει:</string>
   <string name="allInformationIsPublicAndOptional">Όλες οι πληροφορίες είναι δημόσιες και προαιρετικές.</string>
   <string name="yourCityRegionOrDepartment">Η πόλη, περιοχή ή ο νομός σας</string>
+  <string name="biographyDescription">Γράψτε για τον εαυτό σας, τι σας αρέσει στο σκάκι, τα αγαπημένα σας ανοίγματα, παιχνίδια, παίκτες…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Όριο: %s χαρακτήρες.</item>
     <item quantity="other">Όριο: %s χαρακτήρες.</item>
@@ -426,6 +427,10 @@
   <string name="whiteCastlingQueenside">Λευκά Ο-Ο-Ο</string>
   <string name="blackCastlingKingside">Μαύρα Ο-Ο</string>
   <string name="blackCastlingQueenside">Μαύρα Ο-Ο-Ο</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s Δημοσίευση Φόρουμ</item>
+    <item quantity="other">%s Δημοσιεύσεις Φόρουμ</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">Χρόνος που διατέθηκε παίζοντας: %s</string>
   <string name="watchGames">Παρακολουθήστε παιχνίδια</string>
   <string name="tpTimeSpentOnTV">Χρόνος στην Τηλεόρ: %s</string>
@@ -474,6 +479,10 @@
   <string name="tournamentMayHaveBeenCanceled">Ίσως έχει ακυρωθεί, εάν όλοι οι παίκτες αποχώρησαν πριν το πρωτάθλημα ξεκινήσει.</string>
   <string name="returnToTournamentsHomepage">Επιστροφή στην αρχική σελίδα πρωταθλημάτων</string>
   <string name="weeklyPerfTypeRatingDistribution">Μηνιαία %s κατανομή βαθμολογίας</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">Ένας παίκτης %2$s αυτή την εβδομάδα.</item>
+    <item quantity="other">%1$s %2$s παίκτες αυτή την εβδομάδα.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">Η %1$s βαθμολογία σας είναι %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Είστε καλύτεροι από το %1$s των %2$s παικτών.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Δεν έχετε μια καθιερωμένη %s βαθμολογία.</string>
