@@ -241,7 +241,7 @@
   <string name="onlineFriends">Konektitaj amikoj</string>
   <string name="noFriendsOnline">Neniuj amikoj konektitaj</string>
   <string name="findFriends">Trovi amikojn</string>
-  <string name="favoriteOpponents">Favorataj kontraŭuloj</string>
+  <string name="favoriteOpponents">Plej ŝatataj kontraŭuloj</string>
   <string name="follow">Sekvi</string>
   <string name="following">Sekvanta</string>
   <string name="unfollow">Malsekvi</string>
@@ -435,6 +435,7 @@
   <string name="starting">Komenciĝos je:</string>
   <string name="allInformationIsPublicAndOptional">Ĉiuj informaĵoj estas publikaj kaj nedevigaj.</string>
   <string name="yourCityRegionOrDepartment">Via urbo, regiono aŭ provinco.</string>
+  <string name="biographyDescription">Rakontu pri vi, kion vi ŝatas pri ŝako, viaj plej ŝatataj debutoj, ludoj, ludantoj…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maksimumo: %s signoj.</item>
     <item quantity="other">Maksimumo: %s signoj.</item>
@@ -587,6 +588,7 @@
   <string name="pieceSet">Ŝakpecaro</string>
   <string name="embedInYourWebsite">Enkorpigi en via retejo</string>
   <string name="usernameAlreadyUsed">Ĉi tiu uzantnomo estas jam uzanta, bonvolu provi aliun.</string>
+  <string name="usernameInvalid">Nevalida uzantnomo. Bonvolu uzu nur leterojn, nombrojn, substrekon kaj streketon.</string>
   <string name="usernameStartNoNumber">Ĉi tiu uzantnomo devas ne komenci kun numero.</string>
   <string name="usernameUnacceptable">Ĉi tiu uzantnomo estas malakceptata.</string>
   <string name="directlySupportLichess">Rekte subteni Lichess</string>
