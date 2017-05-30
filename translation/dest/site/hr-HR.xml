@@ -274,7 +274,7 @@
   </plurals>
   <string name="more">Više</string>
   <string name="memberSince">član od</string>
-  <string name="lastSeenActive">posljednja prijava %s</string>
+  <string name="lastSeenActive">Zadnja aktivnost %s</string>
   <string name="challengeToPlay">Poziv na partiju</string>
   <string name="player">Igrač</string>
   <string name="list">Lista</string>
@@ -289,7 +289,7 @@
   <string name="duration">Trajanje</string>
   <string name="winner">Pobjednik</string>
   <string name="standing">Stanje</string>
-  <string name="createANewTournament">Organiziraj novi turnir</string>
+  <string name="createANewTournament">Kreiraj novi turnir</string>
   <string name="join">Pridruži se</string>
   <string name="withdraw">Odustani</string>
   <string name="points">Bodovi</string>
@@ -365,22 +365,22 @@
   <string name="puzzles">Zagonetke</string>
   <string name="coordinates">Koordinate</string>
   <string name="latestUpdates">Zadnje obavijesti</string>
-  <string name="tournamentWinners">Osvajači turnira</string>
+  <string name="tournamentWinners">Pobjednici turnira</string>
   <string name="name">Ime</string>
   <string name="description">Opis</string>
   <string name="no">Ne</string>
   <string name="yes">Da</string>
   <string name="help">Pomoć:</string>
-  <string name="createANewTopic">Postavi novu temu</string>
+  <string name="createANewTopic">Kreiraj novu temu</string>
   <string name="topics">Teme</string>
   <string name="posts">Objave</string>
   <string name="lastPost">Zadnja objava</string>
-  <string name="views">Pogledi</string>
-  <string name="replies">Odgovori</string>
+  <string name="views">Pregleda</string>
+  <string name="replies">Odgovora</string>
   <string name="replyToThisTopic">Odgovori na ovu temu</string>
   <string name="reply">Odgovori</string>
   <string name="message">Poruka</string>
-  <string name="createTheTopic">Napravi temu</string>
+  <string name="createTheTopic">Kreiraj temu</string>
   <string name="reportAUser">Prijavi korisnika</string>
   <string name="user">Korisnik</string>
   <string name="reason">Razlog</string>
