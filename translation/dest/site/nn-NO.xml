@@ -61,14 +61,6 @@
     <item quantity="other">Spelarar: %s</item>
   </plurals>
   <string name="currentGames">Parti som blir spelt nett no</string>
-  <plurals name="nbGames">
-    <item quantity="one">Sjå alle %s parti</item>
-    <item quantity="other">Sjå alle %s parti</item>
-  </plurals>
-  <plurals name="nbBookmarks">
-    <item quantity="one">%s Bokmerke</item>
-    <item quantity="other">%s Bokmerke</item>
-  </plurals>
   <string name="viewInFullSize">Sjå i full storleik</string>
   <string name="logOut">Logg ut</string>
   <string name="signIn">Logg inn</string>
@@ -89,14 +81,6 @@
   <string name="correspondence">Fjernsjakk</string>
   <string name="daysPerTurn">Dagar per trekk</string>
   <string name="oneDay">Ein dag</string>
-  <plurals name="nbDays">
-    <item quantity="one">%s dagar</item>
-    <item quantity="other">%s dagar</item>
-  </plurals>
-  <plurals name="nbHours">
-    <item quantity="one">%s timar</item>
-    <item quantity="other">%s timar</item>
-  </plurals>
   <string name="time">Tid</string>
   <string name="rating">Rating</string>
   <string name="ratingStats">Ratingstatistikk</string>
@@ -112,10 +96,6 @@
   <string name="forgotPassword">Har du gløymt passordet?</string>
   <string name="rank">Nivå</string>
   <string name="gamesPlayed">spelte parti</string>
-  <plurals name="nbGamesWithYou">
-    <item quantity="one">%s parti med deg</item>
-    <item quantity="other">%s parti med deg</item>
-  </plurals>
   <string name="cancel">Avbryt</string>
   <string name="timeOut">Tida er ute</string>
   <string name="drawOfferSent">Tilbod om remis er sendt</string>
@@ -158,18 +138,6 @@
   <string name="incrementInSeconds">Tilleggstid i sekund</string>
   <string name="freeOnlineChess">Fritt tilgjengeleg nettsjakk</string>
   <string name="spectators">Tilskodarar:</string>
-  <plurals name="nbWins">
-    <item quantity="one">%s sigrar</item>
-    <item quantity="other">%s sigrar</item>
-  </plurals>
-  <plurals name="nbLosses">
-    <item quantity="one">%s tap</item>
-    <item quantity="other">%s tap</item>
-  </plurals>
-  <plurals name="nbDraws">
-    <item quantity="one">%s remis</item>
-    <item quantity="other">%s remis</item>
-  </plurals>
   <string name="exportGames">Send parti</string>
   <string name="ratingRange">Rating-omfang</string>
   <plurals name="giveNbSeconds">
@@ -197,10 +165,6 @@
   <string name="backToGame">Tilbake til partiet</string>
   <string name="siteDescription">Fritt tilgjengeleg nettsjakk. Spel sjakk på ei rein nettside uten registrering, reklame eller tillegg. Spel sjakk mot datamaskin, vener eller tilfeldige motspelarar.</string>
   <string name="teams">Lag</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s medlemmer</item>
-    <item quantity="other">%s medlemmer</item>
-  </plurals>
   <string name="allTeams">Alle lag</string>
   <string name="newTeam">Nytt lag</string>
   <string name="myTeams">Mine lag</string>
@@ -227,10 +191,6 @@
   <string name="fromPosition">Frå posisjon</string>
   <string name="continueFromHere">Fortsett herfrå</string>
   <string name="importGame">Importér</string>
-  <plurals name="nbImportedGames">
-    <item quantity="one">%s Importerte spel</item>
-    <item quantity="other">%s Importerte spel</item>
-  </plurals>
   <string name="thisIsAChessCaptcha">Dette er ein sjakk-CAPTCHA</string>
   <string name="clickOnTheBoardToMakeYourMove">Gjer eit trekk på brettet og prov at du er eit menneske</string>
   <string name="notACheckmate">Ikkje sjakk matt</string>
@@ -248,10 +208,6 @@
   <string name="unblock">Opna</string>
   <string name="followsYou">Følgjer deg</string>
   <string name="xStartedFollowingY">%1$s byrja å følgja %2$s</string>
-  <plurals name="nbFollowers">
-    <item quantity="one">%s følgjesvener</item>
-    <item quantity="other">%s følgjesvener</item>
-  </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s følgjer</item>
     <item quantity="other">%s følgjer</item>
@@ -267,8 +223,6 @@
     <item quantity="one">Mindre enn %s minutt</item>
     <item quantity="other">Mindre enn %s minutt</item>
   </plurals>
-  <string name="textIsTooShort">Teksten er for kort.</string>
-  <string name="textIsTooLong">Teksten er for lang</string>
   <string name="required">Påkrevd.</string>
   <string name="openTournaments">Opne turneringar</string>
   <string name="duration">Lengd</string>
@@ -324,10 +278,6 @@
   <string name="pleaseVotePuzzle">Gjer lichess betre ved  å stemma, bruk piltastar opp eller ned.</string>
   <string name="thankYou">Takk!</string>
   <string name="ratingX">Rating: %s</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">Spelt %s gonger</item>
-    <item quantity="other">Spelt %s gonger</item>
-  </plurals>
   <string name="fromGameLink">Frå partiet %s</string>
   <string name="startTraining">Start treninga</string>
   <string name="continueTraining">Hald fram å trena</string>
@@ -337,10 +287,6 @@
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">Du har %s sekundar på å gjera ditt første trekk!</item>
     <item quantity="other">Du har %s sekundar på å gjera ditt første trekk!</item>
-  </plurals>
-  <plurals name="nbGamesInPlay">
-    <item quantity="one">%s parti pågår</item>
-    <item quantity="other">%s parti pågår</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Gå til neste parti automatisk etter trekk</string>
   <string name="autoSwitch">Hopp automatisk til neste parti</string>
@@ -480,10 +426,6 @@
   <string name="whiteCastlingQueenside">Kvit O-O-O</string>
   <string name="blackCastlingKingside">Svart O-O</string>
   <string name="blackCastlingQueenside">Svart O-O</string>
-  <plurals name="nbForumPosts">
-    <item quantity="one">%s Foruminnlegg</item>
-    <item quantity="other">%s Foruminnlegg</item>
-  </plurals>
   <string name="tpTimeSpentPlaying">Tid brukt på speling: %s</string>
   <string name="watchGames">Sjå parti</string>
   <string name="tpTimeSpentOnTV">Tid på TV: %s</string>

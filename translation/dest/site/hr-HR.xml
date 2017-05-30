@@ -7,7 +7,7 @@
   <string name="gameOver">Igra gotova</string>
   <string name="waitingForOpponent">Čekam protivnika</string>
   <string name="waiting">Čekanje</string>
-  <string name="yourTurn">Vaš potez</string>
+  <string name="yourTurn">Tvoj potez</string>
   <string name="aiNameLevelAiLevel">%1$s razina %2$s</string>
   <string name="level">Razina</string>
   <string name="toggleTheChat">Uključi/isključi chat</string>
@@ -32,7 +32,7 @@
   <string name="whitePlays">Bijeli je na potezu</string>
   <string name="blackPlays">Crni je na potezu</string>
   <string name="opponentLeftChoices">Drugi igrač je napustio igru. Možeš proglasiti pobjedu, proglasiti partiju remijem ili ga pričekati.</string>
-  <string name="makeYourOpponentResign">Prisili protivnika na predaju</string>
+  <string name="makeYourOpponentResign">Forsiraj pobjedu</string>
   <string name="forceResignation">Proglasi pobjedu</string>
   <string name="forceDraw">Forsiranje remija</string>
   <string name="talkInChat">Ponašaj se pristojno na chatu</string>
@@ -57,13 +57,13 @@
   <string name="offerDraw">Ponudi remi</string>
   <string name="draw">Remi</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s igrača</item>
+    <item quantity="one">%s igrač</item>
     <item quantity="few">%s igrača</item>
     <item quantity="other">%s igrača</item>
   </plurals>
-  <string name="currentGames">partija u tijeku</string>
+  <string name="currentGames">Partije u tijeku</string>
   <plurals name="nbGames">
-    <item quantity="one">Jedna partija</item>
+    <item quantity="one">%s partija</item>
     <item quantity="few">%s partija</item>
     <item quantity="other">%s partija</item>
   </plurals>
@@ -93,12 +93,12 @@
   <string name="daysPerTurn">Dana po potezu</string>
   <string name="oneDay">Jedan dan</string>
   <plurals name="nbDays">
-    <item quantity="one">Jedan dan</item>
+    <item quantity="one">%s dan</item>
     <item quantity="few">%s dana</item>
     <item quantity="other">%s dana</item>
   </plurals>
   <plurals name="nbHours">
-    <item quantity="one">Jedan sat</item>
+    <item quantity="one">%s sat</item>
     <item quantity="few">%s sati</item>
     <item quantity="other">%s sati</item>
   </plurals>
@@ -118,7 +118,7 @@
   <string name="rank">Rang</string>
   <string name="gamesPlayed">Broj odigranih partija</string>
   <plurals name="nbGamesWithYou">
-    <item quantity="one">Jedna odigrana partija s tobom</item>
+    <item quantity="one">%s odigrana partija s tobom</item>
     <item quantity="few">%s odigranih partija s tobom</item>
     <item quantity="other">%s odigranih partija s tobom</item>
   </plurals>
@@ -146,7 +146,7 @@
   <string name="rated">Za bodove</string>
   <string name="thisGameIsRated">Ovo je partija za bodove</string>
   <string name="rematch">Revanš</string>
-  <string name="rematchOfferSent">Ponuda za revanš poslata</string>
+  <string name="rematchOfferSent">Ponuda za revanš poslana</string>
   <string name="rematchOfferAccepted">Ponuda za revanš prihvaćena</string>
   <string name="rematchOfferCanceled">Ponuda za revanš otkazana</string>
   <string name="rematchOfferDeclined">Ponuda za revanš odbijena</string>
@@ -165,17 +165,17 @@
   <string name="freeOnlineChess">Besplatni Internetski Šah</string>
   <string name="spectators">Gledatelji:</string>
   <plurals name="nbWins">
-    <item quantity="one">Jedna pobjeda</item>
+    <item quantity="one">%s pobjeda</item>
     <item quantity="few">%s pobjeda</item>
     <item quantity="other">%s pobjeda</item>
   </plurals>
   <plurals name="nbLosses">
-    <item quantity="one">Jedan poraz</item>
+    <item quantity="one">%s poraz</item>
     <item quantity="few">%s poraza</item>
     <item quantity="other">%s poraza</item>
   </plurals>
   <plurals name="nbDraws">
-    <item quantity="one">Jedan remi</item>
+    <item quantity="one">%s remi</item>
     <item quantity="few">%s remija</item>
     <item quantity="other">%s remija</item>
   </plurals>
@@ -188,7 +188,7 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Ovaj igrač koristi pomoć računala</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ovaj igrač umjetno podiže/spušta svoj rejting</string>
-  <string name="openingExplorer">Pretraživač otvorenja</string>
+  <string name="openingExplorer">Pretraživač otvaranja &amp; baza pozicija u završnici</string>
   <string name="takeback">Vrati potez</string>
   <string name="proposeATakeback">Predloži vraćanje poteza</string>
   <string name="takebackPropositionSent">Ponuda o vraćanju poteza poslana</string>
@@ -208,7 +208,7 @@
   <string name="siteDescription">Besplatni internetski šah. Igrajte odmah, u čistom sučelju. Bez registriranja, bez reklama, bez dodatnih preuzimanja. Igrajte šah protiv računala, prijatelja ili slučajnih protivnika.</string>
   <string name="teams">Ekipe</string>
   <plurals name="nbMembers">
-    <item quantity="one">Jedan član</item>
+    <item quantity="one">%s član</item>
     <item quantity="few">%s članova</item>
     <item quantity="other">%s članova</item>
   </plurals>
@@ -239,12 +239,13 @@
   <string name="continueFromHere">Nastavi odavde</string>
   <string name="importGame">Uvezi partiju</string>
   <plurals name="nbImportedGames">
-    <item quantity="one">Jedna uvezena partija</item>
+    <item quantity="one">%s uvezena partija</item>
     <item quantity="few">%s uvezenih partija</item>
     <item quantity="other">%s uvezenih partija</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Ovo je šahovska CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Klikni na ploču da povučeš potez i dokažeš da si čovjek.</string>
+  <string name="captcha.fail">Molimo riješi šahovski Captcha.</string>
   <string name="notACheckmate">Nije mat</string>
   <string name="colorPlaysCheckmateInOne">%s igra; mat u jednom potezu</string>
   <string name="retry">Pokušaj opet</string>
@@ -262,7 +263,7 @@
   <string name="followsYou">Prati te</string>
   <string name="xStartedFollowingY">%1$s je počeo pratiti %2$s</string>
   <plurals name="nbFollowers">
-    <item quantity="one">Jedan pratitelj</item>
+    <item quantity="one">%s pratitelj</item>
     <item quantity="few">%s pratitelja</item>
     <item quantity="other">%s pratitelja</item>
   </plurals>
@@ -283,8 +284,6 @@
     <item quantity="few">Manje od %s minuta</item>
     <item quantity="other">Manje od %s minuta</item>
   </plurals>
-  <string name="textIsTooShort">Tekst je prekratak.</string>
-  <string name="textIsTooLong">Tekst je predug.</string>
   <string name="required">Obvezno.</string>
   <string name="openTournaments">Otvoreni turniri</string>
   <string name="duration">Trajanje</string>
@@ -341,7 +340,7 @@
   <string name="thankYou">Hvala!</string>
   <string name="ratingX">Rejting: %s</string>
   <plurals name="playedXTimes">
-    <item quantity="one">Odigrano jedanput</item>
+    <item quantity="one">Odigrano %s put</item>
     <item quantity="few">Odigrano %s puta</item>
     <item quantity="other">Odigrano %s puta</item>
   </plurals>
@@ -357,7 +356,7 @@
     <item quantity="other">Imaš %s sekundi da napraviš svoj prvi potez!</item>
   </plurals>
   <plurals name="nbGamesInPlay">
-    <item quantity="one">Jedna partija u tijeku</item>
+    <item quantity="one">%s partija u tijeku</item>
     <item quantity="few">%s partija u tijeku</item>
     <item quantity="other">%s partija u tijeku</item>
   </plurals>
@@ -449,7 +448,7 @@
   <string name="xCompetesInY">%1$s se natječe u %2$s</string>
   <string name="xAskedY">%1$s je pitao %2$s</string>
   <string name="xAnsweredY">%1$s je odgovorio %2$s</string>
-  <string name="xCommentedY">%1$s je  komentirao %2$s</string>
+  <string name="xCommentedY">%1$s je komentirao %2$s</string>
   <string name="timeline">Vremenska crta</string>
   <string name="seeAllTournaments">Vidi sve turnire</string>
   <string name="starting">Počinje:</string>
@@ -472,7 +471,7 @@
   <string name="side">Strana</string>
   <string name="clock">Sat</string>
   <string name="unauthorizedError">Pristup neodobren.</string>
-  <string name="noInternetConnection">Nedostupan internet. Možeš i dalje igrati bez mreže preko izbornika</string>
+  <string name="noInternetConnection">Nedostupna internetska veza. Možeš i dalje igrati bez internetske veze preko izbornika.</string>
   <string name="connectedToLichess">Spojen/a si na lichess.org</string>
   <string name="signedOut">Odjavljen/a si</string>
   <string name="loginSuccessful">Prijavljen/a si</string>
@@ -504,7 +503,7 @@
   <string name="blackCastlingKingside">Crni O-O</string>
   <string name="blackCastlingQueenside">Crni O-O-O</string>
   <plurals name="nbForumPosts">
-    <item quantity="one">Jedna forumska poruka</item>
+    <item quantity="one">%s forumska poruka</item>
     <item quantity="few">%s forumskih poruka</item>
     <item quantity="other">%s forumskih poruka</item>
   </plurals>
@@ -578,7 +577,7 @@
   <string name="downloadImported">Preuzmi uvezeno</string>
   <string name="printFriendlyPDF">Preuzmi PDF igre</string>
   <string name="crosstable">Tablica križanja</string>
-  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">možeš povuci klizač preko ploče za micanje u igri</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Možeš skrolirati preko ploče za micanje u partiji.</string>
   <string name="analysisShapesHowTo">Pritisni shift + lijevi klik ili desni klik kako bi crtao/la krugove i strelice na ploči.</string>
   <string name="confirmResignation">Potvrdi predaju</string>
   <string name="letOtherPlayersMessageYou">Dopusti drugim igračima da ti pošalju poruku</string>
@@ -590,7 +589,7 @@
   <string name="builtForTheLoveOfChessNotMoney">Napravljeno iz ljubavi prema šahu, ne novcu</string>
   <string name="everybodyGetsAllFeaturesForFree">Svi dobivaju sve usluge besplatno</string>
   <string name="zeroAdvertisement">Bez reklama</string>
-  <string name="fullFeatured">potpuno opremljena</string>
+  <string name="fullFeatured">Potpuno opremljena</string>
   <string name="phoneAndTablet">Mobitel i tablet</string>
   <string name="bulletBlitzClassical">Bullet, blitz, klasika</string>
   <string name="correspondenceChess">Dopisni šah</string>
@@ -617,8 +616,17 @@
   <string name="pieceSet">Set figura</string>
   <string name="embedInYourWebsite">Ugradi u svoju stranicu</string>
   <string name="usernameAlreadyUsed">Ovo korisničko ime je već u uporabi, molimo probaj s drugim.</string>
+  <string name="usernameInvalid">Nevaljano korisničko ime. Molimo koristi samo slova, brojeve, donju crtu i povlaku.</string>
+  <string name="usernameStartNoNumber">Korisničko ime ne smije započeti brojem.</string>
+  <string name="usernameUnacceptable">Ovo korisničko ime nije prihvatljivo.</string>
   <string name="directlySupportLichess">Direktno podrži Lichess</string>
   <string name="playChessInStyle">Igraj šah u stilu</string>
   <string name="chessBasics">Šahovske osnove</string>
   <string name="coaches">Treneri</string>
+  <string name="invalidPgn">Nevaljan PGN</string>
+  <string name="invalidFen">Nevaljan FEN</string>
+  <string name="error.minLength">Minimalna dužina je %s znakova</string>
+  <string name="error.maxLength">Maksimalna dužina je %s znakova</string>
+  <string name="error.min">Mora biti veće ili jednako %s</string>
+  <string name="error.max">Mora biti manje ili jednako %s</string>
 </resources>

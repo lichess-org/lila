@@ -61,14 +61,6 @@
     <item quantity="other">%s aanlyn spelers</item>
   </plurals>
   <string name="currentGames">Lopende spelle</string>
-  <plurals name="nbGames">
-    <item quantity="one">Sien al %s spelle</item>
-    <item quantity="other">Sien al %s spelle</item>
-  </plurals>
-  <plurals name="nbBookmarks">
-    <item quantity="one">%s Bookmerke</item>
-    <item quantity="other">%s Bookmerke</item>
-  </plurals>
   <string name="viewInFullSize">Sien vol-grootte</string>
   <string name="logOut">Teken uit</string>
   <string name="signIn">Teken in</string>
@@ -89,14 +81,6 @@
   <string name="correspondence">Korrespondensie</string>
   <string name="daysPerTurn">Dae per beurt</string>
   <string name="oneDay">een dag</string>
-  <plurals name="nbDays">
-    <item quantity="one">%s dae</item>
-    <item quantity="other">%s dae</item>
-  </plurals>
-  <plurals name="nbHours">
-    <item quantity="one">%s ure</item>
-    <item quantity="other">%s ure</item>
-  </plurals>
   <string name="time">Tyd</string>
   <string name="rating">Gradering</string>
   <string name="ratingStats">Gradering statistieke</string>
@@ -112,10 +96,6 @@
   <string name="forgotPassword">vergeet my waagword</string>
   <string name="rank">Vlak</string>
   <string name="gamesPlayed">Gespeel</string>
-  <plurals name="nbGamesWithYou">
-    <item quantity="one">%s spelle vir jou</item>
-    <item quantity="other">%s spelle vir jou</item>
-  </plurals>
   <string name="cancel">Moenie</string>
   <string name="timeOut">Tyd verby</string>
   <string name="drawOfferSent">Gelykop aanbod gestuur</string>
@@ -158,18 +138,6 @@
   <string name="incrementInSeconds">Tel in sekondes</string>
   <string name="freeOnlineChess">Gratis Aanlyn Skaak</string>
   <string name="spectators">Toeskouers</string>
-  <plurals name="nbWins">
-    <item quantity="one">%s gewen</item>
-    <item quantity="other">%s gewen</item>
-  </plurals>
-  <plurals name="nbLosses">
-    <item quantity="one">%s verloor</item>
-    <item quantity="other">%s verloor</item>
-  </plurals>
-  <plurals name="nbDraws">
-    <item quantity="one">%s gelykop</item>
-    <item quantity="other">%s gelykop</item>
-  </plurals>
   <string name="exportGames">Spelle aflaai (export)</string>
   <string name="ratingRange">Elo reeks</string>
   <plurals name="giveNbSeconds">
@@ -197,10 +165,6 @@
   <string name="backToGame">Terug na spel</string>
   <string name="siteDescription">Gratis aanlyn Skaak spel. Speel nou Skaak met \'n maklike skerm. Geen registrasie nodig, geen advertensies, niks om te installeer. Speel Skaak teen rekenaar, vriende of nuwe uitdagers.</string>
   <string name="teams">Spanne</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s lede</item>
-    <item quantity="other">%s lede</item>
-  </plurals>
   <string name="allTeams">Alle spanne</string>
   <string name="newTeam">Nuwe span</string>
   <string name="myTeams">My spanne</string>
@@ -227,10 +191,6 @@
   <string name="fromPosition">Van posisie</string>
   <string name="continueFromHere">Gaan voort van hier af</string>
   <string name="importGame">Trek spel in</string>
-  <plurals name="nbImportedGames">
-    <item quantity="one">%s het spelle ingetrek</item>
-    <item quantity="other">%s het spelle ingetrek</item>
-  </plurals>
   <string name="thisIsAChessCaptcha">Dit is \'n skaak CAPTCHA</string>
   <string name="clickOnTheBoardToMakeYourMove">Kliek op die bord om jou skuif te maak, en te bewys jy is \'n mens</string>
   <string name="notACheckmate">Nie skaakmat nie</string>
@@ -248,10 +208,6 @@
   <string name="unblock">Ontblok</string>
   <string name="followsYou">Volg jou</string>
   <string name="xStartedFollowingY">%1$s het begin om %2$s te volg</string>
-  <plurals name="nbFollowers">
-    <item quantity="one">%s volgeninge</item>
-    <item quantity="other">%s volgeninge</item>
-  </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">volg %s</item>
     <item quantity="other">volg %s</item>
@@ -267,8 +223,6 @@
     <item quantity="one">Minder as %s minute</item>
     <item quantity="other">Minder as %s minute</item>
   </plurals>
-  <string name="textIsTooShort">Teks is te min.</string>
-  <string name="textIsTooLong">Teks is te veel.</string>
   <string name="required">Vereiste.</string>
   <string name="openTournaments">Oop tornooie</string>
   <string name="duration">Duur</string>
@@ -324,10 +278,6 @@
   <string name="pleaseVotePuzzle">Verbeter lichess deur te stem met die op of af pyltjie:</string>
   <string name="thankYou">Dankie!</string>
   <string name="ratingX">Gradering: %s</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">%s keer gespeel</item>
-    <item quantity="other">%s keer gespeel</item>
-  </plurals>
   <string name="fromGameLink">Van spel %s</string>
   <string name="startTraining">Begin oefen</string>
   <string name="continueTraining">Aanhou oefen</string>
@@ -337,10 +287,6 @@
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">Jy het %s sekondes om jou eerste skuif te maak!</item>
     <item quantity="other">Jy het %s sekondes om jou eerste skuif te maak!</item>
-  </plurals>
-  <plurals name="nbGamesInPlay">
-    <item quantity="one">%s spelle aan die gang</item>
-    <item quantity="other">%s spelle aan die gang</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Gaan outomaties voort na die volgende spel ná jy skuif</string>
   <string name="autoSwitch">Flink oorskakel</string>
@@ -480,10 +426,6 @@
   <string name="whiteCastlingQueenside">Wit O-O-O</string>
   <string name="blackCastlingKingside">Swart O-O</string>
   <string name="blackCastlingQueenside">Swart O-O-O</string>
-  <plurals name="nbForumPosts">
-    <item quantity="one">%s Forum Boodskappe</item>
-    <item quantity="other">%s Forum Boodskappe</item>
-  </plurals>
   <string name="tpTimeSpentPlaying">Tyd aan die speel: %s</string>
   <string name="watchGames">Hou spelle dop</string>
   <string name="tpTimeSpentOnTV">Tyd op TV: %s</string>

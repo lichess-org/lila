@@ -61,14 +61,6 @@
     <item quantity="other">%s xogadores</item>
   </plurals>
   <string name="currentGames">Partidas en curso</string>
-  <plurals name="nbGames">
-    <item quantity="one">%s Partidas</item>
-    <item quantity="other">%s Partidas</item>
-  </plurals>
-  <plurals name="nbBookmarks">
-    <item quantity="one">%s Marcadores</item>
-    <item quantity="other">%s Marcadores</item>
-  </plurals>
   <string name="viewInFullSize">Ver a tamaño completo</string>
   <string name="logOut">Pechar sesión</string>
   <string name="signIn">Iniciar sesión</string>
@@ -89,14 +81,6 @@
   <string name="correspondence">Postal</string>
   <string name="daysPerTurn">Días por xogada</string>
   <string name="oneDay">Un día</string>
-  <plurals name="nbDays">
-    <item quantity="one">%s días</item>
-    <item quantity="other">%s días</item>
-  </plurals>
-  <plurals name="nbHours">
-    <item quantity="one">%s horas</item>
-    <item quantity="other">%s horas</item>
-  </plurals>
   <string name="time">Tempo</string>
   <string name="rating">Puntuación</string>
   <string name="ratingStats">Estatísticas de puntuación</string>
@@ -112,10 +96,6 @@
   <string name="forgotPassword">Esqueciches o teu contrasinal?</string>
   <string name="rank">Clasificación</string>
   <string name="gamesPlayed">Partidas xogadas</string>
-  <plurals name="nbGamesWithYou">
-    <item quantity="one">%s partidas contigo</item>
-    <item quantity="other">%s partidas contigo</item>
-  </plurals>
   <string name="cancel">Cancelar</string>
   <string name="timeOut">Tempo esgotado</string>
   <string name="drawOfferSent">Oferta de táboas enviada</string>
@@ -158,18 +138,6 @@
   <string name="incrementInSeconds">Incremento en segundos</string>
   <string name="freeOnlineChess">Xadrez libre en liña</string>
   <string name="spectators">Espectadores:</string>
-  <plurals name="nbWins">
-    <item quantity="one">%s vitorias</item>
-    <item quantity="other">%s vitorias</item>
-  </plurals>
-  <plurals name="nbLosses">
-    <item quantity="one">%s derrotas</item>
-    <item quantity="other">%s derrotas</item>
-  </plurals>
-  <plurals name="nbDraws">
-    <item quantity="one">%s táboas</item>
-    <item quantity="other">%s táboas</item>
-  </plurals>
   <string name="exportGames">Exportar partidas</string>
   <string name="ratingRange">Rango de puntuación</string>
   <plurals name="giveNbSeconds">
@@ -197,10 +165,6 @@
   <string name="backToGame">Voltar á partida</string>
   <string name="siteDescription">Xadrez libre en liña. Xoga ó xadrez cunha interface limpa. Sen rexistrarse, sen anuncios, sen necesidade de plugins. Xoga ó xadrez contra o ordenador, amigos ou rivais aleatorios.</string>
   <string name="teams">Equipos</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s membros</item>
-    <item quantity="other">%s membros</item>
-  </plurals>
   <string name="allTeams">Todos os equipos</string>
   <string name="newTeam">Novo equipo</string>
   <string name="myTeams">Os meus equipos</string>
@@ -227,10 +191,6 @@
   <string name="fromPosition">Dende posición</string>
   <string name="continueFromHere">Continuar dende aquí</string>
   <string name="importGame">Importar partida</string>
-  <plurals name="nbImportedGames">
-    <item quantity="one">%s Partidas importadas</item>
-    <item quantity="other">%s Partidas importadas</item>
-  </plurals>
   <string name="thisIsAChessCaptcha">Isto é un CAPTCHA de xadrez.</string>
   <string name="clickOnTheBoardToMakeYourMove">Fai clic no tableiro para facer a túa xogada, e probar que es humano.</string>
   <string name="notACheckmate">Non é xaque mate.</string>
@@ -248,10 +208,6 @@
   <string name="unblock">Desbloquear</string>
   <string name="followsYou">Séguete</string>
   <string name="xStartedFollowingY">%1$s comezou a seguir a %2$s</string>
-  <plurals name="nbFollowers">
-    <item quantity="one">%s seguidores</item>
-    <item quantity="other">%s seguidores</item>
-  </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s seguindo</item>
     <item quantity="other">%s seguindo</item>
@@ -267,8 +223,6 @@
     <item quantity="one">Menos de %s minutos</item>
     <item quantity="other">Menos de %s minutos</item>
   </plurals>
-  <string name="textIsTooShort">O texto é moi curto.</string>
-  <string name="textIsTooLong">O texto é moi longo.</string>
   <string name="required">Obrigatorio.</string>
   <string name="openTournaments">Torneos abertos</string>
   <string name="duration">Duración</string>
@@ -324,10 +278,6 @@
   <string name="pleaseVotePuzzle">Axúdanos a mellorar Lichess votando, mediante as frechas arriba e abaixo:</string>
   <string name="thankYou">Grazas!</string>
   <string name="ratingX">Dificultade: %s</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">Xogado %s veces</item>
-    <item quantity="other">Xogado %s veces</item>
-  </plurals>
   <string name="fromGameLink">Extraído da partida %s</string>
   <string name="startTraining">Comezar adestramento</string>
   <string name="continueTraining">Continuar adestramento</string>
@@ -337,10 +287,6 @@
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">Tes %s segundos para facer a túa primeira xogada!</item>
     <item quantity="other">Tes %s segundos para facer a túa primeira xogada!</item>
-  </plurals>
-  <plurals name="nbGamesInPlay">
-    <item quantity="one">%s partidas en xogo</item>
-    <item quantity="other">%s partidas en xogo</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Pasar automaticamente á seguinte partida despois de mover</string>
   <string name="autoSwitch">Auto-cambio</string>
@@ -480,10 +426,6 @@
   <string name="whiteCastlingQueenside">Brancas O-O-O</string>
   <string name="blackCastlingKingside">Negras O-O</string>
   <string name="blackCastlingQueenside">Negras O-O-O</string>
-  <plurals name="nbForumPosts">
-    <item quantity="one">%s Mensaxes no Foro</item>
-    <item quantity="other">%s Mensaxes no Foro</item>
-  </plurals>
   <string name="tpTimeSpentPlaying">Tempo xogando: %s</string>
   <string name="watchGames">Ver partidas</string>
   <string name="tpTimeSpentOnTV">Tempo en TV: %s</string>

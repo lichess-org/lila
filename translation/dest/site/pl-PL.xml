@@ -207,8 +207,6 @@
   <string name="player">Gracz</string>
   <string name="list">Lista</string>
   <string name="graph">Wykres</string>
-  <string name="textIsTooShort">Tekst jest za krótki.</string>
-  <string name="textIsTooLong">Tekst jest za długi.</string>
   <string name="required">Wymagane.</string>
   <string name="openTournaments">Turnieje otwarte</string>
   <string name="duration">Czas trwania</string>

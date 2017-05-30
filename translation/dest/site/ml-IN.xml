@@ -61,14 +61,6 @@
     <item quantity="other">%s കളിക്കാർ</item>
   </plurals>
   <string name="currentGames">ഇപ്പോഴത്തെ കളികൾ</string>
-  <plurals name="nbGames">
-    <item quantity="one">%s കളികൾ</item>
-    <item quantity="other">%s കളികൾ</item>
-  </plurals>
-  <plurals name="nbBookmarks">
-    <item quantity="one">%s സൂചികകൾ</item>
-    <item quantity="other">%s സൂചികകൾ</item>
-  </plurals>
   <string name="viewInFullSize">പൂര്‍ണ രൂപത്തില്‍ കാണുക</string>
   <string name="logOut">സൈന്‍ ഔട്ട്‌</string>
   <string name="signIn">സൈന്‍ ഇന്‍</string>
@@ -89,14 +81,6 @@
   <string name="correspondence">കറസ്പോണ്ടന്‍സ്</string>
   <string name="daysPerTurn">ഓരോ നീക്കത്തിനും വേണ്ട ദിവസങ്ങള്‍</string>
   <string name="oneDay">ഒരു ദിവസം</string>
-  <plurals name="nbDays">
-    <item quantity="one">%s ദിവസങ്ങള്‍</item>
-    <item quantity="other">%s ദിവസങ്ങള്‍</item>
-  </plurals>
-  <plurals name="nbHours">
-    <item quantity="one">%s മണിക്കുറുകള്‍</item>
-    <item quantity="other">%s മണിക്കുറുകള്‍</item>
-  </plurals>
   <string name="time">സമയം</string>
   <string name="rating">നിലവാരം (റേറ്റിംഗ്)</string>
   <string name="ratingStats">നിലവാര സ്ഥിതിവിവരം</string>
@@ -112,10 +96,6 @@
   <string name="forgotPassword">പാസ്‌വേഡ് മറന്നുപോയോ?</string>
   <string name="rank">റാങ്ക്</string>
   <string name="gamesPlayed">മത്സരങ്ങള്‍ കളിച്ചു</string>
-  <plurals name="nbGamesWithYou">
-    <item quantity="one">നിങ്ങളോടോത്തു %s കളികൾ</item>
-    <item quantity="other">നിങ്ങളോടോത്തു %s കളികൾ</item>
-  </plurals>
   <string name="cancel">ഒഴിവാക്കുക</string>
   <string name="timeOut">സമയം കഴിഞ്ഞു</string>
   <string name="drawOfferSent">സമനിലാ വാഗ്ദാനം അയച്ചു</string>
@@ -158,18 +138,6 @@
   <string name="incrementInSeconds">സെക്കന്‍ഡുകളുടെ വര്‍ദ്ധന</string>
   <string name="freeOnlineChess">സൗജന്യ ഓണ്‍ലൈന്‍ ചെസ്സ്‌</string>
   <string name="spectators">വീക്ഷകര്‍</string>
-  <plurals name="nbWins">
-    <item quantity="one">ജയങ്ങൾ %s</item>
-    <item quantity="other">ജയങ്ങൾ %s</item>
-  </plurals>
-  <plurals name="nbLosses">
-    <item quantity="one">പരാജയങ്ങൾ %s</item>
-    <item quantity="other">പരാജയങ്ങൾ %s</item>
-  </plurals>
-  <plurals name="nbDraws">
-    <item quantity="one">സമനിലകൾ %s</item>
-    <item quantity="other">സമനിലകൾ %s</item>
-  </plurals>
   <string name="exportGames">മത്സരങ്ങള്‍ ഡൗന്‍ലോഡ് ചെയ്യുക</string>
   <string name="ratingRange">റേറ്റിംഗ് പരിധി</string>
   <plurals name="giveNbSeconds">
@@ -197,10 +165,6 @@
   <string name="backToGame">മത്സരത്തിലേക്ക് തിരികെ പോവുക</string>
   <string name="siteDescription">സൗജന്യ ഓണ്‍ലൈന്‍ ചെസ്സ്‌ സെര്‍വര്‍. ഇപ്പോള്‍ മികച്ച രീതിയില്‍ ചെസ്സ്‌ കളിക്കാം. രജിസ്റ്റര്‍ ചെയ്യണ്ട, പരസ്യങ്ങള്‍ ഇല്ല, പ്ലഗിനുകള്‍ വേണ്ട. കമ്പ്യൂട്ടറുമായോ സുഹൃത്തുക്കളുമായോ പുതിയ എതിരാളികളുമായോ ചെസ്സ്‌ കളിക്കാം.</string>
   <string name="teams">ടീമുകള്‍</string>
-  <plurals name="nbMembers">
-    <item quantity="one">അംഗങ്ങള്‍ %s</item>
-    <item quantity="other">അംഗങ്ങള്‍ %s</item>
-  </plurals>
   <string name="allTeams">എല്ലാ ടീമുകളും</string>
   <string name="newTeam">പുതിയ ടീം</string>
   <string name="myTeams">എന്‍റെ ടീമുകള്‍</string>
@@ -227,10 +191,6 @@
   <string name="fromPosition">സ്ഥാനത്തു നിന്ന്</string>
   <string name="continueFromHere">ഇവിടെ മുതല്‍ പുനരാരംഭിക്കുക</string>
   <string name="importGame">മത്സരം അപ്പ്‌ലോഡ് ചെയ്യുക</string>
-  <plurals name="nbImportedGames">
-    <item quantity="one">ഇറക്കിയ കളികൾ %s</item>
-    <item quantity="other">ഇറക്കിയ കളികൾ %s</item>
-  </plurals>
   <string name="thisIsAChessCaptcha">ഇതാണ് ചതുരംഗ ക്യാപ്ച്യ</string>
   <string name="clickOnTheBoardToMakeYourMove">നിങ്ങളുടെ നീക്കം ചതുരംഗ പലകയിൽ ക്ലിക്ക് ചെയ്ത് മനുഷ്യൻ ആണെന്നു തെളിയിക്കൂ.</string>
   <string name="notACheckmate">അതൊരു അടിയറവ് അല്ല</string>
@@ -248,10 +208,6 @@
   <string name="unblock">തടയുന്നത് നിര്‍ത്തുക</string>
   <string name="followsYou">നിങ്ങളെ പിന്തുടരുന്നു</string>
   <string name="xStartedFollowingY">%1$s പിന്തുടരാൻ %2$s തുടങ്ങി</string>
-  <plurals name="nbFollowers">
-    <item quantity="one">പിന്തുടർച്ചക്കാർ %s</item>
-    <item quantity="other">പിന്തുടർച്ചക്കാർ %s</item>
-  </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s പേർ പിന്തുടരുന്നു</item>
     <item quantity="other">%s പേർ പിന്തുടരുന്നു</item>
@@ -267,8 +223,6 @@
     <item quantity="one">%s നിമിഷങ്ങൾക്ക് ഉള്ളിൽ</item>
     <item quantity="other">%s നിമിഷങ്ങൾക്ക് ഉള്ളിൽ</item>
   </plurals>
-  <string name="textIsTooShort">വാചകം വളരെ ചെറുതാണ്.</string>
-  <string name="textIsTooLong">വാചകം വളരെ വലുതാണ്.</string>
   <string name="required">നിർബന്ധമാണ്.</string>
   <string name="openTournaments">തുറന്ന മൽസര പരമ്പരകൾ</string>
   <string name="duration">ദൈര്‍ഘ്യം</string>
@@ -324,10 +278,6 @@
   <string name="pleaseVotePuzzle">Lichess മികവുറ്റതാക്കാൻ അപ്പ് അല്ലെങ്കിൽ ഡൗൺ ആരോ ഉപയോഗിച്ച് വോട്ട് ചെയ്തു സഹായിക്കൂ:</string>
   <string name="thankYou">നന്ദി!</string>
   <string name="ratingX">നിലവാരം: %s</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">കളിച്ചത്‌ %s തവണകൾ</item>
-    <item quantity="other">കളിച്ചത്‌ %s തവണകൾ</item>
-  </plurals>
   <string name="fromGameLink">%s കളിയിൽ നിന്ന്</string>
   <string name="startTraining">പരിശീലനം തുടങ്ങാം</string>
   <string name="continueTraining">പരിശീലനം തുടരാം</string>
@@ -337,10 +287,6 @@
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">നിങ്ങളുടെ ആദ്യ നീക്കം നടത്താൻ നിങ്ങൾക്ക് %s സെക്കന്റുകൾ ഉണ്ട്!</item>
     <item quantity="other">നിങ്ങളുടെ ആദ്യ നീക്കം നടത്താൻ നിങ്ങൾക്ക് %s സെക്കന്റുകൾ ഉണ്ട്!</item>
-  </plurals>
-  <plurals name="nbGamesInPlay">
-    <item quantity="one">%s കളികൾ പുരോഗമിക്കുന്നു</item>
-    <item quantity="other">%s കളികൾ പുരോഗമിക്കുന്നു</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">നീക്കത്തിന് ശേഷം അടുത്ത കളിയിലേക്ക് താനെ തുടരാം</string>
   <string name="autoSwitch">ഓട്ടോ സ്വിച്ച്</string>
@@ -475,10 +421,6 @@
   <string name="whiteCastlingQueenside">വെള്ള O-O-O</string>
   <string name="blackCastlingKingside">കറുപ്പ് O-O</string>
   <string name="blackCastlingQueenside">കറുപ്പ് O-O-O</string>
-  <plurals name="nbForumPosts">
-    <item quantity="one">ഫോറം കുറിപ്പുകൾ %s</item>
-    <item quantity="other">ഫോറം കുറിപ്പുകൾ %s</item>
-  </plurals>
   <string name="tpTimeSpentPlaying">ചെലവിട്ട സമയം: %s</string>
   <string name="watchGames">കളികൾ കാണാം</string>
   <string name="tpTimeSpentOnTV">ടീവിയിൽ സമയം: %s</string>

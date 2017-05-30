@@ -61,14 +61,6 @@
     <item quantity="other">%s jugadors</item>
   </plurals>
   <string name="currentGames">Partides en joc</string>
-  <plurals name="nbGames">
-    <item quantity="one">%s Partides</item>
-    <item quantity="other">%s Partides</item>
-  </plurals>
-  <plurals name="nbBookmarks">
-    <item quantity="one">%s Marcadors</item>
-    <item quantity="other">%s Marcadors</item>
-  </plurals>
   <string name="viewInFullSize">Veure a mida completa</string>
   <string name="logOut">Tanca la sessió</string>
   <string name="signIn">Inicia la sessió</string>
@@ -89,14 +81,6 @@
   <string name="correspondence">Correspondència</string>
   <string name="daysPerTurn">Dies per torn</string>
   <string name="oneDay">Un dia</string>
-  <plurals name="nbDays">
-    <item quantity="one">%s dies</item>
-    <item quantity="other">%s dies</item>
-  </plurals>
-  <plurals name="nbHours">
-    <item quantity="one">%s hores</item>
-    <item quantity="other">%s hores</item>
-  </plurals>
   <string name="time">Temps</string>
   <string name="rating">Puntuació</string>
   <string name="ratingStats">Estadístiques de classificació</string>
@@ -112,10 +96,6 @@
   <string name="forgotPassword">Has oblidat la contrasenya?</string>
   <string name="rank">Classificació</string>
   <string name="gamesPlayed">Partides jugades</string>
-  <plurals name="nbGamesWithYou">
-    <item quantity="one">%s partides amb tu</item>
-    <item quantity="other">%s partides amb tu</item>
-  </plurals>
   <string name="cancel">Cancel·la</string>
   <string name="timeOut">Temps exhaurit</string>
   <string name="drawOfferSent">S\'ha enviat l\'oferta de taules</string>
@@ -158,18 +138,6 @@
   <string name="incrementInSeconds">Increment en segons</string>
   <string name="freeOnlineChess">Escacs en línia gratis</string>
   <string name="spectators">Espectadors</string>
-  <plurals name="nbWins">
-    <item quantity="one">%s victòries</item>
-    <item quantity="other">%s victòries</item>
-  </plurals>
-  <plurals name="nbLosses">
-    <item quantity="one">%s derrotes</item>
-    <item quantity="other">%s derrotes</item>
-  </plurals>
-  <plurals name="nbDraws">
-    <item quantity="one">%s taules</item>
-    <item quantity="other">%s taules</item>
-  </plurals>
   <string name="exportGames">Exporta les partides</string>
   <string name="ratingRange">Rang de puntuació</string>
   <plurals name="giveNbSeconds">
@@ -197,10 +165,6 @@
   <string name="backToGame">Torna a la partida</string>
   <string name="siteDescription">Servidor d\'escacs gratuït online. Juga ara a escacs amb una interfície neta i elegant. No cal registrar-s\'hi, sense anuncis, no calen connectors. Juga a escacs amb l\'ordinador, amics o oponents a l\'atzar.</string>
   <string name="teams">Equips</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s membres</item>
-    <item quantity="other">%s membres</item>
-  </plurals>
   <string name="allTeams">Tots els equips</string>
   <string name="newTeam">Nou equip</string>
   <string name="myTeams">Els meus equips</string>
@@ -227,10 +191,6 @@
   <string name="fromPosition">Des de la posició</string>
   <string name="continueFromHere">Continua des d\'aquí</string>
   <string name="importGame">Importa una partida</string>
-  <plurals name="nbImportedGames">
-    <item quantity="one">%s partides importades</item>
-    <item quantity="other">%s partides importades</item>
-  </plurals>
   <string name="thisIsAChessCaptcha">Això és un CAPTCHA d\'escacs.</string>
   <string name="clickOnTheBoardToMakeYourMove">Clica al tauler per fer el teu moviment i demostrar que ets una persona.</string>
   <string name="notACheckmate">No és escac i mat</string>
@@ -248,10 +208,6 @@
   <string name="unblock">Desbloqueja</string>
   <string name="followsYou">T\'està seguint</string>
   <string name="xStartedFollowingY">%1$s ha començat a seguir %2$s</string>
-  <plurals name="nbFollowers">
-    <item quantity="one">%s seguidors</item>
-    <item quantity="other">%s seguidors</item>
-  </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">Seguint %s jugadors</item>
     <item quantity="other">Seguint %s jugadors</item>
@@ -267,8 +223,6 @@
     <item quantity="one">Menys de %s minuts</item>
     <item quantity="other">Menys de %s minuts</item>
   </plurals>
-  <string name="textIsTooShort">El text és massa curt.</string>
-  <string name="textIsTooLong">El text és massa llarg.</string>
   <string name="required">Necessari.</string>
   <string name="openTournaments">Tornejos oberts</string>
   <string name="duration">Durada</string>
@@ -324,10 +278,6 @@
   <string name="pleaseVotePuzzle">Ajudeu lichess a millorar mitjançant el vostre vot amb les fletxes amunt o avall:</string>
   <string name="thankYou">Gràcies!</string>
   <string name="ratingX">Puntuació: %s</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">Intentat %s vegades</item>
-    <item quantity="other">Intentat %s vegades</item>
-  </plurals>
   <string name="fromGameLink">De la partida %s</string>
   <string name="startTraining">Comença l\'entrenament</string>
   <string name="continueTraining">Continua l\'entrenament</string>
@@ -337,10 +287,6 @@
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">Disposes de %s segons per realitzar el teu primer moviment!</item>
     <item quantity="other">Disposes de %s segons per realitzar el teu primer moviment!</item>
-  </plurals>
-  <plurals name="nbGamesInPlay">
-    <item quantity="one">%s partides en joc</item>
-    <item quantity="other">%s partides en joc</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Anar automàticament a la següent partida després de cada moviment</string>
   <string name="autoSwitch">Canvi automàtic</string>
@@ -480,10 +426,6 @@
   <string name="whiteCastlingQueenside">Blanques O-O-O</string>
   <string name="blackCastlingKingside">Negres O-O</string>
   <string name="blackCastlingQueenside">Negres O-O-O</string>
-  <plurals name="nbForumPosts">
-    <item quantity="one">%s Missatges al Fòrum</item>
-    <item quantity="other">%s Missatges al Fòrum</item>
-  </plurals>
   <string name="tpTimeSpentPlaying">Temps passat jugant: %s</string>
   <string name="watchGames">Visualitza\'n les partides</string>
   <string name="tpTimeSpentOnTV">Temps pasat a la TV: %s</string>

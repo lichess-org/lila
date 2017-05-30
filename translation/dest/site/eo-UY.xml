@@ -61,14 +61,6 @@
     <item quantity="other">%s konektitaj ludantoj</item>
   </plurals>
   <string name="currentGames">Ludataj ludoj</string>
-  <plurals name="nbGames">
-    <item quantity="one">%s Ludoj</item>
-    <item quantity="other">%s Ludoj</item>
-  </plurals>
-  <plurals name="nbBookmarks">
-    <item quantity="one">%s Paĝmarkoj</item>
-    <item quantity="other">%s Paĝmarkoj</item>
-  </plurals>
   <string name="viewInFullSize">Vidi plengrande</string>
   <string name="logOut">Elsaluti</string>
   <string name="signIn">Ensaluti</string>
@@ -89,14 +81,6 @@
   <string name="correspondence">Korespondo</string>
   <string name="daysPerTurn">Tagoj pomovaj</string>
   <string name="oneDay">Unu tago</string>
-  <plurals name="nbDays">
-    <item quantity="one">%s tagoj</item>
-    <item quantity="other">%s tagoj</item>
-  </plurals>
-  <plurals name="nbHours">
-    <item quantity="one">%s horoj</item>
-    <item quantity="other">%s horoj</item>
-  </plurals>
   <string name="time">Tempo</string>
   <string name="rating">Taksado</string>
   <string name="ratingStats">Taksaj statistikoj</string>
@@ -112,10 +96,6 @@
   <string name="forgotPassword">Ĉu vi forgesis la pasvorton?</string>
   <string name="rank">Rango</string>
   <string name="gamesPlayed">Luditaj ludoj</string>
-  <plurals name="nbGamesWithYou">
-    <item quantity="one">%s ludoj kun vi</item>
-    <item quantity="other">%s ludoj kun vi</item>
-  </plurals>
   <string name="cancel">Nuligi</string>
   <string name="timeOut">Tempo finiĝis</string>
   <string name="drawOfferSent">Egalvenka oferto estis sendita</string>
@@ -158,18 +138,6 @@
   <string name="incrementInSeconds">Pliigo en sekundoj</string>
   <string name="freeOnlineChess">Senpaga Interreta Ŝako</string>
   <string name="spectators">Spektantoj:</string>
-  <plurals name="nbWins">
-    <item quantity="one">%s venkoj</item>
-    <item quantity="other">%s venkoj</item>
-  </plurals>
-  <plurals name="nbLosses">
-    <item quantity="one">%s malvenkoj</item>
-    <item quantity="other">%s malvenkoj</item>
-  </plurals>
-  <plurals name="nbDraws">
-    <item quantity="one">%s egalvenkoj</item>
-    <item quantity="other">%s egalvenkoj</item>
-  </plurals>
   <string name="exportGames">Eksporti ludojn</string>
   <string name="ratingRange">Poenta taksado</string>
   <plurals name="giveNbSeconds">
@@ -197,10 +165,6 @@
   <string name="backToGame">Reiri al la ludo</string>
   <string name="siteDescription">Senpaga interreta ŝakludo. Ludu ŝakon nun per simpla interfaco. Sen registriĝo, sen reklamoj, sen neceso por aldonaĵo. Ludu ŝakon kun la komputilo, amikoj aŭ hazardaj kontraŭuloj.</string>
   <string name="teams">Teamoj</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s teamanoj</item>
-    <item quantity="other">%s teamanoj</item>
-  </plurals>
   <string name="allTeams">Ĉiuj teamoj</string>
   <string name="newTeam">Nova teamo</string>
   <string name="myTeams">Miaj teamoj</string>
@@ -227,10 +191,6 @@
   <string name="fromPosition">De pozicio</string>
   <string name="continueFromHere">Daŭrigi de ĉi tie</string>
   <string name="importGame">Importi ludon</string>
-  <plurals name="nbImportedGames">
-    <item quantity="one">%s Importitaj ludoj</item>
-    <item quantity="other">%s Importitaj ludoj</item>
-  </plurals>
   <string name="thisIsAChessCaptcha">Jen ŝaka CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Alklaku la ŝaktabulon por fari movon kaj pruvi, ke vi estas homa.</string>
   <string name="notACheckmate">Ne ŝakmato</string>
@@ -248,10 +208,6 @@
   <string name="unblock">Malbloki</string>
   <string name="followsYou">Sekvas vin</string>
   <string name="xStartedFollowingY">%1$s eksekvis %2$s</string>
-  <plurals name="nbFollowers">
-    <item quantity="one">%s sekvantoj</item>
-    <item quantity="other">%s sekvantoj</item>
-  </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s sekvatoj</item>
     <item quantity="other">%s sekvatoj</item>
@@ -267,8 +223,6 @@
     <item quantity="one">Malpli ol %s minutoj</item>
     <item quantity="other">Malpli ol %s minutoj</item>
   </plurals>
-  <string name="textIsTooShort">Teksto estas tro mallonga.</string>
-  <string name="textIsTooLong">Teksto estas tro longa.</string>
   <string name="required">Necesa.</string>
   <string name="openTournaments">Enireblaj turniroj</string>
   <string name="duration">Daŭro</string>
@@ -324,10 +278,6 @@
   <string name="pleaseVotePuzzle">Helpu al Lichess pliboniĝi per voĉdoni, uzante la supren- aŭ suben-sagbutonojn:</string>
   <string name="thankYou">Dankon!</string>
   <string name="ratingX">Taksado: %s</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">Ludita %s-foje</item>
-    <item quantity="other">Ludita %s-foje</item>
-  </plurals>
   <string name="fromGameLink">El ludo %s</string>
   <string name="startTraining">Komenci trejnadon</string>
   <string name="continueTraining">Daŭrigi trejnadon</string>
@@ -337,10 +287,6 @@
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">Vi havas %s sekundojn por fari vian unuan movon!</item>
     <item quantity="other">Vi havas %s sekundojn por fari vian unuan movon!</item>
-  </plurals>
-  <plurals name="nbGamesInPlay">
-    <item quantity="one">%s aktivaj ludoj</item>
-    <item quantity="other">%s aktivaj ludoj</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Aŭtomate iri al la sekvanta ludo post movi</string>
   <string name="autoSwitch">Aŭtomata ludŝanĝado</string>
@@ -480,10 +426,6 @@
   <string name="whiteCastlingQueenside">Blanko O-O-O</string>
   <string name="blackCastlingKingside">Nigro O-O</string>
   <string name="blackCastlingQueenside">Nigro O-O-O</string>
-  <plurals name="nbForumPosts">
-    <item quantity="one">%s Forumaj Afiŝoj</item>
-    <item quantity="other">%s Forumaj Afiŝoj</item>
-  </plurals>
   <string name="tpTimeSpentPlaying">Tempo pasinta dum ludado: %s</string>
   <string name="watchGames">Spekti ludojn</string>
   <string name="tpTimeSpentOnTV">Tempo pasinta ĉe TV: %s</string>

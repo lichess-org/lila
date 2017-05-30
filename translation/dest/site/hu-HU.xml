@@ -61,14 +61,6 @@
     <item quantity="other">%s csatlakozott játékos</item>
   </plurals>
   <string name="currentGames">Éppen zajló játékok</string>
-  <plurals name="nbGames">
-    <item quantity="one">%s Játék</item>
-    <item quantity="other">%s Játék</item>
-  </plurals>
-  <plurals name="nbBookmarks">
-    <item quantity="one">%s Megjelölés</item>
-    <item quantity="other">%s Megjelölés</item>
-  </plurals>
   <string name="viewInFullSize">Teljes méret</string>
   <string name="logOut">Kijelentkezés</string>
   <string name="signIn">Bejelentkezés</string>
@@ -89,14 +81,6 @@
   <string name="correspondence">Levelezés</string>
   <string name="daysPerTurn">Lépésenkénti napok száma</string>
   <string name="oneDay">Egy nap</string>
-  <plurals name="nbDays">
-    <item quantity="one">%s nap</item>
-    <item quantity="other">%s nap</item>
-  </plurals>
-  <plurals name="nbHours">
-    <item quantity="one">%s óra</item>
-    <item quantity="other">%s óra</item>
-  </plurals>
   <string name="time">Idő</string>
   <string name="rating">Pontszám</string>
   <string name="ratingStats">Pontszám statisztikák</string>
@@ -112,10 +96,6 @@
   <string name="forgotPassword">Elfelejtette a jelszavát?</string>
   <string name="rank">Rang</string>
   <string name="gamesPlayed">Lejátszott játékok</string>
-  <plurals name="nbGamesWithYou">
-    <item quantity="one">%s játék veled</item>
-    <item quantity="other">%s játék veled</item>
-  </plurals>
   <string name="cancel">Mégse</string>
   <string name="timeOut">Lejárt az idő</string>
   <string name="drawOfferSent">Döntetlen felajánlás elküldve</string>
@@ -158,18 +138,6 @@
   <string name="incrementInSeconds">Másodpercnövekmény</string>
   <string name="freeOnlineChess">Ingyenes Online Sakk</string>
   <string name="spectators">Nézők</string>
-  <plurals name="nbWins">
-    <item quantity="one">%s győzelem</item>
-    <item quantity="other">%s győzelem</item>
-  </plurals>
-  <plurals name="nbLosses">
-    <item quantity="one">%s vereség</item>
-    <item quantity="other">%s vereség</item>
-  </plurals>
-  <plurals name="nbDraws">
-    <item quantity="one">%s döntetlen</item>
-    <item quantity="other">%s döntetlen</item>
-  </plurals>
   <string name="exportGames">Játékok exportálása</string>
   <string name="ratingRange">Pontszámtartomány</string>
   <plurals name="giveNbSeconds">
@@ -197,10 +165,6 @@
   <string name="backToGame">Vissza a játékhoz</string>
   <string name="siteDescription">Ingyenes online sakk játék. Játssz sakkot letisztult kezelőfelületen. Nem szükséges regisztráció vagy pluginok, és hirdetéseket sem kell nézned. Játssz sakkot a számítógéppel, barátokkal vagy véletlenszerű ellenfelekkel.</string>
   <string name="teams">Csapatok</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s tagok</item>
-    <item quantity="other">%s tagok</item>
-  </plurals>
   <string name="allTeams">Összes csapat</string>
   <string name="newTeam">Új csapat</string>
   <string name="myTeams">Csapataim</string>
@@ -227,10 +191,6 @@
   <string name="fromPosition">Adott állásból</string>
   <string name="continueFromHere">Folytatás innen</string>
   <string name="importGame">Játszma importálása</string>
-  <plurals name="nbImportedGames">
-    <item quantity="one">%s Importált játszmák</item>
-    <item quantity="other">%s Importált játszmák</item>
-  </plurals>
   <string name="thisIsAChessCaptcha">Ez egy ellenőrző sakkfeladvány (CAPTCHA)</string>
   <string name="clickOnTheBoardToMakeYourMove">A táblán való lépéssel bizonyítod, hogy ember vagy.</string>
   <string name="notACheckmate">Ez nem matt</string>
@@ -248,10 +208,6 @@
   <string name="unblock">Letiltás feloldása</string>
   <string name="followsYou">Követ téged</string>
   <string name="xStartedFollowingY">%1$s követni kezdte a következő játékost:  %2$s</string>
-  <plurals name="nbFollowers">
-    <item quantity="one">%s követő</item>
-    <item quantity="other">%s követő</item>
-  </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s követett</item>
     <item quantity="other">%s követett</item>
@@ -267,8 +223,6 @@
     <item quantity="one">Kevesebb mint %s perc</item>
     <item quantity="other">Kevesebb mint %s perc</item>
   </plurals>
-  <string name="textIsTooShort">A szöveg túl rövid.</string>
-  <string name="textIsTooLong">A szöveg túl hosszú.</string>
   <string name="required">Szükséges.</string>
   <string name="openTournaments">Nyílt versenyek</string>
   <string name="duration">Időtartam</string>
@@ -324,10 +278,6 @@
   <string name="pleaseVotePuzzle">Segíts a Lichess fejlesztésében szavazatoddal, a fel és le nyilakat használva:</string>
   <string name="thankYou">Köszönjük!</string>
   <string name="ratingX">Értékelés: %s</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">%s alkalommal játszott</item>
-    <item quantity="other">%s alkalommal játszott</item>
-  </plurals>
   <string name="fromGameLink">%s játékból</string>
   <string name="startTraining">Gyakorlás kezdése</string>
   <string name="continueTraining">Gyakorlás folytatása</string>
@@ -337,10 +287,6 @@
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">%s másodperced van, hogy megtedd az első lépést!</item>
     <item quantity="other">%s másodperced van, hogy megtedd az első lépést!</item>
-  </plurals>
-  <plurals name="nbGamesInPlay">
-    <item quantity="one">%s meccs zajlik épp</item>
-    <item quantity="other">%s meccs zajlik épp</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Lépés után automatikus ugrás a következő játékra</string>
   <string name="autoSwitch">Automatikus váltás</string>
@@ -480,10 +426,6 @@
   <string name="whiteCastlingQueenside">Világos hosszúra sáncolhat</string>
   <string name="blackCastlingKingside">Sötét rövidre sáncolhat</string>
   <string name="blackCastlingQueenside">Sötét hosszúra sáncolhat</string>
-  <plurals name="nbForumPosts">
-    <item quantity="one">%s Fórumbejegyzés</item>
-    <item quantity="other">%s Fórumbejegyzés</item>
-  </plurals>
   <string name="tpTimeSpentPlaying">Játékkal eltöltött idő: %s</string>
   <string name="watchGames">Játszmák megtekintése</string>
   <string name="tpTimeSpentOnTV">TV-n eltöltött idő: %s</string>

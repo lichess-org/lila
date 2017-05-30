@@ -60,12 +60,6 @@
     <item quantity="other">%s jocatores</item>
   </plurals>
   <string name="currentGames">Partitas currente</string>
-  <plurals name="nbGames">
-    <item quantity="other">%s Jocos</item>
-  </plurals>
-  <plurals name="nbBookmarks">
-    <item quantity="other">%s Favorites</item>
-  </plurals>
   <string name="viewInFullSize">Vider in plen dimension</string>
   <string name="logOut">Clauder session</string>
   <string name="signIn">Aperir session</string>
@@ -86,12 +80,6 @@
   <string name="correspondence">Correspondentia</string>
   <string name="daysPerTurn">Dies per torno</string>
   <string name="oneDay">Un die</string>
-  <plurals name="nbDays">
-    <item quantity="other">%s dies</item>
-  </plurals>
-  <plurals name="nbHours">
-    <item quantity="other">%s horas</item>
-  </plurals>
   <string name="time">Tempore</string>
   <string name="rating">Classification</string>
   <string name="ratingStats">Statisticas de classification</string>
@@ -107,9 +95,6 @@
   <string name="forgotPassword">Io ha oblidate mi contrasigno.</string>
   <string name="rank">Classification</string>
   <string name="gamesPlayed">Partitas jocate</string>
-  <plurals name="nbGamesWithYou">
-    <item quantity="other">%s partitas con te</item>
-  </plurals>
   <string name="cancel">Cancellar</string>
   <string name="timeOut">Tempore finite</string>
   <string name="drawOfferSent">Offerta de partita nulle inviate</string>
@@ -152,15 +137,6 @@
   <string name="incrementInSeconds">Incremento in secundas</string>
   <string name="freeOnlineChess">Chacos in linea gratis</string>
   <string name="spectators">Spectatores:</string>
-  <plurals name="nbWins">
-    <item quantity="other">%s victorias</item>
-  </plurals>
-  <plurals name="nbLosses">
-    <item quantity="other">%s perditas</item>
-  </plurals>
-  <plurals name="nbDraws">
-    <item quantity="other">%s partitas nulle</item>
-  </plurals>
   <string name="exportGames">Exportar partitas</string>
   <string name="ratingRange">Intervallo de classificationes</string>
   <plurals name="giveNbSeconds">
@@ -187,9 +163,6 @@
   <string name="backToGame">Retro al partite</string>
   <string name="siteDescription">Servitor de chacos gratis in linea. Joca al chacos ora in un interfacie simple. Nulle registration, nulle annuncios, nulle plugin requirite. Joca al chacos con le computator, con amicos o con adversarios aleatori.</string>
   <string name="teams">Equipas</string>
-  <plurals name="nbMembers">
-    <item quantity="other">%s membros</item>
-  </plurals>
   <string name="allTeams">Tote le equipas</string>
   <string name="newTeam">Nove equipa</string>
   <string name="myTeams">Mi equipas</string>
@@ -216,9 +189,6 @@
   <string name="fromPosition">Ab position</string>
   <string name="continueFromHere">Continuar ab hic</string>
   <string name="importGame">Importar partita</string>
-  <plurals name="nbImportedGames">
-    <item quantity="other">%s partitas importate</item>
-  </plurals>
   <string name="thisIsAChessCaptcha">Isto es un CAPTCHA de chacos.</string>
   <string name="clickOnTheBoardToMakeYourMove">Clicca sur le tabuliero pro facer tu movimento e probar que tu es human.</string>
   <string name="notACheckmate">Non es chaco mat</string>
@@ -236,9 +206,6 @@
   <string name="unblock">Disblocar</string>
   <string name="followsYou">Te seque</string>
   <string name="xStartedFollowingY">%1$s comenciava a sequer %2$s</string>
-  <plurals name="nbFollowers">
-    <item quantity="other">%s sequitores</item>
-  </plurals>
   <plurals name="nbFollowing">
     <item quantity="other">seque %s</item>
   </plurals>
@@ -252,8 +219,6 @@
   <plurals name="lessThanNbMinutes">
     <item quantity="other">Minus de %s minutas</item>
   </plurals>
-  <string name="textIsTooShort">Texto es troppo curte.</string>
-  <string name="textIsTooLong">Texto es troppo longe.</string>
   <string name="required">Requirite.</string>
   <string name="openTournaments">Torneos aperte</string>
   <string name="duration">Duration</string>
@@ -309,9 +274,6 @@
   <string name="pleaseVotePuzzle">Adjuta Lichess a meliorar per tu voto, usante le sagitta a alto o a basso:</string>
   <string name="thankYou">Gratias!</string>
   <string name="ratingX">Classification: %s</string>
-  <plurals name="playedXTimes">
-    <item quantity="other">Jocate %s vices</item>
-  </plurals>
   <string name="fromGameLink">Ab joco %s</string>
   <string name="startTraining">Comenciar a exercitar</string>
   <string name="continueTraining">Continuar a exercitar</string>
@@ -320,9 +282,6 @@
   <string name="thisPuzzleIsWrong">Iste enigma es incorrecte o enoiose</string>
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="other">Tu ha %s secundas pro facer tu prime movimento!</item>
-  </plurals>
-  <plurals name="nbGamesInPlay">
-    <item quantity="other">%s partitas in curso</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Automaticamente proceder al joco sequente post le movimento</string>
   <string name="autoSwitch">Cambio automatic</string>
@@ -460,9 +419,6 @@
   <string name="whiteCastlingQueenside">Roc longe del Blanc</string>
   <string name="blackCastlingKingside">Roc curte del Nigre</string>
   <string name="blackCastlingQueenside">Roc longe del Nigre</string>
-  <plurals name="nbForumPosts">
-    <item quantity="other">%s Messages in le Foro</item>
-  </plurals>
   <string name="tpTimeSpentPlaying">Tempore jocante: %s</string>
   <string name="watchGames">Spectar jocos</string>
   <string name="tpTimeSpentOnTV">Tempore spectante Lichess TV: %s</string>

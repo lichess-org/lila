@@ -207,8 +207,6 @@
   <string name="player">Гравець</string>
   <string name="list">Список</string>
   <string name="graph">Графік</string>
-  <string name="textIsTooShort">Текст закороткий.</string>
-  <string name="textIsTooLong">Текст задовгий.</string>
   <string name="required">Обов\'язково.</string>
   <string name="openTournaments">Відкриті турніри</string>
   <string name="duration">Тривалість</string>

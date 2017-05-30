@@ -207,8 +207,6 @@
   <string name="player">Играч</string>
   <string name="list">Списак</string>
   <string name="graph">Графикон</string>
-  <string name="textIsTooShort">Текст је сувише кратак.</string>
-  <string name="textIsTooLong">Текст је предугачак.</string>
   <string name="required">Обавезно.</string>
   <string name="openTournaments">Отворени турнири</string>
   <string name="duration">Трајање</string>

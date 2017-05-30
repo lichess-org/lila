@@ -60,12 +60,6 @@
     <item quantity="other">在线棋手%s位</item>
   </plurals>
   <string name="currentGames">当前对局</string>
-  <plurals name="nbGames">
-    <item quantity="other">查看所有%s盘棋</item>
-  </plurals>
-  <plurals name="nbBookmarks">
-    <item quantity="other">%s个收藏</item>
-  </plurals>
   <string name="viewInFullSize">完整尺寸</string>
   <string name="logOut">登出</string>
   <string name="signIn">登录</string>
@@ -86,12 +80,6 @@
   <string name="correspondence">长期</string>
   <string name="daysPerTurn">每步需用天数</string>
   <string name="oneDay">一天</string>
-  <plurals name="nbDays">
-    <item quantity="other">%s天</item>
-  </plurals>
-  <plurals name="nbHours">
-    <item quantity="other">%s小时</item>
-  </plurals>
   <string name="time">时间</string>
   <string name="rating">评级</string>
   <string name="ratingStats">评分数据</string>
@@ -107,9 +95,6 @@
   <string name="forgotPassword">忘记密码？</string>
   <string name="rank">排名</string>
   <string name="gamesPlayed">盘棋已结束</string>
-  <plurals name="nbGamesWithYou">
-    <item quantity="other">与你下过%s盘棋</item>
-  </plurals>
   <string name="cancel">取消</string>
   <string name="timeOut">时间到</string>
   <string name="drawOfferSent">和棋请求已发送</string>
@@ -152,15 +137,6 @@
   <string name="incrementInSeconds">增加秒数</string>
   <string name="freeOnlineChess">免费在线国际象棋</string>
   <string name="spectators">旁观者：</string>
-  <plurals name="nbWins">
-    <item quantity="other">%s胜</item>
-  </plurals>
-  <plurals name="nbLosses">
-    <item quantity="other">%s负</item>
-  </plurals>
-  <plurals name="nbDraws">
-    <item quantity="other">%s和</item>
-  </plurals>
   <string name="exportGames">导出游戏</string>
   <string name="ratingRange">级别范围</string>
   <plurals name="giveNbSeconds">
@@ -187,9 +163,6 @@
   <string name="backToGame">返回游戏</string>
   <string name="siteDescription">界面清新的免费在线国际象棋平台。不用注册，没有广告，无需插件。快来与电脑、朋友和陌生人一起对战吧！</string>
   <string name="teams">团队</string>
-  <plurals name="nbMembers">
-    <item quantity="other">%s位成员</item>
-  </plurals>
   <string name="allTeams">所有团队</string>
   <string name="newTeam">组建团队</string>
   <string name="myTeams">我的团队</string>
@@ -216,9 +189,6 @@
   <string name="fromPosition">自定义局面</string>
   <string name="continueFromHere">从此处继续</string>
   <string name="importGame">导入棋局</string>
-  <plurals name="nbImportedGames">
-    <item quantity="other">已导入%s盘棋局</item>
-  </plurals>
   <string name="thisIsAChessCaptcha">这是一个国际象棋验证码。</string>
   <string name="clickOnTheBoardToMakeYourMove">点击棋盘走棋以证明你是人类。</string>
   <string name="notACheckmate">没有将死</string>
@@ -236,9 +206,6 @@
   <string name="unblock">移除黑名单</string>
   <string name="followsYou">关注你</string>
   <string name="xStartedFollowingY">%1$s开始关注%2$s</string>
-  <plurals name="nbFollowers">
-    <item quantity="other">%s个关注者</item>
-  </plurals>
   <plurals name="nbFollowing">
     <item quantity="other">关注%s人</item>
   </plurals>
@@ -252,8 +219,6 @@
   <plurals name="lessThanNbMinutes">
     <item quantity="other">小于%s分钟</item>
   </plurals>
-  <string name="textIsTooShort">字数过少。</string>
-  <string name="textIsTooLong">字数过多。</string>
   <string name="required">必填项目。</string>
   <string name="openTournaments">公开赛</string>
   <string name="duration">持续时间</string>
@@ -309,9 +274,6 @@
   <string name="pleaseVotePuzzle">按上箭头键或下箭头键投票，帮助Lichess改进：</string>
   <string name="thankYou">谢谢！</string>
   <string name="ratingX">评级：%s</string>
-  <plurals name="playedXTimes">
-    <item quantity="other">已被尝试%s次</item>
-  </plurals>
   <string name="fromGameLink">来自对局%s</string>
   <string name="startTraining">开始训练</string>
   <string name="continueTraining">继续训练</string>
@@ -320,9 +282,6 @@
   <string name="thisPuzzleIsWrong">本题错误无味</string>
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="other">你还剩%s秒来走第一步！</item>
-  </plurals>
-  <plurals name="nbGamesInPlay">
-    <item quantity="other">%s场对局正在进行中</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">移动棋子后自动进入下一盘棋</string>
   <string name="autoSwitch">自动更换</string>
@@ -460,9 +419,6 @@
   <string name="whiteCastlingQueenside">白方长易位</string>
   <string name="blackCastlingKingside">黑方短易位</string>
   <string name="blackCastlingQueenside">黑方长易位</string>
-  <plurals name="nbForumPosts">
-    <item quantity="other">%s个论坛帖子</item>
-  </plurals>
   <string name="tpTimeSpentPlaying">花在下棋上的时间：%s</string>
   <string name="watchGames">观看对局</string>
   <string name="tpTimeSpentOnTV">花在Lichess直播上的时间：%s</string>

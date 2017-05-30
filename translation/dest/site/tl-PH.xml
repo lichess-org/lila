@@ -42,10 +42,6 @@
     <item quantity="other">%s na Manlalaro</item>
   </plurals>
   <string name="currentGames">Mga laro ngayon</string>
-  <plurals name="nbGames">
-    <item quantity="one">%s na Laro</item>
-    <item quantity="other">%s na Laro</item>
-  </plurals>
   <string name="newToLichess">Bago ka ba sa Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Kailangan mo ng account para magawa ito</string>
   <string name="signUp">Magparehistro</string>
@@ -59,10 +55,6 @@
   <string name="forgotPassword">Nakalimutan mo ba ang iyong password?</string>
   <string name="rank">Ranko</string>
   <string name="gamesPlayed">Games Na Nalaro</string>
-  <plurals name="nbGamesWithYou">
-    <item quantity="one">%s  laro sa iyo</item>
-    <item quantity="other">%s  laro sa iyo</item>
-  </plurals>
   <string name="cancel">Ikansela</string>
   <string name="playingRightNow">Naglalaro ngayon</string>
   <string name="finished">Tapos na</string>
@@ -73,14 +65,6 @@
   <string name="noNewMessages">Walang bagong mensahe</string>
   <string name="send">Ipadala</string>
   <string name="spectators">Manonood</string>
-  <plurals name="nbWins">
-    <item quantity="one">%s Panalo</item>
-    <item quantity="other">%s Panalo</item>
-  </plurals>
-  <plurals name="nbLosses">
-    <item quantity="one">%s Talo</item>
-    <item quantity="other">%s Talo</item>
-  </plurals>
   <string name="search">Hanapin</string>
   <string name="newTeam">Bagong Team</string>
   <string name="myTeams">Ang mga Teams mo</string>

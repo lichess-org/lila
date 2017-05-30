@@ -207,8 +207,6 @@
   <string name="player">Hráč</string>
   <string name="list">Seznam</string>
   <string name="graph">Graf</string>
-  <string name="textIsTooShort">Text je příliš krátký.</string>
-  <string name="textIsTooLong">Text je příliš dlouhý</string>
   <string name="required">Vyžadováno.</string>
   <string name="openTournaments">Otevřené turnaje</string>
   <string name="duration">Trvání</string>

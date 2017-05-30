@@ -61,14 +61,6 @@
     <item quantity="other">%s tengdir spilarar</item>
   </plurals>
   <string name="currentGames">Leikir í gangi núna</string>
-  <plurals name="nbGames">
-    <item quantity="one">%s Leikir</item>
-    <item quantity="other">%s Leikir</item>
-  </plurals>
-  <plurals name="nbBookmarks">
-    <item quantity="one">%s Geymt</item>
-    <item quantity="other">%s Geymt</item>
-  </plurals>
   <string name="viewInFullSize">Skoða í fullri mynd</string>
   <string name="logOut">Skrá út</string>
   <string name="signIn">Skrá inn</string>
@@ -89,14 +81,6 @@
   <string name="correspondence">Bréfskák</string>
   <string name="daysPerTurn">Dagar á leik</string>
   <string name="oneDay">Einn dagur</string>
-  <plurals name="nbDays">
-    <item quantity="one">%s dagar</item>
-    <item quantity="other">%s dagar</item>
-  </plurals>
-  <plurals name="nbHours">
-    <item quantity="one">%s tímar</item>
-    <item quantity="other">%s tímar</item>
-  </plurals>
   <string name="time">Tími</string>
   <string name="rating">Skákstig</string>
   <string name="ratingStats">Tölfræði</string>
@@ -112,10 +96,6 @@
   <string name="forgotPassword">Gleymdirðu lykilorðinu?</string>
   <string name="rank">Staða</string>
   <string name="gamesPlayed">Leikir spilaðir</string>
-  <plurals name="nbGamesWithYou">
-    <item quantity="one">%s skákir með þér</item>
-    <item quantity="other">%s skákir með þér</item>
-  </plurals>
   <string name="cancel">Hætta við</string>
   <string name="timeOut">Leikhlé</string>
   <string name="drawOfferSent">boð um jafntefli sent</string>
@@ -158,18 +138,6 @@
   <string name="incrementInSeconds">Tímaaukning í sekúndum</string>
   <string name="freeOnlineChess">Ókeypis vefskák</string>
   <string name="spectators">Áhorfendur</string>
-  <plurals name="nbWins">
-    <item quantity="one">%s vinningar</item>
-    <item quantity="other">%s vinningar</item>
-  </plurals>
-  <plurals name="nbLosses">
-    <item quantity="one">%s töp</item>
-    <item quantity="other">%s töp</item>
-  </plurals>
-  <plurals name="nbDraws">
-    <item quantity="one">%s jafntefli</item>
-    <item quantity="other">%s jafntefli</item>
-  </plurals>
   <string name="exportGames">Flytja út leiki</string>
   <string name="ratingRange">Elo stig</string>
   <plurals name="giveNbSeconds">
@@ -197,10 +165,6 @@
   <string name="backToGame">Aftur í leik</string>
   <string name="siteDescription">Frí skák á netinu. Spilaðu skák í þægilegu umhverfi. Engin skráning, engar auglýsingar, engar viðbætur þarfar. Spilaðu skák á móti tölvu, vinum eða af handfahófi við aðra.</string>
   <string name="teams">Lið</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s meðlimir</item>
-    <item quantity="other">%s meðlimir</item>
-  </plurals>
   <string name="allTeams">Öll lið</string>
   <string name="newTeam">Nýtt lið</string>
   <string name="myTeams">Liðin mín</string>
@@ -227,10 +191,6 @@
   <string name="fromPosition">Frá staðsetningu</string>
   <string name="continueFromHere">Halda áfram héðan</string>
   <string name="importGame">Hlaða inn leik</string>
-  <plurals name="nbImportedGames">
-    <item quantity="one">%s innhlaðnir leikir</item>
-    <item quantity="other">%s innhlaðnir leikir</item>
-  </plurals>
   <string name="thisIsAChessCaptcha">Þetta er skák kódi.</string>
   <string name="clickOnTheBoardToMakeYourMove">Klikkaðu á borðið til að leika, og sannaðu að þú ert mannvera.</string>
   <string name="notACheckmate">Ekki mát</string>
@@ -248,10 +208,6 @@
   <string name="unblock">Afblokka</string>
   <string name="followsYou">Fylgir þig</string>
   <string name="xStartedFollowingY">%1$s byrjaði að fylgja %2$s</string>
-  <plurals name="nbFollowers">
-    <item quantity="one">%s fylgendur</item>
-    <item quantity="other">%s fylgendur</item>
-  </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s fylgendur</item>
     <item quantity="other">%s fylgendur</item>
@@ -267,8 +223,6 @@
     <item quantity="one">Minna en %s mínútur</item>
     <item quantity="other">Minna en %s mínútur</item>
   </plurals>
-  <string name="textIsTooShort">Texti er of stuttur.</string>
-  <string name="textIsTooLong">Texti er of langur.</string>
   <string name="required">Krafist.</string>
   <string name="openTournaments">Opin mót</string>
   <string name="duration">Lengd</string>
@@ -324,10 +278,6 @@
   <string name="pleaseVotePuzzle">Hjálpaðu lichess að bæta sig með því að kjósa, notaðu upp og niður örvarnar:</string>
   <string name="thankYou">Takk fyrir!</string>
   <string name="ratingX">Stig: %s</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">Teflt %s sinnum</item>
-    <item quantity="other">Teflt %s sinnum</item>
-  </plurals>
   <string name="fromGameLink">Úr leik %s</string>
   <string name="startTraining">Byrja að æfa</string>
   <string name="continueTraining">Halda áfram að æfa</string>
@@ -337,10 +287,6 @@
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">Þú hefur %s sekúndur til þess að leika fyrsta leik!</item>
     <item quantity="other">Þú hefur %s sekúndur til þess að leika fyrsta leik!</item>
-  </plurals>
-  <plurals name="nbGamesInPlay">
-    <item quantity="one">%s leikir í gangi</item>
-    <item quantity="other">%s leikir í gangi</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Skipta sjálfkrafa um skák eftir leik</string>
   <string name="autoSwitch">Skipta sjálfkrafa</string>
@@ -480,10 +426,6 @@
   <string name="whiteCastlingQueenside">Hvítur O-O-O</string>
   <string name="blackCastlingKingside">Svartur O-O</string>
   <string name="blackCastlingQueenside">Svartur O-O-O</string>
-  <plurals name="nbForumPosts">
-    <item quantity="one">%s póstar á spjallborði</item>
-    <item quantity="other">%s póstar á spjallborði</item>
-  </plurals>
   <string name="tpTimeSpentPlaying">Spilunartími: %s</string>
   <string name="watchGames">Horfa á leiki</string>
   <string name="tpTimeSpentOnTV">Tími á sjónvarpi: %s</string>

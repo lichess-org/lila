@@ -61,14 +61,6 @@
     <item quantity="other">%s giocatori collegati</item>
   </plurals>
   <string name="currentGames">Partite in corso</string>
-  <plurals name="nbGames">
-    <item quantity="one">%s Partite</item>
-    <item quantity="other">%s Partite</item>
-  </plurals>
-  <plurals name="nbBookmarks">
-    <item quantity="one">%s Preferiti</item>
-    <item quantity="other">%s Preferiti</item>
-  </plurals>
   <string name="viewInFullSize">Visualizza a schermo intero</string>
   <string name="logOut">Esci</string>
   <string name="signIn">Entra</string>
@@ -89,14 +81,6 @@
   <string name="correspondence">Corrispondenza</string>
   <string name="daysPerTurn">Giorni per mossa</string>
   <string name="oneDay">Un giorno</string>
-  <plurals name="nbDays">
-    <item quantity="one">%s giorni</item>
-    <item quantity="other">%s giorni</item>
-  </plurals>
-  <plurals name="nbHours">
-    <item quantity="one">%s ore</item>
-    <item quantity="other">%s ore</item>
-  </plurals>
   <string name="time">Tempo</string>
   <string name="rating">Punteggio</string>
   <string name="ratingStats">Statistiche dei punteggi</string>
@@ -112,10 +96,6 @@
   <string name="forgotPassword">Password dimenticata?</string>
   <string name="rank">Livello</string>
   <string name="gamesPlayed">Partite giocate</string>
-  <plurals name="nbGamesWithYou">
-    <item quantity="one">%s giocate con te</item>
-    <item quantity="other">%s giocate con te</item>
-  </plurals>
   <string name="cancel">Annulla</string>
   <string name="timeOut">Tempo scaduto</string>
   <string name="drawOfferSent">Offerta di patta inviata</string>
@@ -158,18 +138,6 @@
   <string name="incrementInSeconds">Incremento in secondi</string>
   <string name="freeOnlineChess">Scacchi Online Gratis</string>
   <string name="spectators">Spettatori</string>
-  <plurals name="nbWins">
-    <item quantity="one">%s vittorie</item>
-    <item quantity="other">%s vittorie</item>
-  </plurals>
-  <plurals name="nbLosses">
-    <item quantity="one">%s sconfitte</item>
-    <item quantity="other">%s sconfitte</item>
-  </plurals>
-  <plurals name="nbDraws">
-    <item quantity="one">%s pareggi</item>
-    <item quantity="other">%s pareggi</item>
-  </plurals>
   <string name="exportGames">Esporta le partite</string>
   <string name="ratingRange">Punteggio avversario</string>
   <plurals name="giveNbSeconds">
@@ -197,10 +165,6 @@
   <string name="backToGame">Torna alla partita</string>
   <string name="siteDescription">Scacchi online gratis. Gioca subito a scacchi con un\'interfaccia semplice. Niente registrazioni, annunci, plug-in. Gioca a scacchi contro computer, amici o avversari occasionali.</string>
   <string name="teams">Gruppi</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s membri</item>
-    <item quantity="other">%s membri</item>
-  </plurals>
   <string name="allTeams">Tutti i gruppi</string>
   <string name="newTeam">Nuovo gruppo</string>
   <string name="myTeams">I miei gruppi</string>
@@ -227,10 +191,6 @@
   <string name="fromPosition">Da una posizione</string>
   <string name="continueFromHere">Continua da qui</string>
   <string name="importGame">Importa partita</string>
-  <plurals name="nbImportedGames">
-    <item quantity="one">%s Partite importate</item>
-    <item quantity="other">%s Partite importate</item>
-  </plurals>
   <string name="thisIsAChessCaptcha">Questo è un CAPTCHA di scacchi.</string>
   <string name="clickOnTheBoardToMakeYourMove">Clicca sulla scacchiera e fai la tua mossa, per provare che sei un umano.</string>
   <string name="notACheckmate">Non è scacco matto</string>
@@ -248,10 +208,6 @@
   <string name="unblock">Sblocca</string>
   <string name="followsYou">Ti segue</string>
   <string name="xStartedFollowingY">%1$s ha iniziato a seguire %2$s</string>
-  <plurals name="nbFollowers">
-    <item quantity="one">%s Lo seguono</item>
-    <item quantity="other">%s Lo seguono</item>
-  </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s persone seguite</item>
     <item quantity="other">%s persone seguite</item>
@@ -267,8 +223,6 @@
     <item quantity="one">Meno di %s minuti</item>
     <item quantity="other">Meno di %s minuti</item>
   </plurals>
-  <string name="textIsTooShort">Testo troppo corto.</string>
-  <string name="textIsTooLong">Testo troppo lungo.</string>
   <string name="required">Richiesto.</string>
   <string name="openTournaments">Tornei aperti</string>
   <string name="duration">Durata</string>
@@ -324,10 +278,6 @@
   <string name="pleaseVotePuzzle">Aiuta a migliorare Lichess con un voto, usando le frecce su o giù</string>
   <string name="thankYou">Grazie!</string>
   <string name="ratingX">Punteggio: %s</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">Giocato %s volte</item>
-    <item quantity="other">Giocato %s volte</item>
-  </plurals>
   <string name="fromGameLink">Dalla partita %s</string>
   <string name="startTraining">Inizia l\'allenamento</string>
   <string name="continueTraining">Continua l\'allenamento</string>
@@ -337,10 +287,6 @@
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">Hai %s secondi per fare la tua prima mossa</item>
     <item quantity="other">Hai %s secondi per fare la tua prima mossa</item>
-  </plurals>
-  <plurals name="nbGamesInPlay">
-    <item quantity="one">%s partite in gioco</item>
-    <item quantity="other">%s partite in gioco</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Passa automaticamente alla partita successiva dopo la mossa</string>
   <string name="autoSwitch">Passaggio automatico</string>
@@ -480,10 +426,6 @@
   <string name="whiteCastlingQueenside">Bianco O-O-O</string>
   <string name="blackCastlingKingside">Nero O-O</string>
   <string name="blackCastlingQueenside">Nero O-O-O</string>
-  <plurals name="nbForumPosts">
-    <item quantity="one">%s Post nel Forum</item>
-    <item quantity="other">%s Post nel Forum</item>
-  </plurals>
   <string name="tpTimeSpentPlaying">Tempo in partita: %s</string>
   <string name="watchGames">Guarda le partite</string>
   <string name="tpTimeSpentOnTV">Tempo in TV: %s</string>
