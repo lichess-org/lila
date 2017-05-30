@@ -327,7 +327,7 @@
   <string name="trainingSignupExplanation">Lichess će pronaći probleme prema tvojim mogućnostima, radi boljeg treninga.</string>
   <string name="puzzleId">Problem %s</string>
   <string name="puzzleOfTheDay">Problem dana</string>
-  <string name="clickToSolve">Klikni za rješenje</string>
+  <string name="clickToSolve">Klikni za rješavanje</string>
   <string name="goodMove">Dobar potez</string>
   <string name="butYouCanDoBetter">Postoji još bolji potez.</string>
   <string name="bestMove">Najbolji potez!</string>
