@@ -119,9 +119,7 @@ module.exports = function(opts) {
   this.bottomColor = function() {
     return this.vm.flip ? opposite(this.data.orientation) : this.data.orientation;
   }.bind(this);
-  this.getOrientation = function() {
-    return this.data.orientation;
-  }.bind(this);
+  this.getOrientation = this.bottomColor; // required by ui/ceval
 
   this.turnColor = function() {
     return this.vm.node.ply % 2 === 0 ? 'white' : 'black';
