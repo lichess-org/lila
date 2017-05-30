@@ -57,10 +57,14 @@
   <string name="offerDraw">Pacem offerre</string>
   <string name="draw">Pax</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s lusores</item>
+    <item quantity="one">%s lusor</item>
     <item quantity="other">%s lusores</item>
   </plurals>
   <string name="currentGames">Nunc ludentes lusiones</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s ludus</item>
+    <item quantity="other">%s Ludi</item>
+  </plurals>
   <string name="viewInFullSize">Integro modo vide</string>
   <string name="logOut">Conventum claudere</string>
   <string name="signIn">Conventum aperire</string>
@@ -80,7 +84,15 @@
   <string name="realTime">Tempus reale</string>
   <string name="correspondence">Ludus diutinus</string>
   <string name="daysPerTurn">Dies per motum</string>
-  <string name="oneDay">dies unus</string>
+  <string name="oneDay">Dies unus</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s dies</item>
+    <item quantity="other">%s dies</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s hora</item>
+    <item quantity="other">%s horae</item>
+  </plurals>
   <string name="time">Tempus</string>
   <string name="rating">Status</string>
   <string name="ratingStats">Ordinis informatio</string>
@@ -96,6 +108,10 @@
   <string name="forgotPassword">Tessera oblita?</string>
   <string name="rank">Ordo</string>
   <string name="gamesPlayed">Lusi lusiones</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s ludus tecum</item>
+    <item quantity="other">%s ludi tecum</item>
+  </plurals>
   <string name="cancel">Anullare</string>
   <string name="timeOut">Tempus est effectum</string>
   <string name="drawOfferSent">Missa est pacis conditio</string>
@@ -138,6 +154,10 @@
   <string name="incrementInSeconds">Incrementum (secundae)</string>
   <string name="freeOnlineChess">Scacci gratis in rete</string>
   <string name="spectators">Spectatores</string>
+  <plurals name="nbWins">
+    <item quantity="one">%s victoria</item>
+    <item quantity="other">%s victoriae</item>
+  </plurals>
   <string name="exportGames">Lusiones extrahere</string>
   <string name="ratingRange">Ordo</string>
   <plurals name="giveNbSeconds">
@@ -209,6 +229,10 @@
   <string name="unblock">Admittere</string>
   <string name="followsYou">Sequens te</string>
   <string name="xStartedFollowingY">%1$s sequitur %2$s</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s spectator</item>
+    <item quantity="other">%s spectatores</item>
+  </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s spectans</item>
     <item quantity="other">%s spectans</item>
