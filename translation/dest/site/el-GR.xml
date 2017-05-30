@@ -516,6 +516,15 @@
     <item quantity="other">Διαθέσιμο σε %s γλώσσες!</item>
   </plurals>
   <string name="gameAnalysis">Ανάλυση παιχνιδιού</string>
+  <string name="boardTheme">Θέμα σκακιέρας</string>
+  <string name="boardSize">Μέγεθος σκακιέρας</string>
+  <string name="pieceSet">Ρύθμιση κομματιών</string>
+  <string name="embedInYourWebsite">Ενσωματώστε στην ιστοσελίδα σας</string>
+  <string name="usernameAlreadyUsed">Αυτό το όνομα χρήστη είναι ήδη σε χρήση, Παρακαλώ δοκιμάστε ένα άλλο.</string>
+  <string name="usernameInvalid">Μη έγκυρο όνομα χρήστη. Παρακαλούμε χρησιμοποιήστε μόνο γράμματα, αριθμούς, χαρακτήρα υπογράμμισης και παύλα.</string>
+  <string name="usernameStartNoNumber">Το όνομα χρήστη δεν πρέπει να ξεκινάει με αριθμό.</string>
+  <string name="usernameUnacceptable">Αυτό το όνομα χρήστη δεν είναι αποδεκτό.</string>
+  <string name="directlySupportLichess">Άμεση υποστήριξη Lichess</string>
   <string name="playChessInStyle">Παίξτε σκάκι με στυλ</string>
   <string name="chessBasics">Σκάκι βασικά στοιχεία</string>
   <string name="coaches">Προπονητές</string>
