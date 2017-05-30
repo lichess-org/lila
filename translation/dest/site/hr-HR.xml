@@ -82,7 +82,7 @@
   <string name="games">Partije</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s objavljuje na forumu %2$s</string>
-  <string name="latestForumPosts">Posljednje objave na forumu</string>
+  <string name="latestForumPosts">Najnovije objave na forumu</string>
   <string name="players">Igrači</string>
   <string name="minutesPerSide">Minuta po igraču</string>
   <string name="variant">Varijanta</string>
@@ -104,9 +104,9 @@
   </plurals>
   <string name="time">Vrijeme</string>
   <string name="rating">Rejting</string>
-  <string name="ratingStats">Rang</string>
+  <string name="ratingStats">Statistike rejtinga</string>
   <string name="username">Korisničko ime</string>
-  <string name="usernameOrEmail">Korisničko ime</string>
+  <string name="usernameOrEmail">Korisničko ime ili email</string>
   <string name="password">Lozinka</string>
   <string name="haveAnAccount">Imaš li korisnički račun?</string>
   <string name="changePassword">Promijeni lozinku</string>
@@ -248,7 +248,7 @@
   <string name="captcha.fail">Molimo riješi šahovski Captcha.</string>
   <string name="notACheckmate">Nije mat</string>
   <string name="colorPlaysCheckmateInOne">%s igra; mat u jednom potezu</string>
-  <string name="retry">Pokušaj opet</string>
+  <string name="retry">Pokušaj ponovno</string>
   <string name="reconnecting">Ponovno spajanje</string>
   <string name="onlineFriends">Prijatelji</string>
   <string name="noFriendsOnline">Nema prijatelja na vezi</string>
