@@ -61,6 +61,14 @@
     <item quantity="other">%s συνδεδεμένοι παίκτες</item>
   </plurals>
   <string name="currentGames">Παιχνίδια σε εξέλιξη</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s παιχνίδι</item>
+    <item quantity="other">%s Παιχνίδια</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s σελιδοδείκτης</item>
+    <item quantity="other">%s σελιδοδείκτες</item>
+  </plurals>
   <string name="viewInFullSize">Προβολή σε πλήρες μέγεθος</string>
   <string name="logOut">Έξοδος</string>
   <string name="signIn">Είσοδος</string>
