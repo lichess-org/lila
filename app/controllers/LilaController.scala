@@ -286,7 +286,7 @@ private[controllers] trait LilaController
     ctx.me.fold(fuccess(PageData.anon(ctx.req, getAssetVersion, blindMode(ctx)))) { me =>
       import lila.relation.actorApi.OnlineFriends
       val isPage = HTTPRequest.isSynchronousHttp(ctx.req)
-      (Env.pref.api getPref me) zip {
+      Env.pref.api.getPref(me, ctx.req) zip {
         if (isPage) {
           Env.user.lightUserApi preloadUser me
           Env.relation.online.friendsOf(me.id) zip
