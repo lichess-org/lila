@@ -104,7 +104,7 @@ export function renderGauge(ctrl: ParentController): Mithril.Renderable {
     class: classSet({
       eval_gauge: true,
       empty: ev === null,
-      reverse: ctrl.bottomColor() === 'black'
+      reverse: ctrl.getOrientation() === 'black'
     })
   }, [
     m('div', {
