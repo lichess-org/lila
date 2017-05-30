@@ -41,7 +41,7 @@
   <string name="blackResigned">Crni predaje</string>
   <string name="whiteLeftTheGame">Bijeli je napustio igru</string>
   <string name="blackLeftTheGame">Crni je napustio igru</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Podijeli ovaj URL ukoliko želiš da gledatelji vide ovu igru</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Podijeli ovaj URL ukoliko želiš da gledatelji vide ovu partiju</string>
   <string name="theComputerAnalysisHasFailed">Računalna analiza nije uspjela</string>
   <string name="viewTheComputerAnalysis">Pogledaj računalnu analizu</string>
   <string name="requestAComputerAnalysis">Zatraži računalnu analizu</string>
@@ -49,7 +49,7 @@
   <string name="analysis">Ploča za analizu</string>
   <string name="blunders">Previdi</string>
   <string name="mistakes">Greške</string>
-  <string name="inaccuracies">Netočnosti</string>
+  <string name="inaccuracies">Nepreciznosti</string>
   <string name="moveTimes">Vrijeme za potez</string>
   <string name="flipBoard">Okreni ploču</string>
   <string name="threefoldRepetition">Trostruko ponavljanje pozicije</string>
