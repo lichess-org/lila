@@ -516,6 +516,8 @@
     <item quantity="other">Διαθέσιμο σε %s γλώσσες!</item>
   </plurals>
   <string name="gameAnalysis">Ανάλυση παιχνιδιού</string>
+  <string name="xHostsY">%1$s διοργανώνει %2$s</string>
+  <string name="xJoinsY">%1$s συμμετέχει %2$s</string>
   <string name="xLikesY">%1$s αρέσει %2$s</string>
   <string name="quickPairing">Γρήγορη ζεύξη</string>
   <string name="lobby">Χώρος αναμονής</string>
