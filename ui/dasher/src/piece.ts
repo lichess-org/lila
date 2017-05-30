@@ -18,11 +18,12 @@ export interface PieceData {
 export interface PieceCtrl {
   dimension: () => keyof PieceData
   data: () => PieceDimData
+  trans: Trans
   set(t: Piece): void
   open: Open
 }
 
-export function ctrl(data: PieceData, dimension: () => keyof PieceData, redraw: Redraw, open: Open): PieceCtrl {
+export function ctrl(data: PieceData, trans: Trans, dimension: () => keyof PieceData, redraw: Redraw, open: Open): PieceCtrl {
 
   function dimensionData() {
     return data[dimension()];
@@ -30,6 +31,7 @@ export function ctrl(data: PieceData, dimension: () => keyof PieceData, redraw: 
 
   return {
     dimension,
+    trans,
     data: dimensionData,
     set(t: Piece) {
       const d = dimensionData();
@@ -49,7 +51,7 @@ export function view(ctrl: PieceCtrl): VNode {
   const d = ctrl.data();
 
   return h('div.sub.piece.' + ctrl.dimension(), [
-    header('Piece set', () => ctrl.open('links')),
+    header(ctrl.trans.noarg('pieceSet'), () => ctrl.open('links')),
     h('div.list', {
       attrs: { method: 'post', action: '/pref/soundSet' }
     }, d.list.map(pieceView(d.current, ctrl.set))),
@@ -57,7 +59,7 @@ export function view(ctrl: PieceCtrl): VNode {
       h('a', {
         hook: bind('click', () => ctrl.open('theme')),
         attrs: { 'data-icon': 'H' }
-      }, 'Board theme')
+      }, ctrl.trans.noarg('boardTheme'))
     ])
   ]);
 }

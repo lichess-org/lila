@@ -68,10 +68,10 @@ export type Mode = 'links' | 'langs' | 'sound' | 'background' | 'board' | 'theme
     const subs = {
       langs: langsCtrl(data.lang, redraw, close),
       sound: soundCtrl(data.sound.list, trans, redraw, close),
-      background: backgroundCtrl(data.background, redraw, close),
-      board: boardCtrl(data.board, opts.setZoom, redraw, close),
-      theme: themeCtrl(data.theme, () => data.board.is3d ? 'd3' : 'd2', redraw, setMode),
-      piece: pieceCtrl(data.piece, () => data.board.is3d ? 'd3' : 'd2', redraw, setMode)
+      background: backgroundCtrl(data.background, trans, redraw, close),
+      board: boardCtrl(data.board, trans, opts.setZoom, redraw, close),
+      theme: themeCtrl(data.theme, trans, () => data.board.is3d ? 'd3' : 'd2', redraw, setMode),
+      piece: pieceCtrl(data.piece, trans, () => data.board.is3d ? 'd3' : 'd2', redraw, setMode)
     };
 
     return {
