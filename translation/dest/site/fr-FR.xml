@@ -197,6 +197,7 @@
   <string name="importGame">Importer une partie</string>
   <string name="thisIsAChessCaptcha">Ceci est un CAPTCHA d\'échecs.</string>
   <string name="clickOnTheBoardToMakeYourMove">Cliquez sur le plateau pour jouer un coup, et prouvez que vous êtes humain.</string>
+  <string name="captcha.fail">Tapez le captcha, SVP.</string>
   <string name="notACheckmate">Ce n\'est pas un échec et mat</string>
   <string name="colorPlaysCheckmateInOne">%s joue, mat en un coup</string>
   <string name="retry">Réessayer</string>
@@ -283,6 +284,10 @@
   <string name="pleaseVotePuzzle">Aidez Lichess à s\'améliorer en votant grâce aux flèches :</string>
   <string name="thankYou">Merci !</string>
   <string name="ratingX">Classement : %s</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Tenté %s fois</item>
+    <item quantity="other">Tenté %s fois</item>
+  </plurals>
   <string name="fromGameLink">Tiré de la partie %s</string>
   <string name="startTraining">Commencer l\'entraînement</string>
   <string name="continueTraining">Continuer l\'entraînement</string>
