@@ -589,9 +589,12 @@
   <string name="usernameAlreadyUsed">Ĉi tiu uzantnomo estas jam uzanta, bonvolu provi aliun.</string>
   <string name="usernameStartNoNumber">Ĉi tiu uzantnomo devas ne komenci kun numero.</string>
   <string name="usernameUnacceptable">Ĉi tiu uzantnomo estas malakceptata.</string>
+  <string name="directlySupportLichess">Rekte subteni Lichess</string>
   <string name="playChessInStyle">Ludu ŝakon elegante</string>
   <string name="chessBasics">Ŝaka aboco</string>
   <string name="coaches">Trejnistoj</string>
+  <string name="invalidPgn">Nevalida PGN</string>
+  <string name="invalidFen">Nevalida FEN</string>
   <string name="error.minLength">Minimuma longo estas %s</string>
   <string name="error.maxLength">Maksimuma longo estas %s</string>
   <string name="error.min">Devas esti pli ol aŭ egala al %s</string>
