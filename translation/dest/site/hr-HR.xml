@@ -594,7 +594,7 @@
   <string name="bulletBlitzClassical">Bullet, blitz, klasika</string>
   <string name="correspondenceChess">Dopisni šah</string>
   <string name="onlineAndOfflinePlay">Online i offline igra</string>
-  <string name="correspondenceAndUnlimited">Dopisni šah</string>
+  <string name="correspondenceAndUnlimited">Dopisni šah i neograničene partije</string>
   <string name="viewTheSolution">Pogledaj rješenje</string>
   <string name="followAndChallengeFriends">Prati i izazovi prijatelje</string>
   <plurals name="availableInNbLanguages">
