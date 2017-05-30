@@ -296,7 +296,7 @@
   <string name="wins">Pobjede</string>
   <string name="losses">Porazi</string>
   <string name="winStreak">Pobjednički niz</string>
-  <string name="createdBy">Napravio</string>
+  <string name="createdBy">Kreirao</string>
   <string name="tournamentIsStarting">Turnir počinje</string>
   <string name="membersOnly">Samo za članove</string>
   <string name="boardEditor">Uredi ploču</string>
