@@ -233,6 +233,8 @@
   </plurals>
   <string name="thisIsAChessCaptcha">Este é um CAPTCHA de xadrez.</string>
   <string name="clickOnTheBoardToMakeYourMove">Clique no tabuleiro para fazer sua jogada, provando que é humano.</string>
+  <string name="captcha.fail">Falha no captchar
+Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o problema de xadrez proposto. O aviso informa ao usuário que ele deve resolver o problema proponto antes de prosseguir.</string>
   <string name="notACheckmate">Não é xeque-mate.</string>
   <string name="colorPlaysCheckmateInOne">%s joga; mate em um</string>
   <string name="retry">Tentar novamente</string>
@@ -240,6 +242,7 @@
   <string name="onlineFriends">Amigos online</string>
   <string name="noFriendsOnline">Não há amigos online</string>
   <string name="findFriends">Encontrar amigos</string>
+  <string name="favoriteOpponents">Adversários favoritos</string>
   <string name="follow">Seguir</string>
   <string name="following">Seguindo</string>
   <string name="unfollow">Parar de seguir</string>
@@ -404,6 +407,7 @@
   <string name="premovesPlayingDuringOpponentTurn">Pré-movimentos (jogadas durante o turno do oponente)</string>
   <string name="takebacksWithOpponentApproval">Voltar jogada (com aprovação do oponente)</string>
   <string name="promoteToQueenAutomatically">Promover a Dama automaticamente</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Solicitar empate automáticamente quando ocorrerem 3 repetições do mesmo lance</string>
   <string name="privacy">Privacidade</string>
   <string name="letOtherPlayersFollowYou">Permitir que outros jogadores sigam você</string>
   <string name="letOtherPlayersChallengeYou">Permitir que outros jogadores desafiem você</string>
@@ -433,6 +437,7 @@
   <string name="starting">Iniciando:</string>
   <string name="allInformationIsPublicAndOptional">Todas as informações são públicas e opcionais.</string>
   <string name="yourCityRegionOrDepartment">Sua cidade, região ou divisão territorial.</string>
+  <string name="biographyDescription">Fale sobre você, o que você gosta no xadrez, suas aberturas favoritas, jogos, grandes jogadores de sua preferência…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Máximo: %s caracteres.</item>
     <item quantity="other">Máximo: %s caracteres.</item>
