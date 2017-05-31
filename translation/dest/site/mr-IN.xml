@@ -57,6 +57,14 @@
     <item quantity="other">%s खेळाडू जोडुन आहेत</item>
   </plurals>
   <string name="currentGames">या वेळी खेळले जाणारे डाव</string>
+  <plurals name="nbGames">
+    <item quantity="one">सर्व %s डाव पाहा</item>
+    <item quantity="other">सर्व %s डाव पाहा</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s आवडते</item>
+    <item quantity="other">%s आवडते</item>
+  </plurals>
   <string name="viewInFullSize">अधिकतम आकारात पाहा</string>
   <string name="logOut">बाहेर पडा</string>
   <string name="signIn">प्रवेश करा</string>
@@ -75,6 +83,14 @@
   <string name="realTime">जलद</string>
   <string name="correspondence">दीर्घकालीन</string>
   <string name="oneDay">एक दिवस</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s  दिवस</item>
+    <item quantity="other">%s  दिवस</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s तास</item>
+    <item quantity="other">%s तास</item>
+  </plurals>
   <string name="time">vel</string>
   <string name="rating">गुणांकन</string>
   <string name="username">वापरकर्त्याचे नाव</string>
@@ -89,6 +105,10 @@
   <string name="forgotPassword">परवलीचा शब्द विसरलात?</string>
   <string name="rank">मानांकन</string>
   <string name="gamesPlayed">खेळलेले डाव</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s  तुमच्याशी खेळलेले डाव</item>
+    <item quantity="other">%s  तुमच्याशी खेळलेले डाव</item>
+  </plurals>
   <string name="cancel">रद्द करा</string>
   <string name="timeOut">वेळ समाप्त</string>
   <string name="drawOfferSent">डाव अनिर्णीत ठेवण्याचा प्रस्ताव पाठवला</string>
@@ -131,6 +151,18 @@
   <string name="incrementInSeconds">सेकंदांमध्ये वाढ</string>
   <string name="freeOnlineChess">विनामूल्य ऑनलाइन बुद्धिबळ</string>
   <string name="spectators">प्रेक्षक</string>
+  <plurals name="nbWins">
+    <item quantity="one">%s विजय</item>
+    <item quantity="other">%s विजय</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s पराभव</item>
+    <item quantity="other">%s पराभव</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s अनिर्णीत</item>
+    <item quantity="other">%s अनिर्णीत</item>
+  </plurals>
   <string name="exportGames">खेळ निर्यात करा</string>
   <string name="ratingRange">इलो श्रेणी</string>
   <plurals name="giveNbSeconds">
@@ -155,6 +187,10 @@
   <string name="backToTournament">स्पर्धेत परत या</string>
   <string name="backToGame">खेळात परत या</string>
   <string name="teams">संघ</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s सदस्य</item>
+    <item quantity="other">%s सदस्य</item>
+  </plurals>
   <string name="allTeams">सर्व संघ</string>
   <string name="newTeam">नवीन संघ</string>
   <string name="myTeams">माझे  संघ</string>
