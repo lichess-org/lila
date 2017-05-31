@@ -436,6 +436,7 @@
   <string name="starting">Başlangıç:</string>
   <string name="allInformationIsPublicAndOptional">Tüm bilgiler herkese açık ve seçime bağlıdır.</string>
   <string name="yourCityRegionOrDepartment">İl, İlçe ya da Bölge</string>
+  <string name="biographyDescription">Kendinizden bahsedin, satrançta ne buluyorsunuz, favori açılışlarınız, oyunlarınız, hayranı olduğunuz satranç ustaları…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">En fazla: %s karakter.</item>
     <item quantity="other">En fazla: %s karakter.</item>
@@ -533,6 +534,10 @@
   <string name="tournamentMayHaveBeenCanceled">Eğer bütün oyuncular turnuva başlamadan ayrıldıysa, iptal edilmiş olabilir.</string>
   <string name="returnToTournamentsHomepage">Turnuva anasayfasına dön</string>
   <string name="weeklyPerfTypeRatingDistribution">Aylık %s puan dağılımı</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">Bu hafta bir %2$s oyuncusu.</item>
+    <item quantity="other">Bu hafta %1$s %2$s oyuncusu.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">%1$s puanınız %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">%1$s %2$s oyuncularından daha iyisiniz.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Sabit bir %s puanınız yok.</string>
@@ -575,4 +580,5 @@
     <item quantity="other">%s dilde kullanılabilir.</item>
   </plurals>
   <string name="gameAnalysis">Oyun analizi</string>
+  <string name="language">Dil</string>
 </resources>
