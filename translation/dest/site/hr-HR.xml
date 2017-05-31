@@ -452,7 +452,7 @@
   <string name="timeline">Vremenska crta</string>
   <string name="seeAllTournaments">Vidi sve turnire</string>
   <string name="starting">Počinje:</string>
-  <string name="allInformationIsPublicAndOptional">Sve informacije su javne.</string>
+  <string name="allInformationIsPublicAndOptional">Sve informacije su javne i neobavezne.</string>
   <string name="yourCityRegionOrDepartment">Tvoj grad, regija ili pokrajina.</string>
   <string name="biographyDescription">Nešto više o vama, što volite u šahu, omiljena otvaranja, igre, igrači…</string>
   <plurals name="maximumNbCharacters">
@@ -579,7 +579,7 @@
   <string name="crosstable">Tablica križanja</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Možeš skrolirati preko ploče za micanje u partiji.</string>
   <string name="analysisShapesHowTo">Pritisni shift + lijevi klik ili desni klik kako bi crtao/la krugove i strelice na ploči.</string>
-  <string name="confirmResignation">Potvrdi predaju</string>
+  <string name="confirmResignation">Potvrda predaje</string>
   <string name="letOtherPlayersMessageYou">Dopusti drugim igračima da ti pošalju poruku</string>
   <string name="shareYourInsightsData">dijeli vaše osobne podatke</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Već si se registrirao/la ovim emailom: %s</string>
