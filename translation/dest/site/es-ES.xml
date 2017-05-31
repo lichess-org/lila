@@ -61,6 +61,10 @@
     <item quantity="other">%s jugadores</item>
   </plurals>
   <string name="currentGames">Partidas actuales</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s Partidas</item>
+    <item quantity="other">%s Partidas</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s Partidas favoritas</item>
     <item quantity="other">%s Partidas favoritas</item>
