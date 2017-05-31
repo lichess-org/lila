@@ -588,6 +588,7 @@
   <string name="background">Scaena</string>
   <string name="boardGeometry">Geometria tabula</string>
   <string name="boardSize">Tabula magnitudine</string>
+  <string name="embedInYourWebsite">Ostende in locum</string>
   <string name="usernameAlreadyUsed">Username hanc iam usus aliquam alia.</string>
   <string name="usernameInvalid">Irritum nomen usoris. Quaeso uti literis tantum, numero et offendas.</string>
   <string name="usernameStartNoNumber">Nomen usoris necesse est incipere, non est numerus.</string>
