@@ -332,6 +332,7 @@
   <string name="premovesPlayingDuringOpponentTurn">Предварительный ход (пока ходит противник)</string>
   <string name="takebacksWithOpponentApproval">Возвраты (с согласия противника)</string>
   <string name="promoteToQueenAutomatically">Пешка превращается в ферзя автоматически</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Автоматически запрашивать ничью при трёхкратном повторении хода</string>
   <string name="privacy">Приватность</string>
   <string name="letOtherPlayersFollowYou">Позволить другим наблюдать за мной</string>
   <string name="letOtherPlayersChallengeYou">Другие игроки могут пригласить меня на игру</string>
@@ -484,4 +485,9 @@
   <string name="viewTheSolution">Посмотреть решение</string>
   <string name="followAndChallengeFriends">Подписаться и вызвать на игру друзей</string>
   <string name="gameAnalysis">Анализ игры</string>
+  <string name="xHostsY">%1$s создал %2$s</string>
+  <string name="xJoinsY">%1$s присоединился к %2$s</string>
+  <string name="boardGeometry">Геометрия доски</string>
+  <string name="boardSize">Размер доски</string>
+  <string name="invalidPgn">Некорректный PGN</string>
 </resources>
