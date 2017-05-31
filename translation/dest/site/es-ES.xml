@@ -19,7 +19,7 @@
   <string name="white">Blancas</string>
   <string name="black">Negras</string>
   <string name="randomColor">Color aleatorio</string>
-  <string name="createAGame">Crea una partida</string>
+  <string name="createAGame">Crear una partida</string>
   <string name="whiteIsVictorious">Las blancas ganan</string>
   <string name="blackIsVictorious">Las negras ganan</string>
   <string name="kingInTheCenter">Rey en el centro</string>
@@ -584,4 +584,27 @@
   <string name="xJoinsY">%1$s se une a %2$s</string>
   <string name="xLikesY">a %1$s le gusta %2$s</string>
   <string name="quickPairing">Emparejamiento rápido</string>
+  <string name="lobby">Lobby</string>
+  <string name="yourScore">Su puntuación %s</string>
+  <string name="language">Idioma</string>
+  <string name="background">Fondo</string>
+  <string name="boardGeometry">Geometría del tablero</string>
+  <string name="boardTheme">Tema del tablero</string>
+  <string name="boardSize">Tamaño del tablero</string>
+  <string name="pieceSet">Estilo de piezas</string>
+  <string name="embedInYourWebsite">Incrustar en su página web</string>
+  <string name="usernameAlreadyUsed">Este nombre de usuario ya está en uso, pruebe otro, por favor.</string>
+  <string name="usernameInvalid">Nombre de usuario no válido. Por favor, utilice sólo letras, números, guión bajo y guión.</string>
+  <string name="usernameStartNoNumber">El nombre de usuario no debe empezar con un número.</string>
+  <string name="usernameUnacceptable">Este nombre de usuario no es aceptable.</string>
+  <string name="directlySupportLichess">Apoyar directamente a Lichess</string>
+  <string name="playChessInStyle">Jugar al ajedrez con estilo</string>
+  <string name="chessBasics">Fundamentos de ajedrez</string>
+  <string name="coaches">Entrenadores</string>
+  <string name="invalidPgn">PGN no válido</string>
+  <string name="invalidFen">FEN no válido</string>
+  <string name="error.minLength">La longitud mínima es de %s</string>
+  <string name="error.maxLength">La longitud máxima es de %s</string>
+  <string name="error.min">Debe ser mayor o igual a %s</string>
+  <string name="error.max">Debe ser menor o igual a %s</string>
 </resources>
