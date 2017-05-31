@@ -361,6 +361,7 @@
   <string name="premovesPlayingDuringOpponentTurn">Προκινήσεις (παιγμένες κατά το χρόνο σκέψης του αντιπάλου)</string>
   <string name="takebacksWithOpponentApproval">Ανακλήσεις (με έγκριση του αντιπάλου)</string>
   <string name="promoteToQueenAutomatically">Αυτόματη προαγωγή σε βασίλισσα</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Διεκδίκησε ισοπαλία σε τριπλή επανάληψη αυτόματα</string>
   <string name="privacy">Απόρρητο</string>
   <string name="letOtherPlayersFollowYou">Επιτρέψτε σε άλλους παίκτες να σας ακολουθούν</string>
   <string name="letOtherPlayersChallengeYou">Επιτρέψτε σε άλλους παίκτες να σας προκαλούν σε παιχνίδι</string>
@@ -525,4 +526,5 @@
     <item quantity="other">Διαθέσιμο σε %s γλώσσες!</item>
   </plurals>
   <string name="gameAnalysis">Ανάλυση παιχνιδιού</string>
+  <string name="boardSize">Μέγεθος σκακιέρας</string>
 </resources>
