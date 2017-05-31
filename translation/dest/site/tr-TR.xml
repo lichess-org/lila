@@ -66,8 +66,8 @@
     <item quantity="other">%s Oynanan Oyun</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s İşaretlenmiş oyun</item>
-    <item quantity="other">%s İşaretlenmiş oyun</item>
+    <item quantity="one">%s işaretlenmiş oyun</item>
+    <item quantity="other">%s işaretlenmiş oyun</item>
   </plurals>
   <string name="viewInFullSize">Tam ekran göster</string>
   <string name="logOut">Çıkış</string>
@@ -111,12 +111,12 @@
   <string name="passwordReset">Şifreyi yenile</string>
   <string name="forgotPassword">Şifremi unuttum</string>
   <string name="rank">Sıralama</string>
-  <string name="gamesPlayed">Oynanılmış oyunlar</string>
+  <string name="gamesPlayed">Oynanan oyunlar</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">Sizinle oynadığı oyun sayısı: %s</item>
     <item quantity="other">Sizinle oynadığı oyun sayısı: %s</item>
   </plurals>
-  <string name="cancel">İptal</string>
+  <string name="cancel">İptal et</string>
   <string name="timeOut">Zaman doldu</string>
   <string name="drawOfferSent">Beraberlik teklifi gönderildi</string>
   <string name="drawOfferDeclined">Beraberlik teklifi reddedildi</string>
@@ -580,6 +580,9 @@
     <item quantity="other">%s dilde kullanılabilir.</item>
   </plurals>
   <string name="gameAnalysis">Oyun analizi</string>
+  <string name="xHostsY">%1$s sundu: %2$s</string>
+  <string name="xJoinsY">%1$s katıldı: %2$s</string>
+  <string name="xLikesY">%1$s beğendi: %2$s</string>
   <string name="quickPairing">Hızlı eşleşme</string>
   <string name="lobby">Lobi</string>
   <string name="yourScore">Puanınız: %s</string>
@@ -601,5 +604,7 @@
   <string name="invalidFen">Geçersiz FEN</string>
   <string name="error.minLength">Minimum uzunluk: %s</string>
   <string name="error.maxLength">Maksimum uzunluk: %s</string>
+  <string name="error.min">Şu sayıdan büyük veya şu sayıya eşit olması gerekir: %s</string>
+  <string name="error.max">Şu sayıdan küçük veya şu sayıya eşit olması gerekir: %s</string>
   <string name="custom">Özel</string>
 </resources>
