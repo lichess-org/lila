@@ -23,7 +23,7 @@
   <string name="whiteIsVictorious">Hvit har vunnet</string>
   <string name="blackIsVictorious">Sort har vunnet</string>
   <string name="kingInTheCenter">Kongen i sentrum</string>
-  <string name="threeChecks">Tredje sjakk</string>
+  <string name="threeChecks">Tre sjakker</string>
   <string name="raceFinished">Målgang</string>
   <string name="variantEnding">Variantavslutning</string>
   <string name="newOpponent">Ny motstander</string>
@@ -586,6 +586,7 @@
   <string name="quickPairing">Raskt pairing</string>
   <string name="lobby">Lobby</string>
   <string name="yourScore">Din poengsum: %s</string>
+  <string name="language">Språk</string>
   <string name="background">Bakgrunn</string>
   <string name="boardGeometry">Brett geometri</string>
   <string name="boardTheme">Brett tema</string>
