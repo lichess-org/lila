@@ -233,6 +233,7 @@
   </plurals>
   <string name="thisIsAChessCaptcha">Dette er en skak-CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Klik på brættet for at foretage dit træk, og bevis at du ikke er en robot.</string>
+  <string name="captcha.fail">Løs venligst denne skak captcha.</string>
   <string name="notACheckmate">Ikke en mat</string>
   <string name="colorPlaysCheckmateInOne">%s trækker; mat i ét træk</string>
   <string name="retry">Prøv igen</string>
@@ -240,6 +241,7 @@
   <string name="onlineFriends">Venner som er online</string>
   <string name="noFriendsOnline">Ingen venner er online</string>
   <string name="findFriends">Find venner</string>
+  <string name="favoriteOpponents">Yndlings modstandere</string>
   <string name="follow">Følg</string>
   <string name="following">Følger</string>
   <string name="unfollow">Ophør med at følge</string>
@@ -404,6 +406,7 @@
   <string name="premovesPlayingDuringOpponentTurn">Pre-træk (spilles på modstanderens tur)</string>
   <string name="takebacksWithOpponentApproval">Fortrydelse af træk (med modstanderens accept)</string>
   <string name="promoteToQueenAutomatically">Forfrem til Dronning automatisk</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Kræv remis ved trefold gentagelse automatisk</string>
   <string name="privacy">Privat</string>
   <string name="letOtherPlayersFollowYou">Lad andre spillere følge dig</string>
   <string name="letOtherPlayersChallengeYou">Lad andre spillere udfordre dig</string>
@@ -433,6 +436,7 @@
   <string name="starting">Begynder:</string>
   <string name="allInformationIsPublicAndOptional">Al information er offentlig og ikke-obligatorisk</string>
   <string name="yourCityRegionOrDepartment">Din by, region eller provins</string>
+  <string name="biographyDescription">Fortæl om dig selv, hvad kan du lide ved skak, dine yndlings åbninger, spil, spillere…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maximum: %s tegn.</item>
     <item quantity="other">Maximum: %s tegn.</item>
