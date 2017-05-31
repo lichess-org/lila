@@ -233,6 +233,7 @@
   </plurals>
   <string name="thisIsAChessCaptcha">Dette er ein sjakk-CAPTCHA</string>
   <string name="clickOnTheBoardToMakeYourMove">Gjer eit trekk på brettet og prov at du er eit menneske</string>
+  <string name="captcha.fail">Vennligst løs sjakkutfordringen.</string>
   <string name="notACheckmate">Ikkje sjakk matt</string>
   <string name="colorPlaysCheckmateInOne">%s spelar; sjakk matt i eitt trekk</string>
   <string name="retry">Prøv på nytt</string>
@@ -240,6 +241,7 @@
   <string name="onlineFriends">Innlogga vener</string>
   <string name="noFriendsOnline">Ingen vener er logga på</string>
   <string name="findFriends">Finn ein ven</string>
+  <string name="favoriteOpponents">Favorittmotstandre</string>
   <string name="follow">Følgj</string>
   <string name="following">Følgjer</string>
   <string name="unfollow">Bryt</string>
@@ -404,6 +406,7 @@
   <string name="premovesPlayingDuringOpponentTurn">Førehandstrekk</string>
   <string name="takebacksWithOpponentApproval">Tilbaketrekk (med godkjenning frå motstandaren)</string>
   <string name="promoteToQueenAutomatically">Gjer om til dronning automatisk</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Krev uavgjort etter stillingsgjentagelse automatisk</string>
   <string name="privacy">Følgjarar og utfordrarar</string>
   <string name="letOtherPlayersFollowYou">Lat andre spelarar følgja deg</string>
   <string name="letOtherPlayersChallengeYou">Lat andre spelarar utfordra deg</string>
@@ -433,6 +436,7 @@
   <string name="starting">Startar:</string>
   <string name="allInformationIsPublicAndOptional">All informasjon er offentleg og valfri.</string>
   <string name="yourCityRegionOrDepartment">Din by eller region</string>
+  <string name="biographyDescription">Fortell om deg selv, hva du liker i sjakk, favorittåpningene dine, favorittparti, favorittspillere…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maksimalt: %s bokstavar.</item>
     <item quantity="other">Maksimalt: %s bokstavar.</item>
@@ -530,6 +534,10 @@
   <string name="tournamentMayHaveBeenCanceled">Den kan ha blitt avbroten, om alle spelarane trakk seg før turneringa starta.</string>
   <string name="returnToTournamentsHomepage">Returner til turneringas heimeside.</string>
   <string name="weeklyPerfTypeRatingDistribution">månedlig %s rating distribusjon</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">En %2$s spiller denne uken.</item>
+    <item quantity="other">%1$s %2$s spillere denne uken.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">Din %1$s rating er %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du er bedre enn %1$s av %2$s spillerne</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har ikke en etablert %s rating</string>
