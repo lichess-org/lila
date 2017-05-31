@@ -60,6 +60,12 @@
     <item quantity="other">在線棋手%s位</item>
   </plurals>
   <string name="currentGames">當前對局</string>
+  <plurals name="nbGames">
+    <item quantity="other">查看所有%s盤棋</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="other">%s個收藏</item>
+  </plurals>
   <string name="viewInFullSize">瀏覽完整尺寸</string>
   <string name="logOut">登出</string>
   <string name="signIn">登錄</string>
@@ -80,6 +86,12 @@
   <string name="correspondence">長期</string>
   <string name="daysPerTurn">每步需用天數</string>
   <string name="oneDay">一天</string>
+  <plurals name="nbDays">
+    <item quantity="other">%s天</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="other">%s小時</item>
+  </plurals>
   <string name="time">時間</string>
   <string name="rating">評級</string>
   <string name="ratingStats">評分數據</string>
@@ -95,6 +107,9 @@
   <string name="forgotPassword">忘記密碼？</string>
   <string name="rank">排名</string>
   <string name="gamesPlayed">盤棋已完成</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="other">和你下了%s盤棋</item>
+  </plurals>
   <string name="cancel">取消</string>
   <string name="timeOut">時間到</string>
   <string name="drawOfferSent">和棋請求已發送</string>
@@ -137,6 +152,15 @@
   <string name="incrementInSeconds">增加秒數</string>
   <string name="freeOnlineChess">免費線上國際象棋</string>
   <string name="spectators">旁觀者：</string>
+  <plurals name="nbWins">
+    <item quantity="other">%s勝</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="other">%s負</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="other">%s和</item>
+  </plurals>
   <string name="exportGames">匯出遊戲</string>
   <string name="ratingRange">級別範圍</string>
   <plurals name="giveNbSeconds">
@@ -163,6 +187,9 @@
   <string name="backToGame">返回遊戲</string>
   <string name="siteDescription">界面清新的免費線上國際象棋平台。不用註冊，沒有廣告，無需插件。快來與電腦、朋友和陌生人一起對戰吧！</string>
   <string name="teams">團隊</string>
+  <plurals name="nbMembers">
+    <item quantity="other">%s位成員</item>
+  </plurals>
   <string name="allTeams">所有團隊</string>
   <string name="newTeam">建立團隊</string>
   <string name="myTeams">我的團隊</string>
@@ -189,6 +216,9 @@
   <string name="fromPosition">自定義局面</string>
   <string name="continueFromHere">從此處繼續</string>
   <string name="importGame">導入棋局</string>
+  <plurals name="nbImportedGames">
+    <item quantity="other">已導入%s盤棋局</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">這是一個國際象棋驗證碼。</string>
   <string name="clickOnTheBoardToMakeYourMove">點擊棋盤走棋以證明你是人類。</string>
   <string name="notACheckmate">沒有將死</string>
@@ -206,6 +236,9 @@
   <string name="unblock">移除黑名單</string>
   <string name="followsYou">關注你</string>
   <string name="xStartedFollowingY">%1$s開始關注%2$s</string>
+  <plurals name="nbFollowers">
+    <item quantity="other">%s個關注者</item>
+  </plurals>
   <plurals name="nbFollowing">
     <item quantity="other">關注%s人</item>
   </plurals>
@@ -274,6 +307,9 @@
   <string name="pleaseVotePuzzle">按上箭頭鍵或下箭頭鍵投票，幫助Lichess改進：</string>
   <string name="thankYou">謝謝！</string>
   <string name="ratingX">評級：%s</string>
+  <plurals name="playedXTimes">
+    <item quantity="other">已被嘗試%s次</item>
+  </plurals>
   <string name="fromGameLink">來自對局%s</string>
   <string name="startTraining">開始訓練</string>
   <string name="continueTraining">繼續訓練</string>
@@ -282,6 +318,9 @@
   <string name="thisPuzzleIsWrong">本題錯誤無味</string>
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="other">你還剩%s秒來走第一步！</item>
+  </plurals>
+  <plurals name="nbGamesInPlay">
+    <item quantity="other">%s場對局正在進行中</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">移動棋子後自動進入下一盤棋</string>
   <string name="autoSwitch">自動更換</string>
@@ -419,6 +458,9 @@
   <string name="whiteCastlingQueenside">白方長易位</string>
   <string name="blackCastlingKingside">黑方短易位</string>
   <string name="blackCastlingQueenside">黑方長易位</string>
+  <plurals name="nbForumPosts">
+    <item quantity="other">%s個論壇帖子</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">花在下棋上的時間：%s</string>
   <string name="watchGames">觀看對局</string>
   <string name="tpTimeSpentOnTV">花在Lichess直播上的時間：%s</string>
