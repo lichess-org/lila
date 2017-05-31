@@ -58,6 +58,14 @@
     <item quantity="other">%s umariren</item>
   </plurals>
   <string name="currentGames">Temliliyin ituraren tura</string>
+  <plurals name="nbGames">
+    <item quantity="one">Walli %s iḥricen</item>
+    <item quantity="other">Walli %s iḥricen</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s Inurifen</item>
+    <item quantity="other">%s Inurifen</item>
+  </plurals>
   <string name="viewInFullSize">Ssemɣweṛ</string>
   <string name="logOut">Asenser</string>
   <string name="signIn">Tuqqna</string>
@@ -75,6 +83,14 @@
   <string name="correspondence">Amyaru</string>
   <string name="daysPerTurn">Ussan s nnuba</string>
   <string name="oneDay">Yiwen n wass</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s n wussan</item>
+    <item quantity="other">%s n wussan</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s n yisragen</item>
+    <item quantity="other">%s n yisragen</item>
+  </plurals>
   <string name="time">Ukkud</string>
   <string name="username">Isem n useqdac</string>
   <string name="usernameOrEmail">Isem useqdac</string>
@@ -85,6 +101,10 @@
   <string name="email">Amayel</string>
   <string name="rank">Abellez</string>
   <string name="gamesPlayed">Temliliyin ituraren tura</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s timlilit akk kec</item>
+    <item quantity="other">%s timlilit akk kec</item>
+  </plurals>
   <string name="cancel">Semmet</string>
   <string name="timeOut">Akud uɣrid</string>
   <string name="drawOfferSent">Asumer n ilem yuzen</string>
@@ -123,6 +143,18 @@
   <string name="incrementInSeconds">Tifest s tisinin</string>
   <string name="freeOnlineChess">Icahen baṭel askar uqqin</string>
   <string name="spectators">Imeshanayen:</string>
+  <plurals name="nbWins">
+    <item quantity="one">%s tarennawt</item>
+    <item quantity="other">%s tarennawt</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s  tiṛẓinen</item>
+    <item quantity="other">%s  tiṛẓinen</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s ilmawen</item>
+    <item quantity="other">%s ilmawen</item>
+  </plurals>
   <string name="exportGames">Ssifeḍ temliliyin</string>
   <string name="ratingRange">Abellez</string>
   <plurals name="giveNbSeconds">
@@ -147,6 +179,10 @@
   <string name="backToTournament">Uɣal ɣer timenyugert</string>
   <string name="siteDescription">Urar n yicahen baṭel s weskar uqqin. Urar yicahen dindin s agrudem aḥerfi. War assiggez bessif, war assussen, war plugin. Urar icahen mgal aselkim, imeddukkal neɣ afnaten s weskar uqqin.</string>
   <string name="teams">Igrawen</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s imedrawen</item>
+    <item quantity="other">%s imedrawen</item>
+  </plurals>
   <string name="allTeams">Yal tiɣlamin</string>
   <string name="newTeam">Taɣlamt tamaynut</string>
   <string name="myTeams">Tiɣlamin-iw</string>
@@ -173,6 +209,10 @@
   <string name="fromPosition">Ɣer amkan</string>
   <string name="continueFromHere">Kemmel si ideg agi</string>
   <string name="importGame">Kter timlilit</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s timlilit tiktiren</item>
+    <item quantity="other">%s timlilit tiktiren</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">Ayagi d CAPTCHA n caq</string>
   <string name="clickOnTheBoardToMakeYourMove">Senned g talwaḥt akken a t-urared tiyita, d a t-sekneḍ imanik d amedan</string>
   <string name="notACheckmate">Macci d caqmat</string>
@@ -190,6 +230,10 @@
   <string name="unblock">Eks asewḥel</string>
   <string name="followsYou">I Dferek</string>
   <string name="xStartedFollowingY">%1$s i ḍfeṛ %2$s</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s iḍefṛen</item>
+    <item quantity="other">%s iḍefṛen</item>
+  </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s idfren</item>
     <item quantity="other">%s idfren</item>
@@ -258,6 +302,10 @@
   <string name="pleaseVotePuzzle">All Lichess a d-i sileɣ s dɣeṛ s innecaben</string>
   <string name="thankYou">Tanemmirt!</string>
   <string name="ratingX">Abellez : %s</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Urared %s n tikkelt</item>
+    <item quantity="other">Urared %s n tikkelt</item>
+  </plurals>
   <string name="fromGameLink">S timlilit %s</string>
   <string name="startTraining">Bdu asluɣmu</string>
   <string name="continueTraining">Kemmel asluɣmu</string>
