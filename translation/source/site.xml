@@ -483,7 +483,7 @@
   <string name="blackCastlingQueenside">Black O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s forum post</item>
-    <item quantity="other">%s forum Posts</item>
+    <item quantity="other">%s forum posts</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Time spent playing: %s</string>
   <string name="watchGames">Watch games</string>
