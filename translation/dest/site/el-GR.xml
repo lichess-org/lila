@@ -524,4 +524,5 @@
     <item quantity="other">Διαθέσιμο σε %s γλώσσες!</item>
   </plurals>
   <string name="gameAnalysis">Ανάλυση παιχνιδιού</string>
+  <string name="error.max">Πρέπει να είναι μικρότερο ή ίσο με %s</string>
 </resources>
