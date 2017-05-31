@@ -52,6 +52,10 @@
     <item quantity="one">%s na Laro</item>
     <item quantity="other">%s na Laro</item>
   </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s Tatak</item>
+    <item quantity="other">%s Mga tatak</item>
+  </plurals>
   <string name="viewInFullSize">Pagmasdan ang buong laki</string>
   <string name="logOut">Mag-sign out</string>
   <string name="signIn">Mag-sign in</string>
@@ -80,10 +84,17 @@
     <item quantity="one">%s oras</item>
     <item quantity="other">%s oras</item>
   </plurals>
+  <string name="time">Oras</string>
+  <string name="rating">Marka</string>
+  <string name="ratingStats">Istatistika ng marka</string>
+  <string name="username">Bansag</string>
+  <string name="usernameOrEmail">Bansag o email</string>
+  <string name="password">Hudyat</string>
   <string name="haveAnAccount">May account ka ba?</string>
   <string name="changePassword">Palitan ang password</string>
   <string name="changeEmail">Palitan ang email</string>
   <string name="email">Email</string>
+  <string name="emailIsOptional">Ang email ay opsyonal. Ang Lichess gagamitin ang iyong email address upang i-reset ang iyong password kung makalimutan mo ito.</string>
   <string name="forgotPassword">Nakalimutan mo ba ang iyong password?</string>
   <string name="rank">Ranko</string>
   <string name="gamesPlayed">Games Na Nalaro</string>
