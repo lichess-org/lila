@@ -61,6 +61,14 @@
     <item quantity="other">%s приклучени играчи</item>
   </plurals>
   <string name="currentGames">Игри кои се играат моментално</string>
+  <plurals name="nbGames">
+    <item quantity="one">Види ги сите %s игри</item>
+    <item quantity="other">Види ги сите %s игри</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s обележувачи</item>
+    <item quantity="other">%s обележувачи</item>
+  </plurals>
   <string name="viewInFullSize">Гледај во полна големина</string>
   <string name="logOut">Одјави се</string>
   <string name="signIn">Најави се</string>
@@ -81,6 +89,14 @@
   <string name="correspondence">Дописен шах</string>
   <string name="daysPerTurn">Денови по потег</string>
   <string name="oneDay">Еден ден</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s денови</item>
+    <item quantity="other">%s денови</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s часови</item>
+    <item quantity="other">%s часови</item>
+  </plurals>
   <string name="time">Време</string>
   <string name="rating">рејтинг</string>
   <string name="ratingStats">Статистика рейтинга</string>
@@ -96,6 +112,10 @@
   <string name="forgotPassword">Сте ја заборавиле лозинката?</string>
   <string name="rank">Ранг</string>
   <string name="gamesPlayed">Одиграни партии</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s игри со тебе</item>
+    <item quantity="other">%s игри со тебе</item>
+  </plurals>
   <string name="cancel">Откажи</string>
   <string name="timeOut">Времето истече</string>
   <string name="drawOfferSent">Понуда за реми е испратена</string>
@@ -138,6 +158,18 @@
   <string name="incrementInSeconds">Зголемување во секунди</string>
   <string name="freeOnlineChess">Бесплатен Онлајн Шах</string>
   <string name="spectators">Набљудувачи</string>
+  <plurals name="nbWins">
+    <item quantity="one">%s победи</item>
+    <item quantity="other">%s победи</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s порази</item>
+    <item quantity="other">%s порази</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s нерешени</item>
+    <item quantity="other">%s нерешени</item>
+  </plurals>
   <string name="exportGames">Извади игри</string>
   <string name="ratingRange">Elo опсег</string>
   <plurals name="giveNbSeconds">
@@ -163,6 +195,10 @@
   <string name="backToTournament">Врати се на турнир</string>
   <string name="siteDescription">Бесплатна онлајн шах игра. Играј шах во чист интерфејс. Без регистрација, без реклами, без додатни plugin-и. Играј шах со компјутер, пријатели или случајни противници.</string>
   <string name="teams">Тимови</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s членови</item>
+    <item quantity="other">%s членови</item>
+  </plurals>
   <string name="allTeams">Сите тимови</string>
   <string name="newTeam">Нов тим</string>
   <string name="myTeams">Мои тимови</string>
@@ -189,6 +225,10 @@
   <string name="fromPosition">Од позиција</string>
   <string name="continueFromHere">Продолжи од овде</string>
   <string name="importGame">Внеси игра</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s внесени игри</item>
+    <item quantity="other">%s внесени игри</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">Ова е шаховско CAPTCHA</string>
   <string name="clickOnTheBoardToMakeYourMove">Кликни на таблата за да го повлечеш својот потег и така докажи дека си човек.</string>
   <string name="notACheckmate">Не е шахмат.</string>
@@ -206,6 +246,10 @@
   <string name="unblock">Одблокирај</string>
   <string name="followsYou">Те следи</string>
   <string name="xStartedFollowingY">%1$s почна да го следи %2$s</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s следбеници</item>
+    <item quantity="other">%s следбеници</item>
+  </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s следи</item>
     <item quantity="other">%s следи</item>
@@ -276,6 +320,10 @@
   <string name="pleaseVotePuzzle">Помош lichess се подобри преку гласање, со користење нагоре или надолу стрелка:</string>
   <string name="thankYou">Благодарам!</string>
   <string name="ratingX">Рејтинг: %s</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Одиграно %s пати</item>
+    <item quantity="other">Одиграно %s пати</item>
+  </plurals>
   <string name="fromGameLink">Од игра на %s</string>
   <string name="startTraining">почнете со обука</string>
   <string name="continueTraining">продолжи обуката</string>
@@ -285,6 +333,10 @@
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">Имате %s секунди да направите вашиот прв потег!</item>
     <item quantity="other">Имате %s секунди да направите вашиот прв потег!</item>
+  </plurals>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s Игри во тек</item>
+    <item quantity="other">%s Игри во тек</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">По влечењето потег преминете автоматски кон наредната игра</string>
   <string name="puzzles">Проблеми</string>
