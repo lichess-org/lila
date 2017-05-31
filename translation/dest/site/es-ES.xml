@@ -233,6 +233,7 @@
   </plurals>
   <string name="thisIsAChessCaptcha">Esto es un CAPTCHA de ajedrez.</string>
   <string name="clickOnTheBoardToMakeYourMove">Haz clic en el tablero para hacer tu jugada y demostrar que eres humano.</string>
+  <string name="captcha.fail">Por favor, resuelva el captha de ajedrez.</string>
   <string name="notACheckmate">No es jaque mate</string>
   <string name="colorPlaysCheckmateInOne">%s juegan; mate en una</string>
   <string name="retry">Reintentar</string>
@@ -405,6 +406,7 @@
   <string name="premovesPlayingDuringOpponentTurn">Premovimiento (jugar durante el turno del oponente)</string>
   <string name="takebacksWithOpponentApproval">Deshacer jugada (con consentimiento del oponente)</string>
   <string name="promoteToQueenAutomatically">Promover a dama automáticamente</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Reclamar tablas por triple repetición</string>
   <string name="privacy">Privacidad</string>
   <string name="letOtherPlayersFollowYou">Permitir que otros jugadores te sigan</string>
   <string name="letOtherPlayersChallengeYou">Permitir que otros jugadores te desafíen</string>
@@ -532,6 +534,10 @@
   <string name="tournamentMayHaveBeenCanceled">Puede que se haya cancelado, si todos los jugadores se fueron antes de que empezara el torneo.</string>
   <string name="returnToTournamentsHomepage">Volver a la página principal de torneos</string>
   <string name="weeklyPerfTypeRatingDistribution">Distribución mensual de puntos de %s</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">Un jugador de %2$s esta semana.</item>
+    <item quantity="other">Un jugador de %2$s esta semana.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">Tu puntuación de %1$s es %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Eres mejor que el %1$s de los jugadores en %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">No tienes una puntuación de %s  establecida.</string>
@@ -574,4 +580,8 @@
     <item quantity="other">¡Disponible en %s idiomas!</item>
   </plurals>
   <string name="gameAnalysis">Análisis de juego</string>
+  <string name="xHostsY">%1$s crea %2$s</string>
+  <string name="xJoinsY">%1$s se une a %2$s</string>
+  <string name="xLikesY">a %1$s le gusta %2$s</string>
+  <string name="quickPairing">Emparejamiento rápido</string>
 </resources>
