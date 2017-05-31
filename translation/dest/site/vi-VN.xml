@@ -60,6 +60,12 @@
     <item quantity="other">%s người chơi</item>
   </plurals>
   <string name="currentGames">Những ván cờ đang diễn ra</string>
+  <plurals name="nbGames">
+    <item quantity="other">%s ván cờ</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="other">%s Đánh dấu</item>
+  </plurals>
   <string name="viewInFullSize">Xem ở kích thước đầy đủ</string>
   <string name="logOut">Đăng xuất</string>
   <string name="signIn">Đăng nhập</string>
@@ -80,6 +86,12 @@
   <string name="correspondence">Đánh cờ qua thư</string>
   <string name="daysPerTurn">Ngày đến lượt đi</string>
   <string name="oneDay">Một ngày</string>
+  <plurals name="nbDays">
+    <item quantity="other">%s ngày</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="other">%s giờ</item>
+  </plurals>
   <string name="time">Thời gian</string>
   <string name="rating">Hệ số Elo</string>
   <string name="username">Tên truy cập</string>
@@ -94,6 +106,9 @@
   <string name="forgotPassword">Quên mật khẩu?</string>
   <string name="rank">Xếp hạng</string>
   <string name="gamesPlayed">Ván đã chơi</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="other">%s những ván cờ với bạn</item>
+  </plurals>
   <string name="cancel">Hủy bỏ</string>
   <string name="timeOut">Hết giờ</string>
   <string name="drawOfferSent">Đã gửi đề nghị hòa</string>
@@ -136,6 +151,15 @@
   <string name="incrementInSeconds">Thêm giây</string>
   <string name="freeOnlineChess">Chơi cờ miễn phí online</string>
   <string name="spectators">Khán giả:</string>
+  <plurals name="nbWins">
+    <item quantity="other">%s thắng</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="other">%s thua</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="other">%s hòa</item>
+  </plurals>
   <string name="exportGames">Xuất biên bản</string>
   <string name="ratingRange">Phạm vi Glicko</string>
   <plurals name="giveNbSeconds">
@@ -161,6 +185,9 @@
   <string name="backToGame">Quay lại ván đấu</string>
   <string name="siteDescription">Chơi Cờ Vua online miễn phí. Chơi Cờ Vua với giao diện đẹp. Không cần đăng ký, không quảng cáo, không yêu cầu plugin. Chơi Cờ Vua với máy tính, bạn bè hoặc đấu thủ.</string>
   <string name="teams">Đội</string>
+  <plurals name="nbMembers">
+    <item quantity="other">%s thành viên</item>
+  </plurals>
   <string name="allTeams">Tất cả đội</string>
   <string name="newTeam">Đội mới</string>
   <string name="myTeams">Đội của tôi</string>
@@ -187,6 +214,9 @@
   <string name="fromPosition">Từ thế trận</string>
   <string name="continueFromHere">Tiếp tục từ đây</string>
   <string name="importGame">Nhập ván cờ</string>
+  <plurals name="nbImportedGames">
+    <item quantity="other">%s các ván cờ đã nhập</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">Đây là mã CAPTCHA cờ vua</string>
   <string name="clickOnTheBoardToMakeYourMove">Bấm vào bàn cờ để di chuyển, chứng minh bạn là con người</string>
   <string name="notACheckmate">Không phải là một nước chiếu hết</string>
@@ -204,6 +234,9 @@
   <string name="unblock">Bỏ chặn</string>
   <string name="followsYou">Theo dõi bạn</string>
   <string name="xStartedFollowingY">%1$s bắt đầu theo dõi</string>
+  <plurals name="nbFollowers">
+    <item quantity="other">%s người theo dõi</item>
+  </plurals>
   <plurals name="nbFollowing">
     <item quantity="other">%s đang theo dõi</item>
   </plurals>
@@ -271,6 +304,9 @@
   <string name="pleaseVotePuzzle">Giúp lichess cải thiện bằng cách bình chọn, dùng mũi tên lên hoặc xuống:</string>
   <string name="thankYou">Cám ơn!</string>
   <string name="ratingX">Hệ số: %s</string>
+  <plurals name="playedXTimes">
+    <item quantity="other">Đã chơi %s lần</item>
+  </plurals>
   <string name="fromGameLink">Từ ván cờ %s</string>
   <string name="startTraining">Bắt đầu luyện</string>
   <string name="continueTraining">Tiếp tục luyện</string>
@@ -279,6 +315,9 @@
   <string name="thisPuzzleIsWrong">Câu đố này sai hoặc dở ẹc</string>
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="other">Bạn có %s để thực hiện nước đi đầu tiên!</item>
+  </plurals>
+  <plurals name="nbGamesInPlay">
+    <item quantity="other">%s trận đang chơi</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Tự động chuyển đến ván tiếp theo sau khi thực hiện nước đi</string>
   <string name="autoSwitch">Tự động chuyển</string>
@@ -416,6 +455,9 @@
   <string name="whiteCastlingQueenside">Trắng O-O-O</string>
   <string name="blackCastlingKingside">Đen O-O</string>
   <string name="blackCastlingQueenside">Đen O-O-O</string>
+  <plurals name="nbForumPosts">
+    <item quantity="other">%s Bài Viết Diễn Đàn</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">Thời gian đã chơi: %s</string>
   <string name="watchGames">Xem các ván đấu</string>
   <string name="tpTimeSpentOnTV">Thời gian xem Lichess TV: %s</string>
