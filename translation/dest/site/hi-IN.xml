@@ -61,6 +61,14 @@
     <item quantity="other">%s खिलाड़ी</item>
   </plurals>
   <string name="currentGames">अभी खेले जा रहे खेल</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s खेल</item>
+    <item quantity="other">%s खेल</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s पृष्ठ स्मृतियाँ</item>
+    <item quantity="other">%s पृष्ठ स्मृतियाँ</item>
+  </plurals>
   <string name="viewInFullSize">पूर्ण आकर में देखें</string>
   <string name="logOut">खाते से निकास करें</string>
   <string name="signIn">खाते में प्रवेश करें</string>
@@ -81,6 +89,14 @@
   <string name="correspondence">काफी लम्बे वक़्त का खेल</string>
   <string name="daysPerTurn">दिन प्रति चाल</string>
   <string name="oneDay">एक दिन</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s दिन</item>
+    <item quantity="other">%s दिन</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s घंटे</item>
+    <item quantity="other">%s घंटे</item>
+  </plurals>
   <string name="time">समय</string>
   <string name="rating">रेटिंग</string>
   <string name="ratingStats">रेटिंग सांख्यिकी</string>
@@ -96,6 +112,10 @@
   <string name="forgotPassword">क्या आप अपना पासवर्ड भूल गए हैं?</string>
   <string name="rank">श्रेणी (रैंक)</string>
   <string name="gamesPlayed">खेले हुए खेल</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">आपके साथ %s खेल</item>
+    <item quantity="other">आपके साथ %s खेल</item>
+  </plurals>
   <string name="cancel">रद्द करें</string>
   <string name="timeOut">समय समाप्ति</string>
   <string name="drawOfferSent">बराबरी पे खेल समाप्त करने का प्रस्ताव भेजा गया</string>
@@ -138,6 +158,18 @@
   <string name="incrementInSeconds">हर चाल पर सेकंड्स की वृद्धि</string>
   <string name="freeOnlineChess">मुफ्त ऑनलाइन शतरंज</string>
   <string name="spectators">दर्शक</string>
+  <plurals name="nbWins">
+    <item quantity="one">%s जीत</item>
+    <item quantity="other">%s जीत</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s हार</item>
+    <item quantity="other">%s हार</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s खेल बराबरी पे समाप्त</item>
+    <item quantity="other">%s खेल बराबरी पे समाप्त</item>
+  </plurals>
   <string name="exportGames">खेल को निर्यात (एक्सपोर्ट) करें</string>
   <string name="ratingRange">अंकों की सीमा</string>
   <plurals name="giveNbSeconds">
@@ -165,6 +197,10 @@
   <string name="backToGame">खेल पर लौटें।</string>
   <string name="siteDescription">खेलें शतरंज मुफ्त और ऑनलाइन साफ़ सुथरे अंदाज में| न कोई पंजीकरण, न कोई प्रचार और न ही किसी अन्य बहरी चीज की आव्यशकता| शतरंज कम्प्युटर, दोस्तों या किसी भी प्रतिद्वंदी के साथ खेलें|</string>
   <string name="teams">समूह</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s सदस्य</item>
+    <item quantity="other">%s सदस्य</item>
+  </plurals>
   <string name="allTeams">सभी समूह</string>
   <string name="newTeam">नया समूह</string>
   <string name="myTeams">मेरे समूह</string>
@@ -191,6 +227,10 @@
   <string name="fromPosition">स्थिति से</string>
   <string name="continueFromHere">यहा से जारी करें</string>
   <string name="importGame">खेल आयात (इम्पोर्ट) करे</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s खेल आयत (इम्पोर्ट) किये गए</item>
+    <item quantity="other">%s खेल आयत (इम्पोर्ट) किये गए</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">यह इंसानों और कम्प्यूटरों को अलग करने के लिए शतरंज की पहेली है</string>
   <string name="clickOnTheBoardToMakeYourMove">अपनी चाल चलने के लिए बोर्ड पर क्लिक करें और साबित करे की आप इंसान हैं।</string>
   <string name="notACheckmate">शह और मात नहीं</string>
@@ -208,6 +248,10 @@
   <string name="unblock">अवस्र्द्ध (ब्लॉक) न करें</string>
   <string name="followsYou">आपका अनुसरण कर रहे हैं</string>
   <string name="xStartedFollowingY">%1$s ने  %2$s का अनुसरण करना शुरू किया</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s अनुसरणकर्ता</item>
+    <item quantity="other">%s अनुसरणकर्ता</item>
+  </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s अनुगामी</item>
     <item quantity="other">%s अनुगामी</item>
@@ -278,6 +322,10 @@
   <string name="pleaseVotePuzzle">वोट करके लीचेस की सहायता करियें, ऊपर या नीचे वाले तीर का इस्तेमाल करें</string>
   <string name="thankYou">धन्यवाद!</string>
   <string name="ratingX">रेटिंग: %s</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">%s बार खेला गया</item>
+    <item quantity="other">%s बार खेला गया</item>
+  </plurals>
   <string name="fromGameLink">%s खेल से</string>
   <string name="startTraining">प्रशिक्षण शुरू करें</string>
   <string name="continueTraining">प्रशिक्षण जारी रखें</string>
@@ -287,6 +335,10 @@
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">आपके पास अपनी पहली चाल चलने के लिए %s सेकंड हैं!</item>
     <item quantity="other">आपके पास अपनी पहली चाल चलने के लिए %s सेकंड हैं!</item>
+  </plurals>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s खेल खेले जा रहे है</item>
+    <item quantity="other">%s खेल खेले जा रहे है</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">चाल चलने के बाद अपने आप अगले खेल पर जाएँ</string>
   <string name="autoSwitch">अपने आप खेल बदलें।</string>
@@ -426,6 +478,10 @@
   <string name="whiteCastlingQueenside">काला O-O-O</string>
   <string name="blackCastlingKingside">काला O-O</string>
   <string name="blackCastlingQueenside">काला O-O-O</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s जनसभा (फोरम) ब्योरे (पोस्ट्स)</item>
+    <item quantity="other">%s जनसभा (फोरम) ब्योरे (पोस्ट्स)</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">समय व्यतीत : %s</string>
   <string name="watchGames">खेल देखें</string>
   <string name="tpTimeSpentOnTV">TV पर समय: %s</string>
