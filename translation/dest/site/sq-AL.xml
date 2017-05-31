@@ -61,6 +61,14 @@
     <item quantity="other">%s lojtarë në linjë</item>
   </plurals>
   <string name="currentGames">Lojrat që po luhen tani</string>
+  <plurals name="nbGames">
+    <item quantity="one">Shihni gjithë lojrat %s</item>
+    <item quantity="other">Shihni gjithë lojrat %s</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s Faqeruajtës</item>
+    <item quantity="other">%s Faqeruajtës</item>
+  </plurals>
   <string name="viewInFullSize">Shihe në madhësi të plotë</string>
   <string name="logOut">Dilni</string>
   <string name="signIn">Hyni</string>
@@ -81,6 +89,14 @@
   <string name="correspondence">Korespondenca</string>
   <string name="daysPerTurn">Ditë për turne</string>
   <string name="oneDay">Një ditë</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s ditë</item>
+    <item quantity="other">%s ditë</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s orë</item>
+    <item quantity="other">%s orë</item>
+  </plurals>
   <string name="time">Koha</string>
   <string name="rating">Vlerësimi</string>
   <string name="ratingStats">Statistikat e vlerësimit</string>
@@ -96,6 +112,10 @@
   <string name="forgotPassword">Harruat fjalëkalimin?</string>
   <string name="rank">Renditja</string>
   <string name="gamesPlayed">Lojra të luajtura</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s lojra me ju</item>
+    <item quantity="other">%s lojra me ju</item>
+  </plurals>
   <string name="cancel">Anullo</string>
   <string name="timeOut">Koha mbaroi</string>
   <string name="drawOfferSent">Oferta për barazim u dërgua</string>
@@ -138,6 +158,18 @@
   <string name="incrementInSeconds">Koha shtesë në sekonda</string>
   <string name="freeOnlineChess">Shah i drejtpërdrejtë pa pagesë</string>
   <string name="spectators">Shikues:</string>
+  <plurals name="nbWins">
+    <item quantity="one">%s fitore</item>
+    <item quantity="other">%s fitore</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s humbje</item>
+    <item quantity="other">%s humbje</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s barazime</item>
+    <item quantity="other">%s barazime</item>
+  </plurals>
   <string name="exportGames">Eksporto lojërat</string>
   <string name="ratingRange">Shtrirja e vlerësimit</string>
   <plurals name="giveNbSeconds">
@@ -165,6 +197,10 @@
   <string name="backToGame">Kthehu te loja</string>
   <string name="siteDescription">Lojë shahu pa pagesë në-linjë. Luani shah përmes një ndërfaqeje të pastër. Pa regjistrim, pa reklama, pa u dashur shtojca. Luani shah me kompjuterin, miqtë ose kundërshtarë të rastësishëm.</string>
   <string name="teams">Ekipet</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s anëtarë</item>
+    <item quantity="other">%s anëtarë</item>
+  </plurals>
   <string name="allTeams">Të gjithë ekipet</string>
   <string name="newTeam">Ekip i ri</string>
   <string name="myTeams">Ekipet e mia</string>
@@ -191,6 +227,10 @@
   <string name="fromPosition">Nga pozicioni</string>
   <string name="continueFromHere">Vazhdo nga këtu</string>
   <string name="importGame">Importo lojën</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s Lojëra të importuara</item>
+    <item quantity="other">%s Lojëra të importuara</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">Ky është një CAPTCHA shahu.</string>
   <string name="clickOnTheBoardToMakeYourMove">Klikoni mbi fushë për të bërë lëvizjen tuaj dhe të vërtetoni që jeni qenie njerëzore</string>
   <string name="notACheckmate">Nuk është shahmat</string>
@@ -208,6 +248,10 @@
   <string name="unblock">Zhblloko</string>
   <string name="followsYou">Ju ndjek juve</string>
   <string name="xStartedFollowingY">%1$s filloi të ndjekë %2$s</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s ndjekës</item>
+    <item quantity="other">%s ndjekës</item>
+  </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s duke ndjekur</item>
     <item quantity="other">%s duke ndjekur</item>
@@ -278,6 +322,10 @@
   <string name="pleaseVotePuzzle">Ndihmo lichess të përmirësohet duke votuar, me shigjetat poshtë ose lartë:</string>
   <string name="thankYou">Faleminderit!</string>
   <string name="ratingX">Vlerësimi: %s</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Luajtur %s herë</item>
+    <item quantity="other">Luajtur %s herë</item>
+  </plurals>
   <string name="fromGameLink">Prej lojës %s</string>
   <string name="startTraining">Fillo trajnimin</string>
   <string name="continueTraining">Vazhdo trajnimin</string>
@@ -287,6 +335,10 @@
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">Ju keni %s sekonda për të bërë lëvizjen tuaj të parë!</item>
     <item quantity="other">Ju keni %s sekonda për të bërë lëvizjen tuaj të parë!</item>
+  </plurals>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s lojëra duke u luajtur</item>
+    <item quantity="other">%s lojëra duke u luajtur</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Automatikisht kalo në lojën tjetër pasi lëviz.</string>
   <string name="autoSwitch">Kalim automatik</string>
@@ -426,6 +478,10 @@
   <string name="whiteCastlingQueenside">I bardhi O-O-O</string>
   <string name="blackCastlingKingside">I ziu O-O</string>
   <string name="blackCastlingQueenside">I ziu O-O-O</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s Postime në Forum</item>
+    <item quantity="other">%s Postime në Forum</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">Koha e luajtur: %s</string>
   <string name="watchGames">Shiko lojërat</string>
   <string name="tpTimeSpentOnTV">Koha në TV: %s</string>
