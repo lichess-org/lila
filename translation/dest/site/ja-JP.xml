@@ -60,6 +60,12 @@
     <item quantity="other">現在%s人接続中</item>
   </plurals>
   <string name="currentGames">現在対局中</string>
+  <plurals name="nbGames">
+    <item quantity="other">対局（全%s局）を見る</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="other">%s個の ブックマーク</item>
+  </plurals>
   <string name="viewInFullSize">フルサイズで見る</string>
   <string name="logOut">ログアウト</string>
   <string name="signIn">ログイン</string>
@@ -80,6 +86,12 @@
   <string name="correspondence">通信チェス</string>
   <string name="daysPerTurn">制限日数</string>
   <string name="oneDay">一日</string>
+  <plurals name="nbDays">
+    <item quantity="other">%s日</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="other">%s時間</item>
+  </plurals>
   <string name="time">時間</string>
   <string name="rating">レーティング</string>
   <string name="ratingStats">レーティングの統計</string>
@@ -95,6 +107,9 @@
   <string name="forgotPassword">パスワードを忘れた方はこちら</string>
   <string name="rank">ランク</string>
   <string name="gamesPlayed">過去の対局</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="other">あなたと %s 局対局</item>
+  </plurals>
   <string name="cancel">キャンセル</string>
   <string name="timeOut">時間切れ</string>
   <string name="drawOfferSent">引き分けの申し込みを送信しました</string>
@@ -137,6 +152,15 @@
   <string name="incrementInSeconds">１手ごとに増える秒数</string>
   <string name="freeOnlineChess">無料オンラインチェス</string>
   <string name="spectators">観覧者:</string>
+  <plurals name="nbWins">
+    <item quantity="other">%s回 勝ち</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="other">%s回 負け</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="other">%s回 引き分け</item>
+  </plurals>
   <string name="exportGames">対局をエクスポートする</string>
   <string name="ratingRange">レーティングの範囲</string>
   <plurals name="giveNbSeconds">
@@ -163,6 +187,9 @@
   <string name="backToGame">ゲームに戻る</string>
   <string name="siteDescription">無料オンラインチェス。簡素なインターフェースですぐに対局を。登録不要、広告なし、プラグイン不要。AIと、友達と、知らない相手とも対局できます。</string>
   <string name="teams">チーム</string>
+  <plurals name="nbMembers">
+    <item quantity="other">%s 人のメンバー</item>
+  </plurals>
   <string name="allTeams">すべてのチーム</string>
   <string name="newTeam">チームを作る</string>
   <string name="myTeams">自分の所属チーム</string>
@@ -189,6 +216,9 @@
   <string name="fromPosition">特定の局面から</string>
   <string name="continueFromHere">中断した所から再開</string>
   <string name="importGame">ゲームをインポート</string>
+  <plurals name="nbImportedGames">
+    <item quantity="other">%s個の インポートしたゲーム</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">これはロボットよけの認証です。</string>
   <string name="clickOnTheBoardToMakeYourMove">駒を動かしてあなたが人間である事を証明して下さい。</string>
   <string name="notACheckmate">チェックメイトではありません</string>
@@ -206,6 +236,9 @@
   <string name="unblock">ブロックを外す</string>
   <string name="followsYou">あなたをフォローしています</string>
   <string name="xStartedFollowingY">%1$s が %2$s のフォローを開始</string>
+  <plurals name="nbFollowers">
+    <item quantity="other">%s 人のフォロワー</item>
+  </plurals>
   <plurals name="nbFollowing">
     <item quantity="other">%s 人をフォロー</item>
   </plurals>
@@ -274,6 +307,9 @@
   <string name="pleaseVotePuzzle">改善のためご意見をお聞かせください。上矢印、下矢印をお使いください:</string>
   <string name="thankYou">謝辞</string>
   <string name="ratingX">レーティング: %s</string>
+  <plurals name="playedXTimes">
+    <item quantity="other">挑戦回数%s回</item>
+  </plurals>
   <string name="fromGameLink">ゲーム%sから</string>
   <string name="startTraining">トレーニングを始める</string>
   <string name="continueTraining">トレーニングを続ける</string>
@@ -282,6 +318,9 @@
   <string name="thisPuzzleIsWrong">このパズルには間違いがある/あまり意味が無い</string>
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="other">%s 秒以内に初手を指してください</item>
+  </plurals>
+  <plurals name="nbGamesInPlay">
+    <item quantity="other">%s 試合プレイ中</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">指した後 自動的に次のゲームに進む</string>
   <string name="autoSwitch">自動スイッチ</string>
@@ -419,6 +458,9 @@
   <string name="whiteCastlingQueenside">白　o-o-o</string>
   <string name="blackCastlingKingside">黒　o-o</string>
   <string name="blackCastlingQueenside">黒　o-o-o</string>
+  <plurals name="nbForumPosts">
+    <item quantity="other">%s フォーラムへの投稿</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">プレイ時間:%s</string>
   <string name="watchGames">ゲームを見る</string>
   <string name="tpTimeSpentOnTV">TVに映った時間:%s</string>
