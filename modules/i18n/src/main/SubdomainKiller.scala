@@ -17,7 +17,7 @@ final class SubdomainKiller(domain: String) {
     else None
 
   private def appliesTo(req: RequestHeader) =
-    req.host(2) == '.' &&
+    req.host.lift(2).has('.') &&
       req.host.drop(3) == domain &&
       HTTPRequest.isRedirectable(req) &&
       !excludePath(req.path)

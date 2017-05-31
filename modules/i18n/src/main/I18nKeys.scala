@@ -1,4 +1,4 @@
-// Generated with bin/trans-dump.js Wed May 31 2017 09:01:24 GMT+0200 (CEST)
+// Generated with bin/trans-dump.js
 package lila.i18n
 
 // format: OFF
