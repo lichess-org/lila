@@ -61,6 +61,14 @@
     <item quantity="other">%s συνδεδεμένοι παίκτες</item>
   </plurals>
   <string name="currentGames">Παιχνίδια σε εξέλιξη</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s παιχνίδι</item>
+    <item quantity="other">%s Παιχνίδια</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s σελιδοδείκτης</item>
+    <item quantity="other">%s σελιδοδείκτες</item>
+  </plurals>
   <string name="viewInFullSize">Προβολή σε πλήρες μέγεθος</string>
   <string name="logOut">Έξοδος</string>
   <string name="signIn">Είσοδος</string>
@@ -81,6 +89,14 @@
   <string name="correspondence">Αλληλογραφία</string>
   <string name="daysPerTurn">Ημέρες ανά σειρά</string>
   <string name="oneDay">Μία ημέρα</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s ημέρα</item>
+    <item quantity="other">%s ημέρες</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s ώρα</item>
+    <item quantity="other">%s ώρες</item>
+  </plurals>
   <string name="time">Χρόνος</string>
   <string name="rating">Βαθμολογία</string>
   <string name="ratingStats">Στατιστικές βαθμολογίας</string>
@@ -96,6 +112,10 @@
   <string name="forgotPassword">Ξεχάσατε τον κωδικό;</string>
   <string name="rank">Επίπεδο</string>
   <string name="gamesPlayed">Παιγμένα παιχνίδια</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s παιχνίδι με εσάς</item>
+    <item quantity="other">%s παιχνίδια με εσάς</item>
+  </plurals>
   <string name="cancel">Ακύρωση</string>
   <string name="timeOut">Τέλος χρόνου</string>
   <string name="drawOfferSent">Πρόταση ισοπαλίας εστάλη</string>
@@ -138,6 +158,18 @@
   <string name="incrementInSeconds">Προσαύξηση σε δευτερόλεπτα</string>
   <string name="freeOnlineChess">Δωρεάν Διαδικτυακό Σκάκι</string>
   <string name="spectators">Θεατές:</string>
+  <plurals name="nbWins">
+    <item quantity="one">%s νίκη</item>
+    <item quantity="other">%s νίκες</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s ήττα</item>
+    <item quantity="other">%s ήττες</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s ισοπαλία</item>
+    <item quantity="other">%s ισοπαλίες</item>
+  </plurals>
   <string name="exportGames">Εξαγωγή παιχνιδιών</string>
   <string name="ratingRange">Εμβέλεια βαθμολογίας</string>
   <plurals name="giveNbSeconds">
@@ -165,6 +197,10 @@
   <string name="backToGame">Επιστρέψτε στο παιχνίδι</string>
   <string name="siteDescription">Δωρεάν διαδικτυακό παιχνίδι Σκακιού. Παίξτε Σκάκι τώρα σε καθαρό γραφικό περιβάλλον. Χωρίς εγγραφές, χωρίς διαφημίσεις, χωρίς πρόσθετα. Παίξτε Σκάκι με τον υπολογιστή, με φίλους ή με τυχαίους αντιπάλους.</string>
   <string name="teams">Ομάδες</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s μέλος</item>
+    <item quantity="other">%s μέλη</item>
+  </plurals>
   <string name="allTeams">Όλες οι ομάδες</string>
   <string name="newTeam">Νέα ομάδα</string>
   <string name="myTeams">Οι ομάδες μου</string>
@@ -191,8 +227,13 @@
   <string name="fromPosition">Από συγκεκριμένη θέση</string>
   <string name="continueFromHere">Συνέχεια από εδώ</string>
   <string name="importGame">Εισαγωγή παιχνιδιού</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s Εισαγόμενο παιχνίδι</item>
+    <item quantity="other">%s Εισαγόμενα παιχνίδια</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">Αυτό είναι CAPTCHA σκακιού.</string>
   <string name="clickOnTheBoardToMakeYourMove">Κάνετε κλικ στη σκακιέρα για να κινήσετε τα πιόνια και να αποδείξετε πως είστε άνθρωπος.</string>
+  <string name="captcha.fail">Παρακαλούμε λύστε το σκάκι captcha.</string>
   <string name="notACheckmate">Δεν είναι ματ</string>
   <string name="colorPlaysCheckmateInOne">Τα %s παίζουν· κάντε ματ με μία κίνηση</string>
   <string name="retry">Επανάληψη</string>
@@ -200,6 +241,7 @@
   <string name="onlineFriends">Συνδεδεμένοι φίλοι</string>
   <string name="noFriendsOnline">Δεν υπάρχουν συνδεδεμένοι φίλοι</string>
   <string name="findFriends">Βρείτε φίλους</string>
+  <string name="favoriteOpponents">Αγαπημένοι αντίπαλοι</string>
   <string name="follow">Ακολουθήστε</string>
   <string name="following">Ακολουθείτε</string>
   <string name="unfollow">Κατάργηση παρακολούθησης</string>
@@ -208,6 +250,10 @@
   <string name="unblock">Κατάργηση απόκλεισης</string>
   <string name="followsYou">Σας ακολουθεί</string>
   <string name="xStartedFollowingY">Ο %1$s άρχισε να ακολουθεί τον %2$s</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s ακόλουθος</item>
+    <item quantity="other">%s ακόλουθοι</item>
+  </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s ακολουθούνται</item>
     <item quantity="other">%s ακολουθούνται</item>
@@ -278,6 +324,10 @@
   <string name="pleaseVotePuzzle">Βελτιώστε το lichess με την ψήφο σας. Μπορείτε να ψηφίσετε πατώντας το πάνω ή κάτω βελάκι.</string>
   <string name="thankYou">Σας ευχαριστώ!</string>
   <string name="ratingX">Βαθμολογία: %s</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Παίχτηκε %s φορά</item>
+    <item quantity="other">Παίχτηκε %s φορές</item>
+  </plurals>
   <string name="fromGameLink">Από το παιχνίδι %s</string>
   <string name="startTraining">Έναρξη εξάσκησης</string>
   <string name="continueTraining">Συνέχεια εξάσκησης</string>
@@ -287,6 +337,10 @@
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">Έχετε %s δευτερόλεπτα για να κάνετε τη πρώτη σας κίνηση!</item>
     <item quantity="other">Έχετε %s δευτερόλεπτα για να κάνετε τη πρώτη σας κίνηση!</item>
+  </plurals>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s παιχνίδι σε εξέλιξη</item>
+    <item quantity="other">%s παιχνίδια σε εξέλιξη</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Προχωρήστε αυτόματα στο επόμενο παιχνίδι μετά την κίνηση</string>
   <string name="autoSwitch">Αυτόματη εναλλαγή</string>
@@ -352,6 +406,7 @@
   <string name="premovesPlayingDuringOpponentTurn">Προκινήσεις (παιγμένες κατά το χρόνο σκέψης του αντιπάλου)</string>
   <string name="takebacksWithOpponentApproval">Ανακλήσεις (με έγκριση του αντιπάλου)</string>
   <string name="promoteToQueenAutomatically">Αυτόματη προαγωγή σε βασίλισσα</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Απαίτηση ισοπαλίας σε τριπλή επανάληψη αυτόματα</string>
   <string name="privacy">Απόρρητο</string>
   <string name="letOtherPlayersFollowYou">Επιτρέψτε σε άλλους παίκτες να σας ακολουθούν</string>
   <string name="letOtherPlayersChallengeYou">Επιτρέψτε σε άλλους παίκτες να σας προκαλούν σε παιχνίδι</string>
@@ -381,6 +436,7 @@
   <string name="starting">Αρχίζει:</string>
   <string name="allInformationIsPublicAndOptional">Όλες οι πληροφορίες είναι δημόσιες και προαιρετικές.</string>
   <string name="yourCityRegionOrDepartment">Η πόλη, περιοχή ή ο νομός σας</string>
+  <string name="biographyDescription">Γράψτε για τον εαυτό σας, τι σας αρέσει στο σκάκι, τα αγαπημένα σας ανοίγματα, παιχνίδια, παίκτες…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Όριο: %s χαρακτήρες.</item>
     <item quantity="other">Όριο: %s χαρακτήρες.</item>
@@ -426,6 +482,10 @@
   <string name="whiteCastlingQueenside">Λευκά Ο-Ο-Ο</string>
   <string name="blackCastlingKingside">Μαύρα Ο-Ο</string>
   <string name="blackCastlingQueenside">Μαύρα Ο-Ο-Ο</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s Δημοσίευση Φόρουμ</item>
+    <item quantity="other">%s Δημοσιεύσεις Φόρουμ</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">Χρόνος που διατέθηκε παίζοντας: %s</string>
   <string name="watchGames">Παρακολουθήστε παιχνίδια</string>
   <string name="tpTimeSpentOnTV">Χρόνος στην Τηλεόρ: %s</string>
@@ -474,6 +534,10 @@
   <string name="tournamentMayHaveBeenCanceled">Ίσως έχει ακυρωθεί, εάν όλοι οι παίκτες αποχώρησαν πριν το πρωτάθλημα ξεκινήσει.</string>
   <string name="returnToTournamentsHomepage">Επιστροφή στην αρχική σελίδα πρωταθλημάτων</string>
   <string name="weeklyPerfTypeRatingDistribution">Μηνιαία %s κατανομή βαθμολογίας</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">Ένας παίκτης %2$s αυτή την εβδομάδα.</item>
+    <item quantity="other">%1$s %2$s παίκτες αυτή την εβδομάδα.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">Η %1$s βαθμολογία σας είναι %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Είστε καλύτεροι από το %1$s των %2$s παικτών.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Δεν έχετε μια καθιερωμένη %s βαθμολογία.</string>
@@ -516,4 +580,30 @@
     <item quantity="other">Διαθέσιμο σε %s γλώσσες!</item>
   </plurals>
   <string name="gameAnalysis">Ανάλυση παιχνιδιού</string>
+  <string name="xHostsY">%1$s διοργανώνει %2$s</string>
+  <string name="xJoinsY">%1$s συμμετέχει %2$s</string>
+  <string name="xLikesY">%1$s αρέσει %2$s</string>
+  <string name="quickPairing">Γρήγορη ζεύξη</string>
+  <string name="lobby">Χώρος αναμονής</string>
+  <string name="yourScore">Αποτέλεσμα: %s</string>
+  <string name="background">Παρασκήνιο</string>
+  <string name="boardGeometry">Γεωμετρία σκακιέρας</string>
+  <string name="boardTheme">Θέμα σκακιέρας</string>
+  <string name="boardSize">Μέγεθος σκακιέρας</string>
+  <string name="pieceSet">Ρύθμιση κομματιών</string>
+  <string name="embedInYourWebsite">Ενσωματώστε στην ιστοσελίδα σας</string>
+  <string name="usernameAlreadyUsed">Αυτό το όνομα χρήστη είναι ήδη σε χρήση, Παρακαλώ δοκιμάστε ένα άλλο.</string>
+  <string name="usernameInvalid">Μη έγκυρο όνομα χρήστη. Παρακαλούμε χρησιμοποιήστε μόνο γράμματα, αριθμούς, χαρακτήρα υπογράμμισης και παύλα.</string>
+  <string name="usernameStartNoNumber">Το όνομα χρήστη δεν πρέπει να ξεκινάει με αριθμό.</string>
+  <string name="usernameUnacceptable">Αυτό το όνομα χρήστη δεν είναι αποδεκτό.</string>
+  <string name="directlySupportLichess">Άμεση υποστήριξη Lichess</string>
+  <string name="playChessInStyle">Παίξτε σκάκι με στυλ</string>
+  <string name="chessBasics">Σκάκι βασικά στοιχεία</string>
+  <string name="coaches">Προπονητές</string>
+  <string name="invalidPgn">Μη έγκυρο PGN</string>
+  <string name="invalidFen">Μη έγκυρο FEN</string>
+  <string name="error.minLength">Ελάχιστο μήκος είναι %s</string>
+  <string name="error.maxLength">Μέγιστο μήκος είναι %s</string>
+  <string name="error.min">Πρέπει να είναι μεγαλύτερο ή ίσο με %s</string>
+  <string name="error.max">Πρέπει να είναι μικρότερο ή ίσο με %s</string>
 </resources>
