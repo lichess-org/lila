@@ -62,12 +62,12 @@
   </plurals>
   <string name="currentGames">Παιχνίδια σε εξέλιξη</string>
   <plurals name="nbGames">
-    <item quantity="one">%s παιχνίδι</item>
+    <item quantity="one">%s Παιχνίδια</item>
     <item quantity="other">%s Παιχνίδια</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s σελιδοδείκτης</item>
-    <item quantity="other">%s σελιδοδείκτες</item>
+    <item quantity="one">%s Σελιδοδείκτες</item>
+    <item quantity="other">%s Σελιδοδείκτες</item>
   </plurals>
   <string name="viewInFullSize">Προβολή σε πλήρες μέγεθος</string>
   <string name="logOut">Έξοδος</string>
@@ -90,11 +90,11 @@
   <string name="daysPerTurn">Ημέρες ανά σειρά</string>
   <string name="oneDay">Μία ημέρα</string>
   <plurals name="nbDays">
-    <item quantity="one">%s ημέρα</item>
+    <item quantity="one">%s ημέρες</item>
     <item quantity="other">%s ημέρες</item>
   </plurals>
   <plurals name="nbHours">
-    <item quantity="one">%s ώρα</item>
+    <item quantity="one">%s ώρες</item>
     <item quantity="other">%s ώρες</item>
   </plurals>
   <string name="time">Χρόνος</string>
@@ -113,7 +113,7 @@
   <string name="rank">Επίπεδο</string>
   <string name="gamesPlayed">Παιγμένα παιχνίδια</string>
   <plurals name="nbGamesWithYou">
-    <item quantity="one">%s παιχνίδι με εσάς</item>
+    <item quantity="one">%s παιχνίδια με εσάς</item>
     <item quantity="other">%s παιχνίδια με εσάς</item>
   </plurals>
   <string name="cancel">Ακύρωση</string>
@@ -159,15 +159,15 @@
   <string name="freeOnlineChess">Δωρεάν Διαδικτυακό Σκάκι</string>
   <string name="spectators">Θεατές:</string>
   <plurals name="nbWins">
-    <item quantity="one">%s νίκη</item>
+    <item quantity="one">%s νίκες</item>
     <item quantity="other">%s νίκες</item>
   </plurals>
   <plurals name="nbLosses">
-    <item quantity="one">%s ήττα</item>
+    <item quantity="one">%s ήττες</item>
     <item quantity="other">%s ήττες</item>
   </plurals>
   <plurals name="nbDraws">
-    <item quantity="one">%s ισοπαλία</item>
+    <item quantity="one">%s ισοπαλίες</item>
     <item quantity="other">%s ισοπαλίες</item>
   </plurals>
   <string name="exportGames">Εξαγωγή παιχνιδιών</string>
@@ -198,7 +198,7 @@
   <string name="siteDescription">Δωρεάν διαδικτυακό παιχνίδι Σκακιού. Παίξτε Σκάκι τώρα σε καθαρό γραφικό περιβάλλον. Χωρίς εγγραφές, χωρίς διαφημίσεις, χωρίς πρόσθετα. Παίξτε Σκάκι με τον υπολογιστή, με φίλους ή με τυχαίους αντιπάλους.</string>
   <string name="teams">Ομάδες</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s μέλος</item>
+    <item quantity="one">%s μέλη</item>
     <item quantity="other">%s μέλη</item>
   </plurals>
   <string name="allTeams">Όλες οι ομάδες</string>
@@ -228,7 +228,7 @@
   <string name="continueFromHere">Συνέχεια από εδώ</string>
   <string name="importGame">Εισαγωγή παιχνιδιού</string>
   <plurals name="nbImportedGames">
-    <item quantity="one">%s Εισαγόμενο παιχνίδι</item>
+    <item quantity="one">%s Εισαγόμενα παιχνίδια</item>
     <item quantity="other">%s Εισαγόμενα παιχνίδια</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Αυτό είναι CAPTCHA σκακιού.</string>
@@ -251,7 +251,7 @@
   <string name="followsYou">Σας ακολουθεί</string>
   <string name="xStartedFollowingY">Ο %1$s άρχισε να ακολουθεί τον %2$s</string>
   <plurals name="nbFollowers">
-    <item quantity="one">%s ακόλουθος</item>
+    <item quantity="one">%s ακόλουθοι</item>
     <item quantity="other">%s ακόλουθοι</item>
   </plurals>
   <plurals name="nbFollowing">
@@ -325,7 +325,7 @@
   <string name="thankYou">Σας ευχαριστώ!</string>
   <string name="ratingX">Βαθμολογία: %s</string>
   <plurals name="playedXTimes">
-    <item quantity="one">Παίχτηκε %s φορά</item>
+    <item quantity="one">Παίχτηκε %s φορές</item>
     <item quantity="other">Παίχτηκε %s φορές</item>
   </plurals>
   <string name="fromGameLink">Από το παιχνίδι %s</string>
@@ -339,8 +339,8 @@
     <item quantity="other">Έχετε %s δευτερόλεπτα για να κάνετε τη πρώτη σας κίνηση!</item>
   </plurals>
   <plurals name="nbGamesInPlay">
-    <item quantity="one">%s παιχνίδι σε εξέλιξη</item>
-    <item quantity="other">%s παιχνίδια σε εξέλιξη</item>
+    <item quantity="one">%s παιχνίδια παίζονται τώρα</item>
+    <item quantity="other">%s παιχνίδια παίζονται τώρα</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Προχωρήστε αυτόματα στο επόμενο παιχνίδι μετά την κίνηση</string>
   <string name="autoSwitch">Αυτόματη εναλλαγή</string>
@@ -483,7 +483,7 @@
   <string name="blackCastlingKingside">Μαύρα Ο-Ο</string>
   <string name="blackCastlingQueenside">Μαύρα Ο-Ο-Ο</string>
   <plurals name="nbForumPosts">
-    <item quantity="one">%s Δημοσίευση Φόρουμ</item>
+    <item quantity="one">%s Δημοσιεύσεις Φόρουμ</item>
     <item quantity="other">%s Δημοσιεύσεις Φόρουμ</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Χρόνος που διατέθηκε παίζοντας: %s</string>
