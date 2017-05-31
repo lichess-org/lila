@@ -56,6 +56,10 @@
     <item quantity="one">پر لیکه لوبغاړي%s</item>
     <item quantity="other">پر لیکه لوبغاړي%s</item>
   </plurals>
+  <plurals name="nbGames">
+    <item quantity="one">ټول %s لوبې وګورئ</item>
+    <item quantity="other">ټول %s لوبې وګورئ</item>
+  </plurals>
   <string name="logOut">وتل</string>
   <string name="signIn">ننوتل</string>
   <string name="signUp">ګڼون جوړل</string>
@@ -91,4 +95,12 @@
   <string name="incrementInSeconds">شېبې زیاتول</string>
   <string name="freeOnlineChess">وړیا پرلیکه شطرنج</string>
   <string name="spectators">لیدونکی:</string>
+  <plurals name="nbWins">
+    <item quantity="one">%s  ګټلي</item>
+    <item quantity="other">%s  ګټلي</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s  بایللي</item>
+    <item quantity="other">%s  بایللي</item>
+  </plurals>
 </resources>
