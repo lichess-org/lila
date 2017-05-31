@@ -493,6 +493,19 @@
   <string name="language">Язык</string>
   <string name="background">Фон</string>
   <string name="boardGeometry">Геометрия доски</string>
+  <string name="boardTheme">Оформительская тема доски</string>
   <string name="boardSize">Размер доски</string>
+  <string name="pieceSet">Набор фигур</string>
+  <string name="embedInYourWebsite">Встроить в свой сайт</string>
+  <string name="usernameUnacceptable">Это имя пользователя не является приемлемым.</string>
+  <string name="directlySupportLichess">Поддерживает Lichess</string>
+  <string name="playChessInStyle">В стиле шахмат</string>
+  <string name="chessBasics">Шахматные основы</string>
+  <string name="coaches">Тренеры</string>
   <string name="invalidPgn">Некорректный PGN</string>
+  <string name="invalidFen">Некорректный FEN</string>
+  <string name="error.minLength">Минимальная длина — %s</string>
+  <string name="error.maxLength">Максимальная длина — %s</string>
+  <string name="error.min">Значение должно быть больше либо равным %s</string>
+  <string name="error.max">Значение должно быть меньше либо равным %s</string>
 </resources>
