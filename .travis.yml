@@ -23,6 +23,10 @@ git:
   depth: 3
   submodules: false
 
+branches:
+  except:
+   - l10n_master
+
 install: ./bin/submodule-setup.sh
 
 jobs:
