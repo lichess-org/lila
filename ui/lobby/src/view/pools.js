@@ -25,6 +25,6 @@ module.exports = function(ctrl) {
       onclick: function() {
         $('#start_buttons .config_hook').mousedown();
       }
-    }, 'Custom')
+    }, ctrl.trans('custom'))
   ];
 };
