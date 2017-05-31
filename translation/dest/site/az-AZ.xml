@@ -61,6 +61,14 @@
     <item quantity="other">%s əlaqə qurmuş oyunçu</item>
   </plurals>
   <string name="currentGames">Hal-hazırda oynanılan oyunlar</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s Oyunlar</item>
+    <item quantity="other">%s Oyunlar</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s nişan edilmiş oyun</item>
+    <item quantity="other">%s nişan edilmiş oyun</item>
+  </plurals>
   <string name="viewInFullSize">Tam görünüşlə bax</string>
   <string name="logOut">Xətdən çıx</string>
   <string name="signIn">Xəttə bağlan</string>
@@ -81,6 +89,14 @@
   <string name="correspondence">Qiyabi oyun</string>
   <string name="daysPerTurn">Gündəlik gediş</string>
   <string name="oneDay">Bir gün</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s gün</item>
+    <item quantity="other">%s gün</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s saat</item>
+    <item quantity="other">%s saat</item>
+  </plurals>
   <string name="time">Vaxt</string>
   <string name="rating">Təsnifat</string>
   <string name="ratingStats">Reyting statistikaları</string>
@@ -96,6 +112,10 @@
   <string name="forgotPassword">Parolu unutdun?</string>
   <string name="rank">Təsnifat</string>
   <string name="gamesPlayed">Oynadığı oyunlar</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s sizinle oyunlar</item>
+    <item quantity="other">%s sizinle oyunlar</item>
+  </plurals>
   <string name="cancel">İmtina</string>
   <string name="timeOut">Vaxt bitdi</string>
   <string name="drawOfferSent">Heç-heçə təklifi göndərildi</string>
@@ -138,6 +158,18 @@
   <string name="incrementInSeconds">saniyə artırma</string>
   <string name="freeOnlineChess">Pulsuz</string>
   <string name="spectators">tamaşaçı</string>
+  <plurals name="nbWins">
+    <item quantity="one">%s qalib gəldi</item>
+    <item quantity="other">%s qalib gəldi</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s uduzurlar</item>
+    <item quantity="other">%s uduzurlar</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s heç-heçə edirlər</item>
+    <item quantity="other">%s heç-heçə edirlər</item>
+  </plurals>
   <string name="exportGames">Oyunları ixrac et</string>
   <string name="ratingRange">Elo təsnifatı</string>
   <plurals name="giveNbSeconds">
@@ -165,6 +197,10 @@
   <string name="backToGame">Oyuna qayıt</string>
   <string name="siteDescription">Bu, internet şəbəkəsi üzərində pulsuz Şahmat oyunudur. İndi təmiz araüzdə şahmat oynaya bilərsiniz. Qeydiyyat gərəkli deyil. Heçbir reklam və proqram əlavəsinə ehtiyac yoxdur. Komputer, yoldaşların və ya istənilən rəqiblə oynaya bilərsiniz.</string>
   <string name="teams">Komandalar</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s üzvləri</item>
+    <item quantity="other">%s üzvləri</item>
+  </plurals>
   <string name="allTeams">Bütün komandalar</string>
   <string name="newTeam">Yeni komanda</string>
   <string name="myTeams">Mənim komandalarım</string>
@@ -191,6 +227,10 @@
   <string name="fromPosition">Fərqli düzülüşdən</string>
   <string name="continueFromHere">Buradan davam edin</string>
   <string name="importGame">Oyun daxil edin</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s oyunları daxil etdi</item>
+    <item quantity="other">%s oyunları daxil etdi</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">Bu, şahmaq KAPÇA-sıdır</string>
   <string name="clickOnTheBoardToMakeYourMove">Taxtada gediş edin və robot olmadığınızı təsdiq edin</string>
   <string name="notACheckmate">Mat deyil</string>
@@ -208,6 +248,10 @@
   <string name="unblock">Blokdan çıxart</string>
   <string name="followsYou">Səni izləyir</string>
   <string name="xStartedFollowingY">%1$s %2$s-ini izləməyə başladı</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s izləyənlər</item>
+    <item quantity="other">%s izləyənlər</item>
+  </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s izlənilən</item>
     <item quantity="other">%s izlənilən</item>
@@ -278,6 +322,10 @@
   <string name="pleaseVotePuzzle">Lichess inkişafına tövhə vermək üçün səs verin, yuxarı və aşağı oxlardan istifadə edin.</string>
   <string name="thankYou">Təşşəkkür edirik!</string>
   <string name="ratingX">Reyting: %s</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">%s dəfə oynanıldı</item>
+    <item quantity="other">%s dəfə oynanıldı</item>
+  </plurals>
   <string name="fromGameLink">%s oyunundan</string>
   <string name="startTraining">Təlimə başla</string>
   <string name="continueTraining">Təlimə davam et</string>
@@ -287,6 +335,10 @@
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">İlk gediş üçün %s saniyə qalır</item>
     <item quantity="other">İlk gediş üçün %s saniyə qalır</item>
+  </plurals>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s oyun oynanılır</item>
+    <item quantity="other">%s oyun oynanılır</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Gedişdən sonra növbəti oyuna avtomatik keçid</string>
   <string name="autoSwitch">Avtomatik keçid / dəyiş</string>
@@ -426,6 +478,10 @@
   <string name="whiteCastlingQueenside">Ağlar O-O-O</string>
   <string name="blackCastlingKingside">Qaralar O-O</string>
   <string name="blackCastlingQueenside">Qaralar O-O-O</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s Forum Mesajları</item>
+    <item quantity="other">%s Forum Mesajları</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">Oynamağa sərf olunuş zaman: %s</string>
   <string name="watchGames">Oyunları izlə</string>
   <string name="tpTimeSpentOnTV">TV-də keçirilimiş zaman: %s</string>
