@@ -580,6 +580,9 @@
     <item quantity="other">%s dilde kullanılabilir.</item>
   </plurals>
   <string name="gameAnalysis">Oyun analizi</string>
+  <string name="quickPairing">Hızlı eşleşme</string>
+  <string name="lobby">Lobi</string>
+  <string name="yourScore">Puanınız: %s</string>
   <string name="language">Dil</string>
   <string name="background">Arkaplan</string>
   <string name="boardGeometry">Tahta geometrisi</string>
@@ -591,6 +594,12 @@
   <string name="usernameInvalid">Geçersiz kullanıcı adı. Lütfen yalnızca harf, sayı, alt çizgi ve çizgi kullanın.</string>
   <string name="usernameStartNoNumber">Kullanıcı adı bir numarayla başlamamalıdır.</string>
   <string name="usernameUnacceptable">Bu kullanıcı adı uygun değil.</string>
+  <string name="directlySupportLichess">Doğrudan Lichess\'e destek verin</string>
+  <string name="chessBasics">Satrancın temelleri</string>
+  <string name="coaches">Eğitmenler</string>
   <string name="invalidPgn">Geçersiz PGN</string>
   <string name="invalidFen">Geçersiz FEN</string>
+  <string name="error.minLength">Minimum uzunluk: %s</string>
+  <string name="error.maxLength">Maksimum uzunluk: %s</string>
+  <string name="custom">Özel</string>
 </resources>
