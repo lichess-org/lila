@@ -206,10 +206,10 @@
   <string name="myTeams">Min(e) klan(er)</string>
   <string name="noTeamFound">Ingen klan funnet</string>
   <string name="joinTeam">Bli med i klanen</string>
-  <string name="quitTeam">Forlat laget</string>
-  <string name="anyoneCanJoin">Alle kan bli med</string>
-  <string name="aConfirmationIsRequiredToJoin">En bekreftelse kreves for å bli med</string>
-  <string name="joiningPolicy">Regler for å bli med</string>
+  <string name="quitTeam">Forlat klanen</string>
+  <string name="anyoneCanJoin">Alle kan bli med i denne klanen</string>
+  <string name="aConfirmationIsRequiredToJoin">En bekreftelse kreves for å bli med i denne klanen</string>
+  <string name="joiningPolicy">Regler man må følge</string>
   <string name="teamLeader">Lagleder</string>
   <string name="teamBestPlayers">Lagets beste spillere</string>
   <string name="teamRecentMembers">Nye lagmedlemmer</string>
@@ -304,7 +304,7 @@
   <string name="activeToday">Aktive i dag</string>
   <string name="activePlayers">Aktive spillere</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Merk at spillet er rangert, men har ingen tidskontroll!</string>
-  <string name="training">Trening</string>
+  <string name="training">Sjakknøtter</string>
   <string name="yourPuzzleRatingX">Din problemrating: %s</string>
   <string name="findTheBestMoveForWhite">Finn beste trekk for hvit.</string>
   <string name="findTheBestMoveForBlack">Finn beste trekk for svart.</string>
@@ -551,7 +551,7 @@
   <string name="networkLagBetweenYouAndLichess">Nettverksforsinkelse mellom deg og lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tiden det tar å behandle et trekk på lichess serveren.</string>
   <string name="downloadAnnotated">Last ned kommentert</string>
-  <string name="downloadRaw">Last ned rå</string>
+  <string name="downloadRaw">Last ned rådata</string>
   <string name="downloadImported">Last ned importen</string>
   <string name="printFriendlyPDF">Printervennlig PDF</string>
   <string name="crosstable">Krysstabell</string>
