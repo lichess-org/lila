@@ -185,6 +185,7 @@
   <string name="importGame">Importuj grę</string>
   <string name="thisIsAChessCaptcha">To jest szachowa CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Kliknij na szachownicę, by zrobić ruch i udowodnić, że jesteś człowiekiem.</string>
+  <string name="captcha.fail">Rozwiąż szachową zagadkę.</string>
   <string name="notACheckmate">To nie jest mat</string>
   <string name="colorPlaysCheckmateInOne">%s grają i dają mata w jednym posunięciu</string>
   <string name="retry">Spróbuj ponownie</string>
@@ -192,6 +193,7 @@
   <string name="onlineFriends">Przyjaciele online</string>
   <string name="noFriendsOnline">Brak przyjaciół online</string>
   <string name="findFriends">Znajdź przyjaciół</string>
+  <string name="favoriteOpponents">Ulubieni przeciwnicy</string>
   <string name="follow">Obserwuj</string>
   <string name="following">Obserwowany</string>
   <string name="unfollow">Nie obserwuj</string>
@@ -332,6 +334,7 @@
   <string name="premovesPlayingDuringOpponentTurn">Ruch planowany (podczas ruchu przeciwnika)</string>
   <string name="takebacksWithOpponentApproval">Cofnięcie ruchu (za zgodą przeciwnika)</string>
   <string name="promoteToQueenAutomatically">Automatyczna promocja na hetmana</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatycznie żądaj remisu po trzykrotnym powtórzeniu</string>
   <string name="privacy">Prywatność</string>
   <string name="letOtherPlayersFollowYou">Inni zawodnicy mogą Cię obserwować</string>
   <string name="letOtherPlayersChallengeYou">Inni zawodnicy mogą wysłać Ci wyzwanie</string>
@@ -361,6 +364,7 @@
   <string name="starting">Rozpoczęte:</string>
   <string name="allInformationIsPublicAndOptional">Wszystkie informacje są publiczne i opcjonalne</string>
   <string name="yourCityRegionOrDepartment">Twoje miasto, region lub województwo</string>
+  <string name="biographyDescription">Opowiedz o sobie. Za co lubisz szachy? Jakie są twoje ulubione gry, otwarcia, zawodnicy…</string>
   <string name="listBlockedPlayers">Lista zawodników, których zablokowałeś</string>
   <string name="human">Człowiek</string>
   <string name="computer">Komputer</string>
