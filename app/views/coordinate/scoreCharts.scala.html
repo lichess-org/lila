@@ -3,7 +3,10 @@
 case (color, s) => {
 <div class="chart_container">
   @if(s.nonEmpty) {
-  <p>Average score as @color: <strong>@{ "%.2f".format(s.sum.toDouble / s.size) }</strong></p>
+  <p>
+    Average score as @color: <strong>@{ "%.2f".format(s.sum.toDouble / s.size) }</strong><br />
+    Highest score as @color: <strong>@{ s.max }</strong>
+  </p>
   <div class="user_chart" data-points="@toJson(s)"></div>
   }
 </div>
