@@ -598,6 +598,7 @@
   <string name="usernameStartNoNumber">Le premier caractère du nom ne peut pas être un chiffre.</string>
   <string name="usernameUnacceptable">Ce nom d\'utilisateur existe déjà ou est insultant.</string>
   <string name="directlySupportLichess">Financer Lichess</string>
+  <string name="playChessInStyle">Jouez stylé</string>
   <string name="chessBasics">Bases des échecs</string>
   <string name="coaches">Coachs</string>
   <string name="invalidPgn">PGN non valide</string>
