@@ -60,6 +60,12 @@
     <item quantity="other">%s ผู้เล่น</item>
   </plurals>
   <string name="currentGames">เกมในขณะนี้</string>
+  <plurals name="nbGames">
+    <item quantity="other">%s เกม</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="other">%s เกมที่หมายไว้</item>
+  </plurals>
   <string name="viewInFullSize">ดูแบบเต็มขนาด</string>
   <string name="logOut">ลงชื่อออก</string>
   <string name="signIn">ลงชื่อเข้า</string>
@@ -80,6 +86,12 @@
   <string name="correspondence">ยาวนาน</string>
   <string name="daysPerTurn">วันต่อตาเดิน</string>
   <string name="oneDay">หนึ่งวัน</string>
+  <plurals name="nbDays">
+    <item quantity="other">%s วัน</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="other">%s ชั่วโมง</item>
+  </plurals>
   <string name="time">เวลา</string>
   <string name="rating">ระดับคะแนน</string>
   <string name="ratingStats">สถิติระดับคะแนน</string>
@@ -95,6 +107,9 @@
   <string name="forgotPassword">ลืมรหัสผ่าน?</string>
   <string name="rank">อันดับ</string>
   <string name="gamesPlayed">เกมที่ได้เล่น</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="other">%s เกมเล่นกับคุณ</item>
+  </plurals>
   <string name="cancel">ยกเลิก</string>
   <string name="timeOut">หมดเวลา</string>
   <string name="drawOfferSent">ข้อเสนอเพื่อการเสมอ ถูกส่ง</string>
@@ -137,6 +152,15 @@
   <string name="incrementInSeconds">วินาทีที่บวกเพิ่ม</string>
   <string name="freeOnlineChess">หมากรุกสากลออนไลน์ฟรี</string>
   <string name="spectators">ผู้สังเกตการณ์:</string>
+  <plurals name="nbWins">
+    <item quantity="other">ชนะ %s</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="other">แพ้ %s</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="other">เสมอ %s</item>
+  </plurals>
   <string name="exportGames">ส่งออกเกม</string>
   <string name="ratingRange">ช่วงระดับคะแนน</string>
   <plurals name="giveNbSeconds">
@@ -163,6 +187,9 @@
   <string name="backToGame">กลับสู่เกม</string>
   <string name="siteDescription">เกมหมากรุกสากลออนไลน์ฟรี เล่นได้ทันทีในรูปลักษณ์ที่สะอาดตา โดยไม่จำเป็นต้องลงทะเบียน, ไม่มีโฆษณา, ไม่ต้องการปลั๊กอิน, เล่นหมากรุกกับคอมพิวเตอร์หรือเพื่อน หรือสุ่มคู่แข่งก็ได้</string>
   <string name="teams">ทีม</string>
+  <plurals name="nbMembers">
+    <item quantity="other">%s สมาชิก</item>
+  </plurals>
   <string name="allTeams">ทีมทั้งหมด</string>
   <string name="newTeam">ทีมใหม่</string>
   <string name="myTeams">ทีมของฉัน</string>
@@ -189,6 +216,9 @@
   <string name="fromPosition">จากตำแหน่ง</string>
   <string name="continueFromHere">เล่นต่อจากที่นี่</string>
   <string name="importGame">นำเข้าเกม</string>
+  <plurals name="nbImportedGames">
+    <item quantity="other">%s เกมที่ถูกนำเข้า</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">นี่คือปริศนาหมากรุก</string>
   <string name="clickOnTheBoardToMakeYourMove">คลิกบนกระดานเพื่อเดินหมากของคุณ และพิสูจน์ว่าคุณคือมนุษย์</string>
   <string name="notACheckmate">ไม่ใช่รุกจน</string>
@@ -206,6 +236,9 @@
   <string name="unblock">เลิกกีดกัน</string>
   <string name="followsYou">ติดตามคุณ</string>
   <string name="xStartedFollowingY">%1$s ได้เริ่มติดตาม %2$s</string>
+  <plurals name="nbFollowers">
+    <item quantity="other">ผู้ติดตาม %s</item>
+  </plurals>
   <plurals name="nbFollowing">
     <item quantity="other">กำลังติดตาม %s</item>
   </plurals>
@@ -274,6 +307,9 @@
   <string name="pleaseVotePuzzle">ช่วย lichess ปรับปรุงโดยใช้ปุ่มลูกศรขึ้นหรือลง เพื่อทำการโหวต:</string>
   <string name="thankYou">ขอบคุณ!</string>
   <string name="ratingX">ระดับคะแนน: %s</string>
+  <plurals name="playedXTimes">
+    <item quantity="other">ถูกเล่น %s ครั้ง</item>
+  </plurals>
   <string name="fromGameLink">จากเกม %s</string>
   <string name="startTraining">เริ่มฝึก</string>
   <string name="continueTraining">ฝึกต่อ</string>
@@ -282,6 +318,9 @@
   <string name="thisPuzzleIsWrong">ปริศนานี้ไม่ถูกต้อง หรือน่าเบื่อ</string>
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="other">คุณมีเวลา %s วินาที ในการเริ่มเดิน!</item>
+  </plurals>
+  <plurals name="nbGamesInPlay">
+    <item quantity="other">%s เกมที่กำลังเล่น</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">ดำเนินสู่เกมถัดไปอัตโนมัติหลังจากการเดิน</string>
   <string name="autoSwitch">สลับอัตโนมัติ</string>
@@ -419,6 +458,9 @@
   <string name="whiteCastlingQueenside">ขาว O-O-O</string>
   <string name="blackCastlingKingside">ดำ O-O</string>
   <string name="blackCastlingQueenside">ดำ O-O-O</string>
+  <plurals name="nbForumPosts">
+    <item quantity="other">%s โพสต์อภิปราย</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">เวลาที่ใช้เล่น: %s</string>
   <string name="watchGames">รับชมเกม</string>
   <string name="tpTimeSpentOnTV">เวลาบน TV: %s</string>
