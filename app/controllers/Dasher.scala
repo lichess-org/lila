@@ -8,7 +8,7 @@ import lila.api.Context
 import lila.app._
 import lila.common.LightUser.lightUserWrites
 import lila.pref.JsonView._
-import lila.i18n.I18nKeys
+import lila.i18n.{ I18nKeys, I18nLangPicker, enLang }
 
 object Dasher extends LilaController {
 
@@ -34,7 +34,12 @@ object Dasher extends LilaController {
         I18nKeys.boardSize,
         I18nKeys.pieceSet
       ), ctx.lang
-  )
+  ) ++ Env.i18n.jsDump.keysToObject(
+      // the language settings should never be in a totally foreign language
+      List(I18nKeys.language),
+      if (I18nLangPicker.allFromRequestHeaders(ctx.req).has(ctx.lang)) ctx.lang
+      else I18nLangPicker.bestFromRequestHeaders(ctx.req) | enLang
+    )
 
   def get = Open { implicit ctx =>
     negotiate(
@@ -44,7 +49,7 @@ object Dasher extends LilaController {
         "user" -> ctx.me.map(_.light),
         "lang" -> Json.obj(
           "current" -> ctx.lang.code,
-          "accepted" -> lila.i18n.I18nLangPicker.allFromRequestHeaders(ctx.req).map(_.code)
+          "accepted" -> I18nLangPicker.allFromRequestHeaders(ctx.req).map(_.code)
         ),
         "sound" -> Json.obj(
           "list" -> lila.pref.SoundSet.list.map { set =>

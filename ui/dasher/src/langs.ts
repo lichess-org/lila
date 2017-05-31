@@ -20,10 +20,11 @@ export interface LangsCtrl {
   data: LangsData
   list(): Lang[] | undefined
   load(): void
+  trans: Trans
   close: Close
 }
 
-export function ctrl(data: LangsData, redraw: Redraw, close: Close): LangsCtrl {
+export function ctrl(data: LangsData, trans: Trans, redraw: Redraw, close: Close): LangsCtrl {
 
   let list: Lang[] | undefined;
 
@@ -42,6 +43,7 @@ export function ctrl(data: LangsData, redraw: Redraw, close: Close): LangsCtrl {
         redraw();
       });
     },
+    trans,
     close
   };
 }
@@ -52,7 +54,7 @@ export function view(ctrl: LangsCtrl): VNode {
   if (!list) ctrl.load();
 
   return h('div.sub.langs', [
-    header('Language', ctrl.close),
+    header(ctrl.trans.noarg('language'), ctrl.close),
     list ? h('form', {
       attrs: { method: 'post', action: '/translation/select' }
     }, langLinks(ctrl, list)) : spinner()

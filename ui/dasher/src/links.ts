@@ -52,7 +52,7 @@ export default function(ctrl: DasherCtrl): VNode {
   const langs = h(
     'a.sub',
     modeCfg(ctrl, 'langs'),
-    'Language')
+    trans.noarg('language'))
 
   const sound = h(
     'a.sub',

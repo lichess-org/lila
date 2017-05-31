@@ -66,7 +66,7 @@ export type Mode = 'links' | 'langs' | 'sound' | 'background' | 'board' | 'theme
     const ping = pingCtrl(trans, redraw);
 
     const subs = {
-      langs: langsCtrl(data.lang, redraw, close),
+      langs: langsCtrl(data.lang, trans, redraw, close),
       sound: soundCtrl(data.sound.list, trans, redraw, close),
       background: backgroundCtrl(data.background, trans, redraw, close),
       board: boardCtrl(data.board, trans, opts.setZoom, redraw, close),
