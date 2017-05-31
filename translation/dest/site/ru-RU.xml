@@ -192,6 +192,7 @@
   <string name="onlineFriends">Друзья онлайн</string>
   <string name="noFriendsOnline">Нет друзей онлайн</string>
   <string name="findFriends">Найти друзей</string>
+  <string name="favoriteOpponents">Предпочтительные соперники</string>
   <string name="follow">Подписаться</string>
   <string name="following">Подписаны</string>
   <string name="unfollow">Отписаться</string>
@@ -362,6 +363,7 @@
   <string name="starting">Начинается:</string>
   <string name="allInformationIsPublicAndOptional">Вся информация публична и указывается по желанию.</string>
   <string name="yourCityRegionOrDepartment">Ваш город, область или округ.</string>
+  <string name="biographyDescription">Расскажите о себе, что Вы любите в шахматах, Ваши любимые дебюты, партии, игроки...</string>
   <string name="listBlockedPlayers">Список заблокированных Вами игроков</string>
   <string name="human">Человек</string>
   <string name="computer">Компьютер</string>
@@ -497,6 +499,9 @@
   <string name="boardSize">Размер доски</string>
   <string name="pieceSet">Набор фигур</string>
   <string name="embedInYourWebsite">Встроить в свой сайт</string>
+  <string name="usernameAlreadyUsed">Данное имя пользователя занято. Пожалуйста, попробуйте другое.</string>
+  <string name="usernameInvalid">Некорректное имя пользователя. Пожалуйста, используйте только буквы, цифры, подчеркивания и тире.</string>
+  <string name="usernameStartNoNumber">Имя пользователя не должно начинаться с цифры.</string>
   <string name="usernameUnacceptable">Это имя пользователя не является приемлемым.</string>
   <string name="directlySupportLichess">Поддерживает Lichess</string>
   <string name="playChessInStyle">В стиле шахмат</string>
