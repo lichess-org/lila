@@ -607,4 +607,5 @@
   <string name="error.maxLength">Vous pouvez écrire un maximum de %s caractères</string>
   <string name="error.min">Doit être superieur ou égal à %s</string>
   <string name="error.max">Doit être inférieur ou égal à %s</string>
+  <string name="custom">Perso</string>
 </resources>
