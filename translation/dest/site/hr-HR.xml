@@ -609,6 +609,7 @@
   <string name="quickPairing">Brzo uparivanje</string>
   <string name="lobby">Lobi</string>
   <string name="yourScore">Tvoj rezultat: %s</string>
+  <string name="language">Jezik</string>
   <string name="background">Pozadina</string>
   <string name="boardGeometry">Geometrija ploče</string>
   <string name="boardTheme">Tema ploče</string>
