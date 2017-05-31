@@ -607,4 +607,5 @@
   <string name="error.maxLength">Maksimumslengden er %s</string>
   <string name="error.min">Må være større eller lik %s</string>
   <string name="error.max">Må være mindre eller lik %s</string>
+  <string name="custom">Tilpasset</string>
 </resources>
