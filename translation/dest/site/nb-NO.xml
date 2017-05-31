@@ -74,7 +74,7 @@
   <string name="signIn">Logg inn</string>
   <string name="newToLichess">Ny hos Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Du trenger en konto for å gjøre det</string>
-  <string name="signUp">Registrer brukerkonto</string>
+  <string name="signUp">Registrer bruker</string>
   <string name="computersAreNotAllowedToPlay">Datamaskiner og spillere som får hjelp av datamaskiner har ikke lov til å spille. Vennligst ikke ta imot hjelp fra sjakkmaskiner, databaser eller andre spillere under partiene. Merk også at det er sterkt frarådet å opprette flere brukerkontoer, og kan lede til at du blir utstengt.</string>
   <string name="games">Partier</string>
   <string name="forum">Forum</string>
@@ -113,7 +113,7 @@
   <string name="rank">Rangering</string>
   <string name="gamesPlayed">partier spilt</string>
   <plurals name="nbGamesWithYou">
-    <item quantity="one">%s partier med deg</item>
+    <item quantity="one">%s partier mot deg</item>
     <item quantity="other">%s partier med deg</item>
   </plurals>
   <string name="cancel">Avbryt</string>
@@ -139,9 +139,9 @@
   <string name="casual">Urangert</string>
   <string name="rated">Rangert</string>
   <string name="thisGameIsRated">Dette partiet er rangert</string>
-  <string name="rematch">Omkamp</string>
-  <string name="rematchOfferSent">Tilbud om omkamp sendt</string>
-  <string name="rematchOfferAccepted">Tilbud om omkamp godtatt</string>
+  <string name="rematch">Revansj</string>
+  <string name="rematchOfferSent">Tilbud om revansj sendt</string>
+  <string name="rematchOfferAccepted">Tilbud om revansj godtatt</string>
   <string name="rematchOfferCanceled">Tilbud om revansj trukket tilbake</string>
   <string name="rematchOfferDeclined">Tilbud om omkamp avslått</string>
   <string name="cancelRematchOffer">Avbryt tilbud om omkamp</string>
@@ -167,11 +167,11 @@
     <item quantity="other">%s tap</item>
   </plurals>
   <plurals name="nbDraws">
-    <item quantity="one">%s remis</item>
-    <item quantity="other">%s remis</item>
+    <item quantity="one">%s Uavgjort</item>
+    <item quantity="other">%s Uavgjort</item>
   </plurals>
   <string name="exportGames">Eksporter partier</string>
-  <string name="ratingRange">Ratingsspenn</string>
+  <string name="ratingRange">Ratingsforskjell</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Gi %s sekunder</item>
     <item quantity="other">Gi %s sekunder</item>
@@ -195,17 +195,17 @@
   <string name="viewTournament">Vis turnering</string>
   <string name="backToTournament">Tilbake til turneringen</string>
   <string name="backToGame">Tilbake til partiet</string>
-  <string name="siteDescription">Gratis nettsjakk. Spill sjakk nå, i et enkelt og rent format. Ingen registrering, ingen reklame, ingen programtillegg nødvendig. Spill sjakk mot datamaskinen, venner, eller tilfeldige motstandere.</string>
-  <string name="teams">Lag</string>
+  <string name="siteDescription">Lichess er en gratis sjakkside. Spill sjakk nå. Siden har et moderne design. Ingen registrering, ingen reklame, ingen programtillegg nødvendig. Spill sjakk mot datamaskinen, venner, eller tilfeldige motstandere.</string>
+  <string name="teams">Klan</string>
   <plurals name="nbMembers">
     <item quantity="one">%s medlemmer</item>
     <item quantity="other">%s medlemmer</item>
   </plurals>
-  <string name="allTeams">Alle lag</string>
-  <string name="newTeam">Nytt lag</string>
-  <string name="myTeams">Mine lag</string>
-  <string name="noTeamFound">Ingen lag funnet</string>
-  <string name="joinTeam">Bli med på laget</string>
+  <string name="allTeams">Alle klanene</string>
+  <string name="newTeam">Ny klan</string>
+  <string name="myTeams">Min(e) klan(er)</string>
+  <string name="noTeamFound">Ingen klan funnet</string>
+  <string name="joinTeam">Bli med i klanen</string>
   <string name="quitTeam">Forlat laget</string>
   <string name="anyoneCanJoin">Alle kan bli med</string>
   <string name="aConfirmationIsRequiredToJoin">En bekreftelse kreves for å bli med</string>
