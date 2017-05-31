@@ -240,6 +240,7 @@
   <string name="onlineFriends">Online barátok</string>
   <string name="noFriendsOnline">Jelenleg nincsenek online barátaid</string>
   <string name="findFriends">Barátok keresése</string>
+  <string name="favoriteOpponents">Kedvenc ellenfelek</string>
   <string name="follow">Követés</string>
   <string name="following">Követed</string>
   <string name="unfollow">Követés megszüntetése</string>
@@ -572,4 +573,17 @@
     <item quantity="other">Elérhető %s nyelven</item>
   </plurals>
   <string name="gameAnalysis">Játék elemzés</string>
+  <string name="boardSize">Tábla mérete</string>
+  <string name="pieceSet">Figurakészlet</string>
+  <string name="usernameInvalid">Érvénytelen felhasználói név. A név csak betűkből, számokból, alulvonásból és gondolatjelből állhat.</string>
+  <string name="usernameStartNoNumber">A felhasználói név nem kezdődhet számmal.</string>
+  <string name="usernameUnacceptable">A felhasználói név nem megfelelő.</string>
+  <string name="directlySupportLichess">Támogasd a Lichesst</string>
+  <string name="playChessInStyle">Sakkozz stílusosan</string>
+  <string name="chessBasics">A sakk alapjai</string>
+  <string name="coaches">Oktatók</string>
+  <string name="invalidPgn">Hibás PGN</string>
+  <string name="invalidFen">Hibás FEN</string>
+  <string name="error.minLength">A legkisebb megengedett karakterszám %s</string>
+  <string name="error.maxLength">A maximális megengedett karakterszám %s</string>
 </resources>
