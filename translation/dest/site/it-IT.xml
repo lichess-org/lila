@@ -572,4 +572,14 @@
     <item quantity="other">Disponibile in %s lingue!</item>
   </plurals>
   <string name="gameAnalysis">Analisi del gioco</string>
+  <string name="xLikesY">A %1$s piace %2$s</string>
+  <string name="boardGeometry">Geometria della scacchiera</string>
+  <string name="boardTheme">Tema della scacchiera</string>
+  <string name="boardSize">Dimensione scacchiera</string>
+  <string name="usernameStartNoNumber">Un nome utente non può iniziare con un numero.</string>
+  <string name="playChessInStyle">Gioca a scacchi con stile</string>
+  <string name="invalidPgn">PGN non valido</string>
+  <string name="invalidFen">FEN non valido</string>
+  <string name="error.minLength">La lunghezza minima è %s</string>
+  <string name="error.maxLength">La lunghezza massima è %s</string>
 </resources>
