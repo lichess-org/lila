@@ -52,6 +52,9 @@
     <item quantity="one">%s na Laro</item>
     <item quantity="other">%s na Laro</item>
   </plurals>
+  <string name="viewInFullSize">Pagmasdan ang buong laki</string>
+  <string name="logOut">Mag-sign out</string>
+  <string name="signIn">Mag-sign in</string>
   <string name="newToLichess">Bago ka ba sa Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Kailangan mo ng account para magawa ito</string>
   <string name="signUp">Magparehistro</string>
