@@ -585,6 +585,7 @@
   <string name="quickPairing">Quick pairing</string>
   <string name="lobby">Lobby</string>
   <string name="yourScore">Your score: %s</string>
+  <string name="language">Language</string>
   <string name="background">Background</string>
   <string name="boardGeometry">Board geometry</string>
   <string name="boardTheme">Board theme</string>
