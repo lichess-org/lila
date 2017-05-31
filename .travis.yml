@@ -63,7 +63,9 @@ jobs:
         apt:
           packages:
            - parallel
-      before_install: yarn global add gulp-cli
+      before_install:
+       - npm install -g yarn@0.25.3
+       - yarn global add gulp-cli
       script: ./ui/build prod
       after_success:
        - git log -n 1 --pretty=oneline > commit.txt
