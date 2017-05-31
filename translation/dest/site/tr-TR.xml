@@ -31,11 +31,11 @@
   <string name="joinTheGame">Oyuna katıl</string>
   <string name="whitePlays">Hamle Beyazda</string>
   <string name="blackPlays">Hamle Siyahta</string>
-  <string name="opponentLeftChoices">Rakibiniz oyundan düştü ya da masayı terk etti. İsterseniz dönmesini bekleyebilir ya da galibiyetinizi talep edebilirsiniz.</string>
+  <string name="opponentLeftChoices">Rakibiniz oyundan düştü ya da masayı terk etti. İsterseniz dönmesini bekleyebilir, oyuna berabere diyebilir ya da galibiyetinizi talep edebilirsiniz.</string>
   <string name="makeYourOpponentResign">Rakibiniz oyunu terk etsin</string>
   <string name="forceResignation">Galibiyet talep et</string>
   <string name="forceDraw">Beraberlik ilan et</string>
-  <string name="talkInChat">Lütfen sohbette nazik ol</string>
+  <string name="talkInChat">Lütfen sohbette nazik olunuz!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Bağlantıya ilk ulaşan kişi rakibiniz olacak.</string>
   <string name="whiteResigned">Beyaz oyundan çekildi</string>
   <string name="blackResigned">Siyah oyundan çekildi</string>
@@ -45,7 +45,7 @@
   <string name="theComputerAnalysisHasFailed">Bilgisayar analizi başarısız oldu</string>
   <string name="viewTheComputerAnalysis">Bilgisayar analizini incele</string>
   <string name="requestAComputerAnalysis">Bilgisayar analizi talep et</string>
-  <string name="computerAnalysis">Bilgisayar Analizi</string>
+  <string name="computerAnalysis">Bilgisayar analizi</string>
   <string name="analysis">Analiz tahtası</string>
   <string name="blunders">Vahim hatalar</string>
   <string name="mistakes">Hatalar</string>
@@ -62,8 +62,8 @@
   </plurals>
   <string name="currentGames">Şu anda oynanan oyunlar</string>
   <plurals name="nbGames">
-    <item quantity="one">%s Oynanan Oyun</item>
-    <item quantity="other">%s Oynanan Oyun</item>
+    <item quantity="one">%s oynanan oyun</item>
+    <item quantity="other">%s oynanan oyun</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s işaretlenmiş oyun</item>
@@ -83,7 +83,7 @@
   <string name="players">Oyuncular</string>
   <string name="minutesPerSide">Taraf başına dakika</string>
   <string name="variant">Varyant</string>
-  <string name="variants">Varyanlar</string>
+  <string name="variants">Varyantlar</string>
   <string name="timeControl">Süre ayarı</string>
   <string name="realTime">Gerçek zaman</string>
   <string name="correspondence">Yazışma</string>
