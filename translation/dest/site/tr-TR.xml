@@ -233,6 +233,7 @@
   </plurals>
   <string name="thisIsAChessCaptcha">Bu bir satranç CAPTCHA\'sıdır.</string>
   <string name="clickOnTheBoardToMakeYourMove">İnsan olduğunuzu kanıtlamak için tahtaya tıklayın ve hamlenizi yapın.</string>
+  <string name="captcha.fail">Lütfen satranç güvenlik kodunu çözün.</string>
   <string name="notACheckmate">Mat değil</string>
   <string name="colorPlaysCheckmateInOne">%s oynar; bir hamlede mat</string>
   <string name="retry">Tekrar dene</string>
@@ -240,6 +241,7 @@
   <string name="onlineFriends">Çevrimiçi arkadaşlar</string>
   <string name="noFriendsOnline">Hiçbir arkadaş çevrimiçi değil</string>
   <string name="findFriends">Arkadaşları bul</string>
+  <string name="favoriteOpponents">Favori rakipler</string>
   <string name="follow">Takip et</string>
   <string name="following">Takip ediliyor</string>
   <string name="unfollow">Takibi bırak</string>
@@ -404,6 +406,7 @@
   <string name="premovesPlayingDuringOpponentTurn">Ön hamleler (rakibin hamlesini beklerken hamle tanımlama)</string>
   <string name="takebacksWithOpponentApproval">Geri Alma (rakibin onayıyla)</string>
   <string name="promoteToQueenAutomatically">Piyonu otomatik olarak vezire terfi etsin</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Üçlü tekrarda otomatik olarak beraberlik teklif et</string>
   <string name="privacy">Gizlilik</string>
   <string name="letOtherPlayersFollowYou">Diğer oyuncular seni takip edebilsin</string>
   <string name="letOtherPlayersChallengeYou">Diğer oyuncular oyun teklif edebilsin</string>
