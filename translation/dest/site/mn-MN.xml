@@ -61,6 +61,14 @@
     <item quantity="other">%s тоглогчид байна</item>
   </plurals>
   <string name="currentGames">Яг одоо тоглогдож буй өргүүд</string>
+  <plurals name="nbGames">
+    <item quantity="one">Бүх %s өргүүд</item>
+    <item quantity="other">Бүх %s өргүүд</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s хадгалсан өргүүд</item>
+    <item quantity="other">%s хадгалсан өргүүд</item>
+  </plurals>
   <string name="viewInFullSize">Бүрэн хэмжээсээр харах</string>
   <string name="logOut">Гарах</string>
   <string name="signIn">Нэвтрэх</string>
@@ -81,6 +89,14 @@
   <string name="correspondence">Бодит цагт тоглогдохгүй өрөг</string>
   <string name="daysPerTurn">Нэг нүүдэл хийх өдөр</string>
   <string name="oneDay">Нэг өдөр</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s өдөр</item>
+    <item quantity="other">%s өдөр</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s цаг</item>
+    <item quantity="other">%s цаг</item>
+  </plurals>
   <string name="time">Хугацаа</string>
   <string name="rating">Чансаа</string>
   <string name="ratingStats">Чансааны жагсаалт</string>
@@ -96,6 +112,10 @@
   <string name="forgotPassword">Нэвтрэх үгээ мартсан уу?</string>
   <string name="rank">Зэрэг</string>
   <string name="gamesPlayed">Өрөг тоглосон байна</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s өрөг таньтай тоглосон байна</item>
+    <item quantity="other">%s өрөг таньтай тоглосон байна</item>
+  </plurals>
   <string name="cancel">Цуцлах</string>
   <string name="timeOut">Цаг дууслаа</string>
   <string name="drawOfferSent">Тэнцэх санал илгээлээ</string>
@@ -138,6 +158,18 @@
   <string name="incrementInSeconds">Секундын нэмэгдэл</string>
   <string name="freeOnlineChess">Нээлттэй эхийн, үнэ төлбөргүй шатрын хуудас</string>
   <string name="spectators">Үзэгчид:</string>
+  <plurals name="nbWins">
+    <item quantity="one">%s ялалт</item>
+    <item quantity="other">%s ялалт</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s ялагдал</item>
+    <item quantity="other">%s ялагдал</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s тэнцээ</item>
+    <item quantity="other">%s тэнцээ</item>
+  </plurals>
   <string name="exportGames">Тоглолтыг гадагш нүүлгэх</string>
   <string name="ratingRange">Чансааны хязгаарлалт</string>
   <plurals name="giveNbSeconds">
@@ -165,6 +197,10 @@
   <string name="backToGame">Тоглолт руу буцах</string>
   <string name="siteDescription">Үнэ төлбөргүй шатар тоглох цахим хуудас. Цэвэрхэн интерфэйстэй, элдэв зар сурталчилгаагүй, бүртгэл шаардлагагүй. Та найзууд, дурын хүн, хиймэл оюун ухаантай шатар тоглож болно.</string>
   <string name="teams">Баг</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s гишүүд</item>
+    <item quantity="other">%s гишүүд</item>
+  </plurals>
   <string name="allTeams">Бүх багууд</string>
   <string name="newTeam">Шинэ баг</string>
   <string name="myTeams">Миний багууд</string>
@@ -191,6 +227,10 @@
   <string name="fromPosition">Энэ байрлалаас үргэлжлүүлэн тоглох</string>
   <string name="continueFromHere">Энэ байрлалаас үргэлжлүүлэх</string>
   <string name="importGame">Өрөг импортлох</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">Импортлогдсон өргийн тоо: %s</item>
+    <item quantity="other">Импортлогдсон өргийн тоо: %s</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">Жинхэнэ хүн эсэхийг шалгагч.</string>
   <string name="clickOnTheBoardToMakeYourMove">Та эсрэг талаа мадалж өөрийгөө жинхэнэ хүн гэдгээ батална уу.</string>
   <string name="notACheckmate">Мадалж чадсангүй</string>
@@ -208,6 +248,10 @@
   <string name="unblock">Энэ гишүүнд тавьсан хоригийг цуцлах</string>
   <string name="followsYou">Таныг дагаж байгаа</string>
   <string name="xStartedFollowingY">%1$s дараахь гишүүнийг дагаж эхэллээ: %2$s</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s гишүүн дагадаг</item>
+    <item quantity="other">%s гишүүн дагадаг</item>
+  </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s гишүүнийг дагадаг</item>
     <item quantity="other">%s гишүүнийг дагадаг</item>
@@ -278,6 +322,10 @@
   <string name="pleaseVotePuzzle">Бодлогын чанарыг үнэлэх</string>
   <string name="thankYou">Баярлалаа!</string>
   <string name="ratingX">Чансаа:%s</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Бодлогыг оролдсон тоо: %s</item>
+    <item quantity="other">Бодлогыг оролдсон тоо: %s</item>
+  </plurals>
   <string name="fromGameLink">%s өргөөс сэдэвлэсэн бодлого</string>
   <string name="startTraining">Эхлүүлэх</string>
   <string name="continueTraining">Бодлого үргэлжлүүлэн бодох</string>
@@ -287,6 +335,10 @@
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">Та эхний нүүдлээ %s секундын дотор хийх ёстой!</item>
     <item quantity="other">Та эхний нүүдлээ %s секундын дотор хийх ёстой!</item>
+  </plurals>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s өрөг тоглогдож байна</item>
+    <item quantity="other">%s өрөг тоглогдож байна</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Нүүсний дараа дараагийн тоглолт руу шууд шилжих</string>
   <string name="autoSwitch">Автоматаар шилжих</string>
@@ -426,6 +478,10 @@
   <string name="whiteCastlingQueenside">Цагаан O-O-O</string>
   <string name="blackCastlingKingside">Хар O-O</string>
   <string name="blackCastlingQueenside">Хар O-O-O</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s Бичлэгийн тоо</item>
+    <item quantity="other">%s Бичлэгийн тоо</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">Шатар тоглосон хугацаа: %s</string>
   <string name="watchGames">Өрөг үзэх</string>
   <string name="tpTimeSpentOnTV">Сувагт зарцуулсан хугацаа: %s</string>
