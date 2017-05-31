@@ -339,8 +339,8 @@
     <item quantity="other">Du hast %s Sekunden, um deinen ersten Zug zu machen!</item>
   </plurals>
   <plurals name="nbGamesInPlay">
-    <item quantity="one">%s laufende Spiele</item>
-    <item quantity="other">%s laufende Spiele</item>
+    <item quantity="one">%s laufende Partie</item>
+    <item quantity="other">%s laufende Partien</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Nach dem Zug automatisch zur nächsten Partie gehen</string>
   <string name="autoSwitch">Automatischer Wechsel</string>
