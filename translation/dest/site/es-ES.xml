@@ -607,4 +607,5 @@
   <string name="error.maxLength">La longitud máxima es de %s</string>
   <string name="error.min">Debe ser mayor o igual a %s</string>
   <string name="error.max">Debe ser menor o igual a %s</string>
+  <string name="custom">Personalizado</string>
 </resources>
