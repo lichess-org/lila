@@ -580,6 +580,9 @@
   <string name="quickPairing">Velox partes</string>
   <string name="lobby">Vestibulum</string>
   <string name="yourScore">Score tuum: %s</string>
+  <string name="language">Lingua</string>
+  <string name="background">Scaena</string>
+  <string name="boardSize">Tabula magnitudine</string>
   <string name="directlySupportLichess">Lichess directe auxilium</string>
   <string name="playChessInStyle">In scaccum ludo style</string>
   <string name="chessBasics">Scacci fundamenta</string>
