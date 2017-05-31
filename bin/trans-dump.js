@@ -9,7 +9,7 @@ fs.readFile('translation/source/site.xml', { encoding: 'utf8' }).then(txt => {
 
     const keyList = keys.map(k => 'val `' + k + '` = new Translated("' + k + '")');
 
-    const code = `// Generated with bin/trans-dump.js ${new Date()}
+    const code = `// Generated with bin/trans-dump.js
 package lila.i18n
 
 // format: OFF
