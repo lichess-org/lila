@@ -586,6 +586,7 @@
   <string name="quickPairing">Γρήγορη ζεύξη</string>
   <string name="lobby">Χώρος αναμονής</string>
   <string name="yourScore">Αποτέλεσμα: %s</string>
+  <string name="language">Γλώσσα</string>
   <string name="background">Παρασκήνιο</string>
   <string name="boardGeometry">Γεωμετρία σκακιέρας</string>
   <string name="boardTheme">Θέμα σκακιέρας</string>
