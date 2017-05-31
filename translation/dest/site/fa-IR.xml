@@ -61,6 +61,14 @@
     <item quantity="other">%s نفر بازیکنان حاضر</item>
   </plurals>
   <string name="currentGames">بازیهای جاری</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s بازی</item>
+    <item quantity="other">%s بازی</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s بازی مورد علاقه</item>
+    <item quantity="other">%s بازی مورد علاقه</item>
+  </plurals>
   <string name="viewInFullSize">تماشا کردن در اندازه کامل</string>
   <string name="logOut">خروج</string>
   <string name="signIn">ورود</string>
@@ -81,6 +89,14 @@
   <string name="correspondence">مکاتبه ای</string>
   <string name="daysPerTurn">روز برای هر حرکت</string>
   <string name="oneDay">یک روز</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s روز</item>
+    <item quantity="other">%s روز</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s ساعت</item>
+    <item quantity="other">%s ساعت</item>
+  </plurals>
   <string name="time">زمان</string>
   <string name="rating">ریتینگ</string>
   <string name="ratingStats">آمار ریتنگ</string>
@@ -96,6 +112,10 @@
   <string name="forgotPassword">آیا رمز عبور را فراموش کرده اید؟</string>
   <string name="rank">رتبه</string>
   <string name="gamesPlayed">بازی های انجام شده</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s بازی با شما</item>
+    <item quantity="other">%s بازی با شما</item>
+  </plurals>
   <string name="cancel">انصراف</string>
   <string name="timeOut">وقت تمام شد</string>
   <string name="drawOfferSent">پیشنهاد مساوی فرستاده شد</string>
@@ -138,6 +158,18 @@
   <string name="incrementInSeconds">افزایش در ثانیه</string>
   <string name="freeOnlineChess">شطرنج آنلاین رایگان</string>
   <string name="spectators">تماشاگران :</string>
+  <plurals name="nbWins">
+    <item quantity="one">%s برد</item>
+    <item quantity="other">%s برد</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s باخت</item>
+    <item quantity="other">%s باخت</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s مساوی</item>
+    <item quantity="other">%s مساوی</item>
+  </plurals>
   <string name="exportGames">لیست بازیها را بفرست</string>
   <string name="ratingRange">حدود ریتینگ</string>
   <plurals name="giveNbSeconds">
@@ -165,6 +197,10 @@
   <string name="backToGame">بازگشت به بازی</string>
   <string name="siteDescription">بازی شطرنج آنلاین رایگان. همین حالا شطرنج بازی کنید. بدون نیاز به ثبت نام، بدون تبلیغات، بدون نیاز به افزونه. بازی با کامپیوتر، دوستان و یا حریفان تصادفی.</string>
   <string name="teams">تیم‌ها</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s عضو</item>
+    <item quantity="other">%s عضو</item>
+  </plurals>
   <string name="allTeams">همه تیم‌ها</string>
   <string name="newTeam">تیم جدید</string>
   <string name="myTeams">تیم‌های من</string>
@@ -191,6 +227,10 @@
   <string name="fromPosition">از موقعیت</string>
   <string name="continueFromHere">ادامه از اینجا</string>
   <string name="importGame">بارگزاری بازی</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s بارگزاری شده</item>
+    <item quantity="other">%s بارگزاری شده</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">این یک کپچای [کد امنیتی] شطرنجی است</string>
   <string name="clickOnTheBoardToMakeYourMove">برای اثبات اینکه انسان هستید روی تخته کلیک کنید تا حرکت خود را انجام دهید</string>
   <string name="notACheckmate">این یک کیش و مات نیست</string>
@@ -208,6 +248,10 @@
   <string name="unblock">مسدود نکن</string>
   <string name="followsYou">شما را دنبال میکند</string>
   <string name="xStartedFollowingY">%1$s کاربر %2$s را دنبال می‌کند</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s دنبال کننده‌</item>
+    <item quantity="other">%s دنبال کننده‌</item>
+  </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s دنبال میکند</item>
     <item quantity="other">%s دنبال میکند</item>
@@ -278,6 +322,10 @@
   <string name="pleaseVotePuzzle">با رای دادن مثبت یا منفی به پیشرفت لیچس کمک کنید</string>
   <string name="thankYou">ممنون!</string>
   <string name="ratingX">امتیاز: %s</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">این جدول%s بار بازی شده است</item>
+    <item quantity="other">این جدول%s بار بازی شده است</item>
+  </plurals>
   <string name="fromGameLink">برگرفته شده از بازی %s</string>
   <string name="startTraining">شروع تمرین</string>
   <string name="continueTraining">ادامه دادن تمرین</string>
@@ -287,6 +335,10 @@
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">شما برای انجام اولین حرکت خود فقط  %s ثانیه فرصت دارید!</item>
     <item quantity="other">شما برای انجام اولین حرکت خود فقط  %s ثانیه فرصت دارید!</item>
+  </plurals>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s بازی در حال انجام است</item>
+    <item quantity="other">%s بازی در حال انجام است</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">حرکت کردن اتوماتیک برای بازی بعدی بعد از حرکت کردن</string>
   <string name="autoSwitch">تعویض خودکار</string>
@@ -426,6 +478,10 @@
   <string name="whiteCastlingQueenside">سفید O-O-O</string>
   <string name="blackCastlingKingside">سیاه O-O</string>
   <string name="blackCastlingQueenside">سیاه O-O-O</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s پست ها در انجمن</item>
+    <item quantity="other">%s پست ها در انجمن</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">زمان بازی کردن: %s</string>
   <string name="watchGames">تماشای بازی</string>
   <string name="tpTimeSpentOnTV">مدت زمان سپری شده در تلویزیون: %s</string>
