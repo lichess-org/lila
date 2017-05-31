@@ -61,6 +61,14 @@
     <item quantity="other">%s spelare</item>
   </plurals>
   <string name="currentGames">Pågående partier</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s partier</item>
+    <item quantity="other">%s partier</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s Bokmärken</item>
+    <item quantity="other">%s Bokmärken</item>
+  </plurals>
   <string name="viewInFullSize">Visa i full storlek</string>
   <string name="logOut">Logga ut</string>
   <string name="signIn">Logga in</string>
@@ -81,6 +89,14 @@
   <string name="correspondence">Korrespondens</string>
   <string name="daysPerTurn">Dagar per drag</string>
   <string name="oneDay">En dag</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s dagar</item>
+    <item quantity="other">%s dagar</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s timmar</item>
+    <item quantity="other">%s timmar</item>
+  </plurals>
   <string name="time">Tid</string>
   <string name="rating">Rating</string>
   <string name="ratingStats">Rating statistik</string>
@@ -96,6 +112,10 @@
   <string name="forgotPassword">Glömt lösenord?</string>
   <string name="rank">Rankning</string>
   <string name="gamesPlayed">Partier spelade</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s partier med dig</item>
+    <item quantity="other">%s partier med dig</item>
+  </plurals>
   <string name="cancel">Avbryt</string>
   <string name="timeOut">Tiden är ute</string>
   <string name="drawOfferSent">Remierbjudande skickat</string>
@@ -138,6 +158,18 @@
   <string name="incrementInSeconds">Tilläggssekunder</string>
   <string name="freeOnlineChess">Gratis schack på internet</string>
   <string name="spectators">Åskådare:</string>
+  <plurals name="nbWins">
+    <item quantity="one">%s vinster</item>
+    <item quantity="other">%s vinster</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s förluster</item>
+    <item quantity="other">%s förluster</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s remier</item>
+    <item quantity="other">%s remier</item>
+  </plurals>
   <string name="exportGames">Exportera partier</string>
   <string name="ratingRange">Ratingomfång</string>
   <plurals name="giveNbSeconds">
@@ -165,6 +197,10 @@
   <string name="backToGame">Tillbaka till partiet</string>
   <string name="siteDescription">Gratis Schack på internet. Spela Schack nu, med ett enkelt gränssnitt. Ingen registrering, inga annonser, inga insticksprogram behövs. Spela schack mot datorn, vänner eller vem som helst.</string>
   <string name="teams">Lag</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s medlemmar</item>
+    <item quantity="other">%s medlemmar</item>
+  </plurals>
   <string name="allTeams">Alla lag</string>
   <string name="newTeam">Nytt lag</string>
   <string name="myTeams">Mina lag</string>
@@ -191,6 +227,10 @@
   <string name="fromPosition">Från position</string>
   <string name="continueFromHere">Fortsätt härifrån</string>
   <string name="importGame">Importera parti</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s Importerade partier</item>
+    <item quantity="other">%s Importerade partier</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">Detta är en schack-CAPTCHA</string>
   <string name="clickOnTheBoardToMakeYourMove">Bevisa att du är en människa genom att klicka på brädet och göra ditt drag.</string>
   <string name="notACheckmate">Inte schackmatt</string>
@@ -208,6 +248,10 @@
   <string name="unblock">Avblockera</string>
   <string name="followsYou">Följer dig</string>
   <string name="xStartedFollowingY">%1$s började följa %2$s</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s följare</item>
+    <item quantity="other">%s följare</item>
+  </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">följer %s</item>
     <item quantity="other">följer %s</item>
@@ -278,6 +322,10 @@
   <string name="pleaseVotePuzzle">Hjälp lichess att bli bättre genom att rösta (använd pil upp eller pil ner):</string>
   <string name="thankYou">Tack!</string>
   <string name="ratingX">Rating: %s</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Spelat %s gånger</item>
+    <item quantity="other">Spelat %s gånger</item>
+  </plurals>
   <string name="fromGameLink">Från parti: %s</string>
   <string name="startTraining">Starta träning</string>
   <string name="continueTraining">Fortsätt träning</string>
@@ -287,6 +335,10 @@
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">Du har %s sekunder för att göra första draget!</item>
     <item quantity="other">Du har %s sekunder för att göra första draget!</item>
+  </plurals>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s partier spelas</item>
+    <item quantity="other">%s partier spelas</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Gör att du automatiskt fortsätter till nästa parti efter du gjort ett drag</string>
   <string name="autoSwitch">Automatiskt partibyte</string>
@@ -426,6 +478,10 @@
   <string name="whiteCastlingQueenside">Vit O-O-O</string>
   <string name="blackCastlingKingside">Svart O-O</string>
   <string name="blackCastlingQueenside">Svart O-O-O</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s Foruminlägg</item>
+    <item quantity="other">%s Foruminlägg</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">Total speltid: %s</string>
   <string name="watchGames">Titta på spel</string>
   <string name="tpTimeSpentOnTV">Total TV-tid: %s</string>
