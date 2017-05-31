@@ -391,6 +391,7 @@
   <string name="starting">Αρχίζει:</string>
   <string name="allInformationIsPublicAndOptional">Όλες οι πληροφορίες είναι δημόσιες και προαιρετικές.</string>
   <string name="yourCityRegionOrDepartment">Η πόλη, περιοχή ή ο νομός σας</string>
+  <string name="biographyDescription">Γράψτε για τον εαυτό σας, τι σας αρέσει στο σκάκι, τα αγαπημένα σας ανοίγματα, παιχνίδια, παίκτες…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Όριο: %s χαρακτήρες.</item>
     <item quantity="other">Όριο: %s χαρακτήρες.</item>
@@ -526,5 +527,18 @@
     <item quantity="other">Διαθέσιμο σε %s γλώσσες!</item>
   </plurals>
   <string name="gameAnalysis">Ανάλυση παιχνιδιού</string>
+  <string name="yourScore">Το σκορ σου: %s</string>
+  <string name="language">Γλώσσα</string>
+  <string name="background">Φόντο</string>
   <string name="boardSize">Μέγεθος σκακιέρας</string>
+  <string name="usernameStartNoNumber">Το όνομα χρήστη δεν πρέπει να ξεκινάει με έναν αριθμό.</string>
+  <string name="usernameUnacceptable">Αυτό το όνομα χρήστη δεν είναι αποδεκτό.</string>
+  <string name="directlySupportLichess">Υποστηρίξτε άμεσα το Lichess</string>
+  <string name="coaches">Προπονητές</string>
+  <string name="invalidPgn">Μη έγκυρo PGN</string>
+  <string name="invalidFen">Μη έγκυρo FEN</string>
+  <string name="error.minLength">Ελάχιστο μήκος είναι %s</string>
+  <string name="error.maxLength">Μέγιστο μήκος είναι %s</string>
+  <string name="error.min">Πρέπει να είναι μεγαλύτερoς ή ίσος με %s</string>
+  <string name="error.max">Πρέπει να είναι μικρότερος ή ίσος με %s</string>
 </resources>
