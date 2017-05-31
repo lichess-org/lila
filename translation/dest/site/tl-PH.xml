@@ -36,7 +36,13 @@
   <string name="requestAComputerAnalysis">Humingi ng computer analysis</string>
   <string name="computerAnalysis">Computer analysis</string>
   <string name="mistakes">Mga Pagkakamali</string>
+  <string name="inaccuracies">Mga Alanganging Tira</string>
+  <string name="moveTimes">Oras ng mga galaw</string>
   <string name="flipBoard">Baligtarin ang lupon</string>
+  <string name="threefoldRepetition">Tatlong beses na paulit-ulit</string>
+  <string name="claimADraw">Angkinin ang tabla</string>
+  <string name="offerDraw">Mag-alok ng Tabla</string>
+  <string name="draw">Tabla</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s na Manlalaro</item>
     <item quantity="other">%s na Manlalaro</item>
