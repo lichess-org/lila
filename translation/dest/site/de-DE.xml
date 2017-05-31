@@ -233,7 +233,7 @@
   </plurals>
   <string name="thisIsAChessCaptcha">Dies ist ein Schach-CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Mach einen Zug, um zu beweisen, dass du ein Mensch bist.</string>
-  <string name="captcha.fail">Bitte löse das Schach-Puzzle.</string>
+  <string name="captcha.fail">Bitte löse die Schachaufgabe.</string>
   <string name="notACheckmate">Kein Matt</string>
   <string name="colorPlaysCheckmateInOne">%s setzt Matt in einem Zug</string>
   <string name="retry">Erneut versuchen</string>
