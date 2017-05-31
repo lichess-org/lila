@@ -9,7 +9,7 @@ object RequestPref {
   def queryParamOverride(req: RequestHeader)(pref: Pref): Pref =
     queryParam(req, "bg").fold(pref) { bg =>
       pref.copy(
-        dark = bg == "dark",
+        dark = bg != "light",
         transp = bg == "transp"
       )
     }
