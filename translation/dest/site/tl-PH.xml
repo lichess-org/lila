@@ -58,9 +58,28 @@
   <string name="newToLichess">Bago ka ba sa Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Kailangan mo ng account para magawa ito</string>
   <string name="signUp">Magparehistro</string>
+  <string name="computersAreNotAllowedToPlay">Mga kompyuter at kompyuter na tinulungan ang mga manlalaro ay hindi pinahihintulutan habang nag lalaro. Mangyaring huwag makakuha ng tulong mula sa chess engine, database, o mula sa iba pang mga manlalaro habang naglalaro. Tandaan din na ang paggawa ng maramihang mga account ay at labis paggamit ng maraming accounts ay hahantong sa pagbabawal sa paglalaro.</string>
   <string name="games">Mga Laro</string>
+  <string name="forum">Pagtitipon</string>
+  <string name="xPostedInForumY">%1$s Nai-post na paksa %2$s</string>
+  <string name="latestForumPosts">Pinakabagong paksa sa pagtitipon</string>
   <string name="players">Mga Manlalaro</string>
+  <string name="minutesPerSide">Minuto bawat panig</string>
+  <string name="variant">Baryante</string>
+  <string name="variants">Mga Baryante</string>
+  <string name="timeControl">Nakatakdang oras</string>
+  <string name="realTime">Totoong oras</string>
+  <string name="correspondence">Pagsusulatan</string>
+  <string name="daysPerTurn">Araw bawat tira</string>
   <string name="oneDay">Isang Araw</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s araw</item>
+    <item quantity="other">%s Mga araw</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s oras</item>
+    <item quantity="other">%s oras</item>
+  </plurals>
   <string name="haveAnAccount">May account ka ba?</string>
   <string name="changePassword">Palitan ang password</string>
   <string name="changeEmail">Palitan ang email</string>
