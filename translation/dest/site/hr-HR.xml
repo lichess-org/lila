@@ -420,7 +420,7 @@
   <string name="whenTimeRemainingLessThanTenSeconds">Kad je ostalo manje od 10 sekundi</string>
   <string name="horizontalGreenProgressBars">Vodoravna zelena linija napretka</string>
   <string name="soundWhenTimeGetsCritical">Zvuk kada je vrijeme kritično</string>
-  <string name="gameBehavior">Ponašanje tijekom igre</string>
+  <string name="gameBehavior">Način igre</string>
   <string name="premovesPlayingDuringOpponentTurn">Pretpotezi (potezi dok je protivnikov red)</string>
   <string name="takebacksWithOpponentApproval">Povlačenje poteza (ako se protivnik složi)</string>
   <string name="promoteToQueenAutomatically">Auto-promocija u damu</string>
@@ -434,8 +434,8 @@
   <string name="fast">Brzo</string>
   <string name="normal">Normalno</string>
   <string name="slow">Sporo</string>
-  <string name="insideTheBoard">Unutar table</string>
-  <string name="outsideTheBoard">Izvan table</string>
+  <string name="insideTheBoard">Unutar ploče</string>
+  <string name="outsideTheBoard">Izvan ploče</string>
   <string name="onSlowGames">U sporim partijama</string>
   <string name="always">Uvijek</string>
   <string name="inCasualGamesOnly">Samo u prijateljskim partijama</string>
