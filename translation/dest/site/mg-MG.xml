@@ -56,6 +56,14 @@
     <item quantity="other">%s mpilalao</item>
   </plurals>
   <string name="currentGames">Ireo lalao amin\'izao fotoana</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s lalao</item>
+    <item quantity="other">%s lalao</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s Bookmarks</item>
+    <item quantity="other">%s Bookmarks</item>
+  </plurals>
   <string name="viewInFullSize">Alehibiazo</string>
   <string name="logOut">Mivoaha</string>
   <string name="signIn">Midira</string>
@@ -70,6 +78,14 @@
   <string name="variant">Variant</string>
   <string name="timeControl">Fanaraha-maso ny fotoana</string>
   <string name="oneDay">Iray andro</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s andro</item>
+    <item quantity="other">%s andro</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s ora</item>
+    <item quantity="other">%s ora</item>
+  </plurals>
   <string name="time">Fotoana</string>
   <string name="usernameOrEmail">Solon\'anarana</string>
   <string name="password">Teny miafina</string>
@@ -77,6 +93,10 @@
   <string name="changePassword">Ovay ny teny miafina</string>
   <string name="rank">Laharana</string>
   <string name="gamesPlayed">Lalao nolalaovina</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s lalao niaraka taminao</item>
+    <item quantity="other">%s lalao niaraka taminao</item>
+  </plurals>
   <string name="cancel">Cancel</string>
   <string name="timeOut">Lany fotoana</string>
   <string name="drawOfferSent">Lasa ny fangatahana lalao sahala</string>
@@ -119,6 +139,18 @@
   <string name="incrementInSeconds">Increment in seconds</string>
   <string name="freeOnlineChess">Echéc maimaimpoana amin\'ny tranon\'kala</string>
   <string name="spectators">Mpijery:</string>
+  <plurals name="nbWins">
+    <item quantity="one">Fandresena %s</item>
+    <item quantity="other">Fandresena %s</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">Faharesena %s</item>
+    <item quantity="other">Faharesena %s</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">Lalao sahala %s</item>
+    <item quantity="other">Lalao sahala %s</item>
+  </plurals>
   <string name="exportGames">Exporter-o ny lalao</string>
   <string name="ratingRange">Rating range</string>
   <plurals name="giveNbSeconds">
@@ -143,6 +175,10 @@
   <string name="backToGame">Hiverina any amin\'ny lalao</string>
   <string name="siteDescription">Lalao échec maimaimpoana. Milalaova échec miraka amina interface tsara voatra. Tsy mila fisoratana anarana, tsy misy dokam-barotra, tsy mila plugin. Milalaova échec miraka amin\'ny solosaina, namana na mpandray anjara voafantina.</string>
   <string name="teams">vondrona</string>
+  <plurals name="nbMembers">
+    <item quantity="one">mpiray vondrona %s</item>
+    <item quantity="other">mpiray vondrona %s</item>
+  </plurals>
   <string name="allTeams">Ny vondrona rehetra</string>
   <string name="newTeam">vondrona vaovao</string>
   <string name="myTeams">Ny vondroko</string>
@@ -169,6 +205,10 @@
   <string name="fromPosition">Avy amina toerana</string>
   <string name="continueFromHere">Tohizo avy amin\'ito toerana ito</string>
   <string name="importGame">Ampidiro ny lalao</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">Lalao nampidirina %s</item>
+    <item quantity="other">Lalao nampidirina %s</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">CAPTCHAn\'ny échec ito.</string>
   <string name="clickOnTheBoardToMakeYourMove">Cliquer-o eo amin\'ny faritry ny lalao hanaovanao ny hetsikao voalohany, ary porofoy fa olombelona ianao.</string>
   <string name="notACheckmate">Tsy échec et mat</string>
@@ -186,6 +226,10 @@
   <string name="unblock">Aza bahanana</string>
   <string name="followsYou">Manaraka anao</string>
   <string name="xStartedFollowingY">%1$s dia nanomboka nanaraka an\'i %2$s</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s mpanaraka</item>
+    <item quantity="other">%s mpanaraka</item>
+  </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s manaraka</item>
     <item quantity="other">%s manaraka</item>
@@ -244,6 +288,10 @@
   <string name="butYouCanKeepTrying">Afaka manandrana hatrany ianao.</string>
   <string name="victory">Fandresena!</string>
   <string name="thankYou">Misaotra!</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Nanao andrana in-%s</item>
+    <item quantity="other">Nanao andrana in-%s</item>
+  </plurals>
   <string name="startTraining">Manomboka ny kotrana</string>
   <string name="continueTraining">Manohy ny kotrana</string>
   <string name="retryThisPuzzle">Hamerina hamaha ny piozila</string>
@@ -252,6 +300,10 @@
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">Manana %s segondra ianao hanaovana ny hetsika voalohany!</item>
     <item quantity="other">Manana %s segondra ianao hanaovana ny hetsika voalohany!</item>
+  </plurals>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s ireo lalao amin\'izao fotoana izao</item>
+    <item quantity="other">%s ireo lalao amin\'izao fotoana izao</item>
   </plurals>
   <string name="puzzles">Piozila</string>
   <string name="name">Anarana</string>
