@@ -586,6 +586,7 @@
   <string name="quickPairing">Pools</string>
   <string name="lobby">Lobby</string>
   <string name="yourScore">Punktestand: %s</string>
+  <string name="language">Sprache</string>
   <string name="background">Hintergrund</string>
   <string name="boardGeometry">Brettgröße und 3D</string>
   <string name="boardTheme">Brettdesign</string>
