@@ -74,7 +74,7 @@
   <string name="signIn">Logg inn</string>
   <string name="newToLichess">Ny hos Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Du trenger en konto for å gjøre det</string>
-  <string name="signUp">Registrer bruker</string>
+  <string name="signUp">Registrer brukerkonto</string>
   <string name="computersAreNotAllowedToPlay">Datamaskiner og spillere som får hjelp av datamaskiner har ikke lov til å spille. Vennligst ikke ta imot hjelp fra sjakkmaskiner, databaser eller andre spillere under partiene. Merk også at det er sterkt frarådet å opprette flere brukerkontoer, og kan lede til at du blir utstengt.</string>
   <string name="games">Partier</string>
   <string name="forum">Forum</string>
@@ -159,7 +159,7 @@
   <string name="freeOnlineChess">Gratis nettsjakk</string>
   <string name="spectators">Tilskuere:</string>
   <plurals name="nbWins">
-    <item quantity="one">%s seire</item>
+    <item quantity="one">%s seier</item>
     <item quantity="other">%s seire</item>
   </plurals>
   <plurals name="nbLosses">
@@ -167,13 +167,13 @@
     <item quantity="other">%s tap</item>
   </plurals>
   <plurals name="nbDraws">
-    <item quantity="one">%s Uavgjort</item>
-    <item quantity="other">%s Uavgjort</item>
+    <item quantity="one">%s remis</item>
+    <item quantity="other">%s remis</item>
   </plurals>
   <string name="exportGames">Eksporter partier</string>
-  <string name="ratingRange">Ratingsforskjell</string>
+  <string name="ratingRange">Ratingspenn</string>
   <plurals name="giveNbSeconds">
-    <item quantity="one">Gi %s sekunder</item>
+    <item quantity="one">Gi %s sekund</item>
     <item quantity="other">Gi %s sekunder</item>
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Denne spilleren bruker computer</string>
@@ -195,43 +195,43 @@
   <string name="viewTournament">Vis turnering</string>
   <string name="backToTournament">Tilbake til turneringen</string>
   <string name="backToGame">Tilbake til partiet</string>
-  <string name="siteDescription">Lichess er en gratis sjakkside. Spill sjakk nå. Siden har et moderne design. Ingen registrering, ingen reklame, ingen programtillegg nødvendig. Spill sjakk mot datamaskinen, venner, eller tilfeldige motstandere.</string>
-  <string name="teams">Klan</string>
+  <string name="siteDescription">Gratis nettsjakk. Spill sjakk nå, i et enkelt og rent format. Ingen registrering, ingen reklame, ingen programtillegg nødvendig. Spill sjakk mot datamaskinen, venner, eller tilfeldige motstandere.</string>
+  <string name="teams">Lag</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s medlemmer</item>
+    <item quantity="one">%s medlem</item>
     <item quantity="other">%s medlemmer</item>
   </plurals>
-  <string name="allTeams">Alle klanene</string>
-  <string name="newTeam">Ny klan</string>
-  <string name="myTeams">Min(e) klan(er)</string>
-  <string name="noTeamFound">Ingen klan funnet</string>
-  <string name="joinTeam">Bli med i klanen</string>
-  <string name="quitTeam">Forlat klanen</string>
-  <string name="anyoneCanJoin">Alle kan bli med i denne klanen</string>
+  <string name="allTeams">Alle lag</string>
+  <string name="newTeam">Nytt lag</string>
+  <string name="myTeams">Mine lag</string>
+  <string name="noTeamFound">Ingen lag funnet</string>
+  <string name="joinTeam">Bli med på laget</string>
+  <string name="quitTeam">Forlat laget</string>
+  <string name="anyoneCanJoin">Alle kan bli med</string>
   <string name="aConfirmationIsRequiredToJoin">En bekreftelse kreves for å bli med i denne klanen</string>
-  <string name="joiningPolicy">Regler man må følge</string>
+  <string name="joiningPolicy">Regler for å bli med</string>
   <string name="teamLeader">Lagleder</string>
   <string name="teamBestPlayers">Lagets beste spillere</string>
   <string name="teamRecentMembers">Nye lagmedlemmer</string>
   <string name="xJoinedTeamY">%1$s ble med på laget %2$s</string>
   <string name="xCreatedTeamY">%1$s opprettet laget %2$s</string>
-  <string name="averageElo">Gjennomsnittlig rating</string>
+  <string name="averageElo">Gjennomsnittsrating</string>
   <string name="location">Sted</string>
   <string name="settings">Innstillinger</string>
   <string name="filterGames">Filtrer partier</string>
   <string name="reset">Tilbakestill</string>
-  <string name="apply">Send inn</string>
+  <string name="apply">Bruk</string>
   <string name="leaderboard">Ledertabell</string>
-  <string name="pasteTheFenStringHere">Lim inn FEN teksten her</string>
-  <string name="pasteThePgnStringHere">Lim inn PGN teksten her</string>
+  <string name="pasteTheFenStringHere">Lim inn FEN-strengen her</string>
+  <string name="pasteThePgnStringHere">Lim inn PGN-strengen her</string>
   <string name="fromPosition">Fra stilling</string>
   <string name="continueFromHere">Fortsett herfra</string>
   <string name="importGame">Importer parti</string>
   <plurals name="nbImportedGames">
-    <item quantity="one">%s Importerte partier</item>
-    <item quantity="other">%s Importerte partier</item>
+    <item quantity="one">%s importert parti</item>
+    <item quantity="other">%s importerte partier</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Dette er en sjakk CAPTCHA.</string>
+  <string name="thisIsAChessCaptcha">Dette er en sjakk-CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Klikk på brettet for å gjøre et trekk og bevise at du er et menneske.</string>
   <string name="captcha.fail">Vennligst løs sjakk-captchaen.</string>
   <string name="notACheckmate">Ikke sjakk matt</string>
@@ -251,7 +251,7 @@
   <string name="followsYou">Følger deg</string>
   <string name="xStartedFollowingY">%1$s begynte å følge %2$s</string>
   <plurals name="nbFollowers">
-    <item quantity="one">%s følgere</item>
+    <item quantity="one">%s følger</item>
     <item quantity="other">%s følgere</item>
   </plurals>
   <plurals name="nbFollowing">
@@ -284,7 +284,7 @@
   <string name="createdBy">Opprettet av</string>
   <string name="tournamentIsStarting">Turneringen begynner</string>
   <string name="membersOnly">Kun for medlemmer</string>
-  <string name="boardEditor">Bord oppsett</string>
+  <string name="boardEditor">Oppsett</string>
   <string name="startPosition">Startposisjon</string>
   <string name="clearBoard">Tøm brett</string>
   <string name="savePosition">Lagre stilling</string>
@@ -305,33 +305,33 @@
   <string name="activePlayers">Aktive spillere</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Merk at spillet er rangert, men har ingen tidskontroll!</string>
   <string name="training">Sjakknøtter</string>
-  <string name="yourPuzzleRatingX">Din problemrating: %s</string>
+  <string name="yourPuzzleRatingX">Din sjakknøttrating: %s</string>
   <string name="findTheBestMoveForWhite">Finn beste trekk for hvit.</string>
   <string name="findTheBestMoveForBlack">Finn beste trekk for svart.</string>
   <string name="toTrackYourProgress">For å se din framgang:</string>
-  <string name="trainingSignupExplanation">Lichess vil gi deg problemer som tilsvarer dine ferdigheter, noe som resulterer i bedre treningsøkter.</string>
-  <string name="puzzleId">Problem %s</string>
+  <string name="trainingSignupExplanation">Lichess vil gi deg sjakknøtter som tilsvarer dine ferdigheter, noe som resulterer i bedre treningsøkter.</string>
+  <string name="puzzleId">Sjakknøtt %s</string>
   <string name="puzzleOfTheDay">Dagens nøtt</string>
   <string name="clickToSolve">Klikk for å løse</string>
   <string name="goodMove">Godt trekk</string>
   <string name="butYouCanDoBetter">Men du har et bedre trekk.</string>
   <string name="bestMove">Beste trekk!</string>
   <string name="keepGoing">Fortsett ...</string>
-  <string name="puzzleFailed">Du klarte ikke problemet</string>
+  <string name="puzzleFailed">Du klarte ikke sjakknøtten</string>
   <string name="butYouCanKeepTrying">Men du kan fortsette å prøve.</string>
-  <string name="victory">Suksess!</string>
-  <string name="wasThisPuzzleAnyGood">Likte du dette problemet?</string>
+  <string name="victory">Seier!</string>
+  <string name="wasThisPuzzleAnyGood">Likte du denne sjakknøtten?</string>
   <string name="pleaseVotePuzzle">Forbedre lichess ved å stemme, med opp- eller ned-pilen:</string>
   <string name="thankYou">Takk!</string>
   <string name="ratingX">Rating: %s</string>
   <plurals name="playedXTimes">
-    <item quantity="one">Forsøkt %s ganger</item>
+    <item quantity="one">Forsøkt %s gang</item>
     <item quantity="other">Forsøkt %s ganger</item>
   </plurals>
   <string name="fromGameLink">Fra parti %s</string>
   <string name="startTraining">Start treningen</string>
   <string name="continueTraining">Fortsett treningen</string>
-  <string name="retryThisPuzzle">Prøv oppgaven om igjen</string>
+  <string name="retryThisPuzzle">Prøv denne sjakknøtten om igjen</string>
   <string name="thisPuzzleIsCorrect">Dette problemet er riktig og interessant</string>
   <string name="thisPuzzleIsWrong">Dette problemet er feil eller kjedelig</string>
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
@@ -344,7 +344,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Fortsett automatisk til neste parti etter utført trekk</string>
   <string name="autoSwitch">Autosyklus</string>
-  <string name="puzzles">Problemer</string>
+  <string name="puzzles">Sjakknøtter</string>
   <string name="coordinates">Koordinater</string>
   <string name="latestUpdates">Siste oppdateringer</string>
   <string name="tournamentWinners">Turneringsvinnere</string>
@@ -359,13 +359,13 @@
   <string name="lastPost">Siste innlegg</string>
   <string name="views">Visninger</string>
   <string name="replies">Svar</string>
-  <string name="replyToThisTopic">Skriv nytt innlegg i dette emnet</string>
+  <string name="replyToThisTopic">Svar på dette emnet</string>
   <string name="reply">Svar</string>
   <string name="message">Melding</string>
   <string name="createTheTopic">Opprett emnet</string>
   <string name="reportAUser">Rapporter en bruker</string>
   <string name="user">Bruker</string>
-  <string name="reason">Grunn</string>
+  <string name="reason">Årsak</string>
   <string name="whatIsIheMatter">Hva gjelder det?</string>
   <string name="cheat">Juks</string>
   <string name="insult">Fornærmelse</string>
@@ -375,7 +375,7 @@
   <string name="by">av %s</string>
   <string name="thisTopicIsNowClosed">Dette emnet er nå lukket.</string>
   <string name="theming">Utseende</string>
-  <string name="donate">Donér</string>
+  <string name="donate">Doner</string>
   <string name="blog">Blogg</string>
   <string name="questionsAndAnswers">Spørsmål og svar</string>
   <string name="notes">Notater</string>
