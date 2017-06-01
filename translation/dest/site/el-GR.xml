@@ -531,6 +531,7 @@
   <string name="language">Γλώσσα</string>
   <string name="background">Φόντο</string>
   <string name="boardSize">Μέγεθος σκακιέρας</string>
+  <string name="usernameAlreadyUsed">Αυτό το όνομα χρήστη είναι ήδη σε χρήση, παρακαλώ δοκιμάστε ένα άλλο.</string>
   <string name="usernameStartNoNumber">Το όνομα χρήστη δεν πρέπει να ξεκινάει με έναν αριθμό.</string>
   <string name="usernameUnacceptable">Αυτό το όνομα χρήστη δεν είναι αποδεκτό.</string>
   <string name="directlySupportLichess">Υποστηρίξτε άμεσα το Lichess</string>
