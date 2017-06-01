@@ -8,6 +8,7 @@
       @if(u.username.size < 15) { @name }
     </span>
     }
+    }
     @userLink(u, withPowerTip = false)
   </div>
   @if(u.engine && ctx.me.fold(true)(u !=)) {
