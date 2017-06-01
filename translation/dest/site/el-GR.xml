@@ -89,6 +89,14 @@
   <string name="correspondence">Αλληλογραφία</string>
   <string name="daysPerTurn">Ημέρες ανά σειρά</string>
   <string name="oneDay">Μία ημέρα</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s ημέρα</item>
+    <item quantity="other">%s ημέρες</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s ώρα</item>
+    <item quantity="other">%s ώρες</item>
+  </plurals>
   <string name="time">Χρόνος</string>
   <string name="rating">Βαθμολογία</string>
   <string name="ratingStats">Στατιστικές βαθμολογίας</string>
@@ -490,6 +498,10 @@
   <string name="tournamentMayHaveBeenCanceled">Ίσως έχει ακυρωθεί, εάν όλοι οι παίκτες αποχώρησαν πριν το πρωτάθλημα ξεκινήσει.</string>
   <string name="returnToTournamentsHomepage">Επιστροφή στην αρχική σελίδα πρωταθλημάτων</string>
   <string name="weeklyPerfTypeRatingDistribution">Μηνιαία %s κατανομή βαθμολογίας</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">Ένας %2$s παίκτης αυτή την εβδομάδα.</item>
+    <item quantity="other">%1$s %2$s παίκτες αυτή την εβδομάδα.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">Η %1$s βαθμολογία σας είναι %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Είστε καλύτεροι από το %1$s των %2$s παικτών.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Δεν έχετε μια καθιερωμένη %s βαθμολογία.</string>
@@ -532,10 +544,12 @@
     <item quantity="other">Διαθέσιμο σε %s γλώσσες!</item>
   </plurals>
   <string name="gameAnalysis">Ανάλυση παιχνιδιού</string>
+  <string name="xHostsY">%1$s φιλοξενεί %2$s</string>
   <string name="xJoinsY">%1$s συμμετέχει %2$s</string>
   <string name="yourScore">Το σκορ σου: %s</string>
   <string name="language">Γλώσσα</string>
   <string name="background">Φόντο</string>
+  <string name="boardGeometry">Γεωμετρία σκακιέρας</string>
   <string name="boardSize">Μέγεθος σκακιέρας</string>
   <string name="embedInYourWebsite">Ενσωματώστε στην ιστοσελίδα σας</string>
   <string name="usernameAlreadyUsed">Αυτό το όνομα χρήστη είναι ήδη σε χρήση, παρακαλώ δοκιμάστε ένα άλλο.</string>
