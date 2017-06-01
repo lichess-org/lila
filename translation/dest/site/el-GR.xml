@@ -87,7 +87,7 @@
   <string name="timeControl">Χρονόμετρο</string>
   <string name="realTime">Πραγματικού χρόνου</string>
   <string name="correspondence">Αλληλογραφία</string>
-  <string name="daysPerTurn">Ημέρες ανά σειρά</string>
+  <string name="daysPerTurn">Ημέρες ανά κίνηση</string>
   <string name="oneDay">Μία ημέρα</string>
   <plurals name="nbDays">
     <item quantity="one">%s ημέρα</item>
@@ -101,12 +101,12 @@
   <string name="rating">Βαθμολογία</string>
   <string name="ratingStats">Στατιστικές βαθμολογίας</string>
   <string name="username">Όνομα χρήστη</string>
-  <string name="usernameOrEmail">Όνομα χρήστη</string>
+  <string name="usernameOrEmail">Όνομα χρήστη ή ηλ. ταχυδρομείο</string>
   <string name="password">Κωδικός</string>
   <string name="haveAnAccount">Έχετε λογαριασμό;</string>
   <string name="changePassword">Αλλάξτε κωδικό</string>
-  <string name="changeEmail">Αλλαγή Hλ.Ταχυδρομείου</string>
-  <string name="email">Ηλ. Ταχυδρομείο</string>
+  <string name="changeEmail">Αλλαγή ηλ. ταχυδρομείου</string>
+  <string name="email">Ηλ. ταχυδρομείο</string>
   <string name="emailIsOptional">Το ηλ. ταχυδρομείο είναι προαιρετικό. Το Lichess θα το χρησιμοποιήσει μόνο σε περίπτωση που ξεχάσετε τον κωδικό σας για επαναφορά του.</string>
   <string name="passwordReset">Επαναφορά κωδικού</string>
   <string name="forgotPassword">Ξεχάσατε τον κωδικό σας;</string>
@@ -580,8 +580,8 @@
     <item quantity="other">Διαθέσιμο σε %s γλώσσες!</item>
   </plurals>
   <string name="gameAnalysis">Ανάλυση παιχνιδιού</string>
-  <string name="xHostsY">%1$s φιλοξενεί %2$s</string>
-  <string name="xJoinsY">%1$s συμμετέχει %2$s</string>
+  <string name="xHostsY">%1$s φιλοξενεί τη %2$s</string>
+  <string name="xJoinsY">%1$s συμμετέχει στη %2$s</string>
   <string name="xLikesY">%1$s αρέσει %2$s</string>
   <string name="quickPairing">Γρήγορο ταίριασμα</string>
   <string name="lobby">Λόμπι</string>
@@ -589,7 +589,7 @@
   <string name="language">Γλώσσα</string>
   <string name="background">Φόντο</string>
   <string name="boardGeometry">Γεωμετρία σκακιέρας</string>
-  <string name="boardTheme">Θέμα σκακιέρας</string>
+  <string name="boardTheme">Εμφάνιση σκακιέρας</string>
   <string name="boardSize">Μέγεθος σκακιέρας</string>
   <string name="pieceSet">Σετ κομματιού</string>
   <string name="embedInYourWebsite">Ενσωματώστε στην ιστοσελίδα σας</string>
