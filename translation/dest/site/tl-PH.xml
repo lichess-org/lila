@@ -112,6 +112,8 @@
   </plurals>
   <string name="cancel">Ikansela</string>
   <string name="timeOut">Naubusan ng oras</string>
+  <string name="whiteDeclinesDraw">Tinanggihan ng White ang draw</string>
+  <string name="blackDeclinesDraw">Tinanggihan ng Black ang draw</string>
   <string name="accept">Tanggapin</string>
   <string name="decline">Tanggihan</string>
   <string name="playingRightNow">Naglalaro ngayon</string>
