@@ -31,7 +31,7 @@
   <string name="joinTheGame">Λάβετε μέρος στο παιχνίδι</string>
   <string name="whitePlays">Παίζουν τα λευκά</string>
   <string name="blackPlays">Παίζουν τα μαύρα</string>
-  <string name="opponentLeftChoices">Ο αντίπαλος σας έφυγε από το παιχνίδι. Μπορείτε να ισχυριστείτε νίκη, ισοπαλία, ή να περιμένετε.</string>
+  <string name="opponentLeftChoices">Ο αντίπαλος σας έφυγε από το παιχνίδι. Μπορείτε να ισχυρισθείτε νίκη, ισοπαλία, ή να περιμένετε.</string>
   <string name="makeYourOpponentResign">Αναγκάστε τον αντίπαλό σας να παραιτηθεί</string>
   <string name="forceResignation">Ισχυρισθείτε νίκη</string>
   <string name="forceDraw">Δηλώστε ισοπαλία</string>
@@ -41,12 +41,12 @@
   <string name="blackResigned">Τα μαύρα παραιτήθηκαν</string>
   <string name="whiteLeftTheGame">Τα λευκά έφυγαν από το παιχνίδι</string>
   <string name="blackLeftTheGame">Τα μαύρα έφυγαν από το παιχνίδι</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Στείλτε αυτήν τη διεύθυνση και επιτρέψτε σε θεατές να δουν το παιχνίδι</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Στείλτε αυτήν τη διεύθυνση για να επιτρέψτε σε θεατές να δουν το παιχνίδι</string>
   <string name="theComputerAnalysisHasFailed">Η ανάλυση του υπολογιστή απέτυχε</string>
   <string name="viewTheComputerAnalysis">Δείτε την ανάλυση του υπολογιστή</string>
-  <string name="requestAComputerAnalysis">Ζητήστε την ανάλυση του υπολογιστή</string>
+  <string name="requestAComputerAnalysis">Ζητήστε ανάλυση υπολογιστή</string>
   <string name="computerAnalysis">Ανάλυση υπολογιστή</string>
-  <string name="analysis">Πίνακας ανάλυσης</string>
+  <string name="analysis">Σκακιέρα ανάλυσης</string>
   <string name="blunders">Σοβαρά λάθη</string>
   <string name="mistakes">Λάθη</string>
   <string name="inaccuracies">Ανακρίβειες</string>
@@ -107,9 +107,9 @@
   <string name="changePassword">Αλλάξτε κωδικό</string>
   <string name="changeEmail">Αλλαγή Hλ.Ταχυδρομείου</string>
   <string name="email">Ηλ. Ταχυδρομείο</string>
-  <string name="emailIsOptional">Το Hλ.Tαχυδρομείο είναι προαιρετικό. Το Lichess θα το χρησιμοποιήσει μόνο σε περίπτωση που ξεχάσετε τον κωδικό σας για επαναφορά του.</string>
+  <string name="emailIsOptional">Το ηλ. ταχυδρομείο είναι προαιρετικό. Το Lichess θα το χρησιμοποιήσει μόνο σε περίπτωση που ξεχάσετε τον κωδικό σας για επαναφορά του.</string>
   <string name="passwordReset">Επαναφορά κωδικού</string>
-  <string name="forgotPassword">Ξεχάσατε τον κωδικό;</string>
+  <string name="forgotPassword">Ξεχάσατε τον κωδικό σας;</string>
   <string name="rank">Επίπεδο</string>
   <string name="gamesPlayed">Παιγμένα παιχνίδια</string>
   <plurals name="nbGamesWithYou">
