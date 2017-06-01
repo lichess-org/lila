@@ -582,11 +582,16 @@
   <string name="gameAnalysis">Ανάλυση παιχνιδιού</string>
   <string name="xHostsY">%1$s φιλοξενεί %2$s</string>
   <string name="xJoinsY">%1$s συμμετέχει %2$s</string>
+  <string name="xLikesY">%1$s αρέσει %2$s</string>
+  <string name="quickPairing">Γρήγορο ταίριασμα</string>
+  <string name="lobby">Λόμπι</string>
   <string name="yourScore">Το σκορ σου: %s</string>
   <string name="language">Γλώσσα</string>
   <string name="background">Φόντο</string>
   <string name="boardGeometry">Γεωμετρία σκακιέρας</string>
+  <string name="boardTheme">Θέμα σκακιέρας</string>
   <string name="boardSize">Μέγεθος σκακιέρας</string>
+  <string name="pieceSet">Σετ κομματιού</string>
   <string name="embedInYourWebsite">Ενσωματώστε στην ιστοσελίδα σας</string>
   <string name="usernameAlreadyUsed">Αυτό το όνομα χρήστη είναι ήδη σε χρήση, παρακαλώ δοκιμάστε ένα άλλο.</string>
   <string name="usernameInvalid">Μη έγκυρο όνομα χρήστη. Παρακαλούμε χρησιμοποιήστε μόνο γράμματα, αριθμούς, χαρακτήρα υπογράμμισης και παύλα.</string>
