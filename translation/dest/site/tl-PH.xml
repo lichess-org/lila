@@ -19,6 +19,8 @@
   <string name="createAGame">Gumawa ng laro</string>
   <string name="whiteIsVictorious">Nanalo ang Puti</string>
   <string name="blackIsVictorious">Nanalo ang Itim</string>
+  <string name="kingInTheCenter">Ang hari ay nasa gitna na</string>
+  <string name="threeChecks">Tatlong tsek</string>
   <string name="raceFinished">Tapos na ang Laro</string>
   <string name="newOpponent">Bagong Kalaban</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Gusto muling makipaglaro ng iyong katunggali</string>
@@ -28,6 +30,7 @@
   <string name="opponentLeftChoices">Maaaring umalis na ang kalaban sa laro. Puwede mo nang angkinin ang panalo, tawagin itong draw, o maghintay.</string>
   <string name="forceResignation">Angkinin ang tagumpay</string>
   <string name="talkInChat">Mag-usap</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Ang unang tao na pupunta sa URL na ito ay makikipaglaro sa iyo.</string>
   <string name="whiteResigned">Nagpatalo ang Puti</string>
   <string name="blackResigned">Nagpatalo ang Itim</string>
   <string name="whiteLeftTheGame">Umalis sa laro ang puti</string>
