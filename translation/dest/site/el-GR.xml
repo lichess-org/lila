@@ -107,7 +107,7 @@
   <string name="changePassword">Αλλάξτε κωδικό</string>
   <string name="changeEmail">Αλλαγή ηλ. ταχυδρομείου</string>
   <string name="email">Ηλ. ταχυδρομείο</string>
-  <string name="emailIsOptional">Το ηλ. ταχυδρομείο είναι προαιρετικό. Το Lichess θα το χρησιμοποιήσει μόνο σε περίπτωση που ξεχάσετε τον κωδικό σας για επαναφορά του.</string>
+  <string name="emailIsOptional">Το ηλ. ταχυδρομείο είναι προαιρετικό. Το Lichess θα το χρησιμοποιήσει μόνο σε περίπτωση που ξεχάσετε τον κωδικό σας για την επαναφορά του.</string>
   <string name="passwordReset">Επαναφορά κωδικού</string>
   <string name="forgotPassword">Ξεχάσατε τον κωδικό σας;</string>
   <string name="rank">Επίπεδο</string>
@@ -177,7 +177,7 @@
     <item quantity="other">Προσθέστε %s δευτερόλεπτα</item>
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Ο παίκτης χρησιμοποιεί υποβοήθηση υπολογιστή</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Αυτός ο παίκτης αυξάνει/μειώνει τεχνητά την βαθμολογία</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">Αυτός ο παίκτης αυξάνει/μειώνει τεχνητά τη βαθμολογία</string>
   <string name="openingExplorer">Άνοιγμα εξερευνητή</string>
   <string name="takeback">Ανάκληση κίνησης</string>
   <string name="proposeATakeback">Προσφέρετε ανάκληση της προηγούμενης κίνησης</string>
@@ -298,7 +298,7 @@
   <string name="biography">Βιογραφικό</string>
   <string name="country">Χώρα</string>
   <string name="preferences">Προτιμήσεις</string>
-  <string name="watchLichessTV">Παρακολουθήστε Lichess Tηλεόρ.</string>
+  <string name="watchLichessTV">Παρακολουθήστε Tηλεόραση Lichess</string>
   <string name="previouslyOnLichessTV">Νωρίτερα στη Lichess Tηλεόρ.</string>
   <string name="onlinePlayers">Συνδεδεμένοι παίκτες</string>
   <string name="activeToday">Ενεργοί σήμερα</string>
@@ -585,7 +585,7 @@
   <string name="xLikesY">%1$s αρέσει %2$s</string>
   <string name="quickPairing">Γρήγορο ταίριασμα</string>
   <string name="lobby">Λόμπι</string>
-  <string name="yourScore">Το σκορ σου: %s</string>
+  <string name="yourScore">Η βαθμολογία σας: %s</string>
   <string name="language">Γλώσσα</string>
   <string name="background">Φόντο</string>
   <string name="boardGeometry">Γεωμετρία σκακιέρας</string>
@@ -601,8 +601,8 @@
   <string name="playChessInStyle">Παίξτε σκάκι με στυλ</string>
   <string name="chessBasics">Τα βασικά στο σκάκι</string>
   <string name="coaches">Προπονητές</string>
-  <string name="invalidPgn">Μη έγκυρo PGN</string>
-  <string name="invalidFen">Μη έγκυρo FEN</string>
+  <string name="invalidPgn">Μη έγκυρο PGN</string>
+  <string name="invalidFen">Μη έγκυρο FEN</string>
   <string name="error.minLength">Ελάχιστο μήκος είναι %s</string>
   <string name="error.maxLength">Μέγιστο μήκος είναι %s</string>
   <string name="error.min">Πρέπει να είναι μεγαλύτερoς ή ίσος με %s</string>
