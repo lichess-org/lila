@@ -90,11 +90,11 @@
   <string name="daysPerTurn">Jours par coup</string>
   <string name="oneDay">Un jour</string>
   <plurals name="nbDays">
-    <item quantity="one">%s jours</item>
+    <item quantity="one">%s jour</item>
     <item quantity="other">%s jours</item>
   </plurals>
   <plurals name="nbHours">
-    <item quantity="one">%s heures</item>
+    <item quantity="one">%s heure</item>
     <item quantity="other">%s heures</item>
   </plurals>
   <string name="time">Temps</string>
@@ -113,7 +113,7 @@
   <string name="rank">Classement</string>
   <string name="gamesPlayed">Parties jouées</string>
   <plurals name="nbGamesWithYou">
-    <item quantity="one">%s parties avec vous</item>
+    <item quantity="one">%s partie avec vous</item>
     <item quantity="other">%s parties avec vous</item>
   </plurals>
   <string name="cancel">Annuler</string>
@@ -159,7 +159,7 @@
   <string name="freeOnlineChess">Jeu d\'échecs gratuit en ligne</string>
   <string name="spectators">Spectateurs :</string>
   <plurals name="nbWins">
-    <item quantity="one">%s victoires</item>
+    <item quantity="one">%s victoire</item>
     <item quantity="other">%s victoires</item>
   </plurals>
   <plurals name="nbLosses">
