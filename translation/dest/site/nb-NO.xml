@@ -94,7 +94,7 @@
     <item quantity="other">%s dager</item>
   </plurals>
   <plurals name="nbHours">
-    <item quantity="one">%s timer</item>
+    <item quantity="one">%s time</item>
     <item quantity="other">%s timer</item>
   </plurals>
   <string name="time">Tid</string>
