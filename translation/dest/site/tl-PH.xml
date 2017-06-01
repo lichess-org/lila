@@ -10,6 +10,7 @@
   <string name="yourTurn">Tira mo</string>
   <string name="aiNameLevelAiLevel">%1$s antas %2$s</string>
   <string name="level">Antas</string>
+  <string name="toggleTheChat">Buksan/Isarado ang cchat</string>
   <string name="chat">Makipag-usap</string>
   <string name="resign">Magbitiw</string>
   <string name="checkmate">Checkmate</string>
