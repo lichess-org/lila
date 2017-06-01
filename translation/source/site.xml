@@ -293,7 +293,7 @@
   <string name="profile">Profile</string>
   <string name="editProfile">Edit profile</string>
   <string name="firstName">Given name</string>
-  <string name="lastName">Last name</string>
+  <string name="lastName">Surname</string>
   <string name="biography">Biography</string>
   <string name="country">Country</string>
   <string name="preferences">Preferences</string>
