@@ -527,6 +527,7 @@
     <item quantity="other">Διαθέσιμο σε %s γλώσσες!</item>
   </plurals>
   <string name="gameAnalysis">Ανάλυση παιχνιδιού</string>
+  <string name="xJoinsY">%1$s συμμετέχει %2$s</string>
   <string name="yourScore">Το σκορ σου: %s</string>
   <string name="language">Γλώσσα</string>
   <string name="background">Φόντο</string>
