@@ -266,7 +266,7 @@
   <string name="list">Κατάλογος</string>
   <string name="graph">Διάγραμμα</string>
   <plurals name="lessThanNbMinutes">
-    <item quantity="one">Λιγότερο από %s λεπτά</item>
+    <item quantity="one">Λιγότερο από ένα λεπτό</item>
     <item quantity="other">Λιγότερο από %s λεπτά</item>
   </plurals>
   <string name="required">Απαιτείται.</string>
@@ -339,7 +339,7 @@
     <item quantity="other">Έχετε %s δευτερόλεπτα για να κάνετε τη πρώτη σας κίνηση!</item>
   </plurals>
   <plurals name="nbGamesInPlay">
-    <item quantity="one">%s παιχνίδια παίζονται τώρα</item>
+    <item quantity="one">%s παιχνίδι παίζεται τώρα</item>
     <item quantity="other">%s παιχνίδια παίζονται τώρα</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Προχωρήστε αυτόματα στο επόμενο παιχνίδι μετά την κίνηση</string>
@@ -370,7 +370,7 @@
   <string name="cheat">Απάτη</string>
   <string name="insult">Προσβολή</string>
   <string name="troll">Εμπαιγμός</string>
-  <string name="other">Άλλο</string>
+  <string name="other">Άλλου</string>
   <string name="reportDescriptionHelp">Κάντε επικόλληση σύνδεσμο για το παιχνίδι και εξηγήστε τι είναι παράξενο στη συμπεριφορά του χρήστη</string>
   <string name="by">Από τον %s</string>
   <string name="thisTopicIsNowClosed">Το θέμα έχει κλείσει.</string>
