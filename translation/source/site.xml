@@ -141,7 +141,7 @@
   <string name="rematch">Rematch</string>
   <string name="rematchOfferSent">Rematch offer sent</string>
   <string name="rematchOfferAccepted">Rematch offer accepted</string>
-  <string name="rematchOfferCanceled">Rematch offer canceled</string>
+  <string name="rematchOfferCanceled">Rematch offer cancelled</string>
   <string name="rematchOfferDeclined">Rematch offer declined</string>
   <string name="cancelRematchOffer">Cancel rematch offer</string>
   <string name="viewRematch">View rematch</string>
@@ -183,7 +183,7 @@
   <string name="takebackPropositionSent">Takeback proposition sent</string>
   <string name="takebackPropositionDeclined">Takeback proposition declined</string>
   <string name="takebackPropositionAccepted">Takeback proposition accepted</string>
-  <string name="takebackPropositionCanceled">Takeback proposition canceled</string>
+  <string name="takebackPropositionCanceled">Takeback proposition cancelled</string>
   <string name="yourOpponentProposesATakeback">Your opponent proposes a takeback</string>
   <string name="bookmarkThisGame">Bookmark this game</string>
   <string name="search">Search</string>
@@ -530,7 +530,7 @@
   <string name="tournamentHomeDescription">Play fast-paced chess tournaments! Join an official scheduled tournament, or create your own. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, and more options available for endless chess fun.</string>
   <string name="tournamentNotFound">Tournament not found</string>
   <string name="tournamentDoesNotExist">This tournament does not exist.</string>
-  <string name="tournamentMayHaveBeenCanceled">It may have been canceled, if all players left it before the tournament starts.</string>
+  <string name="tournamentMayHaveBeenCanceled">It may have been cancelled, if all players left it before the tournament starts.</string>
   <string name="returnToTournamentsHomepage">Return to tournaments homepage</string>
   <string name="weeklyPerfTypeRatingDistribution">Weekly %s rating distribution</string>
   <plurals name="nbPerfTypePlayersThisWeek">
