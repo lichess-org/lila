@@ -553,9 +553,11 @@
   <string name="boardSize">Μέγεθος σκακιέρας</string>
   <string name="embedInYourWebsite">Ενσωματώστε στην ιστοσελίδα σας</string>
   <string name="usernameAlreadyUsed">Αυτό το όνομα χρήστη είναι ήδη σε χρήση, παρακαλώ δοκιμάστε ένα άλλο.</string>
+  <string name="usernameInvalid">Μη έγκυρο όνομα χρήστη. Παρακαλούμε χρησιμοποιήστε μόνο γράμματα, αριθμούς, χαρακτήρα υπογράμμισης και παύλα.</string>
   <string name="usernameStartNoNumber">Το όνομα χρήστη δεν πρέπει να ξεκινάει με έναν αριθμό.</string>
   <string name="usernameUnacceptable">Αυτό το όνομα χρήστη δεν είναι αποδεκτό.</string>
   <string name="directlySupportLichess">Υποστηρίξτε άμεσα το Lichess</string>
+  <string name="chessBasics">Τα βασικά στο σκάκι</string>
   <string name="coaches">Προπονητές</string>
   <string name="invalidPgn">Μη έγκυρo PGN</string>
   <string name="invalidFen">Μη έγκυρo FEN</string>
