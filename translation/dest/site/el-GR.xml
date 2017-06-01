@@ -298,8 +298,8 @@
   <string name="biography">Βιογραφικό</string>
   <string name="country">Χώρα</string>
   <string name="preferences">Προτιμήσεις</string>
-  <string name="watchLichessTV">Παρακολουθήστε Tηλεόραση Lichess</string>
-  <string name="previouslyOnLichessTV">Νωρίτερα στη Lichess Tηλεόρ.</string>
+  <string name="watchLichessTV">Παρακολουθήστε Lichess TV</string>
+  <string name="previouslyOnLichessTV">Νωρίτερα στη Tηλεόραση Lichess</string>
   <string name="onlinePlayers">Συνδεδεμένοι παίκτες</string>
   <string name="activeToday">Ενεργοί σήμερα</string>
   <string name="activePlayers">Ενεργοί παίκτες</string>
@@ -308,7 +308,7 @@
   <string name="yourPuzzleRatingX">Η βαθμολογία γρίφων σας : %s</string>
   <string name="findTheBestMoveForWhite">Βρείτε την καλύτερη κίνηση για τα λευκά.</string>
   <string name="findTheBestMoveForBlack">Βρείτε την καλύτερη κίνηση για τα μαύρα.</string>
-  <string name="toTrackYourProgress">Για να παρακολουθήσετε τη πρόοδο σας:</string>
+  <string name="toTrackYourProgress">Για να παρακολουθήσετε τη πρόοδό σας:</string>
   <string name="trainingSignupExplanation">Το lichess θα σας προσφέρει γρίφους που αντιστοιχούν με την ικανότητα σας, με αποτέλεσμα μια καλύτερη εμπειρία εξάσκησης στο σκάκι.</string>
   <string name="puzzleId">Γρίφος %s</string>
   <string name="puzzleOfTheDay">Γρίφος της ημέρας</string>
