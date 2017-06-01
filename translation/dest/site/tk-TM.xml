@@ -4,4 +4,8 @@
   <string name="playWithAFriend">Dostuñyz bilen oýnañ</string>
   <string name="playWithTheMachine">Kompýutere garşy oýnañ</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Kimdir birine oýnamaga çagyrmak üçin şu linki iberiñ</string>
+  <string name="gameOver">Oýun gutardy</string>
+  <string name="waitingForOpponent">Garşydaşa garaşylýar</string>
+  <string name="waiting">Garaşylýar</string>
+  <string name="yourTurn">Gezegiñiz</string>
 </resources>
