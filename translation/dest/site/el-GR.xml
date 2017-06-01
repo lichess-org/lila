@@ -62,12 +62,12 @@
   </plurals>
   <string name="currentGames">Παιχνίδια σε εξέλιξη</string>
   <plurals name="nbGames">
-    <item quantity="one">%s Παιχνίδι</item>
-    <item quantity="other">%s Παιχνίδια</item>
+    <item quantity="one">%s παιχνίδι</item>
+    <item quantity="other">%s παιχνίδια</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s Σελιδοδείκτες</item>
-    <item quantity="other">%s Σελιδοδείκτες</item>
+    <item quantity="one">%s σελιδοδείκτης</item>
+    <item quantity="other">%s σελιδοδείκτες</item>
   </plurals>
   <string name="viewInFullSize">Προβολή σε πλήρες μέγεθος</string>
   <string name="logOut">Έξοδος</string>
@@ -75,7 +75,7 @@
   <string name="newToLichess">Νέοι στο Lichess;</string>
   <string name="youNeedAnAccountToDoThat">Χρειάζεστε λογαριασμό για να το κάνετε αυτό</string>
   <string name="signUp">Εγγραφή</string>
-  <string name="computersAreNotAllowedToPlay">Δεν επιτρέπουμε στους υπολογιστές και παίκτες με υποβοήθηση υπολογιστή να παίζουν στο Lichess. Παρακαλούμε μη δεχτείτε βοήθεια από σκακιστικούς υπολογιστές, βάσεις δεδομένων ή άλλους παίκτες όσο παίζετε εδώ.</string>
+  <string name="computersAreNotAllowedToPlay">Δεν επιτρέπουμε στους υπολογιστές και παίκτες με υποβοήθηση υπολογιστή να παίζουν στο Lichess. Παρακαλούμε μη δεχτείτε βοήθεια από σκακιστικούς υπολογιστές, βάσεις δεδομένων ή άλλους παίκτες όσο παίζετε εδώ. Επίσης σημειώστε πως αποθαρρύνoυμε την δημιουργία πολλών λογαριασμών και υπερβολή σε αυτό θα καταλήξει σε αποκλεισμό.</string>
   <string name="games">Παιχνίδια</string>
   <string name="forum">Φόρουμ</string>
   <string name="xPostedInForumY">Ο χρήστης %1$s έγραψε στη συζήτηση %2$s</string>
@@ -371,13 +371,13 @@
   <string name="insult">Προσβολή</string>
   <string name="troll">Εμπαιγμός</string>
   <string name="other">Άλλου</string>
-  <string name="reportDescriptionHelp">Κάντε επικόλληση σύνδεσμο για το παιχνίδι και εξηγήστε τι είναι παράξενο στη συμπεριφορά του χρήστη</string>
-  <string name="by">Από τον %s</string>
+  <string name="reportDescriptionHelp">Κάντε επικόλληση σύνδεσμο για το παιχνίδι(α) και εξηγήστε τι είναι παράξενο στη συμπεριφορά του χρήστη. Μην πείτε απλά «επειδή κλέβει», πείτε μας πως καταλήξατε σε αυτήν τη γνώμη. Η αναφορά σας θα επεξεργαστεί πιο γρήγορα αν είναι γραμμένη στα αγγλικά.</string>
+  <string name="by">από τον %s</string>
   <string name="thisTopicIsNowClosed">Το θέμα έχει κλείσει.</string>
   <string name="theming">Εμφάνιση</string>
   <string name="donate">Κάντε δωρεά</string>
   <string name="blog">Ιστολόγιο</string>
-  <string name="questionsAndAnswers">Ερωτήσεις &amp; Απαντήσεις</string>
+  <string name="questionsAndAnswers">Ερωτήσεις και απαντήσεις</string>
   <string name="notes">Σημειώσεις</string>
   <string name="typePrivateNotesHere">Εδώ γράψτε τις προσωπικές σημειώσεις σας</string>
   <string name="gameDisplay">Εμφάνιση σκακιέρας</string>
@@ -388,7 +388,7 @@
   <string name="closeAccountExplanation">Είστε σίγουροι ότι θέλετε να κλείσετε το λογαριασμό σας; Το κλείσιμο του λογαριασμού σας είναι μια μόνιμη απόφαση. Δε θα μπορείτε πλέον να συνδεθείτε, και η σελίδα του προφίλ σας δε θα είναι πια προσβάσιμη.</string>
   <string name="thisAccountIsClosed">Αυτός ο λογαριασμός έχει κλείσει.</string>
   <string name="invalidUsernameOrPassword">Άκυρο όνομα χρήστη ή κωδικός</string>
-  <string name="emailMeALink">Στείλτε μου τον σύνδεσμο μέσω ηλ. ταχυδρομείου</string>
+  <string name="emailMeALink">Στείλτε μου τον σύνδεσμο μέσω ηλ. ταχυδρομείο</string>
   <string name="currentPassword">Κωδικός σε ισχύ</string>
   <string name="newPassword">Νέος κωδικός</string>
   <string name="newPasswordAgain">Νέος κωδικός (επαλήθευση)</string>
