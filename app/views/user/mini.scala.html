@@ -3,15 +3,10 @@
   <div>
     @u.profileOrDefault.countryInfo.map {
     case (code, name) => {
-    <span class="countrylang">
+    <span class="country">
       <img class="flag" src="@staticUrl(s"images/flags/$code.png")" alt="@name" title="@name" />
       @if(u.username.size < 15) { @name }
     </span>
-    }
-    }.getOrElse {
-    @u.lang.map(shortLangName).map { name =>
-    <span class="countrylang" data-icon="c">&nbsp;@name</span>
-    }
     }
     @userLink(u, withPowerTip = false)
   </div>
