@@ -393,7 +393,7 @@
   <string name="newPassword">Nytt passord</string>
   <string name="newPasswordAgain">Nytt passord (igjen)</string>
   <string name="boardHighlights">Feltmarkering (siste trekk og sjakk)</string>
-  <string name="pieceDestinations">Brikkedestinasjoner (gyldige trekk og førtrekk)</string>
+  <string name="pieceDestinations">Brikkedestinasjoner (gyldige trekk og fortrekk)</string>
   <string name="boardCoordinates">Brettkoordinater (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Notasjonsliste mens du spiller</string>
   <string name="chessClock">Sjakklokke</string>
