@@ -11,6 +11,7 @@
   <string name="aiNameLevelAiLevel">%1$s antas %2$s</string>
   <string name="level">Antas</string>
   <string name="toggleTheChat">Buksan/Isarado ang cchat</string>
+  <string name="toggleSound">Buksan/Isarado ang musika</string>
   <string name="chat">Makipag-usap</string>
   <string name="resign">Magbitiw</string>
   <string name="checkmate">Checkmate</string>
@@ -35,10 +36,12 @@
   <string name="blackResigned">Nagpatalo ang Itim</string>
   <string name="whiteLeftTheGame">Umalis sa laro ang puti</string>
   <string name="blackLeftTheGame">Umalis sa laro ang Itim</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Ibahagi ang URL na ito upang mapanood ng mga tao</string>
   <string name="theComputerAnalysisHasFailed">Nabigo ang computer analysis</string>
   <string name="viewTheComputerAnalysis">Tingnan ang computer analysis</string>
   <string name="requestAComputerAnalysis">Humingi ng computer analysis</string>
   <string name="computerAnalysis">Computer analysis</string>
+  <string name="blunders">Mga malalaking pagkakamali</string>
   <string name="mistakes">Mga Pagkakamali</string>
   <string name="inaccuracies">Mga Alanganging Tira</string>
   <string name="moveTimes">Oras ng mga galaw</string>
@@ -99,6 +102,7 @@
   <string name="changeEmail">Palitan ang email</string>
   <string name="email">Email</string>
   <string name="emailIsOptional">Ang email ay opsyonal. Ang Lichess gagamitin ang iyong email address upang i-reset ang iyong password kung makalimutan mo ito.</string>
+  <string name="passwordReset">I-reset ang password</string>
   <string name="forgotPassword">Nakalimutan mo ba ang iyong password?</string>
   <string name="rank">Ranko</string>
   <string name="gamesPlayed">Games Na Nalaro</string>
@@ -107,10 +111,17 @@
     <item quantity="other">%s  laro sa iyo</item>
   </plurals>
   <string name="cancel">Ikansela</string>
+  <string name="timeOut">Naubusan ng oras</string>
+  <string name="accept">Tanggapin</string>
+  <string name="decline">Tanggihan</string>
   <string name="playingRightNow">Naglalaro ngayon</string>
   <string name="finished">Tapos na</string>
   <string name="abortGame">Itigil ang laro</string>
   <string name="gameAborted">Ang laro ay natigil</string>
+  <string name="unlimited">Walang limit</string>
+  <string name="casual">Kaswal</string>
+  <string name="rated">Gragraduhan</string>
+  <string name="thisGameIsRated">Ang laro na ito ay gragraduhan</string>
   <string name="rematch">Mag-laro muli</string>
   <string name="play">Mag-laro</string>
   <string name="noNewMessages">Walang bagong mensahe</string>
