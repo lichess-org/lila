@@ -61,6 +61,14 @@
     <item quantity="other">%s players</item>
   </plurals>
   <string name="currentGames">Current games</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s game</item>
+    <item quantity="other">%s games</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s bookmark</item>
+    <item quantity="other">%s bookmarks</item>
+  </plurals>
   <string name="viewInFullSize">View in full size</string>
   <string name="logOut">Sign out</string>
   <string name="signIn">Sign in</string>
@@ -81,6 +89,14 @@
   <string name="correspondence">Correspondence</string>
   <string name="daysPerTurn">Days per turn</string>
   <string name="oneDay">One day</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s day</item>
+    <item quantity="other">%s days</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s hour</item>
+    <item quantity="other">%s hours</item>
+  </plurals>
   <string name="time">Time</string>
   <string name="rating">Rating</string>
   <string name="ratingStats">Rating stats</string>
@@ -96,6 +112,10 @@
   <string name="forgotPassword">Forgot password?</string>
   <string name="rank">Rank</string>
   <string name="gamesPlayed">Games played</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s game with you</item>
+    <item quantity="other">%s games with you</item>
+  </plurals>
   <string name="cancel">Cancel</string>
   <string name="timeOut">Time out</string>
   <string name="drawOfferSent">Draw offer sent</string>
@@ -138,6 +158,18 @@
   <string name="incrementInSeconds">Increment in seconds</string>
   <string name="freeOnlineChess">Free Online Chess</string>
   <string name="spectators">Spectators:</string>
+  <plurals name="nbWins">
+    <item quantity="one">%s win</item>
+    <item quantity="other">%s wins</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s loss</item>
+    <item quantity="other">%s losses</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s draw</item>
+    <item quantity="other">%s draws</item>
+  </plurals>
   <string name="exportGames">Export games</string>
   <string name="ratingRange">Rating range</string>
   <plurals name="giveNbSeconds">
@@ -165,6 +197,10 @@
   <string name="backToGame">Back to game</string>
   <string name="siteDescription">Free online Chess server. Play Chess now in a clean interface. No registration, no ads, no plugin required. Play Chess with the computer, friends or random opponents.</string>
   <string name="teams">Teams</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s member</item>
+    <item quantity="other">%s members</item>
+  </plurals>
   <string name="allTeams">All teams</string>
   <string name="newTeam">New team</string>
   <string name="myTeams">My teams</string>
@@ -191,6 +227,10 @@
   <string name="fromPosition">From position</string>
   <string name="continueFromHere">Continue from here</string>
   <string name="importGame">Import game</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s imported game</item>
+    <item quantity="other">%s imported games</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">This is a chess CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Click on the board to make your move, and prove you are human.</string>
   <string name="notACheckmate">Not a checkmate</string>
