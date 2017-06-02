@@ -504,8 +504,8 @@
   <string name="hostANewSimul">Διοργάνωση νέας έκθεσης</string>
   <string name="noSimulFound">Έκθεση δεν ευρέθη</string>
   <string name="noSimulExplanation">Αυτή η ταυτόχρονη έκθεση δεν υπάρχει.</string>
-  <string name="returnToSimulHomepage">Επιστροφή στην αρχική σελίδα Ταυτ. Εκθ.</string>
-  <string name="aboutSimul">Οι ταυτ. εκθέσεις αφορούν ένα μεμονωμένο παίκτη που αντιμετωπίζει αρκετούς παίκτες ταυτόχρονα.</string>
+  <string name="returnToSimulHomepage">Επιστροφή στην αρχική σελίδα ταυτοχρόνων εκθέσεων</string>
+  <string name="aboutSimul">Οι ταυτόχρονες εκθέσεις αφορούν ένα μεμονωμένο παίκτη που αντιμετωπίζει αρκετούς παίκτες ταυτόχρονα.</string>
   <string name="aboutSimulImage">Από τους 50 αντιπάλους, ο Φίσερ κέρδισε 47 παιχνίδια, κατάφερε 2 ισοπαλίες και έχασε 1.</string>
   <string name="aboutSimulRealLife">Η έννοια προέρχεται από πραγματικά γεγονότα. Σε πραγματικούς χώρους, ο διοργανωτής της έκθεσης μετακινείται από τραπέζι σε τραπέζι για να παίξει μία και μόνο κίνηση.</string>
   <string name="aboutSimulRules">Όταν ξεκινήσει η έκθεση, κάθε παίκτης ξεκινά το παιχνίδι με τον διοργανωτή, ο οποίος έχει τα λευκά κομμάτια. Η διοργάνωση τελειώνει όταν όλα τα παιχνίδια ολοκληρωθούν.</string>
@@ -513,7 +513,7 @@
   <string name="create">Δημιουργήστε</string>
   <string name="whenCreateSimul">Όταν δημιουργείτε μία έκθεση, θα έχετε να παίξετε με αρκετούς παίκτες ταυτόχρονα.</string>
   <string name="simulVariantsHint">Εάν επιλέξετε διάφορες εκδοχές, κάθε παίκτης μπορεί να επιλέξει ποια θα παίξει.</string>
-  <string name="simulClockHint">Φίσερ Ρολόι εγκατάστασης. Όσους περισσότερους παίκτες αναλάβετε, τόσο περισσότερο χρόνο ίσως χρειαστείτε.</string>
+  <string name="simulClockHint">Ρολόι Φίσερ. Όσους περισσότερους παίκτες αναλάβετε, τόσο περισσότερο χρόνο ίσως χρειαστείτε.</string>
   <string name="simulAddExtraTime">Μπορείτε να προσθέσετε επιπλέον χρόνο στο ρολόι σας για να σας βοηθήσει στην έκθεση.</string>
   <string name="simulHostExtraTime">Παροχή επιπλέον χρόνου στο ρολόι</string>
   <string name="lichessTournaments">Πρωταθλήματα lichess</string>
@@ -528,7 +528,7 @@
   <string name="keyEnterOrExitVariation">είσοδος / έξοδος εκδοχής</string>
   <string name="newTournament">Νέο πρωτάθλημα</string>
   <string name="tournamentHomeTitle">Σκακιστικό πρωτάθλημα διαφόρων χρόνων και εκδοχών</string>
-  <string name="tournamentHomeDescription">Παίξτε στιγμιαία πρωταθλήματα. Συμμετάσχετε σε ένα επίσημο πρωτάθλημα ή δημιουργήστε δικά σας. Υπερταχέα, Ταχέα, Κλασσικά, 960, Βασιλιάς στο κέντρο, Τρία σαχ και πολλές άλλες επιλογές για ατελείωτη διασκέδαση</string>
+  <string name="tournamentHomeDescription">Παίξτε στιγμιαία πρωταθλήματα. Συμμετάσχετε σε ένα επίσημο πρωτάθλημα ή δημιουργήστε δικά σας. Υπερταχέα, Ταχέα, Κλασσικά, 960, Βασιλιάς στο κέντρο, Τρία σαχ και πολλές άλλες επιλογές για ατελείωτη διασκέδαση.</string>
   <string name="tournamentNotFound">Πρωτάθλημα δεν ευρέθη</string>
   <string name="tournamentDoesNotExist">Αυτό το πρωτάθλημα δεν υπάρχει.</string>
   <string name="tournamentMayHaveBeenCanceled">Ίσως έχει ακυρωθεί, εάν όλοι οι παίκτες αποχώρησαν πριν το πρωτάθλημα ξεκινήσει.</string>
