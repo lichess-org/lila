@@ -285,9 +285,9 @@
   <string name="tournamentIsStarting">Το πρωτάθλημα αρχίζει</string>
   <string name="membersOnly">Μόνο για μέλη</string>
   <string name="boardEditor">Προετοιμαστής σκακιέρας</string>
-  <string name="startPosition">Θέση έναρξης</string>
+  <string name="startPosition">Αρχική θέση</string>
   <string name="clearBoard">Εκκαθάριση σκακιέρας</string>
-  <string name="savePosition">Αποθήκευση θέσης</string>
+  <string name="savePosition">Αποθηκεύστε τη θέση</string>
   <string name="loadPosition">Φορτώστε θέση</string>
   <string name="isPrivate">Ιδιωτικό</string>
   <string name="reportXToModerators">Αναφέρετε τον %s στο προσωπικό</string>
@@ -403,10 +403,10 @@
   <string name="horizontalGreenProgressBars">Οριζόντιες πράσινες γραμμές προόδου</string>
   <string name="soundWhenTimeGetsCritical">Ηχητική ειδοποίηση όταν ο χρόνος γίνεται κρίσιμος</string>
   <string name="gameBehavior">Συμπεριφορά παιχνιδιού</string>
-  <string name="premovesPlayingDuringOpponentTurn">Προκινήσεις (παιγμένες κατά το χρόνο σκέψης του αντιπάλου)</string>
+  <string name="premovesPlayingDuringOpponentTurn">Προκινήσεις (παιγμένες κατά τον χρόνο σκέψης του αντιπάλου)</string>
   <string name="takebacksWithOpponentApproval">Ανακλήσεις (με έγκριση του αντιπάλου)</string>
   <string name="promoteToQueenAutomatically">Αυτόματη προαγωγή σε βασίλισσα</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically">Διεκδίκησε ισοπαλία σε τριπλή επανάληψη αυτόματα</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Διεκδικήστε ισοπαλία αυτόματα σε τριπλή επανάληψη</string>
   <string name="privacy">Απόρρητο</string>
   <string name="letOtherPlayersFollowYou">Επιτρέψτε σε άλλους παίκτες να σας ακολουθούν</string>
   <string name="letOtherPlayersChallengeYou">Επιτρέψτε σε άλλους παίκτες να σας προκαλούν σε παιχνίδι</string>
