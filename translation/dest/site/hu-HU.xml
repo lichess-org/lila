@@ -195,7 +195,7 @@
   <string name="viewTournament">Verseny nézése</string>
   <string name="backToTournament">Vissza a versenyre</string>
   <string name="backToGame">Vissza a játékhoz</string>
-  <string name="siteDescription">Ingyenes online sakk játék. Játssz sakkot letisztult kezelőfelületen. Nem szükséges regisztráció vagy pluginok, és hirdetéseket sem kell nézned. Játssz sakkot a számítógéppel, barátokkal vagy véletlenszerű ellenfelekkel.</string>
+  <string name="siteDescription">Ingyenes online sakk játék. Sakkozz letisztult kezelőfelületen. Nem szükséges regisztráció vagy pluginok, és hirdetéseket sem kell nézned. Sakkozz a számítógéppel, barátokkal vagy véletlenszerű ellenfelekkel.</string>
   <string name="teams">Csapatok</string>
   <plurals name="nbMembers">
     <item quantity="one">%s tagok</item>
@@ -576,6 +576,8 @@
     <item quantity="other">Elérhető %s nyelven</item>
   </plurals>
   <string name="gameAnalysis">Játék elemzés</string>
+  <string name="xHostsY">%1$s létrehozta a %2$s-t</string>
+  <string name="xLikesY">%1$s kedveli %2$s</string>
   <string name="quickPairing">Gyors játszma</string>
   <string name="lobby">Lobbi</string>
   <string name="yourScore">A te eredményed: %s</string>
