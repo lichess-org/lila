@@ -430,12 +430,12 @@
   <string name="xCompetesInY">Ο χρήστης %1$s ανταγωνίζεται στο %2$s</string>
   <string name="xAskedY">Ο χρήστης %1$s ρώτησε %2$s</string>
   <string name="xAnsweredY">Ο χρήστης %1$s απάντησε την ερώτηση %2$s</string>
-  <string name="xCommentedY">Ο χρήστης %1$s σχολίασε στην ερώτηση %2$s</string>
+  <string name="xCommentedY">Ο χρήστης %1$s σχολίασε την ερώτηση %2$s</string>
   <string name="timeline">Χρονολόγιο</string>
   <string name="seeAllTournaments">Προβολή όλων των πρωταθλημάτων</string>
   <string name="starting">Αρχίζει:</string>
   <string name="allInformationIsPublicAndOptional">Όλες οι πληροφορίες είναι δημόσιες και προαιρετικές.</string>
-  <string name="yourCityRegionOrDepartment">Η πόλη, περιοχή ή ο νομός σας</string>
+  <string name="yourCityRegionOrDepartment">Η πόλη, περιοχή ή ο νομός σας.</string>
   <string name="biographyDescription">Γράψτε για τον εαυτό σας, τι σας αρέσει στο σκάκι, τα αγαπημένα σας ανοίγματα, παιχνίδια, παίκτες…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Όριο: %s χαρακτήρες.</item>
