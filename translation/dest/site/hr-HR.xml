@@ -513,7 +513,7 @@
   <string name="watch">Gledaj</string>
   <string name="internationalEvents">Međunarodni događaji</string>
   <string name="videoLibrary">Video knjižnica</string>
-  <string name="mobileApp">Mobilna Aplikacija</string>
+  <string name="mobileApp">Mobilna aplikacija</string>
   <string name="webmasters">Webmasteri</string>
   <string name="contribute">Doprinesi</string>
   <string name="contact">Kontaktiraj</string>
@@ -528,10 +528,10 @@
   <string name="returnToSimulHomepage">Vrati se na stranicu sa simultankama</string>
   <string name="aboutSimul">Simultanke uključuju jednog igrača koji igra protiv više protivnika odjednom.</string>
   <string name="aboutSimulImage">Od 50 protivnika, Fischer je pobijedio 47 parija, remizirao 2 i izgubio 1.</string>
-  <string name="aboutSimulRealLife">Koncept je preuzet iz stvarnog života. U stvarnom životu, ovo uključuje domaćina simultanke koji ide od table do table da odigra pojedinačni potez.</string>
-  <string name="aboutSimulRules">Kada simultanka započne, svaki igrač započinje partiju protiv domaćina, koji dobija bijele figure. simultanka završava kada su i sve partije završene.</string>
+  <string name="aboutSimulRealLife">Koncept je preuzet iz stvarnog života. U stvarnom životu, ovo uključuje domaćina simultanke koji ide od ploče do ploče da odigra pojedinačni potez.</string>
+  <string name="aboutSimulRules">Kada simultanka započne, svaki igrač započinje partiju protiv domaćina, koji dobiva bijele figure. Simultanka završava kada završe sve partije.</string>
   <string name="aboutSimulSettings">Simultanke su uvijek prijateljske. Igraj ponovo, vrati potez i dodaj vrijeme je isključeno.</string>
-  <string name="create">Stvori</string>
+  <string name="create">Kreiraj</string>
   <string name="whenCreateSimul">Kada kreiraš simultanku, igraš protiv više igrača istovremeno.</string>
   <string name="simulVariantsHint">Ako izabereš nekoliko varijanti, svaki igrač je u mogućnosti da izabere koju će igrati.</string>
   <string name="simulClockHint">Fischer podešavanje sata. Što više igrača primiš, više vremena bit će ti potrebno.</string>
