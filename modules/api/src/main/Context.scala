@@ -30,7 +30,7 @@ object PageData {
     teamNbRequests = 0,
     nbChallenges = 0,
     nbNotifications = 0,
-    Pref fromRequest req,
+    lila.pref.RequestPref fromRequest req,
     blindMode = blindMode,
     hasFingerprint = false,
     assetVersion = v,

@@ -60,12 +60,6 @@
     <item quantity="other">%s pemain tersambung</item>
   </plurals>
   <string name="currentGames">Permainan saat ini</string>
-  <plurals name="nbGames">
-    <item quantity="other">Lihat semua %s Permainan</item>
-  </plurals>
-  <plurals name="nbBookmarks">
-    <item quantity="other">%s Halaman Ditandai</item>
-  </plurals>
   <string name="viewInFullSize">Lihat dalam ukuran penuh</string>
   <string name="logOut">Keluar</string>
   <string name="signIn">Masuk</string>
@@ -86,12 +80,6 @@
   <string name="correspondence">Korespondensi</string>
   <string name="daysPerTurn">Hari per langkah</string>
   <string name="oneDay">Satu hari</string>
-  <plurals name="nbDays">
-    <item quantity="other">%s hari</item>
-  </plurals>
-  <plurals name="nbHours">
-    <item quantity="other">%s jam</item>
-  </plurals>
   <string name="time">Waktu</string>
   <string name="rating">Rating</string>
   <string name="ratingStats">Statistik rating</string>
@@ -107,9 +95,6 @@
   <string name="forgotPassword">Lupa password?</string>
   <string name="rank">Peringkat</string>
   <string name="gamesPlayed">Permainan yang telah dimainkan</string>
-  <plurals name="nbGamesWithYou">
-    <item quantity="other">%s bermain dengan anda</item>
-  </plurals>
   <string name="cancel">Batal</string>
   <string name="timeOut">Waktu habis</string>
   <string name="drawOfferSent">Tawaran remis terkirim</string>
@@ -152,15 +137,6 @@
   <string name="incrementInSeconds">Increment dalam detik</string>
   <string name="freeOnlineChess">Catur online gratis!</string>
   <string name="spectators">Penonton:</string>
-  <plurals name="nbWins">
-    <item quantity="other">%s menang</item>
-  </plurals>
-  <plurals name="nbLosses">
-    <item quantity="other">%s kalah</item>
-  </plurals>
-  <plurals name="nbDraws">
-    <item quantity="other">%s imbang</item>
-  </plurals>
   <string name="exportGames">Ekspor Permainan</string>
   <string name="ratingRange">Batasan rating</string>
   <plurals name="giveNbSeconds">
@@ -187,9 +163,6 @@
   <string name="backToGame">Kembali ke permainan</string>
   <string name="siteDescription">Permainan Catur gratis. Main Catur sekarang dengan antarmuka yang bersih. Tanpa registrasi, tanpa iklan, dan tanpa plugin tambahan. Bermain catur lawan komputer, teman atau lawan manusia secara acak.</string>
   <string name="teams">Tim</string>
-  <plurals name="nbMembers">
-    <item quantity="other">%s anggota</item>
-  </plurals>
   <string name="allTeams">Semua tim</string>
   <string name="newTeam">Tim baru</string>
   <string name="myTeams">Tim saya</string>
@@ -216,9 +189,6 @@
   <string name="fromPosition">Dari posisi</string>
   <string name="continueFromHere">Lanjutkan dari sini</string>
   <string name="importGame">Masukkan permainan</string>
-  <plurals name="nbImportedGames">
-    <item quantity="other">%s permainan telah dimasukkan</item>
-  </plurals>
   <string name="thisIsAChessCaptcha">Ini adalah CAPTCHA catur.</string>
   <string name="clickOnTheBoardToMakeYourMove">Klik pada papan untuk melangkah  dan buktikan bahwa anda asli manusia.</string>
   <string name="notACheckmate">Bukan skakmat</string>
@@ -236,9 +206,6 @@
   <string name="unblock">Buka blokir</string>
   <string name="followsYou">Mengikuti anda</string>
   <string name="xStartedFollowingY">%1$s mulai mengikuti %2$s</string>
-  <plurals name="nbFollowers">
-    <item quantity="other">%s pengikut</item>
-  </plurals>
   <plurals name="nbFollowing">
     <item quantity="other">%s mengikuti</item>
   </plurals>
@@ -252,8 +219,6 @@
   <plurals name="lessThanNbMinutes">
     <item quantity="other">Kurang dari %s menit</item>
   </plurals>
-  <string name="textIsTooShort">Kalimat terlalu pendek.</string>
-  <string name="textIsTooLong">Kalimat terlalu panjang.</string>
   <string name="required">Dibutuhkan.</string>
   <string name="openTournaments">Turnamen terbuka</string>
   <string name="duration">Durasi</string>
@@ -309,9 +274,6 @@
   <string name="pleaseVotePuzzle">Bantu lichess berkembang dengan vote, gunakan tanda panah ke atas atau bawah:</string>
   <string name="thankYou">Terima Kasih!</string>
   <string name="ratingX">Rating: %s</string>
-  <plurals name="playedXTimes">
-    <item quantity="other">Dimainkan %s kali</item>
-  </plurals>
   <string name="fromGameLink">Dari permainan %s</string>
   <string name="startTraining">Mulai latihan</string>
   <string name="continueTraining">Lanjutkan latihan</string>
@@ -320,9 +282,6 @@
   <string name="thisPuzzleIsWrong">Taktik ini salah atau membosankan</string>
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="other">Anda punya waktu %s detik untuk langkah pertama.</item>
-  </plurals>
-  <plurals name="nbGamesInPlay">
-    <item quantity="other">%s pertandingan sedang berlangsung</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Otomatis memproses permainan berikutnya setelah melangkah</string>
   <string name="autoSwitch">Pindah otomatis</string>
@@ -460,9 +419,6 @@
   <string name="whiteCastlingQueenside">Putih 0-0-0</string>
   <string name="blackCastlingKingside">Hitam 0-0</string>
   <string name="blackCastlingQueenside">Hitam 0-0-0</string>
-  <plurals name="nbForumPosts">
-    <item quantity="other">%s Postingan Forum</item>
-  </plurals>
   <string name="tpTimeSpentPlaying">Waktu sisa permainan: %s</string>
   <string name="watchGames">Menonton permainan</string>
   <string name="tpTimeSpentOnTV">Waktu pada TV: %s</string>

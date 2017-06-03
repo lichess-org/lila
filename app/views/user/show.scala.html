@@ -168,9 +168,6 @@ description = describeUser(u)).some) {
         <span class="country"><img class="flag" src="@staticUrl(s"images/flags/$code.png")" /> @name</span>
         }
         }
-        @u.lang.map(langName).map { name =>
-        <span data-icon="c"> @name</span>
-        }
         <p class="thin">@trans.memberSince() @showDate(u.createdAt)</p>
         @u.seenAt.map { seen =>
         <p class="thin">@trans.lastSeenActive(momentFromNow(seen))</p>

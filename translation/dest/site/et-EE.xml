@@ -61,14 +61,6 @@
     <item quantity="other">%s mängijat</item>
   </plurals>
   <string name="currentGames">Käimasolevad mängud</string>
-  <plurals name="nbGames">
-    <item quantity="one">%s Mängud</item>
-    <item quantity="other">%s Mängud</item>
-  </plurals>
-  <plurals name="nbBookmarks">
-    <item quantity="one">%s järjehoidjad</item>
-    <item quantity="other">%s järjehoidjad</item>
-  </plurals>
   <string name="viewInFullSize">Vaata täisekraanil</string>
   <string name="logOut">Logi välja</string>
   <string name="signIn">Logi sisse</string>
@@ -89,14 +81,6 @@
   <string name="correspondence">Kirjavahetus</string>
   <string name="daysPerTurn">aega päevi käiguks</string>
   <string name="oneDay">Üks päev</string>
-  <plurals name="nbDays">
-    <item quantity="one">%s päeva</item>
-    <item quantity="other">%s päeva</item>
-  </plurals>
-  <plurals name="nbHours">
-    <item quantity="one">%s tundi</item>
-    <item quantity="other">%s tundi</item>
-  </plurals>
   <string name="time">Aeg</string>
   <string name="rating">Reiting</string>
   <string name="ratingStats">Reitingu statistika</string>
@@ -112,10 +96,6 @@
   <string name="forgotPassword">Unustasid salasõna?</string>
   <string name="rank">Asetus</string>
   <string name="gamesPlayed">Mänge mängitud</string>
-  <plurals name="nbGamesWithYou">
-    <item quantity="one">%s mängudest sinuga</item>
-    <item quantity="other">%s mängudest sinuga</item>
-  </plurals>
   <string name="cancel">Katkesta</string>
   <string name="timeOut">Aja ületus</string>
   <string name="drawOfferSent">Pakutakse viiki</string>
@@ -158,18 +138,6 @@
   <string name="incrementInSeconds">Lisatavad sekundid</string>
   <string name="freeOnlineChess">Tasuta onlain male</string>
   <string name="spectators">Pealtvaatajad</string>
-  <plurals name="nbWins">
-    <item quantity="one">%s võitu</item>
-    <item quantity="other">%s võitu</item>
-  </plurals>
-  <plurals name="nbLosses">
-    <item quantity="one">%s kaotust</item>
-    <item quantity="other">%s kaotust</item>
-  </plurals>
-  <plurals name="nbDraws">
-    <item quantity="one">%s viiki</item>
-    <item quantity="other">%s viiki</item>
-  </plurals>
   <string name="exportGames">Ekspordi mängud</string>
   <string name="ratingRange">Elo vahemik</string>
   <plurals name="giveNbSeconds">
@@ -197,10 +165,6 @@
   <string name="backToGame">Tagasi mängule</string>
   <string name="siteDescription">Tasuta online malemäng. Mängi malet nüüd puhtas kasutajaliideses. Pole registreerimist, pole reklaami, pole pluginaid vaja. Mängi malet arvuti, sõbrade või juhusliku vastasega.</string>
   <string name="teams">Võistkonnad</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s liiget</item>
-    <item quantity="other">%s liiget</item>
-  </plurals>
   <string name="allTeams">Kõik võistkonnad</string>
   <string name="newTeam">Uus võistkond</string>
   <string name="myTeams">Minu võistkond</string>
@@ -227,10 +191,6 @@
   <string name="fromPosition">Positsioonilt</string>
   <string name="continueFromHere">Jätka siit</string>
   <string name="importGame">Impordi mäng</string>
-  <plurals name="nbImportedGames">
-    <item quantity="one">%s Importitud mängud</item>
-    <item quantity="other">%s Importitud mängud</item>
-  </plurals>
   <string name="thisIsAChessCaptcha">See on male CAPTCHA</string>
   <string name="clickOnTheBoardToMakeYourMove">Tee käik ja tõesta, et oled inimene</string>
   <string name="notACheckmate">Pole matistatud</string>
@@ -248,10 +208,6 @@
   <string name="unblock">Katkesta blokeering</string>
   <string name="followsYou">Jälgivad sind</string>
   <string name="xStartedFollowingY">%1$s hakkas jälgima%2$s</string>
-  <plurals name="nbFollowers">
-    <item quantity="one">%s jälgijad</item>
-    <item quantity="other">%s jälgijad</item>
-  </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s jälgib</item>
     <item quantity="other">%s jälgib</item>
@@ -267,8 +223,6 @@
     <item quantity="one">Alla %s minuti</item>
     <item quantity="other">Alla %s minuti</item>
   </plurals>
-  <string name="textIsTooShort">Tekst on liiga lühike</string>
-  <string name="textIsTooLong">Tekst on liiga pikk</string>
   <string name="required">Nõutud</string>
   <string name="openTournaments">Avatud turniirid</string>
   <string name="duration">Kestvus</string>
@@ -324,10 +278,6 @@
   <string name="pleaseVotePuzzle">Aita lichess\'i paremaks muuta, hääletades üles või alla nuppu kasutades:</string>
   <string name="thankYou">Aitäh!</string>
   <string name="ratingX">Reiting %s</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">Mängitud %s korda</item>
-    <item quantity="other">Mängitud %s korda</item>
-  </plurals>
   <string name="fromGameLink">%s mängudest</string>
   <string name="startTraining">Alusta treeningut</string>
   <string name="continueTraining">Jätka treeningut</string>
@@ -337,10 +287,6 @@
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">Sul on %s sekundit esimese käigu tegemiseks!</item>
     <item quantity="other">Sul on %s sekundit esimese käigu tegemiseks!</item>
-  </plurals>
-  <plurals name="nbGamesInPlay">
-    <item quantity="one">%s mängitud mängu</item>
-    <item quantity="other">%s mängitud mängu</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Pärast käiku avab järgmise mängu</string>
   <string name="autoSwitch">Vaheta automaatselt</string>
@@ -480,10 +426,6 @@
   <string name="whiteCastlingQueenside">Valge O-O-O</string>
   <string name="blackCastlingKingside">Must O-O</string>
   <string name="blackCastlingQueenside">Must O-O-O</string>
-  <plurals name="nbForumPosts">
-    <item quantity="one">%s Foorumi postitused</item>
-    <item quantity="other">%s Foorumi postitused</item>
-  </plurals>
   <string name="tpTimeSpentPlaying">Aeg kulutatud mängimiseks: %s</string>
   <string name="watchGames">Vaata mänge</string>
   <string name="tpTimeSpentOnTV">Aeg kulutatud TV: %s</string>

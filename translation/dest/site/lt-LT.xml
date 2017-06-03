@@ -207,8 +207,6 @@
   <string name="player">Žaidėjas</string>
   <string name="list">Sąrašas</string>
   <string name="graph">Grafikas</string>
-  <string name="textIsTooShort">Per trumpas tekstas.</string>
-  <string name="textIsTooLong">Per ilgas tekstas.</string>
   <string name="required">Privaloma.</string>
   <string name="openTournaments">Atviri turnyrai</string>
   <string name="duration">Trukmė</string>

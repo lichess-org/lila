@@ -29,6 +29,7 @@ local/
 ui/*/npm-debug.log
 .vagrant
 hs_*.log
+yarn.lock
 
 RUNNING_PID
 

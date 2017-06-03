@@ -61,14 +61,6 @@
     <item quantity="other">%s pelaajaa paikalla</item>
   </plurals>
   <string name="currentGames">Tällä hetkellä pelattavat pelit</string>
-  <plurals name="nbGames">
-    <item quantity="one">%s peliä pelattu</item>
-    <item quantity="other">%s peliä pelattu</item>
-  </plurals>
-  <plurals name="nbBookmarks">
-    <item quantity="one">%s omaa kirjanmerkkiä</item>
-    <item quantity="other">%s omaa kirjanmerkkiä</item>
-  </plurals>
   <string name="viewInFullSize">Näytä täysikokoisena</string>
   <string name="logOut">Kirjaudu ulos</string>
   <string name="signIn">Kirjaudu sisään</string>
@@ -89,14 +81,6 @@
   <string name="correspondence">Kirjeshakki</string>
   <string name="daysPerTurn">Päivää per vuoro</string>
   <string name="oneDay">Yksi päivä</string>
-  <plurals name="nbDays">
-    <item quantity="one">%s päivää</item>
-    <item quantity="other">%s päivää</item>
-  </plurals>
-  <plurals name="nbHours">
-    <item quantity="one">%s tuntia</item>
-    <item quantity="other">%s tuntia</item>
-  </plurals>
   <string name="time">Aika</string>
   <string name="rating">Vahvuusluku</string>
   <string name="ratingStats">Vahvuuslukutilastot</string>
@@ -112,10 +96,6 @@
   <string name="forgotPassword">Unohditko salasanasi?</string>
   <string name="rank">Sijoitus</string>
   <string name="gamesPlayed">Pelattua peliä</string>
-  <plurals name="nbGamesWithYou">
-    <item quantity="one">%s pelejä kanssasi</item>
-    <item quantity="other">%s pelejä kanssasi</item>
-  </plurals>
   <string name="cancel">Peruuta</string>
   <string name="timeOut">Aika loppui</string>
   <string name="drawOfferSent">Tasapeliehdotus lähetetty</string>
@@ -158,18 +138,6 @@
   <string name="incrementInSeconds">Lisäaika sekunteina</string>
   <string name="freeOnlineChess">Maksutonta shakkia verkossa</string>
   <string name="spectators">Katsojat:</string>
-  <plurals name="nbWins">
-    <item quantity="one">%s voittoa</item>
-    <item quantity="other">%s voittoa</item>
-  </plurals>
-  <plurals name="nbLosses">
-    <item quantity="one">%s häviötä</item>
-    <item quantity="other">%s häviötä</item>
-  </plurals>
-  <plurals name="nbDraws">
-    <item quantity="one">%s tasapeliä</item>
-    <item quantity="other">%s tasapeliä</item>
-  </plurals>
   <string name="exportGames">Vie pelejä</string>
   <string name="ratingRange">Vahvuuslukualue</string>
   <plurals name="giveNbSeconds">
@@ -197,10 +165,6 @@
   <string name="backToGame">Takaisin peliin</string>
   <string name="siteDescription">Ilmaista virtuaalishakkia. Pelaa shakkia nyt selkeällä käyttöliittymällä. Ei rekisteröitymistä, mainoksia tai selaimen lisäosia. Pelaa shakkia tekoälyn, ystävien tai satunnaisten pelaajien kanssa.</string>
   <string name="teams">Joukkueet</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s jäsentä</item>
-    <item quantity="other">%s jäsentä</item>
-  </plurals>
   <string name="allTeams">Kaikki joukkueet</string>
   <string name="newTeam">Uusi joukkue</string>
   <string name="myTeams">Omat joukkueet</string>
@@ -227,10 +191,6 @@
   <string name="fromPosition">Asemasta</string>
   <string name="continueFromHere">Jatka tästä</string>
   <string name="importGame">Tuo peli</string>
-  <plurals name="nbImportedGames">
-    <item quantity="one">%s Tuotua peliä</item>
-    <item quantity="other">%s Tuotua peliä</item>
-  </plurals>
   <string name="thisIsAChessCaptcha">Tämä on shakkivarmistus.</string>
   <string name="clickOnTheBoardToMakeYourMove">Tee siirtosi todistaaksesi olevasi ihminen.</string>
   <string name="notACheckmate">Siirto ei ole shakkimatti</string>
@@ -248,10 +208,6 @@
   <string name="unblock">Poista esto</string>
   <string name="followsYou">Seuraa sinua</string>
   <string name="xStartedFollowingY">%1$s alkoi seurata %2$s</string>
-  <plurals name="nbFollowers">
-    <item quantity="one">%s seuraajaa</item>
-    <item quantity="other">%s seuraajaa</item>
-  </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s seurattua</item>
     <item quantity="other">%s seurattua</item>
@@ -267,8 +223,6 @@
     <item quantity="one">Alle %s minuuttia</item>
     <item quantity="other">Alle %s minuuttia</item>
   </plurals>
-  <string name="textIsTooShort">Teksti on liian lyhyt.</string>
-  <string name="textIsTooLong">Teksti on liian pitkä.</string>
   <string name="required">Vaadittu.</string>
   <string name="openTournaments">Avoimet turnaukset</string>
   <string name="duration">Kesto</string>
@@ -324,10 +278,6 @@
   <string name="pleaseVotePuzzle">Auta lichessiä parantamaan tehtäviä äänestämällä nuolilla:</string>
   <string name="thankYou">Kiitos!</string>
   <string name="ratingX">Vahvuusluku: %s</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">Pelattu %s kertaa</item>
-    <item quantity="other">Pelattu %s kertaa</item>
-  </plurals>
   <string name="fromGameLink">Pelistä %s</string>
   <string name="startTraining">Aloita harjoittelu</string>
   <string name="continueTraining">Jatka harjoittelua</string>
@@ -337,10 +287,6 @@
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">Sinulla on %s sekuntia aikaa ensimmäisen siirtosi tekemiseen</item>
     <item quantity="other">Sinulla on %s sekuntia aikaa ensimmäisen siirtosi tekemiseen</item>
-  </plurals>
-  <plurals name="nbGamesInPlay">
-    <item quantity="one">%s peliä meneillään</item>
-    <item quantity="other">%s peliä meneillään</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Siirry automaattisesti seuraavaan peliin siirron jälkeen</string>
   <string name="autoSwitch">Automaattinen siirtyminen</string>
@@ -480,10 +426,6 @@
   <string name="whiteCastlingQueenside">Valkoinen O-O-O</string>
   <string name="blackCastlingKingside">Musta O-O</string>
   <string name="blackCastlingQueenside">Musta O-O-O</string>
-  <plurals name="nbForumPosts">
-    <item quantity="one">%s Foorumiviestiä</item>
-    <item quantity="other">%s Foorumiviestiä</item>
-  </plurals>
   <string name="tpTimeSpentPlaying">Pelaamiseen käytetty aika: %s</string>
   <string name="watchGames">Katso pelejä</string>
   <string name="tpTimeSpentOnTV">Aika TV:ssä: %s</string>

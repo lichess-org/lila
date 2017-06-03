@@ -2,7 +2,7 @@ package lila.i18n
 
 import play.api.http.HeaderNames
 import play.api.mvc._
-import play.api.mvc.Results.Redirect
+import play.api.mvc.Results.MovedPermanently
 
 import lila.common.HTTPRequest
 
@@ -10,14 +10,14 @@ final class SubdomainKiller(domain: String) {
 
   def apply(req: RequestHeader): Option[Handler] =
     if (appliesTo(req) && !allowMobileEn(req))
-      Some(Action(Redirect {
+      Some(Action(MovedPermanently {
         val protocol = s"http${if (req.secure) "s" else ""}"
         s"$protocol://$domain${req.uri}"
       }))
     else None
 
   private def appliesTo(req: RequestHeader) =
-    req.host(2) == '.' &&
+    req.host.lift(2).has('.') &&
       req.host.drop(3) == domain &&
       HTTPRequest.isRedirectable(req) &&
       !excludePath(req.path)

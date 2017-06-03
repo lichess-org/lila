@@ -52,7 +52,7 @@ export default function(ctrl: DasherCtrl): VNode {
   const langs = h(
     'a.sub',
     modeCfg(ctrl, 'langs'),
-    'Language')
+    trans.noarg('language'))
 
   const sound = h(
     'a.sub',
@@ -62,22 +62,22 @@ export default function(ctrl: DasherCtrl): VNode {
   const background = h(
     'a.sub',
     modeCfg(ctrl, 'background'),
-    'Background')
+    trans.noarg('background'))
 
   const board = h(
     'a.sub',
     modeCfg(ctrl, 'board'),
-    'Board geometry')
+    trans.noarg('boardGeometry'))
 
   const theme = h(
     'a.sub',
     modeCfg(ctrl, 'theme'),
-    'Board theme')
+    trans.noarg('boardTheme'))
 
   const piece = h(
     'a.sub',
     modeCfg(ctrl, 'piece'),
-    'Piece set')
+    trans.noarg('pieceSet'))
 
   return h('div', [
     h('div.links', userLinks() || anonLinks()),

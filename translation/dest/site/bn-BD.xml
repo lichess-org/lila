@@ -60,14 +60,6 @@
     <item quantity="other">%s জন খেলোয়াড়</item>
   </plurals>
   <string name="currentGames">এই খেলাটি চলছে</string>
-  <plurals name="nbGames">
-    <item quantity="one">%s টি খেলা</item>
-    <item quantity="other">%s টি খেলা</item>
-  </plurals>
-  <plurals name="nbBookmarks">
-    <item quantity="one">%s টি বুকমার্ক</item>
-    <item quantity="other">%s টি বুকমার্ক</item>
-  </plurals>
   <string name="viewInFullSize">পূর্ণ আকারে দেখুন</string>
   <string name="logOut">প্রস্থান</string>
   <string name="signIn">সাইন ইন</string>
@@ -88,14 +80,6 @@
   <string name="correspondence">দীর্ঘ খেলা</string>
   <string name="daysPerTurn">প্রতিটি চালের জন্য বরাদ্দ দিন</string>
   <string name="oneDay">একদিন</string>
-  <plurals name="nbDays">
-    <item quantity="one">%s দিন</item>
-    <item quantity="other">%s দিন</item>
-  </plurals>
-  <plurals name="nbHours">
-    <item quantity="one">%s ঘন্টা</item>
-    <item quantity="other">%s ঘন্টা</item>
-  </plurals>
   <string name="time">সময়</string>
   <string name="rating">রেটিং</string>
   <string name="usernameOrEmail">ব্যবহারকারী নাম</string>
@@ -109,10 +93,6 @@
   <string name="forgotPassword">password ভুলে গেছেন ?</string>
   <string name="rank">মর্যাদাক্রম</string>
   <string name="gamesPlayed">খেলা খেলেছেন</string>
-  <plurals name="nbGamesWithYou">
-    <item quantity="one">%s টি খেলা আপনার সঙ্গে</item>
-    <item quantity="other">%s টি খেলা আপনার সঙ্গে</item>
-  </plurals>
   <string name="cancel">বাতিল করুন</string>
   <string name="timeOut">সময় শেষ</string>
   <string name="drawOfferSent">ড্র অফার পাঠানো হয়েছে</string>
@@ -155,18 +135,6 @@
   <string name="incrementInSeconds">প্রতি সেকেন্ডে পর্যায়ক্রমিক বৃদ্ধি</string>
   <string name="freeOnlineChess">ফ্রি অনলাইন দাবা</string>
   <string name="spectators">দর্শক</string>
-  <plurals name="nbWins">
-    <item quantity="one">%s টি জয়</item>
-    <item quantity="other">%s টি জয়</item>
-  </plurals>
-  <plurals name="nbLosses">
-    <item quantity="one">%s টি পরাজয়</item>
-    <item quantity="other">%s টি পরাজয়</item>
-  </plurals>
-  <plurals name="nbDraws">
-    <item quantity="one">%s টি ড্র</item>
-    <item quantity="other">%s টি ড্র</item>
-  </plurals>
   <string name="exportGames">খেলা রপ্তানী</string>
   <string name="ratingRange">রেটিং সীমা</string>
   <plurals name="giveNbSeconds">
@@ -193,10 +161,6 @@
   <string name="backToGame">খেলায় এ ফিরে যান</string>
   <string name="siteDescription">ফ্রি অনলাইন দাবা খেলা। এখন থেকে পরিচ্ছন্ন ইন্টারফেসে দাবা খেলুন। কোন রেজিস্ট্রেশনের দরকার নেই, নেই কোন বিজ্ঞাপন, এমনকি কোনও প্লাগইন-এরও প্রয়োজন নেই। দাবা খেলুন কম্পিউটারের সাথে, অথবা বন্ধুর সাথে অথবা অজানা যে কোন প্রতিপক্ষের সাথে।</string>
   <string name="teams">দল</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s জন সদস্য</item>
-    <item quantity="other">%s জন সদস্য</item>
-  </plurals>
   <string name="allTeams">সকল দল</string>
   <string name="newTeam">নতুন দল</string>
   <string name="myTeams">আমার দলগুলো</string>
@@ -223,10 +187,6 @@
   <string name="fromPosition">অবস্থা থেকে</string>
   <string name="continueFromHere">এখান থেকে আবার শুরু করুন</string>
   <string name="importGame">খেলা আমদানী</string>
-  <plurals name="nbImportedGames">
-    <item quantity="one">%s টি আমদানীকৃত খেলা</item>
-    <item quantity="other">%s টি আমদানীকৃত খেলা</item>
-  </plurals>
   <string name="thisIsAChessCaptcha">এটি হল দাবা CAPTCHA</string>
   <string name="clickOnTheBoardToMakeYourMove">বোর্ডে ক্লিক করে চাল দিয়ে প্রমাণ করুন যে আপনি সত্যিই মানুষ, রোবট নন।</string>
   <string name="notACheckmate">এটি কিস্তিমাত নয়</string>
@@ -244,10 +204,6 @@
   <string name="unblock">বাধা উঠিয়ে নিন</string>
   <string name="followsYou">আপনাকে অনুসরণ করছে</string>
   <string name="xStartedFollowingY">%1$s অনুসরণ করা শুরু করেছেন %2$s</string>
-  <plurals name="nbFollowers">
-    <item quantity="one">%s অনুসরণকারী</item>
-    <item quantity="other">%s অনুসরণকারী</item>
-  </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s অনুসরণ করছেন</item>
     <item quantity="other">%s অনুসরণ করছেন</item>
@@ -263,8 +219,6 @@
     <item quantity="one">%s মিনিটের কম সময়ে</item>
     <item quantity="other">%s মিনিটের কম সময়ে</item>
   </plurals>
-  <string name="textIsTooShort">লেখাটি বড্ড ছোট</string>
-  <string name="textIsTooLong">লেখাটি বড্ড বড়</string>
   <string name="required">প্রয়োজনীয়</string>
   <string name="openTournaments">উন্মুক্ত টুর্নামেন্টগুলো</string>
   <string name="duration">সময়কাল</string>
@@ -320,10 +274,6 @@
   <string name="pleaseVotePuzzle">UP অথবা Down arrow তে ভোট করে lichess-কে সাহায্য করুন</string>
   <string name="thankYou">ধন্যবাদ</string>
   <string name="ratingX">Rating: %s</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">%s বার খেলা হয়েছে</item>
-    <item quantity="other">%s বার খেলা হয়েছে</item>
-  </plurals>
   <string name="fromGameLink">%s খেলা থেকে</string>
   <string name="startTraining">প্রশিক্ষণ শুরু করুন</string>
   <string name="continueTraining">প্রশিক্ষণ বজায় রাখুন</string>
@@ -333,10 +283,6 @@
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">আপনার কাছে %s সেকেন্ড আছে প্রথম চাল দেবার জন্য</item>
     <item quantity="other">আপনার কাছে %s সেকেন্ড আছে প্রথম চাল দেবার জন্য</item>
-  </plurals>
-  <plurals name="nbGamesInPlay">
-    <item quantity="one">%s খেলা চলছে</item>
-    <item quantity="other">%s খেলা চলছে</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">স্বয়ংক্রিয় ভাবে পরবর্তী খেলায় যান</string>
   <string name="autoSwitch">স্বয়ংক্রিয় পরিবর্তন</string>

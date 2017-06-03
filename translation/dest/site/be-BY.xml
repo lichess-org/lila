@@ -207,8 +207,6 @@
   <string name="player">Гулец</string>
   <string name="list">Сьпіс</string>
   <string name="graph">Дыяграма</string>
-  <string name="textIsTooShort">Тэкст занадта кароткі.</string>
-  <string name="textIsTooLong">Тэкст занадта доўгі.</string>
   <string name="required">Патрабуецца.</string>
   <string name="openTournaments">Адкрытыя турніры</string>
   <string name="duration">Працягласьць</string>

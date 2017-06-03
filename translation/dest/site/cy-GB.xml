@@ -207,8 +207,6 @@
   <string name="player">Chwaraewr</string>
   <string name="list">Rhestr</string>
   <string name="graph">Graff</string>
-  <string name="textIsTooShort">Mae\'r testun yn rhy fyr.</string>
-  <string name="textIsTooLong">Mae\'r testun yn rhy hir.</string>
   <string name="required">Gorfodol.</string>
   <string name="openTournaments">Cystadleuaethau i bawb</string>
   <string name="duration">Cyfnod</string>

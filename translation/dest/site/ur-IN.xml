@@ -61,14 +61,6 @@
     <item quantity="other">%s کھلاڑی</item>
   </plurals>
   <string name="currentGames">جاری مقابلے</string>
-  <plurals name="nbGames">
-    <item quantity="one">%s مقابلے</item>
-    <item quantity="other">%s مقابلے</item>
-  </plurals>
-  <plurals name="nbBookmarks">
-    <item quantity="one">نشانیاں %s</item>
-    <item quantity="other">نشانیاں %s</item>
-  </plurals>
   <string name="viewInFullSize">پوری سکرین پر دیکھیں</string>
   <string name="logOut">خارج ہوں</string>
   <string name="signIn">داخل ہوں</string>
@@ -89,14 +81,6 @@
   <string name="correspondence">طویل مدتی</string>
   <string name="daysPerTurn">چال کیلیے دن</string>
   <string name="oneDay">ایک دن</string>
-  <plurals name="nbDays">
-    <item quantity="one">%s دن</item>
-    <item quantity="other">%s دن</item>
-  </plurals>
-  <plurals name="nbHours">
-    <item quantity="one">%s گھنٹے</item>
-    <item quantity="other">%s گھنٹے</item>
-  </plurals>
   <string name="time">دورانیہ</string>
   <string name="rating">درجہ</string>
   <string name="ratingStats">میعار کا اتار چڑھاؤ</string>
@@ -112,10 +96,6 @@
   <string name="forgotPassword">خفیہ کلمہ یاد نہیں؟</string>
   <string name="rank">درجہ</string>
   <string name="gamesPlayed">مقابلوں میں شرکت</string>
-  <plurals name="nbGamesWithYou">
-    <item quantity="one">آپکے ساتھ %s مقابلے</item>
-    <item quantity="other">آپکے ساتھ %s مقابلے</item>
-  </plurals>
   <string name="cancel">مسترد</string>
   <string name="timeOut">دورانیہ ختم ہو گیا</string>
   <string name="drawOfferSent">مقابلہ برابری پر ختم کرنے کی پیشکش بھیج دی گئی</string>
@@ -158,18 +138,6 @@
   <string name="incrementInSeconds">اضافہ سیکنڈوں میں</string>
   <string name="freeOnlineChess">مفت آن لائن شطرنج</string>
   <string name="spectators">ناظرین:</string>
-  <plurals name="nbWins">
-    <item quantity="one">%s فتوحات</item>
-    <item quantity="other">%s فتوحات</item>
-  </plurals>
-  <plurals name="nbLosses">
-    <item quantity="one">%s شکستیں</item>
-    <item quantity="other">%s شکستیں</item>
-  </plurals>
-  <plurals name="nbDraws">
-    <item quantity="one">%s برابر</item>
-    <item quantity="other">%s برابر</item>
-  </plurals>
   <string name="exportGames">مقابلوں کی CSV حاصل کریں</string>
   <string name="ratingRange">میعار کی حدود</string>
   <plurals name="giveNbSeconds">
@@ -197,10 +165,6 @@
   <string name="backToGame">واپس کھیل کی جانب</string>
   <string name="siteDescription">اب صاف ستھرے ماحول میں اور مفت شطرنج کھیلیں۔ نہ اشتہار نہ لازمی داخلہ نہ کوئی پلگ ان۔ کمپیوٹر، دوستوں، یا بلاتفریق کسی کے ساتھ شطرنج کھیلیں۔</string>
   <string name="teams">ٹیمیں</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s اراکین</item>
-    <item quantity="other">%s اراکین</item>
-  </plurals>
   <string name="allTeams">تمام ٹیمیں</string>
   <string name="newTeam">نئی ٹیم تشکیل کریں</string>
   <string name="myTeams">میری ٹیمیں</string>
@@ -227,10 +191,6 @@
   <string name="fromPosition">خاص پوزیشن سے</string>
   <string name="continueFromHere">یہاں سے کھیل شروع کریں</string>
   <string name="importGame">کھیلنامہ (PGN) درآمد کریں</string>
-  <plurals name="nbImportedGames">
-    <item quantity="one">%s درآمدشدہ کھیل</item>
-    <item quantity="other">%s درآمدشدہ کھیل</item>
-  </plurals>
   <string name="thisIsAChessCaptcha">یہ پہیلی انسانوں اور سافٹ وئیر میں تمیز کے لیے ہے</string>
   <string name="clickOnTheBoardToMakeYourMove">ساتھ دی گئی بساط پر پہیلی حل کرکے ثابت کریں کہ آپ انسان ہیں (روبوٹ نہیں(</string>
   <string name="notACheckmate">غلط!</string>
@@ -248,10 +208,6 @@
   <string name="unblock">ممانعت ختم کریں</string>
   <string name="followsYou">آپ کا پیروکار ہے</string>
   <string name="xStartedFollowingY">%1$s اب آپکا پیروکار ہے</string>
-  <plurals name="nbFollowers">
-    <item quantity="one">%s پیروکار</item>
-    <item quantity="other">%s پیروکار</item>
-  </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s پیر</item>
     <item quantity="other">%s پیر</item>
@@ -267,8 +223,6 @@
     <item quantity="one">%s منٹ سے کم</item>
     <item quantity="other">%s منٹ سے کم</item>
   </plurals>
-  <string name="textIsTooShort">ضروری مقدار سے کم ہے</string>
-  <string name="textIsTooLong">ضروری مقدار سے زائد ہے</string>
   <string name="required">ضروری ہے</string>
   <string name="openTournaments">جاری مسابقہ جات</string>
   <string name="duration">دورانیہ</string>
@@ -324,10 +278,6 @@
   <string name="pleaseVotePuzzle">بہتری کے لیے  رائے دہی کا استمعال کیجئے، سِرے کو اوپر یا نیچے کیجئے</string>
   <string name="thankYou">آپ کا شکریہ!</string>
   <string name="ratingX">میعار: %s</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">%s بار کھیلا جا چکا ہے</item>
-    <item quantity="other">%s بار کھیلا جا چکا ہے</item>
-  </plurals>
   <string name="fromGameLink">مقابلہ %s</string>
   <string name="startTraining">تربیت شروع کریں</string>
   <string name="continueTraining">تربیت جاری رکھیں</string>
@@ -337,10 +287,6 @@
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">آپ کے پاس چال چلنے کیلیے %s سیکنڈ ہیں</item>
     <item quantity="other">آپ کے پاس چال چلنے کیلیے %s سیکنڈ ہیں</item>
-  </plurals>
-  <plurals name="nbGamesInPlay">
-    <item quantity="one">%s جاری مقابلے</item>
-    <item quantity="other">%s جاری مقابلے</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">چال چلتے ہی خودبخود اگلے مقابلے پر جائیں</string>
   <string name="autoSwitch">خودکار تبدیلی</string>
@@ -480,10 +426,6 @@
   <string name="whiteCastlingQueenside">سفید O-O-O</string>
   <string name="blackCastlingKingside">سیاه O-O</string>
   <string name="blackCastlingQueenside">سیاه O-O-O</string>
-  <plurals name="nbForumPosts">
-    <item quantity="one">فورم میں شمولیت کا شمار %s</item>
-    <item quantity="other">فورم میں شمولیت کا شمار %s</item>
-  </plurals>
   <string name="tpTimeSpentPlaying">کھیل میں صرف وقت: %s</string>
   <string name="watchGames">کھیل ملاحظہ کریں</string>
   <string name="tpTimeSpentOnTV">ٹی وی پر صرف وقت: %s</string>

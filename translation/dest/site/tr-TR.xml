@@ -61,14 +61,6 @@
     <item quantity="other">%s çevrimiçi oyuncu</item>
   </plurals>
   <string name="currentGames">Şu anda oynanan oyunlar</string>
-  <plurals name="nbGames">
-    <item quantity="one">%s Oynanan Oyun</item>
-    <item quantity="other">%s Oynanan Oyun</item>
-  </plurals>
-  <plurals name="nbBookmarks">
-    <item quantity="one">%s İşaretlenmiş oyun</item>
-    <item quantity="other">%s İşaretlenmiş oyun</item>
-  </plurals>
   <string name="viewInFullSize">Tam ekran göster</string>
   <string name="logOut">Çıkış</string>
   <string name="signIn">Giriş</string>
@@ -89,14 +81,6 @@
   <string name="correspondence">Yazışma</string>
   <string name="daysPerTurn">hamle başına gün</string>
   <string name="oneDay">Bir gün</string>
-  <plurals name="nbDays">
-    <item quantity="one">%s gün</item>
-    <item quantity="other">%s gün</item>
-  </plurals>
-  <plurals name="nbHours">
-    <item quantity="one">%s saat</item>
-    <item quantity="other">%s saat</item>
-  </plurals>
   <string name="time">Zaman</string>
   <string name="rating">Derece</string>
   <string name="ratingStats">Puan İstatistikleri</string>
@@ -112,10 +96,6 @@
   <string name="forgotPassword">Şifremi unuttum</string>
   <string name="rank">Sıralama</string>
   <string name="gamesPlayed">Oynanılmış oyunlar</string>
-  <plurals name="nbGamesWithYou">
-    <item quantity="one">Sizinle oynadığı oyun sayısı: %s</item>
-    <item quantity="other">Sizinle oynadığı oyun sayısı: %s</item>
-  </plurals>
   <string name="cancel">İptal</string>
   <string name="timeOut">Zaman doldu</string>
   <string name="drawOfferSent">Beraberlik teklifi gönderildi</string>
@@ -158,18 +138,6 @@
   <string name="incrementInSeconds">Hamle başına eklenen saniye</string>
   <string name="freeOnlineChess">Ücretsiz Çevrimiçi Satranç</string>
   <string name="spectators">İzleyiciler</string>
-  <plurals name="nbWins">
-    <item quantity="one">%s kez kazandı</item>
-    <item quantity="other">%s kez kazandı</item>
-  </plurals>
-  <plurals name="nbLosses">
-    <item quantity="one">%s kez kaybetti</item>
-    <item quantity="other">%s kez kaybetti</item>
-  </plurals>
-  <plurals name="nbDraws">
-    <item quantity="one">%s kez berabere kaldı</item>
-    <item quantity="other">%s kez berabere kaldı</item>
-  </plurals>
   <string name="exportGames">Oyunları dışa al</string>
   <string name="ratingRange">Puan aralığı</string>
   <plurals name="giveNbSeconds">
@@ -197,10 +165,6 @@
   <string name="backToGame">Oyuna dön</string>
   <string name="siteDescription">Bedava online Satranç sunucusu. Şimdi temiz bir arayüzde Satranç oyna. Kayıta gerek yok, reklam yok, eklenti yok. Bilgisayara karşı, arkadaşlarına veya rastgele bir rakiple Satranç oyna.</string>
   <string name="teams">Takımlar</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s üyeler</item>
-    <item quantity="other">%s üyeler</item>
-  </plurals>
   <string name="allTeams">Tüm takımlar</string>
   <string name="newTeam">Yeni Takım</string>
   <string name="myTeams">Takımlarım</string>
@@ -227,10 +191,6 @@
   <string name="fromPosition">Özel pozisyondan</string>
   <string name="continueFromHere">Bu pozisyondan devam et</string>
   <string name="importGame">Oyun yükle</string>
-  <plurals name="nbImportedGames">
-    <item quantity="one">%s Yüklenen oyunlar</item>
-    <item quantity="other">%s Yüklenen oyunlar</item>
-  </plurals>
   <string name="thisIsAChessCaptcha">Bu bir satranç CAPTCHA\'sıdır.</string>
   <string name="clickOnTheBoardToMakeYourMove">İnsan olduğunuzu kanıtlamak için tahtaya tıklayın ve hamlenizi yapın.</string>
   <string name="notACheckmate">Mat değil</string>
@@ -248,10 +208,6 @@
   <string name="unblock">Engeli kaldır</string>
   <string name="followsYou">Sizi takip ediyor</string>
   <string name="xStartedFollowingY">%1$s takip etmeye başladı %2$s</string>
-  <plurals name="nbFollowers">
-    <item quantity="one">%s takipçiler</item>
-    <item quantity="other">%s takipçiler</item>
-  </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s takip ettiklerim</item>
     <item quantity="other">%s takip ettiklerim</item>
@@ -267,8 +223,6 @@
     <item quantity="one">%s dakikadan daha az</item>
     <item quantity="other">%s dakikadan daha az</item>
   </plurals>
-  <string name="textIsTooShort">Yazı çok kısa.</string>
-  <string name="textIsTooLong">Yazı çok uzun.</string>
   <string name="required">Gerekli.</string>
   <string name="openTournaments">Açık Turnuvalar</string>
   <string name="duration">Süre</string>
@@ -324,10 +278,6 @@
   <string name="pleaseVotePuzzle">Okları kullanarak oylayın, lichess\'in gelişmesine yardımcı olun.</string>
   <string name="thankYou">Teşekkürler!</string>
   <string name="ratingX">Puan: %s</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">%s defa oynandı</item>
-    <item quantity="other">%s defa oynandı</item>
-  </plurals>
   <string name="fromGameLink">%s numaralı oyundan</string>
   <string name="startTraining">Alıştırmalara başla</string>
   <string name="continueTraining">Alıştırmalara devam et</string>
@@ -337,10 +287,6 @@
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">İlk hamleni yapman için %s saniyen kaldı!</item>
     <item quantity="other">İlk hamleni yapman için %s saniyen kaldı!</item>
-  </plurals>
-  <plurals name="nbGamesInPlay">
-    <item quantity="one">Şu anda %s oyun oynanıyor</item>
-    <item quantity="other">Şu anda %s oyun oynanıyor</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Hamleden sonra otomatik olarak diğer oyuna devam edecek</string>
   <string name="autoSwitch">Otomatik Seç</string>
@@ -480,10 +426,6 @@
   <string name="whiteCastlingQueenside">Beyaz O-O-O</string>
   <string name="blackCastlingKingside">Siyah O-O</string>
   <string name="blackCastlingQueenside">Siyah O-O-O</string>
-  <plurals name="nbForumPosts">
-    <item quantity="one">%s Forum Mesajları</item>
-    <item quantity="other">%s Forum Mesajları</item>
-  </plurals>
   <string name="tpTimeSpentPlaying">Toplam oynama süresi: %s</string>
   <string name="watchGames">Oyunları izle</string>
   <string name="tpTimeSpentOnTV">TV\'de izlenilme süresi: %s</string>

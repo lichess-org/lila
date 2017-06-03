@@ -207,8 +207,6 @@
   <string name="player">Spēlētājs</string>
   <string name="list">Saraksts</string>
   <string name="graph">Grafiks</string>
-  <string name="textIsTooShort">Teksts ir par īsu.</string>
-  <string name="textIsTooLong">Teksts ir par garu.</string>
   <string name="required">Obligāts.</string>
   <string name="openTournaments">Atvērtie turnīri</string>
   <string name="duration">Ilgums</string>

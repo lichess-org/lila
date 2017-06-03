@@ -60,12 +60,6 @@
     <item quantity="other">%s jvikei</item>
   </plurals>
   <string name="currentGames">lo cabna nunjvi</string>
-  <plurals name="nbGames">
-    <item quantity="other">%s pu se ci\'erkei</item>
-  </plurals>
-  <plurals name="nbBookmarks">
-    <item quantity="other">%s da se tcita</item>
-  </plurals>
   <string name="viewInFullSize">viska fau lo nu nilbra fa lo cnano</string>
   <string name="logOut">co\'u pilno lo jaspu</string>
   <string name="signIn">co\'a pilno lo jaspu</string>
@@ -86,12 +80,6 @@
   <string name="correspondence">masno</string>
   <string name="daysPerTurn">lo se djedi be lo kelka\'u</string>
   <string name="oneDay">djedi li pa</string>
-  <plurals name="nbDays">
-    <item quantity="other">djedi li %s</item>
-  </plurals>
-  <plurals name="nbHours">
-    <item quantity="other">cacra li %s</item>
-  </plurals>
   <string name="time">temci</string>
   <string name="rating">nilcre</string>
   <string name="ratingStats">nilcre datni</string>
@@ -107,9 +95,6 @@
   <string name="forgotPassword">mi tolmo\'i lo du\'u ma kau kikyvla</string>
   <string name="rank">lo crelai</string>
   <string name="gamesPlayed">roi jvikei</string>
-  <plurals name="nbGamesWithYou">
-    <item quantity="other">%s roi jvikei do</item>
-  </plurals>
   <string name="cancel">dicra</string>
   <string name="timeOut">lo temci cu tolcfa</string>
   <string name="drawOfferSent">lo se friti cu se benji</string>
@@ -152,15 +137,6 @@
   <string name="incrementInSeconds">snidu se jmina</string>
   <string name="freeOnlineChess">kibro caxmati co nonsedi</string>
   <string name="spectators">lo zgana</string>
-  <plurals name="nbWins">
-    <item quantity="other">%s roi jinga</item>
-  </plurals>
-  <plurals name="nbLosses">
-    <item quantity="other">%s roi tolji\'a</item>
-  </plurals>
-  <plurals name="nbDraws">
-    <item quantity="other">%s roi norji\'a</item>
-  </plurals>
   <string name="exportGames">cpacu lo nunjvi datni</string>
   <string name="ratingRange">keijvi nilcre jimte</string>
   <plurals name="giveNbSeconds">
@@ -187,9 +163,6 @@
   <string name="backToGame">xruti tu\'a lo nunjvi</string>
   <string name="siteDescription">zifre je kibro ke caxmati seltcana .i .e\'e kelci la caxmati do\'e lo sampu krati .i na japtcu .i na viska lo gubnoi .i na nitcu lo kibykla se jmina .i .e\'e jvikei lo skami .a lo pendo .a lo jai cunso</string>
   <string name="teams">lo bende</string>
-  <plurals name="nbMembers">
-    <item quantity="other">%s da cmima</item>
-  </plurals>
   <string name="allTeams">lo ro bende</string>
   <string name="newTeam">zbasu su\'o bende</string>
   <string name="myTeams">lo bende pe mi</string>
@@ -216,9 +189,6 @@
   <string name="fromPosition">nalcfa kelci</string>
   <string name="continueFromHere">di\'a ti kelci</string>
   <string name="importGame">jmina lo selkei</string>
-  <plurals name="nbImportedGames">
-    <item quantity="other">%s da seljmina selkei</item>
-  </plurals>
   <string name="thisIsAChessCaptcha">←ti caxmati ciprkaptca</string>
   <string name="clickOnTheBoardToMakeYourMove">.i ko te zu\'e gi jarco lo ka remna gi ta\'i gi .iklki lo foldi gi zukte tu\'a lo kelka\'u</string>
   <string name="notACheckmate">na caxmata</string>
@@ -236,9 +206,6 @@
   <string name="unblock">co\'u fanta lo nu jikca</string>
   <string name="followsYou">ti do catlu</string>
   <string name="xStartedFollowingY">la\'oi %1$s la\'oi %2$s co\'a catlu</string>
-  <plurals name="nbFollowers">
-    <item quantity="other">%s da catlu ti</item>
-  </plurals>
   <plurals name="nbFollowing">
     <item quantity="other">%s da se catlu ti</item>
   </plurals>
@@ -252,8 +219,6 @@
   <plurals name="lessThanNbMinutes">
     <item quantity="other">mentu li me\'i %s</item>
   </plurals>
-  <string name="textIsTooShort">lo selci\'a cu tordu dukse</string>
-  <string name="textIsTooLong">lo selci\'a cu clani dukse</string>
   <string name="required">jai se bilga</string>
   <string name="openTournaments">zifre sezyjmina torneio</string>
   <string name="duration">se mentu</string>
@@ -309,9 +274,6 @@
   <string name="pleaseVotePuzzle">ko sidju mi\'a se zu\'e lo nu nilnei cuxna se pi\'o lo re strelka</string>
   <string name="thankYou">ki\'e</string>
   <string name="ratingX">nilcre fa li %s</string>
-  <plurals name="playedXTimes">
-    <item quantity="other">%s roi se kelci</item>
-  </plurals>
   <string name="fromGameLink">ra\'i lo %s moi nunjvi</string>
   <string name="startTraining">lo nu crezenzu\'e kei cfari</string>
   <string name="continueTraining">lo nu crezenzu\'e kei ranji</string>
@@ -320,9 +282,6 @@
   <string name="thisPuzzleIsWrong">le se namkei cu toldra je tolzdi</string>
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="other">fi\'o snidu li su\'e %s ko pa re\'u muvdu</item>
-  </plurals>
-  <plurals name="nbGamesInPlay">
-    <item quantity="other">%s cabna nunjvi</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">ba zi lo nu muvgau cu catlu lo se lidne selkei</string>
   <string name="autoSwitch">zmiku nungalfi</string>

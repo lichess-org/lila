@@ -207,8 +207,6 @@
   <string name="player">Igrač</string>
   <string name="list">Spisak</string>
   <string name="graph">Grafikon</string>
-  <string name="textIsTooShort">Tekst je prekratak.</string>
-  <string name="textIsTooLong">Tekst je predug.</string>
   <string name="required">Potrebno.</string>
   <string name="openTournaments">Otvoreni turniri</string>
   <string name="duration">Trajanje</string>

@@ -57,17 +57,13 @@
   <string name="offerDraw">Pacem offerre</string>
   <string name="draw">Pax</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s lusores</item>
+    <item quantity="one">%s lusor</item>
     <item quantity="other">%s lusores</item>
   </plurals>
   <string name="currentGames">Nunc ludentes lusiones</string>
   <plurals name="nbGames">
-    <item quantity="one">%s ludi</item>
-    <item quantity="other">%s ludi</item>
-  </plurals>
-  <plurals name="nbBookmarks">
-    <item quantity="one">%s bookmarks</item>
-    <item quantity="other">%s bookmarks</item>
+    <item quantity="one">%s ludus</item>
+    <item quantity="other">%s Ludi</item>
   </plurals>
   <string name="viewInFullSize">Integro modo vide</string>
   <string name="logOut">Conventum claudere</string>
@@ -88,13 +84,13 @@
   <string name="realTime">Tempus reale</string>
   <string name="correspondence">Ludus diutinus</string>
   <string name="daysPerTurn">Dies per motum</string>
-  <string name="oneDay">dies unus</string>
+  <string name="oneDay">Dies unus</string>
   <plurals name="nbDays">
     <item quantity="one">%s dies</item>
     <item quantity="other">%s dies</item>
   </plurals>
   <plurals name="nbHours">
-    <item quantity="one">%s horae</item>
+    <item quantity="one">%s hora</item>
     <item quantity="other">%s horae</item>
   </plurals>
   <string name="time">Tempus</string>
@@ -113,7 +109,7 @@
   <string name="rank">Ordo</string>
   <string name="gamesPlayed">Lusi lusiones</string>
   <plurals name="nbGamesWithYou">
-    <item quantity="one">%s ludi tecum</item>
+    <item quantity="one">%s ludus tecum</item>
     <item quantity="other">%s ludi tecum</item>
   </plurals>
   <string name="cancel">Anullare</string>
@@ -159,16 +155,8 @@
   <string name="freeOnlineChess">Scacci gratis in rete</string>
   <string name="spectators">Spectatores</string>
   <plurals name="nbWins">
-    <item quantity="one">%s victoriae</item>
+    <item quantity="one">%s victoria</item>
     <item quantity="other">%s victoriae</item>
-  </plurals>
-  <plurals name="nbLosses">
-    <item quantity="one">%s clades</item>
-    <item quantity="other">%s clades</item>
-  </plurals>
-  <plurals name="nbDraws">
-    <item quantity="one">%s pacis casus</item>
-    <item quantity="other">%s pacis casus</item>
   </plurals>
   <string name="exportGames">Lusiones extrahere</string>
   <string name="ratingRange">Ordo</string>
@@ -197,10 +185,6 @@
   <string name="backToGame">Referre ad ludo</string>
   <string name="siteDescription">Liberi scacci in rete. Lude jam scaccos super clarissimas pagines. Nec conventum, nec praeconia mercatoria, nec plugin necesse sunt. Lude scaccos sive cum computatro, sive cum amicis, sive cum aleatoriis adversariis.</string>
   <string name="teams">Legiones</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s sodales</item>
-    <item quantity="other">%s sodales</item>
-  </plurals>
   <string name="allTeams">Legiones omnes</string>
   <string name="newTeam">Legio nova</string>
   <string name="myTeams">Legiones meae</string>
@@ -227,10 +211,6 @@
   <string name="fromPosition">A statu</string>
   <string name="continueFromHere">Hinc persequi</string>
   <string name="importGame">Lusionem imponere</string>
-  <plurals name="nbImportedGames">
-    <item quantity="one">%s impositae lusiones</item>
-    <item quantity="other">%s impositae lusiones</item>
-  </plurals>
   <string name="thisIsAChessCaptcha">Hic ludus CAPTCHA est</string>
   <string name="clickOnTheBoardToMakeYourMove">Age motum ut tuum esse humanum confirmem.</string>
   <string name="notACheckmate">Non est mattus</string>
@@ -250,7 +230,7 @@
   <string name="followsYou">Sequens te</string>
   <string name="xStartedFollowingY">%1$s sequitur %2$s</string>
   <plurals name="nbFollowers">
-    <item quantity="one">%s spectatores</item>
+    <item quantity="one">%s spectator</item>
     <item quantity="other">%s spectatores</item>
   </plurals>
   <plurals name="nbFollowing">
@@ -268,8 +248,6 @@
     <item quantity="one">Minus quam %s minutas</item>
     <item quantity="other">Minus quam %s minutas</item>
   </plurals>
-  <string name="textIsTooShort">Nimis brevis est textus</string>
-  <string name="textIsTooLong">Nimis longus est textus</string>
   <string name="required">Necesse est</string>
   <string name="openTournaments">Certamina publica</string>
   <string name="duration">Duratio</string>
@@ -325,10 +303,6 @@
   <string name="pleaseVotePuzzle">Meliora lichessem eligendo sorsum vel deorsum:</string>
   <string name="thankYou">Gratias tibi!</string>
   <string name="ratingX">Ordo: %s</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">Ludatum totiens %s</item>
-    <item quantity="other">Ludatum totiens %s</item>
-  </plurals>
   <string name="fromGameLink">Ab ludo %s</string>
   <string name="startTraining">Incipere exercitium</string>
   <string name="continueTraining">Continuare exercitium</string>
@@ -338,10 +312,6 @@
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">%s secundas tuo primo motu habes!</item>
     <item quantity="other">%s secundas tuo primo motu habes!</item>
-  </plurals>
-  <plurals name="nbGamesInPlay">
-    <item quantity="one">%s ludi ludentes</item>
-    <item quantity="other">%s ludi ludentes</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Post movendum automatice progredi ad ludum sequentem</string>
   <string name="autoSwitch">Automatice ire</string>
@@ -482,10 +452,6 @@
   <string name="whiteCastlingQueenside">Albus O-O-O</string>
   <string name="blackCastlingKingside">Niger O-O</string>
   <string name="blackCastlingQueenside">Niger O-O-O</string>
-  <plurals name="nbForumPosts">
-    <item quantity="one">%s Nuntii Fori</item>
-    <item quantity="other">%s Nuntii Fori</item>
-  </plurals>
   <string name="tpTimeSpentPlaying">Tempus actum: %s</string>
   <string name="watchGames">Spectare ludos</string>
   <string name="tpTimeSpentOnTV">Tempus in TV: %s</string>
@@ -576,4 +542,19 @@
     <item quantity="other">In sermonibus %s!</item>
   </plurals>
   <string name="gameAnalysis">Analysis ludi</string>
+  <string name="xHostsY">%1$s exercituum %2$s</string>
+  <string name="xJoinsY">%1$s iungit %2$s</string>
+  <string name="xLikesY">%1$s velit %2$s</string>
+  <string name="quickPairing">Velox partes</string>
+  <string name="lobby">Vestibulum</string>
+  <string name="yourScore">Score tuum: %s</string>
+  <string name="directlySupportLichess">Lichess directe auxilium</string>
+  <string name="playChessInStyle">In scaccum ludo style</string>
+  <string name="chessBasics">Scacci fundamenta</string>
+  <string name="invalidPgn">Irritum ludum notatio</string>
+  <string name="invalidFen">Invalida positio notatio</string>
+  <string name="error.minLength">Minimum est longitudinem %s</string>
+  <string name="error.maxLength">Maximum est longitudinem %s</string>
+  <string name="error.min">%s paribus maius esse</string>
+  <string name="error.max">%s paribus minor est</string>
 </resources>

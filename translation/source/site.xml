@@ -61,12 +61,12 @@
   </plurals>
   <string name="currentGames">Current games</string>
   <plurals name="nbGames">
-    <item quantity="one">One game</item>
-    <item quantity="other">%s Games</item>
+    <item quantity="one">%s game</item>
+    <item quantity="other">%s games</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">One bookmark</item>
-    <item quantity="other">%s Bookmarks</item>
+    <item quantity="one">%s bookmark</item>
+    <item quantity="other">%s bookmarks</item>
   </plurals>
   <string name="viewInFullSize">View in full size</string>
   <string name="logOut">Sign out</string>
@@ -89,11 +89,11 @@
   <string name="daysPerTurn">Days per turn</string>
   <string name="oneDay">One day</string>
   <plurals name="nbDays">
-    <item quantity="one">One day</item>
+    <item quantity="one">%s day</item>
     <item quantity="other">%s days</item>
   </plurals>
   <plurals name="nbHours">
-    <item quantity="one">One hour</item>
+    <item quantity="one">%s hour</item>
     <item quantity="other">%s hours</item>
   </plurals>
   <string name="time">Time</string>
@@ -112,7 +112,7 @@
   <string name="rank">Rank</string>
   <string name="gamesPlayed">Games played</string>
   <plurals name="nbGamesWithYou">
-    <item quantity="one">One game with you</item>
+    <item quantity="one">%s game with you</item>
     <item quantity="other">%s games with you</item>
   </plurals>
   <string name="cancel">Cancel</string>
@@ -120,7 +120,7 @@
   <string name="drawOfferSent">Draw offer sent</string>
   <string name="drawOfferDeclined">Draw offer declined</string>
   <string name="drawOfferAccepted">Draw offer accepted</string>
-  <string name="drawOfferCanceled">Draw offer canceled</string>
+  <string name="drawOfferCanceled">Draw offer cancelled</string>
   <string name="whiteOffersDraw">White offers draw</string>
   <string name="blackOffersDraw">Black offers draw</string>
   <string name="whiteDeclinesDraw">White declines draw</string>
@@ -158,15 +158,15 @@
   <string name="freeOnlineChess">Free Online Chess</string>
   <string name="spectators">Spectators:</string>
   <plurals name="nbWins">
-    <item quantity="one">One win</item>
+    <item quantity="one">%s win</item>
     <item quantity="other">%s wins</item>
   </plurals>
   <plurals name="nbLosses">
-    <item quantity="one">One loss</item>
+    <item quantity="one">%s loss</item>
     <item quantity="other">%s losses</item>
   </plurals>
   <plurals name="nbDraws">
-    <item quantity="one">One draw</item>
+    <item quantity="one">%s draw</item>
     <item quantity="other">%s draws</item>
   </plurals>
   <string name="exportGames">Export games</string>
@@ -197,7 +197,7 @@
   <string name="siteDescription">Free online Chess server. Play Chess now in a clean interface. No registration, no ads, no plugin required. Play Chess with the computer, friends or random opponents.</string>
   <string name="teams">Teams</string>
   <plurals name="nbMembers">
-    <item quantity="one">One member</item>
+    <item quantity="one">%s member</item>
     <item quantity="other">%s members</item>
   </plurals>
   <string name="allTeams">All teams</string>
@@ -227,8 +227,8 @@
   <string name="continueFromHere">Continue from here</string>
   <string name="importGame">Import game</string>
   <plurals name="nbImportedGames">
-    <item quantity="one">One imported game</item>
-    <item quantity="other">%s Imported games</item>
+    <item quantity="one">%s imported game</item>
+    <item quantity="other">%s imported games</item>
   </plurals>
   <string name="thisIsAChessCaptcha">This is a chess CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Click on the board to make your move, and prove you are human.</string>
@@ -250,7 +250,7 @@
   <string name="followsYou">Follows you</string>
   <string name="xStartedFollowingY">%1$s started following %2$s</string>
   <plurals name="nbFollowers">
-    <item quantity="one">One follower</item>
+    <item quantity="one">%s follower</item>
     <item quantity="other">%s followers</item>
   </plurals>
   <plurals name="nbFollowing">
@@ -324,7 +324,7 @@
   <string name="thankYou">Thank you!</string>
   <string name="ratingX">Rating: %s</string>
   <plurals name="playedXTimes">
-    <item quantity="one">Played one time</item>
+    <item quantity="one">Played %s time</item>
     <item quantity="other">Played %s times</item>
   </plurals>
   <string name="fromGameLink">From game %s</string>
@@ -338,7 +338,7 @@
     <item quantity="other">You have %s seconds to make your first move!</item>
   </plurals>
   <plurals name="nbGamesInPlay">
-    <item quantity="one">One game in play</item>
+    <item quantity="one">%s game in play</item>
     <item quantity="other">%s games in play</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Automatically proceed to next game after moving</string>
@@ -482,8 +482,8 @@
   <string name="blackCastlingKingside">Black O-O</string>
   <string name="blackCastlingQueenside">Black O-O-O</string>
   <plurals name="nbForumPosts">
-    <item quantity="one">One forum post</item>
-    <item quantity="other">%s Forum Posts</item>
+    <item quantity="one">%s forum post</item>
+    <item quantity="other">%s forum posts</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Time spent playing: %s</string>
   <string name="watchGames">Watch games</string>
@@ -585,6 +585,7 @@
   <string name="quickPairing">Quick pairing</string>
   <string name="lobby">Lobby</string>
   <string name="yourScore">Your score: %s</string>
+  <string name="language">Language</string>
   <string name="background">Background</string>
   <string name="boardGeometry">Board geometry</string>
   <string name="boardTheme">Board theme</string>
@@ -605,4 +606,5 @@
   <string name="error.maxLength">Maximum length is %s</string>
   <string name="error.min">Must be greater or equal to %s</string>
   <string name="error.max">Must be less or equal to %s</string>
+  <string name="custom">Custom</string>
 </resources>

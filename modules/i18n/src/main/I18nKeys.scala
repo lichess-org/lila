@@ -1,4 +1,4 @@
-// Generated with bin/trans-dump.js Mon May 29 2017 11:38:58 GMT+0200 (CEST)
+// Generated with bin/trans-dump.js
 package lila.i18n
 
 // format: OFF
@@ -499,6 +499,7 @@ val `xLikesY` = new Translated("xLikesY")
 val `quickPairing` = new Translated("quickPairing")
 val `lobby` = new Translated("lobby")
 val `yourScore` = new Translated("yourScore")
+val `language` = new Translated("language")
 val `background` = new Translated("background")
 val `boardGeometry` = new Translated("boardGeometry")
 val `boardTheme` = new Translated("boardTheme")
@@ -519,6 +520,7 @@ val `error.minLength` = new Translated("error.minLength")
 val `error.maxLength` = new Translated("error.maxLength")
 val `error.min` = new Translated("error.min")
 val `error.max` = new Translated("error.max")
+val `custom` = new Translated("custom")
 val `nbPlayers` = new Translated("nbPlayers")
 val `nbGames` = new Translated("nbGames")
 val `nbBookmarks` = new Translated("nbBookmarks")

@@ -60,14 +60,6 @@
     <item quantity="other">Միացած խաղացողների թիվը՝ %s</item>
   </plurals>
   <string name="currentGames">Այժմ օնլայն ընթացող խաղերը</string>
-  <plurals name="nbGames">
-    <item quantity="one">Տեսնել բոլոր %s խաղերը</item>
-    <item quantity="other">Տեսնել բոլոր %s խաղերը</item>
-  </plurals>
-  <plurals name="nbBookmarks">
-    <item quantity="one">%s Էջանիշեր</item>
-    <item quantity="other">%s Էջանիշեր</item>
-  </plurals>
   <string name="viewInFullSize">Մեծացնել չափը</string>
   <string name="logOut">Ելք</string>
   <string name="signIn">Մուտք</string>
@@ -88,14 +80,6 @@
   <string name="correspondence">համապատասխանություն</string>
   <string name="daysPerTurn">Օրական քայլ</string>
   <string name="oneDay">մեկ օր</string>
-  <plurals name="nbDays">
-    <item quantity="one">%s օր</item>
-    <item quantity="other">%s օր</item>
-  </plurals>
-  <plurals name="nbHours">
-    <item quantity="one">%s ժամ</item>
-    <item quantity="other">%s ժամ</item>
-  </plurals>
   <string name="time">Ժամանակ</string>
   <string name="rating">Վարկանիշ</string>
   <string name="ratingStats">Մակարդակ աստիճան</string>
@@ -111,10 +95,6 @@
   <string name="forgotPassword">Մոռացել ե՞ք գաղտնաբառը</string>
   <string name="rank">Միավորներ</string>
   <string name="gamesPlayed">Խաղացած խաղեր</string>
-  <plurals name="nbGamesWithYou">
-    <item quantity="one">%s Խաղեր՝ ձեր հետ</item>
-    <item quantity="other">%s Խաղեր՝ ձեր հետ</item>
-  </plurals>
   <string name="cancel">Հերքել</string>
   <string name="timeOut">Ժամանակը ավարտվեց</string>
   <string name="drawOfferSent">Ոչ-ոքի առաջարկը ուղարկված է</string>
@@ -157,18 +137,6 @@
   <string name="incrementInSeconds">Ժամանակի աճը ըստ վայրկյանների</string>
   <string name="freeOnlineChess">Անվճար օնլայն շախմատ</string>
   <string name="spectators">հանդիսատեսներ</string>
-  <plurals name="nbWins">
-    <item quantity="one">%s հաղթեց</item>
-    <item quantity="other">%s հաղթեց</item>
-  </plurals>
-  <plurals name="nbLosses">
-    <item quantity="one">%s պարտվեց</item>
-    <item quantity="other">%s պարտվեց</item>
-  </plurals>
-  <plurals name="nbDraws">
-    <item quantity="one">%s ոչոքի</item>
-    <item quantity="other">%s ոչոքի</item>
-  </plurals>
   <string name="exportGames">Էկսպորտ անել խաղերը</string>
   <string name="ratingRange">Elo միջակայք</string>
   <plurals name="giveNbSeconds">
@@ -195,10 +163,6 @@
   <string name="backToGame">վերադառնալ խաղին</string>
   <string name="siteDescription">Անճար օնլայն շախմատ: Խաղացցեք հաճելի ինտերֆեյսով, առանց գրանցման և գովազդի: Խաղացեք համակարգչի, ընկերների կամ անծանոթների հետ:</string>
   <string name="teams">Թիմեր</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s անդամ</item>
-    <item quantity="other">%s անդամ</item>
-  </plurals>
   <string name="allTeams">Բոլոր թիմերը</string>
   <string name="newTeam">Նոր թիմ</string>
   <string name="myTeams">Իմ թիմերը</string>
@@ -225,10 +189,6 @@
   <string name="fromPosition">Դիրքից</string>
   <string name="continueFromHere">Շարունակել այստեղից</string>
   <string name="importGame">Խաղ ներմուծել</string>
-  <plurals name="nbImportedGames">
-    <item quantity="one">%s ներմուծված խաղեր</item>
-    <item quantity="other">%s ներմուծված խաղեր</item>
-  </plurals>
   <string name="thisIsAChessCaptcha">Սա շախմատային CAPTCHA է</string>
   <string name="clickOnTheBoardToMakeYourMove">Սեղմեք դաշտին, որ քայլ անեք և ապացուցեք, որ մարդ եք:</string>
   <string name="notACheckmate">Մատ չէ</string>
@@ -246,10 +206,6 @@
   <string name="unblock">Հանել արգելափակումը</string>
   <string name="followsYou">Հետևում են ձեզ</string>
   <string name="xStartedFollowingY">%1$s-ը այժմ հետևում է %2$s-ին</string>
-  <plurals name="nbFollowers">
-    <item quantity="one">%s հետևողներ</item>
-    <item quantity="other">%s հետևողներ</item>
-  </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s հետևում են</item>
     <item quantity="other">%s հետևում են</item>
@@ -265,8 +221,6 @@
     <item quantity="one">ավելի քիչ քան %s րոպե</item>
     <item quantity="other">ավելի քիչ քան %s րոպե</item>
   </plurals>
-  <string name="textIsTooShort">Տեքստը շատ կարճ է</string>
-  <string name="textIsTooLong">Տեքստը շատ երկար է</string>
   <string name="required">Պարտադիր.</string>
   <string name="openTournaments">Բաց մրցաշարեր</string>
   <string name="duration">Տևողություն</string>
@@ -322,10 +276,6 @@
   <string name="pleaseVotePuzzle">Օգնեք lichess-ին բարելավվել` քվեարկելով վերև կամ ներքև սլաքի օգնությամբ․</string>
   <string name="thankYou">Շնորհակալությո՛ւն։</string>
   <string name="ratingX">Վարկանիշ՝ %s</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">Փորձել են լուծել %s անգամ</item>
-    <item quantity="other">Փորձել են լուծել %s անգամ</item>
-  </plurals>
   <string name="fromGameLink">%s խաղից</string>
   <string name="startTraining">Սկսել մարզվել</string>
   <string name="continueTraining">Շարունակել մարզվել</string>
@@ -335,10 +285,6 @@
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">Դուք ունեք %s վայրկյան Ձեր առաջին քայլը կատարելու համար։</item>
     <item quantity="other">Դուք ունեք %s վայրկյան Ձեր առաջին քայլը կատարելու համար։</item>
-  </plurals>
-  <plurals name="nbGamesInPlay">
-    <item quantity="one">Ընթանում է %s խաղ</item>
-    <item quantity="other">Ընթանում է %s խաղ</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">հակառակորդի քայլից հետո ավտոմատ կերպով անցնել հաջորդ քայլին</string>
   <string name="autoSwitch">միանգամից անցնել հաջորդ խաղին</string>

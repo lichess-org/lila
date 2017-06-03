@@ -62,8 +62,8 @@
   </plurals>
   <string name="currentGames">Lopende partijen</string>
   <plurals name="nbGames">
-    <item quantity="one">%s partij</item>
-    <item quantity="other">%s partijen</item>
+    <item quantity="one">%s Partij</item>
+    <item quantity="other">%s Partijen</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s Favoriet</item>
@@ -233,6 +233,7 @@
   </plurals>
   <string name="thisIsAChessCaptcha">Dit is een schaak CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Klik op het bord om je zet te spelen en te bewijzen dat je een mens bent.</string>
+  <string name="captcha.fail">Gelieve de schaak-captcha op te lossen.</string>
   <string name="notACheckmate">Dit is geen schaakmat</string>
   <string name="colorPlaysCheckmateInOne">%s aan zet, mat in één</string>
   <string name="retry">Probeer het opnieuw</string>
@@ -268,8 +269,6 @@
     <item quantity="one">Minder dan %s minuut</item>
     <item quantity="other">Minder dan %s minuten</item>
   </plurals>
-  <string name="textIsTooShort">Te weinig tekst.</string>
-  <string name="textIsTooLong">Te veel tekst.</string>
   <string name="required">Vereist.</string>
   <string name="openTournaments">Open toernooien</string>
   <string name="duration">Tijdsduur</string>
@@ -594,4 +593,17 @@
   <string name="pieceSet">Schaakstukken</string>
   <string name="embedInYourWebsite">Insluiten in uw website</string>
   <string name="usernameAlreadyUsed">Deze naam is al in gebruik, probeer a.u.b. een andere naam.</string>
+  <string name="usernameInvalid">Ongeldige gebruikersnaam. Gelieve enkel letters, cijfers, underscores en koppeltekens te gebruiken.</string>
+  <string name="usernameStartNoNumber">De gebruikersnaam mag niet starten met een cijfer.</string>
+  <string name="usernameUnacceptable">Deze gebruikersnaam is niet acceptabel.</string>
+  <string name="directlySupportLichess">Lichess rechtstreeks ondersteunen</string>
+  <string name="playChessInStyle">Speel schaken in stijl</string>
+  <string name="chessBasics">Basis schaken</string>
+  <string name="coaches">Coaches</string>
+  <string name="invalidPgn">Ongeldige PGN</string>
+  <string name="invalidFen">Ongeldige FEN</string>
+  <string name="error.minLength">Minimumlengte is %s tekens</string>
+  <string name="error.maxLength">Maximumlengte is %s tekens</string>
+  <string name="error.min">Moet groter dan of gelijk aan %s zijn</string>
+  <string name="error.max">Moet kleiner dan of gelijk aan %s zijn</string>
 </resources>

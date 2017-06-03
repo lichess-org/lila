@@ -61,14 +61,6 @@
     <item quantity="other">%s players</item>
   </plurals>
   <string name="currentGames">Current games</string>
-  <plurals name="nbGames">
-    <item quantity="one">One game</item>
-    <item quantity="other">%s Games</item>
-  </plurals>
-  <plurals name="nbBookmarks">
-    <item quantity="one">One bookmark</item>
-    <item quantity="other">%s Bookmarks</item>
-  </plurals>
   <string name="viewInFullSize">View in full size</string>
   <string name="logOut">Sign out</string>
   <string name="signIn">Sign in</string>
@@ -89,14 +81,6 @@
   <string name="correspondence">Correspondence</string>
   <string name="daysPerTurn">Days per turn</string>
   <string name="oneDay">One day</string>
-  <plurals name="nbDays">
-    <item quantity="one">One day</item>
-    <item quantity="other">%s days</item>
-  </plurals>
-  <plurals name="nbHours">
-    <item quantity="one">One hour</item>
-    <item quantity="other">%s hours</item>
-  </plurals>
   <string name="time">Time</string>
   <string name="rating">Rating</string>
   <string name="ratingStats">Rating stats</string>
@@ -112,10 +96,6 @@
   <string name="forgotPassword">Forgot password?</string>
   <string name="rank">Rank</string>
   <string name="gamesPlayed">Games played</string>
-  <plurals name="nbGamesWithYou">
-    <item quantity="one">One game with you</item>
-    <item quantity="other">%s games with you</item>
-  </plurals>
   <string name="cancel">Cancel</string>
   <string name="timeOut">Time out</string>
   <string name="drawOfferSent">Draw offer sent</string>
@@ -158,18 +138,6 @@
   <string name="incrementInSeconds">Increment in seconds</string>
   <string name="freeOnlineChess">Free Online Chess</string>
   <string name="spectators">Spectators:</string>
-  <plurals name="nbWins">
-    <item quantity="one">One win</item>
-    <item quantity="other">%s wins</item>
-  </plurals>
-  <plurals name="nbLosses">
-    <item quantity="one">One loss</item>
-    <item quantity="other">%s losses</item>
-  </plurals>
-  <plurals name="nbDraws">
-    <item quantity="one">One draw</item>
-    <item quantity="other">%s draws</item>
-  </plurals>
   <string name="exportGames">Export games</string>
   <string name="ratingRange">Rating range</string>
   <plurals name="giveNbSeconds">
@@ -197,10 +165,6 @@
   <string name="backToGame">Back to game</string>
   <string name="siteDescription">Free online Chess server. Play Chess now in a clean interface. No registration, no ads, no plugin required. Play Chess with the computer, friends or random opponents.</string>
   <string name="teams">Teams</string>
-  <plurals name="nbMembers">
-    <item quantity="one">One member</item>
-    <item quantity="other">%s members</item>
-  </plurals>
   <string name="allTeams">All teams</string>
   <string name="newTeam">New team</string>
   <string name="myTeams">My teams</string>
@@ -227,10 +191,6 @@
   <string name="fromPosition">From position</string>
   <string name="continueFromHere">Continue from here</string>
   <string name="importGame">Import game</string>
-  <plurals name="nbImportedGames">
-    <item quantity="one">One imported game</item>
-    <item quantity="other">%s Imported games</item>
-  </plurals>
   <string name="thisIsAChessCaptcha">This is a chess CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Click on the board to make your move, and prove you are human.</string>
   <string name="notACheckmate">Not a checkmate</string>
@@ -248,10 +208,6 @@
   <string name="unblock">Unblock</string>
   <string name="followsYou">Follows you</string>
   <string name="xStartedFollowingY">%1$s started following %2$s</string>
-  <plurals name="nbFollowers">
-    <item quantity="one">One follower</item>
-    <item quantity="other">%s followers</item>
-  </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s following</item>
     <item quantity="other">%s following</item>
@@ -267,8 +223,6 @@
     <item quantity="one">Less than a minute</item>
     <item quantity="other">Less than %s minutes</item>
   </plurals>
-  <string name="textIsTooShort">Text is too short.</string>
-  <string name="textIsTooLong">Text is too long.</string>
   <string name="required">Required.</string>
   <string name="openTournaments">Open tournaments</string>
   <string name="duration">Duration</string>
@@ -324,10 +278,6 @@
   <string name="pleaseVotePuzzle">Help lichess improve by voting, using the up or down arrow:</string>
   <string name="thankYou">Thank you!</string>
   <string name="ratingX">Rating: %s</string>
-  <plurals name="playedXTimes">
-    <item quantity="one">Played one time</item>
-    <item quantity="other">Played %s times</item>
-  </plurals>
   <string name="fromGameLink">From game %s</string>
   <string name="startTraining">Start training</string>
   <string name="continueTraining">Continue training</string>
@@ -337,10 +287,6 @@
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">You have %s seconds to make your first move!</item>
     <item quantity="other">You have %s seconds to make your first move!</item>
-  </plurals>
-  <plurals name="nbGamesInPlay">
-    <item quantity="one">One game in play</item>
-    <item quantity="other">%s games in play</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Automatically proceed to next game after moving</string>
   <string name="autoSwitch">Auto switch</string>
@@ -481,10 +427,6 @@
   <string name="whiteCastlingQueenside">White O-O-O</string>
   <string name="blackCastlingKingside">Black O-O</string>
   <string name="blackCastlingQueenside">Black O-O-O</string>
-  <plurals name="nbForumPosts">
-    <item quantity="one">One forum post</item>
-    <item quantity="other">%s Forum Posts</item>
-  </plurals>
   <string name="tpTimeSpentPlaying">Time spent playing: %s</string>
   <string name="watchGames">Watch games</string>
   <string name="tpTimeSpentOnTV">Time on TV: %s</string>
