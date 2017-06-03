@@ -217,7 +217,7 @@ private[round] final class Round(
   }
 
   private def reportNetworkLag(pov: Pov) =
-    if (pov.game.turns == 20 || pov.game.turns == 21) {
+    if (pov.game.turns == 20) {
       for {
         clock <- pov.game.clock
         color <- Color.all
