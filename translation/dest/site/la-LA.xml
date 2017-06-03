@@ -587,6 +587,7 @@
   <string name="language">Lingua</string>
   <string name="background">Scaena</string>
   <string name="boardGeometry">Geometria tabula</string>
+  <string name="boardTheme">Thema tabulae</string>
   <string name="boardSize">Tabula magnitudine</string>
   <string name="embedInYourWebsite">Ostende in locum</string>
   <string name="usernameAlreadyUsed">Username hanc iam usus aliquam alia.</string>
