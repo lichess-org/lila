@@ -109,8 +109,12 @@ private[round] final class Round(
       }
     }
 
-    case Outoftime(playerId) => handle(playerId) { pov =>
+    case Outoftime(Some(playerId)) => handle(playerId) { pov =>
       pov.game.outoftime(withGrace = !pov.isMyTurn) ?? finisher.outOfTime(pov.game)
+    }
+
+    case Outoftime(None) => handle { game =>
+      game.outoftime(withGrace = true) ?? finisher.outOfTime(game)
     }
 
     // exceptionally we don't block nor publish events
