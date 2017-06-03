@@ -450,13 +450,13 @@
   <string name="computer">Υπολογιστής</string>
   <string name="side">Πλευρά</string>
   <string name="clock">Χρόνος</string>
-  <string name="unauthorizedError">Άρνηση πρόσβασης</string>
+  <string name="unauthorizedError">Άρνηση πρόσβασης.</string>
   <string name="noInternetConnection">Χωρίς σύνδεση. Για να παίξετε χωρίς σύνδεση, ανοίξτε το μενού.</string>
   <string name="connectedToLichess">Έχετε συνδεθεί στο lichess.org</string>
   <string name="signedOut">Έχετε αποσυνδεθεί επιτυχώς</string>
   <string name="loginSuccessful">Είσοδος επιτυχής</string>
   <string name="playOnTheBoardOffline">Παίξτε χωρίς σύνδεση, τοπικά</string>
-  <string name="playOfflineComputer">Yπολογιστή</string>
+  <string name="playOfflineComputer">Εναντίον του υπολογιστή</string>
   <string name="opponent">Αντίπαλος</string>
   <string name="learn">Εκπαίδευση</string>
   <string name="community">Κοινότητα</string>
@@ -468,9 +468,9 @@
   <string name="allowAnalytics">Επιτρέπεται αποστολή ανώνυμων στατιστικών</string>
   <string name="shareGameURL">Κοινοποιήστε URL παιχνιδιού</string>
   <string name="error.required">Αυτό το πεδίο είναι υποχρεωτικό</string>
-  <string name="error.email">Αυτή η διεύθυνση ηλ.ταχυδρομείου δεν ισχύει</string>
-  <string name="error.email_acceptable">Αυτή η διεύθυνση ηλ.ταχυδρομείου δεν είναι αποδεκτή</string>
-  <string name="error.email_unique">Αυτή η διεύθυνση ηλ.ταχυδρομείου χρησιμοποιείται ήδη</string>
+  <string name="error.email">Αυτή η διεύθυνση ηλ. ταχυδρομείου δεν ισχύει</string>
+  <string name="error.email_acceptable">Αυτή η διεύθυνση ηλ. ταχυδρομείου δεν είναι αποδεκτή</string>
+  <string name="error.email_unique">Αυτή η διεύθυνση ηλ. ταχυδρομείου χρησιμοποιείται ήδη</string>
   <string name="blindfoldChess">Τυφλό σκάκι (αόρατα κομμάτια)</string>
   <string name="moveConfirmation">Επιβεβαίωση κίνησης</string>
   <string name="inCorrespondenceGames">Στις παρτίδες δι\' αλληλογραφίας</string>
@@ -566,7 +566,7 @@
   <string name="asFreeAsLichess">Δωρεάν</string>
   <string name="builtForTheLoveOfChessNotMoney">Φτιαγμένο από αγάπη για το σκάκι, όχι για τα χρήματα</string>
   <string name="everybodyGetsAllFeaturesForFree">Όλα τα στοιχεία είναι δωρεάν για όλους</string>
-  <string name="zeroAdvertisement">Μηδενικές διαφημίσεις</string>
+  <string name="zeroAdvertisement">Μηδέν διαφήμιση</string>
   <string name="fullFeatured">Πλήρη χαρακτηριστικά</string>
   <string name="phoneAndTablet">Τηλέφωνο και τάμπλετ</string>
   <string name="bulletBlitzClassical">Υπερταχέα, ταχέα, κλασσικά</string>
@@ -605,7 +605,7 @@
   <string name="invalidFen">Μη έγκυρο FEN</string>
   <string name="error.minLength">Ελάχιστο μήκος είναι %s</string>
   <string name="error.maxLength">Μέγιστο μήκος είναι %s</string>
-  <string name="error.min">Πρέπει να είναι μεγαλύτερoς ή ίσος με %s</string>
+  <string name="error.min">Πρέπει να είναι μεγαλύτερος ή ίσος με %s</string>
   <string name="error.max">Πρέπει να είναι μικρότερος ή ίσος με %s</string>
   <string name="custom">Προσαρμογή</string>
 </resources>
