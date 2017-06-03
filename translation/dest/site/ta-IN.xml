@@ -378,6 +378,9 @@
   <string name="typePrivateNotesHere">இரகசிய குறிப்புகள் இங்கே வைக்கலாம்</string>
   <string name="closeAccount">கணக்கு மூடவும்</string>
   <string name="changedMindDoNotCloseAccount">என் மனதை மாற்றிநேன் என் கணக்கு மூட வேண்டாம்</string>
+  <string name="currentPassword">தற்போதைய கடவுச்சொல்</string>
+  <string name="newPassword">புதிய கடவுச்சொல்</string>
+  <string name="newPasswordAgain">புதிய கடவுச்சொல் (மீண்டும்)</string>
   <string name="chessClock">செஸ் கடிகாரம்</string>
   <string name="never">ஒருபோதும்</string>
   <string name="sound">சப்தம்</string>
