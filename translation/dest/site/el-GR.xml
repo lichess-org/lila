@@ -25,7 +25,7 @@
   <string name="kingInTheCenter">Βασιλιάς στο κέντρο</string>
   <string name="threeChecks">Τρία σαχ</string>
   <string name="raceFinished">Τέλος αγώνα</string>
-  <string name="variantEnding">Ολοκλήρωση τύπου εκδοχής</string>
+  <string name="variantEnding">Ολοκλήρωση βαριάντας</string>
   <string name="newOpponent">Νέος αντίπαλος</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Ο αντίπαλος θέλει να παίξει νέο παιχνίδι μαζί σας</string>
   <string name="joinTheGame">Λάβετε μέρος στο παιχνίδι</string>
@@ -388,7 +388,7 @@
   <string name="closeAccountExplanation">Είστε σίγουροι ότι θέλετε να κλείσετε το λογαριασμό σας; Το κλείσιμο του λογαριασμού σας είναι μια μόνιμη απόφαση. Δε θα μπορείτε πλέον να συνδεθείτε, και η σελίδα του προφίλ σας δε θα είναι πια προσβάσιμη.</string>
   <string name="thisAccountIsClosed">Αυτός ο λογαριασμός έχει κλείσει.</string>
   <string name="invalidUsernameOrPassword">Άκυρο όνομα χρήστη ή κωδικός</string>
-  <string name="emailMeALink">Στείλτε μου σύνδεσμο μέσω ηλ. ταχυδρομείο</string>
+  <string name="emailMeALink">Στείλτε μου τον σύνδεσμο μέσω ηλ. ταχυδρομείου</string>
   <string name="currentPassword">Κωδικός σε ισχύ</string>
   <string name="newPassword">Νέος κωδικός</string>
   <string name="newPasswordAgain">Νέος κωδικός (επαλήθευση)</string>
