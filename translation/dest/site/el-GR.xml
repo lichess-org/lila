@@ -178,7 +178,7 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Ο παίκτης χρησιμοποιεί υποβοήθηση υπολογιστή</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Αυτός ο παίκτης αυξάνει/μειώνει τεχνητά τη βαθμολογία</string>
-  <string name="openingExplorer">Άνοιγμα εξερευνητή</string>
+  <string name="openingExplorer">Εξερευνητής ανοιγμάτων και τελειωμάτων</string>
   <string name="takeback">Ανάκληση κίνησης</string>
   <string name="proposeATakeback">Προσφέρετε ανάκληση της προηγούμενης κίνησης</string>
   <string name="takebackPropositionSent">Προσφορά ανάκλησης κίνησης εστάλη</string>
@@ -285,7 +285,7 @@
   <string name="tournamentIsStarting">Το πρωτάθλημα αρχίζει</string>
   <string name="membersOnly">Μόνο για μέλη</string>
   <string name="boardEditor">Προετοιμαστής σκακιέρας</string>
-  <string name="startPosition">Αρχική θέση</string>
+  <string name="startPosition">Αρχική διάταξη</string>
   <string name="clearBoard">Εκκαθάριση σκακιέρας</string>
   <string name="savePosition">Αποθηκεύστε τη θέση</string>
   <string name="loadPosition">Φορτώστε θέση</string>
@@ -388,7 +388,7 @@
   <string name="closeAccountExplanation">Είστε σίγουροι ότι θέλετε να κλείσετε το λογαριασμό σας; Το κλείσιμο του λογαριασμού σας είναι μια μόνιμη απόφαση. Δε θα μπορείτε πλέον να συνδεθείτε, και η σελίδα του προφίλ σας δε θα είναι πια προσβάσιμη.</string>
   <string name="thisAccountIsClosed">Αυτός ο λογαριασμός έχει κλείσει.</string>
   <string name="invalidUsernameOrPassword">Άκυρο όνομα χρήστη ή κωδικός</string>
-  <string name="emailMeALink">Στείλτε μου τον σύνδεσμο μέσω ηλ. ταχυδρομείο</string>
+  <string name="emailMeALink">Στείλτε μου σύνδεσμο μέσω ηλ. ταχυδρομείο</string>
   <string name="currentPassword">Κωδικός σε ισχύ</string>
   <string name="newPassword">Νέος κωδικός</string>
   <string name="newPasswordAgain">Νέος κωδικός (επαλήθευση)</string>
@@ -456,7 +456,7 @@
   <string name="signedOut">Έχετε αποσυνδεθεί επιτυχώς</string>
   <string name="loginSuccessful">Είσοδος επιτυχής</string>
   <string name="playOnTheBoardOffline">Παίξτε χωρίς σύνδεση, τοπικά</string>
-  <string name="playOfflineComputer">Παίξετε χωρίς σύνδεση εναντίον του υπολογιστή</string>
+  <string name="playOfflineComputer">Yπολογιστή</string>
   <string name="opponent">Αντίπαλος</string>
   <string name="learn">Εκπαίδευση</string>
   <string name="community">Κοινότητα</string>
