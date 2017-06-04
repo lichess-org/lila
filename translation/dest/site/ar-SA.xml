@@ -333,6 +333,7 @@
   <string name="premovesPlayingDuringOpponentTurn">النقلات الاستباقية (اللعب خلال دور الخصم)</string>
   <string name="takebacksWithOpponentApproval">التراجع عن النقلات (بموافقة الخصم)</string>
   <string name="promoteToQueenAutomatically">الترقية إلى وزير آلياً</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">مطالبة بالتعادل لتكرار نفس النقلات ثلاث مرات بشكل تلقائي</string>
   <string name="privacy">الخصوصية</string>
   <string name="letOtherPlayersFollowYou">اسمح للاعبين الآخرين بمتابعتك</string>
   <string name="letOtherPlayersChallengeYou">اسمح للاعبين الآخرين بتحديك</string>
