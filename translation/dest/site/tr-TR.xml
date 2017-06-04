@@ -31,11 +31,11 @@
   <string name="joinTheGame">Oyuna katıl</string>
   <string name="whitePlays">Hamle Beyazda</string>
   <string name="blackPlays">Hamle Siyahta</string>
-  <string name="opponentLeftChoices">Rakibiniz oyundan düştü ya da masayı terk etti. İsterseniz dönmesini bekleyebilir ya da galibiyetinizi talep edebilirsiniz.</string>
+  <string name="opponentLeftChoices">Rakibiniz oyundan düştü ya da masayı terk etti. İsterseniz dönmesini bekleyebilir, oyuna berabere diyebilir ya da galibiyetinizi talep edebilirsiniz.</string>
   <string name="makeYourOpponentResign">Rakibiniz oyunu terk etsin</string>
   <string name="forceResignation">Galibiyet talep et</string>
   <string name="forceDraw">Beraberlik ilan et</string>
-  <string name="talkInChat">Lütfen sohbette nazik ol</string>
+  <string name="talkInChat">Lütfen sohbette nazik olunuz!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Bağlantıya ilk ulaşan kişi rakibiniz olacak.</string>
   <string name="whiteResigned">Beyaz oyundan çekildi</string>
   <string name="blackResigned">Siyah oyundan çekildi</string>
@@ -45,7 +45,7 @@
   <string name="theComputerAnalysisHasFailed">Bilgisayar analizi başarısız oldu</string>
   <string name="viewTheComputerAnalysis">Bilgisayar analizini incele</string>
   <string name="requestAComputerAnalysis">Bilgisayar analizi talep et</string>
-  <string name="computerAnalysis">Bilgisayar Analizi</string>
+  <string name="computerAnalysis">Bilgisayar analizi</string>
   <string name="analysis">Analiz tahtası</string>
   <string name="blunders">Vahim hatalar</string>
   <string name="mistakes">Hatalar</string>
@@ -61,6 +61,14 @@
     <item quantity="other">%s çevrimiçi oyuncu</item>
   </plurals>
   <string name="currentGames">Şu anda oynanan oyunlar</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s oynanan oyun</item>
+    <item quantity="other">%s oynanan oyun</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s işaretlenmiş oyun</item>
+    <item quantity="other">%s işaretlenmiş oyun</item>
+  </plurals>
   <string name="viewInFullSize">Tam ekran göster</string>
   <string name="logOut">Çıkış</string>
   <string name="signIn">Giriş</string>
@@ -75,12 +83,20 @@
   <string name="players">Oyuncular</string>
   <string name="minutesPerSide">Taraf başına dakika</string>
   <string name="variant">Varyant</string>
-  <string name="variants">Varyanlar</string>
+  <string name="variants">Varyantlar</string>
   <string name="timeControl">Süre ayarı</string>
   <string name="realTime">Gerçek zaman</string>
   <string name="correspondence">Yazışma</string>
   <string name="daysPerTurn">hamle başına gün</string>
   <string name="oneDay">Bir gün</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s gün</item>
+    <item quantity="other">%s gün</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s saat</item>
+    <item quantity="other">%s saat</item>
+  </plurals>
   <string name="time">Zaman</string>
   <string name="rating">Derece</string>
   <string name="ratingStats">Puan İstatistikleri</string>
@@ -95,8 +111,12 @@
   <string name="passwordReset">Şifreyi yenile</string>
   <string name="forgotPassword">Şifremi unuttum</string>
   <string name="rank">Sıralama</string>
-  <string name="gamesPlayed">Oynanılmış oyunlar</string>
-  <string name="cancel">İptal</string>
+  <string name="gamesPlayed">Oynanan oyunlar</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">Sizinle oynadığı oyun sayısı: %s</item>
+    <item quantity="other">Sizinle oynadığı oyun sayısı: %s</item>
+  </plurals>
+  <string name="cancel">İptal et</string>
   <string name="timeOut">Zaman doldu</string>
   <string name="drawOfferSent">Beraberlik teklifi gönderildi</string>
   <string name="drawOfferDeclined">Beraberlik teklifi reddedildi</string>
@@ -138,6 +158,18 @@
   <string name="incrementInSeconds">Hamle başına eklenen saniye</string>
   <string name="freeOnlineChess">Ücretsiz Çevrimiçi Satranç</string>
   <string name="spectators">İzleyiciler</string>
+  <plurals name="nbWins">
+    <item quantity="one">%s kez kazandı</item>
+    <item quantity="other">%s kez kazandı</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s kez kaybetti</item>
+    <item quantity="other">%s kez kaybetti</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s kez berabere kaldı</item>
+    <item quantity="other">%s kez berabere kaldı</item>
+  </plurals>
   <string name="exportGames">Oyunları dışa al</string>
   <string name="ratingRange">Puan aralığı</string>
   <plurals name="giveNbSeconds">
@@ -165,6 +197,10 @@
   <string name="backToGame">Oyuna dön</string>
   <string name="siteDescription">Bedava online Satranç sunucusu. Şimdi temiz bir arayüzde Satranç oyna. Kayıta gerek yok, reklam yok, eklenti yok. Bilgisayara karşı, arkadaşlarına veya rastgele bir rakiple Satranç oyna.</string>
   <string name="teams">Takımlar</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s üyeler</item>
+    <item quantity="other">%s üyeler</item>
+  </plurals>
   <string name="allTeams">Tüm takımlar</string>
   <string name="newTeam">Yeni Takım</string>
   <string name="myTeams">Takımlarım</string>
@@ -191,8 +227,13 @@
   <string name="fromPosition">Özel pozisyondan</string>
   <string name="continueFromHere">Bu pozisyondan devam et</string>
   <string name="importGame">Oyun yükle</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s Yüklenen oyunlar</item>
+    <item quantity="other">%s Yüklenen oyunlar</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">Bu bir satranç CAPTCHA\'sıdır.</string>
   <string name="clickOnTheBoardToMakeYourMove">İnsan olduğunuzu kanıtlamak için tahtaya tıklayın ve hamlenizi yapın.</string>
+  <string name="captcha.fail">Lütfen satranç güvenlik kodunu çözün.</string>
   <string name="notACheckmate">Mat değil</string>
   <string name="colorPlaysCheckmateInOne">%s oynar; bir hamlede mat</string>
   <string name="retry">Tekrar dene</string>
@@ -200,6 +241,7 @@
   <string name="onlineFriends">Çevrimiçi arkadaşlar</string>
   <string name="noFriendsOnline">Hiçbir arkadaş çevrimiçi değil</string>
   <string name="findFriends">Arkadaşları bul</string>
+  <string name="favoriteOpponents">Favori rakipler</string>
   <string name="follow">Takip et</string>
   <string name="following">Takip ediliyor</string>
   <string name="unfollow">Takibi bırak</string>
@@ -208,6 +250,10 @@
   <string name="unblock">Engeli kaldır</string>
   <string name="followsYou">Sizi takip ediyor</string>
   <string name="xStartedFollowingY">%1$s takip etmeye başladı %2$s</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s takipçiler</item>
+    <item quantity="other">%s takipçiler</item>
+  </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s takip ettiklerim</item>
     <item quantity="other">%s takip ettiklerim</item>
@@ -278,6 +324,10 @@
   <string name="pleaseVotePuzzle">Okları kullanarak oylayın, lichess\'in gelişmesine yardımcı olun.</string>
   <string name="thankYou">Teşekkürler!</string>
   <string name="ratingX">Puan: %s</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">%s defa oynandı</item>
+    <item quantity="other">%s defa oynandı</item>
+  </plurals>
   <string name="fromGameLink">%s numaralı oyundan</string>
   <string name="startTraining">Alıştırmalara başla</string>
   <string name="continueTraining">Alıştırmalara devam et</string>
@@ -287,6 +337,10 @@
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">İlk hamleni yapman için %s saniyen kaldı!</item>
     <item quantity="other">İlk hamleni yapman için %s saniyen kaldı!</item>
+  </plurals>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">Şu anda %s oyun oynanıyor</item>
+    <item quantity="other">Şu anda %s oyun oynanıyor</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Hamleden sonra otomatik olarak diğer oyuna devam edecek</string>
   <string name="autoSwitch">Otomatik Seç</string>
@@ -352,6 +406,7 @@
   <string name="premovesPlayingDuringOpponentTurn">Ön hamleler (rakibin hamlesini beklerken hamle tanımlama)</string>
   <string name="takebacksWithOpponentApproval">Geri Alma (rakibin onayıyla)</string>
   <string name="promoteToQueenAutomatically">Piyonu otomatik olarak vezire terfi etsin</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Üçlü tekrarda otomatik olarak beraberlik teklif et</string>
   <string name="privacy">Gizlilik</string>
   <string name="letOtherPlayersFollowYou">Diğer oyuncular seni takip edebilsin</string>
   <string name="letOtherPlayersChallengeYou">Diğer oyuncular oyun teklif edebilsin</string>
@@ -381,6 +436,7 @@
   <string name="starting">Başlangıç:</string>
   <string name="allInformationIsPublicAndOptional">Tüm bilgiler herkese açık ve seçime bağlıdır.</string>
   <string name="yourCityRegionOrDepartment">İl, İlçe ya da Bölge</string>
+  <string name="biographyDescription">Kendinizden bahsedin, satrançta ne buluyorsunuz, favori açılışlarınız, oyunlarınız, hayranı olduğunuz satranç ustaları…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">En fazla: %s karakter.</item>
     <item quantity="other">En fazla: %s karakter.</item>
@@ -426,6 +482,10 @@
   <string name="whiteCastlingQueenside">Beyaz O-O-O</string>
   <string name="blackCastlingKingside">Siyah O-O</string>
   <string name="blackCastlingQueenside">Siyah O-O-O</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s Forum Mesajları</item>
+    <item quantity="other">%s Forum Mesajları</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">Toplam oynama süresi: %s</string>
   <string name="watchGames">Oyunları izle</string>
   <string name="tpTimeSpentOnTV">TV\'de izlenilme süresi: %s</string>
@@ -474,6 +534,10 @@
   <string name="tournamentMayHaveBeenCanceled">Eğer bütün oyuncular turnuva başlamadan ayrıldıysa, iptal edilmiş olabilir.</string>
   <string name="returnToTournamentsHomepage">Turnuva anasayfasına dön</string>
   <string name="weeklyPerfTypeRatingDistribution">Aylık %s puan dağılımı</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">Bu hafta bir %2$s oyuncusu.</item>
+    <item quantity="other">Bu hafta %1$s %2$s oyuncusu.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">%1$s puanınız %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">%1$s %2$s oyuncularından daha iyisiniz.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Sabit bir %s puanınız yok.</string>
@@ -516,4 +580,32 @@
     <item quantity="other">%s dilde kullanılabilir.</item>
   </plurals>
   <string name="gameAnalysis">Oyun analizi</string>
+  <string name="xHostsY">%1$s sundu: %2$s</string>
+  <string name="xJoinsY">%1$s katıldı: %2$s</string>
+  <string name="xLikesY">%1$s beğendi: %2$s</string>
+  <string name="quickPairing">Hızlı eşleşme</string>
+  <string name="lobby">Lobi</string>
+  <string name="yourScore">Puanınız: %s</string>
+  <string name="language">Dil</string>
+  <string name="background">Arkaplan</string>
+  <string name="boardGeometry">Tahta geometrisi</string>
+  <string name="boardTheme">Tahta teması</string>
+  <string name="boardSize">Tahta boyutu</string>
+  <string name="pieceSet">Takım seti</string>
+  <string name="embedInYourWebsite">Web sitende paylaş</string>
+  <string name="usernameAlreadyUsed">Bu kullanıcı adı zaten kullanılıyor, lütfen başka bir kullanıcı adı deneyin.</string>
+  <string name="usernameInvalid">Geçersiz kullanıcı adı. Lütfen yalnızca harf, sayı, alt çizgi ve çizgi kullanın.</string>
+  <string name="usernameStartNoNumber">Kullanıcı adı bir numarayla başlamamalıdır.</string>
+  <string name="usernameUnacceptable">Bu kullanıcı adı uygun değil.</string>
+  <string name="directlySupportLichess">Doğrudan Lichess\'e destek verin</string>
+  <string name="playChessInStyle">Tarzınızla satranç oynayın</string>
+  <string name="chessBasics">Satranç temelleri</string>
+  <string name="coaches">Eğitmenler</string>
+  <string name="invalidPgn">Geçersiz PGN</string>
+  <string name="invalidFen">Geçersiz FEN</string>
+  <string name="error.minLength">Minimum uzunluk: %s</string>
+  <string name="error.maxLength">Maksimum uzunluk: %s</string>
+  <string name="error.min">Şu sayıdan büyük veya şu sayıya eşit olması gerekir: %s</string>
+  <string name="error.max">Şu sayıdan küçük veya şu sayıya eşit olması gerekir: %s</string>
+  <string name="custom">Özel</string>
 </resources>

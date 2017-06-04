@@ -192,6 +192,7 @@
   <string name="onlineFriends">Přátelé online</string>
   <string name="noFriendsOnline">Žádní přátelé nejsou online</string>
   <string name="findFriends">Najít přátele</string>
+  <string name="favoriteOpponents">Oblíbení soupeři</string>
   <string name="follow">Sledovat</string>
   <string name="following">Sledován</string>
   <string name="unfollow">Přestat sledovat</string>
@@ -332,6 +333,7 @@
   <string name="premovesPlayingDuringOpponentTurn">Předtahy (hraní během protivníkova tahu)</string>
   <string name="takebacksWithOpponentApproval">Vrácení tahu (s protivníkovým souhlasem)</string>
   <string name="promoteToQueenAutomatically">Povýšit na dámu automaticky</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Automaticky vyžádat remízu při trojím opakování pozice</string>
   <string name="privacy">Soukromí</string>
   <string name="letOtherPlayersFollowYou">Umožnit ostatním hráčům následovat Tě</string>
   <string name="letOtherPlayersChallengeYou">Umožnit ostatním hráčům vyzvat Tě</string>
@@ -361,6 +363,7 @@
   <string name="starting">Začíná:</string>
   <string name="allInformationIsPublicAndOptional">Všechny informace jsou veřejné a nepovinné.</string>
   <string name="yourCityRegionOrDepartment">Vaše město, nebo region.</string>
+  <string name="biographyDescription">Napiš o sobě - co máš na šachu rád, oblíbená zahájení, partie, hráči…</string>
   <string name="listBlockedPlayers">Seznam hráčů, které jste zablokoval(a).</string>
   <string name="human">Člověk</string>
   <string name="computer">Počítač</string>
@@ -484,4 +487,13 @@
   <string name="viewTheSolution">Zobrazit řešení</string>
   <string name="followAndChallengeFriends">Hraj s přáteli</string>
   <string name="gameAnalysis">Analýza hry</string>
+  <string name="language">Jazyk</string>
+  <string name="background">Pozadí</string>
+  <string name="boardSize">Velikost šachovnice</string>
+  <string name="usernameAlreadyUsed">Toto uživatelské jméno již existuje. Zvol, prosím, jiné.</string>
+  <string name="usernameStartNoNumber">Uživatelské jméno nesmí začínat číslem.</string>
+  <string name="usernameUnacceptable">Toto uživatelské jméno není přijatelné.</string>
+  <string name="coaches">Trenéři</string>
+  <string name="invalidPgn">Neplatný formát PGN</string>
+  <string name="invalidFen">Neplatný formát FEN</string>
 </resources>

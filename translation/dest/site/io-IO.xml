@@ -45,6 +45,12 @@
     <item quantity="other">%s luderi</item>
   </plurals>
   <string name="currentGames">Nuna Ludi</string>
+  <plurals name="nbGames">
+    <item quantity="other">%s Ludi</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="other">%s Paginomarki</item>
+  </plurals>
   <string name="viewInFullSize">Vidar plengrande</string>
   <string name="logOut">Eksalutar</string>
   <string name="signIn">Ensalutar</string>
@@ -93,6 +99,15 @@
   <string name="incrementInSeconds">Kreskajo en sekundi</string>
   <string name="freeOnlineChess">Libera Enlinea Shakoludo</string>
   <string name="spectators">Spekteri:</string>
+  <plurals name="nbWins">
+    <item quantity="other">%s vinki</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="other">%s desvinki</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="other">%s egaligi</item>
+  </plurals>
   <string name="exportGames">Exportacar ludi</string>
   <string name="ratingRange">Elo-rango</string>
   <plurals name="giveNbSeconds">
@@ -112,6 +127,9 @@
   <string name="tournamentPoints">Turniropunti</string>
   <string name="siteDescription">Libera enlinea Shakoludo. Shakoludez nun en neta interfaco. Nula enrejistro, nula reklamo, nula extensoprogramo necesa. Shakoludez kun komputero, amiki o hazarda adversi.</string>
   <string name="teams">Esquadi</string>
+  <plurals name="nbMembers">
+    <item quantity="other">%s membri</item>
+  </plurals>
   <string name="allTeams">Omna esquadi</string>
   <string name="newTeam">Nova esquado</string>
   <string name="myTeams">Mea esquadi</string>

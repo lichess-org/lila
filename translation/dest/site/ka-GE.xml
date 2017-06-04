@@ -61,6 +61,14 @@
     <item quantity="other">%s მოთამაშე</item>
   </plurals>
   <string name="currentGames">მიმდინარე თამაშები</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s თამაში</item>
+    <item quantity="other">%s თამაში</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s ჩანიშნული თამაში</item>
+    <item quantity="other">%s ჩანიშნული თამაში</item>
+  </plurals>
   <string name="viewInFullSize">სრული ზომით ნახვა</string>
   <string name="logOut">გამოსვლა</string>
   <string name="signIn">შესვლა</string>
@@ -81,6 +89,14 @@
   <string name="correspondence">საკორესპონდენტო</string>
   <string name="daysPerTurn">დღეების რაოდენობა თითო სვლისთვის</string>
   <string name="oneDay">ერთი დღე</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s დღე</item>
+    <item quantity="other">%s დღე</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s საათი</item>
+    <item quantity="other">%s საათი</item>
+  </plurals>
   <string name="time">დრო</string>
   <string name="rating">რეიტინგი</string>
   <string name="ratingStats">რაიტინგული შედეგები</string>
@@ -96,6 +112,10 @@
   <string name="forgotPassword">დაგავიწყდათ პაროლი?</string>
   <string name="rank">რანგი</string>
   <string name="gamesPlayed">დასრულებული თამაშები</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s თამაშები თქვენ წინააღმდეგ</item>
+    <item quantity="other">%s თამაშები თქვენ წინააღმდეგ</item>
+  </plurals>
   <string name="cancel">გაუქმება</string>
   <string name="timeOut">დრო ამოიწერუა</string>
   <string name="drawOfferSent">ყაიმის შეთავაზება გაგზავნილია</string>
@@ -138,6 +158,18 @@
   <string name="incrementInSeconds">ზრდა წამებში</string>
   <string name="freeOnlineChess">უფასო ონლაინ ჭადრაკი</string>
   <string name="spectators">მაყურებლები</string>
+  <plurals name="nbWins">
+    <item quantity="one">%s გამარჯვება</item>
+    <item quantity="other">%s გამარჯვება</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s მარცხი</item>
+    <item quantity="other">%s მარცხი</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s ფრე</item>
+    <item quantity="other">%s ფრე</item>
+  </plurals>
   <string name="exportGames">თამაშის ექსპორტი</string>
   <string name="ratingRange">ელო რეიტინგი</string>
   <plurals name="giveNbSeconds">
@@ -165,6 +197,10 @@
   <string name="backToGame">თამაშში დაბრუნება</string>
   <string name="siteDescription">უფასო ონლაინ ჭადრაკი. ითამაშე ჭადრაკი სუფთა, სადა ინტერფეისით. არანაირი რეგისტრაცია, არანაირი რეკლამა, არანაირი პლაგინი საჭირო არ არის. ეთამაშე ჭადრაკი კომპიუტერს, მეგობარს ან შემთხვევით ოპონენტს</string>
   <string name="teams">გუნდები</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s წევრი</item>
+    <item quantity="other">%s წევრი</item>
+  </plurals>
   <string name="allTeams">ყველა გუნდი</string>
   <string name="newTeam">ახალი გუნდი</string>
   <string name="myTeams">ჩემი გუნდები</string>
@@ -191,6 +227,10 @@
   <string name="fromPosition">პოზიციიდან</string>
   <string name="continueFromHere">ამ პოზიციიდან გაგრძელება</string>
   <string name="importGame">თამაშის იმპორტი</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s იმპორტირებული თამაშები</item>
+    <item quantity="other">%s იმპორტირებული თამაშები</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">ეს არის ჭადრაკის CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">დააჭირეთ მაგიდაზე რომ გააკეთოთ სვლა, და დაამტკიცოთ რომ ადამიანი ხართ</string>
   <string name="notACheckmate">არ არის მატი</string>
@@ -208,6 +248,10 @@
   <string name="unblock">ბლოკის მოხსნა</string>
   <string name="followsYou">მოგყვება</string>
   <string name="xStartedFollowingY">%1$s დაიწყო მოყოლა %2$s</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s მომყოლები</item>
+    <item quantity="other">%s მომყოლები</item>
+  </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s მიყვება</item>
     <item quantity="other">%s მიყვება</item>
@@ -278,6 +322,10 @@
   <string name="pleaseVotePuzzle">გააუმჯობესეთ Lichess ხმის მიცემით ზემოთ ან ქვემოთ მიმართული ისრების მეშვეობით:</string>
   <string name="thankYou">გმადლობთ შეფასებისთვის!</string>
   <string name="ratingX">რეიტინგი: %s</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">ნათამაშებია %s</item>
+    <item quantity="other">ნათამაშებია %s</item>
+  </plurals>
   <string name="fromGameLink">თამაშიდან %s</string>
   <string name="startTraining">დაიწყე ვარჯიში</string>
   <string name="continueTraining">გააგრძელე ვარჯიში</string>
@@ -287,6 +335,10 @@
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">თქვენ გაქვთ %s წამი, რათა გააკეთოთ პირველი სვლა!</item>
     <item quantity="other">თქვენ გაქვთ %s წამი, რათა გააკეთოთ პირველი სვლა!</item>
+  </plurals>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s მიმდინარე თამაში</item>
+    <item quantity="other">%s მიმდინარე თამაში</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">სვლის გაკეთების შემდეგ მომდევნო თამაშზე ავტომატური გადასვლა</string>
   <string name="autoSwitch">ავტო გადართვა</string>
@@ -426,6 +478,10 @@
   <string name="whiteCastlingQueenside">თეთრების O-O-O</string>
   <string name="blackCastlingKingside">შავების O-O</string>
   <string name="blackCastlingQueenside">შავების O-O-O</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s გამოხმაურება ფორუმზე</item>
+    <item quantity="other">%s გამოხმაურება ფორუმზე</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">თამაშში დახარჯული დრო: %s</string>
   <string name="watchGames">თამაშების თვალის მიდევნება</string>
   <string name="tpTimeSpentOnTV">თამაშების ყურებაში დახარჯული დრო: %s</string>

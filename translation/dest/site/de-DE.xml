@@ -233,7 +233,7 @@
   </plurals>
   <string name="thisIsAChessCaptcha">Dies ist ein Schach-CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Mach einen Zug, um zu beweisen, dass du ein Mensch bist.</string>
-  <string name="captcha.fail">Bitte löse das Schach-Captcha.</string>
+  <string name="captcha.fail">Bitte löse die Schachaufgabe.</string>
   <string name="notACheckmate">Kein Matt</string>
   <string name="colorPlaysCheckmateInOne">%s setzt Matt in einem Zug</string>
   <string name="retry">Erneut versuchen</string>
@@ -586,6 +586,7 @@
   <string name="quickPairing">Pools</string>
   <string name="lobby">Lobby</string>
   <string name="yourScore">Punktestand: %s</string>
+  <string name="language">Sprache</string>
   <string name="background">Hintergrund</string>
   <string name="boardGeometry">Brettgröße und 3D</string>
   <string name="boardTheme">Brettdesign</string>
@@ -606,4 +607,5 @@
   <string name="error.maxLength">Höchstens %s Zeichen</string>
   <string name="error.min">Muss mindestens %s sein</string>
   <string name="error.max">Darf höchstens %s sein</string>
+  <string name="custom">Andere Spielzeit</string>
 </resources>

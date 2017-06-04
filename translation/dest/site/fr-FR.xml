@@ -57,13 +57,17 @@
   <string name="offerDraw">Proposer le nul</string>
   <string name="draw">Partie nulle</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s joueurs</item>
+    <item quantity="one">%s joueur</item>
     <item quantity="other">%s joueurs</item>
   </plurals>
   <string name="currentGames">Parties en cours</string>
   <plurals name="nbGames">
     <item quantity="one">%s partie</item>
     <item quantity="other">%s parties</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s favoris</item>
+    <item quantity="other">%s favoris</item>
   </plurals>
   <string name="viewInFullSize">Agrandir</string>
   <string name="logOut">Déconnexion</string>
@@ -108,6 +112,10 @@
   <string name="forgotPassword">Mot de passe oublié ?</string>
   <string name="rank">Classement</string>
   <string name="gamesPlayed">Parties jouées</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s partie avec vous</item>
+    <item quantity="other">%s parties avec vous</item>
+  </plurals>
   <string name="cancel">Annuler</string>
   <string name="timeOut">Temps écoulé</string>
   <string name="drawOfferSent">Proposition de nulle envoyée</string>
@@ -150,9 +158,17 @@
   <string name="incrementInSeconds">Incrément en secondes</string>
   <string name="freeOnlineChess">Jeu d\'échecs gratuit en ligne</string>
   <string name="spectators">Spectateurs :</string>
+  <plurals name="nbWins">
+    <item quantity="one">%s victoire</item>
+    <item quantity="other">%s victoires</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s défaites</item>
+    <item quantity="other">%s défaites</item>
+  </plurals>
   <plurals name="nbDraws">
-    <item quantity="one">%s nul</item>
-    <item quantity="other">%s nuls</item>
+    <item quantity="one">%s nulles</item>
+    <item quantity="other">%s nulles</item>
   </plurals>
   <string name="exportGames">Exporter les parties</string>
   <string name="ratingRange">Classement</string>
@@ -182,7 +198,7 @@
   <string name="siteDescription">Jeu d\'échecs gratuit en ligne. Jouez aux échecs immédiatement avec une interface simple. Pas d\'inscription obligatoire, pas de publicité, pas de plugin. Jouez aux échecs contre l\'ordinateur, des amis ou des adversaires en ligne.</string>
   <string name="teams">Équipes</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s membre</item>
+    <item quantity="one">%s membres</item>
     <item quantity="other">%s membres</item>
   </plurals>
   <string name="allTeams">Toutes les équipes</string>
@@ -212,7 +228,7 @@
   <string name="continueFromHere">Continuer depuis cette position</string>
   <string name="importGame">Importer une partie</string>
   <plurals name="nbImportedGames">
-    <item quantity="one">%s partie importée</item>
+    <item quantity="one">%s parties importées</item>
     <item quantity="other">%s parties importées</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Ceci est un CAPTCHA d\'échecs.</string>
@@ -234,6 +250,10 @@
   <string name="unblock">Débloquer</string>
   <string name="followsYou">Vous suit</string>
   <string name="xStartedFollowingY">%1$s a suivi %2$s</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s suiveurs</item>
+    <item quantity="other">%s suiveurs</item>
+  </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s suivis</item>
     <item quantity="other">%s suivis</item>
@@ -305,8 +325,8 @@
   <string name="thankYou">Merci !</string>
   <string name="ratingX">Classement : %s</string>
   <plurals name="playedXTimes">
-    <item quantity="one">Tenté %s fois</item>
-    <item quantity="other">Tenté %s fois</item>
+    <item quantity="one">Joué %s fois</item>
+    <item quantity="other">Joué %s fois</item>
   </plurals>
   <string name="fromGameLink">Tiré de la partie %s</string>
   <string name="startTraining">Commencer l\'entraînement</string>
@@ -317,6 +337,10 @@
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">Vous avez %s secondes pour jouer votre premier coup !</item>
     <item quantity="other">Vous avez %s secondes pour jouer votre premier coup !</item>
+  </plurals>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s parties en cours</item>
+    <item quantity="other">%s parties en cours</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Aller automatiquement à la prochaine partie après chaque coup</string>
   <string name="autoSwitch">Changement automatique</string>
@@ -562,6 +586,7 @@
   <string name="quickPairing">Appariement rapide</string>
   <string name="lobby">Lobby</string>
   <string name="yourScore">Votre score : %s</string>
+  <string name="language">Langue</string>
   <string name="background">Arrière-plan</string>
   <string name="boardGeometry">Forme de l\'échiquier</string>
   <string name="boardTheme">Thème de l\'échiquier</string>
@@ -571,9 +596,16 @@
   <string name="usernameAlreadyUsed">Ce nom d\'utilisateur existe déjà. Merci d\'en choisir un autre.</string>
   <string name="usernameInvalid">Nom d\'utilisateur invalide. Veullez utiliser seulement des lettres, chiffres, underscore et tirets.</string>
   <string name="usernameStartNoNumber">Le premier caractère du nom ne peut pas être un chiffre.</string>
+  <string name="usernameUnacceptable">Ce nom d\'utilisateur existe déjà ou est insultant.</string>
   <string name="directlySupportLichess">Financer Lichess</string>
+  <string name="playChessInStyle">Jouez stylé</string>
   <string name="chessBasics">Bases des échecs</string>
   <string name="coaches">Coachs</string>
   <string name="invalidPgn">PGN non valide</string>
   <string name="invalidFen">FEN non valide</string>
+  <string name="error.minLength">Vous devez écrire au moins %s caractères</string>
+  <string name="error.maxLength">Vous pouvez écrire un maximum de %s caractères</string>
+  <string name="error.min">Doit être superieur ou égal à %s</string>
+  <string name="error.max">Doit être inférieur ou égal à %s</string>
+  <string name="custom">Perso</string>
 </resources>

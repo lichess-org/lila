@@ -60,6 +60,12 @@
     <item quantity="other">%s вӑйӑҫӑ</item>
   </plurals>
   <string name="currentGames">Халь пыракан вӑйӑсем</string>
+  <plurals name="nbGames">
+    <item quantity="other">%s Вӑйӑ</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="other">%s Картса хуни</item>
+  </plurals>
   <string name="viewInFullSize">Тулли калӑпӑшла пӑх</string>
   <string name="logOut">Тух</string>
   <string name="signIn">Кӗр</string>
@@ -79,6 +85,12 @@
   <string name="correspondence">Вӑрах</string>
   <string name="daysPerTurn">Пӗрре ҫӳрессишӗн вӑхӑт</string>
   <string name="oneDay">Пӗр кун</string>
+  <plurals name="nbDays">
+    <item quantity="other">%s кун</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="other">%s сехет</item>
+  </plurals>
   <string name="time">Вӑхӑт</string>
   <string name="rating">Рейтинг</string>
   <string name="ratingStats">Рейтинг графӗкӗсем</string>
@@ -94,6 +106,9 @@
   <string name="forgotPassword">Кӗме сӑмаха мансан</string>
   <string name="rank">Хаклав</string>
   <string name="gamesPlayed">вӑйӑ выљанӑ</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="other">Санпа %s вӑйӑ выљанӑ</item>
+  </plurals>
   <string name="cancel">Пӑрахӑҫла</string>
   <string name="timeOut">Вӑхӑт пӗтни</string>
   <string name="drawOfferSent">Парма-пар сӗннине йанӑ</string>
@@ -136,6 +151,15 @@
   <string name="incrementInSeconds">Ҫеккунт инкременчӗ</string>
   <string name="freeOnlineChess">Тӳлевсӗр Онлайн Шахмат</string>
   <string name="spectators">Сӑнавҫӑ:</string>
+  <plurals name="nbWins">
+    <item quantity="other">%s ҫӗнтерӳ</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="other">%s парӑну</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="other">%s парма-пар</item>
+  </plurals>
   <string name="exportGames">Вӑйӑ еспортласси</string>
   <string name="ratingRange">Рейтинг хушши</string>
   <plurals name="giveNbSeconds">
@@ -161,6 +185,9 @@
   <string name="backToGame">Вӑййине тавӑрӑн</string>
   <string name="siteDescription">Шахматла выљамалли тӳлевсӗр сервер. Рекламӑсӑр, плагинсӗр, ӑнлануллӑ интерфейс. Регистратсисӗр выљама май килни. Компйутӑрпа, тусупа йе ӑнсӑрт ӑмӑртуҫӑпа шахматла выљасси.</string>
   <string name="teams">Ушкӑнсем</string>
+  <plurals name="nbMembers">
+    <item quantity="other">%s пайташ</item>
+  </plurals>
   <string name="allTeams">Мӗн пур ушкӑн</string>
   <string name="newTeam">Ҫӗнӗ ушкӑн</string>
   <string name="myTeams">Манӑн ушкӑнсем</string>
@@ -187,6 +214,9 @@
   <string name="fromPosition">Поҫитсирен</string>
   <string name="continueFromHere">Кунтан малалла тӑс</string>
   <string name="importGame">Вӑйӑ импортласси</string>
+  <plurals name="nbImportedGames">
+    <item quantity="other">%s Импортланӑ вӑйӑ</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">Ку вӑл CAPTCHA шахматла.</string>
   <string name="clickOnTheBoardToMakeYourMove">Етем пулнине ҫирӗплетес тесе, тата куҫас тесе хӑма ҫине пус.</string>
   <string name="notACheckmate">Мат туни мар</string>
@@ -204,6 +234,9 @@
   <string name="unblock">Чарӑва сир</string>
   <string name="followsYou">Сан ҫине ҫырӑнса тӑрать</string>
   <string name="xStartedFollowingY">%1$s -&gt; %2$s ҫине ҫырӑннӑ</string>
+  <plurals name="nbFollowers">
+    <item quantity="other">%s ҫырӑнни</item>
+  </plurals>
   <plurals name="nbFollowing">
     <item quantity="other">%s ҫырӑнса тӑни</item>
   </plurals>
@@ -271,6 +304,9 @@
   <string name="pleaseVotePuzzle">Lichess лайӑхлатас тесен, ҫи йе ай йӗппипе усӑ курса хак пар:</string>
   <string name="thankYou">Тавах!</string>
   <string name="ratingX">Рейтинг: %s</string>
+  <plurals name="playedXTimes">
+    <item quantity="other">%s хут выљанӑ</item>
+  </plurals>
   <string name="fromGameLink">%s вӑйӑран</string>
   <string name="startTraining">Вӗренев пуҫла</string>
   <string name="continueTraining">Хӑнӑхтарӑва малалла тӑс</string>
@@ -279,6 +315,9 @@
   <string name="thisPuzzleIsWrong">Ку лартӑм тӗрӗс мар йе йӑлӑхтармӑш</string>
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="other">Пӗрремӗш утӑм тумашкӑн %s ҫеккунт йулчӗ!</item>
+  </plurals>
+  <plurals name="nbGamesInPlay">
+    <item quantity="other">%s вӑйӑ пырать</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Ҫӳрени хыҫҫӑн тепӗр вӑйӑ патне хӑй халлӗн куҫ</string>
   <string name="autoSwitch">Хӑй халлӗн куҫарас</string>
@@ -415,6 +454,9 @@
   <string name="whiteCastlingQueenside">Шурӑ O-O-O</string>
   <string name="blackCastlingKingside">Хура O-O</string>
   <string name="blackCastlingQueenside">Хура O-O-O</string>
+  <plurals name="nbForumPosts">
+    <item quantity="other">%s Форумра ҫырни</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">Выльаса ларнӑ вӑхӑт: %s</string>
   <string name="watchGames">Вӑййисене тишкер</string>
   <string name="tpTimeSpentOnTV">TV курнӑ вӑхӑт: %s</string>

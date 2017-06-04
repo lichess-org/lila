@@ -61,6 +61,14 @@
     <item quantity="other">%s Jokalari</item>
   </plurals>
   <string name="currentGames">Oraingo partidak</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s partida</item>
+    <item quantity="other">%s partida</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s partida nabarmenduak</item>
+    <item quantity="other">%s partida nabarmenduak</item>
+  </plurals>
   <string name="viewInFullSize">Pantaila osoa</string>
   <string name="logOut">Irten</string>
   <string name="signIn">Sartu</string>
@@ -81,6 +89,14 @@
   <string name="correspondence">Egunetako partidak</string>
   <string name="daysPerTurn">Zenbat egun txandako</string>
   <string name="oneDay">Egun bat</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s egun</item>
+    <item quantity="other">%s egun</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s ordu</item>
+    <item quantity="other">%s ordu</item>
+  </plurals>
   <string name="time">Denbora</string>
   <string name="rating">Puntuazioa</string>
   <string name="ratingStats">Estatistikak</string>
@@ -96,6 +112,10 @@
   <string name="forgotPassword">Pasahitza ahaztu duzu?</string>
   <string name="rank">Maila</string>
   <string name="gamesPlayed">Partida jokaturik</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s partida zure aurka</item>
+    <item quantity="other">%s partida zure aurka</item>
+  </plurals>
   <string name="cancel">Ezeztatu</string>
   <string name="timeOut">Denbora bukatuta</string>
   <string name="drawOfferSent">Berdintzeko eskaintza bidali da</string>
@@ -138,6 +158,18 @@
   <string name="incrementInSeconds">Segundu-gehiketa</string>
   <string name="freeOnlineChess">Doako xakea Interneten</string>
   <string name="spectators">Ikusleak</string>
+  <plurals name="nbWins">
+    <item quantity="one">%s irabazita</item>
+    <item quantity="other">%s irabazita</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s Galduta</item>
+    <item quantity="other">%s Galduta</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s Berdinduta</item>
+    <item quantity="other">%s Berdinduta</item>
+  </plurals>
   <string name="exportGames">Partidak esportatu</string>
   <string name="ratingRange">Aurkariaren puntuazio-tartea</string>
   <plurals name="giveNbSeconds">
@@ -165,6 +197,10 @@
   <string name="backToGame">Partidara itzuli</string>
   <string name="siteDescription">Doako xake zerbitzaria. Xakean jokatu, interfaze argiarekin. Izena ematea ez da beharrezkoa. Iragarkirik gabe. Jolastu xakean ordenagailu, lagun edo beste aurkariekin.</string>
   <string name="teams">Taldeak</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s kide</item>
+    <item quantity="other">%s kide</item>
+  </plurals>
   <string name="allTeams">Talde guztiak</string>
   <string name="newTeam">Talde berria</string>
   <string name="myTeams">Nire taldeak</string>
@@ -191,6 +227,10 @@
   <string name="fromPosition">Posizio jakin batetik</string>
   <string name="continueFromHere">Hemendik jarraitu</string>
   <string name="importGame">Partida inportatu</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s inportatutako partidak</item>
+    <item quantity="other">%s inportatutako partidak</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">Hau xake-CAPTCHA bat da</string>
   <string name="clickOnTheBoardToMakeYourMove">Egizu jokaldia taulan, gizakia zarela frogatzeko.</string>
   <string name="notACheckmate">Hori ez da xake-matea!</string>
@@ -208,6 +248,10 @@
   <string name="unblock">Desblokeatu</string>
   <string name="followsYou">Zu jarraitzen</string>
   <string name="xStartedFollowingY">%1$s  %2$s  jarraitzen hasi da</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s jarraitzaile</item>
+    <item quantity="other">%s jarraitzaile</item>
+  </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s Jarraituak</item>
     <item quantity="other">%s Jarraituak</item>
@@ -278,6 +322,10 @@
   <string name="pleaseVotePuzzle">Eman botoa Lichess-i laguntzeko,  goranzko zein  beheranzko gezia hautatuz.</string>
   <string name="thankYou">Eskerrik asko!</string>
   <string name="ratingX">Puntuazioa: %s</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">%s alditan jokaturik</item>
+    <item quantity="other">%s alditan jokaturik</item>
+  </plurals>
   <string name="fromGameLink">%s partidatik hartua</string>
   <string name="startTraining">Entrenatzen hasi</string>
   <string name="continueTraining">Entrenatzen jarraitu</string>
@@ -287,6 +335,10 @@
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">%s segundu dituzu  lehen mugimendua egiteko</item>
     <item quantity="other">%s segundu dituzu  lehen mugimendua egiteko</item>
+  </plurals>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s partida une honetan</item>
+    <item quantity="other">%s partida une honetan</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Mugitu ondoren, hurrengo partidara joan</string>
   <string name="autoSwitch">Hurrengo partidara</string>
@@ -426,6 +478,10 @@
   <string name="whiteCastlingQueenside">Zuriak O-O-O</string>
   <string name="blackCastlingKingside">Beltzak O-O</string>
   <string name="blackCastlingQueenside">Beltzak O-O-O</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s foroaren mezu</item>
+    <item quantity="other">%s foroaren mezu</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">Jolasten egondako denbora: %s</string>
   <string name="watchGames">Partidak ikusi</string>
   <string name="tpTimeSpentOnTV">TV ikusten egondako denbora: %s</string>

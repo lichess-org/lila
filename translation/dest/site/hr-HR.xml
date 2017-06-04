@@ -420,7 +420,7 @@
   <string name="whenTimeRemainingLessThanTenSeconds">Kad je ostalo manje od 10 sekundi</string>
   <string name="horizontalGreenProgressBars">Vodoravna zelena linija napretka</string>
   <string name="soundWhenTimeGetsCritical">Zvuk kada je vrijeme kritično</string>
-  <string name="gameBehavior">Ponašanje tijekom igre</string>
+  <string name="gameBehavior">Način igre</string>
   <string name="premovesPlayingDuringOpponentTurn">Pretpotezi (potezi dok je protivnikov red)</string>
   <string name="takebacksWithOpponentApproval">Povlačenje poteza (ako se protivnik složi)</string>
   <string name="promoteToQueenAutomatically">Auto-promocija u damu</string>
@@ -434,8 +434,8 @@
   <string name="fast">Brzo</string>
   <string name="normal">Normalno</string>
   <string name="slow">Sporo</string>
-  <string name="insideTheBoard">Unutar table</string>
-  <string name="outsideTheBoard">Izvan table</string>
+  <string name="insideTheBoard">Unutar ploče</string>
+  <string name="outsideTheBoard">Izvan ploče</string>
   <string name="onSlowGames">U sporim partijama</string>
   <string name="always">Uvijek</string>
   <string name="inCasualGamesOnly">Samo u prijateljskim partijama</string>
@@ -452,7 +452,7 @@
   <string name="timeline">Vremenska crta</string>
   <string name="seeAllTournaments">Vidi sve turnire</string>
   <string name="starting">Počinje:</string>
-  <string name="allInformationIsPublicAndOptional">Sve informacije su javne.</string>
+  <string name="allInformationIsPublicAndOptional">Sve informacije su javne i neobavezne.</string>
   <string name="yourCityRegionOrDepartment">Tvoj grad, regija ili pokrajina.</string>
   <string name="biographyDescription">Nešto više o vama, što volite u šahu, omiljena otvaranja, igre, igrači…</string>
   <plurals name="maximumNbCharacters">
@@ -513,7 +513,7 @@
   <string name="watch">Gledaj</string>
   <string name="internationalEvents">Međunarodni događaji</string>
   <string name="videoLibrary">Video knjižnica</string>
-  <string name="mobileApp">Mobilna Aplikacija</string>
+  <string name="mobileApp">Mobilna aplikacija</string>
   <string name="webmasters">Webmasteri</string>
   <string name="contribute">Doprinesi</string>
   <string name="contact">Kontaktiraj</string>
@@ -528,19 +528,19 @@
   <string name="returnToSimulHomepage">Vrati se na stranicu sa simultankama</string>
   <string name="aboutSimul">Simultanke uključuju jednog igrača koji igra protiv više protivnika odjednom.</string>
   <string name="aboutSimulImage">Od 50 protivnika, Fischer je pobijedio 47 parija, remizirao 2 i izgubio 1.</string>
-  <string name="aboutSimulRealLife">Koncept je preuzet iz stvarnog života. U stvarnom životu, ovo uključuje domaćina simultanke koji ide od table do table da odigra pojedinačni potez.</string>
-  <string name="aboutSimulRules">Kada simultanka započne, svaki igrač započinje partiju protiv domaćina, koji dobija bijele figure. simultanka završava kada su i sve partije završene.</string>
+  <string name="aboutSimulRealLife">Koncept je preuzet iz stvarnog života. U stvarnom životu, ovo uključuje domaćina simultanke koji ide od ploče do ploče da odigra pojedinačni potez.</string>
+  <string name="aboutSimulRules">Kada simultanka započne, svaki igrač započinje partiju protiv domaćina, koji dobiva bijele figure. Simultanka završava kada završe sve partije.</string>
   <string name="aboutSimulSettings">Simultanke su uvijek prijateljske. Igraj ponovo, vrati potez i dodaj vrijeme je isključeno.</string>
-  <string name="create">Stvori</string>
+  <string name="create">Kreiraj</string>
   <string name="whenCreateSimul">Kada kreiraš simultanku, igraš protiv više igrača istovremeno.</string>
   <string name="simulVariantsHint">Ako izabereš nekoliko varijanti, svaki igrač je u mogućnosti da izabere koju će igrati.</string>
   <string name="simulClockHint">Fischer podešavanje sata. Što više igrača primiš, više vremena bit će ti potrebno.</string>
   <string name="simulAddExtraTime">Možeš dodati dodatno vrijeme na svoj sat da ti pomogne savladati simultanku.</string>
   <string name="simulHostExtraTime">Dodatno vrijeme domaćina</string>
   <string name="lichessTournaments">Lichess turniri</string>
-  <string name="tournamentFAQ">Arena turniri najčešće postavljena pitanja</string>
+  <string name="tournamentFAQ">Najčešće postavljana pitanje o Arena turnirma</string>
   <string name="tournamentOfficial">Službeno</string>
-  <string name="timeBeforeTournamentStarts">Vrijeme prije nego turnir započne.</string>
+  <string name="timeBeforeTournamentStarts">Vrijeme prije nego turnir započne</string>
   <string name="averageCentipawnLoss">Prosječni gubitak u stotim dijelovima pješaka</string>
   <string name="keyboardShortcuts">Kratice na tipkovnici</string>
   <string name="keyMoveBackwardOrForward">idi natrag/naprijed</string>
@@ -551,18 +551,18 @@
   <string name="tournamentHomeTitle">Šahovski turniri sa različitim vremenskim kontrolama i varijantama</string>
   <string name="tournamentHomeDescription">Igraj brze turnire! Pridruži se turniru ili stvori svoj turnir.</string>
   <string name="tournamentNotFound">Turnir nije pronađen</string>
-  <string name="tournamentDoesNotExist">Turnir ne postoji.</string>
+  <string name="tournamentDoesNotExist">Ovaj turnir ne postoji.</string>
   <string name="tournamentMayHaveBeenCanceled">Turnir je možda bio otkazan, ako su ga svi igrači napustili prije početka.</string>
   <string name="returnToTournamentsHomepage">Povratak na početnu stranicu turnira</string>
-  <string name="weeklyPerfTypeRatingDistribution">Mjesečna %s distribucija ranga</string>
+  <string name="weeklyPerfTypeRatingDistribution">Mjesečna %s distribucija ratinga</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">Jedan %2$s igrač ovaj tjedan.</item>
     <item quantity="few">%1$s %2$s igrača ovog tjedna.</item>
     <item quantity="other">%1$s %2$s igrača ovog tjedna.</item>
   </plurals>
-  <string name="yourPerfTypeRatingIsRating">Tvoj %1$s rang je %2$s.</string>
+  <string name="yourPerfTypeRatingIsRating">Tvoj %1$s rating je %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Bolji si od %1$s od %2$s igrača.</string>
-  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nemaš službeni %s rang.</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nemaš službeni %s rating.</string>
   <string name="checkYourEmail">Provjeri svoj e-mail.</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Poslali smo ti e-mail. Klikni na link u e-mailu kako da aktiviraš svoj račun.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ako ne vidiš email, pogledaj na drugim mjestima (otpad/smeće, neželjena pošta, društvene mreže ili druge mape).</string>
@@ -579,7 +579,7 @@
   <string name="crosstable">Tablica križanja</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Možeš skrolirati preko ploče za micanje u partiji.</string>
   <string name="analysisShapesHowTo">Pritisni shift + lijevi klik ili desni klik kako bi crtao/la krugove i strelice na ploči.</string>
-  <string name="confirmResignation">Potvrdi predaju</string>
+  <string name="confirmResignation">Potvrda predaje</string>
   <string name="letOtherPlayersMessageYou">Dopusti drugim igračima da ti pošalju poruku</string>
   <string name="shareYourInsightsData">dijeli vaše osobne podatke</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Već si se registrirao/la ovim emailom: %s</string>
@@ -609,6 +609,7 @@
   <string name="quickPairing">Brzo uparivanje</string>
   <string name="lobby">Lobi</string>
   <string name="yourScore">Tvoj rezultat: %s</string>
+  <string name="language">Jezik</string>
   <string name="background">Pozadina</string>
   <string name="boardGeometry">Geometrija ploče</string>
   <string name="boardTheme">Tema ploče</string>
@@ -629,4 +630,5 @@
   <string name="error.maxLength">Maksimalna dužina je %s znakova</string>
   <string name="error.min">Mora biti veće ili jednako %s</string>
   <string name="error.max">Mora biti manje ili jednako %s</string>
+  <string name="custom">Prilagođeno</string>
 </resources>

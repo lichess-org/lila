@@ -61,6 +61,14 @@
     <item quantity="other">%s விளையாடிகள்</item>
   </plurals>
   <string name="currentGames">இப்பொழுதைய ஆட்டங்கள்</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s ஆட்டங்கள்</item>
+    <item quantity="other">%s ஆட்டங்கள்</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s நினைவுக்குறிகள்</item>
+    <item quantity="other">%s நினைவுக்குறிகள்</item>
+  </plurals>
   <string name="viewInFullSize">முழு அளவில் காண்க</string>
   <string name="logOut">வெளியேறு</string>
   <string name="signIn">உள்நுழை</string>
@@ -81,6 +89,14 @@
   <string name="correspondence">நீண்டநாள் ஆட்டம்</string>
   <string name="daysPerTurn">ஒரு முறைக்கு எத்தனை நாட்கள்</string>
   <string name="oneDay">ஒரு நாள்</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s நாட்கள்</item>
+    <item quantity="other">%s நாட்கள்</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s மணி நேரம்</item>
+    <item quantity="other">%s மணி நேரம்</item>
+  </plurals>
   <string name="time">நேரம்</string>
   <string name="rating">மதிப்பீடு</string>
   <string name="ratingStats">மதிப்பீடு புள்ளிவிவரங்கள்</string>
@@ -96,6 +112,10 @@
   <string name="forgotPassword">கடவுச்சொல்லை மறந்து விட்டீர்களா?</string>
   <string name="rank">வரிசை</string>
   <string name="gamesPlayed">ஆடின ஆட்டங்கள்</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s ஆட்டங்கள் நும்மோடு</item>
+    <item quantity="other">%s ஆட்டங்கள் நும்மோடு</item>
+  </plurals>
   <string name="cancel">கழி</string>
   <string name="timeOut">நேரந் தீர்வு</string>
   <string name="drawOfferSent">இழுபறி முன்வரவு தெரிவிப்பு</string>
@@ -138,6 +158,18 @@
   <string name="incrementInSeconds">கூட்டளவு நொடிகள்</string>
   <string name="freeOnlineChess">இலவச இணையச் சதுரங்கம்</string>
   <string name="spectators">பார்வையாளர்கள்</string>
+  <plurals name="nbWins">
+    <item quantity="one">%s வெற்றிகள்</item>
+    <item quantity="other">%s வெற்றிகள்</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s தோல்விகள்</item>
+    <item quantity="other">%s தோல்விகள்</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s இழுபறிகள்</item>
+    <item quantity="other">%s இழுபறிகள்</item>
+  </plurals>
   <string name="exportGames">ஆட்டங்களை வெளியேற்று</string>
   <string name="ratingRange">ஏலோ (Elo) அளவு</string>
   <plurals name="giveNbSeconds">
@@ -165,6 +197,10 @@
   <string name="backToGame">ஆட்டத்துக்கு திரும்பிச்செல்</string>
   <string name="siteDescription">இலவச இணையச் சதுரங்க ஆட்டம். தெளிவான முகப்பைக்கொண்டு சதுரங்கமாடுக. பதிவில்லை, விளம்பரமில்லை, எந்தச் செருகலும் தேவையல்ல. கணினியோடோ, ஒரு தோழரோடோ அல்லது நேர்ந்தபடி ஓர் எதிராளியோடுமோ விளையாடுக.</string>
   <string name="teams">அணிகள்</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s உறுப்பினர்கள்</item>
+    <item quantity="other">%s உறுப்பினர்கள்</item>
+  </plurals>
   <string name="allTeams">எல்லா அணிகளும்</string>
   <string name="newTeam">புது அணி</string>
   <string name="myTeams">என் அணிகள்</string>
@@ -191,6 +227,10 @@
   <string name="fromPosition">தொடக்கநிலை</string>
   <string name="continueFromHere">இங்கிருந்து தொடர்க</string>
   <string name="importGame">ஆட்டத்தை உள்ளேற்று</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s உள்ளேற்றின ஆட்டங்கள்</item>
+    <item quantity="other">%s உள்ளேற்றின ஆட்டங்கள்</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">இது ஒரு சதுரங்கமுறை மாந்தத்தேர்வு (CAPTCHA)</string>
   <string name="clickOnTheBoardToMakeYourMove">பலகையிலே சொடுக்கி நகர்த்துங்கள், நீங்கள் மாந்தரென்று நிறுவுங்கள்</string>
   <string name="notACheckmate">முழுத்தடையன்று</string>
@@ -208,6 +248,10 @@
   <string name="unblock">தடைநீக்கு</string>
   <string name="followsYou">நும்மைப் பின்தொடர்கின்றார்</string>
   <string name="xStartedFollowingY">%1$s என்பவர் %2$s-ஐப் பின்தொடரத் தொடங்கினார்</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s பின்தொடர்நர்கள்</item>
+    <item quantity="other">%s பின்தொடர்நர்கள்</item>
+  </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s -ஐப் பின்தொடர்கின்றார்</item>
     <item quantity="other">%s -ஐப் பின்தொடர்கின்றார்</item>
@@ -278,6 +322,10 @@
   <string name="pleaseVotePuzzle">மேல் அல்லது கீழ் அம்புக்குறிகளின் மூலம் வாக்களித்து லிசெஸுக்கு உதவுங்கள்:</string>
   <string name="thankYou">நன்றி</string>
   <string name="ratingX">மதிப்பீடு: %s</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">%s முறை விளையாடப்பட்டுள்ளது</item>
+    <item quantity="other">%s முறை விளையாடப்பட்டுள்ளது</item>
+  </plurals>
   <string name="fromGameLink">%s விளையாட்டில் இருந்து</string>
   <string name="startTraining">பயிற்சியை துவங்கு</string>
   <string name="continueTraining">பயிற்சியை தொடர்</string>
@@ -287,6 +335,10 @@
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">நீங்கள் உங்கள் முதல் காயை நகர்த்த %s விநாடிகளே உள்ளது!</item>
     <item quantity="other">நீங்கள் உங்கள் முதல் காயை நகர்த்த %s விநாடிகளே உள்ளது!</item>
+  </plurals>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s விளையாட்டுக்கள்</item>
+    <item quantity="other">%s விளையாட்டுக்கள்</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">நகரும் பிறகு தானாகவே அடுத்த விளையாட்டு தொடர</string>
   <string name="autoSwitch">ஆட்டம் மாற</string>
@@ -326,6 +378,9 @@
   <string name="typePrivateNotesHere">இரகசிய குறிப்புகள் இங்கே வைக்கலாம்</string>
   <string name="closeAccount">கணக்கு மூடவும்</string>
   <string name="changedMindDoNotCloseAccount">என் மனதை மாற்றிநேன் என் கணக்கு மூட வேண்டாம்</string>
+  <string name="currentPassword">தற்போதைய கடவுச்சொல்</string>
+  <string name="newPassword">புதிய கடவுச்சொல்</string>
+  <string name="newPasswordAgain">புதிய கடவுச்சொல் (மீண்டும்)</string>
   <string name="chessClock">செஸ் கடிகாரம்</string>
   <string name="never">ஒருபோதும்</string>
   <string name="sound">சப்தம்</string>

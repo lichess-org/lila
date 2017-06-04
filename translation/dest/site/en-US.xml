@@ -61,6 +61,14 @@
     <item quantity="other">%s players</item>
   </plurals>
   <string name="currentGames">Current games</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s game</item>
+    <item quantity="other">%s games</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s bookmark</item>
+    <item quantity="other">%s bookmarks</item>
+  </plurals>
   <string name="viewInFullSize">View in full size</string>
   <string name="logOut">Sign out</string>
   <string name="signIn">Sign in</string>
@@ -81,6 +89,14 @@
   <string name="correspondence">Correspondence</string>
   <string name="daysPerTurn">Days per turn</string>
   <string name="oneDay">One day</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s day</item>
+    <item quantity="other">%s days</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s hour</item>
+    <item quantity="other">%s hours</item>
+  </plurals>
   <string name="time">Time</string>
   <string name="rating">Rating</string>
   <string name="ratingStats">Rating stats</string>
@@ -96,6 +112,10 @@
   <string name="forgotPassword">Forgot password?</string>
   <string name="rank">Rank</string>
   <string name="gamesPlayed">Games played</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s game with you</item>
+    <item quantity="other">%s games with you</item>
+  </plurals>
   <string name="cancel">Cancel</string>
   <string name="timeOut">Time out</string>
   <string name="drawOfferSent">Draw offer sent</string>
@@ -138,6 +158,18 @@
   <string name="incrementInSeconds">Increment in seconds</string>
   <string name="freeOnlineChess">Free Online Chess</string>
   <string name="spectators">Spectators:</string>
+  <plurals name="nbWins">
+    <item quantity="one">%s win</item>
+    <item quantity="other">%s wins</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s loss</item>
+    <item quantity="other">%s losses</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s draw</item>
+    <item quantity="other">%s draws</item>
+  </plurals>
   <string name="exportGames">Export games</string>
   <string name="ratingRange">Rating range</string>
   <plurals name="giveNbSeconds">
@@ -165,6 +197,10 @@
   <string name="backToGame">Back to game</string>
   <string name="siteDescription">Free online Chess server. Play Chess now in a clean interface. No registration, no ads, no plugin required. Play Chess with the computer, friends or random opponents.</string>
   <string name="teams">Teams</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s member</item>
+    <item quantity="other">%s members</item>
+  </plurals>
   <string name="allTeams">All teams</string>
   <string name="newTeam">New team</string>
   <string name="myTeams">My teams</string>
@@ -191,8 +227,13 @@
   <string name="fromPosition">From position</string>
   <string name="continueFromHere">Continue from here</string>
   <string name="importGame">Import game</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s imported game</item>
+    <item quantity="other">%s imported games</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">This is a chess CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Click on the board to make your move, and prove you are human.</string>
+  <string name="captcha.fail">Please solve the chess captcha.</string>
   <string name="notACheckmate">Not a checkmate</string>
   <string name="colorPlaysCheckmateInOne">%s plays; checkmate in one move</string>
   <string name="retry">Retry</string>
@@ -200,6 +241,7 @@
   <string name="onlineFriends">Online friends</string>
   <string name="noFriendsOnline">No friends online</string>
   <string name="findFriends">Find friends</string>
+  <string name="favoriteOpponents">Favorite opponents</string>
   <string name="follow">Follow</string>
   <string name="following">Following</string>
   <string name="unfollow">Unfollow</string>
@@ -208,6 +250,10 @@
   <string name="unblock">Unblock</string>
   <string name="followsYou">Follows you</string>
   <string name="xStartedFollowingY">%1$s started following %2$s</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s follower</item>
+    <item quantity="other">%s followers</item>
+  </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s following</item>
     <item quantity="other">%s following</item>
@@ -278,6 +324,10 @@
   <string name="pleaseVotePuzzle">Help lichess improve by voting, using the up or down arrow:</string>
   <string name="thankYou">Thank you!</string>
   <string name="ratingX">Rating: %s</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Played %s time</item>
+    <item quantity="other">Played %s times</item>
+  </plurals>
   <string name="fromGameLink">From game %s</string>
   <string name="startTraining">Start training</string>
   <string name="continueTraining">Continue training</string>
@@ -287,6 +337,10 @@
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">You have %s seconds to make your first move!</item>
     <item quantity="other">You have %s seconds to make your first move!</item>
+  </plurals>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s game in play</item>
+    <item quantity="other">%s games in play</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Automatically proceed to next game after moving</string>
   <string name="autoSwitch">Auto switch</string>
@@ -382,6 +436,7 @@
   <string name="starting">Starting:</string>
   <string name="allInformationIsPublicAndOptional">All information is public and optional.</string>
   <string name="yourCityRegionOrDepartment">Your city, region, or province.</string>
+  <string name="biographyDescription">Tell about you, what you like in chess, your favourite openings, games, players…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maximum: %s characters.</item>
     <item quantity="other">Maximum: %s characters.</item>
@@ -427,6 +482,10 @@
   <string name="whiteCastlingQueenside">White O-O-O</string>
   <string name="blackCastlingKingside">Black O-O</string>
   <string name="blackCastlingQueenside">Black O-O-O</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s forum post</item>
+    <item quantity="other">%s forum posts</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">Time spent playing: %s</string>
   <string name="watchGames">Watch games</string>
   <string name="tpTimeSpentOnTV">Time on TV: %s</string>
@@ -521,4 +580,32 @@
     <item quantity="other">Available in %s languages!</item>
   </plurals>
   <string name="gameAnalysis">Game analysis</string>
+  <string name="xHostsY">%1$s hosts %2$s</string>
+  <string name="xJoinsY">%1$s joins %2$s</string>
+  <string name="xLikesY">%1$s likes %2$s</string>
+  <string name="quickPairing">Quick pairing</string>
+  <string name="lobby">Lobby</string>
+  <string name="yourScore">Your score: %s</string>
+  <string name="language">Language</string>
+  <string name="background">Background</string>
+  <string name="boardGeometry">Board geometry</string>
+  <string name="boardTheme">Board theme</string>
+  <string name="boardSize">Board size</string>
+  <string name="pieceSet">Piece set</string>
+  <string name="embedInYourWebsite">Embed in your website</string>
+  <string name="usernameAlreadyUsed">This username is already in use, please try another one.</string>
+  <string name="usernameInvalid">Invalid username. Please use only letters, numbers, underscore and dashes.</string>
+  <string name="usernameStartNoNumber">The username must not start with a number.</string>
+  <string name="usernameUnacceptable">This username is not acceptable.</string>
+  <string name="directlySupportLichess">Directly support Lichess</string>
+  <string name="playChessInStyle">Play chess in style</string>
+  <string name="chessBasics">Chess basics</string>
+  <string name="coaches">Coaches</string>
+  <string name="invalidPgn">Invalid PGN</string>
+  <string name="invalidFen">Invalid FEN</string>
+  <string name="error.minLength">Minimum length is %s</string>
+  <string name="error.maxLength">Maximum length is %s</string>
+  <string name="error.min">Must be greater or equal to %s</string>
+  <string name="error.max">Must be less or equal to %s</string>
+  <string name="custom">Custom</string>
 </resources>

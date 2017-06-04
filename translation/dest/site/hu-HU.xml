@@ -61,6 +61,14 @@
     <item quantity="other">%s csatlakozott játékos</item>
   </plurals>
   <string name="currentGames">Éppen zajló játékok</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s Játék</item>
+    <item quantity="other">%s Játék</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s Megjelölés</item>
+    <item quantity="other">%s Megjelölés</item>
+  </plurals>
   <string name="viewInFullSize">Teljes méret</string>
   <string name="logOut">Kijelentkezés</string>
   <string name="signIn">Bejelentkezés</string>
@@ -81,6 +89,14 @@
   <string name="correspondence">Levelezés</string>
   <string name="daysPerTurn">Lépésenkénti napok száma</string>
   <string name="oneDay">Egy nap</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s nap</item>
+    <item quantity="other">%s nap</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s óra</item>
+    <item quantity="other">%s óra</item>
+  </plurals>
   <string name="time">Idő</string>
   <string name="rating">Pontszám</string>
   <string name="ratingStats">Pontszám statisztikák</string>
@@ -96,6 +112,10 @@
   <string name="forgotPassword">Elfelejtette a jelszavát?</string>
   <string name="rank">Rang</string>
   <string name="gamesPlayed">Lejátszott játékok</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s játék veled</item>
+    <item quantity="other">%s játék veled</item>
+  </plurals>
   <string name="cancel">Mégse</string>
   <string name="timeOut">Lejárt az idő</string>
   <string name="drawOfferSent">Döntetlen felajánlás elküldve</string>
@@ -138,6 +158,18 @@
   <string name="incrementInSeconds">Másodpercnövekmény</string>
   <string name="freeOnlineChess">Ingyenes Online Sakk</string>
   <string name="spectators">Nézők</string>
+  <plurals name="nbWins">
+    <item quantity="one">%s győzelem</item>
+    <item quantity="other">%s győzelem</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s vereség</item>
+    <item quantity="other">%s vereség</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s döntetlen</item>
+    <item quantity="other">%s döntetlen</item>
+  </plurals>
   <string name="exportGames">Játékok exportálása</string>
   <string name="ratingRange">Pontszámtartomány</string>
   <plurals name="giveNbSeconds">
@@ -145,7 +177,7 @@
     <item quantity="other">Adj %s másodpercet</item>
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Ez a játékos számítógépes sakkprogram segítségét használja</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Ez a játékos mesterségesen növeli a pontszámát</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">Ez a játékos mesterségesen növeli/csökkenti a pontszámát</string>
   <string name="openingExplorer">Megnyitás tallózó</string>
   <string name="takeback">Visszalépés</string>
   <string name="proposeATakeback">Visszalépés kérése</string>
@@ -163,8 +195,12 @@
   <string name="viewTournament">Verseny nézése</string>
   <string name="backToTournament">Vissza a versenyre</string>
   <string name="backToGame">Vissza a játékhoz</string>
-  <string name="siteDescription">Ingyenes online sakk játék. Játssz sakkot letisztult kezelőfelületen. Nem szükséges regisztráció vagy pluginok, és hirdetéseket sem kell nézned. Játssz sakkot a számítógéppel, barátokkal vagy véletlenszerű ellenfelekkel.</string>
+  <string name="siteDescription">Ingyenes online sakk játék. Sakkozz letisztult kezelőfelületen. Nem szükséges regisztráció vagy pluginok, és hirdetéseket sem kell nézned. Sakkozz a számítógéppel, barátokkal vagy véletlenszerű ellenfelekkel.</string>
   <string name="teams">Csapatok</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s tagok</item>
+    <item quantity="other">%s tagok</item>
+  </plurals>
   <string name="allTeams">Összes csapat</string>
   <string name="newTeam">Új csapat</string>
   <string name="myTeams">Csapataim</string>
@@ -191,8 +227,13 @@
   <string name="fromPosition">Adott állásból</string>
   <string name="continueFromHere">Folytatás innen</string>
   <string name="importGame">Játszma importálása</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s Importált játszmák</item>
+    <item quantity="other">%s Importált játszmák</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">Ez egy ellenőrző sakkfeladvány (CAPTCHA)</string>
   <string name="clickOnTheBoardToMakeYourMove">A táblán való lépéssel bizonyítod, hogy ember vagy.</string>
+  <string name="captcha.fail">Kérjük, oldd meg a sakk feladványt.</string>
   <string name="notACheckmate">Ez nem matt</string>
   <string name="colorPlaysCheckmateInOne">%s lép; matt egy lépésben</string>
   <string name="retry">Próbáld újra</string>
@@ -200,6 +241,7 @@
   <string name="onlineFriends">Online barátok</string>
   <string name="noFriendsOnline">Jelenleg nincsenek online barátaid</string>
   <string name="findFriends">Barátok keresése</string>
+  <string name="favoriteOpponents">Kedvenc ellenfelek</string>
   <string name="follow">Követés</string>
   <string name="following">Követed</string>
   <string name="unfollow">Követés megszüntetése</string>
@@ -208,6 +250,10 @@
   <string name="unblock">Letiltás feloldása</string>
   <string name="followsYou">Követ téged</string>
   <string name="xStartedFollowingY">%1$s követni kezdte a következő játékost:  %2$s</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s követő</item>
+    <item quantity="other">%s követő</item>
+  </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s követett</item>
     <item quantity="other">%s követett</item>
@@ -278,6 +324,10 @@
   <string name="pleaseVotePuzzle">Segíts a Lichess fejlesztésében szavazatoddal, a fel és le nyilakat használva:</string>
   <string name="thankYou">Köszönjük!</string>
   <string name="ratingX">Értékelés: %s</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">%s alkalommal játszott</item>
+    <item quantity="other">%s alkalommal játszott</item>
+  </plurals>
   <string name="fromGameLink">%s játékból</string>
   <string name="startTraining">Gyakorlás kezdése</string>
   <string name="continueTraining">Gyakorlás folytatása</string>
@@ -287,6 +337,10 @@
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">%s másodperced van, hogy megtedd az első lépést!</item>
     <item quantity="other">%s másodperced van, hogy megtedd az első lépést!</item>
+  </plurals>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s meccs zajlik épp</item>
+    <item quantity="other">%s meccs zajlik épp</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Lépés után automatikus ugrás a következő játékra</string>
   <string name="autoSwitch">Automatikus váltás</string>
@@ -352,6 +406,7 @@
   <string name="premovesPlayingDuringOpponentTurn">Előre megadott lépések (amíg az ellenfél van soron)</string>
   <string name="takebacksWithOpponentApproval">Visszalépés (ellenfél beleegyezésével)</string>
   <string name="promoteToQueenAutomatically">Gyalog automatikus előléptetése vezérré</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Háromszori ismétlés esetén automatikus döntetlen igénylése</string>
   <string name="privacy">Személyes</string>
   <string name="letOtherPlayersFollowYou">Követésed engedélyezése a többi játékosnak</string>
   <string name="letOtherPlayersChallengeYou">Kihívásod engedélyezése a többi játékosnak</string>
@@ -381,6 +436,7 @@
   <string name="starting">Kezdés:</string>
   <string name="allInformationIsPublicAndOptional">Minden adat nyilvános és szabadon megadható.</string>
   <string name="yourCityRegionOrDepartment">Város, térség vagy megye.</string>
+  <string name="biographyDescription">Írj valamit magadról, mit szeretsz a sakkban, melyek a kedvenc megnyitásaid, játszmáid, játékosaid…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Legfeljebb %s karakter.</item>
     <item quantity="other">Legfeljebb %s karakter.</item>
@@ -426,6 +482,10 @@
   <string name="whiteCastlingQueenside">Világos hosszúra sáncolhat</string>
   <string name="blackCastlingKingside">Sötét rövidre sáncolhat</string>
   <string name="blackCastlingQueenside">Sötét hosszúra sáncolhat</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s Fórumbejegyzés</item>
+    <item quantity="other">%s Fórumbejegyzés</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">Játékkal eltöltött idő: %s</string>
   <string name="watchGames">Játszmák megtekintése</string>
   <string name="tpTimeSpentOnTV">TV-n eltöltött idő: %s</string>
@@ -516,4 +576,31 @@
     <item quantity="other">Elérhető %s nyelven</item>
   </plurals>
   <string name="gameAnalysis">Játék elemzés</string>
+  <string name="xHostsY">%1$s létrehozta a %2$s-t</string>
+  <string name="xLikesY">%1$s kedveli %2$s</string>
+  <string name="quickPairing">Gyors játszma</string>
+  <string name="lobby">Lobbi</string>
+  <string name="yourScore">A te eredményed: %s</string>
+  <string name="language">Nyelv</string>
+  <string name="background">Háttér</string>
+  <string name="boardGeometry">Tábla geometria</string>
+  <string name="boardTheme">Tábla szín</string>
+  <string name="boardSize">Tábla mérete</string>
+  <string name="pieceSet">Figurakészlet</string>
+  <string name="embedInYourWebsite">Beágyazás saját weboldalba</string>
+  <string name="usernameAlreadyUsed">Ez a felhasználónév már foglalt, kérjük válassz másikat.</string>
+  <string name="usernameInvalid">Érvénytelen felhasználói név. A név csak betűkből, számokból, alulvonásból és gondolatjelből állhat.</string>
+  <string name="usernameStartNoNumber">A felhasználói név nem kezdődhet számmal.</string>
+  <string name="usernameUnacceptable">A felhasználói név nem megfelelő.</string>
+  <string name="directlySupportLichess">Támogasd a Lichesst</string>
+  <string name="playChessInStyle">Sakkozz stílusosan</string>
+  <string name="chessBasics">A sakk alapjai</string>
+  <string name="coaches">Oktatók</string>
+  <string name="invalidPgn">Hibás PGN</string>
+  <string name="invalidFen">Hibás FEN</string>
+  <string name="error.minLength">A legkisebb megengedett karakterszám %s</string>
+  <string name="error.maxLength">A maximális megengedett karakterszám %s</string>
+  <string name="error.min">Nagyobbnak vagy egyenlőnek kell lennie mint %s</string>
+  <string name="error.max">Kisebbnek vagy egyenlőnek kell lennie mint %s</string>
+  <string name="custom">Egyéni</string>
 </resources>

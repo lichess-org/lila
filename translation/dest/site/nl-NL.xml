@@ -586,6 +586,7 @@
   <string name="quickPairing">Snel koppelen</string>
   <string name="lobby">Lobby</string>
   <string name="yourScore">Uw score: %s</string>
+  <string name="language">Taal</string>
   <string name="background">Achtergrond</string>
   <string name="boardGeometry">Bordgeometrie</string>
   <string name="boardTheme">Bordthema</string>
@@ -606,4 +607,5 @@
   <string name="error.maxLength">Maximumlengte is %s tekens</string>
   <string name="error.min">Moet groter dan of gelijk aan %s zijn</string>
   <string name="error.max">Moet kleiner dan of gelijk aan %s zijn</string>
+  <string name="custom">Aangepast</string>
 </resources>

@@ -62,11 +62,11 @@
   </plurals>
   <string name="currentGames">Ludataj ludoj</string>
   <plurals name="nbGames">
-    <item quantity="one">%s ludo</item>
+    <item quantity="one">%s Ludoj</item>
     <item quantity="other">%s Ludoj</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s paĝmarko</item>
+    <item quantity="one">%s Paĝmarkoj</item>
     <item quantity="other">%s Paĝmarkoj</item>
   </plurals>
   <string name="viewInFullSize">Vidi plengrande</string>
@@ -90,11 +90,11 @@
   <string name="daysPerTurn">Tagoj pomovaj</string>
   <string name="oneDay">Unu tago</string>
   <plurals name="nbDays">
-    <item quantity="one">%s tago</item>
+    <item quantity="one">%s tagoj</item>
     <item quantity="other">%s tagoj</item>
   </plurals>
   <plurals name="nbHours">
-    <item quantity="one">%s horo</item>
+    <item quantity="one">%s horoj</item>
     <item quantity="other">%s horoj</item>
   </plurals>
   <string name="time">Tempo</string>
@@ -113,7 +113,7 @@
   <string name="rank">Rango</string>
   <string name="gamesPlayed">Luditaj ludoj</string>
   <plurals name="nbGamesWithYou">
-    <item quantity="one">%s ludo kun vi</item>
+    <item quantity="one">%s ludoj kun vi</item>
     <item quantity="other">%s ludoj kun vi</item>
   </plurals>
   <string name="cancel">Nuligi</string>
@@ -159,15 +159,15 @@
   <string name="freeOnlineChess">Senpaga Interreta Ŝako</string>
   <string name="spectators">Spektantoj:</string>
   <plurals name="nbWins">
-    <item quantity="one">%s venko</item>
+    <item quantity="one">%s venkoj</item>
     <item quantity="other">%s venkoj</item>
   </plurals>
   <plurals name="nbLosses">
-    <item quantity="one">%s malvenko</item>
+    <item quantity="one">%s malvenkoj</item>
     <item quantity="other">%s malvenkoj</item>
   </plurals>
   <plurals name="nbDraws">
-    <item quantity="one">%s egalvenko</item>
+    <item quantity="one">%s egalvenkoj</item>
     <item quantity="other">%s egalvenkoj</item>
   </plurals>
   <string name="exportGames">Eksporti ludojn</string>
@@ -198,7 +198,7 @@
   <string name="siteDescription">Senpaga interreta ŝakludo. Ludu ŝakon nun per simpla interfaco. Sen registriĝo, sen reklamoj, sen neceso por aldonaĵo. Ludu ŝakon kun la komputilo, amikoj aŭ hazardaj kontraŭuloj.</string>
   <string name="teams">Teamoj</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s teamano</item>
+    <item quantity="one">%s teamanoj</item>
     <item quantity="other">%s teamanoj</item>
   </plurals>
   <string name="allTeams">Ĉiuj teamoj</string>
@@ -228,7 +228,7 @@
   <string name="continueFromHere">Daŭrigi de ĉi tie</string>
   <string name="importGame">Importi ludon</string>
   <plurals name="nbImportedGames">
-    <item quantity="one">%s Importita ludo</item>
+    <item quantity="one">%s Importitaj ludoj</item>
     <item quantity="other">%s Importitaj ludoj</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Jen ŝaka CAPTCHA.</string>
@@ -251,7 +251,7 @@
   <string name="followsYou">Sekvas vin</string>
   <string name="xStartedFollowingY">%1$s eksekvis %2$s</string>
   <plurals name="nbFollowers">
-    <item quantity="one">%s abonanto</item>
+    <item quantity="one">%s sekvantoj</item>
     <item quantity="other">%s abonantoj</item>
   </plurals>
   <plurals name="nbFollowing">
@@ -339,7 +339,7 @@
     <item quantity="other">Vi havas %s sekundojn por fari vian unuan movon!</item>
   </plurals>
   <plurals name="nbGamesInPlay">
-    <item quantity="one">%s aktiva ludo</item>
+    <item quantity="one">%s aktivaj ludoj</item>
     <item quantity="other">%s aktivaj ludoj</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Aŭtomate iri al la sekvanta ludo post movi</string>
@@ -483,7 +483,7 @@
   <string name="blackCastlingKingside">Nigro O-O</string>
   <string name="blackCastlingQueenside">Nigro O-O-O</string>
   <plurals name="nbForumPosts">
-    <item quantity="one">%s Foruma Afiŝo</item>
+    <item quantity="one">%s Forumaj Afiŝoj</item>
     <item quantity="other">%s Forumaj Afiŝoj</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Tempo pasinta dum ludado: %s</string>
