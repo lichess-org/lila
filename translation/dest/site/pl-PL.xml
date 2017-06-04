@@ -488,4 +488,5 @@
   <string name="viewTheSolution">Zobacz rozwiązania</string>
   <string name="followAndChallengeFriends">Obserwuj i zapraszaj znajomych</string>
   <string name="gameAnalysis">Analizy gry</string>
+  <string name="xHostsY">%1$s utworzył %2$s</string>
 </resources>
