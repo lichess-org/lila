@@ -585,7 +585,7 @@
   <string name="xLikesY">%1$s velit %2$s</string>
   <string name="quickPairing">Velox partes</string>
   <string name="lobby">Vestibulum</string>
-  <string name="yourScore">Score tuum: %s</string>
+  <string name="yourScore">Status tibi: %s</string>
   <string name="language">Lingua</string>
   <string name="background">Scaena</string>
   <string name="boardGeometry">Geometria tabula</string>
@@ -595,10 +595,10 @@
   <string name="embedInYourWebsite">Ostende in locum</string>
   <string name="usernameAlreadyUsed">Username hanc iam usus aliquam alia.</string>
   <string name="usernameInvalid">Irritum nomen usoris. Quaeso uti literis tantum, numero et offendas.</string>
-  <string name="usernameStartNoNumber">Nomen usoris necesse est incipere, non est numerus.</string>
+  <string name="usernameStartNoNumber">Nomen usoris incipere cum numero non potest.</string>
   <string name="usernameUnacceptable">Nomen usoris hoc est gratum.</string>
   <string name="directlySupportLichess">Lichess directe auxilium</string>
-  <string name="playChessInStyle">In scaccum ludo style</string>
+  <string name="playChessInStyle">Lude scacos moris</string>
   <string name="chessBasics">Scacci fundamenta</string>
   <string name="coaches">Tutores</string>
   <string name="invalidPgn">Irritum ludum notatio</string>
