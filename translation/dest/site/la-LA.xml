@@ -589,6 +589,7 @@
   <string name="boardGeometry">Geometria tabula</string>
   <string name="boardTheme">Thema tabulae</string>
   <string name="boardSize">Tabula magnitudine</string>
+  <string name="pieceSet">Familia</string>
   <string name="embedInYourWebsite">Ostende in locum</string>
   <string name="usernameAlreadyUsed">Username hanc iam usus aliquam alia.</string>
   <string name="usernameInvalid">Irritum nomen usoris. Quaeso uti literis tantum, numero et offendas.</string>
@@ -604,4 +605,5 @@
   <string name="error.maxLength">Maximum est longitudinem %s</string>
   <string name="error.min">%s paribus maius esse</string>
   <string name="error.max">%s paribus minor est</string>
+  <string name="custom">Alius</string>
 </resources>
