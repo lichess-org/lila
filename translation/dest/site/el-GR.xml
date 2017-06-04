@@ -583,13 +583,13 @@
   <string name="xHostsY">%1$s φιλοξενεί τη %2$s</string>
   <string name="xJoinsY">%1$s συμμετέχει στη %2$s</string>
   <string name="xLikesY">%1$s αρέσκεται στο %2$s</string>
-  <string name="quickPairing">Γρήγορο ταίριασμα</string>
+  <string name="quickPairing">Γρήγορη ζεύξη</string>
   <string name="lobby">Δωμάτιο αναμονής</string>
   <string name="yourScore">Η βαθμολογία σας: %s</string>
   <string name="language">Γλώσσα</string>
   <string name="background">Φόντο</string>
   <string name="boardGeometry">Γεωμετρία σκακιέρας</string>
-  <string name="boardTheme">Εμφάνιση σκακιέρας</string>
+  <string name="boardTheme">Θέμα σκακιέρας</string>
   <string name="boardSize">Μέγεθος σκακιέρας</string>
   <string name="pieceSet">Σετ κομματιού</string>
   <string name="embedInYourWebsite">Ενσωματώστε στην ιστοσελίδα σας</string>
