@@ -491,4 +491,9 @@
   <string name="boardGeometry">شكل الرقعة</string>
   <string name="boardSize">حجم رقعة اللعب</string>
   <string name="pieceSet">مجموعة القطع</string>
+  <string name="usernameAlreadyUsed">اسم المستخدم الذي اخترته موجود بالفعل، الرجاء كتابة اسم آخر.</string>
+  <string name="usernameStartNoNumber">لا يجب أن يبدأ اسم المستخدم برقم.</string>
+  <string name="usernameUnacceptable">اسم المستخدم هذا غير مقبول.</string>
+  <string name="directlySupportLichess">دعم ليتشيس مباشرة</string>
+  <string name="invalidPgn">ملف بي جي ان غير صالح</string>
 </resources>
