@@ -233,6 +233,7 @@
   </plurals>
   <string name="thisIsAChessCaptcha">Hic ludus CAPTCHA est</string>
   <string name="clickOnTheBoardToMakeYourMove">Age motum ut tuum esse humanum confirmem.</string>
+  <string name="captcha.fail">Solve hoc problematem scacorum, si vis.</string>
   <string name="notACheckmate">Non est mattus</string>
   <string name="colorPlaysCheckmateInOne">%s agens; mattus moto uno</string>
   <string name="retry">Adparare iterum</string>
