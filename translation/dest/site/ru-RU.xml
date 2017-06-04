@@ -62,6 +62,11 @@
     <item quantity="other">%s игроков онлайн</item>
   </plurals>
   <string name="currentGames">Текущие партии</string>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s закладка</item>
+    <item quantity="few">%s закладки</item>
+    <item quantity="other">%s закладок</item>
+  </plurals>
   <string name="viewInFullSize">Посмотреть в полном размере</string>
   <string name="logOut">Выйти</string>
   <string name="signIn">Войти</string>
@@ -82,6 +87,16 @@
   <string name="correspondence">По переписке</string>
   <string name="daysPerTurn">Дней на ход</string>
   <string name="oneDay">Один день</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s день</item>
+    <item quantity="few">%s дня</item>
+    <item quantity="other">%s дней</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s час</item>
+    <item quantity="few">%s часа</item>
+    <item quantity="other">%s часов</item>
+  </plurals>
   <string name="time">Время</string>
   <string name="rating">Рейтинг</string>
   <string name="ratingStats">Статистика рейтинга</string>
@@ -97,6 +112,11 @@
   <string name="forgotPassword">Забыли пароль?</string>
   <string name="rank">Уровень</string>
   <string name="gamesPlayed">Партий сыграно</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s партия с вами</item>
+    <item quantity="few">%s партии с вами</item>
+    <item quantity="other">%s партий с вами</item>
+  </plurals>
   <string name="cancel">Отменить</string>
   <string name="timeOut">Время истекло</string>
   <string name="drawOfferSent">Предложение ничьей отправлено</string>
@@ -139,8 +159,18 @@
   <string name="incrementInSeconds">Прибавка в секундах</string>
   <string name="freeOnlineChess">Бесплатные онлайн-шахматы</string>
   <string name="spectators">Зрители:</string>
+  <plurals name="nbWins">
+    <item quantity="one">%s выиграно</item>
+    <item quantity="few">%s выиграно</item>
+    <item quantity="other">%s выиграно</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s проиграно</item>
+    <item quantity="few">%s проиграно</item>
+    <item quantity="other">%s проиграно</item>
+  </plurals>
   <plurals name="nbDraws">
-    <item quantity="one">%s сыграна вничью</item>
+    <item quantity="one">%s сыграно вничью</item>
     <item quantity="few">%s сыграно вничью</item>
     <item quantity="other">%s сыграно вничью</item>
   </plurals>
@@ -172,6 +202,11 @@
   <string name="backToGame">Возврат к игре</string>
   <string name="siteDescription">Бесплатные онлайн-шахматы. Играйте в шахматы прямо сейчас в простом интерфейсе без рекламы. Не требует регистрации и скачивания программы. Играйте в шахматы с компьютером, друзьями или случайными соперниками.</string>
   <string name="teams">Команды</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s участник</item>
+    <item quantity="few">%s участника</item>
+    <item quantity="other">%s участников</item>
+  </plurals>
   <string name="allTeams">Все команды</string>
   <string name="newTeam">Новая команда</string>
   <string name="myTeams">Мои команды</string>
