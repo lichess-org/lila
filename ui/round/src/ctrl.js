@@ -548,7 +548,7 @@ module.exports = function(opts, redraw) {
     }
     lichess.requestIdleCallback(function idleCallback() {
       if (game.isPlayerPlaying(this.data)) {
-        if (!this.data.simul) blur.init();
+        if (!this.data.simul) blur.init(this.data.steps.length > 2);
 
         title.init(this);
         this.setTitle();
