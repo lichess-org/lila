@@ -139,8 +139,18 @@
   <string name="incrementInSeconds">Прибавка в секундах</string>
   <string name="freeOnlineChess">Бесплатные онлайн-шахматы</string>
   <string name="spectators">Зрители:</string>
+  <plurals name="nbDraws">
+    <item quantity="one">%s сыграна вничью</item>
+    <item quantity="few">%s сыграно вничью</item>
+    <item quantity="other">%s сыграно вничью</item>
+  </plurals>
   <string name="exportGames">Экспорт игр</string>
   <string name="ratingRange">Диапазон рейтинга</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">Дать %s секунду</item>
+    <item quantity="few">Дать %s секунды</item>
+    <item quantity="other">Дать %s секунд</item>
+  </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Этот игрок использует помощь шахматной программы (читер)</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Этот игрок искусственно увеличивал либо уменьшал свой рейтинг</string>
   <string name="openingExplorer">Анализ дебютных вариантов</string>
@@ -562,7 +572,7 @@
   <string name="language">Язык</string>
   <string name="background">Фон</string>
   <string name="boardGeometry">Геометрия доски</string>
-  <string name="boardTheme">Оформительская тема доски</string>
+  <string name="boardTheme">Оформление доски</string>
   <string name="boardSize">Размер доски</string>
   <string name="pieceSet">Набор фигур</string>
   <string name="embedInYourWebsite">Встроить в свой сайт</string>
