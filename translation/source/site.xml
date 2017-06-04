@@ -56,7 +56,7 @@
   <string name="offerDraw">Offer draw</string>
   <string name="draw">Draw</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s players</item>
+    <item quantity="one">%s player</item>
     <item quantity="other">%s players</item>
   </plurals>
   <string name="currentGames">Current games</string>
@@ -141,7 +141,7 @@
   <string name="rematch">Rematch</string>
   <string name="rematchOfferSent">Rematch offer sent</string>
   <string name="rematchOfferAccepted">Rematch offer accepted</string>
-  <string name="rematchOfferCanceled">Rematch offer canceled</string>
+  <string name="rematchOfferCanceled">Rematch offer cancelled</string>
   <string name="rematchOfferDeclined">Rematch offer declined</string>
   <string name="cancelRematchOffer">Cancel rematch offer</string>
   <string name="viewRematch">View rematch</string>
@@ -172,7 +172,7 @@
   <string name="exportGames">Export games</string>
   <string name="ratingRange">Rating range</string>
   <plurals name="giveNbSeconds">
-    <item quantity="one">Give %s seconds</item>
+    <item quantity="one">Give %s second</item>
     <item quantity="other">Give %s seconds</item>
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">This player uses chess computer assistance</string>
@@ -183,7 +183,7 @@
   <string name="takebackPropositionSent">Takeback proposition sent</string>
   <string name="takebackPropositionDeclined">Takeback proposition declined</string>
   <string name="takebackPropositionAccepted">Takeback proposition accepted</string>
-  <string name="takebackPropositionCanceled">Takeback proposition canceled</string>
+  <string name="takebackPropositionCanceled">Takeback proposition cancelled</string>
   <string name="yourOpponentProposesATakeback">Your opponent proposes a takeback</string>
   <string name="bookmarkThisGame">Bookmark this game</string>
   <string name="search">Search</string>
@@ -265,7 +265,7 @@
   <string name="list">List</string>
   <string name="graph">Graph</string>
   <plurals name="lessThanNbMinutes">
-    <item quantity="one">Less than a minute</item>
+    <item quantity="one">Less than %s minute</item>
     <item quantity="other">Less than %s minutes</item>
   </plurals>
   <string name="required">Required.</string>
@@ -293,7 +293,7 @@
   <string name="profile">Profile</string>
   <string name="editProfile">Edit profile</string>
   <string name="firstName">Given name</string>
-  <string name="lastName">Last name</string>
+  <string name="lastName">Surname</string>
   <string name="biography">Biography</string>
   <string name="country">Country</string>
   <string name="preferences">Preferences</string>
@@ -334,7 +334,7 @@
   <string name="thisPuzzleIsCorrect">This puzzle is correct and interesting</string>
   <string name="thisPuzzleIsWrong">This puzzle is wrong or boring</string>
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">You have %s seconds to make your first move!</item>
+    <item quantity="one">You have %s second to make your first move!</item>
     <item quantity="other">You have %s seconds to make your first move!</item>
   </plurals>
   <plurals name="nbGamesInPlay">
@@ -437,11 +437,11 @@
   <string name="yourCityRegionOrDepartment">Your city, region, or province.</string>
   <string name="biographyDescription">Tell about you, what you like in chess, your favourite openings, games, players…</string>
   <plurals name="maximumNbCharacters">
-    <item quantity="one">Maximum: %s characters.</item>
+    <item quantity="one">Maximum: %s character.</item>
     <item quantity="other">Maximum: %s characters.</item>
   </plurals>
   <plurals name="blocks">
-    <item quantity="one">%s blocks</item>
+    <item quantity="one">%s block</item>
     <item quantity="other">%s blocks</item>
   </plurals>
   <string name="listBlockedPlayers">List players that you have blocked</string>
@@ -530,11 +530,11 @@
   <string name="tournamentHomeDescription">Play fast-paced chess tournaments! Join an official scheduled tournament, or create your own. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, and more options available for endless chess fun.</string>
   <string name="tournamentNotFound">Tournament not found</string>
   <string name="tournamentDoesNotExist">This tournament does not exist.</string>
-  <string name="tournamentMayHaveBeenCanceled">It may have been canceled, if all players left it before the tournament starts.</string>
+  <string name="tournamentMayHaveBeenCanceled">It may have been cancelled, if all players left it before the tournament starts.</string>
   <string name="returnToTournamentsHomepage">Return to tournaments homepage</string>
   <string name="weeklyPerfTypeRatingDistribution">Weekly %s rating distribution</string>
   <plurals name="nbPerfTypePlayersThisWeek">
-    <item quantity="one">One %2$s player this week.</item>
+    <item quantity="one">%1$s %2$s player this week.</item>
     <item quantity="other">%1$s %2$s players this week.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Your %1$s rating is %2$s.</string>
@@ -575,7 +575,7 @@
   <string name="viewTheSolution">View the solution</string>
   <string name="followAndChallengeFriends">Follow and challenge friends</string>
   <plurals name="availableInNbLanguages">
-    <item quantity="one">Available in %s languages!</item>
+    <item quantity="one">Available in %s language!</item>
     <item quantity="other">Available in %s languages!</item>
   </plurals>
   <string name="gameAnalysis">Game analysis</string>
