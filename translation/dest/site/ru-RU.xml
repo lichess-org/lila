@@ -185,6 +185,7 @@
   <string name="importGame">Импорт игры</string>
   <string name="thisIsAChessCaptcha">Это шахматная CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Кликните по доске, чтобы сделать ход и доказать, что вы человек.</string>
+  <string name="captcha.fail">Пожалуйста, решите шахматную CAPTCHA.</string>
   <string name="notACheckmate">Это не мат</string>
   <string name="colorPlaysCheckmateInOne">%s начинают; мат в один ход</string>
   <string name="retry">Повторить</string>
@@ -269,6 +270,11 @@
   <string name="retryThisPuzzle">Попробовать ещё раз</string>
   <string name="thisPuzzleIsCorrect">Задача правильная и интересная</string>
   <string name="thisPuzzleIsWrong">Задача неправильная или неинтересная</string>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s ведется партий</item>
+    <item quantity="few">%s ведется партий</item>
+    <item quantity="other">%s ведется партий</item>
+  </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Автоматически переходить к следующей игре после хода</string>
   <string name="autoSwitch">Автосмена</string>
   <string name="puzzles">Задачки</string>
@@ -364,6 +370,16 @@
   <string name="allInformationIsPublicAndOptional">Вся информация публична и указывается по желанию.</string>
   <string name="yourCityRegionOrDepartment">Ваш город, область или округ.</string>
   <string name="biographyDescription">Расскажите о себе, что Вы любите в шахматах, Ваши любимые дебюты, партии, игроки...</string>
+  <plurals name="maximumNbCharacters">
+    <item quantity="one">Максимум: %s символов.</item>
+    <item quantity="few">Максимум: %s символов.</item>
+    <item quantity="other">Максимум: %s символов.</item>
+  </plurals>
+  <plurals name="blocks">
+    <item quantity="one">%s заблокировано</item>
+    <item quantity="few">%s заблокировано</item>
+    <item quantity="other">%s заблокировано</item>
+  </plurals>
   <string name="listBlockedPlayers">Список заблокированных Вами игроков</string>
   <string name="human">Человек</string>
   <string name="computer">Компьютер</string>
@@ -401,6 +417,11 @@
   <string name="whiteCastlingQueenside">Белые О-О-О</string>
   <string name="blackCastlingKingside">Черные О-О</string>
   <string name="blackCastlingQueenside">Черные О-О-О</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s постов на форуме</item>
+    <item quantity="few">%s постов на форуме</item>
+    <item quantity="other">%s постов на форуме</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">Времени за игрой: %s</string>
   <string name="watchGames">Смотреть игры</string>
   <string name="tpTimeSpentOnTV">Времени на TV: %s</string>
@@ -449,6 +470,11 @@
   <string name="tournamentMayHaveBeenCanceled">Может быть отменен, в случае если все игроки покинули турнир до его старта.</string>
   <string name="returnToTournamentsHomepage">Вернуться на страницу турниров</string>
   <string name="weeklyPerfTypeRatingDistribution">Распределение по рейтингу %s за месяц</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">%1$s %2$s игроков на этой неделе.</item>
+    <item quantity="few">%1$s %2$s игроков на этой неделе.</item>
+    <item quantity="other">%1$s %2$s игроков на этой неделе.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">Ваш %1$s рейтинг %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Вы сильнее %1$s игроков в %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ваш %s рейтинг ещё не определен.</string>
