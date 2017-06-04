@@ -405,6 +405,7 @@
   <string name="premovesPlayingDuringOpponentTurn">Praemotus (cum adversarius ludit)</string>
   <string name="takebacksWithOpponentApproval">Receptus (si adversarius probeat)</string>
   <string name="promoteToQueenAutomatically">Ad reginam sponte promovere</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Aequabiliter digere cum triplex iteratio fiat</string>
   <string name="privacy">Privatus</string>
   <string name="letOtherPlayersFollowYou">Alii lusores te sequantur</string>
   <string name="letOtherPlayersChallengeYou">Alii lusores te imponant</string>
