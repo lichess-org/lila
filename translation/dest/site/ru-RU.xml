@@ -31,7 +31,7 @@
   <string name="joinTheGame">Присоединиться</string>
   <string name="whitePlays">Ход белых</string>
   <string name="blackPlays">Ход чёрных</string>
-  <string name="opponentLeftChoices">Ваш соперник покинул игру. Вы можете запросить победу, объявить ничью или ждать.</string>
+  <string name="opponentLeftChoices">Ваш соперник покинул игру. Вы можете запросить победу, объявить ничью или подождать.</string>
   <string name="makeYourOpponentResign">Объявить соперника сдавшимся</string>
   <string name="forceResignation">Запросить победу</string>
   <string name="forceDraw">Объявить ничью</string>
@@ -62,6 +62,11 @@
     <item quantity="other">%s игроков онлайн</item>
   </plurals>
   <string name="currentGames">Текущие партии</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s Игра</item>
+    <item quantity="few">%s Игры</item>
+    <item quantity="other">%s Игр</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s закладка</item>
     <item quantity="few">%s закладки</item>
