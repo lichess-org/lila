@@ -58,7 +58,7 @@
   <string name="draw">Ничья</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s игрок онлайн</item>
-    <item quantity="few">%s игроков онлайн</item>
+    <item quantity="few">%s игрока онлайн</item>
     <item quantity="other">%s игроков онлайн</item>
   </plurals>
   <string name="currentGames">Текущие партии</string>
