@@ -388,7 +388,7 @@
   <string name="closeAccountExplanation">Είστε σίγουροι ότι θέλετε να κλείσετε το λογαριασμό σας; Το κλείσιμο του λογαριασμού σας είναι μια μόνιμη απόφαση. Δε θα μπορείτε πλέον να συνδεθείτε, και η σελίδα του προφίλ σας δε θα είναι πια προσβάσιμη.</string>
   <string name="thisAccountIsClosed">Αυτός ο λογαριασμός έχει κλείσει.</string>
   <string name="invalidUsernameOrPassword">Άκυρο όνομα χρήστη ή κωδικός</string>
-  <string name="emailMeALink">Στείλτε μου τον σύνδεσμο μέσω ηλ. ταχυδρομείου</string>
+  <string name="emailMeALink">Στείλτε μου σύνδεσμο μέσω ηλ. ταχυδρομείου</string>
   <string name="currentPassword">Κωδικός σε ισχύ</string>
   <string name="newPassword">Νέος κωδικός</string>
   <string name="newPasswordAgain">Νέος κωδικός (επαλήθευση)</string>
@@ -455,7 +455,7 @@
   <string name="connectedToLichess">Έχετε συνδεθεί στο lichess.org</string>
   <string name="signedOut">Έχετε αποσυνδεθεί επιτυχώς</string>
   <string name="loginSuccessful">Είσοδος επιτυχής</string>
-  <string name="playOnTheBoardOffline">Παίξτε χωρίς σύνδεση, τοπικά</string>
+  <string name="playOnTheBoardOffline">Τοπικά</string>
   <string name="playOfflineComputer">Εναντίον του υπολογιστή</string>
   <string name="opponent">Αντίπαλος</string>
   <string name="learn">Εκπαίδευση</string>
