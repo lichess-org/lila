@@ -111,6 +111,9 @@ private[tournament] object PairingSystem extends AbstractPairingSystem {
      * This should increase leader vs leader pairing chances.
      */
   private[arena] def scoreFactorFor(players: RankedPlayers): (RankedPlayer, RankedPlayer) => Int = {
-    players.map(_.player.score).max
+    val maxScore = players.map(_.player.score).max
+    (a, b) => {
+      maxScore
+    }
   }
 }
