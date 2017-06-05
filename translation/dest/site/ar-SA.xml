@@ -185,6 +185,7 @@
   <string name="importGame">استورد لعبة</string>
   <string name="thisIsAChessCaptcha">هذا اختبار شطرنجي  للتمييز بين الحاسب والإنسان</string>
   <string name="clickOnTheBoardToMakeYourMove">اضغط على الرقعة لاختيارالنقلة وتأكيد إنسانيتك</string>
+  <string name="captcha.fail">الرجاء حل مسألة الشطرنج مات بنقلة واحدة.</string>
   <string name="notACheckmate">ليست كش مات</string>
   <string name="colorPlaysCheckmateInOne">كش مات بنقلة واحدة - دور %s</string>
   <string name="retry">أعد المحاولة</string>
@@ -332,6 +333,7 @@
   <string name="premovesPlayingDuringOpponentTurn">النقلات الاستباقية (اللعب خلال دور الخصم)</string>
   <string name="takebacksWithOpponentApproval">التراجع عن النقلات (بموافقة الخصم)</string>
   <string name="promoteToQueenAutomatically">الترقية إلى وزير آلياً</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">مطالبة بالتعادل لتكرار نفس النقلات ثلاث مرات بشكل تلقائي</string>
   <string name="privacy">الخصوصية</string>
   <string name="letOtherPlayersFollowYou">اسمح للاعبين الآخرين بمتابعتك</string>
   <string name="letOtherPlayersChallengeYou">اسمح للاعبين الآخرين بتحديك</string>
@@ -484,4 +486,14 @@
   <string name="viewTheSolution">الحل</string>
   <string name="followAndChallengeFriends">تابع وتحدى أصدقاءك</string>
   <string name="gameAnalysis">تحليل اللعبة</string>
+  <string name="quickPairing">تزويج سريع</string>
+  <string name="yourScore">نقاطك: %s</string>
+  <string name="boardGeometry">شكل الرقعة</string>
+  <string name="boardSize">حجم رقعة اللعب</string>
+  <string name="pieceSet">مجموعة القطع</string>
+  <string name="usernameAlreadyUsed">اسم المستخدم الذي اخترته موجود بالفعل، الرجاء كتابة اسم آخر.</string>
+  <string name="usernameStartNoNumber">لا يجب أن يبدأ اسم المستخدم برقم.</string>
+  <string name="usernameUnacceptable">اسم المستخدم هذا غير مقبول.</string>
+  <string name="directlySupportLichess">دعم ليتشيس مباشرة</string>
+  <string name="invalidPgn">ملف بي جي ان غير صالح</string>
 </resources>
