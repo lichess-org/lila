@@ -6,6 +6,7 @@ import play.api.mvc._
 import lila.api.Context
 import lila.app._
 import lila.common.{ HTTPRequest, ApiVersion }
+import lila.common.PimpedJson._
 import lila.game.{ Pov, GameRepo, Game => GameModel, PgnDump }
 import lila.tournament.MiniStanding
 import lila.user.{ User => UserModel }
@@ -74,9 +75,9 @@ object Round extends LilaController with TheftPrevention {
         if (isTheft(pov)) fuccess(theftResponse)
         else Env.api.roundApi.player(pov, apiVersion) zip
           getPlayerChat(pov.game) map {
-            case (data, chat) => Ok(chat.fold(data) { c =>
-              data + ("chat" -> lila.chat.JsonView(c.chat))
-            })
+            case (data, chat) => Ok {
+              data.add("chat", chat.map(c => lila.chat.JsonView(c.chat)))
+            }
           }
       }.mon(_.http.response.player.mobile)
     ) map NoCache
@@ -154,7 +155,7 @@ object Round extends LilaController with TheftPrevention {
     }
   }
 
-  def watch(pov: Pov, userTv: Option[UserModel] = None)(implicit ctx: Context): Fu[Result] =
+  private[controllers] def watch(pov: Pov, userTv: Option[UserModel] = None)(implicit ctx: Context): Fu[Result] =
     playablePovForReq(pov.game) match {
       case Some(player) if userTv.isEmpty => renderPlayer(pov withColor player.color)
       case _ => Game.preloadUsers(pov.game) >> negotiate(
@@ -184,14 +185,10 @@ object Round extends LilaController with TheftPrevention {
           data <- Env.api.roundApi.watcher(pov, apiVersion, tv = none)
           analysis <- pov.game.metadata.analysed.??(analyser get pov.game.id)
           chat <- getWatcherChat(pov.game)
-        } yield {
-          val withChat = chat.fold(data) { c =>
-            data + ("chat" -> lila.chat.JsonView(c.chat))
-          }
-          val withAnalysis = analysis.fold(withChat) { a =>
-            withChat + ("analysis" -> lila.analyse.JsonView.mobile(pov.game, a))
-          }
-          Ok(withAnalysis)
+        } yield Ok {
+          data
+            .add("c" -> chat.map(c => lila.chat.JsonView(c.chat)))
+            .add("analysis" -> analysis.map(a => lila.analyse.JsonView.mobile(pov.game, a)))
         }
       ) map NoCache
     }
