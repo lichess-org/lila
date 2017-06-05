@@ -68,9 +68,9 @@
     <item quantity="other">%s partijų</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s išsaugota partija</item>
-    <item quantity="few">%s išsaugotos partijos</item>
-    <item quantity="other">%s išsaugotų partijų</item>
+    <item quantity="one">%s įrašas</item>
+    <item quantity="few">%s įrašai</item>
+    <item quantity="other">%s įrašų</item>
   </plurals>
   <string name="viewInFullSize">Žiūrėti visu dydžiu</string>
   <string name="logOut">Atsijungti</string>
@@ -238,6 +238,11 @@
   <string name="fromPosition">Nuo pozicijos</string>
   <string name="continueFromHere">Tęsti nuo čia</string>
   <string name="importGame">Importuoti partiją</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s importuotas žaidimas</item>
+    <item quantity="few">%s importuoti žaidimai</item>
+    <item quantity="other">%s importuotų žaidimų</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">Tai yra šachmatinė „CAPTCHA“.</string>
   <string name="clickOnTheBoardToMakeYourMove">Spustelėkite ant lentos norėdami atlikti ėjimą ir įrodyti, kad esate žmogus.</string>
   <string name="captcha.fail">Prašome išspręsti šachmatų galvosūkį.</string>
@@ -257,6 +262,16 @@
   <string name="unblock">Atblokuoti</string>
   <string name="followsYou">Seka jus</string>
   <string name="xStartedFollowingY">%1$s pradėjo sekti %2$s</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s sekėjas</item>
+    <item quantity="few">%s sekėjai</item>
+    <item quantity="other">%s sekėjų</item>
+  </plurals>
+  <plurals name="nbFollowing">
+    <item quantity="one">seka %s</item>
+    <item quantity="few">seka %s</item>
+    <item quantity="other">seka %s</item>
+  </plurals>
   <string name="more">Daugiau</string>
   <string name="memberSince">Narys nuo</string>
   <string name="lastSeenActive">Paskutinis prisijungimas %s</string>
@@ -264,6 +279,11 @@
   <string name="player">Žaidėjas</string>
   <string name="list">Sąrašas</string>
   <string name="graph">Grafikas</string>
+  <plurals name="lessThanNbMinutes">
+    <item quantity="one">Mažiau nei %s minutė</item>
+    <item quantity="few">Mažiau nei %s minutės</item>
+    <item quantity="other">Mažiau nei %s minučių</item>
+  </plurals>
   <string name="required">Privaloma.</string>
   <string name="openTournaments">Atviri turnyrai</string>
   <string name="duration">Trukmė</string>
@@ -319,12 +339,27 @@
   <string name="pleaseVotePuzzle">Padėkite „Lichess“ tobulėti įvertindami užduotį (spustelėkite rodyklę į viršų ar apačią):</string>
   <string name="thankYou">Ačiū!</string>
   <string name="ratingX">Reitingas: %s</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Žaista %s kartą</item>
+    <item quantity="few">Žaista %s kartus</item>
+    <item quantity="other">Žaista %s kartų</item>
+  </plurals>
   <string name="fromGameLink">Iš „%s“ partijos</string>
   <string name="startTraining">Pradėti treniruotę</string>
   <string name="continueTraining">Tęsti treniruotę</string>
   <string name="retryThisPuzzle">Kartoti šią užduotį</string>
   <string name="thisPuzzleIsCorrect">Ši užduotis yra teisinga ir įdomi</string>
   <string name="thisPuzzleIsWrong">Šis užduotis yra klaidinga arba nuobodi</string>
+  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
+    <item quantity="one">Turite %s sekundę atlikti pirmąjį ėjimą!</item>
+    <item quantity="few">Turite %s sekundes atlikti pirmąjį ėjimą!</item>
+    <item quantity="other">Turite %s sekundžių atlikti pirmąjį ėjimą!</item>
+  </plurals>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s vykstanti partija</item>
+    <item quantity="few">%s vykstančios partijos</item>
+    <item quantity="other">%s vykstančių partijų</item>
+  </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Po ėjimo automatiškai pereiti prie kito žaidimo</string>
   <string name="autoSwitch">Automatinis perjungimas</string>
   <string name="puzzles">Užduotys</string>
@@ -420,6 +455,16 @@
   <string name="allInformationIsPublicAndOptional">Visa informacija yra vieša ir neprivaloma.</string>
   <string name="yourCityRegionOrDepartment">Jūsų miestas, regionas ar provincija.</string>
   <string name="biographyDescription">Papasakokite apie save, kodėl mėgstate šachmatus, kokie jūsų mėgstamiausi debiutai, žaidėjai…</string>
+  <plurals name="maximumNbCharacters">
+    <item quantity="one">Daugiausiai: %s simbolis.</item>
+    <item quantity="few">Daugiausiai: %s simboliai.</item>
+    <item quantity="other">Daugiausiai: %s simbolių.</item>
+  </plurals>
+  <plurals name="blocks">
+    <item quantity="one">%s užblokuotas</item>
+    <item quantity="few">%s užblokuoti</item>
+    <item quantity="other">%s užblokuotų</item>
+  </plurals>
   <string name="listBlockedPlayers">Parodyti jūsų užblokuotus žaidėjus</string>
   <string name="human">Žmogus</string>
   <string name="computer">Kompiuteris</string>
@@ -457,6 +502,11 @@
   <string name="whiteCastlingQueenside">Baltieji O-O-O</string>
   <string name="blackCastlingKingside">Juodieji O-O</string>
   <string name="blackCastlingQueenside">Juodieji O-O-O</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s forumo pranešimas</item>
+    <item quantity="few">%s forumo pranešimai</item>
+    <item quantity="other">%s forumo pranešimų</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">Laikas, praleistas žaidžiant: %s</string>
   <string name="watchGames">Stebėti žaidimus</string>
   <string name="tpTimeSpentOnTV">Laikas, praleistas stebint: %s</string>
@@ -547,6 +597,11 @@
   <string name="correspondenceAndUnlimited">Korespondenciniai ir neriboti</string>
   <string name="viewTheSolution">Parodyti sprendimą</string>
   <string name="followAndChallengeFriends">Sekti ir žaisti su draugais</string>
+  <plurals name="availableInNbLanguages">
+    <item quantity="one">Galima rinktis iš %s kalbos!</item>
+    <item quantity="few">Galima rinktis iš %s kalbų!</item>
+    <item quantity="other">Galima rinktis iš %s kalbų!</item>
+  </plurals>
   <string name="gameAnalysis">Žaidimo analizė</string>
   <string name="xHostsY">%1$s veda %2$s</string>
   <string name="xJoinsY">%1$s prisijungė prie %2$s</string>
