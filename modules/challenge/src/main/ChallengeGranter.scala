@@ -16,6 +16,7 @@ object ChallengeDenied {
     case object YouAreBlocked extends Reason
     case object TheyDontAcceptChallenges extends Reason
     case class RatingOutsideRange(perf: PerfType) extends Reason
+    case class RatingIsProvisional(perf: PerfType) extends Reason
     case object FriendsOnly extends Reason
   }
 
@@ -24,6 +25,7 @@ object ChallengeDenied {
     case Reason.YouAreBlocked => s"You cannot challenge ${d.dest.titleUsername}."
     case Reason.TheyDontAcceptChallenges => s"${d.dest.titleUsername} does not accept any challenge."
     case Reason.RatingOutsideRange(perf) => s"Your ${perf.name} rating is too far from ${d.dest.titleUsername} rating."
+    case Reason.RatingIsProvisional(perf) => s"The ${perf.name} rating is provisional."
     case Reason.FriendsOnly => s"${d.dest.titleUsername} only accepts challenges from friends."
   }
 }
@@ -46,8 +48,12 @@ final class ChallengeGranter(
         case (_, _) if from.engine && !dest.engine => YouAreBlocked.some
         case (_, Pref.Challenge.FRIEND) => FriendsOnly.some
         case (_, Pref.Challenge.RATING) => perfType ?? { pt =>
-          val diff = math.abs(from.perfs(pt).intRating - dest.perfs(pt).intRating)
-          (diff > ratingThreshold) option RatingOutsideRange(pt)
+          if (from.perfs(pt).provisional || dest.perfs(pt).provisional)
+            RatingIsProvisional(pt).some
+          else {
+            val diff = math.abs(from.perfs(pt).intRating - dest.perfs(pt).intRating)
+            (diff > ratingThreshold) option RatingOutsideRange(pt)
+          }
         }
         case (_, Pref.Challenge.ALWAYS) => none
       }
