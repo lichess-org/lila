@@ -558,4 +558,5 @@
     <item quantity="other">%s भाषाओं में उपलब्ध है !</item>
   </plurals>
   <string name="gameAnalysis">खेल अध्ययन</string>
+  <string name="pieceSet">मोहरे</string>
 </resources>
