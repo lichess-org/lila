@@ -10,6 +10,7 @@ private object AntmaPairing {
     import data._
 
     def rankFactor = PairingSystem.rankFactorFor(players)
+    def scoreFactor = PairingSystem.scoreFactorFor(players)
 
     def justPlayedTogether(u1: String, u2: String) =
       lastOpponents.hash.get(u1).contains(u2) ||
@@ -19,6 +20,7 @@ private object AntmaPairing {
       if (justPlayedTogether(a.player.userId, b.player.userId)) None
       else Some {
         Math.abs(a.rank - b.rank) * rankFactor(a, b) +
+          Math.abs(a.player.score - b.player.score) * scoreFactor(a, b) +
           Math.abs(a.player.rating - b.player.rating)
       }
 

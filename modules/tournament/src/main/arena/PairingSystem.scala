@@ -92,8 +92,8 @@ private[tournament] object PairingSystem extends AbstractPairingSystem {
      * we increase pairing quality for them.
      * The higher ranked, and the more ranking is relevant.
      * For instance rank 1 vs rank 5
-     * is better thank 300 vs rank 310
-     * This should increase leader vs leader pairing chances
+     * is better than rank 300 vs rank 310
+     * This should increase leader vs leader pairing chances.
      *
      * top rank factor = 2000
      * bottom rank factor = 300
@@ -104,5 +104,13 @@ private[tournament] object PairingSystem extends AbstractPairingSystem {
       val rank = Math.min(a.rank, b.rank)
       300 + 1700 * (maxRank - rank) / maxRank
     }
+  }
+
+  /* By increasing the factor for high scoring players,
+     * we increase pairing quality for them.
+     * This should increase leader vs leader pairing chances.
+     */
+  private[arena] def scoreFactorFor(players: RankedPlayers): (RankedPlayer, RankedPlayer) => Int = {
+    players.map(_.player.score).max
   }
 }
