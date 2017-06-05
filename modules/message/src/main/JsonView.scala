@@ -17,11 +17,10 @@ final class JsonView(
     Ok(PaginatorJson(threads.mapResults { t =>
       Json.obj(
         "id" -> t.id,
-        "author" -> t.visibleOtherUserId(me), // #TODO REVERT ME when app handles mod messages
+        "author" -> t.visibleOtherUserId(me),
         "name" -> t.name,
         "updatedAt" -> t.updatedAt,
-        "isUnread" -> t.isUnReadBy(me),
-        "mod" -> t.mod
+        "isUnread" -> t.isUnReadBy(me)
       )
     }))
 
@@ -30,8 +29,7 @@ final class JsonView(
       Json.obj(
         "id" -> thread.id,
         "name" -> thread.name,
-        "posts" -> thread.posts.map { post => threadPost(thread, post) },
-        "mod" -> thread.mod
+        "posts" -> thread.posts.map { post => threadPost(thread, post) }
       )
     )
 
