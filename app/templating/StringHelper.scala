@@ -45,7 +45,7 @@ trait StringHelper { self: NumberHelper =>
     })
   }
 
-  private val urlRegex = """(?i)\b((https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,6}/)((?:[^\s<>]+|\(([^\s<>]+|(\([^\s<>]+\)))*\))+(?>\(([^\s<>]+|(\([^\s<>]+\)))*\)|[^\s`!\[\]{};:'".,<>?«»“”‘’])))""".r
+  private val urlRegex = """(?i)\b((https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,6}\/)((?:[`!\[\]{};:'".,<>?«»“”‘’]*[^\s<>`!\[\]{};:'".,<>?«»“”‘’])*))""".r
 
   /**
    * Creates hyperlinks to user profiles mentioned using the '@' prefix. e.g. @ornicar
