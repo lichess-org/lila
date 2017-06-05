@@ -6,6 +6,7 @@ import com.typesafe.config.Config
 import scala.concurrent.duration._
 
 import lila.common.PimpedConfig._
+import lila.user.User
 import lila.hub.actorApi.map.Ask
 import lila.socket.actorApi.GetVersion
 import makeTimeout.short
@@ -20,6 +21,8 @@ final class Env(
     hub: lila.hub.Env,
     db: lila.db.Env,
     asyncCache: lila.memo.AsyncCache.Builder,
+    getPref: User => Fu[lila.pref.Pref],
+    getRelation: (User, User) => Fu[Option[lila.relation.Relation]],
     scheduler: lila.common.Scheduler
 ) {
 
@@ -67,6 +70,11 @@ final class Env(
     lilaBus = system.lilaBus
   )
 
+  lazy val granter = new ChallengeGranter(
+    getPref = getPref,
+    getRelation = getRelation
+  )
+
   private lazy val repo = new ChallengeRepo(
     coll = db(CollectionChallenge),
     maxPerUser = MaxPerUser
@@ -91,6 +99,8 @@ object Env {
     isOnline = lila.user.Env.current.isOnline,
     db = lila.db.Env.current,
     asyncCache = lila.memo.Env.current.asyncCache,
+    getPref = lila.pref.Env.current.api.getPref,
+    getRelation = lila.relation.Env.current.api.fetchRelation,
     scheduler = lila.common.PlayApp.scheduler
   )
 }

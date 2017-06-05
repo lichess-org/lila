@@ -1,7 +1,7 @@
 package lila.relation
 
-import akka.actor.ActorSelection
 import scala.concurrent.duration._
+import akka.actor.ActorSelection
 
 import lila.db.dsl._
 import lila.db.paginator._
@@ -30,6 +30,7 @@ final class RelationApi(
   def fetchRelation(u1: ID, u2: ID): Fu[Option[Relation]] = (u1 != u2) ?? {
     coll.primitiveOne[Relation]($doc("u1" -> u1, "u2" -> u2), "r")
   }
+  def fetchRelation(u1: User, u2: User): Fu[Option[Relation]] = fetchRelation(u1.id, u2.id)
 
   def fetchFollowing = RelationRepo following _
 

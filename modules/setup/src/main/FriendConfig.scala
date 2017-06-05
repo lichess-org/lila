@@ -2,6 +2,8 @@ package lila.setup
 
 import chess.Mode
 import lila.lobby.Color
+import lila.rating.PerfType
+import lila.game.PerfPicker
 
 case class FriendConfig(
     variant: chess.variant.Variant,
@@ -19,6 +21,8 @@ case class FriendConfig(
   def >> = (variant.id, timeMode.id, time, increment, days, mode.id.some, color.name, fen).some
 
   def isPersistent = timeMode == TimeMode.Unlimited || timeMode == TimeMode.Correspondence
+
+  def perfType: Option[PerfType] = PerfPicker.perfType(chess.Speed(makeClock), variant, makeDaysPerTurn)
 }
 
 object FriendConfig extends BaseHumanConfig {

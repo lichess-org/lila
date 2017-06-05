@@ -120,7 +120,11 @@ object Challenge extends LilaController {
         err => funit,
         username => UserRepo named username flatMap {
           case None => funit
-          case Some(dest) => env.api.setDestUser(c, dest)
+          case Some(dest) =>
+            // restriction(dest) flatMap {
+            //   case Some(_) =>
+            //     Redirect(routes.Lobby.home + s"?user=${~userId}#friend").fuccess
+            env.api.setDestUser(c, dest)
         }
       ) inject Redirect(routes.Challenge.show(c.id))
       else notFound
@@ -131,24 +135,15 @@ object Challenge extends LilaController {
     OptionFuResult(GameRepo game gameId) { g =>
       Pov.opponentOfUserId(g, me.id).flatMap(_.userId) ?? UserRepo.byId flatMap {
         _ ?? { opponent =>
-          restriction(opponent) flatMap {
-            case Some(r) => BadRequest(jsonError(r.replace("{{user}}", opponent.username))).fuccess
+          env.granter(me.some, opponent, g.perfType) flatMap {
+            case Some(d) => BadRequest(jsonError {
+              lila.challenge.ChallengeDenied inEnglish d
+            }).fuccess
             case _ => env.api.rematchOf(g, me) map {
               _.fold(Ok, BadRequest(jsonError("Sorry, couldn't create the rematch.")))
             }
           }
         }
-      }
-    }
-  }
-
-  def restriction(user: lila.user.User)(implicit ctx: Context): Fu[Option[String]] = ctx.me match {
-    case None => fuccess("Only registered players can send challenges.".some)
-    case Some(me) => Env.relation.api.fetchBlocks(user.id, me.id) flatMap {
-      case true => fuccess(s"{{user}} doesn't accept challenges from you.".some)
-      case false => Env.pref.api getPref user zip Env.relation.api.fetchFollows(user.id, me.id) map {
-        case (pref, follow) => lila.pref.Pref.Challenge.block(me, user, pref.challenge, follow,
-          fromCheat = me.engine && !user.engine)
       }
     }
   }
