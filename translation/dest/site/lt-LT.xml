@@ -512,4 +512,17 @@
   <string name="pieceSet">Figūrų rinkinys</string>
   <string name="embedInYourWebsite">Įterpto jūsų svetainėje</string>
   <string name="usernameAlreadyUsed">Šis vartotojo vardas jau naudojamas, pabandykite kitą.</string>
+  <string name="usernameInvalid">Negalimas vartotojo vardas. Naudokite tik raides, skaičius, pabraukimo brūkšnį ir brūkšnį.</string>
+  <string name="usernameStartNoNumber">Vartotojo vardas negali prasidėti skaičiumi.</string>
+  <string name="usernameUnacceptable">Šis vartotojo vardas yra netinkamas.</string>
+  <string name="directlySupportLichess">Paremkite „Lichess“ tiesiogiai</string>
+  <string name="playChessInStyle">Žaiskite šachmatais stilingai</string>
+  <string name="chessBasics">Šachmatų pagrindai</string>
+  <string name="coaches">Treneriai</string>
+  <string name="invalidPgn">Netinkamas PGN</string>
+  <string name="invalidFen">Netinkamas FEN</string>
+  <string name="error.minLength">Mažiausias ilgis yra %s</string>
+  <string name="error.maxLength">Didžiausias ilgis yra %s</string>
+  <string name="error.min">Turi būti didesnis arba lygus %s</string>
+  <string name="error.max">Turi būti mažesnis arba lygus %s</string>
 </resources>
