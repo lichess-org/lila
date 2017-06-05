@@ -51,7 +51,7 @@
   <string name="mistakes">गलतियाँ</string>
   <string name="inaccuracies">त्रुटियाँ</string>
   <string name="moveTimes">चाल समय</string>
-  <string name="flipBoard">शतरंज को पलटें</string>
+  <string name="flipBoard">बोर्ड पलटें</string>
   <string name="threefoldRepetition">तीन बार दोहराव</string>
   <string name="claimADraw">बराबरी का दावा करें</string>
   <string name="offerDraw">खेल को बराबरी पर समाप्त करने का प्रस्ताव दें</string>
@@ -541,9 +541,11 @@
   <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">क्या आप वाकई भी lichess पर अपने ईमेल पंजीकृत हैं?</string>
   <string name="itWasNotRequiredForYourRegistration">यह अपने पंजीकरण के लिए आवश्यक नहीं था।</string>
   <string name="weHaveSentYouAnEmailTo">हम%s के लिए एक ईमेल भेज दिया है। अपना पासवर्ड रीसेट करने के लिए ईमेल में लिंक पर क्लिक करें।</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">दर्ज करके, आप हमारे %s द्वारा बाध्य होने के लिए सहमत हैं।</string>
   <string name="networkLagBetweenYouAndLichess">आप और lichess के बीच नेटवर्क के अंतराल</string>
   <string name="confirmResignation">इस्तीफे की पुष्टि करें</string>
   <string name="letOtherPlayersMessageYou">अन्य खिलाड़ियों को आपको संदेश देने दें</string>
+  <string name="shareYourInsightsData">अपने इनसाइट डेटा साझा करें</string>
   <string name="youHaveAlreadyRegisteredTheEmail">आपने पहले ही ईमेल दर्ज कर लिया है: %s</string>
   <string name="playChessEverywhere">हर जगह शतरंज खेलें</string>
   <string name="zeroAdvertisement">शून्य विज्ञापन</string>
@@ -559,4 +561,7 @@
   </plurals>
   <string name="gameAnalysis">खेल अध्ययन</string>
   <string name="pieceSet">मोहरे</string>
+  <string name="directlySupportLichess">Lichess का समर्थन करें</string>
+  <string name="chessBasics">शतरंज मूल बातें</string>
+  <string name="error.max">%s से कम या बराबर होना चाहिए</string>
 </resources>
