@@ -49,7 +49,7 @@ object Setup extends LilaController with TheftPrevention {
         userId ?? UserRepo.named flatMap {
           case None => Ok(html.setup.friend(form, none, none, validFen)).fuccess
           case Some(user) => Env.challenge.granter(ctx.me, user, none) map {
-            case Some(denied) => BadRequest(html.challenge.denied(denied))
+            case Some(denied) => BadRequest(lila.challenge.ChallengeDenied.inEnglish(denied))
             case None => Ok(html.setup.friend(form, user.some, none, validFen))
           }
         }

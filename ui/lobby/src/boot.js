@@ -442,8 +442,12 @@ module.exports = function(cfg, element) {
         prepareForm();
         lichess.pubsub.emit('content_loaded')();
       },
-      error: function() {
-        lichess.reload();
+      error: function(res) {
+        if (res.status == 400) {
+          $startButtons.find('a.active').removeClass('active');
+          alert(res.responseText);
+        }
+        else lichess.reload();
       }
     });
     $(this).addClass('active').siblings().removeClass('active');

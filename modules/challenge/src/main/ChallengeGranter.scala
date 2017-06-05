@@ -20,11 +20,11 @@ object ChallengeDenied {
   }
 
   def inEnglish(d: ChallengeDenied) = d.reason match {
-    case Reason.YouAreAnon => "Please register to send challenges"
-    case Reason.YouAreBlocked => s"You cannot challenge ${d.dest.titleUsername}"
-    case Reason.TheyDontAcceptChallenges => s"${d.dest.titleUsername} does not accept any challenge"
-    case Reason.RatingOutsideRange(perf) => s"Your ${perf.name} rating is too far from ${d.dest.titleUsername} rating"
-    case Reason.FriendsOnly => s"${d.dest.titleUsername} only accepts challenges from friends"
+    case Reason.YouAreAnon => "Please register to send challenges."
+    case Reason.YouAreBlocked => s"You cannot challenge ${d.dest.titleUsername}."
+    case Reason.TheyDontAcceptChallenges => s"${d.dest.titleUsername} does not accept any challenge."
+    case Reason.RatingOutsideRange(perf) => s"Your ${perf.name} rating is too far from ${d.dest.titleUsername} rating."
+    case Reason.FriendsOnly => s"${d.dest.titleUsername} only accepts challenges from friends."
   }
 }
 
