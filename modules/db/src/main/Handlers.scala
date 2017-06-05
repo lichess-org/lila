@@ -57,7 +57,7 @@ trait Handlers {
   implicit def bsonArrayToNonEmptyListHandler[T](implicit reader: BSONReader[_ <: BSONValue, T], writer: BSONWriter[T, _ <: BSONValue]): BSONHandler[BSONArray, NonEmptyList[T]] = new BSONHandler[BSONArray, NonEmptyList[T]] {
     private val listHandler = bsonArrayToListHandler[T]
     def read(array: BSONArray) = listHandler.read(array).toNel err s"BSONArray is empty, can't build NonEmptyList"
-    def write(repr: NonEmptyList[T]) = listHandler.write(repr.list)
+    def write(repr: NonEmptyList[T]) = listHandler.write(repr.toList)
   }
 
   private def readStreamList[T](array: BSONArray, reader: BSONReader[BSONValue, T]): List[T] =

@@ -7,7 +7,7 @@ import lila.game.{ Game, Query, GameRepo }
 import lila.user.User
 
 import play.api.mvc.Request
-import scalaz.NonEmptyList
+import scalaz.{ NonEmptyList, IList }
 
 sealed abstract class GameFilter(val name: String)
 
@@ -36,7 +36,8 @@ object GameFilterMenu {
 
   import GameFilter._
 
-  val all = NonEmptyList.nel(All, List(Me, Rated, Win, Loss, Draw, Playing, Bookmark, Imported, Search))
+  val all: NonEmptyList[GameFilter] =
+    NonEmptyList.nel(All, IList(Me, Rated, Win, Loss, Draw, Playing, Bookmark, Imported, Search))
 
   def apply(
     info: UserInfo,
@@ -44,7 +45,7 @@ object GameFilterMenu {
     currentNameOption: Option[String]
   ): GameFilterMenu = {
 
-    val filters = NonEmptyList.nel(All, List(
+    val filters: NonEmptyList[GameFilter] = NonEmptyList.nel(All, IList fromList List(
       (info.nbWithMe > 0) option Me,
       (info.nbRated > 0) option Rated,
       (info.user.count.win > 0) option Win,
