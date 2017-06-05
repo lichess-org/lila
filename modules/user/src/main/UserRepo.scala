@@ -255,7 +255,7 @@ object UserRepo {
   def create(
     username: String,
     password: String,
-    email: Option[EmailAddress],
+    email: EmailAddress,
     blind: Boolean,
     mobileApiVersion: Option[ApiVersion],
     mustConfirmEmail: Boolean
@@ -429,7 +429,7 @@ object UserRepo {
   private def newUser(
     username: String,
     password: String,
-    email: Option[EmailAddress],
+    email: EmailAddress,
     blind: Boolean,
     mobileApiVersion: Option[ApiVersion],
     mustConfirmEmail: Boolean
@@ -444,7 +444,7 @@ object UserRepo {
       F.id -> normalize(username),
       F.username -> username,
       F.email -> email,
-      F.mustConfirmEmail -> (email.isDefined && mustConfirmEmail).option(DateTime.now),
+      F.mustConfirmEmail -> mustConfirmEmail.option(DateTime.now),
       "password" -> hash(password, salt),
       "salt" -> salt,
       F.perfs -> $empty,
