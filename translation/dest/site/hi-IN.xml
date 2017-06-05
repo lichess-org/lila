@@ -560,6 +560,7 @@
     <item quantity="other">%s भाषाओं में उपलब्ध है !</item>
   </plurals>
   <string name="gameAnalysis">खेल अध्ययन</string>
+  <string name="language">भाषा</string>
   <string name="pieceSet">मोहरे</string>
   <string name="directlySupportLichess">Lichess का समर्थन करें</string>
   <string name="chessBasics">शतरंज मूल बातें</string>
