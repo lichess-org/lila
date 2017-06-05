@@ -56,6 +56,11 @@
   <string name="claimADraw">Įskaityti lygiąsias</string>
   <string name="offerDraw">Siūlyti lygiąsias</string>
   <string name="draw">Lygiosios</string>
+  <plurals name="nbPlayers">
+    <item quantity="one">%s žaidėjas</item>
+    <item quantity="few">%s žaidėjai</item>
+    <item quantity="other">%s žaidėjų</item>
+  </plurals>
   <string name="currentGames">Vykstančios partijos</string>
   <string name="viewInFullSize">Žiūrėti visu dydžiu</string>
   <string name="logOut">Atsijungti</string>
