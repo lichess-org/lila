@@ -198,6 +198,7 @@
   <string name="onlineFriends">Prisijungę draugai</string>
   <string name="noFriendsOnline">Prisijungusių draugų nėra</string>
   <string name="findFriends">Rasti draugų</string>
+  <string name="favoriteOpponents">Dažniausi varžovai</string>
   <string name="follow">Sekti</string>
   <string name="following">Sekamas</string>
   <string name="unfollow">Nebesekti</string>
@@ -338,6 +339,7 @@
   <string name="premovesPlayingDuringOpponentTurn">Išankstiniai ėjimai (ėjimas varžovo ėjimo metu)</string>
   <string name="takebacksWithOpponentApproval">Ėjimų atšaukimas (su varžovo sutikimu)</string>
   <string name="promoteToQueenAutomatically">Automatiškai paaukštinti į valdovę</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatiškai įskaityti lygiąsias pozicijai pasikartojus tris kartus</string>
   <string name="privacy">Privatumas</string>
   <string name="letOtherPlayersFollowYou">Leisti kitiems žaidėjams jus sekti</string>
   <string name="letOtherPlayersChallengeYou">Leisti kitiems žaidėjams pakviesti jus partijai</string>
