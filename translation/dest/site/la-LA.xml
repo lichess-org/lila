@@ -233,6 +233,7 @@
   </plurals>
   <string name="thisIsAChessCaptcha">Hic ludus CAPTCHA est</string>
   <string name="clickOnTheBoardToMakeYourMove">Age motum ut tuum esse humanum confirmem.</string>
+  <string name="captcha.fail">Solve hoc problematem scacorum, si vis.</string>
   <string name="notACheckmate">Non est mattus</string>
   <string name="colorPlaysCheckmateInOne">%s agens; mattus moto uno</string>
   <string name="retry">Adparare iterum</string>
@@ -405,6 +406,7 @@
   <string name="premovesPlayingDuringOpponentTurn">Praemotus (cum adversarius ludit)</string>
   <string name="takebacksWithOpponentApproval">Receptus (si adversarius probeat)</string>
   <string name="promoteToQueenAutomatically">Ad reginam sponte promovere</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Aequabiliter digere cum triplex iteratio fiat</string>
   <string name="privacy">Privatus</string>
   <string name="letOtherPlayersFollowYou">Alii lusores te sequantur</string>
   <string name="letOtherPlayersChallengeYou">Alii lusores te imponant</string>
@@ -583,19 +585,20 @@
   <string name="xLikesY">%1$s velit %2$s</string>
   <string name="quickPairing">Velox partes</string>
   <string name="lobby">Vestibulum</string>
-  <string name="yourScore">Score tuum: %s</string>
+  <string name="yourScore">Status tibi: %s</string>
   <string name="language">Lingua</string>
   <string name="background">Scaena</string>
   <string name="boardGeometry">Geometria tabula</string>
   <string name="boardTheme">Thema tabulae</string>
   <string name="boardSize">Tabula magnitudine</string>
+  <string name="pieceSet">Familia</string>
   <string name="embedInYourWebsite">Ostende in locum</string>
   <string name="usernameAlreadyUsed">Username hanc iam usus aliquam alia.</string>
   <string name="usernameInvalid">Irritum nomen usoris. Quaeso uti literis tantum, numero et offendas.</string>
-  <string name="usernameStartNoNumber">Nomen usoris necesse est incipere, non est numerus.</string>
-  <string name="usernameUnacceptable">Nomen usoris hoc est gratum.</string>
+  <string name="usernameStartNoNumber">Nomen usoris incipere cum numero non potest.</string>
+  <string name="usernameUnacceptable">Hoc nomen usoris acceptum non est.</string>
   <string name="directlySupportLichess">Lichess directe auxilium</string>
-  <string name="playChessInStyle">In scaccum ludo style</string>
+  <string name="playChessInStyle">Lude scacos moris</string>
   <string name="chessBasics">Scacci fundamenta</string>
   <string name="coaches">Tutores</string>
   <string name="invalidPgn">Irritum ludum notatio</string>
@@ -604,4 +607,5 @@
   <string name="error.maxLength">Maximum est longitudinem %s</string>
   <string name="error.min">%s paribus maius esse</string>
   <string name="error.max">%s paribus minor est</string>
+  <string name="custom">Alius</string>
 </resources>

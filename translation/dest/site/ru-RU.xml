@@ -31,7 +31,7 @@
   <string name="joinTheGame">Присоединиться</string>
   <string name="whitePlays">Ход белых</string>
   <string name="blackPlays">Ход чёрных</string>
-  <string name="opponentLeftChoices">Ваш соперник покинул игру. Вы можете запросить победу, объявить ничью или ждать.</string>
+  <string name="opponentLeftChoices">Ваш соперник покинул игру. Вы можете запросить победу, объявить ничью или подождать.</string>
   <string name="makeYourOpponentResign">Объявить соперника сдавшимся</string>
   <string name="forceResignation">Запросить победу</string>
   <string name="forceDraw">Объявить ничью</string>
@@ -56,7 +56,22 @@
   <string name="claimADraw">Объявить ничью</string>
   <string name="offerDraw">Предложить ничью</string>
   <string name="draw">Ничья</string>
+  <plurals name="nbPlayers">
+    <item quantity="one">%s игрок онлайн</item>
+    <item quantity="few">%s игрока онлайн</item>
+    <item quantity="other">%s игроков онлайн</item>
+  </plurals>
   <string name="currentGames">Текущие партии</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s Игра</item>
+    <item quantity="few">%s Игры</item>
+    <item quantity="other">%s Игр</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s закладка</item>
+    <item quantity="few">%s закладки</item>
+    <item quantity="other">%s закладок</item>
+  </plurals>
   <string name="viewInFullSize">Посмотреть в полном размере</string>
   <string name="logOut">Выйти</string>
   <string name="signIn">Войти</string>
@@ -77,6 +92,16 @@
   <string name="correspondence">По переписке</string>
   <string name="daysPerTurn">Дней на ход</string>
   <string name="oneDay">Один день</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s день</item>
+    <item quantity="few">%s дня</item>
+    <item quantity="other">%s дней</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s час</item>
+    <item quantity="few">%s часа</item>
+    <item quantity="other">%s часов</item>
+  </plurals>
   <string name="time">Время</string>
   <string name="rating">Рейтинг</string>
   <string name="ratingStats">Статистика рейтинга</string>
@@ -92,6 +117,11 @@
   <string name="forgotPassword">Забыли пароль?</string>
   <string name="rank">Уровень</string>
   <string name="gamesPlayed">Партий сыграно</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s партия с вами</item>
+    <item quantity="few">%s партии с вами</item>
+    <item quantity="other">%s партий с вами</item>
+  </plurals>
   <string name="cancel">Отменить</string>
   <string name="timeOut">Время истекло</string>
   <string name="drawOfferSent">Предложение ничьей отправлено</string>
@@ -134,8 +164,28 @@
   <string name="incrementInSeconds">Прибавка в секундах</string>
   <string name="freeOnlineChess">Бесплатные онлайн-шахматы</string>
   <string name="spectators">Зрители:</string>
+  <plurals name="nbWins">
+    <item quantity="one">%s выиграно</item>
+    <item quantity="few">%s выиграно</item>
+    <item quantity="other">%s выиграно</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s проиграно</item>
+    <item quantity="few">%s проиграно</item>
+    <item quantity="other">%s проиграно</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s сыграно вничью</item>
+    <item quantity="few">%s сыграно вничью</item>
+    <item quantity="other">%s сыграно вничью</item>
+  </plurals>
   <string name="exportGames">Экспорт игр</string>
   <string name="ratingRange">Диапазон рейтинга</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">Дать %s секунду</item>
+    <item quantity="few">Дать %s секунды</item>
+    <item quantity="other">Дать %s секунд</item>
+  </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Этот игрок использует помощь шахматной программы (читер)</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Этот игрок искусственно увеличивал либо уменьшал свой рейтинг</string>
   <string name="openingExplorer">Анализ дебютных вариантов</string>
@@ -157,6 +207,11 @@
   <string name="backToGame">Возврат к игре</string>
   <string name="siteDescription">Бесплатные онлайн-шахматы. Играйте в шахматы прямо сейчас в простом интерфейсе без рекламы. Не требует регистрации и скачивания программы. Играйте в шахматы с компьютером, друзьями или случайными соперниками.</string>
   <string name="teams">Команды</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s участник</item>
+    <item quantity="few">%s участника</item>
+    <item quantity="other">%s участников</item>
+  </plurals>
   <string name="allTeams">Все команды</string>
   <string name="newTeam">Новая команда</string>
   <string name="myTeams">Мои команды</string>
@@ -183,8 +238,14 @@
   <string name="fromPosition">С позиции</string>
   <string name="continueFromHere">Продолжить с данного места</string>
   <string name="importGame">Импорт игры</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s Импортированная игра</item>
+    <item quantity="few">%s Импортированные игры</item>
+    <item quantity="other">%s Импортированных игр</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">Это шахматная CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Кликните по доске, чтобы сделать ход и доказать, что вы человек.</string>
+  <string name="captcha.fail">Пожалуйста, решите шахматную CAPTCHA.</string>
   <string name="notACheckmate">Это не мат</string>
   <string name="colorPlaysCheckmateInOne">%s начинают; мат в один ход</string>
   <string name="retry">Повторить</string>
@@ -201,6 +262,16 @@
   <string name="unblock">Разблокировать</string>
   <string name="followsYou">Подписаны на вас</string>
   <string name="xStartedFollowingY">%1$s подписался на %2$s</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s подписчик</item>
+    <item quantity="few">%s подписчика</item>
+    <item quantity="other">%s подписчиков</item>
+  </plurals>
+  <plurals name="nbFollowing">
+    <item quantity="one">подписан на %s игрока</item>
+    <item quantity="few">%s подписан</item>
+    <item quantity="other">подписан на %s игроков</item>
+  </plurals>
   <string name="more">Ещё</string>
   <string name="memberSince">Дата регистрации</string>
   <string name="lastSeenActive">Последнее посещение %s</string>
@@ -208,6 +279,11 @@
   <string name="player">Игрок</string>
   <string name="list">Список</string>
   <string name="graph">График</string>
+  <plurals name="lessThanNbMinutes">
+    <item quantity="one">Менее %s минуты</item>
+    <item quantity="few">Менее %s минут</item>
+    <item quantity="other">Менее %s минут</item>
+  </plurals>
   <string name="required">Требуется заполнить.</string>
   <string name="openTournaments">Открытые турниры</string>
   <string name="duration">Длительность</string>
@@ -263,12 +339,27 @@
   <string name="pleaseVotePuzzle">Помогите сделать lichess лучше, голосуя при помощи стрелок вверх или вниз.</string>
   <string name="thankYou">Спасибо!</string>
   <string name="ratingX">Рейтинг %s</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Решено %s раз</item>
+    <item quantity="few">Решено %s раза</item>
+    <item quantity="other">Решено %s раз</item>
+  </plurals>
   <string name="fromGameLink">Из игры %s</string>
   <string name="startTraining">Начать тренировку</string>
   <string name="continueTraining">Продолжить тренировку</string>
   <string name="retryThisPuzzle">Попробовать ещё раз</string>
   <string name="thisPuzzleIsCorrect">Задача правильная и интересная</string>
   <string name="thisPuzzleIsWrong">Задача неправильная или неинтересная</string>
+  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
+    <item quantity="one">У Вас %s секунда, чтобы сделать свой первый ход!</item>
+    <item quantity="few">У Вас %s секунды, чтобы сделать свой первый ход!</item>
+    <item quantity="other">У Вас %s секунд, чтобы сделать свой первый ход!</item>
+  </plurals>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s ведется партий</item>
+    <item quantity="few">%s ведется партий</item>
+    <item quantity="other">%s ведется партий</item>
+  </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Автоматически переходить к следующей игре после хода</string>
   <string name="autoSwitch">Автосмена</string>
   <string name="puzzles">Задачки</string>
@@ -364,6 +455,16 @@
   <string name="allInformationIsPublicAndOptional">Вся информация публична и указывается по желанию.</string>
   <string name="yourCityRegionOrDepartment">Ваш город, область или округ.</string>
   <string name="biographyDescription">Расскажите о себе, что Вы любите в шахматах, Ваши любимые дебюты, партии, игроки...</string>
+  <plurals name="maximumNbCharacters">
+    <item quantity="one">Максимум: %s символов.</item>
+    <item quantity="few">Максимум: %s символов.</item>
+    <item quantity="other">Максимум: %s символов.</item>
+  </plurals>
+  <plurals name="blocks">
+    <item quantity="one">%s заблокировано</item>
+    <item quantity="few">%s заблокировано</item>
+    <item quantity="other">%s заблокировано</item>
+  </plurals>
   <string name="listBlockedPlayers">Список заблокированных Вами игроков</string>
   <string name="human">Человек</string>
   <string name="computer">Компьютер</string>
@@ -401,6 +502,11 @@
   <string name="whiteCastlingQueenside">Белые О-О-О</string>
   <string name="blackCastlingKingside">Черные О-О</string>
   <string name="blackCastlingQueenside">Черные О-О-О</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s постов на форуме</item>
+    <item quantity="few">%s постов на форуме</item>
+    <item quantity="other">%s постов на форуме</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">Времени за игрой: %s</string>
   <string name="watchGames">Смотреть игры</string>
   <string name="tpTimeSpentOnTV">Времени на TV: %s</string>
@@ -449,6 +555,11 @@
   <string name="tournamentMayHaveBeenCanceled">Может быть отменен, в случае если все игроки покинули турнир до его старта.</string>
   <string name="returnToTournamentsHomepage">Вернуться на страницу турниров</string>
   <string name="weeklyPerfTypeRatingDistribution">Распределение по рейтингу %s за месяц</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">%1$s %2$s игроков на этой неделе.</item>
+    <item quantity="few">%1$s %2$s игроков на этой неделе.</item>
+    <item quantity="other">%1$s %2$s игроков на этой неделе.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">Ваш %1$s рейтинг %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Вы сильнее %1$s игроков в %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ваш %s рейтинг ещё не определен.</string>
@@ -486,16 +597,22 @@
   <string name="correspondenceAndUnlimited">По переписке и без ограничения времени</string>
   <string name="viewTheSolution">Посмотреть решение</string>
   <string name="followAndChallengeFriends">Подписаться и вызвать на игру друзей</string>
+  <plurals name="availableInNbLanguages">
+    <item quantity="one">Доступно на %s языке!</item>
+    <item quantity="few">Доступно на %s языках!</item>
+    <item quantity="other">Доступно на %s языках!</item>
+  </plurals>
   <string name="gameAnalysis">Анализ игры</string>
   <string name="xHostsY">%1$s создал %2$s</string>
   <string name="xJoinsY">%1$s присоединился к %2$s</string>
   <string name="xLikesY">%1$s отметил %2$s как понравившееся</string>
+  <string name="quickPairing">Быстрый старт</string>
   <string name="lobby">Лобби</string>
   <string name="yourScore">Ваш результат: %s</string>
   <string name="language">Язык</string>
   <string name="background">Фон</string>
   <string name="boardGeometry">Геометрия доски</string>
-  <string name="boardTheme">Оформительская тема доски</string>
+  <string name="boardTheme">Оформление доски</string>
   <string name="boardSize">Размер доски</string>
   <string name="pieceSet">Набор фигур</string>
   <string name="embedInYourWebsite">Встроить в свой сайт</string>
@@ -513,4 +630,5 @@
   <string name="error.maxLength">Максимальная длина — %s</string>
   <string name="error.min">Значение должно быть больше либо равным %s</string>
   <string name="error.max">Значение должно быть меньше либо равным %s</string>
+  <string name="custom">Пользовательская партия</string>
 </resources>
