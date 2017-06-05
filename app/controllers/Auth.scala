@@ -140,7 +140,7 @@ object Auth extends LilaController {
           api = apiVersion => forms.signup.mobile.bindFromRequest.fold(
             err => fuccess(BadRequest(jsonError(errorsAsJson(err)))),
             data => {
-              val mustConfirmEmail = data.email.isDefined
+              val mustConfirmEmail = data.email.isDefined && ~data.canConfirm
               lila.mon.user.register.mobile()
               lila.mon.user.register.mustConfirmEmail(mustConfirmEmail)()
               val email = data.realEmail flatMap env.emailAddressValidator.validate
