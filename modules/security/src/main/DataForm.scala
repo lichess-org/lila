@@ -42,7 +42,7 @@ final class DataForm(
         regex = """^[^\d].+$""".r,
         error = "usernameStartNoNumber"
       )
-    ).verifying("", u => !UserRepo.nameExists(u).awaitSeconds(4))
+    ).verifying("usernameAlreadyUsed", u => !UserRepo.nameExists(u).awaitSeconds(4))
       .verifying("usernameUnacceptable", u => !LameName(u))
 
     val website = Form(mapping(
