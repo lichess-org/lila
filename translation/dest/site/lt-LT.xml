@@ -369,6 +369,7 @@
   <string name="starting">Prasideda:</string>
   <string name="allInformationIsPublicAndOptional">Visa informacija yra vieša ir neprivaloma.</string>
   <string name="yourCityRegionOrDepartment">Jūsų miestas, regionas ar provincija.</string>
+  <string name="biographyDescription">Papasakokite apie save, kodėl mėgstate šachmatus, kokie jūsų mėgstamiausi debiutai, žaidėjai…</string>
   <string name="listBlockedPlayers">Parodyti jūsų užblokuotus žaidėjus</string>
   <string name="human">Žmogus</string>
   <string name="computer">Kompiuteris</string>
@@ -454,6 +455,11 @@
   <string name="tournamentMayHaveBeenCanceled">Jis galėjo būti atšauktas, jeigu iki jo pradžios išėjo visi žaidėjai.</string>
   <string name="returnToTournamentsHomepage">Grįžti į pradinį turnyrų puslapį</string>
   <string name="weeklyPerfTypeRatingDistribution">Savaitinis „%s“ reitingų pasiskirstymas</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">%1$s %2$s žaidėjas šią savaitę.</item>
+    <item quantity="few">%1$s %2$s žaidėjai šią savaitę.</item>
+    <item quantity="other">%1$s %2$s žaidėjų šią savaitę.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">Jūsų „%1$s“ reitingas yra %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Jūs esate geresni už %1$s iš %2$s žaidėjų.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Jūs neturite nusistovėjusio „%s“ reitingo.</string>
@@ -492,4 +498,18 @@
   <string name="viewTheSolution">Parodyti sprendimą</string>
   <string name="followAndChallengeFriends">Sekti ir žaisti su draugais</string>
   <string name="gameAnalysis">Žaidimo analizė</string>
+  <string name="xHostsY">%1$s veda %2$s</string>
+  <string name="xJoinsY">%1$s prisijungė prie %2$s</string>
+  <string name="xLikesY">%1$s patiko %2$s</string>
+  <string name="quickPairing">Greitas suporavimas</string>
+  <string name="lobby">Laukiamasis</string>
+  <string name="yourScore">Jūsų rezultatas: %s</string>
+  <string name="language">Kalba</string>
+  <string name="background">Fonas</string>
+  <string name="boardGeometry">Lentos geometrija</string>
+  <string name="boardTheme">Lentos stilius</string>
+  <string name="boardSize">Lentos dydis</string>
+  <string name="pieceSet">Figūrų rinkinys</string>
+  <string name="embedInYourWebsite">Įterpto jūsų svetainėje</string>
+  <string name="usernameAlreadyUsed">Šis vartotojo vardas jau naudojamas, pabandykite kitą.</string>
 </resources>
