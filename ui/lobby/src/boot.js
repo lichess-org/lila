@@ -443,11 +443,8 @@ module.exports = function(cfg, element) {
         lichess.pubsub.emit('content_loaded')();
       },
       error: function(res) {
-        if (res.status == 400) {
-          $startButtons.find('a.active').removeClass('active');
-          alert(res.responseText);
-        }
-        else lichess.reload();
+        if (res.status == 400) alert(res.responseText);
+        lichess.reload();
       }
     });
     $(this).addClass('active').siblings().removeClass('active');

@@ -36,9 +36,9 @@ object Challenge extends LilaController {
   ), ctx.lang)
 
   protected[controllers] def showId(id: String)(implicit ctx: Context): Fu[Result] =
-    OptionFuResult(env.api byId id)(showChallenge)
+    OptionFuResult(env.api byId id)(showChallenge(_))
 
-  protected[controllers] def showChallenge(c: ChallengeModel)(implicit ctx: Context): Fu[Result] =
+  protected[controllers] def showChallenge(c: ChallengeModel, error: Option[String] = None)(implicit ctx: Context): Fu[Result] =
     env version c.id flatMap { version =>
       val mine = isMine(c)
       import lila.challenge.Direction
@@ -49,7 +49,11 @@ object Challenge extends LilaController {
       val json = env.jsonView.show(c, version, direction)
       negotiate(
         html = fuccess {
-          Ok(mine.fold(html.challenge.mine.apply _, html.challenge.theirs.apply _)(c, json))
+          if (mine) error match {
+            case Some(e) => BadRequest(html.challenge.mine.apply(c, json, e.some))
+            case None => Ok(html.challenge.mine.apply(c, json, none))
+          }
+          else Ok(html.challenge.theirs.apply(c, json))
         },
         api = _ => Ok(json).fuccess
       ) flatMap withChallengeAnonCookie(mine && c.challengerIsAnon, c, true)
@@ -119,14 +123,13 @@ object Challenge extends LilaController {
       )).bindFromRequest.fold(
         err => funit,
         username => UserRepo named username flatMap {
-          case None => funit
-          case Some(dest) =>
-            // restriction(dest) flatMap {
-            //   case Some(_) =>
-            //     Redirect(routes.Lobby.home + s"?user=${~userId}#friend").fuccess
-            env.api.setDestUser(c, dest)
+          case None => Redirect(routes.Challenge.show(c.id)).fuccess
+          case Some(dest) => Env.challenge.granter(ctx.me, dest, c.perfType.some) flatMap {
+            case Some(denied) => showChallenge(c, lila.challenge.ChallengeDenied.inEnglish(denied).some)
+            case None => env.api.setDestUser(c, dest) inject Redirect(routes.Challenge.show(c.id))
+          }
         }
-      ) inject Redirect(routes.Challenge.show(c.id))
+      )
       else notFound
     }
   }
