@@ -582,4 +582,12 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   </plurals>
   <string name="gameAnalysis">Análise da partida</string>
   <string name="xJoinsY">%1$s entrou %2$s</string>
+  <string name="xLikesY">%1$s curtiu %2$s</string>
+  <string name="quickPairing">Partida rápida</string>
+  <string name="lobby">Salão</string>
+  <string name="yourScore">Sua pontuação:%s</string>
+  <string name="language">Idioma</string>
+  <string name="background">Fundo</string>
+  <string name="boardGeometry">Geometria do tabuleiro</string>
+  <string name="boardTheme">Estilo do tabuleiro</string>
 </resources>
