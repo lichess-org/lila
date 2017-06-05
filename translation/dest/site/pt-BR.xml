@@ -535,6 +535,10 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="tournamentMayHaveBeenCanceled">O evento pode ter sido cancelado, se todos os jogadores saíram antes de seu início.</string>
   <string name="returnToTournamentsHomepage">Volte à página inicial de torneios</string>
   <string name="weeklyPerfTypeRatingDistribution">Distribuição mensal de rating em %s</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">%1$s %2$s jogador desta semana.</item>
+    <item quantity="other">%1$s %2$s jogadores esta semana.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">Seu rating em %1$s é %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Você é melhor que %1$s entre os jogadores de %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Você não tem rating definido em %s.</string>
@@ -577,4 +581,5 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
     <item quantity="other">Disponível em %s idiomas!</item>
   </plurals>
   <string name="gameAnalysis">Análise da partida</string>
+  <string name="xJoinsY">%1$s entrou %2$s</string>
 </resources>
