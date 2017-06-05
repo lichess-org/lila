@@ -42,7 +42,7 @@ final class DataForm(
         regex = """^[^\d].+$""".r,
         error = "usernameStartNoNumber"
       )
-    ).verifying("", u => !UserRepo.nameExists(u).awaitSeconds(4))
+    ).verifying("usernameAlreadyUsed", u => !UserRepo.nameExists(u).awaitSeconds(4))
       .verifying("usernameUnacceptable", u => !LameName(u))
 
     val website = Form(mapping(
@@ -55,7 +55,8 @@ final class DataForm(
     val mobile = Form(mapping(
       "username" -> username,
       "password" -> text(minLength = 4),
-      "email" -> optional(acceptableUniqueEmail(none))
+      "email" -> acceptableUniqueEmail(none),
+      "can-confirm" -> optional(boolean)
     )(MobileSignupData.apply)(_ => None))
   }
 
@@ -110,9 +111,10 @@ object DataForm {
   case class MobileSignupData(
       username: String,
       password: String,
-      email: Option[String]
+      email: String,
+      canConfirm: Option[Boolean]
   ) {
-    def realEmail = email flatMap EmailAddress.from
+    def realEmail = EmailAddress(email)
   }
 
   case class PasswordReset(

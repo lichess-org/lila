@@ -51,7 +51,7 @@ object PovToEntry {
             provisional = provisional,
             initialFen = fen,
             analysis = an,
-            division = chess.Divider(boards.list),
+            division = chess.Divider(boards.toList),
             moveAccuracy = an.map { Accuracy.diffsList(pov, _) },
             boards = boards,
             movetimes = movetimes,
@@ -76,11 +76,11 @@ object PovToEntry {
         from.pov.color.fold(is, is.map(_.invert))
       }
     }
-    val movetimes = from.movetimes.list
+    val movetimes = from.movetimes.toList
     val roles = from.pov.game.pgnMoves(from.pov.color) map pgnMoveToRole
     val boards = {
       val pivot = if (from.pov.color == from.pov.game.startColor) 0 else 1
-      from.boards.list.zipWithIndex.collect {
+      from.boards.toList.zipWithIndex.collect {
         case (e, i) if (i % 2) == pivot => e
       }
     }
@@ -117,7 +117,7 @@ object PovToEntry {
   }
 
   private def queenTrade(from: RichPov) = QueenTrade {
-    from.division.end.fold(from.boards.last.some)(from.boards.list.lift) match {
+    from.division.end.fold(from.boards.last.some)(from.boards.toList.lift) match {
       case Some(board) => chess.Color.all.forall { color =>
         !board.hasPiece(chess.Piece(color, chess.Queen))
       }

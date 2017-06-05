@@ -3,6 +3,7 @@ package lila.fishnet
 import chess.format.pgn.Dumper
 import chess.format.Uci
 import chess.{ Replay, Move, Drop, Situation }
+import scalaz.Validation.success
 import scalaz.Validation.FlatMap._
 
 import lila.analyse.{ Analysis, Info, PgnMove }

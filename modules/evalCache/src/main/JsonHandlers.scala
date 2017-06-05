@@ -19,11 +19,11 @@ object JsonHandlers {
     "fen" -> fen.value,
     "knodes" -> e.knodes,
     "depth" -> e.depth,
-    "pvs" -> e.pvs.list.map(writePv)
+    "pvs" -> e.pvs.toList.map(writePv)
   )
 
   private def writePv(pv: Pv) = Json.obj(
-    "moves" -> pv.moves.value.list.map(_.uci).mkString(" ")
+    "moves" -> pv.moves.value.toList.map(_.uci).mkString(" ")
   )
     .add("cp", pv.score.cp)
     .add("mate", pv.score.mate)
