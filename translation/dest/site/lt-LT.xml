@@ -62,6 +62,16 @@
     <item quantity="other">%s žaidėjų</item>
   </plurals>
   <string name="currentGames">Vykstančios partijos</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s partija</item>
+    <item quantity="few">%s partijos</item>
+    <item quantity="other">%s partijų</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s išsaugota partija</item>
+    <item quantity="few">%s išsaugotos partijos</item>
+    <item quantity="other">%s išsaugotų partijų</item>
+  </plurals>
   <string name="viewInFullSize">Žiūrėti visu dydžiu</string>
   <string name="logOut">Atsijungti</string>
   <string name="signIn">Prisijungti</string>
@@ -82,6 +92,16 @@
   <string name="correspondence">Korespondenciniai</string>
   <string name="daysPerTurn">Dienų ėjimui</string>
   <string name="oneDay">Viena diena</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s diena</item>
+    <item quantity="few">%s dienos</item>
+    <item quantity="other">%s dienų</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s valanda</item>
+    <item quantity="few">%s valandos</item>
+    <item quantity="other">%s valandų</item>
+  </plurals>
   <string name="time">Laikas</string>
   <string name="rating">Reitingas</string>
   <string name="ratingStats">Įvertinimų statistika</string>
@@ -97,6 +117,11 @@
   <string name="forgotPassword">Pamiršote slaptažodį?</string>
   <string name="rank">Rangas</string>
   <string name="gamesPlayed">sužaistos partijos</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s partija su jumis</item>
+    <item quantity="few">%s partijos su jumis</item>
+    <item quantity="other">%s partijų su jumis</item>
+  </plurals>
   <string name="cancel">Atšaukti</string>
   <string name="timeOut">Baigėsi laikas</string>
   <string name="drawOfferSent">Lygiųjų pasiūlymas išsiųstas</string>
@@ -139,8 +164,28 @@
   <string name="incrementInSeconds">Sekundžių prieaugis</string>
   <string name="freeOnlineChess">Nemokami šachmatai internete</string>
   <string name="spectators">Žiūrovai:</string>
+  <plurals name="nbWins">
+    <item quantity="one">%s pergalė</item>
+    <item quantity="few">%s pergalės</item>
+    <item quantity="other">%s pergalių</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s pralaimėjimas</item>
+    <item quantity="few">%s pralaimėjimai</item>
+    <item quantity="other">%s pralaimėjimų</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s lygiosios</item>
+    <item quantity="few">%s lygiosios</item>
+    <item quantity="other">%s lygiųjų</item>
+  </plurals>
   <string name="exportGames">Eksportuoti partijas</string>
   <string name="ratingRange">Reitingo rėžis</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">Duoti %s sekundę</item>
+    <item quantity="few">Duoti %s sekundes</item>
+    <item quantity="other">Duoti %s sekundžių</item>
+  </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Šis žaidejas naudojasi kompiuterio pagalba</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Šis žaidėjas dirbtinai padidina/sumažina savo reitingą</string>
   <string name="openingExplorer">Debiutų naršyklė</string>
@@ -162,6 +207,11 @@
   <string name="backToGame">Grįžti į partiją</string>
   <string name="siteDescription">Nemokamas šachmatų žaidimas internete. Žaiskite šachmatais patrauklioje sąsajoje. Nebūtina registracija, nėra reklamų, nereikia jokių priedų. Žaiskite šachmatais prieš kompiuterį, draugus arba atsitiktinius varžovus.</string>
   <string name="teams">Komandos</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s narys</item>
+    <item quantity="few">%s nariai</item>
+    <item quantity="other">%s narių</item>
+  </plurals>
   <string name="allTeams">Visos komandos</string>
   <string name="newTeam">Nauja komanda</string>
   <string name="myTeams">Mano komandos</string>
@@ -525,4 +575,5 @@
   <string name="error.maxLength">Didžiausias ilgis yra %s</string>
   <string name="error.min">Turi būti didesnis arba lygus %s</string>
   <string name="error.max">Turi būti mažesnis arba lygus %s</string>
+  <string name="custom">Kitoks</string>
 </resources>
