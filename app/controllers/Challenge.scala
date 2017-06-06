@@ -36,9 +36,9 @@ object Challenge extends LilaController {
   ), ctx.lang)
 
   protected[controllers] def showId(id: String)(implicit ctx: Context): Fu[Result] =
-    OptionFuResult(env.api byId id)(showChallenge)
+    OptionFuResult(env.api byId id)(showChallenge(_))
 
-  protected[controllers] def showChallenge(c: ChallengeModel)(implicit ctx: Context): Fu[Result] =
+  protected[controllers] def showChallenge(c: ChallengeModel, error: Option[String] = None)(implicit ctx: Context): Fu[Result] =
     env version c.id flatMap { version =>
       val mine = isMine(c)
       import lila.challenge.Direction
@@ -49,7 +49,11 @@ object Challenge extends LilaController {
       val json = env.jsonView.show(c, version, direction)
       negotiate(
         html = fuccess {
-          Ok(mine.fold(html.challenge.mine.apply _, html.challenge.theirs.apply _)(c, json))
+          if (mine) error match {
+            case Some(e) => BadRequest(html.challenge.mine.apply(c, json, e.some))
+            case None => Ok(html.challenge.mine.apply(c, json, none))
+          }
+          else Ok(html.challenge.theirs.apply(c, json))
         },
         api = _ => Ok(json).fuccess
       ) flatMap withChallengeAnonCookie(mine && c.challengerIsAnon, c, true)
@@ -119,10 +123,13 @@ object Challenge extends LilaController {
       )).bindFromRequest.fold(
         err => funit,
         username => UserRepo named username flatMap {
-          case None => funit
-          case Some(dest) => env.api.setDestUser(c, dest)
+          case None => Redirect(routes.Challenge.show(c.id)).fuccess
+          case Some(dest) => Env.challenge.granter(ctx.me, dest, c.perfType.some) flatMap {
+            case Some(denied) => showChallenge(c, lila.challenge.ChallengeDenied.inEnglish(denied).some)
+            case None => env.api.setDestUser(c, dest) inject Redirect(routes.Challenge.show(c.id))
+          }
         }
-      ) inject Redirect(routes.Challenge.show(c.id))
+      )
       else notFound
     }
   }
@@ -131,24 +138,15 @@ object Challenge extends LilaController {
     OptionFuResult(GameRepo game gameId) { g =>
       Pov.opponentOfUserId(g, me.id).flatMap(_.userId) ?? UserRepo.byId flatMap {
         _ ?? { opponent =>
-          restriction(opponent) flatMap {
-            case Some(r) => BadRequest(jsonError(r.replace("{{user}}", opponent.username))).fuccess
+          env.granter(me.some, opponent, g.perfType) flatMap {
+            case Some(d) => BadRequest(jsonError {
+              lila.challenge.ChallengeDenied inEnglish d
+            }).fuccess
             case _ => env.api.rematchOf(g, me) map {
               _.fold(Ok, BadRequest(jsonError("Sorry, couldn't create the rematch.")))
             }
           }
         }
-      }
-    }
-  }
-
-  def restriction(user: lila.user.User)(implicit ctx: Context): Fu[Option[String]] = ctx.me match {
-    case None => fuccess("Only registered players can send challenges.".some)
-    case Some(me) => Env.relation.api.fetchBlocks(user.id, me.id) flatMap {
-      case true => fuccess(s"{{user}} doesn't accept challenges from you.".some)
-      case false => Env.pref.api getPref user zip Env.relation.api.fetchFollows(user.id, me.id) map {
-        case (pref, follow) => lila.pref.Pref.Challenge.block(me, user, pref.challenge, follow,
-          fromCheat = me.engine && !user.engine)
       }
     }
   }

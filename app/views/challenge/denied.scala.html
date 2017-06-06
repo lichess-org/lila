@@ -1,0 +1,9 @@
+@(denied: lila.challenge.ChallengeDenied)(implicit ctx: Context)
+
+@site.message(
+icon = Html("j").some,
+title = trans.challengeToPlay.txt()) {
+
+<p>@lila.challenge.ChallengeDenied.inEnglish(denied)</p>
+
+}

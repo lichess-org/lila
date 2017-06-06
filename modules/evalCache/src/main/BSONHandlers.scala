@@ -20,7 +20,7 @@ object BSONHandlers {
     private def scoreRead(str: String): Option[Score] =
       if (str startsWith "#") parseIntOption(str drop 1) map { m => Score mate Mate(m) }
       else parseIntOption(str) map { c => Score cp Cp(c) }
-    private def movesWrite(moves: Moves): String = Uci writeListPiotr moves.value.list
+    private def movesWrite(moves: Moves): String = Uci writeListPiotr moves.value.toList
     private def movesRead(str: String): Option[Moves] =
       Uci readListPiotr str flatMap (_.toNel) map Moves.apply
     private val scoreSeparator = ':'
@@ -36,7 +36,7 @@ object BSONHandlers {
       }
     }.toNel err s"Empty PVs ${bs.value}"
     def write(x: NonEmptyList[Pv]) = BSONString {
-      x.list.map { pv =>
+      x.toList.map { pv =>
         s"${scoreWrite(pv.score)}$scoreSeparator${movesWrite(pv.moves)}"
       } mkString pvSeparatorStr
     }

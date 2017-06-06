@@ -44,7 +44,8 @@ module.exports = function(opts, redraw) {
     justDropped: null,
     justCaptured: null,
     preDrop: null,
-    lastDrawOfferAtPly: null
+    lastDrawOfferAtPly: null,
+    lastMoveMillis: null
   };
   this.vm.goneBerserk[this.data.player.color] = opts.data.player.berserk;
   this.vm.goneBerserk[this.data.opponent.color] = opts.data.opponent.berserk;
@@ -163,6 +164,22 @@ module.exports = function(opts, redraw) {
 
   this.setTitle = () => title.set(this);
 
+  this.actualSendMove = function(type, action, meta) {
+    meta = meta === undefined ? {} : meta
+    var socketOpts = {
+      ackable: true,
+      // withLag: !!this.clock
+    }
+    var startTime = this.vm.lastMoveMillis;
+    if (startTime !== null) socketOpts.millis = performance.now() - startTime;
+    this.socket.send(type, action, socketOpts);
+
+    this.vm.justDropped = meta.justDropped;
+    this.vm.justCaptured = meta.justCaptured;
+    this.vm.preDrop = null;
+    redraw();
+  }
+
   this.sendMove = function(orig, dest, prom, meta) {
     var move = {
       u: orig + dest
@@ -172,13 +189,9 @@ module.exports = function(opts, redraw) {
     this.resign(false);
     if (this.data.pref.submitMove && !meta.premove) {
       this.vm.moveToSubmit = move;
-    } else this.socket.send('move', move, {
-      ackable: true,
-      withLag: !!this.clock
-    });
-    this.vm.justDropped = null;
-    this.vm.justCaptured = meta.captured;
-    redraw();
+      redraw();
+    } else this.actualSendMove('move', move, {justCaptured: meta.captured});
+
   }.bind(this);
 
   this.sendNewPiece = function(role, key, isPredrop) {
@@ -190,14 +203,10 @@ module.exports = function(opts, redraw) {
     this.resign(false);
     if (this.data.pref.submitMove && !isPredrop) {
       this.vm.dropToSubmit = drop;
-    } else this.socket.send('drop', drop, {
-      ackable: true,
-      withLag: !!this.clock
-    });
-    this.vm.preDrop = null;
-    this.vm.justDropped = role;
-    this.vm.justCaptured = null;
-    redraw();
+      redraw();
+    } else {
+      this.actualSendMove('drop', drop, {justDropped: role});
+    }
   }.bind(this);
 
   var showYourMoveNotification = function() {
@@ -224,6 +233,8 @@ module.exports = function(opts, redraw) {
   this.apiMove = function(o) {
     var d = this.data,
       playing = game.isPlayerPlaying(d);
+
+    if (playing) this.vm.lastMoveMillis = performance.now();
     d.game.turns = o.ply;
     d.game.player = o.ply % 2 === 0 ? 'white' : 'black';
     var playedColor = o.ply % 2 === 0 ? 'black' : 'white';
@@ -481,16 +492,11 @@ module.exports = function(opts, redraw) {
 
   this.submitMove = function(v) {
     if (v && (this.vm.moveToSubmit || this.vm.dropToSubmit)) {
-      if (this.vm.moveToSubmit)
-      this.socket.send('move', this.vm.moveToSubmit, {
-        ackable: true,
-        withLag: !!this.clock
-      });
-      else if (this.vm.dropToSubmit)
-      this.socket.send('drop', this.vm.dropToSubmit, {
-        ackable: true,
-        withLag: !!this.clock
-      });
+      if (this.vm.moveToSubmit) {
+        this.actualSendMove('move', this.vm.moveToSubmit);
+      } else {
+        this.actualSendMove('drop', this.vm.dropToSubmit);
+      }
       lichess.sound.confirmation();
     } else this.jump(this.vm.ply);
     this.cancelMove();

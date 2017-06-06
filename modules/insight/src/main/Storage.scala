@@ -14,7 +14,7 @@ private final class Storage(coll: Coll) {
   import Entry.{ BSONFields => F }
 
   def aggregate(operators: NonEmptyList[PipelineOperator]): Fu[AggregationResult] =
-    coll.aggregate(operators.head, operators.tail, allowDiskUse = true)
+    coll.aggregate(operators.head, operators.tail.toList, allowDiskUse = true)
 
   def fetchFirst(userId: String): Fu[Option[Entry]] =
     coll.find(selectUserId(userId)).sort(sortChronological).uno[Entry]

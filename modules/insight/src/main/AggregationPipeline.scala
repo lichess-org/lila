@@ -2,7 +2,7 @@ package lila.insight
 
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
 import reactivemongo.bson._
-import scalaz.NonEmptyList
+import scalaz.{ NonEmptyList, IList }
 
 import lila.db.dsl._
 
@@ -136,87 +136,89 @@ private final class AggregationPipeline {
             $doc(F.provisional $ne true)
           }
       ),
-      /* sortDate :: */ sampleGames :: ((metric match {
-        case M.MeanCpl => List(
-          projectForMove,
-          unwindMoves,
-          matchMoves(),
-          sampleMoves
-        ) :::
-          group(dimension, AvgField(F.moves("c"))) :::
-          List(includeSomeGameIds.some)
-        case M.Material => List(
-          projectForMove,
-          unwindMoves,
-          matchMoves(),
-          sampleMoves
-        ) :::
-          group(dimension, AvgField(F.moves("i"))) :::
-          List(includeSomeGameIds.some)
-        case M.Opportunism => List(
-          projectForMove,
-          unwindMoves,
-          matchMoves($doc(F.moves("o") -> $doc("$exists" -> true))),
-          sampleMoves
-        ) :::
-          group(dimension, GroupFunction("$push", $doc("$cond" -> $arr("$" + F.moves("o"), 1, 0)))) :::
-          List(AddFields(gameIdsSlice ++ toPercent).some)
-        case M.Luck => List(
-          projectForMove,
-          unwindMoves,
-          matchMoves($doc(F.moves("l") $exists true)),
-          sampleMoves
-        ) :::
-          group(dimension, GroupFunction("$push", $doc("$cond" -> $arr("$" + F.moves("l"), 1, 0)))) :::
-          List(AddFields(gameIdsSlice ++ toPercent).some)
-        case M.NbMoves => List(
-          projectForMove,
-          unwindMoves,
-          matchMoves(),
-          sampleMoves
-        ) :::
-          group(dimension, SumValue(1)) :::
-          List(
-            Project($doc(
-            "v" -> true,
-            "ids" -> true,
-            "nb" -> $doc("$size" -> "$ids")
-          )).some,
-            AddFields(
-            $doc("v" -> $doc("$divide" -> $arr("$v", "$nb"))) ++
-              gameIdsSlice
-          ).some
-          )
-        case M.Movetime => List(
-          projectForMove,
-          unwindMoves,
-          matchMoves(),
-          sampleMoves
-        ) :::
-          group(dimension, GroupFunction(
-            "$avg",
-            $doc("$divide" -> $arr("$" + F.moves("t"), 10))
-          )) :::
-          List(includeSomeGameIds.some)
-        case M.RatingDiff =>
-          group(dimension, AvgField(F.ratingDiff)) ::: List(includeSomeGameIds.some)
-        case M.OpponentRating =>
-          group(dimension, AvgField(F.opponentRating)) ::: List(includeSomeGameIds.some)
-        case M.Result =>
-          groupMulti(dimension, F.result)
-        case M.Termination =>
-          groupMulti(dimension, F.termination)
-        case M.PieceRole => List(
-          projectForMove,
-          unwindMoves,
-          matchMoves(),
-          sampleMoves
-        ) :::
-          groupMulti(dimension, F.moves("r"))
-      }) ::: (dimension match {
-        case D.Opening => List(sortNb, limit(12))
-        case _ => Nil
-      })).flatten
+      /* sortDate :: */ IList.fromList {
+        sampleGames :: ((metric match {
+          case M.MeanCpl => List(
+            projectForMove,
+            unwindMoves,
+            matchMoves(),
+            sampleMoves
+          ) :::
+            group(dimension, AvgField(F.moves("c"))) :::
+            List(includeSomeGameIds.some)
+          case M.Material => List(
+            projectForMove,
+            unwindMoves,
+            matchMoves(),
+            sampleMoves
+          ) :::
+            group(dimension, AvgField(F.moves("i"))) :::
+            List(includeSomeGameIds.some)
+          case M.Opportunism => List(
+            projectForMove,
+            unwindMoves,
+            matchMoves($doc(F.moves("o") -> $doc("$exists" -> true))),
+            sampleMoves
+          ) :::
+            group(dimension, GroupFunction("$push", $doc("$cond" -> $arr("$" + F.moves("o"), 1, 0)))) :::
+            List(AddFields(gameIdsSlice ++ toPercent).some)
+          case M.Luck => List(
+            projectForMove,
+            unwindMoves,
+            matchMoves($doc(F.moves("l") $exists true)),
+            sampleMoves
+          ) :::
+            group(dimension, GroupFunction("$push", $doc("$cond" -> $arr("$" + F.moves("l"), 1, 0)))) :::
+            List(AddFields(gameIdsSlice ++ toPercent).some)
+          case M.NbMoves => List(
+            projectForMove,
+            unwindMoves,
+            matchMoves(),
+            sampleMoves
+          ) :::
+            group(dimension, SumValue(1)) :::
+            List(
+              Project($doc(
+              "v" -> true,
+              "ids" -> true,
+              "nb" -> $doc("$size" -> "$ids")
+            )).some,
+              AddFields(
+              $doc("v" -> $doc("$divide" -> $arr("$v", "$nb"))) ++
+                gameIdsSlice
+            ).some
+            )
+          case M.Movetime => List(
+            projectForMove,
+            unwindMoves,
+            matchMoves(),
+            sampleMoves
+          ) :::
+            group(dimension, GroupFunction(
+              "$avg",
+              $doc("$divide" -> $arr("$" + F.moves("t"), 10))
+            )) :::
+            List(includeSomeGameIds.some)
+          case M.RatingDiff =>
+            group(dimension, AvgField(F.ratingDiff)) ::: List(includeSomeGameIds.some)
+          case M.OpponentRating =>
+            group(dimension, AvgField(F.opponentRating)) ::: List(includeSomeGameIds.some)
+          case M.Result =>
+            groupMulti(dimension, F.result)
+          case M.Termination =>
+            groupMulti(dimension, F.termination)
+          case M.PieceRole => List(
+            projectForMove,
+            unwindMoves,
+            matchMoves(),
+            sampleMoves
+          ) :::
+            groupMulti(dimension, F.moves("r"))
+        }) ::: (dimension match {
+          case D.Opening => List(sortNb, limit(12))
+          case _ => Nil
+        })).flatten
+      }
     )
   }
 }

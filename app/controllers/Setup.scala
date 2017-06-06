@@ -47,9 +47,10 @@ object Setup extends LilaController with TheftPrevention {
       env.forms friendFilled get("fen") flatMap { form =>
         val validFen = form("fen").value flatMap ValidFen(false)
         userId ?? UserRepo.named flatMap {
-          case None => fuccess(html.setup.friend(form, none, none, validFen))
-          case Some(user) => Challenge.restriction(user) map { error =>
-            html.setup.friend(form, user.some, error, validFen)
+          case None => Ok(html.setup.friend(form, none, none, validFen)).fuccess
+          case Some(user) => Env.challenge.granter(ctx.me, user, none) map {
+            case Some(denied) => BadRequest(lila.challenge.ChallengeDenied.inEnglish(denied))
+            case None => Ok(html.setup.friend(form, user.some, none, validFen))
           }
         }
       }
@@ -58,56 +59,54 @@ object Setup extends LilaController with TheftPrevention {
     }
   }
 
-  def friend(userId: Option[String]) =
-    OpenBody { implicit ctx =>
-      implicit val req = ctx.body
-      PostRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
-        env.forms.friend(ctx).bindFromRequest.fold(
-          f => negotiate(
-            html = Lobby.renderHome(Results.BadRequest),
-            api = _ => fuccess(BadRequest(errorsAsJson(f)))
-          ), {
-            case config => userId ?? UserRepo.byId flatMap { destUser =>
-              destUser ?? Challenge.restriction flatMap {
-                case Some(_) =>
-                  Redirect(routes.Lobby.home + s"?user=${~userId}#friend").fuccess
-                case None =>
-                  import lila.challenge.Challenge._
-                  val challenge = lila.challenge.Challenge.make(
-                    variant = config.variant,
-                    initialFen = config.fen,
-                    timeControl = config.makeClock map { c =>
-                    TimeControl.Clock(c)
-                  } orElse config.makeDaysPerTurn.map {
-                    TimeControl.Correspondence.apply
-                  } getOrElse TimeControl.Unlimited,
-                    mode = config.mode,
-                    color = config.color.name,
-                    challenger = (ctx.me, HTTPRequest sid req) match {
-                      case (Some(user), _) => Right(user)
-                      case (_, Some(sid)) => Left(sid)
-                      case _ => Left("no_sid")
-                    },
-                    destUser = destUser,
-                    rematchOf = none
-                  )
-                  env.processor.saveFriendConfig(config) >>
-                    (Env.challenge.api create challenge) flatMap {
-                      case true => negotiate(
-                        html = fuccess(Redirect(routes.Round.watcher(challenge.id, "white"))),
-                        api = _ => Challenge showChallenge challenge
-                      )
-                      case false => negotiate(
-                        html = fuccess(Redirect(routes.Lobby.home)),
-                        api = _ => fuccess(BadRequest(jsonError("Challenge not created")))
-                      )
-                    }
-              }
+  def friend(userId: Option[String]) = OpenBody { implicit ctx =>
+    implicit val req = ctx.body
+    PostRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
+      env.forms.friend(ctx).bindFromRequest.fold(
+        f => negotiate(
+          html = Lobby.renderHome(Results.BadRequest),
+          api = _ => fuccess(BadRequest(errorsAsJson(f)))
+        ), {
+          case config => userId ?? UserRepo.byId flatMap { destUser =>
+            destUser ?? { Env.challenge.granter(ctx.me, _, config.perfType) } flatMap {
+              case Some(denied) => BadRequest(html.challenge.denied(denied)).fuccess
+              case None =>
+                import lila.challenge.Challenge._
+                val challenge = lila.challenge.Challenge.make(
+                  variant = config.variant,
+                  initialFen = config.fen,
+                  timeControl = config.makeClock map { c =>
+                  TimeControl.Clock(c)
+                } orElse config.makeDaysPerTurn.map {
+                  TimeControl.Correspondence.apply
+                } getOrElse TimeControl.Unlimited,
+                  mode = config.mode,
+                  color = config.color.name,
+                  challenger = (ctx.me, HTTPRequest sid req) match {
+                    case (Some(user), _) => Right(user)
+                    case (_, Some(sid)) => Left(sid)
+                    case _ => Left("no_sid")
+                  },
+                  destUser = destUser,
+                  rematchOf = none
+                )
+                env.processor.saveFriendConfig(config) >>
+                  (Env.challenge.api create challenge) flatMap {
+                    case true => negotiate(
+                      html = fuccess(Redirect(routes.Round.watcher(challenge.id, "white"))),
+                      api = _ => Challenge showChallenge challenge
+                    )
+                    case false => negotiate(
+                      html = fuccess(Redirect(routes.Lobby.home)),
+                      api = _ => fuccess(BadRequest(jsonError("Challenge not created")))
+                    )
+                  }
             }
           }
-        )
-      }
+        }
+      )
     }
+  }
 
   def hookForm = Open { implicit ctx =>
     if (HTTPRequest isXhr ctx.req) NoPlaybanOrCurrent {

@@ -41,7 +41,6 @@ private[controllers] trait LilaController
       api = _ => fuccess(Ok(jsonOkBody) as JSON)
     )
 
-  // implicit def lang(implicit req: RequestHeader) = Env.i18n.pool lang req
   implicit def lang(implicit ctx: Context) = ctx.lang
 
   protected def NoCache(res: Result): Result = res.withHeaders(
@@ -352,8 +351,21 @@ private[controllers] trait LilaController
     else if (HTTPRequest isBot ctx.req) fuccess(NotFound)
     else result
 
-  protected def errorsAsJson(form: play.api.data.Form[_])(implicit lang: play.api.i18n.Messages) =
-    lila.common.Form errorsAsJson form
+  private val jsonGlobalErrorRenamer = {
+    import play.api.libs.json._
+    __.json update (
+      (__ \ "global").json copyFrom (__ \ "").json.pick
+    ) andThen (__ \ "").json.prune
+  }
+
+  protected def errorsAsJson(form: play.api.data.Form[_])(implicit lang: play.api.i18n.Lang) = {
+    val json = Json.toJson(
+      form.errors.groupBy(_.key).mapValues { errors =>
+        errors.map(e => lila.i18n.Translator.txt.literal(e.message, e.args, lang))
+      }
+    )
+    json validate jsonGlobalErrorRenamer getOrElse json
+  }
 
   protected val pgnContentType = "application/x-chess-pgn"
 }

@@ -21,8 +21,8 @@ object Dependencies {
       prismic)
   }
 
-  val scalaz = "org.scalaz" %% "scalaz-core" % "7.1.11"
-  val scalalib = "com.github.ornicar" %% "scalalib" % "5.7"
+  val scalaz = "org.scalaz" %% "scalaz-core" % "7.2.13"
+  val scalalib = "com.github.ornicar" %% "scalalib" % "6.2"
   val config = "com.typesafe" % "config" % "1.3.1"
   val findbugs = "com.google.code.findbugs" % "jsr305" % "3.0.1"
   val hasher = "com.roundeights" %% "hasher" % "1.2.0"

@@ -41,16 +41,6 @@ private[round] final class Round(
 
   implicit val proxy = new GameProxy(gameId)
 
-  object lags { // player lag in centis
-    var white = Centis(0)
-    var black = Centis(0)
-    def get(c: Color) = c.fold(white, black)
-    def set(c: Color, v: Centis) {
-      if (c.white) white = v
-      else black = v
-    }
-  }
-
   var takebackSituation = Round.TakebackSituation()
 
   def process = {
@@ -62,9 +52,8 @@ private[round] final class Round(
     case p: HumanPlay =>
       p.trace.finishFirstSegment()
       handleHumanPlay(p) { pov =>
-        if (pov.game outoftime lags.get) finisher.outOfTime(pov.game)
+        if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
         else {
-          lags.set(pov.color, p.lag)
           reportNetworkLag(pov)
           player.human(p, self)(pov)
         }
@@ -120,8 +109,12 @@ private[round] final class Round(
       }
     }
 
-    case Outoftime => handle { game =>
-      game.outoftime(lags.get) ?? finisher.outOfTime(game)
+    case Outoftime(Some(playerId)) => handle(playerId) { pov =>
+      pov.game.outoftime(withGrace = !pov.isMyTurn) ?? finisher.outOfTime(pov.game)
+    }
+
+    case Outoftime(None) => handle { game =>
+      game.outoftime(withGrace = true) ?? finisher.outOfTime(game)
     }
 
     // exceptionally we don't block nor publish events
@@ -195,7 +188,7 @@ private[round] final class Round(
     case ForecastPlay(lastMove) => handle { game =>
       forecastApi.nextMove(game, lastMove) map { mOpt =>
         mOpt foreach { move =>
-          self ! HumanPlay(game.player.id, move, false, Centis(0))
+          self ! HumanPlay(game.player.id, move, false)
         }
         Nil
       }
@@ -228,8 +221,12 @@ private[round] final class Round(
   }
 
   private def reportNetworkLag(pov: Pov) =
-    if (pov.game.turns == 20 || pov.game.turns == 21) List(lags.white, lags.black).foreach { lag =>
-      if (lag.centis > 0) lila.mon.round.move.networkLag(lag.centis * 10l)
+    if (pov.game.turns == 20) {
+      for {
+        clock <- pov.game.clock
+        color <- Color.all
+        lag <- clock.lag(color)
+      } lila.mon.round.move.networkLag(lag.millis)
     }
 
   private def handle[A](op: Game => Fu[Events]): Funit =

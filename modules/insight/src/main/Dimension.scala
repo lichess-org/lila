@@ -188,7 +188,7 @@ object Dimension {
   def filtersOf[X](d: Dimension[X], selected: List[X]): Bdoc = d match {
     case Dimension.MovetimeRange => selected match {
       case Nil => $empty
-      case xs => $doc(d.dbKey $in xs.flatMap(_.tenths.list))
+      case xs => $doc(d.dbKey $in xs.flatMap(_.tenths.toList))
     }
     case Dimension.Period => selected.sortBy(-_.days).headOption.fold($empty) { period =>
       $doc(d.dbKey $gt period.min)

@@ -2,34 +2,17 @@ package lila.evaluation
 
 import Math.{ pow, abs, sqrt, exp }
 import scala.concurrent.duration._
-import scalaz.NonEmptyList
+import scalaz.{ NonEmptyList, IList }
 
 import chess.Centis
+import lila.common.Maths.{ variance, mean, deviation }
 
 object Statistics {
   import Erf._
   import scala.annotation._
 
-  def variance[T](a: NonEmptyList[T])(implicit n: Numeric[T]): Double = {
-    val mean = average(a)
-    a.map(i => pow(n.toDouble(i) - mean, 2)).list.sum / a.size
-  }
-
-  def deviation[T](a: NonEmptyList[T])(implicit n: Numeric[T]): Double =
-    sqrt(variance(a))
-
-  def average[T](a: NonEmptyList[T])(implicit n: Numeric[T]): Double = {
-    @tailrec def average(a: List[T], sum: T, depth: Int): Double = {
-      a match {
-        case Nil => n.toDouble(sum) / depth
-        case x :: xs => average(xs, n.plus(sum, x), depth + 1)
-      }
-    }
-    average(a.tail, a.head, 1)
-  }
-
   // Coefficient of Variance
-  def coefVariation(a: NonEmptyList[Int]): Double = sqrt(variance(a)) / average(a)
+  def coefVariation(a: NonEmptyList[Int]): Double = sqrt(variance(a)) / mean(a)
 
   // ups all values by 0.5s
   // as to avoid very high variation on bullet games
@@ -60,13 +43,13 @@ object Statistics {
   def listAverage[T](x: List[T])(implicit n: Numeric[T]): Double = x match {
     case Nil => 0
     case a :: Nil => n.toDouble(a)
-    case a :: b => average(NonEmptyList.nel(a, b))
+    case a :: b => mean(NonEmptyList.nel(a, IList fromList b))
   }
 
   def listDeviation[T](x: List[T])(implicit n: Numeric[T]): Double = x match {
     case Nil => 0
     case _ :: Nil => 0
-    case a :: b => deviation(NonEmptyList.nel(a, b))
+    case a :: b => deviation(NonEmptyList.nel(a, IList fromList b))
   }
 }
 

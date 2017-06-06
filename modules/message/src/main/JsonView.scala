@@ -17,7 +17,7 @@ final class JsonView(
     Ok(PaginatorJson(threads.mapResults { t =>
       Json.obj(
         "id" -> t.id,
-        "author" -> t.otherUserId(me),
+        "author" -> t.visibleOtherUserId(me),
         "name" -> t.name,
         "updatedAt" -> t.updatedAt,
         "isUnread" -> t.isUnReadBy(me)
@@ -35,8 +35,8 @@ final class JsonView(
 
   def threadPost(thread: Thread, post: Post): JsValue =
     Json.obj(
-      "sender" -> user(thread.senderOf(post)),
-      "receiver" -> user(thread.receiverOf(post)),
+      "sender" -> user(thread.visibleSenderOf(post)),
+      "receiver" -> user(thread.visibleReceiverOf(post)),
       "text" -> post.text,
       "createdAt" -> post.createdAt
     )

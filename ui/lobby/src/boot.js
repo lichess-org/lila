@@ -442,7 +442,8 @@ module.exports = function(cfg, element) {
         prepareForm();
         lichess.pubsub.emit('content_loaded')();
       },
-      error: function() {
+      error: function(res) {
+        if (res.status == 400) alert(res.responseText);
         lichess.reload();
       }
     });

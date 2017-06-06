@@ -1,4 +1,4 @@
-@(c: lila.challenge.Challenge, json: play.api.libs.json.JsObject)(implicit ctx: Context)
+@(c: lila.challenge.Challenge, json: play.api.libs.json.JsObject, error: Option[String])(implicit ctx: Context)
 
 @import lila.challenge.Challenge.Status
 
@@ -37,6 +37,9 @@ moreJs = js(c, json, true)) {
         Or invite a lichess user:<br />
         <form class="user-invite" action="@routes.Challenge.toFriend(c.id)" method="POST">
           <input name="username" class="friend-autocomplete" placeholder="@trans.search()" />
+          @error.map { e =>
+          <p style="color: red">@e</p>
+          }
         </form>
         <br />
         }

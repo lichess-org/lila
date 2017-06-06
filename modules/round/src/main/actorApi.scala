@@ -4,7 +4,7 @@ package actorApi
 import scala.concurrent.duration.FiniteDuration
 import scala.concurrent.Promise
 
-import chess.{ Centis, Color }
+import chess.{ MoveMetrics, Color }
 import chess.format.Uci
 
 import lila.common.IpAddress
@@ -102,7 +102,7 @@ package round {
       playerId: String,
       uci: Uci,
       blur: Boolean,
-      lag: Centis,
+      moveMetrics: MoveMetrics = MoveMetrics(),
       promise: Option[Promise[Unit]] = None
   ) {
 
@@ -129,7 +129,7 @@ package round {
   case class TakebackYes(playerId: String)
   case class TakebackNo(playerId: String)
   case class Moretime(playerId: String)
-  case object Outoftime
+  case class Outoftime(playerId: Option[String])
   case object Abandon
   case class ForecastPlay(lastMove: chess.Move)
   case class Cheat(color: Color)
