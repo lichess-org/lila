@@ -252,7 +252,7 @@
   <string name="trainingSignupExplanation">Lichess będzie dodawał zadania dostosowane do twoich umiejętności, dla skuteczniejszego treningu.</string>
   <string name="puzzleId">Zadanie %s</string>
   <string name="puzzleOfTheDay">Zadanie dnia</string>
-  <string name="clickToSolve">Kliknij, aby rozwiązać</string>
+  <string name="clickToSolve">Kliknij aby zobaczyć rozwiązanie</string>
   <string name="goodMove">Dobry ruch</string>
   <string name="butYouCanDoBetter">Ale jest lepszy.</string>
   <string name="bestMove">Najlepszy ruch!</string>
@@ -273,9 +273,9 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Automatycznie przejdź do następnej gry po wykonaniu ruchu</string>
   <string name="autoSwitch">Automatyczne przełączanie</string>
   <string name="puzzles">Zadania</string>
-  <string name="coordinates">Współrzędne</string>
+  <string name="coordinates">Współrzędne pól</string>
   <string name="latestUpdates">Aktualności</string>
-  <string name="tournamentWinners">Turniejowi zwycięzcy</string>
+  <string name="tournamentWinners">Zwycięzcy turniejów</string>
   <string name="name">Nazwa</string>
   <string name="description">Opis</string>
   <string name="no">Nie</string>
