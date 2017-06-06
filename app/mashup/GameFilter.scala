@@ -29,7 +29,7 @@ case class GameFilterMenu(
     current: GameFilter
 ) {
 
-  def list = all.list
+  def list = all.toList
 }
 
 object GameFilterMenu {
