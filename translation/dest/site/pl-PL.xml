@@ -320,9 +320,9 @@
   <string name="currentPassword">Aktualne hasło</string>
   <string name="newPassword">Nowe hasło</string>
   <string name="newPasswordAgain">Nowe hasło (powtórz)</string>
-  <string name="boardHighlights">Podświetlenie szachownicy (ostatni ruch i szach)</string>
+  <string name="boardHighlights">Podświetlenie pól szachownicy (ostatni ruch i szach)</string>
   <string name="pieceDestinations">Podświetlaj możliwe pola docelowe (ruchy zwykłe i planowane)</string>
-  <string name="boardCoordinates">Współrzędne (a-h, 1-8)</string>
+  <string name="boardCoordinates">Współrzędne pól (a-h, 1-8)</string>
   <string name="moveListWhilePlaying">Lista ruchów podczas partii</string>
   <string name="chessClock">Zegar szachowy</string>
   <string name="tenthsOfSeconds">Dziesiętne sekundy</string>
