@@ -37,7 +37,8 @@ object ApplicationBuild extends Build {
         reactivemongo.driver, reactivemongo.iteratees, akka.actor, akka.slf4j,
         maxmind, prismic, netty, guava,
         kamon.core, kamon.influxdb,
-        java8compat, semver, scrimage, configs, scaffeine),
+        java8compat, semver, scrimage, configs, scaffeine,
+        specs2),
       TwirlKeys.templateImports ++= Seq(
         "lila.game.{ Game, Player, Pov }",
         "lila.tournament.Tournament",

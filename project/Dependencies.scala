@@ -37,6 +37,7 @@ object Dependencies {
   val scaffeine = "com.github.blemale" %% "scaffeine" % "2.0.0" % "compile"
   val netty = "io.netty" % "netty" % "3.10.6.Final"
   val guava = "com.google.guava" % "guava" % "21.0"
+  val specs2 = "org.specs2" %% "specs2-core" % "3.9.0" % "test"
 
   object reactivemongo {
     val version = "0.12.2"
