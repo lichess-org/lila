@@ -334,7 +334,7 @@
   <string name="premovesPlayingDuringOpponentTurn">Ruch planowany (podczas ruchu przeciwnika)</string>
   <string name="takebacksWithOpponentApproval">Cofnięcie ruchu (za zgodą przeciwnika)</string>
   <string name="promoteToQueenAutomatically">Automatyczna promocja na hetmana</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatycznie żądaj remisu po trzykrotnym powtórzeniu</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatyczny remis po trzykrotnym powtórzeniu pozycji</string>
   <string name="privacy">Prywatność</string>
   <string name="letOtherPlayersFollowYou">Inni zawodnicy mogą Cię obserwować</string>
   <string name="letOtherPlayersChallengeYou">Inni zawodnicy mogą wysłać Ci wyzwanie</string>
@@ -450,6 +450,11 @@
   <string name="tournamentMayHaveBeenCanceled">Mógł zostać anulowany, jeżeli wszyscy gracze wycofali się przed jego rozpoczęciem.</string>
   <string name="returnToTournamentsHomepage">Powrót na stronę turnieju</string>
   <string name="weeklyPerfTypeRatingDistribution">Tygodniowy rozkład rankingu w wariancie %s</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">Jeden gracz grał ten wariant (%2$s) w tym tygodniu.</item>
+    <item quantity="few">%1$s graczy grało ten wariant (%2$s) w tym tygodniu.</item>
+    <item quantity="other">%1$s %2$s graczy w tym tygodniu.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">Twój ranking w wariancie %1$s to %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">jesteś lepszy niż %1$s graczy wariantu %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nie masz jeszcze ustalonego rankingu w wariancie %s</string>
