@@ -339,8 +339,8 @@
   <string name="letOtherPlayersFollowYou">Inni zawodnicy mogą Cię obserwować</string>
   <string name="letOtherPlayersChallengeYou">Inni zawodnicy mogą wysłać Ci wyzwanie</string>
   <string name="sound">Dźwięk</string>
-  <string name="yourPreferencesHaveBeenSaved">Twoje preferencje zostały zapisane</string>
-  <string name="none">Żadna</string>
+  <string name="yourPreferencesHaveBeenSaved">Twoje ustawienia zostały zapisane.</string>
+  <string name="none">Brak</string>
   <string name="fast">Szybka</string>
   <string name="normal">Normalna</string>
   <string name="slow">Wolna</string>
@@ -391,7 +391,7 @@
   <string name="error.email">Podany adres email jest nieprawidłowy</string>
   <string name="error.email_acceptable">Podany adres email nie jest akceptowany</string>
   <string name="error.email_unique">Podany adres email został już użyty</string>
-  <string name="blindfoldChess">Szachy dla niewidomych (niewidoczne figury)</string>
+  <string name="blindfoldChess">Gra na ślepo (niewidoczne figury)</string>
   <string name="moveConfirmation">Potwierdzenie ruchu</string>
   <string name="inCorrespondenceGames">W grze korespondencyjnej</string>
   <string name="ifRatingIsPlusMinusX">O rankingu ± %s</string>
@@ -413,7 +413,7 @@
   <string name="contribute">Wsparcie</string>
   <string name="contact">Kontakt</string>
   <string name="termsOfService">Zasady</string>
-  <string name="sourceCode">Kod żródłowy</string>
+  <string name="sourceCode">Kod źródłowy</string>
   <string name="simultaneousExhibitions">Symultany</string>
   <string name="host">Gospodarz</string>
   <string name="createdSimuls">Nowo utworzone symultany</string>
