@@ -37,10 +37,10 @@
   <string name="forceDraw">Ogłoś remis</string>
   <string name="talkInChat">Bądź miły na czacie</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Pierwsza osoba, która użyje tego linku, dołączy do Twojej gry</string>
-  <string name="whiteResigned">Białe rezygnują</string>
-  <string name="blackResigned">Czarne rezygnują</string>
-  <string name="whiteLeftTheGame">Białe porzuciły grę</string>
-  <string name="blackLeftTheGame">Czarne porzuciły grę</string>
+  <string name="whiteResigned">Białe zrezygnowały</string>
+  <string name="blackResigned">Czarne zrezygnowały</string>
+  <string name="whiteLeftTheGame">Białe opuściły grę</string>
+  <string name="blackLeftTheGame">Czarne opuściły grę</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Podziel się tym linkiem, aby zaprosić widzów do obserwowania tej gry</string>
   <string name="theComputerAnalysisHasFailed">Analiza komputerowa nie udała się</string>
   <string name="viewTheComputerAnalysis">Zobacz analizę komputerową</string>
@@ -52,7 +52,7 @@
   <string name="inaccuracies">Niedokładności</string>
   <string name="moveTimes">Czas przeznaczony na ruch</string>
   <string name="flipBoard">Obróć szachownicę</string>
-  <string name="threefoldRepetition">Trzykrotne powtórzenie</string>
+  <string name="threefoldRepetition">Trzykrotne powtórzenie pozycji</string>
   <string name="claimADraw">Wymuś remis</string>
   <string name="offerDraw">Zaproponuj remis</string>
   <string name="draw">Remis</string>
