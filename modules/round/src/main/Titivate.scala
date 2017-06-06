@@ -47,7 +47,7 @@ private[round] final class Titivate(
               GameRepo unsetCheckAt game
 
             else if (game.outoftime(withGrace = true)) fuccess {
-              roundMap ! Tell(game.id, Outoftime)
+              roundMap ! Tell(game.id, Outoftime(None))
             }
 
             else if (game.abandoned) fuccess {

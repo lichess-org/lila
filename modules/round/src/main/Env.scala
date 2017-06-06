@@ -226,7 +226,7 @@ final class Env(
 
   def checkOutoftime(game: Game) {
     if (game.playable && game.started && !game.isUnlimited)
-      roundMap ! Tell(game.id, actorApi.round.Outoftime)
+      roundMap ! Tell(game.id, actorApi.round.Outoftime(None))
   }
 
   def resign(pov: Pov) {
