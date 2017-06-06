@@ -223,7 +223,7 @@
   <string name="winStreak">Seria zwycięstw</string>
   <string name="createdBy">Stworzony przez</string>
   <string name="tournamentIsStarting">Turniej zaczyna się</string>
-  <string name="membersOnly">Tylko dla użytkowników</string>
+  <string name="membersOnly">Tylko dla zarejestrowanych</string>
   <string name="boardEditor">Edytor szachownicy</string>
   <string name="startPosition">Pozycja początkowa</string>
   <string name="clearBoard">Wyczyść szachownicę</string>
@@ -235,7 +235,7 @@
   <string name="editProfile">Edycja profilu</string>
   <string name="firstName">Imię</string>
   <string name="lastName">Nazwisko</string>
-  <string name="biography">Biografia</string>
+  <string name="biography">O mnie</string>
   <string name="country">Kraj</string>
   <string name="preferences">Ustawienia</string>
   <string name="watchLichessTV">Oglądaj Lichess TV</string>
