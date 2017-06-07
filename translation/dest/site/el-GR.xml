@@ -583,7 +583,7 @@
   <string name="xHostsY">%1$s φιλοξενεί τη %2$s</string>
   <string name="xJoinsY">%1$s συμμετέχει στη %2$s</string>
   <string name="xLikesY">%1$s αρέσκεται στο %2$s</string>
-  <string name="quickPairing">Γρήγορο ταίριασμα</string>
+  <string name="quickPairing">Γρήγορη αντιστοίχιση</string>
   <string name="lobby">Δωμάτιο αναμονής</string>
   <string name="yourScore">Η βαθμολογία σας: %s</string>
   <string name="language">Γλώσσα</string>
