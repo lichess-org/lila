@@ -146,7 +146,7 @@
   <string name="takebackPropositionAccepted">Propozycja cofnięcia ruchu została przyjęta</string>
   <string name="takebackPropositionCanceled">Propozycja cofnięcia ruchu anulowana</string>
   <string name="yourOpponentProposesATakeback">Przeciwnik proponuje cofnięcie ruchu</string>
-  <string name="bookmarkThisGame">Oznacz tę grę</string>
+  <string name="bookmarkThisGame">Dodaj do ulubionych</string>
   <string name="search">Szukaj</string>
   <string name="advancedSearch">Wyszukiwanie zaawansowane</string>
   <string name="tournament">Turniej</string>
