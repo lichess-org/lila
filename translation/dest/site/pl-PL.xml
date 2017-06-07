@@ -295,8 +295,8 @@
   <string name="user">Użytkownik</string>
   <string name="reason">Powód</string>
   <string name="whatIsIheMatter">Co się stało?</string>
-  <string name="cheat">Oszustwo</string>
-  <string name="insult">Obraza</string>
+  <string name="cheat">Oszukiwanie</string>
+  <string name="insult">Wyzwiska</string>
   <string name="troll">Natręt (troll)</string>
   <string name="other">Inny powód</string>
   <string name="reportDescriptionHelp">Wklej link do gry i wytłumacz, dlaczego zachowanie użytkownika jest nieprawidłowe</string>
