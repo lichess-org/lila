@@ -58,7 +58,7 @@
   <string name="draw">Remis</string>
   <string name="currentGames">Trwające gry</string>
   <string name="viewInFullSize">Zobacz w pełnym rozmiarze</string>
-  <string name="logOut">Wyloguj się</string>
+  <string name="logOut">Wyloguj</string>
   <string name="signIn">Zaloguj się</string>
   <string name="newToLichess">Nowy na Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Musisz mieć konto, aby to zrobić</string>
@@ -187,7 +187,7 @@
   <string name="clickOnTheBoardToMakeYourMove">Kliknij na szachownicę, by zrobić ruch i udowodnić, że jesteś człowiekiem.</string>
   <string name="captcha.fail">Rozwiąż szachową zagadkę.</string>
   <string name="notACheckmate">To nie jest mat</string>
-  <string name="colorPlaysCheckmateInOne">%s grają i dają mata w jednym posunięciu</string>
+  <string name="colorPlaysCheckmateInOne">%s zaczynają i dają mata w jednym posunięciu</string>
   <string name="retry">Spróbuj jeszcze raz</string>
   <string name="reconnecting">Ponowne połączenie</string>
   <string name="onlineFriends">przyjaciół online</string>
