@@ -56,7 +56,7 @@
   <string name="claimADraw">Ogłoś remis</string>
   <string name="offerDraw">Zaproponuj remis</string>
   <string name="draw">Remis</string>
-  <string name="currentGames">Gry w toku</string>
+  <string name="currentGames">Trwające gry</string>
   <string name="viewInFullSize">Zobacz w pełnym rozmiarze</string>
   <string name="logOut">Wyloguj się</string>
   <string name="signIn">Zaloguj się</string>
