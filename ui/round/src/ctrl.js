@@ -56,6 +56,8 @@ module.exports = function(opts, redraw) {
 
   this.socket = new socket(opts.socket, this);
 
+  var timer = window.performance || Date;
+
   var onUserMove = function(orig, dest, meta) {
     lichess.ab && (!this.keyboardMove || !this.keyboardMove.usedSan) && lichess.ab(this, meta);
     if (!promotion.start(this, orig, dest, meta)) this.sendMove(orig, dest, false, meta);
@@ -171,7 +173,7 @@ module.exports = function(opts, redraw) {
       // withLag: !!this.clock
     }
     var startTime = this.vm.lastMoveMillis;
-    if (startTime !== null) socketOpts.millis = performance.now() - startTime;
+    if (startTime !== null) socketOpts.millis = timer.now() - startTime;
     this.socket.send(type, action, socketOpts);
 
     this.vm.justDropped = meta.justDropped;
@@ -234,7 +236,7 @@ module.exports = function(opts, redraw) {
     var d = this.data,
       playing = game.isPlayerPlaying(d);
 
-    if (playing) this.vm.lastMoveMillis = performance.now();
+    if (playing) this.vm.lastMoveMillis = timer.now();
     d.game.turns = o.ply;
     d.game.player = o.ply % 2 === 0 ? 'white' : 'black';
     var playedColor = o.ply % 2 === 0 ? 'black' : 'white';
