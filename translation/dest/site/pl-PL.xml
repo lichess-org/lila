@@ -426,7 +426,7 @@
   <string name="aboutSimulRealLife">Pomysł został zaczerpnięty z rzeczywistych rozgrywek. Gospodarz przemieszcza się pomiędzy szachownicami aby wykonać poszczególne posunięcia.</string>
   <string name="aboutSimulRules">Gdy symultana się rozpocznie, każdy zawodnik grający białymi, rozpoczyna partię przeciwko gospodarzowi. Symultana kończy się po zakończeniu wszystkich partii.</string>
   <string name="aboutSimulSettings">Symultana to gra towarzyska. Podczas jej rozgrywania rewanż, cofanie posunięcia i dodawanie czasu nie są dostępne.</string>
-  <string name="create">Utwórz</string>
+  <string name="create">Stwórz</string>
   <string name="whenCreateSimul">Kiedy utworzysz symultanę, będziesz grał z kilkoma przeciwnikami jednocześnie.</string>
   <string name="simulVariantsHint">Gdy zaznaczysz kilka wariantów, każdy uczestnik będzie mógł sam wybrać, który wariant chce grać.</string>
   <string name="simulClockHint">Ustawienie zegara Fischera. Przy większej ilości przeciwników możesz potrzebować więcej czasu.</string>
