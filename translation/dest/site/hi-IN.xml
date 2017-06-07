@@ -566,4 +566,5 @@
   <string name="chessBasics">शतरंज मूल बातें</string>
   <string name="error.max">%s से कम या बराबर होना चाहिए</string>
   <string name="notifications">सूचनाएँ</string>
+  <string name="challenges">चुनौतियाँ</string>
 </resources>
