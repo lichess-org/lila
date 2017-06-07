@@ -398,10 +398,10 @@
   <string name="onlyFriends">Tylko przyjaciele</string>
   <string name="menu">Menu</string>
   <string name="castling">Roszada</string>
-  <string name="whiteCastlingKingside">Krótka roszada białych</string>
-  <string name="whiteCastlingQueenside">Długa roszada białych</string>
-  <string name="blackCastlingKingside">Krótka roszada czarnych</string>
-  <string name="blackCastlingQueenside">Długa roszada czarnych</string>
+  <string name="whiteCastlingKingside">Białe O-O</string>
+  <string name="whiteCastlingQueenside">Długa białych</string>
+  <string name="blackCastlingKingside">Czarne O-O</string>
+  <string name="blackCastlingQueenside">Długa czarnych</string>
   <string name="tpTimeSpentPlaying">Łączny czas gry: %s</string>
   <string name="watchGames">Obserwuj gry</string>
   <string name="tpTimeSpentOnTV">Czas w TV: %s</string>
