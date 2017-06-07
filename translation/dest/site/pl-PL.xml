@@ -259,7 +259,7 @@
   <string name="keepGoing">To nie koniec...</string>
   <string name="puzzleFailed">Niepoprawne rozwiązanie</string>
   <string name="butYouCanKeepTrying">Spróbuj jeszcze raz.</string>
-  <string name="victory">Sukces!</string>
+  <string name="victory">Brawo!</string>
   <string name="wasThisPuzzleAnyGood">Co sądzisz o tym zadaniu?</string>
   <string name="pleaseVotePuzzle">Pomóż nam podnieść jakość zadań! Oceń zadanie, naciskając strzałkę w górę lub w dół.</string>
   <string name="thankYou">Dziękujemy!</string>
@@ -269,10 +269,10 @@
   <string name="continueTraining">Kontynuuj trening</string>
   <string name="retryThisPuzzle">Powtórz to zadanie</string>
   <string name="thisPuzzleIsCorrect">To zadanie jest poprawne i ciekawe</string>
-  <string name="thisPuzzleIsWrong">To zadanie jest niepoprawne i nudne</string>
+  <string name="thisPuzzleIsWrong">To zadanie jest niepoprawne lub nudne</string>
   <string name="automaticallyProceedToNextGameAfterMoving">Automatycznie przejdź do następnej gry po wykonaniu ruchu</string>
   <string name="autoSwitch">Automatyczne przełączanie</string>
-  <string name="puzzles">Zadania</string>
+  <string name="puzzles">Zadania szachowe</string>
   <string name="coordinates">Współrzędne pól</string>
   <string name="latestUpdates">Aktualności</string>
   <string name="tournamentWinners">Zwycięzcy turniejów</string>
