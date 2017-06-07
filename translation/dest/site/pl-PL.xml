@@ -398,10 +398,10 @@
   <string name="onlyFriends">Tylko przyjaciele</string>
   <string name="menu">Menu</string>
   <string name="castling">Roszada</string>
-  <string name="whiteCastlingKingside">Krótka białych</string>
-  <string name="whiteCastlingQueenside">Długa białych</string>
-  <string name="blackCastlingKingside">Krótka czarnych</string>
-  <string name="blackCastlingQueenside">Długa czarnych</string>
+  <string name="whiteCastlingKingside">Krótka roszada białych</string>
+  <string name="whiteCastlingQueenside">Długa roszada białych</string>
+  <string name="blackCastlingKingside">Krótka roszada czarnych</string>
+  <string name="blackCastlingQueenside">Długa roszada czarnych</string>
   <string name="tpTimeSpentPlaying">Łączny czas gry: %s</string>
   <string name="watchGames">Obserwuj gry</string>
   <string name="tpTimeSpentOnTV">Czas w TV: %s</string>
@@ -482,8 +482,8 @@
   <string name="playChessEverywhere">Graj w szachy wszędzie</string>
   <string name="asFreeAsLichess">Darmowa jak całe lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Stworzona z miłości do szachów, nie dla pieniędzy</string>
-  <string name="everybodyGetsAllFeaturesForFree">Wszystkie usługi darmowe dla wszystkich</string>
-  <string name="zeroAdvertisement">Żadnych reklam</string>
+  <string name="everybodyGetsAllFeaturesForFree">Pełna funkcjonalność za darmo dla wszystkich</string>
+  <string name="zeroAdvertisement">Brak reklam</string>
   <string name="fullFeatured">Dostępne wszystkie usługi</string>
   <string name="phoneAndTablet">Telefon i tablet</string>
   <string name="bulletBlitzClassical">Bullet, blitz, classical</string>
