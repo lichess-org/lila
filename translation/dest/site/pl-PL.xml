@@ -190,7 +190,7 @@
   <string name="colorPlaysCheckmateInOne">%s grają i dają mata w jednym posunięciu</string>
   <string name="retry">Spróbuj jeszcze raz</string>
   <string name="reconnecting">Ponowne połączenie</string>
-  <string name="onlineFriends">Przyjaciele online</string>
+  <string name="onlineFriends">przyjaciół online</string>
   <string name="noFriendsOnline">Brak przyjaciół online</string>
   <string name="findFriends">Znajdź przyjaciół</string>
   <string name="favoriteOpponents">Ulubieni przeciwnicy</string>
