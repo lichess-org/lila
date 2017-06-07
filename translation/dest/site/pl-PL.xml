@@ -196,7 +196,7 @@
   <string name="favoriteOpponents">Ulubieni przeciwnicy</string>
   <string name="follow">Obserwuj</string>
   <string name="following">Obserwowany</string>
-  <string name="unfollow">Nie obserwuj</string>
+  <string name="unfollow">Przestań obserwować</string>
   <string name="block">Zablokuj</string>
   <string name="blocked">Zablokowany</string>
   <string name="unblock">Odblokuj</string>
@@ -218,9 +218,9 @@
   <string name="join">Dołącz</string>
   <string name="withdraw">Wycofaj się</string>
   <string name="points">Punkty</string>
-  <string name="wins">Zwycięstwa</string>
-  <string name="losses">Porażki</string>
-  <string name="winStreak">Seria zwycięstw</string>
+  <string name="wins">Wygrane</string>
+  <string name="losses">Przegrane</string>
+  <string name="winStreak">Seria wygranych</string>
   <string name="createdBy">Stworzony przez</string>
   <string name="tournamentIsStarting">Turniej zaczyna się</string>
   <string name="membersOnly">Tylko dla zarejestrowanych</string>
