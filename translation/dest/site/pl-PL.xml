@@ -224,7 +224,7 @@
   <string name="createdBy">Stworzony przez</string>
   <string name="tournamentIsStarting">Turniej zaczyna się</string>
   <string name="membersOnly">Tylko dla zarejestrowanych</string>
-  <string name="boardEditor">Ustaw szachownicę</string>
+  <string name="boardEditor">Edytor pozycji</string>
   <string name="startPosition">Ustawienie początkowe</string>
   <string name="clearBoard">Wyczyść szachownicę</string>
   <string name="savePosition">Zapisz pozycję</string>
