@@ -77,7 +77,7 @@
   <string name="correspondence">Szachy korespondencyjne</string>
   <string name="daysPerTurn">Dni na ruch</string>
   <string name="oneDay">1 dzień</string>
-  <string name="time">Tempo gry</string>
+  <string name="time">Czas</string>
   <string name="rating">Ranking</string>
   <string name="ratingStats">Statystyki rankingowe</string>
   <string name="username">Nazwa użytkownika</string>
@@ -105,7 +105,7 @@
   <string name="yourOpponentOffersADraw">Twój przeciwnik proponuje remis</string>
   <string name="accept">Akceptuję</string>
   <string name="decline">Odrzuć</string>
-  <string name="playingRightNow">W trakcie</string>
+  <string name="playingRightNow">W toku</string>
   <string name="finished">Zakończono</string>
   <string name="abortGame">Przerwij grę</string>
   <string name="gameAborted">Gra została przerwana</string>
@@ -252,7 +252,7 @@
   <string name="trainingSignupExplanation">Lichess będzie dodawał zadania dostosowane do twoich umiejętności, dla skuteczniejszego treningu.</string>
   <string name="puzzleId">Zadanie %s</string>
   <string name="puzzleOfTheDay">Zadanie dnia</string>
-  <string name="clickToSolve">Kliknij aby zobaczyć rozwiązanie</string>
+  <string name="clickToSolve">Kliknij, aby rozwiązać</string>
   <string name="goodMove">Dobry ruch</string>
   <string name="butYouCanDoBetter">Ale jest lepszy.</string>
   <string name="bestMove">Najlepszy ruch!</string>
