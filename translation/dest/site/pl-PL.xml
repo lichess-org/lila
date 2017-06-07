@@ -41,7 +41,7 @@
   <string name="blackResigned">Czarne zrezygnowały</string>
   <string name="whiteLeftTheGame">Białe opuściły grę</string>
   <string name="blackLeftTheGame">Czarne opuściły grę</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Podziel się tym linkiem, aby zaprosić widzów do obserwowania tej gry</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Podziel się tym linkiem, aby zaprosić innych do obserwowania tej gry</string>
   <string name="theComputerAnalysisHasFailed">Analiza komputerowa nie udała się</string>
   <string name="viewTheComputerAnalysis">Zobacz analizę komputerową</string>
   <string name="requestAComputerAnalysis">Poproś o analizę komputerową</string>
