@@ -609,4 +609,5 @@
   <string name="custom">Custom</string>
   <string name="notifications">Notifications</string>
   <string name="challenges">Challenges</string>
+  <string name="perfRatingX">Rating: %s</string>
 </resources>
