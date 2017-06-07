@@ -224,11 +224,11 @@
   <string name="createdBy">Stworzony przez</string>
   <string name="tournamentIsStarting">Turniej zaczyna się</string>
   <string name="membersOnly">Tylko dla zarejestrowanych</string>
-  <string name="boardEditor">Edytor szachownicy</string>
-  <string name="startPosition">Pozycja początkowa</string>
+  <string name="boardEditor">Ustaw szachownicę</string>
+  <string name="startPosition">Ustawienie początkowe</string>
   <string name="clearBoard">Wyczyść szachownicę</string>
   <string name="savePosition">Zapisz pozycję</string>
-  <string name="loadPosition">Wczytaj pozycję</string>
+  <string name="loadPosition">Wczytaj ustawienie</string>
   <string name="isPrivate">Prywatny</string>
   <string name="reportXToModerators">Zgłoś %s do moderatora</string>
   <string name="profile">Profil</string>
@@ -243,7 +243,7 @@
   <string name="onlinePlayers">Gracze online</string>
   <string name="activeToday">Aktywni dzisiaj</string>
   <string name="activePlayers">Aktywni gracze</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Uważaj, ta gra jest rankingowa ale nie ma limitu czasu!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Uwaga - ta gra jest rankingowa ale nie ma limitu czasu!</string>
   <string name="training">Trening</string>
   <string name="yourPuzzleRatingX">Twój ranking treningowy: %s</string>
   <string name="findTheBestMoveForWhite">Znajdź najlepszy ruch dla białych.</string>
