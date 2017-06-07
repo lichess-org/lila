@@ -63,12 +63,12 @@
   <string name="newToLichess">Nowy na Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Musisz mieć konto, aby to zrobić</string>
   <string name="signUp">Zarejestruj się</string>
-  <string name="computersAreNotAllowedToPlay">Programy komputerowe oraz gracze korzystający z pomocy programów szachowych nie są dopuszczani do gry. Prosimy nie korzystać podczas gry z pomocy programów szachowych, baz danych czy innych graczy. Należy również wiedzieć, że zakładanie wielu kont jest surowo zabronione, posiadanie nadmiernej ilości kont doprowadzi do zablokowania użytkownika.</string>
-  <string name="games">Gry</string>
+  <string name="computersAreNotAllowedToPlay">Podczas gry niedozwolone jest korzystanie z pomocy programów szachowych, baz danych oraz pomocy innych graczy. Zakładanie wielu kont jest zabronione i prowadzi do zablokowania użytkownika.</string>
+  <string name="games">Partie</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s napisał/a w temacie %2$s</string>
   <string name="latestForumPosts">Najnowsze posty</string>
-  <string name="players">Szachiści</string>
+  <string name="players">Gracze</string>
   <string name="minutesPerSide">Minuty na gracza</string>
   <string name="variant">Wariant</string>
   <string name="variants">Warianty</string>
