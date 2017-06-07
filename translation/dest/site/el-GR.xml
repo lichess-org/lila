@@ -608,4 +608,6 @@
   <string name="error.min">Πρέπει να είναι μεγαλύτερος ή ίσος με %s</string>
   <string name="error.max">Πρέπει να είναι μικρότερος ή ίσος με %s</string>
   <string name="custom">Προσαρμογή</string>
+  <string name="notifications">Ειδοποιήσεις</string>
+  <string name="challenges">Προκλήσεις</string>
 </resources>
