@@ -53,7 +53,7 @@
   <string name="moveTimes">Czas przeznaczony na ruch</string>
   <string name="flipBoard">Obróć szachownicę</string>
   <string name="threefoldRepetition">Trzykrotne powtórzenie pozycji</string>
-  <string name="claimADraw">Wymuś remis</string>
+  <string name="claimADraw">Ogłoś remis</string>
   <string name="offerDraw">Zaproponuj remis</string>
   <string name="draw">Remis</string>
   <string name="currentGames">Gry w toku</string>
