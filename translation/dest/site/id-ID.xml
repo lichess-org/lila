@@ -418,6 +418,7 @@
   <string name="starting">Mulai:</string>
   <string name="allInformationIsPublicAndOptional">Semua informasi bersifat publik jika dikehendaki.</string>
   <string name="yourCityRegionOrDepartment">Kota anda, daerah atau provinsi.</string>
+  <string name="biographyDescription">Ceritakan tentang anda, apa yang anda sukai dalam catur, pembukaan kesukaan, permainan, pemain…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="other">Maksimal: %s karakter</item>
   </plurals>
@@ -512,6 +513,9 @@
   <string name="tournamentMayHaveBeenCanceled">turnamen harus dibatalkan, jika semua pemain meninggalkannya sebelum turnamen dimulai.</string>
   <string name="returnToTournamentsHomepage">Kembali ke laman turnamen</string>
   <string name="weeklyPerfTypeRatingDistribution">Distribusi rating %s bulanan</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="other">%1$s %2$s pemain minggu ini.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">Rating %1$s anda adalah %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Anda lebih baik daripada %1$s pemain %2$s lainnya</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Anda tidak punya rating %s mapan</string>
@@ -553,4 +557,22 @@
     <item quantity="other">Tersedia di dalam %s bahasa!</item>
   </plurals>
   <string name="gameAnalysis">Analisa Permainan</string>
+  <string name="xHostsY">%1$s tuan rumah %2$s</string>
+  <string name="xJoinsY">%1$s bergabung %2$s</string>
+  <string name="xLikesY">%1$s suka %2$s</string>
+  <string name="lobby">Ruang Lobi</string>
+  <string name="yourScore">Skor Anda: %s</string>
+  <string name="language">Bahasa</string>
+  <string name="background">Latar</string>
+  <string name="boardGeometry">Geometri Papan</string>
+  <string name="boardTheme">Tema Papan</string>
+  <string name="boardSize">Ukuran Papan</string>
+  <string name="pieceSet">Susunan buah catur</string>
+  <string name="embedInYourWebsite">Salin dalam website Anda</string>
+  <string name="usernameAlreadyUsed">Nama pengguna ini sudah digunakan, coba yang lain.</string>
+  <string name="usernameInvalid">Username tidak valid. Silakan gunakan hanya huruf, angka, garis bawah dan garis tengah.</string>
+  <string name="usernameStartNoNumber">Nama pengguna harus tidak dimulai dengan angka.</string>
+  <string name="usernameUnacceptable">Nama pengguna ini tidak dapat diterima.</string>
+  <string name="playChessInStyle">Bermain catur dengan gaya</string>
+  <string name="chessBasics">Dasar-dasar catur</string>
 </resources>
