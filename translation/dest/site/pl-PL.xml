@@ -168,7 +168,7 @@
   <string name="joiningPolicy">Reguły dołączenia</string>
   <string name="teamLeader">Kapitan zespołu</string>
   <string name="teamBestPlayers">Najlepsi gracze</string>
-  <string name="teamRecentMembers">Zawodnicy,którzy ostatnio dołączyli</string>
+  <string name="teamRecentMembers">Ostatnio dołączyli</string>
   <string name="xJoinedTeamY">%1$s dołączył do zespołu %2$s</string>
   <string name="xCreatedTeamY">%1$s stworzył zespół %2$s</string>
   <string name="averageElo">Średni ranking</string>
@@ -188,7 +188,7 @@
   <string name="captcha.fail">Rozwiąż szachową zagadkę.</string>
   <string name="notACheckmate">To nie jest mat</string>
   <string name="colorPlaysCheckmateInOne">%s grają i dają mata w jednym posunięciu</string>
-  <string name="retry">Spróbuj ponownie</string>
+  <string name="retry">Spróbuj jeszcze raz</string>
   <string name="reconnecting">Ponowne połączenie</string>
   <string name="onlineFriends">Przyjaciele online</string>
   <string name="noFriendsOnline">Brak przyjaciół online</string>
@@ -200,7 +200,7 @@
   <string name="block">Zablokuj</string>
   <string name="blocked">Zablokowany</string>
   <string name="unblock">Odblokuj</string>
-  <string name="followsYou">Obserwujący Ciebie</string>
+  <string name="followsYou">Obserwuje Cię</string>
   <string name="xStartedFollowingY">%1$s obserwuje teraz %2$s</string>
   <string name="more">Więcej</string>
   <string name="memberSince">Użytkownik od</string>
@@ -214,7 +214,7 @@
   <string name="duration">Czas trwania</string>
   <string name="winner">Zwycięzca</string>
   <string name="standing">Pozycja</string>
-  <string name="createANewTournament">Utwórz nowy turniej</string>
+  <string name="createANewTournament">Stwórz nowy turniej</string>
   <string name="join">Dołącz</string>
   <string name="withdraw">Wycofaj się</string>
   <string name="points">Punkty</string>
