@@ -309,7 +309,7 @@
   <string name="notes">Notatki</string>
   <string name="typePrivateNotesHere">Dołącz tutaj prywatną notatkę</string>
   <string name="gameDisplay">Widok partii</string>
-  <string name="pieceAnimation">Animacja ruchów figur</string>
+  <string name="pieceAnimation">Animacja ruchu figur</string>
   <string name="materialDifference">Przewaga materialna</string>
   <string name="closeAccount">Zamknij konto</string>
   <string name="changedMindDoNotCloseAccount">Zmieniłem zdanie, nie chcę zamykać swojego konta</string>
