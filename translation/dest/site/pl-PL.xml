@@ -70,11 +70,11 @@
   <string name="latestForumPosts">Najnowsze posty</string>
   <string name="players">Gracze</string>
   <string name="minutesPerSide">Minuty na gracza</string>
-  <string name="variant">Wariant</string>
+  <string name="variant">Typ</string>
   <string name="variants">Warianty</string>
   <string name="timeControl">Tempo gry</string>
   <string name="realTime">Na żywo</string>
-  <string name="correspondence">Szachy korespondencyjne</string>
+  <string name="correspondence">Korespondencyjne</string>
   <string name="daysPerTurn">Dni na ruch</string>
   <string name="oneDay">1 dzień</string>
   <string name="time">Czas</string>
@@ -399,9 +399,9 @@
   <string name="menu">Menu</string>
   <string name="castling">Roszada</string>
   <string name="whiteCastlingKingside">Białe O-O</string>
-  <string name="whiteCastlingQueenside">Długa białych</string>
+  <string name="whiteCastlingQueenside">Białe O-O-O</string>
   <string name="blackCastlingKingside">Czarne O-O</string>
-  <string name="blackCastlingQueenside">Długa czarnych</string>
+  <string name="blackCastlingQueenside">Czarne O-O-O</string>
   <string name="tpTimeSpentPlaying">Łączny czas gry: %s</string>
   <string name="watchGames">Obserwuj gry</string>
   <string name="tpTimeSpentOnTV">Czas w TV: %s</string>
