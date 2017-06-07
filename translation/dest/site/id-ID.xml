@@ -221,6 +221,7 @@
   </plurals>
   <string name="thisIsAChessCaptcha">Ini adalah CAPTCHA catur.</string>
   <string name="clickOnTheBoardToMakeYourMove">Klik pada papan untuk melangkah  dan buktikan bahwa anda asli manusia.</string>
+  <string name="captcha.fail">Harap memecahkan captcha catur.</string>
   <string name="notACheckmate">Bukan skakmat</string>
   <string name="colorPlaysCheckmateInOne">%s bermain; skakmat dalam satu langkah</string>
   <string name="retry">Mengulang</string>
@@ -228,6 +229,7 @@
   <string name="onlineFriends">Teman Online</string>
   <string name="noFriendsOnline">Tdak ada teman yang online</string>
   <string name="findFriends">Cari teman</string>
+  <string name="favoriteOpponents">Lawan Favorit</string>
   <string name="follow">Ikuti</string>
   <string name="following">Mengikuti</string>
   <string name="unfollow">Tidak mengikuti</string>
@@ -386,6 +388,7 @@
   <string name="premovesPlayingDuringOpponentTurn">Premove (siapkan langkah saat giliran lawan)</string>
   <string name="takebacksWithOpponentApproval">Langkah batal (dengan persetujuan lawan)</string>
   <string name="promoteToQueenAutomatically">Otomatis promosikan Menteri</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Langsung Remis pada pengulangan ketiga kali</string>
   <string name="privacy">Privasi</string>
   <string name="letOtherPlayersFollowYou">Biarkan pengguna lain mengikuti anda</string>
   <string name="letOtherPlayersChallengeYou">Biarkan pengguna lain menantang anda</string>
