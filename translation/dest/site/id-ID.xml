@@ -542,7 +542,7 @@
   <string name="kidMode">Mode anak</string>
   <string name="playChessEverywhere">Bermain catur dimanapun</string>
   <string name="asFreeAsLichess">Gratis seperti lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Dibangun atas dasar cinta terhadap catur, bukan uang</string>
+  <string name="builtForTheLoveOfChessNotMoney">Dibuat atas dasar cinta terhadap catur, bukan uang</string>
   <string name="everybodyGetsAllFeaturesForFree">Semua pengguna mendapatkan seluruh fitur dengan gratis</string>
   <string name="zeroAdvertisement">Nol iklan</string>
   <string name="fullFeatured">Fitur lengkap</string>
@@ -560,6 +560,7 @@
   <string name="xHostsY">%1$s tuan rumah %2$s</string>
   <string name="xJoinsY">%1$s bergabung %2$s</string>
   <string name="xLikesY">%1$s suka %2$s</string>
+  <string name="quickPairing">Pencarian lawan dengan cepat</string>
   <string name="lobby">Ruang Lobi</string>
   <string name="yourScore">Skor Anda: %s</string>
   <string name="language">Bahasa</string>
@@ -573,6 +574,18 @@
   <string name="usernameInvalid">Username tidak valid. Silakan gunakan hanya huruf, angka, garis bawah dan garis tengah.</string>
   <string name="usernameStartNoNumber">Nama pengguna harus tidak dimulai dengan angka.</string>
   <string name="usernameUnacceptable">Nama pengguna ini tidak dapat diterima.</string>
+  <string name="directlySupportLichess">Mendukung Lichess secara langsung</string>
   <string name="playChessInStyle">Bermain catur dengan gaya</string>
   <string name="chessBasics">Dasar-dasar catur</string>
+  <string name="coaches">Pembina</string>
+  <string name="invalidPgn">PGN tidak valid</string>
+  <string name="invalidFen">FEN tidak valid</string>
+  <string name="error.minLength">Panjang minimum adalah %s</string>
+  <string name="error.maxLength">Panjang minimum adalah %s</string>
+  <string name="error.min">Harus lebih besar atau sama dengan %s</string>
+  <string name="error.max">Harus kurang atau sama dengan %s</string>
+  <string name="custom">Atur</string>
+  <string name="notifications">Notifikasi</string>
+  <string name="challenges">Tantangan</string>
+  <string name="perfRatingX">Rating: %s</string>
 </resources>
