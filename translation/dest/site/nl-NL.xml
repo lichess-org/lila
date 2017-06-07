@@ -608,4 +608,6 @@
   <string name="error.min">Moet groter dan of gelijk aan %s zijn</string>
   <string name="error.max">Moet kleiner dan of gelijk aan %s zijn</string>
   <string name="custom">Aangepast</string>
+  <string name="notifications">Meldingen</string>
+  <string name="challenges">Uitdagingen</string>
 </resources>
