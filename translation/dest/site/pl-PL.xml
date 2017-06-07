@@ -19,7 +19,7 @@
   <string name="white">Białe</string>
   <string name="black">Czarne</string>
   <string name="randomColor">Dowolny kolor</string>
-  <string name="createAGame">Utwórz grę</string>
+  <string name="createAGame">Nowa gra</string>
   <string name="whiteIsVictorious">Wygrana białych</string>
   <string name="blackIsVictorious">Wygrana czarnych</string>
   <string name="kingInTheCenter">Król w centrum</string>
@@ -416,7 +416,7 @@
   <string name="sourceCode">Kod źródłowy</string>
   <string name="simultaneousExhibitions">Symultany</string>
   <string name="host">Gospodarz</string>
-  <string name="createdSimuls">Nowo utworzone symultany</string>
+  <string name="createdSimuls">Nowe</string>
   <string name="hostANewSimul">Utwórz nową symultanę</string>
   <string name="noSimulFound">Nie znaleziono symultany</string>
   <string name="noSimulExplanation">Taka symultana nie istnieje</string>
