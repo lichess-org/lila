@@ -491,7 +491,7 @@
   <string name="onlineAndOfflinePlay">Graj offline i w sieci</string>
   <string name="correspondenceAndUnlimited">Korespondencyjne i bez limitu czasu</string>
   <string name="viewTheSolution">Zobacz rozwiązanie</string>
-  <string name="followAndChallengeFriends">Obserwuj i rzuć wyzwanie znajomym</string>
+  <string name="followAndChallengeFriends">Obserwuj i rzucaj wyzwania znajomym</string>
   <string name="gameAnalysis">Analiza gry</string>
   <string name="xHostsY">%1$s utworzył %2$s</string>
   <string name="xJoinsY">%1$s dołączył do %2$s</string>
@@ -504,7 +504,7 @@
   <string name="boardGeometry">Szachownica</string>
   <string name="boardTheme">Kolory pól</string>
   <string name="boardSize">Rozmiar szachownicy</string>
-  <string name="pieceSet">Typ figur</string>
+  <string name="pieceSet">Zestaw figur</string>
   <string name="embedInYourWebsite">Osadź na swojej stronie internetowej</string>
   <string name="usernameAlreadyUsed">Ta nazwa użytkownika jest już zajęta, wybierz inną.</string>
   <string name="usernameInvalid">Nieprawidłowa nazwa użytkownika. Proszę używać tylko liter, cyfr, znaku podkreślenia i myślnika.</string>
