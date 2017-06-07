@@ -469,7 +469,7 @@
   <string name="timeToProcessAMoveOnLichessServer">Czas na przetworzenie zagrania na serwerze lichess</string>
   <string name="downloadAnnotated">Pobierz z komentarzem</string>
   <string name="downloadRaw">Pobierz bez komentarza</string>
-  <string name="downloadImported">Pobranie zaimportowane</string>
+  <string name="downloadImported">Pobierz zaimportowane gry</string>
   <string name="printFriendlyPDF">PDF do druku</string>
   <string name="crosstable">Tablica wyników</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Możesz także przeciągnąć nad szachownicą aby poruszać się w grze.</string>
@@ -489,7 +489,7 @@
   <string name="bulletBlitzClassical">Bullet, blitz, classical</string>
   <string name="correspondenceChess">Szachy korespondencyjne</string>
   <string name="onlineAndOfflinePlay">Graj offline i w sieci</string>
-  <string name="correspondenceAndUnlimited">Korespondencyjne i nielimitowane</string>
+  <string name="correspondenceAndUnlimited">Korespondencyjne i bez limitu czasu</string>
   <string name="viewTheSolution">Zobacz rozwiązanie</string>
   <string name="followAndChallengeFriends">Obserwuj i rzuć wyzwanie znajomym</string>
   <string name="gameAnalysis">Analiza gry</string>
@@ -506,7 +506,7 @@
   <string name="boardSize">Rozmiar szachownicy</string>
   <string name="pieceSet">Typ figur</string>
   <string name="embedInYourWebsite">Osadź na swojej stronie internetowej</string>
-  <string name="usernameAlreadyUsed">Ta nazwa użytkownika jest zajęta, wybierz inną.</string>
+  <string name="usernameAlreadyUsed">Ta nazwa użytkownika jest już zajęta, wybierz inną.</string>
   <string name="usernameInvalid">Nieprawidłowa nazwa użytkownika. Proszę używać tylko liter, cyfr, znaku podkreślenia i myślnika.</string>
   <string name="usernameStartNoNumber">Nazwa użytkownika nie może zaczynać się cyfrą.</string>
   <string name="usernameUnacceptable">Ta nazwa użytkownika jest niedozwolona.</string>
@@ -516,8 +516,8 @@
   <string name="coaches">Trenerzy</string>
   <string name="invalidPgn">Nieprawidłowy PGN</string>
   <string name="invalidFen">Nieprawidłowy FEN</string>
-  <string name="error.minLength">Minimalna długość to %s słów</string>
-  <string name="error.maxLength">Maksymalna długość to %s słów</string>
+  <string name="error.minLength">Minimalna długość to %s znaków</string>
+  <string name="error.maxLength">Maksymalna długość to %s znaków</string>
   <string name="error.min">Musi być większa lub równa %s</string>
   <string name="error.max">Musi być mniejsza lub równa %s</string>
   <string name="custom">Niestandardowa</string>
