@@ -319,7 +319,7 @@
   <string name="emailMeALink">Wyślij link</string>
   <string name="currentPassword">Aktualne hasło</string>
   <string name="newPassword">Nowe hasło</string>
-  <string name="newPasswordAgain">Nowe hasło (powtórz)</string>
+  <string name="newPasswordAgain">Powtórz nowe hasło</string>
   <string name="boardHighlights">Podświetlenie pól szachownicy (ostatni ruch i szach)</string>
   <string name="pieceDestinations">Podświetlaj możliwe pola docelowe (ruchy zwykłe i planowane)</string>
   <string name="boardCoordinates">Współrzędne pól (a-h, 1-8)</string>
@@ -344,8 +344,8 @@
   <string name="fast">Szybka</string>
   <string name="normal">Normalna</string>
   <string name="slow">Wolna</string>
-  <string name="insideTheBoard">Wewnątrz szachownicy</string>
-  <string name="outsideTheBoard">Na zewnątrz szachownicy</string>
+  <string name="insideTheBoard">Na szachownicy</string>
+  <string name="outsideTheBoard">Poza szachownicą</string>
   <string name="onSlowGames">W grach z dłuższym tempem</string>
   <string name="always">Zawsze</string>
   <string name="inCasualGamesOnly">Tylko w grach towarzyskich</string>
@@ -385,7 +385,7 @@
   <string name="sharePGN">Udostępnij PGN</string>
   <string name="playOnline">Graj online</string>
   <string name="playOffline">Graj offline</string>
-  <string name="allowAnalytics">Wysyłaj statystyki anonimowo</string>
+  <string name="allowAnalytics">Wysyłaj anonimowe statystyki</string>
   <string name="shareGameURL">Udostępnij link do gry</string>
   <string name="error.required">To pole jest wymagane</string>
   <string name="error.email">Podany adres email jest nieprawidłowy</string>
