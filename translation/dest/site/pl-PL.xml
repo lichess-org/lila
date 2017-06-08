@@ -256,8 +256,8 @@
   <string name="goodMove">Dobry ruch</string>
   <string name="butYouCanDoBetter">Dobrze ale jest lepszy ruch.</string>
   <string name="bestMove">Najlepszy ruch!</string>
-  <string name="keepGoing">To nie koniec...</string>
-  <string name="puzzleFailed">Niepoprawne rozwiązanie</string>
+  <string name="keepGoing">Graj dalej…</string>
+  <string name="puzzleFailed">To zły ruch</string>
   <string name="butYouCanKeepTrying">Spróbuj jeszcze raz.</string>
   <string name="victory">Brawo!</string>
   <string name="wasThisPuzzleAnyGood">Co sądzisz o tym zadaniu?</string>
@@ -271,7 +271,7 @@
   <string name="thisPuzzleIsCorrect">To poprawne i ciekawe zadanie</string>
   <string name="thisPuzzleIsWrong">To zadanie jest niepoprawne lub nudne</string>
   <string name="automaticallyProceedToNextGameAfterMoving">Przejdź do następnej gry po wykonaniu ruchu</string>
-  <string name="autoSwitch">Automatyczne przełączanie</string>
+  <string name="autoSwitch">Przełącz po ruchu</string>
   <string name="puzzles">Zadania szachowe</string>
   <string name="coordinates">Współrzędne pól</string>
   <string name="latestUpdates">Aktualności</string>
@@ -281,7 +281,7 @@
   <string name="no">Nie</string>
   <string name="yes">Tak</string>
   <string name="help">Pomoc</string>
-  <string name="createANewTopic">Utwórz nowy temat</string>
+  <string name="createANewTopic">Stwórz nowy temat</string>
   <string name="topics">Tematy</string>
   <string name="posts">Posty</string>
   <string name="lastPost">Ostatni post</string>
@@ -295,7 +295,7 @@
   <string name="user">Użytkownik</string>
   <string name="reason">Powód</string>
   <string name="whatIsIheMatter">Co się stało?</string>
-  <string name="cheat">Oszukiwanie</string>
+  <string name="cheat">Oszust</string>
   <string name="insult">Wyzwiska</string>
   <string name="troll">Natręt (troll)</string>
   <string name="other">Inny powód</string>
