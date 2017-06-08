@@ -166,11 +166,11 @@
   <string name="anyoneCanJoin">Każdy może dołączyć</string>
   <string name="aConfirmationIsRequiredToJoin">Dołączenie wymaga potwierdzenia</string>
   <string name="joiningPolicy">Reguły dołączenia</string>
-  <string name="teamLeader">Kapitan zespołu</string>
+  <string name="teamLeader">Kapitan</string>
   <string name="teamBestPlayers">Najlepsi gracze</string>
   <string name="teamRecentMembers">Ostatnio dołączyli</string>
-  <string name="xJoinedTeamY">%1$s dołączył do zespołu %2$s</string>
-  <string name="xCreatedTeamY">%1$s stworzył zespół %2$s</string>
+  <string name="xJoinedTeamY">%1$s dołączył do klubu %2$s</string>
+  <string name="xCreatedTeamY">%1$s stworzył klub %2$s</string>
   <string name="averageElo">Średni ranking</string>
   <string name="location">Miejsce</string>
   <string name="settings">Ustawienia</string>
