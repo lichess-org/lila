@@ -586,6 +586,7 @@
   <string name="quickPairing">Rapida parado</string>
   <string name="lobby">Lobio</string>
   <string name="yourScore">Via poentaro: %s</string>
+  <string name="language">Lingvo</string>
   <string name="background">Fono</string>
   <string name="boardGeometry">Tabula geometrio</string>
   <string name="boardTheme">Tabula temo</string>
@@ -606,4 +607,6 @@
   <string name="error.maxLength">Maksimuma longo estas %s</string>
   <string name="error.min">Devas esti pli ol aŭ egala al %s</string>
   <string name="error.max">Devas esti malpli ol aŭ egala al %s</string>
+  <string name="custom">Propra</string>
+  <string name="notifications">Sciigoj</string>
 </resources>
