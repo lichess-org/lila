@@ -5,6 +5,7 @@ import chess.format.pgn.{ Pgn, Tag, Parser, ParsedPgn }
 import chess.format.{ pgn => chessPgn }
 import chess.{ Centis, Color }
 import org.joda.time.format.DateTimeFormat
+import org.joda.time.DateTimeZone
 
 import lila.common.LightUser
 
@@ -36,7 +37,7 @@ final class PgnDump(
   def filename(game: Game): String = gameLightUsers(game) match {
     case (wu, bu) => fileR.replaceAllIn(
       "lichess_pgn_%s_%s_vs_%s.%s.pgn".format(
-        dateFormat.print(game.createdAt),
+        Tag.UTCDate.format.print(game.createdAt),
         player(game.whitePlayer, wu),
         player(game.blackPlayer, bu),
         game.id
@@ -48,8 +49,6 @@ final class PgnDump(
 
   private def gameLightUsers(game: Game): (Option[LightUser], Option[LightUser]) =
     (game.whitePlayer.userId ?? getLightUser) -> (game.blackPlayer.userId ?? getLightUser)
-
-  private val dateFormat = DateTimeFormat forPattern "yyyy.MM.dd";
 
   private def rating(p: Player) = p.rating.fold("?")(_.toString)
 
@@ -70,7 +69,10 @@ final class PgnDump(
         else game.rated.fold("Rated game", "Casual game")
       }),
       Tag(_.Site, gameUrl(game.id)),
-      Tag(_.Date, imported.flatMap(_ tag "date") | dateFormat.print(game.createdAt)),
+      imported.flatMap(_ tag "date") map { date => Tag(_.Date, date) } getOrElse {
+        Tag(_.UTCDate, imported.flatMap(_ tag "utcdate") | Tag.UTCDate.format.print(game.createdAt))
+      },
+      Tag(_.UTCTime, imported.flatMap(_ tag "utctime") | Tag.UTCTime.format.print(game.createdAt)),
       Tag(_.Round, imported.flatMap(_ tag "round") | "-"),
       Tag(_.White, player(game.whitePlayer, wu)),
       Tag(_.Black, player(game.blackPlayer, bu)),
