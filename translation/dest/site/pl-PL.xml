@@ -484,7 +484,7 @@
   <string name="builtForTheLoveOfChessNotMoney">Stworzona z miłości do szachów, nie dla pieniędzy</string>
   <string name="everybodyGetsAllFeaturesForFree">Pełna funkcjonalność za darmo dla wszystkich</string>
   <string name="zeroAdvertisement">Brak reklam</string>
-  <string name="fullFeatured">Dostępne wszystkie usługi</string>
+  <string name="fullFeatured">Pełna możliwości</string>
   <string name="phoneAndTablet">Dostęp z telefonu i tabletu</string>
   <string name="bulletBlitzClassical">Bullet, blitz, classical</string>
   <string name="correspondenceChess">Szachy korespondencyjne</string>
@@ -492,7 +492,7 @@
   <string name="correspondenceAndUnlimited">Korespondencyjne i bez limitu czasu</string>
   <string name="viewTheSolution">Zobacz rozwiązanie</string>
   <string name="followAndChallengeFriends">Obserwuj i rzucaj wyzwania znajomym</string>
-  <string name="gameAnalysis">Analiza gry</string>
+  <string name="gameAnalysis">Analizowanie gry</string>
   <string name="xHostsY">%1$s utworzył %2$s</string>
   <string name="xJoinsY">%1$s dołączył do %2$s</string>
   <string name="xLikesY">%1$s polubił %2$s</string>
