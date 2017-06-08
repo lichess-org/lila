@@ -609,4 +609,6 @@
   <string name="error.max">Devas esti malpli ol aŭ egala al %s</string>
   <string name="custom">Propra</string>
   <string name="notifications">Sciigoj</string>
+  <string name="challenges">Defioj</string>
+  <string name="perfRatingX">Taksado: %s</string>
 </resources>
