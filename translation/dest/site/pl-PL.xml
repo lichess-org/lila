@@ -299,7 +299,7 @@
   <string name="insult">Wyzwiska</string>
   <string name="troll">Natręt (troll)</string>
   <string name="other">Inny powód</string>
-  <string name="reportDescriptionHelp">Wklej link do gry i wytłumacz, dlaczego zachowanie użytkownika jest nieprawidłowe</string>
+  <string name="reportDescriptionHelp">Wklej link do gry i wyjaśnij, dlaczego zachowanie użytkownika jest nieprawidłowe. Nie wystarczy napisać \"oszukuje\", powiedz nam na jakiej podstawie doszedłeś do takiego wniosku. Twoje zgłoszenie będzie zweryfikowane szybciej jeżeli napiszesz je w języku angielskim.</string>
   <string name="by">autor %s</string>
   <string name="thisTopicIsNowClosed">Ten temat został zamknięty.</string>
   <string name="theming">Wygląd</string>
@@ -314,7 +314,7 @@
   <string name="closeAccount">Zamknij konto</string>
   <string name="changedMindDoNotCloseAccount">Zmieniłem zdanie, nie chcę zamykać swojego konta</string>
   <string name="closeAccountExplanation">Czy jesteś pewien, że chcesz zamknąć swoje konto? Zamknięcie konta jest decyzją nieodwracalną. Nie będziesz mógł się więcej zalogować, a twoja strona profilowa nie będzie już dostępna.</string>
-  <string name="thisAccountIsClosed">To konto zostało zamknięte.</string>
+  <string name="thisAccountIsClosed">Konto zostało zamknięte.</string>
   <string name="invalidUsernameOrPassword">Niepoprawna nazwa użytkownika lub niepoprawne hasło</string>
   <string name="emailMeALink">Wyślij link</string>
   <string name="currentPassword">Aktualne hasło</string>
