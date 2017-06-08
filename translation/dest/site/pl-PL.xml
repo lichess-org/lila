@@ -268,9 +268,9 @@
   <string name="startTraining">Rozpocznij trening</string>
   <string name="continueTraining">Kontynuuj trening</string>
   <string name="retryThisPuzzle">Powtórz to zadanie</string>
-  <string name="thisPuzzleIsCorrect">To zadanie jest poprawne i ciekawe</string>
+  <string name="thisPuzzleIsCorrect">To poprawne i ciekawe zadanie</string>
   <string name="thisPuzzleIsWrong">To zadanie jest niepoprawne lub nudne</string>
-  <string name="automaticallyProceedToNextGameAfterMoving">Automatycznie przejdź do następnej gry po wykonaniu ruchu</string>
+  <string name="automaticallyProceedToNextGameAfterMoving">Przejdź do następnej gry po wykonaniu ruchu</string>
   <string name="autoSwitch">Automatyczne przełączanie</string>
   <string name="puzzles">Zadania szachowe</string>
   <string name="coordinates">Współrzędne pól</string>
@@ -300,7 +300,7 @@
   <string name="troll">Natręt (troll)</string>
   <string name="other">Inny powód</string>
   <string name="reportDescriptionHelp">Wklej link do gry i wytłumacz, dlaczego zachowanie użytkownika jest nieprawidłowe</string>
-  <string name="by">przez %s</string>
+  <string name="by">autor %s</string>
   <string name="thisTopicIsNowClosed">Ten temat został zamknięty.</string>
   <string name="theming">Wygląd</string>
   <string name="donate">Wesprzyj darowizną</string>
