@@ -172,7 +172,7 @@
   <string name="xJoinedTeamY">%1$s dołączył do klubu %2$s</string>
   <string name="xCreatedTeamY">%1$s stworzył klub %2$s</string>
   <string name="averageElo">Średni ranking</string>
-  <string name="location">Miejsce</string>
+  <string name="location">Miejscowość</string>
   <string name="settings">Ustawienia</string>
   <string name="filterGames">Filtruj gry</string>
   <string name="reset">Przywróć domyślne</string>
