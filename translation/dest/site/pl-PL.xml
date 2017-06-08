@@ -485,10 +485,10 @@
   <string name="everybodyGetsAllFeaturesForFree">Pełna funkcjonalność za darmo dla wszystkich</string>
   <string name="zeroAdvertisement">Brak reklam</string>
   <string name="fullFeatured">Dostępne wszystkie usługi</string>
-  <string name="phoneAndTablet">Telefon i tablet</string>
+  <string name="phoneAndTablet">Dostęp z telefonu i tabletu</string>
   <string name="bulletBlitzClassical">Bullet, blitz, classical</string>
   <string name="correspondenceChess">Szachy korespondencyjne</string>
-  <string name="onlineAndOfflinePlay">Graj offline i w sieci</string>
+  <string name="onlineAndOfflinePlay">Graj offline i online</string>
   <string name="correspondenceAndUnlimited">Korespondencyjne i bez limitu czasu</string>
   <string name="viewTheSolution">Zobacz rozwiązanie</string>
   <string name="followAndChallengeFriends">Obserwuj i rzucaj wyzwania znajomym</string>
