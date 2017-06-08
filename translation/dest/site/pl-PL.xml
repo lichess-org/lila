@@ -330,14 +330,14 @@
   <string name="whenTimeRemainingLessThanTenSeconds">Kiedy na zegarze jest mniej niż 10 sekund</string>
   <string name="horizontalGreenProgressBars">Poziomy zielony pasek postępu</string>
   <string name="soundWhenTimeGetsCritical">Dźwięk, gdy zostało bardzo mało czasu</string>
-  <string name="gameBehavior">Zachowanie podczas gry</string>
+  <string name="gameBehavior">Obsługa gry</string>
   <string name="premovesPlayingDuringOpponentTurn">Ruch planowany (podczas ruchu przeciwnika)</string>
   <string name="takebacksWithOpponentApproval">Cofnięcie ruchu (za zgodą przeciwnika)</string>
   <string name="promoteToQueenAutomatically">Automatyczna promocja na hetmana</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatyczny remis po trzykrotnym powtórzeniu pozycji</string>
   <string name="privacy">Prywatność</string>
-  <string name="letOtherPlayersFollowYou">Inni zawodnicy mogą Cię obserwować</string>
-  <string name="letOtherPlayersChallengeYou">Inni zawodnicy mogą wysłać Ci wyzwanie</string>
+  <string name="letOtherPlayersFollowYou">Inni gracze mogą Cię obserwować</string>
+  <string name="letOtherPlayersChallengeYou">Inni gracze mogą wysłać Ci wyzwanie</string>
   <string name="sound">Dźwięk</string>
   <string name="yourPreferencesHaveBeenSaved">Twoje ustawienia zostały zapisane.</string>
   <string name="none">Brak</string>
