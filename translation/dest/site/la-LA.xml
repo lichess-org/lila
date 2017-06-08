@@ -584,7 +584,7 @@
   <string name="xJoinsY">%1$s iungit %2$s</string>
   <string name="xLikesY">%1$s velit %2$s</string>
   <string name="quickPairing">Velox partes</string>
-  <string name="lobby">Vestibulum</string>
+  <string name="lobby">Praecinctio</string>
   <string name="yourScore">Status tibi: %s</string>
   <string name="language">Lingua</string>
   <string name="background">Scaena</string>
@@ -609,4 +609,6 @@
   <string name="error.max">%s paribus minor est</string>
   <string name="custom">Alius</string>
   <string name="notifications">Nuntii</string>
+  <string name="challenges">Proelia</string>
+  <string name="perfRatingX">Ordo: %s</string>
 </resources>
