@@ -608,4 +608,5 @@
   <string name="error.min">%s paribus maius esse</string>
   <string name="error.max">%s paribus minor est</string>
   <string name="custom">Alius</string>
+  <string name="notifications">Nuntii</string>
 </resources>
