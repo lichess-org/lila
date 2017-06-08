@@ -185,7 +185,7 @@
   <string name="importGame">Importuj grę</string>
   <string name="thisIsAChessCaptcha">To jest szachowa CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Kliknij na szachownicę, by zrobić ruch i udowodnić, że jesteś człowiekiem.</string>
-  <string name="captcha.fail">Rozwiąż szachową zagadkę.</string>
+  <string name="captcha.fail">Rozwiąż szachowe zadanie.</string>
   <string name="notACheckmate">To nie jest mat</string>
   <string name="colorPlaysCheckmateInOne">%s zaczynają i dają mata w jednym posunięciu</string>
   <string name="retry">Spróbuj jeszcze raz</string>
@@ -205,12 +205,12 @@
   <string name="more">Więcej</string>
   <string name="memberSince">Użytkownik od</string>
   <string name="lastSeenActive">Ostatnie logowanie %s</string>
-  <string name="challengeToPlay">Wyzwanie</string>
+  <string name="challengeToPlay">Zaproś do gry</string>
   <string name="player">Gracz</string>
   <string name="list">Lista</string>
   <string name="graph">Wykres</string>
   <string name="required">Wymagane.</string>
-  <string name="openTournaments">Turnieje otwarte</string>
+  <string name="openTournaments">Turnieje</string>
   <string name="duration">Czas trwania</string>
   <string name="winner">Zwycięzca</string>
   <string name="standing">Pozycja</string>
