@@ -18,7 +18,7 @@
   <string name="stalemate">Pat</string>
   <string name="white">Białe</string>
   <string name="black">Czarne</string>
-  <string name="randomColor">Dowolny kolor</string>
+  <string name="randomColor">Białe lub czarne</string>
   <string name="createAGame">Nowa gra</string>
   <string name="whiteIsVictorious">Wygrana białych</string>
   <string name="blackIsVictorious">Wygrana czarnych</string>
@@ -135,7 +135,7 @@
   <string name="freeOnlineChess">Darmowe szachy online</string>
   <string name="spectators">Widzowie:</string>
   <string name="exportGames">Eksportuj gry</string>
-  <string name="ratingRange">Przedział rankingowy</string>
+  <string name="ratingRange">Przedział rankingu</string>
   <string name="thisPlayerUsesChessComputerAssistance">Ten gracz korzysta z pomocy programu szachowego</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ten gracz sztucznie zwiększa/obniża swój ranking</string>
   <string name="openingExplorer">Przeglądarka otwarć</string>
