@@ -140,11 +140,11 @@
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ten gracz sztucznie zwiększa/obniża swój ranking</string>
   <string name="openingExplorer">Przeglądarka otwarć</string>
   <string name="takeback">Cofnij ruch</string>
-  <string name="proposeATakeback">Zaproponuj cofnięcie ruchu</string>
-  <string name="takebackPropositionSent">Propozycja cofnięcia ruchu została wysłana</string>
-  <string name="takebackPropositionDeclined">Propozycja cofnięcia ruchu została odrzucona</string>
-  <string name="takebackPropositionAccepted">Propozycja cofnięcia ruchu została przyjęta</string>
-  <string name="takebackPropositionCanceled">Propozycja cofnięcia ruchu anulowana</string>
+  <string name="proposeATakeback">Poproś o cofnięcie ruchu</string>
+  <string name="takebackPropositionSent">Wysłano prośbę o cofnięcie ruchu</string>
+  <string name="takebackPropositionDeclined">Odrzucono prośbę o cofnięcie ruchu</string>
+  <string name="takebackPropositionAccepted">Ruch został wycofany</string>
+  <string name="takebackPropositionCanceled">Anulowano prośbę o cofnięcie ruchu</string>
   <string name="yourOpponentProposesATakeback">Przeciwnik chce cofnąć ruch</string>
   <string name="bookmarkThisGame">Dodaj do ulubionych</string>
   <string name="search">Szukaj</string>
