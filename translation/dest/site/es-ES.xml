@@ -608,4 +608,5 @@
   <string name="error.min">Debe ser mayor o igual a %s</string>
   <string name="error.max">Debe ser menor o igual a %s</string>
   <string name="custom">Personalizado</string>
+  <string name="notifications">Notificaciones</string>
 </resources>
