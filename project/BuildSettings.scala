@@ -28,7 +28,7 @@ object BuildSettings {
         .setPreference(CompactControlReadability, true)
         .setPreference(DoubleIndentClassDeclaration, true))
 
-  def defaultDeps = Seq(scalaz, scalalib, jodaTime, ws, java8compat)
+  def defaultDeps = Seq(scalaz, scalalib, jodaTime, ws, java8compat, specs2)
 
   def compile(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "compile")
   def provided(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "provided")
