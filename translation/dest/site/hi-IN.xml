@@ -547,6 +547,7 @@
   <string name="letOtherPlayersMessageYou">अन्य खिलाड़ियों को आपको संदेश देने दें</string>
   <string name="shareYourInsightsData">अपने इनसाइट डेटा साझा करें</string>
   <string name="youHaveAlreadyRegisteredTheEmail">आपने पहले ही ईमेल दर्ज कर लिया है: %s</string>
+  <string name="kidMode">बच्चा मोड</string>
   <string name="playChessEverywhere">हर जगह शतरंज खेलें</string>
   <string name="zeroAdvertisement">शून्य विज्ञापन</string>
   <string name="phoneAndTablet">फोन और टैबलेट</string>
@@ -560,11 +561,18 @@
     <item quantity="other">%s भाषाओं में उपलब्ध है !</item>
   </plurals>
   <string name="gameAnalysis">खेल अध्ययन</string>
+  <string name="lobby">लॉबी</string>
   <string name="language">भाषा</string>
   <string name="pieceSet">मोहरे</string>
   <string name="directlySupportLichess">Lichess का समर्थन करें</string>
   <string name="chessBasics">शतरंज मूल बातें</string>
+  <string name="invalidPgn">अमान्य PGN</string>
+  <string name="invalidFen">अमान्य FEN</string>
+  <string name="error.minLength">न्यूनतम लंबाई %s है</string>
+  <string name="error.maxLength">अधिकतम लंबाई %s है</string>
+  <string name="error.min">%s से बड़ा या बराबर होना चाहिए</string>
   <string name="error.max">%s से कम या बराबर होना चाहिए</string>
   <string name="notifications">सूचनाएँ</string>
   <string name="challenges">चुनौतियाँ</string>
+  <string name="perfRatingX">रेटिंग: %s</string>
 </resources>
