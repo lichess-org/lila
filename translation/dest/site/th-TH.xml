@@ -575,7 +575,7 @@
   <string name="usernameStartNoNumber">ชื่อผู้ใช้ต้องไม่เริ่มต้นด้วยตัวเลข</string>
   <string name="usernameUnacceptable">ไม่ยอมรับชื่อผู้ใช้นี้</string>
   <string name="directlySupportLichess">สนับสนุน Lichess โดยตรง</string>
-  <string name="playChessInStyle">เล่นหมากรุกตามสไตล์</string>
+  <string name="playChessInStyle">เล่นหมากรุกแบบมีสไตล์</string>
   <string name="chessBasics">พื้นฐานหมากรุก</string>
   <string name="coaches">ผู้ฝึกสอน</string>
   <string name="invalidPgn">PGN ไม่ถูกต้อง</string>
