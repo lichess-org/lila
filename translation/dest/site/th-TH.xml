@@ -565,4 +565,27 @@
   <string name="yourScore">สกอร์ของคุณ: %s</string>
   <string name="language">ภาษา</string>
   <string name="background">พื้นหลัง</string>
+  <string name="boardGeometry">รูปทรงกระดาน</string>
+  <string name="boardTheme">รูปลักษณ์กระดาน</string>
+  <string name="boardSize">ขนาดกระดาน</string>
+  <string name="pieceSet">ชุดหมาก</string>
+  <string name="embedInYourWebsite">ฝังในเว็บไซต์ของคุณ</string>
+  <string name="usernameAlreadyUsed">ชื่อผู้ใช้นี้ถูกใช้ไปแล้ว, โปรดตั้งชื่อใหม่</string>
+  <string name="usernameInvalid">ชื่อผู้ใช้ไม่ถูกต้อง โปรดใช้เฉพาะตัวอักษร, ตัวเลข, ขีด หรือขีดล่าง</string>
+  <string name="usernameStartNoNumber">ชื่อผู้ใช้ต้องไม่เริ่มต้นด้วยตัวเลข</string>
+  <string name="usernameUnacceptable">ไม่ยอมรับชื่อผู้ใช้นี้</string>
+  <string name="directlySupportLichess">สนับสนุน Lichess โดยตรง</string>
+  <string name="playChessInStyle">เล่นหมากรุกตามสไตล์</string>
+  <string name="chessBasics">พื้นฐานหมากรุก</string>
+  <string name="coaches">ผู้ฝึกสอน</string>
+  <string name="invalidPgn">PGN ไม่ถูกต้อง</string>
+  <string name="invalidFen">FEN ไม่ถูกต้อง</string>
+  <string name="error.minLength">ความยาวต่ำสุดคือ %s</string>
+  <string name="error.maxLength">ความยาวสูงสุดคือ %s</string>
+  <string name="error.min">ต้องมากกว่า หรือเท่ากับ %s</string>
+  <string name="error.max">ต้องน้อยกว่า หรือเท่ากับ %s</string>
+  <string name="custom">กำหนด​เอง</string>
+  <string name="notifications">การแจ้งเตือน</string>
+  <string name="challenges">การท้าดวล</string>
+  <string name="perfRatingX">ระดับคะแนน: %s</string>
 </resources>
