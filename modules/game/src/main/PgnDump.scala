@@ -1,9 +1,9 @@
 package lila.game
 
 import chess.format.Forsyth
-import chess.format.pgn.{Pgn, Tag, Parser, ParsedPgn}
-import chess.format.{pgn => chessPgn}
-import chess.{Centis, Color}
+import chess.format.pgn.{ Pgn, Tag, TagType, Parser, ParsedPgn }
+import chess.format.{ pgn => chessPgn }
+import chess.{ Centis, Color }
 import org.joda.time.DateTimeZone
 import org.joda.time.format.DateTimeFormat
 
@@ -11,7 +11,8 @@ import lila.common.LightUser
 
 final class PgnDump(
     netBaseUrl: String,
-    getLightUser: LightUser.GetterSync) {
+    getLightUser: LightUser.GetterSync
+) {
 
   import PgnDump._
 
@@ -26,7 +27,8 @@ final class PgnDump(
       moves2,
       fenSituation.map(_.fullMoveNumber) | 1,
       flags.clocks ?? ~game.bothClockStates,
-      game.startColor)
+      game.startColor
+    )
     Pgn(ts, turns)
   }
 
@@ -38,7 +40,9 @@ final class PgnDump(
         Tag.UTCDate.format.print(game.createdAt),
         player(game.whitePlayer, wu),
         player(game.blackPlayer, bu),
-        game.id), "_")
+        game.id
+      ), "_"
+    )
   }
 
   private def gameUrl(id: String) = s"$netBaseUrl/$id"
@@ -54,55 +58,62 @@ final class PgnDump(
   private val customStartPosition: Set[chess.variant.Variant] =
     Set(chess.variant.Chess960, chess.variant.FromPosition, chess.variant.Horde, chess.variant.RacingKings)
 
+  private def eventOf(game: Game) = {
+    val perf = game.perfType.fold("Standard")(_.name)
+    game.tournamentId.map { id =>
+      s"${game.mode} $perf tournament https://lichess.org/tournament/$id"
+    } orElse game.simulId.map { id =>
+      s"$perf simul https://lichess.org/simul/$id"
+    } getOrElse {
+      s"${game.mode} $perf game"
+    }
+  }
+
+  private def ratingDiffTag(p: Player, tag: Tag.type => TagType) =
+    p.ratingDiff.map { rd => Tag(tag(Tag), s"${if (rd >= 0) "+" else ""}$rd") }
+
   def tags(
     game: Game,
     initialFen: Option[String],
-    imported: Option[ParsedPgn]): List[Tag] = gameLightUsers(game) match {
-    case (wu, bu) => List(
-      Tag(_.Event, imported.flatMap(_ tag "event") | {
-        if (game.imported) "Import"
-        else game.rated.fold("Rated game", "Casual game")
-      }),
-      Tag(
-        _.Event,
-        imported.flatMap(_ tag "event") orElse
-          game.tournamentId.map { id =>
-            s"https://lichess.org/tournament/$id"
-          } orElse game.simulId.map { id =>
-            s"https://lichess.org/simul/$id"
-          } getOrElse {
-            if (game.rated) "Rated game"
-            else "Casual game"
-          }),
-      Tag(_.Site, gameUrl(game.id)),
-      imported.flatMap(_ tag "date") map { date => Tag(_.Date, date) } getOrElse {
-        Tag(_.UTCDate, imported.flatMap(_ tag "utcdate") | Tag.UTCDate.format.print(game.createdAt))
-      },
-      Tag(_.UTCTime, imported.flatMap(_ tag "utctime") | Tag.UTCTime.format.print(game.createdAt)),
-      Tag(_.Round, imported.flatMap(_ tag "round") | "-"),
-      Tag(_.White, player(game.whitePlayer, wu)),
-      Tag(_.Black, player(game.blackPlayer, bu)),
-      Tag(_.Result, result(game)),
-      Tag(_.WhiteElo, rating(game.whitePlayer)),
-      Tag(_.BlackElo, rating(game.blackPlayer)),
-      Tag("PlyCount", game.turns),
-      Tag(_.Variant, game.variant.name.capitalize),
-      Tag(_.TimeControl, game.clock.fold("-") { c => s"${c.limit.roundSeconds}+${c.increment.roundSeconds}" }),
-      Tag(_.ECO, game.opening.fold("?")(_.opening.eco)),
-      Tag(_.Opening, game.opening.fold("?")(_.opening.name)),
-      Tag(_.Termination, {
-        import chess.Status._
-        game.status match {
-          case Created | Started => "Unterminated"
-          case Aborted | NoStart => "Abandoned"
-          case Timeout | Outoftime => "Time forfeit"
-          case Resign | Draw | Stalemate | Mate | VariantEnd => "Normal"
-          case Cheat => "Rules infraction"
-          case UnknownFinish => "Unknown"
-        }
-      })) ::: customStartPosition(game.variant).??(List(
-        Tag(_.FEN, initialFen | "?"),
-        Tag("SetUp", "1")))
+    imported: Option[ParsedPgn]
+  ): List[Tag] = gameLightUsers(game) match {
+    case (wu, bu) =>
+      val importedDate = imported.flatMap(_ tag "date")
+      List[Option[Tag]](
+        Tag(_.Event, imported.flatMap(_ tag "event") | { if (game.imported) "Import" else eventOf(game) }).some,
+        Tag(_.Site, gameUrl(game.id)).some,
+        Tag(_.Date, importedDate | Tag.UTCDate.format.print(game.createdAt)).some,
+        Tag(_.Round, imported.flatMap(_ tag "round") | "-").some,
+        Tag(_.White, player(game.whitePlayer, wu)).some,
+        Tag(_.Black, player(game.blackPlayer, bu)).some,
+        Tag(_.Result, result(game)).some,
+        importedDate.isEmpty option Tag(_.UTCDate, imported.flatMap(_ tag "utcdate") | Tag.UTCDate.format.print(game.createdAt)),
+        importedDate.isEmpty option Tag(_.UTCTime, imported.flatMap(_ tag "utctime") | Tag.UTCTime.format.print(game.createdAt)),
+        Tag(_.WhiteElo, rating(game.whitePlayer)).some,
+        Tag(_.BlackElo, rating(game.blackPlayer)).some,
+        ratingDiffTag(game.whitePlayer, _.WhiteRatingDiff),
+        ratingDiffTag(game.blackPlayer, _.BlackRatingDiff),
+        wu.flatMap(_.title).map { t => Tag(_.WhiteTitle, t) },
+        bu.flatMap(_.title).map { t => Tag(_.BlackTitle, t) },
+        Tag(_.Variant, game.variant.name.capitalize).some,
+        Tag(_.TimeControl, game.clock.fold("-") { c => s"${c.limit.roundSeconds}+${c.increment.roundSeconds}" }).some,
+        Tag(_.ECO, game.opening.fold("?")(_.opening.eco)).some,
+        Tag(_.Opening, game.opening.fold("?")(_.opening.name)).some,
+        Tag(_.Termination, {
+          import chess.Status._
+          game.status match {
+            case Created | Started => "Unterminated"
+            case Aborted | NoStart => "Abandoned"
+            case Timeout | Outoftime => "Time forfeit"
+            case Resign | Draw | Stalemate | Mate | VariantEnd => "Normal"
+            case Cheat => "Rules infraction"
+            case UnknownFinish => "Unknown"
+          }
+        }).some
+      ).flatten ::: customStartPosition(game.variant).??(List(
+          Tag(_.FEN, initialFen | "?"),
+          Tag("SetUp", "1")
+        ))
   }
 
   private def makeTurns(moves: List[String], from: Int, clocks: Vector[Centis], startColor: Color): List[chessPgn.Turn] =
@@ -114,20 +125,24 @@ final class PgnDump(
           white = moves.headOption filter (".." !=) map { san =>
           chessPgn.Move(
             san = san,
-            secondsLeft = clocks lift (index * 2 - clockOffset) map (_.roundSeconds))
+            secondsLeft = clocks lift (index * 2 - clockOffset) map (_.roundSeconds)
+          )
         },
           black = moves lift 1 map { san =>
           chessPgn.Move(
             san = san,
-            secondsLeft = clocks lift (index * 2 + 1 - clockOffset) map (_.roundSeconds))
-        })
+            secondsLeft = clocks lift (index * 2 + 1 - clockOffset) map (_.roundSeconds)
+          )
+        }
+        )
     } filterNot (_.isEmpty)
 }
 
 object PgnDump {
 
   case class WithFlags(
-    clocks: Boolean = true)
+    clocks: Boolean = true
+  )
 
   def result(game: Game) =
     if (game.finished) game.winnerColor.fold("1/2-1/2")(_.fold("1-0", "0-1"))
