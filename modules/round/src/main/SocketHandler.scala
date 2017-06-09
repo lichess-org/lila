@@ -7,7 +7,7 @@ import scala.util.Try
 import akka.actor._
 import akka.pattern.ask
 import chess.format.Uci
-import chess.{ Centis, MoveMetrics }
+import chess.{ Centis, MoveMetrics, Color }
 import play.api.libs.json.{ JsObject, Json }
 
 import actorApi._, round._
@@ -49,7 +49,8 @@ private[round] final class SocketHandler(
     member.playerIdOption.fold[Handler.Controller](({
       case ("p", o) => ping(o)
       case ("talk", o) => o str "d" foreach { messenger.watcher(gameId, member, _) }
-      case ("outoftime", _) => send(Outoftime(None))
+      case ("outoftime", _) => send(QuietFlag)
+      case ("flag", o) => clientFlag(o, none) foreach send
     }: Handler.Controller) orElse evalCacheHandler(member, me) orElse lila.chat.Socket.in(
       chatId = s"$gameId/w",
       member = member,
@@ -88,7 +89,8 @@ private[round] final class SocketHandler(
         case ("draw-force", _) => send(DrawForce(playerId))
         case ("abort", _) => send(Abort(playerId))
         case ("moretime", _) => send(Moretime(playerId))
-        case ("outoftime", _) => send(Outoftime(playerId.some))
+        case ("outoftime", _) => send(QuietFlag)
+        case ("flag", o) => clientFlag(o, playerId.some) foreach send
         case ("bye2", _) => socket ! Bye(ref.color)
         case ("talk", o) => o str "d" foreach { messenger.owner(gameId, member, _) }
         case ("hold", o) => for {
@@ -188,6 +190,9 @@ private[round] final class SocketHandler(
     d.int("l") orElse d.int("lag") map Centis.ofMillis,
     d.str("s") flatMap { v => Try(Centis(Integer.parseInt(v, 36))).toOption }
   )
+
+  private def clientFlag(o: JsObject, playerId: Option[String]) =
+    o str "d" flatMap Color.apply map { ClientFlag(_, playerId) }
 
   private val ackEvent = Json.obj("t" -> "ack")
 }
