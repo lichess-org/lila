@@ -1,9 +1,9 @@
 package lila.game
 
 import chess.format.Forsyth
-import chess.format.pgn.{Pgn, Tag, Parser, ParsedPgn}
-import chess.format.{pgn => chessPgn}
-import chess.{Centis, Color}
+import chess.format.pgn.{ Pgn, Tag, Parser, ParsedPgn }
+import chess.format.{ pgn => chessPgn }
+import chess.{ Centis, Color }
 import org.joda.time.DateTimeZone
 import org.joda.time.format.DateTimeFormat
 
@@ -11,7 +11,8 @@ import lila.common.LightUser
 
 final class PgnDump(
     netBaseUrl: String,
-    getLightUser: LightUser.GetterSync) {
+    getLightUser: LightUser.GetterSync
+) {
 
   import PgnDump._
 
@@ -26,7 +27,8 @@ final class PgnDump(
       moves2,
       fenSituation.map(_.fullMoveNumber) | 1,
       flags.clocks ?? ~game.bothClockStates,
-      game.startColor)
+      game.startColor
+    )
     Pgn(ts, turns)
   }
 
@@ -38,7 +40,9 @@ final class PgnDump(
         Tag.UTCDate.format.print(game.createdAt),
         player(game.whitePlayer, wu),
         player(game.blackPlayer, bu),
-        game.id), "_")
+        game.id
+      ), "_"
+    )
   }
 
   private def gameUrl(id: String) = s"$netBaseUrl/$id"
@@ -57,7 +61,8 @@ final class PgnDump(
   def tags(
     game: Game,
     initialFen: Option[String],
-    imported: Option[ParsedPgn]): List[Tag] = gameLightUsers(game) match {
+    imported: Option[ParsedPgn]
+  ): List[Tag] = gameLightUsers(game) match {
     case (wu, bu) => List(
       Tag(_.Event, imported.flatMap(_ tag "event") | {
         if (game.imported) "Import"
@@ -73,7 +78,8 @@ final class PgnDump(
           } getOrElse {
             if (game.rated) "Rated game"
             else "Casual game"
-          }),
+          }
+      ),
       Tag(_.Site, gameUrl(game.id)),
       imported.flatMap(_ tag "date") map { date => Tag(_.Date, date) } getOrElse {
         Tag(_.UTCDate, imported.flatMap(_ tag "utcdate") | Tag.UTCDate.format.print(game.createdAt))
@@ -100,9 +106,11 @@ final class PgnDump(
           case Cheat => "Rules infraction"
           case UnknownFinish => "Unknown"
         }
-      })) ::: customStartPosition(game.variant).??(List(
+      })
+    ) ::: customStartPosition(game.variant).??(List(
         Tag(_.FEN, initialFen | "?"),
-        Tag("SetUp", "1")))
+        Tag("SetUp", "1")
+      ))
   }
 
   private def makeTurns(moves: List[String], from: Int, clocks: Vector[Centis], startColor: Color): List[chessPgn.Turn] =
@@ -114,20 +122,24 @@ final class PgnDump(
           white = moves.headOption filter (".." !=) map { san =>
           chessPgn.Move(
             san = san,
-            secondsLeft = clocks lift (index * 2 - clockOffset) map (_.roundSeconds))
+            secondsLeft = clocks lift (index * 2 - clockOffset) map (_.roundSeconds)
+          )
         },
           black = moves lift 1 map { san =>
           chessPgn.Move(
             san = san,
-            secondsLeft = clocks lift (index * 2 + 1 - clockOffset) map (_.roundSeconds))
-        })
+            secondsLeft = clocks lift (index * 2 + 1 - clockOffset) map (_.roundSeconds)
+          )
+        }
+        )
     } filterNot (_.isEmpty)
 }
 
 object PgnDump {
 
   case class WithFlags(
-    clocks: Boolean = true)
+    clocks: Boolean = true
+  )
 
   def result(game: Game) =
     if (game.finished) game.winnerColor.fold("1/2-1/2")(_.fold("1-0", "0-1"))
