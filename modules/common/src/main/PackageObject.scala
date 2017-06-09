@@ -110,7 +110,7 @@ trait WithPlay { self: PackageObject =>
   import play.api.libs.json._
   import scalalib.Zero
 
-  implicit val execontext = play.api.libs.concurrent.Execution.defaultContext
+  implicit def playExecutionContext = play.api.libs.concurrent.Execution.defaultContext
   val directEC = lila.PimpedFuture.DirectExecutionContext
 
   implicit val LilaFutureMonad = new Monad[Fu] {
