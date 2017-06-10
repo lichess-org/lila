@@ -608,4 +608,7 @@
   <string name="error.min">Doit être superieur ou égal à %s</string>
   <string name="error.max">Doit être inférieur ou égal à %s</string>
   <string name="custom">Perso</string>
+  <string name="notifications">Notifications</string>
+  <string name="challenges">Défis</string>
+  <string name="perfRatingX">Classement : %s</string>
 </resources>

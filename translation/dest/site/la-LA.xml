@@ -129,7 +129,7 @@
   <string name="yourOpponentOffersADraw">Pacem adversarius offert</string>
   <string name="accept">Accipere</string>
   <string name="decline">Recusare</string>
-  <string name="playingRightNow">Nunc lusum</string>
+  <string name="playingRightNow">Nunc ludendus</string>
   <string name="finished">Perfectus</string>
   <string name="abortGame">Lusionem tollere</string>
   <string name="gameAborted">Sublata lusio</string>
@@ -146,9 +146,9 @@
   <string name="rematchOfferDeclined">Recusata est novae lusionis conditio</string>
   <string name="cancelRematchOffer">Novae lusionis conditionem tollere</string>
   <string name="viewRematch">Novam lusionem videre</string>
-  <string name="play">Ludere</string>
+  <string name="play">Lude</string>
   <string name="inbox">Inbox</string>
-  <string name="chatRoom">Fenestra disputationis</string>
+  <string name="chatRoom">Sermo</string>
   <string name="spectatorRoom">Fenestra spectatorium</string>
   <string name="composeMessage">Epistulam scribere</string>
   <string name="noNewMessages">Non novae epistulae sunt</string>
@@ -458,7 +458,7 @@
   <string name="playOnTheBoardOffline">Trans tabulam</string>
   <string name="playOfflineComputer">Computratum</string>
   <string name="opponent">Adversarius</string>
-  <string name="learn">Discere</string>
+  <string name="learn">Disce</string>
   <string name="community">Communitas</string>
   <string name="tools">Instrumenta</string>
   <string name="increment">Incrementum</string>
@@ -489,7 +489,7 @@
   <string name="tpTimeSpentPlaying">Tempus actum: %s</string>
   <string name="watchGames">Spectare ludos</string>
   <string name="tpTimeSpentOnTV">Tempus in TV: %s</string>
-  <string name="watch">Spectare</string>
+  <string name="watch">Specta</string>
   <string name="internationalEvents">Res internationales</string>
   <string name="videoLibrary">Libraria pellicularum</string>
   <string name="mobileApp">Programma portabile</string>
@@ -584,7 +584,7 @@
   <string name="xJoinsY">%1$s iungit %2$s</string>
   <string name="xLikesY">%1$s velit %2$s</string>
   <string name="quickPairing">Velox partes</string>
-  <string name="lobby">Vestibulum</string>
+  <string name="lobby">Praecinctio</string>
   <string name="yourScore">Status tibi: %s</string>
   <string name="language">Lingua</string>
   <string name="background">Scaena</string>
@@ -608,4 +608,7 @@
   <string name="error.min">%s paribus maius esse</string>
   <string name="error.max">%s paribus minor est</string>
   <string name="custom">Alius</string>
+  <string name="notifications">Nuntii</string>
+  <string name="challenges">Proelia</string>
+  <string name="perfRatingX">Ordo: %s</string>
 </resources>

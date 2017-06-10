@@ -483,8 +483,8 @@
   <string name="blackCastlingKingside">Μαύρα Ο-Ο</string>
   <string name="blackCastlingQueenside">Μαύρα Ο-Ο-Ο</string>
   <plurals name="nbForumPosts">
-    <item quantity="one">%s Δημοσίευση Φόρουμ</item>
-    <item quantity="other">%s Δημοσιεύσεις Φόρουμ</item>
+    <item quantity="one">%s δημοσίευση φόρουμ</item>
+    <item quantity="other">%s δημοσιεύσεις φόρουμ</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Χρόνος που διατέθηκε παίζοντας: %s</string>
   <string name="watchGames">Παρακολουθήστε παιχνίδια</string>
@@ -583,8 +583,8 @@
   <string name="xHostsY">%1$s φιλοξενεί τη %2$s</string>
   <string name="xJoinsY">%1$s συμμετέχει στη %2$s</string>
   <string name="xLikesY">%1$s αρέσκεται στο %2$s</string>
-  <string name="quickPairing">Γρήγορο ταίριασμα</string>
-  <string name="lobby">Αγγελίες</string>
+  <string name="quickPairing">Γρήγορη αντιστοίχιση</string>
+  <string name="lobby">Δωμάτιο αναμονής</string>
   <string name="yourScore">Η βαθμολογία σας: %s</string>
   <string name="language">Γλώσσα</string>
   <string name="background">Φόντο</string>
@@ -608,4 +608,7 @@
   <string name="error.min">Πρέπει να είναι μεγαλύτερος ή ίσος με %s</string>
   <string name="error.max">Πρέπει να είναι μικρότερος ή ίσος με %s</string>
   <string name="custom">Προσαρμογή</string>
+  <string name="notifications">Ειδοποιήσεις</string>
+  <string name="challenges">Προκλήσεις</string>
+  <string name="perfRatingX">Βαθμολογία: %s</string>
 </resources>

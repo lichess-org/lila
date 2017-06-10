@@ -221,6 +221,7 @@
   </plurals>
   <string name="thisIsAChessCaptcha">Ini adalah CAPTCHA catur.</string>
   <string name="clickOnTheBoardToMakeYourMove">Klik pada papan untuk melangkah  dan buktikan bahwa anda asli manusia.</string>
+  <string name="captcha.fail">Harap memecahkan captcha catur.</string>
   <string name="notACheckmate">Bukan skakmat</string>
   <string name="colorPlaysCheckmateInOne">%s bermain; skakmat dalam satu langkah</string>
   <string name="retry">Mengulang</string>
@@ -228,6 +229,7 @@
   <string name="onlineFriends">Teman Online</string>
   <string name="noFriendsOnline">Tdak ada teman yang online</string>
   <string name="findFriends">Cari teman</string>
+  <string name="favoriteOpponents">Lawan Favorit</string>
   <string name="follow">Ikuti</string>
   <string name="following">Mengikuti</string>
   <string name="unfollow">Tidak mengikuti</string>
@@ -386,6 +388,7 @@
   <string name="premovesPlayingDuringOpponentTurn">Premove (siapkan langkah saat giliran lawan)</string>
   <string name="takebacksWithOpponentApproval">Langkah batal (dengan persetujuan lawan)</string>
   <string name="promoteToQueenAutomatically">Otomatis promosikan Menteri</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Langsung Remis pada pengulangan ketiga kali</string>
   <string name="privacy">Privasi</string>
   <string name="letOtherPlayersFollowYou">Biarkan pengguna lain mengikuti anda</string>
   <string name="letOtherPlayersChallengeYou">Biarkan pengguna lain menantang anda</string>
@@ -415,6 +418,7 @@
   <string name="starting">Mulai:</string>
   <string name="allInformationIsPublicAndOptional">Semua informasi bersifat publik jika dikehendaki.</string>
   <string name="yourCityRegionOrDepartment">Kota anda, daerah atau provinsi.</string>
+  <string name="biographyDescription">Ceritakan tentang anda, apa yang anda sukai dalam catur, pembukaan kesukaan, permainan, pemain…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="other">Maksimal: %s karakter</item>
   </plurals>
@@ -509,6 +513,9 @@
   <string name="tournamentMayHaveBeenCanceled">turnamen harus dibatalkan, jika semua pemain meninggalkannya sebelum turnamen dimulai.</string>
   <string name="returnToTournamentsHomepage">Kembali ke laman turnamen</string>
   <string name="weeklyPerfTypeRatingDistribution">Distribusi rating %s bulanan</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="other">%1$s %2$s pemain minggu ini.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">Rating %1$s anda adalah %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Anda lebih baik daripada %1$s pemain %2$s lainnya</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Anda tidak punya rating %s mapan</string>
@@ -535,7 +542,7 @@
   <string name="kidMode">Mode anak</string>
   <string name="playChessEverywhere">Bermain catur dimanapun</string>
   <string name="asFreeAsLichess">Gratis seperti lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Dibangun atas dasar cinta terhadap catur, bukan uang</string>
+  <string name="builtForTheLoveOfChessNotMoney">Dibuat atas dasar cinta terhadap catur, bukan uang</string>
   <string name="everybodyGetsAllFeaturesForFree">Semua pengguna mendapatkan seluruh fitur dengan gratis</string>
   <string name="zeroAdvertisement">Nol iklan</string>
   <string name="fullFeatured">Fitur lengkap</string>
@@ -550,4 +557,35 @@
     <item quantity="other">Tersedia di dalam %s bahasa!</item>
   </plurals>
   <string name="gameAnalysis">Analisa Permainan</string>
+  <string name="xHostsY">%1$s tuan rumah %2$s</string>
+  <string name="xJoinsY">%1$s bergabung %2$s</string>
+  <string name="xLikesY">%1$s suka %2$s</string>
+  <string name="quickPairing">Pencarian lawan dengan cepat</string>
+  <string name="lobby">Ruang Lobi</string>
+  <string name="yourScore">Skor Anda: %s</string>
+  <string name="language">Bahasa</string>
+  <string name="background">Latar</string>
+  <string name="boardGeometry">Geometri Papan</string>
+  <string name="boardTheme">Tema Papan</string>
+  <string name="boardSize">Ukuran Papan</string>
+  <string name="pieceSet">Susunan buah catur</string>
+  <string name="embedInYourWebsite">Salin dalam website Anda</string>
+  <string name="usernameAlreadyUsed">Nama pengguna ini sudah digunakan, coba yang lain.</string>
+  <string name="usernameInvalid">Username tidak valid. Silakan gunakan hanya huruf, angka, garis bawah dan garis tengah.</string>
+  <string name="usernameStartNoNumber">Nama pengguna harus tidak dimulai dengan angka.</string>
+  <string name="usernameUnacceptable">Nama pengguna ini tidak dapat diterima.</string>
+  <string name="directlySupportLichess">Mendukung Lichess secara langsung</string>
+  <string name="playChessInStyle">Bermain catur dengan gaya</string>
+  <string name="chessBasics">Dasar-dasar catur</string>
+  <string name="coaches">Pembina</string>
+  <string name="invalidPgn">PGN tidak valid</string>
+  <string name="invalidFen">FEN tidak valid</string>
+  <string name="error.minLength">Panjang minimum adalah %s</string>
+  <string name="error.maxLength">Panjang minimum adalah %s</string>
+  <string name="error.min">Harus lebih besar atau sama dengan %s</string>
+  <string name="error.max">Harus kurang atau sama dengan %s</string>
+  <string name="custom">Atur</string>
+  <string name="notifications">Notifikasi</string>
+  <string name="challenges">Tantangan</string>
+  <string name="perfRatingX">Rating: %s</string>
 </resources>

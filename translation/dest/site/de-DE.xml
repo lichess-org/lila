@@ -608,4 +608,7 @@
   <string name="error.min">Muss mindestens %s sein</string>
   <string name="error.max">Darf höchstens %s sein</string>
   <string name="custom">Andere Spielzeit</string>
+  <string name="notifications">Benachrichtigungen</string>
+  <string name="challenges">Herausforderungen</string>
+  <string name="perfRatingX">Wertungszahl: %s</string>
 </resources>

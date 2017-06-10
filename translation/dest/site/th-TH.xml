@@ -221,6 +221,7 @@
   </plurals>
   <string name="thisIsAChessCaptcha">นี่คือปริศนาหมากรุก</string>
   <string name="clickOnTheBoardToMakeYourMove">คลิกบนกระดานเพื่อเดินหมากของคุณ และพิสูจน์ว่าคุณคือมนุษย์</string>
+  <string name="captcha.fail">โปรดแก้รหัสปริศนาหมากรุก</string>
   <string name="notACheckmate">ไม่ใช่รุกจน</string>
   <string name="colorPlaysCheckmateInOne">%sเล่น; รุกจนโดยเดินครั้งเดียว</string>
   <string name="retry">ลองอีกครั้ง</string>
@@ -228,6 +229,7 @@
   <string name="onlineFriends">เพื่อนออนไลน์</string>
   <string name="noFriendsOnline">ไม่มีเพื่อนออนไลน์</string>
   <string name="findFriends">ค้นหาเพื่อน</string>
+  <string name="favoriteOpponents">คู่แข่งที่ชอบ</string>
   <string name="follow">ติดตาม</string>
   <string name="following">กำลังติดตาม</string>
   <string name="unfollow">เลิกติดตาม</string>
@@ -386,6 +388,7 @@
   <string name="premovesPlayingDuringOpponentTurn">การเดินล่วงหน้า (การเล่นในขณะที่เป็นตาเดินของคู่แข่ง)</string>
   <string name="takebacksWithOpponentApproval">การเดินใหม่ (เมื่อคู่แข่งยินยอม)</string>
   <string name="promoteToQueenAutomatically">เลื่อนขั้นเบี้ยเป็นควีนอัตโนมัติ</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">อ้างสิทธิ์การเสมอโดยอัตโนมัติเมื่อเดินซ้ำ 3 รอบ</string>
   <string name="privacy">ความเป็นส่วนตัว</string>
   <string name="letOtherPlayersFollowYou">อนุญาตให้ผู้อื่นติดตามคุณได้</string>
   <string name="letOtherPlayersChallengeYou">อนุญาตให้ผู้อื่นท้าดวลเกมกับคุณได้</string>
@@ -415,6 +418,7 @@
   <string name="starting">กำลังเริ่ม:</string>
   <string name="allInformationIsPublicAndOptional">ข้อมูลทั้งหมดเป็นสาธารณะ และไม่บังคับกรอก</string>
   <string name="yourCityRegionOrDepartment">เมือง, ภูมิภาค, หรือจังหวัดของคุณ</string>
+  <string name="biographyDescription">บอกเกี่ยวกับตัวคุณว่าชอบอะไรในหมากรุก เช่น การเปิดหมาก, เกม, หรือผู้เล่นที่ชอบ ฯลฯ</string>
   <plurals name="maximumNbCharacters">
     <item quantity="other">สูงสุด: %s ตัวอักษร</item>
   </plurals>
@@ -509,6 +513,9 @@
   <string name="tournamentMayHaveBeenCanceled">มันอาจถูกยกเลิกไปแล้ว หากผู้เล่นทุกคนออกไปก่อนที่ทัวร์นาเมนต์จะเริ่มต้น</string>
   <string name="returnToTournamentsHomepage">กลับสู่หน้าหลักของทัวร์นาเมนต์</string>
   <string name="weeklyPerfTypeRatingDistribution">การกระจายระดับคะแนน %s ประจำเดือน</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="other">%1$s %2$s ผู้เล่นในสัปดาห์นี้</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">ระดับคะแนน %1$s ของคุณคือ %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">คุณทำได้ดีกว่า %1$s ของผู้เล่น %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">คุณยังไม่มีระดับคะแนน %s ที่แท้จริง</string>
@@ -550,4 +557,35 @@
     <item quantity="other">รองรับถึง %s ภาษา!</item>
   </plurals>
   <string name="gameAnalysis">วิเคราะห์เกม</string>
+  <string name="xHostsY">%1$s เป็นโฮสต์ %2$s</string>
+  <string name="xJoinsY">%1$s เข้าร่วม %2$s</string>
+  <string name="xLikesY">%1$s ชื่นชอบ %2$s</string>
+  <string name="quickPairing">จับคู่ด่วน</string>
+  <string name="lobby">ล็อบบี้</string>
+  <string name="yourScore">สกอร์ของคุณ: %s</string>
+  <string name="language">ภาษา</string>
+  <string name="background">พื้นหลัง</string>
+  <string name="boardGeometry">รูปทรงกระดาน</string>
+  <string name="boardTheme">รูปลักษณ์กระดาน</string>
+  <string name="boardSize">ขนาดกระดาน</string>
+  <string name="pieceSet">ชุดหมาก</string>
+  <string name="embedInYourWebsite">ฝังในเว็บไซต์ของคุณ</string>
+  <string name="usernameAlreadyUsed">ชื่อผู้ใช้นี้ถูกใช้ไปแล้ว, โปรดตั้งชื่อใหม่</string>
+  <string name="usernameInvalid">ชื่อผู้ใช้ไม่ถูกต้อง โปรดใช้เฉพาะตัวอักษร, ตัวเลข, ขีด หรือขีดล่าง</string>
+  <string name="usernameStartNoNumber">ชื่อผู้ใช้ต้องไม่เริ่มต้นด้วยตัวเลข</string>
+  <string name="usernameUnacceptable">ไม่ยอมรับชื่อผู้ใช้นี้</string>
+  <string name="directlySupportLichess">สนับสนุน Lichess โดยตรง</string>
+  <string name="playChessInStyle">เล่นหมากรุกแบบมีสไตล์</string>
+  <string name="chessBasics">พื้นฐานหมากรุก</string>
+  <string name="coaches">ผู้ฝึกสอน</string>
+  <string name="invalidPgn">PGN ไม่ถูกต้อง</string>
+  <string name="invalidFen">FEN ไม่ถูกต้อง</string>
+  <string name="error.minLength">ความยาวต่ำสุดคือ %s</string>
+  <string name="error.maxLength">ความยาวสูงสุดคือ %s</string>
+  <string name="error.min">ต้องมากกว่า หรือเท่ากับ %s</string>
+  <string name="error.max">ต้องน้อยกว่า หรือเท่ากับ %s</string>
+  <string name="custom">กำหนด​เอง</string>
+  <string name="notifications">การแจ้งเตือน</string>
+  <string name="challenges">การท้าดวล</string>
+  <string name="perfRatingX">ระดับคะแนน: %s</string>
 </resources>

@@ -185,6 +185,7 @@
   <string name="importGame">Імпортувати гру</string>
   <string name="thisIsAChessCaptcha">Це – шаховий код.</string>
   <string name="clickOnTheBoardToMakeYourMove">Клацніть на дошці, щоби зробити хід і довести, що ви людина.</string>
+  <string name="captcha.fail">Будь-ласка, вирішіть шахову капчу.</string>
   <string name="notACheckmate">Не мат</string>
   <string name="colorPlaysCheckmateInOne">%s ставлять мат в один хід</string>
   <string name="retry">Спробуйте ще</string>
@@ -192,6 +193,7 @@
   <string name="onlineFriends">Друзів онлайн</string>
   <string name="noFriendsOnline">Немає друзів онлайн</string>
   <string name="findFriends">Знайти друзів</string>
+  <string name="favoriteOpponents">Улюблені суперники</string>
   <string name="follow">Спостерігати</string>
   <string name="following">Спостерігаю</string>
   <string name="unfollow">Відмовитися</string>

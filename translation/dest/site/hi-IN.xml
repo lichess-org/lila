@@ -435,6 +435,7 @@
   <string name="starting">शुरू हो रहा है:</string>
   <string name="allInformationIsPublicAndOptional">सभी जानकारी सार्वजनिक और वैकल्पिक है।</string>
   <string name="yourCityRegionOrDepartment">आपका शहर, क्षेत्र, या प्रांत।</string>
+  <string name="biographyDescription">अपने बारे मे बताएँ, आपको शतरंज मे क्या अच्छा लगता है, आपका पसंदीदा शुऱुआतें, खेलें, खिलाड़ी...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">अधिकतम %s अक्षर|</item>
     <item quantity="other">अधिकतम %s अक्षर|</item>
@@ -543,10 +544,12 @@
   <string name="weHaveSentYouAnEmailTo">हम%s के लिए एक ईमेल भेज दिया है। अपना पासवर्ड रीसेट करने के लिए ईमेल में लिंक पर क्लिक करें।</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">दर्ज करके, आप हमारे %s द्वारा बाध्य होने के लिए सहमत हैं।</string>
   <string name="networkLagBetweenYouAndLichess">आप और lichess के बीच नेटवर्क के अंतराल</string>
+  <string name="timeToProcessAMoveOnLichessServer">Lichess सर्वर पर एक कदम प्रक्रिया के लिए समय</string>
   <string name="confirmResignation">इस्तीफे की पुष्टि करें</string>
   <string name="letOtherPlayersMessageYou">अन्य खिलाड़ियों को आपको संदेश देने दें</string>
   <string name="shareYourInsightsData">अपने इनसाइट डेटा साझा करें</string>
   <string name="youHaveAlreadyRegisteredTheEmail">आपने पहले ही ईमेल दर्ज कर लिया है: %s</string>
+  <string name="kidMode">बच्चा मोड</string>
   <string name="playChessEverywhere">हर जगह शतरंज खेलें</string>
   <string name="zeroAdvertisement">शून्य विज्ञापन</string>
   <string name="phoneAndTablet">फोन और टैबलेट</string>
@@ -560,9 +563,24 @@
     <item quantity="other">%s भाषाओं में उपलब्ध है !</item>
   </plurals>
   <string name="gameAnalysis">खेल अध्ययन</string>
+  <string name="lobby">लॉबी</string>
+  <string name="yourScore">आपका स्कोर: %s</string>
   <string name="language">भाषा</string>
   <string name="pieceSet">मोहरे</string>
+  <string name="embedInYourWebsite">अपनी वेबसाइट में एम्बेड करें</string>
+  <string name="usernameAlreadyUsed">यह उपयोगकर्ता नाम पहले से उपयोग में है, कृपया एक दूसरे का प्रयास करें।</string>
+  <string name="usernameInvalid">अमान्य उपयोगकर्ता नाम। कृपया केवल अक्षर, संख्याएँ, अंडरस्कोर और डैश का उपयोग करें।</string>
+  <string name="usernameStartNoNumber">उपयोगकर्ता नाम किसी संख्या से प्रारंभ नहीं होना चाहिए।</string>
+  <string name="usernameUnacceptable">यह उपयोगकर्ता नाम स्वीकार्य नहीं है।</string>
   <string name="directlySupportLichess">Lichess का समर्थन करें</string>
   <string name="chessBasics">शतरंज मूल बातें</string>
+  <string name="invalidPgn">अमान्य PGN</string>
+  <string name="invalidFen">अमान्य FEN</string>
+  <string name="error.minLength">न्यूनतम लंबाई %s है</string>
+  <string name="error.maxLength">अधिकतम लंबाई %s है</string>
+  <string name="error.min">%s से बड़ा या बराबर होना चाहिए</string>
   <string name="error.max">%s से कम या बराबर होना चाहिए</string>
+  <string name="notifications">सूचनाएँ</string>
+  <string name="challenges">चुनौतियाँ</string>
+  <string name="perfRatingX">रेटिंग: %s</string>
 </resources>

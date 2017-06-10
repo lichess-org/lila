@@ -631,4 +631,7 @@
   <string name="error.min">Mora biti veće ili jednako %s</string>
   <string name="error.max">Mora biti manje ili jednako %s</string>
   <string name="custom">Prilagođeno</string>
+  <string name="notifications">Obavijesti</string>
+  <string name="challenges">Izazovi</string>
+  <string name="perfRatingX">Rejting: %s</string>
 </resources>
