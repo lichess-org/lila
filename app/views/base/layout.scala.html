@@ -180,7 +180,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     @embedJs {
     lichess_translations = @jsI18n();
     @momentLangUrl.map { url =>
-    moment_locale_url = "@url";
+    window.momentLocaleUrl = "@url";
     }
     }
     }
