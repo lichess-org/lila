@@ -249,7 +249,7 @@ module.exports = {
           },
           m('div.left', [
             m('span.status', m('i[data-icon=O]')),
-            m('span.add_text', 'Add contributors')
+            m('span.add_text', 'Add members')
           ])
         ) : null
       ])
