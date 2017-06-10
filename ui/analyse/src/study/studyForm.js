@@ -6,10 +6,11 @@ var visibilityChoices = [
   ['private', 'Invite only']
 ];
 var userSelectionChoices = [
-  ['everyone', 'Everyone'],
   ['nobody', 'Nobody'],
   ['owner', 'Only me'],
-  ['contributor', 'Contributors']
+  ['contributor', 'Contributors'],
+  ['member', 'Members'],
+  ['everyone', 'Everyone']
 ];
 
 var select = function(s) {
