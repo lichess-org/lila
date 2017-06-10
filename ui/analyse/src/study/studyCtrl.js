@@ -90,7 +90,7 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
 
   var configureAnalysis = function() {
     if (ctrl.embed) return;
-    lichess.pubsub.emit('chat.writeable')(!!members.myMember());
+    lichess.pubsub.emit('chat.writeable')(data.features.chat);
     var computer = data.chapter.features.computer || data.chapter.practice;
     if (!computer) ctrl.getCeval().enabled(false);
     ctrl.getCeval().allowed(computer);
@@ -315,11 +315,6 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
         d.w && activity(d.w.u);
         if (vm.behind && d.w && d.w.u === ctrl.userId) resync();
         else if (vm.behind === false) xhrReload();
-      },
-      members: function(d) {
-        members.update(d);
-        configureAnalysis();
-        m.redraw();
       },
       chapters: function(d) {
         chapters.list(d);

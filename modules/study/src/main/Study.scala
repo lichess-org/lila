@@ -28,7 +28,7 @@ case class Study(
 
   def isMember(id: User.ID) = members contains id
 
-  def canChat = isMember _
+  def canChat(id: User.ID) = Settings.UserSelection.allows(settings.chat, this, id.some)
 
   def canContribute(id: User.ID) = isOwner(id) || members.get(id).exists(_.canContribute)
 
@@ -120,7 +120,8 @@ object Study {
       visibility: String,
       computer: String,
       explorer: String,
-      cloneable: String
+      cloneable: String,
+      chat: String
   ) {
     import Settings._
     def vis = Visibility.byKey get visibility getOrElse Visibility.Public
@@ -128,7 +129,8 @@ object Study {
       comp <- UserSelection.byKey get computer
       expl <- UserSelection.byKey get explorer
       clon <- UserSelection.byKey get cloneable
-    } yield Settings(comp, expl, clon)
+      chat <- UserSelection.byKey get chat
+    } yield Settings(comp, expl, clon, chat)
   }
 
   case class WithChapter(study: Study, chapter: Chapter)

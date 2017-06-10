@@ -9,7 +9,7 @@ import { userLink, bind } from './util';
 
 const whisperRegex = /^\/w(?:hisper)?\s/;
 
-export default function(ctrl: Ctrl): VNode[] {
+export default function(ctrl: Ctrl): Array<VNode | undefined> {
   if (!ctrl.vm.enabled) return [];
   const scrollCb = (vnode: VNode) => {
     const el = vnode.elm as HTMLElement
@@ -37,10 +37,11 @@ export default function(ctrl: Ctrl): VNode[] {
   ];
   const presets = presetView(ctrl.preset);
   if (presets) vnodes.push(presets)
-  return vnodes
+  return vnodes;
 }
 
-function renderInput(ctrl: Ctrl) {
+function renderInput(ctrl: Ctrl): VNode | undefined {
+  if (!ctrl.vm.writeable) return;
   if ((ctrl.data.loginRequired && !ctrl.data.userId) || ctrl.data.restricted)
   return h('input.lichess_say', {
     attrs: {
@@ -50,7 +51,6 @@ function renderInput(ctrl: Ctrl) {
   });
   let placeholder: string;
   if (ctrl.vm.timeout) placeholder = 'You have been timed out.';
-  else if (!ctrl.vm.writeable) placeholder = 'Invited members only.';
   else placeholder = ctrl.trans(ctrl.vm.placeholderKey);
   return h('input.lichess_say', {
     attrs: {

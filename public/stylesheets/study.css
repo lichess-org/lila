@@ -388,6 +388,9 @@ div.underboard .notif.error {
   margin: 0;
   padding: 20px;
 }
+.study_overboard .align-left {
+  text-align: left;
+}
 .study_overboard .form .editor {
   margin: -30px 0 30px 0;
 }

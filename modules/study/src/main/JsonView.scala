@@ -31,7 +31,8 @@ final class JsonView(
       studyWrites.writes(study) ++ Json.obj(
         "liked" -> liked,
         "features" -> Json.obj(
-          "cloneable" -> allowed(study.settings.cloneable)
+          "cloneable" -> allowed(study.settings.cloneable),
+          "chat" -> allowed(study.settings.chat)
         ),
         "chapters" -> chapters.map(chapterMetadataWrites.writes),
         "chapter" -> Json.obj(

@@ -230,18 +230,14 @@ final class StudyApi(
           bus.publish(lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId.value), 'study)
       }
       studyRepo.setRole(study, userId, role) >>-
-        reloadMembers(study) >>-
-        lightStudyCache.refresh(studyId)
+        onMembersChange(study)
     }
   }
 
   def invite(byUserId: User.ID, studyId: Study.Id, username: String, socket: ActorRef, onError: String => Unit) = sequenceStudy(studyId) { study =>
     inviter(byUserId, study, username, socket).addEffects(
       err => onError(err.getMessage),
-      _ => {
-        reloadMembers(study)
-        indexStudy(study)
-      }
+      _ => onMembersChange(study)
     )
   }
 
@@ -249,8 +245,14 @@ final class StudyApi(
     study.isMember(userId) ?? {
       if (study.isPublic && study.canContribute(userId))
         bus.publish(lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId.value), 'study)
-      studyRepo.removeMember(study, userId) >>- lightStudyCache.refresh(studyId)
-    } >>- reloadMembers(study) >>- indexStudy(study)
+      studyRepo.removeMember(study, userId)
+    } >>- onMembersChange(study)
+  }
+
+  private def onMembersChange(study: Study) = {
+    lightStudyCache.refresh(study.id)
+    sendTo(study, Socket.ReloadAll)
+    indexStudy(study)
   }
 
   def setShapes(userId: User.ID, studyId: Study.Id, position: Position.Ref, shapes: Shapes, uid: Uid) = sequenceStudy(studyId) { study =>
@@ -498,13 +500,6 @@ final class StudyApi(
 
   private def reloadUid(study: Study, uid: Uid) =
     sendTo(study, Socket.ReloadUid(uid))
-
-  private def reloadMembers(study: Study) =
-    studyRepo.membersById(study.id).foreach {
-      _ foreach { members =>
-        sendTo(study, Socket.ReloadMembers(members))
-      }
-    }
 
   private def reloadChapters(study: Study) =
     chapterRepo.orderedMetadataByStudy(study.id).foreach { chapters =>

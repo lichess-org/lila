@@ -284,7 +284,8 @@ object BSONHandlers {
     def reads(r: Reader) = Settings(
       computer = r.get[UserSelection]("computer"),
       explorer = r.get[UserSelection]("explorer"),
-      cloneable = r.getO[UserSelection]("cloneable") | UserSelection.Everyone
+      cloneable = r.getO[UserSelection]("cloneable") | Settings.init.cloneable,
+      chat = r.getO[UserSelection]("chat") | Settings.init.chat
     )
     private val writer = Macros.writer[Settings]
     def writes(w: Writer, s: Settings) = writer write s
