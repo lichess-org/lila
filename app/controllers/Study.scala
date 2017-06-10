@@ -85,11 +85,12 @@ object Study extends LilaController {
 
   private def showQuery(query: Fu[Option[WithChapter]])(implicit ctx: Context) =
     OptionFuResult(query) {
-      case WithChapter(s, chapter) => CanViewResult(s) {
+      case WithChapter(s, c) => CanViewResult(s) {
         import lila.tree.Node.partitionTreeJsonWriter
         for {
           chapters <- env.chapterRepo.orderedMetadataByStudy(s.id)
-          study <- env.api.resetIfOld(s, chapters)
+          (study, resetToChapter) <- env.api.resetIfOld(s, chapters)
+          chapter = resetToChapter | c
           _ <- Env.user.lightUserApi preloadMany study.members.ids.toList
           _ = if (HTTPRequest isSynchronousHttp ctx.req) env.studyRepo.incViews(study)
           initialFen = chapter.root.fen.value.some

@@ -120,12 +120,14 @@ final class StudyApi(
       }
     }
 
-  def resetIfOld(study: Study, chapters: List[Chapter.Metadata]): Fu[Study] =
+  def resetIfOld(study: Study, chapters: List[Chapter.Metadata]): Fu[(Study, Option[Chapter])] =
     chapters.headOption match {
       case Some(c) if study.isOld && study.position != c.initialPosition =>
         val newStudy = study rewindTo c
-        studyRepo.updateSomeFields(newStudy) inject newStudy
-      case _ => fuccess(study)
+        studyRepo.updateSomeFields(newStudy) zip chapterRepo.byId(c.id) map {
+          case (_, chapter) => newStudy -> chapter
+        }
+      case _ => fuccess(study -> none)
     }
 
   private def scheduleTimeline(studyId: Study.Id) = scheduler.scheduleOnce(1 minute) {
