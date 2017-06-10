@@ -93,7 +93,9 @@ module.exports = function(socket, ctrl) {
 
   this.moreTime = throttle(300, false, () => this.send('moretime'));
 
-  this.outoftime = throttle(500, false, () => this.send('outoftime'));
+  this.outoftime = throttle(500, false, () => {
+    this.send('flag', ctrl.data.game.player)
+  });
 
   this.berserk = throttle(200, false, () => this.send('berserk', null, { ackable: true }));
 

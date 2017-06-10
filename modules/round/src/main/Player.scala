@@ -5,7 +5,7 @@ import chess.{ MoveMetrics, Centis, Status, Color, MoveOrDrop }
 
 import actorApi.round.{ HumanPlay, DrawNo, TakebackNo, ForecastPlay }
 import akka.actor.ActorRef
-import lila.game.{ Game, Pov, UciMemo }
+import lila.game.{ Game, Progress, Pov, UciMemo }
 import lila.hub.actorApi.round.MoveEvent
 import scala.concurrent.duration._
 
@@ -16,12 +16,17 @@ private[round] final class Player(
     uciMemo: UciMemo
 ) {
 
+  private sealed trait MoveResult
+  private case object Flagged extends MoveResult
+  private case class MoveApplied(progress: Progress, move: MoveOrDrop) extends MoveResult
+
   def human(play: HumanPlay, round: ActorRef)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = play match {
     case p @ HumanPlay(playerId, uci, blur, lag, promiseOption) => pov match {
       case Pov(game, color) if game playableBy color =>
         p.trace.segmentSync("applyUci", "logic")(applyUci(game, uci, blur, lag)).prefixFailuresWith(s"$pov ")
           .fold(errs => fufail(ClientError(errs.shows)), fuccess).flatMap {
-            case (progress, moveOrDrop) =>
+            case Flagged => finisher.outOfTime(game)
+            case MoveApplied(progress, moveOrDrop) =>
               p.trace.segment("save", "db")(proxy save progress) >>- {
                 if (pov.game.hasAi) uciMemo.add(pov.game, moveOrDrop)
                 notifyMove(moveOrDrop, progress.game)
@@ -49,10 +54,10 @@ private[round] final class Player(
   def fishnet(game: Game, uci: Uci, currentFen: FEN, round: ActorRef)(implicit proxy: GameProxy): Fu[Events] =
     if (game.playable && game.player.isAi) {
       if (currentFen == FEN(Forsyth >> game.toChess))
-        if (game.outoftime(withGrace = true)) finisher.outOfTime(game)
-        else applyUci(game, uci, blur = false, metrics = fishnetLag)
+        applyUci(game, uci, blur = false, metrics = fishnetLag)
           .fold(errs => fufail(ClientError(errs.shows)), fuccess).flatMap {
-            case (progress, moveOrDrop) =>
+            case Flagged => finisher.outOfTime(game)
+            case MoveApplied(progress, moveOrDrop) =>
               proxy.save(progress) >>-
                 uciMemo.add(progress.game, moveOrDrop) >>-
                 notifyMove(moveOrDrop, progress.game) >>
@@ -72,17 +77,21 @@ private[round] final class Player(
 
   private val fishnetLag = MoveMetrics()
 
-  private def applyUci(game: Game, uci: Uci, blur: Boolean, metrics: MoveMetrics) = (uci match {
-    case Uci.Move(orig, dest, prom) => game.toChess.apply(orig, dest, prom, metrics) map {
-      case (ncg, move) => ncg -> (Left(move): MoveOrDrop)
+  private def applyUci(game: Game, uci: Uci, blur: Boolean, metrics: MoveMetrics): Valid[MoveResult] =
+    (uci match {
+      case Uci.Move(orig, dest, prom) => game.toChess.apply(orig, dest, prom, metrics) map {
+        case (ncg, move) => ncg -> (Left(move): MoveOrDrop)
+      }
+      case Uci.Drop(role, pos) => game.toChess.drop(role, pos, metrics) map {
+        case (ncg, drop) => ncg -> (Right(drop): MoveOrDrop)
+      }
+    }).map {
+      case (ncg, _) if ncg.clock.exists(_.outOfTime(game.turnColor, false)) => Flagged
+      case (newChessGame, moveOrDrop) => MoveApplied(
+        game.update(newChessGame, moveOrDrop, blur, metrics),
+        moveOrDrop
+      )
     }
-    case Uci.Drop(role, pos) => game.toChess.drop(role, pos, metrics) map {
-      case (ncg, drop) => ncg -> (Right(drop): MoveOrDrop)
-    }
-  }).map {
-    case (newChessGame, moveOrDrop) =>
-      game.update(newChessGame, moveOrDrop, blur, metrics) -> moveOrDrop
-  }
 
   private def notifyMove(moveOrDrop: MoveOrDrop, game: Game) {
     val color = moveOrDrop.fold(_.color, _.color)

@@ -109,12 +109,17 @@ private[round] final class Round(
       }
     }
 
-    case Outoftime(Some(playerId)) => handle(playerId) { pov =>
-      pov.game.outoftime(withGrace = !pov.isMyTurn) ?? finisher.outOfTime(pov.game)
+    // checks if any player can safely (grace) be flagged
+    case QuietFlag => handle { game =>
+      game.outoftime(withGrace = true) ?? finisher.outOfTime(game)
     }
 
-    case Outoftime(None) => handle { game =>
-      game.outoftime(withGrace = true) ?? finisher.outOfTime(game)
+    // flags a specific player, possibly without grace if self
+    case ClientFlag(color, from) => handle { game =>
+      (game.turnColor == color) ?? {
+        val toSelf = from has game.player(color).id
+        game.outoftime(withGrace = !toSelf) ?? finisher.outOfTime(game)
+      }
     }
 
     // exceptionally we don't block nor publish events

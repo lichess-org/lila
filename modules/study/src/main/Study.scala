@@ -43,7 +43,7 @@ case class Study(
 
   def isNew = (nowSeconds - createdAt.getSeconds) < 4
 
-  def isOld = (nowSeconds - updatedAt.getSeconds) > 10 * 60
+  def isOld = (nowSeconds - updatedAt.getSeconds) > 20 * 60
 
   def cloneFor(user: User): Study = {
     val owner = StudyMember(

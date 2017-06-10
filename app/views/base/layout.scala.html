@@ -94,7 +94,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
       </div>
       <div class="challenge_notifications">
         <a id="challenge_notifications_tag" class="toggle link data-count" data-count="@ctx.nbChallenges">
-          <span class="hint--bottom-left" data-hint="Challenges">
+          <span class="hint--bottom-left" data-hint="@trans.challenges()">
             <span data-icon="U"></span>
           </span>
         </a>
@@ -102,7 +102,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
       </div>
       <div class="site_notifications">
         <a id="site_notifications_tag" class="toggle link data-count" data-count="@ctx.nbNotifications">
-          <span class="hint--bottom-left" data-hint="Notifications">
+          <span class="hint--bottom-left" data-hint="@trans.notifications()">
             <span data-icon=""></span>
           </span>
         </a>

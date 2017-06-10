@@ -27,7 +27,7 @@
   <div class="ratings">
     @lila.rating.PerfType.nonPuzzle.map { perfType =>
     <div class="@perfType.key">
-      @trans.ratingX(Html(s"""<strong data-icon="${perfType.iconChar}">${me.perfs(perfType.key).map(_.intRating).getOrElse("?")}</strong> ${perfType.name}"""))
+      @trans.perfRatingX(Html(s"""<strong data-icon="${perfType.iconChar}">${me.perfs(perfType.key).map(_.intRating).getOrElse("?")}</strong> ${perfType.name}"""))
     </div>
     }
   </div>

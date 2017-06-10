@@ -180,10 +180,10 @@
   <string name="openingExplorer">Opening explorer &amp; tablebase</string>
   <string name="takeback">Takeback</string>
   <string name="proposeATakeback">Propose a takeback</string>
-  <string name="takebackPropositionSent">Takeback proposition sent</string>
-  <string name="takebackPropositionDeclined">Takeback proposition declined</string>
-  <string name="takebackPropositionAccepted">Takeback proposition accepted</string>
-  <string name="takebackPropositionCanceled">Takeback proposition cancelled</string>
+  <string name="takebackPropositionSent">Takeback sent</string>
+  <string name="takebackPropositionDeclined">Takeback declined</string>
+  <string name="takebackPropositionAccepted">Takeback accepted</string>
+  <string name="takebackPropositionCanceled">Takeback cancelled</string>
   <string name="yourOpponentProposesATakeback">Your opponent proposes a takeback</string>
   <string name="bookmarkThisGame">Bookmark this game</string>
   <string name="search">Search</string>
@@ -607,4 +607,7 @@
   <string name="error.min">Must be greater or equal to %s</string>
   <string name="error.max">Must be less or equal to %s</string>
   <string name="custom">Custom</string>
+  <string name="notifications">Notifications</string>
+  <string name="challenges">Challenges</string>
+  <string name="perfRatingX">Rating: %s</string>
 </resources>

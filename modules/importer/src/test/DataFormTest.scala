@@ -3,10 +3,10 @@ package lila.importer
 import chess._
 import chess.Pos._
 import org.specs2.mutable._
+import org.specs2.matcher.ValidationMatchers
 import org.specs2.specification._
-import ornicar.scalalib.test._
 
-class DataFormTest extends Specification with ScalazValidationMatchers {
+class DataFormTest extends Specification with ValidationMatchers {
 
   "Import from position" should {
     "preserve initial FEN" in {

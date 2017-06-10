@@ -4,8 +4,8 @@ import chess.format.pgn.Reader
 import chess.Pos._
 import chess.Replay
 import org.specs2.mutable._
+import org.specs2.matcher.ValidationMatchers
 import org.specs2.specification._
-import ornicar.scalalib.test.ValidationMatchers
 import scalaz.{ Validation => V }
 
 import lila.analyse.{ Analysis, Info }
