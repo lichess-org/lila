@@ -293,6 +293,8 @@
   <string name="loadPosition">Load position</string>
   <string name="isPrivate">Private</string>
   <string name="reportXToModerators">Report %s to moderators</string>
+  <string name="profileCompletion">Profile completion: %s</string>
+  <string name="gameCompletionRate">Game completion rate: %s</string>
   <string name="profile">Profile</string>
   <string name="editProfile">Edit profile</string>
   <string name="firstName">Given name</string>

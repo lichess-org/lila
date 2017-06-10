@@ -173,11 +173,11 @@ description = describeUser(u)).some) {
         <p class="thin">@trans.lastSeenActive(momentFromNow(seen))</p>
         }
         @info.completionRatePercent.map { c =>
-        <p class="thin">Game completion rate: @c%</p>
+        <p class="thin">@trans.gameCompletionRate(s"$c%")</p>
         }
         @if(ctx is u) {
         <a href="@routes.Account.profile" title="@trans.editProfile()">
-          Profile completion: @profile.completionPercent%
+          @trans.profileCompletion(s"${profile.completionPercent}%")
         </a>
         <br />
         <a href="@routes.User.opponents">@trans.favoriteOpponents()</a>
