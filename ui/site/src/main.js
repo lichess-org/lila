@@ -347,7 +347,7 @@ lichess.topMenuIntent = function() {
         });
       }
 
-      if (window.momentLocaleUrl) lichess.loadScript(moment_locale_url, {noVersion: true}).then(function() {
+      if (window.momentLocaleUrl) lichess.loadScript(momentLocaleUrl, {noVersion: true}).then(function() {
         delete window.momentLocaleUrl;
         lichess.pubsub.emit('moment.locale_loaded')();
         setMoment();
