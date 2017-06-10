@@ -7,6 +7,7 @@
 @moreJs = {
 @jsAt(s"compiled/lichess.round${isProd??(".min")}.js", async = true)
 @embedJs {
+window.customWS = true;
 window.onload = function() {
 LichessRound.boot({
 data: @Html(J.stringify(data)),

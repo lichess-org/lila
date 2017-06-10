@@ -367,7 +367,7 @@ lichess.topMenuIntent = function() {
         lichess.pubsub.on('content_loaded', setBlindMode);
       }
 
-      setTimeout(function() {
+      if (!window.customWS) setTimeout(function() {
         if (lichess.socket === null) lichess.socket = lichess.StrongSocket("/socket", false);
       }, 300);
 
