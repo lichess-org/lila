@@ -196,9 +196,12 @@ lichess.assetUrl = function(url, opts) {
   var version = document.body.getAttribute('data-asset-version');
   return baseUrl + url + (opts.noVersion ? '' : '?v=' + version);
 };
+lichess.loadedCss = {};
 lichess.loadCss = function(url) {
+  if (lichess.loadedCss[url]) return;
+  lichess.loadedCss[url] = true;
   $('head').append($('<link rel="stylesheet" type="text/css" />').attr('href', lichess.assetUrl(url)));
-}
+};
 lichess.loadScript = function(url, opts) {
   return $.ajax({
     dataType: "script",
@@ -226,8 +229,7 @@ lichess.shepherd = function(f) {
 };
 lichess.makeChat = function(id, data, callback) {
   var isDev = document.body.getAttribute('data-dev');
-  lichess.loadCss('/assets/stylesheets/chat.css');
-  if (data.permissions.timeout) lichess.loadCss('/assets/stylesheets/chat.mod.css');
+  data.loadCss = lichess.loadCss;
   lichess.loadScript("/assets/compiled/lichess.chat" + (isDev ? '' : '.min') + '.js').done(function() {
     (callback || $.noop)(LichessChat.default(document.getElementById(id), data));
   });

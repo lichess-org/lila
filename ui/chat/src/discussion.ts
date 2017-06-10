@@ -25,10 +25,15 @@ export default function(ctrl: Ctrl): Array<VNode | undefined> {
     h('ol.messages.content.scroll-shadow-soft', {
       hook: {
         insert(vnode) {
-          $(vnode.elm as HTMLElement).on('click', 'a.jump', (e: Event) => {
-            window.lichess.pubsub.emit('jump')((e.target as HTMLElement).getAttribute('data-ply'));
-          });
-          scrollCb(vnode);
+          $(vnode.elm as HTMLElement)
+            .on('click', 'a.jump', (e: Event) => {
+              window.lichess.pubsub.emit('jump')((e.target as HTMLElement).getAttribute('data-ply'));
+            })
+              .on('click', '.mod', (e: Event) => {
+                const m = ctrl.moderation();
+                if (m) m.open(((e.target as HTMLElement).getAttribute('data-username') as string).split(' ')[0]);
+              });
+              scrollCb(vnode);
         },
         postpatch: (_, vnode) => scrollCb(vnode)
       }
@@ -124,15 +129,11 @@ function renderLine(ctrl: Ctrl, line: Line) {
     h('span', '[' + line.c + ']'),
     textNode
   ]);
-  var userNode = thunk('a', line.u, userLink, [line.u]);
+
+  const userNode = thunk('a', line.u, userLink, [line.u]);
 
   return h('li', {
-    hook: ctrl.moderation ? bind('click', (e: Event) => {
-      const target = e.target as HTMLElement;
-      if (ctrl.moderation && target.classList.contains('mod'))
-      ctrl.moderation.open((target.getAttribute('data-username') as string).split(' ')[0]);
-    }) : {}
-  }, ctrl.moderation ? [
+  }, ctrl.moderation() ? [
     line.u ? lineAction(line.u) : null,
     userNode,
     textNode

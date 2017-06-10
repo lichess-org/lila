@@ -249,6 +249,8 @@ final class StudyApi(
     } >>- onMembersChange(study)
   }
 
+  def isContributor = studyRepo.isContributor _
+
   private def onMembersChange(study: Study) = {
     lightStudyCache.refresh(study.id)
     sendTo(study, Socket.ReloadAll)

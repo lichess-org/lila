@@ -10,6 +10,7 @@ export interface ChatOpts {
   i18n: Object
   preset?: string
   noteId?: string
+  loadCss: (url: string) => void
 }
 
 interface ChatData {
@@ -29,7 +30,8 @@ export interface Line {
   r?: boolean // troll
 }
 
-interface Permissions {
+export interface Permissions {
+  local?: boolean
   timeout?: boolean
   shadowban?: boolean
 }
@@ -44,7 +46,7 @@ export interface Ctrl {
   vm: ViewModel
   preset: PresetCtrl
   note?: NoteCtrl
-  moderation?: ModerationCtrl
+  moderation(): ModerationCtrl | undefined
   post(text: string): boolean
   trans: Trans
   setTab(tab: Tab): void
@@ -112,7 +114,7 @@ export interface ModerationCtrl {
   loading(): boolean
   data(): ModerationData | undefined
   reasons: ModerationReason[]
-  permissions: Permissions
+  permissions(): Permissions
   open(username: string): void
   close(): void
   timeout(reason: ModerationReason): void
@@ -122,11 +124,11 @@ export interface ModerationCtrl {
 export interface ModerationData {
   id: string
   username: string
-  games: number
-  troll: boolean
-  engine: boolean
-  booster: boolean
-  history: ModerationHistoryEntry[]
+  games?: number
+  troll?: boolean
+  engine?: boolean
+  booster?: boolean
+  history?: ModerationHistoryEntry[]
 }
 
 export interface ModerationReason {

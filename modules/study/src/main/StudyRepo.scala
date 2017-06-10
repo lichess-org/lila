@@ -126,6 +126,9 @@ final class StudyRepo(private[study] val coll: Coll) {
       .sort($sort desc "updatedAt")
       .list[Study.IdName](nb, ReadPreference.secondaryPreferred)
 
+  def isContributor(studyId: Study.Id, userId: User.ID) =
+    coll.exists($id(studyId) ++ $doc(s"members.$userId.role" -> "w"))
+
   def like(studyId: Study.Id, userId: User.ID, v: Boolean): Fu[Study.Likes] =
     countLikes(studyId).flatMap {
       case None => fuccess(Study.Likes(0))

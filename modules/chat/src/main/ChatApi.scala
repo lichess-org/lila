@@ -63,9 +63,9 @@ final class ChatApi(
         lilaBus.publish(actorApi.ChatLine(chatId, line), channelOf(chatId)) inject line.some
     }
 
-    def timeout(chatId: ChatId, modId: String, userId: String, reason: ChatTimeout.Reason): Funit =
+    def timeout(chatId: ChatId, modId: String, userId: String, reason: ChatTimeout.Reason, local: Boolean): Funit =
       coll.byId[UserChat](chatId) zip UserRepo.byId(modId) zip UserRepo.byId(userId) flatMap {
-        case ((Some(chat), Some(mod)), Some(user)) if isMod(mod) => doTimeout(chat, mod, user, reason)
+        case Some(chat) ~ Some(mod) ~ Some(user) if isMod(mod) || local => doTimeout(chat, mod, user, reason)
         case _ => fuccess(none)
       }
 
@@ -87,17 +87,17 @@ final class ChatApi(
         chatTimeout.add(c, mod, user, reason) >>- {
           lilaBus.publish(actorApi.OnTimeout(user.username), channelOf(chat.id))
           lilaBus.publish(actorApi.ChatLine(chat.id, line), channelOf(chat.id))
-          modLog ! lila.hub.actorApi.mod.ChatTimeout(
+          if (isMod(mod)) modLog ! lila.hub.actorApi.mod.ChatTimeout(
             mod = mod.id, user = user.id, reason = reason.key
           )
         }
     }
 
+    private def isMod(user: User) = lila.security.Granter(_.ChatTimeout)(user)
+
     def reinstate(list: List[ChatTimeout.Reinstate]) = list.foreach { r =>
       lilaBus.publish(actorApi.OnReinstate(r.user), Symbol(s"chat-${r.chat}"))
     }
-
-    private def isMod(user: User) = lila.security.Granter(_.ChatTimeout)(user)
 
     private[ChatApi] def makeLine(chatId: String, userId: String, t1: String): Fu[Option[UserLine]] =
       UserRepo.byId(userId) zip chatTimeout.isActive(chatId, userId) map {

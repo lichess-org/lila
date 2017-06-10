@@ -91,6 +91,7 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
   var configureAnalysis = function() {
     if (ctrl.embed) return;
     lichess.pubsub.emit('chat.writeable')(data.features.chat);
+    lichess.pubsub.emit('chat.permissions')({local: members.canContribute()});
     var computer = data.chapter.features.computer || data.chapter.practice;
     if (!computer) ctrl.getCeval().enabled(false);
     ctrl.getCeval().allowed(computer);

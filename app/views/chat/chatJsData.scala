@@ -15,10 +15,11 @@ object ChatJsData {
     timeout: Boolean,
     public: Boolean, // game players chat is not public
     withNote: Boolean = false,
-    writeable: Boolean = true
+    writeable: Boolean = true,
+    localMod: Boolean = false
   )(implicit ctx: Context) =
     json(
-      chat.chat, name = name, timeout = timeout, withNote = withNote, writeable = writeable, public = public, restricted = chat.restricted
+      chat.chat, name = name, timeout = timeout, withNote = withNote, writeable = writeable, public = public, restricted = chat.restricted, localMod = localMod
     )
 
   def json(
@@ -28,7 +29,8 @@ object ChatJsData {
     public: Boolean, // game players chat is not public
     withNote: Boolean = false,
     writeable: Boolean = true,
-    restricted: Boolean = false
+    restricted: Boolean = false,
+    localMod: Boolean = false
   )(implicit ctx: Context) = Json.obj(
     "data" -> Json.obj(
       "id" -> chat.id,
@@ -44,6 +46,7 @@ object ChatJsData {
     "public" -> public,
     "kobold" -> ctx.troll,
     "permissions" -> Json.obj(
+      "local" -> localMod,
       "timeout" -> isGranted(_.ChatTimeout).option(true),
       "shadowban" -> isGranted(_.MarkTroll).option(true)
     ).noNull,

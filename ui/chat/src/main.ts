@@ -14,6 +14,8 @@ const patch = init([klass, attributes]);
 
 export default function LichessChat(element: Element, opts: ChatOpts) {
 
+  opts.loadCss('/assets/stylesheets/chat.css');
+
   const container = element.parentNode as HTMLElement;
 
   let vnode: VNode, ctrl: Ctrl
