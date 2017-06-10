@@ -253,6 +253,11 @@ final class StudyApi(
 
   private def onMembersChange(study: Study) = {
     lightStudyCache.refresh(study.id)
+    studyRepo.membersById(study.id).foreach {
+      _ foreach { members =>
+        sendTo(study, Socket.ReloadMembers(members))
+      }
+    }
     sendTo(study, Socket.ReloadAll)
     indexStudy(study)
   }

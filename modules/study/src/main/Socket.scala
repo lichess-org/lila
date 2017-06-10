@@ -92,6 +92,8 @@ private final class Socket(
       "w" -> who(uid)
     ), noMessadata)
 
+    case ReloadMembers(members) => notifyVersion("members", members, noMessadata)
+
     case ReloadChapters(chapters) => notifyVersion("chapters", chapters, noMessadata)
 
     case ReloadAll => notifyVersion("reload", JsNull, noMessadata)
@@ -257,6 +259,7 @@ private object Socket {
   case class Promote(position: Position.Ref, toMainline: Boolean, uid: Uid)
   case class SetPath(position: Position.Ref, uid: Uid)
   case class SetShapes(position: Position.Ref, shapes: Shapes, uid: Uid)
+  case class ReloadMembers(members: StudyMembers)
   case class SetComment(position: Position.Ref, comment: Comment, uid: Uid)
   case class DeleteComment(position: Position.Ref, commentId: Comment.Id, uid: Uid)
   case class SetGlyphs(position: Position.Ref, glyphs: Glyphs, uid: Uid)

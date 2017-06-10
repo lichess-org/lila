@@ -317,6 +317,11 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
         if (vm.behind && d.w && d.w.u === ctrl.userId) resync();
         else if (vm.behind === false) xhrReload();
       },
+      members: function(d) {
+        members.update(d);
+        configureAnalysis();
+        m.redraw();
+      },
       chapters: function(d) {
         chapters.list(d);
         m.redraw();
