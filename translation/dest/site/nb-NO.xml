@@ -283,6 +283,8 @@
   <string name="winStreak">Seiersrekke</string>
   <string name="createdBy">Opprettet av</string>
   <string name="tournamentIsStarting">Turneringen begynner</string>
+  <string name="standByX">Vent litt %s, kobler sammen spillere, vær klar!</string>
+  <string name="youArePlaying">Du spiller!</string>
   <string name="membersOnly">Kun for medlemmer</string>
   <string name="boardEditor">Oppsett</string>
   <string name="startPosition">Startposisjon</string>
@@ -291,6 +293,7 @@
   <string name="loadPosition">Last stilling</string>
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Rapporter %s til moderatorene</string>
+  <string name="profileCompletion">Profil fullført: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Rediger profil</string>
   <string name="firstName">Fornavn</string>
@@ -608,4 +611,7 @@
   <string name="error.min">Må være større eller lik %s</string>
   <string name="error.max">Må være mindre eller lik %s</string>
   <string name="custom">Tilpasset</string>
+  <string name="notifications">Varsler</string>
+  <string name="challenges">Utfordringer</string>
+  <string name="perfRatingX">Rating: %s</string>
 </resources>
