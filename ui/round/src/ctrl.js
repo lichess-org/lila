@@ -413,7 +413,7 @@ module.exports = function(opts, redraw) {
     if (this.data.correspondence && !this.correspondenceClock)
     this.correspondenceClock = new correspondenceClockCtrl(
       this.data.correspondence,
-      () => this.socket.send('outoftime')
+      this.socket.outoftime
     );
   }.bind(this);
   makeCorrespondenceClock();
