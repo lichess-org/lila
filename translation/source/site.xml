@@ -282,6 +282,9 @@
   <string name="winStreak">Win streak</string>
   <string name="createdBy">Created by</string>
   <string name="tournamentIsStarting">The tournament is starting</string>
+  <string name="tournamentPairingsAreNowClosed">The tournament pairings are now closed.</string>
+  <string name="standByX">Stand by %s, pairing players, get ready!</string>
+  <string name="youArePlaying">You are playing!</string>
   <string name="membersOnly">Members only</string>
   <string name="boardEditor">Board editor</string>
   <string name="startPosition">Starting position</string>

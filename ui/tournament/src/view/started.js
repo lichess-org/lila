@@ -10,16 +10,15 @@ function joinTheGame(ctrl, gameId) {
   return m('a.is.is-after.pov.button.glowed', {
     href: '/' + gameId
   }, [
-    'You are playing!',
+    ctrl.trans('youArePlaying'),
     m('span.text[data-icon=G]', ctrl.trans('joinTheGame'))
   ]);
 }
 
 function notice(ctrl) {
   return tour.willBePaired(ctrl) ? m('div.notice.wait',
-    'Stand by ' + ctrl.data.me.username + ', pairing players, get ready!'
-  ) : m('div.notice.closed',
-    'The tournament pairings are now closed.');
+    ctrl.trans('standByX', ctrl.data.me.username)
+  ) : m('div.notice.closed', ctrl.trans('tournamentPairingsAreNowClosed'));
 }
 
 module.exports = {
