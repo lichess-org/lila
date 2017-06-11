@@ -268,6 +268,9 @@
   <string name="winStreak">ชนะรวด</string>
   <string name="createdBy">สร้างโดย</string>
   <string name="tournamentIsStarting">ทัวร์นาเมนต์กำลังเริ่มต้น</string>
+  <string name="tournamentPairingsAreNowClosed">ตอนนี้การจับคู่ทัวร์นาเมนต์ได้ปิดแล้ว</string>
+  <string name="standByX">พร้อม %s, กำลังจับคู่ผู้เล่น, เตรียมตัว!</string>
+  <string name="youArePlaying">คุณกำลังเล่น!</string>
   <string name="membersOnly">เฉพาะสมาชิก</string>
   <string name="boardEditor">ตัวแก้ไขกระดาน</string>
   <string name="startPosition">ตำแหน่งเริ่มต้น</string>
@@ -276,6 +279,8 @@
   <string name="loadPosition">โหลดตำแหน่ง</string>
   <string name="isPrivate">ส่วนตัว</string>
   <string name="reportXToModerators">ร้องเรียน %s สู่ผู้ดูแล</string>
+  <string name="profileCompletion">ความสมบูรณ์ของโปรไฟล์: %s</string>
+  <string name="gameCompletionRate">อัตราความสมบูรณ์ของเกม: %s</string>
   <string name="profile">ข้อมูลประจำตัว</string>
   <string name="editProfile">แก้ไขข้อมูลประจำตัว</string>
   <string name="firstName">ชื่อจริง</string>
@@ -584,6 +589,7 @@
   <string name="error.maxLength">ความยาวสูงสุดคือ %s</string>
   <string name="error.min">ต้องมากกว่า หรือเท่ากับ %s</string>
   <string name="error.max">ต้องน้อยกว่า หรือเท่ากับ %s</string>
+  <string name="error.unknown">ผิดพลาด</string>
   <string name="custom">กำหนด​เอง</string>
   <string name="notifications">การแจ้งเตือน</string>
   <string name="challenges">การท้าดวล</string>
