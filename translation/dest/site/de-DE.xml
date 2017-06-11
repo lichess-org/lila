@@ -283,6 +283,9 @@
   <string name="winStreak">Siegesserie</string>
   <string name="createdBy">Erstellt von</string>
   <string name="tournamentIsStarting">Das Turnier beginnt</string>
+  <string name="tournamentPairingsAreNowClosed">Es werden keine neuen Turnierspiele mehr gestartet.</string>
+  <string name="standByX">Die Turnier-Paarungen werden zugeteilt. Fertig machen zum Start %s!</string>
+  <string name="youArePlaying">Dein Spiel beginnt!</string>
   <string name="membersOnly">Nur für Mitglieder</string>
   <string name="boardEditor">Stellung aufbauen</string>
   <string name="startPosition">Anfangsposition</string>
@@ -291,6 +294,8 @@
   <string name="loadPosition">Stellung laden</string>
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Melde %s den Moderatoren</string>
+  <string name="profileCompletion">Profil vollständig zu %s</string>
+  <string name="gameCompletionRate">Quote beendeter Spiele: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profil bearbeiten</string>
   <string name="firstName">Vorname</string>
