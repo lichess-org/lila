@@ -126,7 +126,7 @@
   <string name="blackOffersDraw">Schwarz bietet Remis</string>
   <string name="whiteDeclinesDraw">Weiß lehnt Remis ab</string>
   <string name="blackDeclinesDraw">Schwarz lehnt Remis ab</string>
-  <string name="yourOpponentOffersADraw">Dein Gegner bietet ein Remis</string>
+  <string name="yourOpponentOffersADraw">Dein Gegner bietet Remis an</string>
   <string name="accept">Annehmen</string>
   <string name="decline">Ablehnen</string>
   <string name="playingRightNow">Laufende Partien</string>
@@ -473,7 +473,7 @@
   <string name="allowAnalytics">Anonyme Statistiken senden</string>
   <string name="shareGameURL">Teile Partie-URL</string>
   <string name="error.required">Dieses Feld muss ausgefüllt werden</string>
-  <string name="error.email">Diese E-Mail-Adresse ist unzulässig</string>
+  <string name="error.email">Diese E-Mail-Adresse ist ungültig</string>
   <string name="error.email_acceptable">Diese E-Mail-Adresse wird nicht akzeptiert</string>
   <string name="error.email_unique">Diese E-Mail-Adresse ist schon vergeben</string>
   <string name="blindfoldChess">Blindschach (unsichtbare Figuren)</string>
@@ -588,7 +588,7 @@
   <string name="xHostsY">%1$s hat %2$s erstellt</string>
   <string name="xJoinsY">%1$s ist %2$s beigetreten</string>
   <string name="xLikesY">%1$s gefällt %2$s</string>
-  <string name="quickPairing">Pools</string>
+  <string name="quickPairing">Schnelles Spiel</string>
   <string name="lobby">Lobby</string>
   <string name="yourScore">Punktestand: %s</string>
   <string name="language">Sprache</string>
