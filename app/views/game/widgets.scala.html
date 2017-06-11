@@ -101,7 +101,7 @@
     <br /><br />
     }
     <div class="metadata">
-      @if(g.metadata.analysed) {<span data-icon="&#xe004;"> Computer analysis available</span><br />}
+      @if(g.metadata.analysed) {<span data-icon="&#xe004;"> @trans.computerAnalysisAvailable()</span><br />}
       @g.pgnImport.flatMap(_.user).map { user =>
       PGN import by @userIdLink(user.some)<br />
       }
