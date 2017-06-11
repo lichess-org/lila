@@ -295,12 +295,12 @@
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Melde %s den Moderatoren</string>
   <string name="profileCompletion">Profil vollständig zu %s</string>
-  <string name="gameCompletionRate">Quote beendeter Spiele: %s</string>
+  <string name="gameCompletionRate">Anteil beendeter Spiele: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profil bearbeiten</string>
   <string name="firstName">Vorname</string>
   <string name="lastName">Nachname</string>
-  <string name="biography">Informationen</string>
+  <string name="biography">Profiltext</string>
   <string name="country">Land</string>
   <string name="preferences">Einstellungen</string>
   <string name="watchLichessTV">Lichess TV anschauen</string>
