@@ -111,6 +111,12 @@ trait SetupHelper { self: I18nHelper =>
     (Pref.ClockTenths.ALWAYS, I18nKeys.always.txt())
   )
 
+  def translatedMoveEventChoices(implicit ctx: Context) = List(
+    (Pref.MoveEvent.CLICK, I18nKeys.clickTwoSquares.txt()),
+    (Pref.MoveEvent.DRAG, I18nKeys.dragPiece.txt()),
+    (Pref.MoveEvent.BOTH, I18nKeys.bothClicksAndDrag.txt())
+  )
+
   def translatedTakebackChoices(implicit ctx: Context) = List(
     (Pref.Takeback.NEVER, I18nKeys.never.txt()),
     (Pref.Takeback.ALWAYS, I18nKeys.always.txt()),
@@ -139,6 +145,11 @@ trait SetupHelper { self: I18nHelper =>
   def confirmResignChoices(implicit ctx: Context) = List(
     (Pref.ConfirmResign.NO, I18nKeys.no.txt()),
     (Pref.ConfirmResign.YES, I18nKeys.yes.txt())
+  )
+
+  def translatedRookCastleChoices(implicit ctx: Context) = List(
+    (Pref.RookCastle.NO, I18nKeys.castleByMovingTwoSquares.txt()),
+    (Pref.RookCastle.YES, I18nKeys.castleByMovingOntoTheRook.txt())
   )
 
   def translatedChallengeChoices(implicit ctx: Context) = List(

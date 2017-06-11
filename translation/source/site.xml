@@ -413,6 +413,10 @@
   <string name="horizontalGreenProgressBars">Horizontal green progress bars</string>
   <string name="soundWhenTimeGetsCritical">Sound when time gets critical</string>
   <string name="gameBehavior">Game behavior</string>
+  <string name="howDoYouMovePieces">How do you move pieces?</string>
+  <string name="clickTwoSquares">Click two squares</string>
+  <string name="dragPiece">Drag a piece</string>
+  <string name="bothClicksAndDrag">Both clicks and drag</string>
   <string name="premovesPlayingDuringOpponentTurn">Premoves (playing during opponent turn)</string>
   <string name="takebacksWithOpponentApproval">Takebacks (with opponent approval)</string>
   <string name="promoteToQueenAutomatically">Promote to Queen automatically</string>
@@ -568,7 +572,11 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">You can also scroll over the board to move in the game.</string>
   <string name="analysisShapesHowTo">Press shift+click or right-click to draw circles and arrows on the board.</string>
   <string name="confirmResignation">Confirm resignation</string>
+  <string name="inputMovesWithTheKeyboard">Input moves with the keyboard</string>
   <string name="letOtherPlayersMessageYou">Let other players message you</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Castle by moving the king two squares, or onto the rook</string>
+  <string name="castleByMovingTwoSquares">Castle by moving two squares</string>
+  <string name="castleByMovingOntoTheRook">Castle by moving onto the rook</string>
   <string name="shareYourInsightsData">Share your insights data</string>
   <string name="youHaveAlreadyRegisteredTheEmail">You have already registered the email: %s</string>
   <string name="kidMode">Kid mode</string>
