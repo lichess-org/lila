@@ -224,6 +224,7 @@
   <string name="createdBy">Stworzony przez</string>
   <string name="tournamentIsStarting">Rozpoczyna się turniej</string>
   <string name="tournamentPairingsAreNowClosed">Zakończono kojarzenie par.</string>
+  <string name="standByX">Trwa kojarzenie par, bądź gotów do gry %s!</string>
   <string name="youArePlaying">Grasz!</string>
   <string name="membersOnly">Tylko dla zarejestrowanych</string>
   <string name="boardEditor">Edytor pozycji</string>
