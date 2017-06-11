@@ -100,6 +100,11 @@ trait SetupHelper { self: I18nHelper =>
     (Pref.Replay.ALWAYS, I18nKeys.always.txt())
   )
 
+  def translatedPieceNotationChoices(implicit ctx: Context) = List(
+    (Pref.PieceNotation.SYMBOL, I18nKeys.chessPieceSymbol.txt()),
+    (Pref.PieceNotation.LETTER, I18nKeys.pgnLetter.txt())
+  )
+
   def translatedClockTenthsChoices(implicit ctx: Context) = List(
     (Pref.ClockTenths.NEVER, I18nKeys.never.txt()),
     (Pref.ClockTenths.LOWTIME, I18nKeys.whenTimeRemainingLessThanTenSeconds.txt()),

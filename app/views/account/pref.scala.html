@@ -37,8 +37,8 @@
           @base.form.radios(form("display.replay"), translatedMoveListWhilePlayingChoices)
         </li>
         <li>
-          <h2>PGN piece notation</h2>
-          @base.form.radios(form("display.pieceNotation"), lila.pref.Pref.PieceNotation.choices)
+          <h2>@trans.pgnPieceNotation()</h2>
+          @base.form.radios(form("display.pieceNotation"), translatedPieceNotationChoices)
         </li>
         <li>
           <h2>@trans.blindfoldChess()</h2>

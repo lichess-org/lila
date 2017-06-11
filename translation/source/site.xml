@@ -403,6 +403,9 @@
   <string name="pieceDestinations">Piece destinations (valid moves and premoves)</string>
   <string name="boardCoordinates">Board coordinates (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Move list while playing</string>
+  <string name="pgnPieceNotation">PGN piece notation</string>
+  <string name="chessPieceSymbol">Chess piece symbol</string>
+  <string name="pgnLetter">PGN letter (K, Q, R, B, N)</string>
   <string name="chessClock">Chess clock</string>
   <string name="tenthsOfSeconds">Tenths of seconds</string>
   <string name="never">Never</string>
