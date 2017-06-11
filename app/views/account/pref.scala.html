@@ -37,8 +37,8 @@
           @base.form.radios(form("display.replay"), translatedMoveListWhilePlayingChoices)
         </li>
         <li>
-          <h2>PGN piece notation</h2>
-          @base.form.radios(form("display.pieceNotation"), lila.pref.Pref.PieceNotation.choices)
+          <h2>@trans.pgnPieceNotation()</h2>
+          @base.form.radios(form("display.pieceNotation"), translatedPieceNotationChoices)
         </li>
         <li>
           <h2>@trans.blindfoldChess()</h2>
@@ -65,8 +65,8 @@
       @categFieldset(PrefCateg.GameBehavior, categ) {
       <ul>
         <li>
-          <h2>How do you move pieces?</h2>
-          @base.form.radios(form("behavior.moveEvent"), lila.pref.Pref.MoveEvent.choices)
+          <h2>@trans.howDoYouMovePieces()</h2>
+          @base.form.radios(form("behavior.moveEvent"), translatedMoveEventChoices)
         </li>
         <li>
           <h2>@trans.premovesPlayingDuringOpponentTurn()</h2>
@@ -93,12 +93,12 @@
           @base.form.radios(form("behavior.confirmResign"), confirmResignChoices)
         </li>
         <li>
-          <h2>Input moves with the keyboard</h2>
-          @base.form.radios(form("behavior.keyboardMove"), lila.pref.Pref.KeyboardMove.choices)
+          <h2>@trans.inputMovesWithTheKeyboard()</h2>
+          @base.form.radios(form("behavior.keyboardMove"), Seq(0 -> trans.no.txt(), 1 -> trans.yes.txt()))
         </li>
         <li>
-          <h2>Castle by moving the king by two squares, or onto the rook</h2>
-          @base.form.radios(form("behavior.rookCastle"), lila.pref.Pref.RookCastle.choices)
+          <h2>@trans.castleByMovingTheKingTwoSquaresOrOntoTheRook()</h2>
+          @base.form.radios(form("behavior.rookCastle"), translatedRookCastleChoices)
         </li>
       </ul>
       }
@@ -117,12 +117,12 @@
           @base.form.radios(form("message"), translatedMessageChoices)
         </li>
         <li>
-          <h2>Let other players invite you to study</h2>
+          <h2>@trans.letOtherPlayersInviteYouToStudy()</h2>
           @base.form.radios(form("studyInvite"), translatedStudyInviteChoices)
         </li>
         <li>
           <h2>@trans.shareYourInsightsData()</h2>
-          @base.form.radios(form("insightShare"), lila.pref.Pref.InsightShare.choices)
+          @base.form.radios(form("insightShare"), translatedInsightSquareChoices)
         </li>
       </ul>
       }

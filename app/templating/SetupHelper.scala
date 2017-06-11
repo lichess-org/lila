@@ -100,10 +100,21 @@ trait SetupHelper { self: I18nHelper =>
     (Pref.Replay.ALWAYS, I18nKeys.always.txt())
   )
 
+  def translatedPieceNotationChoices(implicit ctx: Context) = List(
+    (Pref.PieceNotation.SYMBOL, I18nKeys.chessPieceSymbol.txt()),
+    (Pref.PieceNotation.LETTER, I18nKeys.pgnLetter.txt())
+  )
+
   def translatedClockTenthsChoices(implicit ctx: Context) = List(
     (Pref.ClockTenths.NEVER, I18nKeys.never.txt()),
     (Pref.ClockTenths.LOWTIME, I18nKeys.whenTimeRemainingLessThanTenSeconds.txt()),
     (Pref.ClockTenths.ALWAYS, I18nKeys.always.txt())
+  )
+
+  def translatedMoveEventChoices(implicit ctx: Context) = List(
+    (Pref.MoveEvent.CLICK, I18nKeys.clickTwoSquares.txt()),
+    (Pref.MoveEvent.DRAG, I18nKeys.dragPiece.txt()),
+    (Pref.MoveEvent.BOTH, I18nKeys.bothClicksAndDrag.txt())
   )
 
   def translatedTakebackChoices(implicit ctx: Context) = List(
@@ -136,6 +147,11 @@ trait SetupHelper { self: I18nHelper =>
     (Pref.ConfirmResign.YES, I18nKeys.yes.txt())
   )
 
+  def translatedRookCastleChoices(implicit ctx: Context) = List(
+    (Pref.RookCastle.NO, I18nKeys.castleByMovingTwoSquares.txt()),
+    (Pref.RookCastle.YES, I18nKeys.castleByMovingOntoTheRook.txt())
+  )
+
   def translatedChallengeChoices(implicit ctx: Context) = List(
     (Pref.Challenge.NEVER, I18nKeys.never.txt()),
     (Pref.Challenge.RATING, I18nKeys.ifRatingIsPlusMinusX.txt(lila.pref.Pref.Challenge.ratingThreshold)),
@@ -153,6 +169,12 @@ trait SetupHelper { self: I18nHelper =>
     (Pref.StudyInvite.NEVER, I18nKeys.never.txt()),
     (Pref.StudyInvite.FRIEND, I18nKeys.onlyFriends.txt()),
     (Pref.StudyInvite.ALWAYS, I18nKeys.always.txt())
+  )
+
+  def translatedInsightSquareChoices(implicit ctx: Context) = List(
+    (Pref.InsightShare.NOBODY, I18nKeys.withNobody.txt()),
+    (Pref.InsightShare.FRIENDS, I18nKeys.withFriends.txt()),
+    (Pref.InsightShare.EVERYBODY, I18nKeys.withEverybody.txt())
   )
 
   def translatedBlindfoldChoices(implicit ctx: Context) = List(
