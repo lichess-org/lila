@@ -283,6 +283,7 @@
   <string name="winStreak">Victoriae perpetuae</string>
   <string name="createdBy">Factum ab</string>
   <string name="tournamentIsStarting">Certamen mox incipiet</string>
+  <string name="youArePlaying">Tu ludas!</string>
   <string name="membersOnly">Sola membra</string>
   <string name="boardEditor">Moderator tabularis</string>
   <string name="startPosition">Prima positio</string>
