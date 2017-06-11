@@ -117,12 +117,12 @@
           @base.form.radios(form("message"), translatedMessageChoices)
         </li>
         <li>
-          <h2>Let other players invite you to study</h2>
+          <h2>@trans.letOtherPlayersInviteYouToStudy()</h2>
           @base.form.radios(form("studyInvite"), translatedStudyInviteChoices)
         </li>
         <li>
           <h2>@trans.shareYourInsightsData()</h2>
-          @base.form.radios(form("insightShare"), lila.pref.Pref.InsightShare.choices)
+          @base.form.radios(form("insightShare"), translatedInsightSquareChoices)
         </li>
       </ul>
       }

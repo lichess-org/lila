@@ -424,6 +424,7 @@
   <string name="privacy">Privacy</string>
   <string name="letOtherPlayersFollowYou">Let other players follow you</string>
   <string name="letOtherPlayersChallengeYou">Let other players challenge you</string>
+  <string name="letOtherPlayersInviteYouToStudy">Let other players invite you to study</string>
   <string name="sound">Sound</string>
   <string name="yourPreferencesHaveBeenSaved">Your preferences have been saved.</string>
   <string name="none">None</string>
@@ -578,6 +579,9 @@
   <string name="castleByMovingTwoSquares">Castle by moving two squares</string>
   <string name="castleByMovingOntoTheRook">Castle by moving onto the rook</string>
   <string name="shareYourInsightsData">Share your insights data</string>
+  <string name="withNobody">With nobody</string>
+  <string name="withFriends">With friends</string>
+  <string name="withEverybody">With everybody</string>
   <string name="youHaveAlreadyRegisteredTheEmail">You have already registered the email: %s</string>
   <string name="kidMode">Kid mode</string>
   <string name="playChessEverywhere">Play chess everywhere</string>

@@ -171,6 +171,12 @@ trait SetupHelper { self: I18nHelper =>
     (Pref.StudyInvite.ALWAYS, I18nKeys.always.txt())
   )
 
+  def translatedInsightSquareChoices(implicit ctx: Context) = List(
+    (Pref.InsightShare.NOBODY, I18nKeys.withNobody.txt()),
+    (Pref.InsightShare.FRIENDS, I18nKeys.withFriends.txt()),
+    (Pref.InsightShare.EVERYBODY, I18nKeys.withEverybody.txt())
+  )
+
   def translatedBlindfoldChoices(implicit ctx: Context) = List(
     Pref.Blindfold.NO -> I18nKeys.no.txt(),
     Pref.Blindfold.YES -> I18nKeys.yes.txt()
