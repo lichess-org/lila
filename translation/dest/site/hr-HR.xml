@@ -298,6 +298,7 @@
   <string name="winStreak">Pobjednički niz</string>
   <string name="createdBy">Kreirao</string>
   <string name="tournamentIsStarting">Turnir počinje</string>
+  <string name="standByX">Uparivanje igrača - %s, pripremi se za igru!</string>
   <string name="membersOnly">Samo za članove</string>
   <string name="boardEditor">Uredi ploču</string>
   <string name="startPosition">Početna pozicija</string>
@@ -306,6 +307,7 @@
   <string name="loadPosition">Učitaj poziciju</string>
   <string name="isPrivate">Privatno</string>
   <string name="reportXToModerators">Prijavi %s moderatorima</string>
+  <string name="profileCompletion">Profil je uređen %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Uredi profil</string>
   <string name="firstName">Ime</string>
@@ -630,6 +632,7 @@
   <string name="error.maxLength">Maksimalna dužina je %s znakova</string>
   <string name="error.min">Mora biti veće ili jednako %s</string>
   <string name="error.max">Mora biti manje ili jednako %s</string>
+  <string name="error.unknown">Pogreška</string>
   <string name="custom">Prilagođeno</string>
   <string name="notifications">Obavijesti</string>
   <string name="challenges">Izazovi</string>
