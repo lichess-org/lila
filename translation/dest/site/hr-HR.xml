@@ -599,7 +599,12 @@
   <string name="inputMovesWithTheKeyboard">Omogući unošenje poteza tipkovnicom</string>
   <string name="letOtherPlayersMessageYou">Dopusti drugim igračima da ti pošalju poruku</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Način igranja rokade</string>
+  <string name="castleByMovingTwoSquares">Pomicanjem kralja za dva polja</string>
+  <string name="castleByMovingOntoTheRook">Pomicanjem kralja na topa</string>
   <string name="shareYourInsightsData">dijeli vaše osobne podatke</string>
+  <string name="withNobody">Ni sa kime</string>
+  <string name="withFriends">S prijateljima</string>
+  <string name="withEverybody">Sa svima</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Već si se registrirao/la ovim emailom: %s</string>
   <string name="kidMode">Dječji način</string>
   <string name="playChessEverywhere">Igraj šah svugdje</string>
