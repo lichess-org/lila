@@ -412,6 +412,10 @@
   <string name="horizontalGreenProgressBars">Horisontella gröna förloppsindikatorer</string>
   <string name="soundWhenTimeGetsCritical">Ljud när tiden blir kritisk</string>
   <string name="gameBehavior">Spelbeteende</string>
+  <string name="howDoYouMovePieces">Flytta pjäser</string>
+  <string name="clickTwoSquares">Klicka två rutor</string>
+  <string name="dragPiece">Drag pjäs</string>
+  <string name="bothClicksAndDrag">Både klicka och drag</string>
   <string name="premovesPlayingDuringOpponentTurn">Premoves (göra drag i förväg under motståndarens tur)</string>
   <string name="takebacksWithOpponentApproval">Ta tillbaka drag (med motståndarens godkännande)</string>
   <string name="promoteToQueenAutomatically">Uppgradera till drottning automatiskt</string>
@@ -601,6 +605,8 @@
     <item quantity="other">Tillgänglig på %s olika språk!</item>
   </plurals>
   <string name="gameAnalysis">Partianalys</string>
+  <string name="xLikesY">%1$s gillar %2$s</string>
+  <string name="lobby">Lobby</string>
   <string name="yourScore">Dina poäng: %s</string>
   <string name="language">Språk</string>
   <string name="background">Bakgrund</string>
@@ -610,6 +616,7 @@
   <string name="pieceSet">Pjäsuppsättning</string>
   <string name="usernameAlreadyUsed">Användarnamnet är upptaget, vänligen försök med ett annat.</string>
   <string name="usernameStartNoNumber">Användarnamnet får inte inledas med ett nummer.</string>
+  <string name="usernameUnacceptable">Detta användarnamn är inte acceptabelt.</string>
   <string name="chessBasics">Schackets grunder</string>
   <string name="coaches">Coacher</string>
   <string name="invalidPgn">Ogiltig PGN</string>
