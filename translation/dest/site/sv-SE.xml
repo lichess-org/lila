@@ -541,6 +541,10 @@
   <string name="tournamentMayHaveBeenCanceled">Den kan ha blivit inställd om alla spelare lämnade den innan start.</string>
   <string name="returnToTournamentsHomepage">Återgå till turneringens hemsida</string>
   <string name="weeklyPerfTypeRatingDistribution">Veckans %s ratingfördelning</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">%1$s %2$s spelare denna vecka.</item>
+    <item quantity="other">%1$s %2$s spelare denna vecka.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">Din %1$s rating är %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du är bättre än %1$s av %2$s spelarna.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har inte en etablerad %s rating.</string>
@@ -601,4 +605,5 @@
   <string name="boardGeometry">Brädets geometri</string>
   <string name="boardTheme">Brädets tema</string>
   <string name="boardSize">Brädets storlek</string>
+  <string name="perfRatingX">Rating: %s</string>
 </resources>
