@@ -596,7 +596,9 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Možeš skrolirati preko ploče za micanje u partiji.</string>
   <string name="analysisShapesHowTo">Pritisni shift + lijevi klik ili desni klik kako bi crtao/la krugove i strelice na ploči.</string>
   <string name="confirmResignation">Potvrda predaje</string>
+  <string name="inputMovesWithTheKeyboard">Omogući unošenje poteza tipkovnicom</string>
   <string name="letOtherPlayersMessageYou">Dopusti drugim igračima da ti pošalju poruku</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Način igranja rokade</string>
   <string name="shareYourInsightsData">dijeli vaše osobne podatke</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Već si se registrirao/la ovim emailom: %s</string>
   <string name="kidMode">Dječji način</string>
