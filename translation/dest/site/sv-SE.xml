@@ -46,6 +46,7 @@
   <string name="viewTheComputerAnalysis">Visa datoranalysen</string>
   <string name="requestAComputerAnalysis">Begär en datoranalys</string>
   <string name="computerAnalysis">Datoranalys</string>
+  <string name="computerAnalysisAvailable">Datoranalys tillgänglig</string>
   <string name="analysis">Analys</string>
   <string name="blunders">Blundrar</string>
   <string name="mistakes">Misstag</string>
@@ -233,6 +234,7 @@
   </plurals>
   <string name="thisIsAChessCaptcha">Detta är en schack-CAPTCHA</string>
   <string name="clickOnTheBoardToMakeYourMove">Bevisa att du är en människa genom att klicka på brädet och göra ditt drag.</string>
+  <string name="captcha.fail">Vänligen lös schack-captchan.</string>
   <string name="notACheckmate">Inte schackmatt</string>
   <string name="colorPlaysCheckmateInOne">%s tur; Schackmatt i ett drag</string>
   <string name="retry">Försök igen</string>
@@ -240,6 +242,7 @@
   <string name="onlineFriends">Vänner online</string>
   <string name="noFriendsOnline">Inga vänner online</string>
   <string name="findFriends">Hitta vänner</string>
+  <string name="favoriteOpponents">Favoritmotståndare</string>
   <string name="follow">Följ</string>
   <string name="following">Följer</string>
   <string name="unfollow">Sluta följa</string>
@@ -281,6 +284,7 @@
   <string name="winStreak">Vinstserie</string>
   <string name="createdBy">Skapad av</string>
   <string name="tournamentIsStarting">Turneringen startar</string>
+  <string name="tournamentPairingsAreNowClosed">Turneringsparningarna är nu avslutade.</string>
   <string name="membersOnly">Endast medlemmar</string>
   <string name="boardEditor">Brädeditor</string>
   <string name="startPosition">Startposition</string>
