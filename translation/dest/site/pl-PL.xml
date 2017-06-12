@@ -46,6 +46,7 @@
   <string name="viewTheComputerAnalysis">Zobacz analizę komputerową</string>
   <string name="requestAComputerAnalysis">Poproś o analizę komputerową</string>
   <string name="computerAnalysis">Analiza komputerowa</string>
+  <string name="computerAnalysisAvailable">Analiza komputerowa gotowa</string>
   <string name="analysis">Analiza</string>
   <string name="blunders">Poważne błędy</string>
   <string name="mistakes">Błędy</string>
@@ -235,6 +236,7 @@
   <string name="isPrivate">Prywatny</string>
   <string name="reportXToModerators">Zgłoś %s do moderatora</string>
   <string name="profileCompletion">Kompletność profilu: %s</string>
+  <string name="ifNoneLeaveEmpty">Jeśli nie masz, zostaw puste</string>
   <string name="gameCompletionRate">Ukończonych gier: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Edycja profilu</string>
@@ -329,6 +331,9 @@
   <string name="pieceDestinations">Podświetlaj możliwe pola docelowe (ruchy zwykłe i planowane)</string>
   <string name="boardCoordinates">Współrzędne pól (a-h, 1-8)</string>
   <string name="moveListWhilePlaying">Lista ruchów podczas partii</string>
+  <string name="pgnPieceNotation">Sposób notacji PGN</string>
+  <string name="chessPieceSymbol">Za pomocą symboli figur</string>
+  <string name="pgnLetter">Za pomocą liter (K, Q, R, B, N)</string>
   <string name="chessClock">Zegar szachowy</string>
   <string name="tenthsOfSeconds">Dziesiętne sekundy</string>
   <string name="never">Nigdy</string>
@@ -338,6 +343,8 @@
   <string name="gameBehavior">Obsługa gry</string>
   <string name="howDoYouMovePieces">W jaki sposób wykonywać ruch?</string>
   <string name="clickTwoSquares">Klikając dwa pola</string>
+  <string name="dragPiece">Przeciągając figurę</string>
+  <string name="bothClicksAndDrag">Klikając pola lub przeciągając figurę</string>
   <string name="premovesPlayingDuringOpponentTurn">Ruch planowany (podczas ruchu przeciwnika)</string>
   <string name="takebacksWithOpponentApproval">Cofnięcie ruchu (za zgodą przeciwnika)</string>
   <string name="promoteToQueenAutomatically">Automatyczna promocja na hetmana</string>
@@ -345,6 +352,7 @@
   <string name="privacy">Prywatność</string>
   <string name="letOtherPlayersFollowYou">Inni gracze mogą Cię obserwować</string>
   <string name="letOtherPlayersChallengeYou">Inni gracze mogą wysłać Ci wyzwanie</string>
+  <string name="letOtherPlayersInviteYouToStudy">Pozwól innym zapraszać Cię do studiowania partii</string>
   <string name="sound">Dźwięk</string>
   <string name="yourPreferencesHaveBeenSaved">Twoje ustawienia zostały zapisane.</string>
   <string name="none">Brak</string>
@@ -482,7 +490,11 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Możesz także przeciągnąć nad szachownicą aby poruszać się w grze.</string>
   <string name="analysisShapesHowTo">Naciśnij shift i kliknij lub kliknij prawym przyciskiem myszy aby rysować okręgi i strzałki na szachownicy.</string>
   <string name="confirmResignation">Potwierdź rezygnację</string>
+  <string name="inputMovesWithTheKeyboard">Wprowadzaj ruchy za pomocą klawiatury</string>
   <string name="letOtherPlayersMessageYou">Pozwól innym graczom na pisanie do ciebie</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Przesuwając króla o dwa pola lub na wieżę</string>
+  <string name="castleByMovingTwoSquares">Przesuwając króla o dwa pola</string>
+  <string name="castleByMovingOntoTheRook">Przesuwając króla na wieżę</string>
   <string name="shareYourInsightsData">Udostępniaj dane swoich analiz</string>
   <string name="withNobody">Z nikim</string>
   <string name="withFriends">Ze znajomymi</string>
