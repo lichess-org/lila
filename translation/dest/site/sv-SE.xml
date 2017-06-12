@@ -285,6 +285,8 @@
   <string name="createdBy">Skapad av</string>
   <string name="tournamentIsStarting">Turneringen startar</string>
   <string name="tournamentPairingsAreNowClosed">Turneringsparningarna är nu avslutade.</string>
+  <string name="standByX">%s, vänta, parar spelare, var redo!</string>
+  <string name="youArePlaying">Du spelar!</string>
   <string name="membersOnly">Endast medlemmar</string>
   <string name="boardEditor">Brädeditor</string>
   <string name="startPosition">Startposition</string>
@@ -569,6 +571,8 @@
   <string name="withEverybody">Med alla</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Du har redan registrerat en emailadress: %s</string>
   <string name="kidMode">Barnsäkert läge</string>
+  <string name="enableKidMode">Aktivera barnsäkert läge</string>
+  <string name="disableKidMode">Avaktivera barnsäkert läge</string>
   <string name="security">Säkerhet</string>
   <string name="playChessEverywhere">Spela schack var du vill</string>
   <string name="asFreeAsLichess">Lika gratis som lichess</string>
@@ -588,6 +592,7 @@
     <item quantity="other">Tillgänglig på %s olika språk!</item>
   </plurals>
   <string name="gameAnalysis">Partianalys</string>
+  <string name="yourScore">Dina poäng: %s</string>
   <string name="language">Språk</string>
   <string name="background">Bakgrund</string>
   <string name="boardGeometry">Brädets geometri</string>
