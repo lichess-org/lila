@@ -564,6 +564,12 @@
   <string name="withEverybody">सभी के साथ</string>
   <string name="youHaveAlreadyRegisteredTheEmail">आपने पहले ही ईमेल दर्ज कर लिया है: %s</string>
   <string name="kidMode">बच्चा मोड</string>
+  <string name="kidModeExplanation">यह सुरक्षा के बारे में है। बच्चे मोड में, सभी साइट संचार अक्षम हैं। यह अपने बच्चों के लिए सक्षम और स्कूल के छात्रों उन्हें अन्य इंटरनेट उपयोगकर्ताओं से सुरक्षित करने के लिए।</string>
+  <string name="enableKidMode">बच्चे मोड को सक्षम करें</string>
+  <string name="disableKidMode">बच्चे मोड अक्षम करें</string>
+  <string name="security">सुरक्षा</string>
+  <string name="alternativelyYouCanX">वैकल्पिक रूप से आप %s कर सकते हैं।</string>
+  <string name="revokeAllSessions">सभी सत्र रद्द</string>
   <string name="playChessEverywhere">हर जगह शतरंज खेलें</string>
   <string name="zeroAdvertisement">शून्य विज्ञापन</string>
   <string name="phoneAndTablet">फोन और टैबलेट</string>
