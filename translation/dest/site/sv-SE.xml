@@ -295,8 +295,10 @@
   <string name="loadPosition">Ladda ställning</string>
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Rapportera %s till moderatorerna</string>
+  <string name="profileCompletion">Profil fulländning: %s</string>
   <string name="xRating">%s rating</string>
   <string name="ifNoneLeaveEmpty">Om ingen, lämna tomt</string>
+  <string name="gameCompletionRate">Parti slutförandefrekvens: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Ändra profil</string>
   <string name="firstName">Förnamn</string>
@@ -610,6 +612,7 @@
   </plurals>
   <string name="gameAnalysis">Partianalys</string>
   <string name="xHostsY">%1$s är värd för %2$s</string>
+  <string name="xJoinsY">%1$s deltar i %2$s</string>
   <string name="xLikesY">%1$s gillar %2$s</string>
   <string name="quickPairing">Snabb parning</string>
   <string name="lobby">Lobby</string>
