@@ -414,6 +414,7 @@
   <string name="premovesPlayingDuringOpponentTurn">Premoves (göra drag i förväg under motståndarens tur)</string>
   <string name="takebacksWithOpponentApproval">Ta tillbaka drag (med motståndarens godkännande)</string>
   <string name="promoteToQueenAutomatically">Uppgradera till drottning automatiskt</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Begär remi automatiskt vid trefaldig upprepning</string>
   <string name="privacy">Sekretess</string>
   <string name="letOtherPlayersFollowYou">Låt andra spelare följa dig</string>
   <string name="letOtherPlayersChallengeYou">Låt andra spelare utmana dig</string>
@@ -571,6 +572,8 @@
   <string name="withEverybody">Med alla</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Du har redan registrerat en emailadress: %s</string>
   <string name="kidMode">Barnsäkert läge</string>
+  <string name="kidModeExplanation">Detta är en säkerhetsinställning. I barnsäkert läge är all site kommunikation avaktiverad. Aktivera detta för dina barn och skolelever för att skydda dessa från andra internetanvändare.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">I barnsäkert läge får lichess-logotypen en %s ikon, så att du vet att dina barn är säkra.</string>
   <string name="enableKidMode">Aktivera barnsäkert läge</string>
   <string name="disableKidMode">Avaktivera barnsäkert läge</string>
   <string name="security">Säkerhet</string>
