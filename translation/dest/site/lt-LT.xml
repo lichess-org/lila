@@ -76,7 +76,7 @@
   <string name="viewInFullSize">Žiūrėti visu dydžiu</string>
   <string name="logOut">Atsijungti</string>
   <string name="signIn">Prisijungti</string>
-  <string name="newToLichess">Pirmas kartas su „Lichess“?</string>
+  <string name="newToLichess">Pirmas kartas su „lichess“?</string>
   <string name="youNeedAnAccountToDoThat">Norėdami tai atlikti, turite turėti paskyrą</string>
   <string name="signUp">Registruotis</string>
   <string name="computersAreNotAllowedToPlay">Kompiuteriams ir kompiuterių padedamiems žaidėjams žaisti draudžiama. Prašome nesinaudoti šachmatų programomis, duomenų bazėmis ar kitų žaidėjų pagalba partijos metu. Kartu norime pažymėti, kad keleto paskyrų turėjimas yra nepatartinas, o dėl perdėto jų naudojimo būsite užblokuoti.</string>
@@ -113,7 +113,7 @@
   <string name="changePassword">Pasikeisti slaptažodį</string>
   <string name="changeEmail">Pasikeisti el. pašto adresą</string>
   <string name="email">El. paštas</string>
-  <string name="emailIsOptional">El. paštas nėra privalomas. „Lichess“ naudos jūsų el. pašto adresą jūsų slaptažodžiui atkurti, jeigu jį pamiršte.</string>
+  <string name="emailIsOptional">El. paštas nėra privalomas. „lichess“ naudos jūsų el. pašto adresą jūsų slaptažodžiui atkurti, jeigu jį pamiršite.</string>
   <string name="passwordReset">Slaptažodžio atkūrimas</string>
   <string name="forgotPassword">Pamiršote slaptažodį?</string>
   <string name="rank">Rangas</string>
@@ -320,8 +320,8 @@
   <string name="biography">Aprašymas</string>
   <string name="country">Šalis</string>
   <string name="preferences">Nuostatos</string>
-  <string name="watchLichessTV">Žiūrėti „Lichess TV“</string>
-  <string name="previouslyOnLichessTV">Anksčiau per „Lichess TV“</string>
+  <string name="watchLichessTV">Žiūrėti „lichess TV“</string>
+  <string name="previouslyOnLichessTV">Anksčiau per „lichess TV“</string>
   <string name="onlinePlayers">Prisijungę žaidėjai</string>
   <string name="activeToday">Šiandienos aktyvumas</string>
   <string name="activePlayers">Aktyvumas</string>
@@ -331,7 +331,7 @@
   <string name="findTheBestMoveForWhite">Suraskite geriausią baltųjų ėjimą.</string>
   <string name="findTheBestMoveForBlack">Suraskite geriausią juodųjų ėjimą.</string>
   <string name="toTrackYourProgress">Sekite savo pažangą:</string>
-  <string name="trainingSignupExplanation">Siekiant didžiausios naudos iš treniruočių, „Lichess“ pateiks jūsų gebėjimus atitinkančias užduotis.</string>
+  <string name="trainingSignupExplanation">Siekiant didžiausios naudos iš treniruočių, „lichess“ pateiks jūsų gebėjimus atitinkančias užduotis.</string>
   <string name="puzzleId">Užduotis Nr. %s</string>
   <string name="puzzleOfTheDay">Dienos užduotis</string>
   <string name="clickToSolve">Spustelėkite, norėdami spręsti</string>
@@ -343,7 +343,7 @@
   <string name="butYouCanKeepTrying">Tačiau galite bandyti vėl.</string>
   <string name="victory">Pergalė!</string>
   <string name="wasThisPuzzleAnyGood">Ar užduotis buvo gera?</string>
-  <string name="pleaseVotePuzzle">Padėkite „Lichess“ tobulėti įvertindami užduotį (spustelėkite rodyklę į viršų ar apačią):</string>
+  <string name="pleaseVotePuzzle">Padėkite „lichess“ tobulėti įvertindami užduotį (spustelėkite rodyklę į viršų ar apačią):</string>
   <string name="thankYou">Ačiū!</string>
   <string name="ratingX">Reitingas: %s</string>
   <plurals name="playedXTimes">
@@ -552,7 +552,7 @@
   <string name="simulClockHint">Fišerio laikrodžio nustatymas. Prieš kuo daugiau žaidėjų rungsitės, tuo daugiau laiko jums gali prireikti.</string>
   <string name="simulAddExtraTime">Galite pridėti papildomo laiko savo laikrodžiui, kad būtų lengviau žaisti simule.</string>
   <string name="simulHostExtraTime">Papildomas laikas šeimininkui</string>
-  <string name="lichessTournaments">„Lichess“ turnyrai</string>
+  <string name="lichessTournaments">„lichess“ turnyrai</string>
   <string name="tournamentFAQ">Arenos turnyrų DUK</string>
   <string name="tournamentOfficial">Oficialūs</string>
   <string name="timeBeforeTournamentStarts">Laikas iki turnyro pradžios</string>
@@ -615,7 +615,7 @@
   <string name="alternativelyYouCanX">Arba galite %s.</string>
   <string name="revokeAllSessions">atšaukti visus seansus</string>
   <string name="playChessEverywhere">Žaiskite šachmatais visur</string>
-  <string name="asFreeAsLichess">Nemokama, kaip ir lichess</string>
+  <string name="asFreeAsLichess">Nemokama, kaip ir „lichess“</string>
   <string name="builtForTheLoveOfChessNotMoney">Sukurta iš meilės šachmatams, ne dėl pinigų</string>
   <string name="everybodyGetsAllFeaturesForFree">Kiekvienas gauna visas galimybes už dyką</string>
   <string name="zeroAdvertisement">Jokių reklamų</string>
@@ -650,7 +650,7 @@
   <string name="usernameInvalid">Negalimas vartotojo vardas. Naudokite tik raides, skaičius, pabraukimo brūkšnį ir brūkšnį.</string>
   <string name="usernameStartNoNumber">Vartotojo vardas negali prasidėti skaičiumi.</string>
   <string name="usernameUnacceptable">Šis vartotojo vardas yra netinkamas.</string>
-  <string name="directlySupportLichess">Paremkite „Lichess“ tiesiogiai</string>
+  <string name="directlySupportLichess">Paremkite „lichess“ tiesiogiai</string>
   <string name="playChessInStyle">Žaiskite šachmatais stilingai</string>
   <string name="chessBasics">Šachmatų pagrindai</string>
   <string name="coaches">Treneriai</string>
