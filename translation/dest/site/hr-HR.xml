@@ -610,6 +610,11 @@
   <string name="kidModeExplanation">Ovdje se radi se o sigurnosti. U dječjem načinu, sve komunikacije na stranici su onemogućene. Omogući ovo za svoju djecu i učenike, da ih zaštitiš od drugih internet korisnika.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">U dječjem načinu, logo lichess-a dobiva %s ikonu, tako da znaš da su tvoja djeca sigurna.</string>
   <string name="enableKidMode">Omogući dječji način</string>
+  <string name="disableKidMode">Onemogući dječji način</string>
+  <string name="security">Sigurnost</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Ovo je popis uređaja koji su se prijavili u tvoj račun. Opozovi bilo koju sesiju koju ne prepoznaješ.</string>
+  <string name="alternativelyYouCanX">Alternativno, možeš %s.</string>
+  <string name="revokeAllSessions">opozvati sve sesije</string>
   <string name="playChessEverywhere">Igraj šah svugdje</string>
   <string name="asFreeAsLichess">Besplatno kao i lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Napravljeno iz ljubavi prema šahu, ne novcu</string>
