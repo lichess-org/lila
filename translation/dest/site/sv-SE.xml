@@ -296,6 +296,7 @@
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Rapportera %s till moderatorerna</string>
   <string name="xRating">%s rating</string>
+  <string name="ifNoneLeaveEmpty">Om ingen, lämna tomt</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Ändra profil</string>
   <string name="firstName">Förnamn</string>
@@ -605,5 +606,9 @@
   <string name="boardGeometry">Brädets geometri</string>
   <string name="boardTheme">Brädets tema</string>
   <string name="boardSize">Brädets storlek</string>
+  <string name="error.unknown">Fel</string>
+  <string name="custom">Anpassad</string>
+  <string name="notifications">Notifikationer</string>
+  <string name="challenges">Utmaningar</string>
   <string name="perfRatingX">Rating: %s</string>
 </resources>
