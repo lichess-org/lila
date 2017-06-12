@@ -297,6 +297,7 @@
   <string name="reportXToModerators">Melde %s den Moderatoren</string>
   <string name="profileCompletion">Profilvollständigkeit: %s</string>
   <string name="xRating">%s Wertungszahl</string>
+  <string name="ifNoneLeaveEmpty">Falls nicht vorhanden, leer lassen</string>
   <string name="gameCompletionRate">Anteil beendeter Spiele: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profil bearbeiten</string>
@@ -569,6 +570,7 @@
   <string name="confirmResignation">Aufgabe bestätigen</string>
   <string name="letOtherPlayersMessageYou">Erlaube anderen Spielern dich zu kontaktieren</string>
   <string name="shareYourInsightsData">Teile deine persönlichen Spielerstatistiken</string>
+  <string name="withFriends">Mit deinen Freunden</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Du hast die folgende Emailadresse schon registriert: %s</string>
   <string name="kidMode">Kindermodus</string>
   <string name="playChessEverywhere">Spiele Schach überall</string>
