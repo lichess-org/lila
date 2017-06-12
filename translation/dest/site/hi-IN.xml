@@ -283,6 +283,7 @@
   <string name="winStreak">जीत का दौर</string>
   <string name="createdBy">द्वारा रचित</string>
   <string name="tournamentIsStarting">प्रतियोगित शुरू हो रही है</string>
+  <string name="youArePlaying">आप खेल रहे हैं!</string>
   <string name="membersOnly">केवल खाता वाले</string>
   <string name="boardEditor">बोर्ड संपादक</string>
   <string name="startPosition">शुरुआत की स्थिती</string>
@@ -291,6 +292,9 @@
   <string name="loadPosition">इस स्थिति से चालू करें</string>
   <string name="isPrivate">गोपनीय</string>
   <string name="reportXToModerators">संचालकों को %s रिपोर्ट करें</string>
+  <string name="profileCompletion">प्रोफाइल पूरा: %s</string>
+  <string name="ifNoneLeaveEmpty">यदि कोई नहीं, खाली छोड़ दो</string>
+  <string name="gameCompletionRate">खेल पूरा दर: %s</string>
   <string name="profile">प्रोफ़ाइल</string>
   <string name="editProfile">प्रोफ़ाइल संपादित करें</string>
   <string name="firstName">प्रथम नाम</string>
