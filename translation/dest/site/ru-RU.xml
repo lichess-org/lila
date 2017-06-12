@@ -606,6 +606,14 @@
   <string name="withEverybody">Со всеми</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Вы уже активировали этот адрес: %s</string>
   <string name="kidMode">Детский режим</string>
+  <string name="kidModeExplanation">Это для безопасности. В детском режиме отключены все коммуникации на сайте. Включите это для ваших детей и школьников, чтобы защитить их от других пользователей Интернета.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">В детском режиме логотип lichess получает значок в виде %s, так что вы знаете, что ваши дети находятся в безопасности.</string>
+  <string name="enableKidMode">Включить детский режим</string>
+  <string name="disableKidMode">Отключить детский режим</string>
+  <string name="security">Безопасность</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Это список устройств, с которых входили в ваш аккаунт. Отмените любые подозрительные сеансы.</string>
+  <string name="alternativelyYouCanX">В качестве альтернативы вы можете %s.</string>
+  <string name="revokeAllSessions">отменить все сессии</string>
   <string name="playChessEverywhere">Играйте в шахматы везде</string>
   <string name="asFreeAsLichess">Бесплатно</string>
   <string name="builtForTheLoveOfChessNotMoney">С любовью к шахматам, а не деньгам</string>
@@ -652,6 +660,7 @@
   <string name="error.maxLength">Максимальная длина — %s</string>
   <string name="error.min">Значение должно быть больше либо равным %s</string>
   <string name="error.max">Значение должно быть меньше либо равным %s</string>
+  <string name="error.unknown">Ошибка</string>
   <string name="custom">Пользовательская партия</string>
   <string name="notifications">Уведомления</string>
   <string name="challenges">Вызовы</string>
