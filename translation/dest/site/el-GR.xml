@@ -292,6 +292,8 @@
   <string name="loadPosition">Φορτώστε θέση</string>
   <string name="isPrivate">Ιδιωτικό</string>
   <string name="reportXToModerators">Αναφέρετε τον %s στο προσωπικό</string>
+  <string name="xRating">Βαθμολογία %s</string>
+  <string name="ifNoneLeaveEmpty">Αν δεν υπάρχει, αφήστε κενό</string>
   <string name="profile">Προφίλ</string>
   <string name="editProfile">Επεξεργασία προφίλ</string>
   <string name="firstName">Όνομα</string>
@@ -561,6 +563,8 @@
   <string name="confirmResignation">Επιβεβαιώστε παραίτηση</string>
   <string name="letOtherPlayersMessageYou">Επιτρέψτε άλλους παίκτες να σας στέλνουν μηνύματα</string>
   <string name="shareYourInsightsData">Κοινή χρήση των δεδομένων σας</string>
+  <string name="withFriends">Με φίλους</string>
+  <string name="withEverybody">Με όλους</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Έχετε ήδη εγγραφεί με το ηλ.ταχυδρομείο: %s</string>
   <string name="kidMode">Λειτουργία παιδιού</string>
   <string name="playChessEverywhere">Παίξτε σκάκι παντού</string>
@@ -600,7 +604,7 @@
   <string name="usernameUnacceptable">Αυτό το όνομα χρήστη δεν είναι αποδεκτό.</string>
   <string name="directlySupportLichess">Υποστηρίξτε άμεσα το Lichess</string>
   <string name="playChessInStyle">Παίξτε σκάκι με στυλ</string>
-  <string name="chessBasics">Σκάκι βασικά στοιχεία</string>
+  <string name="chessBasics">Βασικά σκακιού</string>
   <string name="coaches">Προπονητές</string>
   <string name="invalidPgn">Μη έγκυρο PGN</string>
   <string name="invalidFen">Μη έγκυρο FEN</string>
