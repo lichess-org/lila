@@ -400,6 +400,7 @@
   <string name="boardCoordinates">Brädkoordinater (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Lista med drag under spelets gång</string>
   <string name="pgnPieceNotation">Dragnotation</string>
+  <string name="chessPieceSymbol">Schackpjäs-symbol</string>
   <string name="pgnLetter">Algebraisk notation (K, Q, R, B, N)</string>
   <string name="chessClock">Schack-klocka</string>
   <string name="tenthsOfSeconds">Tiondels sekunder</string>
@@ -559,9 +560,16 @@
   <string name="confirmResignation">Bekräfta resignation</string>
   <string name="inputMovesWithTheKeyboard">Mata in drag via tangentbord</string>
   <string name="letOtherPlayersMessageYou">Tillåt att andra spelare skickar meddelanden till dig</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rockera genom att flytta kungen 2 steg, eller till tornet</string>
+  <string name="castleByMovingTwoSquares">Rockera genom att flytta kungen 2 steg</string>
+  <string name="castleByMovingOntoTheRook">Rockera genom att flytta kungen till tornet</string>
   <string name="shareYourInsightsData">Dela din Chess Insights information</string>
+  <string name="withNobody">Med ingen</string>
+  <string name="withFriends">Med vänner</string>
+  <string name="withEverybody">Med alla</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Du har redan registrerat en emailadress: %s</string>
   <string name="kidMode">Barnsäkert läge</string>
+  <string name="security">Säkerhet</string>
   <string name="playChessEverywhere">Spela schack var du vill</string>
   <string name="asFreeAsLichess">Lika gratis som lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Byggt med kärlek till schacket, inte pengar</string>
@@ -582,4 +590,7 @@
   <string name="gameAnalysis">Partianalys</string>
   <string name="language">Språk</string>
   <string name="background">Bakgrund</string>
+  <string name="boardGeometry">Brädets geometri</string>
+  <string name="boardTheme">Brädets tema</string>
+  <string name="boardSize">Brädets storlek</string>
 </resources>
