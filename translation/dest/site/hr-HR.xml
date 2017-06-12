@@ -46,6 +46,7 @@
   <string name="viewTheComputerAnalysis">Pogledaj računalnu analizu</string>
   <string name="requestAComputerAnalysis">Zatraži računalnu analizu</string>
   <string name="computerAnalysis">Računalna analiza</string>
+  <string name="computerAnalysisAvailable">Dostupna računalna analiza</string>
   <string name="analysis">Ploča za analizu</string>
   <string name="blunders">Previdi</string>
   <string name="mistakes">Greške</string>
@@ -310,6 +311,7 @@
   <string name="isPrivate">Privatno</string>
   <string name="reportXToModerators">Prijavi %s moderatorima</string>
   <string name="profileCompletion">Profil je uređen %s</string>
+  <string name="xRating">%s rejting</string>
   <string name="gameCompletionRate">Stopa završavanja partija: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Uredi profil</string>
@@ -559,13 +561,13 @@
   <string name="tournamentDoesNotExist">Ovaj turnir ne postoji.</string>
   <string name="tournamentMayHaveBeenCanceled">Turnir je možda bio otkazan, ako su ga svi igrači napustili prije početka.</string>
   <string name="returnToTournamentsHomepage">Povratak na početnu stranicu turnira</string>
-  <string name="weeklyPerfTypeRatingDistribution">Mjesečna %s distribucija ratinga</string>
+  <string name="weeklyPerfTypeRatingDistribution">Mjesečna %s distribucija rejtinga</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">Jedan %2$s igrač ovaj tjedan.</item>
     <item quantity="few">%1$s %2$s igrača ovog tjedna.</item>
     <item quantity="other">%1$s %2$s igrača ovog tjedna.</item>
   </plurals>
-  <string name="yourPerfTypeRatingIsRating">Tvoj %1$s rating je %2$s.</string>
+  <string name="yourPerfTypeRatingIsRating">Tvoj %1$s rejting je %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Bolji si od %1$s od %2$s igrača.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nemaš službeni %s rating.</string>
   <string name="checkYourEmail">Provjeri svoj e-mail.</string>
