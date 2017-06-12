@@ -403,6 +403,8 @@
   <string name="pieceDestinations">Zielfelder markieren (gültige Züge und Vorauszüge)</string>
   <string name="boardCoordinates">Koordinaten (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Notation während des Spiels anzeigen</string>
+  <string name="chessPieceSymbol">Schachfigurensymbol</string>
+  <string name="pgnLetter">PGN-Buchstabe (K, Q, R, B, N)</string>
   <string name="chessClock">Schachuhr</string>
   <string name="tenthsOfSeconds">Zehntelsekunden</string>
   <string name="never">Nie</string>
