@@ -405,6 +405,7 @@
   <string name="horizontalGreenProgressBars">Horizontal green progress bars</string>
   <string name="soundWhenTimeGetsCritical">Sound when time gets critical</string>
   <string name="gameBehavior">Game behavior</string>
+  <string name="bothClicksAndDrag">Both click and drag</string>
   <string name="premovesPlayingDuringOpponentTurn">Premoves (playing during opponent turn)</string>
   <string name="takebacksWithOpponentApproval">Takebacks (with opponent approval)</string>
   <string name="promoteToQueenAutomatically">Promote to Queen automatically</string>
