@@ -432,6 +432,10 @@
   <string name="horizontalGreenProgressBars">Vodoravna zelena linija napretka</string>
   <string name="soundWhenTimeGetsCritical">Zvuk kada je vrijeme kritično</string>
   <string name="gameBehavior">Način igre</string>
+  <string name="howDoYouMovePieces">Kako želiš pomicati figure?</string>
+  <string name="clickTwoSquares">Klikom na dva polja</string>
+  <string name="dragPiece">Povlačenjem figure</string>
+  <string name="bothClicksAndDrag">I klikom i povlačenjem</string>
   <string name="premovesPlayingDuringOpponentTurn">Pretpotezi (potezi dok je protivnikov red)</string>
   <string name="takebacksWithOpponentApproval">Povlačenje poteza (ako se protivnik složi)</string>
   <string name="promoteToQueenAutomatically">Auto-promocija u damu</string>
@@ -439,6 +443,7 @@
   <string name="privacy">Privatnost</string>
   <string name="letOtherPlayersFollowYou">Dopusti drugim igračima da te prate</string>
   <string name="letOtherPlayersChallengeYou">Dopusti drugim igračima da te izazovu</string>
+  <string name="letOtherPlayersInviteYouToStudy">Dopusti drugim igračima da te pozovu u studiju</string>
   <string name="sound">Zvuk</string>
   <string name="yourPreferencesHaveBeenSaved">Tvoje promjene su spremljene.</string>
   <string name="none">Ništa</string>
