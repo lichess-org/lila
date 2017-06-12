@@ -293,6 +293,7 @@
   <string name="loadPosition">Ladda ställning</string>
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Rapportera %s till moderatorerna</string>
+  <string name="xRating">%s rating</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Ändra profil</string>
   <string name="firstName">Förnamn</string>
@@ -398,6 +399,7 @@
   <string name="pieceDestinations">Möjliga drag (giltiga drag och premoves)</string>
   <string name="boardCoordinates">Brädkoordinater (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Lista med drag under spelets gång</string>
+  <string name="pgnPieceNotation">Dragnotation</string>
   <string name="pgnLetter">Algebraisk notation (K, Q, R, B, N)</string>
   <string name="chessClock">Schack-klocka</string>
   <string name="tenthsOfSeconds">Tiondels sekunder</string>
@@ -555,6 +557,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kan också skrolla över brädet för att gå fram/bak i partiet.</string>
   <string name="analysisShapesHowTo">Tryck på Skift + klicka eller högerklicka för att rita cirklar och pilar på brädet.</string>
   <string name="confirmResignation">Bekräfta resignation</string>
+  <string name="inputMovesWithTheKeyboard">Mata in drag via tangentbord</string>
   <string name="letOtherPlayersMessageYou">Tillåt att andra spelare skickar meddelanden till dig</string>
   <string name="shareYourInsightsData">Dela din Chess Insights information</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Du har redan registrerat en emailadress: %s</string>
@@ -577,4 +580,6 @@
     <item quantity="other">Tillgänglig på %s olika språk!</item>
   </plurals>
   <string name="gameAnalysis">Partianalys</string>
+  <string name="language">Språk</string>
+  <string name="background">Bakgrund</string>
 </resources>
