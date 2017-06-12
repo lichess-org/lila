@@ -295,7 +295,7 @@
   <string name="loadPosition">Stellung laden</string>
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Melde %s den Moderatoren</string>
-  <string name="profileCompletion">Profilvollständigkeit: %s</string>
+  <string name="profileCompletion">Profil vollständig zu %s</string>
   <string name="xRating">%s Wertungszahl</string>
   <string name="ifNoneLeaveEmpty">Nur falls vorhanden</string>
   <string name="gameCompletionRate">Anteil beendeter Spiele: %s</string>
