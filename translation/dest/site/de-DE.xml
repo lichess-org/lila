@@ -46,6 +46,7 @@
   <string name="viewTheComputerAnalysis">Computer-Analyse betrachten</string>
   <string name="requestAComputerAnalysis">Computer-Analyse anfordern</string>
   <string name="computerAnalysis">Computer-Analyse</string>
+  <string name="computerAnalysisAvailable">Computeranalyse verfügbar</string>
   <string name="analysis">Analysebrett</string>
   <string name="blunders">Grobe Patzer</string>
   <string name="mistakes">Fehler</string>
@@ -295,6 +296,7 @@
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Melde %s den Moderatoren</string>
   <string name="profileCompletion">Profilvollständigkeit: %s</string>
+  <string name="xRating">%s Wertungszahl</string>
   <string name="gameCompletionRate">Anteil beendeter Spiele: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profil bearbeiten</string>
