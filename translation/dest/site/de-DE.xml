@@ -297,7 +297,7 @@
   <string name="reportXToModerators">Melde %s den Moderatoren</string>
   <string name="profileCompletion">Profilvollständigkeit: %s</string>
   <string name="xRating">%s Wertungszahl</string>
-  <string name="ifNoneLeaveEmpty">Falls nicht vorhanden, leer lassen</string>
+  <string name="ifNoneLeaveEmpty">Nur falls vorhanden</string>
   <string name="gameCompletionRate">Anteil beendeter Spiele: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profil bearbeiten</string>
@@ -413,6 +413,10 @@
   <string name="horizontalGreenProgressBars">Horizontale grüne Fortschrittsbalken</string>
   <string name="soundWhenTimeGetsCritical">Ton, wenn die Zeit knapp wird</string>
   <string name="gameBehavior">Spielverhalten</string>
+  <string name="howDoYouMovePieces">Wie möchtest du die Figuren bewegen?</string>
+  <string name="clickTwoSquares">Auf zwei Felder klicken</string>
+  <string name="dragPiece">Die Figur ziehen</string>
+  <string name="bothClicksAndDrag">Klicken und ziehen</string>
   <string name="premovesPlayingDuringOpponentTurn">Vorauszüge (Premoves), während der Gegner am Zug ist</string>
   <string name="takebacksWithOpponentApproval">Zugrücknahme (mit Erlaubnis des Gegners)</string>
   <string name="promoteToQueenAutomatically">Automatische Umwandlung zur Dame</string>
@@ -581,6 +585,9 @@
   <string name="enableKidMode">Kindermodus aktivieren</string>
   <string name="disableKidMode">Kindermodus deaktivieren</string>
   <string name="security">Sicherheit</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Dies ist eine Liste aller Geräte, die mit deinem Konto verknüpft sind. Entferne alle Geräte, die du nicht kennst.</string>
+  <string name="alternativelyYouCanX">Alternativ kannst du %s.</string>
+  <string name="revokeAllSessions">alle Sitzungen beenden</string>
   <string name="playChessEverywhere">Spiele Schach überall</string>
   <string name="asFreeAsLichess">Frei wie Lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Aus Liebe zum Schach</string>
