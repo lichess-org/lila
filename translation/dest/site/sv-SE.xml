@@ -398,6 +398,7 @@
   <string name="pieceDestinations">Möjliga drag (giltiga drag och premoves)</string>
   <string name="boardCoordinates">Brädkoordinater (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Lista med drag under spelets gång</string>
+  <string name="pgnLetter">Algebraisk notation (K, Q, R, B, N)</string>
   <string name="chessClock">Schack-klocka</string>
   <string name="tenthsOfSeconds">Tiondels sekunder</string>
   <string name="never">Aldrig</string>
