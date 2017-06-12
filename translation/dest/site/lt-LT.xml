@@ -46,6 +46,7 @@
   <string name="viewTheComputerAnalysis">Peržiūrėti kompiuterio analizę</string>
   <string name="requestAComputerAnalysis">Užsakyti kompiuterio analizę</string>
   <string name="computerAnalysis">Kompiuterio analizė</string>
+  <string name="computerAnalysisAvailable">Galima kompiuterinė analizė</string>
   <string name="analysis">Analizė</string>
   <string name="blunders">Šiurkščios klaidos</string>
   <string name="mistakes">Klaidos</string>
@@ -298,6 +299,8 @@
   <string name="winStreak">Pergalių serija</string>
   <string name="createdBy">Sukūrė</string>
   <string name="tournamentIsStarting">Turnyras prasideda</string>
+  <string name="tournamentPairingsAreNowClosed">Suporavimai turnyrui jau baigėsi.</string>
+  <string name="youArePlaying">Jūs žaidžiate!</string>
   <string name="membersOnly">Tik nariai</string>
   <string name="boardEditor">Lentos rengyklė</string>
   <string name="startPosition">Pradinė pozicija</string>
@@ -306,6 +309,10 @@
   <string name="loadPosition">Įkelti poziciją</string>
   <string name="isPrivate">Privatus</string>
   <string name="reportXToModerators">Pranešti apie %s moderatoriams</string>
+  <string name="profileCompletion">Profilio užbaigimas: %s</string>
+  <string name="xRating">%s reitingas</string>
+  <string name="ifNoneLeaveEmpty">Jei neturite, palikite tuščią</string>
+  <string name="gameCompletionRate">Partijų užbaigimas: %s</string>
   <string name="profile">Profilis</string>
   <string name="editProfile">Redaguoti profilį</string>
   <string name="firstName">Vardas</string>
@@ -414,6 +421,9 @@
   <string name="pieceDestinations">Leistini (galimi) ėjimai</string>
   <string name="boardCoordinates">Lentos koordinatės (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Ėjimų sąrašas žaidžiant</string>
+  <string name="pgnPieceNotation">PGN figūrų žymėjimas</string>
+  <string name="chessPieceSymbol">Šachmatų figūrų simboliai</string>
+  <string name="pgnLetter">PGN raidės (K, Q, R, B, N)</string>
   <string name="chessClock">Žaidimo laikrodis</string>
   <string name="tenthsOfSeconds">Dešimtosios sekundės dalys</string>
   <string name="never">Niekada</string>
