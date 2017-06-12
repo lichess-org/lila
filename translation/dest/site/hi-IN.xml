@@ -559,6 +559,9 @@
   <string name="confirmResignation">इस्तीफे की पुष्टि करें</string>
   <string name="letOtherPlayersMessageYou">अन्य खिलाड़ियों को आपको संदेश देने दें</string>
   <string name="shareYourInsightsData">अपने इनसाइट डेटा साझा करें</string>
+  <string name="withNobody">किसी के साथ नहीं</string>
+  <string name="withFriends">दोस्तों के साथ</string>
+  <string name="withEverybody">सभी के साथ</string>
   <string name="youHaveAlreadyRegisteredTheEmail">आपने पहले ही ईमेल दर्ज कर लिया है: %s</string>
   <string name="kidMode">बच्चा मोड</string>
   <string name="playChessEverywhere">हर जगह शतरंज खेलें</string>
