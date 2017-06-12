@@ -31,11 +31,11 @@ module.exports = function(send, ctrl) {
   var currentChapterId = function() {
     if (ctrl.study) return ctrl.study.currentChapter().id;
   };
-  var addStudyData = function(req, addUnsync) {
+  var addStudyData = function(req, addLocal) {
     var c = currentChapterId();
     if (c) {
       req.ch = c;
-      if (addUnsync && ctrl.study.members.canContribute() && ctrl.study.vm.behind !== false) req.unsync = true;
+      if (addLocal && !ctrl.vm.mode.write) req.local = true;
     }
   };
 

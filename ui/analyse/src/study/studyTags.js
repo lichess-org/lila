@@ -76,7 +76,7 @@ module.exports = {
   ctrl: function(root, getChapter, members, types) {
 
     var submit = throttle(500, false, function(name, value) {
-      root.study.contribute('setTag', {
+      root.study.makeChange('setTag', {
         chapterId: getChapter().id,
         name: name,
         value: value.substr(0, 140)
@@ -99,7 +99,7 @@ module.exports = {
     var ctrl = root.tags,
       node = root.currentNode(),
       chapter = ctrl.getChapter(),
-      canContribute = ctrl.members.canContribute() && root.vm.behind === false;
+      canContribute = root.vm.mode.write;
     var key = [chapter.id, root.data.name, chapter.name, root.data.likes, chapter.tags, canContribute].join('|');
     if (key === ctrl.cacheKey() && m.redraw.strategy() === 'diff') {
       lichess.raf(function() {

@@ -37,7 +37,8 @@ module.exports = {
     };
 
     var canContribute = function() {
-      return (myMember() || {}).role === 'w';
+      var m = myMember();
+      return m && m.role === 'w';
     };
 
     var inviteForm = inviteFormCtrl(opts.send, dict, opts.setTab);

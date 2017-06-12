@@ -21,66 +21,67 @@ function buttons(root) {
   var canContribute = ctrl.members.canContribute();
   return m('div.study_buttons', [
     m('div.member_buttons', [
-      m('span#study-sync.hint--top', {
-        'data-hint': ctrl.vm.behind !== false ? 'Synchronize with other players' : 'Disconnect to play local moves'
-      }, m('a', (function() {
-        var attrs = {
-          onclick: ctrl.toggleSync
-        };
-        var classes = ['button'];
-        if (ctrl.vm.behind > 0) {
-          attrs['data-count'] = ctrl.vm.behind;
-          classes.push('data-count');
-        }
-        if (ctrl.vm.behind !== false && ctrl.members.hasOnlineContributor()) classes.push('glowed');
-        attrs.class = classes.join(' ');
-        return attrs;
-      })(), m('i', {
-        'data-icon': ctrl.vm.behind !== false ? 'G' : 'Z'
-      }))),
-      m('a.button.share.hint--top', {
+      ctrl.data.features.sticky ? m('span#study-sticky.hint--top', {
+        'data-hint': ctrl.vm.mode.stiky ? 'Sticky' : 'Free'
+      }, m('a', {
+        class: 'button',
+        onclick: ctrl.toggleSticky
+      }),
+      m('i', {
+        'data-icon': ctrl.vm.mode.sticky ? '"' : '"'
+      })) : null,
+      ctrl.members.canContribute() ? m('span#study-write.hint--top', {
+        'data-hint': ctrl.vm.mode.write ? 'Write' : 'Read'
+      }, m('a', {
+        class: 'button',
+        onclick: ctrl.toggleWrite
+      }),
+      m('i', {
+        'data-icon': ctrl.vm.mode.write ? 'E' : 'k'
+      })) : null,
+    m('a.button.share.hint--top', {
+      class: classSet({
+        active: ctrl.share.open()
+      }),
+      'data-hint': 'Share & export',
+      config: bindOnce('click', function() {
+        ctrl.share.toggle();
+      })
+    },
+    m('i.[data-icon=z]')),
+    canContribute ? [
+      (function(enabled) {
+        return m('a.button.comment.hint--top', {
           class: classSet({
-            active: ctrl.share.open()
+            active: ctrl.commentForm.current(),
+            disabled: !enabled
           }),
-          'data-hint': 'Share & export',
+          'data-hint': 'Comment this position',
           config: bindOnce('click', function() {
-            ctrl.share.toggle();
+            if (ctrl.vm.mode.write) ctrl.commentForm.toggle(ctrl.currentChapter().id, root.vm.path, root.vm.node);
+          })
+        }, m('i[data-icon=c]'));
+      })(ctrl.vm.mode.write), (function(enabled) {
+        return m('a.button.glyph.hint--top', {
+          class: classSet({
+            active: ctrl.glyphForm.isOpen(),
+            disabled: !enabled
+          }),
+          'data-hint': 'Annotate with symbols',
+          config: bindOnce('click', function() {
+            if (root.vm.path && ctrl.vm.mode.write) ctrl.glyphForm.toggle();
           })
         },
-        m('i.[data-icon=z]')),
-      canContribute ? [
-        (function(enabled) {
-          return m('a.button.comment.hint--top', {
-            class: classSet({
-              active: ctrl.commentForm.current(),
-              disabled: !enabled
-            }),
-            'data-hint': 'Comment this position',
-            config: bindOnce('click', function() {
-              if (ctrl.vm.behind === false) ctrl.commentForm.toggle(ctrl.currentChapter().id, root.vm.path, root.vm.node);
-            })
-          }, m('i[data-icon=c]'));
-        })(ctrl.vm.behind === false), (function(enabled) {
-          return m('a.button.glyph.hint--top', {
-              class: classSet({
-                active: ctrl.glyphForm.isOpen(),
-                disabled: !enabled
-              }),
-              'data-hint': 'Annotate with symbols',
-              config: bindOnce('click', function() {
-                if (root.vm.path && ctrl.vm.behind === false) ctrl.glyphForm.toggle();
-              })
-            },
-            m('i.glyph-icon'));
-        })(root.vm.path && ctrl.vm.behind === false)
-      ] : null
+        m('i.glyph-icon'));
+      })(root.vm.path && ctrl.vm.mode.write)
+    ] : null
     ]),
-    m('span.button.help.hint--top', {
-      'data-hint': 'Need help? Get the tour!',
-      onclick: ctrl.startTour
-    }, m('i.text', {
-      'data-icon': ''
-    }, 'help'))
+  m('span.button.help.hint--top', {
+    'data-hint': 'Need help? Get the tour!',
+    onclick: ctrl.startTour
+  }, m('i.text', {
+    'data-icon': ''
+  }, 'help'))
   ]);
 }
 
@@ -127,7 +128,7 @@ module.exports = {
       }, m('i', {
         'data-icon': '['
       })) : null
-    ]);
+        ]);
 
     var panel;
     if (activeTab === 'members') panel = memberView(ctrl);

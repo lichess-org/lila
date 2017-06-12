@@ -43,7 +43,7 @@ module.exports = {
       tour.start();
     });
   },
-  onSync: function() {
-    if (window.Shepherd && Shepherd.activeTour) Shepherd.activeTour.next()
-  }
+  // onSync: function() {
+  //   if (window.Shepherd && Shepherd.activeTour) Shepherd.activeTour.next()
+  // }
 };

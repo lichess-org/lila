@@ -21,7 +21,7 @@ module.exports = {
     };
 
     var doSubmit = throttle(500, false, function(text) {
-      root.study.contribute('setComment', {
+      root.study.makeChange('setComment', {
         ch: current().chapterId,
         path: current().path,
         text: text
@@ -68,7 +68,7 @@ module.exports = {
       },
       submit: submit,
       delete: function(chapterId, path, id) {
-        root.study.contribute('deleteComment', {
+        root.study.makeChange('deleteComment', {
           ch: chapterId,
           path: path,
           id: id

@@ -17,7 +17,7 @@ case class AnaMove(
     path: String,
     chapterId: Option[String],
     promotion: Option[chess.PromotableRole],
-    unsync: Boolean
+    local: Boolean // if local, do not affect the server state
 ) {
 
   def branch: Valid[Branch] =
@@ -65,6 +65,6 @@ object AnaMove {
     path = path,
     chapterId = d str "ch",
     promotion = d str "promotion" flatMap chess.Role.promotable,
-    unsync = ~(d boolean "unsync")
+    local = ~(d boolean "local")
   )
 }

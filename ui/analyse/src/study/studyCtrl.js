@@ -22,14 +22,17 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
 
   var vm = (function() {
     var isManualChapter = data.chapter.id !== data.position.chapterId;
-    var synced = !ctrl.vm.initialPath && !isManualChapter && !practiceData;
+    var sticked = data.features.sticky && !ctrl.vm.initialPath && !isManualChapter && !practiceData;
     return {
       loading: false,
       nextChapterId: false,
       tab: m.prop(data.chapters.length > 1 ? 'chapters' : 'members'),
-      behind: synced ? false : 0, // false if syncing, else incremental number of missed event
-      catchingUp: false, // was behind, is syncing back
-      chapterId: synced ? null : data.chapter.id // only useful when not synchronized
+      mode: {
+        sticky: sticked,
+        write: true
+      },
+      catchingUp: false, // in the process of sticking
+      chapterId: sticked ? null : data.chapter.id // only useful when not sticking
     };
   })();
 
@@ -53,6 +56,7 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
     startTour: startTour,
     notif: notif
   });
+
   var chapters = chapterCtrl(data.chapters, send, lichess.partial(vm.tab, 'chapters'), lichess.partial(xhr.chapterConfig, data.id), ctrl);
 
   var currentChapterId = function() {
@@ -65,15 +69,15 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
     return ctrl.userId === data.chapter.ownerId;
   };
 
-  var contributing = function() {
-    return members.canContribute() && vm.behind === false;
+  var isWriting = function() {
+    return vm.mode.write && members.canContribute();
   };
 
-  var contribute = function(t, d) {
-    if (contributing()) {
+  var makeChange = function(t, d) {
+    if (isWriting()) {
       send(t, d);
       return true;
-    } else if (!members.canContribute()) vm.behind = 0;
+    } else if (!members.canContribute()) vm.mode.sticky = false;
   };
 
   var commentForm = commentFormCtrl(ctrl);
@@ -86,12 +90,17 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
     req.ch = data.position.chapterId;
     return req;
   }
-  if (vm.behind === false) ctrl.userJump(data.position.path);
+  if (vm.mode.sticky) ctrl.userJump(data.position.path);
 
   var configureAnalysis = function() {
     if (ctrl.embed) return;
+    var canContribute = members.canContribute();
+    // unwrite if member lost priviledges
+    vm.mode.write = vm.mode.write && canContribute;
+    // unstick if study becomes non-sticky
+    vm.mode.sticky = vm.mode.sticky && data.features.sticky;
     lichess.pubsub.emit('chat.writeable')(data.features.chat);
-    lichess.pubsub.emit('chat.permissions')({local: members.canContribute()});
+    lichess.pubsub.emit('chat.permissions')({local: canContribute});
     var computer = data.chapter.features.computer || data.chapter.practice;
     if (!computer) ctrl.getCeval().enabled(false);
     ctrl.getCeval().allowed(computer);
@@ -124,7 +133,7 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
 
     ctrl.chessground = undefined; // don't apply changes to old cg; wait for new cg
 
-    if (vm.behind === false || vm.catchingUp) ctrl.userJump(data.position.path);
+    if (vm.mode.sticky || vm.catchingUp) ctrl.userJump(data.position.path);
     else ctrl.userJump('');
 
     configurePractice();
@@ -142,26 +151,13 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
 
   var activity = function(userId) {
     members.setActive(userId);
-    if (vm.behind !== false && vm.behind < 99) {
-      vm.behind++;
-      if (vm.behind === 1 && lichess.once('study-offline')) tours.offline();
-    }
   };
 
   var onSetPath = throttle(300, false, function(path) {
-    if (path !== data.position.path) contribute("setPath", addChapterId({
+    if (path !== data.position.path) makeChange("setPath", addChapterId({
       path: path
     }));
   });
-
-  var resync = function() {
-    vm.chapterId = null;
-    vm.catchingUp = true;
-    xhrReload().then(function() {
-      vm.behind = false;
-      m.redraw();
-    });
-  };
 
   if (members.canContribute()) form.openIfNew();
 
@@ -177,7 +173,7 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
     config.drawable.onChange = function(shapes) {
       if (members.canContribute()) {
         ctrl.tree.setShapes(shapes, ctrl.vm.path);
-        contribute("shapes", addChapterId({
+        makeChange("shapes", addChapterId({
           path: ctrl.vm.path,
           shapes: shapes
         }));
@@ -222,20 +218,20 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
       setTimeout(lichess.partial(commentForm.onSetPath, path, node), 100);
     },
     deleteNode: function(path) {
-      contribute("deleteNode", addChapterId({
+      makeChange("deleteNode", addChapterId({
         path: path,
         jumpTo: ctrl.vm.path
       }));
     },
     promote: function(path, toMainline) {
-      contribute("promote", addChapterId({
+      makeChange("promote", addChapterId({
         toMainline: toMainline,
         path: path
       }));
     },
     setChapter: function(id, force) {
       if (id === currentChapterId() && !force) return;
-      if (!contribute("setChapter", id)) {
+      if (!makeChange("setChapter", id)) {
         vm.chapterId = id;
         xhrReload();
       }
@@ -243,7 +239,21 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
       vm.nextChapterId = id;
       m.redraw();
     },
-    toggleSync: function() {
+    toggleSticky: function() {
+      if (!data.features.sticky) {
+        vm.mode.sticky = false;
+      }
+      else if (vm.mode.sticky) {
+        vm.mode.sticky = false;
+        vm.chapterId = currentChapterId();
+      } else {
+        vm.mode.sticky = true;
+        vm.chapterId = null;
+        vm.catchingUp = true;
+        xhrReload();
+      }
+    },
+    toggleWrite: function() {
       if (vm.behind !== false) {
         tours.onSync();
         resync();
@@ -252,7 +262,7 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
         vm.chapterId = currentChapterId();
       }
     },
-    contribute: contribute,
+    makeChange: makeChange,
     startTour: startTour,
     userJump: ctrl.userJump,
     currentNode: currentNode,
@@ -314,8 +324,7 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
       reload: xhrReload,
       changeChapter: function(d) {
         d.w && activity(d.w.u);
-        if (vm.behind && d.w && d.w.u === ctrl.userId) resync();
-        else if (vm.behind === false) xhrReload();
+        if (vm.mode.sticky) xhrReload();
       },
       members: function(d) {
         members.update(d);

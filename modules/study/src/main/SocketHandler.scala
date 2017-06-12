@@ -61,7 +61,7 @@ private[study] final class SocketHandler(
             for {
               userId <- member.userId
               chapterId <- anaMove.chapterId
-              if !anaMove.unsync
+              if !anaMove.local
             } api.addNode(
               userId,
               studyId,
@@ -84,7 +84,7 @@ private[study] final class SocketHandler(
             for {
               userId <- member.userId
               chapterId <- anaDrop.chapterId
-              if !anaDrop.unsync
+              if !anaDrop.local
             } api.addNode(
               userId,
               studyId,

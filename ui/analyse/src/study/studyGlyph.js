@@ -45,7 +45,7 @@ module.exports = {
     };
 
     var doToggleGlyph = throttle(500, false, function(id) {
-      root.study.contribute('toggleGlyph', root.study.withPosition({
+      root.study.makeChange('toggleGlyph', root.study.withPosition({
         id: id
       }));
     });
