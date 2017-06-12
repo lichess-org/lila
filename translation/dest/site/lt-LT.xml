@@ -431,7 +431,10 @@
   <string name="horizontalGreenProgressBars">Horizontalios, žalios eigos juostos</string>
   <string name="soundWhenTimeGetsCritical">Garsas pasiekus kritinę laiko ribą</string>
   <string name="gameBehavior">Žaidimo elgesys</string>
-  <string name="howDoYouMovePieces">Kaip jūs atliekate ėjimus?</string>
+  <string name="howDoYouMovePieces">Kaip jūs darote ėjimus?</string>
+  <string name="clickTwoSquares">Spustelėjant du langelius</string>
+  <string name="dragPiece">Tempiant figūrą</string>
+  <string name="bothClicksAndDrag">Tiek spustelėjant, tiek tempiant</string>
   <string name="premovesPlayingDuringOpponentTurn">Išankstiniai ėjimai (ėjimas varžovo ėjimo metu)</string>
   <string name="takebacksWithOpponentApproval">Ėjimų atšaukimas (su varžovo sutikimu)</string>
   <string name="promoteToQueenAutomatically">Automatiškai paaukštinti į valdovę</string>
