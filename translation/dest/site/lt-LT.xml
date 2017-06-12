@@ -11,7 +11,7 @@
   <string name="aiNameLevelAiLevel">%1$s lygis Nr. %2$s</string>
   <string name="level">Lygis</string>
   <string name="toggleTheChat">Įjungti / išjungti pokalbį</string>
-  <string name="toggleSound">Įjungti/išjungti garsus</string>
+  <string name="toggleSound">Įjungti / išjungti garsus</string>
   <string name="chat">Pokalbis</string>
   <string name="resign">Pasiduoti</string>
   <string name="checkmate">Šachas ir matas</string>
@@ -19,7 +19,7 @@
   <string name="white">Baltieji</string>
   <string name="black">Juodieji</string>
   <string name="randomColor">Atsitiktinė spalva</string>
-  <string name="createAGame">Sukurti žaidimą</string>
+  <string name="createAGame">Kurti žaidimą</string>
   <string name="whiteIsVictorious">Baltieji laimėjo</string>
   <string name="blackIsVictorious">Juodieji laimėjo</string>
   <string name="kingInTheCenter">Karalius centre</string>
