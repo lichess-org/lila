@@ -425,7 +425,7 @@
   <string name="privacy">Privatsphäre</string>
   <string name="letOtherPlayersFollowYou">Anderen erlauben, mir zu folgen</string>
   <string name="letOtherPlayersChallengeYou">Anderen erlauben, mich herauszufordern</string>
-  <string name="letOtherPlayersInviteYouToStudy">Zulassen, dass dich andere Spieler zu einer Studie einladen</string>
+  <string name="letOtherPlayersInviteYouToStudy">Erlaube anderen Spielern, dich zu einer Studie einzuladen</string>
   <string name="sound">Ton</string>
   <string name="yourPreferencesHaveBeenSaved">Deine Einstellungen wurden gespeichert.</string>
   <string name="none">Keine</string>
@@ -590,7 +590,7 @@
   <string name="enableKidMode">Kindermodus aktivieren</string>
   <string name="disableKidMode">Kindermodus deaktivieren</string>
   <string name="security">Sicherheit</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Dies ist eine Liste aller Geräte, die mit deinem Konto verknüpft sind. Entferne alle Geräte, die du nicht kennst.</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Dies ist eine Liste aller Geräte, die mit deinem Konto verknüpft sind. Entferne alle Sitzungen, die du nicht kennst.</string>
   <string name="alternativelyYouCanX">Alternativ kannst du %s.</string>
   <string name="revokeAllSessions">alle Sitzungen beenden</string>
   <string name="playChessEverywhere">Spiele Schach überall</string>
