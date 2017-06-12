@@ -220,7 +220,7 @@
   <string name="joinTeam">Dołącz do klubu</string>
   <string name="quitTeam">Opuść klub</string>
   <string name="anyoneCanJoin">Każdy może dołączyć</string>
-  <string name="aConfirmationIsRequiredToJoin">Dołączenie wymaga potwierdzenia</string>
+  <string name="aConfirmationIsRequiredToJoin">Dołączenie wymaga zatwierdzenia</string>
   <string name="joiningPolicy">Reguły dołączenia</string>
   <string name="teamLeader">Kapitan</string>
   <string name="teamBestPlayers">Najlepsi gracze</string>
