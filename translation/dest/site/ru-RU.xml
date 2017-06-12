@@ -312,6 +312,7 @@
   <string name="profileCompletion">Заполненность профиля: %s</string>
   <string name="xRating">%s рейтинг</string>
   <string name="ifNoneLeaveEmpty">Если нет, оставьте пустым</string>
+  <string name="gameCompletionRate">Завершённых игр: %s</string>
   <string name="profile">Профиль</string>
   <string name="editProfile">Редактировать профиль</string>
   <string name="firstName">Имя</string>
@@ -420,6 +421,9 @@
   <string name="pieceDestinations">Показывать все возможные ходы</string>
   <string name="boardCoordinates">Координаты доски (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Показывать список ходов</string>
+  <string name="pgnPieceNotation">Запись фигуры в PGN</string>
+  <string name="chessPieceSymbol">Символ шахматной фигуры</string>
+  <string name="pgnLetter">Письменная запись PGN (K, Q, R, B, N)</string>
   <string name="chessClock">Часы</string>
   <string name="tenthsOfSeconds">Десятые секунд</string>
   <string name="never">Никогда</string>
@@ -427,6 +431,10 @@
   <string name="horizontalGreenProgressBars">Горизонтальный зелёный индикатор прогресса</string>
   <string name="soundWhenTimeGetsCritical">Звук, когда время подходит к концу</string>
   <string name="gameBehavior">Настройки игры</string>
+  <string name="howDoYouMovePieces">Как вы передвигаете фигуры?</string>
+  <string name="clickTwoSquares">Нажатием на две клетки</string>
+  <string name="dragPiece">Перетаскиванием фигуры</string>
+  <string name="bothClicksAndDrag">Обоими способами</string>
   <string name="premovesPlayingDuringOpponentTurn">Предварительный ход (пока ходит противник)</string>
   <string name="takebacksWithOpponentApproval">Возвраты (с согласия противника)</string>
   <string name="promoteToQueenAutomatically">Пешка превращается в ферзя автоматически</string>
@@ -434,6 +442,7 @@
   <string name="privacy">Приватность</string>
   <string name="letOtherPlayersFollowYou">Позволить другим наблюдать за мной</string>
   <string name="letOtherPlayersChallengeYou">Другие игроки могут пригласить меня на игру</string>
+  <string name="letOtherPlayersInviteYouToStudy">Позволить другим игрокам пригласить вас на изучение</string>
   <string name="sound">Звук</string>
   <string name="yourPreferencesHaveBeenSaved">Ваши настройки сохранены.</string>
   <string name="none">Нет</string>
@@ -586,8 +595,15 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Можно использовать колёсико над доской для перемотки ходов.</string>
   <string name="analysisShapesHowTo">Чтобы рисовать кружки и стрелки на доске, используйте Shift+левую кнопку мыши или правую кнопку.</string>
   <string name="confirmResignation">Подтвердить капитуляцию</string>
+  <string name="inputMovesWithTheKeyboard">Вводить ходы с помощью клавиатуры</string>
   <string name="letOtherPlayersMessageYou">Позволить присылать Вам сообщения</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Рокировать перемещением короля на две клетки или нажатием на ладью</string>
+  <string name="castleByMovingTwoSquares">Рокировать перемещением короля на две клетки</string>
+  <string name="castleByMovingOntoTheRook">Рокировать нажатием на ладью</string>
   <string name="shareYourInsightsData">Поделиться статистикой</string>
+  <string name="withNobody">Ни с кем</string>
+  <string name="withFriends">С друзьями</string>
+  <string name="withEverybody">Со всеми</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Вы уже активировали этот адрес: %s</string>
   <string name="kidMode">Детский режим</string>
   <string name="playChessEverywhere">Играйте в шахматы везде</string>
