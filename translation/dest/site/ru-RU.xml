@@ -107,7 +107,7 @@
   <string name="rating">Рейтинг</string>
   <string name="ratingStats">Статистика рейтинга</string>
   <string name="username">Имя пользователя</string>
-  <string name="usernameOrEmail">Логин или Email</string>
+  <string name="usernameOrEmail">Логин или электронная почта</string>
   <string name="password">Пароль</string>
   <string name="haveAnAccount">Уже есть учётная запись?</string>
   <string name="changePassword">Сменить пароль</string>
