@@ -562,6 +562,12 @@
   <string name="withEverybody">กับทุกคน</string>
   <string name="youHaveAlreadyRegisteredTheEmail">คุณได้ลงทะเบียนอีเมลไว้แล้ว: %s</string>
   <string name="kidMode">โหมดเด็ก</string>
+  <string name="kidModeExplanation">สิ่งนี้เป็นเรื่องเกี่ยวกับความปลอดภัย ในโหมดสำหรับเด็ก การสื่อสารของไซต์ทั้งหมดจะถูกปิด จงใช้งานสิ่งนี้สำหรับเด็กและนักเรียนของคุณ เพื่อปกป้องพวกเขาจากผู้ใช้อินเทอร์เน็ตอื่นๆ</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">ในโหมดสำหรับเด็ก โลโก้ lichess จะมีไอคอน %s เพื่อให้คุณรู้ว่าเด็กๆของคุณปลอดภัย</string>
+  <string name="enableKidMode">เปิดใช้งานโหมดสำหรับเด็ก</string>
+  <string name="disableKidMode">ปิดใช้งานโหมดสำหรับเด็ก</string>
+  <string name="security">ความปลอดภัย</string>
+  <string name="alternativelyYouCanX">อีกวิธีหนึ่งคือคุณสามารถ %s</string>
   <string name="playChessEverywhere">เล่นหมากรุกได้ทุกที่</string>
   <string name="asFreeAsLichess">อิสระเหมือนดั่ง lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">สรรสร้างเพื่อคนรักหมากรุก ไม่ใช่เพื่อเงินตรา</string>
