@@ -587,6 +587,9 @@
   <string name="enableKidMode">Aktivera barnsäkert läge</string>
   <string name="disableKidMode">Avaktivera barnsäkert läge</string>
   <string name="security">Säkerhet</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Detta är en lista över enheter som har loggat in på ditt konto. Återkalla alla sessioner som du inte känner igen.</string>
+  <string name="alternativelyYouCanX">Alternativt kan du %s.</string>
+  <string name="revokeAllSessions">återkalla alla sessioner</string>
   <string name="playChessEverywhere">Spela schack var du vill</string>
   <string name="asFreeAsLichess">Lika gratis som lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Byggt med kärlek till schacket, inte pengar</string>
@@ -605,6 +608,7 @@
     <item quantity="other">Tillgänglig på %s olika språk!</item>
   </plurals>
   <string name="gameAnalysis">Partianalys</string>
+  <string name="xHostsY">%1$s är värd för %2$s</string>
   <string name="xLikesY">%1$s gillar %2$s</string>
   <string name="lobby">Lobby</string>
   <string name="yourScore">Dina poäng: %s</string>
@@ -617,6 +621,7 @@
   <string name="usernameAlreadyUsed">Användarnamnet är upptaget, vänligen försök med ett annat.</string>
   <string name="usernameStartNoNumber">Användarnamnet får inte inledas med ett nummer.</string>
   <string name="usernameUnacceptable">Detta användarnamn är inte acceptabelt.</string>
+  <string name="directlySupportLichess">Stöd lichess direkt</string>
   <string name="chessBasics">Schackets grunder</string>
   <string name="coaches">Coacher</string>
   <string name="invalidPgn">Ogiltig PGN</string>
