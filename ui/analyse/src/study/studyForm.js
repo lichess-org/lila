@@ -64,19 +64,16 @@ module.exports = {
         m('h2', (isNew ? 'Create' : 'Edit') + ' study'),
         m('form.material.form.align-left', {
           onsubmit: function(e) {
-            ctrl.save({
-              name: e.target.querySelector('#study-name').value,
-              visibility: e.target.querySelector('#study-visibility').value,
-              computer: e.target.querySelector('#study-computer').value,
-              explorer: e.target.querySelector('#study-explorer').value,
-              cloneable: e.target.querySelector('#study-cloneable').value,
-              chat: e.target.querySelector('#study-chat').value
-            }, isNew);
+            var obj = {};
+            'name visibility computer explorer cloneable chat sticky'.split(' ').forEach(function(n) {
+              obj[n] = e.target.querySelector('#study-' + n).value;
+            });
+            ctrl.save(obj, isNew);
             e.stopPropagation();
             return false;
           }
         }, [
-          m('div.game.form-group', [
+          m('div.form-group', [
             m('input#study-name', {
               required: true,
               minlength: 3,
@@ -93,35 +90,44 @@ module.exports = {
             m('i.bar')
           ]),
           m('div', [
-            m('div.game.form-group.half', select({
+            m('div.form-group.half', select({
               key: 'visibility',
               name: 'Visibility',
               choices: visibilityChoices,
               selected: data.visibility
             })),
-            m('div.game.form-group.half', select({
+            m('div.form-group.half', select({
               key: 'cloneable',
               name: 'Allow cloning',
               choices: userSelectionChoices,
               selected: data.settings.cloneable
             })),
-            m('div.game.form-group.half', select({
+            m('div.form-group.half', select({
               key: 'computer',
               name: 'Computer analysis',
               choices: userSelectionChoices,
               selected: data.settings.computer
             })),
-            m('div.game.form-group.half', select({
+            m('div.form-group.half', select({
               key: 'explorer',
               name: 'Opening explorer',
               choices: userSelectionChoices,
               selected: data.settings.explorer
             })),
-            m('div.game.form-group.half', select({
+            m('div.form-group.half', select({
               key: 'chat',
               name: 'Chat',
               choices: userSelectionChoices,
               selected: data.settings.chat
+            })),
+            m('div.form-group.half', select({
+              key: 'sticky',
+              name: 'Sticky mode',
+              choices: [
+                [true, 'Yes: keep everyone on the same ply'],
+                [false, 'No: let people browse freely']
+              ],
+              selected: data.settings.sticky
             })),
           ]),
           dialog.button(isNew ? 'Start' : 'Save')
