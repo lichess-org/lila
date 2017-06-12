@@ -228,7 +228,7 @@
   <string name="xJoinedTeamY">%1$s dołączył do klubu %2$s</string>
   <string name="xCreatedTeamY">%1$s stworzył klub %2$s</string>
   <string name="averageElo">Średni ranking</string>
-  <string name="location">Miejscowość</string>
+  <string name="location">Lokalizacja</string>
   <string name="settings">Ustawienia</string>
   <string name="filterGames">Filtruj gry</string>
   <string name="reset">Przywróć domyślne</string>
@@ -411,7 +411,7 @@
   <string name="materialDifference">Przewaga materialna</string>
   <string name="closeAccount">Zamknij konto</string>
   <string name="changedMindDoNotCloseAccount">Zmieniłem zdanie, nie chcę zamykać swojego konta</string>
-  <string name="closeAccountExplanation">Czy jesteś pewien, że chcesz zamknąć swoje konto? Zamknięcie konta jest decyzją nieodwracalną. Nie będziesz mógł się więcej zalogować, a twoja strona profilowa nie będzie już dostępna.</string>
+  <string name="closeAccountExplanation">Czy jesteś pewien, że chcesz zamknąć swoje konto? Zamknięcie konta jest decyzją nieodwracalną. Nie będziesz mógł się więcej zalogować, a Twoja strona profilowa nie będzie już dostępna.</string>
   <string name="thisAccountIsClosed">Konto zostało zamknięte.</string>
   <string name="invalidUsernameOrPassword">Niepoprawna nazwa użytkownika lub niepoprawne hasło</string>
   <string name="emailMeALink">Wyślij link</string>
@@ -442,7 +442,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatyczny remis po trzykrotnym powtórzeniu pozycji</string>
   <string name="privacy">Prywatność</string>
   <string name="letOtherPlayersFollowYou">Inni gracze mogą Cię obserwować</string>
-  <string name="letOtherPlayersChallengeYou">Inni gracze mogą wysłać Ci wyzwanie</string>
+  <string name="letOtherPlayersChallengeYou">Inni gracze mogą rzucić Ci wyzwanie</string>
   <string name="letOtherPlayersInviteYouToStudy">Pozwól innym zapraszać Cię do studiowania partii</string>
   <string name="sound">Dźwięk</string>
   <string name="yourPreferencesHaveBeenSaved">Twoje ustawienia zostały zapisane.</string>
@@ -511,7 +511,7 @@
   <string name="moveConfirmation">Potwierdzenie ruchu</string>
   <string name="inCorrespondenceGames">W grze korespondencyjnej</string>
   <string name="ifRatingIsPlusMinusX">O rankingu ± %s</string>
-  <string name="onlyFriends">Tylko przyjaciele</string>
+  <string name="onlyFriends">Tylko znajomi</string>
   <string name="menu">Menu</string>
   <string name="castling">Roszada</string>
   <string name="whiteCastlingKingside">Białe O-O</string>
@@ -597,7 +597,7 @@
   <string name="analysisShapesHowTo">Naciśnij shift i kliknij lub kliknij prawym przyciskiem myszy aby rysować okręgi i strzałki na szachownicy.</string>
   <string name="confirmResignation">Potwierdź rezygnację</string>
   <string name="inputMovesWithTheKeyboard">Wprowadzaj ruchy za pomocą klawiatury</string>
-  <string name="letOtherPlayersMessageYou">Pozwól innym graczom na pisanie do ciebie</string>
+  <string name="letOtherPlayersMessageYou">Pozwól innym graczom na pisanie do Ciebie</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Przesuwając króla o dwa pola lub na wieżę</string>
   <string name="castleByMovingTwoSquares">Przesuwając króla o dwa pola</string>
   <string name="castleByMovingOntoTheRook">Przesuwając króla na wieżę</string>
