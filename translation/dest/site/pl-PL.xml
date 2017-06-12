@@ -481,7 +481,7 @@
     <item quantity="few">%s zablokowanych</item>
     <item quantity="other">%s zablokowanych</item>
   </plurals>
-  <string name="listBlockedPlayers">Lista zawodników, których zablokowałeś</string>
+  <string name="listBlockedPlayers">Lista zablokowanych graczy</string>
   <string name="human">Człowiek</string>
   <string name="computer">Komputer</string>
   <string name="side">Strona</string>
