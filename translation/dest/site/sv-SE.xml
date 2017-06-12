@@ -606,6 +606,10 @@
   <string name="boardGeometry">Brädets geometri</string>
   <string name="boardTheme">Brädets tema</string>
   <string name="boardSize">Brädets storlek</string>
+  <string name="error.minLength">Minimal längd är %s</string>
+  <string name="error.maxLength">Maximal längd är %s</string>
+  <string name="error.min">Lägst tillåtna är %s</string>
+  <string name="error.max">Högst tillåtna är %s</string>
   <string name="error.unknown">Fel</string>
   <string name="custom">Anpassad</string>
   <string name="notifications">Notifikationer</string>
