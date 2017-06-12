@@ -4,13 +4,13 @@
   <string name="playWithAFriend">Žaisti su draugu</string>
   <string name="playWithTheMachine">Žaisti su kompiuteriu</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Norėdami pakviesti varžovą, pasidalinkite šiuo adresu</string>
-  <string name="gameOver">Žaidimas baigtas</string>
+  <string name="gameOver">Partija baigta</string>
   <string name="waitingForOpponent">Laukiama varžovo</string>
   <string name="waiting">Laukiama</string>
   <string name="yourTurn">Jūsų ėjimas</string>
   <string name="aiNameLevelAiLevel">%1$s lygis Nr. %2$s</string>
   <string name="level">Lygis</string>
-  <string name="toggleTheChat">Įjungti/išjungti pokalbį</string>
+  <string name="toggleTheChat">Įjungti / išjungti pokalbį</string>
   <string name="toggleSound">Įjungti/išjungti garsus</string>
   <string name="chat">Pokalbis</string>
   <string name="resign">Pasiduoti</string>
@@ -501,7 +501,7 @@
   <string name="playOnline">Žaisti internete</string>
   <string name="playOffline">Žaisti be interneto</string>
   <string name="allowAnalytics">Siųsti anoniminę statistiką</string>
-  <string name="shareGameURL">Dalintis partijos URL</string>
+  <string name="shareGameURL">Dalintis partijos adresu</string>
   <string name="error.required">Šį laukelį būtina užpildyti</string>
   <string name="error.email">Neteisingas el.pašto adresas</string>
   <string name="error.email_acceptable">Nepriimtinas el.pašto adresas</string>
@@ -605,12 +605,15 @@
   <string name="withFriends">Su draugais</string>
   <string name="withEverybody">Su visais</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Jūs jau esate susieję šį el. pašto adresą: %s</string>
-  <string name="kidMode">Veiksena vaikams</string>
+  <string name="kidMode">Vaiko veiksena</string>
   <string name="kidModeExplanation">Tai yra dėl saugumo. Vaiko veiksenoje išjungiamas visas bendravimas svetainėje. Įjunkite tai savo vaikams bei moksleiviams, norėdami juos apsaugoti nuo kitų interneto naudotojų.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Vaiko veiksenoje „lichess“ logotipas gauna %s piktogramą tam, kad žinotumėte, jog jūsų vaikai yra saugūs.</string>
   <string name="enableKidMode">Įjungti vaiko veikseną</string>
   <string name="disableKidMode">Išjungti vaiko veikseną</string>
   <string name="security">Saugumas</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Toliau pateikiamas sąrašas įrenginių, kurie yra prisijungę prie jūsų paskyros. Panaikinkite visus seansus, kurių neatpažįstate.</string>
+  <string name="alternativelyYouCanX">Arba galite %s.</string>
+  <string name="revokeAllSessions">atšaukti visus seansus</string>
   <string name="playChessEverywhere">Žaiskite šachmatais visur</string>
   <string name="asFreeAsLichess">Nemokama, kaip ir lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Sukurta iš meilės šachmatams, ne dėl pinigų</string>
@@ -657,5 +660,9 @@
   <string name="error.maxLength">Didžiausias ilgis yra %s</string>
   <string name="error.min">Turi būti didesnis arba lygus %s</string>
   <string name="error.max">Turi būti mažesnis arba lygus %s</string>
+  <string name="error.unknown">Klaida</string>
   <string name="custom">Kitoks</string>
+  <string name="notifications">Pranešimai</string>
+  <string name="challenges">Iššūkiai</string>
+  <string name="perfRatingX">Reitingas: %s</string>
 </resources>
