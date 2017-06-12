@@ -442,6 +442,7 @@
   <string name="privacy">Privatumas</string>
   <string name="letOtherPlayersFollowYou">Leisti kitiems žaidėjams jus sekti</string>
   <string name="letOtherPlayersChallengeYou">Leisti kitiems žaidėjams pakviesti jus partijai</string>
+  <string name="letOtherPlayersInviteYouToStudy">Leisti kitiems žaidėjams pakviesti jus į studiją</string>
   <string name="sound">Garsas</string>
   <string name="yourPreferencesHaveBeenSaved">Jūsų nuostatos buvo išsaugotos.</string>
   <string name="none">Jokia</string>
@@ -594,6 +595,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Judėti žaidime taip pat galite slinkdami virš lentos.</string>
   <string name="analysisShapesHowTo">Spustelėkite Shift + kairįjį pelės klavišą arba dešinįjį pelės klavišą norėdami piešti ant lentos.</string>
   <string name="confirmResignation">Pasidavimo patvirtinimas</string>
+  <string name="inputMovesWithTheKeyboard">Ėjimų įvedimas su klaviatūra</string>
   <string name="letOtherPlayersMessageYou">Leisti kitiems žaidėjams jums parašyti</string>
   <string name="shareYourInsightsData">Bendrinti jūsų statistiką</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Jūs jau esate susieję šį el. pašto adresą: %s</string>
