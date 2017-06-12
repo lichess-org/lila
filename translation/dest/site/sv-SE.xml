@@ -404,7 +404,7 @@
   <string name="moveListWhilePlaying">Lista med drag under spelets gång</string>
   <string name="pgnPieceNotation">Dragnotation</string>
   <string name="chessPieceSymbol">Schackpjäs-symbol</string>
-  <string name="pgnLetter">Algebraisk notation (K, Q, R, B, N)</string>
+  <string name="pgnLetter">Algebraisk (K, Q, R, B, N)</string>
   <string name="chessClock">Schack-klocka</string>
   <string name="tenthsOfSeconds">Tiondels sekunder</string>
   <string name="never">Aldrig</string>
@@ -445,6 +445,7 @@
   <string name="starting">Startar:</string>
   <string name="allInformationIsPublicAndOptional">All information är allmän och frivillig.</string>
   <string name="yourCityRegionOrDepartment">Din stad, region eller område.</string>
+  <string name="biographyDescription">Berätta om dig själv, vad du gillar med schack, dina favoritöppningar, partier, spelare…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Max: %s tecken.</item>
     <item quantity="other">Max: %s tecken.</item>
@@ -606,8 +607,15 @@
   <string name="boardGeometry">Brädets geometri</string>
   <string name="boardTheme">Brädets tema</string>
   <string name="boardSize">Brädets storlek</string>
-  <string name="error.minLength">Minimal längd är %s</string>
-  <string name="error.maxLength">Maximal längd är %s</string>
+  <string name="pieceSet">Pjäsuppsättning</string>
+  <string name="usernameAlreadyUsed">Användarnamnet är upptaget, vänligen försök med ett annat.</string>
+  <string name="usernameStartNoNumber">Användarnamnet får inte inledas med ett nummer.</string>
+  <string name="chessBasics">Schackets grunder</string>
+  <string name="coaches">Coacher</string>
+  <string name="invalidPgn">Ogiltig PGN</string>
+  <string name="invalidFen">Ogiltig FEN</string>
+  <string name="error.minLength">Minimilängd är %s</string>
+  <string name="error.maxLength">Maximumlängd är %s</string>
   <string name="error.min">Lägst tillåtna är %s</string>
   <string name="error.max">Högst tillåtna är %s</string>
   <string name="error.unknown">Fel</string>
