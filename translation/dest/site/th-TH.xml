@@ -406,6 +406,7 @@
   <string name="privacy">ความเป็นส่วนตัว</string>
   <string name="letOtherPlayersFollowYou">อนุญาตให้ผู้อื่นติดตามคุณได้</string>
   <string name="letOtherPlayersChallengeYou">อนุญาตให้ผู้อื่นท้าดวลเกมกับคุณได้</string>
+  <string name="letOtherPlayersInviteYouToStudy">ให้ผู้เล่นคนอื่นๆ เชิญคุณเพื่อการเรียน</string>
   <string name="sound">เสียง</string>
   <string name="yourPreferencesHaveBeenSaved">การตั้งค่าของคุณถูกบันทึกแล้ว</string>
   <string name="none">ไม่มี</string>
@@ -550,8 +551,15 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">คุณสามารถหมุนเลื่อนเหนือกระดานเพื่อเดินในเกมได้ด้วย</string>
   <string name="analysisShapesHowTo">กด shift+คลิก หรือ คลิกขวา เพื่อวาดวงกลมและลูกศรบนกระดาน</string>
   <string name="confirmResignation">ยืนยันการยอมแพ้</string>
+  <string name="inputMovesWithTheKeyboard">ทำการเดินด้วยแป้นพิมพ์</string>
   <string name="letOtherPlayersMessageYou">อนุญาตให้ผู้อื่นส่งข้อความถึงคุณ</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">เข้าป้อมโดยเดินคิงสองช่องหรือไปที่เรือ</string>
+  <string name="castleByMovingTwoSquares">เข้าป้อมโดยเดินสองช่อง</string>
+  <string name="castleByMovingOntoTheRook">เข้าป้อมโดยเดินไปที่เรือ</string>
   <string name="shareYourInsightsData">แบ่งปันข้อมูลเชิงลึกของคุณ</string>
+  <string name="withNobody">ไม่มีใคร</string>
+  <string name="withFriends">กับเพื่อนๆ</string>
+  <string name="withEverybody">กับทุกคน</string>
   <string name="youHaveAlreadyRegisteredTheEmail">คุณได้ลงทะเบียนอีเมลไว้แล้ว: %s</string>
   <string name="kidMode">โหมดเด็ก</string>
   <string name="playChessEverywhere">เล่นหมากรุกได้ทุกที่</string>
