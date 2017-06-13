@@ -404,6 +404,8 @@
   <string name="pieceDestinations">Προορισμοί κομματιών (έγκυρες κινήσεις και προκινήσεις)</string>
   <string name="boardCoordinates">Συντεταγμένες σκακιέρας (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Λίστα κινήσεων κατά τη διάρκεια της παρτίδας</string>
+  <string name="pgnPieceNotation">PGN σημείωση κομματιού</string>
+  <string name="chessPieceSymbol">Σύμβολο κομματιού στο σκάκι</string>
   <string name="pgnLetter">Γράμματα PGN (K, Q, R, B, N)</string>
   <string name="chessClock">Σκακιστικό χρονόμετρο</string>
   <string name="tenthsOfSeconds">Δέκατα του δευτερολέπτου</string>
@@ -412,6 +414,10 @@
   <string name="horizontalGreenProgressBars">Οριζόντιες πράσινες γραμμές προόδου</string>
   <string name="soundWhenTimeGetsCritical">Ηχητική ειδοποίηση όταν ο χρόνος γίνεται κρίσιμος</string>
   <string name="gameBehavior">Συμπεριφορά παιχνιδιού</string>
+  <string name="howDoYouMovePieces">Πώς μετακινείτε τα κομμάτια;</string>
+  <string name="clickTwoSquares">Κάντε κλικ στα δύο τετράγωνα</string>
+  <string name="dragPiece">Σύρετε ένα κομμάτι</string>
+  <string name="bothClicksAndDrag">Κάντε κλικ και σύρετε</string>
   <string name="premovesPlayingDuringOpponentTurn">Προκινήσεις (παιγμένες κατά τον χρόνο σκέψης του αντιπάλου)</string>
   <string name="takebacksWithOpponentApproval">Ανακλήσεις (με έγκριση του αντιπάλου)</string>
   <string name="promoteToQueenAutomatically">Αυτόματη προαγωγή σε βασίλισσα</string>
@@ -419,6 +425,7 @@
   <string name="privacy">Απόρρητο</string>
   <string name="letOtherPlayersFollowYou">Επιτρέψτε σε άλλους παίκτες να σας ακολουθούν</string>
   <string name="letOtherPlayersChallengeYou">Επιτρέψτε σε άλλους παίκτες να σας προκαλούν σε παιχνίδι</string>
+  <string name="letOtherPlayersInviteYouToStudy">Αφήστε άλλους παίκτες να σας προσκαλέσουν στην μελέτη</string>
   <string name="sound">Ήχος</string>
   <string name="yourPreferencesHaveBeenSaved">Οι προτιμήσεις σας αποθηκεύτηκαν.</string>
   <string name="none">Καθόλου</string>
@@ -569,6 +576,9 @@
   <string name="confirmResignation">Επιβεβαιώστε παραίτηση</string>
   <string name="inputMovesWithTheKeyboard">Εισάγετε κινήσεις με το πληκτρολόγιο</string>
   <string name="letOtherPlayersMessageYou">Επιτρέψτε άλλους παίκτες να σας στέλνουν μηνύματα</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Ροκέ μετακινώντας το βασιλιά δύο τετράγωνα, ή πάνω στον πύργο</string>
+  <string name="castleByMovingTwoSquares">Ροκέ μετακινώντας ανά δύο τετράγωνα</string>
+  <string name="castleByMovingOntoTheRook">Ροκέ μετακινώντας πάνω στον πύργο</string>
   <string name="shareYourInsightsData">Κοινή χρήση των δεδομένων σας</string>
   <string name="withNobody">Με κανέναν</string>
   <string name="withFriends">Με φίλους</string>
