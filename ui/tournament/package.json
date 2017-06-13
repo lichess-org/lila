@@ -30,8 +30,8 @@
   },
   "dependencies": {
     "chessground": "^v6.4",
-    "common": "file:../common",
-    "game": "file:../game",
+    "common": "link:../common",
+    "game": "link:../game",
     "mithril": "github:ornicar/mithril.js#lila-1"
   }
 }

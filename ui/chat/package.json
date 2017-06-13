@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "@types/jquery": "^2.0",
-    "types": "file:../types",
+    "types": "link:../types",
     "browserify": "^14",
     "gulp": "^3",
     "gulp-sourcemaps": "^2",

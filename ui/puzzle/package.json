@@ -31,10 +31,10 @@
   },
   "dependencies": {
     "chessground": "^6.4",
-    "common": "file:../common",
-    "chess": "file:../chess",
-    "tree": "file:../tree",
-    "ceval": "file:../ceval",
+    "common": "link:../common",
+    "chess": "link:../chess",
+    "tree": "link:../tree",
+    "ceval": "link:../ceval",
     "mithril": "github:ornicar/mithril.js#lila-vdom-only-2"
   }
 }

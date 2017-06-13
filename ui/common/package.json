@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "typescript": "^2",
-    "types": "file:../types"
+    "types": "link:../types"
   },
   "dependencies": {
   }

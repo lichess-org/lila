@@ -14,10 +14,8 @@ build_ts() {
   echo "build_ts" "$@"
   set -ev
   cd ui/$1
-  grep ': "file:' package.json | cut -d'"' -f2 | xargs -t yarn link
   yarn install --mutex file:$YARN_MUTEX
   yarn run compile
-  yarn link
 }
 
 build() {
@@ -25,12 +23,9 @@ build() {
   set -ev
   app=$1
   cd ui/$app
-  grep ': "file:' package.json | cut -d'"' -f2 | xargs -t yarn link
   yarn install --mutex file:$YARN_MUTEX
   gulp $target
 }
-
-(cd ui/types && yarn link)
 
 if type -p parallel; then # parallel execution!
   if [ -z "$P_OPTS" -a ! -e ~/.parallel/config ]; then

@@ -29,12 +29,12 @@
     "@types/jquery": "^2.0",
     "@types/nodeunit": "0.0.30",
     "nodeunit": "^0.11.0",
-    "types": "file:../types",
+    "types": "link:../types",
     "typescript": "^2"
   },
   "dependencies": {
-    "chess": "file:../chess",
-    "common": "file:../common",
+    "chess": "link:../chess",
+    "common": "link:../common",
     "defer-promise": "^1.0.1",
     "mithril": "github:ornicar/mithril.js#lila-vdom-only-2"
   }

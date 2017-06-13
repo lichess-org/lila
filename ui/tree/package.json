@@ -23,9 +23,9 @@
   },
   "devDependencies": {
     "typescript": "^2",
-    "types": "file:../types"
+    "types": "link:../types"
   },
   "dependencies": {
-    "common": "file:../common"
+    "common": "link:../common"
   }
 }

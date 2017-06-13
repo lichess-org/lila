@@ -2,8 +2,9 @@
 # yarn lockfile v1
 
 
-"types@file:../types":
-  version "1.0.0"
+"types@link:../types":
+  version "0.0.0"
+  uid ""
 
 typescript@^2:
   version "2.3.2"
