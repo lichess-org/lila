@@ -49,7 +49,7 @@ private[round] final class SocketHandler(
     member.playerIdOption.fold[Handler.Controller](({
       case ("p", o) => ping(o)
       case ("talk", o) => o str "d" foreach { messenger.watcher(gameId, member, _) }
-      case ("outoftime", _) => send(QuietFlag)
+      case ("outoftime", _) => send(QuietFlag) // mobile app BC
       case ("flag", o) => clientFlag(o, none) foreach send
     }: Handler.Controller) orElse evalCacheHandler(member, me) orElse lila.chat.Socket.in(
       chatId = s"$gameId/w",
@@ -89,7 +89,7 @@ private[round] final class SocketHandler(
         case ("draw-force", _) => send(DrawForce(playerId))
         case ("abort", _) => send(Abort(playerId))
         case ("moretime", _) => send(Moretime(playerId))
-        case ("outoftime", _) => send(QuietFlag)
+        case ("outoftime", _) => send(QuietFlag) // mobile app BC
         case ("flag", o) => clientFlag(o, playerId.some) foreach send
         case ("bye2", _) => socket ! Bye(ref.color)
         case ("talk", o) => o str "d" foreach { messenger.owner(gameId, member, _) }

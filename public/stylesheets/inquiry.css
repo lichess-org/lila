@@ -60,15 +60,15 @@ body {
 #inquiry .reports .expendable {
   padding: 4px 20px 20px 20px;
   background: #525252;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 #inquiry .reports:hover {
   overflow: visible;
 }
 #inquiry .reports:hover .expendable {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
   z-index: 2;
   border-bottom: 1px solid #666;
   box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.4);

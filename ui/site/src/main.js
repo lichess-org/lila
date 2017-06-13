@@ -333,7 +333,7 @@ lichess.topMenuIntent = function() {
 
       function setMoment() {
         // check that locale was loaded
-        if (!window.moment_locale_url) lichess.requestIdleCallback(function() {
+        if (!window.momentLocaleUrl) lichess.requestIdleCallback(function() {
           $(".moment-from-now").each(function() {
             this.textContent = moment(this.getAttribute('datetime')).fromNow();
           });
@@ -347,8 +347,8 @@ lichess.topMenuIntent = function() {
         });
       }
 
-      if (window.moment_locale_url) lichess.loadScript(moment_locale_url, {noVersion: true}).then(function() {
-        delete window.moment_locale_url;
+      if (window.momentLocaleUrl) lichess.loadScript(momentLocaleUrl, {noVersion: true}).then(function() {
+        delete window.momentLocaleUrl;
         lichess.pubsub.emit('moment.locale_loaded')();
         setMoment();
       });
@@ -367,7 +367,7 @@ lichess.topMenuIntent = function() {
         lichess.pubsub.on('content_loaded', setBlindMode);
       }
 
-      setTimeout(function() {
+      if (!window.customWS) setTimeout(function() {
         if (lichess.socket === null) lichess.socket = lichess.StrongSocket("/socket", false);
       }, 300);
 

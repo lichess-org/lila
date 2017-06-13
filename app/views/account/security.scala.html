@@ -5,17 +5,15 @@
 @account.layout(title = title, active = "security") {
 <div class="content_box no_padding high security">
   <div class="signup_box">
-    <h1 class="lichess_title">Security</h1>
-    <p class="explanation">
-      This is a list of devices that have logged into your account.
-      Revoke any sessions that you do not recognize.
-    </p>
-    @if(sessions.length > 1){
+    <h1 class="lichess_title">@trans.security()</h1>
+    <p class="explanation">@trans.thisIsAListOfDevicesThatHaveLoggedIntoYourAccount()</p>
+    @if(sessions.length > 1) {
     <div class="explanation">
-      Alternatively you can
+      @trans.alternativelyYouCanX {
       <form class="revoke-all" action="@routes.Account.signout("all")" method="POST">
-        <button type="submit" class="button hint--top thin confirm">revoke all sessions</button>
-      </form>.
+        <button type="submit" class="button hint--top thin confirm">@trans.revokeAllSessions()</button>
+      </form>
+      }
     </div>
     }
     <table class="slist">

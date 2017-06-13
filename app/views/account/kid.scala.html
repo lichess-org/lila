@@ -6,22 +6,17 @@
 <div class="content_box small_box high">
   <div class="signup_box">
     <h1 class="lichess_title">@trans.kidMode()</h1>
-    <p class="explanation">
-      This is about safety. In kid mode, all site communications are disabled.
-      Enable this for your children and school students, to protect them from other Internet users.
-    </p>
+    <p class="explanation">@trans.kidModeExplanation()</p>
     <br />
     <br />
     <br />
     <form action="@routes.Account.kidConfirm" method="POST">
-      <input type="submit" class="submit button" value="@if(u.kid) {Disable Kid mode} else {Enable Kid mode}" />
+      <input type="submit" class="submit button" value="@if(u.kid) {@trans.disableKidMode()} else {@trans.enableKidMode()}" />
     </form>
     <br />
     <br />
     <p>
-      In kid mode, the lichess logo gets a
-      <span title="@trans.kidMode()" class="kiddo">😊</span> icon,<br />
-      so you know that it's enabled and your kids are safe.
+      @trans.inKidModeTheLichessLogoGetsIconX(Html(s"""<span title="${trans.kidMode()}" class="kiddo">😊</span>"""))
     </p>
   </div>
 </div>

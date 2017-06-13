@@ -1,4 +1,4 @@
-import { Ctrl, ChatOpts, Line, Tab, ViewModel, Redraw } from './interfaces'
+import { Ctrl, ChatOpts, Line, Tab, ViewModel, Redraw, Permissions, ModerationCtrl } from './interfaces'
 import { presetCtrl } from './preset'
 import { noteCtrl } from './note'
 import { moderationCtrl } from './moderation'
@@ -8,6 +8,8 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
   const data = opts.data;
 
   const pubsub = window.lichess.pubsub;
+
+  let moderation: ModerationCtrl | undefined;
 
   const vm: ViewModel = {
     tab: 'discussion',
@@ -52,12 +54,20 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
 
   const trans = window.lichess.trans(opts.i18n);
 
-  const moderation = opts.permissions.timeout && opts.timeoutReasons ? moderationCtrl({
-    reasons: opts.timeoutReasons,
-    permissions: opts.permissions,
-    send: window.lichess.pubsub.emit('socket.send'),
-    redraw: redraw
-  }) : undefined;
+  function canMod() {
+    return opts.permissions.timeout || opts.permissions.local;
+  }
+
+  function instanciateModeration() {
+    moderation = canMod() ? moderationCtrl({
+      reasons: opts.timeoutReasons || ([{key: 'other', name: 'Inappropriate behavior'}]),
+      permissions: opts.permissions,
+      send: window.lichess.pubsub.emit('socket.send'),
+      redraw: redraw
+    }) : undefined;
+    if (canMod()) opts.loadCss('/assets/stylesheets/chat.mod.css');
+  }
+  instanciateModeration();
 
   const note = data.userId && opts.noteId ? noteCtrl({
     id: opts.noteId,
@@ -78,6 +88,12 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
     vm.writeable = v;
     redraw();
   });
+  pubsub.on('chat.permissions', function(obj: Permissions) {
+    let p: keyof Permissions;
+    for (p in obj) opts.permissions[p] = obj[p];
+    instanciateModeration();
+    redraw();
+  });
 
   const emitEnabled = () => pubsub.emit('chat.enabled')(vm.enabled);
   emitEnabled();
@@ -88,9 +104,9 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
     vm: vm,
     setTab(t: Tab) {
       vm.tab = t
-      redraw()
+        redraw()
     },
-    moderation: moderation,
+    moderation: () => moderation,
     note: note,
     preset: preset,
     post: post,

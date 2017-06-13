@@ -14,12 +14,19 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
   let loading = false;
 
   const open = (username: string) => {
-    loading = true;
-    userModInfo(username).then(d => {
-      data = d;
-      loading = false;
-      opts.redraw();
-    });
+    if (opts.permissions.timeout) {
+      loading = true;
+      userModInfo(username).then(d => {
+        data = d;
+        loading = false;
+        opts.redraw();
+      });
+    } else {
+      data = {
+        id: username,
+        username: username
+      };
+    }
     opts.redraw();
   };
 
@@ -33,7 +40,7 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
     loading: () => loading,
     data: () => data,
     reasons: opts.reasons,
-    permissions: opts.permissions,
+    permissions: () => opts.permissions,
     open: open,
     close: close,
     timeout(reason: ModerationReason) {
@@ -67,73 +74,85 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
   if (ctrl.loading()) return [h('div.loading', spinner())];
   const data = ctrl.data();
   if (!data) return;
-  return [
-    h('div.top', {
-      key: 'mod-' + data.id,
-    }, [
-      h('span.text', {
-        attrs: {'data-icon': '' },
-      }, [userLink(data.username)]),
-      h('span.toggle_chat', {
-        attrs: {'data-icon': 'L'},
-        hook: bind('click', ctrl.close)
-      })
-    ]),
-    h('div.content.moderation', [
-      h('div.infos.block', [
-        window.lichess.numberFormat(data.games) + ' games',
-        data.troll ? 'TROLL' : undefined,
-        data.engine ? 'ENGINE' : undefined,
-        data.booster ? 'BOOSTER' : undefined
-      ].map(t => t && h('span', t)).concat([
-        h('a', {
-          attrs: {
-            href: '/@/' + data.username + '?mod'
-          }
-        }, 'profile')
-      ]).concat(
-        ctrl.permissions.shadowban ? [
-          h('a', {
+  const perms = ctrl.permissions();
+
+  const infos = data.history ? h('div.infos.block', [
+    window.lichess.numberFormat(data.games || 0) + ' games',
+    data.troll ? 'TROLL' : undefined,
+    data.engine ? 'ENGINE' : undefined,
+    data.booster ? 'BOOSTER' : undefined
+  ].map(t => t && h('span', t)).concat([
+    h('a', {
+      attrs: {
+        href: '/@/' + data.username + '?mod'
+      }
+    }, 'profile')
+  ]).concat(
+    perms.shadowban ? [
+      h('a', {
+        attrs: {
+          href: '/mod/' + data.username + '/communication'
+        }
+      }, 'coms')
+    ] : [])) : undefined;
+
+    const timeout = perms.timeout ? h('div.timeout.block', [
+      h('h2', 'Timeout 10 minutes for'),
+      ...ctrl.reasons.map(r => {
+        return h('a.text', {
+          attrs: { 'data-icon': 'p' },
+          hook: bind('click', () => ctrl.timeout(r))
+        }, r.name);
+      }),
+      ...(
+        (data.troll || !perms.shadowban) ? [] : [h('div.shadowban', [
+          'Or ',
+          h('button.button', {
+            hook: bind('click', ctrl.shadowban)
+          }, 'shadowban')
+        ])])
+    ]) : h('div.timeout.block', [
+      h('h2', 'Moderation'),
+      h('a.text', {
+        attrs: { 'data-icon': 'p' },
+        hook: bind('click', () => ctrl.timeout(ctrl.reasons[0]))
+      }, 'Timeout 10 minutes')
+    ]);
+
+    const history = data.history ? h('div.history.block', [
+      h('h2', 'Timeout history'),
+      h('table', h('tbody.slist', {
+        hook: {
+          insert: () => window.lichess.pubsub.emit('content_loaded')()
+        }
+      }, data.history.map(function(e) {
+        return h('tr', [
+          h('td.reason', e.reason),
+          h('td.mod', e.mod),
+          h('td', h('time.moment', {
             attrs: {
-              href: '/mod/' + data.username + '/communication'
+              'data-format': isToday(e.date) ? 'LT' : 'DD/MM/YY',
+              datetime: new Date(e.date).toISOString()
             }
-          }, 'coms')
-        ] : [])),
-      h('div.timeout.block', [
-        h('h2', 'Timeout 10 minutes for'),
-        ...ctrl.reasons.map(r => {
-          return h('a.text', {
-            attrs: { 'data-icon': 'p' },
-            hook: bind('click', () => ctrl.timeout(r))
-          }, r.name);
-        }),
-        ...(
-          (data.troll || !ctrl.permissions.shadowban) ? [] : [h('div.shadowban', [
-            'Or ',
-            h('button.button', {
-              hook: bind('click', ctrl.shadowban)
-            }, 'shadowban')
-          ])])
+          }))
+        ]);
+      })))
+    ]) : undefined;
+
+    return [
+      h('div.top', { key: 'mod-' + data.id }, [
+        h('span.text', {
+          attrs: {'data-icon': '' },
+        }, [userLink(data.username)]),
+        h('span.toggle_chat', {
+          attrs: {'data-icon': 'L'},
+          hook: bind('click', ctrl.close)
+        })
       ]),
-      h('div.history.block', [
-        h('h2', 'Timeout history'),
-        h('table', h('tbody.slist', {
-          hook: {
-            insert: () => window.lichess.pubsub.emit('content_loaded')()
-          }
-        }, data.history.map(function(e) {
-          return h('tr', [
-            h('td.reason', e.reason),
-            h('td.mod', e.mod),
-            h('td', h('time.moment', {
-              attrs: {
-                'data-format': isToday(e.date) ? 'LT' : 'DD/MM/YY',
-                datetime: new Date(e.date).toISOString()
-              }
-            }))
-          ]);
-        })))
+      h('div.content.moderation', [
+        infos,
+        timeout,
+        history
       ])
-    ])
-  ];
+    ];
 };

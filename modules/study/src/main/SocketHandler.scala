@@ -225,7 +225,8 @@ private[study] final class SocketHandler(
     chatId = studyId.value,
     member = member,
     socket = socket,
-    chat = chat
+    chat = chat,
+    canTimeout = Some(() => user.?? { u => api.isContributor(studyId, u.id) })
   )
 
   private def reading[A](o: JsValue)(f: A => Unit)(implicit reader: Reads[A]): Unit =

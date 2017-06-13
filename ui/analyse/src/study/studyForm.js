@@ -6,10 +6,11 @@ var visibilityChoices = [
   ['private', 'Invite only']
 ];
 var userSelectionChoices = [
-  ['everyone', 'Everyone'],
   ['nobody', 'Nobody'],
   ['owner', 'Only me'],
-  ['contributor', 'Contributors']
+  ['contributor', 'Contributors'],
+  ['member', 'Members'],
+  ['everyone', 'Everyone']
 ];
 
 var select = function(s) {
@@ -61,14 +62,15 @@ module.exports = {
       },
       content: [
         m('h2', (isNew ? 'Create' : 'Edit') + ' study'),
-        m('form.material.form', {
+        m('form.material.form.align-left', {
           onsubmit: function(e) {
             ctrl.save({
               name: e.target.querySelector('#study-name').value,
               visibility: e.target.querySelector('#study-visibility').value,
               computer: e.target.querySelector('#study-computer').value,
               explorer: e.target.querySelector('#study-explorer').value,
-              cloneable: e.target.querySelector('#study-cloneable').value
+              cloneable: e.target.querySelector('#study-cloneable').value,
+              chat: e.target.querySelector('#study-chat').value
             }, isNew);
             e.stopPropagation();
             return false;
@@ -114,6 +116,12 @@ module.exports = {
               name: 'Opening explorer',
               choices: userSelectionChoices,
               selected: data.settings.explorer
+            })),
+            m('div.game.form-group.half', select({
+              key: 'chat',
+              name: 'Chat',
+              choices: userSelectionChoices,
+              selected: data.settings.chat
             })),
           ]),
           dialog.button(isNew ? 'Start' : 'Save')

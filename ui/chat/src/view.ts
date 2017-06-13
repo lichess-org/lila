@@ -7,11 +7,13 @@ import { bind } from './util'
 
 export default function(ctrl: Ctrl) {
 
+  const mod = ctrl.moderation();
+
   return h('div#chat.side_box.mchat', {
     class: {
-      mod: !!ctrl.opts.permissions.timeout
+      mod: !!mod
     }
-  }, moderationView(ctrl.moderation) || normalView(ctrl))
+  }, moderationView(mod) || normalView(ctrl))
 }
 
 function normalView(ctrl: Ctrl) {

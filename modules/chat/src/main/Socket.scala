@@ -12,7 +12,8 @@ object Socket {
     chatId: String,
     member: SocketMember,
     socket: ActorRef,
-    chat: ActorSelection
+    chat: ActorSelection,
+    canTimeout: Option[() => Fu[Boolean]] = None
   ): Handler.Controller = {
 
     case ("talk", o) => for {
@@ -25,7 +26,9 @@ object Socket {
       modId <- member.userId
       userId <- data.str("userId")
       reason <- data.str("reason") flatMap ChatTimeout.Reason.apply
-    } chat ! actorApi.Timeout(chatId, modId, userId, reason)
+    } canTimeout.??(ct => ct()) foreach { localTimeout =>
+      chat ! actorApi.Timeout(chatId, modId, userId, reason, local = localTimeout)
+    }
   }
 
   type Send = (String, JsValue, Boolean) => Unit
