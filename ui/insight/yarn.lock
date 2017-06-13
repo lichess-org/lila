@@ -436,8 +436,9 @@ combined-stream@^1.0.5, combined-stream@~1.0.5:
   dependencies:
     delayed-stream "~1.0.0"
 
-"common@file:../common":
-  version "1.0.0"
+"common@link:../common":
+  version "0.0.0"
+  uid ""
 
 concat-map@0.0.1:
   version "0.0.1"

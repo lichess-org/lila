@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "mithril": "github:ornicar/mithril.js#lila-1",
-    "common": "file:../common",
+    "common": "link:../common",
     "numeral": "^1.5"
   }
 }

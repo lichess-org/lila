@@ -33,9 +33,9 @@
   },
   "dependencies": {
     "chessground": "^6.4",
-    "common": "file:../common",
-    "game": "file:../game",
+    "common": "link:../common",
+    "game": "link:../game",
     "snabbdom": "^0.6",
-    "types": "file:../types"
+    "types": "link:../types"
   }
 }

@@ -440,8 +440,9 @@ combined-stream@^1.0.5, combined-stream@~1.0.5:
   dependencies:
     delayed-stream "~1.0.0"
 
-"common@file:../common":
-  version "1.0.0"
+"common@link:../common":
+  version "0.0.0"
+  uid ""
 
 concat-map@0.0.1:
   version "0.0.1"
@@ -810,8 +811,9 @@ function-bind@^1.0.2:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/function-bind/-/function-bind-1.1.0.tgz#16176714c801798e4e8f2cf7f7529467bb4a5771"
 
-"game@file:../game":
-  version "1.0.0"
+"game@link:../game":
+  version "0.0.0"
+  uid ""
 
 gauge@~2.7.3:
   version "2.7.4"
