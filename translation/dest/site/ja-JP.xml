@@ -221,6 +221,7 @@
   </plurals>
   <string name="thisIsAChessCaptcha">これはロボットよけの認証です。</string>
   <string name="clickOnTheBoardToMakeYourMove">駒を動かしてあなたが人間である事を証明して下さい。</string>
+  <string name="captcha.fail">問題を解いて人間だと証明してください。</string>
   <string name="notACheckmate">チェックメイトではありません</string>
   <string name="colorPlaysCheckmateInOne">%s 番; １手でチェックメイト</string>
   <string name="retry">もう一度</string>
@@ -274,6 +275,10 @@
   <string name="loadPosition">局面を読み込む</string>
   <string name="isPrivate">プライベート</string>
   <string name="reportXToModerators">モデレーターに%sを通報する。</string>
+  <string name="profileCompletion">プロフィール記入率：%s</string>
+  <string name="xRating">%s レーティング</string>
+  <string name="ifNoneLeaveEmpty">ない場合は空白で</string>
+  <string name="gameCompletionRate">ゲーム完了率：%s</string>
   <string name="profile">プロフィール</string>
   <string name="editProfile">プロフィールの編集</string>
   <string name="firstName">名</string>
@@ -376,6 +381,9 @@
   <string name="pieceDestinations">駒の行き先（ルール上動けるマス、プリムーブ）</string>
   <string name="boardCoordinates">マスの座標（A-H, 1-8）</string>
   <string name="moveListWhilePlaying">プレイ中の棋譜記録</string>
+  <string name="pgnPieceNotation">PGN 駒シンボル表示</string>
+  <string name="chessPieceSymbol">チェス駒シンボル</string>
+  <string name="pgnLetter">PGN 文字（K、Q、R、B、N）</string>
   <string name="chessClock">時間表示</string>
   <string name="tenthsOfSeconds">0.1秒単位で時間表示</string>
   <string name="never">無効</string>
@@ -383,9 +391,14 @@
   <string name="horizontalGreenProgressBars">プログレスバー</string>
   <string name="soundWhenTimeGetsCritical">時間が迫ってきたら音を鳴らす</string>
   <string name="gameBehavior">対局中の行動</string>
+  <string name="howDoYouMovePieces">駒の移動方法</string>
+  <string name="clickTwoSquares">2 つのマスをクリック</string>
+  <string name="dragPiece">駒をドラッグ</string>
+  <string name="bothClicksAndDrag">クリックとドラッグの両方</string>
   <string name="premovesPlayingDuringOpponentTurn">プリムーブ（相手の手番中に次の自分の手を入力する）</string>
   <string name="takebacksWithOpponentApproval">待ったあり（相手が同意すれば）</string>
   <string name="promoteToQueenAutomatically">自動的にクイーンに昇格する</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">同形三復を自動的にドローにする</string>
   <string name="privacy">プライバシー</string>
   <string name="letOtherPlayersFollowYou">他人からのフォローを可能にする</string>
   <string name="letOtherPlayersChallengeYou">他人からの挑戦を可能にする</string>
@@ -415,6 +428,7 @@
   <string name="starting">開始時刻：</string>
   <string name="allInformationIsPublicAndOptional">情報の記入はすべて任意で、すべて公開されます。</string>
   <string name="yourCityRegionOrDepartment">居住地の市、地域、または県</string>
+  <string name="biographyDescription">自己紹介（チェスの好きな点、お気に入りの戦法、ゲーム、選手など）</string>
   <plurals name="maximumNbCharacters">
     <item quantity="other">最大: %s 文字</item>
   </plurals>
@@ -533,6 +547,10 @@
   <string name="shareYourInsightsData">Insights のデータを共有する</string>
   <string name="youHaveAlreadyRegisteredTheEmail">あなたは既にメールアドレスを登録しています: %s</string>
   <string name="kidMode">キッズモード</string>
+  <string name="security">セキュリティ</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">これはあなたのアカウントにログインしたデバイスの一覧です。覚えのないセッションは削除してください。</string>
+  <string name="alternativelyYouCanX">あるいは %s こともできます。</string>
+  <string name="revokeAllSessions">すべてのセッションを取り消す</string>
   <string name="playChessEverywhere">どこでもチェスをプレイ</string>
   <string name="asFreeAsLichess">Lichess は常に無料</string>
   <string name="builtForTheLoveOfChessNotMoney">金ではなくチェス愛のために作られたアプリ</string>
@@ -550,4 +568,11 @@
     <item quantity="other">%s言語で利用可能</item>
   </plurals>
   <string name="gameAnalysis">棋譜解析</string>
+  <string name="quickPairing">自動ペアリング</string>
+  <string name="lobby">ロビー</string>
+  <string name="language">言語</string>
+  <string name="background">背景</string>
+  <string name="boardGeometry">盤の表示形式</string>
+  <string name="boardTheme">盤のデザイン</string>
+  <string name="boardSize">盤のサイズ</string>
 </resources>

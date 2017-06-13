@@ -396,6 +396,8 @@
   <string name="pieceDestinations">Piece destinations (valid moves and premoves)</string>
   <string name="boardCoordinates">Board coordinates (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Move list while playing</string>
+  <string name="pgnPieceNotation">Move notation</string>
+  <string name="pgnLetter">Algebraic (K, Q, R, B, N)</string>
   <string name="chessClock">Chess clock</string>
   <string name="tenthsOfSeconds">Tenths of seconds</string>
   <string name="never">Never</string>
@@ -403,6 +405,7 @@
   <string name="horizontalGreenProgressBars">Horizontal green progress bars</string>
   <string name="soundWhenTimeGetsCritical">Sound when time gets critical</string>
   <string name="gameBehavior">Game behavior</string>
+  <string name="bothClicksAndDrag">Both click and drag</string>
   <string name="premovesPlayingDuringOpponentTurn">Premoves (playing during opponent turn)</string>
   <string name="takebacksWithOpponentApproval">Takebacks (with opponent approval)</string>
   <string name="promoteToQueenAutomatically">Promote to Queen automatically</string>
