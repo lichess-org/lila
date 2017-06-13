@@ -290,7 +290,7 @@
   <string name="duration">Czas trwania</string>
   <string name="winner">Zwycięzca</string>
   <string name="standing">Pozycja</string>
-  <string name="createANewTournament">Stwórz nowy turniej</string>
+  <string name="createANewTournament">Nowy turniej</string>
   <string name="join">Dołącz</string>
   <string name="withdraw">Wycofaj się</string>
   <string name="points">Punkty</string>
@@ -542,10 +542,10 @@
   <string name="noSimulFound">Nie znaleziono symultany</string>
   <string name="noSimulExplanation">Taka symultana nie istnieje</string>
   <string name="returnToSimulHomepage">Wróć do symultany</string>
-  <string name="aboutSimul">Symultana pozwala gospodarzowi grać z kilkoma przeciwnikami jednocześnie.</string>
+  <string name="aboutSimul">Symultana pozwala symultaniście grać z wieloma przeciwnikami równocześnie.</string>
   <string name="aboutSimulImage">Fischer, grając na 50 szachownicach wygrał 47 partii, 2 zremisował i 1 przegrał.</string>
-  <string name="aboutSimulRealLife">Pomysł został zaczerpnięty z rzeczywistych rozgrywek. Gospodarz przemieszcza się pomiędzy szachownicami aby wykonać poszczególne posunięcia.</string>
-  <string name="aboutSimulRules">Gdy symultana się rozpocznie, każdy gracz rozgrywa partię przeciwko gospodarzowi. Gospodarz gra zawsze białymi. Symultana kończy się po zakończeniu wszystkich partii.</string>
+  <string name="aboutSimulRealLife">Pomysł został zaczerpnięty z rzeczywistych rozgrywek. Symultanista przemieszcza się pomiędzy szachownicami aby wykonać poszczególne posunięcia.</string>
+  <string name="aboutSimulRules">Gdy symultana się rozpocznie, każdy gracz rozgrywa partię przeciwko symultaniście. Symultanista gra zawsze białymi. Symultana kończy się po zakończeniu wszystkich partii.</string>
   <string name="aboutSimulSettings">Symultana to zawsze gra towarzyska. Podczas jej rozgrywania rewanż, cofanie posunięcia i dodawanie czasu nie są dostępne.</string>
   <string name="create">Stwórz</string>
   <string name="whenCreateSimul">Symultana pozwoli Ci zagrać z wieloma przeciwnikami równocześnie.</string>
@@ -637,7 +637,7 @@
   <string name="xHostsY">%1$s utworzył %2$s</string>
   <string name="xJoinsY">%1$s dołączył do %2$s</string>
   <string name="xLikesY">%1$s polubił %2$s</string>
-  <string name="quickPairing">Szybki mecz</string>
+  <string name="quickPairing">Szybka gra</string>
   <string name="lobby">Poczekalnia</string>
   <string name="yourScore">Twój wynik: %s</string>
   <string name="language">Język</string>
