@@ -528,6 +528,9 @@
   <string name="tournamentMayHaveBeenCanceled">開始前に全員が棄権してキャンセルされた可能性があります。</string>
   <string name="returnToTournamentsHomepage">トーナメントトップに戻る</string>
   <string name="weeklyPerfTypeRatingDistribution">月別 %s レーティング分布</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="other">この 1 週間の %1$s 参加者 %2$s 人。</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">あなたの %1$s レーティングは %2$s です。</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">あなたは全体の %1$s の%2$s参加者より上です。</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">まだ %s レーティングが確定していません。</string>
@@ -584,6 +587,9 @@
     <item quantity="other">%s言語で利用可能</item>
   </plurals>
   <string name="gameAnalysis">棋譜解析</string>
+  <string name="xHostsY">%1$sが %2$s を作成しました</string>
+  <string name="xJoinsY">%1$sが %2$s に参加しました</string>
+  <string name="xLikesY">%1$s が %2$s に「いいね」しました。</string>
   <string name="quickPairing">自動ペアリング</string>
   <string name="lobby">ロビー</string>
   <string name="yourScore">通算成績：%s</string>
@@ -610,5 +616,6 @@
   <string name="error.unknown">エラー</string>
   <string name="custom">カスタム設定</string>
   <string name="notifications">通知</string>
+  <string name="challenges">チャレンジ</string>
   <string name="perfRatingX">レーティング: %s</string>
 </resources>
