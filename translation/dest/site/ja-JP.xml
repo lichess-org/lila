@@ -267,6 +267,7 @@
   <string name="winStreak">連勝数</string>
   <string name="createdBy">トーナメント作成者</string>
   <string name="tournamentIsStarting">トーナメント開始</string>
+  <string name="youArePlaying">参加中！</string>
   <string name="membersOnly">会員限定</string>
   <string name="boardEditor">盤面入力</string>
   <string name="startPosition">開始局面にする</string>
@@ -543,10 +544,20 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">盤上で駒を動かすことでも手を入力できます。</string>
   <string name="analysisShapesHowTo">Shift + クリックや右クリックで盤上に丸や矢印が描けます。</string>
   <string name="confirmResignation">投了する前に確認する</string>
+  <string name="inputMovesWithTheKeyboard">手をキーボードで入力</string>
   <string name="letOtherPlayersMessageYou">他のプレイヤーからのメッセージを受け付ける</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">キングを 2 マス、またはルークの上に動かす</string>
+  <string name="castleByMovingTwoSquares">キングを 2 マス動かす</string>
+  <string name="castleByMovingOntoTheRook">キングをルークの上に動かす</string>
   <string name="shareYourInsightsData">Insights のデータを共有する</string>
+  <string name="withNobody">誰にも見せない</string>
+  <string name="withFriends">友達にだけ</string>
+  <string name="withEverybody">誰にでも</string>
   <string name="youHaveAlreadyRegisteredTheEmail">あなたは既にメールアドレスを登録しています: %s</string>
   <string name="kidMode">キッズモード</string>
+  <string name="kidModeExplanation">これは安全対策です。「キッズモード」ではサイト上の会話がすべて無効になります。子供や生徒のアカウントでこのモードを有効にしておけば、彼らを他のユーザーから守ることができます。</string>
+  <string name="enableKidMode">キッズモードを有効化</string>
+  <string name="disableKidMode">キッズモードを無効化</string>
   <string name="security">セキュリティ</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">これはあなたのアカウントにログインしたデバイスの一覧です。覚えのないセッションは削除してください。</string>
   <string name="alternativelyYouCanX">あるいは %s こともできます。</string>
@@ -575,4 +586,9 @@
   <string name="boardGeometry">盤の表示形式</string>
   <string name="boardTheme">盤のデザイン</string>
   <string name="boardSize">盤のサイズ</string>
+  <string name="usernameAlreadyUsed">このユーザー名は既に使用されています。別の名前にしてください。</string>
+  <string name="usernameInvalid">無効なユーザー名です。使えるのは英数字、アンダースコア、ダッシュだけです。</string>
+  <string name="usernameStartNoNumber">ユーザー名の最初は数字であってはいけません。</string>
+  <string name="usernameUnacceptable">このユーザー名は認められません。</string>
+  <string name="directlySupportLichess">Lichess を直接に支援する</string>
 </resources>
