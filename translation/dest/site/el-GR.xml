@@ -568,6 +568,13 @@
   <string name="withEverybody">Με όλους</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Έχετε ήδη εγγραφεί με το ηλ.ταχυδρομείο: %s</string>
   <string name="kidMode">Λειτουργία παιδιού</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Στην λειτουργία παιδιού, το λογότυπο του lichess παίρνει ένα εικονίδιο %s, έτσι ώστε να γνωρίζετε ότι τα παιδιά σας είναι ασφαλή.</string>
+  <string name="enableKidMode">Ενεργοποίηση λειτουργίας παιδιού</string>
+  <string name="disableKidMode">Απενεργοποίηση λειτουργίας παιδιού</string>
+  <string name="security">Ασφάλεια</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Αυτή είναι μια λίστα των συσκευών που έχουν συνδεθεί στο λογαριασμό σας. Ανακαλέσει τις περιόδους λειτουργίας που δεν αναγνωρίζετε.</string>
+  <string name="alternativelyYouCanX">Εναλλακτικά, μπορείτε να %s.</string>
+  <string name="revokeAllSessions">ανακαλέστε όλες τις συνεδρίες</string>
   <string name="playChessEverywhere">Παίξτε σκάκι παντού</string>
   <string name="asFreeAsLichess">Δωρεάν</string>
   <string name="builtForTheLoveOfChessNotMoney">Φτιαγμένο από αγάπη για το σκάκι, όχι για τα χρήματα</string>
