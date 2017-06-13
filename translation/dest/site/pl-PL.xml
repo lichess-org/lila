@@ -327,7 +327,7 @@
   <string name="activeToday">Aktywni dzisiaj</string>
   <string name="activePlayers">Aktywni gracze</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Uwaga - ta gra jest rankingowa ale nie ma limitu czasu!</string>
-  <string name="training">Trening</string>
+  <string name="training">Zadania szachowe</string>
   <string name="yourPuzzleRatingX">Twój ranking treningowy: %s</string>
   <string name="findTheBestMoveForWhite">Znajdź najlepszy ruch dla białych.</string>
   <string name="findTheBestMoveForBlack">Znajdź najlepszy ruch dla czarnych.</string>
