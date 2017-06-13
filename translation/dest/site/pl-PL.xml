@@ -89,7 +89,7 @@
   <string name="variant">Typ</string>
   <string name="variants">Warianty</string>
   <string name="timeControl">Tempo gry</string>
-  <string name="realTime">Na żywo</string>
+  <string name="realTime">W czasie rzeczywistym</string>
   <string name="correspondence">Korespondencyjne</string>
   <string name="daysPerTurn">Dni na ruch</string>
   <string name="oneDay">1 dzień</string>
@@ -181,7 +181,7 @@
     <item quantity="other">%s remisów</item>
   </plurals>
   <string name="exportGames">Eksportuj gry</string>
-  <string name="ratingRange">Przedział rankingu</string>
+  <string name="ratingRange">Ranking przeciwnika</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dodaj %s sekundę</item>
     <item quantity="few">Dodaj %s sekund</item>
@@ -443,7 +443,7 @@
   <string name="privacy">Prywatność</string>
   <string name="letOtherPlayersFollowYou">Inni gracze mogą Cię obserwować</string>
   <string name="letOtherPlayersChallengeYou">Inni gracze mogą rzucić Ci wyzwanie</string>
-  <string name="letOtherPlayersInviteYouToStudy">Pozwól innym zapraszać Cię do studiowania partii</string>
+  <string name="letOtherPlayersInviteYouToStudy">Pozwól innym zapraszać Cię do wspólnego analizowania partii</string>
   <string name="sound">Dźwięk</string>
   <string name="yourPreferencesHaveBeenSaved">Twoje ustawienia zostały zapisane.</string>
   <string name="none">Brak</string>
@@ -538,7 +538,7 @@
   <string name="simultaneousExhibitions">Symultany</string>
   <string name="host">Gospodarz</string>
   <string name="createdSimuls">Nowe</string>
-  <string name="hostANewSimul">Utwórz nową symultanę</string>
+  <string name="hostANewSimul">Nowa symultana</string>
   <string name="noSimulFound">Nie znaleziono symultany</string>
   <string name="noSimulExplanation">Taka symultana nie istnieje</string>
   <string name="returnToSimulHomepage">Wróć do symultany</string>
