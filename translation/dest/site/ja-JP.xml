@@ -46,6 +46,7 @@
   <string name="viewTheComputerAnalysis">コンピューターの解析を見る</string>
   <string name="requestAComputerAnalysis">コンピューターの解析をリクエスト</string>
   <string name="computerAnalysis">コンピューター分析</string>
+  <string name="computerAnalysisAvailable">コンピュータ解析が可能です</string>
   <string name="analysis">棋譜解析</string>
   <string name="blunders">大悪手</string>
   <string name="mistakes">悪手</string>
@@ -229,6 +230,7 @@
   <string name="onlineFriends">オンラインにいる友達</string>
   <string name="noFriendsOnline">オンラインに友達はいません</string>
   <string name="findFriends">友達を探す</string>
+  <string name="favoriteOpponents">お気に入りの対戦相手</string>
   <string name="follow">フォローする</string>
   <string name="following">フォローしています</string>
   <string name="unfollow">フォローをやめる</string>
@@ -267,6 +269,8 @@
   <string name="winStreak">連勝数</string>
   <string name="createdBy">トーナメント作成者</string>
   <string name="tournamentIsStarting">トーナメント開始</string>
+  <string name="tournamentPairingsAreNowClosed">トーナメントの対戦決定は終了しました。</string>
+  <string name="standByX">%s さん、現在ペアリング中です。用意して！</string>
   <string name="youArePlaying">参加中！</string>
   <string name="membersOnly">会員限定</string>
   <string name="boardEditor">盤面入力</string>
@@ -556,6 +560,7 @@
   <string name="youHaveAlreadyRegisteredTheEmail">あなたは既にメールアドレスを登録しています: %s</string>
   <string name="kidMode">キッズモード</string>
   <string name="kidModeExplanation">これは安全対策です。「キッズモード」ではサイト上の会話がすべて無効になります。子供や生徒のアカウントでこのモードを有効にしておけば、彼らを他のユーザーから守ることができます。</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">キッズモードでは Lichess のロゴに %s のアイコンが付き、安全であることを示します。</string>
   <string name="enableKidMode">キッズモードを有効化</string>
   <string name="disableKidMode">キッズモードを無効化</string>
   <string name="security">セキュリティ</string>
@@ -581,14 +586,21 @@
   <string name="gameAnalysis">棋譜解析</string>
   <string name="quickPairing">自動ペアリング</string>
   <string name="lobby">ロビー</string>
+  <string name="yourScore">通算成績：%s</string>
   <string name="language">言語</string>
   <string name="background">背景</string>
   <string name="boardGeometry">盤の表示形式</string>
   <string name="boardTheme">盤のデザイン</string>
   <string name="boardSize">盤のサイズ</string>
+  <string name="pieceSet">駒のデザイン</string>
   <string name="usernameAlreadyUsed">このユーザー名は既に使用されています。別の名前にしてください。</string>
   <string name="usernameInvalid">無効なユーザー名です。使えるのは英数字、アンダースコア、ダッシュだけです。</string>
   <string name="usernameStartNoNumber">ユーザー名の最初は数字であってはいけません。</string>
   <string name="usernameUnacceptable">このユーザー名は認められません。</string>
   <string name="directlySupportLichess">Lichess を直接に支援する</string>
+  <string name="playChessInStyle">グッズ販売</string>
+  <string name="chessBasics">チェスの基本</string>
+  <string name="coaches">コーチ</string>
+  <string name="invalidPgn">無効な PGN</string>
+  <string name="invalidFen">無効な FEN</string>
 </resources>
