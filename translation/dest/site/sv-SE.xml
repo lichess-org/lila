@@ -46,6 +46,7 @@
   <string name="viewTheComputerAnalysis">Visa datoranalysen</string>
   <string name="requestAComputerAnalysis">Begär en datoranalys</string>
   <string name="computerAnalysis">Datoranalys</string>
+  <string name="computerAnalysisAvailable">Datoranalys tillgänglig</string>
   <string name="analysis">Analys</string>
   <string name="blunders">Blundrar</string>
   <string name="mistakes">Misstag</string>
@@ -233,6 +234,7 @@
   </plurals>
   <string name="thisIsAChessCaptcha">Detta är en schack-CAPTCHA</string>
   <string name="clickOnTheBoardToMakeYourMove">Bevisa att du är en människa genom att klicka på brädet och göra ditt drag.</string>
+  <string name="captcha.fail">Vänligen lös schack-captchan.</string>
   <string name="notACheckmate">Inte schackmatt</string>
   <string name="colorPlaysCheckmateInOne">%s tur; Schackmatt i ett drag</string>
   <string name="retry">Försök igen</string>
@@ -240,6 +242,7 @@
   <string name="onlineFriends">Vänner online</string>
   <string name="noFriendsOnline">Inga vänner online</string>
   <string name="findFriends">Hitta vänner</string>
+  <string name="favoriteOpponents">Favoritmotståndare</string>
   <string name="follow">Följ</string>
   <string name="following">Följer</string>
   <string name="unfollow">Sluta följa</string>
@@ -281,6 +284,9 @@
   <string name="winStreak">Vinstserie</string>
   <string name="createdBy">Skapad av</string>
   <string name="tournamentIsStarting">Turneringen startar</string>
+  <string name="tournamentPairingsAreNowClosed">Turneringsparningarna är nu avslutade.</string>
+  <string name="standByX">%s, vänta, parar spelare, var redo!</string>
+  <string name="youArePlaying">Du spelar!</string>
   <string name="membersOnly">Endast medlemmar</string>
   <string name="boardEditor">Brädeditor</string>
   <string name="startPosition">Startposition</string>
@@ -289,6 +295,10 @@
   <string name="loadPosition">Ladda ställning</string>
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Rapportera %s till moderatorerna</string>
+  <string name="profileCompletion">Profil fulländning: %s</string>
+  <string name="xRating">%s rating</string>
+  <string name="ifNoneLeaveEmpty">Om ingen, lämna tomt</string>
+  <string name="gameCompletionRate">Parti slutförandefrekvens: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Ändra profil</string>
   <string name="firstName">Förnamn</string>
@@ -394,6 +404,9 @@
   <string name="pieceDestinations">Möjliga drag (giltiga drag och premoves)</string>
   <string name="boardCoordinates">Brädkoordinater (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Lista med drag under spelets gång</string>
+  <string name="pgnPieceNotation">Dragnotation</string>
+  <string name="chessPieceSymbol">Schackpjäs-symbol</string>
+  <string name="pgnLetter">Algebraisk (K, Q, R, B, N)</string>
   <string name="chessClock">Schack-klocka</string>
   <string name="tenthsOfSeconds">Tiondels sekunder</string>
   <string name="never">Aldrig</string>
@@ -401,12 +414,18 @@
   <string name="horizontalGreenProgressBars">Horisontella gröna förloppsindikatorer</string>
   <string name="soundWhenTimeGetsCritical">Ljud när tiden blir kritisk</string>
   <string name="gameBehavior">Spelbeteende</string>
+  <string name="howDoYouMovePieces">Flytta pjäser</string>
+  <string name="clickTwoSquares">Klicka två rutor</string>
+  <string name="dragPiece">Drag pjäs</string>
+  <string name="bothClicksAndDrag">Både klicka och drag</string>
   <string name="premovesPlayingDuringOpponentTurn">Premoves (göra drag i förväg under motståndarens tur)</string>
   <string name="takebacksWithOpponentApproval">Ta tillbaka drag (med motståndarens godkännande)</string>
   <string name="promoteToQueenAutomatically">Uppgradera till drottning automatiskt</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Begär remi automatiskt vid trefaldig upprepning</string>
   <string name="privacy">Sekretess</string>
   <string name="letOtherPlayersFollowYou">Låt andra spelare följa dig</string>
   <string name="letOtherPlayersChallengeYou">Låt andra spelare utmana dig</string>
+  <string name="letOtherPlayersInviteYouToStudy">Låt andra spelare bjuda in dig till studier</string>
   <string name="sound">Ljud</string>
   <string name="yourPreferencesHaveBeenSaved">Dina inställningar har sparats.</string>
   <string name="none">Ingen</string>
@@ -433,6 +452,7 @@
   <string name="starting">Startar:</string>
   <string name="allInformationIsPublicAndOptional">All information är allmän och frivillig.</string>
   <string name="yourCityRegionOrDepartment">Din stad, region eller område.</string>
+  <string name="biographyDescription">Berätta om dig själv, vad du gillar med schack, dina favoritöppningar, partier, spelare…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Max: %s tecken.</item>
     <item quantity="other">Max: %s tecken.</item>
@@ -530,6 +550,10 @@
   <string name="tournamentMayHaveBeenCanceled">Den kan ha blivit inställd om alla spelare lämnade den innan start.</string>
   <string name="returnToTournamentsHomepage">Återgå till turneringens hemsida</string>
   <string name="weeklyPerfTypeRatingDistribution">Veckans %s ratingfördelning</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">%1$s %2$s spelare denna vecka.</item>
+    <item quantity="other">%1$s %2$s spelare denna vecka.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">Din %1$s rating är %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du är bättre än %1$s av %2$s spelarna.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har inte en etablerad %s rating.</string>
@@ -550,10 +574,25 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kan också skrolla över brädet för att gå fram/bak i partiet.</string>
   <string name="analysisShapesHowTo">Tryck på Skift + klicka eller högerklicka för att rita cirklar och pilar på brädet.</string>
   <string name="confirmResignation">Bekräfta resignation</string>
+  <string name="inputMovesWithTheKeyboard">Mata in drag via tangentbord</string>
   <string name="letOtherPlayersMessageYou">Tillåt att andra spelare skickar meddelanden till dig</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rockera genom att flytta kungen 2 steg, eller till tornet</string>
+  <string name="castleByMovingTwoSquares">Rockera genom att flytta kungen 2 steg</string>
+  <string name="castleByMovingOntoTheRook">Rockera genom att flytta kungen till tornet</string>
   <string name="shareYourInsightsData">Dela din Chess Insights information</string>
+  <string name="withNobody">Med ingen</string>
+  <string name="withFriends">Med vänner</string>
+  <string name="withEverybody">Med alla</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Du har redan registrerat en emailadress: %s</string>
   <string name="kidMode">Barnsäkert läge</string>
+  <string name="kidModeExplanation">Detta är en säkerhetsinställning. I barnsäkert läge är all site kommunikation avaktiverad. Aktivera detta för dina barn och skolelever för att skydda dessa från andra internetanvändare.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">I barnsäkert läge får lichess-logotypen en %s ikon, så att du vet att dina barn är säkra.</string>
+  <string name="enableKidMode">Aktivera barnsäkert läge</string>
+  <string name="disableKidMode">Avaktivera barnsäkert läge</string>
+  <string name="security">Säkerhet</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Detta är en lista över enheter som har loggat in på ditt konto. Återkalla alla sessioner som du inte känner igen.</string>
+  <string name="alternativelyYouCanX">Alternativt kan du %s.</string>
+  <string name="revokeAllSessions">återkalla alla sessioner</string>
   <string name="playChessEverywhere">Spela schack var du vill</string>
   <string name="asFreeAsLichess">Lika gratis som lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Byggt med kärlek till schacket, inte pengar</string>
@@ -572,4 +611,36 @@
     <item quantity="other">Tillgänglig på %s olika språk!</item>
   </plurals>
   <string name="gameAnalysis">Partianalys</string>
+  <string name="xHostsY">%1$s är värd för %2$s</string>
+  <string name="xJoinsY">%1$s deltar i %2$s</string>
+  <string name="xLikesY">%1$s gillar %2$s</string>
+  <string name="quickPairing">Snabb parning</string>
+  <string name="lobby">Lobby</string>
+  <string name="yourScore">Dina poäng: %s</string>
+  <string name="language">Språk</string>
+  <string name="background">Bakgrund</string>
+  <string name="boardGeometry">Brädets geometri</string>
+  <string name="boardTheme">Brädets tema</string>
+  <string name="boardSize">Brädets storlek</string>
+  <string name="pieceSet">Pjäsuppsättning</string>
+  <string name="embedInYourWebsite">Integrera i din webbplats</string>
+  <string name="usernameAlreadyUsed">Användarnamnet är upptaget, vänligen försök med ett annat.</string>
+  <string name="usernameInvalid">Ogiltigt användarnamn. Använd bara bokstäver, siffror, understreck och bindestreck.</string>
+  <string name="usernameStartNoNumber">Användarnamnet får inte inledas med ett nummer.</string>
+  <string name="usernameUnacceptable">Detta användarnamn är inte acceptabelt.</string>
+  <string name="directlySupportLichess">Stöd lichess direkt</string>
+  <string name="playChessInStyle">Spela schack i stil</string>
+  <string name="chessBasics">Schackets grunder</string>
+  <string name="coaches">Coacher</string>
+  <string name="invalidPgn">Ogiltig PGN</string>
+  <string name="invalidFen">Ogiltig FEN</string>
+  <string name="error.minLength">Minimilängd är %s</string>
+  <string name="error.maxLength">Maximumlängd är %s</string>
+  <string name="error.min">Lägst tillåtna är %s</string>
+  <string name="error.max">Högst tillåtna är %s</string>
+  <string name="error.unknown">Fel</string>
+  <string name="custom">Anpassad</string>
+  <string name="notifications">Notifikationer</string>
+  <string name="challenges">Utmaningar</string>
+  <string name="perfRatingX">Rating: %s</string>
 </resources>

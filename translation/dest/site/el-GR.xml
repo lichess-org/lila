@@ -283,6 +283,7 @@
   <string name="winStreak">Διαδοχικές νίκες</string>
   <string name="createdBy">Δημιουργήθηκε από</string>
   <string name="tournamentIsStarting">Το πρωτάθλημα αρχίζει</string>
+  <string name="youArePlaying">Παίζετε τώρα!</string>
   <string name="membersOnly">Μόνο για μέλη</string>
   <string name="boardEditor">Προετοιμαστής σκακιέρας</string>
   <string name="startPosition">Αρχική διάταξη</string>
@@ -291,6 +292,8 @@
   <string name="loadPosition">Φορτώστε θέση</string>
   <string name="isPrivate">Ιδιωτικό</string>
   <string name="reportXToModerators">Αναφέρετε τον %s στο προσωπικό</string>
+  <string name="xRating">Βαθμολογία %s</string>
+  <string name="ifNoneLeaveEmpty">Αν δεν υπάρχει, αφήστε κενό</string>
   <string name="profile">Προφίλ</string>
   <string name="editProfile">Επεξεργασία προφίλ</string>
   <string name="firstName">Όνομα</string>
@@ -396,6 +399,7 @@
   <string name="pieceDestinations">Προορισμοί κομματιών (έγκυρες κινήσεις και προκινήσεις)</string>
   <string name="boardCoordinates">Συντεταγμένες σκακιέρας (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Λίστα κινήσεων κατά τη διάρκεια της παρτίδας</string>
+  <string name="pgnLetter">Γράμματα PGN (K, Q, R, B, N)</string>
   <string name="chessClock">Σκακιστικό χρονόμετρο</string>
   <string name="tenthsOfSeconds">Δέκατα του δευτερολέπτου</string>
   <string name="never">Ποτέ</string>
@@ -560,6 +564,8 @@
   <string name="confirmResignation">Επιβεβαιώστε παραίτηση</string>
   <string name="letOtherPlayersMessageYou">Επιτρέψτε άλλους παίκτες να σας στέλνουν μηνύματα</string>
   <string name="shareYourInsightsData">Κοινή χρήση των δεδομένων σας</string>
+  <string name="withFriends">Με φίλους</string>
+  <string name="withEverybody">Με όλους</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Έχετε ήδη εγγραφεί με το ηλ.ταχυδρομείο: %s</string>
   <string name="kidMode">Λειτουργία παιδιού</string>
   <string name="playChessEverywhere">Παίξτε σκάκι παντού</string>
@@ -599,7 +605,7 @@
   <string name="usernameUnacceptable">Αυτό το όνομα χρήστη δεν είναι αποδεκτό.</string>
   <string name="directlySupportLichess">Υποστηρίξτε άμεσα το Lichess</string>
   <string name="playChessInStyle">Παίξτε σκάκι με στυλ</string>
-  <string name="chessBasics">Σκάκι βασικά στοιχεία</string>
+  <string name="chessBasics">Βασικά σκακιού</string>
   <string name="coaches">Προπονητές</string>
   <string name="invalidPgn">Μη έγκυρο PGN</string>
   <string name="invalidFen">Μη έγκυρο FEN</string>
@@ -607,6 +613,7 @@
   <string name="error.maxLength">Μέγιστο μήκος είναι %s</string>
   <string name="error.min">Πρέπει να είναι μεγαλύτερος ή ίσος με %s</string>
   <string name="error.max">Πρέπει να είναι μικρότερος ή ίσος με %s</string>
+  <string name="error.unknown">Σφάλμα</string>
   <string name="custom">Προσαρμογή</string>
   <string name="notifications">Ειδοποιήσεις</string>
   <string name="challenges">Προκλήσεις</string>
