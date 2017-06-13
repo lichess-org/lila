@@ -33,6 +33,6 @@
   },
   "dependencies": {
     "snabbdom": "^0.6",
-    "types": "file:../types"
+    "types": "link:../types"
   }
 }

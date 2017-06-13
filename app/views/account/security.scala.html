@@ -1,6 +1,6 @@
 @(u: User, sessions: List[lila.security.LocatedSession], curSessionId: String)(implicit ctx: Context)
 
-@title = @{ s"${u.username} - Security" }
+@title = @{ s"${u.username} - ${trans.security.txt()}" }
 
 @account.layout(title = title, active = "security") {
 <div class="content_box no_padding high security">
