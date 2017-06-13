@@ -536,7 +536,7 @@
   <string name="termsOfService">Zasady</string>
   <string name="sourceCode">Kod źródłowy</string>
   <string name="simultaneousExhibitions">Symultany</string>
-  <string name="host">Gospodarz</string>
+  <string name="host">Symultanista</string>
   <string name="createdSimuls">Nowe</string>
   <string name="hostANewSimul">Nowa symultana</string>
   <string name="noSimulFound">Nie znaleziono symultany</string>
@@ -548,11 +548,11 @@
   <string name="aboutSimulRules">Gdy symultana się rozpocznie, każdy gracz rozgrywa partię przeciwko gospodarzowi. Gospodarz gra zawsze białymi. Symultana kończy się po zakończeniu wszystkich partii.</string>
   <string name="aboutSimulSettings">Symultana to zawsze gra towarzyska. Podczas jej rozgrywania rewanż, cofanie posunięcia i dodawanie czasu nie są dostępne.</string>
   <string name="create">Stwórz</string>
-  <string name="whenCreateSimul">Kiedy utworzysz symultanę, będziesz grał z kilkoma przeciwnikami jednocześnie.</string>
-  <string name="simulVariantsHint">Gdy zaznaczysz kilka typów gry, każdy przeciwnik będzie mógł sam wybrać, który typ chce grać.</string>
+  <string name="whenCreateSimul">Symultana pozwoli Ci zagrać z wieloma przeciwnikami równocześnie.</string>
+  <string name="simulVariantsHint">Gdy zaznaczysz kilka wariantów gry, każdy przeciwnik będzie mógł wybrać, który wariant chce grać.</string>
   <string name="simulClockHint">Ustawienie zegara Fischera. Przy większej ilości przeciwników możesz potrzebować więcej czasu.</string>
-  <string name="simulAddExtraTime">Możesz ustawić dodatkowy czas dla siebie, aby ułatwić sobie rozegranie symultany.</string>
-  <string name="simulHostExtraTime">Dodatkowy czas dla gospodarza</string>
+  <string name="simulAddExtraTime">Aby ułatwić sobie rozegranie symultany możesz ustawić dodatkowy czas dla siebie.</string>
+  <string name="simulHostExtraTime">Dodatkowy czas dla symultanisty</string>
   <string name="lichessTournaments">Turnieje Lichess</string>
   <string name="tournamentFAQ">Turnieje typu Arena FAQ</string>
   <string name="tournamentOfficial">Oficjalny</string>
