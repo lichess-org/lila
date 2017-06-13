@@ -308,7 +308,10 @@ object Study extends LilaController {
 
   private def CanViewResult(study: StudyModel)(f: => Fu[Result])(implicit ctx: lila.api.Context) =
     if (canView(study)) f
-    else fuccess(Unauthorized(html.study.restricted(study)))
+    else negotiate(
+      html = fuccess(Unauthorized(html.study.restricted(study))),
+      api = _ => fuccess(Unauthorized(jsonError("This study is now private")))
+    )
 
   private def canView(study: StudyModel)(implicit ctx: lila.api.Context) =
     study.isPublic || ctx.userId.exists(study.members.contains)
