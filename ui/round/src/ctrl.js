@@ -177,6 +177,11 @@ module.exports = function(opts, redraw) {
       socketOpts.millis = 0;
     } else if (this.vm.lastMoveMillis !== null) {
       socketOpts.millis = timerFunction() - this.vm.lastMoveMillis;
+      if (!socketOpts.millis) {
+        // instant move, no premove? might be fishy
+        delete socketOpts.millis;
+        $.post('/jslog/' + this.data.game.id + this.data.player.id + '?n=instamove');
+      }
     }
     this.socket.send(type, action, socketOpts);
 
