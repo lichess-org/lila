@@ -406,7 +406,7 @@
   <string name="questionsAndAnswers">Pytania i odpowiedzi</string>
   <string name="notes">Notatki</string>
   <string name="typePrivateNotesHere">Dołącz tutaj prywatną notatkę</string>
-  <string name="gameDisplay">Widok partii</string>
+  <string name="gameDisplay">Wygląd interfejsu</string>
   <string name="pieceAnimation">Animacja ruchu figur</string>
   <string name="materialDifference">Przewaga materialna</string>
   <string name="closeAccount">Zamknij konto</string>
