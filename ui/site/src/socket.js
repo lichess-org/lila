@@ -69,7 +69,7 @@ lichess.StrongSocket = function(url, version, settings) {
     var msg = { t: t };
     if (d !== undefined) {
       if (o.withLag) d.l = Math.round(averageLag);
-      if ('millis' in o) d.s = Math.floor(o.millis * 0.1).toString(36);
+      if (o.millis !== undefined) d.s = Math.round(o.millis * 0.1).toString(36);
       msg.d = d;
     }
     if (o.ackable) ackable.register(t, d);

@@ -172,8 +172,11 @@ module.exports = function(opts, redraw) {
       ackable: true,
       // withLag: !!this.clock
     }
-    var startTime = this.vm.lastMoveMillis;
-    if (startTime !== null) socketOpts.millis = timer.now() - startTime;
+    if (meta.premove) {
+      socketOpts.millis = 0;
+    } else if (this.vm.lastMoveMillis !== null) {
+      socketOpts.millis = timer.now() - this.vm.lastMoveMillis;
+    }
     this.socket.send(type, action, socketOpts);
 
     this.vm.justDropped = meta.justDropped;
@@ -192,7 +195,12 @@ module.exports = function(opts, redraw) {
     if (this.data.pref.submitMove && !meta.premove) {
       this.vm.moveToSubmit = move;
       redraw();
-    } else this.actualSendMove('move', move, {justCaptured: meta.captured});
+    } else {
+      this.actualSendMove('move', move, {
+        justCaptured: meta.captured,
+        premove: meta.premove
+      })
+    };
 
   }.bind(this);
 
@@ -207,7 +215,10 @@ module.exports = function(opts, redraw) {
       this.vm.dropToSubmit = drop;
       redraw();
     } else {
-      this.actualSendMove('drop', drop, {justDropped: role});
+      this.actualSendMove('drop', drop, {
+        justDropped: role,
+        premove: isPredrop
+      });
     }
   }.bind(this);
 
