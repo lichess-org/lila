@@ -297,6 +297,8 @@
   <string name="reportXToModerators">Report %s to moderators</string>
   <string name="profileCompletion">Profile completion: %s</string>
   <string name="xRating">%s rating</string>
+  <string name="ifNoneLeaveEmpty">If none, leave empty</string>
+  <string name="gameCompletionRate">Game completion rate: %s</string>
   <string name="profile">Profile</string>
   <string name="editProfile">Edit profile</string>
   <string name="firstName">Given name</string>
@@ -403,6 +405,7 @@
   <string name="boardCoordinates">Board coordinates (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Move list while playing</string>
   <string name="pgnPieceNotation">Move notation</string>
+  <string name="chessPieceSymbol">Chess piece symbol</string>
   <string name="pgnLetter">Algebraic (K, Q, R, B, N)</string>
   <string name="chessClock">Chess clock</string>
   <string name="tenthsOfSeconds">Tenths of seconds</string>
@@ -411,6 +414,9 @@
   <string name="horizontalGreenProgressBars">Horizontal green progress bars</string>
   <string name="soundWhenTimeGetsCritical">Sound when time gets critical</string>
   <string name="gameBehavior">Game behavior</string>
+  <string name="howDoYouMovePieces">How do you move pieces?</string>
+  <string name="clickTwoSquares">Click two squares</string>
+  <string name="dragPiece">Drag a piece</string>
   <string name="bothClicksAndDrag">Both click and drag</string>
   <string name="premovesPlayingDuringOpponentTurn">Premoves (playing during opponent turn)</string>
   <string name="takebacksWithOpponentApproval">Takebacks (with opponent approval)</string>
@@ -419,6 +425,7 @@
   <string name="privacy">Privacy</string>
   <string name="letOtherPlayersFollowYou">Let other players follow you</string>
   <string name="letOtherPlayersChallengeYou">Let other players challenge you</string>
+  <string name="letOtherPlayersInviteYouToStudy">Let other players invite you to study</string>
   <string name="sound">Sound</string>
   <string name="yourPreferencesHaveBeenSaved">Your preferences have been saved.</string>
   <string name="none">None</string>
@@ -567,10 +574,18 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">You can also scroll over the board to move in the game.</string>
   <string name="analysisShapesHowTo">Press shift+click or right-click to draw circles and arrows on the board.</string>
   <string name="confirmResignation">Confirm resignation</string>
+  <string name="inputMovesWithTheKeyboard">Input moves with the keyboard</string>
   <string name="letOtherPlayersMessageYou">Let other players message you</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Castle by moving the king two squares, or onto the rook</string>
+  <string name="castleByMovingTwoSquares">Castle by moving two squares</string>
+  <string name="castleByMovingOntoTheRook">Castle by moving onto the rook</string>
   <string name="shareYourInsightsData">Share your insights data</string>
+  <string name="withNobody">With nobody</string>
+  <string name="withFriends">With friends</string>
+  <string name="withEverybody">With everybody</string>
   <string name="youHaveAlreadyRegisteredTheEmail">You have already registered the email: %s</string>
   <string name="kidMode">Kid mode</string>
+  <string name="kidModeExplanation">This is about safety. In kid mode, all site communications are disabled. Enable this for your children and school students, to protect them from other internet users.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">In kid mode, the lichess logo gets a %s icon, so you know your kids are safe.</string>
   <string name="enableKidMode">Enable Kid mode</string>
   <string name="disableKidMode">Disable Kid mode</string>
