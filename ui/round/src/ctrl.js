@@ -56,7 +56,9 @@ module.exports = function(opts, redraw) {
 
   this.socket = new socket(opts.socket, this);
 
-  var timer = window.performance || Date;
+  var timerFunction = (window.performance && performance.now() > 10) ? function() {
+    return performance.now();
+  } : Date.now;
 
   var onUserMove = function(orig, dest, meta) {
     lichess.ab && (!this.keyboardMove || !this.keyboardMove.usedSan) && lichess.ab(this, meta);
@@ -169,11 +171,13 @@ module.exports = function(opts, redraw) {
   this.actualSendMove = function(type, action, meta) {
     meta = meta === undefined ? {} : meta
     var socketOpts = {
-      ackable: true,
-      // withLag: !!this.clock
+      ackable: true
     }
-    var startTime = this.vm.lastMoveMillis;
-    if (startTime !== null) socketOpts.millis = timer.now() - startTime;
+    if (meta.premove) {
+      socketOpts.millis = 0;
+    } else if (this.vm.lastMoveMillis !== null) {
+      socketOpts.millis = timerFunction() - this.vm.lastMoveMillis;
+    }
     this.socket.send(type, action, socketOpts);
 
     this.vm.justDropped = meta.justDropped;
@@ -192,7 +196,12 @@ module.exports = function(opts, redraw) {
     if (this.data.pref.submitMove && !meta.premove) {
       this.vm.moveToSubmit = move;
       redraw();
-    } else this.actualSendMove('move', move, {justCaptured: meta.captured});
+    } else {
+      this.actualSendMove('move', move, {
+        justCaptured: meta.captured,
+        premove: meta.premove
+      })
+    };
 
   }.bind(this);
 
@@ -207,7 +216,10 @@ module.exports = function(opts, redraw) {
       this.vm.dropToSubmit = drop;
       redraw();
     } else {
-      this.actualSendMove('drop', drop, {justDropped: role});
+      this.actualSendMove('drop', drop, {
+        justDropped: role,
+        premove: isPredrop
+      });
     }
   }.bind(this);
 
@@ -236,7 +248,7 @@ module.exports = function(opts, redraw) {
     var d = this.data,
       playing = game.isPlayerPlaying(d);
 
-    if (playing) this.vm.lastMoveMillis = timer.now();
+    if (playing) this.vm.lastMoveMillis = timerFunction();
     d.game.turns = o.ply;
     d.game.player = o.ply % 2 === 0 ? 'white' : 'black';
     var playedColor = o.ply % 2 === 0 ? 'black' : 'white';
