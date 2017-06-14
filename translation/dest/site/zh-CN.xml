@@ -266,6 +266,7 @@
   <string name="winStreak">連勝</string>
   <string name="createdBy">創建者：</string>
   <string name="tournamentIsStarting">錦標賽即將開始</string>
+  <string name="youArePlaying">你开始玩了</string>
   <string name="membersOnly">只限註冊成員</string>
   <string name="boardEditor">棋盤編輯器</string>
   <string name="startPosition">初始局面</string>
@@ -274,6 +275,7 @@
   <string name="loadPosition">載入局面</string>
   <string name="isPrivate">私人</string>
   <string name="reportXToModerators">將%s報告給管理人員</string>
+  <string name="ifNoneLeaveEmpty">如果没有，请留空</string>
   <string name="profile">資料</string>
   <string name="editProfile">編輯資料</string>
   <string name="firstName">名</string>
@@ -376,6 +378,7 @@
   <string name="pieceDestinations">棋子目的地（有效著法與預先走棋）</string>
   <string name="boardCoordinates">棋盤坐標（AH, 1-8）</string>
   <string name="moveListWhilePlaying">遊戲進行時顯示棋譜</string>
+  <string name="chessPieceSymbol">国际象棋件符号</string>
   <string name="chessClock">棋鐘</string>
   <string name="tenthsOfSeconds">十分之一秒</string>
   <string name="never">從不</string>
@@ -531,8 +534,12 @@
   <string name="confirmResignation">確認認輸？</string>
   <string name="letOtherPlayersMessageYou">然其他人給你發信息。</string>
   <string name="shareYourInsightsData">分享您的慧眼數據</string>
+  <string name="withNobody">不分享</string>
+  <string name="withFriends">和朋友分享</string>
+  <string name="withEverybody">和每个人分享</string>
   <string name="youHaveAlreadyRegisteredTheEmail">你已經用《%s》登記過賬戶。</string>
   <string name="kidMode">受限模式</string>
+  <string name="security">安全保护</string>
   <string name="playChessEverywhere">隨處下棋！</string>
   <string name="asFreeAsLichess">完全又永遠的免費。</string>
   <string name="builtForTheLoveOfChessNotMoney">不是為了錢，而是為了棋所創建。</string>
@@ -550,4 +557,11 @@
     <item quantity="other">%s 種語言!</item>
   </plurals>
   <string name="gameAnalysis">象棋分析研究</string>
+  <string name="quickPairing">快速配对</string>
+  <string name="lobby">大堂</string>
+  <string name="language">语言</string>
+  <string name="background">背景</string>
+  <string name="boardGeometry">棋盘几何</string>
+  <string name="boardSize">棋盘大小</string>
+  <string name="pieceSet">棋子件套</string>
 </resources>
