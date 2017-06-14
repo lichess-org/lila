@@ -27,12 +27,12 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
       loading: false,
       nextChapterId: false,
       tab: m.prop(data.chapters.length > 1 ? 'chapters' : 'members'),
+      chapterId: sticked ? data.position.chapterId : data.chapter.id,
+      // path is at ctrl.vm.path
       mode: {
         sticky: sticked,
         write: true
-      },
-      catchingUp: false, // in the process of sticking
-      chapterId: sticked ? null : data.chapter.id // only useful when not sticking
+      }
     };
   })();
 
@@ -59,25 +59,18 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
 
   var chapters = chapterCtrl(data.chapters, send, lichess.partial(vm.tab, 'chapters'), lichess.partial(xhr.chapterConfig, data.id), ctrl);
 
-  var currentChapterId = function() {
-    return vm.chapterId || data.position.chapterId;
-  }
   var currentChapter = function() {
-    return chapters.get(currentChapterId());
+    return chapters.get(vm.chapterId);
   };
   var isChapterOwner = function() {
     return ctrl.userId === data.chapter.ownerId;
   };
 
-  var isWriting = function() {
-    return vm.mode.write && members.canContribute();
-  };
-
   var makeChange = function(t, d) {
-    if (isWriting()) {
+    if (vm.mode.write) {
       send(t, d);
       return true;
-    } else if (!members.canContribute()) vm.mode.sticky = false;
+    } else vm.mode.sticky = false;
   };
 
   var commentForm = commentFormCtrl(ctrl);
@@ -117,9 +110,7 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
 
   var onReload = function(d) {
     var s = d.study;
-    if (data.visibility === 'public' && s.visibility === 'private' && !members.myMember())
-      return lichess.reload();
-    if (s.position !== data.position) commentForm.close();
+    if (vm.mode.sticky && s.position !== data.position) commentForm.close();
     ['position', 'name', 'visibility', 'features', 'settings', 'chapter', 'likes', 'liked'].forEach(function(key) {
       data[key] = s[key];
     });
@@ -133,12 +124,13 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
 
     ctrl.chessground = undefined; // don't apply changes to old cg; wait for new cg
 
-    if (vm.mode.sticky || vm.catchingUp) ctrl.userJump(data.position.path);
-    else ctrl.userJump('');
+    if (vm.mode.sticky) {
+      vm.chapterId = data.position.chapterId;
+      ctrl.userJump(data.position.path);
+    }
 
     configurePractice();
 
-    vm.catchingUp = false;
     m.redraw.strategy("all"); // create a new cg
     m.redraw();
     ctrl.startCeval();
@@ -146,15 +138,15 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
 
   var xhrReload = function() {
     vm.loading = true;
-    return xhr.reload(practice ? 'practice/load' : 'study', data.id, vm.chapterId).then(onReload);
-  };
-
-  var activity = function(userId) {
-    members.setActive(userId);
+    return xhr.reload(
+      practice ? 'practice/load' : 'study',
+      data.id,
+      vm.mode.sticky ? null : vm.chapterId
+    ).then(onReload, lichess.reload);
   };
 
   var onSetPath = throttle(300, false, function(path) {
-    if (path !== data.position.path) makeChange("setPath", addChapterId({
+    if (vm.mode.sticky && path !== data.position.path) makeChange("setPath", addChapterId({
       path: path
     }));
   });
@@ -171,7 +163,7 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
 
   var mutateCgConfig = function(config) {
     config.drawable.onChange = function(shapes) {
-      if (members.canContribute()) {
+      if (vm.mode.write) {
         ctrl.tree.setShapes(shapes, ctrl.vm.path);
         makeChange("shapes", addChapterId({
           path: ctrl.vm.path,
@@ -180,6 +172,14 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
       }
     };
   }
+
+  var wrongChapter = function(serverPosition) {
+    if (serverPosition.chapterId !== vm.chapterId) {
+      // sticky should really be on the same chapter
+      if (vm.mode.sticky) xhrReload();
+      return true;
+    }
+  };
 
   return {
     data: data,
@@ -209,7 +209,7 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
     },
     onJump: practice ? practice.onJump : function() {},
     withPosition: function(obj) {
-      obj.ch = currentChapterId();
+      obj.ch = vm.chapterId;
       obj.path = ctrl.vm.path;
       return obj;
     },
@@ -230,8 +230,8 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
       }));
     },
     setChapter: function(id, force) {
-      if (id === currentChapterId() && !force) return;
-      if (!makeChange("setChapter", id)) {
+      if (id === vm.chapterId && !force) return;
+      if (!vm.mode.sticky || !makeChange("setChapter", id)) {
         vm.chapterId = id;
         xhrReload();
       }
@@ -240,27 +240,11 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
       m.redraw();
     },
     toggleSticky: function() {
-      if (!data.features.sticky) {
-        vm.mode.sticky = false;
-      }
-      else if (vm.mode.sticky) {
-        vm.mode.sticky = false;
-        vm.chapterId = currentChapterId();
-      } else {
-        vm.mode.sticky = true;
-        vm.chapterId = null;
-        vm.catchingUp = true;
-        xhrReload();
-      }
+      vm.mode.sticky = !vm.mode.sticky && data.features.sticky;
+      xhrReload();
     },
     toggleWrite: function() {
-      if (vm.behind !== false) {
-        tours.onSync();
-        resync();
-      } else {
-        vm.behind = 0;
-        vm.chapterId = currentChapterId();
-      }
+      vm.mode.write = !vm.mode.write && members.canContribute();
     },
     makeChange: makeChange,
     startTour: startTour,
@@ -272,13 +256,15 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
       path: function(d) {
         var position = d.p,
           who = d.w;
-        who && activity(who.u);
-        if (vm.behind !== false) return;
-        if (position.chapterId !== data.position.chapterId) return;
-        if (!ctrl.tree.pathExists(position.path)) xhrReload();
+        who && members.setActive(who.u);
+        // #TODO if not sticky, still follow if on the parent path (live games)
+        if (!vm.mode.sticky) return;
+        if (position.chapterId !== data.position.chapterId ||
+          !ctrl.tree.pathExists(position.path)) {
+          return xhrReload();
+        }
         data.position.path = position.path;
         if (who && who.s === sri) return;
-        data.position.path = position.path;
         ctrl.userJump(position.path);
         m.redraw();
       },
@@ -286,44 +272,46 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
         var position = d.p,
           node = d.n,
           who = d.w;
-        if (position.chapterId !== currentChapterId()) return;
-        who && activity(who.u);
+        who && members.setActive(who.u);
+        if (wrongChapter(position)) return;
+        // node author already has the node
         if (who && who.s === sri) {
           data.position.path = position.path + node.id;
           return;
         }
         var newPath = ctrl.tree.addNode(node, position.path);
         ctrl.tree.addDests(d.d, newPath, d.o);
-        if (!newPath) xhrReload();
+        if (!newPath) return xhrReload();
         data.position.path = newPath;
-        if (vm.behind === false) ctrl.jump(data.position.path);
+        if (vm.mode.sticky) ctrl.jump(data.position.path);
         m.redraw();
       },
       deleteNode: function(d) {
         var position = d.p,
           who = d.w;
-        who && activity(who.u);
-        if (vm.behind !== false) return;
+        who && members.setActive(who.u);
+        if (wrongChapter(position)) return;
+        // deleter already has it done
         if (who && who.s === sri) return;
-        if (position.chapterId !== data.position.chapterId) return;
         if (!ctrl.tree.pathExists(d.p.path)) return xhrReload();
         ctrl.tree.deleteNodeAt(position.path);
-        ctrl.jump(ctrl.vm.path);
+        if (vm.mode.sticky) ctrl.jump(ctrl.vm.path);
+        m.redraw();
       },
       promote: function(d, toMainline) {
         var position = d.p,
           who = d.w;
-        who && activity(who.u);
-        if (vm.behind !== false) return;
+        who && members.setActive(who.u);
+        if (wrongChapter(position)) return;
         if (who && who.s === sri) return;
-        if (position.chapterId !== data.position.chapterId) return;
         if (!ctrl.tree.pathExists(d.p.path)) return xhrReload();
         ctrl.tree.promoteAt(position.path, toMainline);
-        ctrl.jump(ctrl.vm.path);
+        if (vm.mode.sticky) ctrl.jump(ctrl.vm.path);
       },
       reload: xhrReload,
       changeChapter: function(d) {
-        d.w && activity(d.w.u);
+        d.w && members.setActive(d.w.u);
+        data.position = d.p;
         if (vm.mode.sticky) xhrReload();
       },
       members: function(d) {
@@ -338,51 +326,48 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
       shapes: function(d) {
         var position = d.p,
           who = d.w;
-        who && activity(who.u);
-        if (vm.behind !== false) return;
+        who && members.setActive(who.u);
+        if (wrongChapter(position)) return;
         if (who && who.s === sri) return;
-        if (position.chapterId !== data.position.chapterId) return;
         ctrl.tree.setShapes(d.s, ctrl.vm.path);
-        ctrl.chessground && ctrl.chessground.setShapes(d.s);
+        if (ctrl.vm.path === position.path && ctrl.chessground) ctrl.chessground.setShapes(d.s);
         m.redraw();
       },
       setComment: function(d) {
         var position = d.p,
           who = d.w;
-        who && activity(who.u);
+        who && members.setActive(who.u);
+        if (wrongChapter(position)) return;
         if (who && who.s === sri) commentForm.dirty(false);
-        if (vm.behind !== false) return;
-        if (position.chapterId !== data.position.chapterId) return;
         ctrl.tree.setCommentAt(d.c, position.path);
         m.redraw();
       },
       setTags: function(d) {
-        d.w && activity(d.w.u);
-        if (d.chapterId === data.position.chapterId) data.chapter.tags = d.tags;
+        d.w && members.setActive(d.w.u);
+        if (wrongChapter(position)) return;
+        data.chapter.tags = d.tags;
         m.redraw();
       },
       deleteComment: function(d) {
         var position = d.p,
           who = d.w;
-        who && activity(who.u);
-        if (vm.behind !== false) return;
-        if (position.chapterId !== data.position.chapterId) return;
+        who && members.setActive(who.u);
+        if (wrongChapter(position)) return;
         ctrl.tree.deleteCommentAt(d.id, position.path);
         m.redraw();
       },
       glyphs: function(d) {
         var position = d.p,
           who = d.w;
-        who && activity(who.u);
+        who && members.setActive(who.u);
+        if (wrongChapter(position)) return;
         if (who && who.s === sri) glyphForm.dirty(false);
-        if (vm.behind !== false) return;
-        if (position.chapterId !== data.position.chapterId) return;
         ctrl.tree.setGlyphsAt(d.g, position.path);
         m.redraw();
       },
       conceal: function(d) {
         var position = d.p;
-        if (position.chapterId !== data.position.chapterId) return;
+        if (wrongChapter(position)) return;
         data.chapter.conceal = d.ply;
         m.redraw();
       },

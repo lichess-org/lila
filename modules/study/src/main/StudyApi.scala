@@ -163,14 +163,14 @@ final class StudyApi(
     }
   }
 
-  def addNode(userId: User.ID, studyId: Study.Id, position: Position.Ref, node: Node, uid: Uid) = sequenceStudyWithChapter(studyId) {
+  def addNode(userId: User.ID, studyId: Study.Id, position: Position.Ref, node: Node, uid: Uid, sticky: Boolean) = sequenceStudyWithChapter(studyId) {
     case Study.WithChapter(study, chapter) => Contribute(userId, study) {
       chapter.addNode(node, position.path) match {
         case None => fufail(s"Invalid addNode $studyId $position $node") >>- reloadUid(study, uid)
         case Some(chapter) =>
           chapter.root.nodeAt(position.path) ?? { parent =>
             chapterRepo.setChildren(chapter, position.path, parent.children) >>
-              studyRepo.setPosition(study.id, position + node) >>
+              (sticky ?? studyRepo.setPosition(study.id, position + node)) >>
               updateConceal(study, chapter, position + node) >>-
               sendTo(study, Socket.AddNode(position, node, chapter.setup.variant, uid)) >>-
               sendStudyEnters(study, userId)
@@ -376,8 +376,9 @@ final class StudyApi(
     (study.position.chapterId != chapterId) ?? {
       chapterRepo.byIdAndStudy(chapterId, study.id) flatMap {
         _ ?? { chapter =>
-          studyRepo.updateSomeFields(study withChapter chapter) >>-
-            sendTo(study, Socket.ChangeChapter(uid))
+          val newStudy = study withChapter chapter
+          studyRepo.updateSomeFields(newStudy) >>-
+            sendTo(study, Socket.ChangeChapter(uid, newStudy.position))
         }
       }
     }
@@ -411,7 +412,7 @@ final class StudyApi(
                 (newChapter.setup.orientation != chapter.setup.orientation) ||
                   (newChapter.practice != chapter.practice)
               if (study.position.chapterId == chapter.id && shouldReload)
-                sendTo(study, Socket.ChangeChapter(uid))
+                sendTo(study, Socket.ChangeChapter(uid, study.position))
               else
                 reloadChapters(study)
             }

@@ -16,8 +16,7 @@ case class AnaMove(
     fen: String,
     path: String,
     chapterId: Option[String],
-    promotion: Option[chess.PromotableRole],
-    local: Boolean // if local, do not affect the server state
+    promotion: Option[chess.PromotableRole]
 ) {
 
   def branch: Valid[Branch] =
@@ -64,7 +63,6 @@ object AnaMove {
     fen = fen,
     path = path,
     chapterId = d str "ch",
-    promotion = d str "promotion" flatMap chess.Role.promotable,
-    local = ~(d boolean "local")
+    promotion = d str "promotion" flatMap chess.Role.promotable
   )
 }

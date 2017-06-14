@@ -22,28 +22,5 @@ module.exports = {
         }
       });
     });
-  },
-  offline: function() {
-    lichess.shepherd(function(theme) {
-      var tour = new Shepherd.Tour({
-        defaults: {
-          classes: theme,
-          scrollTo: true
-        }
-      });
-      tour.addStep('off', {
-        title: 'Offline mode',
-        text: 'Your board is no longer shared!<br>Click this button to reconnect.',
-        attachTo: '#study-sync top',
-        buttons: [{
-          text: 'OK',
-          action: tour.next
-        }],
-      });
-      tour.start();
-    });
-  },
-  // onSync: function() {
-  //   if (window.Shepherd && Shepherd.activeTour) Shepherd.activeTour.next()
-  // }
+  }
 };

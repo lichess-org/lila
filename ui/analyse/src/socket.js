@@ -13,7 +13,7 @@ module.exports = function(send, ctrl) {
   this.clearCache = function() {
     anaDestsCache = (
       ctrl.data.game.variant.key === 'standard' &&
-      ctrl.tree.root.fen.split(' ', 1)[0] === initialBoardFen
+        ctrl.tree.root.fen.split(' ', 1)[0] === initialBoardFen
     ) ? {
       '': {
         path: '',
@@ -29,13 +29,18 @@ module.exports = function(send, ctrl) {
   }, 1000);
 
   var currentChapterId = function() {
-    if (ctrl.study) return ctrl.study.currentChapter().id;
+    if (ctrl.study) return ctrl.study.vm.chapterId;
   };
-  var addStudyData = function(req, addLocal) {
+  var addStudyData = function(req, isWrite) {
     var c = currentChapterId();
     if (c) {
       req.ch = c;
-      if (addLocal && !ctrl.vm.mode.write) req.local = true;
+      if (isWrite) {
+        if (ctrl.study.vm.mode.write) {
+          if (!ctrl.study.vm.mode.sticky) req.sticky = false;
+        }
+        else req.write = false;
+      }
     }
   };
 
@@ -46,7 +51,7 @@ module.exports = function(send, ctrl) {
       if (data.ch == currentChapterId())
         ctrl.addNode(data.node, data.path);
       else
-        console.log('socket handler node got wrong chapter id', data);
+      console.log('socket handler node got wrong chapter id', data);
     },
     stepFailure: function(data) {
       clearTimeout(anaMoveTimeout);
@@ -58,7 +63,7 @@ module.exports = function(send, ctrl) {
         anaDestsCache[data.path] = data;
         ctrl.addDests(data.dests, data.path, data.opening);
       } else
-        console.log('socket handler node got wrong chapter id', data);
+      console.log('socket handler node got wrong chapter id', data);
     },
     destsFailure: function(data) {
       console.log(data);
