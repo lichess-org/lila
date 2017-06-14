@@ -171,8 +171,7 @@ module.exports = function(opts, redraw) {
   this.actualSendMove = function(type, action, meta) {
     meta = meta === undefined ? {} : meta
     var socketOpts = {
-      ackable: true,
-      // withLag: !!this.clock
+      ackable: true
     }
     if (meta.premove) {
       socketOpts.millis = 0;
