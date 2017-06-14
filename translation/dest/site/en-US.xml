@@ -46,6 +46,7 @@
   <string name="viewTheComputerAnalysis">View the computer analysis</string>
   <string name="requestAComputerAnalysis">Request a computer analysis</string>
   <string name="computerAnalysis">Computer analysis</string>
+  <string name="computerAnalysisAvailable">Computer analysis available</string>
   <string name="analysis">Analysis board</string>
   <string name="blunders">Blunders</string>
   <string name="mistakes">Mistakes</string>
@@ -283,6 +284,9 @@
   <string name="winStreak">Win streak</string>
   <string name="createdBy">Created by</string>
   <string name="tournamentIsStarting">The tournament is starting</string>
+  <string name="tournamentPairingsAreNowClosed">The tournament pairings are now closed.</string>
+  <string name="standByX">Stand by %s, pairing players, get ready!</string>
+  <string name="youArePlaying">You are playing!</string>
   <string name="membersOnly">Members only</string>
   <string name="boardEditor">Board editor</string>
   <string name="startPosition">Starting position</string>
@@ -291,6 +295,8 @@
   <string name="loadPosition">Load position</string>
   <string name="isPrivate">Private</string>
   <string name="reportXToModerators">Report %s to moderators</string>
+  <string name="profileCompletion">Profile completion: %s</string>
+  <string name="xRating">%s rating</string>
   <string name="profile">Profile</string>
   <string name="editProfile">Edit profile</string>
   <string name="firstName">Given name</string>
@@ -565,6 +571,13 @@
   <string name="shareYourInsightsData">Share your insights data</string>
   <string name="youHaveAlreadyRegisteredTheEmail">You have already registered the email: %s</string>
   <string name="kidMode">Kid mode</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">In kid mode, the lichess logo gets a %s icon, so you know your kids are safe.</string>
+  <string name="enableKidMode">Enable Kid mode</string>
+  <string name="disableKidMode">Disable Kid mode</string>
+  <string name="security">Security</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">This is a list of devices that have logged into your account. Revoke any sessions that you do not recognize.</string>
+  <string name="alternativelyYouCanX">Alternatively you can %s.</string>
+  <string name="revokeAllSessions">revoke all sessions</string>
   <string name="playChessEverywhere">Play chess everywhere</string>
   <string name="asFreeAsLichess">As free as lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Built for the love of chess, not money</string>
@@ -610,6 +623,7 @@
   <string name="error.maxLength">Maximum length is %s</string>
   <string name="error.min">Must be greater or equal to %s</string>
   <string name="error.max">Must be less or equal to %s</string>
+  <string name="error.unknown">Error</string>
   <string name="custom">Custom</string>
   <string name="notifications">Notifications</string>
   <string name="challenges">Challenges</string>
