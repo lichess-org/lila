@@ -247,8 +247,9 @@ chalk@^1.1.0, chalk@^1.1.1:
     strip-ansi "^3.0.0"
     supports-color "^2.0.0"
 
-"chess@file:../chess":
-  version "1.0.0"
+"chess@link:../chess":
+  version "0.0.0"
+  uid ""
 
 clean-yaml-object@^0.1.0:
   version "0.1.0"
@@ -290,8 +291,9 @@ commander@^2.9.0:
   dependencies:
     graceful-readlink ">= 1.0.0"
 
-"common@file:../common":
-  version "1.0.0"
+"common@link:../common":
+  version "0.0.0"
+  uid ""
 
 commondir@^1.0.1:
   version "1.0.1"
@@ -1516,8 +1518,9 @@ tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   version "0.14.5"
   resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-0.14.5.tgz#5ae68177f192d4456269d108afa93ff8743f4f64"
 
-"types@file:../types":
-  version "1.0.0"
+"types@link:../types":
+  version "0.0.0"
+  uid ""
 
 typescript@^2:
   version "2.3.2"

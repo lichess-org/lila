@@ -6,8 +6,8 @@ lichess.advantageChart = function(data) {
     lichess.loadScript('/assets/javascripts/chart/division.js').done(function() {
       lichess.chartCommon('highchart').done(function() {
 
-        lichess.advantageChart.update = function(d) {
-          $elem.highcharts().series[0].setData(makeSerieData(d));
+        lichess.advantageChart.update = function(d, partial) {
+          $elem.highcharts().series[0].setData(makeSerieData(d, partial));
         };
 
         var $elem = $('#adv_chart');
@@ -15,7 +15,7 @@ lichess.advantageChart = function(data) {
         var blurs = [ toBlurArray(data.player), toBlurArray(data.opponent) ];
         if (data.player.color === 'white') blurs.reverse();
 
-        var makeSerieData = function(d) {
+        var makeSerieData = function(d, partial) {
           return d.treeParts.slice(1).map(function(node, i) {
 
             var color = node.ply & 1;
@@ -37,7 +37,7 @@ lichess.advantageChart = function(data) {
               name: turn + dots + ' ' + node.san,
               y: 2 / (1 + Math.exp(-0.004 * cp)) - 1
             };
-            if (blurs[color].shift() === '1') {
+            if (!partial && blurs[color].shift() === '1') {
               point.marker = {
                 symbol: 'square',
                 radius: 3,

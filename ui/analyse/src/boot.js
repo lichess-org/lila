@@ -19,9 +19,10 @@ module.exports = function(element, cfg) {
       },
       events: {
         analysisProgress: function(d) {
+          var partial = !d.tree.eval;
           if (!lichess.advantageChart) startAdvantageChart();
-          else if (lichess.advantageChart.update) lichess.advantageChart.update(data);
-          if (d.tree.eval) $("#adv_chart_loader").remove();
+          else if (lichess.advantageChart.update) lichess.advantageChart.update(data, partial);
+          if (!partial) $("#adv_chart_loader").remove();
         },
         crowd: function(event) {
           $watchers.watchers("set", event.watchers);

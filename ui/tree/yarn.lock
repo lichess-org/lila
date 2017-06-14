@@ -2,11 +2,13 @@
 # yarn lockfile v1
 
 
-"common@file:../common":
-  version "1.0.0"
+"common@link:../common":
+  version "0.0.0"
+  uid ""
 
-"types@file:../types":
-  version "1.0.0"
+"types@link:../types":
+  version "0.0.0"
+  uid ""
 
 typescript@^2:
   version "2.3.2"
