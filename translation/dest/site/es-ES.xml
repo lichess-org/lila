@@ -536,7 +536,7 @@
   <string name="weeklyPerfTypeRatingDistribution">Distribución mensual de puntos de %s</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">Un jugador de %2$s esta semana.</item>
-    <item quantity="other">Un jugador de %2$s esta semana.</item>
+    <item quantity="other">%1$s jugadores de %2$s esta semana.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Tu puntuación de %1$s es %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Eres mejor que el %1$s de los jugadores en %2$s.</string>
