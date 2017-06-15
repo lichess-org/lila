@@ -365,6 +365,7 @@
   <string name="starting">Початок:</string>
   <string name="allInformationIsPublicAndOptional">Уся інформація публічна та необов\'язкова.</string>
   <string name="yourCityRegionOrDepartment">Ваше місто, область або район.</string>
+  <string name="biographyDescription">Розкажіть про себе: що вам подобається в шахах, які ваші улюблені дебюти, ігри, гравці…</string>
   <string name="listBlockedPlayers">Список заблокованих гравців</string>
   <string name="human">Людина</string>
   <string name="computer">Комп\'ютер</string>
@@ -472,10 +473,15 @@
   <string name="confirmResignation">Підтвердження здачі</string>
   <string name="letOtherPlayersMessageYou">Дозволити іншим гравцям надсилати вам повідомлення</string>
   <string name="shareYourInsightsData">Надавати доступ до вашої особистої інформації</string>
+  <string name="withNobody">Ні з ким</string>
   <string name="withFriends">З друзями</string>
   <string name="withEverybody">З будь-ким</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Ви вже маєте зареєстровану поштову адресу: %s</string>
   <string name="kidMode">Режим для дітей</string>
+  <string name="kidModeExplanation">Мова йде про безпеку. У дитячому режимі всі комунікації на сайті вимкнено. Увімкніть цю функцію для ваших дітей і школярів, щоб захистити їх від інших користувачів Інтернету.</string>
+  <string name="enableKidMode">Увімкнути дитячий режим</string>
+  <string name="disableKidMode">Вимкнути дитячий режим</string>
+  <string name="security">Безпека</string>
   <string name="playChessEverywhere">Грайте в шахи будь-де</string>
   <string name="asFreeAsLichess">Вільний як Lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Створений з любов\'ю до шахів, не до грошей</string>
@@ -498,6 +504,13 @@
   <string name="pieceSet">Набір фігур</string>
   <string name="usernameAlreadyUsed">Таке ім\'я користувача вже використовується, будь ласка, спробуйте інше.</string>
   <string name="usernameStartNoNumber">Ім\'я користувача не має починатися з цифри.</string>
+  <string name="coaches">Тренери</string>
+  <string name="invalidPgn">Неприпустимий PGN</string>
+  <string name="invalidFen">Неприпустимий FEN</string>
+  <string name="error.minLength">Мінімальна довжина-%s</string>
+  <string name="error.maxLength">Максимальна довжина-%s</string>
+  <string name="error.min">Має бути більше або дорівнювати %s</string>
+  <string name="error.max">Має бути менше або дорівнювати %s</string>
   <string name="error.unknown">Помилка</string>
   <string name="notifications">Сповіщення</string>
   <string name="challenges">Виклики</string>
