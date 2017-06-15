@@ -56,9 +56,7 @@ module.exports = function(opts, redraw) {
 
   this.socket = new socket(opts.socket, this);
 
-  var timerFunction = (window.performance && performance.now() > 10) ? function() {
-    return performance.now();
-  } : Date.now;
+  var timerFunction = window.performance ? performance.now.bind(performance) : Date.now;
 
   var onUserMove = function(orig, dest, meta) {
     lichess.ab && (!this.keyboardMove || !this.keyboardMove.usedSan) && lichess.ab(this, meta);
@@ -177,6 +175,11 @@ module.exports = function(opts, redraw) {
       socketOpts.millis = 0;
     } else if (this.vm.lastMoveMillis !== null) {
       socketOpts.millis = timerFunction() - this.vm.lastMoveMillis;
+      if (socketOpts.millis < 3) {
+        // instant move, no premove? might be fishy
+        $.post('/jslog/' + this.data.game.id + this.data.player.id + '?n=instamove:' + socketOpts.millis);
+        delete socketOpts.millis;
+      }
     }
     this.socket.send(type, action, socketOpts);
 

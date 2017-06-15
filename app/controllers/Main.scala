@@ -90,7 +90,7 @@ object Main extends LilaController {
       fullId = id,
       name = get("n", ctx.req) | "?"
     )
-    Ok.fuccess
+    NoContent.fuccess
   }
 
   private lazy val glyphsResult: Result = {

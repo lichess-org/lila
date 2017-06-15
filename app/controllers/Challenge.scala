@@ -32,7 +32,11 @@ object Challenge extends LilaController {
   }
 
   private def translations(implicit ctx: Context) = Env.i18n.jsDump.keysToObject(List(
-    lila.i18n.I18nKeys.waiting
+    lila.i18n.I18nKeys.waiting,
+    lila.i18n.I18nKeys.accept,
+    lila.i18n.I18nKeys.decline,
+    lila.i18n.I18nKeys.viewInFullSize,
+    lila.i18n.I18nKeys.cancel
   ), ctx.lang)
 
   protected[controllers] def showId(id: String)(implicit ctx: Context): Fu[Result] =
