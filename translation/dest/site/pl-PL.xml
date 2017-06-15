@@ -62,7 +62,7 @@
     <item quantity="few">%s graczy online</item>
     <item quantity="other">%s graczy</item>
   </plurals>
-  <string name="currentGames">Trwające gry</string>
+  <string name="currentGames">Rozgrywane partie</string>
   <plurals name="nbGames">
     <item quantity="one">%s gra</item>
     <item quantity="few">%s gier</item>
@@ -651,7 +651,7 @@
   <string name="usernameInvalid">Nieprawidłowa nazwa użytkownika. Proszę używać tylko liter, cyfr, znaku podkreślenia i myślnika.</string>
   <string name="usernameStartNoNumber">Nazwa użytkownika nie może zaczynać się cyfrą.</string>
   <string name="usernameUnacceptable">Ta nazwa użytkownika jest niedozwolona.</string>
-  <string name="directlySupportLichess">Bezpośrednio wspomóż Lichess</string>
+  <string name="directlySupportLichess">Wspomóż Lichess</string>
   <string name="playChessInStyle">Graj w szachy z klasą</string>
   <string name="chessBasics">Podstawy gry</string>
   <string name="coaches">Trenerzy</string>
