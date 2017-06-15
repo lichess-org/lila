@@ -577,7 +577,7 @@
   <string name="inputMovesWithTheKeyboard">Input moves with the keyboard</string>
   <string name="letOtherPlayersMessageYou">Let other players message you</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Castle by moving the king two squares, or onto the rook</string>
-  <string name="castleByMovingTwoSquares">Castle by moving two squares</string>
+  <string name="castleByMovingTwoSquares">Move king two squares</string>
   <string name="castleByMovingOntoTheRook">Castle by moving onto the rook</string>
   <string name="shareYourInsightsData">Share your insights data</string>
   <string name="withNobody">With nobody</string>
