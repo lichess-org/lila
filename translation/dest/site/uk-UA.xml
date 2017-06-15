@@ -332,6 +332,9 @@
   <string name="pieceDestinations">Поля для ходів (можливі ходи та ходи на випередження)</string>
   <string name="boardCoordinates">Координати (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Список ходів під час гри</string>
+  <string name="pgnPieceNotation">Фігура в PGN нотації</string>
+  <string name="chessPieceSymbol">Символ шахової фігури</string>
+  <string name="pgnLetter">Письмовий запис (K, Q, R, B, N)</string>
   <string name="chessClock">Шаховий годинник</string>
   <string name="tenthsOfSeconds">Десяті частки секунди</string>
   <string name="never">Ніколи</string>
@@ -463,6 +466,11 @@
   <string name="tournamentMayHaveBeenCanceled">Він міг бути скасований, якщо всі гравці залишили його до початку.</string>
   <string name="returnToTournamentsHomepage">Повернутися до домашньої сторінки турніру</string>
   <string name="weeklyPerfTypeRatingDistribution">Місячний %s розподіл за рейтинґом</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">%1$s %2$s гравець цього тижня.</item>
+    <item quantity="few">%1$s %2$s гравців цього тижня.</item>
+    <item quantity="other">%1$s %2$s гравців цього тижня.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">Ваш %1$s рейтинг становить %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Ви кращі від %1$s із %2$s гравців.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ваш рейтинґ %s ще не визначений.</string>
@@ -483,6 +491,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Також ви можете використовувати прокрутку над шахівницею для перегляду ходів у грі.</string>
   <string name="analysisShapesHowTo">Натисніть shift+ЛКМ або ПКМ, щоби намалювати кола та стрілки на шахівниці.</string>
   <string name="confirmResignation">Підтвердження здачі</string>
+  <string name="inputMovesWithTheKeyboard">Вводити ходи за допомогою клавіатури</string>
   <string name="letOtherPlayersMessageYou">Дозволити іншим гравцям надсилати вам повідомлення</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Рокірувати, перемістивши короля на дві клітинки або натиснувши на туру</string>
   <string name="castleByMovingTwoSquares">Рокірувати, перемістивши короля на дві клітинки або натиснувши на туру</string>
@@ -500,6 +509,7 @@
   <string name="security">Безпека</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Це список пристроїв, з котрих заходили в Ваш аккаунт. Завершіть будь-які підозрілі сеанси.</string>
   <string name="alternativelyYouCanX">Крім того, Ви можете %s.</string>
+  <string name="revokeAllSessions">завершити усі сеанси</string>
   <string name="playChessEverywhere">Грайте в шахи будь-де</string>
   <string name="asFreeAsLichess">Вільний як Lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Створений з любов\'ю до шахів, не до грошей</string>
@@ -514,6 +524,10 @@
   <string name="viewTheSolution">Дивитись рішення</string>
   <string name="followAndChallengeFriends">Стежте та викликайте друзів</string>
   <string name="gameAnalysis">Аналіз гри</string>
+  <string name="xHostsY">%1$s створив %2$s</string>
+  <string name="xJoinsY">%1$s приєднався до %2$s</string>
+  <string name="xLikesY">%1$s сподобалось %2$s</string>
+  <string name="quickPairing">Швидкий старт</string>
   <string name="lobby">Лобі</string>
   <string name="yourScore">Ваш рахунок: %s</string>
   <string name="language">Мова</string>
