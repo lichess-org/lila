@@ -133,7 +133,7 @@
   <string name="blackOffersDraw">Czarne proponują remis</string>
   <string name="whiteDeclinesDraw">Białe odrzuciły propozycję remisu</string>
   <string name="blackDeclinesDraw">Czarne odrzuciły propozycję remisu</string>
-  <string name="yourOpponentOffersADraw">Twój przeciwnik proponuje remis</string>
+  <string name="yourOpponentOffersADraw">Przeciwnik proponuje remis</string>
   <string name="accept">Akceptuję</string>
   <string name="decline">Odrzuć</string>
   <string name="playingRightNow">W toku</string>
