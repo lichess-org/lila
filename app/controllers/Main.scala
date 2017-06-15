@@ -134,6 +134,7 @@ object Main extends LilaController {
 
   def authFailed(req: RequestHeader): Fu[Result] =
     reqToCtx(req) map { implicit ctx =>
+      lila.mon.http.response.code403()
       Forbidden(html.base.authFailed())
     }
 
