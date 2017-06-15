@@ -29,12 +29,12 @@
   <string name="newOpponent">Nuevo oponente</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Tu oponente quiere la revancha</string>
   <string name="joinTheGame">Únete a la partida</string>
-  <string name="whitePlays">Juegan las blancas</string>
-  <string name="blackPlays">Juegan las negras</string>
+  <string name="whitePlays">Juegan blancas</string>
+  <string name="blackPlays">Juegan negras</string>
   <string name="opponentLeftChoices">Tu oponente puede haber abandonado la partida. Puedes reclamar la victoria, declarar tablas o esperar.</string>
   <string name="makeYourOpponentResign">Haz que tu oponente se rinda</string>
-  <string name="forceResignation">Reclama la victoria</string>
-  <string name="forceDraw">Declara tablas</string>
+  <string name="forceResignation">Reclamar la victoria</string>
+  <string name="forceDraw">Declarar tablas</string>
   <string name="talkInChat">Por favor, sé amable en el chat</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">La primera persona que entre en este enlace jugará contigo.</string>
   <string name="whiteResigned">Las blancas abandonaron</string>
@@ -146,7 +146,7 @@
   <string name="rematchOfferDeclined">Oferta de revancha rechazada</string>
   <string name="cancelRematchOffer">Cancelar oferta de revancha</string>
   <string name="viewRematch">Ver revancha</string>
-  <string name="play">Jugar</string>
+  <string name="play">Juega</string>
   <string name="inbox">Recibidos</string>
   <string name="chatRoom">Sala de chat</string>
   <string name="spectatorRoom">Chat de espectador</string>
@@ -222,13 +222,13 @@
   <string name="reset">Reiniciar</string>
   <string name="apply">Enviar</string>
   <string name="leaderboard">Clasificación</string>
-  <string name="pasteTheFenStringHere">Pega el texto FEN aquí</string>
-  <string name="pasteThePgnStringHere">Pega el texto PGN aquí</string>
+  <string name="pasteTheFenStringHere">Pega la notación FEN aquí</string>
+  <string name="pasteThePgnStringHere">Pega la notación PGN aquí</string>
   <string name="fromPosition">Desde posición</string>
   <string name="continueFromHere">Continuar desde aquí</string>
   <string name="importGame">Importar partida</string>
   <plurals name="nbImportedGames">
-    <item quantity="one">%s partidas importada</item>
+    <item quantity="one">%s partida importada</item>
     <item quantity="other">%s partidas importadas</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Esto es un CAPTCHA de ajedrez.</string>
@@ -347,7 +347,7 @@
   <string name="puzzles">Problemas</string>
   <string name="coordinates">Coordenadas</string>
   <string name="latestUpdates">Últimas actualizaciones</string>
-  <string name="tournamentWinners">Ganadores del torneo</string>
+  <string name="tournamentWinners">Ganadores de torneos</string>
   <string name="name">Nombre</string>
   <string name="description">Descripción</string>
   <string name="no">No</string>
@@ -405,7 +405,7 @@
   <string name="gameBehavior">Comportamiento</string>
   <string name="premovesPlayingDuringOpponentTurn">Premovimiento (jugar durante el turno del oponente)</string>
   <string name="takebacksWithOpponentApproval">Deshacer jugada (con consentimiento del oponente)</string>
-  <string name="promoteToQueenAutomatically">Promover a dama automáticamente</string>
+  <string name="promoteToQueenAutomatically">Promocionar a dama automáticamente</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reclamar tablas por triple repetición</string>
   <string name="privacy">Privacidad</string>
   <string name="letOtherPlayersFollowYou">Permitir que otros jugadores te sigan</string>
@@ -442,7 +442,7 @@
     <item quantity="other">Máximo: %s caracteres.</item>
   </plurals>
   <plurals name="blocks">
-    <item quantity="one">%s bloqueados</item>
+    <item quantity="one">%s bloqueado</item>
     <item quantity="other">%s bloqueados</item>
   </plurals>
   <string name="listBlockedPlayers">Lista de jugadores que has bloqueado</string>
@@ -472,7 +472,7 @@
   <string name="error.email_acceptable">Este email no es aceptable</string>
   <string name="error.email_unique">Este email ya está siendo usado</string>
   <string name="blindfoldChess">Ajedrez a ciegas (piezas invisibles)</string>
-  <string name="moveConfirmation">Confirmación de movimiento</string>
+  <string name="moveConfirmation">Confirmar movimiento</string>
   <string name="inCorrespondenceGames">Partidas por correspondencia</string>
   <string name="ifRatingIsPlusMinusX">Si la puntuación es ± %s</string>
   <string name="onlyFriends">Sólo amigos</string>
@@ -489,7 +489,7 @@
   <string name="tpTimeSpentPlaying">Tiempo total jugado: %s</string>
   <string name="watchGames">Ver partidas</string>
   <string name="tpTimeSpentOnTV">Tiempo pasado en TV: %s</string>
-  <string name="watch">Observar</string>
+  <string name="watch">Observa</string>
   <string name="internationalEvents">Eventos internacionales</string>
   <string name="videoLibrary">Videoteca</string>
   <string name="mobileApp">Aplicación para móviles</string>
@@ -505,10 +505,10 @@
   <string name="noSimulFound">Simultánea no encontrada</string>
   <string name="noSimulExplanation">Esta exhibición simultánea no existe.</string>
   <string name="returnToSimulHomepage">Volver a la página de simultáneas</string>
-  <string name="aboutSimul">Simultáneas implican un jugador enfrentándose a varios jugadores al mismo tiempo.</string>
+  <string name="aboutSimul">Las simultáneas se caracterizan por un jugador enfrentándose a varios al mismo tiempo.</string>
   <string name="aboutSimulImage">De 50 oponentes, Fischer ganó 47 partidas, empató 2 y perdió 1.</string>
   <string name="aboutSimulRealLife">El concepto de simultáneas en Lichess es tomado de la vida real, donde el anfitrión va de mesa en mesa para hacer su movimiento.</string>
-  <string name="aboutSimulRules">Cuando la simultánea empieza, cada jugador comienza una partida con el anfitrión, el cual juega con las blancas. La simultánea termina cuando todas las partidas se completan.</string>
+  <string name="aboutSimulRules">Cuando la simultánea empieza, cada jugador comienza una partida contra el anfitrión, quien juega con blancas. La simultánea termina cuando todas las partidas se completan.</string>
   <string name="aboutSimulSettings">Las simultáneas son siempre partidas amistosas. Las opciones de petición de revancha, deshacer jugada y agregar tiempo están deshabilitadas.</string>
   <string name="create">Crear</string>
   <string name="whenCreateSimul">Cuando creas una simultánea, juegas contra varios jugadores a la vez.</string>
@@ -533,13 +533,13 @@
   <string name="tournamentDoesNotExist">Este torneo no existe.</string>
   <string name="tournamentMayHaveBeenCanceled">Puede que se haya cancelado, si todos los jugadores se fueron antes de que empezara el torneo.</string>
   <string name="returnToTournamentsHomepage">Volver a la página principal de torneos</string>
-  <string name="weeklyPerfTypeRatingDistribution">Distribución mensual de puntos de %s</string>
+  <string name="weeklyPerfTypeRatingDistribution">Distribución semanal de puntuación de %s</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">Un jugador de %2$s esta semana.</item>
     <item quantity="other">%1$s jugadores de %2$s esta semana.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Tu puntuación de %1$s es %2$s.</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">Eres mejor que el %1$s de los jugadores en %2$s.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Eres mejor que el %1$s de los jugadores de %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">No tienes una puntuación de %s establecida.</string>
   <string name="checkYourEmail">Revisa tu email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Te hemos enviado un email. Haz clic en el enlace para activar tu cuenta.</string>
@@ -557,9 +557,9 @@
   <string name="crosstable">Tabla cruzada</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">También puedes usar la rueda del mouse para moverte en la partida.</string>
   <string name="analysisShapesHowTo">Presiona Mayús+clic o clic derecho para dibujar círculos y flechas en el tablero.</string>
-  <string name="confirmResignation">Confirma rendición</string>
-  <string name="letOtherPlayersMessageYou">Deja que otras personas te envíen un mensaje</string>
-  <string name="shareYourInsightsData">Comparte tus estadísticas</string>
+  <string name="confirmResignation">Confirmar rendición</string>
+  <string name="letOtherPlayersMessageYou">Dejar que otras personas te envíen un mensaje</string>
+  <string name="shareYourInsightsData">Compartir tus estadísticas</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Ya has registrado el correo electrónico: %s</string>
   <string name="kidMode">Modo infantil</string>
   <string name="playChessEverywhere">Juega ajedrez donde sea</string>
