@@ -92,7 +92,12 @@ private final class Socket(
       "w" -> who(uid)
     ), noMessadata)
 
-    case ReloadMembers(members) => notifyVersion("members", members, noMessadata)
+    case ReloadMembers(studyMembers) =>
+      notifyVersion("members", studyMembers, noMessadata)
+      val ids = studyMembers.ids.toSet
+      notifyIf(makeMessage("reload")) { m =>
+        m.userId.exists(ids.contains)
+      }
 
     case ReloadChapters(chapters) => notifyVersion("chapters", chapters, noMessadata)
 
@@ -164,10 +169,10 @@ private final class Socket(
 
     case GetVersion => sender ! history.version
 
-    case Socket.Join(uid, userId, troll, owner) =>
+    case Socket.Join(uid, userId, troll) =>
       import play.api.libs.iteratee.Concurrent
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = Socket.Member(channel, userId, troll = troll, owner = owner)
+      val member = Socket.Member(channel, userId, troll = troll)
       addMember(uid.value, member)
       notifyCrowd
       sender ! Socket.Connected(enumerator, member)
@@ -242,15 +247,14 @@ private object Socket {
   case class Member(
     channel: JsChannel,
     userId: Option[String],
-    troll: Boolean,
-    owner: Boolean
+    troll: Boolean
   ) extends lila.socket.SocketMember
 
   case class Who(u: String, s: Uid)
   import JsonView.uidWriter
   implicit private val whoWriter = Json.writes[Who]
 
-  case class Join(uid: Uid, userId: Option[User.ID], troll: Boolean, owner: Boolean)
+  case class Join(uid: Uid, userId: Option[User.ID], troll: Boolean)
   case class Connected(enumerator: JsEnumerator, member: Member)
 
   case class ReloadUid(uid: Uid)

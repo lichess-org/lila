@@ -91,8 +91,6 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
     var canContribute = members.canContribute();
     // unwrite if member lost priviledges
     vm.mode.write = vm.mode.write && canContribute;
-    // unstick if study becomes non-sticky
-    vm.mode.sticky = vm.mode.sticky && data.features.sticky;
     lichess.pubsub.emit('chat.writeable')(data.features.chat);
     lichess.pubsub.emit('chat.permissions')({local: canContribute});
     var computer = data.chapter.features.computer || data.chapter.practice;
@@ -113,10 +111,12 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
     var s = d.study;
     var prevPath = ctrl.vm.path;
     var sameChapter = data.chapter.id === s.chapter.id;
+    vm.mode.sticky = (vm.mode.sticky && s.features.sticky) || (!data.features.sticky && s.features.sticky);
     if (vm.mode.sticky && s.position !== data.position) commentForm.close();
     ['position', 'name', 'visibility', 'features', 'settings', 'chapter', 'likes', 'liked'].forEach(function(key) {
       data[key] = s[key];
     });
+    if (vm.mode.sticky && !data.features.sticky)
     document.title = data.name;
     members.dict(s.members);
     chapters.list(s.chapters);

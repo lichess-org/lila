@@ -28,7 +28,7 @@ function buttons(root) {
       ctrl.members.canContribute() ? m('a.button.text.is', {
         class: classSet({on: ctrl.vm.mode.write }),
         onclick: ctrl.toggleWrite
-      }, 'Write') : null,
+      }, 'Record') : null,
       m('a.button.share.hint--top', {
         class: classSet({
           active: ctrl.share.open()
@@ -126,7 +126,7 @@ module.exports = {
   },
 
   contextMenu: function(ctrl, path, node) {
-    if (ctrl.members.canContribute()) return [
+    if (ctrl.vm.mode.write) return [
       m('a.action', {
         'data-icon': 'c',
         onclick: function() {

@@ -122,7 +122,7 @@ module.exports = {
             })),
             m('div.form-group.half', select({
               key: 'sticky',
-              name: 'Sticky mode',
+              name: 'Enable sync',
               choices: [
                 [true, 'Yes: keep everyone on the same ply'],
                 [false, 'No: let people browse freely']

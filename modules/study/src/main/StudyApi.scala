@@ -241,8 +241,8 @@ final class StudyApi(
     )
   }
 
-  def kick(studyId: Study.Id, userId: User.ID) = sequenceStudy(studyId) { study =>
-    study.isMember(userId) ?? {
+  def kick(byUserId: User.ID, studyId: Study.Id, userId: User.ID) = sequenceStudy(studyId) { study =>
+    (study.isMember(userId) && (study.isOwner(byUserId) ^ (byUserId == userId))) ?? {
       if (study.isPublic && study.canContribute(userId))
         bus.publish(lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId.value), 'study)
       studyRepo.removeMember(study, userId)
@@ -258,7 +258,6 @@ final class StudyApi(
         sendTo(study, Socket.ReloadMembers(members))
       }
     }
-    sendTo(study, Socket.ReloadAll)
     indexStudy(study)
   }
 
@@ -445,8 +444,8 @@ final class StudyApi(
     }
   }
 
-  def editStudy(studyId: Study.Id, data: Study.Data) = sequenceStudy(studyId) { study =>
-    data.settings ?? { settings =>
+  def editStudy(byUserId: User.ID, studyId: Study.Id, data: Study.Data) = sequenceStudy(studyId) { study =>
+    data.settings.ifTrue(study isOwner byUserId) ?? { settings =>
       val newStudy = study.copy(
         name = Study toName data.name,
         settings = settings,
