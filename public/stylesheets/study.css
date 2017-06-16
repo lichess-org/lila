@@ -429,17 +429,16 @@ div.underboard .notif.error {
   font-weight: normal;
   text-transform: uppercase;
 }
-.study_buttons .member_buttons .button::before {
+.study_buttons .button.mode i::before {
+  font-size: 19px;
   content: 'j';
   color: #dc322f;
+  margin-right: 4px;
 }
-.study_buttons .member_buttons .button.on {
+.study_buttons .button.mode.on {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12) inset;
 }
-.study_buttons .member_buttons .button:hover::before {
-  color: #3893E8;
-}
-.study_buttons .member_buttons .button.on::before {
+.study_buttons .button.mode.on i::before {
   content: 'E';
   color: #759900;
 }
