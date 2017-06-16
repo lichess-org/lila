@@ -43,6 +43,7 @@ module.exports = function(opts, redraw) {
     challengeRematched: false,
     justDropped: null,
     justCaptured: null,
+    justMoved: false,
     preDrop: null,
     lastDrawOfferAtPly: null,
     lastMoveMillis: null
@@ -178,6 +179,7 @@ module.exports = function(opts, redraw) {
 
     this.vm.justDropped = meta.justDropped;
     this.vm.justCaptured = meta.justCaptured;
+    this.vm.justMoved = true;
     this.vm.preDrop = null;
     redraw();
   }
@@ -307,6 +309,7 @@ module.exports = function(opts, redraw) {
     d.steps.push(step);
     this.vm.justDropped = null;
     this.vm.justCaptured = null;
+    this.vm.justMoved = false;
     game.setOnGame(d, playedColor, true);
     delete this.data.forecastCount;
     redraw();
@@ -401,7 +404,7 @@ module.exports = function(opts, redraw) {
   }) : false;
 
   this.isClockRunning = function() {
-    return this.data.clock && game.playable(this.data) &&
+    return this.data.clock && game.playable(this.data) && !this.vm.justMoved &&
     ((this.data.game.turns - this.data.game.startedAtTurn) > 1 || this.data.clock.running);
   }.bind(this);
 
