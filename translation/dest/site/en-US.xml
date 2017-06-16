@@ -576,9 +576,9 @@
   <string name="confirmResignation">Confirm resignation</string>
   <string name="inputMovesWithTheKeyboard">Input moves with the keyboard</string>
   <string name="letOtherPlayersMessageYou">Let other players message you</string>
-  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Castle by moving the king two squares, or onto the rook</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Castling method</string>
   <string name="castleByMovingTwoSquares">Move king two squares</string>
-  <string name="castleByMovingOntoTheRook">Castle by moving onto the rook</string>
+  <string name="castleByMovingOntoTheRook">Move king onto rook</string>
   <string name="shareYourInsightsData">Share your insights data</string>
   <string name="withNobody">With nobody</string>
   <string name="withFriends">With friends</string>
