@@ -38,6 +38,12 @@ export default function(root: Tree.Node) {
     return child ? nodeAtPathOrNullFrom(child, treePath.tail(path)) : undefined;
   }
 
+  function longestValidPath(node: Tree.Node, path: Tree.Path): Tree.Path {
+    var id = treePath.head(path);
+    const child = ops.childById(node, id);
+    return child ? id + longestValidPath(child, treePath.tail(path)) : '';
+  }
+
   const getCurrentNodesAfterPly = function(nodeList: Tree.Node[], mainline: Tree.Node[], ply: number): Tree.Node[] {
     var node, nodes = [];
     for (var i in nodeList) {
@@ -186,6 +192,7 @@ export default function(root: Tree.Node) {
     lastPly: lastPly,
     nodeAtPath: nodeAtPath,
     getNodeList: getNodeList,
+    longestValidPath: longestValidPath,
     getOpening: getOpening,
     updateAt: updateAt,
     addNode: addNode,

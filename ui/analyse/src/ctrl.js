@@ -33,12 +33,16 @@ module.exports = function(opts) {
   this.userId = opts.userId;
   this.embed = opts.embed;
 
-  var initialize = function(data) {
+  var initialize = function(data, merge) {
     this.data = data;
     if (!data.game.moveCentis) this.data.game.moveCentis = [];
     this.synthetic = util.synthetic(data);
     this.ongoing = !this.synthetic && game.playable(data);
+
+    var prevTree = merge && this.tree;
     this.tree = tree.build(tree.ops.reconstruct(data.treeParts));
+    if (prevTree) this.tree.merge(prevTree);
+
     this.actionMenu = new ActionMenuController();
     this.autoplay = new autoplay(this);
     if (this.socket) this.socket.clearCache();
@@ -121,22 +125,22 @@ module.exports = function(opts) {
   }.bind(this);
   this.getOrientation = this.bottomColor; // required by ui/ceval
 
-  this.turnColor = function() {
-    return this.vm.node.ply % 2 === 0 ? 'white' : 'black';
-  }.bind(this);
+    this.turnColor = function() {
+      return this.vm.node.ply % 2 === 0 ? 'white' : 'black';
+    }.bind(this);
 
-  this.togglePlay = function(delay) {
-    this.autoplay.toggle(delay);
-    this.actionMenu.open = false;
-  }.bind(this);
+    this.togglePlay = function(delay) {
+      this.autoplay.toggle(delay);
+      this.actionMenu.open = false;
+    }.bind(this);
 
-  var uciToLastMove = function(uci) {
-    if (!uci) return;
-    if (uci[1] === '@') return [uci.substr(2, 2), uci.substr(2, 2)];
-    return [uci.substr(0, 2), uci.substr(2, 2)];
-  };
+    var uciToLastMove = function(uci) {
+      if (!uci) return;
+      if (uci[1] === '@') return [uci.substr(2, 2), uci.substr(2, 2)];
+      return [uci.substr(0, 2), uci.substr(2, 2)];
+    };
 
-  this.fork = makeFork(this);
+    this.fork = makeFork(this);
 
   var showGround = function() {
     var node = this.vm.node;
@@ -255,8 +259,9 @@ module.exports = function(opts) {
       this.practice.preUserJump(prev, path);
       this.jump(path);
       this.practice.postUserJump(prev, this.vm.path);
-    } else
-    this.jump(path);
+    } else {
+      this.jump(path);
+    }
   }.bind(this);
 
   var canJumpTo = function(path) {
@@ -287,8 +292,8 @@ module.exports = function(opts) {
     m.redraw();
   }.bind(this);
 
-  this.reloadData = function(data) {
-    initialize(data);
+  this.reloadData = function(data, merge) {
+    initialize(data, merge);
     this.vm.redirecting = false;
     this.setPath(tree.path.root);
     instanciateCeval();

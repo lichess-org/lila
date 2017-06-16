@@ -11,6 +11,7 @@ var shareCtrl = require('./studyShare').ctrl;
 var tagsCtrl = require('./studyTags').ctrl;
 var tours = require('./studyTour');
 var xhr = require('./studyXhr');
+var treePath = require('tree').path;
 
 // data.position.path represents the server state
 // ctrl.vm.path is the client state
@@ -110,6 +111,8 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
 
   var onReload = function(d) {
     var s = d.study;
+    var prevPath = ctrl.vm.path;
+    var sameChapter = data.chapter.id === s.chapter.id;
     if (vm.mode.sticky && s.position !== data.position) commentForm.close();
     ['position', 'name', 'visibility', 'features', 'settings', 'chapter', 'likes', 'liked'].forEach(function(key) {
       data[key] = s[key];
@@ -118,7 +121,9 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
     members.dict(s.members);
     chapters.list(s.chapters);
     ctrl.unflip();
-    ctrl.reloadData(d.analysis);
+
+    var merge = !vm.mode.write && sameChapter;
+    ctrl.reloadData(d.analysis, merge);
     configureAnalysis();
     vm.loading = false;
 
@@ -127,6 +132,11 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
     if (vm.mode.sticky) {
       vm.chapterId = data.position.chapterId;
       ctrl.userJump(data.position.path);
+    } else {
+      // path could be gone
+      var path = sameChapter ? ctrl.tree.longestValidPath(prevPath) : treePath.root;
+      console.log(path);
+      ctrl.userJump(path);
     }
 
     configurePractice();
@@ -144,6 +154,7 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
       vm.mode.sticky ? null : vm.chapterId
     ).then(onReload, lichess.reload);
   };
+  window.xhrReload = xhrReload;
 
   var onSetPath = throttle(300, false, function(path) {
     if (vm.mode.sticky && path !== data.position.path) makeChange("setPath", addChapterId({
@@ -245,6 +256,7 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
     },
     toggleWrite: function() {
       vm.mode.write = !vm.mode.write && members.canContribute();
+      xhrReload();
     },
     makeChange: makeChange,
     startTour: startTour,
