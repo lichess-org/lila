@@ -39,7 +39,7 @@ module.exports = function(opts) {
     this.synthetic = util.synthetic(data);
     this.ongoing = !this.synthetic && game.playable(data);
 
-    var prevTree = merge && this.tree;
+    var prevTree = merge && this.tree.root;
     this.tree = tree.build(tree.ops.reconstruct(data.treeParts));
     if (prevTree) this.tree.merge(prevTree);
 

@@ -135,7 +135,6 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
     } else {
       // path could be gone
       var path = sameChapter ? ctrl.tree.longestValidPath(prevPath) : treePath.root;
-      console.log(path);
       ctrl.userJump(path);
     }
 
@@ -243,6 +242,7 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
     setChapter: function(id, force) {
       if (id === vm.chapterId && !force) return;
       if (!vm.mode.sticky || !makeChange("setChapter", id)) {
+        vm.mode.sticky = false;
         vm.chapterId = id;
         xhrReload();
       }

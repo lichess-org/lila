@@ -255,11 +255,11 @@ private[study] final class SocketHandler(
   private case class MoveOpts(write: Boolean, sticky: Boolean)
 
   private def getMoveOpts(o: JsObject) = {
-    val d = (o.pp obj "d").pp | Json.obj()
+    val d = (o obj "d") | Json.obj()
     MoveOpts(
       write = d.get[Boolean]("write") | true,
       sticky = d.get[Boolean]("sticky") | true
-    ).pp
+    )
   }
 
   def join(

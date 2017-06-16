@@ -436,12 +436,11 @@ div.underboard .notif.error {
 .study_buttons .member_buttons .button.on {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12) inset;
 }
-.study_buttons .member_buttons .button.on::before,
 .study_buttons .member_buttons .button:hover::before {
-  content: 'E';
   color: #3893E8;
 }
 .study_buttons .member_buttons .button.on::before {
+  content: 'E';
   color: #759900;
 }
 .study_buttons .button i {
