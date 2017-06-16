@@ -347,7 +347,7 @@ module.exports = function(opts, redraw) {
     this.vm.justCaptured = null;
     this.vm.preDrop = null;
     makeCorrespondenceClock();
-    if (this.clock) this.clock.update(this.data.clock.white, this.data.clock.black);
+    if (this.clock) this.clock.update(this.data.clock.wc, this.data.clock.bc);
     if (this.correspondenceClock) this.correspondenceClock.update(this.data.correspondence.white, this.data.correspondence.black);
     if (!this.replaying()) ground.reload(this);
     this.setTitle();

@@ -21,15 +21,15 @@ module.exports = function(data, opts) {
 
   var times;
 
-  function update(white, black) {
+  function update(wc, bc) {
     times = {
-      white: white * 1000,
-      black: black * 1000,
+      white: wc * 10,
+      black: bc * 10,
       lastUpdate: Date.now()
     };
   };
 
-  update(data.white, data.black);
+  update(data.wc, data.bc);
 
   function tick(ctrl, color) {
     var now = Date.now();
