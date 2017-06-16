@@ -172,7 +172,7 @@ final class StudyApi(
             chapterRepo.setChildren(chapter, position.path, parent.children) >>
               (sticky ?? studyRepo.setPosition(study.id, position + node)) >>
               updateConceal(study, chapter, position + node) >>-
-              sendTo(study, Socket.AddNode(position, node, chapter.setup.variant, uid)) >>-
+              sendTo(study, Socket.AddNode(position, node, chapter.setup.variant, uid, sticky = sticky)) >>-
               sendStudyEnters(study, userId)
           }
       }

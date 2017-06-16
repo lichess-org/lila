@@ -183,10 +183,10 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
     };
   }
 
-  var wrongChapter = function(serverPosition) {
-    if (serverPosition.chapterId !== vm.chapterId) {
+  var wrongChapter = function(serverData) {
+    if (serverData.p.chapterId !== vm.chapterId) {
       // sticky should really be on the same chapter
-      if (vm.mode.sticky) xhrReload();
+      if (vm.mode.sticky && serverData.sticky) xhrReload();
       return true;
     }
   };
@@ -283,26 +283,29 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
       addNode: function(d) {
         var position = d.p,
           node = d.n,
-          who = d.w;
+          who = d.w,
+          sticky = d.s;
         who && members.setActive(who.u);
-        if (wrongChapter(position)) return;
+        if (wrongChapter(d)) return;
         // node author already has the node
-        if (who && who.s === sri) {
+        if (sticky && who && who.s === sri) {
           data.position.path = position.path + node.id;
           return;
         }
         var newPath = ctrl.tree.addNode(node, position.path);
-        ctrl.tree.addDests(d.d, newPath, d.o);
         if (!newPath) return xhrReload();
-        data.position.path = newPath;
-        if (vm.mode.sticky) ctrl.jump(data.position.path);
+        ctrl.tree.addDests(d.d, newPath, d.o);
+        if (sticky) {
+          data.position.path = newPath;
+          if (vm.mode.sticky) ctrl.jump(newPath);
+        }
         m.redraw();
       },
       deleteNode: function(d) {
         var position = d.p,
           who = d.w;
         who && members.setActive(who.u);
-        if (wrongChapter(position)) return;
+        if (wrongChapter(d)) return;
         // deleter already has it done
         if (who && who.s === sri) return;
         if (!ctrl.tree.pathExists(d.p.path)) return xhrReload();
@@ -314,7 +317,7 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
         var position = d.p,
           who = d.w;
         who && members.setActive(who.u);
-        if (wrongChapter(position)) return;
+        if (wrongChapter(d)) return;
         if (who && who.s === sri) return;
         if (!ctrl.tree.pathExists(d.p.path)) return xhrReload();
         ctrl.tree.promoteAt(position.path, toMainline);
@@ -339,7 +342,7 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
         var position = d.p,
           who = d.w;
         who && members.setActive(who.u);
-        if (wrongChapter(position)) return;
+        if (wrongChapter(d)) return;
         if (who && who.s === sri) return;
         ctrl.tree.setShapes(d.s, ctrl.vm.path);
         if (ctrl.vm.path === position.path && ctrl.chessground) ctrl.chessground.setShapes(d.s);
@@ -349,14 +352,14 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
         var position = d.p,
           who = d.w;
         who && members.setActive(who.u);
-        if (wrongChapter(position)) return;
+        if (wrongChapter(d)) return;
         if (who && who.s === sri) commentForm.dirty(false);
         ctrl.tree.setCommentAt(d.c, position.path);
         m.redraw();
       },
       setTags: function(d) {
         d.w && members.setActive(d.w.u);
-        if (wrongChapter(position)) return;
+        if (wrongChapter(d)) return;
         data.chapter.tags = d.tags;
         m.redraw();
       },
@@ -364,7 +367,7 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
         var position = d.p,
           who = d.w;
         who && members.setActive(who.u);
-        if (wrongChapter(position)) return;
+        if (wrongChapter(d)) return;
         ctrl.tree.deleteCommentAt(d.id, position.path);
         m.redraw();
       },
@@ -372,14 +375,14 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
         var position = d.p,
           who = d.w;
         who && members.setActive(who.u);
-        if (wrongChapter(position)) return;
+        if (wrongChapter(d)) return;
         if (who && who.s === sri) glyphForm.dirty(false);
         ctrl.tree.setGlyphsAt(d.g, position.path);
         m.redraw();
       },
       conceal: function(d) {
         var position = d.p;
-        if (wrongChapter(position)) return;
+        if (wrongChapter(d)) return;
         data.chapter.conceal = d.ply;
         m.redraw();
       },

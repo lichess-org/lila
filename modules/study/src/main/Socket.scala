@@ -66,7 +66,7 @@ private final class Socket(
         "w" -> who(uid).map(whoWriter.writes)
       ), noMessadata)
 
-    case AddNode(pos, node, variant, uid) =>
+    case AddNode(pos, node, variant, uid, sticky) =>
       val dests = AnaDests(
         variant,
         node.fen,
@@ -78,7 +78,8 @@ private final class Socket(
         "p" -> pos,
         "w" -> who(uid),
         "d" -> dests.dests,
-        "o" -> dests.opening
+        "o" -> dests.opening,
+        "s" -> sticky
       ), noMessadata)
 
     case DeleteNode(pos, uid) => notifyVersion("deleteNode", Json.obj(
@@ -259,7 +260,7 @@ private object Socket {
 
   case class ReloadUid(uid: Uid)
 
-  case class AddNode(position: Position.Ref, node: Node, variant: chess.variant.Variant, uid: Uid)
+  case class AddNode(position: Position.Ref, node: Node, variant: chess.variant.Variant, uid: Uid, sticky: Boolean)
   case class DeleteNode(position: Position.Ref, uid: Uid)
   case class Promote(position: Position.Ref, toMainline: Boolean, uid: Uid)
   case class SetPath(position: Position.Ref, uid: Uid)
