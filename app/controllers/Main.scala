@@ -132,6 +132,12 @@ object Main extends LilaController {
       NotFound(html.base.notFound())
     }
 
+  def authFailed(req: RequestHeader): Fu[Result] =
+    reqToCtx(req) map { implicit ctx =>
+      lila.mon.http.response.code403()
+      Forbidden(html.base.authFailed())
+    }
+
   def fpmenu = Open { implicit ctx =>
     Ok(html.base.fpmenu()).fuccess
   }

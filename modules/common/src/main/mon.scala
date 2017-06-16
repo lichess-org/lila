@@ -15,6 +15,7 @@ object mon {
     }
     object response {
       val code400 = inc("http.response.4.00")
+      val code403 = inc("http.response.4.03")
       val code404 = inc("http.response.4.04")
       val code500 = inc("http.response.5.00")
       val home = rec("http.response.home")
