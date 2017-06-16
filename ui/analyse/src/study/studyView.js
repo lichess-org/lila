@@ -22,7 +22,7 @@ function buttons(root) {
   return m('div.study_buttons', [
     m('div.member_buttons', [
       ctrl.data.features.sticky ? m('a.button.mode.hint--top', {
-        'data-hint': 'All sync members remain on the same ply',
+        'data-hint': 'All sync members remain on the same position',
         class: classSet({on: ctrl.vm.mode.sticky }),
         onclick: ctrl.toggleSticky
       }, [ m('i.is'), 'Sync']) : null,
