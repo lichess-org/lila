@@ -21,14 +21,14 @@ function buttons(root) {
   var canContribute = ctrl.members.canContribute();
   return m('div.study_buttons', [
     m('div.member_buttons', [
-      ctrl.data.features.sticky ? m('a.button.text', {
-        'data-icon': ctrl.vm.mode.sticky ? '"' : '"',
+      ctrl.data.features.sticky ? m('a.button.text.is', {
+        class: classSet({on: ctrl.vm.mode.sticky }),
         onclick: ctrl.toggleSticky
-      }, ctrl.vm.mode.sticky ? 'Sticky' : 'Free') : null,
-      ctrl.members.canContribute() ? m('a.button.text', {
-        'data-icon': ctrl.vm.mode.write ? 'E' : 'k',
+      }, 'Sync') : null,
+      ctrl.members.canContribute() ? m('a.button.text.is', {
+        class: classSet({on: ctrl.vm.mode.write }),
         onclick: ctrl.toggleWrite
-      }, ctrl.vm.mode.write ? 'Write' : 'Read') : null,
+      }, 'Write') : null,
       m('a.button.share.hint--top', {
         class: classSet({
           active: ctrl.share.open()
