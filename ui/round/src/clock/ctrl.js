@@ -21,11 +21,12 @@ module.exports = function(data, opts) {
 
   var times;
 
-  function update(white, black) {
+  function update(white, black, delay) {
+    if (delay === undefined) delay = 0;
     times = {
       white: white * 1000,
       black: black * 1000,
-      lastUpdate: Date.now()
+      lastUpdate: Date.now() + delay * 10
     };
   };
 
@@ -33,8 +34,11 @@ module.exports = function(data, opts) {
 
   function tick(ctrl, color) {
     var now = Date.now();
-    var millis = times[color] -= now - times.lastUpdate;
-    times.lastUpdate = now;
+    if (now > times.lastUpdate) {
+      times[color] -= now - times.lastUpdate;
+      times.lastUpdate = now;
+    }
+    var millis = times[color];
 
     if (millis <= 0) opts.onFlag();
     else updateElements(ctrl, color);
