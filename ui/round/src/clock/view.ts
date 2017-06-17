@@ -6,16 +6,18 @@ import { h } from 'snabbdom'
 
 export function renderClock(ctrl, player, position) {
   const millis = ctrl.clock.millisOf(player.color);
-  const running = ctrl.isClockRunning() && ctrl.data.game.player === player.color;
   const isPlayer = ctrl.data.player.color === player.color;
+  let isRunning = false;
+  if (ctrl.vm.justMoved) isRunning = !isPlayer;
+  else if (player.color === ctrl.data.game.player && ctrl.isClockRunning()) isRunning = true;
   const update = (el: HTMLElement) => {
     ctrl.clock.elements[player.color].time = el;
-    el.innerHTML = formatClockTime(ctrl.clock.data, millis, running);
+    el.innerHTML = formatClockTime(ctrl.clock.data, millis, isRunning);
   }
   return h('div.clock.clock_' + player.color + '.clock_' + position, {
     class: {
       outoftime: millis <= 0,
-      running: running,
+      running: isRunning,
       emerg: millis < ctrl.clock.emergMs
     }
   }, [
@@ -39,10 +41,10 @@ function pad2(num) {
 var sepHigh = '<sep>:</sep>';
 var sepLow = '<sep class="low">:</sep>';
 
-function formatClockTime(data, time, running) {
+function formatClockTime(data, time, isRunning) {
   var date = new Date(time);
   var millis = date.getUTCMilliseconds();
-  var sep = (running && millis < 500) ? sepLow : sepHigh;
+  var sep = (isRunning && millis < 500) ? sepLow : sepHigh;
   var baseStr = pad2(date.getUTCMinutes()) + sep + pad2(date.getUTCSeconds());
   if (time >= 3600000) {
     var hours = pad2(Math.floor(time / 3600000));
@@ -51,7 +53,7 @@ function formatClockTime(data, time, running) {
     return baseStr;
   } else {
     var tenthsStr = Math.floor(millis / 100).toString();
-    if (!running && time < 1000) {
+    if (!isRunning && time < 1000) {
       tenthsStr += '<huns>' + (Math.floor(millis / 10) % 10) + '</huns>';
     }
 

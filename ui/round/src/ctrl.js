@@ -187,8 +187,8 @@ module.exports = function(opts, redraw) {
     this.vm.justDropped = meta.justDropped;
     this.vm.justCaptured = meta.justCaptured;
     this.vm.preDrop = null;
-    redraw();
     this.vm.justMoved = true;
+    redraw();
   }
 
   this.sendMove = function(orig, dest, prom, meta) {
@@ -312,8 +312,10 @@ module.exports = function(opts, redraw) {
       if (o.check) sound.check();
       blur.onMove();
     }
-    if (o.clock)(this.clock || this.correspondenceClock).update(o.clock.white, o.clock.black,
+    if (o.clock) {
+      (this.clock || this.correspondenceClock).update(o.clock.white, o.clock.black,
         playing && activeColor ? 0 : o.clock.lagEst);
+    }
     d.game.threefold = !!o.threefold;
     var step = {
       ply: round.lastPly(this.data) + 1,
