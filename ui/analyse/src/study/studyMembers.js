@@ -75,6 +75,7 @@ module.exports = {
         dict(members);
         if (wasViewer && canContribute()) {
           if (lichess.once('study-tour')) opts.startTour();
+          opts.onBecomingContributor();
           opts.notif.set({
             text: 'You are now a contributor',
             duration: 3000

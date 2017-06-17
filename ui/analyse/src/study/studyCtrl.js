@@ -55,7 +55,10 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
     send: send,
     setTab: lichess.partial(vm.tab, 'members'),
     startTour: startTour,
-    notif: notif
+    notif: notif,
+    onBecomingContributor: function() {
+      vm.mode.write = true;
+    }
   });
 
   var chapters = chapterCtrl(data.chapters, send, lichess.partial(vm.tab, 'chapters'), lichess.partial(xhr.chapterConfig, data.id), ctrl);
