@@ -53,7 +53,7 @@ function buttons(root) {
         m('a.button.glyph.hint--top', {
           class: classSet({
             active: ctrl.glyphForm.isOpen(),
-            disabled: !(root.vm.path && ctrl.vm.write)
+            disabled: !(root.vm.path && ctrl.vm.mode.write)
           }),
           'data-hint': 'Annotate with symbols',
           config: bindOnce('click', function() {
