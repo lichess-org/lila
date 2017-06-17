@@ -578,7 +578,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Twój ranking w wariancie %1$s to %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">jesteś lepszy niż %1$s graczy wariantu %2$s</string>
-  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nie masz jeszcze ustalonego rankingu w wariancie %s</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nie masz jeszcze ustalonego rankingu w tym wariancie.</string>
   <string name="checkYourEmail">Sprawdź swoją skrzynkę e-mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Wysłaliśmy do Ciebie wiadomość e-mail. Kliknij w link znajdujący się w e-mailu aby aktywować swoje konto.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Jeśli nie widzisz wiadomości e-mail, sprawdź inne możliwe miejsca, takie jak kosz, spam lub inne foldery.</string>
