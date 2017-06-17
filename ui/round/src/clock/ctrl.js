@@ -21,12 +21,12 @@ module.exports = function(data, opts) {
 
   var times;
 
-  function update(white, black, delay) {
-    if (delay === undefined) delay = 0;
+  function update(white, black, delayCentis) {
+    if (delayCentis === undefined) delayCentis = 0;
     times = {
       white: white * 1000,
       black: black * 1000,
-      lastUpdate: Date.now() + delay * 10
+      lastUpdate: Date.now() + delayCentis * 10
     };
   };
 
