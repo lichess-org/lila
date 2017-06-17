@@ -481,9 +481,17 @@
   <string name="confirmResignation">Confirmă-ți dorinta de a abandona</string>
   <string name="inputMovesWithTheKeyboard">Introdu mutări folosind tastatura</string>
   <string name="letOtherPlayersMessageYou">Permite altor jucători să îți trimită mesaje</string>
+  <string name="castleByMovingTwoSquares">Fă rocada mutând două pătrățele</string>
   <string name="shareYourInsightsData">Partajează-ți statisticile legate de jocuri</string>
+  <string name="withFriends">Cu prietenii</string>
+  <string name="withEverybody">Cu toți</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Ai înregistrat deja adresa de email: %s</string>
   <string name="kidMode">Mod pentru copii</string>
+  <string name="kidModeExplanation">E în legătură cu securitatea. În modul „copil”, toate modalitățile de comunicare sunt dezactivate. Activează asta pentru copilul tău sau pentru școlari, pentru a-i proteja de alți utilizatori ai internetului.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">În modul „copil”, sigla paginii va avea iconița %s, în felul acesta știți când copiii dumneavoastră sunt în siguranță.</string>
+  <string name="enableKidMode">Activează modul „copil”</string>
+  <string name="disableKidMode">Dezactivează modul „copil”</string>
+  <string name="security">Securitate</string>
   <string name="playChessEverywhere">Joacă șah oriunde</string>
   <string name="asFreeAsLichess">Gratis ca și lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Construit din cauza dragostei față de șah, nu față de bani</string>
