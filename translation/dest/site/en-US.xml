@@ -417,7 +417,7 @@
   <string name="howDoYouMovePieces">How do you move pieces?</string>
   <string name="clickTwoSquares">Click two squares</string>
   <string name="dragPiece">Drag a piece</string>
-  <string name="bothClicksAndDrag">Both click and drag</string>
+  <string name="bothClicksAndDrag">Both possible</string>
   <string name="premovesPlayingDuringOpponentTurn">Premoves (playing during opponent turn)</string>
   <string name="takebacksWithOpponentApproval">Takebacks (with opponent approval)</string>
   <string name="promoteToQueenAutomatically">Promote to Queen automatically</string>
