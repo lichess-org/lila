@@ -46,6 +46,7 @@
   <string name="viewTheComputerAnalysis">Ve el análisis del ordenador</string>
   <string name="requestAComputerAnalysis">Solicita un análisis del ordenador</string>
   <string name="computerAnalysis">Análisis del ordenador</string>
+  <string name="computerAnalysisAvailable">Análisis por ordenador disponible</string>
   <string name="analysis">Tablero de análisis</string>
   <string name="blunders">Errores graves</string>
   <string name="mistakes">Errores</string>
@@ -283,6 +284,9 @@
   <string name="winStreak">Victorias consecutivas</string>
   <string name="createdBy">Creado por</string>
   <string name="tournamentIsStarting">El torneo está comenzando</string>
+  <string name="tournamentPairingsAreNowClosed">Los emparejamientos del torneo están cerrados.</string>
+  <string name="standByX">Espere %s, emparejando jugadores, ¡prepárate!</string>
+  <string name="youArePlaying">¡Está jugando!</string>
   <string name="membersOnly">Sólo miembros</string>
   <string name="boardEditor">Editor de tablero</string>
   <string name="startPosition">Posición inicial</string>
@@ -291,6 +295,9 @@
   <string name="loadPosition">Cargar posicion</string>
   <string name="isPrivate">Privado</string>
   <string name="reportXToModerators">Reportar %s a los moderadores</string>
+  <string name="profileCompletion">Perfil completado al %s</string>
+  <string name="xRating">Ranking %s</string>
+  <string name="ifNoneLeaveEmpty">Si no, déjelo en blanco</string>
   <string name="profile">Perfil</string>
   <string name="editProfile">Editar perfil</string>
   <string name="firstName">Nombre</string>
