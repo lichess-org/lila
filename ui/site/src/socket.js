@@ -16,6 +16,7 @@ lichess.StrongSocket = function(url, version, settings) {
   var ackable = makeAckable(function(t, d) { send(t, d) });
   var lastPingTime = now();
   var pingStore = lichess.storage.make("pingMs");
+  var pongCount = 0;
   var currentLag = 0;
   var averageLag = pingStore.get();
   var tryOtherUrl = false;
@@ -126,7 +127,8 @@ lichess.StrongSocket = function(url, version, settings) {
     currentLag = Math.min(now() - lastPingTime, 5000);
     if (!averageLag) averageLag = currentLag;
     else averageLag = 0.1 * (currentLag - averageLag) + averageLag;
-    pingStore.set(averageLag);
+    pongCount++;
+    if (pongCount % 8 === 1) pingStore.set(averageLag);
     lichess.pubsub.emit('socket.lag')(averageLag);
   };
 
@@ -136,7 +138,7 @@ lichess.StrongSocket = function(url, version, settings) {
       t: "p",
       v: version
     };
-    if (averageLag) data.l = Math.round(.01 * averageLag);
+    if (pongCount % 8 === 1) data.l = Math.round(.01 * averageLag);
     return JSON.stringify(data);
   };
 
