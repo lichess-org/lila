@@ -417,7 +417,7 @@
   <string name="howDoYouMovePieces">Flytta pjäser</string>
   <string name="clickTwoSquares">Klicka två rutor</string>
   <string name="dragPiece">Drag pjäs</string>
-  <string name="bothClicksAndDrag">Både klicka och drag</string>
+  <string name="bothClicksAndDrag">Båda möjligt</string>
   <string name="premovesPlayingDuringOpponentTurn">Premoves (göra drag i förväg under motståndarens tur)</string>
   <string name="takebacksWithOpponentApproval">Ta tillbaka drag (med motståndarens godkännande)</string>
   <string name="promoteToQueenAutomatically">Uppgradera till drottning automatiskt</string>
