@@ -60,6 +60,7 @@ function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
 }
 
 function inButtons(ctrl: Ctrl, c: Challenge): VNode[] {
+  const trans = ctrl.trans();
   return [
     h('form', {
       attrs: {
@@ -70,13 +71,15 @@ function inButtons(ctrl: Ctrl, c: Challenge): VNode[] {
       h('button.button.accept', {
         attrs: {
           'type': 'submit',
-          'data-icon': 'E'
+          'data-icon': 'E',
+          title: trans('accept')
         }
       })]),
     h('button.submit.button.decline', {
       attrs: {
         'type': 'submit',
-        'data-icon': 'L'
+        'data-icon': 'L',
+        title: trans('decline')
       },
       hook: {
         insert: (vnode: VNode) => {
@@ -88,18 +91,23 @@ function inButtons(ctrl: Ctrl, c: Challenge): VNode[] {
 }
 
 function outButtons(ctrl: Ctrl, c: Challenge) {
+  const trans = ctrl.trans();
   return [
     h('div.owner', [
       h('span.waiting', ctrl.trans()('waiting')),
       h('a.view', {
         attrs: {
           'data-icon': 'v',
-          href: '/' + c.id
+          href: '/' + c.id,
+          title: trans('viewInFullSize')
         }
       })
     ]),
     h('button.button.decline', {
-      attrs: { 'data-icon': 'L' },
+      attrs: {
+        'data-icon': 'L',
+        title: trans('cancel')
+      },
       hook: {
         insert: (vnode: VNode) => {
           (vnode.elm as HTMLElement).addEventListener('click', () => ctrl.cancel(c.id));

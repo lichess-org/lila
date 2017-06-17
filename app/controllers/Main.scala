@@ -90,7 +90,7 @@ object Main extends LilaController {
       fullId = id,
       name = get("n", ctx.req) | "?"
     )
-    Ok.fuccess
+    NoContent.fuccess
   }
 
   private lazy val glyphsResult: Result = {
@@ -130,6 +130,12 @@ object Main extends LilaController {
     reqToCtx(req) map { implicit ctx =>
       lila.mon.http.response.code404()
       NotFound(html.base.notFound())
+    }
+
+  def authFailed(req: RequestHeader): Fu[Result] =
+    reqToCtx(req) map { implicit ctx =>
+      lila.mon.http.response.code403()
+      Forbidden(html.base.authFailed())
     }
 
   def fpmenu = Open { implicit ctx =>
