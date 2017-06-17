@@ -186,9 +186,9 @@ module.exports = function(opts, redraw) {
 
     this.vm.justDropped = meta.justDropped;
     this.vm.justCaptured = meta.justCaptured;
-    this.vm.justMoved = true;
     this.vm.preDrop = null;
     redraw();
+    this.vm.justMoved = true;
   }
 
   this.sendMove = function(orig, dest, prom, meta) {
