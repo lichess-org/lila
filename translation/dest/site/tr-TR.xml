@@ -285,6 +285,7 @@
   <string name="createdBy">Oluşturan kişi</string>
   <string name="tournamentIsStarting">Turnuva başlıyor</string>
   <string name="tournamentPairingsAreNowClosed">Turnuva eşleştirmeleri şu anda kapalıdır.</string>
+  <string name="standByX">Biraz bekle %s, eşleştiriliyorsun, hazır ol!</string>
   <string name="youArePlaying">Siz oynuyorsunuz!</string>
   <string name="membersOnly">Sadece üyeler</string>
   <string name="boardEditor">Tahta yapıcı</string>
@@ -582,6 +583,13 @@
   <string name="youHaveAlreadyRegisteredTheEmail">Zaten kaydedilmiş e-posta adresiniz var: %s</string>
   <string name="kidMode">Çocuk modu</string>
   <string name="kidModeExplanation">Bu güvenlik ile ilgilidir. Çocuk modunda, tüm site bağlantıları devre dışı bırakılır. Bu seçeneği, çocuklarınızı ve okul öğrencilerini diğer internet kullanıcılarından korumak için kullanın.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Çocuk modunda, lichess logosu %s ikonunu alır, bu sayede çocuklarınızın güvende olduğunu bilirsiniz.</string>
+  <string name="enableKidMode">Çocuk modunu aktifleştir</string>
+  <string name="disableKidMode">Çocuk modunu devre dışı bırak</string>
+  <string name="security">Güvenlik</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Bu, hesabınıza giriş yaptığınız cihazların listesidir. Tanımadığınız veya bilmediğiniz tüm oturumları kapatın.</string>
+  <string name="alternativelyYouCanX">Ayrıca %s de yapabilirsiniz.</string>
+  <string name="revokeAllSessions">tüm oturumları kaldır</string>
   <string name="playChessEverywhere">Her yerde satranç oyna</string>
   <string name="asFreeAsLichess">lichess kadar özgür</string>
   <string name="builtForTheLoveOfChessNotMoney">Para için değil satranç sevgisi için geliştirilmiştir</string>
@@ -627,5 +635,8 @@
   <string name="error.maxLength">Maksimum uzunluk: %s</string>
   <string name="error.min">Şu sayıdan büyük veya şu sayıya eşit olması gerekir: %s</string>
   <string name="error.max">Şu sayıdan küçük veya şu sayıya eşit olması gerekir: %s</string>
+  <string name="error.unknown">Hata</string>
   <string name="custom">Özel</string>
+  <string name="notifications">Bildirimler</string>
+  <string name="perfRatingX">Derecelendirme: %s</string>
 </resources>
