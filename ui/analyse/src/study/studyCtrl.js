@@ -298,10 +298,11 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
         var newPath = ctrl.tree.addNode(node, position.path);
         if (!newPath) return xhrReload();
         ctrl.tree.addDests(d.d, newPath, d.o);
-        if (sticky) {
-          data.position.path = newPath;
-          if (vm.mode.sticky) ctrl.jump(newPath);
-        }
+        if (sticky) data.position.path = newPath;
+        if ((sticky && vm.mode.sticky) || (
+          position.path === ctrl.vm.path &&
+            position.path === treePath.fromNodeList(ctrl.vm.mainline)
+        )) ctrl.jump(newPath);
         m.redraw();
       },
       deleteNode: function(d) {
