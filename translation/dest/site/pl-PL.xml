@@ -65,12 +65,12 @@
   <string name="currentGames">Rozgrywane partie</string>
   <plurals name="nbGames">
     <item quantity="one">%s gra</item>
-    <item quantity="few">%s gier</item>
+    <item quantity="few">%s gry</item>
     <item quantity="other">%s gier</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s ulubiona gra</item>
-    <item quantity="few">%s ulubionych gier</item>
+    <item quantity="few">%s ulubione gry</item>
     <item quantity="other">%s ulubionych gier</item>
   </plurals>
   <string name="viewInFullSize">Zobacz w pełnym rozmiarze</string>
@@ -120,7 +120,7 @@
   <string name="gamesPlayed">rozegranych gier</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s gra z Tobą</item>
-    <item quantity="few">%s gier z Tobą</item>
+    <item quantity="few">%s gry z Tobą</item>
     <item quantity="other">%s gier z Tobą</item>
   </plurals>
   <string name="cancel">Anuluj</string>
@@ -614,7 +614,7 @@
   <string name="security">Bezpieczeństwo</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">To jest lista urządzeń z których logowałeś się do swojego konta. Unieważnij sesje których nie rozpoznajesz.</string>
   <string name="alternativelyYouCanX">Możesz ewentualnie %s.</string>
-  <string name="revokeAllSessions">unieważnij wszystkie sesje</string>
+  <string name="revokeAllSessions">unieważnić wszystkie sesje</string>
   <string name="playChessEverywhere">Graj w szachy wszędzie</string>
   <string name="asFreeAsLichess">Darmowa jak całe lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Stworzona z miłości do szachów, nie dla pieniędzy</string>
