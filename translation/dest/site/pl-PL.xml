@@ -300,7 +300,7 @@
   <string name="createdBy">Stworzony przez</string>
   <string name="tournamentIsStarting">Rozpoczyna się turniej</string>
   <string name="tournamentPairingsAreNowClosed">Zakończono kojarzenie par.</string>
-  <string name="standByX">Trwa kojarzenie par, bądź gotów do gry %s!</string>
+  <string name="standByX">Trwa zestawianie par, bądź gotów do gry %s!</string>
   <string name="youArePlaying">Grasz!</string>
   <string name="membersOnly">Tylko dla zarejestrowanych</string>
   <string name="boardEditor">Edytor pozycji</string>
@@ -461,7 +461,7 @@
   <string name="difficultyNormal">Normalny</string>
   <string name="difficultyHard">Trudny</string>
   <string name="xLeftANoteOnY">%1$s dodał wpis na temat %2$s</string>
-  <string name="xCompetesInY">%1$s przystąpił do %2$s</string>
+  <string name="xCompetesInY">%1$s przystąpił do turnieju %2$s</string>
   <string name="xAskedY">%1$s zapytał %2$s</string>
   <string name="xAnsweredY">%1$s odpowiedział %2$s</string>
   <string name="xCommentedY">%1$s skomentował %2$s</string>
@@ -592,7 +592,7 @@
   <string name="downloadRaw">Pobierz bez komentarza</string>
   <string name="downloadImported">Pobierz zaimportowane gry</string>
   <string name="printFriendlyPDF">PDF do druku</string>
-  <string name="crosstable">Tablica wyników</string>
+  <string name="crosstable">Tabela wyników</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Możesz także przeciągnąć nad szachownicą aby poruszać się w grze.</string>
   <string name="analysisShapesHowTo">Naciśnij shift i kliknij lub kliknij prawym przyciskiem myszy aby rysować okręgi i strzałki na szachownicy.</string>
   <string name="confirmResignation">Potwierdź rezygnację</string>
