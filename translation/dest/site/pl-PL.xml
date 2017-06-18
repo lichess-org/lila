@@ -216,7 +216,7 @@
   <string name="allTeams">Wszystkie kluby</string>
   <string name="newTeam">Nowy klub</string>
   <string name="myTeams">Moje kluby</string>
-  <string name="noTeamFound">Nie znaleziono żadnego klubu</string>
+  <string name="noTeamFound">Nie należysz do żadnego klubu</string>
   <string name="joinTeam">Dołącz do klubu</string>
   <string name="quitTeam">Opuść klub</string>
   <string name="anyoneCanJoin">Każdy może dołączyć</string>
@@ -572,12 +572,12 @@
   <string name="returnToTournamentsHomepage">Powrót na stronę turnieju</string>
   <string name="weeklyPerfTypeRatingDistribution">Tygodniowy rozkład rankingu w wariancie %s</string>
   <plurals name="nbPerfTypePlayersThisWeek">
-    <item quantity="one">Jeden gracz grał ten wariant (%2$s) w tym tygodniu.</item>
-    <item quantity="few">%1$s graczy grało ten wariant (%2$s) w tym tygodniu.</item>
-    <item quantity="other">%1$s %2$s graczy w tym tygodniu.</item>
+    <item quantity="one">%1$s gracz grał w tym tygodniu w wariant %2$s.</item>
+    <item quantity="few">%1$s graczy grało w tym tygodniu w wariant %2$s.</item>
+    <item quantity="other">%1$s graczy grało w tym tygodniu w wariant %2$s.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Twój ranking w wariancie %1$s to %2$s</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">jesteś lepszy niż %1$s graczy wariantu %2$s</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Jesteś lepszy niż %1$s graczy w tym wariancie.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nie masz jeszcze ustalonego rankingu w tym wariancie.</string>
   <string name="checkYourEmail">Sprawdź swoją skrzynkę e-mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Wysłaliśmy do Ciebie wiadomość e-mail. Kliknij w link znajdujący się w e-mailu aby aktywować swoje konto.</string>
