@@ -216,9 +216,10 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
     currentChapter: currentChapter,
     isChapterOwner: isChapterOwner,
     canJumpTo: function(path) {
-      return data.chapter.conceal === null || isChapterOwner() || (
-        ctrl.tree.lastMainlineNode(path).ply <= data.chapter.conceal
-      );
+      return data.chapter.conceal === null ||
+        isChapterOwner() ||
+        treePath.contains(ctrl.vm.path, path) || // can always go back
+        ctrl.tree.lastMainlineNode(path).ply <= data.chapter.conceal;
     },
     onJump: practice ? practice.onJump : function() {},
     withPosition: function(obj) {
