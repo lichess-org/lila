@@ -43,6 +43,7 @@ module.exports = function(opts, redraw) {
     challengeRematched: false,
     justDropped: null,
     justCaptured: null,
+    justMoved: false,
     preDrop: null,
     lastDrawOfferAtPly: null,
     lastMoveMillis: null
@@ -186,6 +187,7 @@ module.exports = function(opts, redraw) {
     this.vm.justDropped = meta.justDropped;
     this.vm.justCaptured = meta.justCaptured;
     this.vm.preDrop = null;
+    this.vm.justMoved = true;
     redraw();
   }
 
@@ -255,12 +257,13 @@ module.exports = function(opts, redraw) {
     d.game.turns = o.ply;
     d.game.player = o.ply % 2 === 0 ? 'white' : 'black';
     var playedColor = o.ply % 2 === 0 ? 'black' : 'white';
+    var activeColor = d.player.color === d.game.player;
     if (o.status) d.game.status = o.status;
     if (o.winner) d.game.winner = o.winner;
     d[d.player.color === 'white' ? 'player' : 'opponent'].offeringDraw = o.wDraw;
     d[d.player.color === 'black' ? 'player' : 'opponent'].offeringDraw = o.bDraw;
-    d.possibleMoves = d.player.color === d.game.player ? o.dests : null;
-    d.possibleDrops = d.player.color === d.game.player ? o.drops : null;
+    d.possibleMoves = activeColor ? o.dests : null;
+    d.possibleDrops = activeColor ? o.drops : null;
     d.crazyhouse = o.crazyhouse;
     this.setTitle();
     if (!this.replaying()) {
@@ -309,7 +312,10 @@ module.exports = function(opts, redraw) {
       if (o.check) sound.check();
       blur.onMove();
     }
-    if (o.clock)(this.clock || this.correspondenceClock).update(o.clock.white, o.clock.black);
+    if (o.clock) {
+      (this.clock || this.correspondenceClock).update(o.clock.white, o.clock.black,
+        playing && activeColor ? 0 : o.clock.lagEst);
+    }
     d.game.threefold = !!o.threefold;
     var step = {
       ply: round.lastPly(this.data) + 1,
@@ -322,6 +328,7 @@ module.exports = function(opts, redraw) {
     d.steps.push(step);
     this.vm.justDropped = null;
     this.vm.justCaptured = null;
+    this.vm.justMoved = false;
     game.setOnGame(d, playedColor, true);
     delete this.data.forecastCount;
     redraw();
@@ -360,6 +367,7 @@ module.exports = function(opts, redraw) {
     this.data = merged.data;
     this.vm.justDropped = null;
     this.vm.justCaptured = null;
+    this.vm.justMoved = false;
     this.vm.preDrop = null;
     makeCorrespondenceClock();
     if (this.clock) this.clock.update(this.data.clock.white, this.data.clock.black);
@@ -416,7 +424,7 @@ module.exports = function(opts, redraw) {
   }) : false;
 
   this.isClockRunning = function() {
-    return this.data.clock && game.playable(this.data) &&
+    return this.data.clock && game.playable(this.data) && !this.vm.justMoved &&
     ((this.data.game.turns - this.data.game.startedAtTurn) > 1 || this.data.clock.running);
   }.bind(this);
 

@@ -5,7 +5,7 @@ import play.api.libs.json._
 
 import chess.Pos
 import chess.variant.Crazyhouse
-import chess.{ PromotableRole, Pos, Color, Situation, Move => ChessMove, Drop => ChessDrop, Clock => ChessClock, Status }
+import chess.{ Centis, PromotableRole, Pos, Color, Situation, Move => ChessMove, Drop => ChessDrop, Clock => ChessClock, Status }
 import JsonView._
 import lila.chat.{ UserLine, PlayerLine }
 import lila.common.Maths.truncateAt
@@ -237,17 +237,19 @@ object Event {
     override def owner = true
   }
 
-  case class Clock(white: Float, black: Float) extends Event {
+  case class Clock(white: Float, black: Float, nextLagComp: Option[Centis] = None) extends Event {
     def typ = "clock"
     def data = Json.obj(
       "white" -> truncateAt(white, 2),
-      "black" -> truncateAt(black, 2)
-    )
+      "black" -> truncateAt(black, 2),
+      "lagEst" -> nextLagComp.map { _.roundTenths }
+    ).noNull
   }
   object Clock {
     def apply(clock: ChessClock): Clock = Clock(
       clock remainingTime Color.White toSeconds,
-      clock remainingTime Color.Black toSeconds
+      clock remainingTime Color.Black toSeconds,
+      clock lagCompEstimate clock.color
     )
     def tenths(white: Int, black: Int): Clock = Clock(white.toFloat / 10, black.toFloat / 10)
   }
