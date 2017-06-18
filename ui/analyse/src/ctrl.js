@@ -16,7 +16,7 @@ var isEvalBetter = require('ceval').isEvalBetter;
 var explorerCtrl = require('./explorer/explorerCtrl');
 var router = require('game').router;
 var game = require('game').game;
-var crazyValid = require('./crazy/crazyValid');
+var crazyValid = require('./crazy/crazyCtrl').valid;
 var makeStudy = require('./study/studyCtrl');
 var makeFork = require('./fork').ctrl;
 var makeRetro = require('./retrospect/retroCtrl');
@@ -330,7 +330,7 @@ module.exports = function(opts) {
   }
 
   this.userNewPiece = function(piece, pos) {
-    if (crazyValid.drop(this.chessground, this.vm.node.drops, piece, pos)) {
+    if (crazyValid(this.chessground, this.vm.node.drops, piece, pos)) {
       this.vm.justPlayed = chessUtil.roleToSan[piece.role] + '@' + pos;
       this.vm.justDropped = piece.role;
       this.vm.justCaptured = null;

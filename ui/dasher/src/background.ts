@@ -23,7 +23,6 @@ interface Background {
   name: string
 }
 
-
 export function ctrl(data: BackgroundData, trans: Trans, redraw: Redraw, close: Close): BackgroundCtrl {
 
   const list: Background[] = [
