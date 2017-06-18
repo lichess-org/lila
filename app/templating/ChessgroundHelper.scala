@@ -15,7 +15,7 @@ trait ChessgroundHelper {
     else {
       def top(p: Pos) = orient.fold(8 - p.y, p.y - 1) * 12.5
       def left(p: Pos) = orient.fold(p.x - 1, 8 - p.x) * 12.5
-      val highlights = lastMove.distinct.map { pos =>
+      val highlights = ctx.pref.highlight ?? lastMove.distinct.map { pos =>
         s"""<square class="last-move" style="top:${top(pos)}%;left:${left(pos)}%"></square>"""
       } mkString ""
       val pieces = board.pieces.map {
