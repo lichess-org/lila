@@ -360,7 +360,7 @@
   <string name="thisPuzzleIsWrong">To zadanie jest niepoprawne lub nudne</string>
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">Masz %s sekundę na pierwszy ruch!</item>
-    <item quantity="few">Masz %s sekund na pierwszy ruch!</item>
+    <item quantity="few">Masz %s sekundy na pierwszy ruch!</item>
     <item quantity="other">Masz %s sekund na pierwszy ruch!</item>
   </plurals>
   <plurals name="nbGamesInPlay">
@@ -473,7 +473,7 @@
   <string name="biographyDescription">Opowiedz o sobie. Za co lubisz szachy? Jakie są twoje ulubione gry, otwarcia, zawodnicy…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maksymalnie: %s znak.</item>
-    <item quantity="few">Maksymalnie: %s znaków.</item>
+    <item quantity="few">Maksymalnie: %s znaki.</item>
     <item quantity="other">Maksymalnie: %s znaków.</item>
   </plurals>
   <plurals name="blocks">
@@ -521,7 +521,7 @@
   <plurals name="nbForumPosts">
     <item quantity="one">%s post na forum</item>
     <item quantity="few">%s posty na forum</item>
-    <item quantity="other">%s posty na forum</item>
+    <item quantity="other">%s postów na forum</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Łączny czas gry: %s</string>
   <string name="watchGames">Obserwuj gry</string>
