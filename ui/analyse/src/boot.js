@@ -58,7 +58,7 @@ module.exports = function(element, cfg) {
       }
     } catch (e) {}
     if ($timeChart.length) try {
-      chart = $timeChart.highcharts();
+      chart = window.Highcharts && $timeChart.highcharts();
       if (chart) {
         if (lastPly === false) unselect(chart);
         else {
