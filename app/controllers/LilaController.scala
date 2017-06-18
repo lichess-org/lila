@@ -102,17 +102,17 @@ private[controllers] trait LilaController
 
   protected def Secure[A](p: BodyParser[A])(perm: Permission)(f: Context => UserModel => Fu[Result]): Action[A] =
     Auth(p) { implicit ctx => me =>
-      isGranted(perm).fold(f(ctx)(me), fuccess(authorizationFailed(ctx.req)))
+      isGranted(perm).fold(f(ctx)(me), authorizationFailed)
     }
 
   protected def SecureF(s: UserModel => Boolean)(f: Context => UserModel => Fu[Result]): Action[AnyContent] =
     Auth(BodyParsers.parse.anyContent) { implicit ctx => me =>
-      s(me).fold(f(ctx)(me), fuccess(authorizationFailed(ctx.req)))
+      s(me).fold(f(ctx)(me), authorizationFailed)
     }
 
   protected def SecureBody[A](p: BodyParser[A])(perm: Permission)(f: BodyContext[A] => UserModel => Fu[Result]): Action[A] =
     AuthBody(p) { implicit ctx => me =>
-      isGranted(perm).fold(f(ctx)(me), fuccess(authorizationFailed(ctx.req)))
+      isGranted(perm).fold(f(ctx)(me), authorizationFailed)
     }
 
   protected def SecureBody(perm: Permission.type => Permission)(f: BodyContext[_] => UserModel => Fu[Result]): Action[AnyContent] =
@@ -256,7 +256,12 @@ private[controllers] trait LilaController
 
   protected val unauthorizedApiResult = Unauthorized(jsonError("Login required"))
 
-  protected def authorizationFailed(req: RequestHeader): Result = Forbidden("no permission")
+  protected def authorizationFailed(implicit ctx: Context): Fu[Result] = negotiate(
+    html =
+    if (HTTPRequest isSynchronousHttp ctx.req) Main authFailed ctx.req
+    else fuccess(Results.Forbidden("Authorization failed")),
+    api = _ => fuccess(Forbidden(jsonError("Authorization failed")))
+  )
 
   protected def ensureSessionId(req: RequestHeader)(res: Result): Result =
     req.session.data.contains(LilaCookie.sessionId).fold(

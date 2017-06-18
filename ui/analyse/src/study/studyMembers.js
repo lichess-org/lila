@@ -37,7 +37,8 @@ module.exports = {
     };
 
     var canContribute = function() {
-      return (myMember() || {}).role === 'w';
+      var m = myMember();
+      return m && m.role === 'w';
     };
 
     var inviteForm = inviteFormCtrl(opts.send, dict, opts.setTab);
@@ -74,6 +75,7 @@ module.exports = {
         dict(members);
         if (wasViewer && canContribute()) {
           if (lichess.once('study-tour')) opts.startTour();
+          opts.onBecomingContributor();
           opts.notif.set({
             text: 'You are now a contributor',
             duration: 3000

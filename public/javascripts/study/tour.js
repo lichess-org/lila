@@ -62,11 +62,6 @@ lichess.studyTour = function(study) {
         text: "With the !? button, or a right click on the move list on the right.<br>" +
           "Annotation glyphs are shared and persisted.",
         attachTo: "#lichess .member_buttons .glyph top"
-      } : null, study.isContrib ? {
-        title: "Connect / disconnect",
-        text: "Choose whether or not your moves are shared and persisted.<br>" +
-          "Useful to try out variations before sharing them.",
-        attachTo: "#study-sync top"
       } : null, {
         title: "Thanks for your time",
         text: "You can find your <a href='/study/mine/hot'>previous studies</a> from your profile page.<br>" +

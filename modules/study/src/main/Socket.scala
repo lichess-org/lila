@@ -66,7 +66,7 @@ private final class Socket(
         "w" -> who(uid).map(whoWriter.writes)
       ), noMessadata)
 
-    case AddNode(pos, node, variant, uid) =>
+    case AddNode(pos, node, variant, uid, sticky) =>
       val dests = AnaDests(
         variant,
         node.fen,
@@ -78,7 +78,8 @@ private final class Socket(
         "p" -> pos,
         "w" -> who(uid),
         "d" -> dests.dests,
-        "o" -> dests.opening
+        "o" -> dests.opening,
+        "s" -> sticky
       ), noMessadata)
 
     case DeleteNode(pos, uid) => notifyVersion("deleteNode", Json.obj(
@@ -92,13 +93,19 @@ private final class Socket(
       "w" -> who(uid)
     ), noMessadata)
 
-    case ReloadMembers(members) => notifyVersion("members", members, noMessadata)
+    case ReloadMembers(studyMembers) =>
+      notifyVersion("members", studyMembers, noMessadata)
+      val ids = studyMembers.ids.toSet
+      notifyIf(makeMessage("reload")) { m =>
+        m.userId.exists(ids.contains)
+      }
 
     case ReloadChapters(chapters) => notifyVersion("chapters", chapters, noMessadata)
 
     case ReloadAll => notifyVersion("reload", JsNull, noMessadata)
 
-    case ChangeChapter(uid) => notifyVersion("changeChapter", Json.obj(
+    case ChangeChapter(uid, pos) => notifyVersion("changeChapter", Json.obj(
+      "p" -> pos,
       "w" -> who(uid)
     ), noMessadata)
 
@@ -163,10 +170,10 @@ private final class Socket(
 
     case GetVersion => sender ! history.version
 
-    case Socket.Join(uid, userId, troll, owner) =>
+    case Socket.Join(uid, userId, troll) =>
       import play.api.libs.iteratee.Concurrent
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = Socket.Member(channel, userId, troll = troll, owner = owner)
+      val member = Socket.Member(channel, userId, troll = troll)
       addMember(uid.value, member)
       notifyCrowd
       sender ! Socket.Connected(enumerator, member)
@@ -241,20 +248,19 @@ private object Socket {
   case class Member(
     channel: JsChannel,
     userId: Option[String],
-    troll: Boolean,
-    owner: Boolean
+    troll: Boolean
   ) extends lila.socket.SocketMember
 
   case class Who(u: String, s: Uid)
   import JsonView.uidWriter
   implicit private val whoWriter = Json.writes[Who]
 
-  case class Join(uid: Uid, userId: Option[User.ID], troll: Boolean, owner: Boolean)
+  case class Join(uid: Uid, userId: Option[User.ID], troll: Boolean)
   case class Connected(enumerator: JsEnumerator, member: Member)
 
   case class ReloadUid(uid: Uid)
 
-  case class AddNode(position: Position.Ref, node: Node, variant: chess.variant.Variant, uid: Uid)
+  case class AddNode(position: Position.Ref, node: Node, variant: chess.variant.Variant, uid: Uid, sticky: Boolean)
   case class DeleteNode(position: Position.Ref, uid: Uid)
   case class Promote(position: Position.Ref, toMainline: Boolean, uid: Uid)
   case class SetPath(position: Position.Ref, uid: Uid)
@@ -265,7 +271,7 @@ private object Socket {
   case class SetGlyphs(position: Position.Ref, glyphs: Glyphs, uid: Uid)
   case class ReloadChapters(chapters: List[Chapter.Metadata])
   case object ReloadAll
-  case class ChangeChapter(uid: Uid)
+  case class ChangeChapter(uid: Uid, position: Position.Ref)
   case class SetConceal(position: Position.Ref, ply: Option[Chapter.Ply])
   case class SetLiking(liking: Study.Liking, uid: Uid)
   case class SetTags(chapterId: Chapter.Id, tags: List[chess.format.pgn.Tag], uid: Uid)

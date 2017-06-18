@@ -121,7 +121,8 @@ object Study {
       computer: String,
       explorer: String,
       cloneable: String,
-      chat: String
+      chat: String,
+      sticky: String
   ) {
     import Settings._
     def vis = Visibility.byKey get visibility getOrElse Visibility.Public
@@ -130,7 +131,8 @@ object Study {
       expl <- UserSelection.byKey get explorer
       clon <- UserSelection.byKey get cloneable
       chat <- UserSelection.byKey get chat
-    } yield Settings(comp, expl, clon, chat)
+      stic = sticky == "true"
+    } yield Settings(comp, expl, clon, chat, stic)
   }
 
   case class WithChapter(study: Study, chapter: Chapter)

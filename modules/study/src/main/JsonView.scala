@@ -32,7 +32,8 @@ final class JsonView(
         "liked" -> liked,
         "features" -> Json.obj(
           "cloneable" -> allowed(study.settings.cloneable),
-          "chat" -> allowed(study.settings.chat)
+          "chat" -> allowed(study.settings.chat),
+          "sticky" -> study.settings.sticky
         ),
         "chapters" -> chapters.map(chapterMetadataWrites.writes),
         "chapter" -> Json.obj(

@@ -58,7 +58,8 @@ module.exports = {
               }
             } else if (ctrl.vm.loading && ctx.loadingId !== ctrl.vm.nextChapterId) {
               ctx.loadingId = ctrl.vm.nextChapterId;
-              $(el).scrollTo($(el).find('.loading'), 200);
+              var ch = $(el).find('.loading');
+              if (ch.length) $(el).scrollTo(ch, 200);
             }
             ctx.count = newCount;
             if (ctrl.members.canContribute() && newCount > 1 && !ctx.sortable) {

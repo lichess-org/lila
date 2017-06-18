@@ -16,8 +16,7 @@ case class AnaMove(
     fen: String,
     path: String,
     chapterId: Option[String],
-    promotion: Option[chess.PromotableRole],
-    unsync: Boolean
+    promotion: Option[chess.PromotableRole]
 ) {
 
   def branch: Valid[Branch] =
@@ -64,7 +63,6 @@ object AnaMove {
     fen = fen,
     path = path,
     chapterId = d str "ch",
-    promotion = d str "promotion" flatMap chess.Role.promotable,
-    unsync = ~(d boolean "unsync")
+    promotion = d str "promotion" flatMap chess.Role.promotable
   )
 }

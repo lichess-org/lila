@@ -21,58 +21,46 @@ function buttons(root) {
   var canContribute = ctrl.members.canContribute();
   return m('div.study_buttons', [
     m('div.member_buttons', [
-      m('span#study-sync.hint--top', {
-        'data-hint': ctrl.vm.behind !== false ? 'Synchronize with other players' : 'Disconnect to play local moves'
-      }, m('a', (function() {
-        var attrs = {
-          onclick: ctrl.toggleSync
-        };
-        var classes = ['button'];
-        if (ctrl.vm.behind > 0) {
-          attrs['data-count'] = ctrl.vm.behind;
-          classes.push('data-count');
-        }
-        if (ctrl.vm.behind !== false && ctrl.members.hasOnlineContributor()) classes.push('glowed');
-        attrs.class = classes.join(' ');
-        return attrs;
-      })(), m('i', {
-        'data-icon': ctrl.vm.behind !== false ? 'G' : 'Z'
-      }))),
+      ctrl.data.features.sticky ? m('a.button.mode.hint--top', {
+        'data-hint': 'All sync members remain on the same position',
+        class: classSet({on: ctrl.vm.mode.sticky }),
+        onclick: ctrl.toggleSticky
+      }, [ m('i.is'), 'Sync']) : null,
+      ctrl.members.canContribute() ? m('a.button.mode.hint--top', {
+        'data-hint': 'Write changes to the server',
+        class: classSet({on: ctrl.vm.mode.write }),
+        onclick: ctrl.toggleWrite
+      }, [ m('i.is'), 'Record']) : null,
       m('a.button.share.hint--top', {
+        class: classSet({
+          active: ctrl.share.open()
+        }),
+        'data-hint': 'Share & export',
+        config: bindOnce('click', ctrl.share.toggle)
+      },
+      m('i.[data-icon=z]')),
+      canContribute ? [
+        m('a.button.comment.hint--top', {
           class: classSet({
-            active: ctrl.share.open()
+            active: ctrl.commentForm.current(),
+            disabled: !ctrl.vm.mode.write
           }),
-          'data-hint': 'Share & export',
+          'data-hint': 'Comment this position',
           config: bindOnce('click', function() {
-            ctrl.share.toggle();
+            if (ctrl.vm.mode.write) ctrl.commentForm.toggle(ctrl.currentChapter().id, root.vm.path, root.vm.node);
+          })
+        }, m('i[data-icon=c]')),
+        m('a.button.glyph.hint--top', {
+          class: classSet({
+            active: ctrl.glyphForm.isOpen(),
+            disabled: !(root.vm.path && ctrl.vm.mode.write)
+          }),
+          'data-hint': 'Annotate with symbols',
+          config: bindOnce('click', function() {
+            if (root.vm.path && ctrl.vm.mode.write) ctrl.glyphForm.toggle();
           })
         },
-        m('i.[data-icon=z]')),
-      canContribute ? [
-        (function(enabled) {
-          return m('a.button.comment.hint--top', {
-            class: classSet({
-              active: ctrl.commentForm.current(),
-              disabled: !enabled
-            }),
-            'data-hint': 'Comment this position',
-            config: bindOnce('click', function() {
-              if (ctrl.vm.behind === false) ctrl.commentForm.toggle(ctrl.currentChapter().id, root.vm.path, root.vm.node);
-            })
-          }, m('i[data-icon=c]'));
-        })(ctrl.vm.behind === false), (function(enabled) {
-          return m('a.button.glyph.hint--top', {
-              class: classSet({
-                active: ctrl.glyphForm.isOpen(),
-                disabled: !enabled
-              }),
-              'data-hint': 'Annotate with symbols',
-              config: bindOnce('click', function() {
-                if (root.vm.path && ctrl.vm.behind === false) ctrl.glyphForm.toggle();
-              })
-            },
-            m('i.glyph-icon'));
-        })(root.vm.path && ctrl.vm.behind === false)
+        m('i.glyph-icon'))
       ] : null
     ]),
     m('span.button.help.hint--top', {
@@ -127,7 +115,7 @@ module.exports = {
       }, m('i', {
         'data-icon': '['
       })) : null
-    ]);
+        ]);
 
     var panel;
     if (activeTab === 'members') panel = memberView(ctrl);
@@ -140,7 +128,7 @@ module.exports = {
   },
 
   contextMenu: function(ctrl, path, node) {
-    if (ctrl.members.canContribute()) return [
+    if (ctrl.vm.mode.write) return [
       m('a.action', {
         'data-icon': 'c',
         onclick: function() {
