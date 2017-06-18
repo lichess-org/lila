@@ -579,7 +579,7 @@
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Castling method</string>
   <string name="castleByMovingTwoSquares">Move king two squares</string>
   <string name="castleByMovingOntoTheRook">Move king onto rook</string>
-  <string name="shareYourInsightsData">Share your insights data</string>
+  <string name="shareYourInsightsData">Share your chess insights data</string>
   <string name="withNobody">With nobody</string>
   <string name="withFriends">With friends</string>
   <string name="withEverybody">With everybody</string>
