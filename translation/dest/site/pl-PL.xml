@@ -365,7 +365,7 @@
   </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s gra w toku</item>
-    <item quantity="few">%s gier w toku</item>
+    <item quantity="few">%s gry w toku</item>
     <item quantity="other">%s gier w toku</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Przejdź do następnej gry po wykonaniu ruchu</string>
@@ -477,7 +477,7 @@
     <item quantity="other">Maksymalnie: %s znaków.</item>
   </plurals>
   <plurals name="blocks">
-    <item quantity="one">%s zablokowanych</item>
+    <item quantity="one">%s zablokowany</item>
     <item quantity="few">%s zablokowanych</item>
     <item quantity="other">%s zablokowanych</item>
   </plurals>
