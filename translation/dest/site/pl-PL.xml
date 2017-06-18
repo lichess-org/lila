@@ -59,7 +59,7 @@
   <string name="draw">Remis</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s gracz</item>
-    <item quantity="few">%s graczy online</item>
+    <item quantity="few">%s graczy</item>
     <item quantity="other">%s graczy</item>
   </plurals>
   <string name="currentGames">Rozgrywane partie</string>
@@ -96,12 +96,12 @@
   <plurals name="nbDays">
     <item quantity="one">%s dzień</item>
     <item quantity="few">%s dni</item>
-    <item quantity="other">%s dzień</item>
+    <item quantity="other">%s dni</item>
   </plurals>
   <plurals name="nbHours">
     <item quantity="one">%s godzina</item>
-    <item quantity="few">%s godzin</item>
-    <item quantity="other">%s godzina</item>
+    <item quantity="few">%s godziny</item>
+    <item quantity="other">%s godzin</item>
   </plurals>
   <string name="time">Czas</string>
   <string name="rating">Ranking</string>
@@ -168,23 +168,23 @@
   <plurals name="nbWins">
     <item quantity="one">%s wygrana</item>
     <item quantity="few">%s wygrane</item>
-    <item quantity="other">%s wygrane</item>
+    <item quantity="other">%s wygranych</item>
   </plurals>
   <plurals name="nbLosses">
     <item quantity="one">%s przegrana</item>
     <item quantity="few">%s przegrane</item>
-    <item quantity="other">%s przegrane</item>
+    <item quantity="other">%s przegranych</item>
   </plurals>
   <plurals name="nbDraws">
     <item quantity="one">%s remis</item>
-    <item quantity="few">%s remisów</item>
+    <item quantity="few">%s remisy</item>
     <item quantity="other">%s remisów</item>
   </plurals>
   <string name="exportGames">Eksportuj gry</string>
   <string name="ratingRange">Ranking przeciwnika</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dodaj %s sekundę</item>
-    <item quantity="few">Dodaj %s sekund</item>
+    <item quantity="few">Dodaj %s sekundy</item>
     <item quantity="other">Dodaj %s sekund</item>
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Ten gracz korzysta z pomocy programu szachowego</string>
@@ -241,7 +241,7 @@
   <string name="importGame">Importuj grę</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s zaimportowana gra</item>
-    <item quantity="few">%s zaimportowanych gier</item>
+    <item quantity="few">%s zaimportowane gry</item>
     <item quantity="other">%s zaimportowanych gier</item>
   </plurals>
   <string name="thisIsAChessCaptcha">To jest szachowa CAPTCHA.</string>
