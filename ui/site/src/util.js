@@ -403,11 +403,12 @@ $.spreadNumber = function(el, nbSteps, getDuration, previous) {
 };
 $.fn.scrollTo = function(target, offsetTop) {
   return this.each(function() {
-    try {
-      var t = (typeof target === "number") ? target : $(target);
-      var v = (typeof t === "number") ? t : t.offset().top + this.scrollTop - (offsetTop || 0);
-      this.scrollTop = v;
-    } catch (e) {}
+    if (typeof target === "number") this.scrollTop  = target;
+    else {
+      var $t = $(target);
+      if (!$t.length) return;
+      this.scrollTop = $t.offset().top + this.scrollTop - (offsetTop || 0);
+    }
   });
 };
 $.modal = function(html) {
