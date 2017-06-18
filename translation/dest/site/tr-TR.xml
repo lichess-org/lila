@@ -46,6 +46,7 @@
   <string name="viewTheComputerAnalysis">Bilgisayar analizini incele</string>
   <string name="requestAComputerAnalysis">Bilgisayar analizi talep et</string>
   <string name="computerAnalysis">Bilgisayar analizi</string>
+  <string name="computerAnalysisAvailable">Bilgisayar analizi yapılabilir</string>
   <string name="analysis">Analiz tahtası</string>
   <string name="blunders">Vahim hatalar</string>
   <string name="mistakes">Hatalar</string>
@@ -283,6 +284,9 @@
   <string name="winStreak">Galibiyet serisi</string>
   <string name="createdBy">Oluşturan kişi</string>
   <string name="tournamentIsStarting">Turnuva başlıyor</string>
+  <string name="tournamentPairingsAreNowClosed">Turnuva eşleştirmeleri şu anda kapalıdır.</string>
+  <string name="standByX">Biraz bekle %s, eşleştiriliyorsun, hazır ol!</string>
+  <string name="youArePlaying">Siz oynuyorsunuz!</string>
   <string name="membersOnly">Sadece üyeler</string>
   <string name="boardEditor">Tahta yapıcı</string>
   <string name="startPosition">Başlangıç konumu</string>
@@ -291,6 +295,10 @@
   <string name="loadPosition">Konumu yükle</string>
   <string name="isPrivate">Özel</string>
   <string name="reportXToModerators">%s \'i Moderatörlere bildir</string>
+  <string name="profileCompletion">Profil tamamlanma oranı: %s</string>
+  <string name="xRating">Derecelendirme: %s</string>
+  <string name="ifNoneLeaveEmpty">Eğer yoksa, boş bırakın</string>
+  <string name="gameCompletionRate">Oyun tamamlanma oranı: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profili düzenle</string>
   <string name="firstName">Ad</string>
@@ -396,6 +404,9 @@
   <string name="pieceDestinations">Taşın gidebileceği kareler (kurallara uygun hamleler)</string>
   <string name="boardCoordinates">Tahta kordinatları</string>
   <string name="moveListWhilePlaying">Oyun sırasında hamle listesi</string>
+  <string name="pgnPieceNotation">PGN taş notasyonu</string>
+  <string name="chessPieceSymbol">Satranç taşı sembolü</string>
+  <string name="pgnLetter">PGN harfi (Ş, V, K, A, F)</string>
   <string name="chessClock">Satranç saati</string>
   <string name="tenthsOfSeconds">Son 10 saniye</string>
   <string name="never">Asla</string>
@@ -403,6 +414,10 @@
   <string name="horizontalGreenProgressBars">Yeşil yatay ilerleme çubuğu</string>
   <string name="soundWhenTimeGetsCritical">Zaman azaldığında sesle uyarı</string>
   <string name="gameBehavior">Oyun Durumu</string>
+  <string name="howDoYouMovePieces">Taşları nasıl hareket ettirmek istersiniz?</string>
+  <string name="clickTwoSquares">İki kareye tıklayarak</string>
+  <string name="dragPiece">Taşı sürükleyerek</string>
+  <string name="bothClicksAndDrag">Hem tıklayıp hem sürükleyerek</string>
   <string name="premovesPlayingDuringOpponentTurn">Ön hamleler (rakibin hamlesini beklerken hamle tanımlama)</string>
   <string name="takebacksWithOpponentApproval">Geri Alma (rakibin onayıyla)</string>
   <string name="promoteToQueenAutomatically">Piyonu otomatik olarak vezire terfi etsin</string>
@@ -410,6 +425,7 @@
   <string name="privacy">Gizlilik</string>
   <string name="letOtherPlayersFollowYou">Diğer oyuncular seni takip edebilsin</string>
   <string name="letOtherPlayersChallengeYou">Diğer oyuncular oyun teklif edebilsin</string>
+  <string name="letOtherPlayersInviteYouToStudy">Başka oyunculara sizi eğitime davet etmesi için izin verin</string>
   <string name="sound">Ses</string>
   <string name="yourPreferencesHaveBeenSaved">Tercihleriniz kaydedildi.</string>
   <string name="none">Hiç biri</string>
@@ -558,10 +574,22 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Fare tekerini döndürerek de oyunda gezinebilirsiniz.</string>
   <string name="analysisShapesHowTo">Tahta üzerinde çember ve ok çizmek için shift+sol tıklayın ya da sağ tıklayın.</string>
   <string name="confirmResignation">Çekilmeyi onayla</string>
+  <string name="inputMovesWithTheKeyboard">Hamleleri klavye ile gir</string>
   <string name="letOtherPlayersMessageYou">Diğer oyuncuların size mesaj yollamasına izin verin</string>
   <string name="shareYourInsightsData">Anlayış verilerinizi paylaşın</string>
+  <string name="withNobody">Hiçkimse ile</string>
+  <string name="withFriends">Yalnızca arkadaşlarım</string>
+  <string name="withEverybody">Herkes ile</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Zaten kaydedilmiş e-posta adresiniz var: %s</string>
   <string name="kidMode">Çocuk modu</string>
+  <string name="kidModeExplanation">Bu güvenlik ile ilgilidir. Çocuk modunda, tüm site bağlantıları devre dışı bırakılır. Bu seçeneği, çocuklarınızı ve okul öğrencilerini diğer internet kullanıcılarından korumak için kullanın.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Çocuk modunda, lichess logosu %s ikonunu alır, bu sayede çocuklarınızın güvende olduğunu bilirsiniz.</string>
+  <string name="enableKidMode">Çocuk modunu aktifleştir</string>
+  <string name="disableKidMode">Çocuk modunu devre dışı bırak</string>
+  <string name="security">Güvenlik</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Bu, hesabınıza giriş yaptığınız cihazların listesidir. Tanımadığınız veya bilmediğiniz tüm oturumları kapatın.</string>
+  <string name="alternativelyYouCanX">Ayrıca %s de yapabilirsiniz.</string>
+  <string name="revokeAllSessions">tüm oturumları kaldır</string>
   <string name="playChessEverywhere">Her yerde satranç oyna</string>
   <string name="asFreeAsLichess">lichess kadar özgür</string>
   <string name="builtForTheLoveOfChessNotMoney">Para için değil satranç sevgisi için geliştirilmiştir</string>
@@ -607,5 +635,8 @@
   <string name="error.maxLength">Maksimum uzunluk: %s</string>
   <string name="error.min">Şu sayıdan büyük veya şu sayıya eşit olması gerekir: %s</string>
   <string name="error.max">Şu sayıdan küçük veya şu sayıya eşit olması gerekir: %s</string>
+  <string name="error.unknown">Hata</string>
   <string name="custom">Özel</string>
+  <string name="notifications">Bildirimler</string>
+  <string name="perfRatingX">Derecelendirme: %s</string>
 </resources>

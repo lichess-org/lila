@@ -185,6 +185,7 @@
   <string name="importGame">Importați partida</string>
   <string name="thisIsAChessCaptcha">Aceasta este o verificare anti-spam pe baza unei poziții de șah.</string>
   <string name="clickOnTheBoardToMakeYourMove">Apăsați pe tablă pentru a muta, dovedind că sunteți om.</string>
+  <string name="captcha.fail">Vă rugăm să completați acest puzzle.</string>
   <string name="notACheckmate">Nu este mat</string>
   <string name="colorPlaysCheckmateInOne">%s joacă; mat într-o mutare</string>
   <string name="retry">Mai încercați</string>
@@ -192,6 +193,7 @@
   <string name="onlineFriends">Prieteni online</string>
   <string name="noFriendsOnline">Niciun prieten online</string>
   <string name="findFriends">Găsiți prieteni</string>
+  <string name="favoriteOpponents">Oponenți favoriți</string>
   <string name="follow">Urmăriți</string>
   <string name="following">Se urmărește</string>
   <string name="unfollow">Opriți urmărirea</string>
@@ -221,6 +223,7 @@
   <string name="winStreak">Victorii consecutive</string>
   <string name="createdBy">Creat de</string>
   <string name="tournamentIsStarting">Turneul începe</string>
+  <string name="youArePlaying">Vă jucați!</string>
   <string name="membersOnly">Doar pentru membri</string>
   <string name="boardEditor">Editorul de tablă</string>
   <string name="startPosition">Poziția de start</string>
@@ -229,6 +232,8 @@
   <string name="loadPosition">Încarcă poziția</string>
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Raportează %s moderatorilor</string>
+  <string name="profileCompletion">Completarea profilului: %s</string>
+  <string name="ifNoneLeaveEmpty">Dacă nu există, nu completați</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Editează profilul</string>
   <string name="firstName">Prenume</string>
@@ -322,6 +327,8 @@
   <string name="pieceDestinations">Destinația piesei (mutări valide și premutări)</string>
   <string name="boardCoordinates">Coordonatele tablei (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Lista de mutări în timpul jocului</string>
+  <string name="pgnPieceNotation">Notația PGN a pieselor</string>
+  <string name="chessPieceSymbol">Simbolul piesei de șah</string>
   <string name="chessClock">Ceasul de șah</string>
   <string name="tenthsOfSeconds">Zecimi de secundă</string>
   <string name="never">Niciodată</string>
@@ -329,12 +336,17 @@
   <string name="horizontalGreenProgressBars">Bare orizontale verzi cu progresul</string>
   <string name="soundWhenTimeGetsCritical">Sunet când timpul e aproape de expirare</string>
   <string name="gameBehavior">Comportamentul în joc</string>
+  <string name="howDoYouMovePieces">Cum mutați piesele?</string>
+  <string name="clickTwoSquares">Apasă pe două pătrățele</string>
+  <string name="dragPiece">Trage o piesă</string>
   <string name="premovesPlayingDuringOpponentTurn">Mutare anticipată (mută pe timpul adversarului)</string>
   <string name="takebacksWithOpponentApproval">Dă înapoi (cu aprobarea adversarului)</string>
   <string name="promoteToQueenAutomatically">Promovează automat in damă</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Declară automat o remiză în cazul a trei repetări</string>
   <string name="privacy">Intimitate</string>
   <string name="letOtherPlayersFollowYou">Permite altor jucători să te urmărească</string>
   <string name="letOtherPlayersChallengeYou">Permite altor jucători să te provoace la joc</string>
+  <string name="letOtherPlayersInviteYouToStudy">Lasă alți jucători să te invite într-un studiu</string>
   <string name="sound">Sunet</string>
   <string name="yourPreferencesHaveBeenSaved">Preferințele tale au fost salvate</string>
   <string name="none">Nici una</string>
@@ -361,6 +373,7 @@
   <string name="starting">Începe în:</string>
   <string name="allInformationIsPublicAndOptional">Aceste date sunt publice și facultative</string>
   <string name="yourCityRegionOrDepartment">Orașul tău, regiunea sau provincia</string>
+  <string name="biographyDescription">Descrie-te, ce-ți place în șah, deschiderea, jocurile, jucătorii tăi favoriți…</string>
   <string name="listBlockedPlayers">Afișează jucătorii pe care i-ai blocat</string>
   <string name="human">Om</string>
   <string name="computer">Computer</string>
@@ -466,10 +479,19 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">De asemenea, poti acționa rotița mouse-ului pentru a face mutări pe tablă.</string>
   <string name="analysisShapesHowTo">Apasă shift+click sau click-dreapta pentru a desena cercuri și săgeti pe tablă.</string>
   <string name="confirmResignation">Confirmă-ți dorinta de a abandona</string>
+  <string name="inputMovesWithTheKeyboard">Introdu mutări folosind tastatura</string>
   <string name="letOtherPlayersMessageYou">Permite altor jucători să îți trimită mesaje</string>
+  <string name="castleByMovingTwoSquares">Fă rocada mutând două pătrățele</string>
   <string name="shareYourInsightsData">Partajează-ți statisticile legate de jocuri</string>
+  <string name="withFriends">Cu prietenii</string>
+  <string name="withEverybody">Cu toți</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Ai înregistrat deja adresa de email: %s</string>
   <string name="kidMode">Mod pentru copii</string>
+  <string name="kidModeExplanation">E în legătură cu securitatea. În modul „copil”, toate modalitățile de comunicare sunt dezactivate. Activează asta pentru copilul tău sau pentru școlari, pentru a-i proteja de alți utilizatori ai internetului.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">În modul „copil”, sigla paginii va avea iconița %s, în felul acesta știți când copiii dumneavoastră sunt în siguranță.</string>
+  <string name="enableKidMode">Activează modul „copil”</string>
+  <string name="disableKidMode">Dezactivează modul „copil”</string>
+  <string name="security">Securitate</string>
   <string name="playChessEverywhere">Joacă șah oriunde</string>
   <string name="asFreeAsLichess">Gratis ca și lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Construit din cauza dragostei față de șah, nu față de bani</string>

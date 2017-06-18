@@ -470,6 +470,8 @@
   <string name="confirmResignation">تأكيد الإستسلام</string>
   <string name="letOtherPlayersMessageYou">السماح للاعبين بمراسلتك</string>
   <string name="shareYourInsightsData">مشاركة بيانات طريقة لعبك</string>
+  <string name="withNobody">وحدك</string>
+  <string name="withFriends">مع الأصدقاء</string>
   <string name="youHaveAlreadyRegisteredTheEmail">سبق لك تسجيل هذا البريد الإلكتروني %s</string>
   <string name="kidMode">موقع الأطفال</string>
   <string name="playChessEverywhere">العب الشطرنج فى كل مكان</string>
@@ -489,6 +491,7 @@
   <string name="quickPairing">تزويج سريع</string>
   <string name="yourScore">نقاطك: %s</string>
   <string name="boardGeometry">شكل الرقعة</string>
+  <string name="boardTheme">سِمة الطاولة</string>
   <string name="boardSize">حجم رقعة اللعب</string>
   <string name="pieceSet">مجموعة القطع</string>
   <string name="usernameAlreadyUsed">اسم المستخدم الذي اخترته موجود بالفعل، الرجاء كتابة اسم آخر.</string>

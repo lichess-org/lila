@@ -62,7 +62,7 @@
     <item quantity="few">%s graczy online</item>
     <item quantity="other">%s graczy</item>
   </plurals>
-  <string name="currentGames">Trwające gry</string>
+  <string name="currentGames">Rozgrywane partie</string>
   <plurals name="nbGames">
     <item quantity="one">%s gra</item>
     <item quantity="few">%s gier</item>
@@ -133,7 +133,7 @@
   <string name="blackOffersDraw">Czarne proponują remis</string>
   <string name="whiteDeclinesDraw">Białe odrzuciły propozycję remisu</string>
   <string name="blackDeclinesDraw">Czarne odrzuciły propozycję remisu</string>
-  <string name="yourOpponentOffersADraw">Twój przeciwnik proponuje remis</string>
+  <string name="yourOpponentOffersADraw">Przeciwnik proponuje remis</string>
   <string name="accept">Akceptuję</string>
   <string name="decline">Odrzuć</string>
   <string name="playingRightNow">W toku</string>
@@ -406,7 +406,7 @@
   <string name="questionsAndAnswers">Pytania i odpowiedzi</string>
   <string name="notes">Notatki</string>
   <string name="typePrivateNotesHere">Dołącz tutaj prywatną notatkę</string>
-  <string name="gameDisplay">Widok partii</string>
+  <string name="gameDisplay">Wygląd interfejsu</string>
   <string name="pieceAnimation">Animacja ruchu figur</string>
   <string name="materialDifference">Przewaga materialna</string>
   <string name="closeAccount">Zamknij konto</string>
@@ -431,7 +431,7 @@
   <string name="whenTimeRemainingLessThanTenSeconds">Kiedy na zegarze jest mniej niż 10 sekund</string>
   <string name="horizontalGreenProgressBars">Poziomy zielony pasek pozostałego czasu na ruch</string>
   <string name="soundWhenTimeGetsCritical">Dźwięk, gdy zostało bardzo mało czasu</string>
-  <string name="gameBehavior">Obsługa gry</string>
+  <string name="gameBehavior">Interfejs</string>
   <string name="howDoYouMovePieces">W jaki sposób wykonywać ruch?</string>
   <string name="clickTwoSquares">Klikając dwa pola</string>
   <string name="dragPiece">Przeciągając figurę</string>
@@ -578,7 +578,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Twój ranking w wariancie %1$s to %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">jesteś lepszy niż %1$s graczy wariantu %2$s</string>
-  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nie masz jeszcze ustalonego rankingu w wariancie %s</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nie masz jeszcze ustalonego rankingu w tym wariancie.</string>
   <string name="checkYourEmail">Sprawdź swoją skrzynkę e-mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Wysłaliśmy do Ciebie wiadomość e-mail. Kliknij w link znajdujący się w e-mailu aby aktywować swoje konto.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Jeśli nie widzisz wiadomości e-mail, sprawdź inne możliwe miejsca, takie jak kosz, spam lub inne foldery.</string>
@@ -651,7 +651,7 @@
   <string name="usernameInvalid">Nieprawidłowa nazwa użytkownika. Proszę używać tylko liter, cyfr, znaku podkreślenia i myślnika.</string>
   <string name="usernameStartNoNumber">Nazwa użytkownika nie może zaczynać się cyfrą.</string>
   <string name="usernameUnacceptable">Ta nazwa użytkownika jest niedozwolona.</string>
-  <string name="directlySupportLichess">Bezpośrednio wspomóż Lichess</string>
+  <string name="directlySupportLichess">Wspomóż Lichess</string>
   <string name="playChessInStyle">Graj w szachy z klasą</string>
   <string name="chessBasics">Podstawy gry</string>
   <string name="coaches">Trenerzy</string>

@@ -417,7 +417,7 @@
   <string name="howDoYouMovePieces">Flytta pjäser</string>
   <string name="clickTwoSquares">Klicka två rutor</string>
   <string name="dragPiece">Drag pjäs</string>
-  <string name="bothClicksAndDrag">Både klicka och drag</string>
+  <string name="bothClicksAndDrag">Båda möjligt</string>
   <string name="premovesPlayingDuringOpponentTurn">Premoves (göra drag i förväg under motståndarens tur)</string>
   <string name="takebacksWithOpponentApproval">Ta tillbaka drag (med motståndarens godkännande)</string>
   <string name="promoteToQueenAutomatically">Uppgradera till drottning automatiskt</string>
@@ -576,9 +576,9 @@
   <string name="confirmResignation">Bekräfta resignation</string>
   <string name="inputMovesWithTheKeyboard">Mata in drag via tangentbord</string>
   <string name="letOtherPlayersMessageYou">Tillåt att andra spelare skickar meddelanden till dig</string>
-  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rockera genom att flytta kungen 2 steg, eller till tornet</string>
-  <string name="castleByMovingTwoSquares">Rockera genom att flytta kungen 2 steg</string>
-  <string name="castleByMovingOntoTheRook">Rockera genom att flytta kungen till tornet</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Sätt att rockera</string>
+  <string name="castleByMovingTwoSquares">Fflytta kungen 2 steg</string>
+  <string name="castleByMovingOntoTheRook">Flytta kungen till tornet</string>
   <string name="shareYourInsightsData">Dela din Chess Insights information</string>
   <string name="withNobody">Med ingen</string>
   <string name="withFriends">Med vänner</string>
