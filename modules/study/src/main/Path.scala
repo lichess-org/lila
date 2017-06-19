@@ -28,4 +28,10 @@ object Path {
   }
 
   val root = Path("")
+
+  def isMainline(node: RootOrNode, path: Path): Boolean = path.split.fold(true) {
+    case (id, rest) => node.children.first ?? { child =>
+      child.id == id && isMainline(child, rest)
+    }
+  }
 }
