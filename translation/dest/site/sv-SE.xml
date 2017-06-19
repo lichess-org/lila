@@ -577,7 +577,7 @@
   <string name="inputMovesWithTheKeyboard">Mata in drag via tangentbord</string>
   <string name="letOtherPlayersMessageYou">Tillåt att andra spelare skickar meddelanden till dig</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Sätt att rockera</string>
-  <string name="castleByMovingTwoSquares">Fflytta kungen 2 steg</string>
+  <string name="castleByMovingTwoSquares">Flytta kungen 2 steg</string>
   <string name="castleByMovingOntoTheRook">Flytta kungen till tornet</string>
   <string name="shareYourInsightsData">Dela din Chess Insights information</string>
   <string name="withNobody">Med ingen</string>
