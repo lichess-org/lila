@@ -549,7 +549,12 @@ module.exports = function(opts, redraw) {
   }.bind(this);
 
   this.forceResignable = function() {
-    return !this.data.opponent.ai && this.data.clock && this.data.opponent.isGone && game.resignable(this.data);
+    var d = this.data;
+    return !d.opponent.ai &&
+    d.clock &&
+    d.opponent.isGone &&
+    !game.isPlayerTurn(d) &&
+    game.resignable(d);
   }.bind(this);
 
   this.canOfferDraw = function() {
