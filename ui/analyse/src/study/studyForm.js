@@ -124,7 +124,7 @@ module.exports = {
               key: 'sticky',
               name: 'Enable sync',
               choices: [
-                [true, 'Yes: keep everyone on the same ply'],
+                [true, 'Yes: keep everyone on the same position'],
                 [false, 'No: let people browse freely']
               ],
               selected: data.settings.sticky
