@@ -53,7 +53,7 @@ private[round] final class Finisher(
     winner: Option[Color] = None,
     message: Option[SelectI18nKey] = None
   )(implicit proxy: GameProxy): Fu[Events] =
-    apply(game, status, winner, message) >>- playban.goodFinish(game)
+    apply(game, status, winner, message) >>- playban.other(game, status, winner)
 
   private def apply(
     game: Game,
