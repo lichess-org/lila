@@ -94,6 +94,7 @@ final class StudyApi(
             byUserId = user.id,
             studyId = study.id,
             data = data.toChapterData,
+            sticky = study.settings.sticky,
             socket = socket,
             uid = Uid("") // the user is not in the study yet
           )
@@ -348,7 +349,7 @@ final class StudyApi(
     }
   }
 
-  def addChapter(byUserId: User.ID, studyId: Study.Id, data: ChapterMaker.Data, socket: ActorRef, uid: Uid) = sequenceStudy(studyId) { study =>
+  def addChapter(byUserId: User.ID, studyId: Study.Id, data: ChapterMaker.Data, sticky: Boolean, socket: ActorRef, uid: Uid) = sequenceStudy(studyId) { study =>
     Contribute(byUserId, study) {
       chapterRepo.nextOrderByStudy(study.id) flatMap { order =>
         chapterMaker(study, data, order, byUserId) flatMap {
@@ -357,8 +358,11 @@ final class StudyApi(
               chapterRepo.firstByStudy(study.id) flatMap {
                 _.filter(_.isEmptyInitial) ?? chapterRepo.delete
               }
-            } >> chapterRepo.insert(chapter) >>
-              doSetChapter(study, chapter.id, socket, uid) >>-
+            } >> chapterRepo.insert(chapter) >> {
+              val newStudy = study withChapter chapter
+              (sticky ?? studyRepo.updateSomeFields(newStudy)) >>-
+                sendTo(study, Socket.AddChapter(uid, newStudy.position, sticky))
+            } >>-
               studyRepo.updateNow(study) >>-
               indexStudy(study)
           }

@@ -109,6 +109,12 @@ private final class Socket(
       "w" -> who(uid)
     ), noMessadata)
 
+    case AddChapter(uid, pos, sticky) => notifyVersion("addChapter", Json.obj(
+      "p" -> pos,
+      "w" -> who(uid),
+      "s" -> sticky
+    ), noMessadata)
+
     case SetShapes(pos, shapes, uid) => notifyVersion("shapes", Json.obj(
       "p" -> pos,
       "s" -> shapes,
@@ -272,6 +278,7 @@ private object Socket {
   case class ReloadChapters(chapters: List[Chapter.Metadata])
   case object ReloadAll
   case class ChangeChapter(uid: Uid, position: Position.Ref)
+  case class AddChapter(uid: Uid, position: Position.Ref, sticky: Boolean)
   case class SetConceal(position: Position.Ref, ply: Option[Chapter.Ply])
   case class SetLiking(liking: Study.Liking, uid: Uid)
   case class SetTags(chapterId: Chapter.Id, tags: List[chess.format.pgn.Tag], uid: Uid)

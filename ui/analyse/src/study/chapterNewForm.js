@@ -77,7 +77,8 @@ module.exports = {
               name: 'Chapter ' + (firstIt + i),
               orientation: d.orientation,
               pgn: pgn,
-              variant: d.variant
+              variant: d.variant,
+              sticky: root.study.vm.mode.sticky
             };
           }));
           return true;
@@ -87,6 +88,7 @@ module.exports = {
 
     var submitSingle = function(d) {
       d.initial = vm.initial();
+      d.sticky = root.study.vm.mode.sticky;
       send("addChapter", d)
     };
 

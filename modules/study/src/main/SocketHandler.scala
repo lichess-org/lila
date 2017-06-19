@@ -162,7 +162,8 @@ private[study] final class SocketHandler(
     case ("addChapter", o) =>
       reading[ChapterMaker.Data](o) { data =>
         member.userId foreach { byUserId =>
-          api.addChapter(byUserId, studyId, data, socket, uid)
+          val sticky = o.obj("d").flatMap(_.boolean("sticky")) | true
+          api.addChapter(byUserId, studyId, data, sticky = sticky, socket, uid)
         }
       }
 

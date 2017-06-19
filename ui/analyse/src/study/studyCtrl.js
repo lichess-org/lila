@@ -273,7 +273,6 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
         var position = d.p,
           who = d.w;
         who && members.setActive(who.u);
-        // #TODO if not sticky, still follow if on the parent path (live games)
         if (!vm.mode.sticky) return;
         if (position.chapterId !== data.position.chapterId ||
           !ctrl.tree.pathExists(position.path)) {
@@ -333,6 +332,15 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
         d.w && members.setActive(d.w.u);
         data.position = d.p;
         if (vm.mode.sticky) xhrReload();
+      },
+      addChapter: function(d) {
+        d.w && members.setActive(d.w.u);
+        if (d.s) data.position = d.p;
+        else if (d.w && d.w.s === sri) {
+          vm.mode.write = true;
+          vm.chapterId = d.p.chapterId;
+        }
+        xhrReload();
       },
       members: function(d) {
         members.update(d);
