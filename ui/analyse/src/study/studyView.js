@@ -19,13 +19,17 @@ var practiceView = require('./practice/studyPracticeView');
 function buttons(root) {
   var ctrl = root.study;
   var canContribute = ctrl.members.canContribute();
+  var showSticky = ctrl.data.features.sticky && (canContribute || ctrl.vm.behind);
   return m('div.study_buttons', [
     m('div.member_buttons', [
-      ctrl.data.features.sticky ? m('a.button.mode.hint--top', {
+      showSticky ? m('a.button.mode.hint--top', {
         'data-hint': 'All sync members remain on the same position',
         class: classSet({on: ctrl.vm.mode.sticky }),
         onclick: ctrl.toggleSticky
-      }, [ m('i.is'), 'Sync']) : null,
+      }, [
+        ctrl.vm.behind ? m('span.behind', ctrl.vm.behind) : m('i.is'),
+        'Sync'
+      ]) : null,
       ctrl.members.canContribute() ? m('a.button.mode.hint--top', {
         'data-hint': 'Write changes to the server',
         class: classSet({on: ctrl.vm.mode.write }),

@@ -442,6 +442,13 @@ div.underboard .notif.error {
   content: 'E';
   color: #759900;
 }
+.study_buttons .behind {
+  background: #dc322f;
+  color: #fff;
+  padding: 0 5px;
+  border-radius: 9px;
+  margin-right: 4px;
+}
 .study_buttons .button i {
   height: 16px;
   display: inline-block;

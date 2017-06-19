@@ -33,7 +33,8 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
       mode: {
         sticky: sticked,
         write: true
-      }
+      },
+      behind: 0 // how many events missed because sync=off
     };
   })();
 
@@ -115,6 +116,7 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
     var prevPath = ctrl.vm.path;
     var sameChapter = data.chapter.id === s.chapter.id;
     vm.mode.sticky = (vm.mode.sticky && s.features.sticky) || (!data.features.sticky && s.features.sticky);
+    if (vm.mode.sticky) vm.behind = 0;
     if (vm.mode.sticky && s.position !== data.position) commentForm.close();
     ['position', 'name', 'visibility', 'features', 'settings', 'chapter', 'likes', 'liked'].forEach(function(key) {
       data[key] = s[key];
@@ -273,7 +275,10 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
         var position = d.p,
           who = d.w;
         who && members.setActive(who.u);
-        if (!vm.mode.sticky) return;
+        if (!vm.mode.sticky) {
+          vm.behind++;
+          return;
+        }
         if (position.chapterId !== data.position.chapterId ||
           !ctrl.tree.pathExists(position.path)) {
           return xhrReload();
@@ -289,6 +294,7 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
           who = d.w,
           sticky = d.s;
         who && members.setActive(who.u);
+        if (d.s && !vm.mode.sticky) vm.behind++;
         if (wrongChapter(d)) return;
         // node author already has the node
         if (sticky && who && who.s === sri) {
@@ -330,11 +336,13 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
       reload: xhrReload,
       changeChapter: function(d) {
         d.w && members.setActive(d.w.u);
+        if (!vm.mode.sticky) vm.behind++;
         data.position = d.p;
         if (vm.mode.sticky) xhrReload();
       },
       addChapter: function(d) {
         d.w && members.setActive(d.w.u);
+        if (d.s && !vm.mode.sticky) vm.behind++;
         if (d.s) data.position = d.p;
         else if (d.w && d.w.s === sri) {
           vm.mode.write = true;
