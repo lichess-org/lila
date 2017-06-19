@@ -40,7 +40,7 @@
     "chessground": "^6.4",
     "common": "link:../common",
     "game": "link:../game",
-    "mithril": "github:ornicar/mithril.js#lila-vdom-only-2",
+    "snabbdom": "^0.6",
     "tree": "link:../tree",
     "types": "link:../types"
   }
