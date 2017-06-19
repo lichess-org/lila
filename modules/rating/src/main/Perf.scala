@@ -21,7 +21,7 @@ case class Perf(
   }
 
   def add(g: Glicko, date: DateTime): Perf = copy(
-    glicko = g,
+    glicko = g.cap,
     nb = nb + 1,
     recent = updateRecentWith(g),
     latest = date.some
