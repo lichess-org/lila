@@ -67,6 +67,7 @@ module.exports = function(opts, i18n) {
 
     withGround(function(g) {
       g.setAutoShapes([]);
+      g.setShapes([]);
       showGround(g);
     });
     m.redraw();
