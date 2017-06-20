@@ -1,8 +1,8 @@
-import { Chessground }  from 'chessground';
+import { Chessground } from 'chessground';
 import { Config } from 'chessground/config'
 import { game } from 'game';
-import util = require('./util');
-import round = require('./round');
+import * as util from './util';
+import * as round from './round';
 
 import { h } from 'snabbdom'
 

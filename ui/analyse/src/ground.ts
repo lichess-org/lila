@@ -1,17 +1,30 @@
-var m = require('mithril');
-var Chessground = require('chessground').Chessground;
+import { h } from 'snabbdom'
+import { Chessground } from 'chessground';
 
-module.exports = function(ctrl) {
-  return m('div.cg-board-wrap', {
-    config: function(el, isUpdate, ctx) {
-      if (!isUpdate) {
-        ctrl.chessground = Chessground(el, makeConfig(ctrl));
+export function render(ctrl) {
+  return h('div.cg-board-wrap', {
+    hook: {
+      insert: vnode => {
+        ctrl.chessground = Chessground((vnode.elm as HTMLElement), makeConfig(ctrl));
         ctrl.setAutoShapes();
         if (ctrl.vm.node.shapes) ctrl.chessground.setShapes(ctrl.vm.node.shapes);
-        ctx.onunload = ctrl.chessground.destroy;
-      }
+      },
+      destroy: vnode => ctrl.chessground.destroy()
     }
   });
+}
+
+export function promote(ground, key, role) {
+  var pieces = {};
+  var piece = ground.state.pieces[key];
+  if (piece && piece.role == 'pawn') {
+    pieces[key] = {
+      color: piece.color,
+      role: role,
+      promoted: true
+    };
+    ground.setPieces(pieces);
+  }
 }
 
 function makeConfig(ctrl) {
@@ -54,17 +67,4 @@ function makeConfig(ctrl) {
   };
   ctrl.study && ctrl.study.mutateCgConfig(config);
   return config;
-}
-
-module.exports.promote = function(ground, key, role) {
-  var pieces = {};
-  var piece = ground.state.pieces[key];
-  if (piece && piece.role == 'pawn') {
-    pieces[key] = {
-      color: piece.color,
-      role: role,
-      promoted: true
-    };
-    ground.setPieces(pieces);
-  }
 }

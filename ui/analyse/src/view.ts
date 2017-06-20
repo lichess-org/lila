@@ -1,11 +1,13 @@
-var m = require('mithril');
-var chessground = require('./ground');
-var classSet = require('common').classSet;
-var bindOnce = require('./util').bindOnce;
-var synthetic = require('./util').synthetic;
+import { h } from 'snabbdom'
+import { VNode } from 'snabbdom/vnode'
+
+import * as chessground from './ground';
+import { synthetic } from './util';
+import * as game from 'game/game';
+// import renderStatus from 'game/view/status';
+// import * as router from 'game/router';
+// import * as treePath from 'tree/path';
 var game = require('game').game;
-var renderStatus = require('game').view.status;
-var router = require('game').router;
 var treePath = require('tree').path;
 var treeView = require('./treeView');
 var control = require('./control');
@@ -123,7 +125,7 @@ function visualBoard(ctrl) {
         });
       }
     }, [
-      chessground(ctrl),
+      chessground.render(ctrl),
       renderPromotion(ctrl)
     ]),
     cevalView.renderGauge(ctrl)
@@ -142,7 +144,7 @@ function blindBoard(ctrl) {
         $(el).load(url);
       }
     }),
-      chessground(ctrl)
+      chessground.render(ctrl)
   ]);
 }
 

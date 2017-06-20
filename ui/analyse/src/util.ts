@@ -2,6 +2,7 @@ import { fixCrazySan } from 'chess';
 
 import * as m from 'mithril';
 
+// delete me
 export function bindOnce(eventName: string, f: (e: Event) => void): Mithril.Config {
   const withRedraw = function(e: Event) {
     m.startComputation();
