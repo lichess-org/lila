@@ -187,7 +187,7 @@
   <string name="takebackPropositionAccepted">Annulation du coup acceptée</string>
   <string name="takebackPropositionCanceled">Annulation du coup annulée</string>
   <string name="yourOpponentProposesATakeback">Votre adversaire propose l\'annulation du coup</string>
-  <string name="bookmarkThisGame">Mettre cette partie en favori</string>
+  <string name="bookmarkThisGame">Ajouter cette partie aux favorites</string>
   <string name="search">Recherche</string>
   <string name="advancedSearch">Recherche avancée</string>
   <string name="tournament">Tournoi</string>
