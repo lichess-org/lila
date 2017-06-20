@@ -61,8 +61,8 @@ private[tournament] final class Socket(
       waitingUsers = waitingUsers.update(members.values.flatMap(_.userId)(breakOut), clock)
       sender ! waitingUsers
 
-    case PingVersion(uid, v) => {
-      ping(uid)
+    case Ping(uid, Some(v), lt) => {
+      ping(uid, lt)
       timeBomb.delay
       withMember(uid) { m =>
         history.since(v).fold(resync(m))(_ foreach sendMessage(m))
