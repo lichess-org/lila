@@ -164,18 +164,18 @@
     <item quantity="other">%s victoires</item>
   </plurals>
   <plurals name="nbLosses">
-    <item quantity="one">%s défaites</item>
+    <item quantity="one">%s défaite</item>
     <item quantity="other">%s défaites</item>
   </plurals>
   <plurals name="nbDraws">
-    <item quantity="one">%s nulles</item>
+    <item quantity="one">%s nulle</item>
     <item quantity="other">%s nulles</item>
   </plurals>
   <string name="exportGames">Exporter les parties</string>
-  <string name="ratingRange">Classement</string>
+  <string name="ratingRange">Classement de vos adversaires</string>
   <plurals name="giveNbSeconds">
-    <item quantity="one">Donner %s secondes</item>
-    <item quantity="other">Donner %s secondes</item>
+    <item quantity="one">Rajouter %s seconde</item>
+    <item quantity="other">Rajouter %s secondes</item>
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Ce joueur utilise un programme d\'échecs</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ce joueur augmente ou réduit son niveau artificiellement</string>
