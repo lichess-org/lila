@@ -47,7 +47,7 @@
   <string name="requestAComputerAnalysis">Demander une analyse automatique</string>
   <string name="computerAnalysis">Analyse de l\'ordinateur</string>
   <string name="computerAnalysisAvailable">Analyse de l\'ordinateur disponible</string>
-  <string name="analysis">Analyse</string>
+  <string name="analysis">Échiquier d\'analyse</string>
   <string name="blunders">Gaffes</string>
   <string name="mistakes">Erreurs</string>
   <string name="inaccuracies">Imprécisions</string>
