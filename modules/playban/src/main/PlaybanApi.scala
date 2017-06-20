@@ -2,7 +2,7 @@ package lila.playban
 
 import reactivemongo.bson._
 
-import chess.Color
+import chess.{ Status, Color }
 import lila.db.BSON._
 import lila.db.dsl._
 import lila.game.{ Pov, Game, Player, Source }
@@ -24,11 +24,10 @@ final class PlaybanApi(
 
   private case class Blame(player: Player, outcome: Outcome)
 
-  private def blameableSource(source: Source) =
-    source == Source.Lobby || source == Source.Pool
+  val blameableSources: Set[Source] = Set(Source.Lobby, Source.Pool, Source.Tournament)
 
   private def blameable(game: Game): Fu[Boolean] =
-    (game.source.exists(blameableSource) && game.hasClock && !isRematch(game.id)) ?? {
+    (game.source.exists(s => blameableSources(s)) && game.hasClock && !isRematch(game.id)) ?? {
       if (game.rated) fuccess(true)
       else UserRepo.containsEngine(game.userIds) map (!_)
     }
@@ -52,19 +51,29 @@ final class PlaybanApi(
   }
 
   def sittingOrGood(game: Game, sitterColor: Color): Funit = IfBlameable(game) {
-    (for {
-      userId <- game.player(sitterColor).userId
-      seconds = nowSeconds - game.movedAt.getSeconds
-      clock <- game.clock
-      // a tenth of the total time, at least 15s, at most 3 minutes
-      limit = (clock.estimateTotalSeconds / 10) max 15 min (3 * 60)
-      if seconds >= limit
-    } yield save(Outcome.Sitting)(userId)) | goodFinish(game)
+    List(
+      goodFinish(game, !sitterColor),
+      (for {
+        userId <- game.player(sitterColor).userId
+        seconds = nowSeconds - game.movedAt.getSeconds
+        clock <- game.clock
+        limit = (clock.estimateTotalSeconds / 8) atLeast 15 atMost (2 * 60)
+        if seconds >= limit
+      } yield save(Outcome.Sitting)(userId)) | goodFinish(game, sitterColor)
+    ).sequenceFu.void
   }
 
-  def goodFinish(game: Game): Funit = IfBlameable(game) {
-    game.userIds.map(save(Outcome.Good)).sequenceFu.void
+  def other(game: Game, status: Status.type => Status, winner: Option[Color]): Funit = IfBlameable(game) {
+    ((for {
+      w <- winner
+      loserId <- game.player(!w).userId
+      if Status.NoStart is status
+    } yield List(save(Outcome.NoPlay)(loserId), goodFinish(game, w))) |
+      game.userIds.map(save(Outcome.Good))).sequenceFu.void
   }
+
+  private def goodFinish(game: Game, color: Color): Funit =
+    ~(game.player(color).userId.map(save(Outcome.Good)))
 
   def currentBan(userId: String): Fu[Option[TempBan]] = coll.find(
     $doc("_id" -> userId, "b.0" $exists true),
