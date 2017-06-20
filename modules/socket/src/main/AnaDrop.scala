@@ -17,7 +17,7 @@ case class AnaDrop(
     fen: String,
     path: String,
     chapterId: Option[String]
-) {
+) extends AnaAny {
 
   def branch: Valid[Branch] =
     chess.Game(variant.some, fen.some).drop(role, pos) flatMap {
