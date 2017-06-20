@@ -3,28 +3,24 @@ import { VNode } from 'snabbdom/vnode'
 
 import * as chessground from './ground';
 import { synthetic } from './util';
-import * as game from 'game/game';
-// import renderStatus from 'game/view/status';
-// import * as router from 'game/router';
-// import * as treePath from 'tree/path';
-var game = require('game').game;
-var treePath = require('tree').path;
-var treeView = require('./treeView');
-var control = require('./control');
-var actionMenu = require('./actionMenu').view;
-var renderPromotion = require('./promotion').view;
-var renderClocks = require('./clocks');
-var pgnExport = require('./pgnExport');
-var forecastView = require('./forecast/forecastView');
-var cevalView = require('ceval').view;
-var crazyView = require('./crazy/crazyView');
-var keyboardView = require('./keyboard').view;
-var explorerView = require('./explorer/explorerView');
-var retroView = require('./retrospect/retroView');
-var practiceView = require('./practice/practiceView');
-var studyView = require('./study/studyView');
-var forkView = require('./fork').view;
-var acplView = require('./acpl').render;
+import { game, router, view as gameView } from 'game';
+import { path as treePath } from 'tree';
+import treeView = require('./treeView');
+import control = require('./control');
+import { view as actionMenu } from './actionMenu';
+import { view as renderPromotion } from './promotion';
+import renderClocks = require('./clocks');
+import pgnExport = require('./pgnExport');
+import forecastView = require('./forecast/forecastView');
+import { view as cevalView } from 'ceval';
+import crazyView from './crazy/crazyView';
+import { view as keyboardView} from './keyboard';
+import explorerView from './explorer/explorerView';
+import retroView = require('./retrospect/retroView');
+import practiceView = require('./practice/practiceView');
+import studyView = require('./study/studyView');
+import { view as forkView } from './fork'
+import { render as acplView } from './acpl'
 
 function renderResult(ctrl) {
   var result;
@@ -43,7 +39,7 @@ function renderResult(ctrl) {
     tags.push(m('div.result', result));
     var winner = game.getPlayer(ctrl.data, ctrl.data.game.winner);
     tags.push(m('div.status', [
-      renderStatus(ctrl),
+      gameView.viewStatus(ctrl),
       winner ? ', ' + ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null
     ]));
     return tags;
@@ -261,7 +257,7 @@ function renderChapterName(ctrl) {
 
 var firstRender = true;
 
-module.exports = function(ctrl) {
+export default function(ctrl: AnalyseController): VNode[] {
   var concealOf = makeConcealOf(ctrl);
   var showCevalPvs = !(ctrl.retro && ctrl.retro.isSolving()) && !ctrl.practice;
   var menuIsOpen = ctrl.actionMenu.open;

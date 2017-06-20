@@ -30,13 +30,6 @@ export function mithril(opts: AnalyseOpts) {
   opts.element.innerHTML = '';
   vnode = patch(opts.element, blueprint);
 
-  m.module<AnalyseController>(opts.element, {
-    controller: function() {
-      return controller;
-    },
-    view: view
-  });
-
   // if (controller.study && opts.sideElement) m.module(opts.sideElement, {
   //   controller: function() {
   //     m.redraw.strategy("diff"); // prevents double full redraw on page load

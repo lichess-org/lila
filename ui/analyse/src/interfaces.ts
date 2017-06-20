@@ -5,6 +5,7 @@ import { Api as ChessgroundApi } from 'chessground/api';
 import { CevalController } from 'ceval';
 
 export interface AnalyseController {
+  redraw: () => void;
   study?: Study;
   studyPractice?: StudyPractice;
   socket: Socket;
@@ -38,6 +39,7 @@ export interface AnalyseController {
   embed: boolean;
   ongoing: boolean;
   chessground: ChessgroundApi;
+  explorer: any; // TODO
 }
 
 export interface AnalyseOpts {

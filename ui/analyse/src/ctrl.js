@@ -27,9 +27,10 @@ var nodeFinder = require('./nodeFinder');
 var acplUncache = require('./acpl').uncache;
 var m = require('mithril');
 
-module.exports = function(opts) {
+module.exports = function(opts, redraw) {
 
   this.opts = opts;
+  this.redraw = redraw;
   this.userId = opts.userId;
   this.embed = opts.embed;
 

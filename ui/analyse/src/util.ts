@@ -18,6 +18,24 @@ export function bindOnce(eventName: string, f: (e: Event) => void): Mithril.Conf
   }
 }
 
+// snabbdom version
+export function bind(eventName: string, f: (e: Event) => void, redraw: (() => void) | undefined = undefined) {
+  return {
+    insert: vnode => {
+      (vnode.elm as HTMLElement).addEventListener(eventName, e => {
+        f(e);
+        if (redraw) redraw();
+      });
+    }
+  };
+}
+
+export function dataIcon(icon: string) {
+  return {
+    'data-icon': icon
+  };
+}
+
 export function plyToTurn(ply: number): number {
   return Math.floor((ply - 1) / 2) + 1;
 }
