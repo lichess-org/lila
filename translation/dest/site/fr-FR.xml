@@ -37,7 +37,7 @@
   <string name="forceDraw">Déclarer le nul</string>
   <string name="talkInChat">Soyez courtois dans le chat.</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">La première personne qui cliquera sur ce lien jouera avec vous.</string>
-  <string name="whiteResigned">Les blancs abandonnent</string>
+  <string name="whiteResigned">Les Blancs abandonnent</string>
   <string name="blackResigned">Les noirs abandonnent</string>
   <string name="whiteLeftTheGame">Les blancs ont quitté la partie</string>
   <string name="blackLeftTheGame">Les noirs ont quitté la partie</string>
@@ -46,6 +46,7 @@
   <string name="viewTheComputerAnalysis">Voir l\'analyse automatique</string>
   <string name="requestAComputerAnalysis">Demander une analyse automatique</string>
   <string name="computerAnalysis">Analyse de l\'ordinateur</string>
+  <string name="computerAnalysisAvailable">Analyse de l\'ordinateur disponible</string>
   <string name="analysis">Analyse</string>
   <string name="blunders">Gaffes</string>
   <string name="mistakes">Erreurs</string>
@@ -283,6 +284,9 @@
   <string name="winStreak">Série de victoires</string>
   <string name="createdBy">Créé par</string>
   <string name="tournamentIsStarting">Le tournoi commence</string>
+  <string name="tournamentPairingsAreNowClosed">Les appariements du tournoi sont maintenant terminés.</string>
+  <string name="standByX">Appariements des joueurs, tenez-vous prêt %s !</string>
+  <string name="youArePlaying">Vous êtes en train de jouer !</string>
   <string name="membersOnly">Membres seulement</string>
   <string name="boardEditor">Éditeur de partie</string>
   <string name="startPosition">Position de départ</string>
@@ -291,6 +295,10 @@
   <string name="loadPosition">Charger une position</string>
   <string name="isPrivate">Privé</string>
   <string name="reportXToModerators">Signaler %s aux modérateurs</string>
+  <string name="profileCompletion">Profil rempli à %s</string>
+  <string name="xRating">Classement %s</string>
+  <string name="ifNoneLeaveEmpty">Sinon, laissez vide</string>
+  <string name="gameCompletionRate">Termine %s de ses parties</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Modifier le profil</string>
   <string name="firstName">Prénom</string>
@@ -396,6 +404,7 @@
   <string name="pieceDestinations">Cases de destination (coups et pré-coups valides)</string>
   <string name="boardCoordinates">Coordonnées (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Liste de coups durant la partie</string>
+  <string name="pgnPieceNotation">Notation PGN des pièces</string>
   <string name="chessClock">Pendule</string>
   <string name="tenthsOfSeconds">Dixièmes de seconde</string>
   <string name="never">Jamais</string>
