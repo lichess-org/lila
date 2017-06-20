@@ -52,7 +52,7 @@
   <string name="mistakes">Erreurs</string>
   <string name="inaccuracies">Imprécisions</string>
   <string name="moveTimes">Temps par coup</string>
-  <string name="flipBoard">Retourner l\'échiquier</string>
+  <string name="flipBoard">Tourner l\'échiquier</string>
   <string name="threefoldRepetition">Triple répétition</string>
   <string name="claimADraw">Déclarer la partie nulle</string>
   <string name="offerDraw">Proposer la nulle</string>
@@ -67,7 +67,7 @@
     <item quantity="other">%s parties</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s favoris</item>
+    <item quantity="one">%s favori</item>
     <item quantity="other">%s favoris</item>
   </plurals>
   <string name="viewInFullSize">Agrandir</string>
@@ -75,8 +75,8 @@
   <string name="signIn">Connexion</string>
   <string name="newToLichess">Nouveau sur Lichess ?</string>
   <string name="youNeedAnAccountToDoThat">Compte d\'utilisateur requis</string>
-  <string name="signUp">Inscription</string>
-  <string name="computersAreNotAllowedToPlay">Les ordinateurs et les joueurs assistés par ordinateur ne sont pas autorisés à jouer. Veuillez ne pas vous aider de moteurs d\'analyse, de bases de données ou d\'autres joueurs pendant la partie. Notez également qu\'il est déconseillé de créer plusieurs comptes, le multi-compte excessif étant interdit.</string>
+  <string name="signUp">S\'inscrire</string>
+  <string name="computersAreNotAllowedToPlay">Les ordinateurs et les joueurs assistés par ordinateur ne sont pas autorisés à jouer. Veuillez ne pas vous aider de moteurs d\'analyse, de bases de données ou d\'autres joueurs pendant la partie. Notez également qu\'il est fortement déconseillé de créer plusieurs comptes. Le multi-compte excessif mènera à l\'exclusion.</string>
   <string name="games">Parties</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s a posté dans le forum %2$s</string>
