@@ -222,7 +222,7 @@
   <string name="filterGames">Filtrer les parties</string>
   <string name="reset">Réinitialiser</string>
   <string name="apply">Appliquer</string>
-  <string name="leaderboard">Classement</string>
+  <string name="leaderboard">Classements</string>
   <string name="pasteTheFenStringHere">Coller le code FEN ici</string>
   <string name="pasteThePgnStringHere">Coller le code PGN ici</string>
   <string name="fromPosition">Depuis une position</string>
