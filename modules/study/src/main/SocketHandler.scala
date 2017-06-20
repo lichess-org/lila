@@ -52,7 +52,7 @@ private[study] final class SocketHandler(
     }
     case ("anaMove", o) => AnaRateLimit(uid.value, member) {
       AnaMove parse o foreach { anaMove =>
-        val moveOpts = MoveOpts(o)
+        val moveOpts = MoveOpts parse o
         anaMove.branch match {
           case scalaz.Success(branch) if branch.ply < Node.MAX_PLIES =>
             member push makeMessage("node", anaMove json branch)
@@ -64,7 +64,7 @@ private[study] final class SocketHandler(
               userId,
               studyId,
               Position.Ref(Chapter.Id(chapterId), Path(anaMove.path)),
-              Node.fromBranch(branch),
+              Node.fromBranch(branch) withClock moveOpts.clock,
               uid,
               moveOpts
             )
@@ -77,7 +77,7 @@ private[study] final class SocketHandler(
     }
     case ("anaDrop", o) => AnaRateLimit(uid.value, member) {
       AnaDrop parse o foreach { anaDrop =>
-        val moveOpts = MoveOpts(o)
+        val moveOpts = MoveOpts parse o
         anaDrop.branch match {
           case scalaz.Success(branch) if branch.ply < Node.MAX_PLIES =>
             member push makeMessage("node", anaDrop json branch)
@@ -89,7 +89,7 @@ private[study] final class SocketHandler(
               userId,
               studyId,
               Position.Ref(Chapter.Id(chapterId), Path(anaDrop.path)),
-              Node.fromBranch(branch),
+              Node.fromBranch(branch) withClock moveOpts.clock,
               uid,
               moveOpts
             )

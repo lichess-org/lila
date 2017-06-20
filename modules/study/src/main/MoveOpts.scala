@@ -1,22 +1,43 @@
 package lila.study
 
+import chess.Centis
+
 private case class MoveOpts(
   write: Boolean,
   sticky: Boolean,
-  promoteToMainline: Boolean
+  promoteToMainline: Boolean,
+  clock: Option[Centis]
 )
 
 private object MoveOpts {
 
   import play.api.libs.json._
+  import play.api.libs.functional.syntax._
+  import play.api.data.validation.{ ValidationError => Err }
   import lila.common.PimpedJson._
 
-  def apply(o: JsObject): MoveOpts = {
-    val d = (o obj "d") | Json.obj()
-    MoveOpts(
-      write = d.get[Boolean]("write") | true,
-      sticky = d.get[Boolean]("sticky") | true,
-      promoteToMainline = d.get[Boolean]("promote") | false
-    )
+  private val default = MoveOpts(
+    write = true,
+    sticky = true,
+    promoteToMainline = false,
+    clock = none
+  )
+
+  def parse(o: JsObject): MoveOpts = (o \ "d").asOpt[MoveOpts] | default
+
+  private implicit val clockReader = Reads[Centis] {
+    case JsNumber(centis) => JsSuccess(Centis(centis.toInt))
+    case JsString(str) => CommentParser.readCentis(str) match {
+      case None => JsError(Err(s"Cannot parse clock from $str"))
+      case Some(centis) => JsSuccess(centis)
+    }
+    case x => JsError(Err(s"Cannot read clock from $x"))
   }
+
+  private implicit val moveOptsReader: Reads[MoveOpts] = (
+    (__ \ "write").readNullable[Boolean].map(_ | default.write) and
+    (__ \ "sticky").readNullable[Boolean].map(_ | default.sticky) and
+    (__ \ "promote").readNullable[Boolean].map(_ | default.promoteToMainline) and
+    (__ \ "clock").readNullable[Centis]
+  )(MoveOpts.apply _)
 }

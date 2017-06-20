@@ -1,7 +1,7 @@
 package lila.study
 
-import chess.Pos
 import chess.Centis
+import chess.Pos
 import lila.tree.Node.{ Shape, Shapes }
 
 private[study] object CommentParser {
@@ -28,18 +28,20 @@ private[study] object CommentParser {
 
   private type ClockAndComment = (Option[Centis], String)
 
-  private def readCentis(hours: String, minutes: String, seconds: String) = for {
+  private def readCentis(hours: String, minutes: String, seconds: String): Option[Centis] = for {
     h <- parseIntOption(hours)
     m <- parseIntOption(minutes)
     s <- parseIntOption(seconds)
   } yield Centis(h * 360000 + m * 6000 + s * 100)
 
+  def readCentis(str: String): Option[Centis] = str.split(':') match {
+    case Array(minutes, seconds) => readCentis("0", minutes, seconds)
+    case Array(hours, minutes, seconds) => readCentis(hours, minutes, seconds)
+    case _ => none
+  }
+
   private def parseClock(comment: String): ClockAndComment = comment match {
-    case clockRegex(str) => (str.split(':') match {
-      case Array(minutes, seconds) => readCentis("0", minutes, seconds)
-      case Array(hours, minutes, seconds) => readCentis(hours, minutes, seconds)
-      case _ => none
-    }) -> clockRemoveRegex.replaceAllIn(comment, "").trim
+    case clockRegex(str) => readCentis(str) -> clockRemoveRegex.replaceAllIn(comment, "").trim
     case _ => None -> comment
   }
 
