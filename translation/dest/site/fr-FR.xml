@@ -196,10 +196,10 @@
   <string name="viewTournament">Voir le tournoi</string>
   <string name="backToTournament">Retour au tournoi</string>
   <string name="backToGame">Retour à la partie</string>
-  <string name="siteDescription">Jeu d\'échecs gratuit en ligne. Jouez aux échecs immédiatement avec une interface simple. Pas d\'inscription obligatoire, pas de publicité, pas de plugin. Jouez aux échecs contre l\'ordinateur, des amis ou des adversaires en ligne.</string>
+  <string name="siteDescription">Jeu d\'échecs gratuit en ligne. Jouez aux échecs immédiatement avec une interface simple. Pas d\'inscription obligatoire, pas de publicité, pas de plugin. Jouez aux échecs avec des adversaires en ligne, avec des amis ou contre l\'ordinateur.</string>
   <string name="teams">Équipes</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s membres</item>
+    <item quantity="one">%s membre</item>
     <item quantity="other">%s membres</item>
   </plurals>
   <string name="allTeams">Toutes les équipes</string>
