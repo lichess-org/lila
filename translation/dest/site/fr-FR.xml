@@ -38,7 +38,7 @@
   <string name="talkInChat">Soyez courtois dans le chat.</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">La première personne qui cliquera sur ce lien jouera avec vous.</string>
   <string name="whiteResigned">Les Blancs abandonnent</string>
-  <string name="blackResigned">Les noirs abandonnent</string>
+  <string name="blackResigned">Les Noirs abandonnent</string>
   <string name="whiteLeftTheGame">Les blancs ont quitté la partie</string>
   <string name="blackLeftTheGame">Les noirs ont quitté la partie</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Partagez ce lien pour permettre à des spectateurs de voir la partie</string>
@@ -55,7 +55,7 @@
   <string name="flipBoard">Retourner l\'échiquier</string>
   <string name="threefoldRepetition">Triple répétition</string>
   <string name="claimADraw">Déclarer la partie nulle</string>
-  <string name="offerDraw">Proposer le nul</string>
+  <string name="offerDraw">Proposer la nulle</string>
   <string name="draw">Partie nulle</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s joueur</item>
@@ -123,8 +123,8 @@
   <string name="drawOfferDeclined">Proposition de nulle refusée</string>
   <string name="drawOfferAccepted">Proposition de nulle acceptée</string>
   <string name="drawOfferCanceled">Proposition de nulle annulée</string>
-  <string name="whiteOffersDraw">Les Blancs offrent la nulle</string>
-  <string name="blackOffersDraw">Les Noirs offrent la nulle</string>
+  <string name="whiteOffersDraw">Les Blancs proposent la nulle</string>
+  <string name="blackOffersDraw">Les Noirs proposent la nulle</string>
   <string name="whiteDeclinesDraw">Les Blancs refusent la nulle</string>
   <string name="blackDeclinesDraw">Les Noirs refusent la nulle</string>
   <string name="yourOpponentOffersADraw">Votre adversaire propose la nulle</string>
@@ -404,7 +404,7 @@
   <string name="pieceDestinations">Cases de destination (coups et pré-coups valides)</string>
   <string name="boardCoordinates">Coordonnées (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Liste de coups durant la partie</string>
-  <string name="pgnPieceNotation">Notation PGN des pièces</string>
+  <string name="pgnPieceNotation">Notation des coups</string>
   <string name="chessPieceSymbol">Figurine de la pièce</string>
   <string name="pgnLetter">Lettre de la pièce (K, Q, R, B, N)</string>
   <string name="chessClock">Pendule</string>
@@ -419,9 +419,9 @@
   <string name="dragPiece">Faire glisser la pièce</string>
   <string name="bothClicksAndDrag">Les deux</string>
   <string name="premovesPlayingDuringOpponentTurn">Pré-coups</string>
-  <string name="takebacksWithOpponentApproval">Annulations du dernier coup</string>
+  <string name="takebacksWithOpponentApproval">Annulations de coups (avec accord de l\'adversaire)</string>
   <string name="promoteToQueenAutomatically">Promouvoir en dame automatiquement</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically">Déclarer le nul par répétition automatiquement</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Déclarer la nulle par répétition automatiquement</string>
   <string name="privacy">Confidentialité</string>
   <string name="letOtherPlayersFollowYou">Autoriser les autres joueurs à vous suivre</string>
   <string name="letOtherPlayersChallengeYou">Autoriser les autres joueurs à vous défier</string>
@@ -525,7 +525,7 @@
   <string name="aboutSimulImage">Sur 50 adversaires, Fischer a gagné 47 parties, fait 2 nulles et perdu 1 partie.</string>
   <string name="aboutSimulRealLife">Le concept est inspiré de la vie réelle, où le joueur passe d\'un échiquier à l\'autre pour jouer chaque coup.</string>
   <string name="aboutSimulRules">Le joueur a les Blancs sur chacun des échiquiers et ses adversaires jouent au moment où il se présente devant leur échiquier. La simultanée prend fin lorsque toutes les parties sont terminées.</string>
-  <string name="aboutSimulSettings">Les parties sont toujours amicales. Les revanches, l\'annulation de coups et la possibilité de donner du temps sont désactivés.</string>
+  <string name="aboutSimulSettings">Les parties simultanées sont toujours amicales. Les revanches, l\'annulation de coups et la possibilité de donner du temps sont désactivées.</string>
   <string name="create">Créer</string>
   <string name="whenCreateSimul">Lorsque vous créez une simultanée, vouz affrontez plusieurs adversaires à la fois.</string>
   <string name="simulVariantsHint">Si vous sélectionnez plusieurs variantes, chaque joueur doit choisir laquelle jouer.</string>
@@ -576,9 +576,9 @@
   <string name="confirmResignation">Confirmer l\'abandon</string>
   <string name="inputMovesWithTheKeyboard">Saisir les coups au clavier</string>
   <string name="letOtherPlayersMessageYou">Permettre à d\'autres joueurs de vous envoyer des messages</string>
-  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Roquer en déplaçant le Roi de 2 cases ou sur la Tour</string>
-  <string name="castleByMovingTwoSquares">Roquer en déplaçant de 2 cases</string>
-  <string name="castleByMovingOntoTheRook">Roquer en déplaçant sur la Tour</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Manière de roquer</string>
+  <string name="castleByMovingTwoSquares">En déplaçant le Roi de 2 cases</string>
+  <string name="castleByMovingOntoTheRook">En déplaçant le Roi sur la Tour</string>
   <string name="shareYourInsightsData">Partager les statistiques générées par lichess de vos parties</string>
   <string name="withNobody">Avec personne</string>
   <string name="withFriends">Avec mes amis</string>
