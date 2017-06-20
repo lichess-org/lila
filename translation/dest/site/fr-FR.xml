@@ -405,6 +405,8 @@
   <string name="boardCoordinates">Coordonnées (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Liste de coups durant la partie</string>
   <string name="pgnPieceNotation">Notation PGN des pièces</string>
+  <string name="chessPieceSymbol">Figurine de la pièce</string>
+  <string name="pgnLetter">Lettre de la pièce (K, Q, R, B, N)</string>
   <string name="chessClock">Pendule</string>
   <string name="tenthsOfSeconds">Dixièmes de seconde</string>
   <string name="never">Jamais</string>
@@ -412,6 +414,10 @@
   <string name="horizontalGreenProgressBars">Barres de progression horizontales vertes</string>
   <string name="soundWhenTimeGetsCritical">Alerte quand le temps restant devient critique</string>
   <string name="gameBehavior">Actions en cours de partie</string>
+  <string name="howDoYouMovePieces">Comment voulez-vous déplacer les pièces ?</string>
+  <string name="clickTwoSquares">Clic et clic</string>
+  <string name="dragPiece">Faire glisser la pièce</string>
+  <string name="bothClicksAndDrag">Les deux</string>
   <string name="premovesPlayingDuringOpponentTurn">Pré-coups</string>
   <string name="takebacksWithOpponentApproval">Annulations du dernier coup</string>
   <string name="promoteToQueenAutomatically">Promouvoir en dame automatiquement</string>
