@@ -29,7 +29,7 @@ function renderClock(centis, active) {
 }
 
 function clockContent(centis) {
-  if (centis === null) return '-';
+  if (!centis && centis !== 0) return '-';
   var date = new Date(centis * 10);
   var millis = date.getUTCMilliseconds();
   var sep = ':';
