@@ -22,7 +22,7 @@ module.exports = function(data, opts) {
   var times;
 
   function update(white, black, delayCentis) {
-    if (delayCentis === undefined) delayCentis = 0;
+    if (delayCentis === undefined) delayCentis = 1;
     times = {
       white: white * 1000,
       black: black * 1000,

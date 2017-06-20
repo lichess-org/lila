@@ -41,6 +41,8 @@ case class Node(
       copy(children = newChildren)
     }
 
+  def withClock(centis: Option[Centis]) = copy(clock = centis)
+
   def isCommented = comments.value.nonEmpty
 
   def setComment(comment: Comment) = copy(comments = comments set comment)

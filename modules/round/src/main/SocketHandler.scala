@@ -43,8 +43,7 @@ private[round] final class SocketHandler(
 
     def send(msg: Any) { roundMap ! Tell(gameId, msg) }
 
-    def ping(o: JsObject) =
-      o int "v" foreach { v => socket ! PingVersion(uid.value, v) }
+    def ping(o: JsObject) = socket ! Ping(uid.value, o int "v", o int "l")
 
     member.playerIdOption.fold[Handler.Controller](({
       case ("p", o) => ping(o)

@@ -164,17 +164,21 @@ final class StudyApi(
     }
   }
 
-  def addNode(userId: User.ID, studyId: Study.Id, position: Position.Ref, node: Node, uid: Uid, sticky: Boolean) = sequenceStudyWithChapter(studyId, position.chapterId) {
+  def addNode(userId: User.ID, studyId: Study.Id, position: Position.Ref, node: Node, uid: Uid, opts: MoveOpts) = sequenceStudyWithChapter(studyId, position.chapterId) {
     case Study.WithChapter(study, chapter) => Contribute(userId, study) {
       chapter.addNode(node, position.path) match {
         case None => fufail(s"Invalid addNode $studyId $position $node") >>- reloadUid(study, uid)
         case Some(chapter) =>
           chapter.root.nodeAt(position.path) ?? { parent =>
+            val newPosition = position + node
             chapterRepo.setChildren(chapter, position.path, parent.children) >>
-              (sticky ?? studyRepo.setPosition(study.id, position + node)) >>
-              updateConceal(study, chapter, position + node) >>-
-              sendTo(study, Socket.AddNode(position, node, chapter.setup.variant, uid, sticky = sticky)) >>-
-              sendStudyEnters(study, userId)
+              (opts.sticky ?? studyRepo.setPosition(study.id, newPosition)) >>
+              updateConceal(study, chapter, newPosition) >>- {
+                sendTo(study, Socket.AddNode(position, node, chapter.setup.variant, uid, sticky = opts.sticky))
+                sendStudyEnters(study, userId)
+                if (opts.promoteToMainline && !Path.isMainline(chapter.root, newPosition.path))
+                  promote(userId, studyId, position + node, toMainline = true, uid)
+              }
           }
       }
     }

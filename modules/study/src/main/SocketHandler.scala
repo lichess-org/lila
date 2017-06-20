@@ -14,7 +14,7 @@ import lila.hub.actorApi.map._
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Socket.makeMessage
 import lila.socket.Socket.Uid
-import lila.socket.{ Handler, AnaMove, AnaDrop }
+import lila.socket.{ Handler, AnaMove, AnaDrop, AnaAny }
 import lila.tree.Node.{ Shape, Shapes, Comment }
 import lila.user.User
 import makeTimeout.short
@@ -37,6 +37,30 @@ private[study] final class SocketHandler(
     key = "study_invite.user"
   )
 
+  private def moveOrDrop(studyId: Study.Id, m: AnaAny, opts: MoveOpts, uid: Uid, member: Socket.Member) =
+    AnaRateLimit(uid.value, member) {
+      m.branch match {
+        case scalaz.Success(branch) if branch.ply < Node.MAX_PLIES =>
+          member push makeMessage("node", m json branch)
+          for {
+            userId <- member.userId
+            chapterId <- m.chapterId
+            if opts.write
+          } api.addNode(
+            userId,
+            studyId,
+            Position.Ref(Chapter.Id(chapterId), Path(m.path)),
+            Node.fromBranch(branch) withClock opts.clock,
+            uid,
+            opts
+          )
+        case scalaz.Success(branch) =>
+          member push makeMessage("stepFailure", s"ply ${branch.ply}/${Node.MAX_PLIES}")
+        case scalaz.Failure(err) =>
+          member push makeMessage("stepFailure", err.toString)
+      }
+    }
+
   private def controller(
     socket: ActorRef,
     studyId: Study.Id,
@@ -44,63 +68,17 @@ private[study] final class SocketHandler(
     member: Socket.Member,
     user: Option[User]
   ): Handler.Controller = ({
-    case ("p", o) => o int "v" foreach { v =>
-      socket ! PingVersion(uid.value, v)
-    }
+    case ("p", o) => socket ! Ping(uid.value, o int "v", o int "l")
     case ("talk", o) => o str "d" foreach { text =>
       member.userId foreach { userId =>
         api.talk(userId, studyId, text, socket)
       }
     }
-    case ("anaMove", o) => AnaRateLimit(uid.value, member) {
-      AnaMove parse o foreach { anaMove =>
-        val moveOpts = getMoveOpts(o)
-        anaMove.branch match {
-          case scalaz.Success(branch) if branch.ply < Node.MAX_PLIES =>
-            member push makeMessage("node", anaMove json branch)
-            for {
-              userId <- member.userId
-              chapterId <- anaMove.chapterId
-              if moveOpts.write
-            } api.addNode(
-              userId,
-              studyId,
-              Position.Ref(Chapter.Id(chapterId), Path(anaMove.path)),
-              Node.fromBranch(branch),
-              uid,
-              sticky = moveOpts.sticky
-            )
-          case scalaz.Success(branch) =>
-            member push makeMessage("stepFailure", s"ply ${branch.ply}/${Node.MAX_PLIES}")
-          case scalaz.Failure(err) =>
-            member push makeMessage("stepFailure", err.toString)
-        }
-      }
+    case ("anaMove", o) => AnaMove parse o foreach {
+      moveOrDrop(studyId, _, MoveOpts parse o, uid, member)
     }
-    case ("anaDrop", o) => AnaRateLimit(uid.value, member) {
-      AnaDrop parse o foreach { anaDrop =>
-        val moveOpts = getMoveOpts(o)
-        anaDrop.branch match {
-          case scalaz.Success(branch) if branch.ply < Node.MAX_PLIES =>
-            member push makeMessage("node", anaDrop json branch)
-            for {
-              userId <- member.userId
-              chapterId <- anaDrop.chapterId
-              if moveOpts.write
-            } api.addNode(
-              userId,
-              studyId,
-              Position.Ref(Chapter.Id(chapterId), Path(anaDrop.path)),
-              Node.fromBranch(branch),
-              uid,
-              sticky = moveOpts.sticky
-            )
-          case scalaz.Success(branch) =>
-            member push makeMessage("stepFailure", s"ply ${branch.ply}/${Node.MAX_PLIES}")
-          case scalaz.Failure(err) =>
-            member push lila.socket.Socket.makeMessage("stepFailure", err.toString)
-        }
-      }
+    case ("anaDrop", o) => AnaDrop parse o foreach {
+      moveOrDrop(studyId, _, MoveOpts parse o, uid, member)
     }
     case ("setPath", o) => AnaRateLimit(uid.value, member) {
       reading[AtPosition](o) { position =>
@@ -255,16 +233,6 @@ private[study] final class SocketHandler(
   private implicit val ChapterEditDataReader = Json.reads[ChapterMaker.EditData]
   private implicit val StudyDataReader = Json.reads[Study.Data]
   private implicit val setTagReader = Json.reads[actorApi.SetTag]
-
-  private case class MoveOpts(write: Boolean, sticky: Boolean)
-
-  private def getMoveOpts(o: JsObject) = {
-    val d = (o obj "d") | Json.obj()
-    MoveOpts(
-      write = d.get[Boolean]("write") | true,
-      sticky = d.get[Boolean]("sticky") | true
-    )
-  }
 
   def join(
     studyId: Study.Id,

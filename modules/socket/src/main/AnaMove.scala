@@ -9,6 +9,14 @@ import scalaz.Validation.FlatMap._
 import lila.common.PimpedJson._
 import lila.tree.Branch
 
+trait AnaAny {
+
+  def branch: Valid[Branch]
+  def json(b: Branch): JsObject
+  def chapterId: Option[String]
+  def path: String
+}
+
 case class AnaMove(
     orig: chess.Pos,
     dest: chess.Pos,
@@ -17,7 +25,7 @@ case class AnaMove(
     path: String,
     chapterId: Option[String],
     promotion: Option[chess.PromotableRole]
-) {
+) extends AnaAny {
 
   def branch: Valid[Branch] =
     chess.Game(variant.some, fen.some)(orig, dest, promotion) flatMap {

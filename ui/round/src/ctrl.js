@@ -314,7 +314,7 @@ module.exports = function(opts, redraw) {
     }
     if (o.clock) {
       (this.clock || this.correspondenceClock).update(o.clock.white, o.clock.black,
-        playing && activeColor ? 0 : o.clock.lagEst);
+        playing && activeColor ? 0 : o.clock.lag);
     }
     d.game.threefold = !!o.threefold;
     var step = {

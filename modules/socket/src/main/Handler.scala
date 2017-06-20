@@ -35,7 +35,7 @@ object Handler {
   )(connecter: Connecter): Fu[JsSocketHandler] = {
 
     def baseController(member: SocketMember): Controller = {
-      case ("p", _) => socket ! Ping(uid.value)
+      case ("p", o) => socket ! Ping(uid.value, o int "v", o int "l")
       case ("following_onlines", _) => member.userId foreach { u =>
         hub.actor.relation ! ReloadOnlineFriends(u)
       }

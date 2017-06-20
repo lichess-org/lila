@@ -62,15 +62,17 @@ private object PgnImport {
         }
     }
 
-  private def endComment(prep: Preprocessed) = {
+  private def endComment(prep: Preprocessed): Option[Comment] = {
     import lila.tree.Node.Comment
     import prep._
     val winner = game.winnerColor orElse result.flatMap(_.winner)
     val resultText = chess.Color.showResult(winner)
-    (if (game.finished) game.status.some else result.map(_.status)) map { status =>
-      val statusText = lila.game.StatusText(status, winner, game.variant)
-      val text = s"$resultText $statusText"
-      Comment(Comment.Id.make, Comment.Text(text), Comment.Author.Lichess)
+    (if (game.finished) game.status.some else result.map(_.status)) flatMap { status =>
+      (status >= chess.Status.Aborted) option {
+        val statusText = lila.game.StatusText(status, winner, game.variant)
+        val text = s"$resultText $statusText"
+        Comment(Comment.Id.make, Comment.Text(text), Comment.Author.Lichess)
+      }
     }
   }
 

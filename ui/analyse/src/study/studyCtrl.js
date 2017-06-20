@@ -323,14 +323,14 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
         if (vm.mode.sticky) ctrl.jump(ctrl.vm.path);
         m.redraw();
       },
-      promote: function(d, toMainline) {
+      promote: function(d) {
         var position = d.p,
           who = d.w;
         who && members.setActive(who.u);
         if (wrongChapter(d)) return;
         if (who && who.s === sri) return;
         if (!ctrl.tree.pathExists(d.p.path)) return xhrReload();
-        ctrl.tree.promoteAt(position.path, toMainline);
+        ctrl.tree.promoteAt(position.path, d.toMainline);
         if (vm.mode.sticky) ctrl.jump(ctrl.vm.path);
       },
       reload: xhrReload,
