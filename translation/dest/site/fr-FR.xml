@@ -223,17 +223,17 @@
   <string name="reset">Réinitialiser</string>
   <string name="apply">Appliquer</string>
   <string name="leaderboard">Classements</string>
-  <string name="pasteTheFenStringHere">Coller le code FEN ici</string>
-  <string name="pasteThePgnStringHere">Coller le code PGN ici</string>
+  <string name="pasteTheFenStringHere">Coller le FEN ici</string>
+  <string name="pasteThePgnStringHere">Coller le PGN ici</string>
   <string name="fromPosition">Depuis une position</string>
   <string name="continueFromHere">Continuer depuis cette position</string>
   <string name="importGame">Importer une partie</string>
   <plurals name="nbImportedGames">
-    <item quantity="one">%s parties importées</item>
+    <item quantity="one">%s partie importée</item>
     <item quantity="other">%s parties importées</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Ceci est un CAPTCHA d\'échecs.</string>
-  <string name="clickOnTheBoardToMakeYourMove">Cliquez sur le plateau pour jouer un coup, et prouvez que vous êtes humain.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Cliquez sur l\'échiquier pour jouer un coup, et prouvez que vous êtes humain.</string>
   <string name="captcha.fail">Vous devez résoudre le diagramme d\'échecs.</string>
   <string name="notACheckmate">Ce n\'est pas un échec et mat</string>
   <string name="colorPlaysCheckmateInOne">%s joue, mat en un coup</string>
@@ -252,11 +252,11 @@
   <string name="followsYou">Vous suit</string>
   <string name="xStartedFollowingY">%1$s a suivi %2$s</string>
   <plurals name="nbFollowers">
-    <item quantity="one">%s suiveurs</item>
+    <item quantity="one">%s suiveur</item>
     <item quantity="other">%s suiveurs</item>
   </plurals>
   <plurals name="nbFollowing">
-    <item quantity="one">%s suivis</item>
+    <item quantity="one">%s suivi</item>
     <item quantity="other">%s suivis</item>
   </plurals>
   <string name="more">Plus</string>
@@ -267,7 +267,7 @@
   <string name="list">Liste</string>
   <string name="graph">Graphique</string>
   <plurals name="lessThanNbMinutes">
-    <item quantity="one">Moins de %s minutes</item>
+    <item quantity="one">Moins de %s minute</item>
     <item quantity="other">Moins de %s minutes</item>
   </plurals>
   <string name="required">Requis.</string>
