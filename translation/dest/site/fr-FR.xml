@@ -314,8 +314,8 @@
   <string name="bewareTheGameIsRatedButHasNoClock">Attention, la partie est classée, mais sans limite de temps !</string>
   <string name="training">Entraînement</string>
   <string name="yourPuzzleRatingX">Votre classement à l\'entraînement : %s</string>
-  <string name="findTheBestMoveForWhite">Trouvez le meilleur coup pour les blancs.</string>
-  <string name="findTheBestMoveForBlack">Trouvez le meilleur coup pour les noirs.</string>
+  <string name="findTheBestMoveForWhite">Trouvez le meilleur coup pour les Blancs.</string>
+  <string name="findTheBestMoveForBlack">Trouvez le meilleur coup pour les Noirs.</string>
   <string name="toTrackYourProgress">Pour sauvegarder votre progression :</string>
   <string name="trainingSignupExplanation">Lichess fournit des problèmes adaptés à votre niveau, pour de meilleures sessions d\'entraînement.</string>
   <string name="puzzleId">Problème %s</string>
