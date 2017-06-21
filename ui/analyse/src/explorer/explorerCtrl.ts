@@ -1,14 +1,13 @@
-var m = require('mithril');
-var throttle = require('common').throttle;
-var configCtrl = require('./explorerConfig').controller;
-var xhr = require('./openingXhr');
-var storedProp = require('common').storedProp;
-var synthetic = require('../util').synthetic;
-var replayable = require('game').game.replayable;
+import { throttle, prop, storedProp } from 'common';
+import { controller as configCtrl } from './explorerConfig';
+import xhr = require('./openingXhr');
+import { synthetic } from '../util';
+import { game as gameUtil } from 'game';
+import { AnalyseController } from '../interfaces';
 
 function tablebaseRelevant(variant, fen) {
-  var parts = fen.split(/\s/);
-  var pieceCount = parts[0].split(/[nbrqkp]/i).length - 1;
+  const parts = fen.split(/\s/);
+  const pieceCount = parts[0].split(/[nbrqkp]/i).length - 1;
 
   if (variant === 'standard' || variant === 'chess960' || variant === 'atomic')
     return pieceCount <= 7;
@@ -16,31 +15,30 @@ function tablebaseRelevant(variant, fen) {
   else return false;
 }
 
-module.exports = function(root, opts, allow) {
-
-  var allowed = m.prop(allow);
-  var enabled = root.embed ? m.prop(false) : storedProp('explorer.enabled', false);
+export default function(root: AnalyseController, opts, allow: boolean, redraw: () => void) {
+  const allowed = prop(allow);
+  const enabled = root.embed ? prop(false) : storedProp('explorer.enabled', false);
   if (location.hash === '#opening' && !root.embed) enabled(true);
-  var loading = m.prop(true);
-  var failing = m.prop(false);
-  var hovering = m.prop(null);
-  var movesAway = m.prop(0);
+  const loading = prop(true);
+  const failing = prop(false);
+  const hovering = prop(null);
+  const movesAway = prop(0);
 
-  var cache = {};
-  var onConfigClose = function() {
-    m.redraw();
+  let cache = {};
+  function onConfigClose() {
+    redraw();
     cache = {};
     setNode();
   }
-  var withGames = synthetic(root.data) || replayable(root.data) || root.data.opponent.ai;
-  var effectiveVariant = root.data.game.variant.key === 'fromPosition' ? 'standard' : root.data.game.variant.key;
+  const withGames = synthetic(root.data) || gameUtil.replayable(root.data) || root.data.opponent.ai;
+  const effectiveVariant = root.data.game.variant.key === 'fromPosition' ? 'standard' : root.data.game.variant.key;
 
-  var config = configCtrl(root.data.game, withGames, onConfigClose);
+  const config = configCtrl(root.data.game, withGames, onConfigClose);
 
-  var cacheKey = function() {
+  const cacheKey = function() {
     if (config.data.db.selected() === 'watkins' && !tablebaseRelevant(effectiveVariant, root.vm.node.fen)) {
-      var moves = [];
-      for (var i = 1; i < root.vm.nodeList.length; i++) {
+      const moves = [];
+      for (let i = 1; i < root.vm.nodeList.length; i++) {
         moves.push(root.vm.nodeList[i].uci);
       }
       return moves.join(',');
@@ -48,16 +46,16 @@ module.exports = function(root, opts, allow) {
     else return root.vm.node.fen;
   };
 
-  var handleFetchError = function(err) {
+  function handleFetchError(err) {
     loading(false);
     failing(true);
-    m.redraw();
+    redraw();
   };
 
-  var fetch = throttle(250, function() {
-    var fen = root.vm.node.fen, key = cacheKey();
+  const fetch = throttle(250, function() {
+    const fen = root.vm.node.fen, key = cacheKey();
 
-    var request;
+    let request;
     if (withGames && tablebaseRelevant(effectiveVariant, fen))
       request = xhr.tablebase(opts.tablebaseEndpoint, effectiveVariant, fen);
     else if (config.data.db.selected() === 'watkins')
@@ -72,22 +70,22 @@ module.exports = function(root, opts, allow) {
       movesAway(res.nbMoves ? 0 : movesAway() + 1);
       loading(false);
       failing(false);
-      m.redraw();
+      redraw();
     }, handleFetchError);
   }, false);
 
-  var empty = {
+  const empty = {
     opening: true,
     moves: {}
   };
 
-  var setNode = function() {
+  const setNode = function() {
     if (!enabled()) return;
-    var node = root.vm.node;
+    const node = root.vm.node;
     if (node.ply > 50 && !tablebaseRelevant(effectiveVariant, node.fen)) {
       cache[node.fen] = empty;
     }
-    var cached = cache[cacheKey()];
+    const cached = cache[cacheKey()];
     if (cached) {
       movesAway(cached.nbMoves ? 0 : movesAway() + 1);
       loading(false);
@@ -99,31 +97,29 @@ module.exports = function(root, opts, allow) {
   };
 
   return {
-    allowed: allowed,
-    enabled: enabled,
-    setNode: setNode,
-    loading: loading,
-    failing: failing,
-    hovering: hovering,
-    movesAway: movesAway,
-    config: config,
-    withGames: withGames,
-    current: function() {
-      return cache[cacheKey()];
-    },
-    toggle: function() {
+    allowed,
+    enabled,
+    setNode,
+    loading,
+    failing,
+    hovering,
+    movesAway,
+    config,
+    withGames,
+    current: () => cache[cacheKey()],
+    toggle() {
       movesAway(0);
       enabled(!enabled());
       setNode();
       root.autoScroll();
     },
-    disable: function() {
+    disable() {
       if (enabled()) {
         enabled(false);
         root.autoScroll();
       }
     },
-    setHovering: function(fen, uci) {
+    setHovering(fen, uci) {
       hovering(uci ? {
         fen: fen,
         uci: uci,
@@ -131,16 +127,12 @@ module.exports = function(root, opts, allow) {
       root.setAutoShapes();
     },
     fetchMasterOpening: (function() {
-      var masterCache = {};
+      const masterCache = {};
       return function(fen) {
-        if (masterCache[fen]) {
-          var d = m.deferred();
-          d.resolve(masterCache[fen]);
-          return d.promise;
-        }
+        if (masterCache[fen]) return $.Deferred().resolve(masterCache[fen]);
         return xhr.opening(opts.endpoint, 'standard', fen, {
           db: {
-            selected: m.prop('masters')
+            selected: prop('masters')
           }
         }, false).then(function(res) {
           masterCache[fen] = res;
