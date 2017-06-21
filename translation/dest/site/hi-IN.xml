@@ -295,6 +295,7 @@
   <string name="isPrivate">गोपनीय</string>
   <string name="reportXToModerators">संचालकों को %s रिपोर्ट करें</string>
   <string name="profileCompletion">प्रोफाइल पूरा: %s</string>
+  <string name="xRating">%s रेटिंग</string>
   <string name="ifNoneLeaveEmpty">यदि कोई नहीं, खाली छोड़ दो</string>
   <string name="gameCompletionRate">खेल पूरा दर: %s</string>
   <string name="profile">प्रोफ़ाइल</string>
@@ -558,6 +559,8 @@
   <string name="timeToProcessAMoveOnLichessServer">Lichess सर्वर पर एक कदम प्रक्रिया के लिए समय</string>
   <string name="confirmResignation">इस्तीफे की पुष्टि करें</string>
   <string name="letOtherPlayersMessageYou">अन्य खिलाड़ियों को आपको संदेश देने दें</string>
+  <string name="castleByMovingTwoSquares">राजा दो चौकों ले जाएँ</string>
+  <string name="castleByMovingOntoTheRook">राजा हाथी पर ले जाएँ</string>
   <string name="shareYourInsightsData">अपने इनसाइट डेटा साझा करें</string>
   <string name="withNobody">किसी के साथ नहीं</string>
   <string name="withFriends">दोस्तों के साथ</string>
@@ -572,6 +575,7 @@
   <string name="revokeAllSessions">सभी सत्र रद्द</string>
   <string name="playChessEverywhere">हर जगह शतरंज खेलें</string>
   <string name="zeroAdvertisement">शून्य विज्ञापन</string>
+  <string name="fullFeatured">पूरा विशेष रुप से प्रदर्शित</string>
   <string name="phoneAndTablet">फोन और टैबलेट</string>
   <string name="bulletBlitzClassical">बुलेट, ब्लिट्ज, क्लासिकल</string>
   <string name="onlineAndOfflinePlay">ऑनलाइन और ऑफ़लाइन खेलने के लिए</string>
@@ -583,6 +587,8 @@
     <item quantity="other">%s भाषाओं में उपलब्ध है !</item>
   </plurals>
   <string name="gameAnalysis">खेल अध्ययन</string>
+  <string name="xHostsY">%1$s मेजबान %2$s</string>
+  <string name="xLikesY">%1$s ने %2$s पसंद किया:</string>
   <string name="lobby">लॉबी</string>
   <string name="yourScore">आपका स्कोर: %s</string>
   <string name="language">भाषा</string>
@@ -594,6 +600,7 @@
   <string name="usernameUnacceptable">यह उपयोगकर्ता नाम स्वीकार्य नहीं है।</string>
   <string name="directlySupportLichess">Lichess का समर्थन करें</string>
   <string name="chessBasics">शतरंज मूल बातें</string>
+  <string name="coaches">कोच</string>
   <string name="invalidPgn">अमान्य PGN</string>
   <string name="invalidFen">अमान्य FEN</string>
   <string name="error.minLength">न्यूनतम लंबाई %s है</string>
