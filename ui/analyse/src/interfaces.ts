@@ -9,6 +9,7 @@ export type MaybeVNode = VNode | null | undefined;
 export type MaybeVNodes = MaybeVNode[]
 
 export interface AnalyseController {
+  opts: AnalyseOpts;
   redraw: () => void;
   study?: Study;
   studyPractice?: StudyPractice;
@@ -49,7 +50,7 @@ export interface AnalyseController {
 
   trans(key: string): string;
 
-  data: GameData;
+  data: AnalyseData;
   tree: any; // TODO: Tree.Tree;
   userId: string;
   retro: RetroController | null;
@@ -66,9 +67,18 @@ export interface AnalyseController {
   topColor(): Color;
 }
 
+export interface AnalyseData extends GameData {
+  analysis?: any;
+}
+
 export interface AnalyseOpts {
   element: Element;
   sideElement: Element;
+  data: AnalyseData;
+  userId: string;
+  embed: boolean;
+  explorer: boolean;
+  socketSend: any;
 }
 
 export interface Study {

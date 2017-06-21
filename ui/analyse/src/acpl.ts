@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { AnalyseController, MaybeVNode } from './interfaces';
-import { GameData, game } from 'game';
+import { AnalyseController, AnalyseData, MaybeVNode } from './interfaces';
+import { game } from 'game';
 import { bind, dataIcon } from './util';
 
 function renderRatingDiff(rd: number): VNode {
@@ -10,7 +10,7 @@ function renderRatingDiff(rd: number): VNode {
   return h('span.rp.down', '' + rd);
 }
 
-function renderPlayer(data: GameData, color: Color): VNode {
+function renderPlayer(data: AnalyseData, color: Color): VNode {
   const p = game.getPlayer(data, color);
   if (p.user) return h('a.user_link.ulpt', {
     attrs: { href: '/@/' + p.user.username }

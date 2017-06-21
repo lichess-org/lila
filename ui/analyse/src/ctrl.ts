@@ -14,23 +14,17 @@ import explorerCtrl from './explorer/explorerCtrl';
 import { router, game } from 'game';
 import { valid as crazyValid } from './crazy/crazyCtrl';
 import * as makeStudy from './study/studyCtrl';
-var makeFork = require('./fork').ctrl;
-var makeRetro = require('./retrospect/retroCtrl');
-var makePractice = require('./practice/practiceCtrl');
-var makeEvalCache = require('./evalCache');
-var computeAutoShapes = require('./autoShape').compute;
-var nodeFinder = require('./nodeFinder');
-var acplUncache = require('./acpl').uncache;
-var m = require('mithril');
+import { ctrl as makeFork } from './fork';
+import makeRetro = require('./retrospect/retroCtrl');
+import makePractice = require('./practice/practiceCtrl');
+import makeEvalCache = require('./evalCache');
+import { compute as computeAutoShapes } from './autoShape';
+import nodeFinder = require('./nodeFinder');
+import { AnalyseController, AnalyseOpts, AnalyseData } from './interfaces';
 
-export default function(opts, redraw: () => void): AnalyseController {
+export default function ctrl(opts: AnalyseOpts, redraw: () => void) {
 
-  this.opts = opts;
-  this.redraw = redraw;
-  this.userId = opts.userId;
-  this.embed = opts.embed;
-
-  var initialize = function(data, merge) {
+  function initialize(data: GameData, merge) {
     this.data = data;
     if (!data.game.moveCentis) this.data.game.moveCentis = [];
     this.synthetic = util.synthetic(data);
@@ -722,7 +716,6 @@ export default function(opts, redraw: () => void): AnalyseController {
       if (this.practice) this.togglePractice();
       if (this.explorer.enabled()) this.toggleExplorer();
     }
-    acplUncache();
     this.setAutoShapes();
   }.bind(this);
 
