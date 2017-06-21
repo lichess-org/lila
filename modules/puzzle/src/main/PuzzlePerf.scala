@@ -9,7 +9,7 @@ case class PuzzlePerf(glicko: Glicko, nb: Int) {
   def intRating = glicko.rating.toInt
 
   def add(g: Glicko): PuzzlePerf = copy(
-    glicko = g,
+    glicko = g.cap,
     nb = nb + 1
   )
 
