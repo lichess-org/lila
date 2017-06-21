@@ -380,7 +380,7 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
       },
       setTags: function(d) {
         d.w && members.setActive(d.w.u);
-        if (wrongChapter(d)) return;
+        if (d.chapterId !== vm.chapterId) return;
         data.chapter.tags = d.tags;
         m.redraw();
       },
