@@ -1,23 +1,19 @@
-var opposite = require('chessground/util').opposite;
-var tree = require('tree');
-var keyboard = require('./keyboard');
-var ActionMenuController = require('./actionMenu').Controller;
-var autoplay = require('./autoplay').default;
-var promotion = require('./promotion');
-var util = require('./util');
-var chessUtil = require('chess');
-var storedProp = require('common').storedProp;
-var throttle = require('common').throttle;
-var defined = require('common').defined;
-var makeSocket = require('./socket');
-var forecastCtrl = require('./forecast/forecastCtrl');
-var cevalCtrl = require('ceval').ctrl;
-var isEvalBetter = require('ceval').isEvalBetter;
-var explorerCtrl = require('./explorer/explorerCtrl');
-var router = require('game').router;
-var game = require('game').game;
-var crazyValid = require('./crazy/crazyCtrl').valid;
-var makeStudy = require('./study/studyCtrl');
+import { opposite } from 'chessground/util';
+import * as tree from 'tree';
+import * as keyboard from './keyboard';
+import { Controller as ActionMenuController } from './actionMenu';
+import Autoplay from './autoplay';
+import * as promotion from './promotion';
+import * as util from './util';
+import * as chessUtil from 'chess';
+import { storedProp, throttle, defined } from 'common';
+import makeSocket from './socket';
+import forecastCtrl from './forecast/forecastCtrl';
+import { ctrl as cevalCtrl, isEvalBetter } from 'ceval';
+import explorerCtrl from './explorer/explorerCtrl';
+import { router, game } from 'game';
+import { valid as crazyValid } from './crazy/crazyCtrl';
+import * as makeStudy from './study/studyCtrl';
 var makeFork = require('./fork').ctrl;
 var makeRetro = require('./retrospect/retroCtrl');
 var makePractice = require('./practice/practiceCtrl');
@@ -27,7 +23,7 @@ var nodeFinder = require('./nodeFinder');
 var acplUncache = require('./acpl').uncache;
 var m = require('mithril');
 
-module.exports = function(opts, redraw) {
+export default function(opts, redraw: () => void): AnalyseController {
 
   this.opts = opts;
   this.redraw = redraw;
@@ -45,10 +41,10 @@ module.exports = function(opts, redraw) {
     if (prevTree) this.tree.merge(prevTree);
 
     this.actionMenu = new ActionMenuController();
-    this.autoplay = new autoplay(this);
+    this.autoplay = new Autoplay(this);
     if (this.socket) this.socket.clearCache();
     else this.socket = new makeSocket(opts.socketSend, this);
-    this.explorer = explorerCtrl(this, opts.explorer, this.explorer ? this.explorer.allowed() : !this.embed);
+    this.explorer = explorerCtrl(this, opts.explorer, this.explorer ? this.explorer.allowed() : !this.embed, redraw);
     this.gamePath = (this.synthetic || this.ongoing) ? null :
       tree.path.fromNodeList(tree.ops.mainlineNodeList(this.tree.root));
   }.bind(this);
@@ -427,7 +423,7 @@ module.exports = function(opts, redraw) {
 
   this.reset = function() {
     showGround();
-    m.redraw();
+    redraw();
   }.bind(this);
 
   this.encodeNodeFen = function() {
@@ -456,14 +452,14 @@ module.exports = function(opts, redraw) {
     if (this.chessground) this.chessground.setAutoShapes(computeAutoShapes(this));
   }.bind(this);
 
-  var onNewCeval = function(eval, path, threatMode) {
+  var onNewCeval = function(ev, path, threatMode) {
     this.tree.updateAt(path, function(node) {
-      if (node.fen !== eval.fen && !threatMode) return;
+      if (node.fen !== ev.fen && !threatMode) return;
       if (threatMode) {
-        if (!node.threat || isEvalBetter(eval, node.threat) || node.threat.maxDepth < eval.maxDepth)
-        node.threat = eval;
-      } else if (isEvalBetter(eval, node.ceval)) node.ceval = eval;
-      else if (node.ceval && eval.maxDepth > node.ceval.maxDepth) node.ceval.maxDepth = eval.maxDepth;
+        if (!node.threat || isEvalBetter(ev, node.threat) || node.threat.maxDepth < ev.maxDepth)
+        node.threat = ev;
+      } else if (isEvalBetter(ev, node.ceval)) node.ceval = ev;
+      else if (node.ceval && ev.maxDepth > node.ceval.maxDepth) node.ceval.maxDepth = ev.maxDepth;
 
       if (path === this.vm.path) {
         this.setAutoShapes();
@@ -472,7 +468,7 @@ module.exports = function(opts, redraw) {
           if (this.practice) this.practice.onCeval();
           if (this.studyPractice) this.studyPractice.onCeval();
           this.evalCache.onCeval();
-          if (eval.cloud && eval.depth >= this.ceval.effectiveMaxDepth()) this.ceval.stop();
+          if (ev.cloud && ev.depth >= this.ceval.effectiveMaxDepth()) this.ceval.stop();
         }
         m.redraw();
       }
@@ -486,8 +482,8 @@ module.exports = function(opts, redraw) {
       possible: !this.embed && (
         this.synthetic || !game.playable(this.data)
       ),
-      emit: function(eval, work) {
-        onNewCeval(eval, work.path, work.threatMode);
+      emit: function(ev, work) {
+        onNewCeval(ev, work.path, work.threatMode);
       }.bind(this),
       setAutoShapes: this.setAutoShapes,
       failsafe: failsafe,

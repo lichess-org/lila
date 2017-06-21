@@ -10,16 +10,19 @@ export function empty(a: any): boolean {
   return !a || a.length === 0;
 }
 
-export interface ClassSet {
-  [klass: string]: boolean;
+export interface Prop<T> {
+  (): T
+  (v: T): T
 }
 
-export function classSet(classes: ClassSet): string {
-  const arr = [];
-  for (const i in classes) {
-    if (classes[i]) arr.push(i);
-  }
-  return arr.join(' ');
+// like mithril prop but with type safety
+export function prop<A>(initialValue: A): Prop<A> {
+  let value = initialValue;
+  const fun = function (v: A | undefined) {
+    if (defined(v)) value = v!;
+    return value;
+  };
+  return fun as Prop<A>;
 }
 
 export interface StoredProp<T> {

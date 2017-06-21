@@ -1,24 +1,6 @@
+import { h } from 'snabbdom'
 import { fixCrazySan } from 'chess';
 
-import * as m from 'mithril';
-
-// delete me
-export function bindOnce(eventName: string, f: (e: Event) => void): Mithril.Config {
-  const withRedraw = function(e: Event) {
-    m.startComputation();
-    f(e);
-    m.endComputation();
-  };
-  return function(el: Element, isUpdate: boolean, ctx: any) {
-    if (isUpdate) return;
-    el.addEventListener(eventName, withRedraw)
-    ctx.onunload = function() {
-      el.removeEventListener(eventName, withRedraw);
-    };
-  }
-}
-
-// snabbdom version
 export function bind(eventName: string, f: (e: Event) => void, redraw: (() => void) | undefined = undefined) {
   return {
     insert: vnode => {

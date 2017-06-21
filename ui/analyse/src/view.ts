@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 
-import { AnalyseController, MaybeVNodes } from './interfaces';
+import { AnalyseController } from './interfaces';
 import * as chessground from './ground';
 import { synthetic, bind, dataIcon, iconTag, spinner } from './util';
 import { game, router, view as gameView } from 'game';
@@ -11,8 +11,8 @@ import control = require('./control');
 import { view as actionMenu } from './actionMenu';
 import { view as renderPromotion } from './promotion';
 import renderClocks = require('./clocks');
-import pgnExport = require('./pgnExport');
-import forecastView = require('./forecast/forecastView');
+import * as pgnExport from './pgnExport';
+import forecastView from './forecast/forecastView';
 import { view as cevalView } from 'ceval';
 import crazyView from './crazy/crazyView';
 import { view as keyboardView} from './keyboard';
@@ -184,7 +184,7 @@ function buttons(ctrl) {
           target: '_blank',
           href: ctrl.studyPractice.analysisUrl()
         }
-      }, iconTag('A'))
+      }, [iconTag('A')])
     ] : [
       h('button.hint--bottom', {
         attrs: {
@@ -195,7 +195,7 @@ function buttons(ctrl) {
           hidden: menuIsOpen || !ctrl.explorer.allowed() || ctrl.retro,
           active: ctrl.explorer.enabled()
         }
-      }, iconTag(']')),
+      }, [iconTag(']')]),
       ctrl.ceval.possible ? h('button.hint--bottom', {
         attrs: {
           'data-hint': 'Practice with computer',
@@ -205,7 +205,7 @@ function buttons(ctrl) {
           hidden: menuIsOpen || ctrl.retro,
           active: ctrl.practice
         }
-      }, iconTag('')) : null
+      }, [iconTag('')]) : null
   ]),
     h('div.jumps', [
       jumpButton('W', 'first', canJumpPrev),
@@ -219,7 +219,7 @@ function buttons(ctrl) {
         'data-hint': 'Menu',
         'data-act': 'menu'
       }
-    }, iconTag('['))
+    }, [iconTag('[')])
     ]);
 }
 
@@ -240,16 +240,16 @@ function renderChapterName(ctrl) {
 
 let firstRender = true;
 
-export default function(ctrl: AnalyseController): MaybeVNodes {
+export default function(ctrl: AnalyseController): VNode {
   const concealOf = makeConcealOf(ctrl);
   const showCevalPvs = !(ctrl.retro && ctrl.retro.isSolving()) && !ctrl.practice;
   const menuIsOpen = ctrl.actionMenu.open;
-  return [
+  return h('div', [
     h('div', {
       hook: {
         insert: _ => {
-        if (firstRender) firstRender = false;
-        else window.lichess.pubsub.emit('reset_zoom')();
+          if (firstRender) firstRender = false;
+          else window.lichess.pubsub.emit('reset_zoom')();
         }
       },
       class: {
@@ -281,18 +281,19 @@ export default function(ctrl: AnalyseController): MaybeVNodes {
     ctrl.embed ? null : h('div.underboard', {
       class: { no_computer: !ctrl.vm.showComputer() }
     }, [
-      h('div.center', ctrl.study ? studyView.underboard(ctrl) : inputs(ctrl)),
-      h('div.right', acplView(ctrl))
+      h('div.center', [ctrl.study ? studyView.underboard(ctrl) : inputs(ctrl)]),
+      h('div.right', [acplView(ctrl)])
     ]),
     ctrl.embed || synthetic(ctrl.data) ? null : h('div.analeft', [
       ctrl.forecast ? forecastView(ctrl) : null,
       game.playable(ctrl.data) ? h('div.back_to_game',
-        m('a', {
-          class: 'button text',
-          href: ctrl.data.player.id ? router.player(ctrl.data) : router.game(ctrl.data),
-          'data-icon': 'i'
+        h('a.button.text', {
+          attrs: {
+            href: ctrl.data.player.id ? router.player(ctrl.data) : router.game(ctrl.data),
+            'data-icon': 'i'
+          }
         }, ctrl.trans('backToGame'))
       ) : null
     ])
-  ];
+  ]);
 };

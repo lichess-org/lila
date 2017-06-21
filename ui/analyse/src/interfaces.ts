@@ -39,6 +39,13 @@ export interface AnalyseController {
   currentEvals: () => NodeEvals;
   playUci(uci: string): void;
   getOrientation(): Color;
+  addNode(node, path): void;
+  reset(): void;
+  addDests(dests, path, opening): void;
+  mergeAnalysisData(data): void;
+  evalCache: any;
+  autoScroll(): void;
+  setAutoShapes(): void;
 
   trans(key: string): string;
 
@@ -68,6 +75,8 @@ export interface Study {
   setChapter(id: string): void;
   currentChapter(): StudyChapter;
   data: StudyData;
+  socketHandlers: { [key: string]: any };
+  vm: any;
 }
 
 export interface StudyData {
@@ -105,6 +114,7 @@ export interface PracticeController {
 }
 
 export interface ForecastController {
+  reloadToLastPly(): void;
 }
 
 export type AutoplayDelay = number | 'realtime' | 'cpl_fast' | 'cpl_slow' |

@@ -2,8 +2,8 @@
 
 import { AnalyseController, AnalyseOpts } from './interfaces';
 
-import makeCtrl = require('./ctrl');
-import view = require('./view');
+import makeCtrl from './ctrl';
+import view from './view';
 // import studyView = require('./study/studyView');
 // import studyPracticeView = require('./study/practice/studyPracticeView');
 import boot = require('./boot');
@@ -16,7 +16,7 @@ import attributes from 'snabbdom/modules/attributes';
 
 const patch = init([klass, attributes]);
 
-export function mithril(opts: AnalyseOpts) {
+export function start(opts: AnalyseOpts) {
 
   let vnode: VNode, ctrl: AnalyseController;
 
@@ -42,7 +42,7 @@ export function mithril(opts: AnalyseOpts) {
     socketReceive: ctrl.socket.receive,
     jumpToIndex(index: number): void {
       ctrl.jumpToIndex(index);
-      m.redraw();
+      redraw();
     },
     path: () => ctrl.vm.path,
     setChapter(id: string) {

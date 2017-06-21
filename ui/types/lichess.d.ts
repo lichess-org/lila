@@ -133,6 +133,7 @@ declare namespace Tree {
   export interface Node {
     id: string;
     ply: number;
+    uci: string;
     fen: string;
     children: Node[];
     comments?: Comment[];
