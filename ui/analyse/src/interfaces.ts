@@ -2,7 +2,11 @@ import { GameData } from 'game';
 import { StoredBooleanProp } from 'common';
 import Autoplay from './autoplay';
 import { Api as ChessgroundApi } from 'chessground/api';
-import { CevalController } from 'ceval';
+import { CevalController, NodeEvals } from 'ceval';
+import { VNode } from 'snabbdom/vnode'
+
+export type MaybeVNode = VNode | null | undefined;
+export type MaybeVNodes = MaybeVNode[]
 
 export interface AnalyseController {
   redraw: () => void;
@@ -18,7 +22,8 @@ export interface AnalyseController {
   jumpToGlyphSymbol(color: Color, symbol: string): void;
   togglePlay(delay: AutoplayDelay): void;
   flip(): void;
-  getCeval(): CevalController | undefined;
+  getCeval(): CevalController;
+  nextNodeBest(): boolean;
   mandatoryCeval(): boolean;
   toggleComputer(): void;
   toggleGauge(): void;
@@ -28,6 +33,12 @@ export interface AnalyseController {
   cevalSetMultiPv(v: number): void;
   cevalSetHashSize(v: number): void;
   encodeNodeFen(): string;
+  toggleThreatMode(): void;
+  toggleCeval(): void;
+  gameOver(): boolean;
+  currentEvals: () => NodeEvals;
+  playUci(uci: string): void;
+  getOrientation(): Color;
 
   trans(key: string): string;
 
@@ -35,11 +46,17 @@ export interface AnalyseController {
   tree: any; // TODO: Tree.Tree;
   userId: string;
   retro: RetroController | null;
+  practice: PracticeController | null;
+  forecast: ForecastController | null;
   autoplay: Autoplay;
   embed: boolean;
   ongoing: boolean;
   chessground: ChessgroundApi;
   explorer: any; // TODO
+  actionMenu: any;
+  showEvalGauge(): boolean;
+  bottomColor(): Color;
+  topColor(): Color;
 }
 
 export interface AnalyseOpts {
@@ -77,9 +94,17 @@ export interface Vm {
   showComputer: StoredBooleanProp;
   showAutoShapes: StoredBooleanProp;
   showGauge: StoredBooleanProp;
+  threatMode: boolean;
 }
 
 export interface RetroController {
+  isSolving(): boolean
+}
+
+export interface PracticeController {
+}
+
+export interface ForecastController {
 }
 
 export type AutoplayDelay = number | 'realtime' | 'cpl_fast' | 'cpl_slow' |

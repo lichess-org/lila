@@ -100,8 +100,8 @@ export interface ParentController {
   showEvalGauge: Mithril.Property<boolean>;
   currentEvals: () => NodeEvals;
   ongoing: boolean;
-  playUci: (uci: string) => void;
-  getOrientation: () => Color;
+  playUci(uci: string): void;
+  getOrientation(): Color;
 }
 
 export interface ParentVm {

@@ -36,6 +36,10 @@ export function dataIcon(icon: string) {
   };
 }
 
+export function iconTag(icon: string) {
+  return h('i', { attrs: dataIcon(icon) });
+}
+
 export function plyToTurn(ply: number): number {
   return Math.floor((ply - 1) / 2) + 1;
 }
@@ -59,4 +63,12 @@ export function titleNameToId(titleName: string): string {
   const split = titleName.split(' ');
   const name = split.length == 1 ? split[0] : split[1];
   return name.toLowerCase();
+}
+
+export function spinner() {
+  return h('div.spinner', [
+    h('svg', { attrs: { viewBox: '0 0 40 40' } }, [
+      h('circle', {
+        attrs: { cx: 20, cy: 20, r: 18, fill: 'none' }
+      })])]);
 }

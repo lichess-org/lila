@@ -1,8 +1,9 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 
+import { AnalyseController, MaybeVNodes } from './interfaces';
 import * as chessground from './ground';
-import { synthetic } from './util';
+import { synthetic, bind, dataIcon, iconTag, spinner } from './util';
 import { game, router, view as gameView } from 'game';
 import { path as treePath } from 'tree';
 import treeView = require('./treeView');
@@ -23,7 +24,7 @@ import { view as forkView } from './fork'
 import { render as acplView } from './acpl'
 
 function renderResult(ctrl) {
-  var result;
+  let result;
   if (ctrl.data.game.status.id >= 30) switch (ctrl.data.game.winner) {
     case 'white':
       result = '1-0';
@@ -35,11 +36,11 @@ function renderResult(ctrl) {
       result = '½-½';
   }
   if (result) {
-    var tags = [];
-    tags.push(m('div.result', result));
-    var winner = game.getPlayer(ctrl.data, ctrl.data.game.winner);
-    tags.push(m('div.status', [
-      gameView.viewStatus(ctrl),
+    const tags: VNode[] = [];
+    tags.push(h('div.result', result));
+    const winner = game.getPlayer(ctrl.data, ctrl.data.game.winner);
+    tags.push(h('div.status', [
+      gameView.status(ctrl),
       winner ? ', ' + ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null
     ]));
     return tags;
@@ -47,7 +48,7 @@ function renderResult(ctrl) {
 }
 
 function makeConcealOf(ctrl) {
-  var conceal = (ctrl.study && ctrl.study.data.chapter.conceal !== null) ? {
+  const conceal = (ctrl.study && ctrl.study.data.chapter.conceal !== null) ? {
     owner: ctrl.study.isChapterOwner(),
     ply: ctrl.study.data.chapter.conceal
   } : null;
@@ -61,7 +62,7 @@ function makeConcealOf(ctrl) {
 }
 
 function renderAnalyse(ctrl, concealOf) {
-  return m('div.areplay', [
+  return h('div.areplay', [
     renderChapterName(ctrl),
     renderOpeningBox(ctrl),
     treeView.render(ctrl, concealOf),
@@ -74,33 +75,39 @@ function wheel(ctrl, e) {
   e.preventDefault();
   if (e.deltaY > 0) control.next(ctrl);
   else if (e.deltaY < 0) control.prev(ctrl);
-  m.redraw();
+  ctrl.redraw();
   return false;
 }
 
 function inputs(ctrl) {
   if (ctrl.ongoing || !ctrl.data.userAnalysis) return null;
-  if (ctrl.vm.redirecting) return m.trust(lichess.spinnerHtml);
-  var pgnText = pgnExport.renderFullTxt(ctrl);
-  return m('div.copyables', [
-    m('label.name', 'FEN'),
-    m('input.copyable.autoselect[spellCheck=false]', {
-      value: ctrl.vm.node.fen,
-      config: bindOnce('change', function(e) {
-        if (e.target.value !== ctrl.vm.node.fen) ctrl.changeFen(e.target.value);
+  if (ctrl.vm.redirecting) return spinner();
+  const pgnText = pgnExport.renderFullTxt(ctrl);
+  return h('div.copyables', [
+    h('label.name', 'FEN'),
+    h('input.copyable.autoselect', {
+      attrs: {
+        spellCheck: false,
+        value: ctrl.vm.node.fen
+      },
+      hook: bind('change', e => {
+        const value = (e.target as HTMLInputElement).value;
+        if (value !== ctrl.vm.node.fen) ctrl.changeFen(value);
       })
     }),
-    m('div.pgn', [
-      m('label.name', 'PGN'),
-      m('textarea.copyable.autoselect[spellCheck=false]', {
-        value: pgnText
+    h('div.pgn', [
+      h('label.name', 'PGN'),
+      h('textarea.copyable.autoselect', {
+        attrs: {
+          spellCheck: false,
+          value: pgnText
+        }
       }),
-      m('div.action', [
-        m('button', {
-          class: 'button text',
-          'data-icon': 'G',
-          config: bindOnce('click', function(e) {
-            var pgn = $('.copyables .pgn textarea').val();
+      h('div.action', [
+        h('button.button.text', {
+          attrs: dataIcon('G'),
+          hook: bind('click', _ => {
+            const pgn = $('.copyables .pgn textarea').val();
             if (pgn !== pgnText) ctrl.changePgn(pgn);
           })
         }, 'Import PGN')
@@ -110,37 +117,16 @@ function inputs(ctrl) {
 }
 
 function visualBoard(ctrl) {
-  return m('div.lichess_board_wrap', [
+  return h('div.lichess_board_wrap', [
     ctrl.vm.keyboardHelp ? keyboardView(ctrl) : null,
     ctrl.study ? studyView.overboard(ctrl.study) : null,
-    m('div', {
-      class: 'lichess_board ' + ctrl.data.game.variant.key + ((ctrl.study && ctrl.data.pref.blindfold) ? ' blindfold' : ''),
-      config: function(el, isUpdate) {
-        if (!isUpdate) el.addEventListener('wheel', function(e) {
-          return wheel(ctrl, e);
-        });
-      }
+    h('div.lichess_board.' + ctrl.data.game.variant.key, {
+      hook: bind('wheel', e => wheel(ctrl, e))
     }, [
       chessground.render(ctrl),
       renderPromotion(ctrl)
     ]),
     cevalView.renderGauge(ctrl)
-  ]);
-}
-
-function blindBoard(ctrl) {
-  return m('div.lichess_board_blind', [
-    m('div.textual', {
-      config: function(el, isUpdate) {
-        if (isUpdate) return;
-        var url = ctrl.data.player.spectator ?
-          router.game(ctrl.data, ctrl.data.player.color) :
-          router.player(ctrl.data);
-        url += '/text';
-        $(el).load(url);
-      }
-    }),
-      chessground.render(ctrl)
   ]);
 }
 
@@ -155,43 +141,34 @@ function jumpButton(icon, effect, enabled) {
   };
 }
 
-function icon(c) {
-  return {
-    tag: 'i',
-    attrs: {
-      'data-icon': c
-    }
-  };
-}
-
 function dataAct(e) {
   return e.target.getAttribute('data-act') ||
-    e.target.parentNode.getAttribute('data-act');
+  e.target.parentNode.getAttribute('data-act');
 }
 
 
-function navClick(ctrl, action) {
-  var repeat = function() {
+function navClick(ctrl: AnalyseController, action) {
+  const repeat = function() {
     control[action](ctrl);
-    m.redraw();
+    ctrl.redraw();
     delay = Math.max(100, delay - delay / 15);
     timeout = setTimeout(repeat, delay);
   };
-  var delay = 350;
-  var timeout = setTimeout(repeat, 500);
+  let delay = 350;
+  let timeout = setTimeout(repeat, 500);
   control[action](ctrl);
   document.addEventListener('mouseup', function() {
     clearTimeout(timeout);
-  }, {once: true});
+  }, {once: true} as any);
 }
 
 function buttons(ctrl) {
-  var canJumpPrev = ctrl.vm.path !== '';
-  var canJumpNext = !!ctrl.vm.node.children[0];
-  var menuIsOpen = ctrl.actionMenu.open;
-  return m('div.game_control', {
-    config: bindOnce('mousedown', function(e) {
-      var action = dataAct(e);
+  const canJumpPrev = ctrl.vm.path !== '';
+  const canJumpNext = !!ctrl.vm.node.children[0];
+  const menuIsOpen = ctrl.actionMenu.open;
+  return h('div.game_control', {
+    hook: bind('mousedown', e => {
+      const action = dataAct(e);
       if (action === 'prev' || action === 'next') navClick(ctrl, action);
       else if (action === 'first') control.first(ctrl);
       else if (action === 'last') control.last(ctrl);
@@ -200,88 +177,95 @@ function buttons(ctrl) {
       else if (action === 'menu') ctrl.actionMenu.toggle();
     })
   }, [
-    ctrl.embed ? null : m('div.features', ctrl.studyPractice ? [
-      m('a', {
-        class: 'hint--bottom',
-        'data-hint': 'Analysis board',
-        target: '_blank',
-        href: ctrl.studyPractice.analysisUrl()
-      }, icon('A'))
+    ctrl.embed ? null : h('div.features', ctrl.studyPractice ? [
+      h('a.hint--bottom', {
+        attrs: {
+          'data-hint': 'Analysis board',
+          target: '_blank',
+          href: ctrl.studyPractice.analysisUrl()
+        }
+      }, iconTag('A'))
     ] : [
-      m('button', {
-        'data-hint': ctrl.trans('openingExplorer'),
-        'data-act': 'explorer',
-        class: 'hint--bottom' + (
-          menuIsOpen || !ctrl.explorer.allowed() || ctrl.retro ? ' hidden' : (
-            ctrl.explorer.enabled() ? ' active' : ''))
-      }, icon(']')),
-      ctrl.ceval.possible ? m('button', {
-        'data-hint': 'Practice with computer',
-        'data-act': 'practice',
-        class: 'hint--bottom' + (
-          menuIsOpen || ctrl.retro ? ' hidden' : (
-            ctrl.practice ? ' active' : ''))
-      }, icon('')) : null
+      h('button.hint--bottom', {
+        attrs: {
+          'data-hint': ctrl.trans('openingExplorer'),
+          'data-act': 'explorer'
+        },
+        class: {
+          hidden: menuIsOpen || !ctrl.explorer.allowed() || ctrl.retro,
+          active: ctrl.explorer.enabled()
+        }
+      }, iconTag(']')),
+      ctrl.ceval.possible ? h('button.hint--bottom', {
+        attrs: {
+          'data-hint': 'Practice with computer',
+          'data-act': 'practice'
+        },
+        class: {
+          hidden: menuIsOpen || ctrl.retro,
+          active: ctrl.practice
+        }
+      }, iconTag('')) : null
   ]),
-    m('div.jumps', [
+    h('div.jumps', [
       jumpButton('W', 'first', canJumpPrev),
       jumpButton('Y', 'prev', canJumpPrev),
       jumpButton('X', 'next', canJumpNext),
       jumpButton('V', 'last', canJumpNext)
     ]),
-    ctrl.studyPractice ? m('div.noop') : m('button', {
-      class: 'hint--bottom' + (menuIsOpen ? ' active' : ''),
-      'data-hint': 'Menu',
-      'data-act': 'menu'
-    }, icon('['))
+    ctrl.studyPractice ? h('div.noop') : h('button.hint--bottom', {
+      class: { active: menuIsOpen },
+      attrs: {
+        'data-hint': 'Menu',
+        'data-act': 'menu'
+      }
+    }, iconTag('['))
     ]);
 }
 
 function renderOpeningBox(ctrl) {
-  var opening = ctrl.tree.getOpening(ctrl.vm.nodeList);
+  let opening = ctrl.tree.getOpening(ctrl.vm.nodeList);
   if (!opening && !ctrl.vm.path) opening = ctrl.data.game.opening;
-  if (opening) return m('div', {
-    class: 'opening_box',
-    title: opening.eco + ' ' + opening.name
+  if (opening) return h('div.opening_box', {
+    attrs: { title: opening.eco + ' ' + opening.name }
   }, [
-    m('strong', opening.eco),
-    ' ' + opening.name
+    h('strong', opening.eco),
+    h('span', ' ' + opening.name)
   ]);
 }
 
 function renderChapterName(ctrl) {
-  if (ctrl.embed && ctrl.study) return m('div', {
-    class: 'chapter_name'
-  }, ctrl.study.currentChapter().name);
+  if (ctrl.embed && ctrl.study) return h('div.chapter_name', ctrl.study.currentChapter().name);
 }
 
-var firstRender = true;
+let firstRender = true;
 
-export default function(ctrl: AnalyseController): VNode[] {
-  var concealOf = makeConcealOf(ctrl);
-  var showCevalPvs = !(ctrl.retro && ctrl.retro.isSolving()) && !ctrl.practice;
-  var menuIsOpen = ctrl.actionMenu.open;
+export default function(ctrl: AnalyseController): MaybeVNodes {
+  const concealOf = makeConcealOf(ctrl);
+  const showCevalPvs = !(ctrl.retro && ctrl.retro.isSolving()) && !ctrl.practice;
+  const menuIsOpen = ctrl.actionMenu.open;
   return [
-    m('div', {
-      config: function(el, isUpdate) {
+    h('div', {
+      hook: {
+        insert: _ => {
         if (firstRender) firstRender = false;
-        else if (!isUpdate) lichess.pubsub.emit('reset_zoom')();
+        else window.lichess.pubsub.emit('reset_zoom')();
+        }
       },
-      class: classSet({
+      class: {
         'gauge_displayed': ctrl.showEvalGauge(),
         'no_computer': !ctrl.vm.showComputer()
-      })
+      }
     }, [
-      m('div.lichess_game', {
-        config: function(el, isUpdate) {
-          if (isUpdate) return;
-          lichess.pubsub.emit('content_loaded')();
+      h('div.lichess_game', {
+        hook: {
+          insert: _ => window.lichess.pubsub.emit('content_loaded')()
         }
       }, [
-        ctrl.data.blind ? blindBoard(ctrl) : visualBoard(ctrl),
-        m('div.lichess_ground', [
+        visualBoard(ctrl),
+        h('div.lichess_ground', [
           menuIsOpen ? null : renderClocks(ctrl),
-          menuIsOpen ? null : crazyView.pocket(ctrl, ctrl.topColor(), 'top'),
+          menuIsOpen ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
           menuIsOpen ? actionMenu(ctrl) : [
             cevalView.renderCeval(ctrl),
             showCevalPvs ? cevalView.renderPvs(ctrl) : null,
@@ -289,20 +273,20 @@ export default function(ctrl: AnalyseController): VNode[] {
             forkView(ctrl, concealOf),
             retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl)
           ],
-          menuIsOpen ? null : crazyView.pocket(ctrl, ctrl.bottomColor(), 'bottom'),
+          menuIsOpen ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
           buttons(ctrl)
         ])
       ])
     ]),
-    ctrl.embed ? null : m('div', {
-      class: 'underboard' + (ctrl.vm.showComputer() ? '' : ' no_computer')
+    ctrl.embed ? null : h('div.underboard', {
+      class: { no_computer: !ctrl.vm.showComputer() }
     }, [
-      m('div.center', ctrl.study ? studyView.underboard(ctrl) : inputs(ctrl)),
-      m('div.right', acplView(ctrl))
+      h('div.center', ctrl.study ? studyView.underboard(ctrl) : inputs(ctrl)),
+      h('div.right', acplView(ctrl))
     ]),
-    ctrl.embed || synthetic(ctrl.data) ? null : m('div.analeft', [
+    ctrl.embed || synthetic(ctrl.data) ? null : h('div.analeft', [
       ctrl.forecast ? forecastView(ctrl) : null,
-      game.playable(ctrl.data) ? m('div.back_to_game',
+      game.playable(ctrl.data) ? h('div.back_to_game',
         m('a', {
           class: 'button text',
           href: ctrl.data.player.id ? router.player(ctrl.data) : router.game(ctrl.data),
