@@ -55,8 +55,7 @@ export interface StoredJsonProp<T> {
   (v: T): void;
 }
 
-export function storedJsonProp<T>(keySuffix: string, defaultValue: T): StoredJsonProp<T> {
-  const key = 'explorer.' + keySuffix;
+export function storedJsonProp<T>(key: string, defaultValue: T): StoredJsonProp<T> {
   return function() {
     if (arguments.length) window.lichess.storage.set(key, JSON.stringify(arguments[0]));
     const ret = JSON.parse(window.lichess.storage.get(key));
