@@ -1,9 +1,9 @@
-var m = require('mithril');
+import { prop } from 'common';
 
-module.exports = function(cfg, saveUrl) {
+export default function(cfg, saveUrl: string, redraw: () => void) {
 
-  var forecasts = cfg.steps || [];
-  var loading = m.prop(false);
+  let forecasts = cfg.steps || [];
+  const loading = prop(false);
 
   var keyOf = function(fc) {
     return fc.map(function(node) {
@@ -63,9 +63,9 @@ module.exports = function(cfg, saveUrl) {
 
   var reloadToLastPly = function() {
     loading(true);
-    m.redraw();
-    history.replaceState(null, null, '#last');
-    lichess.reload();
+    redraw();
+    history.replaceState(null, '', '#last');
+    window.lichess.reload();
   };
 
   var isCandidate = function(fc) {
@@ -81,7 +81,7 @@ module.exports = function(cfg, saveUrl) {
   var save = function() {
     if (cfg.onMyTurn) return;
     loading(true);
-    m.redraw();
+    redraw();
     $.ajax({
       method: 'POST',
       url: saveUrl,
@@ -93,14 +93,14 @@ module.exports = function(cfg, saveUrl) {
         loading(false);
         forecasts = data.steps || [];
       }
-      m.redraw();
+      redraw();
     });
   };
 
   var playAndSave = function(node) {
     if (!cfg.onMyTurn) return;
     loading(true);
-    m.redraw();
+    redraw();
     $.ajax({
       method: 'POST',
       url: saveUrl + '/' + node.uci,
@@ -116,12 +116,12 @@ module.exports = function(cfg, saveUrl) {
         loading(false);
         forecasts = data.steps || [];
       }
-      m.redraw();
+      redraw();
     });
   };
 
   return {
-    addNodes: function(fc) {
+    addNodes(fc) {
       fc = truncate(fc);
       if (!isCandidate(fc)) return;
       fc.forEach(function(node) {
@@ -131,21 +131,17 @@ module.exports = function(cfg, saveUrl) {
       fixAll();
       save();
     },
-    isCandidate: isCandidate,
-    removeIndex: function(index) {
-      forecasts = forecasts.filter(function(fc, i) {
-        return i !== index;
-      });
+    isCandidate,
+    removeIndex(index) {
+      forecasts = forecasts.filter((_, i) => i !== index)
       save();
     },
-    list: function() {
-      return forecasts;
-    },
-    truncate: truncate,
-    loading: loading,
+    list: () => forecasts,
+    truncate,
+    loading,
     onMyTurn: cfg.onMyTurn,
-    findStartingWithNode: findStartingWithNode,
-    playAndSave: playAndSave,
-    reloadToLastPly: reloadToLastPly
+    findStartingWithNode,
+    playAndSave,
+    reloadToLastPly
   };
 };
