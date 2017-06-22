@@ -283,6 +283,7 @@
   <string name="winStreak">Győzelmi sorozat</string>
   <string name="createdBy">Készítette:</string>
   <string name="tournamentIsStarting">A verseny kezdődik</string>
+  <string name="youArePlaying">Te következel!</string>
   <string name="membersOnly">Csak tagoknak</string>
   <string name="boardEditor">Táblaszerkesztő</string>
   <string name="startPosition">Kezdő pozíció</string>
