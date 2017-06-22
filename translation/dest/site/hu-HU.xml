@@ -292,6 +292,8 @@
   <string name="loadPosition">Állás betöltése</string>
   <string name="isPrivate">Privát</string>
   <string name="reportXToModerators">%s jelentése a moderátoknak</string>
+  <string name="xRating">%s rang</string>
+  <string name="ifNoneLeaveEmpty">Ha nincs, hagyd üresen</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profil szerkesztése</string>
   <string name="firstName">Keresztnév</string>
@@ -559,8 +561,11 @@
   <string name="shareYourInsightsData">Éleslátó adatbepillantás megosztása másokkal</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Már regisztrált ezzel az email címmel: %s</string>
   <string name="kidMode">Gyereküzemmód</string>
-  <string name="enableKidMode">Kiskorú mód bekapcsolása</string>
-  <string name="disableKidMode">Kiskorú mód kikapcsolása</string>
+  <string name="kidModeExplanation">A Gyereküzemmód a biztonságról szól. A mód bekapcsolásával az összes kommunikáció megszűnik a többi játékossal, így megvédheted a gyermekeid vagy a diákjaid a többi felhasználó elől.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Gyereküzemmódban kap a lichess egy %s ikont, így tudhatsz gyermekeid biztonságáról.</string>
+  <string name="enableKidMode">Gyereküzemmód bekapcsolása</string>
+  <string name="disableKidMode">Gyereküzemmód kikapcsolása</string>
+  <string name="security">Biztonság</string>
   <string name="playChessEverywhere">Sakkozz bárhol!</string>
   <string name="asFreeAsLichess">Olyannyira ingyenes mint a lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">A sakk szeretetéért építettük, nem a pénzért</string>
