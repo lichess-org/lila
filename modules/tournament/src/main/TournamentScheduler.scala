@@ -67,8 +67,10 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
       val isHalloween = today.getDayOfMonth == 31 && today.getMonthOfYear == OCTOBER
 
       val std = StartingPosition.initial
-      val opening1 = isHalloween ? StartingPosition.presets.halloween | StartingPosition.randomFeaturable
-      val opening2 = isHalloween ? StartingPosition.presets.frankenstein | StartingPosition.randomFeaturable
+      def opening(offset: Int) = {
+        val positions = StartingPosition.featurable
+        positions((today.getDayOfYear + offset) % positions.size)
+      }
 
       val farFuture = today plusMonths 5
 
@@ -186,22 +188,23 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
 
         (isHalloween ? // replace more thematic tournaments on halloween
           List(
-            1 -> opening1,
-            5 -> opening2,
-            9 -> opening1,
-            13 -> opening2,
-            17 -> opening1,
-            21 -> opening2
+            1 -> StartingPosition.presets.halloween,
+            5 -> StartingPosition.presets.frankenstein,
+            9 -> StartingPosition.presets.halloween,
+            13 -> StartingPosition.presets.frankenstein,
+            17 -> StartingPosition.presets.halloween,
+            21 -> StartingPosition.presets.frankenstein
           ) |
-            List( // random opening replaces hourly 2 times a day
-              9 -> opening1,
-              21 -> opening2
+            List( // random opening replaces hourly 3 times a day
+              4 -> opening(offset = 0),
+              12 -> opening(offset = 1),
+              20 -> opening(offset = 2)
             )).flatMap {
                 case (hour, opening) => List(
                   at(today, hour) map { date => Schedule(Hourly, Bullet, Standard, opening, date |> orTomorrow) },
-                  at(today, hour) map { date => Schedule(Hourly, SuperBlitz, Standard, opening, date |> orTomorrow) },
-                  at(today, hour) map { date => Schedule(Hourly, Blitz, Standard, opening, date |> orTomorrow) },
-                  at(today, hour) map { date => Schedule(Hourly, Classical, Standard, opening, date |> orTomorrow) }
+                  at(today, hour + 1) map { date => Schedule(Hourly, SuperBlitz, Standard, opening, date |> orTomorrow) },
+                  at(today, hour + 2) map { date => Schedule(Hourly, Blitz, Standard, opening, date |> orTomorrow) },
+                  at(today, hour + 3) map { date => Schedule(Hourly, Classical, Standard, opening, date |> orTomorrow) }
                 ).flatten
               },
 
@@ -212,7 +215,8 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
           val bulletType = if (hour % 6 == 5) HyperBullet else Bullet
           List(
             at(date, hour) collect { case date if hour % 6 == 3 => Schedule(Hourly, UltraBullet, Standard, std, date) },
-            at(date, hour) map { date => Schedule(Hourly, Bullet, Standard, std, date) },
+            at(date, hour, 30) collect { case date if hour % 6 == 3 => Schedule(Hourly, UltraBullet, Standard, std, date) },
+            at(date, hour) map { date => Schedule(Hourly, bulletType, Standard, std, date) },
             at(date, hour, 30) map { date => Schedule(Hourly, bulletType, Standard, std, date) },
             at(date, hour) map { date => Schedule(Hourly, SuperBlitz, Standard, std, date) },
             at(date, hour) map { date => Schedule(Hourly, Blitz, Standard, std, date) },
