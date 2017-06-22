@@ -406,6 +406,10 @@
   <string name="horizontalGreenProgressBars">Vízszintes zöld folyamatjelző</string>
   <string name="soundWhenTimeGetsCritical">Figyelmeztető hang, ha a hátralévő idő nagyon kevés</string>
   <string name="gameBehavior">Játék működése</string>
+  <string name="howDoYouMovePieces">Hogyan mozgatod a bábukat?</string>
+  <string name="clickTwoSquares">Kattintással</string>
+  <string name="dragPiece">Egérhúzással</string>
+  <string name="bothClicksAndDrag">Mindkettő</string>
   <string name="premovesPlayingDuringOpponentTurn">Előre megadott lépések (amíg az ellenfél van soron)</string>
   <string name="takebacksWithOpponentApproval">Visszalépés (ellenfél beleegyezésével)</string>
   <string name="promoteToQueenAutomatically">Gyalog automatikus előléptetése vezérré</string>
@@ -557,8 +561,12 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Görgess az egérgörgővel a tábla felett, hogy láthasd lépéseket.</string>
   <string name="analysisShapesHowTo">Shift-kattintva vagy jobb egérgombbal rajzolhatsz karikákat és nyilakat a táblára</string>
   <string name="confirmResignation">Biztos feladod?</string>
+  <string name="inputMovesWithTheKeyboard">Lépések bevitele a billentyűzettel</string>
   <string name="letOtherPlayersMessageYou">Más játékosok küldhetnek neked üzenetet</string>
   <string name="shareYourInsightsData">Éleslátó adatbepillantás megosztása másokkal</string>
+  <string name="withNobody">Senkivel</string>
+  <string name="withFriends">Barátokkal</string>
+  <string name="withEverybody">Mindenkivel</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Már regisztrált ezzel az email címmel: %s</string>
   <string name="kidMode">Gyereküzemmód</string>
   <string name="kidModeExplanation">A Gyereküzemmód a biztonságról szól. A mód bekapcsolásával az összes kommunikáció megszűnik a többi játékossal, így megvédheted a gyermekeid vagy a diákjaid a többi felhasználó elől.</string>
@@ -566,6 +574,7 @@
   <string name="enableKidMode">Gyereküzemmód bekapcsolása</string>
   <string name="disableKidMode">Gyereküzemmód kikapcsolása</string>
   <string name="security">Biztonság</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Ezen a listán megtalálod az összes eszközt, amin be vagy jelentkezve. Ha nem ismersz fel egy eszközt, vond vissza.</string>
   <string name="playChessEverywhere">Sakkozz bárhol!</string>
   <string name="asFreeAsLichess">Olyannyira ingyenes mint a lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">A sakk szeretetéért építettük, nem a pénzért</string>
@@ -610,5 +619,7 @@
   <string name="error.maxLength">A maximális megengedett karakterszám %s</string>
   <string name="error.min">Nagyobbnak vagy egyenlőnek kell lennie mint %s</string>
   <string name="error.max">Kisebbnek vagy egyenlőnek kell lennie mint %s</string>
+  <string name="error.unknown">Hiba</string>
   <string name="custom">Egyéni</string>
+  <string name="notifications">Értesítések</string>
 </resources>
