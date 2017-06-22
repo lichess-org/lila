@@ -103,7 +103,8 @@ module.exports = {
     var key = [chapter.id, root.data.name, chapter.name, root.data.likes, chapter.tags, canContribute].join('|');
     if (key === ctrl.cacheKey() && m.redraw.strategy() === 'diff') {
       lichess.raf(function() {
-        document.getElementById('study_fen').textContent = node.fen;
+        var el = document.getElementById('study_fen');
+        if (el) el.textContent = node.fen;
       });
       return {
         subtree: 'retain'
