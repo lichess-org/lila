@@ -14,6 +14,7 @@ object BuildSettings {
     organization := "org.lichess",
     scalaVersion := globalScalaVersion,
     resolvers ++= Dependencies.Resolvers.commons,
+    parallelExecution in Test := false,
     scalacOptions := compilerOptions,
     incOptions := incOptions.value.withNameHashing(true),
     updateOptions := updateOptions.value.withCachedResolution(true),
