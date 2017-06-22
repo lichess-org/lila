@@ -125,7 +125,7 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
     document.title = data.name;
     members.dict(s.members);
     chapters.list(s.chapters);
-    ctrl.unflip();
+    ctrl.flipped = false;
 
     var merge = !vm.mode.write && sameChapter;
     ctrl.reloadData(d.analysis, merge);

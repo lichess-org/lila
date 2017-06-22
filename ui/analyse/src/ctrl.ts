@@ -1,4 +1,5 @@
 import { opposite } from 'chessground/util';
+import { Api as ChessgroundApi } from 'chessground/api';
 import { tree as makeTree, path as treePath, ops as treeOps } from 'tree';
 import * as keyboard from './keyboard';
 import { Controller as ActionMenuController } from './actionMenu';
@@ -30,6 +31,7 @@ export default class AnalyseCtrl {
 
   tree: any; // #TODO Tree.Tree
   socket: Socket;
+  chessground: ChessgroundApi;
 
   // current tree state, cursor, and denormalized node lists
   path: Tree.Path;
@@ -53,19 +55,19 @@ export default class AnalyseCtrl {
   ongoing: boolean; // true if real game is ongoing
 
   // display flags
-  flip: boolean = false;
+  flipped: boolean = false;
   embed: boolean;
   showComments: boolean = true; // whether to display comments in the move tree
-  showAutoShapes: boolean = storedProp('show-auto-shapes', true);
+    showAutoShapes: boolean = storedProp('show-auto-shapes', true);
   showGauge: boolean = storedProp('show-gauge', true);
   showComputer: boolean = storedProp('show-computer', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: boolean = false;
 
   // other paths
-  initialPath: string;
-  contextMenuPath: string;
-  gamePath?: string;
+  initialPath: Tree.Path;
+  contextMenuPath: Tree.Path;
+  gamePath?: Tree.Path;
 
   // misc
   cgConfig: any; // latest chessground config (useful for revert)
@@ -77,6 +79,8 @@ export default class AnalyseCtrl {
     this.embed = opts.embed;
 
     initialize(opts.data);
+
+    this.initialPath = treePath.root;
 
     if (opts.initialPly) {
       const loc = window.location;
@@ -93,9 +97,11 @@ export default class AnalyseCtrl {
         });
       }
     }
+
+    this.setPath(initialPath);
   }
 
-  initialize(data: GameData, merge: boolean) {
+  initialize(data: GameData, merge: boolean): void {
     this.data = data;
     this.synthetic = util.synthetic(data);
     this.ongoing = !this.synthetic && game.playable(data);
@@ -113,7 +119,7 @@ export default class AnalyseCtrl {
       treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
   }
 
-  setPath(path) {
+  setPath(path: Tree.Path): void {
     this.path = path;
     this.nodeList = this.tree.getNodeList(path);
     this.node = treeOps.last(this.vm.nodeList);
@@ -121,10 +127,8 @@ export default class AnalyseCtrl {
     this.onMainline = this.tree.pathIsMainline(path)
   }
 
-  this.setPath(initialPath);
-
-  this.flip = function() {
-    this.vm.flip = !this.vm.flip;
+  flip(): void {
+    this.flipped = !this.flipped;
     this.chessground.set({
       orientation: this.bottomColor()
     });
@@ -133,37 +137,37 @@ export default class AnalyseCtrl {
       this.toggleRetro();
     }
     if (this.practice) this.restartPractice();
-    m.redraw();
-  }.bind(this);
+    redraw();
+  }
 
-  this.unflip = function() {
-    this.vm.flip = false;
-  }.bind(this);
-
-  this.topColor = function() {
+  topColor(): Color {
     return opposite(this.bottomColor());
-  }.bind(this);
-  this.bottomColor = function() {
-    return this.vm.flip ? opposite(this.data.orientation) : this.data.orientation;
-  }.bind(this);
-  this.getOrientation = this.bottomColor; // required by ui/ceval
+  }
 
-    this.turnColor = function() {
-      return this.vm.node.ply % 2 === 0 ? 'white' : 'black';
-    }.bind(this);
+  bottomColor(): Color {
+    return this.flipped ? opposite(this.data.orientation) : this.data.orientation;
+  }
 
-    this.togglePlay = function(delay) {
-      this.autoplay.toggle(delay);
-      this.actionMenu.open = false;
-    }.bind(this);
+  getOrientation(): Color { // required by ui/ceval
+    return this.bottomColor();
+  }
 
-    var uciToLastMove = function(uci) {
-      if (!uci) return;
-      if (uci[1] === '@') return [uci.substr(2, 2), uci.substr(2, 2)];
-      return [uci.substr(0, 2), uci.substr(2, 2)];
-    };
+  turnColor(): Color {
+    return this.node.ply % 2 === 0 ? 'white' : 'black';
+  }
 
-    this.fork = makeFork(this);
+  togglePlay(delay: AutoplayDelay): void {
+    this.autoplay.toggle(delay);
+    this.actionMenu.open = false;
+  }
+
+  private uciToLastMove(uci: Uci): [string, string] {
+    if (!uci) return;
+    if (uci[1] === '@') return [uci.substr(2, 2), uci.substr(2, 2)];
+    return [uci.substr(0, 2), uci.substr(2, 2)];
+  };
+
+  this.fork = makeFork(this);
 
   var showGround = function() {
     var node = this.vm.node;

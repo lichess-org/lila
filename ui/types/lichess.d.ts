@@ -96,6 +96,10 @@ declare type Perf = 'bullet' | 'blitz' | 'classical' | 'correspondence' | 'chess
 
 declare type Color = 'white' | 'black';
 
+declare type Uci = string;
+declare type Fen = string;
+declare type Ply = number;
+
 interface Variant {
   key: VariantKey
   name: string
@@ -107,7 +111,7 @@ declare namespace Tree {
   export type Path = string;
 
   export interface ClientEval {
-    fen: string;
+    fen: Fen;
     maxDepth: number;
     depth: number;
     knps: number;
@@ -132,9 +136,9 @@ declare namespace Tree {
 
   export interface Node {
     id: string;
-    ply: number;
-    uci: string;
-    fen: string;
+    ply: Ply;
+    uci: Uci;
+    fen: Fen;
     children: Node[];
     comments?: Comment[];
     dests: string | undefined | null;

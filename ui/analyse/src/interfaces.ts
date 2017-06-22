@@ -38,7 +38,7 @@ export interface AnalyseController {
   toggleCeval(): void;
   gameOver(): boolean;
   currentEvals: () => NodeEvals;
-  playUci(uci: string): void;
+  playUci(uci: Uci): void;
   getOrientation(): Color;
   addNode(node, path): void;
   reset(): void;

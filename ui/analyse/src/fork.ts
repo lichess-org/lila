@@ -2,15 +2,26 @@ import { h } from 'snabbdom'
 import { renderIndexAndMove } from './moveView';
 import { bind } from './util';
 
-export function ctrl(root) {
+export interface ForkController {
+  state: {
+    node: Tree.Node;
+    selected: boolean;
+    displayed: boolean;
+  },
+  next: () => boolean | undefined;
+  prev: () => boolean | undefined;
+  proceed: (id: string) => boolean | undefined;
+}
+
+export function ctrl(root: AnalyseController): ForkCtrl {
   let prev: any;
-  var selected = 0;
-  var displayed = function() {
+  let selected = 0;
+  function displayed() {
     return root.vm.node.children.length > 1;
   };
   return {
     state: function() {
-      var node = root.vm.node;
+      var node = root.node;
       if (!prev || prev!.id !== node.id) {
         prev = node;
         selected = 0;
