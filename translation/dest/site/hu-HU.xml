@@ -545,7 +545,7 @@
   <string name="itWasNotRequiredForYourRegistration">Ez nem volt szükséges a feliratkozáshoz.</string>
   <string name="weHaveSentYouAnEmailTo">Küldtünk egy üzenetet a %s email címre. A jelszavad megváltoztatásához kattints az üzenetben lévő linkre.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">A regisztrációval elfogadod a %s-t</string>
-  <string name="networkLagBetweenYouAndLichess">Akadozik a hálózati kapcsolat a géped és a lichess szerver között.</string>
+  <string name="networkLagBetweenYouAndLichess">Hálózati késleltetés a számítógéped és a lichess között</string>
   <string name="timeToProcessAMoveOnLichessServer">Az az idő, amíg a lichess szerver egy lépést feldolgoz</string>
   <string name="downloadAnnotated">Letöltés elemzéssel</string>
   <string name="downloadRaw">Letöltés elemzés nélkül</string>
@@ -559,6 +559,8 @@
   <string name="shareYourInsightsData">Éleslátó adatbepillantás megosztása másokkal</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Már regisztrált ezzel az email címmel: %s</string>
   <string name="kidMode">Gyereküzemmód</string>
+  <string name="enableKidMode">Kiskorú mód bekapcsolása</string>
+  <string name="disableKidMode">Kiskorú mód kikapcsolása</string>
   <string name="playChessEverywhere">Sakkozz bárhol!</string>
   <string name="asFreeAsLichess">Olyannyira ingyenes mint a lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">A sakk szeretetéért építettük, nem a pénzért</string>
