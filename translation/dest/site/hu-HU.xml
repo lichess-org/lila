@@ -84,7 +84,7 @@
   <string name="players">Játékosok</string>
   <string name="minutesPerSide">Perc játékosonként</string>
   <string name="variant">Változat</string>
-  <string name="variants">Variánsok</string>
+  <string name="variants">Változatok</string>
   <string name="timeControl">Időkontroll</string>
   <string name="realTime">Valós idő</string>
   <string name="correspondence">Levelezés</string>
@@ -110,11 +110,11 @@
   <string name="email">E-mail cím</string>
   <string name="emailIsOptional">E-mail cím megadása nem kötelező. Esetlegesen elfelejtett jelszó visszanyeréséhez szükséges.</string>
   <string name="passwordReset">Jelszó visszaállítása</string>
-  <string name="forgotPassword">Elfelejtette a jelszavát?</string>
+  <string name="forgotPassword">Elfelejtetted a jelszavad?</string>
   <string name="rank">Rang</string>
   <string name="gamesPlayed">Lejátszott játékok</string>
   <plurals name="nbGamesWithYou">
-    <item quantity="one">%s játék veled</item>
+    <item quantity="one">%s játszma veled</item>
     <item quantity="other">%s játék veled</item>
   </plurals>
   <string name="cancel">Mégse</string>
@@ -130,7 +130,7 @@
   <string name="yourOpponentOffersADraw">Az ellenfeled döntetlent ajánl</string>
   <string name="accept">Elfogad</string>
   <string name="decline">Elutasít</string>
-  <string name="playingRightNow">Játszom</string>
+  <string name="playingRightNow">Jelenlegi játék</string>
   <string name="finished">Vége</string>
   <string name="abortGame">Játszma elvetése</string>
   <string name="gameAborted">Játszma elvetve</string>
@@ -155,10 +155,10 @@
   <string name="noNewMessages">Nincs új üzenet</string>
   <string name="subject">Tárgy</string>
   <string name="recipient">Címzett</string>
-  <string name="send">Elküld</string>
+  <string name="send">Küldés</string>
   <string name="incrementInSeconds">Másodpercnövekmény</string>
   <string name="freeOnlineChess">Ingyenes Online Sakk</string>
-  <string name="spectators">Nézők</string>
+  <string name="spectators">Nézők:</string>
   <plurals name="nbWins">
     <item quantity="one">%s győzelem</item>
     <item quantity="other">%s győzelem</item>
@@ -194,12 +194,12 @@
   <string name="tournaments">Versenyek</string>
   <string name="tournamentPoints">Verseny pontok</string>
   <string name="viewTournament">Verseny nézése</string>
-  <string name="backToTournament">Vissza a versenyre</string>
+  <string name="backToTournament">Vissza a versenyhez</string>
   <string name="backToGame">Vissza a játékhoz</string>
   <string name="siteDescription">Ingyenes online sakk játék. Sakkozz letisztult kezelőfelületen. Nem szükséges regisztráció vagy pluginok, és hirdetéseket sem kell nézned. Sakkozz a számítógéppel, barátokkal vagy véletlenszerű ellenfelekkel.</string>
   <string name="teams">Csapatok</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s tagok</item>
+    <item quantity="one">%s tag</item>
     <item quantity="other">%s tagok</item>
   </plurals>
   <string name="allTeams">Összes csapat</string>
