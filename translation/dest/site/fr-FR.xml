@@ -402,8 +402,8 @@
   <string name="newPasswordAgain">Nouveau mot de passe (confirmation)</string>
   <string name="boardHighlights">Surligner les cases (dernier coup et échec)</string>
   <string name="pieceDestinations">Cases de destination (coups et pré-coups légaux)</string>
-  <string name="boardCoordinates">Coordonnées (A-H, 1-8)</string>
-  <string name="moveListWhilePlaying">Liste de coups durant la partie</string>
+  <string name="boardCoordinates">Coordonnées (a-h, 1-8)</string>
+  <string name="moveListWhilePlaying">Notation des coups durant la partie</string>
   <string name="pgnPieceNotation">Notation des coups</string>
   <string name="chessPieceSymbol">Figurine de la pièce</string>
   <string name="pgnLetter">Lettre de la pièce (K, Q, R, B, N)</string>
