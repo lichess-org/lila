@@ -1,9 +1,10 @@
-import { AnalyseController, AutoplayDelay } from './interfaces';
+import { AnalyseController, AnalyseData, AutoplayDelay } from './interfaces';
 
-import { GameData, router } from 'game';
-import { synthetic, bindOnce } from './util';
+import { router } from 'game';
+import { synthetic, bind, dataIcon } from './util';
 import * as pgnExport from './pgnExport';
-import * as m from 'mithril';
+import { h } from 'snabbdom'
+import { VNode } from 'snabbdom/vnode'
 
 interface AutoplaySpeed {
   name: string;
@@ -28,50 +29,47 @@ const cplSpeeds: AutoplaySpeed[] = [{
   delay: 'cpl_slow'
 }];
 
-function deleteButton(data: GameData, userId: string): Mithril.Renderable {
-  if (data.game.source === 'import' &&
-    data.game.importedBy && data.game.importedBy === userId)
-    return m('form.delete', {
+function deleteButton(data: AnalyseData, userId: string) {
+  const g = data.game;
+  if (g.source === 'import' &&
+    g.importedBy && g.importedBy === userId)
+  return h('form.delete', {
+    attrs: {
       method: 'post',
-      action: '/' + data.game.id + '/delete',
-      onsubmit: function() {
-        return confirm('Delete this imported game?');
+      action: '/' + g.id + '/delete'
+    },
+    hook: bind('submit', _ => confirm('Delete this imported game?'))
+  }, [
+    h('button.button.text.thin', {
+      attrs: {
+        type: 'submit',
+        'data-icon': 'q'
       }
-    }, m('button.button.text.thin', {
-      type: 'submit',
-      'data-icon': 'q',
-    }, 'Delete'));
+    }, 'Delete')
+  ]);
   return;
 }
 
 function autoplayButtons(ctrl: AnalyseController): Mithril.Renderable {
-  var d = ctrl.data;
-  var speeds = (d.game.moveCentis && d.game.moveCentis.length) ? allSpeeds : baseSpeeds;
+  const d = ctrl.data;
+  let speeds = (d.game.moveCentis && d.game.moveCentis.length) ? allSpeeds : baseSpeeds;
   speeds = d.analysis ? speeds.concat(cplSpeeds) : speeds;
-  return m('div.autoplay', speeds.map(function(speed) {
-    return m('a', {
-      class: 'fbt' + (ctrl.autoplay.active(speed.delay) ? ' active' : ''),
-      config: bindOnce('click', () => ctrl.togglePlay(speed.delay))
+  return h('div.autoplay', speeds.map(speed => {
+    return h('a.fbt', {
+      class: { active: ctrl.autoplay.active(speed.delay) },
+      hook: bind('click', () => ctrl.togglePlay(speed.delay))
     }, speed.name);
   }));
 }
 
 function rangeConfig(read: () => number, write: (number) => void) {
-  return function(el, isUpdate, ctx) {
-    if (isUpdate) return;
-    el.value = read();
-    var handler = function(e) {
-      write(e.target.value);
-    };
-    var blurer = function(e) {
-      e.target.blur();
-    };
-    el.addEventListener('input', handler)
-    el.addEventListener('mouseout', blurer)
-    ctx.onunload = function() {
-      el.removeEventListener('input', handler);
-      el.removeEventListener('mouseout', blurer);
-    };
+  return {
+    insert: vnode => {
+      const el = vnode.elm as HTMLInputElement;
+      el.value = '' + read();
+      el.addEventListener('input', _ => write(parseInt(el.value)));
+      el.addEventListener('mouseout', _ => el.blur());
+    }
   };
 }
 
@@ -80,45 +78,43 @@ function formatHashSize(v: number): string {
   else return Math.round(v / 1024) + 'GB';
 }
 
+function hiddenInput(name: string, value: string) {
+  return h('input', {
+    attrs: { 'type': 'hidden', name: name, value: value }
+  });
+}
+
 function studyButton(ctrl: AnalyseController) {
-  if (ctrl.study && ctrl.embed && !ctrl.ongoing) return m('a.fbt', {
-    href: '/study/' + ctrl.study.data.id + '#' + ctrl.study.currentChapter().id,
-    target: '_blank'
-  }, [
-    m('i.icon', {
-      'data-icon': ''
-    }),
-    'Open study'
-  ]);
-  if (ctrl.study || ctrl.ongoing) return;
-  var realGame = !synthetic(ctrl.data);
-  return m('form', {
-    method: 'post',
-    action: '/study/as',
-    onsubmit: function(e) {
-      var pgnInput = e.target.querySelector('input[name=pgn]');
-      if (pgnInput) pgnInput.value = pgnExport.renderFullTxt(ctrl);
+  if (ctrl.study && ctrl.embed && !ctrl.ongoing) return h('a.fbt', {
+    attrs: {
+      href: '/study/' + ctrl.study.data.id + '#' + ctrl.study.currentChapter().id,
+      target: '_blank'
     }
   }, [
-    realGame ? m('input[type=hidden][name=gameId]', {
-      value: ctrl.data.game.id
-    }) : m('input[type=hidden][name=pgn]'),
-    m('input[type=hidden][name=orientation]', {
-      value: ctrl.chessground.state.orientation
+    h('i.icon', {
+      attrs: dataIcon('')
     }),
-    m('input[type=hidden][name=variant]', {
-      value: ctrl.data.game.variant.key
-    }),
-    m('input[type=hidden][name=fen]', {
-      value: ctrl.tree.root.fen
-    }),
-    m('button.fbt', {
-        type: 'submit'
-      },
-      m('i.icon', {
-        'data-icon': ''
-      }),
-      'Study')
+    h('span', 'Open study')
+  ]);
+  if (ctrl.study || ctrl.ongoing) return;
+  const realGame = !synthetic(ctrl.data);
+  return h('form', {
+    attrs: {
+      method: 'post',
+      action: '/study/as'
+    },
+    hook: bind('submit', e => {
+      const pgnInput = (e.target as HTMLElement).querySelector('input[name=pgn]') as HTMLInputElement;
+      if (pgnInput) pgnInput.value = pgnExport.renderFullTxt(ctrl);
+    })
+  }, [
+    realGame ? hiddenInput('gameId', ctrl.data.game.id) : hiddenInput('pgn', ''),
+    hiddenInput('orientation', ctrl.chessground.state.orientation),
+    hiddenInput('variant', ctrl.data.game.variant.key),
+    hiddenInput('fen', ctrl.tree.root.fen),
+    h('button.fbt', { attrs: { type: 'submit' } }),
+    h('i.icon', { attrs: dataIcon('') }),
+    h('span', 'Study')
   ]);
 }
 
@@ -134,202 +130,188 @@ export class Controller {
   }
 }
 
-export function view(ctrl: AnalyseController): Mithril.Renderable {
-  var flipAttrs: Mithril.Attributes = {};
-  var d = ctrl.data;
-  if (d.userAnalysis) flipAttrs.config = bindOnce('click', ctrl.flip);
-  else flipAttrs.href = router.game(d, d.opponent.color, ctrl.embed) + '#' + ctrl.vm.node.ply;
-  var canContinue = !ctrl.ongoing && !ctrl.embed && d.game.variant.key === 'standard';
-  var ceval = ctrl.getCeval();
-  var mandatoryCeval = ctrl.mandatoryCeval();
+export function view(ctrl: AnalyseController): VNode {
+  const d = ctrl.data;
 
-  return m('div.action_menu', [
-    m('div.tools', [
-      m('a.fbt', flipAttrs, m('i.icon[data-icon=B]'), ctrl.trans('flipBoard')),
-      ctrl.ongoing ? null : m('a.fbt', {
-        href: d.userAnalysis ? '/editor?fen=' + ctrl.vm.node.fen : '/' + d.game.id + '/edit?fen=' + ctrl.vm.node.fen,
-        rel: 'nofollow',
-        target: ctrl.embed ? '_blank' : null
-      }, [
-        m('i.icon[data-icon=m]'),
-        ctrl.trans('boardEditor')
+  const flipOpts = d.userAnalysis ? {
+    hook: bind('click', ctrl.flip)
+  } : {
+    attrs: { href: router.game(d, d.opponent.color, ctrl.embed) + '#' + ctrl.vm.node.ply }
+  };
+
+  const canContinue = !ctrl.ongoing && !ctrl.embed && d.game.variant.key === 'standard';
+  const ceval = ctrl.getCeval();
+  const mandatoryCeval = ctrl.mandatoryCeval();
+
+  return h('div.action_menu', [
+    h('div.tools', [
+      h('a.fbt', flipOpts, [
+        h('i.icon', { attrs: dataIcon('B') }),
+        h('span', ctrl.trans('flipBoard'))
       ]),
-      canContinue ? m('a.fbt', {
-        config: bindOnce('click', function() {
-          $.modal($('.continue_with.g_' + d.game.id));
-        })
+      ctrl.ongoing ? null : h('a.fbt', {
+        attrs: {
+          href: d.userAnalysis ? '/editor?fen=' + ctrl.vm.node.fen : '/' + d.game.id + '/edit?fen=' + ctrl.vm.node.fen,
+          rel: 'nofollow',
+          target: ctrl.embed ? '_blank' : ''
+        }
       }, [
-        m('i.icon[data-icon=U]'),
-        ctrl.trans('continueFromHere')
+        h('i.icon', { attrs: dataIcon('m') }),
+        h('span', ctrl.trans('boardEditor'))
+      ]),
+      canContinue ? h('a.fbt', {
+        hook: bind('click', _ => $.modal($('.continue_with.g_' + d.game.id)))
+      }, [
+        h('i.icon', {
+          attrs: dataIcon('U')
+        }),
+        h('span', ctrl.trans('continueFromHere'))
       ]) : null,
       studyButton(ctrl)
     ]),
     (ceval && ceval.possible) ? [
-      m('h2', 'Computer analysis'), [
-        (function(id) {
-          return m('div.setting', {
-            title: mandatoryCeval ? 'Required by practice mode' : 'Use Stockfish 8'
+      h('h2', 'Computer analysis'), [
+        (id => {
+          return h('div.setting', {
+            attrs: { title: mandatoryCeval ? 'Required by practice mode' : 'Use Stockfish 8' }
           }, [
-            m('label', {
-              'for': id
-            }, 'Enable'),
-            m('div.switch', [
-              m('input', {
-                id: id,
-                class: 'cmn-toggle cmn-toggle-round',
-                type: 'checkbox',
-                checked: ctrl.vm.showComputer(),
-                config: bindOnce('change', ctrl.toggleComputer),
-                disabled: mandatoryCeval
+            h('label', { attrs: { 'for': id } }, 'Enable'),
+            h('div.switch', [
+              h('input.cmn-toggle.cmn-toggle-round#' + id, {
+                attrs: {
+                  type: 'checkbox',
+                  checked: ctrl.vm.showComputer(),
+                  disabled: mandatoryCeval
+                },
+                hook: bind('change', ctrl.toggleComputer),
               }),
-              m('label', {
-                'for': id
-              })
+              h('label', { attrs: { 'for': id } })
             ])
           ]);
         })('analyse-toggle-all'),
         ctrl.vm.showComputer() ? [
-          (function(id) {
-            return m('div.setting', [
-              m('label', {
-                'for': id
-              }, 'Best move arrow'),
-              m('div.switch', [
-                m('input', {
-                  id: id,
-                  class: 'cmn-toggle cmn-toggle-round',
-                  type: 'checkbox',
-                  checked: ctrl.vm.showAutoShapes(),
-                  config: bindOnce('change', function(e) {
+          (id => {
+            return h('div.setting', [
+              h('label', { attrs: { 'for': id } }, 'Best move arrow'),
+              h('div.switch', [
+                h('input.cmn-toggle.cmn-toggle-round#' + id, {
+                  attrs: {
+                    type: 'checkbox',
+                    checked: ctrl.vm.showAutoShapes()
+                  },
+                  hook: bind('change', e => {
                     ctrl.toggleAutoShapes((e.target as HTMLInputElement).checked);
                   })
                 }),
-                m('label', {
-                  'for': id
-                })
+                h('label', { attrs: { 'for': id } })
               ])
             ]);
           })('analyse-toggle-shapes'), (function(id) {
-            return m('div.setting', [
-              m('label', {
-                'for': id
-              }, 'Evaluation gauge'),
-              m('div.switch', [
-                m('input', {
-                  id: id,
-                  class: 'cmn-toggle cmn-toggle-round',
-                  type: 'checkbox',
-                  checked: ctrl.vm.showGauge(),
-                  config: bindOnce('change', function() {
-                    ctrl.toggleGauge();
-                  })
+            return h('div.setting', [
+              h('label', { attrs: { 'for': id } }, 'Evaluation gauge'),
+              h('div.switch', [
+                h('input.cmn-toggle.cmn-toggle-round#' + id, {
+                  attrs: {
+                    type: 'checkbox',
+                    checked: ctrl.vm.showGauge()
+                  },
+                  hook: bind('change', () => ctrl.toggleGauge())
                 }),
-                m('label', {
-                  'for': id
-                })
+                h('label', { attrs: { 'for': id } })
               ])
             ]);
-          })('analyse-toggle-gauge'), (function(id) {
-            return m('div.setting', {
-              title: 'Removes the depth limit, and keeps your computer warm'
+          })('analyse-toggle-gauge'), (id => {
+            return h('div.setting', {
+              attrs: { title: 'Removes the depth limit, and keeps your computer warm' }
             }, [
-              m('label', {
-                'for': id
-              }, 'Infinite analysis'),
-              m('div.switch', [
-                m('input', {
-                  id: id,
-                  class: 'cmn-toggle cmn-toggle-round',
-                  type: 'checkbox',
-                  checked: ceval.infinite(),
-                  config: bindOnce('change', function(e) {
+              h('label', { attrs: { 'for': id } }, 'Infinite analysis'),
+              h('div.switch', [
+                h('input.cmn-toggle.cmn-toggle-round#' + id, {
+                  attrs: {
+                    type: 'checkbox',
+                    checked: ceval.infinite()
+                  },
+                  hook: bind('change', e => {
                     ctrl.cevalSetInfinite((e.target as HTMLInputElement).checked);
                   })
                 }),
-                m('label', {
-                  'for': id
-                })
+                h('label', { attrs: { 'for': id } })
               ])
             ]);
-          })('analyse-toggle-infinite'), (function(id) {
-            var max = 5;
-            return m('div.setting', [
-              m('label', {
-                'for': id
-              }, 'Multiple lines'),
-              m('input', {
-                id: id,
-                type: 'range',
-                min: 1,
-                max: max,
-                step: 1,
-                config: rangeConfig(function() {
-                  return parseInt(ceval!.multiPv());
-                }, function(v) {
-                  ctrl.cevalSetMultiPv(parseInt(v));
-                })
+          })('analyse-toggle-infinite'), (id => {
+            const max = 5;
+            return h('div.setting', [
+              h('label', { attrs: { 'for': id } }, 'Multiple lines'),
+              h('input#' + id, {
+                attrs: {
+                  type: 'range',
+                  min: 1,
+                  max: max,
+                  step: 1
+                },
+                hook: rangeConfig(
+                  () => parseInt(ceval!.multiPv()),
+                  ctrl.cevalSetMultiPv)
               }),
-              m('div.range_value', ceval.multiPv() + ' / ' + max)
+              h('div.range_value', ceval.multiPv() + ' / ' + max)
             ]);
           })('analyse-multipv'),
           ceval.pnaclSupported ? [
             (function(id) {
-              var max = navigator.hardwareConcurrency;
+              let max = navigator.hardwareConcurrency;
               if (!max) return;
               if (max > 2) max--; // don't overload your computer, you dummy
-              return m('div.setting', [
-                m('label', {
-                  'for': id
-                }, 'CPUs'),
-                m('input', {
-                  id: id,
-                  type: 'range',
-                  min: 1,
-                  max: max,
-                  step: 1,
-                  config: rangeConfig(function() {
-                    return parseInt(ceval!.threads());
-                  }, function(v) {
-                    ctrl.cevalSetThreads(parseInt(v));
-                  })
+              return h('div.setting', [
+                h('label', { attrs: { 'for': id } }, 'CPUs'),
+                h('input#' + id, {
+                  attrs: {
+                    type: 'range',
+                    min: 1,
+                    max: max,
+                    step: 1
+                  },
+                  hook: rangeConfig(
+                    () => parseInt(ceval!.threads()),
+                    ctrl.cevalSetThreads)
                 }),
-                m('div.range_value', ceval.threads() + ' / ' + max)
+                h('div.range_value', ceval.threads() + ' / ' + max)
               ]);
-            })('analyse-threads'), (function(id) {
-              return m('div.setting', [
-                m('label', {
-                  'for': id
-                }, 'Memory'),
-                m('input', {
-                  id: id,
-                  type: 'range',
-                  min: 4,
-                  max: 10,
-                  step: 1,
-                  config: rangeConfig(function() {
-                    return Math.floor(Math.log2!(parseInt(ceval!.hashSize())));
-                  }, function(v) {
-                    ctrl.cevalSetHashSize(Math.pow(2, parseInt(v)));
-                  })
+            })('analyse-threads'), (id => {
+              return h('div.setting', [
+                h('label', { attrs: { 'for': id } }, 'Memory'),
+                h('input#' + id, {
+                  attrs: {
+                    type: 'range',
+                    min: 4,
+                    max: 10,
+                    step: 1
+                  },
+                  hook: rangeConfig(
+                    () => Math.floor(Math.log2!(parseInt(ceval!.hashSize()))),
+                    v => ctrl.cevalSetHashSize(Math.pow(2, v)))
                 }),
-                m('div.range_value', formatHashSize(parseInt(ceval.hashSize())))
+                h('div.range_value', formatHashSize(parseInt(ceval.hashSize())))
               ]);
             })('analyse-memory')
           ] : null
         ] : null
       ]
     ] : null,
-    ctrl.vm.mainline.length > 4 ? [m('h2', 'Replay mode'), autoplayButtons(ctrl)] : null,
+    ctrl.vm.mainline.length > 4 ? [h('h2', 'Replay mode'), autoplayButtons(ctrl)] : null,
     deleteButton(d, ctrl.userId),
-    canContinue ? m('div.continue_with.g_' + d.game.id, [
-      m('a.button', {
-        href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#ai' : router.cont(d, 'ai') + '?fen=' + ctrl.vm.node.fen,
-        rel: 'nofollow'
+    canContinue ? h('div.continue_with.g_' + d.game.id, [
+      h('a.button', {
+        attrs: {
+          href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#ai' : router.cont(d, 'ai') + '?fen=' + ctrl.vm.node.fen,
+          rel: 'nofollow'
+        }
       }, ctrl.trans('playWithTheMachine')),
-      m('br'),
-      m('a.button', {
-        href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#friend' : router.cont(d, 'friend') + '?fen=' + ctrl.vm.node.fen,
-        rel: 'nofollow'
+      h('br'),
+      h('a.button', {
+        attrs: {
+          href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#friend' : router.cont(d, 'friend') + '?fen=' + ctrl.vm.node.fen,
+          rel: 'nofollow'
+        }
       }, ctrl.trans('playWithAFriend'))
     ]) : null
   ]);
