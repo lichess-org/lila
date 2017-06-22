@@ -401,6 +401,7 @@
   <string name="moveListWhilePlaying">Lépéslista játék közben</string>
   <string name="pgnPieceNotation">Lépés jelölése</string>
   <string name="chessPieceSymbol">Sakkbábu ikonja</string>
+  <string name="pgnLetter">Betű (K, Q, R, B, N)</string>
   <string name="chessClock">Sakkóra</string>
   <string name="tenthsOfSeconds">Tizedmásodpercek</string>
   <string name="never">Soha</string>
