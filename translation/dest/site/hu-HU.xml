@@ -399,6 +399,8 @@
   <string name="pieceDestinations">A figurák érkezési mezői (érvényes lépések és előre bevitt lépések)</string>
   <string name="boardCoordinates">Tábla koordináták (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Lépéslista játék közben</string>
+  <string name="pgnPieceNotation">Lépés jelölése</string>
+  <string name="chessPieceSymbol">Sakkbábu ikonja</string>
   <string name="chessClock">Sakkóra</string>
   <string name="tenthsOfSeconds">Tizedmásodpercek</string>
   <string name="never">Soha</string>
@@ -563,6 +565,9 @@
   <string name="confirmResignation">Biztos feladod?</string>
   <string name="inputMovesWithTheKeyboard">Lépések bevitele a billentyűzettel</string>
   <string name="letOtherPlayersMessageYou">Más játékosok küldhetnek neked üzenetet</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Sáncolás módszere</string>
+  <string name="castleByMovingTwoSquares">Király mozog két mezőt</string>
+  <string name="castleByMovingOntoTheRook">Király mozog a bástyára</string>
   <string name="shareYourInsightsData">Éleslátó adatbepillantás megosztása másokkal</string>
   <string name="withNobody">Senkivel</string>
   <string name="withFriends">Barátokkal</string>
@@ -575,6 +580,8 @@
   <string name="disableKidMode">Gyereküzemmód kikapcsolása</string>
   <string name="security">Biztonság</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Ezen a listán megtalálod az összes eszközt, amin be vagy jelentkezve. Ha nem ismersz fel egy eszközt, vond vissza.</string>
+  <string name="alternativelyYouCanX">Ha úgy gondolod %s.</string>
+  <string name="revokeAllSessions">eltávolíthatod az összes eszközt</string>
   <string name="playChessEverywhere">Sakkozz bárhol!</string>
   <string name="asFreeAsLichess">Olyannyira ingyenes mint a lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">A sakk szeretetéért építettük, nem a pénzért</string>
