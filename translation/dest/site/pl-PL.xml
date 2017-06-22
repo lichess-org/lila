@@ -465,7 +465,7 @@
   <string name="xAskedY">%1$s zapytał %2$s</string>
   <string name="xAnsweredY">%1$s odpowiedział %2$s</string>
   <string name="xCommentedY">%1$s skomentował %2$s</string>
-  <string name="timeline">Na osi czasu</string>
+  <string name="timeline">Historia</string>
   <string name="seeAllTournaments">Zobacz wszystkie turnieje</string>
   <string name="starting">Rozpoczęte:</string>
   <string name="allInformationIsPublicAndOptional">Poniższe informacje będą publicznie dostępne. Nie musisz ich podawać.</string>
