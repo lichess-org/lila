@@ -35,7 +35,9 @@ export default class Autoplay {
       if (!this.ctrl.vm.onMainline) return 1500;
       if (this.delay === 'realtime') {
         if (this.ctrl.vm.node.ply < 2) return 1000;
-        var time = this.ctrl.data.game.moveCentis![this.ctrl.vm.node.ply - this.ctrl.tree.root.ply];
+        const centis = this.ctrl.data.game.moveCentis;
+        if (!centis) return 1500;
+        const time = centis[this.ctrl.vm.node.ply - this.ctrl.tree.root.ply];
         // estimate 130ms of lag to improve playback.
         return time * 10 + 130 || 2000;
       } else {

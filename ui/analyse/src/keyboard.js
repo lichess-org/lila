@@ -44,7 +44,7 @@ module.exports = {
       m.redraw();
     }));
     kbd.bind('shift+c', preventing(function() {
-      ctrl.vm.comments = !ctrl.vm.comments;
+      ctrl.showComments = !ctrl.showComments;
       ctrl.autoScroll();
       m.redraw();
     }));

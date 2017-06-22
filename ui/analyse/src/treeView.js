@@ -211,7 +211,7 @@ function emptyMove(opts) {
 }
 
 function renderMainlineCommentsOf(ctx, node, opts) {
-  if (!ctx.ctrl.vm.comments || empty(node.comments)) return [];
+  if (!ctx.ctrl.showComments || empty(node.comments)) return [];
   var colorClass = opts.withColor ? (node.ply % 2 === 0 ? 'black ' : 'white ') : '';
   return node.comments.map(function(comment) {
     if (comment.by === 'lichess' && !ctx.showComputer) return;
@@ -238,7 +238,7 @@ function renderMainlineComment(comment, klass, withAuthor, ctx) {
 }
 
 function renderVariationCommentsOf(ctx, node) {
-  if (!ctx.ctrl.vm.comments || empty(node.comments)) return [];
+  if (!ctx.ctrl.showComments || empty(node.comments)) return [];
   return node.comments.map(function(comment) {
     if (comment.by === 'lichess' && !ctx.showComputer) return;
     return renderVariationComment(comment, node.comments.length > 1, ctx);

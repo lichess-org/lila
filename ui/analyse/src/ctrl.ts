@@ -1,5 +1,5 @@
 import { opposite } from 'chessground/util';
-import * as tree from 'tree';
+import { tree as makeTree, path as treePath, ops as treeOps } from 'tree';
 import * as keyboard from './keyboard';
 import { Controller as ActionMenuController } from './actionMenu';
 import Autoplay from './autoplay';
@@ -22,16 +22,86 @@ import { compute as computeAutoShapes } from './autoShape';
 import nodeFinder = require('./nodeFinder');
 import { AnalyseController, AnalyseOpts, AnalyseData } from './interfaces';
 
-export default function ctrl(opts: AnalyseOpts, redraw: () => void) {
+export default class AnalyseCtrl {
 
-  function initialize(data: GameData, merge) {
+  opts: AnalyseOpts;
+  data: AnalyseData;
+  element: HTMLElement;
+
+  tree: any; // #TODO Tree.Tree
+  socket: Socket;
+
+  // current tree state, cursor, and denormalized node lists
+  path: Tree.Path;
+  node: Tree.Node;
+  nodeList: Tree.Node[];
+  mainline: Tree.Node[];
+
+  // sub controllers
+  actionMenu: ActionMenuController;
+  autoplay: Autoplay;
+  explorer: any; // #TODO
+
+  // state flags
+  justPlayed: boolean = false;
+  justDropped: boolean = false;
+  justCaptured: boolean = false;
+  autoScrollRequested: boolean = false;
+  redirecting: boolean = false;
+  onMainline: boolean = true;
+  synthetic: boolean; // false if coming from a real game
+  ongoing: boolean; // true if real game is ongoing
+
+  // display flags
+  flip: boolean = false;
+  embed: boolean;
+  showComments: boolean = true; // whether to display comments in the move tree
+  showAutoShapes: boolean = storedProp('show-auto-shapes', true);
+  showGauge: boolean = storedProp('show-gauge', true);
+  showComputer: boolean = storedProp('show-computer', true);
+  keyboardHelp: boolean = location.hash === '#keyboard';
+  threatMode: boolean = false;
+
+  // other paths
+  initialPath: string;
+  contextMenuPath: string;
+  gamePath?: string;
+
+  // misc
+  cgConfig: any; // latest chessground config (useful for revert)
+
+  constructor(opts: AnalyseOpts, redraw: () => void) {
+
+    this.opts = opts;
+    this.element = opts.element;
+    this.embed = opts.embed;
+
+    initialize(opts.data);
+
+    if (opts.initialPly) {
+      const loc = window.location;
+      const locationHash = loc.hash;
+      const plyStr = opts.initialPly === 'url' ? (locationHash || '').replace(/#/, '') : opts.initialPly;
+      // remove location hash - http://stackoverflow.com/questions/1397329/how-to-remove-the-hash-from-window-location-with-javascript-without-page-refresh/5298684#5298684
+      if (locationHash) window.history.pushState("", document.title, loc.pathname + loc.search);
+      const mainline = treeOps.mainlineNodeList(this.tree.root);
+      if (plyStr === 'last') initialPath = treePath.fromNodeList(mainline);
+      else {
+        var ply = parseInt(plyStr);
+        if (ply) initialPath = treeOps.takePathWhile(mainline, function(n) {
+          return n.ply <= ply;
+        });
+      }
+    }
+  }
+
+  initialize(data: GameData, merge: boolean) {
     this.data = data;
-    if (!data.game.moveCentis) this.data.game.moveCentis = [];
     this.synthetic = util.synthetic(data);
     this.ongoing = !this.synthetic && game.playable(data);
 
-    var prevTree = merge && this.tree.root;
-    this.tree = tree.build(tree.ops.reconstruct(data.treeParts));
+    let prevTree = merge && tree.root;
+    this.tree = makeTree(treeOps.reconstruct(data.treeParts));
     if (prevTree) this.tree.merge(prevTree);
 
     this.actionMenu = new ActionMenuController();
@@ -39,55 +109,17 @@ export default function ctrl(opts: AnalyseOpts, redraw: () => void) {
     if (this.socket) this.socket.clearCache();
     else this.socket = new makeSocket(opts.socketSend, this);
     this.explorer = explorerCtrl(this, opts.explorer, this.explorer ? this.explorer.allowed() : !this.embed, redraw);
-    this.gamePath = (this.synthetic || this.ongoing) ? null :
-      tree.path.fromNodeList(tree.ops.mainlineNodeList(this.tree.root));
-  }.bind(this);
-
-  initialize(opts.data);
-
-  var initialPath = tree.path.root;
-  if (opts.initialPly) {
-    var locationHash = location.hash;
-    var plyStr = opts.initialPly === 'url' ? (locationHash || '').replace(/#/, '') : opts.initialPly;
-    // remove location hash - http://stackoverflow.com/questions/1397329/how-to-remove-the-hash-from-window-location-with-javascript-without-page-refresh/5298684#5298684
-    if (locationHash) history.pushState("", document.title, location.pathname + location.search);
-    var mainline = tree.ops.mainlineNodeList(this.tree.root);
-    if (plyStr === 'last') initialPath = tree.path.fromNodeList(mainline);
-    else {
-      var ply = parseInt(plyStr);
-      if (ply) initialPath = tree.ops.takePathWhile(mainline, function(n) {
-        return n.ply <= ply;
-      });
-    }
+    this.gamePath = (this.synthetic || this.ongoing) ? undefined :
+      treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
   }
 
-  this.vm = {
-    initialPath: initialPath,
-    cgConfig: null,
-    comments: true,
-    flip: false,
-    showAutoShapes: storedProp('show-auto-shapes', true),
-    showGauge: storedProp('show-gauge', true),
-    showComputer: storedProp('show-computer', true),
-    autoScrollRequested: false,
-    element: opts.element,
-    redirecting: false,
-    contextMenuPath: null,
-    justPlayed: null,
-    justDropped: null,
-    justCaptured: null,
-    keyboardHelp: location.hash === '#keyboard',
-    threatMode: false,
-    onMainline: true
-  };
-
-  this.setPath = function(path) {
-    this.vm.path = path;
-    this.vm.nodeList = this.tree.getNodeList(path);
-    this.vm.node = tree.ops.last(this.vm.nodeList);
-    this.vm.mainline = tree.ops.mainlineNodeList(this.tree.root);
-    this.vm.onMainline = this.tree.pathIsMainline(path)
-  }.bind(this);
+  setPath(path) {
+    this.path = path;
+    this.nodeList = this.tree.getNodeList(path);
+    this.node = treeOps.last(this.vm.nodeList);
+    this.mainline = treeOps.mainlineNodeList(this.tree.root);
+    this.onMainline = this.tree.pathIsMainline(path)
+  }
 
   this.setPath(initialPath);
 
@@ -204,7 +236,7 @@ export default function ctrl(opts: AnalyseOpts, redraw: () => void) {
   }.bind(this)) : $.noop;
 
   var updateHref = opts.study ? $.noop : throttle(750, false, function() {
-    history.replaceState(null, null, '#' + this.vm.node.ply);
+    window.history.replaceState(null, null, '#' + this.vm.node.ply);
   }.bind(this), false);
 
   this.autoScroll = function() {
@@ -264,7 +296,7 @@ export default function ctrl(opts: AnalyseOpts, redraw: () => void) {
   }.bind(this);
 
   this.mainlinePathToPly = function(ply) {
-    return tree.ops.takePathWhile(this.vm.mainline, function(n) {
+    return treeOps.takePathWhile(this.vm.mainline, function(n) {
       return n.ply <= ply;
     });
   }.bind(this);
@@ -286,7 +318,7 @@ export default function ctrl(opts: AnalyseOpts, redraw: () => void) {
   this.reloadData = function(data, merge) {
     initialize(data, merge);
     this.vm.redirecting = false;
-    this.setPath(tree.path.root);
+    this.setPath(treePath.root);
     instanciateCeval();
     instanciateEvalCache();
   }.bind(this);
@@ -399,12 +431,12 @@ export default function ctrl(opts: AnalyseOpts, redraw: () => void) {
   this.deleteNode = function(path) {
     var node = this.tree.nodeAtPath(path);
     if (!node) return;
-    var count = tree.ops.countChildrenAndComments(node);
+    var count = treeOps.countChildrenAndComments(node);
     if ((count.nodes >= 10 || count.comments > 0) && !confirm(
       'Delete ' + util.plural('move', count.nodes) + (count.comments ? ' and ' + util.plural('comment', count.comments) : '') + '?'
     )) return;
     this.tree.deleteNodeAt(path);
-    if (tree.path.contains(this.vm.path, path)) this.userJump(tree.path.init(path));
+    if (treePath.contains(this.vm.path, path)) this.userJump(treePath.init(path));
     else this.jump(this.vm.path);
     this.study && this.study.deleteNode(path);
   }.bind(this);
@@ -437,7 +469,7 @@ export default function ctrl(opts: AnalyseOpts, redraw: () => void) {
     router.forecasts(this.data)) : null;
 
   this.nextNodeBest = function() {
-    return tree.ops.withMainlineChild(this.vm.node, function(n) {
+    return treeOps.withMainlineChild(this.vm.node, function(n) {
       return n.eval ? n.eval.best : null;
     });
   }.bind(this);
