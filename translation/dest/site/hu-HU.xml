@@ -229,7 +229,7 @@
   <string name="continueFromHere">Folytatás innen</string>
   <string name="importGame">Játszma importálása</string>
   <plurals name="nbImportedGames">
-    <item quantity="one">%s Importált játszmák</item>
+    <item quantity="one">%s Importált játszma</item>
     <item quantity="other">%s Importált játszmák</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Ez egy ellenőrző sakkfeladvány (CAPTCHA)</string>
@@ -253,7 +253,7 @@
   <string name="xStartedFollowingY">%1$s követni kezdte a következő játékost:  %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s követő</item>
-    <item quantity="other">%s követő</item>
+    <item quantity="other">%s követők</item>
   </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s követett</item>
@@ -307,15 +307,15 @@
   <string name="onlinePlayers">Online játékosok</string>
   <string name="activeToday">Aktív ma</string>
   <string name="activePlayers">Aktív játékosok</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Időmérés nélküli játék, de rangsorolt meccs!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Időmérés nélküli, de rangsorolt meccs!</string>
   <string name="training">Gyakorlás</string>
   <string name="yourPuzzleRatingX">A feladatmegoldások értékelése: %s</string>
   <string name="findTheBestMoveForWhite">Találd meg a legjobb lépést világossal.</string>
   <string name="findTheBestMoveForBlack">Találd meg a legjobb lépést sötéttel.</string>
   <string name="toTrackYourProgress">Fejlődésed nyomon követéséhez:</string>
-  <string name="trainingSignupExplanation">Lichess a képességeidnek megfelelő feladványokat biztosít, hogy  minél jobb képzésben részesülj.</string>
+  <string name="trainingSignupExplanation">Lichess a képességeidnek megfelelő feladványokat biztosít, hogy minél jobb képzésben részesülj.</string>
   <string name="puzzleId">Feladvány %s</string>
-  <string name="puzzleOfTheDay">Napi feladvány</string>
+  <string name="puzzleOfTheDay">A nap feladványa</string>
   <string name="clickToSolve">Katt a megoldáshoz</string>
   <string name="goodMove">Jó lépés</string>
   <string name="butYouCanDoBetter">Van jobb lépés is.</string>
@@ -377,7 +377,7 @@
   <string name="other">Egyéb</string>
   <string name="reportDescriptionHelp">Másold be a játék(ok) linkjét, és magyarázd el mi volt a probléma a játékos viselkedésével. Ne csak annyit írj hogy \"csalt\", próbáld elmondani hogyan jöttél rá. A jelentésed hamarabb feldolgozásra kerül ha angolul írod.</string>
   <string name="by">%s által</string>
-  <string name="thisTopicIsNowClosed">Ez a téma jelenleg lezárt</string>
+  <string name="thisTopicIsNowClosed">Ez a téma jelenleg zárt.</string>
   <string name="theming">Kinézet</string>
   <string name="donate">Támogatás</string>
   <string name="blog">Blog</string>
