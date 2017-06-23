@@ -6,7 +6,7 @@ import lila.common.String.html.{ escape => escapeHtml }
 
 private sealed trait Translation
 
-private class Literal(message: String, escapedOption: Option[String]) extends Translation {
+private case class Literal(message: String, escapedOption: Option[String]) extends Translation {
 
   @inline private def escaped = escapedOption getOrElse message
 
@@ -19,7 +19,7 @@ private class Literal(message: String, escapedOption: Option[String]) extends Tr
     else Html(escaped.format(args.map(_.body): _*))
 }
 
-private class Plurals(messages: Map[I18nQuantity, String]) extends Translation {
+private case class Plurals(messages: Map[I18nQuantity, String]) extends Translation {
 
   private def messageFor(quantity: I18nQuantity): Option[String] =
     messages.get(quantity)

@@ -68,7 +68,7 @@ object Translator {
       }
   }
 
-  private def findTranslation(key: MessageKey, lang: Lang): Option[Translation] =
+  private[i18n] def findTranslation(key: MessageKey, lang: Lang): Option[Translation] =
     I18nDb.all.get(lang).flatMap(_ get key) orElse
       I18nDb.all.get(defaultLang).flatMap(_ get key)
 }
