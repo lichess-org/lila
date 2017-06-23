@@ -1,4 +1,6 @@
 lichess.trans = function(i18n) {
+  var lang = document.documentElement.lang;
+
   var p = {};
   p.fr = p.ff = p.kab = function(c) {
     // french
@@ -102,8 +104,12 @@ lichess.trans = function(i18n) {
     return 'other';
   };
 
-  var trans = function(key) {
-    var str = i18n[key] || key;
+  var plural = p[lang] || function(c) {
+    // default
+    return (c == 1) ? 'one' : 'other';
+  };
+
+  var format = function(str) {
     var args = Array.prototype.slice.call(arguments, 1);
     if (args.length && str.indexOf('$s') > -1) {
       for (var i = 1; i < 4; i++) {
@@ -115,8 +121,17 @@ lichess.trans = function(i18n) {
     });
     return str;
   };
-  // optimisation for translations without arguments
+
+  var trans = function(key) {
+    return i18n[key] ? i18n[key] : key;
+  };
+  trans.plural = function(key, quantity) {
+    var pluralKey = key + ':' + plural(quantity);
+    var str = i18n[pluralKey] || i18n[key + ':other'] || i18n[key];
+    return str ? format(str, quantity) : key;
+  };
   trans.noarg = function(key) {
+    // optimisation for translations without arguments
     return i18n[key] || key;
   };
   trans.merge = function(more) {
