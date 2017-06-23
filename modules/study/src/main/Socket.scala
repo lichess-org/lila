@@ -163,6 +163,10 @@ private final class Socket(
 
     case ReloadUid(uid) => notifyUid("reload", JsNull)(uid)
 
+    case ReloadUidBecauseOf(uid, chapterId) => notifyUid("reload", Json.obj(
+      "chapterId" -> chapterId
+    ))(uid)
+
     case Ping(uid, Some(v), lt) =>
       ping(uid, lt)
       timeBomb.delay
@@ -265,6 +269,7 @@ private object Socket {
   case class Connected(enumerator: JsEnumerator, member: Member)
 
   case class ReloadUid(uid: Uid)
+  case class ReloadUidBecauseOf(uid: Uid, chapterId: Chapter.Id)
 
   case class AddNode(position: Position.Ref, node: Node, variant: chess.variant.Variant, uid: Uid, sticky: Boolean)
   case class DeleteNode(position: Position.Ref, uid: Uid)
