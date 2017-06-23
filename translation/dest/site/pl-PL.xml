@@ -262,7 +262,7 @@
   <string name="blocked">Zablokowany</string>
   <string name="unblock">Odblokuj</string>
   <string name="followsYou">Obserwuje Cię</string>
-  <string name="xStartedFollowingY">%1$s obserwuje teraz %2$s</string>
+  <string name="xStartedFollowingY">%1$s obserwuje %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s obserwujący</item>
     <item quantity="few">%s obserwujących</item>
