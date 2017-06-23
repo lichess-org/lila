@@ -167,7 +167,9 @@ final class StudyApi(
   def addNode(userId: User.ID, studyId: Study.Id, position: Position.Ref, node: Node, uid: Uid, opts: MoveOpts) = sequenceStudyWithChapter(studyId, position.chapterId) {
     case Study.WithChapter(study, chapter) => Contribute(userId, study) {
       chapter.addNode(node, position.path) match {
-        case None => fufail(s"Invalid addNode $studyId $position $node") >>- reloadUid(study, uid)
+        case None =>
+          fufail(s"Invalid addNode $studyId $position $node") >>-
+            reloadUidBecauseOf(study, uid, chapter.id)
         case Some(chapter) =>
           chapter.root.nodeAt(position.path) ?? { parent =>
             val newPosition = position + node
@@ -204,7 +206,9 @@ final class StudyApi(
         case Some(newChapter) =>
           chapterRepo.update(newChapter) >>-
             sendTo(study, Socket.DeleteNode(position, uid))
-        case None => fufail(s"Invalid delNode $studyId $position") >>- reloadUid(study, uid)
+        case None =>
+          fufail(s"Invalid delNode $studyId $position") >>-
+            reloadUidBecauseOf(study, uid, chapter.id)
       }
     }
   }
@@ -220,7 +224,9 @@ final class StudyApi(
         case Some(newChapter) =>
           chapterRepo.update(newChapter) >>-
             sendTo(study, Socket.Promote(position, toMainline, uid))
-        case None => fufail(s"Invalid promoteToMainline $studyId $position") >>- reloadUid(study, uid)
+        case None =>
+          fufail(s"Invalid promoteToMainline $studyId $position") >>-
+            reloadUidBecauseOf(study, uid, chapter.id)
       }
     }
   }
@@ -275,7 +281,9 @@ final class StudyApi(
               studyRepo.updateNow(study)
               chapterRepo.setShapes(newChapter, position.path, shapes) >>-
                 sendTo(study, Socket.SetShapes(position, shapes, uid))
-            case None => fufail(s"Invalid setShapes $position $shapes") >>- reloadUid(study, uid)
+            case None =>
+              fufail(s"Invalid setShapes $position $shapes") >>-
+                reloadUidBecauseOf(study, uid, chapter.id)
           }
         }
       }
@@ -314,7 +322,9 @@ final class StudyApi(
                     sendStudyEnters(study, userId)
                 }
               }
-            case None => fufail(s"Invalid setComment $studyId $position") >>- reloadUid(study, uid)
+            case None =>
+              fufail(s"Invalid setComment $studyId $position") >>-
+                reloadUidBecauseOf(study, uid, chapter.id)
           }
         }
       }
@@ -329,7 +339,9 @@ final class StudyApi(
             chapterRepo.update(newChapter) >>-
               sendTo(study, Socket.DeleteComment(position, id, uid)) >>-
               indexStudy(study)
-          case None => fufail(s"Invalid deleteComment $studyId $position $id") >>- reloadUid(study, uid)
+          case None =>
+            fufail(s"Invalid deleteComment $studyId $position $id") >>-
+              reloadUidBecauseOf(study, uid, chapter.id)
         }
       }
     }
@@ -347,7 +359,9 @@ final class StudyApi(
                   sendTo(study, Socket.SetGlyphs(position, node.glyphs, uid))
                 }
             }
-          case None => fufail(s"Invalid toggleGlyph $studyId $position $glyph") >>- reloadUid(study, uid)
+          case None =>
+            fufail(s"Invalid toggleGlyph $studyId $position $glyph") >>-
+              reloadUidBecauseOf(study, uid, chapter.id)
         }
       }
     }
@@ -513,8 +527,11 @@ final class StudyApi(
   private def indexStudy(study: Study) =
     bus.publish(actorApi.SaveStudy(study), 'study)
 
-  private def reloadUid(study: Study, uid: Uid) =
+  private def reloadUid(study: Study, uid: Uid, becauseOf: Option[Chapter.Id] = None) =
     sendTo(study, Socket.ReloadUid(uid))
+
+  private def reloadUidBecauseOf(study: Study, uid: Uid, chapterId: Chapter.Id) =
+    sendTo(study, Socket.ReloadUidBecauseOf(uid, chapterId))
 
   private def reloadChapters(study: Study) =
     chapterRepo.orderedMetadataByStudy(study.id).foreach { chapters =>
