@@ -527,7 +527,7 @@ final class StudyApi(
   private def indexStudy(study: Study) =
     bus.publish(actorApi.SaveStudy(study), 'study)
 
-  private def reloadUid(study: Study, uid: Uid, becauseOf: Option[Chapter.Id] = None) =
+  private def reloadUid(study: Study, uid: Uid) =
     sendTo(study, Socket.ReloadUid(uid))
 
   private def reloadUidBecauseOf(study: Study, uid: Uid, chapterId: Chapter.Id) =
