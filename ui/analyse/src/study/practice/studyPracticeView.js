@@ -21,7 +21,7 @@ function selector(data) {
         label: section.name
       }, section.studies.map(function(study) {
         return m('option', {
-          value: '/' + section.id + '/' + study.slug + '/' + study.id
+          value: section.id + '/' + study.slug + '/' + study.id
         }, study.name);
       }));
     })

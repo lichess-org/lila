@@ -12,6 +12,9 @@
 @if(isGranted(_.UserSearch)) {
 <a class="@active.active("search")" href="@routes.Mod.search">Search users</a>
 }
+@if(isGranted(_.SetEmail)) {
+<a class="@active.active("email")" href="@routes.Mod.emailConfirm">Email confirm</a>
+}
 @if(isGranted(_.StreamConfig)) {
 <a class="@active.active("stream")" href="@routes.Tv.streamConfig">Streams</a>
 }

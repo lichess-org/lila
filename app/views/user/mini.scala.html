@@ -5,7 +5,7 @@
     case (code, name) => {
     <span class="country">
       <img class="flag" src="@staticUrl(s"images/flags/$code.png")" alt="@name" title="@name" />
-      @if(u.username.size < 15) { @name }
+      @if(u.username.size + name.size < 25) { @name }
     </span>
     }
     }

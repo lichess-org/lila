@@ -198,7 +198,7 @@ object Countries {
     "TZ" -> "Tanzania",
     "UA" -> "Ukraine",
     "UG" -> "Uganda",
-    "US" -> "United States",
+    "US" -> "USA",
     "UY" -> "Uruguay",
     "UZ" -> "Uzbekistan",
     "VC" -> "Saint Vincent and the Grenadines",
