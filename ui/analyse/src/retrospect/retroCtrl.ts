@@ -1,52 +1,54 @@
-var nodeFinder = require('../nodeFinder');
-var winningChances = require('ceval').winningChances;
-var treePath = require('tree').path;
-var empty = require('common').empty;
-var m = require('mithril');
+import { evalSwings } from '../nodeFinder';
+import { winningChances } from 'ceval';
+import { path as treePath } from 'tree';
+import { empty, prop } from 'common';
+import { AnalyseController } from '../interfaces';
 
-module.exports = function(root) {
+export interface RetroController {
+  isSolving(): boolean
+}
 
-  var game = root.data.game;
-  var color = root.bottomColor();
-  var candidateNodes = [];
-  var explorerCancelPlies = [];
-  var solvedPlies = [];
-  var current = m.prop();
-  var feedback = m.prop('find'); // find | eval | win | fail | view
+export default function(root: AnalyseController): RetroController {
 
-  var isPlySolved = function(ply) {
-    return lichess.fp.contains(solvedPlies, ply)
+  const game = root.data.game;
+  const color = root.bottomColor();
+  let candidateNodes: Tree.Node[] = [];
+  const explorerCancelPlies: number[] = [];
+  const solvedPlies: number[] = [];
+  const current = prop<any>(null);
+  const feedback = prop('find'); // find | eval | win | fail | view
+
+  const contains = window.lichess.fp.contains;
+
+  function isPlySolved(ply: Ply): boolean {
+    return contains(solvedPlies, ply)
   };
 
-  var findNextNode = function() {
-    var colorModulo = root.bottomColor() === 'white' ? 1 : 0;
-    candidateNodes = nodeFinder.evalSwings(root.vm.mainline, function(n) {
-      return n.ply % 2 === colorModulo && !lichess.fp.contains(explorerCancelPlies, n.ply);
+  function findNextNode(): Tree.Node | undefined {
+    const colorModulo = root.bottomColor() === 'white' ? 1 : 0;
+    candidateNodes = evalSwings(root.vm.mainline, function(n) {
+      return n.ply % 2 === colorModulo && !contains(explorerCancelPlies, n.ply);
     });
-    return candidateNodes.find(function(n) {
-      return !isPlySolved(n.ply);
-    });
+    return candidateNodes.find(n => !isPlySolved(n.ply));
   };
 
-  var jumpToNext = function() {
+  function jumpToNext(): void {
     feedback('find');
-    var node = findNextNode();
+    const node = findNextNode();
     if (!node) {
       current(null);
       return;
     }
-    var fault = {
+    const fault = {
       node: node,
       path: root.mainlinePathToPly(node.ply)
     };
-    var prevPath = treePath.init(fault.path);
-    var prev = {
+    const prevPath = treePath.init(fault.path);
+    const prev = {
       node: root.tree.nodeAtPath(prevPath),
       path: prevPath
     };
-    var solutionNode = prev.node.children.find(function(n) {
-      return n.comp;
-    });
+    const solutionNode = prev.node.children.find(n => n.comp);
     current({
       fault: fault,
       prev: prev,

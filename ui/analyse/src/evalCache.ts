@@ -1,27 +1,24 @@
-var m = require('mithril');
-var throttle = require('common').throttle;
-var defined = require('common').defined;
-var isEvalBetter = require('ceval').isEvalBetter;
+import { throttle, defined } from 'common';
 
-var evalPutMinDepth = 20;
-var evalPutMinNodes = 3e6;
-var evalPutMaxMoves = 10;
+const evalPutMinDepth = 20;
+const evalPutMinNodes = 3e6;
+const evalPutMaxMoves = 10;
 
-function qualityCheck(eval) {
+function qualityCheck(ev): boolean {
   // below 500k nodes, the eval might come from an imminent threefold repetition
   // and should therefore be ignored
-  return eval.nodes > 500000 && (
-    eval.depth >= evalPutMinDepth || eval.nodes > evalPutMinNodes
+  return ev.nodes > 500000 && (
+    ev.depth >= evalPutMinDepth || ev.nodes > evalPutMinNodes
   );
 }
 
 // from client eval to server eval
-function toPutData(variant, eval) {
-  var data = {
-    fen: eval.fen,
-    knodes: Math.round(eval.nodes / 1000),
-    depth: eval.depth,
-    pvs: eval.pvs.map(function(pv) {
+function toPutData(variant, ev) {
+  const data: any = {
+    fen: ev.fen,
+    knodes: Math.round(ev.nodes / 1000),
+    depth: ev.depth,
+    pvs: ev.pvs.map(pv => {
       return {
         cp: pv.cp,
         mate: pv.mate,
@@ -35,12 +32,12 @@ function toPutData(variant, eval) {
 
 // from server eval to client eval
 function toCeval(e) {
-  var res = {
+  const res: any = {
     fen: e.fen,
     nodes: e.knodes * 1000,
     depth: e.depth,
     pvs: e.pvs.map(function(from) {
-      var to = {
+      const to: any = {
         moves: from.moves.split(' ')
       };
       if (defined(from.cp)) to.cp = from.cp;
@@ -55,25 +52,24 @@ function toCeval(e) {
   return res;
 }
 
-module.exports = function(opts) {
-  var fenFetched = [];
-  var hasFetched = function(node) {
+export default function(opts) {
+  const fenFetched: string[] = [];
+  const hasFetched = function(node): boolean {
     return fenFetched.indexOf(node.fen) !== -1;
   };
   return {
     onCeval: throttle(500, false, function() {
-      var node = opts.getNode();
-      var eval = node.ceval;
-      if (eval && !eval.cloud && hasFetched(node) && qualityCheck(eval) && opts.canPut(node)) {
-        opts.send("evalPut", toPutData(opts.variant, eval));
+      const node = opts.getNode(), ev = node.ceval;
+      if (ev && !ev.cloud && hasFetched(node) && qualityCheck(ev) && opts.canPut(node)) {
+        opts.send("evalPut", toPutData(opts.variant, ev));
       }
     }),
     fetch: function(path, multiPv) {
-      var node = opts.getNode();
+      const node = opts.getNode();
       if ((node.ceval && node.ceval.cloud) || !opts.canGet(node)) return;
       if (hasFetched(node)) return;
       fenFetched.push(node.fen);
-      var obj = {
+      const obj: any = {
         fen: node.fen,
         path: path
       };

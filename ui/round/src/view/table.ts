@@ -112,16 +112,20 @@ function anyClock(ctrl, position) {
 }
 
 export function render(ctrl: any): VNode {
+  const contents: Array<VNode | string> = [
+    'foo',
+    renderPlayer(ctrl, topPlayer(ctrl)),
+    'bar',
+    h('div.table_inner',
+      ctrl.data.player.spectator ? renderTableWatch(ctrl) : (
+        game.playable(ctrl.data) ? renderTablePlay(ctrl) : renderTableEnd(ctrl)
+      )
+    ),
+    'oh!',
+  ];
   return h('div.table_wrap', [
     anyClock(ctrl, 'top'),
-    h('div.table', [
-      renderPlayer(ctrl, topPlayer(ctrl)),
-      h('div.table_inner',
-        ctrl.data.player.spectator ? renderTableWatch(ctrl) : (
-          game.playable(ctrl.data) ? renderTablePlay(ctrl) : renderTableEnd(ctrl)
-        )
-      )
-    ]),
+    h('div.table', contents),
     anyClock(ctrl, 'bottom')
   ]);
 };

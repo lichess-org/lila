@@ -1,4 +1,4 @@
-import { StoredProp, StoredBooleanProp } from 'common';
+import { Prop, StoredProp, StoredBooleanProp } from 'common';
 
 export interface Eval {
   cp?: number;
@@ -59,8 +59,8 @@ export interface CevalController {
   effectiveMaxDepth: () => number;
   pnaclSupported: boolean;
   wasmSupported: boolean;
-  allowed: Mithril.Property<boolean>;
-  enabled: Mithril.Property<boolean>;
+  allowed: Prop<boolean>;
+  enabled: Prop<boolean>;
   possible: boolean;
   isComputing: () => boolean;
   variant: Variant;
@@ -71,33 +71,23 @@ export interface CevalController {
   threads: StoredProp<number>;
   hashSize: StoredProp<number>;
   infinite: StoredBooleanProp;
-  hovering: Mithril.Property<Hovering | null>;
+  hovering: Prop<Hovering | null>;
   toggle: () => void;
   curDepth: () => number;
   isDeeper: () => boolean;
-  destroy: () => void;
-  env: () => CevalEnv;
-}
-
-export interface CevalEnv {
-  pnacl: boolean;
-  wasm: boolean;
-  multiPv: number;
-  threads: number;
-  hashSize: number;
-  maxDepth: number;
+  destroy: () => void
 }
 
 export interface ParentController {
   getCeval: () => CevalController;
   nextNodeBest: () => boolean;
-  disableThreatMode?: Mithril.Property<Boolean>;
+  disableThreatMode?: Prop<Boolean>;
   vm: ParentVm;
   toggleThreatMode: () => void;
   toggleCeval: () => void;
   gameOver: () => boolean;
-  mandatoryCeval?: Mithril.Property<boolean>;
-  showEvalGauge: Mithril.Property<boolean>;
+  mandatoryCeval?: Prop<boolean>;
+  showEvalGauge: Prop<boolean>;
   currentEvals: () => NodeEvals;
   ongoing: boolean;
   playUci(uci: string): void;

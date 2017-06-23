@@ -1,5 +1,4 @@
 /// <reference types="types/lichess" />
-/// <reference types="types/mithril" />
 /// <reference types="types/defer-promise" />
 
 import { CevalController, NodeEvals } from './types';

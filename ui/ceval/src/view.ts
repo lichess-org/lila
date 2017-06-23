@@ -18,18 +18,18 @@ function range(len: number): number[] {
   return r;
 }
 
-function localEvalInfo(ctrl: ParentController, evs: NodeEvals): VNode[] {
+function localEvalInfo(ctrl: ParentController, evs: NodeEvals): Array<VNode | string> {
   const ceval = ctrl.getCeval();
   if (!evs.client) {
     return [
-      h('span', evs.server && ctrl.nextNodeBest() ? 'Using server analysis' : 'Loading engine...')
+      evs.server && ctrl.nextNodeBest() ? 'Using server analysis' : 'Loading engine...'
     ];
   }
-  const t: VNode[] = evs.client.cloud ? [
-    h('span', 'Depth ' + (evs.client.depth || 0)),
+  const t: Array<VNode | string> = evs.client.cloud ? [
+    'Depth ' + (evs.client.depth || 0),
     h('span.cloud', { attrs: { title: 'Cloud Analysis' } }, 'cloud')
   ] : [
-    h('span', 'Depth ' + (evs.client.depth || 0) + '/' + evs.client.maxDepth)
+    'Depth ' + (evs.client.depth || 0) + '/' + evs.client.maxDepth
   ];
   if (ceval.canGoDeeper() && (
     evs.client.depth >= (evs.client.maxDepth || ceval.effectiveMaxDepth())
@@ -43,8 +43,8 @@ function localEvalInfo(ctrl: ParentController, evs: NodeEvals): VNode[] {
       insert: vnode => (vnode.elm as HTMLElement).addEventListener('click', ceval.goDeeper)
     }
   }));
-  else if (!evs.client.cloud && evs.client.knps) t.push(
-    h('span', ', ' + Math.round(evs.client.knps) + ' knodes/s'));
+  else if (!evs.client.cloud && evs.client.knps)
+  t.push(', ' + Math.round(evs.client.knps) + ' knodes/s');
   return t;
 }
 
@@ -55,8 +55,8 @@ function threatInfo(threat?: Tree.ClientEval | false): string {
   return t;
 }
 
-function threatButton(ctrl: ParentController): VNode | undefined {
-  if (ctrl.disableThreatMode && ctrl.disableThreatMode()) return;
+function threatButton(ctrl: ParentController): VNode | null {
+  if (ctrl.disableThreatMode && ctrl.disableThreatMode()) return null;
   return h('a.show-threat', {
     class: {
       active: ctrl.vm.threatMode,
@@ -115,7 +115,7 @@ export function renderGauge(ctrl: ParentController): VNode | undefined {
   );
 }
 
-export function renderCeval(ctrl: ParentController) {
+export function renderCeval(ctrl: ParentController): VNode | undefined {
   const instance = ctrl.getCeval();
   if (!instance.allowed() || !instance.possible || !ctrl.vm.showComputer()) return;
   const enabled = instance.enabled();
@@ -123,15 +123,15 @@ export function renderCeval(ctrl: ParentController) {
   const bestEv = getBestEval(evs);
   const threatMode = ctrl.vm.threatMode;
   const threat = threatMode && ctrl.vm.node.threat;
-  let pearl: VNode, percent: number;
+  let pearl: VNode | string, percent: number;
   if (bestEv && typeof bestEv.cp !== 'undefined') {
-    pearl = h('span', renderEval(bestEv.cp));
+    pearl = renderEval(bestEv.cp);
     percent = evs.client ? Math.min(100, Math.round(100 * evs.client.depth / (evs.client.maxDepth || instance.effectiveMaxDepth()))) : 0;
   } else if (bestEv && defined(bestEv.mate)) {
-    pearl = h('span', '#' + bestEv.mate);
+    pearl = '#' + bestEv.mate;
     percent = 100;
   } else if (ctrl.gameOver()) {
-    pearl = h('span', '-');
+    pearl = '-';
     percent = 0;
   } else {
     pearl = enabled ? h('span.ddloader') : h('span');
@@ -141,13 +141,10 @@ export function renderCeval(ctrl: ParentController) {
     if (threat) percent = Math.min(100, Math.round(100 * threat.depth / threat.maxDepth));
     else percent = 0;
   }
+
   const mandatoryCeval = ctrl.mandatoryCeval && ctrl.mandatoryCeval();
-  return h('div.ceval_box', {
-    class: {
-      computing: percent < 100 && instance.isComputing()
-    }
-  }, [
-  enabled ? h('div.bar', h('span', {
+
+  const progressBar: VNode | null = enabled ? h('div.bar', h('span', {
     class: { threat: threatMode },
     attrs: { style: `width: ${percent}%` },
     // hook: {
@@ -162,79 +159,91 @@ export function renderCeval(ctrl: ParentController) {
     //   ctx.percent = percent;
     //   ctx.threatMode = threatMode;
     // }
-  })) : null,
-  enabled ? [
-    h('pearl', pearl),
-    h('div.engine', [
-      threatMode ? 'Show threat' : engineName(instance),
-      h('span.info', ctrl.gameOver() ? 'Game over.' : (
-        threatMode ? threatInfo(threat) : localEvalInfo(ctrl, evs)
-      ))
-    ])
-  ] : [
-    pearl ? h('pearl', pearl) : null,
-    h('help', [
-      h('span', engineName(instance)), 
-        h('br'), 
-        h('span', 'in local browser')
-    ])
-  ],
-  mandatoryCeval ? null : h('div.switch', {
-    attrs: { title: 'Toggle local evaluation (l)' }
-  }, [
-    h('input#analyse-toggle-ceval.cmn-toggle.cmn-toggle-round', {
-      attrs: {
-        type: 'checkbox',
-        checked: enabled
-      },
-      hook: {
-        insert: vnode => (vnode.elm as HTMLElement).addEventListener('change', ctrl.toggleCeval)
-      }
-    }),
-    h('label', { attrs: { 'for': 'analyse-toggle-ceval' } })
-  ]),
-  threatButton(ctrl)
-  ])
-}
+    })) : null;
 
-export function renderPvs(ctrl: ParentController) {
-  const instance = ctrl.getCeval();
-  if (!instance.allowed() || !instance.possible || !instance.enabled()) return;
-  const multiPv = parseInt(instance.multiPv());
-  const pvs : Tree.PvData[], threat = false;
-  if (ctrl.vm.threatMode && ctrl.vm.node.threat) {
-    pvs = ctrl.vm.node.threat.pvs;
-    threat = true;
-  } else if (ctrl.vm.node.ceval)
-  pvs = ctrl.vm.node.ceval.pvs;
-  else
-  pvs = [];
-  return m('div.pv_box', {
-    'data-fen': ctrl.vm.node.fen,
-    config: function(el: Element, isUpdate: boolean) {
-      if (!isUpdate) {
-        el.addEventListener('mouseover', function(e) {
-          instance.setHovering($(el).attr('data-fen'), $(e.target).closest('div.pv').attr('data-uci'));
-        });
-        el.addEventListener('mouseout', function() {
-          instance.setHovering($(el).attr('data-fen'), null);
-        });
-        el.addEventListener('mousedown', function(e) {
-          const uci = $(e.target).closest('div.pv').attr('data-uci');
-          if (uci) ctrl.playUci(uci);
-        });
+    const body: Array<VNode | null> = enabled ? [
+      h('pearl', [pearl]),
+      h('div.engine', [
+        threatMode ? 'Show threat' : engineName(instance),
+        h('span.info', ctrl.gameOver() ? ['Game over.'] : (
+          threatMode ? [threatInfo(threat)] : localEvalInfo(ctrl, evs)
+        ))
+      ])
+    ] : [
+      pearl ? h('pearl', [pearl]) : null,
+      h('help', [
+        engineName(instance),
+        h('br'),
+        'in local browser'
+      ])
+    ];
+
+    const switchButton: VNode | null = mandatoryCeval ? null : h('div.switch', {
+      attrs: { title: 'Toggle local evaluation (l)' }
+    }, [
+      h('input#analyse-toggle-ceval.cmn-toggle.cmn-toggle-round', {
+        attrs: {
+          type: 'checkbox',
+          checked: enabled
+        },
+        hook: {
+          insert: vnode => (vnode.elm as HTMLElement).addEventListener('change', ctrl.toggleCeval)
+        }
+      }),
+      h('label', { attrs: { 'for': 'analyse-toggle-ceval' } })
+    ])
+
+    return h('div.ceval_box', {
+      class: {
+        computing: percent < 100 && instance.isComputing()
       }
+    }, [progressBar].concat(body).concat(switchButton).concat(threatButton(ctrl)));
+    }
+
+    function checkHover(el: HTMLElement, instance: CevalController): void {
       setTimeout(function() {
         instance.setHovering($(el).attr('data-fen'), $(el).find('div.pv:hover').attr('data-uci'));
       }, 100);
     }
-  }, range(multiPv).map(function(i) {
-    if (!pvs[i]) return m('div.pv');
-    else return m('div.pv', threat ? {} : {
-      'data-uci': pvs[i].moves[0]
-    }, [
-      multiPv > 1 ? m('strong', defined(pvs[i].mate) ? ('#' + pvs[i].mate) : renderEval(pvs[i].cp!)) : null,
-      m('span', pv2san(instance.variant.key, ctrl.vm.node.fen, threat, pvs[i].moves, pvs[i].mate))
-    ]);
-  }));
-}
+
+    export function renderPvs(ctrl: ParentController) {
+      const instance = ctrl.getCeval();
+      if (!instance.allowed() || !instance.possible || !instance.enabled()) return;
+      const multiPv = parseInt(instance.multiPv());
+      let pvs : Tree.PvData[], threat = false;
+      if (ctrl.vm.threatMode && ctrl.vm.node.threat) {
+        pvs = ctrl.vm.node.threat.pvs;
+        threat = true;
+      } else if (ctrl.vm.node.ceval)
+      pvs = ctrl.vm.node.ceval.pvs;
+      else
+      pvs = [];
+      return h('div.pv_box', {
+        attrs: { 'data-fen': ctrl.vm.node.fen },
+        hook: {
+          insert: vnode => {
+            const el = vnode.elm as HTMLElement;
+            el.addEventListener('mouseover', function(e) {
+              instance.setHovering($(el).attr('data-fen'), $(e.target).closest('div.pv').attr('data-uci'));
+            });
+            el.addEventListener('mouseout', function() {
+              instance.setHovering($(el).attr('data-fen'), null);
+            });
+            el.addEventListener('mousedown', function(e) {
+              const uci = $(e.target).closest('div.pv').attr('data-uci');
+              if (uci) ctrl.playUci(uci);
+            });
+            checkHover(el, instance);
+          },
+          postpatch: (_, vnode) => checkHover(vnode.elm as HTMLElement, instance)
+        }
+      }, range(multiPv).map(function(i) {
+        if (!pvs[i]) return h('div.pv');
+        else return h('div.pv', threat ? {} : {
+          attrs: { 'data-uci': pvs[i].moves[0] }
+        }, [
+          multiPv > 1 ? h('strong', defined(pvs[i].mate) ? ('#' + pvs[i].mate) : renderEval(pvs[i].cp!)) : null,
+          h('span', pv2san(instance.variant.key, ctrl.vm.node.fen, threat, pvs[i].moves, pvs[i].mate))
+        ]);
+      }));
+    }

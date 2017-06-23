@@ -3,12 +3,13 @@ import { StoredBooleanProp } from 'common';
 import Autoplay from './autoplay';
 import { Api as ChessgroundApi } from 'chessground/api';
 import { CevalController, NodeEvals } from 'ceval';
-import { VNode } from 'snabbdom/vnode'
+import { RetroController } from './retrospect/retroCtrl';
 
 export type MaybeVNode = VNode | null | undefined;
 export type MaybeVNodes = MaybeVNode[]
 
 export { Key, Piece } from 'chessground/types';
+import { VNode } from 'snabbdom/vnode'
 
 export interface AnalyseController {
   opts: AnalyseOpts;
@@ -67,6 +68,7 @@ export interface AnalyseController {
   showEvalGauge(): boolean;
   bottomColor(): Color;
   topColor(): Color;
+  mainlinePathToPly(ply: Ply): Tree.Path
 }
 
 export interface AnalyseData extends GameData {
@@ -116,10 +118,6 @@ export interface Vm {
   showAutoShapes: StoredBooleanProp;
   showGauge: StoredBooleanProp;
   threatMode: boolean;
-}
-
-export interface RetroController {
-  isSolving(): boolean
 }
 
 export interface PracticeController {
