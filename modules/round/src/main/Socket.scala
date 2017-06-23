@@ -107,9 +107,9 @@ private[round] final class Socket(
       onDeploy(d)
       history.enablePersistence
 
-    case Ping(uid, Some(v), lt) =>
+    case PingVersion(uid, v) =>
       timeBomb.delay
-      ping(uid, lt)
+      ping(uid)
       ownerOf(uid) foreach { o =>
         playerDo(o.color, _.ping)
       }

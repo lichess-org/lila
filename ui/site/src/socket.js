@@ -15,7 +15,7 @@ lichess.StrongSocket = function(url, version, settings) {
   var connectSchedule = null;
   var ackable = makeAckable(function(t, d) { send(t, d) });
   var lastPingTime = now();
-  var pongCount = 0;
+  var currentLag = 0;
   var averageLag = 0;
   var tryOtherUrl = false;
   var autoReconnect = true;
@@ -122,24 +122,17 @@ lichess.StrongSocket = function(url, version, settings) {
   var pong = function() {
     clearTimeout(connectSchedule);
     schedulePing(computePingDelay());
-    var currentLag = Math.min(now() - lastPingTime, 10000);
-    pongCount++;
-
-    // Average first 4 pings, then switch to decaying average.
-    var mix = pongCount > 4 ? 0.1 : 1 / pongCount;
-    averageLag += mix * (currentLag - averageLag);
-
+    currentLag = now() - lastPingTime;
+    if (!averageLag) averageLag = currentLag;
+    else averageLag = 0.2 * (currentLag - averageLag) + averageLag;
     lichess.pubsub.emit('socket.lag')(averageLag);
   };
 
   var pingData = function() {
-    if (!versioned) return '{"t":"p"}';
-    var data = {
+    return versioned ? JSON.stringify({
       t: "p",
       v: version
-    };
-    if (pongCount % 8 === 4) data.l = Math.round(.01 * averageLag);
-    return JSON.stringify(data);
+    }) : '{"t":"p"}';
   };
 
   var handle = function(m) {

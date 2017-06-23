@@ -163,8 +163,8 @@ private final class Socket(
 
     case ReloadUid(uid) => notifyUid("reload", JsNull)(uid)
 
-    case Ping(uid, Some(v), lt) =>
-      ping(uid, lt)
+    case PingVersion(uid, v) =>
+      ping(uid)
       timeBomb.delay
       withMember(uid) { m =>
         history.since(v).fold(resync(m))(_ foreach sendMessage(m))

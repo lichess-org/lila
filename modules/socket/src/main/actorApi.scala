@@ -8,7 +8,8 @@ case class Connected[M <: SocketMember](
   member: M
 )
 case class Sync(uid: String, friends: List[String])
-case class Ping(uid: String, version: Option[Int], lagTenths: Option[Int])
+case class Ping(uid: String)
+case class PingVersion(uid: String, version: Int)
 case object Broom
 case class Quit(uid: String)
 

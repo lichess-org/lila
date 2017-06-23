@@ -68,7 +68,9 @@ private[study] final class SocketHandler(
     member: Socket.Member,
     user: Option[User]
   ): Handler.Controller = ({
-    case ("p", o) => socket ! Ping(uid.value, o int "v", o int "l")
+    case ("p", o) => o int "v" foreach { v =>
+      socket ! PingVersion(uid.value, v)
+    }
     case ("talk", o) => o str "d" foreach { text =>
       member.userId foreach { userId =>
         api.talk(userId, studyId, text, socket)
