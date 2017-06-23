@@ -109,8 +109,7 @@ lichess.trans = function(i18n) {
     return (c == 1) ? 'one' : 'other';
   };
 
-  var format = function(str) {
-    var args = Array.prototype.slice.call(arguments, 1);
+  var format = function(str, args) {
     if (args.length && str.indexOf('$s') > -1) {
       for (var i = 1; i < 4; i++) {
         str = str.replace('%' + i + '$s', args[i - 1]);
@@ -123,12 +122,12 @@ lichess.trans = function(i18n) {
   };
 
   var trans = function(key) {
-    return i18n[key] ? i18n[key] : key;
+    return i18n[key] ? format(i18n[key], Array.prototype.slice.call(arguments, 1)) : key;
   };
   trans.plural = function(key, quantity) {
     var pluralKey = key + ':' + plural(quantity);
     var str = i18n[pluralKey] || i18n[key + ':other'] || i18n[key];
-    return str ? format(str, quantity) : key;
+    return str ? format(str, Array.prototype.slice.call(arguments, 1)) : key;
   };
   trans.noarg = function(key) {
     // optimisation for translations without arguments
