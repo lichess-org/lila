@@ -196,9 +196,9 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
             21 -> StartingPosition.presets.frankenstein
           ) |
             List( // random opening replaces hourly 3 times a day
-              4 -> opening(offset = 0),
-              12 -> opening(offset = 1),
-              20 -> opening(offset = 2)
+              3 -> opening(offset = 2),
+              11 -> opening(offset = 1),
+              19 -> opening(offset = 0)
             )).flatMap {
                 case (hour, opening) => List(
                   at(today, hour) map { date => Schedule(Hourly, Bullet, Standard, opening, date |> orTomorrow) },
