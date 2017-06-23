@@ -36,6 +36,6 @@
     "chess": "link:../chess",
     "common": "link:../common",
     "defer-promise": "^1.0.1",
-    "mithril": "github:ornicar/mithril.js#lila-vdom-only-2"
+    "snabbdom": "^0.6"
   }
 }

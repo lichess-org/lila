@@ -8,6 +8,8 @@ import { VNode } from 'snabbdom/vnode'
 export type MaybeVNode = VNode | null | undefined;
 export type MaybeVNodes = MaybeVNode[]
 
+export { Key, Piece } from 'chessground/types';
+
 export interface AnalyseController {
   opts: AnalyseOpts;
   redraw: () => void;
@@ -33,7 +35,7 @@ export interface AnalyseController {
   cevalSetThreads(v: number): void;
   cevalSetMultiPv(v: number): void;
   cevalSetHashSize(v: number): void;
-  encodeNodeFen(): string;
+  encodeNodeFen(): Fen;
   toggleThreatMode(): void;
   toggleCeval(): void;
   gameOver(): boolean;

@@ -1,5 +1,6 @@
 import { opposite } from 'chessground/util';
 import { Api as ChessgroundApi } from 'chessground/api';
+import { Config as ChessgroundConfig } from 'chessground/config';
 import { tree as makeTree, path as treePath, ops as treeOps } from 'tree';
 import * as keyboard from './keyboard';
 import { Controller as ActionMenuController } from './actionMenu';
@@ -21,7 +22,7 @@ import makePractice = require('./practice/practiceCtrl');
 import makeEvalCache = require('./evalCache');
 import { compute as computeAutoShapes } from './autoShape';
 import nodeFinder = require('./nodeFinder');
-import { AnalyseController, AnalyseOpts, AnalyseData } from './interfaces';
+import { AnalyseController, AnalyseOpts, AnalyseData, Key } from './interfaces';
 
 export default class AnalyseCtrl {
 
@@ -45,8 +46,8 @@ export default class AnalyseCtrl {
   explorer: any; // #TODO
 
   // state flags
-  justPlayed: boolean = false;
-  justDropped: boolean = false;
+  justPlayed: string; // pos
+  justDropped: string; // role
   justCaptured: boolean = false;
   autoScrollRequested: boolean = false;
   redirecting: boolean = false;
@@ -58,7 +59,7 @@ export default class AnalyseCtrl {
   flipped: boolean = false;
   embed: boolean;
   showComments: boolean = true; // whether to display comments in the move tree
-    showAutoShapes: boolean = storedProp('show-auto-shapes', true);
+  showAutoShapes: boolean = storedProp('show-auto-shapes', true);
   showGauge: boolean = storedProp('show-gauge', true);
   showComputer: boolean = storedProp('show-computer', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
@@ -117,12 +118,13 @@ export default class AnalyseCtrl {
     this.explorer = explorerCtrl(this, opts.explorer, this.explorer ? this.explorer.allowed() : !this.embed, redraw);
     this.gamePath = (this.synthetic || this.ongoing) ? undefined :
       treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
+    this.fork = makeFork(this);
   }
 
   setPath(path: Tree.Path): void {
     this.path = path;
     this.nodeList = this.tree.getNodeList(path);
-    this.node = treeOps.last(this.vm.nodeList);
+    this.node = treeOps.last(this.nodeList);
     this.mainline = treeOps.mainlineNodeList(this.tree.root);
     this.onMainline = this.tree.pathIsMainline(path)
   }
@@ -167,38 +169,35 @@ export default class AnalyseCtrl {
     return [uci.substr(0, 2), uci.substr(2, 2)];
   };
 
-  this.fork = makeFork(this);
-
-  var showGround = function() {
-    var node = this.vm.node;
+  private showGround(): void {
     onChange();
-    if (!defined(node.dests)) getDests();
+    if (!defined(this.node.dests)) getDests();
     if (this.chessground) {
       this.chessground.set(this.makeCgOpts());
       this.setAutoShapes();
-      if (node.shapes) this.chessground.setShapes(node.shapes);
+      if (this.node.shapes) this.chessground.setShapes(this.node.shapes);
     }
-  }.bind(this);
+  }
 
-  var getDests = throttle(800, false, function() {
-    if (!this.embed && !defined(this.vm.node.dests)) this.socket.sendAnaDests({
+  getDests: () => void = throttle(800, false, () => {
+    if (!this.embed && !defined(this.dests)) this.socket.sendAnaDests({
       variant: this.data.game.variant.key,
-      fen: this.vm.node.fen,
-      path: this.vm.path
+      fen: this.node.fen,
+      path: this.path
     });
-  }.bind(this));
+  });
 
-  this.makeCgOpts = function() {
-    var node = this.vm.node;
-    var color = this.turnColor();
-    var dests = chessUtil.readDests(node.dests);
-    var drops = chessUtil.readDrops(node.drops);
-    var movableColor = this.practice ? this.bottomColor() : (
+  makeCgOpts(): ChessgroundConfig {
+    const node = this.node;
+    const color = this.turnColor();
+    const dests = chessUtil.readDests(node.dests);
+    const drops = chessUtil.readDrops(node.drops);
+    const movableColor = this.practice ? this.bottomColor() : (
       !this.embed && (
         (dests && Object.keys(dests).length > 0) ||
         drops === null || drops.length
       ) ? color : null);
-    var config = {
+    const config = {
       fen: node.fen,
       turnColor: color,
       movable: this.embed ? {
@@ -220,11 +219,13 @@ export default class AnalyseCtrl {
     config.premovable = {
       enabled: config.movable.color && config.turnColor !== config.movable.color
     };
-    this.vm.cgConfig = config;
+    this.cgConfig = config;
     return config;
-  }.bind(this);
+  }
 
-  var sound = lichess.sound ? {
+  private lichess: Lichess = window.lichess;
+
+  private sound: any = lichess.sound ? {
     move: throttle(50, false, lichess.sound.move),
     capture: throttle(50, false, lichess.sound.capture),
     check: throttle(50, false, lichess.sound.check)
@@ -234,38 +235,38 @@ export default class AnalyseCtrl {
     check: $.noop
   };
 
-  var onChange = opts.onChange ? throttle(300, false, function() {
-    var mainlinePly = this.vm.onMainline ? this.vm.node.ply : false;
-    opts.onChange(this.vm.node.fen, this.vm.path, mainlinePly);
-  }.bind(this)) : $.noop;
+  private onChange: () => void = opts.onChange ? throttle(300, false, function() {
+    const mainlinePly = this.onMainline ? this.node.ply : false;
+    opts.onChange(this.node.fen, this.path, mainlinePly);
+  }) : $.noop;
 
-  var updateHref = opts.study ? $.noop : throttle(750, false, function() {
-    window.history.replaceState(null, null, '#' + this.vm.node.ply);
-  }.bind(this), false);
+  private updateHref: () => void = opts.study ? $.noop : throttle(750, false, function() {
+    window.history.replaceState(null, null, '#' + this.node.ply);
+  }, false);
 
-  this.autoScroll = function() {
-    this.vm.autoScrollRequested = true;
-  }.bind(this);
+  autoScroll(): void {
+    this.autoScrollRequested = true;
+  }
 
-  this.jump = function(path) {
-    var pathChanged = path !== this.vm.path;
+  jump(path: Tree.Path): void {
+    const pathChanged = path !== this.path;
     this.setPath(path);
     showGround();
     if (pathChanged) {
-      if (this.study) this.study.setPath(path, this.vm.node);
-      if (!this.vm.node.uci) sound.move(); // initial position
-      else if (this.vm.node.uci.indexOf(this.vm.justPlayed) !== 0) {
-        if (this.vm.node.san.indexOf('x') !== -1) sound.capture();
+      if (this.study) this.study.setPath(path, this.node);
+      if (!this.node.uci) sound.move(); // initial position
+      else if (this.node.uci.indexOf(this.justPlayed) !== 0) {
+        if (this.node.san.indexOf('x') !== -1) sound.capture();
         else sound.move();
       }
-      if (/\+|\#/.test(this.vm.node.san)) sound.check();
-      this.vm.threatMode = false;
+      if (/\+|\#/.test(this.node.san)) sound.check();
+      this.threatMode = false;
       this.ceval.stop();
       this.startCeval();
     }
-    this.vm.justPlayed = null;
-    this.vm.justDropped = null;
-    this.vm.justCaptured = null;
+    this.justPlayed = null;
+    this.justDropped = null;
+    this.justCaptured = null;
     this.explorer.setNode();
     updateHref();
     this.autoScroll();
@@ -275,109 +276,101 @@ export default class AnalyseCtrl {
       if (this.practice) this.practice.onJump();
       if (this.study) this.study.onJump();
     }
-    if (this.music) this.music.jump(this.vm.node);
-  }.bind(this);
+    if (this.music) this.music.jump(this.node);
+  }
 
-  this.userJump = function(path) {
+  userJump(path: Tree.Path): void {
     this.autoplay.stop();
-    this.chessground && this.chessground.selectSquare(null);
+    if (this.chessground) this.chessground.selectSquare(null);
     if (this.practice) {
-      var prev = this.vm.path;
+      const prev = this.path;
       this.practice.preUserJump(prev, path);
       this.jump(path);
-      this.practice.postUserJump(prev, this.vm.path);
+      this.practice.postUserJump(prev, this.path);
     } else {
       this.jump(path);
     }
-  }.bind(this);
+  }
 
-  var canJumpTo = function(path) {
+  private canJumpTo(path: Tree.Path): boolean {
     return !this.study || this.study.canJumpTo(path);
-  }.bind(this);
+  }
 
-  this.userJumpIfCan = function(path) {
+  userJumpIfCan(path: Tree.Path): void {
     if (canJumpTo(path)) this.userJump(path);
-  }.bind(this);
+  }
 
-  this.mainlinePathToPly = function(ply) {
-    return treeOps.takePathWhile(this.vm.mainline, function(n) {
-      return n.ply <= ply;
-    });
-  }.bind(this);
+  mainlinePathToPly(ply: Ply): Tree.Path {
+    return treeOps.takePathWhile(this.mainline, n => n.ply <= ply);
+  }
 
-  this.jumpToMain = function(ply) {
+  jumpToMain(ply: Ply): void {
     this.userJump(this.mainlinePathToPly(ply));
-  }.bind(this);
+  }
 
-  this.jumpToIndex = function(index) {
+  jumpToIndex(index: nunmber): void {
     this.jumpToMain(index + 1 + this.data.game.startedAtTurn);
-  }.bind(this);
+  }
 
-  this.jumpToGlyphSymbol = function(color, symbol) {
-    var node = nodeFinder.nextGlyphSymbol(color, symbol, this.vm.mainline, this.vm.node.ply);
+  jumpToGlyphSymbol(color: Color, symbol: string): void {
+    const node = nodeFinder.nextGlyphSymbol(color, symbol, this.mainline, this.node.ply);
     if (node) this.jumpToMain(node.ply);
-    m.redraw();
-  }.bind(this);
+    redraw();
+  }
 
-  this.reloadData = function(data, merge) {
+  reloadData(data; AnalyseData, merge: boolean): void {
     initialize(data, merge);
-    this.vm.redirecting = false;
+    this.redirecting = false;
     this.setPath(treePath.root);
     instanciateCeval();
     instanciateEvalCache();
-  }.bind(this);
+  }
 
-  this.changePgn = function(pgn) {
-    this.vm.redirecting = true;
+  changePgn(pgn: string): void {
+    this.redirecting = true;
     $.ajax({
       url: '/analysis/pgn',
       method: 'post',
-      data: {
-        pgn: pgn
-      },
+      data: { pgn },
       success: function(data) {
         this.reloadData(data);
         this.userJump(this.mainlinePathToPly(this.tree.lastPly()));
       }.bind(this),
       error: function(error) {
         console.log(error);
-        this.vm.redirecting = false;
-        m.redraw();
+        this.redirecting = false;
+        redraw();
       }.bind(this)
     });
-  }.bind(this);
-
-  this.changeFen = function(fen) {
-    this.vm.redirecting = true;
-    window.location = makeUrl(this.data.game.variant.key, fen);
-  }.bind(this);
-
-  var makeUrl = function(variantKey, fen) {
-    return '/analysis/' + variantKey + '/' + encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
   }
 
-  this.userNewPiece = function(piece, pos) {
-    if (crazyValid(this.chessground, this.vm.node.drops, piece, pos)) {
-      this.vm.justPlayed = chessUtil.roleToSan[piece.role] + '@' + pos;
-      this.vm.justDropped = piece.role;
-      this.vm.justCaptured = null;
+  changeFen(fen: Fen): string {
+    this.redirecting = true;
+    window.location = '/analysis/' + this.data.game.variant.key + '/' + encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
+  }
+
+  userNewPiece(piece: Piece, pos: Key) {
+    if (crazyValid(this.chessground, this.node.drops, piece, pos)) {
+      this.justPlayed = chessUtil.roleToSan[piece.role] + '@' + pos;
+      this.justDropped = piece.role;
+      this.justCaptured = null;
       sound.move();
-      var drop = {
+      const drop = {
         role: piece.role,
         pos: pos,
         variant: this.data.game.variant.key,
-        fen: this.vm.node.fen,
-        path: this.vm.path
+        fen: this.node.fen,
+        path: this.path
       };
       this.socket.sendAnaDrop(drop);
       preparePremoving();
-      m.redraw();
-    } else this.jump(this.vm.path);
-  }.bind(this);
+      redraw();
+    } else this.jump(this.path);
+  }
 
-  this.userMove = function(orig, dest, capture) {
-    this.vm.justPlayed = orig;
-    this.vm.justDropped = null;
+  userMove(orig, dest, capture) {
+    this.justPlayed = orig;
+    this.justDropped = null;
     sound[capture ? 'capture' : 'move']();
     if (!promotion.start(this, orig, dest, capture, sendMove)) sendMove(orig, dest, capture);
   }.bind(this);
@@ -387,10 +380,10 @@ export default class AnalyseCtrl {
       orig: orig,
       dest: dest,
       variant: this.data.game.variant.key,
-      fen: this.vm.node.fen,
-      path: this.vm.path
+      fen: this.node.fen,
+      path: this.path
     };
-    if (capture) this.vm.justCaptured = capture;
+    if (capture) this.justCaptured = capture;
     if (prom) move.promotion = prom;
     if (this.practice) this.practice.onUserMove();
     this.socket.sendAnaMove(move);
@@ -424,7 +417,7 @@ export default class AnalyseCtrl {
 
   this.addDests = function(dests, path, opening) {
     this.tree.addDests(dests, path, opening);
-    if (path === this.vm.path) {
+    if (path === this.path) {
       showGround();
       m.redraw();
       if (this.gameOver()) this.ceval.stop();
@@ -440,8 +433,8 @@ export default class AnalyseCtrl {
       'Delete ' + util.plural('move', count.nodes) + (count.comments ? ' and ' + util.plural('comment', count.comments) : '') + '?'
     )) return;
     this.tree.deleteNodeAt(path);
-    if (treePath.contains(this.vm.path, path)) this.userJump(treePath.init(path));
-    else this.jump(this.vm.path);
+    if (treePath.contains(this.path, path)) this.userJump(treePath.init(path));
+    else this.jump(this.path);
     this.study && this.study.deleteNode(path);
   }.bind(this);
 
@@ -457,11 +450,11 @@ export default class AnalyseCtrl {
   }.bind(this);
 
   this.encodeNodeFen = function() {
-    return this.vm.node.fen.replace(/\s/g, '_');
+    return this.node.fen.replace(/\s/g, '_');
   }.bind(this);
 
   this.currentEvals = function() {
-    var node = this.vm.node;
+    var node = this.node;
     return {
       server: node.eval,
       client: node.ceval
@@ -473,7 +466,7 @@ export default class AnalyseCtrl {
     router.forecasts(this.data)) : null;
 
   this.nextNodeBest = function() {
-    return treeOps.withMainlineChild(this.vm.node, function(n) {
+    return treeOps.withMainlineChild(this.node, function(n) {
       return n.eval ? n.eval.best : null;
     });
   }.bind(this);
@@ -491,7 +484,7 @@ export default class AnalyseCtrl {
       } else if (isEvalBetter(ev, node.ceval)) node.ceval = ev;
       else if (node.ceval && ev.maxDepth > node.ceval.maxDepth) node.ceval.maxDepth = ev.maxDepth;
 
-      if (path === this.vm.path) {
+      if (path === this.path) {
         this.setAutoShapes();
         if (!threatMode) {
           if (this.retro) this.retro.onCeval();
@@ -518,7 +511,7 @@ export default class AnalyseCtrl {
       setAutoShapes: this.setAutoShapes,
       failsafe: failsafe,
       onCrash: function(lastError) {
-        var ceval = this.vm.node.ceval;
+        var ceval = this.node.ceval;
         console.log('Local eval failed after depth ' + (ceval && ceval.depth));
         var env = this.ceval.env();
         var desc = [
@@ -560,21 +553,21 @@ export default class AnalyseCtrl {
   }.bind(this);
 
   this.gameOver = function(node) {
-    var n = node || this.vm.node;
+    var n = node || this.node;
     if (n.dests !== '' || n.drops) return false;
     if (n.check) return 'checkmate';
     return 'draw';
   }.bind(this);
 
   var canUseCeval = function() {
-    return !this.gameOver() && !this.vm.node.threefold;
+    return !this.gameOver() && !this.node.threefold;
   }.bind(this);
 
   this.startCeval = throttle(800, false, function() {
     if (this.ceval.enabled()) {
       if (canUseCeval()) {
-        this.ceval.start(this.vm.path, this.vm.nodeList, this.vm.threatMode);
-        this.evalCache.fetch(this.vm.path, parseInt(this.ceval.multiPv()));
+        this.ceval.start(this.path, this.nodeList, this.threatMode);
+        this.evalCache.fetch(this.path, parseInt(this.ceval.multiPv()));
       } else this.ceval.stop();
     }
   }.bind(this));
@@ -584,18 +577,18 @@ export default class AnalyseCtrl {
     this.setAutoShapes();
     this.startCeval();
     if (!this.ceval.enabled()) {
-      this.vm.threatMode = false;
+      this.threatMode = false;
       if (this.practice) this.togglePractice();
     }
     m.redraw();
   }.bind(this);
 
   this.toggleThreatMode = function() {
-    if (this.vm.node.check) return;
+    if (this.node.check) return;
     if (!this.ceval.enabled()) this.ceval.toggle();
     if (!this.ceval.enabled()) return;
-    this.vm.threatMode = !this.vm.threatMode;
-    if (this.vm.threatMode && this.practice) this.togglePractice();
+    this.threatMode = !this.threatMode;
+    if (this.threatMode && this.practice) this.togglePractice();
     this.setAutoShapes();
     this.startCeval();
     m.redraw();
@@ -638,7 +631,7 @@ export default class AnalyseCtrl {
   }.bind(this);
 
   this.showEvalGauge = function() {
-    return this.hasAnyComputerAnalysis() && this.vm.showGauge() && !this.gameOver() && this.vm.showComputer();
+    return this.hasAnyComputerAnalysis() && this.showGauge() && !this.gameOver() && this.showComputer();
   }.bind(this);
 
   this.hasAnyComputerAnalysis = function() {
@@ -646,25 +639,25 @@ export default class AnalyseCtrl {
   }.bind(this);
 
   this.hasFullComputerAnalysis = function() {
-    return this.vm.mainline[0].eval && Object.keys(this.vm.mainline[0].eval).length;
+    return this.mainline[0].eval && Object.keys(this.mainline[0].eval).length;
   }.bind(this);
 
   var resetAutoShapes = function() {
-    if (this.vm.showAutoShapes()) this.setAutoShapes();
+    if (this.showAutoShapes()) this.setAutoShapes();
     else this.chessground && this.chessground.setAutoShapes([]);
   }.bind(this);
 
   this.toggleAutoShapes = function(v) {
-    this.vm.showAutoShapes(v);
+    this.showAutoShapes(v);
     resetAutoShapes();
   }.bind(this);
 
   this.toggleGauge = function() {
-    this.vm.showGauge(!this.vm.showGauge());
+    this.showGauge(!this.showGauge());
   }.bind(this);
 
   var onToggleComputer = function() {
-    if (!this.vm.showComputer()) {
+    if (!this.showComputer()) {
       this.tree.removeComputerVariations();
       if (this.ceval.enabled()) this.toggleCeval();
       this.chessground && this.chessground.setAutoShapes([]);
@@ -672,8 +665,8 @@ export default class AnalyseCtrl {
   }.bind(this);
 
   this.toggleComputer = function() {
-    var value = !this.vm.showComputer();
-    this.vm.showComputer(value);
+    var value = !this.showComputer();
+    this.showComputer(value);
     if (!value && this.practice) this.togglePractice();
     if (opts.onToggleComputer) opts.onToggleComputer(value);
     onToggleComputer();
@@ -681,7 +674,7 @@ export default class AnalyseCtrl {
 
   this.mergeAnalysisData = function(data) {
     this.tree.merge(data.tree);
-    if (!this.vm.showComputer()) this.tree.removeComputerVariations();
+    if (!this.showComputer()) this.tree.removeComputerVariations();
     this.data.analysis = data.analysis;
     if (this.retro) this.retro.onMergeAnalysisData();
     m.redraw();
@@ -706,7 +699,7 @@ export default class AnalyseCtrl {
   }.bind(this);
 
   this.playBestMove = function() {
-    var uci = this.nextNodeBest() || (this.vm.node.ceval && this.vm.node.ceval.pvs[0].moves[0]);
+    var uci = this.nextNodeBest() || (this.node.ceval && this.node.ceval.pvs[0].moves[0]);
     if (uci) this.playUci(uci);
   }.bind(this);
 
@@ -728,7 +721,7 @@ export default class AnalyseCtrl {
         );
       }.bind(this),
       getNode: function() {
-        return this.vm.node;
+        return this.node;
       }.bind(this),
       send: this.socket.send,
       receive: onNewCeval

@@ -973,10 +973,6 @@ minimist@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
 
-"mithril@github:ornicar/mithril.js#lila-vdom-only-2":
-  version "0.2.1-lila-vdom-only"
-  resolved "https://codeload.github.com/ornicar/mithril.js/tar.gz/cdaa8462e148712b3a96f8274cbc8bdb73f5530d"
-
 mkdirp@^0.5.0, mkdirp@^0.5.1:
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
@@ -1311,6 +1307,10 @@ signal-exit@^3.0.0, signal-exit@^3.0.1:
 slide@^1.1.5:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/slide/-/slide-1.1.6.tgz#56eb027d65b4d2dce6cb2e2d32c4d4afc9e1d707"
+
+snabbdom@^0.6:
+  version "0.6.9"
+  resolved "https://registry.yarnpkg.com/snabbdom/-/snabbdom-0.6.9.tgz#65a392f4c82ca7e8ec72aa0d2fa797cf5c73b8d7"
 
 sntp@1.x.x:
   version "1.0.9"
