@@ -1,9 +1,11 @@
-import { AnalyseController, AutoplayDelay } from './interfaces';
+import AnalyseController from './ctrl';
 
-import * as m from 'mithril';
 import * as control from './control';
 
-export default class Autoplay {
+export type AutoplayDelay = number | 'realtime' | 'cpl_fast' | 'cpl_slow' | 'fast' | 'slow';
+
+export class Autoplay {
+
   private ctrl: AnalyseController;
   private timeout: number | undefined;
   private delay: AutoplayDelay | undefined;
@@ -15,11 +17,11 @@ export default class Autoplay {
   private move(): boolean {
     if (control.canGoForward(this.ctrl)) {
       control.next(this.ctrl);
-      m.redraw();
+      this.ctrl.redraw();
       return true;
     }
     this.stop();
-    m.redraw();
+    this.ctrl.redraw();
     return false;
   }
 
@@ -32,19 +34,19 @@ export default class Autoplay {
   private nextDelay(): number {
     if (typeof this.delay === 'string') {
       // in a variation
-      if (!this.ctrl.vm.onMainline) return 1500;
+      if (!this.ctrl.onMainline) return 1500;
       if (this.delay === 'realtime') {
-        if (this.ctrl.vm.node.ply < 2) return 1000;
+        if (this.ctrl.node.ply < 2) return 1000;
         const centis = this.ctrl.data.game.moveCentis;
         if (!centis) return 1500;
-        const time = centis[this.ctrl.vm.node.ply - this.ctrl.tree.root.ply];
+        const time = centis[this.ctrl.node.ply - this.ctrl.tree.root.ply];
         // estimate 130ms of lag to improve playback.
         return time * 10 + 130 || 2000;
       } else {
         var slowDown = this.delay === 'cpl_fast' ? 10 : 30;
-        if (this.ctrl.vm.node.ply >= this.ctrl.vm.mainline.length - 1) return 0;
-        var currPlyCp = this.evalToCp(this.ctrl.vm.node);
-        var nextPlyCp = this.evalToCp(this.ctrl.vm.node.children[0]);
+        if (this.ctrl.node.ply >= this.ctrl.mainline.length - 1) return 0;
+        var currPlyCp = this.evalToCp(this.ctrl.node);
+        var nextPlyCp = this.evalToCp(this.ctrl.node.children[0]);
         return Math.max(500,
           Math.min(10000,
             Math.abs(currPlyCp - nextPlyCp) * slowDown));

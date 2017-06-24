@@ -398,9 +398,9 @@ chalk@^1.0.0, chalk@^1.1.1:
   version "0.0.0"
   uid ""
 
-chessground@^6.4:
-  version "6.4.23"
-  resolved "https://registry.yarnpkg.com/chessground/-/chessground-6.4.23.tgz#61cee7c26e970946f8e1332befeca32fe631eca8"
+chessground@^6.5:
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/chessground/-/chessground-6.5.0.tgz#014ec1bbc8dc568c5eda107957c72747399cf8c2"
 
 chokidar@^1.0.0:
   version "1.7.0"
@@ -1596,10 +1596,6 @@ minimist@0.0.8:
 minimist@^1.1.0, minimist@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
-
-"mithril@github:ornicar/mithril.js#lila-vdom-only-2":
-  version "0.2.1-lila-vdom-only"
-  resolved "https://codeload.github.com/ornicar/mithril.js/tar.gz/cdaa8462e148712b3a96f8274cbc8bdb73f5530d"
 
 "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1:
   version "0.5.1"

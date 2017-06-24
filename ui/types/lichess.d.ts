@@ -141,7 +141,7 @@ declare namespace Tree {
     fen: Fen;
     children: Node[];
     comments?: Comment[];
-    dests: string | undefined | null;
+    dests?: string;
     drops: string | undefined | null;
     check: boolean;
     threat?: ClientEval;

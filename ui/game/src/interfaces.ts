@@ -39,7 +39,7 @@ export interface Player {
   id: string;
   name: string;
   user: User;
-  spectator: boolean;
+  spectator?: boolean;
   color: Color;
   proposingTakeback: boolean;
   offeringDraw: boolean;

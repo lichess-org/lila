@@ -2,10 +2,11 @@ import { evalSwings } from '../nodeFinder';
 import { winningChances } from 'ceval';
 import { path as treePath } from 'tree';
 import { empty, prop } from 'common';
-import { AnalyseController } from '../ctrl';
+import AnalyseController from '../ctrl';
 
 export interface RetroController {
   isSolving(): boolean
+  [key: string]: any;
 }
 
 export function make(root: AnalyseController): RetroController {
@@ -14,7 +15,7 @@ export function make(root: AnalyseController): RetroController {
   const color = root.bottomColor();
   let candidateNodes: Tree.Node[] = [];
   const explorerCancelPlies: number[] = [];
-  const solvedPlies: number[] = [];
+  let solvedPlies: number[] = [];
   const current = prop<any>(null);
   const feedback = prop('find'); // find | eval | win | fail | view
 
@@ -59,10 +60,10 @@ export function make(root: AnalyseController): RetroController {
       openingUcis: []
     });
     // fetch opening explorer moves
-    if (game.variant.key === 'standard' && (!game.division.middle || fault.node.ply < game.division.middle)) {
+    if (game.variant.key === 'standard' && game.division && (!game.division.middle || fault.node.ply < game.division.middle)) {
       root.explorer.fetchMasterOpening(prev.node.fen).then(function(res) {
-        var cur = current();
-        var ucis = [];
+        const cur = current();
+        const ucis: Uci[] = [];
         res.moves.forEach(function(m) {
           if (m.white + m.draws + m.black > 1) ucis.push(m.uci);
         });
@@ -105,10 +106,10 @@ export function make(root: AnalyseController): RetroController {
   };
 
   function isCevalReady(node: Tree.Node): boolean {
-    return node.ceval && (
+    return node.ceval ? (
       node.ceval.depth >= 18 ||
       (node.ceval.depth >= 14 && node.ceval.millis > 7000)
-    );
+    ) : false;
   };
 
   function checkCeval(): void {
@@ -116,7 +117,7 @@ export function make(root: AnalyseController): RetroController {
       cur = current();
     if (!cur || feedback() !== 'eval' || cur.fault.node.ply !== node.ply) return;
     if (isCevalReady(node)) {
-      var diff = winningChances.povDiff(color, node.ceval, cur.prev.node.eval);
+      var diff = winningChances.povDiff(color, node.ceval!, cur.prev.node.eval);
       if (diff > -0.035) onWin();
       else onFail();
     }
@@ -125,7 +126,7 @@ export function make(root: AnalyseController): RetroController {
   function onWin(): void {
     solveCurrent();
     feedback('win');
-    redraw();
+    root.redraw();
   }
 
   function onFail(): void {
@@ -137,7 +138,7 @@ export function make(root: AnalyseController): RetroController {
     root.userJump(current().prev.path);
     if (!root.tree.pathIsMainline(bad.path) && empty(bad.node.children))
       root.tree.deleteNodeAt(bad.path);
-    redraw();
+    root.redraw();
   }
 
   function viewSolution() {
@@ -155,7 +156,7 @@ export function make(root: AnalyseController): RetroController {
     solvedPlies.push(current().fault.node.ply);
   }
 
-  function hideComputerLine(node: Tree.Node, parentPath: Tree.Path): boolean {
+  function hideComputerLine(node: Tree.Node): boolean {
     return (node.ply % 2 === 0) !== (color === 'white') && !isPlySolved(node.ply);
   };
 

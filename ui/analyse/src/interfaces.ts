@@ -1,4 +1,5 @@
 import { Player, Tournament, Simul, Clock, Status, Source } from 'game';
+import * as cg from 'chessground/types';
 
 export type MaybeVNode = VNode | null | undefined;
 export type MaybeVNodes = MaybeVNode[]
@@ -11,7 +12,8 @@ export interface AnalyseData {
   game: Game;
   player: Player;
   opponent: Player;
-  spectator: boolean;
+  orientation: Color;
+  spectator?: boolean; // for compat with GameData, for game functions
   tournament?: Tournament;
   simul?: Simul;
   takebackable: boolean;
@@ -69,6 +71,7 @@ export interface AnalyseOpts {
   study?: any;
   tagTypes?: string;
   practice?: any;
+  onChange?: (fen: Fen, path: Tree.Path, mainlinePly: Ply | false) => void
 }
 
 export interface Study {
@@ -90,5 +93,6 @@ export interface StudyChapter {
 export interface StudyPractice {
 }
 
-export type AutoplayDelay = number | 'realtime' | 'cpl_fast' | 'cpl_slow' |
-                            'fast' | 'slow';
+export interface CgDests {
+  [key: string]: cg.Key[]
+}

@@ -9,7 +9,7 @@ export function render(ctrl) {
         ctrl.setAutoShapes();
         if (ctrl.vm.node.shapes) ctrl.chessground.setShapes(ctrl.vm.node.shapes);
       },
-      destroy: vnode => ctrl.chessground.destroy()
+      destroy: _ => ctrl.chessground.destroy()
     }
   });
 }

@@ -16,7 +16,7 @@ export function renderEval(e: number): string {
 }
 
 export interface Dests {
-  [square: string]: Array<string> | undefined;
+  [square: string]: Array<string>;
 }
 
 export function readDests(lines?: string): Dests | null {
@@ -30,7 +30,7 @@ export function readDests(lines?: string): Dests | null {
   return dests;
 }
 
-export function readDrops(line?: string): string[] | null {
+export function readDrops(line?: string | null): string[] | null {
   if (typeof line === 'undefined' || line === null) return null;
   return line.match(/.{2}/g) || [];
 }

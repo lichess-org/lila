@@ -1,4 +1,5 @@
 import { prop } from 'common';
+import { AnalyseData } from '../interfaces';
 
 export interface ForecastController {
   addNodes(fc): void;
@@ -6,7 +7,9 @@ export interface ForecastController {
   [key: string]: any; // #TODO
 }
 
-export function make(cfg, saveUrl: string, redraw: () => void): ForecastController {
+export function make(cfg, data: AnalyseData, redraw: () => void): ForecastController {
+
+  const saveUrl = `${data.game.id}/${data.player.id}/forecasts`;
 
   let forecasts = cfg.steps || [];
   const loading = prop(false);
