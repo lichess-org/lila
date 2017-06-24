@@ -230,7 +230,7 @@
   <string name="importGame">Játszma importálása</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Importált játszma</item>
-    <item quantity="other">%s Importált játszmák</item>
+    <item quantity="other">%s Importált játszma</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Ez egy ellenőrző sakkfeladvány (CAPTCHA)</string>
   <string name="clickOnTheBoardToMakeYourMove">A táblán való lépéssel bizonyítod, hogy ember vagy.</string>
@@ -261,7 +261,7 @@
   </plurals>
   <string name="more">Több</string>
   <string name="memberSince">Tagság kezdete</string>
-  <string name="lastSeenActive">Utoljára aktív %s</string>
+  <string name="lastSeenActive">Utoljára aktív: %s</string>
   <string name="challengeToPlay">Kihívás játszmára</string>
   <string name="player">Játékos</string>
   <string name="list">Lista</string>
@@ -545,6 +545,10 @@
   <string name="tournamentMayHaveBeenCanceled">Törölték, mivel az összes játékos kilépett mielőtt elkezdődöt volna a torna.</string>
   <string name="returnToTournamentsHomepage">Térj vissza a torna oldalára</string>
   <string name="weeklyPerfTypeRatingDistribution">Az e havi %s pontszámok eloszlása</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">%1$s %2$s játékos ezen a héten.</item>
+    <item quantity="other">%1$s %2$s játékos ezen a héten.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">A te %1$s pontszámod %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Jobb vagy mint a [%1$s:variant name] játékosok [%2$s:percentage]-a.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Még nincs meghatározott %s pontszámod.</string>
@@ -631,4 +635,5 @@
   <string name="error.unknown">Hiba</string>
   <string name="custom">Egyéni</string>
   <string name="notifications">Értesítések</string>
+  <string name="challenges">Kihívások</string>
 </resources>
