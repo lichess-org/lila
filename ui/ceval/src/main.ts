@@ -1,14 +1,14 @@
 /// <reference types="types/lichess" />
 /// <reference types="types/defer-promise" />
 
-import { CevalController, NodeEvals } from './types';
+import { CevalController, NodeEvals, Eval } from './types';
 
 import ctrl from './ctrl';
 import * as view from './view';
 import * as winningChances from './winningChances';
 import pv2san from './pv2san';
 
-export { CevalController, NodeEvals };
+export { CevalController, NodeEvals, Eval };
 
 export { ctrl, view, winningChances, pv2san };
 

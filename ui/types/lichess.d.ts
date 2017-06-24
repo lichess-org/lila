@@ -154,6 +154,7 @@ declare namespace Tree {
     shapes?: Shape[];
     comp?: boolean;
     san?: string;
+    threefold?: boolean;
   }
 
   export interface Comment {

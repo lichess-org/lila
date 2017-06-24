@@ -1,27 +1,31 @@
 import { prop } from 'common';
 
-export default function(cfg, saveUrl: string, redraw: () => void) {
+export interface ForecastController {
+  addNodes(fc): void;
+  reloadToLastPly(): void;
+  [key: string]: any; // #TODO
+}
+
+export function make(cfg, saveUrl: string, redraw: () => void): ForecastController {
 
   let forecasts = cfg.steps || [];
   const loading = prop(false);
 
-  var keyOf = function(fc) {
-    return fc.map(function(node) {
-      return node.ply + ':' + node.uci;
-    }).join(',');
+  function keyOf(fc) {
+    return fc.map(node => node.ply + ':' + node.uci).join(',');
   };
 
-  var contains = function(fc1, fc2) {
+  function contains(fc1, fc2) {
     return fc1.length >= fc2.length && keyOf(fc1).indexOf(keyOf(fc2)) === 0;
   };
 
-  var findStartingWithNode = function(node) {
+  function findStartingWithNode(node) {
     return forecasts.filter(function(fc) {
       return contains(fc, [node]);
     });
   };
 
-  var collides = function(fc1, fc2) {
+  function collides(fc1, fc2) {
     var res = (function() {
       for (var i = 0, max = Math.min(fc1.length, fc2.length); i < max; i++) {
         if (fc1[i].uci !== fc2[i].uci) {
@@ -34,18 +38,18 @@ export default function(cfg, saveUrl: string, redraw: () => void) {
     return res;
   };
 
-  var truncate = function(fc) {
+  function truncate(fc) {
     if (cfg.onMyTurn)
       return (fc.length % 2 !== 1 ? fc.slice(0, -1) : fc).slice(0, 30);
     // must end with player move
     return (fc.length % 2 !== 0 ? fc.slice(0, -1) : fc).slice(0, 30);
   };
 
-  var isLongEnough = function(fc) {
+  function isLongEnough(fc) {
     return fc.length >= (cfg.onMyTurn ? 1 : 2);
   };
 
-  var fixAll = function() {
+  function fixAll() {
     // remove contained forecasts
     forecasts = forecasts.filter(function(fc, i) {
       return forecasts.filter(function(f, j) {
@@ -61,14 +65,14 @@ export default function(cfg, saveUrl: string, redraw: () => void) {
   };
   fixAll();
 
-  var reloadToLastPly = function() {
+  function reloadToLastPly() {
     loading(true);
     redraw();
     history.replaceState(null, '', '#last');
     window.lichess.reload();
   };
 
-  var isCandidate = function(fc) {
+  function isCandidate(fc) {
     fc = truncate(fc);
     if (!isLongEnough(fc)) return false;
     var collisions = forecasts.filter(function(f) {
@@ -78,7 +82,7 @@ export default function(cfg, saveUrl: string, redraw: () => void) {
     return true;
   };
 
-  var save = function() {
+  function save() {
     if (cfg.onMyTurn) return;
     loading(true);
     redraw();
@@ -97,7 +101,7 @@ export default function(cfg, saveUrl: string, redraw: () => void) {
     });
   };
 
-  var playAndSave = function(node) {
+  function playAndSave(node) {
     if (!cfg.onMyTurn) return;
     loading(true);
     redraw();
@@ -121,7 +125,7 @@ export default function(cfg, saveUrl: string, redraw: () => void) {
   };
 
   return {
-    addNodes(fc) {
+    addNodes(fc): void {
       fc = truncate(fc);
       if (!isCandidate(fc)) return;
       fc.forEach(function(node) {

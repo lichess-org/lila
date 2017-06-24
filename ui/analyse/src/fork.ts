@@ -1,11 +1,12 @@
 import { h } from 'snabbdom'
 import { renderIndexAndMove } from './moveView';
 import { bind } from './util';
+import AnalyseController from './ctrl';
 
 export interface ForkController {
-  state: {
+  state(): {
     node: Tree.Node;
-    selected: boolean;
+    selected: number;
     displayed: boolean;
   },
   next: () => boolean | undefined;
@@ -13,15 +14,15 @@ export interface ForkController {
   proceed: (id: string) => boolean | undefined;
 }
 
-export function ctrl(root: AnalyseController): ForkCtrl {
-  let prev: any;
-  let selected = 0;
+export function make(root: AnalyseController): ForkController {
+  let prev: Tree.Node | undefined;
+  let selected: number = 0;
   function displayed() {
-    return root.vm.node.children.length > 1;
+    return root.node.children.length > 1;
   };
   return {
-    state: function() {
-      var node = root.node;
+    state() {
+      const node = root.node;
       if (!prev || prev!.id !== node.id) {
         prev = node;
         selected = 0;
@@ -32,21 +33,21 @@ export function ctrl(root: AnalyseController): ForkCtrl {
         displayed: displayed()
       };
     },
-    next: function() {
+    next() {
       if (displayed()) {
-        selected = Math.min(root.vm.node.children.length - 1, selected + 1);
+        selected = Math.min(root.node.children.length - 1, selected + 1);
         return true;
       }
     },
-    prev: function() {
+    prev() {
       if (displayed()) {
         selected = Math.max(0, selected - 1);
         return true;
       }
     },
-    proceed: function(id) {
+    proceed(id) {
       if (displayed()) {
-        root.userJumpIfCan(root.vm.path + (id || root.vm.node.children[selected].id));
+        root.userJumpIfCan(root.path + (id || root.node.children[selected].id));
         return true;
       }
     }
@@ -57,17 +58,17 @@ export function view(root, concealOf) {
   if (root.embed || root.retro) return;
   var state = root.fork.state();
   if (!state.displayed) return;
-  var isMainline = concealOf && root.vm.onMainline;
+  var isMainline = concealOf && root.onMainline;
   return h('div.fork',
     state.node.children.map(function(node, i) {
-      var conceal = isMainline && concealOf(true)(root.vm.path + node.id, node);
+      var conceal = isMainline && concealOf(true)(root.path + node.id, node);
       if (!conceal) return h('move', {
         class: { selected: i === state.selected },
         hook: bind('click', _ => root.fork.proceed(node.id))
       }, renderIndexAndMove({
         withDots: true,
-        showEval: root.vm.showComputer(),
-        showGlyphs: root.vm.showComputer()
+        showEval: root.showComputer(),
+        showGlyphs: root.showComputer()
       }, node));
     })
   );

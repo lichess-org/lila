@@ -1,5 +1,11 @@
 import { throttle, defined } from 'common';
 
+export interface EvalCache {
+  onCeval(): void
+  fetch(path: Tree.Path, multiPv: number): void
+  onCloudEval(serverEval): void
+}
+
 const evalPutMinDepth = 20;
 const evalPutMinNodes = 3e6;
 const evalPutMaxMoves = 10;
@@ -52,9 +58,9 @@ function toCeval(e) {
   return res;
 }
 
-export default function(opts) {
+export function make(opts): EvalCache {
   const fenFetched: string[] = [];
-  const hasFetched = function(node): boolean {
+  function hasFetched(node): boolean {
     return fenFetched.indexOf(node.fen) !== -1;
   };
   return {
@@ -64,7 +70,7 @@ export default function(opts) {
         opts.send("evalPut", toPutData(opts.variant, ev));
       }
     }),
-    fetch: function(path, multiPv) {
+    fetch(path: Tree.Path, multiPv: number): void {
       const node = opts.getNode();
       if ((node.ceval && node.ceval.cloud) || !opts.canGet(node)) return;
       if (hasFetched(node)) return;
@@ -77,7 +83,7 @@ export default function(opts) {
       if (multiPv > 1 || true) obj.mpv = multiPv;
       opts.send("evalGet", obj);
     },
-    onCloudEval: function(serverEval) {
+    onCloudEval(serverEval): void {
       opts.receive(toCeval(serverEval), serverEval.path);
     }
   };

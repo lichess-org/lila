@@ -2,13 +2,13 @@ import { evalSwings } from '../nodeFinder';
 import { winningChances } from 'ceval';
 import { path as treePath } from 'tree';
 import { empty, prop } from 'common';
-import { AnalyseController } from '../interfaces';
+import { AnalyseController } from '../ctrl';
 
 export interface RetroController {
   isSolving(): boolean
 }
 
-export default function(root: AnalyseController): RetroController {
+export function make(root: AnalyseController): RetroController {
 
   const game = root.data.game;
   const color = root.bottomColor();
@@ -26,7 +26,7 @@ export default function(root: AnalyseController): RetroController {
 
   function findNextNode(): Tree.Node | undefined {
     const colorModulo = root.bottomColor() === 'white' ? 1 : 0;
-    candidateNodes = evalSwings(root.vm.mainline, function(n) {
+    candidateNodes = evalSwings(root.mainline, function(n) {
       return n.ply % 2 === colorModulo && !contains(explorerCancelPlies, n.ply);
     });
     return candidateNodes.find(n => !isPlySolved(n.ply));
@@ -81,10 +81,8 @@ export default function(root: AnalyseController): RetroController {
     m.redraw();
   };
 
-  var onJump = function() {
-    var node = root.vm.node;
-    var fb = feedback();
-    var cur = current();
+  function onJump(): void {
+    const node = root.node, fb = feedback(), cur = current();
     if (!cur) return;
     if (fb === 'eval' && cur.fault.node.ply !== node.ply) {
       feedback('find');
@@ -106,15 +104,15 @@ export default function(root: AnalyseController): RetroController {
     root.setAutoShapes();
   };
 
-  var isCevalReady = function(node) {
+  function isCevalReady(node: Tree.Node): boolean {
     return node.ceval && (
       node.ceval.depth >= 18 ||
       (node.ceval.depth >= 14 && node.ceval.millis > 7000)
     );
   };
 
-  var checkCeval = function() {
-    var node = root.vm.node,
+  function checkCeval(): void {
+    var node = root.node,
       cur = current();
     if (!cur || feedback() !== 'eval' || cur.fault.node.ply !== node.ply) return;
     if (isCevalReady(node)) {
@@ -122,86 +120,82 @@ export default function(root: AnalyseController): RetroController {
       if (diff > -0.035) onWin();
       else onFail();
     }
-  };
+  }
 
-  var onWin = function() {
+  function onWin(): void {
     solveCurrent();
     feedback('win');
-    m.redraw();
-  };
+    redraw();
+  }
 
-  var onFail = function() {
+  function onFail(): void {
     feedback('fail');
-    var bad = {
-      node: root.vm.node,
-      path: root.vm.path
+    const bad = {
+      node: root.node,
+      path: root.path
     };
     root.userJump(current().prev.path);
     if (!root.tree.pathIsMainline(bad.path) && empty(bad.node.children))
       root.tree.deleteNodeAt(bad.path);
-    m.redraw();
-  };
+    redraw();
+  }
 
-  var viewSolution = function() {
+  function viewSolution() {
     feedback('view');
     root.userJump(current().solution.path);
     solveCurrent();
-  };
+  }
 
-  var skip = function() {
+  function skip() {
     solveCurrent();
     jumpToNext();
-  };
+  }
 
-  var solveCurrent = function() {
+  function solveCurrent() {
     solvedPlies.push(current().fault.node.ply);
+  }
+
+  function hideComputerLine(node: Tree.Node, parentPath: Tree.Path): boolean {
+    return (node.ply % 2 === 0) !== (color === 'white') && !isPlySolved(node.ply);
   };
 
-  var hideComputerLine = function(node, parentPath) {
-    return (node.ply % 2 === 0) !== (color === 'white') &&
-      !isPlySolved(node.ply);
-  };
-  var showBadNode = function() {
-    var cur = current();
-    if (cur && isSolving() && cur.prev.path === root.vm.path) return cur.fault.node;
-  };
+  function showBadNode(): Tree.Node | undefined {
+    const cur = current();
+    if (cur && isSolving() && cur.prev.path === root.path) return cur.fault.node;
+  }
 
-  var isSolving = function() {
-    var fb = feedback();
+  function isSolving(): boolean {
+    const fb = feedback();
     return fb === 'find' || fb === 'fail';
-  };
+  }
 
   jumpToNext();
 
-  var onMergeAnalysisData = function() {
+  function onMergeAnalysisData() {
     if (isSolving() && !current()) jumpToNext();
-  };
+  }
 
   return {
-    current: current,
-    color: color,
-    isPlySolved: isPlySolved,
-    onJump: onJump,
-    jumpToNext: jumpToNext,
-    skip: skip,
-    viewSolution: viewSolution,
-    hideComputerLine: hideComputerLine,
-    showBadNode: showBadNode,
+    current,
+    color,
+    isPlySolved,
+    onJump,
+    jumpToNext,
+    skip,
+    viewSolution,
+    hideComputerLine,
+    showBadNode,
     onCeval: checkCeval,
-    onMergeAnalysisData: onMergeAnalysisData,
-    feedback: feedback,
-    isSolving: isSolving,
-    completion: function() {
-      return [solvedPlies.length, candidateNodes.length];
-    },
-    reset: function() {
+    onMergeAnalysisData,
+    feedback,
+    isSolving,
+    completion: () => [solvedPlies.length, candidateNodes.length],
+    reset() {
       solvedPlies = [];
       jumpToNext();
     },
     close: root.toggleRetro,
     trans: root.trans,
-    node: function() {
-      return root.vm.node;
-    }
+    node: () => root.node
   };
 };

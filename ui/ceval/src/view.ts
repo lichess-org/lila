@@ -59,8 +59,8 @@ function threatButton(ctrl: ParentController): VNode | null {
   if (ctrl.disableThreatMode && ctrl.disableThreatMode()) return null;
   return h('a.show-threat', {
     class: {
-      active: ctrl.vm.threatMode,
-      hidden: ctrl.vm.node.check
+      active: ctrl.threatMode,
+      hidden: ctrl.node.check
     },
     attrs: {
       'data-icon': '7',
@@ -117,12 +117,12 @@ export function renderGauge(ctrl: ParentController): VNode | undefined {
 
 export function renderCeval(ctrl: ParentController): VNode | undefined {
   const instance = ctrl.getCeval();
-  if (!instance.allowed() || !instance.possible || !ctrl.vm.showComputer()) return;
+  if (!instance.allowed() || !instance.possible || !ctrl.showComputer()) return;
   const enabled = instance.enabled();
   const evs = ctrl.currentEvals();
   const bestEv = getBestEval(evs);
-  const threatMode = ctrl.vm.threatMode;
-  const threat = threatMode && ctrl.vm.node.threat;
+  const threatMode = ctrl.threatMode;
+  const threat = threatMode && ctrl.node.threat;
   let pearl: VNode | string, percent: number;
   if (bestEv && typeof bestEv.cp !== 'undefined') {
     pearl = renderEval(bestEv.cp);
@@ -211,15 +211,15 @@ export function renderCeval(ctrl: ParentController): VNode | undefined {
       if (!instance.allowed() || !instance.possible || !instance.enabled()) return;
       const multiPv = parseInt(instance.multiPv());
       let pvs : Tree.PvData[], threat = false;
-      if (ctrl.vm.threatMode && ctrl.vm.node.threat) {
-        pvs = ctrl.vm.node.threat.pvs;
+      if (ctrl.threatMode && ctrl.node.threat) {
+        pvs = ctrl.node.threat.pvs;
         threat = true;
-      } else if (ctrl.vm.node.ceval)
-      pvs = ctrl.vm.node.ceval.pvs;
+      } else if (ctrl.node.ceval)
+      pvs = ctrl.node.ceval.pvs;
       else
       pvs = [];
       return h('div.pv_box', {
-        attrs: { 'data-fen': ctrl.vm.node.fen },
+        attrs: { 'data-fen': ctrl.node.fen },
         hook: {
           insert: vnode => {
             const el = vnode.elm as HTMLElement;
@@ -243,7 +243,7 @@ export function renderCeval(ctrl: ParentController): VNode | undefined {
           attrs: { 'data-uci': pvs[i].moves[0] }
         }, [
           multiPv > 1 ? h('strong', defined(pvs[i].mate) ? ('#' + pvs[i].mate) : renderEval(pvs[i].cp!)) : null,
-          h('span', pv2san(instance.variant.key, ctrl.vm.node.fen, threat, pvs[i].moves, pvs[i].mate))
+          h('span', pv2san(instance.variant.key, ctrl.node.fen, threat, pvs[i].moves, pvs[i].mate))
         ]);
       }));
     }

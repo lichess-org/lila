@@ -8,32 +8,34 @@ import Autoplay from './autoplay';
 import * as promotion from './promotion';
 import * as util from './util';
 import * as chessUtil from 'chess';
-import { storedProp, throttle, defined } from 'common';
-import makeSocket from './socket';
-import forecastCtrl from './forecast/forecastCtrl';
-import { ctrl as cevalCtrl, isEvalBetter } from 'ceval';
+import { storedProp, throttle, defined, StoredBooleanProp } from 'common';
+import { make as makeSocket, Socket } from './socket';
+import { make as makeForecast, ForecastController } from './forecast/forecastCtrl';
+import { ctrl as cevalCtrl, isEvalBetter, CevalController } from 'ceval';
 import explorerCtrl from './explorer/explorerCtrl';
 import { router, game } from 'game';
 import { valid as crazyValid } from './crazy/crazyCtrl';
 import * as makeStudy from './study/studyCtrl';
-import { ctrl as makeFork } from './fork';
-import makeRetro = require('./retrospect/retroCtrl');
-import makePractice = require('./practice/practiceCtrl');
-import makeEvalCache from './evalCache';
+import { make as makeFork, ForkController } from './fork';
+import { make as makeRetro, RetroController } from './retrospect/retroCtrl';
+import { make as makePractice, PracticeController } from './practice/practiceCtrl';
+import { make as makeEvalCache, EvalCache } from './evalCache';
 import { compute as computeAutoShapes } from './autoShape';
-import nodeFinder = require('./nodeFinder');
-import { AnalyseController, AnalyseOpts, AnalyseData, Key } from './interfaces';
+import { nextGlyphSymbol } from './nodeFinder';
+import { AnalyseOpts, AnalyseData, Key } from './interfaces';
 
-export default class AnalyseCtrl {
+export default class AnalyseController {
 
   opts: AnalyseOpts;
   data: AnalyseData;
   element: HTMLElement;
+  redraw: () => void;
 
   tree: any; // #TODO Tree.Tree
   socket: Socket;
   chessground: ChessgroundApi;
   trans: Trans;
+  ceval: CevalController;
   evalCache: EvalCache;
 
   // current tree state, cursor, and denormalized node lists
@@ -48,6 +50,10 @@ export default class AnalyseCtrl {
   explorer: any; // #TODO
   forecast?: ForecastController;
   retro?: RetroController;
+  fork: ForkController;
+  practice?: PracticeController;
+  study?: any;
+  studyPractice?: any;
 
   // state flags
   justPlayed: string; // pos
@@ -63,9 +69,9 @@ export default class AnalyseCtrl {
   flipped: boolean = false;
   embed: boolean;
   showComments: boolean = true; // whether to display comments in the move tree
-    showAutoShapes: boolean = storedProp('show-auto-shapes', true);
-  showGauge: boolean = storedProp('show-gauge', true);
-  showComputer: boolean = storedProp('show-computer', true);
+    showAutoShapes: StoredBooleanProp = storedProp('show-auto-shapes', true);
+  showGauge: StoredBooleanProp = storedProp('show-gauge', true);
+  showComputer: StoredBooleanProp = storedProp('show-computer', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: boolean = false;
 
@@ -76,18 +82,18 @@ export default class AnalyseCtrl {
 
   // misc
   cgConfig: any; // latest chessground config (useful for revert)
+  music?: any;
 
   constructor(opts: AnalyseOpts, redraw: () => void) {
 
     this.opts = opts;
     this.element = opts.element;
     this.embed = opts.embed;
+    this.redraw = redraw;
 
-    this.trans = lichess.trans(opts.i18n);
+    this.trans = window.lichess.trans(opts.i18n);
 
-    if (opts.data.forecast) this.forecast = forecastCtrl(
-      opts.data.forecast,
-      router.forecasts(this.data));
+    if (opts.data.forecast) this.forecast = makeForecast(opts.data.forecast, router.forecasts(this.data), redraw);
 
     this.instanciateCeval();
 
@@ -100,7 +106,15 @@ export default class AnalyseCtrl {
     this.study = opts.study ? makeStudy(opts.study, this, (opts.tagTypes || '').split(','), opts.practice) : null;
     this.studyPractice = this.study ? this.study.practice : null;
 
-    initialize(opts.data);
+    if (location.hash === '#practice' || (this.study && this.study.data.chapter.practice)) this.togglePractice();
+
+    keyboard.bind(this);
+
+    window.lichess.pubsub.on('jump', this.pubsubJump);
+
+    window.lichess.pubsub.on('sound_set', this.pubsubSoundSet);
+
+    this.initialize(opts.data, false);
 
     this.initialPath = treePath.root;
 
@@ -111,32 +125,30 @@ export default class AnalyseCtrl {
       // remove location hash - http://stackoverflow.com/questions/1397329/how-to-remove-the-hash-from-window-location-with-javascript-without-page-refresh/5298684#5298684
       if (locationHash) window.history.pushState("", document.title, loc.pathname + loc.search);
       const mainline = treeOps.mainlineNodeList(this.tree.root);
-      if (plyStr === 'last') initialPath = treePath.fromNodeList(mainline);
+      if (plyStr === 'last') this.initialPath = treePath.fromNodeList(mainline);
       else {
-        var ply = parseInt(plyStr);
-        if (ply) initialPath = treeOps.takePathWhile(mainline, function(n) {
-          return n.ply <= ply;
-        });
+        var ply = parseInt(plyStr as string);
+        if (ply) this.initialPath = treeOps.takePathWhile(mainline, n => n.ply <= ply);
       }
     }
 
-    this.setPath(initialPath);
+    this.setPath(this.initialPath);
   }
 
-  initialize(data: GameData, merge: boolean): void {
+  initialize(data: AnalyseData, merge: boolean): void {
     this.data = data;
     this.synthetic = util.synthetic(data);
     this.ongoing = !this.synthetic && game.playable(data);
 
-    let prevTree = merge && tree.root;
-    this.tree = makeTree(treeOps.reconstruct(data.treeParts));
+    let prevTree = merge && this.tree.root;
+    this.tree = makeTree(treeOps.reconstruct(this.data.treeParts));
     if (prevTree) this.tree.merge(prevTree);
 
     this.actionMenu = new ActionMenuController();
     this.autoplay = new Autoplay(this);
     if (this.socket) this.socket.clearCache();
-    else this.socket = new makeSocket(opts.socketSend, this);
-    this.explorer = explorerCtrl(this, opts.explorer, this.explorer ? this.explorer.allowed() : !this.embed, redraw);
+    else this.socket = makeSocket(this.opts.socketSend, this);
+    this.explorer = explorerCtrl(this, this.opts.explorer, this.explorer ? this.explorer.allowed() : !this.embed, this.redraw);
     this.gamePath = (this.synthetic || this.ongoing) ? undefined :
       treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
     this.fork = makeFork(this);
@@ -244,12 +256,10 @@ export default class AnalyseCtrl {
     return config;
   }
 
-  private lichess: Lichess = window.lichess;
-
-  private sound: any = lichess.sound ? {
-    move: throttle(50, false, lichess.sound.move),
-    capture: throttle(50, false, lichess.sound.capture),
-    check: throttle(50, false, lichess.sound.check)
+  private sound: any = window.lichess.sound ? {
+    move: throttle(50, false, window.lichess.sound.move),
+    capture: throttle(50, false, window.lichess.sound.capture),
+    check: throttle(50, false, window.lichess.sound.check)
   } : {
     move: $.noop,
     capture: $.noop,
@@ -325,16 +335,16 @@ export default class AnalyseCtrl {
     return treeOps.takePathWhile(this.mainline, n => n.ply <= ply);
   }
 
-  jumpToMain(ply: Ply): void {
+  jumpToMain = (ply: Ply): void => {
     this.userJump(this.mainlinePathToPly(ply));
   }
 
-  jumpToIndex(index: nunmber): void {
+  jumpToIndex(index: number): void {
     this.jumpToMain(index + 1 + this.data.game.startedAtTurn);
   }
 
   jumpToGlyphSymbol(color: Color, symbol: string): void {
-    const node = nodeFinder.nextGlyphSymbol(color, symbol, this.mainline, this.node.ply);
+    const node = nextGlyphSymbol(color, symbol, this.mainline, this.node.ply);
     if (node) this.jumpToMain(node.ply);
     redraw();
   }
@@ -513,7 +523,7 @@ export default class AnalyseCtrl {
     }.bind(this));
   }
 
-  private instanciateCeval(failsafe: boolean): void {
+  private instanciateCeval(failsafe: boolean = false): void {
     if (this.ceval) this.ceval.destroy();
     const cfg = {
       variant: this.data.game.variant,
@@ -551,7 +561,7 @@ export default class AnalyseCtrl {
     return this.ceval;
   }
 
-  gameOver(node?: Node): 'draw' | checkmate | false {
+  gameOver(node?: Tree.Node): 'draw' | checkmate | false {
     const n = node || this.node;
     if (n.dests !== '' || n.drops) return false;
     if (n.check) return 'checkmate';
@@ -724,7 +734,7 @@ export default class AnalyseCtrl {
     });
   }
 
-  this.toggleRetro = function() {
+  toggleRetro(): void {
     if (this.retro) this.retro = null;
     else {
       this.retro = makeRetro(this);
@@ -732,16 +742,14 @@ export default class AnalyseCtrl {
       if (this.explorer.enabled()) this.toggleExplorer();
     }
     this.setAutoShapes();
-  }.bind(this);
+  }
 
-  this.toggleExplorer = function() {
+  toggleExplorer(): void {
     if (this.practice) this.togglePractice();
     this.explorer.toggle();
-  }.bind(this);
+  }
 
-  this.practice = null;
-
-  this.togglePractice = function() {
+  togglePractice() {
     if (this.practice || !this.ceval.possible) this.practice = null;
     else {
       if (this.retro) this.toggleRetro();
@@ -753,28 +761,23 @@ export default class AnalyseCtrl {
       }.bind(this));
     }
     this.setAutoShapes();
-  }.bind(this);
+  };
 
-  if (location.hash === '#practice' || (this.study && this.study.data.chapter.practice)) this.togglePractice();
-
-  this.restartPractice = function() {
+  restartPractice() {
     this.practice = null;
     this.togglePractice();
-  }.bind(this);
+  }
 
-  keyboard.bind(this);
-
-  lichess.pubsub.on('jump', function(ply) {
+  private pubsubJump = (ply: any) => {
     this.jumpToMain(parseInt(ply));
-    m.redraw();
-  }.bind(this));
+    redraw();
+  }
 
-  this.music = null;
-  lichess.pubsub.on('sound_set', function(set) {
+  private pubsubSoundSet = (set: string) => {
     if (!this.music && set === 'music')
-      lichess.loadScript('/assets/javascripts/music/replay.js').then(function() {
+      window.lichess.loadScript('/assets/javascripts/music/replay.js').then(function() {
         this.music = lichessReplayMusic();
       }.bind(this));
-      if (this.music && set !== 'music') this.music = null;
-  }.bind(this));
+    if (this.music && set !== 'music') this.music = null;
+  }
 };

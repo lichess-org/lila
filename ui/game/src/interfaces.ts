@@ -7,8 +7,6 @@ export interface GameData {
   simul?: Simul;
   takebackable: boolean;
   clock?: Clock;
-  analysis?: Analysis;
-  userAnalysis: boolean;
 }
 
 export interface Game {
@@ -98,16 +96,4 @@ export type ContinueMode = 'friend' | 'ai';
 
 export interface GameView {
   status(ctrl: Ctrl): string;
-}
-
-export interface Analysis {
-  white: AnalysisSide;
-  black: AnalysisSide;
-}
-
-export interface AnalysisSide {
-  acpl: number;
-  inaccuracy: number;
-  mistake: number;
-  blunder: number;
 }

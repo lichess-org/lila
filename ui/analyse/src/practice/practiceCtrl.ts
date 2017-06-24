@@ -1,54 +1,63 @@
-var winningChances = require('ceval').winningChances;
-var treePath = require('tree').path;
-var winningChances = require('ceval').winningChances;
-var pv2san = require('ceval').pv2san;
-var detectThreefold = require('../nodeFinder').detectThreefold;
-var m = require('mithril');
+import { winningChances, pv2san } from 'ceval';
+import { Eval } from 'ceval';
+import { path as treePath } from 'tree';
+import { detectThreefold } from '../nodeFinder';
+import AnalyseController from '../ctrl';
+import { prop } from 'common';
 
-module.exports = function(root, playableDepth) {
+export interface Comment {
+  [key: string]: any; // #TODO
+}
 
-  var running = m.prop(true);
-  var comment = m.prop();
-  var hovering = m.prop();
-  var hinting = m.prop();
-  var played = m.prop(false);
+export interface PracticeController {
+  [key: string]: any; // #TODO
+}
 
-  var ensureCevalRunnning = function() {
-    if (!root.vm.showComputer()) root.toggleComputer();
+export function make(root: AnalyseController, playableDepth: () => number): PracticeController {
+
+  const running = prop(true);
+  const comment = prop<any>(null);
+  const hovering = prop<any>(null);
+  const hinting = prop<any>(null);
+  const played = prop(false);
+
+  function ensureCevalRunning() {
+    if (!root.showComputer()) root.toggleComputer();
     if (!root.ceval.enabled()) root.toggleCeval();
-    if (root.vm.threatMode) root.toggleThreatMode();
-  };
+    if (root.threatMode) root.toggleThreatMode();
+  }
 
-  var commentable = function(node, bonus) {
+  function commentable(node: Tree.Node, bonus: number = 0): boolean {
     if (root.gameOver(node)) return true;
-    var ceval = node.ceval;
-    return ceval && ((ceval.depth + (bonus || 0)) >= 15 || (ceval.depth >= 13 && ceval.millis > 3000));
-  };
-  var playable = function(node) {
-    var ceval = node.ceval;
-    return ceval && (
+    const ceval = node.ceval;
+    return ceval ? ((ceval.depth + bonus) >= 15 || (ceval.depth >= 13 && ceval.millis > 3000)) : false;
+  }
+
+  function playable(node: Tree.Node): boolean {
+    const ceval = node.ceval;
+    return ceval ? (
       ceval.depth >= Math.min(ceval.maxDepth || 99, playableDepth()) ||
       (ceval.depth >= 15 && ceval.millis > 5000)
-    );
+    ) : false;
   };
 
-  var altCastles = {
+  const altCastles = {
     e1a1: 'e1c1',
     e1h1: 'e1g1',
     e8a8: 'e8c8',
     e8h8: 'e8g8'
   };
 
-  var makeComment = function(prev, node, path) {
-    var verdict, best;
-    var over = root.gameOver(node);
+  function makeComment(prev, node: Tree.Node, path: Tree.Path): Comment {
+    let verdict, best;
+    const over = root.gameOver(node);
 
     if (over === 'checkmate') verdict = 'good';
     else {
-      var nodeEval = (node.threefold || over === 'draw') ? {
+      const nodeEval: Eval = (node.threefold || over === 'draw') ? {
         cp: 0
-      } : node.ceval;
-      var shift = -winningChances.povDiff(root.bottomColor(), nodeEval, prev.ceval);
+      } : (node.ceval as Eval);
+      const shift = -winningChances.povDiff(root.bottomColor(), nodeEval, prev.ceval);
 
       best = prev.ceval.pvs[0].moves[0];
       if (best === node.uci || best === altCastles[node.uci]) best = null;
@@ -72,24 +81,19 @@ module.exports = function(root, playableDepth) {
     };
   }
 
-  var isMyTurn = function() {
+  function isMyTurn(): boolean {
     return root.turnColor() === root.bottomColor();
   };
 
-  var currentNode = function() {
-    return root.vm.node;
-  };
-
-  var checkCeval = function() {
-    if (!running()) {
+  function checkCeval() {
+    const node = root.node;
+    if (!running() || !node.ceval) {
       comment(null);
-      m.redraw();
-      return;
+      return root.redraw();
     }
-    ensureCevalRunnning();
-    var node = currentNode();
+    ensureCevalRunning();
     if (isMyTurn()) {
-      var h = hinting();
+      const h = hinting();
       if (h) {
         h.uci = node.ceval.pvs[0].moves[0];
         root.setAutoShapes();
@@ -97,9 +101,9 @@ module.exports = function(root, playableDepth) {
     } else {
       comment(null);
       if (node.san && commentable(node)) {
-        var parentNode = root.tree.nodeAtPath(treePath.init(root.vm.path));
+        const parentNode = root.tree.nodeAtPath(treePath.init(root.path));
         if (commentable(parentNode, +1))
-          comment(makeComment(parentNode, node, root.vm.path));
+        comment(makeComment(parentNode, node, root.path));
       }
       if (!played() && playable(node)) {
         root.playUci(node.ceval.pvs[0].moves[0]);
@@ -108,19 +112,19 @@ module.exports = function(root, playableDepth) {
     }
   };
 
-  var resume = function() {
+  function resume() {
     running(true);
     checkCeval();
-  };
+  }
 
   checkCeval();
 
   return {
     onCeval: checkCeval,
-    onJump: function() {
+    onJump() {
       played(false);
       hinting(null);
-      detectThreefold(root.vm.nodeList, currentNode());
+      detectThreefold(root.nodeList, root.node);
       checkCeval();
     },
     isMyTurn: isMyTurn,
@@ -130,29 +134,29 @@ module.exports = function(root, playableDepth) {
     hinting: hinting,
     resume: resume,
     playableDepth: playableDepth,
-    reset: function() {
+    reset() {
       comment(null);
       hinting(null);
     },
-    preUserJump: function(from, to) {
+    preUserJump(from: Ply, to: Ply) {
       if (from !== to) {
         running(false);
         comment(null);
       }
     },
-    postUserJump: function(from, to) {
+    postUserJump: function(from: Ply, to: Ply) {
       if (from !== to && isMyTurn()) resume();
     },
-    onUserMove: function() {
+    onUserMove() {
       running(true);
     },
-    playCommentBest: function() {
-      var c = comment();
+    playCommentBest() {
+      const c = comment();
       if (!c) return;
       root.jump(treePath.init(c.path));
       root.playUci(c.best.uci);
     },
-    commentShape: function(enable) {
+    commentShape(enable: boolean) {
       var c = comment();
       if (!enable || !c) hovering(null);
       else hovering({
@@ -160,9 +164,9 @@ module.exports = function(root, playableDepth) {
       });
       root.setAutoShapes();
     },
-    hint: function() {
-      var best = currentNode().ceval ? currentNode().ceval.pvs[0].moves[0] : null;
-      var prev = hinting();
+    hint() {
+      const best = root.node.ceval ? root.node.ceval.pvs[0].moves[0] : null;
+      const prev = hinting();
       if (!best || (prev && prev.mode === 'move')) hinting(null);
       else hinting({
         mode: prev ? 'move' : 'piece',
@@ -170,7 +174,7 @@ module.exports = function(root, playableDepth) {
       });
       root.setAutoShapes();
     },
-    currentNode: currentNode,
+    currentNode: () => root.node,
     bottomColor: root.bottomColor
   };
 };

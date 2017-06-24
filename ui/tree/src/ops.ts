@@ -69,7 +69,7 @@ export function countChildrenAndComments(node: Tree.Node) {
   return count;
 }
 
-export function reconstruct(parts: any): Node {
+export function reconstruct(parts: any): Tree.Node {
   var root = parts[0],
     node = root;
   root.id = '';

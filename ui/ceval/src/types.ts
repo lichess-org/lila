@@ -82,7 +82,6 @@ export interface ParentController {
   getCeval: () => CevalController;
   nextNodeBest: () => boolean;
   disableThreatMode?: Prop<Boolean>;
-  vm: ParentVm;
   toggleThreatMode: () => void;
   toggleCeval: () => void;
   gameOver: () => boolean;
@@ -92,9 +91,6 @@ export interface ParentController {
   ongoing: boolean;
   playUci(uci: string): void;
   getOrientation(): Color;
-}
-
-export interface ParentVm {
   threatMode: boolean;
   node: Tree.Node;
   showComputer: () => boolean;

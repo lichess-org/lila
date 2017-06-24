@@ -1,6 +1,6 @@
 import { synthetic } from './util';
 import { initial as initialBoardFen } from 'chessground/fen';
-import { AnalyseController } from './interfaces';
+import AnalyseController from './ctrl';
 
 type DestCache = {
   [fen: string]: DestCacheEntry
@@ -10,7 +10,24 @@ type DestCacheEntry = {
   dests: string
 }
 
-export default function(send, ctrl: AnalyseController) {
+interface Handlers {
+  [key: string]: any; // #TODO
+}
+
+interface Req {
+  [key: string]: any; // #TODO
+}
+
+export interface Socket {
+  receive(type: string, data: any): boolean;
+  sendAnaMove(req: Req): void;
+  sendAnaDrop(req: Req): void;
+  sendAnaDests(req: Req): void;
+  sendForecasts(req: Req): void;
+  clearCache(): void;
+}
+
+export function make(send, ctrl: AnalyseController): Socket {
 
   let anaMoveTimeout;
   let anaDestsTimeout;
@@ -27,7 +44,7 @@ export default function(send, ctrl: AnalyseController) {
         dests: 'iqy muC gvx ltB bqs pxF jrz nvD ksA owE'
       }
     } : {};
-  };
+  }
   clearCache();
 
   // forecast mode: reload when opponent moves
@@ -35,11 +52,11 @@ export default function(send, ctrl: AnalyseController) {
     send("startWatching", ctrl.data.game.id);
   }, 1000);
 
-  function currentChapterId() {
+  function currentChapterId(): string | undefined {
     if (ctrl.study) return ctrl.study.vm.chapterId;
   };
 
-  function addStudyData(req, isWrite = false) {
+  function addStudyData(req, isWrite = false): void {
     var c = currentChapterId();
     if (c) {
       req.ch = c;
@@ -52,7 +69,7 @@ export default function(send, ctrl: AnalyseController) {
     }
   };
 
-  const handlers = {
+  const handlers: Handlers = {
     node(data) {
       clearTimeout(anaMoveTimeout);
       // no strict equality here!
@@ -126,7 +143,7 @@ export default function(send, ctrl: AnalyseController) {
   }
 
   return {
-    receive(type, data) {
+    receive(type: string, data: any): boolean {
       if (handlers[type]) {
         handlers[type](data);
         return true;
@@ -139,8 +156,7 @@ export default function(send, ctrl: AnalyseController) {
     sendAnaMove,
     sendAnaDrop,
     sendAnaDests,
-    sendForecasts(req) {
-      send('forecasts', req);
-    }
+    sendForecasts(req) { send('forecasts', req); },
+    clearCache
   };
 }

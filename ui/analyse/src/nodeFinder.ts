@@ -39,7 +39,7 @@ function threefoldFen(fen) {
   return fen.split(' ').slice(0, 4).join(' ');
 }
 
-export function detectThreefold(nodeList, node) {
+export function detectThreefold(nodeList, node): void {
   if (defined(node.threefold)) return;
   const currentFen = threefoldFen(node.fen);
   let nbSimilarPositions = 0;
