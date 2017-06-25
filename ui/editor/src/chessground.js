@@ -20,7 +20,7 @@ function bindEvents(el, ctrl) {
 }
 
 function isLeftButton(e) {
-  return e.buttons === 1 || e.button === 1 || e.which === 1;
+  return e.buttons === 1 || e.button === 1;
 }
 
 function isLeftClick(e) {
