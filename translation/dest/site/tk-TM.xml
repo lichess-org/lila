@@ -29,4 +29,20 @@
   <string name="joinTheGame">Oýuna goşul</string>
   <string name="whitePlays">Aklaryñ göçümi</string>
   <string name="blackPlays">Garalaryñ göçümi</string>
+  <string name="opponentLeftChoices">Garşydaş oýuny terk eden ýaly. Ýeñiş ýa-da yglan edip bilersiñiz, isleseñiz garaşyp bilersiñiz.</string>
+  <string name="makeYourOpponentResign">Tehniki ýeñiş yglan et</string>
+  <string name="forceResignation">Ýeñiş yglan et</string>
+  <string name="forceDraw">Deñlik yglan et</string>
+  <string name="talkInChat">Çätde mylaýym boluñ!</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Bu URL-a basan ilkinji adam garşydaşyñyz bolar.</string>
+  <string name="whiteResigned">Aklar çekildi</string>
+  <string name="blackResigned">Garalar çekildi</string>
+  <string name="whiteLeftTheGame">Aklar oýuny terk etdi</string>
+  <string name="blackLeftTheGame">Garalar oýuny terk etdi</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Tomaşaçylar oýuna tomaşa edip bilmegi üçin bu URL-i paýlaşyñ</string>
+  <string name="theComputerAnalysisHasFailed">Kompýuter derñewi şowsuz</string>
+  <string name="viewTheComputerAnalysis">Kompýuter derñewine ser sal</string>
+  <string name="requestAComputerAnalysis">Komp derñewi talap et</string>
+  <string name="computerAnalysis">Kompýuter derñewi</string>
+  <string name="computerAnalysisAvailable">Kompýuter derñewi elýeterli</string>
 </resources>
