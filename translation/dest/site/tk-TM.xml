@@ -71,4 +71,12 @@
     <item quantity="other">%s halanan</item>
   </plurals>
   <string name="viewInFullSize">Doly ölçegde aç</string>
+  <string name="logOut">Çykyş</string>
+  <string name="signIn">Içeri gir</string>
+  <string name="newToLichess">Liçese täze geldiňizmi?</string>
+  <string name="youNeedAnAccountToDoThat">Beýtmek üçin hasap gerekli</string>
+  <string name="signUp">Registrasiýa</string>
+  <string name="computersAreNotAllowedToPlay">Küşt Kompýuterleri we kompýuter kömekli oýunçylar oýuna kabul edilenok. Oýun dowamynda Küşt komplaryndan, databazalaryndan ýa-da beýleki oýunçylardan ýardam almaň. Birden köp hasap açmak hem güýçli derejede ýazgarylýandyr we has köp hasap eýesi bolmak banlanmagyňyza eltip biler.</string>
+  <string name="games">Oýunlar</string>
+  <string name="forum">Forum</string>
 </resources>
