@@ -25,14 +25,16 @@ private final class Streaming(
     // fuccess(List(StreamOnAir(
     //   name = "Chess master streams at lichess.org",
     //   streamer = StreamerList.Streamer(
-    //     service = StreamerList.Twitch,
-    //     streamerName = "en_guy",
-    //     streamerNameForDisplay = "en guy".some,
-    //     lichessName = "en_guy",
+    //     service = StreamerList.Youtube,
+    //     streamerName = "UCVeETS7uZTAARqvv2zssZCw",
+    //     lichessName = "test",
+    //     streamerNameForDisplay = "test".some,
     //     featured = true,
-    //     chat = true),
+    //     chat = true
+    //   ),
     //   url = "http://foo.com",
-    //   streamId = "test_en"), StreamOnAir(
+    //   streamId = "UCVeETS7uZTAARqvv2zssZCw"
+    // ), StreamOnAir(
     //   name = "[fr] some french stream",
     //   streamer = StreamerList.Streamer(
     //     service = StreamerList.Twitch,
@@ -40,9 +42,11 @@ private final class Streaming(
     //     streamerNameForDisplay = "fr guy".some,
     //     lichessName = "fr_guy",
     //     featured = true,
-    //     chat = true),
+    //     chat = true
+    //   ),
     //   url = "http://foo.com",
-    //   streamId = "test_fr"), StreamOnAir(
+    //   streamId = "test_fr"
+    // ), StreamOnAir(
     //   name = "[ES] some spanish stream",
     //   streamer = StreamerList.Streamer(
     //     service = StreamerList.Twitch,
@@ -50,10 +54,11 @@ private final class Streaming(
     //     streamerNameForDisplay = "es guy".some,
     //     lichessName = "es_guy",
     //     featured = true,
-    //     chat = true),
+    //     chat = true
+    //   ),
     //   url = "http://foo.com",
-    //   streamId = "test_es")
-    // ))
+    //   streamId = "test_es"
+    // )))
   }
 
   private[tv] val actor = system.actorOf(Props(new Actor {
