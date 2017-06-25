@@ -198,7 +198,7 @@ export default function(opts: CevalOpts): CevalController {
       return !isDeeper() && !infinite();
     },
     isComputing: function() {
-      return !!started;
+      return !!started && pool.isComputing();
     },
     destroy: pool.destroy.bind(pool),
     env: function() {

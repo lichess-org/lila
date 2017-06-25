@@ -39,6 +39,7 @@ export default class Protocol {
     if (text.indexOf('bestmove ') === 0) {
       if (!this.stopped) this.stopped = defer<void>();
       this.stopped.resolve();
+      if (this.work && this.curEval) this.work.emit(this.curEval);
       return;
     }
     if (!this.work) return;
@@ -95,7 +96,6 @@ export default class Protocol {
 
     if (multiPv === this.expectedPvs && this.curEval) {
       this.work.emit(this.curEval);
-      this.curEval = null;
     }
   }
 
@@ -118,5 +118,9 @@ export default class Protocol {
       this.send('stop');
     }
     return this.stopped.promise;
+  }
+
+  isComputing(): boolean {
+    return !this.stopped;
   }
 };
