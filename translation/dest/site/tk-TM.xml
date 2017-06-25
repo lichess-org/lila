@@ -79,4 +79,11 @@
   <string name="computersAreNotAllowedToPlay">Küşt Kompýuterleri we kompýuter kömekli oýunçylar oýuna kabul edilenok. Oýun dowamynda Küşt komplaryndan, databazalaryndan ýa-da beýleki oýunçylardan ýardam almaň. Birden köp hasap açmak hem güýçli derejede ýazgarylýandyr we has köp hasap eýesi bolmak banlanmagyňyza eltip biler.</string>
   <string name="games">Oýunlar</string>
   <string name="forum">Forum</string>
+  <string name="xPostedInForumY">%1$s agza %2$s mowzuga ýazgy ýazdy</string>
+  <string name="latestForumPosts">Forumdaky iň täze neşirler</string>
+  <string name="players">Küştçiler</string>
+  <string name="minutesPerSide">Her tarapyň minuty</string>
+  <string name="variant">Wariant</string>
+  <string name="variants">Wariantlar</string>
+  <string name="realTime">Hakyky wagt</string>
 </resources>
