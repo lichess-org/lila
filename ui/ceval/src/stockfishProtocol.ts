@@ -108,7 +108,8 @@ export default class Protocol {
     if (this.opts.hashSize) this.send('setoption name Hash value ' + this.opts.hashSize());
     this.send('setoption name MultiPV value ' + this.work.multiPv);
     this.send(['position', 'fen', this.work.initialFen, 'moves'].concat(this.work.moves).join(' '));
-    this.send('go depth ' + this.work.maxDepth);
+    if (this.work.maxDepth >= 99) this.send('go depth 99');
+    else this.send('go movetime 90000 depth ' + this.work.maxDepth);
   }
 
   stop(): Promise<void> {
