@@ -137,6 +137,17 @@ private[study] final class SocketHandler(
         }
       }
 
+    // case ("setClock", o) =>
+    //   import chess.Centis
+    //   import MoveOpts.clockReader
+    //   reading[AtPosition](o) { position =>
+    //     (o \ "d" \ "clock").as[Centis] foreach { clock =>
+    //       member.userId foreach { userId =>
+    //         api.setClock(userId, studyId, position.ref, clock, uid)
+    //       }
+    //     }
+    //   }
+
     case ("addChapter", o) =>
       reading[ChapterMaker.Data](o) { data =>
         member.userId foreach { byUserId =>
