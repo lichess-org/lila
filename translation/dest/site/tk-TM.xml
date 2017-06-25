@@ -147,4 +147,21 @@
   <string name="joinTeam">Topara goşul</string>
   <string name="quitTeam">Topary terk et</string>
   <string name="anyoneCanJoin">Hemmelere mugt</string>
+  <string name="aConfirmationIsRequiredToJoin">Goşulmak üçin tassyklanmaly</string>
+  <string name="joiningPolicy">Goşulma düzgünleri</string>
+  <string name="teamLeader">Topar serdary</string>
+  <string name="teamBestPlayers">Iň gowy oýunçylar</string>
+  <string name="teamRecentMembers">Täze agzalar</string>
+  <string name="xJoinedTeamY">%1$s %2$s toparyna goşuldy</string>
+  <string name="xCreatedTeamY">%1$s %2$s toparyny döretdi</string>
+  <string name="averageElo">Ortaça reýting</string>
+  <string name="location">Ýerleşimi</string>
+  <string name="settings">Sazlamalar</string>
+  <string name="filterGames">Oýunlary filterla</string>
+  <string name="reset">Nolla</string>
+  <string name="apply">Tabşyr</string>
+  <string name="leaderboard">Liderlik sanawy</string>
+  <string name="pasteTheFenStringHere">FEN tekstini şu taýa ýelmäň</string>
+  <string name="pasteThePgnStringHere">PGN tekstini şu taýa ýelmäň</string>
+  <string name="fromPosition">Aýratyn pozisiýadan</string>
 </resources>
