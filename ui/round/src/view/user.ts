@@ -1,22 +1,12 @@
 import { game } from 'game';
 
 import { h } from 'snabbdom'
-import { dataIcon } from '../util'
 
 function ratingDiff(player) {
   if (player.ratingDiff === 0) return h('span.rp.null', '±0');
   if (player.ratingDiff > 0) return h('span.rp.up', '+' + player.ratingDiff);
   if (player.ratingDiff < 0) return h('span.rp.down', player.ratingDiff);
   return;
-}
-
-function relayUser(player) {
-  return h('span.text', {
-    attrs: dataIcon('8')
-  },
-  (player.title ? player.title + ' ' : '') + player.name + ' ' +
-  (player.rating ? ' (' + player.rating + ')' : '')
-  );
 }
 
 export function aiName(ctrl, player) {
@@ -26,7 +16,6 @@ export function aiName(ctrl, player) {
 export function userHtml(ctrl, player) {
   var d = ctrl.data;
   var user = player.user;
-  if (d.relay) return relayUser(d.relay[player.color]);
   var perf = user ? user.perfs[d.game.perf] : null;
   var rating = player.rating ? player.rating : (perf && perf.rating);
   if (user) {
