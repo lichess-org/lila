@@ -27,9 +27,9 @@ description = describeUser(u)).some) {
   <div class="content_box_top">
     <h1 class="lichess_title user_link @if(isOnline(u.id)){online}else{offline}">
       @if(u.isPatron) {
-      <a href="@routes.Plan.index">@Html(patronIcon)</a>@u.titleUsername
+      <a href="@routes.Plan.index">@Html(patronIcon)</a>@userSpan(u, withPowerTip = false, withOnline = false)
       } else {
-      @Html(lineIcon)@u.titleUsername
+      @userSpan(u, withPowerTip = false)
       }
     </h1>
     <div class="trophies@if(info.countTrophiesAndPerfCups > 7){ packed}">
