@@ -39,6 +39,7 @@ export default class Protocol {
     if (text.indexOf('bestmove ') === 0) {
       if (!this.stopped) this.stopped = defer<void>();
       this.stopped.resolve();
+      if (this.work && this.curEval) this.work.emit(this.curEval);
       return;
     }
     if (!this.work) return;
@@ -95,7 +96,6 @@ export default class Protocol {
 
     if (multiPv === this.expectedPvs && this.curEval) {
       this.work.emit(this.curEval);
-      this.curEval = null;
     }
   }
 
@@ -108,7 +108,8 @@ export default class Protocol {
     if (this.opts.hashSize) this.send('setoption name Hash value ' + this.opts.hashSize());
     this.send('setoption name MultiPV value ' + this.work.multiPv);
     this.send(['position', 'fen', this.work.initialFen, 'moves'].concat(this.work.moves).join(' '));
-    this.send('go depth ' + this.work.maxDepth);
+    if (this.work.maxDepth >= 99) this.send('go depth 99');
+    else this.send('go movetime 90000 depth ' + this.work.maxDepth);
   }
 
   stop(): Promise<void> {
@@ -118,5 +119,9 @@ export default class Protocol {
       this.send('stop');
     }
     return this.stopped.promise;
+  }
+
+  isComputing(): boolean {
+    return !this.stopped;
   }
 };

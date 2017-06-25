@@ -35,14 +35,13 @@ function localEvalInfo(ctrl: ParentController, evs: NodeEvals) {
   ] : [
     'Depth ' + (evs.client.depth || 0) + '/' + evs.client.maxDepth
   ];
-  if (ceval.canGoDeeper() && (
-      evs.client.depth >= (evs.client.maxDepth || ceval.effectiveMaxDepth())
-    ))
+  if (ceval.canGoDeeper()) {
     t.push(m('a.deeper', {
       title: 'Go deeper',
       'data-icon': 'O',
       onclick: ceval.goDeeper
-    }))
+    }));
+  }
   else if (!evs.client.cloud && evs.client.knps) t.push(', ' + Math.round(evs.client.knps) + ' knodes/s');
   return t;
 }
@@ -145,7 +144,7 @@ export function renderCeval(ctrl: ParentController) {
   }
   var mandatoryCeval = ctrl.mandatoryCeval && ctrl.mandatoryCeval();
   return m('div', {
-      class: 'ceval_box ' + (percent < 100 && instance.isComputing() ? 'computing' : '')
+      class: 'ceval_box ' + (instance.isComputing() ? 'computing' : '')
     },
     enabled ? m('div.bar', m('span', {
       class: threatMode ? 'threat' : '',
