@@ -2,7 +2,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { view as renderConfig } from './explorerConfig';
 import { bind, dataIcon } from '../util';
-import { AnalyseController } from '../interfaces';
+import AnalyseController from '../ctrl';
 
 function resultBar(move) {
   const sum = move.white + move.draws + move.black;
@@ -113,7 +113,7 @@ function showGameTable(ctrl, type, games) {
 }
 
 function showTablebase(ctrl, title, moves, fen) {
-  var stm = fen.split(/\s/)[1];
+  const stm = fen.split(/\s/)[1];
   if (!moves.length) return null;
   return [
     h('div.title', title),
@@ -176,8 +176,7 @@ function showDtz(stm, move) {
   else if (move.dtz === null) return null;
   else if (move.dtz === 0) return h('result.draws', 'Draw');
   else if (move.zeroing) {
-    var capture = move.san.indexOf('x') !== -1;
-    if (capture) return h('result.' + winner(stm, move), 'Capture');
+    if (move.san.indexOf('x') !== -1) return h('result.' + winner(stm, move), 'Capture');
     else return h('result.' + winner(stm, move), 'Pawn move');
   } else return h('result.' + winner(stm, move), {
     attrs: {
@@ -286,7 +285,7 @@ function showFailing(ctrl) {
   ]);
 }
 
-export default function(ctrl: AnalyseController) {
+export default function(ctrl: AnalyseController): VNode | undefined {
   var explorer = ctrl.explorer;
   if (!explorer.enabled()) return;
   var data = explorer.current();
@@ -301,9 +300,7 @@ export default function(ctrl: AnalyseController) {
       reduced: !configOpened && (explorer.failing() || explorer.movesAway() > 2)
     },
     hook: {
-      postpatch: (_, vnode) => {
-        (vnode.elm as HTMLElement).scrollTop = 0;
-      }
+      postpatch: (_, vnode) => (vnode.elm as HTMLElement).scrollTop = 0
     }
   }, [
     h('div.overlay'),

@@ -1,25 +1,25 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 
-import { AnalyseController } from './interfaces';
+import AnalyseController from './ctrl';
 import * as chessground from './ground';
 import { synthetic, bind, dataIcon, iconTag, spinner } from './util';
 import { game, router, view as gameView } from 'game';
 import { path as treePath } from 'tree';
-import treeView = require('./treeView');
-import control = require('./control');
+import treeView from './treeView';
+import control from './control';
 import { view as actionMenu } from './actionMenu';
 import { view as renderPromotion } from './promotion';
-import renderClocks = require('./clocks');
+import renderClocks from './clocks';
 import * as pgnExport from './pgnExport';
 import forecastView from './forecast/forecastView';
 import { view as cevalView } from 'ceval';
 import crazyView from './crazy/crazyView';
 import { view as keyboardView} from './keyboard';
 import explorerView from './explorer/explorerView';
-import retroView = require('./retrospect/retroView');
-import practiceView = require('./practice/practiceView');
-import studyView = require('./study/studyView');
+import retroView from './retrospect/retroView';
+import practiceView from './practice/practiceView';
+import studyView from './study/studyView';
 import { view as forkView } from './fork'
 import { render as acplView } from './acpl'
 
@@ -55,7 +55,7 @@ function makeConcealOf(ctrl) {
   if (conceal) return function(isMainline) {
     return function(path, node) {
       if (!conceal || (isMainline && conceal.ply >= node.ply)) return null;
-      if (treePath.contains(ctrl.vm.path, path)) return null;
+      if (treePath.contains(ctrl.path, path)) return null;
       return conceal.owner ? 'conceal' : 'hide';
     };
   };
@@ -81,18 +81,18 @@ function wheel(ctrl, e) {
 
 function inputs(ctrl) {
   if (ctrl.ongoing || !ctrl.data.userAnalysis) return null;
-  if (ctrl.vm.redirecting) return spinner();
+  if (ctrl.redirecting) return spinner();
   const pgnText = pgnExport.renderFullTxt(ctrl);
   return h('div.copyables', [
     h('label.name', 'FEN'),
     h('input.copyable.autoselect', {
       attrs: {
         spellCheck: false,
-        value: ctrl.vm.node.fen
+        value: ctrl.node.fen
       },
       hook: bind('change', e => {
         const value = (e.target as HTMLInputElement).value;
-        if (value !== ctrl.vm.node.fen) ctrl.changeFen(value);
+        if (value !== ctrl.node.fen) ctrl.changeFen(value);
       })
     }),
     h('div.pgn', [
@@ -118,7 +118,7 @@ function inputs(ctrl) {
 
 function visualBoard(ctrl) {
   return h('div.lichess_board_wrap', [
-    ctrl.vm.keyboardHelp ? keyboardView(ctrl) : null,
+    ctrl.keyboardHelp ? keyboardView(ctrl) : null,
     ctrl.study ? studyView.overboard(ctrl.study) : null,
     h('div.lichess_board.' + ctrl.data.game.variant.key, {
       hook: bind('wheel', e => wheel(ctrl, e))
@@ -163,8 +163,8 @@ function navClick(ctrl: AnalyseController, action) {
 }
 
 function buttons(ctrl) {
-  const canJumpPrev = ctrl.vm.path !== '';
-  const canJumpNext = !!ctrl.vm.node.children[0];
+  const canJumpPrev = ctrl.path !== '';
+  const canJumpNext = !!ctrl.node.children[0];
   const menuIsOpen = ctrl.actionMenu.open;
   return h('div.game_control', {
     hook: bind('mousedown', e => {
@@ -224,13 +224,13 @@ function buttons(ctrl) {
 }
 
 function renderOpeningBox(ctrl) {
-  let opening = ctrl.tree.getOpening(ctrl.vm.nodeList);
-  if (!opening && !ctrl.vm.path) opening = ctrl.data.game.opening;
+  let opening = ctrl.tree.getOpening(ctrl.nodeList);
+  if (!opening && !ctrl.path) opening = ctrl.data.game.opening;
   if (opening) return h('div.opening_box', {
     attrs: { title: opening.eco + ' ' + opening.name }
   }, [
     h('strong', opening.eco),
-    h('span', ' ' + opening.name)
+    ' ' + opening.name
   ]);
 }
 
@@ -254,7 +254,7 @@ export default function(ctrl: AnalyseController): VNode {
       },
       class: {
         'gauge_displayed': ctrl.showEvalGauge(),
-        'no_computer': !ctrl.vm.showComputer()
+        'no_computer': !ctrl.showComputer()
       }
     }, [
       h('div.lichess_game', {
@@ -279,7 +279,7 @@ export default function(ctrl: AnalyseController): VNode {
       ])
     ]),
     ctrl.embed ? null : h('div.underboard', {
-      class: { no_computer: !ctrl.vm.showComputer() }
+      class: { no_computer: !ctrl.showComputer() }
     }, [
       h('div.center', [ctrl.study ? studyView.underboard(ctrl) : inputs(ctrl)]),
       h('div.right', [acplView(ctrl)])

@@ -1,23 +1,27 @@
-var m = require('mithril');
-var renderIndexAndMove = require('../moveView').renderIndexAndMove;
-var opposite = require('chessground/util').opposite;
+import { renderIndexAndMove } from '../moveView';
+import { opposite } from 'chessground/util';
+import { RetroController } from './retroCtrl';
+import AnalyseController from '../ctrl';
+import { bind, dataIcon, spinner } from '../util';
+import { h } from 'snabbdom'
+import { VNode } from 'snabbdom/vnode'
 
-function skipOrViewSolution(ctrl) {
-  return m('div.choices', [
-    m('a', {
-      onclick: ctrl.viewSolution
+function skipOrViewSolution(ctrl: RetroController) {
+  return h('div.choices', [
+    h('a', {
+      hook: bind('click', ctrl.viewSolution)
     }, ctrl.trans.noarg('viewTheSolution')),
-    m('a', {
-      onclick: ctrl.skip
+    h('a', {
+      hook: bind('click', ctrl.skip)
     }, 'Skip this move')
   ]);
 }
 
-function jumpToNext(ctrl) {
-  return m('a.half.continue', {
-    onclick: ctrl.jumpToNext
+function jumpToNext(ctrl: RetroController) {
+  return h('a.half.continue', {
+    hook: bind('click', ctrl.jumpToNext)
   }, [
-    m('i[data-icon=G]'),
+    h('i', { attrs: dataIcon('G') }),
     'Next'
   ]);
 }
@@ -25,21 +29,21 @@ function jumpToNext(ctrl) {
 var minDepth = 8;
 var maxDepth = 18;
 
-function renderEvalProgress(node) {
-  return m('div.progress', m('div', {
-    style: {
-      width: node.ceval ? (100 * Math.max(0, node.ceval.depth - minDepth) / (maxDepth - minDepth)) + '%' : 0
+function renderEvalProgress(node: Tree.Node) {
+  return h('div.progress', h('div', {
+    attrs: {
+      style: `width: ${node.ceval ? (100 * Math.max(0, node.ceval.depth - minDepth) / (maxDepth - minDepth)) + '%' : 0}`
     }
   }));
 }
 
-var feedback = {
-  find: function(ctrl) {
+const feedback = {
+  find(ctrl: RetroController): VNode[] {
     return [
-      m('div.player', [
-        m('div.no-square', m('piece.king.' + ctrl.color)),
-        m('div.instruction', [
-          m('strong', [
+      h('div.player', [
+        h('div.no-square', h('piece.king.' + ctrl.color)),
+        h('div.instruction', [
+          h('strong', [
             renderIndexAndMove({
               withDots: true,
               showGlyphs: true,
@@ -47,61 +51,61 @@ var feedback = {
             }, ctrl.current().fault.node),
             ' was played'
           ]),
-          m('em', 'Find a better move for ' + ctrl.color),
+          h('em', 'Find a better move for ' + ctrl.color),
           skipOrViewSolution(ctrl)
         ])
       ])
     ];
   },
   // user has browsed away from the move to solve
-  offTrack: function(ctrl) {
+  offTrack(ctrl: RetroController): VNode[] {
     return [
-      m('div.player', [
-        m('div.icon.off', '!'),
-        m('div.instruction', [
-          m('strong', 'You browsed away'),
-          m('div.choices', [
-            m('a', {
-              onclick: ctrl.jumpToNext
+      h('div.player', [
+        h('div.icon.off', '!'),
+        h('div.instruction', [
+          h('strong', 'You browsed away'),
+          h('div.choices', [
+            h('a', {
+              hook: bind('click', ctrl.jumpToNext)
             }, 'Resume learning')
           ])
         ])
       ])
     ];
   },
-  fail: function(ctrl) {
+  fail(ctrl: RetroController): VNode[] {
     return [
-      m('div.player', [
-        m('div.icon', '✗'),
-        m('div.instruction', [
-          m('strong', 'You can do better'),
-          m('em', 'Try another move for ' + ctrl.color),
+      h('div.player', [
+        h('div.icon', '✗'),
+        h('div.instruction', [
+          h('strong', 'You can do better'),
+          h('em', 'Try another move for ' + ctrl.color),
           skipOrViewSolution(ctrl)
         ])
       ])
     ];
   },
-  win: function(ctrl) {
+  win(ctrl: RetroController): VNode[] {
     return [
-      m('div.half.top',
-        m('div.player', [
-          m('div.icon', '✓'),
-          m('div.instruction', m('strong', ctrl.trans.noarg('goodMove')))
+      h('div.half.top',
+        h('div.player', [
+          h('div.icon', '✓'),
+          h('div.instruction', h('strong', ctrl.trans.noarg('goodMove')))
         ])
       ),
       jumpToNext(ctrl)
     ];
   },
-  view: function(ctrl) {
+  view(ctrl: RetroController): VNode[] {
     return [
-      m('div.half.top',
-        m('div.player', [
-          m('div.icon', '✓'),
-          m('div.instruction', [
-            m('strong', 'Solution:'),
-            m('em', [
+      h('div.half.top',
+        h('div.player', [
+          h('div.icon', '✓'),
+          h('div.instruction', [
+            h('strong', 'Solution:'),
+            h('em', [
               'Best move was ',
-              m('strong', [
+              h('strong', [
                 renderIndexAndMove({
                   withDots: true,
                   showEval: false
@@ -114,41 +118,41 @@ var feedback = {
       jumpToNext(ctrl)
     ];
   },
-  eval: function(ctrl) {
+  eval(ctrl: RetroController): VNode[] {
     return [
-      m('div.half.top',
-        m('div.player.center', [
-          m('div.instruction', [
-            m('strong', 'Evaluating your move'),
+      h('div.half.top',
+        h('div.player.center', [
+          h('div.instruction', [
+            h('strong', 'Evaluating your move'),
             renderEvalProgress(ctrl.node())
           ])
         ])
       )
     ];
   },
-  end: function(ctrl, flip, hasFullComputerAnalysis) {
+  end(ctrl: RetroController, flip: () => void, hasFullComputerAnalysis: () => boolean): VNode[] {
     if (!hasFullComputerAnalysis()) return [
-      m('div.half.top',
-        m('div.player', [
-          m('div.icon', m.trust(lichess.spinnerHtml)),
-          m('div.instruction', 'Waiting for analysis...')
+      h('div.half.top',
+        h('div.player', [
+          h('div.icon', spinner()),
+          h('div.instruction', 'Waiting for analysis...')
         ])
       )
     ];
     var nothing = !ctrl.completion()[1];
     return [
-      m('div.player', [
-        m('div.no-square', m('piece.king.' + ctrl.color)),
-        m('div.instruction', [
-          m('em', nothing ?
+      h('div.player', [
+        h('div.no-square', h('piece.king.' + ctrl.color)),
+        h('div.instruction', [
+          h('em', nothing ?
             'No mistakes found for ' + ctrl.color :
             'Done reviewing ' + ctrl.color + ' mistakes'),
-          m('div.choices', [
-            nothing ? null : m('a', {
-              onclick: ctrl.reset
+          h('div.choices', [
+            nothing ? null : h('a', {
+              hook: bind('click', ctrl.reset)
             }, 'Do it again'),
-            m('a', {
-              onclick: flip
+            h('a', {
+              hook: bind('click', flip)
             }, 'Review ' + opposite(ctrl.color) + ' mistakes')
           ])
         ])
@@ -157,33 +161,34 @@ var feedback = {
   },
 };
 
-function renderFeedback(root, fb) {
-  var ctrl = root.retro;
-  var current = ctrl.current();
-  if (ctrl.isSolving() && current && root.vm.path !== current.prev.path)
-    return feedback.offTrack(ctrl, current);
-  if (fb === 'find') return current ? feedback.find(ctrl, current) :
+function renderFeedback(root: AnalyseController, fb) {
+  const ctrl: RetroController = root.retro!;
+  const current = ctrl.current();
+  if (ctrl.isSolving() && current && root.path !== current.prev.path)
+  return feedback.offTrack(ctrl);
+  if (fb === 'find') return current ? feedback.find(ctrl) :
     feedback.end(ctrl, root.flip, root.hasFullComputerAnalysis);
   return feedback[fb](ctrl);
 }
 
-function renderTitle(ctrl) {
+function renderTitle(ctrl: RetroController): VNode {
   var completion = ctrl.completion();
-  return m('div.title', [
-    m('span', 'Learn from your mistakes'),
-    m('span', Math.min(completion[0] + 1, completion[1]) + ' / ' + completion[1]),
-    m('span.close[data-icon=L]', {
-      onclick: ctrl.close
+  return h('div.title', [
+    h('span', 'Learn from your mistakes'),
+    h('span', Math.min(completion[0] + 1, completion[1]) + ' / ' + completion[1]),
+    h('span.close', {
+      attrs: dataIcon('L'),
+      hook: bind('click', ctrl.close)
     })
   ]);
 }
 
-module.exports = function(root) {
-  var ctrl = root.retro;
+export default function(root: AnalyseController): VNode | undefined {
+  const ctrl = root.retro;
   if (!ctrl) return;
-  var fb = ctrl.feedback();
-  return m('div.retro_box', [
+  const fb = ctrl.feedback();
+  return h('div.retro_box', [
     renderTitle(ctrl),
-    m('div.feedback.' + fb, renderFeedback(root, fb))
+    h('div.feedback.' + fb, renderFeedback(root, fb))
   ]);
 };

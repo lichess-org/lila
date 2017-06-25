@@ -1,6 +1,7 @@
 /// <reference types="types/lichess-jquery" />
 
-import { AnalyseController, AnalyseOpts } from './interfaces';
+import { AnalyseOpts } from './interfaces';
+import AnalyseController from './ctrl';
 
 import makeCtrl from './ctrl';
 import view from './view';
@@ -14,7 +15,7 @@ import { VNode } from 'snabbdom/vnode'
 import klass from 'snabbdom/modules/class';
 import attributes from 'snabbdom/modules/attributes';
 
-const patch = init([klass, attributes]);
+export const patch = init([klass, attributes]);
 
 export function start(opts: AnalyseOpts) {
 
@@ -44,7 +45,7 @@ export function start(opts: AnalyseOpts) {
       ctrl.jumpToIndex(index);
       redraw();
     },
-    path: () => ctrl.vm.path,
+    path: () => ctrl.path,
     setChapter(id: string) {
       if (ctrl.study) ctrl.study.setChapter(id);
     }

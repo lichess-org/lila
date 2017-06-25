@@ -79,7 +79,7 @@ export default class AnalyseController {
 
   // other paths
   initialPath: Tree.Path;
-  contextMenuPath: Tree.Path;
+  contextMenuPath?: Tree.Path;
   gamePath?: Tree.Path;
 
   // misc
