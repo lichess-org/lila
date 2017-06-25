@@ -3,9 +3,7 @@
 @gamePlayer(variant: chess.variant.Variant, player: Player) = {
 <div class="player @player.color.name">
   @player.playerUser.map { playerUser =>
-  <a href="@routes.User.show(playerUser.id)" class="user_link ulpt">
-    @usernameOrId(playerUser.id)
-  </a>
+  @userIdLink(playerUser.id.some, withOnline = false)
   <br />
   @if(player.berserk) { @berserkIconSpanHtml }
   @playerUser.rating@if(player.provisional) {?}
