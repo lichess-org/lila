@@ -8,4 +8,25 @@
   <string name="waitingForOpponent">Garşydaşa garaşylýar</string>
   <string name="waiting">Garaşylýar</string>
   <string name="yourTurn">Gezegiñiz</string>
+  <string name="aiNameLevelAiLevel">%1$s derejesi %2$s</string>
+  <string name="level">Dereje</string>
+  <string name="chat">Çät</string>
+  <string name="resign">Çekil</string>
+  <string name="checkmate">Mat</string>
+  <string name="stalemate">Pat</string>
+  <string name="white">Ak</string>
+  <string name="black">Gara</string>
+  <string name="randomColor">Çem gelen</string>
+  <string name="createAGame">Oýun döret</string>
+  <string name="whiteIsVictorious">Aklar ýeñdi</string>
+  <string name="blackIsVictorious">Garalar ýeñdi</string>
+  <string name="kingInTheCenter">Şa merkezde</string>
+  <string name="threeChecks">3 Şah</string>
+  <string name="raceFinished">Pellehana ýetildi</string>
+  <string name="variantEnding">Wariant netijesi</string>
+  <string name="newOpponent">Täze garşydaş</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Garşydaşyñyz siz bilen täze oýun isleýär</string>
+  <string name="joinTheGame">Oýuna goşul</string>
+  <string name="whitePlays">Aklaryñ göçümi</string>
+  <string name="blackPlays">Garalaryñ göçümi</string>
 </resources>
