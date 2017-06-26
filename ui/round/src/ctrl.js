@@ -187,6 +187,7 @@ module.exports = function(opts, redraw) {
     this.vm.justDropped = meta.justDropped;
     this.vm.justCaptured = meta.justCaptured;
     this.vm.preDrop = null;
+    clockTick(); // A hack. Better is clock.update with millis above removed.
     this.vm.justMoved = true;
     redraw();
   }
