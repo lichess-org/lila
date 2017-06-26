@@ -7,9 +7,7 @@ import { h } from 'snabbdom'
 export function renderClock(ctrl, player, position) {
   const millis = ctrl.clock.millisOf(player.color);
   const isPlayer = ctrl.data.player.color === player.color;
-  let isRunning = false;
-  if (ctrl.vm.justMoved) isRunning = !isPlayer;
-  else if (player.color === ctrl.data.game.player && ctrl.isClockRunning()) isRunning = true;
+  const isRunning = isPlayer && game.playable(ctrl.data) && ctrl.isClockRunning();
   const update = (el: HTMLElement) => {
     ctrl.clock.elements[player.color].time = el;
     el.innerHTML = formatClockTime(ctrl.clock.data, millis, isRunning);

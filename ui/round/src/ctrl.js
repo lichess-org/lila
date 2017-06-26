@@ -173,21 +173,28 @@ module.exports = function(opts, redraw) {
       ackable: true
     }
     if (meta.premove) {
-      socketOpts.millis = 0;
+      socketOpts.centis = 0;
     } else if (this.vm.lastMoveMillis !== null) {
-      socketOpts.millis = timerFunction() - this.vm.lastMoveMillis;
-      if (socketOpts.millis < 3) {
+      var millis = timerFunction() - this.vm.lastMoveMillis;
+      if (millis < 3) {
         // instant move, no premove? might be fishy
-        $.post('/jslog/' + this.data.game.id + this.data.player.id + '?n=instamove:' + socketOpts.millis);
-        delete socketOpts.millis;
+        $.post('/jslog/' + this.data.game.id + this.data.player.id + '?n=instamove:' + millis);
       }
+      socketOpts.centis = Math.round(millis * 0.1);
     }
     this.socket.send(type, action, socketOpts);
 
     this.vm.justDropped = meta.justDropped;
     this.vm.justCaptured = meta.justCaptured;
     this.vm.preDrop = null;
-    clockTick(); // A hack. Better is clock.update with millis above removed.
+    if (this.clock !== undefined && socketOpts.centis !== undefined) {
+      var c = this.data.game.clock;
+      if (this.data.player.color === 'white') {
+        this.clock.update(c.white - .01 * socketOpts.centis, c.black);
+      } else {
+        this.clock.update(c.white, c.black - .01 * socketOpts.centis);
+      }
+    }
     this.vm.justMoved = true;
     redraw();
   }
@@ -314,6 +321,7 @@ module.exports = function(opts, redraw) {
       blur.onMove();
     }
     if (o.clock) {
+      d.game.clock = o.clock;
       (this.clock || this.correspondenceClock).update(o.clock.white, o.clock.black,
         playing && activeColor ? 0 : o.clock.lag);
     }
@@ -425,7 +433,7 @@ module.exports = function(opts, redraw) {
   }) : false;
 
   this.isClockRunning = function() {
-    return this.data.clock && game.playable(this.data) && !this.vm.justMoved &&
+    return !this.vm.justMoved &&
     ((this.data.game.turns - this.data.game.startedAtTurn) > 1 || this.data.clock.running);
   }.bind(this);
 
@@ -449,8 +457,10 @@ module.exports = function(opts, redraw) {
 
   if (this.clock) {
     var tickNow = function() {
-      clockTick();
-      if (game.playable(this.data)) setTimeout(tickNow, 100);
+      if (game.playable(this.data)) {
+        clockTick();
+        setTimeout(tickNow, 100);
+      }
     }.bind(this);
     setTimeout(tickNow, 100);
   } else setInterval(correspondenceClockTick, 1000);
