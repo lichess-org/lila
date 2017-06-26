@@ -2,7 +2,7 @@ export interface GameData {
   game: Game;
   player: Player;
   opponent: Player;
-  spectator: boolean;
+  spectator?: boolean;
   tournament?: Tournament;
   simul?: Simul;
   takebackable: boolean;

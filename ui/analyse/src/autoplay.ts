@@ -43,10 +43,10 @@ export class Autoplay {
         // estimate 130ms of lag to improve playback.
         return time * 10 + 130 || 2000;
       } else {
-        var slowDown = this.delay === 'cpl_fast' ? 10 : 30;
+        const slowDown = this.delay === 'cpl_fast' ? 10 : 30;
         if (this.ctrl.node.ply >= this.ctrl.mainline.length - 1) return 0;
-        var currPlyCp = this.evalToCp(this.ctrl.node);
-        var nextPlyCp = this.evalToCp(this.ctrl.node.children[0]);
+        const currPlyCp = this.evalToCp(this.ctrl.node);
+        const nextPlyCp = this.evalToCp(this.ctrl.node.children[0]);
         return Math.max(500,
           Math.min(10000,
             Math.abs(currPlyCp - nextPlyCp) * slowDown));

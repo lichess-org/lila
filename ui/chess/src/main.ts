@@ -1,12 +1,14 @@
+/// <reference types="types/lichess" />
+
 import piotr from './piotr';
 
-export const initialFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+export const initialFen: Fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 
-export function fixCrazySan(san: string): string {
+export function fixCrazySan(san: San): San {
   return san[0] === 'P' ? san.slice(1) : san;
 }
 
-export function decomposeUci(uci: string): [string, string, string] {
+export function decomposeUci(uci: Uci): [Key, Key, string] {
   return [uci.slice(0, 2), uci.slice(2, 4), uci.slice(4, 5)];
 }
 
@@ -16,16 +18,14 @@ export function renderEval(e: number): string {
 }
 
 export interface Dests {
-  [square: string]: Array<string>;
+  [square: string]: Key[];
 }
 
 export function readDests(lines?: string): Dests | null {
   if (typeof lines === 'undefined') return null;
-  var dests: Dests = {};
-  if (lines) lines.split(' ').forEach(function(line) {
-    dests[piotr[line[0]]] = line.split('').slice(1).map(function(c) {
-      return piotr[c];
-    });
+  const dests: Dests = {};
+  if (lines) lines.split(' ').forEach(line => {
+    dests[piotr[line[0]]] = line.split('').slice(1).map(c => piotr[c])
   });
   return dests;
 }

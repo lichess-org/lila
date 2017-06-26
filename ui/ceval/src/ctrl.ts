@@ -93,7 +93,7 @@ export default function(opts: CevalOpts): CevalController {
     });
   };
 
-  const start = function(path: string, steps: Step[], threatMode: boolean, deeper: boolean) {
+  const start = function(path: Tree.Path, steps: Step[], threatMode: boolean, deeper: boolean) {
 
     if (!enabled() || !opts.possible) return;
 
@@ -114,7 +114,7 @@ export default function(opts: CevalOpts): CevalController {
       maxDepth: maxD,
       multiPv: parseInt(multiPv()),
       threatMode: threatMode,
-      emit: function(ev: Tree.ClientEval) {
+      emit(ev: Tree.ClientEval) {
         if (enabled()) onEmit(ev, work);
       }
     };
@@ -160,45 +160,45 @@ export default function(opts: CevalOpts): CevalController {
   };
 
   return {
-    pnaclSupported: pnaclSupported,
-    wasmSupported: wasmSupported,
-    start: start,
-    stop: stop,
-    allowed: allowed,
+    pnaclSupported,
+    wasmSupported,
+    start,
+    stop,
+    allowed,
     possible: opts.possible,
-    enabled: enabled,
-    multiPv: multiPv,
-    threads: threads,
-    hashSize: hashSize,
-    infinite: infinite,
-    hovering: hovering,
-    setHovering: function(fen: string, uci: string) {
+    enabled,
+    multiPv,
+    threads,
+    hashSize,
+    infinite,
+    hovering,
+    setHovering(fen: Fen, uci: Uci) {
       hovering(uci ? {
         fen: fen,
         uci: uci
       } : null);
       opts.setAutoShapes();
     },
-    toggle: function() {
+    toggle() {
       if (!opts.possible || !allowed()) return;
       stop();
       enabled(!enabled());
       if (document.visibilityState !== 'hidden')
         enableStorage.set(enabled() ? '1' : '0');
     },
-    curDepth: function() {
+    curDepth(): number {
       return curEval ? curEval.depth : 0;
     },
-    effectiveMaxDepth: effectiveMaxDepth,
+    effectiveMaxDepth,
     variant: opts.variant,
-    isDeeper: isDeeper,
-    goDeeper: goDeeper,
-    canGoDeeper: function() {
+    isDeeper,
+    goDeeper,
+    canGoDeeper() {
       return !isDeeper() && !infinite();
     },
-    isComputing: function() {
+    isComputing() {
       return !!started;
     },
-    destroy: pool.destroy.bind(pool)
+    destroy() { pool.destroy() }
   };
 };

@@ -1,5 +1,6 @@
 import { drag } from './crazyCtrl';
 import { h } from 'snabbdom'
+import { MouchEvent } from 'chessground/types';
 
 const eventNames = ['mousedown', 'touchstart'];
 const oKeys = ['pawn', 'knight', 'bishop', 'rook', 'queen'];
@@ -20,7 +21,7 @@ export default function(ctrl, color, position) {
       insert: vnode => {
         if (ctrl.embed) return;
         eventNames.forEach(name => {
-          (vnode.elm as HTMLElement).addEventListener(name, e => drag(ctrl, color, e));
+          (vnode.elm as HTMLElement).addEventListener(name, e => drag(ctrl, color, e as MouchEvent));
         });
       }
     }

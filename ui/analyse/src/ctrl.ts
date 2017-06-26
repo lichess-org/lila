@@ -13,7 +13,7 @@ import * as chessUtil from 'chess';
 import { storedProp, throttle, defined, StoredBooleanProp } from 'common';
 import { make as makeSocket, Socket } from './socket';
 import { make as makeForecast, ForecastController } from './forecast/forecastCtrl';
-import { ctrl as cevalCtrl, isEvalBetter, CevalController } from 'ceval';
+import { ctrl as cevalCtrl, isEvalBetter, CevalController, Work as CevalWork, CevalOpts } from 'ceval';
 import explorerCtrl from './explorer/explorerCtrl';
 import { game, GameData } from 'game';
 import { valid as crazyValid } from './crazy/crazyCtrl';
@@ -24,7 +24,7 @@ import { make as makePractice, PracticeController } from './practice/practiceCtr
 import { make as makeEvalCache, EvalCache } from './evalCache';
 import { compute as computeAutoShapes } from './autoShape';
 import { nextGlyphSymbol } from './nodeFinder';
-import { AnalyseOpts, AnalyseData, Key, CgDests } from './interfaces';
+import { AnalyseOpts, AnalyseData, AnalyseDataWithTree, Key, CgDests } from './interfaces';
 
 export default class AnalyseController {
 
@@ -502,8 +502,8 @@ export default class AnalyseController {
     if (this.chessground) this.chessground.setAutoShapes(computeAutoShapes(this));
   }
 
-  private onNewCeval(ev, path, threatMode): void {
-    this.tree.updateAt(path, function(node) {
+  private onNewCeval = (ev: Tree.ClientEval, path: Tree.Path, threatMode: boolean): void => {
+    this.tree.updateAt(path, function(this: AnalyseController, node: Tree.Node) {
       if (node.fen !== ev.fen && !threatMode) return;
       if (threatMode) {
         if (!node.threat || isEvalBetter(ev, node.threat) || node.threat.maxDepth < ev.maxDepth)
@@ -520,26 +520,26 @@ export default class AnalyseController {
           this.evalCache.onCeval();
           if (ev.cloud && ev.depth >= this.ceval.effectiveMaxDepth()) this.ceval.stop();
         }
-        redraw();
+        this.redraw();
       }
     }.bind(this));
   }
 
   private instanciateCeval(failsafe: boolean = false): void {
     if (this.ceval) this.ceval.destroy();
-    const cfg = {
+    const cfg: CevalOpts = {
       variant: this.data.game.variant,
       possible: !this.embed && (
         this.synthetic || !game.playable(this.data)
       ),
-      emit: function(ev, work) {
+      emit: function(this: AnalyseController, ev: Tree.ClientEval, work: CevalWork) {
         this.onNewCeval(ev, work.path, work.threatMode);
       }.bind(this),
       setAutoShapes: this.setAutoShapes,
       failsafe: failsafe,
-      onCrash: function(lastError) {
+      onCrash: function(this: AnalyseController, lastError: string) {
         const ceval = this.node.ceval;
-        console.log('Local eval failed after depth ' + (ceval && ceval.depth));
+        console.log('Local eval failed after depth ' + (ceval && ceval.depth), lastError);
         if (this.ceval.pnaclSupported) {
           if (ceval && ceval.depth >= 20 && !ceval.retried) {
             console.log('Remain on native stockfish for now');
@@ -552,7 +552,7 @@ export default class AnalyseController {
         }
       }.bind(this)
     };
-    if (opts.study && opts.practice) {
+    if (this.opts.study && this.opts.practice) {
       cfg.storageKeyPrefix = 'practice';
       cfg.multiPvDefault = 1;
     }
@@ -563,7 +563,7 @@ export default class AnalyseController {
     return this.ceval;
   }
 
-  gameOver(node?: Tree.Node): 'draw' | checkmate | false {
+  gameOver(node?: Tree.Node): 'draw' | 'checkmate' | false {
     const n = node || this.node;
     if (n.dests !== '' || n.drops) return false;
     if (n.check) return 'checkmate';
@@ -574,10 +574,10 @@ export default class AnalyseController {
     return !this.gameOver() && !this.node.threefold;
   }
 
-  startCeval = throttle(800, false, function() {
+  startCeval = throttle(800, false, function(this: AnalyseController) {
     if (this.ceval.enabled()) {
-      if (canUseCeval()) {
-        this.ceval.start(this.path, this.nodeList, this.threatMode);
+      if (this.canUseCeval()) {
+        this.ceval.start(this.path, this.nodeList, this.threatMode, false);
         this.evalCache.fetch(this.path, parseInt(this.ceval.multiPv()));
       } else this.ceval.stop();
     }
@@ -591,7 +591,7 @@ export default class AnalyseController {
       this.threatMode = false;
       if (this.practice) this.togglePractice();
     }
-    redraw();
+    this.redraw();
   }
 
   toggleThreatMode(): void {
@@ -602,7 +602,7 @@ export default class AnalyseController {
     if (this.threatMode && this.practice) this.togglePractice();
     this.setAutoShapes();
     this.startCeval();
-    redraw();
+    this.redraw();
   }
 
   disableThreatMode(): boolean {
@@ -617,28 +617,28 @@ export default class AnalyseController {
     this.ceval.stop();
     if (!this.ceval.enabled()) this.ceval.toggle();
     this.startCeval();
-    redraw();
+    this.redraw();
   }
 
   cevalSetMultiPv(v: number): void {
     this.ceval.multiPv(v);
     this.tree.removeCeval();
-    cevalReset();
+    this.cevalReset();
   }
 
   cevalSetThreads(v: number): void {
     this.ceval.threads(v);
-    cevalReset();
+    this.cevalReset();
   }
 
   cevalSetHashSize(v: number): void {
     this.ceval.hashSize(v);
-    cevalReset();
+    this.cevalReset();
   }
 
   cevalSetInfinite(v: boolean): void {
     this.ceval.infinite(v);
-    cevalReset();
+    this.cevalReset();
   }
 
   showEvalGauge(): boolean {
@@ -646,11 +646,11 @@ export default class AnalyseController {
   }
 
   hasAnyComputerAnalysis(): boolean {
-    return this.data.analysis || this.ceval.enabled();
+    return this.data.analysis ? true : this.ceval.enabled();
   }
 
   hasFullComputerAnalysis(): boolean {
-    return this.mainline[0].eval && Object.keys(this.mainline[0].eval).length;
+    return this.mainline[0].eval ? Object.keys(this.mainline[0].eval).length > 0 : false;
   }
 
   private resetAutoShapes() {
@@ -660,7 +660,7 @@ export default class AnalyseController {
 
   toggleAutoShapes(v: boolean) {
     this.showAutoShapes(v);
-    resetAutoShapes();
+    this.resetAutoShapes();
   }
 
   toggleGauge() {
@@ -672,35 +672,35 @@ export default class AnalyseController {
       this.tree.removeComputerVariations();
       if (this.ceval.enabled()) this.toggleCeval();
       this.chessground && this.chessground.setAutoShapes([]);
-    } else resetAutoShapes();
+    } else this.resetAutoShapes();
   }
 
   toggleComputer() {
     var value = !this.showComputer();
     this.showComputer(value);
     if (!value && this.practice) this.togglePractice();
-    if (opts.onToggleComputer) opts.onToggleComputer(value);
-    onToggleComputer();
+    this.opts.onToggleComputer(value);
+    this.onToggleComputer();
   }
 
-  mergeAnalysisData(data: AnalyseData): void {
+  mergeAnalysisData(data: AnalyseDataWithTree): void {
     this.tree.merge(data.tree);
     if (!this.showComputer()) this.tree.removeComputerVariations();
     this.data.analysis = data.analysis;
     if (this.retro) this.retro.onMergeAnalysisData();
-    redraw();
+    this.redraw();
   }
 
   playUci(uci: Uci): void {
     const move = chessUtil.decomposeUci(uci);
     if (uci[1] === '@') this.chessground.newPiece({
-      color: this.chessground.state.movable.color,
+      color: this.chessground.state.movable.color as Color,
       role: chessUtil.sanToRole[uci[0]]
     }, move[1]);
     else {
       const capture = this.chessground.state.pieces[move[1]];
       const promotion = move[2] && chessUtil.sanToRole[move[2].toUpperCase()];
-      sendMove(move[0], move[1], capture, promotion);
+      this.sendMove(move[0], move[1], capture, promotion);
     }
   }
 
@@ -732,7 +732,7 @@ export default class AnalyseController {
         return this.node;
       }.bind(this),
       send: this.socket.send,
-      receive: onNewCeval
+      receive: this.onNewCeval
     });
   }
 

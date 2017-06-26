@@ -23,6 +23,9 @@ export interface AnalyseData {
   forecast?: any;
   treeParts: Tree.Node[];
 }
+export interface AnalyseDataWithTree extends AnalyseData {
+  tree: Tree.Node;
+}
 
 // similar, but not identical, to game/Game
 export interface Game {
@@ -71,7 +74,8 @@ export interface AnalyseOpts {
   study?: any;
   tagTypes?: string;
   practice?: any;
-  onChange?: (fen: Fen, path: Tree.Path, mainlinePly: Ply | false) => void
+  onChange?: (fen: Fen, path: Tree.Path, mainlinePly: Ply | false) => void;
+  onToggleComputer(v: boolean): void;
 }
 
 export interface Study {

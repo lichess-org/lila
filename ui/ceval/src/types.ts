@@ -34,7 +34,7 @@ export interface PoolOpts {
 export interface CevalOpts {
   storageKeyPrefix?: string;
   failsafe: boolean;
-  multiPvDefault: number;
+  multiPvDefault?: number;
   possible: boolean;
   variant: Variant;
   onCrash: (err: any) => void;

@@ -24,5 +24,7 @@
   "devDependencies": {
     "typescript": "^2.2.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "types": "link:../types"
+  }
 }
