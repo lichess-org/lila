@@ -79,7 +79,7 @@ export function make(root: AnalyseController): RetroController {
       });
     }
     root.userJump(prev.path);
-    m.redraw();
+    root.redraw();
   };
 
   function onJump(): void {

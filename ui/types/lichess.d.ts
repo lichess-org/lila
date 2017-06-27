@@ -16,6 +16,7 @@ interface Lichess {
   slider: () => any
   reloadOtherTabs: () => void
   requestIdleCallback(f: () => void): void
+  loadCss(path: string): void
 
   fp: any
   sound: any

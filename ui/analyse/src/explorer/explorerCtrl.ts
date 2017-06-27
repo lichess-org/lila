@@ -3,9 +3,14 @@ import { controller as configCtrl } from './explorerConfig';
 import xhr = require('./openingXhr');
 import { synthetic } from '../util';
 import { game as gameUtil } from 'game';
-import { AnalyseController } from '../interfaces';
+import AnalyseController from '../ctrl';
 
-function tablebaseRelevant(variant, fen) {
+interface Hovering {
+  fen: Fen;
+  uci: Uci;
+}
+
+function tablebaseRelevant(variant: string, fen: Fen) {
   const parts = fen.split(/\s/);
   const pieceCount = parts[0].split(/[nbrqkp]/i).length - 1;
 
@@ -21,7 +26,7 @@ export default function(root: AnalyseController, opts, allow: boolean, redraw: (
   if (location.hash === '#opening' && !root.embed) enabled(true);
   const loading = prop(true);
   const failing = prop(false);
-  const hovering = prop(null);
+  const hovering = prop<Hovering | null>(null);
   const movesAway = prop(0);
 
   let cache = {};
@@ -36,109 +41,107 @@ export default function(root: AnalyseController, opts, allow: boolean, redraw: (
   const config = configCtrl(root.data.game, withGames, onConfigClose);
 
   const cacheKey = function() {
-    if (config.data.db.selected() === 'watkins' && !tablebaseRelevant(effectiveVariant, root.vm.node.fen)) {
-      const moves = [];
-      for (let i = 1; i < root.vm.nodeList.length; i++) {
-        moves.push(root.vm.nodeList[i].uci);
+    if (config.data.db.selected() === 'watkins' && !tablebaseRelevant(effectiveVariant, root.node.fen)) {
+      const moves: string[] = [];
+      for (let i = 1; i < root.nodeList.length; i++) {
+        moves.push(root.nodeList[i].uci);
       }
       return moves.join(',');
     }
-    else return root.vm.node.fen;
-  };
-
-  function handleFetchError(err) {
-    loading(false);
-    failing(true);
-    redraw();
+    else return root.node.fen;
   };
 
   const fetch = throttle(250, function() {
-    const fen = root.vm.node.fen, key = cacheKey();
+    const fen = root.node.fen, key = cacheKey();
 
     let request;
     if (withGames && tablebaseRelevant(effectiveVariant, fen))
-      request = xhr.tablebase(opts.tablebaseEndpoint, effectiveVariant, fen);
+    request = xhr.tablebase(opts.tablebaseEndpoint, effectiveVariant, fen);
     else if (config.data.db.selected() === 'watkins')
       request = xhr.watkins(opts.tablebaseEndpoint, key);
     else
-      request = xhr.opening(opts.endpoint, effectiveVariant, fen, config.data, withGames);
+    request = xhr.opening(opts.endpoint, effectiveVariant, fen, config.data, withGames);
 
     request.then(function(res) {
       res.nbMoves = res.moves.length;
-      res.fen = root.vm.node.fen;
+      res.fen = root.node.fen;
       cache[key] = res;
       movesAway(res.nbMoves ? 0 : movesAway() + 1);
       loading(false);
       failing(false);
       redraw();
-    }, handleFetchError);
+    }, () => {
+      loading(false);
+      failing(true);
+      redraw();
+    })
   }, false);
 
-  const empty = {
-    opening: true,
-    moves: {}
-  };
+    const empty = {
+      opening: true,
+      moves: {}
+    };
 
-  const setNode = function() {
-    if (!enabled()) return;
-    const node = root.vm.node;
-    if (node.ply > 50 && !tablebaseRelevant(effectiveVariant, node.fen)) {
-      cache[node.fen] = empty;
-    }
-    const cached = cache[cacheKey()];
-    if (cached) {
-      movesAway(cached.nbMoves ? 0 : movesAway() + 1);
-      loading(false);
-      failing(false);
-    } else {
-      loading(true);
-      fetch();
-    }
-  };
+    const setNode = function() {
+      if (!enabled()) return;
+      const node = root.node;
+      if (node.ply > 50 && !tablebaseRelevant(effectiveVariant, node.fen)) {
+        cache[node.fen] = empty;
+      }
+      const cached = cache[cacheKey()];
+      if (cached) {
+        movesAway(cached.nbMoves ? 0 : movesAway() + 1);
+        loading(false);
+        failing(false);
+      } else {
+        loading(true);
+        fetch();
+      }
+    };
 
-  return {
-    allowed,
-    enabled,
-    setNode,
-    loading,
-    failing,
-    hovering,
-    movesAway,
-    config,
-    withGames,
-    current: () => cache[cacheKey()],
-    toggle() {
-      movesAway(0);
-      enabled(!enabled());
-      setNode();
-      root.autoScroll();
-    },
-    disable() {
-      if (enabled()) {
-        enabled(false);
+    return {
+      allowed,
+      enabled,
+      setNode,
+      loading,
+      failing,
+      hovering,
+      movesAway,
+      config,
+      withGames,
+      current: () => cache[cacheKey()],
+      toggle() {
+        movesAway(0);
+        enabled(!enabled());
+        setNode();
         root.autoScroll();
-      }
-    },
-    setHovering(fen, uci) {
-      hovering(uci ? {
-        fen: fen,
-        uci: uci,
-      } : null);
-      root.setAutoShapes();
-    },
-    fetchMasterOpening: (function() {
-      const masterCache = {};
-      return function(fen) {
-        if (masterCache[fen]) return $.Deferred().resolve(masterCache[fen]);
-        return xhr.opening(opts.endpoint, 'standard', fen, {
-          db: {
-            selected: prop('masters')
-          }
-        }, false).then(function(res) {
-          masterCache[fen] = res;
-          return res;
-        });
-      }
-    })()
-  };
+      },
+      disable() {
+        if (enabled()) {
+          enabled(false);
+          root.autoScroll();
+        }
+      },
+      setHovering(fen, uci) {
+        hovering(uci ? {
+          fen: fen,
+          uci: uci,
+        } : null);
+        root.setAutoShapes();
+      },
+      fetchMasterOpening: (function() {
+        const masterCache = {};
+        return function(fen) {
+          if (masterCache[fen]) return $.Deferred().resolve(masterCache[fen]);
+          return xhr.opening(opts.endpoint, 'standard', fen, {
+            db: {
+              selected: prop('masters')
+            }
+          }, false).then(function(res) {
+            masterCache[fen] = res;
+            return res;
+          });
+        }
+      })()
+    };
 };

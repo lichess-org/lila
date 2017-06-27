@@ -7,7 +7,7 @@ export function render(ctrl) {
       insert: vnode => {
         ctrl.chessground = Chessground((vnode.elm as HTMLElement), makeConfig(ctrl));
         ctrl.setAutoShapes();
-        if (ctrl.vm.node.shapes) ctrl.chessground.setShapes(ctrl.vm.node.shapes);
+        if (ctrl.node.shapes) ctrl.chessground.setShapes(ctrl.node.shapes);
       },
       destroy: _ => ctrl.chessground.destroy()
     }

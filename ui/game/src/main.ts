@@ -1,13 +1,13 @@
 /// <reference types="types/lichess" />
 
-import { GameData, GameView, Player } from './interfaces';
+import { GameData, GameView, Player, Status, Source } from './interfaces';
 
 import * as game from './game';
 import * as status from './status';
 import * as router from './router';
 import viewStatus from './view/status';
 
-export { GameData, Player, game, status, router };
+export { GameData, Player, Status, Source, game, status, router };
 
 export const view: GameView = {
   status: viewStatus

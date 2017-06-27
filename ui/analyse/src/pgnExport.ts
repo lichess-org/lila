@@ -1,4 +1,4 @@
-import { AnalyseController } from './interfaces';
+import AnalyseController from './ctrl';
 
 import { initialFen, fixCrazySan } from 'chess';
 
@@ -18,7 +18,7 @@ function renderNodesTxt(nodes: Tree.Node[]): string {
 
 export function renderFullTxt(ctrl: AnalyseController): string {
   var g = ctrl.data.game;
-  var txt = renderNodesTxt(ctrl.tree.getNodeList(ctrl.vm.path));
+  var txt = renderNodesTxt(ctrl.tree.getNodeList(ctrl.path));
   var tags: Array<[string, string]> = [];
   if (g.variant.key !== 'standard')
     tags.push(['Variant', g.variant.name]);

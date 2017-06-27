@@ -89,7 +89,7 @@ function showGameTable(ctrl, type, games) {
         const $tr = $(e.target).parents('tr');
         if (!$tr.length) return;
         const orientation = ctrl.chessground.state.orientation;
-        const fenParam = ctrl.vm.node.ply > 0 ? ('?fen=' + ctrl.vm.node.fen) : '';
+        const fenParam = ctrl.node.ply > 0 ? ('?fen=' + ctrl.node.fen) : '';
         if (ctrl.explorer.config.data.db.selected() === 'lichess')
           window.open('/' + $tr.data('id') + '/' + orientation + fenParam, '_blank');
         else window.open('/import/master/' + $tr.data('id') + '/' + orientation + fenParam, '_blank');

@@ -1,4 +1,4 @@
-import { Player, Tournament, Simul, Clock, Status, Source } from 'game';
+import { Player, Status, Source } from 'game';
 import * as cg from 'chessground/types';
 
 export type MaybeVNode = VNode | null | undefined;
@@ -14,10 +14,7 @@ export interface AnalyseData {
   opponent: Player;
   orientation: Color;
   spectator?: boolean; // for compat with GameData, for game functions
-  tournament?: Tournament;
-  simul?: Simul;
   takebackable: boolean;
-  clock?: Clock;
   analysis?: Analysis;
   userAnalysis: boolean;
   forecast?: any;

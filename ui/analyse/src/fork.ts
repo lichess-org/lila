@@ -11,7 +11,7 @@ export interface ForkController {
   },
   next: () => boolean | undefined;
   prev: () => boolean | undefined;
-  proceed: (id: string) => boolean | undefined;
+  proceed: (id?: string) => boolean | undefined;
 }
 
 export function make(root: AnalyseController): ForkController {

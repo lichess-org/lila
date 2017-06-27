@@ -1,5 +1,6 @@
-import { AnalyseController, AnalyseData, AutoplayDelay } from './interfaces';
-
+import { AnalyseData } from './interfaces';
+import { AutoplayDelay } from './autoplay';
+import AnalyseController from './ctrl';
 import { router } from 'game';
 import { synthetic, bind, dataIcon } from './util';
 import * as pgnExport from './pgnExport';
@@ -50,7 +51,7 @@ function deleteButton(data: AnalyseData, userId: string) {
   return;
 }
 
-function autoplayButtons(ctrl: AnalyseController): Mithril.Renderable {
+function autoplayButtons(ctrl: AnalyseController): VNode {
   const d = ctrl.data;
   let speeds = (d.game.moveCentis && d.game.moveCentis.length) ? allSpeeds : baseSpeeds;
   speeds = d.analysis ? speeds.concat(cplSpeeds) : speeds;
@@ -94,7 +95,7 @@ function studyButton(ctrl: AnalyseController) {
     h('i.icon', {
       attrs: dataIcon('')
     }),
-    h('span', 'Open study')
+    'Open study'
   ]);
   if (ctrl.study || ctrl.ongoing) return;
   const realGame = !synthetic(ctrl.data);
@@ -114,7 +115,7 @@ function studyButton(ctrl: AnalyseController) {
     hiddenInput('fen', ctrl.tree.root.fen),
     h('button.fbt', { attrs: { type: 'submit' } }),
     h('i.icon', { attrs: dataIcon('') }),
-    h('span', 'Study')
+    'Study'
   ]);
 }
 
@@ -136,7 +137,7 @@ export function view(ctrl: AnalyseController): VNode {
   const flipOpts = d.userAnalysis ? {
     hook: bind('click', ctrl.flip)
   } : {
-    attrs: { href: router.game(d, d.opponent.color, ctrl.embed) + '#' + ctrl.vm.node.ply }
+    attrs: { href: router.game(d, d.opponent.color, ctrl.embed) + '#' + ctrl.node.ply }
   };
 
   const canContinue = !ctrl.ongoing && !ctrl.embed && d.game.variant.key === 'standard';
@@ -147,17 +148,17 @@ export function view(ctrl: AnalyseController): VNode {
     h('div.tools', [
       h('a.fbt', flipOpts, [
         h('i.icon', { attrs: dataIcon('B') }),
-        h('span', ctrl.trans('flipBoard'))
+        ctrl.trans('flipBoard')
       ]),
       ctrl.ongoing ? null : h('a.fbt', {
         attrs: {
-          href: d.userAnalysis ? '/editor?fen=' + ctrl.vm.node.fen : '/' + d.game.id + '/edit?fen=' + ctrl.vm.node.fen,
+          href: d.userAnalysis ? '/editor?fen=' + ctrl.node.fen : '/' + d.game.id + '/edit?fen=' + ctrl.node.fen,
           rel: 'nofollow',
           target: ctrl.embed ? '_blank' : ''
         }
       }, [
         h('i.icon', { attrs: dataIcon('m') }),
-        h('span', ctrl.trans('boardEditor'))
+        ctrl.trans('boardEditor')
       ]),
       canContinue ? h('a.fbt', {
         hook: bind('click', _ => $.modal($('.continue_with.g_' + d.game.id)))
@@ -165,7 +166,7 @@ export function view(ctrl: AnalyseController): VNode {
         h('i.icon', {
           attrs: dataIcon('U')
         }),
-        h('span', ctrl.trans('continueFromHere'))
+        ctrl.trans('continueFromHere')
       ]) : null,
       studyButton(ctrl)
     ]),
@@ -180,7 +181,7 @@ export function view(ctrl: AnalyseController): VNode {
               h('input.cmn-toggle.cmn-toggle-round#' + id, {
                 attrs: {
                   type: 'checkbox',
-                  checked: ctrl.vm.showComputer(),
+                  checked: ctrl.showComputer(),
                   disabled: mandatoryCeval
                 },
                 hook: bind('change', ctrl.toggleComputer),
@@ -189,7 +190,7 @@ export function view(ctrl: AnalyseController): VNode {
             ])
           ]);
         })('analyse-toggle-all'),
-        ctrl.vm.showComputer() ? [
+        ctrl.showComputer() ? [
           (id => {
             return h('div.setting', [
               h('label', { attrs: { 'for': id } }, 'Best move arrow'),
@@ -197,7 +198,7 @@ export function view(ctrl: AnalyseController): VNode {
                 h('input.cmn-toggle.cmn-toggle-round#' + id, {
                   attrs: {
                     type: 'checkbox',
-                    checked: ctrl.vm.showAutoShapes()
+                    checked: ctrl.showAutoShapes()
                   },
                   hook: bind('change', e => {
                     ctrl.toggleAutoShapes((e.target as HTMLInputElement).checked);
@@ -213,7 +214,7 @@ export function view(ctrl: AnalyseController): VNode {
                 h('input.cmn-toggle.cmn-toggle-round#' + id, {
                   attrs: {
                     type: 'checkbox',
-                    checked: ctrl.vm.showGauge()
+                    checked: ctrl.showGauge()
                   },
                   hook: bind('change', () => ctrl.toggleGauge())
                 }),
@@ -297,19 +298,19 @@ export function view(ctrl: AnalyseController): VNode {
         ] : null
       ]
     ] : null,
-    ctrl.vm.mainline.length > 4 ? [h('h2', 'Replay mode'), autoplayButtons(ctrl)] : null,
-    deleteButton(d, ctrl.userId),
+    ctrl.mainline.length > 4 ? [h('h2', 'Replay mode'), autoplayButtons(ctrl)] : null,
+    deleteButton(d, ctrl.opts.userId),
     canContinue ? h('div.continue_with.g_' + d.game.id, [
       h('a.button', {
         attrs: {
-          href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#ai' : router.cont(d, 'ai') + '?fen=' + ctrl.vm.node.fen,
+          href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#ai' : router.cont(d, 'ai') + '?fen=' + ctrl.node.fen,
           rel: 'nofollow'
         }
       }, ctrl.trans('playWithTheMachine')),
       h('br'),
       h('a.button', {
         attrs: {
-          href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#friend' : router.cont(d, 'friend') + '?fen=' + ctrl.vm.node.fen,
+          href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#friend' : router.cont(d, 'friend') + '?fen=' + ctrl.node.fen,
           rel: 'nofollow'
         }
       }, ctrl.trans('playWithAFriend'))

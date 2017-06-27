@@ -105,7 +105,7 @@ export default function(root: AnalyseController): VNode | undefined {
   if (!ctrl) return;
   const comment: Comment = ctrl.comment();
   const running: boolean = ctrl.running();
-  const end: string = ctrl.currentNode().threefold ? 'threefold' : root.gameOver();
+  const end = ctrl.currentNode().threefold ? 'threefold' : root.gameOver();
   return h('div.practice_box', {
     class: { [comment.verdict]: !!comment }
   }, [
