@@ -496,4 +496,7 @@
   <string name="coaches">Trenéři</string>
   <string name="invalidPgn">Neplatný formát PGN</string>
   <string name="invalidFen">Neplatný formát FEN</string>
+  <string name="error.unknown">Chyba</string>
+  <string name="notifications">Oznámení</string>
+  <string name="challenges">Výzvy</string>
 </resources>
