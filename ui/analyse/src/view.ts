@@ -7,7 +7,7 @@ import { synthetic, bind, dataIcon, iconTag, spinner } from './util';
 import { game, router, view as gameView } from 'game';
 import { path as treePath } from 'tree';
 import treeView from './treeView';
-import control from './control';
+import * as control from './control';
 import { view as actionMenu } from './actionMenu';
 import { view as renderPromotion } from './promotion';
 import renderClocks from './clocks';
@@ -65,7 +65,7 @@ function renderAnalyse(ctrl, concealOf) {
   return h('div.areplay', [
     renderChapterName(ctrl),
     renderOpeningBox(ctrl),
-    treeView.render(ctrl, concealOf),
+    treeView(ctrl, concealOf),
     renderResult(ctrl)
   ]);
 }

@@ -22,6 +22,7 @@ export interface AnalyseData {
   userAnalysis: boolean;
   forecast?: any;
   treeParts: Tree.Node[];
+  evalPut?: boolean;
 }
 export interface AnalyseDataWithTree extends AnalyseData {
   tree: Tree.Node;
@@ -99,4 +100,8 @@ export interface StudyPractice {
 
 export interface CgDests {
   [key: string]: cg.Key[]
+}
+
+export interface JustCaptured extends cg.Piece {
+  promoted?: boolean;
 }

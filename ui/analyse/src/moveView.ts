@@ -5,7 +5,7 @@ import { defined } from 'common';
 import { view as cevalView } from 'ceval';
 
 export interface Ctx {
-  withDots: boolean;
+  withDots?: boolean;
   showEval: boolean;
   showGlyphs?: boolean;
 }
@@ -24,7 +24,7 @@ function renderEval(e): VNode {
   return h('eval', e);
 }
 
-export function renderIndex(ply: Ply, withDots: boolean): VNode {
+export function renderIndex(ply: Ply, withDots?: boolean): VNode {
   return h('index', plyToTurn(ply) + (withDots ? (ply % 2 === 1 ? '.' : '...') : ''));
 }
 

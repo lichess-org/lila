@@ -55,6 +55,9 @@ interface Window {
   Mousetrap: any
   Chessground: any
   Highcharts: any
+  lichessReplayMusic: () => {
+    jump(node: Tree.Node): void
+  }
 }
 
 interface Paginator<T> {
@@ -163,6 +166,7 @@ declare namespace Tree {
 
   export interface Comment {
     id: string;
+    by: string;
     text: string;
   }
 

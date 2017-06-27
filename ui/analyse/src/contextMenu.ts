@@ -8,7 +8,6 @@ import { patch } from './main';
 export interface Opts {
   path: Tree.Path;
   root: AnalyseController;
-  redraw: () => void;
 }
 
 interface Coords {
@@ -85,7 +84,7 @@ export default function(e: MouseEvent, opts: Opts): void {
     document.removeEventListener("click", close, false);
     el.classList.remove('visible');
     patch(el, h('div'));
-    opts.redraw();
+    opts.root.redraw();
   };
   document.addEventListener("click", close, false);
   positionMenu(el, getPosition(e));

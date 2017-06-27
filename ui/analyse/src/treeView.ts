@@ -8,13 +8,13 @@ import { path as treePath, ops as treeOps } from 'tree';
 import * as moveView from './moveView';
 import { authorText as commentAuthorText } from './study/studyComments';
 import AnalyseController from './ctrl';
+import { MaybeVNodes } from './interfaces';
 
 type Conceal = boolean | 'conceal' | 'hide' | null;
 type ConcealOf = (mainline: boolean) => (path: Tree.Path, node: Tree.Node) => Conceal;
 
 interface Ctx {
   ctrl: AnalyseController;
-  conceal: boolean;
   concealOf: ConcealOf;
   showComputer: boolean;
   showGlyphs: boolean;
@@ -53,7 +53,7 @@ function nonEmpty(x: any): boolean {
   return !!x;
 }
 
-function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): Array<VNode | null> | undefined {
+function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | undefined {
   const cs = node.children;
   const main = cs[0];
   if (!main) return;
@@ -62,7 +62,7 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): Array<VNode | 
   if (opts.isMainline) {
     const isWhite = main.ply % 2 === 1,
     commentTags = renderMainlineCommentsOf(ctx, main, conceal, true).filter(nonEmpty);
-    if (!cs[1] && empty(commentTags)) return (isWhite ? [moveView.renderIndex(main.ply, false)] : []).concat(
+    if (!cs[1] && empty(commentTags)) return ((isWhite ? [moveView.renderIndex(main.ply, false)] : []) as MaybeVNodes).concat(
       renderMoveAndChildrenOf(ctx, main, {
         parentPath: opts.parentPath,
         isMainline: true,
@@ -79,9 +79,9 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): Array<VNode | 
       isMainline: true,
       conceal: conceal
     };
-    const uh: Array<VNode | null> = [
+    return (isWhite ? [moveView.renderIndex(main.ply, false)] : [] as MaybeVNodes).concat([
       renderMoveOf(ctx, main, passOpts),
-      isWhite ? emptyMove(passOpts) : null,
+      isWhite ? emptyMove(passOpts.conceal) : null,
       h('interrupt', [
         commentTags,
         renderLines(ctx, cs.slice(1), {
@@ -91,19 +91,17 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): Array<VNode | 
           noConceal: !conceal
         })
       ])
-    ];
-    const indexNodes: Array<VNode | null> = isWhite ? [moveView.renderIndex(main.ply, false)] : [];
-    return indexNodes.concat(uh).concat(
+    ] as MaybeVNodes).concat(
       isWhite && mainChildren ? [
         moveView.renderIndex(main.ply, false),
-        emptyMove(passOpts)
+        emptyMove(passOpts.conceal)
       ] : []).concat(mainChildren || []);
   }
   if (!cs[1]) return renderMoveAndChildrenOf(ctx, main, opts);
   return renderInlined(ctx, cs, opts) || [renderLines(ctx, cs, opts)];
 }
 
-function renderInlined(ctx: Ctx, nodes: Tree.Node[], opts: Opts): VNode[] | undefined {
+function renderInlined(ctx: Ctx, nodes: Tree.Node[], opts: Opts): MaybeVNodes | undefined {
   if (!nodes[1] || nodes[2]) return;
   var found;
   if (!treeOps.hasBranching(nodes[1], 4)) found = [0, 1];
@@ -140,16 +138,17 @@ function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   const path = opts.parentPath + node.id,
   c = ctx.ctrl,
   current = (path === c.initialPath && game.playable(c.data)) || (
-    c.retro && c.retro.current() && c.retro.current().prev.path === path);
+    c.retro && c.retro.current() && c.retro.current().prev.path === path),
+  classes = {
+    active: path === c.path,
+    context_menu: path === c.contextMenuPath,
+    current: current,
+    nongame: !current && !!c.gamePath && treePath.contains(path, c.gamePath) && path !== c.gamePath
+  };
+  if (opts.conceal) classes[opts.conceal as string] = true;
   return h('move', {
     attrs: { p: path },
-    class: {
-      active: path === c.path,
-      context_menu: path === c.contextMenuPath,
-      current: current,
-      nongame: !current && c.gamePath && treePath.contains(path, c.gamePath) && path !== c.gamePath,
-      [ctx.conceal]: opts.conceal
-    }
+    class: classes
   }, moveView.renderMove(ctx, node));
 }
 
@@ -159,38 +158,37 @@ function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   active = path === ctx.ctrl.path,
   content = [
     withIndex ? moveView.renderIndex(node.ply, true) : null,
-    fixCrazySan(node.san)
-  ];
-  if (node.glyphs) content.push(moveView.renderGlyphs(node.glyphs));
+    fixCrazySan(node.san!)
+  ],
+  classes = {
+    active: active,
+    parent: !active && pathContains(ctx, path),
+    context_menu: path === ctx.ctrl.contextMenuPath,
+  };
+  if (opts.conceal) classes[opts.conceal as string] = true;
+  if (node.glyphs) content.concat(moveView.renderGlyphs(node.glyphs));
   return h('move', {
     attrs: { p: path },
-    class: {
-      active: active,
-      parent: !active && pathContains(ctx, path),
-      context_menu: path === ctx.ctrl.contextMenuPath,
-      [ctx.conceal]: opts.conceal
-    }
+    class: classes
   }, content);
 }
 
-function renderMoveAndChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode[] {
+function renderMoveAndChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes {
   var path = opts.parentPath + node.id;
   if (opts.truncate === 0) return [
     h('move', {
       attrs: { p: path }
-    }, h('index', '[...]'))
+    }, [h('index', '[...]')])
   ];
-  return [
-    renderMoveOf(ctx, node, opts),
-    renderVariationCommentsOf(ctx, node),
-    opts.inline ? renderInline(ctx, opts.inline, opts) : null,
-    renderChildrenOf(ctx, node, {
+  return ([renderMoveOf(ctx, node, opts)] as MaybeVNodes)
+    .concat(renderVariationCommentsOf(ctx, node))
+    .concat(opts.inline ? renderInline(ctx, opts.inline, opts) : null)
+    .concat(renderChildrenOf(ctx, node, {
       parentPath: path,
       isMainline: opts.isMainline,
       noConceal: opts.noConceal,
-      truncate: opts.truncate ? opts.truncate - 1 : null
-    })
-  ];
+      truncate: opts.truncate ? opts.truncate - 1 : undefined
+    }) || []);
 }
 
 function renderInline(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
@@ -203,38 +201,40 @@ function renderInline(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   }));
 }
 
-function emptyMove(opts: Opts): VNode {
+function emptyMove(conceal?: Conceal): VNode {
+  const c = {};
+  if (conceal) c[conceal as string] = true;
   return h('move.empty', {
-    class: { [opts.conceal]: opts.conceal }
+    class: c
   }, '...');
 }
 
-function renderMainlineCommentsOf(ctx: Ctx, node: Tree.Node, conceal: Conceal, withColor: boolean): VNode[] {
+function renderMainlineCommentsOf(ctx: Ctx, node: Tree.Node, conceal: Conceal, withColor: boolean): MaybeVNodes {
 
   if (!ctx.ctrl.showComments || empty(node.comments)) return [];
 
-  const colorClass = opts.withColor ? (node.ply % 2 === 0 ? 'black ' : 'white ') : '';
+  const colorClass = withColor ? (node.ply % 2 === 0 ? '.black ' : '.white ') : '';
 
-  return node.comments.map(comment => {
+  return node.comments!.map(comment => {
     if (comment.by === 'lichess' && !ctx.showComputer) return;
-    let sel = 'comment';
+    let sel = 'comment' + colorClass;
     if (comment.text.indexOf('Inaccuracy.') === 0) sel += '.inaccuracy';
     else if (comment.text.indexOf('Mistake.') === 0) sel += '.mistake';
     else if (comment.text.indexOf('Blunder.') === 0) sel += '.blunder';
-    if (opts.conceal) sel += '.' + opts.conceal;
+    if (conceal) sel += '.' + conceal;
     return h(sel, [
-      node.comments[1] ? h('span.by', commentAuthorText(comment.by)) : null,
+      node.comments![1] ? h('span.by', commentAuthorText(comment.by)) : null,
       truncateComment(comment.text, 400, ctx)
     ]);
   });
 }
 
-function renderVariationCommentsOf(ctx: Ctx, node: Tree.Node): VNode[] {
+function renderVariationCommentsOf(ctx: Ctx, node: Tree.Node): MaybeVNodes {
   if (!ctx.ctrl.showComments || empty(node.comments)) return [];
-  return node.comments.map(comment => {
+  return node.comments!.map(comment => {
     if (comment.by === 'lichess' && !ctx.showComputer) return;
     return h('comment', [
-      node.comments[1] ? h('span.by', commentAuthorText(comment.by)) : null,
+      node.comments![1] ? h('span.by', commentAuthorText(comment.by)) : null,
       truncateComment(comment.text, 300, ctx)
     ]);
   });
@@ -244,15 +244,12 @@ function truncateComment(text: string, len: number, ctx: Ctx) {
   return ctx.ctrl.embed || text.length <= len ? text : text.slice(0, len - 10) + ' [...]';
 }
 
-function eventPath(e: MouseEvent): Tree.Path | undefined {
-  return e.target.getAttribute('p') || e.target.parentNode.getAttribute('p');
+function eventPath(e: MouseEvent): Tree.Path | null {
+  return (e.target as HTMLElement).getAttribute('p') ||
+  ((e.target as HTMLElement).parentNode as HTMLElement).getAttribute('p');
 }
 
-function noop() {}
-
-function emptyConcealOf() {
-  return noop;
-}
+const emptyConcealOf = () => function() {};
 
 export default function(ctrl: AnalyseController, concealOf: ConcealOf): VNode {
   const root = ctrl.tree.root;
@@ -265,37 +262,39 @@ export default function(ctrl: AnalyseController, concealOf: ConcealOf): VNode {
   };
   const commentTags = renderMainlineCommentsOf(ctx, root, false, false);
   return h('div.tview2', {
-    config: function(el, isUpdate) {
-      if (ctrl.autoScrollRequested || !isUpdate) {
-        if (isUpdate || ctrl.path !== treePath.root) autoScroll(ctrl, el);
-        ctrl.autoScrollRequested = false;
-      }
-      if (isUpdate) return;
-      el.oncontextmenu = function(e) {
-        var path = eventPath(e, ctrl);
-        if (path !== null) contextMenu.open(e, {
-          path: path,
-          root: ctrl
+    hook: {
+      insert: vnode => {
+        const el = vnode.elm as HTMLElement;
+        if (ctrl.path !== treePath.root) autoScroll(ctrl, el);
+        el.addEventListener('contextmenu', (e: MouseEvent) => {
+          const path = eventPath(e);
+          if (path !== null) contextMenu(e, {
+            path: path,
+            root: ctrl
+          });
+          ctrl.redraw();
+          return false;
         });
-        m.redraw();
-        return false;
-      };
-      el.addEventListener('mousedown', function(e) {
-        if (defined(e.button) && e.button !== 0) return; // only touch or left click
-        var path = eventPath(e, ctrl);
-        if (path) ctrl.userJump(path);
-        m.redraw();
-      });
-    },
-  }, [
-    empty(commentTags) ? null : m('interrupt', commentTags),
-    root.ply % 2 === 1 ? [
-      moveView.renderIndex(root.ply, false),
-      emptyMove({})
-    ] : null,
-    renderChildrenOf(ctx, root, {
-      parentPath: '',
-      isMainline: true
-    })
-  ]);
+        el.addEventListener('mousedown', (e: MouseEvent) => {
+          if (defined(e.button) && e.button !== 0) return; // only touch or left click
+          const path = eventPath(e);
+          if (path) ctrl.userJump(path);
+          ctrl.redraw();
+        });
+      },
+      postpatch: (_, vnode) => {
+        if (ctrl.autoScrollRequested && ctrl.path !== treePath.root) {
+          autoScroll(ctrl, vnode.elm as HTMLElement);
+          ctrl.autoScrollRequested = false;
+        }
+      }
+    }
+  }, ([
+    empty(commentTags) ? null : h('interrupt', commentTags),
+    root.ply & 1 ? moveView.renderIndex(root.ply, false) : null,
+    root.ply & 1 ? emptyMove() : null
+  ] as MaybeVNodes).concat(renderChildrenOf(ctx, root, {
+    parentPath: '',
+    isMainline: true
+  }) || []));
 }

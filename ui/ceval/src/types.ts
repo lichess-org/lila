@@ -38,7 +38,7 @@ export interface CevalOpts {
   possible: boolean;
   variant: Variant;
   onCrash: (err: any) => void;
-  emit: (ev: Tree.ClientEval) => void;
+  emit: (ev: Tree.ClientEval, work: Work) => void;
   setAutoShapes: () => void;
 }
 
@@ -80,11 +80,11 @@ export interface CevalController {
 
 export interface ParentController {
   getCeval: () => CevalController;
-  nextNodeBest: () => boolean;
+  nextNodeBest: () => string | undefined;
   disableThreatMode?: Prop<Boolean>;
   toggleThreatMode: () => void;
   toggleCeval: () => void;
-  gameOver: () => boolean;
+  gameOver: (node?: Tree.Node) => 'draw' | 'checkmate' | false;
   mandatoryCeval?: Prop<boolean>;
   showEvalGauge: Prop<boolean>;
   currentEvals: () => NodeEvals;

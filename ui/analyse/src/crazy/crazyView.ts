@@ -6,15 +6,15 @@ const eventNames = ['mousedown', 'touchstart'];
 const oKeys = ['pawn', 'knight', 'bishop', 'rook', 'queen'];
 
 export default function(ctrl, color, position) {
-  if (!ctrl.vm.node.crazy) return;
-  var pocket = ctrl.vm.node.crazy.pockets[color === 'white' ? 0 : 1];
-  var dropped = ctrl.vm.justDropped;
-  var captured = ctrl.vm.justCaptured;
+  if (!ctrl.node.crazy) return;
+  const pocket = ctrl.node.crazy.pockets[color === 'white' ? 0 : 1];
+  const dropped = ctrl.justDropped;
+  let captured = ctrl.justCaptured;
   if (captured) {
     captured = captured.promoted ? 'pawn' : captured.role;
   }
-  var activeColor = color === ctrl.turnColor();
-  var usable = !ctrl.embed && activeColor;
+  const activeColor = color === ctrl.turnColor();
+  const usable = !ctrl.embed && activeColor;
   return h('div.pocket.is2d.' + position, {
     class: { usable },
     hook: {
@@ -26,7 +26,7 @@ export default function(ctrl, color, position) {
       }
     }
   }, oKeys.map(role => {
-    var nb = pocket[role] || 0;
+    let nb = pocket[role] || 0;
     if (activeColor) {
       if (dropped === role) nb--;
       if (captured === role) nb++;

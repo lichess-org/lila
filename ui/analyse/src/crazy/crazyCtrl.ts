@@ -16,13 +16,13 @@ export function drag(ctrl: AnalyseController, color: Color, e: cg.MouchEvent): v
   dragNewPiece(ctrl.chessground.state, { color: color, role: role }, e);
 }
 
-export function valid(chessground: ChessgroundApi, possibleDrops: string, piece: cg.Piece, pos: Key): boolean {
+export function valid(chessground: ChessgroundApi, possibleDrops: string | undefined | null, piece: cg.Piece, pos: Key): boolean {
 
   if (piece.color !== chessground.state.movable.color) return false;
 
   if (piece.role === 'pawn' && (pos[1] === '1' || pos[1] === '8')) return false;
 
-  var drops = readDrops(possibleDrops);
+  const drops = readDrops(possibleDrops);
 
   if (drops === null) return true;
 

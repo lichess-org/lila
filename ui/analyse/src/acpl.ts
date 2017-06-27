@@ -1,6 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { AnalyseController, AnalyseData, MaybeVNode } from './interfaces';
+import { AnalyseData, MaybeVNode } from './interfaces';
+import AnalyseController from './ctrl';
 import { game } from 'game';
 import { bind, dataIcon } from './util';
 
@@ -57,7 +58,7 @@ function playerTable(ctrl: AnalyseController, color: Color): VNode {
 // #TODO only render once, maybe with a snabbdom thunk
 export function render(ctrl: AnalyseController): MaybeVNode {
   const d = ctrl.data;
-  if (!d.analysis || !ctrl.vm.showComputer()) return;
+  if (!d.analysis || !ctrl.showComputer()) return;
 
   return h('div.advice_summary', {
     hook: {
