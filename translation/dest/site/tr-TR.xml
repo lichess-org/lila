@@ -46,7 +46,7 @@
   <string name="viewTheComputerAnalysis">Bilgisayar analizini incele</string>
   <string name="requestAComputerAnalysis">Bilgisayar analizi talep et</string>
   <string name="computerAnalysis">Bilgisayar analizi</string>
-  <string name="computerAnalysisAvailable">Bilgisayar analizi yapılabilir</string>
+  <string name="computerAnalysisAvailable">Bilgisayar analizi mevcut</string>
   <string name="analysis">Analiz tahtası</string>
   <string name="blunders">Vahim hatalar</string>
   <string name="mistakes">Hatalar</string>
