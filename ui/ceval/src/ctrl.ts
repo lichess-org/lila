@@ -194,10 +194,10 @@ export default function(opts: CevalOpts): CevalController {
     isDeeper,
     goDeeper,
     canGoDeeper() {
-      return !isDeeper() && !infinite();
+      return !isDeeper() && !infinite() && !pool.isComputing();
     },
     isComputing() {
-      return !!started;
+      return !!started && pool.isComputing();
     },
     destroy() { pool.destroy() }
   };

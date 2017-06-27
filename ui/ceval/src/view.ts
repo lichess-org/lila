@@ -31,20 +31,16 @@ function localEvalInfo(ctrl: ParentController, evs: NodeEvals): Array<VNode | st
   ] : [
     'Depth ' + (evs.client.depth || 0) + '/' + evs.client.maxDepth
   ];
-  if (ceval.canGoDeeper() && (
-    evs.client.depth >= (evs.client.maxDepth || ceval.effectiveMaxDepth())
-  ))
-  t.push(h('a.deeper', {
-    attrs: {
-      title: 'Go deeper',
-      'data-icon': 'O'
-    },
-    hook: {
-      insert: vnode => (vnode.elm as HTMLElement).addEventListener('click', ceval.goDeeper)
-    }
-  }));
-  else if (!evs.client.cloud && evs.client.knps)
-  t.push(', ' + Math.round(evs.client.knps) + ' knodes/s');
+  if (ceval.canGoDeeper()) t.push(h('a.deeper', {
+      attrs: {
+        title: 'Go deeper',
+        'data-icon': 'O'
+      },
+      hook: {
+        insert: vnode => (vnode.elm as HTMLElement).addEventListener('click', ceval.goDeeper)
+      }
+    }));
+  else if (!evs.client.cloud && evs.client.knps) t.push(', ' + Math.round(evs.client.knps) + ' knodes/s');
   return t;
 }
 
@@ -141,7 +137,6 @@ export function renderCeval(ctrl: ParentController): VNode | undefined {
     if (threat) percent = Math.min(100, Math.round(100 * threat.depth / threat.maxDepth));
     else percent = 0;
   }
-
   const mandatoryCeval = ctrl.mandatoryCeval && ctrl.mandatoryCeval();
 
   const progressBar: VNode | null = enabled ? h('div.bar', h('span', {

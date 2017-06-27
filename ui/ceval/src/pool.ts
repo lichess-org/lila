@@ -32,6 +32,10 @@ export abstract class AbstractWorker {
     });
   }
 
+  isComputing(): boolean {
+    return !!this.protocol && this.protocol.isComputing();
+  }
+
   abstract boot(): void;
   abstract send(cmd: string): void;
   abstract destroy(): void;
@@ -147,5 +151,9 @@ export default class Pool {
     this.getWorker().then(function(worker) {
       worker.start(work);
     });
+  }
+
+  isComputing(): boolean {
+    return !!this.workers.length && this.workers[this.token].isComputing();
   }
 }

@@ -19,13 +19,12 @@ export function userHtml(ctrl, player) {
   var perf = user ? user.perfs[d.game.perf] : null;
   var rating = player.rating ? player.rating : (perf && perf.rating);
   if (user) {
-    var fullName = (user.title ? user.title + ' ' : '') + user.username;
     var connecting = !player.onGame && ctrl.vm.firstSeconds && user.online;
     return h('div.username.user_link.' + player.color, {
       class: {
         online: player.onGame,
         offline: !player.onGame,
-        long: fullName.length > 20,
+        long: user.username.length > 16,
         connecting: connecting
       }
     }, [
@@ -40,7 +39,7 @@ export function userHtml(ctrl, player) {
           href: '/@/' + user.username,
           target: game.isPlayerPlaying(d) ? '_blank' : '_self'
         }
-      }, fullName),
+      }, user.title ? [h('span.title', user.title), ' ', user.username] : user.username),
       rating ? h('rating', rating + (player.provisional ? '?' : '')) : null,
       ratingDiff(player),
       player.engine ? h('span', {
