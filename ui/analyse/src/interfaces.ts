@@ -76,25 +76,6 @@ export interface AnalyseOpts {
   onToggleComputer(v: boolean): void;
 }
 
-export interface Study {
-  setChapter(id: string): void;
-  currentChapter(): StudyChapter;
-  data: StudyData;
-  socketHandlers: { [key: string]: any };
-  vm: any;
-}
-
-export interface StudyData {
-  id: string;
-}
-
-export interface StudyChapter {
-  id: string;
-}
-
-export interface StudyPractice {
-}
-
 export interface CgDests {
   [key: string]: cg.Key[]
 }

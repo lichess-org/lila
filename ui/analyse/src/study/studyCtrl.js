@@ -14,7 +14,7 @@ var xhr = require('./studyXhr');
 var treePath = require('tree').path;
 
 // data.position.path represents the server state
-// ctrl.vm.path is the client state
+// ctrl.path is the client state
 module.exports = function(data, ctrl, tagTypes, practiceData) {
 
   var send = ctrl.socket.send;
