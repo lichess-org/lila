@@ -1,53 +1,55 @@
-import { h } from 'snabbdom'
 import * as xhr from '../studyXhr';
+import { prop } from 'common';
 import { enrichText } from '../studyComments';
-import makeSuccess = require('./studyPracticeSuccess');
+import makeSuccess from './studyPracticeSuccess';
 import makeSound from './sound';
+import { Goal } from './interfaces';
+import AnalyseController from '../../ctrl';
 
-var readOnlyProp = function(value) {
+const readOnlyProp = function(value) {
   return function() {
     return value;
   };
 };
 
-module.exports = function(root, studyData, data) {
+export default function(root: AnalyseController, studyData, data) {
 
-  var goal = m.prop();
-  var comment = m.prop();
-  var nbMoves = m.prop(0);
+  const goal = prop<Goal>(root.data.practiceGoal!);
+  const comment = prop<string | undefined>(undefined);
+  const nbMoves = prop(0);
   // null = ongoing, true = win, false = fail
-  var success = m.prop(null);
-  var sound = makeSound();
-  var analysisUrl = m.prop();
+  const success = prop<boolean | null>(null);
+  const sound = makeSound();
+  const analysisUrl = prop('');
 
-  var makeComment = function(treeRoot) {
+  function makeComment(treeRoot): string | undefined {
     if (!treeRoot.comments) return;
-    var c = enrichText(treeRoot.comments[0].text);
+    const c = enrichText(treeRoot.comments[0].text, false);
     delete treeRoot.comments;
     return c;
   };
 
-  var onLoad = function() {
-    root.vm.showAutoShapes = readOnlyProp(true);
-    root.vm.showGauge = readOnlyProp(true);
-    root.vm.showComputer = readOnlyProp(true);
-    goal(root.data.practiceGoal);
+  function onLoad() {
+    root.showAutoShapes = readOnlyProp(true);
+    root.showGauge = readOnlyProp(true);
+    root.showComputer = readOnlyProp(true);
+    goal(root.data.practiceGoal!);
     nbMoves(0);
     success(null);
     comment(makeComment(root.tree.root));
-    var chapter = studyData.chapter;
+    const chapter = studyData.chapter;
     history.replaceState(null, chapter.name, data.url + '/' + chapter.id);
-    analysisUrl('/analysis/standard/' + root.vm.node.fen.replace(/ /g, '_') + '?color=' + root.bottomColor());
+    analysisUrl('/analysis/standard/' + root.node.fen.replace(/ /g, '_') + '?color=' + root.bottomColor());
   };
   onLoad();
 
-  var computeNbMoves = function() {
-    var plies = root.vm.node.ply - root.tree.root.ply;
+  function computeNbMoves() {
+    let plies = root.node.ply - root.tree.root.ply;
     if (root.bottomColor() !== root.data.player.color) plies--;
     return Math.ceil(plies / 2);
   };
 
-  var checkSuccess = function() {
+  function checkSuccess() {
     if (success() !== null) return;
     nbMoves(computeNbMoves());
     var res = success(makeSuccess(root, goal(), nbMoves()));
@@ -55,7 +57,7 @@ module.exports = function(root, studyData, data) {
     else if (res === false) onFailure();
   };
 
-  var onVictory = function() {
+  function onVictory() {
     var chapterId = root.study.currentChapter().id;
     var former = data.completion[chapterId] || 999;
     if (nbMoves() < former) {
@@ -69,12 +71,12 @@ module.exports = function(root, studyData, data) {
     }, 1000);
   };
 
-  var onFailure = function() {
-    root.vm.node.fail = true;
+  function onFailure() {
+    root.node.fail = true;
     sound.failure();
   };
 
-  var nextChapter = function() {
+  function nextChapter() {
     var chapters = root.study.data.chapters;
     var currentId = root.study.currentChapter().id;
     for (var i in chapters)
@@ -85,25 +87,25 @@ module.exports = function(root, studyData, data) {
     onReload: onLoad,
     onJump: function() {
       // reset failure state if no failed move found in mainline history
-      if (success() === false && !root.vm.nodeList.find(function(n) { return n.fail; })) success(null);
+      if (success() === false && !root.nodeList.find(n => !!n.fail)) success(null);
       checkSuccess();
     },
     onCeval: checkSuccess,
-    data: data,
-    goal: goal,
-    success: success,
-    comment: comment,
-    nbMoves: nbMoves,
+    data,
+    goal,
+    success,
+    comment,
+    nbMoves,
     reset: function() {
       root.tree.root.children = [];
       root.userJump('');
-      root.practice.reset();
+      root.practice!.reset();
       onLoad();
     },
     isWhite: function() {
       return root.bottomColor() === 'white';
     },
-    analysisUrl: analysisUrl,
-    nextChapter: nextChapter
+    analysisUrl,
+    nextChapter
   };
-};
+}

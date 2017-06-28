@@ -6,8 +6,8 @@ import { nodeFullName, autolink, bind } from '../util';
 function authorDom(author) {
   if (!author) return 'Unknown';
   if (!author.name) return author;
-  return m('span.user_link.ulpt', {
-    'data-href': '/@/' + author.id
+  return h('span.user_link.ulpt', {
+    attrs: { 'data-href': '/@/' + author.id }
   }, author.name);
 }
 

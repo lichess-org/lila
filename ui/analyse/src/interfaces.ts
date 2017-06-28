@@ -1,5 +1,6 @@
 import { Player, Status, Source } from 'game';
 import * as cg from 'chessground/types';
+import { Goal as PracticeGoal } from './study/practice/interfaces';
 
 export type MaybeVNode = VNode | null | undefined;
 export type MaybeVNodes = MaybeVNode[]
@@ -20,6 +21,7 @@ export interface AnalyseData {
   forecast?: any;
   treeParts: Tree.Node[];
   evalPut?: boolean;
+  practiceGoal?: PracticeGoal;
 }
 export interface AnalyseDataWithTree extends AnalyseData {
   tree: Tree.Node;

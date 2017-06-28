@@ -6,7 +6,14 @@ import AnalyseController from '../ctrl';
 import { prop } from 'common';
 
 export interface Comment {
-  [key: string]: any; // #TODO
+  prev: Tree.Node;
+  node: Tree.Node;
+  path: Tree.Path;
+  verdict: 'good' | 'inaccuracy' | 'mistake' | 'blunder';
+  best?: {
+    uci: Uci;
+    san: San;
+  }
 }
 
 export interface PracticeController {
@@ -16,7 +23,7 @@ export interface PracticeController {
 export function make(root: AnalyseController, playableDepth: () => number): PracticeController {
 
   const running = prop(true);
-  const comment = prop<any>(null);
+  const comment = prop<Comment | null>(null);
   const hovering = prop<any>(null);
   const hinting = prop<any>(null);
   const played = prop(false);
@@ -77,7 +84,7 @@ export function make(root: AnalyseController, playableDepth: () => number): Prac
       best: best ? {
         uci: best,
         san: pv2san(root.data.game.variant.key, prev.fen, false, [best])
-      } : null
+      } : undefined
     };
   }
 
@@ -154,11 +161,11 @@ export function make(root: AnalyseController, playableDepth: () => number): Prac
       const c = comment();
       if (!c) return;
       root.jump(treePath.init(c.path));
-      root.playUci(c.best.uci);
+      if (c.best) root.playUci(c.best.uci);
     },
     commentShape(enable: boolean) {
-      var c = comment();
-      if (!enable || !c) hovering(null);
+      const c = comment();
+      if (!enable || !c || !c.best) hovering(null);
       else hovering({
         uci: c.best.uci
       });

@@ -167,6 +167,7 @@ declare namespace Tree {
     comp?: boolean;
     san?: string;
     threefold?: boolean;
+    fail?: boolean;
   }
 
   export interface Comment {
