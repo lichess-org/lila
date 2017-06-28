@@ -490,9 +490,9 @@
   <string name="noInternetConnection">Brak połączenia. Możesz jednak wybrać z menu opcję gry offline.</string>
   <string name="connectedToLichess">Zostałeś połączony z lichess.org</string>
   <string name="signedOut">Wylogowałeś się</string>
-  <string name="loginSuccessful">Zalogowano pomyślnie</string>
+  <string name="loginSuccessful">Jesteś zalogowany</string>
   <string name="playOnTheBoardOffline">Graj offline</string>
-  <string name="playOfflineComputer">Zagraj z komputerem offline</string>
+  <string name="playOfflineComputer">Zagraj z komputerem</string>
   <string name="opponent">Przeciwnik</string>
   <string name="learn">Nauka</string>
   <string name="community">Społeczność</string>
@@ -505,7 +505,7 @@
   <string name="shareGameURL">Udostępnij link do gry</string>
   <string name="error.required">To pole jest wymagane</string>
   <string name="error.email">Podany adres email jest nieprawidłowy</string>
-  <string name="error.email_acceptable">Podany adres email nie jest akceptowany</string>
+  <string name="error.email_acceptable">Podany adres email nie został zaakceptowany</string>
   <string name="error.email_unique">Podany adres email został już użyty</string>
   <string name="blindfoldChess">Gra na ślepo (figury niewidoczne)</string>
   <string name="moveConfirmation">Potwierdzenie ruchu</string>
@@ -569,7 +569,7 @@
   <string name="tournamentNotFound">Nie znaleziono turnieju</string>
   <string name="tournamentDoesNotExist">Taki turniej nie istnieje.</string>
   <string name="tournamentMayHaveBeenCanceled">Mógł zostać anulowany, jeżeli wszyscy gracze wycofali się przed jego rozpoczęciem.</string>
-  <string name="returnToTournamentsHomepage">Powrót na stronę turnieju</string>
+  <string name="returnToTournamentsHomepage">Wróć do turnieju</string>
   <string name="weeklyPerfTypeRatingDistribution">Tygodniowy rozkład rankingu w wariancie %s</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">%1$s gracz grał w tym tygodniu w wariant %2$s.</item>
