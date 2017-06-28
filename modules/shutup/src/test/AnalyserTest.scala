@@ -14,7 +14,7 @@ class DetectTest extends Specification {
       find("well fuck me") must_== List("fuck")
     }
     "find many bad words" in {
-      find("fuck that shit") must_== List("fuck", "shit")
+      find("fucked that shit") must_== List("fucked", "shit")
       find("Beat them cunting nigger faggots with a communist dick") must_==
         List("cunting", "nigger", "faggots", "dick")
     }
@@ -34,7 +34,7 @@ class DetectTest extends Specification {
       find("ass as ashole") must_== List("ass", "ashole")
     }
     "find plurals" in {
-      find("cunts kunts cuntings kawas kuntings") must_== List("cunts", "kunts", "cuntings", "kuntings")
+      find("asses cunts kunts cuntings kawas kuntings") must_== List("asses", "cunts", "kunts", "cuntings", "kuntings")
     }
     "50 shades of fuck" in {
       find("fuck fffuuk fektard feak fak phuk") must_== List("fuck", "fffuuk", "fektard", "fak", "phuk")
