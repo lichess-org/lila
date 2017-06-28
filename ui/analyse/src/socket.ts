@@ -19,6 +19,7 @@ interface Req {
 }
 
 export interface Socket {
+  send: SocketSend;
   receive(type: string, data: any): boolean;
   sendAnaMove(req: Req): void;
   sendAnaDrop(req: Req): void;
@@ -27,7 +28,9 @@ export interface Socket {
   clearCache(): void;
 }
 
-export function make(send, ctrl: AnalyseController): Socket {
+export type SocketSend = (type: string, data?: any) => void;
+
+export function make(send: SocketSend, ctrl: AnalyseController): Socket {
 
   let anaMoveTimeout;
   let anaDestsTimeout;
@@ -157,6 +160,7 @@ export function make(send, ctrl: AnalyseController): Socket {
     sendAnaDrop,
     sendAnaDests,
     sendForecasts(req) { send('forecasts', req); },
-    clearCache
+    clearCache,
+    send
   };
 }

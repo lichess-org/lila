@@ -1,33 +1,34 @@
-var m = require('mithril');
-var throttle = require('common').throttle;
-var memberCtrl = require('./studyMembers').ctrl;
-var chapterCtrl = require('./studyChapters').ctrl;
-var practiceCtrl = require('./practice/studyPracticeCtrl');
-var commentFormCtrl = require('./commentForm').ctrl;
-var glyphFormCtrl = require('./studyGlyph').ctrl;
-var studyFormCtrl = require('./studyForm').ctrl;
-var notifCtrl = require('./notif').ctrl;
-var shareCtrl = require('./studyShare').ctrl;
-var tagsCtrl = require('./studyTags').ctrl;
-var tours = require('./studyTour');
-var xhr = require('./studyXhr');
-var treePath = require('tree').path;
+import { throttle, prop } from 'common';
+import AnalyseController from '../ctrl';
+import { ctrl as memberCtrl } from './studyMembers';
+import { ctrl as chapterCtrl } from './studyChapters';
+import practiceCtrl from './practice/studyPracticeCtrl';
+import { ctrl as commentFormCtrl } from './commentForm';
+import { ctrl as glyphFormCtrl } from './studyGlyph';
+import { ctrl as studyFormCtrl } from './studyForm';
+import { ctrl as notifCtrl } from './notif';
+import { ctrl as shareCtrl } from './studyShare';
+import { ctrl as tagsCtrl } from './studyTags';
+import * as tours from './studyTour';
+import * as xhr from './studyXhr';
+import { path as treePath } from 'tree';
+import { TagTypes } from './interfaces';
 
 // data.position.path represents the server state
 // ctrl.path is the client state
-module.exports = function(data, ctrl, tagTypes, practiceData) {
+export default function(data, ctrl: AnalyseController, tagTypes: TagTypes, practiceData) {
 
-  var send = ctrl.socket.send;
+  const send = ctrl.socket.send;
 
-  var sri = lichess.StrongSocket && lichess.StrongSocket.sri;
+  const sri: string = window.lichess.StrongSocket.sri;
 
   var vm = (function() {
-    var isManualChapter = data.chapter.id !== data.position.chapterId;
-    var sticked = data.features.sticky && !ctrl.vm.initialPath && !isManualChapter && !practiceData;
+    const isManualChapter = data.chapter.id !== data.position.chapterId;
+    const sticked = data.features.sticky && !ctrl.initialPath && !isManualChapter && !practiceData;
     return {
       loading: false,
       nextChapterId: false,
-      tab: m.prop(data.chapters.length > 1 ? 'chapters' : 'members'),
+      tab: prop(data.chapters.length > 1 ? 'chapters' : 'members'),
       chapterId: sticked ? data.position.chapterId : data.chapter.id,
       // path is at ctrl.vm.path
       mode: {
@@ -38,10 +39,11 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
     };
   })();
 
-  var notif = notifCtrl();
+  const notif = notifCtrl(ctrl.redraw);
+
   var form = studyFormCtrl(function(d, isNew) {
     send("editStudy", d);
-    if (isNew && data.chapter.setup.variant.key === 'standard' && ctrl.vm.mainline.length === 1 && !data.chapter.setup.fromFen)
+    if (isNew && data.chapter.setup.variant.key === 'standard' && ctrl.mainline.length === 1 && !data.chapter.setup.fromFen)
       chapters.newForm.openInitial();
   }, function() {
     return data;

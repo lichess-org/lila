@@ -24,6 +24,9 @@ interface Lichess {
   sound: any
   powertip: any
   userAutocomplete: any
+  StrongSocket: {
+    sri: string
+  }
 }
 
 interface AssetUrlOpts {

@@ -22,3 +22,5 @@ export type StudyMember = any;
 export interface StudyMemberMap {
   [id: string]: StudyMember;
 }
+
+export type TagTypes = string[];

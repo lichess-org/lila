@@ -1,6 +1,7 @@
 import { Player, Status, Source } from 'game';
 import * as cg from 'chessground/types';
 import { Goal as PracticeGoal } from './study/practice/interfaces';
+import { SocketSend } from './socket';
 
 export type MaybeVNode = VNode | null | undefined;
 export type MaybeVNodes = MaybeVNode[]
@@ -60,8 +61,6 @@ export interface AnalysisSide {
   mistake: number;
   blunder: number;
 }
-
-export type SocketSend = (type: string, data?: any) => void;
 
 export interface AnalyseOpts {
   element: HTMLElement;
