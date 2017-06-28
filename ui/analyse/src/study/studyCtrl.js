@@ -59,7 +59,8 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
     notif: notif,
     onBecomingContributor: function() {
       vm.mode.write = true;
-    }
+    },
+    redraw: ctrl.redraw
   });
 
   var chapters = chapterCtrl(data.chapters, send, lichess.partial(vm.tab, 'chapters'), lichess.partial(xhr.chapterConfig, data.id), ctrl);

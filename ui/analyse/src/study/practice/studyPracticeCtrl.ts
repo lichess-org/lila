@@ -1,8 +1,8 @@
-var m = require('mithril');
-var xhr = require('../studyXhr');
-var enrichText = require('../studyComments').enrichText;
-var makeSuccess = require('./studyPracticeSuccess');
-var makeSound = require('./sound');
+import { h } from 'snabbdom'
+import * as xhr from '../studyXhr';
+import { enrichText } from '../studyComments';
+import makeSuccess = require('./studyPracticeSuccess');
+import makeSound from './sound';
 
 var readOnlyProp = function(value) {
   return function() {

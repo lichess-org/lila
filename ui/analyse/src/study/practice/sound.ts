@@ -1,21 +1,21 @@
-var baseUrl;
+let baseUrl: string;
 
-var make = function(file) {
+function make(file) {
   baseUrl = baseUrl || $('body').data('asset-url') + '/assets/sound/';
-  var sound = new Howl({
+  const sound = new window.Howl({
     src: [
       baseUrl + file + '.ogg',
       baseUrl + file + '.mp3'
     ]
   });
   return function() {
-    if (lichess.sound.set() !== 'silent') sound.play();
+    if (window.lichess.sound.set() !== 'silent') sound.play();
   };
 };
 
-module.exports = function() {
+export default function() {
   return {
     success: make('other/energy3'),
     failure: make('other/failure2')
   };
-};
+}

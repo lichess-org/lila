@@ -54,3 +54,11 @@ export function spinner() {
         attrs: { cx: 20, cy: 20, r: 18, fill: 'none' }
       })])]);
 }
+
+// from https://github.com/bryanwoods/autolink-js/blob/master/autolink.js
+export function autolink(str: string, callback: (str: string) => string): string {
+  const pattern = /(^|[\s\n]|<[A-Za-z]*\/?>)((?:https?|ftp):\/\/[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;
+  return str.replace(pattern, function(_, space, url) {
+    return "" + space + callback(url);
+  });
+}

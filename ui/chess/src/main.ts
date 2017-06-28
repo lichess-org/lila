@@ -9,7 +9,7 @@ export function fixCrazySan(san: San): San {
 }
 
 export function decomposeUci(uci: Uci): [Key, Key, string] {
-  return [uci.slice(0, 2), uci.slice(2, 4), uci.slice(4, 5)];
+  return [uci.slice(0, 2) as Key, uci.slice(2, 4) as Key, uci.slice(4, 5)];
 }
 
 export function renderEval(e: number): string {
@@ -25,7 +25,7 @@ export function readDests(lines?: string): Dests | null {
   if (typeof lines === 'undefined') return null;
   const dests: Dests = {};
   if (lines) lines.split(' ').forEach(line => {
-    dests[piotr[line[0]]] = line.split('').slice(1).map(c => piotr[c])
+    dests[piotr[line[0]]] = line.split('').slice(1).map(c => piotr[c] as Key)
   });
   return dests;
 }

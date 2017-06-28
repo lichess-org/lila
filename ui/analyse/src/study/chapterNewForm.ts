@@ -1,5 +1,5 @@
 import { h } from 'snabbdom'
-import { storedProp, Prop } from 'common';
+import { prop, storedProp, Prop } from 'common';
 import { bind, spinner } from '../util';
 import { variants as xhrVariants } from './studyXhr';
 import * as dialog from './dialog';
@@ -25,16 +25,16 @@ export function ctrl(send, chapters: Prop<StudyChapter[]>, setTab: () => void, r
   const vm = {
     variants: [],
     open: false,
-    initial: m.prop(false),
+    initial: prop(false),
     tab: storedProp('study.form.tab', 'init'),
     editor: null,
-    editorFen: m.prop(null)
+    editorFen: prop(null)
   };
 
   var loadVariants = function() {
     if (!vm.variants.length) xhrVariants().then(function(vs) {
       vm.variants = vs;
-      m.redraw();
+      root.redraw();
     });
   };
 
@@ -47,77 +47,79 @@ export function ctrl(send, chapters: Prop<StudyChapter[]>, setTab: () => void, r
     vm.open = false;
   };
 
-  var identity = function(x) { return x; }
+  var identity = function(x) {
+    return x;
+  }
 
-    var submitMultiPgn = function(d) {
-      if (d.pgn) {
-        var lines = d.pgn.split('\n');
-        var parts = lines.map(function(l, i) {
-          // ensure 2 spaces after each game
-          if (!l.trim() && i && lines[i - 1][0] !== '[') return '\n';
-          return l;
-        }).join('\n').split('\n\n\n').map(function(part) {
-          // remove empty lines in each game
-          return part.split('\n').filter(identity).join('\n');
-        }).filter(identity); // remove empty games
-        if (parts.length > 1) {
-          if (parts.length > multiPgnMax && !confirm('Import the first ' + multiPgnMax + ' of the ' + parts.length + ' games?')) return;
-          var step = function(ds) {
-            if (ds.length) {
-              send('addChapter', ds[0]);
-              setTimeout(function() {
-                step(ds.slice(1));
-              }, 600);
-            } else {}
+  var submitMultiPgn = function(d) {
+    if (d.pgn) {
+      var lines = d.pgn.split('\n');
+      var parts = lines.map(function(l, i) {
+        // ensure 2 spaces after each game
+        if (!l.trim() && i && lines[i - 1][0] !== '[') return '\n';
+        return l;
+      }).join('\n').split('\n\n\n').map(function(part) {
+        // remove empty lines in each game
+        return part.split('\n').filter(identity).join('\n');
+      }).filter(identity); // remove empty games
+      if (parts.length > 1) {
+        if (parts.length > multiPgnMax && !confirm('Import the first ' + multiPgnMax + ' of the ' + parts.length + ' games?')) return;
+        var step = function(ds) {
+          if (ds.length) {
+            send('addChapter', ds[0]);
+            setTimeout(function() {
+              step(ds.slice(1));
+            }, 600);
+          } else {}
+        };
+        var firstIt = vm.initial() ? 1 : (chapters().length + 1);
+        step(parts.slice(0, multiPgnMax).map(function(pgn, i) {
+          return {
+            initial: !i && vm.initial(),
+            mode: d.mode,
+            name: 'Chapter ' + (firstIt + i),
+            orientation: d.orientation,
+            pgn: pgn,
+            variant: d.variant,
+            sticky: root.study.vm.mode.sticky
           };
-          var firstIt = vm.initial() ? 1 : (chapters().length + 1);
-          step(parts.slice(0, multiPgnMax).map(function(pgn, i) {
-            return {
-              initial: !i && vm.initial(),
-              mode: d.mode,
-              name: 'Chapter ' + (firstIt + i),
-              orientation: d.orientation,
-              pgn: pgn,
-              variant: d.variant,
-              sticky: root.study.vm.mode.sticky
-            };
-          }));
-          return true;
-        }
+        }));
+        return true;
       }
-    };
-
-    var submitSingle = function(d) {
-      d.initial = vm.initial();
-      d.sticky = root.study.vm.mode.sticky;
-      send("addChapter", d)
-    };
-
-    return {
-      vm: vm,
-      open: open,
-      root: root,
-      openInitial: function() {
-        open();
-        vm.initial(true);
-      },
-      close: close,
-      toggle: function() {
-        if (vm.open) close();
-        else open();
-      },
-      submit: function(d) {
-        if (!submitMultiPgn(d)) submitSingle(d);
-        close();
-        setTab();
-      },
-      chapters: chapters,
-      startTour: () => chapterTour(tab => {
-        vm.tab(tab);
-        root.redraw();
-      }),
-      multiPgnMax: multiPgnMax
     }
+  };
+
+  var submitSingle = function(d) {
+    d.initial = vm.initial();
+    d.sticky = root.study.vm.mode.sticky;
+    send("addChapter", d)
+  };
+
+  return {
+    vm: vm,
+    open: open,
+    root: root,
+    openInitial: function() {
+      open();
+      vm.initial(true);
+    },
+    close: close,
+    toggle: function() {
+      if (vm.open) close();
+      else open();
+    },
+    submit: function(d) {
+      if (!submitMultiPgn(d)) submitSingle(d);
+      close();
+      setTab();
+    },
+    chapters: chapters,
+    startTour: () => chapterTour(tab => {
+      vm.tab(tab);
+      root.redraw();
+    }),
+    multiPgnMax: multiPgnMax
+  }
 }
 
 export function view(ctrl) {

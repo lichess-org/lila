@@ -16,3 +16,9 @@ export interface StudyChapter {
 
 export interface StudyPractice {
 }
+
+export type StudyMember = any;
+
+export interface StudyMemberMap {
+  [id: string]: StudyMember;
+}

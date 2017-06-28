@@ -9,6 +9,8 @@ interface LichessModal {
 
 interface JQuery {
   powerTip(options?: PowerTip.Options): JQuery
+  typeahead: any
+  scrollTo(el: JQuery | HTMLElement, delay: number): JQuery
 }
 
 declare namespace PowerTip {

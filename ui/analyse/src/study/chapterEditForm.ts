@@ -4,19 +4,19 @@ import { bind, spinner } from '../util';
 import * as dialog from './dialog';
 import * as chapterForm from './chapterNewForm';
 
-export function ctrl(send, chapterConfig) {
+export function ctrl(send, chapterConfig, redraw: () => void) {
 
   const current = prop<any>(null);
 
   var open = function(data) {
-    if (current()) m.redraw.strategy('all');
+    // if (current()) m.redraw.strategy('all');
     current({
       id: data.id,
       name: data.name
     });
     chapterConfig(data.id).then(function(d) {
       current(d);
-      m.redraw();
+      redraw();
     });
   };
 
@@ -94,7 +94,7 @@ export function view(ctrl) {
           h('div.form-group', [
             h('select#chapter-orientation', ['White', 'Black'].map(function(color) {
               const v = color.toLowerCase();
-              return m('option', {
+              return h('option', {
                 attrs: {
                   value: v,
                   selected: v == data.orientation
@@ -108,7 +108,7 @@ export function view(ctrl) {
           ]),
           h('div.form-group', [
             h('select#chapter-mode', chapterForm.modeChoices.map(function(c) {
-              return m('option', {
+              return h('option', {
                 attrs: {
                   value: c[0],
                   selected: c[0] === mode

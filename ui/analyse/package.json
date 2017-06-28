@@ -34,7 +34,6 @@
     "watchify": "^3"
   },
   "dependencies": {
-    "autolink-js": "^1.0.2",
     "ceval": "link:../ceval",
     "chess": "link:../chess",
     "chessground": "^6.5",

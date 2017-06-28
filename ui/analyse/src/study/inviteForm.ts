@@ -1,90 +1,92 @@
-var m = require('mithril');
-var titleNameToId = require('../util').titleNameToId;
-var dialog = require('./dialog');
+import { h } from 'snabbdom'
+import { bind, titleNameToId } from '../util';
+import { prop } from 'common';
+import * as dialog from './dialog';
 
-module.exports = {
-  ctrl: function(send, members, setTab) {
-    var open = m.prop(false);
-    var followings = [];
-    var spectators = [];
-    var invite = function(titleName) {
+export function ctrl(send, members, setTab, redraw: () => void) {
+  const open = prop(false);
+  var followings = [];
+  var spectators = [];
+  function updateFollowings(f) {
+    followings = f(followings);
+    if (open()) redraw();
+  };
+  return {
+    open,
+    candidates() {
+      const existing = members();
+      return followings.concat(spectators).filter(function(elem, idx, arr) {
+        return arr.indexOf(elem) >= idx && // remove duplicates
+        !existing.hasOwnProperty(titleNameToId(elem)); // remove existing members
+      }).sort();
+    },
+    members: members,
+    setSpectators(usernames) {
+      spectators = usernames;
+    },
+    setFollowings(usernames) {
+      updateFollowings(_ => usernames)
+    },
+    delFollowing(username) {
+      updateFollowings(function(prevs) {
+        return prevs.filter(function(u) {
+          return username !== u;
+        });
+      });
+    },
+    addFollowing(username) {
+      updateFollowings(function(prevs) {
+        return prevs.concat([username]);
+      });
+    },
+    toggle() {
+      open(!open());
+      if (open()) send('following_onlines');
+    },
+    invite(titleName) {
       send("invite", titleNameToId(titleName));
       setTab();
-    };
-    var updateFollowings = function(f) {
-      followings = f(followings);
-      if (open()) m.redraw();
-    };
-    return {
-      open: open,
-      candidates: function() {
-        var existing = members();
-        return followings.concat(spectators).filter(function(elem, idx, arr) {
-          return arr.indexOf(elem) >= idx && // remove duplicates
-            !existing.hasOwnProperty(titleNameToId(elem)); // remove existing members
-        }).sort();
-      },
-      members: members,
-      setSpectators: function(usernames) {
-        spectators = usernames;
-      },
-      setFollowings: function(usernames) {
-        updateFollowings(function(prevs) {
-          return usernames;
-        });
-      },
-      delFollowing: function(username) {
-        updateFollowings(function(prevs) {
-          return prevs.filter(function(u) {
-            return username !== u;
-          });
-        });
-      },
-      addFollowing: function(username) {
-        updateFollowings(function(prevs) {
-          return prevs.concat([username]);
-        });
-      },
-      toggle: function() {
-        open(!open());
-        if (open()) send('following_onlines');
-      },
-      invite: invite
-    };
-  },
-  view: function(ctrl) {
-    var candidates = ctrl.candidates();
-    return dialog.form({
-      class: 'study_invite',
-      onClose: lichess.partial(ctrl.open, false),
-      content: [
-        m('h2', 'Invite to the study'),
-        m('p.info[data-icon=]', [
-          'Please only invite people you know,',
-          m('br'),
-          'and who actively want to join this study.'
-        ]),
-        candidates.length ? m('div.users', candidates.map(function(username) {
-          return m('span.user_link.button', {
-            'data-href': '/@/' + username,
-            onclick: lichess.partial(ctrl.invite, username)
-          }, username);
-        })) : null,
-        m('input', {
-          config: function(el, isUpdate) {
-            if (isUpdate) return;
-            lichess.userAutocomplete($(el), {
+    },
+    redraw
+  };
+};
+
+export function view(ctrl) {
+  var candidates = ctrl.candidates();
+  return dialog.form({
+    class: 'study_invite',
+    onClose: () => ctrl.open(false),
+    content: [
+      h('h2', 'Invite to the study'),
+      h('p.info', {
+        attrs: { 'data-icon': '' }
+      }, [
+        'Please only invite people you know,',
+        h('br'),
+        'and who actively want to join this study.'
+      ]),
+      candidates.length ? h('div.users', candidates.map(function(username) {
+        return h('span.user_link.button', {
+          attrs: { 'data-href': '/@/' + username },
+          hook: bind('click', _ => ctrl.invite(username))
+        }, username);
+      })) : null,
+      h('input', {
+        attrs: { placeholder: 'Search by username' },
+        hook: {
+          insert: vnode => {
+            const el = vnode.elm as HTMLInputElement;
+            window.lichess.userAutocomplete($(el), {
               onSelect: function(v) {
                 ctrl.invite(v);
                 $(el).typeahead('close');
                 el.value = '';
-                m.redraw();
+                ctrl.redraw();
               }
             });
-          },
-          placeholder: 'Search by username'
-        })
-      ]
-    });
-  }
-};
+          }
+        }
+      })
+    ]
+  });
+}

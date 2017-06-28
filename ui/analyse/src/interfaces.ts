@@ -59,6 +59,8 @@ export interface AnalysisSide {
   blunder: number;
 }
 
+export type SocketSend = (type: string, data?: any) => void;
+
 export interface AnalyseOpts {
   element: HTMLElement;
   sideElement: HTMLElement;
@@ -67,7 +69,7 @@ export interface AnalyseOpts {
   userId: string;
   embed: boolean;
   explorer: boolean;
-  socketSend: any;
+  socketSend: SocketSend;
   i18n: any;
   study?: any;
   tagTypes?: string;

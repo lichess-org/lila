@@ -2,11 +2,11 @@ import { h } from 'snabbdom'
 
 interface Notif {
   duration: number;
-  class: string;
   text: string;
+  class?: string;
 }
 
-interface NotifController {
+export interface NotifController {
   set(n: Notif): void;
   get(): Notif | undefined
 }

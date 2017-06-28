@@ -17,10 +17,13 @@ interface Lichess {
   reloadOtherTabs: () => void
   requestIdleCallback(f: () => void): void
   loadCss(path: string): void
+  escapeHtml(html: string): string
+  toYouTubeEmbedUrl(url: string): string
 
   fp: any
   sound: any
   powertip: any
+  userAutocomplete: any
 }
 
 interface AssetUrlOpts {
@@ -54,6 +57,7 @@ interface Window {
 
   moment: any
   Mousetrap: any
+  Howl: any
   Chessground: any
   Highcharts: any
   lichessReplayMusic: () => {
@@ -167,7 +171,10 @@ declare namespace Tree {
 
   export interface Comment {
     id: string;
-    by: string;
+    by: string | {
+      id: string;
+      name: string;
+    };
     text: string;
   }
 
