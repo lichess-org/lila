@@ -447,5 +447,15 @@
   <string name="onlyFriends">Միայն ընկերները</string>
   <string name="watchGames">Դիտել խաղեր</string>
   <string name="watch">Դիտել</string>
+  <string name="webmasters">Վեբմաստեր</string>
+  <string name="contact">Կապ</string>
+  <string name="create">Ստեղծել</string>
+  <string name="tournamentOfficial">Պաշտոնական</string>
+  <string name="newTournament">Նոր մրցաշար</string>
+  <string name="confirmResignation">Հաստատել հանձնվելը</string>
+  <string name="withFriends">Ընկերների հետ</string>
+  <string name="withEverybody">Բոլորի հետ</string>
+  <string name="bulletBlitzClassical">Կայծակնային, բլից, դասական</string>
   <string name="viewTheSolution">Դիտել լուծումը</string>
+  <string name="gameAnalysis">Խաղի ամփոփում</string>
 </resources>
