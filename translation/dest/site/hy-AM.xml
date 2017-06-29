@@ -287,6 +287,7 @@
   <string name="loadPosition">Բեռնել դիրք</string>
   <string name="isPrivate">Անձնական</string>
   <string name="reportXToModerators">Տեղեկացնել %s մոդերատորներին</string>
+  <string name="ifNoneLeaveEmpty">Կամ թողնել դատարկ</string>
   <string name="profile">Պրոֆիլ</string>
   <string name="editProfile">Խմբագրել անձնագիրը</string>
   <string name="firstName">Անուն</string>
@@ -402,6 +403,7 @@
   <string name="letOtherPlayersChallengeYou">զ</string>
   <string name="sound">ձայն</string>
   <string name="yourPreferencesHaveBeenSaved">Ձեր նախընտրությունները պահպանված են</string>
+  <string name="none">Ոչ մեկը</string>
   <string name="fast">Արագ</string>
   <string name="normal">Նորմալ</string>
   <string name="slow">Դանդաղ</string>
@@ -423,7 +425,9 @@
   </plurals>
   <string name="human">Մարդ</string>
   <string name="computer">Համակարգիչ</string>
+  <string name="side">Կողմ</string>
   <string name="clock">ժամացույց</string>
+  <string name="unauthorizedError">Մուտքն արգելված է։</string>
   <string name="noInternetConnection">Չկա ինտերնետ կապ : Դուք կարող եք խաղալ օֆլայն</string>
   <string name="connectedToLichess">Դուք նորից միացաք lichess.org կայքին</string>
   <string name="signedOut">Դուք հաջողությամբ դուրս եկաք ձեր էջից</string>
@@ -439,6 +443,8 @@
   <string name="shareGameURL">Տարածել խաղի հղումը</string>
   <string name="error.required">Այս դաշտը պարտադիր է</string>
   <string name="error.email">Այս էլ-փոստի հասցեն սխալ է</string>
+  <string name="moveConfirmation">Քայլի հաստատում</string>
+  <string name="onlyFriends">Միայն ընկերները</string>
   <string name="watchGames">Դիտել խաղեր</string>
   <string name="watch">Դիտել</string>
   <string name="viewTheSolution">Դիտել լուծումը</string>
