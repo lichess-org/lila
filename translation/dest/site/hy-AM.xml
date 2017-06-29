@@ -445,10 +445,16 @@
   <string name="error.email">Այս էլ-փոստի հասցեն սխալ է</string>
   <string name="moveConfirmation">Քայլի հաստատում</string>
   <string name="onlyFriends">Միայն ընկերները</string>
+  <string name="whiteCastlingQueenside">Սպիտակները О-О-О</string>
+  <string name="blackCastlingKingside">Սեւերը О-О</string>
+  <string name="blackCastlingQueenside">Սեւերը О-О-О</string>
   <string name="watchGames">Դիտել խաղեր</string>
   <string name="watch">Դիտել</string>
+  <string name="internationalEvents">Միջազգային իրադարձություննեռր</string>
+  <string name="videoLibrary">Տեսագրադարան</string>
   <string name="webmasters">Վեբմաստեր</string>
   <string name="contact">Կապ</string>
+  <string name="termsOfService">Ծառայությունների մատուցման պայմաններ</string>
   <string name="create">Ստեղծել</string>
   <string name="tournamentOfficial">Պաշտոնական</string>
   <string name="newTournament">Նոր մրցաշար</string>
