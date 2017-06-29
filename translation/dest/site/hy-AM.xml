@@ -455,8 +455,11 @@
   <string name="webmasters">Վեբմաստեր</string>
   <string name="contact">Կապ</string>
   <string name="termsOfService">Ծառայությունների մատուցման պայմաններ</string>
+  <string name="host">Ընդունող</string>
   <string name="create">Ստեղծել</string>
+  <string name="lichessTournaments">Lichess մրցաշարեր</string>
   <string name="tournamentOfficial">Պաշտոնական</string>
+  <string name="averageCentipawnLoss">Միջինուն հարյուրերորդական զինվորի կորուստ</string>
   <string name="newTournament">Նոր մրցաշար</string>
   <string name="confirmResignation">Հաստատել հանձնվելը</string>
   <string name="withFriends">Ընկերների հետ</string>
