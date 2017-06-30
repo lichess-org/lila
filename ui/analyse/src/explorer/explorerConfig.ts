@@ -1,14 +1,16 @@
+import { h } from 'snabbdom';
+import { VNode } from 'snabbdom/vnode'
 import { prop, storedProp, storedJsonProp } from 'common';
 import { bind, dataIcon } from '../util';
-import { h } from 'snabbdom'
+import { Game } from '../interfaces';
 
-export function controller(game, withGames, onClose) {
+export function controller(game: Game, withGames: boolean, onClose: () => void, redraw: () => void) {
 
   const variant = (game.variant.key === 'fromPosition') ? 'standard' : game.variant.key;
 
   const available = ['lichess'];
   if (variant === 'standard') available.push('masters');
-  else if (variant === 'antichess' && withGames && game.initialFen.indexOf('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w ') === 0) {
+  else if (variant === 'antichess' && withGames && (game.initialFen || '').indexOf('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w ') === 0) {
     available.push('watkins');
   }
 
@@ -36,6 +38,7 @@ export function controller(game, withGames, onClose) {
   };
 
   return {
+    redraw,
     data,
     toggleOpen() {
       data.open(!data.open());
@@ -55,7 +58,7 @@ export function controller(game, withGames, onClose) {
   };
 }
 
-export function view(ctrl) {
+export function view(ctrl): VNode[] {
   const d = ctrl.data;
   return [
     h('section.db', [
@@ -63,7 +66,7 @@ export function view(ctrl) {
       h('div.choices', d.db.available.map(function(s) {
         return h('span', {
           class: { selected: d.db.selected() === s },
-          hook: bind('click', _ => ctrl.toggleDb(s))
+          hook: bind('click', _ => ctrl.toggleDb(s), ctrl.redraw)
         }, s);
       }))
     ]),
@@ -80,7 +83,7 @@ export function view(ctrl) {
           d.rating.available.map(function(r) {
             return h('span', {
               class: { selected: d.rating.selected().indexOf(r) > -1 },
-              hook: bind('click', _ => ctrl.toggleRating(r))
+              hook: bind('click', _ => ctrl.toggleRating(r), ctrl.redraw)
             }, r);
           })
         )
@@ -91,7 +94,7 @@ export function view(ctrl) {
           d.speed.available.map(function(s) {
             return h('span', {
               class: { selected: d.speed.selected().indexOf(s) > -1 },
-              hook: bind('click', _ => ctrl.toggleSpeed(s))
+              hook: bind('click', _ => ctrl.toggleSpeed(s), ctrl.redraw)
             }, s);
           })
         )

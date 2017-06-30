@@ -20,7 +20,7 @@ function tablebaseRelevant(variant: string, fen: Fen) {
   else return false;
 }
 
-export default function(root: AnalyseController, opts, allow: boolean, redraw: () => void) {
+export default function(root: AnalyseController, opts, allow: boolean) {
   const allowed = prop(allow);
   const enabled = root.embed ? prop(false) : storedProp('explorer.enabled', false);
   if (location.hash === '#opening' && !root.embed) enabled(true);
@@ -31,14 +31,14 @@ export default function(root: AnalyseController, opts, allow: boolean, redraw: (
 
   let cache = {};
   function onConfigClose() {
-    redraw();
+    root.redraw();
     cache = {};
     setNode();
   }
   const withGames = synthetic(root.data) || gameUtil.replayable(root.data) || root.data.opponent.ai;
   const effectiveVariant = root.data.game.variant.key === 'fromPosition' ? 'standard' : root.data.game.variant.key;
 
-  const config = configCtrl(root.data.game, withGames, onConfigClose);
+  const config = configCtrl(root.data.game, withGames, onConfigClose, root.redraw);
 
   const cacheKey = function() {
     if (config.data.db.selected() === 'watkins' && !tablebaseRelevant(effectiveVariant, root.node.fen)) {
@@ -69,11 +69,11 @@ export default function(root: AnalyseController, opts, allow: boolean, redraw: (
       movesAway(res.nbMoves ? 0 : movesAway() + 1);
       loading(false);
       failing(false);
-      redraw();
+      root.redraw();
     }, () => {
       loading(false);
       failing(true);
-      redraw();
+      root.redraw();
     })
   }, false);
 

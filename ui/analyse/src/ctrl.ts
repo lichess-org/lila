@@ -151,7 +151,7 @@ export default class AnalyseController {
     this.autoplay = new Autoplay(this);
     if (this.socket) this.socket.clearCache();
     else this.socket = makeSocket(this.opts.socketSend, this);
-    this.explorer = explorerCtrl(this, this.opts.explorer, this.explorer ? this.explorer.allowed() : !this.embed, this.redraw);
+    this.explorer = explorerCtrl(this, this.opts.explorer, this.explorer ? this.explorer.allowed() : !this.embed);
     this.gamePath = (this.synthetic || this.ongoing) ? undefined :
       treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
     this.fork = makeFork(this);

@@ -4,7 +4,7 @@ import { view as renderConfig } from './explorerConfig';
 import { bind, dataIcon } from '../util';
 import AnalyseController from '../ctrl';
 
-function resultBar(move) {
+function resultBar(move): VNode {
   const sum = move.white + move.draws + move.black;
   function section(key) {
     const percent = move[key] * 100 / sum;
@@ -17,7 +17,7 @@ function resultBar(move) {
 
 let lastShow: VNode;
 
-function moveTableAttributes(ctrl, fen) {
+function moveTableAttributes(ctrl: AnalyseController, fen: Fen) {
   return {
     attrs: { 'data-fen': fen },
     hook: {
@@ -44,7 +44,7 @@ function moveTableAttributes(ctrl, fen) {
   };
 }
 
-function showMoveTable(ctrl, moves, fen) {
+function showMoveTable(ctrl: AnalyseController, moves, fen: Fen): VNode | null {
   if (!moves.length) return null;
   return h('table.moves', [
     h('thead', [
@@ -70,13 +70,13 @@ function showMoveTable(ctrl, moves, fen) {
   ]);
 }
 
-function showResult(winner) {
+function showResult(winner: Color): VNode {
   if (winner === 'white') return h('result.white', '1-0');
   if (winner === 'black') return h('result.black', '0-1');
   return h('result.draws', '½-½');
 }
 
-function showGameTable(ctrl, type, games) {
+function showGameTable(ctrl: AnalyseController, type: string, games): VNode | null {
   if (!ctrl.explorer.withGames || !games.length) return null;
   return h('table.games', [
     h('thead', [
@@ -112,9 +112,9 @@ function showGameTable(ctrl, type, games) {
   ]);
 }
 
-function showTablebase(ctrl, title, moves, fen) {
+function showTablebase(ctrl: AnalyseController, title: string, moves, fen: Fen): VNode[] {
+  if (!moves.length) return [];
   const stm = fen.split(/\s/)[1];
-  if (!moves.length) return null;
   return [
     h('div.title', title),
     h('table.tablebase', [
@@ -131,7 +131,7 @@ function showTablebase(ctrl, title, moves, fen) {
   ];
 }
 
-function showWatkins(ctrl, moves, fen) {
+function showWatkins(ctrl: AnalyseController, moves, fen: Fen): VNode {
   return h('div.data.watkins', [
     h('div.title', 'Watkins antichess solution'),
     h('table.tablebase', [
@@ -152,7 +152,7 @@ function showWatkins(ctrl, moves, fen) {
   ]);
 }
 
-function winner(stm, move) {
+function winner(stm, move): Color | undefined {
   if ((stm[0] == 'w' && move.wdl < 0) || (stm[0] == 'b' && move.wdl > 0))
     return 'white';
   if ((stm[0] == 'b' && move.wdl < 0) || (stm[0] == 'w' && move.wdl > 0))
@@ -167,7 +167,7 @@ function showDtm(stm, move) {
   }, 'DTM ' + Math.abs(move.dtm));
 }
 
-function showDtz(stm, move) {
+function showDtz(stm, move): VNode | null {
   if (move.checkmate) return h('result.' + winner(stm, move), 'Checkmate');
   else if (move.stalemate) return h('result.draws', 'Stalemate');
   else if (move.variant_win) return h('result.' + winner(stm, move), 'Variant loss');
@@ -175,26 +175,26 @@ function showDtz(stm, move) {
   else if (move.insufficient_material) return h('result.draws', 'Insufficient material');
   else if (move.dtz === null) return null;
   else if (move.dtz === 0) return h('result.draws', 'Draw');
-  else if (move.zeroing) {
-    if (move.san.indexOf('x') !== -1) return h('result.' + winner(stm, move), 'Capture');
-    else return h('result.' + winner(stm, move), 'Pawn move');
-  } else return h('result.' + winner(stm, move), {
+  else if (move.zeroing) return move.san.indexOf('x') !== -1 ?
+  h('result.' + winner(stm, move), 'Capture') :
+  h('result.' + winner(stm, move), 'Pawn move');
+  return h('result.' + winner(stm, move), {
     attrs: {
       title: 'Next capture or pawn move in ' + Math.abs(move.dtz) + ' half-moves (Distance To Zeroing of the 50 move counter)'
     }
   }, 'DTZ ' + Math.abs(move.dtz));
 }
 
-function closeButton(ctrl) {
+function closeButton(ctrl: AnalyseController): VNode {
   return h('button.button.text', {
     attrs: dataIcon('L'),
     hook: bind('click', ctrl.toggleExplorer)
   }, 'Close');
 }
 
-function showEmpty(ctrl) {
+function showEmpty(ctrl: AnalyseController): VNode {
   return h('div.data.empty', [
-    h('div.title', showTitle(ctrl)),
+    h('div.title', showTitle(ctrl.data.game.variant)),
     h('div.message', [
       h('h3', "No game found"),
       h('p.explanation',
@@ -206,7 +206,7 @@ function showEmpty(ctrl) {
   ]);
 }
 
-function showGameEnd(ctrl, title) {
+function showGameEnd(ctrl: AnalyseController, title: string): VNode {
   return h('div.data.empty', [
     h('div.title', "Game over"),
     h('div.message', [
@@ -226,7 +226,7 @@ function show(ctrl) {
     if (moveTable || recentTable || topTable) lastShow = h('div.data', [moveTable, topTable, recentTable]);
     else lastShow = showEmpty(ctrl);
   } else if (data && data.tablebase) {
-    var moves = data.moves;
+    const moves = data.moves;
     if (moves.length) lastShow = h('div.data', [
       showTablebase(ctrl, 'Winning', moves.filter(function(move) {
         return move.wdl === -2;
@@ -259,24 +259,20 @@ function show(ctrl) {
   return lastShow;
 }
 
-function showTitle(ctrl) {
-  if (ctrl.data.game.variant.key === 'standard' || ctrl.data.game.variant.key === 'fromPosition') {
-    return 'Opening explorer';
-  } else {
-    return ctrl.data.game.variant.name + ' opening explorer';
-  }
+function showTitle(variant: Variant) {
+  if (variant.key === 'standard' || variant.key === 'fromPosition') return 'Opening explorer';
+  return variant.name + ' opening explorer';
 }
 
-function showConfig(ctrl) {
+function showConfig(ctrl: AnalyseController): VNode {
   return h('div.config', [
-    h('div.title', showTitle(ctrl)),
-    renderConfig(ctrl.explorer.config)
-  ]);
+    h('div.title', showTitle(ctrl.data.game.variant))
+  ].concat(renderConfig(ctrl.explorer.config)));
 }
 
 function showFailing(ctrl) {
   return h('div.data.empty', [
-    h('div.title', showTitle(ctrl)),
+    h('div.title', showTitle(ctrl.data.game.variant)),
     h('div.failing.message', [
       h('h3', 'Oops, sorry!'),
       h('p.explanation', 'The explorer is temporarily out of service. Try again soon!'),
@@ -286,13 +282,13 @@ function showFailing(ctrl) {
 }
 
 export default function(ctrl: AnalyseController): VNode | undefined {
-  var explorer = ctrl.explorer;
+  const explorer = ctrl.explorer;
   if (!explorer.enabled()) return;
-  var data = explorer.current();
-  var config = explorer.config;
-  var configOpened = config.data.open();
-  var loading = !configOpened && (explorer.loading() || (!data && !explorer.failing()));
-  var content = configOpened ? showConfig(ctrl) : (explorer.failing() ? showFailing(ctrl) : show(ctrl));
+  const data = explorer.current();
+  const config = explorer.config;
+  const configOpened = config.data.open();
+  const loading = !configOpened && (explorer.loading() || (!data && !explorer.failing()));
+  const content = configOpened ? showConfig(ctrl) : (explorer.failing() ? showFailing(ctrl) : show(ctrl));
   return h('div.explorer_box', {
     class: {
       loading: loading,
