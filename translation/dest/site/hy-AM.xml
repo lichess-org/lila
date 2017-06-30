@@ -412,6 +412,7 @@
   <string name="outsideTheBoard">Խաղադաշտից դուրս</string>
   <string name="onSlowGames">Դանդաղ խաղերում</string>
   <string name="always">Միշտ</string>
+  <string name="whenPremoving">Նախաքայլ անելիս</string>
   <string name="difficultyEasy">Հեշտ</string>
   <string name="difficultyNormal">Նորմալ</string>
   <string name="difficultyHard">Բարդ</string>
@@ -445,8 +446,14 @@
   <string name="shareGameURL">Տարածել խաղի հղումը</string>
   <string name="error.required">Այս դաշտը պարտադիր է</string>
   <string name="error.email">Այս էլ-փոստի հասցեն սխալ է</string>
+  <string name="error.email_acceptable">Այս էլ. փոստի հասցեն վավեր չէ</string>
+  <string name="error.email_unique">Այս էլ. փոստի հասցեն արդեն գրանցված է</string>
   <string name="moveConfirmation">Քայլի հաստատում</string>
+  <string name="ifRatingIsPlusMinusX">Եթե գործակիցը ± %s</string>
   <string name="onlyFriends">Միայն ընկերները</string>
+  <string name="menu">Մենյու</string>
+  <string name="castling">Տեղափոխություն</string>
+  <string name="whiteCastlingKingside">Սպիտակները О-О</string>
   <string name="whiteCastlingQueenside">Սպիտակները О-О-О</string>
   <string name="blackCastlingKingside">Սեւերը О-О</string>
   <string name="blackCastlingQueenside">Սեւերը О-О-О</string>
