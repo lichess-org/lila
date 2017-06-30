@@ -1,4 +1,4 @@
-import { h } from 'snabbdom'
+import { h, thunk } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { AnalyseData, MaybeVNode } from './interfaces';
 import AnalyseController from './ctrl';
@@ -55,11 +55,7 @@ function playerTable(ctrl: AnalyseController, color: Color): VNode {
   ])
 }
 
-// #TODO only render once, maybe with a snabbdom thunk
-export function render(ctrl: AnalyseController): MaybeVNode {
-  const d = ctrl.data;
-  if (!d.analysis || !ctrl.showComputer()) return;
-
+function doRender(ctrl: AnalyseController): VNode {
   return h('div.advice_summary', {
     hook: {
       insert: vnode => {
@@ -73,8 +69,18 @@ export function render(ctrl: AnalyseController): MaybeVNode {
     h('a.button.text', {
       class: { active: !!ctrl.retro },
       attrs: dataIcon('G'),
-      hook: bind('click', ctrl.toggleRetro)
+      hook: bind('click', ctrl.toggleRetro, ctrl.redraw)
     }, 'Learn from your mistakes'),
     playerTable(ctrl, 'black')
   ]);
+}
+
+export function render(ctrl: AnalyseController): MaybeVNode {
+
+  if (!ctrl.data.analysis || !ctrl.showComputer()) return;
+
+  const first = ctrl.mainline[0].eval || {};
+  const cacheKey = '' + first.cp + first.mate + !!ctrl.retro;
+
+  return thunk('div.advice_summary', doRender, [ctrl, cacheKey]);
 }

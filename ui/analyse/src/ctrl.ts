@@ -735,7 +735,7 @@ export default class AnalyseController {
     });
   }
 
-  toggleRetro(): void {
+  toggleRetro = (): void => {
     if (this.retro) this.retro = undefined;
     else {
       this.retro = makeRetro(this);
