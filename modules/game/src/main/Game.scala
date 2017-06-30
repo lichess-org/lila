@@ -6,7 +6,7 @@ import chess.Color.{ White, Black }
 import chess.format.{ Uci, FEN }
 import chess.opening.{ FullOpening, FullOpeningDB }
 import chess.variant.{ Variant, Crazyhouse }
-import chess.{ MoveMetrics, History => ChessHistory, CheckCount, Castles, Board, MoveOrDrop, Pos, Game => ChessGame, Clock, Status, Color, Mode, PositionHash, UnmovedRooks, Centis }
+import chess.{ MoveMetrics, History => ChessHistory, CheckCount, Castles, Board, MoveOrDrop, Pos, Game => ChessGame, Clock, Status, Color, Mode, PositionHash, UnmovedRooks, Centis, Situation }
 import org.joda.time.DateTime
 
 import lila.common.Sequence
@@ -166,12 +166,14 @@ case class Game(
     val pieces = BinaryFormat.piece.read(binaryPieces, variant)
 
     ChessGame(
-      board = Board(pieces, toChessHistory, variant, crazyData),
-      player = Color(0 == turns % 2),
+      situation = Situation(
+        Board(pieces, toChessHistory, variant, crazyData),
+        Color.fromPly(turns)
+      ),
+      pgnMoves = pgnMoves.toVector,
       clock = clock,
       turns = turns,
-      startedAtTurn = startedAtTurn,
-      pgnMoves = pgnMoves
+      startedAtTurn = startedAtTurn
     )
   }
 

@@ -22,7 +22,7 @@ final class PgnDump(
     }
     val ts = tags(game, initialFen, imported)
     val fenSituation = ts find (_.name == Tag.FEN) flatMap { case Tag(_, fen) => Forsyth <<< fen }
-    val moves2 = fenSituation.??(_.situation.color.black).fold(".." :: game.pgnMoves, game.pgnMoves)
+    val moves2 = fenSituation.??(_.situation.color.black).fold(".." +: game.pgnMoves, game.pgnMoves)
     val turns = makeTurns(
       moves2,
       fenSituation.map(_.fullMoveNumber) | 1,
@@ -116,7 +116,7 @@ final class PgnDump(
         ))
   }
 
-  private def makeTurns(moves: List[String], from: Int, clocks: Vector[Centis], startColor: Color): List[chessPgn.Turn] =
+  private def makeTurns(moves: Seq[String], from: Int, clocks: Vector[Centis], startColor: Color): List[chessPgn.Turn] =
     (moves grouped 2).zipWithIndex.toList map {
       case (moves, index) =>
         val clockOffset = startColor.fold(0, 1)

@@ -37,7 +37,7 @@ object TreeBuilder {
 
   def apply(
     id: String,
-    pgnMoves: List[String],
+    pgnMoves: Vector[String],
     variant: Variant,
     analysis: Option[Analysis],
     initialFen: String,

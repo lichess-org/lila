@@ -1,6 +1,6 @@
 package lila.lobby
 
-import chess.{ Game => ChessGame, Board, Color => ChessColor }
+import chess.{ Game => ChessGame, Situation, Color => ChessColor }
 
 import actorApi.{ JoinHook, JoinSeek }
 import lila.game.{ GameRepo, Game, Player, PerfPicker }
@@ -58,7 +58,7 @@ private[lobby] object Biter {
 
   private def makeGame(hook: Hook) = Game.make(
     game = ChessGame(
-      board = Board init hook.realVariant,
+      situation = Situation(hook.realVariant),
       clock = hook.clock.toClock.some
     ),
     whitePlayer = Player.white,
@@ -71,7 +71,7 @@ private[lobby] object Biter {
 
   private def makeGame(seek: Seek) = Game.make(
     game = ChessGame(
-      board = Board init seek.realVariant,
+      situation = Situation(seek.realVariant),
       clock = none
     ),
     whitePlayer = Player.white,
