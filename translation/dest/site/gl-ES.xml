@@ -552,8 +552,11 @@
   <string name="confirmResignation">Confirmar abandono</string>
   <string name="letOtherPlayersMessageYou">Deizar que outros xogadores te envíen mensaxes</string>
   <string name="shareYourInsightsData">Compartir os teus datos estatísticos</string>
+  <string name="withNobody">Con ninguén</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Xa rexistraches o correo: %s</string>
   <string name="kidMode">Modo infantil</string>
+  <string name="security">Seguridade</string>
+  <string name="alternativelyYouCanX">Alternativamente podes %s.</string>
   <string name="playChessEverywhere">Xoga ó xadrez en todas partes</string>
   <string name="asFreeAsLichess">Tan libre coma lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Construído por amor ó xadrez, non ó diñeiro</string>
@@ -572,4 +575,11 @@
     <item quantity="other">Dispoñible en %s idiomas!</item>
   </plurals>
   <string name="gameAnalysis">Análise da partida</string>
+  <string name="language">Idioma</string>
+  <string name="usernameUnacceptable">Este nome de usuario non é aceptable.</string>
+  <string name="error.minLength">A lonxitude mínima é de %s</string>
+  <string name="error.maxLength">A lonxitude máxima é de %s</string>
+  <string name="error.unknown">Erro</string>
+  <string name="notifications">Notificacións</string>
+  <string name="challenges">Desafíos</string>
 </resources>
