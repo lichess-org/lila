@@ -65,14 +65,20 @@ function action(icon: string, text: string, handler: () => void): VNode {
   }, text);
 }
 
-function view(ctrl) {
-  return h('div', [
+function view(ctrl, coords: Coords): VNode {
+  return h('div#' + elementId + '.visible', {
+    hook: {
+      insert: vnode => positionMenu(vnode.elm as HTMLElement, coords),
+      postpatch: (_, vnode) => positionMenu(vnode.elm as HTMLElement, coords)
+    }
+  }, [
     h('p.title', nodeFullName(ctrl.node)),
     ctrl.isMainline ? null : action('S', 'Promote variation', () => ctrl.root.promote(ctrl.path, false)),
     ctrl.isMainline ? null : action('E', 'Make main line', () => ctrl.root.promote(ctrl.path, true)),
-    action('q', 'Delete from here', () => ctrl.root.deleteNode(ctrl.path)),
-    ctrl.root.study ? studyView.contextMenu(ctrl.root.study, ctrl.path, ctrl.node) : null
-  ]);
+    action('q', 'Delete from here', () => ctrl.root.deleteNode(ctrl.path))
+  ].concat(
+    ctrl.root.study ? studyView.contextMenu(ctrl.root.study, ctrl.path, ctrl.node) : []
+  ));
 }
 
 export default function(e: MouseEvent, opts: Opts): void {
@@ -83,11 +89,9 @@ export default function(e: MouseEvent, opts: Opts): void {
     opts.root.contextMenuPath = undefined;
     document.removeEventListener("click", close, false);
     el.classList.remove('visible');
-    patch(el, h('div'));
     opts.root.redraw();
   };
   document.addEventListener("click", close, false);
-  positionMenu(el, getPosition(e));
-  patch(el, view(ctrl(opts)));
-  el.classList.add('visible');
+  el.innerHTML = '';
+  patch(el, view(ctrl(opts), getPosition(e)));
 }

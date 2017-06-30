@@ -264,7 +264,7 @@ export default function(ctrl: AnalyseController, concealOf?: ConcealOf): VNode {
       insert: vnode => {
         const el = vnode.elm as HTMLElement;
         if (ctrl.path !== treePath.root) autoScroll(ctrl, el);
-        el.addEventListener('contextmenu', (e: MouseEvent) => {
+        el.oncontextmenu = (e: MouseEvent) => {
           const path = eventPath(e);
           if (path !== null) contextMenu(e, {
             path: path,
@@ -272,7 +272,7 @@ export default function(ctrl: AnalyseController, concealOf?: ConcealOf): VNode {
           });
           ctrl.redraw();
           return false;
-        });
+        };
         el.addEventListener('mousedown', (e: MouseEvent) => {
           if (defined(e.button) && e.button !== 0) return; // only touch or left click
           const path = eventPath(e);
