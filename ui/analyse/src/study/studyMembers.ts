@@ -2,7 +2,7 @@ import { h } from 'snabbdom'
 import { titleNameToId, bind, dataIcon } from '../util';
 import { prop } from 'common';
 import { ctrl as inviteFormCtrl } from './inviteForm';
-import { SocketSend } from '../interfaces';
+import { SocketSend } from '../socket';
 import { StudyMember, StudyMemberMap } from './interfaces';
 import { NotifController } from './notif';
 

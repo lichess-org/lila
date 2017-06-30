@@ -17,7 +17,7 @@ import { ctrl as cevalCtrl, isEvalBetter, CevalController, Work as CevalWork, Ce
 import explorerCtrl from './explorer/explorerCtrl';
 import { game, GameData } from 'game';
 import { valid as crazyValid } from './crazy/crazyCtrl';
-import * as makeStudy from './study/studyCtrl';
+import makeStudy from './study/studyCtrl';
 import { make as makeFork, ForkController } from './fork';
 import { make as makeRetro, RetroController } from './retrospect/retroCtrl';
 import { make as makePractice, PracticeController } from './practice/practiceCtrl';

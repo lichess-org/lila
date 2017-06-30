@@ -4,9 +4,11 @@ import { prop } from 'common';
 import { bind } from '../util';
 import { ctrl as chapterNewForm } from './chapterNewForm';
 import { ctrl as chapterEditForm } from './chapterEditForm';
-import { SocketSend } from '../interfaces';
+import { SocketSend } from '../socket';
+import AnalyseController from '../ctrl';
+import { StudyController } from './interfaces';
 
-export function ctrl(initChapters, send: SocketSend, setTab, chapterConfig, root) {
+export function ctrl(initChapters, send: SocketSend, setTab, chapterConfig, root: AnalyseController) {
 
   const list = prop(initChapters);
 
@@ -38,7 +40,7 @@ export function ctrl(initChapters, send: SocketSend, setTab, chapterConfig, root
   };
 }
 
-export function view(ctrl) {
+export function view(ctrl: StudyController): VNode[] {
 
   const configButton = ctrl.members.canContribute() ? h('i.action.config', { attrs: { 'data-icon': '%' } }) : null;
   const current = ctrl.currentChapter();

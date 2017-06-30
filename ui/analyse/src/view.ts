@@ -19,7 +19,7 @@ import { view as keyboardView} from './keyboard';
 import explorerView from './explorer/explorerView';
 import retroView from './retrospect/retroView';
 import practiceView from './practice/practiceView';
-import studyView from './study/studyView';
+import * as studyView from './study/studyView';
 import { view as forkView } from './fork'
 import { render as acplView } from './acpl'
 

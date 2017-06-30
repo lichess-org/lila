@@ -2,7 +2,7 @@ const headers = {
   'Accept': 'application/vnd.lichess.v2+json'
 };
 
-export function reload(baseUrl: string, id: string, chapterId: string) {
+export function reload(baseUrl: string, id: string, chapterId?: string) {
   let url = '/' + baseUrl + '/' + id;
   if (chapterId) url += '/' + chapterId;
   return $.ajax({

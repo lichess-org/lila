@@ -3,6 +3,7 @@ import * as dialog from './dialog';
 import { bind } from '../util';
 import { prop } from 'common';
 import { renderIndexAndMove } from '../moveView';
+import { StudyData, StudyChapter } from './interfaces';
 
 const baseUrl = 'https://lichess.org/study/';
 
@@ -23,7 +24,7 @@ function fromPly(ctrl) {
   ]));
 }
 
-export function ctrl(data, currentChapter, currentNode, redraw: () => void) {
+export function ctrl(data: StudyData, currentChapter: () => StudyChapter, currentNode: () => Tree.Node, redraw: () => void) {
   const open = prop(false);
   const withPly = prop(false);
   return {
