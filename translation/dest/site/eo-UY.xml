@@ -585,6 +585,14 @@
   <string name="withEverybody">Kun ĉiuj</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Vi jam registris la retadreso: %s</string>
   <string name="kidMode">Infano reĝimo</string>
+  <string name="kidModeExplanation">Ĉi tio temas pri sekureco. En infana modo, ĉiuj retejaj komunikadoj estas malebligitaj. Aktivigu ĉi tiun por viaj infanoj kaj lernejaj studentoj, por protekti ilin de aliaj retaj uzantoj.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">En infana modo, la lichess-emblemo ekhavas %s-emblemon, por ke vi sciu ke viaj infanoj sekuras.</string>
+  <string name="enableKidMode">Aktivigi infanan modon</string>
+  <string name="disableKidMode">Malaktivigi infanan modon</string>
+  <string name="security">Sekureco</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Ĉi tio estas listo da aparatoj kiuj ensalutis en vian konton. Revoku ajnan sesion kiun vi ne rekonas.</string>
+  <string name="alternativelyYouCanX">Alternative vi povas %s.</string>
+  <string name="revokeAllSessions">revoki ĉiujn sesiojn</string>
   <string name="playChessEverywhere">Ludi ŝakon ĉie</string>
   <string name="asFreeAsLichess">Tiom libera kiom lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Konstruita por la amo de ŝako , ne mono</string>
@@ -630,6 +638,7 @@
   <string name="error.maxLength">Maksimuma longo estas %s</string>
   <string name="error.min">Devas esti pli ol aŭ egala al %s</string>
   <string name="error.max">Devas esti malpli ol aŭ egala al %s</string>
+  <string name="error.unknown">Eraro</string>
   <string name="custom">Propra</string>
   <string name="notifications">Sciigoj</string>
   <string name="challenges">Defioj</string>
