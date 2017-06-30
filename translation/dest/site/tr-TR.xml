@@ -46,7 +46,7 @@
   <string name="viewTheComputerAnalysis">Bilgisayar analizini incele</string>
   <string name="requestAComputerAnalysis">Bilgisayar analizi talep et</string>
   <string name="computerAnalysis">Bilgisayar analizi</string>
-  <string name="computerAnalysisAvailable">Bilgisayar analizi yapılabilir</string>
+  <string name="computerAnalysisAvailable">Bilgisayar analizi mevcut</string>
   <string name="analysis">Analiz tahtası</string>
   <string name="blunders">Vahim hatalar</string>
   <string name="mistakes">Hatalar</string>
@@ -390,7 +390,7 @@
   <string name="typePrivateNotesHere">Özel notlarınızı buraya yazın</string>
   <string name="gameDisplay">Oyun görünümü</string>
   <string name="pieceAnimation">Hamle canlandırma</string>
-  <string name="materialDifference">Materyal fark</string>
+  <string name="materialDifference">Taş farkı</string>
   <string name="closeAccount">Hesabı kapat</string>
   <string name="changedMindDoNotCloseAccount">Fikrimi değiştirdim, hesabımı kapatmak istemiyorum</string>
   <string name="closeAccountExplanation">Hesabınızı kapatmak istediğinizden emin misiniz? Hesap kapatmak geri dönüşü olmayan bir işlemdir. Tekrar giriş yapamayacaksınız ve profil sayfanıza erişiminiz kalmayacaktır.</string>

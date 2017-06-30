@@ -406,7 +406,7 @@
   <string name="moveListWhilePlaying">Move list while playing</string>
   <string name="pgnPieceNotation">Move notation</string>
   <string name="chessPieceSymbol">Chess piece symbol</string>
-  <string name="pgnLetter">Algebraic (K, Q, R, B, N)</string>
+  <string name="pgnLetter">Letter (K, Q, R, B, N)</string>
   <string name="chessClock">Chess clock</string>
   <string name="tenthsOfSeconds">Tenths of seconds</string>
   <string name="never">Never</string>
@@ -417,7 +417,7 @@
   <string name="howDoYouMovePieces">How do you move pieces?</string>
   <string name="clickTwoSquares">Click two squares</string>
   <string name="dragPiece">Drag a piece</string>
-  <string name="bothClicksAndDrag">Both possible</string>
+  <string name="bothClicksAndDrag">Either</string>
   <string name="premovesPlayingDuringOpponentTurn">Premoves (playing during opponent turn)</string>
   <string name="takebacksWithOpponentApproval">Takebacks (with opponent approval)</string>
   <string name="promoteToQueenAutomatically">Promote to Queen automatically</string>
@@ -578,7 +578,7 @@
   <string name="letOtherPlayersMessageYou">Let other players message you</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Castling method</string>
   <string name="castleByMovingTwoSquares">Move king two squares</string>
-  <string name="castleByMovingOntoTheRook">Move king onto rook</string>
+  <string name="castleByMovingOntoTheRook">Move king onto rook or 2 squares</string>
   <string name="shareYourInsightsData">Share your chess insights data</string>
   <string name="withNobody">With nobody</string>
   <string name="withFriends">With friends</string>

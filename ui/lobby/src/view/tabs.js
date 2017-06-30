@@ -20,7 +20,7 @@ module.exports = function(ctrl) {
     tab(ctrl, 'real_time', active, ctrl.trans.noarg('lobby')),
     tab(ctrl, 'seeks', active, ctrl.trans.noarg('correspondence')),
     (active === 'now_playing' || ctrl.data.nbNowPlaying > 0) ? tab(ctrl, 'now_playing', active, [
-      ctrl.trans('nbGamesInPlay', ctrl.data.nbNowPlaying),
+      ctrl.trans.plural('nbGamesInPlay', ctrl.data.nbNowPlaying),
       myTurnPovsNb > 0 ? m('span.unread', myTurnPovsNb) : null
     ]) : null
   ];

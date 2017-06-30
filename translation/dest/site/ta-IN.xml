@@ -46,6 +46,7 @@
   <string name="viewTheComputerAnalysis">கணினிப் பகுப்பாய்வினைக் காண்க</string>
   <string name="requestAComputerAnalysis">கணினிப் பகுப்பாய்வு கோருக</string>
   <string name="computerAnalysis">கணினிப் பகுப்பாய்வு</string>
+  <string name="computerAnalysisAvailable">கணினி பகுப்பாய்வு கிடைக்கும்</string>
   <string name="analysis">பகுப்பாய்வு</string>
   <string name="blunders">பெரும்பிழைகள்</string>
   <string name="mistakes">பிழைகள்</string>
@@ -233,6 +234,7 @@
   </plurals>
   <string name="thisIsAChessCaptcha">இது ஒரு சதுரங்கமுறை மாந்தத்தேர்வு (CAPTCHA)</string>
   <string name="clickOnTheBoardToMakeYourMove">பலகையிலே சொடுக்கி நகர்த்துங்கள், நீங்கள் மாந்தரென்று நிறுவுங்கள்</string>
+  <string name="captcha.fail">சதுரங்க புதிரை தீர்க்கவும்.</string>
   <string name="notACheckmate">முழுத்தடையன்று</string>
   <string name="colorPlaysCheckmateInOne">%s ஆடுகின்றது; ஒரே நகர்வில் முழுத்தடை</string>
   <string name="retry">மீள்முயற்சி</string>
@@ -240,6 +242,7 @@
   <string name="onlineFriends">இணையத் தோழர்கள்</string>
   <string name="noFriendsOnline">இணையத் தோழர் யாருமிலர்</string>
   <string name="findFriends">தோழர்களைத் தேடு</string>
+  <string name="favoriteOpponents">பிடித்தமான எதிராளிகள்</string>
   <string name="follow">பின்தொடர்</string>
   <string name="following">பின்தொடர்கின்றார்</string>
   <string name="unfollow">பின்தொடராதே</string>
@@ -386,4 +389,7 @@
   <string name="sound">சப்தம்</string>
   <string name="fast">விரைவாக</string>
   <string name="slow">மெதுவாக</string>
+  <string name="always">எப்போதும்</string>
+  <string name="whiteCastlingQueenside">வெள்ளை O-O-O</string>
+  <string name="blackCastlingQueenside">க்ருப்பு O-O-O</string>
 </resources>

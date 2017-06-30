@@ -8,7 +8,7 @@ import play.api.libs.json.JsObject
 import play.twirl.api.Html
 
 import lila.i18n.Env.{ current => i18nEnv }
-import lila.i18n.{ LangList, I18nKey, Translator }
+import lila.i18n.{ LangList, I18nKey, Translator, JsQuantity }
 import lila.user.UserContext
 
 trait I18nHelper {
@@ -26,6 +26,8 @@ trait I18nHelper {
 
   def i18nOptionJsObject(keys: Option[I18nKey]*)(implicit lang: Lang): JsObject =
     i18nEnv.jsDump.keysToObject(keys.flatten, lang)
+
+  def i18nJsQuantityFunction()(implicit lang: Lang): Html = Html(JsQuantity(lang))
 
   def langName = LangList.nameByStr _
 

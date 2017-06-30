@@ -9,8 +9,21 @@ import play.api.libs.json.{ JsString, JsObject }
 private[i18n] final class JsDump(path: String) {
 
   def keysToObject(keys: Seq[I18nKey], lang: Lang) = JsObject {
-    keys.map { k =>
-      k.key -> JsString(k.literalTxtTo(lang, Nil))
+    keys.flatMap { k =>
+      Translator.findTranslation(k.key, lang) match {
+        case Some(literal: Literal) =>
+          List(k.key -> JsString(literal.message))
+        case Some(plurals: Plurals) =>
+          plurals.messages map {
+            case (I18nQuantity.Zero, m) => k.key + ":zero" -> JsString(m)
+            case (I18nQuantity.One, m) => k.key + ":one" -> JsString(m)
+            case (I18nQuantity.Two, m) => k.key + ":two" -> JsString(m)
+            case (I18nQuantity.Few, m) => k.key + ":few" -> JsString(m)
+            case (I18nQuantity.Many, m) => k.key + ":many" -> JsString(m)
+            case (I18nQuantity.Other, m) => k.key -> JsString(m)
+          }
+        case None => Nil
+      }
     }
   }
 

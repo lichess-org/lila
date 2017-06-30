@@ -106,7 +106,7 @@ private final class PushApi(
     }
 
   def newMessage(t: Thread, p: Post): Funit =
-    lightUser(t.senderOf(p)) ?? { sender =>
+    lightUser(t.visibleSenderOf(p)) ?? { sender =>
       pushToAll(t.receiverOf(p), _.message, PushApi.Data(
         title = s"${sender.titleName}: ${t.name}",
         body = p.text take 140,

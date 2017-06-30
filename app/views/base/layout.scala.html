@@ -176,8 +176,9 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     @if(ctx.requiresFingerprint) { @fingerprintTag }
     @jsAt(s"compiled/lichess.site${isProd??".min"}.js", async = asyncJs)
     @moreJs
-    @if(lang.language != "en") {
     @embedJs {
+    lichess.quantity = @i18nJsQuantityFunction();
+    @if(lang.language != "en") {
     lichess_translations = @jsI18n();
     @momentLangUrl.map { url =>
     window.momentLocaleUrl = "@url";
