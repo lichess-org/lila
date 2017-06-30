@@ -1,6 +1,6 @@
 package lila.setup
 
-import chess.{ Game => ChessGame, Board, Situation, Clock, Speed }
+import chess.{ Game => ChessGame, Situation, Clock, Speed }
 
 import lila.game.Game
 import lila.lobby.Color
@@ -30,7 +30,7 @@ private[setup] trait Config {
   lazy val creatorColor = color.resolve
 
   def makeGame(v: chess.variant.Variant): ChessGame =
-    ChessGame(board = Board init v, clock = makeClock.map(_.toClock))
+    ChessGame(situation = Situation(v), clock = makeClock.map(_.toClock))
 
   def makeGame: ChessGame = makeGame(variant)
 
@@ -61,10 +61,9 @@ trait Positional { self: Config =>
   def fenGame(builder: ChessGame => Game): Game = {
     val baseState = fen ifTrue (variant == chess.variant.FromPosition) flatMap Forsyth.<<<
     val (chessGame, state) = baseState.fold(makeGame -> none[SituationPlus]) {
-      case sit @ SituationPlus(Situation(board, color), _) =>
+      case sit @ SituationPlus(s, _) =>
         val game = ChessGame(
-          board = board,
-          player = color,
+          situation = s,
           turns = sit.turns,
           startedAtTurn = sit.turns,
           clock = makeClock.map(_.toClock)
