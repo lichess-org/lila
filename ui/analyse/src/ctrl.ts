@@ -89,34 +89,20 @@ export default class AnalyseController {
   constructor(opts: AnalyseOpts, redraw: () => void) {
 
     this.opts = opts;
+    this.data = opts.data;
     this.element = opts.element;
     this.embed = opts.embed;
     this.redraw = redraw;
 
     this.trans = window.lichess.trans(opts.i18n);
 
-    if (opts.data.forecast) this.forecast = makeForecast(opts.data.forecast, this.data, redraw);
+    if (this.data.forecast) this.forecast = makeForecast(this.data.forecast, this.data, redraw);
 
     this.instanciateCeval();
 
     this.instanciateEvalCache();
 
-    this.showGround();
-    this.onToggleComputer();
-    this.startCeval();
-    this.explorer.setNode();
-    this.study = opts.study ? makeStudy(opts.study, this, (opts.tagTypes || '').split(','), opts.practice) : null;
-    this.studyPractice = this.study ? this.study.practice : null;
-
-    if (location.hash === '#practice' || (this.study && this.study.data.chapter.practice)) this.togglePractice();
-
-    keyboard.bind(this);
-
-    window.lichess.pubsub.on('jump', this.pubsubJump);
-
-    window.lichess.pubsub.on('sound_set', this.pubsubSoundSet);
-
-    this.initialize(opts.data, false);
+    this.initialize(this.data, false);
 
     this.initialPath = treePath.root;
 
@@ -135,6 +121,21 @@ export default class AnalyseController {
     }
 
     this.setPath(this.initialPath);
+
+    this.showGround();
+    this.onToggleComputer();
+    this.startCeval();
+    this.explorer.setNode();
+    this.study = opts.study ? makeStudy(opts.study, this, (opts.tagTypes || '').split(','), opts.practice) : null;
+    this.studyPractice = this.study ? this.study.practice : null;
+
+    if (location.hash === '#practice' || (this.study && this.study.data.chapter.practice)) this.togglePractice();
+
+    keyboard.bind(this);
+
+    window.lichess.pubsub.on('jump', this.pubsubJump);
+
+    window.lichess.pubsub.on('sound_set', this.pubsubSoundSet);
   }
 
   initialize(data: AnalyseData, merge: boolean): void {
@@ -164,7 +165,7 @@ export default class AnalyseController {
     this.onMainline = this.tree.pathIsMainline(path)
   }
 
-  flip(): void {
+  flip = () => {
     this.flipped = !this.flipped;
     this.chessground.set({
       orientation: this.bottomColor()
@@ -268,13 +269,15 @@ export default class AnalyseController {
     check: $.noop
   };
 
-  private onChange: () => void = this.opts.onChange ? throttle(300, false, () => {
-    const mainlinePly = this.onMainline ? this.node.ply : false;
-    this.opts.onChange!(this.node.fen, this.path, mainlinePly);
-  }) : $.noop;
+  private onChange: () => void = throttle(300, false, () => {
+    if (this.opts.onChange) {
+      const mainlinePly = this.onMainline ? this.node.ply : false;
+      this.opts.onChange!(this.node.fen, this.path, mainlinePly);
+    }
+  });
 
-  private updateHref: () => void = this.opts.study ? $.noop : throttle(750, false, () => {
-    window.history.replaceState(null, '', '#' + this.node.ply);
+  private updateHref: () => void = throttle(750, false, () => {
+    if (!this.opts.study) window.history.replaceState(null, '', '#' + this.node.ply);
   }, false);
 
   autoScroll(): void {
@@ -382,7 +385,7 @@ export default class AnalyseController {
     window.location.href = '/analysis/' + this.data.game.variant.key + '/' + encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
   }
 
-  userNewPiece(piece: cg.Piece, pos: Key) {
+  userNewPiece = (piece: cg.Piece, pos: Key): void => {
     if (crazyValid(this.chessground, this.node.drops, piece, pos)) {
       this.justPlayed = chessUtil.roleToSan[piece.role] + '@' + pos;
       this.justDropped = piece.role;
@@ -401,7 +404,7 @@ export default class AnalyseController {
     } else this.jump(this.path);
   }
 
-  userMove(orig: Key, dest: Key, capture?: JustCaptured): void {
+  userMove = (orig: Key, dest: Key, capture?: JustCaptured): void => {
     this.justPlayed = orig;
     this.justDropped = undefined;
     this.sound[capture ? 'capture' : 'move']();
@@ -776,6 +779,6 @@ export default class AnalyseController {
       window.lichess.loadScript('/assets/javascripts/music/replay.js').then(() => {
         this.music = window.lichessReplayMusic();
       });
-    if (this.music && set !== 'music') this.music = null;
+      if (this.music && set !== 'music') this.music = null;
   }
 };

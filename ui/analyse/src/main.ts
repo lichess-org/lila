@@ -5,8 +5,8 @@ import AnalyseController from './ctrl';
 
 import makeCtrl from './ctrl';
 import view from './view';
-// import studyView = require('./study/studyView');
-// import studyPracticeView = require('./study/practice/studyPracticeView');
+// import { main as studyView } from './study/studyView';
+// import studyPracticeView from './study/practice/studyPracticeView';
 import boot = require('./boot');
 import { Chessground } from 'chessground';
 

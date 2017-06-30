@@ -113,9 +113,10 @@ function studyButton(ctrl: AnalyseController) {
     hiddenInput('orientation', ctrl.chessground.state.orientation),
     hiddenInput('variant', ctrl.data.game.variant.key),
     hiddenInput('fen', ctrl.tree.root.fen),
-    h('button.fbt', { attrs: { type: 'submit' } }),
-    h('i.icon', { attrs: dataIcon('') }),
-    'Study'
+    h('button.fbt', { attrs: { type: 'submit' } }, [
+      h('i.icon', { attrs: dataIcon('') }),
+      'Study'
+    ])
   ]);
 }
 

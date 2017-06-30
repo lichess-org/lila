@@ -2,15 +2,27 @@ import { h } from 'snabbdom'
 import * as ground from './ground';
 import { bind } from './util';
 import * as util from 'chessground/util';
+import { Role } from 'chessground/types';
+import AnalyseController from './ctrl';
+import { JustCaptured } from './interfaces';
 
-let promoting: any = false;
+interface Promoting {
+  orig: Key;
+  dest: Key;
+  capture?: JustCaptured;
+  callback: Callback
+}
 
-export function start(ctrl, orig, dest, capture, callback) {
+type Callback = (orig: Key, dest: Key, capture: JustCaptured | undefined, role: Role) => void;
+
+let promoting: Promoting | undefined;
+
+export function start(ctrl: AnalyseController, orig: Key, dest: Key, capture: JustCaptured | undefined, callback: Callback): boolean {
   var s = ctrl.chessground.state;
   var piece = s.pieces[dest];
   if (piece && piece.role == 'pawn' && (
-    (dest[1] == 8 && s.turnColor == 'black') ||
-      (dest[1] == 1 && s.turnColor == 'white'))) {
+    (dest[1] == '8' && s.turnColor == 'black') ||
+      (dest[1] == '1' && s.turnColor == 'white'))) {
     promoting = {
       orig: orig,
       dest: dest,
@@ -23,28 +35,29 @@ export function start(ctrl, orig, dest, capture, callback) {
   return false;
 }
 
-function finish(ctrl, role) {
-  if (promoting) ground.promote(ctrl.chessground, promoting.dest, role);
-  if (promoting.callback) promoting.callback(promoting.orig, promoting.dest,
-    promoting.capture, role);
-  promoting = false;
+function finish(ctrl: AnalyseController, role) {
+  if (promoting) {
+    ground.promote(ctrl.chessground, promoting.dest, role);
+    if (promoting.callback) promoting.callback(promoting.orig, promoting.dest, promoting.capture, role);
+  }
+  promoting = undefined;
 }
 
-export function cancel(ctrl) {
+export function cancel(ctrl: AnalyseController) {
   if (promoting) {
-    promoting = false;
-    ctrl.chessground.set(ctrl.vm.cgConfig);
+    promoting = undefined;
+    ctrl.chessground.set(ctrl.cgConfig);
     ctrl.redraw();
   }
 }
 
-function renderPromotion(ctrl, dest, pieces, color, orientation) {
+function renderPromotion(ctrl: AnalyseController, dest: Key, pieces, color: Color, orientation: Color) {
   if (!promoting) return;
 
-  var left = (8 - util.key2pos(dest)[0]) * 12.5;
+  let left = (8 - util.key2pos(dest)[0]) * 12.5;
   if (orientation === 'white') left = 87.5 - left;
 
-  var vertical = color === orientation ? 'top' : 'bottom';
+  const vertical = color === orientation ? 'top' : 'bottom';
 
   return h('div#promotion_choice.' + vertical, {
     hook: {
@@ -68,7 +81,7 @@ function renderPromotion(ctrl, dest, pieces, color, orientation) {
   }));
 }
 
-export function view(ctrl) {
+export function view(ctrl: AnalyseController) {
   if (!promoting) return;
   var pieces = ['queen', 'knight', 'rook', 'bishop'];
   if (ctrl.data.game.variant.key === "antichess") pieces.push('king');

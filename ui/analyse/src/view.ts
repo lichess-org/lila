@@ -1,7 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 
-import AnalyseController from './ctrl';
 import * as chessground from './ground';
 import { synthetic, bind, dataIcon, iconTag, spinner } from './util';
 import { game, router, view as gameView } from 'game';
@@ -22,9 +21,11 @@ import practiceView from './practice/practiceView';
 import * as studyView from './study/studyView';
 import { view as forkView } from './fork'
 import { render as acplView } from './acpl'
+import AnalyseController from './ctrl';
+import { ConcealOf } from './interfaces';
 
-function renderResult(ctrl) {
-  let result;
+function renderResult(ctrl: AnalyseController): VNode[] {
+  let result: string | undefined;
   if (ctrl.data.game.status.id >= 30) switch (ctrl.data.game.winner) {
     case 'white':
       result = '1-0';
@@ -35,25 +36,25 @@ function renderResult(ctrl) {
     default:
       result = '½-½';
   }
+  const tags: VNode[] = [];
   if (result) {
-    const tags: VNode[] = [];
     tags.push(h('div.result', result));
-    const winner = game.getPlayer(ctrl.data, ctrl.data.game.winner);
+    const winner = game.getPlayer(ctrl.data, ctrl.data.game.winner!);
     tags.push(h('div.status', [
       gameView.status(ctrl),
       winner ? ', ' + ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null
     ]));
-    return tags;
   }
+  return tags;
 }
 
-function makeConcealOf(ctrl) {
+function makeConcealOf(ctrl: AnalyseController): ConcealOf | undefined {
   const conceal = (ctrl.study && ctrl.study.data.chapter.conceal !== null) ? {
     owner: ctrl.study.isChapterOwner(),
     ply: ctrl.study.data.chapter.conceal
   } : null;
-  if (conceal) return function(isMainline) {
-    return function(path, node) {
+  if (conceal) return function(isMainline: boolean) {
+    return function(path: Tree.Path, node: Tree.Node) {
       if (!conceal || (isMainline && conceal.ply >= node.ply)) return null;
       if (treePath.contains(ctrl.path, path)) return null;
       return conceal.owner ? 'conceal' : 'hide';
@@ -61,17 +62,17 @@ function makeConcealOf(ctrl) {
   };
 }
 
-function renderAnalyse(ctrl, concealOf) {
+function renderAnalyse(ctrl: AnalyseController, concealOf?: ConcealOf) {
   return h('div.areplay', [
     renderChapterName(ctrl),
     renderOpeningBox(ctrl),
     treeView(ctrl, concealOf),
-    renderResult(ctrl)
-  ]);
+  ].concat(renderResult(ctrl)));
 }
 
-function wheel(ctrl, e) {
-  if (e.target.tagName !== 'PIECE' && e.target.tagName !== 'SQUARE' && !e.target.classList.contains('cg-board')) return;
+function wheel(ctrl: AnalyseController, e: WheelEvent) {
+  const target = e.target as HTMLElement;
+  if (target.tagName !== 'PIECE' && target.tagName !== 'SQUARE' && !target.classList.contains('cg-board')) return;
   e.preventDefault();
   if (e.deltaY > 0) control.next(ctrl);
   else if (e.deltaY < 0) control.prev(ctrl);
@@ -121,7 +122,7 @@ function visualBoard(ctrl) {
     ctrl.keyboardHelp ? keyboardView(ctrl) : null,
     ctrl.study ? studyView.overboard(ctrl.study) : null,
     h('div.lichess_board.' + ctrl.data.game.variant.key, {
-      hook: bind('wheel', e => wheel(ctrl, e))
+      hook: bind('wheel', e => wheel(ctrl, e as WheelEvent))
     }, [
       chessground.render(ctrl),
       renderPromotion(ctrl)
@@ -130,15 +131,11 @@ function visualBoard(ctrl) {
   ]);
 }
 
-function jumpButton(icon, effect, enabled) {
-  return {
-    tag: 'button',
-    attrs: {
-      'data-act': effect,
-      'data-icon': icon,
-      class: enabled ? '' : 'disabled'
-    }
-  };
+function jumpButton(icon: string, effect: string, enabled: boolean): VNode {
+  return h('button', {
+    class: { disabled: !enabled },
+    attrs: { 'data-act': effect, 'data-icon': icon }
+  });
 }
 
 function dataAct(e) {
@@ -175,7 +172,7 @@ function buttons(ctrl) {
       else if (action === 'explorer') ctrl.toggleExplorer();
       else if (action === 'practice') ctrl.togglePractice();
       else if (action === 'menu') ctrl.actionMenu.toggle();
-    })
+    }, ctrl.redraw)
   }, [
     ctrl.embed ? null : h('div.features', ctrl.studyPractice ? [
       h('a.hint--bottom', {
@@ -244,7 +241,7 @@ export default function(ctrl: AnalyseController): VNode {
   const concealOf = makeConcealOf(ctrl);
   const showCevalPvs = !(ctrl.retro && ctrl.retro.isSolving()) && !ctrl.practice;
   const menuIsOpen = ctrl.actionMenu.open;
-  return h('div', [
+  return h('div.analyse.cg-512', [
     h('div', {
       hook: {
         insert: _ => {
@@ -265,17 +262,18 @@ export default function(ctrl: AnalyseController): VNode {
         visualBoard(ctrl),
         h('div.lichess_ground', [
           menuIsOpen ? null : renderClocks(ctrl),
-          menuIsOpen ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
-          menuIsOpen ? actionMenu(ctrl) : [
+          menuIsOpen ? null : crazyView(ctrl, ctrl.topColor(), 'top')
+        ].concat(
+          menuIsOpen ? [actionMenu(ctrl)] : [
             cevalView.renderCeval(ctrl),
             showCevalPvs ? cevalView.renderPvs(ctrl) : null,
             renderAnalyse(ctrl, concealOf),
             forkView(ctrl, concealOf),
             retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl)
-          ],
-          menuIsOpen ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
-          buttons(ctrl)
-        ])
+          ]).concat([
+            menuIsOpen ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
+            buttons(ctrl)
+          ]))
       ])
     ]),
     ctrl.embed ? null : h('div.underboard', {

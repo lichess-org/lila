@@ -86,3 +86,6 @@ export interface CgDests {
 export interface JustCaptured extends cg.Piece {
   promoted?: boolean;
 }
+
+export type Conceal = boolean | 'conceal' | 'hide' | null;
+export type ConcealOf = (isMainline: boolean) => (path: Tree.Path, node: Tree.Node) => Conceal;

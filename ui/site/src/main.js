@@ -1107,7 +1107,7 @@ lichess.topMenuIntent = function() {
       }
     });
     cfg.socketSend = lichess.socket.send;
-    analyse = LichessAnalyse.mithril(cfg);
+    analyse = LichessAnalyse.start(cfg);
     lichess.topMenuIntent();
   }
 
@@ -1135,7 +1135,7 @@ lichess.topMenuIntent = function() {
       }
     });
     cfg.socketSend = lichess.socket.send;
-    analyse = LichessAnalyse.mithril(cfg);
+    analyse = LichessAnalyse.start(cfg);
     if (cfg.chat) {
       lichess.pubsub.on('chat.enabled', function(v) {
         $('#site_header .board_left').toggleClass('no_chat', !v);
@@ -1162,7 +1162,7 @@ lichess.topMenuIntent = function() {
       }
     });
     cfg.socketSend = lichess.socket.send;
-    analyse = LichessAnalyse.mithril(cfg);
+    analyse = LichessAnalyse.start(cfg);
     lichess.topMenuIntent();
   }
 

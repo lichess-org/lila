@@ -82,7 +82,7 @@ export default function(root: AnalyseController, opts, allow: boolean, redraw: (
       moves: {}
     };
 
-    const setNode = function() {
+    function setNode() {
       if (!enabled()) return;
       const node = root.node;
       if (node.ply > 50 && !tablebaseRelevant(effectiveVariant, node.fen)) {

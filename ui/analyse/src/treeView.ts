@@ -8,10 +8,7 @@ import { path as treePath, ops as treeOps } from 'tree';
 import * as moveView from './moveView';
 import { authorText as commentAuthorText } from './study/studyComments';
 import AnalyseController from './ctrl';
-import { MaybeVNodes } from './interfaces';
-
-type Conceal = boolean | 'conceal' | 'hide' | null;
-type ConcealOf = (mainline: boolean) => (path: Tree.Path, node: Tree.Node) => Conceal;
+import { MaybeVNodes, ConcealOf, Conceal } from './interfaces';
 
 interface Ctx {
   ctrl: AnalyseController;
@@ -249,9 +246,11 @@ function eventPath(e: MouseEvent): Tree.Path | null {
   ((e.target as HTMLElement).parentNode as HTMLElement).getAttribute('p');
 }
 
-const emptyConcealOf = () => function() {};
+const emptyConcealOf: ConcealOf = function() {
+  return function() { return null; };
+};
 
-export default function(ctrl: AnalyseController, concealOf: ConcealOf): VNode {
+export default function(ctrl: AnalyseController, concealOf?: ConcealOf): VNode {
   const root = ctrl.tree.root;
   const ctx: Ctx = {
     ctrl: ctrl,
