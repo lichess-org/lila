@@ -35,8 +35,8 @@ function playerTable(ctrl: AnalyseController, color: Color): VNode {
       h('td', h('i.is.color-icon.' + color)),
       h('th', renderPlayer(d, color))
     ])),
-    h('tbody', [
-      advices.map(function(a) {
+    h('tbody',
+      advices.map(a => {
         const nb: number = d.analysis![color][a[0]];
         const attrs = nb ? {
           'data-color': color,
@@ -46,12 +46,12 @@ function playerTable(ctrl: AnalyseController, color: Color): VNode {
           h('td', '' + nb),
           h('th', ctrl.trans(a[1]))
         ]);
-      }),
-      h('tr', [
-        h('td', '' + d.analysis![color].acpl),
-        h('th', ctrl.trans('averageCentipawnLoss'))
-      ])
-    ])
+      }).concat(
+        h('tr', [
+          h('td', '' + d.analysis![color].acpl),
+          h('th', ctrl.trans('averageCentipawnLoss'))
+        ])
+      ))
   ])
 }
 

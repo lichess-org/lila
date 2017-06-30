@@ -1,11 +1,11 @@
-import { AnalyseData } from './interfaces';
+import { h } from 'snabbdom'
+import { VNode } from 'snabbdom/vnode'
+import { AnalyseData, MaybeVNodes } from './interfaces';
 import { AutoplayDelay } from './autoplay';
 import AnalyseController from './ctrl';
 import { router } from 'game';
 import { synthetic, bind, dataIcon } from './util';
 import * as pgnExport from './pgnExport';
-import { h } from 'snabbdom'
-import { VNode } from 'snabbdom/vnode'
 
 interface AutoplaySpeed {
   name: string;
@@ -30,7 +30,7 @@ const cplSpeeds: AutoplaySpeed[] = [{
   delay: 'cpl_slow'
 }];
 
-function deleteButton(data: AnalyseData, userId: string) {
+function deleteButton(data: AnalyseData, userId: string): VNode | undefined {
   const g = data.game;
   if (g.source === 'import' &&
     g.importedBy && g.importedBy === userId)
@@ -145,7 +145,7 @@ export function view(ctrl: AnalyseController): VNode {
   const ceval = ctrl.getCeval();
   const mandatoryCeval = ctrl.mandatoryCeval();
 
-  return h('div.action_menu', [
+  const tools: MaybeVNodes = [
     h('div.tools', [
       h('a.fbt', flipOpts, [
         h('i.icon', { attrs: dataIcon('B') }),
@@ -170,151 +170,153 @@ export function view(ctrl: AnalyseController): VNode {
         ctrl.trans('continueFromHere')
       ]) : null,
       studyButton(ctrl)
-    ]),
-    (ceval && ceval.possible) ? [
-      h('h2', 'Computer analysis'), [
-        (id => {
-          return h('div.setting', {
-            attrs: { title: mandatoryCeval ? 'Required by practice mode' : 'Use Stockfish 8' }
-          }, [
-            h('label', { attrs: { 'for': id } }, 'Enable'),
-            h('div.switch', [
-              h('input.cmn-toggle.cmn-toggle-round#' + id, {
-                attrs: {
-                  type: 'checkbox',
-                  checked: ctrl.showComputer(),
-                  disabled: mandatoryCeval
-                },
-                hook: bind('change', ctrl.toggleComputer),
-              }),
-              h('label', { attrs: { 'for': id } })
-            ])
-          ]);
-        })('analyse-toggle-all'),
-        ctrl.showComputer() ? [
-          (id => {
-            return h('div.setting', [
-              h('label', { attrs: { 'for': id } }, 'Best move arrow'),
-              h('div.switch', [
-                h('input.cmn-toggle.cmn-toggle-round#' + id, {
-                  attrs: {
-                    type: 'checkbox',
-                    checked: ctrl.showAutoShapes()
-                  },
-                  hook: bind('change', e => {
-                    ctrl.toggleAutoShapes((e.target as HTMLInputElement).checked);
-                  })
-                }),
-                h('label', { attrs: { 'for': id } })
-              ])
-            ]);
-          })('analyse-toggle-shapes'), (function(id) {
-            return h('div.setting', [
-              h('label', { attrs: { 'for': id } }, 'Evaluation gauge'),
-              h('div.switch', [
-                h('input.cmn-toggle.cmn-toggle-round#' + id, {
-                  attrs: {
-                    type: 'checkbox',
-                    checked: ctrl.showGauge()
-                  },
-                  hook: bind('change', () => ctrl.toggleGauge())
-                }),
-                h('label', { attrs: { 'for': id } })
-              ])
-            ]);
-          })('analyse-toggle-gauge'), (id => {
-            return h('div.setting', {
-              attrs: { title: 'Removes the depth limit, and keeps your computer warm' }
-            }, [
-              h('label', { attrs: { 'for': id } }, 'Infinite analysis'),
-              h('div.switch', [
-                h('input.cmn-toggle.cmn-toggle-round#' + id, {
-                  attrs: {
-                    type: 'checkbox',
-                    checked: ceval.infinite()
-                  },
-                  hook: bind('change', e => {
-                    ctrl.cevalSetInfinite((e.target as HTMLInputElement).checked);
-                  })
-                }),
-                h('label', { attrs: { 'for': id } })
-              ])
-            ]);
-          })('analyse-toggle-infinite'), (id => {
-            const max = 5;
-            return h('div.setting', [
-              h('label', { attrs: { 'for': id } }, 'Multiple lines'),
-              h('input#' + id, {
-                attrs: {
-                  type: 'range',
-                  min: 1,
-                  max: max,
-                  step: 1
-                },
-                hook: rangeConfig(
-                  () => parseInt(ceval!.multiPv()),
-                  ctrl.cevalSetMultiPv)
-              }),
-              h('div.range_value', ceval.multiPv() + ' / ' + max)
-            ]);
-          })('analyse-multipv'),
-          ceval.pnaclSupported ? [
-            (function(id) {
-              let max = navigator.hardwareConcurrency;
-              if (!max) return;
-              if (max > 2) max--; // don't overload your computer, you dummy
-              return h('div.setting', [
-                h('label', { attrs: { 'for': id } }, 'CPUs'),
-                h('input#' + id, {
-                  attrs: {
-                    type: 'range',
-                    min: 1,
-                    max: max,
-                    step: 1
-                  },
-                  hook: rangeConfig(
-                    () => parseInt(ceval!.threads()),
-                    ctrl.cevalSetThreads)
-                }),
-                h('div.range_value', ceval.threads() + ' / ' + max)
-              ]);
-            })('analyse-threads'), (id => {
-              return h('div.setting', [
-                h('label', { attrs: { 'for': id } }, 'Memory'),
-                h('input#' + id, {
-                  attrs: {
-                    type: 'range',
-                    min: 4,
-                    max: 10,
-                    step: 1
-                  },
-                  hook: rangeConfig(
-                    () => Math.floor(Math.log2!(parseInt(ceval!.hashSize()))),
-                    v => ctrl.cevalSetHashSize(Math.pow(2, v)))
-                }),
-                h('div.range_value', formatHashSize(parseInt(ceval.hashSize())))
-              ]);
-            })('analyse-memory')
-          ] : null
-        ] : null
-      ]
-    ] : null,
-    ctrl.mainline.length > 4 ? [h('h2', 'Replay mode'), autoplayButtons(ctrl)] : null,
-    deleteButton(d, ctrl.opts.userId),
-    canContinue ? h('div.continue_with.g_' + d.game.id, [
-      h('a.button', {
-        attrs: {
-          href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#ai' : router.cont(d, 'ai') + '?fen=' + ctrl.node.fen,
-          rel: 'nofollow'
-        }
-      }, ctrl.trans('playWithTheMachine')),
-      h('br'),
-      h('a.button', {
-        attrs: {
-          href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#friend' : router.cont(d, 'friend') + '?fen=' + ctrl.node.fen,
-          rel: 'nofollow'
-        }
-      }, ctrl.trans('playWithAFriend'))
-    ]) : null
-  ]);
+    ])
+  ];
+
+  const cevalConfig: MaybeVNodes = (ceval && ceval.possible) ? ([
+    h('h2', 'Computer analysis')
+  ] as MaybeVNodes).concat([
+    (id => {
+      return h('div.setting', {
+        attrs: { title: mandatoryCeval ? 'Required by practice mode' : 'Use Stockfish 8' }
+      }, [
+        h('label', { attrs: { 'for': id } }, 'Enable'),
+        h('div.switch', [
+          h('input#' + id + '.cmn-toggle.cmn-toggle-round', {
+            attrs: {
+              type: 'checkbox',
+              checked: ctrl.showComputer(),
+              disabled: mandatoryCeval
+            },
+            hook: bind('change', ctrl.toggleComputer, ctrl.redraw),
+          }),
+          h('label', { attrs: { 'for': id } })
+        ])
+      ]);
+    })('analyse-toggle-all')
+  ]).concat(
+    ctrl.showComputer() ? [
+      (id => h('div.setting', [
+        h('label', { attrs: { 'for': id } }, 'Best move arrow'),
+        h('div.switch', [
+          h('input#' + id + '.cmn-toggle.cmn-toggle-round', {
+            attrs: {
+              type: 'checkbox',
+              checked: ctrl.showAutoShapes()
+            },
+            hook: bind('change', e => {
+              ctrl.toggleAutoShapes((e.target as HTMLInputElement).checked);
+            }, ctrl.redraw)
+          }),
+          h('label', { attrs: { 'for': id } })
+        ])
+      ]))('analyse-toggle-shapes'),
+      (id => h('div.setting', [
+        h('label', { attrs: { 'for': id } }, 'Evaluation gauge'),
+        h('div.switch', [
+          h('input#' + id + '.cmn-toggle.cmn-toggle-round', {
+            attrs: {
+              type: 'checkbox',
+              checked: ctrl.showGauge()
+            },
+            hook: bind('change', () => ctrl.toggleGauge(), ctrl.redraw)
+          }),
+          h('label', { attrs: { 'for': id } })
+        ])
+      ]))('analyse-toggle-gauge'),
+      (id => h('div.setting', {
+        attrs: { title: 'Removes the depth limit, and keeps your computer warm' }
+      }, [
+        h('label', { attrs: { 'for': id } }, 'Infinite analysis'),
+        h('div.switch', [
+          h('input#' + id + '.cmn-toggle.cmn-toggle-round', {
+            attrs: {
+              type: 'checkbox',
+              checked: ceval.infinite()
+            },
+            hook: bind('change', e => {
+              ctrl.cevalSetInfinite((e.target as HTMLInputElement).checked);
+            })
+          }),
+          h('label', { attrs: { 'for': id } })
+        ])
+      ]))('analyse-toggle-infinite'),
+      (id => {
+        const max = 5;
+        return h('div.setting', [
+          h('label', { attrs: { 'for': id } }, 'Multiple lines'),
+          h('input#' + id, {
+            attrs: {
+              type: 'range',
+              min: 1,
+              max: max,
+              step: 1
+            },
+            hook: rangeConfig(
+              () => parseInt(ceval!.multiPv()),
+              ctrl.cevalSetMultiPv)
+          }),
+          h('div.range_value', ceval.multiPv() + ' / ' + max)
+        ]);
+      })('analyse-multipv'),
+      ceval.pnaclSupported ? (id => {
+        let max = navigator.hardwareConcurrency;
+        if (!max) return;
+        if (max > 2) max--; // don't overload your computer, you dummy
+        return h('div.setting', [
+          h('label', { attrs: { 'for': id } }, 'CPUs'),
+          h('input#' + id, {
+            attrs: {
+              type: 'range',
+              min: 1,
+              max: max,
+              step: 1
+            },
+            hook: rangeConfig(
+              () => parseInt(ceval!.threads()),
+              ctrl.cevalSetThreads)
+          }),
+          h('div.range_value', ceval.threads() + ' / ' + max)
+        ]);
+      })('analyse-threads') : null,
+      ceval.pnaclSupported ? (id => h('div.setting', [
+        h('label', { attrs: { 'for': id } }, 'Memory'),
+        h('input#' + id, {
+          attrs: {
+            type: 'range',
+            min: 4,
+            max: 10,
+            step: 1
+          },
+          hook: rangeConfig(
+            () => Math.floor(Math.log2!(parseInt(ceval!.hashSize()))),
+            v => ctrl.cevalSetHashSize(Math.pow(2, v)))
+        }),
+        h('div.range_value', formatHashSize(parseInt(ceval.hashSize())))
+      ]))('analyse-memory') : null
+    ] : []) : [];
+
+    return h('div.action_menu',
+      tools
+        .concat(cevalConfig)
+        .concat(ctrl.mainline.length > 4 ? [h('h2', 'Replay mode'), autoplayButtons(ctrl)] : [])
+        .concat([
+          deleteButton(d, ctrl.opts.userId),
+          canContinue ? h('div.continue_with.g_' + d.game.id, [
+            h('a.button', {
+              attrs: {
+                href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#ai' : router.cont(d, 'ai') + '?fen=' + ctrl.node.fen,
+                rel: 'nofollow'
+              }
+            }, ctrl.trans('playWithTheMachine')),
+            h('br'),
+            h('a.button', {
+              attrs: {
+                href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#friend' : router.cont(d, 'friend') + '?fen=' + ctrl.node.fen,
+                rel: 'nofollow'
+              }
+            }, ctrl.trans('playWithAFriend'))
+          ]) : null
+        ])
+    );
 }

@@ -157,7 +157,7 @@ export default class AnalyseController {
     this.fork = makeFork(this);
   }
 
-  setPath(path: Tree.Path): void {
+  setPath = (path: Tree.Path): void => {
     this.path = path;
     this.nodeList = this.tree.getNodeList(path);
     this.node = treeOps.last(this.nodeList) as Tree.Node;
@@ -584,7 +584,7 @@ export default class AnalyseController {
     }
   });
 
-  toggleCeval(): void {
+  toggleCeval = () => {
     this.ceval.toggle();
     this.setAutoShapes();
     this.startCeval();
@@ -595,7 +595,7 @@ export default class AnalyseController {
     this.redraw();
   }
 
-  toggleThreatMode(): void {
+  toggleThreatMode = () => {
     if (this.node.check) return;
     if (!this.ceval.enabled()) this.ceval.toggle();
     if (!this.ceval.enabled()) return;
@@ -606,11 +606,11 @@ export default class AnalyseController {
     this.redraw();
   }
 
-  disableThreatMode(): boolean {
+  disableThreatMode = (): boolean => {
     return !!this.practice;
   }
 
-  mandatoryCeval(): boolean {
+  mandatoryCeval = (): boolean => {
     return !!this.studyPractice;
   }
 
@@ -621,23 +621,23 @@ export default class AnalyseController {
     this.redraw();
   }
 
-  cevalSetMultiPv(v: number): void {
+  cevalSetMultiPv = (v: number): void => {
     this.ceval.multiPv(v);
     this.tree.removeCeval();
     this.cevalReset();
   }
 
-  cevalSetThreads(v: number): void {
+  cevalSetThreads = (v: number): void => {
     this.ceval.threads(v);
     this.cevalReset();
   }
 
-  cevalSetHashSize(v: number): void {
+  cevalSetHashSize = (v: number): void => {
     this.ceval.hashSize(v);
     this.cevalReset();
   }
 
-  cevalSetInfinite(v: boolean): void {
+  cevalSetInfinite = (v: boolean): void => {
     this.ceval.infinite(v);
     this.cevalReset();
   }
@@ -676,8 +676,8 @@ export default class AnalyseController {
     } else this.resetAutoShapes();
   }
 
-  toggleComputer() {
-    var value = !this.showComputer();
+  toggleComputer = () => {
+    const value = !this.showComputer();
     this.showComputer(value);
     if (!value && this.practice) this.togglePractice();
     this.opts.onToggleComputer(value);

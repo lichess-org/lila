@@ -115,8 +115,8 @@ export default class Pool {
     this.warmup();
 
     // briefly wait and give a chance to reuse the current worker
-    let worker = new Promise((resolve, reject) => {
-      var currentWorker = this.workers[this.token];
+    let worker = new Promise<AbstractWorker>((resolve, reject) => {
+      const currentWorker = this.workers[this.token];
       currentWorker.stop().then(() => resolve(currentWorker));
       setTimeout(() => reject(), 50);
     });

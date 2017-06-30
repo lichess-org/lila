@@ -79,15 +79,14 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | 
     return (isWhite ? [moveView.renderIndex(main.ply, false)] : [] as MaybeVNodes).concat([
       renderMoveOf(ctx, main, passOpts),
       isWhite ? emptyMove(passOpts.conceal) : null,
-      h('interrupt', [
-        commentTags,
+      h('interrupt', commentTags.concat(
         renderLines(ctx, cs.slice(1), {
           parentPath: opts.parentPath,
           isMainline: true,
           conceal: conceal,
           noConceal: !conceal
         })
-      ])
+      ))
     ] as MaybeVNodes).concat(
       isWhite && mainChildren ? [
         moveView.renderIndex(main.ply, false),
