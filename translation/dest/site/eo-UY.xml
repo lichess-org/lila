@@ -414,6 +414,10 @@
   <string name="horizontalGreenProgressBars">Horizontalaj verdaj progreso-strioj</string>
   <string name="soundWhenTimeGetsCritical">Sono, kiam tempo iĝas tre malmulta</string>
   <string name="gameBehavior">Konduto de ludoj</string>
+  <string name="howDoYouMovePieces">Kiel movi pecojn?</string>
+  <string name="clickTwoSquares">Klaki du kampojn</string>
+  <string name="dragPiece">Ŝovi pecon</string>
+  <string name="bothClicksAndDrag">Ambaŭ</string>
   <string name="premovesPlayingDuringOpponentTurn">Antaŭmovoj (ludi dum la vico de kontraŭulo)</string>
   <string name="takebacksWithOpponentApproval">Reprenoj (kun konsento de kontraŭulo)</string>
   <string name="promoteToQueenAutomatically">Aŭtomata ŝanĝo (de peonoj) al damoj</string>
@@ -421,6 +425,7 @@
   <string name="privacy">Privateco</string>
   <string name="letOtherPlayersFollowYou">Lasi aliajn ludantojn sekvi vin</string>
   <string name="letOtherPlayersChallengeYou">Lasi aliajn ludantojn defii vin</string>
+  <string name="letOtherPlayersInviteYouToStudy">Ebligi al aliaj ludantoj inviti vin al studo</string>
   <string name="sound">Sonoj</string>
   <string name="yourPreferencesHaveBeenSaved">Viaj preferoj estis savitaj.</string>
   <string name="none">Neniu</string>
@@ -569,8 +574,15 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Vi povas ankaŭ rulumi sur la tabulo por movi en la ludo.</string>
   <string name="analysisShapesHowTo">Premu shift+click aŭ rekt-klaki por desegni cirklojn kaj sagojn sur la tabulo.</string>
   <string name="confirmResignation">Konfirmu rezigno</string>
+  <string name="inputMovesWithTheKeyboard">Enigi movojn per klavaro</string>
   <string name="letOtherPlayersMessageYou">Lasu aliajn ludantojn mesaĝi vin</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Aroka metodo</string>
+  <string name="castleByMovingTwoSquares">Movi reĝon je du kampoj</string>
+  <string name="castleByMovingOntoTheRook">Movi reĝon sur la turon</string>
   <string name="shareYourInsightsData">Havebligi viajn komprenoj datumoj</string>
+  <string name="withNobody">Kun neniu</string>
+  <string name="withFriends">Kun amikoj</string>
+  <string name="withEverybody">Kun ĉiuj</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Vi jam registris la retadreso: %s</string>
   <string name="kidMode">Infano reĝimo</string>
   <string name="playChessEverywhere">Ludi ŝakon ĉie</string>
