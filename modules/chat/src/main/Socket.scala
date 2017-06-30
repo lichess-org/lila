@@ -24,7 +24,7 @@ object Socket {
     case ("timeout", o) => for {
       data ← o obj "d"
       modId <- member.userId
-      userId <- data.str("userId")
+      userId <- data.str("userId") map lila.user.User.normalize
       reason <- data.str("reason") flatMap ChatTimeout.Reason.apply
     } canTimeout.??(ct => ct()) foreach { localTimeout =>
       chat ! actorApi.Timeout(chatId, modId, userId, reason, local = localTimeout)

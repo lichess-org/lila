@@ -71,6 +71,8 @@ case class User(
     (nowMillis - s.getMillis).millis
   }
 
+  def everLoggedIn = seenAt.??(createdAt !=)
+
   def lame = booster || engine
 
   def lameOrTroll = lame || troll

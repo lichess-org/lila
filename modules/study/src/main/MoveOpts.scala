@@ -25,7 +25,7 @@ private object MoveOpts {
 
   def parse(o: JsObject): MoveOpts = (o \ "d").asOpt[MoveOpts] | default
 
-  private implicit val clockReader = Reads[Centis] {
+  implicit val clockReader = Reads[Centis] {
     case JsNumber(centis) => JsSuccess(Centis(centis.toInt))
     case JsString(str) => CommentParser.readCentis(str) match {
       case None => JsError(Err(s"Cannot parse clock from $str"))

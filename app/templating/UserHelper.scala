@@ -127,7 +127,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
 
   private def titleTag(title: Option[String]) = title match {
     case None => ""
-    case Some(t) => s"""<span class="title" title="${User titleName t}">$t</span> """
+    case Some(t) => s"""<span class="title" title="${User titleName t}">$t</span>&nbsp;"""
   }
 
   private def userIdNameLink(
@@ -206,15 +206,15 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     s"""<span $klass $href>$icon$titleS$content$rating</span>"""
   }
 
-  def userIdSpanMini(userId: String, withOnline: Boolean = false, rating: Option[Int] = None) = Html {
+  def userIdSpanMini(userId: String, withOnline: Boolean = false) = Html {
     val user = lightUser(userId)
     val name = user.fold(userId)(_.name)
-    val content = user.fold(userId)(_.titleNameHtml)
+    val content = user.fold(userId)(_.name)
+    val titleS = user.??(u => titleTag(u.title))
     val klass = userClass(userId, none, withOnline)
     val href = s"data-${userHref(name)}"
     val icon = withOnline ?? lineIcon(user)
-    val ra = rating.??(r => s" ($r)")
-    s"""<span $klass $href>$icon$content$ra</span>"""
+    s"""<span $klass $href>$icon$titleS$content</span>"""
   }
 
   private def renderRating(perf: Perf) =

@@ -29,7 +29,7 @@ object Auth extends LilaController {
   private def goodReferrer(referrer: String): Boolean = {
     referrer.nonEmpty &&
       referrer.stripPrefix("/") != "mobile" &&
-      """(?:\w|(:?\/\w))*\/?""".r.matches(referrer)
+      """(?:[\w@-]|(:?\/[\w@-]))*\/?""".r.matches(referrer)
   }
 
   private def authenticateUser(u: UserModel)(implicit ctx: Context): Fu[Result] = {

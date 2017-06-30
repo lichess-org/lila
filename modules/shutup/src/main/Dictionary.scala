@@ -25,7 +25,7 @@ ball
 bastard?
 bewb
 bimbo
-bitche?
+bitch
 blow
 blowjob
 blumpkin
@@ -74,12 +74,11 @@ hitler+
 homm?o(sexual|)
 honkey
 hooker
-hore
 horny
 humping
 idiot
 incest
-jerk
+jerks?
 jizz?(um|)
 kaffir
 kike
@@ -89,7 +88,7 @@ masturbat(e|ion|ing)
 milf
 molest
 moron
-mother
+mothers?
 motherfuc?k(er|)
 mthrfckr
 muff
@@ -105,7 +104,7 @@ pecker
 pederast
 pen(1|i)s
 pig
-pimp
+pimps?
 piss
 poof
 poon
@@ -119,13 +118,13 @@ puss(i|y|ie|)
 queef
 queer
 quim
-raped?
+rape
 rapist
 rect(al|um)
-retard(ed|)
+retard
 rimjob
 schlong
-screw(d|ed|)
+screw
 scrotum
 scum(bag|)
 semen
@@ -160,7 +159,7 @@ vibrator
 vulva
 wanc?k(er|)
 wetback
-whore?
+w?hore?
 wog
 """)
 

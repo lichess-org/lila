@@ -242,7 +242,7 @@ object Event {
     def data = Json.obj(
       "white" -> truncateAt(white, 2),
       "black" -> truncateAt(black, 2),
-      "lag" -> nextLagComp.collect { case Centis(c) if c > 0 => c }
+      "lag" -> nextLagComp.collect { case Centis(c) if c > 1 => c }
     ).noNull
   }
   object Clock {

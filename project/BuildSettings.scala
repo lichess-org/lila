@@ -14,6 +14,7 @@ object BuildSettings {
     organization := "org.lichess",
     scalaVersion := globalScalaVersion,
     resolvers ++= Dependencies.Resolvers.commons,
+    parallelExecution in Test := false,
     scalacOptions := compilerOptions,
     incOptions := incOptions.value.withNameHashing(true),
     updateOptions := updateOptions.value.withCachedResolution(true),
@@ -36,12 +37,14 @@ object BuildSettings {
   def project(name: String, deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]] = Seq.empty) =
     Project(
       name,
-      file("modules/" + name),
-      dependencies = deps,
-      settings = Seq(
-        version := "2.0",
-        libraryDependencies := defaultDeps
-      ) ++ buildSettings ++ srcMain
+      file("modules/" + name)
+    )
+    .dependsOn(deps: _*)
+    .settings(
+      version := "2.0",
+      libraryDependencies := defaultDeps,
+      buildSettings,
+      srcMain
     )
 
   val compilerOptions = Seq(

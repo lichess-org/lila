@@ -6,6 +6,8 @@ import lila.common.{ IpAddress, EmailAddress }
 import lila.user.{ UserRepo, User => UserModel }
 import views._
 
+import play.api.data._
+import play.api.data.Forms._
 import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
@@ -217,8 +219,6 @@ object Mod extends LilaController {
     implicit def req = ctx.body
     import lila.security.Permission
     OptionFuResult(UserRepo named username) { user =>
-      import play.api.data._
-      import play.api.data.Forms._
       Form(single(
         "permissions" -> list(nonEmptyText.verifying { str =>
           Permission.allButSuperAdmin.exists(_.name == str)
@@ -230,5 +230,33 @@ object Mod extends LilaController {
             redirect(user.username, true)
       )
     }
+  }
+
+  def emailConfirm = SecureBody(_.SetEmail) { implicit ctx => me =>
+    Ok(html.mod.emailConfirm("", none, none)).fuccess
+  }
+
+  def emailConfirmPost = SecureBody(_.SetEmail) { implicit ctx => me =>
+    implicit def req = ctx.body
+    Form(single("q" -> nonEmptyText)).bindFromRequest.fold(
+      err => BadRequest(html.mod.emailConfirm("", none, none)).fuccess,
+      rawQuery => {
+        val query = rawQuery.trim.split(' ').toList
+        val email = query.headOption.map(EmailAddress.apply) flatMap Env.security.emailAddressValidator.validate
+        val username = query lift 1
+        def tryWith(setEmail: EmailAddress, q: String): Fu[Option[Result]] = Env.mod.search(q) flatMap {
+          case List(user) => (!user.everLoggedIn ?? modApi.setEmail(me.id, user.id, setEmail)) >>
+            UserRepo.email(user.id) map { email =>
+              Ok(html.mod.emailConfirm("", user.some, email)).some
+            }
+          case _ => fuccess(none)
+        }
+        email.?? { em =>
+          tryWith(em, em.value) orElse {
+            username ?? { tryWith(em, _) }
+          }
+        } getOrElse BadRequest(html.mod.emailConfirm(rawQuery, none, none)).fuccess
+      }
+    )
   }
 }

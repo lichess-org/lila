@@ -8,8 +8,7 @@ object Analyser {
   )
 
   private def wordsRegexes =
-    Dictionary.en.map { word =>
-      if (word endsWith "s") word else word + "s?"
+    Dictionary.en.map { word => word + "e?[ds]?"
     } ++
       Dictionary.ru
 

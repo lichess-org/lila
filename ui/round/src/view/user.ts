@@ -1,22 +1,12 @@
 import { game } from 'game';
 
 import { h } from 'snabbdom'
-import { dataIcon } from '../util'
 
 function ratingDiff(player) {
   if (player.ratingDiff === 0) return h('span.rp.null', '±0');
   if (player.ratingDiff > 0) return h('span.rp.up', '+' + player.ratingDiff);
   if (player.ratingDiff < 0) return h('span.rp.down', player.ratingDiff);
   return;
-}
-
-function relayUser(player) {
-  return h('span.text', {
-    attrs: dataIcon('8')
-  },
-  (player.title ? player.title + ' ' : '') + player.name + ' ' +
-  (player.rating ? ' (' + player.rating + ')' : '')
-  );
 }
 
 export function aiName(ctrl, player) {
@@ -26,17 +16,15 @@ export function aiName(ctrl, player) {
 export function userHtml(ctrl, player) {
   var d = ctrl.data;
   var user = player.user;
-  if (d.relay) return relayUser(d.relay[player.color]);
   var perf = user ? user.perfs[d.game.perf] : null;
   var rating = player.rating ? player.rating : (perf && perf.rating);
   if (user) {
-    var fullName = (user.title ? user.title + ' ' : '') + user.username;
     var connecting = !player.onGame && ctrl.vm.firstSeconds && user.online;
     return h('div.username.user_link.' + player.color, {
       class: {
         online: player.onGame,
         offline: !player.onGame,
-        long: fullName.length > 20,
+        long: user.username.length > 16,
         connecting: connecting
       }
     }, [
@@ -51,7 +39,7 @@ export function userHtml(ctrl, player) {
           href: '/@/' + user.username,
           target: game.isPlayerPlaying(d) ? '_blank' : '_self'
         }
-      }, fullName),
+      }, user.title ? [h('span.title', user.title), ' ', user.username] : user.username),
       rating ? h('rating', rating + (player.provisional ? '?' : '')) : null,
       ratingDiff(player),
       player.engine ? h('span', {

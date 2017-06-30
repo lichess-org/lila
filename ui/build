@@ -1,4 +1,4 @@
-#!/bin/bash -eav
+#!/bin/bash -eax
 target=${1-dev}
 
 cd "$(git rev-parse --show-toplevel)"
@@ -14,8 +14,8 @@ build_ts() {
   echo "build_ts" "$@"
   set -ev
   cd ui/$1
-  yarn install --mutex file:$YARN_MUTEX
-  yarn run compile
+  yarn install --non-interactive --mutex file:$YARN_MUTEX
+  yarn run compile --non-interactive
 }
 
 build() {
@@ -23,7 +23,7 @@ build() {
   set -ev
   app=$1
   cd ui/$app
-  yarn install --mutex file:$YARN_MUTEX
+  yarn install --non-interactive --mutex file:$YARN_MUTEX
   gulp $target
 }
 
@@ -36,6 +36,7 @@ if type -p parallel; then # parallel execution!
   parallel --gnu $P_OPTS build_ts ::: $ts_apps2
   parallel --gnu $P_OPTS build ::: $apps
 else # sequential execution
+  echo "For faster builds, install GNU parallel."
   for app in $ts_apps1 $ts_apps2; do (build_ts $app); done
   for app in $apps; do (build $app); done
 fi
