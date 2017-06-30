@@ -133,9 +133,18 @@ export default class AnalyseController {
 
     keyboard.bind(this);
 
-    window.lichess.pubsub.on('jump', this.pubsubJump);
+    window.lichess.pubsub.on('jump', (ply: any) => {
+      this.jumpToMain(parseInt(ply));
+      this.redraw();
+    });
 
-    window.lichess.pubsub.on('sound_set', this.pubsubSoundSet);
+    window.lichess.pubsub.on('sound_set', (set: string) => {
+      if (!this.music && set === 'music')
+        window.lichess.loadScript('/assets/javascripts/music/replay.js').then(() => {
+          this.music = window.lichessReplayMusic();
+        });
+        if (this.music && set !== 'music') this.music = null;
+    });
   }
 
   initialize(data: AnalyseData, merge: boolean): void {
@@ -259,14 +268,10 @@ export default class AnalyseController {
     return config;
   }
 
-  private sound = window.lichess.sound ? {
+  private sound = {
     move: throttle(50, false, window.lichess.sound.move),
     capture: throttle(50, false, window.lichess.sound.capture),
     check: throttle(50, false, window.lichess.sound.check)
-  } : {
-    move: $.noop,
-    capture: $.noop,
-    check: $.noop
   };
 
   private onChange: () => void = throttle(300, false, () => {
@@ -291,7 +296,7 @@ export default class AnalyseController {
     if (pathChanged) {
       if (this.study) this.study.setPath(path, this.node);
       if (!this.node.uci) this.sound.move(); // initial position
-      else if (this.node.uci.indexOf(this.justPlayed || '') !== 0) {
+      else if (!this.justPlayed || this.node.uci.indexOf(this.justPlayed) !== 0) {
         if (this.node.san!.indexOf('x') !== -1) this.sound.capture();
         else this.sound.move();
       }
@@ -551,7 +556,8 @@ export default class AnalyseController {
             this.startCeval();
           }
         }
-      }
+      },
+      redraw: this.redraw
     };
     if (this.opts.study && this.opts.practice) {
       cfg.storageKeyPrefix = 'practice';
@@ -650,7 +656,7 @@ export default class AnalyseController {
     return this.data.analysis ? true : this.ceval.enabled();
   }
 
-  hasFullComputerAnalysis(): boolean {
+  hasFullComputerAnalysis = (): boolean => {
     return this.mainline[0].eval ? Object.keys(this.mainline[0].eval).length > 0 : false;
   }
 
@@ -750,7 +756,7 @@ export default class AnalyseController {
     this.explorer.toggle();
   }
 
-  togglePractice() {
+  togglePractice = () => {
     if (this.practice || !this.ceval.possible) this.practice = undefined;
     else {
       if (this.retro) this.toggleRetro();
@@ -767,18 +773,5 @@ export default class AnalyseController {
   restartPractice() {
     this.practice = undefined;
     this.togglePractice();
-  }
-
-  private pubsubJump = (ply: any) => {
-    this.jumpToMain(parseInt(ply));
-    this.redraw();
-  }
-
-  private pubsubSoundSet = (set: string) => {
-    if (!this.music && set === 'music')
-      window.lichess.loadScript('/assets/javascripts/music/replay.js').then(() => {
-        this.music = window.lichessReplayMusic();
-      });
-      if (this.music && set !== 'music') this.music = null;
   }
 };

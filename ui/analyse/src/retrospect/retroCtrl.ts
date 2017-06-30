@@ -20,6 +20,7 @@ export function make(root: AnalyseController): RetroController {
   const feedback = prop('find'); // find | eval | win | fail | view
 
   const contains = window.lichess.fp.contains;
+  const redraw = root.redraw;
 
   function isPlySolved(ply: Ply): boolean {
     return contains(solvedPlies, ply)
@@ -79,7 +80,7 @@ export function make(root: AnalyseController): RetroController {
       });
     }
     root.userJump(prev.path);
-    root.redraw();
+    redraw();
   };
 
   function onJump(): void {
@@ -126,7 +127,7 @@ export function make(root: AnalyseController): RetroController {
   function onWin(): void {
     solveCurrent();
     feedback('win');
-    root.redraw();
+    redraw();
   }
 
   function onFail(): void {
@@ -138,7 +139,7 @@ export function make(root: AnalyseController): RetroController {
     root.userJump(current().prev.path);
     if (!root.tree.pathIsMainline(bad.path) && empty(bad.node.children))
       root.tree.deleteNodeAt(bad.path);
-    root.redraw();
+    redraw();
   }
 
   function viewSolution() {
@@ -197,6 +198,7 @@ export function make(root: AnalyseController): RetroController {
     },
     close: root.toggleRetro,
     trans: root.trans,
-    node: () => root.node
+    node: () => root.node,
+    redraw
   };
 };

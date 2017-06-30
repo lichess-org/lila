@@ -37,7 +37,10 @@ function localEvalInfo(ctrl: ParentController, evs: NodeEvals): Array<VNode | st
       'data-icon': 'O'
     },
     hook: {
-      insert: vnode => (vnode.elm as HTMLElement).addEventListener('click', ceval.goDeeper)
+      insert: vnode => (vnode.elm as HTMLElement).addEventListener('click', () => {
+        ceval.goDeeper();
+        ceval.redraw();
+      })
     }
   }));
   else if (!evs.client.cloud && evs.client.knps) t.push(', ' + Math.round(evs.client.knps) + ' knodes/s');

@@ -64,7 +64,7 @@ function renderPromotion(ctrl: AnalyseController, dest: Key, pieces, color: Colo
       insert: vnode => {
         const el = (vnode.elm as HTMLElement);
         el.addEventListener('click', _ => cancel(ctrl));
-        el.addEventListener('contextmenu', _ => false);
+        el.oncontextmenu = () => false;
       }
     }
   }, pieces.map(function(serverRole, i) {

@@ -25,7 +25,7 @@ export default function(opts: CevalOpts): CevalController {
   const enabled = prop(opts.possible && allowed() && enableStorage.get() == '1' && !document.hidden);
   let started: Started | false = false;
   let lastStarted: Started | false = false; // last started object (for going deeper even if stopped)
-  let hovering = prop<Hovering | null>(null);
+  const hovering = prop<Hovering | null>(null);
   const isDeeper = prop(false);
 
   const pool = new Pool({
@@ -144,7 +144,7 @@ export default function(opts: CevalOpts): CevalController {
     };
   };
 
-  const goDeeper = function() {
+  function goDeeper() {
     const s = started || lastStarted;
     if (s) {
       stop();
@@ -152,7 +152,7 @@ export default function(opts: CevalOpts): CevalController {
     }
   };
 
-  const stop = function() {
+  function stop() {
     if (!enabled() || !started) return;
     pool.stop();
     lastStarted = started;
@@ -199,6 +199,7 @@ export default function(opts: CevalOpts): CevalController {
     isComputing() {
       return !!started && pool.isComputing();
     },
-    destroy() { pool.destroy() }
+    destroy() { pool.destroy() },
+    redraw: opts.redraw
   };
 };

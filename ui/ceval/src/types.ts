@@ -40,6 +40,7 @@ export interface CevalOpts {
   onCrash: (err: any) => void;
   emit: (ev: Tree.ClientEval, work: Work) => void;
   setAutoShapes: () => void;
+  redraw(): void;
 }
 
 export interface Hovering {
@@ -54,46 +55,47 @@ export interface Started {
 }
 
 export interface CevalController {
-  goDeeper: () => void;
-  canGoDeeper: () => boolean;
-  effectiveMaxDepth: () => number;
+  goDeeper(): void;
+  canGoDeeper(): boolean;
+  effectiveMaxDepth(): number;
   pnaclSupported: boolean;
   wasmSupported: boolean;
   allowed: Prop<boolean>;
   enabled: Prop<boolean>;
   possible: boolean;
-  isComputing: () => boolean;
+  isComputing(): boolean;
   variant: Variant;
   setHovering: (fen: string, uci: string | null) => void;
   multiPv: StoredProp<number>;
   start: (path: string, steps: Step[], threatMode: boolean, deeper: boolean) => void;
-  stop: () => void;
+  stop(): void;
   threads: StoredProp<number>;
   hashSize: StoredProp<number>;
   infinite: StoredBooleanProp;
   hovering: Prop<Hovering | null>;
-  toggle: () => void;
-  curDepth: () => number;
-  isDeeper: () => boolean;
-  destroy: () => void
+  toggle(): void;
+  curDepth(): number;
+  isDeeper(): boolean;
+  destroy(): void;
+  redraw(): void;
 }
 
 export interface ParentController {
-  getCeval: () => CevalController;
-  nextNodeBest: () => string | undefined;
+  getCeval(): CevalController;
+  nextNodeBest(): string | undefined;
   disableThreatMode?: Prop<Boolean>;
-  toggleThreatMode: () => void;
-  toggleCeval: () => void;
+  toggleThreatMode(): void;
+  toggleCeval(): void;
   gameOver: (node?: Tree.Node) => 'draw' | 'checkmate' | false;
   mandatoryCeval?: Prop<boolean>;
   showEvalGauge: Prop<boolean>;
-  currentEvals: () => NodeEvals;
+  currentEvals(): NodeEvals;
   ongoing: boolean;
   playUci(uci: string): void;
   getOrientation(): Color;
   threatMode: boolean;
   node: Tree.Node;
-  showComputer: () => boolean;
+  showComputer(): boolean;
 }
 
 export interface NodeEvals {

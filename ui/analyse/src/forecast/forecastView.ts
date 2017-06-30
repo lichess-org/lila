@@ -24,11 +24,15 @@ function onMyTurn(fctrl, cNodes) {
   ]);
 };
 
+function makeCnodes(ctrl: AnalyseController) {
+  return ctrl.forecast!.truncate(ctrl.tree.getCurrentNodesAfterPly(
+    ctrl.nodeList, ctrl.mainline, ctrl.data.game.turns))
+}
+
 export default function(ctrl: AnalyseController): VNode {
-  var fctrl = ctrl.forecast as any;
-  var cNodes = fctrl.truncate(ctrl.tree.getCurrentNodesAfterPly(
-    ctrl.nodeList, ctrl.mainline, ctrl.data.game.turns));
-  var isCandidate = fctrl.isCandidate(cNodes);
+  const fctrl = ctrl.forecast as any;
+  const cNodes = makeCnodes(ctrl);
+  const isCandidate = fctrl.isCandidate(cNodes);
   return h('div.forecast', {
     class: { loading: fctrl.loading() }
   }, [
@@ -43,22 +47,18 @@ export default function(ctrl: AnalyseController): VNode {
             hook: bind('click', e => {
               fctrl.removeIndex(i);
               e.stopPropagation();
-            })
+            }, ctrl.redraw)
           }, 'x'),
-          h('sans', {
-            attrs: { innerHtml: renderNodesHtml(nodes) }
-          })
+          h('sans', renderNodesHtml(nodes))
         ])
       })),
       h('button.add.button.text', {
         class: { enabled: isCandidate },
         attrs: dataIcon(isCandidate ? 'O' : ""),
-        hook: bind('click', _ => fctrl.addNodes(cNodes))
+        hook: bind('click', _ => fctrl.addNodes(makeCnodes(ctrl)), ctrl.redraw)
       }, isCandidate ? [
         h('span', 'Add current variation'),
-        h('span', h('sans', {
-          attrs: { innerHtml: renderNodesHtml(cNodes) }
-        }))
+        h('sans', renderNodesHtml(cNodes))
       ] : [
         h('span', 'Play a variation to create'),
         h('span', 'conditional premoves')

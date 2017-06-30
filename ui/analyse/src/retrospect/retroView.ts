@@ -9,7 +9,7 @@ import { VNode } from 'snabbdom/vnode'
 function skipOrViewSolution(ctrl: RetroController) {
   return h('div.choices', [
     h('a', {
-      hook: bind('click', ctrl.viewSolution)
+      hook: bind('click', ctrl.viewSolution, ctrl.redraw)
     }, ctrl.trans.noarg('viewTheSolution')),
     h('a', {
       hook: bind('click', ctrl.skip)
@@ -26,10 +26,10 @@ function jumpToNext(ctrl: RetroController) {
   ]);
 }
 
-var minDepth = 8;
-var maxDepth = 18;
+const minDepth = 8;
+const maxDepth = 18;
 
-function renderEvalProgress(node: Tree.Node) {
+function renderEvalProgress(node: Tree.Node): VNode {
   return h('div.progress', h('div', {
     attrs: {
       style: `width: ${node.ceval ? (100 * Math.max(0, node.ceval.depth - minDepth) / (maxDepth - minDepth)) + '%' : 0}`
@@ -44,7 +44,7 @@ const feedback = {
         h('div.no-square', h('piece.king.' + ctrl.color)),
         h('div.instruction', [
           h('strong', [
-            renderIndexAndMove({
+            ...renderIndexAndMove({
               withDots: true,
               showGlyphs: true,
               showEval: false
@@ -64,7 +64,7 @@ const feedback = {
         h('div.icon.off', '!'),
         h('div.instruction', [
           h('strong', 'You browsed away'),
-          h('div.choices', [
+          h('div.choices.off', [
             h('a', {
               hook: bind('click', ctrl.jumpToNext)
             }, 'Resume learning')
@@ -105,12 +105,11 @@ const feedback = {
             h('strong', 'Solution:'),
             h('em', [
               'Best move was ',
-              h('strong', [
-                renderIndexAndMove({
-                  withDots: true,
-                  showEval: false
-                }, ctrl.current().solution.node)
-              ])
+              h('strong', renderIndexAndMove({
+                withDots: true,
+                showEval: false
+              }, ctrl.current().solution.node)
+              )
             ])
           ])
         ])
@@ -139,7 +138,7 @@ const feedback = {
         ])
       )
     ];
-    var nothing = !ctrl.completion()[1];
+    const nothing = !ctrl.completion()[1];
     return [
       h('div.player', [
         h('div.no-square', h('piece.king.' + ctrl.color)),
@@ -147,7 +146,7 @@ const feedback = {
           h('em', nothing ?
             'No mistakes found for ' + ctrl.color :
             'Done reviewing ' + ctrl.color + ' mistakes'),
-          h('div.choices', [
+          h('div.choices.end', [
             nothing ? null : h('a', {
               hook: bind('click', ctrl.reset)
             }, 'Do it again'),
@@ -178,7 +177,7 @@ function renderTitle(ctrl: RetroController): VNode {
     h('span', Math.min(completion[0] + 1, completion[1]) + ' / ' + completion[1]),
     h('span.close', {
       attrs: dataIcon('L'),
-      hook: bind('click', ctrl.close)
+      hook: bind('click', ctrl.close, ctrl.redraw)
     })
   ]);
 }

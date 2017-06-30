@@ -77,71 +77,71 @@ export default function(root: AnalyseController, opts, allow: boolean) {
     })
   }, false);
 
-    const empty = {
-      opening: true,
-      moves: {}
-    };
+  const empty = {
+    opening: true,
+    moves: {}
+  };
 
-    function setNode() {
-      if (!enabled()) return;
-      const node = root.node;
-      if (node.ply > 50 && !tablebaseRelevant(effectiveVariant, node.fen)) {
-        cache[node.fen] = empty;
-      }
-      const cached = cache[cacheKey()];
-      if (cached) {
-        movesAway(cached.nbMoves ? 0 : movesAway() + 1);
-        loading(false);
-        failing(false);
-      } else {
-        loading(true);
-        fetch();
-      }
-    };
+  function setNode() {
+    if (!enabled()) return;
+    const node = root.node;
+    if (node.ply > 50 && !tablebaseRelevant(effectiveVariant, node.fen)) {
+      cache[node.fen] = empty;
+    }
+    const cached = cache[cacheKey()];
+    if (cached) {
+      movesAway(cached.nbMoves ? 0 : movesAway() + 1);
+      loading(false);
+      failing(false);
+    } else {
+      loading(true);
+      fetch();
+    }
+  };
 
-    return {
-      allowed,
-      enabled,
-      setNode,
-      loading,
-      failing,
-      hovering,
-      movesAway,
-      config,
-      withGames,
-      current: () => cache[cacheKey()],
-      toggle() {
-        movesAway(0);
-        enabled(!enabled());
-        setNode();
+  return {
+    allowed,
+    enabled,
+    setNode,
+    loading,
+    failing,
+    hovering,
+    movesAway,
+    config,
+    withGames,
+    current: () => cache[cacheKey()],
+    toggle() {
+      movesAway(0);
+      enabled(!enabled());
+      setNode();
+      root.autoScroll();
+    },
+    disable() {
+      if (enabled()) {
+        enabled(false);
         root.autoScroll();
-      },
-      disable() {
-        if (enabled()) {
-          enabled(false);
-          root.autoScroll();
-        }
-      },
-      setHovering(fen, uci) {
-        hovering(uci ? {
-          fen: fen,
-          uci: uci,
-        } : null);
-        root.setAutoShapes();
-      },
-      fetchMasterOpening: (function() {
-        const masterCache = {};
-        return function(fen) {
-          if (masterCache[fen]) return $.Deferred().resolve(masterCache[fen]);
-          return xhr.opening(opts.endpoint, 'standard', fen, {
-            db: {
-              selected: prop('masters')
-            }
-          }, false).then(function(res) {
-            masterCache[fen] = res;
-            return res;
-          });
-        }
-      })()
-    };
+      }
+    },
+    setHovering(fen, uci) {
+      hovering(uci ? {
+        fen: fen,
+        uci: uci,
+      } : null);
+      root.setAutoShapes();
+    },
+    fetchMasterOpening: (function() {
+      const masterCache = {};
+      return function(fen) {
+        if (masterCache[fen]) return $.Deferred().resolve(masterCache[fen]);
+        return xhr.opening(opts.endpoint, 'standard', fen, {
+          db: {
+            selected: prop('masters')
+          }
+        }, false).then(function(res) {
+          masterCache[fen] = res;
+          return res;
+        });
+      }
+    })()
+  };
 };

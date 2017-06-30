@@ -9,7 +9,7 @@ export interface ForecastController {
 
 export function make(cfg, data: AnalyseData, redraw: () => void): ForecastController {
 
-  const saveUrl = `${data.game.id}/${data.player.id}/forecasts`;
+  const saveUrl = `/${data.game.id}${data.player.id}/forecasts`;
 
   let forecasts = cfg.steps || [];
   const loading = prop(false);
@@ -29,21 +29,18 @@ export function make(cfg, data: AnalyseData, redraw: () => void): ForecastContro
   };
 
   function collides(fc1, fc2) {
-    var res = (function() {
-      for (var i = 0, max = Math.min(fc1.length, fc2.length); i < max; i++) {
-        if (fc1[i].uci !== fc2[i].uci) {
-          if (cfg.onMyTurn) return i !== 0 && i % 2 === 0;
-          return i % 2 === 1;
-        }
+    for (var i = 0, max = Math.min(fc1.length, fc2.length); i < max; i++) {
+      if (fc1[i].uci !== fc2[i].uci) {
+        if (cfg.onMyTurn) return i !== 0 && i % 2 === 0;
+        return i % 2 === 1;
       }
-      return true;
-    })();
-    return res;
+    }
+    return true;
   };
 
   function truncate(fc) {
     if (cfg.onMyTurn)
-      return (fc.length % 2 !== 1 ? fc.slice(0, -1) : fc).slice(0, 30);
+    return (fc.length % 2 !== 1 ? fc.slice(0, -1) : fc).slice(0, 30);
     // must end with player move
     return (fc.length % 2 !== 0 ? fc.slice(0, -1) : fc).slice(0, 30);
   };
@@ -141,7 +138,7 @@ export function make(cfg, data: AnalyseData, redraw: () => void): ForecastContro
     isCandidate,
     removeIndex(index) {
       forecasts = forecasts.filter((_, i) => i !== index)
-      save();
+        save();
     },
     list: () => forecasts,
     truncate,
