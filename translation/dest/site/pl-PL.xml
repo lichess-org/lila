@@ -125,7 +125,7 @@
   </plurals>
   <string name="cancel">Anuluj</string>
   <string name="timeOut">Przekroczenie limitu czasu</string>
-  <string name="drawOfferSent">Propozycja remisu została wysłana</string>
+  <string name="drawOfferSent">Wysłano propozycję remisu</string>
   <string name="drawOfferDeclined">Propozycja remisu została odrzucona</string>
   <string name="drawOfferAccepted">Propozycja remisu została przyjęta</string>
   <string name="drawOfferCanceled">Propozycja remisu została anulowana</string>
@@ -250,7 +250,7 @@
   <string name="notACheckmate">To nie jest mat</string>
   <string name="colorPlaysCheckmateInOne">%s zaczynają i dają mata w jednym posunięciu</string>
   <string name="retry">Spróbuj jeszcze raz</string>
-  <string name="reconnecting">Ponowne połączenie</string>
+  <string name="reconnecting">Ponowne łączenie</string>
   <string name="onlineFriends">znajomych online</string>
   <string name="noFriendsOnline">Brak znajomych online</string>
   <string name="findFriends">Znajdź znajomych</string>
@@ -262,7 +262,7 @@
   <string name="blocked">Zablokowany</string>
   <string name="unblock">Odblokuj</string>
   <string name="followsYou">Obserwuje Cię</string>
-  <string name="xStartedFollowingY">%1$s obserwuje teraz %2$s</string>
+  <string name="xStartedFollowingY">%1$s obserwuje %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s obserwujący</item>
     <item quantity="few">%s obserwujących</item>
@@ -274,7 +274,7 @@
     <item quantity="other">%s obserwowanych</item>
   </plurals>
   <string name="more">Więcej</string>
-  <string name="memberSince">Użytkownik od</string>
+  <string name="memberSince">Zarejestrowany od</string>
   <string name="lastSeenActive">Ostatnie logowanie %s</string>
   <string name="challengeToPlay">Zaproś do gry</string>
   <string name="player">Gracz</string>
@@ -331,8 +331,8 @@
   <string name="yourPuzzleRatingX">Twój ranking treningowy: %s</string>
   <string name="findTheBestMoveForWhite">Znajdź najlepszy ruch dla białych.</string>
   <string name="findTheBestMoveForBlack">Znajdź najlepszy ruch dla czarnych.</string>
-  <string name="toTrackYourProgress">Aby śledzić swoje postępy:</string>
-  <string name="trainingSignupExplanation">Lichess będzie dodawał zadania dostosowane do twoich umiejętności, dla skuteczniejszego treningu.</string>
+  <string name="toTrackYourProgress">Zarejestruj się aby śledzić swoje postępy</string>
+  <string name="trainingSignupExplanation">Lichess będzie dodawał zadania dostosowane do twoich umiejętności.</string>
   <string name="puzzleId">Zadanie %s</string>
   <string name="puzzleOfTheDay">Zadanie dnia</string>
   <string name="clickToSolve">Kliknij, aby rozwiązać</string>
@@ -465,7 +465,7 @@
   <string name="xAskedY">%1$s zapytał %2$s</string>
   <string name="xAnsweredY">%1$s odpowiedział %2$s</string>
   <string name="xCommentedY">%1$s skomentował %2$s</string>
-  <string name="timeline">Na osi czasu</string>
+  <string name="timeline">Historia</string>
   <string name="seeAllTournaments">Zobacz wszystkie turnieje</string>
   <string name="starting">Rozpoczęte:</string>
   <string name="allInformationIsPublicAndOptional">Poniższe informacje będą publicznie dostępne. Nie musisz ich podawać.</string>
@@ -490,9 +490,9 @@
   <string name="noInternetConnection">Brak połączenia. Możesz jednak wybrać z menu opcję gry offline.</string>
   <string name="connectedToLichess">Zostałeś połączony z lichess.org</string>
   <string name="signedOut">Wylogowałeś się</string>
-  <string name="loginSuccessful">Zalogowano pomyślnie</string>
+  <string name="loginSuccessful">Jesteś zalogowany</string>
   <string name="playOnTheBoardOffline">Graj offline</string>
-  <string name="playOfflineComputer">Zagraj z komputerem offline</string>
+  <string name="playOfflineComputer">Zagraj z komputerem</string>
   <string name="opponent">Przeciwnik</string>
   <string name="learn">Nauka</string>
   <string name="community">Społeczność</string>
@@ -505,7 +505,7 @@
   <string name="shareGameURL">Udostępnij link do gry</string>
   <string name="error.required">To pole jest wymagane</string>
   <string name="error.email">Podany adres email jest nieprawidłowy</string>
-  <string name="error.email_acceptable">Podany adres email nie jest akceptowany</string>
+  <string name="error.email_acceptable">Podany adres email nie został zaakceptowany</string>
   <string name="error.email_unique">Podany adres email został już użyty</string>
   <string name="blindfoldChess">Gra na ślepo (figury niewidoczne)</string>
   <string name="moveConfirmation">Potwierdzenie ruchu</string>
@@ -569,7 +569,7 @@
   <string name="tournamentNotFound">Nie znaleziono turnieju</string>
   <string name="tournamentDoesNotExist">Taki turniej nie istnieje.</string>
   <string name="tournamentMayHaveBeenCanceled">Mógł zostać anulowany, jeżeli wszyscy gracze wycofali się przed jego rozpoczęciem.</string>
-  <string name="returnToTournamentsHomepage">Powrót na stronę turnieju</string>
+  <string name="returnToTournamentsHomepage">Wróć do turnieju</string>
   <string name="weeklyPerfTypeRatingDistribution">Tygodniowy rozkład rankingu w wariancie %s</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">%1$s gracz grał w tym tygodniu w wariant %2$s.</item>

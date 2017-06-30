@@ -284,6 +284,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="winStreak">Vitórias consecutivas</string>
   <string name="createdBy">Criado por</string>
   <string name="tournamentIsStarting">O torneio está a começar</string>
+  <string name="youArePlaying">Você está no jogo!</string>
   <string name="membersOnly">Somente para membros</string>
   <string name="boardEditor">Editor de tabuleiro</string>
   <string name="startPosition">Posição inicial</string>
@@ -404,6 +405,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="horizontalGreenProgressBars">Barras de progresso verdes horizontais</string>
   <string name="soundWhenTimeGetsCritical">Som ao atingir tempo crítico</string>
   <string name="gameBehavior">Funcionamento do jogo</string>
+  <string name="howDoYouMovePieces">Como você move as peças?</string>
   <string name="premovesPlayingDuringOpponentTurn">Pré-movimentos (jogadas durante o turno do oponente)</string>
   <string name="takebacksWithOpponentApproval">Voltar jogada (com aprovação do oponente)</string>
   <string name="promoteToQueenAutomatically">Promover a Dama automaticamente</string>
@@ -560,7 +562,10 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="analysisShapesHowTo">Pressione Shift+Clique ou clique com o botão direito do mouse para desenhar círculos e flechas no tabuleiro.</string>
   <string name="confirmResignation">Confirmar desistência</string>
   <string name="letOtherPlayersMessageYou">Permitir que outros jogadores lhe enviem mensagem</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Maneira de rocar</string>
+  <string name="castleByMovingTwoSquares">Mova o rei duas casas</string>
   <string name="shareYourInsightsData">Compartilhar seus dados de percepção</string>
+  <string name="withEverybody">Com todos</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Você ja registrou o e-mail: %s</string>
   <string name="kidMode">Modo infantil</string>
   <string name="playChessEverywhere">Jogue xadrez em qualquer lugar!</string>

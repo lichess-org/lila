@@ -238,6 +238,7 @@
   <string name="onlineFriends">Օնլայն ընկերներ</string>
   <string name="noFriendsOnline">Օնլայն ընկեր չկա</string>
   <string name="findFriends">Փնտրել ընկերներին</string>
+  <string name="favoriteOpponents">Սիրելի հակառակորդներ</string>
   <string name="follow">Հետևել</string>
   <string name="following">Հետևում եք</string>
   <string name="unfollow">Չհետևել</string>
@@ -287,6 +288,7 @@
   <string name="loadPosition">Բեռնել դիրք</string>
   <string name="isPrivate">Անձնական</string>
   <string name="reportXToModerators">Տեղեկացնել %s մոդերատորներին</string>
+  <string name="ifNoneLeaveEmpty">Կամ թողնել դատարկ</string>
   <string name="profile">Պրոֆիլ</string>
   <string name="editProfile">Խմբագրել անձնագիրը</string>
   <string name="firstName">Անուն</string>
@@ -402,12 +404,15 @@
   <string name="letOtherPlayersChallengeYou">զ</string>
   <string name="sound">ձայն</string>
   <string name="yourPreferencesHaveBeenSaved">Ձեր նախընտրությունները պահպանված են</string>
+  <string name="none">Ոչ մեկը</string>
   <string name="fast">Արագ</string>
   <string name="normal">Նորմալ</string>
   <string name="slow">Դանդաղ</string>
   <string name="insideTheBoard">Խաղադաշտի ներսը</string>
   <string name="outsideTheBoard">Խաղադաշտից դուրս</string>
+  <string name="onSlowGames">Դանդաղ խաղերում</string>
   <string name="always">Միշտ</string>
+  <string name="whenPremoving">Նախաքայլ անելիս</string>
   <string name="difficultyEasy">Հեշտ</string>
   <string name="difficultyNormal">Նորմալ</string>
   <string name="difficultyHard">Բարդ</string>
@@ -423,7 +428,9 @@
   </plurals>
   <string name="human">Մարդ</string>
   <string name="computer">Համակարգիչ</string>
+  <string name="side">Կողմ</string>
   <string name="clock">ժամացույց</string>
+  <string name="unauthorizedError">Մուտքն արգելված է։</string>
   <string name="noInternetConnection">Չկա ինտերնետ կապ : Դուք կարող եք խաղալ օֆլայն</string>
   <string name="connectedToLichess">Դուք նորից միացաք lichess.org կայքին</string>
   <string name="signedOut">Դուք հաջողությամբ դուրս եկաք ձեր էջից</string>
@@ -439,7 +446,34 @@
   <string name="shareGameURL">Տարածել խաղի հղումը</string>
   <string name="error.required">Այս դաշտը պարտադիր է</string>
   <string name="error.email">Այս էլ-փոստի հասցեն սխալ է</string>
+  <string name="error.email_acceptable">Այս էլ. փոստի հասցեն վավեր չէ</string>
+  <string name="error.email_unique">Այս էլ. փոստի հասցեն արդեն գրանցված է</string>
+  <string name="moveConfirmation">Քայլի հաստատում</string>
+  <string name="ifRatingIsPlusMinusX">Եթե գործակիցը ± %s</string>
+  <string name="onlyFriends">Միայն ընկերները</string>
+  <string name="menu">Մենյու</string>
+  <string name="castling">Տեղափոխություն</string>
+  <string name="whiteCastlingKingside">Սպիտակները О-О</string>
+  <string name="whiteCastlingQueenside">Սպիտակները О-О-О</string>
+  <string name="blackCastlingKingside">Սեւերը О-О</string>
+  <string name="blackCastlingQueenside">Սեւերը О-О-О</string>
   <string name="watchGames">Դիտել խաղեր</string>
   <string name="watch">Դիտել</string>
+  <string name="internationalEvents">Միջազգային իրադարձություննեռր</string>
+  <string name="videoLibrary">Տեսագրադարան</string>
+  <string name="webmasters">Վեբմաստեր</string>
+  <string name="contact">Կապ</string>
+  <string name="termsOfService">Ծառայությունների մատուցման պայմաններ</string>
+  <string name="host">Ընդունող</string>
+  <string name="create">Ստեղծել</string>
+  <string name="lichessTournaments">Lichess մրցաշարեր</string>
+  <string name="tournamentOfficial">Պաշտոնական</string>
+  <string name="averageCentipawnLoss">Միջինուն հարյուրերորդական զինվորի կորուստ</string>
+  <string name="newTournament">Նոր մրցաշար</string>
+  <string name="confirmResignation">Հաստատել հանձնվելը</string>
+  <string name="withFriends">Ընկերների հետ</string>
+  <string name="withEverybody">Բոլորի հետ</string>
+  <string name="bulletBlitzClassical">Կայծակնային, բլից, դասական</string>
   <string name="viewTheSolution">Դիտել լուծումը</string>
+  <string name="gameAnalysis">Խաղի ամփոփում</string>
 </resources>
