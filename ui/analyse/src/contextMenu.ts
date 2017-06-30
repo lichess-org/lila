@@ -49,15 +49,6 @@ function positionMenu(menu: HTMLElement, coords: Coords): void {
     menu.style.top = coords.y + "px";
 }
 
-function ctrl(opts: Opts) {
-  return {
-    path: opts.path,
-    node: opts.root.tree.nodeAtPath(opts.path),
-    isMainline: opts.root.onMainline,
-    root: opts.root
-  };
-}
-
 function action(icon: string, text: string, handler: () => void): VNode {
   return h('a.action', {
     attrs: { 'data-icon': icon },
@@ -65,19 +56,22 @@ function action(icon: string, text: string, handler: () => void): VNode {
   }, text);
 }
 
-function view(ctrl, coords: Coords): VNode {
+function view(opts: Opts, coords: Coords): VNode {
+  const ctrl = opts.root,
+  node = ctrl.tree.nodeAtPath(opts.path),
+  onMainline = ctrl.tree.pathIsMainline(opts.path);
   return h('div#' + elementId + '.visible', {
     hook: {
       insert: vnode => positionMenu(vnode.elm as HTMLElement, coords),
       postpatch: (_, vnode) => positionMenu(vnode.elm as HTMLElement, coords)
     }
   }, [
-    h('p.title', nodeFullName(ctrl.node)),
-    ctrl.isMainline ? null : action('S', 'Promote variation', () => ctrl.root.promote(ctrl.path, false)),
-    ctrl.isMainline ? null : action('E', 'Make main line', () => ctrl.root.promote(ctrl.path, true)),
-    action('q', 'Delete from here', () => ctrl.root.deleteNode(ctrl.path))
+    h('p.title', nodeFullName(node)),
+    onMainline ? null : action('S', 'Promote variation', () => ctrl.promote(opts.path, false)),
+    onMainline ? null : action('E', 'Make main line', () => ctrl.promote(opts.path, true)),
+    action('q', 'Delete from here', () => ctrl.deleteNode(opts.path))
   ].concat(
-    ctrl.root.study ? studyView.contextMenu(ctrl.root.study, ctrl.path, ctrl.node) : []
+    ctrl.study ? studyView.contextMenu(ctrl.study, opts.path, node) : []
   ));
 }
 
@@ -87,11 +81,12 @@ export default function(e: MouseEvent, opts: Opts): void {
   opts.root.contextMenuPath = opts.path;
   function close() {
     opts.root.contextMenuPath = undefined;
-    document.removeEventListener("click", close, false);
-    el.classList.remove('visible');
+    document.removeEventListener('click', close, false);
+    const el = document.getElementById(elementId);
+    if (el) el.classList.remove('visible');
     opts.root.redraw();
   };
-  document.addEventListener("click", close, false);
+  document.addEventListener('click', close, false);
   el.innerHTML = '';
-  patch(el, view(ctrl(opts), getPosition(e)));
+  patch(el, view(opts, getPosition(e)));
 }

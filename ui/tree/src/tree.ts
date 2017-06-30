@@ -58,10 +58,6 @@ export default function(root: Tree.Node) {
     return pathIsMainlineFrom(root, path);
   }
 
-  function pathExists(path: Tree.Path): boolean {
-    return !!nodeAtPathOrNull(path);
-  }
-
   function pathIsMainlineFrom(node: Tree.Node, path: Tree.Path): boolean {
     if (path === '') return true;
     const pathId = treePath.head(path);
@@ -213,7 +209,9 @@ export default function(root: Tree.Node) {
     setGlyphsAt: setGlyphsAt,
     pathIsMainline: pathIsMainline,
     lastMainlineNode: lastMainlineNode,
-    pathExists: pathExists,
+    pathExists(path: Tree.Path) {
+      return !!nodeAtPathOrNull(path);
+    },
     deleteNodeAt: deleteNodeAt,
     promoteAt: promoteAt,
     getCurrentNodesAfterPly: getCurrentNodesAfterPly,
