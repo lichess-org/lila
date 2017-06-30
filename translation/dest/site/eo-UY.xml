@@ -46,6 +46,7 @@
   <string name="viewTheComputerAnalysis">Vidi la komputilan analizon</string>
   <string name="requestAComputerAnalysis">Peti komputilan analizon</string>
   <string name="computerAnalysis">Komputila analizo</string>
+  <string name="computerAnalysisAvailable">Komputila analizo haveblas</string>
   <string name="analysis">Analizo</string>
   <string name="blunders">Eraregoj</string>
   <string name="mistakes">Eraroj</string>
@@ -283,6 +284,9 @@
   <string name="winStreak">Venka serio</string>
   <string name="createdBy">Kreita de</string>
   <string name="tournamentIsStarting">Turniro komenciĝas</string>
+  <string name="tournamentPairingsAreNowClosed">La turniraj parigoj nun fermiĝis.</string>
+  <string name="standByX">Atentu %s, parigante ludantojn, pretiĝu!</string>
+  <string name="youArePlaying">Vi nun ludas!</string>
   <string name="membersOnly">Nur membroj</string>
   <string name="boardEditor">Tabulredaktilo</string>
   <string name="startPosition">Komenca aranĝo</string>
@@ -291,6 +295,10 @@
   <string name="loadPosition">Ŝargi aranĝon</string>
   <string name="isPrivate">Privata</string>
   <string name="reportXToModerators">Raporti %s al moderatoroj</string>
+  <string name="profileCompletion">Profila kompletiĝo: %s</string>
+  <string name="xRating">%s-takso</string>
+  <string name="ifNoneLeaveEmpty">Se neniu, lasu malplena</string>
+  <string name="gameCompletionRate">Kiomelcente kompletigas ludojn: %s</string>
   <string name="profile">Profilo</string>
   <string name="editProfile">Redakti profilon</string>
   <string name="firstName">Persona nomo</string>
@@ -396,6 +404,9 @@
   <string name="pieceDestinations">Destinoj de ŝakpecoj (eblaj movoj kaj antaŭmovoj)</string>
   <string name="boardCoordinates">Tabulaj koordinatoj (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Listo de movoj dum ludado</string>
+  <string name="pgnPieceNotation">Mova notado</string>
+  <string name="chessPieceSymbol">Ŝakpecaj simboloj</string>
+  <string name="pgnLetter">Litero (R, D, T, K, Ĉ)</string>
   <string name="chessClock">Ŝakhorloĝo</string>
   <string name="tenthsOfSeconds">Dekonoj da sekundoj</string>
   <string name="never">Neniam</string>
