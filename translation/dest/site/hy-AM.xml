@@ -238,6 +238,7 @@
   <string name="onlineFriends">Օնլայն ընկերներ</string>
   <string name="noFriendsOnline">Օնլայն ընկեր չկա</string>
   <string name="findFriends">Փնտրել ընկերներին</string>
+  <string name="favoriteOpponents">Սիրելի հակառակորդներ</string>
   <string name="follow">Հետևել</string>
   <string name="following">Հետևում եք</string>
   <string name="unfollow">Չհետևել</string>
@@ -409,6 +410,7 @@
   <string name="slow">Դանդաղ</string>
   <string name="insideTheBoard">Խաղադաշտի ներսը</string>
   <string name="outsideTheBoard">Խաղադաշտից դուրս</string>
+  <string name="onSlowGames">Դանդաղ խաղերում</string>
   <string name="always">Միշտ</string>
   <string name="difficultyEasy">Հեշտ</string>
   <string name="difficultyNormal">Նորմալ</string>
