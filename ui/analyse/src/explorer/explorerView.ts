@@ -228,25 +228,14 @@ function show(ctrl) {
   } else if (data && data.tablebase) {
     const moves = data.moves;
     if (moves.length) lastShow = h('div.data', [
-      showTablebase(ctrl, 'Winning', moves.filter(function(move) {
-        return move.wdl === -2;
-      }), data.fen),
-      showTablebase(ctrl, 'Unknown', moves.filter(function(move) {
-        return move.wdl === null;
-      }), data.fen),
-      showTablebase(ctrl, 'Win prevented by 50-move rule', moves.filter(function(move) {
-        return move.wdl === -1;
-      }), data.fen),
-      showTablebase(ctrl, 'Drawn', moves.filter(function(move) {
-        return move.wdl === 0;
-      }), data.fen),
-      showTablebase(ctrl, 'Loss saved by 50-move rule', moves.filter(function(move) {
-        return move.wdl === 1;
-      }), data.fen),
-      showTablebase(ctrl, 'Losing', moves.filter(function(move) {
-        return move.wdl === 2;
-      }), data.fen)
-    ])
+      ['Winning', m => m.wdl === -2],
+      ['Unknown', m => m.wdl === null],
+      ['Win prevented by 50-move rule', m => m.wdl === -1],
+      ['Drawn', m => m.wdl === 0],
+      ['Loss saved by 50-move rule', m => m.wdl === 1],
+      ['Losing', m => m.wdl === 2],
+    ].map(a => showTablebase(ctrl, a[0] as string, moves.filter(a[1]), data.fen))
+      .reduce(function(a, b) { return a.concat(b); }, []))
     else if (data.checkmate) lastShow = showGameEnd(ctrl, 'Checkmate')
       else if (data.stalemate) lastShow = showGameEnd(ctrl, 'Stalemate')
         else if (data.variant_win || data.variant_loss) lastShow = showGameEnd(ctrl, 'Variant end');
