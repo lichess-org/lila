@@ -12,7 +12,7 @@ object StepBuilder {
 
   def apply(
     id: String,
-    pgnMoves: List[String],
+    pgnMoves: Vector[String],
     variant: Variant,
     initialFen: String
   ): JsArray = {
