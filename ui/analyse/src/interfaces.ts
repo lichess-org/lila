@@ -3,7 +3,7 @@ import * as cg from 'chessground/types';
 import { Goal as PracticeGoal } from './study/practice/interfaces';
 import { SocketSend } from './socket';
 
-export type MaybeVNode = VNode | null | undefined;
+export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[]
 
 export { Key, Piece } from 'chessground/types';

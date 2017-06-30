@@ -182,6 +182,7 @@ export function make(root: AnalyseController, playableDepth: () => number): Prac
       root.setAutoShapes();
     },
     currentNode: () => root.node,
-    bottomColor: root.bottomColor
+    bottomColor: root.bottomColor,
+    redraw: root.redraw
   };
 };

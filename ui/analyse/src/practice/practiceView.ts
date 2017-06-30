@@ -4,6 +4,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { PracticeController, Comment } from './practiceCtrl';
 import AnalyseController from '../ctrl';
+import { MaybeVNodes } from '../interfaces';
 
 function renderTitle(close: (() => void) | null): VNode {
   return h('div.title', [
@@ -28,8 +29,8 @@ const endText = {
   draw: 'Draw.'
 };
 
-function commentBest(c: Comment, ctrl: PracticeController): Array<string | VNode> | undefined {
-  if (c.best) return [
+function commentBest(c: Comment, ctrl: PracticeController): MaybeVNodes {
+  return c.best ? [
     c.verdict === 'good' ? 'Another was' : 'Best was',
     h('a', {
       hook: {
@@ -43,7 +44,7 @@ function commentBest(c: Comment, ctrl: PracticeController): Array<string | VNode
       }
     },
     c.best.san)
-  ];
+  ] : [];
 }
 
 function renderOffTrack(ctrl: PracticeController): VNode {
@@ -74,7 +75,7 @@ function renderEnd(color: Color, end: string): VNode {
 
 const minDepth = 8;
 
-function renderEvalProgress(node: Tree.Node, maxDepth: number) {
+function renderEvalProgress(node: Tree.Node, maxDepth: number): VNode {
   return h('div.progress', h('div', {
     attrs: {
       style: `width: ${node.ceval ? (100 * Math.max(0, node.ceval.depth - minDepth) / (maxDepth - minDepth)) + '%' : 0}`
@@ -86,36 +87,31 @@ function renderRunning(root: AnalyseController, ctrl: PracticeController): VNode
   const hint = ctrl.hinting();
   return h('div.player', [
     h('div.no-square', h('piece.king.' + root.turnColor())),
-    h('div.instruction', [
-      ctrl.isMyTurn() ? h('strong', 'Your move') : [
+    h('div.instruction',
+      (ctrl.isMyTurn() ? [h('strong', 'Your move')] : [
         h('strong', 'Computer thinking...'),
         renderEvalProgress(ctrl.currentNode(), ctrl.playableDepth())
-      ],
-      h('div.choices', [
+      ]).concat(h('div.choices', [
         ctrl.isMyTurn() ? h('a', {
-          onclick: ctrl.hint
+          hook: bind('click', ctrl.hint, ctrl.redraw)
         }, hint ? (hint.mode === 'piece' ? 'See best move' : 'Hide best move') : 'Get a hint') : ''
-      ])
-    ])
+      ])))
   ]);
 }
 
 export default function(root: AnalyseController): VNode | undefined {
   const ctrl = root.practice;
   if (!ctrl) return;
-  const comment: Comment = ctrl.comment();
+  const comment: Comment | null = ctrl.comment();
   const running: boolean = ctrl.running();
   const end = ctrl.currentNode().threefold ? 'threefold' : root.gameOver();
-  return h('div.practice_box', {
-    class: { [comment.verdict]: !!comment }
-  }, [
+  return h('div.practice_box.' + (comment ? comment.verdict : ''), [
     renderTitle(root.studyPractice ? null : root.togglePractice),
     h('div.feedback', !running ? renderOffTrack(ctrl) : (end ? renderEnd(root.turnColor(), end) : renderRunning(root, ctrl))),
-    running ? h('div.comment', comment ? [
+    running ? h('div.comment', comment ? ([
       h('span.verdict', commentText[comment.verdict]),
-      ' ',
-      commentBest(comment, ctrl)
-    ] : [ctrl.isMyTurn() || end ? '' : h('span.wait', 'Evaluating your move...')]) : (
+      ' '
+    ] as MaybeVNodes).concat(commentBest(comment, ctrl)) : [ctrl.isMyTurn() || end ? '' : h('span.wait', 'Evaluating your move...')]) : (
       running ? h('div.comment') : null
     )
   ]);
