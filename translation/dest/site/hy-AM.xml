@@ -422,6 +422,7 @@
   <string name="starting">Սկիզբ</string>
   <string name="allInformationIsPublicAndOptional">Բոլոր ինֆորմացիաները հասանելի են</string>
   <string name="yourCityRegionOrDepartment">Ձեր քաղաքը , մարզը կամ նահանգը</string>
+  <string name="biographyDescription">Պատմեք Ձեր մասին. թե ինչն եք սիրում շախմատում, որոնք են Ձեր սիրելի սկբնախաղերը, պարտյաները, շախմատիստները…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maximum: %s սիմվոլներ</item>
     <item quantity="other">Maximum: %s սիմվոլներ</item>
