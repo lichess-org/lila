@@ -46,6 +46,7 @@
   <string name="viewTheComputerAnalysis">Guarda l\'analisi del computer</string>
   <string name="requestAComputerAnalysis">Chiedi un\'analisi del computer</string>
   <string name="computerAnalysis">Analisi del computer</string>
+  <string name="computerAnalysisAvailable">Disponibile analisi del computer</string>
   <string name="analysis">Scacchiera di analisi</string>
   <string name="blunders">Errori gravi</string>
   <string name="mistakes">Errori</string>
@@ -233,6 +234,7 @@
   </plurals>
   <string name="thisIsAChessCaptcha">Questo è un CAPTCHA di scacchi.</string>
   <string name="clickOnTheBoardToMakeYourMove">Clicca sulla scacchiera e fai la tua mossa, per provare che sei un umano.</string>
+  <string name="captcha.fail">Per favore risolvi il puzzle.</string>
   <string name="notACheckmate">Non è scacco matto</string>
   <string name="colorPlaysCheckmateInOne">Il %s dà scacco matto in una mossa</string>
   <string name="retry">Riprova</string>
@@ -240,6 +242,7 @@
   <string name="onlineFriends">Amici online</string>
   <string name="noFriendsOnline">Nessun amico online</string>
   <string name="findFriends">Trova amici</string>
+  <string name="favoriteOpponents">Avversari preferiti</string>
   <string name="follow">Segui</string>
   <string name="following">Stai seguendo</string>
   <string name="unfollow">Non seguire più</string>
@@ -281,6 +284,9 @@
   <string name="winStreak">Vinte consecutivamente</string>
   <string name="createdBy">Creato da</string>
   <string name="tournamentIsStarting">Sta per iniziare il torneo</string>
+  <string name="tournamentPairingsAreNowClosed">Gli accoppiamenti del torneo sono ora chiusi.</string>
+  <string name="standByX">Resta in attesa %s, accoppiamento giocatori, sii pronto!</string>
+  <string name="youArePlaying">Stai giocando!</string>
   <string name="membersOnly">Solo per iscritti</string>
   <string name="boardEditor">Editor scacchiera</string>
   <string name="startPosition">Posizione iniziale</string>
@@ -289,6 +295,10 @@
   <string name="loadPosition">Carica una posizione</string>
   <string name="isPrivate">Privato</string>
   <string name="reportXToModerators">Segnala %s ai moderatori</string>
+  <string name="profileCompletion">Completamento del profilo: %s</string>
+  <string name="xRating">%s punteggio</string>
+  <string name="ifNoneLeaveEmpty">Se nessuno, lasciare vuoto</string>
+  <string name="gameCompletionRate">Percentuale di completamento: %s</string>
   <string name="profile">Profilo</string>
   <string name="editProfile">Modifica profilo</string>
   <string name="firstName">Nome</string>
@@ -394,6 +404,8 @@
   <string name="pieceDestinations">Destinazioni del pezzo (mosse e pre-mosse valide)</string>
   <string name="boardCoordinates">Coordinate della scacchiera (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Lista delle mosse mentre giochi</string>
+  <string name="pgnPieceNotation">Notazione mossa</string>
+  <string name="chessPieceSymbol">Simbolo del pezzo di scacchi</string>
   <string name="chessClock">Orologio</string>
   <string name="tenthsOfSeconds">Decimi di secondo</string>
   <string name="never">Mai</string>
