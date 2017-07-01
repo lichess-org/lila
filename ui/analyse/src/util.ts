@@ -13,6 +13,12 @@ export function bind(eventName: string, f: (e: Event) => any, redraw?: () => voi
     }
   };
 }
+export function bindSubmit(f: (e: Event) => any, redraw?: () => void): Hooks {
+  return bind('submit', e => {
+    e.preventDefault();
+    return f(e);
+  }, redraw);
+}
 
 export function dataIcon(icon: string) {
   return {

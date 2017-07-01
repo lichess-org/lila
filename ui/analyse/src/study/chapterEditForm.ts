@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { prop } from 'common';
-import { bind, spinner } from '../util';
+import { bind, bindSubmit, spinner } from '../util';
 import * as dialog from './dialog';
 import * as chapterForm from './chapterNewForm';
 import { SocketSend } from '../socket';
@@ -68,15 +68,11 @@ export function view(ctrl): VNode | undefined {
     content: [
       h('h2', 'Edit chapter'),
       h('form.material.form', {
-        hook: bind('submit', e => {
-          e.stopPropagation();
-          ctrl.submit({
-            name: chapterForm.fieldValue(e, 'name'),
-            mode: chapterForm.fieldValue(e, 'mode'),
-            orientation: chapterForm.fieldValue(e, 'orientation')
-          });
-          return false;
-        })
+        hook: bindSubmit(e => ctrl.submit({
+          name: chapterForm.fieldValue(e, 'name'),
+          mode: chapterForm.fieldValue(e, 'mode'),
+          orientation: chapterForm.fieldValue(e, 'orientation')
+        }))
       }, [
         h('div.form-group', [
           h('input#chapter-name', {

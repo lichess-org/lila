@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import * as dialog from './dialog';
 import { prop } from 'common';
-import { bind } from '../util';
+import { bind, bindSubmit } from '../util';
 
 const visibilityChoices = [
   ['public', 'Public'],
@@ -77,14 +77,12 @@ export function view(ctrl) {
     content: [
       h('h2', (isNew ? 'Create' : 'Edit') + ' study'),
       h('form.material.form.align-left', {
-        hook: bind('submit', e => {
+        hook: bindSubmit(e => {
           const obj = {};
           'name visibility computer explorer cloneable chat sticky'.split(' ').forEach(function(n) {
             obj[n] = ((e.target as HTMLElement).querySelector('#study-' + n) as HTMLInputElement).value;
           });
           ctrl.save(obj, isNew);
-          e.stopPropagation();
-          return false;
         }, ctrl.redraw)
       }, [
         h('div.form-group', [

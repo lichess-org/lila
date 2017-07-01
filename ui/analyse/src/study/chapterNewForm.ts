@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { prop, storedProp, Prop } from 'common';
-import { bind, spinner } from '../util';
+import { bind, bindSubmit, spinner } from '../util';
 import { variants as xhrVariants } from './studyXhr';
 import * as dialog from './dialog';
 import { chapter as chapterTour } from './studyTour';
@@ -148,9 +148,7 @@ export function view(ctrl): VNode {
         })
       ]),
       h('form.chapter_form.material.form', {
-        hook: bind('submit', e => {
-          e.stopPropagation();
-          ctrl.submit({
+        hook: bindSubmit(e => ctrl.submit({
             name: fieldValue(e, 'name'),
             game: fieldValue(e, 'game'),
             variant: fieldValue(e, 'variant'),
@@ -158,9 +156,7 @@ export function view(ctrl): VNode {
             pgn: fieldValue(e, 'pgn'),
             orientation: fieldValue(e, 'orientation'),
             mode: fieldValue(e, 'mode')
-          });
-          return false;
-        }, ctrl.redraw)
+          }), ctrl.redraw)
       }, [
         h('div.form-group', [
           h('input#chapter-name', {
