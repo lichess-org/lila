@@ -23,6 +23,7 @@ export interface AnalyseData {
   treeParts: Tree.Node[];
   evalPut?: boolean;
   practiceGoal?: PracticeGoal;
+  pref: any;
 }
 export interface AnalyseDataWithTree extends AnalyseData {
   tree: Tree.Node;

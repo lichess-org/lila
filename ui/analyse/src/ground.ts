@@ -1,22 +1,28 @@
 import { h } from 'snabbdom'
+import { VNode } from 'snabbdom/vnode'
 import { Chessground } from 'chessground';
+import { Api as CgApi } from 'chessground/api';
+import { Config as CgConfig } from 'chessground/config';
+import * as cg from 'chessground/types';
+import { DrawShape } from 'chessground/draw';
+import AnalyseController from './ctrl';
 
-export function render(ctrl) {
+export function render(ctrl: AnalyseController): VNode {
   return h('div.cg-board-wrap', {
     hook: {
       insert: vnode => {
         ctrl.chessground = Chessground((vnode.elm as HTMLElement), makeConfig(ctrl));
         ctrl.setAutoShapes();
-        if (ctrl.node.shapes) ctrl.chessground.setShapes(ctrl.node.shapes);
+        if (ctrl.node.shapes) ctrl.chessground.setShapes(ctrl.node.shapes as DrawShape[]);
       },
       destroy: _ => ctrl.chessground.destroy()
     }
   });
 }
 
-export function promote(ground, key, role) {
-  var pieces = {};
-  var piece = ground.state.pieces[key];
+export function promote(ground: CgApi, key: Key, role: cg.Role) {
+  const pieces = {};
+  const piece = ground.state.pieces[key];
   if (piece && piece.role == 'pawn') {
     pieces[key] = {
       color: piece.color,
@@ -27,9 +33,9 @@ export function promote(ground, key, role) {
   }
 }
 
-function makeConfig(ctrl) {
-  var d = ctrl.data, pref = d.pref, opts = ctrl.makeCgOpts();
-  var config = {
+function makeConfig(ctrl: AnalyseController): CgConfig {
+  const d = ctrl.data, pref = d.pref, opts = ctrl.makeCgOpts();
+  const config = {
     turnColor: opts.turnColor,
     fen: opts.fen,
     check: opts.check,
@@ -40,8 +46,8 @@ function makeConfig(ctrl) {
     viewOnly: !!ctrl.embed,
     movable: {
       free: false,
-      color: opts.movable.color,
-      dests: opts.movable.dests,
+      color: opts.movable!.color,
+      dests: opts.movable!.dests,
       showDests: pref.destination,
       rookCastle: pref.rookCastle
     },
@@ -49,9 +55,7 @@ function makeConfig(ctrl) {
       move: ctrl.userMove,
       dropNewPiece: ctrl.userNewPiece
     },
-    premovable: {
-      enabled: opts.premovable
-    },
+    premovable: opts.premovable,
     drawable: {
       enabled: !ctrl.embed,
       eraseOnClick: !ctrl.opts.study || ctrl.opts.practice
@@ -66,5 +70,6 @@ function makeConfig(ctrl) {
     disableContextMenu: true
   };
   ctrl.study && ctrl.study.mutateCgConfig(config);
+
   return config;
 }

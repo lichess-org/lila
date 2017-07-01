@@ -127,7 +127,7 @@ export function view(ctrl: AnalyseController): VNode {
   }, [
     h('a.close.icon', {
       attrs: { 'data-icon': 'L' },
-      hook: bindEvent('click', () => ctrl.keyboardHelp = false)
+      hook: bindEvent('click', () => ctrl.keyboardHelp = false, ctrl.redraw)
     }),
     h('div.scrollable', [
       h('h2', trans('keyboardShortcuts')),
