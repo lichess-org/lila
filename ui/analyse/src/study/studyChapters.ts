@@ -47,7 +47,7 @@ export function view(ctrl: StudyController): VNode {
 
   function update(vnode: VNode) {
     const newCount = ctrl.chapters.list().length;
-    const vData = vnode.data!;
+    const vData = vnode.data!.li!;
     const el = vnode.elm as HTMLElement;
     if (vData.count !== newCount) {
       if (current.id !== ctrl.chapters.firstChapterId()) {
@@ -75,7 +75,7 @@ export function view(ctrl: StudyController): VNode {
 
   return h('div.list.chapters', {
     hook: {
-      insert: vnode => {
+      insert(vnode) {
         (vnode.elm as HTMLElement).addEventListener('click', e => {
           const target = e.target as HTMLElement;
           const id = (target.parentNode as HTMLElement).getAttribute('data-id') || target.getAttribute('data-id');
@@ -83,12 +83,14 @@ export function view(ctrl: StudyController): VNode {
           if (target.classList.contains('config')) ctrl.chapters.editForm.toggle(ctrl.chapters.get(id));
           else ctrl.setChapter(id);
         });
+        vnode.data!.li = {};
         update(vnode);
       },
-      postpatch: (_, vnode) => update(vnode),
-      destroy: vnode => {
-        if (vnode.data!.sortable) vnode.data!.sortable.destroy();
-      }
+      postpatch(old, vnode) {
+        vnode.data!.li = old.data!.li;
+        update(vnode);
+      },
+      destroy: vnode => vnode.data!.li!.sortable!.destroy()
     }
   },
   ctrl.chapters.list().map(function(chapter, i) {

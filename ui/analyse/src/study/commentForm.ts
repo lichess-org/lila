@@ -146,7 +146,7 @@ export function view(ctrl: CommentForm): VNode | undefined {
       h('div.form-group', [
         h('textarea#comment-text', {
           hook: {
-            insert: vnode => {
+            insert(vnode) {
               setupTextarea(vnode);
               const el = vnode.elm as HTMLInputElement;
               function onChange() {
@@ -170,7 +170,7 @@ export function view(ctrl: CommentForm): VNode | undefined {
               vnode.data!.trap = trap;
               vnode.data!.path = current.path;
             },
-            postpatch: (old, vnode) => {
+            postpatch(old, vnode) {
               if (old.data!.path !== current.path) setupTextarea(vnode);
               vnode.data!.path = current.path;
               vnode.data!.trap = old.data!.trap;
