@@ -401,6 +401,14 @@ module.exports = function(data, ctrl, tagTypes, practiceData) {
         ctrl.tree.setGlyphsAt(d.g, position.path);
         m.redraw();
       },
+      clock: function(d) {
+        var position = d.p,
+          who = d.w;
+        who && members.setActive(who.u);
+        if (wrongChapter(d)) return;
+        ctrl.tree.setClockAt(d.c, position.path);
+        m.redraw();
+      },
       conceal: function(d) {
         var position = d.p;
         if (wrongChapter(d)) return;

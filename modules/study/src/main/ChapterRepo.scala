@@ -68,6 +68,9 @@ final class ChapterRepo(coll: Coll) {
   def setGlyphs(chapter: Chapter, path: Path, glyphs: chess.format.pgn.Glyphs): Funit =
     setNodeValue(chapter, path, "g", glyphs.nonEmpty)
 
+  def setClock(chapter: Chapter, path: Path, clock: Option[chess.Centis]): Funit =
+    setNodeValue(chapter, path, "l", clock)
+
   def setChildren(chapter: Chapter, path: Path, children: Node.Children): Funit =
     setNodeValue(chapter, path, "n", children.some)
 
