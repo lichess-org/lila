@@ -461,7 +461,7 @@ export default class AnalyseController {
     this.tree.addDests(dests, path, opening);
     if (path === this.path) {
       this.showGround();
-      this.redraw();
+      // this.redraw();
       if (this.gameOver()) this.ceval.stop();
     }
     if (this.chessground) this.chessground.playPremove();
