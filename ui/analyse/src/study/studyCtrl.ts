@@ -51,18 +51,18 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
   function startTour() {
     tours.study(ctrl);
   };
-  var members = memberCtrl({
+  const members = memberCtrl({
     initDict: data.members,
     myId: practiceData ? undefined : ctrl.opts.userId,
     ownerId: data.ownerId,
-    send: send,
+    send,
     setTab() { vm.tab('members') },
-    startTour: startTour,
-    notif: notif,
-    onBecomingContributor: function() {
+    startTour,
+    notif,
+    onBecomingContributor() {
       vm.mode.write = true;
     },
-    redraw: redraw
+    redraw
   });
 
   const chapters = chapterCtrl(
@@ -97,14 +97,14 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
   }
   if (vm.mode.sticky) ctrl.userJump(data.position.path);
 
-  var configureAnalysis = function() {
+  function configureAnalysis() {
     if (ctrl.embed) return;
-    var canContribute = members.canContribute();
+    const canContribute = members.canContribute();
     // unwrite if member lost priviledges
     vm.mode.write = vm.mode.write && canContribute;
     window.lichess.pubsub.emit('chat.writeable')(data.features.chat);
     window.lichess.pubsub.emit('chat.permissions')({local: canContribute});
-    var computer = data.chapter.features.computer || data.chapter.practice;
+    const computer = data.chapter.features.computer || data.chapter.practice;
     if (!computer) ctrl.getCeval().enabled(false);
     ctrl.getCeval().allowed(computer);
     if (!data.chapter.features.explorer) ctrl.explorer.disable();
@@ -112,7 +112,7 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
   };
   configureAnalysis();
 
-  var configurePractice = function() {
+  function configurePractice() {
     if (!data.chapter.practice && ctrl.practice) ctrl.togglePractice();
     if (data.chapter.practice) ctrl.restartPractice();
     if (practice) practice.onReload();
@@ -182,7 +182,7 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
 
   const share = shareCtrl(data, currentChapter, currentNode, redraw);
 
-  var practice = practiceData && practiceCtrl(ctrl, data, practiceData);
+  const practice = practiceData && practiceCtrl(ctrl, data, practiceData);
 
   function mutateCgConfig(config) {
     config.drawable.onChange = function(shapes) {
@@ -280,8 +280,8 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
     mutateCgConfig,
     redraw,
     socketHandlers: {
-      path: function(d) {
-        var position = d.p,
+      path(d) {
+        const position = d.p,
           who = d.w;
         who && members.setActive(who.u);
         if (!vm.mode.sticky) {
@@ -297,8 +297,8 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
         ctrl.userJump(position.path);
         redraw();
       },
-      addNode: function(d) {
-        var position = d.p,
+      addNode(d) {
+        const position = d.p,
           node = d.n,
           who = d.w,
           sticky = d.s;
@@ -310,7 +310,7 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
           data.position.path = position.path + node.id;
           return;
         }
-        var newPath = ctrl.tree.addNode(node, position.path);
+        const newPath = ctrl.tree.addNode(node, position.path);
         if (!newPath) return xhrReload();
         ctrl.tree.addDests(d.d, newPath, d.o);
         if (sticky) data.position.path = newPath;
@@ -320,8 +320,8 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
         )) ctrl.jump(newPath);
         redraw();
       },
-      deleteNode: function(d) {
-        var position = d.p,
+      deleteNode(d) {
+        const position = d.p,
           who = d.w;
         who && members.setActive(who.u);
         if (wrongChapter(d)) return;
@@ -332,8 +332,8 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
         if (vm.mode.sticky) ctrl.jump(ctrl.path);
         redraw();
       },
-      promote: function(d) {
-        var position = d.p,
+      promote(d) {
+        const position = d.p,
           who = d.w;
         who && members.setActive(who.u);
         if (wrongChapter(d)) return;
@@ -343,13 +343,13 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
         if (vm.mode.sticky) ctrl.jump(ctrl.path);
       },
       reload: xhrReload,
-      changeChapter: function(d) {
+      changeChapter(d) {
         d.w && members.setActive(d.w.u);
         if (!vm.mode.sticky) vm.behind++;
         data.position = d.p;
         if (vm.mode.sticky) xhrReload();
       },
-      addChapter: function(d) {
+      addChapter(d) {
         d.w && members.setActive(d.w.u);
         if (d.s && !vm.mode.sticky) vm.behind++;
         if (d.s) data.position = d.p;
@@ -359,17 +359,17 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
         }
         xhrReload();
       },
-      members: function(d) {
+      members(d) {
         members.update(d);
         configureAnalysis();
         redraw();
       },
-      chapters: function(d) {
+      chapters(d) {
         chapters.list(d);
         redraw();
       },
-      shapes: function(d) {
-        var position = d.p,
+      shapes(d) {
+        const position = d.p,
           who = d.w;
         who && members.setActive(who.u);
         if (wrongChapter(d)) return;
@@ -378,8 +378,8 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
         if (ctrl.path === position.path && ctrl.chessground) ctrl.chessground.setShapes(d.s);
         redraw();
       },
-      setComment: function(d) {
-        var position = d.p,
+      setComment(d) {
+        const position = d.p,
           who = d.w;
         who && members.setActive(who.u);
         if (wrongChapter(d)) return;
@@ -387,22 +387,22 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
         ctrl.tree.setCommentAt(d.c, position.path);
         redraw();
       },
-      setTags: function(d) {
+      setTags(d) {
         d.w && members.setActive(d.w.u);
         if (d.chapterId !== vm.chapterId) return;
         data.chapter.tags = d.tags;
         redraw();
       },
-      deleteComment: function(d) {
-        var position = d.p,
+      deleteComment(d) {
+        const position = d.p,
           who = d.w;
         who && members.setActive(who.u);
         if (wrongChapter(d)) return;
         ctrl.tree.deleteCommentAt(d.id, position.path);
         redraw();
       },
-      glyphs: function(d) {
-        var position = d.p,
+      glyphs(d) {
+        const position = d.p,
           who = d.w;
         who && members.setActive(who.u);
         if (wrongChapter(d)) return;
@@ -410,20 +410,20 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
         ctrl.tree.setGlyphsAt(d.g, position.path);
         redraw();
       },
-      clock: function(d) {
-        var position = d.p,
+      clock(d) {
+        const position = d.p,
           who = d.w;
         who && members.setActive(who.u);
         if (wrongChapter(d)) return;
         ctrl.tree.setClockAt(d.c, position.path);
-        m.redraw();
+        redraw();
       },
-      conceal: function(d) {
+      conceal(d) {
         if (wrongChapter(d)) return;
         data.chapter.conceal = d.ply;
         redraw();
       },
-      liking: function(d) {
+      liking(d) {
         data.likes = d.l.likes;
         if (d.w && d.w.s === sri) data.liked = d.l.me;
         redraw();
@@ -431,10 +431,10 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
       following_onlines: members.inviteForm.setFollowings,
       following_leaves: members.inviteForm.delFollowing,
       following_enters: members.inviteForm.addFollowing,
-      crowd: function(d) {
+      crowd(d) {
         members.setSpectators(d.users);
       },
-      error: function(msg) {
+      error(msg) {
         alert(msg);
       }
     }

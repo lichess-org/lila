@@ -148,10 +148,6 @@ asynckit@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
 
-autolink-js@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/autolink-js/-/autolink-js-1.0.2.tgz#2fb443ab8b101ab1591560cc699b2a5c33f0bdf3"
-
 aws-sign2@~0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/aws-sign2/-/aws-sign2-0.6.0.tgz#14342dd38dbcc94d0e5b87d763cd63612c0e794f"
@@ -398,9 +394,9 @@ chalk@^1.0.0, chalk@^1.1.1:
   version "0.0.0"
   uid ""
 
-chessground@^6.5:
-  version "6.5.0"
-  resolved "https://registry.yarnpkg.com/chessground/-/chessground-6.5.0.tgz#014ec1bbc8dc568c5eda107957c72747399cf8c2"
+chessground@^6.5.2:
+  version "6.5.2"
+  resolved "https://registry.yarnpkg.com/chessground/-/chessground-6.5.2.tgz#69738ae46c938df6006f5b78ea827ba999febf38"
 
 chokidar@^1.0.0:
   version "1.7.0"

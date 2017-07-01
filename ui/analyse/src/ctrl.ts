@@ -76,6 +76,7 @@ export default class AnalyseController {
   showComputer: StoredBooleanProp = storedProp('show-computer', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: boolean = false;
+  chessgroundIt: number = 1; // increment to recreate chessground
 
   // other paths
   initialPath: Tree.Path;
@@ -152,7 +153,7 @@ export default class AnalyseController {
     this.synthetic = util.synthetic(data);
     this.ongoing = !this.synthetic && game.playable(data as GameData);
 
-    let prevTree = merge && this.tree.root;
+    const prevTree = merge && this.tree.root;
     this.tree = makeTree(treeOps.reconstruct(this.data.treeParts));
     if (prevTree) this.tree.merge(prevTree);
 
@@ -365,6 +366,7 @@ export default class AnalyseController {
     this.setPath(treePath.root);
     this.instanciateCeval();
     this.instanciateEvalCache();
+    this.chessgroundIt ++;
   }
 
   changePgn(pgn: string): void {

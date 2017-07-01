@@ -9,6 +9,7 @@ import AnalyseController from './ctrl';
 
 export function render(ctrl: AnalyseController): VNode {
   return h('div.cg-board-wrap', {
+    key: ctrl.chessgroundIt,
     hook: {
       insert: vnode => {
         ctrl.chessground = Chessground((vnode.elm as HTMLElement), makeConfig(ctrl));
