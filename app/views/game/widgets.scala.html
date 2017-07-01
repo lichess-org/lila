@@ -89,8 +89,8 @@
     }
     }
     <div class="pgn">@pgnMoves.take(6).grouped(2).zipWithIndex.map {
-      case (List(w, b), i) => {@(i+1). @w @b}
-      case (List(w), i) => {@(i+1). @w}
+      case (Vector(w, b), i) => {@(i+1). @w @b}
+      case (Vector(w), i) => {@(i+1). @w}
       case _ => {}
       }.mkString(" ")@if(g.turns > 6) { ... @{1 + (g.turns - 1) / 2} moves }
     </div>
