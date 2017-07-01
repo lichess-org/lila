@@ -159,7 +159,7 @@ export function view(ctrl: AnalyseController): VNode {
           attrs: { colspan: 2 }
         }, [h('ul', [
           h('li', trans('youCanAlsoScrollOverTheBoardToMoveInTheGame')),
-          h('li', trans('pressShiftPlusClickOrRightClickToDrawCirclesAndArrowsOnTheBoard'))
+          h('li', trans('analysisShapesHowTo'))
         ])]))
       ])),
     ])

@@ -1,10 +1,10 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { titleNameToId, bind, dataIcon } from '../util';
-import { prop } from 'common';
+import { prop, Prop } from 'common';
 import { ctrl as inviteFormCtrl } from './inviteForm';
 import { SocketSend } from '../socket';
-import { StudyController, StudyMember, StudyMemberMap } from './interfaces';
+import { StudyController, StudyMember, StudyMemberMap, Tab } from './interfaces';
 import { NotifController } from './notif';
 
 interface Opts {
@@ -12,7 +12,7 @@ interface Opts {
   myId?: string;
   ownerId: string;
   send: SocketSend;
-  setTab(): void;
+  tab: Prop<Tab>;
   startTour(): void;
   notif: NotifController;
   onBecomingContributor(): void;
@@ -20,8 +20,8 @@ interface Opts {
 }
 
 function memberActivity(onIdle) {
-  var timeout;
-  var schedule = function() {
+  let timeout;
+  let schedule = function() {
     if (timeout) clearTimeout(timeout);
     timeout = setTimeout(onIdle, 100);
   };
@@ -55,9 +55,10 @@ export function ctrl(opts: Opts) {
     return m && m.role === 'w';
   };
 
-  const inviteForm = inviteFormCtrl(opts.send, dict, opts.setTab, opts.redraw);
+  const inviteForm = inviteFormCtrl(opts.send, dict, () => opts.tab('members'), opts.redraw);
 
   function setActive(id) {
+    if (opts.tab() !== 'members') return;
     if (active[id]) active[id]();
     else active[id] = memberActivity(function() {
       delete(active[id]);
@@ -66,13 +67,13 @@ export function ctrl(opts: Opts) {
     opts.redraw();
   };
 
-  var updateOnline = function() {
+  function updateOnline() {
     online = {};
     const members: StudyMemberMap = dict();
     spectatorIds.forEach(function(id) {
       if (members[id]) online[id] = true;
     });
-    opts.redraw();
+    if (opts.tab() === 'members') opts.redraw();
   }
 
   return {

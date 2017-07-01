@@ -12,7 +12,7 @@ import { ctrl as tagsCtrl } from './studyTags';
 import * as tours from './studyTour';
 import * as xhr from './studyXhr';
 import { path as treePath } from 'tree';
-import { StudyController, StudyVm, TagTypes, StudyData, StudyChapterMeta, ReloadData } from './interfaces';
+import { StudyController, StudyVm, Tab, TagTypes, StudyData, StudyChapterMeta, ReloadData } from './interfaces';
 
 // data.position.path represents the server state
 // ctrl.path is the client state
@@ -28,7 +28,7 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
     const sticked = data.features.sticky && !ctrl.initialPath && !isManualChapter && !practiceData;
     return {
       loading: false,
-      tab: prop(data.chapters.length > 1 ? 'chapters' : 'members'),
+      tab: prop<Tab>(data.chapters.length > 1 ? 'chapters' : 'members'),
       chapterId: sticked ? data.position.chapterId : data.chapter.id,
       // path is at ctrl.vm.path
       mode: {
@@ -56,7 +56,7 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
     myId: practiceData ? undefined : ctrl.opts.userId,
     ownerId: data.ownerId,
     send,
-    setTab() { vm.tab('members') },
+    tab: vm.tab,
     startTour,
     notif,
     onBecomingContributor() {

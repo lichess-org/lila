@@ -36,10 +36,12 @@ export interface StudyController {
   redraw(): void;
 }
 
+export type Tab = 'members' | 'chapters';
+
 export interface StudyVm {
   loading: boolean;
   nextChapterId?: string;
-  tab: Prop<string>;
+  tab: Prop<Tab>;
   chapterId: string;
   mode: {
     sticky: boolean;

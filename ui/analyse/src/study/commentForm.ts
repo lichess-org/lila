@@ -81,8 +81,8 @@ export function ctrl(root: AnalyseController): CommentForm {
         cur.node = node;
         current(cur);
         dirty(true);
+        root.redraw();
       }
-      root.redraw();
     },
     redraw: root.redraw,
     toggle(chapterId: string, path: Tree.Path, node: Tree.Node) {
@@ -173,6 +173,7 @@ export function view(ctrl: CommentForm): VNode | undefined {
             postpatch: (old, vnode) => {
               if (old.data!.path !== current.path) setupTextarea(vnode);
               vnode.data!.path = current.path;
+              vnode.data!.trap = old.data!.trap;
             },
             destroy: vnode => vnode.data!.trap.reset()
           }
