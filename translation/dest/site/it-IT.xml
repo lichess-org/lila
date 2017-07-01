@@ -406,6 +406,7 @@
   <string name="moveListWhilePlaying">Lista delle mosse mentre giochi</string>
   <string name="pgnPieceNotation">Notazione mossa</string>
   <string name="chessPieceSymbol">Simbolo del pezzo di scacchi</string>
+  <string name="pgnLetter">Lettera (R, D, T, A, C)</string>
   <string name="chessClock">Orologio</string>
   <string name="tenthsOfSeconds">Decimi di secondo</string>
   <string name="never">Mai</string>
@@ -589,6 +590,9 @@
   <string name="enableKidMode">Attiva \"modalità bambino\"</string>
   <string name="disableKidMode">Disattiva \"modalità bambino\"</string>
   <string name="security">Sicurezza</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Questa è la lista di dispositivi collegata al tuo account. Rimuovi ogni istanza che non riconosci.</string>
+  <string name="alternativelyYouCanX">In alternativa è possibile %s.</string>
+  <string name="revokeAllSessions">rimuovi tutte le sessioni</string>
   <string name="playChessEverywhere">Gioca a scacchi ovunque</string>
   <string name="asFreeAsLichess">Libero come Lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Fatto per amore degli scacchi, non del denaro</string>
@@ -607,14 +611,36 @@
     <item quantity="other">Disponibile in %s lingue!</item>
   </plurals>
   <string name="gameAnalysis">Analisi del gioco</string>
+  <string name="xHostsY">%1$s ospiti %2$s</string>
+  <string name="xJoinsY">%1$s partecipanti %2$s</string>
   <string name="xLikesY">A %1$s piace %2$s</string>
+  <string name="quickPairing">Accoppiamento rapido</string>
+  <string name="lobby">Lobby</string>
+  <string name="yourScore">Il tuo punteggio: %s</string>
+  <string name="language">Lingua</string>
+  <string name="background">Sfondo</string>
   <string name="boardGeometry">Geometria della scacchiera</string>
   <string name="boardTheme">Tema della scacchiera</string>
   <string name="boardSize">Dimensione scacchiera</string>
+  <string name="pieceSet">Set pezzi</string>
+  <string name="embedInYourWebsite">Incorpora nel tuo sito Web</string>
+  <string name="usernameAlreadyUsed">Questo nome è già in uso. Prego sceglierne un altro.</string>
+  <string name="usernameInvalid">Nome utente non valido. Si prega di utilizzare solo lettere, numeri e tratti ( \"-\" o \"_\" ).</string>
   <string name="usernameStartNoNumber">Un nome utente non può iniziare con un numero.</string>
+  <string name="usernameUnacceptable">Questo nome utente non è permesso.</string>
+  <string name="directlySupportLichess">Supporta Lichess</string>
   <string name="playChessInStyle">Gioca a scacchi con stile</string>
+  <string name="chessBasics">Basi scacchistiche</string>
+  <string name="coaches">Allenatori</string>
   <string name="invalidPgn">PGN non valido</string>
   <string name="invalidFen">FEN non valido</string>
   <string name="error.minLength">La lunghezza minima è %s</string>
   <string name="error.maxLength">La lunghezza massima è %s</string>
+  <string name="error.min">Deve essere più grande o uguale a %s</string>
+  <string name="error.max">Deve essere minore o uguale a %s</string>
+  <string name="error.unknown">Errore</string>
+  <string name="custom">Altro/Personalizza</string>
+  <string name="notifications">Notifiche</string>
+  <string name="challenges">Sfide</string>
+  <string name="perfRatingX">Punteggio: %s</string>
 </resources>
