@@ -1,4 +1,5 @@
 import { h } from 'snabbdom'
+import { VNode } from 'snabbdom/vnode'
 import * as xhr from './studyXhr';
 import { prop, throttle } from 'common';
 import { bind, nodeFullName, spinner } from '../util';
@@ -72,7 +73,7 @@ export function ctrl(root: AnalyseController) {
   };
 }
 
-export function view(ctrl) {
+export function view(ctrl): VNode | undefined {
 
   if (!ctrl.isOpen()) return;
   const all = ctrl.all();
@@ -90,9 +91,7 @@ export function view(ctrl) {
       'Annotating position after ',
       h('strong', nodeFullName(node)),
       h('span.saved', {
-        class: {
-          visible: !ctrl.dirty()
-        }
+        class: { visible: !ctrl.dirty() }
       }, 'Saved.')
     ]),
     all ? h('div.glyph_form', [

@@ -1,6 +1,8 @@
 import { h } from 'snabbdom'
+import { VNode } from 'snabbdom/vnode'
 import { plural, bind, spinner } from '../../util';
 import { enrichText } from '../studyComments';
+import { StudyController } from '../interfaces';
 
 // #TODO render only once
 function selector(data) {
@@ -47,7 +49,7 @@ function renderGoal(practice, inMoves: number) {
   }
 }
 
-export function underboard(ctrl) {
+export function underboard(ctrl: StudyController): VNode {
   if (ctrl.vm.loading) return h('div.feedback', spinner());
   const p = ctrl.practice!;
   switch (p.success()) {
@@ -73,7 +75,7 @@ export function underboard(ctrl) {
   }
 }
 
-export function main(ctrl) {
+export function main(ctrl: StudyController): VNode[] {
 
   const current = ctrl.currentChapter();
   const data = ctrl.practice.data;

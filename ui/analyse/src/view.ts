@@ -80,8 +80,8 @@ function wheel(ctrl: AnalyseController, e: WheelEvent) {
   return false;
 }
 
-function inputs(ctrl) {
-  if (ctrl.ongoing || !ctrl.data.userAnalysis) return null;
+function inputs(ctrl: AnalyseController): VNode | undefined {
+  if (ctrl.ongoing || !ctrl.data.userAnalysis) return;
   if (ctrl.redirecting) return spinner();
   const pgnText = pgnExport.renderFullTxt(ctrl);
   return h('div.copyables', [
@@ -279,7 +279,7 @@ export default function(ctrl: AnalyseController): VNode {
     ctrl.embed ? null : h('div.underboard', {
       class: { no_computer: !ctrl.showComputer() }
     }, [
-      h('div.center', [ctrl.study ? studyView.underboard(ctrl) : inputs(ctrl)]),
+      h('div.center', ctrl.study ? studyView.underboard(ctrl) : [inputs(ctrl)]),
       h('div.right', [acplView(ctrl)])
     ]),
     ctrl.embed || synthetic(ctrl.data) ? null : h('div.analeft', [

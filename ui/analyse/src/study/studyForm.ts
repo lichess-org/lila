@@ -88,7 +88,6 @@ export function view(ctrl) {
         h('div.form-group', [
           h('input#study-name', {
             attrs: {
-              required: true,
               minlength: 3,
               maxlength: 100
             },

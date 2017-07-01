@@ -45,7 +45,7 @@ export function ctrl(data: StudyData, currentChapter: () => StudyChapterMeta, cu
   }
 }
 
-export function view(ctrl) {
+export function view(ctrl): VNode | undefined {
   if (!ctrl.open()) return;
   const studyId = ctrl.studyId;
   const chapter = ctrl.chapter();
@@ -60,6 +60,7 @@ export function view(ctrl) {
   return dialog.form({
     onClose: function() {
       ctrl.open(false);
+      ctrl.redraw();
     },
     content: [
       h('h2', 'Share & export'),
@@ -95,7 +96,8 @@ export function view(ctrl) {
               disabled: !isPublic,
               value: isPublic ? '<iframe width=600 height=371 src="' + embedUrl + '" frameborder=0></iframe>' : 'Only public studies can be embedded!'
             }
-          }),
+          })
+        ].concat(
           isPublic ? [
             fromPly(ctrl),
             h('a.form-help.text', {
@@ -106,9 +108,8 @@ export function view(ctrl) {
               }
             }, 'Read more about embedding a study chapter'),
             h('label.control-label', 'Embed current chapter in your website or blog')
-          ] : null,
-          h('i.bar')
-        ]),
+          ] : []).concat(h('i.bar'))
+        ),
         h('div.downloads', [
           ctrl.cloneable ? h('a.button.text', {
             attrs: {

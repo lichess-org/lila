@@ -16,6 +16,7 @@ import { view as tagsView } from './studyTags';
 import * as practiceView from './practice/studyPracticeView';
 import AnalyseController from '../ctrl';
 import { StudyController } from './interfaces';
+import { MaybeVNodes } from '../interfaces';
 
 function buttons(root: AnalyseController): VNode {
   const ctrl = root.study;
@@ -39,11 +40,11 @@ function buttons(root: AnalyseController): VNode {
       h('a.button.share.hint--top', {
         attrs: { 'data-hint': 'Share & export' },
         class: { active: ctrl.share.open() },
-        hook: bind('click', ctrl.share.toggle)
+        hook: bind('click', ctrl.share.toggle, ctrl.redraw)
       }, [
         h('i', { attrs: dataIcon('z') })
       ]),
-      canContribute ? [
+      ...(canContribute ? [
         h('a.button.comment.hint--top', {
           attrs: { 'data-hint': 'Comment this position' },
           class: {
@@ -52,7 +53,7 @@ function buttons(root: AnalyseController): VNode {
           },
           hook: bind('click', function() {
             if (ctrl.vm.mode.write) ctrl.commentForm.toggle(ctrl.currentChapter().id, root.path, root.node);
-          })
+          }, ctrl.redraw)
         }, [
           h('i', { attrs: dataIcon('c') })
         ]),
@@ -68,7 +69,7 @@ function buttons(root: AnalyseController): VNode {
         }, [
           h('i.glyph-icon')
         ])
-      ] : null
+      ] : [])
     ]),
     h('span.button.help.hint--top', {
       attrs: { 'data-hint': 'Need help? Get the tour!' },
@@ -108,7 +109,7 @@ export function main(ctrl: StudyController): VNode {
   const makeTab = function(key, name) {
     return h('a.' + key, {
       class: { active: activeTab === key },
-      hook: bind('mousedown', () => ctrl.vm.tab(key))
+      hook: bind('mousedown', () => ctrl.vm.tab(key), ctrl.redraw)
     }, name);
   };
 
@@ -116,7 +117,7 @@ export function main(ctrl: StudyController): VNode {
     makeTab('members', plural('Member', ctrl.members.size())),
     makeTab('chapters', plural('Chapter', ctrl.chapters.size())),
     ctrl.members.isOwner() ? h('a.more', {
-      hook: bind('click', () => ctrl.form.open(!ctrl.form.open()))
+      hook: bind('click', () => ctrl.form.open(!ctrl.form.open()), ctrl.redraw)
     }, [ h('i', { attrs: dataIcon('[') }) ]) : null
     ]);
 
@@ -153,14 +154,13 @@ export function overboard(ctrl: StudyController) {
   if (ctrl.share.open()) return studyShareView(ctrl.share);
 }
 
-export function underboard(ctrl: AnalyseController) {
-  if (ctrl.studyPractice) return practiceView.underboard(ctrl.study);
-  if (ctrl.embed) return;
-  var glyphForm = glyphFormView(ctrl.study.glyphForm);
-  var commentForm = commentFormView(ctrl.study.commentForm);
+export function underboard(ctrl: AnalyseController): MaybeVNodes {
+  if (ctrl.embed) return [];
+  if (ctrl.studyPractice) return [practiceView.underboard(ctrl.study)];
+  const commentForm = commentFormView(ctrl.study.commentForm);
   return [
     notifView(ctrl.study.notif),
-    glyphForm,
+    glyphFormView(ctrl.study.glyphForm),
     currentCommentsView(ctrl, !commentForm),
     commentForm,
     buttons(ctrl),

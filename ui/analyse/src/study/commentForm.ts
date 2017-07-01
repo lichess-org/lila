@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { nodeFullName, bind } from '../util';
-import { prop, throttle } from 'common';
+import { prop, throttle, Prop } from 'common';
 import AnalyseController from '../ctrl';
 
 interface Current {
@@ -10,14 +10,29 @@ interface Current {
   node: Tree.Node;
 }
 
-export function ctrl(root: AnalyseController) {
+interface CommentForm {
+  root: AnalyseController;
+  current: Prop<Current | null>;
+  dirty: Prop<boolean>;
+  focus: Prop<boolean>;
+  opening: Prop<boolean>;
+  open(chapterId: string, path: Tree.Path, node: Tree.Node): void;
+  close(): void;
+  submit(text: string): void;
+  onSetPath(path: Tree.Path, node: Tree.Node): void;
+  redraw(): void;
+  toggle(chapterId: string, path: Tree.Path, node: Tree.Node): void;
+  delete(chapterId: string, path: Tree.Path, id: string): void;
+}
+
+export function ctrl(root: AnalyseController): CommentForm {
 
   const current = prop<Current | null>(null);
   const dirty = prop(true);
   const focus = prop(false);
   const opening = prop(false);
 
-  function submit(text) {
+  function submit(text: string): void {
     if (!current()) return;
     if (!dirty()) {
       dirty(true);
@@ -35,7 +50,7 @@ export function ctrl(root: AnalyseController) {
     });
   });
 
-  function open(chapterId: string, path: Tree.Path, node: Tree.Node) {
+  function open(chapterId: string, path: Tree.Path, node: Tree.Node): void {
     dirty(true);
     opening(true);
     current({
@@ -50,17 +65,6 @@ export function ctrl(root: AnalyseController) {
     current(null);
   };
 
-  function onSetPath(path: Tree.Path, node: Tree.Node) {
-    const cur = current();
-    if (cur && cur.path !== path && !focus()) {
-      cur.path = path;
-      cur.node = node;
-      current(cur);
-      dirty(true);
-    }
-    root.redraw();
-  };
-
   return {
     root,
     current,
@@ -70,7 +74,16 @@ export function ctrl(root: AnalyseController) {
     open,
     close,
     submit,
-    onSetPath,
+    onSetPath(path: Tree.Path, node: Tree.Node): void {
+      const cur = current();
+      if (cur && cur.path !== path && !focus()) {
+        cur.path = path;
+        cur.node = node;
+        current(cur);
+        dirty(true);
+      }
+      root.redraw();
+    },
     redraw: root.redraw,
     toggle(chapterId: string, path: Tree.Path, node: Tree.Node) {
       if (current()) close();
@@ -86,22 +99,22 @@ export function ctrl(root: AnalyseController) {
   };
 }
 
-export function view(ctrl) {
+export function view(ctrl: CommentForm): VNode | undefined {
 
   const current = ctrl.current();
   if (!current) return;
 
   function setupTextarea(vnode: VNode) {
-    const el = vnode.elm as HTMLInputElement;
-    const vData = vnode.data!;
-    vData!.path = current.path;
-    const mine = (current.node.comments || []).find(function(c) {
-      return c.by && c.by.id && c.by.id === ctrl.root.userId;
+    const el = vnode.elm as HTMLInputElement,
+    vData = vnode.data!,
+    mine = (current!.node.comments || []).find(function(c: any) {
+      return c.by && c.by.id && c.by.id === ctrl.root.opts.userId;
     });
+    vData!.path = current!.path;
     el.value = mine ? mine.text : '';
     if (ctrl.opening() || ctrl.focus()) el.focus();
     ctrl.opening(false);
-    if (!vData!.trap) {
+    if (!vData.trap) {
       vData.trap = window.Mousetrap(el);
       vData.trap.bind(['ctrl+enter', 'command+enter'], ctrl.close);
       vData.trap.stopCallback = () => false;
@@ -123,7 +136,7 @@ export function view(ctrl) {
       }),
       'Commenting position after ',
       h('button.button', {
-        class: { active: ctrl.root.vm.path === current.path },
+        class: { active: ctrl.root.path === current.path },
         hook: bind('click', _ => ctrl.root.userJump(current.path), ctrl.redraw)
       }, nodeFullName(current.node)),
       h('span.saved', {
@@ -146,7 +159,6 @@ export function view(ctrl) {
               function onChange() {
                 setTimeout(function() {
                   ctrl.submit(el.value);
-                  ctrl.redraw();
                 }, 50);
               }
               el.onkeyup = onChange;

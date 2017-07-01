@@ -165,7 +165,6 @@ export function view(ctrl): VNode {
         h('div.form-group', [
           h('input#chapter-name', {
             attrs: {
-              required: true,
               minlength: 2,
               maxlength: 80
             },

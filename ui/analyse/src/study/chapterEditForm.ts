@@ -1,14 +1,17 @@
 import { h } from 'snabbdom'
+import { VNode } from 'snabbdom/vnode'
 import { prop } from 'common';
 import { bind, spinner } from '../util';
 import * as dialog from './dialog';
 import * as chapterForm from './chapterNewForm';
+import { SocketSend } from '../socket';
+import { StudyChapterMeta } from './interfaces';
 
-export function ctrl(send, chapterConfig, redraw: () => void) {
+export function ctrl(send: SocketSend, chapterConfig, redraw: () => void) {
 
-  const current = prop<any>(null);
+  const current = prop<StudyChapterMeta | null>(null);
 
-  var open = function(data) {
+  function open(data) {
     // if (current()) m.redraw.strategy('all');
     current({
       id: data.id,
@@ -20,67 +23,75 @@ export function ctrl(send, chapterConfig, redraw: () => void) {
     });
   };
 
-  var isEditing = function(id) {
-    return current() ? current().id === id : false;
+  function isEditing(id) {
+    const c = current();
+    return c ? c.id === id : false;
   };
 
   return {
-    open: open,
-    toggle: function(data) {
+    open,
+    toggle(data) {
       if (isEditing(data.id)) current(null);
       else open(data);
     },
-    current: current,
-    submit: function(data) {
-      if (!current()) return;
-      data.id = current().id;
+    current,
+    submit(data) {
+      const c = current();
+      if (!c) return;
+      data.id = c.id;
       send("editChapter", data)
       current(null);
+      redraw();
     },
-    delete: function(id) {
+    delete(id) {
       send("deleteChapter", id);
       current(null);
     },
-    isEditing: isEditing
+    isEditing,
+    redraw
   }
 }
 
-export function view(ctrl) {
+export function view(ctrl): VNode | undefined {
 
-  var data = ctrl.current();
+  const data = ctrl.current();
   if (!data) return;
 
-  var isLoaded = !!data.orientation;
-  var mode = data.practice ? 'practice' : (data.conceal !== null ? 'conceal' : 'normal');
+  const isLoaded = !!data.orientation;
+  const mode = data.practice ? 'practice' : (data.conceal !== null ? 'conceal' : 'normal');
 
   return dialog.form({
-    onClose: () => ctrl.current(null),
+    onClose() {
+      ctrl.current(null);
+      ctrl.redraw();
+    },
     content: [
       h('h2', 'Edit chapter'),
       h('form.material.form', {
         hook: bind('submit', e => {
+          e.stopPropagation();
           ctrl.submit({
             name: chapterForm.fieldValue(e, 'name'),
             mode: chapterForm.fieldValue(e, 'mode'),
             orientation: chapterForm.fieldValue(e, 'orientation')
           });
-          e.stopPropagation();
           return false;
         })
       }, [
         h('div.form-group', [
           h('input#chapter-name', {
             attrs: {
-              required: true,
               minlength: 2,
               maxlength: 80
             },
-            insert: vnode => {
-              const el = vnode.elm as HTMLInputElement;
-              if (!el.value) {
-                el.value = data.name;
-                el.select();
-                el.focus();
+            hook: {
+              insert: vnode => {
+                const el = vnode.elm as HTMLInputElement;
+                if (!el.value) {
+                  el.value = data.name;
+                  el.select();
+                  el.focus();
+                }
               }
             }
           }),

@@ -1,12 +1,15 @@
 import { h } from 'snabbdom'
+import { Hooks } from 'snabbdom/hooks'
 import { fixCrazySan } from 'chess';
 
-export function bind(eventName: string, f: (e: Event) => void, redraw: (() => void) | undefined = undefined) {
+// export function bind(eventName: string, f: (e: Event) => any): Hooks;
+export function bind(eventName: string, f: (e: Event) => any, redraw?: () => void): Hooks {
   return {
     insert: vnode => {
       (vnode.elm as HTMLElement).addEventListener(eventName, e => {
-        f(e);
+        const res = f(e);
         if (redraw) redraw();
+        return res;
       });
     }
   };

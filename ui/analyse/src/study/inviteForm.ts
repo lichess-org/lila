@@ -1,12 +1,15 @@
 import { h } from 'snabbdom'
+import { VNode } from 'snabbdom/vnode'
 import { bind, titleNameToId } from '../util';
-import { prop } from 'common';
+import { prop, Prop } from 'common';
 import * as dialog from './dialog';
+import { SocketSend } from '../socket';
+import { StudyMemberMap } from './interfaces';
 
-export function ctrl(send, members, setTab, redraw: () => void) {
+export function ctrl(send: SocketSend, members: Prop<StudyMemberMap>, setTab: () => void, redraw: () => void) {
   const open = prop(false);
-  var followings = [];
-  var spectators = [];
+  let followings = [];
+  let spectators = [];
   function updateFollowings(f) {
     followings = f(followings);
     if (open()) redraw();
@@ -20,7 +23,7 @@ export function ctrl(send, members, setTab, redraw: () => void) {
         !existing.hasOwnProperty(titleNameToId(elem)); // remove existing members
       }).sort();
     },
-    members: members,
+    members,
     setSpectators(usernames) {
       spectators = usernames;
     },
@@ -51,16 +54,17 @@ export function ctrl(send, members, setTab, redraw: () => void) {
   };
 };
 
-export function view(ctrl) {
-  var candidates = ctrl.candidates();
+export function view(ctrl): VNode {
+  const candidates = ctrl.candidates();
   return dialog.form({
     class: 'study_invite',
-    onClose: () => ctrl.open(false),
+    onClose() {
+      ctrl.open(false);
+      ctrl.redraw();
+    },
     content: [
       h('h2', 'Invite to the study'),
-      h('p.info', {
-        attrs: { 'data-icon': '' }
-      }, [
+      h('p.info', { attrs: { 'data-icon': '' } }, [
         'Please only invite people you know,',
         h('br'),
         'and who actively want to join this study.'
@@ -70,23 +74,25 @@ export function view(ctrl) {
           attrs: { 'data-href': '/@/' + username },
           hook: bind('click', _ => ctrl.invite(username))
         }, username);
-      })) : null,
-      h('input', {
-        attrs: { placeholder: 'Search by username' },
-        hook: {
-          insert: vnode => {
-            const el = vnode.elm as HTMLInputElement;
-            window.lichess.userAutocomplete($(el), {
-              onSelect: function(v) {
-                ctrl.invite(v);
-                $(el).typeahead('close');
-                el.value = '';
-                ctrl.redraw();
-              }
-            });
+      })) : undefined,
+      h('div.input-wrapper', [ // because typeahead messes up with snabbdom
+        h('input', {
+          attrs: { placeholder: 'Search by username' },
+          hook: {
+            insert: vnode => {
+              const el = vnode.elm as HTMLInputElement;
+              window.lichess.userAutocomplete($(el), {
+                onSelect(v) {
+                  ctrl.invite(v);
+                  $(el).typeahead('close');
+                  el.value = '';
+                  ctrl.redraw();
+                }
+              });
+            }
           }
-        }
-      })
+        })
+      ])
     ]
   });
 }

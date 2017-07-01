@@ -38,26 +38,26 @@ export function ctrl(opts: Opts) {
   let spectatorIds: string[] = [];
   const max = 30;
 
-  var owner = function() {
+  function owner() {
     return dict()[opts.ownerId];
   };
 
-  var isOwner = function() {
+  function isOwner() {
     return opts.myId === opts.ownerId;
   };
 
-  var myMember = function() {
+  function myMember() {
     return opts.myId ? dict()[opts.myId] : null;
   };
 
-  var canContribute = function() {
+  function canContribute() {
     var m = myMember();
     return m && m.role === 'w';
   };
 
-  var inviteForm = inviteFormCtrl(opts.send, dict, opts.setTab, opts.redraw);
+  const inviteForm = inviteFormCtrl(opts.send, dict, opts.setTab, opts.redraw);
 
-  var setActive = function(id) {
+  function setActive(id) {
     if (active[id]) active[id]();
     else active[id] = memberActivity(function() {
       delete(active[id]);
@@ -237,7 +237,7 @@ export function view(ctrl: StudyController): VNode {
       insert: _ => window.lichess.pubsub.emit('content_loaded')()
     }
   }, [
-    ordered.map(function(member) {
+    ...ordered.map(function(member) {
       const confing = ctrl.members.confing() === member.user.id;
       return [
         h('div.elem.member', {
@@ -252,7 +252,7 @@ export function view(ctrl: StudyController): VNode {
         ]),
         confing ? memberConfig(member) : null
       ];
-    }),
+    }).reduce((a, b) => a.concat(b), []),
     (isOwner && ordered.length < ctrl.members.max) ? h('div.elem.member.add', {
       key: 'invite-someone',
       hook: bind('click', ctrl.members.inviteForm.toggle, ctrl.redraw)

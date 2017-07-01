@@ -1,4 +1,5 @@
 import { h } from 'snabbdom'
+import { VNode } from 'snabbdom/vnode'
 
 interface Notif {
   duration: number;
@@ -27,7 +28,7 @@ export function ctrl(redraw: () => void) {
   };
 };
 
-export function view(ctrl: NotifController) {
+export function view(ctrl: NotifController): VNode | undefined {
   const c = ctrl.get();
   return c ? h('div.notif.' + c.class, c.text) : undefined;
 };
