@@ -91,12 +91,6 @@ final class Cached(
     expireAfter = _.ExpireAfterWrite(10 seconds)
   )
 
-  val top50OnlineIds = asyncCache.single[List[User.ID]](
-    name = "user.top50onlineid",
-    f = UserRepo.idsByIdsSortRating(onlineUserIdMemo.keys, 50),
-    expireAfter = _.ExpireAfterWrite(10 seconds)
-  )
-
   object ranking {
 
     def getAll(userId: User.ID): Fu[Map[Perf.Key, Int]] =

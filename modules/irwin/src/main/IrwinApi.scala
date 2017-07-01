@@ -100,9 +100,9 @@ final class IrwinApi(
           }
       }
 
-    private[irwin] def fromLeaderboard(leaders: List[User.ID]): Funit =
-      lila.common.Future.applySequentially(leaders) { userId =>
-        insert(userId, _.Leaderboard, none)
+    private[irwin] def fromLeaderboard(leaders: List[User]): Funit =
+      lila.common.Future.applySequentially(leaders) { user =>
+        insert(user.id, _.Leaderboard, none)
       }
   }
 
