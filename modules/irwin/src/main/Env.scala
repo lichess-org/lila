@@ -33,11 +33,7 @@ final class Env(
     tournamentApi.allCurrentLeadersInStandard flatMap api.requests.fromTournamentLeaders
   }
   scheduler.future(15 minutes, "irwin leaderboards") {
-    lila.common.Future.applySequentially(lila.rating.PerfType.standard) { pt =>
-      userCache.top200Perf(pt.id) flatMap { users =>
-        api.requests.fromLeaderboard(users.map(_.user.id))
-      }
-    }
+    userCache.top50Online.get flatMap api.requests.fromLeaderboard
   }
 
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {

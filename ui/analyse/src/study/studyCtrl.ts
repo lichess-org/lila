@@ -410,6 +410,14 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
         ctrl.tree.setGlyphsAt(d.g, position.path);
         redraw();
       },
+      clock: function(d) {
+        var position = d.p,
+          who = d.w;
+        who && members.setActive(who.u);
+        if (wrongChapter(d)) return;
+        ctrl.tree.setClockAt(d.c, position.path);
+        m.redraw();
+      },
       conceal: function(d) {
         if (wrongChapter(d)) return;
         data.chapter.conceal = d.ply;

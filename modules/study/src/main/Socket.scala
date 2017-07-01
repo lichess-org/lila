@@ -5,6 +5,7 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 
 import chess.format.pgn.Glyphs
+import chess.Centis
 import lila.hub.TimeBomb
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Socket.Uid
@@ -26,7 +27,7 @@ private final class Socket(
   import Socket._
   import JsonView._
   import jsonView.membersWrites
-  import lila.tree.Node.{ openingWriter, commentWriter, glyphsWriter, shapesWrites }
+  import lila.tree.Node.{ openingWriter, commentWriter, glyphsWriter, shapesWrites, clockWrites }
 
   private val timeBomb = new TimeBomb(socketTimeout)
 
@@ -142,6 +143,12 @@ private final class Socket(
     case SetGlyphs(pos, glyphs, uid) => notifyVersion("glyphs", Json.obj(
       "p" -> pos,
       "g" -> glyphs,
+      "w" -> who(uid)
+    ), noMessadata)
+
+    case SetClock(pos, clock, uid) => notifyVersion("clock", Json.obj(
+      "p" -> pos,
+      "c" -> clock,
       "w" -> who(uid)
     ), noMessadata)
 
@@ -280,6 +287,7 @@ private object Socket {
   case class SetComment(position: Position.Ref, comment: Comment, uid: Uid)
   case class DeleteComment(position: Position.Ref, commentId: Comment.Id, uid: Uid)
   case class SetGlyphs(position: Position.Ref, glyphs: Glyphs, uid: Uid)
+  case class SetClock(position: Position.Ref, clock: Option[Centis], uid: Uid)
   case class ReloadChapters(chapters: List[Chapter.Metadata])
   case object ReloadAll
   case class ChangeChapter(uid: Uid, position: Position.Ref)

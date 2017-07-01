@@ -112,19 +112,7 @@ object Node {
       }
     }
 
-    def setShapesAt(shapes: Shapes, path: Path): Option[Children] =
-      updateAt(path, _ setShapes shapes)
-
-    def setCommentAt(comment: Comment, path: Path): Option[Children] =
-      updateAt(path, _ setComment comment)
-
-    def deleteCommentAt(commentId: Comment.Id, path: Path): Option[Children] =
-      updateAt(path, _ deleteComment commentId)
-
-    def toggleGlyphAt(glyph: Glyph, path: Path): Option[Children] =
-      updateAt(path, _ toggleGlyph glyph)
-
-    private def updateAt(path: Path, f: Node => Node): Option[Children] = path.split match {
+    def updateAt(path: Path, f: Node => Node): Option[Children] = path.split match {
       case None => none
       case Some((head, Path(Nil))) => updateWith(head, n => Some(f(n)))
       case Some((head, tail)) => updateChildren(head, _.updateAt(tail, f))
@@ -186,18 +174,26 @@ object Node {
 
     def setShapesAt(shapes: Shapes, path: Path): Option[Root] =
       if (path.isEmpty) copy(shapes = shapes).some
-      else withChildren(_.setShapesAt(shapes, path))
+      else updateChildrenAt(path, _ setShapes shapes)
 
     def setCommentAt(comment: Comment, path: Path): Option[Root] =
       if (path.isEmpty) copy(comments = comments set comment).some
-      else withChildren(_.setCommentAt(comment, path))
+      else updateChildrenAt(path, _ setComment comment)
+
     def deleteCommentAt(commentId: Comment.Id, path: Path): Option[Root] =
       if (path.isEmpty) copy(comments = comments delete commentId).some
-      else withChildren(_.deleteCommentAt(commentId, path))
+      else updateChildrenAt(path, _ deleteComment commentId)
 
     def toggleGlyphAt(glyph: Glyph, path: Path): Option[Root] =
       if (path.isEmpty) copy(glyphs = glyphs toggle glyph).some
-      else withChildren(_.toggleGlyphAt(glyph, path))
+      else updateChildrenAt(path, _ toggleGlyph glyph)
+
+    def setClockAt(clock: Option[Centis], path: Path): Option[Root] =
+      if (path.isEmpty) copy(clock = clock).some
+      else updateChildrenAt(path, _ withClock clock)
+
+    private def updateChildrenAt(path: Path, f: Node => Node): Option[Root] =
+      withChildren(_.updateAt(path, f))
 
     def updateMainlineLast(f: Node => Node): Root = children.first.fold(this) { main =>
       copy(children = children.update(main updateMainlineLast f))

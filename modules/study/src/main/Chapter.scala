@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.Color
+import chess.{ Color, Centis }
 import chess.format.pgn.{ Glyph, Tag }
 import chess.variant.Variant
 import org.joda.time.DateTime
@@ -44,6 +44,9 @@ case class Chapter(
 
   def toggleGlyph(glyph: Glyph, path: Path): Option[Chapter] =
     updateRoot(_.toggleGlyphAt(glyph, path))
+
+  def setClock(clock: Option[Centis], path: Path): Option[Chapter] =
+    updateRoot(_.setClockAt(clock, path))
 
   def opening: Option[FullOpening] =
     if (!Variant.openingSensibleVariants(setup.variant)) none

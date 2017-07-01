@@ -171,6 +171,12 @@ export default function(root: Tree.Node) {
     });
   }
 
+  function setClockAt(clock: number | undefined, path: Tree.Path) {
+    updateAt(path, function(node) {
+      node.clock = clock;
+    });
+  }
+
   function getParentClock(node: Tree.Node, path: Tree.Path) {
     if (!('parentClock' in node)) {
       var parent = path && nodeAtPath(treePath.init(path));
@@ -207,6 +213,7 @@ export default function(root: Tree.Node) {
     setCommentAt: setCommentAt,
     deleteCommentAt: deleteCommentAt,
     setGlyphsAt: setGlyphsAt,
+    setClockAt: setClockAt,
     pathIsMainline: pathIsMainline,
     lastMainlineNode: lastMainlineNode,
     pathExists(path: Tree.Path) {
