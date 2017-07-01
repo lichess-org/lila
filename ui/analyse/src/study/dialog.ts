@@ -1,4 +1,5 @@
 import { h } from 'snabbdom'
+import { VNode } from 'snabbdom/vnode'
 import { MaybeVNodes } from '../interfaces';
 import { bind } from '../util';
 
@@ -8,7 +9,7 @@ interface Dialog {
   onClose(): void;
 }
 
-export function form(d: Dialog) {
+export function form(d: Dialog): VNode {
   return h('div.lichess_overboard.study_overboard.' + d.class, {
     hook: {
       insert: _ => window.lichess.loadCss('/assets/stylesheets/material.form.css')
@@ -21,7 +22,7 @@ export function form(d: Dialog) {
   ] as MaybeVNodes).concat(d.content));
 }
 
-export function button(name: string) {
+export function button(name: string): VNode {
   return h('div.button-container',
     h('button.submit.button', {
       attrs: { type: 'submit' },

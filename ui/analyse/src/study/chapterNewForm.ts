@@ -1,10 +1,12 @@
 import { h } from 'snabbdom'
+import { VNode } from 'snabbdom/vnode'
 import { prop, storedProp, Prop } from 'common';
 import { bind, spinner } from '../util';
 import { variants as xhrVariants } from './studyXhr';
 import * as dialog from './dialog';
 import { chapter as chapterTour } from './studyTour';
-import { StudyChapter } from './interfaces';
+import { StudyChapterMeta } from './interfaces';
+import { SocketSend } from '../socket';
 import AnalyseController from '../ctrl';
 
 export const modeChoices = [
@@ -18,7 +20,7 @@ export function fieldValue(e: Event, id: string) {
   return el ? (el as HTMLInputElement).value : null;
 };
 
-export function ctrl(send, chapters: Prop<StudyChapter[]>, setTab: () => void, root: AnalyseController) {
+export function ctrl(send: SocketSend, chapters: Prop<StudyChapterMeta[]>, setTab: () => void, root: AnalyseController) {
 
   const multiPgnMax = 20;
 
@@ -31,27 +33,27 @@ export function ctrl(send, chapters: Prop<StudyChapter[]>, setTab: () => void, r
     editorFen: prop(null)
   };
 
-  var loadVariants = function() {
+  function loadVariants() {
     if (!vm.variants.length) xhrVariants().then(function(vs) {
       vm.variants = vs;
       root.redraw();
     });
   };
 
-  var open = function() {
+  function open() {
     vm.open = true;
     loadVariants();
     vm.initial(false);
   };
-  var close = function() {
+  function close() {
     vm.open = false;
   };
 
-  var identity = function(x) {
+  function identity<A>(x: A): A {
     return x;
   }
 
-  var submitMultiPgn = function(d) {
+  function submitMultiPgn(d) {
     if (d.pgn) {
       var lines = d.pgn.split('\n');
       var parts = lines.map(function(l, i) {
@@ -89,40 +91,40 @@ export function ctrl(send, chapters: Prop<StudyChapter[]>, setTab: () => void, r
     }
   };
 
-  var submitSingle = function(d) {
+  function submitSingle(d) {
     d.initial = vm.initial();
     d.sticky = root.study.vm.mode.sticky;
     send("addChapter", d)
   };
 
   return {
-    vm: vm,
-    open: open,
-    root: root,
-    openInitial: function() {
+    vm,
+    open,
+    root,
+    openInitial() {
       open();
       vm.initial(true);
     },
-    close: close,
-    toggle: function() {
+    close,
+    toggle() {
       if (vm.open) close();
       else open();
     },
-    submit: function(d) {
+    submit(d) {
       if (!submitMultiPgn(d)) submitSingle(d);
       close();
       setTab();
     },
-    chapters: chapters,
+    chapters,
     startTour: () => chapterTour(tab => {
       vm.tab(tab);
       root.redraw();
     }),
-    multiPgnMax: multiPgnMax
+    multiPgnMax
   }
 }
 
-export function view(ctrl) {
+export function view(ctrl): VNode {
 
   const activeTab = ctrl.vm.tab();
   const makeTab = function(key: string, name: string, title: string) {

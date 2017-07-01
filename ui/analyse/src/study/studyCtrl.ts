@@ -12,23 +12,22 @@ import { ctrl as tagsCtrl } from './studyTags';
 import * as tours from './studyTour';
 import * as xhr from './studyXhr';
 import { path as treePath } from 'tree';
-import { TagTypes, StudyData } from './interfaces';
+import { StudyController, StudyVm, TagTypes, StudyData, StudyChapterMeta, ReloadData } from './interfaces';
 
 // data.position.path represents the server state
 // ctrl.path is the client state
-export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagTypes, practiceData) {
+export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagTypes, practiceData): StudyController {
 
   const send = ctrl.socket.send;
   const redraw = ctrl.redraw;
 
   const sri: string = window.lichess.StrongSocket.sri;
 
-  var vm = (function() {
+  const vm: StudyVm = (function() {
     const isManualChapter = data.chapter.id !== data.position.chapterId;
     const sticked = data.features.sticky && !ctrl.initialPath && !isManualChapter && !practiceData;
     return {
       loading: false,
-      nextChapterId: false,
       tab: prop(data.chapters.length > 1 ? 'chapters' : 'members'),
       chapterId: sticked ? data.position.chapterId : data.chapter.id,
       // path is at ctrl.vm.path
@@ -42,7 +41,7 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
 
   const notif = notifCtrl(redraw);
 
-  var form = studyFormCtrl(function(d, isNew) {
+  const form = studyFormCtrl(function(d, isNew) {
     send("editStudy", d);
     if (isNew && data.chapter.setup.variant.key === 'standard' && ctrl.mainline.length === 1 && !data.chapter.setup.fromFen)
       chapters.newForm.openInitial();
@@ -66,17 +65,17 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
     redraw: redraw
   });
 
-  var chapters = chapterCtrl(
+  const chapters = chapterCtrl(
     data.chapters,
     send,
     () => vm.tab('chapters'),
     chapterId => xhr.chapterConfig(data.id, chapterId),
     ctrl);
 
-  function currentChapter() {
-    return chapters.get(vm.chapterId);
+  function currentChapter(): StudyChapterMeta {
+    return chapters.get(vm.chapterId)!;
   };
-  var isChapterOwner = function() {
+  function isChapterOwner() {
     return ctrl.opts.userId === data.chapter.ownerId;
   };
 
@@ -88,13 +87,11 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
     return vm.mode.sticky = false;
   };
 
-  var commentForm = commentFormCtrl(ctrl);
-  var glyphForm = glyphFormCtrl(ctrl);
-  var tags = tagsCtrl(ctrl, function() {
-    return data.chapter;
-  }, members, tagTypes);
+  const commentForm = commentFormCtrl(ctrl);
+  const glyphForm = glyphFormCtrl(ctrl);
+  const tags = tagsCtrl(ctrl, () => data.chapter, members, tagTypes);
 
-  var addChapterId = function(req) {
+  function addChapterId(req) {
     req.ch = data.position.chapterId;
     return req;
   }
@@ -121,10 +118,10 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
     if (practice) practice.onReload();
   };
 
-  var onReload = function(d) {
-    var s = d.study;
-    var prevPath = ctrl.path;
-    var sameChapter = data.chapter.id === s.chapter.id;
+  function onReload(d: ReloadData) {
+    const s = d.study!;
+    const prevPath = ctrl.path;
+    const sameChapter = data.chapter.id === s.chapter.id;
     vm.mode.sticky = (vm.mode.sticky && s.features.sticky) || (!data.features.sticky && s.features.sticky);
     if (vm.mode.sticky) vm.behind = 0;
     if (vm.mode.sticky && s.position !== data.position) commentForm.close();
@@ -137,7 +134,7 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
     chapters.list(s.chapters);
     ctrl.flipped = false;
 
-    var merge = !vm.mode.write && sameChapter;
+    const merge = !vm.mode.write && sameChapter;
     ctrl.reloadData(d.analysis, merge);
     configureAnalysis();
     vm.loading = false;
@@ -151,7 +148,7 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
       ctrl.userJump(data.position.path);
     } else {
       // path could be gone
-      var path = sameChapter ? ctrl.tree.longestValidPath(prevPath) : treePath.root;
+      const path = sameChapter ? ctrl.tree.longestValidPath(prevPath) : treePath.root;
       ctrl.userJump(path);
     }
 
@@ -162,7 +159,7 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
     ctrl.startCeval();
   };
 
-  var xhrReload = function() {
+  function xhrReload() {
     vm.loading = true;
     return xhr.reload(
       practice ? 'practice/load' : 'study',
@@ -171,7 +168,7 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
     ).then(onReload, window.lichess.reload);
   };
 
-  var onSetPath = throttle(300, false, function(path) {
+  const onSetPath = throttle(300, false, function(path) {
     if (vm.mode.sticky && path !== data.position.path) makeChange("setPath", addChapterId({
       path: path
     }));
@@ -208,55 +205,55 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
   };
 
   return {
-    data: data,
-    form: form,
-    members: members,
-    chapters: chapters,
-    notif: notif,
-    commentForm: commentForm,
-    glyphForm: glyphForm,
-    share: share,
-    tags: tags,
-    vm: vm,
+    data,
+    form,
+    members,
+    chapters,
+    notif,
+    commentForm,
+    glyphForm,
+    share,
+    tags,
+    vm,
     toggleLike() {
       send("like", {
         liked: !data.liked
       });
     },
-    position: function() {
+    position() {
       return data.position;
     },
-    currentChapter: currentChapter,
-    isChapterOwner: isChapterOwner,
+    currentChapter,
+    isChapterOwner,
     canJumpTo(path: Tree.Path) {
       return data.chapter.conceal === null ||
         isChapterOwner() ||
         treePath.contains(ctrl.path, path) || // can always go back
         ctrl.tree.lastMainlineNode(path).ply <= data.chapter.conceal!;
     },
-    onJump: practice ? practice.onJump : function() {},
-    withPosition: function(obj) {
+    onJump: practice ? practice.onJump : $.noop,
+    withPosition(obj) {
       obj.ch = vm.chapterId;
       obj.path = ctrl.path;
       return obj;
     },
-    setPath: function(path, node) {
+    setPath(path, node) {
       onSetPath(path);
       setTimeout(() => commentForm.onSetPath(path, node), 100);
     },
-    deleteNode: function(path) {
+    deleteNode(path) {
       makeChange("deleteNode", addChapterId({
         path: path,
         jumpTo: ctrl.path
       }));
     },
-    promote: function(path, toMainline) {
+    promote(path, toMainline) {
       makeChange("promote", addChapterId({
         toMainline: toMainline,
         path: path
       }));
     },
-    setChapter: function(id, force) {
+    setChapter(id, force) {
       if (id === vm.chapterId && !force) return;
       if (!vm.mode.sticky || !makeChange("setChapter", id)) {
         vm.mode.sticky = false;
@@ -275,12 +272,13 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
       vm.mode.write = !vm.mode.write && members.canContribute();
       xhrReload();
     },
-    makeChange: makeChange,
-    startTour: startTour,
+    makeChange,
+    startTour,
     userJump: ctrl.userJump,
-    currentNode: currentNode,
-    practice: practice,
-    mutateCgConfig: mutateCgConfig,
+    currentNode,
+    practice,
+    mutateCgConfig,
+    redraw,
     socketHandlers: {
       path: function(d) {
         var position = d.p,

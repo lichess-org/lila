@@ -1,9 +1,10 @@
 import { h } from 'snabbdom'
+import { VNode } from 'snabbdom/vnode'
 import { titleNameToId, bind, dataIcon } from '../util';
 import { prop } from 'common';
 import { ctrl as inviteFormCtrl } from './inviteForm';
 import { SocketSend } from '../socket';
-import { StudyMember, StudyMemberMap } from './interfaces';
+import { StudyController, StudyMember, StudyMemberMap } from './interfaces';
 import { NotifController } from './notif';
 
 interface Opts {
@@ -75,16 +76,16 @@ export function ctrl(opts: Opts) {
   }
 
   return {
-    dict: dict,
-    confing: confing,
+    dict,
+    confing,
     myId: opts.myId,
-    inviteForm: inviteForm,
-    update: function(members) {
+    inviteForm,
+    update(members: StudyMemberMap) {
       if (isOwner()) confing(Object.keys(members).find(function(uid) {
         return !dict()[uid];
       }));
-      var wasViewer = myMember() && !canContribute();
-      var wasContrib = myMember() && canContribute();
+      const wasViewer = myMember() && !canContribute();
+      const wasContrib = myMember() && canContribute();
       dict(members);
       if (wasViewer && canContribute()) {
         if (window.lichess.once('study-tour')) opts.startTour();
@@ -99,16 +100,16 @@ export function ctrl(opts: Opts) {
       });
       updateOnline();
     },
-    setActive: setActive,
-    isActive: function(id) {
+    setActive,
+    isActive(id) {
       return !!active[id];
     },
-    owner: owner,
-    myMember: myMember,
-    isOwner: isOwner,
-    canContribute: canContribute,
-    max: max,
-    setRole: function(id, role) {
+    owner,
+    myMember,
+    isOwner,
+    canContribute,
+    max,
+    setRole(id, role) {
       setActive(id);
       opts.send("setRole", {
         userId: id,
@@ -116,24 +117,22 @@ export function ctrl(opts: Opts) {
       });
       confing(undefined);
     },
-    kick: function(id) {
+    kick(id) {
       opts.send("kick", id);
       confing(undefined);
     },
-    leave: function() {
+    leave() {
       opts.send("leave");
     },
-    ordered: function() {
-      var d = dict();
-      return Object.keys(d).map(function(id) {
-        return d[id];
-      }).sort(function(a, b) {
+    ordered() {
+      const d = dict();
+      return Object.keys(d).map(id => d[id]).sort(function(a, b) {
         if (a.role === 'r' && b.role === 'w') return 1;
         if (a.role === 'w' && b.role === 'r') return -1;
         return a.addedAt > b.addedAt ? 1 : -1;
       });
     },
-    size: function() {
+    size() {
       return Object.keys(dict()).length;
     },
     setSpectators: function(usernames) {
@@ -141,32 +140,31 @@ export function ctrl(opts: Opts) {
       spectatorIds = usernames.map(titleNameToId);
       updateOnline();
     },
-    isOnline: function(userId) {
+    isOnline(userId: string) {
       return online[userId];
     },
-    titleNameToId: titleNameToId,
-    hasOnlineContributor: function() {
-      var members = dict();
-      for (var i in members)
-      if (online[i] && members[i].role === 'w') return true;
+    titleNameToId,
+    hasOnlineContributor() {
+      const members = dict();
+      for (let i in members) if (online[i] && members[i].role === 'w') return true;
       return false;
     }
   };
 }
 
-export function view(ctrl) {
+export function view(ctrl: StudyController): VNode {
 
-  var isOwner = ctrl.members.isOwner();
+  const isOwner = ctrl.members.isOwner();
 
-  var username = function(member) {
+  function username(member: StudyMember) {
     var u = member.user;
     return h('span.user_link.ulpt', {
       attrs: { 'data-href': '/@/' + u.name }
     }, (u.title ? u.title + ' ' : '') + u.name);
   };
 
-  var statusIcon = function(member) {
-    var contrib = member.role === 'w';
+  function statusIcon(member: StudyMember) {
+    const contrib = member.role === 'w';
     return h('span.status', {
       class: {
         contrib: contrib,
@@ -175,13 +173,11 @@ export function view(ctrl) {
       },
       attrs: { title: contrib ? 'Contributor' : 'Viewer' },
     }, [
-      h('i', {
-        attrs: { 'data-icon': contrib ? '' : 'v' }
-      })
+      h('i', { attrs: dataIcon(contrib ? '' : 'v') })
     ]);
   };
 
-  var configButton = function(ctrl, member) {
+  function configButton(ctrl: StudyController, member: StudyMember) {
     if (isOwner && member.user.id !== ctrl.members.myId)
     return h('i.action.config', {
       key: 'cfg-' + member.user.id,
@@ -201,7 +197,7 @@ export function view(ctrl) {
       });
   };
 
-  function memberConfig(member: StudyMember) {
+  function memberConfig(member: StudyMember): VNode {
     const roleId = 'member-role';
     return h('div.config', {
       key: member.user.id + '-config',
@@ -236,37 +232,35 @@ export function view(ctrl) {
 
   var ordered = ctrl.members.ordered();
 
-  return [
-    h('div.list.members', {
-      hook: {
-        insert: _ => window.lichess.pubsub.emit('content_loaded')()
-      }
-    }, [
-      ordered.map(function(member) {
-        const confing = ctrl.members.confing() === member.user.id;
-        return [
-          h('div.elem.member', {
-            key: member.user.id,
-            class: { editing: !!confing }
-          }, [
-            h('div.left', [
-              statusIcon(member),
-              username(member)
-            ]),
-            configButton(ctrl, member)
+  return h('div.list.members', {
+    hook: {
+      insert: _ => window.lichess.pubsub.emit('content_loaded')()
+    }
+  }, [
+    ordered.map(function(member) {
+      const confing = ctrl.members.confing() === member.user.id;
+      return [
+        h('div.elem.member', {
+          key: member.user.id,
+          class: { editing: !!confing }
+        }, [
+          h('div.left', [
+            statusIcon(member),
+            username(member)
           ]),
-          confing ? memberConfig(member) : null
-        ];
-      }),
-      (isOwner && ordered.length < ctrl.members.max) ? h('div.elem.member.add', {
-        key: 'invite-someone',
-        hook: bind('click', ctrl.members.inviteForm.toggle, ctrl.redraw)
-      }, [
-        h('div.left', [
-          h('span.status', h('i', { attrs: dataIcon('O') })),
-          h('span.add_text', 'Add members')
-        ])
-      ]) : null
-    ])
-  ];
+          configButton(ctrl, member)
+        ]),
+        confing ? memberConfig(member) : null
+      ];
+    }),
+    (isOwner && ordered.length < ctrl.members.max) ? h('div.elem.member.add', {
+      key: 'invite-someone',
+      hook: bind('click', ctrl.members.inviteForm.toggle, ctrl.redraw)
+    }, [
+      h('div.left', [
+        h('span.status', h('i', { attrs: dataIcon('O') })),
+        h('span.add_text', 'Add members')
+      ])
+    ]) : null
+  ]);
 }

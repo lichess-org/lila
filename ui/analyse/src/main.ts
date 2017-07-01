@@ -5,7 +5,7 @@ import AnalyseController from './ctrl';
 
 import makeCtrl from './ctrl';
 import view from './view';
-// import { main as studyView } from './study/studyView';
+import { main as studyView } from './study/studyView';
 // import studyPracticeView from './study/practice/studyPracticeView';
 import boot = require('./boot');
 import { Chessground } from 'chessground';
@@ -21,8 +21,11 @@ export function start(opts: AnalyseOpts) {
 
   let vnode: VNode, ctrl: AnalyseController;
 
+  let redrawSide = () => {};
+
   function redraw() {
     vnode = patch(vnode, view(ctrl));
+    redrawSide();
   }
 
   ctrl = new makeCtrl(opts, redraw);
@@ -31,13 +34,13 @@ export function start(opts: AnalyseOpts) {
   opts.element.innerHTML = '';
   vnode = patch(opts.element, blueprint);
 
-  // if (controller.study && opts.sideElement) m.module(opts.sideElement, {
-  //   controller: function() {
-  //     m.redraw.strategy("diff"); // prevents double full redraw on page load
-  //     return controller.study;
-  //   },
-  //   view: controller.studyPractice ? studyPracticeView.main : studyView.main
-  // });
+  if (ctrl.study && opts.sideElement) {
+    const sideView = studyView; // controller.studyPractice ? studyPracticeView : studyView
+    let sideVnode = patch(opts.sideElement, sideView(ctrl.study));
+    redrawSide = () => {
+      sideVnode = patch(sideVnode, sideView(ctrl.study));
+    }
+  }
 
   return {
     socketReceive: ctrl.socket.receive,

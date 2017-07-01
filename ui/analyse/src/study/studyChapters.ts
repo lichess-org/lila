@@ -1,16 +1,16 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { prop } from 'common';
+import { prop, Prop } from 'common';
 import { bind } from '../util';
 import { ctrl as chapterNewForm } from './chapterNewForm';
 import { ctrl as chapterEditForm } from './chapterEditForm';
 import { SocketSend } from '../socket';
 import AnalyseController from '../ctrl';
-import { StudyController } from './interfaces';
+import { StudyController, StudyChapterMeta } from './interfaces';
 
-export function ctrl(initChapters, send: SocketSend, setTab, chapterConfig, root: AnalyseController) {
+export function ctrl(initChapters: StudyChapterMeta[], send: SocketSend, setTab: () => void, chapterConfig, root: AnalyseController) {
 
-  const list = prop(initChapters);
+  const list: Prop<StudyChapterMeta[]> = prop(initChapters);
 
   const newForm = chapterNewForm(send, list, setTab, root);
   const editForm = chapterEditForm(send, chapterConfig, root.redraw);
@@ -24,16 +24,16 @@ export function ctrl(initChapters, send: SocketSend, setTab, chapterConfig, root
         return c.id === id;
       });
     },
-    size: function() {
+    size() {
       return list().length;
     },
-    sort: function(ids) {
+    sort(ids) {
       send("sortChapters", ids);
     },
-    firstChapterId: function() {
+    firstChapterId() {
       return list()[0].id;
     },
-    toggleNewForm: function() {
+    toggleNewForm() {
       if (newForm.vm.open || list().length < 64) newForm.toggle();
       else alert("You have reached the limit of 64 chapters per study. Please create a new study.");
     }

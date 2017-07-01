@@ -1,13 +1,14 @@
 import { h } from 'snabbdom'
+import { VNode } from 'snabbdom/vnode'
 import * as dialog from './dialog';
 import { bind } from '../util';
 import { prop } from 'common';
 import { renderIndexAndMove } from '../moveView';
-import { StudyData, StudyChapter } from './interfaces';
+import { StudyData, StudyChapterMeta } from './interfaces';
 
 const baseUrl = 'https://lichess.org/study/';
 
-function fromPly(ctrl) {
+function fromPly(ctrl): VNode {
   var node = ctrl.currentNode();
   return h('div.ply-wrap', h('label.ply', [
     h('input', {
@@ -24,17 +25,17 @@ function fromPly(ctrl) {
   ]));
 }
 
-export function ctrl(data: StudyData, currentChapter: () => StudyChapter, currentNode: () => Tree.Node, redraw: () => void) {
+export function ctrl(data: StudyData, currentChapter: () => StudyChapterMeta, currentNode: () => Tree.Node, redraw: () => void) {
   const open = prop(false);
   const withPly = prop(false);
   return {
     open,
-    toggle: function() {
+    toggle() {
       open(!open());
     },
     studyId: data.id,
     chapter: currentChapter,
-    isPublic: function() {
+    isPublic() {
       return data.visibility === 'public';
     },
     currentNode,

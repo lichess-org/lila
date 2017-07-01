@@ -1,10 +1,10 @@
 import { Prop } from 'common';
 import { NotifController } from './notif';
+import { AnalyseData } from '../interfaces';
 
 export interface StudyController {
   data: StudyData;
-  setChapter(id: string): void;
-  currentChapter(): StudyChapter;
+  currentChapter(): StudyChapterMeta;
   socketHandlers: { [key: string]: any };
   vm: StudyVm;
   form: any;
@@ -24,7 +24,7 @@ export interface StudyController {
   setPath(path: Tree.Path, node: Tree.Node): void;
   deleteNode(path: Tree.Path): void;
   promote(path: Tree.Path, toMainline: boolean): void;
-  setChapter(id: string, force: boolean): void;
+  setChapter(id: string, force?: boolean): void;
   toggleSticky(): void;
   toggleWrite(): void;
   makeChange(t: string, d: any): boolean;
@@ -36,10 +36,10 @@ export interface StudyController {
   redraw(): void;
 }
 
-interface StudyVm {
+export interface StudyVm {
   loading: boolean;
-  nextChapterId: boolean;
-  tab: Prop<'chapters' | 'members'>;
+  nextChapterId?: string;
+  tab: Prop<string>;
   chapterId: string;
   mode: {
     sticky: boolean;
@@ -47,6 +47,7 @@ interface StudyVm {
   };
   behind: number;
 }
+
 
 export interface StudyData {
   id: string;
@@ -64,6 +65,11 @@ export interface StudyData {
   features: StudyFeatures;
   chapters: StudyChapterMeta[]
   chapter: StudyChapter;
+}
+
+export interface ReloadData {
+  analysis: AnalyseData;
+  study: StudyData;
 }
 
 interface Position {

@@ -101,7 +101,7 @@ function metadata(ctrl: StudyController): VNode | undefined {
   ]);
 }
 
-export function main(ctrl: StudyController) {
+export function main(ctrl: StudyController): VNode {
 
   const activeTab = ctrl.vm.tab();
 
@@ -117,19 +117,17 @@ export function main(ctrl: StudyController) {
     makeTab('chapters', plural('Chapter', ctrl.chapters.size())),
     ctrl.members.isOwner() ? h('a.more', {
       hook: bind('click', () => ctrl.form.open(!ctrl.form.open()))
-    }, [
-      h('i', { attrs: dataIcon('[') })
-      ]) : null
+    }, [ h('i', { attrs: dataIcon('[') }) ]) : null
     ]);
 
-  var panel;
+  let panel;
   if (activeTab === 'members') panel = memberView(ctrl);
   else if (activeTab === 'chapters') panel = chapterView(ctrl);
 
-  return [
+  return h('div.side_box.study_box', [
     tabs,
     panel
-  ];
+  ]);
 }
 
 export function contextMenu(ctrl: StudyController, path: Tree.Path, node: Tree.Node): VNode[] {
