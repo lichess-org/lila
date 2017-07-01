@@ -33,7 +33,7 @@ final class Env(
     tournamentApi.allCurrentLeadersInStandard flatMap api.requests.fromTournamentLeaders
   }
   scheduler.future(15 minutes, "irwin leaderboards") {
-    userCache.top50Online.get >>- api.requests.fromLeaderboard(_)
+    userCache.top50OnlineIds.get flatMap api.requests.fromLeaderboard
   }
 
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {

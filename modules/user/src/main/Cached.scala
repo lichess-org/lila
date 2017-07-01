@@ -85,8 +85,14 @@ final class Cached(
     keyToString = _.toString
   )
 
-  val top50Online = asyncCache.single[List[User.ID]](
+  val top50Online = asyncCache.single[List[User]](
     name = "user.top50online",
+    f = UserRepo.byIdsSortRating(onlineUserIdMemo.keys, 50),
+    expireAfter = _.ExpireAfterWrite(10 seconds)
+  )
+
+  val top50OnlineIds = asyncCache.single[List[User.ID]](
+    name = "user.top50onlineid",
     f = UserRepo.idsByIdsSortRating(onlineUserIdMemo.keys, 50),
     expireAfter = _.ExpireAfterWrite(10 seconds)
   )
