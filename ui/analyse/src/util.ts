@@ -2,7 +2,6 @@ import { h } from 'snabbdom'
 import { Hooks } from 'snabbdom/hooks'
 import { fixCrazySan } from 'chess';
 
-// export function bind(eventName: string, f: (e: Event) => any): Hooks;
 export function bind(eventName: string, f: (e: Event) => any, redraw?: () => void): Hooks {
   return {
     insert: vnode => {

@@ -55,8 +55,8 @@ export function ctrl(send: SocketSend, chapters: Prop<StudyChapterMeta[]>, setTa
 
   function submitMultiPgn(d) {
     if (d.pgn) {
-      var lines = d.pgn.split('\n');
-      var parts = lines.map(function(l, i) {
+      const lines = d.pgn.split('\n');
+      const parts = lines.map(function(l, i) {
         // ensure 2 spaces after each game
         if (!l.trim() && i && lines[i - 1][0] !== '[') return '\n';
         return l;
@@ -66,7 +66,7 @@ export function ctrl(send: SocketSend, chapters: Prop<StudyChapterMeta[]>, setTa
       }).filter(identity); // remove empty games
       if (parts.length > 1) {
         if (parts.length > multiPgnMax && !confirm('Import the first ' + multiPgnMax + ' of the ' + parts.length + ' games?')) return;
-        var step = function(ds) {
+        const step = function(ds) {
           if (ds.length) {
             send('addChapter', ds[0]);
             setTimeout(function() {
@@ -74,7 +74,7 @@ export function ctrl(send: SocketSend, chapters: Prop<StudyChapterMeta[]>, setTa
             }, 600);
           } else {}
         };
-        var firstIt = vm.initial() ? 1 : (chapters().length + 1);
+        const firstIt = vm.initial() ? 1 : (chapters().length + 1);
         step(parts.slice(0, multiPgnMax).map(function(pgn, i) {
           return {
             initial: !i && vm.initial(),
@@ -149,6 +149,7 @@ export function view(ctrl): VNode {
       ]),
       h('form.chapter_form.material.form', {
         hook: bind('submit', e => {
+          e.stopPropagation();
           ctrl.submit({
             name: fieldValue(e, 'name'),
             game: fieldValue(e, 'game'),
@@ -158,9 +159,8 @@ export function view(ctrl): VNode {
             orientation: fieldValue(e, 'orientation'),
             mode: fieldValue(e, 'mode')
           });
-          e.stopPropagation();
           return false;
-        })
+        }, ctrl.redraw)
       }, [
         h('div.form-group', [
           h('input#chapter-name', {
