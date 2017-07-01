@@ -65,7 +65,7 @@ function buttons(root: AnalyseController): VNode {
           },
           hook: bind('click', function() {
             if (root.path && ctrl.vm.mode.write) ctrl.glyphForm.toggle();
-          })
+          }, ctrl.redraw)
         }, [
           h('i.glyph-icon')
         ])

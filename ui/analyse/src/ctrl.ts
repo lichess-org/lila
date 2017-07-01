@@ -321,7 +321,7 @@ export default class AnalyseController {
     if (this.music) this.music.jump(this.node);
   }
 
-  userJump(path: Tree.Path): void {
+  userJump = (path: Tree.Path): void => {
     this.autoplay.stop();
     if (this.chessground) this.chessground.selectSquare(null);
     if (this.practice) {

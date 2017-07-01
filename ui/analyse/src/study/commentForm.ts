@@ -106,19 +106,12 @@ export function view(ctrl: CommentForm): VNode | undefined {
 
   function setupTextarea(vnode: VNode) {
     const el = vnode.elm as HTMLInputElement,
-    vData = vnode.data!,
     mine = (current!.node.comments || []).find(function(c: any) {
       return c.by && c.by.id && c.by.id === ctrl.root.opts.userId;
     });
-    vData!.path = current!.path;
     el.value = mine ? mine.text : '';
     if (ctrl.opening() || ctrl.focus()) el.focus();
     ctrl.opening(false);
-    if (!vData.trap) {
-      vData.trap = window.Mousetrap(el);
-      vData.trap.bind(['ctrl+enter', 'command+enter'], ctrl.close);
-      vData.trap.stopCallback = () => false;
-    }
   }
 
   return h('div.study_comment_form.underboard_form', {
@@ -171,13 +164,17 @@ export function view(ctrl: CommentForm): VNode | undefined {
                 ctrl.focus(false);
                 ctrl.redraw();
               };
+              const trap = window.Mousetrap(el);
+              trap.bind(['ctrl+enter', 'command+enter'], ctrl.close);
+              trap.stopCallback = () => false;
+              vnode.data!.trap = trap;
+              vnode.data!.path = current.path;
             },
-            postpatch: (_, vnode) => {
-              if (vnode.data!.path !== current.path) setupTextarea(vnode);
+            postpatch: (old, vnode) => {
+              if (old.data!.path !== current.path) setupTextarea(vnode);
+              vnode.data!.path = current.path;
             },
-            destroy: vnode => {
-              if (vnode.data!.trap) vnode.data!.trap.reset();
-            }
+            destroy: vnode => vnode.data!.trap.reset()
           }
         }),
         h('i.bar')

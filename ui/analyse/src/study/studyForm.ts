@@ -32,7 +32,7 @@ function select(s) {
   ];
 };
 
-export function ctrl(save, getData) {
+export function ctrl(save, getData, redraw: () => void) {
 
   const initAt = Date.now();
 
@@ -44,16 +44,17 @@ export function ctrl(save, getData) {
   const open = prop(false);
 
   return {
-    open: open,
-    openIfNew: function() {
+    open,
+    openIfNew() {
       if (isNew()) open(true);
     },
-    save: function(data, isNew) {
+    save(data, isNew) {
       save(data, isNew);
       open(false);
     },
-    getData: getData,
-    isNew: isNew
+    getData,
+    isNew,
+    redraw
   };
 }
 
@@ -71,6 +72,7 @@ export function view(ctrl) {
   return dialog.form({
     onClose: function() {
       ctrl.open(false);
+      ctrl.redraw();
     },
     content: [
       h('h2', (isNew ? 'Create' : 'Edit') + ' study'),
@@ -83,7 +85,7 @@ export function view(ctrl) {
           ctrl.save(obj, isNew);
           e.stopPropagation();
           return false;
-        })
+        }, ctrl.redraw)
       }, [
         h('div.form-group', [
           h('input#study-name', {

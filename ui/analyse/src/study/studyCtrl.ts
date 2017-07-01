@@ -45,12 +45,12 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
     send("editStudy", d);
     if (isNew && data.chapter.setup.variant.key === 'standard' && ctrl.mainline.length === 1 && !data.chapter.setup.fromFen)
       chapters.newForm.openInitial();
-  }, function() {
-    return data;
-  });
+  }, () => data, redraw);
+
   function startTour() {
     tours.study(ctrl);
   };
+
   const members = memberCtrl({
     initDict: data.members,
     myId: practiceData ? undefined : ctrl.opts.userId,
