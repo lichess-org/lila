@@ -58,7 +58,7 @@ function autoplayButtons(ctrl: AnalyseController): VNode {
   return h('div.autoplay', speeds.map(speed => {
     return h('a.fbt', {
       class: { active: ctrl.autoplay.active(speed.delay) },
-      hook: bind('click', () => ctrl.togglePlay(speed.delay))
+      hook: bind('click', () => ctrl.togglePlay(speed.delay), ctrl.redraw)
     }, speed.name);
   }));
 }
