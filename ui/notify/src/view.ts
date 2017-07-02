@@ -58,7 +58,7 @@ function recentNotifications(d: NotifyData, scrolling: boolean): VNode {
   return h('div', {
     class: {
       notifications: true,
-      scrolling: scrolling
+      scrolling
     },
     hook: {
       insert: contentLoaded,

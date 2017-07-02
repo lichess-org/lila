@@ -124,8 +124,8 @@ export default function(root: AnalyseController, opts, allow: boolean) {
     },
     setHovering(fen, uci) {
       hovering(uci ? {
-        fen: fen,
-        uci: uci,
+        fen,
+        uci,
       } : null);
       root.setAutoShapes();
     },

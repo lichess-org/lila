@@ -400,7 +400,7 @@ export default class AnalyseController {
       this.sound.move();
       const drop = {
         role: piece.role,
-        pos: pos,
+        pos,
         variant: this.data.game.variant.key,
         fen: this.node.fen,
         path: this.path
@@ -420,8 +420,8 @@ export default class AnalyseController {
 
   sendMove = (orig: Key, dest: Key, capture?: JustCaptured, prom?: cg.Role): void => {
     const move: any = {
-      orig: orig,
-      dest: dest,
+      orig,
+      dest,
       variant: this.data.game.variant.key,
       fen: this.node.fen,
       path: this.path
@@ -544,7 +544,7 @@ export default class AnalyseController {
         this.onNewCeval(ev, work.path, work.threatMode);
       },
       setAutoShapes: this.setAutoShapes,
-      failsafe: failsafe,
+      failsafe,
       onCrash: lastError => {
         const ceval = this.node.ceval;
         console.log('Local eval failed after depth ' + (ceval && ceval.depth), lastError);

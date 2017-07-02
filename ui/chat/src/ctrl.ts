@@ -63,7 +63,7 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
       reasons: opts.timeoutReasons || ([{key: 'other', name: 'Inappropriate behavior'}]),
       permissions: opts.permissions,
       send: window.lichess.pubsub.emit('socket.send'),
-      redraw: redraw
+      redraw
     }) : undefined;
     if (canMod()) opts.loadCss('/assets/stylesheets/chat.mod.css');
   }
@@ -71,14 +71,14 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
 
   const note = data.userId && opts.noteId ? noteCtrl({
     id: opts.noteId,
-    trans: trans,
-    redraw: redraw
+    trans,
+    redraw
   }) : undefined;
 
   const preset = presetCtrl({
     initialGroup: opts.preset,
-    post: post,
-    redraw: redraw
+    post,
+    redraw
   });
 
   pubsub.on('socket.in.message', onMessage);
@@ -99,18 +99,18 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
   emitEnabled();
 
   return {
-    data: data,
-    opts: opts,
-    vm: vm,
+    data,
+    opts,
+    vm,
     setTab(t: Tab) {
       vm.tab = t
         redraw()
     },
     moderation: () => moderation,
-    note: note,
-    preset: preset,
-    post: post,
-    trans: trans,
+    note,
+    preset,
+    post,
+    trans,
     setEnabled(v: boolean) {
       vm.enabled = v;
       emitEnabled();

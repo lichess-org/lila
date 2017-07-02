@@ -25,7 +25,7 @@ export function userHtml(ctrl, player) {
         online: player.onGame,
         offline: !player.onGame,
         long: user.username.length > 16,
-        connecting: connecting
+        connecting
       }
     }, [
       h('i.line' + (user.patron ? '.patron' : ''), {
@@ -55,7 +55,7 @@ export function userHtml(ctrl, player) {
     class: {
       online: player.onGame,
       offline: !player.onGame,
-      connecting: connecting
+      connecting
     }
   }, [
     h('i.line', {

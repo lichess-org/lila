@@ -29,9 +29,9 @@ export function ctrl(cg, step, redraw) {
       select(orig);
       select(dest);
     },
-    select: select,
+    select,
     hasSelected: () => cg.state.selected,
-    usedSan: usedSan
+    usedSan
   };
 };
 export function render(ctrl) {

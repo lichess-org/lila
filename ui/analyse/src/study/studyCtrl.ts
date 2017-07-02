@@ -165,7 +165,7 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
 
   const onSetPath = throttle(300, false, function(path) {
     if (vm.mode.sticky && path !== data.position.path) makeChange("setPath", addChapterId({
-      path: path
+      path
     }));
   });
 
@@ -185,7 +185,7 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
         ctrl.tree.setShapes(shapes, ctrl.path);
         makeChange("shapes", addChapterId({
           path: ctrl.path,
-          shapes: shapes
+          shapes
         }));
       }
     };
@@ -238,14 +238,14 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
     },
     deleteNode(path) {
       makeChange("deleteNode", addChapterId({
-        path: path,
+        path,
         jumpTo: ctrl.path
       }));
     },
     promote(path, toMainline) {
       makeChange("promote", addChapterId({
-        toMainline: toMainline,
-        path: path
+        toMainline,
+        path
       }));
     },
     setChapter(id, force) {

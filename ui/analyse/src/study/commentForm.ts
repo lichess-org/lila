@@ -46,7 +46,7 @@ export function ctrl(root: AnalyseController): CommentForm {
     if (cur) root.study!.makeChange('setComment', {
       ch: cur.chapterId,
       path: cur.path,
-      text: text
+      text
     });
   });
 
@@ -54,9 +54,9 @@ export function ctrl(root: AnalyseController): CommentForm {
     dirty(true);
     opening(true);
     current({
-      chapterId: chapterId,
-      path: path,
-      node: node
+      chapterId,
+      path,
+      node
     });
     root.userJump(path);
   };
@@ -92,8 +92,8 @@ export function ctrl(root: AnalyseController): CommentForm {
     delete(chapterId: string, path: Tree.Path, id: string) {
       root.study.makeChange('deleteComment', {
         ch: chapterId,
-        path: path,
-        id: id
+        path,
+        id
       });
     }
   };

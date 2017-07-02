@@ -114,7 +114,7 @@ export function ctrl(opts: Opts) {
       setActive(id);
       opts.send("setRole", {
         userId: id,
-        role: role
+        role
       });
       confing(undefined);
     },
@@ -168,7 +168,7 @@ export function view(ctrl: StudyController): VNode {
     const contrib = member.role === 'w';
     return h('span.status', {
       class: {
-        contrib: contrib,
+        contrib,
         active: ctrl.members.isActive(member.user.id),
         online: ctrl.members.isOnline(member.user.id)
       },

@@ -30,7 +30,7 @@ export function start(ctrl, orig, dest, meta) {
     promoting = {
       move: [orig, dest],
       pre: !!premovePiece,
-      meta: meta
+      meta
     };
     ctrl.redraw();
     return true;
@@ -44,7 +44,7 @@ function setPrePromotion(ctrl, dest, role) {
     orig: dest,
     piece: {
       color: ctrl.data.player.color,
-      role: role,
+      role,
       opacity: 0.8
     }
   }]);

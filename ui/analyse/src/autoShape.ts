@@ -9,8 +9,8 @@ function pieceDrop(key: cg.Key, role: cg.Role, color: Color): DrawShape {
   return {
     orig: key,
     piece: {
-      color: color,
-      role: role,
+      color,
+      role,
       scale: 0.8
     },
     brush: 'green'
@@ -21,15 +21,15 @@ export function makeAutoShapesFromUci(color: Color, uci: Uci, brush: string, mod
   const move = decomposeUci(uci);
   if (uci[1] === '@') return [{
     orig: move[1],
-    brush: brush
+    brush
   },
   pieceDrop(move[1] as cg.Key, sanToRole[uci[0].toUpperCase()], color)
   ];
   const shapes: DrawShape[] = [{
     orig: move[0],
     dest: move[1],
-    brush: brush,
-    modifiers: modifiers
+    brush,
+    modifiers
   }];
   if (move[2]) shapes.push(pieceDrop(move[1]!, move[2] as cg.Role, color));
   return shapes;

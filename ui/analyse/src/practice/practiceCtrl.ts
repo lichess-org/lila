@@ -77,10 +77,10 @@ export function make(root: AnalyseController, playableDepth: () => number): Prac
     }
 
     return {
-      prev: prev,
-      node: node,
-      path: path,
-      verdict: verdict,
+      prev,
+      node,
+      path,
+      verdict,
       best: best ? {
         uci: best,
         san: pv2san(root.data.game.variant.key, prev.fen, false, [best])

@@ -71,19 +71,19 @@ export default class Protocol {
     if (evalType && multiPv === 1) return;
 
     let pvData = {
-      moves: moves,
+      moves,
       cp: isMate ? undefined : ev,
       mate: isMate ? ev : undefined,
-      depth: depth,
+      depth,
     };
 
     if (multiPv === 1) {
       this.curEval = {
         fen: this.work.currentFen,
         maxDepth: this.work.maxDepth,
-        depth: depth,
+        depth,
         knps: nodes / elapsedMs,
-        nodes: nodes,
+        nodes,
         cp: isMate ? undefined : ev,
         mate: isMate ? ev : undefined,
         pvs: [pvData],

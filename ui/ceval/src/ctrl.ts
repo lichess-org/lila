@@ -34,7 +34,7 @@ export default function(opts: CevalOpts): CevalController {
     wasm: wasmSupported && window.lichess.assetUrl('/assets/vendor/stockfish/stockfish.wasm.js', {sameDomain: true}),
     onCrash: opts.onCrash
   }, {
-    minDepth: minDepth,
+    minDepth,
     variant: opts.variant.key,
     threads: pnaclSupported && threads,
     hashSize: pnaclSupported && hashSize
@@ -109,11 +109,11 @@ export default function(opts: CevalOpts): CevalController {
       initialFen: steps[0].fen,
       moves: [],
       currentFen: step.fen,
-      path: path,
+      path,
       ply: step.ply,
       maxDepth: maxD,
       multiPv: parseInt(multiPv()),
-      threatMode: threatMode,
+      threatMode,
       emit(ev: Tree.ClientEval) {
         if (enabled()) onEmit(ev, work);
       }
@@ -138,9 +138,9 @@ export default function(opts: CevalOpts): CevalController {
     pool.start(work);
 
     started = {
-      path: path,
-      steps: steps,
-      threatMode: threatMode
+      path,
+      steps,
+      threatMode
     };
   };
 
@@ -174,8 +174,8 @@ export default function(opts: CevalOpts): CevalController {
     hovering,
     setHovering(fen: Fen, uci: Uci) {
       hovering(uci ? {
-        fen: fen,
-        uci: uci
+        fen,
+        uci
       } : null);
       opts.setAutoShapes();
     },

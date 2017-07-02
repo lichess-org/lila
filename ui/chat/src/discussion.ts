@@ -59,7 +59,7 @@ function renderInput(ctrl: Ctrl): VNode | undefined {
   else placeholder = ctrl.trans(ctrl.vm.placeholderKey);
   return h('input.lichess_say', {
     attrs: {
-      placeholder: placeholder,
+      placeholder,
       autocomplete: 'off',
       maxlength: 140,
       disabled: ctrl.vm.timeout || !ctrl.vm.writeable

@@ -81,7 +81,7 @@ export function ctrl(send: SocketSend, chapters: Prop<StudyChapterMeta[]>, setTa
             mode: d.mode,
             name: 'Chapter ' + (firstIt + i),
             orientation: d.orientation,
-            pgn: pgn,
+            pgn,
             variant: d.variant,
             sticky: root.study.vm.mode.sticky
           };

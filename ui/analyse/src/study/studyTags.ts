@@ -8,7 +8,7 @@ function editable(value: string, submit: (v: string, el: HTMLInputElement) => vo
   return h('input', {
     attrs: {
       spellcheck: false,
-      value: value
+      value
     },
     hook: {
       insert: vnode => {
@@ -96,7 +96,7 @@ export function ctrl(root: AnalyseController, getChapter: () => StudyChapter, ty
   const submit = throttle(500, false, function(name, value) {
     root.study.makeChange('setTag', {
       chapterId: getChapter().id,
-      name: name,
+      name,
       value: value.substr(0, 140)
     });
   });

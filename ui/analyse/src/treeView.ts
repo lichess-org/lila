@@ -63,18 +63,18 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | 
       renderMoveAndChildrenOf(ctx, main, {
         parentPath: opts.parentPath,
         isMainline: true,
-        conceal: conceal
+        conceal
       }) || []
     );
     const mainChildren = renderChildrenOf(ctx, main, {
       parentPath: opts.parentPath + main.id,
       isMainline: true,
-      conceal: conceal
+      conceal
     });
     const passOpts = {
       parentPath: opts.parentPath,
       isMainline: true,
-      conceal: conceal
+      conceal
     };
     return (isWhite ? [moveView.renderIndex(main.ply, false)] : [] as MaybeVNodes).concat([
       renderMoveOf(ctx, main, passOpts),
@@ -83,7 +83,7 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | 
         renderLines(ctx, cs.slice(1), {
           parentPath: opts.parentPath,
           isMainline: true,
-          conceal: conceal,
+          conceal,
           noConceal: !conceal
         })
       ))
@@ -138,7 +138,7 @@ function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   classes = {
     active: path === c.path,
     context_menu: path === c.contextMenuPath,
-    current: current,
+    current,
     nongame: !current && !!c.gamePath && treePath.contains(path, c.gamePath) && path !== c.gamePath
   };
   if (opts.conceal) classes[opts.conceal as string] = true;
@@ -157,7 +157,7 @@ function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
     fixCrazySan(node.san!)
   ],
   classes = {
-    active: active,
+    active,
     parent: !active && pathContains(ctx, path),
     context_menu: path === ctx.ctrl.contextMenuPath,
   };
@@ -252,7 +252,7 @@ const emptyConcealOf: ConcealOf = function() {
 export default function(ctrl: AnalyseController, concealOf?: ConcealOf): VNode {
   const root = ctrl.tree.root;
   const ctx: Ctx = {
-    ctrl: ctrl,
+    ctrl,
     concealOf: concealOf || emptyConcealOf,
     showComputer: ctrl.showComputer() && !ctrl.retro,
     showGlyphs: !!ctrl.study || ctrl.showComputer(),
@@ -267,7 +267,7 @@ export default function(ctrl: AnalyseController, concealOf?: ConcealOf): VNode {
         el.oncontextmenu = (e: MouseEvent) => {
           const path = eventPath(e);
           if (path !== null) contextMenu(e, {
-            path: path,
+            path,
             root: ctrl
           });
           ctrl.redraw();

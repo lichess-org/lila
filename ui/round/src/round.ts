@@ -35,7 +35,7 @@ export function merge(old, cfg) {
   }
 
   return {
-    data: data,
-    changes: changes
+    data,
+    changes
   };
 };

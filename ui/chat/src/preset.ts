@@ -56,11 +56,11 @@ export function presetView(ctrl: PresetCtrl): VNode | undefined {
     const disabled = said.indexOf(p.key) !== -1;
     return h('span.hint--top', {
       class: {
-        disabled: disabled
+        disabled
       },
       attrs: {
         'data-hint': p.text,
-        disabled: disabled
+        disabled
       },
       hook: bind('click', () => { !disabled && ctrl.post(p) })
     }, p.key);

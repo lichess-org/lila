@@ -28,8 +28,8 @@ export function make(root: AnalyseController): ForkController {
         selected = 0;
       }
       return {
-        node: node,
-        selected: selected,
+        node,
+        selected,
         displayed: displayed()
       };
     },

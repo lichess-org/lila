@@ -24,10 +24,10 @@ export function start(ctrl: AnalyseController, orig: Key, dest: Key, capture: Ju
     (dest[1] == '8' && s.turnColor == 'black') ||
       (dest[1] == '1' && s.turnColor == 'white'))) {
     promoting = {
-      orig: orig,
-      dest: dest,
-      capture: capture,
-      callback: callback
+      orig,
+      dest,
+      capture,
+      callback
     };
     ctrl.redraw();
   return true;

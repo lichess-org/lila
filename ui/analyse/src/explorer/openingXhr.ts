@@ -1,7 +1,7 @@
 export function opening(endpoint, variant, fen, config, withGames) {
   var url;
   var params: any = {
-    fen: fen,
+    fen,
     moves: 12
   };
   if (!withGames) {
@@ -28,7 +28,7 @@ export function opening(endpoint, variant, fen, config, withGames) {
 export function tablebase(endpoint, variant, fen) {
   return $.ajax({
     url: endpoint + '/' + variant,
-    data: { fen: fen },
+    data: { fen },
     cache: true
   }).then(function(data) {
     data.tablebase = true;

@@ -48,7 +48,7 @@ export function ctrl(root: AnalyseController) {
 
   var doToggleGlyph = throttle(500, false, function(id) {
     root.study.makeChange('toggleGlyph', root.study.withPosition({
-      id: id
+      id
     }));
   });
 

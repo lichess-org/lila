@@ -77,7 +77,7 @@ export function make(opts): EvalCache {
       fenFetched.push(node.fen);
       const obj: any = {
         fen: node.fen,
-        path: path
+        path
       };
       if (opts.variant !== 'standard') obj.variant = opts.variant;
       if (multiPv > 1 || true) obj.mpv = multiPv;

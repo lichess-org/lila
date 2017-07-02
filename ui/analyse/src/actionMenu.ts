@@ -81,7 +81,7 @@ function formatHashSize(v: number): string {
 
 function hiddenInput(name: string, value: string) {
   return h('input', {
-    attrs: { 'type': 'hidden', name: name, value: value }
+    attrs: { 'type': 'hidden', name, value }
   });
 }
 
@@ -249,7 +249,7 @@ export function view(ctrl: AnalyseController): VNode {
             attrs: {
               type: 'range',
               min: 1,
-              max: max,
+              max,
               step: 1
             },
             hook: rangeConfig(
@@ -269,7 +269,7 @@ export function view(ctrl: AnalyseController): VNode {
             attrs: {
               type: 'range',
               min: 1,
-              max: max,
+              max,
               step: 1
             },
             hook: rangeConfig(

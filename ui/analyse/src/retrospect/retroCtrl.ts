@@ -42,7 +42,7 @@ export function make(root: AnalyseController): RetroController {
       return;
     }
     const fault = {
-      node: node,
+      node,
       path: root.mainlinePathToPly(node.ply)
     };
     const prevPath = treePath.init(fault.path);
@@ -52,8 +52,8 @@ export function make(root: AnalyseController): RetroController {
     };
     const solutionNode = prev.node.children.find(n => !!n.comp);
     current({
-      fault: fault,
-      prev: prev,
+      fault,
+      prev,
       solution: {
         node: solutionNode,
         path: prevPath + solutionNode!.id

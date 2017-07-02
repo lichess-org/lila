@@ -10,7 +10,7 @@ export function drag(ctrl, e) {
   if (!role || !color || number === '0') return;
   e.stopPropagation();
   e.preventDefault();
-  dragNewPiece(ctrl.chessground.state, { color: color, role: role }, e);
+  dragNewPiece(ctrl.chessground.state, { color, role }, e);
 }
 
 export function valid(data, role, key) {

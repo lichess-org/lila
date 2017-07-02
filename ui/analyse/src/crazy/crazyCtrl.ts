@@ -13,7 +13,7 @@ export function drag(ctrl: AnalyseController, color: Color, e: cg.MouchEvent): v
   if (!role || !color || number === '0') return;
   e.stopPropagation();
   e.preventDefault();
-  dragNewPiece(ctrl.chessground.state, { color: color, role: role }, e);
+  dragNewPiece(ctrl.chessground.state, { color, role }, e);
 }
 
 export function valid(chessground: ChessgroundApi, possibleDrops: string | undefined | null, piece: cg.Piece, pos: Key): boolean {

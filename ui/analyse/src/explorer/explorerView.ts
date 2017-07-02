@@ -280,7 +280,7 @@ export default function(ctrl: AnalyseController): VNode | undefined {
   const content = configOpened ? showConfig(ctrl) : (explorer.failing() ? showFailing(ctrl) : show(ctrl));
   return h('div.explorer_box', {
     class: {
-      loading: loading,
+      loading,
       config: configOpened,
       reduced: !configOpened && (explorer.failing() || explorer.movesAway() > 2)
     },

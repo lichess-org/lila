@@ -82,7 +82,7 @@ export function promote(cg, key, role) {
     var pieces = {};
     pieces[key] = {
       color: piece.color,
-      role: role,
+      role,
       promoted: true
     };
     cg.setPieces(pieces);

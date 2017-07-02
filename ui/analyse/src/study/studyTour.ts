@@ -16,7 +16,7 @@ export function study(ctrl: AnalyseController) {
 export function chapter(setTab: (tab: string) => void) {
   window.lichess.loadScript('/assets/javascripts/study/tour-chapter.js').then(() => {
     window.lichess['studyTourChapter']({
-      setTab: setTab
+      setTab
     });
   });
 }

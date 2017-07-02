@@ -27,7 +27,7 @@ export function promote(ground: CgApi, key: Key, role: cg.Role) {
   if (piece && piece.role == 'pawn') {
     pieces[key] = {
       color: piece.color,
-      role: role,
+      role,
       promoted: true
     };
     ground.setPieces(pieces);
