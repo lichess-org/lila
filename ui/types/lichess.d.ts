@@ -192,8 +192,7 @@ declare namespace Tree {
     symbol: string;
   }
 
-  export interface Clock {
-  }
+  export type Clock = number;
 
   export interface Shape {
   }

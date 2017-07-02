@@ -50,13 +50,13 @@ export function make(root: AnalyseController): RetroController {
       node: root.tree.nodeAtPath(prevPath),
       path: prevPath
     };
-    const solutionNode = prev.node.children.find(n => n.comp);
+    const solutionNode = prev.node.children.find(n => !!n.comp);
     current({
       fault: fault,
       prev: prev,
       solution: {
         node: solutionNode,
-        path: prevPath + solutionNode.id
+        path: prevPath + solutionNode!.id
       },
       openingUcis: []
     });

@@ -2,20 +2,42 @@ import * as treePath from './path';
 import * as ops from './ops';
 import { defined } from 'common';
 
-export default function(root: Tree.Node) {
+export type MaybeNode = Tree.Node | undefined;
 
-  function firstPly() {
-    return root.ply;
-  }
+export interface TreeWrapper {
+  root: Tree.Node;
+  lastPly(): number;
+  nodeAtPath(path: Tree.Path): Tree.Node;
+  getNodeList(path: Tree.Path): Tree.Node[];
+  longestValidPath(path: string): Tree.Path;
+  getOpening(nodeList: Tree.Node[]): Tree.Opening | undefined;
+  updateAt(path: Tree.Path, update: (node: Tree.Node) => void): MaybeNode;
+  addNode(node: Tree.Node, path: Tree.Path): Tree.Path | undefined;
+  addNodes(nodes: Tree.Node[], path: Tree.Path): Tree.Path | undefined;
+  addDests(dests: string, path: Tree.Path, opening?: Tree.Opening): MaybeNode;
+  setShapes(shapes: Tree.Shape[], path: Tree.Path): MaybeNode;
+  setCommentAt(comment: Tree.Comment, path: Tree.Path): MaybeNode;
+  deleteCommentAt(id: string, path: Tree.Path): MaybeNode;
+  setGlyphsAt(glyphs: Tree.Glyph[], path: Tree.Path): MaybeNode;
+  setClockAt(clock: Tree.Clock | undefined, path: Tree.Path): MaybeNode;
+  pathIsMainline(path: Tree.Path): boolean;
+  lastMainlineNode(path: Tree.Path): Tree.Node;
+  pathExists(path: Tree.Path): boolean;
+  deleteNodeAt(path: Tree.Path): void;
+  promoteAt(path: Tree.Path, toMainline: boolean): void;
+  getCurrentNodesAfterPly(nodeList: Tree.Node[], mainline: Tree.Node[], ply: number): Tree.Node[];
+  merge(tree: Tree.Node): void;
+  removeCeval(): void;
+  removeComputerVariations(): void;
+  getParentClock(node: Tree.Node, path: Tree.Path): Tree.Clock | undefined;
+}
+
+export function build(root: Tree.Node): TreeWrapper {
 
   function lastNode(): Tree.Node {
     return ops.findInMainline(root, function(node: Tree.Node) {
       return !node.children.length;
     })!;
-  }
-
-  function lastPly(): number {
-    return lastNode().ply;
   }
 
   function nodeAtPath(path: Tree.Path): Tree.Node {
@@ -44,7 +66,7 @@ export default function(root: Tree.Node) {
     return child ? id + longestValidPathFrom(child, treePath.tail(path)) : '';
   }
 
-  const getCurrentNodesAfterPly = function(nodeList: Tree.Node[], mainline: Tree.Node[], ply: number): Tree.Node[] {
+  function getCurrentNodesAfterPly(nodeList: Tree.Node[], mainline: Tree.Node[], ply: number): Tree.Node[] {
     var node, nodes = [];
     for (var i in nodeList) {
       node = nodeList[i];
@@ -56,6 +78,10 @@ export default function(root: Tree.Node) {
 
   function pathIsMainline(path: Tree.Path): boolean {
     return pathIsMainlineFrom(root, path);
+  }
+
+  function pathExists(path: Tree.Path): boolean {
+    return !!nodeAtPathOrNull(path);
   }
 
   function pathIsMainlineFrom(node: Tree.Node, path: Tree.Path): boolean {
@@ -145,10 +171,9 @@ export default function(root: Tree.Node) {
   }
 
   function setCommentAt(comment: Tree.Comment, path: Tree.Path) {
-    if (!comment.text) deleteCommentAt(comment.id, path);
-    else updateAt(path, function(node) {
+    return !comment.text ? deleteCommentAt(comment.id, path) : updateAt(path, function(node) {
       node.comments = node.comments || [];
-      var existing = node.comments.find(function(c) {
+      const existing = node.comments.find(function(c) {
         return c.id === comment.id;
       });
       if (existing) existing.text = comment.text;
@@ -157,7 +182,7 @@ export default function(root: Tree.Node) {
   }
 
   function deleteCommentAt(id: string, path: Tree.Path) {
-    updateAt(path, function(node) {
+    return updateAt(path, function(node) {
       var comments = (node.comments || []).filter(function(c) {
         return c.id !== id
       });
@@ -166,18 +191,18 @@ export default function(root: Tree.Node) {
   }
 
   function setGlyphsAt(glyphs: Tree.Glyph[], path: Tree.Path) {
-    updateAt(path, function(node) {
+    return updateAt(path, function(node) {
       node.glyphs = glyphs;
     });
   }
 
-  function setClockAt(clock: number | undefined, path: Tree.Path) {
-    updateAt(path, function(node) {
+  function setClockAt(clock: Tree.Clock | undefined, path: Tree.Path) {
+    return updateAt(path, function(node) {
       node.clock = clock;
     });
   }
 
-  function getParentClock(node: Tree.Node, path: Tree.Path) {
+  function getParentClock(node: Tree.Node, path: Tree.Path): Tree.Clock | undefined {
     if (!('parentClock' in node)) {
       var parent = path && nodeAtPath(treePath.init(path));
       if (!parent) node.parentClock = node.clock;
@@ -188,56 +213,54 @@ export default function(root: Tree.Node) {
   }
 
   return {
-    root: root,
-    ops: ops,
-    firstPly: firstPly,
-    lastPly: lastPly,
-    nodeAtPath: nodeAtPath,
-    getNodeList: getNodeList,
+    root,
+    lastPly(): number {
+      return lastNode().ply;
+    },
+    nodeAtPath,
+    getNodeList,
     longestValidPath: (path: string) => longestValidPathFrom(root, path),
-    getOpening: getOpening,
-    updateAt: updateAt,
-    addNode: addNode,
-    addNodes: addNodes,
-    addDests: function(dests: string, path: Tree.Path, opening?: Tree.Opening) {
+    getOpening,
+    updateAt,
+    addNode,
+    addNodes,
+    addDests(dests: string, path: Tree.Path, opening?: Tree.Opening) {
       return updateAt(path, function(node: Tree.Node) {
         node.dests = dests;
         if (opening) node.opening = opening;
       });
     },
-    setShapes: function(shapes: Tree.Shape[], path: Tree.Path) {
+    setShapes(shapes: Tree.Shape[], path: Tree.Path) {
       return updateAt(path, function(node: Tree.Node) {
         node.shapes = shapes;
       });
     },
-    setCommentAt: setCommentAt,
-    deleteCommentAt: deleteCommentAt,
-    setGlyphsAt: setGlyphsAt,
-    setClockAt: setClockAt,
-    pathIsMainline: pathIsMainline,
-    lastMainlineNode: lastMainlineNode,
-    pathExists(path: Tree.Path) {
-      return !!nodeAtPathOrNull(path);
-    },
-    deleteNodeAt: deleteNodeAt,
-    promoteAt: promoteAt,
-    getCurrentNodesAfterPly: getCurrentNodesAfterPly,
-    merge: function(tree: Tree.Node) {
+    setCommentAt,
+    deleteCommentAt,
+    setGlyphsAt,
+    setClockAt,
+    pathIsMainline,
+    lastMainlineNode,
+    pathExists,
+    deleteNodeAt,
+    promoteAt,
+    getCurrentNodesAfterPly,
+    merge(tree: Tree.Node) {
       ops.merge(root, tree);
     },
-    removeCeval: function() {
+    removeCeval() {
       ops.updateAll(root, function(n) {
         delete n.ceval;
         delete n.threat;
       });
     },
-    removeComputerVariations: function() {
+    removeComputerVariations() {
       ops.mainlineNodeList(root).forEach(function(n) {
         n.children = n.children.filter(function(c) {
           return !c.comp;
         });
       });
     },
-    getParentClock: getParentClock
+    getParentClock
   };
 }

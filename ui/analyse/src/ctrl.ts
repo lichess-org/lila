@@ -3,7 +3,7 @@ import { Api as ChessgroundApi } from 'chessground/api';
 import { DrawShape } from 'chessground/draw';
 import * as cg from 'chessground/types';
 import { Config as ChessgroundConfig } from 'chessground/config';
-import { build as makeTree, path as treePath, ops as treeOps } from 'tree';
+import { build as makeTree, path as treePath, ops as treeOps, TreeWrapper } from 'tree';
 import * as keyboard from './keyboard';
 import { Controller as ActionMenuController } from './actionMenu';
 import { Autoplay, AutoplayDelay } from './autoplay';
@@ -33,7 +33,7 @@ export default class AnalyseController {
   element: HTMLElement;
   redraw: () => void;
 
-  tree: any; // #TODO Tree.Tree
+  tree: TreeWrapper;
   socket: Socket;
   chessground: ChessgroundApi;
   trans: Trans;
@@ -446,7 +446,7 @@ export default class AnalyseController {
     });
   }
 
-  addNode(node: Node, path: Tree.Path) {
+  addNode(node: Tree.Node, path: Tree.Path) {
     const newPath = this.tree.addNode(node, path);
     if (!newPath) {
       console.log('Cannot addNode', node, path);
