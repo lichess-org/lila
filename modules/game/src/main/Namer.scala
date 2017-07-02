@@ -35,7 +35,4 @@ object Namer {
     case Some(rating) => s"$rating${if (p.provisional) "?" else ""}"
     case _ => "?"
   }
-
-  def playerString(p: Player, withRating: Boolean = true, withTitle: Boolean = true)(implicit lightUser: LightUser.GetterSync) =
-    player(p, withRating, withTitle)(lightUser).body.replace("&nbsp;", " ")
 }

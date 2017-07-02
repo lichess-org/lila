@@ -35,7 +35,7 @@ final class Env(
           Notification.Notifies(userId),
           CorresAlarm(
             gameId = pov.gameId,
-            opponent = lila.game.Namer.playerString(pov.opponent)(getLightUser)
+            opponent = lila.game.Namer.playerText(pov.opponent)(getLightUser)
           )
         )
       }

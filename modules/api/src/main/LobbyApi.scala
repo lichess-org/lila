@@ -53,7 +53,7 @@ final class LobbyApi(
     "rated" -> pov.game.rated,
     "opponent" -> Json.obj(
       "id" -> pov.opponent.userId,
-      "username" -> lila.game.Namer.playerString(pov.opponent, withRating = false)(lightUserApi.sync),
+      "username" -> lila.game.Namer.playerText(pov.opponent, withRating = false)(lightUserApi.sync),
       "rating" -> pov.opponent.rating,
       "ai" -> pov.opponent.aiLevel
     ).noNull,
