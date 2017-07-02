@@ -173,7 +173,7 @@ export function view(ctrl: AnalyseController): VNode {
     ])
   ];
 
-  const cevalConfig: MaybeVNodes = (ceval && ceval.possible) ? ([
+  const cevalConfig: MaybeVNodes = (ceval && ceval.possible && ceval.allowed()) ? ([
     h('h2', 'Computer analysis')
   ] as MaybeVNodes).concat([
     (id => {

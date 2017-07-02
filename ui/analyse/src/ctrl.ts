@@ -688,7 +688,7 @@ export default class AnalyseController {
     const value = !this.showComputer();
     this.showComputer(value);
     if (!value && this.practice) this.togglePractice();
-    this.opts.onToggleComputer(value);
+    if (this.opts.onToggleComputer) this.opts.onToggleComputer(value);
     this.onToggleComputer();
   }
 

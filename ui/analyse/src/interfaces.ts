@@ -77,7 +77,7 @@ export interface AnalyseOpts {
   tagTypes?: string;
   practice?: any;
   onChange?: (fen: Fen, path: Tree.Path, mainlinePly: Ply | false) => void;
-  onToggleComputer(v: boolean): void;
+  onToggleComputer?: (v: boolean) => void;
 }
 
 export interface CgDests {
