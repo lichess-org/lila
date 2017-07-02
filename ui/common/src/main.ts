@@ -85,3 +85,15 @@ export function dropThrottle(delay: number): (f: F) => void  {
     else run(f);
   };
 }
+
+export interface ClassSet {
+  [klass: string]: boolean;
+}
+
+export function classSet(classes: ClassSet): string {
+  const arr = [];
+  for (const i in classes) {
+    if (classes[i]) arr.push(i);
+  }
+  return arr.join(' ');
+}
