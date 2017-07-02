@@ -6,13 +6,13 @@ import { PracticeController, Comment } from './practiceCtrl';
 import AnalyseController from '../ctrl';
 import { MaybeVNodes } from '../interfaces';
 
-function renderTitle(close: (() => void) | null): VNode {
+function renderTitle(root: AnalyseController): VNode {
   return h('div.title', [
     h('span', 'Practice with the computer'),
-    close ? h('span.close', {
+    root.studyPractice ? null : h('span.close', {
       attrs: { 'data-icon': 'L' },
-      hook: bind('click', close)
-    }) : null
+      hook: bind('click', root.togglePractice, root.redraw)
+    })
   ]);
 }
 
@@ -48,12 +48,12 @@ function commentBest(c: Comment, ctrl: PracticeController): MaybeVNodes {
 }
 
 function renderOffTrack(ctrl: PracticeController): VNode {
-  return h('div.player', [
+  return h('div.player.off', [
     h('div.icon.off', '!'),
     h('div.instruction', [
       h('strong', 'You browsed away'),
       h('div.choices', [
-        h('a', { hook: bind('click', ctrl.resume) }, 'Resume practice')
+        h('a', { hook: bind('click', ctrl.resume, ctrl.redraw) }, 'Resume practice')
       ])
     ])
   ]);
@@ -85,7 +85,7 @@ function renderEvalProgress(node: Tree.Node, maxDepth: number): VNode {
 
 function renderRunning(root: AnalyseController, ctrl: PracticeController): VNode {
   const hint = ctrl.hinting();
-  return h('div.player', [
+  return h('div.player.running', [
     h('div.no-square', h('piece.king.' + root.turnColor())),
     h('div.instruction',
       (ctrl.isMyTurn() ? [h('strong', 'Your move')] : [
@@ -106,7 +106,7 @@ export default function(root: AnalyseController): VNode | undefined {
   const running: boolean = ctrl.running();
   const end = ctrl.currentNode().threefold ? 'threefold' : root.gameOver();
   return h('div.practice_box.' + (comment ? comment.verdict : ''), [
-    renderTitle(root.studyPractice ? null : root.togglePractice),
+    renderTitle(root),
     h('div.feedback', !running ? renderOffTrack(ctrl) : (end ? renderEnd(root.turnColor(), end) : renderRunning(root, ctrl))),
     running ? h('div.comment', comment ? ([
       h('span.verdict', commentText[comment.verdict]),
