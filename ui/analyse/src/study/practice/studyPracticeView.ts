@@ -14,7 +14,7 @@ function selector(data) {
     h('option', {
       attrs: { disabled: true, selected: true }
     }, 'Practice list'),
-    data.structure.map(function(section) {
+    ...data.structure.map(function(section) {
       return h('optgroup', {
         attrs: { label: section.name }
       }, section.studies.map(function(study) {
