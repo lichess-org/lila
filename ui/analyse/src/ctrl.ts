@@ -99,11 +99,11 @@ export default class AnalyseController {
 
     if (this.data.forecast) this.forecast = makeForecast(this.data.forecast, this.data, redraw);
 
-    this.instanciateCeval();
-
     this.instanciateEvalCache();
 
     this.initialize(this.data, false);
+
+    this.instanciateCeval();
 
     this.initialPath = treePath.root;
 
