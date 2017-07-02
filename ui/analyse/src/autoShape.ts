@@ -50,46 +50,55 @@ export function compute(ctrl: AnalyseController): DrawShape[] {
     }
     return [];
   }
-  const instance = ctrl.getCeval(),
-  n = ctrl.node,
-  hovering = ctrl.explorer.hovering() || instance.hovering();
+  const instance = ctrl.getCeval();
+  const hovering = ctrl.explorer.hovering() || instance.hovering();
+  const {
+    eval: nEval = {},
+    fen: nFen,
+    ceval: nCeval,
+    threat: nThreat
+  } = ctrl.node;
+
   let shapes: DrawShape[] = [];
   if (ctrl.retro && ctrl.retro.showBadNode()) {
     return makeAutoShapesFromUci(color, ctrl.retro.showBadNode().uci, 'paleRed', {
       lineWidth: 8
     });
   }
-  if (hovering && hovering.fen === n.fen) shapes = shapes.concat(makeAutoShapesFromUci(color, hovering.uci, 'paleBlue'));
+  if (hovering && hovering.fen === nFen) shapes = shapes.concat(makeAutoShapesFromUci(color, hovering.uci, 'paleBlue'));
   if (ctrl.showAutoShapes() && ctrl.showComputer()) {
-    if (n.eval && n.eval.best) shapes = shapes.concat(makeAutoShapesFromUci(rcolor, n.eval.best, 'paleGreen'));
+    if (nEval.best) shapes = shapes.concat(makeAutoShapesFromUci(rcolor, nEval.best, 'paleGreen'));
     if (!hovering) {
       let nextBest = ctrl.nextNodeBest();
-      if (!nextBest && instance.enabled() && n.ceval) nextBest = n.ceval.pvs[0].moves[0];
+      if (!nextBest && instance.enabled() && nCeval) nextBest = nCeval.pvs[0].moves[0];
       if (nextBest) shapes = shapes.concat(makeAutoShapesFromUci(color, nextBest, 'paleBlue'));
-      if (instance.enabled() && n.ceval && n.ceval.pvs[1] && !(ctrl.threatMode && n.threat && n.threat.pvs[2])) {
-        n.ceval.pvs.forEach(function(pv) {
+      if (instance.enabled() && nCeval && nCeval.pvs[1] && !(ctrl.threatMode && nThreat && nThreat.pvs.length > 2)) {
+        nCeval.pvs.forEach(function(pv) {
           if (pv.moves[0] === nextBest) return;
-          const shift = winningChances.povDiff(color, n.ceval!.pvs[0], pv);
-          if (shift > 0.2 || isNaN(shift) || shift < 0) return;
-          shapes = shapes.concat(makeAutoShapesFromUci(color, pv.moves[0], 'paleGrey', {
-            lineWidth: Math.round(12 - shift * 50) // 12 to 2
-          }));
+          const shift = winningChances.povDiff(color, nCeval.pvs[0], pv);
+          if (shift >= 0 && shift < 0.2) {
+            shapes = shapes.concat(makeAutoShapesFromUci(color, pv.moves[0], 'paleGrey', {
+              lineWidth: Math.round(12 - shift * 50) // 12 to 2
+            }));
+          }
         });
       }
     }
   }
-  if (instance.enabled() && ctrl.threatMode && n.threat) {
-    if (n.threat.pvs[1]) {
-      shapes = shapes.concat(makeAutoShapesFromUci(rcolor, n.threat.pvs[0].moves[0], 'paleRed'));
-      n.threat.pvs.slice(1).forEach(function(pv) {
-        const shift = winningChances.povDiff(rcolor, pv, n.threat!.pvs[0]);
-        if (shift > 0.2 || isNaN(shift) || shift < 0) return;
+  if (instance.enabled() && ctrl.threatMode && nThreat) {
+    const [pv0, ...pv1s] = nThreat.pvs;
+
+    shapes = shapes.concat(makeAutoShapesFromUci(rcolor, pv0.moves[0],
+      pv1s.length > 0 ? 'paleRed' : 'red'));
+
+    pv1s.forEach(function(pv) {
+      const shift = winningChances.povDiff(rcolor, pv, pv0);
+      if (shift >= 0 && shift < 0.2) {
         shapes = shapes.concat(makeAutoShapesFromUci(rcolor, pv.moves[0], 'paleRed', {
           lineWidth: Math.round(11 - shift * 45) // 11 to 2
         }));
-      });
-    } else
-    shapes = shapes.concat(makeAutoShapesFromUci(rcolor, n.threat.pvs[0].moves[0], 'red'));
+      }
+    });
   }
   return shapes;
 }
