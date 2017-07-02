@@ -188,7 +188,7 @@ export function renderCeval(ctrl: ParentController): VNode | undefined {
     h('label', { attrs: { 'for': 'analyse-toggle-ceval' } })
   ])
 
-  return h('div.ceval_box', {
+  return h('div.ceval_box' + (enabled ? '.enabled' : ''), {
     class: {
       computing: percent < 100 && instance.isComputing()
     }

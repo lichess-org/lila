@@ -241,8 +241,9 @@ export default function(ctrl: AnalyseController): VNode {
   const concealOf = makeConcealOf(ctrl);
   const showCevalPvs = !(ctrl.retro && ctrl.retro.isSolving()) && !ctrl.practice;
   const menuIsOpen = ctrl.actionMenu.open;
+  const chapterId = ctrl.study ? ctrl.study.currentChapter().id : 'nostudy';
   return h('div.analyse.cg-512', [
-    h('div', {
+    h('div.' + chapterId, {
       hook: {
         insert: _ => {
           if (firstRender) firstRender = false;
