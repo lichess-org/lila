@@ -120,7 +120,8 @@ export function ctrl(send: SocketSend, chapters: Prop<StudyChapterMeta[]>, setTa
       vm.tab(tab);
       root.redraw();
     }),
-    multiPgnMax
+    multiPgnMax,
+    redraw: root.redraw
   }
 }
 
@@ -138,7 +139,10 @@ export function view(ctrl): VNode {
   const currentChapterSetup = ctrl.root.study.data.chapter.setup;
 
   return dialog.form({
-    onClose: ctrl.close,
+    onClose() {
+      ctrl.close();
+      ctrl.redraw();
+    },
     content: [
       activeTab === 'edit' ? null : h('h2', [
         'New chapter',

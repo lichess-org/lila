@@ -361,6 +361,10 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
       },
       chapters(d) {
         chapters.list(d);
+        if (!currentChapter()) {
+          vm.chapterId = d[0].id;
+          if (!vm.mode.sticky) xhrReload();
+        }
         redraw();
       },
       shapes(d) {
