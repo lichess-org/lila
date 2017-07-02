@@ -15,6 +15,7 @@ interface Lichess {
   keyboardMove: any
   slider: () => any
   reloadOtherTabs: () => void
+  raf(f: () => void): void
   requestIdleCallback(f: () => void): void
   loadCss(path: string): void
   escapeHtml(html: string): string

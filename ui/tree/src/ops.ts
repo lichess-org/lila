@@ -17,7 +17,7 @@ export function findInMainline(fromNode: Tree.Node, predicate: (node: Tree.Node)
 
 // returns a list of nodes collected from the original one
 export function collect(from: Tree.Node, pickChild: (node: Tree.Node) => Tree.Node | undefined): Tree.Node[] {
-  var nodes = [from], n = from, c;
+  let nodes = [from], n = from, c;
   while(c = pickChild(n)) {
     nodes.push(c);
     n = c;
@@ -42,8 +42,8 @@ export function nodeAtPly(nodeList: Tree.Node[], ply: number): Tree.Node | undef
 }
 
 export function takePathWhile(nodeList: Tree.Node[], predicate: (node: Tree.Node) => boolean): Tree.Path {
-  var path = '';
-  for (var i in nodeList) {
+  let path = '';
+  for (let i in nodeList) {
     if (predicate(nodeList[i])) path += nodeList[i].id;
     else break;
   }

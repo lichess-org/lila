@@ -86,14 +86,10 @@ export function build(root: Tree.Node): TreeWrapper {
 
   function pathIsMainlineFrom(node: Tree.Node, path: Tree.Path): boolean {
     if (path === '') return true;
-    const pathId = treePath.head(path);
-    const child = node.children[0];
+    const pathId = treePath.head(path),
+    child = node.children[0];
     if (!child || child.id !== pathId) return false;
     return pathIsMainlineFrom(child, treePath.tail(path));
-  }
-
-  function lastMainlineNode(path: Tree.Path): Tree.Node {
-    return lastMainlineNodeFrom(root, path);
   }
 
   function lastMainlineNodeFrom(node: Tree.Node, path: Tree.Path): Tree.Node {
@@ -107,7 +103,7 @@ export function build(root: Tree.Node): TreeWrapper {
   function getNodeList(path: Tree.Path): Tree.Node[] {
     return ops.collect(root, function(node: Tree.Node) {
       const id = treePath.head(path);
-      if (id === '') return undefined;
+      if (id === '') return;
       path = treePath.tail(path);
       return ops.childById(node, id);
     });
@@ -127,7 +123,7 @@ export function build(root: Tree.Node): TreeWrapper {
       update(node);
       return node;
     }
-    return undefined;
+    return;
   }
 
   // returns new path
@@ -240,7 +236,9 @@ export function build(root: Tree.Node): TreeWrapper {
     setGlyphsAt,
     setClockAt,
     pathIsMainline,
-    lastMainlineNode,
+    lastMainlineNode(path: Tree.Path): Tree.Node {
+      return lastMainlineNodeFrom(root, path);
+    },
     pathExists,
     deleteNodeAt,
     promoteAt,

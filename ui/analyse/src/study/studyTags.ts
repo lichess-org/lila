@@ -1,12 +1,14 @@
-import { h } from 'snabbdom'
+import { h, thunk } from 'snabbdom'
+import { VNode } from 'snabbdom/vnode'
 import { throttle } from 'common';
 import AnalyseController from '../ctrl';
+import { StudyController } from './interfaces';
 
-function editable(tag, submit) {
+function editable(value, submit) {
   return h('input', {
     attrs: {
       spellcheck: false,
-      value: tag[1]
+      value: value
     },
     hook: {
       insert: vnode => {
@@ -26,24 +28,27 @@ function fixed(text) {
   return h('span', text);
 }
 
-var selectedType;
+let fenElement: HTMLElement;
+let selectedType: string;
 
-function renderPgnTags(chapter, submit, node, types) {
+function renderPgnTags(chapter, submit, types) {
   let rows = [
-    ['Fen', h('pre#study_fen', node.fen)]
+    ['Fen', h('pre#study_fen', {
+      hook: {
+        insert(vnode) { fenElement = vnode.elm as HTMLElement; }
+      }
+    })]
   ];
   if (chapter.setup.variant.key !== 'standard')
   rows.push(['Variant', fixed(chapter.setup.variant.name)]);
   rows = rows.concat(chapter.tags.map(function(tag) {
     return [
       tag[0],
-      submit ? editable(tag, submit(tag[0])) : fixed(tag[1])
+      submit ? editable(tag[1], submit(tag[0])) : fixed(tag[1])
     ];
   }));
   if (submit) {
-    var existingTypes = chapter.tags.map(function(t) {
-      return t[0];
-    });
+    const existingTypes = chapter.tags.map(t => t[0]);
     rows.push([
       h('select', {
         hook: {
@@ -61,13 +66,13 @@ function renderPgnTags(chapter, submit, node, types) {
         }
       }, [
         h('option', 'New tag'),
-        types.map(function(t) {
+        ...types.map(function(t) {
           if (!window.lichess.fp.contains(existingTypes, t)) return h('option', {
             attrs: { value: t }
           }, t);
         })
       ]),
-      editable(['', ''], function(value) {
+      editable('', function(value) {
         if (selectedType) submit(selectedType)(value);
       })
     ]);
@@ -94,36 +99,26 @@ export function ctrl(root: AnalyseController, getChapter, members, types) {
   });
 
   return {
-    submit: function(name) {
-      return function(value) {
-        submit(name, value);
-      }
+    submit(name) {
+      return value => submit(name, value);
     },
     getChapter,
     members,
     types
   }
 }
-
-// TODO #cache
-export function view(root) {
-  const ctrl = root.tags,
-  node = root.currentNode(),
-  chapter = ctrl.getChapter(),
-  canContribute = root.vm.mode.write;
-  // const key = [chapter.id, root.data.name, chapter.name, root.data.likes, chapter.tags, canContribute].join('|');
-  // if (key === ctrl.cacheKey() && m.redraw.strategy() === 'diff') {
-  //   lichess.raf(function() {
-  //     var el = document.getElementById('study_fen');
-  //     if (el) el.textContent = node.fen;
-  //   });
-  //   return {
-  //     subtree: 'retain'
-  //   };
-  // }
+function doRender(root: StudyController): VNode {
   return h('div.undertable_inner', renderPgnTags(
-    chapter,
-    canContribute && ctrl.submit,
-    node,
-    ctrl.types))
+    root.tags.getChapter(),
+    root.vm.mode.write && root.tags.submit,
+    root.tags.types))
+}
+
+export function view(root: StudyController): VNode {
+  const chapter = root.tags.getChapter(),
+  key = chapter.id + root.data.name + chapter.name + root.data.likes + chapter.tags + root.vm.mode.write;
+  window.lichess.raf(function() {
+    if (fenElement) fenElement.textContent = root.currentNode().fen;
+  });
+  return thunk('div.undertable_inner', doRender, [root, key]);
 }

@@ -139,10 +139,6 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
     configureAnalysis();
     vm.loading = false;
 
-    // don't apply changes to old cg; wait for new cg
-    // #TODO fixme
-    // ctrl.chessground = undefined;
-
     if (vm.mode.sticky) {
       vm.chapterId = data.position.chapterId;
       ctrl.userJump(data.position.path);
@@ -154,7 +150,6 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
 
     configurePractice();
 
-    // m.redraw.strategy("all"); // create a new cg
     redraw();
     ctrl.startCeval();
   };
