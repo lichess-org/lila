@@ -152,7 +152,7 @@ function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   const withIndex = opts.withIndex || node.ply % 2 === 1,
   path = opts.parentPath + node.id,
   active = path === ctx.ctrl.path,
-  content = [
+  content: MaybeVNodes = [
     withIndex ? moveView.renderIndex(node.ply, true) : null,
     fixCrazySan(node.san!)
   ],
@@ -162,7 +162,7 @@ function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
     context_menu: path === ctx.ctrl.contextMenuPath,
   };
   if (opts.conceal) classes[opts.conceal as string] = true;
-  if (node.glyphs) content.concat(moveView.renderGlyphs(node.glyphs));
+  if (node.glyphs) moveView.renderGlyphs(node.glyphs).forEach(g => content.push(g));
   return h('move', {
     attrs: { p: path },
     class: classes
