@@ -83,7 +83,6 @@ function wheel(ctrl: AnalyseController, e: WheelEvent) {
 function inputs(ctrl: AnalyseController): VNode | undefined {
   if (ctrl.ongoing || !ctrl.data.userAnalysis) return;
   if (ctrl.redirecting) return spinner();
-  const pgnText = pgnExport.renderFullTxt(ctrl);
   return h('div.copyables', [
     h('label.name', 'FEN'),
     h('input.copyable.autoselect', {
@@ -99,9 +98,11 @@ function inputs(ctrl: AnalyseController): VNode | undefined {
     h('div.pgn', [
       h('label.name', 'PGN'),
       h('textarea.copyable.autoselect', {
-        attrs: {
-          spellCheck: false,
-          value: pgnText
+        attrs: { spellCheck: false },
+        hook: {
+          postpatch: (_, vnode) => {
+            (vnode.elm as HTMLInputElement).value = pgnExport.renderFullTxt(ctrl);
+          }
         }
       }),
       h('div.action', [
@@ -109,7 +110,7 @@ function inputs(ctrl: AnalyseController): VNode | undefined {
           attrs: dataIcon('G'),
           hook: bind('click', _ => {
             const pgn = $('.copyables .pgn textarea').val();
-            if (pgn !== pgnText) ctrl.changePgn(pgn);
+            if (pgn !== pgnExport.renderFullTxt(ctrl)) ctrl.changePgn(pgn);
           })
         }, 'Import PGN')
       ])
