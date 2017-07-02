@@ -1,14 +1,11 @@
-import { h } from 'snabbdom'
+import { h, thunk } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { plural, bind, spinner } from '../../util';
 import { enrichText } from '../studyComments';
 import { StudyController } from '../interfaces';
 
-// #TODO render only once
 function selector(data) {
-  // if (!firstRender && m.redraw.strategy() === 'diff') return {
-  //   subtree: 'retain'
-  // };
+  console.log('render selector');
   return h('select.selector', {
     hook: bind('change', e => {
       location.href = '/practice/' + (e.target as HTMLInputElement).value;
@@ -75,12 +72,12 @@ export function underboard(ctrl: StudyController): VNode {
   }
 }
 
-export function main(ctrl: StudyController): VNode[] {
+export function main(ctrl: StudyController): VNode {
 
   const current = ctrl.currentChapter();
   const data = ctrl.practice.data;
 
-  return [
+  return h('div.side_box.study_box', [
     h('div.title', [
       h('i.practice.icon.' + data.study.id),
       h('div.text', [
@@ -96,30 +93,28 @@ export function main(ctrl: StudyController): VNode[] {
         if (id) ctrl.setChapter(id, true);
         return false;
       })
-    }, [
-      ctrl.chapters.list().map(function(chapter) {
-        const loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId;
-        const active = !ctrl.vm.loading && current && current.id === chapter.id;
-        const completion = data.completion[chapter.id] ? 'done' : 'ongoing';
-        return [
-          h('a.elem.chapter', {
-            key: chapter.id,
+    }, ctrl.chapters.list().map(function(chapter) {
+      const loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId;
+      const active = !ctrl.vm.loading && current && current.id === chapter.id;
+      const completion = data.completion[chapter.id] ? 'done' : 'ongoing';
+      return [
+        h('a.elem.chapter', {
+          key: chapter.id,
+          attrs: {
+            href: data.url + '/' + chapter.id,
+            'data-id': chapter.id
+          },
+          class: { active, loading }
+        }, [
+          h('span.status.' + completion, {
             attrs: {
-              href: data.url + '/' + chapter.id,
-              'data-id': chapter.id
-            },
-            class: { active, loading }
-          }, [
-            h('span.status.' + completion, {
-              attrs: {
-                'data-icon': ((loading || active) && completion === 'ongoing') ? 'G' : 'E'
-              }
-            }),
-            h('h3', chapter.name)
-          ])
-        ];
-      })
-    ]),
+              'data-icon': ((loading || active) && completion === 'ongoing') ? 'G' : 'E'
+            }
+          }),
+          h('h3', chapter.name)
+        ])
+      ];
+    }).reduce(function(a, b) { return a.concat(b); }, [])),
     h('div.finally', [
       h('a.back', {
         attrs: {
@@ -128,7 +123,7 @@ export function main(ctrl: StudyController): VNode[] {
           title: 'More practice'
         }
       }),
-      selector(data)
+      thunk('select.selector', selector, [data])
     ])
-  ];
+  ]);
 }

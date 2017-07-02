@@ -6,7 +6,7 @@ import AnalyseController from './ctrl';
 import makeCtrl from './ctrl';
 import view from './view';
 import { main as studyView } from './study/studyView';
-// import studyPracticeView from './study/practice/studyPracticeView';
+import { main as studyPracticeView } from './study/practice/studyPracticeView';
 import boot = require('./boot');
 import { Chessground } from 'chessground';
 
@@ -35,7 +35,7 @@ export function start(opts: AnalyseOpts) {
   vnode = patch(opts.element, blueprint);
 
   if (ctrl.study && opts.sideElement) {
-    const sideView = studyView; // controller.studyPractice ? studyPracticeView : studyView
+    const sideView = ctrl.studyPractice ? studyPracticeView : studyView;
     let sideVnode = patch(opts.sideElement, sideView(ctrl.study));
     redrawSide = () => {
       sideVnode = patch(sideVnode, sideView(ctrl.study));
