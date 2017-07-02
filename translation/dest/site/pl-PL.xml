@@ -598,7 +598,7 @@
   <string name="confirmResignation">Potwierdź rezygnację</string>
   <string name="inputMovesWithTheKeyboard">Wprowadzaj ruchy za pomocą klawiatury</string>
   <string name="letOtherPlayersMessageYou">Pozwól innym graczom na pisanie do Ciebie</string>
-  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Przesuwając króla o dwa pola lub na wieżę</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Sposób roszowania</string>
   <string name="castleByMovingTwoSquares">Przesuwając króla o dwa pola</string>
   <string name="castleByMovingOntoTheRook">Przesuwając króla na wieżę</string>
   <string name="shareYourInsightsData">Udostępniaj dane swoich analiz</string>
