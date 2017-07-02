@@ -1308,9 +1308,9 @@ slide@^1.1.5:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/slide/-/slide-1.1.6.tgz#56eb027d65b4d2dce6cb2e2d32c4d4afc9e1d707"
 
-snabbdom@^0.6:
-  version "0.6.9"
-  resolved "https://registry.yarnpkg.com/snabbdom/-/snabbdom-0.6.9.tgz#65a392f4c82ca7e8ec72aa0d2fa797cf5c73b8d7"
+snabbdom@ornicar/snabbdom#lichess:
+  version "0.6.9-lichess"
+  resolved "https://codeload.github.com/ornicar/snabbdom/tar.gz/a408d93b54d32388f234fc121886df7fa8b9134f"
 
 sntp@1.x.x:
   version "1.0.9"

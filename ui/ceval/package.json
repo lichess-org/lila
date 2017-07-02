@@ -36,6 +36,6 @@
     "chess": "link:../chess",
     "common": "link:../common",
     "defer-promise": "^1.0.1",
-    "snabbdom": "^0.6"
+    "snabbdom": "ornicar/snabbdom#lichess"
   }
 }

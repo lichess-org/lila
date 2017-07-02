@@ -39,7 +39,7 @@
     "chessground": "^6.5.2",
     "common": "link:../common",
     "game": "link:../game",
-    "snabbdom": "ornicar/snabbdom",
+    "snabbdom": "ornicar/snabbdom#lichess",
     "tree": "link:../tree",
     "types": "link:../types"
   }
