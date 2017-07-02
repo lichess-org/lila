@@ -94,14 +94,14 @@ export function make(root: AnalyseController, playableDepth: () => number): Prac
 
   function checkCeval() {
     const node = root.node;
-    if (!running() || !node.ceval) {
+    if (!running()) {
       comment(null);
       return root.redraw();
     }
     ensureCevalRunning();
     if (isMyTurn()) {
       const h = hinting();
-      if (h) {
+      if (h && node.ceval) {
         h.uci = node.ceval.pvs[0].moves[0];
         root.setAutoShapes();
       }
@@ -113,7 +113,7 @@ export function make(root: AnalyseController, playableDepth: () => number): Prac
         comment(makeComment(parentNode, node, root.path));
       }
       if (!played() && playable(node)) {
-        root.playUci(node.ceval.pvs[0].moves[0]);
+        root.playUci(node.ceval!.pvs[0].moves[0]);
         played(true);
       }
     }
@@ -124,7 +124,7 @@ export function make(root: AnalyseController, playableDepth: () => number): Prac
     checkCeval();
   }
 
-  checkCeval();
+  window.lichess.requestIdleCallback(checkCeval);
 
   return {
     onCeval: checkCeval,
@@ -134,13 +134,13 @@ export function make(root: AnalyseController, playableDepth: () => number): Prac
       detectThreefold(root.nodeList, root.node);
       checkCeval();
     },
-    isMyTurn: isMyTurn,
-    comment: comment,
-    running: running,
-    hovering: hovering,
-    hinting: hinting,
-    resume: resume,
-    playableDepth: playableDepth,
+    isMyTurn,
+    comment,
+    running,
+    hovering,
+    hinting,
+    resume,
+    playableDepth,
     reset() {
       comment(null);
       hinting(null);
@@ -151,7 +151,7 @@ export function make(root: AnalyseController, playableDepth: () => number): Prac
         comment(null);
       }
     },
-    postUserJump: function(from: Ply, to: Ply) {
+    postUserJump(from: Ply, to: Ply) {
       if (from !== to && isMyTurn()) resume();
     },
     onUserMove() {

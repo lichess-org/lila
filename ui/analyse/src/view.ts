@@ -193,7 +193,7 @@ function buttons(ctrl) {
           active: ctrl.explorer.enabled()
         }
       }, [iconTag(']')]),
-      ctrl.ceval.possible ? h('button.hint--bottom', {
+      ctrl.ceval.possible && ctrl.ceval.allowed() ? h('button.hint--bottom', {
         attrs: {
           'data-hint': 'Practice with computer',
           'data-act': 'practice'
