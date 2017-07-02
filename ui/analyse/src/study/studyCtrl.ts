@@ -89,7 +89,7 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
 
   const commentForm = commentFormCtrl(ctrl);
   const glyphForm = glyphFormCtrl(ctrl);
-  const tags = tagsCtrl(ctrl, () => data.chapter, members, tagTypes);
+  const tags = tagsCtrl(ctrl, () => data.chapter, tagTypes);
 
   function addChapterId(req) {
     req.ch = data.position.chapterId;

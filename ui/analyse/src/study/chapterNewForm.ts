@@ -193,7 +193,7 @@ export function view(ctrl): VNode {
               $.when(
                 window.lichess.loadScript('/assets/compiled/lichess.editor.min.js'),
                 $.get('/editor.json', {
-                  fen: ctrl.root.vm.node.fen
+                  fen: ctrl.root.node.fen
                 })
               ).then(function(_, b) {
                 const data = b[0];

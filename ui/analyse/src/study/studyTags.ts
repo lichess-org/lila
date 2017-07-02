@@ -2,9 +2,9 @@ import { h, thunk } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { throttle } from 'common';
 import AnalyseController from '../ctrl';
-import { StudyController } from './interfaces';
+import { StudyController, StudyChapter } from './interfaces';
 
-function editable(value, submit) {
+function editable(value: string, submit: (v: string, el: HTMLInputElement) => void): VNode {
   return h('input', {
     attrs: {
       spellcheck: false,
@@ -14,7 +14,7 @@ function editable(value, submit) {
       insert: vnode => {
         const el = vnode.elm as HTMLInputElement;
         el.onblur = function() {
-          submit(el.value);
+          submit(el.value, el);
         };
         el.onkeypress = function(e) {
           if ((e.keyCode || e.which) == 13) el.blur();
@@ -31,7 +31,7 @@ function fixed(text) {
 let fenElement: HTMLElement;
 let selectedType: string;
 
-function renderPgnTags(chapter, submit, types) {
+function renderPgnTags(chapter: StudyChapter, submit, types: string[]): VNode {
   let rows = [
     ['Fen', h('pre#study_fen', {
       hook: {
@@ -72,8 +72,11 @@ function renderPgnTags(chapter, submit, types) {
           }, t);
         })
       ]),
-      editable('', function(value) {
-        if (selectedType) submit(selectedType)(value);
+      editable('', (value, el) => {
+        if (selectedType) {
+          submit(selectedType)(value);
+          el.value = '';
+        }
       })
     ]);
   }
@@ -88,7 +91,7 @@ function renderPgnTags(chapter, submit, types) {
   })));
 }
 
-export function ctrl(root: AnalyseController, getChapter, members, types) {
+export function ctrl(root: AnalyseController, getChapter: () => StudyChapter, types) {
 
   const submit = throttle(500, false, function(name, value) {
     root.study.makeChange('setTag', {
@@ -103,7 +106,6 @@ export function ctrl(root: AnalyseController, getChapter, members, types) {
       return value => submit(name, value);
     },
     getChapter,
-    members,
     types
   }
 }
