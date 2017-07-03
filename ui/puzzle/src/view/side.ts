@@ -89,6 +89,7 @@ function userBox(ctrl: Controller) {
 }
 
 function ratingChart(ctrl: Controller) {
+  console.log('ratingChart');
   return h('div.rating_chart', {
     hook: {
       insert(vnode) { drawRatingChart(ctrl, vnode) },
@@ -98,6 +99,7 @@ function ratingChart(ctrl: Controller) {
 }
 
 function drawRatingChart(ctrl: Controller, vnode: VNode) {
+  console.log('drawRatingChart');
   const dark = document.body.classList.contains('dark');
   const points = ctrl.getData().user.recent.map(function(r) {
     return r[2] + r[1];

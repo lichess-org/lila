@@ -212,7 +212,7 @@ export default function(opts, redraw: () => void): Controller {
     }
   };
 
-  var sendResult = function(win) {
+  function sendResult(win) {
     if (vm.resultSent) return;
     vm.resultSent = true;
     xhr.round(data.puzzle.id, win).then(function(res) {
@@ -223,7 +223,7 @@ export default function(opts, redraw: () => void): Controller {
     });
   };
 
-  var nextPuzzle = function() {
+  function nextPuzzle() {
     ceval.stop();
     vm.loading = true;
     redraw();
@@ -235,7 +235,7 @@ export default function(opts, redraw: () => void): Controller {
     });
   };
 
-  var addDests = function(dests, path, opening) {
+  function addDests(dests, path, opening) {
     tree.addDests(dests, path, opening);
     if (path === vm.path) {
       withGround(showGround);
@@ -245,7 +245,7 @@ export default function(opts, redraw: () => void): Controller {
     withGround(function(g) { g.playPremove(); });
   };
 
-  var instanciateCeval = function(failsafe: boolean = false) {
+  function instanciateCeval(failsafe: boolean = false) {
     if (ceval) ceval.destroy();
     ceval = cevalCtrl({
       redraw,
@@ -283,13 +283,14 @@ export default function(opts, redraw: () => void): Controller {
     });
   };
 
-  var setAutoShapes = function() {
+  function setAutoShapes() {
     withGround(function(g) {
       g.setAutoShapes(computeAutoShapes({
         vm: vm,
         ceval: ceval,
         ground: g,
-        nextNodeBest: nextNodeBest
+        threatMode: threatMode(),
+        nextNodeBest: nextNodeBest()
       }));
     });
   };

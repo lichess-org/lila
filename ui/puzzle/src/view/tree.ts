@@ -3,6 +3,7 @@ import { VNode } from 'snabbdom/vnode'
 import { defined, dropThrottle } from 'common';
 import { renderEval as normalizeEval } from 'chess';
 import { path as treePath } from 'tree';
+import { MaybeVNodes } from '../interfaces';
 
 const scrollThrottle = dropThrottle(150);
 
@@ -26,28 +27,27 @@ function plyToTurn(ply) {
   return Math.floor((ply - 1) / 2) + 1;
 }
 
-export function renderIndex(ply, withDots) {
+export function renderIndex(ply, withDots): VNode {
   return h('index', plyToTurn(ply) + (withDots ? (ply % 2 === 1 ? '.' : '...') : ''));
 }
 
-function renderChildrenOf(ctx, node, opts) {
-  var cs = node.children;
-  var main = cs[0];
-  if (!main) return;
+function renderChildrenOf(ctx, node, opts): MaybeVNodes {
+  const cs = node.children, main = cs[0];
+  if (!main) return [];
   if (opts.isMainline) {
-    var isWhite = main.ply % 2 === 1;
+    const isWhite = main.ply % 2 === 1;
     if (!cs[1]) return [
       isWhite ? renderIndex(main.ply, false) : null,
-      renderMoveAndChildrenOf(ctx, main, {
+      ...renderMoveAndChildrenOf(ctx, main, {
         parentPath: opts.parentPath,
         isMainline: true
       })
     ];
-    var mainChildren = renderChildrenOf(ctx, main, {
+    const mainChildren = renderChildrenOf(ctx, main, {
       parentPath: opts.parentPath + main.id,
       isMainline: true
-    });
-    var passOpts = {
+    }),
+    passOpts = {
       parentPath: opts.parentPath,
       isMainline: true
     };
@@ -55,24 +55,21 @@ function renderChildrenOf(ctx, node, opts) {
       isWhite ? renderIndex(main.ply, false) : null,
       renderMoveOf(ctx, main, passOpts),
       isWhite ? emptyMove() : null,
-      h('interrupt', [
-        renderLines(ctx, cs.slice(1), {
-          parentPath: opts.parentPath,
-          isMainline: true
-        })
-      ]),
-      isWhite && mainChildren ? [
+      h('interrupt', renderLines(ctx, cs.slice(1), {
+        parentPath: opts.parentPath,
+        isMainline: true
+      })),
+      ...(isWhite && mainChildren ? [
         renderIndex(main.ply, false),
         emptyMove()
-      ] : null,
-      mainChildren
+      ] : []),
+      ...mainChildren
     ];
   }
-  if (!cs[1]) return renderMoveAndChildrenOf(ctx, main, opts);
-  return renderLines(ctx, cs, opts);
+  return cs[1] ? [renderLines(ctx, cs, opts)] : renderMoveAndChildrenOf(ctx, main, opts);
 }
 
-function renderLines(ctx, nodes, opts) {
+function renderLines(ctx, nodes, opts): VNode {
   return h('lines', {
     class: { single: !!nodes[1] }
   }, nodes.map(function(n) {
@@ -84,31 +81,31 @@ function renderLines(ctx, nodes, opts) {
   }));
 }
 
-function renderMoveOf(ctx, node, opts) {
+function renderMoveOf(ctx, node, opts): VNode {
   return opts.isMainline ? renderMainlineMoveOf(ctx, node, opts) : renderVariationMoveOf(ctx, node, opts);
 }
 
-function renderMainlineMoveOf(ctx, node, opts) {
+function renderMainlineMoveOf(ctx, node, opts): VNode {
   const path = opts.parentPath + node.id;
   const classes: any = {
     active: path === ctx.ctrl.vm.path,
     current: path === ctx.ctrl.vm.initialPath,
     hist: node.ply < ctx.ctrl.vm.initialNode.ply
   };
-  if (node.puzzle) classes[node.puzzle] = true
-    return h('move', {
-      attrs: { p: path },
-      class: classes
-    }, renderMove(ctx, node));
+  if (node.puzzle) classes[node.puzzle] = true;
+  return h('move', {
+    attrs: { p: path },
+    class: classes
+  }, renderMove(ctx, node));
 }
 
-function renderGlyph(glyph) {
+function renderGlyph(glyph): VNode {
   return h('glyph', {
     attrs: { title: glyph.name }
   }, glyph.symbol);
 }
 
-function puzzleGlyph(ctx, node) {
+function puzzleGlyph(ctx, node): VNode | undefined {
   switch (node.puzzle) {
     case 'good':
     case 'win':
@@ -129,7 +126,7 @@ function puzzleGlyph(ctx, node) {
   }
 }
 
-export function renderMove(ctx, node) {
+export function renderMove(ctx, node): MaybeVNodes {
   const ev = node.eval || node.ceval || {};
   return [
     node.san,
@@ -140,7 +137,7 @@ export function renderMove(ctx, node) {
   ];
 }
 
-function renderVariationMoveOf(ctx, node, opts) {
+function renderVariationMoveOf(ctx, node, opts): VNode {
   const withIndex = opts.withIndex || node.ply % 2 === 1;
   const path = opts.parentPath + node.id;
   const active = path === ctx.ctrl.vm.path;
@@ -159,12 +156,11 @@ function renderVariationMoveOf(ctx, node, opts) {
   ]);
 }
 
-function renderMoveAndChildrenOf(ctx, node, opts) {
-  var path = opts.parentPath + node.id;
+function renderMoveAndChildrenOf(ctx, node, opts): MaybeVNodes {
   return [
     renderMoveOf(ctx, node, opts),
-    renderChildrenOf(ctx, node, {
-      parentPath: path,
+    ...renderChildrenOf(ctx, node, {
+      parentPath: opts.parentPath + node.id,
       isMainline: opts.isMainline
     })
   ];
@@ -213,11 +209,11 @@ export function render(ctrl): VNode {
       }
     }
   }, [
-    root.ply % 2 === 1 ? [
+    ...(root.ply % 2 === 1 ? [
       renderIndex(root.ply, false),
       emptyMove()
-    ] : null,
-    renderChildrenOf(ctx, root, {
+    ] : []),
+    ...renderChildrenOf(ctx, root, {
       parentPath: '',
       isMainline: true
     })

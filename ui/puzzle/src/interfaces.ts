@@ -1,5 +1,9 @@
 import { CevalController, NodeEvals } from 'ceval';
 import { Prop } from 'common';
+import { VNode } from 'snabbdom/vnode'
+
+export type MaybeVNode = VNode | string | null | undefined;
+export type MaybeVNodes = MaybeVNode[]
 
 export interface Controller {
   vm: Vm;
