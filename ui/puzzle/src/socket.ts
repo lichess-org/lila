@@ -1,4 +1,4 @@
-module.exports = function(opts) {
+export default function(opts) {
 
   var anaMoveTimeout;
   var anaDestsTimeout;
@@ -10,7 +10,7 @@ module.exports = function(opts) {
       clearTimeout(anaMoveTimeout);
       opts.addNode(data.node, data.path);
     },
-    stepFailure: function(data) {
+    stepFailure: function() {
       clearTimeout(anaMoveTimeout);
       opts.reset();
     },

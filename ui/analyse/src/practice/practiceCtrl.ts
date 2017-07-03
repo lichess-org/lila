@@ -31,7 +31,7 @@ export function make(root: AnalyseController, playableDepth: () => number): Prac
   function ensureCevalRunning() {
     if (!root.showComputer()) root.toggleComputer();
     if (!root.ceval.enabled()) root.toggleCeval();
-    if (root.threatMode) root.toggleThreatMode();
+    if (root.threatMode()) root.toggleThreatMode();
   }
 
   function commentable(node: Tree.Node, bonus: number = 0): boolean {

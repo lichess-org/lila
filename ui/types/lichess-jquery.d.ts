@@ -8,30 +8,30 @@ interface LichessModal {
 }
 
 interface JQuery {
-  powerTip(options?: PowerTip.Options): JQuery
-  typeahead: any
-  scrollTo(el: JQuery | HTMLElement, delay: number): JQuery
+  powerTip(options?: PowerTip.Options): JQuery;
+  typeahead: any;
+  scrollTo(el: JQuery | HTMLElement, delay: number): JQuery;
+  sparkline: any;
 }
 
 declare namespace PowerTip {
-    type Placement = 'n' | 'e' | 's' | 'w' | 'nw' | 'ne' | 'sw' | 'se' |
-                     'nw-alt' | 'ne-alt' | 'sw-alt' | 'se-alt';
+  type Placement = 'n' | 'e' | 's' | 'w' | 'nw' | 'ne' | 'sw' | 'se' | 'nw-alt' | 'ne-alt' | 'sw-alt' | 'se-alt';
 
-    interface Options {
-        followMouse?: boolean;
-        mouseOnToPopup?: boolean;
-        placement?: Placement;
-        smartPlacement?: boolean;
-        popupId?: string;
-        poupClass?: string;
-        offset?: number;
-        fadeInTime?: number;
-        fadeOutTime?: number;
-        closeDelay?: number;
-        intentPollInterval?: number;
-        intentSensitivity?: number;
-        manual?: boolean;
-        openEvents?: string[];
-        closeEvents?: string[];
-    }
+  interface Options {
+    followMouse?: boolean;
+    mouseOnToPopup?: boolean;
+    placement?: Placement;
+    smartPlacement?: boolean;
+    popupId?: string;
+    poupClass?: string;
+    offset?: number;
+    fadeInTime?: number;
+    fadeOutTime?: number;
+    closeDelay?: number;
+    intentPollInterval?: number;
+    intentSensitivity?: number;
+    manual?: boolean;
+    openEvents?: string[];
+    closeEvents?: string[];
+  }
 }

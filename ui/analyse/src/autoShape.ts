@@ -66,7 +66,7 @@ export function compute(ctrl: AnalyseController): DrawShape[] {
       let nextBest = ctrl.nextNodeBest();
       if (!nextBest && instance.enabled() && n.ceval) nextBest = n.ceval.pvs[0].moves[0];
       if (nextBest) shapes = shapes.concat(makeAutoShapesFromUci(color, nextBest, 'paleBlue'));
-      if (instance.enabled() && n.ceval && n.ceval.pvs[1] && !(ctrl.threatMode && n.threat && n.threat.pvs[2])) {
+      if (instance.enabled() && n.ceval && n.ceval.pvs[1] && !(ctrl.threatMode() && n.threat && n.threat.pvs[2])) {
         n.ceval.pvs.forEach(function(pv) {
           if (pv.moves[0] === nextBest) return;
           const shift = winningChances.povDiff(color, n.ceval!.pvs[0], pv);
@@ -78,7 +78,7 @@ export function compute(ctrl: AnalyseController): DrawShape[] {
       }
     }
   }
-  if (instance.enabled() && ctrl.threatMode && n.threat) {
+  if (instance.enabled() && ctrl.threatMode() && n.threat) {
     if (n.threat.pvs[1]) {
       shapes = shapes.concat(makeAutoShapesFromUci(rcolor, n.threat.pvs[0].moves[0], 'paleRed'));
       n.threat.pvs.slice(1).forEach(function(pv) {

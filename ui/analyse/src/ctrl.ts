@@ -10,7 +10,7 @@ import { Autoplay, AutoplayDelay } from './autoplay';
 import * as promotion from './promotion';
 import * as util from './util';
 import * as chessUtil from 'chess';
-import { storedProp, throttle, defined, StoredBooleanProp } from 'common';
+import { storedProp, throttle, defined, prop, Prop, StoredBooleanProp } from 'common';
 import { make as makeSocket, Socket } from './socket';
 import { make as makeForecast, ForecastController } from './forecast/forecastCtrl';
 import { ctrl as cevalCtrl, isEvalBetter, CevalController, Work as CevalWork, CevalOpts } from 'ceval';
@@ -75,7 +75,7 @@ export default class AnalyseController {
   showGauge: StoredBooleanProp = storedProp('show-gauge', true);
   showComputer: StoredBooleanProp = storedProp('show-computer', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
-  threatMode: boolean = false;
+  threatMode: Prop<boolean> = prop(false);
   cgVersion = {
     js: 1, // increment to recreate chessground
     dom: 1
@@ -202,6 +202,9 @@ export default class AnalyseController {
   getOrientation(): Color { // required by ui/ceval
     return this.bottomColor();
   }
+  getNode(): Tree.Node { // required by ui/ceval
+    return this.node;
+  }
 
   turnColor(): Color {
     return this.node.ply % 2 === 0 ? 'white' : 'black';
@@ -305,7 +308,7 @@ export default class AnalyseController {
         else this.sound.move();
       }
       if (/\+|\#/.test(this.node.san!)) this.sound.check();
-      this.threatMode = false;
+      this.threatMode(false);
       this.ceval.stop();
       this.startCeval();
     }
@@ -513,10 +516,10 @@ export default class AnalyseController {
     this.withCg(cg => cg.setAutoShapes(computeAutoShapes(this)));
   }
 
-  private onNewCeval = (ev: Tree.ClientEval, path: Tree.Path, threatMode: boolean): void => {
+  private onNewCeval = (ev: Tree.ClientEval, path: Tree.Path, isThreat: boolean): void => {
     this.tree.updateAt(path, (node: Tree.Node) => {
-      if (node.fen !== ev.fen && !threatMode) return;
-      if (threatMode) {
+      if (node.fen !== ev.fen && !isThreat) return;
+      if (isThreat) {
         if (!node.threat || isEvalBetter(ev, node.threat) || node.threat.maxDepth < ev.maxDepth)
         node.threat = ev;
       } else if (isEvalBetter(ev, node.ceval)) node.ceval = ev;
@@ -524,7 +527,7 @@ export default class AnalyseController {
 
       if (path === this.path) {
         this.setAutoShapes();
-        if (!threatMode) {
+        if (!isThreat) {
           if (this.retro) this.retro.onCeval();
           if (this.practice) this.practice.onCeval();
           if (this.studyPractice) this.studyPractice.onCeval();
@@ -589,7 +592,7 @@ export default class AnalyseController {
   startCeval = throttle(800, false, () => {
     if (this.ceval.enabled()) {
       if (this.canUseCeval()) {
-        this.ceval.start(this.path, this.nodeList, this.threatMode, false);
+        this.ceval.start(this.path, this.nodeList, this.threatMode(), false);
         this.evalCache.fetch(this.path, parseInt(this.ceval.multiPv()));
       } else this.ceval.stop();
     }
@@ -600,7 +603,7 @@ export default class AnalyseController {
     this.setAutoShapes();
     this.startCeval();
     if (!this.ceval.enabled()) {
-      this.threatMode = false;
+      this.threatMode(false);
       if (this.practice) this.togglePractice();
     }
     this.redraw();
@@ -610,8 +613,8 @@ export default class AnalyseController {
     if (this.node.check) return;
     if (!this.ceval.enabled()) this.ceval.toggle();
     if (!this.ceval.enabled()) return;
-    this.threatMode = !this.threatMode;
-    if (this.threatMode && this.practice) this.togglePractice();
+    this.threatMode(!this.threatMode());
+    if (this.threatMode() && this.practice) this.togglePractice();
     this.setAutoShapes();
     this.startCeval();
     this.redraw();
