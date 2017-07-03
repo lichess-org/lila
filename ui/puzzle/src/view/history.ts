@@ -6,7 +6,6 @@ import { Controller } from '../interfaces';
 const historySize = 15;
 
 function render(ctrl: Controller): VNode {
-  console.log('render history');
   const data = ctrl.getData();
   const slots: any[] = [];
   for (let i = 0; i < historySize; i++) slots[i] = data.user.recent[i] || null;

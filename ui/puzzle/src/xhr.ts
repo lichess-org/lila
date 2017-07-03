@@ -3,7 +3,7 @@
 export function round(puzzleId, win) {
   return $.ajax({
     method: 'POST',
-    url: '/training/' + puzzleId + '/round',
+    url: '/training/' + puzzleId + '/round2',
     data: {
       win: win ? 1 : 0
     }

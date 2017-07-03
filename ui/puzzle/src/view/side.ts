@@ -67,11 +67,11 @@ function gameInfos(ctrl: Controller, game, puzzle): VNode[] {
 }
 
 function userBox(ctrl: Controller) {
-  var data = ctrl.getData();
+  const data = ctrl.getData();
   if (!data.user) return;
-  var ratingHtml = data.user.rating;
+  let ratingHtml = data.user.rating;
   if (ctrl.vm.round) {
-    var diff = ctrl.vm.round.ratingDiff,
+    let diff = ctrl.vm.round.ratingDiff,
       klass = '';
     if (diff >= 0) {
       diff = '+' + diff;
