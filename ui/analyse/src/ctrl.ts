@@ -71,12 +71,15 @@ export default class AnalyseController {
   flipped: boolean = false;
   embed: boolean;
   showComments: boolean = true; // whether to display comments in the move tree
-  showAutoShapes: StoredBooleanProp = storedProp('show-auto-shapes', true);
+    showAutoShapes: StoredBooleanProp = storedProp('show-auto-shapes', true);
   showGauge: StoredBooleanProp = storedProp('show-gauge', true);
   showComputer: StoredBooleanProp = storedProp('show-computer', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: boolean = false;
-  chessgroundIt: number = 1; // increment to recreate chessground
+  cgVersion = {
+    js: 1, // increment to recreate chessground
+    dom: 1
+  };
 
   // other paths
   initialPath: Tree.Path;
@@ -218,11 +221,11 @@ export default class AnalyseController {
   private showGround(): void {
     this.onChange();
     if (!defined(this.node.dests)) this.getDests();
-    if (this.chessground) {
-      this.chessground.set(this.makeCgOpts());
+    this.withCg(cg => {
+      cg.set(this.makeCgOpts());
       this.setAutoShapes();
-      if (this.node.shapes) this.chessground.setShapes(this.node.shapes as DrawShape[]);
-    }
+      if (this.node.shapes) cg.setShapes(this.node.shapes as DrawShape[]);
+    });
   }
 
   getDests: () => void = throttle(800, false, () => {
@@ -323,7 +326,7 @@ export default class AnalyseController {
 
   userJump = (path: Tree.Path): void => {
     this.autoplay.stop();
-    if (this.chessground) this.chessground.selectSquare(null);
+    this.withCg(cg => cg.selectSquare(null));
     if (this.practice) {
       const prev = this.path;
       this.practice.preUserJump(prev, path);
@@ -366,7 +369,7 @@ export default class AnalyseController {
     this.setPath(treePath.root);
     this.instanciateCeval();
     this.instanciateEvalCache();
-    this.chessgroundIt ++;
+    this.cgVersion.js++;
   }
 
   changePgn(pgn: string): void {
@@ -464,7 +467,7 @@ export default class AnalyseController {
       // this.redraw();
       if (this.gameOver()) this.ceval.stop();
     }
-    if (this.chessground) this.chessground.playPremove();
+    this.withCg(cg => cg.playPremove());
   }
 
   deleteNode(path: Tree.Path): void {
@@ -507,7 +510,7 @@ export default class AnalyseController {
   }
 
   setAutoShapes = (): void => {
-    if (this.chessground) this.chessground.setAutoShapes(computeAutoShapes(this));
+    this.withCg(cg => cg.setAutoShapes(computeAutoShapes(this)));
   }
 
   private onNewCeval = (ev: Tree.ClientEval, path: Tree.Path, threatMode: boolean): void => {
@@ -775,5 +778,10 @@ export default class AnalyseController {
   restartPractice() {
     this.practice = undefined;
     this.togglePractice();
+  }
+
+  private withCg<A>(f: (cg: ChessgroundApi) => A): A | undefined {
+    if (this.chessground && this.cgVersion.js === this.cgVersion.dom)
+      return f(this.chessground);
   }
 };
