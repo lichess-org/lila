@@ -21,7 +21,7 @@ case class Perf(
   }
 
   def add(g: Glicko, date: DateTime): Perf = copy(
-    glicko = g.age(latest, date).cap,
+    glicko = g.cap,
     nb = nb + 1,
     recent = updateRecentWith(g),
     latest = date.some
@@ -50,9 +50,9 @@ case class Perf(
     if (nb < 10) recent
     else (glicko.intRating :: recent) take Perf.recentMaxSize
 
-  def toRating = new Rating(
+  def toRating(date: DateTime) = new Rating(
     math.max(Glicko.minRating, glicko.rating),
-    glicko.deviation,
+    glicko.age(latest, date).cap.deviation,
     glicko.volatility,
     nb
   )

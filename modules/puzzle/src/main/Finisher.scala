@@ -18,13 +18,13 @@ private[puzzle] final class Finisher(
       case Some(PuzzleHead(_, Some(c), _)) if c == puzzle.id =>
         api.head.solved(user, puzzle.id) >>
           api.learning.update(user, puzzle, result).flatMap { isLearning =>
-            val userRating = user.perfs.puzzle.toRating
-            val puzzleRating = puzzle.perf.toRating
+            val date = DateTime.now
+            val userRating = user.perfs.puzzle.toRating(date)
+            val puzzleRating = puzzle.perf.toRating(date)
             updateRatings(userRating, puzzleRating,
               result = result.win.fold(Glicko.Result.Win, Glicko.Result.Loss),
               isLearning = isLearning)
-            val date = DateTime.now
-            val puzzlePerf = puzzle.perf.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id} user")(puzzleRating)
+            val puzzlePerf = puzzle.perf.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id} user")(puzzleRating, date)
             val userPerf = user.perfs.puzzle.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, date)
             val a = new Round(
               puzzleId = puzzle.id,
