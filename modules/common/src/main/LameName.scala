@@ -2,30 +2,31 @@ package lila.common
 
 object LameName {
 
-  def apply(name: String) = {
-    val id = name.toLowerCase
-    (lameUsernames exists id.contains) ||
-      (lamePrefixes exists id.startsWith) ||
-      (lameSuffixes exists id.endsWith) ||
-      (uppercaseTitles exists name.startsWith)
+  def apply(name: String) =
+    lameWords.matcher(name).find ||
+      lamePrefix.matcher(name).lookingAt
+
+  private val lamePrefix = {
+    val title = "w?[ncfigl1]m"
+    s"${title.toUpperCase}|$title[-_A-Z0-9]".r.pattern
   }
 
-  private val titles = for {
-    prefix <- List("", "w")
-    char <- "ncfigl"
-  } yield s"${prefix}${char}m"
+  private val lameWords = {
+    val extras = Map(
+      'a' -> "4",
+      'e' -> "3",
+      'i' -> "l1",
+      'l' -> "I1",
+      'o' -> "0",
+      's' -> "5",
+      'z' -> "2"
+    )
 
-  private val uppercaseTitles = titles.map(_.toUpperCase)
+    val subs = 'a' to 'z' map {
+      c => c -> s"[$c${c.toUpper}${~extras.get(c)}]"
+    } toMap
 
-  private val lamePrefixes = "_" :: "-" :: (for {
-    title <- titles
-    sep <- List("-", "_")
-  } yield s"$title$sep") ::: (0 to 9).toList map (_.toString)
-
-  private val lameSuffixes = List("-", "_")
-
-  private val lameUsernames = for {
-    base <- List(
+    (List(
       "hitler",
       "fuck",
       "penis",
@@ -52,8 +53,10 @@ object LameName {
       "mortez",
       "buttsex",
       "retard",
-      "pedo"
-    )
-    replacement <- List("" -> "", "o" -> "0", "i" -> "1", "s" -> "5")
-  } yield base.replace(replacement._1, replacement._2)
+      "pedo",
+      "lichess",
+      "moderator",
+      "administrator"
+    ) map { _ map subs mkString } mkString "|" r).pattern
+  }
 }
