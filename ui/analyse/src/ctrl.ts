@@ -26,6 +26,8 @@ import { compute as computeAutoShapes } from './autoShape';
 import { nextGlyphSymbol } from './nodeFinder';
 import { AnalyseOpts, AnalyseData, AnalyseDataWithTree, Key, CgDests, JustCaptured } from './interfaces';
 
+const li = window.lichess;
+
 export default class AnalyseController {
 
   opts: AnalyseOpts;
@@ -98,7 +100,7 @@ export default class AnalyseController {
     this.embed = opts.embed;
     this.redraw = redraw;
 
-    this.trans = window.lichess.trans(opts.i18n);
+    this.trans = li.trans(opts.i18n);
 
     if (this.data.forecast) this.forecast = makeForecast(this.data.forecast, this.data, redraw);
 
@@ -137,14 +139,14 @@ export default class AnalyseController {
 
     keyboard.bind(this);
 
-    window.lichess.pubsub.on('jump', (ply: any) => {
+    li.pubsub.on('jump', (ply: any) => {
       this.jumpToMain(parseInt(ply));
       this.redraw();
     });
 
-    window.lichess.pubsub.on('sound_set', (set: string) => {
+    li.pubsub.on('sound_set', (set: string) => {
       if (!this.music && set === 'music')
-        window.lichess.loadScript('/assets/javascripts/music/replay.js').then(() => {
+        li.loadScript('/assets/javascripts/music/replay.js').then(() => {
           this.music = window.lichessReplayMusic();
         });
         if (this.music && set !== 'music') this.music = null;
@@ -275,10 +277,14 @@ export default class AnalyseController {
     return config;
   }
 
-  private sound = {
-    move: throttle(50, false, window.lichess.sound.move),
-    capture: throttle(50, false, window.lichess.sound.capture),
-    check: throttle(50, false, window.lichess.sound.check)
+  private sound = li.sound ? {
+    move: throttle(50, false, li.sound.move),
+    capture: throttle(50, false, li.sound.capture),
+    check: throttle(50, false, li.sound.check)
+  } : {
+    move: $.noop,
+    capture: $.noop,
+    check: $.noop
   };
 
   private onChange: () => void = throttle(300, false, () => {
