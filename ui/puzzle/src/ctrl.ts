@@ -239,7 +239,7 @@ export default function(opts, redraw: () => void): Controller {
     tree.addDests(dests, path, opening);
     if (path === vm.path) {
       withGround(showGround);
-      redraw();
+      // redraw();
       if (gameOver()) ceval.stop();
     }
     withGround(function(g) { g.playPremove(); });
