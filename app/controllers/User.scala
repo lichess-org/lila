@@ -4,6 +4,7 @@ import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
 
+import chess.Centis
 import lila.api.BodyContext
 import lila.app._
 import lila.app.mashup.GameFilterMenu
@@ -12,6 +13,7 @@ import lila.common.{ IpAddress, HTTPRequest }
 import lila.game.{ GameRepo, Game => GameModel }
 import lila.rating.PerfType
 import lila.user.{ User => UserModel, UserRepo }
+import lila.socket.UserLagCache
 import views._
 
 object User extends LilaController {
@@ -46,6 +48,13 @@ object User extends LilaController {
     filter(username, none, 1)
   }
 
+  private def connQuality(lag: Centis) = lag.centis match {
+    case c if c < 15 => 4
+    case c if c < 25 => 3
+    case c if c < 50 => 2
+    case _ => 1
+  }
+
   def showMini(username: String) = Open { implicit ctx =>
     OptionFuResult(UserRepo named username) { user =>
       if (user.enabled) for {
@@ -53,9 +62,10 @@ object User extends LilaController {
         crosstable <- ctx.userId ?? { Env.game.crosstableApi(user.id, _) }
         followable <- ctx.isAuth ?? { Env.pref.api.followable(user.id) }
         relation <- ctx.userId ?? { relationApi.fetchRelation(_, user.id) }
+        ping = UserLagCache.get(user.id) map connQuality
         res <- negotiate(
           html = !ctx.is(user) ?? GameRepo.lastPlayedPlaying(user) map { pov =>
-          Ok(html.user.mini(user, pov, blocked, followable, relation, crosstable))
+          Ok(html.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
             .withHeaders(CACHE_CONTROL -> "max-age=5")
         },
           api = _ => {

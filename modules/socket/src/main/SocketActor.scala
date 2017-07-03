@@ -85,8 +85,13 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
 
   def ping(uid: String, lagTenths: Option[Int]) {
     setAlive(uid)
-    lagTenths foreach { lt => UserLagCache.put(uid, lt) }
-    withMember(uid)(_ push pong)
+    withMember(uid) { member =>
+      for {
+        lt <- lagTenths
+        user <- member.userId
+      } UserLagCache.put(user, lt)
+      member push pong
+    }
   }
 
   def broom {
