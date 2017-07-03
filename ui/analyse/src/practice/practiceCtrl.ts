@@ -172,8 +172,8 @@ export function make(root: AnalyseController, playableDepth: () => number): Prac
       root.setAutoShapes();
     },
     hint() {
-      const best = root.node.ceval ? root.node.ceval.pvs[0].moves[0] : null;
-      const prev = hinting();
+      const best = root.node.ceval ? root.node.ceval.pvs[0].moves[0] : null,
+      prev = hinting();
       if (!best || (prev && prev.mode === 'move')) hinting(null);
       else hinting({
         mode: prev ? 'move' : 'piece',

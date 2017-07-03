@@ -5,7 +5,6 @@ import { enrichText } from '../studyComments';
 import { StudyController } from '../interfaces';
 
 function selector(data) {
-  console.log('render selector');
   return h('select.selector', {
     hook: bind('change', e => {
       location.href = '/practice/' + (e.target as HTMLInputElement).value;

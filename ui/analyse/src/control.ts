@@ -7,9 +7,8 @@ export function canGoForward(ctrl: AnalyseController): boolean {
 }
 
 export function next(ctrl: AnalyseController): void {
-  var child = ctrl.node.children[0];
-  if (!child) return;
-  ctrl.userJumpIfCan(ctrl.path + child.id);
+  const child = ctrl.node.children[0];
+  if (child) ctrl.userJumpIfCan(ctrl.path + child.id);
 }
 
 export function prev(ctrl: AnalyseController): void {
@@ -25,14 +24,13 @@ export function first(ctrl: AnalyseController): void {
 }
 
 export function enterVariation(ctrl: AnalyseController): void {
-  var child = ctrl.node.children[1];
-  if (!child) return;
-  ctrl.userJump(ctrl.path + child.id);
+  let child = ctrl.node.children[1];
+  if (child) ctrl.userJump(ctrl.path + child.id);
 }
 
 export function exitVariation(ctrl: AnalyseController): void {
   if (ctrl.onMainline) return;
-  var found, path = treePath.root;
+  let found, path = treePath.root;
   ctrl.nodeList.slice(1, -1).forEach(function(n: Tree.Node) {
     path += n.id;
     if (n.children[1]) found = path;
