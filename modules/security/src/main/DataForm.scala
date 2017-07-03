@@ -37,13 +37,10 @@ final class DataForm(
       Constraints.pattern(
         regex = User.usernameRegex,
         error = "usernameInvalid"
-      ),
-      Constraints.pattern(
-        regex = """^[^\d].+$""".r,
-        error = "usernameStartNoNumber"
       )
-    ).verifying("usernameAlreadyUsed", u => !UserRepo.nameExists(u).awaitSeconds(4))
-      .verifying("usernameUnacceptable", u => !LameName(u))
+    ).verifying("usernameUnacceptable", u => !LameName(u))
+      .verifying("usernameAlreadyUsed", u => !UserRepo.nameExists(u).awaitSeconds(4))
+
 
     val website = Form(mapping(
       "username" -> username,
