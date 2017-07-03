@@ -80,17 +80,17 @@ function userBox(ctrl: Controller) {
     else klass = 'down';
     ratingHtml += ' <span class="rp ' + klass + '">' + diff + '</span>';
   }
+  const hash = ctrl.recentHash();
   return h('div.side_box.rating', [
     h('h2', {
       hook: innerHTML(ctrl.trans('yourPuzzleRatingX', strong(ratingHtml)))
     }),
-    h('div', thunk('div.rating_chart', ratingChart, [ctrl, ctrl.recentHash()]))
+    h('div', thunk('div.rating_chart.' + hash, ratingChart, [ctrl, hash]))
   ]);
 }
 
-function ratingChart(ctrl: Controller) {
-  console.log('ratingChart');
-  return h('div.rating_chart', {
+function ratingChart(ctrl: Controller, hash: string) {
+  return h('div.rating_chart.' + hash, {
     hook: {
       insert(vnode) { drawRatingChart(ctrl, vnode) },
       postpatch(_, vnode) { drawRatingChart(ctrl, vnode) }
@@ -99,7 +99,6 @@ function ratingChart(ctrl: Controller) {
 }
 
 function drawRatingChart(ctrl: Controller, vnode: VNode) {
-  console.log('drawRatingChart');
   const dark = document.body.classList.contains('dark');
   const points = ctrl.getData().user.recent.map(function(r) {
     return r[2] + r[1];

@@ -407,11 +407,11 @@ export default function(opts, redraw: () => void): Controller {
     }
   });
 
-  function recentHash() {
+  function recentHash(): string {
     return data.puzzle.id + (data.user ? data.user.recent.reduce(function(h, r) {
       return h + r[0];
     }, '') : '');
-  };
+  }
 
   const hasEverVoted = window.lichess.storage.make('puzzle-ever-voted');
 
