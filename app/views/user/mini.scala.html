@@ -9,7 +9,7 @@
     </span>
     }
     }
-    @ping.map { p => <span class="ping">@p</span> }
+    @ping.map { p => @signalBars(p) }
     @userLink(u, withPowerTip = false)
   </div>
   @if(u.engine && ctx.me.fold(true)(u !=)) {
