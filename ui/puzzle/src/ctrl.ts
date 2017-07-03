@@ -428,13 +428,14 @@ export default function(opts, redraw: () => void): Controller {
 
   const promotion = makePromotion(vm, ground, redraw);
 
-  keyboard.bind({
-    vm: vm,
-    userJump: userJump,
-    getCeval: getCeval,
-    toggleCeval: toggleCeval,
-    toggleThreatMode: toggleThreatMode,
-    playBestMove: function() {
+  keyboard({
+    vm,
+    userJump,
+    getCeval,
+    toggleCeval,
+    toggleThreatMode,
+    redraw,
+    playBestMove() {
       var uci = nextNodeBest() || (vm.node.ceval && vm.node.ceval.pvs[0].moves[0]);
       if (uci) playUci(uci);
     }

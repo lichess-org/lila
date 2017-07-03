@@ -14,7 +14,7 @@ function preventing(f: () => void): (e: MouseEvent) => void {
 
 export default function(ctrl) {
   if (!window.Mousetrap) return;
-  var kbd = window.Mousetrap;
+  const kbd = window.Mousetrap;
   kbd.bind(['left', 'k'], preventing(function() {
     control.prev(ctrl);
     ctrl.redraw();
