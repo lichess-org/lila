@@ -9,12 +9,13 @@ import AnalyseController from './ctrl';
 
 export function render(ctrl: AnalyseController): VNode {
   return h('div.cg-board-wrap', {
-    key: ctrl.chessgroundIt,
+    key: ctrl.cgVersion.js,
     hook: {
       insert: vnode => {
         ctrl.chessground = Chessground((vnode.elm as HTMLElement), makeConfig(ctrl));
         ctrl.setAutoShapes();
         if (ctrl.node.shapes) ctrl.chessground.setShapes(ctrl.node.shapes as DrawShape[]);
+        ctrl.cgVersion.dom = ctrl.cgVersion.js;
       },
       destroy: _ => ctrl.chessground.destroy()
     }

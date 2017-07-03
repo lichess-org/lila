@@ -31,7 +31,7 @@ export function make(root: AnalyseController, playableDepth: () => number): Prac
   function ensureCevalRunning() {
     if (!root.showComputer()) root.toggleComputer();
     if (!root.ceval.enabled()) root.toggleCeval();
-    if (root.threatMode) root.toggleThreatMode();
+    if (root.threatMode()) root.toggleThreatMode();
   }
 
   function commentable(node: Tree.Node, bonus: number = 0): boolean {
@@ -172,8 +172,8 @@ export function make(root: AnalyseController, playableDepth: () => number): Prac
       root.setAutoShapes();
     },
     hint() {
-      const best = root.node.ceval ? root.node.ceval.pvs[0].moves[0] : null;
-      const prev = hinting();
+      const best = root.node.ceval ? root.node.ceval.pvs[0].moves[0] : null,
+      prev = hinting();
       if (!best || (prev && prev.mode === 'move')) hinting(null);
       else hinting({
         mode: prev ? 'move' : 'piece',

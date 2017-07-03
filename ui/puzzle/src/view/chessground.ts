@@ -1,16 +1,18 @@
-var m = require('mithril');
-var Chessground = require('chessground').Chessground;
+import { h } from 'snabbdom'
+import { Chessground } from 'chessground';
+import { Config as CgConfig } from 'chessground/config';
 
-module.exports = function(ctrl) {
-  return m('div.cg-board-wrap', {
-    config: function(el, isUpdate) {
-      if (!isUpdate) ctrl.ground(Chessground(el, makeConfig(ctrl)));
+export default function(ctrl) {
+  return h('div.cg-board-wrap', {
+    hook: {
+      insert: vnode => ctrl.ground(Chessground((vnode.elm as HTMLElement), makeConfig(ctrl))),
+      destroy: _ => ctrl.ground().destroy()
     }
   });
 }
 
-function makeConfig(ctrl) {
-  var opts = ctrl.makeCgOpts();
+function makeConfig(ctrl): CgConfig {
+  const opts = ctrl.makeCgOpts();
   return {
     fen: opts.fen,
     orientation: opts.orientation,

@@ -1,50 +1,53 @@
-var m = require('mithril');
-var treeBuild = require('tree').build;
-var treeOps = require('tree').ops;
-var treePath = require('tree').path;
-var cevalCtrl = require('ceval').ctrl;
-var readDests = require('chess').readDests;
-var decomposeUci = require('chess').decomposeUci;
-var sanToRole = require('chess').sanToRole;
-var opposite = require('chessground/util').opposite;
-var keyboard = require('./keyboard');
-var socketBuild = require('./socket');
-var moveTestBuild = require('./moveTest');
-var mergeSolution = require('./solution');
-var makePromotion = require('./promotion');
-var computeAutoShapes = require('./autoShape');
-var throttle = require('common').throttle;
-var xhr = require('./xhr');
-var sound = require('./sound');
+import { build as treeBuild, ops as treeOps, path as treePath } from 'tree';
+import { ctrl as cevalCtrl } from 'ceval';
+import { readDests, decomposeUci, sanToRole } from 'chess';
+import { opposite } from 'chessground/util';
+import keyboard from './keyboard';
+import socketBuild from './socket';
+import moveTestBuild from './moveTest';
+import mergeSolution from './solution';
+import makePromotion from './promotion';
+import computeAutoShapes from './autoShape';
+import { prop, throttle } from 'common';
+import * as xhr from './xhr';
+import { sound } from './sound';
+import { Api as CgApi } from 'chessground/api';
+import * as cg from 'chessground/types';
+import { Vm, Controller } from './interfaces';
 
-module.exports = function(opts, i18n) {
+export default function(opts, redraw: () => void): Controller {
 
-  var vm = {};
+  let vm: Vm = {} as Vm;
   var data, tree, ceval, moveTest;
-  var ground = m.prop();
+  const ground = prop<CgApi | undefined>(undefined);
+  const threatMode = prop(false);
 
-  var setPath = function(path) {
+  // required by ceval
+  vm.showComputer = () => vm.mode === 'view';
+  vm.showAutoShapes = () => true;
+
+  function setPath(path) {
     vm.path = path;
     vm.nodeList = tree.getNodeList(path);
-    vm.node = treeOps.last(vm.nodeList);
+    vm.node = treeOps.last(vm.nodeList)!;
     vm.mainline = treeOps.mainlineNodeList(tree.root);
   };
 
-  function withGround(f) {
-    var g = ground();
+  function withGround<A>(f: (cg: CgApi) => A): A | undefined {
+    const g = ground();
     if (g) return f(g);
   }
 
-  var initiate = function(fromData) {
+  function initiate(fromData) {
     data = fromData;
     tree = treeBuild(treeOps.reconstruct(data.game.treeParts));
     var initialPath = treePath.fromNodeList(treeOps.mainlineNodeList(tree.root));
     // play | try | view
     vm.mode = 'play';
     vm.loading = false;
-    vm.round = null;
-    vm.voted = null;
-    vm.justPlayed = null;
+    vm.round = undefined;
+    vm.voted = undefined;
+    vm.justPlayed = undefined;
     vm.resultSent = false;
     vm.lastFeedback = 'init';
     vm.initialPath = initialPath;
@@ -53,14 +56,14 @@ module.exports = function(opts, i18n) {
     setPath(treePath.init(initialPath));
     setTimeout(function() {
       jump(initialPath);
-      m.redraw();
+      redraw();
     }, 500);
 
     // just to delay button display
     vm.canViewSolution = false;
     setTimeout(function() {
       vm.canViewSolution = true;
-      m.redraw();
+      redraw();
     }, 5000);
 
     moveTest = moveTestBuild(vm, data.puzzle);
@@ -70,25 +73,24 @@ module.exports = function(opts, i18n) {
       g.setShapes([]);
       showGround(g);
     });
-    m.redraw();
 
     instanciateCeval();
 
-    history.replaceState(null, null, '/training/' + data.puzzle.id);
+    history.replaceState(null, '', '/training/' + data.puzzle.id);
   };
 
   var makeCgOpts = function() {
-    var node = vm.node;
-    var color = node.ply % 2 === 0 ? 'white' : 'black';
-    var dests = readDests(node.dests);
-    var movable = (vm.mode === 'view' || color === data.puzzle.color) ? {
+    const node = vm.node;
+    const color: Color = node.ply % 2 === 0 ? 'white' : 'black';
+    const dests = readDests(node.dests);
+    const movable = (vm.mode === 'view' || color === data.puzzle.color) ? {
       color: (dests && Object.keys(dests).length > 0) ? color : null,
       dests: dests || {}
     } : {
       color: null,
       dests: {}
     };
-    var config = {
+    const config = {
       fen: node.fen,
       orientation: data.puzzle.color,
       turnColor: color,
@@ -115,19 +117,19 @@ module.exports = function(opts, i18n) {
     return config;
   };
 
-  var showGround = function(g) {
+  function showGround(g) {
     g.set(makeCgOpts());
     if (!vm.node.dests) getDests();
   };
 
-  var userMove = function(orig, dest, capture) {
+  function userMove(orig, dest, capture) {
     vm.justPlayed = orig;
     sound[capture ? 'capture' : 'move']();
     if (!promotion.start(orig, dest, sendMove)) sendMove(orig, dest);
   };
 
-  var sendMove = function(orig, dest, prom) {
-    var move = {
+  function sendMove(orig: Key, dest: Key, prom?: cg.Role) {
+    const move: any = {
       orig: orig,
       dest: dest,
       fen: vm.node.fen,
@@ -153,17 +155,17 @@ module.exports = function(opts, i18n) {
     var newPath = tree.addNode(node, path);
     jump(newPath);
     reorderChildren(path);
-    m.redraw();
+    redraw();
     withGround(function(g) { g.playPremove(); });
 
     var progress = moveTest();
     if (progress) applyProgress(progress);
-    m.redraw();
+    redraw();
   };
 
-  var reorderChildren = function(path, recursive) {
+  function reorderChildren(path: Tree.Path, recursive?: boolean) {
     var node = tree.nodeAtPath(path);
-    node.children.sort(function(c1, c2) {
+    node.children.sort(function(c1, _) {
       if (c1.puzzle === 'fail') return 1;
       if (c1.puzzle === 'retry') return 1;
       if (c1.puzzle === 'good') return -1;
@@ -178,7 +180,7 @@ module.exports = function(opts, i18n) {
     setTimeout(function() {
       withGround(function(g) { g.cancelPremove(); });
       userJump(treePath.init(vm.path));
-      m.redraw();
+      redraw();
     }, 500);
   };
 
@@ -210,57 +212,61 @@ module.exports = function(opts, i18n) {
     }
   };
 
-  var sendResult = function(win) {
+  function sendResult(win) {
     if (vm.resultSent) return;
     vm.resultSent = true;
     xhr.round(data.puzzle.id, win).then(function(res) {
       data.user = res.user;
       vm.round = res.round;
       vm.voted = res.voted;
-      m.redraw();
+      redraw();
     });
   };
 
-  var nextPuzzle = function() {
+  function nextPuzzle() {
     ceval.stop();
     vm.loading = true;
-    m.redraw();
+    redraw();
     xhr.nextPuzzle().done(function(d) {
       vm.round = null;
       vm.loading = false;
       initiate(d);
+      redraw();
     });
   };
 
-  var addDests = function(dests, path, opening) {
+  function addDests(dests, path, opening) {
     tree.addDests(dests, path, opening);
     if (path === vm.path) {
       withGround(showGround);
-      m.redraw();
+      // redraw();
       if (gameOver()) ceval.stop();
     }
     withGround(function(g) { g.playPremove(); });
   };
 
-  var instanciateCeval = function(failsafe) {
+  function instanciateCeval(failsafe: boolean = false) {
     if (ceval) ceval.destroy();
     ceval = cevalCtrl({
+      redraw,
       storageKeyPrefix: 'puzzle',
       multiPvDefault: 3,
       variant: {
+        short: 'Std',
+        name: 'Standard',
         key: 'standard'
       },
       possible: true,
-      emit: function(eval, work) {
+      emit: function(ev, work) {
         tree.updateAt(work.path, function(node) {
           if (work.threatMode) {
-            if (!node.threat || node.threat.depth <= eval.depth || node.threat.maxDepth < eval.maxDepth)
-            node.threat = eval;
-          } else if (!node.ceval || node.ceval.depth <= eval.depth || node.ceval.maxDepth < eval.maxDepth)
-          node.ceval = eval;
+            if (!node.threat || node.threat.depth <= ev.depth || node.threat.maxDepth < ev.maxDepth)
+            node.threat = ev;
+          } else if (!node.ceval || node.ceval.depth <= ev.depth || node.ceval.maxDepth < ev.maxDepth)
+          node.ceval = ev;
           if (work.path === vm.path) {
             setAutoShapes();
-            m.redraw();
+            redraw();
           }
         });
       },
@@ -277,101 +283,103 @@ module.exports = function(opts, i18n) {
     });
   };
 
-  var setAutoShapes = function() {
+  function setAutoShapes() {
     withGround(function(g) {
       g.setAutoShapes(computeAutoShapes({
         vm: vm,
         ceval: ceval,
         ground: g,
-        nextNodeBest: nextNodeBest
+        threatMode: threatMode(),
+        nextNodeBest: nextNodeBest()
       }));
     });
   };
 
-  var canUseCeval = function() {
+  function canUseCeval() {
     return vm.mode === 'view' && !gameOver();
-  }.bind(this);
+  };
 
-  var startCeval = function() {
+  function startCeval() {
     if (ceval.enabled() && canUseCeval()) doStartCeval();
-  }.bind(this);
+  };
 
-  var doStartCeval = throttle(800, false, function() {
-    ceval.start(vm.path, vm.nodeList, vm.threatMode);
-  }.bind(this));
+  const doStartCeval = throttle(800, false, function() {
+    ceval.start(vm.path, vm.nodeList, threatMode());
+  });
 
-  var nextNodeBest = function() {
+  function nextNodeBest() {
     return treeOps.withMainlineChild(vm.node, function(n) {
-      return n.eval ? n.eval.pvs[0].moves[0] : null;
+      // return n.eval ? n.eval.pvs[0].moves[0] : null;
+      return n.eval ? n.eval.best : undefined;
     });
   };
 
-  var playUci = function(uci) {
+  function playUci(uci) {
     var move = decomposeUci(uci);
     if (!move[2]) sendMove(move[0], move[1])
     else sendMove(move[0], move[1], sanToRole[move[2].toUpperCase()]);
   };
 
-  var getCeval = function() {
+  function getCeval() {
     return ceval;
   };
 
-  var toggleCeval = function() {
+  function toggleCeval() {
     ceval.toggle();
     setAutoShapes();
     startCeval();
-    if (!ceval.enabled()) vm.threatMode = false;
+    if (!ceval.enabled()) threatMode(false);
     vm.autoScrollRequested = true;
-    m.redraw();
+    redraw();
   };
 
-  var toggleThreatMode = function() {
+  function toggleThreatMode() {
     if (vm.node.check) return;
     if (!ceval.enabled()) ceval.toggle();
     if (!ceval.enabled()) return;
-    vm.threatMode = !vm.threatMode;
+    threatMode(!threatMode());
     setAutoShapes();
     startCeval();
-    m.redraw();
+    redraw();
   };
 
-  var gameOver = function() {
+  function gameOver() {
     if (vm.node.dests !== '') return false;
-    return vm.node.check ? 'checkmate' : 'stalemate';
+    return vm.node.check ? 'checkmate' : 'draw';
   };
 
-  var jump = function(path) {
+  function jump(path) {
     var pathChanged = path !== vm.path;
     setPath(path);
     withGround(showGround);
     if (pathChanged) {
       if (!vm.node.uci) sound.move(); // initial position
-      else if (vm.node.uci.indexOf(vm.justPlayed) !== 0) {
-        if (vm.node.san.indexOf('x') !== -1) sound.capture();
+      else if (!vm.justPlayed || vm.node.uci.indexOf(vm.justPlayed) !== 0) {
+        if (vm.node.san!.indexOf('x') !== -1) sound.capture();
         else sound.move();
       }
-      if (/\+|\#/.test(vm.node.san)) sound.check();
-      vm.threatMode = false;
+      if (/\+|\#/.test(vm.node.san!)) sound.check();
+      threatMode(false);
       ceval.stop();
       startCeval();
     }
     promotion.cancel();
-    vm.justPlayed = null;
+    vm.justPlayed = undefined;
     vm.autoScrollRequested = true;
   };
 
-  var userJump = function(path) {
+  function userJump(path) {
     withGround(function(g) {
       g.selectSquare(null);
     });
     jump(path);
   };
 
-  var viewSolution = function() {
+  function viewSolution() {
     if (!vm.canViewSolution) return;
     sendResult(false);
     vm.mode = 'view';
-    mergeSolution(tree, vm.initialNode, data.puzzle.branch, data.puzzle.color);
+    mergeSolution(vm.initialNode, data.puzzle.branch, data.puzzle.color);
     reorderChildren(vm.initialPath, true);
 
     // try and play the solution next move
@@ -385,56 +393,49 @@ module.exports = function(opts, i18n) {
     }
 
     vm.autoScrollRequested = true;
-    m.redraw();
+    redraw();
     startCeval();
   };
 
-  var socket = socketBuild({
+  const socket = socketBuild({
     send: opts.socketSend,
     addNode: addNode,
     addDests: addDests,
     reset: function() {
       withGround(showGround);
-      m.redraw();
+      redraw();
     }
   });
 
-  var recentHash = function() {
+  function recentHash(): string {
     return data.puzzle.id + (data.user ? data.user.recent.reduce(function(h, r) {
       return h + r[0];
     }, '') : '');
-  };
+  }
 
-  var hasEverVoted = lichess.storage.make('puzzle-ever-voted');
+  const hasEverVoted = window.lichess.storage.make('puzzle-ever-voted');
 
-  var vote = throttle(1000, false, function(v) {
-    hasEverVoted.set(1);
+  const vote = throttle(1000, false, function(v) {
+    hasEverVoted.set('1');
     vm.voted = v;
     xhr.vote(data.puzzle.id, v).then(function(res) {
       data.puzzle.vote = res[1];
-      m.redraw();
+      redraw();
     });
   });
 
-  // required by ceval
-  vm.showComputer = function() {
-    return vm.mode === 'view';
-  };
-  vm.showAutoShapes = function() {
-    return true;
-  };
-
   initiate(opts.data);
 
-  var promotion = makePromotion(vm, ground);
+  const promotion = makePromotion(vm, ground, redraw);
 
-  keyboard.bind({
-    vm: vm,
-    userJump: userJump,
-    getCeval: getCeval,
-    toggleCeval: toggleCeval,
-    toggleThreatMode: toggleThreatMode,
-    playBestMove: function() {
+  keyboard({
+    vm,
+    userJump,
+    getCeval,
+    toggleCeval,
+    toggleThreatMode,
+    redraw,
+    playBestMove() {
       var uci = nextNodeBest() || (vm.node.ceval && vm.node.ceval.pvs[0].moves[0]);
       if (uci) playUci(uci);
     }
@@ -444,48 +445,53 @@ module.exports = function(opts, i18n) {
   // chessground is not displayed, and the first move is not fully applied.
   // Make sure chessground is fully shown when the page goes back to being visible.
   document.addEventListener('visibilitychange', function() {
-    lichess.requestIdleCallback(function() {
+    window.lichess.requestIdleCallback(function() {
       jump(vm.path);
     });
   });
 
   return {
-    vm: vm,
-    getData: function() {
+    vm,
+    getData() {
       return data;
     },
-    getTree: function() {
+    getTree() {
       return tree;
     },
-    ground: ground,
-    makeCgOpts: makeCgOpts,
-    userJump: userJump,
-    viewSolution: viewSolution,
-    nextPuzzle: nextPuzzle,
-    recentHash: recentHash,
-    hasEverVoted: hasEverVoted,
-    vote: vote,
-    getCeval: getCeval,
+    ground,
+    makeCgOpts,
+    userJump,
+    viewSolution,
+    nextPuzzle,
+    recentHash,
+    hasEverVoted,
+    vote,
+    getCeval,
     pref: opts.pref,
-    trans: lichess.trans(opts.i18n),
+    trans: window.lichess.trans(opts.i18n),
     socketReceive: socket.receive,
-    gameOver: gameOver,
-    toggleCeval: toggleCeval,
-    toggleThreatMode: toggleThreatMode,
-    currentEvals: function() {
-      return {
-        client: vm.node.ceval
-      };
+    gameOver,
+    toggleCeval,
+    toggleThreatMode,
+    threatMode,
+    currentEvals() {
+      return { client: vm.node.ceval };
     },
-    nextNodeBest: nextNodeBest,
-    userMove: userMove,
-    playUci: playUci,
-    showEvalGauge: function() {
+    nextNodeBest,
+    userMove,
+    playUci,
+    showEvalGauge() {
       return vm.showComputer() && ceval.enabled();
     },
-    getOrientation: function() {
-      return withGround(function(g) { return g.state.orientation });
+    getOrientation() {
+      return withGround(function(g) { return g.state.orientation })!;
     },
-    promotion: promotion
+    getNode() {
+      return vm.node;
+    },
+    showComputer: vm.showComputer,
+    promotion,
+    redraw,
+    ongoing: false
   };
 }

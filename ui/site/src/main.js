@@ -1183,7 +1183,7 @@ lichess.topMenuIntent = function() {
       }
     });
     cfg.socketSend = lichess.socket.send;
-    puzzle = LichessPuzzle(cfg);
+    puzzle = LichessPuzzle.default(cfg);
     lichess.topMenuIntent();
   }
 

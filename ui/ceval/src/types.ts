@@ -93,8 +93,8 @@ export interface ParentController {
   ongoing: boolean;
   playUci(uci: string): void;
   getOrientation(): Color;
-  threatMode: boolean;
-  node: Tree.Node;
+  threatMode(): boolean;
+  getNode(): Tree.Node;
   showComputer(): boolean;
 }
 

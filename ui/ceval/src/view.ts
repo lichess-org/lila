@@ -58,8 +58,8 @@ function threatButton(ctrl: ParentController): VNode | null {
   if (ctrl.disableThreatMode && ctrl.disableThreatMode()) return null;
   return h('a.show-threat', {
     class: {
-      active: ctrl.threatMode,
-      hidden: ctrl.node.check
+      active: ctrl.threatMode(),
+      hidden: ctrl.getNode().check
     },
     attrs: {
       'data-icon': '7',
@@ -119,8 +119,8 @@ export function renderCeval(ctrl: ParentController): VNode | undefined {
   const enabled = instance.enabled();
   const evs = ctrl.currentEvals();
   const bestEv = getBestEval(evs);
-  const threatMode = ctrl.threatMode;
-  const threat = threatMode && ctrl.node.threat;
+  const threatMode = ctrl.threatMode();
+  const threat = threatMode && ctrl.getNode().threat;
   let pearl: VNode | string, percent: number;
   if (bestEv && typeof bestEv.cp !== 'undefined') {
     pearl = renderEval(bestEv.cp);
@@ -204,15 +204,16 @@ function checkHover(el: HTMLElement, instance: CevalController): void {
 export function renderPvs(ctrl: ParentController) {
   const instance = ctrl.getCeval();
   if (!instance.allowed() || !instance.possible || !instance.enabled()) return;
-  const multiPv = parseInt(instance.multiPv());
+  const multiPv = parseInt(instance.multiPv()),
+  node = ctrl.getNode();
   let pvs : Tree.PvData[], threat = false;
-  if (ctrl.threatMode && ctrl.node.threat) {
-    pvs = ctrl.node.threat.pvs;
+  if (ctrl.threatMode() && node.threat) {
+    pvs = node.threat.pvs;
     threat = true;
-  } else if (ctrl.node.ceval) pvs = ctrl.node.ceval.pvs;
+  } else if (node.ceval) pvs = node.ceval.pvs;
   else pvs = [];
   return h('div.pv_box', {
-    attrs: { 'data-fen': ctrl.node.fen },
+    attrs: { 'data-fen': node.fen },
     hook: {
       insert: vnode => {
         const el = vnode.elm as HTMLElement;
@@ -236,7 +237,7 @@ export function renderPvs(ctrl: ParentController) {
       attrs: { 'data-uci': pvs[i].moves[0] }
     }, [
       multiPv > 1 ? h('strong', defined(pvs[i].mate) ? ('#' + pvs[i].mate) : renderEval(pvs[i].cp!)) : null,
-      h('span', pv2san(instance.variant.key, ctrl.node.fen, threat, pvs[i].moves, pvs[i].mate))
+      h('span', pv2san(instance.variant.key, node.fen, threat, pvs[i].moves, pvs[i].mate))
     ]);
   }));
 }

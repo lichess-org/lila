@@ -10,7 +10,7 @@ import { Autoplay, AutoplayDelay } from './autoplay';
 import * as promotion from './promotion';
 import * as util from './util';
 import * as chessUtil from 'chess';
-import { storedProp, throttle, defined, StoredBooleanProp } from 'common';
+import { storedProp, throttle, defined, prop, Prop, StoredBooleanProp } from 'common';
 import { make as makeSocket, Socket } from './socket';
 import { make as makeForecast, ForecastController } from './forecast/forecastCtrl';
 import { ctrl as cevalCtrl, isEvalBetter, CevalController, Work as CevalWork, CevalOpts } from 'ceval';
@@ -25,6 +25,8 @@ import { make as makeEvalCache, EvalCache } from './evalCache';
 import { compute as computeAutoShapes } from './autoShape';
 import { nextGlyphSymbol } from './nodeFinder';
 import { AnalyseOpts, AnalyseData, AnalyseDataWithTree, Key, CgDests, JustCaptured } from './interfaces';
+
+const li = window.lichess;
 
 export default class AnalyseController {
 
@@ -71,12 +73,15 @@ export default class AnalyseController {
   flipped: boolean = false;
   embed: boolean;
   showComments: boolean = true; // whether to display comments in the move tree
-  showAutoShapes: StoredBooleanProp = storedProp('show-auto-shapes', true);
+    showAutoShapes: StoredBooleanProp = storedProp('show-auto-shapes', true);
   showGauge: StoredBooleanProp = storedProp('show-gauge', true);
   showComputer: StoredBooleanProp = storedProp('show-computer', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
-  threatMode: boolean = false;
-  chessgroundIt: number = 1; // increment to recreate chessground
+  threatMode: Prop<boolean> = prop(false);
+  cgVersion = {
+    js: 1, // increment to recreate chessground
+    dom: 1
+  };
 
   // other paths
   initialPath: Tree.Path;
@@ -95,7 +100,7 @@ export default class AnalyseController {
     this.embed = opts.embed;
     this.redraw = redraw;
 
-    this.trans = window.lichess.trans(opts.i18n);
+    this.trans = li.trans(opts.i18n);
 
     if (this.data.forecast) this.forecast = makeForecast(this.data.forecast, this.data, redraw);
 
@@ -134,14 +139,14 @@ export default class AnalyseController {
 
     keyboard.bind(this);
 
-    window.lichess.pubsub.on('jump', (ply: any) => {
+    li.pubsub.on('jump', (ply: any) => {
       this.jumpToMain(parseInt(ply));
       this.redraw();
     });
 
-    window.lichess.pubsub.on('sound_set', (set: string) => {
+    li.pubsub.on('sound_set', (set: string) => {
       if (!this.music && set === 'music')
-        window.lichess.loadScript('/assets/javascripts/music/replay.js').then(() => {
+        li.loadScript('/assets/javascripts/music/replay.js').then(() => {
           this.music = window.lichessReplayMusic();
         });
         if (this.music && set !== 'music') this.music = null;
@@ -199,6 +204,9 @@ export default class AnalyseController {
   getOrientation(): Color { // required by ui/ceval
     return this.bottomColor();
   }
+  getNode(): Tree.Node { // required by ui/ceval
+    return this.node;
+  }
 
   turnColor(): Color {
     return this.node.ply % 2 === 0 ? 'white' : 'black';
@@ -218,11 +226,11 @@ export default class AnalyseController {
   private showGround(): void {
     this.onChange();
     if (!defined(this.node.dests)) this.getDests();
-    if (this.chessground) {
-      this.chessground.set(this.makeCgOpts());
+    this.withCg(cg => {
+      cg.set(this.makeCgOpts());
       this.setAutoShapes();
-      if (this.node.shapes) this.chessground.setShapes(this.node.shapes as DrawShape[]);
-    }
+      if (this.node.shapes) cg.setShapes(this.node.shapes as DrawShape[]);
+    });
   }
 
   getDests: () => void = throttle(800, false, () => {
@@ -269,10 +277,14 @@ export default class AnalyseController {
     return config;
   }
 
-  private sound = {
-    move: throttle(50, false, window.lichess.sound.move),
-    capture: throttle(50, false, window.lichess.sound.capture),
-    check: throttle(50, false, window.lichess.sound.check)
+  private sound = li.sound ? {
+    move: throttle(50, false, li.sound.move),
+    capture: throttle(50, false, li.sound.capture),
+    check: throttle(50, false, li.sound.check)
+  } : {
+    move: $.noop,
+    capture: $.noop,
+    check: $.noop
   };
 
   private onChange: () => void = throttle(300, false, () => {
@@ -302,7 +314,7 @@ export default class AnalyseController {
         else this.sound.move();
       }
       if (/\+|\#/.test(this.node.san!)) this.sound.check();
-      this.threatMode = false;
+      this.threatMode(false);
       this.ceval.stop();
       this.startCeval();
     }
@@ -323,7 +335,7 @@ export default class AnalyseController {
 
   userJump = (path: Tree.Path): void => {
     this.autoplay.stop();
-    if (this.chessground) this.chessground.selectSquare(null);
+    this.withCg(cg => cg.selectSquare(null));
     if (this.practice) {
       const prev = this.path;
       this.practice.preUserJump(prev, path);
@@ -366,7 +378,7 @@ export default class AnalyseController {
     this.setPath(treePath.root);
     this.instanciateCeval();
     this.instanciateEvalCache();
-    this.chessgroundIt ++;
+    this.cgVersion.js++;
   }
 
   changePgn(pgn: string): void {
@@ -464,7 +476,7 @@ export default class AnalyseController {
       // this.redraw();
       if (this.gameOver()) this.ceval.stop();
     }
-    if (this.chessground) this.chessground.playPremove();
+    this.withCg(cg => cg.playPremove());
   }
 
   deleteNode(path: Tree.Path): void {
@@ -507,13 +519,13 @@ export default class AnalyseController {
   }
 
   setAutoShapes = (): void => {
-    if (this.chessground) this.chessground.setAutoShapes(computeAutoShapes(this));
+    this.withCg(cg => cg.setAutoShapes(computeAutoShapes(this)));
   }
 
-  private onNewCeval = (ev: Tree.ClientEval, path: Tree.Path, threatMode: boolean): void => {
+  private onNewCeval = (ev: Tree.ClientEval, path: Tree.Path, isThreat: boolean): void => {
     this.tree.updateAt(path, (node: Tree.Node) => {
-      if (node.fen !== ev.fen && !threatMode) return;
-      if (threatMode) {
+      if (node.fen !== ev.fen && !isThreat) return;
+      if (isThreat) {
         if (!node.threat || isEvalBetter(ev, node.threat) || node.threat.maxDepth < ev.maxDepth)
         node.threat = ev;
       } else if (isEvalBetter(ev, node.ceval)) node.ceval = ev;
@@ -521,7 +533,7 @@ export default class AnalyseController {
 
       if (path === this.path) {
         this.setAutoShapes();
-        if (!threatMode) {
+        if (!isThreat) {
           if (this.retro) this.retro.onCeval();
           if (this.practice) this.practice.onCeval();
           if (this.studyPractice) this.studyPractice.onCeval();
@@ -586,7 +598,7 @@ export default class AnalyseController {
   startCeval = throttle(800, false, () => {
     if (this.ceval.enabled()) {
       if (this.canUseCeval()) {
-        this.ceval.start(this.path, this.nodeList, this.threatMode, false);
+        this.ceval.start(this.path, this.nodeList, this.threatMode(), false);
         this.evalCache.fetch(this.path, parseInt(this.ceval.multiPv()));
       } else this.ceval.stop();
     }
@@ -597,7 +609,7 @@ export default class AnalyseController {
     this.setAutoShapes();
     this.startCeval();
     if (!this.ceval.enabled()) {
-      this.threatMode = false;
+      this.threatMode(false);
       if (this.practice) this.togglePractice();
     }
     this.redraw();
@@ -607,8 +619,8 @@ export default class AnalyseController {
     if (this.node.check) return;
     if (!this.ceval.enabled()) this.ceval.toggle();
     if (!this.ceval.enabled()) return;
-    this.threatMode = !this.threatMode;
-    if (this.threatMode && this.practice) this.togglePractice();
+    this.threatMode(!this.threatMode());
+    if (this.threatMode() && this.practice) this.togglePractice();
     this.setAutoShapes();
     this.startCeval();
     this.redraw();
@@ -775,5 +787,10 @@ export default class AnalyseController {
   restartPractice() {
     this.practice = undefined;
     this.togglePractice();
+  }
+
+  private withCg<A>(f: (cg: ChessgroundApi) => A): A | undefined {
+    if (this.chessground && this.cgVersion.js === this.cgVersion.dom)
+      return f(this.chessground);
   }
 };

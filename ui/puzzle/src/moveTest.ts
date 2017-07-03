@@ -1,15 +1,14 @@
-var pathOps = require('tree').path;
-var decomposeUci = require('chess').decomposeUci;
-var sanToRole = require('chess').sanToRole;
+import { path as pathOps } from 'tree';
+import { decomposeUci, sanToRole } from 'chess';
 
-var altCastles = {
+const altCastles = {
   e1a1: 'e1c1',
   e1h1: 'e1g1',
   e8a8: 'e8c8',
   e8h8: 'e8g8'
 };
 
-module.exports = function(vm, puzzle) {
+export default function(vm, puzzle) {
 
   return function() {
 
@@ -35,19 +34,19 @@ module.exports = function(vm, puzzle) {
     }
 
     var nextKey = Object.keys(progress)[0]
-    if (progress[nextKey] === 'win') {
-      vm.node.puzzle = 'win';
-      return 'win';
-    }
+      if (progress[nextKey] === 'win') {
+        vm.node.puzzle = 'win';
+        return 'win';
+      }
 
-    // from here we have a next move
+      // from here we have a next move
 
-    vm.node.puzzle = 'good';
+      vm.node.puzzle = 'good';
 
     var opponentUci = decomposeUci(nextKey);
     var promotion = opponentUci[2] ? sanToRole[opponentUci[2].toUpperCase()] : null;
 
-    var move = {
+    var move: any = {
       orig: opponentUci[0],
       dest: opponentUci[1],
       fen: vm.node.fen,
@@ -57,4 +56,4 @@ module.exports = function(vm, puzzle) {
 
     return move;
   };
-};
+}

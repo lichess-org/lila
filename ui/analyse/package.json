@@ -36,7 +36,7 @@
   "dependencies": {
     "ceval": "link:../ceval",
     "chess": "link:../chess",
-    "chessground": "^6.5.2",
+    "chessground": "^6.5",
     "common": "link:../common",
     "game": "link:../game",
     "snabbdom": "ornicar/snabbdom#lichess",

@@ -45,7 +45,7 @@ class WebWorker extends AbstractWorker {
   worker: Worker;
 
   boot() {
-    console.log('booting webworker', this.url);
+    // console.log('booting webworker', this.url);
     this.worker = new Worker(this.url);
     this.protocol = new Protocol(this.send.bind(this), this.workerOpts);
     this.worker.addEventListener('message', e => {
@@ -66,7 +66,7 @@ class PNaClWorker extends AbstractWorker {
   private worker?: HTMLEmbedElement;
 
   boot() {
-    console.log('booting pnacl worker');
+    // console.log('booting pnacl worker');
     try {
       this.worker = document.createElement('embed');
       this.worker.setAttribute('src', this.url);

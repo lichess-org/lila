@@ -5,7 +5,6 @@ import { enrichText } from '../studyComments';
 import { StudyController } from '../interfaces';
 
 function selector(data) {
-  console.log('render selector');
   return h('select.selector', {
     hook: bind('change', e => {
       location.href = '/practice/' + (e.target as HTMLInputElement).value;
@@ -59,7 +58,7 @@ export function underboard(ctrl: StudyController): VNode {
       ]);
  case false:
    return h('a.feedback.fail', {
-     hook: bind('click', p.reset)
+     hook: bind('click', p.reset, ctrl.redraw)
    }, [
      h('span', [renderGoal(p, p.goal().moves)]),
      h('strong', 'Click to retry')
