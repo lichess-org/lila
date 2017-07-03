@@ -4,12 +4,10 @@ object LameName {
 
   def apply(name: String) =
     lameWords.matcher(name).find ||
-      lamePrefix.matcher(name).lookingAt
+      lameTitlePrefix.matcher(name).lookingAt
 
-  private val lamePrefix = {
-    val title = "w?[ncfigl1]m"
-    s"${title.toUpperCase}|$title[-_A-Z0-9]".r.pattern
-  }
+  private val lameTitlePrefix =
+    "[Ww]?[NCFIGl1L]M|(?i:w?[ncfigl1])m[-_A-Z0-9]".r.pattern
 
   private val lameWords = {
     val extras = Map(

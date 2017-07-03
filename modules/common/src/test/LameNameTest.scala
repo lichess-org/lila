@@ -12,14 +12,18 @@ class LameNameTest extends Specification {
       LameName("wcm_foo") must beTrue
       LameName("gmFoobar") must beTrue
       LameName("gm007") must beTrue
+      LameName("GmFoo") must beTrue
     }
     "uppercase titles" in {
       LameName("GMfoo") must beTrue
       LameName("IMfoo") must beTrue
       LameName("WFMfoo") must beTrue
       LameName("WIMfoo") must beTrue
+      LameName("1Mfoo") must beTrue
     }
     "gross" in {
+      LameName("Shiz") must beTrue
+      LameName("Sh1z") must beTrue
       LameName("douchebag") must beTrue
       LameName("d0uchebag") must beTrue
       LameName("urcunt-blah") must beTrue
