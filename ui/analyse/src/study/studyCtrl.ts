@@ -14,6 +14,8 @@ import * as xhr from './studyXhr';
 import { path as treePath } from 'tree';
 import { StudyController, StudyVm, Tab, TagTypes, StudyData, StudyChapterMeta, ReloadData } from './interfaces';
 
+const li = window.lichess;
+
 // data.position.path represents the server state
 // ctrl.path is the client state
 export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagTypes, practiceData): StudyController {
@@ -21,7 +23,7 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
   const send = ctrl.socket.send;
   const redraw = ctrl.redraw;
 
-  const sri: string = window.lichess.StrongSocket.sri;
+  const sri: string = li.StrongSocket ? li.StrongSocket.sri : '';
 
   const vm: StudyVm = (function() {
     const isManualChapter = data.chapter.id !== data.position.chapterId;
@@ -102,8 +104,8 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
     const canContribute = members.canContribute();
     // unwrite if member lost priviledges
     vm.mode.write = vm.mode.write && canContribute;
-    window.lichess.pubsub.emit('chat.writeable')(data.features.chat);
-    window.lichess.pubsub.emit('chat.permissions')({local: canContribute});
+    li.pubsub.emit('chat.writeable')(data.features.chat);
+    li.pubsub.emit('chat.permissions')({local: canContribute});
     const computer = data.chapter.features.computer || data.chapter.practice;
     if (!computer) ctrl.getCeval().enabled(false);
     ctrl.getCeval().allowed(computer);
@@ -160,7 +162,7 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
       practice ? 'practice/load' : 'study',
       data.id,
       vm.mode.sticky ? undefined : vm.chapterId
-    ).then(onReload, window.lichess.reload);
+    ).then(onReload, li.reload);
   };
 
   const onSetPath = throttle(300, false, function(path) {
