@@ -93,7 +93,7 @@ function renderRunning(root: AnalyseController, ctrl: PracticeController): VNode
         renderEvalProgress(ctrl.currentNode(), ctrl.playableDepth())
       ]).concat(h('div.choices', [
         ctrl.isMyTurn() ? h('a', {
-          hook: bind('click', ctrl.hint, ctrl.redraw)
+          hook: bind('click', () => root.practice!.hint(), ctrl.redraw)
         }, hint ? (hint.mode === 'piece' ? 'See best move' : 'Hide best move') : 'Get a hint') : ''
       ])))
   ]);
@@ -105,7 +105,7 @@ export default function(root: AnalyseController): VNode | undefined {
   const comment: Comment | null = ctrl.comment();
   const running: boolean = ctrl.running();
   const end = ctrl.currentNode().threefold ? 'threefold' : root.gameOver();
-  return h('div.practice_box.' + (comment ? comment.verdict : ''), [
+  return h('div.practice_box.' + (comment ? comment.verdict : 'no-verdict'), [
     renderTitle(root),
     h('div.feedback', !running ? renderOffTrack(ctrl) : (end ? renderEnd(root.turnColor(), end) : renderRunning(root, ctrl))),
     running ? h('div.comment', comment ? ([
