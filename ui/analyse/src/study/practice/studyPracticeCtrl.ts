@@ -4,15 +4,16 @@ import { enrichText } from '../studyComments';
 import makeSuccess from './studyPracticeSuccess';
 import makeSound from './sound';
 import { Goal } from './interfaces';
+import { StudyData, StudyChapterMeta } from '../interfaces';
 import AnalyseController from '../../ctrl';
 
-const readOnlyProp = function(value) {
-  return function() {
+function readOnlyProp<A>(value: A): () => A {
+  return function(): A {
     return value;
   };
 };
 
-export default function(root: AnalyseController, studyData, data) {
+export default function(root: AnalyseController, studyData: StudyData, data) {
 
   const goal = prop<Goal>(root.data.practiceGoal!);
   const comment = prop<string | undefined>(undefined);
@@ -22,7 +23,7 @@ export default function(root: AnalyseController, studyData, data) {
   const sound = makeSound();
   const analysisUrl = prop('');
 
-  function makeComment(treeRoot): string | undefined {
+  function makeComment(treeRoot: Tree.Node): string | undefined {
     if (!treeRoot.comments) return;
     const c = enrichText(treeRoot.comments[0].text, false);
     delete treeRoot.comments;
@@ -43,21 +44,22 @@ export default function(root: AnalyseController, studyData, data) {
   };
   onLoad();
 
-  function computeNbMoves() {
+  function computeNbMoves(): number {
     let plies = root.node.ply - root.tree.root.ply;
     if (root.bottomColor() !== root.data.player.color) plies--;
     return Math.ceil(plies / 2);
   };
 
-  function checkSuccess() {
+  function checkSuccess(): void {
     if (success() !== null) return;
     nbMoves(computeNbMoves());
-    var res = success(makeSuccess(root, goal(), nbMoves()));
+    const res = success(makeSuccess(root, goal(), nbMoves()));
+    console.log(res);
     if (res) onVictory();
     else if (res === false) onFailure();
   };
 
-  function onVictory() {
+  function onVictory(): void {
     var chapterId = root.study.currentChapter().id;
     var former = data.completion[chapterId] || 999;
     if (nbMoves() < former) {
@@ -65,27 +67,25 @@ export default function(root: AnalyseController, studyData, data) {
       xhr.practiceComplete(chapterId, nbMoves());
     }
     sound.success();
-    var next = nextChapter();
-    if (next) setTimeout(function() {
-      root.study.setChapter(next.id);
-    }, 1000);
+    const next = nextChapter();
+    if (next) setTimeout(() => root.study.setChapter(next.id), 1000);
   };
 
-  function onFailure() {
+  function onFailure(): void {
     root.node.fail = true;
     sound.failure();
   };
 
-  function nextChapter() {
-    var chapters = root.study.data.chapters;
-    var currentId = root.study.currentChapter().id;
+  function nextChapter(): StudyChapterMeta | undefined {
+    const chapters = root.study.data.chapters;
+    const currentId = root.study.currentChapter().id;
     for (var i in chapters)
       if (chapters[i].id === currentId) return chapters[parseInt(i) + 1];
   };
 
   return {
     onReload: onLoad,
-    onJump: function() {
+    onJump() {
       // reset failure state if no failed move found in mainline history
       if (success() === false && !root.nodeList.find(n => !!n.fail)) success(null);
       checkSuccess();
@@ -96,13 +96,13 @@ export default function(root: AnalyseController, studyData, data) {
     success,
     comment,
     nbMoves,
-    reset: function() {
+    reset() {
       root.tree.root.children = [];
       root.userJump('');
       root.practice!.reset();
       onLoad();
     },
-    isWhite: function() {
+    isWhite() {
       return root.bottomColor() === 'white';
     },
     analysisUrl,
