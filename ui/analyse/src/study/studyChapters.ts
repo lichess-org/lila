@@ -90,7 +90,10 @@ export function view(ctrl: StudyController): VNode {
         vnode.data!.li = old.data!.li;
         update(vnode);
       },
-      destroy: vnode => vnode.data!.li!.sortable!.destroy()
+      destroy: vnode => {
+        const sortable = vnode.data!.li!.sortable;
+        if (sortable) sortable.destroy()
+      }
     }
   },
   ctrl.chapters.list().map(function(chapter, i) {
