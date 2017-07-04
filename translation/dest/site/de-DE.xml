@@ -312,7 +312,7 @@
   <string name="activeToday">Heute aktiv</string>
   <string name="activePlayers">Aktive Spieler</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Achtung! Das Spiel wird gewertet, aber ohne Uhr gespielt!</string>
-  <string name="training">Training</string>
+  <string name="training">Puzzles</string>
   <string name="yourPuzzleRatingX">Deine Taktikwertung: %s</string>
   <string name="findTheBestMoveForWhite">Finde den besten Zug für Weiß.</string>
   <string name="findTheBestMoveForBlack">Finde den besten Zug für Schwarz.</string>
