@@ -3,12 +3,22 @@ package actorApi
 
 import play.api.libs.json.JsObject
 
+import chess.Centis
+import lila.common.PimpedJson._
+
 case class Connected[M <: SocketMember](
   enumerator: JsEnumerator,
   member: M
 )
 case class Sync(uid: String, friends: List[String])
-case class Ping(uid: String, version: Option[Int], lagTenths: Option[Int])
+case class Ping(uid: String, version: Option[Int], lagCentis: Option[Centis])
+
+object Ping {
+  def apply(uid: Socket.Uid, o: JsObject) {
+    Ping(uid.value, o int "v", o int "l" map Centis.apply)
+  }
+}
+
 case object Broom
 case class Quit(uid: String)
 

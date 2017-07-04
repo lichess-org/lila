@@ -8,6 +8,7 @@ import akka.actor.{ Deploy => _, _ }
 import play.api.libs.json._
 
 import actorApi._
+import chess.Centis
 import lila.common.LightUser
 import lila.hub.actorApi.{ Deploy, HasUserId }
 import lila.memo.ExpireSetMemo
@@ -83,13 +84,13 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
     withMember(uid.value)(_ push makeMessage(t, data))
   }
 
-  def ping(uid: String, lagTenths: Option[Int]) {
+  def ping(uid: String, lagCentis: Option[Centis]) {
     setAlive(uid)
     withMember(uid) { member =>
       for {
-        lt <- lagTenths
+        lc <- lagCentis
         user <- member.userId
-      } UserLagCache.put(user, lt)
+      } UserLagCache.put(user, lc)
       member push pong
     }
   }

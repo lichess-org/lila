@@ -138,7 +138,7 @@ lichess.StrongSocket = function(url, version, settings) {
       t: "p",
       v: version
     };
-    if (pongCount % 8 === 4) data.l = Math.round(.01 * averageLag);
+    if (pongCount % 8 === 4) data.l = Math.round(0.1 * averageLag);
     return JSON.stringify(data);
   };
 
