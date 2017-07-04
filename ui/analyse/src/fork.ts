@@ -64,7 +64,7 @@ export function view(root, concealOf) {
       var conceal = isMainline && concealOf(true)(root.path + node.id, node);
       if (!conceal) return h('move', {
         class: { selected: i === state.selected },
-        hook: bind('click', _ => root.fork.proceed(node.id))
+        hook: bind('click', _ => root.fork.proceed(node.id), root.redraw)
       }, renderIndexAndMove({
         withDots: true,
         showEval: root.showComputer(),
