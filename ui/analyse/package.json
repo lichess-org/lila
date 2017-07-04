@@ -31,7 +31,8 @@
     "typescript": "^2",
     "vinyl-buffer": "^1",
     "vinyl-source-stream": "^1",
-    "watchify": "^3"
+    "watchify": "^3",
+    "types": "link:../types"
   },
   "dependencies": {
     "ceval": "link:../ceval",
@@ -40,7 +41,6 @@
     "common": "link:../common",
     "game": "link:../game",
     "snabbdom": "ornicar/snabbdom#lichess",
-    "tree": "link:../tree",
-    "types": "link:../types"
+    "tree": "link:../tree"
   }
 }

@@ -29,10 +29,10 @@
     "typescript": "^2",
     "vinyl-buffer": "^1",
     "vinyl-source-stream": "^1",
-    "watchify": "^3"
+    "watchify": "^3",
+    "types": "link:../types"
   },
   "dependencies": {
-    "snabbdom": "ornicar/snabbdom#lichess",
-    "types": "link:../types"
+    "snabbdom": "ornicar/snabbdom#lichess"
   }
 }

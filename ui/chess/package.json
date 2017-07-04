@@ -22,9 +22,9 @@
   },
   "homepage": "https://github.com/ornicar/lila",
   "devDependencies": {
-    "typescript": "^2.2.2"
+    "typescript": "^2.2.2",
+    "types": "link:../types"
   },
   "dependencies": {
-    "types": "link:../types"
   }
 }

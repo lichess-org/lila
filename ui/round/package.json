@@ -29,13 +29,13 @@
     "typescript": "^2",
     "vinyl-buffer": "^1",
     "vinyl-source-stream": "^1",
-    "watchify": "^3"
+    "watchify": "^3",
+    "types": "link:../types"
   },
   "dependencies": {
     "chessground": "^6.5",
     "common": "link:../common",
     "game": "link:../game",
-    "snabbdom": "ornicar/snabbdom#lichess",
-    "types": "link:../types"
+    "snabbdom": "ornicar/snabbdom#lichess"
   }
 }

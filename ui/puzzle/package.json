@@ -33,7 +33,6 @@
     "watchify": "^3"
   },
   "dependencies": {
-    "types": "link:../types",
     "chessground": "^6.5",
     "common": "link:../common",
     "chess": "link:../chess",
