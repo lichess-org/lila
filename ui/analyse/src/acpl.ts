@@ -5,10 +5,10 @@ import AnalyseController from './ctrl';
 import { game } from 'game';
 import { bind, dataIcon } from './util';
 
-function renderRatingDiff(rd: number): VNode {
+function renderRatingDiff(rd: number): VNode | undefined {
   if (rd === 0) return h('span.rp.null', '±0');
   if (rd > 0) return h('span.rp.up', '+' + rd);
-  return h('span.rp.down', '' + rd);
+  if (rd < 0) return h('span.rp.down', '' + rd);
 }
 
 function renderPlayer(data: AnalyseData, color: Color): VNode {
