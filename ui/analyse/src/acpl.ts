@@ -79,8 +79,10 @@ export function render(ctrl: AnalyseController): MaybeVNode {
 
   if (!ctrl.data.analysis || !ctrl.showComputer()) return;
 
-  const first = ctrl.mainline[0].eval || {};
-  const cacheKey = '' + first.cp + first.mate + !!ctrl.retro;
+  // don't cache until the analysis is complete!
+  const firstEval = ctrl.mainline[0].eval;
+  const firstKey = firstEval ? firstEval.cp : Math.random();
+  const cacheKey = '' + firstKey + !!ctrl.retro;
 
   return thunk('div.advice_summary', doRender, [ctrl, cacheKey]);
 }
