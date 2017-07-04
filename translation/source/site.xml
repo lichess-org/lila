@@ -149,6 +149,8 @@
   <string name="play">Play</string>
   <string name="inbox">Inbox</string>
   <string name="chatRoom">Chat room</string>
+  <string name="loginToChat">Login to chat</string>
+  <string name="youHaveBeenTimedOut">You have been timed out.</string>
   <string name="spectatorRoom">Spectator room</string>
   <string name="composeMessage">Compose message</string>
   <string name="noNewMessages">No new messages</string>

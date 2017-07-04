@@ -50,12 +50,12 @@ function renderInput(ctrl: Ctrl): VNode | undefined {
   if ((ctrl.data.loginRequired && !ctrl.data.userId) || ctrl.data.restricted)
   return h('input.lichess_say', {
     attrs: {
-      placeholder: 'Login to chat',
+      placeholder: ctrl.trans('loginToChat'),
       disabled: true
     }
   });
   let placeholder: string;
-  if (ctrl.vm.timeout) placeholder = 'You have been timed out.';
+  if (ctrl.vm.timeout) placeholder = ctrl.trans('youHaveBeenTimedOut');
   else placeholder = ctrl.trans(ctrl.vm.placeholderKey);
   return h('input.lichess_say', {
     attrs: {

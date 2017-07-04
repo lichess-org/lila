@@ -57,6 +57,8 @@ object ChatJsData {
   def i18n(withNote: Boolean)(implicit ctx: Context) = i18nOptionJsObject(
     I18nKeys.talkInChat.some,
     I18nKeys.toggleTheChat.some,
+    I18nKeys.loginToChat.some,
+    I18nKeys.youHaveBeenTimedOut.some,
     withNote option I18nKeys.notes,
     withNote option I18nKeys.typePrivateNotesHere
   )
