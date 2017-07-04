@@ -46,7 +46,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   // generic message handler
   def receiveGeneric: Receive = {
 
-    case Ping(uid, None, lagTenths) => ping(uid, lagTenths)
+    case Ping(uid, None, lagCentis) => ping(uid, lagCentis)
 
     case Broom => broom
 
