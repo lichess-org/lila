@@ -19,10 +19,12 @@ function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
     }, seek.username) : 'Anonymous'),
     seek.rating + (seek.provisional ? '?' : ''),
     seek.days ? ctrl.trans(seek.days === 1 ? 'oneDay' : 'nbDays', seek.days) : '∞',
-    [h('span.varicon', {
-      attrs: { 'data-icon': seek.perf.icon }
-    }),
-    ctrl.trans(seek.mode === 1 ? 'rated' : 'casual')]
+    h('span', [
+      h('span.varicon', {
+        attrs: { 'data-icon': seek.perf.icon }
+      }),
+      ctrl.trans(seek.mode === 1 ? 'rated' : 'casual')
+    ])
   ]));
 }
 
@@ -39,7 +41,7 @@ export default function(ctrl: LobbyController): MaybeVNodes {
     h('table.table_wrap', [
       h('thead', [
         h('tr', ['', 'player', 'rating', 'time', 'mode'].map(header => h('th', ctrl.trans(header))))
-    ]),
+      ]),
       h('tbody', {
         hook: bind('click', e => {
           let el = e.target as HTMLElement;

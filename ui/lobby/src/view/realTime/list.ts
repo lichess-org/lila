@@ -22,10 +22,12 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
     }, hook.u) : 'Anonymous'),
     (hook.rating ? hook.rating : '') + (hook.prov ? '?' : ''),
     hook.clock,
-    [h('span.varicon', {
-      attrs: { 'data-icon': ctrl.perfIcons[hook.perf] }
-    }),
-    ctrl.trans(hook.ra ? 'rated' : 'casual')]
+    h('span', [
+      h('span.varicon', {
+        attrs: { 'data-icon': ctrl.perfIcons[hook.perf] }
+      }),
+      ctrl.trans(hook.ra ? 'rated' : 'casual')
+    ])
   ]));
 }
 
