@@ -64,8 +64,8 @@ private[simul] final class Socket(
 
     case Aborted => notifyVersion("aborted", Json.obj(), Messadata())
 
-    case Ping(uid, Some(v), lt) => {
-      ping(uid, lt)
+    case Ping(uid, Some(v), c) => {
+      ping(uid, c)
       timeBomb.delay
       withMember(uid) { m =>
         history.since(v).fold(resync(m))(_ foreach sendMessage(m))

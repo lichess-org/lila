@@ -1,4 +1,4 @@
-@(u: User, playing: Option[Pov], blocked: Boolean, followable: Boolean, rel: Option[lila.relation.Relation], crosstable: Option[lila.game.Crosstable])(implicit ctx: Context)
+@(u: User, playing: Option[Pov], blocked: Boolean, followable: Boolean, rel: Option[lila.relation.Relation], ping: Option[Int], crosstable: Option[lila.game.Crosstable])(implicit ctx: Context)
 <div class="title">
   <div>
     @u.profileOrDefault.countryInfo.map {
@@ -9,6 +9,7 @@
     </span>
     }
     }
+    @ping.map { p => @signalBars(p) }
     @userLink(u, withPowerTip = false)
   </div>
   @if(u.engine && ctx.me.fold(true)(u !=)) {

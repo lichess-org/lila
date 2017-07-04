@@ -41,7 +41,6 @@ final class DataForm(
     ).verifying("usernameUnacceptable", u => !LameName(u))
       .verifying("usernameAlreadyUsed", u => !UserRepo.nameExists(u).awaitSeconds(4))
 
-
     val website = Form(mapping(
       "username" -> username,
       "password" -> text(minLength = 4),
