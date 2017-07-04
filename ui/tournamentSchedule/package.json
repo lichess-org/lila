@@ -32,7 +32,7 @@
     "watchify": "^3"
   },
   "dependencies": {
-    "snabbdom": "^0.6",
+    "snabbdom": "ornicar/snabbdom#lichess",
     "types": "link:../types"
   }
 }

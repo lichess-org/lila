@@ -30,7 +30,7 @@
     "watchify": "^3"
   },
   "dependencies": {
-    "chessground": "^6.4",
+    "chessground": "^6.5",
     "common": "link:../common",
     "mithril": "github:ornicar/mithril.js#lila-vdom-only-2"
   }

@@ -2265,9 +2265,9 @@ signal-exit@^3.0.0:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
 
-snabbdom@^0.6:
-  version "0.6.9"
-  resolved "https://registry.yarnpkg.com/snabbdom/-/snabbdom-0.6.9.tgz#65a392f4c82ca7e8ec72aa0d2fa797cf5c73b8d7"
+snabbdom@ornicar/snabbdom#lichess:
+  version "0.6.9-lichess"
+  resolved "https://codeload.github.com/ornicar/snabbdom/tar.gz/a408d93b54d32388f234fc121886df7fa8b9134f"
 
 sntp@1.x.x:
   version "1.0.9"
