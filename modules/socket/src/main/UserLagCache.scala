@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 
 object UserLagCache {
   private val cache: Cache[String, Centis] = Scaffeine()
-    .expireAfterWrite(2.minute)
+    .expireAfterWrite(5.minute)
     .build[String, Centis]
 
   def put(userId: String, lag: Centis) = cache.put(userId, lag)
