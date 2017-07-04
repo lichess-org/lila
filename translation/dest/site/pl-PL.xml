@@ -46,7 +46,7 @@
   <string name="viewTheComputerAnalysis">Zobacz analizę komputerową</string>
   <string name="requestAComputerAnalysis">Poproś o analizę komputerową</string>
   <string name="computerAnalysis">Analiza komputerowa</string>
-  <string name="computerAnalysisAvailable">Analiza komputerowa gotowa</string>
+  <string name="computerAnalysisAvailable">Analiza komputerowa dostępna</string>
   <string name="analysis">Analiza gry</string>
   <string name="blunders">Poważne błędy</string>
   <string name="mistakes">Błędy</string>
@@ -80,7 +80,7 @@
   <string name="youNeedAnAccountToDoThat">Musisz mieć konto, aby to zrobić</string>
   <string name="signUp">Zarejestruj się</string>
   <string name="computersAreNotAllowedToPlay">Podczas gry niedozwolone jest korzystanie z pomocy programów szachowych, baz danych oraz pomocy innych graczy. Zakładanie wielu kont jest zabronione i prowadzi do zablokowania użytkownika.</string>
-  <string name="games">Partie</string>
+  <string name="games">Gry</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s napisał/a w temacie %2$s</string>
   <string name="latestForumPosts">Najnowsze posty</string>
@@ -141,7 +141,7 @@
   <string name="abortGame">Przerwij grę</string>
   <string name="gameAborted">Gra została przerwana</string>
   <string name="standard">Standard</string>
-  <string name="unlimited">Bez limitu czasu</string>
+  <string name="unlimited">Bez limitu</string>
   <string name="mode">Tryb</string>
   <string name="casual">Towarzyska</string>
   <string name="rated">Rankingowa</string>
