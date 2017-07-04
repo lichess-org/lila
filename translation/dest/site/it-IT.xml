@@ -46,6 +46,7 @@
   <string name="viewTheComputerAnalysis">Guarda l\'analisi del computer</string>
   <string name="requestAComputerAnalysis">Chiedi un\'analisi del computer</string>
   <string name="computerAnalysis">Analisi del computer</string>
+  <string name="computerAnalysisAvailable">Disponibile analisi del computer</string>
   <string name="analysis">Scacchiera di analisi</string>
   <string name="blunders">Errori gravi</string>
   <string name="mistakes">Errori</string>
@@ -233,6 +234,7 @@
   </plurals>
   <string name="thisIsAChessCaptcha">Questo è un CAPTCHA di scacchi.</string>
   <string name="clickOnTheBoardToMakeYourMove">Clicca sulla scacchiera e fai la tua mossa, per provare che sei un umano.</string>
+  <string name="captcha.fail">Per favore risolvi il puzzle.</string>
   <string name="notACheckmate">Non è scacco matto</string>
   <string name="colorPlaysCheckmateInOne">Il %s dà scacco matto in una mossa</string>
   <string name="retry">Riprova</string>
@@ -240,6 +242,7 @@
   <string name="onlineFriends">Amici online</string>
   <string name="noFriendsOnline">Nessun amico online</string>
   <string name="findFriends">Trova amici</string>
+  <string name="favoriteOpponents">Avversari preferiti</string>
   <string name="follow">Segui</string>
   <string name="following">Stai seguendo</string>
   <string name="unfollow">Non seguire più</string>
@@ -281,6 +284,9 @@
   <string name="winStreak">Vinte consecutivamente</string>
   <string name="createdBy">Creato da</string>
   <string name="tournamentIsStarting">Sta per iniziare il torneo</string>
+  <string name="tournamentPairingsAreNowClosed">Gli accoppiamenti del torneo sono ora chiusi.</string>
+  <string name="standByX">Resta in attesa %s, accoppiamento giocatori, sii pronto!</string>
+  <string name="youArePlaying">Stai giocando!</string>
   <string name="membersOnly">Solo per iscritti</string>
   <string name="boardEditor">Editor scacchiera</string>
   <string name="startPosition">Posizione iniziale</string>
@@ -289,6 +295,10 @@
   <string name="loadPosition">Carica una posizione</string>
   <string name="isPrivate">Privato</string>
   <string name="reportXToModerators">Segnala %s ai moderatori</string>
+  <string name="profileCompletion">Completamento del profilo: %s</string>
+  <string name="xRating">%s punteggio</string>
+  <string name="ifNoneLeaveEmpty">Se nessuno, lasciare vuoto</string>
+  <string name="gameCompletionRate">Percentuale di completamento: %s</string>
   <string name="profile">Profilo</string>
   <string name="editProfile">Modifica profilo</string>
   <string name="firstName">Nome</string>
@@ -394,6 +404,9 @@
   <string name="pieceDestinations">Destinazioni del pezzo (mosse e pre-mosse valide)</string>
   <string name="boardCoordinates">Coordinate della scacchiera (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Lista delle mosse mentre giochi</string>
+  <string name="pgnPieceNotation">Notazione mossa</string>
+  <string name="chessPieceSymbol">Simbolo del pezzo di scacchi</string>
+  <string name="pgnLetter">Lettera (R, D, T, A, C)</string>
   <string name="chessClock">Orologio</string>
   <string name="tenthsOfSeconds">Decimi di secondo</string>
   <string name="never">Mai</string>
@@ -401,12 +414,18 @@
   <string name="horizontalGreenProgressBars">Barra verde orizzontale del tempo</string>
   <string name="soundWhenTimeGetsCritical">Suono quando sei a corto di tempo</string>
   <string name="gameBehavior">Andamento del gioco</string>
+  <string name="howDoYouMovePieces">Come vuoi muovere i pezzi?</string>
+  <string name="clickTwoSquares">Click sulle caselle</string>
+  <string name="dragPiece">Trascina il pezzo</string>
+  <string name="bothClicksAndDrag">Entrambi</string>
   <string name="premovesPlayingDuringOpponentTurn">Pre-mosse (mentre tocca all\'avversario)</string>
   <string name="takebacksWithOpponentApproval">Ritiro della mossa (su accordo dell\'avversario)</string>
   <string name="promoteToQueenAutomatically">Promuovi a Regina automaticamente</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Reclama patta automaticamente dopo triplice ripetizione</string>
   <string name="privacy">Privacy</string>
   <string name="letOtherPlayersFollowYou">Permetti ad altri giocatori di seguirti</string>
   <string name="letOtherPlayersChallengeYou">Permetti ad altri giocatori di sfidarti</string>
+  <string name="letOtherPlayersInviteYouToStudy">Permetti ad altri giocatori di invitarti allo studio</string>
   <string name="sound">Suono</string>
   <string name="yourPreferencesHaveBeenSaved">Le tue preferenze sono state salvate.</string>
   <string name="none">Nessuna</string>
@@ -433,6 +452,7 @@
   <string name="starting">Inizio:</string>
   <string name="allInformationIsPublicAndOptional">Tutte le informazioni sono pubbliche e facoltative.</string>
   <string name="yourCityRegionOrDepartment">La tua città, regione o provincia.</string>
+  <string name="biographyDescription">Parlaci di te, cosa ti piace degli scacchi, le tue aperture preferite, giochi, giocatori preferiti…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Massimo: %s caratteri.</item>
     <item quantity="other">Massimo: %s caratteri.</item>
@@ -530,6 +550,10 @@
   <string name="tournamentMayHaveBeenCanceled">Può essere stato annullato, se tutti i giocatori l\'hanno abbandonato prima che il torneo iniziasse.</string>
   <string name="returnToTournamentsHomepage">Torna alla pagina iniziale del torneo</string>
   <string name="weeklyPerfTypeRatingDistribution">Distribuzione settimanale dei punteggi %s</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">%1$s %2$s giocatori questa settimana.</item>
+    <item quantity="other">%1$s %2$s giocatori questa settimana.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">Il tuo punteggio %1$s è %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Giochi meglio del %1$s di giocatori %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Non si dispone di un rating %s consolidato.</string>
@@ -550,10 +574,25 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">È inoltre possibile scorrere sopra il bordo per entrare nel gioco.</string>
   <string name="analysisShapesHowTo">Premere MAIUSC+click o tasto destro del mouse per disegnare cerchi e frecce sulla scacchiera.</string>
   <string name="confirmResignation">Conferma abbandono</string>
+  <string name="inputMovesWithTheKeyboard">Muovi utilizzando la tastiera</string>
   <string name="letOtherPlayersMessageYou">Lascia che gli altri giocatori ti inviino messaggi</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Metodo di arrocco</string>
+  <string name="castleByMovingTwoSquares">Muovi il re di due caselle</string>
+  <string name="castleByMovingOntoTheRook">Muovi il re al posto della torre</string>
   <string name="shareYourInsightsData">Condividi i tuoi dati Insights</string>
+  <string name="withNobody">Con nessuno</string>
+  <string name="withFriends">Con gli amici</string>
+  <string name="withEverybody">Con tutti</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Hai già registrato l\'email: %s</string>
   <string name="kidMode">Modalità bambino</string>
+  <string name="kidModeExplanation">Questa modalità riguarda la sicurezza: in modalità bambino tutte le comunicazioni sono disabilitate. Si consiglia di attivare questa modalità per bambini e studenti, in modo da proteggerli dagli altri utenti.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">In \"modalità bambino\", il logo di lichess ha una icona %s, in questo modo sai che il bambino è sicuro.</string>
+  <string name="enableKidMode">Attiva \"modalità bambino\"</string>
+  <string name="disableKidMode">Disattiva \"modalità bambino\"</string>
+  <string name="security">Sicurezza</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Questa è la lista di dispositivi collegata al tuo account. Rimuovi ogni istanza che non riconosci.</string>
+  <string name="alternativelyYouCanX">In alternativa è possibile %s.</string>
+  <string name="revokeAllSessions">rimuovi tutte le sessioni</string>
   <string name="playChessEverywhere">Gioca a scacchi ovunque</string>
   <string name="asFreeAsLichess">Libero come Lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Fatto per amore degli scacchi, non del denaro</string>
@@ -572,14 +611,36 @@
     <item quantity="other">Disponibile in %s lingue!</item>
   </plurals>
   <string name="gameAnalysis">Analisi del gioco</string>
+  <string name="xHostsY">%1$s ospiti %2$s</string>
+  <string name="xJoinsY">%1$s partecipanti %2$s</string>
   <string name="xLikesY">A %1$s piace %2$s</string>
+  <string name="quickPairing">Accoppiamento rapido</string>
+  <string name="lobby">Lobby</string>
+  <string name="yourScore">Il tuo punteggio: %s</string>
+  <string name="language">Lingua</string>
+  <string name="background">Sfondo</string>
   <string name="boardGeometry">Geometria della scacchiera</string>
   <string name="boardTheme">Tema della scacchiera</string>
   <string name="boardSize">Dimensione scacchiera</string>
+  <string name="pieceSet">Set pezzi</string>
+  <string name="embedInYourWebsite">Incorpora nel tuo sito Web</string>
+  <string name="usernameAlreadyUsed">Questo nome è già in uso. Prego sceglierne un altro.</string>
+  <string name="usernameInvalid">Nome utente non valido. Si prega di utilizzare solo lettere, numeri e tratti ( \"-\" o \"_\" ).</string>
   <string name="usernameStartNoNumber">Un nome utente non può iniziare con un numero.</string>
+  <string name="usernameUnacceptable">Questo nome utente non è permesso.</string>
+  <string name="directlySupportLichess">Supporta Lichess</string>
   <string name="playChessInStyle">Gioca a scacchi con stile</string>
+  <string name="chessBasics">Basi scacchistiche</string>
+  <string name="coaches">Allenatori</string>
   <string name="invalidPgn">PGN non valido</string>
   <string name="invalidFen">FEN non valido</string>
   <string name="error.minLength">La lunghezza minima è %s</string>
   <string name="error.maxLength">La lunghezza massima è %s</string>
+  <string name="error.min">Deve essere più grande o uguale a %s</string>
+  <string name="error.max">Deve essere minore o uguale a %s</string>
+  <string name="error.unknown">Errore</string>
+  <string name="custom">Altro/Personalizza</string>
+  <string name="notifications">Notifiche</string>
+  <string name="challenges">Sfide</string>
+  <string name="perfRatingX">Punteggio: %s</string>
 </resources>
