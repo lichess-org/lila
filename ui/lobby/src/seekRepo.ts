@@ -1,24 +1,20 @@
+import LobbyController from './ctrl';
+
 function order(a, b) {
   return a.rating > b.rating ? -1 : 1;
 }
 
-function sort(ctrl) {
+export function sort(ctrl: LobbyController) {
   ctrl.data.seeks.sort(order);
 }
 
-function initAll(ctrl) {
+export function initAll(ctrl: LobbyController) {
   ctrl.data.seeks.forEach(function(seek) {
     seek.action = (ctrl.data.me && seek.username === ctrl.data.me.username) ? 'cancelSeek' : 'joinSeek';
   });
   sort(ctrl);
 }
 
-module.exports = {
-  initAll: initAll,
-  sort: sort,
-  find: function(ctrl, id) {
-    return ctrl.data.seeks.find(function(s) {
-      return s.id === id;
-    });
-  }
-};
+export function find(ctrl: LobbyController, id: string) {
+  return ctrl.data.seeks.find(s => s.id === id);
+}

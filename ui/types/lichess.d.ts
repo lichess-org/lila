@@ -28,6 +28,7 @@ interface Lichess {
   StrongSocket: {
     sri: string
   }
+  idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void): void;
 }
 
 interface AssetUrlOpts {

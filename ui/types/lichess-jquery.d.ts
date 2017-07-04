@@ -1,5 +1,6 @@
 interface JQueryStatic {
   modal: LichessModal;
+  powerTip: any;
 }
 
 interface LichessModal {
@@ -12,6 +13,7 @@ interface JQuery {
   typeahead: any;
   scrollTo(el: JQuery | HTMLElement, delay: number): JQuery;
   sparkline: any;
+  slider: any;
 }
 
 declare namespace PowerTip {

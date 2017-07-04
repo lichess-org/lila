@@ -148,8 +148,10 @@ body.dark #hooks_wrap .hook_filter {
   padding: 25px 0;
 }
 #hooks_wrap .hook_filter td:first-child {
-  font-size: 1.3em;
+  font-size: 1.1em;
   padding-right: 30px;
+  width: 120px;
+  white-space: normal;
 }
 #hooks_wrap .hook_filter .checkable {
   padding: 4.3px 0;
