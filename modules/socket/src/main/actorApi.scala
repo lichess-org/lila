@@ -14,9 +14,8 @@ case class Sync(uid: String, friends: List[String])
 case class Ping(uid: String, version: Option[Int], lagCentis: Option[Centis])
 
 object Ping {
-  def apply(uid: Socket.Uid, o: JsObject) {
+  def apply(uid: Socket.Uid, o: JsObject): Ping =
     Ping(uid.value, o int "v", o int "l" map Centis.apply)
-  }
 }
 
 case object Broom
