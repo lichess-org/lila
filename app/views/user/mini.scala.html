@@ -1,15 +1,17 @@
 @(u: User, playing: Option[Pov], blocked: Boolean, followable: Boolean, rel: Option[lila.relation.Relation], ping: Option[Int], crosstable: Option[lila.game.Crosstable])(implicit ctx: Context)
 <div class="title">
   <div>
+    @ping.map { p => @signalBars(p) }
     @u.profileOrDefault.countryInfo.map {
     case (code, name) => {
-    <span class="country">
-      <img class="flag" src="@staticUrl(s"images/flags/$code.png")" alt="@name" title="@name" />
-      @if(u.username.size + name.size < 25) { @name }
+    @defining(u.username.size + name.size < 25) { hasLongName =>
+    <span @if(!hasLongName){class="country hint--top" data-hint="@name"} else {class="country"}>
+      <img class="flag" src="@staticUrl(s"images/flags/$code.png")" />
+      @if(hasLongName) { @name }
     </span>
     }
     }
-    @ping.map { p => @signalBars(p) }
+    }
     @userLink(u, withPowerTip = false)
   </div>
   @if(u.engine && ctx.me.fold(true)(u !=)) {
