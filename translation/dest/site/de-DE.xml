@@ -417,7 +417,7 @@
   <string name="howDoYouMovePieces">Wie möchtest du die Figuren bewegen?</string>
   <string name="clickTwoSquares">Zwei Felder anklicken</string>
   <string name="dragPiece">Die Figur ziehen</string>
-  <string name="bothClicksAndDrag">Klicken und ziehen</string>
+  <string name="bothClicksAndDrag">Klicken oder ziehen</string>
   <string name="premovesPlayingDuringOpponentTurn">Vorauszüge (Premoves), während der Gegner am Zug ist</string>
   <string name="takebacksWithOpponentApproval">Zugrücknahme (mit Erlaubnis des Gegners)</string>
   <string name="promoteToQueenAutomatically">Automatische Umwandlung zur Dame</string>
