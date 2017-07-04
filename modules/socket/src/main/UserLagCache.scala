@@ -5,20 +5,27 @@ import com.github.blemale.scaffeine.{ Cache, Scaffeine }
 import scala.concurrent.duration._
 
 object UserLagCache {
-  private val cache: Cache[String, Centis] = Scaffeine()
+  private val cache: Cache[String, Int] = Scaffeine()
     .expireAfterWrite(5.minute)
-    .build[String, Centis]
+    .build[String, Int]
 
-  def put(userId: String, lag: Centis) = cache.put(userId, lag)
+  // Store 1/50th of second to get most values into the java int cache
+  // and reduce memory pressure.
+  def put(userId: String, lag: Centis) = {
+    val newLag = lag.centis >> 1
+    cache.put(userId, cache.getIfPresent(userId).fold(newLag) {
+      i => (i + newLag) >> 1
+    })
+  }
 
-  def get(userId: String): Option[Centis] = cache.getIfPresent(userId)
+  def get(userId: String): Option[Centis] = cache.getIfPresent(userId) map {
+    i => Centis(i << 1)
+  }
 
-  def getLagRating(userId: String): Option[Int] = get(userId) map {
-    _.centis match {
-      case c if c < 15 => 4
-      case c if c < 25 => 3
-      case c if c < 50 => 2
-      case _ => 1
-    }
+  def getLagRating(userId: String): Option[Int] = cache.getIfPresent(userId) map {
+    case i if i < 8 => 4
+    case i if i < 14 => 3
+    case i if i < 22 => 2
+    case _ => 1
   }
 }
