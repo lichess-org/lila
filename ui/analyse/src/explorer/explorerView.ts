@@ -188,7 +188,7 @@ function showDtz(stm, move): VNode | null {
 function closeButton(ctrl: AnalyseController): VNode {
   return h('button.button.text', {
     attrs: dataIcon('L'),
-    hook: bind('click', ctrl.toggleExplorer)
+    hook: bind('click', ctrl.toggleExplorer, ctrl.redraw)
   }, 'Close');
 }
 

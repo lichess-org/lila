@@ -765,7 +765,7 @@ export default class AnalyseController {
     this.setAutoShapes();
   }
 
-  toggleExplorer(): void {
+  toggleExplorer = (): void => {
     if (this.practice) this.togglePractice();
     this.explorer.toggle();
   }
