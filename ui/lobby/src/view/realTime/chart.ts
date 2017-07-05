@@ -44,6 +44,7 @@ function renderPlot(ctrl: LobbyController, hook: Hook) {
     hook.action === 'cancel' ? 'cancel' : ''
   ].join('.');
   return h('span#' + hook.id + '.' + klass, {
+    key: hook.id,
     attrs: {
       'data-icon': ctrl.perfIcons[hook.perf],
       style: `bottom:${px(bottom)};left:${px(left)}`
