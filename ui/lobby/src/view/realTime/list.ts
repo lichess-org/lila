@@ -1,7 +1,7 @@
 /// <reference types="types/lichess" />
 import { h } from 'snabbdom'
 import LobbyController from '../../ctrl';
-import { bind, tds } from '../util';
+import { bind, tds, perfIcons } from '../util';
 import * as hookRepo from '../../hookRepo';
 import { Hook } from '../../interfaces';
 
@@ -24,7 +24,7 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
     hook.clock,
     h('span', [
       h('span.varicon', {
-        attrs: { 'data-icon': ctrl.perfIcons[hook.perf] }
+        attrs: { 'data-icon': perfIcons[hook.perf] }
       }),
       ctrl.trans(hook.ra ? 'rated' : 'casual')
     ])

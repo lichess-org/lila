@@ -3,7 +3,7 @@ import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 import LobbyController from '../../ctrl';
 import { Hook } from '../../interfaces';
-import { bind } from '../util';
+import { bind, perfIcons } from '../util';
 
 function px(v) {
   return v + 'px';
@@ -46,7 +46,7 @@ function renderPlot(ctrl: LobbyController, hook: Hook) {
   return h('span#' + hook.id + '.' + klass, {
     key: hook.id,
     attrs: {
-      'data-icon': ctrl.perfIcons[hook.perf],
+      'data-icon': perfIcons[hook.perf],
       style: `bottom:${px(bottom)};left:${px(left)}`
     },
     hook: {
@@ -80,7 +80,7 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
   }
   html += '<span class="clock">' + hook.clock + '</span>';
   html += '<span class="mode">' +
-  '<span class="varicon" data-icon="' + ctrl.perfIcons[hook.perf] + '"></span>' + ctrl.trans(hook.ra ? 'rated' : 'casual') + '</span>';
+  '<span class="varicon" data-icon="' + perfIcons[hook.perf] + '"></span>' + ctrl.trans(hook.ra ? 'rated' : 'casual') + '</span>';
   return html;
 }
 

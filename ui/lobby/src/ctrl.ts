@@ -13,7 +13,6 @@ export default class LobbyController {
   data: LobbyData;
   playban: any;
   currentGame: any;
-  perfIcons: any;
   socket: LobbySocket;
   stores: Stores;
   tab: Tab;
@@ -37,7 +36,6 @@ export default class LobbyController {
     this.data.hooks = [];
     this.playban = opts.playban;
     this.currentGame = opts.currentGame;
-    this.perfIcons = opts.perfIcons;
     this.redraw = redraw;
 
     hookRepo.initAll(this);

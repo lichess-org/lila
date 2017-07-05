@@ -27,3 +27,19 @@ export function spinner() {
         attrs: { cx: 20, cy: 20, r: 18, fill: 'none' }
       })])]);
 }
+
+export const perfIcons = {
+  'Blitz':')',
+  'Racing Kings':'',
+  'UltraBullet':'{',
+  'Bullet':'T',
+  'Classical':'+',
+  'Three-check':'.',
+  'Antichess':'@',
+  'Horde':'_',
+  'Atomic':'>',
+  'Crazyhouse':'',
+  'Chess960':'\'',
+  'Correspondence':';',
+  'King of the Hill':'('
+};
