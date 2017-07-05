@@ -160,9 +160,10 @@ export default class LobbyController {
       }));
       this.setTab('real_time');
     } else if (this.poolMember && this.poolMember.id === id) this.leavePool();
-    else this.enterPool({
-      id: id
-    });
+    else {
+      this.enterPool({ id });
+      this.redraw();
+    }
   };
 
   enterPool = (member) => {
@@ -170,7 +171,6 @@ export default class LobbyController {
     this.setTab('pools');
     this.poolMember = member;
     this.poolIn();
-    this.redraw();
   };
 
   leavePool = () => {

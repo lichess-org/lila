@@ -290,7 +290,7 @@ module.exports = function(cfg, element) {
           type: 'post'
         };
         if (poolMember) {
-          lobby.enterPool(poolMember);
+          lobby.clickPool(poolMember);
           call.url += '?pool=1';
         } else lobby.setTab($timeModeSelect.val() === '1' ? 'real_time' : 'seeks');
         $.ajax(call);

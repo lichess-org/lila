@@ -36,7 +36,7 @@ export function start(opts: LobbyOpts) {
     },
     gameActivity: ctrl.gameActivity,
     setRedirecting: ctrl.setRedirecting,
-    enterPool: ctrl.enterPool,
+    clickPool: ctrl.clickPool,
     leavePool: ctrl.leavePool
   };
 }
