@@ -28,7 +28,7 @@
   <string name="variantEnding">变体终局</string>
   <string name="newOpponent">换个对手</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">你的对手想和你复赛</string>
-  <string name="joinTheGame">加入這盤棋</string>
+  <string name="joinTheGame">加入这盘棋</string>
   <string name="whitePlays">白方走棋</string>
   <string name="blackPlays">黑方走棋</string>
   <string name="opponentLeftChoices">對方可能已經離開遊戲。你可以選擇取勝、和棋，也可以等待對方走棋。</string>
