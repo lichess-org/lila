@@ -163,10 +163,8 @@ description = describeUser(u)).some) {
         <span class="location">@l</span>,
         }
         }
-        @profile.countryInfo.map {
-        case (code, name) => {
-        <span class="country"><img class="flag" src="@staticUrl(s"images/flags/$code.png")" /> @name</span>
-        }
+        @profile.countryInfo.map { c =>
+        <span class="country"><img class="flag" src="@staticUrl(s"images/flags/${c.code}.png")" /> @c.name</span>
         }
         <p class="thin">@trans.memberSince() @showDate(u.createdAt)</p>
         @u.seenAt.map { seen =>
