@@ -47,8 +47,9 @@ function podiumUsername(p) {
   }, p.name);
 }
 
-function podiumStats(p): MaybeVNodes {
+function podiumStats(p, trans): MaybeVNodes {
   let ratingDiff;
+  var noarg = trans.noarg;
   if (p.ratingDiff === 0) ratingDiff = h('span', ' =');
   else if (p.ratingDiff > 0) ratingDiff = h('span.positive', {
     attrs: { 'data-icon': 'N' }
@@ -63,21 +64,21 @@ function podiumStats(p): MaybeVNodes {
       ratingDiff
     ]),
     h('table.stats', [
-      h('tr', [h('th', 'Games played'), h('td', nb.game)]),
+      h('tr', [h('th', noarg('gamesPlayed')), h('td', nb.game)]),
       ...(nb.game ? [
-        h('tr', [h('th', 'Win rate'), h('td', ratio2percent(nb.win / nb.game))]),
-        h('tr', [h('th', 'Berserk rate'), h('td', ratio2percent(nb.berserk / nb.game))])
+        h('tr', [h('th', noarg('winRate')), h('td', ratio2percent(nb.win / nb.game))]),
+        h('tr', [h('th', noarg('berserkRate')), h('td', ratio2percent(nb.berserk / nb.game))])
       ] : []),
       p.performance ? h('tr', [h('th', 'Performance'), h('td', p.performance)]) : null
     ])
   ];
 }
 
-function podiumPosition(p, pos): VNode | undefined {
+function podiumPosition(p, pos, trans): VNode | undefined {
   if (p) return h('div.' + pos, [
     h('div.trophy'),
     podiumUsername(p),
-    ...podiumStats(p)
+    ...podiumStats(p, trans)
   ]);
 }
 
@@ -85,9 +86,9 @@ let lastBody: MaybeVNodes | undefined;
 
 export function podium(ctrl: TournamentController) {
   return h('div.podium', [
-    podiumPosition(ctrl.data.podium[1], 'second'),
-    podiumPosition(ctrl.data.podium[0], 'first'),
-    podiumPosition(ctrl.data.podium[2], 'third')
+    podiumPosition(ctrl.data.podium[1], 'second', ctrl.trans),
+    podiumPosition(ctrl.data.podium[0], 'first', ctrl.trans),
+    podiumPosition(ctrl.data.podium[2], 'third', ctrl.trans)
   ]);
 }
 

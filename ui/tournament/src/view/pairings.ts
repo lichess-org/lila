@@ -39,7 +39,7 @@ function nextTournament(ctrl: TournamentController): MaybeVNodes {
     h('a.next', { attrs: { href: '/tournament/' + t.id } }, [
       h('i', { attrs: { 'data-icon': t.perf.icon } }),
       h('span.content', [
-        h('span', 'Next ' + t.perf.name + ' tournament:'),
+        h('span', ctrl.trans('nextXTournament', t.perf.name)),
         h('span.name', t.name),
         h('span.more', [
           ctrl.trans('nbPlayers', t.nbPlayers),
@@ -53,7 +53,7 @@ function nextTournament(ctrl: TournamentController): MaybeVNodes {
         ])
       ])
     ]),
-    h('a.others', { attrs: { href: '/tournament' } }, 'View more tournaments')
+    h('a.others', { attrs: { href: '/tournament' } }, ctrl.trans.noarg('viewMoreTournaments'))
   ] : [];
 }
 

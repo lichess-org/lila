@@ -30,6 +30,7 @@ function setup(vnode: VNode) {
 
 export default function(ctrl: TournamentController): VNode {
   const data = ctrl.playerInfo.data;
+  var noarg = ctrl.trans.noarg;
   if (!data || data.player.id !== ctrl.playerInfo.id) return h('div.player', [
     h('div.stats', [
       playerTitle(ctrl.playerInfo.player),
@@ -54,12 +55,12 @@ export default function(ctrl: TournamentController): VNode {
     h('div.stats', [
       playerTitle(data.player),
       h('table', [
-        data.player.performance ? numberRow('Performance', data.player.performance, 'raw') : null,
-        numberRow('Games played', nb.game),
+        data.player.performance ? numberRow(noarg('performance'), data.player.performance, 'raw') : null,
+        numberRow(noarg('gamesPlayed'), nb.game),
         ...(nb.game ? [
-          numberRow('Win rate', [nb.win, nb.game], 'percent'),
-          numberRow('Berserk rate', [nb.berserk, nb.game], 'percent'),
-          numberRow('Average opponent', avgOp, 'raw')
+          numberRow(noarg('winRate'), [nb.win, nb.game], 'percent'),
+          numberRow(noarg('berserkRate'), [nb.berserk, nb.game], 'percent'),
+          numberRow(noarg('averageOpponent'), avgOp, 'raw')
         ] : [])
       ])
     ]),
