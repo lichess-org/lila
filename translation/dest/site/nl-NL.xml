@@ -160,6 +160,14 @@
   <string name="incrementInSeconds">Seconden extra per zet</string>
   <string name="freeOnlineChess">Gratis online schaken</string>
   <string name="spectators">Toeschouwers:</string>
+  <plurals name="nbGamesPlayed">
+    <item quantity="one">%s partij gespeeld</item>
+    <item quantity="other">%s partijen gespeeld</item>
+  </plurals>
+  <plurals name="nbRated">
+    <item quantity="one">%s met rating</item>
+    <item quantity="other">%s met rating</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s gewonnen</item>
     <item quantity="other">%s gewonnen</item>
