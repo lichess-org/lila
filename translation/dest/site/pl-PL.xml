@@ -314,6 +314,15 @@
   <string name="tournamentPairingsAreNowClosed">Zakończono kojarzenie par.</string>
   <string name="standByX">Trwa zestawianie par, bądź gotów do gry %s!</string>
   <string name="youArePlaying">Grasz!</string>
+  <string name="winRate">Procent zwycięstw</string>
+  <string name="tournamentComplete">Turniej zakończony</string>
+  <string name="movesPlayed">Liczba posunięć</string>
+  <string name="whiteWins">Wygrana białych</string>
+  <string name="blackWins">Wygrana czarnych</string>
+  <string name="draws">Remisy</string>
+  <string name="nextXTournament">Następny turniej %s:</string>
+  <string name="viewMoreTournaments">Pokaż inne turnieje</string>
+  <string name="averageOpponent">Średni ranking przeciwnika</string>
   <string name="membersOnly">Tylko dla zarejestrowanych</string>
   <string name="boardEditor">Edytor pozycji</string>
   <string name="startPosition">Ustawienie początkowe</string>
