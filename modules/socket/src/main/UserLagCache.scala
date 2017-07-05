@@ -9,11 +9,10 @@ object UserLagCache {
     .expireAfterWrite(15.minute)
     .build[String, Centis]
 
-  def put(userId: String, lag: Centis) = {
+  def put(userId: String, lag: Centis) =
     cache.put(userId, cache.getIfPresent(userId).fold(lag) {
       _ avg lag
     })
-  }
 
   def get(userId: String): Option[Centis] = cache.getIfPresent(userId)
 
