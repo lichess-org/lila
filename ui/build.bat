@@ -9,7 +9,7 @@ for %%t in (%ts_apps%) do @(
     call cd ui\%%t
     call yarn install --non-interactive
     call yarn run compile --non-interactive
-	call cd ..\..
+    call cd ..\..
 )
 
 set apps=site chat challenge notify learn insight editor puzzle round analyse lobby tournament tournamentSchedule simul perfStat dasher
