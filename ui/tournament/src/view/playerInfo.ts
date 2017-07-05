@@ -56,11 +56,11 @@ export default function(ctrl: TournamentController): VNode {
       h('table', [
         data.player.performance ? numberRow('Performance', data.player.performance, 'raw') : null,
         numberRow('Games played', nb.game),
-        nb.game ? [
+        ...(nb.game ? [
           numberRow('Win rate', [nb.win, nb.game], 'percent'),
           numberRow('Berserk rate', [nb.berserk, nb.game], 'percent'),
           numberRow('Average opponent', avgOp, 'raw')
-        ] : null
+        ] : [])
       ])
     ]),
     h('div.scroll-shadow-soft', [

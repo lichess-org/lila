@@ -64,10 +64,10 @@ function podiumStats(p): MaybeVNodes {
     ]),
     h('table.stats', [
       h('tr', [h('th', 'Games played'), h('td', nb.game)]),
-      nb.game ? [
+      ...(nb.game ? [
         h('tr', [h('th', 'Win rate'), h('td', ratio2percent(nb.win / nb.game))]),
         h('tr', [h('th', 'Berserk rate'), h('td', ratio2percent(nb.berserk / nb.game))])
-      ] : null,
+      ] : []),
       p.performance ? h('tr', [h('th', 'Performance'), h('td', p.performance)]) : null
     ])
   ];
@@ -77,7 +77,7 @@ function podiumPosition(p, pos): VNode | undefined {
   if (p) return h('div.' + pos, [
     h('div.trophy'),
     podiumUsername(p),
-    podiumStats(p)
+    ...podiumStats(p)
   ]);
 }
 

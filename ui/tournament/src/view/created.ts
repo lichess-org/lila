@@ -16,7 +16,11 @@ export function main(ctrl: TournamentController): MaybeVNodes {
     ]),
     h('div.content_box_content', {
       hook: {
-        insert: vnode => $(vnode.elm as HTMLElement).html($('#tournament_faq').show().html())
+        insert: vnode => {
+          const faq = $('#tournament_faq').show();
+          (vnode.elm as HTMLElement).innerHTML = faq.html();
+          faq.remove();
+        }
       }
     })
   ];

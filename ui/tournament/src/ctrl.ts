@@ -1,6 +1,6 @@
 import makeSocket from './socket';
 import xhr from './xhr';
-import { myPage } from './pagination';
+import { myPage, players } from './pagination';
 import * as sound from './sound';
 import * as tour from './tournament';
 import { TournamentData, TournamentOpts, Pages, PlayerInfo } from './interfaces';
@@ -38,6 +38,7 @@ export default class TournamentController {
     sound.end(this.data);
     sound.countDown(this.data);
     this.redirectToMyGame();
+    if (this.data.featured) this.startWatching(this.data.featured.id);
   }
 
   reload = (data: TournamentData): void => {
@@ -48,8 +49,8 @@ export default class TournamentController {
     this.loadPage(data.standing);
     if (this.focusOnMe) this.scrollToMe();
     if (data.featured) this.startWatching(data.featured.id);
-    sound.end(this.data);
-    sound.countDown(this.data);
+    sound.end(data);
+    sound.countDown(data);
     this.joinSpinner = false;
     this.redirectToMyGame();
   };
@@ -82,6 +83,10 @@ export default class TournamentController {
     this.focusOnMe = false;
     this.setPage(page);
   };
+
+  userNextPage = () => this.userSetPage(this.page + 1);
+  userPrevPage = () => this.userSetPage(this.page - 1);
+  userLastPage = () => this.userSetPage(players(this).nbPages);
 
   withdraw = () => {
     xhr.withdraw(this);
