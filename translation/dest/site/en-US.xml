@@ -297,6 +297,17 @@
   <string name="tournamentPairingsAreNowClosed">The tournament pairings are now closed.</string>
   <string name="standByX">Stand by %s, pairing players, get ready!</string>
   <string name="youArePlaying">You are playing!</string>
+  <string name="winRate">Win rate</string>
+  <string name="berserkRate">Berserk rate</string>
+  <string name="performance">Performance</string>
+  <string name="tournamentComplete">Tournament complete</string>
+  <string name="movesPlayed">Moves played</string>
+  <string name="whiteWins">White wins</string>
+  <string name="blackWins">Black wins</string>
+  <string name="draws">Draws</string>
+  <string name="nextXTournament">Next %s tournament:</string>
+  <string name="viewMoreTournaments">View more tournaments</string>
+  <string name="averageOpponent">Average opponent</string>
   <string name="membersOnly">Members only</string>
   <string name="boardEditor">Board editor</string>
   <string name="startPosition">Starting position</string>
