@@ -2,6 +2,7 @@ package lila.round
 
 import chess.{ Speed }
 import org.goochjs.glicko2._
+import org.joda.time.DateTime
 
 import lila.game.{ GameRepo, Game, PerfPicker }
 import lila.history.HistoryApi
@@ -20,8 +21,8 @@ final class PerfsUpdater(
   def save(game: Game, white: User, black: User, resetGameRatings: Boolean = false): Funit =
     PerfPicker.main(game) ?? { mainPerf =>
       (game.rated && game.finished && game.accountable && !white.lame && !black.lame) ?? {
-        val ratingsW = mkRatings(white.perfs)
-        val ratingsB = mkRatings(black.perfs)
+        val ratingsW = mkRatings(white.perfs, game.createdAt)
+        val ratingsB = mkRatings(black.perfs, game.createdAt)
         val result = resultOf(game)
         game.ratingVariant match {
           case chess.variant.Chess960 =>
@@ -94,20 +95,20 @@ final class PerfsUpdater(
     correspondence: Rating
   )
 
-  private def mkRatings(perfs: Perfs) = Ratings(
-    chess960 = perfs.chess960.toRating,
-    kingOfTheHill = perfs.kingOfTheHill.toRating,
-    threeCheck = perfs.threeCheck.toRating,
-    antichess = perfs.antichess.toRating,
-    atomic = perfs.atomic.toRating,
-    horde = perfs.horde.toRating,
-    racingKings = perfs.racingKings.toRating,
-    crazyhouse = perfs.crazyhouse.toRating,
-    ultraBullet = perfs.ultraBullet.toRating,
-    bullet = perfs.bullet.toRating,
-    blitz = perfs.blitz.toRating,
-    classical = perfs.classical.toRating,
-    correspondence = perfs.correspondence.toRating
+  private def mkRatings(perfs: Perfs, date: DateTime) = Ratings(
+    chess960 = perfs.chess960.toRating(date),
+    kingOfTheHill = perfs.kingOfTheHill.toRating(date),
+    threeCheck = perfs.threeCheck.toRating(date),
+    antichess = perfs.antichess.toRating(date),
+    atomic = perfs.atomic.toRating(date),
+    horde = perfs.horde.toRating(date),
+    racingKings = perfs.racingKings.toRating(date),
+    crazyhouse = perfs.crazyhouse.toRating(date),
+    ultraBullet = perfs.ultraBullet.toRating(date),
+    bullet = perfs.bullet.toRating(date),
+    blitz = perfs.blitz.toRating(date),
+    classical = perfs.classical.toRating(date),
+    correspondence = perfs.correspondence.toRating(date)
   )
 
   private def resultOf(game: Game): Glicko.Result =
