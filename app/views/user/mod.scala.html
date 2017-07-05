@@ -54,6 +54,7 @@
   </form>
   }
   }
+  <div class="second_mod_button_row">
   @if(isGranted(_.RemoveRanking)) {
   <form method="post" action="@routes.Mod.kickFromRankings(u.username)" data-hint="Excludes this user from the rankings during the next calculation." class="hint--bottom-left">
     <input class="button" type="submit" value="Kick from ranking" />
@@ -64,6 +65,7 @@
     <input class="button@when(u.reportban, " active")" type="submit" value="Reportban" />
   </form>
   }
+  </div>
   @if(isGranted(_.SetTitle)) {
   <br />
   <br />
