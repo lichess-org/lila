@@ -270,6 +270,8 @@ function showFailing(ctrl) {
   ]);
 }
 
+let lastFen: Fen = '';
+
 export default function(ctrl: AnalyseController): VNode | undefined {
   const explorer = ctrl.explorer;
   if (!explorer.enabled()) return;
@@ -285,7 +287,12 @@ export default function(ctrl: AnalyseController): VNode | undefined {
       reduced: !configOpened && (explorer.failing() || explorer.movesAway() > 2)
     },
     hook: {
-      postpatch: (_, vnode) => (vnode.elm as HTMLElement).scrollTop = 0
+      insert: vnode => (vnode.elm as HTMLElement).scrollTop = 0,
+      postpatch(_, vnode) {
+        if (!data || lastFen === data.fen) return;
+        (vnode.elm as HTMLElement).scrollTop = 0;
+        lastFen = data.fen;
+      }
     }
   }, [
     h('div.overlay'),
