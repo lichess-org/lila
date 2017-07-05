@@ -59,6 +59,11 @@
     <input class="button" type="submit" value="Kick from ranking" />
   </form>
   }
+  @if(isGranted(_.ReportBan)) {
+  <form method="post" action="@routes.Mod.reportban(u.username)" data-hint="@if(u.reportban){En}else{Dis}able the report feature for this user." class="hint--bottom left">
+    <input class="button@when(u.reportban, " active")" type="submit" value="Reportban" />
+  </form>
+  }
   @if(isGranted(_.SetTitle)) {
   <br />
   <br />

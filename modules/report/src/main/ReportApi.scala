@@ -31,7 +31,7 @@ final class ReportApi(
     createdBy = by
   ), setup.user, by)
 
-  def create(report: Report, reported: User, by: User): Funit = !by.troll ?? {
+  def create(report: Report, reported: User, by: User): Funit = !by.reportban ?? {
     !isAlreadySlain(report, reported) ?? {
 
       lila.mon.mod.report.create(report.reason.key)()
