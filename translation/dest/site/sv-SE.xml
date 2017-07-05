@@ -150,6 +150,7 @@
   <string name="play">Spela</string>
   <string name="inbox">Inkorg</string>
   <string name="chatRoom">Chattrum</string>
+  <string name="loginToChat">Logga in för att chatta</string>
   <string name="spectatorRoom">Åskådarrum</string>
   <string name="composeMessage">Skriv meddelande</string>
   <string name="noNewMessages">Inga nya meddelanden</string>
@@ -162,6 +163,10 @@
   <plurals name="nbGamesPlayed">
     <item quantity="one">%s parti spelade</item>
     <item quantity="other">%s partier spelade</item>
+  </plurals>
+  <plurals name="nbRated">
+    <item quantity="one">%s rankat</item>
+    <item quantity="other">%s rankade</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s vinster</item>
