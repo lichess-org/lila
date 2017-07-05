@@ -1042,7 +1042,7 @@ lichess.topMenuIntent = function() {
     cfg.socketSend = lichess.socket.send;
     cfg.element = element;
     tournament = LichessTournament.start(cfg);
-    // if (cfg.chat) lichess.makeChat('chat', cfg.chat);
+    if (cfg.chat) lichess.makeChat('chat', cfg.chat);
   };
 
   ///////////////////
