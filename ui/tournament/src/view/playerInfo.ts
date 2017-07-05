@@ -55,7 +55,7 @@ export default function(ctrl: TournamentController): VNode {
     h('div.stats', [
       playerTitle(data.player),
       h('table', [
-        data.player.performance ? numberRow('Performance', data.player.performance, 'raw') : null,
+        data.player.performance ? numberRow(noarg('performance'), data.player.performance, 'raw') : null,
         numberRow(noarg('gamesPlayed'), nb.game),
         ...(nb.game ? [
           numberRow(noarg('winRate'), [nb.win, nb.game], 'percent'),
