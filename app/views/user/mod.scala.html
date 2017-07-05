@@ -282,6 +282,7 @@
           @if(o.engine){<i title="Engine" data-icon="n"></i>}
           @if(o.ipBan){<i title="IP ban" data-icon="2" class="is-red"></i>}
           @if(o.disabled){<i title="Closed" data-icon="k"></i>}
+          @if(o.reportban){<i title="Reportban" data-icon="!"></i>}
         </td>
         <td data-sort="@o.createdAt.getMillis">@momentFromNow(o.createdAt)</td>
         <td data-sort="@o.seenAt.map(_.getMillis)">@o.seenAt.map(momentFromNow)</td>
