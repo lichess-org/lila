@@ -150,6 +150,7 @@
   <string name="play">Spelen</string>
   <string name="inbox">Postvak IN</string>
   <string name="chatRoom">Chatruimte</string>
+  <string name="loginToChat">Meld je aan om te chatten</string>
   <string name="spectatorRoom">Toeschouwersruimte</string>
   <string name="composeMessage">Een nieuw bericht schrijven</string>
   <string name="noNewMessages">Geen nieuwe berichten</string>
