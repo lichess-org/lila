@@ -474,4 +474,8 @@
   <string name="asFreeAsLichess">nonseldi\'a du\'i la .litces.</string>
   <string name="zeroAdvertisement">no gubnoi</string>
   <string name="viewTheSolution">viska lo danfu</string>
+  <plurals name="availableInNbLanguages">
+    <item quantity="other">se sabji bau %s da</item>
+  </plurals>
+  <string name="language">bangu</string>
 </resources>
