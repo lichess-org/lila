@@ -299,6 +299,8 @@
   <string name="youArePlaying">Du spelar!</string>
   <string name="winRate">Vinst frekvens</string>
   <string name="berserkRate">Berserk frekvens</string>
+  <string name="performance">Prestation</string>
+  <string name="tournamentComplete">Turneringen avslutad</string>
   <string name="movesPlayed">Drag spelade</string>
   <string name="whiteWins">Vit vinner</string>
   <string name="blackWins">Svart vinner</string>
