@@ -274,8 +274,8 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
   val patronIconChar = ""
   val lineIconChar = ""
 
-  val lineIcon: String = s"""<i class="line"></i>"""
-  val patronIcon: String = s"""<i class="line patron" title="lichess Patron"></i>"""
+  val lineIcon: String = """<i class="line"></i>"""
+  val patronIcon: String = """<i class="line patron" title="lichess Patron"></i>"""
   private def lineIcon(patron: Boolean): String = if (patron) patronIcon else lineIcon
   private def lineIcon(user: Option[LightUser]): String = lineIcon(user.??(_.isPatron))
   def lineIcon(user: User): String = lineIcon(user.isPatron)
