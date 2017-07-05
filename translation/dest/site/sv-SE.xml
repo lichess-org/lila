@@ -151,6 +151,7 @@
   <string name="inbox">Inkorg</string>
   <string name="chatRoom">Chattrum</string>
   <string name="loginToChat">Logga in för att chatta</string>
+  <string name="youHaveBeenTimedOut">Du har fått en time-out.</string>
   <string name="spectatorRoom">Åskådarrum</string>
   <string name="composeMessage">Skriv meddelande</string>
   <string name="noNewMessages">Inga nya meddelanden</string>
@@ -296,6 +297,11 @@
   <string name="tournamentPairingsAreNowClosed">Turneringsparningarna är nu avslutade.</string>
   <string name="standByX">%s, vänta, parar spelare, var redo!</string>
   <string name="youArePlaying">Du spelar!</string>
+  <string name="whiteWins">Vit vinner</string>
+  <string name="blackWins">Svart vinner</string>
+  <string name="draws">Remier</string>
+  <string name="nextXTournament">Nästa %s turnering:</string>
+  <string name="viewMoreTournaments">Visa fler turneringar</string>
   <string name="membersOnly">Endast medlemmar</string>
   <string name="boardEditor">Brädeditor</string>
   <string name="startPosition">Startposition</string>
