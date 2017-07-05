@@ -312,7 +312,7 @@
   <string name="activeToday">Heute aktiv</string>
   <string name="activePlayers">Aktive Spieler</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Achtung! Das Spiel wird gewertet, aber ohne Uhr gespielt!</string>
-  <string name="training">Training</string>
+  <string name="training">Puzzles</string>
   <string name="yourPuzzleRatingX">Deine Taktikwertung: %s</string>
   <string name="findTheBestMoveForWhite">Finde den besten Zug für Weiß.</string>
   <string name="findTheBestMoveForBlack">Finde den besten Zug für Schwarz.</string>
@@ -417,7 +417,7 @@
   <string name="howDoYouMovePieces">Wie möchtest du die Figuren bewegen?</string>
   <string name="clickTwoSquares">Zwei Felder anklicken</string>
   <string name="dragPiece">Die Figur ziehen</string>
-  <string name="bothClicksAndDrag">Klicken und ziehen</string>
+  <string name="bothClicksAndDrag">Klicken oder ziehen</string>
   <string name="premovesPlayingDuringOpponentTurn">Vorauszüge (Premoves), während der Gegner am Zug ist</string>
   <string name="takebacksWithOpponentApproval">Zugrücknahme (mit Erlaubnis des Gegners)</string>
   <string name="promoteToQueenAutomatically">Automatische Umwandlung zur Dame</string>
