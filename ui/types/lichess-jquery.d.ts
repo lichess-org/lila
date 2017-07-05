@@ -14,6 +14,7 @@ interface JQuery {
   scrollTo(el: JQuery | HTMLElement, delay: number): JQuery;
   sparkline: any;
   slider: any;
+  clock: any;
 }
 
 declare namespace PowerTip {

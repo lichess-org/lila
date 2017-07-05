@@ -19,19 +19,22 @@
   },
   "homepage": "https://github.com/ornicar/lila",
   "devDependencies": {
+    "@types/jquery": "^2.0",
     "browserify": "^14",
     "gulp": "^3",
-    "gulp-streamify": "^1",
     "gulp-uglify": "^2",
     "gulp-util": "^3",
-    "uglify-js": "^2",
+    "tsify": "^3",
+    "typescript": "^2",
+    "vinyl-buffer": "^1",
     "vinyl-source-stream": "^1",
-    "watchify": "^3"
+    "watchify": "^3",
+    "types": "link:../types"
   },
   "dependencies": {
     "chessground": "^6.5",
     "common": "link:../common",
     "game": "link:../game",
-    "mithril": "github:ornicar/mithril.js#lila-1"
+    "snabbdom": "ornicar/snabbdom#lichess"
   }
 }

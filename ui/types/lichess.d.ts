@@ -29,6 +29,7 @@ interface Lichess {
     sri: string
   }
   idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void): void;
+  parseFen(el: JQuery)
 }
 
 interface AssetUrlOpts {

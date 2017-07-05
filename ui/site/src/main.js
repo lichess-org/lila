@@ -1040,8 +1040,9 @@ lichess.topMenuIntent = function() {
         }
       });
     cfg.socketSend = lichess.socket.send;
-    tournament = LichessTournament(element, cfg);
-    if (cfg.chat) lichess.makeChat('chat', cfg.chat);
+    cfg.element = element;
+    tournament = LichessTournament.start(cfg);
+    // if (cfg.chat) lichess.makeChat('chat', cfg.chat);
   };
 
   ///////////////////
