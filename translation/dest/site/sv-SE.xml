@@ -159,6 +159,10 @@
   <string name="incrementInSeconds">Tilläggssekunder</string>
   <string name="freeOnlineChess">Gratis schack på internet</string>
   <string name="spectators">Åskådare:</string>
+  <plurals name="nbGamesPlayed">
+    <item quantity="one">%s parti spelade</item>
+    <item quantity="other">%s partier spelade</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s vinster</item>
     <item quantity="other">%s vinster</item>
