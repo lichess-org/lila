@@ -28,14 +28,14 @@
   <string name="variantEnding">變體終局</string>
   <string name="newOpponent">換個對手</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">你的對手想和你複賽</string>
-  <string name="joinTheGame">加入这盘棋</string>
+  <string name="joinTheGame">加入這盤棋</string>
   <string name="whitePlays">白方走棋</string>
   <string name="blackPlays">黑方走棋</string>
   <string name="opponentLeftChoices">对方可能已经离开游戏。你可以选择：取胜、和棋，也可以等待对方走棋。</string>
   <string name="makeYourOpponentResign">取胜</string>
   <string name="forceResignation">取胜</string>
   <string name="forceDraw">和棋</string>
-  <string name="talkInChat">请在聊天室里文明一点</string>
+  <string name="talkInChat">請在聊天室裡文明一點</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">第一个访问该网址的人将与你对弈。</string>
   <string name="whiteResigned">白方认输</string>
   <string name="blackResigned">黑方认输</string>
@@ -550,10 +550,13 @@
     <item quantity="other">支持%s种语言！</item>
   </plurals>
   <string name="gameAnalysis">象棋分析研究</string>
+  <string name="boardSize">棋盤大小</string>
+  <string name="chessBasics">基本知識</string>
   <string name="error.minLength">%s 字以上</string>
   <string name="error.maxLength">不超過 %s 字</string>
   <string name="error.min">必須起碼 %s 字或以上</string>
   <string name="error.max">必須 %s 字或以下</string>
   <string name="error.unknown">錯誤</string>
   <string name="custom">個別設定</string>
+  <string name="challenges">挑戰</string>
 </resources>
