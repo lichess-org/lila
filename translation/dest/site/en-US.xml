@@ -150,6 +150,8 @@
   <string name="play">Play</string>
   <string name="inbox">Inbox</string>
   <string name="chatRoom">Chat room</string>
+  <string name="loginToChat">Login to chat</string>
+  <string name="youHaveBeenTimedOut">You have been timed out.</string>
   <string name="spectatorRoom">Spectator room</string>
   <string name="composeMessage">Compose message</string>
   <string name="noNewMessages">No new messages</string>
@@ -159,6 +161,14 @@
   <string name="incrementInSeconds">Increment in seconds</string>
   <string name="freeOnlineChess">Free Online Chess</string>
   <string name="spectators">Spectators:</string>
+  <plurals name="nbGamesPlayed">
+    <item quantity="one">%s game played</item>
+    <item quantity="other">%s games played</item>
+  </plurals>
+  <plurals name="nbRated">
+    <item quantity="one">%s rated</item>
+    <item quantity="other">%s rated</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s win</item>
     <item quantity="other">%s wins</item>
