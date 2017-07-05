@@ -297,11 +297,15 @@
   <string name="tournamentPairingsAreNowClosed">Turneringsparningarna är nu avslutade.</string>
   <string name="standByX">%s, vänta, parar spelare, var redo!</string>
   <string name="youArePlaying">Du spelar!</string>
+  <string name="winRate">Vinst frekvens</string>
+  <string name="berserkRate">Berserk frekvens</string>
+  <string name="movesPlayed">Drag spelade</string>
   <string name="whiteWins">Vit vinner</string>
   <string name="blackWins">Svart vinner</string>
   <string name="draws">Remier</string>
   <string name="nextXTournament">Nästa %s turnering:</string>
   <string name="viewMoreTournaments">Visa fler turneringar</string>
+  <string name="averageOpponent">Genomsnittlig motståndare</string>
   <string name="membersOnly">Endast medlemmar</string>
   <string name="boardEditor">Brädeditor</string>
   <string name="startPosition">Startposition</string>
