@@ -156,6 +156,8 @@
   <string name="play">Zagraj</string>
   <string name="inbox">Wiadomości</string>
   <string name="chatRoom">Czat</string>
+  <string name="loginToChat">Zaloguj się, aby rozmawiać</string>
+  <string name="youHaveBeenTimedOut">Zostałeś wylogowany.</string>
   <string name="spectatorRoom">Widzowie</string>
   <string name="composeMessage">Napisz wiadomość</string>
   <string name="noNewMessages">Brak nowych wiadomości</string>
@@ -165,6 +167,16 @@
   <string name="incrementInSeconds">Dodawany czas w sekundach</string>
   <string name="freeOnlineChess">Darmowe szachy online</string>
   <string name="spectators">Widzowie:</string>
+  <plurals name="nbGamesPlayed">
+    <item quantity="one">%s rozegrana gra</item>
+    <item quantity="few">%s rozegranych gier</item>
+    <item quantity="other">%s rozegranych gier</item>
+  </plurals>
+  <plurals name="nbRated">
+    <item quantity="one">%s rankingowa gra</item>
+    <item quantity="few">%s rankingowych gier</item>
+    <item quantity="other">%s rankingowych gier</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s wygrana</item>
     <item quantity="few">%s wygrane</item>
