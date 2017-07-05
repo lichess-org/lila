@@ -20,7 +20,6 @@ lichess.storage = (function() {
     set: function(k, v) {
       // removing first may help http://stackoverflow.com/questions/2603682/is-anyone-else-receiving-a-quota-exceeded-err-on-their-ipad-when-accessing-local
       withStorage(function(s) {
-    console.log('set', k, v);
         s.removeItem(k);
         s.setItem(k, v);
       });
