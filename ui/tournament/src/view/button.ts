@@ -25,7 +25,7 @@ export function join(ctrl: TournamentController): VNode {
       attrs: { 'data-icon': 'G' },
       hook: bind('click', _ => {
         if (ctrl.data.private) {
-          const p = prompt('Password');
+          const p = prompt(ctrl.trans.noarg('password'));
           if (p !== null) ctrl.join(p);
         } else ctrl.join();
       }, ctrl.redraw)

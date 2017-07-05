@@ -18,17 +18,17 @@ function confetti(data: TournamentData): VNode | undefined {
   });
 }
 
-function stats(st) {
+function stats(st, noarg) {
   return h('div.stats.box', [
-    h('h2', 'Tournament complete'),
+    h('h2', noarg('tournamentComplete')),
     h('table', [
-      numberRow('Average rating', st.averageRating, 'raw'),
-      numberRow('Games played', st.games),
-      numberRow('Moves played', st.moves),
-      numberRow('White wins', [st.whiteWins, st.games], 'percent'),
-      numberRow('Black wins', [st.blackWins, st.games], 'percent'),
-      numberRow('Draws', [st.draws, st.games], 'percent'),
-      numberRow('Berserk rate', [st.berserks / 2, st.games], 'percent')
+      numberRow(noarg('averageElo'), st.averageRating, 'raw'),
+      numberRow(noarg('gamesPlayed'), st.games),
+      numberRow(noarg('movesPlayed'), st.moves),
+      numberRow(noarg('whiteWins'), [st.whiteWins, st.games], 'percent'),
+      numberRow(noarg('blackWins'), [st.blackWins, st.games], 'percent'),
+      numberRow(noarg('draws'), [st.draws, st.games], 'percent'),
+      numberRow(noarg('berserkRate'), [st.berserks / 2, st.games], 'percent')
     ])
   ]);
 }
@@ -47,7 +47,7 @@ export function main(ctrl: TournamentController): MaybeVNodes {
 
 export function side(ctrl: TournamentController): MaybeVNodes {
   return ctrl.playerInfo.id ? [playerInfo(ctrl)] : [
-    stats ? stats(ctrl.data.stats) : null,
+    stats ? stats(ctrl.data.stats, ctrl.trans.noarg) : null,
     ...pairings(ctrl)
   ];
 }
