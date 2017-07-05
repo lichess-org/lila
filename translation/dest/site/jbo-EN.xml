@@ -462,6 +462,8 @@
   <string name="watch">zgana</string>
   <string name="internationalEvents">lo gugykruca fasnu</string>
   <string name="videoLibrary">kinsro</string>
+  <string name="simultaneousExhibitions">cabysi\'u nuntigni</string>
+  <string name="noSimulExplanation">ti noi cabysi\'u nuntigni cu na zasti</string>
   <string name="create">finti</string>
   <string name="tournamentOfficial">ca\'iselzau</string>
   <string name="yourPerfTypeRatingIsRating">nilcre do la\'o zoi. %1$s .zoi fa li %2$s</string>
