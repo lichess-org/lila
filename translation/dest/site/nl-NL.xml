@@ -35,7 +35,7 @@
   <string name="makeYourOpponentResign">U wint de partij</string>
   <string name="forceResignation">Eis de overwinning op</string>
   <string name="forceDraw">Dwing remise af</string>
-  <string name="talkInChat">Wees alstublieft vriendelijk in de chat!</string>
+  <string name="talkInChat">Wees a.u.b. vriendelijk in de chat!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Degene die als eerste op deze link klikt, zal met u spelen.</string>
   <string name="whiteResigned">Wit geeft op</string>
   <string name="blackResigned">Zwart geeft op</string>
@@ -648,7 +648,7 @@
   <string name="usernameInvalid">Ongeldige gebruikersnaam. Gelieve enkel letters, cijfers, underscores en koppeltekens te gebruiken.</string>
   <string name="usernameStartNoNumber">De gebruikersnaam mag niet starten met een cijfer.</string>
   <string name="usernameUnacceptable">Deze gebruikersnaam is niet acceptabel.</string>
-  <string name="directlySupportLichess">Lichess rechtstreeks ondersteunen</string>
+  <string name="directlySupportLichess">Lichess direct ondersteunen</string>
   <string name="playChessInStyle">Speel schaken in stijl</string>
   <string name="chessBasics">Basis schaken</string>
   <string name="coaches">Coaches</string>
