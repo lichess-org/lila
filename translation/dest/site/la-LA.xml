@@ -158,6 +158,10 @@
   <string name="incrementInSeconds">Incrementum (secundae)</string>
   <string name="freeOnlineChess">Scacci gratis in rete</string>
   <string name="spectators">Spectatores</string>
+  <plurals name="nbGamesPlayed">
+    <item quantity="one">%s ludus lusus</item>
+    <item quantity="other">%s ludi lusi</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s victoriae</item>
     <item quantity="other">%s victoriae</item>
