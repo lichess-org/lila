@@ -46,6 +46,7 @@
   <string name="viewTheComputerAnalysis">Se computeranalysen</string>
   <string name="requestAComputerAnalysis">Anmod om en computeranalyse</string>
   <string name="computerAnalysis">Computeranalyse</string>
+  <string name="computerAnalysisAvailable">Computer analyse klar</string>
   <string name="analysis">Analyse</string>
   <string name="blunders">Brølere</string>
   <string name="mistakes">Fejl</string>
@@ -295,6 +296,7 @@
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Rapporter %s til administratorer</string>
   <string name="profileCompletion">Profil færdiggørelse: %s</string>
+  <string name="ifNoneLeaveEmpty">Hvis ingen, efterlad tom</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Redigér profil</string>
   <string name="firstName">Fornavn</string>
@@ -400,6 +402,7 @@
   <string name="pieceDestinations">Brikdestinationer (gyldige træk og pre-træk)</string>
   <string name="boardCoordinates">Brætkoordinater (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Trækliste mens der spilles</string>
+  <string name="pgnLetter">Bogstaver (K, Q, R, B, N)</string>
   <string name="chessClock">Skakur</string>
   <string name="tenthsOfSeconds">Tiendedelesekunder</string>
   <string name="never">Aldrig</string>
@@ -580,4 +583,5 @@
     <item quantity="other">Tilgængelig i %s sprog!</item>
   </plurals>
   <string name="gameAnalysis">Spilanalyse</string>
+  <string name="quickPairing">Hurtig parring</string>
 </resources>
