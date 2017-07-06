@@ -1,7 +1,7 @@
 // Generated with bin/trans-dump.js
 package lila.i18n
 
-import I18nDb.Site
+import I18nDb.{ Site, Arena }
 
 // format: OFF
 object I18nKeys {
@@ -9,12 +9,12 @@ object I18nKeys {
 def untranslated(message: String) = new Untranslated(message)
 
 object arena {
-val `isItRated` = new Translated("isItRated", Site)
-val `willBeNotified` = new Translated("willBeNotified", Site)
-val `isRated` = new Translated("isRated", Site)
-val `isNotRated` = new Translated("isNotRated", Site)
-val `someRated` = new Translated("someRated", Site)
-val `howAreScoresCalculated` = new Translated("howAreScoresCalculated", Site)
+val `isItRated` = new Translated("isItRated", Arena)
+val `willBeNotified` = new Translated("willBeNotified", Arena)
+val `isRated` = new Translated("isRated", Arena)
+val `isNotRated` = new Translated("isNotRated", Arena)
+val `someRated` = new Translated("someRated", Arena)
+val `howAreScoresCalculated` = new Translated("howAreScoresCalculated", Arena)
 }
 
 val `playWithAFriend` = new Translated("playWithAFriend", Site)
