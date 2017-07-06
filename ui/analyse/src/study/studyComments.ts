@@ -63,10 +63,10 @@ export function currentComments(ctrl: AnalyseController, includingMine: boolean)
         }, ctrl.redraw)
       }) : null,
       authorDom(comment.by),
-      node.san ? [
+      ...(node.san ? [
         ' on ',
         h('span.node', nodeFullName(node))
-      ] : null,
+      ] : []),
       ': ',
       h('div.text', enrichText(comment.text, false))
     ]);
