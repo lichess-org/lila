@@ -50,7 +50,7 @@ export function player(p) {
 
   return h('a.ulpt.user_link' + (fullName.length > 15 ? '.long' : ''), {
     attrs: {
-      href: '/@/' + p.name
+      'data-href': '/@/' + p.name
     },
     hook: {
       destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement)
