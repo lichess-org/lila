@@ -562,9 +562,19 @@
   <string name="analysisShapesHowTo">Tryk shift + klik eller højreklik for at tegne cirkler og pile på brættet.</string>
   <string name="confirmResignation">Bekræft at du opgiver</string>
   <string name="letOtherPlayersMessageYou">En anden spiller har en besked til dig</string>
+  <string name="castleByMovingTwoSquares">Flyt kongen to felter</string>
   <string name="shareYourInsightsData">Del din \"insigts\" data</string>
+  <string name="withNobody">Med ingen</string>
+  <string name="withFriends">Med venner</string>
+  <string name="withEverybody">Med alle</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Du har allerede registreret Email adressen: %s</string>
   <string name="kidMode">Børnetilstand</string>
+  <string name="enableKidMode">Aktiver børne tilstand</string>
+  <string name="disableKidMode">Deaktiver børne tilstand</string>
+  <string name="security">Sikkerhed</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Dette er en liste over enheder, der har logget ind på din konto, Tilbagekald enhver session du ikke genkender.</string>
+  <string name="alternativelyYouCanX">Alternativt kan du %s.</string>
+  <string name="revokeAllSessions">tilbagekald alle sessioner</string>
   <string name="playChessEverywhere">Spil skak hvor som helst</string>
   <string name="asFreeAsLichess">Free som lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Bygget af kærlighed for skak, ikke penge</string>
@@ -584,4 +594,5 @@
   </plurals>
   <string name="gameAnalysis">Spilanalyse</string>
   <string name="quickPairing">Hurtig parring</string>
+  <string name="lobby">Lobbyen</string>
 </resources>
