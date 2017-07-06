@@ -25,6 +25,7 @@ export interface ChallengeUser {
   title?: string
   online?: boolean
   patron?: boolean
+  lag?: number
 }
 
 export interface TimeControl {

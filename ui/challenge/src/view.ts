@@ -136,7 +136,8 @@ function renderUser(u?: ChallengeUser): VNode {
     class: { online: !!u.online }
   }, [
     h('i.line' + (u.patron ? '.patron' : '')),
-    h('name', (u.title ? u.title + ' ' : '') + u.name + ' (' + rating + ')')
+    h('name', (u.title ? u.title + ' ' : '') + u.name + ' (' + rating + ') '),
+    h('signal', Array.apply(null, {length: u.lag || 0}).map(() => h('i')))
   ]);
 }
 
