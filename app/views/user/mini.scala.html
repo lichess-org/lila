@@ -2,14 +2,12 @@
 <div class="title">
   <div>
     @ping.map { p => @signalBars(p) }
-    @u.profileOrDefault.countryInfo.map {
-    case (code, name) => {
-    @defining(u.username.size + name.size < 25) { hasLongName =>
-    <span @if(!hasLongName){class="country hint--top" data-hint="@name"} else {class="country"}>
-      <img class="flag" src="@staticUrl(s"images/flags/$code.png")" />
-      @if(hasLongName) { @name }
+    @u.profileOrDefault.countryInfo.map { c =>
+    @defining(u.username.size + c.shortName.size < 20) { spaceForNameText =>
+    <span @if(!spaceForNameText){class="country hint--top" data-hint="@c.name"} else {class="country"}>
+      <img class="flag" src="@staticUrl(s"images/flags/${c.code}.png")" alt="@c.name" />
+      @if(spaceForNameText) { @c.shortName }
     </span>
-    }
     }
     }
     @userLink(u, withPowerTip = false)
