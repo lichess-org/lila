@@ -54,11 +54,18 @@
   </form>
   }
   }
+  <div class="second_mod_button_row">
   @if(isGranted(_.RemoveRanking)) {
   <form method="post" action="@routes.Mod.kickFromRankings(u.username)" data-hint="Excludes this user from the rankings during the next calculation." class="hint--bottom-left">
     <input class="button" type="submit" value="Kick from ranking" />
   </form>
   }
+  @if(isGranted(_.ReportBan)) {
+  <form method="post" action="@routes.Mod.reportban(u.username)" data-hint="@if(u.reportban){En}else{Dis}able the report feature for this user." class="hint--bottom left">
+    <input class="button@when(u.reportban, " active")" type="submit" value="Reportban" />
+  </form>
+  }
+  </div>
   @if(isGranted(_.SetTitle)) {
   <br />
   <br />
@@ -275,6 +282,7 @@
           @if(o.engine){<i title="Engine" data-icon="n"></i>}
           @if(o.ipBan){<i title="IP ban" data-icon="2" class="is-red"></i>}
           @if(o.disabled){<i title="Closed" data-icon="k"></i>}
+          @if(o.reportban){<i title="Reportban" data-icon="!"></i>}
         </td>
         <td data-sort="@o.createdAt.getMillis">@momentFromNow(o.createdAt)</td>
         <td data-sort="@o.seenAt.map(_.getMillis)">@o.seenAt.map(momentFromNow)</td>

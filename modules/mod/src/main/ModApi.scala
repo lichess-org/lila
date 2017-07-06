@@ -124,6 +124,16 @@ final class ModApi(
     logApi.kickFromRankings(mod, user.id)
   }
 
+  def toggleReportban(mod: String, username: String): Funit = withUser(username) { user =>
+    setReportban(mod, username, !user.reportban)
+  }
+
+  def setReportban(mod: String, username: String, v: Boolean): Funit = withUser(username) { user =>
+    (user.reportban != v) ?? {
+      UserRepo.setReportban(user.id, v) >>- logApi.reportban(mod, user.id, v)
+    }
+  }
+
   private def withUser[A](username: String)(op: User => Fu[A]): Fu[A] =
     UserRepo named username flatten "[mod] missing user " + username flatMap op
 

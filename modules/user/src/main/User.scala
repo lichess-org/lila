@@ -26,7 +26,8 @@ case class User(
     seenAt: Option[DateTime],
     kid: Boolean,
     lang: Option[String],
-    plan: Plan
+    plan: Plan,
+    reportban: Boolean = false
 ) extends Ordered[User] {
 
   override def equals(other: Any) = other match {
@@ -188,6 +189,7 @@ object User {
     val prevEmail = "prevEmail"
     val colorIt = "colorIt"
     val plan = "plan"
+    val reportban = "reportban"
   }
 
   import lila.db.BSON
@@ -221,7 +223,8 @@ object User {
       kid = r boolD kid,
       lang = r strO lang,
       title = r strO title,
-      plan = r.getO[Plan](plan) | Plan.empty
+      plan = r.getO[Plan](plan) | Plan.empty,
+      reportban = r boolD reportban
     )
 
     def writes(w: BSON.Writer, o: User) = BSONDocument(
@@ -243,7 +246,8 @@ object User {
       kid -> w.boolO(o.kid),
       lang -> o.lang,
       title -> o.title,
-      plan -> o.plan.nonEmpty
+      plan -> o.plan.nonEmpty,
+      reportban -> w.boolO(o.reportban)
     )
   }
 }

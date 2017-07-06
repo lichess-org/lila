@@ -16,6 +16,9 @@
   border: 0;
   vertical-align: top;
 }
+.mod_zone .second_mod_button_row {
+  margin-top: 5px;
+}
 .mod_zone .neural,
 .mod_zone .mod_roles {
   padding: 10px 0;
