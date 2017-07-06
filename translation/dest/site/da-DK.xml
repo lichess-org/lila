@@ -606,6 +606,15 @@
   <string name="lobby">Lobbyen</string>
   <string name="language">Sprog</string>
   <string name="background">Baggrund</string>
+  <string name="usernameAlreadyUsed">Dette brugernavn er allerede i brug. Vælg venligst et andet og prøv igen.</string>
+  <string name="usernameStartNoNumber">Brugernavnet må ikke begynde med et tal.</string>
+  <string name="usernameUnacceptable">Dette brugernavn er ikke acceptabelt.</string>
+  <string name="chessBasics">Skak basics</string>
+  <string name="coaches">Trænere</string>
+  <string name="invalidPgn">Ugyldig PGN</string>
+  <string name="invalidFen">Ugyldig FEN</string>
+  <string name="error.min">Skal være større eller lig med %s</string>
+  <string name="error.max">Skal være mindre end eller lig med %s</string>
   <string name="error.unknown">Fejl</string>
   <string name="custom">Tilpasset</string>
   <string name="notifications">Meddelelser</string>
