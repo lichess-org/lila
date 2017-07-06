@@ -166,6 +166,16 @@
   <string name="incrementInSeconds">Dodatak u sekundama</string>
   <string name="freeOnlineChess">Besplatni Internetski Šah</string>
   <string name="spectators">Gledatelji:</string>
+  <plurals name="nbGamesPlayed">
+    <item quantity="one">%s odigrana partija</item>
+    <item quantity="few">%s odigranih partija</item>
+    <item quantity="other">%s odigranih partija</item>
+  </plurals>
+  <plurals name="nbRated">
+    <item quantity="one">%s Za bodove</item>
+    <item quantity="few">%s Za bodove</item>
+    <item quantity="other">%s Za bodove</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s pobjeda</item>
     <item quantity="few">%s pobjeda</item>
@@ -303,9 +313,17 @@
   <string name="tournamentPairingsAreNowClosed">Turnirska uparivanja su završena.</string>
   <string name="standByX">Uparivanje igrača - %s, pripremi se za igru!</string>
   <string name="youArePlaying">Igraš!</string>
+  <string name="winRate">Stopa pobjede</string>
   <string name="berserkRate">Stopa berserka</string>
   <string name="performance">Performans</string>
   <string name="tournamentComplete">Turnir završen</string>
+  <string name="movesPlayed">Poteza igrano</string>
+  <string name="whiteWins">Pobjede bijelog</string>
+  <string name="blackWins">Pobjede crnog</string>
+  <string name="draws">Remi</string>
+  <string name="nextXTournament">Sljedeći %s turnir:</string>
+  <string name="viewMoreTournaments">Vidi više turnira</string>
+  <string name="averageOpponent">Prosječni protivnik</string>
   <string name="membersOnly">Samo za članove</string>
   <string name="boardEditor">Uredi ploču</string>
   <string name="startPosition">Početna pozicija</string>
