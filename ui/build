@@ -1,4 +1,4 @@
-#!/bin/bash -eax
+#!/bin/bash -ea
 target=${1-dev}
 
 cd "$(git rev-parse --show-toplevel)"
@@ -32,6 +32,7 @@ if type -p parallel; then # parallel execution!
     P_OPTS="-j+4"
     [ "$TRAVIS" = "true" ] || P_OPTS+=" --bar"
   fi
+  set -x
   parallel --gnu $P_OPTS build_ts ::: $ts_apps1
   parallel --gnu $P_OPTS build_ts ::: $ts_apps2
   parallel --gnu $P_OPTS build ::: $apps
