@@ -157,6 +157,7 @@
   <string name="inbox">Dolazna pošta</string>
   <string name="chatRoom">Pričaonica</string>
   <string name="loginToChat">Prijavi se da bi chattao/la</string>
+  <string name="youHaveBeenTimedOut">Isteklo je vrijeme koje je server utrošio da te kontaktira.</string>
   <string name="spectatorRoom">Pričaonica za gledatelje</string>
   <string name="composeMessage">Napiši poruku</string>
   <string name="noNewMessages">Nema novih poruka</string>
