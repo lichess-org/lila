@@ -7,20 +7,20 @@
   <h2>This is a private tournament</h2>
   Share this URL to let people join it: @netBaseUrl@routes.Tournament.show(id)
   }
-  @trans.arena("willBeNotified")()
+  @trans.arena.willBeNotified()
 
-  <h2>@trans.arena("isItRated")()</h2>
+  <h2>@trans.arena.isItRated()</h2>
   @rated.map { r =>
   @if(r) {
-  @trans.arena("isRated")()
+  @trans.arena.isRated()
   } else {
-  @trans.arena("isNotRated")()
+  @trans.arena.isNotRated()
   }
   }.getOrElse {
-  @trans.arena("someRated")()
+  @trans.arena.someRated()
   }
 
-  <h2>@trans.arena("howAreScoresCalculated")()</h2>
+  <h2>@trans.arena.howAreScoresCalculated()</h2>
   A win has a base score of 2 points, a draw: 1 point, and a loss is worth no points.
   If you win two games consecutively you will start a double point streak, known as a
   <streak>Streak Starter</streak>.

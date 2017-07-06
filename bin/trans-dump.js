@@ -1,15 +1,25 @@
 const fs = require('fs-extra');
 const parseString = require('xml2js').parseString;
 
-fs.readFile('translation/source/site.xml', { encoding: 'utf8' }).then(txt => {
-  parseString(txt, (err, xml) => {
-    const strings = xml.resources.string.map(e => e['$'].name);
-    const plurals = xml.resources.plurals.map(e => e['$'].name);
-    const keys = strings.concat(plurals);
+const baseDir = 'translation/source';
 
-    const keyList = keys.map(k => 'val `' + k + '` = new Translated("' + k + '", Site)');
+function keyListFrom(file) {
+  return fs.readFile(`${baseDir}/${file}`, { encoding: 'utf8' }).then(txt => {
+    return new Promise((resolve, reject) => parseString(txt, (_, xml) => {
+      const strings = (xml.resources.string || []).map(e => e['$'].name);
+      const plurals = (xml.resources.plurals || []).map(e => e['$'].name);
+      const keys = strings.concat(plurals);
 
-    const code = `// Generated with bin/trans-dump.js
+      resolve(keys.map(k => 'val `' + k + '` = new Translated("' + k + '", Site)').join('\n'));
+    }));
+  });
+}
+
+Promise.all([
+  keyListFrom('site.xml'),
+  keyListFrom('arena.xml')
+]).then(([site, arena]) => {
+  const code = `// Generated with bin/trans-dump.js
 package lila.i18n
 
 import I18nDb.Site
@@ -17,15 +27,13 @@ import I18nDb.Site
 // format: OFF
 object I18nKeys {
 
-def apply(db: I18nDb.Ref)(message: String) = new Translated(message, db)
-
-def arena(message: String) = new Translated(message, I18nDb.Arena)
-
 def untranslated(message: String) = new Untranslated(message)
 
-${keyList.join('\n')}
+object arena {
+${arena}
 }
-`
-    fs.writeFile('modules/i18n/src/main/I18nKeys.scala', code);
-  });
+
+${site}
+}`;
+  fs.writeFile('modules/i18n/src/main/I18nKeys.scala', code);
 });

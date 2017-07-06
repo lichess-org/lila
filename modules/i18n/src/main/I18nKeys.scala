@@ -6,11 +6,16 @@ import I18nDb.Site
 // format: OFF
 object I18nKeys {
 
-def apply(db: I18nDb.Ref)(message: String) = new Translated(message, db)
-
-def arena(message: String) = new Translated(message, I18nDb.Arena)
-
 def untranslated(message: String) = new Untranslated(message)
+
+object arena {
+val `isItRated` = new Translated("isItRated", Site)
+val `willBeNotified` = new Translated("willBeNotified", Site)
+val `isRated` = new Translated("isRated", Site)
+val `isNotRated` = new Translated("isNotRated", Site)
+val `someRated` = new Translated("someRated", Site)
+val `howAreScoresCalculated` = new Translated("howAreScoresCalculated", Site)
+}
 
 val `playWithAFriend` = new Translated("playWithAFriend", Site)
 val `playWithTheMachine` = new Translated("playWithTheMachine", Site)
