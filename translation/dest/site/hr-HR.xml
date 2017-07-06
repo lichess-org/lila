@@ -156,6 +156,7 @@
   <string name="play">Igraj</string>
   <string name="inbox">Dolazna pošta</string>
   <string name="chatRoom">Pričaonica</string>
+  <string name="loginToChat">Prijavi se da bi chattao/la</string>
   <string name="spectatorRoom">Pričaonica za gledatelje</string>
   <string name="composeMessage">Napiši poruku</string>
   <string name="noNewMessages">Nema novih poruka</string>
