@@ -519,7 +519,7 @@ final class StudyApi(
       sendTo(studyId, Socket.SetLiking(Study.Liking(likes, v), uid))
       if (v) studyRepo byId studyId foreach {
         _ foreach { study =>
-          if (userId != study.ownerId)
+          if (userId != study.ownerId && study.isPublic)
             timeline ! (Propagate(StudyLike(userId, study.id.value, study.name.value)) toFollowersOf userId)
         }
       }
