@@ -4,19 +4,28 @@ import scala.xml.XML
 
 object MessageCompiler {
 
-  def apply(sourceFile: File, destDir: File, compileTo: File): Seq[File] = {
+  def apply(sourceDir: File, destDir: File, dbs: List[String], compileTo: File): Seq[File] =
+    dbs.flatMap { db =>
+      doFile(
+        db = db,
+        sourceFile = sourceDir / s"$db.xml",
+        destDir = destDir / db,
+        compileTo = compileTo / db)
+    }
+
+  def doFile(db: String, sourceFile: File, destDir: File, compileTo: File): Seq[File] = {
     val startsAt = System.currentTimeMillis()
     val registry = ("en-GB" -> sourceFile) :: destDir.list.toList.map { f =>
       f.takeWhile('.' !=) -> (destDir / f)
     }.sortBy(_._1)
     compileTo.mkdirs()
-    val registryFile = writeRegistry(compileTo, registry)
+    val registryFile = writeRegistry(db, compileTo, registry)
     val res = for (entry <- registry) yield {
       val (locale, file) = entry
       val compileToFile = compileTo / s"$locale.scala"
       if (file.lastModified > compileToFile.lastModified) {
         printToFile(compileToFile) {
-          render(locale, file)
+          render(db, locale, file)
         }
       }
       compileToFile
@@ -25,14 +34,14 @@ object MessageCompiler {
     registryFile :: res
   }
 
-  private def writeRegistry(compileTo: File, registry: List[(String, File)]) = {
+  private def writeRegistry(db: String, compileTo: File, registry: List[(String, File)]) = {
     val file = compileTo / "Registry.scala"
     printToFile(file) {
       val content = registry.map {
         case (locale, _) => s"""Lang("${locale.replace("-", "\",\"")}")->`$locale`.load"""
       } mkString ",\n"
       s"""package lila.i18n
-package db
+package db.$db
 
 import play.api.i18n.Lang
 
@@ -57,7 +66,7 @@ private[i18n] object Registry {
     else str.replace("\\'", "'").replace("\\\"", "\"")
   }
 
-  private def render(locale: String, file: File) = {
+  private def render(db: String, locale: String, file: File) = {
     val xml = XML.loadFile(file)
     def quote(msg: String) = s"""""\"$msg""\""""
     val content = xml.child.collect {
@@ -72,7 +81,7 @@ private[i18n] object Registry {
         s"""(${toKey(e)},new Plurals(Map(${items mkString ","})))"""
     }
     s"""package lila.i18n
-package db
+package db.$db
 
 import I18nQuantity._
 
