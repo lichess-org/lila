@@ -287,6 +287,10 @@
   <string name="tournamentPairingsAreNowClosed">Pardannelsen til turneringen er nu lukket.</string>
   <string name="standByX">Hold dig til %s, danner par med andre spillere – gør dig klar!</string>
   <string name="youArePlaying">Du spiller nu!</string>
+  <string name="performance">Ydelse</string>
+  <string name="whiteWins">Hvid vinder</string>
+  <string name="blackWins">Sort vinder</string>
+  <string name="draws">Remis</string>
   <string name="membersOnly">Kun for medlemmer</string>
   <string name="boardEditor">Rediger stilling</string>
   <string name="startPosition">Udgangsstilling</string>
@@ -410,6 +414,7 @@
   <string name="horizontalGreenProgressBars">Horisontale grønne statuslinjer</string>
   <string name="soundWhenTimeGetsCritical">Lyd, når tiden bliver kritisk</string>
   <string name="gameBehavior">Spil adfærd</string>
+  <string name="bothClicksAndDrag">Begge dele</string>
   <string name="premovesPlayingDuringOpponentTurn">Pre-træk (spilles på modstanderens tur)</string>
   <string name="takebacksWithOpponentApproval">Fortrydelse af træk (med modstanderens accept)</string>
   <string name="promoteToQueenAutomatically">Forfrem til Dronning automatisk</string>
@@ -417,6 +422,7 @@
   <string name="privacy">Privat</string>
   <string name="letOtherPlayersFollowYou">Lad andre spillere følge dig</string>
   <string name="letOtherPlayersChallengeYou">Lad andre spillere udfordre dig</string>
+  <string name="letOtherPlayersInviteYouToStudy">Lad andre spillere inviterer dig til at studere</string>
   <string name="sound">Lyd</string>
   <string name="yourPreferencesHaveBeenSaved">Dine præferencer er blevet gemt.</string>
   <string name="none">Ingen</string>
@@ -562,6 +568,7 @@
   <string name="analysisShapesHowTo">Tryk shift + klik eller højreklik for at tegne cirkler og pile på brættet.</string>
   <string name="confirmResignation">Bekræft at du opgiver</string>
   <string name="letOtherPlayersMessageYou">En anden spiller har en besked til dig</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rokade metode</string>
   <string name="castleByMovingTwoSquares">Flyt kongen to felter</string>
   <string name="shareYourInsightsData">Del din \"insigts\" data</string>
   <string name="withNobody">Med ingen</string>
@@ -569,6 +576,8 @@
   <string name="withEverybody">Med alle</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Du har allerede registreret Email adressen: %s</string>
   <string name="kidMode">Børnetilstand</string>
+  <string name="kidModeExplanation">Dette handler om sikkerhed. I børne tilstand, er alt kommunikation deaktiveret. Aktiver hvis du vil beskytte dine børn eller skolebørn fra at kunne kommunikere med andre internet-brugere.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">I børne tilstand, vil lichess logoet for et %s ikon, så du ved at dine børn er sikret.</string>
   <string name="enableKidMode">Aktiver børne tilstand</string>
   <string name="disableKidMode">Deaktiver børne tilstand</string>
   <string name="security">Sikkerhed</string>
@@ -595,4 +604,10 @@
   <string name="gameAnalysis">Spilanalyse</string>
   <string name="quickPairing">Hurtig parring</string>
   <string name="lobby">Lobbyen</string>
+  <string name="language">Sprog</string>
+  <string name="background">Baggrund</string>
+  <string name="error.unknown">Fejl</string>
+  <string name="custom">Tilpasset</string>
+  <string name="notifications">Meddelelser</string>
+  <string name="challenges">Udfordringer</string>
 </resources>
