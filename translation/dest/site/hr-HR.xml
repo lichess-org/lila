@@ -157,7 +157,7 @@
   <string name="inbox">Dolazna pošta</string>
   <string name="chatRoom">Pričaonica</string>
   <string name="loginToChat">Prijavi se da bi chattao/la</string>
-  <string name="youHaveBeenTimedOut">Isteklo je vrijeme koje je server utrošio da te kontaktira.</string>
+  <string name="youHaveBeenTimedOut">Trenutno ne možeš pričati u chatu.</string>
   <string name="spectatorRoom">Pričaonica za gledatelje</string>
   <string name="composeMessage">Napiši poruku</string>
   <string name="noNewMessages">Nema novih poruka</string>
@@ -350,7 +350,7 @@
   <string name="activeToday">Danas aktivni</string>
   <string name="activePlayers">Aktivni igrači</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Oprez, igra se za bodove ali ne i na vrijeme!</string>
-  <string name="training">Trening</string>
+  <string name="training">Problemi</string>
   <string name="yourPuzzleRatingX">Tvoj rejting u problemima: %s</string>
   <string name="findTheBestMoveForWhite">Nađi najbolji potez za bijelog</string>
   <string name="findTheBestMoveForBlack">Nađi najbolji potez za crnog</string>
@@ -393,7 +393,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Automatski prebaci na sljedeću partiju nakon odigranog poteza</string>
   <string name="autoSwitch">Prebaci automatski</string>
-  <string name="puzzles">Zagonetke</string>
+  <string name="puzzles">Problemi</string>
   <string name="coordinates">Koordinate</string>
   <string name="latestUpdates">Zadnje obavijesti</string>
   <string name="tournamentWinners">Pobjednici turnira</string>
