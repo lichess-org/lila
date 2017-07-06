@@ -8,15 +8,6 @@ object I18nKeys {
 
 def untranslated(message: String) = new Untranslated(message)
 
-object arena {
-val `isItRated` = new Translated("isItRated", Arena)
-val `willBeNotified` = new Translated("willBeNotified", Arena)
-val `isRated` = new Translated("isRated", Arena)
-val `isNotRated` = new Translated("isNotRated", Arena)
-val `someRated` = new Translated("someRated", Arena)
-val `howAreScoresCalculated` = new Translated("howAreScoresCalculated", Arena)
-}
-
 val `playWithAFriend` = new Translated("playWithAFriend", Site)
 val `playWithTheMachine` = new Translated("playWithTheMachine", Site)
 val `toInviteSomeoneToPlayGiveThisUrl` = new Translated("toInviteSomeoneToPlayGiveThisUrl", Site)
@@ -605,4 +596,14 @@ val `blocks` = new Translated("blocks", Site)
 val `nbForumPosts` = new Translated("nbForumPosts", Site)
 val `nbPerfTypePlayersThisWeek` = new Translated("nbPerfTypePlayersThisWeek", Site)
 val `availableInNbLanguages` = new Translated("availableInNbLanguages", Site)
+
+object arena {
+val `isItRated` = new Translated("isItRated", Arena)
+val `willBeNotified` = new Translated("willBeNotified", Arena)
+val `isRated` = new Translated("isRated", Arena)
+val `isNotRated` = new Translated("isNotRated", Arena)
+val `someRated` = new Translated("someRated", Arena)
+val `howAreScoresCalculated` = new Translated("howAreScoresCalculated", Arena)
+}
+
 }
