@@ -9,16 +9,16 @@
   },
   "devDependencies": {
     "@types/jquery": "^2.0",
-    "types": "link:../types",
     "browserify": "^14",
     "gulp": "^3",
     "gulp-sourcemaps": "^2",
     "gulp-typescript": "^3",
     "gulp-uglify": "^2",
     "gulp-util": "^3",
-    "uglify-js": "^2",
     "tsify": "^3",
+    "types": "link:../types",
     "typescript": "^2",
+    "uglify-js": "^2",
     "vinyl-buffer": "^1",
     "vinyl-source-stream": "^1",
     "watchify": "^3"

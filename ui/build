@@ -15,6 +15,7 @@ build_ts() {
   set -ev
   cd ui/$1
   yarn install --non-interactive --mutex file:$YARN_MUTEX
+  # yarn upgrade --non-interactive --mutex file:$YARN_MUTEX
   yarn run compile --non-interactive
 }
 
@@ -24,6 +25,7 @@ build() {
   app=$1
   cd ui/$app
   yarn install --non-interactive --mutex file:$YARN_MUTEX
+  # yarn upgrade --non-interactive --mutex file:$YARN_MUTEX
   gulp $target
 }
 
