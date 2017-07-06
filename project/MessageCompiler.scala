@@ -13,7 +13,7 @@ object MessageCompiler {
         compileTo = compileTo / db)
     }
 
-  def doFile(db: String, sourceFile: File, destDir: File, compileTo: File): Seq[File] = {
+  private def doFile(db: String, sourceFile: File, destDir: File, compileTo: File): Seq[File] = {
     val startsAt = System.currentTimeMillis()
     val registry = ("en-GB" -> sourceFile) :: destDir.list.toList.map { f =>
       f.takeWhile('.' !=) -> (destDir / f)
