@@ -82,7 +82,7 @@
   <string name="computersAreNotAllowedToPlay">Računala i računalni programi ne smiju igrati. Molimo da ne koristiš pomoć programa, baze podataka ili drugih igrača za vrijeme igranja. Također, imaj na umu da se stvaranje više korisničkih računa ne ohrabruje i da prekomjerno korištenje istih može rezultirati zabranom pristupa.</string>
   <string name="games">Partije</string>
   <string name="forum">Forum</string>
-  <string name="xPostedInForumY">%1$s objavljuje na forumu %2$s</string>
+  <string name="xPostedInForumY">%1$s objavljuje u temi %2$s</string>
   <string name="latestForumPosts">Najnovije objave na forumu</string>
   <string name="players">Igrači</string>
   <string name="minutesPerSide">Minuta po igraču</string>
@@ -303,6 +303,9 @@
   <string name="tournamentPairingsAreNowClosed">Turnirska uparivanja su završena.</string>
   <string name="standByX">Uparivanje igrača - %s, pripremi se za igru!</string>
   <string name="youArePlaying">Igraš!</string>
+  <string name="berserkRate">Stopa berserka</string>
+  <string name="performance">Performans</string>
+  <string name="tournamentComplete">Turnir završen</string>
   <string name="membersOnly">Samo za članove</string>
   <string name="boardEditor">Uredi ploču</string>
   <string name="startPosition">Početna pozicija</string>
