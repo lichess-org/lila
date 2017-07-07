@@ -48,8 +48,12 @@
   <string name="computerAnalysis">การวิเคราะห์ด้วยคอมพิวเตอร์</string>
   <string name="computerAnalysisAvailable">มีการวิเคราะห์ด้วยคอมพิวเตอร์</string>
   <string name="analysis">กระดานวิเคราะห์</string>
+  <string name="depthX">ความลึก %s</string>
   <string name="usingServerAnalysis">ใช้การวิเคราะห์เซิร์ฟเวอร์</string>
   <string name="loadingEngine">กำลังโหลดจักรกล...</string>
+  <string name="cloudAnalysis">การวิเคราะห์คลาวด์</string>
+  <string name="cloud">คลาวด์</string>
+  <string name="goDeeper">ลึกลงอีก</string>
   <string name="inLocalBrowser">ในเบราว์เซอร์ท้องถิ่น</string>
   <string name="blunders">ความผิดพลาดมหันต์</string>
   <string name="mistakes">ความผิดพลาด</string>
@@ -148,6 +152,7 @@
   <string name="inbox">กล่องเข้า</string>
   <string name="chatRoom">กรอบแชท</string>
   <string name="loginToChat">ลงชื่อเข้าเพื่อแชท</string>
+  <string name="youHaveBeenTimedOut">คุณถูกระงับเวลาแชทช่วงหนึ่ง</string>
   <string name="spectatorRoom">กรอบผู้สังเกตการณ์</string>
   <string name="composeMessage">เขียนข้อความ</string>
   <string name="noNewMessages">ไม่มีข้อความใหม่</string>
@@ -428,7 +433,7 @@
   <string name="privacy">ความเป็นส่วนตัว</string>
   <string name="letOtherPlayersFollowYou">อนุญาตให้ผู้อื่นติดตามคุณได้</string>
   <string name="letOtherPlayersChallengeYou">อนุญาตให้ผู้อื่นท้าดวลเกมกับคุณได้</string>
-  <string name="letOtherPlayersInviteYouToStudy">ให้ผู้เล่นคนอื่นๆ เชิญคุณเพื่อการเรียน</string>
+  <string name="letOtherPlayersInviteYouToStudy">ให้ผู้เล่นคนอื่นๆ เชิญคุณเพื่อทำการศึกษา</string>
   <string name="sound">เสียง</string>
   <string name="yourPreferencesHaveBeenSaved">การตั้งค่าของคุณถูกบันทึกแล้ว</string>
   <string name="none">ไม่มี</string>
