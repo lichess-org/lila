@@ -15,7 +15,10 @@ module.exports = function(socket, ctrl) {
 
   var reload = function(o, isRetry) {
     // avoid reload if possible!
-    if (o && o.t) handlers[o.t](o.d);
+    if (o && o.t) {
+      ctrl.setLoading(false);
+      handlers[o.t](o.d);
+    }
     else xhr.reload(ctrl).then(function(data) {
       if (lichess.socket.getVersion() > data.player.version) {
         // race condition! try to reload again

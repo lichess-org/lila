@@ -501,10 +501,11 @@ module.exports = function(opts, redraw) {
         this.vm.loading = false;
         redraw();
       }.bind(this), duration || 1500);
-    } else {
+      redraw();
+    } else if (this.vm.loading) {
       this.vm.loading = false;
+      redraw();
     }
-    redraw();
   }.bind(this);
 
   this.setRedirecting = function() {
