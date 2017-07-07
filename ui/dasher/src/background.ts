@@ -71,11 +71,11 @@ export function view(ctrl: BackgroundCtrl): VNode {
 
 function imageInput(ctrl: BackgroundCtrl) {
   return h('div.image', [
-    h('p', 'To change the background,'),
-    h('p', 'paste an image URL:'),
+    h('p', 'Background image URL:'),
     h('input', {
       attrs: {
         type: 'text',
+        title: 'To change the background image, paste an image URL',
         value: ctrl.getImage()
       },
       hook: {
