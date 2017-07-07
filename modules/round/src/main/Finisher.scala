@@ -5,7 +5,7 @@ import scala.concurrent.duration._
 import chess.{ Status, Color }
 
 import lila.game.actorApi.{ FinishGame, AbortedBy }
-import lila.game.{ GameRepo, Game, Pov }
+import lila.game.{ GameRepo, Game, Pov, RatingDiffs }
 import lila.i18n.I18nKey.{ Select => SelectI18nKey }
 import lila.playban.PlaybanApi
 import lila.user.{ User, UserRepo }
@@ -87,26 +87,30 @@ private[round] final class Finisher(
           } flatMap {
             case ((whiteO, blackO), g) => {
               val finish = FinishGame(g, whiteO, blackO)
-              updateCountAndPerfs(finish) inject {
+              updateCountAndPerfs(finish) map { ratingDiffs =>
                 message foreach { messenger.system(g, _) }
                 GameRepo game g.id foreach { newGame =>
                   bus.publish(finish.copy(game = newGame | g), 'finishGame)
                 }
-                prog.events
+                prog.events :+ lila.game.Event.EndData(g, ratingDiffs)
               }
             }
           }
       }
   } >>- proxy.invalidate
 
-  private def updateCountAndPerfs(finish: FinishGame): Funit =
+  private def updateCountAndPerfs(finish: FinishGame): Fu[Option[RatingDiffs]] =
     (!finish.isVsSelf && !finish.game.aborted) ?? {
       (finish.white |@| finish.black).tupled ?? {
         case (white, black) =>
-          crosstableApi add finish.game zip perfsUpdater.save(finish.game, white, black)
+          crosstableApi.add(finish.game) zip perfsUpdater.save(finish.game, white, black) map {
+            case _ ~ ratingDiffs => ratingDiffs
+          }
       } zip
         (finish.white ?? incNbGames(finish.game)) zip
-        (finish.black ?? incNbGames(finish.game)) void
+        (finish.black ?? incNbGames(finish.game)) map {
+          case ratingDiffs ~ _ ~ _ => ratingDiffs
+        }
     }
 
   private def incNbGames(game: Game)(user: User): Funit = game.finished ?? {

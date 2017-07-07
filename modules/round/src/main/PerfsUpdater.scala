@@ -1,9 +1,9 @@
 package lila.round
 
-import chess.{ Speed }
+import chess.{ Speed, Color }
 import org.goochjs.glicko2._
 
-import lila.game.{ GameRepo, Game, PerfPicker }
+import lila.game.{ GameRepo, Game, PerfPicker, RatingDiffs }
 import lila.history.HistoryApi
 import lila.rating.{ Glicko, Perf }
 import lila.user.{ UserRepo, User, Perfs, RankingApi }
@@ -17,7 +17,8 @@ final class PerfsUpdater(
   private val TAU = 0.75d
   private val system = new RatingCalculator(VOLATILITY, TAU)
 
-  def save(game: Game, white: User, black: User, resetGameRatings: Boolean = false): Funit =
+  // returns rating diffs
+  def save(game: Game, white: User, black: User): Fu[Option[RatingDiffs]] =
     PerfPicker.main(game) ?? { mainPerf =>
       (game.rated && game.finished && game.accountable && !white.lame && !black.lame) ?? {
         val ratingsW = mkRatings(white.perfs)
@@ -57,25 +58,18 @@ final class PerfsUpdater(
         val perfsW = mkPerfs(ratingsW, white.perfs, game)
         val perfsB = mkPerfs(ratingsB, black.perfs, game)
         def intRatingLens(perfs: Perfs) = mainPerf(perfs).glicko.intRating
-        resetGameRatings.fold(
-          GameRepo.setRatingAndDiffs(
-            game.id,
-            intRatingLens(white.perfs) -> (intRatingLens(perfsW) - intRatingLens(white.perfs)),
-            intRatingLens(black.perfs) -> (intRatingLens(perfsB) - intRatingLens(black.perfs))
-          ),
-          GameRepo.setRatingDiffs(
-            game.id,
-            intRatingLens(perfsW) - intRatingLens(white.perfs),
-            intRatingLens(perfsB) - intRatingLens(black.perfs)
-          )
-        ) zip
+        val ratingDiffs = Color.Map(
+          intRatingLens(perfsW) - intRatingLens(white.perfs),
+          intRatingLens(perfsB) - intRatingLens(black.perfs)
+        )
+        GameRepo.setRatingDiffs(game.id, ratingDiffs) zip
           UserRepo.setPerfs(white, perfsW, white.perfs) zip
           UserRepo.setPerfs(black, perfsB, black.perfs) zip
           historyApi.add(white, game, perfsW) zip
           historyApi.add(black, game, perfsB) zip
           rankingApi.save(white.id, game.perfType, perfsW) zip
-          rankingApi.save(black.id, game.perfType, perfsB)
-      }.void
+          rankingApi.save(black.id, game.perfType, perfsB) inject ratingDiffs.some
+      }
     }
 
   private final case class Ratings(

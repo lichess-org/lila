@@ -34,34 +34,18 @@ export default function(root: AnalyseController, opts, allow: boolean): Explorer
   const withGames = synthetic(root.data) || gameUtil.replayable(root.data) || root.data.opponent.ai;
   const effectiveVariant = root.data.game.variant.key === 'fromPosition' ? 'standard' : root.data.game.variant.key;
 
-  const config = configCtrl(root.data.game, withGames, onConfigClose, root.trans, root.redraw);
-
-  const cacheKey = function() {
-    if (config.data.db.selected() === 'watkins' && !tablebaseRelevant(effectiveVariant, root.node.fen)) {
-      const moves: string[] = [];
-      for (let i = 1; i < root.nodeList.length; i++) {
-        moves.push(root.nodeList[i].uci);
-      }
-      return moves.join(',');
-    }
-    else return root.node.fen;
-  };
+  const config = configCtrl(root.data.game, onConfigClose, root.trans, root.redraw);
 
   const fetch = throttle(250, function() {
-    const fen = root.node.fen, key = cacheKey();
-
-    let request;
-    if (withGames && tablebaseRelevant(effectiveVariant, fen))
-    request = xhr.tablebase(opts.tablebaseEndpoint, effectiveVariant, fen);
-    else if (config.data.db.selected() === 'watkins')
-      request = xhr.watkins(opts.tablebaseEndpoint, key);
-    else
-    request = xhr.opening(opts.endpoint, effectiveVariant, fen, config.data, withGames);
+    const fen = root.node.fen;
+    const request = (withGames && tablebaseRelevant(effectiveVariant, fen)) ?
+      xhr.tablebase(opts.tablebaseEndpoint, effectiveVariant, fen) :
+      xhr.opening(opts.endpoint, effectiveVariant, fen, config.data, withGames);
 
     request.then(function(res) {
       res.nbMoves = res.moves.length;
-      res.fen = root.node.fen;
-      cache[key] = res;
+      res.fen = fen;
+      cache[fen] = res;
       movesAway(res.nbMoves ? 0 : movesAway() + 1);
       loading(false);
       failing(false);
@@ -84,7 +68,7 @@ export default function(root: AnalyseController, opts, allow: boolean): Explorer
     if (node.ply > 50 && !tablebaseRelevant(effectiveVariant, node.fen)) {
       cache[node.fen] = empty;
     }
-    const cached = cache[cacheKey()];
+    const cached = cache[root.node.fen];
     if (cached) {
       movesAway(cached.nbMoves ? 0 : movesAway() + 1);
       loading(false);
@@ -105,7 +89,7 @@ export default function(root: AnalyseController, opts, allow: boolean): Explorer
     movesAway,
     config,
     withGames,
-    current: () => cache[cacheKey()],
+    current: () => cache[root.node.fen],
     toggle() {
       movesAway(0);
       enabled(!enabled());

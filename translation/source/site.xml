@@ -69,19 +69,11 @@
   <string name="unknown">Unknown</string>
   <string name="database">Database</string>
   <string name="gameSpeed">Game speed</string>
-  <string name="antichessWin">Antichess win</string>
   <string name="whiteDrawBlack">White / Draw / Black</string>
   <string name="averageRatingX">Average rating: %s</string>
   <string name="recentGames">Recent games</string>
   <string name="topGames">Top games</string>
-  <string name="watkinsAntichessSolution">Watkins antichess solution</string>
-  <string name="watkinsAntichessSolutionExplanation">Watkins antichess solution: 1. e3 is a win for white</string>
   <string name="masterDbExplanation">Two million OTB games of 2200+ FIDE rated players from 1952 to 2016</string>
-  <string name="proofTreeSize">Proof tree size</string>
-  <plurals name="nbNodes">
-    <item quantity="one">%s node</item>
-    <item quantity="other">%s nodes</item>
-  </plurals>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mate in %s half-move</item>
     <item quantity="other">Mate in %s half-moves</item>

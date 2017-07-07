@@ -28,8 +28,9 @@ export function bind(eventName: string, f: (e: Event) => void, redraw: Redraw | 
   return {
     insert: vnode => {
       (vnode.elm as HTMLElement).addEventListener(eventName, e => {
-        f(e);
+        const res = f(e);
         if (redraw) redraw();
+        return res;
       });
     }
   };

@@ -27,23 +27,23 @@ private[round] final class Drawer(
       finisher.other(pov.game, _.Draw)
     case pov if pov.opponent.isOfferingDraw =>
       finisher.other(pov.game, _.Draw, None, Some(_.drawOfferAccepted))
-    case Pov(g, color) if (g playerCanOfferDraw color) => proxy.save {
+    case Pov(g, color) if g playerCanOfferDraw color => proxy.save {
       messenger.system(g, color.fold(_.whiteOffersDraw, _.blackOffersDraw))
       Progress(g) map { g => g.updatePlayer(color, _ offerDraw g.turns) }
-    } inject List(Event.ReloadOwner)
-    case _ => fuccess(Nil)
+    } inject List(Event.DrawOffer(by = color.some))
+    case _ => fuccess(List(Event.ReloadOwner))
   }
 
   def no(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = pov match {
     case Pov(g, color) if pov.player.isOfferingDraw => proxy.save {
       messenger.system(g, _.drawOfferCanceled)
       Progress(g) map { g => g.updatePlayer(color, _.removeDrawOffer) }
-    } inject List(Event.ReloadOwner)
+    } inject List(Event.DrawOffer(by = none))
     case Pov(g, color) if pov.opponent.isOfferingDraw => proxy.save {
       messenger.system(g, color.fold(_.whiteDeclinesDraw, _.blackDeclinesDraw))
       Progress(g) map { g => g.updatePlayer(!color, _.removeDrawOffer) }
-    } inject List(Event.ReloadOwner)
-    case _ => fuccess(Nil)
+    } inject List(Event.DrawOffer(by = none))
+    case _ => fuccess(List(Event.ReloadOwner))
   }
 
   def claim(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =

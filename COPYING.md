@@ -83,9 +83,9 @@ Lichess as deployed on https://lichess.org/ also uses these external services:
 * [prismic.io](https://prismic.io/) for help/documentation pages and the blog
 * [Disqus](https://disqus.com/) for blog comments
 * [twitch](https://www.twitch.tv/) for featured livestreams
-* [YouTube](https://www.youtube.com) for the [Video library](https://de.lichess.org/video)
-* [stripe](https://stripe.com/) and [PayPal](https://www.paypal.com) for [Patron donations](https://de.lichess.org/patron)
-* [Spreadshirt](https://shop.spreadshirt.com/lichess-org)
+* [YouTube](https://www.youtube.com) for featured livestreams and the [Video library](https://lichess.org/video)
+* [stripe](https://stripe.com/) and [PayPal](https://www.paypal.com) for [Patron donations](https://lichess.org/patron)
+* [Spreadshirt](https://shop.spreadshirt.com/lichess-org) for the [Swag store](https://lichess.org/swag)
 * [check.torproject.org](https://check.torproject.org/exit-addresses) for a list or Tor exit nodes
 * [getipintel.net](https://getipintel.net/)
 * [Google Fonts](https://fonts.google.com/)

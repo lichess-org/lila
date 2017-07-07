@@ -218,9 +218,23 @@ object Event {
     override def owner = !w
   }
 
+  // for mobile app BC only
   case class End(winner: Option[Color]) extends Event {
     def typ = "end"
     def data = Json.toJson(winner)
+  }
+
+  case class EndData(game: Game, ratingDiff: Option[RatingDiffs]) extends Event {
+    def typ = "endData"
+    def data = Json.obj(
+      "winner" -> game.winnerColor,
+      "status" -> game.status
+    ).add("ratingDiff" -> ratingDiff.map { rds =>
+        Json.obj(
+          Color.White.name -> rds.white,
+          Color.Black.name -> rds.black
+        )
+      }).add("boosted" -> game.boosted.option(true))
   }
 
   case object Reload extends Empty {
@@ -228,6 +242,27 @@ object Event {
   }
   case object ReloadOwner extends Empty {
     def typ = "reload"
+    override def owner = true
+  }
+
+  private def reloadOr[A: Writes](typ: String, data: A) = Json.obj("t" -> typ, "d" -> data)
+
+  // use t:reload for mobile app BC,
+  // but send extra data for the web to avoid reloading
+  case class RematchOffer(by: Option[Color]) extends Event {
+    def typ = "reload"
+    def data = reloadOr("rematchOffer", by)
+    override def owner = true
+  }
+
+  case class RematchTaken(nextId: Game.ID) extends Event {
+    def typ = "reload"
+    def data = reloadOr("rematchTaken", nextId)
+  }
+
+  case class DrawOffer(by: Option[Color]) extends Event {
+    def typ = "reload"
+    def data = reloadOr("drawOffer", by)
     override def owner = true
   }
 

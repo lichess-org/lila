@@ -5,15 +5,12 @@ import { bind, dataIcon } from '../util';
 import { Game } from '../interfaces';
 import { ExplorerDb, ExplorerSpeed, ExplorerConfigData, ExplorerConfigController } from './interfaces';
 
-export function controller(game: Game, withGames: boolean, onClose: () => void, trans: Trans, redraw: () => void): ExplorerConfigController {
+export function controller(game: Game, onClose: () => void, trans: Trans, redraw: () => void): ExplorerConfigController {
 
   const variant = (game.variant.key === 'fromPosition') ? 'standard' : game.variant.key;
 
   const available: ExplorerDb[] = ['lichess'];
   if (variant === 'standard') available.push('masters');
-  else if (variant === 'antichess' && withGames && (game.initialFen || '').indexOf('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w ') === 0) {
-    available.push('watkins');
-  }
 
   const data: ExplorerConfigData = {
     open: prop(false),
@@ -75,9 +72,6 @@ export function view(ctrl: ExplorerConfigController): VNode[] {
     d.db.selected() === 'masters' ? h('div.masters.message', [
       h('i', { attrs: dataIcon('C') }),
       h('p', ctrl.trans.noarg('masterDbExplanation'))
-    ]) : (d.db.selected() === 'watkins' ? h('div.masters.message', [
-      h('i', { attrs: dataIcon('@') }),
-      h('p', ctrl.trans.noarg('watkinsAntichessSolutionExplanation'))
     ]) : h('div', [
       h('section.rating', [
         h('label', ctrl.trans.noarg('averageElo')),
@@ -101,7 +95,7 @@ export function view(ctrl: ExplorerConfigController): VNode[] {
           })
         )
       ])
-    ])),
+    ]),
     h('section.save',
       h('button.button.text', {
         attrs: dataIcon('E'),
