@@ -131,27 +131,6 @@ function showTablebase(ctrl: AnalyseController, title: string, moves, fen: Fen):
   ];
 }
 
-function showWatkins(ctrl: AnalyseController, moves, fen: Fen): VNode {
-  return h('div.data.watkins', [
-    h('div.title', 'Watkins antichess solution'),
-    h('table.tablebase', [
-      h('tbody', moveTableAttributes(ctrl, fen), moves.map(function(move) {
-        return h('tr', {
-          key: move.uci,
-          attrs: { 'data-uci': move.uci }
-        }, [
-          h('td', move.san),
-          h('td', [
-            h('result.white', {
-              attrs: { title: 'Proof tree size' }
-            }, move.nodes + ' nodes')
-          ])
-        ]);
-      }))
-    ])
-  ]);
-}
-
 function winner(stm, move): Color | undefined {
   if ((stm[0] == 'w' && move.wdl < 0) || (stm[0] == 'b' && move.wdl > 0))
     return 'white';
@@ -240,10 +219,6 @@ function show(ctrl) {
       else if (data.stalemate) lastShow = showGameEnd(ctrl, 'Stalemate')
         else if (data.variant_win || data.variant_loss) lastShow = showGameEnd(ctrl, 'Variant end');
       else lastShow = showEmpty(ctrl);
-  } else if (data && data.watkins) {
-    if (data.game_over) lastShow = showGameEnd(ctrl, 'Antichess win');
-    else if (data.moves && data.moves.length) lastShow = showWatkins(ctrl, data.moves, data.fen);
-    else lastShow = showEmpty(ctrl);
   }
   return lastShow;
 }

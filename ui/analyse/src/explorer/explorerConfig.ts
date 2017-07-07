@@ -4,15 +4,12 @@ import { prop, storedProp, storedJsonProp } from 'common';
 import { bind, dataIcon } from '../util';
 import { Game } from '../interfaces';
 
-export function controller(game: Game, withGames: boolean, onClose: () => void, redraw: () => void) {
+export function controller(game: Game, onClose: () => void, redraw: () => void) {
 
   const variant = (game.variant.key === 'fromPosition') ? 'standard' : game.variant.key;
 
   const available = ['lichess'];
   if (variant === 'standard') available.push('masters');
-  else if (variant === 'antichess' && withGames && (game.initialFen || '').indexOf('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w ') === 0) {
-    available.push('watkins');
-  }
 
   const data = {
     open: prop(false),
@@ -73,9 +70,6 @@ export function view(ctrl): VNode[] {
     d.db.selected() === 'masters' ? h('div.masters.message', [
       h('i', { attrs: dataIcon('C') }),
       h('p', "Two million OTB games of 2200+ FIDE rated players from 1952 to 2016"),
-    ]) : (d.db.selected() === 'watkins' ? h('div.masters.message', [
-      h('i', { attrs: dataIcon('@') }),
-      h('p', "Watkins antichess solution: 1. e3 is a win for white")
     ]) : h('div', [
       h('section.rating', [
         h('label', "Players' average rating"),
@@ -99,7 +93,7 @@ export function view(ctrl): VNode[] {
           })
         )
       ])
-    ])),
+    ]),
     h('section.save',
       h('button.button.text', {
         attrs: dataIcon('E'),

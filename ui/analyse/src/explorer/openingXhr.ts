@@ -35,15 +35,3 @@ export function tablebase(endpoint, variant, fen) {
     return data;
   });
 }
-
-export function watkins(endpoint, moves) {
-  return $.ajax({
-    method: 'POST',
-    url: endpoint + '/watkins',
-    data: moves,
-    contentType: 'text/plain'
-  }).then(function(data) {
-    data.watkins = true;
-    return data;
-  });
-}
