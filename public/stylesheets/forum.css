@@ -350,3 +350,7 @@ a.sticky {
 a.sticky > span {
   margin-right: 0.6em;
 }
+
+body.dark a.sticky {
+  color: limegreen;
+}
