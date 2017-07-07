@@ -4,11 +4,7 @@ import xhr = require('./openingXhr');
 import { synthetic } from '../util';
 import { game as gameUtil } from 'game';
 import AnalyseController from '../ctrl';
-
-interface Hovering {
-  fen: Fen;
-  uci: Uci;
-}
+import { Hovering, ExplorerController } from './interfaces';
 
 function tablebaseRelevant(variant: string, fen: Fen) {
   const parts = fen.split(/\s/);
@@ -20,7 +16,7 @@ function tablebaseRelevant(variant: string, fen: Fen) {
   else return false;
 }
 
-export default function(root: AnalyseController, opts, allow: boolean) {
+export default function(root: AnalyseController, opts, allow: boolean): ExplorerController {
   const allowed = prop(allow);
   const enabled = root.embed ? prop(false) : storedProp('explorer.enabled', false);
   if (location.hash === '#opening' && !root.embed) enabled(true);
@@ -38,7 +34,7 @@ export default function(root: AnalyseController, opts, allow: boolean) {
   const withGames = synthetic(root.data) || gameUtil.replayable(root.data) || root.data.opponent.ai;
   const effectiveVariant = root.data.game.variant.key === 'fromPosition' ? 'standard' : root.data.game.variant.key;
 
-  const config = configCtrl(root.data.game, withGames, onConfigClose, root.redraw);
+  const config = configCtrl(root.data.game, withGames, onConfigClose, root.trans, root.redraw);
 
   const cacheKey = function() {
     if (config.data.db.selected() === 'watkins' && !tablebaseRelevant(effectiveVariant, root.node.fen)) {

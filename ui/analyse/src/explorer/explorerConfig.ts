@@ -3,18 +3,19 @@ import { VNode } from 'snabbdom/vnode'
 import { prop, storedProp, storedJsonProp } from 'common';
 import { bind, dataIcon } from '../util';
 import { Game } from '../interfaces';
+import { ExplorerDb, ExplorerSpeed, ExplorerConfigData, ExplorerConfigController } from './interfaces';
 
-export function controller(game: Game, withGames: boolean, onClose: () => void, redraw: () => void) {
+export function controller(game: Game, withGames: boolean, onClose: () => void, trans: Trans, redraw: () => void): ExplorerConfigController {
 
   const variant = (game.variant.key === 'fromPosition') ? 'standard' : game.variant.key;
 
-  const available = ['lichess'];
+  const available: ExplorerDb[] = ['lichess'];
   if (variant === 'standard') available.push('masters');
   else if (variant === 'antichess' && withGames && (game.initialFen || '').indexOf('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w ') === 0) {
     available.push('watkins');
   }
 
-  const data = {
+  const data: ExplorerConfigData = {
     open: prop(false),
     db: {
       available,
@@ -28,7 +29,7 @@ export function controller(game: Game, withGames: boolean, onClose: () => void, 
     },
     speed: {
       available: ['bullet', 'blitz', 'classical'],
-      selected: storedJsonProp('explorer.speed', ['bullet', 'blitz', 'classical'])
+      selected: storedJsonProp<ExplorerSpeed[]>('explorer.speed', ['bullet', 'blitz', 'classical'])
     }
   };
 
@@ -38,6 +39,7 @@ export function controller(game: Game, withGames: boolean, onClose: () => void, 
   };
 
   return {
+    trans,
     redraw,
     data,
     toggleOpen() {
@@ -58,7 +60,7 @@ export function controller(game: Game, withGames: boolean, onClose: () => void, 
   };
 }
 
-export function view(ctrl): VNode[] {
+export function view(ctrl: ExplorerConfigController): VNode[] {
   const d = ctrl.data;
   return [
     h('section.db', [

@@ -15,6 +15,7 @@ import { make as makeSocket, Socket } from './socket';
 import { make as makeForecast, ForecastController } from './forecast/forecastCtrl';
 import { ctrl as cevalCtrl, isEvalBetter, CevalController, Work as CevalWork, CevalOpts } from 'ceval';
 import explorerCtrl from './explorer/explorerCtrl';
+import { ExplorerController } from './explorer/interfaces';
 import { game, GameData } from 'game';
 import { valid as crazyValid } from './crazy/crazyCtrl';
 import makeStudy from './study/studyCtrl';
@@ -51,7 +52,7 @@ export default class AnalyseController {
   // sub controllers
   actionMenu: ActionMenuController;
   autoplay: Autoplay;
-  explorer: any; // #TODO
+  explorer: ExplorerController;
   forecast?: ForecastController;
   retro?: RetroController;
   fork: ForkController;
