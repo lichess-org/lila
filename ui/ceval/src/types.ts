@@ -96,6 +96,7 @@ export interface ParentController {
   threatMode(): boolean;
   getNode(): Tree.Node;
   showComputer(): boolean;
+  trans: Trans;
 }
 
 export interface NodeEvals {

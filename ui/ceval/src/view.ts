@@ -22,18 +22,18 @@ function localEvalInfo(ctrl: ParentController, evs: NodeEvals): Array<VNode | st
   const ceval = ctrl.getCeval();
   if (!evs.client) {
     return [
-      evs.server && ctrl.nextNodeBest() ? 'Using server analysis' : 'Loading engine...'
+      evs.server && ctrl.nextNodeBest() ? ctrl.trans.noarg('usingServerAnalysis') : ctrl.trans.noarg('loadingEngine'),
     ];
   }
   const t: Array<VNode | string> = evs.client.cloud ? [
-    'Depth ' + (evs.client.depth || 0),
-    h('span.cloud', { attrs: { title: 'Cloud Analysis' } }, 'cloud')
+    ctrl.trans('depthX', evs.client.depth || 0),
+    h('span.cloud', { attrs: { title: ctrl.trans.noarg('cloudAnalysis') } }, ctrl.trans.noarg('cloud'))
   ] : [
-    'Depth ' + (evs.client.depth || 0) + '/' + evs.client.maxDepth
+    ctrl.trans('depthX', (evs.client.depth || 0) + '/' + evs.client.maxDepth)
   ];
   if (ceval.canGoDeeper()) t.push(h('a.deeper', {
     attrs: {
-      title: 'Go deeper',
+      title: ctrl.trans.noarg('goDeeper'),
       'data-icon': 'O'
     },
     hook: {
@@ -47,9 +47,9 @@ function localEvalInfo(ctrl: ParentController, evs: NodeEvals): Array<VNode | st
   return t;
 }
 
-function threatInfo(threat?: Tree.ClientEval | false): string {
-  if (!threat) return 'Loading engine...';
-  let t = 'Depth ' + (threat.depth || 0) + '/' + threat.maxDepth;
+function threatInfo(ctrl: ParentController, threat?: Tree.ClientEval | false): string {
+  if (!threat) return ctrl.trans.noarg('loadingEngine');
+  let t = ctrl.trans('depthX', (threat.depth || 0) + '/' + threat.maxDepth);
   if (threat.knps) t += ', ' + Math.round(threat.knps) + ' knodes/s';
   return t;
 }
@@ -63,7 +63,7 @@ function threatButton(ctrl: ParentController): VNode | null {
     },
     attrs: {
       'data-icon': '7',
-      title: 'Show threat (x)'
+      title: ctrl.trans.noarg('showThreat') + ' (x)'
     },
     hook: {
       insert: vnode => (vnode.elm as HTMLElement).addEventListener('click', ctrl.toggleThreatMode)
@@ -161,20 +161,20 @@ export function renderCeval(ctrl: ParentController): VNode | undefined {
   const body: Array<VNode | null> = enabled ? [
     h('pearl', [pearl]),
     h('div.engine',
-      (threatMode ? ['Show threat'] : engineName(instance)).concat(
-        h('span.info', ctrl.gameOver() ? ['Game over.'] : (
-          threatMode ? [threatInfo(threat)] : localEvalInfo(ctrl, evs)
+      (threatMode ? [ctrl.trans.noarg('showThreat')] : engineName(instance)).concat(
+        h('span.info', ctrl.gameOver() ? [ctrl.trans.noarg('gameOver')] : (
+          threatMode ? [threatInfo(ctrl, threat)] : localEvalInfo(ctrl, evs)
         )))
     )
   ] : [
     pearl ? h('pearl', [pearl]) : null,
     h('help',
-      engineName(instance).concat([ h('br'), 'in local browser' ])
+      engineName(instance).concat([ h('br'), ctrl.trans.noarg('inLocalBrowser') ])
     )
   ];
 
   const switchButton: VNode | null = mandatoryCeval ? null : h('div.switch', {
-    attrs: { title: 'Toggle local evaluation (l)' }
+    attrs: { title: ctrl.trans.noarg('toggleLocalEvaluation') + ' (l)' }
   }, [
     h('input#analyse-toggle-ceval.cmn-toggle.cmn-toggle-round', {
       attrs: {
