@@ -76,12 +76,12 @@ function showResult(winner: Color): VNode {
   return h('result.draws', '½-½');
 }
 
-function showGameTable(ctrl: AnalyseController, type: string, games): VNode | null {
+function showGameTable(ctrl: AnalyseController, title: string, games): VNode | null {
   if (!ctrl.explorer.withGames || !games.length) return null;
   return h('table.games', [
     h('thead', [
       h('tr', [
-        h('th', { attrs: { colspan: 4 } }, type + ' games')
+        h('th', { attrs: { colspan: 4 } }, title)
       ])
     ]),
     h('tbody', {
@@ -221,8 +221,8 @@ function show(ctrl) {
   var data = ctrl.explorer.current();
   if (data && data.opening) {
     var moveTable = showMoveTable(ctrl, data.moves, data.fen);
-    var recentTable = showGameTable(ctrl, 'recent', data['recentGames'] || []);
-    var topTable = showGameTable(ctrl, 'top', data['topGames'] || []);
+    var recentTable = showGameTable(ctrl, ctrl.trans.noarg('recentGames'), data['recentGames'] || []);
+    var topTable = showGameTable(ctrl, ctrl.trans.noarg('topGames'), data['topGames'] || []);
     if (moveTable || recentTable || topTable) lastShow = h('div.data', [moveTable, topTable, recentTable]);
     else lastShow = showEmpty(ctrl);
   } else if (data && data.tablebase) {
