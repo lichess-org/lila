@@ -13,8 +13,10 @@ module.exports = function(socket, ctrl) {
     this.send.apply(this, arguments);
   }.bind(this);
 
-  var reload = function(_, isRetry) {
-    xhr.reload(ctrl).then(function(data) {
+  var reload = function(o, isRetry) {
+    // avoid reload if possible!
+    if (o.t) handlers[o.t](o.d);
+    else xhr.reload(ctrl).then(function(data) {
       if (lichess.socket.getVersion() > data.player.version) {
         // race condition! try to reload again
         if (isRetry) lichess.reload(); // give up and reload the page

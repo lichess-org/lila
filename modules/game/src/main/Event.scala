@@ -231,16 +231,20 @@ object Event {
     override def owner = true
   }
 
+  private def reloadOr[A: Writes](typ: String, data: A) = Json.obj("t" -> typ, "d" -> data)
+
+  // use t:reload for mobile app BC,
+  // but send extra data for the web to avoid reloading
   case class RematchOffer(offerBy: Option[Color]) extends Event {
-    def typ = "rematchOffer"
-    def data = offerBy.fold[JsValue](JsNull)(c => JsString(c.name))
+    def typ = "reload"
+    def data = reloadOr("rematchOffer", offerBy)
     override def watcher = false
     override def owner = true
   }
 
   case class RematchTaken(nextId: Game.ID) extends Event {
-    def typ = "rematchTaken"
-    def data = JsString(nextId)
+    def typ = "reload"
+    def data = reloadOr("rematchTaken", nextId)
   }
 
   case class Premove(color: Color) extends Empty {
