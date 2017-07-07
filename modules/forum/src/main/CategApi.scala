@@ -67,6 +67,11 @@ private[forum] final class CategApi(env: Env) {
       optionT(env.topicApi.paginator(categ, page, troll) map { (categ, _).some })
     }
 
+  def stickyPosts(slug: String, troll: Boolean): Fu[List[TopicView]] =
+    (CategRepo bySlug slug) flatMap { categ =>
+      env.topicApi.getSticky(categ.get, troll)
+    }
+
   def denormalize(categ: Categ): Funit = for {
     topics ← TopicRepo byCateg categ
     topicIds = topics map (_.id)

@@ -24,11 +24,17 @@ sealed abstract class TopicRepo(troll: Boolean) {
   def hide(id: String, value: Boolean): Funit =
     coll.updateField($id(id), "hidden", value).void
 
+  def sticky(id: String, value: Boolean): Funit =
+    coll.updateField($id(id), "sticky", value).void
+
   def byCateg(categ: Categ): Fu[List[Topic]] =
     coll.list[Topic](byCategQuery(categ))
 
   def byTree(categSlug: String, slug: String): Fu[Option[Topic]] =
     coll.uno[Topic]($doc("categId" -> categSlug, "slug" -> slug) ++ trollFilter)
+
+  def stickyByCateg(categ: Categ): Fu[List[Topic]] =
+    coll.list[Topic](byCategQuery(categ) ++ byStickyQuery())
 
   def nextSlug(categ: Categ, name: String, it: Int = 1): Fu[String] = {
     val slug = Topic.nameToId(name) + ~(it != 1).option("-" + it)
@@ -45,4 +51,5 @@ sealed abstract class TopicRepo(troll: Boolean) {
     coll.incFieldUnchecked($id(topic.id), "views")
 
   def byCategQuery(categ: Categ) = $doc("categId" -> categ.slug) ++ trollFilter
+  def byStickyQuery() = $doc("sticky" -> true)
 }

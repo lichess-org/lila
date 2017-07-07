@@ -18,7 +18,8 @@ case class Topic(
     lastPostIdTroll: String,
     troll: Boolean,
     closed: Boolean,
-    hidden: Boolean
+    hidden: Boolean,
+    sticky: Boolean
 ) {
 
   def id = _id
@@ -73,6 +74,26 @@ object Topic {
     lastPostIdTroll = "",
     troll = troll,
     closed = false,
-    hidden = hidden
+    hidden = hidden,
+    sticky = false
   )
+
+  object BSONFields {
+    val id = "_id"
+    val categId = "categId"
+    val slug = "slug"
+    val name = "name"
+    val views = "views"
+    val createdAt = "createdAt"
+    val updatedAt = "updatedAt"
+    val nbPosts = "nbPosts"
+    val lastPostId = "lastPostId"
+    val updatedAtTroll = "updatedAtTroll"
+    val nbPostsTroll = "nbPostsTroll"
+    val lastPostIdTroll = "lastPostIdTroll"
+    val troll = "troll"
+    val closed = "closed"
+    val hidden = "hidden"
+    val sticky = "sticky"
+  }
 }

@@ -103,6 +103,18 @@ private[forum] final class TopicApi(
     )
   }
 
+  def getSticky(categ: Categ, troll: Boolean): Fu[List[TopicView]] =
+    TopicRepo.stickyByCateg(categ) flatMap { topics =>
+      scala.concurrent.Future.sequence(topics map {
+        topic =>
+          {
+            env.postColl.byId[Post](topic lastPostId troll) map { post =>
+              TopicView(categ, topic, post, env.postApi lastPageOf topic, troll)
+            }
+          }
+      })
+    }
+
   def delete(categ: Categ, topic: Topic): Funit =
     PostRepo.idsByTopicId(topic.id) flatMap { postIds =>
       (PostRepo removeByTopic topic.id zip env.topicColl.remove($id(topic.id))) >>
@@ -123,6 +135,12 @@ private[forum] final class TopicApi(
         PostRepo.hideByTopic(topic.id, topic.visibleOnHome) >>
           modLog.toggleHideTopic(mod.id, categ.name, topic.name, topic.visibleOnHome)
       } >>- env.recent.invalidate
+    }
+
+  def toggleSticky(categ: Categ, topic: Topic, mod: User): Funit =
+    TopicRepo.sticky(topic.id, !topic.sticky) >> {
+      MasterGranter(_.ModerateForum)(mod) ??
+        modLog.toggleStickyTopic(mod.id, categ.name, topic.name, topic.sticky)
     }
 
   def denormalize(topic: Topic): Funit = for {

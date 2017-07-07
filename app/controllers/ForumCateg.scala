@@ -22,8 +22,9 @@ object ForumCateg extends LilaController with ForumController {
           OptionFuOk(categApi.show(slug, page, ctx.troll)) {
             case (categ, topics) => for {
               canWrite <- isGrantedWrite(categ.slug)
+              stickyPosts <- categApi.stickyPosts(categ.slug, ctx.troll)
               _ <- Env.user.lightUserApi preloadMany topics.currentPageResults.flatMap(_.lastPostUserId)
-            } yield html.forum.categ.show(categ, topics, canWrite)
+            } yield html.forum.categ.show(categ, topics, canWrite, (stickyPosts.nonEmpty && page == 1).fold(Some(stickyPosts), None))
           }
         }
       }
