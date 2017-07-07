@@ -69,7 +69,7 @@ private[forum] final class CategApi(env: Env) {
 
   def stickyPosts(slug: String, troll: Boolean): Fu[List[TopicView]] =
     (CategRepo bySlug slug) flatMap { categ =>
-      env.topicApi.getSticky(categ.get, troll)
+      categ.map(env.topicApi.getSticky(_, troll)).getOrElse(fuccess(List[TopicView]()))
     }
 
   def denormalize(categ: Categ): Funit = for {
