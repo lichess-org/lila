@@ -231,6 +231,18 @@ object Event {
     override def owner = true
   }
 
+  case class RematchOffer(offerBy: Option[Color]) extends Event {
+    def typ = "rematchOffer"
+    def data = offerBy.fold[JsValue](JsNull)(c => JsString(c.name))
+    override def watcher = false
+    override def owner = true
+  }
+
+  case class RematchTaken(nextId: Game.ID) extends Event {
+    def typ = "rematchTaken"
+    def data = JsString(nextId)
+  }
+
   case class Premove(color: Color) extends Empty {
     def typ = "premove"
     override def only = Some(color)

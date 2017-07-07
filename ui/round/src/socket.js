@@ -61,6 +61,16 @@ module.exports = function(socket, ctrl) {
       if (!ctrl.data.player.spectator && ctrl.data.game.turns > 1)
         lichess.sound[winner ? (ctrl.data.player.color === winner ? 'victory' : 'defeat') : 'draw']();
     },
+    rematchOffer: function(by) {
+      ctrl.data.player.offeringRematch = by === ctrl.data.player.color;
+      ctrl.data.opponent.offeringRematch = by === ctrl.data.opponent.color;
+      ctrl.redraw();
+    },
+    rematchTaken: function(nextId) {
+      ctrl.data.game.rematch = nextId;
+      if (!ctrl.data.player.spectator) ctrl.setLoading(true);
+      else ctrl.redraw();
+    },
     berserk: function(color) {
       ctrl.setBerserk(color);
     },
