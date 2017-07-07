@@ -48,6 +48,7 @@
   <string name="computerAnalysis">Gépi elemzés</string>
   <string name="computerAnalysisAvailable">Számítógépes elemzés elérhető</string>
   <string name="analysis">Elemző tábla</string>
+  <string name="inLocalBrowser">a böngészőben</string>
   <string name="blunders">Súlyos hibák</string>
   <string name="mistakes">Hibák</string>
   <string name="inaccuracies">Pontatlanságok</string>
