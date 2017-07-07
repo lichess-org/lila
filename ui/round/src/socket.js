@@ -73,6 +73,11 @@ module.exports = function(socket, ctrl) {
       if (!ctrl.data.player.spectator) ctrl.setLoading(true);
       else ctrl.redraw();
     },
+    drawOffer: function(by) {
+      ctrl.data.player.offeringDraw = by === ctrl.data.player.color;
+      ctrl.data.opponent.offeringDraw = by === ctrl.data.opponent.color;
+      ctrl.redraw();
+    },
     berserk: function(color) {
       ctrl.setBerserk(color);
     },

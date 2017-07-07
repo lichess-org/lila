@@ -246,6 +246,12 @@ object Event {
     def data = reloadOr("rematchTaken", nextId)
   }
 
+  case class DrawOffer(by: Option[Color]) extends Event {
+    def typ = "reload"
+    def data = reloadOr("drawOffer", by)
+    override def owner = true
+  }
+
   case class Premove(color: Color) extends Empty {
     def typ = "premove"
     override def only = Some(color)
