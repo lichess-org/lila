@@ -8,7 +8,7 @@ import play.api.libs.json._
 import lila.common.ApiVersion
 import lila.common.PimpedJson._
 import lila.game.JsonView._
-import lila.game.{ Pov, Game, PerfPicker, Source, GameRepo, CorrespondenceClock }
+import lila.game.{ Pov, Game }
 import lila.pref.Pref
 import lila.user.{ User, UserRepo }
 
@@ -258,29 +258,6 @@ final class JsonView(
     )
   }
 
-  private def gameJson(game: Game, initialFen: Option[String]) = Json.obj(
-    "id" -> game.id,
-    "variant" -> game.variant,
-    "speed" -> game.speed.key,
-    "perf" -> PerfPicker.key(game),
-    "rated" -> game.rated,
-    "initialFen" -> (initialFen | chess.format.Forsyth.initial),
-    "fen" -> (Forsyth >> game.toChess),
-    "player" -> game.turnColor.name,
-    "winner" -> game.winnerColor.map(_.name),
-    "turns" -> game.turns,
-    "startedAtTurn" -> game.startedAtTurn,
-    "lastMove" -> game.castleLastMoveTime.lastMoveString,
-    "threefold" -> game.toChessHistory.threefoldRepetition.option(true),
-    "check" -> game.check.map(_.key),
-    "rematch" -> game.next,
-    "source" -> game.source.map(sourceJson),
-    "status" -> game.status,
-    "boosted" -> game.boosted.option(true),
-    "tournamentId" -> game.tournamentId,
-    "createdAt" -> game.createdAt
-  ).noNull
-
   private def blurs(game: Game, player: lila.game.Player) =
     !player.blurs.isEmpty option {
       blursWriter.writes(player.blurs) +
@@ -294,8 +271,6 @@ final class JsonView(
       "sd" -> h.sd
     )
   }
-
-  private def sourceJson(source: Source) = source.name
 
   private def clockJson(clock: Clock): JsObject =
     clockWriter.writes(clock) + ("moretime" -> JsNumber(moretimeSeconds))
@@ -337,49 +312,4 @@ object JsonView {
     clocks: Boolean = false,
     blurs: Boolean = false
   )
-
-  implicit val variantWriter: OWrites[chess.variant.Variant] = OWrites { v =>
-    Json.obj(
-      "key" -> v.key,
-      "name" -> v.name,
-      "short" -> v.shortName
-    )
-  }
-
-  implicit val clockWriter: OWrites[Clock] = OWrites { c =>
-    import lila.common.Maths.truncateAt
-    Json.obj(
-      "running" -> c.isRunning,
-      "initial" -> c.limitSeconds,
-      "increment" -> c.incrementSeconds,
-      "white" -> c.remainingTime(Color.White).toSeconds,
-      "black" -> c.remainingTime(Color.Black).toSeconds,
-      "emerg" -> c.config.emergSeconds
-    )
-  }
-
-  implicit val correspondenceWriter: OWrites[CorrespondenceClock] = OWrites { c =>
-    Json.obj(
-      "daysPerTurn" -> c.daysPerTurn,
-      "increment" -> c.increment,
-      "white" -> c.whiteTime,
-      "black" -> c.blackTime,
-      "emerg" -> c.emerg
-    )
-  }
-
-  implicit val openingWriter: OWrites[chess.opening.FullOpening.AtPly] = OWrites { o =>
-    Json.obj(
-      "eco" -> o.opening.eco,
-      "name" -> o.opening.name,
-      "ply" -> o.ply
-    )
-  }
-
-  implicit val divisionWriter: OWrites[chess.Division] = OWrites { o =>
-    Json.obj(
-      "middle" -> o.middle,
-      "end" -> o.end
-    )
-  }
 }
