@@ -23,8 +23,12 @@ object SoundSet {
   )
 
   lazy val allByKey = list map { c => c.key -> c } toMap
+  lazy val allByName = list map { c => c.name -> c } toMap
 
   def apply(key: String) = allByKey.getOrElse(key.toLowerCase, default)
 
   def contains(key: String) = allByKey contains key.toLowerCase
+
+  def name2key(name: String): String =
+    allByName.get(name).fold(name.toLowerCase)(_.key)
 }
