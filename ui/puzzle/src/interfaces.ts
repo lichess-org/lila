@@ -23,6 +23,7 @@ export interface Controller {
   getNode(): Tree.Node;
   showComputer(): boolean;
   [key: string]: any;
+  trans: Trans;
 }
 
 export interface Vm {
