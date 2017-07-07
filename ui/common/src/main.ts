@@ -66,6 +66,20 @@ export function storedJsonProp<T>(key: string, defaultValue: T): StoredJsonProp<
   };
 }
 
+export interface Sync<T> {
+  promise: Promise<T>;
+  sync: T | undefined;
+}
+
+export function sync<T>(promise: Promise<T>): Sync<T> {
+  var sync: any = {};
+  sync.promise = promise.then(v => {
+    sync.sync = v;
+    return v;
+  });
+  return sync as Sync<T>;
+}
+
 export { throttle };
 
 export type F = () => void;

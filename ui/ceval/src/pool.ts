@@ -1,3 +1,4 @@
+import { sync, Sync } from 'common';
 import { PoolOpts, WorkerOpts, Work } from './types';
 import Protocol from './stockfishProtocol';
 
@@ -5,17 +6,17 @@ export abstract class AbstractWorker {
   protected url: string;
   protected poolOpts: PoolOpts;
   protected workerOpts: WorkerOpts;
-  protected protocol?: Protocol;
+  protected protocol: Sync<Protocol>;
 
   constructor(url: string, poolOpts: PoolOpts, workerOpts: WorkerOpts) {
     this.url = url;
     this.poolOpts = poolOpts;
     this.workerOpts = workerOpts;
-    this.boot();
+    this.protocol = sync(this.boot());
   }
 
   stop(): Promise<void> {
-    return this.protocol ? this.protocol.stop() : Promise.resolve();
+    return this.protocol.promise.then(protocol => protocol.stop());
   }
 
   start(work: Work) {
@@ -25,18 +26,17 @@ export abstract class AbstractWorker {
 
     Promise.race([this.stop(), timeout]).catch(() => {
       this.destroy();
-      this.boot();
-      return Promise.resolve();
+      this.protocol = sync(this.boot());
     }).then(() => {
-      if (this.protocol) this.protocol.start(work);
+      this.protocol.promise.then(protocol => protocol.start(work));
     });
   }
 
   isComputing(): boolean {
-    return !!this.protocol && this.protocol.isComputing();
+    return !!this.protocol.sync && this.protocol.sync.isComputing();
   }
 
-  abstract boot(): void;
+  abstract boot(): Promise<Protocol>;
   abstract send(cmd: string): void;
   abstract destroy(): void;
 }
@@ -44,13 +44,13 @@ export abstract class AbstractWorker {
 class WebWorker extends AbstractWorker {
   worker: Worker;
 
-  boot() {
-    // console.log('booting webworker', this.url);
+  boot(): Promise<Protocol> {
     this.worker = new Worker(this.url);
-    this.protocol = new Protocol(this.send.bind(this), this.workerOpts);
+    const protocol = new Protocol(this.send.bind(this), this.workerOpts);
     this.worker.addEventListener('message', e => {
-      this.protocol!.received(e.data);
+      protocol.received(e.data);
     }, true);
+    return Promise.resolve(protocol);
   }
 
   destroy() {
@@ -63,31 +63,32 @@ class WebWorker extends AbstractWorker {
 }
 
 class PNaClWorker extends AbstractWorker {
-  private worker?: HTMLEmbedElement;
+  private worker?: HTMLObjectElement;
 
-  boot() {
-    // console.log('booting pnacl worker');
-    try {
-      this.worker = document.createElement('embed');
-      this.worker.setAttribute('src', this.url);
-      this.worker.setAttribute('type', 'application/x-pnacl');
-      this.worker.setAttribute('width', '0');
-      this.worker.setAttribute('height', '0');
-      ['crash', 'error'].forEach(eventType => {
-        this.worker!.addEventListener(eventType, () => {
-          this.poolOpts.onCrash((this.worker as any).lastError);
+  boot(): Promise<Protocol> {
+    return new Promise((resolve, reject) => {
+      try {
+        this.worker = document.createElement('object');
+        this.worker.width = '0';
+        this.worker.height = '0';
+        this.worker.data = this.url;
+        this.worker.type = 'application/x-pnacl';
+        this.worker.addEventListener('crash', () => { this.poolOpts.onCrash((this.worker as any).lastError); });
+        this.worker.addEventListener('error', () => { this.poolOpts.onCrash((this.worker as any).lastError); });
+        this.worker.addEventListener('load', () => {
+          resolve(new Protocol(this.send.bind(this), this.workerOpts));
+        });
+        this.worker.addEventListener('message', e => {
+          if (this.protocol.sync) this.protocol.sync.received((e as any).data);
         }, true);
-      });
-      document.body.appendChild(this.worker);
-      this.protocol = new Protocol(this.send.bind(this), this.workerOpts);
-      this.worker.addEventListener('message', e => {
-        this.protocol!.received((e as any).data);
-      }, true);
-    } catch (err) {
-      console.log('exception while booting pnacl', err);
-      this.destroy();
-      this.poolOpts.onCrash(err);
-    }
+        document.body.appendChild(this.worker);
+      } catch (err) {
+        console.log('exception while booting pnacl', err);
+        this.destroy();
+        this.poolOpts.onCrash(err);
+        reject(err);
+      }
+    });
   }
 
   destroy() {
