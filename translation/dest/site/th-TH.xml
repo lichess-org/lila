@@ -148,7 +148,6 @@
   <string name="inbox">กล่องเข้า</string>
   <string name="chatRoom">กรอบแชท</string>
   <string name="loginToChat">ลงชื่อเข้าเพื่อแชท</string>
-  <string name="youHaveBeenTimedOut">คุณถูกระงับการแชทชั่วเวลาหนึ่ง</string>
   <string name="spectatorRoom">กรอบผู้สังเกตการณ์</string>
   <string name="composeMessage">เขียนข้อความ</string>
   <string name="noNewMessages">ไม่มีข้อความใหม่</string>
@@ -160,6 +159,9 @@
   <string name="spectators">ผู้สังเกตการณ์:</string>
   <plurals name="nbGamesPlayed">
     <item quantity="other">%s เกมที่ได้เล่น</item>
+  </plurals>
+  <plurals name="nbRated">
+    <item quantity="other">%s เกมที่คิดคะแนน</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="other">ชนะ %s</item>
@@ -280,6 +282,15 @@
   <string name="tournamentPairingsAreNowClosed">ตอนนี้การจับคู่ทัวร์นาเมนต์ได้ปิดแล้ว</string>
   <string name="standByX">พร้อม %s, กำลังจับคู่ผู้เล่น, เตรียมตัว!</string>
   <string name="youArePlaying">คุณกำลังเล่น!</string>
+  <string name="winRate">อัตราชนะ</string>
+  <string name="berserkRate">อัตราเบอร์เซิร์ก</string>
+  <string name="performance">สมรรถนะ</string>
+  <string name="tournamentComplete">ทัวร์นาเมนต์เสร็จสมบูรณ์</string>
+  <string name="movesPlayed">การเดินที่ได้ทำ</string>
+  <string name="whiteWins">ขาวชนะ</string>
+  <string name="blackWins">ดำชนะ</string>
+  <string name="draws">เสมอ</string>
+  <string name="nextXTournament">ทัวร์นาเมนต์ %s ถัดไป:</string>
   <string name="viewMoreTournaments">ดูทัวร์นาเมนต์เพิ่มเติม</string>
   <string name="averageOpponent">ค่าเฉลี่ยของคู่แข่ง</string>
   <string name="membersOnly">เฉพาะสมาชิก</string>
