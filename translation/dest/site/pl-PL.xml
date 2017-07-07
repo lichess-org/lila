@@ -48,6 +48,10 @@
   <string name="computerAnalysis">Analiza komputerowa</string>
   <string name="computerAnalysisAvailable">Analiza komputerowa dostępna</string>
   <string name="analysis">Analiza gry</string>
+  <string name="loadingEngine">Wczytywanie silnika szachowego...</string>
+  <string name="cloud">Chmura</string>
+  <string name="showThreat">Pokaż zagrożenia</string>
+  <string name="inLocalBrowser">w przeglądarce</string>
   <string name="blunders">Poważne błędy</string>
   <string name="mistakes">Błędy</string>
   <string name="inaccuracies">Niedokładności</string>
