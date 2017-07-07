@@ -142,19 +142,10 @@ object GameRepo {
   private def nonEmptyMod(mod: String, doc: Bdoc) =
     if (doc.isEmpty) $empty else $doc(mod -> doc)
 
-  def setRatingDiffs(id: ID, white: Int, black: Int) =
+  def setRatingDiffs(id: ID, diffs: RatingDiffs) =
     coll.update($id(id), $set(
-      s"${F.whitePlayer}.${Player.BSONFields.ratingDiff}" -> white,
-      s"${F.blackPlayer}.${Player.BSONFields.ratingDiff}" -> black
-    ))
-
-  // used by RatingFest
-  def setRatingAndDiffs(id: ID, white: (Int, Int), black: (Int, Int)) =
-    coll.update($id(id), $set(
-      s"${F.whitePlayer}.${Player.BSONFields.rating}" -> white._1,
-      s"${F.blackPlayer}.${Player.BSONFields.rating}" -> black._1,
-      s"${F.whitePlayer}.${Player.BSONFields.ratingDiff}" -> white._2,
-      s"${F.blackPlayer}.${Player.BSONFields.ratingDiff}" -> black._2
+      s"${F.whitePlayer}.${Player.BSONFields.ratingDiff}" -> diffs.white,
+      s"${F.blackPlayer}.${Player.BSONFields.ratingDiff}" -> diffs.black
     ))
 
   def urgentGames(user: User): Fu[List[Pov]] =

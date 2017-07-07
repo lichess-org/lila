@@ -218,9 +218,23 @@ object Event {
     override def owner = !w
   }
 
+  // for mobile app BC only
   case class End(winner: Option[Color]) extends Event {
     def typ = "end"
     def data = Json.toJson(winner)
+  }
+
+  case class EndData(game: Game, ratingDiff: Option[RatingDiffs]) extends Event {
+    def typ = "endData"
+    def data = Json.obj(
+      "winner" -> game.winnerColor,
+      "status" -> game.status
+    ).add("ratingDiff" -> ratingDiff.map { rds =>
+        Json.obj(
+          Color.White.name -> rds.white,
+          Color.Black.name -> rds.black
+        )
+      }).add("boosted" -> game.boosted.option(true))
   }
 
   case object Reload extends Empty {

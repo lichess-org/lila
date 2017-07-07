@@ -168,7 +168,7 @@ module.exports = function(opts, redraw) {
   this.setTitle = () => title.set(this);
 
   this.actualSendMove = function(type, action, meta) {
-    meta = meta === undefined ? {} : meta
+    meta = meta === undefined ? {} : meta;
     var socketOpts = {
       ackable: true
     }
@@ -362,14 +362,18 @@ module.exports = function(opts, redraw) {
     }.bind(this));
   }.bind(this);
 
-  this.reload = function(cfg) {
-    if (cfg.steps.length !== this.data.steps.length) this.vm.ply = cfg.steps[cfg.steps.length - 1].ply;
-    var merged = round.merge(this.data, cfg);
-    this.data = merged.data;
+  var clearVmJust = function() {
     this.vm.justDropped = null;
     this.vm.justCaptured = null;
     this.vm.justMoved = false;
     this.vm.preDrop = null;
+  }.bind(this);
+
+  this.reload = function(cfg) {
+    if (cfg.steps.length !== this.data.steps.length) this.vm.ply = cfg.steps[cfg.steps.length - 1].ply;
+    var merged = round.merge(this.data, cfg);
+    this.data = merged.data;
+    clearVmJust();
     makeCorrespondenceClock();
     if (this.clock) this.clock.update(this.data.clock.white, this.data.clock.black);
     if (this.correspondenceClock) this.correspondenceClock.update(this.data.correspondence.white, this.data.correspondence.black);
@@ -386,6 +390,27 @@ module.exports = function(opts, redraw) {
     if (merged.changes.takebackOffer) lichess.desktopNotification(this.trans('yourOpponentProposesATakeback'));
     if (merged.changes.rematchOffer) lichess.desktopNotification(this.trans('yourOpponentWantsToPlayANewGameWithYou'));
     if (this.keyboardMove) this.keyboardMove.update(cfg.steps[cfg.steps.length - 1]);
+  }.bind(this);
+
+  this.endWithData = function(o) {
+    var d = this.data;
+    d.game.winner = o.winner;
+    d.game.status = o.status;
+    d.game.boosted = o.boosted;
+    this.chessground.stop();
+    if (o.ratingDiff) {
+      d.player.ratingDiff = o.ratingDiff[d.player.color];
+      d.opponent.ratingDiff = o.ratingDiff[d.opponent.color];
+    }
+    if (!d.player.spectator && d.game.turns > 1)
+    lichess.sound[o.winner ? (d.player.color === o.winner ? 'victory' : 'defeat') : 'draw']();
+    clearVmJust();
+    this.setTitle();
+    this.moveOn.next();
+    setQuietMode();
+    this.setLoading(false);
+    redraw();
+    this.vm.autoScroll && this.vm.autoScroll();
   }.bind(this);
 
   this.challengeRematch = function() {
@@ -581,7 +606,7 @@ module.exports = function(opts, redraw) {
 
   setTimeout(function delayedInit() {
     if (game.isPlayerPlaying(this.data) &&
-        game.nbMoves(this.data, this.data.player.color) === 0) {
+      game.nbMoves(this.data, this.data.player.color) === 0) {
       lichess.sound.genericNotify();
     }
     lichess.requestIdleCallback(function idleCallback() {

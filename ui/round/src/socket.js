@@ -53,18 +53,13 @@ module.exports = function(socket, ctrl) {
       }
     },
     crowd: function(o) {
-      ['white', 'black'].forEach(function(c) {
-        game.setOnGame(ctrl.data, c, o[c]);
-      });
+      game.setOnGame(ctrl.data, 'white', o['white']);
+      game.setOnGame(ctrl.data, 'black', o['black']);
       ctrl.redraw();
     },
-    end: function(winner) {
-      ctrl.data.game.winner = winner;
-      ctrl.chessground.stop();
-      ctrl.setLoading(true);
-      xhr.reload(ctrl).then(ctrl.reload);
-      if (!ctrl.data.player.spectator && ctrl.data.game.turns > 1)
-        lichess.sound[winner ? (ctrl.data.player.color === winner ? 'victory' : 'defeat') : 'draw']();
+    // end: function(winner) { } // use endData instead
+    endData: function(o) {
+      ctrl.endWithData(o);
     },
     rematchOffer: function(by) {
       ctrl.data.player.offeringRematch = by === ctrl.data.player.color;
@@ -100,9 +95,9 @@ module.exports = function(socket, ctrl) {
         ctrl.userId &&
         ctrl.data.simul &&
         ctrl.userId == ctrl.data.simul.hostId &&
-        gameId !== ctrl.data.game.id &&
-        ctrl.moveOn.get() &&
-        ctrl.chessground.state.turnColor !== ctrl.chessground.state.movable.color) {
+          gameId !== ctrl.data.game.id &&
+          ctrl.moveOn.get() &&
+          ctrl.chessground.state.turnColor !== ctrl.chessground.state.movable.color) {
         ctrl.setRedirecting();
         sound.move();
         lichess.hasToReload = true;
