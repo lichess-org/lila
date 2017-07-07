@@ -238,7 +238,7 @@ function show(ctrl) {
       .reduce(function(a, b) { return a.concat(b); }, []))
     else if (data.checkmate) lastShow = showGameEnd(ctrl, ctrl.trans.noarg('checkmate'))
       else if (data.stalemate) lastShow = showGameEnd(ctrl, ctrl.trans.noarg('stalemate'))
-        else if (data.variant_win || data.variant_loss) lastShow = showGameEnd(ctrl, ctrl.trans.noarg('variantEnd'));
+        else if (data.variant_win || data.variant_loss) lastShow = showGameEnd(ctrl, ctrl.trans.noarg('variantEnding'));
       else lastShow = showEmpty(ctrl);
   } else if (data && data.watkins) {
     if (data.game_over) lastShow = showGameEnd(ctrl, ctrl.trans.noarg('antichessWin'));

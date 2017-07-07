@@ -80,7 +80,7 @@ export function view(ctrl: ExplorerConfigController): VNode[] {
       h('p', ctrl.trans.noarg('watkinsAntichessSolutionExplanation'))
     ]) : h('div', [
       h('section.rating', [
-        h('label', ctrl.trans.noarg('averageRating')),
+        h('label', ctrl.trans.noarg('averageElo')),
         h('div.choices',
           d.rating.available.map(function(r) {
             return h('span', {
@@ -106,7 +106,7 @@ export function view(ctrl: ExplorerConfigController): VNode[] {
       h('button.button.text', {
         attrs: dataIcon('E'),
         hook: bind('click', ctrl.toggleOpen)
-      }, 'All set!')
+      }, ctrl.trans.noarg('allSet'))
     )
   ];
 }

@@ -56,6 +56,46 @@
   <string name="showThreat">Show threat</string>
   <string name="inLocalBrowser">in local browser</string>
   <string name="toggleLocalEvaluation">Toggle local evaluation</string>
+  <string name="move">Move</string>
+  <string name="variantLoss">Variant loss</string>
+  <string name="variantWin">Variant win</string>
+  <string name="insufficientMaterial">Insufficient material</string>
+  <string name="pawnMove">Pawn move</string>
+  <string name="capture">Capture</string>
+  <string name="close">Close</string>
+  <string name="winning">Winning</string>
+  <string name="losing">Losing</string>
+  <string name="drawn">Drawn</string>
+  <string name="unknown">Unknown</string>
+  <string name="database">Database</string>
+  <string name="gameSpeed">Game speed</string>
+  <string name="antichessWin">Antichess win</string>
+  <string name="whiteDrawBlack">White / Draw / Black</string>
+  <string name="averageRatingX">Average rating: %s</string>
+  <string name="watkinsAntichessSolution">Watkins antichess solution</string>
+  <string name="watkinsAntichessSolutionExplanation">Watkins antichess solution: 1. e3 is a win for white</string>
+  <string name="masterDbExplanation">Two million OTB games of 2200+ FIDE rated players from 1952 to 2016</string>
+  <string name="proofTreeSize">Proof tree size</string>
+  <plurals name="nbNodes">
+    <item quantity="one">%s node</item>
+    <item quantity="other">%s nodes</item>
+  </plurals>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Mate in %s half-move</item>
+    <item quantity="other">Mate in %s half-moves</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Next capture or pawn move in %s half-move (Distance To Zeroing of the 50 move counter)</item>
+    <item quantity="other">Next capture or pawn move in %s half-moves (Distance To Zeroing of the 50 move counter)</item>
+  </plurals>
+  <string name="noGameFound">No game found</string>
+  <string name="alreadySearchingThroughAllAvailableGames">Already searching through all available games</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Maybe include more games from the preferences menu?</string>
+  <string name="openingExplorer">Opening explorer</string>
+  <string name="xOpeningExplorer">%s opening explorer</string>
+  <string name="winPreventedBy50MoveRule">Win prevented by 50-move rule</string>
+  <string name="lossSavedBy50MoveRule">Loss saved by 50-move rule</string>
+  <string name="allSet">All set!</string>
   <string name="blunders">Blunders</string>
   <string name="mistakes">Mistakes</string>
   <string name="inaccuracies">Inaccuracies</string>
@@ -197,7 +237,7 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">This player uses chess computer assistance</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">This player artificially increases/decreases their rating</string>
-  <string name="openingExplorer">Opening explorer &amp; tablebase</string>
+  <string name="openingExplorerAndTablebase">Opening explorer &amp; tablebase</string>
   <string name="takeback">Takeback</string>
   <string name="proposeATakeback">Propose a takeback</string>
   <string name="takebackPropositionSent">Takeback sent</string>
