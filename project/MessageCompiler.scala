@@ -93,23 +93,34 @@ private object `$locale` {
 """
   }
 
+  private def nl2br(html: String) =
+    html.replace("\r\n", "<br />").replace("\n", "<br />")
+
   private val badChars = "[<>&\"']".r.pattern
   private def escapeHtmlOption(s: String): Option[String] = {
-      if (badChars.matcher(s).find) Some {
-        val sb = new StringBuilder(s.size + 10) // wet finger style
-        var i = 0
-        while (i < s.length) {
-          sb.append {
-            s.charAt(i) match {
-              case '<' => "&lt;"; case '>' => "&gt;"; case '&' => "&amp;"; case '"' => "&quot;"; case '\'' => "&#39;"; case c => c
-            }
+    if (badChars.matcher(s).find) Some {
+      val sb = new StringBuilder(s.size + 10) // wet finger style
+      var i = 0
+      while (i < s.length) {
+        sb.append {
+          s.charAt(i) match {
+            case '<' => "&lt;";
+            case '>' => "&gt;";
+            case '&' => "&amp;";
+            case '"' => "&quot;";
+            case '\'' => "&#39;";
+            case c => c
           }
-          i += 1
         }
-        sb.toString
+        i += 1
       }
-      else None
+      nl2br(sb.toString)
     }
+    else {
+      val withBrs = nl2br(s)
+      if (withBrs != s) Some(withBrs) else None
+    }
+  }
 
   private def printToFile(f: File)(content: String): Unit = {
     val p = new java.io.PrintWriter(f, "UTF-8")
