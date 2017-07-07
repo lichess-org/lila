@@ -235,10 +235,9 @@ object Event {
 
   // use t:reload for mobile app BC,
   // but send extra data for the web to avoid reloading
-  case class RematchOffer(offerBy: Option[Color]) extends Event {
+  case class RematchOffer(by: Option[Color]) extends Event {
     def typ = "reload"
-    def data = reloadOr("rematchOffer", offerBy)
-    override def watcher = false
+    def data = reloadOr("rematchOffer", by)
     override def owner = true
   }
 

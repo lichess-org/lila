@@ -29,11 +29,11 @@ private[round] final class Rematcher(
     case Pov(game, color) if pov.player.isOfferingRematch => proxy.save {
       messenger.system(game, _.rematchOfferCanceled)
       Progress(game) map { g => g.updatePlayer(color, _.removeRematchOffer) }
-    } inject List(Event.RematchOffer(offerBy = none))
+    } inject List(Event.RematchOffer(by = none))
     case Pov(game, color) if pov.opponent.isOfferingRematch => proxy.save {
       messenger.system(game, _.rematchOfferDeclined)
       Progress(game) map { g => g.updatePlayer(!color, _.removeRematchOffer) }
-    } inject List(Event.RematchOffer(offerBy = none))
+    } inject List(Event.RematchOffer(by = none))
     case _ => fuccess(List(Event.ReloadOwner))
   }
 
@@ -59,7 +59,7 @@ private[round] final class Rematcher(
   private def rematchCreate(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = proxy.save {
     messenger.system(pov.game, _.rematchOfferSent)
     Progress(pov.game) map { g => g.updatePlayer(pov.color, _ offerRematch) }
-  } inject List(Event.RematchOffer(offerBy = pov.color.some))
+  } inject List(Event.RematchOffer(by = pov.color.some))
 
   private def returnGame(pov: Pov): Fu[Game] = for {
     initialFen <- GameRepo initialFen pov.game
