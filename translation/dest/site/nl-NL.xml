@@ -48,6 +48,15 @@
   <string name="computerAnalysis">Analyse door de computer</string>
   <string name="computerAnalysisAvailable">Computeranalyse beschikbaar</string>
   <string name="analysis">Analyse</string>
+  <string name="depthX">Diepte %s</string>
+  <string name="usingServerAnalysis">Met serveranalyse</string>
+  <string name="loadingEngine">Laden van computer...</string>
+  <string name="cloudAnalysis">Cloud-analyse</string>
+  <string name="cloud">Cloud</string>
+  <string name="goDeeper">Dieper gaan</string>
+  <string name="showThreat">Toon bedreiging</string>
+  <string name="inLocalBrowser">in lokale browser</string>
+  <string name="toggleLocalEvaluation">Lokale evaluatie aan-/uitzetten</string>
   <string name="blunders">Blunders</string>
   <string name="mistakes">Fouten</string>
   <string name="inaccuracies">Imperfecties</string>
@@ -151,6 +160,7 @@
   <string name="inbox">Postvak IN</string>
   <string name="chatRoom">Chatruimte</string>
   <string name="loginToChat">Meld je aan om te chatten</string>
+  <string name="youHaveBeenTimedOut">Je mag even niet chatten.</string>
   <string name="spectatorRoom">Toeschouwersruimte</string>
   <string name="composeMessage">Een nieuw bericht schrijven</string>
   <string name="noNewMessages">Geen nieuwe berichten</string>
