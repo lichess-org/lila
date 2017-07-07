@@ -16,7 +16,7 @@
   height: 550px;
 }
 #insight .loading .chart {
-  -webkit-filter: blur(3px);
+  filter: blur(3px);
   opacity: 0.5;
 }
 #insight .chart.empty {

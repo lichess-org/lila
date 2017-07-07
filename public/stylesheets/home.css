@@ -635,7 +635,7 @@ div.lichess_overboard .color_submits .spinner {
   width: 40px;
   heigth: 40px;
   filter: brightness(9);
-  -webkit-filter: brightness(9);
+  filter: brightness(9);
 }
 .tour_spotlight i.img,
 .tour_spotlight .img.icon {

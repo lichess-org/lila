@@ -109,7 +109,6 @@ ol.scheduled_tournaments a {
 }
 #tournament.marathon .fire_trophy {
   filter: hue-rotate(190deg);
-  -webkit-filter: hue-rotate(190deg);
 }
 #tournament .description {
   padding: 20px;
@@ -767,13 +766,12 @@ ol.scheduled_tournaments li.marathon {
   background-color: #303E43;
   box-shadow: 0 5px 15px rgba(0,0,0,0.5);
   border-radius: 2px;
-  transition: -webkit-filter 0.13s, filter 0.13s;
+  transition: filter 0.13s;
   color: #fff;
   white-space: nowrap;
   font-size: 13px;
 }
 #tournament_schedule .tournament.joinable:hover {
-  -webkit-filter: brightness(1.08);
   filter: brightness(1.08);
 }
 #tournament_schedule .timeline {
