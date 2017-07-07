@@ -174,6 +174,10 @@
     <item quantity="one">%s partite giocate</item>
     <item quantity="other">%s partite giocate</item>
   </plurals>
+  <plurals name="nbRated">
+    <item quantity="one">%s classificate</item>
+    <item quantity="other">%s classificate</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s vittorie</item>
     <item quantity="other">%s vittorie</item>
@@ -303,7 +307,9 @@
   <string name="standByX">Resta in attesa %s, accoppiamento giocatori, sii pronto!</string>
   <string name="youArePlaying">Stai giocando!</string>
   <string name="winRate">Percentuale di vittorie</string>
+  <string name="berserkRate">Percentuale Berserk</string>
   <string name="performance">Performance</string>
+  <string name="tournamentComplete">Torneo terminato</string>
   <string name="movesPlayed">Mosse giocate</string>
   <string name="whiteWins">Il bianco ha vinto</string>
   <string name="blackWins">Il nero ha vinto</string>
