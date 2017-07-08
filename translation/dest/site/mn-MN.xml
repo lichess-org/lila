@@ -47,6 +47,7 @@
   <string name="requestAComputerAnalysis">Өрөгт компьютерийн шинжилгээ хийх</string>
   <string name="computerAnalysis">Өрөг шинжлэгч</string>
   <string name="analysis">Өрөг шинжлэгч</string>
+  <string name="openingExplorer">Шатрын нээлтүүдийг судлах</string>
   <string name="blunders">Ноцтой алдаа</string>
   <string name="mistakes">Алдаа</string>
   <string name="inaccuracies">Оновчгүй нүүдэл</string>
@@ -178,7 +179,6 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Энэ тоглогч шатар тоглохдоо компьютерийн туслалцаа авдаг</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Энэ тоглогч өөрийн чансааг хиймлээр өсгөж/бууруулж байна</string>
-  <string name="openingExplorer">Шатрын нээлтүүдийг судлах</string>
   <string name="takeback">Нүүдэл буцаалт</string>
   <string name="proposeATakeback">Нүүдэл буцаах хүсэлт илгээх</string>
   <string name="takebackPropositionSent">Нүүдэл буцаах хүсэлт илгээгдсэн</string>
