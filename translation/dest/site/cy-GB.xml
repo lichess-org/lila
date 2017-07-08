@@ -47,6 +47,7 @@
   <string name="requestAComputerAnalysis">Gofyn am ddadansoddiad cyfrifiadurol</string>
   <string name="computerAnalysis">Dadansoddiad cyfrifiadurol</string>
   <string name="analysis">Bwrdd dadansoddi</string>
+  <string name="openingExplorer">Porwr agoriadau a thabl terfyniad</string>
   <string name="blunders">o gamgymeriadau difrifol</string>
   <string name="mistakes">o gamgymeriadau</string>
   <string name="inaccuracies">o wallusrwyddau</string>
@@ -138,7 +139,6 @@
   <string name="ratingRange">Graddfa rhwng</string>
   <string name="thisPlayerUsesChessComputerAssistance">Mae\'r chwaraewr hwn yn defnyddio cymorth cyfrifiadurol</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Mae\'r chwaraewr hwn yn cynyddu/lleihau ei raddfa yn ffug</string>
-  <string name="openingExplorer">Porwr agoriadau a thabl terfyniad</string>
   <string name="takeback">Cymryd yn ôl</string>
   <string name="proposeATakeback">Awgrymu cymryd yn ôl</string>
   <string name="takebackPropositionSent">Anfonwyd awgrymiad cymryd yn ôl</string>
