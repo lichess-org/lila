@@ -47,6 +47,7 @@
   <string name="requestAComputerAnalysis">בקש  ניתוח ממוחשב</string>
   <string name="computerAnalysis">ניתוח ע\"י המחשב</string>
   <string name="analysis">ניתוח</string>
+  <string name="openingExplorer">סייר הפתיחות</string>
   <string name="blunders">טעויות גסות</string>
   <string name="mistakes">טעויות</string>
   <string name="inaccuracies">אי-דיוקים</string>
@@ -138,7 +139,6 @@
   <string name="ratingRange">טווח דירוג</string>
   <string name="thisPlayerUsesChessComputerAssistance">שחקן זה משתמש בסיוע מחשב שחמט</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">שחקן זה מעלה/מוריד את דירוגו באופן מלאכותי</string>
-  <string name="openingExplorer">סייר הפתיחות</string>
   <string name="takeback">החזר מהלך</string>
   <string name="proposeATakeback">הצע החזרת המהלך האחרון</string>
   <string name="takebackPropositionSent">הצעת החזרת המהלך האחרון נשלחה</string>
