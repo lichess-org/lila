@@ -7,4 +7,11 @@
   <string name="isNotRated">Šis turnyras *nėra* vertinamas ir *neturės* įtakos jūsų reitingui.</string>
   <string name="someRated">Kai kurie turnyrai yra vertinami ir turės įtakos jūsų reitingui.</string>
   <string name="howAreScoresCalculated">Kaip apskaičiuojami taškai?</string>
+  <string name="howAreScoresCalculatedAnswer">Pergalė vertinama 2 taškais, lygiosios: 1 tašku, o pralaimėjimas taškų nevertas.
+Jeigu laimite dvi partijas iš eilės, pradėsite dvigubų taškų seriją, žymimą liepsnos piktograma.
+Tolimesnės partijos bus vertos dvigubai daugiau taškų tol, kol nebelaimėsite.
+T. y., pergalė bus verta 4 taškų, lygiosios: 2 taškų, o pralaimėjimas taškų nepelnys.
+
+Pavyzdžiui, dvi pergalės ir tada įvykusios lygiosios bus įvertinta 6 taškais: 2 + 2 + (2 x 1)</string>
+  <string name="berserk">Įsiutimas arenoje</string>
 </resources>
