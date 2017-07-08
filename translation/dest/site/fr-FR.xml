@@ -307,6 +307,11 @@
   <string name="performance">Performances</string>
   <string name="tournamentComplete">Tournoi complet</string>
   <string name="movesPlayed">Parties jouées</string>
+  <string name="whiteWins">Les blancs gagnent</string>
+  <string name="blackWins">Victoire des noirs</string>
+  <string name="nextXTournament">Prochains tournois dans %s:</string>
+  <string name="viewMoreTournaments">Découvre plus de tournois</string>
+  <string name="averageOpponent">Adversaire moyen</string>
   <string name="membersOnly">Membres seulement</string>
   <string name="boardEditor">Éditeur de partie</string>
   <string name="startPosition">Position de départ</string>
