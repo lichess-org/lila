@@ -31,7 +31,7 @@ export default class MoveOn {
     window.location.href = href;
   };
 
-  next = (force: boolean): void => {
+  next = (force?: boolean): void => {
     const d = this.ctrl.data;
     if (!this.value || d.player.spectator || !game.isSwitchable(d) || game.isPlayerTurn(d)) return;
     if (force) this.redirect('/round-next/' + d.game.id);

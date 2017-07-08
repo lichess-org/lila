@@ -3,70 +3,46 @@ import { throttle } from 'common';
 import * as xhr from './xhr';
 import * as sound from './sound';
 import RoundController from './ctrl';
+import { Untyped } from './interfaces';
 
 const li = window.lichess;
 
-interface Handlers {
-  [key: string]: any; // #TODO
+export interface RoundSocket extends Untyped {
+  handlers: Untyped;
+  moreTime(): void;
+  outoftime(): void;
+  berserk(): void;
+  sendLoading(typ: string, data?: any): void
+  receive(typ: string, data: any): boolean;
 }
 
-export default class RoundSocket {
-  
-  constructor(public send: SocketSend, public ctrl: RoundController) {
+export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
 
-    li.pubsub.on('ab.rep', n => send('rep', { n: n }));
-  }
-
-  receive = (typ: string, data: any): boolean => {
-    if (this.handlers[typ]) {
-      this.handlers[typ](data);
-      return true;
-    }
-    return false;
-  };
-
-  moreTime: () => void = throttle(300, false, () => this.send('moretime'));
-
-  outoftime: () => void = throttle(500, false, () => this.send('flag', this.ctrl.data.game.player));
-
-  berserk: () => void = throttle(200, false, () => this.send('berserk', null, { ackable: true }));
-
-  sendLoading = () => {
-    ctrl.setLoading(true);
-    this.send.apply(this, arguments);
-  };
-
-  private reload(o, isRetry?: boolean) {
+  function reload(o: any, isRetry?: boolean) {
     // avoid reload if possible!
     if (o && o.t) {
       ctrl.setLoading(false);
-      this.handlers[o.t](o.d);
+      handlers[o.t](o.d);
     }
-    else xhr.reload(this.ctrl).then(data => {
+    else xhr.reload(ctrl).then(data => {
       if (li.socket.getVersion() > data.player.version) {
         // race condition! try to reload again
         if (isRetry) li.reload(); // give up and reload the page
-        else this.reload(o, true);
+        else reload(o, true);
       }
       else ctrl.reload(data);
     });
   };
 
-  handlers: Handlers = {
+  const handlers = {
     takebackOffers(o) {
       ctrl.setLoading(false);
       ctrl.data.player.proposingTakeback = o[ctrl.data.player.color];
       ctrl.data.opponent.proposingTakeback = o[ctrl.data.opponent.color];
       ctrl.redraw();
     },
-    move(o) {
-      o.isMove = true;
-      ctrl.apiMove(o);
-    },
-    drop(o) {
-      o.isDrop = true;
-      ctrl.apiMove(o);
-    },
+    move: ctrl.apiMove,
+    drop: ctrl.apiMove,
     reload,
     redirect: ctrl.setRedirecting,
     clock(o) {
@@ -115,9 +91,9 @@ export default class RoundSocket {
     },
     simulPlayerMove(gameId) {
       if (
-        ctrl.userId &&
+        ctrl.opts.userId &&
         ctrl.data.simul &&
-        ctrl.userId == ctrl.data.simul.hostId &&
+        ctrl.opts.userId == ctrl.data.simul.hostId &&
           gameId !== ctrl.data.game.id &&
           ctrl.moveOn.get() &&
           ctrl.chessground.state.turnColor !== ctrl.chessground.state.movable.color) {
@@ -126,6 +102,26 @@ export default class RoundSocket {
         li.hasToReload = true;
         location.href = '/' + gameId;
       }
+    }
+  };
+
+  li.pubsub.on('ab.rep', n => send('rep', { n: n }));
+
+  return {
+    handlers,
+    moreTime: throttle(300, false, () => send('moretime')),
+    outoftime: throttle(500, false, () => send('flag', ctrl.data.game.player)),
+    berserk: throttle(200, false, () => send('berserk', null, { ackable: true })),
+    sendLoading(typ: string, data?: any) {
+      ctrl.setLoading(true);
+      send(typ, data);
+    },
+    receive(typ: string, data: any): boolean {
+      if (handlers[typ]) {
+        handlers[typ](data);
+        return true;
+      }
+      return false;
     }
   };
 }

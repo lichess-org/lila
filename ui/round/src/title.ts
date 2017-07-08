@@ -1,4 +1,5 @@
 import { game, status } from 'game';
+import RoundController from './ctrl';
 
 const initialTitle = document.title;
 
@@ -36,7 +37,7 @@ export function init() {
   window.addEventListener('focus', resetTicker);
 }
 
-export function set(ctrl, text) {
+export function set(ctrl: RoundController, text?: string) {
   if (ctrl.data.player.spectator) return;
   if (!text) {
     if (status.finished(ctrl.data)) {

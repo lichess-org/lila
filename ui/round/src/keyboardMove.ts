@@ -4,7 +4,8 @@ import * as cg from 'chessground/types';
 import { Step, Untyped, Redraw } from './interfaces';
 import RoundController from './ctrl';
 
-export type KeyboardMove extends Untyped
+export interface KeyboardMove extends Untyped {
+}
 
 export function ctrl(cg: ChessgroundApi, step: Step, redraw: Redraw) {
   let focus = false;

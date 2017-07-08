@@ -22,6 +22,9 @@ export interface Game {
   moveCentis?: number[];
   initialFen?: string;
   importedBy?: string;
+  threefold?: boolean;
+  boosted?: boolean;
+  rematch?: string;
 }
 
 export interface Status {
@@ -41,18 +44,26 @@ export interface Player {
   user: User;
   spectator?: boolean;
   color: Color;
-  proposingTakeback: boolean;
-  offeringDraw: boolean;
+  proposingTakeback?: boolean;
+  offeringRematch?: boolean;
+  offeringDraw?: boolean;
   ai: boolean;
   onGame: boolean;
   isGone: boolean;
   blurs?: Blurs;
   hold?: Hold;
   ratingDiff?: number;
+  checks?: number;
+}
+
+export interface TournamentRanks {
+  white: number;
+  black: number;
 }
 
 export interface Tournament {
   berserkable: boolean;
+  ranks?: TournamentRanks;
 }
 
 export interface Simul {
@@ -62,6 +73,7 @@ export interface Simul {
 }
 
 export interface Clock {
+  running: boolean;
 }
 
 export type Source = 'import' | 'lobby' | 'pool';
