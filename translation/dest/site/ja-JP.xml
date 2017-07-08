@@ -54,6 +54,7 @@
   <string name="cloudAnalysis">クラウド解析</string>
   <string name="cloud">クラウド</string>
   <string name="goDeeper">もっと詳しく</string>
+  <string name="showThreat">狙いを表示</string>
   <string name="inLocalBrowser">ローカル ブラウザ内で</string>
   <string name="blunders">大悪手</string>
   <string name="mistakes">悪手</string>
@@ -625,6 +626,7 @@
   <string name="boardTheme">盤のデザイン</string>
   <string name="boardSize">盤のサイズ</string>
   <string name="pieceSet">駒のデザイン</string>
+  <string name="embedInYourWebsite">自分のウェブサイトに埋め込む</string>
   <string name="usernameAlreadyUsed">このユーザー名は既に使用されています。別の名前にしてください。</string>
   <string name="usernameInvalid">無効なユーザー名です。使えるのは英数字、アンダースコア、ダッシュだけです。</string>
   <string name="usernameStartNoNumber">ユーザー名の最初は数字であってはいけません。</string>
