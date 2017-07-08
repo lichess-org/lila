@@ -48,6 +48,7 @@
   <string name="computerAnalysis">Computeranalyse</string>
   <string name="computerAnalysisAvailable">Computer analyse klar</string>
   <string name="analysis">Analyse</string>
+  <string name="openingExplorer">Åbning Opdagelse</string>
   <string name="blunders">Brølere</string>
   <string name="mistakes">Fejl</string>
   <string name="inaccuracies">Unøjagtigheder</string>
@@ -179,7 +180,6 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Denne spiller bruger skakcomputerassistance</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Denne spiller forøger eller sænker sin rating kunstigt</string>
-  <string name="openingExplorer">Åbning Opdagelse</string>
   <string name="takeback">Omtræk</string>
   <string name="proposeATakeback">Foreslå et omtræk</string>
   <string name="takebackPropositionSent">Anmodning om omtræk sendt</string>
