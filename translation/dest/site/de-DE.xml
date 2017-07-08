@@ -158,6 +158,8 @@
   <string name="play">Spielen</string>
   <string name="inbox">Posteingang</string>
   <string name="chatRoom">Chatraum</string>
+  <string name="loginToChat">Logge dich ein, um zu chatten</string>
+  <string name="youHaveBeenTimedOut">Dir wurde eine Auszeit verordnet.</string>
   <string name="spectatorRoom">Zuschauerraum</string>
   <string name="composeMessage">Nachricht verfassen</string>
   <string name="noNewMessages">Keine neuen Nachrichten</string>
@@ -303,6 +305,8 @@
   <string name="tournamentPairingsAreNowClosed">Es werden keine neuen Turnierspiele mehr gestartet.</string>
   <string name="standByX">Die Turnier-Paarungen werden zugeteilt. Fertig machen zum Start, %s!</string>
   <string name="youArePlaying">Dein Spiel beginnt!</string>
+  <string name="winRate">Gewinnrate</string>
+  <string name="berserkRate">Berserkrate</string>
   <string name="performance">Performance</string>
   <string name="tournamentComplete">Turnier beendet</string>
   <string name="movesPlayed">Gespielte Züge</string>
