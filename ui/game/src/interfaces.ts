@@ -25,6 +25,7 @@ export interface Game {
   threefold?: boolean;
   boosted?: boolean;
   rematch?: string;
+  rated?: boolean;
 }
 
 export interface Status {
