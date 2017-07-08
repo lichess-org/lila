@@ -47,6 +47,7 @@
   <string name="requestAComputerAnalysis">wile e sona musi</string>
   <string name="computerAnalysis">ilo nanpa li lukin e musi</string>
   <string name="analysis">sona musi</string>
+  <string name="openingExplorer">ilo open</string>
   <string name="blunders">pali pakala</string>
   <string name="mistakes">pali ike</string>
   <string name="inaccuracies">pali pi ken ike</string>
@@ -168,7 +169,6 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">jan ni li musi kepeken ilo sona</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">jan ni li sewi e nanpa ona kepeken ilo</string>
-  <string name="openingExplorer">ilo open</string>
   <string name="takeback">kama jo sin</string>
   <string name="proposeATakeback">o toki e kama jo sin</string>
   <string name="takebackPropositionSent">jan li sona e toki sina pi kama jo sin</string>
