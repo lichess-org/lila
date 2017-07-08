@@ -47,6 +47,7 @@
   <string name="requestAComputerAnalysis">Minta analisis komputer</string>
   <string name="computerAnalysis">Analisis komputer</string>
   <string name="analysis">Papan analisis</string>
+  <string name="openingExplorer">Perambah pembukaan</string>
   <string name="blunders">Blunder</string>
   <string name="mistakes">Kesalahan</string>
   <string name="inaccuracies">Ketidaktepatan</string>
@@ -168,7 +169,6 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Pemain ini menggunakan bantuan komputer</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Pemain ini bertambah/berkurang ratingnya</string>
-  <string name="openingExplorer">Perambah pembukaan</string>
   <string name="takeback">Langkah Batal</string>
   <string name="proposeATakeback">Ajukan langkah batal</string>
   <string name="takebackPropositionSent">Penawaran untuk langkah batal terkirim</string>
