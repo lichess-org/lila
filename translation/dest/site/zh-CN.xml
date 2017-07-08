@@ -47,6 +47,7 @@
   <string name="requestAComputerAnalysis">請求電腦分析</string>
   <string name="computerAnalysis">電腦分析</string>
   <string name="analysis">分析</string>
+  <string name="openingExplorer">開局瀏覽器</string>
   <string name="blunders">漏著</string>
   <string name="mistakes">錯著</string>
   <string name="inaccuracies">失誤</string>
@@ -168,7 +169,6 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">該棋手使用電腦輔助</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">該棋手偽造等級</string>
-  <string name="openingExplorer">開局瀏覽器</string>
   <string name="takeback">悔棋</string>
   <string name="proposeATakeback">請求悔棋</string>
   <string name="takebackPropositionSent">悔棋請求已發送</string>
