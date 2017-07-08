@@ -49,10 +49,13 @@
   <string name="computerAnalysisAvailable">Computeranalyse verfügbar</string>
   <string name="analysis">Analysebrett</string>
   <string name="depthX">Tiefe: %s</string>
+  <string name="loadingEngine">Engine wird geladen ...</string>
   <string name="cloudAnalysis">Cloud-Analyse</string>
   <string name="cloud">Cloud</string>
   <string name="goDeeper">Tiefer gehen</string>
   <string name="showThreat">Drohungen anzeigen</string>
+  <string name="inLocalBrowser">im lokalen Browser</string>
+  <string name="toggleLocalEvaluation">Lokale Auswertung an-/ausschalten</string>
   <string name="blunders">Grobe Patzer</string>
   <string name="mistakes">Fehler</string>
   <string name="inaccuracies">Ungenauigkeiten</string>
@@ -300,9 +303,12 @@
   <string name="tournamentPairingsAreNowClosed">Es werden keine neuen Turnierspiele mehr gestartet.</string>
   <string name="standByX">Die Turnier-Paarungen werden zugeteilt. Fertig machen zum Start, %s!</string>
   <string name="youArePlaying">Dein Spiel beginnt!</string>
+  <string name="performance">Performance</string>
+  <string name="tournamentComplete">Turnier beendet</string>
   <string name="movesPlayed">Gespielte Züge</string>
   <string name="whiteWins">Weiß gewinnt</string>
   <string name="blackWins">Schwarz gewinnt</string>
+  <string name="draws">Remis</string>
   <string name="nextXTournament">Nächstes %s Turnier:</string>
   <string name="viewMoreTournaments">Weitere Turniere anzeigen</string>
   <string name="averageOpponent">Durchschnittlicher Gegner</string>
