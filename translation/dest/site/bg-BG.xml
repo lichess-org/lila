@@ -47,6 +47,7 @@
   <string name="requestAComputerAnalysis">Поискай компютърен анализ</string>
   <string name="computerAnalysis">Компютърен анализ</string>
   <string name="analysis">Анализ</string>
+  <string name="openingExplorer">Изследовател на дебютите</string>
   <string name="blunders">Гафове</string>
   <string name="mistakes">Грешки</string>
   <string name="inaccuracies">Неточности</string>
@@ -178,7 +179,6 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Този играч използва компютърна помощ</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Този играч изкуствено увеличава/намалява своята оценка</string>
-  <string name="openingExplorer">Изследовател на дебютите</string>
   <string name="takeback">Върни ход</string>
   <string name="proposeATakeback">Предложи връщане на ход</string>
   <string name="takebackPropositionSent">Предложение за връщане на ход изпратено</string>
