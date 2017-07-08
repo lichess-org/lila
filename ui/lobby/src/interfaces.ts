@@ -1,4 +1,3 @@
-import { SocketSend } from './socket';
 import { VNode } from 'snabbdom/vnode'
 
 export type MaybeVNode = VNode | string | null | undefined;

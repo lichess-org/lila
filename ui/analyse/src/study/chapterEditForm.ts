@@ -4,7 +4,6 @@ import { prop } from 'common';
 import { bind, bindSubmit, spinner } from '../util';
 import * as dialog from './dialog';
 import * as chapterForm from './chapterNewForm';
-import { SocketSend } from '../socket';
 import { StudyChapterMeta } from './interfaces';
 
 export function ctrl(send: SocketSend, chapterConfig, redraw: () => void) {

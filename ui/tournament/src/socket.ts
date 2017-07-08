@@ -1,8 +1,6 @@
 import xhr from './xhr';
 import TournamentController from './ctrl';
 
-export type SocketSend = (type: string, data?: any, opts?: any, noRetry?: boolean) => void;
-
 export interface TournamentSocket {
   send: SocketSend;
   receive(type: string, data: any): void;

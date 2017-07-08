@@ -3,7 +3,6 @@ import { VNode } from 'snabbdom/vnode'
 import { bind, titleNameToId } from '../util';
 import { prop, Prop } from 'common';
 import * as dialog from './dialog';
-import { SocketSend } from '../socket';
 import { StudyMemberMap } from './interfaces';
 
 export function ctrl(send: SocketSend, members: Prop<StudyMemberMap>, setTab: () => void, redraw: () => void) {

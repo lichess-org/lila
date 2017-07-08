@@ -3,7 +3,6 @@ import { VNode } from 'snabbdom/vnode'
 import { titleNameToId, bind, dataIcon } from '../util';
 import { prop, Prop } from 'common';
 import { ctrl as inviteFormCtrl } from './inviteForm';
-import { SocketSend } from '../socket';
 import { StudyController, StudyMember, StudyMemberMap, Tab } from './interfaces';
 import { NotifController } from './notif';
 

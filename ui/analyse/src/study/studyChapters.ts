@@ -4,7 +4,6 @@ import { prop, Prop } from 'common';
 import { bind, dataIcon } from '../util';
 import { ctrl as chapterNewForm } from './chapterNewForm';
 import { ctrl as chapterEditForm } from './chapterEditForm';
-import { SocketSend } from '../socket';
 import AnalyseController from '../ctrl';
 import { StudyController, StudyChapterMeta } from './interfaces';
 

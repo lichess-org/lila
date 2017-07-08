@@ -37,6 +37,8 @@ interface AssetUrlOpts {
   noVersion?: boolean;
 }
 
+declare type SocketSend = (type: string, data?: any, opts?: any, noRetry?: boolean) => void;
+
 declare type Trans = any; // todo
 
 interface Pubsub {
