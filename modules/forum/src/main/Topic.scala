@@ -19,7 +19,7 @@ case class Topic(
     troll: Boolean,
     closed: Boolean,
     hidden: Boolean,
-    sticky: Boolean
+    sticky: Option[Boolean]
 ) {
 
   def id = _id
@@ -31,6 +31,8 @@ case class Topic(
 
   def open = !closed
   def visibleOnHome = !hidden
+
+  def isSticky = ~sticky
 
   def withPost(post: Post): Topic = copy(
     nbPosts = post.troll.fold(nbPosts, nbPosts + 1),
@@ -75,25 +77,6 @@ object Topic {
     troll = troll,
     closed = false,
     hidden = hidden,
-    sticky = false
+    sticky = Some(false)
   )
-
-  object BSONFields {
-    val id = "_id"
-    val categId = "categId"
-    val slug = "slug"
-    val name = "name"
-    val views = "views"
-    val createdAt = "createdAt"
-    val updatedAt = "updatedAt"
-    val nbPosts = "nbPosts"
-    val lastPostId = "lastPostId"
-    val updatedAtTroll = "updatedAtTroll"
-    val nbPostsTroll = "nbPostsTroll"
-    val lastPostIdTroll = "lastPostIdTroll"
-    val troll = "troll"
-    val closed = "closed"
-    val hidden = "hidden"
-    val sticky = "sticky"
-  }
 }

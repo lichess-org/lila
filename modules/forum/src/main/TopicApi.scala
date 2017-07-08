@@ -138,9 +138,9 @@ private[forum] final class TopicApi(
     }
 
   def toggleSticky(categ: Categ, topic: Topic, mod: User): Funit =
-    TopicRepo.sticky(topic.id, !topic.sticky) >> {
+    TopicRepo.sticky(topic.id, !topic.isSticky) >> {
       MasterGranter(_.ModerateForum)(mod) ??
-        modLog.toggleStickyTopic(mod.id, categ.name, topic.name, topic.sticky)
+        modLog.toggleStickyTopic(mod.id, categ.name, topic.name, topic.isSticky)
     }
 
   def denormalize(topic: Topic): Funit = for {

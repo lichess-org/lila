@@ -92,7 +92,7 @@ description = shorten(posts.currentPageResults.headOption.??(_.text).replace("\n
     <button class="button">@topic.closed.fold("Reopen", "Close")</button>
   </form>
   <form class="mod" method="post" action="@routes.ForumTopic.sticky(categ.slug, topic.slug)">
-    <button class="button">@topic.sticky.fold("Un-sticky", "Sticky")</button>
+    <button class="button">@topic.isSticky.fold("Un-sticky", "Sticky")</button>
   </form>
   }
 
