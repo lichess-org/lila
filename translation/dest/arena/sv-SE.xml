@@ -19,6 +19,8 @@ Berserk ger en extrapoäng endast om du spelar minst 7 drag i partiet.</string>
   <string name="howIsTheWinnerDecided">Hur avgörs vinnaren?</string>
   <string name="howDoesPairingWork">Hur fungerar parningen?</string>
   <string name="howDoesPairingWorkAnswer">I början av turneringen paras spelarna baserat på deras rating. Så snart du har avslutat ett parti och återvänt till turneringslobbyn, kommer du att paras med en spelare i närheten av din rating. Detta garanterar minimal väntetid. Det är inte säkert att du får möta alla spelare i turneringen. Spela fort och återvänd till lobbyn för att få chans att spela fler partier och vinna mer poäng.</string>
+  <string name="howDoesItEnd">Hur avgörs turneringen?</string>
   <string name="otherRules">Andra viktiga regler.</string>
   <string name="thisIsPrivate">Detta är en privat turnering</string>
+  <string name="shareUrl">Dela denna URL för att låta spelare delta: %s</string>
 </resources>
