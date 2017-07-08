@@ -23,4 +23,5 @@
   <string name="otherRulesAnswer">最初の手は開始から 20 秒以内に指す必要があります。この時間内に指さないと相手の不戦勝になります。
 また 10 手以内のドローでは両者ともポイントが与えられません。</string>
   <string name="thisIsPrivate">これはプライベートのトーナメントです</string>
+  <string name="shareUrl">誰もが参加できるようにシェアして: %s</string>
 </resources>
