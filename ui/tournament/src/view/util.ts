@@ -37,7 +37,7 @@ export function ratio2percent(r: number) {
   return Math.round(100 * r) + '%';
 }
 
-export function player(p) {
+export function player(p, asLink?: boolean) {
   let ratingDiff;
   if (p.ratingDiff > 0) ratingDiff = h('span.positive', {
     attrs: { 'data-icon': 'N' }
@@ -49,9 +49,7 @@ export function player(p) {
   fullName = (p.title ? p.title + ' ' : '') + p.name;
 
   return h('a.ulpt.user_link' + (fullName.length > 15 ? '.long' : ''), {
-    attrs: {
-      'data-href': '/@/' + p.name
-    },
+    attrs: asLink ? { href: '/@/' + p.name } : { 'data-href': '/@/' + p.name },
     hook: {
       destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement)
     }

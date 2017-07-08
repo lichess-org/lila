@@ -21,7 +21,7 @@ function featuredPlayer(f, orientation) {
       }
     }) : null,
     h('strong', '#' + p.rank),
-    renderPlayer(p)
+    renderPlayer(p, true)
   ]);
 }
 
