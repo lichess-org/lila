@@ -48,6 +48,7 @@
   <string name="computerAnalysis">Kompýuter derñewi</string>
   <string name="computerAnalysisAvailable">Kompýuter derñewi elýeterli</string>
   <string name="analysis">Derňew tagtasy</string>
+  <string name="openingExplorer">Açylyşlar eksploreri &amp; tablisasy</string>
   <string name="blunders">Säwlikler</string>
   <string name="mistakes">Ýalňyşlar</string>
   <string name="inaccuracies">Bitakyklyklar</string>
@@ -117,7 +118,6 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Bu oýunçy kompýuter ýardamly</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Bu oýunçy emeli usul bilen reýtingini artdyrýar/kemeldýär</string>
-  <string name="openingExplorer">Açylyşlar eksploreri &amp; tablisasy</string>
   <string name="takeback">Yzyna al</string>
   <string name="proposeATakeback">Yza alma hödürle</string>
   <string name="takebackPropositionSent">Yza alma iberildi</string>
