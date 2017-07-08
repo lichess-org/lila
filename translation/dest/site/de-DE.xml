@@ -49,6 +49,7 @@
   <string name="computerAnalysisAvailable">Computeranalyse verfügbar</string>
   <string name="analysis">Analysebrett</string>
   <string name="depthX">Tiefe: %s</string>
+  <string name="usingServerAnalysis">Serveranalyse wird verwendet</string>
   <string name="loadingEngine">Engine wird geladen ...</string>
   <string name="cloudAnalysis">Cloud-Analyse</string>
   <string name="cloud">Cloud</string>
