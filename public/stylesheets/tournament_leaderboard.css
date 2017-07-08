@@ -39,6 +39,7 @@
 }
 .winner_list li:hover a {
   color: #3893E8;
+  text-decoration: underline dotted #3893E8;
 }
 .winner_list a.user_link {
   font-size: 1.2em;
