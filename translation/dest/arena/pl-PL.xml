@@ -11,7 +11,9 @@
   <string name="howIsTheWinnerDecided">Jak jest wyłaniany zwycięzca?</string>
   <string name="howDoesPairingWork">Jak działa kojarzenie par?</string>
   <string name="howDoesItEnd">Kiedy kończy się turniej?</string>
+  <string name="howDoesItEndAnswer">Turniej ma zegar który odlicza wstecz. Gdy osiągnie zero, rankingi turniejowe są zamrażane i ogłasza się zwycięzcę. Gry w toku muszą zostać zakończone, jednak nie są już wliczane do turnieju.</string>
   <string name="otherRules">Inne ważne zasady.</string>
   <string name="otherRulesAnswer">Jesteś zobowiązany do wykonania pierwszego ruchu w ciągu 20 sekund. Nie wykonanie ruchu w tym czasie spowoduje przegranie gry. Jeżeli w ciągu pierwszych 10 ruchów gry wystąpi remis to żaden z graczy nie zdobędzie punktów.</string>
   <string name="thisIsPrivate">Ten turniej jest prywatny</string>
+  <string name="shareUrl">Udostępnij ten URL innym aby dołączyli do: %s</string>
 </resources>
