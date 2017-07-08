@@ -344,13 +344,9 @@ body.dark .textcomplete-dropdown .active {
 }
 
 a.sticky {
-  color: green;
+  color: #759900;
 }
 
 a.sticky > span {
   margin-right: 0.6em;
-}
-
-body.dark a.sticky {
-  color: limegreen;
 }
