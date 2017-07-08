@@ -17,6 +17,7 @@ sealed abstract class TopicRepo(troll: Boolean) {
   private val coll = Env.current.topicColl
 
   private val trollFilter = troll.fold($empty, $doc("troll" -> false))
+  private val notStickyQuery = $doc("sticky" $ne true)
 
   def close(id: String, value: Boolean): Funit =
     coll.updateField($id(id), "closed", value).void
@@ -51,5 +52,6 @@ sealed abstract class TopicRepo(troll: Boolean) {
     coll.incFieldUnchecked($id(topic.id), "views")
 
   def byCategQuery(categ: Categ) = $doc("categId" -> categ.slug) ++ trollFilter
+  def byCategNotStickyQuery(categ: Categ) = byCategQuery(categ) ++ notStickyQuery
   def byStickyQuery() = $doc("sticky" -> true)
 }

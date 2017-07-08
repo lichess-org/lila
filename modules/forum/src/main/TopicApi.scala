@@ -85,7 +85,7 @@ private[forum] final class TopicApi(
   def paginator(categ: Categ, page: Int, troll: Boolean): Fu[Paginator[TopicView]] = {
     val adapter = new Adapter[Topic](
       collection = env.topicColl,
-      selector = TopicRepo(troll) byCategQuery categ,
+      selector = TopicRepo(troll) byCategNotStickyQuery categ,
       projection = $empty,
       sort = $sort.updatedDesc
     ) mapFuture { topic =>
