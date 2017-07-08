@@ -48,6 +48,7 @@
   <string name="computerAnalysis">Комп’ютерний аналіз</string>
   <string name="computerAnalysisAvailable">Комп\'ютерний аналіз доступний</string>
   <string name="analysis">Аналіз</string>
+  <string name="openingExplorer">Перегляд дебютів</string>
   <string name="blunders">Грубі помилки</string>
   <string name="mistakes">Помилки</string>
   <string name="inaccuracies">Неточності</string>
@@ -139,7 +140,6 @@
   <string name="ratingRange">Діапазон рейтинґу</string>
   <string name="thisPlayerUsesChessComputerAssistance">Цей гравець користується підказками комп’ютера</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Цей гравець штучно збільшує свій рейтинг</string>
-  <string name="openingExplorer">Перегляд дебютів</string>
   <string name="takeback">Повернення ходу</string>
   <string name="proposeATakeback">Запропонувати повернути хід</string>
   <string name="takebackPropositionSent">Пропозицію повернути хід відправлено</string>
