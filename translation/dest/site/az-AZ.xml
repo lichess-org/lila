@@ -47,6 +47,7 @@
   <string name="requestAComputerAnalysis">Kompüter analizi üçün müraciət</string>
   <string name="computerAnalysis">Kompüter analizi</string>
   <string name="analysis">Təhlil</string>
+  <string name="openingExplorer">Debut tədqiqatçısı və cədvəl bazası</string>
   <string name="blunders">Kobud səhvlər</string>
   <string name="mistakes">Səhvlər</string>
   <string name="inaccuracies">Qeyri-dəqiqliklər</string>
@@ -178,7 +179,6 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Bu oyunçu şahmat komputer köməkçisindən istifadə edir</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Bu oyunçu öz reytinqini süni şəklidə artırır</string>
-  <string name="openingExplorer">Debut tədqiqatçısı və cədvəl bazası</string>
   <string name="takeback">Gedişi geri götür</string>
   <string name="proposeATakeback">Gedişi geri götürmə təklifi ver</string>
   <string name="takebackPropositionSent">Gedişi geri götürmə təklifi göndərildi</string>
