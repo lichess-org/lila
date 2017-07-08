@@ -57,6 +57,7 @@
   <string name="showThreat">Mostrare la minaccia</string>
   <string name="inLocalBrowser">nel browser locale</string>
   <string name="toggleLocalEvaluation">Analisi in locale</string>
+  <string name="openingExplorer">Esplora aperture</string>
   <string name="blunders">Errori gravi</string>
   <string name="mistakes">Errori</string>
   <string name="inaccuracies">Imprecisioni</string>
@@ -198,7 +199,6 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Questo giocatore si fa aiutare da un computer</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Questo giocatore modifica il proprio punteggio irregolarmente</string>
-  <string name="openingExplorer">Esplora aperture</string>
   <string name="takeback">Ritira la mossa</string>
   <string name="proposeATakeback">Proponi di ritirare la mossa</string>
   <string name="takebackPropositionSent">Richiesta di ritiro mossa inviata</string>
