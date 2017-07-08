@@ -48,6 +48,7 @@
   <string name="computerAnalysis">Компьютерный анализ</string>
   <string name="computerAnalysisAvailable">Доступен компьютерный анализ</string>
   <string name="analysis">Анализ</string>
+  <string name="openingExplorer">Анализ дебютных вариантов</string>
   <string name="blunders">Грубые ошибки</string>
   <string name="mistakes">Ошибки</string>
   <string name="inaccuracies">Сомнительные ходы</string>
@@ -189,7 +190,6 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Этот игрок использует помощь шахматной программы (читер)</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Этот игрок искусственно увеличивал либо уменьшал свой рейтинг</string>
-  <string name="openingExplorer">Анализ дебютных вариантов</string>
   <string name="takeback">Вернуть ход</string>
   <string name="proposeATakeback">Попросить соперника вернуть ход</string>
   <string name="takebackPropositionSent">Предложение возврата отправлено</string>
