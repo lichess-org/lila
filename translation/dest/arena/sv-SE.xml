@@ -7,7 +7,9 @@
   <string name="isNotRated">Turneringen är *inte* rankad och kommer *inte* att påverka din rating.</string>
   <string name="someRated">Vissa turneringar är rankade och kommer att påverka din ranking.</string>
   <string name="howAreScoresCalculated">Hur räknas poäng?</string>
-  <string name="howAreScoresCalculatedAnswer">En vinst har en baspoäng på 2, en remi 1 och en förlust 0 poäng. Om du vinner 2 partier i rad startas en dubbelpoäng-serie, representerad av en flamma som ikon. Efterföljande partier är då värda dubbla poäng tills du misslyckas med att vinna ett parti. Detta innebär att en vinst är värd 4 poäng, en remi 2 poäng och en förlust är värd 0 poäng.</string>
+  <string name="howAreScoresCalculatedAnswer">En vinst har en baspoäng på 2, en remi 1 och en förlust 0 poäng. Om du vinner 2 partier i rad startas en dubbelpoäng-serie, representerad av en flamma som ikon. Efterföljande partier är då värda dubbla poäng tills du misslyckas med att vinna ett parti. Detta innebär att en vinst är värd 4 poäng, en remi 2 poäng och en förlust är värd 0 poäng.
+
+Till exemple, 2 vinster följt av en remi är värt 6 poäng: 2 + 2 + (2 *1)</string>
   <string name="berserk">Arena Berserk</string>
   <string name="berserkAnswer">När en spelare klickar på Berserk-knappen i början av partiet, halveras dennes betänketid, men en vinst blir värd en extra turneringspoäng.
 
@@ -23,6 +25,7 @@ Berserk ger en extrapoäng endast om du spelar minst 7 drag i partiet.</string>
   <string name="howDoesItEnd">Hur avgörs turneringen?</string>
   <string name="howDoesItEndAnswer">Turneringen har en tidsnedräkning. När den nått noll, fryses turneringsplaceringarna och vinnaren annonseras. Partier som pågår måste avslutas men räknas inte till turneringen.</string>
   <string name="otherRules">Andra viktiga regler.</string>
+  <string name="otherRulesAnswer">Du måste göra ditt första drag inom 20 sekunder efter att partiet startat. I annat fall förloras partiet. Remi inom det 10 första dragen ger ingen av spelarna några poäng.</string>
   <string name="thisIsPrivate">Detta är en privat turnering</string>
   <string name="shareUrl">Dela denna URL för att låta spelare delta: %s</string>
 </resources>
