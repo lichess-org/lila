@@ -57,9 +57,9 @@ import {
     goneBerserk: GoneBerserk = {};
     resignConfirm: boolean = false;
     autoScroll: () => void = $.noop; // will be replaced by view layer
-      challengeRematched: boolean = false;
-    justDropped?: any;
-    justCaptured?: any;
+    challengeRematched: boolean = false;
+    justDropped?: cg.Role;
+    justCaptured?: cg.Piece;
     justMoved: boolean = false;
     preDrop?: cg.Role;
     lastDrawOfferAtPly?: Ply;
@@ -414,7 +414,7 @@ import {
       });
     };
 
-    private clearVmJust() {
+    private clearJust() {
       this.justDropped = undefined;
       this.justCaptured = undefined;
       this.justMoved = false;
@@ -426,7 +426,7 @@ import {
       const merged = round.merge(this.data, cfg),
       d = merged.data;
       this.data = d;
-      this.clearVmJust();
+      this.clearJust();
       if (this.clock) this.clock.update(d.clock!.white, d.clock!.black);
       if (this.corresClock) this.corresClock.update(d.correspondence.white, d.correspondence.black);
       if (!this.replaying()) ground.reload(this);
@@ -456,7 +456,7 @@ import {
       }
       if (!d.player.spectator && d.game.turns > 1)
       li.sound[o.winner ? (d.player.color === o.winner ? 'victory' : 'defeat') : 'draw']();
-      this.clearVmJust();
+      this.clearJust();
       this.setTitle();
       this.moveOn.next();
       this.setQuietMode();
