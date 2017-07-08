@@ -57,6 +57,7 @@
   <string name="showThreat">Voir la menace</string>
   <string name="inLocalBrowser">dans le navigateur local</string>
   <string name="toggleLocalEvaluation">Activer/désactiver l\'évaluation locale</string>
+  <string name="openingExplorer">Explorateur d\'ouvertures &amp; tables de finales</string>
   <string name="blunders">Gaffes</string>
   <string name="mistakes">Erreurs</string>
   <string name="inaccuracies">Imprécisions</string>
@@ -194,7 +195,6 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Ce joueur utilise un programme d\'échecs</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ce joueur augmente ou réduit artificiellement son classement</string>
-  <string name="openingExplorer">Explorateur d\'ouvertures &amp; tables de finales</string>
   <string name="takeback">Annuler le coup</string>
   <string name="proposeATakeback">Proposer l\'annulation du coup</string>
   <string name="takebackPropositionSent">Annulation du coup proposée</string>
