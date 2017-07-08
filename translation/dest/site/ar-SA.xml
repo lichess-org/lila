@@ -13,7 +13,7 @@
   <string name="toggleTheChat">قفل/فتح الدردشة</string>
   <string name="toggleSound">تغيير الصوت</string>
   <string name="chat">دردشة</string>
-  <string name="resign">استسلام</string>
+  <string name="resign">استسلم</string>
   <string name="checkmate">الملك مات</string>
   <string name="stalemate">الملك مخنوق</string>
   <string name="white">أبيض</string>
@@ -23,7 +23,7 @@
   <string name="whiteIsVictorious">الأبيض فاز</string>
   <string name="blackIsVictorious">الأسود فاز</string>
   <string name="kingInTheCenter">الملك في الوسط</string>
-  <string name="threeChecks">ثلاثة كشات ملك</string>
+  <string name="threeChecks">كش ملك ثلاثا</string>
   <string name="raceFinished">نهاية السباق</string>
   <string name="variantEnding">نهاية مختلفة</string>
   <string name="newOpponent">خصم جديد</string>
@@ -47,6 +47,7 @@
   <string name="requestAComputerAnalysis">اطلب تحليل حاسب</string>
   <string name="computerAnalysis">تحليل الحاسب</string>
   <string name="analysis">تحليل اللعبة</string>
+  <string name="openingExplorer">مستكشف الافتتاحيات</string>
   <string name="blunders">أخطاء فادحة</string>
   <string name="mistakes">أخطاء</string>
   <string name="inaccuracies">نقلات غير دقيقة</string>
@@ -138,7 +139,6 @@
   <string name="ratingRange">نطاق التقييم</string>
   <string name="thisPlayerUsesChessComputerAssistance">هذا اللاعب يستعين ببرامج الشطرنج</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">هذا اللاعب يتلاعب بتقييمه</string>
-  <string name="openingExplorer">مستكشف الافتتاحيات</string>
   <string name="takeback">تراجع</string>
   <string name="proposeATakeback">اقتراح تراجع عن النقلة الآخيرة</string>
   <string name="takebackPropositionSent">أُرسل مقترح التراجع</string>
