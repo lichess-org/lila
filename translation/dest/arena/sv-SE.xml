@@ -7,4 +7,9 @@
   <string name="isNotRated">Turneringen är *inte* rankad och kommer *inte* att påverka din rating.</string>
   <string name="someRated">Vissa turneringar är rankade och kommer att påverka din ranking.</string>
   <string name="howAreScoresCalculated">Hur räknas poäng?</string>
+  <string name="berserk">Arena Berserk</string>
+  <string name="howIsTheWinnerDecided">Hur avgörs vinnaren?</string>
+  <string name="howDoesPairingWork">Hur fungerar parningen?</string>
+  <string name="otherRules">Andra viktiga regler.</string>
+  <string name="thisIsPrivate">Detta är en privat turnering</string>
 </resources>
