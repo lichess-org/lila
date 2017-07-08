@@ -3,8 +3,8 @@ body.dark {
   background-image: linear-gradient(to bottom, #2c2c2c, #1a1a1a 116px);
   color: #929292;
 }
-body.dark a,
-body.dark a:visited,
+body.dark a:not(.sticky),
+body.dark a:not(.sticky):visited,
 body.dark #powerTip > .actions a,
 body.dark group.radio label,
 body.dark .button,

@@ -1,4 +1,4 @@
-@(categ: lila.forum.Categ, topics: Paginator[lila.forum.TopicView], canWrite: Boolean)(implicit ctx: Context)
+@(categ: lila.forum.Categ, topics: Paginator[lila.forum.TopicView], canWrite: Boolean, stickyPosts: List[lila.forum.TopicView])(implicit ctx: Context)
 
 @newTopicButton = {
 @if(canWrite) {
@@ -36,7 +36,6 @@ description = categ.desc).some) {
     @forum.pagination(routes.ForumCateg.show(categ.slug, 1), topics, showPost = false)
     @newTopicButton
   </div>
-
   <table class="forum_table forum_topics_list">
     <thead>
       <tr class="thead">
@@ -47,6 +46,18 @@ description = categ.desc).some) {
       </tr>
     </thead>
     <tbody>
+      @stickyPosts.map { topic =>
+      <tr>
+        <td class="subject"><a href="@routes.ForumTopic.show(categ.slug, topic.slug)" class="sticky"><span data-icon="&#xe005;" title="Sticky"></span>@topic.name</a></td>
+        <td class="right">@topic.views.localize</td>
+        <td class="right">@topic.nbReplies.localize</td>
+        <td class="last_post">
+          @topic.lastPost.map { post =>
+          <a href="@routes.ForumTopic.show(categ.slug, topic.slug, topic.lastPage)#@post.number">@momentFromNow(post.createdAt)</a><br />@trans.by(authorLink(post))
+          }
+        </td>
+      </tr>
+      }
       @topics.currentPageResults.map { topic =>
       <tr>
         <td class="subject"><a href="@routes.ForumTopic.show(categ.slug, topic.slug)">@topic.name</a></td>
