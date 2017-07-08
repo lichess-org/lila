@@ -1,16 +1,21 @@
-export function firstPly(d) {
+import { RoundData, Step } from './interfaces';
+
+export function firstPly(d: RoundData): number {
   return d.steps[0].ply;
 }
 
-export function lastPly(d) {
+export function lastPly(d: RoundData): number {
   return d.steps[d.steps.length - 1].ply;
 }
 
-export function plyStep(d, ply) {
+export function plyStep(d: RoundData, ply): Step {
   return d.steps[ply - firstPly(d)];
 }
 
-export function merge(old, cfg) {
+export function merge(old: RoundData, cfg: RoundData): {
+  data: RoundData;
+  changes: any;
+} {
   var data = cfg;
 
   if (data.clock) {
@@ -24,7 +29,7 @@ export function merge(old, cfg) {
   if (['horde', 'crazyhouse'].indexOf(data.game.variant.key) !== -1)
   data.pref.showCaptured = false;
 
-  var changes: any = {};
+  const changes: any = {};
   if (old.opponent) {
     if (!old.opponent.offeringDraw && cfg.opponent.offeringDraw)
     changes.drawOffer = true;

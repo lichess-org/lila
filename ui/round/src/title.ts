@@ -17,9 +17,10 @@ const F = [
   };
 });
 
-var tickerTimer;
+let tickerTimer: number | undefined;
 function resetTicker() {
-  tickerTimer = clearTimeout(tickerTimer);
+  if (tickerTimer) clearTimeout(tickerTimer);
+  tickerTimer = undefined;
   F[0]();
 }
 

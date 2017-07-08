@@ -71,10 +71,10 @@ export function replayable(data: GameData): boolean {
     (status.aborted(data) && bothPlayersHavePlayed(data));
 }
 
-export function getPlayer(data: GameData, color: Color): Player;
+export function getPlayer(data: GameData, color: Color | undefined): Player;
 export function getPlayer(data: GameData, color?: Color): Player | null {
-  if (data.player.color == color) return data.player;
-  if (data.opponent.color == color) return data.opponent;
+  if (data.player.color === color) return data.player;
+  if (data.opponent.color === color) return data.opponent;
   return null;
 }
 

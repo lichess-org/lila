@@ -1,17 +1,24 @@
 import { h } from 'snabbdom'
 import { Api as ChessgroundApi } from 'chessground/api';
 import * as cg from 'chessground/types';
-import { Step, Untyped, Redraw } from './interfaces';
-import RoundController from './ctrl';
+import { Step, Redraw } from './interfaces';
 
-export interface KeyboardMove extends Untyped {
+export interface KeyboardMove {
+  update(step: Step): void;
+  registerHandler(h): void
+  hasFocus(): boolean;
+  setFocus(v: boolean): void;
+  san(orig: cg.Key, dest: cg.Key): void;
+  select(key: cg.Key): void;
+  hasSelected(): cg.Key | undefined;
+  usedSan: boolean;
 }
 
-export function ctrl(cg: ChessgroundApi, step: Step, redraw: Redraw) {
+export function ctrl(cg: ChessgroundApi, step: Step, redraw: Redraw): KeyboardMove {
   let focus = false;
   let handler;
   let preHandlerBuffer = step.fen;
-  const select = function(key: cg.Key) {
+  const select = function(key: cg.Key): void {
     if (cg.state.selected === key) cg.cancelMove();
     else cg.selectSquare(key, true);
   };
@@ -42,7 +49,7 @@ export function ctrl(cg: ChessgroundApi, step: Step, redraw: Redraw) {
   };
 };
 
-export function render(ctrl: RoundController) {
+export function render(ctrl: KeyboardMove) {
   return h('div.keyboard-move', [
     h('input', {
       attrs: {

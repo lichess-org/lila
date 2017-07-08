@@ -26,6 +26,7 @@ export interface Game {
   boosted?: boolean;
   rematch?: string;
   rated?: boolean;
+  perf: string;
 }
 
 export interface Status {
@@ -42,7 +43,7 @@ export type StatusId = number;
 export interface Player {
   id: string;
   name: string;
-  user: User;
+  user?: PlayerUser;
   spectator?: boolean;
   color: Color;
   proposingTakeback?: boolean;
@@ -55,6 +56,10 @@ export interface Player {
   hold?: Hold;
   ratingDiff?: number;
   checks?: number;
+  rating?: number;
+  provisional?: string;
+  engine?: boolean;
+  berserk?: boolean;
 }
 
 export interface TournamentRanks {
@@ -63,8 +68,11 @@ export interface TournamentRanks {
 }
 
 export interface Tournament {
+  id: string;
   berserkable: boolean;
   ranks?: TournamentRanks;
+  running?: boolean;
+  nbSecondsForFirstMove?: number;
 }
 
 export interface Simul {
@@ -79,9 +87,22 @@ export interface Clock {
 
 export type Source = 'import' | 'lobby' | 'pool';
 
-export interface User {
+export interface PlayerUser {
   online: boolean;
   username: string;
+  patron?: boolean;
+  title?: string;
+  perfs: {
+    [key: string]: Perf;
+  }
+}
+
+export interface Perf {
+  games: number;
+  rating: number;
+  rd: number;
+  prog: number;
+  prov?: boolean;
 }
 
 export interface Ctrl {

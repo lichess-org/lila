@@ -70,7 +70,7 @@ import {
 
     constructor(opts: RoundOpts, redraw: Redraw) {
 
-      const d = round.merge({}, opts.data).data;
+      const d = round.merge({} as RoundData, opts.data).data;
 
       this.opts = opts;
       this.data = d;
@@ -427,7 +427,7 @@ import {
       d = merged.data;
       this.data = d;
       this.clearVmJust();
-      if (this.clock) this.clock.update(d.clock.white, d.clock.black);
+      if (this.clock) this.clock.update(d.clock!.white, d.clock!.black);
       if (this.corresClock) this.corresClock.update(d.correspondence.white, d.correspondence.black);
       if (!this.replaying()) ground.reload(this);
       this.setTitle();
@@ -529,7 +529,7 @@ import {
       if (this.resignConfirm) {
         if (v) this.socket.sendLoading('resign');
         else this.resignConfirm = false;
-      } else if (v !== false) {
+      } else if (v) {
         if (this.data.pref.confirmResign) this.resignConfirm = true;
         else this.socket.sendLoading('resign');
       }

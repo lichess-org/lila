@@ -6,6 +6,7 @@ export interface CorresClockData {
   white: Seconds;
   black: Seconds;
   emerg: Seconds;
+  showBar: boolean;
 }
 
 export interface CorresClockController {

@@ -83,9 +83,8 @@ object JsonView {
       "games" -> o.nb,
       "rating" -> o.glicko.rating.toInt,
       "rd" -> o.glicko.deviation.toInt,
-      "prov" -> o.glicko.provisional,
       "prog" -> o.progress
-    )
+    ).add("prov" -> o.glicko.provisional)
   }
 
   private val standardPerfKeys: Set[Perf.Key] = PerfType.standard.map(_.key)(scala.collection.breakOut)

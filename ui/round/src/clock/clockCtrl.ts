@@ -19,6 +19,7 @@ export interface ClockData {
   emerg: Seconds;
   showTenths: 0 | 1 | 2;
   showBar: boolean;
+  moretime: number;
 }
 
 interface Times {

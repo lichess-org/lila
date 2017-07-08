@@ -1,5 +1,6 @@
 import { VNode } from 'snabbdom/vnode';
 import { GameData, Status } from 'game';
+import { ClockData } from './clock/clockCtrl';
 import { CorresClockData } from './corresClock/corresClockCtrl';
 import * as cg from 'chessground/types';
 
@@ -28,6 +29,7 @@ export interface SocketDrop {
 }
 
 export interface RoundData extends GameData {
+  clock?: ClockData;
   pref: Pref;
   steps: Step[];
   possibleMoves?: { [key: string]: string };
@@ -40,6 +42,12 @@ export interface RoundData extends GameData {
     round: string;
   },
   blind?: boolean;
+  tv?: Tv;
+}
+
+export interface Tv {
+  channel: string;
+  flip: boolean;
 }
 
 interface CrazyData {
@@ -144,3 +152,5 @@ export interface MoveMetadata {
   justDropped?: cg.Role;
   justCaptured?: cg.Piece;
 }
+
+export type Position = 'top' | 'bottom';

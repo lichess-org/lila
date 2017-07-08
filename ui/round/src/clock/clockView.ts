@@ -5,8 +5,7 @@ import { game } from 'game';
 import RoundController from '../ctrl';
 import { ClockController, ClockData, Millis } from './clockCtrl';
 import { Player } from 'game';
-
-type Position = 'top' | 'bottom';
+import { Position } from '../interfaces';
 
 export function renderClock(ctrl: RoundController, player: Player, position: Position) {
   const clock = ctrl.clock!,

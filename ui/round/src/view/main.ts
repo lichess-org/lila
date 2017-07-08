@@ -1,34 +1,35 @@
-import { game } from 'game';
-import round = require('../round');
-import table = require('./table');
-import promotion = require('../promotion');
-import ground = require('../ground');
-import { read as fenRead } from 'chessground/fen';
-import util = require('../util');
-import blind = require('../blind');
-import keyboard = require('../keyboard');
-import crazyView from '../crazy/crazyView';
-import { render as keyboardMove } from '../keyboardMove';
-
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
+import { game } from 'game';
+import { plyStep } from '../round';
+import renderTable from './table';
+import * as promotion from '../promotion';
+import { render as renderGround } from '../ground';
+import { read as fenRead } from 'chessground/fen';
+import * as util from '../util';
+import * as blind from '../blind';
+import * as keyboard from '../keyboard';
+import crazyView from '../crazy/crazyView';
+import { render as keyboardMove } from '../keyboardMove';
+import RoundController from '../ctrl';
+import * as cg from 'chessground/types';
 
-function renderMaterial(material, checks, score) {
+function renderMaterial(material: cg.MaterialDiff, checks?: number, score?: number) {
   var children: VNode[] = [];
   if (score || score === 0)
-    children.push(h('score', score > 0 ? '+' + score : score));
-  for (var role in material) {
+    children.push(h('score', (score > 0 ? '+' : '') + score));
+  for (let role in material) {
     const content: VNode[] = [];
-    for (var i = 0; i < material[role]; i++) content.push(h('mono-piece.' + role));
+    for (let i = 0; i < material[role]; i++) content.push(h('mono-piece.' + role));
     children.push(h('tomb', content));
   }
-  for (var i = 0; i < checks; i++) {
+  if (checks) for (let i = 0; i < checks; i++) {
     children.push(h('tomb', h('mono-piece.king')));
   }
   return h('div.cemetery', children);
 }
 
-function wheel(ctrl, e) {
+function wheel(ctrl: RoundController, e: WheelEvent): boolean {
   if (game.isPlayerPlaying(ctrl.data)) return true;
   e.preventDefault();
   if (e.deltaY > 0) keyboard.next(ctrl);
@@ -37,38 +38,38 @@ function wheel(ctrl, e) {
   return false;
 }
 
-function visualBoard(ctrl) {
+function visualBoard(ctrl: RoundController) {
   return h('div.lichess_board_wrap', [
     h('div.lichess_board.' + ctrl.data.game.variant.key + (ctrl.data.pref.blindfold ? '.blindfold' : ''), {
-      hook: util.bind('wheel', e => wheel(ctrl, e))
-    }, [ground.render(ctrl)]),
+      hook: util.bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
+    }, [renderGround(ctrl)]),
     promotion.view(ctrl)
   ]);
 }
 
-function blindBoard(ctrl) {
+function blindBoard(ctrl: RoundController) {
   return h('div.lichess_board_blind', [
     h('div.textual', {
       hook: {
-        insert: vnode => blind.init(vnode.elm, ctrl)
+        insert: vnode => blind.init(vnode.elm as HTMLElement, ctrl)
       }
-    }, [ ground.render(ctrl) ])
+    }, [ renderGround(ctrl) ])
   ]);
 }
 
-var emptyMaterialDiff = {
-  white: [],
-  black: []
+const emptyMaterialDiff: cg.MaterialDiff = {
+  white: {},
+  black: {}
 };
 
-export function main(ctrl: any): VNode {
+export function main(ctrl: RoundController): VNode {
   const d = ctrl.data,
   cgState = ctrl.chessground && ctrl.chessground.state,
-  topColor = d[ctrl.vm.flip ? 'player' : 'opponent'].color,
-  bottomColor = d[ctrl.vm.flip ? 'opponent' : 'player'].color;
+  topColor = d[ctrl.flip ? 'player' : 'opponent'].color,
+  bottomColor = d[ctrl.flip ? 'opponent' : 'player'].color;
   let material, score;
   if (d.pref.showCaptured) {
-    var pieces = cgState ? cgState.pieces : fenRead(round.plyStep(ctrl.data, ctrl.vm.ply).fen);
+    var pieces = cgState ? cgState.pieces : fenRead(plyStep(ctrl.data, ctrl.ply).fen);
     material = util.getMaterialDiff(pieces);
     score = util.getScore(pieces) * (bottomColor === 'white' ? 1 : -1);
   } else material = emptyMaterialDiff;
@@ -81,7 +82,7 @@ export function main(ctrl: any): VNode {
       d.blind ? blindBoard(ctrl) : visualBoard(ctrl),
       h('div.lichess_ground', [
         crazyView(ctrl, topColor, 'top') || renderMaterial(material[topColor], d.player.checks, undefined),
-        table.render(ctrl),
+        renderTable(ctrl),
         crazyView(ctrl, bottomColor, 'bottom') || renderMaterial(material[bottomColor], d.opponent.checks, score)
       ])
     ]),
