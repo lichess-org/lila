@@ -7,4 +7,7 @@
   <string name="isNotRated">Ten turniej *nie* jest rankingowy i *nie* wpłynie na Twój ranking.</string>
   <string name="someRated">Niektóre turnieje są rankingowe i mają wpływ na Twój ranking.</string>
   <string name="howAreScoresCalculated">Jak obliczane są wyniki?</string>
+  <string name="otherRules">Inne ważne zasady.</string>
+  <string name="otherRulesAnswer">Jesteś zobowiązany do wykonania pierwszego ruchu w ciągu 20 sekund. Nie wykonanie ruchu w tym czasie spowoduje przegranie gry. Jeżeli w ciągu pierwszych 10 ruchów gry wystąpi remis to żaden z graczy nie zdobędzie punktów.</string>
+  <string name="thisIsPrivate">Ten turniej jest prywatny</string>
 </resources>
