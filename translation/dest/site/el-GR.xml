@@ -48,6 +48,7 @@
   <string name="computerAnalysis">Ανάλυση υπολογιστή</string>
   <string name="computerAnalysisAvailable">Ανάλυση υπολογιστή διαθέσιμη</string>
   <string name="analysis">Σκακιέρα ανάλυσης</string>
+  <string name="openingExplorer">Εξερευνητής ανοιγμάτων και τελειωμάτων</string>
   <string name="blunders">Σοβαρά λάθη</string>
   <string name="mistakes">Λάθη</string>
   <string name="inaccuracies">Ανακρίβειες</string>
@@ -179,7 +180,6 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Ο παίκτης χρησιμοποιεί υποβοήθηση υπολογιστή</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Αυτός ο παίκτης αυξάνει/μειώνει τεχνητά τη βαθμολογία</string>
-  <string name="openingExplorer">Εξερευνητής ανοιγμάτων και τελειωμάτων</string>
   <string name="takeback">Ανάκληση κίνησης</string>
   <string name="proposeATakeback">Προσφέρετε ανάκληση της προηγούμενης κίνησης</string>
   <string name="takebackPropositionSent">Προσφορά ανάκλησης κίνησης εστάλη</string>
