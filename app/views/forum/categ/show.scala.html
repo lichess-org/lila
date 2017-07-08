@@ -1,4 +1,4 @@
-@(categ: lila.forum.Categ, topics: Paginator[lila.forum.TopicView], canWrite: Boolean, stickyPosts: Option[List[lila.forum.TopicView]])(implicit ctx: Context)
+@(categ: lila.forum.Categ, topics: Paginator[lila.forum.TopicView], canWrite: Boolean, stickyPosts: List[lila.forum.TopicView])(implicit ctx: Context)
 
 @newTopicButton = {
 @if(canWrite) {
@@ -46,8 +46,7 @@ description = categ.desc).some) {
       </tr>
     </thead>
     <tbody>
-      @stickyPosts.map { postList =>
-      @postList.map { topic =>
+      @stickyPosts.map { topic =>
       <tr>
         <td class="subject"><a href="@routes.ForumTopic.show(categ.slug, topic.slug)" class="sticky"><span data-icon="&#xe005;" title="Sticky"></span>@topic.name</a></td>
         <td class="right">@topic.views.localize</td>
@@ -58,7 +57,6 @@ description = categ.desc).some) {
           }
         </td>
       </tr>
-      }
       }
       @topics.currentPageResults.map { topic =>
       <tr>
