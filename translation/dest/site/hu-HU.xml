@@ -48,6 +48,7 @@
   <string name="computerAnalysis">Gépi elemzés</string>
   <string name="computerAnalysisAvailable">Számítógépes elemzés elérhető</string>
   <string name="analysis">Elemző tábla</string>
+  <string name="inLocalBrowser">a böngészőben</string>
   <string name="blunders">Súlyos hibák</string>
   <string name="mistakes">Hibák</string>
   <string name="inaccuracies">Pontatlanságok</string>
@@ -150,6 +151,7 @@
   <string name="play">Játék</string>
   <string name="inbox">Beérkező üzenetek</string>
   <string name="chatRoom">Csevegő</string>
+  <string name="loginToChat">Jelentkezz be a chateléshez</string>
   <string name="spectatorRoom">Figyelő szoba</string>
   <string name="composeMessage">Üzenet írása</string>
   <string name="noNewMessages">Nincs új üzenet</string>
@@ -285,6 +287,11 @@
   <string name="createdBy">Készítette:</string>
   <string name="tournamentIsStarting">A verseny kezdődik</string>
   <string name="youArePlaying">Te következel!</string>
+  <string name="winRate">Nyerési arány</string>
+  <string name="performance">Teljesítmény</string>
+  <string name="whiteWins">Világos győzelmek</string>
+  <string name="blackWins">Sötét győzelmek</string>
+  <string name="draws">Döntetlenek</string>
   <string name="membersOnly">Csak tagoknak</string>
   <string name="boardEditor">Táblaszerkesztő</string>
   <string name="startPosition">Kezdő pozíció</string>

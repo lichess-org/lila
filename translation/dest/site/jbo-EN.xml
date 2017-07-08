@@ -327,7 +327,7 @@
   <string name="puzzles">lo namkei</string>
   <string name="coordinates">lo kurme\'e</string>
   <string name="latestUpdates">cnino nunstika</string>
-  <string name="tournamentWinners">lo jinga be lo torneio</string>
+  <string name="tournamentWinners">lo jinga be fo lo torneio</string>
   <string name="name">lo cmene</string>
   <string name="description">velski</string>
   <string name="no">na go\'i</string>
@@ -462,14 +462,21 @@
   <string name="watch">zgana</string>
   <string name="internationalEvents">lo gugykruca fasnu</string>
   <string name="videoLibrary">kinsro</string>
+  <string name="simultaneousExhibitions">cabysi\'u nuntigni</string>
+  <string name="noSimulExplanation">ti noi cabysi\'u nuntigni cu na zasti</string>
   <string name="create">finti</string>
   <string name="tournamentOfficial">ca\'iselzau</string>
   <string name="yourPerfTypeRatingIsRating">nilcre do la\'o zoi. %1$s .zoi fa li %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">do cremau lo %1$s si\'e be loi kelci be la\'o zoi. %2$s .zoi</string>
   <string name="checkYourEmail">ko catlu lo se samymri be fi do</string>
   <string name="confirmResignation">tolna\'e lo du\'u randa</string>
+  <string name="inputMovesWithTheKeyboard">jarco tu\'a lo nunmu\'u se pi\'o lo batkyfoi</string>
   <string name="playChessEverywhere">fe\'e ro roi ku jvikei lo caxmati</string>
   <string name="asFreeAsLichess">nonseldi\'a du\'i la .litces.</string>
   <string name="zeroAdvertisement">no gubnoi</string>
   <string name="viewTheSolution">viska lo danfu</string>
+  <plurals name="availableInNbLanguages">
+    <item quantity="other">se sabji bau %s da</item>
+  </plurals>
+  <string name="language">bangu</string>
 </resources>

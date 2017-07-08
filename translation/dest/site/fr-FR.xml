@@ -48,6 +48,15 @@
   <string name="computerAnalysis">Analyse de l\'ordinateur</string>
   <string name="computerAnalysisAvailable">Analyse de l\'ordinateur disponible</string>
   <string name="analysis">Échiquier d\'analyse</string>
+  <string name="depthX">Profondeur %s</string>
+  <string name="usingServerAnalysis">Utiliser l’analyse de serveur</string>
+  <string name="loadingEngine">Moteur de chargement...</string>
+  <string name="cloudAnalysis">Analyse du nuage</string>
+  <string name="cloud">Nuage</string>
+  <string name="goDeeper">Aller plus loin</string>
+  <string name="showThreat">Voir la menace</string>
+  <string name="inLocalBrowser">dans le navigateur local</string>
+  <string name="toggleLocalEvaluation">Activer/désactiver l\'évaluation locale</string>
   <string name="blunders">Gaffes</string>
   <string name="mistakes">Erreurs</string>
   <string name="inaccuracies">Imprécisions</string>
@@ -150,6 +159,8 @@
   <string name="play">Jouer</string>
   <string name="inbox">Boîte de réception</string>
   <string name="chatRoom">Salon de discussion</string>
+  <string name="loginToChat">Se connecter au chat</string>
+  <string name="youHaveBeenTimedOut">Vous avez été déconnecté.</string>
   <string name="spectatorRoom">Salon des spectateurs</string>
   <string name="composeMessage">Écrire un message</string>
   <string name="noNewMessages">Aucun nouveau message</string>
@@ -159,6 +170,10 @@
   <string name="incrementInSeconds">Incrément en secondes</string>
   <string name="freeOnlineChess">Jeu d\'échecs gratuit en ligne</string>
   <string name="spectators">Spectateurs :</string>
+  <plurals name="nbGamesPlayed">
+    <item quantity="one">%s jeux joué</item>
+    <item quantity="other">%s jeu joué</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s victoire</item>
     <item quantity="other">%s victoires</item>
@@ -287,6 +302,16 @@
   <string name="tournamentPairingsAreNowClosed">Les appariements du tournoi sont maintenant terminés.</string>
   <string name="standByX">Appariements des joueurs, tenez-vous prêt %s !</string>
   <string name="youArePlaying">Vous êtes en train de jouer !</string>
+  <string name="winRate">Taux de victoire</string>
+  <string name="berserkRate">Taux de Berserk</string>
+  <string name="performance">Performances</string>
+  <string name="tournamentComplete">Tournoi complet</string>
+  <string name="movesPlayed">Parties jouées</string>
+  <string name="whiteWins">Les blancs gagnent</string>
+  <string name="blackWins">Victoire des noirs</string>
+  <string name="nextXTournament">Prochains tournois dans %s:</string>
+  <string name="viewMoreTournaments">Découvre plus de tournois</string>
+  <string name="averageOpponent">Adversaire moyen</string>
   <string name="membersOnly">Membres seulement</string>
   <string name="boardEditor">Éditeur de partie</string>
   <string name="startPosition">Position de départ</string>

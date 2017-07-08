@@ -46,6 +46,7 @@
   <string name="viewTheComputerAnalysis">Se computeranalysen</string>
   <string name="requestAComputerAnalysis">Anmod om en computeranalyse</string>
   <string name="computerAnalysis">Computeranalyse</string>
+  <string name="computerAnalysisAvailable">Computer analyse klar</string>
   <string name="analysis">Analyse</string>
   <string name="blunders">Brølere</string>
   <string name="mistakes">Fejl</string>
@@ -286,6 +287,10 @@
   <string name="tournamentPairingsAreNowClosed">Pardannelsen til turneringen er nu lukket.</string>
   <string name="standByX">Hold dig til %s, danner par med andre spillere – gør dig klar!</string>
   <string name="youArePlaying">Du spiller nu!</string>
+  <string name="performance">Ydelse</string>
+  <string name="whiteWins">Hvid vinder</string>
+  <string name="blackWins">Sort vinder</string>
+  <string name="draws">Remis</string>
   <string name="membersOnly">Kun for medlemmer</string>
   <string name="boardEditor">Rediger stilling</string>
   <string name="startPosition">Udgangsstilling</string>
@@ -295,6 +300,7 @@
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Rapporter %s til administratorer</string>
   <string name="profileCompletion">Profil færdiggørelse: %s</string>
+  <string name="ifNoneLeaveEmpty">Hvis ingen, efterlad tom</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Redigér profil</string>
   <string name="firstName">Fornavn</string>
@@ -400,6 +406,7 @@
   <string name="pieceDestinations">Brikdestinationer (gyldige træk og pre-træk)</string>
   <string name="boardCoordinates">Brætkoordinater (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Trækliste mens der spilles</string>
+  <string name="pgnLetter">Bogstaver (K, Q, R, B, N)</string>
   <string name="chessClock">Skakur</string>
   <string name="tenthsOfSeconds">Tiendedelesekunder</string>
   <string name="never">Aldrig</string>
@@ -407,6 +414,7 @@
   <string name="horizontalGreenProgressBars">Horisontale grønne statuslinjer</string>
   <string name="soundWhenTimeGetsCritical">Lyd, når tiden bliver kritisk</string>
   <string name="gameBehavior">Spil adfærd</string>
+  <string name="bothClicksAndDrag">Begge dele</string>
   <string name="premovesPlayingDuringOpponentTurn">Pre-træk (spilles på modstanderens tur)</string>
   <string name="takebacksWithOpponentApproval">Fortrydelse af træk (med modstanderens accept)</string>
   <string name="promoteToQueenAutomatically">Forfrem til Dronning automatisk</string>
@@ -414,6 +422,7 @@
   <string name="privacy">Privat</string>
   <string name="letOtherPlayersFollowYou">Lad andre spillere følge dig</string>
   <string name="letOtherPlayersChallengeYou">Lad andre spillere udfordre dig</string>
+  <string name="letOtherPlayersInviteYouToStudy">Lad andre spillere inviterer dig til at studere</string>
   <string name="sound">Lyd</string>
   <string name="yourPreferencesHaveBeenSaved">Dine præferencer er blevet gemt.</string>
   <string name="none">Ingen</string>
@@ -559,9 +568,22 @@
   <string name="analysisShapesHowTo">Tryk shift + klik eller højreklik for at tegne cirkler og pile på brættet.</string>
   <string name="confirmResignation">Bekræft at du opgiver</string>
   <string name="letOtherPlayersMessageYou">En anden spiller har en besked til dig</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rokade metode</string>
+  <string name="castleByMovingTwoSquares">Flyt kongen to felter</string>
   <string name="shareYourInsightsData">Del din \"insigts\" data</string>
+  <string name="withNobody">Med ingen</string>
+  <string name="withFriends">Med venner</string>
+  <string name="withEverybody">Med alle</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Du har allerede registreret Email adressen: %s</string>
   <string name="kidMode">Børnetilstand</string>
+  <string name="kidModeExplanation">Dette handler om sikkerhed. I børne tilstand, er alt kommunikation deaktiveret. Aktiver hvis du vil beskytte dine børn eller skolebørn fra at kunne kommunikere med andre internet-brugere.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">I børne tilstand, vil lichess logoet for et %s ikon, så du ved at dine børn er sikret.</string>
+  <string name="enableKidMode">Aktiver børne tilstand</string>
+  <string name="disableKidMode">Deaktiver børne tilstand</string>
+  <string name="security">Sikkerhed</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Dette er en liste over enheder, der har logget ind på din konto, Tilbagekald enhver session du ikke genkender.</string>
+  <string name="alternativelyYouCanX">Alternativt kan du %s.</string>
+  <string name="revokeAllSessions">tilbagekald alle sessioner</string>
   <string name="playChessEverywhere">Spil skak hvor som helst</string>
   <string name="asFreeAsLichess">Free som lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Bygget af kærlighed for skak, ikke penge</string>
@@ -580,4 +602,21 @@
     <item quantity="other">Tilgængelig i %s sprog!</item>
   </plurals>
   <string name="gameAnalysis">Spilanalyse</string>
+  <string name="quickPairing">Hurtig parring</string>
+  <string name="lobby">Lobbyen</string>
+  <string name="language">Sprog</string>
+  <string name="background">Baggrund</string>
+  <string name="usernameAlreadyUsed">Dette brugernavn er allerede i brug. Vælg venligst et andet og prøv igen.</string>
+  <string name="usernameStartNoNumber">Brugernavnet må ikke begynde med et tal.</string>
+  <string name="usernameUnacceptable">Dette brugernavn er ikke acceptabelt.</string>
+  <string name="chessBasics">Skak basics</string>
+  <string name="coaches">Trænere</string>
+  <string name="invalidPgn">Ugyldig PGN</string>
+  <string name="invalidFen">Ugyldig FEN</string>
+  <string name="error.min">Skal være større eller lig med %s</string>
+  <string name="error.max">Skal være mindre end eller lig med %s</string>
+  <string name="error.unknown">Fejl</string>
+  <string name="custom">Tilpasset</string>
+  <string name="notifications">Meddelelser</string>
+  <string name="challenges">Udfordringer</string>
 </resources>

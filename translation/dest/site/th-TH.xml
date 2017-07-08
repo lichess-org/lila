@@ -48,6 +48,13 @@
   <string name="computerAnalysis">การวิเคราะห์ด้วยคอมพิวเตอร์</string>
   <string name="computerAnalysisAvailable">มีการวิเคราะห์ด้วยคอมพิวเตอร์</string>
   <string name="analysis">กระดานวิเคราะห์</string>
+  <string name="depthX">ความลึก %s</string>
+  <string name="usingServerAnalysis">ใช้การวิเคราะห์เซิร์ฟเวอร์</string>
+  <string name="loadingEngine">กำลังโหลดจักรกล...</string>
+  <string name="cloudAnalysis">การวิเคราะห์คลาวด์</string>
+  <string name="cloud">คลาวด์</string>
+  <string name="goDeeper">ลึกลงอีก</string>
+  <string name="inLocalBrowser">ในเบราว์เซอร์ท้องถิ่น</string>
   <string name="blunders">ความผิดพลาดมหันต์</string>
   <string name="mistakes">ความผิดพลาด</string>
   <string name="inaccuracies">ความไม่ถูกต้อง</string>
@@ -144,6 +151,8 @@
   <string name="play">เล่น</string>
   <string name="inbox">กล่องเข้า</string>
   <string name="chatRoom">กรอบแชท</string>
+  <string name="loginToChat">ลงชื่อเข้าเพื่อแชท</string>
+  <string name="youHaveBeenTimedOut">คุณถูกระงับเวลาแชทช่วงหนึ่ง</string>
   <string name="spectatorRoom">กรอบผู้สังเกตการณ์</string>
   <string name="composeMessage">เขียนข้อความ</string>
   <string name="noNewMessages">ไม่มีข้อความใหม่</string>
@@ -153,6 +162,12 @@
   <string name="incrementInSeconds">วินาทีที่บวกเพิ่ม</string>
   <string name="freeOnlineChess">หมากรุกสากลออนไลน์ฟรี</string>
   <string name="spectators">ผู้สังเกตการณ์:</string>
+  <plurals name="nbGamesPlayed">
+    <item quantity="other">%s เกมที่ได้เล่น</item>
+  </plurals>
+  <plurals name="nbRated">
+    <item quantity="other">%s เกมที่คิดคะแนน</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="other">ชนะ %s</item>
   </plurals>
@@ -272,6 +287,17 @@
   <string name="tournamentPairingsAreNowClosed">ตอนนี้การจับคู่ทัวร์นาเมนต์ได้ปิดแล้ว</string>
   <string name="standByX">พร้อม %s, กำลังจับคู่ผู้เล่น, เตรียมตัว!</string>
   <string name="youArePlaying">คุณกำลังเล่น!</string>
+  <string name="winRate">อัตราชนะ</string>
+  <string name="berserkRate">อัตราเบอร์เซิร์ก</string>
+  <string name="performance">สมรรถนะ</string>
+  <string name="tournamentComplete">ทัวร์นาเมนต์เสร็จสมบูรณ์</string>
+  <string name="movesPlayed">การเดินที่ได้ทำ</string>
+  <string name="whiteWins">ขาวชนะ</string>
+  <string name="blackWins">ดำชนะ</string>
+  <string name="draws">เสมอ</string>
+  <string name="nextXTournament">ทัวร์นาเมนต์ %s ถัดไป:</string>
+  <string name="viewMoreTournaments">ดูทัวร์นาเมนต์เพิ่มเติม</string>
+  <string name="averageOpponent">ค่าเฉลี่ยของคู่แข่ง</string>
   <string name="membersOnly">เฉพาะสมาชิก</string>
   <string name="boardEditor">ตัวแก้ไขกระดาน</string>
   <string name="startPosition">ตำแหน่งเริ่มต้น</string>
@@ -407,7 +433,7 @@
   <string name="privacy">ความเป็นส่วนตัว</string>
   <string name="letOtherPlayersFollowYou">อนุญาตให้ผู้อื่นติดตามคุณได้</string>
   <string name="letOtherPlayersChallengeYou">อนุญาตให้ผู้อื่นท้าดวลเกมกับคุณได้</string>
-  <string name="letOtherPlayersInviteYouToStudy">ให้ผู้เล่นคนอื่นๆ เชิญคุณเพื่อการเรียน</string>
+  <string name="letOtherPlayersInviteYouToStudy">ให้ผู้เล่นคนอื่นๆ เชิญคุณเพื่อทำการศึกษา</string>
   <string name="sound">เสียง</string>
   <string name="yourPreferencesHaveBeenSaved">การตั้งค่าของคุณถูกบันทึกแล้ว</string>
   <string name="none">ไม่มี</string>

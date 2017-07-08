@@ -82,7 +82,7 @@
   <string name="computersAreNotAllowedToPlay">Računala i računalni programi ne smiju igrati. Molimo da ne koristiš pomoć programa, baze podataka ili drugih igrača za vrijeme igranja. Također, imaj na umu da se stvaranje više korisničkih računa ne ohrabruje i da prekomjerno korištenje istih može rezultirati zabranom pristupa.</string>
   <string name="games">Partije</string>
   <string name="forum">Forum</string>
-  <string name="xPostedInForumY">%1$s objavljuje na forumu %2$s</string>
+  <string name="xPostedInForumY">%1$s objavljuje u temi %2$s</string>
   <string name="latestForumPosts">Najnovije objave na forumu</string>
   <string name="players">Igrači</string>
   <string name="minutesPerSide">Minuta po igraču</string>
@@ -156,6 +156,8 @@
   <string name="play">Igraj</string>
   <string name="inbox">Dolazna pošta</string>
   <string name="chatRoom">Pričaonica</string>
+  <string name="loginToChat">Prijavi se da bi chattao/la</string>
+  <string name="youHaveBeenTimedOut">Trenutno ne možeš pričati u chatu.</string>
   <string name="spectatorRoom">Pričaonica za gledatelje</string>
   <string name="composeMessage">Napiši poruku</string>
   <string name="noNewMessages">Nema novih poruka</string>
@@ -165,6 +167,16 @@
   <string name="incrementInSeconds">Dodatak u sekundama</string>
   <string name="freeOnlineChess">Besplatni Internetski Šah</string>
   <string name="spectators">Gledatelji:</string>
+  <plurals name="nbGamesPlayed">
+    <item quantity="one">%s odigrana partija</item>
+    <item quantity="few">%s odigranih partija</item>
+    <item quantity="other">%s odigranih partija</item>
+  </plurals>
+  <plurals name="nbRated">
+    <item quantity="one">%s Za bodove</item>
+    <item quantity="few">%s Za bodove</item>
+    <item quantity="other">%s Za bodove</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s pobjeda</item>
     <item quantity="few">%s pobjeda</item>
@@ -302,6 +314,17 @@
   <string name="tournamentPairingsAreNowClosed">Turnirska uparivanja su završena.</string>
   <string name="standByX">Uparivanje igrača - %s, pripremi se za igru!</string>
   <string name="youArePlaying">Igraš!</string>
+  <string name="winRate">Stopa pobjede</string>
+  <string name="berserkRate">Stopa berserka</string>
+  <string name="performance">Performans</string>
+  <string name="tournamentComplete">Turnir završen</string>
+  <string name="movesPlayed">Poteza igrano</string>
+  <string name="whiteWins">Pobjede bijelog</string>
+  <string name="blackWins">Pobjede crnog</string>
+  <string name="draws">Remi</string>
+  <string name="nextXTournament">Sljedeći %s turnir:</string>
+  <string name="viewMoreTournaments">Vidi više turnira</string>
+  <string name="averageOpponent">Prosječni protivnik</string>
   <string name="membersOnly">Samo za članove</string>
   <string name="boardEditor">Uredi ploču</string>
   <string name="startPosition">Početna pozicija</string>
@@ -327,7 +350,7 @@
   <string name="activeToday">Danas aktivni</string>
   <string name="activePlayers">Aktivni igrači</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Oprez, igra se za bodove ali ne i na vrijeme!</string>
-  <string name="training">Trening</string>
+  <string name="training">Problemi</string>
   <string name="yourPuzzleRatingX">Tvoj rejting u problemima: %s</string>
   <string name="findTheBestMoveForWhite">Nađi najbolji potez za bijelog</string>
   <string name="findTheBestMoveForBlack">Nađi najbolji potez za crnog</string>
@@ -370,7 +393,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Automatski prebaci na sljedeću partiju nakon odigranog poteza</string>
   <string name="autoSwitch">Prebaci automatski</string>
-  <string name="puzzles">Zagonetke</string>
+  <string name="puzzles">Problemi</string>
   <string name="coordinates">Koordinate</string>
   <string name="latestUpdates">Zadnje obavijesti</string>
   <string name="tournamentWinners">Pobjednici turnira</string>
@@ -578,7 +601,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Tvoj %1$s rejting je %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Bolji si od %1$s od %2$s igrača.</string>
-  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nemaš službeni %s rating.</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nemaš službeni %s rejting.</string>
   <string name="checkYourEmail">Provjeri svoj e-mail.</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Poslali smo ti e-mail. Klikni na link u e-mailu kako da aktiviraš svoj račun.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ako ne vidiš email, pogledaj na drugim mjestima (otpad/smeće, neželjena pošta, društvene mreže ili druge mape).</string>
