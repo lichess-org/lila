@@ -77,6 +77,6 @@ object Topic {
     troll = troll,
     closed = false,
     hidden = hidden,
-    sticky = Some(false)
+    sticky = None
   )
 }
