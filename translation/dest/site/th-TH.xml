@@ -55,6 +55,7 @@
   <string name="cloud">คลาวด์</string>
   <string name="goDeeper">ลึกลงอีก</string>
   <string name="inLocalBrowser">ในเบราว์เซอร์ท้องถิ่น</string>
+  <string name="openingExplorer">ตัวสำรวจการเปิดเกม</string>
   <string name="blunders">ความผิดพลาดมหันต์</string>
   <string name="mistakes">ความผิดพลาด</string>
   <string name="inaccuracies">ความไม่ถูกต้อง</string>
@@ -184,7 +185,6 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">ผู้เล่นรายนี้ใช้การช่วยเหลือจากคอมพิวเตอร์หมากรุก</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">ผู้เล่นรายนี้เพิ่ม/ลดระดับคะแนนตัวเองโดยทุจริต</string>
-  <string name="openingExplorer">ตัวสำรวจการเปิดเกม</string>
   <string name="takeback">เดินใหม่</string>
   <string name="proposeATakeback">ขอเดินใหม่</string>
   <string name="takebackPropositionSent">การขอเดินใหม่ ถูกส่ง</string>
