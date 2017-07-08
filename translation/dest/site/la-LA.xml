@@ -47,6 +47,7 @@
   <string name="requestAComputerAnalysis">Quaerere analysim computatoris</string>
   <string name="computerAnalysis">Analysis computoris</string>
   <string name="analysis">Explicare</string>
+  <string name="openingExplorer">Explicatio initiorum</string>
   <string name="blunders">Errata gravia</string>
   <string name="mistakes">Errata</string>
   <string name="inaccuracies">Menda</string>
@@ -182,7 +183,6 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Hic lusor computatralium scaccorum auxilio utitur</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Hic lusor statum falso crescit/decrescit</string>
-  <string name="openingExplorer">Explicatio initiorum</string>
   <string name="takeback">Reversio motus</string>
   <string name="proposeATakeback">Motus reversionem offere</string>
   <string name="takebackPropositionSent">Missa est motus reversionis conditio</string>
