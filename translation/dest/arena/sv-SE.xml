@@ -11,9 +11,7 @@
 
 Till exemple, 2 vinster följt av en remi är värt 6 poäng: 2 + 2 + (2 *1)</string>
   <string name="berserk">Arena Berserk</string>
-  <string name="berserkAnswer">När en spelare klickar på Berserk-knappen i början av partiet, halveras dennes betänketid, men en vinst blir värd en extra turneringspoäng.
-
-Att gå Berserk vid tidskontroller med tidstillägg medför också att tidstillägget förloras. (1+2 är ett undantag, vilket blir 1+0)
+  <string name="berserkAnswer">När en spelare klickar på Berserk-knappen i början av partiet, halveras dennes betänketid, men en vinst blir värd en extra turneringspoäng. Att gå Berserk vid tidskontroller med tidstillägg medför också att tidstillägget förloras. (1+2 är ett undantag, vilket blir 1+0)
 
 Berserk är ej möjligt för partier med 0 i initialtid (0+1, 0+2).
 
