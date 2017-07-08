@@ -9,7 +9,7 @@ import attributes from 'snabbdom/modules/attributes';
 
 import { RoundOpts } from './interfaces';
 import RoundController from './ctrl';
-import view = require('./view/main');
+import { main as view } from './view/main';
 import boot = require('./boot');
 
 const patch = init([klass, attributes]);
@@ -19,12 +19,12 @@ export function app(opts: RoundOpts) {
   let vnode: VNode, ctrl: RoundController;
 
   function redraw() {
-    vnode = patch(vnode, view.main(ctrl));
+    vnode = patch(vnode, view(ctrl));
   }
 
   ctrl = new RoundController(opts, redraw);
 
-  const blueprint = view.main(ctrl);
+  const blueprint = view(ctrl);
   opts.element.innerHTML = '';
   vnode = patch(opts.element, blueprint);
 

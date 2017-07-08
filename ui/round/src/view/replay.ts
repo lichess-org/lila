@@ -96,13 +96,14 @@ function renderMoves(ctrl: RoundController): MaybeVNodes {
 }
 
 function analyseButton(ctrl: RoundController) {
-  const showInfo = ctrl.forecastInfo();
+  const showInfo = ctrl.forecastInfo(),
+  forecastCount = ctrl.data.forecastCount;
   const data: VNodeData = {
     class: {
       'hint--top': !showInfo,
       'hint--bottom': showInfo,
       'glowed': showInfo,
-      'text': !!ctrl.data.forecastCount
+      'text': !!forecastCount
     },
     attrs: {
       'data-hint': ctrl.trans.noarg('analysis'),
@@ -123,9 +124,9 @@ function analyseButton(ctrl: RoundController) {
     h('a.fbt.analysis', data, [
       h('span', {
         attrs: util.dataIcon('A'),
-        class: {text: !!ctrl.data.forecastCount}
+        class: {text: !!forecastCount}
       }),
-      '' + ctrl.data.forecastCount
+      forecastCount ? '' + forecastCount : undefined
     ]),
     showInfo ? h('div.forecast-info.info.none', [
       h('strong.title.text', { attrs: util.dataIcon('') }, 'Speed up your game!'),

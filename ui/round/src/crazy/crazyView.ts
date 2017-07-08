@@ -1,23 +1,24 @@
+import { h } from 'snabbdom'
 import * as round from '../round';
 import { drag } from './crazyCtrl';
 import { game } from 'game';
 import * as cg from 'chessground/types';
-
-import { h } from 'snabbdom'
+import RoundController from '../ctrl';
+import { Position } from '../interfaces';
 
 const eventNames = ['mousedown', 'touchstart'];
-const pieceRoles = ['pawn', 'knight', 'bishop', 'rook', 'queen'];
+const pieceRoles: cg.Role[] = ['pawn', 'knight', 'bishop', 'rook', 'queen'];
 
-export default function pocket(ctrl, color, position) {
-  var step = round.plyStep(ctrl.data, ctrl.vm.ply);
+export default function pocket(ctrl: RoundController, color: Color, position: Position) {
+  const step = round.plyStep(ctrl.data, ctrl.ply);
   if (!step.crazy) return;
-  const droppedRole = ctrl.vm.justDropped,
-  preDropRole = ctrl.vm.preDrop,
+  const droppedRole = ctrl.justDropped,
+  preDropRole = ctrl.preDrop,
   pocket = step.crazy.pockets[color === 'white' ? 0 : 1],
-  usablePos = position === (ctrl.vm.flip ? 'top' : 'bottom'),
+  usablePos = position === (ctrl.flip ? 'top' : 'bottom'),
   usable = usablePos && !ctrl.replaying() && game.isPlayerPlaying(ctrl.data),
   activeColor = color === ctrl.data.player.color;
-  let captured = ctrl.vm.justCaptured;
+  let captured = ctrl.justCaptured;
   if (captured) captured = captured.promoted ? 'pawn' : captured.role;
   return h('div.pocket.is2d.' + position, {
     class: { usable },
@@ -25,7 +26,7 @@ export default function pocket(ctrl, color, position) {
       insert: vnode => {
         eventNames.forEach(name => {
           (vnode.elm as HTMLElement).addEventListener(name, (e: cg.MouchEvent) => {
-            if (position === (ctrl.vm.flip ? 'top' : 'bottom')) drag(ctrl, e);
+            if (position === (ctrl.flip ? 'top' : 'bottom')) drag(ctrl, e);
           })
         });
       }
@@ -45,4 +46,4 @@ export default function pocket(ctrl, color, position) {
       }
     });
   }));
-};
+}

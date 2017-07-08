@@ -391,8 +391,8 @@ chalk@^1.0.0, chalk@^1.1.1:
     supports-color "^2.0.0"
 
 chessground@^6.5:
-  version "6.5.4"
-  resolved "https://registry.yarnpkg.com/chessground/-/chessground-6.5.4.tgz#19c2f2dca3b29e352920d249823c3a89aaa62998"
+  version "6.5.6"
+  resolved "https://registry.yarnpkg.com/chessground/-/chessground-6.5.6.tgz#a4b499cc7bb4bcd9684b7ef449c702862bf23fc9"
 
 chokidar@^1.0.0:
   version "1.7.0"

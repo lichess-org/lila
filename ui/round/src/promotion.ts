@@ -22,14 +22,14 @@ function sendPromotion(ctrl: RoundController, orig: cg.Key, dest: cg.Key, role: 
   return true;
 }
 
-export function start(ctrl: RoundController, orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata): boolean {
+export function start(ctrl: RoundController, orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata = {} as cg.MoveMetadata): boolean {
   const d = ctrl.data,
   piece = ctrl.chessground.state.pieces[dest],
   premovePiece = ctrl.chessground.state.pieces[orig];
   if (((piece && piece.role === 'pawn') || (premovePiece && premovePiece.role === 'pawn')) && (
     (dest[1] === '8' && d.player.color === 'white') ||
       (dest[1] === '1' && d.player.color === 'black'))) {
-    if (prePromotionRole && meta.premove) return sendPromotion(ctrl, orig, dest, prePromotionRole, meta);
+    if (prePromotionRole && meta && meta.premove) return sendPromotion(ctrl, orig, dest, prePromotionRole, meta);
     if (!meta.ctrlKey && !promoting && (d.pref.autoQueen === 3 || (d.pref.autoQueen === 2 && premovePiece))) {
       if (premovePiece) setPrePromotion(ctrl, dest, 'queen');
       else sendPromotion(ctrl, orig, dest, 'queen', meta);
@@ -118,7 +118,7 @@ const roles: cg.Role[] = ['queen', 'knight', 'rook', 'bishop'];
 export function view(ctrl: RoundController) {
   if (!promoting) return;
 
-  return renderPromotion(ctrl, promoting.move[1], 
+  return renderPromotion(ctrl, promoting.move[1],
     ctrl.data.game.variant.key === 'antichess' ? roles.concat('king') : roles,
     ctrl.data.player.color,
     ctrl.chessground.state.orientation);

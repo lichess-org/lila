@@ -2,17 +2,18 @@ import { Chessground } from 'chessground';
 import { Config } from 'chessground/config'
 import { game } from 'game';
 import * as util from './util';
-import * as round from './round';
+import { plyStep } from './round';
+import RoundController from './ctrl';
 
 import { h } from 'snabbdom'
 
-function makeConfig(ctrl): Config {
+function makeConfig(ctrl: RoundController): Config {
   const data = ctrl.data, hooks = ctrl.makeCgHooks(),
-  step = round.plyStep(data, ctrl.vm.ply),
+  step = plyStep(data, ctrl.ply),
   playing = game.isPlayerPlaying(data);
   return {
     fen: step.fen,
-    orientation: boardOrientation(data, ctrl.vm.flip),
+    orientation: boardOrientation(data, ctrl.flip),
     turnColor: step.ply % 2 === 0 ? 'white' : 'black',
     lastMove: util.uci2move(step.uci),
     check: !!step.check,
@@ -29,7 +30,7 @@ function makeConfig(ctrl): Config {
     },
     movable: {
       free: false,
-      color: playing ? data.player.color : null,
+      color: playing ? data.player.color : undefined,
       dests: playing ? util.parsePossibleMoves(data.possibleMoves) : {},
       showDests: data.pref.destination,
       rookCastle: data.pref.rookCastle,
@@ -55,7 +56,7 @@ function makeConfig(ctrl): Config {
       enabled: data.pref.enablePremove && data.game.variant.key === 'crazyhouse',
       events: {
         set: hooks.onPredrop,
-        unset: hooks.onPredrop
+        unset() { hooks.onPredrop(undefined) }
       }
     },
     draggable: {

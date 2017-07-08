@@ -8,6 +8,7 @@ import { Untyped } from './interfaces';
 const li = window.lichess;
 
 export interface RoundSocket extends Untyped {
+  send: SocketSend;
   handlers: Untyped;
   moreTime(): void;
   outoftime(): void;
@@ -108,6 +109,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
   li.pubsub.on('ab.rep', n => send('rep', { n: n }));
 
   return {
+    send,
     handlers,
     moreTime: throttle(300, false, () => send('moretime')),
     outoftime: throttle(500, false, () => send('flag', ctrl.data.game.player)),

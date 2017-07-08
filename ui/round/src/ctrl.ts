@@ -131,7 +131,7 @@ import {
       } else this.jump(this.ply);
     };
 
-    private onMove = (_: cg.Key, dest: cg.Key, captured: boolean) => {
+    private onMove = (_: cg.Key, dest: cg.Key, captured?: cg.Piece) => {
       if (captured) {
         if (this.data.game.variant.key === 'atomic') {
           sound.explode();
@@ -148,7 +148,7 @@ import {
       promotion.cancelPrePromotion(this);
     };
 
-    private onPredrop = (role: cg.Role) => {
+    private onPredrop = (role: cg.Role | undefined, _?: Key) => {
       this.preDrop = role;
       this.redraw();
     };
