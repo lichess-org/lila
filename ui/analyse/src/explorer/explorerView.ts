@@ -49,9 +49,9 @@ function showMoveTable(ctrl: AnalyseController, moves, fen: Fen): VNode | null {
   return h('table.moves', [
     h('thead', [
       h('tr', [
-        h('th', 'Move'),
-        h('th', 'Games'),
-        h('th', 'White / Draw / Black')
+        h('th', ctrl.trans.noarg('move')),
+        h('th', ctrl.trans.noarg('games')),
+        h('th', ctrl.trans.noarg('whiteDrawBlack'))
       ])
     ]),
     h('tbody', moveTableAttributes(ctrl, fen), moves.map(function(move) {
@@ -59,7 +59,7 @@ function showMoveTable(ctrl: AnalyseController, moves, fen: Fen): VNode | null {
         key: move.uci,
         attrs: {
           'data-uci': move.uci,
-          title: 'Average rating: ' + move.averageRating
+          title: ctrl.trans('averageRatingX', move.averageRating)
         }
       }, [
         h('td', move.san[0] === 'P' ? move.san.slice(1) : move.san),
@@ -76,12 +76,12 @@ function showResult(winner: Color): VNode {
   return h('result.draws', '½-½');
 }
 
-function showGameTable(ctrl: AnalyseController, type: string, games): VNode | null {
+function showGameTable(ctrl: AnalyseController, title: string, games): VNode | null {
   if (!ctrl.explorer.withGames || !games.length) return null;
   return h('table.games', [
     h('thead', [
       h('tr', [
-        h('th', { attrs: { colspan: 4 } }, type + ' games')
+        h('th', { attrs: { colspan: 4 } }, title)
       ])
     ]),
     h('tbody', {
@@ -124,7 +124,7 @@ function showTablebase(ctrl: AnalyseController, title: string, moves, fen: Fen):
           attrs: { 'data-uci': move.uci }
         }, [
           h('td', move.san),
-          h('td', [showDtz(stm, move), showDtm(stm, move)])
+          h('td', [showDtz(ctrl, stm, move), showDtm(ctrl, stm, move)])
         ]);
       }))
     ])
@@ -138,28 +138,28 @@ function winner(stm, move): Color | undefined {
     return 'black';
 }
 
-function showDtm(stm, move) {
+function showDtm(ctrl: AnalyseController, stm, move) {
   if (move.dtm) return h('result.' + winner(stm, move), {
     attrs: {
-      title: 'Mate in ' + Math.abs(move.dtm) + ' half-moves (Depth To Mate)'
+      title: ctrl.trans.plural('mateInXHalfMoves', Math.abs(move.dtm)) + ' (Depth To Mate)'
     }
   }, 'DTM ' + Math.abs(move.dtm));
 }
 
-function showDtz(stm, move): VNode | null {
-  if (move.checkmate) return h('result.' + winner(stm, move), 'Checkmate');
-  else if (move.stalemate) return h('result.draws', 'Stalemate');
-  else if (move.variant_win) return h('result.' + winner(stm, move), 'Variant loss');
-  else if (move.variant_loss) return h('result.' + winner(stm, move), 'Variant win');
-  else if (move.insufficient_material) return h('result.draws', 'Insufficient material');
+function showDtz(ctrl: AnalyseController, stm, move): VNode | null {
+  if (move.checkmate) return h('result.' + winner(stm, move), ctrl.trans.noarg('checkmate'));
+  else if (move.stalemate) return h('result.draws', ctrl.trans.noarg('stalemate'));
+  else if (move.variant_win) return h('result.' + winner(stm, move), ctrl.trans.noarg('variantLoss'));
+  else if (move.variant_loss) return h('result.' + winner(stm, move), ctrl.trans.noarg('variantWin'));
+  else if (move.insufficient_material) return h('result.draws', ctrl.trans.noarg('insufficientMaterial'));
   else if (move.dtz === null) return null;
-  else if (move.dtz === 0) return h('result.draws', 'Draw');
+  else if (move.dtz === 0) return h('result.draws', ctrl.trans.noarg('draw'));
   else if (move.zeroing) return move.san.indexOf('x') !== -1 ?
-  h('result.' + winner(stm, move), 'Capture') :
-  h('result.' + winner(stm, move), 'Pawn move');
+  h('result.' + winner(stm, move), ctrl.trans.noarg('capture')) :
+  h('result.' + winner(stm, move), ctrl.trans.noarg('pawnMove'));
   return h('result.' + winner(stm, move), {
     attrs: {
-      title: 'Next capture or pawn move in ' + Math.abs(move.dtz) + ' half-moves (Distance To Zeroing of the 50 move counter)'
+      title: ctrl.trans.plural('nextCaptureOrPawnMoveInXHalfMoves', Math.abs(move.dtz))
     }
   }, 'DTZ ' + Math.abs(move.dtz));
 }
@@ -168,18 +168,18 @@ function closeButton(ctrl: AnalyseController): VNode {
   return h('button.button.text', {
     attrs: dataIcon('L'),
     hook: bind('click', ctrl.toggleExplorer, ctrl.redraw)
-  }, 'Close');
+  }, ctrl.trans.noarg('close'));
 }
 
 function showEmpty(ctrl: AnalyseController): VNode {
   return h('div.data.empty', [
-    h('div.title', showTitle(ctrl.data.game.variant)),
+    h('div.title', showTitle(ctrl, ctrl.data.game.variant)),
     h('div.message', [
-      h('h3', "No game found"),
+      h('h3', ctrl.trans.noarg('noGameFound')),
       h('p.explanation',
         ctrl.explorer.config.fullHouse() ?
-        "Already searching through all available games." :
-        "Maybe include more games from the preferences menu?"),
+        ctrl.trans.noarg('alreadySearchingThroughAllAvailableGames') :
+        ctrl.trans.noarg('maybeIncludeMoreGamesFromThePreferencesMenu')),
       closeButton(ctrl)
     ])
   ]);
@@ -187,7 +187,7 @@ function showEmpty(ctrl: AnalyseController): VNode {
 
 function showGameEnd(ctrl: AnalyseController, title: string): VNode {
   return h('div.data.empty', [
-    h('div.title', "Game over"),
+    h('div.title', ctrl.trans.noarg('gameOver')),
     h('div.message', [
       h('i', { attrs: dataIcon('') }),
       h('h3', title),
@@ -200,46 +200,46 @@ function show(ctrl) {
   var data = ctrl.explorer.current();
   if (data && data.opening) {
     var moveTable = showMoveTable(ctrl, data.moves, data.fen);
-    var recentTable = showGameTable(ctrl, 'recent', data['recentGames'] || []);
-    var topTable = showGameTable(ctrl, 'top', data['topGames'] || []);
+    var recentTable = showGameTable(ctrl, ctrl.trans.noarg('recentGames'), data['recentGames'] || []);
+    var topTable = showGameTable(ctrl, ctrl.trans.noarg('topGames'), data['topGames'] || []);
     if (moveTable || recentTable || topTable) lastShow = h('div.data', [moveTable, topTable, recentTable]);
     else lastShow = showEmpty(ctrl);
   } else if (data && data.tablebase) {
     const moves = data.moves;
     if (moves.length) lastShow = h('div.data', [
-      ['Winning', m => m.wdl === -2],
-      ['Unknown', m => m.wdl === null],
-      ['Win prevented by 50-move rule', m => m.wdl === -1],
-      ['Drawn', m => m.wdl === 0],
-      ['Loss saved by 50-move rule', m => m.wdl === 1],
-      ['Losing', m => m.wdl === 2],
+      [ctrl.trans.noarg('winning'), m => m.wdl === -2],
+      [ctrl.trans.noarg('unknown'), m => m.wdl === null],
+      [ctrl.trans.noarg('winPreventedBy50MoveRule'), m => m.wdl === -1],
+      [ctrl.trans.noarg('drawn'), m => m.wdl === 0],
+      [ctrl.trans.noarg('lossSavedBy50MoveRule'), m => m.wdl === 1],
+      [ctrl.trans.noarg('losing'), m => m.wdl === 2],
     ].map(a => showTablebase(ctrl, a[0] as string, moves.filter(a[1]), data.fen))
       .reduce(function(a, b) { return a.concat(b); }, []))
-    else if (data.checkmate) lastShow = showGameEnd(ctrl, 'Checkmate')
-      else if (data.stalemate) lastShow = showGameEnd(ctrl, 'Stalemate')
-        else if (data.variant_win || data.variant_loss) lastShow = showGameEnd(ctrl, 'Variant end');
+    else if (data.checkmate) lastShow = showGameEnd(ctrl, ctrl.trans.noarg('checkmate'))
+      else if (data.stalemate) lastShow = showGameEnd(ctrl, ctrl.trans.noarg('stalemate'))
+        else if (data.variant_win || data.variant_loss) lastShow = showGameEnd(ctrl, ctrl.trans.noarg('variantEnding'));
       else lastShow = showEmpty(ctrl);
   }
   return lastShow;
 }
 
-function showTitle(variant: Variant) {
-  if (variant.key === 'standard' || variant.key === 'fromPosition') return 'Opening explorer';
-  return variant.name + ' opening explorer';
+function showTitle(ctrl: AnalyseController, variant: Variant) {
+  if (variant.key === 'standard' || variant.key === 'fromPosition') return ctrl.trans.noarg('openingExplorer');
+  return ctrl.trans('xOpeningExplorer', variant.name);
 }
 
 function showConfig(ctrl: AnalyseController): VNode {
   return h('div.config', [
-    h('div.title', showTitle(ctrl.data.game.variant))
+    h('div.title', showTitle(ctrl, ctrl.data.game.variant))
   ].concat(renderConfig(ctrl.explorer.config)));
 }
 
 function showFailing(ctrl) {
   return h('div.data.empty', [
-    h('div.title', showTitle(ctrl.data.game.variant)),
+    h('div.title', showTitle(ctrl, ctrl.data.game.variant)),
     h('div.failing.message', [
-      h('h3', 'Oops, sorry!'),
-      h('p.explanation', 'The explorer is temporarily out of service. Try again soon!'),
+      h('h3', "Oops, sorry!"),
+      h('p.explanation', "The explorer is temporarily out of service. Try again soon!"),
       closeButton(ctrl)
     ])
   ]);

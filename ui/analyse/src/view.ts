@@ -186,7 +186,7 @@ function buttons(ctrl) {
     ] : [
       h('button.hint--bottom', {
         attrs: {
-          'data-hint': ctrl.trans('openingExplorer'),
+          'data-hint': ctrl.trans('openingExplorerAndTablebase'),
           'data-act': 'explorer'
         },
         class: {
