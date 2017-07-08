@@ -103,6 +103,10 @@ final class ModlogApi(coll: Coll) {
     Modlog(mod, user.some, Modlog.kickFromRankings)
   }
 
+  def reportban(mod: String, user: String, v: Boolean) = add {
+    Modlog(mod, user.some, v.fold(Modlog.reportban, Modlog.unreportban))
+  }
+
   def modMessage(mod: String, user: String, subject: String) = add {
     Modlog(mod, user.some, Modlog.modMessage, details = subject.some)
   }

@@ -2,13 +2,11 @@ export interface GameData {
   game: Game;
   player: Player;
   opponent: Player;
-  spectator: boolean;
+  spectator?: boolean;
   tournament?: Tournament;
   simul?: Simul;
   takebackable: boolean;
   clock?: Clock;
-  analysis?: Analysis;
-  userAnalysis: boolean;
 }
 
 export interface Game {
@@ -41,7 +39,7 @@ export interface Player {
   id: string;
   name: string;
   user: User;
-  spectator: boolean;
+  spectator?: boolean;
   color: Color;
   proposingTakeback: boolean;
   offeringDraw: boolean;
@@ -98,16 +96,4 @@ export type ContinueMode = 'friend' | 'ai';
 
 export interface GameView {
   status(ctrl: Ctrl): string;
-}
-
-export interface Analysis {
-  white: AnalysisSide;
-  black: AnalysisSide;
-}
-
-export interface AnalysisSide {
-  acpl: number;
-  inaccuracy: number;
-  mistake: number;
-  blunder: number;
 }

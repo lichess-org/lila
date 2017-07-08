@@ -303,6 +303,8 @@ object UserRepo {
 
   def setBooster(id: ID, v: Boolean): Funit = coll.updateField($id(id), "booster", v).void
 
+  def setReportban(id: ID, v: Boolean): Funit = coll.updateField($id(id), "reportban", v).void
+
   def toggleIpBan(id: ID) = coll.fetchUpdate[User]($id(id)) { u => $set("ipBan" -> !u.ipBan) }
 
   def toggleKid(user: User) = coll.updateField($id(user.id), "kid", !user.kid)

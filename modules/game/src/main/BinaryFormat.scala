@@ -18,14 +18,14 @@ object BinaryFormat {
   object pgn {
 
     def write(moves: PgnMoves): ByteArray = ByteArray {
-      format.pgn.Binary.writeMoves(moves).get.toArray
+      format.pgn.Binary.writeMoves(moves).get
     }
 
     def read(ba: ByteArray): PgnMoves =
-      format.pgn.Binary.readMoves(ba.value.toList).get
+      format.pgn.Binary.readMoves(ba.value.toList).get.toVector
 
     def read(ba: ByteArray, nb: Int): PgnMoves =
-      format.pgn.Binary.readMoves(ba.value.toList, nb).get
+      format.pgn.Binary.readMoves(ba.value.toList, nb).get.toVector
   }
 
   object clockHistory {
@@ -175,7 +175,7 @@ object BinaryFormat {
 
     def write(clmt: CastleLastMoveTime): ByteArray = {
 
-      val castleInt = clmt.castles.toList.zipWithIndex.foldLeft(0) {
+      val castleInt = clmt.castles.toSeq.zipWithIndex.foldLeft(0) {
         case (acc, (false, _)) => acc
         case (acc, (true, p)) => acc + (1 << (3 - p))
       }

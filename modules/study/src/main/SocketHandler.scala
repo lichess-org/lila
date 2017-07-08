@@ -68,7 +68,7 @@ private[study] final class SocketHandler(
     member: Socket.Member,
     user: Option[User]
   ): Handler.Controller = ({
-    case ("p", o) => socket ! Ping(uid.value, o int "v", o int "l")
+    case ("p", o) => socket ! Ping(uid, o)
     case ("talk", o) => o str "d" foreach { text =>
       member.userId foreach { userId =>
         api.talk(userId, studyId, text, socket)
@@ -137,16 +137,15 @@ private[study] final class SocketHandler(
         }
       }
 
-    // case ("setClock", o) =>
-    //   import chess.Centis
-    //   import MoveOpts.clockReader
-    //   reading[AtPosition](o) { position =>
-    //     (o \ "d" \ "clock").as[Centis] foreach { clock =>
-    //       member.userId foreach { userId =>
-    //         api.setClock(userId, studyId, position.ref, clock, uid)
-    //       }
-    //     }
-    //   }
+    case ("setClock", o) =>
+      import chess.Centis
+      import MoveOpts.clockReader
+      reading[AtPosition](o) { position =>
+        val clock = (o \ "d" \ "clock").asOpt[Centis]
+        member.userId foreach { userId =>
+          api.setClock(userId, studyId, position.ref, clock, uid)
+        }
+      }
 
     case ("addChapter", o) =>
       reading[ChapterMaker.Data](o) { data =>

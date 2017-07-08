@@ -180,7 +180,7 @@ body.dark #practice_app .section > h2 {
 }
 @keyframes soft-bright {
   50%{
-    -webkit-filter: brightness(1.2);
+    filter: brightness(1.2);
   }
 }
 #practice_app .study.ongoing {
@@ -201,7 +201,7 @@ body.dark #practice_app .section > h2 {
 }
 #practice_app a.study.active,
 #practice_app a.study:hover {
-  -webkit-filter: brightness(1.08);
+  filter: brightness(1.08);
   transform: scale(1.02);
   opacity: 1;
 }

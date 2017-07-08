@@ -28,20 +28,19 @@
     "gulp-uglify": "^2",
     "gulp-util": "^3",
     "tsify": "^3",
+    "types": "link:../types",
     "typescript": "^2",
     "vinyl-buffer": "^1",
     "vinyl-source-stream": "^1",
     "watchify": "^3"
   },
   "dependencies": {
-    "autolink-js": "^1.0.2",
     "ceval": "link:../ceval",
     "chess": "link:../chess",
-    "chessground": "^6.4",
+    "chessground": "^6.5",
     "common": "link:../common",
     "game": "link:../game",
-    "mithril": "github:ornicar/mithril.js#lila-vdom-only-2",
-    "tree": "link:../tree",
-    "types": "link:../types"
+    "snabbdom": "ornicar/snabbdom#lichess",
+    "tree": "link:../tree"
   }
 }

@@ -48,9 +48,7 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
 
 export function view(ctrl: SoundCtrl): VNode {
 
-  return h('div.sub.sound', {
-    class: { [ctrl.api.set()]: true }
-  }, [
+  return h('div.sub.sound.' + ctrl.api.set(), [
     header(ctrl.trans('sound'), ctrl.close),
     h('div.content', [
       h('div.slider', { hook: { insert: vn => makeSlider(ctrl, vn) } }),

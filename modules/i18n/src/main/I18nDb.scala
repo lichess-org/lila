@@ -4,10 +4,17 @@ import play.api.i18n.Lang
 
 object I18nDb {
 
-  val all: Messages =
-    lila.common.Chronometer.syncEffect(lila.i18n.db.Registry.load) { lap =>
-      logger.info(s"${lap.millis}ms MessageDb")
-    }
+  sealed trait Ref
+  case object Site extends Ref
+  case object Arena extends Ref
 
-  val langs = all.keySet
+  val site: Messages = lila.i18n.db.site.Registry.load
+  val arena: Messages = lila.i18n.db.arena.Registry.load
+
+  def apply(ref: Ref): Messages = ref match {
+    case Site => site
+    case Arena => arena
+  }
+
+  val langs = site.keySet
 }

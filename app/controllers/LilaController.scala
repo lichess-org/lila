@@ -366,7 +366,7 @@ private[controllers] trait LilaController
   protected def errorsAsJson(form: play.api.data.Form[_])(implicit lang: play.api.i18n.Lang) = {
     val json = Json.toJson(
       form.errors.groupBy(_.key).mapValues { errors =>
-        errors.map(e => lila.i18n.Translator.txt.literal(e.message, e.args, lang))
+        errors.map(e => lila.i18n.Translator.txt.literal(e.message, lila.i18n.I18nDb.Site, e.args, lang))
       }
     )
     json validate jsonGlobalErrorRenamer getOrElse json

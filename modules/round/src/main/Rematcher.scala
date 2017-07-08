@@ -2,7 +2,7 @@ package lila.round
 
 import chess.format.Forsyth
 import chess.variant._
-import chess.{ Game => ChessGame, Board, Color => ChessColor, Castles, Clock }
+import chess.{ Game => ChessGame, Board, Color => ChessColor, Castles, Clock, Situation }
 import ChessColor.{ White, Black }
 
 import lila.game.{ GameRepo, Game, Event, Progress, Pov, Source, AnonCookie, PerfPicker }
@@ -22,19 +22,19 @@ private[round] final class Rematcher(
         game.next.fold(rematchJoin(pov))(rematchExists(pov)),
         rematchCreate(pov)
       )
-    case _ => fuccess(Nil)
+    case _ => fuccess(List(Event.ReloadOwner))
   }
 
   def no(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = pov match {
     case Pov(game, color) if pov.player.isOfferingRematch => proxy.save {
       messenger.system(game, _.rematchOfferCanceled)
       Progress(game) map { g => g.updatePlayer(color, _.removeRematchOffer) }
-    } inject List(Event.ReloadOwner)
+    } inject List(Event.RematchOffer(by = none))
     case Pov(game, color) if pov.opponent.isOfferingRematch => proxy.save {
       messenger.system(game, _.rematchOfferDeclined)
       Progress(game) map { g => g.updatePlayer(!color, _.removeRematchOffer) }
-    } inject List(Event.ReloadOwner)
-    case _ => fuccess(Nil)
+    } inject List(Event.RematchOffer(by = none))
+    case _ => fuccess(List(Event.ReloadOwner))
   }
 
   private def rematchExists(pov: Pov)(nextId: String): Fu[Events] =
@@ -59,7 +59,7 @@ private[round] final class Rematcher(
   private def rematchCreate(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = proxy.save {
     messenger.system(pov.game, _.rematchOfferSent)
     Progress(pov.game) map { g => g.updatePlayer(pov.color, _ offerRematch) }
-  } inject List(Event.ReloadOwner)
+  } inject List(Event.RematchOffer(by = pov.color.some))
 
   private def returnGame(pov: Pov): Fu[Game] = for {
     initialFen <- GameRepo initialFen pov.game
@@ -74,9 +74,12 @@ private[round] final class Rematcher(
     users <- UserRepo byIds pov.game.userIds
   } yield Game.make(
     game = ChessGame(
-      board = Board(pieces, variant = pov.game.variant).withCastles {
-        situation.fold(Castles.init)(_.situation.board.history.castles)
-      },
+      situation = Situation(
+        board = Board(pieces, variant = pov.game.variant).withCastles {
+          situation.fold(Castles.init)(_.situation.board.history.castles)
+        },
+        color = White
+      ),
       clock = pov.game.clock map { c => Clock(c.config) },
       turns = situation ?? (_.turns),
       startedAtTurn = situation ?? (_.turns)
@@ -105,8 +108,8 @@ private[round] final class Rematcher(
     List(
       Event.RedirectOwner(White, blackId, AnonCookie.json(game, Black)),
       Event.RedirectOwner(Black, whiteId, AnonCookie.json(game, White)),
-      // tell spectators to reload
-      Event.Reload
+      // tell spectators about the rematch
+      Event.RematchTaken(game.id)
     )
   }
 }

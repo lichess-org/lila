@@ -4,8 +4,8 @@ const headers = {
 
 export function get(url: string, cache: boolean = false) {
   return $.ajax({
-    url: url,
-    headers: headers,
-    cache: cache
+    url,
+    headers,
+    cache
   });
 }

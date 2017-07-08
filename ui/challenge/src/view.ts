@@ -136,7 +136,10 @@ function renderUser(u?: ChallengeUser): VNode {
     class: { online: !!u.online }
   }, [
     h('i.line' + (u.patron ? '.patron' : '')),
-    h('name', (u.title ? u.title + ' ' : '') + u.name + ' (' + rating + ')')
+    h('name', (u.title ? u.title + ' ' : '') + u.name + ' (' + rating + ') '),
+    h('signal', u.lag === undefined ? [] : [1, 2, 3, 4].map((i) => h('i', {
+        class: { off: u.lag! < i}
+    })))
   ]);
 }
 

@@ -4,6 +4,9 @@
 
 @moreCss = {
 @cssTag("analyse.css")
+@if(!pov.game.synthetic && pov.game.playable && ctx.me.flatMap(pov.game.player).isDefined) {
+@cssTag("forecast.css")
+}
 }
 
 @moreJs = {

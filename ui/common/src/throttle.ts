@@ -23,10 +23,10 @@ export default function(delay: number, noTrailing: any, callback: any, debounceM
   // After wrapper has stopped being called, this timeout ensures that
   // `callback` is executed at the proper times in `throttle` and `end`
   // debounce modes.
-  var timeoutID: number | undefined;
+  let timeoutID: number | undefined;
 
   // Keep track of the last time `callback` was executed.
-  var lastExec = 0;
+  let lastExec = 0;
 
   // `noTrailing` defaults to falsy.
   if (typeof(noTrailing) !== 'boolean') {

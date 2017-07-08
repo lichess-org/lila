@@ -24,7 +24,7 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
     } else {
       data = {
         id: username,
-        username: username
+        username
       };
     }
     opts.redraw();
@@ -41,8 +41,8 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
     data: () => data,
     reasons: opts.reasons,
     permissions: () => opts.permissions,
-    open: open,
-    close: close,
+    open,
+    close,
     timeout(reason: ModerationReason) {
       data && opts.send('timeout', {
         userId: data.id,

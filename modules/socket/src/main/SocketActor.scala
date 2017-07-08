@@ -8,6 +8,7 @@ import akka.actor.{ Deploy => _, _ }
 import play.api.libs.json._
 
 import actorApi._
+import chess.Centis
 import lila.common.LightUser
 import lila.hub.actorApi.{ Deploy, HasUserId }
 import lila.memo.ExpireSetMemo
@@ -45,7 +46,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   // generic message handler
   def receiveGeneric: Receive = {
 
-    case Ping(uid, None, lagTenths) => ping(uid, lagTenths)
+    case Ping(uid, None, lagCentis) => ping(uid, lagCentis)
 
     case Broom => broom
 
@@ -83,10 +84,15 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
     withMember(uid.value)(_ push makeMessage(t, data))
   }
 
-  def ping(uid: String, lagTenths: Option[Int]) {
+  def ping(uid: String, lagCentis: Option[Centis]) {
     setAlive(uid)
-    lagTenths foreach { lt => UserLagCache.put(uid, lt) }
-    withMember(uid)(_ push pong)
+    withMember(uid) { member =>
+      for {
+        lc <- lagCentis
+        user <- member.userId
+      } UserLagCache.put(user, lc)
+      member push pong
+    }
   }
 
   def broom {

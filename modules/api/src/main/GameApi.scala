@@ -25,7 +25,7 @@ private[api] final class GameApi(
 ) {
 
   import GameApi.WithFlags
-  import lila.round.JsonView.openingWriter
+  import lila.game.JsonView.openingWriter
 
   def byUser(
     user: User,

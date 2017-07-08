@@ -90,7 +90,7 @@ function tournamentClass(tour) {
   const classes = {
     rated: tour.rated,
     casual: !tour.rated,
-    finished: finished,
+    finished,
     joinable: !finished,
     'user-created': tour.createdBy !== 'lichess',
     thematic: !!tour.position,

@@ -15,11 +15,21 @@ interface Lichess {
   keyboardMove: any
   slider: () => any
   reloadOtherTabs: () => void
+  raf(f: () => void): void
   requestIdleCallback(f: () => void): void
+  loadCss(path: string): void
+  escapeHtml(html: string): string
+  toYouTubeEmbedUrl(url: string): string
 
   fp: any
   sound: any
   powertip: any
+  userAutocomplete: any
+  StrongSocket: {
+    sri: string
+  }
+  idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void): void;
+  parseFen(el: any): void;
 }
 
 interface AssetUrlOpts {
@@ -53,8 +63,12 @@ interface Window {
 
   moment: any
   Mousetrap: any
+  Howl: any
   Chessground: any
   Highcharts: any
+  lichessReplayMusic: () => {
+    jump(node: Tree.Node): void
+  }
 }
 
 interface Paginator<T> {
@@ -96,6 +110,12 @@ declare type Perf = 'bullet' | 'blitz' | 'classical' | 'correspondence' | 'chess
 
 declare type Color = 'white' | 'black';
 
+declare type Key = 'a0' | 'a1' | 'b1' | 'c1' | 'd1' | 'e1' | 'f1' | 'g1' | 'h1' | 'a2' | 'b2' | 'c2' | 'd2' | 'e2' | 'f2' | 'g2' | 'h2' | 'a3' | 'b3' | 'c3' | 'd3' | 'e3' | 'f3' | 'g3' | 'h3' | 'a4' | 'b4' | 'c4' | 'd4' | 'e4' | 'f4' | 'g4' | 'h4' | 'a5' | 'b5' | 'c5' | 'd5' | 'e5' | 'f5' | 'g5' | 'h5' | 'a6' | 'b6' | 'c6' | 'd6' | 'e6' | 'f6' | 'g6' | 'h6' | 'a7' | 'b7' | 'c7' | 'd7' | 'e7' | 'f7' | 'g7' | 'h7' | 'a8' | 'b8' | 'c8' | 'd8' | 'e8' | 'f8' | 'g8' | 'h8';
+declare type Uci = string;
+declare type San = string;
+declare type Fen = string;
+declare type Ply = number;
+
 interface Variant {
   key: VariantKey
   name: string
@@ -107,7 +127,7 @@ declare namespace Tree {
   export type Path = string;
 
   export interface ClientEval {
-    fen: string;
+    fen: Fen;
     maxDepth: number;
     depth: number;
     knps: number;
@@ -117,11 +137,13 @@ declare namespace Tree {
     cloud?: boolean;
     cp?: number;
     mate?: number;
+    retried?: boolean;
   }
 
   export interface ServerEval {
     cp?: number;
     mate?: number;
+    best?: Uci;
   }
 
   export interface PvData {
@@ -132,11 +154,12 @@ declare namespace Tree {
 
   export interface Node {
     id: string;
-    ply: number;
-    fen: string;
+    ply: Ply;
+    uci: Uci;
+    fen: Fen;
     children: Node[];
     comments?: Comment[];
-    dests: string | undefined | null;
+    dests?: string;
     drops: string | undefined | null;
     check: boolean;
     threat?: ClientEval;
@@ -149,10 +172,17 @@ declare namespace Tree {
     shapes?: Shape[];
     comp?: boolean;
     san?: string;
+    threefold?: boolean;
+    fail?: boolean;
+    puzzle?: string;
   }
 
   export interface Comment {
     id: string;
+    by: string | {
+      id: string;
+      name: string;
+    };
     text: string;
   }
 
@@ -166,8 +196,7 @@ declare namespace Tree {
     symbol: string;
   }
 
-  export interface Clock {
-  }
+  export type Clock = number;
 
   export interface Shape {
   }

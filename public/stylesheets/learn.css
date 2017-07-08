@@ -68,7 +68,7 @@
   margin-top: 15px;
 }
 #learn_app .result:hover {
-  -webkit-filter: brightness(1.1);
+  filter: brightness(1.1);
 }
 #learn_app .result .stars {
   margin-top: 4px;
@@ -123,7 +123,7 @@
 }
 @keyframes soft-hue {
   50%{
-    -webkit-filter: hue-rotate(-20deg);
+    filter: hue-rotate(-20deg);
   }
 }
 @keyframes soft-grow {
@@ -203,13 +203,13 @@
 }
 @keyframes star-appear {
   0% {
-    -webkit-filter: saturate(1); opacity: 0.5; transform: scale(0) rotate(-360deg);
+    filter: saturate(1); opacity: 0.5; transform: scale(0) rotate(-360deg);
   }
   85% {
-    -webkit-filter: saturate(1); opacity: 1; transform: scale(1.3) rotate(10deg);
+    filter: saturate(1); opacity: 1; transform: scale(1.3) rotate(10deg);
   }
   100% {
-    -webkit-filter: saturate(1); opacity: 1; transform: scale(1) rotate(0);
+    filter: saturate(1); opacity: 1; transform: scale(1) rotate(0);
   }
 }
 #learn_app .screen .stars .star-wrap {
@@ -229,7 +229,7 @@
   content: '';
   background-image: url(../images/learn/star.png);
   background-size: cover;
-  -webkit-filter: saturate(0);
+  filter: saturate(0);
   opacity: 0.2;
 }
 #learn_app .screen .stars .star {
@@ -303,8 +303,6 @@
   text-decoration: none;
   text-transform: uppercase;
   line-height: 48px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
   border-radius: 5px;
   margin: 8px 10% 0 10%;
   height: 48px;
@@ -323,7 +321,7 @@
   background: #f57c00;
 }
 #learn_app .screen .buttons a:hover {
-  -webkit-filter: brightness(0.9);
+  filter: brightness(0.9);
 }
 #learn_app .screen piece {
   width: 100%;
@@ -332,12 +330,10 @@
 @keyframes slideIn {
   0% {
     opacity: 0;
-    -webkit-filter: blur(15px);
     filter: blur(15px);
   }
   100% {
     opacity: 1;
-    -webkit-filter: blur(0px);
     filter: blur(0px);
   }
 }
@@ -659,10 +655,10 @@ body.dark #learn_side .map .categ.active {
   background: rgba(245, 124, 0, 1);
 }
 #learn_side .map .stage:hover {
-  -webkit-filter: brightness(0.9);
+  filter: brightness(0.9);
 }
 body.dark #learn_side .map .stage:hover {
-  -webkit-filter: brightness(1.1);
+  filter: brightness(1.1);
 }
 body.dark #learn_side .map .stage.active h2,
 body.dark #learn_side .map .stage:hover h2 {
@@ -721,18 +717,18 @@ body.dark #learn_app .map .categ > h2 {
 }
 @keyframes soft-bright {
   50%{
-    -webkit-filter: brightness(1.1);
+    filter: brightness(1.1);
   }
 }
 #learn_app .map .stage.ongoing {
   background: #3893E8;
-  -webkit-filter: brightness(0.9);
+  filter: brightness(0.9);
 }
 #learn_app .map .stage.ongoing {
   animation: 1.7s soft-bright ease-in-out infinite;
 }
 #learn_app .map .stage.ongoing:hover {
-  -webkit-filter: brightness(1.2);
+  filter: brightness(1.2);
 }
 #learn_app .map .stage.done {
   background: #4caf50;
@@ -746,7 +742,7 @@ body.dark #learn_app .map .categ > h2 {
 }
 #learn_app .map a.stage.active,
 #learn_app .map a.stage:hover {
-  -webkit-filter: brightness(1.08);
+  filter: brightness(1.08);
   transform: scale(1.02);
   opacity: 1;
 }

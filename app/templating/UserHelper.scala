@@ -249,9 +249,9 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     splitNumber(userGameFilterTitleNoTag(info, filter))
 
   def userGameFilterTitleNoTag(info: UserInfo, filter: GameFilter)(implicit ctx: UserContext): Html = (filter match {
-    case GameFilter.All => Html(info.user.count.game + " " + I18nKeys.gamesPlayed().body)
+    case GameFilter.All => I18nKeys.nbGamesPlayed.pluralSame(info.user.count.game)
     case GameFilter.Me => ctx.me ?? (me => I18nKeys.nbGamesWithYou.pluralSame(info.nbWithMe))
-    case GameFilter.Rated => Html(info.nbRated + " " + I18nKeys.rated().body)
+    case GameFilter.Rated => I18nKeys.nbRated.pluralSame(info.nbRated)
     case GameFilter.Win => I18nKeys.nbWins.pluralSame(info.user.count.win)
     case GameFilter.Loss => I18nKeys.nbLosses.pluralSame(info.user.count.loss)
     case GameFilter.Draw => I18nKeys.nbDraws.pluralSame(info.user.count.draw)
@@ -274,8 +274,8 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
   val patronIconChar = ""
   val lineIconChar = ""
 
-  val lineIcon: String = s"""<i class="line"></i>"""
-  val patronIcon: String = s"""<i class="line patron" title="lichess Patron"></i>"""
+  val lineIcon: String = """<i class="line"></i>"""
+  val patronIcon: String = """<i class="line patron" title="lichess Patron"></i>"""
   private def lineIcon(patron: Boolean): String = if (patron) patronIcon else lineIcon
   private def lineIcon(user: Option[LightUser]): String = lineIcon(user.??(_.isPatron))
   def lineIcon(user: User): String = lineIcon(user.isPatron)

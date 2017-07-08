@@ -70,7 +70,7 @@ object Preload {
   def currentGame(povs: List[Pov], lightUser: lila.common.LightUser.GetterSync)(user: User): Option[CurrentGame] =
     povs.collectFirst {
       case pov if pov.game.nonAi && pov.game.hasClock && pov.isMyTurn =>
-        val opponent = lila.game.Namer.playerString(pov.opponent)(lightUser)
+        val opponent = lila.game.Namer.playerText(pov.opponent)(lightUser)
         CurrentGame(
           pov = pov,
           opponent = opponent,

@@ -10,16 +10,19 @@ export function empty(a: any): boolean {
   return !a || a.length === 0;
 }
 
-export interface ClassSet {
-  [klass: string]: boolean;
+export interface Prop<T> {
+  (): T
+  (v: T): T
 }
 
-export function classSet(classes: ClassSet): string {
-  const arr = [];
-  for (const i in classes) {
-    if (classes[i]) arr.push(i);
-  }
-  return arr.join(' ');
+// like mithril prop but with type safety
+export function prop<A>(initialValue: A): Prop<A> {
+  let value = initialValue;
+  const fun = function(v: A | undefined) {
+    if (defined(v)) value = v!;
+    return value;
+  };
+  return fun as Prop<A>;
 }
 
 export interface StoredProp<T> {
@@ -55,13 +58,26 @@ export interface StoredJsonProp<T> {
   (v: T): void;
 }
 
-export function storedJsonProp<T>(keySuffix: string, defaultValue: T): StoredJsonProp<T> {
-  const key = 'explorer.' + keySuffix;
+export function storedJsonProp<T>(key: string, defaultValue: T): StoredJsonProp<T> {
   return function() {
     if (arguments.length) window.lichess.storage.set(key, JSON.stringify(arguments[0]));
     const ret = JSON.parse(window.lichess.storage.get(key));
     return (ret !== null) ? ret : defaultValue;
   };
+}
+
+export interface Sync<T> {
+  promise: Promise<T>;
+  sync: T | undefined;
+}
+
+export function sync<T>(promise: Promise<T>): Sync<T> {
+  var sync: any = {};
+  sync.promise = promise.then(v => {
+    sync.sync = v;
+    return v;
+  });
+  return sync as Sync<T>;
 }
 
 export { throttle };

@@ -1,67 +1,40 @@
-@(rated: Option[Boolean] = None, system: Option[lila.tournament.System] = None, privateId: Option[String] = None)
+@(rated: Option[Boolean] = None, system: Option[lila.tournament.System] = None, privateId: Option[String] = None)(implicit ctx: Context)
 
 @import lila.tournament.System
 
 <article class="faq">
   @privateId.map { id =>
-  <h2>This is a private tournament</h2>
-  Share this URL to let people join it: @netBaseUrl@routes.Tournament.show(id)
+  <h2>@trans.arena.thisIsPrivate()</h2>
+  @trans.arena.shareUrl(netBaseUrl + routes.Tournament.show(id))
   }
-  You will be notified when the tournament starts, so it is safe to
-  <a target="_blank" href="@routes.Lobby.home()">play in another tab</a> while waiting.
+  @trans.arena.willBeNotified()
 
-  <h2>Is it rated?</h2>
+  <h2>@trans.arena.isItRated()</h2>
   @rated.map { r =>
   @if(r) {
-  This tournament is rated and will affect your rating.
+  @trans.arena.isRated()
   } else {
-  This tournament is *not* rated and will *not* affect your rating.
+  @trans.arena.isNotRated()
   }
   }.getOrElse {
-  Some tournaments are rated and will affect your rating.
+  @trans.arena.someRated()
   }
 
+  <h2>@trans.arena.howAreScoresCalculated()</h2>
+  @trans.arena.howAreScoresCalculatedAnswer()
 
-  <h2>How are scores calculated?</h2>
-  A win has a base score of 2 points, a draw: 1 point, and a loss is worth no points.
-  If you win two games consecutively you will start a double point streak, known as a
-  <streak>Streak Starter</streak>.
-  The following games will continue to be worth <double>Double Points</double> until you fail to win
-  a game. That is, a win will be worth 4 points, a draw: 2 points, and a loss will remain
-  worth no points.
-  <br />
-  For example, two wins followed by a draw will be worth 6 points: 2 + 2 + (2 x 1)
+  <h2>@trans.arena.berserk()</h2>
+  @trans.arena.berserkAnswer()
 
-  <h2>Arena Berserk</h2>
-  When a player clicks the <em>Berserk</em> button at the beginning of the game,
-  they lose half of their clock time, but the win is worth one extra tournament point.
-  <br />
-  Going <em>Berserk</em> in time controls with an increment also cancels the increment.
-  (1+2 is an exception, it gives 1+0)
-  <br />
-  <em>Berserk</em> is not available for games with zero initial time (0+1, 0+2).
-  <br />
-  <em>Berserk</em> only grants an extra point if you play at least 7 moves in the game.
+  <h2>@trans.arena.howIsTheWinnerDecided()</h2>
+  @trans.arena.howAreScoresCalculatedAnswer()
 
-  <h2>How is the winner decided?</h2>
-  The player(s) with the most points at the conclusion of the tournament's set time limit
-  will be announced winner(s).
+  <h2>@trans.arena.howDoesPairingWork()</h2>
+  @trans.arena.howDoesPairingWorkAnswer()
 
-  <h2>How does the pairing work?</h2>
-  At the beginning of the tournament, players are paired based on their rating.
-  As soon as you finish a game, return to the tournament lobby:
-  you will then be paired with a player close to your ranking. This ensures minimum wait time,
-  however you may not face all other players in the tournament.
-  Play fast and return to the lobby to play more games and win more points.
+  <h2>@trans.arena.howDoesItEnd()</h2>
+  @trans.arena.howDoesItEndAnswer()
 
-  <h2>How does it end?</h2>
-  The tournament has a countdown clock.
-  When it reaches zero, the tournament rankings are frozen, and the winner is announced.
-  Games in progress must be finished, however they don't count for the tournament.
-
-  <h2>Other important rules.</h2>
-  You are required to make your first move within 20 seconds of your turn. Failing to make
-  a move in this time will forfeit the game to your opponent.
-  <br />
-  Drawing the game within the first 10 moves of play will earn neither player any points.
+  <h2>@trans.arena.otherRules()</h2>
+  @trans.arena.otherRulesAnswer()
 </article>

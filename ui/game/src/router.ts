@@ -8,10 +8,6 @@ export function game(data: GameData, color?: Color, embed?: boolean): string {
   return (embed ? '/embed/' : '/') + (data.game ? data.game.id : data) + (color ? '/' + color : '');
 }
 
-export function forecasts(data: GameData): string {
-  return player(data) + '/forecasts';
-}
-
 export function cont(data: GameData, mode: ContinueMode): string {
   return game(data) + '/continue/' + mode;
 }

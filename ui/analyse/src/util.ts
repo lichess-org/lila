@@ -1,20 +1,33 @@
+import { h } from 'snabbdom'
+import { Hooks } from 'snabbdom/hooks'
 import { fixCrazySan } from 'chess';
 
-import * as m from 'mithril';
-
-export function bindOnce(eventName: string, f: (e: Event) => void): Mithril.Config {
-  const withRedraw = function(e: Event) {
-    m.startComputation();
-    f(e);
-    m.endComputation();
+export function bind(eventName: string, f: (e: Event) => any, redraw?: () => void): Hooks {
+  return {
+    insert: vnode => {
+      (vnode.elm as HTMLElement).addEventListener(eventName, e => {
+        const res = f(e);
+        if (redraw) redraw();
+        return res;
+      });
+    }
   };
-  return function(el: Element, isUpdate: boolean, ctx: any) {
-    if (isUpdate) return;
-    el.addEventListener(eventName, withRedraw)
-    ctx.onunload = function() {
-      el.removeEventListener(eventName, withRedraw);
-    };
-  }
+}
+export function bindSubmit(f: (e: Event) => any, redraw?: () => void): Hooks {
+  return bind('submit', e => {
+    e.preventDefault();
+    return f(e);
+  }, redraw);
+}
+
+export function dataIcon(icon: string) {
+  return {
+    'data-icon': icon
+  };
+}
+
+export function iconTag(icon: string) {
+  return h('i', { attrs: dataIcon(icon) });
 }
 
 export function plyToTurn(ply: number): number {
@@ -40,4 +53,20 @@ export function titleNameToId(titleName: string): string {
   const split = titleName.split(' ');
   const name = split.length == 1 ? split[0] : split[1];
   return name.toLowerCase();
+}
+
+export function spinner() {
+  return h('div.spinner', [
+    h('svg', { attrs: { viewBox: '0 0 40 40' } }, [
+      h('circle', {
+        attrs: { cx: 20, cy: 20, r: 18, fill: 'none' }
+      })])]);
+}
+
+// from https://github.com/bryanwoods/autolink-js/blob/master/autolink.js
+export function autolink(str: string, callback: (str: string) => string): string {
+  const pattern = /(^|[\s\n]|<[A-Za-z]*\/?>)((?:https?|ftp):\/\/[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;
+  return str.replace(pattern, function(_, space, url) {
+    return "" + space + callback(url);
+  });
 }

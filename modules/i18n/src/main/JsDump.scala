@@ -10,7 +10,7 @@ private[i18n] final class JsDump(path: String) {
 
   def keysToObject(keys: Seq[I18nKey], lang: Lang) = JsObject {
     keys.flatMap { k =>
-      Translator.findTranslation(k.key, lang) match {
+      Translator.findTranslation(k.key, I18nDb.Site, lang) match {
         case Some(literal: Literal) =>
           List(k.key -> JsString(literal.message))
         case Some(plurals: Plurals) =>
@@ -43,7 +43,7 @@ private[i18n] final class JsDump(path: String) {
 
   private def dumpFromKey(keys: Iterable[String], lang: Lang): String =
     keys.map { key =>
-      """"%s":"%s"""".format(key, escape(Translator.txt.literal(key, Nil, lang)))
+      """"%s":"%s"""".format(key, escape(Translator.txt.literal(key, I18nDb.Site, Nil, lang)))
     }.mkString("{", ",", "}")
 
   private def writeRefs = writeFile(
@@ -54,7 +54,7 @@ private[i18n] final class JsDump(path: String) {
   )
 
   private def writeFullJson = I18nDb.langs foreach { lang =>
-    val code = dumpFromKey(I18nDb.all(defaultLang).keys, lang)
+    val code = dumpFromKey(I18nDb.site(defaultLang).keys, lang)
     val file = new File("%s/%s.all.json".format(pathFile.getCanonicalPath, lang.code))
     writeFile(new File("%s/%s.all.json".format(pathFile.getCanonicalPath, lang.code)), code)
   }

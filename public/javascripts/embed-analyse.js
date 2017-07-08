@@ -132,12 +132,12 @@ $(function() {
 lichess.startEmbeddedAnalyse = function(opts) {
   opts.socketSend = $.noop
   opts.initialPly = 'url';
-  LichessAnalyse.mithril(opts);
-
-  var board = opts.element.querySelector('.cg-board-wrap');
-  var ground = opts.element.querySelector('.lichess_ground');
+  var container = opts.element.parentNode;
+  LichessAnalyse.start(opts);
 
   var onResize = function() {
+    var board = container.querySelector('.cg-board-wrap');
+    var ground = container.querySelector('.lichess_ground');
     var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
     var boardSize = h - 26;

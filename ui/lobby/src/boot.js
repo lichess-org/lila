@@ -102,7 +102,8 @@ module.exports = function(cfg, element) {
     });
 
   cfg.socketSend = lichess.socket.send;
-  lobby = LichessLobby.mithril(element, cfg);
+  cfg.element = element;
+  lobby = LichessLobby.start(cfg);
 
   var $startButtons = $('#start_buttons');
 
@@ -290,6 +291,7 @@ module.exports = function(cfg, element) {
         };
         if (poolMember) {
           lobby.enterPool(poolMember);
+          lobby.redraw();
           call.url += '?pool=1';
         } else lobby.setTab($timeModeSelect.val() === '1' ? 'real_time' : 'seeks');
         $.ajax(call);

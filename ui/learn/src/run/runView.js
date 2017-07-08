@@ -1,7 +1,6 @@
 var m = require('mithril');
 var chessground = require('chessground');
 var ground = require('../ground');
-var classSet = require('common').classSet;
 var congrats = require('../congrats');
 var stageStarting = require('./stageStarting');
 var stageComplete = require('./stageComplete');
@@ -33,13 +32,11 @@ module.exports = function(ctrl) {
   var level = ctrl.level;
 
   return m('div', {
-    class: classSet({
-      'lichess_game': true,
-      'starting': level.vm.starting,
-      'completed': level.vm.completed && !level.blueprint.nextButton,
-      'last-step': level.vm.lastStep,
-      'piece-values': level.blueprint.showPieceValues
-    }) + ' ' + stage.cssClass + ' ' + level.blueprint.cssClass
+    class: 'lichess_game' + ' ' + stage.cssClass + ' ' + level.blueprint.cssClass +
+    (level.vm.starting ? ' starting' : '') +
+    (level.vm.completed && !level.blueprint.nextButton ? ' completed' : '') +
+    (level.vm.lastStep ? ' last-step' : '') +
+    (level.blueprint.showPieceValues ? ' piece-values' : '')
   }, [
     ctrl.vm.stageStarting() ? stageStarting(ctrl) : null,
     ctrl.vm.stageCompleted() ? stageComplete(ctrl) : null,

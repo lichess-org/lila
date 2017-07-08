@@ -3,6 +3,7 @@ package lila.challenge
 import play.api.libs.json._
 
 import lila.common.PimpedJson._
+import lila.socket.UserLagCache
 
 final class JsonView(
     getLightUser: lila.common.LightUser.GetterSync,
@@ -67,7 +68,8 @@ final class JsonView(
       "rating" -> r.rating.int,
       "provisional" -> r.rating.provisional,
       "patron" -> light.??(_.isPatron).option(true),
-      "online" -> isOnline(r.id).option(true)
+      "online" -> isOnline(r.id).option(true),
+      "lag" -> UserLagCache.getLagRating(r.id)
     ).noNull
   }
 }

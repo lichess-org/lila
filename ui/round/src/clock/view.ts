@@ -67,7 +67,7 @@ function showBar(ctrl, color, berserk) {
     el.style.width = ctrl.timePercent(color) + '%';
   };
   return ctrl.data.showBar ? h('div.bar', {
-    class: { berserk: berserk }
+    class: { berserk }
   }, [
     h('span', {
       hook: {

@@ -142,7 +142,6 @@ lichess.topMenuIntent = function() {
       name: "site",
       lagTag: null,
       debug: location.search.indexOf('debug-ws') != -1,
-      prodPipe: location.search.indexOf('prod-ws') != -1,
       resetUrl: location.search.indexOf('reset-ws') != -1
     }
   });
@@ -1041,7 +1040,8 @@ lichess.topMenuIntent = function() {
         }
       });
     cfg.socketSend = lichess.socket.send;
-    tournament = LichessTournament(element, cfg);
+    cfg.element = element;
+    tournament = LichessTournament.start(cfg);
     if (cfg.chat) lichess.makeChat('chat', cfg.chat);
   };
 
@@ -1107,7 +1107,7 @@ lichess.topMenuIntent = function() {
       }
     });
     cfg.socketSend = lichess.socket.send;
-    analyse = LichessAnalyse.mithril(cfg);
+    analyse = LichessAnalyse.start(cfg);
     lichess.topMenuIntent();
   }
 
@@ -1135,7 +1135,7 @@ lichess.topMenuIntent = function() {
       }
     });
     cfg.socketSend = lichess.socket.send;
-    analyse = LichessAnalyse.mithril(cfg);
+    analyse = LichessAnalyse.start(cfg);
     if (cfg.chat) {
       lichess.pubsub.on('chat.enabled', function(v) {
         $('#site_header .board_left').toggleClass('no_chat', !v);
@@ -1162,7 +1162,7 @@ lichess.topMenuIntent = function() {
       }
     });
     cfg.socketSend = lichess.socket.send;
-    analyse = LichessAnalyse.mithril(cfg);
+    analyse = LichessAnalyse.start(cfg);
     lichess.topMenuIntent();
   }
 
@@ -1183,7 +1183,7 @@ lichess.topMenuIntent = function() {
       }
     });
     cfg.socketSend = lichess.socket.send;
-    puzzle = LichessPuzzle(cfg);
+    puzzle = LichessPuzzle.default(cfg);
     lichess.topMenuIntent();
   }
 

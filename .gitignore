@@ -1,5 +1,6 @@
 conf/application.conf
 bin/dev
+bin/dev.bat
 logs
 project/project
 project/target
@@ -29,7 +30,6 @@ local/
 ui/*/npm-debug.log
 .vagrant
 hs_*.log
-yarn.lock
 
 RUNNING_PID
 

@@ -193,7 +193,7 @@ private final class PushApi(
     }
   }
 
-  private def opponentName(pov: Pov) = Namer playerString pov.opponent
+  private def opponentName(pov: Pov) = Namer playerText pov.opponent
 
   private implicit val lightUserWriter: OWrites[LightUser] = OWrites { u =>
     Json.obj(

@@ -77,7 +77,7 @@ final class PrefApi(
       "pieceSet" -> o.pieceSet,
       "theme3d" -> o.theme3d,
       "pieceSet3d" -> o.pieceSet3d,
-      "soundSet" -> o.soundSet,
+      "soundSet" -> SoundSet.name2key(o.soundSet),
       "blindfold" -> o.blindfold,
       "autoQueen" -> o.autoQueen,
       "autoThreefold" -> o.autoThreefold,

@@ -148,8 +148,10 @@ body.dark #hooks_wrap .hook_filter {
   padding: 25px 0;
 }
 #hooks_wrap .hook_filter td:first-child {
-  font-size: 1.3em;
+  font-size: 1.1em;
   padding-right: 30px;
+  width: 120px;
+  white-space: normal;
 }
 #hooks_wrap .hook_filter .checkable {
   padding: 4.3px 0;
@@ -633,7 +635,7 @@ div.lichess_overboard .color_submits .spinner {
   width: 40px;
   heigth: 40px;
   filter: brightness(9);
-  -webkit-filter: brightness(9);
+  filter: brightness(9);
 }
 .tour_spotlight i.img,
 .tour_spotlight .img.icon {
@@ -697,11 +699,6 @@ body.dark .tour_spotlight .img {
 }
 body.dark .tour_spotlight:hover .img {
   opacity: 1;
-}
-#site_header a.store {
-  display: block;
-  margin-top: 20px;
-  opacity: 0.6;
 }
 #timeline {
   flex: 1 1;

@@ -34,19 +34,19 @@ sealed trait I18nKey {
   def pluralSameTxt(count: Int)(implicit ctx: UserContext): String = pluralTxt(count, count)
 }
 
-final class Translated(val key: String) extends I18nKey {
+final class Translated(val key: String, val db: I18nDb.Ref) extends I18nKey {
 
   def literalHtmlTo(lang: Lang, args: Seq[Any] = Nil): Html =
-    Translator.html.literal(key, args, lang)
+    Translator.html.literal(key, db, args, lang)
 
   def pluralHtmlTo(lang: Lang, count: Count, args: Seq[Any] = Nil): Html =
-    Translator.html.plural(key, count, args, lang)
+    Translator.html.plural(key, db, count, args, lang)
 
   def literalTxtTo(lang: Lang, args: Seq[Any] = Nil): String =
-    Translator.txt.literal(key, args, lang)
+    Translator.txt.literal(key, db, args, lang)
 
   def pluralTxtTo(lang: Lang, count: Count, args: Seq[Any] = Nil): String =
-    Translator.txt.plural(key, count, args, lang)
+    Translator.txt.plural(key, db, count, args, lang)
 }
 
 final class Untranslated(val key: String) extends I18nKey {

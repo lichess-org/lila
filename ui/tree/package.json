@@ -22,8 +22,8 @@
     "compile": "tsc"
   },
   "devDependencies": {
-    "typescript": "^2",
-    "types": "link:../types"
+    "types": "link:../types",
+    "typescript": "^2"
   },
   "dependencies": {
     "common": "link:../common"

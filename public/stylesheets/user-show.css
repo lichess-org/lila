@@ -59,7 +59,6 @@
 .user_show .fire_trophy.marathonTopFifty,
 .user_show .fire_trophy.marathonTopHundred {
   filter: hue-rotate(190deg);
-  -webkit-filter: hue-rotate(190deg);
 }
 .user_show .fire_trophy.marathonTopTen {
   font-size: 58px;
@@ -84,7 +83,6 @@
 }
 .user_show .fire_trophy.bongcloudWarrior {
   filter: hue-rotate(70deg);
-  -webkit-filter: hue-rotate(70deg);
 }
 .user_show .trophy.zugMiracle {
   height: 80px;

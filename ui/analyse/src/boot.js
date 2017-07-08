@@ -76,12 +76,12 @@ module.exports = function(element, cfg) {
     setTimeout(function() {
       if (v) $('div.analysis_menu a.computer_analysis').mousedown();
       else $('div.analysis_menu a:eq(1)').mousedown();
-    }.bind(this), 50);
+    }, 50);
   };
   cfg.initialPly = 'url';
   cfg.element = element.querySelector('.analyse');
   cfg.socketSend = lichess.socket.send;
-  analyse = LichessAnalyse.mithril(cfg);
+  analyse = LichessAnalyse.start(cfg);
   cfg.jumpToIndex = analyse.jumpToIndex;
 
   if (cfg.chat) {

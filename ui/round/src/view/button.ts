@@ -55,8 +55,7 @@ function rematchButtons(ctrl): Array<VNode | null> {
           ctrl.socket.send('rematch-yes');
         }
         else ctrl.challengeRematch();
-        ctrl.redraw();
-      })
+      }, ctrl.redraw)
     }, [
       me ? util.spinner() : h('span', ctrl.trans.noarg('rematch'))
     ])
@@ -64,7 +63,7 @@ function rematchButtons(ctrl): Array<VNode | null> {
 }
 
 export function standard(ctrl, condition, icon, hint, socketMsg, onclick): VNode {
-  // disabled if condition callback is provied and is falsy
+  // disabled if condition callback is provided and is falsy
   var enabled = function() {
     return !condition || condition(ctrl.data);
   };

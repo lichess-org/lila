@@ -1,4 +1,4 @@
-import { StoredProp, StoredBooleanProp } from 'common';
+import { Prop, StoredProp, StoredBooleanProp } from 'common';
 
 export interface Eval {
   cp?: number;
@@ -34,12 +34,13 @@ export interface PoolOpts {
 export interface CevalOpts {
   storageKeyPrefix?: string;
   failsafe: boolean;
-  multiPvDefault: number;
+  multiPvDefault?: number;
   possible: boolean;
   variant: Variant;
   onCrash: (err: any) => void;
-  emit: (ev: Tree.ClientEval) => void;
+  emit: (ev: Tree.ClientEval, work: Work) => void;
   setAutoShapes: () => void;
+  redraw(): void;
 }
 
 export interface Hovering {
@@ -54,60 +55,48 @@ export interface Started {
 }
 
 export interface CevalController {
-  goDeeper: () => void;
-  canGoDeeper: () => boolean;
-  effectiveMaxDepth: () => number;
+  goDeeper(): void;
+  canGoDeeper(): boolean;
+  effectiveMaxDepth(): number;
   pnaclSupported: boolean;
   wasmSupported: boolean;
-  allowed: Mithril.Property<boolean>;
-  enabled: Mithril.Property<boolean>;
+  allowed: Prop<boolean>;
+  enabled: Prop<boolean>;
   possible: boolean;
-  isComputing: () => boolean;
+  isComputing(): boolean;
   variant: Variant;
   setHovering: (fen: string, uci: string | null) => void;
   multiPv: StoredProp<number>;
   start: (path: string, steps: Step[], threatMode: boolean, deeper: boolean) => void;
-  stop: () => void;
+  stop(): void;
   threads: StoredProp<number>;
   hashSize: StoredProp<number>;
   infinite: StoredBooleanProp;
-  hovering: Mithril.Property<Hovering | null>;
-  toggle: () => void;
-  curDepth: () => number;
-  isDeeper: () => boolean;
-  destroy: () => void;
-  env: () => CevalEnv;
-}
-
-export interface CevalEnv {
-  pnacl: boolean;
-  wasm: boolean;
-  multiPv: number;
-  threads: number;
-  hashSize: number;
-  maxDepth: number;
+  hovering: Prop<Hovering | null>;
+  toggle(): void;
+  curDepth(): number;
+  isDeeper(): boolean;
+  destroy(): void;
+  redraw(): void;
 }
 
 export interface ParentController {
-  getCeval: () => CevalController;
-  nextNodeBest: () => boolean;
-  disableThreatMode?: Mithril.Property<Boolean>;
-  vm: ParentVm;
-  toggleThreatMode: () => void;
-  toggleCeval: () => void;
-  gameOver: () => boolean;
-  mandatoryCeval?: Mithril.Property<boolean>;
-  showEvalGauge: Mithril.Property<boolean>;
-  currentEvals: () => NodeEvals;
+  getCeval(): CevalController;
+  nextNodeBest(): string | undefined;
+  disableThreatMode?: Prop<Boolean>;
+  toggleThreatMode(): void;
+  toggleCeval(): void;
+  gameOver: (node?: Tree.Node) => 'draw' | 'checkmate' | false;
+  mandatoryCeval?: Prop<boolean>;
+  showEvalGauge: Prop<boolean>;
+  currentEvals(): NodeEvals;
   ongoing: boolean;
-  playUci: (uci: string) => void;
-  getOrientation: () => Color;
-}
-
-export interface ParentVm {
-  threatMode: boolean;
-  node: Tree.Node;
-  showComputer: () => boolean;
+  playUci(uci: string): void;
+  getOrientation(): Color;
+  threatMode(): boolean;
+  getNode(): Tree.Node;
+  showComputer(): boolean;
+  trans: Trans;
 }
 
 export interface NodeEvals {

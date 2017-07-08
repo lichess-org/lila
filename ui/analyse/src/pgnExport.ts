@@ -1,6 +1,7 @@
-import { AnalyseController } from './interfaces';
-
+import AnalyseController from './ctrl';
+import { h } from 'snabbdom'
 import { initialFen, fixCrazySan } from 'chess';
+import { MaybeVNodes } from './interfaces';
 
 function renderNodesTxt(nodes: Tree.Node[]): string {
   if (!nodes[0]) return '';
@@ -18,7 +19,7 @@ function renderNodesTxt(nodes: Tree.Node[]): string {
 
 export function renderFullTxt(ctrl: AnalyseController): string {
   var g = ctrl.data.game;
-  var txt = renderNodesTxt(ctrl.tree.getNodeList(ctrl.vm.path));
+  var txt = renderNodesTxt(ctrl.tree.getNodeList(ctrl.path));
   var tags: Array<[string, string]> = [];
   if (g.variant.key !== 'standard')
     tags.push(['Variant', g.variant.name]);
@@ -31,16 +32,16 @@ export function renderFullTxt(ctrl: AnalyseController): string {
   return txt;
 }
 
-export function renderNodesHtml(nodes: Tree.Node[]): string {
-  if (!nodes[0]) return '';
+export function renderNodesHtml(nodes: Tree.Node[]): MaybeVNodes {
+  if (!nodes[0]) return [];
   if (!nodes[0].san) nodes = nodes.slice(1);
-  if (!nodes[0]) return '';
-  var s = nodes[0].ply % 2 === 1 ? '' : Math.floor((nodes[0].ply + 1) / 2) + '...&nbsp;';
-  nodes.forEach(function(node) {
+  if (!nodes[0]) return [];
+  const tags: MaybeVNodes = [];
+  if (nodes[0].ply % 2 === 0) tags.push(h('index', Math.floor((nodes[0].ply + 1) / 2) + '...'));
+  nodes.forEach(node => {
     if (node.ply === 0) return;
-    if (node.ply % 2 === 1) s += ((node.ply + 1) / 2) + '.&nbsp;'
-    else s += '';
-    s += '<san>' + fixCrazySan(node.san!) + '</san> ';
+    if (node.ply % 2 === 1) tags.push(h('index', ((node.ply + 1) / 2) + '.'));
+    tags.push(h('san', fixCrazySan(node.san!)));
   });
-  return s.trim();
+  return tags;
 }

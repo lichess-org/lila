@@ -96,7 +96,7 @@ export default function(ctrl: DasherCtrl): VNode {
 function linkCfg(href: string, icon: string, more: any = undefined): any {
   const cfg: any = {
     attrs: {
-      href: href,
+      href,
       'data-icon': icon
     }
   };

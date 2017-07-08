@@ -1,44 +1,56 @@
 /// <reference types="types/lichess-jquery" />
 
-import { AnalyseController, AnalyseOpts } from './interfaces';
+import { AnalyseOpts } from './interfaces';
+import AnalyseController from './ctrl';
 
-import ctrl = require('./ctrl');
-import view = require('./view');
-import studyView = require('./study/studyView');
-import studyPracticeView = require('./study/practice/studyPracticeView');
+import makeCtrl from './ctrl';
+import view from './view';
+import { main as studyView } from './study/studyView';
+import { main as studyPracticeView } from './study/practice/studyPracticeView';
 import boot = require('./boot');
-import * as m from 'mithril';
 import { Chessground } from 'chessground';
 
-export function mithril(opts: AnalyseOpts) {
-  const controller: AnalyseController = new ctrl(opts);
+import { init } from 'snabbdom';
+import { VNode } from 'snabbdom/vnode'
+import klass from 'snabbdom/modules/class';
+import attributes from 'snabbdom/modules/attributes';
 
-  m.module<AnalyseController>(opts.element, {
-    controller: function() {
-      return controller;
-    },
-    view: view
-  });
+export const patch = init([klass, attributes]);
 
-  if (controller.study && opts.sideElement) m.module(opts.sideElement, {
-    controller: function() {
-      m.redraw.strategy("diff"); // prevents double full redraw on page load
-      return controller.study;
-    },
-    view: controller.studyPractice ? studyPracticeView.main : studyView.main
-  });
+export function start(opts: AnalyseOpts) {
+
+  let vnode: VNode, ctrl: AnalyseController;
+
+  let redrawSide = () => {};
+
+  function redraw() {
+    vnode = patch(vnode, view(ctrl));
+    redrawSide();
+  }
+
+  ctrl = new makeCtrl(opts, redraw);
+
+  const blueprint = view(ctrl);
+  opts.element.innerHTML = '';
+  vnode = patch(opts.element, blueprint);
+
+  if (ctrl.study && opts.sideElement) {
+    const sideView = ctrl.studyPractice ? studyPracticeView : studyView;
+    let sideVnode = patch(opts.sideElement, sideView(ctrl.study));
+    redrawSide = () => {
+      sideVnode = patch(sideVnode, sideView(ctrl.study));
+    }
+  }
 
   return {
-    socketReceive: controller.socket.receive,
-    jumpToIndex: function(index: number): void {
-      controller.jumpToIndex(index);
-      m.redraw();
+    socketReceive: ctrl.socket.receive,
+    jumpToIndex(index: number): void {
+      ctrl.jumpToIndex(index);
+      redraw();
     },
-    path: function(): Tree.Path {
-      return controller.vm.path;
-    },
-    setChapter: function(id: string) {
-      if (controller.study) controller.study.setChapter(id);
+    path: () => ctrl.path,
+    setChapter(id: string) {
+      if (ctrl.study) ctrl.study.setChapter(id);
     }
   }
 }

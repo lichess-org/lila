@@ -81,6 +81,10 @@ object Mod extends LilaController {
     modApi.kickFromRankings(me.id, username) inject redirect(username)
   }
 
+  def reportban(username: String) = Secure(_.ReportBan) { implicit ctx => me =>
+    modApi.toggleReportban(me.id, username) inject redirect(username)
+  }
+
   def setTitle(username: String) = SecureBody(_.SetTitle) { implicit ctx => me =>
     implicit def req = ctx.body
     lila.user.DataForm.title.bindFromRequest.fold(
