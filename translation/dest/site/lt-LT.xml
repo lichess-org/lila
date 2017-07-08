@@ -35,7 +35,7 @@
   <string name="makeYourOpponentResign">Priversti priešininką pasiduoti</string>
   <string name="forceResignation">Pasiimti pergalę</string>
   <string name="forceDraw">Įskaityti lygiąsias</string>
-  <string name="talkInChat">Kalbėti</string>
+  <string name="talkInChat">Pokalbyje būkite malonūs!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Pirmasis šiuo adresu atėjęs žmogus taps jūsų varžovu.</string>
   <string name="whiteResigned">Baltieji pasidavė</string>
   <string name="blackResigned">Juodieji pasidavė</string>
@@ -48,6 +48,15 @@
   <string name="computerAnalysis">Kompiuterio analizė</string>
   <string name="computerAnalysisAvailable">Galima kompiuterinė analizė</string>
   <string name="analysis">Analizė</string>
+  <string name="depthX">Gylis: %s</string>
+  <string name="usingServerAnalysis">Naudojama serverio analizė</string>
+  <string name="loadingEngine">Įkeliamas variklis...</string>
+  <string name="cloudAnalysis">Analizė debesyje</string>
+  <string name="cloud">Debesis</string>
+  <string name="goDeeper">Eiti gilyn</string>
+  <string name="showThreat">Rodyti grėsmę</string>
+  <string name="inLocalBrowser">vietinėje naršyklėje</string>
+  <string name="toggleLocalEvaluation">Perjungti vietinį įvertinimą</string>
   <string name="blunders">Šiurkščios klaidos</string>
   <string name="mistakes">Klaidos</string>
   <string name="inaccuracies">Netikslumai</string>
@@ -156,6 +165,8 @@
   <string name="play">Žaisk</string>
   <string name="inbox">Žinutės</string>
   <string name="chatRoom">Pokalbis</string>
+  <string name="loginToChat">Prisijunkite pokalbiui</string>
+  <string name="youHaveBeenTimedOut">Jums buvo suteikta pokalbio pertrauka.</string>
   <string name="spectatorRoom">Žiūrovų kambarys</string>
   <string name="composeMessage">Rašyti žinutę</string>
   <string name="noNewMessages">Nėra naujų žinučių</string>
@@ -165,6 +176,16 @@
   <string name="incrementInSeconds">Sekundžių prieaugis</string>
   <string name="freeOnlineChess">Nemokami šachmatai internete</string>
   <string name="spectators">Žiūrovai:</string>
+  <plurals name="nbGamesPlayed">
+    <item quantity="one">%s sužaista partija</item>
+    <item quantity="few">%s sužaistos partijos</item>
+    <item quantity="other">%s sužaistų partijų</item>
+  </plurals>
+  <plurals name="nbRated">
+    <item quantity="one">%s vertinama</item>
+    <item quantity="few">%s vertinamos</item>
+    <item quantity="other">%s vertinamų</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s pergalė</item>
     <item quantity="few">%s pergalės</item>
@@ -302,6 +323,17 @@
   <string name="tournamentPairingsAreNowClosed">Suporavimai turnyrui jau baigėsi.</string>
   <string name="standByX">%s, būkite pasiruošę, suporuojami žaidėjai!</string>
   <string name="youArePlaying">Jūs žaidžiate!</string>
+  <string name="winRate">Pergalių proc.</string>
+  <string name="berserkRate">Įsiūčio proc.</string>
+  <string name="performance">Pasirodymo lygis</string>
+  <string name="tournamentComplete">Turnyras baigtas</string>
+  <string name="movesPlayed">Atlikta ėjimų</string>
+  <string name="whiteWins">Baltųjų pergalės</string>
+  <string name="blackWins">Juodųjų pergalės</string>
+  <string name="draws">Lygiosios</string>
+  <string name="nextXTournament">Kitas %s turnyras:</string>
+  <string name="viewMoreTournaments">Peržiūrėti daugiau turnyrų</string>
+  <string name="averageOpponent">Vidutinis varžovas</string>
   <string name="membersOnly">Tik nariai</string>
   <string name="boardEditor">Lentos rengyklė</string>
   <string name="startPosition">Pradinė pozicija</string>

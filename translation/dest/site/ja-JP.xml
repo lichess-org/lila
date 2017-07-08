@@ -48,6 +48,14 @@
   <string name="computerAnalysis">コンピューター分析</string>
   <string name="computerAnalysisAvailable">コンピュータ解析が可能です</string>
   <string name="analysis">棋譜解析</string>
+  <string name="depthX">深度 %s</string>
+  <string name="usingServerAnalysis">サーバ解析を使用</string>
+  <string name="loadingEngine">エンジン読み込み中…</string>
+  <string name="cloudAnalysis">クラウド解析</string>
+  <string name="cloud">クラウド</string>
+  <string name="goDeeper">もっと詳しく</string>
+  <string name="showThreat">狙いを表示</string>
+  <string name="inLocalBrowser">ローカル ブラウザ内で</string>
   <string name="blunders">大悪手</string>
   <string name="mistakes">悪手</string>
   <string name="inaccuracies">疑問手</string>
@@ -144,6 +152,8 @@
   <string name="play">プレイ</string>
   <string name="inbox">受信箱</string>
   <string name="chatRoom">チャットルーム</string>
+  <string name="loginToChat">（ログインが必要）</string>
+  <string name="youHaveBeenTimedOut">（チャットは一時禁止中）</string>
   <string name="spectatorRoom">観戦席</string>
   <string name="composeMessage">メッセージを作成する</string>
   <string name="noNewMessages">メッセージはありません</string>
@@ -153,6 +163,12 @@
   <string name="incrementInSeconds">１手ごとに増える秒数</string>
   <string name="freeOnlineChess">無料オンラインチェス</string>
   <string name="spectators">観覧者:</string>
+  <plurals name="nbGamesPlayed">
+    <item quantity="other">%s 局</item>
+  </plurals>
+  <plurals name="nbRated">
+    <item quantity="other">%s 局レート戦</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="other">%s回 勝ち</item>
   </plurals>
@@ -272,6 +288,17 @@
   <string name="tournamentPairingsAreNowClosed">トーナメントの対戦決定は終了しました。</string>
   <string name="standByX">%s さん、現在ペアリング中です。用意して！</string>
   <string name="youArePlaying">参加中！</string>
+  <string name="winRate">勝率</string>
+  <string name="berserkRate">バーサーク率</string>
+  <string name="performance">パフォーマンス</string>
+  <string name="tournamentComplete">トーナメント終了</string>
+  <string name="movesPlayed">総手数</string>
+  <string name="whiteWins">白勝ち</string>
+  <string name="blackWins">黒勝ち</string>
+  <string name="draws">ドロー</string>
+  <string name="nextXTournament">次の %s トーナメント:</string>
+  <string name="viewMoreTournaments">他のトーナメントを見る</string>
+  <string name="averageOpponent">対戦相手の平均</string>
   <string name="membersOnly">会員限定</string>
   <string name="boardEditor">盤面入力</string>
   <string name="startPosition">開始局面にする</string>
@@ -599,6 +626,7 @@
   <string name="boardTheme">盤のデザイン</string>
   <string name="boardSize">盤のサイズ</string>
   <string name="pieceSet">駒のデザイン</string>
+  <string name="embedInYourWebsite">自分のウェブサイトに埋め込む</string>
   <string name="usernameAlreadyUsed">このユーザー名は既に使用されています。別の名前にしてください。</string>
   <string name="usernameInvalid">無効なユーザー名です。使えるのは英数字、アンダースコア、ダッシュだけです。</string>
   <string name="usernameStartNoNumber">ユーザー名の最初は数字であってはいけません。</string>
