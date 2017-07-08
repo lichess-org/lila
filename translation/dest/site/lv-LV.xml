@@ -47,6 +47,7 @@
   <string name="requestAComputerAnalysis">Pieprasīt spēles datoranalīzi</string>
   <string name="computerAnalysis">Datora analīze</string>
   <string name="analysis">Analīze</string>
+  <string name="openingExplorer">Atklātņu pārlūks</string>
   <string name="blunders">Rupjas kļūdas</string>
   <string name="mistakes">Kļūdas</string>
   <string name="inaccuracies">Sīkas kļūdas</string>
@@ -138,7 +139,6 @@
   <string name="ratingRange">Reitinga diapazons</string>
   <string name="thisPlayerUsesChessComputerAssistance">Šis spēlētājs izmanto šaha programmu palīdzību</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Šis spēlētājs mākslīgi paaugstina/pazemina savu reitingu</string>
-  <string name="openingExplorer">Atklātņu pārlūks</string>
   <string name="takeback">Gājiena atsaukšana</string>
   <string name="proposeATakeback">Piedāvāt gājiena atsaukšanu</string>
   <string name="takebackPropositionSent">Gājiena atsaukšanas piedāvajums nosūtīts</string>
