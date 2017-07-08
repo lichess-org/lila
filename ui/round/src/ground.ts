@@ -7,9 +7,9 @@ import * as round from './round';
 import { h } from 'snabbdom'
 
 function makeConfig(ctrl): Config {
-  var data = ctrl.data, hooks = ctrl.makeCgHooks();
-  var step = round.plyStep(data, ctrl.vm.ply);
-  var playing = game.isPlayerPlaying(data);
+  const data = ctrl.data, hooks = ctrl.makeCgHooks(),
+  step = round.plyStep(data, ctrl.vm.ply),
+  playing = game.isPlayerPlaying(data);
   return {
     fen: step.fen,
     orientation: boardOrientation(data, ctrl.vm.flip),
@@ -77,9 +77,9 @@ export function reload(ctrl) {
 }
 
 export function promote(cg, key, role) {
-  var piece = cg.state.pieces[key];
+  const piece = cg.state.pieces[key];
   if (piece && piece.role === 'pawn') {
-    var pieces = {};
+    const pieces = {};
     pieces[key] = {
       color: piece.color,
       role,
@@ -97,7 +97,7 @@ export function boardOrientation(data, flip) {
 export function render(ctrl) {
   return h('div.cg-board-wrap', {
     hook: {
-      insert: vnode => {
+      insert(vnode) {
         ctrl.setChessground(Chessground((vnode.elm as HTMLElement), makeConfig(ctrl)));
       }
     }

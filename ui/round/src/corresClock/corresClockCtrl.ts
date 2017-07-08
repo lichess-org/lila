@@ -1,4 +1,7 @@
-module.exports = function(data, onFlag) {
+export interface CorresClockCtrl {
+}
+
+export function ctrl(data, onFlag): CorresClockCtrl {
   var timePercentDivisor = 0.1 / data.increment;
 
   function timePercent(color) {

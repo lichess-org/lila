@@ -1,6 +1,6 @@
 import { game, status }  from 'game';
 import clockView = require('../clock/view');
-import corresClockView from '../correspondenceClock/view';
+import corresClockView from '../corresClock/view';
 import replay = require('./replay');
 import renderUser = require('./user');
 import button = require('./button');
@@ -106,7 +106,7 @@ function anyClock(ctrl, position) {
   if (ctrl.clock) return clockView.renderClock(ctrl, player, position);
   else if (ctrl.data.correspondence && ctrl.data.game.turns > 1)
   return corresClockView(
-    ctrl.correspondenceClock, ctrl.trans, player.color, position, ctrl.data.game.player
+    ctrl.corresClock, ctrl.trans, player.color, position, ctrl.data.game.player
   );
   else return whosTurn(ctrl, player.color);
 }

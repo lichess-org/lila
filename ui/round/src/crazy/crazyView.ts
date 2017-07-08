@@ -1,6 +1,7 @@
 import * as round from '../round';
 import { drag } from './crazyCtrl';
 import { game } from 'game';
+import * as cg from 'chessground/types';
 
 import { h } from 'snabbdom'
 
@@ -10,27 +11,27 @@ const pieceRoles = ['pawn', 'knight', 'bishop', 'rook', 'queen'];
 export default function pocket(ctrl, color, position) {
   var step = round.plyStep(ctrl.data, ctrl.vm.ply);
   if (!step.crazy) return;
-  var droppedRole = ctrl.vm.justDropped;
-  var preDropRole = ctrl.vm.preDrop;
-  var pocket = step.crazy.pockets[color === 'white' ? 0 : 1];
-  var usablePos = position === (ctrl.vm.flip ? 'top' : 'bottom');
-  var usable = usablePos && !ctrl.replaying() && game.isPlayerPlaying(ctrl.data);
-  var activeColor = color === ctrl.data.player.color;
-  var captured = ctrl.vm.justCaptured;
+  const droppedRole = ctrl.vm.justDropped,
+  preDropRole = ctrl.vm.preDrop,
+  pocket = step.crazy.pockets[color === 'white' ? 0 : 1],
+  usablePos = position === (ctrl.vm.flip ? 'top' : 'bottom'),
+  usable = usablePos && !ctrl.replaying() && game.isPlayerPlaying(ctrl.data),
+  activeColor = color === ctrl.data.player.color;
+  let captured = ctrl.vm.justCaptured;
   if (captured) captured = captured.promoted ? 'pawn' : captured.role;
   return h('div.pocket.is2d.' + position, {
     class: { usable },
     hook: {
       insert: vnode => {
         eventNames.forEach(name => {
-          (vnode.elm as HTMLElement).addEventListener(name, e => {
+          (vnode.elm as HTMLElement).addEventListener(name, (e: cg.MouchEvent) => {
             if (position === (ctrl.vm.flip ? 'top' : 'bottom')) drag(ctrl, e);
           })
         });
       }
     }
   }, pieceRoles.map(role => {
-    var nb = pocket[role] || 0;
+    let nb = pocket[role] || 0;
     if (activeColor) {
       if (droppedRole === role) nb--;
       if (captured === role) nb++;

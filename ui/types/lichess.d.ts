@@ -30,6 +30,7 @@ interface Lichess {
   }
   idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void): void;
   parseFen(el: any): void;
+  hasToReload: boolean;
 }
 
 interface AssetUrlOpts {

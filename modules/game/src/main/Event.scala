@@ -36,7 +36,7 @@ object Event {
       check: Boolean,
       threefold: Boolean,
       state: State,
-      clock: Option[Event],
+      clock: Option[ClockEvent],
       possibleMoves: Map[Pos, List[Pos]],
       possibleDrops: Option[List[Pos]],
       crazyData: Option[Crazyhouse.Data]
@@ -70,7 +70,7 @@ object Event {
       enpassant: Option[Enpassant],
       castle: Option[Castling],
       state: State,
-      clock: Option[Event],
+      clock: Option[ClockEvent],
       possibleMoves: Map[Pos, List[Pos]],
       possibleDrops: Option[List[Pos]],
       crazyData: Option[Crazyhouse.Data]
@@ -86,7 +86,7 @@ object Event {
     }
   }
   object Move {
-    def apply(move: ChessMove, situation: Situation, state: State, clock: Option[Event], crazyData: Option[Crazyhouse.Data]): Move = Move(
+    def apply(move: ChessMove, situation: Situation, state: State, clock: Option[ClockEvent], crazyData: Option[Crazyhouse.Data]): Move = Move(
       orig = move.orig,
       dest = move.dest,
       san = chess.format.pgn.Dumper(move),
@@ -116,7 +116,7 @@ object Event {
       check: Boolean,
       threefold: Boolean,
       state: State,
-      clock: Option[Event],
+      clock: Option[ClockEvent],
       possibleMoves: Map[Pos, List[Pos]],
       crazyData: Option[Crazyhouse.Data],
       possibleDrops: Option[List[Pos]]
@@ -131,7 +131,7 @@ object Event {
     }
   }
   object Drop {
-    def apply(drop: ChessDrop, situation: Situation, state: State, clock: Option[Event], crazyData: Option[Crazyhouse.Data]): Drop = Drop(
+    def apply(drop: ChessDrop, situation: Situation, state: State, clock: Option[ClockEvent], crazyData: Option[Crazyhouse.Data]): Drop = Drop(
       role = drop.piece.role,
       pos = drop.pos,
       san = chess.format.pgn.Dumper(drop),
@@ -262,7 +262,9 @@ object Event {
     override def owner = true
   }
 
-  case class Clock(white: Float, black: Float, nextLagComp: Option[Centis] = None) extends Event {
+  sealed trait ClockEvent extends Event
+
+  case class Clock(white: Float, black: Float, nextLagComp: Option[Centis] = None) extends ClockEvent {
     def typ = "clock"
     def data = Json.obj(
       "white" -> truncateAt(white, 2),
@@ -283,7 +285,7 @@ object Event {
     def data = Json.toJson(color)
   }
 
-  case class CorrespondenceClock(white: Float, black: Float) extends Event {
+  case class CorrespondenceClock(white: Float, black: Float) extends ClockEvent {
     def typ = "cclock"
     def data = Json.obj("white" -> white, "black" -> black)
   }

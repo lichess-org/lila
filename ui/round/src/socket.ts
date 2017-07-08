@@ -1,96 +1,119 @@
-var game = require('game').game;
-var throttle = require('common').throttle;
-var ground = require('./ground');
-var xhr = require('./xhr');
-var sound = require('./sound');
+import { game } from 'game';
+import { throttle } from 'common';
+import * as xhr from './xhr';
+import * as sound from './sound';
+import RoundController from './ctrl';
 
-module.exports = function(socket, ctrl) {
+const li = window.lichess;
 
-  this.send = socket.send;
+interface Handlers {
+  [key: string]: any; // #TODO
+}
 
-  this.sendLoading = function() {
+export default class RoundSocket {
+  
+  constructor(public send: SocketSend, public ctrl: RoundController) {
+
+    li.pubsub.on('ab.rep', n => send('rep', { n: n }));
+  }
+
+  receive = (typ: string, data: any): boolean => {
+    if (this.handlers[typ]) {
+      this.handlers[typ](data);
+      return true;
+    }
+    return false;
+  };
+
+  moreTime: () => void = throttle(300, false, () => this.send('moretime'));
+
+  outoftime: () => void = throttle(500, false, () => this.send('flag', this.ctrl.data.game.player));
+
+  berserk: () => void = throttle(200, false, () => this.send('berserk', null, { ackable: true }));
+
+  sendLoading = () => {
     ctrl.setLoading(true);
     this.send.apply(this, arguments);
-  }.bind(this);
+  };
 
-  var reload = function(o, isRetry) {
+  private reload(o, isRetry?: boolean) {
     // avoid reload if possible!
     if (o && o.t) {
       ctrl.setLoading(false);
-      handlers[o.t](o.d);
+      this.handlers[o.t](o.d);
     }
-    else xhr.reload(ctrl).then(function(data) {
-      if (lichess.socket.getVersion() > data.player.version) {
+    else xhr.reload(this.ctrl).then(data => {
+      if (li.socket.getVersion() > data.player.version) {
         // race condition! try to reload again
-        if (isRetry) lichess.reload(); // give up and reload the page
-        else reload(o, true);
+        if (isRetry) li.reload(); // give up and reload the page
+        else this.reload(o, true);
       }
       else ctrl.reload(data);
     });
   };
 
-  var handlers = {
-    takebackOffers: function(o) {
+  handlers: Handlers = {
+    takebackOffers(o) {
       ctrl.setLoading(false);
       ctrl.data.player.proposingTakeback = o[ctrl.data.player.color];
       ctrl.data.opponent.proposingTakeback = o[ctrl.data.opponent.color];
       ctrl.redraw();
     },
-    move: function(o) {
+    move(o) {
       o.isMove = true;
       ctrl.apiMove(o);
     },
-    drop: function(o) {
+    drop(o) {
       o.isDrop = true;
       ctrl.apiMove(o);
     },
-    reload: reload,
+    reload,
     redirect: ctrl.setRedirecting,
-    clock: function(o) {
+    clock(o) {
       if (ctrl.clock) {
         ctrl.clock.update(o.white, o.black);
         ctrl.redraw();
       }
     },
-    crowd: function(o) {
+    crowd(o) {
       game.setOnGame(ctrl.data, 'white', o['white']);
       game.setOnGame(ctrl.data, 'black', o['black']);
       ctrl.redraw();
     },
     // end: function(winner) { } // use endData instead
-    endData: function(o) {
+    endData(o) {
       ctrl.endWithData(o);
     },
-    rematchOffer: function(by) {
+    rematchOffer(by) {
       ctrl.data.player.offeringRematch = by === ctrl.data.player.color;
       ctrl.data.opponent.offeringRematch = by === ctrl.data.opponent.color;
       ctrl.redraw();
     },
-    rematchTaken: function(nextId) {
+    rematchTaken(nextId) {
       ctrl.data.game.rematch = nextId;
       if (!ctrl.data.player.spectator) ctrl.setLoading(true);
       else ctrl.redraw();
     },
-    drawOffer: function(by) {
+    drawOffer(by) {
       ctrl.data.player.offeringDraw = by === ctrl.data.player.color;
       ctrl.data.opponent.offeringDraw = by === ctrl.data.opponent.color;
       ctrl.redraw();
     },
-    berserk: function(color) {
+    berserk(color) {
       ctrl.setBerserk(color);
     },
-    gone: function(isGone) {
+    gone(isGone) {
       if (!ctrl.data.opponent.ai) {
         game.setIsGone(ctrl.data, ctrl.data.opponent.color, isGone);
         ctrl.redraw();
       }
     },
-    checkCount: function(e) {
+    checkCount(e) {
       ctrl.data.player.checks = ctrl.data.player.color == 'white' ? e.white : e.black;
       ctrl.data.opponent.checks = ctrl.data.opponent.color == 'white' ? e.white : e.black;
       ctrl.redraw();
     },
-    simulPlayerMove: function(gameId) {
+    simulPlayerMove(gameId) {
       if (
         ctrl.userId &&
         ctrl.data.simul &&
@@ -100,31 +123,9 @@ module.exports = function(socket, ctrl) {
           ctrl.chessground.state.turnColor !== ctrl.chessground.state.movable.color) {
         ctrl.setRedirecting();
         sound.move();
-        lichess.hasToReload = true;
+        li.hasToReload = true;
         location.href = '/' + gameId;
       }
     }
   };
-
-  this.moreTime = throttle(300, false, () => this.send('moretime'));
-
-  this.outoftime = throttle(500, false, () => {
-    this.send('flag', ctrl.data.game.player)
-  });
-
-  this.berserk = throttle(200, false, () => this.send('berserk', null, { ackable: true }));
-
-  this.receive = function(type, data) {
-    if (handlers[type]) {
-      handlers[type](data);
-      return true;
-    }
-    return false;
-  }.bind(this);
-
-  lichess.pubsub.on('ab.rep', function(n) {
-    socket.send('rep', {
-      n: n
-    });
-  });
 }

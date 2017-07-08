@@ -1,6 +1,9 @@
 var updateElements = require('./view').updateElements;
 
-module.exports = function(data, opts) {
+export ClockController {
+}
+
+export function ctrl(data, opts): ClockController {
   var emergSound = {
     play: lichess.sound.lowtime,
     next: null,
