@@ -6,4 +6,5 @@
   <string name="isRated">Šis turnyras yra vertinamas ir turės įtakos jūsų reitingui.</string>
   <string name="isNotRated">Šis turnyras *nėra* vertinamas ir *neturės* įtakos jūsų reitingui.</string>
   <string name="someRated">Kai kurie turnyrai yra vertinami ir turės įtakos jūsų reitingui.</string>
+  <string name="howAreScoresCalculated">Kaip apskaičiuojami taškai?</string>
 </resources>
