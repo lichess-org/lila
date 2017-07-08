@@ -65,11 +65,10 @@ final class JsonView(
       "id" -> r.id,
       "name" -> light.fold(r.id)(_.name),
       "title" -> light.map(_.title),
-      "rating" -> r.rating.int,
-      "provisional" -> r.rating.provisional,
-      "patron" -> light.??(_.isPatron).option(true),
-      "online" -> isOnline(r.id).option(true),
-      "lag" -> UserLagCache.getLagRating(r.id)
-    ).noNull
+      "rating" -> r.rating.int
+    ).add("provisional" -> r.rating.provisional)
+      .add("patron" -> light.??(_.isPatron))
+      .add("online" -> isOnline(r.id))
+      .add("lag" -> UserLagCache.getLagRating(r.id))
   }
 }

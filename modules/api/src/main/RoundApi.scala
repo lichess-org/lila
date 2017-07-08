@@ -153,22 +153,21 @@ private[api] final class RoundApi(
   }
 
   private def withTournament(pov: Pov, tourOption: Option[TourAndRanks])(json: JsObject) =
-    tourOption.fold(json) { data =>
-      json + ("tournament" -> Json.obj(
+    json.add("tournament" -> tourOption.map { data =>
+      Json.obj(
         "id" -> data.tour.id,
         "name" -> data.tour.name,
-        "running" -> data.tour.isStarted,
-        "secondsToFinish" -> data.tour.isStarted.option(data.tour.secondsToFinish),
-        "berserkable" -> data.tour.isStarted.option(data.tour.berserkable),
-        "nbSecondsForFirstMove" -> data.tour.isStarted.option {
+        "running" -> data.tour.isStarted
+      ).add("secondsToFinish" -> data.tour.isStarted.option(data.tour.secondsToFinish))
+        .add("berserkable" -> data.tour.isStarted.option(data.tour.berserkable))
+        .add("nbSecondsForFirstMove" -> data.tour.isStarted.option {
           SecondsToDoFirstMove.secondsToMoveFor(data.tour)
-        },
-        "ranks" -> data.tour.isStarted.option(Json.obj(
+        })
+        .add("ranks" -> data.tour.isStarted.option(Json.obj(
           "white" -> data.whiteRank,
           "black" -> data.blackRank
-        ))
-      ).noNull)
-    }
+        )))
+    })
 
   private def withSimul(pov: Pov, simulOption: Option[Simul])(json: JsObject) =
     simulOption.fold(json) { simul =>

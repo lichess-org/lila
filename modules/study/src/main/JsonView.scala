@@ -89,9 +89,8 @@ final class JsonView(
       "visibility" -> s.visibility,
       "createdAt" -> s.createdAt,
       "from" -> s.from,
-      "likes" -> s.likes,
-      "isNew" -> s.isNew.option(true)
-    ).noNull
+      "likes" -> s.likes
+    ).add("isNew" -> s.isNew)
   }
 }
 

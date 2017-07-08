@@ -19,10 +19,9 @@ object LightUser {
   implicit val lightUserWrites = OWrites[LightUser] { u =>
     Json.obj(
       "id" -> u.id,
-      "name" -> u.name,
-      "title" -> u.title,
-      "patron" -> u.isPatron
-    ).noNull
+      "name" -> u.name
+    ).add("title" -> u.title)
+      .add("patron" -> u.isPatron)
   }
 
   type Getter = String => Fu[Option[LightUser]]

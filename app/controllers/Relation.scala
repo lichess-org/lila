@@ -82,11 +82,10 @@ object Relation extends LilaController {
     import lila.common.PimpedJson._
     Json.obj("paginator" -> PaginatorJson(pag.mapResults { r =>
       relatedWrites.writes(r) ++ Json.obj(
-        "online" -> Env.user.isOnline(r.user.id).option(true),
         "perfs" -> r.user.perfs.bestPerfType.map { best =>
           lila.user.JsonView.perfs(r.user, best.some)
         }
-      ).noNull
+      ).add("online" -> Env.user.isOnline(r.user.id))
     }))
   }
 

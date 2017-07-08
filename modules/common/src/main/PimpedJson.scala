@@ -54,6 +54,10 @@ object PimpedJson {
       }
     }
 
+    def add(pair: (String, Boolean)): JsObject =
+      if (pair._2) js + (pair._1 -> JsBoolean(true))
+      else js
+
     def add[A: Writes](pair: (String, Option[A])): JsObject =
       pair._2.fold(js) { a => js + (pair._1 -> Json.toJson(a)) }
   }

@@ -2,9 +2,9 @@ package lila.game
 
 import play.api.libs.json._
 
-import chess.{ Color, Clock }
 import chess.format.Forsyth
 import chess.variant.Crazyhouse
+import chess.{ Color, Clock }
 import lila.common.PimpedJson._
 
 object JsonView {
@@ -18,19 +18,18 @@ object JsonView {
     "initialFen" -> (initialFen | chess.format.Forsyth.initial),
     "fen" -> (Forsyth >> game.toChess),
     "player" -> game.turnColor.name,
-    "winner" -> game.winnerColor.map(_.name),
     "turns" -> game.turns,
     "startedAtTurn" -> game.startedAtTurn,
-    "lastMove" -> game.castleLastMoveTime.lastMoveString,
-    "threefold" -> game.toChessHistory.threefoldRepetition.option(true),
-    "check" -> game.check.map(_.key),
-    "rematch" -> game.next,
     "source" -> game.source,
     "status" -> game.status,
-    "boosted" -> game.boosted.option(true),
-    "tournamentId" -> game.tournamentId,
     "createdAt" -> game.createdAt
-  ).noNull
+  ).add("threefold" -> game.toChessHistory.threefoldRepetition)
+    .add("boosted" -> game.boosted)
+    .add("tournamentId" -> game.tournamentId)
+    .add("winner" -> game.winnerColor.map(_.name))
+    .add("lastMove" -> game.castleLastMoveTime.lastMoveString)
+    .add("check" -> game.check.map(_.key))
+    .add("rematch" -> game.next)
 
   implicit val statusWriter: OWrites[chess.Status] = OWrites { s =>
     Json.obj(

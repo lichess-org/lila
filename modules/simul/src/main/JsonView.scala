@@ -50,12 +50,11 @@ final class JsonView(getLightUser: LightUser.Getter) {
       Json.obj(
         "id" -> player.user,
         "variant" -> player.variant.key,
-        "username" -> light.map(_.name),
-        "title" -> light.map(_.title),
-        "rating" -> player.rating,
-        "provisional" -> player.provisional.filter(identity),
-        "patron" -> light.??(_.isPatron).option(true)
-      ).noNull
+        "rating" -> player.rating
+      ).add("username" -> light.map(_.name))
+        .add("title" -> light.map(_.title))
+        .add("provisional" -> player.provisional.filter(identity))
+        .add("patron" -> light.??(_.isPatron))
     }
 
   private def applicantJson(app: SimulApplicant): Fu[JsObject] =

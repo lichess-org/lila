@@ -59,37 +59,35 @@ final class JsonView(
     "createdBy" -> tour.createdBy,
     "system" -> tour.system.toString.toLowerCase,
     "fullName" -> tour.fullName,
-    "greatPlayer" -> GreatPlayer.wikiUrl(tour.name).map { url =>
-      Json.obj("name" -> tour.name, "url" -> url)
-    },
     "perf" -> tour.perfType,
     "nbPlayers" -> tour.nbPlayers,
     "minutes" -> tour.minutes,
     "clock" -> clockJson(tour.clock),
-    "position" -> tour.position.some.filterNot(_.initial).map(positionJson),
-    "private" -> tour.`private`.option(true),
     "verdicts" -> verdicts,
     "variant" -> tour.variant.key,
     "isStarted" -> tour.isStarted,
     "isFinished" -> tour.isFinished,
-    "isRecentlyFinished" -> tour.isRecentlyFinished.option(true),
-    "pairingsClosed" -> tour.pairingsClosed,
-    "schedule" -> tour.schedule.map(scheduleJson),
-    "secondsToFinish" -> tour.isStarted.option(tour.secondsToFinish),
-    "secondsToStart" -> tour.isCreated.option(tour.secondsToStart),
     "startsAt" -> formatDate(tour.startsAt),
     "pairings" -> data.pairings,
     "standing" -> stand,
-    "me" -> myInfo.map(myInfoJson(me)),
-    "featured" -> data.featured,
-    "podium" -> data.podium,
-    "playerInfo" -> playerInfoJson,
-    "quote" -> tour.isCreated.option(lila.quote.Quote.one(tour.id)),
-    "spotlight" -> tour.spotlight,
-    "socketVersion" -> socketVersion,
-    "stats" -> stats,
-    "next" -> data.next
-  ).noNull
+    "socketVersion" -> socketVersion
+  ).add("greatPlayer" -> GreatPlayer.wikiUrl(tour.name).map { url =>
+      Json.obj("name" -> tour.name, "url" -> url)
+    }).add("position" -> tour.position.some.filterNot(_.initial).map(positionJson))
+    .add("schedule" -> tour.schedule.map(scheduleJson))
+    .add("private" -> tour.`private`)
+    .add("isRecentlyFinished" -> tour.isRecentlyFinished)
+    .add("secondsToFinish" -> tour.isStarted.option(tour.secondsToFinish))
+    .add("secondsToStart" -> tour.isCreated.option(tour.secondsToStart))
+    .add("me" -> myInfo.map(myInfoJson(me)))
+    .add("featured" -> data.featured)
+    .add("podium" -> data.podium)
+    .add("playerInfo" -> playerInfoJson)
+    .add("quote" -> tour.isCreated.option(lila.quote.Quote.one(tour.id)))
+    .add("spotlight" -> tour.spotlight)
+    .add("pairingsClosed" -> tour.pairingsClosed)
+    .add("stats" -> stats)
+    .add("next" -> data.next)
 
   def standing(tour: Tournament, page: Int): Fu[JsObject] =
     if (page == 1) firstPageCache get tour.id
@@ -114,28 +112,25 @@ final class JsonView(
         "player" -> Json.obj(
           "id" -> user.id,
           "name" -> user.username,
-          "title" -> user.title,
-          "rank" -> ranking.get(user.id).map(1+),
           "rating" -> player.rating,
-          "provisional" -> player.provisional.option(true),
-          "withdraw" -> player.withdraw.option(true),
           "score" -> player.score,
           "ratingDiff" -> player.ratingDiff,
           "fire" -> player.fire,
-          "nb" -> sheetNbs(user.id, sheet),
-          "performance" -> tpr
-        ).noNull,
+          "nb" -> sheetNbs(user.id, sheet)
+        ).add("title" -> user.title)
+          .add("rank" -> ranking.get(user.id).map(1+))
+          .add("provisional" -> player.provisional)
+          .add("withdraw" -> player.withdraw)
+          .add("performance" -> tpr),
         "pairings" -> povScores.map {
-          case (pov, score) =>
-            Json.obj(
-              "id" -> pov.gameId,
-              "color" -> pov.color.name,
-              "op" -> gameUserJson(pov.opponent.userId, pov.opponent.rating),
-              "win" -> pov.win,
-              "status" -> pov.game.status.id,
-              "berserk" -> pov.player.berserk.option(true),
-              "score" -> score.map(sheetScoreJson)
-            ).noNull
+          case (pov, score) => Json.obj(
+            "id" -> pov.gameId,
+            "color" -> pov.color.name,
+            "op" -> gameUserJson(pov.opponent.userId, pov.opponent.rating),
+            "win" -> pov.win,
+            "status" -> pov.game.status.id,
+            "score" -> score.map(sheetScoreJson)
+          ).add("berserk" -> pov.player.berserk)
         }
       )
   }
@@ -221,11 +216,10 @@ final class JsonView(
       Json.obj(
         "rank" -> rp.rank,
         "name" -> light.fold(rp.player.userId)(_.name),
-        "title" -> light.flatMap(_.title),
         "rating" -> rp.player.rating,
-        "ratingDiff" -> rp.player.ratingDiff,
-        "berserk" -> p.berserk.option(true)
-      ).noNull
+        "ratingDiff" -> rp.player.ratingDiff
+      ).add("title" -> light.flatMap(_.title))
+        .add("berserk" -> p.berserk)
     }
     Json.obj(
       "id" -> game.id,
@@ -248,20 +242,16 @@ final class JsonView(
 
   private def gameUserJson(userId: Option[String], rating: Option[Int]): JsObject = {
     val light = userId flatMap lightUserApi.sync
-    Json.obj(
-      "name" -> light.map(_.name),
-      "title" -> light.flatMap(_.title),
-      "rating" -> rating
-    ).noNull
+    Json.obj("rating" -> rating)
+      .add("name" -> light.map(_.name))
+      .add("title" -> light.flatMap(_.title))
   }
 
   private def sheetJson(sheet: ScoreSheet) = sheet match {
-    case s: arena.ScoringSystem.Sheet =>
-      val o = Json.obj(
-        "scores" -> s.scores.reverse.map(arenaSheetScoreJson),
-        "total" -> s.total
-      )
-      s.onFire.fold(o + ("fire" -> JsBoolean(true)), o)
+    case s: arena.ScoringSystem.Sheet => Json.obj(
+      "scores" -> s.scores.reverse.map(arenaSheetScoreJson),
+      "total" -> s.total
+    ).add("fire" -> s.onFire)
   }
 
   private def arenaSheetScoreJson(score: arena.ScoringSystem.Score) =
@@ -280,16 +270,15 @@ final class JsonView(
     val p = rankedPlayer.player
     lightUserApi async p.userId map { light =>
       Json.obj(
-        "rank" -> rankedPlayer.rank,
         "name" -> light.fold(p.userId)(_.name),
-        "title" -> light.flatMap(_.title),
+        "rank" -> rankedPlayer.rank,
         "rating" -> p.rating,
-        "provisional" -> p.provisional.option(true),
-        "withdraw" -> p.withdraw.option(true),
         "score" -> p.score,
         "ratingDiff" -> p.ratingDiff,
         "sheet" -> sheet.map(sheetJson)
-      ).noNull
+      ).add("title" -> light.flatMap(_.title))
+        .add("provisional" -> p.provisional)
+        .add("withdraw" -> p.withdraw)
     }
   }
 
@@ -354,10 +343,9 @@ object JsonView {
   )
 
   private[tournament] implicit val spotlightWrites: OWrites[Spotlight] = OWrites { s =>
-    Json.obj(
-      "iconImg" -> s.iconImg,
-      "iconFont" -> s.iconFont
-    ).noNull
+    Json.obj()
+      .add("iconImg" -> s.iconImg)
+      .add("iconFont" -> s.iconFont)
   }
 
   private[tournament] implicit val perfTypeWrites: OWrites[PerfType] = OWrites { pt =>

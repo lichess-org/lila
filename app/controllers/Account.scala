@@ -49,10 +49,9 @@ object Account extends LilaController {
                   "nowPlaying" -> JsArray(povs take 20 map Env.api.lobbyApi.nowPlaying),
                   "nbFollowing" -> nbFollowing,
                   "nbFollowers" -> nbFollowers,
-                  "kid" -> me.kid.option(true),
-                  "troll" -> me.troll.option(true),
                   "nbChallenges" -> nbChallenges
-                ).noNull
+                ).add("kid" -> me.kid)
+                  .add("troll" -> me.troll)
               }
           }
     }

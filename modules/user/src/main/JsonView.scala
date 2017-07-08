@@ -14,35 +14,33 @@ final class JsonView(isOnline: String => Boolean) {
   def apply(u: User, onlyPerf: Option[PerfType] = None): JsObject = Json.obj(
     "id" -> u.id,
     "username" -> u.username,
-    "title" -> u.title,
     "online" -> isOnline(u.id),
-    "disabled" -> u.disabled.option(true),
-    "engine" -> u.engine.option(true),
-    "booster" -> u.booster.option(true),
-    "language" -> u.lang,
-    "profile" -> u.profile.??(profileWrites.writes).noNull,
     "perfs" -> perfs(u, onlyPerf),
-    "createdAt" -> u.createdAt,
-    "seenAt" -> u.seenAt,
-    "playTime" -> u.playTime,
-    "patron" -> u.isPatron.option(true)
-  ).noNull
+    "createdAt" -> u.createdAt
+  ).add("disabled" -> u.disabled)
+    .add("engine" -> u.engine)
+    .add("booster" -> u.booster)
+    .add("profile" -> u.profile.map(p => profileWrites.writes(p).noNull))
+    .add("seenAt" -> u.seenAt)
+    .add("patron" -> u.isPatron)
+    .add("playTime" -> u.playTime)
+    .add("language" -> u.lang)
+    .add("title" -> u.title)
 
   def minimal(u: User, onlyPerf: Option[PerfType]) = Json.obj(
     "id" -> u.id,
     "username" -> u.username,
-    "title" -> u.title,
     "online" -> isOnline(u.id),
-    "disabled" -> u.disabled.option(true),
-    "engine" -> u.engine.option(true),
-    "booster" -> u.booster.option(true),
-    "language" -> u.lang,
-    "profile" -> u.profile.flatMap(_.country).map { country =>
+    "perfs" -> perfs(u, onlyPerf)
+  ).add("title" -> u.title)
+    .add("disabled" -> u.disabled)
+    .add("engine" -> u.engine)
+    .add("booster" -> u.booster)
+    .add("language" -> u.lang)
+    .add("profile" -> u.profile.flatMap(_.country).map { country =>
       Json.obj("country" -> country)
-    },
-    "perfs" -> perfs(u, onlyPerf),
-    "patron" -> u.isPatron.option(true)
-  ).noNull
+    })
+    .add("patron" -> u.isPatron)
 
   def lightPerfIsOnline(lp: LightPerf) = {
     val json = lightPerfWrites.writes(lp)
@@ -61,12 +59,11 @@ object JsonView {
     Json.obj(
       "id" -> l.user.id,
       "username" -> l.user.name,
-      "title" -> l.user.title,
       "perfs" -> Json.obj(
         l.perfKey -> Json.obj("rating" -> l.rating, "progress" -> l.progress)
-      ),
-      "patron" -> l.user.isPatron.option(true)
-    ).noNull
+      )
+    ).add("title" -> l.user.title)
+      .add("patron" -> l.user.isPatron)
   }
 
   implicit val modWrites = OWrites[User] { u =>
@@ -78,7 +75,7 @@ object JsonView {
       "booster" -> u.booster,
       "troll" -> u.troll,
       "games" -> u.count.game
-    ).noNull
+    ).add("title" -> u.title)
   }
 
   implicit val perfWrites: OWrites[Perf] = OWrites { o =>
