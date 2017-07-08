@@ -7,6 +7,11 @@
   <string name="isNotRated">Turneringen är *inte* rankad och kommer *inte* att påverka din rating.</string>
   <string name="someRated">Vissa turneringar är rankade och kommer att påverka din ranking.</string>
   <string name="howAreScoresCalculated">Hur räknas poäng?</string>
+  <string name="howAreScoresCalculatedAnswer">En vinst har en baspoäng på 2, en remi 1 och en förlust 0 poäng. 
+
+Till exempel, 2 vinster följt av en remi är värt 6 poäng: 2 + 2 + (2 * 1)
+
+Om du vinner 2 partier i rad startas en dubbelpoäng-serie, representerad av en flamma som ikon. Efterföljande partier är då värda dubbla poäng tills du misslyckas med att vinna ett parti. Detta innebär att en vinst är värd 4 poäng, en remi 2 poäng och en förlust är värd 0 poäng.</string>
   <string name="berserk">Arena Berserk</string>
   <string name="howIsTheWinnerDecided">Hur avgörs vinnaren?</string>
   <string name="howDoesPairingWork">Hur fungerar parningen?</string>
