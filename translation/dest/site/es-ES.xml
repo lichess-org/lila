@@ -48,6 +48,7 @@
   <string name="computerAnalysis">Análisis del ordenador</string>
   <string name="computerAnalysisAvailable">Análisis por ordenador disponible</string>
   <string name="analysis">Tablero de análisis</string>
+  <string name="openingExplorer">Explorador de aperturas y base de datos de finales</string>
   <string name="blunders">Errores graves</string>
   <string name="mistakes">Errores</string>
   <string name="inaccuracies">Imprecisiones</string>
@@ -179,7 +180,6 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Este jugador usa un motor de ajedrez</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Este jugador incrementa/disminuye artificialmente su puntuación</string>
-  <string name="openingExplorer">Explorador de aperturas y base de datos de finales</string>
   <string name="takeback">Deshacer jugada</string>
   <string name="proposeATakeback">Proponer deshacer jugada</string>
   <string name="takebackPropositionSent">Propuesta de deshacer jugada enviada</string>
