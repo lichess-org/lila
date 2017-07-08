@@ -1787,12 +1787,12 @@ body.piece_letter #analyse-cm .title {
   background: #fff;
 }
 
-body.coords_2 .gauge_displayed .cg-board-wrap coords.ranks {
+.gauge_displayed .cg-board-wrap coords.ranks {
   color: #fff;
   text-shadow: 0 1px 2px #000;
   right: -4px;
   text-align: left;
 }
-body.coords_2 .gauge_displayed .cg-board-wrap coords.ranks coord {
+.gauge_displayed .cg-board-wrap coords.ranks coord {
   transform: none;
 }
