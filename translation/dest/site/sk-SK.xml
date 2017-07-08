@@ -48,6 +48,7 @@
   <string name="computerAnalysis">Počítačová analýza</string>
   <string name="computerAnalysisAvailable">Počítačová analýza je k dispozícii</string>
   <string name="analysis">Analýza</string>
+  <string name="openingExplorer">Prieskumník otvorení</string>
   <string name="blunders">Hrubé chyby</string>
   <string name="mistakes">Chyby</string>
   <string name="inaccuracies">Nepresnosti</string>
@@ -139,7 +140,6 @@
   <string name="ratingRange">Rozsah hodnotení</string>
   <string name="thisPlayerUsesChessComputerAssistance">Tento hráč využíva v šachu pomoc počítača</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Tento hráč si umelo zvyšuje/znižuje svoje hodnotenie</string>
-  <string name="openingExplorer">Prieskumník otvorení</string>
   <string name="takeback">Vrátiť ťah</string>
   <string name="proposeATakeback">Ponúknuť vrátenie ťahu</string>
   <string name="takebackPropositionSent">Ponuka na návrat zaslaná</string>
