@@ -57,6 +57,7 @@
   <string name="showThreat">Visa hot</string>
   <string name="inLocalBrowser">i lokal webbläsare</string>
   <string name="toggleLocalEvaluation">Lokal analys av/på</string>
+  <string name="openingExplorer">Öppningsbok</string>
   <string name="blunders">Blundrar</string>
   <string name="mistakes">Misstag</string>
   <string name="inaccuracies">Felaktigheter</string>
@@ -198,7 +199,6 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Den här spelaren tar hjälp av schackmotor</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Den här spelaren ökar/minskar sin rating artificiellt</string>
-  <string name="openingExplorer">Öppningsbok</string>
   <string name="takeback">Gör om drag</string>
   <string name="proposeATakeback">Frågar motståndaren om du får göra om draget</string>
   <string name="takebackPropositionSent">Förslag att göra om draget skickat</string>
