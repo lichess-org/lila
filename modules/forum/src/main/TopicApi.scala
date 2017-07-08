@@ -88,9 +88,11 @@ private[forum] final class TopicApi(
       selector = TopicRepo(troll) byCategQuery categ,
       projection = $empty,
       sort = $sort.updatedDesc
-    ) mapFuture { topic =>
-      env.postColl.byId[Post](topic lastPostId troll) map { post =>
-        TopicView(categ, topic, post, env.postApi lastPageOf topic, troll)
+    ) mapFutureList { topics =>
+      env.postColl.optionsByOrderedIds[Post, String](topics.map(_ lastPostId troll))(_.id) map { posts =>
+        topics zip posts map {
+          case topic ~ post => TopicView(categ, topic, post, env.postApi lastPageOf topic, troll)
+        }
       }
     }
     val cachedAdapter =
