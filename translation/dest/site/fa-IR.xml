@@ -47,6 +47,7 @@
   <string name="requestAComputerAnalysis">درخواست یک تحلیل رایانه ای</string>
   <string name="computerAnalysis">تجزيه تحليل رایانه ای</string>
   <string name="analysis">تحلیل</string>
+  <string name="openingExplorer">باز کردن جستجوگر</string>
   <string name="blunders">اشتباهات جدی</string>
   <string name="mistakes">اشتباهات</string>
   <string name="inaccuracies">بی‌ دقتی‌ ها</string>
@@ -178,7 +179,6 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">این بازیکن از رایانه کمک می گیرد</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">این بازیکن رتبه‌اش را به شکل مجازی بالا و پایین می‌کند</string>
-  <string name="openingExplorer">باز کردن جستجوگر</string>
   <string name="takeback">پس گرفتن حرکت</string>
   <string name="proposeATakeback">پیشنهاد پس گرفتن حرکت</string>
   <string name="takebackPropositionSent">پیشنهاد پس گرفتن حرکت فرستاده شد</string>
