@@ -18,6 +18,7 @@ sealed abstract class TopicRepo(troll: Boolean) {
 
   private val trollFilter = troll.fold($empty, $doc("troll" -> false))
   private val notStickyQuery = $doc("sticky" $ne true)
+  private val stickyQuery = $doc("sticky" -> true)
 
   def close(id: String, value: Boolean): Funit =
     coll.updateField($id(id), "closed", value).void
@@ -35,7 +36,7 @@ sealed abstract class TopicRepo(troll: Boolean) {
     coll.uno[Topic]($doc("categId" -> categSlug, "slug" -> slug) ++ trollFilter)
 
   def stickyByCateg(categ: Categ): Fu[List[Topic]] =
-    coll.list[Topic](byCategQuery(categ) ++ byStickyQuery())
+    coll.list[Topic](byCategQuery(categ) ++ stickyQuery)
 
   def nextSlug(categ: Categ, name: String, it: Int = 1): Fu[String] = {
     val slug = Topic.nameToId(name) + ~(it != 1).option("-" + it)
@@ -53,5 +54,4 @@ sealed abstract class TopicRepo(troll: Boolean) {
 
   def byCategQuery(categ: Categ) = $doc("categId" -> categ.slug) ++ trollFilter
   def byCategNotStickyQuery(categ: Categ) = byCategQuery(categ) ++ notStickyQuery
-  def byStickyQuery() = $doc("sticky" -> true)
 }
