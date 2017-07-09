@@ -5,4 +5,6 @@
   <string name="willBeNotified">Você será notificado quando o torneio começar, portanto, é seguro jogar em outra aba enquanto espera.</string>
   <string name="isRated">Este torneio é valendo pontod e afetará sua classificação.</string>
   <string name="isNotRated">Este torneio é valendo pontos e afetará sua classificação.</string>
+  <string name="someRated">Este torneio vale pontos e afetará seu rating.</string>
+  <string name="howAreScoresCalculated">Como os pontos são calculados?</string>
 </resources>
