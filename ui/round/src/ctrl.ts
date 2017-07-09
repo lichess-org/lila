@@ -632,13 +632,12 @@ export default class RoundController {
         this.setTitle();
 
         window.addEventListener('beforeunload', e => {
-          if (!li.hasToReload && !this.data.blind && game.playable(this.data) && this.data.clock && !this.data.opponent.ai) {
-            document.body.classList.remove('fpmenu');
-            this.socket.send('bye2');
-            const msg = 'There is a game in progress!';
-            (e || window.event).returnValue = msg;
-            return msg;
-          }
+          if (li.hasToReload || this.data.blind || !game.playable(this.data) || !this.data.clock || this.data.opponent.ai) return;
+          document.body.classList.remove('fpmenu');
+          this.socket.send('bye2');
+          const msg = 'There is a game in progress!';
+          (e || window.event).returnValue = msg;
+          return msg;
         });
 
         window.Mousetrap.bind(['esc'], () => this.chessground.cancelMove());
