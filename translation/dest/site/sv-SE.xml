@@ -52,7 +52,6 @@
   <string name="usingServerAnalysis">Använder server analys</string>
   <string name="loadingEngine">Laddar program...</string>
   <string name="cloudAnalysis">Moln analys</string>
-  <string name="cloud">Moln</string>
   <string name="goDeeper">Sök djupare</string>
   <string name="showThreat">Visa hot</string>
   <string name="inLocalBrowser">i lokal webbläsare</string>
