@@ -43,6 +43,7 @@ export interface Game {
   initialFen?: string;
   importedBy?: string;
   division?: Division;
+  perf: string;
 }
 
 export interface Division {
