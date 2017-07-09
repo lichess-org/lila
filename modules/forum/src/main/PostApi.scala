@@ -42,7 +42,7 @@ final class PostApi(
           troll = ctx.troll,
           hidden = topic.hidden,
           categId = categ.id,
-          modIcon = (data.modIcon.getOrElse(false) && ctx.me.map(MasterGranter(_.PublicMod)).getOrElse(false)).fold(Some(true), None)
+          modIcon = (~data.modIcon && ~ctx.me.map(MasterGranter(_.PublicMod))).option(true)
         )
         PostRepo findDuplicate post flatMap {
           case Some(dup) => fuccess(dup)

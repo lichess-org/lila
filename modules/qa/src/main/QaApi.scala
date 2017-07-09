@@ -162,7 +162,7 @@ final class QaApi(
     private implicit val voteBSONHandler = Macros.handler[Vote]
     private implicit val answerBSONHandler = Macros.handler[Answer]
 
-    def create(data: AnswerData, q: Question, user: User)(implicit ctx: UserContext): Fu[Answer] =
+    def create(data: AnswerData, q: Question, user: User): Fu[Answer] =
       lila.db.Util findNextId answerColl flatMap { id =>
         val a = Answer(
           _id = id,
@@ -174,7 +174,7 @@ final class QaApi(
           acceptedAt = None,
           createdAt = DateTime.now,
           editedAt = None,
-          modIcon = (data.modIcon.getOrElse(false) && ctx.me.map(Granter(_.PublicMod)).getOrElse(false)).fold(Some(true), None)
+          modIcon = (~data.modIcon && Granter.apply(_.PublicMod)(user)).option(true)
         )
 
         (answerColl insert a) >>
