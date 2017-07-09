@@ -52,7 +52,6 @@
   <string name="usingServerAnalysis">サーバ解析を使用</string>
   <string name="loadingEngine">エンジン読み込み中…</string>
   <string name="cloudAnalysis">クラウド解析</string>
-  <string name="cloud">クラウド</string>
   <string name="goDeeper">もっと詳しく</string>
   <string name="showThreat">狙いを表示</string>
   <string name="inLocalBrowser">ローカル ブラウザ内で</string>
