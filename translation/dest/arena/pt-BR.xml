@@ -24,4 +24,6 @@ Berserk só garante um ponto extra se você jogar pelo menos 7 lances na partida
   <string name="howIsTheWinnerDecided">Como o vencedor do Torneio é decidido?</string>
   <string name="howIsTheWinnerDecidedAnswer">O(s) jogador(es) com mais pontos no fim da duração do Torneio é(são) declarados vencedor(es).</string>
   <string name="howDoesPairingWork">Como o pareamento funciona?</string>
+  <string name="howDoesPairingWorkAnswer">No início do torneio, os jogadores serão pareados baseando-se em seus ratings.
+Assim que terminar a sua partida, você voltará a aguardar o pareamento com um jogador de rating próximo ao seu. Terminando a sua partida logo, você poderá jogar mais vezes e acumular mais pontos que seus adversários.</string>
 </resources>
