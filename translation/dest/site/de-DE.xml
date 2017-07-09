@@ -57,6 +57,7 @@
   <string name="showThreat">Drohungen anzeigen</string>
   <string name="inLocalBrowser">im lokalen Browser</string>
   <string name="toggleLocalEvaluation">Lokale Auswertung an-/ausschalten</string>
+  <string name="move">Zug</string>
   <string name="openingExplorer">Eröffnungsdatenbank &amp; Tablebases</string>
   <string name="blunders">Grobe Patzer</string>
   <string name="mistakes">Fehler</string>
