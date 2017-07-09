@@ -2,7 +2,7 @@
 
 import throttle from './throttle';
 
-export function defined(v: any): boolean {
+export function defined<A>(v: A | undefined): v is A {
   return typeof v !== 'undefined';
 }
 
@@ -19,7 +19,7 @@ export interface Prop<T> {
 export function prop<A>(initialValue: A): Prop<A> {
   let value = initialValue;
   const fun = function(v: A | undefined) {
-    if (defined(v)) value = v!;
+    if (defined(v)) value = v;
     return value;
   };
   return fun as Prop<A>;
@@ -40,7 +40,7 @@ export function storedProp<T>(k: string, defaultValue: T): StoredProp<T>;
 export function storedProp(k: string, defaultValue: any) {
   const sk = 'analyse.' + k;
   const isBoolean = defaultValue === true || defaultValue === false;
-  var value: any;
+  let value: any;
   return function(v: any) {
     if (defined(v) && v != value) {
       value = v + '';
@@ -59,8 +59,11 @@ export interface StoredJsonProp<T> {
 }
 
 export function storedJsonProp<T>(key: string, defaultValue: T): StoredJsonProp<T> {
-  return function() {
-    if (arguments.length) window.lichess.storage.set(key, JSON.stringify(arguments[0]));
+  return function(v?: T) {
+    if (defined(v)) {
+      window.lichess.storage.set(key, JSON.stringify(v));
+      return v;
+    }
     const ret = JSON.parse(window.lichess.storage.get(key));
     return (ret !== null) ? ret : defaultValue;
   };
@@ -72,7 +75,7 @@ export interface Sync<T> {
 }
 
 export function sync<T>(promise: Promise<T>): Sync<T> {
-  var sync: any = {};
+  const sync = {} as Sync<T>;
   sync.promise = promise.then(v => {
     sync.sync = v;
     return v;
@@ -85,7 +88,7 @@ export { throttle };
 export type F = () => void;
 
 export function dropThrottle(delay: number): (f: F) => void  {
-  var task: F | undefined;
+  let task: F | undefined;
   const run = function(f: F) {
     task = f;
     f();
