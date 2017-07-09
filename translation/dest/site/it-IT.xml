@@ -52,7 +52,6 @@
   <string name="usingServerAnalysis">Usare le analisi del server</string>
   <string name="loadingEngine">Sto caricando il motore...</string>
   <string name="cloudAnalysis">Analisi nel cloud</string>
-  <string name="cloud">Cloud</string>
   <string name="goDeeper">Andare più a fondo</string>
   <string name="showThreat">Mostrare la minaccia</string>
   <string name="inLocalBrowser">nel browser locale</string>
