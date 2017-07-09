@@ -1,5 +1,6 @@
 import { h } from 'snabbdom'
 import { Hooks } from 'snabbdom/hooks'
+import { Attrs } from 'snabbdom/modules/attributes'
 import * as cg from 'chessground/types'
 import { Redraw } from './interfaces';
 
@@ -12,7 +13,7 @@ const pieceScores = {
   king: 0
 };
 
-export function dataIcon(icon: string) {
+export function dataIcon(icon: string): Attrs {
   return {
     'data-icon': icon
   };
@@ -22,7 +23,8 @@ export function uci2move(uci: string): cg.Key[] | undefined {
   if (!uci) return undefined;
   if (uci[1] === '@') return [uci.slice(2, 4) as cg.Key];
   return [uci.slice(0, 2), uci.slice(2, 4)] as cg.Key[];
-};
+}
+
 export function bind(eventName: string, f: (e: Event) => void, redraw: Redraw | undefined = undefined): Hooks {
   return {
     insert(vnode) {
@@ -34,6 +36,7 @@ export function bind(eventName: string, f: (e: Event) => void, redraw: Redraw | 
     }
   };
 }
+
 export function parsePossibleMoves(possibleMoves) {
   if (!possibleMoves) return {};
   for (let k in possibleMoves) {
@@ -41,7 +44,8 @@ export function parsePossibleMoves(possibleMoves) {
     possibleMoves[k] = possibleMoves[k].match(/.{2}/g);
   }
   return possibleMoves;
-};
+}
+
 // {white: {pawn: 3 queen: 1}, black: {bishop: 2}}
 export function getMaterialDiff(pieces: cg.Pieces): cg.MaterialDiff {
   let counts = {
@@ -66,14 +70,16 @@ export function getMaterialDiff(pieces: cg.Pieces): cg.MaterialDiff {
     else if (c < 0) diff.black[role] = -c;
   }
   return diff;
-};
+}
+
 export function getScore(pieces: cg.Pieces): number {
   let score = 0, k;
   for (k in pieces) {
     score += pieceScores[pieces[k].role] * (pieces[k].color === 'white' ? 1 : -1);
   }
   return score;
-};
+}
+
 export function spinner() {
   return h('div.spinner', [
     h('svg', { attrs: { viewBox: '0 0 40 40' } }, [

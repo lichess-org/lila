@@ -90,7 +90,7 @@ export function standard(
 }
 
 export function forceResign(ctrl: RoundController) {
-  return ctrl.forceResignable() ?  h('div.suggestion', [
+  return ctrl.forceResignable() ? h('div.suggestion', [
     h('p', ctrl.trans.noarg('opponentLeftChoices')),
     h('a.button', {
       hook: util.bind('click', () => ctrl.socket.sendLoading('resign-force'))
