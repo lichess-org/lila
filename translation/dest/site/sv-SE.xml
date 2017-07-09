@@ -65,6 +65,7 @@
   <string name="database">Databas</string>
   <string name="whiteDrawBlack">Vit / Remi / Svart</string>
   <string name="averageRatingX">Medelrating: %s</string>
+  <string name="recentGames">Senaste partier</string>
   <string name="topGames">Topp partier</string>
   <string name="masterDbExplanation">Två miljoner OTB partier, av 2200+ FIDE rankade spelare, från 1952 till 2016</string>
   <plurals name="mateInXHalfMoves">
@@ -76,6 +77,7 @@
     <item quantity="other">Nästa slag eller bondedrag inom %s halv-drag. (Avstånd till nollställning av 50 drag-räknaren)</item>
   </plurals>
   <string name="noGameFound">Inget parti hittades</string>
+  <string name="alreadySearchingThroughAllAvailableGames">Söker redan igenom alla tillgängliga spel</string>
   <string name="openingExplorer">Öppningsbok</string>
   <string name="winPreventedBy50MoveRule">Vinst förhindrad genom 50-drags regeln</string>
   <string name="blunders">Blundrar</string>
