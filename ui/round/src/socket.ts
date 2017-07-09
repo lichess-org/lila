@@ -3,7 +3,7 @@ import { throttle } from 'common';
 import * as xhr from './xhr';
 import * as sound from './sound';
 import RoundController from './ctrl';
-import { Untyped } from './interfaces';
+import { Untyped, ApiEnd } from './interfaces';
 
 const li = window.lichess;
 
