@@ -388,7 +388,7 @@ export default class RoundController {
     if (d.blind) blind.reload(this);
     if (playing && playedColor === d.player.color) {
       this.moveOn.next();
-      cevalSub.publish(this, o);
+      cevalSub.publish(d, o);
     }
     if (!this.replaying() && playedColor !== d.player.color) {
       // atrocious hack to prevent race condition
