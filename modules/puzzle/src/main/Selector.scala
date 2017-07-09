@@ -14,7 +14,7 @@ private[puzzle] final class Selector(
 
   private val toleranceMax = 1000
 
-  val anonSkipMax = 5000
+  private val anonSkipMax = 5000
 
   def apply(me: Option[User]): Fu[Puzzle] = {
     lila.mon.puzzle.selector.count()
