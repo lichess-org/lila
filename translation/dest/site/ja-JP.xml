@@ -55,7 +55,10 @@
   <string name="goDeeper">もっと詳しく</string>
   <string name="showThreat">狙いを表示</string>
   <string name="inLocalBrowser">ローカル ブラウザ内で</string>
+  <string name="noGameFound">ゲームが見つかりません</string>
   <string name="openingExplorer">序盤探索&amp;テーブルベース</string>
+  <string name="winPreventedBy50MoveRule">勝勢ながら 50 手ルールでドロー</string>
+  <string name="lossSavedBy50MoveRule">敗勢ながら 50 手ルールでドロー</string>
   <string name="blunders">大悪手</string>
   <string name="mistakes">悪手</string>
   <string name="inaccuracies">疑問手</string>
@@ -185,6 +188,7 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">このプレイヤーはチェスソフトを使用しています</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">このプレイヤーは不正にレーティングを操作しています</string>
+  <string name="openingExplorerAndTablebase">序盤探索&amp;テーブルベース</string>
   <string name="takeback">待った</string>
   <string name="proposeATakeback">待ったのお願い</string>
   <string name="takebackPropositionSent">待ったのお願いを送りました</string>
