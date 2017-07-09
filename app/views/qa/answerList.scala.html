@@ -33,7 +33,7 @@
     <div class="content">
       <div class="answer">
         <div class="meta">
-          <span class="light">Answered @momentFromNow(a.createdAt) by @userIdLink(a.userId.some)</span>
+          <span class="light">Answered @momentFromNow(a.createdAt) by @userIdLink(userIdOption=a.userId.some, modIcon=a.displayModIcon)</span>
           @if(lila.qa.QaAuth canEdit a) {
           <a class="thin button toggle-edit-answer" data-icon="m"> Edit</a>
           }

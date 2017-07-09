@@ -54,7 +54,8 @@ private[forum] final class CategApi(env: Env) {
         troll = false,
         hidden = topic.hidden,
         lang = "en".some,
-        categId = categ.id
+        categId = categ.id,
+        modIcon = None
       )
       env.categColl.insert(categ).void >>
         env.postColl.insert(post).void >>

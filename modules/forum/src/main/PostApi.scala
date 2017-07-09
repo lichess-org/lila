@@ -41,7 +41,8 @@ final class PostApi(
           lang = lang map (_.language),
           troll = ctx.troll,
           hidden = topic.hidden,
-          categId = categ.id
+          categId = categ.id,
+          modIcon = (data.modIcon.getOrElse(false) && ctx.me.map(MasterGranter(_.PublicMod)).getOrElse(false)).fold(Some(true), None)
         )
         PostRepo findDuplicate post flatMap {
           case Some(dup) => fuccess(dup)

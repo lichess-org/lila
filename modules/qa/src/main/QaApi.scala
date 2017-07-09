@@ -9,7 +9,8 @@ import org.joda.time.DateTime
 import lila.common.paginator._
 import lila.db.dsl._
 import lila.db.paginator._
-import lila.user.User
+import lila.user.{ User, UserContext }
+import lila.security.Granter
 
 final class QaApi(
     questionColl: Coll,
@@ -161,7 +162,7 @@ final class QaApi(
     private implicit val voteBSONHandler = Macros.handler[Vote]
     private implicit val answerBSONHandler = Macros.handler[Answer]
 
-    def create(data: AnswerData, q: Question, user: User): Fu[Answer] =
+    def create(data: AnswerData, q: Question, user: User)(implicit ctx: UserContext): Fu[Answer] =
       lila.db.Util findNextId answerColl flatMap { id =>
         val a = Answer(
           _id = id,
@@ -172,7 +173,8 @@ final class QaApi(
           comments = Nil,
           acceptedAt = None,
           createdAt = DateTime.now,
-          editedAt = None
+          editedAt = None,
+          modIcon = (data.modIcon.getOrElse(false) && ctx.me.map(Granter(_.PublicMod)).getOrElse(false)).fold(Some(true), None)
         )
 
         (answerColl insert a) >>

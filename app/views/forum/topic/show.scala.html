@@ -40,7 +40,7 @@ description = shorten(posts.currentPageResults.headOption.??(_.text).replace("\n
     @posts.currentPageResults.map { post =>
     <div class="post" id="@post.number">
       <div class="metas clearfix">
-        @authorLink(post, "author".some)
+        @authorLink(post=post, cssClass="author".some, modIcon=post.displayModIcon)
 
         @post.updatedAt.map { updatedAt =>
           <span class="post-edited">edited</span>
@@ -104,6 +104,9 @@ description = shorten(posts.currentPageResults.headOption.??(_.text).replace("\n
       @forum.post.formFields(form("text"), form("author"), topic.some)
       @base.captcha(form("move"), form("gameId"), captcha)
       @globalError(form)
+      @if(isGranted(_.PublicMod)){
+      <div class="submit"><input type="checkbox" name="modIcon" value="true" /> Show moderator icon next to my name</div>
+      }
       <button type="submit" class="submit button" data-icon="E"> @trans.reply()</button>
       <a href="@routes.ForumCateg.show(categ.slug)" style="margin-left:20px">@trans.cancel()</a>
     </form>

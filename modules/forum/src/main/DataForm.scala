@@ -6,12 +6,14 @@ import play.api.data.Forms._
 private[forum] final class DataForm(val captcher: akka.actor.ActorSelection) extends lila.hub.CaptchedForm {
 
   import DataForm._
+  import lila.security.Granter
 
   val postMapping = mapping(
     "text" -> text(minLength = 3),
     "author" -> optional(text),
     "gameId" -> text,
-    "move" -> text
+    "move" -> text,
+    "modIcon" -> optional(boolean)
   )(PostData.apply)(PostData.unapply)
     .verifying(captchaFailMessage, validateCaptcha _)
 
@@ -33,7 +35,8 @@ object DataForm {
     text: String,
     author: Option[String],
     gameId: String,
-    move: String
+    move: String,
+    modIcon: Option[Boolean]
   )
 
   case class TopicData(
