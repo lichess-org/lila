@@ -52,7 +52,6 @@
   <string name="usingServerAnalysis">ใช้การวิเคราะห์เซิร์ฟเวอร์</string>
   <string name="loadingEngine">กำลังโหลดจักรกล...</string>
   <string name="cloudAnalysis">การวิเคราะห์คลาวด์</string>
-  <string name="cloud">คลาวด์</string>
   <string name="goDeeper">ลึกลงอีก</string>
   <string name="inLocalBrowser">ในเบราว์เซอร์ท้องถิ่น</string>
   <string name="openingExplorer">ตัวสำรวจการเปิดเกม</string>
