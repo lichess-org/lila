@@ -8,6 +8,13 @@
   <string name="someRated">Niektóre turnieje są rankingowe i mają wpływ na Twój ranking.</string>
   <string name="howAreScoresCalculated">Jak obliczane są wyniki?</string>
   <string name="berserk">Co to jest berserk?</string>
+  <string name="berserkAnswer">Gdy gracz kliknie przycisk Berserk na początku gry, traci połowę swojego czasu zegara ale za to wygrana jest warta 1 dodatkowy punkt turniejowy. 
+
+Berserk w grze z przyrostem czasu anuluje przyrost (wyjątkiem jest czas 1 + 2 - berserk daje wtedy czas 1 + 0).
+
+Berserk nie jest dostępny w partiach z zerowym czasem początkowym (0 + 1, 0 + 2). 
+
+Berserk przynosi dodatkowe punkty tylko wtedy gdy zrobisz co najmniej 7 posunięć w partii.</string>
   <string name="howIsTheWinnerDecided">Jak jest wyłaniany zwycięzca?</string>
   <string name="howDoesPairingWork">Jak działa kojarzenie par?</string>
   <string name="howDoesItEnd">Kiedy kończy się turniej?</string>
