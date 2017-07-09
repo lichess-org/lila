@@ -61,7 +61,10 @@
   <string name="averageRatingX">ระดับคะแนนเฉลี่ย: %s</string>
   <string name="recentGames">เกมเมื่อเร็วๆนี้</string>
   <string name="noGameFound">ไม่พบเกมใดๆ</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">อาจรวมถึงเกมเพิ่มเติมจากเมนูการตั้งค่าใช่หรือไม่?</string>
   <string name="openingExplorer">ตัวสำรวจการเปิดเกม</string>
+  <string name="winPreventedBy50MoveRule">การชนะถูกป้องกันโดยกฎ 50-ตาเดิน</string>
+  <string name="lossSavedBy50MoveRule">การแพ้ถูกป้องกันโดยกฎ 50-ตาเดิน</string>
   <string name="blunders">ความผิดพลาดมหันต์</string>
   <string name="mistakes">ความผิดพลาด</string>
   <string name="inaccuracies">ความไม่ถูกต้อง</string>
