@@ -79,6 +79,7 @@
   <string name="noGameFound">Inget parti hittades</string>
   <string name="alreadySearchingThroughAllAvailableGames">Söker redan igenom alla tillgängliga spel</string>
   <string name="openingExplorer">Öppningsbok</string>
+  <string name="xOpeningExplorer">%s öppningsutforskare</string>
   <string name="winPreventedBy50MoveRule">Vinst förhindrad genom 50-drags regeln</string>
   <string name="blunders">Blundrar</string>
   <string name="mistakes">Misstag</string>
@@ -221,6 +222,7 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Den här spelaren tar hjälp av schackmotor</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Den här spelaren ökar/minskar sin rating artificiellt</string>
+  <string name="openingExplorerAndTablebase">Öppningsutforskare &amp; tablebase</string>
   <string name="takeback">Gör om drag</string>
   <string name="proposeATakeback">Frågar motståndaren om du får göra om draget</string>
   <string name="takebackPropositionSent">Förslag att göra om draget skickat</string>
