@@ -1,6 +1,6 @@
 import { h } from 'snabbdom'
+import { VNodeData } from 'snabbdom/vnode'
 import { Hooks } from 'snabbdom/hooks'
-import { Attrs } from 'snabbdom/modules/attributes'
 import * as cg from 'chessground/types'
 import { Redraw } from './interfaces';
 
@@ -13,9 +13,9 @@ const pieceScores = {
   king: 0
 };
 
-export function dataIcon(icon: string): Attrs {
+export function justIcon(icon: string): VNodeData {
   return {
-    'data-icon': icon
+    attrs: { 'data-icon': icon }
   };
 }
 

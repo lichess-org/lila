@@ -1,6 +1,6 @@
 import { h } from 'snabbdom'
 import * as button from '../view/button';
-import { bind, dataIcon } from '../util';
+import { bind, justIcon } from '../util';
 import { game } from 'game';
 import RoundController from '../ctrl';
 import { ClockController, ClockData, Millis } from './clockCtrl';
@@ -96,9 +96,7 @@ function showBerserk(ctrl: RoundController, color: Color): boolean {
 }
 
 function renderBerserk(ctrl: RoundController, color: Color, position: Position) {
-  return showBerserk(ctrl, color) ? h('div.berserk_alert.' + position, {
-    attrs: dataIcon('`')
-  }) : null;
+  return showBerserk(ctrl, color) ? h('div.berserk_alert.' + position, justIcon('`')) : null;
 }
 
 function goBerserk(ctrl: RoundController) {
@@ -108,7 +106,7 @@ function goBerserk(ctrl: RoundController) {
     attrs: { 'data-hint': "GO BERSERK! Half the time, bonus point" },
     hook: bind('click', ctrl.goBerserk)
   }, [
-    h('span', { attrs: dataIcon('`') })
+    h('span', justIcon('`'))
   ]);
 }
 

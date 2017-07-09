@@ -85,7 +85,7 @@ export function standard(
       if (enabled()) onclick ? onclick() : ctrl.socket.sendLoading(socketMsg);
     })
   }, [
-    h('span', { attrs: util.dataIcon(icon) })
+    h('span', util.justIcon(icon))
   ]);
 }
 
@@ -106,11 +106,11 @@ export function resignConfirm(ctrl: RoundController): VNode {
     h('button.fbt.no.hint--bottom', {
       attrs: { 'data-hint': ctrl.trans.noarg('cancel') },
       hook: util.bind('click', () => ctrl.resign(false))
-    }, [h('span', { attrs: util.dataIcon('L') })]),
+    }, [h('span', util.justIcon('L'))]),
     h('button.fbt.yes.active.hint--bottom', {
       attrs: {'data-hint': ctrl.trans.noarg('resign') },
       hook: util.bind('click', () => ctrl.resign(true))
-    }, [h('span', { attrs: util.dataIcon('b') })])
+    }, [h('span', util.justIcon('b'))])
   ]);
 }
 
@@ -214,7 +214,7 @@ export function backToTournament(ctrl: RoundController): VNode | undefined {
         action: '/tournament/' + d.tournament.id + '/withdraw'
       }
     }, [
-      h('button.text.button.weak', { attrs: util.dataIcon('Z') }, 'Pause')
+      h('button.text.button.weak', util.justIcon('Z'), 'Pause')
     ]),
     analysisButton(ctrl)
   ]) : undefined;
@@ -225,7 +225,7 @@ export function moretime(ctrl: RoundController) {
     attrs: { 'data-hint': ctrl.trans('giveNbSeconds', ctrl.data.clock!.moretime) },
     hook: util.bind('click', ctrl.socket.moreTime)
   }, [
-    h('span', { attrs: util.dataIcon('O')})
+    h('span', util.justIcon('O'))
   ]) : null;
 }
 
@@ -235,9 +235,8 @@ export function followUp(ctrl: RoundController): VNode {
   newable = (status.finished(d) || status.aborted(d)) && (
     d.game.source === 'lobby' ||
       d.game.source === 'pool'),
-  rematchZone = ctrl.challengeRematched ? [h('div.suggestion.text', {
-    attrs: util.dataIcon('j')
-  }, ctrl.trans.noarg('rematchOfferSent')
+  rematchZone = ctrl.challengeRematched ? [
+    h('div.suggestion.text', util.justIcon('j'), ctrl.trans.noarg('rematchOfferSent')
   )] : (rematchable || d.game.rematch ? rematchButtons(ctrl) : []);
   return h('div.follow_up', [
     ...rematchZone,
