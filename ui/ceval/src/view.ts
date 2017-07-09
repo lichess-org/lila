@@ -27,7 +27,7 @@ function localEvalInfo(ctrl: ParentController, evs: NodeEvals): Array<VNode | st
   }
   const t: Array<VNode | string> = evs.client.cloud ? [
     ctrl.trans('depthX', evs.client.depth || 0),
-    h('span.cloud', { attrs: { title: ctrl.trans.noarg('cloudAnalysis') } }, ctrl.trans.noarg('cloud'))
+    h('span.cloud', { attrs: { title: ctrl.trans.noarg('cloudAnalysis') } }, 'Cloud')
   ] : [
     ctrl.trans('depthX', (evs.client.depth || 0) + '/' + evs.client.maxDepth)
   ];
