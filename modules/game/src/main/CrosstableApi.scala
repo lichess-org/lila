@@ -89,7 +89,7 @@ final class CrosstableApi(
   }
 
   private def getMatchup(u1: String, u2: String): Fu[Option[Matchup]] =
-    matchupColl.uno[Matchup](select(u1, u2))
+    matchupColl.find(select(u1, u2), $doc(F.lastPlayed -> false)).uno[Matchup]
 
   private def getOrCreateMatchup(u1: String, u2: String): Fu[Matchup] =
     getMatchup(u1, u2) dmap { _ | Matchup(Users(User(u1, 0), User(u2, 0))) }
