@@ -98,15 +98,15 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | 
 }
 
 function renderInlined(ctx: Ctx, nodes: Tree.Node[], opts: Opts): MaybeVNodes | undefined {
+  // only 2 branches
   if (!nodes[1] || nodes[2]) return;
-  var found;
-  if (!treeOps.hasBranching(nodes[1], 4)) found = [0, 1];
-  else if (!treeOps.hasBranching(nodes[0], 4)) found = [1, 0];
-  if (found) return renderMoveAndChildrenOf(ctx, nodes[found[0]], {
+  // only if second branch has no sub-branches
+  if (treeOps.hasBranching(nodes[1], 4)) return;
+  return renderMoveAndChildrenOf(ctx, nodes[0], {
     parentPath: opts.parentPath,
     isMainline: false,
     noConceal: opts.noConceal,
-    inline: nodes[found[1]]
+    inline: nodes[1]
   });
 }
 
