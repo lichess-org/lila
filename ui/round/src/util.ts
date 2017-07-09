@@ -1,6 +1,7 @@
 import { h } from 'snabbdom'
 import * as cg from 'chessground/types'
 import { Redraw } from './interfaces';
+import { VNode } from 'snabbdom/vnode';
 
 const pieceScores = {
   pawn: 1,
@@ -24,7 +25,7 @@ export function uci2move(uci: string): cg.Key[] | undefined {
 };
 export function bind(eventName: string, f: (e: Event) => void, redraw: Redraw | undefined = undefined) {
   return {
-    insert: vnode => {
+    insert: (vnode: VNode) => {
       (vnode.elm as HTMLElement).addEventListener(eventName, e => {
         const res = f(e);
         if (redraw) redraw();

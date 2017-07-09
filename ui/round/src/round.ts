@@ -8,7 +8,7 @@ export function lastPly(d: RoundData): number {
   return d.steps[d.steps.length - 1].ply;
 }
 
-export function plyStep(d: RoundData, ply): Step {
+export function plyStep(d: RoundData, ply: number): Step {
   return d.steps[ply - firstPly(d)];
 }
 

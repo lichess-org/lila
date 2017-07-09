@@ -1,7 +1,7 @@
 import RoundController from './ctrl';
 
-function preventing(f: () => void) {
-  return function(e) {
+function preventing(f: () => void): (e: Event) => void {
+  return function(e: Event) {
     if (e.preventDefault) {
       e.preventDefault();
     } else {

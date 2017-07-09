@@ -328,8 +328,8 @@ export default class RoundController {
         this.chessground.move(keys![0], keys![1]);
       }
       if (o.enpassant) {
-        const p = o.enpassant, pieces = {};
-        pieces[p.key] = false;
+        const p = o.enpassant, pieces: cg.PiecesDiff = {};
+        pieces[p.key] = null;
         this.chessground.setPieces(pieces);
         if (d.game.variant.key === 'atomic') {
           atomic.enpassant(this, p.key, p.color);
@@ -338,9 +338,9 @@ export default class RoundController {
       }
       if (o.promotion) ground.promote(this.chessground, o.promotion.key, o.promotion.pieceClass);
       if (o.castle && !this.chessground.state.autoCastle) {
-        const c = o.castle, pieces = {};
-        pieces[c.king[0]] = false;
-        pieces[c.rook[0]] = false;
+        const c = o.castle, pieces: cg.PiecesDiff = {};
+        pieces[c.king[0]] = null;
+        pieces[c.rook[0]] = null;
         pieces[c.king[1]] = {
           role: 'king',
           color: c.color
