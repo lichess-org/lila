@@ -71,6 +71,7 @@
   <string name="alreadySearchingThroughAllAvailableGames">Sto già cercando fra tutte le partite disponibili</string>
   <string name="openingExplorer">Esplora aperture</string>
   <string name="xOpeningExplorer">%s explorer delle aperture</string>
+  <string name="winPreventedBy50MoveRule">Vittoria non possibile a causa della \"regola delle 50 mosse\"</string>
   <string name="lossSavedBy50MoveRule">Sconfitta evitata a causa della \"regola delle 50 mosse\"</string>
   <string name="allSet">Tutto pronto!</string>
   <string name="blunders">Errori gravi</string>
