@@ -6,7 +6,6 @@ import play.api.data.Forms._
 private[forum] final class DataForm(val captcher: akka.actor.ActorSelection) extends lila.hub.CaptchedForm {
 
   import DataForm._
-  import lila.security.Granter
 
   val postMapping = mapping(
     "text" -> text(minLength = 3),

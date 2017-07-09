@@ -61,7 +61,7 @@ private[forum] final class TopicApi(
           lang = lang map (_.language),
           number = 1,
           categId = categ.id,
-          modIcon = (data.post.modIcon.pp.getOrElse(false) && ctx.me.map(MasterGranter(_.PublicMod)).getOrElse(false)).fold(Some(true), None)
+          modIcon = (data.post.modIcon.getOrElse(false) && ctx.me.map(MasterGranter(_.PublicMod)).getOrElse(false)).fold(Some(true), None)
         )
         env.postColl.insert(post) >>
           env.topicColl.insert(topic withPost post) >>
