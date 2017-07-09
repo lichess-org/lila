@@ -23,4 +23,9 @@ And pag-Berserk ay magbibigay lang ng isang extra na puntos kapag ikaw ay naglar
   <string name="howIsTheWinnerDecided">Paano pipiliin ang mananalo?</string>
   <string name="howIsTheWinnerDecidedAnswer">Ang player/mga players na may pinakamaraming puntos sa katapusan ng oras ng tournament ay ang pipiliin upang manalo.</string>
   <string name="howDoesPairingWork">Paano gumagana ang pagpapares ng mga manlalaro?</string>
+  <string name="howDoesPairingWorkAnswer">Sa pagsisimula ng tournament, ang mga manlalaro ay ipapares base sa kanilang rating. Sa sandaling makatapos ng isang laro, bumalik sa tournament lobby: pagkatapos ay ikaw ay mapapares sa isa pang manlalaro na malapit sa iyong ranking. Titiyakin ito ang mababang oras ng paghihintay, ngunit baka hindi mo makalaban ang ibang mga manlalaro sa tournament.
+Tapusin nang mabilis ang laban at bumalik sa lobby upang makapaglaro ng mas maraming laro at manalo ng mas maraming puntos.</string>
+  <string name="howDoesItEnd">Paano ito matatapos?</string>
+  <string name="howDoesItEndAnswer">Ang tournament ay may countdown clock. Kapag ang countdown clock ay naging zero, ang mga iskor sa tournament ay hindi na gagalaw, at ang (mga) manlalarong panalo ay sasabihin. Ang mga laro na hindi nakaabot sa pagtatapos ng tournament ay kailangang tapusin, ngunit hindi sila kasama sa mga puntos ng tournament.</string>
+  <string name="otherRules">Mga ibang importanteng patakaran.</string>
 </resources>
