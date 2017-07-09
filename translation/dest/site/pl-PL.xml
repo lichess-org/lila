@@ -59,6 +59,7 @@
   <string name="move">Ruch</string>
   <string name="variantLoss">Wariant przegrany</string>
   <string name="variantWin">Wariant wygrany</string>
+  <string name="insufficientMaterial">Niewystarczający materiał</string>
   <string name="pawnMove">Ruch pionkiem</string>
   <string name="capture">Bicie</string>
   <string name="close">Blisko</string>
@@ -72,14 +73,24 @@
   <string name="averageRatingX">Średni ranking: %s</string>
   <string name="recentGames">Ostatnie gry</string>
   <string name="topGames">Najlepsze gry</string>
+  <string name="masterDbExplanation">Dwa miliony partii zawodników FIDE (2200+) od 1952 do 2016 roku</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mat w %s posunięciu</item>
     <item quantity="few">Mat w %s posunięciach</item>
     <item quantity="other">Mat w %s posunięciach</item>
   </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Następne bicie lub ruch pionem w ciągu %s posunięcia (zerowanie licznika posunięć reguły 50 ruchów)</item>
+    <item quantity="few">Następne bicie lub ruch pionem w ciągu %s posunięć (zerowanie licznika posunięć reguły 50 ruchów)</item>
+    <item quantity="other">Następne bicie lub ruch pionem w ciągu %s posunięć (zerowanie licznika posunięć reguły 50 ruchów)</item>
+  </plurals>
   <string name="noGameFound">Nie znaleziono gry</string>
+  <string name="alreadySearchingThroughAllAvailableGames">Przeszukano wszystkie dostępne partie</string>
   <string name="openingExplorer">Przeglądarka otwarć</string>
+  <string name="xOpeningExplorer">Przeszukiwanie biblioteki otwarć %s</string>
   <string name="winPreventedBy50MoveRule">Zwycięstwo przez regułę 50 ruchów</string>
+  <string name="lossSavedBy50MoveRule">Przegrana przez regułę 50 ruchów</string>
+  <string name="allSet">Wszystko gotowe!</string>
   <string name="blunders">Poważne błędy</string>
   <string name="mistakes">Błędy</string>
   <string name="inaccuracies">Niedokładności</string>
