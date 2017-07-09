@@ -57,6 +57,34 @@
   <string name="showThreat">Visa hot</string>
   <string name="inLocalBrowser">i lokal webbläsare</string>
   <string name="toggleLocalEvaluation">Lokal analys av/på</string>
+  <string name="move">Drag</string>
+  <string name="variantLoss">Variant förlust</string>
+  <string name="variantWin">Variant vinst</string>
+  <string name="insufficientMaterial">Otillräckligt material</string>
+  <string name="pawnMove">Bondedrag</string>
+  <string name="winning">Vinner</string>
+  <string name="losing">Förlorar</string>
+  <string name="drawn">Remi</string>
+  <string name="unknown">Okänt</string>
+  <string name="database">Databas</string>
+  <string name="whiteDrawBlack">Vit / Remi / Svart</string>
+  <string name="averageRatingX">Medelrating: %s</string>
+  <string name="recentGames">Senaste partier</string>
+  <string name="topGames">Topp partier</string>
+  <string name="masterDbExplanation">Två miljoner OTB partier, av 2200+ FIDE rankade spelare, från 1952 till 2016</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Matt i %s halv-drag</item>
+    <item quantity="other">Matt i %s halv-drag</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Nästa slag eller bondedrag inom %s halv-drag. (Avstånd till nollställning av 50 drag-räknaren)</item>
+    <item quantity="other">Nästa slag eller bondedrag inom %s halv-drag. (Avstånd till nollställning av 50 drag-räknaren)</item>
+  </plurals>
+  <string name="noGameFound">Inget parti hittades</string>
+  <string name="alreadySearchingThroughAllAvailableGames">Söker redan igenom alla tillgängliga spel</string>
+  <string name="openingExplorer">Öppningsbok</string>
+  <string name="xOpeningExplorer">%s öppningsutforskare</string>
+  <string name="winPreventedBy50MoveRule">Vinst förhindrad genom 50-drags regeln</string>
   <string name="blunders">Blundrar</string>
   <string name="mistakes">Misstag</string>
   <string name="inaccuracies">Felaktigheter</string>
@@ -198,7 +226,7 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Den här spelaren tar hjälp av schackmotor</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Den här spelaren ökar/minskar sin rating artificiellt</string>
-  <string name="openingExplorer">Öppningsbok</string>
+  <string name="openingExplorerAndTablebase">Öppningsutforskare &amp; tablebase</string>
   <string name="takeback">Gör om drag</string>
   <string name="proposeATakeback">Frågar motståndaren om du får göra om draget</string>
   <string name="takebackPropositionSent">Förslag att göra om draget skickat</string>
@@ -311,8 +339,8 @@
   <string name="performance">Prestation</string>
   <string name="tournamentComplete">Turneringen avslutad</string>
   <string name="movesPlayed">Drag spelade</string>
-  <string name="whiteWins">Vit vinner</string>
-  <string name="blackWins">Svart vinner</string>
+  <string name="whiteWins">Vinster Vit</string>
+  <string name="blackWins">Vinster Svart</string>
   <string name="draws">Remier</string>
   <string name="nextXTournament">Nästa %s turnering:</string>
   <string name="viewMoreTournaments">Visa fler turneringar</string>

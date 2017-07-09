@@ -48,6 +48,7 @@
   <string name="computerAnalysis">Bilgisayar analizi</string>
   <string name="computerAnalysisAvailable">Bilgisayar analizi mevcut</string>
   <string name="analysis">Analiz tahtası</string>
+  <string name="openingExplorer">Açılış kâşifi</string>
   <string name="blunders">Vahim hatalar</string>
   <string name="mistakes">Hatalar</string>
   <string name="inaccuracies">Kusurlu hamleler</string>
@@ -179,7 +180,6 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Bu oyuncu bir satranç programından yardım alıyor.</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Bu oyuncu puanını sahte bir şekilde artırıyor/azaltıyor</string>
-  <string name="openingExplorer">Açılış kâşifi</string>
   <string name="takeback">Hamleni geri al.</string>
   <string name="proposeATakeback">Hamleyi geri almayı teklif et.</string>
   <string name="takebackPropositionSent">Hamleyi geri alma teklifi gönderildi.</string>

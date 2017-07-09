@@ -47,6 +47,7 @@
   <string name="requestAComputerAnalysis">Start sjakkprogramanalyse</string>
   <string name="computerAnalysis">Sjakkprogramanalyse</string>
   <string name="analysis">Analyse</string>
+  <string name="openingExplorer">Opningsutforskar &amp; opningsbok</string>
   <string name="blunders">Bukk</string>
   <string name="mistakes">Mistak</string>
   <string name="inaccuracies">Sleiv</string>
@@ -178,7 +179,6 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Denne spelaren brukar datahjelp</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Denne spelaren manipulerar ratinga si</string>
-  <string name="openingExplorer">Opningsutforskar &amp; opningsbok</string>
   <string name="takeback">Angra</string>
   <string name="proposeATakeback">Framlegg om å gjera om trekket</string>
   <string name="takebackPropositionSent">Framlegg om å gjera om trekket blei sendt</string>

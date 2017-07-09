@@ -47,6 +47,7 @@
   <string name="requestAComputerAnalysis">კომპიუტერული ანალიზის მოთხოვნა</string>
   <string name="computerAnalysis">კომპიუტერული ანალიზი</string>
   <string name="analysis">ანალიზის დაფა</string>
+  <string name="openingExplorer">ეტიუდების გზამკვლევი</string>
   <string name="blunders">დაუკვირვებლობები</string>
   <string name="mistakes">შეცდომები</string>
   <string name="inaccuracies">უზუსტობები</string>
@@ -178,7 +179,6 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">ეს მოთამაშე იყენებს კომპიუტერულ ასისტენტს</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">აღნიშნული მოთამაშე ხელოვნურად ზრდის/ამცირებს საკუთარ რეიტინგს</string>
-  <string name="openingExplorer">ეტიუდების გზამკვლევი</string>
   <string name="takeback">სვლის დაბრუნება</string>
   <string name="proposeATakeback">სვლის დაბრუნების შეთავაზება</string>
   <string name="takebackPropositionSent">სვლის დაბრუნება შეთავაზებული</string>

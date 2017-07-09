@@ -57,6 +57,7 @@
   <string name="showThreat">Toon bedreiging</string>
   <string name="inLocalBrowser">in lokale browser</string>
   <string name="toggleLocalEvaluation">Lokale evaluatie aan-/uitzetten</string>
+  <string name="openingExplorer">Openingverkenner &amp; tablebase</string>
   <string name="blunders">Blunders</string>
   <string name="mistakes">Fouten</string>
   <string name="inaccuracies">Imperfecties</string>
@@ -198,7 +199,6 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Deze speler maakt gebruik van een schaakprogramma</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Deze speler verhoogt/verlaagt zijn rating kunstmatig</string>
-  <string name="openingExplorer">Openingverkenner &amp; tablebase</string>
   <string name="takeback">Neem zet terug</string>
   <string name="proposeATakeback">Stel zet terugnemen voor</string>
   <string name="takebackPropositionSent">Terugname-voorstel verstuurd</string>

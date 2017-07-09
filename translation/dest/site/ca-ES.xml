@@ -47,6 +47,7 @@
   <string name="requestAComputerAnalysis">Demana una anàlisi computeritzada</string>
   <string name="computerAnalysis">Anàlisi computeritzada</string>
   <string name="analysis">Tauler d\'anàlisi</string>
+  <string name="openingExplorer">Explorador d\'obertures i tablebases</string>
   <string name="blunders">Errors greus</string>
   <string name="mistakes">Errades</string>
   <string name="inaccuracies">Imprecisions</string>
@@ -178,7 +179,6 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Aquest jugador s\'ajuda amb un programa informàtic d\'escacs</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Aquest jugador incrementa/disminueix artificialment el seu ràting</string>
-  <string name="openingExplorer">Explorador d\'obertures i tablebases</string>
   <string name="takeback">Desfés la jugada</string>
   <string name="proposeATakeback">Proposa desfer la jugada</string>
   <string name="takebackPropositionSent">La proposta de desfer la jugada s\'ha enviat</string>

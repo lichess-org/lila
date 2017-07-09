@@ -47,6 +47,7 @@
   <string name="requestAComputerAnalysis">Ordenagailuaren analisia eskatu</string>
   <string name="computerAnalysis">Ordenagailuaren analisia</string>
   <string name="analysis">Analisi-taula</string>
+  <string name="openingExplorer">Hasierak arakatu</string>
   <string name="blunders">Akats larriak</string>
   <string name="mistakes">Akatsak</string>
   <string name="inaccuracies">Ez zehatzak</string>
@@ -178,7 +179,6 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Jokalari hau ordenagailuaz baliatu da</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Jokalariak bere sailkapena aldatzen du artifizialki</string>
-  <string name="openingExplorer">Hasierak arakatu</string>
   <string name="takeback">Jokaldia atzera egin</string>
   <string name="proposeATakeback">Jokaldia atzera egiteko eskatu</string>
   <string name="takebackPropositionSent">Jokaldia atzera egiteko eskaria bidali da</string>

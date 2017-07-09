@@ -57,6 +57,7 @@
   <string name="showThreat">Rodyti grėsmę</string>
   <string name="inLocalBrowser">vietinėje naršyklėje</string>
   <string name="toggleLocalEvaluation">Perjungti vietinį įvertinimą</string>
+  <string name="openingExplorer">Debiutų naršyklė</string>
   <string name="blunders">Šiurkščios klaidos</string>
   <string name="mistakes">Klaidos</string>
   <string name="inaccuracies">Netikslumai</string>
@@ -210,7 +211,6 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Šis žaidejas naudojasi kompiuterio pagalba</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Šis žaidėjas dirbtinai padidina/sumažina savo reitingą</string>
-  <string name="openingExplorer">Debiutų naršyklė</string>
   <string name="takeback">Atsiimti ėjimą</string>
   <string name="proposeATakeback">Prašyti leidimo atšaukti ėjimą</string>
   <string name="takebackPropositionSent">Ėjimo atšaukimo prašymas išsiųstas</string>

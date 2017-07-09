@@ -47,6 +47,7 @@
   <string name="requestAComputerAnalysis">Vyžádat počítačovou analýzu</string>
   <string name="computerAnalysis">Počítačová analýza</string>
   <string name="analysis">Analýza</string>
+  <string name="openingExplorer">Průzkumník zahájení</string>
   <string name="blunders">Hrubky</string>
   <string name="mistakes">Omyly</string>
   <string name="inaccuracies">Nepřesnosti</string>
@@ -138,7 +139,6 @@
   <string name="ratingRange">Síla hráče</string>
   <string name="thisPlayerUsesChessComputerAssistance">Tento uživatel hrává s pomocí počítače</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Tento hráč uměle ovlivnil své hodnocení</string>
-  <string name="openingExplorer">Průzkumník zahájení</string>
   <string name="takeback">Vrátit tah</string>
   <string name="proposeATakeback">Navrhnout vrácení tahu</string>
   <string name="takebackPropositionSent">Návrh na vrácení byl tahu odeslán</string>

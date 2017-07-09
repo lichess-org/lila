@@ -48,6 +48,7 @@
   <string name="computerAnalysis">கணினிப் பகுப்பாய்வு</string>
   <string name="computerAnalysisAvailable">கணினி பகுப்பாய்வு கிடைக்கும்</string>
   <string name="analysis">பகுப்பாய்வு</string>
+  <string name="openingExplorer">திறப்புகளைஆய்வு &amp; தரவுத் தளம்</string>
   <string name="blunders">பெரும்பிழைகள்</string>
   <string name="mistakes">பிழைகள்</string>
   <string name="inaccuracies">கச்சிதப்பிழைகள்</string>
@@ -179,7 +180,6 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">இந்த விளையாடி கணினிச் சதுரங்க உதவியைப் புழங்குகிறார்</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">இந்த ஆட்டக்காரர் தன் மதிப்பீட்டை செயற்கை முறையில் மாற்றியமைத்துள்ளார்</string>
-  <string name="openingExplorer">திறப்புகளைஆய்வு &amp; தரவுத் தளம்</string>
   <string name="takeback">மீட்சி</string>
   <string name="proposeATakeback">மீட்சி கோருக</string>
   <string name="takebackPropositionSent">மீட்சிக் கோரிக்கை அனுப்பியுள்ளது</string>

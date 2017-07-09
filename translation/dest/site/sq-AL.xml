@@ -47,6 +47,7 @@
   <string name="requestAComputerAnalysis">Kërko analizë kompjuterike</string>
   <string name="computerAnalysis">Analizë kompjuterike</string>
   <string name="analysis">Analiza</string>
+  <string name="openingExplorer">Studiues i hapjeve</string>
   <string name="blunders">Gafat</string>
   <string name="mistakes">Gabimet</string>
   <string name="inaccuracies">Pasaktësitë</string>
@@ -178,7 +179,6 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Ky lojtar përdor ndihmën e kompjuterit.</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ky lojtar e ka rritur vlerësimin e vet në mënyre artificiale</string>
-  <string name="openingExplorer">Studiues i hapjeve</string>
   <string name="takeback">Anulo levizje</string>
   <string name="proposeATakeback">Propozo marrje mbrapsht</string>
   <string name="takebackPropositionSent">Kërkesa për marrje mbrapsht u dërgua</string>

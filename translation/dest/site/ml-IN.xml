@@ -47,6 +47,7 @@
   <string name="requestAComputerAnalysis">കമ്പ്യൂട്ടർ പരിശോധന അപേക്ഷിക്കുക</string>
   <string name="computerAnalysis">കമ്പ്യൂട്ടർ പരിശോധന</string>
   <string name="analysis">പരിശോധന പലക</string>
+  <string name="openingExplorer">എക്സ്പ്ലോററും ടേബിൾ ബേസും തുറക്കാം</string>
   <string name="blunders">മണ്ടത്തരം</string>
   <string name="mistakes">തെറ്റുകൾ</string>
   <string name="inaccuracies">പിഴകൾ</string>
@@ -178,7 +179,6 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">ഈ കളിക്കാരന്‍ കമ്പ്യൂട്ടര്‍ സഹായം തേടുന്നു</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">ഈ കളിക്കാരന്‍ കൃത്രിമമായി റേറ്റിംഗ് കൂട്ടുകയോ കുറയ്ക്കുകയോ ചെയ്യുന്നു</string>
-  <string name="openingExplorer">എക്സ്പ്ലോററും ടേബിൾ ബേസും തുറക്കാം</string>
   <string name="takeback">തിരിച്ചെടുക്കുക</string>
   <string name="proposeATakeback">തിരിച്ചെടുക്കാന്‍ നിര്‍ദേശിക്കുക</string>
   <string name="takebackPropositionSent">തിരിച്ചെടുക്കാനുള്ള നിര്‍ദേശം അയച്ചു</string>

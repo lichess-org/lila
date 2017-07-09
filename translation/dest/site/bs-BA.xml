@@ -47,6 +47,7 @@
   <string name="requestAComputerAnalysis">Zatražite računarsku analizu</string>
   <string name="computerAnalysis">Računarska analiza</string>
   <string name="analysis">Ploča za analizu</string>
+  <string name="openingExplorer">Pretraživač otvaranja</string>
   <string name="blunders">Grubi previdi</string>
   <string name="mistakes">Greške</string>
   <string name="inaccuracies">Nepreciznosti</string>
@@ -138,7 +139,6 @@
   <string name="ratingRange">Raspon rejtinga</string>
   <string name="thisPlayerUsesChessComputerAssistance">Ovaj igrač koristi pomoć šahovskog programa</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ovaj igrač umjetno diže/spušta svoj rejting</string>
-  <string name="openingExplorer">Pretraživač otvaranja</string>
   <string name="takeback">Vratite potez</string>
   <string name="proposeATakeback">Predložite vraćanje poteza</string>
   <string name="takebackPropositionSent">Prijedlog za vraćanje poteza poslat</string>

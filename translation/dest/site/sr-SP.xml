@@ -47,6 +47,7 @@
   <string name="requestAComputerAnalysis">Затражи рачунарску анализу</string>
   <string name="computerAnalysis">Компјутерска анализа</string>
   <string name="analysis">Табла за анализирање</string>
+  <string name="openingExplorer">Oтварање претраживача</string>
   <string name="blunders">Грубе грешке</string>
   <string name="mistakes">Грешке</string>
   <string name="inaccuracies">Непрецизности</string>
@@ -138,7 +139,6 @@
   <string name="ratingRange">ЕЛО ранг</string>
   <string name="thisPlayerUsesChessComputerAssistance">Овај играч користи помоћ рачунара</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ovi igrači veštački uvećavaju svoj rejting</string>
-  <string name="openingExplorer">Oтварање претраживача</string>
   <string name="takeback">Повлачење потеза</string>
   <string name="proposeATakeback">Предложи повлачење потеза</string>
   <string name="takebackPropositionSent">Предлог повлачења потеза је послат</string>

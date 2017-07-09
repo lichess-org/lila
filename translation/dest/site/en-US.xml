@@ -57,6 +57,7 @@
   <string name="showThreat">Show threat</string>
   <string name="inLocalBrowser">in local browser</string>
   <string name="toggleLocalEvaluation">Toggle local evaluation</string>
+  <string name="openingExplorer">Opening explorer &amp; tablebase</string>
   <string name="blunders">Blunders</string>
   <string name="mistakes">Mistakes</string>
   <string name="inaccuracies">Inaccuracies</string>
@@ -198,7 +199,6 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">This player uses chess computer assistance</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">This player artificially increases/decreases their rating</string>
-  <string name="openingExplorer">Opening explorer &amp; tablebase</string>
   <string name="takeback">Takeback</string>
   <string name="proposeATakeback">Propose a takeback</string>
   <string name="takebackPropositionSent">Takeback sent</string>

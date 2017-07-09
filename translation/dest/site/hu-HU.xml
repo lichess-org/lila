@@ -49,6 +49,7 @@
   <string name="computerAnalysisAvailable">Számítógépes elemzés elérhető</string>
   <string name="analysis">Elemző tábla</string>
   <string name="inLocalBrowser">a böngészőben</string>
+  <string name="openingExplorer">Megnyitás tallózó</string>
   <string name="blunders">Súlyos hibák</string>
   <string name="mistakes">Hibák</string>
   <string name="inaccuracies">Pontatlanságok</string>
@@ -181,7 +182,6 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Ez a játékos számítógépes sakkprogram segítségét használja</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ez a játékos mesterségesen növeli/csökkenti a pontszámát</string>
-  <string name="openingExplorer">Megnyitás tallózó</string>
   <string name="takeback">Visszalépés</string>
   <string name="proposeATakeback">Visszalépés kérése</string>
   <string name="takebackPropositionSent">Visszalépés kérése elküldve</string>

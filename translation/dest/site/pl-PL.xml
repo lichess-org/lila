@@ -57,6 +57,7 @@
   <string name="showThreat">Pokaż zagrożenia</string>
   <string name="inLocalBrowser">w przeglądarce</string>
   <string name="toggleLocalEvaluation">Włącz/wyłącz lokalną ewaluację</string>
+  <string name="openingExplorer">Przeglądarka otwarć</string>
   <string name="blunders">Poważne błędy</string>
   <string name="mistakes">Błędy</string>
   <string name="inaccuracies">Niedokładności</string>
@@ -210,7 +211,6 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Ten gracz korzysta z pomocy programu szachowego</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ten gracz sztucznie zwiększa/obniża swój ranking</string>
-  <string name="openingExplorer">Przeglądarka otwarć</string>
   <string name="takeback">Cofnij ruch</string>
   <string name="proposeATakeback">Poproś o cofnięcie ruchu</string>
   <string name="takebackPropositionSent">Wysłano prośbę o cofnięcie ruchu</string>

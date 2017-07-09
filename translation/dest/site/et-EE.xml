@@ -47,6 +47,7 @@
   <string name="requestAComputerAnalysis">Nõua arvuti analüüsi</string>
   <string name="computerAnalysis">Arvuti hinnang</string>
   <string name="analysis">Analüüs</string>
+  <string name="openingExplorer">Avangute avastamine</string>
   <string name="blunders">vigu</string>
   <string name="mistakes">eksimusi</string>
   <string name="inaccuracies">ebatäpsused</string>
@@ -178,7 +179,6 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">See mängija kasutab maletates arvuti abi</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">See mängija tõstab kunstlikult / vähendab oma reitingut</string>
-  <string name="openingExplorer">Avangute avastamine</string>
   <string name="takeback">Tagasivõtt</string>
   <string name="proposeATakeback">Paku tagasivõttu</string>
   <string name="takebackPropositionSent">Tagasivõtu ettepanek esitatud</string>

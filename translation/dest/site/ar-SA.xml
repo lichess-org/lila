@@ -47,6 +47,7 @@
   <string name="requestAComputerAnalysis">اطلب تحليل حاسب</string>
   <string name="computerAnalysis">تحليل الحاسب</string>
   <string name="analysis">تحليل اللعبة</string>
+  <string name="openingExplorer">مستكشف الافتتاحيات</string>
   <string name="blunders">أخطاء فادحة</string>
   <string name="mistakes">أخطاء</string>
   <string name="inaccuracies">نقلات غير دقيقة</string>
@@ -138,7 +139,6 @@
   <string name="ratingRange">نطاق التقييم</string>
   <string name="thisPlayerUsesChessComputerAssistance">هذا اللاعب يستعين ببرامج الشطرنج</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">هذا اللاعب يتلاعب بتقييمه</string>
-  <string name="openingExplorer">مستكشف الافتتاحيات</string>
   <string name="takeback">تراجع</string>
   <string name="proposeATakeback">اقتراح تراجع عن النقلة الآخيرة</string>
   <string name="takebackPropositionSent">أُرسل مقترح التراجع</string>

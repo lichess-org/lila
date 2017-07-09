@@ -47,6 +47,7 @@
   <string name="requestAComputerAnalysis">Запытаць камп\'ютарный аналіз</string>
   <string name="computerAnalysis">Кампутарны аналіз</string>
   <string name="analysis">Аналіз</string>
+  <string name="openingExplorer">Аналіз дэбютных варыянтаў</string>
   <string name="blunders">Грубыя памылкі</string>
   <string name="mistakes">Памылкі</string>
   <string name="inaccuracies">Недакладнасьці</string>
@@ -138,7 +139,6 @@
   <string name="ratingRange">Рэйтынг суперніка</string>
   <string name="thisPlayerUsesChessComputerAssistance">Гэты гулец выкарыстоўвае шахматную праграму</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Гэты гулец штучна павялічвае свой рэйтынг</string>
-  <string name="openingExplorer">Аналіз дэбютных варыянтаў</string>
   <string name="takeback">Скасаваць ход</string>
   <string name="proposeATakeback">Прапанаваць скасаваць ход</string>
   <string name="takebackPropositionSent">Прапанова скасаваць ход даслана</string>

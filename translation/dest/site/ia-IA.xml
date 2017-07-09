@@ -47,6 +47,7 @@
   <string name="requestAComputerAnalysis">Requirer un analyse de computator</string>
   <string name="computerAnalysis">Analyse de computator</string>
   <string name="analysis">Analyse</string>
+  <string name="openingExplorer">Explorator de initio de joco</string>
   <string name="blunders">Errores grave</string>
   <string name="mistakes">Errores</string>
   <string name="inaccuracies">Imprecisiones</string>
@@ -168,7 +169,6 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Iste jocator usa le assistentia de un computator de chacos</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Iste jocator altera su classification de maniera artificial</string>
-  <string name="openingExplorer">Explorator de initio de joco</string>
   <string name="takeback">Retornar</string>
   <string name="proposeATakeback">Proponer un retorno del ultime movimento</string>
   <string name="takebackPropositionSent">Proposition de retorno inviate</string>

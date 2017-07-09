@@ -48,6 +48,7 @@
   <string name="computerAnalysis">कंप्यूटर विश्लेषण</string>
   <string name="computerAnalysisAvailable">कंप्यूटर विश्लेषण उपलब्ध</string>
   <string name="analysis">विश्लेषण मैदान</string>
+  <string name="openingExplorer">उद्घाटन खोज</string>
   <string name="blunders">गंभीर गल्तियां</string>
   <string name="mistakes">गलतियाँ</string>
   <string name="inaccuracies">त्रुटियाँ</string>
@@ -179,7 +180,6 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">यह खिलाड़ी शतरंज खेलने के लिये कम्प्यूटर की सहायता लेता है</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">यह खिलाड़ी धोखे से अपने अंक बदलता है</string>
-  <string name="openingExplorer">उद्घाटन खोज</string>
   <string name="takeback">चाल को वापस लें</string>
   <string name="proposeATakeback">चाल को वापस लेने की प्रस्ताव को भेजें</string>
   <string name="takebackPropositionSent">चाल को वापस लेने के प्रस्ताव को भेज दिया गया है</string>

@@ -47,6 +47,7 @@
   <string name="requestAComputerAnalysis">Cereți o analiză a computerului</string>
   <string name="computerAnalysis">Analiza computerului</string>
   <string name="analysis">Analiza</string>
+  <string name="openingExplorer">Cercetarea deschiderilor</string>
   <string name="blunders">Gafe</string>
   <string name="mistakes">Greșeli</string>
   <string name="inaccuracies">Inexactități</string>
@@ -138,7 +139,6 @@
   <string name="ratingRange">Nivel valoric</string>
   <string name="thisPlayerUsesChessComputerAssistance">Acest jucător este asistat de un program de analiză</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Jucătorul și-a crescut ratingul în mod artificial</string>
-  <string name="openingExplorer">Cercetarea deschiderilor</string>
   <string name="takeback">Revocare</string>
   <string name="proposeATakeback">Propune revocarea mutării</string>
   <string name="takebackPropositionSent">Propunere de revocare trimisă</string>

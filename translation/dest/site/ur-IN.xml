@@ -47,6 +47,7 @@
   <string name="requestAComputerAnalysis">خودکار تجزیہ کے لیے پیش کریں</string>
   <string name="computerAnalysis">خودکار تجزیہ</string>
   <string name="analysis">تجزیاتی بساط</string>
+  <string name="openingExplorer">ابتدائیوں کی کلید</string>
   <string name="blunders">بڑی غلطیاں</string>
   <string name="mistakes">غلطیاں</string>
   <string name="inaccuracies">کمزور چالیں</string>
@@ -178,7 +179,6 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">کھلاڑی کمپیوٹر کی مدد سے کھیلتا ہے</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">یہ کھلاڑی اپنے میعار کو مصنوعی طور پر متاثر کرتا ہے</string>
-  <string name="openingExplorer">ابتدائیوں کی کلید</string>
   <string name="takeback">چال واپس لیں</string>
   <string name="proposeATakeback">چال واپس لینے کی درخواست کریں</string>
   <string name="takebackPropositionSent">چال واپس لینے کی درخواست بھیج دی گئی ہے</string>

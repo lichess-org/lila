@@ -47,6 +47,7 @@
   <string name="requestAComputerAnalysis">Biðja um tölvugreiningu</string>
   <string name="computerAnalysis">Tölvugreining</string>
   <string name="analysis">Greining</string>
+  <string name="openingExplorer">Skoða opnanir</string>
   <string name="blunders">Afleikir</string>
   <string name="mistakes">Mistök</string>
   <string name="inaccuracies">Ónákvæmni</string>
@@ -178,7 +179,6 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Þessi spilari notar skáktölvu til hjálpar</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Þessi skákmaður hækkar/lækkar stig sín með vafasömum hætti</string>
-  <string name="openingExplorer">Skoða opnanir</string>
   <string name="takeback">Afturköllun</string>
   <string name="proposeATakeback">Byðja um afturköllun</string>
   <string name="takebackPropositionSent">Boð um afturköllun sent</string>
