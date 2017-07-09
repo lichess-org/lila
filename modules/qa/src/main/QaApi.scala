@@ -9,7 +9,8 @@ import org.joda.time.DateTime
 import lila.common.paginator._
 import lila.db.dsl._
 import lila.db.paginator._
-import lila.user.User
+import lila.user.{ User, UserContext }
+import lila.security.Granter
 
 final class QaApi(
     questionColl: Coll,
@@ -172,7 +173,8 @@ final class QaApi(
           comments = Nil,
           acceptedAt = None,
           createdAt = DateTime.now,
-          editedAt = None
+          editedAt = None,
+          modIcon = (~data.modIcon && Granter.apply(_.PublicMod)(user)).option(true)
         )
 
         (answerColl insert a) >>

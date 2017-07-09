@@ -60,7 +60,8 @@ private[forum] final class TopicApi(
           text = lila.security.Spam.replace(data.post.text),
           lang = lang map (_.language),
           number = 1,
-          categId = categ.id
+          categId = categ.id,
+          modIcon = (~data.post.modIcon && ~ctx.me.map(MasterGranter(_.PublicMod))).option(true)
         )
         env.postColl.insert(post) >>
           env.topicColl.insert(topic withPost post) >>

@@ -46,7 +46,8 @@ case class Answer(
     comments: List[Comment],
     acceptedAt: Option[DateTime],
     createdAt: DateTime,
-    editedAt: Option[DateTime]
+    editedAt: Option[DateTime],
+    modIcon: Option[Boolean]
 ) {
 
   def id = _id
@@ -60,6 +61,8 @@ case class Answer(
   def editNow = copy(editedAt = Some(DateTime.now))
 
   def userIds = userId :: comments.map(_.userId)
+
+  def displayModIcon = ~modIcon
 }
 
 case class AnswerWithQuestion(answer: Answer, question: Question)

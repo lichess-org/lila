@@ -35,7 +35,8 @@ private[qa] final class DataForm(
       "body" -> nonEmptyText(minLength = 30)
         .verifying(languageMessage, validateLanguage _),
       "gameId" -> text,
-      "move" -> text
+      "move" -> text,
+      "modIcon" -> optional(boolean)
     )(AnswerData.apply)(AnswerData.unapply)
       .verifying(captchaFailMessage, validateCaptcha _)
   )
@@ -82,7 +83,8 @@ private[qa] case class QuestionData(
 private[qa] case class AnswerData(
   body: String,
   gameId: String,
-  move: String
+  move: String,
+  modIcon: Option[Boolean]
 )
 
 private[qa] case class CommentData(body: String)

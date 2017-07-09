@@ -26,6 +26,9 @@
   @forum.post.formFields(form("post")("text"), form("post")("author"), None)
   @base.captcha(form("post")("move"), form("post")("gameId"), captcha)
   @errMsg(form("post"))
+  @if(isGranted(_.PublicMod)){
+    <div class="submit"><input type="checkbox" name="post.modIcon" value="true" /> Show moderator icon next to my name</div>
+  }
   <button class="submit button" type="submit" data-icon="E"> @trans.createTheTopic()</button>
   <a href="@routes.ForumCateg.show(categ.slug)" style="margin-left:20px">@trans.cancel()</a>
 </form>

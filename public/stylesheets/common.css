@@ -127,6 +127,9 @@ time {
 .user_link .line.patron::before {
   content: '';
 }
+.user_link .line.moderator::before {
+  content: '';
+}
 
 body.blind_mode .is::before,
 body.blind_mode .is::after,
