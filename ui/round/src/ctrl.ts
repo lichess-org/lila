@@ -459,6 +459,7 @@ export default class RoundController {
     this.setLoading(false);
     this.redraw();
     this.autoScroll();
+    this.onChange();
   };
 
   challengeRematch = (): void => {
