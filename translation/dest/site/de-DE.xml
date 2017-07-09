@@ -58,6 +58,13 @@
   <string name="inLocalBrowser">im lokalen Browser</string>
   <string name="toggleLocalEvaluation">Lokale Auswertung an-/ausschalten</string>
   <string name="move">Zug</string>
+  <string name="pawnMove">Bauernzug</string>
+  <string name="unknown">Unbekannt</string>
+  <string name="database">Datenbank</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Matt in %s Halbzug</item>
+    <item quantity="other">Matt in %s Halbzügen</item>
+  </plurals>
   <string name="openingExplorer">Eröffnungsdatenbank &amp; Tablebases</string>
   <string name="blunders">Grobe Patzer</string>
   <string name="mistakes">Fehler</string>
