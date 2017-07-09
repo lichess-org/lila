@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
+import { Hooks } from 'snabbdom/hooks'
 import * as cg from 'chessground/types'
 import { Redraw } from './interfaces';
-import { VNode } from 'snabbdom/vnode';
 
 const pieceScores = {
   pawn: 1,
@@ -23,9 +23,9 @@ export function uci2move(uci: string): cg.Key[] | undefined {
   if (uci[1] === '@') return [uci.slice(2, 4) as cg.Key];
   return [uci.slice(0, 2), uci.slice(2, 4)] as cg.Key[];
 };
-export function bind(eventName: string, f: (e: Event) => void, redraw: Redraw | undefined = undefined) {
+export function bind(eventName: string, f: (e: Event) => void, redraw: Redraw | undefined = undefined): Hooks {
   return {
-    insert: (vnode: VNode) => {
+    insert(vnode) {
       (vnode.elm as HTMLElement).addEventListener(eventName, e => {
         const res = f(e);
         if (redraw) redraw();
