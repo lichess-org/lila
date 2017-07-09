@@ -56,6 +56,9 @@
   <string name="showThreat">Pokaż zagrożenia</string>
   <string name="inLocalBrowser">w przeglądarce</string>
   <string name="toggleLocalEvaluation">Włącz/wyłącz lokalną ewaluację</string>
+  <string name="averageRatingX">Średni ranking: %s</string>
+  <string name="recentGames">Ostatnie gry</string>
+  <string name="topGames">Najlepsze gry</string>
   <string name="openingExplorer">Przeglądarka otwarć</string>
   <string name="blunders">Poważne błędy</string>
   <string name="mistakes">Błędy</string>
