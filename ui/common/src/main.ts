@@ -75,12 +75,14 @@ export interface Sync<T> {
 }
 
 export function sync<T>(promise: Promise<T>): Sync<T> {
-  const sync = {} as Sync<T>;
-  sync.promise = promise.then(v => {
-    sync.sync = v;
-    return v;
-  });
-  return sync as Sync<T>;
+  const sync: Sync<T> = {
+    sync: undefined,
+    promise: promise.then(v => {
+      sync.sync = v;
+      return v;
+    })
+  };
+  return sync;
 }
 
 export { throttle };
