@@ -391,8 +391,8 @@ chalk@^1.0.0, chalk@^1.1.1:
     supports-color "^2.0.0"
 
 chessground@^6.5:
-  version "6.5.3"
-  resolved "https://registry.yarnpkg.com/chessground/-/chessground-6.5.3.tgz#34046a935b4f64b072487ca72ab73c60421cf792"
+  version "6.5.7"
+  resolved "https://registry.yarnpkg.com/chessground/-/chessground-6.5.7.tgz#3b409174082539c90742db2463a4f7ace7781064"
 
 chokidar@^1.0.0:
   version "1.7.0"
@@ -410,10 +410,11 @@ chokidar@^1.0.0:
     fsevents "^1.0.0"
 
 cipher-base@^1.0.0, cipher-base@^1.0.1, cipher-base@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/cipher-base/-/cipher-base-1.0.3.tgz#eeabf194419ce900da3018c207d212f2a6df0a07"
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/cipher-base/-/cipher-base-1.0.4.tgz#8760e4ecc272f4c363532f926d874aae2c1397de"
   dependencies:
     inherits "^2.0.1"
+    safe-buffer "^5.0.1"
 
 cliui@^2.1.0:
   version "2.1.0"
