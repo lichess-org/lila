@@ -62,6 +62,7 @@
   <string name="database">Databas</string>
   <string name="whiteDrawBlack">Vit / Remi / Svart</string>
   <string name="averageRatingX">Medelrating: %s</string>
+  <string name="topGames">Topp partier</string>
   <string name="masterDbExplanation">Två miljoner OTB partier, av 2200+ FIDE rankade spelare, från 1952 till 2016</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Matt i %s halv-drag</item>
