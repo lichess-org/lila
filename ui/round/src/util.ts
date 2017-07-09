@@ -25,7 +25,7 @@ export function uci2move(uci: string): cg.Key[] | undefined {
   return [uci.slice(0, 2), uci.slice(2, 4)] as cg.Key[];
 }
 
-export function bind(eventName: string, f: (e: Event) => void, redraw: Redraw | undefined = undefined): Hooks {
+export function bind(eventName: string, f: (e: Event) => void, redraw?: Redraw): Hooks {
   return {
     insert(vnode) {
       (vnode.elm as HTMLElement).addEventListener(eventName, e => {

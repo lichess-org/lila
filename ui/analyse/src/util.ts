@@ -1,5 +1,6 @@
 import { h } from 'snabbdom'
 import { Hooks } from 'snabbdom/hooks'
+import { Attrs } from 'snabbdom/modules/attributes'
 import { fixCrazySan } from 'chess';
 
 export function bind(eventName: string, f: (e: Event) => any, redraw?: () => void): Hooks {
@@ -20,7 +21,7 @@ export function bindSubmit(f: (e: Event) => any, redraw?: () => void): Hooks {
   }, redraw);
 }
 
-export function dataIcon(icon: string) {
+export function dataIcon(icon: string): Attrs {
   return {
     'data-icon': icon
   };
