@@ -158,9 +158,8 @@ private[lobby] final class Socket(
   def notifyPlayerStart(game: Game, color: chess.Color) =
     notifyMember("redirect", Json.obj(
       "id" -> (game fullIdOf color),
-      "url" -> playerUrl(game fullIdOf color),
-      "cookie" -> AnonCookie.json(game, color)
-    ).noNull) _
+      "url" -> playerUrl(game fullIdOf color)
+    ).add("cookie" -> AnonCookie.json(game, color))) _
 
   def notifyAllActive(msg: JsObject) =
     members.foreach {

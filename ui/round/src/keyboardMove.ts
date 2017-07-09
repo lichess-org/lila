@@ -1,10 +1,24 @@
 import { h } from 'snabbdom'
+import { Api as ChessgroundApi } from 'chessground/api';
+import * as cg from 'chessground/types';
+import { Step, Redraw } from './interfaces';
 
-export function ctrl(cg, step, redraw) {
+export interface KeyboardMove {
+  update(step: Step): void;
+  registerHandler(h): void
+  hasFocus(): boolean;
+  setFocus(v: boolean): void;
+  san(orig: cg.Key, dest: cg.Key): void;
+  select(key: cg.Key): void;
+  hasSelected(): cg.Key | undefined;
+  usedSan: boolean;
+}
+
+export function ctrl(cg: ChessgroundApi, step: Step, redraw: Redraw): KeyboardMove {
   let focus = false;
   let handler;
   let preHandlerBuffer = step.fen;
-  const select = function(key) {
+  const select = function(key: cg.Key): void {
     if (cg.state.selected === key) cg.cancelMove();
     else cg.selectSquare(key, true);
   };
@@ -34,7 +48,8 @@ export function ctrl(cg, step, redraw) {
     usedSan
   };
 };
-export function render(ctrl) {
+
+export function render(ctrl: KeyboardMove) {
   return h('div.keyboard-move', [
     h('input', {
       attrs: {

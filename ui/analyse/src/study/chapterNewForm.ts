@@ -6,7 +6,6 @@ import { variants as xhrVariants } from './studyXhr';
 import * as dialog from './dialog';
 import { chapter as chapterTour } from './studyTour';
 import { StudyChapterMeta } from './interfaces';
-import { SocketSend } from '../socket';
 import AnalyseController from '../ctrl';
 
 export const modeChoices = [

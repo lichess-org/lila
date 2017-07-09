@@ -1,6 +1,6 @@
 import { throttle } from 'common';
 
-function throttled(sound: string) {
+function throttled(sound: string): () => void {
   return throttle(100, false, () => window.lichess.sound[sound]())
 }
 

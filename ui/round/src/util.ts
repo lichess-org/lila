@@ -1,8 +1,6 @@
-import * as cg from 'chessground/types'
-
 import { h } from 'snabbdom'
-
-type Redraw = () => void
+import * as cg from 'chessground/types'
+import { Redraw } from './interfaces';
 
 const pieceScores = {
   pawn: 1,
@@ -37,27 +35,27 @@ export function bind(eventName: string, f: (e: Event) => void, redraw: Redraw | 
 }
 export function parsePossibleMoves(possibleMoves) {
   if (!possibleMoves) return {};
-  for (var k in possibleMoves) {
+  for (let k in possibleMoves) {
     if (typeof possibleMoves[k] === 'object') break;
     possibleMoves[k] = possibleMoves[k].match(/.{2}/g);
   }
   return possibleMoves;
 };
 // {white: {pawn: 3 queen: 1}, black: {bishop: 2}}
-export function getMaterialDiff(pieces) {
-  var counts = {
+export function getMaterialDiff(pieces: cg.Pieces): cg.MaterialDiff {
+  let counts = {
     king: 0,
     queen: 0,
     rook: 0,
     bishop: 0,
     knight: 0,
     pawn: 0
-  }, p, role, c;
-  for (var k in pieces) {
+  }, p, role, c, k;
+  for (k in pieces) {
     p = pieces[k];
     counts[p.role] += (p.color === 'white' ? 1 : -1);
   }
-  var diff = {
+  const diff = {
     white: {},
     black: {}
   };
@@ -68,9 +66,9 @@ export function getMaterialDiff(pieces) {
   }
   return diff;
 };
-export function getScore(pieces) {
-  var score = 0;
-  for (var k in pieces) {
+export function getScore(pieces: cg.Pieces): number {
+  let score = 0, k;
+  for (k in pieces) {
     score += pieceScores[pieces[k].role] * (pieces[k].color === 'white' ? 1 : -1);
   }
   return score;

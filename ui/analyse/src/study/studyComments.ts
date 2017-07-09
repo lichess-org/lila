@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import AnalyseController from '../ctrl';
-import { nodeFullName, autolink, bind } from '../util';
+import { nodeFullName, autolink, bind, innerHTML } from '../util';
 
 function authorDom(author) {
   if (!author) return 'Unknown';
@@ -20,7 +20,7 @@ export function authorText(author): string {
 const commentYoutubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:.*?(?:[?&]v=)|v\/)|youtu\.be\/)(?:[^"&?\/ ]{11})\b/gi;
 
 export function enrichText(text: string, allowNewlines: boolean): string {
-  var html = autolink(window.lichess.escapeHtml(text), url => {
+  let html = autolink(window.lichess.escapeHtml(text), url => {
     if (commentYoutubeRegex.test(url)) {
       const embedUrl = window.lichess.toYouTubeEmbedUrl(url);
       if (!embedUrl) return url;
@@ -68,7 +68,9 @@ export function currentComments(ctrl: AnalyseController, includingMine: boolean)
         h('span.node', nodeFullName(node))
       ] : []),
       ': ',
-      h('div.text', enrichText(comment.text, false))
+      h('div.text', {
+        hook: innerHTML(enrichText(comment.text, false))
+      })
     ]);
   }));
 }

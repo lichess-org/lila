@@ -65,7 +65,7 @@ export function make(root: AnalyseController): RetroController {
       root.explorer.fetchMasterOpening(prev.node.fen).then(function(res) {
         const cur = current();
         const ucis: Uci[] = [];
-        res.moves.forEach(function(m) {
+        res!.moves.forEach(function(m) {
           if (m.white + m.draws + m.black > 1) ucis.push(m.uci);
         });
         if (ucis.find(function(uci) {

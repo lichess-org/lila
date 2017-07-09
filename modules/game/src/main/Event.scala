@@ -29,17 +29,6 @@ object Event {
     def typ = "start"
   }
 
-  private def withCrazyData(
-    data: Option[Crazyhouse.Data],
-    drops: Option[List[Pos]]
-  )(js: JsObject): JsObject =
-    data.fold(js) { d =>
-      val js1 = js + ("crazyhouse" -> crazyhouseDataWriter.writes(d))
-      drops.fold(js1) { squares =>
-        js1 + ("drops" -> JsString(squares.map(_.key).mkString))
-      }
-    }
-
   object MoveOrDrop {
 
     def data(
@@ -47,24 +36,27 @@ object Event {
       check: Boolean,
       threefold: Boolean,
       state: State,
-      clock: Option[Event],
+      clock: Option[ClockEvent],
       possibleMoves: Map[Pos, List[Pos]],
       possibleDrops: Option[List[Pos]],
       crazyData: Option[Crazyhouse.Data]
     )(extra: JsObject) = {
       extra ++ Json.obj(
         "fen" -> fen,
-        "check" -> check.option(true),
-        "threefold" -> threefold.option(true),
         "ply" -> state.turns,
-        "status" -> state.status,
-        "winner" -> state.winner,
-        "wDraw" -> state.whiteOffersDraw.option(true),
-        "bDraw" -> state.blackOffersDraw.option(true),
-        "clock" -> clock.map(_.data),
         "dests" -> PossibleMoves.json(possibleMoves)
-      )
-    }.noNull |> withCrazyData(crazyData, possibleDrops)
+      ).add("clock" -> clock.map(_.data))
+        .add("status" -> state.status)
+        .add("winner" -> state.winner)
+        .add("check" -> check)
+        .add("threefold" -> threefold)
+        .add("wDraw" -> state.whiteOffersDraw)
+        .add("bDraw" -> state.blackOffersDraw)
+        .add("crazyhouse" -> crazyData)
+        .add("drops" -> possibleDrops.map { squares =>
+          JsString(squares.map(_.key).mkString)
+        })
+    }
   }
 
   case class Move(
@@ -78,7 +70,7 @@ object Event {
       enpassant: Option[Enpassant],
       castle: Option[Castling],
       state: State,
-      clock: Option[Event],
+      clock: Option[ClockEvent],
       possibleMoves: Map[Pos, List[Pos]],
       possibleDrops: Option[List[Pos]],
       crazyData: Option[Crazyhouse.Data]
@@ -87,15 +79,14 @@ object Event {
     def data = MoveOrDrop.data(fen, check, threefold, state, clock, possibleMoves, possibleDrops, crazyData) {
       Json.obj(
         "uci" -> s"${orig.key}${dest.key}",
-        "san" -> san,
-        "promotion" -> promotion.map(_.data),
-        "enpassant" -> enpassant.map(_.data),
-        "castle" -> castle.map(_.data)
-      )
+        "san" -> san
+      ).add("promotion" -> promotion.map(_.data))
+        .add("enpassant" -> enpassant.map(_.data))
+        .add("castle" -> castle.map(_.data))
     }
   }
   object Move {
-    def apply(move: ChessMove, situation: Situation, state: State, clock: Option[Event], crazyData: Option[Crazyhouse.Data]): Move = Move(
+    def apply(move: ChessMove, situation: Situation, state: State, clock: Option[ClockEvent], crazyData: Option[Crazyhouse.Data]): Move = Move(
       orig = move.orig,
       dest = move.dest,
       san = chess.format.pgn.Dumper(move),
@@ -125,7 +116,7 @@ object Event {
       check: Boolean,
       threefold: Boolean,
       state: State,
-      clock: Option[Event],
+      clock: Option[ClockEvent],
       possibleMoves: Map[Pos, List[Pos]],
       crazyData: Option[Crazyhouse.Data],
       possibleDrops: Option[List[Pos]]
@@ -140,7 +131,7 @@ object Event {
     }
   }
   object Drop {
-    def apply(drop: ChessDrop, situation: Situation, state: State, clock: Option[Event], crazyData: Option[Crazyhouse.Data]): Drop = Drop(
+    def apply(drop: ChessDrop, situation: Situation, state: State, clock: Option[ClockEvent], crazyData: Option[Crazyhouse.Data]): Drop = Drop(
       role = drop.piece.role,
       pos = drop.pos,
       san = chess.format.pgn.Dumper(drop),
@@ -188,9 +179,8 @@ object Event {
     def typ = "redirect"
     def data = Json.obj(
       "id" -> id,
-      "url" -> s"/$id",
-      "cookie" -> cookie
-    ).noNull
+      "url" -> s"/$id"
+    ).add("cookie" -> cookie)
     override def only = Some(color)
     override def owner = true
   }
@@ -234,7 +224,7 @@ object Event {
           Color.White.name -> rds.white,
           Color.Black.name -> rds.black
         )
-      }).add("boosted" -> game.boosted.option(true))
+      }).add("boosted" -> game.boosted)
   }
 
   case object Reload extends Empty {
@@ -272,13 +262,14 @@ object Event {
     override def owner = true
   }
 
-  case class Clock(white: Float, black: Float, nextLagComp: Option[Centis] = None) extends Event {
+  sealed trait ClockEvent extends Event
+
+  case class Clock(white: Float, black: Float, nextLagComp: Option[Centis] = None) extends ClockEvent {
     def typ = "clock"
     def data = Json.obj(
       "white" -> truncateAt(white, 2),
-      "black" -> truncateAt(black, 2),
-      "lag" -> nextLagComp.collect { case Centis(c) if c > 1 => c }
-    ).noNull
+      "black" -> truncateAt(black, 2)
+    ).add("lag" -> nextLagComp.collect { case Centis(c) if c > 1 => c })
   }
   object Clock {
     def apply(clock: ChessClock): Clock = Clock(
@@ -294,7 +285,7 @@ object Event {
     def data = Json.toJson(color)
   }
 
-  case class CorrespondenceClock(white: Float, black: Float) extends Event {
+  case class CorrespondenceClock(white: Float, black: Float) extends ClockEvent {
     def typ = "cclock"
     def data = Json.obj("white" -> white, "black" -> black)
   }
@@ -322,12 +313,11 @@ object Event {
     def typ = "state"
     def data = Json.obj(
       "color" -> color,
-      "turns" -> turns,
-      "status" -> status,
-      "winner" -> winner,
-      "wDraw" -> whiteOffersDraw.option(true),
-      "bDraw" -> blackOffersDraw.option(true)
-    ).noNull
+      "turns" -> turns
+    ).add("status" -> status)
+      .add("winner" -> winner)
+      .add("wDraw" -> whiteOffersDraw)
+      .add("bDraw" -> blackOffersDraw)
   }
 
   case class TakebackOffers(
@@ -335,10 +325,9 @@ object Event {
       black: Boolean
   ) extends Event {
     def typ = "takebackOffers"
-    def data = Json.obj(
-      "white" -> white.option(true),
-      "black" -> black.option(true)
-    ).noNull
+    def data = Json.obj()
+      .add("white" -> white)
+      .add("black" -> black)
     override def owner = true
   }
 

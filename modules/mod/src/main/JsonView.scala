@@ -42,15 +42,14 @@ final class JsonView(
   import lila.user.JsonView.modWrites
 
   private implicit val playerFlagsWrites = OWrites[PlayerFlags] { f =>
-    Json.obj(
-      "ser" -> f.suspiciousErrorRate.option(true),
-      "aha" -> f.alwaysHasAdvantage.option(true),
-      "hbr" -> f.highBlurRate.option(true),
-      "mbr" -> f.moderateBlurRate.option(true),
-      "cmt" -> f.consistentMoveTimes.option(true),
-      "nfm" -> f.noFastMoves.option(true),
-      "sha" -> f.suspiciousHoldAlert.option(true)
-    ).noNull
+    Json.obj()
+      .add("ser" -> f.suspiciousErrorRate)
+      .add("aha" -> f.alwaysHasAdvantage)
+      .add("hbr" -> f.highBlurRate)
+      .add("mbr" -> f.moderateBlurRate)
+      .add("cmt" -> f.consistentMoveTimes)
+      .add("nfm" -> f.noFastMoves)
+      .add("sha" -> f.suspiciousHoldAlert)
   }
   private implicit val gameAssWrites = Writes[GameAssessment] { a =>
     JsNumber(a.id)

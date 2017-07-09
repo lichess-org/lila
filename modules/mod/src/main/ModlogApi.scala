@@ -71,6 +71,12 @@ final class ModlogApi(coll: Coll) {
     ))
   }
 
+  def toggleStickyTopic(mod: String, categ: String, topic: String, sticky: Boolean) = add {
+    Modlog(mod, none, sticky ? Modlog.stickyTopic | Modlog.unstickyTopic, details = Some(
+      categ + " / " + topic
+    ))
+  }
+
   def deleteQaQuestion(mod: String, user: String, title: String) = add {
     Modlog(mod, user.some, Modlog.deleteQaQuestion, details = Some(title take 140))
   }

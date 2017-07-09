@@ -28,8 +28,6 @@ export interface Socket {
   clearCache(): void;
 }
 
-export type SocketSend = (type: string, data?: any) => void;
-
 export function make(send: SocketSend, ctrl: AnalyseController): Socket {
 
   let anaMoveTimeout;

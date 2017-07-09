@@ -129,7 +129,7 @@ private[api] final class RoundApi(
     if (note.isEmpty) json else json + ("note" -> JsString(note))
 
   private def withBookmark(v: Boolean)(json: JsObject) =
-    if (v) json + ("bookmarked" -> JsBoolean(true)) else json
+    json.add("bookmarked" -> v)
 
   private def withForecastCount(count: Option[Int])(json: JsObject) =
     count.filter(0 !=).fold(json) { c =>
@@ -148,38 +148,36 @@ private[api] final class RoundApi(
     )
     else json
 
-  private def withAnalysis(g: Game, o: Option[Analysis])(json: JsObject) = o.fold(json) { a =>
-    json + ("analysis" -> analysisJson.bothPlayers(g, a))
-  }
+  private def withAnalysis(g: Game, o: Option[Analysis])(json: JsObject) =
+    json.add("analysis", o.map { a => analysisJson.bothPlayers(g, a) })
 
   private def withTournament(pov: Pov, tourOption: Option[TourAndRanks])(json: JsObject) =
-    tourOption.fold(json) { data =>
-      json + ("tournament" -> Json.obj(
+    json.add("tournament" -> tourOption.map { data =>
+      Json.obj(
         "id" -> data.tour.id,
         "name" -> data.tour.name,
-        "running" -> data.tour.isStarted,
-        "secondsToFinish" -> data.tour.isStarted.option(data.tour.secondsToFinish),
-        "berserkable" -> data.tour.isStarted.option(data.tour.berserkable),
-        "nbSecondsForFirstMove" -> data.tour.isStarted.option {
+        "running" -> data.tour.isStarted
+      ).add("secondsToFinish" -> data.tour.isStarted.option(data.tour.secondsToFinish))
+        .add("berserkable" -> data.tour.isStarted.option(data.tour.berserkable))
+        .add("nbSecondsForFirstMove" -> data.tour.isStarted.option {
           SecondsToDoFirstMove.secondsToMoveFor(data.tour)
-        },
-        "ranks" -> data.tour.isStarted.option(Json.obj(
+        })
+        .add("ranks" -> data.tour.isStarted.option(Json.obj(
           "white" -> data.whiteRank,
           "black" -> data.blackRank
-        ))
-      ).noNull)
-    }
+        )))
+    })
 
   private def withSimul(pov: Pov, simulOption: Option[Simul])(json: JsObject) =
-    simulOption.fold(json) { simul =>
-      json + ("simul" -> Json.obj(
+    json.add("simul", simulOption.map { simul =>
+      Json.obj(
         "id" -> simul.id,
         "hostId" -> simul.hostId,
         "name" -> simul.name,
         "nbPlaying" -> simul.playingPairings.size
-      ))
-    }
+      )
+    })
 
   private def blindMode(js: JsObject)(implicit ctx: Context) =
-    ctx.blindMode.fold(js + ("blind" -> JsBoolean(true)), js)
+    js.add("blind", ctx.blindMode)
 }

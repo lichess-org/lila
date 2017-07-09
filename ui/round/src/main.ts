@@ -1,30 +1,30 @@
 /// <reference types="types/lichess" />
 /// <reference types="types/lichess-jquery" />
 
-import makeCtrl = require('./ctrl');
-import view = require('./view/main');
-import boot = require('./boot');
-
 import { Chessground } from 'chessground';
-
 import { init } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode'
 import klass from 'snabbdom/modules/class';
 import attributes from 'snabbdom/modules/attributes';
 
+import { RoundOpts } from './interfaces';
+import RoundController from './ctrl';
+import { main as view } from './view/main';
+import boot = require('./boot');
+
 const patch = init([klass, attributes]);
 
-export function app(opts: any) {
+export function app(opts: RoundOpts) {
 
-  let vnode: VNode, ctrl: any;
+  let vnode: VNode, ctrl: RoundController;
 
   function redraw() {
-    vnode = patch(vnode, view.main(ctrl));
+    vnode = patch(vnode, view(ctrl));
   }
 
-  ctrl = new makeCtrl(opts, redraw);
+  ctrl = new RoundController(opts, redraw);
 
-  const blueprint = view.main(ctrl);
+  const blueprint = view(ctrl);
   opts.element.innerHTML = '';
   vnode = patch(opts.element, blueprint);
 

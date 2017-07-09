@@ -84,9 +84,8 @@ object GameStream {
           case (p, i) => p.color.name -> Json.obj(
             "userId" -> p.userId,
             "name" -> p.name,
-            "rating" -> p.rating,
-            "provisional" -> p.provisional.option(true)
-          ).noNull
+            "rating" -> p.rating
+          ).add("provisional" -> p.provisional)
         })
       ).noNull
   }

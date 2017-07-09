@@ -48,10 +48,8 @@ object JsonView {
   private implicit val userLineWriter = Writes[UserLine] { l =>
     Json.obj(
       "u" -> l.username,
-      "t" -> l.text,
-      "r" -> l.troll.option(true),
-      "d" -> l.deleted.option(true)
-    ).noNull
+      "t" -> l.text
+    ).add("r" -> l.troll).add("d" -> l.deleted)
   }
 
   private implicit val playerLineWriter = Writes[PlayerLine] { l =>

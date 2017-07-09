@@ -3,15 +3,16 @@ import { VNode } from 'snabbdom/vnode'
 import { prop, storedProp, storedJsonProp } from 'common';
 import { bind, dataIcon } from '../util';
 import { Game } from '../interfaces';
+import { ExplorerDb, ExplorerSpeed, ExplorerConfigData, ExplorerConfigController } from './interfaces';
 
-export function controller(game: Game, onClose: () => void, redraw: () => void) {
+export function controller(game: Game, onClose: () => void, trans: Trans, redraw: () => void): ExplorerConfigController {
 
   const variant = (game.variant.key === 'fromPosition') ? 'standard' : game.variant.key;
 
-  const available = ['lichess'];
+  const available: ExplorerDb[] = ['lichess'];
   if (variant === 'standard') available.push('masters');
 
-  const data = {
+  const data: ExplorerConfigData = {
     open: prop(false),
     db: {
       available,
@@ -25,7 +26,7 @@ export function controller(game: Game, onClose: () => void, redraw: () => void) 
     },
     speed: {
       available: ['bullet', 'blitz', 'classical'],
-      selected: storedJsonProp('explorer.speed', ['bullet', 'blitz', 'classical'])
+      selected: storedJsonProp<ExplorerSpeed[]>('explorer.speed', ['bullet', 'blitz', 'classical'])
     }
   };
 
@@ -35,6 +36,7 @@ export function controller(game: Game, onClose: () => void, redraw: () => void) 
   };
 
   return {
+    trans,
     redraw,
     data,
     toggleOpen() {
@@ -55,11 +57,11 @@ export function controller(game: Game, onClose: () => void, redraw: () => void) 
   };
 }
 
-export function view(ctrl): VNode[] {
+export function view(ctrl: ExplorerConfigController): VNode[] {
   const d = ctrl.data;
   return [
     h('section.db', [
-      h('label', 'Database'),
+      h('label', ctrl.trans.noarg('database')),
       h('div.choices', d.db.available.map(function(s) {
         return h('span', {
           class: { selected: d.db.selected() === s },
@@ -69,21 +71,21 @@ export function view(ctrl): VNode[] {
     ]),
     d.db.selected() === 'masters' ? h('div.masters.message', [
       h('i', { attrs: dataIcon('C') }),
-      h('p', "Two million OTB games of 2200+ FIDE rated players from 1952 to 2016"),
+      h('p', ctrl.trans.noarg('masterDbExplanation'))
     ]) : h('div', [
       h('section.rating', [
-        h('label', "Players' average rating"),
+        h('label', ctrl.trans.noarg('averageElo')),
         h('div.choices',
           d.rating.available.map(function(r) {
             return h('span', {
               class: { selected: d.rating.selected().indexOf(r) > -1 },
               hook: bind('click', _ => ctrl.toggleRating(r), ctrl.redraw)
-            }, r);
+            }, r.toString());
           })
         )
       ]),
       h('section.speed', [
-        h('label', 'Game speed'),
+        h('label', ctrl.trans.noarg('gameSpeed')),
         h('div.choices',
           d.speed.available.map(function(s) {
             return h('span', {
@@ -98,7 +100,7 @@ export function view(ctrl): VNode[] {
       h('button.button.text', {
         attrs: dataIcon('E'),
         hook: bind('click', ctrl.toggleOpen)
-      }, 'All set!')
+      }, ctrl.trans.noarg('allSet'))
     )
   ];
 }

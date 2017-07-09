@@ -5,7 +5,7 @@ interface Lichess {
   numberFormat(n: number): string
   once(key: string): boolean
   quietMode: boolean
-  desktopNotification(txt: string): void
+  desktopNotification(txt: string | (() => string)): void
   engineName: string;
   assetUrl(url: string, opts?: AssetUrlOpts): string;
   storage: LichessStorageHelper
@@ -28,14 +28,21 @@ interface Lichess {
   StrongSocket: {
     sri: string
   }
+  socket: any;
   idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void): void;
   parseFen(el: any): void;
+  hasToReload: boolean;
+  ab: any;
+  challengeApp: any;
+  hopscotch: any;
 }
 
 interface AssetUrlOpts {
   sameDomain?: boolean;
   noVersion?: boolean;
 }
+
+declare type SocketSend = (type: string, data?: any, opts?: any, noRetry?: boolean) => void;
 
 declare type Trans = any; // todo
 
@@ -69,6 +76,7 @@ interface Window {
   lichessReplayMusic: () => {
     jump(node: Tree.Node): void
   }
+  hopscotch: any;
 }
 
 interface Paginator<T> {

@@ -1,36 +1,38 @@
+import { h } from 'snabbdom'
 import * as round from '../round';
 import { drag } from './crazyCtrl';
 import { game } from 'game';
-
-import { h } from 'snabbdom'
+import * as cg from 'chessground/types';
+import RoundController from '../ctrl';
+import { Position } from '../interfaces';
 
 const eventNames = ['mousedown', 'touchstart'];
-const pieceRoles = ['pawn', 'knight', 'bishop', 'rook', 'queen'];
+const pieceRoles: cg.Role[] = ['pawn', 'knight', 'bishop', 'rook', 'queen'];
 
-export default function pocket(ctrl, color, position) {
-  var step = round.plyStep(ctrl.data, ctrl.vm.ply);
+export default function pocket(ctrl: RoundController, color: Color, position: Position) {
+  const step = round.plyStep(ctrl.data, ctrl.ply);
   if (!step.crazy) return;
-  var droppedRole = ctrl.vm.justDropped;
-  var preDropRole = ctrl.vm.preDrop;
-  var pocket = step.crazy.pockets[color === 'white' ? 0 : 1];
-  var usablePos = position === (ctrl.vm.flip ? 'top' : 'bottom');
-  var usable = usablePos && !ctrl.replaying() && game.isPlayerPlaying(ctrl.data);
-  var activeColor = color === ctrl.data.player.color;
-  var captured = ctrl.vm.justCaptured;
+  const droppedRole = ctrl.justDropped,
+  preDropRole = ctrl.preDrop,
+  pocket = step.crazy.pockets[color === 'white' ? 0 : 1],
+  usablePos = position === (ctrl.flip ? 'top' : 'bottom'),
+  usable = usablePos && !ctrl.replaying() && game.isPlayerPlaying(ctrl.data),
+  activeColor = color === ctrl.data.player.color;
+  let captured = ctrl.justCaptured;
   if (captured) captured = captured.promoted ? 'pawn' : captured.role;
   return h('div.pocket.is2d.' + position, {
     class: { usable },
     hook: {
       insert: vnode => {
         eventNames.forEach(name => {
-          (vnode.elm as HTMLElement).addEventListener(name, e => {
-            if (position === (ctrl.vm.flip ? 'top' : 'bottom')) drag(ctrl, e);
+          (vnode.elm as HTMLElement).addEventListener(name, (e: cg.MouchEvent) => {
+            if (position === (ctrl.flip ? 'top' : 'bottom')) drag(ctrl, e);
           })
         });
       }
     }
   }, pieceRoles.map(role => {
-    var nb = pocket[role] || 0;
+    let nb = pocket[role] || 0;
     if (activeColor) {
       if (droppedRole === role) nb--;
       if (captured === role) nb++;
@@ -44,4 +46,4 @@ export default function pocket(ctrl, color, position) {
       }
     });
   }));
-};
+}

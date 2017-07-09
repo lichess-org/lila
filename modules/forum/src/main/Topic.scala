@@ -18,7 +18,8 @@ case class Topic(
     lastPostIdTroll: String,
     troll: Boolean,
     closed: Boolean,
-    hidden: Boolean
+    hidden: Boolean,
+    sticky: Option[Boolean]
 ) {
 
   def id = _id
@@ -30,6 +31,8 @@ case class Topic(
 
   def open = !closed
   def visibleOnHome = !hidden
+
+  def isSticky = ~sticky
 
   def withPost(post: Post): Topic = copy(
     nbPosts = post.troll.fold(nbPosts, nbPosts + 1),
@@ -73,6 +76,7 @@ object Topic {
     lastPostIdTroll = "",
     troll = troll,
     closed = false,
-    hidden = hidden
+    hidden = hidden,
+    sticky = None
   )
 }

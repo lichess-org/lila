@@ -1,10 +1,11 @@
+import { h } from 'snabbdom'
+import { VNode, VNodeData } from 'snabbdom/vnode'
 import * as round from '../round';
 import { dropThrottle } from 'common';
 import { game, status, router, view as gameView } from 'game';
 import * as util from '../util';
-
-import { h } from 'snabbdom'
-import { VNode } from 'snabbdom/vnode'
+import RoundController from '../ctrl';
+import { Step, MaybeVNodes, RoundData } from '../interfaces';
 
 function emptyMove() {
   return h('move.empty', '...');
@@ -15,30 +16,30 @@ function nullMove() {
 
 const scrollThrottle = dropThrottle(100);
 
-function autoScroll(el, ctrl) {
+function autoScroll(el: HTMLElement, ctrl: RoundController) {
   scrollThrottle(function() {
     if (ctrl.data.steps.length < 7) return;
-    let st;
-    if (ctrl.vm.ply < 3) st = 0;
-    else if (ctrl.vm.ply >= round.lastPly(ctrl.data) - 1) st = 9999;
+    let st: number | undefined = undefined;
+    if (ctrl.ply < 3) st = 0;
+    else if (ctrl.ply >= round.lastPly(ctrl.data) - 1) st = 9999;
     else {
-      const plyEl = el.querySelector('.active');
+      const plyEl = el.querySelector('.active') as HTMLElement | undefined;
       if (plyEl) st = plyEl.offsetTop - el.offsetHeight / 2 + plyEl.offsetHeight / 2;
     }
     if (st !== undefined) el.scrollTop = st;
   });
 }
 
-function renderMove(step, curPly, orEmpty) {
+function renderMove(step: Step, curPly: number, orEmpty?: boolean) {
   if (!step) return orEmpty ? emptyMove() : nullMove();
-  var san = step.san[0] === 'P' ? step.san.slice(1) : step.san.replace('x', 'х');
+  const san = step.san[0] === 'P' ? step.san.slice(1) : step.san.replace('x', 'х');
   return h('move', {
     class: { active: step.ply === curPly }
   }, san);
 }
 
-function renderResult(ctrl) {
-  var result;
+function renderResult(ctrl: RoundController) {
+  let result;
   if (status.finished(ctrl.data)) switch (ctrl.data.game.winner) {
     case 'white':
       result = '1-0';
@@ -50,14 +51,14 @@ function renderResult(ctrl) {
       result = '½-½';
   }
   if (result || status.aborted(ctrl.data)) {
-    var winner = game.getPlayer(ctrl.data, ctrl.data.game.winner);
+    const winner = game.getPlayer(ctrl.data, ctrl.data.game.winner);
     return h('div.result_wrap', [
       h('p.result', result),
       h('p.status', {
         hook: {
           insert: _ => {
-            if (ctrl.vm.autoScroll) ctrl.vm.autoScroll();
-            else setTimeout(() => { ctrl.vm.autoScroll() }, 200);
+            if (ctrl.autoScroll) ctrl.autoScroll();
+            else setTimeout(() => ctrl.autoScroll(), 200);
           }
         }
       }, [
@@ -69,7 +70,7 @@ function renderResult(ctrl) {
   return;
 }
 
-function renderMoves(ctrl) {
+function renderMoves(ctrl: RoundController): MaybeVNodes {
   const steps = ctrl.data.steps,
   firstPly = round.firstPly(ctrl.data),
   lastPly = round.lastPly(ctrl.data);
@@ -81,10 +82,10 @@ function renderMoves(ctrl) {
     pairs.push([null, steps[1]]);
     startAt = 2;
   }
-  for (var i = startAt; i < steps.length; i += 2) pairs.push([steps[i], steps[i + 1]]);
+  for (let i = startAt; i < steps.length; i += 2) pairs.push([steps[i], steps[i + 1]]);
 
-  const els: Array<VNode | undefined> = [], curPly = ctrl.vm.ply;
-  for (var i = 0; i < pairs.length; i++) {
+  const els: MaybeVNodes = [], curPly = ctrl.ply;
+  for (let i = 0; i < pairs.length; i++) {
     els.push(h('index', i + 1 + ''));
     els.push(renderMove(pairs[i][0], curPly, true));
     els.push(renderMove(pairs[i][1], curPly, false));
@@ -94,27 +95,28 @@ function renderMoves(ctrl) {
   return els;
 }
 
-function analyseButton(ctrl) {
-  var showInfo = ctrl.forecastInfo();
-  var data: any = {
+function analyseButton(ctrl: RoundController) {
+  const showInfo = ctrl.forecastInfo(),
+  forecastCount = ctrl.data.forecastCount;
+  const data: VNodeData = {
     class: {
       'hint--top': !showInfo,
       'hint--bottom': showInfo,
       'glowed': showInfo,
-      'text': ctrl.data.forecastCount
+      'text': !!forecastCount
     },
     attrs: {
       'data-hint': ctrl.trans.noarg('analysis'),
-      href: router.game(ctrl.data, ctrl.data.player.color) + '/analysis#' + ctrl.vm.ply
+      href: router.game(ctrl.data, ctrl.data.player.color) + '/analysis#' + ctrl.ply
     }
   };
   if (showInfo) data.hook = {
-    insert: vnode => {
+    insert(vnode) {
       setTimeout(() => {
-        $(vnode.elm).powerTip({
+        $(vnode.elm as HTMLElement).powerTip({
           closeDelay: 200,
           placement: 'n'
-        }).data('powertipjq', $(vnode.elm).siblings('.forecast-info').clone().removeClass('none')).powerTip('show');
+        }).data('powertipjq', $(vnode.elm as HTMLElement).siblings('.forecast-info').clone().removeClass('none')).powerTip('show');
       }, 1000);
     }
   };
@@ -122,9 +124,9 @@ function analyseButton(ctrl) {
     h('a.fbt.analysis', data, [
       h('span', {
         attrs: util.dataIcon('A'),
-        class: {text: ctrl.data.forecastCount}
+        class: {text: !!forecastCount}
       }),
-      ctrl.data.forecastCount
+      forecastCount ? '' + forecastCount : undefined
     ]),
     showInfo ? h('div.forecast-info.info.none', [
       h('strong.title.text', { attrs: util.dataIcon('') }, 'Speed up your game!'),
@@ -133,10 +135,10 @@ function analyseButton(ctrl) {
   ];
 }
 
-function renderButtons(ctrl) {
-  var d = ctrl.data;
-  var firstPly = round.firstPly(d);
-  var lastPly = round.lastPly(d);
+function renderButtons(ctrl: RoundController) {
+  const d = ctrl.data,
+  firstPly = round.firstPly(d),
+  lastPly = round.lastPly(d);
   return h('div.buttons', {
     hook: util.bind('mousedown', e => {
       const target = e.target as HTMLElement;
@@ -147,13 +149,13 @@ function renderButtons(ctrl) {
         if (action === 'flip') {
           if (d.tv) location.href = '/tv/' + d.tv.channel + (d.tv.flip ? '' : '?flip=1');
           else if (d.player.spectator) location.href = router.game(d, d.opponent.color);
-          else ctrl.flip();
+          else ctrl.flipNow();
         }
       }
     }, ctrl.redraw)
   }, [
     h('button.fbt.flip.hint--top', {
-      class: { active: ctrl.vm.flip },
+      class: { active: ctrl.flip },
       attrs: {
         'data-hint': ctrl.trans('flipBoard'),
         'data-act': 'flip'
@@ -163,11 +165,11 @@ function renderButtons(ctrl) {
     ]),
     h('nav', [
       ['W', firstPly],
-      ['Y', ctrl.vm.ply - 1],
-      ['X', ctrl.vm.ply + 1],
+      ['Y', ctrl.ply - 1],
+      ['X', ctrl.ply + 1],
       ['V', lastPly]
     ].map((b, i) => {
-      const enabled = ctrl.vm.ply !== b[1] && b[1] >= firstPly && b[1] <= lastPly;
+      const enabled = ctrl.ply !== b[1] && b[1] >= firstPly && b[1] <= lastPly;
       return h('button.fbt', {
         class: { glowed: i === 3 && ctrl.isLate() },
         attrs: {
@@ -181,7 +183,7 @@ function renderButtons(ctrl) {
   ]);
 }
 
-function racingKingsInit(d) {
+function racingKingsInit(d: RoundData) {
   if (d.game.variant.key === 'racingKings' && d.game.turns === 0 && !d.player.spectator) {
     const yourTurn = d.player.color === 'white' ? [h('br'), h('strong', "it's your turn!")] : [];
     return h('div.message', {
@@ -194,12 +196,12 @@ function racingKingsInit(d) {
   return;
 }
 
-export function render(ctrl: any): VNode {
+export default function(ctrl: RoundController): VNode {
   return h('div.replay', [
     renderButtons(ctrl),
     racingKingsInit(ctrl.data) || (ctrl.replayEnabledByPref() ? h('div.moves', {
       hook: {
-        insert: vnode => {
+        insert(vnode) {
           (vnode.elm as HTMLElement).addEventListener('mousedown', e => {
             let node = e.target as HTMLElement, offset = -2;
             if (node.tagName !== 'MOVE') return;
@@ -212,11 +214,11 @@ export function render(ctrl: any): VNode {
               }
             }
           });
-          ctrl.vm.autoScroll = () => { autoScroll(vnode.elm, ctrl); };
-          ctrl.vm.autoScroll();
-          window.addEventListener('load', ctrl.vm.autoScroll);
+          ctrl.autoScroll = () => autoScroll(vnode.elm as HTMLElement, ctrl); ;
+          ctrl.autoScroll();
+          window.addEventListener('load', ctrl.autoScroll);
         }
       }
     }, renderMoves(ctrl)) : renderResult(ctrl))
   ]);
-};
+}

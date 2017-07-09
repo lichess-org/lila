@@ -3,8 +3,6 @@ import * as hookRepo from './hookRepo';
 import LobbyController from './ctrl';
 import { Hook } from './interfaces';
 
-export type SocketSend = (type: string, data?: any, opts?: any, noRetry?: boolean) => void;
-
 interface Handlers {
   [key: string]: (data: any) => void;
 }

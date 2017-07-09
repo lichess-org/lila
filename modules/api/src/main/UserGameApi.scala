@@ -36,27 +36,25 @@ final class UserGameApi(
     "timestamp" -> g.createdAt,
     "turns" -> g.turns,
     "status" -> g.status,
-    "clock" -> g.clock,
-    "correspondence" -> g.daysPerTurn.map { d =>
-      Json.obj("daysPerTurn" -> d)
-    },
     "source" -> g.source.map(_.name),
     "players" -> JsObject(g.players map { p =>
       p.color.name -> Json.obj(
         "user" -> p.userId.flatMap(lightUser),
         "userId" -> p.userId, // for BC
-        "name" -> p.name,
-        "aiLevel" -> p.aiLevel,
-        "rating" -> p.rating,
-        "ratingDiff" -> p.ratingDiff
-      ).noNull
+        "name" -> p.name
+      ).add("aiLevel" -> p.aiLevel)
+        .add("rating" -> p.rating)
+        .add("ratingDiff" -> p.ratingDiff)
     }),
     "fen" -> Forsyth.exportBoard(g.toChess.board),
-    "lastMove" -> g.castleLastMoveTime.lastMoveString,
-    "opening" -> g.opening,
     "winner" -> g.winnerColor.map(_.name),
-    "bookmarks" -> g.bookmarks,
-    "bookmarked" -> bookmarked.option(true),
-    "analysed" -> g.metadata.analysed.option(true)
-  ).noNull
+    "bookmarks" -> g.bookmarks
+  ).add("bookmarked" -> bookmarked)
+    .add("analysed" -> g.metadata.analysed)
+    .add("opening" -> g.opening)
+    .add("lastMove" -> g.castleLastMoveTime.lastMoveString)
+    .add("clock" -> g.clock)
+    .add("correspondence" -> g.daysPerTurn.map { d =>
+      Json.obj("daysPerTurn" -> d)
+    })
 }

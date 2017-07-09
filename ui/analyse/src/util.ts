@@ -63,6 +63,21 @@ export function spinner() {
       })])]);
 }
 
+export function innerHTML(html: string): Hooks {
+  return {
+    insert(vnode) {
+      (vnode.elm as HTMLElement).innerHTML = html;
+      vnode.data!.innerHTML = html;
+    },
+    postpatch(old, vnode) {
+      if (old.data!.innerHTML !== html) {
+        (vnode.elm as HTMLElement).innerHTML = html;
+      }
+      vnode.data!.innerHTML = html;
+    }
+  };
+}
+
 // from https://github.com/bryanwoods/autolink-js/blob/master/autolink.js
 export function autolink(str: string, callback: (str: string) => string): string {
   const pattern = /(^|[\s\n]|<[A-Za-z]*\/?>)((?:https?|ftp):\/\/[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;

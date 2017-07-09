@@ -198,19 +198,18 @@ private[api] final class GameApi(
         "userId" -> p.userId,
         "name" -> p.name,
         "rating" -> p.rating,
-        "ratingDiff" -> p.ratingDiff,
-        "provisional" -> p.provisional.option(true),
-        "moveCentis" -> withFlags.moveTimes ?? g.moveTimes(p.color).map(_.map(_.centis)),
-        "blurs" -> withFlags.blurs.option(p.blurs.nb),
-        "hold" -> p.holdAlert.ifTrue(withFlags.hold).map { h =>
+        "ratingDiff" -> p.ratingDiff
+      ).add("provisional" -> p.provisional)
+        .add("moveCentis" -> withFlags.moveTimes ?? g.moveTimes(p.color).map(_.map(_.centis)))
+        .add("blurs" -> withFlags.blurs.option(p.blurs.nb))
+        .add("hold" -> p.holdAlert.ifTrue(withFlags.hold).map { h =>
           Json.obj(
             "ply" -> h.ply,
             "mean" -> h.mean,
             "sd" -> h.sd
           )
-        },
-        "analysis" -> analysisOption.flatMap(analysisJson.player(g pov p.color))
-      ).noNull
+        })
+        .add("analysis" -> analysisOption.flatMap(analysisJson.player(g pov p.color)))
     }),
     "analysis" -> analysisOption.ifTrue(withFlags.analysis).map(analysisJson.moves),
     "moves" -> withFlags.moves.option(g.pgnMoves mkString " "),

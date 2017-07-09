@@ -342,3 +342,11 @@ body.dark .textcomplete-dropdown li:hover,
 body.dark .textcomplete-dropdown .active {
   background-color: #3e3e3e;
 }
+
+a.sticky {
+  color: #759900;
+}
+
+a.sticky > span {
+  margin-right: 0.6em;
+}

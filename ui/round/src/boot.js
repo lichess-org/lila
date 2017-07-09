@@ -69,7 +69,7 @@ module.exports = function(cfg, element) {
     return null;
   };
   cfg.element = element.querySelector('.round');
-  cfg.socket = lichess.socket;
+  cfg.socketSend = lichess.socket.send;
   cfg.onChange = function(d) {
     if (chat) chat.preset.setGroup(getPresetGroup(d));
   };

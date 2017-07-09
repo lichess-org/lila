@@ -44,15 +44,12 @@ object ChatJsData {
     "writeable" -> writeable,
     "noteId" -> withNote.option(chat.id take 8),
     "public" -> public,
-    "kobold" -> ctx.troll,
-    "permissions" -> Json.obj(
-      "local" -> localMod,
-      "timeout" -> isGranted(_.ChatTimeout).option(true),
-      "shadowban" -> isGranted(_.MarkTroll).option(true)
-    ).noNull,
-    "timeout" -> timeout,
-    "timeoutReasons" -> isGranted(_.ChatTimeout).option(lila.chat.JsonView.timeoutReasons)
-  )
+    "permissions" -> Json.obj("local" -> localMod)
+      .add("timeout" -> isGranted(_.ChatTimeout))
+      .add("shadowban" -> isGranted(_.MarkTroll)),
+    "timeout" -> timeout
+  ).add("kobold" -> ctx.troll)
+    .add("timeoutReasons" -> isGranted(_.ChatTimeout).option(lila.chat.JsonView.timeoutReasons))
 
   def i18n(withNote: Boolean)(implicit ctx: Context) = i18nOptionJsObject(
     I18nKeys.talkInChat.some,
