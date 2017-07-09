@@ -65,6 +65,7 @@
   <string name="winning">Vinner</string>
   <string name="losing">Förlorar</string>
   <string name="drawn">Remi</string>
+  <string name="unknown">Okänt</string>
   <string name="database">Databas</string>
   <string name="whiteDrawBlack">Vit / Remi / Svart</string>
   <string name="averageRatingX">Medelrating: %s</string>
