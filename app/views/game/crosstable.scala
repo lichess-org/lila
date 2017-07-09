@@ -12,7 +12,9 @@ object crosstable {
   def apply(ct: Crosstable.WithMatchup, currentId: Option[String])(implicit ctx: Context): Html =
     apply(ct.crosstable, ct.matchup, currentId)(ctx)
 
-  def apply(ct: Crosstable, matchup: Option[Crosstable.Matchup], currentId: Option[String])(implicit ctx: Context): Html = Html {
+  def apply(ct: Crosstable, trueMatchup: Option[Crosstable.Matchup], currentId: Option[String])(implicit ctx: Context): Html = Html {
+
+    val matchup = trueMatchup.filter(_.users.nbGames != ct.users.nbGames)
 
     val users = ct.users.toList.map { u =>
 
