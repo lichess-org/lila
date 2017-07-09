@@ -39,7 +39,8 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     takebackOffers(o) {
       ctrl.setLoading(false);
       ctrl.data.player.proposingTakeback = o[ctrl.data.player.color];
-      ctrl.data.opponent.proposingTakeback = o[ctrl.data.opponent.color];
+      const fromOp = ctrl.data.opponent.proposingTakeback = o[ctrl.data.opponent.color];
+      if (fromOp) li.desktopNotification(ctrl.trans.noarg('yourOpponentProposesATakeback'));
       ctrl.redraw();
     },
     move: ctrl.apiMove,
@@ -63,7 +64,8 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     },
     rematchOffer(by) {
       ctrl.data.player.offeringRematch = by === ctrl.data.player.color;
-      ctrl.data.opponent.offeringRematch = by === ctrl.data.opponent.color;
+      const fromOp = ctrl.data.opponent.offeringRematch = by === ctrl.data.opponent.color;
+      if (fromOp) li.desktopNotification(ctrl.trans.noarg('yourOpponentWantsToPlayANewGameWithYou'));
       ctrl.redraw();
     },
     rematchTaken(nextId) {
@@ -73,7 +75,8 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     },
     drawOffer(by) {
       ctrl.data.player.offeringDraw = by === ctrl.data.player.color;
-      ctrl.data.opponent.offeringDraw = by === ctrl.data.opponent.color;
+      const fromOp = ctrl.data.opponent.offeringDraw = by === ctrl.data.opponent.color;
+      if (fromOp) li.desktopNotification(ctrl.trans.noarg('yourOpponentOffersADraw'));
       ctrl.redraw();
     },
     berserk(color) {

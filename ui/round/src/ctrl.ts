@@ -70,10 +70,11 @@ export default class RoundController {
 
   constructor(opts: RoundOpts, redraw: Redraw) {
 
-    const d = round.merge({} as RoundData, opts.data).data;
+    round.massage(opts.data);
+
+    const d = this.data = opts.data;
 
     this.opts = opts;
-    this.data = d;
     this.redraw = redraw;
 
     this.ply = round.lastPly(d);
@@ -421,10 +422,9 @@ export default class RoundController {
     this.preDrop = undefined;
   }
 
-  reload = (cfg: RoundData): void => {
-    if (cfg.steps.length !== this.data.steps.length) this.ply = cfg.steps[cfg.steps.length - 1].ply;
-    const merged = round.merge(this.data, cfg),
-    d = merged.data;
+  reload = (d: RoundData): void => {
+    if (d.steps.length !== this.data.steps.length) this.ply = d.steps[d.steps.length - 1].ply;
+    round.massage(d);
     this.data = d;
     this.clearJust();
     if (this.clock) this.clock.update(d.clock!.white, d.clock!.black);
@@ -438,10 +438,7 @@ export default class RoundController {
     this.autoScroll();
     this.onChange();
     this.setLoading(false);
-    if (merged.changes.drawOffer) li.desktopNotification(this.trans('yourOpponentOffersADraw'));
-    if (merged.changes.takebackOffer) li.desktopNotification(this.trans('yourOpponentProposesATakeback'));
-    if (merged.changes.rematchOffer) li.desktopNotification(this.trans('yourOpponentWantsToPlayANewGameWithYou'));
-    if (this.keyboardMove) this.keyboardMove.update(cfg.steps[cfg.steps.length - 1]);
+    if (this.keyboardMove) this.keyboardMove.update(d.steps[d.steps.length - 1]);
   };
 
   endWithData = (o: ApiEnd): void => {
