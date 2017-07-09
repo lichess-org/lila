@@ -101,17 +101,25 @@ export function forceResign(ctrl: RoundController) {
   ]) : null;
 }
 
-export function resignConfirm(ctrl: RoundController): VNode {
-  return h('div.resign_confirm', [
+function actConfirm(ctrl: RoundController, f: (v: boolean) => void, transKey: string, icon: string, klass?: string): VNode {
+  return h('div.act_confirm.' + transKey, [
+    h('button.fbt.yes.active.hint--bottom.' + (klass || ''), {
+      attrs: {'data-hint': ctrl.trans.noarg(transKey) },
+      hook: util.bind('click', () => f(true))
+    }, [h('span', util.justIcon(icon))]),
     h('button.fbt.no.hint--bottom', {
       attrs: { 'data-hint': ctrl.trans.noarg('cancel') },
-      hook: util.bind('click', () => ctrl.resign(false))
-    }, [h('span', util.justIcon('L'))]),
-    h('button.fbt.yes.active.hint--bottom', {
-      attrs: {'data-hint': ctrl.trans.noarg('resign') },
-      hook: util.bind('click', () => ctrl.resign(true))
-    }, [h('span', util.justIcon('b'))])
+      hook: util.bind('click', () => f(false))
+    }, [h('span', util.justIcon('L'))])
   ]);
+}
+
+export function resignConfirm(ctrl: RoundController): VNode {
+  return actConfirm(ctrl, ctrl.resign, 'resign', 'b');
+}
+
+export function drawConfirm(ctrl: RoundController): VNode {
+  return actConfirm(ctrl, ctrl.offerDraw, 'offerDraw', '2', 'draw-yes');
 }
 
 export function threefoldClaimDraw(ctrl: RoundController) {

@@ -22,14 +22,12 @@ import renderUser = require('./view/user');
 import cevalSub = require('./cevalSub');
 import * as keyboard from './keyboard';
 
-import {
-  RoundOpts, RoundData, ApiMove, ApiEnd, Redraw,
-  SocketMove, SocketDrop, SocketOpts, MoveMetadata } from './interfaces';
+import { RoundOpts, RoundData, ApiMove, ApiEnd, Redraw, SocketMove, SocketDrop, SocketOpts, MoveMetadata } from './interfaces';
 
 interface GoneBerserk {
   white?: boolean;
   black?: boolean;
-}
+};
 
 const li = window.lichess;
 
@@ -56,6 +54,7 @@ export default class RoundController {
   dropToSubmit?: SocketDrop;
   goneBerserk: GoneBerserk = {};
   resignConfirm: boolean = false;
+  drawConfirm: boolean = false;
   autoScroll: () => void = $.noop; // will be replaced by view layer
     challengeRematched: boolean = false;
   justDropped?: cg.Role;
@@ -606,11 +605,22 @@ export default class RoundController {
   canOfferDraw = (): boolean =>
     game.drawable(this.data) && (this.lastDrawOfferAtPly || -99) < (this.ply - 20);
 
-  offerDraw = (): void => {
+  offerDraw = (v: boolean): void => {
     if (this.canOfferDraw()) {
-      this.lastDrawOfferAtPly = this.ply;
-      this.socket.sendLoading('draw-yes', null)
+      if (this.drawConfirm) {
+        if (v) this.doOfferDraw();
+        this.drawConfirm = false;
+      } else if (v) {
+        if (this.data.pref.confirmResign) this.drawConfirm = true;
+        else this.doOfferDraw();
+      }
     }
+    this.redraw();
+  };
+
+  private doOfferDraw = () => {
+    this.lastDrawOfferAtPly = this.ply;
+    this.socket.sendLoading('draw-yes', null)
   };
 
   setChessground = (cg: CgApi) => {

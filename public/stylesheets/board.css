@@ -712,10 +712,14 @@ div.control.icons .resign span:before {
   display: inline-block;
   transform: translateY(1px);
 }
-div.control.icons .resign_confirm {
+div.control.icons.confirm > button {
+  visibility: hidden;
+}
+div.control.icons .act_confirm {
+  visibility: visible;
   position: relative;
 }
-div.control.icons .resign_confirm .no {
+div.control.icons .act_confirm .no {
   padding: 8px 0;
   width: 30px;
   text-align: center;
