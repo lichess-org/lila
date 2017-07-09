@@ -1433,7 +1433,7 @@ div.undertable_inner {
   text-align: center;
   border: 1px solid #eee;
   padding: 0;
-  min-width: 15px;
+  min-width: 13px;
 }
 .crosstable td a {
   line-height: 2em;
@@ -1471,13 +1471,19 @@ body.base .crosstable .loss {
   border: 1px solid #ccc;
   padding: 3px;
 }
-.crosstable .score {
+.crosstable .score,
+.crosstable .matchup {
   font-size: 1.3em;
   text-align: right;
   padding-right: 7px;
 }
+.crosstable .matchup {
+  background: #fff;
+}
 .crosstable .user {
   padding-left: 7px;
+  max-width: 112px;
+  overflow: hidden;
 }
 .crosstable .unavailable {
   margin-top: 40px;

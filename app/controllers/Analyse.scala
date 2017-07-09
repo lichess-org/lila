@@ -35,7 +35,7 @@ object Analyse extends LilaController {
           Env.fishnet.api.prioritaryAnalysisInProgress(pov.game.id) zip
           (pov.game.simulId ?? Env.simul.repo.find) zip
           Round.getWatcherChat(pov.game) zip
-          Env.game.crosstableApi(pov.game) zip
+          Env.game.crosstableApi.withMatchup(pov.game) zip
           Env.bookmark.api.exists(pov.game, ctx.me) zip
           Env.api.pgnDump(pov.game, initialFen, PgnDump.WithFlags(clocks = false)) flatMap {
             case analysis ~ analysisInProgress ~ simul ~ chat ~ crosstable ~ bookmarked ~ pgn =>
@@ -98,7 +98,7 @@ object Analyse extends LilaController {
     initialFen <- GameRepo initialFen pov.game.id
     analysis <- env.analyser get pov.game.id
     simul <- pov.game.simulId ?? Env.simul.repo.find
-    crosstable <- Env.game.crosstableApi(pov.game)
+    crosstable <- Env.game.crosstableApi.withMatchup(pov.game)
     pgn <- Env.api.pgnDump(pov.game, initialFen, PgnDump.WithFlags(clocks = false))
   } yield Ok(html.analyse.replayBot(
     pov,

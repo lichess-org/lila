@@ -1,4 +1,4 @@
-@(pov: Pov, data: play.api.libs.json.JsObject, tour: Option[lila.tournament.MiniStanding], simul: Option[lila.simul.Simul], cross: Option[lila.game.Crosstable], playing: List[Pov], chatOption: Option[lila.chat.Chat.Restricted], bookmarked: Boolean)(implicit ctx: Context)
+@(pov: Pov, data: play.api.libs.json.JsObject, tour: Option[lila.tournament.MiniStanding], simul: Option[lila.simul.Simul], cross: Option[lila.game.Crosstable.WithMatchup], playing: List[Pov], chatOption: Option[lila.chat.Chat.Restricted], bookmarked: Boolean)(implicit ctx: Context)
 
 @import pov._
 

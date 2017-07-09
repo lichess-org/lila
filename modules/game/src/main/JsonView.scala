@@ -42,11 +42,11 @@ object JsonView {
 
   implicit val crosstableWrites = OWrites[Crosstable] { c =>
     Json.obj(
-      "users" -> JsObject(c.users.map { u =>
+      "users" -> JsObject(c.users.toList.map { u =>
         u.id -> JsNumber(u.score / 10d)
       }),
       "results" -> c.results,
-      "nbGames" -> c.nbGames
+      "nbGames" -> c.users.nbGames
     )
   }
 
