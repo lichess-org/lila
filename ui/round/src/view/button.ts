@@ -264,7 +264,7 @@ export function watcherFollowUp(ctrl: RoundController): VNode {
     d.game.rematch ? h('a.button.text', {
       attrs: {
         'data-icon': 'v',
-        href: `${d.game.rematch}/${d.opponent.color}`
+        href: `/${d.game.rematch}/${d.opponent.color}`
       }
     }, ctrl.trans.noarg('viewRematch')) : null,
     d.tournament ? h('a.button', {
