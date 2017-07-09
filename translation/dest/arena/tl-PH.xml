@@ -6,4 +6,11 @@
   <string name="isRated">Ang tournament na ito ay rated at aapektuhan ang iyong rating.</string>
   <string name="isNotRated">Ang tournament na ito ay hindi rated at hindi aapektuhan ang iyong rating.</string>
   <string name="someRated">Ilan sa mga tournaments ay rated at aapektuhan ang iyong rating.</string>
+  <string name="howAreScoresCalculated">Paano kinakalkula ang mga iskor?</string>
+  <string name="howAreScoresCalculatedAnswer">Ang isang panalo ay may base score na 2 puntos, ang isang draw: 1 punto, at ang isang pagkatalo ay walang puntos.
+Kapag ikaw ay nanalo ng dalawang laro sunod-sunod, ikaw ay magsisimula ng isang double point streak, na irerepresenta ng isang flame icon.
+Ang mga susunod na laro ay magpapatulog na maging doble ang puntos hanggang hindi mo magawang manalo ng isang laro.
+Kapag ikaw ay nasa double point streak, ang isang panalo ay magiging 4 points, ang isang draw: 2 puntos, at ang isang pagkatalo ay walang puntos.
+
+Halimbawa, ang dalawang panalo na sinundan ng isang draw ay katumbas ng 6 na puntos: 2 + 2 + (2 x 1)</string>
 </resources>
