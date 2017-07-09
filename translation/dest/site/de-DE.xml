@@ -60,10 +60,13 @@
   <string name="pawnMove">Bauernzug</string>
   <string name="unknown">Unbekannt</string>
   <string name="database">Datenbank</string>
+  <string name="averageRatingX">Durchschnittliche Wertungszahl: %s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Matt in %s Halbzug</item>
     <item quantity="other">Matt in %s Halbzügen</item>
   </plurals>
+  <string name="noGameFound">Kein Spiel gefunden</string>
+  <string name="alreadySearchingThroughAllAvailableGames">Es werden bereits alle verfügbaren Spiele durchsucht</string>
   <string name="openingExplorer">Eröffnungsdatenbank &amp; Tablebases</string>
   <string name="blunders">Grobe Patzer</string>
   <string name="mistakes">Fehler</string>
@@ -206,6 +209,7 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Dieser Spieler verwendet ein Schachprogramm zur Unterstützung</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Dieser Spieler manipuliert seine Wertungszahl</string>
+  <string name="openingExplorerAndTablebase">Eröffnungsbuch &amp; Tablebases</string>
   <string name="takeback">Zugrücknahme</string>
   <string name="proposeATakeback">Zugrücknahme vorschlagen</string>
   <string name="takebackPropositionSent">Zugrücknahme angefordert</string>
