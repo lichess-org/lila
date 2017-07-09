@@ -51,7 +51,6 @@
   <string name="usingServerAnalysis">Using server analysis</string>
   <string name="loadingEngine">Loading engine ...</string>
   <string name="cloudAnalysis">Cloud analysis</string>
-  <string name="cloud">Cloud</string>
   <string name="goDeeper">Go deeper</string>
   <string name="showThreat">Show threat</string>
   <string name="inLocalBrowser">in local browser</string>
