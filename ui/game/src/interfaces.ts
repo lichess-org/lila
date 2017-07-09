@@ -60,6 +60,7 @@ export interface Player {
   provisional?: string;
   engine?: boolean;
   berserk?: boolean;
+  version: number;
 }
 
 export interface TournamentRanks {

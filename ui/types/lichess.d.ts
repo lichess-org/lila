@@ -27,6 +27,7 @@ interface Lichess {
   userAutocomplete: any
   StrongSocket: {
     sri: string
+    (url: string, version: number, cfg: any): any;
   }
   socket: any;
   idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void): void;
@@ -35,6 +36,9 @@ interface Lichess {
   ab: any;
   challengeApp: any;
   hopscotch: any;
+  openInMobileApp(gameId: string): void;
+  makeChat(id: string, data: any, callback: (chat: any) => void): void;
+  topMenuIntent(): void;
 }
 
 interface AssetUrlOpts {

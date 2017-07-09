@@ -15,6 +15,7 @@ interface JQuery {
   sparkline: any;
   slider: any;
   clock: any;
+  watchers(): void;
 }
 
 declare namespace PowerTip {
