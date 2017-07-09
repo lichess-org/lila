@@ -21,4 +21,10 @@ Berserk nije dostupan s partijama s početnim vremenom 0 (0+1, 0+2).
 
 Berserk daje dodatan bod samo ako odigraš barem 7 poteza u partiji.</string>
   <string name="howIsTheWinnerDecided">Kako je odlučen pobjednik?</string>
+  <string name="howIsTheWinnerDecidedAnswer">Igrač(i) s najviše bodova na kraju zadanog turnirskog vremenskog ograničenja će biti proglašen(i) pobjednikom/pobjednicima.</string>
+  <string name="howDoesPairingWork">Kako funkcionira uparivanje?</string>
+  <string name="howDoesItEnd">Kako turnir završava?</string>
+  <string name="otherRules">Ostala važna pravila</string>
+  <string name="thisIsPrivate">Ovo je privatan turnir</string>
+  <string name="shareUrl">Podijeli ovaj URL da se ljudi pridruže: %s</string>
 </resources>
