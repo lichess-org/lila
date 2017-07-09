@@ -1007,6 +1007,7 @@ div.join_warning {
 /* soft inactive gradient */
 
 .crosstable th,
+.crosstable td,
 #friend_box .title,
 div.side_box div.top,
 div.box div.top,
@@ -1431,7 +1432,7 @@ div.undertable_inner {
 }
 .crosstable td {
   text-align: center;
-  border: 1px solid #eee;
+  border: 1px solid #e0e0e0;
   padding: 0;
   min-width: 13px;
 }
@@ -1440,7 +1441,6 @@ div.undertable_inner {
   font-size: 1.1em;
   display: block;
   width: 100%;
-  background: #fff;
 }
 .crosstable tr:first-child td:hover a,
 .crosstable tr:first-child td.current a {
@@ -1456,6 +1456,17 @@ div.undertable_inner {
 }
 .crosstable tr td.current a {
   border-color: #d85000!important;
+}
+.crosstable td.old a {
+  text-shadow: 0 1px 0 #FFF;
+  color: #848484;
+}
+.crosstable td.new {
+  background: #fff;
+}
+.crosstable td.sep,
+.crosstable th.user {
+  border-left: 2px solid #aaa;
 }
 body.base .crosstable .win {
   font-weight: bold;

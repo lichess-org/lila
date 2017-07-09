@@ -20,13 +20,17 @@ case class Crosstable(
 
   lazy val size = results.size
 
-  def fill = (1 to 20 - size)
+  def fill = (1 to Crosstable.maxGames - size)
 }
 
 object Crosstable {
 
+  val maxGames = 20
+
   case class User(id: String, score: Int) // score is x10
   case class Users(user1: User, user2: User) {
+
+    val nbGames = (user1.score + user2.score) / 10
 
     def user(id: String): Option[User] =
       if (id == user1.id) Some(user1)
@@ -34,8 +38,6 @@ object Crosstable {
       else None
 
     def toList = List(user1, user2)
-
-    def nbGames = (user1.score + user2.score) / 10
 
     def showScore(userId: String) = {
       val byTen = user(userId) ?? (_.score)

@@ -18,8 +18,6 @@ final class CrosstableApi(
   import Crosstable.{ BSONFields => F }
   import Game.{ BSONFields => GF }
 
-  private val maxGames = 20
-
   def apply(game: Game): Fu[Option[Crosstable]] = game.userIds.distinct match {
     case List(u1, u2) => apply(u1, u2)
     case _ => fuccess(none)
@@ -67,7 +65,7 @@ final class CrosstableApi(
       ) ++ $push(
           Crosstable.BSONFields.results -> $doc(
             "$each" -> List(bsonResult),
-            "$slice" -> -maxGames
+            "$slice" -> -Crosstable.maxGames
           )
         ))
       val updateMatchup = getMatchup(u1, u2).flatMap {
@@ -134,7 +132,7 @@ final class CrosstableApi(
                 Crosstable.User(su1, s1),
                 Crosstable.User(su2, s2)
               ),
-              results = docs.take(maxGames).flatMap { doc =>
+              results = docs.take(Crosstable.maxGames).flatMap { doc =>
                 doc.getAs[String](GF.id).map { id =>
                   Result(id, doc.getAs[String](GF.winnerId))
                 }
