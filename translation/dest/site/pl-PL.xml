@@ -358,7 +358,7 @@
   <string name="standByX">Trwa zestawianie par, bądź gotów do gry %s!</string>
   <string name="youArePlaying">Grasz!</string>
   <string name="winRate">Procent zwycięstw</string>
-  <string name="berserkRate">Połowienie czasu gry</string>
+  <string name="berserkRate">Poziom berserku</string>
   <string name="performance">Wynik</string>
   <string name="tournamentComplete">Turniej zakończony</string>
   <string name="movesPlayed">Liczba posunięć</string>
