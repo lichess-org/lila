@@ -56,6 +56,8 @@
   <string name="showThreat">Mostrare la minaccia</string>
   <string name="inLocalBrowser">nel browser locale</string>
   <string name="toggleLocalEvaluation">Analisi in locale</string>
+  <string name="move">Fai una mossa</string>
+  <string name="insufficientMaterial">Pezzi insuffienti</string>
   <string name="openingExplorer">Esplora aperture</string>
   <string name="blunders">Errori gravi</string>
   <string name="mistakes">Errori</string>
