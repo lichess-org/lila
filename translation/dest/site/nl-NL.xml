@@ -52,7 +52,6 @@
   <string name="usingServerAnalysis">Met serveranalyse</string>
   <string name="loadingEngine">Laden van computer...</string>
   <string name="cloudAnalysis">Cloud-analyse</string>
-  <string name="cloud">Cloud</string>
   <string name="goDeeper">Dieper gaan</string>
   <string name="showThreat">Toon bedreiging</string>
   <string name="inLocalBrowser">in lokale browser</string>
