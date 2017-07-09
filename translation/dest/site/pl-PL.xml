@@ -52,7 +52,6 @@
   <string name="usingServerAnalysis">Analiza na serwerze</string>
   <string name="loadingEngine">Wczytywanie silnika szachowego...</string>
   <string name="cloudAnalysis">Analiza w chmurze</string>
-  <string name="cloud">Chmura</string>
   <string name="goDeeper">Analizuj głębiej</string>
   <string name="showThreat">Pokaż zagrożenia</string>
   <string name="inLocalBrowser">w przeglądarce</string>
