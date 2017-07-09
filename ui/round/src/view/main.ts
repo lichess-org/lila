@@ -14,7 +14,7 @@ import { render as keyboardMove } from '../keyboardMove';
 import RoundController from '../ctrl';
 import * as cg from 'chessground/types';
 
-function renderMaterial(material: cg.MaterialDiff, checks?: number, score?: number) {
+function renderMaterial(material: cg.MaterialDiffSide, checks?: number, score?: number) {
   var children: VNode[] = [];
   if (score || score === 0)
     children.push(h('score', (score > 0 ? '+' : '') + score));
