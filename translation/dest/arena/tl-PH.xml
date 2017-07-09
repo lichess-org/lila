@@ -13,6 +13,7 @@ Ang mga susunod na laro ay magpapatulog na maging doble ang puntos hanggang hind
 Kapag ikaw ay nasa double point streak, ang isang panalo ay magiging 4 points, ang isang draw: 2 puntos, at ang isang pagkatalo ay walang puntos.
 
 Halimbawa, ang dalawang panalo na sinundan ng isang draw ay katumbas ng 6 na puntos: 2 + 2 + (2 x 1)</string>
+  <string name="berserk">Arena Berserk</string>
   <string name="berserkAnswer">Kapag ang isang player ay pinindot ang Berserk button sa pagsisimula ng laro, mawawalan sila ng kalahati ng kanilang oras sa orasan, ngunit ang mga puntos ng panalo nila ay madadagdagan ng isang puntos.
 
 Kung ikaw ay nag-Berserk sa isang tournament na may increment, ang increment ay mawawala rin. (ang 1+2 ay hindi nito maapektuhan, dahil ito ay magiging 1+0)
@@ -28,4 +29,8 @@ Tapusin nang mabilis ang laban at bumalik sa lobby upang makapaglaro ng mas mara
   <string name="howDoesItEnd">Paano ito matatapos?</string>
   <string name="howDoesItEndAnswer">Ang tournament ay may countdown clock. Kapag ang countdown clock ay naging zero, ang mga iskor sa tournament ay hindi na gagalaw, at ang (mga) manlalarong panalo ay sasabihin. Ang mga laro na hindi nakaabot sa pagtatapos ng tournament ay kailangang tapusin, ngunit hindi sila kasama sa mga puntos ng tournament.</string>
   <string name="otherRules">Mga ibang importanteng patakaran.</string>
+  <string name="otherRulesAnswer">Ikaw ay kailangang gawin ang iyong unang galaw sa loob ng 20 segundo ng iyong turn. Kapag hindi ito nagawa sa loob ng 20 segundo ay mananalo ang iyong kalaban.
+Kapag naging draw ang laban sa loob ng unang 10 galaw, walang player ang makakakuha ng puntos.</string>
+  <string name="thisIsPrivate">Ito ay isang pribadong tournament</string>
+  <string name="shareUrl">I-share ang URL na ito para makasali ang ibang tao: %s</string>
 </resources>
