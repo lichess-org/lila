@@ -57,7 +57,40 @@
   <string name="showThreat">Voir la menace</string>
   <string name="inLocalBrowser">dans le navigateur local</string>
   <string name="toggleLocalEvaluation">Activer/désactiver l\'évaluation locale</string>
+  <string name="move">Coup</string>
+  <string name="variantLoss">Variante perdue</string>
+  <string name="variantWin">Variante gagnée</string>
+  <string name="insufficientMaterial">Matériel insuffisant</string>
+  <string name="pawnMove">Coup de pion</string>
+  <string name="capture">Prise</string>
+  <string name="close">Fermer</string>
+  <string name="winning">Gagnant</string>
+  <string name="losing">Perdant</string>
+  <string name="drawn">Nulle</string>
+  <string name="unknown">Inconnu</string>
+  <string name="database">Base de données</string>
+  <string name="gameSpeed">Vitesse de jeu</string>
+  <string name="whiteDrawBlack">Blancs / Nulle / Noirs</string>
+  <string name="averageRatingX">Classement moyen : %s</string>
+  <string name="recentGames">Parties récentes</string>
+  <string name="topGames">Meilleures parties</string>
+  <string name="masterDbExplanation">Deux millions de parties de tournois de joueurs FIDE >2200 de 1952 à 2016</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Mate en %s demi-coup</item>
+    <item quantity="other">Mate en %s demi-coups</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Prochaine prise ou coup de pion dans %s demi-coup (distance de remise à zéro de la règle des 50 coups)</item>
+    <item quantity="other">Prochaine prise ou coup de pion dans %s demi-coups (distance de remise à zéro de la règle des 50 coups)</item>
+  </plurals>
+  <string name="noGameFound">Aucune partie trouvée</string>
+  <string name="alreadySearchingThroughAllAvailableGames">Recherche déjà en cours parmi les parties disponibles</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Peut-être inclure plus de parties depuis le menu préférences ?</string>
   <string name="openingExplorer">Explorateur d\'ouvertures &amp; tables de finales</string>
+  <string name="xOpeningExplorer">%s explorateur d\'ouvertures</string>
+  <string name="winPreventedBy50MoveRule">Gain empêché par la règle des 50 coups</string>
+  <string name="lossSavedBy50MoveRule">Défaite évitée par la règle des 50 coups</string>
+  <string name="allSet">Tout est prêt !</string>
   <string name="blunders">Gaffes</string>
   <string name="mistakes">Erreurs</string>
   <string name="inaccuracies">Imprécisions</string>
@@ -175,6 +208,10 @@
     <item quantity="one">%s jeux joué</item>
     <item quantity="other">%s jeu joué</item>
   </plurals>
+  <plurals name="nbRated">
+    <item quantity="one">%s évaluée</item>
+    <item quantity="other">%s évaluées</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s victoire</item>
     <item quantity="other">%s victoires</item>
@@ -195,6 +232,7 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Ce joueur utilise un programme d\'échecs</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ce joueur augmente ou réduit artificiellement son classement</string>
+  <string name="openingExplorerAndTablebase">Arbre d\'ouvertures &amp; tables de finales</string>
   <string name="takeback">Annuler le coup</string>
   <string name="proposeATakeback">Proposer l\'annulation du coup</string>
   <string name="takebackPropositionSent">Annulation du coup proposée</string>
@@ -309,6 +347,7 @@
   <string name="movesPlayed">Parties jouées</string>
   <string name="whiteWins">Les blancs gagnent</string>
   <string name="blackWins">Victoire des noirs</string>
+  <string name="draws">Nulles</string>
   <string name="nextXTournament">Prochains tournois dans %s:</string>
   <string name="viewMoreTournaments">Découvre plus de tournois</string>
   <string name="averageOpponent">Adversaire moyen</string>
