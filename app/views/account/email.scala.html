@@ -2,7 +2,7 @@
 
 @title = @{ s"${u.username} - ${trans.changeEmail.txt()}" }
 
-@account.layout(title = title, active = "email") {
+@account.layout(title = title, active = "email", evenMoreCss = cssTag("material.form.css")) {
 <div class="content_box small_box">
   <div class="signup_box">
     <h1 class="lichess_title">
