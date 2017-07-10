@@ -61,6 +61,8 @@
   <string name="variantWin">Variant vinst</string>
   <string name="insufficientMaterial">Otillräckligt material</string>
   <string name="pawnMove">Bondedrag</string>
+  <string name="capture">Slag</string>
+  <string name="close">Stäng</string>
   <string name="winning">Vinner</string>
   <string name="losing">Förlorar</string>
   <string name="drawn">Remi</string>
@@ -81,6 +83,7 @@
   </plurals>
   <string name="noGameFound">Inget parti hittades</string>
   <string name="alreadySearchingThroughAllAvailableGames">Söker redan igenom alla tillgängliga spel</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Kanske inkludera fler partier från Inställningar-menyn?</string>
   <string name="openingExplorer">Öppningsbok</string>
   <string name="xOpeningExplorer">%s öppningsutforskare</string>
   <string name="winPreventedBy50MoveRule">Vinst förhindrad genom 50-drags regeln</string>
