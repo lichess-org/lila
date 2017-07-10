@@ -88,6 +88,7 @@
   <string name="xOpeningExplorer">%s öppningsutforskare</string>
   <string name="winPreventedBy50MoveRule">Vinst förhindrad genom 50-drags regeln</string>
   <string name="lossSavedBy50MoveRule">Förlust förhindrad genom 50-drags regeln</string>
+  <string name="allSet">OK</string>
   <string name="blunders">Blundrar</string>
   <string name="mistakes">Misstag</string>
   <string name="inaccuracies">Felaktigheter</string>
