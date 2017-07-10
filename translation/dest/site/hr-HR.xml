@@ -52,6 +52,7 @@
   <string name="usingServerAnalysis">U uporabi je serverska analiza</string>
   <string name="cloudAnalysis">Analiza u oblaku</string>
   <string name="goDeeper">Idi dublje</string>
+  <string name="toggleLocalEvaluation">Prekidač za lokalnu evaluaciju</string>
   <string name="openingExplorer">Pretraživač otvaranja &amp; baza pozicija u završnici</string>
   <string name="blunders">Previdi</string>
   <string name="mistakes">Greške</string>
@@ -206,6 +207,7 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Ovaj igrač koristi pomoć računala</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ovaj igrač umjetno podiže/spušta svoj rejting</string>
+  <string name="openingExplorerAndTablebase">Pretraživač otvaranja &amp; baza pozicija u završnici</string>
   <string name="takeback">Vrati potez</string>
   <string name="proposeATakeback">Predloži vraćanje poteza</string>
   <string name="takebackPropositionSent">Ponuda o vraćanju poteza poslana</string>
