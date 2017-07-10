@@ -49,6 +49,9 @@
   <string name="computerAnalysisAvailable">Dostupna računalna analiza</string>
   <string name="analysis">Ploča za analizu</string>
   <string name="depthX">Dubina %s</string>
+  <string name="usingServerAnalysis">U uporabi je serverska analiza</string>
+  <string name="cloudAnalysis">Analiza u oblaku</string>
+  <string name="goDeeper">Idi dublje</string>
   <string name="openingExplorer">Pretraživač otvaranja &amp; baza pozicija u završnici</string>
   <string name="blunders">Previdi</string>
   <string name="mistakes">Greške</string>
