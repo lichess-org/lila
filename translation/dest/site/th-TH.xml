@@ -78,15 +78,15 @@
     <item quantity="other">จนใน %s ครึ่งรอบเดิน</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="other">การกินถัดไปหรือการเดินเบี้ยใน %s ครึ่งรอบเดิน (ระยะห่างจากศูนย์ของตัวนับ 50 รอบเดิน)</item>
+    <item quantity="other">การจับกินถัดไปหรือการเดินเบี้ยใน %s ครึ่งรอบเดิน (ระยะห่างจากศูนย์ของตัวนับ 50 รอบเดิน)</item>
   </plurals>
   <string name="noGameFound">ไม่พบเกมใดๆ</string>
   <string name="alreadySearchingThroughAllAvailableGames">ค้นหาทั่วเกมที่มีอยู่ทั้งหมดแล้ว</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">อาจรวมถึงเกมเพิ่มเติมจากเมนูการตั้งค่าใช่หรือไม่?</string>
   <string name="openingExplorer">ตัวสำรวจการเปิดเกม</string>
   <string name="xOpeningExplorer">ตัวสำรวจการเปิด %s</string>
-  <string name="winPreventedBy50MoveRule">การชนะถูกป้องกันโดยกฎ 50-ตาเดิน</string>
-  <string name="lossSavedBy50MoveRule">การแพ้ถูกป้องกันโดยกฎ 50-ตาเดิน</string>
+  <string name="winPreventedBy50MoveRule">การชนะถูกป้องกันโดยกฎ 50-รอบเดิน</string>
+  <string name="lossSavedBy50MoveRule">การแพ้ถูกป้องกันโดยกฎ 50-รอบเดิน</string>
   <string name="allSet">ทุกชุด!</string>
   <string name="blunders">ความผิดพลาดมหันต์</string>
   <string name="mistakes">ความผิดพลาด</string>
@@ -324,7 +324,7 @@
   <string name="berserkRate">อัตราเบอร์เซิร์ก</string>
   <string name="performance">สมรรถนะ</string>
   <string name="tournamentComplete">ทัวร์นาเมนต์เสร็จสมบูรณ์</string>
-  <string name="movesPlayed">การเดินที่ได้ทำ</string>
+  <string name="movesPlayed">การเดินที่ทำ</string>
   <string name="whiteWins">ขาวชนะ</string>
   <string name="blackWins">ดำชนะ</string>
   <string name="draws">เสมอ</string>
@@ -386,7 +386,7 @@
   <string name="thisPuzzleIsCorrect">ปริศนานี้ถูกต้อง และน่าสนใจ</string>
   <string name="thisPuzzleIsWrong">ปริศนานี้ไม่ถูกต้อง หรือน่าเบื่อ</string>
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="other">คุณมีเวลา %s วินาที ในการเริ่มเดิน!</item>
+    <item quantity="other">คุณมีเวลา %s วินาที ในการเริ่มเดินตาแรกของคุณ!</item>
   </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s เกมที่กำลังเล่น</item>
