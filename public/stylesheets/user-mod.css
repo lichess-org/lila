@@ -120,6 +120,11 @@ body.dark .mod_zone .reports .half:first-child {
 }
 .mod_zone .reports form {
   display: block;
+  padding: 0 10px;
+}
+.mod_zone .reports button {
+  padding: 0;
+  margin-left: -2px;
 }
 .mod_zone .reports button:not(:hover) {
   border-color: transparent;
