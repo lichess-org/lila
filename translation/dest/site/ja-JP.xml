@@ -369,7 +369,7 @@
   <string name="bestMove">最善手！</string>
   <string name="keepGoing">続ける</string>
   <string name="puzzleFailed">不正解</string>
-  <string name="butYouCanKeepTrying">また挑戦してみてください。</string>
+  <string name="butYouCanKeepTrying">別の手をどうぞ。</string>
   <string name="victory">勝利！</string>
   <string name="wasThisPuzzleAnyGood">このパズルが気に入りましたか？</string>
   <string name="pleaseVotePuzzle">改善のためご意見をお聞かせください。上矢印、下矢印をお使いください:</string>
