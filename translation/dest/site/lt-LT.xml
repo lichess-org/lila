@@ -52,7 +52,6 @@
   <string name="usingServerAnalysis">Naudojama serverio analizė</string>
   <string name="loadingEngine">Įkeliamas variklis...</string>
   <string name="cloudAnalysis">Analizė debesyje</string>
-  <string name="cloud">Debesis</string>
   <string name="goDeeper">Eiti gilyn</string>
   <string name="showThreat">Rodyti grėsmę</string>
   <string name="inLocalBrowser">vietinėje naršyklėje</string>

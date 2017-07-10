@@ -52,12 +52,45 @@
   <string name="usingServerAnalysis">Analiza na serwerze</string>
   <string name="loadingEngine">Wczytywanie silnika szachowego...</string>
   <string name="cloudAnalysis">Analiza w chmurze</string>
-  <string name="cloud">Chmura</string>
   <string name="goDeeper">Analizuj głębiej</string>
   <string name="showThreat">Pokaż zagrożenia</string>
   <string name="inLocalBrowser">w przeglądarce</string>
   <string name="toggleLocalEvaluation">Włącz/wyłącz lokalną ewaluację</string>
+  <string name="move">Ruch</string>
+  <string name="variantLoss">Wariant przegrany</string>
+  <string name="variantWin">Wariant wygrany</string>
+  <string name="insufficientMaterial">Niewystarczający materiał</string>
+  <string name="pawnMove">Ruch pionkiem</string>
+  <string name="capture">Bicie</string>
+  <string name="close">Blisko</string>
+  <string name="winning">Wygrywa</string>
+  <string name="losing">Przegrywa</string>
+  <string name="drawn">Remis</string>
+  <string name="unknown">Nieznany</string>
+  <string name="database">Baza danych</string>
+  <string name="gameSpeed">Prędkość gry</string>
+  <string name="whiteDrawBlack">Białe / Remis / Czarne</string>
+  <string name="averageRatingX">Średni ranking: %s</string>
+  <string name="recentGames">Ostatnie gry</string>
+  <string name="topGames">Najlepsze gry</string>
+  <string name="masterDbExplanation">Dwa miliony partii zawodników FIDE (2200+) od 1952 do 2016 roku</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Mat w %s posunięciu</item>
+    <item quantity="few">Mat w %s posunięciach</item>
+    <item quantity="other">Mat w %s posunięciach</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Następne bicie lub ruch pionem w ciągu %s posunięcia (zerowanie licznika posunięć reguły 50 ruchów)</item>
+    <item quantity="few">Następne bicie lub ruch pionem w ciągu %s posunięć (zerowanie licznika posunięć reguły 50 ruchów)</item>
+    <item quantity="other">Następne bicie lub ruch pionem w ciągu %s posunięć (zerowanie licznika posunięć reguły 50 ruchów)</item>
+  </plurals>
+  <string name="noGameFound">Nie znaleziono gry</string>
+  <string name="alreadySearchingThroughAllAvailableGames">Przeszukano wszystkie dostępne partie</string>
   <string name="openingExplorer">Przeglądarka otwarć</string>
+  <string name="xOpeningExplorer">Przeszukiwanie biblioteki otwarć %s</string>
+  <string name="winPreventedBy50MoveRule">Zwycięstwo przez regułę 50 ruchów</string>
+  <string name="lossSavedBy50MoveRule">Przegrana przez regułę 50 ruchów</string>
+  <string name="allSet">Wszystko gotowe!</string>
   <string name="blunders">Poważne błędy</string>
   <string name="mistakes">Błędy</string>
   <string name="inaccuracies">Niedokładności</string>
@@ -211,6 +244,7 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Ten gracz korzysta z pomocy programu szachowego</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ten gracz sztucznie zwiększa/obniża swój ranking</string>
+  <string name="openingExplorerAndTablebase">Przeglądarka otwarć</string>
   <string name="takeback">Cofnij ruch</string>
   <string name="proposeATakeback">Poproś o cofnięcie ruchu</string>
   <string name="takebackPropositionSent">Wysłano prośbę o cofnięcie ruchu</string>
@@ -324,7 +358,7 @@
   <string name="standByX">Trwa zestawianie par, bądź gotów do gry %s!</string>
   <string name="youArePlaying">Grasz!</string>
   <string name="winRate">Procent zwycięstw</string>
-  <string name="berserkRate">Połowienie czasu gry</string>
+  <string name="berserkRate">Poziom berserku</string>
   <string name="performance">Wynik</string>
   <string name="tournamentComplete">Turniej zakończony</string>
   <string name="movesPlayed">Liczba posunięć</string>
