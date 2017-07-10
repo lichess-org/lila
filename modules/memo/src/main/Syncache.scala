@@ -64,7 +64,7 @@ final class Syncache[K, V](
     else chm.computeIfAbsent(k, loadFunction)
   }
 
-  // maybe optimize later with cach batching
+  // maybe optimize later with cache batching
   def asyncMany(ks: List[K]): Fu[List[V]] = ks.map(async).sequenceFu
 
   def invalidate(k: K): Unit = cache invalidate k

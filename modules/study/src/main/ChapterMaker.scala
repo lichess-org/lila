@@ -10,7 +10,7 @@ import lila.user.User
 
 private final class ChapterMaker(
     domain: String,
-    lightUser: lila.common.LightUser.GetterSync,
+    lightUser: lila.user.LightUserApi,
     chat: akka.actor.ActorSelection,
     importer: Importer,
     pgnFetch: PgnFetch
@@ -21,42 +21,44 @@ private final class ChapterMaker(
   def apply(study: Study, data: Data, order: Int, userId: User.ID): Fu[Option[Chapter]] =
     data.game.??(parsePov) flatMap {
       case None =>
-        data.game.??(pgnFetch.fromUrl) map {
-          case Some(pgn) => fromFenOrPgnOrBlank(study, data.copy(pgn = pgn.some), order, userId).some
-          case None => fromFenOrPgnOrBlank(study, data, order, userId).some
+        data.game.??(pgnFetch.fromUrl) flatMap {
+          case Some(pgn) => fromFenOrPgnOrBlank(study, data.copy(pgn = pgn.some), order, userId) map some
+          case _ => fromFenOrPgnOrBlank(study, data, order, userId) map some
         }
       case Some(pov) => fromPov(study, pov, data, order, userId)
     } map2 { (c: Chapter) =>
       if (c.name.value.isEmpty) c.copy(name = Chapter defaultName order) else c
     }
 
-  def fromFenOrPgnOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Chapter =
+  def fromFenOrPgnOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Fu[Chapter] =
     data.pgn.filter(_.trim.nonEmpty) match {
       case Some(pgn) => fromPgn(study, pgn, data, order, userId)
-      case None => fromFenOrBlank(study, data, order, userId)
+      case None => fuccess(fromFenOrBlank(study, data, order, userId))
     }
 
-  private def fromPgn(study: Study, pgn: String, data: Data, order: Int, userId: User.ID): Chapter =
-    PgnImport(pgn).toOption.fold(fromFenOrBlank(study, data, order, userId)) { res =>
-      Chapter.make(
-        studyId = study.id,
-        name = (for {
-        white <- Tag.find(res.tags, "White")
-        black <- Tag.find(res.tags, "Black")
-        if data.name.value.isEmpty || Chapter.isDefaultName(data.name)
-      } yield Chapter.Name(s"$white - $black")) | data.name,
-        setup = Chapter.Setup(
-          none,
-          res.variant,
-          data.realOrientation
-        ),
-        root = res.root,
-        tags = res.tags,
-        order = order,
-        ownerId = userId,
-        practice = data.isPractice,
-        conceal = data.isConceal option Chapter.Ply(res.root.ply)
-      )
+  private def fromPgn(study: Study, pgn: String, data: Data, order: Int, userId: User.ID): Fu[Chapter] =
+    lightUser.asyncMany(study.members.contributorIds.toList) map { contributors =>
+      PgnImport(pgn, contributors.flatten).toOption.fold(fromFenOrBlank(study, data, order, userId)) { res =>
+        Chapter.make(
+          studyId = study.id,
+          name = (for {
+          white <- Tag.find(res.tags, "White")
+          black <- Tag.find(res.tags, "Black")
+          if data.name.value.isEmpty || Chapter.isDefaultName(data.name)
+        } yield Chapter.Name(s"$white - $black")) | data.name,
+          setup = Chapter.Setup(
+            none,
+            res.variant,
+            data.realOrientation
+          ),
+          root = res.root,
+          tags = res.tags,
+          order = order,
+          ownerId = userId,
+          practice = data.isPractice,
+          conceal = data.isConceal option Chapter.Ply(res.root.ply)
+        )
+      }
     }
 
   private def fromFenOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Chapter = {
@@ -106,7 +108,7 @@ private final class ChapterMaker(
         studyId = study.id,
         name =
         if (Chapter isDefaultName data.name)
-          Chapter.Name(Namer.gameVsText(pov.game, withRatings = false)(lightUser))
+          Chapter.Name(Namer.gameVsText(pov.game, withRatings = false)(lightUser.sync))
         else data.name,
         setup = Chapter.Setup(
           !pov.game.synthetic option pov.game.id,

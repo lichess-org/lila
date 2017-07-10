@@ -15,9 +15,9 @@ private final class StudyMaker(
       case None => createFromScratch(data, user)
     }
 
-  private def createFromScratch(data: DataForm.Data, user: User): Fu[Study.WithChapter] = fuccess {
+  private def createFromScratch(data: DataForm.Data, user: User): Fu[Study.WithChapter] = {
     val study = Study.make(user, Study.From.Scratch)
-    val chapter = chapterMaker.fromFenOrPgnOrBlank(study, ChapterMaker.Data(
+    chapterMaker.fromFenOrPgnOrBlank(study, ChapterMaker.Data(
       game = none,
       name = Chapter.Name("Chapter 1"),
       variant = data.variantStr,
@@ -28,8 +28,9 @@ private final class StudyMaker(
       initial = true
     ),
       order = 1,
-      userId = user.id)
-    Study.WithChapter(study withChapter chapter, chapter)
+      userId = user.id) map { chapter =>
+      Study.WithChapter(study withChapter chapter, chapter)
+    }
   }
 
   private def createFromPov(pov: Pov, initialFen: Option[FEN], user: User): Fu[Study.WithChapter] =
