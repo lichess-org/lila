@@ -234,7 +234,7 @@ body.dark .undertable_top span.title {
 body.dark .user_show .fire_trophy {
   color: #666;
 }
-body.dark .crosstable td a,
+body.dark .crosstable td,
 body.dark #promotion_choice {
   background: rgba(0, 0, 0, 0.7);
 }

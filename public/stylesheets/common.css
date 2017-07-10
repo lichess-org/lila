@@ -1007,7 +1007,6 @@ div.join_warning {
 /* soft inactive gradient */
 
 .crosstable th,
-.crosstable td,
 #friend_box .title,
 div.side_box div.top,
 div.box div.top,
@@ -1432,6 +1431,8 @@ div.undertable_inner {
 }
 .crosstable td {
   text-align: center;
+  background: linear-gradient(to bottom, rgba(245, 245, 245, 1) 0%, rgba(240, 240, 240, 1) 100%);
+  color: #848484;
   border: 1px solid #e0e0e0;
   padding: 0;
   min-width: 13px;
