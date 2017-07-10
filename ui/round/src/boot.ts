@@ -1,49 +1,45 @@
-module.exports = function(cfg, element) {
-  var data = cfg.data;
-  lichess.openInMobileApp(data.game.id);
-  var round, chat;
+import { RoundOpts, RoundData } from './interfaces';
+import { RoundApi } from './main';
+
+const li = window.lichess;
+
+export default function(opts: RoundOpts, element: HTMLElement): void {
+  const data = opts.data;
+  li.openInMobileApp(data.game.id);
+  let round: RoundApi, chat;
   if (data.tournament) $('body').data('tournament-id', data.tournament.id);
-  lichess.socket = lichess.StrongSocket(
+  li.socket = li.StrongSocket(
     data.url.socket,
     data.player.version, {
-      options: {
-        name: "round"
-      },
-      params: {
-        userTv: data.userTv && data.userTv.id
-      },
-      receive: function(t, d) {
-        round.socketReceive(t, d);
-      },
+      options: { name: 'round' },
+      params: { userTv: data.userTv && data.userTv.id },
+      receive(t: string, d: any) { round.socketReceive(t, d); },
       events: {
-        crowd: function(e) {
+        crowd(e) {
           $watchers.watchers("set", e.watchers);
         },
-        tvSelect: function(o) {
-          if (data.tv && data.tv.channel == o.channel) lichess.reload();
+        tvSelect(o) {
+          if (data.tv && data.tv.channel == o.channel) li.reload();
           else $('#tv_channels a.' + o.channel + ' span').html(
             o.player ? [
               o.player.title,
               o.player.name,
               '(' + o.player.rating + ')'
-            ].filter(function(x) {
-              return x;
-            }).join('&nbsp') : 'Anonymous');
+            ].filter(x => x).join('&nbsp') : 'Anonymous');
         },
-        end: function() {
-          var url = '/' + (data.tv ? ['tv', data.tv.channel, data.game.id, data.player.color, 'sides'] : [data.game.id, data.player.color, 'sides', data.player.spectator ? 'watcher' : 'player']).join('/');
+        end() {
           $.ajax({
-            url: url,
+            url: '/' + (data.tv ? ['tv', data.tv.channel, data.game.id, data.player.color, 'sides'] : [data.game.id, data.player.color, 'sides', data.player.spectator ? 'watcher' : 'player']).join('/'),
             success: function(html) {
-              var $html = $(html);
+              const $html = $(html);
               $('#site_header div.side').replaceWith($html.find('.side'));
               $('#lichess div.crosstable').replaceWith($html.find('.crosstable'));
-              lichess.pubsub.emit('content_loaded')();
+              li.pubsub.emit('content_loaded')();
               startTournamentClock();
             }
           });
         },
-        tournamentStanding: function(id) {
+        tournamentStanding(id: string) {
           if (data.tournament && id === data.tournament.id) $.ajax({
             url: '/tournament/' + id + '/game-standing',
             success: function(html) {
@@ -55,33 +51,33 @@ module.exports = function(cfg, element) {
       }
     });
 
-  var startTournamentClock = function() {
-    $("div.game_tournament div.clock").each(function() {
+  function startTournamentClock() {
+    $("div.game_tournament div.clock").each(function(this: HTMLElement) {
       $(this).clock({
         time: parseFloat($(this).data("time"))
       });
     });
   };
-  var getPresetGroup = function(d) {
+  function getPresetGroup(d: RoundData) {
     if (d.player.spectator) return null;
     if (d.steps.length < 4) return 'start';
     else if (d.game.status.id >= 30) return 'end';
     return null;
   };
-  cfg.element = element.querySelector('.round');
-  cfg.socketSend = lichess.socket.send;
-  cfg.onChange = function(d) {
+  opts.element = element.querySelector('.round') as HTMLElement;
+  opts.socketSend = li.socket.send;
+  opts.onChange = (d: RoundData) => {
     if (chat) chat.preset.setGroup(getPresetGroup(d));
   };
-  cfg.crosstableEl = element.querySelector('.crosstable');
+  opts.crosstableEl = element.querySelector('.crosstable') as HTMLElement;
 
-  var $watchers;
-  var letsGo = function() {
-    round = LichessRound.app(cfg);
-    if (cfg.chat) {
-      cfg.chat.preset = getPresetGroup(cfg.data);
-      cfg.chat.parseMoves = true;
-      lichess.makeChat('chat', cfg.chat, function(c) {
+  let $watchers: JQuery;
+  function letsGo() {
+    round = window['LichessRound'].app(opts);
+    if (opts.chat) {
+      opts.chat.preset = getPresetGroup(opts.data);
+      opts.chat.parseMoves = true;
+      li.makeChat('chat', opts.chat, function(c) {
         chat = c;
       });
     }
@@ -90,13 +86,13 @@ module.exports = function(cfg, element) {
     $('#now_playing').find('.move_on input').change(function() {
       round.moveOn.toggle();
     }).prop('checked', round.moveOn.get()).on('click', 'a', function() {
-      lichess.hasToReload = true;
+      li.hasToReload = true;
       return true;
     });
     if (location.pathname.lastIndexOf('/round-next/', 0) === 0)
-      history.replaceState(null, null, '/' + data.game.id);
-    if (!data.player.spectator && data.game.status.id < 25) lichess.topMenuIntent();
+      history.replaceState(null, '', '/' + data.game.id);
+    if (!data.player.spectator && data.game.status.id < 25) li.topMenuIntent();
   };
   if (window.navigator.userAgent.indexOf('Trident/') > -1) setTimeout(letsGo, 150);
   else letsGo();
-};
+}

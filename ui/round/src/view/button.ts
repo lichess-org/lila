@@ -26,9 +26,9 @@ function analysisButton(ctrl: RoundController): VNode | null {
   }, ctrl.trans.noarg('analysis')) : null;
 }
 
-function rematchButtons(ctrl): MaybeVNodes {
+function rematchButtons(ctrl: RoundController): MaybeVNodes {
   const d = ctrl.data,
-  me = d.player.offeringRematch, them = d.opponent.offeringRematch;
+  me = !!d.player.offeringRematch, them = !!d.opponent.offeringRematch;
   return [
     them ? h('a.rematch-decline', {
       attrs: {
@@ -85,12 +85,12 @@ export function standard(
       if (enabled()) onclick ? onclick() : ctrl.socket.sendLoading(socketMsg);
     })
   }, [
-    h('span', { attrs: util.dataIcon(icon) })
+    h('span', util.justIcon(icon))
   ]);
 }
 
 export function forceResign(ctrl: RoundController) {
-  return ctrl.forceResignable() ?  h('div.suggestion', [
+  return ctrl.forceResignable() ? h('div.suggestion', [
     h('p', ctrl.trans.noarg('opponentLeftChoices')),
     h('a.button', {
       hook: util.bind('click', () => ctrl.socket.sendLoading('resign-force'))
@@ -101,17 +101,25 @@ export function forceResign(ctrl: RoundController) {
   ]) : null;
 }
 
-export function resignConfirm(ctrl: RoundController): VNode {
-  return h('div.resign_confirm', [
+function actConfirm(ctrl: RoundController, f: (v: boolean) => void, transKey: string, icon: string, klass?: string): VNode {
+  return h('div.act_confirm.' + transKey, [
+    h('button.fbt.yes.active.hint--bottom.' + (klass || ''), {
+      attrs: {'data-hint': ctrl.trans.noarg(transKey) },
+      hook: util.bind('click', () => f(true))
+    }, [h('span', util.justIcon(icon))]),
     h('button.fbt.no.hint--bottom', {
       attrs: { 'data-hint': ctrl.trans.noarg('cancel') },
-      hook: util.bind('click', () => ctrl.resign(false))
-    }, [h('span', { attrs: util.dataIcon('L') })]),
-    h('button.fbt.yes.active.hint--bottom', {
-      attrs: {'data-hint': ctrl.trans.noarg('resign') },
-      hook: util.bind('click', () => ctrl.resign(true))
-    }, [h('span', { attrs: util.dataIcon('b') })])
+      hook: util.bind('click', () => f(false))
+    }, [h('span', util.justIcon('L'))])
   ]);
+}
+
+export function resignConfirm(ctrl: RoundController): VNode {
+  return actConfirm(ctrl, ctrl.resign, 'resign', 'b');
+}
+
+export function drawConfirm(ctrl: RoundController): VNode {
+  return actConfirm(ctrl, ctrl.offerDraw, 'offerDraw', '2', 'draw-yes');
 }
 
 export function threefoldClaimDraw(ctrl: RoundController) {
@@ -214,7 +222,7 @@ export function backToTournament(ctrl: RoundController): VNode | undefined {
         action: '/tournament/' + d.tournament.id + '/withdraw'
       }
     }, [
-      h('button.text.button.weak', { attrs: util.dataIcon('Z') }, 'Pause')
+      h('button.text.button.weak', util.justIcon('Z'), 'Pause')
     ]),
     analysisButton(ctrl)
   ]) : undefined;
@@ -225,7 +233,7 @@ export function moretime(ctrl: RoundController) {
     attrs: { 'data-hint': ctrl.trans('giveNbSeconds', ctrl.data.clock!.moretime) },
     hook: util.bind('click', ctrl.socket.moreTime)
   }, [
-    h('span', { attrs: util.dataIcon('O')})
+    h('span', util.justIcon('O'))
   ]) : null;
 }
 
@@ -235,9 +243,8 @@ export function followUp(ctrl: RoundController): VNode {
   newable = (status.finished(d) || status.aborted(d)) && (
     d.game.source === 'lobby' ||
       d.game.source === 'pool'),
-  rematchZone = ctrl.challengeRematched ? [h('div.suggestion.text', {
-    attrs: util.dataIcon('j')
-  }, ctrl.trans.noarg('rematchOfferSent')
+  rematchZone = ctrl.challengeRematched ? [
+    h('div.suggestion.text', util.justIcon('j'), ctrl.trans.noarg('rematchOfferSent')
   )] : (rematchable || d.game.rematch ? rematchButtons(ctrl) : []);
   return h('div.follow_up', [
     ...rematchZone,
@@ -257,7 +264,7 @@ export function watcherFollowUp(ctrl: RoundController): VNode {
     d.game.rematch ? h('a.button.text', {
       attrs: {
         'data-icon': 'v',
-        href: `${d.game.rematch}/${d.opponent.color}`
+        href: `/${d.game.rematch}/${d.opponent.color}`
       }
     }, ctrl.trans.noarg('viewRematch')) : null,
     d.tournament ? h('a.button', {

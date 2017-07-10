@@ -3,7 +3,7 @@ import { throttle } from 'common';
 import * as xhr from './xhr';
 import * as sound from './sound';
 import RoundController from './ctrl';
-import { Untyped } from './interfaces';
+import { Untyped, ApiEnd } from './interfaces';
 
 const li = window.lichess;
 
@@ -39,7 +39,8 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     takebackOffers(o) {
       ctrl.setLoading(false);
       ctrl.data.player.proposingTakeback = o[ctrl.data.player.color];
-      ctrl.data.opponent.proposingTakeback = o[ctrl.data.opponent.color];
+      const fromOp = ctrl.data.opponent.proposingTakeback = o[ctrl.data.opponent.color];
+      if (fromOp) li.desktopNotification(ctrl.trans.noarg('yourOpponentProposesATakeback'));
       ctrl.redraw();
     },
     move: ctrl.apiMove,
@@ -58,25 +59,27 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
       ctrl.redraw();
     },
     // end: function(winner) { } // use endData instead
-    endData(o) {
+    endData(o: ApiEnd) {
       ctrl.endWithData(o);
     },
-    rematchOffer(by) {
+    rematchOffer(by: Color) {
       ctrl.data.player.offeringRematch = by === ctrl.data.player.color;
-      ctrl.data.opponent.offeringRematch = by === ctrl.data.opponent.color;
+      const fromOp = ctrl.data.opponent.offeringRematch = by === ctrl.data.opponent.color;
+      if (fromOp) li.desktopNotification(ctrl.trans.noarg('yourOpponentWantsToPlayANewGameWithYou'));
       ctrl.redraw();
     },
-    rematchTaken(nextId) {
+    rematchTaken(nextId: string) {
       ctrl.data.game.rematch = nextId;
       if (!ctrl.data.player.spectator) ctrl.setLoading(true);
       else ctrl.redraw();
     },
     drawOffer(by) {
       ctrl.data.player.offeringDraw = by === ctrl.data.player.color;
-      ctrl.data.opponent.offeringDraw = by === ctrl.data.opponent.color;
+      const fromOp = ctrl.data.opponent.offeringDraw = by === ctrl.data.opponent.color;
+      if (fromOp) li.desktopNotification(ctrl.trans.noarg('yourOpponentOffersADraw'));
       ctrl.redraw();
     },
-    berserk(color) {
+    berserk(color: Color) {
       ctrl.setBerserk(color);
     },
     gone(isGone) {
@@ -90,7 +93,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
       ctrl.data.opponent.checks = ctrl.data.opponent.color == 'white' ? e.white : e.black;
       ctrl.redraw();
     },
-    simulPlayerMove(gameId) {
+    simulPlayerMove(gameId: string) {
       if (
         ctrl.opts.userId &&
         ctrl.data.simul &&

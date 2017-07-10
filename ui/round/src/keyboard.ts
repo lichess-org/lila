@@ -1,7 +1,7 @@
 import RoundController from './ctrl';
 
-function preventing(f) {
-  return function(e) {
+function preventing(f: () => void): (e: Event) => void {
+  return function(e: Event) {
     if (e.preventDefault) {
       e.preventDefault();
     } else {
@@ -38,5 +38,5 @@ export function init(ctrl: RoundController) {
     ctrl.userJump(ctrl.data.steps.length - 1);
     ctrl.redraw();
   }));
-  k.bind('f', preventing(ctrl.flip));
+  k.bind('f', preventing(ctrl.flipNow));
 }

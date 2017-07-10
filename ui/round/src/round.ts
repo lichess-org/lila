@@ -8,39 +8,18 @@ export function lastPly(d: RoundData): number {
   return d.steps[d.steps.length - 1].ply;
 }
 
-export function plyStep(d: RoundData, ply): Step {
+export function plyStep(d: RoundData, ply: number): Step {
   return d.steps[ply - firstPly(d)];
 }
 
-export function merge(old: RoundData, cfg: RoundData): {
-  data: RoundData;
-  changes: any;
-} {
-  var data = cfg;
+export function massage(d: RoundData): void {
 
-  if (data.clock) {
-    data.clock.showTenths = data.pref.clockTenths;
-    data.clock.showBar = data.pref.clockBar;
+  if (d.clock) {
+    d.clock.showTenths = d.pref.clockTenths;
+    d.clock.showBar = d.pref.clockBar;
   }
 
-  if (data.correspondence)
-  data.correspondence.showBar = data.pref.clockBar;
+  if (d.correspondence) d.correspondence.showBar = d.pref.clockBar;
 
-  if (['horde', 'crazyhouse'].indexOf(data.game.variant.key) !== -1)
-  data.pref.showCaptured = false;
-
-  const changes: any = {};
-  if (old.opponent) {
-    if (!old.opponent.offeringDraw && cfg.opponent.offeringDraw)
-    changes.drawOffer = true;
-    if (!old.opponent.proposingTakeback && cfg.opponent.proposingTakeback)
-    changes.takebackOffer = true;
-    if (!old.opponent.offeringRematch && cfg.opponent.offeringRematch)
-    changes.rematchOffer = true;
-  }
-
-  return {
-    data,
-    changes
-  };
+  if (['horde', 'crazyhouse'].indexOf(d.game.variant.key) !== -1) d.pref.showCaptured = false;
 };

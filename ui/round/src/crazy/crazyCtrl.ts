@@ -23,11 +23,11 @@ export function valid(data: RoundData, role: cg.Role, key: cg.Key): boolean {
 
   if (role === 'pawn' && (key[1] === '1' || key[1] === '8')) return false;
 
-  var dropStr = data.possibleDrops;
+  const dropStr = data.possibleDrops;
 
   if (typeof dropStr === 'undefined' || dropStr === null) return true;
 
-  var drops = dropStr.match(/.{2}/g) || [];
+  const drops = dropStr.match(/.{2}/g) || [];
 
   return drops.indexOf(key) !== -1;
 }

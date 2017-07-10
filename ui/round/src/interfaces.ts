@@ -43,6 +43,9 @@ export interface RoundData extends GameData {
   },
   blind?: boolean;
   tv?: Tv;
+  userTv?: {
+    id: string;
+  };
 }
 
 export interface Tv {
@@ -69,6 +72,12 @@ export interface RoundOpts {
   element: HTMLElement;
   crosstableEl: HTMLElement;
   i18n: any;
+  chat?: Chat;
+}
+
+export interface Chat {
+  preset: 'start' | 'end' | null;
+  parseMoves?: boolean;
 }
 
 export interface Step {

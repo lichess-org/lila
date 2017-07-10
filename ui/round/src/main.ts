@@ -9,12 +9,18 @@ import attributes from 'snabbdom/modules/attributes';
 
 import { RoundOpts } from './interfaces';
 import RoundController from './ctrl';
+import MoveOn from './moveOn';
 import { main as view } from './view/main';
-import boot = require('./boot');
+import boot from './boot';
 
 const patch = init([klass, attributes]);
 
-export function app(opts: RoundOpts) {
+export interface RoundApi {
+  socketReceive(typ: string, data: any): boolean;
+  moveOn: MoveOn;
+}
+
+export function app(opts: RoundOpts): RoundApi {
 
   let vnode: VNode, ctrl: RoundController;
 

@@ -53,7 +53,7 @@ function renderResult(ctrl: RoundController) {
   if (result || status.aborted(ctrl.data)) {
     const winner = game.getPlayer(ctrl.data, ctrl.data.game.winner);
     return h('div.result_wrap', [
-      h('p.result', result),
+      result ? h('p.result', result) : null,
       h('p.status', {
         hook: {
           insert: _ => {
@@ -123,13 +123,13 @@ function analyseButton(ctrl: RoundController) {
   return [
     h('a.fbt.analysis', data, [
       h('span', {
-        attrs: util.dataIcon('A'),
+        attrs: { 'data-icon': 'A' },
         class: {text: !!forecastCount}
       }),
       forecastCount ? '' + forecastCount : undefined
     ]),
     showInfo ? h('div.forecast-info.info.none', [
-      h('strong.title.text', { attrs: util.dataIcon('') }, 'Speed up your game!'),
+      h('strong.title.text', util.justIcon(''), 'Speed up your game!'),
       h('span.content', 'Use the analysis board to create conditional premoves.')
     ]) : null
   ];
@@ -161,7 +161,7 @@ function renderButtons(ctrl: RoundController) {
         'data-act': 'flip'
       }
     }, [
-      h('span', {attrs: util.dataIcon('B')})
+      h('span', util.justIcon('B'))
     ]),
     h('nav', [
       ['W', firstPly],
@@ -186,9 +186,7 @@ function renderButtons(ctrl: RoundController) {
 function racingKingsInit(d: RoundData) {
   if (d.game.variant.key === 'racingKings' && d.game.turns === 0 && !d.player.spectator) {
     const yourTurn = d.player.color === 'white' ? [h('br'), h('strong', "it's your turn!")] : [];
-    return h('div.message', {
-      attrs: util.dataIcon(''),
-    }, [
+    return h('div.message', util.justIcon(''), [
       h('span', "You have the " + d.player.color + " pieces"),
       ...yourTurn
     ]);

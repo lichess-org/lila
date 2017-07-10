@@ -6,7 +6,7 @@
     "strictNullChecks": true,
     "noUnusedLocals": true,
     "noEmitOnError": true,
-    "noImplicitReturns": false,
+    "noImplicitReturns": true,
     "noImplicitThis": true,
     "noUnusedParameters": true,
     "target": "es5",

@@ -53,7 +53,7 @@ object Round extends LilaController with TheftPrevention {
           myTour(pov.game.tournamentId, true) zip
             (pov.game.simulId ?? Env.simul.repo.find) zip
             getPlayerChat(pov.game) zip
-            Env.game.crosstableApi(pov.game) zip
+            Env.game.crosstableApi.withMatchup(pov.game) zip
             (pov.game.isSwitchable ?? otherPovs(pov.game)) zip
             Env.bookmark.api.exists(pov.game, ctx.me) flatMap {
               case tour ~ simul ~ chatOption ~ crosstable ~ playing ~ bookmarked =>
@@ -166,7 +166,7 @@ object Round extends LilaController with TheftPrevention {
             myTour(pov.game.tournamentId, false) zip
               (pov.game.simulId ?? Env.simul.repo.find) zip
               getWatcherChat(pov.game) zip
-              Env.game.crosstableApi(pov.game) zip
+              Env.game.crosstableApi.withMatchup(pov.game) zip
               Env.api.roundApi.watcher(
                 pov,
                 lila.api.Mobile.Api.currentVersion,
@@ -254,7 +254,7 @@ object Round extends LilaController with TheftPrevention {
     myTour(pov.game.tournamentId, isPlayer) zip
       (pov.game.simulId ?? Env.simul.repo.find) zip
       GameRepo.initialFen(pov.game) zip
-      Env.game.crosstableApi(pov.game) zip
+      Env.game.crosstableApi.withMatchup(pov.game) zip
       Env.bookmark.api.exists(pov.game, ctx.me) map {
         case tour ~ simul ~ initialFen ~ crosstable ~ bookmarked =>
           Ok(html.game.sides(pov, initialFen, tour, crosstable, simul, bookmarked = bookmarked))

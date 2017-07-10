@@ -11,7 +11,8 @@ private[forum] final class DataForm(val captcher: akka.actor.ActorSelection) ext
     "text" -> text(minLength = 3),
     "author" -> optional(text),
     "gameId" -> text,
-    "move" -> text
+    "move" -> text,
+    "modIcon" -> optional(boolean)
   )(PostData.apply)(PostData.unapply)
     .verifying(captchaFailMessage, validateCaptcha _)
 
@@ -33,7 +34,8 @@ object DataForm {
     text: String,
     author: Option[String],
     gameId: String,
-    move: String
+    move: String,
+    modIcon: Option[Boolean]
   )
 
   case class TopicData(

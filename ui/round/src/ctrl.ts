@@ -22,637 +22,644 @@ import renderUser = require('./view/user');
 import cevalSub = require('./cevalSub');
 import * as keyboard from './keyboard';
 
-import {
-  RoundOpts, RoundData, ApiMove, ApiEnd, Redraw,
-  SocketMove, SocketDrop, SocketOpts, MoveMetadata } from './interfaces';
+import { RoundOpts, RoundData, ApiMove, ApiEnd, Redraw, SocketMove, SocketDrop, SocketOpts, MoveMetadata } from './interfaces';
 
-  interface GoneBerserk {
-    white?: boolean;
-    black?: boolean;
+interface GoneBerserk {
+  white?: boolean;
+  black?: boolean;
+};
+
+const li = window.lichess;
+
+export default class RoundController {
+
+  opts: RoundOpts;
+  data: RoundData;
+  redraw: Redraw;
+  socket: RoundSocket;
+  chessground: CgApi;
+  clock?: ClockController;
+  corresClock?: CorresClockController;
+  trans: Trans;
+  keyboardMove?: KeyboardMove;
+  moveOn: MoveOn;
+
+  ply: number;
+  firstSeconds: boolean = true;
+  flip: boolean = false;
+  loading: boolean = false;
+  loadingTimeout: number;
+  redirecting: boolean = false;
+  moveToSubmit?: SocketMove;
+  dropToSubmit?: SocketDrop;
+  goneBerserk: GoneBerserk = {};
+  resignConfirm: boolean = false;
+  drawConfirm: boolean = false;
+  autoScroll: () => void = $.noop; // will be replaced by view layer
+    challengeRematched: boolean = false;
+  justDropped?: cg.Role;
+  justCaptured?: cg.Piece;
+  justMoved: boolean = false;
+  preDrop?: cg.Role;
+  lastDrawOfferAtPly?: Ply;
+  lastMoveMillis?: number;
+
+  private timer = window.performance ? window.performance.now.bind(performance) : Date.now;
+  private music?: any;
+
+  constructor(opts: RoundOpts, redraw: Redraw) {
+
+    round.massage(opts.data);
+
+    const d = this.data = opts.data;
+
+    this.opts = opts;
+    this.redraw = redraw;
+
+    this.ply = round.lastPly(d);
+    this.goneBerserk[d.player.color] = d.player.berserk;
+    this.goneBerserk[d.opponent.color] = d.opponent.berserk;
+
+    setTimeout(() => { this.firstSeconds = false; this.redraw(); }, 3000);
+
+    this.socket = makeSocket(opts.socketSend, this);
+
+    if (d.clock) this.clock = new ClockController(d.clock, {
+      onFlag: () => { this.socket.outoftime(); this.redraw(); },
+      soundColor: (d.simul || d.player.spectator || !d.pref.clockSound) ? undefined : d.player.color
+    });
+    else this.makeCorrespondenceClock();
+
+    if (this.clock) {
+      const tickNow = () => {
+        this.clockTick();
+        if (game.playable(this.data)) setTimeout(tickNow, 100);
+      };
+      setTimeout(tickNow, 100);
+    } else setInterval(this.corresClockTick, 1000);
+
+    this.setQuietMode();
+
+    this.moveOn = new MoveOn(this, 'lichess.move_on');
+
+    this.trans = li.trans(opts.i18n);
+
+    setTimeout(this.delayedInit, 200);
+
+    setTimeout(this.showYourMoveNotification, 500);
+
+    // at the end:
+    li.pubsub.on('jump', ply => { this.jump(parseInt(ply)); this.redraw(); });
+
+    li.pubsub.on('sound_set', set => {
+      if (!this.music && set === 'music')
+        li.loadScript('/assets/javascripts/music/play.js').then(() => {
+          this.music = window['lichessPlayMusic']();
+        });
+        if (this.music && set !== 'music') this.music = undefined;
+    });
   }
 
-  const li = window.lichess;
+  private onUserMove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => {
+    if (li.ab && (!this.keyboardMove || !this.keyboardMove.usedSan)) li.ab(this, meta);
+    if (!promotion.start(this, orig, dest, meta)) this.sendMove(orig, dest, undefined, meta);
+  };
 
-  export default class RoundController {
+  private onUserNewPiece = (role: cg.Role, key: cg.Key, meta: cg.MoveMetadata) => {
+    if (!this.replaying() && crazyValid(this.data, role, key)) {
+      this.sendNewPiece(role, key, !!meta.predrop);
+    } else this.jump(this.ply);
+  };
 
-    opts: RoundOpts;
-    data: RoundData;
-    redraw: Redraw;
-    socket: RoundSocket;
-    chessground: CgApi;
-    clock?: ClockController;
-    corresClock?: CorresClockController;
-    trans: Trans;
-    keyboardMove?: KeyboardMove;
-    moveOn: MoveOn;
+  private onMove = (_: cg.Key, dest: cg.Key, captured?: cg.Piece) => {
+    if (captured) {
+      if (this.data.game.variant.key === 'atomic') {
+        sound.explode();
+        atomic.capture(this, dest);
+      } else sound.capture();
+    } else sound.move();
+  };
 
-    ply: number;
-    firstSeconds: boolean = true;
-    flip: boolean = false;
-    loading: boolean = false;
-    loadingTimeout: number;
-    redirecting: boolean = false;
-    moveToSubmit?: SocketMove;
-    dropToSubmit?: SocketDrop;
-    goneBerserk: GoneBerserk = {};
-    resignConfirm: boolean = false;
-    autoScroll: () => void = $.noop; // will be replaced by view layer
-    challengeRematched: boolean = false;
-    justDropped?: cg.Role;
-    justCaptured?: cg.Piece;
-    justMoved: boolean = false;
-    preDrop?: cg.Role;
-    lastDrawOfferAtPly?: Ply;
-    lastMoveMillis?: number;
+  private onPremove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => {
+    promotion.start(this, orig, dest, meta);
+  };
 
-    private timer = window.performance ? window.performance.now.bind(performance) : Date.now;
-    private music?: any;
+  private onCancelPremove = () => {
+    promotion.cancelPrePromotion(this);
+  };
 
-    constructor(opts: RoundOpts, redraw: Redraw) {
+  private onPredrop = (role: cg.Role | undefined, _?: Key) => {
+    this.preDrop = role;
+    this.redraw();
+  };
 
-      const d = round.merge({} as RoundData, opts.data).data;
+  makeCgHooks = () => ({
+    onUserMove: this.onUserMove,
+    onUserNewPiece: this.onUserNewPiece,
+    onMove: this.onMove,
+    onNewPiece: sound.move,
+    onPremove: this.onPremove,
+    onCancelPremove: this.onCancelPremove,
+    onPredrop: this.onPredrop
+  });
 
-      this.opts = opts;
-      this.data = d;
-      this.redraw = redraw;
+  replaying = (): boolean => this.ply !== round.lastPly(this.data);
 
-      this.ply = round.lastPly(d);
-      this.goneBerserk[d.player.color] = d.player.berserk;
-      this.goneBerserk[d.opponent.color] = d.opponent.berserk;
+  userJump = (ply: Ply): void => {
+    this.cancelMove();
+    this.chessground.selectSquare(null);
+    this.jump(ply);
+  };
 
-      setTimeout(() => { this.firstSeconds = false; this.redraw(); }, 3000);
-
-      this.socket = makeSocket(opts.socketSend, this);
-
-      if (d.clock) this.clock = new ClockController(d.clock, {
-        onFlag: () => { this.socket.outoftime(); this.redraw(); },
-        soundColor: (d.simul || d.player.spectator || !d.pref.clockSound) ? undefined : d.player.color
-      });
-      else this.makeCorrespondenceClock();
-
-      if (this.clock) {
-        const tickNow = () => {
-          this.clockTick();
-          if (game.playable(this.data)) setTimeout(tickNow, 100);
-        };
-        setTimeout(tickNow, 100);
-      } else setInterval(this.corresClockTick, 1000);
-
-      this.setQuietMode();
-
-      this.moveOn = new MoveOn(this, 'lichess.move_on');
-
-      this.trans = li.trans(opts.i18n);
-
-      setTimeout(this.delayedInit, 200);
-
-      setTimeout(this.showYourMoveNotification, 500);
-
-      // at the end:
-      li.pubsub.on('jump', ply => { this.jump(parseInt(ply)); this.redraw(); });
-
-      li.pubsub.on('sound_set', set => {
-        if (!this.music && set === 'music')
-          li.loadScript('/assets/javascripts/music/play.js').then(() => {
-            this.music = window['lichessPlayMusic']();
-          });
-          if (this.music && set !== 'music') this.music = undefined;
-      });
+  jump = (ply: Ply): boolean => {
+    if (ply < round.firstPly(this.data) || ply > round.lastPly(this.data)) return false;
+    this.ply = ply;
+    this.justDropped = undefined;
+    this.preDrop = undefined;
+    const s = round.plyStep(this.data, ply),
+    config: CgConfig = {
+      fen: s.fen,
+      lastMove: util.uci2move(s.uci),
+      check: !!s.check,
+      turnColor: this.ply % 2 === 0 ? 'white' : 'black'
+    };
+    if (this.replaying()) this.chessground.stop();
+    else config.movable = {
+      color: game.isPlayerPlaying(this.data) ? this.data.player.color : undefined,
+      dests: util.parsePossibleMoves(this.data.possibleMoves)
     }
+    this.chessground.set(config);
+    if (s.san) {
+      if (s.san.indexOf('x') !== -1) sound.capture();
+      else sound.move();
+      if (/[+#]/.test(s.san)) sound.check();
+    }
+    this.autoScroll();
+    if (this.keyboardMove) this.keyboardMove.update(s);
+    return true;
+  };
 
-    private onUserMove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => {
-      if (li.ab && (!this.keyboardMove || !this.keyboardMove.usedSan)) li.ab(this, meta);
-      if (!promotion.start(this, orig, dest, meta)) this.sendMove(orig, dest, undefined, meta);
-    };
+  replayEnabledByPref = (): boolean => {
+    const d = this.data;
+    return d.pref.replay === 2 || (
+      d.pref.replay === 1 && (d.game.speed === 'classical' || d.game.speed === 'unlimited' || d.game.speed === 'correspondence')
+    );
+  };
 
-    private onUserNewPiece = (role: cg.Role, key: cg.Key, meta: cg.MoveMetadata) => {
-      if (!this.replaying() && crazyValid(this.data, role, key)) {
-        this.sendNewPiece(role, key, !!meta.predrop);
-      } else this.jump(this.ply);
-    };
+  isLate = () => this.replaying() && status.playing(this.data);
 
-    private onMove = (_: cg.Key, dest: cg.Key, captured?: cg.Piece) => {
-      if (captured) {
-        if (this.data.game.variant.key === 'atomic') {
-          sound.explode();
-          atomic.capture(this, dest);
-        } else sound.capture();
-      } else sound.move();
-    };
-
-    private onPremove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => {
-      promotion.start(this, orig, dest, meta);
-    };
-
-    private onCancelPremove = () => {
-      promotion.cancelPrePromotion(this);
-    };
-
-    private onPredrop = (role: cg.Role | undefined, _?: Key) => {
-      this.preDrop = role;
-      this.redraw();
-    };
-
-    makeCgHooks = () => ({
-      onUserMove: this.onUserMove,
-      onUserNewPiece: this.onUserNewPiece,
-      onMove: this.onMove,
-      onNewPiece: sound.move,
-      onPremove: this.onPremove,
-      onCancelPremove: this.onCancelPremove,
-      onPredrop: this.onPredrop
+  flipNow = () => {
+    this.flip = !this.flip;
+    this.chessground.set({
+      orientation: ground.boardOrientation(this.data, this.flip)
     });
+    this.redraw();
+  };
 
-    replaying = (): boolean => this.ply !== round.lastPly(this.data);
+  setTitle = () => title.set(this);
 
-    userJump = (ply: Ply): void => {
-      this.cancelMove();
-      this.chessground.selectSquare(null);
-      this.jump(ply);
+  actualSendMove = (type: string, action: any, meta: MoveMetadata = {}) => {
+    const socketOpts: SocketOpts = {
+      ackable: true
     };
-
-    jump = (ply: Ply): boolean => {
-      if (ply < round.firstPly(this.data) || ply > round.lastPly(this.data)) return false;
-      this.ply = ply;
-      this.justDropped = undefined;
-      this.preDrop = undefined;
-      const s = round.plyStep(this.data, ply),
-      config: CgConfig = {
-        fen: s.fen,
-        lastMove: util.uci2move(s.uci),
-        check: !!s.check,
-        turnColor: this.ply % 2 === 0 ? 'white' : 'black'
-      };
-      if (this.replaying()) this.chessground.stop();
-      else config.movable = {
-        color: game.isPlayerPlaying(this.data) ? this.data.player.color : undefined,
-        dests: util.parsePossibleMoves(this.data.possibleMoves)
+    if (meta.premove) socketOpts.millis = 0;
+    else if (this.lastMoveMillis !== undefined) {
+      socketOpts.millis = this.timer() - this.lastMoveMillis;
+      if (socketOpts.millis < 3) {
+        // instant move, no premove? might be fishy
+        $.post('/jslog/' + this.data.game.id + this.data.player.id + '?n=instamove:' + socketOpts.millis);
+        socketOpts.millis = undefined;
       }
-      this.chessground.set(config);
-      if (s.san) {
-        if (s.san.indexOf('x') !== -1) sound.capture();
-        else sound.move();
-        if (/[+#]/.test(s.san)) sound.check();
+    }
+    this.socket.send(type, action, socketOpts);
+
+    this.justDropped = meta.justDropped;
+    this.justCaptured = meta.justCaptured;
+    this.preDrop = undefined;
+    this.clockTick(); // A hack. Better is clock.update with millis above removed.
+    this.justMoved = true;
+    this.redraw();
+  }
+
+  sendMove = (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined, meta: cg.MoveMetadata) => {
+    const move: SocketMove = {
+      u: orig + dest
+    };
+    if (prom) move.u += (prom === 'knight' ? 'n' : prom[0]);
+    if (blur.get()) move.b = 1;
+    this.resign(false);
+    if (this.data.pref.submitMove && !meta.premove) {
+      this.moveToSubmit = move;
+      this.redraw();
+    } else {
+      this.actualSendMove('move', move, {
+        justCaptured: meta.captured,
+        premove: meta.premove
+      })
+    }
+  };
+
+  sendNewPiece = (role: cg.Role, key: cg.Key, isPredrop: boolean): void => {
+    const drop: SocketDrop = {
+      role: role,
+      pos: key
+    };
+    if (blur.get()) drop.b = 1;
+    this.resign(false);
+    if (this.data.pref.submitMove && !isPredrop) {
+      this.dropToSubmit = drop;
+      this.redraw();
+    } else {
+      this.actualSendMove('drop', drop, {
+        justDropped: role,
+        premove: isPredrop
+      });
+    }
+  };
+
+  showYourMoveNotification = () => {
+    const d = this.data;
+    if (game.isPlayerTurn(d)) li.desktopNotification(() => {
+      let txt = this.trans('yourTurn'),
+      opponent = renderUser.userTxt(this, d.opponent);
+      if (this.ply < 1) txt = opponent + '\njoined the game.\n' + txt;
+      else {
+        let move = d.steps[d.steps.length - 1].san,
+        turn = Math.floor((this.ply - 1) / 2) + 1;
+        move = turn + (this.ply % 2 === 1 ? '.' : '...') + ' ' + move;
+        txt = opponent + '\nplayed ' + move + '.\n' + txt;
       }
-      this.autoScroll();
-      if (this.keyboardMove) this.keyboardMove.update(s);
-      return true;
-    };
+      return txt;
+    });
+    else if (game.isPlayerPlaying(d) && this.ply < 1) li.desktopNotification(() => {
+      return renderUser.userTxt(this, d.opponent) + '\njoined the game.';
+    });
+  };
 
-    replayEnabledByPref = (): boolean => {
-      const d = this.data;
-      return d.pref.replay === 2 || (
-        d.pref.replay === 1 && (d.game.speed === 'classical' || d.game.speed === 'unlimited' || d.game.speed === 'correspondence')
-      );
-    };
+  private playerByColor = (c: Color) =>
+    this.data[c === this.data.player.color ? 'player' : 'opponent'];
 
-    isLate = () => this.replaying() && status.playing(this.data);
+  apiMove = (o: ApiMove): void => {
+    const d = this.data,
+    playing = game.isPlayerPlaying(d);
 
-    flipNow = () => {
-      this.flip = !this.flip;
+    if (playing) this.lastMoveMillis = this.timer();
+    d.game.turns = o.ply;
+    d.game.player = o.ply % 2 === 0 ? 'white' : 'black';
+    const playedColor = o.ply % 2 === 0 ? 'black' : 'white',
+    activeColor = d.player.color === d.game.player;
+    if (o.status) d.game.status = o.status;
+    if (o.winner) d.game.winner = o.winner;
+    this.playerByColor('white').offeringDraw = o.wDraw;
+    this.playerByColor('black').offeringDraw = o.bDraw;
+    d.possibleMoves = activeColor ? o.dests : undefined;
+    d.possibleDrops = activeColor ? o.drops : undefined;
+    d.crazyhouse = o.crazyhouse;
+    this.setTitle();
+    if (!this.replaying()) {
+      this.ply++;
+      if (o.role) this.chessground.newPiece({
+        role: o.role,
+        color: playedColor
+      }, o.uci.substr(2, 2) as cg.Key);
+      else {
+        const keys = util.uci2move(o.uci);
+        this.chessground.move(keys![0], keys![1]);
+      }
+      if (o.enpassant) {
+        const p = o.enpassant, pieces: cg.PiecesDiff = {};
+        pieces[p.key] = null;
+        this.chessground.setPieces(pieces);
+        if (d.game.variant.key === 'atomic') {
+          atomic.enpassant(this, p.key, p.color);
+          sound.explode();
+        } else sound.capture();
+      }
+      if (o.promotion) ground.promote(this.chessground, o.promotion.key, o.promotion.pieceClass);
+      if (o.castle && !this.chessground.state.autoCastle) {
+        const c = o.castle, pieces: cg.PiecesDiff = {};
+        pieces[c.king[0]] = null;
+        pieces[c.rook[0]] = null;
+        pieces[c.king[1]] = {
+          role: 'king',
+          color: c.color
+        };
+        pieces[c.rook[1]] = {
+          role: 'rook',
+          color: c.color
+        };
+        this.chessground.setPieces(pieces);
+      }
       this.chessground.set({
-        orientation: ground.boardOrientation(this.data, this.flip)
+        turnColor: d.game.player,
+        movable: {
+          dests: playing ? util.parsePossibleMoves(d.possibleMoves) : {}
+        },
+        check: !!o.check
       });
-      this.redraw();
-    };
-
-    setTitle = () => title.set(this);
-
-    actualSendMove = (type: string, action: any, meta: MoveMetadata = {}) => {
-      const socketOpts: SocketOpts = {
-        ackable: true
-      };
-      if (meta.premove) socketOpts.millis = 0;
-      else if (this.lastMoveMillis !== undefined) {
-        socketOpts.millis = this.timer() - this.lastMoveMillis;
-        if (socketOpts.millis < 3) {
-          // instant move, no premove? might be fishy
-          $.post('/jslog/' + this.data.game.id + this.data.player.id + '?n=instamove:' + socketOpts.millis);
-          socketOpts.millis = undefined;
-        }
-      }
-      this.socket.send(type, action, socketOpts);
-
-      this.justDropped = meta.justDropped;
-      this.justCaptured = meta.justCaptured;
-      this.preDrop = undefined;
-      this.clockTick(); // A hack. Better is clock.update with millis above removed.
-      this.justMoved = true;
-      this.redraw();
+      if (o.check) sound.check();
+      blur.onMove();
     }
-
-    sendMove = (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined, meta: cg.MoveMetadata) => {
-      const move: SocketMove = {
-        u: orig + dest
-      };
-      if (prom) move.u += (prom === 'knight' ? 'n' : prom[0]);
-      if (blur.get()) move.b = 1;
-      this.resign(false);
-      if (this.data.pref.submitMove && !meta.premove) {
-        this.moveToSubmit = move;
-        this.redraw();
-      } else {
-        this.actualSendMove('move', move, {
-          justCaptured: meta.captured,
-          premove: meta.premove
-        })
-      }
-    };
-
-    sendNewPiece = (role: cg.Role, key: cg.Key, isPredrop: boolean): void => {
-      const drop: SocketDrop = {
-        role: role,
-        pos: key
-      };
-      if (blur.get()) drop.b = 1;
-      this.resign(false);
-      if (this.data.pref.submitMove && !isPredrop) {
-        this.dropToSubmit = drop;
-        this.redraw();
-      } else {
-        this.actualSendMove('drop', drop, {
-          justDropped: role,
-          premove: isPredrop
-        });
-      }
-    };
-
-    showYourMoveNotification = () => {
-      const d = this.data;
-      if (game.isPlayerTurn(d)) li.desktopNotification(() => {
-        let txt = this.trans('yourTurn'),
-        opponent = renderUser.userTxt(this, d.opponent);
-        if (this.ply < 1) txt = opponent + '\njoined the game.\n' + txt;
-        else {
-          let move = d.steps[d.steps.length - 1].san,
-          turn = Math.floor((this.ply - 1) / 2) + 1;
-          move = turn + (this.ply % 2 === 1 ? '.' : '...') + ' ' + move;
-          txt = opponent + '\nplayed ' + move + '.\n' + txt;
-        }
-        return txt;
-      });
-      else if (game.isPlayerPlaying(d) && this.ply < 1) li.desktopNotification(() => {
-        return renderUser.userTxt(this, d.opponent) + '\njoined the game.';
-      });
-    };
-
-    private playerByColor = (c: Color) =>
-      this.data[c === this.data.player.color ? 'player' : 'opponent'];
-
-    apiMove = (o: ApiMove): void => {
-      const d = this.data,
-      playing = game.isPlayerPlaying(d);
-
-      if (playing) this.lastMoveMillis = this.timer();
-      d.game.turns = o.ply;
-      d.game.player = o.ply % 2 === 0 ? 'white' : 'black';
-      const playedColor = o.ply % 2 === 0 ? 'black' : 'white',
-      activeColor = d.player.color === d.game.player;
-      if (o.status) d.game.status = o.status;
-      if (o.winner) d.game.winner = o.winner;
-      this.playerByColor('white').offeringDraw = o.wDraw;
-      this.playerByColor('black').offeringDraw = o.bDraw;
-      d.possibleMoves = activeColor ? o.dests : undefined;
-      d.possibleDrops = activeColor ? o.drops : undefined;
-      d.crazyhouse = o.crazyhouse;
-      this.setTitle();
-      if (!this.replaying()) {
-        this.ply++;
-        if (o.role) this.chessground.newPiece({
-          role: o.role,
-          color: playedColor
-        }, o.uci.substr(2, 2) as cg.Key);
-        else {
-          const keys = util.uci2move(o.uci);
-          this.chessground.move(keys![0], keys![1]);
-        }
-        if (o.enpassant) {
-          const p = o.enpassant, pieces = {};
-          pieces[p.key] = false;
-          this.chessground.setPieces(pieces);
-          if (d.game.variant.key === 'atomic') {
-            atomic.enpassant(this, p.key, p.color);
-            sound.explode();
-          } else sound.capture();
-        }
-        if (o.promotion) ground.promote(this.chessground, o.promotion.key, o.promotion.pieceClass);
-        if (o.castle && !this.chessground.state.autoCastle) {
-          const c = o.castle, pieces = {};
-          pieces[c.king[0]] = false;
-          pieces[c.rook[0]] = false;
-          pieces[c.king[1]] = {
-            role: 'king',
-            color: c.color
-          };
-          pieces[c.rook[1]] = {
-            role: 'rook',
-            color: c.color
-          };
-          this.chessground.setPieces(pieces);
-        }
-        this.chessground.set({
-          turnColor: d.game.player,
-          movable: {
-            dests: playing ? util.parsePossibleMoves(d.possibleMoves) : {}
-          },
-          check: !!o.check
-        });
-        if (o.check) sound.check();
-        blur.onMove();
-      }
-      if (o.clock) {
-        if (this.clock) this.clock.update(
-          o.clock.white,
-          o.clock.black,
-          playing && activeColor ? 0 : o.clock.lag);
-        else if (this.corresClock) this.corresClock.update(
-          o.clock.white,
-          o.clock.black);
-      }
-      d.game.threefold = !!o.threefold;
-      const step = {
-        ply: round.lastPly(this.data) + 1,
-        fen: o.fen,
-        san: o.san,
-        uci: o.uci,
-        check: o.check,
-        crazy: o.crazyhouse
-      };
-      d.steps.push(step);
-      this.justDropped = undefined;
-      this.justCaptured = undefined;
-      this.justMoved = false;
-      game.setOnGame(d, playedColor, true);
-      this.data.forecastCount = undefined;
-      this.redraw();
-      if (d.blind) blind.reload(this);
-      if (playing && playedColor === d.player.color) {
-        this.moveOn.next();
-        cevalSub.publish(this, o);
-      }
-      if (!this.replaying() && playedColor !== d.player.color) {
-        // atrocious hack to prevent race condition
-        // with explosions and premoves
-        // https://github.com/ornicar/lila/issues/343
-        const premoveDelay = d.game.variant.key === 'atomic' ? 100 : 1;
-        setTimeout(() => {
-          if (!this.chessground.playPremove() && !this.playPredrop()) {
-            promotion.cancel(this);
-            this.showYourMoveNotification();
-          }
-        }, premoveDelay);
-      }
-      this.autoScroll();
-      this.onChange();
-      if (this.keyboardMove) this.keyboardMove.update(step);
-      if (this.music) this.music.jump(o);
-    };
-
-    private playPredrop = () => {
-      return this.chessground.playPredrop(drop => {
-        return crazyValid(this.data, drop.role, drop.key);
-      });
-    };
-
-    private clearJust() {
-      this.justDropped = undefined;
-      this.justCaptured = undefined;
-      this.justMoved = false;
-      this.preDrop = undefined;
+    if (o.clock) {
+      if (this.clock) this.clock.update(
+        o.clock.white,
+        o.clock.black,
+        playing && activeColor ? 0 : o.clock.lag);
+      else if (this.corresClock) this.corresClock.update(
+        o.clock.white,
+        o.clock.black);
     }
-
-    reload = (cfg: RoundData): void => {
-      if (cfg.steps.length !== this.data.steps.length) this.ply = cfg.steps[cfg.steps.length - 1].ply;
-      const merged = round.merge(this.data, cfg),
-      d = merged.data;
-      this.data = d;
-      this.clearJust();
-      if (this.clock) this.clock.update(d.clock!.white, d.clock!.black);
-      if (this.corresClock) this.corresClock.update(d.correspondence.white, d.correspondence.black);
-      if (!this.replaying()) ground.reload(this);
-      this.setTitle();
-      if (d.blind) blind.reload(this);
-      this.moveOn.next();
-      this.setQuietMode();
-      this.redraw();
-      this.autoScroll();
-      this.onChange();
-      this.setLoading(false);
-      if (merged.changes.drawOffer) li.desktopNotification(this.trans('yourOpponentOffersADraw'));
-      if (merged.changes.takebackOffer) li.desktopNotification(this.trans('yourOpponentProposesATakeback'));
-      if (merged.changes.rematchOffer) li.desktopNotification(this.trans('yourOpponentWantsToPlayANewGameWithYou'));
-      if (this.keyboardMove) this.keyboardMove.update(cfg.steps[cfg.steps.length - 1]);
+    d.game.threefold = !!o.threefold;
+    const step = {
+      ply: round.lastPly(this.data) + 1,
+      fen: o.fen,
+      san: o.san,
+      uci: o.uci,
+      check: o.check,
+      crazy: o.crazyhouse
     };
-
-    endWithData = (o: ApiEnd): void => {
-      const d = this.data;
-      d.game.winner = o.winner;
-      d.game.status = o.status;
-      d.game.boosted = o.boosted;
-      this.chessground.stop();
-      if (o.ratingDiff) {
-        d.player.ratingDiff = o.ratingDiff[d.player.color];
-        d.opponent.ratingDiff = o.ratingDiff[d.opponent.color];
-      }
-      if (!d.player.spectator && d.game.turns > 1)
-      li.sound[o.winner ? (d.player.color === o.winner ? 'victory' : 'defeat') : 'draw']();
-      this.clearJust();
-      this.setTitle();
+    d.steps.push(step);
+    this.justDropped = undefined;
+    this.justCaptured = undefined;
+    this.justMoved = false;
+    game.setOnGame(d, playedColor, true);
+    this.data.forecastCount = undefined;
+    this.redraw();
+    if (d.blind) blind.reload(this);
+    if (playing && playedColor === d.player.color) {
       this.moveOn.next();
-      this.setQuietMode();
-      this.setLoading(false);
-      this.redraw();
-      this.autoScroll();
-    };
+      cevalSub.publish(d, o);
+    }
+    if (!this.replaying() && playedColor !== d.player.color) {
+      // atrocious hack to prevent race condition
+      // with explosions and premoves
+      // https://github.com/ornicar/lila/issues/343
+      const premoveDelay = d.game.variant.key === 'atomic' ? 100 : 1;
+      setTimeout(() => {
+        if (!this.chessground.playPremove() && !this.playPredrop()) {
+          promotion.cancel(this);
+          this.showYourMoveNotification();
+        }
+      }, premoveDelay);
+    }
+    this.autoScroll();
+    this.onChange();
+    if (this.keyboardMove) this.keyboardMove.update(step);
+    if (this.music) this.music.jump(o);
+  };
 
-    challengeRematch = (): void => {
-      this.challengeRematched = true;
-      xhr.challengeRematch(this.data.game.id).then(() => {
-        li.challengeApp.open();
-        if (li.once('rematch-challenge')) setTimeout(() => {
-          li.hopscotch(function() {
-            window.hopscotch.configure({
-              i18n: { doneBtn: 'OK, got it' }
-            }).startTour({
-              id: "rematch-challenge",
-              showPrevButton: true,
-              steps: [{
-                title: "Challenged to a rematch",
-                content: 'Your opponent is offline, but they can accept this challenge later!',
-                target: "#challenge_app",
-                placement: "bottom"
-              }]
-            });
+  private playPredrop = () => {
+    return this.chessground.playPredrop(drop => {
+      return crazyValid(this.data, drop.role, drop.key);
+    });
+  };
+
+  private clearJust() {
+    this.justDropped = undefined;
+    this.justCaptured = undefined;
+    this.justMoved = false;
+    this.preDrop = undefined;
+  }
+
+  reload = (d: RoundData): void => {
+    if (d.steps.length !== this.data.steps.length) this.ply = d.steps[d.steps.length - 1].ply;
+    round.massage(d);
+    this.data = d;
+    this.clearJust();
+    if (this.clock) this.clock.update(d.clock!.white, d.clock!.black);
+    if (this.corresClock) this.corresClock.update(d.correspondence.white, d.correspondence.black);
+    if (!this.replaying()) ground.reload(this);
+    this.setTitle();
+    if (d.blind) blind.reload(this);
+    this.moveOn.next();
+    this.setQuietMode();
+    this.redraw();
+    this.autoScroll();
+    this.onChange();
+    this.setLoading(false);
+    if (this.keyboardMove) this.keyboardMove.update(d.steps[d.steps.length - 1]);
+  };
+
+  endWithData = (o: ApiEnd): void => {
+    const d = this.data;
+    d.game.winner = o.winner;
+    d.game.status = o.status;
+    d.game.boosted = o.boosted;
+    this.chessground.stop();
+    if (o.ratingDiff) {
+      d.player.ratingDiff = o.ratingDiff[d.player.color];
+      d.opponent.ratingDiff = o.ratingDiff[d.opponent.color];
+    }
+    if (!d.player.spectator && d.game.turns > 1)
+    li.sound[o.winner ? (d.player.color === o.winner ? 'victory' : 'defeat') : 'draw']();
+    this.clearJust();
+    this.setTitle();
+    this.moveOn.next();
+    this.setQuietMode();
+    this.setLoading(false);
+    this.redraw();
+    this.autoScroll();
+    this.onChange();
+  };
+
+  challengeRematch = (): void => {
+    this.challengeRematched = true;
+    xhr.challengeRematch(this.data.game.id).then(() => {
+      li.challengeApp.open();
+      if (li.once('rematch-challenge')) setTimeout(() => {
+        li.hopscotch(function() {
+          window.hopscotch.configure({
+            i18n: { doneBtn: 'OK, got it' }
+          }).startTour({
+            id: "rematch-challenge",
+            showPrevButton: true,
+            steps: [{
+              title: "Challenged to a rematch",
+              content: 'Your opponent is offline, but they can accept this challenge later!',
+              target: "#challenge_app",
+              placement: "bottom"
+            }]
           });
-        }, 1000);
-      }, _ => {
-        this.challengeRematched = false;
-        // $.modal(data.error);
+        });
+      }, 1000);
+    }, _ => {
+      this.challengeRematched = false;
+      // $.modal(data.error);
       });
-    };
+  };
 
-    isClockRunning = (): boolean => {
-      return !!this.data.clock && game.playable(this.data) && !this.justMoved &&
-      ((this.data.game.turns - this.data.game.startedAtTurn) > 1 || this.data.clock.running);
-    };
+  isClockRunning = (): boolean => {
+    return !!this.data.clock && game.playable(this.data) && !this.justMoved &&
+    ((this.data.game.turns - this.data.game.startedAtTurn) > 1 || this.data.clock.running);
+  };
 
-    private clockTick = (): void => {
-      if (this.isClockRunning()) this.clock!.tick(this, this.data.game.player);
-    };
+  private clockTick = (): void => {
+    if (this.isClockRunning()) this.clock!.tick(this, this.data.game.player);
+  };
 
-    private makeCorrespondenceClock = (): void => {
-      if (this.data.correspondence && !this.corresClock)
-      this.corresClock = makeCorresClock(
-        this.data.correspondence,
-        this.socket.outoftime
-      );
-    };
+  private makeCorrespondenceClock = (): void => {
+    if (this.data.correspondence && !this.corresClock)
+    this.corresClock = makeCorresClock(
+      this.data.correspondence,
+      this.socket.outoftime
+    );
+  };
 
-    private corresClockTick = (): void => {
-      if (this.corresClock && game.playable(this.data))
-      this.corresClock.tick(this.data.game.player);
-    };
+  private corresClockTick = (): void => {
+    if (this.corresClock && game.playable(this.data))
+    this.corresClock.tick(this.data.game.player);
+  };
 
-    private setQuietMode = () => {
-      li.quietMode = game.isPlayerPlaying(this.data);
-      document.body.classList.toggle('no-select',
-        li.quietMode && this.clock && this.clock.millisOf(this.data.player.color) <= 3e5);
-    };
+  private setQuietMode = () => {
+    li.quietMode = game.isPlayerPlaying(this.data);
+    document.body.classList.toggle('no-select',
+      li.quietMode && this.clock && this.clock.millisOf(this.data.player.color) <= 3e5);
+  };
 
-    takebackYes = () => {
-      this.socket.sendLoading('takeback-yes');
-      this.chessground.cancelPremove();
-      promotion.cancel(this);
-    };
+  takebackYes = () => {
+    this.socket.sendLoading('takeback-yes');
+    this.chessground.cancelPremove();
+    promotion.cancel(this);
+  };
 
-    resign = (v: boolean): void => {
-      if (this.resignConfirm) {
-        if (v) this.socket.sendLoading('resign');
-        else this.resignConfirm = false;
-      } else if (v) {
-        if (this.data.pref.confirmResign) this.resignConfirm = true;
-        else this.socket.sendLoading('resign');
-      }
-      this.redraw();
-    };
+  resign = (v: boolean): void => {
+    if (this.resignConfirm) {
+      if (v) this.socket.sendLoading('resign');
+      else this.resignConfirm = false;
+    } else if (v) {
+      if (this.data.pref.confirmResign) this.resignConfirm = true;
+      else this.socket.sendLoading('resign');
+    }
+    this.redraw();
+  };
 
-    goBerserk = () => {
-      this.socket.berserk();
-      li.sound.berserk();
-    };
+  goBerserk = () => {
+    this.socket.berserk();
+    li.sound.berserk();
+  };
 
-    setBerserk = (color: Color): void => {
-      if (this.goneBerserk[color]) return;
-      this.goneBerserk[color] = true;
-      if (color !== this.data.player.color) li.sound.berserk();
-      this.redraw();
-    };
+  setBerserk = (color: Color): void => {
+    if (this.goneBerserk[color]) return;
+    this.goneBerserk[color] = true;
+    if (color !== this.data.player.color) li.sound.berserk();
+    this.redraw();
+  };
 
-    setLoading = (v: boolean, duration: number = 1500) => {
-      clearTimeout(this.loadingTimeout);
-      if (v) {
-        this.loading = true;
-        this.loadingTimeout = setTimeout(() => {
-          this.loading = false;
-          this.redraw();
-        }, duration);
-        this.redraw();
-      } else if (this.loading) {
+  setLoading = (v: boolean, duration: number = 1500) => {
+    clearTimeout(this.loadingTimeout);
+    if (v) {
+      this.loading = true;
+      this.loadingTimeout = setTimeout(() => {
         this.loading = false;
         this.redraw();
-      }
-    };
-
-    setRedirecting = () => {
-      this.redirecting = true;
-      setTimeout(() => {
-        this.redirecting = false;
-        this.redraw();
-      }, 2500);
+      }, duration);
       this.redraw();
-    };
-
-    submitMove = (v: boolean): void => {
-      if (v && (this.moveToSubmit || this.dropToSubmit)) {
-        if (this.moveToSubmit) this.actualSendMove('move', this.moveToSubmit);
-        else this.actualSendMove('drop', this.dropToSubmit);
-        li.sound.confirmation();
-      } else this.jump(this.ply);
-      this.cancelMove();
-      this.setLoading(true, 300);
-    };
-
-    cancelMove = (): void => {
-      this.moveToSubmit = undefined;
-      this.dropToSubmit = undefined;
-    };
-
-    forecastInfo = (): boolean => {
-      const d = this.data;
-      return game.isPlayerPlaying(d) && d.correspondence && !d.opponent.ai &&
-      !this.replaying() && d.game.turns > 1 && li.once('forecast-info-seen6');
+    } else if (this.loading) {
+      this.loading = false;
+      this.redraw();
     }
-
-    private onChange = () => {
-      if (this.opts.onChange) setTimeout(() => this.opts.onChange(this.data), 150);
-    };
-
-    forceResignable = (): boolean => {
-      const d = this.data;
-      return !d.opponent.ai &&
-      !!d.clock &&
-      d.opponent.isGone &&
-      !game.isPlayerTurn(d) &&
-      game.resignable(d);
-    }
-
-    canOfferDraw = (): boolean =>
-      game.drawable(this.data) && (this.lastDrawOfferAtPly || -99) < (this.ply - 20);
-
-    offerDraw = (): void => {
-      if (this.canOfferDraw()) {
-        this.lastDrawOfferAtPly = this.ply;
-        this.socket.sendLoading('draw-yes', null)
-      }
-    };
-
-    setChessground = (cg: CgApi) => {
-      this.chessground = cg;
-      if (this.data.pref.keyboardMove) {
-        this.keyboardMove = makeKeyboardMove(cg, round.plyStep(this.data, this.ply), this.redraw);
-      }
-    };
-
-    private delayedInit = () => {
-      if (game.isPlayerPlaying(this.data) && game.nbMoves(this.data, this.data.player.color) === 0) {
-        li.sound.genericNotify();
-      }
-      li.requestIdleCallback(() => {
-        if (game.isPlayerPlaying(this.data)) {
-          if (!this.data.simul) blur.init(this.data.steps.length > 2);
-
-          title.init();
-          this.setTitle();
-
-          window.addEventListener('beforeunload', e => {
-            if (!li.hasToReload && !this.data.blind && game.playable(this.data) && this.data.clock && !this.data.opponent.ai) {
-              document.body.classList.remove('fpmenu');
-              this.socket.send('bye2');
-              const msg = 'There is a game in progress!';
-              (e || window.event).returnValue = msg;
-              return msg;
-            }
-          });
-
-          window.Mousetrap.bind(['esc'], () => this.chessground.cancelMove());
-
-          cevalSub.subscribe(this);
-        }
-
-        keyboard.init(this);
-
-        this.onChange();
-
-      });
-    };
   };
+
+  setRedirecting = () => {
+    this.redirecting = true;
+    setTimeout(() => {
+      this.redirecting = false;
+      this.redraw();
+    }, 2500);
+    this.redraw();
+  };
+
+  submitMove = (v: boolean): void => {
+    if (v && (this.moveToSubmit || this.dropToSubmit)) {
+      if (this.moveToSubmit) this.actualSendMove('move', this.moveToSubmit);
+      else this.actualSendMove('drop', this.dropToSubmit);
+      li.sound.confirmation();
+    } else this.jump(this.ply);
+    this.cancelMove();
+    this.setLoading(true, 300);
+  };
+
+  cancelMove = (): void => {
+    this.moveToSubmit = undefined;
+    this.dropToSubmit = undefined;
+  };
+
+  forecastInfo = (): boolean => {
+    const d = this.data;
+    return game.isPlayerPlaying(d) && d.correspondence && !d.opponent.ai &&
+    !this.replaying() && d.game.turns > 1 && li.once('forecast-info-seen6');
+  }
+
+  private onChange = () => {
+    if (this.opts.onChange) setTimeout(() => this.opts.onChange(this.data), 150);
+  };
+
+  forceResignable = (): boolean => {
+    const d = this.data;
+    return !d.opponent.ai &&
+    !!d.clock &&
+    d.opponent.isGone &&
+    !game.isPlayerTurn(d) &&
+    game.resignable(d);
+  }
+
+  canOfferDraw = (): boolean =>
+    game.drawable(this.data) && (this.lastDrawOfferAtPly || -99) < (this.ply - 20);
+
+  offerDraw = (v: boolean): void => {
+    if (this.canOfferDraw()) {
+      if (this.drawConfirm) {
+        if (v) this.doOfferDraw();
+        this.drawConfirm = false;
+      } else if (v) {
+        if (this.data.pref.confirmResign) this.drawConfirm = true;
+        else this.doOfferDraw();
+      }
+    }
+    this.redraw();
+  };
+
+  private doOfferDraw = () => {
+    this.lastDrawOfferAtPly = this.ply;
+    this.socket.sendLoading('draw-yes', null)
+  };
+
+  setChessground = (cg: CgApi) => {
+    this.chessground = cg;
+    if (this.data.pref.keyboardMove) {
+      this.keyboardMove = makeKeyboardMove(cg, round.plyStep(this.data, this.ply), this.redraw);
+    }
+  };
+
+  private delayedInit = () => {
+    if (game.isPlayerPlaying(this.data) && game.nbMoves(this.data, this.data.player.color) === 0) {
+      li.sound.genericNotify();
+    }
+    li.requestIdleCallback(() => {
+      if (game.isPlayerPlaying(this.data)) {
+        if (!this.data.simul) blur.init(this.data.steps.length > 2);
+
+        title.init();
+        this.setTitle();
+
+        window.addEventListener('beforeunload', e => {
+          if (li.hasToReload || this.data.blind || !game.playable(this.data) || !this.data.clock || this.data.opponent.ai) return;
+          document.body.classList.remove('fpmenu');
+          this.socket.send('bye2');
+          const msg = 'There is a game in progress!';
+          (e || window.event).returnValue = msg;
+          return msg;
+        });
+
+        window.Mousetrap.bind(['esc'], () => this.chessground.cancelMove());
+
+        cevalSub.subscribe(this);
+      }
+
+      keyboard.init(this);
+
+      this.onChange();
+
+    });
+  };
+}

@@ -4,7 +4,7 @@ import RoundController from './ctrl';
 
 export function capture(ctrl: RoundController, key: cg.Key) {
   const exploding: cg.Key[] = [],
-  diff = {},
+  diff: cg.PiecesDiff = {},
   orig = util.key2pos(key),
   minX = Math.max(1, orig[0] - 1),
     maxX = Math.min(8, orig[0] + 1),
@@ -18,7 +18,7 @@ export function capture(ctrl: RoundController, key: cg.Key) {
       exploding.push(k);
       const explodes = pieces[k] && (
         k === key || pieces[k].role !== 'pawn')
-      if (explodes) diff[k] = false;
+      if (explodes) diff[k] = null;
     }
   }
   ctrl.chessground.setPieces(diff);

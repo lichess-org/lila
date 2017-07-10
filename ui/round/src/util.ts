@@ -1,5 +1,8 @@
 import { h } from 'snabbdom'
+import { VNodeData } from 'snabbdom/vnode'
+import { Hooks } from 'snabbdom/hooks'
 import * as cg from 'chessground/types'
+import { opposite } from 'chessground/util';
 import { Redraw } from './interfaces';
 
 const pieceScores = {
@@ -11,9 +14,9 @@ const pieceScores = {
   king: 0
 };
 
-export function dataIcon(icon: string) {
+export function justIcon(icon: string): VNodeData {
   return {
-    'data-icon': icon
+    attrs: { 'data-icon': icon }
   };
 }
 
@@ -21,10 +24,11 @@ export function uci2move(uci: string): cg.Key[] | undefined {
   if (!uci) return undefined;
   if (uci[1] === '@') return [uci.slice(2, 4) as cg.Key];
   return [uci.slice(0, 2), uci.slice(2, 4)] as cg.Key[];
-};
-export function bind(eventName: string, f: (e: Event) => void, redraw: Redraw | undefined = undefined) {
+}
+
+export function bind(eventName: string, f: (e: Event) => void, redraw?: Redraw): Hooks {
   return {
-    insert: vnode => {
+    insert(vnode) {
       (vnode.elm as HTMLElement).addEventListener(eventName, e => {
         const res = f(e);
         if (redraw) redraw();
@@ -33,6 +37,7 @@ export function bind(eventName: string, f: (e: Event) => void, redraw: Redraw | 
     }
   };
 }
+
 export function parsePossibleMoves(possibleMoves) {
   if (!possibleMoves) return {};
   for (let k in possibleMoves) {
@@ -40,39 +45,30 @@ export function parsePossibleMoves(possibleMoves) {
     possibleMoves[k] = possibleMoves[k].match(/.{2}/g);
   }
   return possibleMoves;
-};
+}
+
 // {white: {pawn: 3 queen: 1}, black: {bishop: 2}}
 export function getMaterialDiff(pieces: cg.Pieces): cg.MaterialDiff {
-  let counts = {
-    king: 0,
-    queen: 0,
-    rook: 0,
-    bishop: 0,
-    knight: 0,
-    pawn: 0
-  }, p, role, c, k;
-  for (k in pieces) {
-    p = pieces[k];
-    counts[p.role] += (p.color === 'white' ? 1 : -1);
-  }
-  const diff = {
-    white: {},
-    black: {}
+  const diff: cg.MaterialDiff = {
+    white: { king: 0, queen: 0, rook: 0, bishop: 0, knight: 0, pawn: 0 },
+    black: { king: 0, queen: 0, rook: 0, bishop: 0, knight: 0, pawn: 0 },
   };
-  for (role in counts) {
-    c = counts[role];
-    if (c > 0) diff.white[role] = c;
-    else if (c < 0) diff.black[role] = -c;
+  for (let k in pieces) {
+    const p = pieces[k], them = diff[opposite(p.color)];
+    if (them[p.role] > 0) them[p.role]--;
+    else diff[p.color][p.role]++;
   }
   return diff;
-};
+}
+
 export function getScore(pieces: cg.Pieces): number {
   let score = 0, k;
   for (k in pieces) {
     score += pieceScores[pieces[k].role] * (pieces[k].color === 'white' ? 1 : -1);
   }
   return score;
-};
+}
+
 export function spinner() {
   return h('div.spinner', [
     h('svg', { attrs: { viewBox: '0 0 40 40' } }, [

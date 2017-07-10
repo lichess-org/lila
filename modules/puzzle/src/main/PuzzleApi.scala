@@ -11,7 +11,6 @@ import Puzzle.{ BSONFields => F }
 private[puzzle] final class PuzzleApi(
     puzzleColl: Coll,
     roundColl: Coll,
-    learningColl: Coll,
     voteColl: Coll,
     headColl: Coll,
     puzzleIdMin: PuzzleId,
@@ -78,36 +77,6 @@ private[puzzle] final class PuzzleApi(
     def add(a: Round) = roundColl insert a void
   }
 
-  object learning {
-
-    private implicit val learningBSONHandler = reactivemongo.bson.Macros.handler[Learning]
-
-    def find(user: User): Fu[Option[Learning]] = learningColl.byId[Learning](user.id)
-
-    def add(l: Learning) = learningColl insert l void
-
-    def update(user: User, puzzle: Puzzle, result: Result): Fu[Boolean] =
-      if (result.win) solved(user, puzzle.id)
-      else failed(user, puzzle.id)
-
-    def solved(user: User, puzzleId: PuzzleId): Fu[Boolean] = learning find user flatMap {
-      case None => fuccess(false)
-      case Some(l) =>
-        learningColl.update($id(l.id), l solved puzzleId) inject l.contains(puzzleId)
-    }
-
-    def failed(user: User, puzzleId: PuzzleId): Fu[Boolean] = learning find user flatMap {
-      case None => learning add Learning(user.id, List(puzzleId), List()) inject false
-      case Some(l) =>
-        learningColl.update($id(l.id), l failed puzzleId) inject l.contains(puzzleId)
-    }
-
-    def nextPuzzle(user: User): Fu[Option[Puzzle]] = learning find user flatMap {
-      case None => fuccess(none)
-      case Some(l) => l.nextPuzzleId ?? puzzle.find
-    }
-  }
-
   object vote {
 
     def value(id: PuzzleId, user: User): Fu[Option[Boolean]] =
@@ -146,17 +115,7 @@ private[puzzle] final class PuzzleApi(
 
     def find(user: User): Fu[Option[PuzzleHead]] = headColl.byId[PuzzleHead](user.id)
 
-    def add(h: PuzzleHead) = headColl update (
-      $id(h.id),
-      h,
-      upsert = true
-    ) void
-
-    def addLearning(user: User, puzzleId: PuzzleId) = headColl update (
-      $id(user.id),
-      $set(PuzzleHead.BSONFields.current -> puzzleId.some),
-      upsert = true
-    ) void
+    def add(h: PuzzleHead) = headColl.update($id(h.id), h, upsert = true) void
 
     def addNew(user: User, puzzleId: PuzzleId) = add(PuzzleHead(user.id, puzzleId.some, puzzleId))
 

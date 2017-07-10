@@ -24,6 +24,7 @@ final class Env(
     val CaptcherDuration = config duration "captcher.duration"
     val CollectionGame = config getString "collection.game"
     val CollectionCrosstable = config getString "collection.crosstable"
+    val CollectionMatchup = config getString "collection.matchup"
     val UciMemoTtl = config duration "uci_memo.ttl"
     val netBaseUrl = config getString "net.base_url"
     val PngUrl = config getString "png.url"
@@ -60,6 +61,7 @@ final class Env(
 
   lazy val crosstableApi = new CrosstableApi(
     coll = db(CollectionCrosstable),
+    matchupColl = db(CollectionMatchup),
     gameColl = gameColl,
     asyncCache = asyncCache,
     system = system

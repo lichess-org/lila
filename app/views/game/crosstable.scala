@@ -5,34 +5,54 @@ import play.twirl.api.Html
 import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment._
+import lila.game.Crosstable
 
 object crosstable {
 
-  def apply(ct: lila.game.Crosstable, currentId: Option[String])(implicit ctx: Context) = Html {
+  def apply(ct: Crosstable.WithMatchup, currentId: Option[String])(implicit ctx: Context): Html =
+    apply(ct.crosstable, ct.matchup, currentId)(ctx)
 
-    val users = ct.users.map { u =>
+  def apply(ct: Crosstable, trueMatchup: Option[Crosstable.Matchup], currentId: Option[String])(implicit ctx: Context): Html = Html {
+
+    val matchup = trueMatchup.filter(_.users != ct.users)
+
+    val users = ct.users.toList.map { u =>
 
       val fill = ct.fill.map { i =>
-        s"""<td${if (i == 20) " class=\"last\"" else ""}><a>&nbsp;</a></td>"""
+        s"""<td${if (i == Crosstable.maxGames) " class=\"last\"" else ""}><a>&nbsp;</a></td>"""
       } mkString ""
+
+      val matchupSepAt: Option[Int] = matchup map { m =>
+        Crosstable.maxGames - m.users.nbGames
+      }
 
       val results = ct.results.zipWithIndex.map {
         case (r, i) =>
           val href = s"""${routes.Round.watcher(r.gameId, "white")}?pov=${u.id}"""
-          val (klass, text) = r.winnerId match {
+          val (linkClass, text) = r.winnerId match {
             case Some(w) if w == u.id => "glpt win" -> "1"
             case None => "glpt" -> "½"
             case _ => "glpt loss" -> "0"
           }
-          val link = s"""<a href="$href" class="$klass">$text</a>"""
-          s"""<td${if (currentId contains r.gameId) " class=\"current\"" else ""}>$link</td>"""
+          val link = s"""<a href="$href" class="$linkClass">$text</a>"""
+          val outClass = matchupSepAt.fold("") { at =>
+            if (at == i) "sep new"
+            else if (at > i) "old"
+            else "new"
+          }
+          val current = if (currentId contains r.gameId) " current" else ""
+          s"""<td class="$outClass$current">$link</td>"""
       } mkString ""
 
-      val score = s"""<th class="score${ct.winnerId.fold("")(w => if (w == u.id) " win" else " loss")}">${ct.showScore(u.id)}</th>"""
+      val matchScore = matchup ?? { m =>
+        s"""<th title="Current match score" class="matchup${m.users.winnerId.fold("")(w => if (w == u.id) " win" else " loss")}">${m.users.showScore(u.id)}</th>"""
+      }
 
       val user = s"""<th class="user">${userIdLink(u.id.some, withOnline = false)}</th>"""
 
-      s"""<tr>$fill$results$score$user</tr>"""
+      val score = s"""<th title="Lifetime score" class="score${ct.users.winnerId.fold("")(w => if (w == u.id) " win" else " loss")}">${ct.showScore(u.id)}</th>"""
+
+      s"""<tr>$fill$results$matchScore$user$score</tr>"""
 
     } mkString ""
 

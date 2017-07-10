@@ -1,9 +1,12 @@
 import { Chessground } from 'chessground';
+import * as cg from 'chessground/types';
+import { Api as CgApi } from 'chessground/api';
 import { Config } from 'chessground/config'
 import { game } from 'game';
 import * as util from './util';
 import { plyStep } from './round';
 import RoundController from './ctrl';
+import { RoundData } from './interfaces';
 
 import { h } from 'snabbdom'
 
@@ -73,29 +76,29 @@ function makeConfig(ctrl: RoundController): Config {
   };
 }
 
-export function reload(ctrl) {
+export function reload(ctrl: RoundController) {
   ctrl.chessground.set(makeConfig(ctrl));
 }
 
-export function promote(cg, key, role) {
-  const piece = cg.state.pieces[key];
+export function promote(ground: CgApi, key: cg.Key, role: cg.Role) {
+  const piece = ground.state.pieces[key];
   if (piece && piece.role === 'pawn') {
-    const pieces = {};
+    const pieces: cg.Pieces = {};
     pieces[key] = {
       color: piece.color,
       role,
       promoted: true
     };
-    cg.setPieces(pieces);
+    ground.setPieces(pieces);
   }
 }
 
-export function boardOrientation(data, flip) {
+export function boardOrientation(data: RoundData, flip: boolean): Color {
   if (data.game.variant.key === 'racingKings') return flip ? 'black': 'white';
   else return flip ? data.opponent.color : data.player.color;
 }
 
-export function render(ctrl) {
+export function render(ctrl: RoundController) {
   return h('div.cg-board-wrap', {
     hook: {
       insert(vnode) {

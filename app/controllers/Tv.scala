@@ -21,7 +21,7 @@ object Tv extends LilaController {
       case Some(channel) =>
         OptionFuResult(GameRepo.pov(gameId, color)) { pov =>
           Env.tv.tv.getChampions zip
-            Env.game.crosstableApi(pov.game) map {
+            Env.game.crosstableApi.withMatchup(pov.game) map {
               case (champions, crosstable) => Ok(html.tv.sides(channel, champions, pov, crosstable, streams = Nil))
             }
         }
@@ -37,7 +37,7 @@ object Tv extends LilaController {
         negotiate(
           html = {
           Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = onTv.some) zip
-            Env.game.crosstableApi(game) zip
+            Env.game.crosstableApi.withMatchup(game) zip
             Env.tv.tv.getChampions map {
               case ((data, cross), champions) => NoCache {
                 NoIframe { // can be heavy as TV reloads for each game

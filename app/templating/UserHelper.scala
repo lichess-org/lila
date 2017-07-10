@@ -82,7 +82,8 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     withOnline: Boolean = true,
     withTitle: Boolean = true,
     truncate: Option[Int] = None,
-    params: String = ""
+    params: String = "",
+    modIcon: Boolean = false
   ): Html = Html {
     userIdOption.flatMap(lightUser).fold(User.anonymous) { user =>
       userIdNameLink(
@@ -94,7 +95,8 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
         withOnline = withOnline,
         withTitle = withTitle,
         truncate = truncate,
-        params = params
+        params = params,
+        modIcon = modIcon
       )
     }
   }
@@ -116,7 +118,8 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       withOnline = withOnline,
       withTitle = withTitle,
       truncate = truncate,
-      params = params
+      params = params,
+      modIcon = false
     )
   }
 
@@ -139,13 +142,14 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     withTitle: Boolean,
     truncate: Option[Int],
     title: Option[String],
-    params: String
+    params: String,
+    modIcon: Boolean
   ): String = {
     val klass = userClass(userId, cssClass, withOnline)
     val href = userHref(username, params = params)
     val content = truncate.fold(username)(username.take)
     val titleS = if (withTitle) titleTag(title) else ""
-    val icon = withOnline ?? lineIcon(isPatron)
+    val icon = withOnline ?? (if (modIcon) moderatorIcon else lineIcon(isPatron))
     s"""<a $klass $href>$icon$titleS$content</a>"""
   }
 
@@ -276,6 +280,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
 
   val lineIcon: String = """<i class="line"></i>"""
   val patronIcon: String = """<i class="line patron" title="lichess Patron"></i>"""
+  val moderatorIcon: String = """<i class="line moderator" title="lichess Moderator"></i>"""
   private def lineIcon(patron: Boolean): String = if (patron) patronIcon else lineIcon
   private def lineIcon(user: Option[LightUser]): String = lineIcon(user.??(_.isPatron))
   def lineIcon(user: User): String = lineIcon(user.isPatron)

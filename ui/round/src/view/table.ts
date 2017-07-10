@@ -63,16 +63,16 @@ function tournamentStartWarning(ctrl: RoundController) {
 }
 
 function renderTablePlay(ctrl: RoundController) {
-  const d = ctrl.data;
-  const loading = isLoading(ctrl);
-  let submit = button.submitMove(ctrl);
-  let icons = (loading || submit) ? [] : [
+  const d = ctrl.data,
+  loading = isLoading(ctrl),
+  submit = button.submitMove(ctrl),
+  icons = (loading || submit) ? [] : [
     game.abortable(d) ? button.standard(ctrl, undefined, 'L', 'abortGame', 'abort') :
     button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes', ctrl.takebackYes),
-    button.standard(ctrl, ctrl.canOfferDraw, '2', 'offerDraw', 'draw-yes', ctrl.offerDraw),
+    ctrl.drawConfirm ? button.drawConfirm(ctrl) : button.standard(ctrl, ctrl.canOfferDraw, '2', 'offerDraw', 'draw-yes', () => ctrl.offerDraw(true)),
     ctrl.resignConfirm ? button.resignConfirm(ctrl) : button.standard(ctrl, game.resignable, 'b', 'resign', 'resign-confirm', () => ctrl.resign(true))
-  ];
-  let buttons: MaybeVNodes = loading ? [loader()] : (submit ? [submit] : [
+  ],
+  buttons: MaybeVNodes = loading ? [loader()] : (submit ? [submit] : [
     button.forceResign(ctrl),
     button.threefoldClaimDraw(ctrl),
     button.cancelDrawOffer(ctrl),
@@ -83,7 +83,9 @@ function renderTablePlay(ctrl: RoundController) {
   ]);
   return [
     renderReplay(ctrl),
-    h('div.control.icons', icons),
+    h('div.control.icons', {
+      class: { 'confirm': ctrl.drawConfirm || ctrl.resignConfirm }
+    }, icons),
     h('div.control.buttons', buttons),
     renderPlayer(ctrl, bottomPlayer(ctrl))
   ];

@@ -14,7 +14,7 @@ case class UserInfo(
     ranks: lila.rating.UserRankMap,
     nbPlaying: Int,
     hasSimul: Boolean,
-    crosstable: Option[Crosstable],
+    crosstable: Option[Crosstable.WithMatchup],
     nbBookmark: Int,
     nbImported: Int,
     ratingChart: Option[String],
@@ -33,7 +33,7 @@ case class UserInfo(
 
   def nbRated = user.count.rated
 
-  def nbWithMe = crosstable ?? (_.nbGames)
+  def nbWithMe = crosstable ?? (_.crosstable.nbGames)
 
   def percentRated: Int = math.round(nbRated / user.count.game.toFloat * 100)
 
@@ -89,7 +89,7 @@ object UserInfo {
     getRanks(user.id) zip
       (gameCached nbPlaying user.id) zip
       gameCached.nbImportedBy(user.id) zip
-      (ctx.me.filter(user!=) ?? { me => crosstableApi(me.id, user.id) }) zip
+      (ctx.me.filter(user!=) ?? { me => crosstableApi.withMatchup(me.id, user.id) }) zip
       getRatingChart(user) zip
       relationApi.countFollowers(user.id) zip
       (ctx.me ?? Granter(_.UserSpy) ?? { relationApi.countBlockers(user.id) map (_.some) }) zip

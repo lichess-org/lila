@@ -127,6 +127,9 @@ time {
 .user_link .line.patron::before {
   content: '';
 }
+.user_link .line.moderator::before {
+  content: '';
+}
 
 body.blind_mode .is::before,
 body.blind_mode .is::after,
@@ -1004,6 +1007,7 @@ div.join_warning {
 /* soft inactive gradient */
 
 .crosstable th,
+.crosstable td,
 #friend_box .title,
 div.side_box div.top,
 div.box div.top,
@@ -1428,16 +1432,15 @@ div.undertable_inner {
 }
 .crosstable td {
   text-align: center;
-  border: 1px solid #eee;
+  border: 1px solid #e0e0e0;
   padding: 0;
-  min-width: 15px;
+  min-width: 13px;
 }
 .crosstable td a {
   line-height: 2em;
   font-size: 1.1em;
   display: block;
   width: 100%;
-  background: #fff;
 }
 .crosstable tr:first-child td:hover a,
 .crosstable tr:first-child td.current a {
@@ -1454,6 +1457,17 @@ div.undertable_inner {
 .crosstable tr td.current a {
   border-color: #d85000!important;
 }
+.crosstable td.old a {
+  text-shadow: 0 1px 0 #FFF;
+  color: #848484;
+}
+.crosstable td.new {
+  background: #fff;
+}
+.crosstable td.sep,
+.crosstable th.user {
+  border-left: 2px solid #aaa;
+}
 body.base .crosstable .win {
   font-weight: bold;
   color: #759900;
@@ -1468,13 +1482,19 @@ body.base .crosstable .loss {
   border: 1px solid #ccc;
   padding: 3px;
 }
-.crosstable .score {
+.crosstable .score,
+.crosstable .matchup {
   font-size: 1.3em;
   text-align: right;
   padding-right: 7px;
 }
+.crosstable .matchup {
+  background: #fff;
+}
 .crosstable .user {
   padding-left: 7px;
+  max-width: 112px;
+  overflow: hidden;
 }
 .crosstable .unavailable {
   margin-top: 40px;

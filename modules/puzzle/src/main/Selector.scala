@@ -14,7 +14,7 @@ private[puzzle] final class Selector(
 
   private val toleranceMax = 1000
 
-  val anonSkipMax = 5000
+  private val anonSkipMax = 5000
 
   def apply(me: Option[User]): Fu[Puzzle] = {
     lila.mon.puzzle.selector.count()
@@ -29,17 +29,9 @@ private[puzzle] final class Selector(
         api.head.find(user) flatMap {
           case Some(PuzzleHead(_, Some(c), _)) => api.puzzle.find(c)
           case _ =>
-            val isLearn = scala.util.Random.nextInt(7) == 0
-            val next = if (isLearn) api.learning.nextPuzzle(user) flatMap {
-              case None => newPuzzleForUser(user)
-              case p => fuccess(p)
+            newPuzzleForUser(user) flatMap { next =>
+              next.?? { p => api.head.addNew(user, p.id) } inject next
             }
-            else newPuzzleForUser(user)
-            (next flatMap {
-              case Some(p) if isLearn => api.head.addLearning(user, p.id)
-              case Some(p) => api.head.addNew(user, p.id)
-              case _ => fuccess(none)
-            }) >> next
         }
     }
   }.mon(_.puzzle.selector.time) flatten "No puzzles available" addEffect { puzzle =>
