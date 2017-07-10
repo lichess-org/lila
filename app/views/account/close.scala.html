@@ -2,27 +2,23 @@
 
 @title = @{ s"${u.username} - ${trans.closeAccount.txt()}" }
 
-@account.layout(title = title, active = "close") {
+@account.layout(title = title, active = "close", evenMoreCss = cssTag("material.form.css")) {
 <div class="content_box small_box high">
   <div class="signup_box">
     <h1 class="lichess_title">@trans.closeAccount()</h1>
     <p class="explanation">
       @trans.closeAccountExplanation()
     </p>
-    <form action="@routes.Account.closeConfirm" method="POST">
-      <ul>
-        @account.passwdFormField(form("passwd"), trans.password())
-        <li>@errMsg(form)</li>
-        <li>
-          <button type="submit" class="submit button">@trans.closeAccount()</button>
-        </li>
-        <li>
-          <a href="@routes.User.show(u.username)">
-            @trans.changedMindDoNotCloseAccount()
-          </a>
-        </li>
-      </ul>
+    <form class="material form" action="@routes.Account.closeConfirm" method="POST">
+        @passwdFormField(form("passwd"), trans.password())
+        @errMsg(form)
+        <div class="button-container">
+          <button type="submit" class="submit button text">@trans.closeAccount()</button>
+        </div>
     </form>
+    <a href="@routes.User.show(u.username)">
+      @trans.changedMindDoNotCloseAccount()
+    </a>
   </div>
 </div>
 }
