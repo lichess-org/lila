@@ -34,9 +34,9 @@ export function enrichText(text: string, allowNewlines: boolean): string {
 }
 
 export function currentComments(ctrl: AnalyseController, includingMine: boolean): VNode | undefined {
-  const node = ctrl.node;
-  const chapter = ctrl.study.currentChapter();
-  const comments = node.comments || [];
+  const node = ctrl.node,
+  chapter = ctrl.study.currentChapter(),
+  comments = node.comments || [];
   if (!comments.length) return;
   return h('div.study_comments', comments.map(function(comment) {
     const isMine = comment.by && (comment.by as any).id && ctrl.opts.userId === (comment.by as any).id;
@@ -69,7 +69,7 @@ export function currentComments(ctrl: AnalyseController, includingMine: boolean)
       ] : []),
       ': ',
       h('div.text', {
-        hook: innerHTML(enrichText(comment.text, false))
+        hook: innerHTML(enrichText(comment.text, true))
       })
     ]);
   }));
