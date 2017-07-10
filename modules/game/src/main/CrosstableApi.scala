@@ -68,29 +68,22 @@ final class CrosstableApi(
             "$slice" -> -Crosstable.maxGames
           )
         ))
-      val updateMatchup = getMatchup(u1, u2).flatMap {
-        case None => matchupColl.insert($doc(
-          F.id -> Crosstable.makeKey(u1, u2),
-          F.score1 -> inc1.some.filter(0 !=),
-          F.score2 -> inc2.some.filter(0 !=),
-          F.lastPlayed -> DateTime.now
-        ))
-        case Some(matchup) => matchupColl.update(select(u1, u2), $set(
-          F.score1 -> (matchup.users.user1.score + inc1),
-          F.score2 -> (matchup.users.user2.score + inc2),
-          F.lastPlayed -> DateTime.now
-        ))
-      }
+      val updateMatchup =
+        matchupColl.update(select(u1, u2), $inc(
+          F.score1 -> inc1,
+          F.score2 -> inc2
+        ) ++ $set(
+            F.lastPlayed -> DateTime.now
+          ), upsert = true)
       updateCrosstable zip updateMatchup void
     }
     case _ => funit
   }
 
-  private def getMatchup(u1: String, u2: String): Fu[Option[Matchup]] =
-    matchupColl.find(select(u1, u2), $doc(F.lastPlayed -> false)).uno[Matchup]
+  private val matchupProjection = $doc(F.lastPlayed -> false)
 
-  private def getOrCreateMatchup(u1: String, u2: String): Fu[Matchup] =
-    getMatchup(u1, u2) dmap { _ | Matchup(Users(User(u1, 0), User(u2, 0))) }
+  private def getMatchup(u1: String, u2: String): Fu[Option[Matchup]] =
+    matchupColl.find(select(u1, u2), matchupProjection).uno[Matchup]
 
   private def createWithTimeout(u1: String, u2: String, timeout: FiniteDuration) =
     creationCache.get(u1 -> u2).withTimeoutDefault(timeout, none)(system)
