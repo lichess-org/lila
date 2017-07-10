@@ -2,6 +2,7 @@ import { h } from 'snabbdom'
 import { Hooks } from 'snabbdom/hooks'
 import { Attrs } from 'snabbdom/modules/attributes'
 import { fixCrazySan } from 'chess';
+import { AnalyseData } from './interfaces';
 
 export function bind(eventName: string, f: (e: Event) => any, redraw?: () => void): Hooks {
   return {
@@ -35,7 +36,7 @@ export function plyToTurn(ply: number): number {
   return Math.floor((ply - 1) / 2) + 1;
 }
 
-export function synthetic(data): boolean {
+export function synthetic(data: AnalyseData): boolean {
   return data.game.id === 'synthetic';
 }
 
