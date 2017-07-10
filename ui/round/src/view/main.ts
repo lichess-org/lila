@@ -15,17 +15,18 @@ import RoundController from '../ctrl';
 import * as cg from 'chessground/types';
 
 function renderMaterial(material: cg.MaterialDiffSide, checks?: number, score?: number) {
-  var children: VNode[] = [];
+  const children: VNode[] = [];
   if (score || score === 0)
     children.push(h('score', (score > 0 ? '+' : '') + score));
-  for (let role in material) {
-    const content: VNode[] = [];
-    for (let i = 0; i < material[role]; i++) content.push(h('mono-piece.' + role));
-    children.push(h('tomb', content));
+  let role: string, i: number;
+  for (role in material) {
+    if (material[role] > 0) {
+      const content: VNode[] = [];
+      for (i = 0; i < material[role]; i++) content.push(h('mono-piece.' + role));
+      children.push(h('tomb', content));
+    }
   }
-  if (checks) for (let i = 0; i < checks; i++) {
-    children.push(h('tomb', h('mono-piece.king')));
-  }
+  if (checks) for (i = 0; i < checks; i++) children.push(h('tomb', h('mono-piece.king')));
   return h('div.cemetery', children);
 }
 
@@ -67,7 +68,7 @@ export function main(ctrl: RoundController): VNode {
   cgState = ctrl.chessground && ctrl.chessground.state,
   topColor = d[ctrl.flip ? 'player' : 'opponent'].color,
   bottomColor = d[ctrl.flip ? 'opponent' : 'player'].color;
-  let material, score;
+  let material: cg.MaterialDiff, score: number | undefined = undefined;
   if (d.pref.showCaptured) {
     var pieces = cgState ? cgState.pieces : fenRead(plyStep(ctrl.data, ctrl.ply).fen);
     material = util.getMaterialDiff(pieces);
