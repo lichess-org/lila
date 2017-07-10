@@ -48,7 +48,7 @@ object crosstable {
         s"""<th title="Current match score" class="matchup${m.users.winnerId.fold("")(w => if (w == u.id) " win" else " loss")}">${m.users.showScore(u.id)}</th>"""
       }
 
-      val user = s"""<th class="user">${userIdLink(u.id.some, withOnline = false)}</th>"""
+      val user = s"""<th class="user">${userIdLink(u.id.some, withOnline = false, withTitle = false)}</th>"""
 
       val score = s"""<th title="Lifetime score" class="score${ct.users.winnerId.fold("")(w => if (w == u.id) " win" else " loss")}">${ct.showScore(u.id)}</th>"""
 

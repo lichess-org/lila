@@ -14,7 +14,7 @@ export function aiName(ctrl: RoundController, player: Player) {
   return ctrl.trans('aiNameLevelAiLevel', 'Stockfish', player.ai);
 }
 
-export function userHtml(ctrl: RoundController, player: Player) {
+export function userHtml(ctrl: RoundController, player: Player, withTitle = true) {
   const d = ctrl.data,
   user = player.user,
   perf = user ? user.perfs[d.game.perf] : null,
@@ -40,7 +40,7 @@ export function userHtml(ctrl: RoundController, player: Player) {
           href: '/@/' + user.username,
           target: game.isPlayerPlaying(d) ? '_blank' : '_self'
         }
-      }, user.title ? [h('span.title', user.title), ' ', user.username] : [user.username]),
+      }, withTitle && user.title ? [h('span.title', user.title), ' ', user.username] : [user.username]),
       rating ? h('rating', rating + (player.provisional ? '?' : '')) : null,
       ratingDiff(player),
       player.engine ? h('span', {
