@@ -5,10 +5,11 @@ import AnalyseController from './ctrl';
 import { game } from 'game';
 import { bind, dataIcon } from './util';
 
-function renderRatingDiff(rd: number): VNode | undefined {
+function renderRatingDiff(rd: number | undefined): VNode | undefined {
   if (rd === 0) return h('span.rp.null', '±0');
-  if (rd > 0) return h('span.rp.up', '+' + rd);
-  if (rd < 0) return h('span.rp.down', '' + rd);
+  if (rd && rd > 0) return h('span.rp.up', '+' + rd);
+  if (rd && rd < 0) return h('span.rp.down', '' + rd);
+  return;
 }
 
 function renderPlayer(data: AnalyseData, color: Color): VNode {
@@ -17,7 +18,7 @@ function renderPlayer(data: AnalyseData, color: Color): VNode {
     attrs: { href: '/@/' + p.user.username }
   }, [
     h('span', p.user.username),
-    renderRatingDiff(p.ratingDiff!)
+    renderRatingDiff(p.ratingDiff)
   ]);
   return h('span', p.name || (p.ai ? 'Stockfish level ' + p.ai : 'Anonymous'));
 }

@@ -43,7 +43,14 @@ export interface Game {
   initialFen?: string;
   importedBy?: string;
   division?: Division;
+  opening?: Opening;
   perf: string;
+}
+
+export interface Opening {
+  name: string;
+  eco: string;
+  ply: number;
 }
 
 export interface Division {

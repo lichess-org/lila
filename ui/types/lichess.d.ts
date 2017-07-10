@@ -199,8 +199,8 @@ declare namespace Tree {
   }
 
   export interface Opening {
+    name: string;
     eco: string;
-    symbol: string;
   }
 
   export interface Glyph {

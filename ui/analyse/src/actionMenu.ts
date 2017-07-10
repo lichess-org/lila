@@ -1,5 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
+import { Hooks } from 'snabbdom/hooks'
 import { AnalyseData, MaybeVNodes } from './interfaces';
 import { AutoplayDelay } from './autoplay';
 import AnalyseController from './ctrl';
@@ -63,7 +64,7 @@ function autoplayButtons(ctrl: AnalyseController): VNode {
   }));
 }
 
-function rangeConfig(read: () => number, write: (number) => void) {
+function rangeConfig(read: () => number, write: (value: number) => void): Hooks {
   return {
     insert: vnode => {
       const el = vnode.elm as HTMLInputElement;
