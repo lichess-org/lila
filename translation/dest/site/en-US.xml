@@ -72,7 +72,23 @@
   <string name="averageRatingX">Average rating: %s</string>
   <string name="recentGames">Recent games</string>
   <string name="topGames">Top games</string>
+  <string name="masterDbExplanation">Two million OTB games, by 2200+ FIDE rated players, from 1952 to 2016</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Mate in %s half-move</item>
+    <item quantity="other">Mate in %s half-moves</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Next capture or pawn move in %s half-move (Distance To Zeroing of the 50 move counter)</item>
+    <item quantity="other">Next capture or pawn move in %s half-moves (Distance To Zeroing of the 50 move counter)</item>
+  </plurals>
+  <string name="noGameFound">No game found</string>
+  <string name="alreadySearchingThroughAllAvailableGames">Already searching through all available games</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Maybe include more games from the preferences menu?</string>
   <string name="openingExplorer">Opening explorer &amp; tablebase</string>
+  <string name="xOpeningExplorer">%s opening explorer</string>
+  <string name="winPreventedBy50MoveRule">Win prevented by 50-move rule</string>
+  <string name="lossSavedBy50MoveRule">Loss saved by 50-move rule</string>
+  <string name="allSet">OK</string>
   <string name="blunders">Blunders</string>
   <string name="mistakes">Mistakes</string>
   <string name="inaccuracies">Inaccuracies</string>
@@ -214,6 +230,7 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">This player uses chess computer assistance</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">This player artificially increases/decreases their rating</string>
+  <string name="openingExplorerAndTablebase">Opening explorer &amp; tablebase</string>
   <string name="takeback">Takeback</string>
   <string name="proposeATakeback">Propose a takeback</string>
   <string name="takebackPropositionSent">Takeback sent</string>
