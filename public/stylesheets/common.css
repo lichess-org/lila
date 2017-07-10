@@ -252,9 +252,6 @@ group.radio input:checked + label {
   width: 32px;
   height: 8px;
 }
-body.dark .ddloader {
-  background-image: url(../images/loader/whitex1.png);
-}
 
 #powerTip,
 #hook,
@@ -1431,9 +1428,8 @@ div.undertable_inner {
 }
 .crosstable td {
   text-align: center;
-  background: linear-gradient(to bottom, rgba(245, 245, 245, 1) 0%, rgba(240, 240, 240, 1) 100%);
-  color: #848484;
-  border: 1px solid #e0e0e0;
+  background: #fff;
+  border: 1px solid #eee;
   padding: 0;
   min-width: 13px;
 }
@@ -1445,25 +1441,33 @@ div.undertable_inner {
 }
 .crosstable tr:first-child td:hover a,
 .crosstable tr:first-child td.current a {
-  padding-top: 4px;
-  margin-top: -6px;
+  padding-top: 2px;
+  margin-top: -4px;
   border-top: 2px solid #808080;
 }
 .crosstable tr:last-child td:hover a,
 .crosstable tr:last-child td.current a {
-  padding-bottom: 4px;
-  margin-bottom: -6px;
+  padding-bottom: 2px;
+  margin-bottom: -4px;
   border-bottom: 2px solid #808080;
 }
 .crosstable tr td.current a {
   border-color: #d85000!important;
 }
 .crosstable td.new {
-  background: #fff;
+  border: 1px solid #ccc;
+}
+.crosstable tr:first-child td.new,
+.crosstable tr:first-child th.matchup {
+  border-top: 3px solid #ccc;
+}
+.crosstable tr:last-child td.new,
+.crosstable tr:last-child th.matchup {
+  border-bottom: 3px solid #ccc;
 }
 .crosstable td.sep,
 .crosstable th.user {
-  border-left: 2px solid #aaa;
+  border-left: 3px solid #ccc;
 }
 body.base .crosstable .win {
   font-weight: bold;
@@ -1482,8 +1486,7 @@ body.base .crosstable .loss {
 .crosstable .score,
 .crosstable .matchup {
   font-size: 1.3em;
-  text-align: right;
-  padding-right: 7px;
+  text-align: center;
 }
 .crosstable .matchup {
   background: #fff;

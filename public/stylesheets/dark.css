@@ -25,6 +25,7 @@ body.dark div.analysis_menu > a.active {
   border-top-color: #1a1a1a;
 }
 body.dark .crosstable td {
+  background: #2a2a2a;
   border-color: #1a1a1a;
 }
 body.dark #video_side .tag_list a.full:hover {
@@ -153,6 +154,11 @@ body.dark div.content_box.prefs form li,
 body.dark div.content_box.prefs fieldset,
 body.dark #claim_draw_zone,
 body.dark .crosstable th,
+body.dark .crosstable tr:first-child td.new,
+body.dark .crosstable tr:first-child th.matchup,
+body.dark .crosstable tr:last-child td.new,
+body.dark .crosstable tr:last-child th.matchup,
+body.dark .crosstable td.sep,
 body.dark #lichess_blog .list h1,
 body.dark #lichess_blog .body h2,
 body.dark #lichess_blog .body img,
@@ -177,9 +183,6 @@ body.dark #tournament .controls,
 body.dark .rematch-decline,
 body.dark div.mchat .chat_tabs .tab {
   border-color: #3d3d3d;
-}
-body.dark .crosstable td:nth-last-child(3) {
-  border-right-color: #3d3d3d;
 }
 body.dark .tview2 > index,
 body.dark .tview2 > interrupt,
@@ -234,7 +237,6 @@ body.dark .undertable_top span.title {
 body.dark .user_show .fire_trophy {
   color: #666;
 }
-body.dark .crosstable td,
 body.dark #promotion_choice {
   background: rgba(0, 0, 0, 0.7);
 }
@@ -561,6 +563,9 @@ body.dark input.cmn-toggle-round + label:after {
 }
 body.dark signal > i.off {
   background-color: #555;
+}
+body.dark .ddloader {
+  background-image: url(../images/loader/whitex1.png);
 }
 body.dark ::-webkit-scrollbar,
 body.dark ::-webkit-scrollbar-corner {
