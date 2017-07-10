@@ -1458,10 +1458,6 @@ div.undertable_inner {
 .crosstable tr td.current a {
   border-color: #d85000!important;
 }
-.crosstable td.old a {
-  text-shadow: 0 1px 0 #FFF;
-  color: #848484;
-}
 .crosstable td.new {
   background: #fff;
 }
