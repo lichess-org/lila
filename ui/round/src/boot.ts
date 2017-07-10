@@ -39,7 +39,7 @@ export default function(opts: RoundOpts, element: HTMLElement): void {
             }
           });
         },
-        tournamentStanding(id) {
+        tournamentStanding(id: string) {
           if (data.tournament && id === data.tournament.id) $.ajax({
             url: '/tournament/' + id + '/game-standing',
             success: function(html) {
@@ -71,7 +71,7 @@ export default function(opts: RoundOpts, element: HTMLElement): void {
   };
   opts.crosstableEl = element.querySelector('.crosstable') as HTMLElement;
 
-  let $watchers;
+  let $watchers: JQuery;
   function letsGo() {
     round = window['LichessRound'].app(opts);
     if (opts.chat) {

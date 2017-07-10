@@ -2,6 +2,7 @@ import { h } from 'snabbdom'
 import { VNodeData } from 'snabbdom/vnode'
 import { Hooks } from 'snabbdom/hooks'
 import * as cg from 'chessground/types'
+import { opposite } from 'chessground/util';
 import { Redraw } from './interfaces';
 
 const pieceScores = {
@@ -48,26 +49,14 @@ export function parsePossibleMoves(possibleMoves) {
 
 // {white: {pawn: 3 queen: 1}, black: {bishop: 2}}
 export function getMaterialDiff(pieces: cg.Pieces): cg.MaterialDiff {
-  let counts = {
-    king: 0,
-    queen: 0,
-    rook: 0,
-    bishop: 0,
-    knight: 0,
-    pawn: 0
-  }, p, role, c, k;
-  for (k in pieces) {
-    p = pieces[k];
-    counts[p.role] += (p.color === 'white' ? 1 : -1);
-  }
-  const diff = {
-    white: {},
-    black: {}
+  const diff: cg.MaterialDiff = {
+    white: { king: 0, queen: 0, rook: 0, bishop: 0, knight: 0, pawn: 0 },
+    black: { king: 0, queen: 0, rook: 0, bishop: 0, knight: 0, pawn: 0 },
   };
-  for (role in counts) {
-    c = counts[role];
-    if (c > 0) diff.white[role] = c;
-    else if (c < 0) diff.black[role] = -c;
+  for (let k in pieces) {
+    const p = pieces[k], them = diff[opposite(p.color)];
+    if (them[p.role] > 0) them[p.role]--;
+    else diff[p.color][p.role]++;
   }
   return diff;
 }
