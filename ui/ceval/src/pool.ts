@@ -20,15 +20,16 @@ export abstract class AbstractWorker {
   }
 
   start(work: Work) {
-    const timeout = new Promise((_resolve, reject) => {
-      setTimeout(reject, 1000);
-    });
-
-    Promise.race([this.stop(), timeout]).catch(() => {
-      this.destroy();
-      this.protocol = sync(this.boot());
-    }).then(() => {
-      this.protocol.promise.then(protocol => protocol.start(work));
+    // wait for boot
+    this.protocol.promise.then(protocol => {
+      const timeout = new Promise((_, reject) => setTimeout(reject, 1000));
+      Promise.race([protocol.stop(), timeout]).catch(() => {
+        // reboot if not stopped after 1s
+        this.destroy();
+        this.protocol = sync(this.boot());
+      }).then(() => {
+        this.protocol.promise.then(protocol => protocol.start(work));
+      });
     });
   }
 
