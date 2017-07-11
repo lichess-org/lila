@@ -52,6 +52,7 @@
   <string name="usingServerAnalysis">U uporabi je serverska analiza</string>
   <string name="cloudAnalysis">Analiza u oblaku</string>
   <string name="goDeeper">Idi dublje</string>
+  <string name="showThreat">Pokaži prijetnju</string>
   <string name="toggleLocalEvaluation">Prekidač za lokalnu evaluaciju</string>
   <string name="openingExplorer">Pretraživač otvaranja &amp; baza pozicija u završnici</string>
   <string name="allSet">U redu</string>
