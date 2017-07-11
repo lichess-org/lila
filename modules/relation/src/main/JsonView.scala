@@ -20,7 +20,7 @@ object JsonView {
     // We use 'd' for backward compatibility with the mobile client
     Json.obj(
       "t" -> "following_onlines",
-      "d" -> onlineFriends.users.map(_.titleName),
+      "d" -> onlineFriends.users.map(_.name),
       "playing" -> onlineFriends.playing,
       "studying" -> onlineFriends.studying,
       "patrons" -> onlineFriends.patrons
@@ -31,7 +31,7 @@ object JsonView {
     // We use 'd' for backward compatibility with the mobile client
     Json.obj(
       "t" -> "following_enters",
-      "d" -> friendEntering.user.titleName,
+      "d" -> friendEntering.user.name,
       "playing" -> friendEntering.isPlaying,
       "studying" -> friendEntering.isStudying,
       "patron" -> friendEntering.user.isPatron
