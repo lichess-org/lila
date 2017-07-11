@@ -53,6 +53,7 @@
   <string name="cloudAnalysis">Analiza u oblaku</string>
   <string name="goDeeper">Idi dublje</string>
   <string name="showThreat">Pokaži prijetnju</string>
+  <string name="inLocalBrowser">u lokalnom pregledniku</string>
   <string name="toggleLocalEvaluation">Prekidač za lokalnu evaluaciju</string>
   <string name="database">Baza podataka</string>
   <string name="gameSpeed">Vremenska kontrola</string>
