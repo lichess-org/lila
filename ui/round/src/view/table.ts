@@ -26,7 +26,7 @@ function renderPlayer(ctrl: RoundController, player: Player) {
     h('i.line'),
     h('name', renderUser.aiName(ctrl, player))
   ]) :
-  renderUser.userHtml(ctrl, player, false);
+  renderUser.userHtml(ctrl, player);
 }
 
 function isLoading(ctrl: RoundController): boolean {
