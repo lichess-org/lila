@@ -355,7 +355,7 @@
   <string name="activeToday">今日の対局数上位</string>
   <string name="activePlayers">総対局数上位</string>
   <string name="bewareTheGameIsRatedButHasNoClock">注意！レイティング対象ですが時間無制限です</string>
-  <string name="training">トレーニング</string>
+  <string name="training">タクティクス</string>
   <string name="yourPuzzleRatingX">パズルのレイティング: %s</string>
   <string name="findTheBestMoveForWhite">白の最善手を見つけてください。</string>
   <string name="findTheBestMoveForBlack">黒の最善手を見つけてください。</string>
