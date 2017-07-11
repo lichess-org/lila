@@ -23,7 +23,7 @@ object crosstable {
       } mkString ""
 
       val matchupSepAt: Option[Int] = matchup map { m =>
-        Crosstable.maxGames - m.users.nbGames
+        (ct.nbGames min Crosstable.maxGames) - m.users.nbGames
       }
 
       val results = ct.results.zipWithIndex.map {
