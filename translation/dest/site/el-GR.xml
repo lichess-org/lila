@@ -573,7 +573,6 @@
   <string name="crosstable">Αποτελέσματα</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Μπορείτε επίσης να κινήσετε πάνω στην σκακιέρα για να μετακινηθείτε στο παιχνίδι.</string>
   <string name="analysisShapesHowTo">Πατήστε Shift + κλικ ή δεξί κλικ για να σχεδιάσετε κύκλους και βέλη στην σκακιέρα.</string>
-  <string name="confirmResignation">Επιβεβαιώστε παραίτηση</string>
   <string name="inputMovesWithTheKeyboard">Εισάγετε κινήσεις με το πληκτρολόγιο</string>
   <string name="letOtherPlayersMessageYou">Επιτρέψτε άλλους παίκτες να σας στέλνουν μηνύματα</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Ροκέ μετακινώντας το βασιλιά δύο τετράγωνα, ή πάνω στον πύργο</string>
