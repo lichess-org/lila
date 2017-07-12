@@ -465,7 +465,6 @@
   <string name="crosstable">Ukrštena tabela</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Možete također skrolati po ploči da se pomjerate u igri.</string>
   <string name="analysisShapesHowTo">Pritisni shift+klik ili desni klik za crtanje krugova i strelica na ploči.</string>
-  <string name="confirmResignation">Potvrdi predaju</string>
   <string name="letOtherPlayersMessageYou">Pusti druge igrače da te kontaktiraju</string>
   <string name="shareYourInsightsData">Prikaži svoje podatke uvida</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Već ste registrirali email: %s</string>
