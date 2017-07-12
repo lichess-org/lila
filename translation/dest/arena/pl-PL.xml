@@ -7,6 +7,12 @@
   <string name="isNotRated">Ten turniej *nie* jest rankingowy i *nie* wpłynie na Twój ranking.</string>
   <string name="someRated">Niektóre turnieje są rankingowe i mają wpływ na Twój ranking.</string>
   <string name="howAreScoresCalculated">Jak obliczane są wyniki?</string>
+  <string name="howAreScoresCalculatedAnswer">Zwycięstwo to 2 pkt, remis to 1 punkt, przegrana bez punktów. 
+Jeśli wygrasz dwie partie pod rząd rozpocznie się okres podwójnego punktowania, reprezentowane graficznie przez ikonę płomienia. 
+Za każdą następną partię będziesz otrzymywał podwójne punkty, dopóki będziesz wygrywał. 
+Oznacza to, że wygrana będzie warta 4 punkty, a remis 2 punkty, przegrana pozostaje bez punktów. 
+
+Przykład: dwie wygrane partie, a po nich remis będą warte 6 punktów: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Co to jest berserk?</string>
   <string name="berserkAnswer">Gdy gracz kliknie przycisk Berserk na początku gry, traci połowę swojego czasu zegara ale za to wygrana jest warta 1 dodatkowy punkt turniejowy. 
 
