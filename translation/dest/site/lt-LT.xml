@@ -626,7 +626,6 @@
   <string name="crosstable">Susitikimai</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Judėti žaidime taip pat galite slinkdami virš lentos.</string>
   <string name="analysisShapesHowTo">Spustelėkite Shift + kairįjį pelės klavišą arba dešinįjį pelės klavišą norėdami piešti ant lentos.</string>
-  <string name="confirmResignation">Pasidavimo patvirtinimas</string>
   <string name="inputMovesWithTheKeyboard">Ėjimų įvedimas su klaviatūra</string>
   <string name="letOtherPlayersMessageYou">Leisti kitiems žaidėjams jums parašyti</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Atlikti rokiruotę karaliui einant per du langelius arba ant bokšto</string>
