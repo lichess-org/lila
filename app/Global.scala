@@ -38,8 +38,10 @@ object Global extends GlobalSettings {
       !HTTPRequest.hasFileExtension(req)
 
   override def onHandlerNotFound(req: RequestHeader) = {
-    logHttp(404, req)
-    if (niceError(req)) controllers.Main.notFound(req)
+    if (niceError(req)) {
+      logHttp(404, req)
+      controllers.Main.notFound(req)
+    }
     else fuccess(NotFound("404 - Resource not found"))
   }
 
