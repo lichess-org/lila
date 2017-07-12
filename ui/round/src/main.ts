@@ -20,6 +20,10 @@ export interface RoundApi {
   moveOn: MoveOn;
 }
 
+export interface RoundMain {
+  app: (opts: RoundOpts) => RoundApi;
+}
+
 export function app(opts: RoundOpts): RoundApi {
 
   let vnode: VNode, ctrl: RoundController;

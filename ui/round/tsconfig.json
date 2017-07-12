@@ -7,6 +7,7 @@
     "noUnusedLocals": true,
     "noEmitOnError": true,
     "noImplicitReturns": true,
+    "noImplicitAny": true,
     "noImplicitThis": true,
     "noUnusedParameters": true,
     "target": "es5",

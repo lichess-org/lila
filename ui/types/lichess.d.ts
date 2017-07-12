@@ -82,6 +82,7 @@ interface Window {
   }
   hopscotch: any;
   lichessPlayMusic(): void;
+  [key: string]: any;
 }
 
 interface Paginator<T> {

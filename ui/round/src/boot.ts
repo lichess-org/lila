@@ -1,12 +1,12 @@
 import { RoundOpts, RoundData } from './interfaces';
-import { RoundApi } from './main';
+import { RoundApi, RoundMain } from './main';
 
 const li = window.lichess;
 
 export default function(opts: RoundOpts, element: HTMLElement): void {
   const data = opts.data;
   li.openInMobileApp(data.game.id);
-  let round: RoundApi, chat;
+  let round: RoundApi, chat: any;
   if (data.tournament) $('body').data('tournament-id', data.tournament.id);
   li.socket = li.StrongSocket(
     data.url.socket,
@@ -15,10 +15,10 @@ export default function(opts: RoundOpts, element: HTMLElement): void {
       params: { userTv: data.userTv && data.userTv.id },
       receive(t: string, d: any) { round.socketReceive(t, d); },
       events: {
-        crowd(e) {
+        crowd(e: { watchers: number }) {
           $watchers.watchers("set", e.watchers);
         },
-        tvSelect(o) {
+        tvSelect(o: any) {
           if (data.tv && data.tv.channel == o.channel) li.reload();
           else $('#tv_channels a.' + o.channel + ' span').html(
             o.player ? [
@@ -73,7 +73,7 @@ export default function(opts: RoundOpts, element: HTMLElement): void {
 
   let $watchers: JQuery;
   function letsGo() {
-    round = window['LichessRound'].app(opts);
+    round = (window['LichessRound'] as RoundMain).app(opts);
     if (opts.chat) {
       opts.chat.preset = getPresetGroup(opts.data);
       opts.chat.parseMoves = true;
