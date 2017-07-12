@@ -59,6 +59,7 @@
   <string name="move">Fai una mossa</string>
   <string name="insufficientMaterial">Pezzi insuffienti</string>
   <string name="capture">Cattura</string>
+  <string name="close">Chiudi</string>
   <string name="drawn">Patta</string>
   <string name="database">Database</string>
   <string name="gameSpeed">Velocità di gioco</string>
