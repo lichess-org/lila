@@ -566,7 +566,6 @@
   <string name="crosstable">Korstabel</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kan også rulle over bord for at bevæge sig i spillet.</string>
   <string name="analysisShapesHowTo">Tryk shift + klik eller højreklik for at tegne cirkler og pile på brættet.</string>
-  <string name="confirmResignation">Bekræft at du opgiver</string>
   <string name="letOtherPlayersMessageYou">En anden spiller har en besked til dig</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rokade metode</string>
   <string name="castleByMovingTwoSquares">Flyt kongen to felter</string>
