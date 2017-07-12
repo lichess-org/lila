@@ -608,7 +608,6 @@
   <string name="crosstable">成績表</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">盤上で駒を動かすことでも手を入力できます。</string>
   <string name="analysisShapesHowTo">Shift + クリックや右クリックで盤上に丸や矢印が描けます。</string>
-  <string name="confirmResignation">投了する前に確認する</string>
   <string name="inputMovesWithTheKeyboard">手をキーボードで入力</string>
   <string name="letOtherPlayersMessageYou">他のプレイヤーからのメッセージを受け付ける</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">キングを 2 マス、またはルークの上に動かす</string>
