@@ -560,7 +560,6 @@
   <string name="crosstable">Krysstabell</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kan også skrolle over brettet for å flytte i partiet.</string>
   <string name="analysisShapesHowTo">Trykk shift+klikk eller høyreklikk for å tegne sirkler og piler på brettet.</string>
-  <string name="confirmResignation">Bekreft at du gir opp</string>
   <string name="letOtherPlayersMessageYou">La andre spillere kontakte deg.</string>
   <string name="shareYourInsightsData">Del dine innsikts data</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Du har allerede registrert e-postadressen: %s</string>
