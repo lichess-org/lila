@@ -549,7 +549,6 @@
   <string name="crosstable">Ялалт, ялагдлын харьцаа</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Мөн тоглолтын үед та энэхүү үйлдлүүдийг хийх боломжтой.</string>
   <string name="analysisShapesHowTo">Өрөг дээр тойрог, сум зурахын тулд shift+зүүн товшилт эсвэл баруун товшилт хийнэ.</string>
-  <string name="confirmResignation">Бууж өгөхөө баталгаажуулах</string>
   <string name="letOtherPlayersMessageYou">Бусад гишүүд таньд зурвас илгээхийг зөвшөөрнө</string>
   <string name="shareYourInsightsData">Та тоглосон өргүүдийнхээ нарийн шинжилгээг бусадтай хуваалцна</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Та дараахь цахим шуудангийн хаягаар бүртгэлтэй байна: %s</string>
