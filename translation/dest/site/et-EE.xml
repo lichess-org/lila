@@ -549,7 +549,6 @@
   <string name="crosstable">Risti tabel</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Samuti võite liikuda üle laual liikuda mängu.</string>
   <string name="analysisShapesHowTo">Press Shift + click või paremklikk teha ringid ja nooled laual.</string>
-  <string name="confirmResignation">Kinnita lahkumisavalduse</string>
   <string name="letOtherPlayersMessageYou">Las teised mängijad sõnumi</string>
   <string name="shareYourInsightsData">Jaga oma teadmisi andmeid</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Te olete juba registreeritud e-posti: %s</string>
