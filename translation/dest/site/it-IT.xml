@@ -58,6 +58,7 @@
   <string name="toggleLocalEvaluation">Analisi in locale</string>
   <string name="move">Fai una mossa</string>
   <string name="insufficientMaterial">Pezzi insuffienti</string>
+  <string name="pawnMove">Mossa di pedone</string>
   <string name="capture">Cattura</string>
   <string name="close">Chiudi</string>
   <string name="winning">Mosse vincenti</string>
@@ -71,6 +72,14 @@
   <string name="recentGames">Partite recenti</string>
   <string name="topGames">Migliori partite</string>
   <string name="masterDbExplanation">Due milioni di partite dal 1952 al 2016 di giocatori con punteggio FIDE 2200+</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Matto in %s mossa</item>
+    <item quantity="other">Matto in %s mosse</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Prossima cattura o mossa di un pedone in %s mossa (distanza dall\'azzeramento del conteggio delle 50 mosse)</item>
+    <item quantity="other">Prossima cattura o mossa di un pedone in %s mosse (distanza dall\'azzeramento del conteggio delle 50 mosse)</item>
+  </plurals>
   <string name="noGameFound">Nessun partita trovata</string>
   <string name="alreadySearchingThroughAllAvailableGames">Sto già cercando fra tutte le partite disponibili</string>
   <string name="openingExplorer">Esplora aperture</string>
@@ -624,6 +633,7 @@
   <string name="crosstable">Crosstable</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">È inoltre possibile scorrere sopra il bordo per entrare nel gioco.</string>
   <string name="analysisShapesHowTo">Premere MAIUSC+click o tasto destro del mouse per disegnare cerchi e frecce sulla scacchiera.</string>
+  <string name="confirmResignationAndDrawOffers">Conferma abbandono e offerte di patta</string>
   <string name="inputMovesWithTheKeyboard">Muovi utilizzando la tastiera</string>
   <string name="letOtherPlayersMessageYou">Lascia che gli altri giocatori ti inviino messaggi</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Metodo di arrocco</string>
