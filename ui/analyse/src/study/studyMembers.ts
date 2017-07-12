@@ -193,7 +193,7 @@ export function view(ctrl: StudyController): VNode {
           'data-icon': 'F',
           title: 'Leave the study'
         },
-        config: bind('click', ctrl.members.leave, ctrl.redraw)
+        hook: bind('click', ctrl.members.leave, ctrl.redraw)
       });
   };
 
