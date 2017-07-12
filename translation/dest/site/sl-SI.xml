@@ -465,7 +465,6 @@
   <string name="crosstable">Medsebojni dvoboji</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Lahko se skozi partijo pomikaš tudi z miško</string>
   <string name="analysisShapesHowTo">Pritisni shift+klik ali desni klik za risanje krožcev in puščic po šahovnici</string>
-  <string name="confirmResignation">Potrdi predajo</string>
   <string name="letOtherPlayersMessageYou">Dovoli drugim pisanje sporočil tebi</string>
   <string name="shareYourInsightsData">Deli svoje statistične podatke</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Tvoj email %s je že registriran</string>
