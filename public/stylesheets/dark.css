@@ -234,6 +234,9 @@ body.dark div.user_show div.content_box_top > span,
 body.dark .undertable_top span.title {
   color: #838383;
 }
+body.dark .user_link span.title {
+  color: #bf811d;
+}
 body.dark .user_show .fire_trophy {
   color: #666;
 }
