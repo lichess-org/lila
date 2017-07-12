@@ -17,9 +17,18 @@ export interface RoundSocket extends Untyped {
   receive(typ: string, data: any): boolean;
 }
 
+interface Incoming {
+  t: string;
+  d: any;
+}
+
+interface Handlers {
+  [key: string]: (data: any) => void;
+}
+
 export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
 
-  function reload(o: any, isRetry?: boolean) {
+  function reload(o: Incoming, isRetry?: boolean) {
     // avoid reload if possible!
     if (o && o.t) {
       ctrl.setLoading(false);
@@ -35,7 +44,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     });
   };
 
-  const handlers = {
+  const handlers: Handlers = {
     takebackOffers(o) {
       ctrl.setLoading(false);
       ctrl.data.player.proposingTakeback = o[ctrl.data.player.color];

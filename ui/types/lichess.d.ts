@@ -81,6 +81,7 @@ interface Window {
     jump(node: Tree.Node): void
   }
   hopscotch: any;
+  lichessPlayMusic(): void;
 }
 
 interface Paginator<T> {
