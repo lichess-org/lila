@@ -560,7 +560,6 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="crosstable">Tabela</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Você também pode rolar sobre o tabuleiro para percorrer as jogadas.</string>
   <string name="analysisShapesHowTo">Pressione Shift+Clique ou clique com o botão direito do mouse para desenhar círculos e flechas no tabuleiro.</string>
-  <string name="confirmResignation">Confirmar desistência</string>
   <string name="letOtherPlayersMessageYou">Permitir que outros jogadores lhe enviem mensagem</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Maneira de rocar</string>
   <string name="castleByMovingTwoSquares">Mova o rei duas casas</string>
