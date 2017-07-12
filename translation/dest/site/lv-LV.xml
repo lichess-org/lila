@@ -465,7 +465,6 @@
   <string name="crosstable">Šķērstabula</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Vari arī skrollēt gājienus uz spēles laukuma.</string>
   <string name="analysisShapesHowTo">Nospied uz lauciņa shift+kreiso taustiņu vai labo taustiņu lai zīmētu riņķus un bultas.</string>
-  <string name="confirmResignation">Apstiprini padošanos</string>
   <string name="letOtherPlayersMessageYou">Atļaut citiem spēlētājiem sūtīt tev ziņas</string>
   <string name="shareYourInsightsData">Dalīties ar saviem insights datiem</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Tu jau esi reģistrējis e-pastu: %s</string>
