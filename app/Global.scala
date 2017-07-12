@@ -41,8 +41,7 @@ object Global extends GlobalSettings {
     if (niceError(req)) {
       logHttp(404, req)
       controllers.Main.notFound(req)
-    }
-    else fuccess(NotFound("404 - Resource not found"))
+    } else fuccess(NotFound("404 - Resource not found"))
   }
 
   override def onBadRequest(req: RequestHeader, error: String) = {
