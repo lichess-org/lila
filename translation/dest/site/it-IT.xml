@@ -60,7 +60,10 @@
   <string name="insufficientMaterial">Pezzi insuffienti</string>
   <string name="capture">Cattura</string>
   <string name="close">Chiudi</string>
+  <string name="winning">Mosse vincenti</string>
+  <string name="losing">Mosse perdenti</string>
   <string name="drawn">Patta</string>
+  <string name="unknown">Posizioni sconosciute al database</string>
   <string name="database">Database</string>
   <string name="gameSpeed">Velocità di gioco</string>
   <string name="whiteDrawBlack">Bianco / Patta / Nero</string>
