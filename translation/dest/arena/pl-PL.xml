@@ -16,6 +16,7 @@ Berserk nie jest dostępny w partiach z zerowym czasem początkowym (0 + 1, 0 + 
 
 Berserk przynosi dodatkowe punkty tylko wtedy gdy zrobisz co najmniej 7 posunięć w partii.</string>
   <string name="howIsTheWinnerDecided">Jak jest wyłaniany zwycięzca?</string>
+  <string name="howIsTheWinnerDecidedAnswer">Zwycięzcą turnieju zostaje gracz (lub gracze) który w momencie upłynięcia czasu przeznaczonego na turniej posiada największą liczbę punktów.</string>
   <string name="howDoesPairingWork">Jak działa kojarzenie par?</string>
   <string name="howDoesPairingWorkAnswer">Na początku turnieju gracze są kojarzeni ze sobą na podstawie swoich rankingów. 
 Zaraz po zakończeniu gry wróć do poczekalni: zostaniesz ponownie skojarzony z graczem o rankingu zbliżonym do Twojego. Dzięki temu czas oczekiwania jest minimalny, aczkolwiek możesz nie mieć okazji zagrać z wszystkimi graczami uczestniczącymi w turnieju.
