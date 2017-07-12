@@ -535,7 +535,6 @@
   <string name="crosstable">Napak tilas</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Anda juga bisa menggunakan tombol gulung untuk bergerak dalam permainan</string>
   <string name="analysisShapesHowTo">Tekan shift+klik atau klik-kanan untuk menggambar lingkaran dan panah di papan.</string>
-  <string name="confirmResignation">Konfirmasi menyerah</string>
   <string name="letOtherPlayersMessageYou">Memperbolehkan pemain lain mengirim pesan untuk Anda</string>
   <string name="shareYourInsightsData">Berbagi data permainan anda</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Anda sudah mendaftarkan sebuah email: %s</string>
