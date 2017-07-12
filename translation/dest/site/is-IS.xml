@@ -549,7 +549,6 @@
   <string name="crosstable">Stigatafla</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Þú getur einnig skrunað yfir leikborðinu til að fara yfir leikinn.</string>
   <string name="analysisShapesHowTo">Þú getur teiknað hringi og örvar á leikborðið með því að ýta á shift+vinstrismella eða hægrismella með músinni.</string>
-  <string name="confirmResignation">Staðfesta uppgjöf</string>
   <string name="letOtherPlayersMessageYou">Leyfa öðrum leikmönnum að senda þér skilaboð</string>
   <string name="shareYourInsightsData">Deila greiningum</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Þú hefur þegar skráð netfangið: %s</string>
