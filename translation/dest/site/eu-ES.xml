@@ -549,7 +549,6 @@
   <string name="crosstable">Aurreko emaitzak</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Partidan aurrera-atzera egiteko, korritze-barra ere erabili ahal duzu.</string>
   <string name="analysisShapesHowTo">Zirkuluak eta geziak marrazteko, egizu shift+klik edo eskuin-klik.</string>
-  <string name="confirmResignation">Amore ematen duzula berretsi.</string>
   <string name="letOtherPlayersMessageYou">Utzi beste jokalariei zuri mezuak bidaltzen</string>
   <string name="shareYourInsightsData">Zure partiden analitika partekatu</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Email hau erregistratu duzu dagoeneko: %s</string>
