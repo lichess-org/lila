@@ -86,7 +86,7 @@
   <string name="xOpeningExplorer">ตัวสำรวจการเปิด %s</string>
   <string name="winPreventedBy50MoveRule">การชนะถูกป้องกันโดยกฎ 50-รอบเดิน</string>
   <string name="lossSavedBy50MoveRule">การแพ้ถูกป้องกันโดยกฎ 50-รอบเดิน</string>
-  <string name="allSet">ทุกชุด!</string>
+  <string name="allSet">ยืนยัน!</string>
   <string name="blunders">ความผิดพลาดมหันต์</string>
   <string name="mistakes">ความผิดพลาด</string>
   <string name="inaccuracies">ความไม่ถูกต้อง</string>
