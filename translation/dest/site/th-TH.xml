@@ -59,13 +59,12 @@
   <string name="move">การเดิน</string>
   <string name="variantLoss">ตัวแปรฯที่แพ้</string>
   <string name="variantWin">ตัวแปรฯที่ชนะ</string>
-  <string name="insufficientMaterial">วัสดุประกอบไม่เพียงพอ</string>
+  <string name="insufficientMaterial">วัตถุประกอบไม่เพียงพอ</string>
   <string name="pawnMove">การเดินเบี้ย</string>
-  <string name="capture">การจับกิน</string>
+  <string name="capture">จับกิน</string>
   <string name="close">ปิด</string>
   <string name="winning">การชนะ</string>
   <string name="losing">การแพ้</string>
-  <string name="drawn">การเสมอ</string>
   <string name="unknown">ไม่ทราบ</string>
   <string name="database">ฐานข้อมูล</string>
   <string name="gameSpeed">ความ​เร็ว​เกม</string>
@@ -610,7 +609,7 @@
   <string name="crosstable">ตารางผลแข่ง</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">คุณสามารถหมุนเลื่อนเหนือกระดานเพื่อเดินในเกมได้ด้วย</string>
   <string name="analysisShapesHowTo">กด shift+คลิก หรือ คลิกขวา เพื่อวาดวงกลมและลูกศรบนกระดาน</string>
-  <string name="confirmResignation">ยืนยันการยอมแพ้</string>
+  <string name="confirmResignationAndDrawOffers">ยืนยันการยอมแพ้และข้อเสนอการเสมอ</string>
   <string name="inputMovesWithTheKeyboard">ทำการเดินด้วยแป้นพิมพ์</string>
   <string name="letOtherPlayersMessageYou">อนุญาตให้ผู้อื่นส่งข้อความถึงคุณ</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">เข้าป้อมโดยเดินคิงสองช่องหรือไปที่เรือ</string>
