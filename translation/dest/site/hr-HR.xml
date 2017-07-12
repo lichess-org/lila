@@ -55,10 +55,15 @@
   <string name="showThreat">Pokaži prijetnju</string>
   <string name="inLocalBrowser">u lokalnom pregledniku</string>
   <string name="toggleLocalEvaluation">Prekidač za lokalnu evaluaciju</string>
+  <string name="capture">Uzimanje figure</string>
+  <string name="winning">Pobjeđuje</string>
+  <string name="unknown">Nepoznati ishod</string>
   <string name="database">Baza podataka</string>
   <string name="gameSpeed">Vremenska kontrola</string>
   <string name="whiteDrawBlack">Bijeli / remi / Crni</string>
   <string name="averageRatingX">Prosječni rejting: %s</string>
+  <string name="recentGames">Nedavne partije</string>
+  <string name="topGames">Najjače partije</string>
   <string name="masterDbExplanation">Dva milijuna OTB partija FIDE rangiranih igrača (2200+ FIDE rejting) igranih od 1952. do 2016. godine</string>
   <string name="noGameFound">Nije pronađena nijedna partija</string>
   <string name="alreadySearchingThroughAllAvailableGames">Već se pretražuju sve dostupne partije</string>
