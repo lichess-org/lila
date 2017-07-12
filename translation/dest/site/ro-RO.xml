@@ -478,7 +478,6 @@
   <string name="crosstable">Tabel de scoruri</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">De asemenea, poti acționa rotița mouse-ului pentru a face mutări pe tablă.</string>
   <string name="analysisShapesHowTo">Apasă shift+click sau click-dreapta pentru a desena cercuri și săgeti pe tablă.</string>
-  <string name="confirmResignation">Confirmă-ți dorinta de a abandona</string>
   <string name="inputMovesWithTheKeyboard">Introdu mutări folosind tastatura</string>
   <string name="letOtherPlayersMessageYou">Permite altor jucători să îți trimită mesaje</string>
   <string name="castleByMovingTwoSquares">Fă rocada mutând două pătrățele</string>
