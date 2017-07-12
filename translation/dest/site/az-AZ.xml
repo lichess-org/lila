@@ -549,7 +549,6 @@
   <string name="crosstable">Çarpaz cədvəl</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Oyunda gediş etmək üçün lövhədə hərəkət etdirə bilərsən</string>
   <string name="analysisShapesHowTo">Lövhədə çevrə və ya oxlar çəkmək üçün shift+click və ya right-click sıx</string>
-  <string name="confirmResignation">Təslim olduğunu təsdiqlə</string>
   <string name="letOtherPlayersMessageYou">Digər oyunçunun sənə mesaj göndərməsinə izin ver</string>
   <string name="shareYourInsightsData">Qabiliyyət verilərini paylaş</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Sən e-poçtu artıq qeydiyyatdan keçirmisən: %s</string>
