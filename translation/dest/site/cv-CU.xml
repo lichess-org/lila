@@ -515,7 +515,6 @@
   <string name="crosstable">Пӑнчӑ тапӑлӗ</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Вӑййинче ҫӳрес тесе хӑма ҫийӗнчен пӑркалама та пултаратӑн.</string>
   <string name="analysisShapesHowTo">Хӑма ҫинче ҫаврашка тата йӗпӗ ӳкерес тесе shift+click йе right-click ҫине пус.</string>
-  <string name="confirmResignation">Парӑнасса ҫирӗплетесси</string>
   <string name="letOtherPlayersMessageYou">Ытти вӑйӑҫ ман пата ҫырасси</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Есӗ ҫак пуштӑпа регистратсиленнӗ-ха: %s</string>
   <string name="kidMode">Ача-пӑча решимӗ</string>
