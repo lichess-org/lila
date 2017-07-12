@@ -56,7 +56,7 @@ export default class RoundController {
   resignConfirm: boolean = false;
   drawConfirm: boolean = false;
   autoScroll: () => void = $.noop; // will be replaced by view layer
-    challengeRematched: boolean = false;
+  challengeRematched: boolean = false;
   justDropped?: cg.Role;
   justCaptured?: cg.Piece;
   justMoved: boolean = false;

@@ -28,11 +28,18 @@ export interface SocketDrop {
   b?: 1;
 }
 
+export interface EncodedDests {
+  [key: string]: string;
+}
+export interface DecodedDests {
+  [key: string]: cg.Key[];
+}
+
 export interface RoundData extends GameData {
   clock?: ClockData;
   pref: Pref;
   steps: Step[];
-  possibleMoves?: { [key: string]: string };
+  possibleMoves?: EncodedDests;
   possibleDrops?: string;
   forecastCount?: number;
   crazyhouse?: CrazyData;

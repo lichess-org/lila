@@ -3,7 +3,7 @@ import { VNodeData } from 'snabbdom/vnode'
 import { Hooks } from 'snabbdom/hooks'
 import * as cg from 'chessground/types'
 import { opposite } from 'chessground/util';
-import { Redraw } from './interfaces';
+import { Redraw, EncodedDests, DecodedDests } from './interfaces';
 
 const pieceScores = {
   pawn: 1,
@@ -38,13 +38,11 @@ export function bind(eventName: string, f: (e: Event) => void, redraw?: Redraw):
   };
 }
 
-export function parsePossibleMoves(possibleMoves) {
-  if (!possibleMoves) return {};
-  for (let k in possibleMoves) {
-    if (typeof possibleMoves[k] === 'object') break;
-    possibleMoves[k] = possibleMoves[k].match(/.{2}/g);
-  }
-  return possibleMoves;
+export function parsePossibleMoves(dests?: EncodedDests): DecodedDests {
+  if (!dests) return {};
+  const dec: DecodedDests = {};
+  for (let k in dests) dec[k] = dests[k].match(/.{2}/g) as cg.Key[];
+  return dec;
 }
 
 // {white: {pawn: 3 queen: 1}, black: {bishop: 2}}
