@@ -68,7 +68,6 @@
   <string name="drawn">Remi</string>
   <string name="unknown">Okänt</string>
   <string name="database">Databas</string>
-  <string name="gameSpeed">Tidskontroll</string>
   <string name="whiteDrawBlack">Vit / Remi / Svart</string>
   <string name="averageRatingX">Medelrating: %s</string>
   <string name="recentGames">Senaste partier</string>
