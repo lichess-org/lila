@@ -62,7 +62,7 @@
   <string name="insufficientMaterial">Zu wenig Material</string>
   <string name="pawnMove">Bauernzug</string>
   <string name="capture">Schlagzug</string>
-  <string name="drawn">Ausgeglichen</string>
+  <string name="drawn">Remis</string>
   <string name="unknown">Unbekannt</string>
   <string name="database">Datenbank</string>
   <string name="gameSpeed">Spielgeschwindigkeit</string>
