@@ -115,7 +115,7 @@
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s postete im Thread %2$s</string>
   <string name="latestForumPosts">Neueste Forenbeiträge</string>
-  <string name="players">Schachspieler</string>
+  <string name="players">Spieler</string>
   <string name="minutesPerSide">Minuten pro Spieler</string>
   <string name="variant">Schachvariante</string>
   <string name="variants">Schachvarianten</string>
