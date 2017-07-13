@@ -548,6 +548,9 @@ div.blog.undertable time {
 #lichess .enterable_list td:last-child {
   width: 20px;
 }
+#lichess .enterable_list .rated {
+  color: #d59120;
+}
 div.new_posts li {
   margin: 0.6em 0;
   padding-left: 9px;

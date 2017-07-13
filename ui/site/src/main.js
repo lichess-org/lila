@@ -529,16 +529,6 @@ lichess.topMenuIntent = function() {
         });
       })();
 
-      function translateTexts() {
-        $('.trans_me').each(function() {
-          var t = $(this).removeClass('trans_me');
-          if (t.val()) t.val(lichess.globalTrans(t.val()));
-          else t.text(lichess.globalTrans(t.text()));
-        });
-      }
-      translateTexts();
-      lichess.pubsub.on('content_loaded', translateTexts);
-
       $('input.user-autocomplete').each(function() {
         var opts = {
           focus: 1,
