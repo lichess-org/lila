@@ -68,7 +68,6 @@
   <string name="drawn">Remis</string>
   <string name="unknown">Nieznany</string>
   <string name="database">Baza danych</string>
-  <string name="gameSpeed">Prędkość gry</string>
   <string name="whiteDrawBlack">Białe / Remis / Czarne</string>
   <string name="averageRatingX">Średni ranking: %s</string>
   <string name="recentGames">Ostatnie gry</string>
