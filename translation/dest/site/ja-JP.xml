@@ -67,7 +67,6 @@
   <string name="drawn">ドロー</string>
   <string name="unknown">不明</string>
   <string name="database">データベース</string>
-  <string name="gameSpeed">ゲーム速度</string>
   <string name="whiteDrawBlack">白勝 / ドロー / 黒勝</string>
   <string name="averageRatingX">平均レーティング: %s</string>
   <string name="recentGames">最近のゲーム</string>
