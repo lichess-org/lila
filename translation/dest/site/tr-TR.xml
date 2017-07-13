@@ -52,6 +52,10 @@
   <string name="usingServerAnalysis">Sunucu analizi yapılıyor</string>
   <string name="loadingEngine">Satranç motoru yükleniyor...</string>
   <string name="cloudAnalysis">Bulut analizi</string>
+  <string name="goDeeper">Daha derine in</string>
+  <string name="showThreat">Tehdidi göster</string>
+  <string name="inLocalBrowser">yerel tarayıcı üzerinde</string>
+  <string name="toggleLocalEvaluation">Yerel analizi aç/kapat</string>
   <string name="openingExplorer">Açılış kâşifi</string>
   <string name="blunders">Vahim hatalar</string>
   <string name="mistakes">Hatalar</string>
