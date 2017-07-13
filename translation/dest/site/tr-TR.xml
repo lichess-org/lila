@@ -49,6 +49,9 @@
   <string name="computerAnalysisAvailable">Bilgisayar analizi mevcut</string>
   <string name="analysis">Analiz tahtası</string>
   <string name="depthX">Derinlik %s</string>
+  <string name="usingServerAnalysis">Sunucu analizi yapılıyor</string>
+  <string name="loadingEngine">Satranç motoru yükleniyor...</string>
+  <string name="cloudAnalysis">Bulut analizi</string>
   <string name="openingExplorer">Açılış kâşifi</string>
   <string name="blunders">Vahim hatalar</string>
   <string name="mistakes">Hatalar</string>
@@ -173,7 +176,7 @@
     <item quantity="one">%s kez berabere kaldı</item>
     <item quantity="other">%s kez berabere kaldı</item>
   </plurals>
-  <string name="exportGames">Oyunları dışa al</string>
+  <string name="exportGames">Oyunları indir</string>
   <string name="ratingRange">Puan aralığı</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s saniye ver</item>
