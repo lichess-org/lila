@@ -3,8 +3,8 @@
 <resources>
   <string name="isItRated">Bu turnuva puanlı mı?</string>
   <string name="willBeNotified">Turnuva başladığında sana haber vereceğiz, bu süre zarfında başka bir sekmede oynamanın bir sakıncası yok.</string>
-  <string name="isRated">Evet, bu turnuva puanlıdır ve ratinginizi etkileyecektir.</string>
-  <string name="isNotRated">Bu turnuva puanlı *değildir* ve ratinginizi *etkilemeyecektir*.</string>
+  <string name="isRated">Evet, bu turnuva puanlıdır ve puanınızı etkileyecektir.</string>
+  <string name="isNotRated">Hayır, bu turnuva puanlı *değildir* ve puanınızı *etkilemeyecektir*.</string>
   <string name="someRated">Bazı turnuvalar puanlıdır ve ratinginizi etkileyecektir.</string>
   <string name="howAreScoresCalculated">Maçlardan alınan puanlar nasıl hesaplanıyor?</string>
   <string name="howAreScoresCalculatedAnswer">Kazanılan bir oyun temelde 2 puana tekabül eder. Beraberlik 1 puan iken kaybedilen bir oyun ise hiçbir puan getirmez. Eğer üst üste iki oyun kazanırsan ateş ikonu ile simgelenen çifte puan serisine girersin.
@@ -25,5 +25,5 @@ Daha fazla oyun oynayıp daha çok puan kazanmak için hızlıca oyna ve lobiye 
   <string name="otherRulesAnswer">İlk hamleni 20 saniye içinde yapman gerekiyor. Eğer bu süre içinde bir hamle yapmazsan rakibin galip sayılır.
 10 hamleyi geçmeden berabere kalmak iki tarafa da puan kazandırmaz.</string>
   <string name="thisIsPrivate">Bu özel bir turnuvadır</string>
-  <string name="shareUrl">Arkadaşlarını davet etmek için bu URL\'yi kullanabilirsin: %s</string>
+  <string name="shareUrl">Oyuncuları davet etmek için bu URL\'yi kullanabilirsin: %s</string>
 </resources>
