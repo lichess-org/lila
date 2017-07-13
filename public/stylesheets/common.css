@@ -254,7 +254,6 @@ group.radio input:checked + label {
 }
 
 #powerTip,
-#hook,
 #miniGame {
   width: 224px;
   min-height: 3em;
