@@ -549,7 +549,6 @@
   <string name="crosstable">Таблица</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Може още да скролираш върху дъската, за да местиш ходовете.</string>
   <string name="analysisShapesHowTo">Натисни shift едновременно с ляво или дясно копче за да рисуваш кръгове и стрелки върху дъската.</string>
-  <string name="confirmResignation">Потвърждаване на предаване</string>
   <string name="letOtherPlayersMessageYou">Разреши на другите да ви пишат</string>
   <string name="shareYourInsightsData">Споделете измерванията върху вашата игра</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Вече сте записали ел. поща: %s</string>

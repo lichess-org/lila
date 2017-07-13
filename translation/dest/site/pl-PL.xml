@@ -661,7 +661,7 @@
   <string name="crosstable">Tabela wyników</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Możesz także przeciągnąć nad szachownicą aby poruszać się w grze.</string>
   <string name="analysisShapesHowTo">Naciśnij shift i kliknij lub kliknij prawym przyciskiem myszy aby rysować okręgi i strzałki na szachownicy.</string>
-  <string name="confirmResignation">Potwierdź rezygnację</string>
+  <string name="confirmResignationAndDrawOffers">Potwierdzaj poddanie się i wysłanie propozycji remisu</string>
   <string name="inputMovesWithTheKeyboard">Wprowadzaj ruchy za pomocą klawiatury</string>
   <string name="letOtherPlayersMessageYou">Pozwól innym graczom na pisanie do Ciebie</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Sposób roszowania</string>

@@ -562,7 +562,6 @@
   <string name="crosstable">cruces mensam</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Quoque potes supra tabula volveri ad motum in ludo.</string>
   <string name="analysisShapesHowTo">Perge shift+click aut right+click ut circulos sagittasque in tabula pingas.</string>
-  <string name="confirmResignation">Cessionem affirmare</string>
   <string name="letOtherPlayersMessageYou">Sinire lusores alios tecum communicare.</string>
   <string name="shareYourInsightsData">Data tua mentis partiri.</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Iam email %s inscripsisti.</string>

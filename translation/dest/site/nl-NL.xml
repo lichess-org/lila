@@ -56,7 +56,28 @@
   <string name="showThreat">Toon bedreiging</string>
   <string name="inLocalBrowser">in lokale browser</string>
   <string name="toggleLocalEvaluation">Lokale evaluatie aan-/uitzetten</string>
+  <string name="move">Zet</string>
+  <string name="variantLoss">Variantverlies</string>
+  <string name="variantWin">Variantoverwinning</string>
+  <string name="insufficientMaterial">Onvoldoende materiaal</string>
+  <string name="pawnMove">Pionzet</string>
+  <string name="close">Sluiten</string>
+  <string name="unknown">Onbekend</string>
+  <string name="database">Databank</string>
+  <string name="gameSpeed">Snelheid van spel</string>
+  <string name="whiteDrawBlack">Wit / Remise / Zwart</string>
+  <string name="averageRatingX">Gemiddelde rating: %s</string>
+  <string name="recentGames">Recente partijen</string>
+  <string name="topGames">Toppartijen</string>
+  <string name="masterDbExplanation">Twee miljoen OTB-partijen van 2200+ FIDE-gerankte spelers van 1952 tot 2016</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Schaakmat in %s halfzet</item>
+    <item quantity="other">Schaakmat in %s halfzetten</item>
+  </plurals>
+  <string name="noGameFound">Geen partij gevonden</string>
+  <string name="alreadySearchingThroughAllAvailableGames">Al aan het zoeken door alle beschikbare partijen</string>
   <string name="openingExplorer">Openingverkenner &amp; tablebase</string>
+  <string name="xOpeningExplorer">%s openingsverkenner</string>
   <string name="blunders">Blunders</string>
   <string name="mistakes">Fouten</string>
   <string name="inaccuracies">Imperfecties</string>
@@ -602,7 +623,6 @@
   <string name="crosstable">Onderlinge partijen</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Je kunt ook over het bord scrollen om je zetten uit te voeren.</string>
   <string name="analysisShapesHowTo">Druk op shift+linkermuisknop of rechtermuisknop om cirkels en pijlen op het bord te tekenen.</string>
-  <string name="confirmResignation">Bevestiging bij opgeven</string>
   <string name="inputMovesWithTheKeyboard">Zetten invoeren met het toetsenbord</string>
   <string name="letOtherPlayersMessageYou">Andere spelers mogen je berichten zenden</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rokeren door de koning twee vakjes te verplaatsen, of naar de toren</string>

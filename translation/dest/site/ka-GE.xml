@@ -534,7 +534,6 @@
   <string name="weHaveSentYouAnEmailClickTheLink">გამოგიგზავნით იმეილზე ლინკას, დააკლიკეთ და გაააქტიურეთ თქვენი ექაუნთი</string>
   <string name="networkLagBetweenYouAndLichess">ქსელი გარკვეული შუალედი შორის თქვენ და Lichess</string>
   <string name="crosstable">ჯვრის მაგიდა</string>
-  <string name="confirmResignation">ნამდვილად გსურთ დანებდეთ მოწინააღმდეგეს?</string>
   <string name="kidMode">ბავშვის რეჟიმი</string>
   <string name="playChessEverywhere">ითამაშე ჭადრაკი ყველგან</string>
   <string name="phoneAndTablet">ტელეფონი და ტაბლეტი</string>

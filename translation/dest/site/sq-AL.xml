@@ -549,7 +549,6 @@
   <string name="crosstable">Kryqtryeza</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Ju mund edhe të rrotulloni rrotën mbi fushë për të lëvizur gjatë lojës.</string>
   <string name="analysisShapesHowTo">Shtypni shift+klikim ose klikoni me të djathtën për të vizatuar rrathë dhe shigjeta mbi fushë.</string>
-  <string name="confirmResignation">Mirato dorëheqjen</string>
   <string name="letOtherPlayersMessageYou">Lejo lojtarët e tjerë të të dërgojnë mesazh</string>
   <string name="shareYourInsightsData">Shpërndani të dhënat tuaja të depërtuara.</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Ju e keni regjistruar tashmë postën elektronike: %s</string>

@@ -68,6 +68,7 @@
   <string name="drawn">Remi</string>
   <string name="unknown">Okänt</string>
   <string name="database">Databas</string>
+  <string name="gameSpeed">Tidskontroll</string>
   <string name="whiteDrawBlack">Vit / Remi / Svart</string>
   <string name="averageRatingX">Medelrating: %s</string>
   <string name="recentGames">Senaste partier</string>
@@ -82,7 +83,7 @@
     <item quantity="other">Nästa slag eller bondedrag inom %s halv-drag. (Avstånd till nollställning av 50 drag-räknaren)</item>
   </plurals>
   <string name="noGameFound">Inget parti hittades</string>
-  <string name="alreadySearchingThroughAllAvailableGames">Söker redan igenom alla tillgängliga spel</string>
+  <string name="alreadySearchingThroughAllAvailableGames">Söker redan igenom alla tillgängliga partier</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Kanske inkludera fler partier från Inställningar-menyn?</string>
   <string name="openingExplorer">Öppningsbok</string>
   <string name="xOpeningExplorer">%s öppningsutforskare</string>
@@ -635,7 +636,6 @@
   <string name="crosstable">Tabell</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kan också skrolla över brädet för att gå fram/bak i partiet.</string>
   <string name="analysisShapesHowTo">Tryck på Skift + klicka eller högerklicka för att rita cirklar och pilar på brädet.</string>
-  <string name="confirmResignation">Bekräfta resignation</string>
   <string name="inputMovesWithTheKeyboard">Mata in drag via tangentbord</string>
   <string name="letOtherPlayersMessageYou">Tillåt att andra spelare skickar meddelanden till dig</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Sätt att rockera</string>

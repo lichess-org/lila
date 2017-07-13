@@ -543,7 +543,6 @@
   <string name="crosstable">kruis Tabel</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Jy kan ook blaai oor die raad om te beweeg in die spel.</string>
   <string name="analysisShapesHowTo">Druk Verskuif + klik of regs-kliek om sirkels en pyle te trek op die bord.</string>
-  <string name="confirmResignation">bevestig bedanking</string>
   <string name="letOtherPlayersMessageYou">Laat ander spelers boodskap wat jy</string>
   <string name="shareYourInsightsData">Deel jou insigte data</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Jy het reeds geregistreer die e-pos:%s</string>

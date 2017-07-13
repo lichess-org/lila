@@ -490,7 +490,6 @@
   <string name="crosstable">Рахунок</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Також ви можете використовувати прокрутку над шахівницею для перегляду ходів у грі.</string>
   <string name="analysisShapesHowTo">Натисніть shift+ЛКМ або ПКМ, щоби намалювати кола та стрілки на шахівниці.</string>
-  <string name="confirmResignation">Підтвердження здачі</string>
   <string name="inputMovesWithTheKeyboard">Вводити ходи за допомогою клавіатури</string>
   <string name="letOtherPlayersMessageYou">Дозволити іншим гравцям надсилати вам повідомлення</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Рокірувати, перемістивши короля на дві клітинки або натиснувши на туру</string>

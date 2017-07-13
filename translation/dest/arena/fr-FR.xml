@@ -7,4 +7,6 @@
   <string name="isNotRated">Ce tournoi n\'est *pas* évalué et n\'aura *pas* d\'incidence sur votre côte.</string>
   <string name="someRated">Certains tournois sont cotés et auront une incidence sur votre côte.</string>
   <string name="howAreScoresCalculated">Comment les scores sont-ils calculés ?</string>
+  <string name="howDoesItEnd">Comment finit-il?</string>
+  <string name="thisIsPrivate">Ceci est un tournoi privé</string>
 </resources>

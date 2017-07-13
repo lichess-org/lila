@@ -575,7 +575,6 @@
   <string name="crosstable">Eredménytábla</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Görgess az egérgörgővel a tábla felett, hogy láthasd lépéseket.</string>
   <string name="analysisShapesHowTo">Shift-kattintva vagy jobb egérgombbal rajzolhatsz karikákat és nyilakat a táblára</string>
-  <string name="confirmResignation">Biztos feladod?</string>
   <string name="inputMovesWithTheKeyboard">Lépések bevitele a billentyűzettel</string>
   <string name="letOtherPlayersMessageYou">Más játékosok küldhetnek neked üzenetet</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Sáncolás módszere</string>

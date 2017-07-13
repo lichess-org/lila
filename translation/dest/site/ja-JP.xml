@@ -355,7 +355,7 @@
   <string name="activeToday">今日の対局数上位</string>
   <string name="activePlayers">総対局数上位</string>
   <string name="bewareTheGameIsRatedButHasNoClock">注意！レイティング対象ですが時間無制限です</string>
-  <string name="training">トレーニング</string>
+  <string name="training">タクティクス</string>
   <string name="yourPuzzleRatingX">パズルのレイティング: %s</string>
   <string name="findTheBestMoveForWhite">白の最善手を見つけてください。</string>
   <string name="findTheBestMoveForBlack">黒の最善手を見つけてください。</string>
@@ -369,7 +369,7 @@
   <string name="bestMove">最善手！</string>
   <string name="keepGoing">続ける</string>
   <string name="puzzleFailed">不正解</string>
-  <string name="butYouCanKeepTrying">また挑戦してみてください。</string>
+  <string name="butYouCanKeepTrying">別の手をどうぞ。</string>
   <string name="victory">勝利！</string>
   <string name="wasThisPuzzleAnyGood">このパズルが気に入りましたか？</string>
   <string name="pleaseVotePuzzle">改善のためご意見をお聞かせください。上矢印、下矢印をお使いください:</string>
@@ -465,6 +465,7 @@
   <string name="privacy">プライバシー</string>
   <string name="letOtherPlayersFollowYou">他人からのフォローを可能にする</string>
   <string name="letOtherPlayersChallengeYou">他人からの挑戦を可能にする</string>
+  <string name="letOtherPlayersInviteYouToStudy">ゲーム検討について他の人からの招待を認める</string>
   <string name="sound">音声</string>
   <string name="yourPreferencesHaveBeenSaved">設定が保存されました。</string>
   <string name="none">無効</string>
@@ -608,7 +609,7 @@
   <string name="crosstable">成績表</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">盤上で駒を動かすことでも手を入力できます。</string>
   <string name="analysisShapesHowTo">Shift + クリックや右クリックで盤上に丸や矢印が描けます。</string>
-  <string name="confirmResignation">投了する前に確認する</string>
+  <string name="confirmResignationAndDrawOffers">投了とドロー提案を確認する</string>
   <string name="inputMovesWithTheKeyboard">手をキーボードで入力</string>
   <string name="letOtherPlayersMessageYou">他のプレイヤーからのメッセージを受け付ける</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">キングを 2 マス、またはルークの上に動かす</string>

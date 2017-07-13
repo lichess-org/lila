@@ -468,7 +468,6 @@
   <string name="crosstable">Výsledky</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">K pohybu v partii můžete také použít scrollovací kolečko myši nad šachovnicí.</string>
   <string name="analysisShapesHowTo">Kliknutím se shiftem či kliknutím pravým tlačítkem lze kreslit do šachovnice kolečka a šipky.</string>
-  <string name="confirmResignation">Potvrzení rezignace</string>
   <string name="letOtherPlayersMessageYou">Povolit zprávy od ostatních hráčů</string>
   <string name="shareYourInsightsData">Sdílejte výsledky analýzy vašeho hraní</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Již máte zaregistrován email: %s</string>

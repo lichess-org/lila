@@ -48,7 +48,34 @@
   <string name="computerAnalysis">Računalna analiza</string>
   <string name="computerAnalysisAvailable">Dostupna računalna analiza</string>
   <string name="analysis">Ploča za analizu</string>
+  <string name="depthX">Dubina %s</string>
+  <string name="usingServerAnalysis">U uporabi je serverska analiza</string>
+  <string name="cloudAnalysis">Analiza u oblaku</string>
+  <string name="goDeeper">Idi dublje</string>
+  <string name="showThreat">Pokaži prijetnju</string>
+  <string name="inLocalBrowser">u lokalnom pregledniku</string>
+  <string name="toggleLocalEvaluation">Prekidač za lokalnu evaluaciju</string>
+  <string name="capture">Uzimanje figure</string>
+  <string name="winning">Pobjeđuje</string>
+  <string name="unknown">Nepoznati ishod</string>
+  <string name="database">Baza podataka</string>
+  <string name="gameSpeed">Vremenska kontrola</string>
+  <string name="whiteDrawBlack">Bijeli / remi / Crni</string>
+  <string name="averageRatingX">Prosječni rejting: %s</string>
+  <string name="recentGames">Nedavne partije</string>
+  <string name="topGames">Najjače partije</string>
+  <string name="masterDbExplanation">Dva milijuna OTB partija FIDE rangiranih igrača (2200+ FIDE rejting) igranih od 1952. do 2016. godine</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Mat u %s međupotezu</item>
+    <item quantity="few">Mat u %s međupoteza</item>
+    <item quantity="other">Mat u %s međupoteza</item>
+  </plurals>
+  <string name="noGameFound">Nije pronađena nijedna partija</string>
+  <string name="alreadySearchingThroughAllAvailableGames">Već se pretražuju sve dostupne partije</string>
   <string name="openingExplorer">Pretraživač otvaranja &amp; baza pozicija u završnici</string>
+  <string name="winPreventedBy50MoveRule">Pobjeda spriječena na bazi pravila o 50 poteza</string>
+  <string name="lossSavedBy50MoveRule">Poraz spriječen na bazi pravila o 50 poteza</string>
+  <string name="allSet">U redu</string>
   <string name="blunders">Previdi</string>
   <string name="mistakes">Greške</string>
   <string name="inaccuracies">Nepreciznosti</string>
@@ -202,6 +229,7 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Ovaj igrač koristi pomoć računala</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ovaj igrač umjetno podiže/spušta svoj rejting</string>
+  <string name="openingExplorerAndTablebase">Pretraživač otvaranja &amp; baza pozicija u završnici</string>
   <string name="takeback">Vrati potez</string>
   <string name="proposeATakeback">Predloži vraćanje poteza</string>
   <string name="takebackPropositionSent">Ponuda o vraćanju poteza poslana</string>
@@ -577,7 +605,7 @@
   <string name="simulAddExtraTime">Možeš dodati dodatno vrijeme na svoj sat da ti pomogne savladati simultanku.</string>
   <string name="simulHostExtraTime">Dodatno vrijeme domaćina</string>
   <string name="lichessTournaments">Lichess turniri</string>
-  <string name="tournamentFAQ">Najčešće postavljana pitanje o Arena turnirma</string>
+  <string name="tournamentFAQ">Najčešće postavljana pitanja o Arena turnirima</string>
   <string name="tournamentOfficial">Službeno</string>
   <string name="timeBeforeTournamentStarts">Vrijeme prije nego turnir započne</string>
   <string name="averageCentipawnLoss">Prosječni gubitak u stotim dijelovima pješaka</string>
@@ -618,7 +646,6 @@
   <string name="crosstable">Tablica križanja</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Možeš skrolirati preko ploče za micanje u partiji.</string>
   <string name="analysisShapesHowTo">Pritisni shift + lijevi klik ili desni klik kako bi crtao/la krugove i strelice na ploči.</string>
-  <string name="confirmResignation">Potvrda predaje</string>
   <string name="inputMovesWithTheKeyboard">Omogući unošenje poteza tipkovnicom</string>
   <string name="letOtherPlayersMessageYou">Dopusti drugim igračima da ti pošalju poruku</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Način igranja rokade</string>

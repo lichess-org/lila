@@ -53,18 +53,40 @@
   <string name="loadingEngine">กำลังโหลดจักรกล...</string>
   <string name="cloudAnalysis">การวิเคราะห์คลาวด์</string>
   <string name="goDeeper">ลึกลงอีก</string>
+  <string name="showThreat">แสดงภัยคุกคาม</string>
   <string name="inLocalBrowser">ในเบราว์เซอร์ท้องถิ่น</string>
+  <string name="toggleLocalEvaluation">เปิด/ปิดการประเมินท้องถิ่น</string>
+  <string name="move">การเดิน</string>
+  <string name="variantLoss">ตัวแปรฯที่แพ้</string>
+  <string name="variantWin">ตัวแปรฯที่ชนะ</string>
+  <string name="insufficientMaterial">วัตถุประกอบไม่เพียงพอ</string>
+  <string name="pawnMove">การเดินเบี้ย</string>
+  <string name="capture">จับกิน</string>
+  <string name="close">ปิด</string>
+  <string name="winning">การชนะ</string>
+  <string name="losing">การแพ้</string>
   <string name="unknown">ไม่ทราบ</string>
   <string name="database">ฐานข้อมูล</string>
   <string name="gameSpeed">ความ​เร็ว​เกม</string>
   <string name="whiteDrawBlack">ขาวเสมอดำ</string>
   <string name="averageRatingX">ระดับคะแนนเฉลี่ย: %s</string>
   <string name="recentGames">เกมเมื่อเร็วๆนี้</string>
+  <string name="topGames">เกมเด่น</string>
+  <string name="masterDbExplanation">เกม OTB สองล้านเกมของผู้เล่นระดับคะแนน FIDE 2200+ จาก 1952 ถึง 2016</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="other">จนใน %s ครึ่งรอบเดิน</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="other">การจับกินถัดไปหรือการเดินเบี้ยใน %s ครึ่งรอบเดิน (ระยะห่างจากศูนย์ของตัวนับ 50 รอบเดิน)</item>
+  </plurals>
   <string name="noGameFound">ไม่พบเกมใดๆ</string>
+  <string name="alreadySearchingThroughAllAvailableGames">ค้นหาทั่วเกมที่มีอยู่ทั้งหมดแล้ว</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">อาจรวมถึงเกมเพิ่มเติมจากเมนูการตั้งค่าใช่หรือไม่?</string>
   <string name="openingExplorer">ตัวสำรวจการเปิดเกม</string>
-  <string name="winPreventedBy50MoveRule">การชนะถูกป้องกันโดยกฎ 50-ตาเดิน</string>
-  <string name="lossSavedBy50MoveRule">การแพ้ถูกป้องกันโดยกฎ 50-ตาเดิน</string>
+  <string name="xOpeningExplorer">ตัวสำรวจการเปิด %s</string>
+  <string name="winPreventedBy50MoveRule">การชนะถูกป้องกันโดยกฎ 50-รอบเดิน</string>
+  <string name="lossSavedBy50MoveRule">การแพ้ถูกป้องกันโดยกฎ 50-รอบเดิน</string>
+  <string name="allSet">ยืนยัน!</string>
   <string name="blunders">ความผิดพลาดมหันต์</string>
   <string name="mistakes">ความผิดพลาด</string>
   <string name="inaccuracies">ความไม่ถูกต้อง</string>
@@ -194,6 +216,7 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">ผู้เล่นรายนี้ใช้การช่วยเหลือจากคอมพิวเตอร์หมากรุก</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">ผู้เล่นรายนี้เพิ่ม/ลดระดับคะแนนตัวเองโดยทุจริต</string>
+  <string name="openingExplorerAndTablebase">ตัวสำรวจการเปิด &amp; ฐานตาราง</string>
   <string name="takeback">เดินใหม่</string>
   <string name="proposeATakeback">ขอเดินใหม่</string>
   <string name="takebackPropositionSent">การขอเดินใหม่ ถูกส่ง</string>
@@ -300,7 +323,7 @@
   <string name="berserkRate">อัตราเบอร์เซิร์ก</string>
   <string name="performance">สมรรถนะ</string>
   <string name="tournamentComplete">ทัวร์นาเมนต์เสร็จสมบูรณ์</string>
-  <string name="movesPlayed">การเดินที่ได้ทำ</string>
+  <string name="movesPlayed">การเดินที่ทำ</string>
   <string name="whiteWins">ขาวชนะ</string>
   <string name="blackWins">ดำชนะ</string>
   <string name="draws">เสมอ</string>
@@ -362,7 +385,7 @@
   <string name="thisPuzzleIsCorrect">ปริศนานี้ถูกต้อง และน่าสนใจ</string>
   <string name="thisPuzzleIsWrong">ปริศนานี้ไม่ถูกต้อง หรือน่าเบื่อ</string>
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="other">คุณมีเวลา %s วินาที ในการเริ่มเดิน!</item>
+    <item quantity="other">คุณมีเวลา %s วินาที ในการเริ่มเดินตาแรกของคุณ!</item>
   </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s เกมที่กำลังเล่น</item>
@@ -586,7 +609,7 @@
   <string name="crosstable">ตารางผลแข่ง</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">คุณสามารถหมุนเลื่อนเหนือกระดานเพื่อเดินในเกมได้ด้วย</string>
   <string name="analysisShapesHowTo">กด shift+คลิก หรือ คลิกขวา เพื่อวาดวงกลมและลูกศรบนกระดาน</string>
-  <string name="confirmResignation">ยืนยันการยอมแพ้</string>
+  <string name="confirmResignationAndDrawOffers">ยืนยันการยอมแพ้และข้อเสนอการเสมอ</string>
   <string name="inputMovesWithTheKeyboard">ทำการเดินด้วยแป้นพิมพ์</string>
   <string name="letOtherPlayersMessageYou">อนุญาตให้ผู้อื่นส่งข้อความถึงคุณ</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">เข้าป้อมโดยเดินคิงสองช่องหรือไปที่เรือ</string>

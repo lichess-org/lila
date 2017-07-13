@@ -465,7 +465,6 @@
   <string name="crosstable">Лік</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Можаце ужываць колца мышкі для перамоткі хадоў (трымайце курсор над дошкай)</string>
   <string name="analysisShapesHowTo">Ужывайце Shift+левую кнопку мышы ці правую кнопку, каб маляваць кружкі і стрэлкі на дошцы</string>
-  <string name="confirmResignation">Пацвердзіць капітуляцыю</string>
   <string name="letOtherPlayersMessageYou">Дазволіць дасылаць вам паведамленні</string>
   <string name="shareYourInsightsData">Дзяліцца статыстыкай</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Вы ўжо рэгістравалі гэты адрас: %s</string>
