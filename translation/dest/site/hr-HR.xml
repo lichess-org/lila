@@ -60,7 +60,6 @@
   <string name="winning">Pobjeđuje</string>
   <string name="unknown">Nepoznati ishod</string>
   <string name="database">Baza podataka</string>
-  <string name="gameSpeed">Vremenska kontrola</string>
   <string name="whiteDrawBlack">Bijeli / remi / Crni</string>
   <string name="averageRatingX">Prosječni rejting: %s</string>
   <string name="recentGames">Nedavne partije</string>
