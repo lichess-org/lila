@@ -50,6 +50,7 @@
   <string name="analysis">Ploča za analizu</string>
   <string name="depthX">Dubina %s</string>
   <string name="usingServerAnalysis">U uporabi je serverska analiza</string>
+  <string name="loadingEngine">Učitavanje računalne analize...</string>
   <string name="cloudAnalysis">Analiza u oblaku</string>
   <string name="goDeeper">Idi dublje</string>
   <string name="showThreat">Pokaži prijetnju</string>
