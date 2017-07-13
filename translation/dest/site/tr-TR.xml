@@ -297,6 +297,7 @@
   <string name="standByX">Biraz bekle %s, eşleştiriliyorsun, hazır ol!</string>
   <string name="youArePlaying">Siz oynuyorsunuz!</string>
   <string name="winRate">Kazanma oranı</string>
+  <string name="berserkRate">Divane modu oranı</string>
   <string name="performance">Performans</string>
   <string name="tournamentComplete">Turnuva sona erdi</string>
   <string name="movesPlayed">Toplam hamle sayısı</string>
