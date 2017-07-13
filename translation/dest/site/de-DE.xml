@@ -65,7 +65,6 @@
   <string name="drawn">Remis</string>
   <string name="unknown">Unbekannt</string>
   <string name="database">Datenbank</string>
-  <string name="gameSpeed">Spielgeschwindigkeit</string>
   <string name="whiteDrawBlack">Weiß / Remis / Schwarz</string>
   <string name="averageRatingX">Durchschnittliche Wertungszahl: %s</string>
   <string name="recentGames">Neue Partien</string>
