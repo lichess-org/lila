@@ -68,7 +68,6 @@
   <string name="drawn">Patta</string>
   <string name="unknown">Posizioni sconosciute al database</string>
   <string name="database">Database</string>
-  <string name="gameSpeed">Velocità di gioco</string>
   <string name="whiteDrawBlack">Bianco / Patta / Nero</string>
   <string name="averageRatingX">Punteggio medio: %s</string>
   <string name="recentGames">Partite recenti</string>
