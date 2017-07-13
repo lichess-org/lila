@@ -7,6 +7,12 @@
   <string name="isNotRated">Bu turnuva puanlı *değildir* ve ratinginizi *etkilemeyecektir*.</string>
   <string name="someRated">Bazı turnuvalar puanlıdır ve ratinginizi etkileyecektir.</string>
   <string name="howAreScoresCalculated">Maçlardan alınan puanlar nasıl hesaplanıyor?</string>
+  <string name="howAreScoresCalculatedAnswer">Kazanılan bir oyun temelde 2 puana tekabül eder. Beraberlik 1 puan iken kaybedilen bir oyun ise hiçbir puan getirmez. Eğer üst üste iki oyun kazanırsan ateş ikonu ile simgelenen çifte puan serisine girersin.
+
+Mağlup edilene kadar serideki oyunlardan iki katı puan kazanırsın. Yani seride iken elde ettiğin bir zaferden 4 puan ve beraberlikten 2 puan alırken, kaybettiğin oyundan hiçbir puan alamazsın.
+
+Örneğin, iki zaferden sonra berabere kalırsan toplamda 6 puanın olur: 2 + 2 + (2 x 1)</string>
+  <string name="berserk">Divane Modu</string>
   <string name="howIsTheWinnerDecided">Kazanan nasıl belirleniyor?</string>
   <string name="howDoesPairingWork">Eşleştirme nasıl yapılıyor?</string>
   <string name="thisIsPrivate">Bu özel bir turnuvadır</string>
