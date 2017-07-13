@@ -68,7 +68,7 @@
   <string name="gameSpeed">Spielgeschwindigkeit</string>
   <string name="whiteDrawBlack">Weiß / Remis / Schwarz</string>
   <string name="averageRatingX">Durchschnittliche Wertungszahl: %s</string>
-  <string name="recentGames">Aktuelle Spiele</string>
+  <string name="recentGames">Neue Partien</string>
   <string name="topGames">Spitzenpartien</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Matt in %s Halbzug</item>
