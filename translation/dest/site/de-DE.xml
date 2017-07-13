@@ -196,8 +196,8 @@
   <string name="freeOnlineChess">Kostenloses Online-Schach</string>
   <string name="spectators">Zuschauer:</string>
   <plurals name="nbGamesPlayed">
-    <item quantity="one">%s Spiel gespielt</item>
-    <item quantity="other">%s Spiele gespielt</item>
+    <item quantity="one">%s Partie gespielt</item>
+    <item quantity="other">%s Partien gespielt</item>
   </plurals>
   <plurals name="nbRated">
     <item quantity="one">%s gewertet</item>
@@ -333,12 +333,12 @@
   <string name="youArePlaying">Dein Spiel beginnt!</string>
   <string name="winRate">Gewinnrate</string>
   <string name="berserkRate">Berserkrate</string>
-  <string name="performance">Performance</string>
+  <string name="performance">Turnierleistung</string>
   <string name="tournamentComplete">Turnier beendet</string>
   <string name="movesPlayed">Gespielte Züge</string>
-  <string name="whiteWins">Weiß gewinnt</string>
-  <string name="blackWins">Schwarz gewinnt</string>
-  <string name="draws">Remis</string>
+  <string name="whiteWins">Weiße Siege</string>
+  <string name="blackWins">Schwarze Siege</string>
+  <string name="draws">Remisen</string>
   <string name="nextXTournament">Nächstes %s Turnier:</string>
   <string name="viewMoreTournaments">Weitere Turniere anzeigen</string>
   <string name="averageOpponent">Durchschnittlicher Gegner</string>
@@ -461,7 +461,7 @@
   <string name="moveListWhilePlaying">Notation während des Spiels anzeigen</string>
   <string name="pgnPieceNotation">Figurendarstellung in der PGN-Notation</string>
   <string name="chessPieceSymbol">Schachfigurensymbol</string>
-  <string name="pgnLetter">PGN-Buchstabe (K, Q, R, B, N)</string>
+  <string name="pgnLetter">Buchstaben (K, Q, R, B, N)</string>
   <string name="chessClock">Schachuhr</string>
   <string name="tenthsOfSeconds">Zehntelsekunden</string>
   <string name="never">Nie</string>
