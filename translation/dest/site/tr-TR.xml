@@ -159,6 +159,7 @@
   <string name="play">Oyna</string>
   <string name="inbox">Gelen kutusu</string>
   <string name="chatRoom">Sohbet odası</string>
+  <string name="loginToChat">Sohbete katılmak için oturum aç</string>
   <string name="spectatorRoom">Seyirci odası</string>
   <string name="composeMessage">Mesaj oluştur</string>
   <string name="noNewMessages">Yeni mesaj yok</string>
@@ -594,6 +595,9 @@
   <string name="confirmResignationAndDrawOffers">Oyundan çekilme ve beraberlik tekliflerini kabul et</string>
   <string name="inputMovesWithTheKeyboard">Hamleleri klavye ile gir</string>
   <string name="letOtherPlayersMessageYou">Diğer oyuncuların size mesaj yollamasına izin verin</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rok atma yöntemi</string>
+  <string name="castleByMovingTwoSquares">Şahı iki kare sürerek</string>
+  <string name="castleByMovingOntoTheRook">Şahı kalenin üstüne getirerek</string>
   <string name="shareYourInsightsData">Anlayış verilerinizi paylaşın</string>
   <string name="withNobody">Hiçkimse ile</string>
   <string name="withFriends">Yalnızca arkadaşlarım</string>
