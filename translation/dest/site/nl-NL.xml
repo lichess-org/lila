@@ -64,7 +64,6 @@
   <string name="close">Sluiten</string>
   <string name="unknown">Onbekend</string>
   <string name="database">Databank</string>
-  <string name="gameSpeed">Snelheid van spel</string>
   <string name="whiteDrawBlack">Wit / Remise / Zwart</string>
   <string name="averageRatingX">Gemiddelde rating: %s</string>
   <string name="recentGames">Recente partijen</string>
