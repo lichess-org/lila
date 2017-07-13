@@ -68,7 +68,6 @@
   <string name="drawn">Drawn</string>
   <string name="unknown">Unknown</string>
   <string name="database">Database</string>
-  <string name="gameSpeed">Time control</string>
   <string name="whiteDrawBlack">White / Draw / Black</string>
   <string name="averageRatingX">Average rating: %s</string>
   <string name="recentGames">Recent games</string>
