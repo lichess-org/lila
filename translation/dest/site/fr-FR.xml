@@ -68,7 +68,6 @@
   <string name="drawn">Nulle</string>
   <string name="unknown">Inconnu</string>
   <string name="database">Base de données</string>
-  <string name="gameSpeed">Vitesse de jeu</string>
   <string name="whiteDrawBlack">Blancs / Nulle / Noirs</string>
   <string name="averageRatingX">Classement moyen : %s</string>
   <string name="recentGames">Parties récentes</string>
