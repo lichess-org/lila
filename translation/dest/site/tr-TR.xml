@@ -295,6 +295,13 @@
   <string name="tournamentPairingsAreNowClosed">Turnuva eşleştirmeleri şu anda kapalıdır.</string>
   <string name="standByX">Biraz bekle %s, eşleştiriliyorsun, hazır ol!</string>
   <string name="youArePlaying">Siz oynuyorsunuz!</string>
+  <string name="winRate">Kazanma oranı</string>
+  <string name="performance">Performans</string>
+  <string name="tournamentComplete">Turnuva sona erdi</string>
+  <string name="movesPlayed">Toplam hamle sayısı</string>
+  <string name="whiteWins">Beyaz zaferleri</string>
+  <string name="blackWins">Siyah zaferleri</string>
+  <string name="draws">Beraberlikler</string>
   <string name="membersOnly">Sadece üyeler</string>
   <string name="boardEditor">Tahta yapıcı</string>
   <string name="startPosition">Başlangıç konumu</string>
