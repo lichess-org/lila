@@ -3,8 +3,10 @@
 <resources>
   <string name="isItRated">Bu turnuva puanlı mı?</string>
   <string name="willBeNotified">Turnuva başladığında sana haber vereceğiz, bu süre zarfında başka bir sekmede oynamanın bir sakıncası yok.</string>
-  <string name="isRated">Bu turnuva puanlıdır ve ratinginizi etkileyecektir.</string>
+  <string name="isRated">Evet, bu turnuva puanlıdır ve ratinginizi etkileyecektir.</string>
   <string name="isNotRated">Bu turnuva puanlı *değildir* ve ratinginizi *etkilemeyecektir*.</string>
+  <string name="someRated">Bazı turnuvalar puanlıdır ve ratinginizi etkileyecektir.</string>
+  <string name="howAreScoresCalculated">Maçlardan alınan puanlar nasıl hesaplanıyor?</string>
   <string name="howIsTheWinnerDecided">Kazanan nasıl belirleniyor?</string>
   <string name="howDoesPairingWork">Eşleştirme nasıl yapılıyor?</string>
   <string name="thisIsPrivate">Bu özel bir turnuvadır</string>
