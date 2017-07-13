@@ -636,6 +636,7 @@
   <string name="crosstable">Historique des parties</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Vous pouvez aussi utiliser la molette sur l\'échiquier pour voir la partie</string>
   <string name="analysisShapesHowTo">Maj+clic ou clic-droit pour dessiner des cercles et des flèches sur l\'échiquier</string>
+  <string name="confirmResignationAndDrawOffers">Confirmer l\'abandon et la proposition de nulle</string>
   <string name="inputMovesWithTheKeyboard">Saisir les coups au clavier</string>
   <string name="letOtherPlayersMessageYou">Permettre à d\'autres joueurs de vous envoyer des messages</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Manière de roquer</string>
