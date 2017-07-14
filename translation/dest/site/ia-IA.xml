@@ -574,6 +574,7 @@
   <string name="anonymous">Anonyme</string>
   <string name="language">Lingua</string>
   <string name="background">Fundo</string>
+  <string name="playChessInStyle">Joca chacos con stilo</string>
   <string name="chessBasics">Fundamentos del chacos</string>
   <string name="coaches">Tutores</string>
   <string name="invalidPgn">PGN invalide</string>
