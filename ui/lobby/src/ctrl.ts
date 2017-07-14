@@ -48,7 +48,7 @@ export default class LobbyController {
     this.tab = this.stores.tab.get(),
     this.mode = this.stores.mode.get(),
     this.sort = this.stores.sort.get(),
-    this.trans = li.trans(opts.i18n);
+    this.trans = opts.trans;
 
     this.poolInStorage = li.storage.make('lobby.pool-in');
     this.poolInStorage.listen(e => { // when another tab joins a pool

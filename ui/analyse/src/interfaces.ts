@@ -79,7 +79,7 @@ export interface AnalyseOpts {
   embed: boolean;
   explorer: boolean;
   socketSend: SocketSend;
-  i18n: any;
+  trans: Trans;
   study?: any;
   tagTypes?: string;
   practice?: any;
