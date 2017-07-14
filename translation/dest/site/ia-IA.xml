@@ -10,8 +10,8 @@
   <string name="yourTurn">Tu torno</string>
   <string name="aiNameLevelAiLevel">%1$s nivello %2$s</string>
   <string name="level">Nivello</string>
-  <string name="toggleTheChat">Alternar le chat</string>
-  <string name="toggleSound">Alternar sono</string>
+  <string name="toggleTheChat">Activar/disactivar le chat</string>
+  <string name="toggleSound">Activar/disactivar sono</string>
   <string name="chat">Chat</string>
   <string name="resign">Resignar se</string>
   <string name="checkmate">Chaco mat</string>
@@ -32,7 +32,7 @@
   <string name="whitePlays">Le blanc debe jocar</string>
   <string name="blackPlays">Le nigre debe jocar</string>
   <string name="opponentLeftChoices">Le altere jocator pote haber abandonate le partita. Tu pote declarar victoria, considerar le partita como nulle o attender.</string>
-  <string name="makeYourOpponentResign">Obligar tu adversario a resginar</string>
+  <string name="makeYourOpponentResign">Obligar tu adversario a resignar</string>
   <string name="forceResignation">Declarar victoria</string>
   <string name="forceDraw">Considerar le partita nulle</string>
   <string name="talkInChat">Per favor, sia gentil in le chat!</string>
@@ -43,10 +43,13 @@
   <string name="blackLeftTheGame">Le nigre abandonava le partita</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Publica iste adresse pro lassar spectatores vider le joco</string>
   <string name="theComputerAnalysisHasFailed">Le analyse de computator falleva</string>
-  <string name="viewTheComputerAnalysis">Vide le analyse de computator</string>
+  <string name="viewTheComputerAnalysis">Vider le analyse de computator</string>
   <string name="requestAComputerAnalysis">Requirer un analyse de computator</string>
   <string name="computerAnalysis">Analyse de computator</string>
+  <string name="computerAnalysisAvailable">Un analyse de computator es disponibile</string>
   <string name="analysis">Analyse</string>
+  <string name="unknown">Incognite</string>
+  <string name="database">Base de datos</string>
   <string name="openingExplorer">Explorator de initio de joco</string>
   <string name="blunders">Errores grave</string>
   <string name="mistakes">Errores</string>
@@ -119,7 +122,7 @@
   <string name="drawOfferCanceled">Offerta de partita nulle cancellate</string>
   <string name="whiteOffersDraw">Le blanc offere le partita nulle</string>
   <string name="blackOffersDraw">Le nigre offere le partita nulle</string>
-  <string name="whiteDeclinesDraw">Le blanca declina le partita nulle</string>
+  <string name="whiteDeclinesDraw">Le blanc declina le partita nulle</string>
   <string name="blackDeclinesDraw">Le nigre declina le partita nulle</string>
   <string name="yourOpponentOffersADraw">Tu adversario offere le partita nulle</string>
   <string name="accept">Acceptar</string>
