@@ -50,6 +50,8 @@
   <string name="analysis">Papan analisis</string>
   <string name="depthX">Kedalaman %s</string>
   <string name="usingServerAnalysis">Menggunakan server analisis</string>
+  <string name="loadingEngine">Mesin loading...</string>
+  <string name="cloudAnalysis">Awan analisis</string>
   <string name="openingExplorer">Perambah pembukaan</string>
   <string name="blunders">Blunder</string>
   <string name="mistakes">Kesalahan</string>
