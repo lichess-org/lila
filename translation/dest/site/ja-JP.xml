@@ -56,6 +56,7 @@
   <string name="showThreat">狙いを表示</string>
   <string name="inLocalBrowser">ローカル ブラウザ内で</string>
   <string name="toggleLocalEvaluation">ローカル評価値のオン/オフ</string>
+  <string name="move">手</string>
   <string name="variantLoss">バリアント負け</string>
   <string name="variantWin">バリアント勝ち</string>
   <string name="insufficientMaterial">戦力不足</string>
@@ -650,6 +651,7 @@
   <string name="xLikesY">%1$s が %2$s に「いいね」しました。</string>
   <string name="quickPairing">自動ペアリング</string>
   <string name="lobby">ロビー</string>
+  <string name="anonymous">匿名</string>
   <string name="yourScore">通算成績：%s</string>
   <string name="language">言語</string>
   <string name="background">背景</string>
