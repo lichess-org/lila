@@ -59,6 +59,8 @@
   <string name="move">Potez</string>
   <string name="capture">Uzimanje figure</string>
   <string name="winning">Pobjeđuje</string>
+  <string name="losing">Gubi</string>
+  <string name="drawn">Remizira</string>
   <string name="unknown">Nepoznati ishod</string>
   <string name="database">Baza podataka</string>
   <string name="whiteDrawBlack">Bijeli / remi / Crni</string>
@@ -70,6 +72,11 @@
     <item quantity="one">Mat u %s međupotezu</item>
     <item quantity="few">Mat u %s međupoteza</item>
     <item quantity="other">Mat u %s međupoteza</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Sljedeće uzimanje ili potez pješakom u %s polupotezu (udaljenost od resetiranja brojača 50 poteza)</item>
+    <item quantity="few">Sljedeće uzimanje ili potez pješakom u %s polupoteza (udaljenost od resetiranja brojača 50 poteza)</item>
+    <item quantity="other">Sljedeće uzimanje ili potez pješakom u %s polupoteza (udaljenost od resetiranja brojača 50 poteza)</item>
   </plurals>
   <string name="noGameFound">Nije pronađena nijedna partija</string>
   <string name="alreadySearchingThroughAllAvailableGames">Već se pretražuju sve dostupne partije</string>
