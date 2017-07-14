@@ -572,4 +572,15 @@
   </plurals>
   <string name="gameAnalysis">Analyse de joco</string>
   <string name="anonymous">Anonyme</string>
+  <string name="language">Lingua</string>
+  <string name="background">Fundo</string>
+  <string name="chessBasics">Fundamentos del chacos</string>
+  <string name="coaches">Tutores</string>
+  <string name="invalidPgn">PGN invalide</string>
+  <string name="invalidFen">FEN invalide</string>
+  <string name="error.unknown">Error</string>
+  <string name="custom">Personalisate</string>
+  <string name="notifications">Notificationes</string>
+  <string name="challenges">Defias</string>
+  <string name="perfRatingX">Classification: %s</string>
 </resources>
