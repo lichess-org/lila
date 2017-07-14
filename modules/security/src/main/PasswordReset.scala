@@ -33,6 +33,7 @@ If you made this request, click the link below. If you didn't make this request,
 
 $url
 
+(Clicking not working? Try pasting it into your browser!)
 
 This message is a service email related to your use of lichess.org.
 """),
@@ -51,6 +52,7 @@ This message is a service email related to your use of lichess.org.
         <meta itemprop="name" content="Reset password">
         <meta itemprop="url" content="$url">
         <p><a itemprop="target" href="$url">$url</a></p>
+        <p>(Clicking not working? Try pasting it into your browser!)</p>
       </div>
       <div itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
         <small>This is a service email related to your use of <a itemprop="url" href="https://lichess.org/"><span itemprop="name">lichess.org</span></a>.</small>
