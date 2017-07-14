@@ -457,6 +457,7 @@
   <string name="closeAccountExplanation">Are you sure you want to close your account? Closing your account is a permanent decision. You will no longer be able to login, and your profile page will no longer be accessible.</string>
   <string name="thisAccountIsClosed">This account is closed.</string>
   <string name="invalidUsernameOrPassword">Invalid username or password</string>
+  <string name="incorrectPassword">Incorrect password</string>
   <string name="emailMeALink">Email me a link</string>
   <string name="currentPassword">Current password</string>
   <string name="newPassword">New password</string>
@@ -548,6 +549,7 @@
   <string name="error.email">This email address is invalid</string>
   <string name="error.email_acceptable">This email address is not acceptable</string>
   <string name="error.email_unique">This email address is already taken</string>
+  <string name="error.email_different">This already is you email address</string>
   <string name="blindfoldChess">Blindfold chess (invisible pieces)</string>
   <string name="moveConfirmation">Move confirmation</string>
   <string name="inCorrespondenceGames">Correspondence games</string>

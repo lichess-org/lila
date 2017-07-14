@@ -81,10 +81,12 @@ final class DataForm(
       _.samePasswords
     ))
 
-  def changeEmail(user: User) = Form(mapping(
-    "email" -> acceptableUniqueEmail(user.some),
-    "passwd" -> nonEmptyText
-  )(ChangeEmail.apply)(ChangeEmail.unapply))
+  def changeEmail(u: User, old: Option[EmailAddress]) = UserRepo loginCandidate u map { candidate =>
+    Form(mapping(
+      "passwd" -> nonEmptyText.verifying("incorrectPassword", candidate.check),
+      "email" -> acceptableUniqueEmail(candidate.user.some).verifying(emailValidator differentConstraint old)
+    )(ChangeEmail.apply)(ChangeEmail.unapply))
+  }
 
   def modEmail(user: User) = Form(single("email" -> acceptableUniqueEmail(user.some)))
 

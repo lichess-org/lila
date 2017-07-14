@@ -39,8 +39,8 @@ final class Api(
 
   def loadLoginForm(str: String): Fu[Form[Option[User]]] = {
     emailValidator.validate(EmailAddress(str)) match {
-      case Some(email) => UserRepo.checkPasswordByEmail(email)
-      case None if User.couldBeUsername(str) => UserRepo.checkPasswordById(User normalize str)
+      case Some(email) => UserRepo.loginCandidateByEmail(email)
+      case None if User.couldBeUsername(str) => UserRepo.loginCandidateById(User normalize str)
       case _ => fuccess(none)
     }
   } map loadedLoginForm _
