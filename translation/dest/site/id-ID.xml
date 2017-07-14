@@ -80,7 +80,13 @@
     <item quantity="other">Memakan berikutnya atau pion melangkah dalam setengah %s-bergerak (jarak ke Zeroing counter 50 bergerak)</item>
   </plurals>
   <string name="noGameFound">Permainan tidak ditemukan</string>
+  <string name="alreadySearchingThroughAllAvailableGames">Sudah mencari di semua permainan ya ada</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Apakah ingin memasukan Permainan lainnya dari menu preferensi?</string>
   <string name="openingExplorer">Perambah pembukaan</string>
+  <string name="xOpeningExplorer">%s menelusuri pembukaan</string>
+  <string name="winPreventedBy50MoveRule">Tidak bisa menang karena peraturan 50 langkah</string>
+  <string name="lossSavedBy50MoveRule">Kekalahan terhindari karena peraturan 50 langkah</string>
+  <string name="allSet">Siap!</string>
   <string name="blunders">Blunder</string>
   <string name="mistakes">Kesalahan</string>
   <string name="inaccuracies">Ketidaktepatan</string>
@@ -177,6 +183,8 @@
   <string name="play">Mainkan</string>
   <string name="inbox">Kotak Masuk</string>
   <string name="chatRoom">Ruang Ngobrol</string>
+  <string name="loginToChat">Login untuk chatting</string>
+  <string name="youHaveBeenTimedOut">Waktu Anda telah habis.</string>
   <string name="spectatorRoom">Ruang penonton</string>
   <string name="composeMessage">Tulis pesan</string>
   <string name="noNewMessages">Tidak ada pesan sekarang</string>
@@ -186,6 +194,12 @@
   <string name="incrementInSeconds">Increment dalam detik</string>
   <string name="freeOnlineChess">Catur online gratis!</string>
   <string name="spectators">Penonton:</string>
+  <plurals name="nbGamesPlayed">
+    <item quantity="other">%s permainan yang telah dimainkan</item>
+  </plurals>
+  <plurals name="nbRated">
+    <item quantity="other">%s dengan rating</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="other">%s menang</item>
   </plurals>
@@ -202,6 +216,7 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Pemain ini menggunakan bantuan komputer</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Pemain ini bertambah/berkurang ratingnya</string>
+  <string name="openingExplorerAndTablebase">Pembukaan explorer &amp; tablebase</string>
   <string name="takeback">Langkah Batal</string>
   <string name="proposeATakeback">Ajukan langkah batal</string>
   <string name="takebackPropositionSent">Penawaran untuk langkah batal terkirim</string>
@@ -301,6 +316,16 @@
   <string name="winStreak">Menang beruntun</string>
   <string name="createdBy">Dibuat oleh</string>
   <string name="tournamentIsStarting">Turnamen sudah dimulai</string>
+  <string name="tournamentPairingsAreNowClosed">Pairing pemain sudah ditutup.</string>
+  <string name="standByX">Bersiaplah %s, pairing pemain sedang dilakukan!</string>
+  <string name="youArePlaying">Anda bermain!</string>
+  <string name="winRate">Rating kemenangan</string>
+  <string name="berserkRate">Rating berserk</string>
+  <string name="performance">Prestasi</string>
+  <string name="tournamentComplete">Turnamen selesai</string>
+  <string name="movesPlayed">Langkah yang dijalankan</string>
+  <string name="whiteWins">Putih Menang</string>
+  <string name="blackWins">Hitam Menang</string>
   <string name="membersOnly">Hanya untuk anggota</string>
   <string name="boardEditor">Edit Papan</string>
   <string name="startPosition">Posisi Awal</string>
