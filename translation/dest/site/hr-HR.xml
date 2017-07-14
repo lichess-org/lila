@@ -59,6 +59,8 @@
   <string name="move">Potez</string>
   <string name="variantLoss">Poraz varijante</string>
   <string name="variantWin">Pobjeda varijante</string>
+  <string name="insufficientMaterial">Nedostatan materijal</string>
+  <string name="pawnMove">Potez pješakom</string>
   <string name="capture">Uzimanje figure</string>
   <string name="close">Zatvori</string>
   <string name="winning">Pobjeđuje</string>
