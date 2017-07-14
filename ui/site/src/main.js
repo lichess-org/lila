@@ -741,15 +741,6 @@ lichess.topMenuIntent = function() {
     return api;
   })();
 
-  lichess.globalTrans = function() {
-    var str = window.lichess_translations && lichess_translations[arguments[0]];
-    if (!str) return arguments[0];
-    Array.prototype.slice.call(arguments, 1).forEach(function(arg) {
-      str = str.replace('%s', arg);
-    });
-    return str;
-  };
-
   lichess.widget("watchers", {
     _create: function() {
       this.list = this.element.find("span.list");

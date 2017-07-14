@@ -1,9 +1,11 @@
 package lila.challenge
 
 import play.api.libs.json._
+import play.api.i18n.Lang
 
 import lila.common.PimpedJson._
 import lila.socket.UserLagCache
+import lila.i18n.{ I18nKeys => trans }
 
 final class JsonView(
     getLightUser: lila.common.LightUser.GetterSync,
@@ -12,9 +14,10 @@ final class JsonView(
 
   import Challenge._
 
-  def apply(a: AllChallenges): JsObject = Json.obj(
+  def apply(a: AllChallenges, lang: Lang): JsObject = Json.obj(
     "in" -> a.in.map(apply(Direction.In.some)),
-    "out" -> a.out.map(apply(Direction.Out.some))
+    "out" -> a.out.map(apply(Direction.Out.some)),
+    "i18n" -> translations(lang)
   )
 
   def show(challenge: Challenge, socketVersion: Int, direction: Option[Direction]) = Json.obj(
@@ -71,4 +74,14 @@ final class JsonView(
       .add("online" -> isOnline(r.id))
       .add("lag" -> UserLagCache.getLagRating(r.id))
   }
+
+  private def translations(lang: Lang) = lila.i18n.JsDump.keysToObject(List(
+    trans.rated,
+    trans.casual,
+    trans.waiting,
+    trans.accept,
+    trans.decline,
+    trans.viewInFullSize,
+    trans.cancel
+  ), lang)
 }

@@ -395,6 +395,8 @@ object UserRepo {
 
   def setLang(id: ID, lang: String) = coll.updateField($id(id), "lang", lang).void
 
+  def langOf(id: ID): Fu[Option[String]] = coll.primitiveOne[String]($id(id), "lang")
+
   def idsSumToints(ids: Iterable[String]): Fu[Int] =
     ids.nonEmpty ?? coll.aggregateWithReadPreference(
       Match($inIds(ids)),

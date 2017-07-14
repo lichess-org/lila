@@ -8,6 +8,7 @@ import lila.app._
 import lila.challenge.{ Challenge => ChallengeModel }
 import lila.common.{ HTTPRequest, LilaCookie }
 import lila.game.{ Pov, GameRepo, AnonCookie }
+import lila.i18n.{ I18nKeys => trans }
 import lila.user.UserRepo
 import views.html
 
@@ -18,11 +19,7 @@ object Challenge extends LilaController {
   def all = Auth { implicit ctx => me =>
     XhrOrRedirectHome {
       env.api allFor me.id map { all =>
-        Ok {
-          env.jsonView(all) + (
-            "i18n" -> translations
-          )
-        } as JSON
+        Ok(env.jsonView(all, ctx.lang)) as JSON
       }
     }
   }
@@ -30,14 +27,6 @@ object Challenge extends LilaController {
   def show(id: String) = Open { implicit ctx =>
     showId(id)
   }
-
-  private def translations(implicit ctx: Context) = Env.i18n.jsDump.keysToObject(List(
-    lila.i18n.I18nKeys.waiting,
-    lila.i18n.I18nKeys.accept,
-    lila.i18n.I18nKeys.decline,
-    lila.i18n.I18nKeys.viewInFullSize,
-    lila.i18n.I18nKeys.cancel
-  ), ctx.lang)
 
   protected[controllers] def showId(id: String)(implicit ctx: Context): Fu[Result] =
     OptionFuResult(env.api byId id)(showChallenge(_))

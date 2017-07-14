@@ -134,8 +134,12 @@ final class ChallengeApi(
   private def socketReload(id: Challenge.ID): Unit =
     socketHub ! Tell(id, Socket.Reload)
 
-  private def notify(userId: User.ID): Unit =
-    allFor(userId) foreach { all =>
-      userRegister ! SendTo(userId, lila.socket.Socket.makeMessage("challenges", jsonView(all)))
+  private def notify(userId: User.ID): Funit = for {
+    all <- allFor(userId)
+    lang <- UserRepo langOf userId map {
+      _ flatMap lila.i18n.I18nLangPicker.byStr getOrElse lila.i18n.defaultLang
     }
+  } yield {
+    userRegister ! SendTo(userId, lila.socket.Socket.makeMessage("challenges", jsonView(all, lang)))
+  }
 }

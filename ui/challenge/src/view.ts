@@ -46,7 +46,7 @@ function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
       h('div.content', [
         h('span.title', renderUser(dir === 'in' ? c.challenger : c.destUser)),
         h('span.desc', [
-          window.lichess.globalTrans(c.rated ? 'Rated' : 'Casual'),
+          ctrl.trans()(c.rated ? 'rated' : 'casual'),
           timeControl(c.timeControl),
           c.variant.name
         ].join(' • '))

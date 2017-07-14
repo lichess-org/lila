@@ -8,31 +8,6 @@ import play.api.libs.json.{ JsString, JsObject }
 
 private[i18n] final class JsDump(path: String) {
 
-  def keysToObject(keys: Seq[I18nKey], lang: Lang) = JsObject {
-    keys.flatMap { k =>
-      Translator.findTranslation(k.key, I18nDb.Site, lang) match {
-        case Some(literal: Literal) =>
-          List(k.key -> JsString(literal.message))
-        case Some(plurals: Plurals) =>
-          plurals.messages map {
-            case (I18nQuantity.Zero, m) => k.key + ":zero" -> JsString(m)
-            case (I18nQuantity.One, m) => k.key + ":one" -> JsString(m)
-            case (I18nQuantity.Two, m) => k.key + ":two" -> JsString(m)
-            case (I18nQuantity.Few, m) => k.key + ":few" -> JsString(m)
-            case (I18nQuantity.Many, m) => k.key + ":many" -> JsString(m)
-            case (I18nQuantity.Other, m) => k.key -> JsString(m)
-          }
-        case None => Nil
-      }
-    }
-  }
-
-  def keysToMessageObject(keys: Seq[I18nKey], lang: Lang) = JsObject {
-    keys.map { k =>
-      k.literalTxtTo(enLang, Nil) -> JsString(k.literalTxtTo(lang, Nil))
-    }
-  }
-
   def apply: Funit = Future {
     pathFile.mkdir
     writeRefs
@@ -66,4 +41,26 @@ private[i18n] final class JsDump(path: String) {
   }
 
   private def escape(text: String) = text.replace(""""""", """\"""")
+}
+
+object JsDump {
+
+  def keysToObject(keys: Seq[I18nKey], lang: Lang) = JsObject {
+    keys.flatMap { k =>
+      Translator.findTranslation(k.key, I18nDb.Site, lang) match {
+        case Some(literal: Literal) =>
+          List(k.key -> JsString(literal.message))
+        case Some(plurals: Plurals) =>
+          plurals.messages map {
+            case (I18nQuantity.Zero, m) => k.key + ":zero" -> JsString(m)
+            case (I18nQuantity.One, m) => k.key + ":one" -> JsString(m)
+            case (I18nQuantity.Two, m) => k.key + ":two" -> JsString(m)
+            case (I18nQuantity.Few, m) => k.key + ":few" -> JsString(m)
+            case (I18nQuantity.Many, m) => k.key + ":many" -> JsString(m)
+            case (I18nQuantity.Other, m) => k.key -> JsString(m)
+          }
+        case None => Nil
+      }
+    }
+  }
 }
