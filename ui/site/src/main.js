@@ -1079,6 +1079,7 @@ lichess.topMenuIntent = function() {
     var analyse;
     cfg.initialPly = 'url';
     cfg.element = element.querySelector('.analyse');
+    cfg.trans = lichess.trans(cfg.i18n);
     lichess.socket = lichess.StrongSocket('/analysis/socket', false, {
       options: {
         name: "analyse"
@@ -1116,6 +1117,7 @@ lichess.topMenuIntent = function() {
       }
     });
     cfg.socketSend = lichess.socket.send;
+    cfg.trans = lichess.trans(cfg.i18n);
     analyse = LichessAnalyse.start(cfg);
     if (cfg.chat) {
       lichess.pubsub.on('chat.enabled', function(v) {
@@ -1134,6 +1136,7 @@ lichess.topMenuIntent = function() {
     var analyse;
     cfg.element = element.querySelector('.analyse');
     cfg.sideElement = document.querySelector('#site_header .side_box');
+    cfg.trans = lichess.trans(cfg.i18n);
     lichess.socket = lichess.StrongSocket('/analysis/socket', false, {
       options: {
         name: "practice"
