@@ -479,6 +479,7 @@
   <string name="closeAccountExplanation">Czy jesteś pewien, że chcesz zamknąć swoje konto? Zamknięcie konta jest decyzją nieodwracalną. Nie będziesz mógł się więcej zalogować, a Twoja strona profilowa nie będzie już dostępna.</string>
   <string name="thisAccountIsClosed">Konto zostało zamknięte.</string>
   <string name="invalidUsernameOrPassword">Niepoprawna nazwa użytkownika lub niepoprawne hasło</string>
+  <string name="incorrectPassword">Nieprawidłowe hasło</string>
   <string name="emailMeALink">Wyślij link</string>
   <string name="currentPassword">Aktualne hasło</string>
   <string name="newPassword">Nowe hasło</string>
@@ -572,6 +573,7 @@
   <string name="error.email">Podany adres email jest nieprawidłowy</string>
   <string name="error.email_acceptable">Podany adres email nie został zaakceptowany</string>
   <string name="error.email_unique">Podany adres email został już użyty</string>
+  <string name="error.email_different">To już jest Twój adres e-mail</string>
   <string name="blindfoldChess">Gra na ślepo (figury niewidoczne)</string>
   <string name="moveConfirmation">Potwierdzenie ruchu</string>
   <string name="inCorrespondenceGames">W grze korespondencyjnej</string>
@@ -704,6 +706,7 @@
   <string name="xLikesY">%1$s polubił %2$s</string>
   <string name="quickPairing">Szybka gra</string>
   <string name="lobby">Poczekalnia</string>
+  <string name="anonymous">Anonimowy</string>
   <string name="yourScore">Twój wynik: %s</string>
   <string name="language">Język</string>
   <string name="background">Tło</string>
