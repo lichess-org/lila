@@ -326,6 +326,10 @@
   <string name="movesPlayed">Langkah yang dijalankan</string>
   <string name="whiteWins">Putih Menang</string>
   <string name="blackWins">Hitam Menang</string>
+  <string name="draws">Remis</string>
+  <string name="nextXTournament">Turnamen %s selanjutnya:</string>
+  <string name="viewMoreTournaments">Lihat turnamen</string>
+  <string name="averageOpponent">Rata-rata lawan</string>
   <string name="membersOnly">Hanya untuk anggota</string>
   <string name="boardEditor">Edit Papan</string>
   <string name="startPosition">Posisi Awal</string>
@@ -334,6 +338,10 @@
   <string name="loadPosition">Panggil posisi</string>
   <string name="isPrivate">Pribadi</string>
   <string name="reportXToModerators">Lapor %s ke moderator</string>
+  <string name="profileCompletion">Kelengkapan profil %s</string>
+  <string name="xRating">peringkat %s</string>
+  <string name="ifNoneLeaveEmpty">Jika tidak ada, biarkan kosong</string>
+  <string name="gameCompletionRate">Tingkat penyelesaian permainan: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Ubah profil</string>
   <string name="firstName">Nama depan</string>
@@ -436,6 +444,9 @@
   <string name="pieceDestinations">Jejak buah catur (langkah sah dan premove)</string>
   <string name="boardCoordinates">Koordinat Papan (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Daftar langkah ketika bermain</string>
+  <string name="pgnPieceNotation">Catatan langkah</string>
+  <string name="chessPieceSymbol">Simbol bidak catur</string>
+  <string name="pgnLetter">Huruf (K, Q, R, B, N)</string>
   <string name="chessClock">Jam catur</string>
   <string name="tenthsOfSeconds">Sepersepuluh detik</string>
   <string name="never">Tidak pernah</string>
@@ -443,6 +454,10 @@
   <string name="horizontalGreenProgressBars">Indikator horisontal perkembangan warna hijau</string>
   <string name="soundWhenTimeGetsCritical">Suara ketika waktu krisis</string>
   <string name="gameBehavior">Lingkungan permainan</string>
+  <string name="howDoYouMovePieces">Bagaimana Anda melangkahkan bidak?</string>
+  <string name="clickTwoSquares">Klik dua kotak</string>
+  <string name="dragPiece">Seret sebuah bidak</string>
+  <string name="bothClicksAndDrag">Salah satu</string>
   <string name="premovesPlayingDuringOpponentTurn">Premove (siapkan langkah saat giliran lawan)</string>
   <string name="takebacksWithOpponentApproval">Langkah batal (dengan persetujuan lawan)</string>
   <string name="promoteToQueenAutomatically">Otomatis promosikan Menteri</string>
@@ -450,6 +465,7 @@
   <string name="privacy">Privasi</string>
   <string name="letOtherPlayersFollowYou">Biarkan pengguna lain mengikuti anda</string>
   <string name="letOtherPlayersChallengeYou">Biarkan pengguna lain menantang anda</string>
+  <string name="letOtherPlayersInviteYouToStudy">Ijinkan pemain lain mengajak Anda untuk belajar</string>
   <string name="sound">Suara</string>
   <string name="yourPreferencesHaveBeenSaved">Preferensi telah disimpan.</string>
   <string name="none">Tidak Ada</string>
@@ -593,8 +609,14 @@
   <string name="crosstable">Napak tilas</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Anda juga bisa menggunakan tombol gulung untuk bergerak dalam permainan</string>
   <string name="analysisShapesHowTo">Tekan shift+klik atau klik-kanan untuk menggambar lingkaran dan panah di papan.</string>
+  <string name="confirmResignationAndDrawOffers">Mengkonfirmasi tawaran nyerah dan remis</string>
+  <string name="inputMovesWithTheKeyboard">Melangkah dengan menggunakan keyboard</string>
   <string name="letOtherPlayersMessageYou">Memperbolehkan pemain lain mengirim pesan untuk Anda</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Cara rokade</string>
+  <string name="castleByMovingTwoSquares">Memindahkan raja dua kotak</string>
+  <string name="castleByMovingOntoTheRook">Memindahkan raja ke benteng</string>
   <string name="shareYourInsightsData">Berbagi data permainan anda</string>
+  <string name="withNobody">Tidak dengan siapapun</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Anda sudah mendaftarkan sebuah email: %s</string>
   <string name="kidMode">Mode anak</string>
   <string name="playChessEverywhere">Bermain catur dimanapun</string>
