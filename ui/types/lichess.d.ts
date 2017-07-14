@@ -1,7 +1,6 @@
 interface Lichess {
   pubsub: Pubsub
   trans: Trans
-  globalTrans(str: string): string
   numberFormat(n: number): string
   once(key: string): boolean
   quietMode: boolean
