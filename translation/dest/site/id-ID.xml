@@ -52,6 +52,34 @@
   <string name="usingServerAnalysis">Menggunakan server analisis</string>
   <string name="loadingEngine">Mesin loading...</string>
   <string name="cloudAnalysis">Awan analisis</string>
+  <string name="goDeeper">Lihat lebih detail</string>
+  <string name="showThreat">Menunjukkan ancaman</string>
+  <string name="inLocalBrowser">di browser lokal</string>
+  <string name="toggleLocalEvaluation">Toggle evaluasi lokal</string>
+  <string name="move">Langkah</string>
+  <string name="variantLoss">Varian kerugian</string>
+  <string name="variantWin">Varian menang</string>
+  <string name="insufficientMaterial">Bidak tidak cukup</string>
+  <string name="pawnMove">Langkah pion</string>
+  <string name="capture">Makan</string>
+  <string name="close">Tutup</string>
+  <string name="winning">Akan menang</string>
+  <string name="losing">Akan kalah</string>
+  <string name="drawn">Langkah remis</string>
+  <string name="unknown">Tak diketahui</string>
+  <string name="database">Basis Data</string>
+  <string name="whiteDrawBlack">Putih / Remis / Hitam</string>
+  <string name="averageRatingX">Rating rata-rata%s</string>
+  <string name="recentGames">Permainan baru-baru ini</string>
+  <string name="topGames">Permaninan kelas atas</string>
+  <string name="masterDbExplanation">Permainan OTB dua juta 2200 + FIDE dinilai pemain dari tahun 1952 untuk 2016</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="other">Mat %s setengah-langkah</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="other">Memakan berikutnya atau pion melangkah dalam setengah %s-bergerak (jarak ke Zeroing counter 50 bergerak)</item>
+  </plurals>
+  <string name="noGameFound">Permainan tidak ditemukan</string>
   <string name="openingExplorer">Perambah pembukaan</string>
   <string name="blunders">Blunder</string>
   <string name="mistakes">Kesalahan</string>
