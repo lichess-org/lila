@@ -48,6 +48,7 @@
   <string name="computerAnalysis">Analyse de computator</string>
   <string name="computerAnalysisAvailable">Un analyse de computator es disponibile</string>
   <string name="analysis">Analyse</string>
+  <string name="showThreat">Monstrar le menacia</string>
   <string name="unknown">Incognite</string>
   <string name="database">Base de datos</string>
   <string name="openingExplorer">Explorator de initio de joco</string>
@@ -127,7 +128,7 @@
   <string name="yourOpponentOffersADraw">Tu adversario offere le partita nulle</string>
   <string name="accept">Acceptar</string>
   <string name="decline">Declinar</string>
-  <string name="playingRightNow">Se joca ora mesmo</string>
+  <string name="playingRightNow">Jocante ora mesmo</string>
   <string name="finished">Finite</string>
   <string name="abortGame">Cancellar partita</string>
   <string name="gameAborted">Partita cancellate</string>
@@ -224,6 +225,7 @@
   </plurals>
   <string name="thisIsAChessCaptcha">Isto es un CAPTCHA de chacos.</string>
   <string name="clickOnTheBoardToMakeYourMove">Clicca sur le tabuliero pro facer tu movimento e probar que tu es human.</string>
+  <string name="captcha.fail">Per favor, resolve le enigma de chacos pro continuar.</string>
   <string name="notACheckmate">Non es chaco mat</string>
   <string name="colorPlaysCheckmateInOne">Le %s debe jocar; chaco mat in un movimento</string>
   <string name="retry">Tentar de novo</string>
@@ -231,6 +233,7 @@
   <string name="onlineFriends">Amicos in linea</string>
   <string name="noFriendsOnline">Nulle amicos in linea</string>
   <string name="findFriends">Cercar amicos</string>
+  <string name="favoriteOpponents">Adversarios favorite</string>
   <string name="follow">Sequer</string>
   <string name="following">Sequente</string>
   <string name="unfollow">Cessar de sequer</string>
@@ -269,6 +272,7 @@
   <string name="winStreak">Victorias consecutive</string>
   <string name="createdBy">Create per</string>
   <string name="tournamentIsStarting">Le torneo es sur le puncto de comenciar</string>
+  <string name="averageOpponent">Adversario medie</string>
   <string name="membersOnly">Solmente membros</string>
   <string name="boardEditor">Editor de tabuliero</string>
   <string name="startPosition">Position de initio</string>
