@@ -404,6 +404,7 @@
   <string name="privacy">Confidentialitate</string>
   <string name="letOtherPlayersFollowYou">Lassar altere jocatores sequer te</string>
   <string name="letOtherPlayersChallengeYou">Lassar altere jocatores defiar te</string>
+  <string name="letOtherPlayersInviteYouToStudy">Permitter a altere jocatores invitar te a studiar</string>
   <string name="sound">Sono</string>
   <string name="yourPreferencesHaveBeenSaved">Tu preferentias ha essite salveguardate.</string>
   <string name="none">Nulle</string>
@@ -545,8 +546,14 @@
   <string name="analysisShapesHowTo">Pulsa Shift + Clic, o altemente, clicca con le button dextre del mouse pro designar circulos e sagittas super le tabuliero.</string>
   <string name="letOtherPlayersMessageYou">Permitter que altere jocatores te invia messages</string>
   <string name="shareYourInsightsData">Divider con alteres tu datos de intuitiones</string>
+  <string name="withNobody">Con nulle persona</string>
+  <string name="withFriends">Con amicos</string>
+  <string name="withEverybody">Con tote le mundo</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Tu jam ha registrate le e-posta: %s</string>
   <string name="kidMode">Modo de infante</string>
+  <string name="enableKidMode">Activar modo de infante</string>
+  <string name="disableKidMode">Disactivar modo de infante</string>
+  <string name="security">Securitate</string>
   <string name="playChessEverywhere">Joca al chacos ubique!</string>
   <string name="asFreeAsLichess">Tanto gratis como Lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Disveloppate pro le amor del chacos, e non pro moneta</string>
@@ -564,4 +571,5 @@
     <item quantity="other">Disponibile in %s linguas!</item>
   </plurals>
   <string name="gameAnalysis">Analyse de joco</string>
+  <string name="anonymous">Anonyme</string>
 </resources>
