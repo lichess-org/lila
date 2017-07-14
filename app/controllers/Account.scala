@@ -116,6 +116,13 @@ object Account extends LilaController {
       }
     }
   }
+  // def emailConfirm(token: String) = Open { implicit ctx =>
+  //   Env.security.emailChange.confirm(token) flatMap {
+  //     _ ?? { user =>
+  //       ???
+  //     }
+  //   }
+  // }
 
   def close = Auth { implicit ctx => me =>
     Ok(html.account.close(me, Env.security.forms.closeAccount)).fuccess

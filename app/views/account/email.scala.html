@@ -10,12 +10,15 @@
       @if(ctx.req.queryString.contains("ok")) { <span class="is-green" data-icon="E"></span>}
     </h1>
     <form class="material form" action="@routes.Account.emailApply" method="POST">
+      This page is a work in progress. Please come back soon.
+      @*
         @base.form.group(form("email"), trans.email()) {
           @base.form.input(form("email"), typ="email")
           @errMsg(form("email"))
         }
         @passwdFormField(form("passwd"), trans.password())
         @base.form.submit()
+        *@
     </form>
   </div>
 </div>
