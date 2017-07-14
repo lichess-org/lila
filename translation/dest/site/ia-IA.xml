@@ -272,6 +272,13 @@
   <string name="winStreak">Victorias consecutive</string>
   <string name="createdBy">Create per</string>
   <string name="tournamentIsStarting">Le torneo es sur le puncto de comenciar</string>
+  <string name="tournamentComplete">Torneo finite</string>
+  <string name="movesPlayed">Movimentos jocate</string>
+  <string name="whiteWins">Victorias del blanc</string>
+  <string name="blackWins">Victorias del nigre</string>
+  <string name="draws">Partitas nulle</string>
+  <string name="nextXTournament">Torneo %s sequente:</string>
+  <string name="viewMoreTournaments">Vider plus torneos</string>
   <string name="averageOpponent">Adversario medie</string>
   <string name="membersOnly">Solmente membros</string>
   <string name="boardEditor">Editor de tabuliero</string>
@@ -281,6 +288,7 @@
   <string name="loadPosition">Cargar position</string>
   <string name="isPrivate">Private</string>
   <string name="reportXToModerators">Reportar %s al moderatores</string>
+  <string name="profileCompletion">Completion del profilo: %s</string>
   <string name="profile">Profilo</string>
   <string name="editProfile">Modificar profilo</string>
   <string name="firstName">Prenomine</string>
