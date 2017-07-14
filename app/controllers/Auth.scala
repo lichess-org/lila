@@ -235,15 +235,15 @@ object Auth extends LilaController {
 
   def passwordResetConfirm(token: String) = Open { implicit ctx =>
     Env.security.passwordReset confirm token flatMap {
-      case Some(user) =>
+      _ ?? { user =>
         fuccess(html.auth.passwordResetConfirm(user, token, forms.passwdReset, none))
-      case _ => notFound
+      }
     }
   }
 
   def passwordResetConfirmApply(token: String) = OpenBody { implicit ctx =>
     Env.security.passwordReset confirm token flatMap {
-      case Some(user) =>
+      _ ?? { user =>
         implicit val req = ctx.body
         FormFuResult(forms.passwdReset) { err =>
           fuccess(html.auth.passwordResetConfirm(user, token, err, false.some))
@@ -252,7 +252,7 @@ object Auth extends LilaController {
             env.store.disconnect(user.id) >>
             authenticateUser(user)
         }
-      case _ => notFound
+      }
     }
   }
 
