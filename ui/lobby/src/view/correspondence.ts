@@ -5,11 +5,12 @@ import LobbyController from '../ctrl';
 import { Seek, MaybeVNodes } from '../interfaces';
 
 function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
-  const klass = seek.action === 'joinSeek' ? 'join' : 'cancel';
+  const klass = seek.action === 'joinSeek' ? 'join' : 'cancel',
+  noarg = ctrl.trans.noarg;
   return h('tr.seek.' + klass, {
     key: seek.id,
     attrs: {
-      title: (seek.action === 'joinSeek') ? ctrl.trans('joinTheGame') + ' - ' + seek.perf.name : ctrl.trans('cancel'),
+      title: (seek.action === 'joinSeek') ? noarg('joinTheGame') + ' - ' + seek.perf.name : noarg('cancel'),
       'data-id': seek.id
     }
   }, tds([
@@ -23,7 +24,7 @@ function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
       h('span.varicon', {
         attrs: { 'data-icon': seek.perf.icon }
       }),
-      ctrl.trans(seek.mode === 1 ? 'rated' : 'casual')
+      noarg(seek.mode === 1 ? 'rated' : 'casual')
     ])
   ]));
 }
