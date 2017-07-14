@@ -56,6 +56,7 @@
   <string name="showThreat">Pokaži prijetnju</string>
   <string name="inLocalBrowser">u lokalnom pregledniku</string>
   <string name="toggleLocalEvaluation">Prekidač za lokalnu evaluaciju</string>
+  <string name="move">Potez</string>
   <string name="capture">Uzimanje figure</string>
   <string name="winning">Pobjeđuje</string>
   <string name="unknown">Nepoznati ishod</string>
