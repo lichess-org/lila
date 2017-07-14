@@ -57,7 +57,10 @@
   <string name="inLocalBrowser">u lokalnom pregledniku</string>
   <string name="toggleLocalEvaluation">Prekidač za lokalnu evaluaciju</string>
   <string name="move">Potez</string>
+  <string name="variantLoss">Poraz varijante</string>
+  <string name="variantWin">Pobjeda varijante</string>
   <string name="capture">Uzimanje figure</string>
+  <string name="close">Zatvori</string>
   <string name="winning">Pobjeđuje</string>
   <string name="losing">Gubi</string>
   <string name="drawn">Remizira</string>
@@ -654,6 +657,7 @@
   <string name="crosstable">Tablica križanja</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Možeš skrolirati preko ploče za micanje u partiji.</string>
   <string name="analysisShapesHowTo">Pritisni shift + lijevi klik ili desni klik kako bi crtao/la krugove i strelice na ploči.</string>
+  <string name="confirmResignationAndDrawOffers">Potvrdi predaju i ponudu za remi</string>
   <string name="inputMovesWithTheKeyboard">Omogući unošenje poteza tipkovnicom</string>
   <string name="letOtherPlayersMessageYou">Dopusti drugim igračima da ti pošalju poruku</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Način igranja rokade</string>
@@ -697,6 +701,7 @@
   <string name="xLikesY">%1$s se sviđa %2$s</string>
   <string name="quickPairing">Brzo uparivanje</string>
   <string name="lobby">Lobi</string>
+  <string name="anonymous">Anoniman igrač</string>
   <string name="yourScore">Tvoj rezultat: %s</string>
   <string name="language">Jezik</string>
   <string name="background">Pozadina</string>
