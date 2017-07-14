@@ -14,8 +14,7 @@ final class Mailgun(
     apiKey: String,
     from: String,
     replyTo: String,
-    system: ActorSystem,
-    maxTries: Int = 3
+    system: ActorSystem
 ) {
 
   def send(msg: Mailgun.Message): Funit =
@@ -32,8 +31,8 @@ final class Mailgun(
       case e: java.net.ConnectException => lila.mon.http.mailgun.timeout()
       case _ =>
     } recoverWith {
-      case e if msg.tryNb < maxTries => akka.pattern.after(15 seconds, system.scheduler) {
-        send(msg.copy(tryNb = msg.tryNb + 1))
+      case e if msg.retriesLeft > 0 => akka.pattern.after(15 seconds, system.scheduler) {
+        send(msg.copy(retriesLeft = msg.retriesLeft - 1))
       }
       case e => fufail(e)
     }
@@ -61,6 +60,6 @@ object Mailgun {
     from: Option[String] = none,
     replyTo: Option[String] = none,
     tag: Option[String] = none,
-    tryNb: Int = 1
+    retriesLeft: Int = 3
   )
 }
