@@ -46,7 +46,10 @@
   <string name="viewTheComputerAnalysis">Lihat analisis komputer</string>
   <string name="requestAComputerAnalysis">Minta analisis komputer</string>
   <string name="computerAnalysis">Analisis komputer</string>
+  <string name="computerAnalysisAvailable">Analisa komputer tersedia</string>
   <string name="analysis">Papan analisis</string>
+  <string name="depthX">Kedalaman %s</string>
+  <string name="usingServerAnalysis">Menggunakan server analisis</string>
   <string name="openingExplorer">Perambah pembukaan</string>
   <string name="blunders">Blunder</string>
   <string name="mistakes">Kesalahan</string>
