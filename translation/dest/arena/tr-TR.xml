@@ -25,5 +25,5 @@ Daha fazla oyun oynayıp daha çok puan kazanmak için hızlıca oyna ve lobiye 
   <string name="otherRulesAnswer">İlk hamleni 20 saniye içinde yapman gerekiyor. Eğer bu süre içinde bir hamle yapmazsan rakibin galip sayılır.
 10 hamleyi geçmeden berabere kalmak iki tarafa da puan kazandırmaz.</string>
   <string name="thisIsPrivate">Bu özel bir turnuvadır</string>
-  <string name="shareUrl">Oyuncuları davet etmek için bu URL\'yi kullanabilirsin: %s</string>
+  <string name="shareUrl">Arkadaşlarını davet etmek için bu URL\'yi kullanabilirsin: %s</string>
 </resources>
