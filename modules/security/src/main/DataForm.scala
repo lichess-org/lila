@@ -123,7 +123,7 @@ object DataForm {
     def realEmail = EmailAddress(email)
   }
 
-  case class ChangeEmail(email: String, passwd: String) {
+  case class ChangeEmail(passwd: String, email: String) {
     def realEmail = EmailAddress(email)
   }
 }

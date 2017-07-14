@@ -258,12 +258,12 @@ object Auth extends LilaController {
 
   def makeLoginToken = Auth { implicit ctx => me =>
     JsonOk {
-      val baseUrl = Env.api.Net.BaseUrl
-      val url = routes.Auth.loginWithToken(env.loginToken generate me).url
-      fuccess(Json.obj(
-        "userId" -> me.id,
-        "url" -> s"$baseUrl$url"
-      ))
+      env.loginToken generate me map { token =>
+        Json.obj(
+          "userId" -> me.id,
+          "url" -> s"${Env.api.Net.BaseUrl}${routes.Auth.loginWithToken(token).url}"
+        )
+      }
     }
   }
 

@@ -68,31 +68,8 @@ This message is a service email related to your use of lichess.org.
 
   def confirm(token: String): Fu[Option[User]] = tokener read token
 
-  private object tokener {
-
-    private val separator = '|'
-
-    private def makeHash(msg: String) = Algo.hmac(secret).sha1(msg).hex take 14
-    private def getPasswd(userId: User.ID) = UserRepo getPasswordHash userId map { p =>
-      makeHash(~p) take 6
-    }
-    private def makePayload(userId: String, passwd: String) = s"$userId$separator$passwd"
-
-    def make(user: User) = getPasswd(user.id) map { passwd =>
-      val payload = makePayload(user.id, passwd)
-      val hash = makeHash(payload)
-      val token = s"$payload$separator$hash"
-      base64 encode token
-    }
-
-    def read(token: String): Fu[Option[User]] = (base64 decode token) ?? {
-      _ split separator match {
-        case Array(userId, userPass, hash) if makeHash(makePayload(userId, userPass)) == hash =>
-          getPasswd(userId) flatMap { passwd =>
-            (userPass == passwd) ?? (UserRepo enabledById userId)
-          }
-        case _ => fuccess(none)
-      }
-    }
-  }
+  private val tokener = new UserTokener(
+    secret = secret,
+    getCurrentValue = id => UserRepo getPasswordHash id map (~_)
+  )
 }

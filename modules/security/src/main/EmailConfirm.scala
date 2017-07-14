@@ -1,12 +1,10 @@
 package lila.security
 
 import akka.actor.ActorSystem
-import com.roundeights.hasher.Algo
 import play.api.libs.ws.{ WS, WSAuthScheme }
 import play.api.Play.current
 import scala.concurrent.duration._
 
-import lila.common.String.base64
 import lila.common.EmailAddress
 import lila.user.{ User, UserRepo }
 
@@ -104,31 +102,8 @@ This is a service email related to your use of lichess.org. If you did not regis
     case _ => fuccess(none)
   }
 
-  private object tokener {
-
-    private val separator = '|'
-
-    private def makeHash(msg: String) = Algo.hmac(secret).sha1(msg).hex take 14
-    private def getHashedEmail(userId: User.ID) = UserRepo email userId map { p =>
-      makeHash(p.??(_.value)) take 6
-    }
-    private def makePayload(userId: String, passwd: String) = s"$userId$separator$passwd"
-
-    def make(user: User) = getHashedEmail(user.id) map { hashedEmail =>
-      val payload = makePayload(user.id, hashedEmail)
-      val hash = makeHash(payload)
-      val token = s"$payload$separator$hash"
-      base64 encode token
-    }
-
-    def read(token: String): Fu[Option[User]] = (base64 decode token) ?? {
-      _ split separator match {
-        case Array(userId, userHashedEmail, hash) if makeHash(makePayload(userId, userHashedEmail)) == hash =>
-          getHashedEmail(userId) flatMap { hashedEmail =>
-            (userHashedEmail == hashedEmail) ?? (UserRepo enabledById userId)
-          }
-        case _ => fuccess(none)
-      }
-    }
-  }
+  private val tokener = new UserTokener(
+    secret = secret,
+    getCurrentValue = id => UserRepo email id map (_.??(_.value))
+  )
 }

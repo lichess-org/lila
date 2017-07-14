@@ -95,10 +95,9 @@ object Account extends LilaController {
     }
   }
 
-  private def emailForm(user: UserModel) = for {
-    email <- UserRepo email user.id
-    form <- Env.security.forms.changeEmail(user, email)
-  } yield form.fill(lila.security.DataForm.ChangeEmail(email.??(_.value), ""))
+  private def emailForm(user: UserModel) = UserRepo email user.id flatMap {
+    Env.security.forms.changeEmail(user, _)
+  }
 
   def email = Auth { implicit ctx => me =>
     emailForm(me) map { form =>
@@ -112,7 +111,7 @@ object Account extends LilaController {
       FormFuResult(form) { err =>
         fuccess(html.account.email(me, err))
       } { data =>
-        val email = Env.security.emailAddressValidator.validate(EmailAddress(data.email)) err s"Invalid email ${data.email}"
+        val email = data.realEmail
         funit inject Ok(html.auth.checkYourEmail(me))
       }
     }
