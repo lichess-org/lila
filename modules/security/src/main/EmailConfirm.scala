@@ -58,6 +58,7 @@ Confirm your email address to complete your lichess account. It's easy — just 
 
 $url
 
+(Clicking not working? Try pasting it into your browser!)
 
 This is a service email related to your use of lichess.org. If you did not register with Lichess you can safely ignore this message.
 """),
@@ -76,6 +77,7 @@ This is a service email related to your use of lichess.org. If you did not regis
         <meta itemprop="name" content="Activate account">
         <meta itemprop="url" content="$url">
         <p><a itemprop="target" href="$url">$url</a></p>
+        <p>(Clicking not working? Try pasting it into your browser!)</p>
       </div>
       <div itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
         <small>This is a service email related to your use of <a itemprop="url" href="https://lichess.org/"><span itemprop="name">lichess.org</span></a>. If you did not register with Lichess you can safely ignore this message.</small>
