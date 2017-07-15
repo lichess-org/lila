@@ -53,7 +53,7 @@ function whatNext(ctrl) {
       makeStage('/@/' + userId, 'beams-aura', 'register', 'getAFreeLichessAccount', true) :
       makeStage('/signup', 'beams-aura', 'register', 'getAFreeLichessAccount'),
       makeStage('/practice', 'robot-golem', 'practice', 'learnCommonChessPositions'),
-      makeStage('/training', 'bullseye', 'training', 'exerciseYourTacticalSkills'),
+      makeStage('/training', 'bullseye', 'Puzzles', 'exerciseYourTacticalSkills'),
       makeStage('/video', 'tied-scroll', 'videos', 'watchInstructiveChessVideos'),
       makeStage('/#hook', 'sword-clash', 'playPeople', 'opponentsFromAroundTheWorld'),
       makeStage('/#ai', 'vintage-robot', 'playMachine', 'testYourSkillsWithTheComputer'),
