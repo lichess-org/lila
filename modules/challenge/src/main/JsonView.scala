@@ -83,5 +83,5 @@ final class JsonView(
     trans.decline,
     trans.viewInFullSize,
     trans.cancel
-  ), lang)
+  ), lila.i18n.I18nDb.Site, lang)
 }

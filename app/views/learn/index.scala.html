@@ -6,7 +6,8 @@
 $(function() {
 LichessLearn(document.getElementById('learn_app'), {
 data: @jsOrNull(data),
-sideElement: document.getElementById('learn_side')
+sideElement: document.getElementById('learn_side'),
+i18n: @Html(J.stringify(i18nJsDbObject(List(trans.learn.theRook), lila.i18n.I18nDb.Learn)))
 });
 });
 }

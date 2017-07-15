@@ -54,9 +54,9 @@ object JsDump {
     case I18nQuantity.Other => ""
   }
 
-  def keysToObject(keys: Seq[I18nKey], lang: Lang) = JsObject {
+  def keysToObject(keys: Seq[I18nKey], db: I18nDb.Ref, lang: Lang) = JsObject {
     keys.flatMap { k =>
-      Translator.findTranslation(k.key, I18nDb.Site, lang) match {
+      Translator.findTranslation(k.key, db, lang) match {
         case Some(literal: Literal) => List(k.key -> JsString(literal.message))
         case Some(plurals: Plurals) => plurals.messages.map {
           case (quantity, msg) => k.key + quantitySuffix(quantity) -> JsString(msg)
