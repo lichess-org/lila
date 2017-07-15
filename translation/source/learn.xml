@@ -22,6 +22,10 @@ to speed things up!</string>
   <string name="theBishop">The bishop</string>
   <string name="itMovesDiagonally">It moves diagonally</string>
   <string name="bishopIntro">Next we will learn how to manoeuver a bishop!</string>
+  <string name="youNeedBothBishops">One light-squared bishop,
+one dark-squared bishop.
+You need both!</string>
+  <string name="bishopComplete">Congratulations! You can command a bishop.</string>
   <string name="theQueen">The queen</string>
   <string name="queenCombinesRookAndBishop">Queen = rook + bishop</string>
   <string name="theKing">The king</string>
