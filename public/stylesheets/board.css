@@ -1036,10 +1036,11 @@ body.playing.zen rating,
 body.playing.zen #friend_box {
   display: none!important;
 }
-body.playing.zen #top {
+body.playing.zen #top > * {
   opacity: 0;
   transition: 1s;
 }
-body.playing.zen #top:hover {
-  opacity: 1;
+body.playing.zen #top:hover > *,
+body.playing.zen .dasher {
+  opacity: 1!important;
 }
