@@ -78,7 +78,7 @@ object Mailgun {
     def url(u: String)(implicit lang: Lang) = s"""
 <meta itemprop="url" content="$u">
 <p><a itemprop="target" href="$u">$u</a></p>
-<p>${trans.confirm_orPaste.literalHtmlTo(lang)}</p>
+<p>${trans.common_orPaste.literalHtmlTo(lang)}</p>
 """
 
     private[Mailgun] def wrap(subject: String, body: String) = s"""<!doctype html>

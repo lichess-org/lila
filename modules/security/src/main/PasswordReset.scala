@@ -1,7 +1,10 @@
 package lila.security
 
+import play.api.i18n.Lang
+
 import lila.common.EmailAddress
 import lila.user.{ User, UserRepo }
+import lila.i18n.I18nKeys.{ emails => trans }
 
 final class PasswordReset(
     mailgun: Mailgun,
@@ -9,35 +12,36 @@ final class PasswordReset(
     tokenerSecret: String
 ) {
 
-  def send(user: User, email: EmailAddress): Funit = tokener make user.id flatMap { token =>
-    lila.mon.email.resetPassword()
-    val url = s"$baseUrl/password/reset/confirm/$token"
-    mailgun send Mailgun.Message(
-      to = email,
-      subject = s"Reset your lichess.org password, ${user.username}",
-      text = s"""
-        We received a request to reset the password for your account, ${user.username}.
+  def send(user: User, email: EmailAddress)(implicit lang: Lang): Funit =
+    tokener make user.id flatMap { token =>
+      lila.mon.email.resetPassword()
+      val url = s"$baseUrl/password/reset/confirm/$token"
+      mailgun send Mailgun.Message(
+        to = email,
+        subject = trans.passwordReset_subject.literalTxtTo(lang, List(user.username)),
+        text = s"""
+${trans.passwordReset_intro.literalTxtTo(lang)}
 
-        If you made this request, click the link below. If you didn't make this request, you can ignore this email.
+${trans.passwordReset_clickOrIgnore.literalTxtTo(lang)}
 
-        $url
+$url
 
-        (Clicking not working? Try pasting it into your browser!)
+${trans.common_orPaste.literalTxtTo(lang)}
 
-        This message is a service email related to your use of lichess.org.
-        """,
-      htmlBody = s"""
+${Mailgun.txt.serviceNote}
+""",
+        htmlBody = s"""
 <div itemscope itemtype="http://schema.org/EmailMessage">
-  <p itemprop="description">We received a request to reset the password for your account, ${user.username}.</p>
-  <p>If you made this request, click the link below. If you didn't make this request, you can ignore this email.</p>
+  <p itemprop="description">${trans.passwordReset_intro.literalHtmlTo(lang)}</p>
+  <p>${trans.passwordReset_clickOrIgnore.literalHtmlTo(lang)}</p>
   <div itemprop="potentialAction" itemscope itemtype="http://schema.org/ViewAction">
     <meta itemprop="name" content="Reset password">
     ${Mailgun.html.url(url)}
   </div>
   ${Mailgun.html.serviceNote}
 </div>""".some
-    )
-  }
+      )
+    }
 
   def confirm(token: String): Fu[Option[User]] =
     tokener read token flatMap { _ ?? UserRepo.byId }

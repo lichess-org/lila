@@ -658,10 +658,16 @@ val `shareUrl` = new Translated("shareUrl", Arena)
 }
 
 object emails {
-val `confirm_subject` = new Translated("confirm_subject", Emails)
-val `confirm_click` = new Translated("confirm_click", Emails)
-val `confirm_orPaste` = new Translated("confirm_orPaste", Emails)
-val `confirm_ignore` = new Translated("confirm_ignore", Emails)
+val `emailConfirm_subject` = new Translated("emailConfirm_subject", Emails)
+val `emailConfirm_click` = new Translated("emailConfirm_click", Emails)
+val `emailConfirm_ignore` = new Translated("emailConfirm_ignore", Emails)
+val `passwordReset_subject` = new Translated("passwordReset_subject", Emails)
+val `passwordReset_intro` = new Translated("passwordReset_intro", Emails)
+val `passwordReset_clickOrIgnore` = new Translated("passwordReset_clickOrIgnore", Emails)
+val `emailChange_subject` = new Translated("emailChange_subject", Emails)
+val `emailChange_intro` = new Translated("emailChange_intro", Emails)
+val `emailChange_click` = new Translated("emailChange_click", Emails)
+val `common_orPaste` = new Translated("common_orPaste", Emails)
 val `common_note` = new Translated("common_note", Emails)
 }
 

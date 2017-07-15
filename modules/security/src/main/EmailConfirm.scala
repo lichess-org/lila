@@ -38,20 +38,20 @@ final class EmailConfirmMailgun(
     val url = s"$baseUrl/signup/confirm/$token"
     mailgun send Mailgun.Message(
       to = email,
-      subject = trans.confirm_subject.literalTxtTo(lang, List(user.username)),
+      subject = trans.emailConfirm_subject.literalTxtTo(lang, List(user.username)),
       text = s"""
-${trans.confirm_click.literalTxtTo(lang)}
+${trans.emailConfirm_click.literalTxtTo(lang)}
 
 $url
 
-${trans.confirm_orPaste.literalTxtTo(lang)}
+${trans.common_orPaste.literalTxtTo(lang)}
 
 ${Mailgun.txt.serviceNote}
-${trans.confirm_ignore.literalTxtTo(lang, List("https://lichess.org"))}
+${trans.emailConfirm_ignore.literalTxtTo(lang, List("https://lichess.org"))}
 """,
       htmlBody = s"""
 <div itemscope itemtype="http://schema.org/EmailMessage">
-  <p itemprop="description">${trans.confirm_click.literalHtmlTo(lang)}</p>
+  <p itemprop="description">${trans.emailConfirm_click.literalHtmlTo(lang)}</p>
   <div itemprop="potentialAction" itemscope itemtype="http://schema.org/ViewAction">
     <meta itemprop="name" content="Activate account">
     ${Mailgun.html.url(url)}
@@ -59,7 +59,7 @@ ${trans.confirm_ignore.literalTxtTo(lang, List("https://lichess.org"))}
   <div itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
     <small>
       ${Mailgun.html.serviceNote}
-      ${trans.confirm_orPaste.literalTxtTo(lang)}
+      ${trans.emailConfirm_ignore.literalHtmlTo(lang)}
     </small>
   </div>
   ${Mailgun.html.serviceNote}

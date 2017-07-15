@@ -1,7 +1,10 @@
 package lila.security
 
+import play.api.i18n.Lang
+
 import lila.common.EmailAddress
 import lila.user.{ User, UserRepo }
+import lila.i18n.I18nKeys.{ emails => trans }
 
 final class EmailChange(
     mailgun: Mailgun,
@@ -9,25 +12,27 @@ final class EmailChange(
     tokenerSecret: String
 ) {
 
-  def send(user: User, email: EmailAddress): Funit =
+  def send(user: User, email: EmailAddress)(implicit lang: Lang): Funit =
     tokener make TokenPayload(user.id, email).some flatMap { token =>
       lila.mon.email.resetPassword()
       val url = s"$baseUrl/account/email/confirm/$token"
       mailgun send Mailgun.Message(
         to = email,
-        subject = s"Confirm new email address, ${user.username}",
+        subject = trans.emailChange_subject.literalTxtTo(lang, List(user.username)),
         text = s"""
-        You have requested to change your email address. To confirm you have access to this email, please click the link below:
+${trans.emailChange_intro.literalTxtTo(lang)}
+${trans.emailChange_click.literalTxtTo(lang)}
 
-        $url
+$url
 
-        (Clicking not working? Try pasting it into your browser!)
+${trans.common_orPaste.literalTxtTo(lang)}
 
-        This message is a service email related to your use of lichess.org.""",
+${Mailgun.txt.serviceNote}
+""",
         htmlBody = s"""
 <div itemscope itemtype="http://schema.org/EmailMessage">
-  <p itemprop="description">You have requested to change your email address.</p>
-  <p>To confirm you have access to this email, please click the link below:</p>
+  <p itemprop="description">${trans.emailChange_intro.literalHtmlTo(lang)}</p>
+  <p>${trans.emailChange_click.literalHtmlTo(lang)}</p>
   <div itemprop="potentialAction" itemscope itemtype="http://schema.org/ViewAction">
     <meta itemprop="name" content="Change email address">
     ${Mailgun.html.url(url)}
