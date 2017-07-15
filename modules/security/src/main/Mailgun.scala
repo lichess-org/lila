@@ -23,7 +23,7 @@ final class Mailgun(
 
   def send(msg: Mailgun.Message): Funit =
     if (debug) {
-      println(msg.text)
+      println(msg)
       funit
     }
     else WS.url(s"$apiUrl/messages").withAuth("api", apiKey, WSAuthScheme.BASIC).post(Map(
@@ -67,13 +67,13 @@ object Mailgun {
 
   object html {
 
-    private val noteLink = Html {
+    val noteLink = Html {
       """<a itemprop="url" href="https://lichess.org/"><span itemprop="name">lichess.org</span></a>"""
     }
 
     def serviceNote(implicit lang: Lang) = s"""
 <div itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-  <small>${trans.common_note.literalHtmlTo(lang, List(noteLink))}.</small>
+  <small>${trans.common_note.literalHtmlTo(lang, List(noteLink))}</small>
 </div>
 """
 

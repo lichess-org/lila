@@ -58,11 +58,10 @@ ${trans.emailConfirm_ignore.literalTxtTo(lang, List("https://lichess.org"))}
   </div>
   <div itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
     <small>
-      ${Mailgun.html.serviceNote}
+      ${trans.common_note.literalHtmlTo(lang, List(Mailgun.html.noteLink))}
       ${trans.emailConfirm_ignore.literalHtmlTo(lang)}
     </small>
   </div>
-  ${Mailgun.html.serviceNote}
 </div>""".some
     )
   }
