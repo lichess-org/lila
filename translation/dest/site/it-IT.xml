@@ -89,6 +89,11 @@
   <string name="winPreventedBy50MoveRule">Vittoria non possibile a causa della \"regola delle 50 mosse\"</string>
   <string name="lossSavedBy50MoveRule">Sconfitta evitata a causa della \"regola delle 50 mosse\"</string>
   <string name="allSet">Tutto pronto!</string>
+  <string name="importPgn">Importa PGN</string>
+  <string name="delete">Elimina</string>
+  <string name="deleteThisImportedGame">Vuoi eliminare questa partita importata?</string>
+  <string name="realtimeReplay">In tempo reale</string>
+  <string name="enable">Abilita</string>
   <string name="blunders">Errori gravi</string>
   <string name="mistakes">Errori</string>
   <string name="inaccuracies">Imprecisioni</string>
