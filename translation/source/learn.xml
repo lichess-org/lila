@@ -28,6 +28,8 @@ You need both!</string>
   <string name="bishopComplete">Congratulations! You can command a bishop.</string>
   <string name="theQueen">The queen</string>
   <string name="queenCombinesRookAndBishop">Queen = rook + bishop</string>
+  <string name="queenIntro">Enters the most powerful chess piece. Her majesty the queen!</string>
+  <string name="queenComplete">Congratulations! Queens have no secrets for you.</string>
   <string name="theKing">The king</string>
   <string name="theMostImportantPiece">The most important piece</string>
   <string name="theKnight">The knight</string>
