@@ -91,6 +91,11 @@
   <string name="winPreventedBy50MoveRule">Zwycięstwo przez regułę 50 ruchów</string>
   <string name="lossSavedBy50MoveRule">Przegrana przez regułę 50 ruchów</string>
   <string name="allSet">Wszystko gotowe!</string>
+  <string name="delete">Usuń</string>
+  <string name="deleteThisImportedGame">Czy usunąć tę grę?</string>
+  <string name="enable">Włącz</string>
+  <string name="cpus">Procesory</string>
+  <string name="memory">Pamięć RAM</string>
   <string name="infiniteAnalysis">Nieskończona analiza</string>
   <string name="blunders">Poważne błędy</string>
   <string name="mistakes">Błędy</string>
