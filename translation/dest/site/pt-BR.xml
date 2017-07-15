@@ -55,10 +55,16 @@
   <string name="showThreat">Mostrar ameaça</string>
   <string name="inLocalBrowser">no navegador local</string>
   <string name="move">Movimentos</string>
+  <string name="insufficientMaterial">Peças insuficientes</string>
+  <string name="pawnMove">Movimento de peão</string>
   <string name="capture">Captura</string>
   <string name="close">Fechar</string>
+  <string name="losing">Perdendo</string>
   <string name="drawn">Empate</string>
+  <string name="unknown">Posição desconhecida</string>
   <string name="database">Base de dados</string>
+  <string name="averageRatingX">Rating médio</string>
+  <string name="recentGames">Partidas recentes</string>
   <string name="openingExplorer">Explorador de abertura</string>
   <string name="allSet">Tudo pronto!</string>
   <string name="blunders">Erro Grave</string>
