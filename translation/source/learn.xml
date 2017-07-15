@@ -46,6 +46,20 @@ Escape and vanquish the stars!</string>
   <string name="knightComplete">Congratulations! You have mastered the knight.</string>
   <string name="thePawn">The pawn</string>
   <string name="itMovesForwardOnly">It moves forward only</string>
+  <string name="pawnIntro">Pawns are weak, but they pack a lot of potential.</string>
+  <string name="pawnsMoveOneSquareOnly">Pawns move one square only.
+But when they reach the other side of the board, they become a stronger piece!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Most of the time promoting to a queen is the best.
+But sometimes a knight can come in handy!</string>
+  <string name="pawnsMoveForward">Pawns move forward,
+but capture diagonally!</string>
+  <string name="captureThenPromote">Capture, then promote!</string>
+  <string name="useAllThePawns">Use all the pawns!
+No need to promote.</string>
+  <string name="aPawnOnTheSecondRank">A pawn on the second rank can move 2 squares at once!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Grab all the stars!
+No need to promote.</string>
+  <string name="pawnComplete">Congratulations! Pawns have no secrets for you.</string>
   <string name="fundamentals">Fundamentals</string>
   <string name="capture">Capture</string>
   <string name="takeTheEnemyPieces">Take the enemy pieces</string>
