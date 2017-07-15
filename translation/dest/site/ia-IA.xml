@@ -52,7 +52,11 @@
   <string name="usingServerAnalysis">Usante le analyse del servitor</string>
   <string name="loadingEngine">Cargante motor...</string>
   <string name="cloudAnalysis">Analyse del nube</string>
+  <string name="goDeeper">Ir plus profunde</string>
   <string name="showThreat">Monstrar le menacia</string>
+  <string name="inLocalBrowser">in le navigator local</string>
+  <string name="toggleLocalEvaluation">Activar/disactivar evalutation local</string>
+  <string name="move">Movimento</string>
   <string name="unknown">Incognite</string>
   <string name="database">Base de datos</string>
   <string name="openingExplorer">Explorator de initio de joco</string>
