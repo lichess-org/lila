@@ -32,13 +32,9 @@ final class PasswordReset(
   <p>If you made this request, click the link below. If you didn't make this request, you can ignore this email.</p>
   <div itemprop="potentialAction" itemscope itemtype="http://schema.org/ViewAction">
     <meta itemprop="name" content="Reset password">
-    <meta itemprop="url" content="$url">
-    <p><a itemprop="target" href="$url">$url</a></p>
-    <p>(Clicking not working? Try pasting it into your browser!)</p>
+    ${Mailgun.html.url(url)}
   </div>
-  <div itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <small>This is a service email related to your use of <a itemprop="url" href="https://lichess.org/"><span itemprop="name">lichess.org</span></a>.</small>
-  </div>
+  ${Mailgun.html.serviceNote}
 </div>""".some
     )
   }

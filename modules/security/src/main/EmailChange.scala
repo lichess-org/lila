@@ -14,31 +14,24 @@ final class EmailChange(
     val url = s"$baseUrl/password/reset/confirm/$token"
     mailgun send Mailgun.Message(
       to = email,
-      subject = s"Reset your lichess.org password, ${user.username}",
+      subject = s"Confirm new email address, ${user.username}",
       text = s"""
-        We received a request to reset the password for your account, ${user.username}.
-
-        If you made this request, click the link below. If you didn't make this request, you can ignore this email.
+        You have requested to change your email address. To confirm you have access to this email, please click the link below:
 
         $url
 
         (Clicking not working? Try pasting it into your browser!)
 
-        This message is a service email related to your use of lichess.org.
-        """,
+        This message is a service email related to your use of lichess.org.""",
       htmlBody = s"""
 <div itemscope itemtype="http://schema.org/EmailMessage">
-  <p itemprop="description">We received a request to reset the password for your account, ${user.username}.</p>
-  <p>If you made this request, click the link below. If you didn't make this request, you can ignore this email.</p>
+  <p itemprop="description">You have requested to change your email address.</p>
+  <p>To confirm you have access to this email, please click the link below:</p>
   <div itemprop="potentialAction" itemscope itemtype="http://schema.org/ViewAction">
-    <meta itemprop="name" content="Reset password">
-    <meta itemprop="url" content="$url">
-    <p><a itemprop="target" href="$url">$url</a></p>
-    <p>(Clicking not working? Try pasting it into your browser!)</p>
+    <meta itemprop="name" content="Change email address">
+    ${Mailgun.html.url(url)}
   </div>
-  <div itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <small>This is a service email related to your use of <a itemprop="url" href="https://lichess.org/"><span itemprop="name">lichess.org</span></a>.</small>
-  </div>
+  ${Mailgun.html.serviceNote}
 </div>""".some
     )
   }

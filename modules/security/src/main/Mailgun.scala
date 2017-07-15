@@ -4,8 +4,8 @@ import scala.concurrent.duration._
 
 import akka.actor.ActorSystem
 import play.api.libs.ws.{ WS, WSAuthScheme }
-import play.twirl.api.Html
 import play.api.Play.current
+import play.twirl.api.Html
 
 import lila.common.EmailAddress
 
@@ -26,7 +26,7 @@ final class Mailgun(
       "subject" -> Seq(msg.subject),
       "text" -> Seq(msg.text)
     ) ++ msg.htmlBody.?? { body =>
-        Map("html" -> Seq(makeHtml(msg.subject, body)))
+        Map("html" -> Seq(Mailgun.html.wrap(msg.subject, body)))
       }).void addFailureEffect {
       case e: java.net.ConnectException => lila.mon.http.mailgun.timeout()
       case _ =>
@@ -36,18 +36,6 @@ final class Mailgun(
       }
       case e => fufail(e)
     }
-
-  private def makeHtml(subject: String, body: String) = s"""<!doctype html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>$subject</title>
-  </head>
-  <body>
-    $body
-  </body>
-</html>"""
 }
 
 object Mailgun {
@@ -62,4 +50,31 @@ object Mailgun {
     tag: Option[String] = none,
     retriesLeft: Int = 3
   )
+
+  object html {
+
+    val serviceNote = """
+<div itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+  <small>This is a service email related to your use of <a itemprop="url" href="https://lichess.org/"><span itemprop="name">lichess.org</span></a>.</small>
+</div>
+"""
+
+    def url(u: String) = s"""
+<meta itemprop="url" content="$u">
+<p><a itemprop="target" href="$u">$u</a></p>
+<p>(Clicking not working? Try pasting it into your browser!)</p>
+"""
+
+    private[Mailgun] def wrap(subject: String, body: String) = s"""<!doctype html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>$subject</title>
+  </head>
+  <body>
+    $body
+  </body>
+</html>"""
+  }
 }

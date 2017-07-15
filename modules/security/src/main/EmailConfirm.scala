@@ -46,21 +46,16 @@ $url
 
 (Clicking not working? Try pasting it into your browser!)
 
-This is a service email related to your use of lichess.org. If you did not register with Lichess you can safely ignore this message.
-""",
+This is a service email related to your use of lichess.org. If you did not register with Lichess you can safely ignore this message.""",
       htmlBody = s"""
 <div itemscope itemtype="http://schema.org/EmailMessage">
   <strong>Final step!</strong>
   <p itemprop="description">Confirm your email address to activate your Lichess account. It's easy — just click the link below.</p>
   <div itemprop="potentialAction" itemscope itemtype="http://schema.org/ViewAction">
     <meta itemprop="name" content="Activate account">
-    <meta itemprop="url" content="$url">
-    <p><a itemprop="target" href="$url">$url</a></p>
-    <p>(Clicking not working? Try pasting it into your browser!)</p>
+    ${Mailgun.html.url(url)}
   </div>
-  <div itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <small>This is a service email related to your use of <a itemprop="url" href="https://lichess.org/"><span itemprop="name">lichess.org</span></a>. If you did not register with Lichess you can safely ignore this message.</small>
-  </div>
+  ${Mailgun.html.serviceNote}
 </div>""".some
     )
   }
