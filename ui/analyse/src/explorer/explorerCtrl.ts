@@ -19,7 +19,7 @@ function tablebaseRelevant(variant: string, fen: Fen) {
 export default function(root: AnalyseController, opts, allow: boolean): ExplorerController {
   const allowed = prop(allow);
   const enabled = root.embed ? prop(false) : storedProp('explorer.enabled', false);
-  if (location.hash === '#opening' && !root.embed) enabled(true);
+  if ((location.hash === '#explorer' || location.hash === '#opening') && !root.embed) enabled(true);
   const loading = prop(true);
   const failing = prop(false);
   const hovering = prop<Hovering | null>(null);
