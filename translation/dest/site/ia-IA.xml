@@ -618,13 +618,20 @@
   </plurals>
   <string name="gameAnalysis">Analyse de joco</string>
   <string name="anonymous">Anonyme</string>
+  <string name="yourScore">Tu score: %s</string>
   <string name="language">Lingua</string>
   <string name="background">Fundo</string>
+  <string name="usernameUnacceptable">Iste nomine de usator non es acceptabile.</string>
+  <string name="directlySupportLichess">Appoiar directemente Lichess</string>
   <string name="playChessInStyle">Joca chacos con stilo</string>
   <string name="chessBasics">Fundamentos del chacos</string>
   <string name="coaches">Tutores</string>
   <string name="invalidPgn">PGN invalide</string>
   <string name="invalidFen">FEN invalide</string>
+  <string name="error.minLength">Le minimo de characteres es %s</string>
+  <string name="error.maxLength">Le maximo de characteres es %s</string>
+  <string name="error.min">Illo debe esser major o equal a %s</string>
+  <string name="error.max">Illo debe esser minor o equal a %s</string>
   <string name="error.unknown">Error</string>
   <string name="custom">Personalisate</string>
   <string name="notifications">Notificationes</string>
