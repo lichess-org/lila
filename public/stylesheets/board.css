@@ -1032,6 +1032,7 @@ body.playing.zen .other_games,
 body.playing.zen .board_left .side,
 body.playing.zen #chat,
 body.playing.zen .replay,
+body.playing.zen .table_inner .username,
 body.playing.zen rating,
 body.playing.zen #friend_box {
   display: none!important;
