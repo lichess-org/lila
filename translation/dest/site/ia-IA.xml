@@ -431,9 +431,12 @@
   <string name="soundWhenTimeGetsCritical">Sono quando le tempore es critic</string>
   <string name="gameBehavior">Comportamento del joco</string>
   <string name="howDoYouMovePieces">Como tu vole mover le pecias?</string>
+  <string name="clickTwoSquares">Clic e clic</string>
+  <string name="dragPiece">Traher e deponer le pecia</string>
   <string name="premovesPlayingDuringOpponentTurn">Preselection (jocar durante le torno del adversario)</string>
   <string name="takebacksWithOpponentApproval">Retorno del ultime movimento (con approbation del adversario)</string>
   <string name="promoteToQueenAutomatically">Promover a Regina automaticamente</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Declarar automaticamente le partita como nulle post un repetition triple</string>
   <string name="privacy">Confidentialitate</string>
   <string name="letOtherPlayersFollowYou">Lassar altere jocatores sequer te</string>
   <string name="letOtherPlayersChallengeYou">Lassar altere jocatores defiar te</string>
@@ -464,6 +467,7 @@
   <string name="starting">Initio:</string>
   <string name="allInformationIsPublicAndOptional">Tote information es public e optional.</string>
   <string name="yourCityRegionOrDepartment">Tu citate, region o provincia.</string>
+  <string name="biographyDescription">Scribe super te, lo que tu ama in chacos, tu initios de joco preferite, partitas e jocatores favorite…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="other">Maximo: %s characteres.</item>
   </plurals>
