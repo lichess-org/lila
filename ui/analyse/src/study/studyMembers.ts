@@ -8,7 +8,7 @@ import { NotifController } from './notif';
 
 interface Opts {
   initDict: StudyMemberMap;
-  myId?: string;
+  myId: string | null;
   ownerId: string;
   send: SocketSend;
   tab: Prop<Tab>;

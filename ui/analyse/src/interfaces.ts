@@ -75,7 +75,7 @@ export interface AnalyseOpts {
   sideElement: HTMLElement;
   data: AnalyseData;
   initialPly?: number | string;
-  userId?: string;
+  userId: string | null;
   embed: boolean;
   explorer: boolean;
   socketSend: SocketSend;
