@@ -431,7 +431,7 @@
   <string name="soundWhenTimeGetsCritical">Sono quando le tempore es critic</string>
   <string name="gameBehavior">Comportamento del joco</string>
   <string name="howDoYouMovePieces">Como tu vole mover le pecias?</string>
-  <string name="clickTwoSquares">Cliccar sur duo quadratos</string>
+  <string name="clickTwoSquares">Cliccar sur duo placias</string>
   <string name="dragPiece">Traher e deponer le pecia</string>
   <string name="bothClicksAndDrag">Ambe manieras</string>
   <string name="premovesPlayingDuringOpponentTurn">Preselection (jocar durante le torno del adversario)</string>
@@ -585,8 +585,12 @@
   <string name="crosstable">Tabula</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Tu pote anque usar le rolamento del mouse super le tabuliero pro mover se trans le joco.</string>
   <string name="analysisShapesHowTo">Pulsa Shift + Clic, o altemente, clicca con le button dextre del mouse pro designar circulos e sagittas super le tabuliero.</string>
+  <string name="confirmResignationAndDrawOffers">Confirmar resignationes e offertas de partita nulle</string>
   <string name="inputMovesWithTheKeyboard">Entrata de movimentos con le claviero</string>
   <string name="letOtherPlayersMessageYou">Permitter que altere jocatores te invia messages</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Methodo pro roccar</string>
+  <string name="castleByMovingTwoSquares">Mover le rege duo placias</string>
+  <string name="castleByMovingOntoTheRook">Mover le rege a super le turre</string>
   <string name="shareYourInsightsData">Divider con alteres tu datos de intuitiones</string>
   <string name="withNobody">Con nulle persona</string>
   <string name="withFriends">Con amicos</string>
