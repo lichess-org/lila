@@ -16,7 +16,8 @@ function keyListFrom(name) {
       const keys = strings.concat(plurals);
       resolve({
         name: name,
-        code: keys.map(k => 'val `' + k + '` = new Translated("' + k + '", ' + ucfirst(name) + ')').join('\n')
+        code: keys.map(k => 'val `' + k + '` = new Translated("' + k + '", ' + ucfirst(name) + ')').join('\n'),
+        all: 'val allKeys = List(' + keys.map(k => '`' + k + '`').join(', ') + ')'
       });
     }));
   });
@@ -26,7 +27,7 @@ Promise.all(dbs.map(keyListFrom)).then(objs => {
   function dbCode(obj) {
     return obj.name === 'site' ?
       `${obj.code}\n` :
-      `object ${obj.name} {\n${obj.code}\n}\n`;
+      `object ${obj.name} {\n${obj.code}\n${obj.all}\n}\n`;
   }
   const code = `// Generated with bin/trans-dump.js
 package lila.i18n
