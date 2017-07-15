@@ -179,7 +179,7 @@ function buttons(ctrl: AnalyseController) {
     ctrl.embed ? null : h('div.features', ctrl.studyPractice ? [
       h('a.hint--bottom', {
         attrs: {
-          'data-hint': 'Analysis board',
+          'data-hint': ctrl.trans.noarg('analysisBoard'),
           target: '_blank',
           href: ctrl.studyPractice.analysisUrl()
         }
@@ -187,7 +187,7 @@ function buttons(ctrl: AnalyseController) {
     ] : [
       h('button.hint--bottom', {
         attrs: {
-          'data-hint': ctrl.trans('openingExplorerAndTablebase'),
+          'data-hint': ctrl.trans.noarg('openingExplorerAndTablebase'),
           'data-act': 'explorer'
         },
         class: {
@@ -215,7 +215,7 @@ function buttons(ctrl: AnalyseController) {
     ctrl.studyPractice ? h('div.noop') : h('button.hint--bottom', {
       class: { active: menuIsOpen },
       attrs: {
-        'data-hint': 'Menu',
+        'data-hint': ctrl.trans.noarg('menu'),
         'data-act': 'menu'
       }
     }, [iconTag('[')])

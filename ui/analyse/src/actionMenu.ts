@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { Hooks } from 'snabbdom/hooks'
-import { AnalyseData, MaybeVNodes } from './interfaces';
+import { MaybeVNodes } from './interfaces';
 import { AutoplayDelay } from './autoplay';
 import AnalyseController from './ctrl';
 import { router } from 'game';
@@ -22,17 +22,17 @@ const baseSpeeds: AutoplaySpeed[] = [{
 }];
 
 const allSpeeds = baseSpeeds.concat({
-  name: 'realtime',
+  name: 'realtimeReplay',
   delay: 'realtime'
 });
 
 const cplSpeeds: AutoplaySpeed[] = [{
-  name: 'by CPL',
+  name: 'byCPL',
   delay: 'cpl_slow'
 }];
 
-function deleteButton(data: AnalyseData, userId: string | null): VNode | undefined {
-  const g = data.game;
+function deleteButton(ctrl: AnalyseController, userId: string | null): VNode | undefined {
+  const g = ctrl.data.game;
   if (g.source === 'import' &&
     g.importedBy && g.importedBy === userId)
   return h('form.delete', {
@@ -40,14 +40,14 @@ function deleteButton(data: AnalyseData, userId: string | null): VNode | undefin
       method: 'post',
       action: '/' + g.id + '/delete'
     },
-    hook: bind('submit', _ => confirm('Delete this imported game?'))
+    hook: bind('submit', _ => confirm(ctrl.trans.noarg('deleteThisImportedGame')))
   }, [
     h('button.button.text.thin', {
       attrs: {
         type: 'submit',
         'data-icon': 'q'
       }
-    }, 'Delete')
+    }, ctrl.trans.noarg('delete'))
   ]);
   return;
 }
@@ -60,7 +60,7 @@ function autoplayButtons(ctrl: AnalyseController): VNode {
     return h('a.fbt', {
       class: { active: ctrl.autoplay.active(speed.delay) },
       hook: bind('click', () => ctrl.togglePlay(speed.delay), ctrl.redraw)
-    }, speed.name);
+    }, ctrl.trans.noarg(speed.name));
   }));
 }
 
@@ -96,7 +96,7 @@ function studyButton(ctrl: AnalyseController) {
     h('i.icon', {
       attrs: dataIcon('')
     }),
-    'Open study'
+    ctrl.trans.noarg('openStudy')
   ]);
   if (ctrl.study || ctrl.ongoing) return;
   const realGame = !synthetic(ctrl.data);
@@ -175,13 +175,13 @@ export function view(ctrl: AnalyseController): VNode {
   ];
 
   const cevalConfig: MaybeVNodes = (ceval && ceval.possible && ceval.allowed()) ? ([
-    h('h2', 'Computer analysis')
+    h('h2', ctrl.trans.noarg('computerAnalysis'))
   ] as MaybeVNodes).concat([
     (id => {
       return h('div.setting', {
-        attrs: { title: mandatoryCeval ? 'Required by practice mode' : 'Use Stockfish 8' }
+        attrs: { title: mandatoryCeval ? "Required by practice mode" : window.lichess.engineName }
       }, [
-        h('label', { attrs: { 'for': id } }, 'Enable'),
+        h('label', { attrs: { 'for': id } }, ctrl.trans.noarg('enable')),
         h('div.switch', [
           h('input#' + id + '.cmn-toggle.cmn-toggle-round', {
             attrs: {
@@ -198,7 +198,7 @@ export function view(ctrl: AnalyseController): VNode {
   ]).concat(
     ctrl.showComputer() ? [
       (id => h('div.setting', [
-        h('label', { attrs: { 'for': id } }, 'Best move arrow'),
+        h('label', { attrs: { 'for': id } }, ctrl.trans.noarg('bestMoveArrow')),
         h('div.switch', [
           h('input#' + id + '.cmn-toggle.cmn-toggle-round', {
             attrs: {
@@ -213,7 +213,7 @@ export function view(ctrl: AnalyseController): VNode {
         ])
       ]))('analyse-toggle-shapes'),
       (id => h('div.setting', [
-        h('label', { attrs: { 'for': id } }, 'Evaluation gauge'),
+        h('label', { attrs: { 'for': id } }, ctrl.trans.noarg('evaluationGauge')),
         h('div.switch', [
           h('input#' + id + '.cmn-toggle.cmn-toggle-round', {
             attrs: {
@@ -226,9 +226,9 @@ export function view(ctrl: AnalyseController): VNode {
         ])
       ]))('analyse-toggle-gauge'),
       (id => h('div.setting', {
-        attrs: { title: 'Removes the depth limit, and keeps your computer warm' }
+        attrs: { title: ctrl.trans.noarg('removesTheDepthLimit') }
       }, [
-        h('label', { attrs: { 'for': id } }, 'Infinite analysis'),
+        h('label', { attrs: { 'for': id } }, ctrl.trans.noarg('infiniteAnalysis')),
         h('div.switch', [
           h('input#' + id + '.cmn-toggle.cmn-toggle-round', {
             attrs: {
@@ -245,7 +245,7 @@ export function view(ctrl: AnalyseController): VNode {
       (id => {
         const max = 5;
         return h('div.setting', [
-          h('label', { attrs: { 'for': id } }, 'Multiple lines'),
+          h('label', { attrs: { 'for': id } }, ctrl.trans.noarg('multipleLines')),
           h('input#' + id, {
             attrs: {
               type: 'range',
@@ -265,7 +265,7 @@ export function view(ctrl: AnalyseController): VNode {
         if (!max) return;
         if (max > 2) max--; // don't overload your computer, you dummy
         return h('div.setting', [
-          h('label', { attrs: { 'for': id } }, 'CPUs'),
+          h('label', { attrs: { 'for': id } }, ctrl.trans.noarg('cpus')),
           h('input#' + id, {
             attrs: {
               type: 'range',
@@ -281,7 +281,7 @@ export function view(ctrl: AnalyseController): VNode {
         ]);
       })('analyse-threads') : null,
       ceval.pnaclSupported ? (id => h('div.setting', [
-        h('label', { attrs: { 'for': id } }, 'Memory'),
+        h('label', { attrs: { 'for': id } }, ctrl.trans.noarg('memory')),
         h('input#' + id, {
           attrs: {
             type: 'range',
@@ -300,9 +300,9 @@ export function view(ctrl: AnalyseController): VNode {
     return h('div.action_menu',
       tools
         .concat(cevalConfig)
-        .concat(ctrl.mainline.length > 4 ? [h('h2', 'Replay mode'), autoplayButtons(ctrl)] : [])
+        .concat(ctrl.mainline.length > 4 ? [h('h2', ctrl.trans.noarg('replayMode')), autoplayButtons(ctrl)] : [])
         .concat([
-          deleteButton(d, ctrl.opts.userId),
+          deleteButton(ctrl, ctrl.opts.userId),
           canContinue ? h('div.continue_with.g_' + d.game.id, [
             h('a.button', {
               attrs: {
