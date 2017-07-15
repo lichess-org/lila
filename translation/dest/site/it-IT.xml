@@ -94,6 +94,12 @@
   <string name="deleteThisImportedGame">Vuoi eliminare questa partita importata?</string>
   <string name="realtimeReplay">In tempo reale</string>
   <string name="enable">Abilita</string>
+  <string name="bestMoveArrow">Freccia della mossa migliore</string>
+  <string name="evaluationGauge">Scala di valutazione</string>
+  <string name="multipleLines">Varianti multiple</string>
+  <string name="cpus">Processori</string>
+  <string name="memory">Memoria</string>
+  <string name="infiniteAnalysis">Analisi infinita</string>
   <string name="blunders">Errori gravi</string>
   <string name="mistakes">Errori</string>
   <string name="inaccuracies">Imprecisioni</string>
