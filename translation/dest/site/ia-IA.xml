@@ -621,6 +621,13 @@
   <string name="yourScore">Tu score: %s</string>
   <string name="language">Lingua</string>
   <string name="background">Fundo</string>
+  <string name="boardGeometry">Geometria del tabuliero</string>
+  <string name="boardTheme">Thema del tabuliero</string>
+  <string name="boardSize">Dimension del tabuliero</string>
+  <string name="pieceSet">Stilo del pecias</string>
+  <string name="embedInYourWebsite">Incorpora in tu sito web</string>
+  <string name="usernameAlreadyUsed">Iste nomine de usator ja es usate, per favor, selectiona un altere.</string>
+  <string name="usernameStartNoNumber">Le nomine de usator non debe initiar con un numero.</string>
   <string name="usernameUnacceptable">Iste nomine de usator non es acceptabile.</string>
   <string name="directlySupportLichess">Appoiar directemente Lichess</string>
   <string name="playChessInStyle">Joca chacos con stilo</string>
