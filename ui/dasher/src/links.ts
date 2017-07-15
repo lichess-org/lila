@@ -79,6 +79,10 @@ export default function(ctrl: DasherCtrl): VNode {
     modeCfg(ctrl, 'piece'),
     noarg('pieceSet'))
 
+  const zenToggle = h('a.sub.zen', {
+    hook: bind('click', ctrl.toggleZen)
+  }, 'Zen mode');
+
   return h('div', [
     h('div.links', userLinks() || anonLinks()),
     h('div.subs', [
@@ -87,7 +91,8 @@ export default function(ctrl: DasherCtrl): VNode {
       background,
       board,
       theme,
-      piece
+      piece,
+      zenToggle
     ]),
     pingView(ctrl.ping)
   ]);

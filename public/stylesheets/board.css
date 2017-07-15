@@ -1026,3 +1026,20 @@ div.underboard .blurs {
 div.underboard a {
   display: inline-block;
 }
+
+body.playing.zen .underboard,
+body.playing.zen .other_games,
+body.playing.zen .board_left .side,
+body.playing.zen #chat,
+body.playing.zen .replay,
+body.playing.zen rating,
+body.playing.zen #friend_box {
+  display: none!important;
+}
+body.playing.zen #top {
+  opacity: 0;
+  transition: 1s;
+}
+body.playing.zen #top:hover {
+  opacity: 1;
+}

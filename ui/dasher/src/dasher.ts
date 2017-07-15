@@ -9,78 +9,87 @@ import { Redraw, Prop, prop } from './util'
 import { get } from './xhr'
 
 export interface DasherData {
-  user?: LightUser
+  user?: LightUser;
   lang: {
-    current: string
-    accepted: string[]
+    current: string;
+    accepted: string[];
   }
   sound: {
-    list: string[]
+    list: string[];
   }
-  background: BackgroundData
-  board: BoardData
-  theme: ThemeData
-  piece: PieceData
-  kid: boolean
-  coach: boolean
-  prefs: any
-  i18n: any
+  background: BackgroundData;
+  board: BoardData;
+  theme: ThemeData;
+  piece: PieceData;
+  zen: 0 | 1;
+  kid: boolean;
+  coach: boolean;
+  i18n: any;
 }
 
-export type Mode = 'links' | 'langs' | 'sound' | 'background' | 'board' | 'theme' | 'piece'
+export type Mode = 'links' | 'langs' | 'sound' | 'background' | 'board' | 'theme' | 'piece';
 
-  export interface DasherCtrl {
-    mode: Prop<Mode>
-    setMode: (m: Mode) => void
-    data: DasherData
-    trans: Trans
-    ping: PingCtrl
-    subs: {
-      langs: LangsCtrl
-      sound: SoundCtrl
-      background: BackgroundCtrl,
-      board: BoardCtrl,
-      theme: ThemeCtrl,
-      piece: PieceCtrl
-    }
-    opts: DasherOpts
+export interface DasherCtrl {
+  mode: Prop<Mode>;
+  setMode(m: Mode): void;
+  data: DasherData;
+  trans: Trans;
+  ping: PingCtrl;
+  subs: {
+    langs: LangsCtrl;
+    sound: SoundCtrl;
+    background: BackgroundCtrl;
+    board: BoardCtrl;
+    theme: ThemeCtrl;
+    piece: PieceCtrl;
+  },
+  toggleZen(): void;
+  opts: DasherOpts;
+}
+
+export interface DasherOpts {
+  playing: boolean;
+  setZoom: PublishZoom;
+}
+
+export function makeCtrl(opts: DasherOpts, data: DasherData, redraw: Redraw): DasherCtrl {
+
+  const trans = window.lichess.trans(data.i18n);
+
+  let mode: Prop<Mode> = prop('links' as Mode);
+
+  function setMode(m: Mode) {
+    mode(m);
+    redraw();
   }
+  function close() { setMode('links'); }
 
-  export interface DasherOpts {
-    playing: boolean,
-    setZoom: PublishZoom
-  }
+  const ping = pingCtrl(trans, redraw);
 
-  export function makeCtrl(opts: DasherOpts, data: DasherData, redraw: Redraw): DasherCtrl {
-
-    const trans = window.lichess.trans(data.i18n);
-
-    let mode: Prop<Mode> = prop('links' as Mode);
-
-    function setMode(m: Mode) {
-      mode(m);
-      redraw();
-    }
-    function close() { setMode('links'); }
-
-    const ping = pingCtrl(trans, redraw);
-
-    const subs = {
-      langs: langsCtrl(data.lang, trans, redraw, close),
-      sound: soundCtrl(data.sound.list, trans, redraw, close),
-      background: backgroundCtrl(data.background, trans, redraw, close),
-      board: boardCtrl(data.board, trans, opts.setZoom, redraw, close),
-      theme: themeCtrl(data.theme, trans, () => data.board.is3d ? 'd3' : 'd2', redraw, setMode),
-      piece: pieceCtrl(data.piece, trans, () => data.board.is3d ? 'd3' : 'd2', redraw, setMode)
-    };
-
-    return {
-      mode,
-      setMode,
-      data,
-      trans,
-      ping,
-      subs,
-      opts
-    };
+  const subs = {
+    langs: langsCtrl(data.lang, trans, redraw, close),
+    sound: soundCtrl(data.sound.list, trans, redraw, close),
+    background: backgroundCtrl(data.background, trans, redraw, close),
+    board: boardCtrl(data.board, trans, opts.setZoom, redraw, close),
+    theme: themeCtrl(data.theme, trans, () => data.board.is3d ? 'd3' : 'd2', redraw, setMode),
+    piece: pieceCtrl(data.piece, trans, () => data.board.is3d ? 'd3' : 'd2', redraw, setMode)
   };
+
+  function toggleZen() {
+    data.zen = data.zen ? 0 : 1;
+    $('body').toggleClass('zen', data.zen)
+    $.post('/pref/zen', { zen: data.zen });
+    redraw();
+  }
+
+  return {
+    mode,
+    setMode,
+    data,
+    trans,
+    ping,
+    subs,
+    opts,
+    toggleZen
+  };
+};

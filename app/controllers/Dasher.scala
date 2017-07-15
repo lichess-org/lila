@@ -86,6 +86,7 @@ object Dasher extends LilaController {
         ),
         "kid" -> ctx.me ?? (_.kid),
         "coach" -> isGranted(_.Coach),
+        "zen" -> ctx.pref.zen,
         "i18n" -> translations
       )
     } fuccess

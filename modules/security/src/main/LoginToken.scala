@@ -16,11 +16,6 @@ final class LoginToken(secret: String) {
     def toDate(str: String) = parseLongOption(str) map { new DateTime(_) }
   }
 
-  //   implicit final val dateSerializable = new StringToken.Serializable[Option[DateTime]] {
-  //     def read(str: String) = parseLongOption(str) map { new DateTime(_) }
-  //     def write(date: Option[DateTime]) = date ?? (_.getMillis.toString)
-  //   }
-
   private val tokener = new StringToken[User.ID](
     secret = secret,
     getCurrentValue = _ => fuccess(DateStr toStr DateTime.now),
