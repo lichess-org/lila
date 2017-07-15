@@ -79,9 +79,13 @@ export default function(ctrl: DasherCtrl): VNode {
     modeCfg(ctrl, 'piece'),
     noarg('pieceSet'))
 
-  const zenToggle = h('a.sub.zen', {
-    hook: bind('click', ctrl.toggleZen)
-  }, 'Zen mode');
+  const zenToggle = h('div.zen.selector', [
+    h('a', {
+      class: { active: !!ctrl.data.zen },
+      attrs: { 'data-icon': ctrl.data.zen ? 'E' : 'K' },
+      hook: bind('click', ctrl.toggleZen)
+    }, 'Zen mode')
+  ]);
 
   return h('div', [
     h('div.links', userLinks() || anonLinks()),
