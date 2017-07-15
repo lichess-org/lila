@@ -46,8 +46,12 @@
   <string name="viewTheComputerAnalysis">Ver a análise do computador</string>
   <string name="requestAComputerAnalysis">Solicitar uma análise do computador</string>
   <string name="computerAnalysis">Análise do computador</string>
+  <string name="computerAnalysisAvailable">Análise de computador disponível</string>
   <string name="analysis">Análise</string>
+  <string name="showThreat">Mostrar ameaça</string>
+  <string name="capture">Captura</string>
   <string name="close">Fechar</string>
+  <string name="drawn">Empate</string>
   <string name="database">Base de dados</string>
   <string name="openingExplorer">Explorador de abertura</string>
   <string name="allSet">Tudo pronto!</string>
@@ -397,6 +401,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="closeAccountExplanation">Você tem certeza de que deseja encerrar sua conta? Esta é uma decisão permanente. Você não será mais capaz de fazer login, e a página de seu perfil não será mais acessível.</string>
   <string name="thisAccountIsClosed">Esta conta foi encerrada</string>
   <string name="invalidUsernameOrPassword">Nome de usuário ou senha incorretos</string>
+  <string name="incorrectPassword">Senha incorreta</string>
   <string name="emailMeALink">Envie-me um link</string>
   <string name="currentPassword">Senha atual</string>
   <string name="newPassword">Nova senha</string>
@@ -407,6 +412,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="moveListWhilePlaying">Lista de movimentos</string>
   <string name="pgnPieceNotation">Modo de notação das jogadas</string>
   <string name="chessPieceSymbol">Símbolo da peça</string>
+  <string name="pgnLetter">Letra (K, Q, R, B, N)</string>
   <string name="chessClock">Relógio de xadrez</string>
   <string name="tenthsOfSeconds">Décimos de segundo</string>
   <string name="never">Nunca</string>
@@ -415,6 +421,8 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="soundWhenTimeGetsCritical">Som ao atingir tempo crítico</string>
   <string name="gameBehavior">Funcionamento do jogo</string>
   <string name="howDoYouMovePieces">Como você move as peças?</string>
+  <string name="clickTwoSquares">Clicar em duas casas</string>
+  <string name="dragPiece">Arrastar a peça</string>
   <string name="premovesPlayingDuringOpponentTurn">Pré-movimentos (jogadas durante o turno do oponente)</string>
   <string name="takebacksWithOpponentApproval">Voltar jogada (com aprovação do oponente)</string>
   <string name="promoteToQueenAutomatically">Promover a Dama automaticamente</string>
