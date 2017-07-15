@@ -32,6 +32,10 @@ You need both!</string>
   <string name="queenComplete">Congratulations! Queens have no secrets for you.</string>
   <string name="theKing">The king</string>
   <string name="theMostImportantPiece">The most important piece</string>
+  <string name="kingIntro">You are the king. If you fall in battle, the game is lost.</string>
+  <string name="theKingIsSlow">The king is slow.</string>
+  <string name="lastOne">Last one!</string>
+  <string name="kingComplete">You can now command the commander!</string>
   <string name="theKnight">The knight</string>
   <string name="itMovesInAnLShape">It moves in an L shape</string>
   <string name="thePawn">The pawn</string>
