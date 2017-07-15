@@ -10,8 +10,8 @@
   <string name="yourTurn">Tu torno</string>
   <string name="aiNameLevelAiLevel">%1$s nivello %2$s</string>
   <string name="level">Nivello</string>
-  <string name="toggleTheChat">Alternar le chat</string>
-  <string name="toggleSound">Alternar sono</string>
+  <string name="toggleTheChat">Activar/disactivar le chat</string>
+  <string name="toggleSound">Activar/disactivar sono</string>
   <string name="chat">Chat</string>
   <string name="resign">Resignar se</string>
   <string name="checkmate">Chaco mat</string>
@@ -32,7 +32,7 @@
   <string name="whitePlays">Le blanc debe jocar</string>
   <string name="blackPlays">Le nigre debe jocar</string>
   <string name="opponentLeftChoices">Le altere jocator pote haber abandonate le partita. Tu pote declarar victoria, considerar le partita como nulle o attender.</string>
-  <string name="makeYourOpponentResign">Obligar tu adversario a resginar</string>
+  <string name="makeYourOpponentResign">Obligar tu adversario a resignar</string>
   <string name="forceResignation">Declarar victoria</string>
   <string name="forceDraw">Considerar le partita nulle</string>
   <string name="talkInChat">Per favor, sia gentil in le chat!</string>
@@ -43,10 +43,22 @@
   <string name="blackLeftTheGame">Le nigre abandonava le partita</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Publica iste adresse pro lassar spectatores vider le joco</string>
   <string name="theComputerAnalysisHasFailed">Le analyse de computator falleva</string>
-  <string name="viewTheComputerAnalysis">Vide le analyse de computator</string>
+  <string name="viewTheComputerAnalysis">Vider le analyse de computator</string>
   <string name="requestAComputerAnalysis">Requirer un analyse de computator</string>
   <string name="computerAnalysis">Analyse de computator</string>
+  <string name="computerAnalysisAvailable">Un analyse de computator es disponibile</string>
   <string name="analysis">Analyse</string>
+  <string name="depthX">Profunditate %s</string>
+  <string name="usingServerAnalysis">Usante le analyse del servitor</string>
+  <string name="loadingEngine">Cargante motor...</string>
+  <string name="cloudAnalysis">Analyse del nube</string>
+  <string name="goDeeper">Ir plus profunde</string>
+  <string name="showThreat">Monstrar le menacia</string>
+  <string name="inLocalBrowser">in le navigator local</string>
+  <string name="toggleLocalEvaluation">Activar/disactivar evalutation local</string>
+  <string name="move">Movimento</string>
+  <string name="unknown">Incognite</string>
+  <string name="database">Base de datos</string>
   <string name="openingExplorer">Explorator de initio de joco</string>
   <string name="blunders">Errores grave</string>
   <string name="mistakes">Errores</string>
@@ -119,12 +131,12 @@
   <string name="drawOfferCanceled">Offerta de partita nulle cancellate</string>
   <string name="whiteOffersDraw">Le blanc offere le partita nulle</string>
   <string name="blackOffersDraw">Le nigre offere le partita nulle</string>
-  <string name="whiteDeclinesDraw">Le blanca declina le partita nulle</string>
+  <string name="whiteDeclinesDraw">Le blanc declina le partita nulle</string>
   <string name="blackDeclinesDraw">Le nigre declina le partita nulle</string>
   <string name="yourOpponentOffersADraw">Tu adversario offere le partita nulle</string>
   <string name="accept">Acceptar</string>
   <string name="decline">Declinar</string>
-  <string name="playingRightNow">Se joca ora mesmo</string>
+  <string name="playingRightNow">Jocante ora mesmo</string>
   <string name="finished">Finite</string>
   <string name="abortGame">Cancellar partita</string>
   <string name="gameAborted">Partita cancellate</string>
@@ -221,6 +233,7 @@
   </plurals>
   <string name="thisIsAChessCaptcha">Isto es un CAPTCHA de chacos.</string>
   <string name="clickOnTheBoardToMakeYourMove">Clicca sur le tabuliero pro facer tu movimento e probar que tu es human.</string>
+  <string name="captcha.fail">Per favor, resolve le enigma de chacos pro continuar.</string>
   <string name="notACheckmate">Non es chaco mat</string>
   <string name="colorPlaysCheckmateInOne">Le %s debe jocar; chaco mat in un movimento</string>
   <string name="retry">Tentar de novo</string>
@@ -228,6 +241,7 @@
   <string name="onlineFriends">Amicos in linea</string>
   <string name="noFriendsOnline">Nulle amicos in linea</string>
   <string name="findFriends">Cercar amicos</string>
+  <string name="favoriteOpponents">Adversarios favorite</string>
   <string name="follow">Sequer</string>
   <string name="following">Sequente</string>
   <string name="unfollow">Cessar de sequer</string>
@@ -266,6 +280,14 @@
   <string name="winStreak">Victorias consecutive</string>
   <string name="createdBy">Create per</string>
   <string name="tournamentIsStarting">Le torneo es sur le puncto de comenciar</string>
+  <string name="tournamentComplete">Torneo finite</string>
+  <string name="movesPlayed">Movimentos jocate</string>
+  <string name="whiteWins">Victorias del blanc</string>
+  <string name="blackWins">Victorias del nigre</string>
+  <string name="draws">Partitas nulle</string>
+  <string name="nextXTournament">Torneo %s sequente:</string>
+  <string name="viewMoreTournaments">Vider plus torneos</string>
+  <string name="averageOpponent">Adversario medie</string>
   <string name="membersOnly">Solmente membros</string>
   <string name="boardEditor">Editor de tabuliero</string>
   <string name="startPosition">Position de initio</string>
@@ -274,6 +296,7 @@
   <string name="loadPosition">Cargar position</string>
   <string name="isPrivate">Private</string>
   <string name="reportXToModerators">Reportar %s al moderatores</string>
+  <string name="profileCompletion">Completion del profilo: %s</string>
   <string name="profile">Profilo</string>
   <string name="editProfile">Modificar profilo</string>
   <string name="firstName">Prenomine</string>
@@ -389,6 +412,7 @@
   <string name="privacy">Confidentialitate</string>
   <string name="letOtherPlayersFollowYou">Lassar altere jocatores sequer te</string>
   <string name="letOtherPlayersChallengeYou">Lassar altere jocatores defiar te</string>
+  <string name="letOtherPlayersInviteYouToStudy">Permitter a altere jocatores invitar te a studiar</string>
   <string name="sound">Sono</string>
   <string name="yourPreferencesHaveBeenSaved">Tu preferentias ha essite salveguardate.</string>
   <string name="none">Nulle</string>
@@ -530,8 +554,14 @@
   <string name="analysisShapesHowTo">Pulsa Shift + Clic, o altemente, clicca con le button dextre del mouse pro designar circulos e sagittas super le tabuliero.</string>
   <string name="letOtherPlayersMessageYou">Permitter que altere jocatores te invia messages</string>
   <string name="shareYourInsightsData">Divider con alteres tu datos de intuitiones</string>
+  <string name="withNobody">Con nulle persona</string>
+  <string name="withFriends">Con amicos</string>
+  <string name="withEverybody">Con tote le mundo</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Tu jam ha registrate le e-posta: %s</string>
   <string name="kidMode">Modo de infante</string>
+  <string name="enableKidMode">Activar modo de infante</string>
+  <string name="disableKidMode">Disactivar modo de infante</string>
+  <string name="security">Securitate</string>
   <string name="playChessEverywhere">Joca al chacos ubique!</string>
   <string name="asFreeAsLichess">Tanto gratis como Lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Disveloppate pro le amor del chacos, e non pro moneta</string>
@@ -549,4 +579,17 @@
     <item quantity="other">Disponibile in %s linguas!</item>
   </plurals>
   <string name="gameAnalysis">Analyse de joco</string>
+  <string name="anonymous">Anonyme</string>
+  <string name="language">Lingua</string>
+  <string name="background">Fundo</string>
+  <string name="playChessInStyle">Joca chacos con stilo</string>
+  <string name="chessBasics">Fundamentos del chacos</string>
+  <string name="coaches">Tutores</string>
+  <string name="invalidPgn">PGN invalide</string>
+  <string name="invalidFen">FEN invalide</string>
+  <string name="error.unknown">Error</string>
+  <string name="custom">Personalisate</string>
+  <string name="notifications">Notificationes</string>
+  <string name="challenges">Defias</string>
+  <string name="perfRatingX">Classification: %s</string>
 </resources>

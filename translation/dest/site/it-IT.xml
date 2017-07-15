@@ -57,8 +57,8 @@
   <string name="inLocalBrowser">nel browser locale</string>
   <string name="toggleLocalEvaluation">Analisi in locale</string>
   <string name="move">Fai una mossa</string>
-  <string name="variantLoss">Percentuale di sconfitta della variante</string>
-  <string name="variantWin">Percentuale di vincita della variante</string>
+  <string name="variantLoss">Variante perdente</string>
+  <string name="variantWin">Variante vincente</string>
   <string name="insufficientMaterial">Pezzi insuffienti</string>
   <string name="pawnMove">Mossa di pedone</string>
   <string name="capture">Cattura</string>
@@ -68,7 +68,6 @@
   <string name="drawn">Patta</string>
   <string name="unknown">Posizioni sconosciute al database</string>
   <string name="database">Database</string>
-  <string name="gameSpeed">Velocità di gioco</string>
   <string name="whiteDrawBlack">Bianco / Patta / Nero</string>
   <string name="averageRatingX">Punteggio medio: %s</string>
   <string name="recentGames">Partite recenti</string>
@@ -459,6 +458,7 @@
   <string name="closeAccountExplanation">Sei sicuro di voler chiudere il tuo account? La chiusura del tuo account è un\'azione irreversibile. Non ti sarà più possibile effettuare il login, e la pagina del tuo profilo non sarà più accessibile.</string>
   <string name="thisAccountIsClosed">Questo account è stato chiuso.</string>
   <string name="invalidUsernameOrPassword">Nome utente o password non validi</string>
+  <string name="incorrectPassword">Password errata</string>
   <string name="emailMeALink">Inviami il link via email</string>
   <string name="currentPassword">Password attuale</string>
   <string name="newPassword">Nuova password</string>
@@ -550,6 +550,7 @@
   <string name="error.email">Questa email non è valida</string>
   <string name="error.email_acceptable">Questa email non è accettabile</string>
   <string name="error.email_unique">Questa email viene già utilizzata</string>
+  <string name="error.email_different">Questo è gia il tuo indirizzo mail</string>
   <string name="blindfoldChess">Scacchi alla cieca</string>
   <string name="moveConfirmation">Conferma della mossa</string>
   <string name="inCorrespondenceGames">Partite per corrispondenza</string>
@@ -679,6 +680,7 @@
   <string name="xLikesY">A %1$s piace %2$s</string>
   <string name="quickPairing">Accoppiamento rapido</string>
   <string name="lobby">Lobby</string>
+  <string name="anonymous">Anonimo</string>
   <string name="yourScore">Il tuo punteggio: %s</string>
   <string name="language">Lingua</string>
   <string name="background">Sfondo</string>

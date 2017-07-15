@@ -67,7 +67,6 @@
   <string name="losing">การแพ้</string>
   <string name="unknown">ไม่ทราบ</string>
   <string name="database">ฐานข้อมูล</string>
-  <string name="gameSpeed">ความ​เร็ว​เกม</string>
   <string name="whiteDrawBlack">ขาวเสมอดำ</string>
   <string name="averageRatingX">ระดับคะแนนเฉลี่ย: %s</string>
   <string name="recentGames">เกมเมื่อเร็วๆนี้</string>

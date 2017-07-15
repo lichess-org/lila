@@ -50,16 +50,24 @@
   <string name="analysis">Ploča za analizu</string>
   <string name="depthX">Dubina %s</string>
   <string name="usingServerAnalysis">U uporabi je serverska analiza</string>
+  <string name="loadingEngine">Učitavanje računalne analize...</string>
   <string name="cloudAnalysis">Analiza u oblaku</string>
   <string name="goDeeper">Idi dublje</string>
   <string name="showThreat">Pokaži prijetnju</string>
   <string name="inLocalBrowser">u lokalnom pregledniku</string>
   <string name="toggleLocalEvaluation">Prekidač za lokalnu evaluaciju</string>
+  <string name="move">Potez</string>
+  <string name="variantLoss">Poraz varijante</string>
+  <string name="variantWin">Pobjeda varijante</string>
+  <string name="insufficientMaterial">Nedostatan materijal</string>
+  <string name="pawnMove">Potez pješakom</string>
   <string name="capture">Uzimanje figure</string>
+  <string name="close">Zatvori</string>
   <string name="winning">Pobjeđuje</string>
+  <string name="losing">Gubi</string>
+  <string name="drawn">Remizira</string>
   <string name="unknown">Nepoznati ishod</string>
   <string name="database">Baza podataka</string>
-  <string name="gameSpeed">Vremenska kontrola</string>
   <string name="whiteDrawBlack">Bijeli / remi / Crni</string>
   <string name="averageRatingX">Prosječni rejting: %s</string>
   <string name="recentGames">Nedavne partije</string>
@@ -70,9 +78,16 @@
     <item quantity="few">Mat u %s međupoteza</item>
     <item quantity="other">Mat u %s međupoteza</item>
   </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Sljedeće uzimanje ili potez pješakom u %s polupotezu (udaljenost od resetiranja brojača 50 poteza)</item>
+    <item quantity="few">Sljedeće uzimanje ili potez pješakom u %s polupoteza (udaljenost od resetiranja brojača 50 poteza)</item>
+    <item quantity="other">Sljedeće uzimanje ili potez pješakom u %s polupoteza (udaljenost od resetiranja brojača 50 poteza)</item>
+  </plurals>
   <string name="noGameFound">Nije pronađena nijedna partija</string>
   <string name="alreadySearchingThroughAllAvailableGames">Već se pretražuju sve dostupne partije</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Probaj uključiti više partija u postavkama pretraživača pozicija</string>
   <string name="openingExplorer">Pretraživač otvaranja &amp; baza pozicija u završnici</string>
+  <string name="xOpeningExplorer">%s pretraživač otvaranja</string>
   <string name="winPreventedBy50MoveRule">Pobjeda spriječena na bazi pravila o 50 poteza</string>
   <string name="lossSavedBy50MoveRule">Poraz spriječen na bazi pravila o 50 poteza</string>
   <string name="allSet">U redu</string>
@@ -646,6 +661,7 @@
   <string name="crosstable">Tablica križanja</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Možeš skrolirati preko ploče za micanje u partiji.</string>
   <string name="analysisShapesHowTo">Pritisni shift + lijevi klik ili desni klik kako bi crtao/la krugove i strelice na ploči.</string>
+  <string name="confirmResignationAndDrawOffers">Potvrdi predaju i ponudu za remi</string>
   <string name="inputMovesWithTheKeyboard">Omogući unošenje poteza tipkovnicom</string>
   <string name="letOtherPlayersMessageYou">Dopusti drugim igračima da ti pošalju poruku</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Način igranja rokade</string>
@@ -689,6 +705,7 @@
   <string name="xLikesY">%1$s se sviđa %2$s</string>
   <string name="quickPairing">Brzo uparivanje</string>
   <string name="lobby">Lobi</string>
+  <string name="anonymous">Anoniman igrač</string>
   <string name="yourScore">Tvoj rezultat: %s</string>
   <string name="language">Jezik</string>
   <string name="background">Pozadina</string>
