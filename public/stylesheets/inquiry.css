@@ -51,7 +51,7 @@ body {
 }
 #inquiry .reports {
   position: relative;
-  flex: 0 0 40%;
+  flex: 0 0 43%;
   height: 100%;
   margin: 0 20px;
   overflow: hidden;
@@ -93,6 +93,7 @@ body {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
+  text-align: center;
 }
 #inquiry .actions:not(.close),
 #inquiry .links {

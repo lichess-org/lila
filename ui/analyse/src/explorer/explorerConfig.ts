@@ -85,7 +85,7 @@ export function view(ctrl: ExplorerConfigController): VNode[] {
         )
       ]),
       h('section.speed', [
-        h('label', ctrl.trans.noarg('gameSpeed')),
+        h('label', ctrl.trans.noarg('timeControl')),
         h('div.choices',
           d.speed.available.map(function(s) {
             return h('span', {

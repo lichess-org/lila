@@ -1,22 +1,20 @@
-@(u: User, form: Form[_], ok: Option[Boolean] = None)(implicit ctx: Context)
+@(form: Form[_])(implicit ctx: Context)
 
-@title = @{ s"${u.username} - ${trans.changePassword.txt()}" }
-
-@account.layout(title = title, active = "password", evenMoreCss = cssTag("material.form.css")) {
+@account.layout(
+title = trans.changePassword.txt(),
+active = "password",
+evenMoreCss = cssTag("material.form.css")) {
 <div class="content_box small_box">
   <div class="signup_box">
     <h1 class="lichess_title">
       @trans.changePassword()
-      @ok.map {
-      case true => {<span class="is-green" data-icon="E"></span>}
-      case false => {<span class="is-red" data-icon="L"></span>}
-      }
+      @if(ctx.req.queryString.contains("ok")) { <span class="is-green" data-icon="E"></span>}
     </h1>
     <form class="material form" action="@routes.Account.passwdApply" method="POST">
+      @globalErrorMaterial(form)
       @passwdFormField(form("oldPasswd"), trans.currentPassword())
       @passwdFormField(form("newPasswd1"), trans.newPassword())
       @passwdFormField(form("newPasswd2"), trans.newPasswordAgain())
-      @errMsg(form)
       @base.form.submit()
     </form>
   </div>

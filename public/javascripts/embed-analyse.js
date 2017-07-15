@@ -132,6 +132,7 @@ $(function() {
 lichess.startEmbeddedAnalyse = function(opts) {
   opts.socketSend = $.noop
   opts.initialPly = 'url';
+  opts.trans = lichess.trans(opts.i18n);
   var container = opts.element.parentNode;
   LichessAnalyse.start(opts);
 

@@ -1,6 +1,6 @@
 import { h } from 'snabbdom'
 import { renderIndexAndMove } from './moveView';
-import { bind } from './util';
+import { defined } from 'common';
 import AnalyseController from './ctrl';
 
 export interface ForkController {
@@ -11,7 +11,7 @@ export interface ForkController {
   },
   next: () => boolean | undefined;
   prev: () => boolean | undefined;
-  proceed: (id?: string) => boolean | undefined;
+  proceed: (it?: number) => boolean | undefined;
 }
 
 export function make(root: AnalyseController): ForkController {
@@ -45,9 +45,10 @@ export function make(root: AnalyseController): ForkController {
         return true;
       }
     },
-    proceed(id) {
+    proceed(it) {
       if (displayed()) {
-        root.userJumpIfCan(root.path + (id || root.node.children[selected].id));
+        it = defined(it) ? it : selected;
+        root.userJumpIfCan(root.path + root.node.children[it].id);
         return true;
       }
     }
@@ -59,17 +60,31 @@ export function view(root, concealOf) {
   var state = root.fork.state();
   if (!state.displayed) return;
   var isMainline = concealOf && root.onMainline;
-  return h('div.fork',
-    state.node.children.map(function(node, i) {
-      var conceal = isMainline && concealOf(true)(root.path + node.id, node);
-      if (!conceal) return h('move', {
-        class: { selected: i === state.selected },
-        hook: bind('click', _ => root.fork.proceed(node.id), root.redraw)
-      }, renderIndexAndMove({
-        withDots: true,
-        showEval: root.showComputer(),
-        showGlyphs: root.showComputer()
-      }, node));
-    })
+  return h('div.fork', {
+    hook: {
+      insert(vnode) {
+        (vnode.elm as HTMLElement).addEventListener('click', e => {
+          const target = e.target as HTMLElement;
+          const it = parseInt(
+            (target.parentNode as HTMLElement).getAttribute('data-it') ||
+            target.getAttribute('data-it') || ''
+          );
+          root.fork.proceed(it);
+          root.redraw();
+        });
+      }
+    }
+  },
+  state.node.children.map(function(node, it) {
+    const conceal = isMainline && concealOf(true)(root.path + node.id, node);
+    if (!conceal) return h('move', {
+      class: { selected: it === state.selected },
+      attrs: { 'data-it': it }
+    }, renderIndexAndMove({
+      withDots: true,
+      showEval: root.showComputer(),
+      showGlyphs: root.showComputer()
+    }, node));
+  })
   );
 }

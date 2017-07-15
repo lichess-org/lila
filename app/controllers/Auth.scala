@@ -32,21 +32,23 @@ object Auth extends LilaController {
       """(?:[\w@-]|(:?\/[\w@-]))*\/?""".r.matches(referrer)
   }
 
-  private def authenticateUser(u: UserModel)(implicit ctx: Context): Fu[Result] = {
+  def authenticateUser(u: UserModel, result: Option[Fu[Result]] = None)(implicit ctx: Context): Fu[Result] = {
     implicit val req = ctx.req
     u.ipBan.fold(
       fuccess(Redirect(routes.Lobby.home)),
       api.saveAuthentication(u.id, ctx.mobileApiVersion) flatMap { sessionId =>
         negotiate(
-          html = Redirect {
-            get("referrer").filter(goodReferrer) orElse req.session.get(api.AccessUri) getOrElse routes.Lobby.home.url
-          }.fuccess,
+          html = result | Redirect {
+          get("referrer").filter(goodReferrer) orElse
+            req.session.get(api.AccessUri) getOrElse
+            routes.Lobby.home.url
+        }.fuccess,
           api = _ => mobileUserOk(u)
         ) map {
-            _ withCookies LilaCookie.withSession { session =>
-              session + ("sessionId" -> sessionId) - api.AccessUri
-            }
+          _ withCookies LilaCookie.withSession { session =>
+            session + ("sessionId" -> sessionId) - api.AccessUri
           }
+        }
       } recoverWith authRecovery
     )
   }
@@ -235,15 +237,15 @@ object Auth extends LilaController {
 
   def passwordResetConfirm(token: String) = Open { implicit ctx =>
     Env.security.passwordReset confirm token flatMap {
-      case Some(user) =>
+      _ ?? { user =>
         fuccess(html.auth.passwordResetConfirm(user, token, forms.passwdReset, none))
-      case _ => notFound
+      }
     }
   }
 
   def passwordResetConfirmApply(token: String) = OpenBody { implicit ctx =>
     Env.security.passwordReset confirm token flatMap {
-      case Some(user) =>
+      _ ?? { user =>
         implicit val req = ctx.body
         FormFuResult(forms.passwdReset) { err =>
           fuccess(html.auth.passwordResetConfirm(user, token, err, false.some))
@@ -252,25 +254,25 @@ object Auth extends LilaController {
             env.store.disconnect(user.id) >>
             authenticateUser(user)
         }
-      case _ => notFound
+      }
     }
   }
 
   def makeLoginToken = Auth { implicit ctx => me =>
     JsonOk {
-      val baseUrl = Env.api.Net.BaseUrl
-      val url = routes.Auth.loginWithToken(env.loginToken generate me).url
-      fuccess(Json.obj(
-        "userId" -> me.id,
-        "url" -> s"$baseUrl$url"
-      ))
+      env.loginToken generate me map { token =>
+        Json.obj(
+          "userId" -> me.id,
+          "url" -> s"${Env.api.Net.BaseUrl}${routes.Auth.loginWithToken(token).url}"
+        )
+      }
     }
   }
 
   def loginWithToken(token: String) = Open { implicit ctx =>
     Firewall {
       env.loginToken consume token flatMap {
-        _.fold(notFound)(authenticateUser)
+        _.fold(notFound)(authenticateUser(_))
       }
     }
   }

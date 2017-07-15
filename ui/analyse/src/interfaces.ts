@@ -75,11 +75,11 @@ export interface AnalyseOpts {
   sideElement: HTMLElement;
   data: AnalyseData;
   initialPly?: number | string;
-  userId: string;
+  userId: string | null;
   embed: boolean;
   explorer: boolean;
   socketSend: SocketSend;
-  i18n: any;
+  trans: Trans;
   study?: any;
   tagTypes?: string;
   practice?: any;

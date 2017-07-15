@@ -7,24 +7,24 @@ import { bind } from './util'
 
 export default function(ctrl: DasherCtrl): VNode {
 
-  const d = ctrl.data, trans = ctrl.trans;
+  const d = ctrl.data, trans = ctrl.trans, noarg = trans.noarg;
 
   function userLinks(): Array<VNode | null> | null {
     return d.user ? [
       h(
         'a.user_link.online.text.is-green',
         linkCfg(`/@/${d.user.name}`, d.user.patron ? '' : ''),
-        trans.noarg('profile')),
+        noarg('profile')),
 
       d.kid ? null : h(
         'a.text',
         linkCfg('/inbox', 'e'),
-        trans.noarg('inbox')),
+        noarg('inbox')),
 
       h(
         'a.text',
         linkCfg('/account/preferences/game-display', '%', ctrl.opts.playing ? {target: '_blank'} : undefined),
-        trans.noarg('preferences')),
+        noarg('preferences')),
 
       !d.coach ? null : h(
         'a.text',
@@ -34,7 +34,7 @@ export default function(ctrl: DasherCtrl): VNode {
       h(
         'a.text',
         linkCfg('/logout', 'w'),
-        trans.noarg('logOut'))
+        noarg('logOut'))
     ] : null;
   }
 
@@ -52,32 +52,40 @@ export default function(ctrl: DasherCtrl): VNode {
   const langs = h(
     'a.sub',
     modeCfg(ctrl, 'langs'),
-    trans.noarg('language'))
+    noarg('language'))
 
   const sound = h(
     'a.sub',
     modeCfg(ctrl, 'sound'),
-    trans.noarg('sound'))
+    noarg('sound'))
 
   const background = h(
     'a.sub',
     modeCfg(ctrl, 'background'),
-    trans.noarg('background'))
+    noarg('background'))
 
   const board = h(
     'a.sub',
     modeCfg(ctrl, 'board'),
-    trans.noarg('boardGeometry'))
+    noarg('boardGeometry'))
 
   const theme = h(
     'a.sub',
     modeCfg(ctrl, 'theme'),
-    trans.noarg('boardTheme'))
+    noarg('boardTheme'))
 
   const piece = h(
     'a.sub',
     modeCfg(ctrl, 'piece'),
-    trans.noarg('pieceSet'))
+    noarg('pieceSet'))
+
+  const zenToggle = ctrl.opts.playing ? h('div.zen.selector', [
+    h('a', {
+      class: { active: !!ctrl.data.zen },
+      attrs: { 'data-icon': ctrl.data.zen ? 'E' : 'K' },
+      hook: bind('click', ctrl.toggleZen)
+    }, 'Zen mode')
+  ]) : null;
 
   return h('div', [
     h('div.links', userLinks() || anonLinks()),
@@ -87,7 +95,8 @@ export default function(ctrl: DasherCtrl): VNode {
       background,
       board,
       theme,
-      piece
+      piece,
+      zenToggle
     ]),
     pingView(ctrl.ping)
   ]);

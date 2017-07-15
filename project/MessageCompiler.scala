@@ -15,6 +15,7 @@ object MessageCompiler {
 
   private def doFile(db: String, sourceFile: File, destDir: File, compileTo: File): Seq[File] = {
     val startsAt = System.currentTimeMillis()
+    destDir.mkdirs()
     val registry = ("en-GB" -> sourceFile) :: destDir.list.toList.map { f =>
       f.takeWhile('.' !=) -> (destDir / f)
     }.sortBy(_._1)

@@ -1,16 +1,16 @@
 @(playing: List[Pov])(implicit ctx: Context)
-@defining("round-toggle-autoswitch") { id =>
 <h3>
   @trans.currentGames()
-  <span class="move_on hint--bottom-left" data-hint="@trans.automaticallyProceedToNextGameAfterMoving()">
+  @defining("round-toggle-autoswitch") { id =>
+  <span class="move_on switcher hint--bottom-left" data-hint="@trans.automaticallyProceedToNextGameAfterMoving()">
     <label for="@id">@trans.autoSwitch()</label>
     <span class="switch">
       <input id="@id" class="cmn-toggle cmn-toggle-round" type="checkbox" />
       <label for="@id"></label>
     </span>
   </span>
+  }
 </h3>
-}
 @defining(playing.partition(_.isMyTurn)) {
 case (myTurn, otherTurn) => {
 @lobby.playing(myTurn ++ otherTurn.take(6 - myTurn.size))

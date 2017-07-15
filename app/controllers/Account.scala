@@ -7,7 +7,7 @@ import lila.app._
 import lila.common.PimpedJson._
 import lila.common.{ LilaCookie, EmailAddress }
 import lila.user.{ User => UserModel, UserRepo }
-import views._
+import views.html
 
 object Account extends LilaController {
 
@@ -78,54 +78,54 @@ object Account extends LilaController {
   }
 
   def passwd = Auth { implicit ctx => me =>
-    Ok(html.account.passwd(me, forms.passwd)).fuccess
+    forms passwd me map { form =>
+      Ok(html.account.passwd(form))
+    }
   }
 
   def passwdApply = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
-    FormFuResult(forms.passwd) { err =>
-      fuccess(html.account.passwd(me, err))
-    } { data =>
-      for {
-        ok ← UserRepo.authenticateById(me.id, data.oldPasswd).map(_.isDefined)
-        _ ← ok ?? UserRepo.passwd(me.id, data.newPasswd1)
-      } yield {
-        val content = html.account.passwd(me, forms.passwd.fill(data), ok.some)
-        ok.fold(Ok(content), BadRequest(content))
+    forms passwd me flatMap { form =>
+      FormFuResult(form) { err =>
+        fuccess(html.account.passwd(err))
+      } { data =>
+        UserRepo.passwd(me.id, data.newPasswd1) inject
+          Redirect(s"${routes.Account.passwd}?ok=1")
       }
     }
   }
 
-  private def emailForm(user: UserModel) = UserRepo email user.id map { email =>
-    Env.security.forms.changeEmail(user).fill(
-      lila.security.DataForm.ChangeEmail(email.??(_.value), "")
-    )
+  private def emailForm(user: UserModel) = UserRepo email user.id flatMap {
+    Env.security.forms.changeEmail(user, _)
   }
 
   def email = Auth { implicit ctx => me =>
-    emailForm(me) map { form =>
+    if (getBool("check")) Ok(html.auth.checkYourEmail(me)).fuccess
+    else emailForm(me) map { form =>
       Ok(html.account.email(me, form))
     }
   }
 
   def emailApply = AuthBody { implicit ctx => me =>
-    UserRepo hasEmail me.id flatMap {
-      case true => notFound
-      case false =>
-        implicit val req = ctx.body
-        FormFuResult(Env.security.forms.changeEmail(me)) { err =>
-          fuccess(html.account.email(me, err))
-        } { data =>
-          val email = Env.security.emailAddressValidator.validate(EmailAddress(data.email)) err s"Invalid email ${data.email}"
-          for {
-            ok ← UserRepo.authenticateById(me.id, data.passwd).map(_.isDefined)
-            _ ← ok ?? UserRepo.email(me.id, email)
-            form <- emailForm(me)
-          } yield {
-            val content = html.account.email(me, form, ok.some)
-            ok.fold(Ok(content), BadRequest(content))
-          }
+    implicit val req = ctx.body
+    emailForm(me) flatMap { form =>
+      FormFuResult(form) { err =>
+        fuccess(html.account.email(me, err))
+      } { data =>
+        Env.security.emailChange.send(me, data.realEmail) inject Redirect {
+          s"${routes.Account.email}?check=1"
         }
+      }
+    }
+  }
+
+  def emailConfirm(token: String) = Open { implicit ctx =>
+    Env.security.emailChange.confirm(token) flatMap {
+      _ ?? { user =>
+        controllers.Auth.authenticateUser(user, result = Redirect {
+          s"${routes.Account.email}?ok=1"
+        }.fuccess.some)
+      }
     }
   }
 

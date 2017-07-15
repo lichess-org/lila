@@ -1,7 +1,7 @@
 // Generated with bin/trans-dump.js
 package lila.i18n
 
-import I18nDb.{ Site, Arena }
+import I18nDb.{ Site, Arena, Emails }
 
 // format: OFF
 object I18nKeys {
@@ -75,7 +75,6 @@ val `losing` = new Translated("losing", Site)
 val `drawn` = new Translated("drawn", Site)
 val `unknown` = new Translated("unknown", Site)
 val `database` = new Translated("database", Site)
-val `gameSpeed` = new Translated("gameSpeed", Site)
 val `whiteDrawBlack` = new Translated("whiteDrawBlack", Site)
 val `averageRatingX` = new Translated("averageRatingX", Site)
 val `recentGames` = new Translated("recentGames", Site)
@@ -89,6 +88,20 @@ val `xOpeningExplorer` = new Translated("xOpeningExplorer", Site)
 val `winPreventedBy50MoveRule` = new Translated("winPreventedBy50MoveRule", Site)
 val `lossSavedBy50MoveRule` = new Translated("lossSavedBy50MoveRule", Site)
 val `allSet` = new Translated("allSet", Site)
+val `delete` = new Translated("delete", Site)
+val `deleteThisImportedGame` = new Translated("deleteThisImportedGame", Site)
+val `replayMode` = new Translated("replayMode", Site)
+val `realtimeReplay` = new Translated("realtimeReplay", Site)
+val `byCPL` = new Translated("byCPL", Site)
+val `openStudy` = new Translated("openStudy", Site)
+val `enable` = new Translated("enable", Site)
+val `bestMoveArrow` = new Translated("bestMoveArrow", Site)
+val `evaluationGauge` = new Translated("evaluationGauge", Site)
+val `multipleLines` = new Translated("multipleLines", Site)
+val `cpus` = new Translated("cpus", Site)
+val `memory` = new Translated("memory", Site)
+val `infiniteAnalysis` = new Translated("infiniteAnalysis", Site)
+val `removesTheDepthLimit` = new Translated("removesTheDepthLimit", Site)
 val `blunders` = new Translated("blunders", Site)
 val `mistakes` = new Translated("mistakes", Site)
 val `inaccuracies` = new Translated("inaccuracies", Site)
@@ -378,6 +391,7 @@ val `changedMindDoNotCloseAccount` = new Translated("changedMindDoNotCloseAccoun
 val `closeAccountExplanation` = new Translated("closeAccountExplanation", Site)
 val `thisAccountIsClosed` = new Translated("thisAccountIsClosed", Site)
 val `invalidUsernameOrPassword` = new Translated("invalidUsernameOrPassword", Site)
+val `incorrectPassword` = new Translated("incorrectPassword", Site)
 val `emailMeALink` = new Translated("emailMeALink", Site)
 val `currentPassword` = new Translated("currentPassword", Site)
 val `newPassword` = new Translated("newPassword", Site)
@@ -461,6 +475,7 @@ val `error.required` = new Translated("error.required", Site)
 val `error.email` = new Translated("error.email", Site)
 val `error.email_acceptable` = new Translated("error.email_acceptable", Site)
 val `error.email_unique` = new Translated("error.email_unique", Site)
+val `error.email_different` = new Translated("error.email_different", Site)
 val `blindfoldChess` = new Translated("blindfoldChess", Site)
 val `moveConfirmation` = new Translated("moveConfirmation", Site)
 val `inCorrespondenceGames` = new Translated("inCorrespondenceGames", Site)
@@ -578,6 +593,7 @@ val `xJoinsY` = new Translated("xJoinsY", Site)
 val `xLikesY` = new Translated("xLikesY", Site)
 val `quickPairing` = new Translated("quickPairing", Site)
 val `lobby` = new Translated("lobby", Site)
+val `anonymous` = new Translated("anonymous", Site)
 val `yourScore` = new Translated("yourScore", Site)
 val `language` = new Translated("language", Site)
 val `background` = new Translated("background", Site)
@@ -653,6 +669,20 @@ val `otherRules` = new Translated("otherRules", Arena)
 val `otherRulesAnswer` = new Translated("otherRulesAnswer", Arena)
 val `thisIsPrivate` = new Translated("thisIsPrivate", Arena)
 val `shareUrl` = new Translated("shareUrl", Arena)
+}
+
+object emails {
+val `emailConfirm_subject` = new Translated("emailConfirm_subject", Emails)
+val `emailConfirm_click` = new Translated("emailConfirm_click", Emails)
+val `emailConfirm_ignore` = new Translated("emailConfirm_ignore", Emails)
+val `passwordReset_subject` = new Translated("passwordReset_subject", Emails)
+val `passwordReset_intro` = new Translated("passwordReset_intro", Emails)
+val `passwordReset_clickOrIgnore` = new Translated("passwordReset_clickOrIgnore", Emails)
+val `emailChange_subject` = new Translated("emailChange_subject", Emails)
+val `emailChange_intro` = new Translated("emailChange_intro", Emails)
+val `emailChange_click` = new Translated("emailChange_click", Emails)
+val `common_orPaste` = new Translated("common_orPaste", Emails)
+val `common_note` = new Translated("common_note", Emails)
 }
 
 }

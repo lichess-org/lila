@@ -55,7 +55,7 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
 
   const members = memberCtrl({
     initDict: data.members,
-    myId: practiceData ? undefined : ctrl.opts.userId,
+    myId: practiceData ? null : ctrl.opts.userId,
     ownerId: data.ownerId,
     send,
     tab: vm.tab,

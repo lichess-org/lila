@@ -36,6 +36,7 @@ case class Pref(
     confirmResign: Int,
     insightShare: Int,
     keyboardMove: Int,
+    zen: Int,
     rookCastle: Int,
     moveEvent: Int,
     pieceNotation: Int,
@@ -68,6 +69,7 @@ case class Pref(
     case "pieceSet3d" => PieceSet3d.allByName get value map { p => copy(pieceSet3d = p.name) }
     case "is3d" => copy(is3d = value == "true").some
     case "soundSet" => SoundSet.allByKey get value map { s => copy(soundSet = s.name) }
+    case "zen" => copy(zen = if (value == "1") 1 else 0).some
     case _ => none
   }
 
@@ -84,6 +86,8 @@ case class Pref(
   def bgImgOrDefault = bgImg | Pref.defaultBgImg
 
   def pieceNotationIsLetter = pieceNotation == PieceNotation.LETTER
+
+  def isZen = zen == Zen.YES
 }
 
 object Pref {
@@ -94,6 +98,10 @@ object Pref {
     val NO = 0
     val YES = 1
     val choices = Seq(NO -> "No", YES -> "Yes")
+  }
+
+  object BooleanPref {
+    val verify = (v: Int) => v == 0 || v == 1
   }
 
   object Tag {
@@ -307,6 +315,9 @@ object Pref {
     )
   }
 
+  object Zen extends BooleanPref {
+  }
+
   def create(id: String) = default.copy(_id = id)
 
   lazy val default = Pref(
@@ -343,6 +354,7 @@ object Pref {
     confirmResign = ConfirmResign.YES,
     insightShare = InsightShare.FRIENDS,
     keyboardMove = KeyboardMove.NO,
+    zen = Zen.NO,
     rookCastle = RookCastle.YES,
     moveEvent = MoveEvent.BOTH,
     pieceNotation = PieceNotation.SYMBOL,

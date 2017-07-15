@@ -226,10 +226,10 @@ object UserRepo {
   def removeAllToints = coll.update($empty, $unset("toints"), multi = true)
 
   def authenticateById(id: ID, password: String): Fu[Option[User]] =
-    checkPasswordById(id) map { _ flatMap { _(password) } }
+    loginCandidateById(id) map { _ flatMap { _(password) } }
 
   def authenticateByEmail(email: EmailAddress, password: String): Fu[Option[User]] =
-    checkPasswordByEmail(email) map { _ flatMap { _(password) } }
+    loginCandidateByEmail(email) map { _ flatMap { _(password) } }
 
   private case class AuthData(password: String, salt: String, sha512: Option[Boolean]) {
     def compare(p: String) = password == (~sha512).fold(hash512(p, salt), hash(p, salt))
@@ -237,13 +237,16 @@ object UserRepo {
 
   private implicit val AuthDataBSONHandler = Macros.handler[AuthData]
 
-  def checkPasswordById(id: ID): Fu[Option[User.LoginCandidate]] =
-    checkPassword($id(id))
+  def loginCandidateById(id: ID): Fu[Option[User.LoginCandidate]] =
+    loginCandidate($id(id))
 
-  def checkPasswordByEmail(email: EmailAddress): Fu[Option[User.LoginCandidate]] =
-    checkPassword($doc(F.email -> email))
+  def loginCandidateByEmail(email: EmailAddress): Fu[Option[User.LoginCandidate]] =
+    loginCandidate($doc(F.email -> email))
 
-  private def checkPassword(select: Bdoc): Fu[Option[User.LoginCandidate]] =
+  def loginCandidate(u: User): Fu[User.LoginCandidate] =
+    loginCandidateById(u.id) map { _ | User.LoginCandidate(u, _ => false) }
+
+  private def loginCandidate(select: Bdoc): Fu[Option[User.LoginCandidate]] =
     coll.uno[AuthData](select) zip coll.uno[User](select) map {
       case (Some(login), Some(user)) if user.enabled => User.LoginCandidate(user, login.compare).some
       case _ => none
@@ -394,6 +397,8 @@ object UserRepo {
     ), $id(true)).cursor[Bdoc](readPreference = ReadPreference.secondary)
 
   def setLang(id: ID, lang: String) = coll.updateField($id(id), "lang", lang).void
+
+  def langOf(id: ID): Fu[Option[String]] = coll.primitiveOne[String]($id(id), "lang")
 
   def idsSumToints(ids: Iterable[String]): Fu[Int] =
     ids.nonEmpty ?? coll.aggregateWithReadPreference(

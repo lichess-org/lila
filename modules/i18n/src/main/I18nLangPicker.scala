@@ -33,7 +33,7 @@ object I18nLangPicker {
       case (acc, lang) => acc + (lang.language -> lang)
     }
 
-  private def findCloser(to: Lang): Option[Lang] =
+  def findCloser(to: Lang): Option[Lang] =
     if (I18nDb.langs contains to) Some(to)
     else defaultByLanguage.get(to.language) orElse
       lichessCodes.get(to.language)

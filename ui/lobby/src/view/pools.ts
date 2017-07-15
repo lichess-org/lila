@@ -2,7 +2,7 @@ import { h } from 'snabbdom';
 import LobbyController from '../ctrl';
 import { bind, spinner } from './util';
 
-function renderRange(range) {
+function renderRange(range: string) {
   return h('div.range', range.replace('-', ' - '));
 }
 
@@ -18,7 +18,7 @@ export default function(ctrl: LobbyController) {
       },
       hook: bind('click', _ => ctrl.clickPool(pool.id), ctrl.redraw)
     }, [
-      h('div.clock', pool.lim + '+' + pool.inc), 
+      h('div.clock', pool.lim + '+' + pool.inc),
       (active && member.range) ? renderRange(member.range) : h('div.perf', pool.perf),
       active ? spinner() : null
     ]);
@@ -26,6 +26,6 @@ export default function(ctrl: LobbyController) {
     h('div.custom', {
       class: { transp: member },
       hook: bind('click', _ => $('#start_buttons .config_hook').mousedown())
-    }, ctrl.trans('custom'))
+    }, ctrl.trans.noarg('custom'))
   );
 }

@@ -6,12 +6,13 @@ import * as hookRepo from '../../hookRepo';
 import { Hook } from '../../interfaces';
 
 function renderHook(ctrl: LobbyController, hook: Hook) {
+  const noarg = ctrl.trans.noarg;
   return h('tr.hook.' + hook.action, {
     key: hook.id,
     class: { disabled: hook.disabled },
     attrs: {
       title: hook.disabled ? '' : (
-        (hook.action === 'join') ? ctrl.trans('joinTheGame') + ' | ' + hook.perf : ctrl.trans('cancel')
+        (hook.action === 'join') ? noarg('joinTheGame') + ' | ' + hook.perf : noarg('cancel')
       ),
       'data-id': hook.id
     },
@@ -26,7 +27,7 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
       h('span.varicon', {
         attrs: { 'data-icon': perfIcons[hook.perf] }
       }),
-      ctrl.trans(hook.ra ? 'rated' : 'casual')
+      noarg(hook.ra ? 'rated' : 'casual')
     ])
   ]));
 }

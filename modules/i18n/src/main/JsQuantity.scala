@@ -7,7 +7,7 @@ object JsQuantity {
     case "fr" | "ff" | "kab" =>
       """
       // french
-      return (c < 2) ? 'one' : 'other';
+      return c < 2 ? 'one' : 'other';
       """
     case "cs" | "sk" =>
       """
@@ -122,7 +122,7 @@ object JsQuantity {
       """
     case _ =>
       """
-      return (c == 1) ? 'one' : 'other';
+      return c == 1 ? 'one' : 'other';
       """
   }
 

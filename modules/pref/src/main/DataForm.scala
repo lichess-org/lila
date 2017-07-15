@@ -8,29 +8,30 @@ object DataForm {
   val pref = Form(mapping(
     "display" -> mapping(
       "animation" -> number.verifying(Set(0, 1, 2, 3) contains _),
-      "captured" -> number.verifying(Set(0, 1) contains _),
-      "highlight" -> number.verifying(Set(0, 1) contains _),
-      "destination" -> number.verifying(Set(0, 1) contains _),
+      "captured" -> number.verifying(Pref.BooleanPref.verify),
+      "highlight" -> number.verifying(Pref.BooleanPref.verify),
+      "destination" -> number.verifying(Pref.BooleanPref.verify),
       "coords" -> number.verifying(Pref.Coords.choices.toMap contains _),
       "replay" -> number.verifying(Pref.Replay.choices.toMap contains _),
-      "pieceNotation" -> optional(number.verifying(Set(0, 1) contains _)),
+      "pieceNotation" -> optional(number.verifying(Pref.BooleanPref.verify)),
       "blindfold" -> number.verifying(Pref.Blindfold.choices.toMap contains _)
     )(DisplayData.apply)(DisplayData.unapply),
     "behavior" -> mapping(
       "moveEvent" -> optional(number.verifying(Set(0, 1, 2) contains _)),
-      "premove" -> number.verifying(Set(0, 1) contains _),
+      "premove" -> number.verifying(Pref.BooleanPref.verify),
       "takeback" -> number.verifying(Pref.Takeback.choices.toMap contains _),
       "autoQueen" -> number.verifying(Pref.AutoQueen.choices.toMap contains _),
       "autoThreefold" -> number.verifying(Pref.AutoThreefold.choices.toMap contains _),
       "submitMove" -> number.verifying(Pref.SubmitMove.choices.toMap contains _),
       "confirmResign" -> number.verifying(Pref.ConfirmResign.choices.toMap contains _),
-      "keyboardMove" -> optional(number.verifying(Set(0, 1) contains _)),
-      "rookCastle" -> optional(number.verifying(Set(0, 1) contains _))
+      "keyboardMove" -> optional(number.verifying(Pref.BooleanPref.verify)),
+      "zen" -> optional(number.verifying(Pref.BooleanPref.verify)),
+      "rookCastle" -> optional(number.verifying(Pref.BooleanPref.verify))
     )(BehaviorData.apply)(BehaviorData.unapply),
     "clockTenths" -> number.verifying(Pref.ClockTenths.choices.toMap contains _),
-    "clockBar" -> number.verifying(Set(0, 1) contains _),
-    "clockSound" -> number.verifying(Set(0, 1) contains _),
-    "follow" -> number.verifying(Set(0, 1) contains _),
+    "clockBar" -> number.verifying(Pref.BooleanPref.verify),
+    "clockSound" -> number.verifying(Pref.BooleanPref.verify),
+    "follow" -> number.verifying(Pref.BooleanPref.verify),
     "challenge" -> number.verifying(Pref.Challenge.choices.toMap contains _),
     "message" -> number.verifying(Pref.Message.choices.toMap contains _),
     "studyInvite" -> optional(number.verifying(Pref.StudyInvite.choices.toMap contains _)),
@@ -57,6 +58,7 @@ object DataForm {
     submitMove: Int,
     confirmResign: Int,
     keyboardMove: Option[Int],
+    zen: Option[Int],
     rookCastle: Option[Int]
   )
 
@@ -96,6 +98,7 @@ object DataForm {
       confirmResign = behavior.confirmResign,
       captured = display.captured == 1,
       keyboardMove = behavior.keyboardMove | pref.keyboardMove,
+      zen = behavior.zen | pref.zen,
       rookCastle = behavior.rookCastle | pref.rookCastle,
       pieceNotation = display.pieceNotation | pref.pieceNotation,
       moveEvent = behavior.moveEvent | pref.moveEvent
@@ -123,6 +126,7 @@ object DataForm {
         submitMove = pref.submitMove,
         confirmResign = pref.confirmResign,
         keyboardMove = pref.keyboardMove.some,
+        zen = pref.zen.some,
         rookCastle = pref.rookCastle.some
       ),
       clockTenths = pref.clockTenths,
@@ -168,5 +172,9 @@ object DataForm {
 
   val is3d = Form(single(
     "is3d" -> text.verifying(List("true", "false") contains _)
+  ))
+
+  val zen = Form(single(
+    "zen" -> text.verifying(Set("0", "1") contains _)
   ))
 }

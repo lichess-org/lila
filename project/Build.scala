@@ -236,7 +236,7 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api, reactivemongo.driver)
   )
 
-  lazy val security = project("security", Seq(common, hub, db, user)).settings(
+  lazy val security = project("security", Seq(common, hub, db, user, i18n)).settings(
     libraryDependencies ++= provided(play.api, reactivemongo.driver, maxmind, hasher)
   )
 
@@ -324,7 +324,7 @@ object ApplicationBuild extends Build {
       MessageCompiler(
         sourceDir = new File("translation/source"),
         destDir = new File("translation/dest"),
-        dbs = List("site", "arena"),
+        dbs = List("site", "arena", "emails"),
         compileTo = (sourceManaged in Compile).value / "messages"
       )
     }.taskValue,

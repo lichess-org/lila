@@ -15,6 +15,11 @@ final class Env(
 ) {
 
   private val settings = new {
+    val NetBaseUrl = config getString "net.base_url"
+    val MailgunApiUrl = config getString "mailgun.api.url"
+    val MailgunApiKey = config getString "mailgun.api.key"
+    val MailgunSender = config getString "mailgun.sender"
+    val MailgunReplyTo = config getString "mailgun.reply_to"
     val CollectionSecurity = config getString "collection.security"
     val FirewallEnabled = config getBoolean "firewall.enabled"
     val FirewallCookieName = config getString "firewall.cookie.name"
@@ -24,19 +29,10 @@ final class Env(
     val FloodDuration = config duration "flood.duration"
     val GeoIPFile = config getString "geoip.file"
     val GeoIPCacheTtl = config duration "geoip.cache_ttl"
-    val EmailConfirmMailgunApiUrl = config getString "email_confirm.mailgun.api.url"
-    val EmailConfirmMailgunApiKey = config getString "email_confirm.mailgun.api.key"
-    val EmailConfirmMailgunSender = config getString "email_confirm.mailgun.sender"
-    val EmailConfirmMailgunReplyTo = config getString "email_confirm.mailgun.reply_to"
-    val EmailConfirmMailgunBaseUrl = config getString "email_confirm.mailgun.base_url"
     val EmailConfirmSecret = config getString "email_confirm.secret"
     val EmailConfirmEnabled = config getBoolean "email_confirm.enabled"
-    val PasswordResetMailgunApiUrl = config getString "password_reset.mailgun.api.url"
-    val PasswordResetMailgunApiKey = config getString "password_reset.mailgun.api.key"
-    val PasswordResetMailgunSender = config getString "password_reset.mailgun.sender"
-    val PasswordResetMailgunReplyTo = config getString "password_reset.mailgun.reply_to"
-    val PasswordResetMailgunBaseUrl = config getString "password_reset.mailgun.base_url"
     val PasswordResetSecret = config getString "password_reset.secret"
+    val EmailChangeSecret = config getString "email_change.secret"
     val LoginTokenSecret = config getString "login_token.secret"
     val TorProviderUrl = config getString "tor.provider_url"
     val TorRefreshDelay = config duration "tor.refresh_delay"
@@ -83,25 +79,32 @@ final class Env(
 
   def store = Store
 
+  private lazy val mailgun = new Mailgun(
+    apiUrl = MailgunApiUrl,
+    apiKey = MailgunApiKey,
+    from = MailgunSender,
+    replyTo = MailgunReplyTo,
+    system = system
+  )
+
   lazy val emailConfirm: EmailConfirm =
-    if (EmailConfirmEnabled) new EmailConfirmMailGun(
-      apiUrl = EmailConfirmMailgunApiUrl,
-      apiKey = EmailConfirmMailgunApiKey,
-      sender = EmailConfirmMailgunSender,
-      replyTo = EmailConfirmMailgunReplyTo,
-      baseUrl = EmailConfirmMailgunBaseUrl,
-      secret = EmailConfirmSecret,
-      system = system
+    if (EmailConfirmEnabled) new EmailConfirmMailgun(
+      mailgun = mailgun,
+      baseUrl = NetBaseUrl,
+      tokenerSecret = EmailConfirmSecret
     )
     else EmailConfirmSkip
 
   lazy val passwordReset = new PasswordReset(
-    apiUrl = PasswordResetMailgunApiUrl,
-    apiKey = PasswordResetMailgunApiKey,
-    sender = PasswordResetMailgunSender,
-    replyTo = PasswordResetMailgunReplyTo,
-    baseUrl = PasswordResetMailgunBaseUrl,
-    secret = PasswordResetSecret
+    mailgun = mailgun,
+    baseUrl = NetBaseUrl,
+    tokenerSecret = PasswordResetSecret
+  )
+
+  lazy val emailChange = new EmailChange(
+    mailgun = mailgun,
+    baseUrl = NetBaseUrl,
+    tokenerSecret = EmailChangeSecret
   )
 
   lazy val loginToken = new LoginToken(

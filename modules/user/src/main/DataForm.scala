@@ -35,14 +35,13 @@ object DataForm {
     def samePasswords = newPasswd1 == newPasswd2
   }
 
-  val passwd = Form(mapping(
-    "oldPasswd" -> nonEmptyText,
-    "newPasswd1" -> nonEmptyText(minLength = 2),
-    "newPasswd2" -> nonEmptyText(minLength = 2)
-  )(Passwd.apply)(Passwd.unapply).verifying(
-      "the new passwords don't match",
-      _.samePasswords
-    ))
+  def passwd(u: User) = UserRepo loginCandidate u map { candidate =>
+    Form(mapping(
+      "oldPasswd" -> nonEmptyText.verifying("incorrectPassword", candidate.check),
+      "newPasswd1" -> nonEmptyText(minLength = 2),
+      "newPasswd2" -> nonEmptyText(minLength = 2)
+    )(Passwd.apply)(Passwd.unapply).verifying("the new passwords don't match", _.samePasswords))
+  }
 
   val title = Form(single("title" -> optional(nonEmptyText)))
 }
