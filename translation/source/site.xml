@@ -88,6 +88,7 @@
   <string name="winPreventedBy50MoveRule">Win prevented by 50-move rule</string>
   <string name="lossSavedBy50MoveRule">Loss saved by 50-move rule</string>
   <string name="allSet">All set!</string>
+  <string name="importPgn">Import PGN</string>
   <string name="delete">Delete</string>
   <string name="deleteThisImportedGame">Delete this imported game?</string>
   <string name="replayMode">Replay mode</string>

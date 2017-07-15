@@ -112,7 +112,7 @@ function inputs(ctrl: AnalyseController): VNode | undefined {
             const pgn = $('.copyables .pgn textarea').val();
             if (pgn !== pgnExport.renderFullTxt(ctrl)) ctrl.changePgn(pgn);
           }, ctrl.redraw)
-        }, 'Import PGN')
+        }, ctrl.trans.noarg('importPgn'))
       ])
     ])
   ]);
