@@ -93,7 +93,9 @@
   <string name="allSet">Wszystko gotowe!</string>
   <string name="delete">Usuń</string>
   <string name="deleteThisImportedGame">Czy usunąć tę grę?</string>
+  <string name="replayMode">Tryb odtwarzania</string>
   <string name="enable">Włącz</string>
+  <string name="bestMoveArrow">Strzałka najlepszego ruchu</string>
   <string name="cpus">Procesory</string>
   <string name="memory">Pamięć RAM</string>
   <string name="infiniteAnalysis">Nieskończona analiza</string>
