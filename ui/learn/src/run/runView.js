@@ -42,7 +42,7 @@ module.exports = function(ctrl) {
     ctrl.vm.stageCompleted() ? stageComplete(ctrl) : null,
     m('div.lichess_board_wrap', [
       m('div.lichess_board', chessground.view(ground.instance)),
-      renderPromotion(level),
+      renderPromotion(ctrl, level),
     ]),
     m('div.lichess_ground', [
       m('div.title', [

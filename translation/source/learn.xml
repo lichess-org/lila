@@ -60,6 +60,10 @@ No need to promote.</string>
   <string name="grabAllTheStarsNoNeedToPromote">Grab all the stars!
 No need to promote.</string>
   <string name="pawnComplete">Congratulations! Pawns have no secrets for you.</string>
+  <string name="pawnPromotion">Pawn promotion</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Your pawn reached the end of the board!</string>
+  <string name="itNowPromotesToAStrongerPiece">It now promotes to a stronger piece.</string>
+  <string name="selectThePieceYouWant">Select the piece you want!</string>
   <string name="fundamentals">Fundamentals</string>
   <string name="capture">Capture</string>
   <string name="takeTheEnemyPieces">Take the enemy pieces</string>
