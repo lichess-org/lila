@@ -57,8 +57,15 @@
   <string name="inLocalBrowser">in le navigator local</string>
   <string name="toggleLocalEvaluation">Activar/disactivar evalutation local</string>
   <string name="move">Movimento</string>
+  <string name="variantLoss">Perdita per variante</string>
+  <string name="variantWin">Victoria per variante</string>
+  <string name="insufficientMaterial">Material insufficiente</string>
+  <string name="capture">Captura</string>
+  <string name="close">Clauder</string>
   <string name="unknown">Incognite</string>
   <string name="database">Base de datos</string>
+  <string name="whiteDrawBlack">Blanc / Nulle / Nigre</string>
+  <string name="recentGames">Partitas recente</string>
   <string name="openingExplorer">Explorator de initio de joco</string>
   <string name="blunders">Errores grave</string>
   <string name="mistakes">Errores</string>
