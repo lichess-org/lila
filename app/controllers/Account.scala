@@ -100,7 +100,8 @@ object Account extends LilaController {
   }
 
   def email = Auth { implicit ctx => me =>
-    emailForm(me) map { form =>
+    if (getBool("check")) Ok(html.auth.checkYourEmail(me)).fuccess
+    else emailForm(me) map { form =>
       Ok(html.account.email(me, form))
     }
   }
@@ -111,18 +112,22 @@ object Account extends LilaController {
       FormFuResult(form) { err =>
         fuccess(html.account.email(me, err))
       } { data =>
-        val email = data.realEmail
-        funit inject Ok(html.auth.checkYourEmail(me))
+        Env.security.emailChange.send(me, data.realEmail) inject Redirect {
+          s"${routes.Account.email}?check=1"
+        }
       }
     }
   }
-  // def emailConfirm(token: String) = Open { implicit ctx =>
-  //   Env.security.emailChange.confirm(token) flatMap {
-  //     _ ?? { user =>
-  //       ???
-  //     }
-  //   }
-  // }
+
+  def emailConfirm(token: String) = Open { implicit ctx =>
+    Env.security.emailChange.confirm(token) flatMap {
+      _ ?? { user =>
+        controllers.Auth.authenticateUser(user, result = Redirect {
+          s"${routes.Account.email}?ok=1"
+        }.fuccess.some)
+      }
+    }
+  }
 
   def close = Auth { implicit ctx => me =>
     Ok(html.account.close(me, Env.security.forms.closeAccount)).fuccess

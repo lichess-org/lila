@@ -85,7 +85,10 @@ final class DataForm(
     Form(mapping(
       "passwd" -> nonEmptyText.verifying("incorrectPassword", candidate.check),
       "email" -> acceptableUniqueEmail(candidate.user.some).verifying(emailValidator differentConstraint old)
-    )(ChangeEmail.apply)(ChangeEmail.unapply))
+    )(ChangeEmail.apply)(ChangeEmail.unapply)).fill(ChangeEmail(
+      passwd = "",
+      email = old.??(_.value)
+    ))
   }
 
   def modEmail(user: User) = Form(single("email" -> acceptableUniqueEmail(user.some)))

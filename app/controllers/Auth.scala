@@ -32,21 +32,23 @@ object Auth extends LilaController {
       """(?:[\w@-]|(:?\/[\w@-]))*\/?""".r.matches(referrer)
   }
 
-  private def authenticateUser(u: UserModel)(implicit ctx: Context): Fu[Result] = {
+  def authenticateUser(u: UserModel, result: Option[Fu[Result]] = None)(implicit ctx: Context): Fu[Result] = {
     implicit val req = ctx.req
     u.ipBan.fold(
       fuccess(Redirect(routes.Lobby.home)),
       api.saveAuthentication(u.id, ctx.mobileApiVersion) flatMap { sessionId =>
         negotiate(
-          html = Redirect {
-            get("referrer").filter(goodReferrer) orElse req.session.get(api.AccessUri) getOrElse routes.Lobby.home.url
-          }.fuccess,
+          html = result | Redirect {
+          get("referrer").filter(goodReferrer) orElse
+            req.session.get(api.AccessUri) getOrElse
+            routes.Lobby.home.url
+        }.fuccess,
           api = _ => mobileUserOk(u)
         ) map {
-            _ withCookies LilaCookie.withSession { session =>
-              session + ("sessionId" -> sessionId) - api.AccessUri
-            }
+          _ withCookies LilaCookie.withSession { session =>
+            session + ("sessionId" -> sessionId) - api.AccessUri
           }
+        }
       } recoverWith authRecovery
     )
   }
@@ -270,7 +272,7 @@ object Auth extends LilaController {
   def loginWithToken(token: String) = Open { implicit ctx =>
     Firewall {
       env.loginToken consume token flatMap {
-        _.fold(notFound)(authenticateUser)
+        _.fold(notFound)(authenticateUser(_))
       }
     }
   }

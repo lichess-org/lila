@@ -17,8 +17,14 @@ final class Mailgun(
     system: ActorSystem
 ) {
 
+  private val debug = false
+
   def send(msg: Mailgun.Message): Funit =
-    WS.url(s"$apiUrl/messages").withAuth("api", apiKey, WSAuthScheme.BASIC).post(Map(
+    if (debug) {
+      println(msg.text)
+      funit
+    }
+    else WS.url(s"$apiUrl/messages").withAuth("api", apiKey, WSAuthScheme.BASIC).post(Map(
       "from" -> Seq(msg.from | from),
       "to" -> Seq(msg.to.value),
       "h:Reply-To" -> Seq(msg.replyTo | replyTo),
