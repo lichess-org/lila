@@ -148,8 +148,9 @@ export function view(ctrl) {
             action: '/study/' + data.id + '/clear-chat',
             method: 'post'
           },
-          hook: bind('submit', _ => {
-            return confirm('Delete the study chat history? There is no going back!');
+          hook: bind('submit', e => {
+            if (!confirm('Delete the study chat history? There is no going back!'))
+              e.preventDefault();
           })
         }, [
           h('button.button.frameless', 'Clear chat')
@@ -159,8 +160,9 @@ export function view(ctrl) {
             action: '/study/' + data.id + '/delete',
             method: 'post'
           },
-          hook: bind('submit', _ => {
-            return isNew || confirm('Delete the entire study? There is no going back!');
+          hook: bind('submit', e => {
+            if (!isNew && !confirm('Delete the entire study? There is no going back!'))
+              e.preventDefault();
           })
         }, [
           h('button.button.frameless', isNew ? 'Cancel' : 'Delete study')

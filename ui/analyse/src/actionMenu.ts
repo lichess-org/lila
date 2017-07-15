@@ -40,7 +40,9 @@ function deleteButton(ctrl: AnalyseController, userId: string | null): VNode | u
       method: 'post',
       action: '/' + g.id + '/delete'
     },
-    hook: bind('submit', _ => confirm(ctrl.trans.noarg('deleteThisImportedGame')))
+    hook: bind('submit', e => {
+      if (!confirm(ctrl.trans.noarg('deleteThisImportedGame'))) e.preventDefault();
+    })
   }, [
     h('button.button.text.thin', {
       attrs: {
