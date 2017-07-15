@@ -17,7 +17,7 @@ function ribbon(ctrl, s, status, res) {
   var content;
   if (status === 'ongoing') {
     var p = ctrl.stageProgress(s);
-    content = p[0] ? p.join(' / ') : 'play!';
+    content = p[0] ? p.join(' / ') : ctrl.trans.noarg('play');
   } else
     content = makeStars(scoring.getStageRank(s, res.scores));
   if (status !== 'future') return m('span.ribbon-wrapper',
@@ -39,24 +39,24 @@ function whatNext(ctrl) {
         src: util.assetUrl + 'images/learn/' + img + '.svg'
       }),
       m('div.text', [
-        m('h3', title),
-        m('p.subtitle', subtitle)
+        m('h3', ctrl.trans.noarg(title)),
+        m('p.subtitle', ctrl.trans.noarg(subtitle))
       ])
     ]);
   };
   var userId = ctrl.data._id;
   return m('div.categ.what_next', [
-    m('h2', 'What next?'),
-    m('p', "You know how to play chess, congratulations! Do you want to become a stronger player?"),
+    m('h2', ctrl.trans.noarg('whatNext')),
+    m('p', ctrl.trans.noarg('youKnowHowToPlayChess')),
     m('div.categ_stages', [
       userId ?
-      makeStage('/@/' + userId, 'beams-aura', 'Register', 'Get a free lichess account', true) :
-      makeStage('/signup', 'beams-aura', 'Register', 'Get a free lichess account'),
-      makeStage('/practice', 'robot-golem', 'Practice', 'Learn common chess positions'),
-      makeStage('/training', 'bullseye', 'Training', 'Exercise your tactical skills'),
-      makeStage('/video', 'tied-scroll', 'Videos', 'Watch instructive chess videos'),
-      makeStage('/#hook', 'sword-clash', 'Play people', 'Opponents from around the world'),
-      makeStage('/#ai', 'vintage-robot', 'Play machine', 'Test your skills with the computer'),
+      makeStage('/@/' + userId, 'beams-aura', 'register', 'getAFreeLichessAccount', true) :
+      makeStage('/signup', 'beams-aura', 'register', 'getAFreeLichessAccount'),
+      makeStage('/practice', 'robot-golem', 'practice', 'learnCommonChessPositions'),
+      makeStage('/training', 'bullseye', 'training', 'exerciseYourTacticalSkills'),
+      makeStage('/video', 'tied-scroll', 'videos', 'watchInstructiveChessVideos'),
+      makeStage('/#hook', 'sword-clash', 'playPeople', 'opponentsFromAroundTheWorld'),
+      makeStage('/#ai', 'vintage-robot', 'playMachine', 'testYourSkillsWithTheComputer'),
     ])
   ]);
 }
@@ -66,7 +66,7 @@ module.exports = function(ctrl) {
     m('div.stages', [
       stages.categs.map(function(categ) {
         return m('div.categ', [
-          m('h2', categ.name),
+          m('h2', ctrl.trans.noarg(categ.name)),
           m('div.categ_stages',
             categ.stages.map(function(s) {
               var res = ctrl.data.stages[s.key];
@@ -85,8 +85,8 @@ module.exports = function(ctrl) {
                   src: s.image
                 }),
                 m('div.text', [
-                  m('h3', s.title),
-                  m('p.subtitle', s.subtitle)
+                  m('h3', ctrl.trans.noarg(s.title)),
+                  m('p.subtitle', ctrl.trans.noarg(s.subtitle))
                 ])
               ]);
             })

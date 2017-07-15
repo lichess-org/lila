@@ -13,7 +13,7 @@ function renderInStage(ctrl) {
         m('img', {
           src: util.assetUrl + 'images/learn/brutal-helm.svg'
         }),
-        'Menu'
+        ctrl.trans.noarg('menu')
       ]),
       stages.categs.map(function(categ, categId) {
         return m('div.categ', {
@@ -23,7 +23,7 @@ function renderInStage(ctrl) {
             onclick: function() {
               ctrl.categId(categId);
             }
-          }, categ.name),
+          }, ctrl.trans.noarg(categ.name)),
           m('div.categ_stages',
             categ.stages.map(function(s) {
               var result = ctrl.data.stages[s.key];
@@ -36,7 +36,7 @@ function renderInStage(ctrl) {
                 m('img', {
                   src: s.image
                 }),
-                m('h3', s.title)
+                m('h3', ctrl.trans.noarg(s.title))
               ]);
             }))
         ]);
@@ -49,10 +49,10 @@ function renderHome(ctrl) {
   var progress = ctrl.progress();
   return m('div.home', [
     m('i.fat'),
-    m('h1', 'Learn chess'),
-    m('h2', 'by playing!'),
+    m('h1', ctrl.trans.noarg('learnChess')),
+    m('h2', ctrl.trans.noarg('byPlaying')),
     m('div.progress', [
-      m('div.text', 'Progress: ' + progress + '%'),
+      m('div.text', ctrl.trans('progressX', progress + '%')),
       m('div.bar', {
         style: {
           width: progress + '%'
@@ -62,14 +62,14 @@ function renderHome(ctrl) {
     m('div.actions', [
       progress > 0 ? m('a.confirm', {
         onclick: function() {
-          if (confirm('You will lose all your progress!')) ctrl.reset();
+          if (confirm(ctrl.trans.noarg('youWillLoseAllYourProgress'))) ctrl.reset();
         }
-      }, 'Reset my progress') : null
+      }, ctrl.trans.noarg('resetMyProgress')) : null
     ])
   ]);
 }
 
-module.exports = function(opts) {
+module.exports = function(opts, trans) {
   return {
     controller: function() {
       var categId = m.prop(0);
@@ -97,7 +97,8 @@ module.exports = function(opts) {
           }, 0);
           return Math.round(total / max * 100);
         },
-        reset: opts.storage.reset
+        reset: opts.storage.reset,
+        trans: trans
       };
     },
     view: function(ctrl) {
