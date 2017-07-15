@@ -48,7 +48,12 @@
   <string name="computerAnalysis">Análise do computador</string>
   <string name="computerAnalysisAvailable">Análise de computador disponível</string>
   <string name="analysis">Análise</string>
+  <string name="usingServerAnalysis">Análise de servidor em uso</string>
+  <string name="loadingEngine">Carregando ...</string>
+  <string name="cloudAnalysis">Análise na nuvem</string>
+  <string name="goDeeper">Detalhar</string>
   <string name="showThreat">Mostrar ameaça</string>
+  <string name="inLocalBrowser">no navegador local</string>
   <string name="capture">Captura</string>
   <string name="close">Fechar</string>
   <string name="drawn">Empate</string>
