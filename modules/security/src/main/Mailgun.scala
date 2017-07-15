@@ -67,7 +67,9 @@ object Mailgun {
 
   object html {
 
-    private val noteLink = """<a itemprop="url" href="https://lichess.org/"><span itemprop="name">lichess.org</span></a>"""
+    private val noteLink = Html {
+      """<a itemprop="url" href="https://lichess.org/"><span itemprop="name">lichess.org</span></a>"""
+    }
 
     def serviceNote(implicit lang: Lang) = s"""
 <div itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
