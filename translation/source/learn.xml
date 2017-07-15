@@ -73,4 +73,14 @@ to speed things up!</string>
   <string name="testYourSkillsWithTheComputer">Test your skills with the computer</string>
   <string name="letsGo">Let's go!</string>
   <string name="stageX">Stage %s</string>
+  <string name="awesome">Awesome!</string>
+  <string name="excellent">Excellent!</string>
+  <string name="greatJob">Great job!</string>
+  <string name="perfect">Perfect!</string>
+  <string name="outstanding">Outstanding!</string>
+  <string name="wayToGo">Way to go!</string>
+  <string name="yesYesYes">Yes, yes, yes!</string>
+  <string name="youreGoodAtThis">You're good at this!</string>
+  <string name="nailedIt">Nailed it.</string>
+  <string name="rightOn">Right on!</string>
 </resources>

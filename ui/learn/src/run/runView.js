@@ -17,12 +17,12 @@ function renderFailed(ctrl) {
   ]);
 }
 
-function renderCompleted(level) {
+function renderCompleted(ctrl, level) {
   return m('div.result.completed', {
     class: level.blueprint.nextButton ? 'next' : '',
     onclick: level.onComplete
   }, [
-    m('h2', congrats()),
+    m('h2', ctrl.trans.noarg(congrats())),
     level.blueprint.nextButton ? m('button', 'Next') : makeStars(level.blueprint, level.vm.score)
   ]);
 }
@@ -55,7 +55,7 @@ module.exports = function(ctrl) {
         ])
       ]),
       level.vm.failed ? renderFailed(ctrl) : (
-        level.vm.completed ? renderCompleted(level) : m('div.goal', m.trust(level.blueprint.goal))
+        level.vm.completed ? renderCompleted(ctrl, level) : m('div.goal', m.trust(level.blueprint.goal))
       ),
       renderProgress(ctrl.progress)
     ])
