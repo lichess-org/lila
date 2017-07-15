@@ -511,9 +511,15 @@ export default class RoundController {
   };
 
   private setQuietMode = () => {
-    li.quietMode = game.isPlayerPlaying(this.data);
-    document.body.classList.toggle('no-select',
-      li.quietMode && this.clock && this.clock.millisOf(this.data.player.color) <= 3e5);
+    const was = li.quietMode;
+    const is = game.isPlayerPlaying(this.data);
+    if (was !== is) {
+      li.quietMode = is;
+      $('body')
+        .toggleClass('playing', is)
+        .toggleClass('no-select',
+          is && this.clock && this.clock.millisOf(this.data.player.color) <= 3e5);
+    }
   };
 
   takebackYes = () => {
