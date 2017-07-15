@@ -28,7 +28,7 @@ description = "When pasting a game PGN, you get a browsable replay, a computer a
   </p>
   <form class="import" action="@routes.Importer.sendGame()" method="post">
     <label class="pgn">
-      <span>@trans.pasteThePgnStringHere() :</span>
+      <span>@trans.pasteThePgnStringHere():</span>
       @defining(form("pgn")) { field =>
       <textarea name="@field.name" id="@field.id">@field.value</textarea>
       @errMsg(field)
