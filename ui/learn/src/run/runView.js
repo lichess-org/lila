@@ -50,8 +50,8 @@ module.exports = function(ctrl) {
           src: stage.image
         }),
         m('div.text', [
-          m('h2', stage.title),
-          m('p.subtitle', stage.subtitle)
+          m('h2', ctrl.trans.noarg(stage.title)),
+          m('p.subtitle', ctrl.trans.noarg(stage.subtitle))
         ])
       ]),
       level.vm.failed ? renderFailed(ctrl) : (

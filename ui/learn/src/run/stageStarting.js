@@ -5,13 +5,13 @@ module.exports = function(ctrl) {
       onclick: ctrl.hideStartingPane
     },
     m('div.screen', [
-      m('h1', 'Stage ' + ctrl.stage.id + ': ' + ctrl.stage.title),
+      m('h1', ctrl.trans('stage', ctrl.stage.id) + ': ' + ctrl.trans.noarg(ctrl.stage.title)),
       ctrl.stage.illustration,
       m('p', m.trust(ctrl.stage.intro)),
       m('div.buttons',
         m('a.next', {
           onclick: ctrl.hideStartingPane
-        }, "Let's go!")
+        }, ctrl.trans.noarg('letsGo'))
       )
     ])
   );

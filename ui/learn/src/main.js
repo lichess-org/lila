@@ -26,8 +26,8 @@ module.exports = function(element, opts) {
 
   m.route(element, '/', {
     '/': map(opts, trans),
-    '/:stage/:level': run(opts),
-    '/:stage': run(opts)
+    '/:stage/:level': run(opts, trans),
+    '/:stage': run(opts, trans)
   });
 
   return {};

@@ -3,10 +3,10 @@ var arrow = util.arrow;
 
 module.exports = {
   key: 'bishop',
-  title: 'The bishop',
-  subtitle: 'It moves diagonally',
+  title: 'theBishop',
+  subtitle: 'itMovesDiagonally',
   image: util.assetUrl + 'images/learn/pieces/B.svg',
-  intro: 'Next we will learn how to manoeuver a bishop!',
+  intro: 'bishopIntro',
   illustration: util.pieceImg('bishop'),
   levels: [{
     goal: 'Grab all the stars!',

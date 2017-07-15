@@ -10,8 +10,18 @@
   <string name="chessPieces">Chess pieces</string>
   <string name="theRook">The rook</string>
   <string name="itMovesInStraightLines">It moves in straight lines</string>
+  <string name="rookIntro">The rook is a powerful piece. Are you ready to command it?</string>
+  <string name="rookGoal">Click on the rook
+to bring it to the star!</string>
+  <string name="grabAllTheStars">Grab all the stars!</string>
+  <string name="theFewerMoves">The fewer moves you make,
+the more points you win!</string>
+  <string name="useTwoRooks">Use two rooks
+to speed things up!</string>
+  <string name="rookComplete">Congratulations! You have successfully mastered the rook.</string>
   <string name="theBishop">The bishop</string>
   <string name="itMovesDiagonally">It moves diagonally</string>
+  <string name="bishopIntro">Next we will learn how to manoeuver a bishop!</string>
   <string name="theQueen">The queen</string>
   <string name="queenCombinesRookAndBishop">Queen = rook + bishop</string>
   <string name="theKing">The king</string>
@@ -61,4 +71,6 @@
   <string nmae="opponentsFromAroundTheWorld">Opponents from around the world</string>
   <string name="playMachine">Play machine</string>
   <string name="testYourSkillsWithTheComputer">Test your skills with the computer</string>
+  <string name="letsGo">Let's go!</string>
+  <string name="stageX">Stage %s</string>
 </resources>

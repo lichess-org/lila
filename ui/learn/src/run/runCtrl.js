@@ -4,7 +4,7 @@ var makeLevel = require('../level');
 var makeProgress = require('../progress').ctrl;
 var sound = require('../sound');
 
-module.exports = function(opts) {
+module.exports = function(opts, trans) {
 
   var stage = stages.byId[m.route.param('stage')];
   if (!stage) m.route('/');
@@ -76,6 +76,7 @@ module.exports = function(opts) {
     },
     restart: function() {
       m.route('/' + stage.id + '/' + level.blueprint.id);
-    }
+    },
+    trans: trans
   };
 };
