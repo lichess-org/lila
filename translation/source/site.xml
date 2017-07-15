@@ -549,7 +549,7 @@
   <string name="error.email">This email address is invalid</string>
   <string name="error.email_acceptable">This email address is not acceptable</string>
   <string name="error.email_unique">This email address is already taken</string>
-  <string name="error.email_different">This already is you email address</string>
+  <string name="error.email_different">This is already your email address</string>
   <string name="blindfoldChess">Blindfold chess (invisible pieces)</string>
   <string name="moveConfirmation">Move confirmation</string>
   <string name="inCorrespondenceGames">Correspondence games</string>
