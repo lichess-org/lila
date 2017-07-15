@@ -3,4 +3,13 @@
 <resources>
   <string name="emailConfirm_subject">Bestätige dein Benutzerkonto auf lichess.org, %s</string>
   <string name="emailConfirm_click">Klicke auf den Link um dein Benutzerkonto bei Lichess zu aktivieren:</string>
+  <string name="emailConfirm_ignore">Wenn du dich nicht bei Lichess registriert hast, kannst du diese Nachricht ignorieren.</string>
+  <string name="passwordReset_subject">Setze dein Passwort für lichess.org zurück, %s</string>
+  <string name="passwordReset_intro">Wir haben eine Anfrage zur Änderung des Passworts deines Benutzerkontos erhalten.</string>
+  <string name="passwordReset_clickOrIgnore">Wenn du diese Anfrage gemacht hast, klicke auf den untenstehenden Link. Falls nicht, ignoriere diese E-Mail.</string>
+  <string name="emailChange_subject">Bestätige die neue E-Mail-Adresse, %s</string>
+  <string name="emailChange_intro">Du hast eine Änderung deiner E-Mail-Adresse angefordert.</string>
+  <string name="emailChange_click">Um zu bestätigen, dass du Zugriff auf diese E-Mail hast, klicke bitte auf den untenstehenden Link:</string>
+  <string name="common_orPaste">(Klicken funktioniert nicht? Versuche, es in deinen Browser einzufügen!)</string>
+  <string name="common_note">Dies ist eine Service-E-Mail im Zusammenhang mit deiner Nutzung von %s.</string>
 </resources>
