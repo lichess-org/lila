@@ -671,6 +671,7 @@ val `otherRules` = new Translated("otherRules", Arena)
 val `otherRulesAnswer` = new Translated("otherRulesAnswer", Arena)
 val `thisIsPrivate` = new Translated("thisIsPrivate", Arena)
 val `shareUrl` = new Translated("shareUrl", Arena)
+val allKeys = List(`isItRated`, `willBeNotified`, `isRated`, `isNotRated`, `someRated`, `howAreScoresCalculated`, `howAreScoresCalculatedAnswer`, `berserk`, `berserkAnswer`, `howIsTheWinnerDecided`, `howIsTheWinnerDecidedAnswer`, `howDoesPairingWork`, `howDoesPairingWorkAnswer`, `howDoesItEnd`, `howDoesItEndAnswer`, `otherRules`, `otherRulesAnswer`, `thisIsPrivate`, `shareUrl`)
 }
 
 object emails {
@@ -685,6 +686,7 @@ val `emailChange_intro` = new Translated("emailChange_intro", Emails)
 val `emailChange_click` = new Translated("emailChange_click", Emails)
 val `common_orPaste` = new Translated("common_orPaste", Emails)
 val `common_note` = new Translated("common_note", Emails)
+val allKeys = List(`emailConfirm_subject`, `emailConfirm_click`, `emailConfirm_ignore`, `passwordReset_subject`, `passwordReset_intro`, `passwordReset_clickOrIgnore`, `emailChange_subject`, `emailChange_intro`, `emailChange_click`, `common_orPaste`, `common_note`)
 }
 
 object learn {
@@ -711,10 +713,20 @@ val `youNeedBothBishops` = new Translated("youNeedBothBishops", Learn)
 val `bishopComplete` = new Translated("bishopComplete", Learn)
 val `theQueen` = new Translated("theQueen", Learn)
 val `queenCombinesRookAndBishop` = new Translated("queenCombinesRookAndBishop", Learn)
+val `queenIntro` = new Translated("queenIntro", Learn)
+val `queenComplete` = new Translated("queenComplete", Learn)
 val `theKing` = new Translated("theKing", Learn)
 val `theMostImportantPiece` = new Translated("theMostImportantPiece", Learn)
+val `kingIntro` = new Translated("kingIntro", Learn)
+val `theKingIsSlow` = new Translated("theKingIsSlow", Learn)
+val `lastOne` = new Translated("lastOne", Learn)
+val `kingComplete` = new Translated("kingComplete", Learn)
 val `theKnight` = new Translated("theKnight", Learn)
 val `itMovesInAnLShape` = new Translated("itMovesInAnLShape", Learn)
+val `knightIntro` = new Translated("knightIntro", Learn)
+val `knightsHaveAFancyWay` = new Translated("knightsHaveAFancyWay", Learn)
+val `knightsCanJumpOverObstacles` = new Translated("knightsCanJumpOverObstacles", Learn)
+val `knightComplete` = new Translated("knightComplete", Learn)
 val `thePawn` = new Translated("thePawn", Learn)
 val `itMovesForwardOnly` = new Translated("itMovesForwardOnly", Learn)
 val `fundamentals` = new Translated("fundamentals", Learn)
@@ -774,6 +786,7 @@ val `stageXComplete` = new Translated("stageXComplete", Learn)
 val `yourScore` = new Translated("yourScore", Learn)
 val `next` = new Translated("next", Learn)
 val `backToMenu` = new Translated("backToMenu", Learn)
+val allKeys = List(`learnChess`, `byPlaying`, `menu`, `progressX`, `resetMyProgress`, `youWillLoseAllYourProgress`, `play`, `chessPieces`, `theRook`, `itMovesInStraightLines`, `rookIntro`, `rookGoal`, `grabAllTheStars`, `theFewerMoves`, `useTwoRooks`, `rookComplete`, `theBishop`, `itMovesDiagonally`, `bishopIntro`, `youNeedBothBishops`, `bishopComplete`, `theQueen`, `queenCombinesRookAndBishop`, `queenIntro`, `queenComplete`, `theKing`, `theMostImportantPiece`, `kingIntro`, `theKingIsSlow`, `lastOne`, `kingComplete`, `theKnight`, `itMovesInAnLShape`, `knightIntro`, `knightsHaveAFancyWay`, `knightsCanJumpOverObstacles`, `knightComplete`, `thePawn`, `itMovesForwardOnly`, `fundamentals`, `capture`, `takeTheEnemyPieces`, `protection`, `keepYourPiecesSafe`, `combat`, `captureAndDefendPieces`, `checkInOne`, `attackTheOpponentsKing`, `outOfCheck`, `defendYourKing`, `mateInOne`, `defeatTheOpponentsKing`, `intermediate`, `boardSetup`, `howTheGameStarts`, `castling`, `theSpecialKingMove`, `enPassant`, `theSpecialPawnMove`, `stalemate`, `theGameIsADraw`, `advanced`, `pieceValue`, `evaluatePieceStrength`, `checkInTwo`, `twoMovesToGiveCheck`, `whatNext`, `youKnowHowToPlayChess`, `register`, `getAFreeLichessAccount`, `practice`, `learnCommonChessPositions`, `puzzles`, `exerciseYourTacticalSkills`, `videos`, `watchInstructiveChessVideos`, `playPeople`, `undefined`, `playMachine`, `testYourSkillsWithTheComputer`, `letsGo`, `stageX`, `awesome`, `excellent`, `greatJob`, `perfect`, `outstanding`, `wayToGo`, `yesYesYes`, `youreGoodAtThis`, `nailedIt`, `rightOn`, `stageXComplete`, `yourScore`, `next`, `backToMenu`)
 }
 
 }
