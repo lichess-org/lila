@@ -33,7 +33,7 @@ module.exports = function(ctrl) {
         }, 0)
       ]),
       m('p', [
-        m.trust(stage.complete)
+        m.trust(ctrl.trans.noarg(stage.complete).replace('\n', '<br>'))
       ]),
       m('div.buttons', [
         next ? m('a.next', {
