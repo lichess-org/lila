@@ -47,7 +47,10 @@
   <string name="requestAComputerAnalysis">Solicitar uma análise do computador</string>
   <string name="computerAnalysis">Análise do computador</string>
   <string name="analysis">Análise</string>
+  <string name="close">Fechar</string>
+  <string name="database">Base de dados</string>
   <string name="openingExplorer">Explorador de abertura</string>
+  <string name="allSet">Tudo pronto!</string>
   <string name="blunders">Erro Grave</string>
   <string name="mistakes">Erros</string>
   <string name="inaccuracies">Imprecisões</string>
@@ -285,6 +288,10 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="createdBy">Criado por</string>
   <string name="tournamentIsStarting">O torneio está a começar</string>
   <string name="youArePlaying">Você está no jogo!</string>
+  <string name="winRate">Taxa de vitórias</string>
+  <string name="berserkRate">Taxa Berserk</string>
+  <string name="tournamentComplete">Torneio completo</string>
+  <string name="draws">Empates</string>
   <string name="membersOnly">Somente para membros</string>
   <string name="boardEditor">Editor de tabuleiro</string>
   <string name="startPosition">Posição inicial</string>
@@ -398,6 +405,8 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="pieceDestinations">Destino das peças (movimentos válidos e pré-movimentos)</string>
   <string name="boardCoordinates">Coordenadas do tabuleiro</string>
   <string name="moveListWhilePlaying">Lista de movimentos</string>
+  <string name="pgnPieceNotation">Modo de notação das jogadas</string>
+  <string name="chessPieceSymbol">Símbolo da peça</string>
   <string name="chessClock">Relógio de xadrez</string>
   <string name="tenthsOfSeconds">Décimos de segundo</string>
   <string name="never">Nunca</string>
@@ -564,9 +573,14 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Maneira de rocar</string>
   <string name="castleByMovingTwoSquares">Mova o rei duas casas</string>
   <string name="shareYourInsightsData">Compartilhar seus dados de percepção</string>
+  <string name="withNobody">Com ninguém</string>
+  <string name="withFriends">Com amigos</string>
   <string name="withEverybody">Com todos</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Você ja registrou o e-mail: %s</string>
   <string name="kidMode">Modo infantil</string>
+  <string name="enableKidMode">Habilitar o modo infantil</string>
+  <string name="disableKidMode">Desabilitar o modo infantil</string>
+  <string name="security">Segurança</string>
   <string name="playChessEverywhere">Jogue xadrez em qualquer lugar!</string>
   <string name="asFreeAsLichess">Tão gratuito quanto o Lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Desenvolvido pelo amor ao xadrez, não pelo dinheiro</string>
@@ -611,7 +625,9 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="error.maxLength">O máximo de caracteres é %s</string>
   <string name="error.min">Deve ser maior ou igual a %s</string>
   <string name="error.max">Deve ser menor ou igual a %s</string>
+  <string name="error.unknown">Erro</string>
   <string name="custom">Personalizado</string>
   <string name="notifications">Notificações</string>
   <string name="challenges">Desafios</string>
+  <string name="perfRatingX">Classificação: %s</string>
 </resources>
