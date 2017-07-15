@@ -298,6 +298,7 @@
   <string name="tournamentIsStarting">Le torneo es sur le puncto de comenciar</string>
   <string name="youArePlaying">Tu es jocante!</string>
   <string name="winRate">Percentage de victorias</string>
+  <string name="berserkRate">Percentage Berserk</string>
   <string name="performance">Performance</string>
   <string name="tournamentComplete">Torneo finite</string>
   <string name="movesPlayed">Movimentos jocate</string>
@@ -410,6 +411,7 @@
   <string name="closeAccountExplanation">Es tu secur de voler terminar tu conto? Terminar tu conto es un decision permanente. Tu non plus potera aperir session, e tu pagina de profilo non plus essera accessibile.</string>
   <string name="thisAccountIsClosed">Isto conto ha essite claudite.</string>
   <string name="invalidUsernameOrPassword">Nomine de usator o contrasigno invalide</string>
+  <string name="incorrectPassword">Contrasigno incorrecte</string>
   <string name="emailMeALink">Inviar me un ligamine per e-posta</string>
   <string name="currentPassword">Contrasigno actual</string>
   <string name="newPassword">Nove contrasigno</string>
@@ -418,6 +420,9 @@
   <string name="pieceDestinations">Monstrar tote le movimentos/preselectiones valide de cata pecia</string>
   <string name="boardCoordinates">Coordinatas sur tabuliero (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Lista de movimentos durante le joco</string>
+  <string name="pgnPieceNotation">Notation de movimentos</string>
+  <string name="chessPieceSymbol">Symbolo del pecia de chacos</string>
+  <string name="pgnLetter">Littera (K, Q, R, B, N)</string>
   <string name="chessClock">Horologio de chacos</string>
   <string name="tenthsOfSeconds">Decimos de secundas</string>
   <string name="never">Nunquam</string>
@@ -425,6 +430,7 @@
   <string name="horizontalGreenProgressBars">Barras de progresso verde horizontal</string>
   <string name="soundWhenTimeGetsCritical">Sono quando le tempore es critic</string>
   <string name="gameBehavior">Comportamento del joco</string>
+  <string name="howDoYouMovePieces">Como tu vole mover le pecias?</string>
   <string name="premovesPlayingDuringOpponentTurn">Preselection (jocar durante le torno del adversario)</string>
   <string name="takebacksWithOpponentApproval">Retorno del ultime movimento (con approbation del adversario)</string>
   <string name="promoteToQueenAutomatically">Promover a Regina automaticamente</string>
