@@ -1,7 +1,7 @@
 // Generated with bin/trans-dump.js
 package lila.i18n
 
-import I18nDb.{ Site, Arena, Emails }
+import I18nDb.{ Site, Arena, Emails, Learn }
 
 // format: OFF
 object I18nKeys {
@@ -685,6 +685,68 @@ val `emailChange_intro` = new Translated("emailChange_intro", Emails)
 val `emailChange_click` = new Translated("emailChange_click", Emails)
 val `common_orPaste` = new Translated("common_orPaste", Emails)
 val `common_note` = new Translated("common_note", Emails)
+}
+
+object learn {
+val `learnChess` = new Translated("learnChess", Learn)
+val `byPlaying` = new Translated("byPlaying", Learn)
+val `progressX` = new Translated("progressX", Learn)
+val `resetMyProgress` = new Translated("resetMyProgress", Learn)
+val `play` = new Translated("play", Learn)
+val `chessPieces` = new Translated("chessPieces", Learn)
+val `theRook` = new Translated("theRook", Learn)
+val `itMovesInStraightLines` = new Translated("itMovesInStraightLines", Learn)
+val `theBishop` = new Translated("theBishop", Learn)
+val `itMovesDiagonally` = new Translated("itMovesDiagonally", Learn)
+val `theQueen` = new Translated("theQueen", Learn)
+val `queenCombinesRookAndBishop` = new Translated("queenCombinesRookAndBishop", Learn)
+val `theKing` = new Translated("theKing", Learn)
+val `theMostImportantPiece` = new Translated("theMostImportantPiece", Learn)
+val `theKnight` = new Translated("theKnight", Learn)
+val `itMovesInAnLShape` = new Translated("itMovesInAnLShape", Learn)
+val `thePawn` = new Translated("thePawn", Learn)
+val `itMovesForwardOnly` = new Translated("itMovesForwardOnly", Learn)
+val `fundamentals` = new Translated("fundamentals", Learn)
+val `capture` = new Translated("capture", Learn)
+val `takeTheEnemyPieces` = new Translated("takeTheEnemyPieces", Learn)
+val `protection` = new Translated("protection", Learn)
+val `keepYourPiecesSafe` = new Translated("keepYourPiecesSafe", Learn)
+val `combat` = new Translated("combat", Learn)
+val `captureAndDefendPieces` = new Translated("captureAndDefendPieces", Learn)
+val `checkInOne` = new Translated("checkInOne", Learn)
+val `attackTheOpponentsKing` = new Translated("attackTheOpponentsKing", Learn)
+val `outOfCheck` = new Translated("outOfCheck", Learn)
+val `defendYourKing` = new Translated("defendYourKing", Learn)
+val `mateInOne` = new Translated("mateInOne", Learn)
+val `defeatTheOpponentsKing` = new Translated("defeatTheOpponentsKing", Learn)
+val `intermediate` = new Translated("intermediate", Learn)
+val `boardSetup` = new Translated("boardSetup", Learn)
+val `howTheGameStarts` = new Translated("howTheGameStarts", Learn)
+val `castling` = new Translated("castling", Learn)
+val `theSpecialKingMove` = new Translated("theSpecialKingMove", Learn)
+val `enPassant` = new Translated("enPassant", Learn)
+val `theSpecialPawnMove` = new Translated("theSpecialPawnMove", Learn)
+val `stalemate` = new Translated("stalemate", Learn)
+val `theGameIsADraw` = new Translated("theGameIsADraw", Learn)
+val `advanced` = new Translated("advanced", Learn)
+val `pieceValue` = new Translated("pieceValue", Learn)
+val `evaluatePieceStrength` = new Translated("evaluatePieceStrength", Learn)
+val `checkInTwo` = new Translated("checkInTwo", Learn)
+val `twoMovesToGiveCheck` = new Translated("twoMovesToGiveCheck", Learn)
+val `whatNext` = new Translated("whatNext", Learn)
+val `youKnowHowToPlayChess` = new Translated("youKnowHowToPlayChess", Learn)
+val `register` = new Translated("register", Learn)
+val `getAFreeLichessAccount` = new Translated("getAFreeLichessAccount", Learn)
+val `practice` = new Translated("practice", Learn)
+val `learnCommonChessPositions` = new Translated("learnCommonChessPositions", Learn)
+val `puzzles` = new Translated("puzzles", Learn)
+val `exerciseYourTacticalSkills` = new Translated("exerciseYourTacticalSkills", Learn)
+val `videos` = new Translated("videos", Learn)
+val `watchInstructiveChessVideos` = new Translated("watchInstructiveChessVideos", Learn)
+val `playPeople` = new Translated("playPeople", Learn)
+val `undefined` = new Translated("undefined", Learn)
+val `playMachine` = new Translated("playMachine", Learn)
+val `testYourSkillsWithTheComputer` = new Translated("testYourSkillsWithTheComputer", Learn)
 }
 
 }
