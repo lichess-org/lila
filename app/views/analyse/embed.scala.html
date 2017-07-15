@@ -45,8 +45,7 @@
     element: document.querySelector('.embedded_analyse'),
     data: @Html(J.stringify(data)),
     embed: true,
-    i18n: @board.userAnalysisI18n(),
-    userId: null
+    i18n: @board.userAnalysisI18n(withCeval = false, withExplorer = false)
     });
     }
   </body>
