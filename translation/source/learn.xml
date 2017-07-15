@@ -83,4 +83,8 @@ to speed things up!</string>
   <string name="youreGoodAtThis">You're good at this!</string>
   <string name="nailedIt">Nailed it.</string>
   <string name="rightOn">Right on!</string>
+  <string name="stageXComplete">Stage %s complete</string>
+  <string name="yourScore">Your score</string>
+  <string name="next">Next</string>
+  <string name="backToMenu">Back to menu</string>
 </resources>

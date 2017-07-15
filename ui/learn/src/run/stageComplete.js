@@ -19,9 +19,9 @@ module.exports = function(ctrl) {
     },
     m('div.screen', [
       m('div.stars', makeStars(scoring.getStageRank(stage, score))),
-      m('h1', 'Stage ' + stage.id + ' complete'),
+      m('h1', ctrl.trans('stageXComplete', stage.id)),
       m('span.score', [
-        'Your score: ',
+        ctrl.trans.noarg('yourScore') + ': ',
         m('span', {
           config: function(el, isUpdate) {
             if (!isUpdate) setTimeout(function() {
@@ -40,14 +40,14 @@ module.exports = function(ctrl) {
           href: '/' + next.id,
           config: m.route
         }, [
-          'Next: ',
-          next.title + ' ',
+          ctrl.trans.noarg('next') + ': ',
+          ctrl.trans.noarg(next.title) + ' ',
           m('i[data-icon=H]')
         ]) : null,
         m('a.back.text[data-icon=I]', {
           href: '/',
           config: m.route
-        }, 'Back to menu')
+        }, ctrl.trans.noarg('backToMenu'))
       ])
     ])
   );
