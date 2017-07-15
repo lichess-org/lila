@@ -117,4 +117,6 @@ No need to promote.</string>
   <string name="yourScore">Your score</string>
   <string name="next">Next</string>
   <string name="backToMenu">Back to menu</string>
+  <string name="puzzleFailed">Puzzle failed!</string>
+  <string name="retry">Retry</string>
 </resources>

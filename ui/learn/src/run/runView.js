@@ -12,8 +12,8 @@ function renderFailed(ctrl) {
   return m('div.result.failed', {
     onclick: ctrl.restart
   }, [
-    m('h2', 'Puzzle failed!'),
-    m('button', 'Retry')
+    m('h2', ctrl.trans.noarg('puzzleFailed')),
+    m('button', ctrl.trans.noarg('retry'))
   ]);
 }
 
