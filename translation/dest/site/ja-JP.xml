@@ -436,6 +436,7 @@
   <string name="closeAccountExplanation">本当にアカウントを停止しますか？アカウント停止は永久で、ログインできなくなり、プロフィールページにアクセスできなくなります。</string>
   <string name="thisAccountIsClosed">このアカウントは停止されました</string>
   <string name="invalidUsernameOrPassword">無効なユーザー名 または パスワード</string>
+  <string name="incorrectPassword">パスワードが違います</string>
   <string name="emailMeALink">リンクをメールで送る</string>
   <string name="currentPassword">現在のパスワード</string>
   <string name="newPassword">新しいパスワード</string>
@@ -525,6 +526,7 @@
   <string name="error.email">このメールアドレスは無効です</string>
   <string name="error.email_acceptable">このメールアドレスは認められません</string>
   <string name="error.email_unique">このメールアドレスはすでに使用されています</string>
+  <string name="error.email_different">すでにあなたのメールアドレスになっています</string>
   <string name="blindfoldChess">目隠しチェス</string>
   <string name="moveConfirmation">着手の前に確認する</string>
   <string name="inCorrespondenceGames">通信チェスのみ</string>
