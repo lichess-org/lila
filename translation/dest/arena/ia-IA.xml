@@ -4,4 +4,5 @@
   <string name="berserk">Arena Berserk</string>
   <string name="otherRules">Altere regulas importante</string>
   <string name="thisIsPrivate">Iste es un torneo private</string>
+  <string name="shareUrl">Publica iste adresse URL pro invitar personas a unir se: %s</string>
 </resources>
