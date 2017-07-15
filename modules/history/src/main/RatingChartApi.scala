@@ -36,40 +36,18 @@ final class RatingChartApi(
       Json.arr(date.getYear, date.getMonthOfYear - 1, date.getDayOfMonth, rating)
   }
 
-  private def build(user: User): Fu[Option[String]] = {
-    val nbEstablishedPerfs = user.perfs.perfs.count(_._2.established)
+  private def build(user: User): Fu[Option[String]] =
     historyApi get user.id map2 { (history: History) =>
       Json stringify {
         Json.toJson {
-          perfTypes collect {
-            case pt if nbEstablishedPerfs < 3 || user.perfs(pt).established =>
-              Json.obj(
-                "name" -> pt.name,
-                "points" -> ratingsMapToJson(user, history(pt))
-              )
+          import lila.rating.PerfType._
+          List(Bullet, Blitz, Classical, Correspondence, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings, Crazyhouse, Puzzle, UltraBullet) map { pt =>
+            Json.obj(
+              "name" -> pt.name,
+              "points" -> ratingsMapToJson(user, history(pt))
+            )
           }
         }
       }
     }
-  }
-
-  private val perfTypes = {
-    import lila.rating.PerfType._
-    List(
-      Bullet,
-      Blitz,
-      Classical,
-      Correspondence,
-      Chess960,
-      KingOfTheHill,
-      ThreeCheck,
-      Antichess,
-      Atomic,
-      Horde,
-      RacingKings,
-      Crazyhouse,
-      Puzzle,
-      UltraBullet
-    )
-  }
 }
