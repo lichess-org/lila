@@ -14,7 +14,6 @@ object MessageCompiler {
     }
 
   private def doFile(db: String, sourceFile: File, destDir: File, compileTo: File): Seq[File] = {
-    val startsAt = System.currentTimeMillis()
     destDir.mkdirs()
     val registry = ("en-GB" -> sourceFile) :: destDir.list.toList.map { f =>
       f.takeWhile('.' !=) -> (destDir / f)
@@ -31,7 +30,6 @@ object MessageCompiler {
       }
       compileToFile
     }
-    println(s"MessageCompiler took ${System.currentTimeMillis() - startsAt}ms")
     registryFile :: res
   }
 
