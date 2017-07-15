@@ -57,9 +57,19 @@
   <string name="inLocalBrowser">in le navigator local</string>
   <string name="toggleLocalEvaluation">Activar/disactivar evalutation local</string>
   <string name="move">Movimento</string>
+  <string name="variantLoss">Perdita per variante</string>
+  <string name="variantWin">Victoria per variante</string>
+  <string name="insufficientMaterial">Material insufficiente</string>
+  <string name="pawnMove">Movimento de pedon</string>
+  <string name="capture">Captura</string>
+  <string name="close">Clauder</string>
   <string name="unknown">Incognite</string>
   <string name="database">Base de datos</string>
+  <string name="whiteDrawBlack">Blanc / Nulle / Nigre</string>
+  <string name="recentGames">Partitas recente</string>
+  <string name="noGameFound">Nulle partita trovate</string>
   <string name="openingExplorer">Explorator de initio de joco</string>
+  <string name="allSet">Toto es preste!</string>
   <string name="blunders">Errores grave</string>
   <string name="mistakes">Errores</string>
   <string name="inaccuracies">Imprecisiones</string>
@@ -165,6 +175,12 @@
   <string name="incrementInSeconds">Incremento in secundas</string>
   <string name="freeOnlineChess">Chacos in linea gratis</string>
   <string name="spectators">Spectatores:</string>
+  <plurals name="nbGamesPlayed">
+    <item quantity="other">%s partitas jocate</item>
+  </plurals>
+  <plurals name="nbRated">
+    <item quantity="other">%s classificate</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="other">%s victorias</item>
   </plurals>
@@ -280,6 +296,10 @@
   <string name="winStreak">Victorias consecutive</string>
   <string name="createdBy">Create per</string>
   <string name="tournamentIsStarting">Le torneo es sur le puncto de comenciar</string>
+  <string name="youArePlaying">Tu es jocante!</string>
+  <string name="winRate">Percentage de victorias</string>
+  <string name="berserkRate">Percentage Berserk</string>
+  <string name="performance">Performance</string>
   <string name="tournamentComplete">Torneo finite</string>
   <string name="movesPlayed">Movimentos jocate</string>
   <string name="whiteWins">Victorias del blanc</string>
@@ -391,6 +411,7 @@
   <string name="closeAccountExplanation">Es tu secur de voler terminar tu conto? Terminar tu conto es un decision permanente. Tu non plus potera aperir session, e tu pagina de profilo non plus essera accessibile.</string>
   <string name="thisAccountIsClosed">Isto conto ha essite claudite.</string>
   <string name="invalidUsernameOrPassword">Nomine de usator o contrasigno invalide</string>
+  <string name="incorrectPassword">Contrasigno incorrecte</string>
   <string name="emailMeALink">Inviar me un ligamine per e-posta</string>
   <string name="currentPassword">Contrasigno actual</string>
   <string name="newPassword">Nove contrasigno</string>
@@ -399,6 +420,9 @@
   <string name="pieceDestinations">Monstrar tote le movimentos/preselectiones valide de cata pecia</string>
   <string name="boardCoordinates">Coordinatas sur tabuliero (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Lista de movimentos durante le joco</string>
+  <string name="pgnPieceNotation">Notation de movimentos</string>
+  <string name="chessPieceSymbol">Symbolo del pecia de chacos</string>
+  <string name="pgnLetter">Littera (K, Q, R, B, N)</string>
   <string name="chessClock">Horologio de chacos</string>
   <string name="tenthsOfSeconds">Decimos de secundas</string>
   <string name="never">Nunquam</string>
@@ -406,9 +430,14 @@
   <string name="horizontalGreenProgressBars">Barras de progresso verde horizontal</string>
   <string name="soundWhenTimeGetsCritical">Sono quando le tempore es critic</string>
   <string name="gameBehavior">Comportamento del joco</string>
+  <string name="howDoYouMovePieces">Como tu vole mover le pecias?</string>
+  <string name="clickTwoSquares">Cliccar sur duo placias</string>
+  <string name="dragPiece">Traher e deponer le pecia</string>
+  <string name="bothClicksAndDrag">Ambe manieras</string>
   <string name="premovesPlayingDuringOpponentTurn">Preselection (jocar durante le torno del adversario)</string>
   <string name="takebacksWithOpponentApproval">Retorno del ultime movimento (con approbation del adversario)</string>
   <string name="promoteToQueenAutomatically">Promover a Regina automaticamente</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Declarar automaticamente le partita como nulle post un repetition triple</string>
   <string name="privacy">Confidentialitate</string>
   <string name="letOtherPlayersFollowYou">Lassar altere jocatores sequer te</string>
   <string name="letOtherPlayersChallengeYou">Lassar altere jocatores defiar te</string>
@@ -439,6 +468,7 @@
   <string name="starting">Initio:</string>
   <string name="allInformationIsPublicAndOptional">Tote information es public e optional.</string>
   <string name="yourCityRegionOrDepartment">Tu citate, region o provincia.</string>
+  <string name="biographyDescription">Scribe super te, lo que tu ama in chacos, tu initios de joco preferite, partitas e jocatores favorite…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="other">Maximo: %s characteres.</item>
   </plurals>
@@ -533,6 +563,9 @@
   <string name="tournamentMayHaveBeenCanceled">Le evento forsan esseva cancellate, si tote le jocatores abandonava lo ante le initio.</string>
   <string name="returnToTournamentsHomepage">Retorna al pagina initial de torneos</string>
   <string name="weeklyPerfTypeRatingDistribution">Distribution del classification septimanal de %s</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="other">%1$s jocatores de %2$s iste septimana.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">Tu classification de %1$s es %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Tu es melior que %1$s intra %2$s jocatores.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Tu non ha establite un classification de %s.</string>
@@ -552,7 +585,12 @@
   <string name="crosstable">Tabula</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Tu pote anque usar le rolamento del mouse super le tabuliero pro mover se trans le joco.</string>
   <string name="analysisShapesHowTo">Pulsa Shift + Clic, o altemente, clicca con le button dextre del mouse pro designar circulos e sagittas super le tabuliero.</string>
+  <string name="confirmResignationAndDrawOffers">Confirmar resignationes e offertas de partita nulle</string>
+  <string name="inputMovesWithTheKeyboard">Entrata de movimentos con le claviero</string>
   <string name="letOtherPlayersMessageYou">Permitter que altere jocatores te invia messages</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Methodo pro roccar</string>
+  <string name="castleByMovingTwoSquares">Mover le rege duo placias</string>
+  <string name="castleByMovingOntoTheRook">Mover le rege a super le turre</string>
   <string name="shareYourInsightsData">Divider con alteres tu datos de intuitiones</string>
   <string name="withNobody">Con nulle persona</string>
   <string name="withFriends">Con amicos</string>
@@ -579,14 +617,31 @@
     <item quantity="other">Disponibile in %s linguas!</item>
   </plurals>
   <string name="gameAnalysis">Analyse de joco</string>
+  <string name="quickPairing">Initiar un partita rapidemente</string>
+  <string name="lobby">Salon</string>
   <string name="anonymous">Anonyme</string>
+  <string name="yourScore">Tu score: %s</string>
   <string name="language">Lingua</string>
   <string name="background">Fundo</string>
+  <string name="boardGeometry">Geometria del tabuliero</string>
+  <string name="boardTheme">Thema del tabuliero</string>
+  <string name="boardSize">Dimension del tabuliero</string>
+  <string name="pieceSet">Stilo del pecias</string>
+  <string name="embedInYourWebsite">Incorpora in tu sito web</string>
+  <string name="usernameAlreadyUsed">Iste nomine de usator ja es usate, per favor, selectiona un altere.</string>
+  <string name="usernameInvalid">Nomine de usator invalide. Per favor, usa solmente litteras, numeros, sublinea ( _ ) e lineetta ( - ).</string>
+  <string name="usernameStartNoNumber">Le nomine de usator non debe initiar con un numero.</string>
+  <string name="usernameUnacceptable">Iste nomine de usator non es acceptabile.</string>
+  <string name="directlySupportLichess">Appoiar directemente Lichess</string>
   <string name="playChessInStyle">Joca chacos con stilo</string>
   <string name="chessBasics">Fundamentos del chacos</string>
   <string name="coaches">Tutores</string>
   <string name="invalidPgn">PGN invalide</string>
   <string name="invalidFen">FEN invalide</string>
+  <string name="error.minLength">Le minimo de characteres es %s</string>
+  <string name="error.maxLength">Le maximo de characteres es %s</string>
+  <string name="error.min">Illo debe esser major o equal a %s</string>
+  <string name="error.max">Illo debe esser minor o equal a %s</string>
   <string name="error.unknown">Error</string>
   <string name="custom">Personalisate</string>
   <string name="notifications">Notificationes</string>
