@@ -91,6 +91,7 @@
   <string name="winPreventedBy50MoveRule">Zwycięstwo przez regułę 50 ruchów</string>
   <string name="lossSavedBy50MoveRule">Przegrana przez regułę 50 ruchów</string>
   <string name="allSet">Wszystko gotowe!</string>
+  <string name="infiniteAnalysis">Nieskończona analiza</string>
   <string name="blunders">Poważne błędy</string>
   <string name="mistakes">Błędy</string>
   <string name="inaccuracies">Niedokładności</string>
