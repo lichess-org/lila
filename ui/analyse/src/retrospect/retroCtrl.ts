@@ -39,7 +39,7 @@ export function make(root: AnalyseController): RetroController {
     const node = findNextNode();
     if (!node) {
       current(null);
-      return;
+      return redraw();
     }
     const fault = {
       node,
