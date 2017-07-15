@@ -3,11 +3,13 @@ package lila.security
 import scala.concurrent.duration._
 
 import akka.actor.ActorSystem
+import play.api.i18n.Lang
 import play.api.libs.ws.{ WS, WSAuthScheme }
 import play.api.Play.current
 import play.twirl.api.Html
 
 import lila.common.EmailAddress
+import lila.i18n.I18nKeys.{ emails => trans }
 
 final class Mailgun(
     apiUrl: String,
@@ -57,18 +59,26 @@ object Mailgun {
     retriesLeft: Int = 3
   )
 
+  object txt {
+
+    def serviceNote(implicit lang: Lang) =
+      trans.common_note.literalHtmlTo(lang, List("https://lichess.org"))
+  }
+
   object html {
 
-    val serviceNote = """
+    private val noteLink = """<a itemprop="url" href="https://lichess.org/"><span itemprop="name">lichess.org</span></a>"""
+
+    def serviceNote(implicit lang: Lang) = s"""
 <div itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-  <small>This is a service email related to your use of <a itemprop="url" href="https://lichess.org/"><span itemprop="name">lichess.org</span></a>.</small>
+  <small>${trans.common_note.literalHtmlTo(lang, List(noteLink))}.</small>
 </div>
 """
 
-    def url(u: String) = s"""
+    def url(u: String)(implicit lang: Lang) = s"""
 <meta itemprop="url" content="$u">
 <p><a itemprop="target" href="$u">$u</a></p>
-<p>(Clicking not working? Try pasting it into your browser!)</p>
+<p>${trans.confirm_orPaste.literalHtmlTo(lang)}</p>
 """
 
     private[Mailgun] def wrap(subject: String, body: String) = s"""<!doctype html>

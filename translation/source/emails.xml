@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <string name="confirm_subject">Confirm your lichess.org account, %s</string>
+  <string name="confirm_click">Click the link to enable your lichess account:</string>
+  <string name="confirm_orPaste">(Clicking not working? Try pasting it into your browser!)</string>
+  <string name="confirm_ignore">If you did not register with Lichess you can safely ignore this message.</string>
+  <string name="common_note">This is a service email related to your use of %s.</string>
+</resources>

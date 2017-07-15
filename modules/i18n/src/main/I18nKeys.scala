@@ -1,7 +1,7 @@
 // Generated with bin/trans-dump.js
 package lila.i18n
 
-import I18nDb.{ Site, Arena }
+import I18nDb.{ Site, Arena, Emails }
 
 // format: OFF
 object I18nKeys {
@@ -655,6 +655,14 @@ val `otherRules` = new Translated("otherRules", Arena)
 val `otherRulesAnswer` = new Translated("otherRulesAnswer", Arena)
 val `thisIsPrivate` = new Translated("thisIsPrivate", Arena)
 val `shareUrl` = new Translated("shareUrl", Arena)
+}
+
+object emails {
+val `confirm_subject` = new Translated("confirm_subject", Emails)
+val `confirm_click` = new Translated("confirm_click", Emails)
+val `confirm_orPaste` = new Translated("confirm_orPaste", Emails)
+val `confirm_ignore` = new Translated("confirm_ignore", Emails)
+val `common_note` = new Translated("common_note", Emails)
 }
 
 }
