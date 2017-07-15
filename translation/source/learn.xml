@@ -38,6 +38,12 @@ You need both!</string>
   <string name="kingComplete">You can now command the commander!</string>
   <string name="theKnight">The knight</string>
   <string name="itMovesInAnLShape">It moves in an L shape</string>
+  <string name="knightIntro">Here's a challenge for you. The knight is... a tricky piece.</string>
+  <string name="knightsHaveAFancyWay">Knights have a fancy way
+of jumping around!</string>
+  <string name="knightsCanJumpOverObstacles">Knights can jump over obstacles!
+Escape and vanquish the stars!</string>
+  <string name="knightComplete">Congratulations! You have mastered the knight.</string>
   <string name="thePawn">The pawn</string>
   <string name="itMovesForwardOnly">It moves forward only</string>
   <string name="fundamentals">Fundamentals</string>
