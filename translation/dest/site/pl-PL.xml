@@ -611,7 +611,7 @@
   <string name="noSimulExplanation">Taka symultana nie istnieje</string>
   <string name="returnToSimulHomepage">Wróć do symultany</string>
   <string name="aboutSimul">Symultana pozwala symultaniście grać z wieloma przeciwnikami równocześnie.</string>
-  <string name="aboutSimulImage">Fischer, grając na 50 szachownicach wygrał 47 partii, 2 zremisował i 1 przegrał.</string>
+  <string name="aboutSimulImage">Rok 1964 - Fischer grając na 50 szachownicach wygrał 47 partii, 2 zremisował i 1 przegrał.</string>
   <string name="aboutSimulRealLife">Pomysł został zaczerpnięty z rzeczywistych rozgrywek. Symultanista przemieszcza się pomiędzy szachownicami aby wykonać poszczególne posunięcia.</string>
   <string name="aboutSimulRules">Gdy symultana się rozpocznie, każdy gracz rozgrywa partię przeciwko symultaniście. Symultanista gra zawsze białymi. Symultana kończy się po zakończeniu wszystkich partii.</string>
   <string name="aboutSimulSettings">Symultana to zawsze gra towarzyska. Podczas jej rozgrywania rewanż, cofanie posunięcia i dodawanie czasu nie są dostępne.</string>
