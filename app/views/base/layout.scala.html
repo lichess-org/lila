@@ -91,7 +91,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
       @ctx.me.map { me =>
       <div class="dasher">
         <a id="user_tag" class="toggle link">@me.username</a>
-        <div id="dasher_app" class="dropdown"@if(playing){ data-playing="true"}></div>
+        <div id="dasher_app" class="dropdown"></div>
       </div>
       <div class="challenge_notifications">
         <a id="challenge_notifications_tag" class="toggle link data-count" data-count="@ctx.nbChallenges">

@@ -519,11 +519,12 @@ lichess.topMenuIntent = function() {
           booted = true;
           var $el = $('#dasher_app').html(lichess.initiatingHtml);
           var isDev = $('body').data('dev');
+          var isPlaying = $('body').hasClass('playing');
           lichess.loadCss('/assets/stylesheets/dasherApp.css');
           lichess.loadScript("/assets/compiled/lichess.dasher" + (isDev ? '' : '.min') + '.js').done(function() {
             instance = LichessDasher.default($el.empty()[0], {
               setZoom: setZoom,
-              playing: $el.data('playing')
+              playing: isPlaying
             });
           });
         });
