@@ -107,4 +107,25 @@
   <string name="stalemateComplete">ยินดีด้วย! ถูกอับดีกว่าถูกรุกจน!</string>
   <string name="advanced">ขั้นสูง</string>
   <string name="pieceValue">ค่าของหมาก</string>
+  <string name="evaluatePieceStrength">ประเมินความแกร่งของหมาก</string>
+  <string name="pieceValueIntro">หมากที่มีความคล่องตัวในการเดินสูงจะมีค่าสูงกว่า!
+ควีน = 9
+เรือ = 5
+บิชอป = 3
+อัศวิน = 3
+เบี้ย = 1
+คิงประเมินค่ามิได้! สูญเสียมันคือพ่ายแพ้เกม</string>
+  <string name="queenOverBishop">กินหมาก
+ที่มีค่าสูงสุด!
+ควีน &gt; บิชอป</string>
+  <string name="takeThePieceWithTheHighestValue">กินหมาก
+ที่มีค่าสูงสุด!</string>
+  <string name="pieceValueComplete">ยินดีด้วย! คุณรู้ค่าของวัสดุแล้ว!
+ควีน = 9
+เรือ = 5
+บิชอป = 3
+อัศวิน = 3
+เบี้ย = 1</string>
+  <string name="checkInTwo">รุกในสองครั้ง</string>
+  <string name="twoMovesToGiveCheck">เดินสองครั้งเพื่อรุก</string>
 </resources>
