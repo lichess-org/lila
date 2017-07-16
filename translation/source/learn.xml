@@ -107,6 +107,10 @@ or block the attack!</string>
   <string name="outOfCheckComplete">Congratulations! Your king can never be taken, make sure you can defend a check!</string>
   <string name="mateInOne">Mate in one</string>
   <string name="defeatTheOpponentsKing">Defeat the opponent's king</string>
+  <string name="mateInOneIntro">You win when your opponent cannot defend a check.</string>
+  <string name="attackYourOpponentsKing">Attack your opponent's king
+in a way that cannot be defended!</string>
+  <string name="mateInOneComplete">Congratulations! That is how you win chess games!</string>
   <string name="intermediate">Intermediate</string>
   <string name="boardSetup">Board setup</string>
   <string name="howTheGameStarts">How the game starts</string>
