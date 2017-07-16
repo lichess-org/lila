@@ -133,6 +133,28 @@ Make any move to continue.</string>
   <string name="boardSetupComplete">Congratulations! You know how to setup the chess board.</string>
   <string name="castling">Castling</string>
   <string name="theSpecialKingMove">The special king move</string>
+  <string name="castlingIntro">Bring your king to safety, and deploy your rook for attack!</string>
+  <string name="castleKingSide">Move your king two squares
+to castle king side!</string>
+  <string name="castleQueenSide">Move your king two squares
+to castle queen side!</string>
+  <string name="theKnightIsInTheWay">The knight is in the way!
+Move it, then castle king-side.</string>
+  <string name="castleKingSideMovePiecesFirst">Castle king-side!
+You need to move out pieces first.</string>
+  <string name="castleQueenSideMovePiecesFirst">Castle queen-side!
+You need to move out pieces first.</string>
+  <string name="youCannotCastleIfMoved">You cannot castle if
+the king has already moved
+or the rook has already moved.</string>
+  <string name="youCannotCastleIfAttacked">You cannot castle if
+the king is attacked on the way.
+Block the check then castle!</string>
+  <string name="findAWayToCastleKingSide">Find a way to
+castle king-side!</string>
+  <string name="findAWayToCastleQueenSide">Find a way to
+castle queen-side!</string>
+  <string name="castlingComplete">Congratulations! You should almost always castle in a game.</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">The special pawn move</string>
   <string name="stalemate">Stalemate</string>
