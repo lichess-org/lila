@@ -561,6 +561,7 @@
   <string name="playOnTheBoardOffline">Igraj bez mreže, preko uređaja</string>
   <string name="playOfflineComputer">Igraj protiv računala</string>
   <string name="opponent">Protivnik</string>
+  <string name="learnMenu">Učenje</string>
   <string name="community">Zajednica</string>
   <string name="tools">Alati</string>
   <string name="increment">Dodatak</string>
@@ -573,6 +574,7 @@
   <string name="error.email">Ova email adresa je neispravna</string>
   <string name="error.email_acceptable">Ova email adresa nije prihvatljiva</string>
   <string name="error.email_unique">Ova email adresa je već iskorištena</string>
+  <string name="error.email_different">Već koristiš ovu e-mail adresu</string>
   <string name="blindfoldChess">Šah na slijepo (nevidljive figure)</string>
   <string name="moveConfirmation">Potvrda poteza</string>
   <string name="inCorrespondenceGames">U dopisnim partijama</string>
