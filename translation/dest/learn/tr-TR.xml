@@ -68,6 +68,10 @@ Terfiye gerek yok.</string>
   <string name="escape">Saldırı altındasın! Tehditten kaç!</string>
   <string name="noEscape">Kaçacak yerin yok ama taşını savunabilirsin!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Korumasız taşlarını yemelerine izin verme!</string>
+  <string name="combat">Çarpışma</string>
+  <string name="captureAndDefendPieces">Taşlarını koru ve rakip taşları ele geçir</string>
+  <string name="combatIntro">Güçlü bir savaşçı hem saldırıyı hem de savunmayı iyi bilir!</string>
+  <string name="combatComplete">Tebrikler! Artık satranç taşlarıyla nasıl savaşıldığını biliyorsun!</string>
   <string name="checkInOne">Tek hamlede şah</string>
   <string name="mateInOne">Tek hamlede mat</string>
   <string name="castling">Rok atma</string>
