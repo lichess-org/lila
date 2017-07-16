@@ -88,6 +88,10 @@ any undefended piece!</string>
   <string name="combatComplete">Congratulations! You know how to fight with chess pieces!</string>
   <string name="checkInOne">Check in one</string>
   <string name="attackTheOpponentsKing">Attack the opponent's king</string>
+  <string name="checkInOneIntro">To check your opponent, attack their king. They must defend it!</string>
+  <string name="checkInOneGoal">Aim at the opponent's king
+in one move!</string>
+  <string name="checkInOneComplete">Congratulations! You checked your opponent, forcing them to defend their king!</string>
   <string name="outOfCheck">Out of check</string>
   <string name="defendYourKing">Defend your king</string>
   <string name="mateInOne">Mate in one</string>
