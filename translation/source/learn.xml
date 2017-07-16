@@ -67,6 +67,10 @@ No need to promote.</string>
   <string name="fundamentals">Fundamentals</string>
   <string name="capture">Capture</string>
   <string name="takeTheEnemyPieces">Take the enemy pieces</string>
+  <string name="captureIntro">Identify the opponent's undefended pieces, and capture them!</string>
+  <string name="takeTheBlackPieces">Take the black pieces!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Take the black pieces!
+And don't lose yours.</string>
   <string name="protection">Protection</string>
   <string name="keepYourPiecesSafe">Keep your pieces safe</string>
   <string name="combat">Combat</string>
