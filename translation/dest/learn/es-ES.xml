@@ -52,4 +52,13 @@
   <string name="pawnPromotion">Promoción del peón</string>
   <string name="yourPawnReachedTheEndOfTheBoard">¡Su peón alcanza el extremo de la tabla!</string>
   <string name="boardSetupComplete">¡Felicidades! Sabes como configurar el tablero de ajedrez.</string>
+  <string name="castling">Enroque</string>
+  <string name="theSpecialKingMove">El mueve especial del rey</string>
+  <string name="castlingIntro">¡Llevar a su rey a la seguridad y desplegar tu torre para ataque!</string>
+  <string name="castleKingSide">¡Se mueve el rey dos casillas para enrocar al lado del rey!</string>
+  <string name="castleQueenSide">¡Se mueve el rey dos casillas para enrocar al lado de la reina!</string>
+  <string name="theKnightIsInTheWay">¡El caballo es de la manera! Lo mueva, y enroque por el lado del rey.</string>
+  <string name="castleKingSideMovePiecesFirst">Enroque por el lado del rey! Sin embargo, primero necesitas mover sus piezas.</string>
+  <string name="castleQueenSideMovePiecesFirst">Enroque por el lado de la riena! Sin embargo, primero necesitas mover sus piezas.</string>
+  <string name="youCannotCastleIfMoved">No puedes enrocar si tu rey se ha movido o la torre se ha movido.</string>
 </resources>
