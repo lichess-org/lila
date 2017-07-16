@@ -52,4 +52,11 @@
 しかしボードの向こう側まで行くと別の強い駒に成れるのです！</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">ほとんどの場合はクイーンに成るべきです。
 ただしナイトに成るのがいい時もあります！</string>
+  <string name="pawnsMoveForward">ポーンは動く時は前に進み、
+駒を取る時は斜めに進みます！</string>
+  <string name="captureThenPromote">星印を取ってから別の駒に成る！</string>
+  <string name="useAllThePawns">すべてのポーンを使って！
+成る必要はありません。</string>
+  <string name="aPawnOnTheSecondRank">2 段目にいるポーンは一度に 2 マス進めます！</string>
+  <string name="castling">キャスリング</string>
 </resources>
