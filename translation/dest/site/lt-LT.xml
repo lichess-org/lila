@@ -97,6 +97,14 @@
   <string name="replayMode">Peržiūros režimas</string>
   <string name="realtimeReplay">Realiu laiku</string>
   <string name="byCPL">Pagal įvertį</string>
+  <string name="enable">Įjungti</string>
+  <string name="bestMoveArrow">Geriausio ėjimo rodyklė</string>
+  <string name="evaluationGauge">Vertinimo matuoklis</string>
+  <string name="multipleLines">Keletas linijų</string>
+  <string name="cpus">Procesoriai</string>
+  <string name="memory">Atmintinė</string>
+  <string name="infiniteAnalysis">Neribota analizė</string>
+  <string name="removesTheDepthLimit">Panaikina gylio limitą ir neleidžia kompiuteriui atvėsti</string>
   <string name="blunders">Šiurkščios klaidos</string>
   <string name="mistakes">Klaidos</string>
   <string name="inaccuracies">Netikslumai</string>
