@@ -128,4 +128,26 @@
 เบี้ย = 1</string>
   <string name="checkInTwo">รุกในสองครั้ง</string>
   <string name="twoMovesToGiveCheck">เดินสองครั้งเพื่อรุก</string>
+  <string name="checkInTwoIntro">หาวิธีผสมผสานที่ถูกต้องในการเดินสองครั้ง เพื่อรุกคิงของคู่แข่ง</string>
+  <string name="checkInTwoGoal">คุกคามคิงของคู่แข่ง
+โดยเดินสองครั้ง!</string>
+  <string name="checkInTwoComplete">ยินดีด้วย! คุณได้รุกคู่แข่งของคุณ บังคับให้พวกเขาปกป้องคิงของพวกเขา!</string>
+  <string name="whatNext">มีอะไรต่อ?</string>
+  <string name="youKnowHowToPlayChess">คุณรู้วิธีการเล่นหมากรุกแล้ว, ขอแสดงความยินดี! คุณต้องการเป็นผู้เล่นที่แข็งแกร่งขึ้นหรือไม่?</string>
+  <string name="register">ลงทะเบียน</string>
+  <string name="getAFreeLichessAccount">รับบัญชี Lichess ฟรี</string>
+  <string name="practice">ฝึก</string>
+  <string name="learnCommonChessPositions">เรียนรู้ตำแหน่งหมากรุกสามัญ</string>
+  <string name="puzzles">ปริศนา</string>
+  <string name="exerciseYourTacticalSkills">ฝึกหัดทักษะกลยุทธ์ของคุณ</string>
+  <string name="videos">วิดีโอ</string>
+  <string name="watchInstructiveChessVideos">ชมวิดีโอคำแนะนำหมากรุก</string>
+  <string name="opponentsFromAroundTheWorld">คู่แข่งจากทั่วโลก</string>
+  <string name="playMachine">เล่นกับจักรกล</string>
+  <string name="testYourSkillsWithTheComputer">ทดสอบทักษะของคุณกับคอมพิวเตอร์</string>
+  <string name="letsGo">ไปกันเลย!</string>
+  <string name="stageX">ขั้น %s</string>
+  <string name="awesome">เยี่ยม!</string>
+  <string name="excellent">ยอดเยี่ยม!</string>
+  <string name="greatJob">ดีมาก!</string>
 </resources>
