@@ -554,6 +554,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="playOnTheBoardOffline">Gioca offline</string>
   <string name="playOfflineComputer">Sfida il computer</string>
   <string name="opponent">Avversario</string>
+  <string name="learnMenu">Impara</string>
   <string name="community">Community</string>
   <string name="tools">Strumenti</string>
   <string name="increment">Incremento</string>
@@ -568,6 +569,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="error.email_unique">Questa email viene già utilizzata</string>
   <string name="error.email_different">Questo è gia il tuo indirizzo mail</string>
   <string name="blindfoldChess">Scacchi alla cieca</string>
+  <string name="zenMode">Modalità Zen</string>
   <string name="moveConfirmation">Conferma della mossa</string>
   <string name="inCorrespondenceGames">Partite per corrispondenza</string>
   <string name="ifRatingIsPlusMinusX">Se il punteggio è ± %s</string>
@@ -712,6 +714,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="directlySupportLichess">Supporta Lichess</string>
   <string name="playChessInStyle">Gioca a scacchi con stile</string>
   <string name="chessBasics">Basi scacchistiche</string>
+  <string name="learnChessByPlaying">Impara giocando a scacchi</string>
   <string name="coaches">Allenatori</string>
   <string name="invalidPgn">PGN non valido</string>
   <string name="invalidFen">FEN non valido</string>
