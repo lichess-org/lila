@@ -1,5 +1,6 @@
 var m = require('mithril');
 var chessground = require('chessground');
+var util = require('../util');
 var ground = require('../ground');
 var congrats = require('../congrats');
 var stageStarting = require('./stageStarting');
@@ -56,7 +57,7 @@ module.exports = function(ctrl) {
       ]),
       level.vm.failed ? renderFailed(ctrl) : (
         level.vm.completed ? renderCompleted(ctrl, level) :
-        m('div.goal', m.trust(ctrl.trans.noarg(level.blueprint.goal).replace('\n', '<br>')))
+        m('div.goal', util.withLinebreaks(ctrl.trans.noarg(level.blueprint.goal)))
       ),
       renderProgress(ctrl.progress)
     ])

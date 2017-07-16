@@ -1,4 +1,5 @@
 var m = require('mithril');
+var util = require('../util');
 var scoring = require('../score');
 
 function makeStars(rank) {
@@ -32,9 +33,7 @@ module.exports = function(ctrl) {
           }
         }, 0)
       ]),
-      m('p', [
-        m.trust(ctrl.trans.noarg(stage.complete).replace('\n', '<br>'))
-      ]),
+      m('p', util.withLinebreaks(ctrl.trans.noarg(stage.complete))),
       m('div.buttons', [
         next ? m('a.next', {
           href: '/' + next.id,

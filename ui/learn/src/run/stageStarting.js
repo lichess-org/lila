@@ -1,4 +1,5 @@
 var m = require('mithril');
+var util = require('../util');
 
 module.exports = function(ctrl) {
   return m('div.screen-overlay', {
@@ -7,7 +8,7 @@ module.exports = function(ctrl) {
     m('div.screen', [
       m('h1', ctrl.trans('stageX', ctrl.stage.id) + ': ' + ctrl.trans.noarg(ctrl.stage.title)),
       ctrl.stage.illustration,
-      m('p', m.trust(ctrl.trans.noarg(ctrl.stage.intro).replace('\n', '<br>'))),
+      m('p', util.withLinebreaks(ctrl.trans.noarg(ctrl.stage.intro))),
       m('div.buttons',
         m('a.next', {
           onclick: ctrl.hideStartingPane
