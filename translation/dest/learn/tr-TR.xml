@@ -28,14 +28,22 @@
   <string name="queenComplete">İyi iş çıkardın! Artık vezirin senden gizlisi saklısı yok.</string>
   <string name="theKing">Şah</string>
   <string name="theMostImportantPiece">En önemli taş</string>
+  <string name="kingIntro">Sırada şah var. Eğer şah düşerse oyun bitti demektir.</string>
+  <string name="theKingIsSlow">Şah biraz yavaştır.</string>
+  <string name="lastOne">Sonuncusu!</string>
+  <string name="kingComplete">Komutanın yönetimi artık sende!</string>
   <string name="theKnight">At</string>
+  <string name="itMovesInAnLShape">L şeklinde hareket eder</string>
+  <string name="knightIntro">İşte şimdi zurnanın zırt dediği yere geldik. At biraz... çetrefilli bir taştır.</string>
   <string name="thePawn">Piyon</string>
   <string name="pawnPromotion">Piyon terfisi</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Piyonun tahtanın sonuna ulaştı!</string>
   <string name="itNowPromotesToAStrongerPiece">Şimdi daha değerli bir taşa terfi edecek.</string>
   <string name="selectThePieceYouWant">Dilediğin taşı seç!</string>
+  <string name="checkInOne">Tek hamlede şah</string>
   <string name="mateInOne">Tek hamlede mat</string>
   <string name="castling">Rok atma</string>
   <string name="stalemate">Pat</string>
+  <string name="checkInTwo">İki hamlede şah</string>
   <string name="register">Kayıt Ol</string>
 </resources>
