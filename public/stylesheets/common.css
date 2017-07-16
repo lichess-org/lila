@@ -535,6 +535,7 @@ body.offline #reconnecting,
   color: #555;
   opacity: 0.7;
   transition: opacity 0.13s;
+  white-space: nowrap;
 }
 #site_title:hover {
   opacity: 1;
