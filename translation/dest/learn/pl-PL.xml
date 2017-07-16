@@ -164,7 +164,7 @@ Pion = 1</string>
   <string name="rightOn">Tak jest!</string>
   <string name="stageXComplete">Etap %s kompletny</string>
   <string name="yourScore">Twój wynik</string>
-  <string name="next">Dalej</string>
+  <string name="next">Następne</string>
   <string name="backToMenu">Powrót do menu</string>
   <string name="retry">Spróbuj jeszcze raz</string>
 </resources>
