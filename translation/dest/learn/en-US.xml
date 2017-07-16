@@ -124,14 +124,14 @@ She goes on her own color.</string>
 Right next to his queen.</string>
   <string name="pawnsFormTheFrontLine">Pawns form the front line.
 Make any move to continue.</string>
-  <string name="boardSetupComplete">Congratulations! You know how to setup the chess board.</string>
+  <string name="boardSetupComplete">Congratulations! You know how to set up the chess board.</string>
   <string name="castling">Castling</string>
   <string name="theSpecialKingMove">The special king move</string>
   <string name="castlingIntro">Bring your king to safety, and deploy your rook for attack!</string>
   <string name="castleKingSide">Move your king two squares
-to castle king side!</string>
+to castle king-side!</string>
   <string name="castleQueenSide">Move your king two squares
-to castle queen side!</string>
+to castle queen-side!</string>
   <string name="theKnightIsInTheWay">The knight is in the way!
 Move it, then castle king-side.</string>
   <string name="castleKingSideMovePiecesFirst">Castle king-side!
@@ -178,7 +178,7 @@ Rook = 5
 Bishop = 3
 Knight = 3
 Pawn = 1
-The king is priceless! Losing it is losing the game.</string>
+The king is priceless! Losing it means losing the game.</string>
   <string name="queenOverBishop">Take the piece
 with the highest value!
 Queen &gt; Bishop</string>
@@ -203,7 +203,7 @@ in two moves!</string>
   <string name="practice">Practise</string>
   <string name="learnCommonChessPositions">Learn common chess positions</string>
   <string name="puzzles">Puzzles</string>
-  <string name="exerciseYourTacticalSkills">Excercise your tactical skills</string>
+  <string name="exerciseYourTacticalSkills">Exercise your tactical skills</string>
   <string name="videos">Videos</string>
   <string name="watchInstructiveChessVideos">Watch instructive chess videos</string>
   <string name="playPeople">Play people</string>
