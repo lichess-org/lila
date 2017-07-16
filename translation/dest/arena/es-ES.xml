@@ -21,4 +21,9 @@ Berserk sólo subvenciones extra punto si juegas por lo menos 7 jugadas en el ju
   <string name="howDoesPairingWork">¿Cómo funciona el emparajamiento?</string>
   <string name="howDoesPairingWorkAnswer">Al principio del torneo, los jugadores están emparejados en base a su calificación. Tan pronto como termine un juego, volver al vestibulo del torneo: entonces serás emparejados con un jugador cerca de tu clasificación. De esta manera no necesitas esperar mucho tiempo, sin embargo no puede enfrentar todos los jugadores en el torneo. Jugar rápido y volver al lobby para jugar más juegos y ganar más puntos.</string>
   <string name="howDoesItEnd">Como termina?</string>
+  <string name="howDoesItEndAnswer">El torneo tiene un reloj de cuenta regresiva. Cuando llegue a cero, se congelan las clasificaciones del torneo, y el ganador es anunciado. Juegos en progreso debe ser terminado, sin embargo no cuentan para el torneo.</string>
+  <string name="otherRules">Otras reglas importantes</string>
+  <string name="otherRulesAnswer">Estás obligado hacer su primera jugada en los 20 segundos de tu turno. Pudiendo hacer un movimiento en este tiempo perderá el juego a tu oponente. Si el juego se termina en un empate dentro de las primeras 10 jugadas del juego, ningún jugador va a ganar puntos.</string>
+  <string name="thisIsPrivate">Este es un torneo privado</string>
+  <string name="shareUrl">Comparte esta URL para permitir unas personas unir: %s</string>
 </resources>
