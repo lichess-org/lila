@@ -197,7 +197,11 @@ Bishop = 3
 Knight = 3
 Pawn = 1</string>
   <string name="checkInTwo">Check in two</string>
-  <string name="twoMovesToGiveCheck">Two moves to give check</string>
+  <string name="twoMovesToGiveCheck">Two moves to give a check</string>
+  <string name="checkInTwoIntro">Find the right combination of two moves that checks the opponent king!</string>
+  <string name="checkInTwoGoal">Threaten the opponent king
+in two moves!</string>
+  <string name="checkInTwoComplete">Congratulations! You checked your opponent, forcing them to defend their king!</string>
   <string name="whatNext">What next?</string>
   <string name="youKnowHowToPlayChess">You know how to play chess, congratulations! Do you want to become a stronger player?</string>
   <string name="register">Register</string>
