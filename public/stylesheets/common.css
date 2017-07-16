@@ -382,7 +382,7 @@ body.no-select {
   -moz-user-select: none;
   -webkit-user-select: none;
 }
-body.playing {
+body.fixed-scroll {
   /* prevents scroll bar flicker when dragging a piece out */
   overflow-y: scroll;
 }

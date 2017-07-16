@@ -67,7 +67,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     ctx.blindMode ?? "blind_mode",
     ctx.kid ?? "kid",
     ctx.isMobileBrowser ?? "mobile",
-    playing ?? "playing").mkString(" ")"
+    playing ?? "playing fixed-scroll").mkString(" ")"
     @if(!isProd){data-dev="true"}
     @ctx.userId.map {id => data-user="@id"}
     data-sound-set="@ctx.currentSoundSet"
