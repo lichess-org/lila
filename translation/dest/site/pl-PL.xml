@@ -91,6 +91,7 @@
   <string name="winPreventedBy50MoveRule">Zwycięstwo przez regułę 50 ruchów</string>
   <string name="lossSavedBy50MoveRule">Przegrana przez regułę 50 ruchów</string>
   <string name="allSet">Wszystko gotowe!</string>
+  <string name="importPgn">Importuj PGN</string>
   <string name="delete">Usuń</string>
   <string name="deleteThisImportedGame">Czy usunąć tę grę?</string>
   <string name="replayMode">Tryb odtwarzania</string>
@@ -303,10 +304,11 @@
   <string name="apply">Zastosuj</string>
   <string name="leaderboard">Najlepsi gracze</string>
   <string name="pasteTheFenStringHere">Wklej tutaj pozycję w formacie FEN</string>
-  <string name="pasteThePgnStringHere">Wklej tutaj grę w formacie PGN</string>
+  <string name="pasteThePgnStringHere">Poniżej wklej grę w formacie PGN</string>
   <string name="fromPosition">Z pozycji</string>
   <string name="continueFromHere">Kontynuuj z tej pozycji</string>
   <string name="importGame">Importuj grę</string>
+  <string name="importGameExplanation">Wklejając zapis gry będziesz miał możliwość jej odtworzenia, poproszenia o analizę komputerową, omówienia jej z innymi oraz udostępnienia linku do niej innym.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s zaimportowana gra</item>
     <item quantity="few">%s zaimportowane gry</item>
@@ -574,6 +576,7 @@
   <string name="playOnTheBoardOffline">Graj offline</string>
   <string name="playOfflineComputer">Zagraj z komputerem</string>
   <string name="opponent">Przeciwnik</string>
+  <string name="learnMenu">Nauka</string>
   <string name="community">Społeczność</string>
   <string name="tools">Narzędzia</string>
   <string name="increment">Dodawany czas</string>
@@ -588,6 +591,7 @@
   <string name="error.email_unique">Podany adres email został już użyty</string>
   <string name="error.email_different">To już jest Twój adres e-mail</string>
   <string name="blindfoldChess">Gra na ślepo (figury niewidoczne)</string>
+  <string name="zenMode">Tryb Zen</string>
   <string name="moveConfirmation">Potwierdzenie ruchu</string>
   <string name="inCorrespondenceGames">W grze korespondencyjnej</string>
   <string name="ifRatingIsPlusMinusX">O rankingu ± %s</string>
@@ -735,6 +739,7 @@
   <string name="directlySupportLichess">Wspomóż Lichess</string>
   <string name="playChessInStyle">Graj w szachy z klasą</string>
   <string name="chessBasics">Podstawy gry</string>
+  <string name="learnChessByPlaying">Ucz się szachów grając</string>
   <string name="coaches">Trenerzy</string>
   <string name="invalidPgn">Nieprawidłowy PGN</string>
   <string name="invalidFen">Nieprawidłowy FEN</string>
