@@ -87,7 +87,27 @@
   </plurals>
   <string name="noGameFound">Igra ni najdena</string>
   <string name="alreadySearchingThroughAllAvailableGames">Vse razpoložljive partije se že iščejo</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Bi vključili več partij iz menija nastavitev?</string>
   <string name="openingExplorer">Raziskovalec otovritev</string>
+  <string name="xOpeningExplorer">%s raziskovalec otvoritev</string>
+  <string name="winPreventedBy50MoveRule">Zmago preprečilo pravilo 50 potez</string>
+  <string name="lossSavedBy50MoveRule">Poraz rešilo pravilo 50 potez</string>
+  <string name="allSet">Pripravljeno!</string>
+  <string name="importPgn">Uvozi PGN</string>
+  <string name="delete">Izbriši</string>
+  <string name="deleteThisImportedGame">Izbriši te uvožene partije?</string>
+  <string name="replayMode">Način predvajanja</string>
+  <string name="realtimeReplay">Predvajaj v času</string>
+  <string name="byCPL">Za stotinko</string>
+  <string name="openStudy">Odprta študija</string>
+  <string name="enable">Omogoči</string>
+  <string name="bestMoveArrow">Puščica najboljše poteze</string>
+  <string name="evaluationGauge">Kazalnik ocene</string>
+  <string name="multipleLines">Več variant</string>
+  <string name="cpus">CPU-ji</string>
+  <string name="memory">Spomin</string>
+  <string name="infiniteAnalysis">Neskončna analiza</string>
+  <string name="removesTheDepthLimit">Odstrani omejitev globine in ohrani računalnik topel</string>
   <string name="blunders">Grobe napake</string>
   <string name="mistakes">Napake</string>
   <string name="inaccuracies">Nenatančnosti</string>
@@ -508,6 +528,13 @@
   <string name="shareYourInsightsData">Deli svoje statistične podatke</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Tvoj email %s je že registriran</string>
   <string name="kidMode">Način za otroke</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">V načinu za otroke ima lichess ikono %s in označuje da so otroci varni.</string>
+  <string name="enableKidMode">Vključite otroški način</string>
+  <string name="disableKidMode">Izključite otroški način</string>
+  <string name="security">Varnost</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">To je seznam naprav, ki so prijavljeni v svoj račun. Preklic vseh sej, ki jih ne prepoznate.</string>
+  <string name="alternativelyYouCanX">Dodatno lahko %s.</string>
+  <string name="revokeAllSessions">prekličete vse seje</string>
   <string name="playChessEverywhere">Igraj šah povsod</string>
   <string name="asFreeAsLichess">Brezplačen kot lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Razvit zaradi ljubezni do šaha, ne denarja</string>
@@ -522,4 +549,11 @@
   <string name="viewTheSolution">Poglej rešitev</string>
   <string name="followAndChallengeFriends">Sledi in izzovi prijatelje</string>
   <string name="gameAnalysis">Analiza igre</string>
+  <string name="xHostsY">%1$s gostuje %2$s</string>
+  <string name="xJoinsY">%1$s se pridruži %2$s</string>
+  <string name="xLikesY">%1$s všečka %2$s</string>
+  <string name="lobby">Soba</string>
+  <string name="anonymous">Anonimni</string>
+  <string name="language">Jezik</string>
+  <string name="background">Ozadje</string>
 </resources>
