@@ -25,6 +25,7 @@ Potrzebujesz ich obu!</string>
   <string name="bishopComplete">Gratulacje! Potrafisz poruszać się gońcem.</string>
   <string name="theQueen">Królowa</string>
   <string name="queenCombinesRookAndBishop">Królowa = wieża + goniec</string>
+  <string name="queenIntro">Czas na najpotężniejszą szachową figurę. Jej wysokość Królowa!</string>
   <string name="queenComplete">Gratulacje! Królowa nie ma dla Ciebie tajemnic.</string>
   <string name="theKing">Król</string>
   <string name="theMostImportantPiece">Najważniejsza figura</string>
@@ -158,6 +159,7 @@ Pion = 1</string>
   <string name="excellent">Doskonale!</string>
   <string name="greatJob">Dobra robota!</string>
   <string name="perfect">Perfekcyjnie!</string>
+  <string name="yesYesYes">Tak, tak, tak!</string>
   <string name="youreGoodAtThis">Jesteś w tym dobry!</string>
   <string name="rightOn">Tak jest!</string>
   <string name="stageXComplete">Etap %s kompletny</string>
