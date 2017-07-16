@@ -10,4 +10,6 @@
   <string name="emailChange_subject">Patvirtinkite naująjį el. pašto adresą, %s</string>
   <string name="emailChange_intro">Jūs užklausėte savo el. pašto adreso pakeitimo.</string>
   <string name="emailChange_click">Norėdami jį patvirtinti, spustelėkite žemiau esančią nuorodą:</string>
+  <string name="common_orPaste">(Spustelėjimas neveikia? Pabandykite nukopijuoti į naršyklę!)</string>
+  <string name="common_note">Tai yra aptarnavimo laiškas, susijęs su %s naudojimu.</string>
 </resources>
