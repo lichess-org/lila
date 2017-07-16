@@ -89,6 +89,21 @@
   <string name="winPreventedBy50MoveRule">Vittoria non possibile a causa della \"regola delle 50 mosse\"</string>
   <string name="lossSavedBy50MoveRule">Sconfitta evitata a causa della \"regola delle 50 mosse\"</string>
   <string name="allSet">Tutto pronto!</string>
+  <string name="importPgn">Importa PGN</string>
+  <string name="delete">Elimina</string>
+  <string name="deleteThisImportedGame">Vuoi eliminare questa partita importata?</string>
+  <string name="replayMode">Modalità replay</string>
+  <string name="realtimeReplay">In tempo reale</string>
+  <string name="byCPL">Per CPL</string>
+  <string name="openStudy">Studio pubblico</string>
+  <string name="enable">Abilita</string>
+  <string name="bestMoveArrow">Freccia della mossa migliore</string>
+  <string name="evaluationGauge">Scala di valutazione</string>
+  <string name="multipleLines">Varianti multiple</string>
+  <string name="cpus">Processori</string>
+  <string name="memory">Memoria</string>
+  <string name="infiniteAnalysis">Analisi infinita</string>
+  <string name="removesTheDepthLimit">Rimuove il limite di profondità di analisi e mantiene il tuo computer caldo</string>
   <string name="blunders">Errori gravi</string>
   <string name="mistakes">Errori</string>
   <string name="inaccuracies">Imprecisioni</string>
@@ -279,6 +294,8 @@
   <string name="fromPosition">Da una posizione</string>
   <string name="continueFromHere">Continua da qui</string>
   <string name="importGame">Importa partita</string>
+  <string name="importGameExplanation">Quando incolli una partita tramite PGN potrai ripercorrerla,
+analizzarla con il computer, commentarla in chat, e condividerla tramire indirizzo URL.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Partite importate</item>
     <item quantity="other">%s Partite importate</item>

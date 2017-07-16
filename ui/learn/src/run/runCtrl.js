@@ -28,7 +28,6 @@ module.exports = function(opts) {
       else {
         vm.stageCompleted(true);
         sound.stageEnd();
-        gtm.onComplete(opts.storage.data, stage);
       }
       m.redraw();
     }

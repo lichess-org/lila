@@ -9,6 +9,10 @@ export function bind(eventName: string, f: (e: Event) => any, redraw?: () => voi
     insert: vnode => {
       (vnode.elm as HTMLElement).addEventListener(eventName, e => {
         const res = f(e);
+        if (res === false) {
+          if (e.preventDefault) e.preventDefault();
+          else e.returnValue = false; // ie
+        }
         if (redraw) redraw();
         return res;
       });
