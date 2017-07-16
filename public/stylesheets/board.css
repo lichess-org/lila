@@ -1029,6 +1029,7 @@ body.playing.zen .under_chat,
 body.playing.zen .replay,
 body.playing.zen .table_inner .username,
 body.playing.zen rating,
+body.playing.zen .tournament_rank,
 body.playing.zen #friend_box {
   display: none!important;
 }
