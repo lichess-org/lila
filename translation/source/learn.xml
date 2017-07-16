@@ -94,6 +94,17 @@ in one move!</string>
   <string name="checkInOneComplete">Congratulations! You checked your opponent, forcing them to defend their king!</string>
   <string name="outOfCheck">Out of check</string>
   <string name="defendYourKing">Defend your king</string>
+  <string name="outOfCheckIntro">You are in check! You must escape or block the attack.</string>
+  <string name="escapeWithTheKing">Escape with the king!</string>
+  <string name="theKingCannotEscapeButBlock">The king cannot escape,
+but you can block the attack!</string>
+  <string name="youCanGetOutOfCheckByTaking">You can get out of check
+by taking the attacking piece.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">This knight is checking
+through your defenses!</string>
+  <string name="escapeOrBlock">Escape with the king
+or block the attack!</string>
+  <string name="outOfCheckComplete">Congratulations! Your king can never be taken, make sure you can defend a check!</string>
   <string name="mateInOne">Mate in one</string>
   <string name="defeatTheOpponentsKing">Defeat the opponent's king</string>
   <string name="intermediate">Intermediate</string>
