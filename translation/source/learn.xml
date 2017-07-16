@@ -114,6 +114,23 @@ in a way that cannot be defended!</string>
   <string name="intermediate">Intermediate</string>
   <string name="boardSetup">Board setup</string>
   <string name="howTheGameStarts">How the game starts</string>
+  <string name="boardSetupIntro">The two armies face each other, ready for the battle.</string>
+  <string name="thisIsTheInitialPosition">This is the initial position
+of every game of chess!
+Make any move to continue.</string>
+  <string name="firstPlaceTheRooks">First place the rooks!
+They go in the corners.</string>
+  <string name="thenPlaceTheKnights">Then place the knights!
+They go next to the rooks.</string>
+  <string name="placeTheBishops">Place the bishops!
+They go next to the knights.</string>
+  <string name="placeTheQueen">Place the queen!
+She goes on her own color.</string>
+  <string name="placeTheKing">Place the king!
+Right next to his queen.</string>
+  <string name="pawnsFormTheFrontLine">Pawns form the front line.
+Make any move to continue.</string>
+  <string name="boardSetupComplete">Congratulations! You know how to setup the chess board.</string>
   <string name="castling">Castling</string>
   <string name="theSpecialKingMove">The special king move</string>
   <string name="enPassant">En passant</string>
