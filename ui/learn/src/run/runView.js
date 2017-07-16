@@ -24,7 +24,8 @@ function renderCompleted(ctrl, level) {
     onclick: level.onComplete
   }, [
     m('h2', ctrl.trans.noarg(congrats())),
-    level.blueprint.nextButton ? m('button', 'Next') : makeStars(level.blueprint, level.vm.score)
+    level.blueprint.nextButton ? m('button', ctrl.trans.noarg('next')) :
+    makeStars(level.blueprint, level.vm.score)
   ]);
 }
 
