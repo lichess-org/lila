@@ -55,7 +55,7 @@ Terfiye gerek yok.</string>
   <string name="itNowPromotesToAStrongerPiece">Şimdi daha değerli bir taşa terfi edecek.</string>
   <string name="selectThePieceYouWant">Dilediğin taşı seç!</string>
   <string name="fundamentals">Temel Prensipler</string>
-  <string name="capture">Taş yemek</string>
+  <string name="capture">Taş yeme</string>
   <string name="takeTheEnemyPieces">Düşman taşlarını ele geçir</string>
   <string name="captureIntro">Rakibin korumasız taşlarını bul ve ele geçir!</string>
   <string name="takeTheBlackPieces">Siyah taşları ye!</string>
@@ -73,6 +73,10 @@ Terfiye gerek yok.</string>
   <string name="combatIntro">Güçlü bir savaşçı hem saldırıyı hem de savunmayı iyi bilir!</string>
   <string name="combatComplete">Tebrikler! Artık satranç taşlarıyla nasıl savaşıldığını biliyorsun!</string>
   <string name="checkInOne">Tek hamlede şah</string>
+  <string name="attackTheOpponentsKing">Düşman şaha saldır</string>
+  <string name="checkInOneIntro">Şah çekmek için rakip şahı tehdit etmelisin. Rakibinin de şahını koruması gerekiyor!</string>
+  <string name="checkInOneGoal">Rakibe bir hamlede şah çek!</string>
+  <string name="checkInOneComplete">Çok güzel! Şah çekerek rakibi şahını korumaya zorladın!</string>
   <string name="mateInOne">Tek hamlede mat</string>
   <string name="castling">Rok atma</string>
   <string name="stalemate">Pat</string>
