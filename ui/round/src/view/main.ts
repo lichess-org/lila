@@ -14,10 +14,8 @@ import { render as keyboardMove } from '../keyboardMove';
 import RoundController from '../ctrl';
 import * as cg from 'chessground/types';
 
-function renderMaterial(material: cg.MaterialDiffSide, checks?: number, score?: number) {
+function renderMaterial(material: cg.MaterialDiffSide, score: number, checks?: number) {
   const children: VNode[] = [];
-  if (score || score === 0)
-    children.push(h('score', (score > 0 ? '+' : '') + score));
   let role: string, i: number;
   for (role in material) {
     if (material[role] > 0) {
@@ -27,6 +25,7 @@ function renderMaterial(material: cg.MaterialDiffSide, checks?: number, score?: 
     }
   }
   if (checks) for (i = 0; i < checks; i++) children.push(h('tomb', h('mono-piece.king')));
+  if (score > 0) children.push(h('score', '+' + score));
   return h('div.cemetery', children);
 }
 
@@ -68,7 +67,7 @@ export function main(ctrl: RoundController): VNode {
   cgState = ctrl.chessground && ctrl.chessground.state,
   topColor = d[ctrl.flip ? 'player' : 'opponent'].color,
   bottomColor = d[ctrl.flip ? 'opponent' : 'player'].color;
-  let material: cg.MaterialDiff, score: number | undefined = undefined;
+  let material: cg.MaterialDiff, score: number = 0;
   if (d.pref.showCaptured) {
     var pieces = cgState ? cgState.pieces : fenRead(plyStep(ctrl.data, ctrl.ply).fen);
     material = util.getMaterialDiff(pieces);
@@ -82,9 +81,9 @@ export function main(ctrl: RoundController): VNode {
     }, [
       d.blind ? blindBoard(ctrl) : visualBoard(ctrl),
       h('div.lichess_ground', [
-        crazyView(ctrl, topColor, 'top') || renderMaterial(material[topColor], d.player.checks, undefined),
+        crazyView(ctrl, topColor, 'top') || renderMaterial(material[topColor], -score, d.player.checks),
         renderTable(ctrl),
-        crazyView(ctrl, bottomColor, 'bottom') || renderMaterial(material[bottomColor], d.opponent.checks, score)
+        crazyView(ctrl, bottomColor, 'bottom') || renderMaterial(material[bottomColor], score, d.opponent.checks)
       ])
     ]),
     h('div.underboard', [
