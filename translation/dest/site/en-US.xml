@@ -89,6 +89,21 @@
   <string name="winPreventedBy50MoveRule">Win prevented by 50-move rule</string>
   <string name="lossSavedBy50MoveRule">Loss saved by 50-move rule</string>
   <string name="allSet">OK</string>
+  <string name="importPgn">Import PGN</string>
+  <string name="delete">Delete</string>
+  <string name="deleteThisImportedGame">Delete this imported game?</string>
+  <string name="replayMode">Replay mode</string>
+  <string name="realtimeReplay">Realtime</string>
+  <string name="byCPL">By CPL</string>
+  <string name="openStudy">Open study</string>
+  <string name="enable">Enable</string>
+  <string name="bestMoveArrow">Best move arrow</string>
+  <string name="evaluationGauge">Evaluation gauge</string>
+  <string name="multipleLines">Multiple lines</string>
+  <string name="cpus">CPUs</string>
+  <string name="memory">Memory</string>
+  <string name="infiniteAnalysis">Infinite analysis</string>
+  <string name="removesTheDepthLimit">Removes the depth limit, and keeps your computer warm</string>
   <string name="blunders">Blunders</string>
   <string name="mistakes">Mistakes</string>
   <string name="inaccuracies">Inaccuracies</string>
@@ -279,6 +294,8 @@
   <string name="fromPosition">From position</string>
   <string name="continueFromHere">Continue from here</string>
   <string name="importGame">Import game</string>
+  <string name="importGameExplanation">When pasting a game PGN you get a browsable replay,
+a computer analysis, a game chat and a sharable URL.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s imported game</item>
     <item quantity="other">%s imported games</item>
@@ -458,6 +475,7 @@
   <string name="closeAccountExplanation">Are you sure you want to close your account? Closing your account is a permanent decision. You will no longer be able to login, and your profile page will no longer be accessible.</string>
   <string name="thisAccountIsClosed">This account is closed.</string>
   <string name="invalidUsernameOrPassword">Invalid username or password</string>
+  <string name="incorrectPassword">Incorrect password</string>
   <string name="emailMeALink">Email me a link</string>
   <string name="currentPassword">Current password</string>
   <string name="newPassword">New password</string>
@@ -549,6 +567,7 @@
   <string name="error.email">This email address is invalid</string>
   <string name="error.email_acceptable">This email address is not acceptable</string>
   <string name="error.email_unique">This email address is already taken</string>
+  <string name="error.email_different">This is already your email address</string>
   <string name="blindfoldChess">Blindfold chess (invisible pieces)</string>
   <string name="moveConfirmation">Move confirmation</string>
   <string name="inCorrespondenceGames">Correspondence games</string>
@@ -635,6 +654,7 @@
   <string name="crosstable">Crosstable</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">You can also scroll over the board to move in the game.</string>
   <string name="analysisShapesHowTo">Press shift+click or right-click to draw circles and arrows on the board.</string>
+  <string name="confirmResignationAndDrawOffers">Confirm resignation and draw offers</string>
   <string name="inputMovesWithTheKeyboard">Input moves with the keyboard</string>
   <string name="letOtherPlayersMessageYou">Let other players message you</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Castling method</string>
@@ -677,6 +697,7 @@
   <string name="xLikesY">%1$s likes %2$s</string>
   <string name="quickPairing">Quick pairing</string>
   <string name="lobby">Lobby</string>
+  <string name="anonymous">Anonymous</string>
   <string name="yourScore">Your score: %s</string>
   <string name="language">Language</string>
   <string name="background">Background</string>
