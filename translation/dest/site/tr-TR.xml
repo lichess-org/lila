@@ -298,7 +298,7 @@
   <string name="tournamentIsStarting">Turnuva başlıyor</string>
   <string name="tournamentPairingsAreNowClosed">Turnuva eşleştirmeleri şu anda kapalıdır.</string>
   <string name="standByX">Biraz bekle %s, eşleştiriliyorsun, hazır ol!</string>
-  <string name="youArePlaying">Siz oynuyorsunuz!</string>
+  <string name="youArePlaying">Şu an oyundasınız!</string>
   <string name="winRate">Kazanma oranı</string>
   <string name="berserkRate">Divane modu oranı</string>
   <string name="performance">Performans</string>
