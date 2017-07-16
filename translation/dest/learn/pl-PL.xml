@@ -14,8 +14,13 @@
   <string name="grabAllTheStars">Zbierz wszystkie gwiazdki!</string>
   <string name="theFewerMoves">Czym mniej ruchów zrobisz tym więcej punktów zdobędziesz!</string>
   <string name="useTwoRooks">Użyj dwóch wież aby zrobić to szybciej!</string>
+  <string name="rookComplete">Gratulacje! Właśnie nauczyłeś się jak poruszać się wieżą.</string>
   <string name="theBishop">Goniec</string>
   <string name="itMovesDiagonally">Porusza się po skosach</string>
+  <string name="bishopIntro">Teraz dowiesz się jak manewrować gońcem!</string>
+  <string name="youNeedBothBishops">Jeden białopolowy goniec,
+jeden czarnopolowy goniec.
+Potrzebujesz ich obu!</string>
   <string name="bishopComplete">Gratulacje! Potrafisz poruszać się gońcem.</string>
   <string name="theQueen">Królowa</string>
   <string name="queenCombinesRookAndBishop">Królowa = wieża + goniec</string>
@@ -25,6 +30,7 @@
   <string name="kingIntro">To Ty Jesteś królem. Jeśli polegniesz w bitwie, przegrasz grę.</string>
   <string name="theKingIsSlow">Król jest bardzo powolny.</string>
   <string name="theKnight">Skoczek</string>
+  <string name="itMovesInAnLShape">Porusza się w kształt litery L</string>
   <string name="knightComplete">Gratulacje! Opanowałeś poruszanie się skoczkiem.</string>
   <string name="thePawn">Pion</string>
   <string name="itMovesForwardOnly">Porusza się tylko do przodu</string>
@@ -46,6 +52,7 @@ Czasami jednak skoczek może bardzo się przydać!</string>
   <string name="fundamentals">Podstawy</string>
   <string name="capture">Bicie</string>
   <string name="takeTheEnemyPieces">Zbij figury przeciwnika</string>
+  <string name="captureIntro">Znajdź niebronione figury przeciwnika i zbij je!</string>
   <string name="takeTheBlackPieces">Zbij czarne figury!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Zbij czarne figury! Nie strać żadnej swojej.</string>
   <string name="protection">Ochrona</string>
