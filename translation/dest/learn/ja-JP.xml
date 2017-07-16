@@ -29,10 +29,22 @@
   <string name="bishopComplete">おめでとう！　ビショップを使えるようになりました。</string>
   <string name="theQueen">クイーン</string>
   <string name="queenCombinesRookAndBishop">ルーク + ビショップ</string>
+  <string name="queenIntro">チェスでいちばん強力な駒、クイーンの登場です！</string>
+  <string name="queenComplete">おめでとう！　もうクイーンもだいじょうぶですね。</string>
   <string name="theKing">キング</string>
   <string name="theMostImportantPiece">いちばんだいじな駒</string>
+  <string name="kingIntro">キングは王様です。キングがやられるとゲームは負けです。</string>
+  <string name="theKingIsSlow">キングの動きは一歩ずつ。</string>
+  <string name="lastOne">最後です！</string>
+  <string name="kingComplete">キングの動きも覚えましたね！</string>
   <string name="theKnight">ナイト</string>
   <string name="itMovesInAnLShape">「L」字に動く</string>
+  <string name="knightIntro">ちょっと難しくなります。ナイトは変わった駒です。</string>
+  <string name="knightsHaveAFancyWay">ナイトは面白い動きで
+盤上を跳ねまわります！</string>
+  <string name="knightsCanJumpOverObstacles">ナイトは他の駒を跳びこえられます！
+外に出て星印を消してください！</string>
+  <string name="knightComplete">おめでとう！　ナイトもマスターしました。</string>
   <string name="thePawn">ポーン</string>
   <string name="itMovesForwardOnly">前にだけ動く</string>
   <string name="pawnIntro">ポーンは弱い駒ですが大きな可能性を秘めています。</string>
