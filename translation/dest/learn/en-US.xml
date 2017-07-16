@@ -119,6 +119,16 @@ She goes on her own color.</string>
 Right next to his queen.</string>
   <string name="pawnsFormTheFrontLine">Pawns form the front line.
 Make any move to continue.</string>
+  <string name="boardSetupComplete">Congratulations! You know how to setup the chess board.</string>
+  <string name="castling">Castling</string>
+  <string name="theSpecialKingMove">The special king move</string>
+  <string name="castlingIntro">Bring your king to safety, and deploy your rook for attack!</string>
+  <string name="castleKingSide">Move your king two squares
+to castle king side!</string>
+  <string name="castleQueenSide">Move your king two squares
+to castle queen side!</string>
+  <string name="theKnightIsInTheWay">The knight is in the way!
+Move it, then castle king-side.</string>
   <string name="opponentsFromAroundTheWorld">Opponents from around the world</string>
   <string name="playMachine">Play machine</string>
   <string name="testYourSkillsWithTheComputer">Test your skills with the computer</string>
