@@ -98,4 +98,13 @@
 ถ้าเบี้ยของคุณอยู่บนแรงค์ที่ 5</string>
   <string name="takeAllThePawnsEnPassant">ใช้การกินผ่านกับเบี้ยทั้งหมด!</string>
   <string name="enPassantComplete">ยินดีด้วย! คุณสามารถใช้การกินผ่านได้แล้ว</string>
+  <string name="stalemate">อับ</string>
+  <string name="theGameIsADraw">เกมเสมอกัน</string>
+  <string name="stalemateIntro">เมื่อผู้เล่นฝ่ายหนึ่งไม่ได้ถูกรุกและไม่อาจเดินต่อได้ตามกฎ มันคือการอับ ถือว่าเกมเสมอกัน: ไม่มีใครชนะ ไม่มีใครแพ้</string>
+  <string name="stalemateGoal">เพื่ออับดำ:
+- ดำไม่สามารถเดินต่อไปไหนได้
+- ไม่มีการรุก</string>
+  <string name="stalemateComplete">ยินดีด้วย! ถูกอับดีกว่าถูกรุกจน!</string>
+  <string name="advanced">ขั้นสูง</string>
+  <string name="pieceValue">ค่าของหมาก</string>
 </resources>
