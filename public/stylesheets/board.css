@@ -1040,6 +1040,7 @@ body.playing.zen #top > * {
   opacity: 0;
   transition: 1s;
 }
+body.playing.zen.offline #reconnecting,
 body.playing.zen .board_left:hover .side,
 body.playing.zen .board_left:hover #chat,
 body.playing.zen .underboard:hover,
