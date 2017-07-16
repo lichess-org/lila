@@ -89,6 +89,7 @@
   <string name="deleteThisImportedGame">Dieses importierte Spiel löschen?</string>
   <string name="replayMode">Wiedergabemodus</string>
   <string name="realtimeReplay">Echtzeit</string>
+  <string name="byCPL">Nach CPL</string>
   <string name="enable">Einschalten</string>
   <string name="bestMoveArrow">Pfeil für besten Zug</string>
   <string name="multipleLines">Mehrere Varianten</string>
@@ -544,7 +545,7 @@
   <string name="playOnTheBoardOffline">Spiele offline gegen Mensch</string>
   <string name="playOfflineComputer">Spiele offline gegen Computer</string>
   <string name="opponent">Gegner</string>
-  <string name="learn">Lernen</string>
+  <string name="learnMenu">Lernen</string>
   <string name="community">Gemeinschaft</string>
   <string name="tools">Werkzeuge</string>
   <string name="increment">Inkrement</string>
