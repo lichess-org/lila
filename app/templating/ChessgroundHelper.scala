@@ -18,11 +18,13 @@ trait ChessgroundHelper {
       val highlights = ctx.pref.highlight ?? lastMove.distinct.map { pos =>
         s"""<square class="last-move" style="top:${top(pos)}%;left:${left(pos)}%"></square>"""
       } mkString ""
-      val pieces = board.pieces.map {
-        case (pos, piece) =>
-          val klass = s"${piece.color.name} ${piece.role.name}"
-          s"""<piece class="$klass" style="top:${top(pos)}%;left:${left(pos)}%"></piece>"""
-      } mkString ""
+      val pieces =
+        if (ctx.pref.isBlindfold) ""
+        else board.pieces.map {
+          case (pos, piece) =>
+            val klass = s"${piece.color.name} ${piece.role.name}"
+            s"""<piece class="$klass" style="top:${top(pos)}%;left:${left(pos)}%"></piece>"""
+        } mkString ""
       s"$highlights$pieces"
     }
   }
