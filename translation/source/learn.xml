@@ -84,6 +84,8 @@ but you can defend!</string>
 any undefended piece!</string>
   <string name="combat">Combat</string>
   <string name="captureAndDefendPieces">Capture and defend pieces</string>
+  <string name="combatIntro">A good warrior knows both attack and defense!</string>
+  <string name="combatComplete">Congratulations! You know how to fight with chess pieces!</string>
   <string name="checkInOne">Check in one</string>
   <string name="attackTheOpponentsKing">Attack the opponent's king</string>
   <string name="outOfCheck">Out of check</string>
