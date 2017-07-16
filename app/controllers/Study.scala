@@ -183,7 +183,7 @@ object Study extends LilaController {
   def delete(id: String) = Auth { implicit ctx => me =>
     env.api.byIdAndOwner(id, me) flatMap {
       _ ?? env.api.delete
-    } inject Redirect(routes.Study.allDefault(1))
+    } inject Redirect(routes.Study.mine("hot"))
   }
 
   def clearChat(id: String) = Auth { implicit ctx => me =>
