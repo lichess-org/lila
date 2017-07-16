@@ -4,10 +4,20 @@
   <string name="menu">メニュー</string>
   <string name="chessPieces">チェスの駒</string>
   <string name="theRook">ルーク</string>
+  <string name="itMovesInStraightLines">縦横に動く</string>
   <string name="theBishop">ビショップ</string>
   <string name="itMovesDiagonally">斜めに動く</string>
   <string name="theQueen">クイーン</string>
   <string name="queenCombinesRookAndBishop">ルーク + ビショップ</string>
   <string name="theKing">キング</string>
   <string name="theMostImportantPiece">いちばんだいじな駒</string>
+  <string name="theKnight">ナイト</string>
+  <string name="itMovesInAnLShape">「L」字に動く</string>
+  <string name="thePawn">ポーン</string>
+  <string name="itMovesForwardOnly">前にだけ動く</string>
+  <string name="pawnIntro">ポーンは弱い駒ですが大きな可能性を秘めています。</string>
+  <string name="pawnsMoveOneSquareOnly">ポーンは前に 1 マスしか動けません。
+しかしボードの向こう側まで行くと別の強い駒に成れるのです！</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">ほとんどの場合はクイーンに成るべきです。
+ただしナイトに成るのがいい時もあります！</string>
 </resources>
