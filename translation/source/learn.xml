@@ -157,6 +157,17 @@ castle queen-side!</string>
   <string name="castlingComplete">Congratulations! You should almost always castle in a game.</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">The special pawn move</string>
+  <string name="enPassantIntro">When the opponent pawn moved by two squares, you can take it like if it moved by one square.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Black just moved the pawn
+by two squares!
+Take it en passant.</string>
+  <string name="enPassantOnlyWorksImmediately">En passant only works
+immediately after the opponent
+moved the pawn.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">En passant only works
+if your pawn is on the 5th rank.</string>
+  <string name="takeAllThePawnsEnPassant">Take all the pawns en passant!</string>
+  <string name="enPassantComplete">Congratulations! You can now take en passant.</string>
   <string name="stalemate">Stalemate</string>
   <string name="theGameIsADraw">The game is a draw</string>
   <string name="advanced">Advanced</string>
