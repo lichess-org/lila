@@ -22,6 +22,7 @@
   <string name="queenComplete">Gratulacje! Królowa nie ma dla Ciebie tajemnic.</string>
   <string name="theKing">Król</string>
   <string name="theMostImportantPiece">Najważniejsza figura</string>
+  <string name="kingIntro">To Ty Jesteś królem. Jeśli polegniesz w bitwie, przegrasz grę.</string>
   <string name="theKingIsSlow">Król jest bardzo powolny.</string>
   <string name="theKnight">Skoczek</string>
   <string name="knightComplete">Gratulacje! Opanowałeś poruszanie się skoczkiem.</string>
@@ -44,6 +45,7 @@ Czasami jednak skoczek może bardzo się przydać!</string>
   <string name="takeTheBlackPieces">Zbij czarne figury!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Zbij czarne figury! Nie strać żadnej swojej.</string>
   <string name="protection">Ochrona</string>
+  <string name="escape">Jesteś atakowany! Uciekaj przed zagrożeniem!</string>
   <string name="noEscape">Nie ma możliwości ucieczki ale można się obronić!</string>
   <string name="combat">Walka</string>
   <string name="captureAndDefendPieces">Bicie i obrona figur</string>
@@ -56,9 +58,11 @@ Czasami jednak skoczek może bardzo się przydać!</string>
   <string name="escapeWithTheKing">Odejdź królem!</string>
   <string name="theKingCannotEscapeButBlock">Król nie może uciec, ale możesz zablokować ten atak!</string>
   <string name="youCanGetOutOfCheckByTaking">Możesz obronić się przed szachem bijąc atakującą króla figurę.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Ten skoczek szachuje króla poprzez Twoją obronę!</string>
   <string name="escapeOrBlock">Odejdź królem lub zablokuj atak!</string>
   <string name="mateInOne">Mat w jednym posunięciu</string>
   <string name="mateInOneIntro">Wygrasz jeśli Twój przeciwnik nie będzie mógł obronić się przed szachem.</string>
+  <string name="mateInOneComplete">Gratulacje! Tak wygrywa się w szachy!</string>
   <string name="boardSetup">Ustawienie początkowe</string>
   <string name="howTheGameStarts">Jak zaczyna się gra</string>
   <string name="boardSetupIntro">Dwie armie stają naprzeciw siebie, gotowe do walki.</string>
@@ -102,6 +106,8 @@ Goniec = 3
 Skoczek = 3
 Pion = 1
 Król jest bezcenny! Tracąc króla przegrywasz grę.</string>
+  <string name="takeThePieceWithTheHighestValue">Zbij figurę o najwyższej wartości!</string>
+  <string name="checkInTwo">Szach w dwóch posunięciach</string>
   <string name="whatNext">Co dalej?</string>
   <string name="youKnowHowToPlayChess">Gratulacje! Wiesz już jak grać w szachy. Czy chcesz stać się silniejszym graczem?</string>
   <string name="register">Zarejestruj się</string>
