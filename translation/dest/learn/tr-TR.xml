@@ -35,7 +35,15 @@
   <string name="theKnight">At</string>
   <string name="itMovesInAnLShape">L şeklinde hareket eder</string>
   <string name="knightIntro">İşte şimdi zurnanın zırt dediği yere geldik. At biraz... çetrefilli bir taştır.</string>
+  <string name="knightsHaveAFancyWay">At oradan buraya zıplamasıyla meşhurdur.</string>
+  <string name="knightsCanJumpOverObstacles">At engellerin üstünden atlayabilir! Oradan kaç ve yıldızları alt et!</string>
+  <string name="knightComplete">Bravo! Atı iyice öğrendin.</string>
   <string name="thePawn">Piyon</string>
+  <string name="itMovesForwardOnly">Yalnızca ileri hareket eder</string>
+  <string name="pawnIntro">Piyon zayıf bir taştır ama içinde önemli bir güç taşır.</string>
+  <string name="pawnsMoveOneSquareOnly">Piyon hamle başına yalnızca bir kare ilerler. Ancak tahtanın karşı tarafına geçtiğinde daha güçlü bir taşa dönüşür!</string>
+  <string name="useAllThePawns">Tüm piyonlarını kullan!
+Terfiye gerek yok.</string>
   <string name="pawnPromotion">Piyon terfisi</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Piyonun tahtanın sonuna ulaştı!</string>
   <string name="itNowPromotesToAStrongerPiece">Şimdi daha değerli bir taşa terfi edecek.</string>
