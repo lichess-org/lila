@@ -5,17 +5,15 @@ var arrow = util.arrow,
 
 var imgUrl = util.assetUrl + 'images/learn/scales.svg';
 
-var goal = 'To stalemate black:<br>- Black cannot move anywhere<br>- There is no check.';
-
 module.exports = {
   key: 'stalemate',
-  title: 'Stalemate',
-  subtitle: 'The game is a draw',
+  title: 'stalemate',
+  subtitle: 'theGameIsADraw',
   image: imgUrl,
-  intro: 'When a player is not in check and does not have a legal move, it\'s a stalemate. The game is drawn: no one wins, no one loses.',
+  intro: 'stalemateIntro',
   illustration: util.roundSvg(imgUrl),
   levels: [{
-    goal: goal,
+    goal: 'stalemateGoal',
     fen: 'k7/8/8/6B1/8/1R6/8/8 w - -',
     shapes: [arrow('g5e3')],
     success: assert.scenarioComplete,
@@ -30,7 +28,7 @@ module.exports = {
     nextButton: true,
     showFailureFollowUp: true
   }, {
-    goal: goal,
+    goal: 'stalemateGoal',
     fen: '8/7p/4N2k/8/8/3N4/8/1K6 w - -',
     success: assert.scenarioComplete,
     failure: assert.scenarioFailed,
@@ -44,7 +42,7 @@ module.exports = {
     nextButton: true,
     showFailureFollowUp: true
   }, {
-    goal: goal,
+    goal: 'stalemateGoal',
     fen: '4k3/6p1/5p2/p4P2/PpB2N2/1K6/8/3R4 w - -',
     success: assert.scenarioComplete,
     failure: assert.scenarioFailed,
@@ -57,7 +55,7 @@ module.exports = {
     nextButton: true,
     showFailureFollowUp: true
   }, {
-    goal: goal,
+    goal: 'stalemateGoal',
     fen: '8/6pk/6np/7K/8/3B4/8/1R6 w - -',
     success: assert.scenarioComplete,
     failure: assert.scenarioFailed,
@@ -71,7 +69,7 @@ module.exports = {
     nextButton: true,
     showFailureFollowUp: true
   }, {
-    goal: goal,
+    goal: 'stalemateGoal',
     fen: '7R/pk6/p1pP4/K7/3BB2p/7p/1r5P/8 w - -',
     success: assert.scenarioComplete,
     failure: assert.scenarioFailed,
@@ -89,5 +87,5 @@ module.exports = {
     l.nbMoves = 1;
     return util.toLevel(l, i);
   }),
-  complete: 'Congratulations! Better be stalemated than checkmated!'
+  complete: 'stalemateComplete'
 };

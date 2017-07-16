@@ -170,6 +170,11 @@ if your pawn is on the 5th rank.</string>
   <string name="enPassantComplete">Congratulations! You can now take en passant.</string>
   <string name="stalemate">Stalemate</string>
   <string name="theGameIsADraw">The game is a draw</string>
+  <string name="stalemateIntro">When a player is not in check and does not have a legal move, it's a stalemate. The game is drawn: no one wins, no one loses.</string>
+  <string name="stalemateGoal">To stalemate black:
+- Black cannot move anywhere
+- There is no check.</string>
+  <string name="stalemateComplete">Congratulations! Better be stalemated than checkmated!</string>
   <string name="advanced">Advanced</string>
   <string name="pieceValue">Piece value</string>
   <string name="evaluatePieceStrength">Evaluate piece strength</string>
