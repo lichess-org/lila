@@ -6,6 +6,7 @@
   <string name="menu">Menu</string>
   <string name="progressX">Postęp: %s</string>
   <string name="resetMyProgress">Resetuj mój postęp</string>
+  <string name="youWillLoseAllYourProgress">Stracisz cały swój postęp!</string>
   <string name="play">graj!</string>
   <string name="chessPieces">Figury szachowe</string>
   <string name="theRook">Wieża</string>
@@ -57,14 +58,17 @@ Czasami jednak skoczek może bardzo się przydać!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Zbij czarne figury! Nie strać żadnej swojej.</string>
   <string name="protection">Ochrona</string>
   <string name="keepYourPiecesSafe">Zabezpiecz swoje figury</string>
+  <string name="protectionIntro">Znajdź figury które są atakowane i obroń je!</string>
   <string name="escape">Jesteś atakowany! Uciekaj przed zagrożeniem!</string>
   <string name="noEscape">Nie ma możliwości ucieczki ale można się obronić!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Nie pozwól, aby zbito niebronione figury!</string>
   <string name="combat">Walka</string>
   <string name="captureAndDefendPieces">Bicie i obrona figur</string>
   <string name="combatIntro">Dobry wojownik wie jak atakować i bronić się!</string>
   <string name="checkInOne">Szach w jednym posunięciu</string>
   <string name="attackTheOpponentsKing">Zaatakuj króla przeciwnika</string>
   <string name="checkInOneIntro">Aby zaszachować swojego przeciwnika, zaatakuj jego króla. Będzie musiał go obronić!</string>
+  <string name="checkInOneComplete">Gratulacje! Zaszachowałeś króla przeciwnika, zmuszając go do obrony!</string>
   <string name="defendYourKing">Chroń swojego króla</string>
   <string name="outOfCheckIntro">Zostałeś zaszachowany! Musisz uciekać lub obronić się przed atakiem.</string>
   <string name="escapeWithTheKing">Odejdź królem!</string>
@@ -115,6 +119,7 @@ Czasami jednak skoczek może bardzo się przydać!</string>
   <string name="stalemateComplete">Gratulacje! Lepiej dostać pata niż mata!</string>
   <string name="advanced">Zaawansowane</string>
   <string name="pieceValue">Wartości figur</string>
+  <string name="evaluatePieceStrength">Oceń siłę figury</string>
   <string name="pieceValueIntro">Figury mające większe możliwości poruszania się warte są więcej!
 Królowa = 9
 Wieża = 5
@@ -122,9 +127,18 @@ Goniec = 3
 Skoczek = 3
 Pion = 1
 Król jest bezcenny! Tracąc króla przegrywasz grę.</string>
+  <string name="queenOverBishop">Zbij figurę o największej wartości!
+królowa &gt; goniec</string>
   <string name="takeThePieceWithTheHighestValue">Zbij figurę o najwyższej wartości!</string>
+  <string name="pieceValueComplete">Gratulacje! Znasz wartości poszczególnych figur!
+Królowa = 9
+Wieża = 5
+Goniec = 3
+Skoczek = 3
+Pion = 1</string>
   <string name="checkInTwo">Szach w dwóch posunięciach</string>
   <string name="twoMovesToGiveCheck">Szach w dwóch ruchach</string>
+  <string name="checkInTwoIntro">Znajdź właściwą kombinację dwóch ruchów, tak aby zaszachować króla przeciwnika!</string>
   <string name="checkInTwoGoal">Zaatakuj króla przeciwnika w dwóch ruchach!</string>
   <string name="checkInTwoComplete">Gratulacje! Zaszachowałeś króla przeciwnika, zmuszając go do obrony!</string>
   <string name="whatNext">Co dalej?</string>
@@ -135,6 +149,7 @@ Król jest bezcenny! Tracąc króla przegrywasz grę.</string>
   <string name="puzzles">Zadania szachowe</string>
   <string name="videos">Filmy</string>
   <string name="playPeople">Zagraj z innymi</string>
+  <string name="opponentsFromAroundTheWorld">Przeciwnicy z całego świata</string>
   <string name="playMachine">Zagraj z komputerem</string>
   <string name="testYourSkillsWithTheComputer">Przetestuj swoje umiejętności z komputerem</string>
   <string name="letsGo">Zaczynajmy!</string>
@@ -143,6 +158,9 @@ Król jest bezcenny! Tracąc króla przegrywasz grę.</string>
   <string name="excellent">Doskonale!</string>
   <string name="greatJob">Dobra robota!</string>
   <string name="perfect">Perfekcyjnie!</string>
+  <string name="youreGoodAtThis">Jesteś w tym dobry!</string>
+  <string name="rightOn">Tak jest!</string>
+  <string name="stageXComplete">Etap %s kompletny</string>
   <string name="yourScore">Twój wynik</string>
   <string name="next">Dalej</string>
   <string name="backToMenu">Powrót do menu</string>
