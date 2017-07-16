@@ -30,7 +30,7 @@
   <string name="theQueen">ควีน</string>
   <string name="queenCombinesRookAndBishop">ควีน = เรือ + บิชอป</string>
   <string name="queenIntro">เข้าสู่ตัวหมากรุกที่ประสิทธิภาพสูงสุด สมเด็จพระราชินี!</string>
-  <string name="queenComplete">ยินดีด้วย! ควีนไม่มีความลับใดต่อคุณ</string>
+  <string name="queenComplete">ยินดีด้วย! ควีนไม่มีความลับใดต่อคุณแล้ว</string>
   <string name="theKing">คิง</string>
   <string name="theMostImportantPiece">ชิ้นที่สำคัญที่สุด</string>
   <string name="kingIntro">คุณคือกษัตริย์ ถ้าคุณล้มอยู่ในการสู้รบ เกมจะพ่ายแพ้</string>
@@ -56,4 +56,24 @@
   <string name="captureThenPromote">จับกิน, แล้วเลื่อนขั้น!</string>
   <string name="useAllThePawns">ใช้เบี้ยทั้งหมด!
 ไม่จำเป็นต้องเลื่อนขั้น</string>
+  <string name="aPawnOnTheSecondRank">เบี้ยในแรงค์ที่สองสามารถเดิน 2 ช่องได้ในครั้งเดียว!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">คว้าดาวทั้งหมด!
+ไม่จำเป็นต้องเลื่อนขั้น</string>
+  <string name="pawnComplete">ยินดีด้วย! เบี้ยไม่มีความลับใดต่อคุณแล้ว</string>
+  <string name="pawnPromotion">การเลื่อนขั้นเบี้ย</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">เบี้ยของคุณไปถึงจุดสิ้นสุดของกระดาน!</string>
+  <string name="boardSetupComplete">ยินดีด้วย! คุณรู้วิธีจัดการกระดานหมากรุกแล้ว</string>
+  <string name="castling">การเข้าป้อม</string>
+  <string name="theSpecialKingMove">การเดินคิงแบบพิเศษ</string>
+  <string name="castlingIntro">นำคิงของคุณไปที่ปลอดภัย และเคลื่อนเรือของคุณเพื่อการโจมตี!</string>
+  <string name="castleKingSide">เดินคิงของคุณสองช่อง
+เพื่อเข้าป้อมด้านคิง!</string>
+  <string name="castleQueenSide">เดินคิงของคุณสองช่อง
+เพื่อเข้าป้อมด้านควีน!</string>
+  <string name="theKnightIsInTheWay">อัศวินขวางทางอยู่!
+เดินมัน แล้วเข้าป้อมด้านคิง</string>
+  <string name="castleKingSideMovePiecesFirst">เข้าป้อมด้านคิง!
+คุณต้องเดินหมากออกไปก่อน</string>
+  <string name="castleQueenSideMovePiecesFirst">เข้าป้อมด้านควีน!
+คุณต้องเดินหมากออกไปก่อน</string>
 </resources>
