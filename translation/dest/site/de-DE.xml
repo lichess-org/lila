@@ -72,7 +72,7 @@
   <string name="averageRatingX">Durchschnittliche Wertungszahl: %s</string>
   <string name="recentGames">Neue Partien</string>
   <string name="topGames">Spitzenpartien</string>
-  <string name="masterDbExplanation">Zwei Millionen OTB-Partien von Spielern mit einer Wertungszahl 2200+ FIDE aus den Jahren 1952 bis 2016</string>
+  <string name="masterDbExplanation">Zwei Millionen OTB-Partien von Spielern mit einer Wertungszahl über %1$s FIDE aus den Jahren %2$s bis %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Matt in %s Halbzug</item>
     <item quantity="other">Matt in %s Halbzügen</item>
