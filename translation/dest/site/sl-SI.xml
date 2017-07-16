@@ -555,6 +555,12 @@
   <string name="tournamentMayHaveBeenCanceled">Lahko je odpovedan, če so vsi igralci zapustili turnir preden se je začel.</string>
   <string name="returnToTournamentsHomepage">Vrni se na domačo stran turnirjev</string>
   <string name="weeklyPerfTypeRatingDistribution">Mesečna porazdelitev %s ratinga</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">%1$s %2$s igralec v tem tednu.</item>
+    <item quantity="two">%1$s %2$s igralca v tem tednu.</item>
+    <item quantity="few">%1$s %2$s igralci v tem tednu.</item>
+    <item quantity="other">%1$s %2$s igralcev v tem tednu.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">Tvoj %1$s rating je %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Boljši si od %1$s %2$s igralcev.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Tvoj %s rating še ni uveljavljen.</string>
@@ -574,10 +580,19 @@
   <string name="crosstable">Medsebojni dvoboji</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Lahko se skozi partijo pomikaš tudi z miško</string>
   <string name="analysisShapesHowTo">Pritisni shift+klik ali desni klik za risanje krožcev in puščic po šahovnici</string>
+  <string name="confirmResignationAndDrawOffers">Potrdi predajo in ponudbo remija</string>
+  <string name="inputMovesWithTheKeyboard">Vnos potez prek tipkovnice</string>
   <string name="letOtherPlayersMessageYou">Dovoli drugim pisanje sporočil tebi</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Način rokade</string>
+  <string name="castleByMovingTwoSquares">Premakni kralja za dve potezi</string>
+  <string name="castleByMovingOntoTheRook">Premakni kralja na trdnjavo</string>
   <string name="shareYourInsightsData">Deli svoje statistične podatke</string>
+  <string name="withNobody">Z nikomer</string>
+  <string name="withFriends">S prijatelji</string>
+  <string name="withEverybody">Z vsemi</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Tvoj email %s je že registriran</string>
   <string name="kidMode">Način za otroke</string>
+  <string name="kidModeExplanation">To je o varnosti. V načinu za otroke so vsi pogovori onemogočeni. Omogočite ta način, da otroke in šolarje zaščitite pred drugimi uporabniki na internetu.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">V načinu za otroke ima lichess ikono %s in označuje da so otroci varni.</string>
   <string name="enableKidMode">Vključite otroški način</string>
   <string name="disableKidMode">Izključite otroški način</string>
