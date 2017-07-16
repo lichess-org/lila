@@ -31,4 +31,29 @@
   <string name="queenCombinesRookAndBishop">ควีน = เรือ + บิชอป</string>
   <string name="queenIntro">เข้าสู่ตัวหมากรุกที่ประสิทธิภาพสูงสุด สมเด็จพระราชินี!</string>
   <string name="queenComplete">ยินดีด้วย! ควีนไม่มีความลับใดต่อคุณ</string>
+  <string name="theKing">คิง</string>
+  <string name="theMostImportantPiece">ชิ้นที่สำคัญที่สุด</string>
+  <string name="kingIntro">คุณคือกษัตริย์ ถ้าคุณล้มอยู่ในการสู้รบ เกมจะพ่ายแพ้</string>
+  <string name="theKingIsSlow">คิงนั้นเชื่องช้า</string>
+  <string name="lastOne">ท้ายสุด!</string>
+  <string name="kingComplete">ตอนนี้คุณสามารถสั่งผู้บัญชาการได้แล้ว!</string>
+  <string name="theKnight">อัศวิน</string>
+  <string name="itMovesInAnLShape">มันจะเดินแนวรูปตัว L</string>
+  <string name="knightIntro">นี่คือความท้าทายสำหรับคุณ อัศวินคือ... ชิ้นส่วนเล่ห์เหลี่ยม</string>
+  <string name="knightsHaveAFancyWay">อัศวินมีวิธีการกระโดดไปรอบๆอย่างแพรวพราว!</string>
+  <string name="knightsCanJumpOverObstacles">อัศวินสามารถกระโดดข้ามอุปสรรค!
+หลบหนีและพิชิตดวงดาว!</string>
+  <string name="knightComplete">ยินดีด้วย! คุณได้เรียนรู้อัศวินแล้ว</string>
+  <string name="thePawn">เบี้ย</string>
+  <string name="itMovesForwardOnly">มันเดินไปข้างหน้าเท่านั้น</string>
+  <string name="pawnIntro">เบี้ยอ่อนแอ แต่พวกมันบรรจุศักยภาพไว้มาก</string>
+  <string name="pawnsMoveOneSquareOnly">เบี้ยเดินหนึ่งช่องเท่านั้น
+แต่เมื่อพวกมันเดินไปถึงอีกด้านของกระดาน พวกมันจะกลายเป็นชิ้นที่แข็งแกร่งขึ้น!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">โดยส่วนมากการเลื่อนขั้นเป็นควีนจะถือว่าดีที่สุด
+แต่บางครั้งอัศวินก็สามารถมาได้ตามสะดวก!</string>
+  <string name="pawnsMoveForward">เบี้ยเดินไปหน้า
+แต่จับกินตามแนวทแยง!</string>
+  <string name="captureThenPromote">จับกิน, แล้วเลื่อนขั้น!</string>
+  <string name="useAllThePawns">ใช้เบี้ยทั้งหมด!
+ไม่จำเป็นต้องเลื่อนขั้น</string>
 </resources>
