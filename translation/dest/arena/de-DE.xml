@@ -17,7 +17,7 @@ Beispiel: Zwei Siege, gefolgt von einem Remis sind 6 Punkte wert: 2 + 2 + (2 x 1
 
 In einem Zeitmodus mit Inkrement entfernt \"Berserk\" das Inkrement (1+2 ist eine Ausnahme, es wird zu 1+0).
 
-Für Spiele mit keiner Startzeit ist \"Berserk\" nicht verfügbar. (0+1, 0+2).
+Für Spiele mit keiner Startzeit (0+1, 0+2) ist \"Berserk\" nicht verfügbar.
 
 Der zusätzliche Punkt für \"Beserk\" wird nur gewährt, wenn du mindestens sieben Züge im Spiel gemacht hast.</string>
   <string name="howIsTheWinnerDecided">Wie wird der Gewinner ermittelt?</string>
