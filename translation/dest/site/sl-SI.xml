@@ -72,6 +72,21 @@
   <string name="averageRatingX">Povprečni rating %s</string>
   <string name="recentGames">Prejšnje partije</string>
   <string name="topGames">Najboljše partije</string>
+  <string name="masterDbExplanation">Dva milijona iger na šahovnici med igralci s FIDE ratingom %1$s ali več od leta %2$s do %3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Mat v %s pol-potezi</item>
+    <item quantity="two">Mat v %s pol-potezah</item>
+    <item quantity="few">Mat v %s pol-potezah</item>
+    <item quantity="other">Mat v %s pol-potezah</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Naslednje jemanje ali premik meta čez %s pol-potezo (do pravila 50 potez)</item>
+    <item quantity="two">Naslednje jemanje ali premik meta čez %s pol-potezi (do pravila 50 potez)</item>
+    <item quantity="few">Naslednje jemanje ali premik meta čez %s pol-potezi (do pravila 50 potez)</item>
+    <item quantity="other">Naslednje jemanje ali premik meta čez %s pol-potezi (do pravila 50 potez)</item>
+  </plurals>
+  <string name="noGameFound">Igra ni najdena</string>
+  <string name="alreadySearchingThroughAllAvailableGames">Vse razpoložljive partije se že iščejo</string>
   <string name="openingExplorer">Raziskovalec otovritev</string>
   <string name="blunders">Grobe napake</string>
   <string name="mistakes">Napake</string>
