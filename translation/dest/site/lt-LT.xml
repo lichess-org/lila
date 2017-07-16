@@ -56,6 +56,9 @@
   <string name="showThreat">Rodyti grėsmę</string>
   <string name="inLocalBrowser">vietinėje naršyklėje</string>
   <string name="toggleLocalEvaluation">Perjungti vietinį įvertinimą</string>
+  <string name="move">Ėjimas</string>
+  <string name="variantLoss">Variantinis pralaimėjimas</string>
+  <string name="variantWin">Variantinė pergalė</string>
   <string name="openingExplorer">Debiutų naršyklė</string>
   <string name="blunders">Šiurkščios klaidos</string>
   <string name="mistakes">Klaidos</string>
