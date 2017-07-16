@@ -99,10 +99,13 @@ Terfiye gerek yok.</string>
   <string name="greatJob">İyi iş çıkardın!</string>
   <string name="perfect">Mükemmel!</string>
   <string name="outstanding">Müthiş!</string>
+  <string name="yesYesYes">Evet!</string>
   <string name="youreGoodAtThis">Çözdün bu işi!</string>
+  <string name="nailedIt">Oldu bitti.</string>
   <string name="rightOn">İşte böyle!</string>
   <string name="yourScore">Puanın</string>
   <string name="next">Sıradaki</string>
   <string name="backToMenu">Menüye geri dön</string>
+  <string name="puzzleFailed">Bulmaca çözülemedi!</string>
   <string name="retry">Tekrar dene</string>
 </resources>
