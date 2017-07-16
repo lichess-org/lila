@@ -17,8 +17,8 @@ function keyListFrom(name) {
       const keys = strings.concat(plurals);
       resolve({
         name: name,
-        code: keys.map(k => 'val `' + k + '` = new Translated("' + k + '", ' + ucfirst(name) + ')').join('\n'),
-        all: needsKeys.includes(name) && 'val allKeys = List(' + keys.map(k => '`' + k + '`').join(', ') + ')'
+        code: keys.map(k => 'val `' + k + '` = new Translated("' + k + '", ' + ucfirst(name) + ')').join('\n') + '\n',
+        all: needsKeys.includes(name) && 'val allKeys = List(' + keys.map(k => '`' + k + '`').join(', ') + ')\n'
       });
     }));
   });
@@ -27,8 +27,8 @@ function keyListFrom(name) {
 Promise.all(dbs.map(keyListFrom)).then(objs => {
   function dbCode(obj) {
     return obj.name === 'site' ?
-      `${obj.code}\n` :
-      `object ${obj.name} {\n${obj.code}\n${obj.all || ''}\n}\n`;
+      obj.code :
+      `object ${obj.name} {\n${obj.code}${obj.all || ''}}\n`;
   }
   const code = `// Generated with bin/trans-dump.js
 package lila.i18n
@@ -41,7 +41,8 @@ object I18nKeys {
 def untranslated(message: String) = new Untranslated(message)
 
 ${objs.map(dbCode).join('\n')}
-}`;
+}
+`;
 
   fs.writeFile('modules/i18n/src/main/I18nKeys.scala', code);
 });

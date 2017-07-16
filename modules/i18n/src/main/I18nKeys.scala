@@ -672,7 +672,6 @@ val `otherRules` = new Translated("otherRules", Arena)
 val `otherRulesAnswer` = new Translated("otherRulesAnswer", Arena)
 val `thisIsPrivate` = new Translated("thisIsPrivate", Arena)
 val `shareUrl` = new Translated("shareUrl", Arena)
-
 }
 
 object emails {
@@ -687,7 +686,6 @@ val `emailChange_intro` = new Translated("emailChange_intro", Emails)
 val `emailChange_click` = new Translated("emailChange_click", Emails)
 val `common_orPaste` = new Translated("common_orPaste", Emails)
 val `common_note` = new Translated("common_note", Emails)
-
 }
 
 object learn {
