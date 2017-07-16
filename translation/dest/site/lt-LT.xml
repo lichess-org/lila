@@ -73,7 +73,30 @@
   <string name="recentGames">Paskiausios partijos</string>
   <string name="topGames">Geriausios partijos</string>
   <string name="masterDbExplanation">Du milijonai OTB (prie lentos) partijų, sužaistų %1$s+ FIDE vertinamų žaidėjų, nuo 1952 iki 2017 m.</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Matas už %s pus-ėjimo</item>
+    <item quantity="few">Matas už %s pus-ėjimų</item>
+    <item quantity="other">Matas už %s pus-ėjimų</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Kitas kirtimas arba ėjimas pėstininku per %s pus-ėjimą (50-ies ėjimų ribos „Distance To Zeroing“)</item>
+    <item quantity="few">Kitas kirtimas arba ėjimas pėstininku per %s pus-ėjimus (50-ies ėjimų ribos „Distance To Zeroing“)</item>
+    <item quantity="other">Kitas kirtimas arba ėjimas pėstininku per %s pus-ėjimų (50-ies ėjimų ribos „Distance To Zeroing“)</item>
+  </plurals>
+  <string name="noGameFound">Partijų nerasta</string>
+  <string name="alreadySearchingThroughAllAvailableGames">Ieškoma tarp visų esamų partijų</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Galbūt įtraukti daugiau partijų iš parinkčių meniu?</string>
   <string name="openingExplorer">Debiutų naršyklė</string>
+  <string name="xOpeningExplorer">%s debiutų naršyklė</string>
+  <string name="winPreventedBy50MoveRule">Pergalei sukliudė 50-ies ėjimų taisyklė</string>
+  <string name="lossSavedBy50MoveRule">Pralaimėjimo išvengta dėl 50-ies ėjimų taisyklės</string>
+  <string name="allSet">Viskas paruošta!</string>
+  <string name="importPgn">Įkelti PGN</string>
+  <string name="delete">Šalinti</string>
+  <string name="deleteThisImportedGame">Pašalinti šią importuotą partiją?</string>
+  <string name="replayMode">Peržiūros režimas</string>
+  <string name="realtimeReplay">Realiu laiku</string>
+  <string name="byCPL">Pagal įvertį</string>
   <string name="blunders">Šiurkščios klaidos</string>
   <string name="mistakes">Klaidos</string>
   <string name="inaccuracies">Netikslumai</string>
