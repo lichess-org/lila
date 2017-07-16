@@ -42,12 +42,21 @@
   <string name="itMovesForwardOnly">Yalnızca ileri hareket eder</string>
   <string name="pawnIntro">Piyon zayıf bir taştır ama içinde önemli bir güç taşır.</string>
   <string name="pawnsMoveOneSquareOnly">Piyon hamle başına yalnızca bir kare ilerler. Ancak tahtanın karşı tarafına geçtiğinde daha güçlü bir taşa dönüşür!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Çoğu zaman piyonu vezire terfi ettirmek en iyisidir. Ancak bazı zamanlar bir at da önemli işler görebilir!</string>
+  <string name="pawnsMoveForward">Piyon ileriye doğru hareket eder ama çapraz yer!</string>
+  <string name="captureThenPromote">Yıldızları ye, sonra da piyonu terfi ettir!</string>
   <string name="useAllThePawns">Tüm piyonlarını kullan!
 Terfiye gerek yok.</string>
+  <string name="aPawnOnTheSecondRank">Başlangıç noktasındaki bir piyon 2 kare ilerleyebilir!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Tüm yıldızları topla! Terfi ettirmene gerek yok.</string>
+  <string name="pawnComplete">Tebrikler! Artık piyonların da senden bir gizlisi saklısı yok.</string>
   <string name="pawnPromotion">Piyon terfisi</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Piyonun tahtanın sonuna ulaştı!</string>
   <string name="itNowPromotesToAStrongerPiece">Şimdi daha değerli bir taşa terfi edecek.</string>
   <string name="selectThePieceYouWant">Dilediğin taşı seç!</string>
+  <string name="fundamentals">Temel Prensipler</string>
+  <string name="capture">Taş yemek</string>
+  <string name="takeTheEnemyPieces">Düşman taşlarını ele geçir</string>
   <string name="checkInOne">Tek hamlede şah</string>
   <string name="mateInOne">Tek hamlede mat</string>
   <string name="castling">Rok atma</string>
