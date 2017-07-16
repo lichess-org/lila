@@ -129,8 +129,98 @@ to castle king side!</string>
 to castle queen side!</string>
   <string name="theKnightIsInTheWay">The knight is in the way!
 Move it, then castle king-side.</string>
+  <string name="castleKingSideMovePiecesFirst">Castle king-side!
+You need to move out pieces first.</string>
+  <string name="castleQueenSideMovePiecesFirst">Castle queen-side!
+You need to move out pieces first.</string>
+  <string name="youCannotCastleIfMoved">You cannot castle if
+the king has already moved
+or the rook has already moved.</string>
+  <string name="youCannotCastleIfAttacked">You cannot castle if
+the king is attacked on the way.
+Block the check then castle!</string>
+  <string name="findAWayToCastleKingSide">Find a way to
+castle king-side!</string>
+  <string name="findAWayToCastleQueenSide">Find a way to
+castle queen-side!</string>
+  <string name="castlingComplete">Congratulations! You should almost always castle in a game.</string>
+  <string name="enPassant">En passant</string>
+  <string name="theSpecialPawnMove">The special pawn move</string>
+  <string name="enPassantIntro">When the opponent pawn moved by two squares, you can take it like if it moved by one square.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Black just moved the pawn
+by two squares!
+Take it en passant.</string>
+  <string name="enPassantOnlyWorksImmediately">En passant only works
+immediately after the opponent
+moved the pawn.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">En passant only works
+if your pawn is on the 5th rank.</string>
+  <string name="takeAllThePawnsEnPassant">Take all the pawns en passant!</string>
+  <string name="enPassantComplete">Congratulations! You can now take en passant.</string>
+  <string name="stalemate">Stalemate</string>
+  <string name="theGameIsADraw">The game is a draw</string>
+  <string name="stalemateIntro">When a player is not in check and does not have a legal move, it\'s a stalemate. The game is drawn: no one wins, no one loses.</string>
+  <string name="stalemateGoal">To stalemate black:
+- Black cannot move anywhere
+- There is no check.</string>
+  <string name="stalemateComplete">Congratulations! Better be stalemated than checkmated!</string>
+  <string name="advanced">Advanced</string>
+  <string name="pieceValue">Piece value</string>
+  <string name="evaluatePieceStrength">Evaluate piece strength</string>
+  <string name="pieceValueIntro">Pieces with high mobility have a higher value!
+Queen = 9
+Rook = 5
+Bishop = 3
+Knight = 3
+Pawn = 1
+The king is priceless! Losing it is losing the game.</string>
+  <string name="queenOverBishop">Take the piece
+with the highest value!
+Queen &gt; Bishop</string>
+  <string name="takeThePieceWithTheHighestValue">Take the piece
+with the highest value!</string>
+  <string name="pieceValueComplete">Congratulations! You know the value of material!
+Queen = 9
+Rook = 5
+Bishop = 3
+Knight = 3
+Pawn = 1</string>
+  <string name="checkInTwo">Check in two</string>
+  <string name="twoMovesToGiveCheck">Two moves to give a check</string>
+  <string name="checkInTwoIntro">Find the right combination of two moves that checks the opponent king!</string>
+  <string name="checkInTwoGoal">Threaten the opponent king
+in two moves!</string>
+  <string name="checkInTwoComplete">Congratulations! You checked your opponent, forcing them to defend their king!</string>
+  <string name="whatNext">What next?</string>
+  <string name="youKnowHowToPlayChess">You know how to play chess, congratulations! Do you want to become a stronger player?</string>
+  <string name="register">Register</string>
+  <string name="getAFreeLichessAccount">Get a free Lichess account</string>
+  <string name="practice">Practise</string>
+  <string name="learnCommonChessPositions">Learn common chess positions</string>
+  <string name="puzzles">Puzzles</string>
+  <string name="exerciseYourTacticalSkills">Excercise your tactical skills</string>
+  <string name="videos">Videos</string>
+  <string name="watchInstructiveChessVideos">Watch instructive chess videos</string>
+  <string name="playPeople">Play people</string>
   <string name="opponentsFromAroundTheWorld">Opponents from around the world</string>
   <string name="playMachine">Play machine</string>
   <string name="testYourSkillsWithTheComputer">Test your skills with the computer</string>
   <string name="letsGo">Let\'s go!</string>
+  <string name="stageX">Stage %s</string>
+  <string name="awesome">Awesome!</string>
+  <string name="excellent">Excellent!</string>
+  <string name="greatJob">Great job!</string>
+  <string name="perfect">Perfect!</string>
+  <string name="outstanding">Outstanding!</string>
+  <string name="wayToGo">Way to go!</string>
+  <string name="yesYesYes">Yes, yes, yes!</string>
+  <string name="youreGoodAtThis">You\'re good at this!</string>
+  <string name="nailedIt">Nailed it.</string>
+  <string name="rightOn">Right on!</string>
+  <string name="stageXComplete">Stage %s complete</string>
+  <string name="yourScore">Your score</string>
+  <string name="next">Next</string>
+  <string name="backToMenu">Back to menu</string>
+  <string name="puzzleFailed">Puzzle failed!</string>
+  <string name="retry">Retry</string>
 </resources>
