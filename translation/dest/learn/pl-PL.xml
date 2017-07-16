@@ -22,6 +22,7 @@
   <string name="queenComplete">Gratulacje! Królowa nie ma dla Ciebie tajemnic.</string>
   <string name="theKing">Król</string>
   <string name="theMostImportantPiece">Najważniejsza figura</string>
+  <string name="theKingIsSlow">Król jest bardzo powolny.</string>
   <string name="theKnight">Skoczek</string>
   <string name="knightComplete">Gratulacje! Opanowałeś poruszanie się skoczkiem.</string>
   <string name="thePawn">Pion</string>
@@ -29,12 +30,32 @@
   <string name="pawnIntro">Piony są słabe, ale mają w sobie duży potencjał.</string>
   <string name="pawnsMoveOneSquareOnly">Piony poruszają się tylko o jedno pole. 
 Ale jeśli dojdą do ostatniej linii mogą zamienić się w silniejszą figurę!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">W większości przypadków promowanie piona do królowej jest najlepszym wyborem. 
+Czasami jednak skoczek może bardzo się przydać!</string>
   <string name="pawnsMoveForward">Pionki poruszają się do przodu ale biją po przekątnej!</string>
+  <string name="pawnComplete">Gratulacje! Piony nie mają przed Tobą tajemnic.</string>
   <string name="pawnPromotion">Promocja piona</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Twój pion dotarł do ostatniej linii!</string>
+  <string name="itNowPromotesToAStrongerPiece">Teraz zostaje promowany do silniejszej figury.</string>
+  <string name="selectThePieceYouWant">Wybierz figurę, którą chcesz!</string>
+  <string name="fundamentals">Podstawy</string>
+  <string name="capture">Bicie</string>
+  <string name="takeTheEnemyPieces">Zbij figury przeciwnika</string>
+  <string name="takeTheBlackPieces">Zbij czarne figury!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Zbij czarne figury! Nie strać żadnej swojej.</string>
+  <string name="protection">Ochrona</string>
+  <string name="noEscape">Nie ma możliwości ucieczki ale można się obronić!</string>
+  <string name="combat">Walka</string>
+  <string name="captureAndDefendPieces">Bicie i obrona figur</string>
+  <string name="combatIntro">Dobry wojownik wie jak atakować i bronić się!</string>
+  <string name="checkInOne">Szach w jednym posunięciu</string>
+  <string name="attackTheOpponentsKing">Zaatakuj króla przeciwnika</string>
   <string name="checkInOneIntro">Aby zaszachować swojego przeciwnika, zaatakuj jego króla. Będzie musiał go obronić!</string>
   <string name="defendYourKing">Chroń swojego króla</string>
+  <string name="outOfCheckIntro">Zostałeś zaszachowany! Musisz uciekać lub obronić się przed atakiem.</string>
   <string name="escapeWithTheKing">Odejdź królem!</string>
   <string name="theKingCannotEscapeButBlock">Król nie może uciec, ale możesz zablokować ten atak!</string>
+  <string name="youCanGetOutOfCheckByTaking">Możesz obronić się przed szachem bijąc atakującą króla figurę.</string>
   <string name="escapeOrBlock">Odejdź królem lub zablokuj atak!</string>
   <string name="mateInOne">Mat w jednym posunięciu</string>
   <string name="mateInOneIntro">Wygrasz jeśli Twój przeciwnik nie będzie mógł obronić się przed szachem.</string>
@@ -85,12 +106,19 @@ Król jest bezcenny! Tracąc króla przegrywasz grę.</string>
   <string name="youKnowHowToPlayChess">Gratulacje! Wiesz już jak grać w szachy. Czy chcesz stać się silniejszym graczem?</string>
   <string name="register">Zarejestruj się</string>
   <string name="getAFreeLichessAccount">Załóż darmowe konto Lichess</string>
+  <string name="puzzles">Zadania szachowe</string>
   <string name="videos">Filmy</string>
   <string name="playPeople">Zagraj z innymi</string>
   <string name="playMachine">Zagraj z komputerem</string>
   <string name="testYourSkillsWithTheComputer">Przetestuj swoje umiejętności z komputerem</string>
   <string name="letsGo">Zaczynajmy!</string>
+  <string name="stageX">Etap %s</string>
+  <string name="awesome">Niesamowite!</string>
+  <string name="excellent">Doskonale!</string>
   <string name="greatJob">Dobra robota!</string>
+  <string name="perfect">Perfekcyjnie!</string>
   <string name="yourScore">Twój wynik</string>
+  <string name="next">Dalej</string>
+  <string name="backToMenu">Powrót do menu</string>
   <string name="retry">Spróbuj jeszcze raz</string>
 </resources>
