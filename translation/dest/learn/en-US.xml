@@ -51,4 +51,76 @@
   <string name="pawnComplete">Congratulations! Pawns have no secrets for you.</string>
   <string name="pawnPromotion">Pawn promotion</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Your pawn reached the end of the board!</string>
+  <string name="itNowPromotesToAStrongerPiece">It now promotes to a stronger piece.</string>
+  <string name="selectThePieceYouWant">Select the piece you want!</string>
+  <string name="fundamentals">Fundamentals</string>
+  <string name="capture">Capture</string>
+  <string name="takeTheEnemyPieces">Take the enemy pieces</string>
+  <string name="captureIntro">Identify the opponent\'s undefended pieces, and capture them!</string>
+  <string name="takeTheBlackPieces">Take the black pieces!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Take the black pieces!
+And don\'t lose yours.</string>
+  <string name="captureComplete">Congratulations! You know how to fight with chess pieces!</string>
+  <string name="protection">Protection</string>
+  <string name="keepYourPiecesSafe">Keep your pieces safe</string>
+  <string name="protectionIntro">Identify the pieces your opponent attacks, and defend them!</string>
+  <string name="protectionComplete">Congratulations! A piece you don\'t lose is a piece you win!</string>
+  <string name="escape">You\'re under attack!
+Escape the threat!</string>
+  <string name="noEscape">There is no escape,
+but you can defend!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Don\'t let them take
+any undefended piece!</string>
+  <string name="combat">Combat</string>
+  <string name="captureAndDefendPieces">Capture and defend pieces</string>
+  <string name="combatIntro">A good warrior knows both attack and defense!</string>
+  <string name="combatComplete">Congratulations! You know how to fight with chess pieces!</string>
+  <string name="checkInOne">Check in one</string>
+  <string name="attackTheOpponentsKing">Attack the opponent\'s king</string>
+  <string name="checkInOneIntro">To check your opponent, attack their king. They must defend it!</string>
+  <string name="checkInOneGoal">Aim at the opponent\'s king
+in one move!</string>
+  <string name="checkInOneComplete">Congratulations! You checked your opponent, forcing them to defend their king!</string>
+  <string name="outOfCheck">Out of check</string>
+  <string name="defendYourKing">Defend your king</string>
+  <string name="outOfCheckIntro">You are in check! You must escape or block the attack.</string>
+  <string name="escapeWithTheKing">Escape with the king!</string>
+  <string name="theKingCannotEscapeButBlock">The king cannot escape,
+but you can block the attack!</string>
+  <string name="youCanGetOutOfCheckByTaking">You can get out of check
+by taking the attacking piece.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">This knight is checking
+through your defenses!</string>
+  <string name="escapeOrBlock">Escape with the king
+or block the attack!</string>
+  <string name="outOfCheckComplete">Congratulations! Your king can never be taken, make sure you can defend a check!</string>
+  <string name="mateInOne">Mate in one</string>
+  <string name="defeatTheOpponentsKing">Defeat the opponent\'s king</string>
+  <string name="mateInOneIntro">You win when your opponent cannot defend a check.</string>
+  <string name="attackYourOpponentsKing">Attack your opponent\'s king
+in a way that cannot be defended!</string>
+  <string name="mateInOneComplete">Congratulations! That is how you win chess games!</string>
+  <string name="intermediate">Intermediate</string>
+  <string name="boardSetup">Board setup</string>
+  <string name="howTheGameStarts">How the game starts</string>
+  <string name="boardSetupIntro">The two armies face each other, ready for the battle.</string>
+  <string name="thisIsTheInitialPosition">This is the initial position
+of every game of chess!
+Make any move to continue.</string>
+  <string name="firstPlaceTheRooks">First place the rooks!
+They go in the corners.</string>
+  <string name="thenPlaceTheKnights">Then place the knights!
+They go next to the rooks.</string>
+  <string name="placeTheBishops">Place the bishops!
+They go next to the knights.</string>
+  <string name="placeTheQueen">Place the queen!
+She goes on her own color.</string>
+  <string name="placeTheKing">Place the king!
+Right next to his queen.</string>
+  <string name="pawnsFormTheFrontLine">Pawns form the front line.
+Make any move to continue.</string>
+  <string name="opponentsFromAroundTheWorld">Opponents from around the world</string>
+  <string name="playMachine">Play machine</string>
+  <string name="testYourSkillsWithTheComputer">Test your skills with the computer</string>
+  <string name="letsGo">Let\'s go!</string>
 </resources>
