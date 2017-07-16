@@ -3,7 +3,6 @@ const parseString = require('xml2js').parseString;
 
 const baseDir = 'translation/source';
 const dbs = ['site', 'arena', 'emails', 'learn'];
-const needsKeys = ['learn'];
 
 function ucfirst(s) {
   return s.charAt(0).toUpperCase() + s.slice(1);
@@ -18,7 +17,6 @@ function keyListFrom(name) {
       resolve({
         name: name,
         code: keys.map(k => 'val `' + k + '` = new Translated("' + k + '", ' + ucfirst(name) + ')').join('\n') + '\n',
-        all: needsKeys.includes(name) && 'val allKeys = List(' + keys.map(k => '`' + k + '`').join(', ') + ')\n'
       });
     }));
   });
@@ -28,7 +26,7 @@ Promise.all(dbs.map(keyListFrom)).then(objs => {
   function dbCode(obj) {
     return obj.name === 'site' ?
       obj.code :
-      `object ${obj.name} {\n${obj.code}${obj.all || ''}}\n`;
+      `object ${obj.name} {\n${obj.code}}\n`;
   }
   const code = `// Generated with bin/trans-dump.js
 package lila.i18n

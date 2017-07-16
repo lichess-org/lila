@@ -54,14 +54,26 @@ object JsDump {
     case I18nQuantity.Other => ""
   }
 
-  def keysToObject(keys: Seq[I18nKey], db: I18nDb.Ref, lang: Lang) = JsObject {
+  private type JsTrans = Iterable[(String, JsString)]
+
+  private def translatedJs(k: String, t: Translation, lang: Lang): JsTrans = t match {
+    case literal: Literal => List(k -> JsString(literal.message))
+    case plurals: Plurals => plurals.messages.map {
+      case (quantity, msg) => k + quantitySuffix(quantity) -> JsString(msg)
+    }
+  }
+
+  def keysToObject(keys: Seq[I18nKey], db: I18nDb.Ref, lang: Lang): JsObject = JsObject {
     keys.flatMap { k =>
-      Translator.findTranslation(k.key, db, lang) match {
-        case Some(literal: Literal) => List(k.key -> JsString(literal.message))
-        case Some(plurals: Plurals) => plurals.messages.map {
-          case (quantity, msg) => k.key + quantitySuffix(quantity) -> JsString(msg)
-        }
-        case None => Nil
+      Translator.findTranslation(k.key, db, lang).fold(Nil: JsTrans) { translatedJs(k.key, _, lang) }
+    }
+  }
+
+  def dbToObject(ref: I18nDb.Ref, lang: Lang): JsObject = JsObject {
+    I18nDb(ref).get(defaultLang) ?? { defaultMsgs =>
+      val msgs = ~I18nDb(ref).get(lang)
+      defaultMsgs.flatMap {
+        case (k, v) => translatedJs(k, msgs get k getOrElse v, lang)
       }
     }
   }
