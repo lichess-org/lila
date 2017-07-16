@@ -57,6 +57,17 @@ Terfiye gerek yok.</string>
   <string name="fundamentals">Temel Prensipler</string>
   <string name="capture">Taş yemek</string>
   <string name="takeTheEnemyPieces">Düşman taşlarını ele geçir</string>
+  <string name="captureIntro">Rakibin korumasız taşlarını bul ve ele geçir!</string>
+  <string name="takeTheBlackPieces">Siyah taşları ye!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Siyah taşları ye ve kendi taşlarını kaybetme!</string>
+  <string name="captureComplete">İşte bu kadar! Artık satranç taşlarının nasıl savaştığını biliyorsun!</string>
+  <string name="protection">Savunma</string>
+  <string name="keepYourPiecesSafe">Taşlarını koru</string>
+  <string name="protectionIntro">Rakibin saldırdığı taşları bul ve onları koru!</string>
+  <string name="protectionComplete">Bravo! Kaybedilmemiş bir taş, kazanılmış bir taş demektir!</string>
+  <string name="escape">Saldırı altındasın! Tehditten kaç!</string>
+  <string name="noEscape">Kaçacak yerin yok ama taşını savunabilirsin!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Korumasız taşlarını yemelerine izin verme!</string>
   <string name="checkInOne">Tek hamlede şah</string>
   <string name="mateInOne">Tek hamlede mat</string>
   <string name="castling">Rok atma</string>
