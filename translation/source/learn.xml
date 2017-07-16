@@ -178,6 +178,24 @@ if your pawn is on the 5th rank.</string>
   <string name="advanced">Advanced</string>
   <string name="pieceValue">Piece value</string>
   <string name="evaluatePieceStrength">Evaluate piece strength</string>
+  <string name="pieceValueIntro">Pieces with high mobility have a higher value!
+Queen = 9
+Rook = 5
+Bishop = 3
+Knight = 3
+Pawn = 1
+The king is priceless! Losing it is losing the game.</string>
+  <string name="queenOverBishop">Take the piece
+with the highest value!
+Queen > Bishop</string>
+  <string name="takeThePieceWithTheHighestValue">Take the piece
+with the highest value!</string>
+  <string name="pieceValueComplete">Congratulations! You know the value of material!
+Queen = 9
+Rook = 5
+Bishop = 3
+Knight = 3
+Pawn = 1</string>
   <string name="checkInTwo">Check in two</string>
   <string name="twoMovesToGiveCheck">Two moves to give check</string>
   <string name="whatNext">What next?</string>
