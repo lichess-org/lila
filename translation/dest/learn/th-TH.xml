@@ -76,4 +76,26 @@
 คุณต้องเดินหมากออกไปก่อน</string>
   <string name="castleQueenSideMovePiecesFirst">เข้าป้อมด้านควีน!
 คุณต้องเดินหมากออกไปก่อน</string>
+  <string name="youCannotCastleIfMoved">คุณจะเข้าป้อมไม่ได้
+ถ้าคิงเคยเดินมาแล้ว
+หรือเรือเคยเดินมาแล้ว</string>
+  <string name="youCannotCastleIfAttacked">คุณจะเข้าป้อมไม่ได้
+ถ้าคิงกำลังถูกโจมตี
+จงขัดขวางการรุกนั้น แล้วเข้าป้อม!</string>
+  <string name="findAWayToCastleKingSide">หาทางเพื่อ
+เข้าป้อมด้านคิง!</string>
+  <string name="findAWayToCastleQueenSide">หาทางเพื่อ
+เข้าป้อมด้านควีน!</string>
+  <string name="castlingComplete">ยินดีด้วย! โดยส่วนใหญ่คุณควรเข้าป้อมในเกมเสมอ</string>
+  <string name="enPassant">การกินผ่าน</string>
+  <string name="theSpecialPawnMove">การเดินเบี้ยแบบพิเศษ</string>
+  <string name="enPassantIntro">เมื่อเบี้ยฝ่ายตรงข้ามเดินครั้งนั้นสองช่อง คุณสามารถปฏิบัติต่อมันเหมือนดั่งมันเดินเพียงช่องเดียว</string>
+  <string name="blackJustMovedThePawnByTwoSquares">ดำเพิ่งเดินเบี้ยสองช่อง!
+ใช้การกินผ่านกับมัน</string>
+  <string name="enPassantOnlyWorksImmediately">การกินผ่านจะใช้ได้ทันที
+หลังจากคู่แข่งเดินเบี้ยเท่านั้น</string>
+  <string name="enPassantOnlyWorksOnFifthRank">การกินผ่านจะใช้ได้
+ถ้าเบี้ยของคุณอยู่บนแรงค์ที่ 5</string>
+  <string name="takeAllThePawnsEnPassant">ใช้การกินผ่านกับเบี้ยทั้งหมด!</string>
+  <string name="enPassantComplete">ยินดีด้วย! คุณสามารถใช้การกินผ่านได้แล้ว</string>
 </resources>
