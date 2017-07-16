@@ -258,6 +258,7 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Šis žaidejas naudojasi kompiuterio pagalba</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Šis žaidėjas dirbtinai padidina/sumažina savo reitingą</string>
+  <string name="openingExplorerAndTablebase">Debiutų naršyklė ir pozicijų DB</string>
   <string name="takeback">Atsiimti ėjimą</string>
   <string name="proposeATakeback">Prašyti leidimo atšaukti ėjimą</string>
   <string name="takebackPropositionSent">Ėjimo atšaukimo prašymas išsiųstas</string>
@@ -307,6 +308,8 @@
   <string name="fromPosition">Nuo pozicijos</string>
   <string name="continueFromHere">Tęsti nuo čia</string>
   <string name="importGame">Importuoti partiją</string>
+  <string name="importGameExplanation">Įkeldami partijos PGN gausite naršomą peržiūrą,
+kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importuotas žaidimas</item>
     <item quantity="few">%s importuoti žaidimai</item>
@@ -493,6 +496,7 @@
   <string name="closeAccountExplanation">Ar tikrai norite uždaryti savo paskyrą? Po uždarymo paskyros nebus galima atkurti. Jūs nebegalėsite prisijungti ir jūsų profilis bus nebepasiekiamas.</string>
   <string name="thisAccountIsClosed">Ši paskyra uždaryta.</string>
   <string name="invalidUsernameOrPassword">Neteisingas prisijungimo vardas arba slaptažodis</string>
+  <string name="incorrectPassword">Neteisingas slaptažodis</string>
   <string name="emailMeALink">Atsiųsti nuorodą el. paštu</string>
   <string name="currentPassword">Esamas slaptažodis</string>
   <string name="newPassword">Naujas slaptažodis</string>
@@ -573,6 +577,7 @@
   <string name="playOnTheBoardOffline">Dviese</string>
   <string name="playOfflineComputer">Su kompiuteriu</string>
   <string name="opponent">Varžovas</string>
+  <string name="learnMenu">Išmok</string>
   <string name="community">Bendruomenė</string>
   <string name="tools">Įrankiai</string>
   <string name="increment">Prieaugis</string>
@@ -585,7 +590,9 @@
   <string name="error.email">Neteisingas el.pašto adresas</string>
   <string name="error.email_acceptable">Nepriimtinas el.pašto adresas</string>
   <string name="error.email_unique">Šis el.pašto adresas yra užimtas</string>
+  <string name="error.email_different">Tai yra dabartinis jūsų el. pašto adresas</string>
   <string name="blindfoldChess">Aklieji šachmatai (nematomos figūros)</string>
+  <string name="zenMode">„Zen“ režimas</string>
   <string name="moveConfirmation">Ėjimo patvirtinimas</string>
   <string name="inCorrespondenceGames">Korespondenciniuose</string>
   <string name="ifRatingIsPlusMinusX">Jei reitingas yra ± %s</string>
@@ -673,6 +680,7 @@
   <string name="crosstable">Susitikimai</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Judėti žaidime taip pat galite slinkdami virš lentos.</string>
   <string name="analysisShapesHowTo">Spustelėkite Shift + kairįjį pelės klavišą arba dešinįjį pelės klavišą norėdami piešti ant lentos.</string>
+  <string name="confirmResignationAndDrawOffers">Patvirtinti pasidavimo ir lygiųjų pasiūlymus</string>
   <string name="inputMovesWithTheKeyboard">Ėjimų įvedimas su klaviatūra</string>
   <string name="letOtherPlayersMessageYou">Leisti kitiems žaidėjams jums parašyti</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Atlikti rokiruotę karaliui einant per du langelius arba ant bokšto</string>
@@ -716,6 +724,7 @@
   <string name="xLikesY">%1$s patiko %2$s</string>
   <string name="quickPairing">Greitas suporavimas</string>
   <string name="lobby">Laukiamasis</string>
+  <string name="anonymous">Anonimas</string>
   <string name="yourScore">Jūsų rezultatas: %s</string>
   <string name="language">Kalba</string>
   <string name="background">Fonas</string>
@@ -731,6 +740,7 @@
   <string name="directlySupportLichess">Paremkite „lichess“ tiesiogiai</string>
   <string name="playChessInStyle">Žaiskite šachmatais stilingai</string>
   <string name="chessBasics">Šachmatų pagrindai</string>
+  <string name="learnChessByPlaying">Išmokite šachmatus žaisdami</string>
   <string name="coaches">Treneriai</string>
   <string name="invalidPgn">Netinkamas PGN</string>
   <string name="invalidFen">Netinkamas FEN</string>
