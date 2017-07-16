@@ -34,6 +34,8 @@ Ale jeśli dojdą do ostatniej linii mogą zamienić się w silniejszą figurę!
   <string name="mostOfTheTimePromotingToAQueenIsBest">W większości przypadków promowanie piona do królowej jest najlepszym wyborem. 
 Czasami jednak skoczek może bardzo się przydać!</string>
   <string name="pawnsMoveForward">Pionki poruszają się do przodu ale biją po przekątnej!</string>
+  <string name="captureThenPromote">Zbij, a później promuj piona!</string>
+  <string name="useAllThePawns">Użyj wszystkich swoich pionów! Nie ma potrzeby promowania.</string>
   <string name="aPawnOnTheSecondRank">Pion będący na drugiej linii może poruszyć się o 2 pola do przodu!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Zbierz wszystkie gwiazdki! Nie ma potrzeby promowania.</string>
   <string name="pawnComplete">Gratulacje! Piony nie mają przed Tobą tajemnic.</string>
@@ -66,6 +68,7 @@ Czasami jednak skoczek może bardzo się przydać!</string>
   <string name="mateInOne">Mat w jednym posunięciu</string>
   <string name="defeatTheOpponentsKing">Pokonaj króla przeciwnika</string>
   <string name="mateInOneIntro">Wygrasz jeśli Twój przeciwnik nie będzie mógł obronić się przed szachem.</string>
+  <string name="attackYourOpponentsKing">Zaatakuj króla przeciwnika w taki sposób aby nie mógł się obronić!</string>
   <string name="mateInOneComplete">Gratulacje! Tak wygrywa się w szachy!</string>
   <string name="intermediate">Średnio zaawansowane</string>
   <string name="boardSetup">Ustawienie początkowe</string>
@@ -98,6 +101,7 @@ Czasami jednak skoczek może bardzo się przydać!</string>
   <string name="enPassantOnlyWorksImmediately">Bicie w przelocie działa tylko od razu po ruchu przeciwnika pionkiem.</string>
   <string name="enPassantOnlyWorksOnFifthRank">Bicie w przelocie działa tylko wtedy gdy pion jest na 5 linii.</string>
   <string name="takeAllThePawnsEnPassant">Zbij wszystkie pionki biciem w przelocie!</string>
+  <string name="enPassantComplete">Gratulacje! Potrafisz teraz wykonać bicie w przelocie.</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Gra zakończyła się remisem</string>
   <string name="stalemateIntro">Kiedy gracz nie jest szachowany i nie ma możliwości ruchu to jest to pat. Ogłaszany jest remis: nikt nie wygrywa i nikt nie przegrywa.</string>
@@ -113,10 +117,14 @@ Pion = 1
 Król jest bezcenny! Tracąc króla przegrywasz grę.</string>
   <string name="takeThePieceWithTheHighestValue">Zbij figurę o najwyższej wartości!</string>
   <string name="checkInTwo">Szach w dwóch posunięciach</string>
+  <string name="twoMovesToGiveCheck">Szach w dwóch ruchach</string>
+  <string name="checkInTwoGoal">Zaatakuj króla przeciwnika w dwóch ruchach!</string>
+  <string name="checkInTwoComplete">Gratulacje! Zaszachowałeś króla przeciwnika, zmuszając go do obrony!</string>
   <string name="whatNext">Co dalej?</string>
   <string name="youKnowHowToPlayChess">Gratulacje! Wiesz już jak grać w szachy. Czy chcesz stać się silniejszym graczem?</string>
   <string name="register">Zarejestruj się</string>
   <string name="getAFreeLichessAccount">Załóż darmowe konto Lichess</string>
+  <string name="learnCommonChessPositions">Poznaj częste pozycje szachowe</string>
   <string name="puzzles">Zadania szachowe</string>
   <string name="videos">Filmy</string>
   <string name="playPeople">Zagraj z innymi</string>
