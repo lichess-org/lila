@@ -71,8 +71,17 @@ No need to promote.</string>
   <string name="takeTheBlackPieces">Take the black pieces!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Take the black pieces!
 And don't lose yours.</string>
+  <string name="captureComplete">Congratulations! You know how to fight with chess pieces!</string>
   <string name="protection">Protection</string>
   <string name="keepYourPiecesSafe">Keep your pieces safe</string>
+  <string name="protectionIntro">Identify the pieces your opponent attacks, and defend them!</string>
+  <string name="protectionComplete">Congratulations! A piece you don't lose is a piece you win!</string>
+  <string name="escape">You're under attack!
+Escape the threat!</string>
+  <string name="noEscape">There is no escape,
+but you can defend!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Don't let them take
+any undefended piece!</string>
   <string name="combat">Combat</string>
   <string name="captureAndDefendPieces">Capture and defend pieces</string>
   <string name="checkInOne">Check in one</string>
