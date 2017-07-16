@@ -20,6 +20,12 @@
   <string name="theBishop">L\'alfiere</string>
   <string name="itMovesDiagonally">Si muove in diagonale</string>
   <string name="bishopIntro">Prossimamente impareremo come si utilizza l\'alfiere!</string>
+  <string name="bishopComplete">Congratulazioni! Hai imparato ad utilizzare l\'alfiere.</string>
   <string name="theQueen">La regina</string>
   <string name="queenCombinesRookAndBishop">Regina = torre + alfiere</string>
+  <string name="queenIntro">Ed ora il pezzo più potente negli scacchi. Sua maestà la Regina!</string>
+  <string name="queenComplete">Congratulazioni! Le regine non hanno segreti per te.</string>
+  <string name="theKing">Il re</string>
+  <string name="theMostImportantPiece">Il pezzo più importante</string>
+  <string name="pawnPromotion">Promozione del pedone</string>
 </resources>
