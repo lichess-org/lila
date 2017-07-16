@@ -19,4 +19,16 @@
 คุณยิ่งได้คะแนนเพิ่ม</string>
   <string name="useTwoRooks">ใช้เรือสองชิ้น
 เพื่อเร่งให้เร็วขึ้น!</string>
+  <string name="rookComplete">ยินดีด้วย! คุณได้เรียนรู้เรือโดยสำเร็จแล้ว</string>
+  <string name="theBishop">บิชอป</string>
+  <string name="itMovesDiagonally">มันเดินตามแนวทแยง</string>
+  <string name="bishopIntro">ต่อไป เราจะเรียนรู้วิธีซ้อมรบบิชอป!</string>
+  <string name="youNeedBothBishops">บิชอปช่องสีอ่อนหนึ่งชิ้น,
+บิชอปช่องสีเข้มหนึ่งชิ้น,
+คุณต้องการทั้งคู่!</string>
+  <string name="bishopComplete">ยินดีด้วย! คุณสามารถบัญชาการบิชอปได้</string>
+  <string name="theQueen">ควีน</string>
+  <string name="queenCombinesRookAndBishop">ควีน = เรือ + บิชอป</string>
+  <string name="queenIntro">เข้าสู่ตัวหมากรุกที่ประสิทธิภาพสูงสุด สมเด็จพระราชินี!</string>
+  <string name="queenComplete">ยินดีด้วย! ควีนไม่มีความลับใดต่อคุณ</string>
 </resources>
