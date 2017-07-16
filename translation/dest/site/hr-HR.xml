@@ -92,6 +92,9 @@
   <string name="lossSavedBy50MoveRule">Poraz spriječen na bazi pravila o 50 poteza</string>
   <string name="allSet">U redu</string>
   <string name="importPgn">Uvezi PGN</string>
+  <string name="delete">Izbriši</string>
+  <string name="deleteThisImportedGame">Želiš li izbrisati ovu uvezenu partiju?</string>
+  <string name="replayMode">Repriza partije</string>
   <string name="blunders">Previdi</string>
   <string name="mistakes">Greške</string>
   <string name="inaccuracies">Nepreciznosti</string>
