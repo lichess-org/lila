@@ -77,6 +77,14 @@ Terfiye gerek yok.</string>
   <string name="checkInOneIntro">Şah çekmek için rakip şahı tehdit etmelisin. Rakibinin de şahını koruması gerekiyor!</string>
   <string name="checkInOneGoal">Rakibe bir hamlede şah çek!</string>
   <string name="checkInOneComplete">Çok güzel! Şah çekerek rakibi şahını korumaya zorladın!</string>
+  <string name="outOfCheck">Şahtan kaçış</string>
+  <string name="defendYourKing">Şahını koru</string>
+  <string name="outOfCheckIntro">Rakibin sana şah çekti! Şahını kaçmalı veya saldırının önünü başka bir taşla kesmelisin.</string>
+  <string name="escapeWithTheKing">Şahını kaç!</string>
+  <string name="theKingCannotEscapeButBlock">Şahın kaçacak yeri yok ama tehdidin önünü kesebilirsin!</string>
+  <string name="youCanGetOutOfCheckByTaking">Şahına saldıran taşı yiyerek tehditten kurtulabilirsin.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Bu at savunmanın üstünden şah çekmiş!</string>
+  <string name="escapeOrBlock">Şahı kaç ya da saldırının önünü kes!</string>
   <string name="mateInOne">Tek hamlede mat</string>
   <string name="castling">Rok atma</string>
   <string name="stalemate">Pat</string>
