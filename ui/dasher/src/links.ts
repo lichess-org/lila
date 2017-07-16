@@ -84,7 +84,7 @@ export default function(ctrl: DasherCtrl): VNode {
       class: { active: !!ctrl.data.zen },
       attrs: { 'data-icon': ctrl.data.zen ? 'E' : 'K' },
       hook: bind('click', ctrl.toggleZen)
-    }, 'Zen mode')
+    }, noarg('zenMode'))
   ]) : null;
 
   return h('div', [

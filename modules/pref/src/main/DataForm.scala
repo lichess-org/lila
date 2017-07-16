@@ -14,6 +14,7 @@ object DataForm {
       "coords" -> number.verifying(Pref.Coords.choices.toMap contains _),
       "replay" -> number.verifying(Pref.Replay.choices.toMap contains _),
       "pieceNotation" -> optional(number.verifying(Pref.BooleanPref.verify)),
+      "zen" -> optional(number.verifying(Pref.BooleanPref.verify)),
       "blindfold" -> number.verifying(Pref.Blindfold.choices.toMap contains _)
     )(DisplayData.apply)(DisplayData.unapply),
     "behavior" -> mapping(
@@ -25,7 +26,6 @@ object DataForm {
       "submitMove" -> number.verifying(Pref.SubmitMove.choices.toMap contains _),
       "confirmResign" -> number.verifying(Pref.ConfirmResign.choices.toMap contains _),
       "keyboardMove" -> optional(number.verifying(Pref.BooleanPref.verify)),
-      "zen" -> optional(number.verifying(Pref.BooleanPref.verify)),
       "rookCastle" -> optional(number.verifying(Pref.BooleanPref.verify))
     )(BehaviorData.apply)(BehaviorData.unapply),
     "clockTenths" -> number.verifying(Pref.ClockTenths.choices.toMap contains _),
@@ -46,6 +46,7 @@ object DataForm {
     coords: Int,
     replay: Int,
     pieceNotation: Option[Int],
+    zen: Option[Int],
     blindfold: Int
   )
 
@@ -58,7 +59,6 @@ object DataForm {
     submitMove: Int,
     confirmResign: Int,
     keyboardMove: Option[Int],
-    zen: Option[Int],
     rookCastle: Option[Int]
   )
 
@@ -98,7 +98,7 @@ object DataForm {
       confirmResign = behavior.confirmResign,
       captured = display.captured == 1,
       keyboardMove = behavior.keyboardMove | pref.keyboardMove,
-      zen = behavior.zen | pref.zen,
+      zen = display.zen | pref.zen,
       rookCastle = behavior.rookCastle | pref.rookCastle,
       pieceNotation = display.pieceNotation | pref.pieceNotation,
       moveEvent = behavior.moveEvent | pref.moveEvent
@@ -115,6 +115,7 @@ object DataForm {
         replay = pref.replay,
         captured = pref.captured.fold(1, 0),
         blindfold = pref.blindfold,
+        zen = pref.zen.some,
         pieceNotation = pref.pieceNotation.some
       ),
       behavior = BehaviorData(
@@ -126,7 +127,6 @@ object DataForm {
         submitMove = pref.submitMove,
         confirmResign = pref.confirmResign,
         keyboardMove = pref.keyboardMove.some,
-        zen = pref.zen.some,
         rookCastle = pref.rookCastle.some
       ),
       clockTenths = pref.clockTenths,
