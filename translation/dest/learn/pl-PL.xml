@@ -24,12 +24,27 @@
   <string name="pawnsMoveForward">Pionki poruszają się do przodu ale biją po przekątnej!</string>
   <string name="pawnPromotion">Promocja piona</string>
   <string name="defendYourKing">Chroń swojego króla</string>
+  <string name="escapeWithTheKing">Odejdź królem!</string>
+  <string name="escapeOrBlock">Odejdź królem lub zablokuj atak!</string>
   <string name="mateInOne">Mat w jednym posunięciu</string>
+  <string name="mateInOneIntro">Wygrasz jeśli Twój przeciwnik nie będzie mógł obronić się przed szachem.</string>
   <string name="castling">Roszada</string>
   <string name="enPassant">Bicie w przelocie</string>
   <string name="theSpecialPawnMove">Specjalny ruch piona</string>
+  <string name="stalemate">Pat</string>
+  <string name="stalemateIntro">Kiedy gracz nie jest szachowany i nie ma możliwości ruchu to jest to pat. Ogłaszany jest remis: nikt nie wygrywa i nikt nie przegrywa.</string>
+  <string name="stalemateComplete">Gratulacje! Lepiej dostać pata niż mata!</string>
   <string name="advanced">Zaawansowane</string>
+  <string name="whatNext">Co dalej?</string>
+  <string name="youKnowHowToPlayChess">Gratulacje! Wiesz już jak grać w szachy. Czy chcesz stać się silniejszym graczem?</string>
   <string name="register">Zarejestruj się</string>
   <string name="getAFreeLichessAccount">Załóż darmowe konto Lichess</string>
+  <string name="videos">Filmy</string>
+  <string name="playPeople">Zagraj z innymi</string>
+  <string name="playMachine">Zagraj z komputerem</string>
+  <string name="testYourSkillsWithTheComputer">Przetestuj swoje umiejętności z komputerem</string>
+  <string name="letsGo">Zaczynajmy!</string>
   <string name="greatJob">Dobra robota!</string>
+  <string name="yourScore">Twój wynik</string>
+  <string name="retry">Spróbuj jeszcze raz</string>
 </resources>
