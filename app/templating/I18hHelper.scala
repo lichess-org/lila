@@ -19,10 +19,13 @@ trait I18nHelper {
     Translator.html.literal(key, db, args, lang)
 
   def i18nJsObject(keys: I18nKey*)(implicit lang: Lang): JsObject =
-    JsDump.keysToObject(keys, lang)
+    JsDump.keysToObject(keys, I18nDb.Site, lang)
 
   def i18nOptionJsObject(keys: Option[I18nKey]*)(implicit lang: Lang): JsObject =
-    JsDump.keysToObject(keys.flatten, lang)
+    JsDump.keysToObject(keys.flatten, I18nDb.Site, lang)
+
+  def i18nJsDbObject(keys: Seq[I18nKey], db: I18nDb.Ref)(implicit lang: Lang): JsObject =
+    JsDump.keysToObject(keys, db, lang)
 
   def i18nJsQuantityFunction()(implicit lang: Lang): Html = Html(JsQuantity(lang))
 

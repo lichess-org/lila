@@ -6,13 +6,13 @@ var imgUrl = util.assetUrl + 'images/learn/spinning-blades.svg';
 
 module.exports = {
   key: 'enpassant',
-  title: 'En passant',
-  subtitle: 'The special pawn move',
+  title: 'enPassant',
+  subtitle: 'theSpecialPawnMove',
   image: imgUrl,
-  intro: 'When the opponent pawn moved by two squares, you can take it like if it moved by one square.',
+  intro: 'enPassantIntro',
   illustration: util.roundSvg(imgUrl),
   levels: [{
-    goal: 'Black just moved the pawn<br>by two squares!<br>Take it en passant.',
+    goal: 'blackJustMovedThePawnByTwoSquares',
     fen: 'rnbqkbnr/pppppppp/8/2P5/8/8/PP1PPPPP/RNBQKBNR b KQkq -',
     color: 'white',
     nbMoves: 1,
@@ -25,7 +25,7 @@ module.exports = {
     }, 'c5d6'],
     captures: 1
   }, {
-    goal: 'En passant only works<br>immediately after the opponent<br>moved the pawn.',
+    goal: 'enPassantOnlyWorksImmediately',
     fen: 'rnbqkbnr/ppp1pppp/8/2Pp3P/8/8/PP1PPPP1/RNBQKBNR b KQkq -',
     color: 'white',
     nbMoves: 1,
@@ -38,7 +38,7 @@ module.exports = {
     }, 'h5g6'],
     captures: 1
   }, {
-    goal: 'En passant only works<br>if your pawn is on the 5th rank.',
+    goal: 'enPassantOnlyWorksOnFifthRank',
     fen: 'rnbqkbnr/pppppppp/P7/2P5/8/8/PP1PPPP1/RNBQKBNR b KQkq -',
     color: 'white',
     nbMoves: 1,
@@ -52,7 +52,7 @@ module.exports = {
     captures: 1,
     cssClass: 'highlight-5th-rank'
   }, {
-    goal: 'Take all the pawns en passant!',
+    goal: 'takeAllThePawnsEnPassant',
     fen: 'rnbqkbnr/pppppppp/8/2PPP2P/8/8/PP1P1PP1/RNBQKBNR b KQkq -',
     color: 'white',
     nbMoves: 4,
@@ -71,5 +71,5 @@ module.exports = {
     ],
     captures: 4
   }].map(util.toLevel),
-  complete: 'Congratulations! You can now take en passant.'
+  complete: 'enPassantComplete'
 };

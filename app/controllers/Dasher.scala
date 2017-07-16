@@ -33,10 +33,11 @@ object Dasher extends LilaController {
         I18nKeys.boardTheme,
         I18nKeys.boardSize,
         I18nKeys.pieceSet
-      ), ctx.lang
+      ), lila.i18n.I18nDb.Site, ctx.lang
   ) ++ lila.i18n.JsDump.keysToObject(
       // the language settings should never be in a totally foreign language
       List(I18nKeys.language),
+      lila.i18n.I18nDb.Site,
       if (I18nLangPicker.allFromRequestHeaders(ctx.req).has(ctx.lang)) ctx.lang
       else I18nLangPicker.bestFromRequestHeaders(ctx.req) | enLang
     )
