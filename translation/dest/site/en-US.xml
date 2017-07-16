@@ -554,6 +554,7 @@ a computer analysis, a game chat and a sharable URL.</string>
   <string name="playOnTheBoardOffline">Over the board</string>
   <string name="playOfflineComputer">Computer</string>
   <string name="opponent">Opponent</string>
+  <string name="learnMenu">Learn</string>
   <string name="community">Community</string>
   <string name="tools">Tools</string>
   <string name="increment">Increment</string>
@@ -568,6 +569,7 @@ a computer analysis, a game chat and a sharable URL.</string>
   <string name="error.email_unique">This email address is already taken</string>
   <string name="error.email_different">This is already your email address</string>
   <string name="blindfoldChess">Blindfold chess (invisible pieces)</string>
+  <string name="zenMode">Zen mode</string>
   <string name="moveConfirmation">Move confirmation</string>
   <string name="inCorrespondenceGames">Correspondence games</string>
   <string name="ifRatingIsPlusMinusX">If rating is ± %s</string>
@@ -712,6 +714,7 @@ a computer analysis, a game chat and a sharable URL.</string>
   <string name="directlySupportLichess">Directly support Lichess</string>
   <string name="playChessInStyle">Play chess in style</string>
   <string name="chessBasics">Chess basics</string>
+  <string name="learnChessByPlaying">Learn chess by playing</string>
   <string name="coaches">Coaches</string>
   <string name="invalidPgn">Invalid PGN</string>
   <string name="invalidFen">Invalid FEN</string>
