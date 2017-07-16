@@ -77,6 +77,10 @@
     <item quantity="one">Matt in %s Halbzug</item>
     <item quantity="other">Matt in %s Halbzügen</item>
   </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Nächster Schlag- oder Bauernzug in %s Halbzug (Distance To Zeroing des Zählers für die 50-Züge-Regel)</item>
+    <item quantity="other">Nächster Schlag- oder Bauernzug in %s Halbzügen (Distance To Zeroing des Zählers für die 50-Züge-Regel)</item>
+  </plurals>
   <string name="noGameFound">Kein Spiel gefunden</string>
   <string name="alreadySearchingThroughAllAvailableGames">Es werden bereits alle verfügbaren Spiele durchsucht</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Vielleicht sollten mehr Spiele über das \"Einstellungen\"-Menü einbezogen werden?</string>
@@ -85,13 +89,16 @@
   <string name="winPreventedBy50MoveRule">Sieg durch 50-Züge-Regel verhindert</string>
   <string name="lossSavedBy50MoveRule">Verlust durch 50-Züge-Regel verhindert</string>
   <string name="allSet">Fertig!</string>
+  <string name="importPgn">PGN importieren</string>
   <string name="delete">Löschen</string>
   <string name="deleteThisImportedGame">Dieses importierte Spiel löschen?</string>
   <string name="replayMode">Wiedergabemodus</string>
   <string name="realtimeReplay">Echtzeit</string>
   <string name="byCPL">Nach CPL</string>
+  <string name="openStudy">Study öffnen</string>
   <string name="enable">Einschalten</string>
   <string name="bestMoveArrow">Pfeil für besten Zug</string>
+  <string name="evaluationGauge">Bewertungspegel</string>
   <string name="multipleLines">Mehrere Varianten</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Arbeitsspeicher</string>
@@ -287,6 +294,8 @@
   <string name="fromPosition">Von Stellung</string>
   <string name="continueFromHere">Von hier aus weiterspielen</string>
   <string name="importGame">Importiere Partie</string>
+  <string name="importGameExplanation">Du bekommst eine Computeranalyse, einen Chat
+und eine URL um dein PGN zu teilen.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importierte Partie</item>
     <item quantity="other">%s importierte Partien</item>
@@ -704,6 +713,7 @@
   <string name="directlySupportLichess">Lichess direkt unterstützen</string>
   <string name="playChessInStyle">Schachspielen mit Style</string>
   <string name="chessBasics">Grundlagen</string>
+  <string name="learnChessByPlaying">Spielerisch Schach lernen</string>
   <string name="coaches">Coaches</string>
   <string name="invalidPgn">Fehlerhaftes PGN</string>
   <string name="invalidFen">FEN ungültig</string>
