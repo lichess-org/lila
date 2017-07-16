@@ -32,7 +32,8 @@ object Dasher extends LilaController {
         I18nKeys.boardGeometry,
         I18nKeys.boardTheme,
         I18nKeys.boardSize,
-        I18nKeys.pieceSet
+        I18nKeys.pieceSet,
+        I18nKeys.zenMode
       ), lila.i18n.I18nDb.Site, ctx.lang
   ) ++ lila.i18n.JsDump.keysToObject(
       // the language settings should never be in a totally foreign language
