@@ -176,10 +176,9 @@ function showEmpty(ctrl: AnalyseController): VNode {
     h('div.title', showTitle(ctrl, ctrl.data.game.variant)),
     h('div.message', [
       h('h3', ctrl.trans.noarg('noGameFound')),
-      h('p.explanation',
-        ctrl.explorer.config.fullHouse() ?
-        ctrl.trans.noarg('alreadySearchingThroughAllAvailableGames') :
-        ctrl.trans.noarg('maybeIncludeMoreGamesFromThePreferencesMenu')),
+      ctrl.explorer.config.fullHouse() ?
+        null :
+        h('p.explanation', ctrl.trans.noarg('maybeIncludeMoreGamesFromThePreferencesMenu')),
       closeButton(ctrl)
     ])
   ]);
