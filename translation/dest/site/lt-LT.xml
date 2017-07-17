@@ -84,7 +84,6 @@
     <item quantity="other">Kitas kirtimas arba ėjimas pėstininku per %s pus-ėjimų (50-ies ėjimų ribos „Distance To Zeroing“)</item>
   </plurals>
   <string name="noGameFound">Partijų nerasta</string>
-  <string name="alreadySearchingThroughAllAvailableGames">Ieškoma tarp visų esamų partijų</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Galbūt įtraukti daugiau partijų iš parinkčių meniu?</string>
   <string name="openingExplorer">Debiutų naršyklė</string>
   <string name="xOpeningExplorer">%s debiutų naršyklė</string>
