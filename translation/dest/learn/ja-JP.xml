@@ -65,5 +65,16 @@
   <string name="yourPawnReachedTheEndOfTheBoard">ポーンが盤の端まで進みました！</string>
   <string name="itNowPromotesToAStrongerPiece">もっと強い駒に成ることができます（昇格）。</string>
   <string name="selectThePieceYouWant">好きな駒を選んでください！</string>
+  <string name="fundamentals">初級</string>
+  <string name="capture">駒取り</string>
+  <string name="takeTheEnemyPieces">相手の駒を取ります</string>
+  <string name="captureIntro">守られていない相手の駒を見つけて、取ってください！</string>
+  <string name="takeTheBlackPieces">黒の駒を全部取ります！</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">黒の駒を全部取ります！
+自分の駒を取られないように。</string>
+  <string name="captureComplete">おめでとう！　相手の駒との戦い方を身につけました！</string>
+  <string name="protection">守り</string>
+  <string name="keepYourPiecesSafe">自分の駒を安全に</string>
+  <string name="intermediate">中級</string>
   <string name="castling">キャスリング</string>
 </resources>
