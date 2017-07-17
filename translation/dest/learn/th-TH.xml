@@ -62,10 +62,24 @@
   <string name="pawnComplete">ยินดีด้วย! เบี้ยไม่มีความลับใดต่อคุณแล้ว</string>
   <string name="pawnPromotion">การเลื่อนขั้นเบี้ย</string>
   <string name="yourPawnReachedTheEndOfTheBoard">เบี้ยของคุณไปถึงจุดสิ้นสุดของกระดาน!</string>
+  <string name="itNowPromotesToAStrongerPiece">ตอนนี้มันได้เลื่อนขั้นเป็นหมากที่แข็งแกร่งขึ้น</string>
   <string name="selectThePieceYouWant">เลือกหมากที่คุณต้องการ!</string>
   <string name="fundamentals">ความรู้พื้นฐาน</string>
   <string name="capture">การจับกิน</string>
+  <string name="takeTheEnemyPieces">ยึดหมากของศัตรู</string>
+  <string name="captureIntro">ระบุหมากที่คู่แข่งไม่ได้ปกป้องไว้ แล้วจับกินหมากนั้น!</string>
+  <string name="takeTheBlackPieces">ยึดหมากของดำ!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">ยึดหมากของดำ!
+และอย่าเสียหมากของคุณเอง</string>
+  <string name="captureComplete">ยินดีด้วย! คุณรู้วิธีสู้ด้วยหมากรุกแล้ว!</string>
   <string name="protection">การปกป้อง</string>
+  <string name="keepYourPiecesSafe">รักษาหมากของคุณให้ปลอดภัย</string>
+  <string name="protectionIntro">ระบุหมากที่ถูกคู่แข่งของคุณโจมตี แล้วปกป้องพวกมัน!</string>
+  <string name="protectionComplete">ยินดีด้วย! หมากที่คุณไม่เสียคือหมากที่คุณชนะ!</string>
+  <string name="escape">คุณกำลังถูกโจมตี!
+จงหลีกจากภัยคุกคาม!</string>
+  <string name="noEscape">ไม่มีทางหลีก
+แต่คุณสามารถปกป้องได้</string>
   <string name="combat">การสู้รบ</string>
   <string name="captureAndDefendPieces">จับและปกป้องหมาก</string>
   <string name="combatIntro">นักรบที่ดีย่อมรู้ทั้งการโจมตีและปกป้อง!</string>
@@ -96,7 +110,7 @@
   <string name="placeTheQueen">วางควีน!
 นางจะอยู่บนสีของฝ่ายนาง</string>
   <string name="placeTheKing">วางคิง!
-ด้านขวาถัดจากควีนของเขา</string>
+ถัดจากควีนของเขา</string>
   <string name="pawnsFormTheFrontLine">เบี้ยตั้งอยู่แถวแนวหน้า
 จงทำการเดิน เพื่อดำเนินต่อ</string>
   <string name="boardSetupComplete">ยินดีด้วย! คุณรู้วิธีจัดกระดานหมากรุกแล้ว</string>
