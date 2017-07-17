@@ -96,6 +96,13 @@
   <string name="deleteThisImportedGame">Želiš li izbrisati ovu uvezenu partiju?</string>
   <string name="replayMode">Repriza partije</string>
   <string name="realtimeReplay">U stvarnom vremenu</string>
+  <string name="byCPL">Po SDP</string>
+  <string name="openStudy">Otvori studiju</string>
+  <string name="enable">Omogući</string>
+  <string name="bestMoveArrow">Strelica za najbolji potez</string>
+  <string name="evaluationGauge">Mjerilo evaluacije</string>
+  <string name="multipleLines">Višestrukih varijanti</string>
+  <string name="cpus">Procesora</string>
   <string name="blunders">Previdi</string>
   <string name="mistakes">Greške</string>
   <string name="inaccuracies">Nepreciznosti</string>
@@ -299,6 +306,8 @@
   <string name="fromPosition">Od pozicije</string>
   <string name="continueFromHere">Nastavi odavde</string>
   <string name="importGame">Uvezi partiju</string>
+  <string name="importGameExplanation">Kada zalijepiš PGN neke partije, dobivaš reprizu partije (koju možeš pretraživati), 
+računalnu analizu, pričaonicu partije i URL za dijeljenje.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s uvezena partija</item>
     <item quantity="few">%s uvezenih partija</item>
