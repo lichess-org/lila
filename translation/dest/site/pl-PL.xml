@@ -84,7 +84,6 @@
     <item quantity="other">Następne bicie lub ruch pionem w ciągu %s posunięć (zerowanie licznika posunięć reguły 50 ruchów)</item>
   </plurals>
   <string name="noGameFound">Nie znaleziono gry</string>
-  <string name="alreadySearchingThroughAllAvailableGames">Przeszukano wszystkie dostępne partie</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Może zaimportujesz więcej gier z menu narzędzi?</string>
   <string name="openingExplorer">Przeglądarka otwarć</string>
   <string name="xOpeningExplorer">Przeszukiwanie biblioteki otwarć %s</string>
