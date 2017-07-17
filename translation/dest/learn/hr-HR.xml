@@ -27,4 +27,6 @@ da ubrzaš stvari!</string>
 jedan tamnopoljni lovac.
 Trebaš oboje!</string>
   <string name="bishopComplete">Čestitke! Možeš vladati lovcem.</string>
+  <string name="theQueen">Dama</string>
+  <string name="queenCombinesRookAndBishop">Dama = top + lovac</string>
 </resources>
