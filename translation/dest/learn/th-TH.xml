@@ -174,7 +174,7 @@
 - ไม่มีการรุก</string>
   <string name="stalemateComplete">ยินดีด้วย! ถูกอับดีกว่าถูกรุกจน!</string>
   <string name="advanced">ขั้นสูง</string>
-  <string name="pieceValue">ค่าของหมาก</string>
+  <string name="pieceValue">ค่าของตัวหมาก</string>
   <string name="evaluatePieceStrength">ประเมินความแกร่งของหมาก</string>
   <string name="pieceValueIntro">หมากที่มีความคล่องตัวในการเดินสูงจะมีค่าสูงกว่า!
 ควีน = 9
@@ -183,10 +183,10 @@
 อัศวิน = 3
 เบี้ย = 1
 คิงประเมินค่ามิได้! สูญเสียมันคือพ่ายแพ้เกม</string>
-  <string name="queenOverBishop">กินหมาก
+  <string name="queenOverBishop">จงกินหมาก
 ที่มีค่าสูงสุด!
 ควีน &gt; บิชอป</string>
-  <string name="takeThePieceWithTheHighestValue">กินหมาก
+  <string name="takeThePieceWithTheHighestValue">จงกินหมาก
 ที่มีค่าสูงสุด!</string>
   <string name="pieceValueComplete">ยินดีด้วย! คุณรู้ค่าของวัสดุแล้ว!
 ควีน = 9
@@ -201,13 +201,13 @@
 โดยเดินสองครั้ง!</string>
   <string name="checkInTwoComplete">ยินดีด้วย! คุณได้รุกคู่แข่งของคุณ บังคับให้พวกเขาปกป้องคิงของพวกเขา!</string>
   <string name="whatNext">มีอะไรต่อ?</string>
-  <string name="youKnowHowToPlayChess">คุณรู้วิธีการเล่นหมากรุกแล้ว, ขอแสดงความยินดี! คุณต้องการเป็นผู้เล่นที่แข็งแกร่งขึ้นหรือไม่?</string>
+  <string name="youKnowHowToPlayChess">คุณรู้วิธีการเล่นหมากรุกแล้ว, ยินดีด้วย! คุณต้องการเป็นผู้เล่นที่แข็งแกร่งขึ้นหรือไม่?</string>
   <string name="register">ลงทะเบียน</string>
   <string name="getAFreeLichessAccount">รับบัญชี Lichess ฟรี</string>
-  <string name="practice">ฝึก</string>
-  <string name="learnCommonChessPositions">เรียนรู้ตำแหน่งหมากรุกสามัญ</string>
+  <string name="practice">ฝึกหัด</string>
+  <string name="learnCommonChessPositions">เรียนรู้ตำแหน่งหมากรุกทั่วไป</string>
   <string name="puzzles">ปริศนา</string>
-  <string name="exerciseYourTacticalSkills">ฝึกหัดทักษะกลยุทธ์ของคุณ</string>
+  <string name="exerciseYourTacticalSkills">ฝึกทักษะกลยุทธ์ของคุณ</string>
   <string name="videos">วิดีโอ</string>
   <string name="watchInstructiveChessVideos">ชมวิดีโอคำแนะนำหมากรุก</string>
   <string name="playPeople">เล่นกับผู้คน</string>
