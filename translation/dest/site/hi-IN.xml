@@ -48,6 +48,8 @@
   <string name="computerAnalysis">कंप्यूटर विश्लेषण</string>
   <string name="computerAnalysisAvailable">कंप्यूटर विश्लेषण उपलब्ध</string>
   <string name="analysis">विश्लेषण मैदान</string>
+  <string name="close">बंद करें</string>
+  <string name="unknown">अज्ञात</string>
   <string name="openingExplorer">उद्घाटन खोज</string>
   <string name="blunders">गंभीर गल्तियां</string>
   <string name="mistakes">गलतियाँ</string>
