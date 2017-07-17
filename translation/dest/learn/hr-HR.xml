@@ -50,6 +50,14 @@ Pobjegni i savladaj zvijezde!</string>
   <string name="pawnIntro">Pješaci su slabi, ali imaju puno potencijala.</string>
   <string name="pawnsMoveOneSquareOnly">Pješaci se pomiču za samo jedno polje. 
 Ali kada dosegnu drugu stranu ploče, postaju jedna od snažnijih figura!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Većinu vremena najbolja opcija je promovirati u damu.
+Ali ponekad i konj može poslužiti!</string>
+  <string name="pawnsMoveForward">Pješaci se kreću naprijed,
+ali jedu dijagonalno!</string>
+  <string name="captureThenPromote">Jedi, pa onda promoviraj!</string>
+  <string name="useAllThePawns">Koristi sve pješake!
+Nema potrebe za promoviranjem.</string>
+  <string name="aPawnOnTheSecondRank">Pješak na drugom redu se može pomaknuti za 2 polja odjednom!</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Tvoj pješak je došao do kraja ploče!</string>
   <string name="itNowPromotesToAStrongerPiece">Sada se on promovira u jaču figuru.</string>
   <string name="selectThePieceYouWant">Odaberi figuru koju želiš!</string>
