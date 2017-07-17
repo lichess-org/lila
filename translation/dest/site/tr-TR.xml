@@ -57,6 +57,8 @@
   <string name="inLocalBrowser">yerel tarayıcı üzerinde</string>
   <string name="toggleLocalEvaluation">Yerel analizi aç/kapat</string>
   <string name="move">Hamle</string>
+  <string name="pawnMove">Piyon hamlesi</string>
+  <string name="close">Kapat</string>
   <string name="whiteDrawBlack">Beyaz / Berabere / Siyah</string>
   <string name="openingExplorer">Açılış kâşifi</string>
   <string name="allSet">Her şey tamam!</string>
@@ -419,6 +421,7 @@
   <string name="closeAccountExplanation">Hesabınızı kapatmak istediğinizden emin misiniz? Hesap kapatmak geri dönüşü olmayan bir işlemdir. Tekrar giriş yapamayacaksınız ve profil sayfanıza erişiminiz kalmayacaktır.</string>
   <string name="thisAccountIsClosed">Hesap kapatılmıştır.</string>
   <string name="invalidUsernameOrPassword">Hatalı kullanıcı adı ya da şifre</string>
+  <string name="incorrectPassword">Şifre yanlış</string>
   <string name="emailMeALink">E-Posta ile giriş linki yolla</string>
   <string name="currentPassword">Geçerli şifre</string>
   <string name="newPassword">Yeni şifre</string>
@@ -497,6 +500,7 @@
   <string name="playOnTheBoardOffline">Tahta üzerinde çevrimdışı oyna</string>
   <string name="playOfflineComputer">Bilgisayara Karşı</string>
   <string name="opponent">Rakip</string>
+  <string name="learnMenu">Öğren</string>
   <string name="community">Topluluk</string>
   <string name="tools">Araçlar</string>
   <string name="increment">Artım</string>
@@ -638,6 +642,7 @@
   <string name="xLikesY">%1$s beğendi: %2$s</string>
   <string name="quickPairing">Hızlı eşleşme</string>
   <string name="lobby">Lobi</string>
+  <string name="anonymous">Anonim</string>
   <string name="yourScore">Puanınız: %s</string>
   <string name="language">Dil</string>
   <string name="background">Arkaplan</string>
