@@ -93,4 +93,41 @@ Dan jangan kehilangan Ada punya.</string>
   <string name="outOfCheckComplete">Selamat! Raja Anda tidak akan pernah bisa diambil, pastikan Anda dapat menangkal serangan!</string>
   <string name="mateInOne">Mat dalam satu langkah</string>
   <string name="defeatTheOpponentsKing">Mengalahkan raja lawan</string>
+  <string name="mateInOneIntro">Anda menang apabila lawan tidak dapat menghindari skak.</string>
+  <string name="attackYourOpponentsKing">Menyerang Raja lawan Anda dengan cara yang tidak dapat dipertahankan!</string>
+  <string name="mateInOneComplete">Selamat! Itu adalah cara Anda menang catur permainan!</string>
+  <string name="intermediate">Menengah</string>
+  <string name="boardSetup">Susunan buah catur</string>
+  <string name="howTheGameStarts">Bagaimana permainan dimulai</string>
+  <string name="boardSetupIntro">Kedua pasukan menghadapi satu sama lain, siap untuk pertempuran.</string>
+  <string name="thisIsTheInitialPosition">Ini adalah posisi awal dari setiap permainan catur! Membuat setiap langkah untuk melanjutkan.</string>
+  <string name="firstPlaceTheRooks">Pertama-tama tempatkan kedua benteng!! 
+Mereka adai sudut-sudut.</string>
+  <string name="thenPlaceTheKnights">Kemudian tempat kedua kuda! Mereka ada disebelah benteng.</string>
+  <string name="placeTheBishops">Tempatkan para patih!
+Mereka ada disebelah kuda.</string>
+  <string name="placeTheQueen">Tempat Ratu! Dia berada di kotak warnanya sendiri.</string>
+  <string name="placeTheKing">Tempatkan raja! Sebelah kanan dari sang ratu.</string>
+  <string name="pawnsFormTheFrontLine">Bidak membentuk garis depan. Membuat langkah apa saja untuk melanjutkan.</string>
+  <string name="opponentsFromAroundTheWorld">Lawan dari di seluruh dunia</string>
+  <string name="playMachine">Lawan komputer</string>
+  <string name="testYourSkillsWithTheComputer">Uji keterampilan Anda dengan komputer</string>
+  <string name="letsGo">Ayo!</string>
+  <string name="stageX">Tahap %s</string>
+  <string name="awesome">Mengagumkan!</string>
+  <string name="excellent">Mantap!</string>
+  <string name="greatJob">Kerja yang bagus!</string>
+  <string name="perfect">Sempurna!</string>
+  <string name="outstanding">Luar biasa!</string>
+  <string name="wayToGo">Hebat!</string>
+  <string name="yesYesYes">Ya, ya, ya!</string>
+  <string name="youreGoodAtThis">Anda jago dalam hal ini!</string>
+  <string name="nailedIt">Kuasai itu.</string>
+  <string name="rightOn">Teat sekali!</string>
+  <string name="stageXComplete">Tahap %s lengkap</string>
+  <string name="yourScore">Skor Anda</string>
+  <string name="next">Berikutnya</string>
+  <string name="backToMenu">Kembali ke menu</string>
+  <string name="puzzleFailed">Teka-teki gagal!</string>
+  <string name="retry">Coba lagi</string>
 </resources>
