@@ -86,7 +86,6 @@
     <item quantity="other">Naslednje jemanje ali premik meta čez %s pol-potezi (do pravila 50 potez)</item>
   </plurals>
   <string name="noGameFound">Igra ni najdena</string>
-  <string name="alreadySearchingThroughAllAvailableGames">Vse razpoložljive partije se že iščejo</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Bi vključili več partij iz menija nastavitev?</string>
   <string name="openingExplorer">Raziskovalec otovritev</string>
   <string name="xOpeningExplorer">%s raziskovalec otvoritev</string>
