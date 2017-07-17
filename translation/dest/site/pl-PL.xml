@@ -94,7 +94,8 @@
   <string name="delete">Usuń</string>
   <string name="deleteThisImportedGame">Czy usunąć tę grę?</string>
   <string name="replayMode">Tryb odtwarzania</string>
-  <string name="realtimeReplay">W czasie rzeczywistym</string>
+  <string name="realtimeReplay">Naturalnie</string>
+  <string name="byCPL">Wg poprawności</string>
   <string name="openStudy">Dokonaj analizy</string>
   <string name="enable">Włącz</string>
   <string name="bestMoveArrow">Strzałka najlepszego ruchu</string>
@@ -528,9 +529,9 @@
   <string name="sound">Dźwięk</string>
   <string name="yourPreferencesHaveBeenSaved">Twoje ustawienia zostały zapisane.</string>
   <string name="none">Brak</string>
-  <string name="fast">Szybka</string>
+  <string name="fast">Szybko</string>
   <string name="normal">Normalna</string>
-  <string name="slow">Wolna</string>
+  <string name="slow">Wolno</string>
   <string name="insideTheBoard">Na szachownicy</string>
   <string name="outsideTheBoard">Poza szachownicą</string>
   <string name="onSlowGames">W grach z dłuższym tempem</string>
