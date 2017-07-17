@@ -65,6 +65,7 @@
   <string name="close">ปิด</string>
   <string name="winning">การชนะ</string>
   <string name="losing">การแพ้</string>
+  <string name="drawn">การเสมอ</string>
   <string name="unknown">ไม่ทราบ</string>
   <string name="database">ฐานข้อมูล</string>
   <string name="whiteDrawBlack">ขาวเสมอดำ</string>
@@ -79,13 +80,27 @@
     <item quantity="other">การจับกินถัดไปหรือการเดินเบี้ยใน %s ครึ่งรอบเดิน (ระยะห่างจากศูนย์ของตัวนับ 50 รอบเดิน)</item>
   </plurals>
   <string name="noGameFound">ไม่พบเกมใดๆ</string>
-  <string name="alreadySearchingThroughAllAvailableGames">ค้นหาทั่วเกมที่มีอยู่ทั้งหมดแล้ว</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">อาจรวมถึงเกมเพิ่มเติมจากเมนูการตั้งค่าใช่หรือไม่?</string>
   <string name="openingExplorer">ตัวสำรวจการเปิดเกม</string>
   <string name="xOpeningExplorer">ตัวสำรวจการเปิด %s</string>
   <string name="winPreventedBy50MoveRule">การชนะถูกป้องกันโดยกฎ 50-รอบเดิน</string>
   <string name="lossSavedBy50MoveRule">การแพ้ถูกป้องกันโดยกฎ 50-รอบเดิน</string>
   <string name="allSet">ยืนยัน!</string>
+  <string name="importPgn">นำเข้า PGN</string>
+  <string name="delete">ลบ</string>
+  <string name="deleteThisImportedGame">ลบเกมนี้นำเข้านี้ใช่ไหม?</string>
+  <string name="replayMode">โหมดเล่นซ้ำ</string>
+  <string name="realtimeReplay">เวลาตามจริง</string>
+  <string name="byCPL">โดย CPL</string>
+  <string name="openStudy">ศึกษาการเปิดเกม</string>
+  <string name="enable">เปิดใช้งาน</string>
+  <string name="bestMoveArrow">ลูกศรการเดินที่ดีที่สุด</string>
+  <string name="evaluationGauge">เครื่องวัดการประเมิน</string>
+  <string name="multipleLines">หลายบรรทัด</string>
+  <string name="cpus">ซีพียู</string>
+  <string name="memory">หน่วยความจำ</string>
+  <string name="infiniteAnalysis">การวิเคราะห์อนันต์</string>
+  <string name="removesTheDepthLimit">เอาข้อจำกัดความลึกออก และคงคอมพิวเตอร์ของคุณให้อบอุ่น</string>
   <string name="blunders">ความผิดพลาดมหันต์</string>
   <string name="mistakes">ความผิดพลาด</string>
   <string name="inaccuracies">ความไม่ถูกต้อง</string>
@@ -263,6 +278,7 @@
   <string name="fromPosition">จากตำแหน่ง</string>
   <string name="continueFromHere">เล่นต่อจากที่นี่</string>
   <string name="importGame">นำเข้าเกม</string>
+  <string name="importGameExplanation">เมื่อวาง PGN ของเกมแล้ว คุณจะได้รับความสามารถเรียกดูการเล่นซ้ำ, การวิเคราะห์ด้วยคอมพิวเตอร์, แชทของเกม และ URL ที่สามารถแชร์ได้</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s เกมที่ถูกนำเข้า</item>
   </plurals>
@@ -435,6 +451,7 @@
   <string name="closeAccountExplanation">คุณแน่ใจนะว่าจะปิดบัญชีของคุณ? การปิดบัญชีจะเป็นการตัดสินใจที่ถาวร คุณจะไม่สามารถลงชื่อเข้าได้อีก และข้อมูลประจำตัวของคุณจะไม่สามารถเข้าถึงได้อีกเลย</string>
   <string name="thisAccountIsClosed">บัญชีนี้ถูกปิดแล้ว</string>
   <string name="invalidUsernameOrPassword">ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง</string>
+  <string name="incorrectPassword">รหัสผ่านไม่ถูกต้อง</string>
   <string name="emailMeALink">ส่งลิงค์ให้ฉันทางอีเมล</string>
   <string name="currentPassword">รหัสผ่านปัจจุบัน</string>
   <string name="newPassword">รหัสผ่านใหม่</string>
@@ -511,7 +528,7 @@
   <string name="playOnTheBoardOffline">เล่นกระดานเดียวกัน</string>
   <string name="playOfflineComputer">คอมพิวเตอร์</string>
   <string name="opponent">คู่แข่ง</string>
-  <string name="learn">เรียนรู้</string>
+  <string name="learnMenu">เรียนรู้</string>
   <string name="community">ชุมชน</string>
   <string name="tools">เครื่องมือ</string>
   <string name="increment">เพิ่มขึ้น</string>
@@ -524,6 +541,7 @@
   <string name="error.email">ที่อยู่อีเมลนี้ไม่ถูกต้อง</string>
   <string name="error.email_acceptable">ที่อยู่อีเมลนี้ไม่ถูกยอมรับ</string>
   <string name="error.email_unique">ที่อยู่อีเมลนี้ถูกใช้ไปแล้ว</string>
+  <string name="error.email_different">นี่เป็นที่อยู่อีเมลของคุณอยู่แล้ว</string>
   <string name="blindfoldChess">หมากรุกอำพราง (ไม่เห็นตัวหมาก)</string>
   <string name="moveConfirmation">ยืนยันการเดิน</string>
   <string name="inCorrespondenceGames">เกมแบบยาวนาน</string>
@@ -650,6 +668,7 @@
   <string name="xLikesY">%1$s ชื่นชอบ %2$s</string>
   <string name="quickPairing">จับคู่ด่วน</string>
   <string name="lobby">ล็อบบี้</string>
+  <string name="anonymous">นิรนาม</string>
   <string name="yourScore">สกอร์ของคุณ: %s</string>
   <string name="language">ภาษา</string>
   <string name="background">พื้นหลัง</string>
@@ -665,6 +684,7 @@
   <string name="directlySupportLichess">สนับสนุน Lichess โดยตรง</string>
   <string name="playChessInStyle">เล่นหมากรุกแบบมีสไตล์</string>
   <string name="chessBasics">พื้นฐานหมากรุก</string>
+  <string name="learnChessByPlaying">เรียนรู้หมากรุกด้วยการเล่น</string>
   <string name="coaches">ผู้ฝึกสอน</string>
   <string name="invalidPgn">PGN ไม่ถูกต้อง</string>
   <string name="invalidFen">FEN ไม่ถูกต้อง</string>
