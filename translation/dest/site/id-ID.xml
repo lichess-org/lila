@@ -80,7 +80,6 @@
     <item quantity="other">Memakan berikutnya atau pion melangkah dalam setengah %s-bergerak (jarak ke Zeroing counter 50 bergerak)</item>
   </plurals>
   <string name="noGameFound">Permainan tidak ditemukan</string>
-  <string name="alreadySearchingThroughAllAvailableGames">Sudah mencari di semua permainan ya ada</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Apakah ingin memasukan Permainan lainnya dari menu preferensi?</string>
   <string name="openingExplorer">Perambah pembukaan</string>
   <string name="xOpeningExplorer">%s menelusuri pembukaan</string>
