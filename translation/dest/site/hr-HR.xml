@@ -84,13 +84,27 @@
     <item quantity="other">Sljedeće uzimanje ili potez pješakom u %s polupoteza (udaljenost od resetiranja brojača 50 poteza)</item>
   </plurals>
   <string name="noGameFound">Nije pronađena nijedna partija</string>
-  <string name="alreadySearchingThroughAllAvailableGames">Već se pretražuju sve dostupne partije</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Probaj uključiti više partija u postavkama pretraživača pozicija</string>
   <string name="openingExplorer">Pretraživač otvaranja &amp; baza pozicija u završnici</string>
   <string name="xOpeningExplorer">%s pretraživač otvaranja</string>
   <string name="winPreventedBy50MoveRule">Pobjeda spriječena na bazi pravila o 50 poteza</string>
   <string name="lossSavedBy50MoveRule">Poraz spriječen na bazi pravila o 50 poteza</string>
   <string name="allSet">U redu</string>
+  <string name="importPgn">Uvezi PGN</string>
+  <string name="delete">Izbriši</string>
+  <string name="deleteThisImportedGame">Želiš li izbrisati ovu uvezenu partiju?</string>
+  <string name="replayMode">Repriza partije</string>
+  <string name="realtimeReplay">U stvarnom vremenu</string>
+  <string name="byCPL">Po SDP</string>
+  <string name="openStudy">Otvori studiju</string>
+  <string name="enable">Omogući</string>
+  <string name="bestMoveArrow">Strelica za najbolji potez</string>
+  <string name="evaluationGauge">Mjerilo evaluacije</string>
+  <string name="multipleLines">Višestrukih varijanti</string>
+  <string name="cpus">Procesora</string>
+  <string name="memory">Memorija</string>
+  <string name="infiniteAnalysis">Neprekidna analiza</string>
+  <string name="removesTheDepthLimit">Uklanja granicu do koje računalo može analizirati, i održava tvoje računalo toplim</string>
   <string name="blunders">Previdi</string>
   <string name="mistakes">Greške</string>
   <string name="inaccuracies">Nepreciznosti</string>
@@ -294,6 +308,8 @@
   <string name="fromPosition">Od pozicije</string>
   <string name="continueFromHere">Nastavi odavde</string>
   <string name="importGame">Uvezi partiju</string>
+  <string name="importGameExplanation">Kada zalijepiš PGN neke partije, dobivaš reprizu partije (koju možeš pretraživati), 
+računalnu analizu, pričaonicu partije i URL za dijeljenje.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s uvezena partija</item>
     <item quantity="few">%s uvezenih partija</item>
@@ -480,6 +496,7 @@
   <string name="closeAccountExplanation">Jesi li siguran/sigurna? Zatvaranje tvog računa je trajna odluka. Više se nećeš moći prijaviti na svoj račun i stranica tvog profila više neće biti dostupna.</string>
   <string name="thisAccountIsClosed">Račun je zatvoren.</string>
   <string name="invalidUsernameOrPassword">Pogrešno korisničko ime ili lozinka</string>
+  <string name="incorrectPassword">Netočna lozinka</string>
   <string name="emailMeALink">Pošalji mi email</string>
   <string name="currentPassword">Trenutna lozinka</string>
   <string name="newPassword">Nova lozinka</string>
@@ -529,7 +546,7 @@
   <string name="xLeftANoteOnY">%1$s je ostavio bilješku na %2$s</string>
   <string name="xCompetesInY">%1$s se natječe u %2$s</string>
   <string name="xAskedY">%1$s je pitao %2$s</string>
-  <string name="xAnsweredY">%1$s je odgovorio %2$s</string>
+  <string name="xAnsweredY">%1$s je odgovorio na pitanje %2$s</string>
   <string name="xCommentedY">%1$s je komentirao %2$s</string>
   <string name="timeline">Vremenska crta</string>
   <string name="seeAllTournaments">Vidi sve turnire</string>
@@ -560,7 +577,7 @@
   <string name="playOnTheBoardOffline">Igraj bez mreže, preko uređaja</string>
   <string name="playOfflineComputer">Igraj protiv računala</string>
   <string name="opponent">Protivnik</string>
-  <string name="learn">Učenje</string>
+  <string name="learnMenu">Učenje</string>
   <string name="community">Zajednica</string>
   <string name="tools">Alati</string>
   <string name="increment">Dodatak</string>
@@ -573,7 +590,9 @@
   <string name="error.email">Ova email adresa je neispravna</string>
   <string name="error.email_acceptable">Ova email adresa nije prihvatljiva</string>
   <string name="error.email_unique">Ova email adresa je već iskorištena</string>
+  <string name="error.email_different">Već koristiš ovu e-mail adresu</string>
   <string name="blindfoldChess">Šah na slijepo (nevidljive figure)</string>
+  <string name="zenMode">Zen način</string>
   <string name="moveConfirmation">Potvrda poteza</string>
   <string name="inCorrespondenceGames">U dopisnim partijama</string>
   <string name="ifRatingIsPlusMinusX">Ukoliko je rejting ± %s</string>
@@ -721,6 +740,7 @@
   <string name="directlySupportLichess">Direktno podrži Lichess</string>
   <string name="playChessInStyle">Igraj šah u stilu</string>
   <string name="chessBasics">Šahovske osnove</string>
+  <string name="learnChessByPlaying">Nauči šah igrajući</string>
   <string name="coaches">Treneri</string>
   <string name="invalidPgn">Nevaljan PGN</string>
   <string name="invalidFen">Nevaljan FEN</string>
