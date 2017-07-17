@@ -11,10 +11,10 @@
   <string name="chessPieces">Schachfiguren</string>
   <string name="theRook">Der Turm</string>
   <string name="itMovesInStraightLines">Er bewegt sich in geraden Linien</string>
-  <string name="grabAllTheStars">Sammle alle Sterne!</string>
+  <string name="grabAllTheStars">Schnappe dir alle Sterne!</string>
   <string name="theFewerMoves">Je weniger Züge du machst, desto mehr Punkte kannst du gewinnen!</string>
   <string name="useTwoRooks">Benutze zwei Türme, um die Sache zu beschleunigen!</string>
-  <string name="rookComplete">Herzlichen Glückwunsch! Du hast den Turm erfolgreich gemeistert.</string>
+  <string name="rookComplete">Herzlichen Glückwunsch! Du beherrschst jetzt den Turm.</string>
   <string name="theBishop">Der Läufer</string>
   <string name="itMovesDiagonally">Er bewegt sich diagonal</string>
   <string name="bishopIntro">Als nächstes werden wir lernen, einen Läufer zu manövrieren!</string>
@@ -32,4 +32,16 @@
   <string name="theKnight">Der Springer</string>
   <string name="itMovesInAnLShape">Er bewegt sich in einer L-Form</string>
   <string name="knightIntro">Hier ist eine Herausforderung für dich. Der Springer ist... eine knifflige Figur.</string>
+  <string name="knightsHaveAFancyWay">Springer haben eine raffinierte Art herumzuhüpfen!</string>
+  <string name="knightsCanJumpOverObstacles">Springer können über Hindernisse springen! Entkomme und bezwinge die Sterne!</string>
+  <string name="knightComplete">Herzlichen Glückwunsch! Du beherrschst jetzt den Springer.</string>
+  <string name="thePawn">Der Bauer</string>
+  <string name="itMovesForwardOnly">Er kann sich nur vorwärts bewegen</string>
+  <string name="pawnIntro">Bauern sind schwach, aber sie besitzen einiges an Potential.</string>
+  <string name="pawnsMoveOneSquareOnly">Bauern bewegen sich nur um ein Feld. Aber wenn sie die andere Seite des Bretts erreicht haben, werden sie zu einer stärkeren Figur!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Meistens ist eine Umwandlung zur Dame am besten. Doch manchmal kann ein Springer nützlich sein!</string>
+  <string name="pawnsMoveForward">Bauern bewegen sich vorwärts, aber schlagen diagonal!</string>
+  <string name="captureThenPromote">Schlage und wandle um!</string>
+  <string name="useAllThePawns">Nutze alle Bauern! Kein Zwang zur Umwandlung.</string>
+  <string name="aPawnOnTheSecondRank">Ein Bauer auf der zweiten Reihe kann zwei Felder auf einmal ziehen!</string>
 </resources>
