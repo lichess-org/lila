@@ -633,7 +633,7 @@ lichess.topMenuIntent = function() {
           }).get(function(res) {
             $i = $('#signup-fp-input');
             if ($i.length) $i.val(res);
-            else $.post('/auth/set-fp/' + res + '/' + (Date.now() - t));
+            else $.post('/set-fingerprint/' + res + '/' + (Date.now() - t));
           });
       }, 500);
     });
@@ -1009,7 +1009,7 @@ lichess.topMenuIntent = function() {
     var $watchers = $("div.watchers").watchers();
     var tournament;
     lichess.socket = lichess.StrongSocket(
-      '/tournament/' + cfg.data.id + '/socket/v1', cfg.data.socketVersion, {
+      '/tournament/' + cfg.data.id + '/socket/v2', cfg.data.socketVersion, {
         receive: function(t, d) {
           return tournament.socketReceive(t, d);
         },
@@ -1055,7 +1055,7 @@ lichess.topMenuIntent = function() {
     var $watchers = $("div.watchers").watchers();
     var simul;
     lichess.socket = lichess.StrongSocket(
-      '/simul/' + cfg.data.id + '/socket/v1', cfg.socketVersion, {
+      '/simul/' + cfg.data.id + '/socket/v2', cfg.socketVersion, {
         receive: function(t, d) {
           simul.socketReceive(t, d);
         },
