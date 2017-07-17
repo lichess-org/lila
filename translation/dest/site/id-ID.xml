@@ -3,7 +3,7 @@
 <resources>
   <string name="playWithAFriend">Bermain melawan teman</string>
   <string name="playWithTheMachine">Bermain melawan komputer</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Undang yang lain dengan memberikan URL berikut</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Undang mengundang yang lain bermain, berikan URL ini</string>
   <string name="gameOver">Permainan berakhir</string>
   <string name="waitingForOpponent">Menunggu lawan</string>
   <string name="waiting">Menunggu</string>
@@ -279,6 +279,7 @@
   <string name="fromPosition">Dari posisi</string>
   <string name="continueFromHere">Lanjutkan dari sini</string>
   <string name="importGame">Masukkan permainan</string>
+  <string name="importGameExplanation">Ketika menyalin PGN permainan Anda dapat putar-ulang di browser analisis komputer, obrolan permainan dan URL yand dapat di bagi.</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s permainan telah dimasukkan</item>
   </plurals>
@@ -451,6 +452,7 @@
   <string name="closeAccountExplanation">Serius mau nutup akun anda? Penutupan akun bersifat permanen. Akun anda tidak akan bisa dikembalikan ulang dan diakses lagi.</string>
   <string name="thisAccountIsClosed">Akun ini telah ditutup.</string>
   <string name="invalidUsernameOrPassword">Username dan atau password salah</string>
+  <string name="incorrectPassword">Kata sandi salah</string>
   <string name="emailMeALink">Emailkan ke saya sebuah link</string>
   <string name="currentPassword">Password saat ini</string>
   <string name="newPassword">Password baru</string>
@@ -527,6 +529,7 @@
   <string name="playOnTheBoardOffline">Di atas papan</string>
   <string name="playOfflineComputer">Komputer</string>
   <string name="opponent">Lawan</string>
+  <string name="learnMenu">Belajar</string>
   <string name="community">Komunitas</string>
   <string name="tools">Alat</string>
   <string name="increment">Increment</string>
@@ -539,7 +542,9 @@
   <string name="error.email">Alamat email ini tidak sah</string>
   <string name="error.email_acceptable">Alamat email ini tidak bisa diakses</string>
   <string name="error.email_unique">Alamat email ini telah digunakan</string>
+  <string name="error.email_different">Ini sudah menjadi alamat email Anda</string>
   <string name="blindfoldChess">Catur buta (buah catur disembunyikan)</string>
+  <string name="zenMode">Moda Zen</string>
   <string name="moveConfirmation">Konfirmasi langkah</string>
   <string name="inCorrespondenceGames">Pada partai korespondensi</string>
   <string name="ifRatingIsPlusMinusX">Jika ratingnya ± %s</string>
@@ -681,6 +686,7 @@
   <string name="directlySupportLichess">Mendukung Lichess secara langsung</string>
   <string name="playChessInStyle">Bermain catur dengan gaya</string>
   <string name="chessBasics">Dasar-dasar catur</string>
+  <string name="learnChessByPlaying">Belajar catur dengan bermain</string>
   <string name="coaches">Pembina</string>
   <string name="invalidPgn">PGN tidak valid</string>
   <string name="invalidFen">FEN tidak valid</string>
