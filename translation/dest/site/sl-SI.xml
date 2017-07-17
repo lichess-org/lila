@@ -116,7 +116,25 @@
   <string name="claimADraw">Zahtevaj remi</string>
   <string name="offerDraw">Ponudi remi</string>
   <string name="draw">Remi</string>
+  <plurals name="nbPlayers">
+    <item quantity="one">%s igralcev</item>
+    <item quantity="two">%s igralca</item>
+    <item quantity="few">%s igralci</item>
+    <item quantity="other">%s igralcev</item>
+  </plurals>
   <string name="currentGames">Trenutno igrane igre</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s partija</item>
+    <item quantity="two">%s partiji</item>
+    <item quantity="few">%s partij</item>
+    <item quantity="other">%s partij</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s zaznamek</item>
+    <item quantity="two">%s zaznamka</item>
+    <item quantity="few">%s zaznamkov</item>
+    <item quantity="other">%s zaznamkov</item>
+  </plurals>
   <string name="viewInFullSize">Pogled v polni velikosti</string>
   <string name="logOut">Odjava</string>
   <string name="signIn">Prijava</string>
@@ -137,6 +155,18 @@
   <string name="correspondence">Korespondenčno</string>
   <string name="daysPerTurn">Število dni na potezo</string>
   <string name="oneDay">En dan</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s dan</item>
+    <item quantity="two">%s dni</item>
+    <item quantity="few">%s dni</item>
+    <item quantity="other">%s dni</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s ura</item>
+    <item quantity="two">%s uri</item>
+    <item quantity="few">%s ure</item>
+    <item quantity="other">%s ur</item>
+  </plurals>
   <string name="time">Čas</string>
   <string name="rating">Rating</string>
   <string name="ratingStats">Rating statistika</string>
@@ -152,6 +182,12 @@
   <string name="forgotPassword">Ste pozabili geslo?</string>
   <string name="rank">Rang</string>
   <string name="gamesPlayed">Odigranih iger</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s partijo s teboj</item>
+    <item quantity="two">%s partiji s teboj</item>
+    <item quantity="few">%s partije s teboj</item>
+    <item quantity="other">%s partij s teboj</item>
+  </plurals>
   <string name="cancel">Prekliči</string>
   <string name="timeOut">Čas je potekel</string>
   <string name="drawOfferSent">Predlog za remi poslan</string>
@@ -207,6 +243,12 @@
     <item quantity="two">%s rangirana</item>
     <item quantity="few">%s rangirani</item>
     <item quantity="other">%s rangiranih</item>
+  </plurals>
+  <plurals name="nbWins">
+    <item quantity="one">%s zmaga</item>
+    <item quantity="two">%s zmagi</item>
+    <item quantity="few">%s zmage</item>
+    <item quantity="other">%s zmag</item>
   </plurals>
   <string name="exportGames">Izvozi igre</string>
   <string name="ratingRange">Razpon ratinga</string>
