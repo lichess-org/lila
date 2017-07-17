@@ -3,4 +3,5 @@
 <resources>
   <string name="emailConfirm_subject">Potvrdi svoj lichess.org račun, %s</string>
   <string name="emailConfirm_ignore">Ako se niste registrirali na Lichess-u možete slobodno ignorirati ovu poruku.</string>
+  <string name="emailChange_subject">Potvrdi svoju novu e-mail adresu, %s</string>
 </resources>
