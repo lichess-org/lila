@@ -593,6 +593,7 @@ računalnu analizu, pričaonicu partije i URL za dijeljenje.</string>
   <string name="error.email_unique">Ova email adresa je već iskorištena</string>
   <string name="error.email_different">Već koristiš ovu e-mail adresu</string>
   <string name="blindfoldChess">Šah na slijepo (nevidljive figure)</string>
+  <string name="zenMode">Zen način</string>
   <string name="moveConfirmation">Potvrda poteza</string>
   <string name="inCorrespondenceGames">U dopisnim partijama</string>
   <string name="ifRatingIsPlusMinusX">Ukoliko je rejting ± %s</string>
