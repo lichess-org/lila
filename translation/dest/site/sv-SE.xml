@@ -89,6 +89,10 @@
   <string name="lossSavedBy50MoveRule">Förlust förhindrad genom 50-drags regeln</string>
   <string name="allSet">OK</string>
   <string name="importPgn">Importera PGN</string>
+  <string name="delete">Ta bort</string>
+  <string name="deleteThisImportedGame">Ta bort detta importerade partil?</string>
+  <string name="replayMode">Replay-läge</string>
+  <string name="realtimeReplay">Realtid</string>
   <string name="enable">Aktivera</string>
   <string name="multipleLines">Multipla varianter</string>
   <string name="cpus">CPUs</string>
