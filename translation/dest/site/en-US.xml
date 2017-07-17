@@ -82,7 +82,6 @@
     <item quantity="other">Next capture or pawn move in %s half-moves (Distance To Zeroing of the 50 move counter)</item>
   </plurals>
   <string name="noGameFound">No game found</string>
-  <string name="alreadySearchingThroughAllAvailableGames">Already searching through all available games</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Maybe include more games from the preferences menu?</string>
   <string name="openingExplorer">Opening explorer &amp; tablebase</string>
   <string name="xOpeningExplorer">%s opening explorer</string>
@@ -295,7 +294,7 @@
   <string name="continueFromHere">Continue from here</string>
   <string name="importGame">Import game</string>
   <string name="importGameExplanation">When pasting a game PGN you get a browsable replay,
-a computer analysis, a game chat and a sharable URL.</string>
+a computer analysis, a game chat and a shareable URL.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s imported game</item>
     <item quantity="other">%s imported games</item>
@@ -554,6 +553,7 @@ a computer analysis, a game chat and a sharable URL.</string>
   <string name="playOnTheBoardOffline">Over the board</string>
   <string name="playOfflineComputer">Computer</string>
   <string name="opponent">Opponent</string>
+  <string name="learnMenu">Learn</string>
   <string name="community">Community</string>
   <string name="tools">Tools</string>
   <string name="increment">Increment</string>
@@ -568,6 +568,7 @@ a computer analysis, a game chat and a sharable URL.</string>
   <string name="error.email_unique">This email address is already taken</string>
   <string name="error.email_different">This is already your email address</string>
   <string name="blindfoldChess">Blindfold chess (invisible pieces)</string>
+  <string name="zenMode">Zen mode</string>
   <string name="moveConfirmation">Move confirmation</string>
   <string name="inCorrespondenceGames">Correspondence games</string>
   <string name="ifRatingIsPlusMinusX">If rating is ± %s</string>
@@ -712,6 +713,7 @@ a computer analysis, a game chat and a sharable URL.</string>
   <string name="directlySupportLichess">Directly support Lichess</string>
   <string name="playChessInStyle">Play chess in style</string>
   <string name="chessBasics">Chess basics</string>
+  <string name="learnChessByPlaying">Learn chess by playing</string>
   <string name="coaches">Coaches</string>
   <string name="invalidPgn">Invalid PGN</string>
   <string name="invalidFen">Invalid FEN</string>
