@@ -222,12 +222,14 @@ export default class RoundController {
     };
     if (this.clock) {
       const moveMillis = this.clock.stopClock();
-      if (meta.premove) socketOpts.millis = 0;
-      else if (moveMillis !== undefined) {
-        socketOpts.millis = moveMillis;
-        if (socketOpts.millis < 3) {
-          // instant move, no premove? might be fishy
-          $.post('/jslog/' + this.data.game.id + this.data.player.id + '?n=instamove:' + socketOpts.millis);
+      if (this.shouldSendMoveTime) {
+        if (meta.premove) socketOpts.millis = 0;
+        else if (moveMillis !== undefined) {
+          socketOpts.millis = moveMillis;
+          if (socketOpts.millis < 3) {
+            // instant move, no premove? might be fishy
+            $.post('/jslog/' + this.data.game.id + this.data.player.id + '?n=instamove:' + socketOpts.millis);
+          }
         }
       }
     }
