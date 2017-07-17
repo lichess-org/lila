@@ -82,7 +82,6 @@
     <item quantity="other">Prochaine prise ou coup de pion dans %s demi-coups (distance de remise à zéro de la règle des 50 coups)</item>
   </plurals>
   <string name="noGameFound">Aucune partie trouvée</string>
-  <string name="alreadySearchingThroughAllAvailableGames">Recherche déjà en cours parmi les parties disponibles</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Peut-être inclure plus de parties depuis le menu préférences ?</string>
   <string name="openingExplorer">Explorateur d\'ouvertures &amp; tables de finales</string>
   <string name="xOpeningExplorer">%s explorateur d\'ouvertures</string>
