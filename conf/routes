@@ -340,7 +340,7 @@ POST  /password/reset/send             controllers.Auth.passwordResetApply
 GET   /password/reset/sent/:email      controllers.Auth.passwordResetSent(email: String)
 GET   /password/reset/confirm/:token   controllers.Auth.passwordResetConfirm(token: String)
 POST  /password/reset/confirm/:token   controllers.Auth.passwordResetConfirmApply(token: String)
-POST  /set-fingerprint/:hash/:ms       controllers.Auth.setFingerprint(hash: String, ms: Int)
+POST  /auth/set-fp/:fp/:ms             controllers.Auth.setFingerPrint(fp: String, ms: Int)
 POST  /auth/token                      controllers.Auth.makeLoginToken
 GET   /auth/token/:token               controllers.Auth.loginWithToken(token: String)
 

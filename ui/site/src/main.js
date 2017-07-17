@@ -631,8 +631,9 @@ lichess.topMenuIntent = function() {
           new Fingerprint2({
             excludeJsFonts: true
           }).get(function(res) {
-            var time = Date.now() - t;
-            $.post('/set-fingerprint/' + res + '/' + time);
+            $i = $('#signup-fp-input');
+            if ($i.length) $i.val(res);
+            else $.post('/auth/set-fp/' + res + '/' + (Date.now() - t));
           });
       }, 500);
     });

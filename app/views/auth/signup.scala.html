@@ -3,6 +3,7 @@
 @moreJs = {
 @jsTag("signup.js")
 <script src='https://www.google.com/recaptcha/api.js'></script>
+@fingerprintTag
 }
 
 @tosLink = {
@@ -23,6 +24,7 @@ zen = true) {
     <form action="@routes.Auth.signupPost" method="POST">
       <ul>
         @auth.formFields(form("username"), form("password"), form("email").some, register = true)
+        <input id="signup-fp-input" name="fp" type="hidden" />
         <li data-icon="">&nbsp;
           @trans.computersAreNotAllowedToPlay()<br />
           <small>
