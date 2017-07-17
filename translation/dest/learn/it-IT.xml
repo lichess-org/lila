@@ -55,5 +55,9 @@ ma catturano in diagonale!</string>
   <string name="useAllThePawns">Usa tutti i pedoni!
 Non c\'è bisogno di promuovere.</string>
   <string name="aPawnOnTheSecondRank">Un pedone nella seconda traversa può muovere di due case in una sola volta!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Cattura tutte le stelle!
+Non c\'è bisogno di promuovere.</string>
+  <string name="pawnComplete">Congratulazioni! I pedoni non hanno segreti per te.</string>
   <string name="pawnPromotion">Promozione del pedone</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Il pedone ha raggiunto l\'estremità della scacchiera!</string>
 </resources>
