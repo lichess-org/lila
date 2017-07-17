@@ -262,6 +262,14 @@ object Event {
     override def owner = true
   }
 
+  case class ClockInc(color: Color, time: Centis) extends Event {
+    def typ = "clockInc"
+    def data = Json.obj(
+      "color" -> color,
+      "time" -> time.centis
+    )
+  }
+
   sealed trait ClockEvent extends Event
 
   case class Clock(white: Float, black: Float, nextLagComp: Option[Centis] = None) extends ClockEvent {

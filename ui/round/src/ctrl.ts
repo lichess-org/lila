@@ -59,12 +59,10 @@ export default class RoundController {
   challengeRematched: boolean = false;
   justDropped?: cg.Role;
   justCaptured?: cg.Piece;
-  justMoved: boolean = false;
+  shouldSendMoveTime: boolean = false;
   preDrop?: cg.Role;
   lastDrawOfferAtPly?: Ply;
-  lastMoveMillis?: number;
 
-  private timer = window.performance ? window.performance.now.bind(performance) : Date.now;
   private music?: any;
 
   constructor(opts: RoundOpts, redraw: Redraw) {
@@ -84,7 +82,7 @@ export default class RoundController {
 
     this.socket = makeSocket(opts.socketSend, this);
 
-    if (d.clock) this.clock = new ClockController(d.clock, {
+    if (d.clock) this.clock = new ClockController(d, {
       onFlag: () => { this.socket.outoftime(); this.redraw(); },
       soundColor: (d.simul || d.player.spectator || !d.pref.clockSound) ? undefined : d.player.color
     });
@@ -92,7 +90,7 @@ export default class RoundController {
 
     if (this.clock) {
       const tickNow = () => {
-        this.clockTick();
+        this.clock!.tick();
         if (game.playable(this.data)) setTimeout(tickNow, 100);
       };
       setTimeout(tickNow, 100);
@@ -222,13 +220,15 @@ export default class RoundController {
     const socketOpts: SocketOpts = {
       ackable: true
     };
-    if (meta.premove) socketOpts.millis = 0;
-    else if (this.lastMoveMillis !== undefined) {
-      socketOpts.millis = this.timer() - this.lastMoveMillis;
-      if (socketOpts.millis < 3) {
-        // instant move, no premove? might be fishy
-        $.post('/jslog/' + this.data.game.id + this.data.player.id + '?n=instamove:' + socketOpts.millis);
-        socketOpts.millis = undefined;
+    if (this.clock) {
+      const moveMillis = this.clock.stopClock();
+      if (meta.premove) socketOpts.millis = 0;
+      else if (moveMillis !== undefined) {
+        socketOpts.millis = moveMillis;
+        if (socketOpts.millis < 3) {
+          // instant move, no premove? might be fishy
+          $.post('/jslog/' + this.data.game.id + this.data.player.id + '?n=instamove:' + socketOpts.millis);
+        }
       }
     }
     this.socket.send(type, action, socketOpts);
@@ -236,8 +236,6 @@ export default class RoundController {
     this.justDropped = meta.justDropped;
     this.justCaptured = meta.justCaptured;
     this.preDrop = undefined;
-    this.clockTick(); // A hack. Better is clock.update with millis above removed.
-    this.justMoved = true;
     this.redraw();
   }
 
@@ -303,7 +301,6 @@ export default class RoundController {
     const d = this.data,
     playing = game.isPlayerPlaying(d);
 
-    if (playing) this.lastMoveMillis = this.timer();
     d.game.turns = o.ply;
     d.game.player = o.ply % 2 === 0 ? 'white' : 'black';
     const playedColor = o.ply % 2 === 0 ? 'black' : 'white',
@@ -360,15 +357,6 @@ export default class RoundController {
       if (o.check) sound.check();
       blur.onMove();
     }
-    if (o.clock) {
-      if (this.clock) this.clock.update(
-        o.clock.white,
-        o.clock.black,
-        playing && activeColor ? 0 : o.clock.lag);
-      else if (this.corresClock) this.corresClock.update(
-        o.clock.white,
-        o.clock.black);
-    }
     d.game.threefold = !!o.threefold;
     const step = {
       ply: round.lastPly(this.data) + 1,
@@ -381,9 +369,17 @@ export default class RoundController {
     d.steps.push(step);
     this.justDropped = undefined;
     this.justCaptured = undefined;
-    this.justMoved = false;
     game.setOnGame(d, playedColor, true);
     this.data.forecastCount = undefined;
+    if (o.clock) {
+      const oc = o.clock;
+      this.shouldSendMoveTime = true;
+      const delay = (playing && activeColor) ? 0 : (oc.lag || 1);
+      if (this.clock) this.clock.setClock(d, oc.white, oc.black, delay);
+      else if (this.corresClock) this.corresClock.update(
+        oc.white,
+        oc.black);
+    }
     this.redraw();
     if (d.blind) blind.reload(this);
     if (playing && playedColor === d.player.color) {
@@ -417,7 +413,6 @@ export default class RoundController {
   private clearJust() {
     this.justDropped = undefined;
     this.justCaptured = undefined;
-    this.justMoved = false;
     this.preDrop = undefined;
   }
 
@@ -426,7 +421,8 @@ export default class RoundController {
     round.massage(d);
     this.data = d;
     this.clearJust();
-    if (this.clock) this.clock.update(d.clock!.white, d.clock!.black);
+    this.shouldSendMoveTime = false;
+    if (this.clock) this.clock.setClock(d, d.clock!.white, d.clock!.black);
     if (this.corresClock) this.corresClock.update(d.correspondence.white, d.correspondence.black);
     if (!this.replaying()) ground.reload(this);
     this.setTitle();
@@ -486,15 +482,6 @@ export default class RoundController {
       this.challengeRematched = false;
       // $.modal(data.error);
       });
-  };
-
-  isClockRunning = (): boolean => {
-    return !!this.data.clock && game.playable(this.data) && !this.justMoved &&
-    ((this.data.game.turns - this.data.game.startedAtTurn) > 1 || this.data.clock.running);
-  };
-
-  private clockTick = (): void => {
-    if (this.isClockRunning()) this.clock!.tick(this, this.data.game.player);
   };
 
   private makeCorrespondenceClock = (): void => {

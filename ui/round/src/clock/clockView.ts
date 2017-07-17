@@ -3,20 +3,18 @@ import * as button from '../view/button';
 import { bind, justIcon } from '../util';
 import { game } from 'game';
 import RoundController from '../ctrl';
-import { ClockController, ClockData, Millis } from './clockCtrl';
+import { ClockElements, ClockController, TenthsPref, Millis } from './clockCtrl';
 import { Player } from 'game';
 import { Position } from '../interfaces';
 
 export function renderClock(ctrl: RoundController, player: Player, position: Position) {
   const clock = ctrl.clock!,
   millis = clock.millisOf(player.color),
-  isPlayer = ctrl.data.player.color === player.color;
-  let isRunning = false;
-  if (ctrl.justMoved) isRunning = !isPlayer;
-  else if (player.color === ctrl.data.game.player && ctrl.isClockRunning()) isRunning = true;
+  isPlayer = ctrl.data.player.color === player.color,
+  isRunning = player.color === clock.times.activeColor;
   const update = (el: HTMLElement) => {
     clock.elements[player.color].time = el;
-    el.innerHTML = formatClockTime(clock.data, millis, isRunning);
+    el.innerHTML = formatClockTime(clock.showTenths, millis, isRunning);
   }
   return h('div.clock.clock_' + player.color + '.clock_' + position, {
     class: {
@@ -25,7 +23,7 @@ export function renderClock(ctrl: RoundController, player: Player, position: Pos
       emerg: millis < clock.emergMs
     }
   }, [
-    showBar(clock, player.color, !!ctrl.goneBerserk[player.color]),
+    showBar(clock, clock.elements[player.color], millis, !!ctrl.goneBerserk[player.color]),
     h('div.time', {
       hook: {
         insert: vnode => update(vnode.elm as HTMLElement),
@@ -45,7 +43,7 @@ function pad2(num: number): string {
 const sepHigh = '<sep>:</sep>';
 const sepLow = '<sep class="low">:</sep>';
 
-function formatClockTime(data: ClockData, time: Millis, isRunning: boolean) {
+function formatClockTime(showTenths: TenthsPref, time: Millis, isRunning: boolean) {
   const date = new Date(time),
   millis = date.getUTCMilliseconds(),
   sep = (isRunning && millis < 500) ? sepLow : sepHigh,
@@ -53,7 +51,7 @@ function formatClockTime(data: ClockData, time: Millis, isRunning: boolean) {
   if (time >= 3600000) {
     const hours = pad2(Math.floor(time / 3600000));
     return hours + sepHigh + baseStr;
-  } else if (time >= 10000 && data.showTenths !== 2 || data.showTenths === 0) {
+  } else if (time >= 10000 && showTenths !== 2 || showTenths === 0) {
     return baseStr;
   } else {
     let tenthsStr = Math.floor(millis / 100).toString();
@@ -65,12 +63,12 @@ function formatClockTime(data: ClockData, time: Millis, isRunning: boolean) {
   }
 }
 
-function showBar(ctrl: ClockController, color: Color, berserk: boolean) {
+function showBar(ctrl: ClockController, els: ClockElements, millis: Millis, berserk: boolean) {
   const update = (el: HTMLElement) => {
-    ctrl.elements[color].bar = el;
-    el.style.width = ctrl.timePercent(color) + '%';
+    els.bar = el;
+    el.style.width = ctrl.timePercent(millis) + '%';
   };
-  return ctrl.data.showBar ? h('div.bar', {
+  return ctrl.showBar ? h('div.bar', {
     class: { berserk }
   }, [
     h('span', {
@@ -82,13 +80,9 @@ function showBar(ctrl: ClockController, color: Color, berserk: boolean) {
   ]) : null;
 }
 
-export function updateElements(ctrl: RoundController, color: Color) {
-  const clock = ctrl.clock!,
-  els = clock.elements[color];
-  if (els) {
-    els.time.innerHTML = formatClockTime(clock.data, clock.millisOf(color), true);
-    if (els.bar) els.bar.style.width = clock.timePercent(color) + '%';
-  } else ctrl.redraw();
+export function updateElements(clock: ClockController, els: ClockElements, millis: Millis) {
+  if (els.time) els.time.innerHTML = formatClockTime(clock.showTenths, millis, true);
+  if (els.bar) els.bar.style.width = clock.timePercent(millis) + '%';
 }
 
 function showBerserk(ctrl: RoundController, color: Color): boolean {
