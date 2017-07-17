@@ -93,6 +93,7 @@
   <string name="deleteThisImportedGame">Ta bort detta importerade partil?</string>
   <string name="replayMode">Replay-läge</string>
   <string name="realtimeReplay">Realtid</string>
+  <string name="byCPL">CPL</string>
   <string name="openStudy">Öppna studie</string>
   <string name="enable">Aktivera</string>
   <string name="bestMoveArrow">Bästa drag pil</string>
@@ -101,6 +102,7 @@
   <string name="cpus">CPUs</string>
   <string name="memory">Minne</string>
   <string name="infiniteAnalysis">Oändlig analys</string>
+  <string name="removesTheDepthLimit">Tar bort sökdjup-begränsningen, och håller datorn varm</string>
   <string name="blunders">Blundrar</string>
   <string name="mistakes">Misstag</string>
   <string name="inaccuracies">Felaktigheter</string>
@@ -291,6 +293,7 @@
   <string name="fromPosition">Från position</string>
   <string name="continueFromHere">Fortsätt härifrån</string>
   <string name="importGame">Importera parti</string>
+  <string name="importGameExplanation">När du klistrar in ett parti PGN får du en bläddringsbar replay, en datoranalys, en spel-chatt och en delbar URL.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Importerade partier</item>
     <item quantity="other">%s Importerade partier</item>
