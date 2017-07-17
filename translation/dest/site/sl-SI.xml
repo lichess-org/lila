@@ -152,7 +152,7 @@
   <string name="variants">Različice</string>
   <string name="timeControl">Ura</string>
   <string name="realTime">Standardno</string>
-  <string name="correspondence">Korespondenčno</string>
+  <string name="correspondence">Dopisno</string>
   <string name="daysPerTurn">Število dni na potezo</string>
   <string name="oneDay">En dan</string>
   <plurals name="nbDays">
@@ -735,7 +735,7 @@
   <string name="bulletBlitzClassical">Hitropotezno, pospešeno, klasično</string>
   <string name="correspondenceChess">Korespondenčni šah</string>
   <string name="onlineAndOfflinePlay">Igranje s povezavo ali brez povezave</string>
-  <string name="correspondenceAndUnlimited">korespondenčno in neomejeno</string>
+  <string name="correspondenceAndUnlimited">Dopisno in neomejeno</string>
   <string name="viewTheSolution">Poglej rešitev</string>
   <string name="followAndChallengeFriends">Sledi in izzovi prijatelje</string>
   <plurals name="availableInNbLanguages">
