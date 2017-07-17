@@ -63,7 +63,7 @@ Non c\'è bisogno di promuovere.</string>
   <string name="itNowPromotesToAStrongerPiece">Ora promuovi in un pezzo più forte.</string>
   <string name="selectThePieceYouWant">Scegli il pezzo che vuoi!</string>
   <string name="fundamentals">Fondamenti</string>
-  <string name="capture">Catture</string>
+  <string name="capture">Cattura</string>
   <string name="takeTheEnemyPieces">Vinci i pezzi nemici</string>
   <string name="captureIntro">Identifica i pezzi indifesi dell\'avversario e catturali!</string>
   <string name="takeTheBlackPieces">Cattura i pezzi neri!</string>
@@ -85,7 +85,7 @@ nessun pezzo indifeso!</string>
   <string name="combatComplete">Congratulazioni! Ora sai come combattere con i pezzi degli scacchi!</string>
   <string name="checkInOne">Scacco in una mossa</string>
   <string name="attackTheOpponentsKing">Attacca il re dell\'avversario</string>
-  <string name="checkInOneIntro">Per dare scacco attacca il re. Dovranno difenderlo!</string>
+  <string name="checkInOneIntro">Per dare scacco attacca il re. L\'avversario dovrà difenderlo!</string>
   <string name="checkInOneGoal">Metti nel mirino il re avversario 
 in una sola mossa!</string>
   <string name="checkInOneComplete">Congratulazioni! Hai dato scacco al tuo avversario costringendolo a difendere il re!</string>
