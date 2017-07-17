@@ -103,6 +103,9 @@
   <string name="evaluationGauge">Mjerilo evaluacije</string>
   <string name="multipleLines">Višestrukih varijanti</string>
   <string name="cpus">Procesora</string>
+  <string name="memory">Memorija</string>
+  <string name="infiniteAnalysis">Neprekidna analiza</string>
+  <string name="removesTheDepthLimit">Uklanja granicu do koje računalo može analizirati, i održava tvoje računalo toplim</string>
   <string name="blunders">Previdi</string>
   <string name="mistakes">Greške</string>
   <string name="inaccuracies">Nepreciznosti</string>
@@ -494,6 +497,7 @@ računalnu analizu, pričaonicu partije i URL za dijeljenje.</string>
   <string name="closeAccountExplanation">Jesi li siguran/sigurna? Zatvaranje tvog računa je trajna odluka. Više se nećeš moći prijaviti na svoj račun i stranica tvog profila više neće biti dostupna.</string>
   <string name="thisAccountIsClosed">Račun je zatvoren.</string>
   <string name="invalidUsernameOrPassword">Pogrešno korisničko ime ili lozinka</string>
+  <string name="incorrectPassword">Netočna lozinka</string>
   <string name="emailMeALink">Pošalji mi email</string>
   <string name="currentPassword">Trenutna lozinka</string>
   <string name="newPassword">Nova lozinka</string>
@@ -543,7 +547,7 @@ računalnu analizu, pričaonicu partije i URL za dijeljenje.</string>
   <string name="xLeftANoteOnY">%1$s je ostavio bilješku na %2$s</string>
   <string name="xCompetesInY">%1$s se natječe u %2$s</string>
   <string name="xAskedY">%1$s je pitao %2$s</string>
-  <string name="xAnsweredY">%1$s je odgovorio %2$s</string>
+  <string name="xAnsweredY">%1$s je odgovorio na pitanje %2$s</string>
   <string name="xCommentedY">%1$s je komentirao %2$s</string>
   <string name="timeline">Vremenska crta</string>
   <string name="seeAllTournaments">Vidi sve turnire</string>
