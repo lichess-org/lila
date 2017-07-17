@@ -104,9 +104,11 @@ object Auth extends LilaController {
     }
   }
 
-  private def mustConfirmEmailByIP(ip: IpAddress, username: String): Fu[Boolean] =
+  private def mustConfirmEmailByIP(implicit ctx: Context): Fu[Boolean] = {
+    val ip = HTTPRequest lastRemoteAddress ctx.req
     api.recentByIpExists(ip) >>|
       Mod.ipIntelCache.get(ip).map(80 <).recover { case _: Exception => false }
+  }
 
   def signupPost = OpenBody { implicit ctx =>
     implicit val req = ctx.body
@@ -118,10 +120,7 @@ object Auth extends LilaController {
             data => env.recaptcha.verify(~data.recaptchaResponse, req).flatMap {
               case false => BadRequest(html.auth.signup(forms.signup.website fill data, env.RecaptchaPublicKey)).fuccess
               case true =>
-                mustConfirmEmailByIP(
-                  ip = HTTPRequest lastRemoteAddress ctx.req,
-                  username = data.username
-                ) flatMap { mustConfirmEmail =>
+                mustConfirmEmailByIP flatMap { mustConfirmEmail =>
                   lila.mon.user.register.website()
                   lila.mon.user.register.mustConfirmEmail(mustConfirmEmail)()
                   val email = env.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
@@ -141,8 +140,7 @@ object Auth extends LilaController {
           ),
           api = apiVersion => forms.signup.mobile.bindFromRequest.fold(
             err => fuccess(BadRequest(jsonError(errorsAsJson(err)))),
-            data => {
-              val mustConfirmEmail = ~data.canConfirm
+            data => mustConfirmEmailByIP flatMap { mustConfirmEmail =>
               lila.mon.user.register.mobile()
               lila.mon.user.register.mustConfirmEmail(mustConfirmEmail)()
               val email = env.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"

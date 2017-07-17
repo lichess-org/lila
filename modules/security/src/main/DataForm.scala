@@ -51,8 +51,7 @@ final class DataForm(
     val mobile = Form(mapping(
       "username" -> username,
       "password" -> text(minLength = 4),
-      "email" -> acceptableUniqueEmail(none),
-      "can-confirm" -> optional(boolean)
+      "email" -> acceptableUniqueEmail(none)
     )(MobileSignupData.apply)(_ => None))
   }
 
@@ -112,8 +111,7 @@ object DataForm {
   case class MobileSignupData(
       username: String,
       password: String,
-      email: String,
-      canConfirm: Option[Boolean]
+      email: String
   ) {
     def realEmail = EmailAddress(email)
   }
