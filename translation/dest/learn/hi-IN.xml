@@ -4,11 +4,15 @@
   <string name="learnChess">शतरंज जानें</string>
   <string name="byPlaying">खेलकर!</string>
   <string name="menu">मेनू</string>
+  <string name="resetMyProgress">मेरी प्रगति को रीसेट करें</string>
   <string name="youWillLoseAllYourProgress">आप अपनी सारी प्रगति खो देंगे!</string>
   <string name="play">खेलो!</string>
   <string name="chessPieces">शतरंज के टुकड़े</string>
   <string name="theRook">हाथी</string>
+  <string name="itMovesInStraightLines">यह सीधे लाइनों में चलता है</string>
+  <string name="rookIntro">हाथी एक शक्तिशाली टुकड़ा है। क्या आप इसे कमांड करने के लिए तैयार हैं?</string>
   <string name="theBishop">ऊंट</string>
+  <string name="itMovesDiagonally">यह तिरछे चलता है</string>
   <string name="theQueen">रानी</string>
   <string name="queenCombinesRookAndBishop">रानी = हाथी + ऊंट</string>
   <string name="theKing">राजा</string>
@@ -24,7 +28,27 @@
   <string name="itMovesForwardOnly">यह केवल आगे बढ़ता है</string>
   <string name="pawnIntro">प्यादे कमजोर हैं, लेकिन वे बहुत क्षमता पैक करते हैं</string>
   <string name="captureThenPromote">कब्जा, फिर बढ़ावा दें!</string>
+  <string name="pawnPromotion">प्यास पदोन्नति</string>
   <string name="yourPawnReachedTheEndOfTheBoard">आपका प्यादा बोर्ड के अंत तक पहुंच गया!</string>
+  <string name="itNowPromotesToAStrongerPiece">यह अब एक ज़ोरदार टुकड़ा है</string>
+  <string name="fundamentals">बुनियादी बातों</string>
+  <string name="capture">कब्जा</string>
+  <string name="takeTheEnemyPieces">दुश्मन के टुकड़े ले लो</string>
+  <string name="takeTheBlackPieces">काले टुकड़े ले लो</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">काले टुकड़े ले लो!
+और अपना मत खोना|</string>
+  <string name="captureComplete">बधाई! आप जानते हैं कि शतरंज के टुकड़ों से कैसे लड़ें!</string>
+  <string name="protection">सुरक्षा</string>
+  <string name="keepYourPiecesSafe">अपने टुकड़े सुरक्षित रखें</string>
+  <string name="escape">आप पर हमला कर रहे हैं!
+खतरे से बच!</string>
+  <string name="noEscape">कहीं नहीं भाग सकते,
+लेकिन आप बचाव कर सकते हैं!</string>
+  <string name="combat">युद्ध</string>
+  <string name="captureAndDefendPieces">कब्जा और टुकड़े की रक्षा</string>
+  <string name="combatIntro">एक अच्छा योद्धा हमले और बचाव को जानता है!</string>
+  <string name="combatComplete">बधाई! आप जानते हैं कि शतरंज के टुकड़ों से कैसे लड़ें</string>
+  <string name="attackTheOpponentsKing">विरोधी के राजा पर हमला करें</string>
   <string name="defendYourKing">अपने राजा की रक्षा करें</string>
   <string name="escapeWithTheKing">राजा के साथ भागो!</string>
   <string name="theKingCannotEscapeButBlock">राजा बच नहीं सकता, लेकिन आप हमले को रोक सकते हैं!</string>
@@ -39,8 +63,12 @@
   <string name="howTheGameStarts">गेम कैसे आरंभ होता है</string>
   <string name="theSpecialKingMove">विशेष राजा कदम</string>
   <string name="castlingIntro">सुरक्षा के लिए अपने राजा लाओ, और हमले के लिए अपनी हड्डी तैनात!</string>
+  <string name="theSpecialPawnMove">विशेष मोहरा कदम</string>
   <string name="stalemate">गतिरोध</string>
   <string name="theGameIsADraw">खेल आकर्षित है</string>
+  <string name="advanced">उन्नत</string>
+  <string name="pieceValue">टुकड़ा मूल्य</string>
+  <string name="evaluatePieceStrength">टुकड़ा ताकत का मूल्यांकन करें</string>
   <string name="register">पंजीकृत करें</string>
   <string name="getAFreeLichessAccount">एक मुफ्त Lichess खाता प्राप्त करें</string>
   <string name="practice">अभ्यास</string>
