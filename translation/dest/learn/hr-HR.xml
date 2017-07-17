@@ -33,4 +33,11 @@ Trebaš oboje!</string>
   <string name="queenComplete">Čestitke! Dame za tebe nemaju nikakve tajne.</string>
   <string name="theKing">Kralj</string>
   <string name="theMostImportantPiece">Najvažnija figura</string>
+  <string name="kingIntro">Ti si kralj. Ako padneš u borbi, igra je izgubljena.</string>
+  <string name="theKingIsSlow">Kralj je spor.</string>
+  <string name="lastOne">Zadnji dio!</string>
+  <string name="kingComplete">Sada možeš zapovijedati zapovjednikom!</string>
+  <string name="theKnight">Skakač</string>
+  <string name="itMovesInAnLShape">Kreće se u obliku slova L</string>
+  <string name="knightIntro">Evo izazova za tebe. Skakač je... škakljiva figura.</string>
 </resources>
