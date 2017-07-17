@@ -58,5 +58,12 @@
   <string name="useAllThePawns">すべてのポーンを使って！
 成る必要はありません。</string>
   <string name="aPawnOnTheSecondRank">2 段目にいるポーンは一度に 2 マス進めます！</string>
+  <string name="grabAllTheStarsNoNeedToPromote">星印を全部消す！
+成る必要はありません。</string>
+  <string name="pawnComplete">おめでとう！　ポーンもよくわかったでしょう。</string>
+  <string name="pawnPromotion">ポーンの昇格</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">ポーンが盤の端まで進みました！</string>
+  <string name="itNowPromotesToAStrongerPiece">もっと強い駒に成ることができます（昇格）。</string>
+  <string name="selectThePieceYouWant">好きな駒を選んでください！</string>
   <string name="castling">キャスリング</string>
 </resources>
