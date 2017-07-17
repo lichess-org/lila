@@ -82,7 +82,6 @@
     <item quantity="other">Nächster Schlag- oder Bauernzug in %s Halbzügen (Distance To Zeroing des Zählers für die 50-Züge-Regel)</item>
   </plurals>
   <string name="noGameFound">Kein Spiel gefunden</string>
-  <string name="alreadySearchingThroughAllAvailableGames">Es werden bereits alle verfügbaren Spiele durchsucht</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Vielleicht sollten mehr Spiele über das \"Einstellungen\"-Menü einbezogen werden?</string>
   <string name="openingExplorer">Eröffnungsdatenbank &amp; Tablebases</string>
   <string name="xOpeningExplorer">%s Eröffnungsbuch</string>
