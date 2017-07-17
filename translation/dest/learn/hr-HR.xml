@@ -14,4 +14,12 @@
   <string name="rookIntro">Top je jaka figura. Jesi li spreman/spremna vladati njime?</string>
   <string name="rookGoal">Klikni na topa
 da ga dovedeš do zvjezdice!</string>
+  <string name="grabAllTheStars">Pokupi sve zvjezdice!</string>
+  <string name="theFewerMoves">Čim manje poteza napraviš,
+tim više poteza osvajaš!</string>
+  <string name="useTwoRooks">Koristi dva topa
+da ubrzaš stvari!</string>
+  <string name="rookComplete">Čestitke! Uspješno si savladao/la topa.</string>
+  <string name="theBishop">Lovac</string>
+  <string name="itMovesDiagonally">Kreće se dijagonalno</string>
 </resources>
