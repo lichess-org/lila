@@ -30,5 +30,19 @@ Ti servono entrambi!</string>
   <string name="queenComplete">Congratulazioni! Le regine non hanno segreti per te.</string>
   <string name="theKing">Il re</string>
   <string name="theMostImportantPiece">Il pezzo più importante</string>
+  <string name="kingIntro">Tu sei il re. Se cadi in battaglia la partita è persa.</string>
+  <string name="theKingIsSlow">Il re è lento.</string>
+  <string name="lastOne">L\'ultimo!</string>
+  <string name="kingComplete">Ora puoi comandare il comandante!</string>
+  <string name="theKnight">Il cavallo</string>
+  <string name="itMovesInAnLShape">Si muove in un tragitto a \"L\"</string>
+  <string name="knightIntro">Ecco una sfida per te. Il cavallo è... complicato.</string>
+  <string name="knightsHaveAFancyWay">I cavalli hanno un modo particolare
+di saltare qui e lì!</string>
+  <string name="knightsCanJumpOverObstacles">I cavalli possono saltare gli ostacoli!
+Scappa e conquista le stelle!</string>
+  <string name="knightComplete">Congratulazioni! Hai padroneggiato il cavallo.</string>
+  <string name="thePawn">Il pedone</string>
+  <string name="itMovesForwardOnly">Si muove solo in avanti</string>
   <string name="pawnPromotion">Promozione del pedone</string>
 </resources>
