@@ -1,5 +1,4 @@
 var util = require('./util');
-var partial = require('chessground').util.partial;
 var ground = require('./ground');
 
 module.exports = function(blueprint, opts) {
@@ -28,7 +27,9 @@ module.exports = function(blueprint, opts) {
     if (!res) return fail();
     it++;
     ground.fen(opts.chess.fen(), opts.chess.color(), opts.makeChessDests(), move);
-    if (step.shapes) setTimeout(partial(ground.setShapes, step.shapes), 500);
+    if (step.shapes) setTimeout(function() {
+      ground.setShapes(step.shapes);
+    }, 500);
   };
 
   return {

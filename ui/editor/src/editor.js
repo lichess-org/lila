@@ -41,14 +41,9 @@ function makeUrl(url, fen) {
   return url + encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
 }
 
-function trans(i18n, key) {
-  return i18n[key];
-}
-
 module.exports = {
   init: init,
   makeUrl: makeUrl,
   computeFen: computeFen,
-  castlesAt: castlesAt,
-  trans: trans
+  castlesAt: castlesAt
 };

@@ -5,6 +5,10 @@ var xhrConfig = function(xhr) {
   xhr.setRequestHeader('Accept', 'application/vnd.lichess.v1+json');
 }
 
+function partial() {
+  return arguments[0].bind.apply(arguments[0], [null].concat(Array.prototype.slice.call(arguments, 1)));
+};
+
 function simulAction(action, ctrl) {
   return m.request({
     method: 'POST',
@@ -17,16 +21,16 @@ function simulAction(action, ctrl) {
 }
 
 module.exports = {
-  start: lichess.partial(simulAction, 'start'),
-  abort: lichess.partial(simulAction, 'abort'),
+  start: partial(simulAction, 'start'),
+  abort: partial(simulAction, 'abort'),
   join: function(variantKey) {
-    return lichess.partial(simulAction, 'join/' + variantKey);
+    return partial(simulAction, 'join/' + variantKey);
   },
-  withdraw: lichess.partial(simulAction, 'withdraw'),
+  withdraw: partial(simulAction, 'withdraw'),
   accept: function(user) {
-    return lichess.partial(simulAction, 'accept/' + user)
+    return partial(simulAction, 'accept/' + user)
   },
   reject: function(user) {
-    return lichess.partial(simulAction, 'reject/' + user)
+    return partial(simulAction, 'reject/' + user)
   }
 };

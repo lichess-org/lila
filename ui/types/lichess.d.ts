@@ -8,7 +8,6 @@ interface Lichess {
   engineName: string;
   assetUrl(url: string, opts?: AssetUrlOpts): string;
   storage: LichessStorageHelper
-  partial<T>(f: (...someArgs: any[]) => T): (...args: any[]) => T;
   reload(): void;
   loadScript(url: string): any
   keyboardMove: any
