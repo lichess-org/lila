@@ -5,4 +5,14 @@
   <string name="byPlaying">खेलकर!</string>
   <string name="menu">मेनू</string>
   <string name="youWillLoseAllYourProgress">आप अपनी सारी प्रगति खो देंगे!</string>
+  <string name="play">खेलो!</string>
+  <string name="chessPieces">शतरंज के टुकड़े</string>
+  <string name="theRook">हाथी</string>
+  <string name="theBishop">ऊंट</string>
+  <string name="theQueen">रानी</string>
+  <string name="theKing">राजा</string>
+  <string name="theKingIsSlow">राजा धीमा है।</string>
+  <string name="theKnight">घोड़ा</string>
+  <string name="thePawn">प्यादा</string>
+  <string name="itMovesForwardOnly">यह केवल आगे बढ़ता है</string>
 </resources>
