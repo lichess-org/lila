@@ -50,4 +50,7 @@ Pobjegni i savladaj zvijezde!</string>
   <string name="pawnIntro">Pješaci su slabi, ali imaju puno potencijala.</string>
   <string name="pawnsMoveOneSquareOnly">Pješaci se pomiču za samo jedno polje. 
 Ali kada dosegnu drugu stranu ploče, postaju jedna od snažnijih figura!</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Tvoj pješak je došao do kraja ploče!</string>
+  <string name="itNowPromotesToAStrongerPiece">Sada se on promovira u jaču figuru.</string>
+  <string name="selectThePieceYouWant">Odaberi figuru koju želiš!</string>
 </resources>
