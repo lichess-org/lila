@@ -563,6 +563,7 @@
   <string name="error.email_unique">Det finns redan ett konto med denna e-postadress</string>
   <string name="error.email_different">Detta är redan din registrerade e-mailadress</string>
   <string name="blindfoldChess">Blindschack (Osynliga pjäser)</string>
+  <string name="zenMode">Zen läge</string>
   <string name="moveConfirmation">Bekräftelse av drag</string>
   <string name="inCorrespondenceGames">I korrespondenspartier</string>
   <string name="ifRatingIsPlusMinusX">Om rating är ± %s</string>
