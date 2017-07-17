@@ -67,4 +67,30 @@ Tapi kadangkala menjadi kuda lebih berguna!</string>
 Dan jangan kehilangan Ada punya.</string>
   <string name="captureComplete">Selamat! Sekarang Anda tahu bertarung dengan buah-buah catur!</string>
   <string name="protection">Proteksi</string>
+  <string name="keepYourPiecesSafe">Menjaga buah Anda agar aman</string>
+  <string name="protectionIntro">Identifikasi buah-buah Anda yang diserang lawan Anda, dan pertahankan mereka!</string>
+  <string name="protectionComplete">Selamat! Buah catur yang tidak hilang adalah buah yang Anda menangkan!</string>
+  <string name="escape">Anda diserang! Melarikan diri ancaman!</string>
+  <string name="noEscape">Tidak ada jalan keluar, tapi Anda dapat mempertahankan!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Jangan biarkan mereka mengambil buah-buah yang tak terlindungi!</string>
+  <string name="combat">Pertempuran</string>
+  <string name="captureAndDefendPieces">Makan dan pertahankan buah</string>
+  <string name="combatIntro">Seorang prajurit yang baik tahu serangan dan pertahanan!</string>
+  <string name="combatComplete">Selamat! Sekarang Anda tahu bertarung dengan buah-buah catur!</string>
+  <string name="checkInOne">Skak dalam 1 langkah</string>
+  <string name="attackTheOpponentsKing">Menyerang raja lawan</string>
+  <string name="checkInOneIntro">Untuk skak lawan Anda, serang rajanya. Mereka harus mempertahankannya!</string>
+  <string name="checkInOneGoal">Bidik Raja lawan dalam satu langkah!</string>
+  <string name="checkInOneComplete">Selamat! Anda telak skak lawan Anda, memaksa mereka melindungi rajanya!</string>
+  <string name="outOfCheck">Keluar dari skak</string>
+  <string name="defendYourKing">Membela raja</string>
+  <string name="outOfCheckIntro">Anda di skak! Anda harus menghindar atau blokir serangannya.</string>
+  <string name="escapeWithTheKing">Meloloskan diri dengan raja!</string>
+  <string name="theKingCannotEscapeButBlock">Raja tidak dapat melarikan diri, tapi Anda dapat memblokir serangan!</string>
+  <string name="youCanGetOutOfCheckByTaking">Anda bisa menghindari dari skak dengan mengambil buah yang menyerang.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Kuda ini melakukan skak menembus pertahanan Anda!</string>
+  <string name="escapeOrBlock">Melarikan diri dengan raja atau memblokir serangan!</string>
+  <string name="outOfCheckComplete">Selamat! Raja Anda tidak akan pernah bisa diambil, pastikan Anda dapat menangkal serangan!</string>
+  <string name="mateInOne">Mat dalam satu langkah</string>
+  <string name="defeatTheOpponentsKing">Mengalahkan raja lawan</string>
 </resources>
