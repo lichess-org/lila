@@ -690,7 +690,7 @@ body.dark .tour_spotlight:hover .img {
     width: 200px;
   }
   #featured_game {
-    display: none;
+    visibility: hidden;
   }
 }
 #timeline .entry {
