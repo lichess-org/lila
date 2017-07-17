@@ -26,4 +26,16 @@ Anda membutuhkan keduanya!</string>
   <string name="bishopComplete">Selamat! Anda bisa memerintahkan sebuah patih.</string>
   <string name="theQueen">Ratu</string>
   <string name="queenCombinesRookAndBishop">Ratu = benteng + patih</string>
+  <string name="queenIntro">Memasuki bagian catur yang paling kuat. Yang Mulia sang Ratu!</string>
+  <string name="queenComplete">Selamat! Ratu tidak mempunyai rahasia untuk Anda.</string>
+  <string name="theKing">Sang Raja</string>
+  <string name="theMostImportantPiece">Buah paling penting</string>
+  <string name="kingIntro">Anda adalah rajanya. Apabila Anda gugur di pertempuran, permainan berakhir.</string>
+  <string name="theKingIsSlow">Sang raja bergerak lambat.</string>
+  <string name="lastOne">Yang terakhir!</string>
+  <string name="kingComplete">Anda kini dapat memerintah sang Panglima!</string>
+  <string name="theKnight">Kuda</string>
+  <string name="itMovesInAnLShape">Bergerak dalam bentuk L</string>
+  <string name="knightIntro">Berikut adalah sebuah tantangan bagi Anda. Kuda adalah... buah yang penuh trik.</string>
+  <string name="knightsHaveAFancyWay">Kuda mempunyai cara keren berlompat sana-sini!</string>
 </resources>
