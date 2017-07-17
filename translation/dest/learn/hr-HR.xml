@@ -3,4 +3,8 @@
 <resources>
   <string name="learnChess">Nauči šah</string>
   <string name="byPlaying">igrajući!</string>
+  <string name="menu">Izbornik</string>
+  <string name="progressX">Napredak: %s</string>
+  <string name="resetMyProgress">Resetiraj moj napredak</string>
+  <string name="youWillLoseAllYourProgress">Izgubit ćeš sav svoj napredak!</string>
 </resources>
