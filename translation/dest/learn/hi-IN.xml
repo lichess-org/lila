@@ -10,9 +10,16 @@
   <string name="theRook">हाथी</string>
   <string name="theBishop">ऊंट</string>
   <string name="theQueen">रानी</string>
+  <string name="queenCombinesRookAndBishop">रानी = हाथी + ऊंट</string>
   <string name="theKing">राजा</string>
+  <string name="theMostImportantPiece">सबसे महत्वपूर्ण टुकड़ा</string>
   <string name="theKingIsSlow">राजा धीमा है।</string>
+  <string name="kingComplete">अब आप कमांडर को कमान कर सकते हैं!</string>
   <string name="theKnight">घोड़ा</string>
+  <string name="itMovesInAnLShape">यह L आकार में चलता है</string>
+  <string name="knightIntro">यहाँ आपके लिए एक चुनौती है घोड़ा... एक मुश्किल टुकड़ा है।</string>
+  <string name="knightsHaveAFancyWay">घोड़े को चारों ओर कूदने का एक शानदार तरीका है</string>
+  <string name="knightComplete">बधाई! आपने घोड़े की महारत हासिल कर लिया है</string>
   <string name="thePawn">प्यादा</string>
   <string name="itMovesForwardOnly">यह केवल आगे बढ़ता है</string>
 </resources>
