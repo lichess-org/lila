@@ -66,4 +66,10 @@ Nema potrebe za promoviranjem.</string>
   <string name="itNowPromotesToAStrongerPiece">Sada se on promovira u jaču figuru.</string>
   <string name="selectThePieceYouWant">Odaberi figuru koju želiš!</string>
   <string name="fundamentals">Osnove</string>
+  <string name="capture">Uzimanje</string>
+  <string name="takeTheEnemyPieces">Pojedi protivničke figure</string>
+  <string name="captureIntro">Identificiraj neobranjene protivničke figure, i pojedi ih!</string>
+  <string name="takeTheBlackPieces">Uzmi crne figure!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Uzmi crne figure!
+I nemoj izgubiti svoje.</string>
 </resources>
