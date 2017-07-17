@@ -84,7 +84,6 @@
     <item quantity="other">Sljedeće uzimanje ili potez pješakom u %s polupoteza (udaljenost od resetiranja brojača 50 poteza)</item>
   </plurals>
   <string name="noGameFound">Nije pronađena nijedna partija</string>
-  <string name="alreadySearchingThroughAllAvailableGames">Već se pretražuju sve dostupne partije</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Probaj uključiti više partija u postavkama pretraživača pozicija</string>
   <string name="openingExplorer">Pretraživač otvaranja &amp; baza pozicija u završnici</string>
   <string name="xOpeningExplorer">%s pretraživač otvaranja</string>
