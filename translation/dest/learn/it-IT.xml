@@ -60,4 +60,16 @@ Non c\'è bisogno di promuovere.</string>
   <string name="pawnComplete">Congratulazioni! I pedoni non hanno segreti per te.</string>
   <string name="pawnPromotion">Promozione del pedone</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Il pedone ha raggiunto l\'estremità della scacchiera!</string>
+  <string name="itNowPromotesToAStrongerPiece">Ora promuovi in un pezzo più forte.</string>
+  <string name="selectThePieceYouWant">Scegli il pezzo che vuoi!</string>
+  <string name="fundamentals">Fondamenti</string>
+  <string name="capture">Catture</string>
+  <string name="takeTheEnemyPieces">Vinci i pezzi nemici</string>
+  <string name="captureIntro">Identifica i pezzi indifesi dell\'avversario e catturali!</string>
+  <string name="takeTheBlackPieces">Cattura i pezzi neri!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Cattura i pezzi neri!
+E non perdere i tuoi.</string>
+  <string name="captureComplete">Congratulazioni! Ora sai come combattere con i pezzi degli scacchi!</string>
+  <string name="protection">Difesa</string>
+  <string name="keepYourPiecesSafe">Tieni al sicuro i tuoi pezzi</string>
 </resources>
