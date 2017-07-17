@@ -49,18 +49,18 @@
   <string name="computerAnalysisAvailable">มีการวิเคราะห์ด้วยคอมพิวเตอร์</string>
   <string name="analysis">กระดานวิเคราะห์</string>
   <string name="depthX">ความลึก %s</string>
-  <string name="usingServerAnalysis">ใช้การวิเคราะห์เซิร์ฟเวอร์</string>
+  <string name="usingServerAnalysis">กำลังใช้การวิเคราะห์เซิร์ฟเวอร์</string>
   <string name="loadingEngine">กำลังโหลดจักรกล...</string>
   <string name="cloudAnalysis">การวิเคราะห์คลาวด์</string>
   <string name="goDeeper">ลึกลงอีก</string>
   <string name="showThreat">แสดงภัยคุกคาม</string>
   <string name="inLocalBrowser">ในเบราว์เซอร์ท้องถิ่น</string>
   <string name="toggleLocalEvaluation">เปิด/ปิดการประเมินท้องถิ่น</string>
-  <string name="move">การเดิน</string>
+  <string name="move">เดิน</string>
   <string name="variantLoss">ตัวแปรฯที่แพ้</string>
   <string name="variantWin">ตัวแปรฯที่ชนะ</string>
-  <string name="insufficientMaterial">วัตถุประกอบไม่เพียงพอ</string>
-  <string name="pawnMove">การเดินเบี้ย</string>
+  <string name="insufficientMaterial">วัสดุไม่เพียงพอ</string>
+  <string name="pawnMove">เดินเบี้ย</string>
   <string name="capture">จับกิน</string>
   <string name="close">ปิด</string>
   <string name="winning">การชนะ</string>
@@ -68,11 +68,11 @@
   <string name="drawn">การเสมอ</string>
   <string name="unknown">ไม่ทราบ</string>
   <string name="database">ฐานข้อมูล</string>
-  <string name="whiteDrawBlack">ขาวเสมอดำ</string>
+  <string name="whiteDrawBlack">ขาว / เสมอ / ดำ</string>
   <string name="averageRatingX">ระดับคะแนนเฉลี่ย: %s</string>
   <string name="recentGames">เกมเมื่อเร็วๆนี้</string>
   <string name="topGames">เกมเด่น</string>
-  <string name="masterDbExplanation">เกม OTB สองล้านเกมของผู้เล่นระดับคะแนน FIDE 2200+ จาก 1952 ถึง 2016</string>
+  <string name="masterDbExplanation">เกม OTB สองล้านเกมของผู้เล่นระดับคะแนน FIDE %1$s+ จาก %2$s ถึง %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="other">จนใน %s ครึ่งรอบเดิน</item>
   </plurals>
@@ -82,7 +82,7 @@
   <string name="noGameFound">ไม่พบเกมใดๆ</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">อาจรวมถึงเกมเพิ่มเติมจากเมนูการตั้งค่าใช่หรือไม่?</string>
   <string name="openingExplorer">ตัวสำรวจการเปิดเกม</string>
-  <string name="xOpeningExplorer">ตัวสำรวจการเปิด %s</string>
+  <string name="xOpeningExplorer">ตัวสำรวจการเปิดเกม %s</string>
   <string name="winPreventedBy50MoveRule">การชนะถูกป้องกันโดยกฎ 50-รอบเดิน</string>
   <string name="lossSavedBy50MoveRule">การแพ้ถูกป้องกันโดยกฎ 50-รอบเดิน</string>
   <string name="allSet">ยืนยัน!</string>
