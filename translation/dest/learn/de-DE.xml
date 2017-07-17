@@ -11,6 +11,8 @@
   <string name="chessPieces">Schachfiguren</string>
   <string name="theRook">Der Turm</string>
   <string name="itMovesInStraightLines">Er bewegt sich in geraden Linien</string>
+  <string name="rookIntro">Der Turm ist eine mächtige Figur. Bist du bereit, ihn zu befehligen?</string>
+  <string name="rookGoal">Klicke auf den Turm, um den Stern zu bekommen!</string>
   <string name="grabAllTheStars">Schnappe dir alle Sterne!</string>
   <string name="theFewerMoves">Je weniger Züge du machst, desto mehr Punkte kannst du gewinnen!</string>
   <string name="useTwoRooks">Benutze zwei Türme, um die Sache zu beschleunigen!</string>
@@ -18,11 +20,12 @@
   <string name="theBishop">Der Läufer</string>
   <string name="itMovesDiagonally">Er bewegt sich diagonal</string>
   <string name="bishopIntro">Als nächstes werden wir lernen, einen Läufer zu manövrieren!</string>
+  <string name="youNeedBothBishops">Ein weißfeldriger Läufer, ein schwarzfeldriger Läufer. Du brauchst beide!</string>
   <string name="bishopComplete">Herzlichen Glückwunsch! Du kannst jetzt einen Läufer befehligen.</string>
   <string name="theQueen">Die Dame</string>
   <string name="queenCombinesRookAndBishop">Dame = Turm + Läufer</string>
   <string name="queenIntro">Die mächtigste Schachfigur tritt ein. Ihre Majestät, die Dame!</string>
-  <string name="queenComplete">Herzlichen Glückwunsch! Damen haben keine Geheimnisse vor dir.</string>
+  <string name="queenComplete">Herzlichen Glückwunsch! Damen haben keine Geheimnisse mehr vor dir.</string>
   <string name="theKing">Der König</string>
   <string name="theMostImportantPiece">Die wichtigste Figur</string>
   <string name="kingIntro">Du bist der König. Wenn du in der Schlacht fällst, ist das Spiel verloren.</string>
@@ -44,4 +47,23 @@
   <string name="captureThenPromote">Schlage und wandle um!</string>
   <string name="useAllThePawns">Nutze alle Bauern! Kein Zwang zur Umwandlung.</string>
   <string name="aPawnOnTheSecondRank">Ein Bauer auf der zweiten Reihe kann zwei Felder auf einmal ziehen!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Sammle alle Sterne! Kein Zwang zur Umwandlung.</string>
+  <string name="pawnComplete">Herzlichen Glückwunsch! Bauern haben keine Geheimnisse mehr vor dir.</string>
+  <string name="pawnPromotion">Bauernumwandlung</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Dein Bauer hat das Ende des Bretts erreicht!</string>
+  <string name="itNowPromotesToAStrongerPiece">Er wird jetzt in eine stärkere Figur umgewandelt.</string>
+  <string name="selectThePieceYouWant">Wähle die gewünschte Figur aus!</string>
+  <string name="fundamentals">Grundlagen</string>
+  <string name="capture">Schlagzüge</string>
+  <string name="takeTheEnemyPieces">Nimm die gegnerischen Figuren</string>
+  <string name="captureIntro">Finde die unbeschützten Figuren deines Gegners und schlage sie!</string>
+  <string name="takeTheBlackPieces">Schlage die schwarzen Figuren!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Schlage die schwarzen Figuren! Und verliere deine nicht.</string>
+  <string name="captureComplete">Herzlichen Glückwunsch! Du weißt jetzt, wie man mit Schachfiguren kämpft!</string>
+  <string name="protection">Beschützen</string>
+  <string name="keepYourPiecesSafe">Behalte deine Figuren in Sicherheit</string>
+  <string name="protectionIntro">Finde die Figuren, die dein Gegner angreift und beschütze sie!</string>
+  <string name="protectionComplete">Herzlichen Glückwunsch! Eine nicht verlorene Figur ist eine gewonnene Figur!</string>
+  <string name="escape">Du wirst angegriffen! Entkomme der Bedrohung!</string>
+  <string name="noEscape">Es gibt keinen Ausweg, aber du kannst dich verteidigen!</string>
 </resources>
