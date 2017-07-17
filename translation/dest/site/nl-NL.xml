@@ -74,7 +74,6 @@
     <item quantity="other">Schaakmat in %s halfzetten</item>
   </plurals>
   <string name="noGameFound">Geen partij gevonden</string>
-  <string name="alreadySearchingThroughAllAvailableGames">Al aan het zoeken door alle beschikbare partijen</string>
   <string name="openingExplorer">Openingverkenner &amp; tablebase</string>
   <string name="xOpeningExplorer">%s openingsverkenner</string>
   <string name="blunders">Blunders</string>
@@ -523,7 +522,6 @@
   <string name="playOnTheBoardOffline">Speel offline</string>
   <string name="playOfflineComputer">Computer</string>
   <string name="opponent">Tegenstander</string>
-  <string name="learn">Leren</string>
   <string name="community">Gemeenschap</string>
   <string name="tools">Gereedschap</string>
   <string name="increment">Extra tijd</string>

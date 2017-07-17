@@ -56,7 +56,55 @@
   <string name="showThreat">Rodyti grėsmę</string>
   <string name="inLocalBrowser">vietinėje naršyklėje</string>
   <string name="toggleLocalEvaluation">Perjungti vietinį įvertinimą</string>
+  <string name="move">Ėjimas</string>
+  <string name="variantLoss">Variantinis pralaimėjimas</string>
+  <string name="variantWin">Variantinė pergalė</string>
+  <string name="insufficientMaterial">Nepakanka figūrų vertės</string>
+  <string name="pawnMove">Ėjimas pėstininku</string>
+  <string name="capture">Kirtimas</string>
+  <string name="close">Užverti</string>
+  <string name="winning">Laimintis</string>
+  <string name="losing">Pralaimintis</string>
+  <string name="drawn">Lygiosios</string>
+  <string name="unknown">Nežinomas</string>
+  <string name="database">Duomenų bazė</string>
+  <string name="whiteDrawBlack">Baltieji / Lygiosios/ Juodieji</string>
+  <string name="averageRatingX">Vidutinis reitingas: %s</string>
+  <string name="recentGames">Paskiausios partijos</string>
+  <string name="topGames">Geriausios partijos</string>
+  <string name="masterDbExplanation">Du milijonai OTB (prie lentos) partijų, sužaistų %1$s+ FIDE vertinamų žaidėjų, nuo 1952 iki 2017 m.</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Matas už %s pus-ėjimo</item>
+    <item quantity="few">Matas už %s pus-ėjimų</item>
+    <item quantity="other">Matas už %s pus-ėjimų</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Kitas kirtimas arba ėjimas pėstininku per %s pus-ėjimą (50-ies ėjimų ribos „Distance To Zeroing“)</item>
+    <item quantity="few">Kitas kirtimas arba ėjimas pėstininku per %s pus-ėjimus (50-ies ėjimų ribos „Distance To Zeroing“)</item>
+    <item quantity="other">Kitas kirtimas arba ėjimas pėstininku per %s pus-ėjimų (50-ies ėjimų ribos „Distance To Zeroing“)</item>
+  </plurals>
+  <string name="noGameFound">Partijų nerasta</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Galbūt įtraukti daugiau partijų iš parinkčių meniu?</string>
   <string name="openingExplorer">Debiutų naršyklė</string>
+  <string name="xOpeningExplorer">%s debiutų naršyklė</string>
+  <string name="winPreventedBy50MoveRule">Pergalei sukliudė 50-ies ėjimų taisyklė</string>
+  <string name="lossSavedBy50MoveRule">Pralaimėjimo išvengta dėl 50-ies ėjimų taisyklės</string>
+  <string name="allSet">Viskas paruošta!</string>
+  <string name="importPgn">Įkelti PGN</string>
+  <string name="delete">Šalinti</string>
+  <string name="deleteThisImportedGame">Pašalinti šią importuotą partiją?</string>
+  <string name="replayMode">Peržiūros režimas</string>
+  <string name="realtimeReplay">Realiu laiku</string>
+  <string name="byCPL">Pagal įvertį</string>
+  <string name="openStudy">Atverti studiją</string>
+  <string name="enable">Įjungti</string>
+  <string name="bestMoveArrow">Geriausio ėjimo rodyklė</string>
+  <string name="evaluationGauge">Vertinimo matuoklis</string>
+  <string name="multipleLines">Keletas linijų</string>
+  <string name="cpus">Procesoriai</string>
+  <string name="memory">Atmintinė</string>
+  <string name="infiniteAnalysis">Neribota analizė</string>
+  <string name="removesTheDepthLimit">Panaikina gylio limitą ir neleidžia kompiuteriui atvėsti</string>
   <string name="blunders">Šiurkščios klaidos</string>
   <string name="mistakes">Klaidos</string>
   <string name="inaccuracies">Netikslumai</string>
@@ -210,6 +258,7 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Šis žaidejas naudojasi kompiuterio pagalba</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Šis žaidėjas dirbtinai padidina/sumažina savo reitingą</string>
+  <string name="openingExplorerAndTablebase">Debiutų naršyklė ir pozicijų DB</string>
   <string name="takeback">Atsiimti ėjimą</string>
   <string name="proposeATakeback">Prašyti leidimo atšaukti ėjimą</string>
   <string name="takebackPropositionSent">Ėjimo atšaukimo prašymas išsiųstas</string>
@@ -259,6 +308,8 @@
   <string name="fromPosition">Nuo pozicijos</string>
   <string name="continueFromHere">Tęsti nuo čia</string>
   <string name="importGame">Importuoti partiją</string>
+  <string name="importGameExplanation">Įkeldami partijos PGN gausite naršomą peržiūrą,
+kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importuotas žaidimas</item>
     <item quantity="few">%s importuoti žaidimai</item>
@@ -439,12 +490,13 @@
   <string name="typePrivateNotesHere">Čia galite rašytis asmeninius užrašus</string>
   <string name="gameDisplay">Žaidimo vaizdas</string>
   <string name="pieceAnimation">Figūrų animacija</string>
-  <string name="materialDifference">Figūrų skirtumas</string>
+  <string name="materialDifference">Figūrų vertės skirtumas</string>
   <string name="closeAccount">Uždaryti paskyrą</string>
   <string name="changedMindDoNotCloseAccount">Persigalvojau, neuždarykite mano paskyros</string>
   <string name="closeAccountExplanation">Ar tikrai norite uždaryti savo paskyrą? Po uždarymo paskyros nebus galima atkurti. Jūs nebegalėsite prisijungti ir jūsų profilis bus nebepasiekiamas.</string>
   <string name="thisAccountIsClosed">Ši paskyra uždaryta.</string>
   <string name="invalidUsernameOrPassword">Neteisingas prisijungimo vardas arba slaptažodis</string>
+  <string name="incorrectPassword">Neteisingas slaptažodis</string>
   <string name="emailMeALink">Atsiųsti nuorodą el. paštu</string>
   <string name="currentPassword">Esamas slaptažodis</string>
   <string name="newPassword">Naujas slaptažodis</string>
@@ -525,7 +577,7 @@
   <string name="playOnTheBoardOffline">Dviese</string>
   <string name="playOfflineComputer">Su kompiuteriu</string>
   <string name="opponent">Varžovas</string>
-  <string name="learn">Išmok</string>
+  <string name="learnMenu">Išmok</string>
   <string name="community">Bendruomenė</string>
   <string name="tools">Įrankiai</string>
   <string name="increment">Prieaugis</string>
@@ -538,7 +590,9 @@
   <string name="error.email">Neteisingas el.pašto adresas</string>
   <string name="error.email_acceptable">Nepriimtinas el.pašto adresas</string>
   <string name="error.email_unique">Šis el.pašto adresas yra užimtas</string>
+  <string name="error.email_different">Tai yra dabartinis jūsų el. pašto adresas</string>
   <string name="blindfoldChess">Aklieji šachmatai (nematomos figūros)</string>
+  <string name="zenMode">„Zen“ režimas</string>
   <string name="moveConfirmation">Ėjimo patvirtinimas</string>
   <string name="inCorrespondenceGames">Korespondenciniuose</string>
   <string name="ifRatingIsPlusMinusX">Jei reitingas yra ± %s</string>
@@ -626,6 +680,7 @@
   <string name="crosstable">Susitikimai</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Judėti žaidime taip pat galite slinkdami virš lentos.</string>
   <string name="analysisShapesHowTo">Spustelėkite Shift + kairįjį pelės klavišą arba dešinįjį pelės klavišą norėdami piešti ant lentos.</string>
+  <string name="confirmResignationAndDrawOffers">Patvirtinti pasidavimo ir lygiųjų pasiūlymus</string>
   <string name="inputMovesWithTheKeyboard">Ėjimų įvedimas su klaviatūra</string>
   <string name="letOtherPlayersMessageYou">Leisti kitiems žaidėjams jums parašyti</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Atlikti rokiruotę karaliui einant per du langelius arba ant bokšto</string>
@@ -669,6 +724,7 @@
   <string name="xLikesY">%1$s patiko %2$s</string>
   <string name="quickPairing">Greitas suporavimas</string>
   <string name="lobby">Laukiamasis</string>
+  <string name="anonymous">Anonimas</string>
   <string name="yourScore">Jūsų rezultatas: %s</string>
   <string name="language">Kalba</string>
   <string name="background">Fonas</string>
@@ -684,6 +740,7 @@
   <string name="directlySupportLichess">Paremkite „lichess“ tiesiogiai</string>
   <string name="playChessInStyle">Žaiskite šachmatais stilingai</string>
   <string name="chessBasics">Šachmatų pagrindai</string>
+  <string name="learnChessByPlaying">Išmokite šachmatus žaisdami</string>
   <string name="coaches">Treneriai</string>
   <string name="invalidPgn">Netinkamas PGN</string>
   <string name="invalidFen">Netinkamas FEN</string>

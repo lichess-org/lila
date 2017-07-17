@@ -490,7 +490,6 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="playOnTheBoardOffline">Jogar offline contra um amigo</string>
   <string name="playOfflineComputer">Jogar offline contra o computador</string>
   <string name="opponent">Oponente</string>
-  <string name="learn">Aprender</string>
   <string name="community">Comunidade</string>
   <string name="tools">Ferramentas</string>
   <string name="increment">Incremento</string>
