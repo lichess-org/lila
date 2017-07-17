@@ -10,10 +10,10 @@
   <string name="yourTurn">Ti si na potezi</string>
   <string name="aiNameLevelAiLevel">%1$s, stopnja: %2$s</string>
   <string name="level">Stopnja</string>
-  <string name="toggleTheChat">Omogoči/onemogoči klepet</string>
-  <string name="toggleSound">Vključi/Izključi zvok</string>
+  <string name="toggleTheChat">Preklopi klepet</string>
+  <string name="toggleSound">Preklopi zvok</string>
   <string name="chat">Klepet</string>
-  <string name="resign">Predaj igro</string>
+  <string name="resign">Predaj</string>
   <string name="checkmate">Šah-Mat</string>
   <string name="stalemate">Pat</string>
   <string name="white">Beli</string>
