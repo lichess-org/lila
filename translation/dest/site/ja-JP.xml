@@ -91,6 +91,7 @@
   <string name="deleteThisImportedGame">ほんとうに削除しますか？</string>
   <string name="replayMode">再現の方式</string>
   <string name="realtimeReplay">リアルタイム</string>
+  <string name="byCPL">評価値変化</string>
   <string name="openStudy">ゲーム検討を開く</string>
   <string name="enable">解析する</string>
   <string name="bestMoveArrow">最善手を表示</string>
