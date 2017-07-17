@@ -107,19 +107,19 @@
   <string name="outOfCheckComplete">ยินดีด้วย! คิงของคุณไม่ถูกยึด มั่นใจว่าคุณสามารถป้องกันการรุกได้!</string>
   <string name="mateInOne">จนในหนึ่งครั้ง</string>
   <string name="defeatTheOpponentsKing">ปราบคิงของคู่แข่ง</string>
-  <string name="mateInOneIntro">คุณชนะเมื่อคู่แข่งไม่สามารถปกป้องการรุกได้</string>
+  <string name="mateInOneIntro">คุณจะชนะเมื่อคู่แข่งไม่สามารถปกป้องการรุกได้</string>
   <string name="attackYourOpponentsKing">โจมตีคิงของคู่แข่ง
 โดยที่เขาไม่สามารถจะปกป้องได้!</string>
-  <string name="mateInOneComplete">ยินดีด้วย นั่นคือวิธีที่คุณจะชนะเกมหมากรุก!</string>
-  <string name="intermediate">ระดับกลาง</string>
+  <string name="mateInOneComplete">ยินดีด้วย! นั่นคือวิธีที่คุณจะชนะเกมหมากรุก!</string>
+  <string name="intermediate">ระดับปานกลาง</string>
   <string name="boardSetup">การจัดกระดาน</string>
-  <string name="howTheGameStarts">วิธีเริ่มเกม</string>
+  <string name="howTheGameStarts">วิธีเริ่มต้นเกม</string>
   <string name="boardSetupIntro">สองกองทัพเผชิญหน้ากัน พร้อมที่จะต่อสู้</string>
-  <string name="thisIsTheInitialPosition">นี่คือตำแหน่งเริ่มต้น
+  <string name="thisIsTheInitialPosition">นี่คือตำแหน่งตั้งต้น
 ของทุกๆเกมหมากรุก!
 จงทำการเดิน เพื่อดำเนินการต่อ</string>
   <string name="firstPlaceTheRooks">อย่างแรก วางเรือ!
-พวกมันจะไปอยู่ที่มุม</string>
+ให้พวกมันไปอยู่ที่มุม</string>
   <string name="thenPlaceTheKnights">จากนั้นวางอัศวิน!
 พวกเขาอยู่ติดกับเรือ</string>
   <string name="placeTheBishops">วางบิชอป!
@@ -139,7 +139,7 @@
   <string name="castleQueenSide">เดินคิงของคุณสองช่อง
 เพื่อเข้าป้อมด้านควีน!</string>
   <string name="theKnightIsInTheWay">อัศวินขวางทางอยู่!
-เดินมัน แล้วเข้าป้อมด้านคิง</string>
+เดินมันออก แล้วเข้าป้อมด้านคิง</string>
   <string name="castleKingSideMovePiecesFirst">เข้าป้อมด้านคิง!
 คุณต้องเดินหมากออกไปก่อน</string>
   <string name="castleQueenSideMovePiecesFirst">เข้าป้อมด้านควีน!
@@ -150,21 +150,21 @@
   <string name="youCannotCastleIfAttacked">คุณจะเข้าป้อมไม่ได้
 ถ้าคิงกำลังถูกโจมตี
 จงขัดขวางการรุกนั้น แล้วเข้าป้อม!</string>
-  <string name="findAWayToCastleKingSide">หาทางเพื่อ
-เข้าป้อมด้านคิง!</string>
-  <string name="findAWayToCastleQueenSide">หาทางเพื่อ
-เข้าป้อมด้านควีน!</string>
+  <string name="findAWayToCastleKingSide">จงหาทาง
+เพื่อเข้าป้อมด้านคิง!</string>
+  <string name="findAWayToCastleQueenSide">จงหาทาง
+เพื่อเข้าป้อมด้านควีน!</string>
   <string name="castlingComplete">ยินดีด้วย! โดยส่วนใหญ่คุณควรเข้าป้อมในเกมเสมอ</string>
   <string name="enPassant">การกินผ่าน</string>
   <string name="theSpecialPawnMove">การเดินเบี้ยแบบพิเศษ</string>
   <string name="enPassantIntro">เมื่อเบี้ยฝ่ายตรงข้ามเดินครั้งนั้นสองช่อง คุณสามารถปฏิบัติต่อมันเหมือนดั่งมันเดินเพียงช่องเดียว</string>
   <string name="blackJustMovedThePawnByTwoSquares">ดำเพิ่งเดินเบี้ยสองช่อง!
-ใช้การกินผ่านกับมัน</string>
+จงใช้การกินผ่านกับมัน</string>
   <string name="enPassantOnlyWorksImmediately">การกินผ่านจะใช้ได้ทันที
-หลังจากคู่แข่งเดินเบี้ยเท่านั้น</string>
+หลังจากคู่แข่งเดินเบี้ยครั้งนั้นเท่านั้น</string>
   <string name="enPassantOnlyWorksOnFifthRank">การกินผ่านจะใช้ได้
 ถ้าเบี้ยของคุณอยู่บนแรงค์ที่ 5</string>
-  <string name="takeAllThePawnsEnPassant">ใช้การกินผ่านกับเบี้ยทั้งหมด!</string>
+  <string name="takeAllThePawnsEnPassant">จงใช้การกินผ่านกับเบี้ยทั้งหมด!</string>
   <string name="enPassantComplete">ยินดีด้วย! คุณสามารถใช้การกินผ่านได้แล้ว</string>
   <string name="stalemate">อับ</string>
   <string name="theGameIsADraw">เกมเสมอกัน</string>
