@@ -19,7 +19,7 @@ da ga dovedeš do zvjezdice!</string>
 tim više poteza osvajaš!</string>
   <string name="useTwoRooks">Koristi dva topa
 da ubrzaš stvari!</string>
-  <string name="rookComplete">Čestitke! Uspješno si savladao/la topa.</string>
+  <string name="rookComplete">Čestitke! Uspješno si ovladao/la topom.</string>
   <string name="theBishop">Lovac</string>
   <string name="itMovesDiagonally">Kreće se dijagonalno</string>
   <string name="bishopIntro">Sada ćemo naučiti kako manevrirati lovcem!</string>
@@ -40,4 +40,9 @@ Trebaš oboje!</string>
   <string name="theKnight">Skakač</string>
   <string name="itMovesInAnLShape">Kreće se u obliku slova L</string>
   <string name="knightIntro">Evo izazova za tebe. Skakač je... škakljiva figura.</string>
+  <string name="knightsHaveAFancyWay">Skakači imaju elegantan način
+skakanja okolo!</string>
+  <string name="knightsCanJumpOverObstacles">Skakači mogu preskakati zapreke!
+Pobjegni i savladaj zvijezde!</string>
+  <string name="knightComplete">Čestitke! Uspješno si ovladao/la skakačem.</string>
 </resources>
