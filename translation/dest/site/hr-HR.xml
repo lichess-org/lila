@@ -95,6 +95,7 @@
   <string name="delete">Izbriši</string>
   <string name="deleteThisImportedGame">Želiš li izbrisati ovu uvezenu partiju?</string>
   <string name="replayMode">Repriza partije</string>
+  <string name="realtimeReplay">U stvarnom vremenu</string>
   <string name="blunders">Previdi</string>
   <string name="mistakes">Greške</string>
   <string name="inaccuracies">Nepreciznosti</string>
