@@ -93,10 +93,14 @@
   <string name="deleteThisImportedGame">Ta bort detta importerade partil?</string>
   <string name="replayMode">Replay-läge</string>
   <string name="realtimeReplay">Realtid</string>
+  <string name="openStudy">Öppna studie</string>
   <string name="enable">Aktivera</string>
+  <string name="bestMoveArrow">Bästa drag pil</string>
+  <string name="evaluationGauge">Visa evaluering</string>
   <string name="multipleLines">Multipla varianter</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Minne</string>
+  <string name="infiniteAnalysis">Oändlig analys</string>
   <string name="blunders">Blundrar</string>
   <string name="mistakes">Misstag</string>
   <string name="inaccuracies">Felaktigheter</string>
@@ -644,6 +648,7 @@
   <string name="crosstable">Tabell</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kan också skrolla över brädet för att gå fram/bak i partiet.</string>
   <string name="analysisShapesHowTo">Tryck på Skift + klicka eller högerklicka för att rita cirklar och pilar på brädet.</string>
+  <string name="confirmResignationAndDrawOffers">Bekräfta resignation och remi anbud</string>
   <string name="inputMovesWithTheKeyboard">Mata in drag via tangentbord</string>
   <string name="letOtherPlayersMessageYou">Tillåt att andra spelare skickar meddelanden till dig</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Sätt att rockera</string>
@@ -686,6 +691,7 @@
   <string name="xLikesY">%1$s gillar %2$s</string>
   <string name="quickPairing">Snabb parning</string>
   <string name="lobby">Lobby</string>
+  <string name="anonymous">Anonym</string>
   <string name="yourScore">Dina poäng: %s</string>
   <string name="language">Språk</string>
   <string name="background">Bakgrund</string>
