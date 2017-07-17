@@ -82,7 +82,6 @@
     <item quantity="other">Siguiente captura o peón mueve en %s mitad-movimiento (distancia a cero del contador de 50 paso)</item>
   </plurals>
   <string name="noGameFound">No juego encontrado</string>
-  <string name="alreadySearchingThroughAllAvailableGames">Ya esta buscando a traves de todos los juegos disposibles</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Es posible que puedas incluir mas juegos desde el menu de preferencias?</string>
   <string name="openingExplorer">Explorador de aperturas y base de datos de finales</string>
   <string name="xOpeningExplorer">%s Explorador de Aperturas</string>
