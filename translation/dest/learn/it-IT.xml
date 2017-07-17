@@ -88,4 +88,19 @@ nessun pezzo indifeso!</string>
   <string name="checkInOneIntro">Per dare scacco attacca il re. Dovranno difenderlo!</string>
   <string name="checkInOneGoal">Metti nel mirino il re avversario 
 in una sola mossa!</string>
+  <string name="checkInOneComplete">Congratulazioni! Hai dato scacco al tuo avversario costringendolo a difendere il re!</string>
+  <string name="outOfCheck">Para lo scacco</string>
+  <string name="defendYourKing">Difendi il tuo re</string>
+  <string name="outOfCheckIntro">Sei sotto scacco! Devi scappare o parare l\'attacco.</string>
+  <string name="escapeWithTheKing">Scappa con il re!</string>
+  <string name="theKingCannotEscapeButBlock">Il re non può fuggire,
+ma puoi parare l\'attacco!</string>
+  <string name="youCanGetOutOfCheckByTaking">Puoi parare lo scacco
+catturando il pezzo che sta attaccando.</string>
+  <string name="mateInOne">Matto in una mossa</string>
+  <string name="defeatTheOpponentsKing">Sconfiggi il re avversario</string>
+  <string name="mateInOneIntro">Vincerai quando il tuo avversario non potrà difendersi dallo scacco.</string>
+  <string name="attackYourOpponentsKing">Attacca il re dell\'avversario
+in un modo in cui non possa essere difeso!</string>
+  <string name="mateInOneComplete">Congratulazioni! Ora sai come vincere negli scacchi!</string>
 </resources>
