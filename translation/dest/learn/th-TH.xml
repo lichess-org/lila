@@ -78,16 +78,33 @@
   <string name="protectionComplete">ยินดีด้วย! หมากที่คุณไม่เสียคือหมากที่คุณชนะ!</string>
   <string name="escape">คุณกำลังถูกโจมตี!
 จงหลีกจากภัยคุกคาม!</string>
-  <string name="noEscape">ไม่มีทางหลีก
-แต่คุณสามารถปกป้องได้</string>
+  <string name="noEscape">ไม่มีทางหลีกหนี
+แต่คุณสามารถปกป้องได้!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">อย่าให้พวกเขา
+ยึดหมากที่ไม่ได้ปกป้องไป!</string>
   <string name="combat">การสู้รบ</string>
   <string name="captureAndDefendPieces">จับและปกป้องหมาก</string>
   <string name="combatIntro">นักรบที่ดีย่อมรู้ทั้งการโจมตีและปกป้อง!</string>
   <string name="combatComplete">ยินดีด้วย! คุณรู้วิธีสู้ด้วยหมากรุกแล้ว!</string>
   <string name="checkInOne">รุกในหนึ่งครั้ง</string>
   <string name="attackTheOpponentsKing">โจมตีคิงของคู่แข่ง</string>
+  <string name="checkInOneIntro">เพื่อรุกคู่แข่งของคุณ ให้โจมตีคิงของพวกเขา พวกเขาจะต้องปกป้องมัน!</string>
+  <string name="checkInOneGoal">พุ่งเป้าไปที่คิงของคู่แข่ง
+โดยเดินครั้งเดียว!</string>
+  <string name="checkInOneComplete">ยินดีด้วย! คุณได้รุกคู่แข่งของคุณ บังคับให้พวกเขาต้องปกป้องคิง!</string>
   <string name="outOfCheck">พ้นการถูกรุก</string>
   <string name="defendYourKing">ปกป้องคิงของคุณ</string>
+  <string name="outOfCheckIntro">คุณกำลังถูกรุก! คุณต้องหลีกหนี หรือกีดกันการโจมตี</string>
+  <string name="escapeWithTheKing">หลีกหนีด้วยคิง!</string>
+  <string name="theKingCannotEscapeButBlock">คิงไม่สามารถหลีกหนีได้
+แต่คุณสามารถกีดกันการโจมตี!</string>
+  <string name="youCanGetOutOfCheckByTaking">คุณสามารถพ้นจากการถูกรุก
+โดยการยึดหมากที่กำลังโจมตี</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">อัศวินนี้กำลังรุก
+ผ่านการป้องกันของคุณ!</string>
+  <string name="escapeOrBlock">จงหลีกหนีด้วยคิง
+หรือกีดกันการโจมตี!</string>
+  <string name="outOfCheckComplete">ยินดีด้วย! คิงของคุณไม่ถูกยึด มั่นใจว่าคุณสามารถป้องกันการรุกได้!</string>
   <string name="mateInOne">จนในหนึ่งครั้ง</string>
   <string name="defeatTheOpponentsKing">ปราบคิงของคู่แข่ง</string>
   <string name="mateInOneIntro">คุณชนะเมื่อคู่แข่งไม่สามารถปกป้องการรุกได้</string>
