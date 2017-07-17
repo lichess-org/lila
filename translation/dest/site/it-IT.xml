@@ -82,7 +82,6 @@
     <item quantity="other">Prossima cattura o mossa di un pedone in %s mosse (distanza dall\'azzeramento del conteggio delle 50 mosse)</item>
   </plurals>
   <string name="noGameFound">Nessun partita trovata</string>
-  <string name="alreadySearchingThroughAllAvailableGames">Sto già cercando fra tutte le partite disponibili</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Includere più partite dal menù delle preferenze?</string>
   <string name="openingExplorer">Esplora aperture</string>
   <string name="xOpeningExplorer">%s explorer delle aperture</string>
