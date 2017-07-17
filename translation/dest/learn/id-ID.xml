@@ -5,4 +5,25 @@
   <string name="byPlaying">dengan bermain!</string>
   <string name="menu">Menu</string>
   <string name="progressX">Kemajuan: %s</string>
+  <string name="resetMyProgress">Setel ulang kemajuan saya</string>
+  <string name="youWillLoseAllYourProgress">Anda akan kehilangan semua kemajuan Anda!</string>
+  <string name="play">main!</string>
+  <string name="chessPieces">Buah catur</string>
+  <string name="theRook">Benteng</string>
+  <string name="itMovesInStraightLines">Bergerak secara garis lurus</string>
+  <string name="rookIntro">Benteng adalah buah yang kuat. Apakah Anda siap untuk memerintahkannya?</string>
+  <string name="rookGoal">Klik pada benteng untuk membawa ke bintang!</string>
+  <string name="grabAllTheStars">Ambil semua bintang!</string>
+  <string name="theFewerMoves">Semakin sedikit jalan yang Anda buat, semakin banyak poin yang Anda dapat!</string>
+  <string name="useTwoRooks">Menggunakan dua benteng mempercepat semuanya!</string>
+  <string name="rookComplete">Selamat! Anda telah sukses memelajari benteng.</string>
+  <string name="theBishop">Patih</string>
+  <string name="itMovesDiagonally">Bergerak secara diagonal</string>
+  <string name="bishopIntro">Selanjutnya kita akan belajar cara patih bermanuver!</string>
+  <string name="youNeedBothBishops">Satu patih di kotak terang,
+satu patih di kotak gelap.
+Anda membutuhkan keduanya!</string>
+  <string name="bishopComplete">Selamat! Anda bisa memerintahkan sebuah patih.</string>
+  <string name="theQueen">Ratu</string>
+  <string name="queenCombinesRookAndBishop">Ratu = benteng + patih</string>
 </resources>
