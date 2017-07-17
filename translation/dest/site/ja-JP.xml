@@ -80,7 +80,6 @@
     <item quantity="other">次の駒取りかポーンの手まで %s プライ（50 手ルールのカウント更新までの手数）</item>
   </plurals>
   <string name="noGameFound">ゲームが見つかりません</string>
-  <string name="alreadySearchingThroughAllAvailableGames">すでに全棋譜を検索中</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">設定メニューからさらに広い範囲を指定しますか？</string>
   <string name="openingExplorer">序盤探索&amp;テーブルベース</string>
   <string name="xOpeningExplorer">%s オープニング・エクスプローラー</string>
