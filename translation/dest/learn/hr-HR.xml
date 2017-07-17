@@ -30,7 +30,7 @@ Trebaš oboje!</string>
   <string name="theQueen">Dama</string>
   <string name="queenCombinesRookAndBishop">Dama = top + lovac</string>
   <string name="queenIntro">Ulazi najjača šahovska figura. Njezino visočanstvo dama!</string>
-  <string name="queenComplete">Čestitke! Dame za tebe nemaju nikakve tajne.</string>
+  <string name="queenComplete">Čestitke! Dame ti nisu nepoznanica.</string>
   <string name="theKing">Kralj</string>
   <string name="theMostImportantPiece">Najvažnija figura</string>
   <string name="kingIntro">Ti si kralj. Ako padneš u borbi, igra je izgubljena.</string>
@@ -58,7 +58,12 @@ ali jedu dijagonalno!</string>
   <string name="useAllThePawns">Koristi sve pješake!
 Nema potrebe za promoviranjem.</string>
   <string name="aPawnOnTheSecondRank">Pješak na drugom redu se može pomaknuti za 2 polja odjednom!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Pokupi sve zvjezdice!
+Nema potrebe za promoviranjem.</string>
+  <string name="pawnComplete">Čestitke! Pješaci ti nisu nepoznanica.</string>
+  <string name="pawnPromotion">Promocija pješaka</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Tvoj pješak je došao do kraja ploče!</string>
   <string name="itNowPromotesToAStrongerPiece">Sada se on promovira u jaču figuru.</string>
   <string name="selectThePieceYouWant">Odaberi figuru koju želiš!</string>
+  <string name="fundamentals">Osnove</string>
 </resources>
