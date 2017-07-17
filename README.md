@@ -641,7 +641,7 @@ Supported browsers
 Older browsers will not work. For your own sake, please upgrade.
 Security and performance, think about it!
 
-Licence
+License
 -------
 
 Lila is licensed under the GNU Affero General Public License 3 or any later
