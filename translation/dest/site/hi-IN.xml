@@ -51,7 +51,11 @@
   <string name="close">बंद करें</string>
   <string name="unknown">अज्ञात</string>
   <string name="openingExplorer">उद्घाटन खोज</string>
+  <string name="realtimeReplay">रियल टाइम</string>
   <string name="enable">सक्षम करें</string>
+  <string name="evaluationGauge">मूल्यांकन गेज</string>
+  <string name="multipleLines">एकाधिक पंक्तियाँ</string>
+  <string name="cpus">CPU</string>
   <string name="memory">मेमोरी</string>
   <string name="infiniteAnalysis">अनंत विश्लेषण</string>
   <string name="blunders">गंभीर गल्तियां</string>
@@ -156,6 +160,7 @@
   <string name="play">खेलें</string>
   <string name="inbox">आपके सन्देश (इनबॉक्स)</string>
   <string name="chatRoom">बातचीत का कमरा</string>
+  <string name="loginToChat">चैट के लिए लॉग इन</string>
   <string name="spectatorRoom">दर्शकों का कमरा</string>
   <string name="composeMessage">सन्देश बनाएँ</string>
   <string name="noNewMessages">कोई नया सन्देश नहीं</string>
