@@ -31,6 +31,7 @@ Potrzebujesz ich obu!</string>
   <string name="theMostImportantPiece">Najważniejsza figura</string>
   <string name="kingIntro">To Ty Jesteś królem. Jeśli polegniesz w bitwie, przegrasz grę.</string>
   <string name="theKingIsSlow">Król jest bardzo powolny.</string>
+  <string name="lastOne">Ostatnie zadanie!</string>
   <string name="theKnight">Skoczek</string>
   <string name="itMovesInAnLShape">Porusza się w kształt litery L</string>
   <string name="knightComplete">Gratulacje! Opanowałeś poruszanie się skoczkiem.</string>
