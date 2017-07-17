@@ -86,6 +86,10 @@
   <string name="winPreventedBy50MoveRule">勝勢ながら 50 手ルールでドロー</string>
   <string name="lossSavedBy50MoveRule">敗勢ながら 50 手ルールでドロー</string>
   <string name="allSet">準備完了！</string>
+  <string name="importPgn">PGNをインポート</string>
+  <string name="delete">削除</string>
+  <string name="deleteThisImportedGame">ほんとうに削除しますか？</string>
+  <string name="realtimeReplay">リアルタイム</string>
   <string name="blunders">大悪手</string>
   <string name="mistakes">悪手</string>
   <string name="inaccuracies">疑問手</string>
