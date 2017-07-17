@@ -20,6 +20,9 @@
   <string name="theBishop">L\'alfiere</string>
   <string name="itMovesDiagonally">Si muove in diagonale</string>
   <string name="bishopIntro">Prossimamente impareremo come si utilizza l\'alfiere!</string>
+  <string name="youNeedBothBishops">Un alfiere campochiaro,
+un alfiere camposcuro.
+Ti servono entrambi!</string>
   <string name="bishopComplete">Congratulazioni! Hai imparato ad utilizzare l\'alfiere.</string>
   <string name="theQueen">La regina</string>
   <string name="queenCombinesRookAndBishop">Regina = torre + alfiere</string>
