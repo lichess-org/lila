@@ -543,6 +543,7 @@
   <string name="error.email_unique">ที่อยู่อีเมลนี้ถูกใช้ไปแล้ว</string>
   <string name="error.email_different">นี่เป็นที่อยู่อีเมลของคุณอยู่แล้ว</string>
   <string name="blindfoldChess">หมากรุกอำพราง (ไม่เห็นตัวหมาก)</string>
+  <string name="zenMode">โหมดซ่อนเร้น</string>
   <string name="moveConfirmation">ยืนยันการเดิน</string>
   <string name="inCorrespondenceGames">เกมแบบยาวนาน</string>
   <string name="ifRatingIsPlusMinusX">ถ้าระดับคะแนน ± %s</string>
