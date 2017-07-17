@@ -21,14 +21,14 @@ to speed things up!</string>
   <string name="rookComplete">Congratulations! You have successfully mastered the rook.</string>
   <string name="theBishop">The bishop</string>
   <string name="itMovesDiagonally">It moves diagonally</string>
-  <string name="bishopIntro">Next we will learn how to manoeuver a bishop!</string>
+  <string name="bishopIntro">Next we will learn how to manoeuvre a bishop!</string>
   <string name="youNeedBothBishops">One light-squared bishop,
 one dark-squared bishop.
 You need both!</string>
   <string name="bishopComplete">Congratulations! You can command a bishop.</string>
   <string name="theQueen">The queen</string>
   <string name="queenCombinesRookAndBishop">Queen = rook + bishop</string>
-  <string name="queenIntro">Enters the most powerful chess piece. Her majesty the queen!</string>
+  <string name="queenIntro">The most powerful chess piece enters. Her majesty the queen!</string>
   <string name="queenComplete">Congratulations! Queens have no secrets for you.</string>
   <string name="theKing">The king</string>
   <string name="theMostImportantPiece">The most important piece</string>
@@ -101,13 +101,13 @@ but you can block the attack!</string>
   <string name="youCanGetOutOfCheckByTaking">You can get out of check
 by taking the attacking piece.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">This knight is checking
-through your defenses!</string>
+through your defences!</string>
   <string name="escapeOrBlock">Escape with the king
 or block the attack!</string>
-  <string name="outOfCheckComplete">Congratulations! Your king can never be taken, make sure you can defend a check!</string>
+  <string name="outOfCheckComplete">Congratulations! Your king can never be taken, make sure you can defend against a check!</string>
   <string name="mateInOne">Mate in one</string>
   <string name="defeatTheOpponentsKing">Defeat the opponent's king</string>
-  <string name="mateInOneIntro">You win when your opponent cannot defend a check.</string>
+  <string name="mateInOneIntro">You win when your opponent cannot defend against a check.</string>
   <string name="attackYourOpponentsKing">Attack your opponent's king
 in a way that cannot be defended!</string>
   <string name="mateInOneComplete">Congratulations! That is how you win chess games!</string>
@@ -130,14 +130,14 @@ She goes on her own color.</string>
 Right next to his queen.</string>
   <string name="pawnsFormTheFrontLine">Pawns form the front line.
 Make any move to continue.</string>
-  <string name="boardSetupComplete">Congratulations! You know how to setup the chess board.</string>
+  <string name="boardSetupComplete">Congratulations! You know how to set up the chess board.</string>
   <string name="castling">Castling</string>
   <string name="theSpecialKingMove">The special king move</string>
   <string name="castlingIntro">Bring your king to safety, and deploy your rook for attack!</string>
   <string name="castleKingSide">Move your king two squares
-to castle king side!</string>
+to castle king-side!</string>
   <string name="castleQueenSide">Move your king two squares
-to castle queen side!</string>
+to castle queen-side!</string>
   <string name="theKnightIsInTheWay">The knight is in the way!
 Move it, then castle king-side.</string>
   <string name="castleKingSideMovePiecesFirst">Castle king-side!
@@ -184,7 +184,7 @@ Rook = 5
 Bishop = 3
 Knight = 3
 Pawn = 1
-The king is priceless! Losing it is losing the game.</string>
+The king is priceless! Losing it means losing the game.</string>
   <string name="queenOverBishop">Take the piece
 with the highest value!
 Queen > Bishop</string>
@@ -198,8 +198,8 @@ Knight = 3
 Pawn = 1</string>
   <string name="checkInTwo">Check in two</string>
   <string name="twoMovesToGiveCheck">Two moves to give a check</string>
-  <string name="checkInTwoIntro">Find the right combination of two moves that checks the opponent king!</string>
-  <string name="checkInTwoGoal">Threaten the opponent king
+  <string name="checkInTwoIntro">Find the right combination of two moves that checks the opponent's king!</string>
+  <string name="checkInTwoGoal">Threaten the opponent's king
 in two moves!</string>
   <string name="checkInTwoComplete">Congratulations! You checked your opponent, forcing them to defend their king!</string>
   <string name="whatNext">What next?</string>
@@ -209,7 +209,7 @@ in two moves!</string>
   <string name="practice">Practise</string>
   <string name="learnCommonChessPositions">Learn common chess positions</string>
   <string name="puzzles">Puzzles</string>
-  <string name="exerciseYourTacticalSkills">Excercise your tactical skills</string>
+  <string name="exerciseYourTacticalSkills">Exercise your tactical skills</string>
   <string name="videos">Videos</string>
   <string name="watchInstructiveChessVideos">Watch instructive chess videos</string>
   <string name="playPeople">Play people</string>
