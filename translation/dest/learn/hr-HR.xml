@@ -22,4 +22,9 @@ da ubrzaš stvari!</string>
   <string name="rookComplete">Čestitke! Uspješno si savladao/la topa.</string>
   <string name="theBishop">Lovac</string>
   <string name="itMovesDiagonally">Kreće se dijagonalno</string>
+  <string name="bishopIntro">Sada ćemo naučiti kako manevrirati lovcem!</string>
+  <string name="youNeedBothBishops">Jedan svijetlopoljni lovac,
+jedan tamnopoljni lovac.
+Trebaš oboje!</string>
+  <string name="bishopComplete">Čestitke! Možeš vladati lovcem.</string>
 </resources>
