@@ -121,4 +121,10 @@ Vanno messe negli angoli.</string>
 Vanno posizionati al fianco delle torri.</string>
   <string name="placeTheBishops">Posiziona gli alfieri!
 Vanno posizionati al fianco dei cavalli.</string>
+  <string name="placeTheQueen">Posiziona la regina!
+Va messa sulla casa del suo stesso colore.</string>
+  <string name="placeTheKing">Posiziona il re!
+Proprio al fianco della sua regina.</string>
+  <string name="pawnsFormTheFrontLine">I pedoni formano la linea più avanzata.
+Fai una mossa per continuare.</string>
 </resources>
