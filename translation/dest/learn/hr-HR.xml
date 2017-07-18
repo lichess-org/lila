@@ -133,4 +133,9 @@ Napravi bilo koji potez za nastavak.</string>
   <string name="boardSetupComplete">Čestitke! Znaš postaviti šahovsku ploču.</string>
   <string name="castling">Rokada</string>
   <string name="theSpecialKingMove">Poseban potez kralja</string>
+  <string name="castlingIntro">Dovedi svog kralja na sigurno, i razvi svog topa za napad!</string>
+  <string name="castleKingSide">Pomakni svog kralja za dva polja
+da napraviš malu rokadu!</string>
+  <string name="castleQueenSide">Pomakni svog kralja za dva polja
+da napraviš veliku rokadu!</string>
 </resources>
