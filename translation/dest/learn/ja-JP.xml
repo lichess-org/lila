@@ -142,6 +142,12 @@
 キングサイドにキャスリング。</string>
   <string name="castleQueenSideMovePiecesFirst">駒を外に出してから
 クイーンサイドにキャスリング。</string>
+  <string name="youCannotCastleIfMoved">キングかルークが
+動いたことがあると
+キャスリングできません。</string>
+  <string name="youCannotCastleIfAttacked">途中に相手の駒が効いていると
+キャスリングできません。
+効きを止めてからキャスリング！</string>
   <string name="stageXComplete">ステージ %s 完了</string>
   <string name="yourScore">あなたの得点</string>
   <string name="next">次</string>
