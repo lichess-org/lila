@@ -76,10 +76,15 @@ I nemoj izgubiti svoje.</string>
   <string name="protection">Zaštita</string>
   <string name="keepYourPiecesSafe">Čuvaj svoje figure</string>
   <string name="protectionIntro">Identificiraj figure koje tvoj protivnik napada, i obrani ih!</string>
+  <string name="protectionComplete">Čestitke! Figura koju ne izgubiš je figura koju dobiš!</string>
   <string name="escape">Pod napadom si!
 Pobjegni prijetnji!</string>
   <string name="noEscape">Nema bijega, 
 ali možeš braniti!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Nemoj mu dopustiti da uzme
 bilo koju nebranjenu figuru!</string>
+  <string name="combat">Borba</string>
+  <string name="captureAndDefendPieces">Uzmi i obrani figure</string>
+  <string name="combatIntro">Dobar ratnik zna i napadati i braniti!</string>
+  <string name="combatComplete">Čestitke! Znaš se boriti šahovskim figurama!</string>
 </resources>
