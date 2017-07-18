@@ -2,6 +2,7 @@ package lila.activity
 
 import ornicar.scalalib.Zero
 import lila.rating.PerfType
+import lila.study.Study
 import model._
 
 object activities {
@@ -44,4 +45,11 @@ object activities {
     case class Stage(value: String) extends AnyVal
   }
   implicit val LearnZero = Zero.instance(Learn(Map.empty))
+
+  case class Practice(value: Map[Study.Id, Int]) {
+    def +(studyId: Study.Id) = copy(
+      value = value + (studyId -> value.get(studyId).fold(1)(1 +))
+    )
+  }
+  implicit val PracticeZero = Zero.instance(Practice(Map.empty))
 }

@@ -10,7 +10,8 @@ final class PracticeApi(
     coll: Coll,
     configStore: lila.memo.ConfigStore[PracticeConfig],
     asyncCache: lila.memo.AsyncCache.Builder,
-    studyApi: lila.study.StudyApi
+    studyApi: lila.study.StudyApi,
+    bus: lila.common.Bus
 ) {
 
   import BSONHandlers._
@@ -82,10 +83,15 @@ final class PracticeApi(
     private def save(p: PracticeProgress): Funit =
       coll.update($id(p.id), p, upsert = true).void
 
-    def setNbMoves(user: User, chapterId: Chapter.Id, score: NbMoves) =
+    def setNbMoves(user: User, chapterId: Chapter.Id, score: NbMoves) = {
       get(user) flatMap { prog =>
         save(prog.withNbMoves(chapterId, score))
       }
+    } >>- studyApi.studyIdOf(chapterId).foreach {
+      _ ?? { studyId =>
+        bus.publish(PracticeProgress.OnComplete(user.id, studyId, chapterId), 'finishPractice)
+      }
+    }
 
     def reset(user: User) =
       coll.remove($id(user.id)).void

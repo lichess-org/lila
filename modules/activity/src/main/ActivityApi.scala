@@ -32,6 +32,9 @@ final class ActivityApi(coll: Coll) {
   def addLearn(userId: User.ID, stage: String) =
     update(userId) { a => a.copy(learn = a.learn + Learn.Stage(stage)).some }
 
+  def addPractice(prog: lila.practice.PracticeProgress.OnComplete) =
+    update(prog.userId) { a => a.copy(practice = a.practice + prog.studyId).some }
+
   private def getOrCreate(userId: User.ID) = get(userId) map { _ | Activity.make(userId) }
   private def save(activity: Activity) = coll.update($id(activity.id), activity, upsert = true).void
   private def update(userId: User.ID)(f: Activity => Option[Activity]): Funit =

@@ -7,6 +7,7 @@ import lila.db.BSON.{ MapDocument, MapValue }
 import lila.db.dsl._
 import lila.rating.BSONHandlers.perfTypeKeyIso
 import lila.rating.PerfType
+import lila.study.Study
 
 private object BSONHandlers {
 
@@ -72,6 +73,10 @@ private object BSONHandlers {
   private implicit val learnMapHandler = MapValue.MapHandler[Learn.Stage, Int]
   private implicit val learnHandler = isoHandler[Learn, Map[Learn.Stage, Int], Bdoc]((l: Learn) => l.value, Learn.apply _)
 
+  private implicit val studyIdIso = Iso.string[Study.Id](Study.Id.apply, _.value)
+  private implicit val practiceMapHandler = MapValue.MapHandler[Study.Id, Int]
+  private implicit val practiceHandler = isoHandler[Practice, Map[Study.Id, Int], Bdoc]((p: Practice) => p.value, Practice.apply _)
+
   implicit val activityHandler = new lila.db.BSON[Activity] {
 
     private val id = "_id"
@@ -80,6 +85,7 @@ private object BSONHandlers {
     private val posts = "p"
     private val puzzles = "z"
     private val learn = "l"
+    private val practice = "r"
 
     def reads(r: lila.db.BSON.Reader) = Activity(
       id = r.get[Id](id),
@@ -87,7 +93,8 @@ private object BSONHandlers {
       comps = r.getD[CompAnalysis](comps),
       posts = r.getD[Posts](posts),
       puzzles = r.getD[Puzzles](puzzles),
-      learn = r.getD[Learn](learn)
+      learn = r.getD[Learn](learn),
+      practice = r.getD[Practice](practice)
     )
 
     def writes(w: lila.db.BSON.Writer, o: Activity) = BSONDocument(
@@ -96,7 +103,8 @@ private object BSONHandlers {
       comps -> w.zero(o.comps),
       posts -> w.zero(o.posts),
       puzzles -> w.zero(o.puzzles),
-      learn -> w.zero(o.learn)
+      learn -> w.zero(o.learn),
+      practice -> w.zero(o.practice)
     )
   }
 }

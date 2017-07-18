@@ -77,6 +77,8 @@ final class StudyApi(
     }
   }
 
+  def studyIdOf = chapterRepo.studyIdOf _
+
   def create(data: DataForm.Data, user: User): Fu[Option[Study.WithChapter]] = data.as match {
     case DataForm.AsNewStudy =>
       studyMaker(data, user) flatMap { res =>

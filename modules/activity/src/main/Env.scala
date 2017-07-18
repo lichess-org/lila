@@ -16,14 +16,18 @@ final class Env(
     coll = activityColl
   )
 
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
-    def receive = {
-      case lila.game.actorApi.FinishGame(game, _, _) if !game.aborted => api addGame game
-      case lila.analyse.actorApi.AnalysisReady(_, analysis) => api addAnalysis analysis
-      case lila.forum.actorApi.CreatePost(post, topic) => api.addForumPost(post, topic)
-      case res: lila.puzzle.Puzzle.UserResult => api addPuzzle res
-    }
-  })), 'finishGame, 'analysisReady, 'forumPost, 'finishPuzzle)
+  system.lilaBus.subscribe(
+    system.actorOf(Props(new Actor {
+      def receive = {
+        case lila.game.actorApi.FinishGame(game, _, _) if !game.aborted => api addGame game
+        case lila.analyse.actorApi.AnalysisReady(_, analysis) => api addAnalysis analysis
+        case lila.forum.actorApi.CreatePost(post, topic) => api.addForumPost(post, topic)
+        case res: lila.puzzle.Puzzle.UserResult => api addPuzzle res
+        case prog: lila.practice.PracticeProgress.OnComplete => api addPractice prog
+      }
+    })),
+    'finishGame, 'analysisReady, 'forumPost, 'finishPuzzle, 'finishPractice
+  )
 }
 
 object Env {
