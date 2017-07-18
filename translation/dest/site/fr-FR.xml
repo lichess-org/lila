@@ -248,7 +248,7 @@
   <string name="takeback">Annuler le coup</string>
   <string name="proposeATakeback">Proposer l\'annulation du coup</string>
   <string name="takebackPropositionSent">Annulation du coup proposée</string>
-  <string name="takebackPropositionDeclined">Annulation du coup refusée</string>
+  <string name="takebackPropositionDeclined">Annulation du coup déclinée</string>
   <string name="takebackPropositionAccepted">Annulation du coup acceptée</string>
   <string name="takebackPropositionCanceled">Annulation du coup annulée</string>
   <string name="yourOpponentProposesATakeback">Votre adversaire propose l\'annulation du coup</string>
@@ -358,8 +358,8 @@
   <string name="performance">Performances</string>
   <string name="tournamentComplete">Tournoi complet</string>
   <string name="movesPlayed">Parties jouées</string>
-  <string name="whiteWins">Les blancs gagnent</string>
-  <string name="blackWins">Victoire des noirs</string>
+  <string name="whiteWins">Gains blancs</string>
+  <string name="blackWins">Gains noirs</string>
   <string name="draws">Nulles</string>
   <string name="nextXTournament">Prochain tournoi de %s :</string>
   <string name="viewMoreTournaments">Voir plus de tournois</string>
