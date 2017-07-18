@@ -64,22 +64,7 @@ private object BSONHandlers {
   private implicit val postsMapHandler = MapValue.MapHandler[Posts.TopicId, List[Posts.PostId]]
   private implicit val postsHandler = isoHandler[Posts, Map[Posts.TopicId, List[Posts.PostId]], Bdoc]((p: Posts) => p.posts, Posts.apply _)
 
-  private implicit val puzzleIdHandler = intAnyValHandler[PuzzleId](_.value, PuzzleId.apply)
-  private implicit val puzzleListHandler = Macros.handler[PuzzleList]
-  private implicit val puzzlesHandler = new lila.db.BSON[Puzzles] {
-
-    def reads(r: lila.db.BSON.Reader) = Puzzles(
-      win = r.getD[PuzzleList]("w"),
-      loss = r.getD[PuzzleList]("l"),
-      ratingProg = r.getO[RatingProg]("r")
-    )
-
-    def writes(w: lila.db.BSON.Writer, o: Puzzles) = BSONDocument(
-      "w" -> w.zero(o.win),
-      "l" -> w.zero(o.loss),
-      "r" -> o.ratingProg
-    )
-  }
+  private implicit val puzzlesHandler = Macros.handler[Puzzles]
 
   implicit val activityHandler = new lila.db.BSON[Activity] {
 

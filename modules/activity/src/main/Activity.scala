@@ -38,6 +38,12 @@ object Activity {
   case class RatingProg(before: Rating, after: Rating) {
     def +(o: RatingProg) = copy(after = o.after)
   }
+  object RatingProg {
+    def +(rp1O: Option[RatingProg], rp2O: Option[RatingProg]) = (rp1O, rp2O) match {
+      case (Some(rp1), Some(rp2)) => Some(rp1 + rp2)
+      case _ => rp2O orElse rp1O
+    }
+  }
 
   case class Games(value: Map[PerfType, Score]) extends AnyVal {
     def add(pt: PerfType, score: Score) = copy(
@@ -51,10 +57,16 @@ object Activity {
       win = win + s.win,
       loss = loss + s.loss,
       draw = draw + s.draw,
-      rp = (rp, s.rp) match {
-        case (Some(rp1), Some(rp2)) => Some(rp1 + rp2)
-        case (rp1, rp2) => rp2 orElse rp1
-      }
+      rp = RatingProg.+(rp, s.rp)
+    )
+    def size = win + loss + draw
+  }
+  object Score {
+    def make(res: Option[Boolean], rp: Option[RatingProg]) = Score(
+      win = res.has(true) ?? 1,
+      loss = res.has(false) ?? 1,
+      draw = res.isEmpty ?? 1,
+      rp = rp
     )
   }
   implicit val ScoreZero = Zero.instance(Score(0, 0, 0, none))
@@ -77,16 +89,10 @@ object Activity {
   case class GameId(value: String) extends AnyVal
   implicit val CompsZero = Zero.instance(CompAnalysis(Nil))
 
-  case class Puzzles(win: PuzzleList, loss: PuzzleList, ratingProg: Option[RatingProg])
-  case class PuzzleList(latest: List[PuzzleId], total: Int) {
-    def +(id: PuzzleId) = PuzzleList(
-      latest = (id :: latest) take 10,
-      total = total + 1
-    )
+  case class Puzzles(score: Score) extends AnyVal {
+    def +(s: Score) = Puzzles(score + s)
   }
-  case class PuzzleId(value: Int) extends AnyVal
-  implicit val PuzzleListZero = Zero.instance(PuzzleList(Nil, 0))
-  implicit val PuzzlesZero = Zero.instance(Puzzles(PuzzleListZero.zero, PuzzleListZero.zero, none))
+  implicit val PuzzlesZero = Zero.instance(Puzzles(ScoreZero.zero))
 
   def make(userId: User.ID) = Activity(
     id = Id today userId,
