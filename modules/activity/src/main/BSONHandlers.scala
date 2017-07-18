@@ -21,6 +21,14 @@ private object BSONHandlers {
     def write(id: Id) = BSONString(s"${id.userId}$sep${id.day.value}")
   }
 
+  private implicit val ratingHandler = intAnyValHandler[Rating](_.value, Rating.apply)
+  private implicit val ratingProgHandler: BSONHandler[Barr, RatingProg] = new BSONHandler[Barr, RatingProg] {
+    def read(b: BSONArray) = (for {
+      before <- b.getAs[Rating](0)
+      after <- b.getAs[Rating](1)
+    } yield RatingProg(before, after)) err s"Invalid rating prog ${b.elements}"
+    def write(o: RatingProg) = BSONArray(o.before, o.after)
+  }
   private implicit val ratingDiffHandler = intAnyValHandler[RatingDiff](_.value, RatingDiff.apply)
 
   private implicit val scoreHandler = new lila.db.BSON[Score] {
@@ -63,12 +71,14 @@ private object BSONHandlers {
 
     def reads(r: lila.db.BSON.Reader) = Puzzles(
       win = r.getD[PuzzleList]("w"),
-      loss = r.getD[PuzzleList]("l")
+      loss = r.getD[PuzzleList]("l"),
+      ratingProg = r.getO[RatingProg]("r")
     )
 
     def writes(w: lila.db.BSON.Writer, o: Puzzles) = BSONDocument(
       "w" -> w.zero(o.win),
-      "l" -> w.zero(o.loss)
+      "l" -> w.zero(o.loss),
+      "r" -> o.ratingProg
     )
   }
 

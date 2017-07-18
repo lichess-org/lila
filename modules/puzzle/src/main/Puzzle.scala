@@ -45,7 +45,12 @@ case class Puzzle(
 
 object Puzzle {
 
-  case class UserResult(puzzleId: PuzzleId, userId: lila.user.User.ID, result: Result)
+  case class UserResult(
+    puzzleId: PuzzleId,
+    userId: lila.user.User.ID,
+    result: Result,
+    rating: (Int, Int)
+  )
 
   def make(
     gameId: String,

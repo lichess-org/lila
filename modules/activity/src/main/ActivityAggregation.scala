@@ -27,6 +27,15 @@ private object ActivityAggregation {
       a.copy(posts = a.posts.+(Posts.PostId(post.id), Posts.TopicId(topic.id)))
     }
 
-  def addPuzzle(puzzleId: lila.puzzle.PuzzleId, result: lila.puzzle.Result)(a: Activity) =
-    a.copy(puzzles = a.puzzles.+(PuzzleId(puzzleId), result.win)).some
+  def addPuzzle(res: lila.puzzle.Puzzle.UserResult)(a: Activity) = a.copy(puzzles = {
+    val p = a.puzzles
+    val id = PuzzleId(res.puzzleId)
+    p.copy(
+      win = if (res.result.win) p.win + id else p.win,
+      loss = if (res.result.loss) p.loss + id else p.loss,
+      ratingProg = p.ratingProg.fold(RatingProg(Rating(res.rating._1), Rating(res.rating._2))) { rp =>
+      rp.copy(after = Rating(res.rating._2))
+    } some
+    )
+  }).some
 }

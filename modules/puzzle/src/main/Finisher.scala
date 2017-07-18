@@ -15,6 +15,7 @@ private[puzzle] final class Finisher(
 ) {
 
   def apply(puzzle: Puzzle, user: User, result: Result): Fu[(Round, Mode)] = {
+    val formerUserRating = user.perfs.puzzle.intRating
     api.head.find(user) flatMap {
       case Some(PuzzleHead(_, Some(c), _)) if c == puzzle.id =>
         api.head.solved(user, puzzle.id) >> {
@@ -30,8 +31,8 @@ private[puzzle] final class Finisher(
             userId = user.id,
             date = date,
             result = result,
-            rating = user.perfs.puzzle.intRating,
-            ratingDiff = userPerf.intRating - user.perfs.puzzle.intRating
+            rating = formerUserRating,
+            ratingDiff = userPerf.intRating - formerUserRating
           )
           (api.round add a) >> {
             puzzleColl.update(
@@ -39,7 +40,7 @@ private[puzzle] final class Finisher(
               $inc(Puzzle.BSONFields.attempts -> $int(1)) ++
                 $set(Puzzle.BSONFields.perf -> PuzzlePerf.puzzlePerfBSONHandler.write(puzzlePerf))
             ) zip UserRepo.setPerf(user.id, PerfType.Puzzle, userPerf)
-          } inject (a -> Mode.Rated)
+          } inject (a, Mode.Rated, formerUserRating, userPerf.intRating)
         }
       case _ =>
         incPuzzleAttempts(puzzle)
@@ -48,13 +49,15 @@ private[puzzle] final class Finisher(
           userId = user.id,
           date = DateTime.now,
           result = result,
-          rating = user.perfs.puzzle.intRating,
+          rating = formerUserRating,
           ratingDiff = 0
         )
-        fuccess(a -> Mode.Casual)
+        fuccess(a, Mode.Casual, formerUserRating, formerUserRating)
     }
-  } >>- {
-    bus.publish(Puzzle.UserResult(puzzle.id, user.id, result), 'finishPuzzle)
+  } map {
+    case (round, mode, ratingBefore, ratingAfter) =>
+      bus.publish(Puzzle.UserResult(puzzle.id, user.id, result, ratingBefore -> ratingAfter), 'finishPuzzle)
+      round -> mode
   }
 
   private val VOLATILITY = Glicko.default.volatility

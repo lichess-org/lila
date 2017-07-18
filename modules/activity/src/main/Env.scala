@@ -21,7 +21,7 @@ final class Env(
       case lila.game.actorApi.FinishGame(game, _, _) if !game.aborted => api addGame game
       case lila.analyse.actorApi.AnalysisReady(_, analysis) => api addAnalysis analysis
       case lila.forum.actorApi.CreatePost(post, topic) => api.addForumPost(post, topic)
-      case lila.puzzle.Puzzle.UserResult(puzzleId, userId, result) => api.addPuzzle(puzzleId, userId, result)
+      case res: lila.puzzle.Puzzle.UserResult => api addPuzzle res
     }
   })), 'finishGame, 'analysisReady, 'forumPost, 'finishPuzzle)
 }
