@@ -48,11 +48,26 @@
   <string name="pawnsMoveOneSquareOnly">Τα πιόνια κινούνται σε ένα τετράγωνο μόνο. Αλλά όταν φθάσουν στην άλλη πλευρά της σκακιέρας, μπορούν να αντικατασταθούν με ένα ισχυρότερο κομμάτι!</string>
   <string name="mateInOne">Ματ σε μία</string>
   <string name="boardSetup">Στήσιμο σκακιέρας</string>
+  <string name="thisIsTheInitialPosition">Αυτή είναι η αρχική θέση
+κάθε παρτίδας στο σκάκι!
+Κάντε οποιαδήποτε κίνηση για συνέχεια.</string>
+  <string name="firstPlaceTheRooks">Πρώτα τοποθετήστε τους πύργους!
+Πηγαίνουν στις γωνίες.</string>
   <string name="castling">Pοκέ</string>
   <string name="theSpecialKingMove">Ειδική κίνηση Βασιλιά</string>
   <string name="castlingIntro">Φέρτε τον Βασιλιά σε ασφάλεια, και αναπτύξτε τον πύργο για επίθεση!</string>
-  <string name="castleKingSide">Μετακινήστε τον Βασιλιά δύο τετράγωνα για ροκέ στη πλευρά του βασιλιά!</string>
-  <string name="castleQueenSide">Μετακινήστε τον Βασιλιά δύο τετράγωνα για ροκέ στη πλευρά της βασίλισσας!</string>
+  <string name="castleKingSide">Μετακινήστε τον Βασιλιά δύο τετράγωνα για ροκέ στη πλευρά-βασιλιά!</string>
+  <string name="castleQueenSide">Μετακινήστε τον Βασιλιά δύο τετράγωνα για ροκέ στη πλευρά-Βασίλισσας!</string>
   <string name="theKnightIsInTheWay">Ο ίππος εμποδίζει!
-Μετακινήστε τον, έπειτα κάντε ροκέ στη πλευρά του Βασιλιά.</string>
+Μετακινήστε τον, έπειτα κάντε ροκέ στη πλευρά-Βασιλιά.</string>
+  <string name="castleKingSideMovePiecesFirst">Ροκέ στη πλευρά-Βασιλιά!
+Πρέπει πρώτα να βγάλετε τα κομμάτια.</string>
+  <string name="castleQueenSideMovePiecesFirst">Ροκέ στη πλευρά-Βασίλισσας!
+Πρέπει πρώτα να βγάλετε τα κομμάτια.</string>
+  <string name="youCannotCastleIfMoved">Δεν επιτρέπεται ροκέ αν
+ο Βασιλιάς έχει μετακινηθεί
+ή ο πύργος έχει μετακινηθεί.</string>
+  <string name="youCannotCastleIfAttacked">Δεν επιτρέπεται ροκέ αν
+ο Βασιλιάς δέχεται επίθεση.
+Αποκλείστε το σαχ και μετά κάντε ροκέ!</string>
 </resources>
