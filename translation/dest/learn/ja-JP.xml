@@ -94,6 +94,8 @@
 狙ってください！</string>
   <string name="checkInOneComplete">おめでとう！　相手のキングをチェックして、防ぐ手を指させました！</string>
   <string name="outOfCheck">チェックを防ぐ</string>
+  <string name="defendYourKing">キングを守る</string>
+  <string name="outOfCheckIntro">チェックされました！　逃げるか合い駒で防ぎます。</string>
   <string name="escapeWithTheKing">キングを逃がして！</string>
   <string name="theKingCannotEscapeButBlock">逃げ道はないが、
 途中に合い駒はできる！</string>
@@ -112,6 +114,7 @@
   <string name="mateInOneComplete">おめでとう！　これがチェスに勝つ方法です！</string>
   <string name="intermediate">中級</string>
   <string name="boardSetup">盤駒の用意</string>
+  <string name="howTheGameStarts">ゲームの始め方</string>
   <string name="boardSetupIntro">両軍が向かい合い、戦いに備えます。</string>
   <string name="thisIsTheInitialPosition">これがチェス対局の
 最初の局面です！
@@ -155,7 +158,20 @@
   <string name="castlingComplete">おめでとう！　ほとんどの場合キャスリングはしておくべきです。</string>
   <string name="enPassant">アンパッサン</string>
   <string name="theSpecialPawnMove">ポーンの特殊な動き</string>
+  <string name="enPassantIntro">相手のポーンが 2 マス進んだら、1 マス進んだ時と同じように取ることができます。</string>
+  <string name="blackJustMovedThePawnByTwoSquares">黒は今ポーンを
+2 マス進めました！
+アンパッサンで取ります。</string>
+  <string name="enPassantOnlyWorksImmediately">アンパッサンできるのは
+相手がポーンを進めた
+直後の手だけです。</string>
+  <string name="enPassantOnlyWorksOnFifthRank">アンパッサンできるのは自分の
+ポーンが 5 段目にいる時だけです。</string>
+  <string name="takeAllThePawnsEnPassant">全部のポーンをアンパッサンで取る！</string>
+  <string name="enPassantComplete">おめでとう！　アンパッサンの取り方を覚えました。</string>
   <string name="stalemate">ステイルメイト</string>
+  <string name="theGameIsADraw">引き分けになる</string>
+  <string name="stalemateIntro">チェックされていないのに動かす手がない場合が「ステイルメイト」です。ゲームは引き分けで、勝ち負けなしになります。</string>
   <string name="advanced">上級</string>
   <string name="checkInTwo">2 手でチェック</string>
   <string name="stageX">ステージ %s</string>
