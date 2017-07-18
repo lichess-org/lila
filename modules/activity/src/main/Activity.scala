@@ -35,23 +35,29 @@ object Activity {
   }
 
   case class Rating(value: Int) extends AnyVal
-  case class RatingProg(before: Rating, after: Rating)
+  case class RatingProg(before: Rating, after: Rating) {
+    def +(o: RatingProg) = copy(after = o.after)
+  }
 
   case class Games(value: Map[PerfType, Score]) extends AnyVal {
     def add(pt: PerfType, score: Score) = copy(
-      value = value + (pt -> value.get(pt).fold(score)(_ add score))
+      value = value + (pt -> value.get(pt).fold(score)(_ + score))
     )
   }
   implicit val GamesZero = Zero.instance(Games(Map.empty))
 
-  case class Score(win: Int, loss: Int, draw: Int, rd: RatingDiff) {
-    def add(s: Score) = copy(win = win + s.win, loss = loss + s.loss, draw = draw + s.draw, rd = rd + s.rd)
+  case class Score(win: Int, loss: Int, draw: Int, rp: Option[RatingProg]) {
+    def +(s: Score) = copy(
+      win = win + s.win,
+      loss = loss + s.loss,
+      draw = draw + s.draw,
+      rp = (rp, s.rp) match {
+        case (Some(rp1), Some(rp2)) => Some(rp1 + rp2)
+        case (rp1, rp2) => rp2 orElse rp1
+      }
+    )
   }
-  case class RatingDiff(value: Int) extends AnyVal {
-    def +(r: RatingDiff) = RatingDiff(value + r.value)
-  }
-  implicit val RatingDiffZero = Zero.instance(RatingDiff(0))
-  implicit val ScoreZero = Zero.instance(Score(0, 0, 0, RatingDiffZero.zero))
+  implicit val ScoreZero = Zero.instance(Score(0, 0, 0, none))
 
   case class Posts(posts: Map[Posts.TopicId, List[Posts.PostId]]) {
     def total = posts.foldLeft(0)(_ + _._2.size)

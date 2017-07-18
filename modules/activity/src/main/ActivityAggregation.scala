@@ -15,7 +15,9 @@ private object ActivityAggregation {
       win = won.has(true) ?? 1,
       loss = won.has(false) ?? 1,
       draw = won.isEmpty ?? 1,
-      rd = RatingDiff(~player.ratingDiff)
+      rp = player.rating map { before =>
+      RatingProg(Rating(before), Rating(before + ~player.ratingDiff))
+    }
     )
   } yield a.copy(games = a.games.add(pt, score))
 

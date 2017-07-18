@@ -29,26 +29,25 @@ private object BSONHandlers {
     } yield RatingProg(before, after)) err s"Invalid rating prog ${b.elements}"
     def write(o: RatingProg) = BSONArray(o.before, o.after)
   }
-  private implicit val ratingDiffHandler = intAnyValHandler[RatingDiff](_.value, RatingDiff.apply)
 
   private implicit val scoreHandler = new lila.db.BSON[Score] {
     private val win = "w"
     private val loss = "l"
     private val draw = "d"
-    private val rd = "r"
+    private val rp = "r"
 
     def reads(r: lila.db.BSON.Reader) = Score(
       win = r.intD(win),
       loss = r.intD(loss),
       draw = r.intD(draw),
-      rd = r.getD[RatingDiff](rd)
+      rp = r.getO[RatingProg](rp)
     )
 
     def writes(w: lila.db.BSON.Writer, o: Score) = BSONDocument(
       win -> w.intO(o.win),
       loss -> w.intO(o.loss),
       draw -> w.intO(o.draw),
-      rd -> w.zero(o.rd)
+      rp -> o.rp
     )
   }
 
