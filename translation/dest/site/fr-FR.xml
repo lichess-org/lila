@@ -118,7 +118,7 @@
   </plurals>
   <string name="currentGames">Parties en cours</string>
   <plurals name="nbGames">
-    <item quantity="one">Voir les %s parties</item>
+    <item quantity="one">%s partie</item>
     <item quantity="other">%s parties</item>
   </plurals>
   <plurals name="nbBookmarks">
@@ -128,7 +128,7 @@
   <string name="viewInFullSize">Agrandir</string>
   <string name="logOut">Déconnexion</string>
   <string name="signIn">Connexion</string>
-  <string name="newToLichess">Nouveau sur Lichess ?</string>
+  <string name="newToLichess">Nouveau sur Lichess  ?</string>
   <string name="youNeedAnAccountToDoThat">Compte d\'utilisateur requis</string>
   <string name="signUp">S\'inscrire</string>
   <string name="computersAreNotAllowedToPlay">Les ordinateurs et les joueurs assistés par ordinateur ne sont pas autorisés à jouer. Veuillez ne pas vous aider de moteurs d\'analyse, de bases de données ou d\'autres joueurs pendant la partie. Notez également qu\'il est fortement déconseillé de créer plusieurs comptes. Le multi-compte excessif mènera à l\'exclusion.</string>
@@ -205,8 +205,8 @@
   <string name="play">Jouer</string>
   <string name="inbox">Boîte de réception</string>
   <string name="chatRoom">Salon de discussion</string>
-  <string name="loginToChat">Se connecter au chat</string>
-  <string name="youHaveBeenTimedOut">Vous avez été déconnecté.</string>
+  <string name="loginToChat">Connectez-vous pour discuter</string>
+  <string name="youHaveBeenTimedOut">Vous avez été suspendu temporairement.</string>
   <string name="spectatorRoom">Salon des spectateurs</string>
   <string name="composeMessage">Écrire un message</string>
   <string name="noNewMessages">Aucun nouveau message</string>
