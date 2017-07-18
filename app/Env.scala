@@ -103,7 +103,8 @@ final class Env(
     Env.notifyModule, // required to load the actor
     Env.plan, // required to load the actor
     Env.studySearch, // required to load the actor
-    Env.event // required to load the actor
+    Env.event, // required to load the actor
+    Env.activity // required to load the actor
   )) { lap =>
     lila.log("boot").info(s"${lap.millis}ms Preloading complete")
   }
@@ -179,4 +180,5 @@ object Env {
   def pool = lila.pool.Env.current
   def practice = lila.practice.Env.current
   def irwin = lila.irwin.Env.current
+  def activity = lila.activity.Env.current
 }

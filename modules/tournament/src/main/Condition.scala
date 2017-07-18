@@ -1,6 +1,7 @@
 package lila.tournament
 
 import lila.rating.PerfType
+import lila.rating.BSONHandlers.perfTypeKeyHandler
 import lila.user.User
 
 sealed trait Condition {
@@ -120,10 +121,6 @@ object Condition {
 
   object BSONHandlers {
     import reactivemongo.bson._
-    private implicit val PerfTypeBSONHandler = new BSONHandler[BSONString, PerfType] {
-      def read(bs: BSONString): PerfType = PerfType(bs.value) err s"No such PerfType: ${bs.value}"
-      def write(x: PerfType) = BSONString(x.key)
-    }
     private implicit val NbRatedGameHandler = Macros.handler[NbRatedGame]
     private implicit val MaxRatingHandler = Macros.handler[MaxRating]
     private implicit val MinRatingHandler = Macros.handler[MinRating]

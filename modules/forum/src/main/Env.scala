@@ -60,7 +60,8 @@ final class Env(
     shutup = shutup,
     timeline = hub.actor.timeline,
     detectLanguage = detectLanguage,
-    mentionNotifier = mentionNotifier
+    mentionNotifier = mentionNotifier,
+    bus = system.lilaBus
   )
 
   lazy val forms = new DataForm(hub.actor.captcher)
