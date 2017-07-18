@@ -45,6 +45,8 @@ case class Puzzle(
 
 object Puzzle {
 
+  case class UserResult(puzzleId: PuzzleId, userId: lila.user.User.ID, result: Result)
+
   def make(
     gameId: String,
     history: List[String],

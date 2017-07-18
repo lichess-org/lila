@@ -25,6 +25,9 @@ final class ActivityApi(coll: Coll) {
     update(userId) { ActivityAggregation.addForumPost(post, topic) _ }
   }
 
+  def addPuzzle(puzzleId: lila.puzzle.PuzzleId, userId: User.ID, result: lila.puzzle.Result): Funit =
+    update(userId) { ActivityAggregation.addPuzzle(puzzleId, result) _ }
+
   private def getOrCreate(userId: User.ID) = get(userId) map { _ | Activity.make(userId) }
   private def save(activity: Activity) = coll.update($id(activity.id), activity, upsert = true).void
   private def update(userId: User.ID)(f: Activity => Option[Activity]): Funit =

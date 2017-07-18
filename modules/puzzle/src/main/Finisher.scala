@@ -10,10 +10,11 @@ import lila.user.{ User, UserRepo }
 
 private[puzzle] final class Finisher(
     api: PuzzleApi,
-    puzzleColl: Coll
+    puzzleColl: Coll,
+    bus: lila.common.Bus
 ) {
 
-  def apply(puzzle: Puzzle, user: User, result: Result): Fu[(Round, Mode)] =
+  def apply(puzzle: Puzzle, user: User, result: Result): Fu[(Round, Mode)] = {
     api.head.find(user) flatMap {
       case Some(PuzzleHead(_, Some(c), _)) if c == puzzle.id =>
         api.head.solved(user, puzzle.id) >> {
@@ -52,6 +53,9 @@ private[puzzle] final class Finisher(
         )
         fuccess(a -> Mode.Casual)
     }
+  } >>- {
+    bus.publish(Puzzle.UserResult(puzzle.id, user.id, result), 'finishPuzzle)
+  }
 
   private val VOLATILITY = Glicko.default.volatility
   private val TAU = 0.75d

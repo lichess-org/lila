@@ -12,8 +12,6 @@ private object BSONHandlers {
 
   import Activity._
 
-  private implicit val dayHandler = intAnyValHandler[Day](_.value, Day.apply)
-
   implicit val activityIdHandler: BSONHandler[BSONString, Id] = new BSONHandler[BSONString, Id] {
     private val sep = ':'
     def read(bs: BSONString) = bs.value split sep match {
@@ -25,7 +23,7 @@ private object BSONHandlers {
 
   private implicit val ratingDiffHandler = intAnyValHandler[RatingDiff](_.value, RatingDiff.apply)
 
-  implicit val scoreHandler = new lila.db.BSON[Score] {
+  private implicit val scoreHandler = new lila.db.BSON[Score] {
     private val win = "w"
     private val loss = "l"
     private val draw = "d"
@@ -59,25 +57,43 @@ private object BSONHandlers {
   private implicit val postsMapHandler = MapValue.MapHandler[Posts.TopicId, List[Posts.PostId]]
   private implicit val postsHandler = isoHandler[Posts, Map[Posts.TopicId, List[Posts.PostId]], Bdoc]((p: Posts) => p.posts, Posts.apply _)
 
+  private implicit val puzzleIdHandler = intAnyValHandler[PuzzleId](_.value, PuzzleId.apply)
+  private implicit val puzzleListHandler = Macros.handler[PuzzleList]
+  private implicit val puzzlesHandler = new lila.db.BSON[Puzzles] {
+
+    def reads(r: lila.db.BSON.Reader) = Puzzles(
+      win = r.getD[PuzzleList]("w"),
+      loss = r.getD[PuzzleList]("l")
+    )
+
+    def writes(w: lila.db.BSON.Writer, o: Puzzles) = BSONDocument(
+      "w" -> w.zero(o.win),
+      "l" -> w.zero(o.loss)
+    )
+  }
+
   implicit val activityHandler = new lila.db.BSON[Activity] {
 
     private val id = "_id"
     private val games = "g"
     private val comps = "c"
     private val posts = "p"
+    private val puzzles = "z"
 
     def reads(r: lila.db.BSON.Reader) = Activity(
       id = r.get[Id](id),
       games = r.getD[Games](games),
       comps = r.getD[CompAnalysis](comps),
-      posts = r.getD[Posts](posts)
+      posts = r.getD[Posts](posts),
+      puzzles = r.getD[Puzzles](puzzles)
     )
 
     def writes(w: lila.db.BSON.Writer, o: Activity) = BSONDocument(
       id -> o.id,
       games -> w.zero(o.games),
       comps -> w.zero(o.comps),
-      posts -> w.zero(o.posts)
+      posts -> w.zero(o.posts),
+      puzzles -> w.zero(o.puzzles)
     )
   }
 }

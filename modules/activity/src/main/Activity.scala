@@ -10,7 +10,8 @@ case class Activity(
     id: Activity.Id,
     games: Activity.Games,
     comps: Activity.CompAnalysis,
-    posts: Activity.Posts
+    posts: Activity.Posts,
+    puzzles: Activity.Puzzles
 ) {
 
   def userId = id.userId
@@ -67,10 +68,24 @@ object Activity {
   case class GameId(value: String) extends AnyVal
   implicit val CompsZero = Zero.instance(CompAnalysis(Nil))
 
+  case class Puzzles(win: PuzzleList, loss: PuzzleList) {
+    def +(id: PuzzleId, isWin: Boolean) = if (isWin) copy(win = win + id) else copy(loss = loss + id)
+  }
+  case class PuzzleList(latest: List[PuzzleId], total: Int) {
+    def +(id: PuzzleId) = PuzzleList(
+      latest = (id :: latest) take 10,
+      total = total + 1
+    )
+  }
+  case class PuzzleId(value: Int) extends AnyVal
+  implicit val PuzzleListZero = Zero.instance(PuzzleList(Nil, 0))
+  implicit val PuzzlesZero = Zero.instance(Puzzles(PuzzleListZero.zero, PuzzleListZero.zero))
+
   def make(userId: User.ID) = Activity(
     id = Id today userId,
     games = GamesZero.zero,
     posts = PostsZero.zero,
-    comps = CompsZero.zero
+    comps = CompsZero.zero,
+    puzzles = PuzzlesZero.zero
   )
 }

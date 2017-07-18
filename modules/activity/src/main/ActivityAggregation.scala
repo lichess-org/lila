@@ -26,4 +26,7 @@ private object ActivityAggregation {
     post.userId map { userId =>
       a.copy(posts = a.posts.+(Posts.PostId(post.id), Posts.TopicId(topic.id)))
     }
+
+  def addPuzzle(puzzleId: lila.puzzle.PuzzleId, result: lila.puzzle.Result)(a: Activity) =
+    a.copy(puzzles = a.puzzles.+(PuzzleId(puzzleId), result.win)).some
 }
