@@ -88,6 +88,21 @@
   <string name="winPreventedBy50MoveRule">Vinst förhindrad genom 50-drags regeln</string>
   <string name="lossSavedBy50MoveRule">Förlust förhindrad genom 50-drags regeln</string>
   <string name="allSet">OK</string>
+  <string name="importPgn">Importera PGN</string>
+  <string name="delete">Ta bort</string>
+  <string name="deleteThisImportedGame">Ta bort detta importerade partil?</string>
+  <string name="replayMode">Replay-läge</string>
+  <string name="realtimeReplay">Realtid</string>
+  <string name="byCPL">CPL</string>
+  <string name="openStudy">Öppna studie</string>
+  <string name="enable">Aktivera</string>
+  <string name="bestMoveArrow">Bästa drag pil</string>
+  <string name="evaluationGauge">Visa evaluering</string>
+  <string name="multipleLines">Multipla varianter</string>
+  <string name="cpus">CPUs</string>
+  <string name="memory">Minne</string>
+  <string name="infiniteAnalysis">Oändlig analys</string>
+  <string name="removesTheDepthLimit">Tar bort sökdjup-begränsningen, och håller datorn varm</string>
   <string name="blunders">Blundrar</string>
   <string name="mistakes">Misstag</string>
   <string name="inaccuracies">Felaktigheter</string>
@@ -278,6 +293,7 @@
   <string name="fromPosition">Från position</string>
   <string name="continueFromHere">Fortsätt härifrån</string>
   <string name="importGame">Importera parti</string>
+  <string name="importGameExplanation">När du klistrar in ett parti PGN får du en bläddringsbar replay, en datoranalys, en spel-chatt och en delbar URL.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Importerade partier</item>
     <item quantity="other">%s Importerade partier</item>
@@ -457,6 +473,7 @@
   <string name="closeAccountExplanation">Är du säker att du vill avsluta ditt konto? Att avsluta ditt konto är ett permanent beslut. Du kommer inte längre kunna logga in och din profilsida kommer inte längre vara tillgänglig.</string>
   <string name="thisAccountIsClosed">Det här kontot är avslutat</string>
   <string name="invalidUsernameOrPassword">Ogiltigt användarnamn eller lösenord</string>
+  <string name="incorrectPassword">Inkorrekt lösenord</string>
   <string name="emailMeALink">Maila mig en länk</string>
   <string name="currentPassword">Nuvarande lösenord</string>
   <string name="newPassword">Nytt lösenord</string>
@@ -547,7 +564,9 @@
   <string name="error.email">Ogiltig e-postadress</string>
   <string name="error.email_acceptable">Oacceptabel e-postadress</string>
   <string name="error.email_unique">Det finns redan ett konto med denna e-postadress</string>
+  <string name="error.email_different">Detta är redan din registrerade e-mailadress</string>
   <string name="blindfoldChess">Blindschack (Osynliga pjäser)</string>
+  <string name="zenMode">Zen läge</string>
   <string name="moveConfirmation">Bekräftelse av drag</string>
   <string name="inCorrespondenceGames">I korrespondenspartier</string>
   <string name="ifRatingIsPlusMinusX">Om rating är ± %s</string>
@@ -633,6 +652,7 @@
   <string name="crosstable">Tabell</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kan också skrolla över brädet för att gå fram/bak i partiet.</string>
   <string name="analysisShapesHowTo">Tryck på Skift + klicka eller högerklicka för att rita cirklar och pilar på brädet.</string>
+  <string name="confirmResignationAndDrawOffers">Bekräfta resignation och remi anbud</string>
   <string name="inputMovesWithTheKeyboard">Mata in drag via tangentbord</string>
   <string name="letOtherPlayersMessageYou">Tillåt att andra spelare skickar meddelanden till dig</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Sätt att rockera</string>
@@ -675,6 +695,7 @@
   <string name="xLikesY">%1$s gillar %2$s</string>
   <string name="quickPairing">Snabb parning</string>
   <string name="lobby">Lobby</string>
+  <string name="anonymous">Anonym</string>
   <string name="yourScore">Dina poäng: %s</string>
   <string name="language">Språk</string>
   <string name="background">Bakgrund</string>

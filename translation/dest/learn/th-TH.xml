@@ -16,24 +16,24 @@
 เพื่อนำมันไปสู่ดาว!</string>
   <string name="grabAllTheStars">คว้าดาวทั้งหมด!</string>
   <string name="theFewerMoves">ยิ่งคุณใช้การเดินน้อย
-คุณยิ่งได้คะแนนเพิ่ม</string>
+คุณยิ่งได้คะแนนเพิ่ม!</string>
   <string name="useTwoRooks">ใช้เรือสองชิ้น
 เพื่อเร่งให้เร็วขึ้น!</string>
-  <string name="rookComplete">ยินดีด้วย! คุณได้เรียนรู้เรือโดยสำเร็จแล้ว</string>
+  <string name="rookComplete">ยินดีด้วย! คุณเข้าใจเกี่ยวกับเรือสำเร็จแล้ว</string>
   <string name="theBishop">บิชอป</string>
   <string name="itMovesDiagonally">มันเดินตามแนวทแยง</string>
-  <string name="bishopIntro">ต่อไป เราจะเรียนรู้วิธีซ้อมรบบิชอป!</string>
+  <string name="bishopIntro">ต่อไปเราจะเรียนรู้วิธีซ้อมรบบิชอป!</string>
   <string name="youNeedBothBishops">บิชอปช่องสีอ่อนหนึ่งชิ้น,
 บิชอปช่องสีเข้มหนึ่งชิ้น,
-คุณต้องการทั้งคู่!</string>
+คุณต้องการพวกมันทั้งคู่!</string>
   <string name="bishopComplete">ยินดีด้วย! คุณสามารถบัญชาการบิชอปได้</string>
   <string name="theQueen">ควีน</string>
   <string name="queenCombinesRookAndBishop">ควีน = เรือ + บิชอป</string>
   <string name="queenIntro">เข้าสู่ตัวหมากรุกที่ประสิทธิภาพสูงสุด สมเด็จพระราชินี!</string>
   <string name="queenComplete">ยินดีด้วย! ควีนไม่มีความลับใดต่อคุณแล้ว</string>
   <string name="theKing">คิง</string>
-  <string name="theMostImportantPiece">ชิ้นที่สำคัญที่สุด</string>
-  <string name="kingIntro">คุณคือกษัตริย์ ถ้าคุณล้มอยู่ในการสู้รบ เกมจะพ่ายแพ้</string>
+  <string name="theMostImportantPiece">หมากที่สำคัญที่สุด</string>
+  <string name="kingIntro">คุณคือกษัตริย์ ถ้าคุณล้มในการสู้รบ เกมจะพ่ายแพ้</string>
   <string name="theKingIsSlow">คิงนั้นเชื่องช้า</string>
   <string name="lastOne">ท้ายสุด!</string>
   <string name="kingComplete">ตอนนี้คุณสามารถสั่งผู้บัญชาการได้แล้ว!</string>
@@ -62,33 +62,64 @@
   <string name="pawnComplete">ยินดีด้วย! เบี้ยไม่มีความลับใดต่อคุณแล้ว</string>
   <string name="pawnPromotion">การเลื่อนขั้นเบี้ย</string>
   <string name="yourPawnReachedTheEndOfTheBoard">เบี้ยของคุณไปถึงจุดสิ้นสุดของกระดาน!</string>
+  <string name="itNowPromotesToAStrongerPiece">ตอนนี้มันได้เลื่อนขั้นเป็นหมากที่แข็งแกร่งขึ้น</string>
   <string name="selectThePieceYouWant">เลือกหมากที่คุณต้องการ!</string>
   <string name="fundamentals">ความรู้พื้นฐาน</string>
   <string name="capture">การจับกิน</string>
+  <string name="takeTheEnemyPieces">ยึดหมากของศัตรู</string>
+  <string name="captureIntro">ระบุหมากที่คู่แข่งไม่ได้ปกป้องไว้ แล้วจับกินหมากนั้น!</string>
+  <string name="takeTheBlackPieces">ยึดหมากของดำ!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">ยึดหมากของดำ!
+และอย่าเสียหมากของคุณเอง</string>
+  <string name="captureComplete">ยินดีด้วย! คุณรู้วิธีสู้ด้วยตัวหมากรุกแล้ว!</string>
   <string name="protection">การปกป้อง</string>
-  <string name="combat">การสู้รบ</string>
-  <string name="captureAndDefendPieces">จับและปกป้องหมาก</string>
+  <string name="keepYourPiecesSafe">รักษาหมากของคุณให้ปลอดภัย</string>
+  <string name="protectionIntro">ระบุหมากที่ถูกคู่แข่งของคุณโจมตี แล้วปกป้องพวกมัน!</string>
+  <string name="protectionComplete">ยินดีด้วย! หมากที่คุณไม่เสียคือหมากที่คุณชนะ!</string>
+  <string name="escape">คุณกำลังถูกโจมตี!
+จงหลีกหนีจากภัยคุกคาม!</string>
+  <string name="noEscape">ไม่มีทางหลีกหนี
+แต่คุณสามารถปกป้องได้!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">อย่าให้พวกเขา
+ยึดหมากที่ไม่ได้ปกป้องไป!</string>
+  <string name="combat">การต่อสู้</string>
+  <string name="captureAndDefendPieces">จับกินและปกป้องหมาก</string>
   <string name="combatIntro">นักรบที่ดีย่อมรู้ทั้งการโจมตีและปกป้อง!</string>
-  <string name="combatComplete">ยินดีด้วย! คุณรู้วิธีสู้ด้วยหมากรุกแล้ว!</string>
+  <string name="combatComplete">ยินดีด้วย! คุณรู้วิธีสู้ด้วยตัวหมากรุกแล้ว!</string>
   <string name="checkInOne">รุกในหนึ่งครั้ง</string>
   <string name="attackTheOpponentsKing">โจมตีคิงของคู่แข่ง</string>
+  <string name="checkInOneIntro">เพื่อรุกคู่แข่งของคุณ ให้โจมตีคิงของพวกเขา พวกเขาจะต้องปกป้องมัน!</string>
+  <string name="checkInOneGoal">พุ่งเป้าไปที่คิงของคู่แข่ง
+โดยเดินครั้งเดียว!</string>
+  <string name="checkInOneComplete">ยินดีด้วย! คุณได้รุกคู่แข่งของคุณ บังคับให้พวกเขาต้องปกป้องคิง!</string>
   <string name="outOfCheck">พ้นการถูกรุก</string>
   <string name="defendYourKing">ปกป้องคิงของคุณ</string>
+  <string name="outOfCheckIntro">คุณกำลังถูกรุก! คุณต้องหลีกหนี หรือกีดกันการโจมตี</string>
+  <string name="escapeWithTheKing">หลีกหนีด้วยคิง!</string>
+  <string name="theKingCannotEscapeButBlock">คิงไม่สามารถหลีกหนีได้
+แต่คุณสามารถกีดกันการโจมตี!</string>
+  <string name="youCanGetOutOfCheckByTaking">คุณสามารถพ้นจากการถูกรุก
+โดยการยึดหมากที่กำลังโจมตี</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">อัศวินนี้กำลังรุก
+ผ่านการป้องกันของคุณ!</string>
+  <string name="escapeOrBlock">จงหลีกหนีด้วยคิง
+หรือกีดกันการโจมตี!</string>
+  <string name="outOfCheckComplete">ยินดีด้วย! คิงของคุณไม่ถูกยึด มั่นใจว่าคุณสามารถป้องกันการรุกได้!</string>
   <string name="mateInOne">จนในหนึ่งครั้ง</string>
   <string name="defeatTheOpponentsKing">ปราบคิงของคู่แข่ง</string>
-  <string name="mateInOneIntro">คุณชนะเมื่อคู่แข่งไม่สามารถปกป้องการรุกได้</string>
+  <string name="mateInOneIntro">คุณจะชนะเมื่อคู่แข่งไม่สามารถปกป้องการรุกได้</string>
   <string name="attackYourOpponentsKing">โจมตีคิงของคู่แข่ง
 โดยที่เขาไม่สามารถจะปกป้องได้!</string>
-  <string name="mateInOneComplete">ยินดีด้วย นั่นคือวิธีที่คุณจะชนะเกมหมากรุก!</string>
-  <string name="intermediate">ระดับกลาง</string>
+  <string name="mateInOneComplete">ยินดีด้วย! นั่นคือวิธีที่คุณจะชนะเกมหมากรุก!</string>
+  <string name="intermediate">ระดับปานกลาง</string>
   <string name="boardSetup">การจัดกระดาน</string>
-  <string name="howTheGameStarts">วิธีเริ่มเกม</string>
+  <string name="howTheGameStarts">วิธีเริ่มต้นเกม</string>
   <string name="boardSetupIntro">สองกองทัพเผชิญหน้ากัน พร้อมที่จะต่อสู้</string>
-  <string name="thisIsTheInitialPosition">นี่คือตำแหน่งเริ่มต้น
+  <string name="thisIsTheInitialPosition">นี่คือตำแหน่งตั้งต้น
 ของทุกๆเกมหมากรุก!
 จงทำการเดิน เพื่อดำเนินการต่อ</string>
   <string name="firstPlaceTheRooks">อย่างแรก วางเรือ!
-พวกมันจะไปอยู่ที่มุม</string>
+ให้พวกมันไปอยู่ที่มุม</string>
   <string name="thenPlaceTheKnights">จากนั้นวางอัศวิน!
 พวกเขาอยู่ติดกับเรือ</string>
   <string name="placeTheBishops">วางบิชอป!
@@ -96,7 +127,7 @@
   <string name="placeTheQueen">วางควีน!
 นางจะอยู่บนสีของฝ่ายนาง</string>
   <string name="placeTheKing">วางคิง!
-ด้านขวาถัดจากควีนของเขา</string>
+ถัดจากควีนของเขา</string>
   <string name="pawnsFormTheFrontLine">เบี้ยตั้งอยู่แถวแนวหน้า
 จงทำการเดิน เพื่อดำเนินต่อ</string>
   <string name="boardSetupComplete">ยินดีด้วย! คุณรู้วิธีจัดกระดานหมากรุกแล้ว</string>
@@ -108,7 +139,7 @@
   <string name="castleQueenSide">เดินคิงของคุณสองช่อง
 เพื่อเข้าป้อมด้านควีน!</string>
   <string name="theKnightIsInTheWay">อัศวินขวางทางอยู่!
-เดินมัน แล้วเข้าป้อมด้านคิง</string>
+เดินมันออก แล้วเข้าป้อมด้านคิง</string>
   <string name="castleKingSideMovePiecesFirst">เข้าป้อมด้านคิง!
 คุณต้องเดินหมากออกไปก่อน</string>
   <string name="castleQueenSideMovePiecesFirst">เข้าป้อมด้านควีน!
@@ -119,21 +150,21 @@
   <string name="youCannotCastleIfAttacked">คุณจะเข้าป้อมไม่ได้
 ถ้าคิงกำลังถูกโจมตี
 จงขัดขวางการรุกนั้น แล้วเข้าป้อม!</string>
-  <string name="findAWayToCastleKingSide">หาทางเพื่อ
-เข้าป้อมด้านคิง!</string>
-  <string name="findAWayToCastleQueenSide">หาทางเพื่อ
-เข้าป้อมด้านควีน!</string>
+  <string name="findAWayToCastleKingSide">จงหาทาง
+เพื่อเข้าป้อมด้านคิง!</string>
+  <string name="findAWayToCastleQueenSide">จงหาทาง
+เพื่อเข้าป้อมด้านควีน!</string>
   <string name="castlingComplete">ยินดีด้วย! โดยส่วนใหญ่คุณควรเข้าป้อมในเกมเสมอ</string>
   <string name="enPassant">การกินผ่าน</string>
   <string name="theSpecialPawnMove">การเดินเบี้ยแบบพิเศษ</string>
   <string name="enPassantIntro">เมื่อเบี้ยฝ่ายตรงข้ามเดินครั้งนั้นสองช่อง คุณสามารถปฏิบัติต่อมันเหมือนดั่งมันเดินเพียงช่องเดียว</string>
   <string name="blackJustMovedThePawnByTwoSquares">ดำเพิ่งเดินเบี้ยสองช่อง!
-ใช้การกินผ่านกับมัน</string>
+จงใช้การกินผ่านกับมัน</string>
   <string name="enPassantOnlyWorksImmediately">การกินผ่านจะใช้ได้ทันที
-หลังจากคู่แข่งเดินเบี้ยเท่านั้น</string>
+หลังจากคู่แข่งเดินเบี้ยครั้งนั้นเท่านั้น</string>
   <string name="enPassantOnlyWorksOnFifthRank">การกินผ่านจะใช้ได้
 ถ้าเบี้ยของคุณอยู่บนแรงค์ที่ 5</string>
-  <string name="takeAllThePawnsEnPassant">ใช้การกินผ่านกับเบี้ยทั้งหมด!</string>
+  <string name="takeAllThePawnsEnPassant">จงใช้การกินผ่านกับเบี้ยทั้งหมด!</string>
   <string name="enPassantComplete">ยินดีด้วย! คุณสามารถใช้การกินผ่านได้แล้ว</string>
   <string name="stalemate">อับ</string>
   <string name="theGameIsADraw">เกมเสมอกัน</string>
@@ -143,7 +174,7 @@
 - ไม่มีการรุก</string>
   <string name="stalemateComplete">ยินดีด้วย! ถูกอับดีกว่าถูกรุกจน!</string>
   <string name="advanced">ขั้นสูง</string>
-  <string name="pieceValue">ค่าของหมาก</string>
+  <string name="pieceValue">ค่าของตัวหมาก</string>
   <string name="evaluatePieceStrength">ประเมินความแกร่งของหมาก</string>
   <string name="pieceValueIntro">หมากที่มีความคล่องตัวในการเดินสูงจะมีค่าสูงกว่า!
 ควีน = 9
@@ -152,10 +183,10 @@
 อัศวิน = 3
 เบี้ย = 1
 คิงประเมินค่ามิได้! สูญเสียมันคือพ่ายแพ้เกม</string>
-  <string name="queenOverBishop">กินหมาก
+  <string name="queenOverBishop">จงกินหมาก
 ที่มีค่าสูงสุด!
 ควีน &gt; บิชอป</string>
-  <string name="takeThePieceWithTheHighestValue">กินหมาก
+  <string name="takeThePieceWithTheHighestValue">จงกินหมาก
 ที่มีค่าสูงสุด!</string>
   <string name="pieceValueComplete">ยินดีด้วย! คุณรู้ค่าของวัสดุแล้ว!
 ควีน = 9
@@ -170,13 +201,13 @@
 โดยเดินสองครั้ง!</string>
   <string name="checkInTwoComplete">ยินดีด้วย! คุณได้รุกคู่แข่งของคุณ บังคับให้พวกเขาปกป้องคิงของพวกเขา!</string>
   <string name="whatNext">มีอะไรต่อ?</string>
-  <string name="youKnowHowToPlayChess">คุณรู้วิธีการเล่นหมากรุกแล้ว, ขอแสดงความยินดี! คุณต้องการเป็นผู้เล่นที่แข็งแกร่งขึ้นหรือไม่?</string>
+  <string name="youKnowHowToPlayChess">คุณรู้วิธีการเล่นหมากรุกแล้ว, ยินดีด้วย! คุณต้องการเป็นผู้เล่นที่แข็งแกร่งขึ้นหรือไม่?</string>
   <string name="register">ลงทะเบียน</string>
   <string name="getAFreeLichessAccount">รับบัญชี Lichess ฟรี</string>
-  <string name="practice">ฝึก</string>
-  <string name="learnCommonChessPositions">เรียนรู้ตำแหน่งหมากรุกสามัญ</string>
+  <string name="practice">ฝึกหัด</string>
+  <string name="learnCommonChessPositions">เรียนรู้ตำแหน่งหมากรุกทั่วไป</string>
   <string name="puzzles">ปริศนา</string>
-  <string name="exerciseYourTacticalSkills">ฝึกหัดทักษะกลยุทธ์ของคุณ</string>
+  <string name="exerciseYourTacticalSkills">ฝึกทักษะกลยุทธ์ของคุณ</string>
   <string name="videos">วิดีโอ</string>
   <string name="watchInstructiveChessVideos">ชมวิดีโอคำแนะนำหมากรุก</string>
   <string name="playPeople">เล่นกับผู้คน</string>
