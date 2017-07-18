@@ -11,7 +11,8 @@
   <string name="chessPieces">Figury szachowe</string>
   <string name="theRook">Wieża</string>
   <string name="itMovesInStraightLines">Porusza się po liniach prostych</string>
-  <string name="rookIntro">Wieża to silna figura. Czy jesteś gotów aby nauczyć się ruszać nią?</string>
+  <string name="rookIntro">Wieża to silna figura. Czy jesteś gotów aby nauczyć się nią poruszać?</string>
+  <string name="rookGoal">Kliknij na wieży i przynieść ją na gwiazdkę!</string>
   <string name="grabAllTheStars">Zbierz wszystkie gwiazdki!</string>
   <string name="theFewerMoves">Czym mniej ruchów zrobisz tym więcej punktów zdobędziesz!</string>
   <string name="useTwoRooks">Użyj dwóch wież aby zrobić to szybciej!</string>
@@ -33,7 +34,7 @@ Potrzebujesz ich obu!</string>
   <string name="theKingIsSlow">Król jest bardzo powolny.</string>
   <string name="lastOne">Ostatnie zadanie!</string>
   <string name="theKnight">Skoczek</string>
-  <string name="itMovesInAnLShape">Porusza się w kształt litery L</string>
+  <string name="itMovesInAnLShape">Porusza się \"po literze L\"</string>
   <string name="knightComplete">Gratulacje! Opanowałeś poruszanie się skoczkiem.</string>
   <string name="thePawn">Pion</string>
   <string name="itMovesForwardOnly">Porusza się tylko do przodu</string>
