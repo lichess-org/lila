@@ -163,4 +163,8 @@ la mossa dell\'avversario.</string>
   <string name="enPassantOnlyWorksOnFifthRank">La cattura en passant funziona solo
 se il tuo pedone si trova sulla quinta traversa.</string>
   <string name="takeAllThePawnsEnPassant">Cattura en passant tutti i pedoni!</string>
+  <string name="enPassantComplete">Congratulazioni! Ora sai catturare en passant.</string>
+  <string name="stalemate">Stallo</string>
+  <string name="theGameIsADraw">La partita è patta</string>
+  <string name="stalemateIntro">Quando un giocatore non è sotto attacco e non può effettuare nessuna mossa legale, allora è stallo. La partita è patta: nessuno vince e nussuno perde.</string>
 </resources>
