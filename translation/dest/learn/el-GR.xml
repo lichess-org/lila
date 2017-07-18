@@ -36,4 +36,11 @@
   <string name="kingComplete">Τώρα, μπορείτε να χειρίζεστε τον στρατηγό!</string>
   <string name="theKnight">Ο ίππος</string>
   <string name="itMovesInAnLShape">Κινείται σε σχήμα L</string>
+  <string name="knightIntro">Εδώ είναι μια δοκιμασία για εσάς. Ο ιππότης είναι.. ένα περίεργο κομμάτι.</string>
+  <string name="knightsHaveAFancyWay">Οι ίπποι έχουν ένα παράξενο τρόπο
+να πηδούν τριγύρω!</string>
+  <string name="knightsCanJumpOverObstacles">Οι ίπποι μπορούν να υπερπηδούν εμπόδια!
+Ξεφύγετε και πιάστε τα αστέρια!</string>
+  <string name="knightComplete">Συγχαρητήρια! Έχετε μάθει να χειρίζεστε τον ίππο.</string>
+  <string name="thePawn">Το πιόνι</string>
 </resources>
