@@ -181,4 +181,27 @@ Alfiere = 3
 Cavallo = 3
 Pedone = 1
 Il re è inestimabile! Perdere il re significa essere sconfitti.</string>
+  <string name="queenOverBishop">Cattura il pezzo
+con il più alto valore!
+Regina &gt; Alfiere</string>
+  <string name="takeThePieceWithTheHighestValue">Cattura il pezzo 
+con il valore più alto!</string>
+  <string name="pieceValueComplete">Congratulazioni! Ora conosci il vaore dei pezzi! 
+Regina = 9 
+Torre = 5 
+Alfiere = 3
+Cavallo = 3 
+Pedone = 1</string>
+  <string name="checkInTwo">Scacco in due mosse</string>
+  <string name="twoMovesToGiveCheck">Due mosse per dare uno scacco</string>
+  <string name="checkInTwoIntro">Trova la combinazione di due mosse che dia scacco al re avversario!</string>
+  <string name="checkInTwoGoal">Minaccia il re avversario
+in due mosse!</string>
+  <string name="checkInTwoComplete">Congratulazioni! Hai dato scacco al tuo avversario costringendolo a difendere il re!</string>
+  <string name="whatNext">E ora?</string>
+  <string name="youKnowHowToPlayChess">Sai come giocare a scacchi, ora vuoi diventare un giocatore più forte?</string>
+  <string name="register">Registrati</string>
+  <string name="getAFreeLichessAccount">Otteni un account Lichess gratuito</string>
+  <string name="practice">Allenamento</string>
+  <string name="learnCommonChessPositions">Impara le posizioni più frequenti negli scacchi</string>
 </resources>
