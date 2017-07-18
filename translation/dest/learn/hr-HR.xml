@@ -124,4 +124,13 @@ Njima je mjesto na rubovima ploče.</string>
 Oni idu pored topova.</string>
   <string name="placeTheBishops">Postavi lovce!
 Oni idu pored skakača.</string>
+  <string name="placeTheQueen">Postavi damu!
+Ona ide na polje njezine boje.</string>
+  <string name="placeTheKing">Postavi kralja!
+Odmah pored svoje kraljice.</string>
+  <string name="pawnsFormTheFrontLine">Pješaci formiraju liniju fronte.
+Napravi bilo koji potez za nastavak.</string>
+  <string name="boardSetupComplete">Čestitke! Znaš postaviti šahovsku ploču.</string>
+  <string name="castling">Rokada</string>
+  <string name="theSpecialKingMove">Poseban potez kralja</string>
 </resources>
