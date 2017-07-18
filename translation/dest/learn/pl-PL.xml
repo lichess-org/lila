@@ -36,14 +36,16 @@ Potrzebujesz ich obu!</string>
   <string name="kingComplete">Możesz teraz rządzić królem!</string>
   <string name="theKnight">Skoczek</string>
   <string name="itMovesInAnLShape">Porusza się \"po literze L\"</string>
+  <string name="knightIntro">Oto wyzwanie dla Ciebie. Skoczek jest... szczwaną figurą.</string>
+  <string name="knightsHaveAFancyWay">Skoczki mają nietypowy sposób poruszania się!</string>
   <string name="knightComplete">Gratulacje! Opanowałeś poruszanie się skoczkiem.</string>
   <string name="thePawn">Pion</string>
   <string name="itMovesForwardOnly">Porusza się tylko do przodu</string>
   <string name="pawnIntro">Piony są słabe, ale mają w sobie duży potencjał.</string>
   <string name="pawnsMoveOneSquareOnly">Piony poruszają się tylko o jedno pole. 
 Ale jeśli dojdą do ostatniej linii mogą zamienić się w silniejszą figurę!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">W większości przypadków promowanie piona do królowej jest najlepszym wyborem. 
-Czasami jednak skoczek może bardzo się przydać!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">W większości przypadków najlepiej promować piona do królowej. 
+Jednak czasem bardziej przydatny może być skoczek!</string>
   <string name="pawnsMoveForward">Pionki poruszają się do przodu ale biją po przekątnej!</string>
   <string name="captureThenPromote">Zbij, a później promuj piona!</string>
   <string name="useAllThePawns">Użyj wszystkich swoich pionów! Nie ma potrzeby promowania.</string>
@@ -172,5 +174,6 @@ Pion = 1</string>
   <string name="yourScore">Twój wynik</string>
   <string name="next">Następne</string>
   <string name="backToMenu">Powrót do menu</string>
+  <string name="puzzleFailed">To zły ruch!</string>
   <string name="retry">Spróbuj jeszcze raz</string>
 </resources>
