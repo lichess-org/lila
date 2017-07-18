@@ -364,6 +364,7 @@
   <string name="draws">Ισοπαλίες</string>
   <string name="nextXTournament">Επόμενο %s τουρνουά:</string>
   <string name="viewMoreTournaments">Δείτε περισσότερα τουρνουά</string>
+  <string name="averageOpponent">Μέση βαθμολογία αντίπαλου</string>
   <string name="membersOnly">Μόνο για μέλη</string>
   <string name="boardEditor">Προετοιμαστής σκακιέρας</string>
   <string name="startPosition">Αρχική διάταξη</string>
@@ -473,6 +474,7 @@
   <string name="closeAccountExplanation">Είστε σίγουροι ότι θέλετε να κλείσετε το λογαριασμό σας; Το κλείσιμο του λογαριασμού σας είναι μια μόνιμη απόφαση. Δε θα μπορείτε πλέον να συνδεθείτε, και η σελίδα του προφίλ σας δε θα είναι πια προσβάσιμη.</string>
   <string name="thisAccountIsClosed">Αυτός ο λογαριασμός έχει κλείσει.</string>
   <string name="invalidUsernameOrPassword">Άκυρο όνομα χρήστη ή κωδικός</string>
+  <string name="incorrectPassword">Εσφαλμένο συνθηματικό</string>
   <string name="emailMeALink">Στείλτε μου σύνδεσμο μέσω ηλ. ταχυδρομείου</string>
   <string name="currentPassword">Κωδικός σε ισχύ</string>
   <string name="newPassword">Νέος κωδικός</string>
@@ -551,6 +553,7 @@
   <string name="playOnTheBoardOffline">Τοπικά</string>
   <string name="playOfflineComputer">Εναντίον Υπολογιστή</string>
   <string name="opponent">Αντίπαλος</string>
+  <string name="learnMenu">Εκμάθηση</string>
   <string name="community">Κοινότητα</string>
   <string name="tools">Εργαλεία</string>
   <string name="increment">Προσαύξηση</string>
@@ -563,7 +566,9 @@
   <string name="error.email">Αυτή η διεύθυνση ηλ. ταχυδρομείου δεν ισχύει</string>
   <string name="error.email_acceptable">Αυτή η διεύθυνση ηλ. ταχυδρομείου δεν είναι αποδεκτή</string>
   <string name="error.email_unique">Αυτή η διεύθυνση ηλ. ταχυδρομείου χρησιμοποιείται ήδη</string>
+  <string name="error.email_different">Αυτή είναι η υπάρχουσα διεύθυνση ηλεκτρονικού ταχυδρομείου σας</string>
   <string name="blindfoldChess">Τυφλό σκάκι (αόρατα κομμάτια)</string>
+  <string name="zenMode">Zen λειτουργία</string>
   <string name="moveConfirmation">Επιβεβαίωση κίνησης</string>
   <string name="inCorrespondenceGames">Στις παρτίδες δι\' αλληλογραφίας</string>
   <string name="ifRatingIsPlusMinusX">Εάν η βαθμολογία είναι ± %s</string>
@@ -649,6 +654,7 @@
   <string name="crosstable">Αποτελέσματα</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Μπορείτε επίσης να κινήσετε πάνω στην σκακιέρα για να μετακινηθείτε στο παιχνίδι.</string>
   <string name="analysisShapesHowTo">Πατήστε Shift + κλικ ή δεξί κλικ για να σχεδιάσετε κύκλους και βέλη στην σκακιέρα.</string>
+  <string name="confirmResignationAndDrawOffers">Επιβεβαίωση εγκατάλειψης και αποδοχής ισοπαλίας</string>
   <string name="inputMovesWithTheKeyboard">Εισάγετε κινήσεις με το πληκτρολόγιο</string>
   <string name="letOtherPlayersMessageYou">Επιτρέψτε άλλους παίκτες να σας στέλνουν μηνύματα</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Ροκέ μετακινώντας το βασιλιά δύο τετράγωνα, ή πάνω στον πύργο</string>
@@ -691,6 +697,7 @@
   <string name="xLikesY">%1$s αρέσκεται στο %2$s</string>
   <string name="quickPairing">Γρήγορη αντιστοίχιση</string>
   <string name="lobby">Δωμάτιο αναμονής</string>
+  <string name="anonymous">Ανώνυμος</string>
   <string name="yourScore">Η βαθμολογία σας: %s</string>
   <string name="language">Γλώσσα</string>
   <string name="background">Φόντο</string>
@@ -706,6 +713,7 @@
   <string name="directlySupportLichess">Υποστηρίξτε άμεσα το Lichess</string>
   <string name="playChessInStyle">Παίξτε σκάκι με στυλ</string>
   <string name="chessBasics">Βασικά σκακιού</string>
+  <string name="learnChessByPlaying">Μάθετε σκάκι παίζοντας</string>
   <string name="coaches">Προπονητές</string>
   <string name="invalidPgn">Μη έγκυρο PGN</string>
   <string name="invalidFen">Μη έγκυρο FEN</string>
