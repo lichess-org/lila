@@ -220,6 +220,10 @@
     <item quantity="one">%s παιγμένη παρτίδα</item>
     <item quantity="other">%s παιγμένες παρτίδες</item>
   </plurals>
+  <plurals name="nbRated">
+    <item quantity="one">%s αξιολογημένη</item>
+    <item quantity="other">%s αξιολογημένες</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s νίκη</item>
     <item quantity="other">%s νίκες</item>
@@ -240,6 +244,7 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Ο παίκτης χρησιμοποιεί υποβοήθηση υπολογιστή</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Αυτός ο παίκτης αυξάνει/μειώνει τεχνητά τη βαθμολογία</string>
+  <string name="openingExplorerAndTablebase">Εξερεύνηση ανοιγμάτων &amp; φινάλε</string>
   <string name="takeback">Ανάκληση κίνησης</string>
   <string name="proposeATakeback">Προσφέρετε ανάκληση της προηγούμενης κίνησης</string>
   <string name="takebackPropositionSent">Προσφορά ανάκλησης κίνησης εστάλη</string>
@@ -288,6 +293,8 @@
   <string name="fromPosition">Από συγκεκριμένη θέση</string>
   <string name="continueFromHere">Συνέχεια από εδώ</string>
   <string name="importGame">Εισαγωγή παιχνιδιού</string>
+  <string name="importGameExplanation">Κατά την επικόλληση παρτίδας PGN δημιουργείται μια περιηγήσιμη αναπαραγωγή, 
+ανάλυσή της με υπολογιστή, συνομιλία παρτίδας και ένα κοινόχρηστο URL.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Εισαγόμενο παιχνίδι</item>
     <item quantity="other">%s Εισαγόμενα παιχνίδια</item>
@@ -347,6 +354,16 @@
   <string name="tournamentPairingsAreNowClosed">Οι αντιστοιχίσεις πρωταθλημάτων είναι τώρα κλειστές.</string>
   <string name="standByX">Αναμένετε %s, αντιστοίχιση παικτών, ετοιμαστείτε!</string>
   <string name="youArePlaying">Παίζετε τώρα!</string>
+  <string name="winRate">Νίκη ποσοστό</string>
+  <string name="berserkRate">Berserk ποσοστό</string>
+  <string name="performance">Απόδοση</string>
+  <string name="tournamentComplete">Τουρνουά τελείωσε</string>
+  <string name="movesPlayed">Κινήσεις που παίχθηκαν</string>
+  <string name="whiteWins">Λευκά νίκες</string>
+  <string name="blackWins">Μαύρα νίκες</string>
+  <string name="draws">Ισοπαλίες</string>
+  <string name="nextXTournament">Επόμενο %s τουρνουά:</string>
+  <string name="viewMoreTournaments">Δείτε περισσότερα τουρνουά</string>
   <string name="membersOnly">Μόνο για μέλη</string>
   <string name="boardEditor">Προετοιμαστής σκακιέρας</string>
   <string name="startPosition">Αρχική διάταξη</string>
