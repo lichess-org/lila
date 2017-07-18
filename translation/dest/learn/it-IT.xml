@@ -131,4 +131,8 @@ Fai una mossa per continuare.</string>
   <string name="castling">Arrocco</string>
   <string name="theSpecialKingMove">La mossa speciale del re</string>
   <string name="castlingIntro">Metti il tuo re in sicurezza e sviluppa la tua torre per l\'attacco!</string>
+  <string name="castleKingSide">Muovi il re di due case sull\'ala di re
+per fare l\'arrocco corto!</string>
+  <string name="castleQueenSide">Muovi il re di due case sull\'ala di regina
+per fare l\'arrocco lungo!</string>
 </resources>
