@@ -91,4 +91,9 @@ bilo koju nebranjenu figuru!</string>
   <string name="attackTheOpponentsKing">Napadni protivnikovog kralja</string>
   <string name="checkInOneIntro">Da šahiraš svog protivnika, napadni njegovog kralja. On ga mora obraniti!</string>
   <string name="checkInOneGoal">Ciljaj na protivnikovog kralja u jednom potezu!</string>
+  <string name="checkInOneComplete">Čestitke! Šahirao/la si protivnika i prisilio/la ga da obrani svog kralja!</string>
+  <string name="outOfCheck">Van iz šaha</string>
+  <string name="defendYourKing">Obrani svog kralja</string>
+  <string name="outOfCheckIntro">Pod šahom si! Moraš pobjeći ili blokirati napad.</string>
+  <string name="escapeWithTheKing">Pobjegni kraljem!</string>
 </resources>
