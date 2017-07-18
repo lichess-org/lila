@@ -193,7 +193,7 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api, reactivemongo.driver)
   )
 
-  lazy val activity = project("activity", Seq(common, game, analyse, user, forum, study, pool, puzzle)).settings(
+  lazy val activity = project("activity", Seq(common, game, analyse, user, forum, study, pool, puzzle, tournament)).settings(
     libraryDependencies ++= provided(play.api, reactivemongo.driver)
   )
 

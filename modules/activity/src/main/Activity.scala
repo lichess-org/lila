@@ -9,7 +9,6 @@ import lila.user.User
 case class Activity(
     id: Activity.Id,
     games: Activity.Games,
-    tours: Activity.Tours,
     comps: Activity.CompAnalysis,
     posts: Activity.Posts
 ) {
@@ -50,13 +49,6 @@ object Activity {
   implicit val RatingDiffZero = Zero.instance(RatingDiff(0))
   implicit val ScoreZero = Zero.instance(Score(0, 0, 0, RatingDiffZero.zero))
 
-  case class Tours(value: Map[Tours.TourId, Tours.Result]) extends AnyVal
-  object Tours {
-    case class TourId(value: String) extends AnyVal
-    case class Result(rank: Int, points: Int, score: Score)
-  }
-  implicit val ToursZero = Zero.instance(Tours(Map.empty))
-
   case class Posts(posts: Map[Posts.TopicId, List[Posts.PostId]]) {
     def total = posts.foldLeft(0)(_ + _._2.size)
     def +(postId: Posts.PostId, topicId: Posts.TopicId) = Posts {
@@ -78,7 +70,6 @@ object Activity {
   def make(userId: User.ID) = Activity(
     id = Id today userId,
     games = GamesZero.zero,
-    tours = ToursZero.zero,
     posts = PostsZero.zero,
     comps = CompsZero.zero
   )
