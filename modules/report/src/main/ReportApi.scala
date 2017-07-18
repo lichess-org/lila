@@ -219,18 +219,18 @@ final class ReportApi(
     nbProcessed = nb - unprocessed.size
     processed <- if (room.has(Room.Xfiles) || nbProcessed == 0) fuccess(Nil)
     else findRecent(nbProcessed, processedSelect ++ roomSelect(room))
-    withNotes <- addUsersAndNotes(unprocessed ++ processed, room)
+    withNotes <- addUsersAndNotes(unprocessed ++ processed)
   } yield withNotes
 
   def unprocessedWithFilter(nb: Int, room: Option[Room]): Fu[List[Report.WithUserAndNotes]] =
-    findRecent(nb, unprocessedSelect ++ roomSelect(room)) flatMap { report => addUsersAndNotes(report, room) }
+    findRecent(nb, unprocessedSelect ++ roomSelect(room)) flatMap addUsersAndNotes
 
-  private def addUsersAndNotes(reports: List[Report], room: Option[Room]): Fu[List[Report.WithUserAndNotes]] = for {
+  private def addUsersAndNotes(reports: List[Report]): Fu[List[Report.WithUserAndNotes]] = for {
     withUsers <- UserRepo byIdsSecondary reports.map(_.user).distinct map { users =>
       reports.flatMap { r =>
         users.find(_.id == r.user) map { u =>
           accuracy(r) map { a =>
-            Report.WithUser(r, u, isOnline(u.id), a, room)
+            Report.WithUser(r, u, isOnline(u.id), a)
           }
         }
       }

@@ -38,7 +38,7 @@ moreCss = cssTag("report.css")) {
     </thead>
     <tbody>
       @reports.map {
-      case WithUserAndNotes(WithUser(r, u, _, accuracy, _), notes) if (!r.isTrollOrInsult || isGranted(_.MarkTroll)) => {
+      case WithUserAndNotes(WithUser(r, u, _, accuracy), notes) if (!r.isTrollOrInsult || isGranted(_.MarkTroll)) => {
       <tr class="@r.unprocessed.fold("new", "")">
         <td>
           @userIdLink(r.createdBy.some)<br />
