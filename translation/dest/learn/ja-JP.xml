@@ -186,6 +186,17 @@
 ナイト = 3
 ポーン = 1
 キングは無限大です！　キングを失えば負けですから。</string>
+  <string name="queenOverBishop">いちばん価値の大きい
+駒を取ってください。
+クイーン ＞ ビショップ</string>
+  <string name="takeThePieceWithTheHighestValue">いちばん価値の大きい
+駒を取ってください。</string>
+  <string name="pieceValueComplete">おめでとう！　駒の価値を覚えました！
+クイーン = 9
+ルーク = 5
+ビショップ = 3
+ナイト = 3
+ポーン = 1</string>
   <string name="checkInTwo">2 手でチェック</string>
   <string name="letsGo">どうぞ！</string>
   <string name="stageX">ステージ %s</string>
