@@ -1,17 +1,18 @@
 package lila.activity
 
 import org.joda.time.{ DateTime, Days }
-import ornicar.scalalib.Zero
 
-import lila.rating.PerfType
 import lila.user.User
+
+import activities._
 
 case class Activity(
     id: Activity.Id,
-    games: Activity.Games,
-    comps: Activity.CompAnalysis,
-    posts: Activity.Posts,
-    puzzles: Activity.Puzzles
+    games: Games,
+    comps: CompAnalysis,
+    posts: Posts,
+    puzzles: Puzzles,
+    learn: Learn
 ) {
 
   def userId = id.userId
@@ -34,71 +35,12 @@ object Activity {
     def today = Day(Days.daysBetween(genesis, DateTime.now.withTimeAtStartOfDay).getDays)
   }
 
-  case class Rating(value: Int) extends AnyVal
-  case class RatingProg(before: Rating, after: Rating) {
-    def +(o: RatingProg) = copy(after = o.after)
-  }
-  object RatingProg {
-    def +(rp1O: Option[RatingProg], rp2O: Option[RatingProg]) = (rp1O, rp2O) match {
-      case (Some(rp1), Some(rp2)) => Some(rp1 + rp2)
-      case _ => rp2O orElse rp1O
-    }
-  }
-
-  case class Games(value: Map[PerfType, Score]) extends AnyVal {
-    def add(pt: PerfType, score: Score) = copy(
-      value = value + (pt -> value.get(pt).fold(score)(_ + score))
-    )
-  }
-  implicit val GamesZero = Zero.instance(Games(Map.empty))
-
-  case class Score(win: Int, loss: Int, draw: Int, rp: Option[RatingProg]) {
-    def +(s: Score) = copy(
-      win = win + s.win,
-      loss = loss + s.loss,
-      draw = draw + s.draw,
-      rp = RatingProg.+(rp, s.rp)
-    )
-    def size = win + loss + draw
-  }
-  object Score {
-    def make(res: Option[Boolean], rp: Option[RatingProg]) = Score(
-      win = res.has(true) ?? 1,
-      loss = res.has(false) ?? 1,
-      draw = res.isEmpty ?? 1,
-      rp = rp
-    )
-  }
-  implicit val ScoreZero = Zero.instance(Score(0, 0, 0, none))
-
-  case class Posts(posts: Map[Posts.TopicId, List[Posts.PostId]]) {
-    def total = posts.foldLeft(0)(_ + _._2.size)
-    def +(postId: Posts.PostId, topicId: Posts.TopicId) = Posts {
-      posts + (topicId -> (postId :: ~posts.get(topicId)))
-    }
-  }
-  object Posts {
-    case class TopicId(value: String) extends AnyVal
-    case class PostId(value: String) extends AnyVal
-  }
-  implicit val PostsZero = Zero.instance(Posts(Map.empty))
-
-  case class CompAnalysis(gameIds: List[GameId]) extends AnyVal {
-    def +(gameId: GameId) = CompAnalysis(gameId :: gameIds)
-  }
-  case class GameId(value: String) extends AnyVal
-  implicit val CompsZero = Zero.instance(CompAnalysis(Nil))
-
-  case class Puzzles(score: Score) extends AnyVal {
-    def +(s: Score) = Puzzles(score + s)
-  }
-  implicit val PuzzlesZero = Zero.instance(Puzzles(ScoreZero.zero))
-
   def make(userId: User.ID) = Activity(
     id = Id today userId,
     games = GamesZero.zero,
     posts = PostsZero.zero,
     comps = CompsZero.zero,
-    puzzles = PuzzlesZero.zero
+    puzzles = PuzzlesZero.zero,
+    learn = LearnZero.zero
   )
 }

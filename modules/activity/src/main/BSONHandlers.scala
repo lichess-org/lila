@@ -11,6 +11,8 @@ import lila.rating.PerfType
 private object BSONHandlers {
 
   import Activity._
+  import activities._
+  import model._
 
   implicit val activityIdHandler: BSONHandler[BSONString, Id] = new BSONHandler[BSONString, Id] {
     private val sep = ':'
@@ -66,6 +68,10 @@ private object BSONHandlers {
 
   private implicit val puzzlesHandler = Macros.handler[Puzzles]
 
+  private implicit val learnStageIso = Iso.string[Learn.Stage](Learn.Stage.apply, _.value)
+  private implicit val learnMapHandler = MapValue.MapHandler[Learn.Stage, Int]
+  private implicit val learnHandler = isoHandler[Learn, Map[Learn.Stage, Int], Bdoc]((l: Learn) => l.value, Learn.apply _)
+
   implicit val activityHandler = new lila.db.BSON[Activity] {
 
     private val id = "_id"
@@ -73,13 +79,15 @@ private object BSONHandlers {
     private val comps = "c"
     private val posts = "p"
     private val puzzles = "z"
+    private val learn = "l"
 
     def reads(r: lila.db.BSON.Reader) = Activity(
       id = r.get[Id](id),
       games = r.getD[Games](games),
       comps = r.getD[CompAnalysis](comps),
       posts = r.getD[Posts](posts),
-      puzzles = r.getD[Puzzles](puzzles)
+      puzzles = r.getD[Puzzles](puzzles),
+      learn = r.getD[Learn](learn)
     )
 
     def writes(w: lila.db.BSON.Writer, o: Activity) = BSONDocument(
@@ -87,7 +95,8 @@ private object BSONHandlers {
       games -> w.zero(o.games),
       comps -> w.zero(o.comps),
       posts -> w.zero(o.posts),
-      puzzles -> w.zero(o.puzzles)
+      puzzles -> w.zero(o.puzzles),
+      learn -> w.zero(o.learn)
     )
   }
 }

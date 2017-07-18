@@ -5,7 +5,8 @@ import lila.game.Game
 
 private object ActivityAggregation {
 
-  import Activity._
+  import activities._
+  import model._
 
   def addGame(game: Game, userId: String)(a: Activity): Option[Activity] = for {
     pt <- game.perfType

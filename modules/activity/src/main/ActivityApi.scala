@@ -10,6 +10,7 @@ final class ActivityApi(coll: Coll) {
 
   import Activity._
   import BSONHandlers._
+  import activities._
 
   def get(userId: User.ID) = coll.byId[Activity, Id](Id today userId)
 
@@ -27,6 +28,9 @@ final class ActivityApi(coll: Coll) {
 
   def addPuzzle(res: lila.puzzle.Puzzle.UserResult): Funit =
     update(res.userId) { ActivityAggregation.addPuzzle(res) _ }
+
+  def addLearn(userId: User.ID, stage: String) =
+    update(userId) { a => a.copy(learn = a.learn + Learn.Stage(stage)).some }
 
   private def getOrCreate(userId: User.ID) = get(userId) map { _ | Activity.make(userId) }
   private def save(activity: Activity) = coll.update($id(activity.id), activity, upsert = true).void
