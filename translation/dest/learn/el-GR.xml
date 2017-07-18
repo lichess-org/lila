@@ -53,6 +53,17 @@
 Κάντε οποιαδήποτε κίνηση για συνέχεια.</string>
   <string name="firstPlaceTheRooks">Πρώτα τοποθετήστε τους πύργους!
 Πηγαίνουν στις γωνίες.</string>
+  <string name="thenPlaceTheKnights">Μετά τοποθετήστε τους ίππους!
+Πηγαίνουν δίπλα στους πύργους.</string>
+  <string name="placeTheBishops">Τοποθετήστε τους Αξιωματικούς!
+Πηγαίνουν δίπλα στους ίππους.</string>
+  <string name="placeTheQueen">Τοποθετήστε την Βασίλισσα!
+Πηγαίνει στο χρώμα της.</string>
+  <string name="placeTheKing">Τοποθετήστε το Βασιλιά!
+Ακριβώς δίπλα στη Βασίλισσά του.</string>
+  <string name="pawnsFormTheFrontLine">Τα πιόνια αποτελούν την πρώτη γραμμή.
+Κάντε οποιαδήποτε κίνηση για συνέχεια.</string>
+  <string name="boardSetupComplete">Συγχαρητήρια! Ξέρετε πώς να στήνετε την σκακιέρα.</string>
   <string name="castling">Pοκέ</string>
   <string name="theSpecialKingMove">Ειδική κίνηση Βασιλιά</string>
   <string name="castlingIntro">Φέρτε τον Βασιλιά σε ασφάλεια, και αναπτύξτε τον πύργο για επίθεση!</string>
@@ -70,4 +81,15 @@
   <string name="youCannotCastleIfAttacked">Δεν επιτρέπεται ροκέ αν
 ο Βασιλιάς δέχεται επίθεση.
 Αποκλείστε το σαχ και μετά κάντε ροκέ!</string>
+  <string name="findAWayToCastleKingSide">Βρείτε τρόπο για να κάνετε
+ροκέ στη πλευρά-Βασιλιά!</string>
+  <string name="findAWayToCastleQueenSide">Βρείτε τρόπο για να κάνετε
+ροκέ στη πλευρά-Βασίλισσας!</string>
+  <string name="castlingComplete">Συγχαρητήρια! Σχεδόν πάντα θα κάνετε στην παρτίδα.</string>
+  <string name="enPassant">En passant</string>
+  <string name="theSpecialPawnMove">Ειδική κίνηση πιονιού</string>
+  <string name="enPassantIntro">Όταν το αντίπαλο πιόνι κινήθηκε δύο τετράγωνα, μπορείτε να το κόψετε σαν να είχε κινηθεί μόνο ένα τετράγωνο.</string>
+  <string name="stalemate">Πατ</string>
+  <string name="theGameIsADraw">Η παρτίδα είναι ισόπαλη</string>
+  <string name="pieceValue">Αξία κομματιού</string>
 </resources>
