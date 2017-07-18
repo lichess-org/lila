@@ -108,4 +108,17 @@ o para l\'attacco!</string>
   <string name="attackYourOpponentsKing">Attacca il re dell\'avversario
 in un modo in cui non possa essere difeso!</string>
   <string name="mateInOneComplete">Congratulazioni! Ora sai come vincere negli scacchi!</string>
+  <string name="intermediate">Livello intermedio</string>
+  <string name="boardSetup">La scacchiera</string>
+  <string name="howTheGameStarts">Come inizia la partita</string>
+  <string name="boardSetupIntro">I due eserciti l\'uno di fronte all\'altro, pronti per la battaglia.</string>
+  <string name="thisIsTheInitialPosition">Questa è l\'impostazione iniziale
+di ogni partita di scacchi.
+Fai una mossa per continuare.</string>
+  <string name="firstPlaceTheRooks">Per prima cosa posiziona le torri!
+Vanno messe negli angoli.</string>
+  <string name="thenPlaceTheKnights">Poi posiziona i cavalli!
+Vanno posizionati al fianco delle torri.</string>
+  <string name="placeTheBishops">Posiziona gli alfieri!
+Vanno posizionati al fianco dei cavalli.</string>
 </resources>
