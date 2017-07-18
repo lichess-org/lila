@@ -143,4 +143,21 @@ Devi muovere i pezzi prima.</string>
 Devi muovere i pezzi prima.</string>
   <string name="youCannotCastleIfMoved">Non puoi arroccare se
 il re o la torre ha già mosso.</string>
+  <string name="youCannotCastleIfAttacked">Non puoi arroccare se
+una casa su cui il re deve transitare è sotto attacco.
+Blocca lo scacco e poi arrocca!</string>
+  <string name="findAWayToCastleKingSide">Trovare un modo per
+arroccare sull\'ala di re!</string>
+  <string name="findAWayToCastleQueenSide">Trovare un modo per
+arroccare sull\'ala di regina!</string>
+  <string name="castlingComplete">Congratulazioni! Dovrai arroccare quasi in ogni partita.</string>
+  <string name="enPassant">En passant</string>
+  <string name="theSpecialPawnMove">La mossa speciale del pedone</string>
+  <string name="enPassantIntro">Quando il pedone avversario si muove di due case, lo puoi catturare come se si fosse mosso di una casa sola.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Il nero ha mosso il pedone
+di due case!
+Catturalo en passant.</string>
+  <string name="enPassantOnlyWorksImmediately">La cattura en passant funziona solo
+se fatta immediatamente dopo 
+la mossa dell\'avversario.</string>
 </resources>
