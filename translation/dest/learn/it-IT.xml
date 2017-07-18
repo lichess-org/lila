@@ -146,9 +146,9 @@ il re o la torre ha già mosso.</string>
   <string name="youCannotCastleIfAttacked">Non puoi arroccare se
 una casa su cui il re deve transitare è sotto attacco.
 Blocca lo scacco e poi arrocca!</string>
-  <string name="findAWayToCastleKingSide">Trovare un modo per
+  <string name="findAWayToCastleKingSide">Trova un modo per
 arroccare sull\'ala di re!</string>
-  <string name="findAWayToCastleQueenSide">Trovare un modo per
+  <string name="findAWayToCastleQueenSide">Trova un modo per
 arroccare sull\'ala di regina!</string>
   <string name="castlingComplete">Congratulazioni! Dovrai arroccare quasi in ogni partita.</string>
   <string name="enPassant">En passant</string>
@@ -168,7 +168,7 @@ se il tuo pedone si trova sulla quinta traversa.</string>
   <string name="theGameIsADraw">La partita è patta</string>
   <string name="stalemateIntro">Quando un giocatore non è sotto attacco e non può effettuare nessuna mossa legale, allora è stallo. La partita è patta: nessuno vince e nussuno perde.</string>
   <string name="stalemateGoal">Per obbligare il nero allo stallo:
-- Il nero non può muovere
+- Il nero non deve poter muovere
 - Il nero non è sotto scacco.</string>
   <string name="stalemateComplete">Congratulazioni! Meglio essere in stallo che esser in scacco matto!</string>
   <string name="advanced">Livello avanzato</string>
@@ -186,7 +186,7 @@ con il più alto valore!
 Regina &gt; Alfiere</string>
   <string name="takeThePieceWithTheHighestValue">Cattura il pezzo 
 con il valore più alto!</string>
-  <string name="pieceValueComplete">Congratulazioni! Ora conosci il vaore dei pezzi! 
+  <string name="pieceValueComplete">Congratulazioni! Ora conosci il valore dei pezzi! 
 Regina = 9 
 Torre = 5 
 Alfiere = 3
