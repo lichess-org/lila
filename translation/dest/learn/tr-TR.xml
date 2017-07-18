@@ -90,6 +90,7 @@ Terfiye gerek yok.</string>
   <string name="defeatTheOpponentsKing">Rakip şahı mat et</string>
   <string name="mateInOneIntro">Rakibin çektiğin şahı engelleyemediği zaman oyunu kazanırsın.</string>
   <string name="castling">Rok atma</string>
+  <string name="enPassant">Geçerken alma</string>
   <string name="stalemate">Pat</string>
   <string name="checkInTwo">İki hamlede şah</string>
   <string name="register">Kayıt Ol</string>
