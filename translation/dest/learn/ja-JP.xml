@@ -198,6 +198,25 @@
 ナイト = 3
 ポーン = 1</string>
   <string name="checkInTwo">2 手でチェック</string>
+  <string name="twoMovesToGiveCheck">2 手動かしてチェックする</string>
+  <string name="checkInTwoIntro">相手のキングをチェックする 2 手の組み合わせを考えてください。</string>
+  <string name="checkInTwoGoal">2 手で相手のキングを
+狙ってください！</string>
+  <string name="checkInTwoComplete">おめでとう！　相手のキングをチェックして、防ぐ手を指させました！</string>
+  <string name="whatNext">その先は？</string>
+  <string name="youKnowHowToPlayChess">おめでとう、あなたはチェスのルールを覚えました。もっと強くなりたいですか？</string>
+  <string name="register">登録</string>
+  <string name="getAFreeLichessAccount">Lichess の無料アカウントを作る</string>
+  <string name="practice">練習</string>
+  <string name="learnCommonChessPositions">チェスのよくある局面を知る</string>
+  <string name="puzzles">タクティクス</string>
+  <string name="exerciseYourTacticalSkills">戦術の力をみがく</string>
+  <string name="videos">動画</string>
+  <string name="watchInstructiveChessVideos">チェスの教材動画を見る</string>
+  <string name="playPeople">人と対戦</string>
+  <string name="opponentsFromAroundTheWorld">世界中に相手がいます</string>
+  <string name="playMachine">マシンと対戦</string>
+  <string name="testYourSkillsWithTheComputer">コンピュータで腕前をテスト</string>
   <string name="letsGo">どうぞ！</string>
   <string name="stageX">ステージ %s</string>
   <string name="awesome">やったね！</string>
