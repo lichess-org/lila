@@ -160,4 +160,7 @@ Catturalo en passant.</string>
   <string name="enPassantOnlyWorksImmediately">La cattura en passant funziona solo
 se fatta immediatamente dopo 
 la mossa dell\'avversario.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">La cattura en passant funziona solo
+se il tuo pedone si trova sulla quinta traversa.</string>
+  <string name="takeAllThePawnsEnPassant">Cattura en passant tutti i pedoni!</string>
 </resources>
