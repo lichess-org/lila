@@ -50,9 +50,9 @@
   <string name="analysis">Échiquier d\'analyse</string>
   <string name="depthX">Profondeur %s</string>
   <string name="usingServerAnalysis">Analyse serveur en cours</string>
-  <string name="loadingEngine">Moteur de chargement...</string>
-  <string name="cloudAnalysis">Analyse du nuage</string>
-  <string name="goDeeper">Aller plus loin</string>
+  <string name="loadingEngine">Chargement en cours...</string>
+  <string name="cloudAnalysis">Analyse dans le cloud</string>
+  <string name="goDeeper">Analyser plus profondément</string>
   <string name="showThreat">Voir la menace</string>
   <string name="inLocalBrowser">dans le navigateur local</string>
   <string name="toggleLocalEvaluation">Activer/désactiver l\'évaluation locale</string>
