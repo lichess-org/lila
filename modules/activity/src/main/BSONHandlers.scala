@@ -23,8 +23,28 @@ private object BSONHandlers {
     def write(id: Id) = BSONString(s"${id.userId}$sep${id.day.value}")
   }
 
-  private implicit val ratingDiffHandler = intAnyValHandler[RatingDiff](_.by100, RatingDiff.apply)
-  private implicit val scoreHandler = Macros.handler[Score]
+  private implicit val ratingDiffHandler = intAnyValHandler[RatingDiff](_.value, RatingDiff.apply)
+
+  implicit val scoreHandler = new lila.db.BSON[Score] {
+    private val win = "w"
+    private val loss = "l"
+    private val draw = "d"
+    private val rd = "r"
+
+    def reads(r: lila.db.BSON.Reader) = Score(
+      win = r.intD(win),
+      loss = r.intD(loss),
+      draw = r.intD(draw),
+      rd = r.getD[RatingDiff](rd)
+    )
+
+    def writes(w: lila.db.BSON.Writer, o: Score) = BSONDocument(
+      win -> w.intO(o.win),
+      loss -> w.intO(o.loss),
+      draw -> w.intO(o.draw),
+      rd -> w.zero(o.rd)
+    )
+  }
 
   private implicit val gamesMapHandler = MapDocument.MapHandler[PerfType, Score]
   private implicit val gamesHandler = isoHandler[Games, Map[PerfType, Score], Bdoc]((g: Games) => g.value, Games.apply _)
@@ -41,11 +61,11 @@ private object BSONHandlers {
   private implicit val gameIdsHandler = bsonArrayToListHandler[GameId]
   private implicit val compAnalysisHandler = isoHandler[CompAnalysis, List[GameId], Barr]((c: CompAnalysis) => c.gameIds, CompAnalysis.apply _)
 
-  private implicit val threadIdIso = Iso.string[Posts.ThreadId](Posts.ThreadId.apply, _.value)
+  private implicit val topicIdIso = Iso.string[Posts.TopicId](Posts.TopicId.apply, _.value)
   private implicit val postIdHandler = stringAnyValHandler[Posts.PostId](_.value, Posts.PostId.apply)
   private implicit val postIdsHandler = bsonArrayToListHandler[Posts.PostId]
-  private implicit val postsMapHandler = MapValue.MapHandler[Posts.ThreadId, List[Posts.PostId]]
-  private implicit val postsHandler = isoHandler[Posts, Map[Posts.ThreadId, List[Posts.PostId]], Bdoc]((p: Posts) => p.posts, Posts.apply _)
+  private implicit val postsMapHandler = MapValue.MapHandler[Posts.TopicId, List[Posts.PostId]]
+  private implicit val postsHandler = isoHandler[Posts, Map[Posts.TopicId, List[Posts.PostId]], Bdoc]((p: Posts) => p.posts, Posts.apply _)
 
   implicit val activityHandler = new lila.db.BSON[Activity] {
 
@@ -56,7 +76,7 @@ private object BSONHandlers {
     private val posts = "p"
 
     def reads(r: lila.db.BSON.Reader) = Activity(
-      _id = r.get[Id](id),
+      id = r.get[Id](id),
       games = r.getD[Games](games),
       tours = r.getD[Tours](tours),
       comps = r.getD[CompAnalysis](comps),

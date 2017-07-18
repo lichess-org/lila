@@ -7,14 +7,13 @@ import lila.rating.PerfType
 import lila.user.User
 
 case class Activity(
-    _id: Activity.Id,
+    id: Activity.Id,
     games: Activity.Games,
     tours: Activity.Tours,
     comps: Activity.CompAnalysis,
     posts: Activity.Posts
 ) {
 
-  def id = _id
   def userId = id.userId
   def day = id.day
 }
@@ -45,11 +44,11 @@ object Activity {
   case class Score(win: Int, loss: Int, draw: Int, rd: RatingDiff) {
     def add(s: Score) = copy(win = win + s.win, loss = loss + s.loss, draw = draw + s.draw, rd = rd + s.rd)
   }
-  case class RatingDiff(by100: Int) extends AnyVal {
-    def real = by100 / 100d
-    def +(r: RatingDiff) = RatingDiff(by100 + r.by100)
+  case class RatingDiff(value: Int) extends AnyVal {
+    def +(r: RatingDiff) = RatingDiff(value + r.value)
   }
-  implicit val ScoreZero = Zero.instance(Score(0, 0, 0, RatingDiff(0)))
+  implicit val RatingDiffZero = Zero.instance(RatingDiff(0))
+  implicit val ScoreZero = Zero.instance(Score(0, 0, 0, RatingDiffZero.zero))
 
   case class Tours(value: Map[Tours.TourId, Tours.Result]) extends AnyVal
   object Tours {
@@ -58,21 +57,26 @@ object Activity {
   }
   implicit val ToursZero = Zero.instance(Tours(Map.empty))
 
-  case class Posts(posts: Map[Posts.ThreadId, List[Posts.PostId]]) {
+  case class Posts(posts: Map[Posts.TopicId, List[Posts.PostId]]) {
     def total = posts.foldLeft(0)(_ + _._2.size)
+    def +(postId: Posts.PostId, topicId: Posts.TopicId) = Posts {
+      posts + (topicId -> (postId :: ~posts.get(topicId)))
+    }
   }
   object Posts {
-    case class ThreadId(value: String) extends AnyVal
+    case class TopicId(value: String) extends AnyVal
     case class PostId(value: String) extends AnyVal
   }
   implicit val PostsZero = Zero.instance(Posts(Map.empty))
 
-  case class CompAnalysis(gameIds: List[GameId]) extends AnyVal
+  case class CompAnalysis(gameIds: List[GameId]) extends AnyVal {
+    def +(gameId: GameId) = CompAnalysis(gameId :: gameIds)
+  }
   case class GameId(value: String) extends AnyVal
   implicit val CompsZero = Zero.instance(CompAnalysis(Nil))
 
   def make(userId: User.ID) = Activity(
-    _id = Id today userId,
+    id = Id today userId,
     games = GamesZero.zero,
     tours = ToursZero.zero,
     posts = PostsZero.zero,

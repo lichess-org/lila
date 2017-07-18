@@ -19,8 +19,10 @@ final class Env(
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
       case lila.game.actorApi.FinishGame(game, _, _) if !game.aborted => api addGame game
+      case lila.analyse.actorApi.AnalysisReady(_, analysis) => api addAnalysis analysis
+      case lila.forum.actorApi.CreatePost(post, topic) => api.addForumPost(post, topic)
     }
-  })), 'finishGame)
+  })), 'finishGame, 'analysisReady, 'forumPost)
 }
 
 object Env {
