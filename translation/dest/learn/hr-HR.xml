@@ -96,4 +96,12 @@ bilo koju nebranjenu figuru!</string>
   <string name="defendYourKing">Obrani svog kralja</string>
   <string name="outOfCheckIntro">Pod šahom si! Moraš pobjeći ili blokirati napad.</string>
   <string name="escapeWithTheKing">Pobjegni kraljem!</string>
+  <string name="theKingCannotEscapeButBlock">Kralj ne može pobjeći, 
+ali možeš blokirati napad!</string>
+  <string name="youCanGetOutOfCheckByTaking">Možeš se maknuti iz šaha
+uzimanjem protivničke figure.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Ovaj skakač te šahira
+kroz tvoju obranu!</string>
+  <string name="escapeOrBlock">Pobjegni kraljem
+ili blokiraj napad!</string>
 </resources>
