@@ -167,4 +167,18 @@ se il tuo pedone si trova sulla quinta traversa.</string>
   <string name="stalemate">Stallo</string>
   <string name="theGameIsADraw">La partita è patta</string>
   <string name="stalemateIntro">Quando un giocatore non è sotto attacco e non può effettuare nessuna mossa legale, allora è stallo. La partita è patta: nessuno vince e nussuno perde.</string>
+  <string name="stalemateGoal">Per obbligare il nero allo stallo:
+- Il nero non può muovere
+- Il nero non è sotto scacco.</string>
+  <string name="stalemateComplete">Congratulazioni! Meglio essere in stallo che esser in scacco matto!</string>
+  <string name="advanced">Livello avanzato</string>
+  <string name="pieceValue">Il valore del pezzo</string>
+  <string name="evaluatePieceStrength">Valuta la forza del pezzo</string>
+  <string name="pieceValueIntro">I pezzi con maggiore mobilità hanno un valore maggiore!
+Regina = 9
+Torre = 5
+Alfiere = 3
+Cavallo = 3
+Pedone = 1
+Il re è inestimabile! Perdere il re significa essere sconfitti.</string>
 </resources>
