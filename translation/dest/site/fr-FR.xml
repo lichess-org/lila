@@ -363,7 +363,7 @@
   <string name="draws">Nulles</string>
   <string name="nextXTournament">Prochain tournoi de %s :</string>
   <string name="viewMoreTournaments">Voir plus de tournois</string>
-  <string name="averageOpponent">Adversaire moyen</string>
+  <string name="averageOpponent">Opposition moyenne</string>
   <string name="membersOnly">Membres seulement</string>
   <string name="boardEditor">Éditeur de partie</string>
   <string name="startPosition">Position de départ</string>
