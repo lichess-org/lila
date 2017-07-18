@@ -70,28 +70,28 @@
   <string name="database">Βάση δεδομένων</string>
   <string name="whiteDrawBlack">Λευκά / Ισοπαλία / Μαύρα</string>
   <string name="averageRatingX">Mέση βαθμολογία: %s</string>
-  <string name="recentGames">Πρόσφατες Παρτίδες</string>
-  <string name="topGames">Κορυφαίες Παρτίδες</string>
+  <string name="recentGames">Πρόσφατα παιχνίδια</string>
+  <string name="topGames">Κορυφαίες παρτίδες</string>
   <string name="masterDbExplanation">Δύο εκατομμύρια OTB παρτίδες %1$s + παικτών με αξιολόγηση FIDE από %2$s έως %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Ματ σε %s μισή-κίνηση</item>
     <item quantity="other">Ματ σε %s μισές-κινήσεις</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Επόμενο κόψιμο ή κίνηση πιονιού σε %s μισή-κίνηση (Απόσταση μηδενισμού μετρητή 50 κινήσεων)</item>
+    <item quantity="one">Επόμενο πιάσιμο ή κίνηση πιονιού σε %s μισή-κίνηση (Απόσταση μηδενισμού μετρητή 50 κινήσεων)</item>
     <item quantity="other">Επόμενο κόψιμο ή κίνηση πιονιού σε %s μισές-κινήσεις (Απόσταση μηδενισμού μετρητή 50 κινήσεων)</item>
   </plurals>
   <string name="noGameFound">Δεν βρέθηκε παρτίδα</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Ίσως να συμπεριλάβετε περισσότερες παρτίδες από το μενού προτιμήσεων;</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Ίσως να συμπεριλάβετε περισσότερες παιχνίδια από το μενού προτιμήσεων;</string>
   <string name="openingExplorer">Εξερευνητής ανοιγμάτων και τελειωμάτων</string>
-  <string name="xOpeningExplorer">%s εξερεύνηση ανοιγμάτων</string>
-  <string name="winPreventedBy50MoveRule">Νίκη εμποδίζεται από τον κανόνα των 50 κινήσεων</string>
+  <string name="xOpeningExplorer">%s εξερευνητής ανοιγμάτων</string>
+  <string name="winPreventedBy50MoveRule">H νίκη εμποδίζεται από τον κανόνα των 50 κινήσεων</string>
   <string name="lossSavedBy50MoveRule">Ήττα αποτρέπεται από τον κανόνα των 50 κινήσεων</string>
   <string name="allSet">Εφαρμογή!</string>
   <string name="importPgn">Εισαγωγή PGN</string>
   <string name="delete">Διαγραφή</string>
-  <string name="deleteThisImportedGame">Διαγραφή εισηγμένης παρτίδας;</string>
-  <string name="replayMode">Λειτουργία αναπαραγωγής</string>
+  <string name="deleteThisImportedGame">Διαγραφή εισαγόμενης παρτίδας;</string>
+  <string name="replayMode">Λειτουργία επανάληψης αναπαραγωγής</string>
   <string name="realtimeReplay">Σε πραγματικό χρόνο</string>
   <string name="byCPL">Με CPL</string>
   <string name="openStudy">Άνοιγμα μελέτης</string>
