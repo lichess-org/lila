@@ -73,4 +73,7 @@ Nema potrebe za promoviranjem.</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Uzmi crne figure!
 I nemoj izgubiti svoje.</string>
   <string name="captureComplete">Čestitke! Sada se znaš boriti šahovskim figurama!</string>
+  <string name="protection">Zaštita</string>
+  <string name="keepYourPiecesSafe">Čuvaj svoje figure</string>
+  <string name="protectionIntro">Identificiraj figure koje tvoj protivnik napada, i obrani ih!</string>
 </resources>
