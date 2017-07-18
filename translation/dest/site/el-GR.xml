@@ -98,6 +98,11 @@
   <string name="enable">Ενεργοποίηση</string>
   <string name="bestMoveArrow">Καλύτερη κίνηση βέλος</string>
   <string name="evaluationGauge">Δείκτης αξιολόγησης</string>
+  <string name="multipleLines">Πολλαπλές βαριάντες</string>
+  <string name="cpus">CPUs</string>
+  <string name="memory">Μνήμη</string>
+  <string name="infiniteAnalysis">Άπειρη ανάλυση</string>
+  <string name="removesTheDepthLimit">Καταργεί το όριο βάθους και κρατά τον υπολογιστή σας ζεστό</string>
   <string name="blunders">Σοβαρά λάθη</string>
   <string name="mistakes">Λάθη</string>
   <string name="inaccuracies">Ανακρίβειες</string>
@@ -200,6 +205,8 @@
   <string name="play">Παίξτε</string>
   <string name="inbox">Εισερχόμενα</string>
   <string name="chatRoom">Ζωντανή συζήτηση</string>
+  <string name="loginToChat">Συνδεθείτε για να συνομιλήσετε</string>
+  <string name="youHaveBeenTimedOut">Έχετε αποσυνδεθεί.</string>
   <string name="spectatorRoom">Συζήτηση θεατών</string>
   <string name="composeMessage">Σύνθεση μηνύματος</string>
   <string name="noNewMessages">Δεν υπάρχουν νέα μηνύματα</string>
@@ -209,6 +216,10 @@
   <string name="incrementInSeconds">Προσαύξηση σε δευτερόλεπτα</string>
   <string name="freeOnlineChess">Δωρεάν Διαδικτυακό Σκάκι</string>
   <string name="spectators">Θεατές:</string>
+  <plurals name="nbGamesPlayed">
+    <item quantity="one">%s παιγμένη παρτίδα</item>
+    <item quantity="other">%s παιγμένες παρτίδες</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s νίκη</item>
     <item quantity="other">%s νίκες</item>
@@ -453,7 +464,7 @@
   <string name="pieceDestinations">Προορισμοί κομματιών (έγκυρες κινήσεις και προκινήσεις)</string>
   <string name="boardCoordinates">Συντεταγμένες σκακιέρας (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Λίστα κινήσεων κατά τη διάρκεια της παρτίδας</string>
-  <string name="pgnPieceNotation">PGN σημείωση κομματιού</string>
+  <string name="pgnPieceNotation">Εμφάνιση κινήσεων</string>
   <string name="chessPieceSymbol">Σύμβολο κομματιού στο σκάκι</string>
   <string name="pgnLetter">Γράμματα PGN (K, Q, R, B, N)</string>
   <string name="chessClock">Σκακιστικό χρονόμετρο</string>
@@ -521,13 +532,13 @@
   <string name="signedOut">Έχετε αποσυνδεθεί επιτυχώς</string>
   <string name="loginSuccessful">Είσοδος επιτυχής</string>
   <string name="playOnTheBoardOffline">Τοπικά</string>
-  <string name="playOfflineComputer">Εναντίον του υπολογιστή</string>
+  <string name="playOfflineComputer">Εναντίον Υπολογιστή</string>
   <string name="opponent">Αντίπαλος</string>
   <string name="community">Κοινότητα</string>
   <string name="tools">Εργαλεία</string>
   <string name="increment">Προσαύξηση</string>
   <string name="sharePGN">Κοινοποιήστε PGN</string>
-  <string name="playOnline">Παίξτε σε ζωντανή σύνδεση</string>
+  <string name="playOnline">Παίξτε ζωντανά</string>
   <string name="playOffline">Παίξτε χωρίς σύνδεση</string>
   <string name="allowAnalytics">Επιτρέπεται αποστολή ανώνυμων στατιστικών</string>
   <string name="shareGameURL">Κοινοποιήστε URL παιχνιδιού</string>
