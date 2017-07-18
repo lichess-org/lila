@@ -51,7 +51,7 @@ Pobjegni i savladaj zvijezde!</string>
   <string name="pawnsMoveOneSquareOnly">Pješaci se pomiču za samo jedno polje. 
 Ali kada dosegnu drugu stranu ploče, postaju jedna od snažnijih figura!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">Većinu vremena najbolja opcija je promovirati u damu.
-Ali ponekad i konj može poslužiti!</string>
+Ali ponekad i skakač može poslužiti!</string>
   <string name="pawnsMoveForward">Pješaci se kreću naprijed,
 ali jedu dijagonalno!</string>
   <string name="captureThenPromote">Jedi, pa onda promoviraj!</string>
@@ -111,4 +111,17 @@ ili blokiraj napad!</string>
   <string name="attackYourOpponentsKing">Napadni protivnikovog kralja
 na način na koji ga neće moći obraniti!</string>
   <string name="mateInOneComplete">Čestitke! Tako se pobjeđuju šahovske partije!</string>
+  <string name="intermediate">Srednje napredno</string>
+  <string name="boardSetup">Postavljanje ploče</string>
+  <string name="howTheGameStarts">Kako igra započinje</string>
+  <string name="boardSetupIntro">Dvije se vojske suočavaju, spremne za borbu.</string>
+  <string name="thisIsTheInitialPosition">Ovo je početna pozicija
+svake šahovske partije!
+Napravi bilo koji potez za nastavak.</string>
+  <string name="firstPlaceTheRooks">Prvo postavi topove!
+Njima je mjesto na rubovima ploče.</string>
+  <string name="thenPlaceTheKnights">Onda postavi skakače!
+Oni idu pored topova.</string>
+  <string name="placeTheBishops">Postavi lovce!
+Oni idu pored skakača.</string>
 </resources>
