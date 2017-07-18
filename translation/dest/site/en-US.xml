@@ -87,7 +87,7 @@
   <string name="xOpeningExplorer">%s opening explorer</string>
   <string name="winPreventedBy50MoveRule">Win prevented by 50-move rule</string>
   <string name="lossSavedBy50MoveRule">Loss saved by 50-move rule</string>
-  <string name="allSet">OK</string>
+  <string name="allSet">All set!</string>
   <string name="importPgn">Import PGN</string>
   <string name="delete">Delete</string>
   <string name="deleteThisImportedGame">Delete this imported game?</string>

@@ -50,18 +50,18 @@
   <string name="analysis">Σκακιέρα ανάλυσης</string>
   <string name="depthX">Βάθος %s</string>
   <string name="usingServerAnalysis">Ανάλυση διακομιστή</string>
-  <string name="loadingEngine">Εκκίνηση μηχανής ...</string>
-  <string name="cloudAnalysis">Ανάλυση Cloud</string>
+  <string name="loadingEngine">Φόρτωση μηχανής ...</string>
+  <string name="cloudAnalysis">Ανάλυση συννέφου</string>
   <string name="goDeeper">Βαθύτερα</string>
   <string name="showThreat">Δείξε απειλή</string>
   <string name="inLocalBrowser">τοπική ανάλυση</string>
   <string name="toggleLocalEvaluation">Εναλλαγή τοπικής αξιολόγησης</string>
   <string name="move">Κίνηση</string>
-  <string name="variantLoss">Βαριάντα ήττα</string>
-  <string name="variantWin">Βαριάντα νίκη</string>
-  <string name="insufficientMaterial">Ανεπαρκή υλικό</string>
+  <string name="variantLoss">Ήττα εκδοχής</string>
+  <string name="variantWin">Νίκη εκδοχής</string>
+  <string name="insufficientMaterial">Ανεπαρκές υλικό</string>
   <string name="pawnMove">Κίνηση πιονιού</string>
-  <string name="capture">Κόψιμο</string>
+  <string name="capture">Πιάσιμο</string>
   <string name="close">Κλείσιμο</string>
   <string name="winning">Κερδίζει</string>
   <string name="losing">Χάνει</string>
@@ -70,28 +70,28 @@
   <string name="database">Βάση δεδομένων</string>
   <string name="whiteDrawBlack">Λευκά / Ισοπαλία / Μαύρα</string>
   <string name="averageRatingX">Mέση βαθμολογία: %s</string>
-  <string name="recentGames">Πρόσφατες Παρτίδες</string>
-  <string name="topGames">Κορυφαίες Παρτίδες</string>
+  <string name="recentGames">Πρόσφατα παιχνίδια</string>
+  <string name="topGames">Κορυφαίες παρτίδες</string>
   <string name="masterDbExplanation">Δύο εκατομμύρια OTB παρτίδες %1$s + παικτών με αξιολόγηση FIDE από %2$s έως %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Ματ σε %s μισή-κίνηση</item>
     <item quantity="other">Ματ σε %s μισές-κινήσεις</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Επόμενο κόψιμο ή κίνηση πιονιού σε %s μισή-κίνηση (Απόσταση μηδενισμού μετρητή 50 κινήσεων)</item>
+    <item quantity="one">Επόμενο πιάσιμο ή κίνηση πιονιού σε %s μισή-κίνηση (Απόσταση μηδενισμού μετρητή 50 κινήσεων)</item>
     <item quantity="other">Επόμενο κόψιμο ή κίνηση πιονιού σε %s μισές-κινήσεις (Απόσταση μηδενισμού μετρητή 50 κινήσεων)</item>
   </plurals>
   <string name="noGameFound">Δεν βρέθηκε παρτίδα</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Ίσως να συμπεριλάβετε περισσότερες παρτίδες από το μενού προτιμήσεων;</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Ίσως να συμπεριλάβετε περισσότερες παιχνίδια από το μενού προτιμήσεων;</string>
   <string name="openingExplorer">Εξερευνητής ανοιγμάτων και τελειωμάτων</string>
-  <string name="xOpeningExplorer">%s εξερεύνηση ανοιγμάτων</string>
-  <string name="winPreventedBy50MoveRule">Νίκη εμποδίζεται από τον κανόνα των 50 κινήσεων</string>
+  <string name="xOpeningExplorer">%s εξερευνητής ανοιγμάτων</string>
+  <string name="winPreventedBy50MoveRule">H νίκη εμποδίζεται από τον κανόνα των 50 κινήσεων</string>
   <string name="lossSavedBy50MoveRule">Ήττα αποτρέπεται από τον κανόνα των 50 κινήσεων</string>
   <string name="allSet">Εφαρμογή!</string>
   <string name="importPgn">Εισαγωγή PGN</string>
   <string name="delete">Διαγραφή</string>
-  <string name="deleteThisImportedGame">Διαγραφή εισηγμένης παρτίδας;</string>
-  <string name="replayMode">Λειτουργία αναπαραγωγής</string>
+  <string name="deleteThisImportedGame">Διαγραφή εισαγόμενης παρτίδας;</string>
+  <string name="replayMode">Λειτουργία επανάληψης αναπαραγωγής</string>
   <string name="realtimeReplay">Σε πραγματικό χρόνο</string>
   <string name="byCPL">Με CPL</string>
   <string name="openStudy">Άνοιγμα μελέτης</string>
@@ -221,8 +221,8 @@
     <item quantity="other">%s παιγμένες παρτίδες</item>
   </plurals>
   <plurals name="nbRated">
-    <item quantity="one">%s αξιολογημένη</item>
-    <item quantity="other">%s αξιολογημένες</item>
+    <item quantity="one">%s βαθμολογημένο</item>
+    <item quantity="other">%s βαθμολογημένες</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s νίκη</item>
@@ -244,7 +244,7 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Ο παίκτης χρησιμοποιεί υποβοήθηση υπολογιστή</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Αυτός ο παίκτης αυξάνει/μειώνει τεχνητά τη βαθμολογία</string>
-  <string name="openingExplorerAndTablebase">Εξερεύνηση ανοιγμάτων &amp; φινάλε</string>
+  <string name="openingExplorerAndTablebase">Εξερευνητής ανοιγμάτων &amp; τελειωμάτων</string>
   <string name="takeback">Ανάκληση κίνησης</string>
   <string name="proposeATakeback">Προσφέρετε ανάκληση της προηγούμενης κίνησης</string>
   <string name="takebackPropositionSent">Προσφορά ανάκλησης κίνησης εστάλη</string>
@@ -293,8 +293,8 @@
   <string name="fromPosition">Από συγκεκριμένη θέση</string>
   <string name="continueFromHere">Συνέχεια από εδώ</string>
   <string name="importGame">Εισαγωγή παιχνιδιού</string>
-  <string name="importGameExplanation">Κατά την επικόλληση παρτίδας PGN δημιουργείται μια περιηγήσιμη αναπαραγωγή, 
-ανάλυσή της με υπολογιστή, συνομιλία παρτίδας και ένα κοινόχρηστο URL.</string>
+  <string name="importGameExplanation">Κατά την επικόλληση παιχνιδιού PGN δημιουργείται μια περιηγήσιμη αναπαραγωγή, 
+ανάλυση με υπολογιστή, συνομιλία παιχνιδιού και ένα κοινόχρηστο URL.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Εισαγόμενο παιχνίδι</item>
     <item quantity="other">%s Εισαγόμενα παιχνίδια</item>
@@ -354,17 +354,17 @@
   <string name="tournamentPairingsAreNowClosed">Οι αντιστοιχίσεις πρωταθλημάτων είναι τώρα κλειστές.</string>
   <string name="standByX">Αναμένετε %s, αντιστοίχιση παικτών, ετοιμαστείτε!</string>
   <string name="youArePlaying">Παίζετε τώρα!</string>
-  <string name="winRate">Νίκη ποσοστό</string>
-  <string name="berserkRate">Berserk ποσοστό</string>
-  <string name="performance">Απόδοση</string>
-  <string name="tournamentComplete">Τουρνουά τελείωσε</string>
-  <string name="movesPlayed">Κινήσεις που παίχθηκαν</string>
-  <string name="whiteWins">Λευκά νίκες</string>
-  <string name="blackWins">Μαύρα νίκες</string>
+  <string name="winRate">Ποσοστό νίκης</string>
+  <string name="berserkRate">Ποσοστό μπερσερκ</string>
+  <string name="performance">Επίδοση</string>
+  <string name="tournamentComplete">Πρωτάθλημα ολοκληρώθηκε</string>
+  <string name="movesPlayed">Κινήσεις που παίχτηκαν</string>
+  <string name="whiteWins">Τα άσπρα νικούν</string>
+  <string name="blackWins">Τα μαύρα νικούν</string>
   <string name="draws">Ισοπαλίες</string>
-  <string name="nextXTournament">Επόμενο %s τουρνουά:</string>
+  <string name="nextXTournament">Επόμενο %s πρωτάθλημα:</string>
   <string name="viewMoreTournaments">Δείτε περισσότερα τουρνουά</string>
-  <string name="averageOpponent">Μέση βαθμολογία αντίπαλου</string>
+  <string name="averageOpponent">Μέσος αντίπαλος</string>
   <string name="membersOnly">Μόνο για μέλη</string>
   <string name="boardEditor">Προετοιμαστής σκακιέρας</string>
   <string name="startPosition">Αρχική διάταξη</string>
@@ -466,7 +466,7 @@
   <string name="questionsAndAnswers">Ερωτήσεις &amp; Απαντήσεις</string>
   <string name="notes">Σημειώσεις</string>
   <string name="typePrivateNotesHere">Εδώ γράψτε τις προσωπικές σημειώσεις σας</string>
-  <string name="gameDisplay">Εμφάνιση σκακιέρας</string>
+  <string name="gameDisplay">Εμφάνιση παιχνιδιών</string>
   <string name="pieceAnimation">Κίνηση κομματιών</string>
   <string name="materialDifference">Διαφορά υλικού</string>
   <string name="closeAccount">Κλείσιμο λογαριασμού</string>
@@ -474,7 +474,7 @@
   <string name="closeAccountExplanation">Είστε σίγουροι ότι θέλετε να κλείσετε το λογαριασμό σας; Το κλείσιμο του λογαριασμού σας είναι μια μόνιμη απόφαση. Δε θα μπορείτε πλέον να συνδεθείτε, και η σελίδα του προφίλ σας δε θα είναι πια προσβάσιμη.</string>
   <string name="thisAccountIsClosed">Αυτός ο λογαριασμός έχει κλείσει.</string>
   <string name="invalidUsernameOrPassword">Άκυρο όνομα χρήστη ή κωδικός</string>
-  <string name="incorrectPassword">Εσφαλμένο συνθηματικό</string>
+  <string name="incorrectPassword">Εσφαλμένος κωδικός</string>
   <string name="emailMeALink">Στείλτε μου σύνδεσμο μέσω ηλ. ταχυδρομείου</string>
   <string name="currentPassword">Κωδικός σε ισχύ</string>
   <string name="newPassword">Νέος κωδικός</string>
@@ -504,7 +504,7 @@
   <string name="privacy">Απόρρητο</string>
   <string name="letOtherPlayersFollowYou">Επιτρέψτε σε άλλους παίκτες να σας ακολουθούν</string>
   <string name="letOtherPlayersChallengeYou">Επιτρέψτε σε άλλους παίκτες να σας προκαλούν σε παιχνίδι</string>
-  <string name="letOtherPlayersInviteYouToStudy">Αφήστε άλλους παίκτες να σας προσκαλέσουν στην μελέτη</string>
+  <string name="letOtherPlayersInviteYouToStudy">Επιτρέψτε άλλους παίκτες να σας προσκαλούν στην μελέτη</string>
   <string name="sound">Ήχος</string>
   <string name="yourPreferencesHaveBeenSaved">Οι προτιμήσεις σας αποθηκεύτηκαν.</string>
   <string name="none">Καθόλου</string>
@@ -558,7 +558,7 @@
   <string name="tools">Εργαλεία</string>
   <string name="increment">Προσαύξηση</string>
   <string name="sharePGN">Κοινοποιήστε PGN</string>
-  <string name="playOnline">Παίξτε ζωντανά</string>
+  <string name="playOnline">Παίξτε σε ζωντανή σύνδεση</string>
   <string name="playOffline">Παίξτε χωρίς σύνδεση</string>
   <string name="allowAnalytics">Επιτρέπεται αποστολή ανώνυμων στατιστικών</string>
   <string name="shareGameURL">Κοινοποιήστε URL παιχνιδιού</string>
@@ -706,7 +706,7 @@
   <string name="boardSize">Μέγεθος σκακιέρας</string>
   <string name="pieceSet">Επιλογή κομματιού</string>
   <string name="embedInYourWebsite">Ενσωματώστε στην ιστοσελίδα σας</string>
-  <string name="usernameAlreadyUsed">Αυτό το όνομα χρήστη είναι ήδη σε χρήση, παρακαλώ δοκιμάστε ένα άλλο.</string>
+  <string name="usernameAlreadyUsed">Αυτό το όνομα χρήστη χρησιμοποιείται ήδη, δοκιμάστε ένα άλλο.</string>
   <string name="usernameInvalid">Μη έγκυρο όνομα χρήστη. Παρακαλούμε χρησιμοποιήστε μόνο γράμματα, αριθμούς, χαρακτήρα υπογράμμισης και παύλα.</string>
   <string name="usernameStartNoNumber">Το όνομα χρήστη δεν πρέπει να ξεκινάει με έναν αριθμό.</string>
   <string name="usernameUnacceptable">Αυτό το όνομα χρήστη δεν είναι αποδεκτό.</string>

@@ -108,4 +108,126 @@ o para l\'attacco!</string>
   <string name="attackYourOpponentsKing">Attacca il re dell\'avversario
 in un modo in cui non possa essere difeso!</string>
   <string name="mateInOneComplete">Congratulazioni! Ora sai come vincere negli scacchi!</string>
+  <string name="intermediate">Livello intermedio</string>
+  <string name="boardSetup">La scacchiera</string>
+  <string name="howTheGameStarts">Come inizia la partita</string>
+  <string name="boardSetupIntro">I due eserciti l\'uno di fronte all\'altro, pronti per la battaglia.</string>
+  <string name="thisIsTheInitialPosition">Questa è l\'impostazione iniziale
+di ogni partita di scacchi.
+Fai una mossa per continuare.</string>
+  <string name="firstPlaceTheRooks">Per prima cosa posiziona le torri!
+Vanno messe negli angoli.</string>
+  <string name="thenPlaceTheKnights">Poi posiziona i cavalli!
+Vanno posizionati al fianco delle torri.</string>
+  <string name="placeTheBishops">Posiziona gli alfieri!
+Vanno posizionati al fianco dei cavalli.</string>
+  <string name="placeTheQueen">Posiziona la regina!
+Va messa sulla casa del suo stesso colore.</string>
+  <string name="placeTheKing">Posiziona il re!
+Proprio al fianco della sua regina.</string>
+  <string name="pawnsFormTheFrontLine">I pedoni formano la linea più avanzata.
+Fai una mossa per continuare.</string>
+  <string name="boardSetupComplete">Congratulazioni! Ora sai come preparare la scacchiera.</string>
+  <string name="castling">Arrocco</string>
+  <string name="theSpecialKingMove">La mossa speciale del re</string>
+  <string name="castlingIntro">Metti il tuo re in sicurezza e sviluppa la tua torre per l\'attacco!</string>
+  <string name="castleKingSide">Muovi il re di due case sull\'ala di re
+per fare l\'arrocco corto!</string>
+  <string name="castleQueenSide">Muovi il re di due case sull\'ala di regina
+per fare l\'arrocco lungo!</string>
+  <string name="theKnightIsInTheWay">Il cavallo si frappone!
+Muovilo, poi arrocca corto.</string>
+  <string name="castleKingSideMovePiecesFirst">Arrocca corto!
+Devi muovere i pezzi prima.</string>
+  <string name="castleQueenSideMovePiecesFirst">Arrocca lungo!
+Devi muovere i pezzi prima.</string>
+  <string name="youCannotCastleIfMoved">Non puoi arroccare se
+il re o la torre ha già mosso.</string>
+  <string name="youCannotCastleIfAttacked">Non puoi arroccare se
+una casa su cui il re deve transitare è sotto attacco.
+Blocca lo scacco e poi arrocca!</string>
+  <string name="findAWayToCastleKingSide">Trova un modo per
+arroccare sull\'ala di re!</string>
+  <string name="findAWayToCastleQueenSide">Trova un modo per
+arroccare sull\'ala di regina!</string>
+  <string name="castlingComplete">Congratulazioni! Dovrai arroccare quasi in ogni partita.</string>
+  <string name="enPassant">En passant</string>
+  <string name="theSpecialPawnMove">La mossa speciale del pedone</string>
+  <string name="enPassantIntro">Quando il pedone avversario si muove di due case, lo puoi catturare come se si fosse mosso di una casa sola.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Il nero ha mosso il pedone
+di due case!
+Catturalo en passant.</string>
+  <string name="enPassantOnlyWorksImmediately">La cattura en passant funziona solo
+se fatta immediatamente dopo 
+la mossa dell\'avversario.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">La cattura en passant funziona solo
+se il tuo pedone si trova sulla quinta traversa.</string>
+  <string name="takeAllThePawnsEnPassant">Cattura en passant tutti i pedoni!</string>
+  <string name="enPassantComplete">Congratulazioni! Ora sai catturare en passant.</string>
+  <string name="stalemate">Stallo</string>
+  <string name="theGameIsADraw">La partita è patta</string>
+  <string name="stalemateIntro">Quando un giocatore non è sotto attacco e non può effettuare nessuna mossa legale, allora è stallo. La partita è patta: nessuno vince e nussuno perde.</string>
+  <string name="stalemateGoal">Per obbligare il nero allo stallo:
+- Il nero non deve poter muovere
+- Il nero non è sotto scacco.</string>
+  <string name="stalemateComplete">Congratulazioni! Meglio essere in stallo che esser in scacco matto!</string>
+  <string name="advanced">Livello avanzato</string>
+  <string name="pieceValue">Il valore del pezzo</string>
+  <string name="evaluatePieceStrength">Valuta la forza del pezzo</string>
+  <string name="pieceValueIntro">I pezzi con maggiore mobilità hanno un valore maggiore!
+Regina = 9
+Torre = 5
+Alfiere = 3
+Cavallo = 3
+Pedone = 1
+Il re è inestimabile! Perdere il re significa essere sconfitti.</string>
+  <string name="queenOverBishop">Cattura il pezzo
+con il più alto valore!
+Regina &gt; Alfiere</string>
+  <string name="takeThePieceWithTheHighestValue">Cattura il pezzo 
+con il valore più alto!</string>
+  <string name="pieceValueComplete">Congratulazioni! Ora conosci il valore dei pezzi! 
+Regina = 9 
+Torre = 5 
+Alfiere = 3
+Cavallo = 3 
+Pedone = 1</string>
+  <string name="checkInTwo">Scacco in due mosse</string>
+  <string name="twoMovesToGiveCheck">Due mosse per dare uno scacco</string>
+  <string name="checkInTwoIntro">Trova la combinazione di due mosse che dia scacco al re avversario!</string>
+  <string name="checkInTwoGoal">Minaccia il re avversario
+in due mosse!</string>
+  <string name="checkInTwoComplete">Congratulazioni! Hai dato scacco al tuo avversario costringendolo a difendere il re!</string>
+  <string name="whatNext">E ora?</string>
+  <string name="youKnowHowToPlayChess">Sai come giocare a scacchi, ora vuoi diventare un giocatore più forte?</string>
+  <string name="register">Registrati</string>
+  <string name="getAFreeLichessAccount">Otteni un account Lichess gratuito</string>
+  <string name="practice">Allenamento</string>
+  <string name="learnCommonChessPositions">Impara le posizioni più frequenti negli scacchi</string>
+  <string name="puzzles">Puzzle</string>
+  <string name="exerciseYourTacticalSkills">Allena le tue abilità tattiche</string>
+  <string name="videos">Video</string>
+  <string name="watchInstructiveChessVideos">Guarda video istruttivi sugli scacchi</string>
+  <string name="playPeople">Sfida altri giocatori</string>
+  <string name="opponentsFromAroundTheWorld">Avversari da tutto il mondo</string>
+  <string name="playMachine">Giocare contro il computer</string>
+  <string name="testYourSkillsWithTheComputer">Metti alla prova le tue abilità con il computer</string>
+  <string name="letsGo">Forza!</string>
+  <string name="stageX">Fase %s</string>
+  <string name="awesome">Meraviglioso!</string>
+  <string name="excellent">Eccellente!</string>
+  <string name="greatJob">Ben fatto!</string>
+  <string name="perfect">Perfetto!</string>
+  <string name="outstanding">Eccezionale!</string>
+  <string name="wayToGo">Vai così!</string>
+  <string name="yesYesYes">Sì, sì, sì!</string>
+  <string name="youreGoodAtThis">Sei bravo!</string>
+  <string name="nailedIt">Azzeccato.</string>
+  <string name="rightOn">Giusto!</string>
+  <string name="stageXComplete">Fase %s completata</string>
+  <string name="yourScore">Il tuo punteggio</string>
+  <string name="next">Successivo</string>
+  <string name="backToMenu">Torna al menù</string>
+  <string name="puzzleFailed">Puzzle sbagliato!</string>
+  <string name="retry">Ritenta</string>
 </resources>

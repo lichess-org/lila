@@ -91,7 +91,7 @@
   <string name="importPgn">Importera PGN</string>
   <string name="delete">Ta bort</string>
   <string name="deleteThisImportedGame">Ta bort detta importerade partil?</string>
-  <string name="replayMode">Replay-läge</string>
+  <string name="replayMode">Uppspelningsläge</string>
   <string name="realtimeReplay">Realtid</string>
   <string name="byCPL">CPL</string>
   <string name="openStudy">Öppna studie</string>
@@ -293,7 +293,7 @@
   <string name="fromPosition">Från position</string>
   <string name="continueFromHere">Fortsätt härifrån</string>
   <string name="importGame">Importera parti</string>
-  <string name="importGameExplanation">När du klistrar in ett parti PGN får du en bläddringsbar replay, en datoranalys, en spel-chatt och en delbar URL.</string>
+  <string name="importGameExplanation">När du klistrar in en parti-PGN får du en bläddringsbar parti-uppspelning, en datoranalys, en spel-chatt och en delbar URL.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Importerade partier</item>
     <item quantity="other">%s Importerade partier</item>
@@ -552,6 +552,7 @@
   <string name="playOnTheBoardOffline">Spela offline, över bräden</string>
   <string name="playOfflineComputer">Spela mot dator offline</string>
   <string name="opponent">Motståndare</string>
+  <string name="learnMenu">Lära sig</string>
   <string name="community">Gemenskap</string>
   <string name="tools">Verktyg</string>
   <string name="increment">Tillägg</string>
@@ -566,7 +567,7 @@
   <string name="error.email_unique">Det finns redan ett konto med denna e-postadress</string>
   <string name="error.email_different">Detta är redan din registrerade e-mailadress</string>
   <string name="blindfoldChess">Blindschack (Osynliga pjäser)</string>
-  <string name="zenMode">Zen läge</string>
+  <string name="zenMode">Zen-läge</string>
   <string name="moveConfirmation">Bekräftelse av drag</string>
   <string name="inCorrespondenceGames">I korrespondenspartier</string>
   <string name="ifRatingIsPlusMinusX">Om rating är ± %s</string>
@@ -652,7 +653,7 @@
   <string name="crosstable">Tabell</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kan också skrolla över brädet för att gå fram/bak i partiet.</string>
   <string name="analysisShapesHowTo">Tryck på Skift + klicka eller högerklicka för att rita cirklar och pilar på brädet.</string>
-  <string name="confirmResignationAndDrawOffers">Bekräfta resignation och remi anbud</string>
+  <string name="confirmResignationAndDrawOffers">Bekräfta resignation och remi-anbud</string>
   <string name="inputMovesWithTheKeyboard">Mata in drag via tangentbord</string>
   <string name="letOtherPlayersMessageYou">Tillåt att andra spelare skickar meddelanden till dig</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Sätt att rockera</string>
@@ -710,7 +711,7 @@
   <string name="usernameUnacceptable">Detta användarnamn är inte acceptabelt.</string>
   <string name="directlySupportLichess">Stöd lichess direkt</string>
   <string name="playChessInStyle">Spela schack i stil</string>
-  <string name="chessBasics">Schackets grunder</string>
+  <string name="chessBasics">Grunder i schack</string>
   <string name="coaches">Coacher</string>
   <string name="invalidPgn">Ogiltig PGN</string>
   <string name="invalidFen">Ogiltig FEN</string>
