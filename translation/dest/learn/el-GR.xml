@@ -92,4 +92,14 @@
   <string name="stalemate">Πατ</string>
   <string name="theGameIsADraw">Η παρτίδα είναι ισόπαλη</string>
   <string name="pieceValue">Αξία κομματιού</string>
+  <string name="checkInTwo">Σαχ σε δύο</string>
+  <string name="twoMovesToGiveCheck">Δύο κινήσεις για σαχ</string>
+  <string name="checkInTwoIntro">Βρείτε το σωστό συνδυασμό δύο κινήσεων που δίνει σαχ στο Βασιλιά του αντιπάλου!</string>
+  <string name="checkInTwoGoal">Απειλήστε τον αντίπαλο Βασιλιά
+σε δύο κινήσεις!</string>
+  <string name="checkInTwoComplete">Συγχαρητήρια! Δώσατε σαχ στον αντίπαλο, αναγκάζοντάς τον να προστατεύσει τον Βασιλιά!</string>
+  <string name="whatNext">Τι υπάρχει στη συνέχεια;</string>
+  <string name="youKnowHowToPlayChess">Γνωρίζετε πώς να παίζετε σκάκι, συγχαρητήρια! Θέλετε να γίνετε ισχυρότερος παίχτης;</string>
+  <string name="register">Εγγραφή</string>
+  <string name="getAFreeLichessAccount">Αποκτήστε δωρεάν λογαριασμό Lichess</string>
 </resources>
