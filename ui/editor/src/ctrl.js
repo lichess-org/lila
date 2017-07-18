@@ -10,7 +10,7 @@ module.exports = function(cfg) {
   this.options = cfg.options || {};
   this.embed = cfg.embed;
 
-  this.trans = function(k) { return this.data.i18n[key]; }
+  this.trans = function(key) { return this.data.i18n[key]; }
 
   this.vm = {
     selected: m.prop('pointer'),
