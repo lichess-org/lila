@@ -104,7 +104,15 @@ Terfiye gerek yok.</string>
   <string name="checkInTwo">Şah çekme II</string>
   <string name="twoMovesToGiveCheck">İki hamlede şah çek</string>
   <string name="whatNext">Sırada ne var?</string>
+  <string name="youKnowHowToPlayChess">Artık satrancı iyice öğrendin, tebrikler! Daha iyi bir oyuncu olmaya ne dersin?</string>
   <string name="register">Kayıt Ol</string>
+  <string name="getAFreeLichessAccount">Lichess\'e ücretsiz üye ol</string>
+  <string name="practice">Alıştırmalar</string>
+  <string name="learnCommonChessPositions">Yaygın satranç pozisyonlarını öğren</string>
+  <string name="puzzles">Bulmacalar</string>
+  <string name="exerciseYourTacticalSkills">Taktiksel becerilerini geliştir</string>
+  <string name="videos">Videolar</string>
+  <string name="watchInstructiveChessVideos">Eğitici satranç videoları izle</string>
   <string name="testYourSkillsWithTheComputer">Hünerlerini bilgisayara karşı test et</string>
   <string name="awesome">Çok güzel!</string>
   <string name="excellent">Harika!</string>
@@ -114,7 +122,7 @@ Terfiye gerek yok.</string>
   <string name="wayToGo">Şimdi damacılar düşünsün!</string>
   <string name="yesYesYes">Kasparov bunu onayladı.</string>
   <string name="youreGoodAtThis">Çözdün bu işi!</string>
-  <string name="nailedIt">Ahbap kimi indireceğini biliyorsun, yalnızca seç ve devam et gitsin.</string>
+  <string name="nailedIt">Stockfish 8 bunu onayladı.</string>
   <string name="rightOn">İşte böyle!</string>
   <string name="yourScore">Puanın</string>
   <string name="next">Sıradaki</string>
