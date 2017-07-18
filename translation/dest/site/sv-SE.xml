@@ -566,7 +566,7 @@
   <string name="error.email_unique">Det finns redan ett konto med denna e-postadress</string>
   <string name="error.email_different">Detta är redan din registrerade e-mailadress</string>
   <string name="blindfoldChess">Blindschack (Osynliga pjäser)</string>
-  <string name="zenMode">Zen läge</string>
+  <string name="zenMode">Zen-läge</string>
   <string name="moveConfirmation">Bekräftelse av drag</string>
   <string name="inCorrespondenceGames">I korrespondenspartier</string>
   <string name="ifRatingIsPlusMinusX">Om rating är ± %s</string>
@@ -652,7 +652,7 @@
   <string name="crosstable">Tabell</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kan också skrolla över brädet för att gå fram/bak i partiet.</string>
   <string name="analysisShapesHowTo">Tryck på Skift + klicka eller högerklicka för att rita cirklar och pilar på brädet.</string>
-  <string name="confirmResignationAndDrawOffers">Bekräfta resignation och remi anbud</string>
+  <string name="confirmResignationAndDrawOffers">Bekräfta resignation och remi-anbud</string>
   <string name="inputMovesWithTheKeyboard">Mata in drag via tangentbord</string>
   <string name="letOtherPlayersMessageYou">Tillåt att andra spelare skickar meddelanden till dig</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Sätt att rockera</string>
@@ -710,7 +710,7 @@
   <string name="usernameUnacceptable">Detta användarnamn är inte acceptabelt.</string>
   <string name="directlySupportLichess">Stöd lichess direkt</string>
   <string name="playChessInStyle">Spela schack i stil</string>
-  <string name="chessBasics">Schackets grunder</string>
+  <string name="chessBasics">Grunder i schack</string>
   <string name="coaches">Coacher</string>
   <string name="invalidPgn">Ogiltig PGN</string>
   <string name="invalidFen">Ogiltig FEN</string>
