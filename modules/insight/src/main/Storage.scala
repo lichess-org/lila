@@ -5,6 +5,7 @@ import reactivemongo.bson._
 import scalaz.NonEmptyList
 
 import lila.db.dsl._
+import lila.rating.BSONHandlers.perfTypeIdHandler
 import lila.rating.PerfType
 
 private final class Storage(coll: Coll) {
