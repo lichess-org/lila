@@ -8,7 +8,7 @@ private object ActivityAggregation {
   import activities._
   import model._
 
-  def addGame(game: Game, userId: String)(a: Activity): Option[Activity] = for {
+  def game(game: Game, userId: String)(a: Activity): Option[Activity] = for {
     pt <- game.perfType
     player <- game playerByUserId userId
     score = Score.make(
@@ -19,15 +19,15 @@ private object ActivityAggregation {
     )
   } yield a.copy(games = a.games.add(pt, score))
 
-  def addAnalysis(analysis: Analysis)(a: Activity): Option[Activity] =
+  def analysis(analysis: Analysis)(a: Activity): Option[Activity] =
     a.copy(comps = a.comps + GameId(analysis.id)).some
 
-  def addForumPost(post: lila.forum.Post, topic: lila.forum.Topic)(a: Activity) =
+  def forumPost(post: lila.forum.Post, topic: lila.forum.Topic)(a: Activity) =
     post.userId map { userId =>
       a.copy(posts = a.posts.+(Posts.PostId(post.id), Posts.TopicId(topic.id)))
     }
 
-  def addPuzzle(res: lila.puzzle.Puzzle.UserResult)(a: Activity) =
+  def puzzle(res: lila.puzzle.Puzzle.UserResult)(a: Activity) =
     a.copy(puzzles = a.puzzles + Score.make(
       res = res.result.win.some,
       rp = RatingProg(Rating(res.rating._1), Rating(res.rating._2)).some
