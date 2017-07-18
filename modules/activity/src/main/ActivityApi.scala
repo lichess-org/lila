@@ -40,7 +40,7 @@ final class ActivityApi(coll: Coll) {
       simul.pairings.map(_.player.user).map { simulParticipant(simul, _, false) }.sequenceFu.void
 
   private def simulParticipant(simul: lila.simul.Simul, userId: String, host: Boolean) =
-    update(userId) { a => a.copy(simuls = a.simuls + Simul(simul.id, host)).some }
+    update(userId) { a => a.copy(simuls = a.simuls + SimulId(simul.id)).some }
 
   private def getOrCreate(userId: User.ID) = get(userId) map { _ | Activity.make(userId) }
   private def save(activity: Activity) = coll.update($id(activity.id), activity, upsert = true).void

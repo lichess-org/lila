@@ -77,9 +77,9 @@ private object BSONHandlers {
   private implicit val practiceMapHandler = MapValue.MapHandler[Study.Id, Int]
   private implicit val practiceHandler = isoHandler[Practice, Map[Study.Id, Int], Bdoc]((p: Practice) => p.value, Practice.apply _)
 
-  private implicit val simulHandler = Macros.handler[Simul]
-  private implicit val simulListHandler = bsonArrayToListHandler[Simul]
-  private implicit val simulsHandler = isoHandler[Simuls, List[Simul], Barr]((s: Simuls) => s.value, Simuls.apply _)
+  private implicit val simulIdHandler = stringAnyValHandler[SimulId](_.value, SimulId.apply)
+  private implicit val simulIdsHandler = bsonArrayToListHandler[SimulId]
+  private implicit val simulsHandler = isoHandler[Simuls, List[SimulId], Barr]((s: Simuls) => s.value, Simuls.apply _)
 
   implicit val activityHandler = new lila.db.BSON[Activity] {
 
