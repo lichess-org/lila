@@ -218,27 +218,51 @@ final class ReportApi(
     unprocessed <- findRecent(nb, unprocessedSelect ++ roomSelect(room))
     processed <- if (room has Room.Xfiles) fuccess(Nil)
     else findRecent(nb - unprocessed.size, processedSelect ++ roomSelect(room))
-    withNotes <- addUsersAndNotes(unprocessed ++ processed)
+    withNotes <- addUsersAndNotes(unprocessed ++ processed, room)
   } yield withNotes
 
   def unprocessedWithFilter(nb: Int, room: Option[Room]): Fu[List[Report.WithUserAndNotes]] =
-    findRecent(nb, unprocessedSelect ++ roomSelect(room)) flatMap addUsersAndNotes
+    findRecent(nb, unprocessedSelect ++ roomSelect(room)) flatMap { report => addUsersAndNotes(report, room) }
 
-  private def addUsersAndNotes(reports: List[Report]): Fu[List[Report.WithUserAndNotes]] = for {
+  private def addUsersAndNotes(reports: List[Report], room: Option[Room]): Fu[List[Report.WithUserAndNotes]] = for {
     withUsers <- UserRepo byIdsSecondary reports.map(_.user).distinct map { users =>
       reports.flatMap { r =>
         users.find(_.id == r.user) map { u =>
-          Report.WithUser(r, u, isOnline(u.id))
+          accuracy(r) map { a =>
+            Report.WithUser(r, u, isOnline(u.id), a, room)
+          }
         }
       }
     }
-    sorted = withUsers.sortBy(-_.urgency)
+    sorted <- withUsers.sequenceFu map { wu =>
+      wu.sortBy(-_.urgency)
+    }
     withNotes <- noteApi.byMod(sorted.map(_.user.id).distinct) map { notes =>
       sorted.map { wu =>
         Report.WithUserAndNotes(wu, notes.filter(_.to == wu.user.id))
       }
     }
   } yield withNotes
+
+  private val accuracyCache = asyncCache.multi[User.ID, Int](
+    name = "reporterAccuracy",
+    f = accuracyForUser,
+    expireAfter = _.ExpireAfterWrite(10 minutes)
+  )
+
+  private def accuracyForUser(reporterId: User.ID): Fu[Int] = for {
+    by <- coll.find($doc("createdBy" -> reporterId, "reason" -> Reason.Cheat.key)).sort($sort.createdDesc).list[Report](20, ReadPreference.secondaryPreferred)
+    accuracy <- UserRepo byIdsSecondary by.filter(_.processed).map(_.user).distinct map { users =>
+      Math.round((users.filter(_.engine).length + 0.5f) / (users.length + 2f) * 100)
+    }
+  } yield accuracy
+
+  def accuracy(report: Report): Fu[Option[Int]] =
+    if (report.reason == Reason.Cheat && !report.processed)
+      accuracyCache get report.createdBy map { a =>
+        Some(a)
+      }
+    else fuccess(None)
 
   def countUnprocesssedByRooms: Fu[Room.Counts] = {
     import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._

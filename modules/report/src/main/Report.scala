@@ -53,10 +53,11 @@ object Report {
 
   case class Inquiry(mod: User.ID, seenAt: DateTime)
 
-  case class WithUser(report: Report, user: User, isOnline: Boolean) {
+  case class WithUser(report: Report, user: User, isOnline: Boolean, accuracy: Option[Int], room: Option[Room]) {
 
     def urgency: Int =
-      (nowSeconds - report.createdAt.getSeconds).toInt +
+      (if (room has Room.Cheat) accuracy getOrElse 0
+      else (nowSeconds - report.createdAt.getSeconds).toInt) +
         (isOnline ?? (86400 * 5)) +
         (report.processed ?? Int.MinValue)
   }
