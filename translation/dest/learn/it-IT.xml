@@ -135,4 +135,12 @@ Fai una mossa per continuare.</string>
 per fare l\'arrocco corto!</string>
   <string name="castleQueenSide">Muovi il re di due case sull\'ala di regina
 per fare l\'arrocco lungo!</string>
+  <string name="theKnightIsInTheWay">Il cavallo si frappone!
+Muovilo, poi arrocca corto.</string>
+  <string name="castleKingSideMovePiecesFirst">Arrocca corto!
+Devi muovere i pezzi prima.</string>
+  <string name="castleQueenSideMovePiecesFirst">Arrocca lungo!
+Devi muovere i pezzi prima.</string>
+  <string name="youCannotCastleIfMoved">Non puoi arroccare se
+il re o la torre ha già mosso.</string>
 </resources>
