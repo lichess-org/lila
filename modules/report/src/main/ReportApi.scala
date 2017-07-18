@@ -253,8 +253,9 @@ final class ReportApi(
 
   private def accuracyForUser(reporterId: User.ID): Fu[Int] = for {
     by <- coll.find($doc("createdBy" -> reporterId, "reason" -> Reason.Cheat.key)).sort($sort.createdDesc).list[Report](20, ReadPreference.secondaryPreferred)
-    accuracy <- UserRepo byIdsSecondary by.filter(_.processed).map(_.user).distinct map { users =>
-      Math.round((users.filter(_.engine).length + 0.5f) / (users.length + 2f) * 100)
+    users = by.filter(_.processed).map(_.user).distinct
+    accuracy <- UserRepo countEngines users map { nb =>
+      Math.round((nb + 0.5f) / (users.length + 2f) * 100)
     }
   } yield accuracy
 
