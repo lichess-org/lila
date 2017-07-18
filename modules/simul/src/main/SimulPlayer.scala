@@ -4,13 +4,13 @@ import chess.variant.Variant
 import lila.user.{ User, Perfs }
 
 private[simul] case class SimulPlayer(
-    user: String,
+    user: User.ID,
     variant: Variant,
     rating: Int,
     provisional: Option[Boolean]
 ) {
 
-  def is(userId: String): Boolean = user == userId
+  def is(userId: User.ID): Boolean = user == userId
   def is(other: SimulPlayer): Boolean = is(other.user)
 }
 

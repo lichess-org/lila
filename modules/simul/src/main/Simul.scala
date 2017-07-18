@@ -132,6 +132,8 @@ object Simul {
 
   type ID = String
 
+  case class OnStart(simul: Simul)
+
   private def makeName(host: User) =
     if (host.title.isDefined) host.titleUsername
     else RandomName()

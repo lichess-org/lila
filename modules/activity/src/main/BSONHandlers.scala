@@ -77,6 +77,10 @@ private object BSONHandlers {
   private implicit val practiceMapHandler = MapValue.MapHandler[Study.Id, Int]
   private implicit val practiceHandler = isoHandler[Practice, Map[Study.Id, Int], Bdoc]((p: Practice) => p.value, Practice.apply _)
 
+  private implicit val simulHandler = Macros.handler[Simul]
+  private implicit val simulListHandler = bsonArrayToListHandler[Simul]
+  private implicit val simulsHandler = isoHandler[Simuls, List[Simul], Barr]((s: Simuls) => s.value, Simuls.apply _)
+
   implicit val activityHandler = new lila.db.BSON[Activity] {
 
     private val id = "_id"
@@ -86,6 +90,7 @@ private object BSONHandlers {
     private val puzzles = "z"
     private val learn = "l"
     private val practice = "r"
+    private val simuls = "s"
 
     def reads(r: lila.db.BSON.Reader) = Activity(
       id = r.get[Id](id),
@@ -94,7 +99,8 @@ private object BSONHandlers {
       posts = r.getD[Posts](posts),
       puzzles = r.getD[Puzzles](puzzles),
       learn = r.getD[Learn](learn),
-      practice = r.getD[Practice](practice)
+      practice = r.getD[Practice](practice),
+      simuls = r.getD[Simuls](simuls)
     )
 
     def writes(w: lila.db.BSON.Writer, o: Activity) = BSONDocument(
@@ -104,7 +110,8 @@ private object BSONHandlers {
       posts -> w.zero(o.posts),
       puzzles -> w.zero(o.puzzles),
       learn -> w.zero(o.learn),
-      practice -> w.zero(o.practice)
+      practice -> w.zero(o.practice),
+      simuls -> w.zero(o.simuls)
     )
   }
 }

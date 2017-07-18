@@ -52,4 +52,10 @@ object activities {
     )
   }
   implicit val PracticeZero = Zero.instance(Practice(Map.empty))
+
+  case class Simul(id: String, host: Boolean)
+  case class Simuls(value: List[Simul]) extends AnyVal {
+    def +(s: Simul) = copy(value = s :: value)
+  }
+  implicit val SimulsZero = Zero.instance(Simuls(Nil))
 }

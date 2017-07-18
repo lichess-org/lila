@@ -93,8 +93,11 @@ private[simul] final class SimulApi(
                   case (s, (g, hostColor)) => s.setPairingHostColor(g.id, hostColor)
                 }
               }
-            } flatMap update
-          } >>- currentHostIdsCache.refresh
+            } flatMap { s =>
+              system.lilaBus.publish(Simul.OnStart(s), 'startSimul)
+              update(s)
+            }
+          }
         }
       }
     }
@@ -128,18 +131,22 @@ private[simul] final class SimulApi(
             )
             update(simul2) >>- {
               currentHostIdsCache.refresh
-              if (simul2.isFinished) userRegister ! lila.hub.actorApi.SendTo(
-                simul2.hostId,
-                lila.socket.Socket.makeMessage("simulEnd", Json.obj(
-                  "id" -> simul.id,
-                  "name" -> simul.name
-                ))
-              )
+              if (simul2.isFinished) onComplete(simul2)
             }
           }
         }
       }
     }
+  }
+
+  private def onComplete(simul: Simul): Unit = {
+    userRegister ! lila.hub.actorApi.SendTo(
+      simul.hostId,
+      lila.socket.Socket.makeMessage("simulEnd", Json.obj(
+        "id" -> simul.id,
+        "name" -> simul.name
+      ))
+    )
   }
 
   def ejectCheater(userId: String) {

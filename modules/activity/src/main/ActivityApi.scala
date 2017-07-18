@@ -35,6 +35,13 @@ final class ActivityApi(coll: Coll) {
   def addPractice(prog: lila.practice.PracticeProgress.OnComplete) =
     update(prog.userId) { a => a.copy(practice = a.practice + prog.studyId).some }
 
+  def addSimul(simul: lila.simul.Simul) =
+    simulParticipant(simul, simul.hostId, true) >>
+      simul.pairings.map(_.player.user).map { simulParticipant(simul, _, false) }.sequenceFu.void
+
+  private def simulParticipant(simul: lila.simul.Simul, userId: String, host: Boolean) =
+    update(userId) { a => a.copy(simuls = a.simuls + Simul(simul.id, host)).some }
+
   private def getOrCreate(userId: User.ID) = get(userId) map { _ | Activity.make(userId) }
   private def save(activity: Activity) = coll.update($id(activity.id), activity, upsert = true).void
   private def update(userId: User.ID)(f: Activity => Option[Activity]): Funit =

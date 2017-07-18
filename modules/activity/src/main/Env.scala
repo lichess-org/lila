@@ -24,9 +24,10 @@ final class Env(
         case lila.forum.actorApi.CreatePost(post, topic) => api.addForumPost(post, topic)
         case res: lila.puzzle.Puzzle.UserResult => api addPuzzle res
         case prog: lila.practice.PracticeProgress.OnComplete => api addPractice prog
+        case lila.simul.Simul.OnStart(simul) => api addSimul simul
       }
     })),
-    'finishGame, 'analysisReady, 'forumPost, 'finishPuzzle, 'finishPractice
+    'finishGame, 'analysisReady, 'forumPost, 'finishPuzzle, 'finishPractice, 'startSimul
   )
 }
 
