@@ -91,7 +91,7 @@
   <string name="importPgn">Importera PGN</string>
   <string name="delete">Ta bort</string>
   <string name="deleteThisImportedGame">Ta bort detta importerade partil?</string>
-  <string name="replayMode">Replay-läge</string>
+  <string name="replayMode">Uppspelningsläge</string>
   <string name="realtimeReplay">Realtid</string>
   <string name="byCPL">CPL</string>
   <string name="openStudy">Öppna studie</string>
@@ -293,7 +293,7 @@
   <string name="fromPosition">Från position</string>
   <string name="continueFromHere">Fortsätt härifrån</string>
   <string name="importGame">Importera parti</string>
-  <string name="importGameExplanation">När du klistrar in ett parti PGN får du en bläddringsbar replay, en datoranalys, en spel-chatt och en delbar URL.</string>
+  <string name="importGameExplanation">När du klistrar in en parti-PGN får du en bläddringsbar parti-uppspelning, en datoranalys, en spel-chatt och en delbar URL.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Importerade partier</item>
     <item quantity="other">%s Importerade partier</item>
