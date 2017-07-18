@@ -77,7 +77,27 @@
     <item quantity="one">Ματ σε %s μισή-κίνηση</item>
     <item quantity="other">Ματ σε %s μισές-κινήσεις</item>
   </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Επόμενο κόψιμο ή κίνηση πιονιού σε %s μισή-κίνηση (Απόσταση μηδενισμού μετρητή 50 κινήσεων)</item>
+    <item quantity="other">Επόμενο κόψιμο ή κίνηση πιονιού σε %s μισές-κινήσεις (Απόσταση μηδενισμού μετρητή 50 κινήσεων)</item>
+  </plurals>
+  <string name="noGameFound">Δεν βρέθηκε παρτίδα</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Ίσως να συμπεριλάβετε περισσότερες παρτίδες από το μενού προτιμήσεων;</string>
   <string name="openingExplorer">Εξερευνητής ανοιγμάτων και τελειωμάτων</string>
+  <string name="xOpeningExplorer">%s εξερεύνηση ανοιγμάτων</string>
+  <string name="winPreventedBy50MoveRule">Νίκη εμποδίζεται από τον κανόνα των 50 κινήσεων</string>
+  <string name="lossSavedBy50MoveRule">Ήττα αποτρέπεται από τον κανόνα των 50 κινήσεων</string>
+  <string name="allSet">Εφαρμογή!</string>
+  <string name="importPgn">Εισαγωγή PGN</string>
+  <string name="delete">Διαγραφή</string>
+  <string name="deleteThisImportedGame">Διαγραφή εισηγμένης παρτίδας;</string>
+  <string name="replayMode">Λειτουργία αναπαραγωγής</string>
+  <string name="realtimeReplay">Σε πραγματικό χρόνο</string>
+  <string name="byCPL">Με CPL</string>
+  <string name="openStudy">Άνοιγμα μελέτης</string>
+  <string name="enable">Ενεργοποίηση</string>
+  <string name="bestMoveArrow">Καλύτερη κίνηση βέλος</string>
+  <string name="evaluationGauge">Δείκτης αξιολόγησης</string>
   <string name="blunders">Σοβαρά λάθη</string>
   <string name="mistakes">Λάθη</string>
   <string name="inaccuracies">Ανακρίβειες</string>
