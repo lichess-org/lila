@@ -57,8 +57,8 @@
   <string name="inLocalBrowser">dans le navigateur local</string>
   <string name="toggleLocalEvaluation">Activer/désactiver l\'évaluation locale</string>
   <string name="move">Coup</string>
-  <string name="variantLoss">Variante perdue</string>
-  <string name="variantWin">Variante gagnée</string>
+  <string name="variantLoss">Perte (variante)</string>
+  <string name="variantWin">Gain (variante)</string>
   <string name="insufficientMaterial">Matériel insuffisant</string>
   <string name="pawnMove">Coup de pion</string>
   <string name="capture">Prise</string>
@@ -109,7 +109,7 @@
   <string name="moveTimes">Temps par coup</string>
   <string name="flipBoard">Tourner l\'échiquier</string>
   <string name="threefoldRepetition">Triple répétition</string>
-  <string name="claimADraw">Déclarer la partie nulle</string>
+  <string name="claimADraw">Revendiquer la partie nulle</string>
   <string name="offerDraw">Proposer la nulle</string>
   <string name="draw">Partie nulle</string>
   <plurals name="nbPlayers">
@@ -118,7 +118,7 @@
   </plurals>
   <string name="currentGames">Parties en cours</string>
   <plurals name="nbGames">
-    <item quantity="one">%s partie</item>
+    <item quantity="one">Voir les %s parties</item>
     <item quantity="other">%s parties</item>
   </plurals>
   <plurals name="nbBookmarks">
