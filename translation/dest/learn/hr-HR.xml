@@ -105,4 +105,10 @@ kroz tvoju obranu!</string>
   <string name="escapeOrBlock">Pobjegni kraljem
 ili blokiraj napad!</string>
   <string name="outOfCheckComplete">Čestitke! Tvoj kralj ne može nikad biti uzet, pobrini se da se možeš obraniti od šaha!</string>
+  <string name="mateInOne">Mat u jednom</string>
+  <string name="defeatTheOpponentsKing">Porazi protivnikovog kralja</string>
+  <string name="mateInOneIntro">Pobjeda je tvoja onda kada tvoj protivnik ne može obraniti šah.</string>
+  <string name="attackYourOpponentsKing">Napadni protivnikovog kralja
+na način na koji ga neće moći obraniti!</string>
+  <string name="mateInOneComplete">Čestitke! Tako se pobjeđuju šahovske partije!</string>
 </resources>
