@@ -13,7 +13,7 @@
   <string name="toggleTheChat">قفل/فتح الدردشة</string>
   <string name="toggleSound">تغيير الصوت</string>
   <string name="chat">دردشة</string>
-  <string name="resign">استسلام</string>
+  <string name="resign">استسلم</string>
   <string name="checkmate">الملك مات</string>
   <string name="stalemate">الملك مخنوق</string>
   <string name="white">أبيض</string>
@@ -23,7 +23,7 @@
   <string name="whiteIsVictorious">الأبيض فاز</string>
   <string name="blackIsVictorious">الأسود فاز</string>
   <string name="kingInTheCenter">الملك في الوسط</string>
-  <string name="threeChecks">ثلاثة كشات ملك</string>
+  <string name="threeChecks">كش ملك ثلاثا</string>
   <string name="raceFinished">نهاية السباق</string>
   <string name="variantEnding">نهاية مختلفة</string>
   <string name="newOpponent">خصم جديد</string>
@@ -376,7 +376,6 @@
   <string name="playOnTheBoardOffline">العب مع صديق محليا</string>
   <string name="playOfflineComputer">العب مع الحاسب محليا</string>
   <string name="opponent">الخصم</string>
-  <string name="learn">تعلم</string>
   <string name="community">المجتمع</string>
   <string name="tools">أدوات</string>
   <string name="increment">الزيادة</string>
@@ -467,7 +466,6 @@
   <string name="crosstable">تاريخ</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">يمكنك استخدام الزر الاوسط للفأرة على الرقعة لتنفيذ حركة من الدور.</string>
   <string name="analysisShapesHowTo">استخدم ز الفأرة الأيمن لرسم دوائر وأسهم على الرقعة</string>
-  <string name="confirmResignation">تأكيد الإستسلام</string>
   <string name="letOtherPlayersMessageYou">السماح للاعبين بمراسلتك</string>
   <string name="shareYourInsightsData">مشاركة بيانات طريقة لعبك</string>
   <string name="withNobody">وحدك</string>

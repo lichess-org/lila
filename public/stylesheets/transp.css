@@ -148,7 +148,8 @@ body.transp #streams_on_air a.stream span {
   color: #f0f0f0;
   text-shadow: 0 0 2px #000, 0 0 5px #000;
 }
-body.transp .crosstable th,
+body.transp .crosstable th.score,
+body.transp .crosstable td,
 body.transp #chat div.top,
 body.transp div.side_box .top,
 body.transp div.box .top,
@@ -163,7 +164,6 @@ body.transp #qa .answers-header,
 body.transp #video .card .info,
 body.transp #video .card .reveal,
 body.transp table.slist thead {
-  background: rgba(0, 0, 0, 0.5);
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.7) 100%);
 }
 body.transp #timeline {

@@ -43,7 +43,14 @@ export interface Game {
   initialFen?: string;
   importedBy?: string;
   division?: Division;
+  opening?: Opening;
   perf: string;
+}
+
+export interface Opening {
+  name: string;
+  eco: string;
+  ply: number;
 }
 
 export interface Division {
@@ -68,11 +75,11 @@ export interface AnalyseOpts {
   sideElement: HTMLElement;
   data: AnalyseData;
   initialPly?: number | string;
-  userId: string;
+  userId: string | null;
   embed: boolean;
   explorer: boolean;
   socketSend: SocketSend;
-  i18n: any;
+  trans: Trans;
   study?: any;
   tagTypes?: string;
   practice?: any;

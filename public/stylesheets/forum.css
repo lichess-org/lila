@@ -343,7 +343,8 @@ body.dark .textcomplete-dropdown .active {
   background-color: #3e3e3e;
 }
 
-a.sticky {
+a.sticky,
+body.dark a.sticky {
   color: #759900;
 }
 

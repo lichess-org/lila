@@ -1,37 +1,22 @@
-@(u: User, form: Form[_], ok: Option[Boolean] = None)(implicit ctx: Context)
+@(u: User, form: Form[_])(implicit ctx: Context)
 
 @title = @{ s"${u.username} - ${trans.changeEmail.txt()}" }
 
-@account.layout(title = title, active = "email") {
+@account.layout(title = title, active = "email", evenMoreCss = cssTag("material.form.css")) {
 <div class="content_box small_box">
   <div class="signup_box">
     <h1 class="lichess_title">
       @trans.changeEmail()
-      @ok.map {
-      case true => {<span class="is-green" data-icon="E"></span>}
-      case false => {<span class="is-red" data-icon="L"></span>}
-      }
+      @if(ctx.req.queryString.contains("ok")) { <span class="is-green" data-icon="E"></span>}
     </h1>
-    @form("email").value.filter(_.nonEmpty).map { email =>
-    <p>@trans.youHaveAlreadyRegisteredTheEmail(email)</p>
-    }.getOrElse {
-    <p>@trans.emailIsOptional()</p>
-    <form action="@routes.Account.emailApply" method="POST">
-      <ul>
-        <li class="field">
-          <label for="@form("email").id">@trans.email()</label>
-          <input type="email" value="@form("email").value" name="@form("email").name" id="@form("email").id" />
-        </li>
-        @account.passwdFormField(form("passwd"), trans.password())
-        <li>@errMsg(form)</li>
-        <li>
-          <button type="submit" class="submit button" data-icon="E">
-            @trans.apply()
-          </button>
-        </li>
-      </ul>
+    <form class="material form" action="@routes.Account.emailApply" method="POST">
+      @passwdFormField(form("passwd"), trans.password())
+      @base.form.group(form("email"), trans.email()) {
+      @base.form.input(form("email"), typ = "email", required = true)
+      @errMsg(form("email"))
+      }
+      @base.form.submit()
     </form>
-    }
   </div>
 </div>
 }

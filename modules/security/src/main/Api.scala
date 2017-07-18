@@ -39,8 +39,8 @@ final class Api(
 
   def loadLoginForm(str: String): Fu[Form[Option[User]]] = {
     emailValidator.validate(EmailAddress(str)) match {
-      case Some(email) => UserRepo.checkPasswordByEmail(email)
-      case None if User.couldBeUsername(str) => UserRepo.checkPasswordById(User normalize str)
+      case Some(email) => UserRepo.loginCandidateByEmail(email)
+      case None if User.couldBeUsername(str) => UserRepo.loginCandidateById(User normalize str)
       case _ => fuccess(none)
     }
   } map loadedLoginForm _
@@ -84,16 +84,16 @@ final class Api(
   def dedup(userId: String, req: RequestHeader): Funit =
     reqSessionId(req) ?? { Store.dedup(userId, _) }
 
-  def setFingerprint(req: RequestHeader, fingerprint: String): Fu[Option[String]] =
-    reqSessionId(req) ?? { Store.setFingerprint(_, fingerprint) map some }
+  def setFingerPrint(req: RequestHeader, fp: FingerPrint): Fu[Option[FingerHash]] =
+    reqSessionId(req) ?? { Store.setFingerPrint(_, fp) map some }
 
   def reqSessionId(req: RequestHeader) = req.session get "sessionId"
 
   def userIdsSharingIp = userIdsSharingField("ip") _
 
-  // def userIdsSharingFingerprint = userIdsSharingField("fp") _
-
   def recentByIpExists(ip: IpAddress): Fu[Boolean] = Store recentByIpExists ip
+
+  def recentByPrintExists(fp: FingerPrint): Fu[Boolean] = Store recentByPrintExists fp
 
   private def userIdsSharingField(field: String)(userId: String): Fu[List[String]] =
     coll.distinctWithReadPreference[String, List](
@@ -112,7 +112,7 @@ final class Api(
       )
     }
 
-  def recentUserIdsByFingerprint = recentUserIdsByField("fp") _
+  def recentUserIdsByFingerHash(fh: FingerHash) = recentUserIdsByField("fp")(fh.value)
 
   def recentUserIdsByIp(ip: IpAddress) = recentUserIdsByField("ip")(ip.value)
 

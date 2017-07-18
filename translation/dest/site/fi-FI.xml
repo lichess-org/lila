@@ -454,7 +454,6 @@
   <string name="playOnTheBoardOffline">Pelaa offline-tilassa kaveria vastaan</string>
   <string name="playOfflineComputer">Pelaa tietokonetta vastaan</string>
   <string name="opponent">Vastapelaaja</string>
-  <string name="learn">Opi</string>
   <string name="community">Yhteisö</string>
   <string name="tools">Työkalut</string>
   <string name="increment">Lisäaika</string>
@@ -549,7 +548,6 @@
   <string name="crosstable">Pistetaulukko</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Voit kelata siirtoja myös hiiren vieritysrullalla.</string>
   <string name="analysisShapesHowTo">Käytä hiiren kakkospainiketta (tai shiftiä ja ykköspainiketta) piirtääksesi ympyröitä ja nuolia laudalle.</string>
-  <string name="confirmResignation">Varmista luovuttaminen</string>
   <string name="letOtherPlayersMessageYou">Anna muiden käyttäjien lähettää sinulle viestejä</string>
   <string name="shareYourInsightsData">Jaa Insights-tietosi</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Olet jo rekisteröinyt sähköpostiosoitteen: %s</string>

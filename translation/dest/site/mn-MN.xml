@@ -454,7 +454,6 @@
   <string name="playOnTheBoardOffline">Нүүр тулсан өрөг</string>
   <string name="playOfflineComputer">Компьютер</string>
   <string name="opponent">Өрсөлдөгч</string>
-  <string name="learn">Сургалт</string>
   <string name="community">Гишүүд</string>
   <string name="tools">Хэрэглүүр</string>
   <string name="increment">Нэмэгдэл</string>
@@ -549,7 +548,6 @@
   <string name="crosstable">Ялалт, ялагдлын харьцаа</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Мөн тоглолтын үед та энэхүү үйлдлүүдийг хийх боломжтой.</string>
   <string name="analysisShapesHowTo">Өрөг дээр тойрог, сум зурахын тулд shift+зүүн товшилт эсвэл баруун товшилт хийнэ.</string>
-  <string name="confirmResignation">Бууж өгөхөө баталгаажуулах</string>
   <string name="letOtherPlayersMessageYou">Бусад гишүүд таньд зурвас илгээхийг зөвшөөрнө</string>
   <string name="shareYourInsightsData">Та тоглосон өргүүдийнхээ нарийн шинжилгээг бусадтай хуваалцна</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Та дараахь цахим шуудангийн хаягаар бүртгэлтэй байна: %s</string>

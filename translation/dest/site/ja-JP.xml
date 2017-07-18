@@ -52,11 +52,55 @@
   <string name="usingServerAnalysis">サーバ解析を使用</string>
   <string name="loadingEngine">エンジン読み込み中…</string>
   <string name="cloudAnalysis">クラウド解析</string>
-  <string name="cloud">クラウド</string>
   <string name="goDeeper">もっと詳しく</string>
   <string name="showThreat">狙いを表示</string>
   <string name="inLocalBrowser">ローカル ブラウザ内で</string>
+  <string name="toggleLocalEvaluation">ローカル評価値のオン/オフ</string>
+  <string name="move">手</string>
+  <string name="variantLoss">バリアント負け</string>
+  <string name="variantWin">バリアント勝ち</string>
+  <string name="insufficientMaterial">戦力不足</string>
+  <string name="pawnMove">ポーンの手</string>
+  <string name="capture">駒取り</string>
+  <string name="close">閉じる</string>
+  <string name="winning">勝勢</string>
+  <string name="losing">敗勢</string>
+  <string name="drawn">ドロー</string>
+  <string name="unknown">不明</string>
+  <string name="database">データベース</string>
+  <string name="whiteDrawBlack">白勝 / ドロー / 黒勝</string>
+  <string name="averageRatingX">平均レーティング: %s</string>
+  <string name="recentGames">最近のゲーム</string>
+  <string name="topGames">トップのゲーム</string>
+  <string name="masterDbExplanation">1952 年から 2016 年まで、FIDEレーティング 2200 以上の 実戦 200 万局</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="other">%s プライでメイト</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="other">次の駒取りかポーンの手まで %s プライ（50 手ルールのカウント更新までの手数）</item>
+  </plurals>
+  <string name="noGameFound">ゲームが見つかりません</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">設定メニューからさらに広い範囲を指定しますか？</string>
   <string name="openingExplorer">序盤探索&amp;テーブルベース</string>
+  <string name="xOpeningExplorer">%s オープニング・エクスプローラー</string>
+  <string name="winPreventedBy50MoveRule">勝勢ながら 50 手ルールでドロー</string>
+  <string name="lossSavedBy50MoveRule">敗勢ながら 50 手ルールでドロー</string>
+  <string name="allSet">準備完了！</string>
+  <string name="importPgn">PGNをインポート</string>
+  <string name="delete">削除</string>
+  <string name="deleteThisImportedGame">ほんとうに削除しますか？</string>
+  <string name="replayMode">再現の方式</string>
+  <string name="realtimeReplay">リアルタイム</string>
+  <string name="byCPL">評価値変化</string>
+  <string name="openStudy">ゲーム検討を開く</string>
+  <string name="enable">解析する</string>
+  <string name="bestMoveArrow">最善手を表示</string>
+  <string name="evaluationGauge">評価値を表示</string>
+  <string name="multipleLines">解析ライン数</string>
+  <string name="cpus">CPU数</string>
+  <string name="memory">メモリ</string>
+  <string name="infiniteAnalysis">無限解析</string>
+  <string name="removesTheDepthLimit">探索手数の制限をなくし最大限の解析を行なう</string>
   <string name="blunders">大悪手</string>
   <string name="mistakes">悪手</string>
   <string name="inaccuracies">疑問手</string>
@@ -186,6 +230,7 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">このプレイヤーはチェスソフトを使用しています</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">このプレイヤーは不正にレーティングを操作しています</string>
+  <string name="openingExplorerAndTablebase">序盤探索&amp;テーブルベース</string>
   <string name="takeback">待った</string>
   <string name="proposeATakeback">待ったのお願い</string>
   <string name="takebackPropositionSent">待ったのお願いを送りました</string>
@@ -233,6 +278,8 @@
   <string name="fromPosition">特定の局面から</string>
   <string name="continueFromHere">中断した所から再開</string>
   <string name="importGame">ゲームをインポート</string>
+  <string name="importGameExplanation">ゲームの PGN を貼りつけると、ブラウザ上でのリプレイ、
+コンピュータ解析、ゲームチャット、共有可能 URL が得られます。</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s個の インポートしたゲーム</item>
   </plurals>
@@ -324,7 +371,7 @@
   <string name="activeToday">今日の対局数上位</string>
   <string name="activePlayers">総対局数上位</string>
   <string name="bewareTheGameIsRatedButHasNoClock">注意！レイティング対象ですが時間無制限です</string>
-  <string name="training">トレーニング</string>
+  <string name="training">タクティクス</string>
   <string name="yourPuzzleRatingX">パズルのレイティング: %s</string>
   <string name="findTheBestMoveForWhite">白の最善手を見つけてください。</string>
   <string name="findTheBestMoveForBlack">黒の最善手を見つけてください。</string>
@@ -338,7 +385,7 @@
   <string name="bestMove">最善手！</string>
   <string name="keepGoing">続ける</string>
   <string name="puzzleFailed">不正解</string>
-  <string name="butYouCanKeepTrying">また挑戦してみてください。</string>
+  <string name="butYouCanKeepTrying">別の手をどうぞ。</string>
   <string name="victory">勝利！</string>
   <string name="wasThisPuzzleAnyGood">このパズルが気に入りましたか？</string>
   <string name="pleaseVotePuzzle">改善のためご意見をお聞かせください。上矢印、下矢印をお使いください:</string>
@@ -405,6 +452,7 @@
   <string name="closeAccountExplanation">本当にアカウントを停止しますか？アカウント停止は永久で、ログインできなくなり、プロフィールページにアクセスできなくなります。</string>
   <string name="thisAccountIsClosed">このアカウントは停止されました</string>
   <string name="invalidUsernameOrPassword">無効なユーザー名 または パスワード</string>
+  <string name="incorrectPassword">パスワードが違います</string>
   <string name="emailMeALink">リンクをメールで送る</string>
   <string name="currentPassword">現在のパスワード</string>
   <string name="newPassword">新しいパスワード</string>
@@ -434,6 +482,7 @@
   <string name="privacy">プライバシー</string>
   <string name="letOtherPlayersFollowYou">他人からのフォローを可能にする</string>
   <string name="letOtherPlayersChallengeYou">他人からの挑戦を可能にする</string>
+  <string name="letOtherPlayersInviteYouToStudy">ゲーム検討について他の人からの招待を認める</string>
   <string name="sound">音声</string>
   <string name="yourPreferencesHaveBeenSaved">設定が保存されました。</string>
   <string name="none">無効</string>
@@ -480,7 +529,7 @@
   <string name="playOnTheBoardOffline">オフラインで遊ぶ。ＯＴＢチェス</string>
   <string name="playOfflineComputer">オフラインでＣＰＵと対戦する</string>
   <string name="opponent">対戦相手</string>
-  <string name="learn">練習</string>
+  <string name="learnMenu">学ぶ</string>
   <string name="community">コミュニティ</string>
   <string name="tools">ツール</string>
   <string name="increment">追加時間</string>
@@ -493,7 +542,9 @@
   <string name="error.email">このメールアドレスは無効です</string>
   <string name="error.email_acceptable">このメールアドレスは認められません</string>
   <string name="error.email_unique">このメールアドレスはすでに使用されています</string>
+  <string name="error.email_different">すでにあなたのメールアドレスになっています</string>
   <string name="blindfoldChess">目隠しチェス</string>
+  <string name="zenMode">集中モード</string>
   <string name="moveConfirmation">着手の前に確認する</string>
   <string name="inCorrespondenceGames">通信チェスのみ</string>
   <string name="ifRatingIsPlusMinusX">レーティング差が±%s以内のとき</string>
@@ -577,7 +628,7 @@
   <string name="crosstable">成績表</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">盤上で駒を動かすことでも手を入力できます。</string>
   <string name="analysisShapesHowTo">Shift + クリックや右クリックで盤上に丸や矢印が描けます。</string>
-  <string name="confirmResignation">投了する前に確認する</string>
+  <string name="confirmResignationAndDrawOffers">投了とドロー提案を確認する</string>
   <string name="inputMovesWithTheKeyboard">手をキーボードで入力</string>
   <string name="letOtherPlayersMessageYou">他のプレイヤーからのメッセージを受け付ける</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">キングを 2 マス、またはルークの上に動かす</string>
@@ -619,6 +670,7 @@
   <string name="xLikesY">%1$s が %2$s に「いいね」しました。</string>
   <string name="quickPairing">自動ペアリング</string>
   <string name="lobby">ロビー</string>
+  <string name="anonymous">匿名</string>
   <string name="yourScore">通算成績：%s</string>
   <string name="language">言語</string>
   <string name="background">背景</string>
@@ -634,6 +686,7 @@
   <string name="directlySupportLichess">Lichess を直接に支援する</string>
   <string name="playChessInStyle">グッズ販売</string>
   <string name="chessBasics">チェスの基本</string>
+  <string name="learnChessByPlaying">実際に動かして覚えよう</string>
   <string name="coaches">コーチ</string>
   <string name="invalidPgn">無効な PGN</string>
   <string name="invalidFen">無効な FEN</string>

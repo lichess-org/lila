@@ -3,7 +3,7 @@ import { throttle } from 'common';
 import * as xhr from './xhr';
 import * as sound from './sound';
 import RoundController from './ctrl';
-import { Untyped } from './interfaces';
+import { Untyped, ApiEnd } from './interfaces';
 
 const li = window.lichess;
 
@@ -17,9 +17,18 @@ export interface RoundSocket extends Untyped {
   receive(typ: string, data: any): boolean;
 }
 
+interface Incoming {
+  t: string;
+  d: any;
+}
+
+interface Handlers {
+  [key: string]: (data: any) => void;
+}
+
 export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
 
-  function reload(o: any, isRetry?: boolean) {
+  function reload(o: Incoming, isRetry?: boolean) {
     // avoid reload if possible!
     if (o && o.t) {
       ctrl.setLoading(false);
@@ -35,7 +44,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     });
   };
 
-  const handlers = {
+  const handlers: Handlers = {
     takebackOffers(o) {
       ctrl.setLoading(false);
       ctrl.data.player.proposingTakeback = o[ctrl.data.player.color];
@@ -59,16 +68,16 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
       ctrl.redraw();
     },
     // end: function(winner) { } // use endData instead
-    endData(o) {
+    endData(o: ApiEnd) {
       ctrl.endWithData(o);
     },
-    rematchOffer(by) {
+    rematchOffer(by: Color) {
       ctrl.data.player.offeringRematch = by === ctrl.data.player.color;
       const fromOp = ctrl.data.opponent.offeringRematch = by === ctrl.data.opponent.color;
       if (fromOp) li.desktopNotification(ctrl.trans.noarg('yourOpponentWantsToPlayANewGameWithYou'));
       ctrl.redraw();
     },
-    rematchTaken(nextId) {
+    rematchTaken(nextId: string) {
       ctrl.data.game.rematch = nextId;
       if (!ctrl.data.player.spectator) ctrl.setLoading(true);
       else ctrl.redraw();
@@ -79,7 +88,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
       if (fromOp) li.desktopNotification(ctrl.trans.noarg('yourOpponentOffersADraw'));
       ctrl.redraw();
     },
-    berserk(color) {
+    berserk(color: Color) {
       ctrl.setBerserk(color);
     },
     gone(isGone) {
@@ -93,7 +102,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
       ctrl.data.opponent.checks = ctrl.data.opponent.color == 'white' ? e.white : e.black;
       ctrl.redraw();
     },
-    simulPlayerMove(gameId) {
+    simulPlayerMove(gameId: string) {
       if (
         ctrl.opts.userId &&
         ctrl.data.simul &&

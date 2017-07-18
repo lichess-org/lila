@@ -52,12 +52,57 @@
   <string name="usingServerAnalysis">Serveranalyse wird verwendet</string>
   <string name="loadingEngine">Engine wird geladen ...</string>
   <string name="cloudAnalysis">Cloud-Analyse</string>
-  <string name="cloud">Cloud</string>
   <string name="goDeeper">Tiefer gehen</string>
-  <string name="showThreat">Drohungen anzeigen</string>
+  <string name="showThreat">Drohungen zeigen</string>
   <string name="inLocalBrowser">im lokalen Browser</string>
   <string name="toggleLocalEvaluation">Lokale Auswertung an-/ausschalten</string>
+  <string name="move">Zug</string>
+  <string name="variantLoss">Niederlage in der Schachvariante</string>
+  <string name="variantWin">Sieg in der Schachvariante</string>
+  <string name="insufficientMaterial">Zu wenig Material</string>
+  <string name="pawnMove">Bauernzug</string>
+  <string name="capture">Schlagzug</string>
+  <string name="close">Schließen</string>
+  <string name="winning">Gewinnt</string>
+  <string name="losing">Verliert</string>
+  <string name="drawn">Remis</string>
+  <string name="unknown">Unbekannt</string>
+  <string name="database">Datenbank</string>
+  <string name="whiteDrawBlack">Weiß / Remis / Schwarz</string>
+  <string name="averageRatingX">Durchschnittliche Wertungszahl: %s</string>
+  <string name="recentGames">Neue Partien</string>
+  <string name="topGames">Spitzenpartien</string>
+  <string name="masterDbExplanation">Zwei Millionen OTB-Partien von Spielern mit einer Wertungszahl über %1$s FIDE aus den Jahren %2$s bis %3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Matt in %s Halbzug</item>
+    <item quantity="other">Matt in %s Halbzügen</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Nächster Schlag- oder Bauernzug in %s Halbzug (Distance To Zeroing des Zählers für die 50-Züge-Regel)</item>
+    <item quantity="other">Nächster Schlag- oder Bauernzug in %s Halbzügen (Distance To Zeroing des Zählers für die 50-Züge-Regel)</item>
+  </plurals>
+  <string name="noGameFound">Kein Spiel gefunden</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Vielleicht sollten mehr Spiele über das \"Einstellungen\"-Menü einbezogen werden?</string>
   <string name="openingExplorer">Eröffnungsdatenbank &amp; Tablebases</string>
+  <string name="xOpeningExplorer">%s Eröffnungsbuch</string>
+  <string name="winPreventedBy50MoveRule">Sieg durch 50-Züge-Regel verhindert</string>
+  <string name="lossSavedBy50MoveRule">Verlust durch 50-Züge-Regel verhindert</string>
+  <string name="allSet">Fertig!</string>
+  <string name="importPgn">PGN importieren</string>
+  <string name="delete">Löschen</string>
+  <string name="deleteThisImportedGame">Dieses importierte Spiel löschen?</string>
+  <string name="replayMode">Wiedergabemodus</string>
+  <string name="realtimeReplay">Echtzeit</string>
+  <string name="byCPL">Nach CPL</string>
+  <string name="openStudy">Study öffnen</string>
+  <string name="enable">Einschalten</string>
+  <string name="bestMoveArrow">Pfeil für besten Zug</string>
+  <string name="evaluationGauge">Bewertungspegel</string>
+  <string name="multipleLines">Mehrere Varianten</string>
+  <string name="cpus">CPUs</string>
+  <string name="memory">Arbeitsspeicher</string>
+  <string name="infiniteAnalysis">Unendliche Analyse</string>
+  <string name="removesTheDepthLimit">Entfernt die Tiefenbegrenzung und hält deinen Computer warm</string>
   <string name="blunders">Grobe Patzer</string>
   <string name="mistakes">Fehler</string>
   <string name="inaccuracies">Ungenauigkeiten</string>
@@ -91,7 +136,7 @@
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s postete im Thread %2$s</string>
   <string name="latestForumPosts">Neueste Forenbeiträge</string>
-  <string name="players">Schachspieler</string>
+  <string name="players">Spieler</string>
   <string name="minutesPerSide">Minuten pro Spieler</string>
   <string name="variant">Schachvariante</string>
   <string name="variants">Schachvarianten</string>
@@ -172,8 +217,8 @@
   <string name="freeOnlineChess">Kostenloses Online-Schach</string>
   <string name="spectators">Zuschauer:</string>
   <plurals name="nbGamesPlayed">
-    <item quantity="one">%s Spiel gespielt</item>
-    <item quantity="other">%s Spiele gespielt</item>
+    <item quantity="one">%s Partie gespielt</item>
+    <item quantity="other">%s Partien gespielt</item>
   </plurals>
   <plurals name="nbRated">
     <item quantity="one">%s gewertet</item>
@@ -199,6 +244,7 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Dieser Spieler verwendet ein Schachprogramm zur Unterstützung</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Dieser Spieler manipuliert seine Wertungszahl</string>
+  <string name="openingExplorerAndTablebase">Eröffnungsbuch &amp; Tablebases</string>
   <string name="takeback">Zugrücknahme</string>
   <string name="proposeATakeback">Zugrücknahme vorschlagen</string>
   <string name="takebackPropositionSent">Zugrücknahme angefordert</string>
@@ -247,6 +293,8 @@
   <string name="fromPosition">Von Stellung</string>
   <string name="continueFromHere">Von hier aus weiterspielen</string>
   <string name="importGame">Importiere Partie</string>
+  <string name="importGameExplanation">Du bekommst eine Computeranalyse, einen Chat
+und eine URL um dein PGN zu teilen.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importierte Partie</item>
     <item quantity="other">%s importierte Partien</item>
@@ -308,12 +356,12 @@
   <string name="youArePlaying">Dein Spiel beginnt!</string>
   <string name="winRate">Gewinnrate</string>
   <string name="berserkRate">Berserkrate</string>
-  <string name="performance">Performance</string>
+  <string name="performance">Turnierleistung</string>
   <string name="tournamentComplete">Turnier beendet</string>
   <string name="movesPlayed">Gespielte Züge</string>
-  <string name="whiteWins">Weiß gewinnt</string>
-  <string name="blackWins">Schwarz gewinnt</string>
-  <string name="draws">Remis</string>
+  <string name="whiteWins">Weiße Siege</string>
+  <string name="blackWins">Schwarze Siege</string>
+  <string name="draws">Remisen</string>
   <string name="nextXTournament">Nächstes %s Turnier:</string>
   <string name="viewMoreTournaments">Weitere Turniere anzeigen</string>
   <string name="averageOpponent">Durchschnittlicher Gegner</string>
@@ -426,6 +474,7 @@
   <string name="closeAccountExplanation">Möchtest du dein Benutzerkonto wirklich schließen? Diese Entscheidung ist endgültig. Ein Login ist danach nicht mehr möglich und die Profilseite nicht mehr verfügbar.</string>
   <string name="thisAccountIsClosed">Dieses Benutzerkonto ist geschlossen.</string>
   <string name="invalidUsernameOrPassword">Ungültiger Benutzername oder Passwort</string>
+  <string name="incorrectPassword">Falsches Passwort</string>
   <string name="emailMeALink">Schicke mir einen Link per E-Mail</string>
   <string name="currentPassword">Derzeitiges Passwort</string>
   <string name="newPassword">Neues Passwort</string>
@@ -436,7 +485,7 @@
   <string name="moveListWhilePlaying">Notation während des Spiels anzeigen</string>
   <string name="pgnPieceNotation">Figurendarstellung in der PGN-Notation</string>
   <string name="chessPieceSymbol">Schachfigurensymbol</string>
-  <string name="pgnLetter">PGN-Buchstabe (K, Q, R, B, N)</string>
+  <string name="pgnLetter">Buchstaben (K, Q, R, B, N)</string>
   <string name="chessClock">Schachuhr</string>
   <string name="tenthsOfSeconds">Zehntelsekunden</string>
   <string name="never">Nie</string>
@@ -504,7 +553,7 @@
   <string name="playOnTheBoardOffline">Spiele offline gegen Mensch</string>
   <string name="playOfflineComputer">Spiele offline gegen Computer</string>
   <string name="opponent">Gegner</string>
-  <string name="learn">Lernen</string>
+  <string name="learnMenu">Lernen</string>
   <string name="community">Gemeinschaft</string>
   <string name="tools">Werkzeuge</string>
   <string name="increment">Inkrement</string>
@@ -517,6 +566,7 @@
   <string name="error.email">Diese E-Mail-Adresse ist ungültig</string>
   <string name="error.email_acceptable">Diese E-Mail-Adresse wird nicht akzeptiert</string>
   <string name="error.email_unique">Diese E-Mail-Adresse ist schon vergeben</string>
+  <string name="error.email_different">Dies ist bereits deine E-Mail Adresse</string>
   <string name="blindfoldChess">Blindschach (unsichtbare Figuren)</string>
   <string name="moveConfirmation">Zugbestätigung</string>
   <string name="inCorrespondenceGames">Im Fernschach</string>
@@ -603,7 +653,7 @@
   <string name="crosstable">Matchverlauf</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kannst auch auf dem Brett scrollen, um die Partie durchzugehen.</string>
   <string name="analysisShapesHowTo">Drücke Shift+Mausklick oder Rechtsklick, um Kreise und Pfeile auf dem Brett zu zeichnen.</string>
-  <string name="confirmResignation">Aufgabe bestätigen</string>
+  <string name="confirmResignationAndDrawOffers">Aufgabe und Remis-Angebote bestätigen</string>
   <string name="inputMovesWithTheKeyboard">Züge mit der Tastatur eingeben</string>
   <string name="letOtherPlayersMessageYou">Erlaube anderen Spielern dich zu kontaktieren</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rochiere, indem der König zwei Felder oder auf den Turm bewegt wird</string>
@@ -646,6 +696,7 @@
   <string name="xLikesY">%1$s gefällt %2$s</string>
   <string name="quickPairing">Schnelles Spiel</string>
   <string name="lobby">Lobby</string>
+  <string name="anonymous">Anonym</string>
   <string name="yourScore">Punktestand: %s</string>
   <string name="language">Sprache</string>
   <string name="background">Hintergrund</string>
@@ -661,6 +712,7 @@
   <string name="directlySupportLichess">Lichess direkt unterstützen</string>
   <string name="playChessInStyle">Schachspielen mit Style</string>
   <string name="chessBasics">Grundlagen</string>
+  <string name="learnChessByPlaying">Spielerisch Schach lernen</string>
   <string name="coaches">Coaches</string>
   <string name="invalidPgn">Fehlerhaftes PGN</string>
   <string name="invalidFen">FEN ungültig</string>

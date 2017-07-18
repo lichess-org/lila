@@ -375,7 +375,6 @@
   <string name="playOnTheBoardOffline">Hrať offline, na jednom zariadení</string>
   <string name="playOfflineComputer">Počítač</string>
   <string name="opponent">Protihráč</string>
-  <string name="learn">Učiť sa</string>
   <string name="community">Komunita</string>
   <string name="tools">Nástroje</string>
   <string name="increment">Prídavok</string>
@@ -466,7 +465,6 @@
   <string name="crosstable">Tabuľka</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">K pohybu v partii môžete tiež použiť scrollovacie koliečko myši nad šachovnicou.</string>
   <string name="analysisShapesHowTo">Stlačte shift+ľavé tlačidlo na myši alebo pravé tlačidlo na myši na kreslenie kruhov a šípok na šachovnici.</string>
-  <string name="confirmResignation">Potvrďte registráciu</string>
   <string name="letOtherPlayersMessageYou">Povoliť ostatným hráčom napísať Vám správu</string>
   <string name="shareYourInsightsData">Zdiaľajte výsledky analýzy vašeho hrania</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Ste registrovaný na tento e-mail: %s</string>

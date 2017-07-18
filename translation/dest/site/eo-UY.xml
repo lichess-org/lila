@@ -474,7 +474,6 @@
   <string name="playOnTheBoardOffline">Ludi fizike kun aliulo</string>
   <string name="playOfflineComputer">Ludi elrete kontraŭ komputilo</string>
   <string name="opponent">Kontraŭulo</string>
-  <string name="learn">Lerni</string>
   <string name="community">Komunumo</string>
   <string name="tools">Iloj</string>
   <string name="increment">Pliiĝo</string>
@@ -573,7 +572,6 @@
   <string name="crosstable">Kructabelo</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Vi povas ankaŭ rulumi sur la tabulo por movi en la ludo.</string>
   <string name="analysisShapesHowTo">Premu shift+click aŭ rekt-klaki por desegni cirklojn kaj sagojn sur la tabulo.</string>
-  <string name="confirmResignation">Konfirmu rezigno</string>
   <string name="inputMovesWithTheKeyboard">Enigi movojn per klavaro</string>
   <string name="letOtherPlayersMessageYou">Lasu aliajn ludantojn mesaĝi vin</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Aroka metodo</string>

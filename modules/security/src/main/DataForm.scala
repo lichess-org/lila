@@ -45,14 +45,14 @@ final class DataForm(
       "username" -> username,
       "password" -> text(minLength = 4),
       "email" -> acceptableUniqueEmail(none),
+      "fp" -> optional(nonEmptyText),
       "g-recaptcha-response" -> optional(nonEmptyText)
     )(SignupData.apply)(_ => None))
 
     val mobile = Form(mapping(
       "username" -> username,
       "password" -> text(minLength = 4),
-      "email" -> acceptableUniqueEmail(none),
-      "can-confirm" -> optional(boolean)
+      "email" -> acceptableUniqueEmail(none)
     )(MobileSignupData.apply)(_ => None))
   }
 
@@ -81,10 +81,15 @@ final class DataForm(
       _.samePasswords
     ))
 
-  def changeEmail(user: User) = Form(mapping(
-    "email" -> acceptableUniqueEmail(user.some),
-    "passwd" -> nonEmptyText
-  )(ChangeEmail.apply)(ChangeEmail.unapply))
+  def changeEmail(u: User, old: Option[EmailAddress]) = UserRepo loginCandidate u map { candidate =>
+    Form(mapping(
+      "passwd" -> nonEmptyText.verifying("incorrectPassword", candidate.check),
+      "email" -> acceptableUniqueEmail(candidate.user.some).verifying(emailValidator differentConstraint old)
+    )(ChangeEmail.apply)(ChangeEmail.unapply)).fill(ChangeEmail(
+      passwd = "",
+      email = old.??(_.value)
+    ))
+  }
 
   def modEmail(user: User) = Form(single("email" -> acceptableUniqueEmail(user.some)))
 
@@ -97,18 +102,20 @@ object DataForm {
       username: String,
       password: String,
       email: String,
+      fp: Option[String],
       `g-recaptcha-response`: Option[String]
   ) {
     def recaptchaResponse = `g-recaptcha-response`
 
     def realEmail = EmailAddress(email)
+
+    def fingerPrint = fp.filter(_.nonEmpty) map FingerPrint.apply
   }
 
   case class MobileSignupData(
       username: String,
       password: String,
-      email: String,
-      canConfirm: Option[Boolean]
+      email: String
   ) {
     def realEmail = EmailAddress(email)
   }
@@ -121,7 +128,7 @@ object DataForm {
     def realEmail = EmailAddress(email)
   }
 
-  case class ChangeEmail(email: String, passwd: String) {
+  case class ChangeEmail(passwd: String, email: String) {
     def realEmail = EmailAddress(email)
   }
 }

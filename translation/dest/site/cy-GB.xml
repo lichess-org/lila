@@ -374,7 +374,6 @@
   <string name="playOnTheBoardOffline">Dros y bwrdd</string>
   <string name="playOfflineComputer">Cyfrifiadur</string>
   <string name="opponent">Gwrthwynebydd</string>
-  <string name="learn">Dysgu</string>
   <string name="community">Cymdeithas</string>
   <string name="tools">Offer</string>
   <string name="increment">Cynyddiad</string>
@@ -465,7 +464,6 @@
   <string name="crosstable">Tabl croes</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Gellwch rholio dros y bwrdd i symud yn y gêm.</string>
   <string name="analysisShapesHowTo">Gwasgwch shift a chliciwch neu dde-gliciwch i dynnu cylchau a saithau ar y bwrdd.</string>
-  <string name="confirmResignation">Cadarnháu ildiad</string>
   <string name="letOtherPlayersMessageYou">Cael negeseuon gan chwaraewyr arall</string>
   <string name="shareYourInsightsData">Cyfrannu data mewnwelediadau</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Cyfeiriad wedi\'i cofrestru yn barod: %s</string>

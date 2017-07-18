@@ -2,7 +2,8 @@ import { h } from 'snabbdom'
 import { VNodeData } from 'snabbdom/vnode'
 import { Hooks } from 'snabbdom/hooks'
 import * as cg from 'chessground/types'
-import { Redraw } from './interfaces';
+import { opposite } from 'chessground/util';
+import { Redraw, EncodedDests, DecodedDests } from './interfaces';
 
 const pieceScores = {
   pawn: 1,
@@ -37,37 +38,23 @@ export function bind(eventName: string, f: (e: Event) => void, redraw?: Redraw):
   };
 }
 
-export function parsePossibleMoves(possibleMoves) {
-  if (!possibleMoves) return {};
-  for (let k in possibleMoves) {
-    if (typeof possibleMoves[k] === 'object') break;
-    possibleMoves[k] = possibleMoves[k].match(/.{2}/g);
-  }
-  return possibleMoves;
+export function parsePossibleMoves(dests?: EncodedDests): DecodedDests {
+  if (!dests) return {};
+  const dec: DecodedDests = {};
+  for (let k in dests) dec[k] = dests[k].match(/.{2}/g) as cg.Key[];
+  return dec;
 }
 
 // {white: {pawn: 3 queen: 1}, black: {bishop: 2}}
 export function getMaterialDiff(pieces: cg.Pieces): cg.MaterialDiff {
-  let counts = {
-    king: 0,
-    queen: 0,
-    rook: 0,
-    bishop: 0,
-    knight: 0,
-    pawn: 0
-  }, p, role, c, k;
-  for (k in pieces) {
-    p = pieces[k];
-    counts[p.role] += (p.color === 'white' ? 1 : -1);
-  }
-  const diff = {
-    white: {},
-    black: {}
+  const diff: cg.MaterialDiff = {
+    white: { king: 0, queen: 0, rook: 0, bishop: 0, knight: 0, pawn: 0 },
+    black: { king: 0, queen: 0, rook: 0, bishop: 0, knight: 0, pawn: 0 },
   };
-  for (role in counts) {
-    c = counts[role];
-    if (c > 0) diff.white[role] = c;
-    else if (c < 0) diff.black[role] = -c;
+  for (let k in pieces) {
+    const p = pieces[k], them = diff[opposite(p.color)];
+    if (them[p.role] > 0) them[p.role]--;
+    else diff[p.color][p.role]++;
   }
   return diff;
 }

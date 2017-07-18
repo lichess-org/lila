@@ -72,6 +72,7 @@ GET   /account/passwd                  controllers.Account.passwd
 POST  /account/passwd                  controllers.Account.passwdApply
 GET   /account/email                   controllers.Account.email
 POST  /account/email                   controllers.Account.emailApply
+GET   /account/email/confirm/:token    controllers.Account.emailConfirm(token: String)
 GET   /account/close                   controllers.Account.close
 POST  /account/closeConfirm            controllers.Account.closeConfirm
 GET   /account/profile                 controllers.Account.profile
@@ -339,7 +340,7 @@ POST  /password/reset/send             controllers.Auth.passwordResetApply
 GET   /password/reset/sent/:email      controllers.Auth.passwordResetSent(email: String)
 GET   /password/reset/confirm/:token   controllers.Auth.passwordResetConfirm(token: String)
 POST  /password/reset/confirm/:token   controllers.Auth.passwordResetConfirmApply(token: String)
-POST  /set-fingerprint/:hash/:ms       controllers.Auth.setFingerprint(hash: String, ms: Int)
+POST  /auth/set-fp/:fp/:ms             controllers.Auth.setFingerPrint(fp: String, ms: Int)
 POST  /auth/token                      controllers.Auth.makeLoginToken
 GET   /auth/token/:token               controllers.Auth.loginWithToken(token: String)
 

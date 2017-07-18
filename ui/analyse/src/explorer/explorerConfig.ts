@@ -71,7 +71,7 @@ export function view(ctrl: ExplorerConfigController): VNode[] {
     ]),
     d.db.selected() === 'masters' ? h('div.masters.message', [
       h('i', { attrs: dataIcon('C') }),
-      h('p', ctrl.trans.noarg('masterDbExplanation'))
+      h('p', ctrl.trans('masterDbExplanation', 2200, '1952', '2017'))
     ]) : h('div', [
       h('section.rating', [
         h('label', ctrl.trans.noarg('averageElo')),
@@ -85,7 +85,7 @@ export function view(ctrl: ExplorerConfigController): VNode[] {
         )
       ]),
       h('section.speed', [
-        h('label', ctrl.trans.noarg('gameSpeed')),
+        h('label', ctrl.trans.noarg('timeControl')),
         h('div.choices',
           d.speed.available.map(function(s) {
             return h('span', {

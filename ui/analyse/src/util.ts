@@ -2,12 +2,17 @@ import { h } from 'snabbdom'
 import { Hooks } from 'snabbdom/hooks'
 import { Attrs } from 'snabbdom/modules/attributes'
 import { fixCrazySan } from 'chess';
+import { AnalyseData } from './interfaces';
 
 export function bind(eventName: string, f: (e: Event) => any, redraw?: () => void): Hooks {
   return {
     insert: vnode => {
       (vnode.elm as HTMLElement).addEventListener(eventName, e => {
         const res = f(e);
+        if (res === false) {
+          if (e.preventDefault) e.preventDefault();
+          else e.returnValue = false; // ie
+        }
         if (redraw) redraw();
         return res;
       });
@@ -35,7 +40,7 @@ export function plyToTurn(ply: number): number {
   return Math.floor((ply - 1) / 2) + 1;
 }
 
-export function synthetic(data): boolean {
+export function synthetic(data: AnalyseData): boolean {
   return data.game.id === 'synthetic';
 }
 

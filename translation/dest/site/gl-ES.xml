@@ -454,7 +454,6 @@
   <string name="playOnTheBoardOffline">No taboleiro</string>
   <string name="playOfflineComputer">Máquina</string>
   <string name="opponent">Rival</string>
-  <string name="learn">Aprendizaxe</string>
   <string name="community">Comunidade</string>
   <string name="tools">Ferramentas</string>
   <string name="increment">Incremento</string>
@@ -549,7 +548,6 @@
   <string name="crosstable">Táboa de cruces</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Tamén podes facer scroll sobre o taboleiro para moverte pola partida.</string>
   <string name="analysisShapesHowTo">Pulsa Mays+clic ou fai clic dereito para debuxar círculos e frechas no taboleiro.</string>
-  <string name="confirmResignation">Confirmar abandono</string>
   <string name="letOtherPlayersMessageYou">Deizar que outros xogadores te envíen mensaxes</string>
   <string name="shareYourInsightsData">Compartir os teus datos estatísticos</string>
   <string name="withNobody">Con ninguén</string>

@@ -24,5 +24,10 @@ trait FormHelper { self: I18nHelper =>
   def globalError(form: Form[_])(implicit ctx: Context): Option[Html] =
     form.globalError map errMsg
 
+  def globalErrorMaterial(form: Form[_])(implicit ctx: Context): Option[Html] =
+    form.globalError map { msg =>
+      Html(s"""<div class="form-group has-error">${errMsg(msg)}</div>""")
+    }
+
   val booleanChoices = Seq("true" -> "Yes", "false" -> "No")
 }

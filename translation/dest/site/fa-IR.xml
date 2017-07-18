@@ -454,7 +454,6 @@
   <string name="playOnTheBoardOffline">آفلاین روی تخته بازی کنید</string>
   <string name="playOfflineComputer">بازی آفلاین با رایانه</string>
   <string name="opponent">حریف</string>
-  <string name="learn">یادگیری</string>
   <string name="community">انجمن</string>
   <string name="tools">ابزارها</string>
   <string name="increment">افزایش زمان</string>
@@ -549,7 +548,6 @@
   <string name="crosstable">تابلو امتیازات</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">شما  می توانید برای حرکت در بازی از صفحه استفاده کنید</string>
   <string name="analysisShapesHowTo">و کلیک کنید یا راست کلیک کنید تا دایره یا فلش در صفحه بکشید shift</string>
-  <string name="confirmResignation">تایید اعلام باخت</string>
   <string name="letOtherPlayersMessageYou">ارسال پیام توسط بقیه به شما</string>
   <string name="shareYourInsightsData">اشتراک گذاشتن داده های شما</string>
   <string name="youHaveAlreadyRegisteredTheEmail">این ایمیل %s قبلا برای نام نویسی استفاده شده است</string>

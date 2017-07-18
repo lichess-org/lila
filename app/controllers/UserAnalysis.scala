@@ -54,7 +54,7 @@ object UserAnalysis extends LilaController with TheftPrevention {
   }
 
   def keyboardI18n = Open { implicit ctx =>
-    JsonOk(fuccess(Env.i18n.jsDump.keysToObject(keyboardI18nKeys, lang)))
+    JsonOk(fuccess(lila.i18n.JsDump.keysToObject(keyboardI18nKeys, lila.i18n.I18nDb.Site, lang)))
   }
 
   private[controllers] def makePov(fen: Option[String], variant: Variant): Pov = makePov {

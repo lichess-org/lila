@@ -5,14 +5,14 @@ var xhr = require('../xhr');
 function withdraw(ctrl) {
   return m('button.button.right.text', {
     'data-icon': 'b',
-    onclick: lichess.partial(xhr.withdraw, ctrl)
+    onclick: function() { xhr.withdraw(ctrl) }
   }, ctrl.trans('withdraw'));
 }
 
 function join(ctrl) {
   return m('button.button.right.text', {
     'data-icon': 'G',
-    onclick: lichess.partial(xhr.join, ctrl)
+    onclick: function() { xhr.join(ctrl) }
   }, ctrl.trans('join'));
 }
 

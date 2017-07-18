@@ -314,7 +314,9 @@ body.dark .material.form .form-group select option {
   margin-top: 1rem;
 }
 
-.material.form .has-error .legend.legend, .has-error.form-group .control-label.control-label {
+.material.form .has-error .legend.legend,
+.material.form .has-error .error,
+.has-error.form-group .control-label.control-label {
   color: #d9534f;
 }
 .material.form .has-error.form-group .form-help,

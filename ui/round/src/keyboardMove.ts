@@ -3,9 +3,11 @@ import { Api as ChessgroundApi } from 'chessground/api';
 import * as cg from 'chessground/types';
 import { Step, Redraw } from './interfaces';
 
+export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests) => void;
+
 export interface KeyboardMove {
   update(step: Step): void;
-  registerHandler(h): void
+  registerHandler(h: KeyboardMoveHandler): void
   hasFocus(): boolean;
   setFocus(v: boolean): void;
   san(orig: cg.Key, dest: cg.Key): void;
@@ -16,7 +18,7 @@ export interface KeyboardMove {
 
 export function ctrl(cg: ChessgroundApi, step: Step, redraw: Redraw): KeyboardMove {
   let focus = false;
-  let handler;
+  let handler: KeyboardMoveHandler | undefined;
   let preHandlerBuffer = step.fen;
   const select = function(key: cg.Key): void {
     if (cg.state.selected === key) cg.cancelMove();
@@ -28,7 +30,7 @@ export function ctrl(cg: ChessgroundApi, step: Step, redraw: Redraw): KeyboardMo
       if (handler) handler(step.fen, cg.state.movable.dests);
       else preHandlerBuffer = step.fen;
     },
-    registerHandler(h) {
+    registerHandler(h: KeyboardMoveHandler) {
       handler = h;
       if (preHandlerBuffer) handler(preHandlerBuffer, cg.state.movable.dests);
     },
@@ -47,7 +49,7 @@ export function ctrl(cg: ChessgroundApi, step: Step, redraw: Redraw): KeyboardMo
     hasSelected: () => cg.state.selected,
     usedSan
   };
-};
+}
 
 export function render(ctrl: KeyboardMove) {
   return h('div.keyboard-move', [
@@ -74,4 +76,4 @@ export function render(ctrl: KeyboardMove) {
     h('em', 'Enter SAN (Nc3) or UCI (b1c3) moves, or type / to focus chat') :
     h('strong', 'Press <enter> to focus')
   ]);
-};
+}

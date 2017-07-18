@@ -67,12 +67,11 @@
   <string name="drawn">Drawn</string>
   <string name="unknown">Unknown</string>
   <string name="database">Database</string>
-  <string name="gameSpeed">Game speed</string>
   <string name="whiteDrawBlack">White / Draw / Black</string>
   <string name="averageRatingX">Average rating: %s</string>
   <string name="recentGames">Recent games</string>
   <string name="topGames">Top games</string>
-  <string name="masterDbExplanation">Two million OTB games of 2200+ FIDE rated players from 1952 to 2016</string>
+  <string name="masterDbExplanation">Two million OTB games of %1$s+ FIDE rated players from %2$s to %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mate in %s half-move</item>
     <item quantity="other">Mate in %s half-moves</item>
@@ -82,13 +81,27 @@
     <item quantity="other">Next capture or pawn move in %s half-moves (Distance To Zeroing of the 50 move counter)</item>
   </plurals>
   <string name="noGameFound">No game found</string>
-  <string name="alreadySearchingThroughAllAvailableGames">Already searching through all available games</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Maybe include more games from the preferences menu?</string>
   <string name="openingExplorer">Opening explorer</string>
   <string name="xOpeningExplorer">%s opening explorer</string>
   <string name="winPreventedBy50MoveRule">Win prevented by 50-move rule</string>
   <string name="lossSavedBy50MoveRule">Loss saved by 50-move rule</string>
   <string name="allSet">All set!</string>
+  <string name="importPgn">Import PGN</string>
+  <string name="delete">Delete</string>
+  <string name="deleteThisImportedGame">Delete this imported game?</string>
+  <string name="replayMode">Replay mode</string>
+  <string name="realtimeReplay">Realtime</string>
+  <string name="byCPL">By CPL</string>
+  <string name="openStudy">Open study</string>
+  <string name="enable">Enable</string>
+  <string name="bestMoveArrow">Best move arrow</string>
+  <string name="evaluationGauge">Evaluation gauge</string>
+  <string name="multipleLines">Multiple lines</string>
+  <string name="cpus">CPUs</string>
+  <string name="memory">Memory</string>
+  <string name="infiniteAnalysis">Infinite analysis</string>
+  <string name="removesTheDepthLimit">Removes the depth limit, and keeps your computer warm</string>
   <string name="blunders">Blunders</string>
   <string name="mistakes">Mistakes</string>
   <string name="inaccuracies">Inaccuracies</string>
@@ -279,6 +292,8 @@
   <string name="fromPosition">From position</string>
   <string name="continueFromHere">Continue from here</string>
   <string name="importGame">Import game</string>
+  <string name="importGameExplanation">When pasting a game PGN you get a browsable replay,
+a computer analysis, a game chat and a shareable URL.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s imported game</item>
     <item quantity="other">%s imported games</item>
@@ -458,6 +473,7 @@
   <string name="closeAccountExplanation">Are you sure you want to close your account? Closing your account is a permanent decision. You will no longer be able to login, and your profile page will no longer be accessible.</string>
   <string name="thisAccountIsClosed">This account is closed.</string>
   <string name="invalidUsernameOrPassword">Invalid username or password</string>
+  <string name="incorrectPassword">Incorrect password</string>
   <string name="emailMeALink">Email me a link</string>
   <string name="currentPassword">Current password</string>
   <string name="newPassword">New password</string>
@@ -536,7 +552,7 @@
   <string name="playOnTheBoardOffline">Over the board</string>
   <string name="playOfflineComputer">Computer</string>
   <string name="opponent">Opponent</string>
-  <string name="learn">Learn</string>
+  <string name="learnMenu">Learn</string>
   <string name="community">Community</string>
   <string name="tools">Tools</string>
   <string name="increment">Increment</string>
@@ -549,7 +565,9 @@
   <string name="error.email">This email address is invalid</string>
   <string name="error.email_acceptable">This email address is not acceptable</string>
   <string name="error.email_unique">This email address is already taken</string>
+  <string name="error.email_different">This is already your email address</string>
   <string name="blindfoldChess">Blindfold chess (invisible pieces)</string>
+  <string name="zenMode">Zen mode</string>
   <string name="moveConfirmation">Move confirmation</string>
   <string name="inCorrespondenceGames">Correspondence games</string>
   <string name="ifRatingIsPlusMinusX">If rating is ± %s</string>
@@ -635,7 +653,7 @@
   <string name="crosstable">Crosstable</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">You can also scroll over the board to move in the game.</string>
   <string name="analysisShapesHowTo">Press shift+click or right-click to draw circles and arrows on the board.</string>
-  <string name="confirmResignation">Confirm resignation</string>
+  <string name="confirmResignationAndDrawOffers">Confirm resignation and draw offers</string>
   <string name="inputMovesWithTheKeyboard">Input moves with the keyboard</string>
   <string name="letOtherPlayersMessageYou">Let other players message you</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Castling method</string>
@@ -678,6 +696,7 @@
   <string name="xLikesY">%1$s likes %2$s</string>
   <string name="quickPairing">Quick pairing</string>
   <string name="lobby">Lobby</string>
+  <string name="anonymous">Anonymous</string>
   <string name="yourScore">Your score: %s</string>
   <string name="language">Language</string>
   <string name="background">Background</string>
@@ -693,6 +712,7 @@
   <string name="directlySupportLichess">Directly support Lichess</string>
   <string name="playChessInStyle">Play chess in style</string>
   <string name="chessBasics">Chess basics</string>
+  <string name="learnChessByPlaying">Learn chess by playing</string>
   <string name="coaches">Coaches</string>
   <string name="invalidPgn">Invalid PGN</string>
   <string name="invalidFen">Invalid FEN</string>

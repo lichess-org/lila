@@ -70,17 +70,19 @@ function renderPlot(ctrl: LobbyController, hook: Hook) {
   });
 }
 
-function renderHook(ctrl: LobbyController, hook: Hook) {
-  let html = '';
+function renderHook(ctrl: LobbyController, hook: Hook): string {
+  const color = hook.c || 'random';
+  let html = '<div class="inner">';
   if (hook.rating) {
-    html += '<a class="opponent ulpt" href="/@/' + hook.u + '">' + hook.u.substr(0, 14) + '</a>';
-    html += '<span class="rating">' + hook.rating + (hook.prov ? '?' : '') + '</span>';
+    html += '<a class="opponent ulpt is color-icon ' + color + '" href="/@/' + hook.u + '">';
+    html += ' ' + hook.u + ' (' + hook.rating + (hook.prov ? '?' : '') + ')';
+    html += '</a>';
   } else {
-    html += '<span class="opponent anon">Anonymous</span>';
+    html += '<span class="opponent anon ' + color + '">' + ctrl.trans('anonymous') + '</span>';
   }
-  html += '<span class="clock">' + hook.clock + '</span>';
-  html += '<span class="mode">' +
-  '<span class="varicon" data-icon="' + perfIcons[hook.perf] + '"></span>' + ctrl.trans(hook.ra ? 'rated' : 'casual') + '</span>';
+  html += '<span class="clock" data-icon="p"> ' + hook.clock + '</span>';
+  html += '<span class="varicon" data-icon="' + perfIcons[hook.perf] + '"> ' + ctrl.trans(hook.ra ? 'rated' : 'casual') + '</span>';
+  html += '</div>';
   return html;
 }
 

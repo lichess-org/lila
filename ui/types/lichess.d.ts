@@ -1,7 +1,6 @@
 interface Lichess {
   pubsub: Pubsub
   trans: Trans
-  globalTrans(str: string): string
   numberFormat(n: number): string
   once(key: string): boolean
   quietMode: boolean
@@ -9,7 +8,6 @@ interface Lichess {
   engineName: string;
   assetUrl(url: string, opts?: AssetUrlOpts): string;
   storage: LichessStorageHelper
-  partial<T>(f: (...someArgs: any[]) => T): (...args: any[]) => T;
   reload(): void;
   loadScript(url: string): any
   keyboardMove: any
@@ -37,7 +35,7 @@ interface Lichess {
   challengeApp: any;
   hopscotch: any;
   openInMobileApp(gameId: string): void;
-  makeChat(id: string, data: any, callback: (chat: any) => void): void;
+  makeChat(id: string, data: any, callback?: (chat: any) => void): void;
   topMenuIntent(): void;
 }
 
@@ -81,6 +79,8 @@ interface Window {
     jump(node: Tree.Node): void
   }
   hopscotch: any;
+  lichessPlayMusic(): void;
+  [key: string]: any;
 }
 
 interface Paginator<T> {
@@ -199,8 +199,8 @@ declare namespace Tree {
   }
 
   export interface Opening {
+    name: string;
     eco: string;
-    symbol: string;
   }
 
   export interface Glyph {

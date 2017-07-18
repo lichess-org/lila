@@ -1,6 +1,6 @@
 import { h, thunk } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { plural, bind, spinner } from '../../util';
+import { plural, bind, spinner, innerHTML } from '../../util';
 import { enrichText } from '../studyComments';
 import { StudyController } from '../interfaces';
 
@@ -66,7 +66,9 @@ export function underboard(ctrl: StudyController): VNode {
  default:
    return h('div.feedback.ongoing', [
      h('div.goal', [renderGoal(p, p.goal().moves - p.nbMoves())]),
-     p.comment() ? h('div.comment', enrichText(p.comment(), true)) : null
+     p.comment() ? h('div.comment', {
+        hook: innerHTML(enrichText(p.comment(), true))
+     }) : null
    ]);
   }
 }

@@ -101,6 +101,7 @@ module.exports = function(cfg, element) {
       }
     });
 
+  cfg.trans = lichess.trans(cfg.i18n);
   cfg.socketSend = lichess.socket.send;
   cfg.element = element;
   lobby = LichessLobby.start(cfg);
@@ -279,7 +280,7 @@ module.exports = function(cfg, element) {
         $timeModeSelect.val(1)
           .children('.timeMode_2, .timeMode_0')
           .prop('disabled', true)
-          .attr('title', lichess.globalTrans('You need an account to do that'));
+          .attr('title', cfg.trans('youNeedAnAccountToDoThat'));
       }
       var ajaxSubmit = function(color) {
         var poolMember = hookToPoolMember(color, $formTag.serializeArray(), $ratings);

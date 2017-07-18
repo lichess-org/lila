@@ -434,7 +434,6 @@
   <string name="playOnTheBoardOffline">오프라인, 로컬 게임</string>
   <string name="playOfflineComputer">오프라인 컴퓨터와 대국하기</string>
   <string name="opponent">상대</string>
-  <string name="learn">배우기</string>
   <string name="community">커뮤니티</string>
   <string name="tools">도구</string>
   <string name="increment">시간 증가</string>
@@ -528,7 +527,6 @@
   <string name="crosstable">점수판</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">마우스 스크롤을 돌림으로써 수를 진행할 수 있습니다.</string>
   <string name="analysisShapesHowTo">Shift + 왼쪽/오른쪽 클릭으로 원이나 화살표를 보드 상에 그릴 수 있습니다.</string>
-  <string name="confirmResignation">기권 시 재확인합니다.</string>
   <string name="letOtherPlayersMessageYou">다른 사람들이 당신에게 메시지를 보낼 수 있도록 합니다.</string>
   <string name="shareYourInsightsData">당신의 게임 분석 결과를 공유합니다.</string>
   <string name="youHaveAlreadyRegisteredTheEmail">이 계정은 이미 해당 주소로 연결 되어 있습니다: %s</string>

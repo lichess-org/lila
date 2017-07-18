@@ -5,4 +5,25 @@
   <string name="willBeNotified">Você será notificado quando o torneio começar, portanto, é seguro jogar em outra aba enquanto espera.</string>
   <string name="isRated">Este torneio é valendo pontod e afetará sua classificação.</string>
   <string name="isNotRated">Este torneio é valendo pontos e afetará sua classificação.</string>
+  <string name="someRated">Este torneio vale pontos e afetará seu rating.</string>
+  <string name="howAreScoresCalculated">Como os pontos são calculados?</string>
+  <string name="howAreScoresCalculatedAnswer">Uma vitória vale 2 pontos, um empate, 1 ponto e uma derrota não valerá ponto algum.
+Se você conseguir ganhar 2 jogos em sequida, iniciará uma sequência de 2 pontos, representada por um ícone de chama na sua pontuação.
+Os jogos sequintes valerão o dobro de pontos até que você perca uma partida.
+Ou seja, uma vitoriá valerá 4 pontos, um empate 2 e uma derrota continuará valendo nenhum ponto.
+
+Por exemplo, 2 vitórias seguidas por um empate valerão 6 pontos: 2 + 2 + (2 x 1)</string>
+  <string name="berserk">Berserk</string>
+  <string name="berserkAnswer">Quando o jogador clica no botão Berserk no começo de um jogo, ele tem seu tempo reduzido pela metade. Nesse caso, uma vitória valerá um ponto a mais.
+
+Fazendo o Berserk em jogos com controle de tempo com incremento cancela o mesmo.( a exceção é 2+1 que dá 1+0)
+
+Berserk não está disponivel em jogos com tempo inicial 0 (0+1, 0+2).
+
+Berserk só garante um ponto extra se você jogar pelo menos 7 lances na partida.</string>
+  <string name="howIsTheWinnerDecided">Como o vencedor do Torneio é decidido?</string>
+  <string name="howIsTheWinnerDecidedAnswer">O(s) jogador(es) com mais pontos no fim da duração do Torneio é(são) declarados vencedor(es).</string>
+  <string name="howDoesPairingWork">Como o pareamento funciona?</string>
+  <string name="howDoesPairingWorkAnswer">No início do torneio, os jogadores serão pareados baseando-se em seus ratings.
+Assim que terminar a sua partida, você voltará a aguardar o pareamento com um jogador de rating próximo ao seu. Terminando a sua partida logo, você poderá jogar mais vezes e acumular mais pontos que seus adversários.</string>
 </resources>

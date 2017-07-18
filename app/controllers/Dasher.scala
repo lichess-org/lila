@@ -12,7 +12,7 @@ import lila.i18n.{ I18nKeys, I18nLangPicker, enLang }
 
 object Dasher extends LilaController {
 
-  private def translations(implicit ctx: Context) = Env.i18n.jsDump.keysToObject(
+  private def translations(implicit ctx: Context) = lila.i18n.JsDump.keysToObject(
     ctx.isAnon.fold(
       List(
         I18nKeys.signIn,
@@ -32,11 +32,13 @@ object Dasher extends LilaController {
         I18nKeys.boardGeometry,
         I18nKeys.boardTheme,
         I18nKeys.boardSize,
-        I18nKeys.pieceSet
-      ), ctx.lang
-  ) ++ Env.i18n.jsDump.keysToObject(
+        I18nKeys.pieceSet,
+        I18nKeys.zenMode
+      ), lila.i18n.I18nDb.Site, ctx.lang
+  ) ++ lila.i18n.JsDump.keysToObject(
       // the language settings should never be in a totally foreign language
       List(I18nKeys.language),
+      lila.i18n.I18nDb.Site,
       if (I18nLangPicker.allFromRequestHeaders(ctx.req).has(ctx.lang)) ctx.lang
       else I18nLangPicker.bestFromRequestHeaders(ctx.req) | enLang
     )
@@ -86,6 +88,7 @@ object Dasher extends LilaController {
         ),
         "kid" -> ctx.me ?? (_.kid),
         "coach" -> isGranted(_.Coach),
+        "zen" -> ctx.pref.zen,
         "i18n" -> translations
       )
     } fuccess

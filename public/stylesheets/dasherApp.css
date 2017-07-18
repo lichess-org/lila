@@ -10,14 +10,14 @@
   padding: 5px 0;
 }
 #dasher_app .links a,
-#dasher_app .subs a {
+#dasher_app .subs .sub {
   display: block;
   padding: 5px 10px;
   transition: 0.13s;
   white-space: nowrap;
 }
 #dasher_app .links a:hover,
-#dasher_app .subs a:hover,
+#dasher_app .subs .sub:hover,
 #dasher_app .langs form > *:hover {
   background: #F0F0F0;
   color: #444;
@@ -25,14 +25,14 @@
 #dasher_app .subs {
   border-top: 1px solid #ddd;
 }
-#dasher_app .subs a:before {
+#dasher_app .subs .sub:before {
   float: right;
   opacity: 0.5;
   font-size: 9px;
   margin-top: 4px;
   transition: 0.2s;
 }
-#dasher_app .subs a:hover:before {
+#dasher_app .subs .sub:hover:before {
   color: #3893E8;
   opacity: 0.8;
 }
@@ -117,7 +117,7 @@
 }
 #dasher_app .selector a::before {
   margin-right: 8px;
-  font-size: 1.6em;
+  font-size: 19px;
   justify-content: center;
   align-items: center;
   opacity: 0;
@@ -129,6 +129,15 @@
 #dasher_app .selector a.active::before {
   opacity: 1;
   color: #fff!important;
+}
+#dasher_app .zen a::before {
+  font-size: 18px;
+  margin-right: 3px;
+  opacity: 0.5;
+}
+#dasher_app .zen:hover a::before,
+#dasher_app .zen.active a::before {
+  opacity: 1;
 }
 #dasher_app .sound .content {
   display: flex;

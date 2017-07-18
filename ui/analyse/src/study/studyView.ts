@@ -15,7 +15,7 @@ import { view as notifView } from './notif';
 import { view as tagsView } from './studyTags';
 import * as practiceView from './practice/studyPracticeView';
 import AnalyseController from '../ctrl';
-import { StudyController } from './interfaces';
+import { StudyController, Tab } from './interfaces';
 import { MaybeVNodes } from '../interfaces';
 
 function buttons(root: AnalyseController): VNode {
@@ -106,7 +106,7 @@ export function main(ctrl: StudyController): VNode {
 
   const activeTab = ctrl.vm.tab();
 
-  const makeTab = function(key, name) {
+  const makeTab = function(key: Tab, name: string) {
     return h('a.' + key, {
       class: { active: activeTab === key },
       hook: bind('mousedown', () => ctrl.vm.tab(key), ctrl.redraw)

@@ -374,7 +374,6 @@
   <string name="playOnTheBoardOffline">מעל הלוח</string>
   <string name="playOfflineComputer">מחשב</string>
   <string name="opponent">יריב</string>
-  <string name="learn">למידה</string>
   <string name="community">קהילה</string>
   <string name="tools">כלים</string>
   <string name="increment">שניות למהלך</string>
@@ -465,7 +464,6 @@
   <string name="crosstable">חשבון נקודות</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">ניתן גם לגלול בכדי להתקדם במשחק.</string>
   <string name="analysisShapesHowTo">הקש \"שיפט\" ולחץ מקש עכבר שמאלי או לחץ מקש עכבר ימני כדי לצייר חצים ועיגולים על הלוח.</string>
-  <string name="confirmResignation">אשר פרישה</string>
   <string name="letOtherPlayersMessageYou">אפשר לשחקנים אחרים לשלוח לך הודעות</string>
   <string name="shareYourInsightsData">שתף את הנתונים הסטטיסטיים שלך</string>
   <string name="youHaveAlreadyRegisteredTheEmail">אתה כבר נרשמת עם הדוא\"ל: %s</string>

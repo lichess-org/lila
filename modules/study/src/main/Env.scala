@@ -79,7 +79,7 @@ final class Env(
   private lazy val chapterMaker = new ChapterMaker(
     importer = importer,
     pgnFetch = new PgnFetch,
-    lightUser = lightUserApi.sync,
+    lightUser = lightUserApi,
     chat = hub.actor.chat,
     domain = NetDomain
   )

@@ -8,7 +8,7 @@ import play.api.libs.json.JsObject
 import play.twirl.api.Html
 
 import lila.i18n.Env.{ current => i18nEnv }
-import lila.i18n.{ LangList, I18nKey, Translator, JsQuantity, I18nDb }
+import lila.i18n.{ LangList, I18nKey, Translator, JsQuantity, I18nDb, JsDump }
 import lila.user.UserContext
 
 trait I18nHelper {
@@ -18,14 +18,14 @@ trait I18nHelper {
   def transKey(key: String, db: I18nDb.Ref, args: Seq[Any] = Nil)(implicit lang: Lang): Html =
     Translator.html.literal(key, db, args, lang)
 
-  def i18nJsObjectMessage(keys: Seq[I18nKey])(implicit lang: Lang): JsObject =
-    i18nEnv.jsDump.keysToMessageObject(keys, lang)
-
   def i18nJsObject(keys: I18nKey*)(implicit lang: Lang): JsObject =
-    i18nEnv.jsDump.keysToObject(keys, lang)
+    JsDump.keysToObject(keys, I18nDb.Site, lang)
 
   def i18nOptionJsObject(keys: Option[I18nKey]*)(implicit lang: Lang): JsObject =
-    i18nEnv.jsDump.keysToObject(keys.flatten, lang)
+    JsDump.keysToObject(keys.flatten, I18nDb.Site, lang)
+
+  def i18nFullDbJsObject(db: I18nDb.Ref)(implicit lang: Lang): JsObject =
+    JsDump.dbToObject(db, lang)
 
   def i18nJsQuantityFunction()(implicit lang: Lang): Html = Html(JsQuantity(lang))
 

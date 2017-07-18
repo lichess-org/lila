@@ -454,7 +454,6 @@
   <string name="playOnTheBoardOffline">Juga offline, sobre el tauler</string>
   <string name="playOfflineComputer">Ordinador (offline)</string>
   <string name="opponent">Rival</string>
-  <string name="learn">Aprendre</string>
   <string name="community">Comunitat</string>
   <string name="tools">Eines</string>
   <string name="increment">Increment</string>
@@ -549,7 +548,6 @@
   <string name="crosstable">Taula creuada</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">També pots desplaçar-te sobre el tauler per moure en el joc.</string>
   <string name="analysisShapesHowTo">Pitja la tecla Shift + clic o feu clic dret per dibuixar cercles i fletxes al tauler.</string>
-  <string name="confirmResignation">Confirma la rendició.</string>
   <string name="letOtherPlayersMessageYou">Deixa que altres jugadors t\'envïin missatges</string>
   <string name="shareYourInsightsData">Comparteix les teves dades d\'estadístiques</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Ja heu registrat el correu electrònic: %s</string>

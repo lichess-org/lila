@@ -359,7 +359,6 @@
   <string name="loginSuccessful">Chaidh do chlàradh a-steach</string>
   <string name="playOfflineComputer">Coimpiutair</string>
   <string name="opponent">Neach-dùbhlain</string>
-  <string name="learn">Ionnsaich</string>
   <string name="community">Coimhearsnachd</string>
   <string name="tools">Goireasean</string>
   <string name="increment">Ioncramaid</string>
@@ -409,7 +408,6 @@
   <string name="itWasNotRequiredForYourRegistration">Cha robh e riatanach airson a\' chlàraidh agad.</string>
   <string name="weHaveSentYouAnEmailTo">Tha sinn air post-d a chur gu %s. Briog air a\' cheangal sa phost-d gus am facal-faire agad ath-shuidheachadh.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Nuair a chlàraicheas tu, aontaichidh tu gum bi thu fo bhuaidh %s.</string>
-  <string name="confirmResignation">Cinntich an gèilleadh</string>
   <string name="kidMode">Modh cloinne</string>
   <string name="playChessEverywhere">Cluich tàileasg àite sam bith</string>
   <string name="asFreeAsLichess">Ch saor \'s a tha lichess</string>

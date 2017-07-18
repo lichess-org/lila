@@ -26,9 +26,9 @@ function analysisButton(ctrl: RoundController): VNode | null {
   }, ctrl.trans.noarg('analysis')) : null;
 }
 
-function rematchButtons(ctrl): MaybeVNodes {
+function rematchButtons(ctrl: RoundController): MaybeVNodes {
   const d = ctrl.data,
-  me = d.player.offeringRematch, them = d.opponent.offeringRematch;
+  me = !!d.player.offeringRematch, them = !!d.opponent.offeringRematch;
   return [
     them ? h('a.rematch-decline', {
       attrs: {

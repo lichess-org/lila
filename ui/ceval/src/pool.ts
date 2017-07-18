@@ -20,15 +20,16 @@ export abstract class AbstractWorker {
   }
 
   start(work: Work) {
-    const timeout = new Promise((_resolve, reject) => {
-      setTimeout(reject, 1000);
-    });
-
-    Promise.race([this.stop(), timeout]).catch(() => {
-      this.destroy();
-      this.protocol = sync(this.boot());
-    }).then(() => {
-      this.protocol.promise.then(protocol => protocol.start(work));
+    // wait for boot
+    this.protocol.promise.then(protocol => {
+      const timeout = new Promise((_, reject) => setTimeout(reject, 1000));
+      Promise.race([protocol.stop(), timeout]).catch(() => {
+        // reboot if not stopped after 1s
+        this.destroy();
+        this.protocol = sync(this.boot());
+      }).then(() => {
+        this.protocol.promise.then(protocol => protocol.start(work));
+      });
     });
   }
 
@@ -63,25 +64,37 @@ class WebWorker extends AbstractWorker {
 }
 
 class PNaClWorker extends AbstractWorker {
+  private listener?: HTMLElement;
   private worker?: HTMLObjectElement;
 
   boot(): Promise<Protocol> {
     return new Promise((resolve, reject) => {
       try {
+        // Use a listener div to ensure listeners are active before the
+        // load event fires.
+        this.listener = document.createElement('div');
+        this.listener.addEventListener('load', () => {
+          resolve(new Protocol(this.send.bind(this), this.workerOpts));
+        }, true);
+        this.listener.addEventListener('error', e => {
+          this.poolOpts.onCrash(e);
+          reject(e);
+        }, true);
+        this.listener.addEventListener('message', e => {
+          if (this.protocol.sync) this.protocol.sync.received((e as any).data);
+        }, true);
+        this.listener.addEventListener('crash', e => {
+          const err = this.worker ? (this.worker as any).lastError : e;
+          this.poolOpts.onCrash(err);
+        }, true);
+        document.body.appendChild(this.listener);
+
         this.worker = document.createElement('object');
         this.worker.width = '0';
         this.worker.height = '0';
         this.worker.data = this.url;
         this.worker.type = 'application/x-pnacl';
-        this.worker.addEventListener('crash', () => { this.poolOpts.onCrash((this.worker as any).lastError); });
-        this.worker.addEventListener('error', () => { this.poolOpts.onCrash((this.worker as any).lastError); });
-        this.worker.addEventListener('load', () => {
-          resolve(new Protocol(this.send.bind(this), this.workerOpts));
-        });
-        this.worker.addEventListener('message', e => {
-          if (this.protocol.sync) this.protocol.sync.received((e as any).data);
-        }, true);
-        document.body.appendChild(this.worker);
+        this.listener.appendChild(this.worker);
       } catch (err) {
         console.log('exception while booting pnacl', err);
         this.destroy();
@@ -94,6 +107,8 @@ class PNaClWorker extends AbstractWorker {
   destroy() {
     if (this.worker) this.worker.remove();
     delete this.worker;
+    if (this.listener) this.listener.remove();
+    delete this.listener;
   }
 
   send(cmd: string) {

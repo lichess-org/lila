@@ -11,7 +11,8 @@
 
 Till exemple, 2 vinster följt av en remi är värt 6 poäng: 2 + 2 + (2 *1)</string>
   <string name="berserk">Arena Berserk</string>
-  <string name="berserkAnswer">När en spelare klickar på Berserk-knappen i början av partiet, halveras dennes betänketid, men en vinst blir värd en extra turneringspoäng. Att gå Berserk vid tidskontroller med tidstillägg medför också att tidstillägget förloras. (1+2 är ett undantag, vilket blir 1+0)
+  <string name="berserkAnswer">När en spelare klickar på Berserk-knappen i början av partiet, halveras dennes betänketid, men en vinst blir värd en extra turneringspoäng. Att gå Berserk vid tidskontroller med tidstillägg medför också att tidstillägget förloras. 
+(1+2 är ett undantag, vilket blir 1+0)
 
 Berserk är ej möjligt för partier med 0 i initialtid (0+1, 0+2).
 
@@ -23,7 +24,7 @@ Berserk ger en extrapoäng endast om du spelar minst 7 drag i partiet.</string>
   <string name="howDoesItEnd">Hur avgörs turneringen?</string>
   <string name="howDoesItEndAnswer">Turneringen har en tidsnedräkning. När den nått noll, fryses turneringsplaceringarna och vinnaren annonseras. Partier som pågår måste avslutas men räknas inte till turneringen.</string>
   <string name="otherRules">Andra viktiga regler.</string>
-  <string name="otherRulesAnswer">Du måste göra ditt första drag inom 20 sekunder efter att partiet startat. I annat fall förloras partiet. Remi inom det 10 första dragen ger ingen av spelarna några poäng.</string>
+  <string name="otherRulesAnswer">Du måste göra ditt första drag inom 20 sekunder efter att partiet startat. I annat fall förloras partiet. Remi inom de 10 första dragen ger ingen av spelarna några poäng.</string>
   <string name="thisIsPrivate">Detta är en privat turnering</string>
   <string name="shareUrl">Dela denna URL för att låta spelare delta: %s</string>
 </resources>

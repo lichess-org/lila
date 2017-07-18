@@ -12,7 +12,7 @@ private[tournament] final class Reminder extends Actor {
 
   def receive = {
 
-    case RemindTournament(tour, activeUserIds) =>
+    case RemindTournament(tour, activeUserIds) if !tour.pairingsClosed =>
       val userIds =
         if (activeUserIds.size > max) scala.util.Random.shuffle(activeUserIds) take max
         else activeUserIds

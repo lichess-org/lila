@@ -434,7 +434,6 @@
   <string name="playOnTheBoardOffline">面对面</string>
   <string name="playOfflineComputer">电脑</string>
   <string name="opponent">对手</string>
-  <string name="learn">学习</string>
   <string name="community">社区</string>
   <string name="tools">工具</string>
   <string name="increment">加秒</string>
@@ -528,7 +527,6 @@
   <string name="crosstable">历史表</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">您也可以用滚动键在棋盘游戏中移动。</string>
   <string name="analysisShapesHowTo">按shift点击或右键棋盘上绘制圆圈和箭头。</string>
-  <string name="confirmResignation">确认认输？</string>
   <string name="letOtherPlayersMessageYou">然其他人给你发信息。</string>
   <string name="shareYourInsightsData">分享您的慧眼数据</string>
   <string name="youHaveAlreadyRegisteredTheEmail">你已经用《%s》登记过账户。</string>

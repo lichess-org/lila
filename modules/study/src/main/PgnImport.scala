@@ -3,10 +3,11 @@ package lila.study
 import scalaz.Validation.FlatMap._
 import scalaz.Validation.success
 
-import chess.format.pgn.{ Tag, Glyphs, San, Dumper }
+import chess.format.pgn.{ Tag, Glyphs, San, Dumper, ParsedPgn }
 import chess.format.{ Forsyth, FEN, Uci, UciCharPair }
 
 import chess.Centis
+import lila.common.LightUser
 import lila.importer.{ ImportData, Preprocessed }
 import lila.tree.Node.{ Comment, Comments, Shapes }
 
@@ -18,10 +19,10 @@ private object PgnImport {
     tags: List[Tag]
   )
 
-  def apply(pgn: String): Valid[Result] =
+  def apply(pgn: String, contributors: List[LightUser]): Valid[Result] =
     ImportData(pgn, analyse = none).preprocess(user = none).map {
       case prep @ Preprocessed(game, replay, result, initialFen, parsedPgn) =>
-        val annotator = parsedPgn.tag("annotator").map(Comment.Author.External.apply)
+        val annotator = findAnnotator(parsedPgn, contributors)
         parseComments(parsedPgn.initialPosition.comments, annotator) match {
           case (shapes, _, comments) =>
             val root = Node.Root(
@@ -60,6 +61,16 @@ private object PgnImport {
               tags = PgnTags(parsedPgn.tags)
             )
         }
+    }
+
+  private def findAnnotator(pgn: ParsedPgn, contributors: List[LightUser]): Option[Comment.Author] =
+    pgn tag "annotator" map { a =>
+      val lowered = a.toLowerCase
+      contributors.find { c =>
+        c.name == lowered || c.titleName == lowered || lowered.endsWith(s"/${c.id}")
+      } map { c =>
+        Comment.Author.User(c.id, c.titleName)
+      } getOrElse Comment.Author.External(a)
     }
 
   private def endComment(prep: Preprocessed): Option[Comment] = {

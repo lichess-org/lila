@@ -519,25 +519,16 @@ lichess.topMenuIntent = function() {
           booted = true;
           var $el = $('#dasher_app').html(lichess.initiatingHtml);
           var isDev = $('body').data('dev');
+          var isPlaying = $('body').hasClass('playing');
           lichess.loadCss('/assets/stylesheets/dasherApp.css');
           lichess.loadScript("/assets/compiled/lichess.dasher" + (isDev ? '' : '.min') + '.js').done(function() {
             instance = LichessDasher.default($el.empty()[0], {
               setZoom: setZoom,
-              playing: $el.data('playing')
+              playing: isPlaying
             });
           });
         });
       })();
-
-      function translateTexts() {
-        $('.trans_me').each(function() {
-          var t = $(this).removeClass('trans_me');
-          if (t.val()) t.val(lichess.globalTrans(t.val()));
-          else t.text(lichess.globalTrans(t.text()));
-        });
-      }
-      translateTexts();
-      lichess.pubsub.on('content_loaded', translateTexts);
 
       $('input.user-autocomplete').each(function() {
         var opts = {
@@ -640,8 +631,9 @@ lichess.topMenuIntent = function() {
           new Fingerprint2({
             excludeJsFonts: true
           }).get(function(res) {
-            var time = Date.now() - t;
-            $.post('/set-fingerprint/' + res + '/' + time);
+            $i = $('#signup-fp-input');
+            if ($i.length) $i.val(res);
+            else $.post('/auth/set-fp/' + res + '/' + (Date.now() - t));
           });
       }, 500);
     });
@@ -750,15 +742,6 @@ lichess.topMenuIntent = function() {
     };
     return api;
   })();
-
-  lichess.globalTrans = function() {
-    var str = window.lichess_translations && lichess_translations[arguments[0]];
-    if (!str) return arguments[0];
-    Array.prototype.slice.call(arguments, 1).forEach(function(arg) {
-      str = str.replace('%s', arg);
-    });
-    return str;
-  };
 
   lichess.widget("watchers", {
     _create: function() {
@@ -1026,7 +1009,7 @@ lichess.topMenuIntent = function() {
     var $watchers = $("div.watchers").watchers();
     var tournament;
     lichess.socket = lichess.StrongSocket(
-      '/tournament/' + cfg.data.id + '/socket/v1', cfg.data.socketVersion, {
+      '/tournament/' + cfg.data.id + '/socket/v2', cfg.data.socketVersion, {
         receive: function(t, d) {
           return tournament.socketReceive(t, d);
         },
@@ -1072,7 +1055,7 @@ lichess.topMenuIntent = function() {
     var $watchers = $("div.watchers").watchers();
     var simul;
     lichess.socket = lichess.StrongSocket(
-      '/simul/' + cfg.data.id + '/socket/v1', cfg.socketVersion, {
+      '/simul/' + cfg.data.id + '/socket/v2', cfg.socketVersion, {
         receive: function(t, d) {
           simul.socketReceive(t, d);
         },
@@ -1098,6 +1081,7 @@ lichess.topMenuIntent = function() {
     var analyse;
     cfg.initialPly = 'url';
     cfg.element = element.querySelector('.analyse');
+    cfg.trans = lichess.trans(cfg.i18n);
     lichess.socket = lichess.StrongSocket('/analysis/socket', false, {
       options: {
         name: "analyse"
@@ -1135,6 +1119,7 @@ lichess.topMenuIntent = function() {
       }
     });
     cfg.socketSend = lichess.socket.send;
+    cfg.trans = lichess.trans(cfg.i18n);
     analyse = LichessAnalyse.start(cfg);
     if (cfg.chat) {
       lichess.pubsub.on('chat.enabled', function(v) {
@@ -1153,6 +1138,7 @@ lichess.topMenuIntent = function() {
     var analyse;
     cfg.element = element.querySelector('.analyse');
     cfg.sideElement = document.querySelector('#site_header .side_box');
+    cfg.trans = lichess.trans(cfg.i18n);
     lichess.socket = lichess.StrongSocket('/analysis/socket', false, {
       options: {
         name: "practice"

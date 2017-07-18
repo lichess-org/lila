@@ -374,7 +374,6 @@
   <string name="playOnTheBoardOffline">Igraj u dvoje</string>
   <string name="playOfflineComputer">Igraj protiv računara</string>
   <string name="opponent">Protivnik</string>
-  <string name="learn">Učenje</string>
   <string name="community">Zajednica</string>
   <string name="tools">Alati</string>
   <string name="increment">Inkrement</string>
@@ -465,7 +464,6 @@
   <string name="crosstable">Ukrštena tabela</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Možete također skrolati po ploči da se pomjerate u igri.</string>
   <string name="analysisShapesHowTo">Pritisni shift+klik ili desni klik za crtanje krugova i strelica na ploči.</string>
-  <string name="confirmResignation">Potvrdi predaju</string>
   <string name="letOtherPlayersMessageYou">Pusti druge igrače da te kontaktiraju</string>
   <string name="shareYourInsightsData">Prikaži svoje podatke uvida</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Već ste registrirali email: %s</string>

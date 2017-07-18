@@ -101,7 +101,7 @@ export default class AnalyseController {
     this.embed = opts.embed;
     this.redraw = redraw;
 
-    this.trans = li.trans(opts.i18n);
+    this.trans = opts.trans;
 
     if (this.data.forecast) this.forecast = makeForecast(this.data.forecast, this.data, redraw);
 

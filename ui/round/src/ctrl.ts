@@ -56,7 +56,7 @@ export default class RoundController {
   resignConfirm: boolean = false;
   drawConfirm: boolean = false;
   autoScroll: () => void = $.noop; // will be replaced by view layer
-    challengeRematched: boolean = false;
+  challengeRematched: boolean = false;
   justDropped?: cg.Role;
   justCaptured?: cg.Piece;
   justMoved: boolean = false;
@@ -114,7 +114,7 @@ export default class RoundController {
     li.pubsub.on('sound_set', set => {
       if (!this.music && set === 'music')
         li.loadScript('/assets/javascripts/music/play.js').then(() => {
-          this.music = window['lichessPlayMusic']();
+          this.music = window.lichessPlayMusic();
         });
         if (this.music && set !== 'music') this.music = undefined;
     });
@@ -459,6 +459,7 @@ export default class RoundController {
     this.setLoading(false);
     this.redraw();
     this.autoScroll();
+    this.onChange();
   };
 
   challengeRematch = (): void => {
@@ -510,9 +511,15 @@ export default class RoundController {
   };
 
   private setQuietMode = () => {
-    li.quietMode = game.isPlayerPlaying(this.data);
-    document.body.classList.toggle('no-select',
-      li.quietMode && this.clock && this.clock.millisOf(this.data.player.color) <= 3e5);
+    const was = li.quietMode;
+    const is = game.isPlayerPlaying(this.data);
+    if (was !== is) {
+      li.quietMode = is;
+      $('body')
+        .toggleClass('playing', is)
+        .toggleClass('no-select',
+          is && this.clock && this.clock.millisOf(this.data.player.color) <= 3e5);
+    }
   };
 
   takebackYes = () => {
@@ -642,13 +649,12 @@ export default class RoundController {
         this.setTitle();
 
         window.addEventListener('beforeunload', e => {
-          if (!li.hasToReload && !this.data.blind && game.playable(this.data) && this.data.clock && !this.data.opponent.ai) {
-            document.body.classList.remove('fpmenu');
-            this.socket.send('bye2');
-            const msg = 'There is a game in progress!';
-            (e || window.event).returnValue = msg;
-            return msg;
-          }
+          if (li.hasToReload || this.data.blind || !game.playable(this.data) || !this.data.clock || this.data.opponent.ai) return;
+          document.body.classList.remove('fpmenu');
+          this.socket.send('bye2');
+          const msg = 'There is a game in progress!';
+          (e || window.event).returnValue = msg;
+          return msg;
         });
 
         window.Mousetrap.bind(['esc'], () => this.chessground.cancelMove());

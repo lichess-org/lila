@@ -112,13 +112,13 @@ function inputs(ctrl: AnalyseController): VNode | undefined {
             const pgn = $('.copyables .pgn textarea').val();
             if (pgn !== pgnExport.renderFullTxt(ctrl)) ctrl.changePgn(pgn);
           }, ctrl.redraw)
-        }, 'Import PGN')
+        }, ctrl.trans.noarg('importPgn'))
       ])
     ])
   ]);
 }
 
-function visualBoard(ctrl) {
+function visualBoard(ctrl: AnalyseController) {
   return h('div.lichess_board_wrap', [
     ctrl.keyboardHelp ? keyboardView(ctrl) : null,
     ctrl.study ? studyView.overboard(ctrl.study) : null,
@@ -139,13 +139,14 @@ function jumpButton(icon: string, effect: string, enabled: boolean): VNode {
   });
 }
 
-function dataAct(e) {
-  return e.target.getAttribute('data-act') ||
-  e.target.parentNode.getAttribute('data-act');
+function dataAct(e: Event): string | null {
+  const target = e.target as HTMLElement;
+  return target.getAttribute('data-act') ||
+  (target.parentNode as HTMLElement).getAttribute('data-act');
 }
 
 
-function navClick(ctrl: AnalyseController, action) {
+function navClick(ctrl: AnalyseController, action: 'prev' | 'next') {
   const repeat = function() {
     control[action](ctrl);
     ctrl.redraw();
@@ -160,7 +161,7 @@ function navClick(ctrl: AnalyseController, action) {
   }, {once: true} as any);
 }
 
-function buttons(ctrl) {
+function buttons(ctrl: AnalyseController) {
   const canJumpPrev = ctrl.path !== '';
   const canJumpNext = !!ctrl.node.children[0];
   const menuIsOpen = ctrl.actionMenu.open;
@@ -178,7 +179,7 @@ function buttons(ctrl) {
     ctrl.embed ? null : h('div.features', ctrl.studyPractice ? [
       h('a.hint--bottom', {
         attrs: {
-          'data-hint': 'Analysis board',
+          'data-hint': ctrl.trans.noarg('analysisBoard'),
           target: '_blank',
           href: ctrl.studyPractice.analysisUrl()
         }
@@ -186,11 +187,11 @@ function buttons(ctrl) {
     ] : [
       h('button.hint--bottom', {
         attrs: {
-          'data-hint': ctrl.trans('openingExplorerAndTablebase'),
+          'data-hint': ctrl.trans.noarg('openingExplorerAndTablebase'),
           'data-act': 'explorer'
         },
         class: {
-          hidden: menuIsOpen || !ctrl.explorer.allowed() || ctrl.retro,
+          hidden: menuIsOpen || !ctrl.explorer.allowed() || !!ctrl.retro,
           active: ctrl.explorer.enabled()
         }
       }, [iconTag(']')]),
@@ -200,8 +201,8 @@ function buttons(ctrl) {
           'data-act': 'practice'
         },
         class: {
-          hidden: menuIsOpen || ctrl.retro,
-          active: ctrl.practice
+          hidden: menuIsOpen || !!ctrl.retro,
+          active: !!ctrl.practice
         }
       }, [iconTag('')]) : null
   ]),
@@ -214,14 +215,14 @@ function buttons(ctrl) {
     ctrl.studyPractice ? h('div.noop') : h('button.hint--bottom', {
       class: { active: menuIsOpen },
       attrs: {
-        'data-hint': 'Menu',
+        'data-hint': ctrl.trans.noarg('menu'),
         'data-act': 'menu'
       }
     }, [iconTag('[')])
     ]);
 }
 
-function renderOpeningBox(ctrl) {
+function renderOpeningBox(ctrl: AnalyseController) {
   let opening = ctrl.tree.getOpening(ctrl.nodeList);
   if (!opening && !ctrl.path) opening = ctrl.data.game.opening;
   if (opening) return h('div.opening_box', {
@@ -232,7 +233,7 @@ function renderOpeningBox(ctrl) {
   ]);
 }
 
-function renderChapterName(ctrl) {
+function renderChapterName(ctrl: AnalyseController) {
   if (ctrl.embed && ctrl.study) return h('div.chapter_name', ctrl.study.currentChapter().name);
 }
 

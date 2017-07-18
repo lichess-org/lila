@@ -494,7 +494,6 @@
   <string name="playOnTheBoardOffline">Играйте оффлайн</string>
   <string name="playOfflineComputer">Играть с компьютером оффлайн</string>
   <string name="opponent">Соперник</string>
-  <string name="learn">Обучение</string>
   <string name="community">Сообщество</string>
   <string name="tools">Инструменты</string>
   <string name="increment">Прибавка</string>
@@ -595,7 +594,6 @@
   <string name="crosstable">Счёт</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Можно использовать колёсико над доской для перемотки ходов.</string>
   <string name="analysisShapesHowTo">Чтобы рисовать кружки и стрелки на доске, используйте Shift+левую кнопку мыши или правую кнопку.</string>
-  <string name="confirmResignation">Подтвердить капитуляцию</string>
   <string name="inputMovesWithTheKeyboard">Вводить ходы с помощью клавиатуры</string>
   <string name="letOtherPlayersMessageYou">Позволить присылать Вам сообщения</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Рокировать перемещением короля на две клетки или нажатием на ладью</string>

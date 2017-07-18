@@ -8,31 +8,6 @@ import play.api.libs.json.{ JsString, JsObject }
 
 private[i18n] final class JsDump(path: String) {
 
-  def keysToObject(keys: Seq[I18nKey], lang: Lang) = JsObject {
-    keys.flatMap { k =>
-      Translator.findTranslation(k.key, I18nDb.Site, lang) match {
-        case Some(literal: Literal) =>
-          List(k.key -> JsString(literal.message))
-        case Some(plurals: Plurals) =>
-          plurals.messages map {
-            case (I18nQuantity.Zero, m) => k.key + ":zero" -> JsString(m)
-            case (I18nQuantity.One, m) => k.key + ":one" -> JsString(m)
-            case (I18nQuantity.Two, m) => k.key + ":two" -> JsString(m)
-            case (I18nQuantity.Few, m) => k.key + ":few" -> JsString(m)
-            case (I18nQuantity.Many, m) => k.key + ":many" -> JsString(m)
-            case (I18nQuantity.Other, m) => k.key -> JsString(m)
-          }
-        case None => Nil
-      }
-    }
-  }
-
-  def keysToMessageObject(keys: Seq[I18nKey], lang: Lang) = JsObject {
-    keys.map { k =>
-      k.literalTxtTo(enLang, Nil) -> JsString(k.literalTxtTo(lang, Nil))
-    }
-  }
-
   def apply: Funit = Future {
     pathFile.mkdir
     writeRefs
@@ -66,4 +41,40 @@ private[i18n] final class JsDump(path: String) {
   }
 
   private def escape(text: String) = text.replace(""""""", """\"""")
+}
+
+object JsDump {
+
+  private def quantitySuffix(q: I18nQuantity): String = q match {
+    case I18nQuantity.Zero => ":zero"
+    case I18nQuantity.One => ":one"
+    case I18nQuantity.Two => ":two"
+    case I18nQuantity.Few => ":few"
+    case I18nQuantity.Many => ":many"
+    case I18nQuantity.Other => ""
+  }
+
+  private type JsTrans = Iterable[(String, JsString)]
+
+  private def translatedJs(k: String, t: Translation, lang: Lang): JsTrans = t match {
+    case literal: Literal => List(k -> JsString(literal.message))
+    case plurals: Plurals => plurals.messages.map {
+      case (quantity, msg) => k + quantitySuffix(quantity) -> JsString(msg)
+    }
+  }
+
+  def keysToObject(keys: Seq[I18nKey], db: I18nDb.Ref, lang: Lang): JsObject = JsObject {
+    keys.flatMap { k =>
+      Translator.findTranslation(k.key, db, lang).fold(Nil: JsTrans) { translatedJs(k.key, _, lang) }
+    }
+  }
+
+  def dbToObject(ref: I18nDb.Ref, lang: Lang): JsObject = JsObject {
+    I18nDb(ref).get(defaultLang) ?? { defaultMsgs =>
+      val msgs = ~I18nDb(ref).get(lang)
+      defaultMsgs.flatMap {
+        case (k, v) => translatedJs(k, msgs get k getOrElse v, lang)
+      }
+    }
+  }
 }

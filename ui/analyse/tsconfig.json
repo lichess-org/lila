@@ -6,6 +6,7 @@
     "strictNullChecks": true,
     "noUnusedLocals": true,
     "noEmitOnError": true,
+    "noImplicitAny": false,
     "noImplicitReturns": false,
     "noImplicitThis": true,
     "noUnusedParameters": true,

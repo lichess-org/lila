@@ -319,10 +319,6 @@ lichess.pubsub = (function() {
     }
   };
 })();
-// wtf was I thinking
-lichess.partial = function() {
-  return arguments[0].bind.apply(arguments[0], [null].concat(Array.prototype.slice.call(arguments, 1)));
-};
 lichess.hasToReload = false;
 lichess.redirectInProgress = false;
 lichess.reload = function() {

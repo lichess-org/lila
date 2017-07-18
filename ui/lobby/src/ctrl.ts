@@ -7,6 +7,8 @@ import * as poolRangeStorage from './poolRangeStorage';
 import { LobbyOpts, LobbyData, Tab, Mode, Sort, Filter, Hook, Seek } from './interfaces';
 import LobbySocket from './socket';
 
+const li = window.lichess;
+
 export default class LobbyController {
 
   opts: LobbyOpts;
@@ -46,10 +48,11 @@ export default class LobbyController {
     this.tab = this.stores.tab.get(),
     this.mode = this.stores.mode.get(),
     this.sort = this.stores.sort.get(),
-    this.trans = window.lichess.trans(opts.i18n);
+    this.trans = opts.trans;
 
-    this.poolInStorage = window.lichess.storage.make('lobby.pool-in');
-    this.poolInStorage.listen(() => { // when another tab joins a pool
+    this.poolInStorage = li.storage.make('lobby.pool-in');
+    this.poolInStorage.listen(e => { // when another tab joins a pool
+      if (!e.newValue || e.newValue === li.StrongSocket.sri) return; // same tab, doh, IE 11
       this.leavePool();
       redraw();
     });
@@ -57,7 +60,7 @@ export default class LobbyController {
 
     this.startWatching();
 
-    if (this.playban) setTimeout(window.lichess.reload, this.playban.remainingSeconds * 1000);
+    if (this.playban) setTimeout(li.reload, this.playban.remainingSeconds * 1000);
     else {
       setInterval(() => {
         if (this.poolMember) this.poolIn();
@@ -66,7 +69,7 @@ export default class LobbyController {
       this.onNewOpponent();
     }
 
-    window.lichess.pubsub.on('socket.open', () => {
+    li.pubsub.on('socket.open', () => {
       if (this.tab === 'real_time') {
         this.data.hooks = [];
         this.socket.realTimeIn();
@@ -179,7 +182,7 @@ export default class LobbyController {
   };
 
   poolIn = () => {
-    this.poolInStorage.set('1');
+    this.poolInStorage.set(li.StrongSocket.sri);
     this.socket.poolIn(this.poolMember);
   };
 

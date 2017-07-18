@@ -1,5 +1,6 @@
 var m = require('mithril');
 var chessground = require('chessground');
+var util = require('../util');
 var ground = require('../ground');
 var congrats = require('../congrats');
 var stageStarting = require('./stageStarting');
@@ -12,18 +13,19 @@ function renderFailed(ctrl) {
   return m('div.result.failed', {
     onclick: ctrl.restart
   }, [
-    m('h2', 'Puzzle failed!'),
-    m('button', 'Retry')
+    m('h2', ctrl.trans.noarg('puzzleFailed')),
+    m('button', ctrl.trans.noarg('retry'))
   ]);
 }
 
-function renderCompleted(level) {
+function renderCompleted(ctrl, level) {
   return m('div.result.completed', {
     class: level.blueprint.nextButton ? 'next' : '',
     onclick: level.onComplete
   }, [
-    m('h2', congrats()),
-    level.blueprint.nextButton ? m('button', 'Next') : makeStars(level.blueprint, level.vm.score)
+    m('h2', ctrl.trans.noarg(congrats())),
+    level.blueprint.nextButton ? m('button', ctrl.trans.noarg('next')) :
+    makeStars(level.blueprint, level.vm.score)
   ]);
 }
 
@@ -42,7 +44,7 @@ module.exports = function(ctrl) {
     ctrl.vm.stageCompleted() ? stageComplete(ctrl) : null,
     m('div.lichess_board_wrap', [
       m('div.lichess_board', chessground.view(ground.instance)),
-      renderPromotion(level),
+      renderPromotion(ctrl, level),
     ]),
     m('div.lichess_ground', [
       m('div.title', [
@@ -50,12 +52,13 @@ module.exports = function(ctrl) {
           src: stage.image
         }),
         m('div.text', [
-          m('h2', stage.title),
-          m('p.subtitle', stage.subtitle)
+          m('h2', ctrl.trans.noarg(stage.title)),
+          m('p.subtitle', ctrl.trans.noarg(stage.subtitle))
         ])
       ]),
       level.vm.failed ? renderFailed(ctrl) : (
-        level.vm.completed ? renderCompleted(level) : m('div.goal', m.trust(level.blueprint.goal))
+        level.vm.completed ? renderCompleted(ctrl, level) :
+        m('div.goal', util.withLinebreaks(ctrl.trans.noarg(level.blueprint.goal)))
       ),
       renderProgress(ctrl.progress)
     ])

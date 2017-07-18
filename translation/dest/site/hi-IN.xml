@@ -48,7 +48,16 @@
   <string name="computerAnalysis">कंप्यूटर विश्लेषण</string>
   <string name="computerAnalysisAvailable">कंप्यूटर विश्लेषण उपलब्ध</string>
   <string name="analysis">विश्लेषण मैदान</string>
+  <string name="close">बंद करें</string>
+  <string name="unknown">अज्ञात</string>
   <string name="openingExplorer">उद्घाटन खोज</string>
+  <string name="realtimeReplay">रियल टाइम</string>
+  <string name="enable">सक्षम करें</string>
+  <string name="evaluationGauge">मूल्यांकन गेज</string>
+  <string name="multipleLines">एकाधिक पंक्तियाँ</string>
+  <string name="cpus">CPU</string>
+  <string name="memory">मेमोरी</string>
+  <string name="infiniteAnalysis">अनंत विश्लेषण</string>
   <string name="blunders">गंभीर गल्तियां</string>
   <string name="mistakes">गलतियाँ</string>
   <string name="inaccuracies">त्रुटियाँ</string>
@@ -151,6 +160,7 @@
   <string name="play">खेलें</string>
   <string name="inbox">आपके सन्देश (इनबॉक्स)</string>
   <string name="chatRoom">बातचीत का कमरा</string>
+  <string name="loginToChat">चैट के लिए लॉग इन</string>
   <string name="spectatorRoom">दर्शकों का कमरा</string>
   <string name="composeMessage">सन्देश बनाएँ</string>
   <string name="noNewMessages">कोई नया सन्देश नहीं</string>
@@ -469,7 +479,6 @@
   <string name="playOnTheBoardOffline">बोर्ड पर</string>
   <string name="playOfflineComputer">कंप्यूटर</string>
   <string name="opponent">प्रतिद्वंद्वी</string>
-  <string name="learn">सीखें</string>
   <string name="community">समुदाय</string>
   <string name="tools">उपकरण</string>
   <string name="increment">वृद्धि</string>
@@ -557,7 +566,6 @@
   <string name="byRegisteringYouAgreeToBeBoundByOur">दर्ज करके, आप हमारे %s द्वारा बाध्य होने के लिए सहमत हैं।</string>
   <string name="networkLagBetweenYouAndLichess">आप और lichess के बीच नेटवर्क के अंतराल</string>
   <string name="timeToProcessAMoveOnLichessServer">Lichess सर्वर पर एक कदम प्रक्रिया के लिए समय</string>
-  <string name="confirmResignation">इस्तीफे की पुष्टि करें</string>
   <string name="letOtherPlayersMessageYou">अन्य खिलाड़ियों को आपको संदेश देने दें</string>
   <string name="castleByMovingTwoSquares">राजा दो चौकों ले जाएँ</string>
   <string name="castleByMovingOntoTheRook">राजा हाथी पर ले जाएँ</string>

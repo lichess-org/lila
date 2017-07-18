@@ -53,7 +53,7 @@ function renderResult(ctrl: RoundController) {
   if (result || status.aborted(ctrl.data)) {
     const winner = game.getPlayer(ctrl.data, ctrl.data.game.winner);
     return h('div.result_wrap', [
-      h('p.result', result),
+      result ? h('p.result', result) : null,
       h('p.status', {
         hook: {
           insert: _ => {

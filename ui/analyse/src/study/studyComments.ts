@@ -2,6 +2,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import AnalyseController from '../ctrl';
 import { nodeFullName, autolink, bind, innerHTML } from '../util';
+import { StudyController } from './interfaces';
 
 function authorDom(author) {
   if (!author) return 'Unknown';
@@ -34,23 +35,26 @@ export function enrichText(text: string, allowNewlines: boolean): string {
 }
 
 export function currentComments(ctrl: AnalyseController, includingMine: boolean): VNode | undefined {
-  const node = ctrl.node;
-  const chapter = ctrl.study.currentChapter();
-  const comments = node.comments || [];
+  if (!ctrl.node.comments) return;
+  const node = ctrl.node,
+  study: StudyController = ctrl.study,
+  chapter = study.currentChapter(),
+  comments = node.comments!;
   if (!comments.length) return;
   return h('div.study_comments', comments.map(function(comment) {
-    const isMine = comment.by && (comment.by as any).id && ctrl.opts.userId === (comment.by as any).id;
+    const by: any = comment.by;
+    const isMine = by.id && ctrl.opts.userId === by.id;
     if (!includingMine && isMine) return;
-    const canDelete = isMine || ctrl.study.members.isOwner();
-    return h('div.comment', [
+    const canDelete = isMine || study.members.isOwner();
+    return h('div.comment.' + comment.id, [
       canDelete ? h('a.edit', {
         attrs: {
           'data-icon': 'q',
           title: 'Delete'
         },
         hook: bind('click', _ => {
-          if (confirm('Delete ' + authorText(comment.by) + '\'s comment?'))
-          ctrl.study!.commentForm.delete(chapter.id, ctrl.path, comment.id);
+          if (confirm('Delete ' + authorText(by) + '\'s comment?'))
+          study.commentForm.delete(chapter.id, ctrl.path, comment.id);
         }, ctrl.redraw)
       }) : null,
       isMine ? h('a.edit', {
@@ -59,17 +63,17 @@ export function currentComments(ctrl: AnalyseController, includingMine: boolean)
           title: 'Edit'
         },
         hook: bind('click', _ => {
-          ctrl.study.commentForm.open(chapter.id, ctrl.path, node);
+          study.commentForm.open(chapter.id, ctrl.path, node);
         }, ctrl.redraw)
       }) : null,
-      authorDom(comment.by),
+      authorDom(by),
       ...(node.san ? [
         ' on ',
         h('span.node', nodeFullName(node))
       ] : []),
       ': ',
       h('div.text', {
-        hook: innerHTML(enrichText(comment.text, false))
+        hook: innerHTML(enrichText(comment.text, true))
       })
     ]);
   }));

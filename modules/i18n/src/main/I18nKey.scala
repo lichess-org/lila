@@ -8,13 +8,13 @@ sealed trait I18nKey {
 
   val key: String
 
-  def literalHtmlTo(lang: Lang, args: Seq[Any]): Html
+  def literalHtmlTo(lang: Lang, args: Seq[Any] = Seq.empty): Html
 
-  def pluralHtmlTo(lang: Lang, count: Count, args: Seq[Any]): Html
+  def pluralHtmlTo(lang: Lang, count: Count, args: Seq[Any] = Nil): Html
 
-  def literalTxtTo(lang: Lang, args: Seq[Any]): String
+  def literalTxtTo(lang: Lang, args: Seq[Any] = Seq.empty): String
 
-  def pluralTxtTo(lang: Lang, count: Count, args: Seq[Any]): String
+  def pluralTxtTo(lang: Lang, count: Count, args: Seq[Any] = Nil): String
 
   /* Implicit context convenience functions */
 

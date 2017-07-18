@@ -430,7 +430,6 @@
   <string name="playOnTheBoardOffline">Пӗр хӑма ҫинче</string>
   <string name="playOfflineComputer">Компйутӑр</string>
   <string name="opponent">Ӑмӑртуҫӑ</string>
-  <string name="learn">Вӗренӳ</string>
   <string name="community">Пӗрлешӳ</string>
   <string name="tools">Мехел</string>
   <string name="increment">Инкремент</string>
@@ -515,7 +514,6 @@
   <string name="crosstable">Пӑнчӑ тапӑлӗ</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Вӑййинче ҫӳрес тесе хӑма ҫийӗнчен пӑркалама та пултаратӑн.</string>
   <string name="analysisShapesHowTo">Хӑма ҫинче ҫаврашка тата йӗпӗ ӳкерес тесе shift+click йе right-click ҫине пус.</string>
-  <string name="confirmResignation">Парӑнасса ҫирӗплетесси</string>
   <string name="letOtherPlayersMessageYou">Ытти вӑйӑҫ ман пата ҫырасси</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Есӗ ҫак пуштӑпа регистратсиленнӗ-ха: %s</string>
   <string name="kidMode">Ача-пӑча решимӗ</string>

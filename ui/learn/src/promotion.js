@@ -28,7 +28,7 @@ function finish(role) {
   promoting = false;
 }
 
-function renderPromotion(dest, pieces, color, orientation, explain) {
+function renderPromotion(ctrl, dest, pieces, color, orientation, explain) {
   if (!promoting) return;
 
   var left = (8 - key2pos(dest)[0]) * 12.5;
@@ -46,16 +46,16 @@ function renderPromotion(dest, pieces, color, orientation, explain) {
         }
       }, m('piece.' + serverRole + '.' + color));
     }),
-    explain ? renderExplanation() : null
+    explain ? renderExplanation(ctrl) : null
   ]);
 }
 
-function renderExplanation() {
+function renderExplanation(ctrl) {
   return m('div.explanation', [
-    m('h2', 'Pawn promotion'),
-    m('p', 'Your pawn reached the end of the board!'),
-    m('p', 'It now promotes to a stronger piece.'),
-    m('p', 'Select the piece you want!')
+    m('h2', ctrl.trans.noarg('pawnPromotion')),
+    m('p', ctrl.trans.noarg('yourPawnReachedTheEndOfTheBoard')),
+    m('p', ctrl.trans.noarg('itNowPromotesToAStrongerPiece')),
+    m('p', ctrl.trans.noarg('selectThePieceYouWant'))
   ]);
 }
 
@@ -63,11 +63,12 @@ module.exports = {
 
   start: start,
 
-  view: function(stage) {
+  view: function(ctrl, stage) {
     if (!promoting) return;
     var pieces = ['queen', 'knight', 'rook', 'bishop'];
 
     return renderPromotion(
+      ctrl,
       promoting.dest,
       pieces,
       opposite(ground.data().turnColor),
