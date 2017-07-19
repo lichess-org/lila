@@ -1,25 +1,75 @@
-.activity section::before {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 15px;
-  z-index: -1;
-  display: block;
-  width: 2px;
-  content: "";
-  background-color: #e6ebf1;
+.activity section {
+  font-size: 1.3em;
+  margin-left: 15px;
 }
 .activity section h2 {
+}
+.activity section h2 time {
+  padding: 10px;
   font-weight: bold;
+  text-transform: uppercase;
+  background: #fff;
+  z-index: 2;
+}
+.activity .entries {
+  margin: 30px 40px;
+  margin-top: 0;
+  position: relative;
+  border-left: 2px solid #e6ebf1;
 }
 .activity .entry {
-  padding: 20px;
+  margin-left: 26px;
+  padding: 23px 0 23px 15px;
 }
-.activity .entry strong {
-  font-weight: normal;
+.activity .entry:first-child {
+  padding-top: 30px;
 }
-.activity .score {
+.activity .entry:last-child {
+  padding-bottom: 32px;
+}
+.activity .entry i {
+  font-size: 14px;
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin-top: -7px;
+  margin-left: -60px;
+  line-height: 28px;
+  text-align: center;
+  background-color: #e6ebf1;
+  border: 2px solid #fff;
+  border-radius: 50%;
+}
+.activity .entry p {
+}
+.activity .entry a {
+  color: #3893E8;
+}
+.activity .entry rating {
+  margin-left: 12px;
+  padding: 2px 5px;
+  opacity: 0.5;
+  font-family: 'Roboto Mono';
+}
+.activity score {
   float: right;
+  font-size: 0.7em;
+  margin-top: 2px;
 }
-.activity .score strong {
+.activity score > * {
+  margin-left: 8px;
+}
+.activity .entry score strong {
+  color: #fff;
+  padding: 2px 4px;
+  border-radius: 20%;
+}
+.activity win strong {
+  background: #759900;
+}
+.activity draw strong {
+  background: #d59120;
+}
+.activity loss strong {
+  background: #dc322f;
 }

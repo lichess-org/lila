@@ -1,49 +1,73 @@
 @(u: User, as: List[lila.activity.ActivityView.AsTo])(implicit ctx: Context)
 
 @import ActivityHtml._
+@import lila.activity.activities._
 
 @moreCss = {
 @cssTag("activity.css")
 }
 
+@renderPractice(p: Map[lila.practice.PracticeStudy, Int]) = {
+<div class="entry practice">
+  <i data-icon=""></i>
+  <p>
+    @p.toList.sortBy(-_._2).map {
+    case (study, nb) => {
+    Practiced @nb positions on <a href="@routes.Practice.show("-", study.slug, study.id.value)">@study.name</a><br />
+    }
+    }
+  </p>
+</div>
+}
+
+@renderPuzzles(p: Puzzles) = {
+<div class="entry puzzles">
+  <i data-icon="-"></i>
+  @scoreHtml(p.score)
+  <p>
+    Solved @p.score.size tactical puzzles
+    @p.score.rp.filterNot(_.isEmpty).map(ratingProgHtml)
+  </p>
+</div>
+}
+
+@renderGames(games: Games) = {
+@games.value.map {
+case (pt, score) => {
+<div class="entry games">
+  <i data-icon="@pt.iconChar"></i>
+  @scoreHtml(score)
+  <p>
+    Played @score.size @pt.name games
+    @score.rp.filterNot(_.isEmpty).map(ratingProgHtml)
+  </p>
+</div>
+}
+}
+}
+
 @user.layout(
 title = s"${u.username} activity",
 evenMoreCss = moreCss) {
-<div class="content_box no_padding activity">
-  <div class="content_box_top">
-    <h1 class="lichess_title">
-      <a href="@routes.User.show(u.username)">
-        @u.username activity
-      </a>
-    </h1>
-  </div>
+<div class="content_box no_padding small_content_box activity">
+  <h1 class="lichess_title">
+    <a href="@routes.User.show(u.username)">
+      @u.username activity
+    </a>
+  </h1>
   <div class="timeline">
     @as.map {
     case lila.activity.ActivityView.AsTo(date, a) => {
     <section>
       <h2>@semanticDate(date)</h2>
-      @a.puzzles.map { p =>
-      <div class="entry puzzles">
-        <strong>Played @p.score.size tactical puzzles</strong>
-        @scoreHtml(p.score)
+      <div class="entries">
+        @a.practice.map(renderPractice)
+        @a.puzzles.map(renderPuzzles)
+        @a.games.map(renderGames)
       </div>
-      }
-      @a.games.map { games =>
-      @games.value.map {
-      case (pt, score) => {
-      <div class="entry games">
-        <strong>Played @score.size @pt.name games</strong>
-        @scoreHtml(score)
-      </div>
-      }
-      }
-      }
     </section>
     }
     }
   </div>
-</h1>
-</div>
-<div class="content_box_content">right here.</div>
 </div>
 }

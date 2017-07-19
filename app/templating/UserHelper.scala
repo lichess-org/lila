@@ -19,9 +19,9 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       case p if p > 0 => s"""<span class="positive" data-icon="N">$p</span>"""
       case p if p < 0 => s"""<span class="negative" data-icon="M">${math.abs(p)}</span>"""
     }
-    val title = if (withTitle) """data-hint="Rating progression over the last twelve games"""" else ""
+    val title = if (withTitle) """ data-hint="Rating progression over the last twelve games"""" else ""
     val klass = if (withTitle) "progress hint--bottom" else "progress"
-    s"""<span $title class="$klass">$span</span>"""
+    s"""<span$title class="$klass">$span</span>"""
   }
 
   val topBarSortedPerfTypes: List[PerfType] = List(

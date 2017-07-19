@@ -2,13 +2,15 @@ package lila.activity
 
 import org.joda.time.DateTime
 
-import lila.user.User
+import lila.study.Study
+import lila.practice.PracticeStudy
 
 import activities._
 
 case class ActivityView(
     games: Option[Games],
-    puzzles: Option[Puzzles]
+    puzzles: Option[Puzzles],
+    practice: Option[Map[PracticeStudy, Int]]
 ) {
 }
 

@@ -9,7 +9,8 @@ import lila.hub.actorApi.round.CorresMoveEvent
 final class Env(
     config: Config,
     db: lila.db.Env,
-    system: akka.actor.ActorSystem
+    system: akka.actor.ActorSystem,
+    practiceApi: lila.practice.PracticeApi
 ) {
 
   private val activityColl = db(config getString "collection.activity")
@@ -19,7 +20,8 @@ final class Env(
   )
 
   val read = new ActivityReadApi(
-    coll = activityColl
+    coll = activityColl,
+    practiceApi = practiceApi
   )
 
   system.lilaBus.subscribe(
@@ -43,6 +45,7 @@ object Env {
   lazy val current: Env = "activity" boot new Env(
     db = lila.db.Env.current,
     config = lila.common.PlayApp loadConfig "activity",
-    system = lila.common.PlayApp.system
+    system = lila.common.PlayApp.system,
+    practiceApi = lila.practice.Env.current.api
   )
 }
