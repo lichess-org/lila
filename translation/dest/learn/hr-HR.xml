@@ -161,4 +161,14 @@ za veliku rokadu!</string>
   <string name="blackJustMovedThePawnByTwoSquares">Crni se upravo pomaknuo pješakom
 za dva polja!
 Uzmi ga en passant.</string>
+  <string name="enPassantOnlyWorksImmediately">En passant je moguće napraviti
+samo neposredno nakon što je protivnik
+pomaknuo pješaka.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">En passant je moguće napraviti
+samo ako je tvoj pješak na petom redu.</string>
+  <string name="takeAllThePawnsEnPassant">Uzmi sve pješake en passant!</string>
+  <string name="enPassantComplete">Čestitke! Sada znaš uzimati en passant.</string>
+  <string name="stalemate">Pat</string>
+  <string name="theGameIsADraw">Partija završava remijem</string>
+  <string name="stalemateIntro">Kada igrač nije pod šahom i nema nijedan legalan potez, onda je pat. Ishod partije je remi: nitko ne pobjeđuje, nitko ne gubi.</string>
 </resources>
