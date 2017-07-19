@@ -48,7 +48,14 @@
   <string name="computerAnalysis">Компьютерный анализ</string>
   <string name="computerAnalysisAvailable">Доступен компьютерный анализ</string>
   <string name="analysis">Анализ</string>
+  <string name="depthX">Глубина просчетов: %s</string>
+  <string name="usingServerAnalysis">Используя компьютерный анализ</string>
+  <string name="loadingEngine">Загрузка движка...</string>
+  <string name="cloudAnalysis">Облачный анализ</string>
+  <string name="goDeeper">Глубже</string>
   <string name="openingExplorer">Анализ дебютных вариантов</string>
+  <string name="realtimeReplay">В реальном времени</string>
+  <string name="openStudy">Начать исследование</string>
   <string name="blunders">Грубые ошибки</string>
   <string name="mistakes">Ошибки</string>
   <string name="inaccuracies">Сомнительные ходы</string>
@@ -494,6 +501,7 @@
   <string name="playOnTheBoardOffline">Играйте оффлайн</string>
   <string name="playOfflineComputer">Играть с компьютером оффлайн</string>
   <string name="opponent">Соперник</string>
+  <string name="learnMenu">Научиться</string>
   <string name="community">Сообщество</string>
   <string name="tools">Инструменты</string>
   <string name="increment">Прибавка</string>
@@ -660,7 +668,7 @@
   <string name="error.min">Значение должно быть больше либо равным %s</string>
   <string name="error.max">Значение должно быть меньше либо равным %s</string>
   <string name="error.unknown">Ошибка</string>
-  <string name="custom">Пользовательская партия</string>
+  <string name="custom">Своя игра</string>
   <string name="notifications">Уведомления</string>
   <string name="challenges">Вызовы</string>
   <string name="perfRatingX">Рейтинг: %s</string>
