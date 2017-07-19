@@ -8,6 +8,7 @@ import lila.db.dsl._
 import lila.rating.BSONHandlers.perfTypeKeyIso
 import lila.rating.PerfType
 import lila.study.Study
+import lila.user.User
 
 private object BSONHandlers {
 
@@ -83,6 +84,9 @@ private object BSONHandlers {
 
   private implicit val corresHandler = Macros.handler[Corres]
 
+  private implicit val matchupsMapHandler = MapDocument.MapHandler[User.ID, Score]
+  private implicit val matchupsHandler = isoHandler[Matchups, Map[User.ID, Score], Bdoc]((m: Matchups) => m.value, Matchups.apply _)
+
   implicit val activityHandler = new lila.db.BSON[Activity] {
 
     private val id = "_id"
@@ -94,6 +98,7 @@ private object BSONHandlers {
     private val practice = "r"
     private val simuls = "s"
     private val corres = "o"
+    private val matchups = "m"
 
     def reads(r: lila.db.BSON.Reader) = Activity(
       id = r.get[Id](id),
@@ -104,7 +109,8 @@ private object BSONHandlers {
       learn = r.getD[Learn](learn),
       practice = r.getD[Practice](practice),
       simuls = r.getD[Simuls](simuls),
-      corres = r.getD[Corres](corres)
+      corres = r.getD[Corres](corres),
+      matchups = r.getD[Matchups](matchups)
     )
 
     def writes(w: lila.db.BSON.Writer, o: Activity) = BSONDocument(
@@ -116,7 +122,8 @@ private object BSONHandlers {
       learn -> w.zero(o.learn),
       practice -> w.zero(o.practice),
       simuls -> w.zero(o.simuls),
-      corres -> w.zero(o.corres)
+      corres -> w.zero(o.corres),
+      matchups -> w.zero(o.matchups)
     )
   }
 }

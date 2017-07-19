@@ -15,7 +15,8 @@ case class Activity(
     learn: Learn,
     practice: Practice,
     simuls: Simuls,
-    corres: Corres
+    corres: Corres,
+    matchups: Matchups
 ) {
 
   def userId = id.userId
@@ -47,6 +48,7 @@ object Activity {
     learn = LearnZero.zero,
     practice = PracticeZero.zero,
     simuls = SimulsZero.zero,
-    corres = CorresZero.zero
+    corres = CorresZero.zero,
+    matchups = MatchupsZero.zero
   )
 }
