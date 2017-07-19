@@ -18,7 +18,7 @@ i18n: @Html(J.stringify(i18nFullDbJsObject(lila.i18n.I18nDb.Learn)))
 }
 
 @base.layout(
-title = trans.learnChessByPlaying.txt(),
+title = s"${trans.learn.learnChess.txt()} - ${trans.learn.byPlaying.txt()}",
 side = side.some,
 moreJs = moreJs,
 moreCss = cssTag("learn.css"),
