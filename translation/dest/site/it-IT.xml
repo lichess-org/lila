@@ -713,7 +713,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="directlySupportLichess">Supporta Lichess</string>
   <string name="playChessInStyle">Gioca a scacchi con stile</string>
   <string name="chessBasics">Basi scacchistiche</string>
-  <string name="learnChessByPlaying">Impara giocando a scacchi</string>
   <string name="coaches">Allenatori</string>
   <string name="invalidPgn">PGN non valido</string>
   <string name="invalidFen">FEN non valido</string>
