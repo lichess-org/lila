@@ -142,4 +142,14 @@ da napraviš veliku rokadu!</string>
 Pomakni ga, i onda napravi malu rokadu.</string>
   <string name="castleKingSideMovePiecesFirst">Napravi malu rokadu!
 Ali prvo moraš pomaknuti figure.</string>
+  <string name="castleQueenSideMovePiecesFirst">Napravi veliku rokadu!
+Ali prvo moraš pomaknuti figure.</string>
+  <string name="youCannotCastleIfMoved">Ne možeš napraviti rokadu ako
+se kralj već pomaknuo 
+ili se top već pomaknuo.</string>
+  <string name="youCannotCastleIfAttacked">Ne možeš rokirati ako bi
+kralj u međuvremenu prošao kroz šah.
+Blokiraj šah i tek onda rokiraj!</string>
+  <string name="findAWayToCastleKingSide">Pronađi način 
+za malu rokadu!</string>
 </resources>
