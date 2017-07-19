@@ -685,7 +685,6 @@
   <string name="directlySupportLichess">สนับสนุน Lichess โดยตรง</string>
   <string name="playChessInStyle">เล่นหมากรุกแบบมีสไตล์</string>
   <string name="chessBasics">พื้นฐานหมากรุก</string>
-  <string name="learnChessByPlaying">เรียนรู้หมากรุกด้วยการเล่น</string>
   <string name="coaches">ผู้ฝึกสอน</string>
   <string name="invalidPgn">PGN ไม่ถูกต้อง</string>
   <string name="invalidFen">FEN ไม่ถูกต้อง</string>
