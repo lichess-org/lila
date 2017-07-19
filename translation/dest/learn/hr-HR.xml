@@ -171,4 +171,8 @@ samo ako je tvoj pješak na petom redu.</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Partija završava remijem</string>
   <string name="stalemateIntro">Kada igrač nije pod šahom i nema nijedan legalan potez, onda je pat. Ishod partije je remi: nitko ne pobjeđuje, nitko ne gubi.</string>
+  <string name="stalemateGoal">Da patiraš crnog:
+- crni se ne može nikamo pomaknuti
+- nema šaha.</string>
+  <string name="stalemateComplete">Čestitke! Bolje biti patiran nego matiran!</string>
 </resources>
