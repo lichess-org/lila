@@ -97,26 +97,26 @@ private object BSONHandlers {
 
     def reads(r: lila.db.BSON.Reader) = Activity(
       id = r.get[Id](id),
-      games = r.getD[Games](games),
-      comps = r.getD[CompAnalysis](comps),
-      posts = r.getD[Posts](posts),
-      puzzles = r.getD[Puzzles](puzzles),
-      learn = r.getD[Learn](learn),
-      practice = r.getD[Practice](practice),
-      simuls = r.getD[Simuls](simuls),
-      corres = r.getD[Corres](corres)
+      games = r.getO[Games](games),
+      comps = r.getO[CompAnalysis](comps),
+      posts = r.getO[Posts](posts),
+      puzzles = r.getO[Puzzles](puzzles),
+      learn = r.getO[Learn](learn),
+      practice = r.getO[Practice](practice),
+      simuls = r.getO[Simuls](simuls),
+      corres = r.getO[Corres](corres)
     )
 
     def writes(w: lila.db.BSON.Writer, o: Activity) = BSONDocument(
       id -> o.id,
-      games -> w.zero(o.games),
-      comps -> w.zero(o.comps),
-      posts -> w.zero(o.posts),
-      puzzles -> w.zero(o.puzzles),
-      learn -> w.zero(o.learn),
-      practice -> w.zero(o.practice),
-      simuls -> w.zero(o.simuls),
-      corres -> w.zero(o.corres)
+      games -> o.games,
+      comps -> o.comps,
+      posts -> o.posts,
+      puzzles -> o.puzzles,
+      learn -> o.learn,
+      practice -> o.practice,
+      simuls -> o.simuls,
+      corres -> o.corres
     )
   }
 }

@@ -123,6 +123,7 @@ trait OptionSteroids {
     def |(a: => A): A = self getOrElse a
 
     def unary_~(implicit z: Zero[A]): A = self getOrElse z.zero
+    def orDefault(implicit z: Zero[A]): A = self getOrElse z.zero
 
     def toSuccess[E](e: => E): scalaz.Validation[E, A] = o.toSuccess(self)(e)
 

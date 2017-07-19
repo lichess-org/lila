@@ -22,18 +22,20 @@ evenMoreCss = moreCss) {
     case lila.activity.ActivityView.AsTo(date, a) => {
     <section>
       <h2>@semanticDate(date)</h2>
-      @defining(a.puzzles) { p =>
+      @a.puzzles.map { p =>
       <div class="entry puzzles">
         <strong>Played @p.score.size tactical puzzles</strong>
         @scoreHtml(p.score)
       </div>
       }
-      @a.games.value.map {
+      @a.games.map { games =>
+      @games.value.map {
       case (pt, score) => {
       <div class="entry games">
         <strong>Played @score.size @pt.name games</strong>
         @scoreHtml(score)
       </div>
+      }
       }
       }
     </section>

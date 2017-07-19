@@ -18,23 +18,24 @@ private object ActivityAggregation {
       RatingProg(Rating(before), Rating(before + ~player.ratingDiff))
     }
     )
-    newCorres = if (game.isCorrespondence) a.corres + (GameId(game.id), false, true) else a.corres
   } yield a.copy(
-    games = a.games.add(pt, score),
-    corres = newCorres
+    games = a.games.orDefault.add(pt, score).some,
+    corres =
+    if (game.isCorrespondence) Some { ~a.corres + (GameId(game.id), false, true) }
+    else a.corres
   )
 
   def analysis(analysis: Analysis)(a: Activity): Option[Activity] =
-    a.copy(comps = a.comps + GameId(analysis.id)).some
+    a.copy(comps = Some(~a.comps + GameId(analysis.id))).some
 
   def forumPost(post: lila.forum.Post, topic: lila.forum.Topic)(a: Activity) =
     post.userId map { userId =>
-      a.copy(posts = a.posts.+(Posts.PostId(post.id), Posts.TopicId(topic.id)))
+      a.copy(posts = Some(a.posts.orDefault.+(Posts.PostId(post.id), Posts.TopicId(topic.id))))
     }
 
   def puzzle(res: lila.puzzle.Puzzle.UserResult)(a: Activity) =
-    a.copy(puzzles = a.puzzles + Score.make(
+    a.copy(puzzles = Some(~a.puzzles + Score.make(
       res = res.result.win.some,
       rp = RatingProg(Rating(res.rating._1), Rating(res.rating._2)).some
-    )).some
+    ))).some
 }

@@ -8,14 +8,14 @@ import activities._
 
 case class Activity(
     id: Activity.Id,
-    games: Games,
-    comps: CompAnalysis,
-    posts: Posts,
-    puzzles: Puzzles,
-    learn: Learn,
-    practice: Practice,
-    simuls: Simuls,
-    corres: Corres
+    games: Option[Games] = None,
+    comps: Option[CompAnalysis] = None,
+    posts: Option[Posts] = None,
+    puzzles: Option[Puzzles] = None,
+    learn: Option[Learn] = None,
+    practice: Option[Practice] = None,
+    simuls: Option[Simuls] = None,
+    corres: Option[Corres] = None
 ) {
 
   def date = Activity.Day.genesis plusDays id.day.value
@@ -40,15 +40,5 @@ object Activity {
     }
   }
 
-  def make(userId: User.ID) = Activity(
-    id = Id today userId,
-    games = GamesZero.zero,
-    posts = PostsZero.zero,
-    comps = CompsZero.zero,
-    puzzles = PuzzlesZero.zero,
-    learn = LearnZero.zero,
-    practice = PracticeZero.zero,
-    simuls = SimulsZero.zero,
-    corres = CorresZero.zero
-  )
+  def make(userId: User.ID) = Activity(Id today userId)
 }

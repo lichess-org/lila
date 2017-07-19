@@ -29,10 +29,10 @@ final class ActivityWriteApi(coll: Coll) {
     update(res.userId) { ActivityAggregation.puzzle(res) _ }
 
   def learn(userId: User.ID, stage: String) =
-    update(userId) { a => a.copy(learn = a.learn + Learn.Stage(stage)).some }
+    update(userId) { a => a.copy(learn = Some(~a.learn + Learn.Stage(stage))).some }
 
   def practice(prog: lila.practice.PracticeProgress.OnComplete) =
-    update(prog.userId) { a => a.copy(practice = a.practice + prog.studyId).some }
+    update(prog.userId) { a => a.copy(practice = Some(~a.practice + prog.studyId)).some }
 
   def simul(simul: lila.simul.Simul) =
     simulParticipant(simul, simul.hostId, true) >>
@@ -40,11 +40,11 @@ final class ActivityWriteApi(coll: Coll) {
 
   def corresMove(gameId: Game.ID, userId: User.ID) =
     update(userId) { a =>
-      a.copy(corres = a.corres + (GameId(gameId), true, false)).some
+      a.copy(corres = Some(~a.corres + (GameId(gameId), true, false))).some
     }
 
   private def simulParticipant(simul: lila.simul.Simul, userId: String, host: Boolean) =
-    update(userId) { a => a.copy(simuls = a.simuls + SimulId(simul.id)).some }
+    update(userId) { a => a.copy(simuls = Some(~a.simuls + SimulId(simul.id))).some }
 
   private def get(userId: User.ID) = coll.byId[Activity, Id](Id today userId)
   private def getOrCreate(userId: User.ID) = get(userId) map { _ | Activity.make(userId) }

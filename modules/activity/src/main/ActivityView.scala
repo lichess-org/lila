@@ -7,8 +7,8 @@ import lila.user.User
 import activities._
 
 case class ActivityView(
-    games: Games,
-    puzzles: Puzzles
+    games: Option[Games],
+    puzzles: Option[Puzzles]
 ) {
 }
 
