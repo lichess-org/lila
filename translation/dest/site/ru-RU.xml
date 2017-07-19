@@ -224,6 +224,16 @@
   <string name="incrementInSeconds">Прибавка в секундах</string>
   <string name="freeOnlineChess">Бесплатные онлайн-шахматы</string>
   <string name="spectators">Зрители:</string>
+  <plurals name="nbGamesPlayed">
+    <item quantity="one">%s игра сыграна</item>
+    <item quantity="few">Сыграно игр: %s</item>
+    <item quantity="other">Сыграно игр: %s</item>
+  </plurals>
+  <plurals name="nbRated">
+    <item quantity="one">Рейтинг для %s игры</item>
+    <item quantity="few">Рейтинг для %s игр</item>
+    <item quantity="other">Рейтинг для %s игр</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s выиграно</item>
     <item quantity="few">%s выиграно</item>
@@ -248,6 +258,7 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Этот игрок использует помощь шахматной программы (читер)</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Этот игрок искусственно увеличивал либо уменьшал свой рейтинг</string>
+  <string name="openingExplorerAndTablebase">Открываем проводник &amp; таблицу базы</string>
   <string name="takeback">Вернуть ход</string>
   <string name="proposeATakeback">Попросить соперника вернуть ход</string>
   <string name="takebackPropositionSent">Предложение возврата отправлено</string>
@@ -297,6 +308,8 @@
   <string name="fromPosition">С позиции</string>
   <string name="continueFromHere">Продолжить с данного места</string>
   <string name="importGame">Импорт игры</string>
+  <string name="importGameExplanation">При вставке PGN игры вы получаете повтор в браузере,
+компьютерный анализ, игровой чат и ссылку, которой можно поделиться.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Импортированная игра</item>
     <item quantity="few">%s Импортированные игры</item>
@@ -360,7 +373,17 @@
   <string name="tournamentPairingsAreNowClosed">Жеребьёвка турнира в настоящее время закрыта.</string>
   <string name="standByX">Ожидайте, %s, жеребьёвка игроков, будьте готовы!</string>
   <string name="youArePlaying">Вы в игре!</string>
+  <string name="winRate">Коэффициент победы</string>
+  <string name="berserkRate">Коэффициент ставок</string>
+  <string name="performance">Эффективность</string>
+  <string name="tournamentComplete">Соревнование завершено</string>
   <string name="movesPlayed">Ходов сыграно</string>
+  <string name="whiteWins">Белые выиграли</string>
+  <string name="blackWins">Черные выиграли</string>
+  <string name="draws">Ничья</string>
+  <string name="nextXTournament">Следующий %s турнир:</string>
+  <string name="viewMoreTournaments">Просмотреть больше турниров</string>
+  <string name="averageOpponent">Средний рейтинг соперника</string>
   <string name="membersOnly">Только для зарегистрированных</string>
   <string name="boardEditor">Редактор доски</string>
   <string name="startPosition">Начальная позиция</string>
@@ -473,6 +496,7 @@
   <string name="closeAccountExplanation">Вы действительно желаете удалить свой аккаунт? Удаление аккаунта невозможно отменить. Вы больше не сможете зайти в игру, и ваша страница больше не будет доступна.</string>
   <string name="thisAccountIsClosed">Профиль этого пользователя был удалён.</string>
   <string name="invalidUsernameOrPassword">Неправильное имя или пароль</string>
+  <string name="incorrectPassword">Неверный пароль</string>
   <string name="emailMeALink">Выслать ссылку</string>
   <string name="currentPassword">Текущий пароль</string>
   <string name="newPassword">Новый пароль</string>
@@ -566,7 +590,9 @@
   <string name="error.email">Адрес электронной почты является недействительным</string>
   <string name="error.email_acceptable">Адрес электронной почты не является приемлемым</string>
   <string name="error.email_unique">Адрес электронной почты занят</string>
+  <string name="error.email_different">Это ваш текущий адрес почты</string>
   <string name="blindfoldChess">Играть с завязанными глазами (невидимые фигуры)</string>
+  <string name="zenMode">Режим Дзен</string>
   <string name="moveConfirmation">Подтвердить ход</string>
   <string name="inCorrespondenceGames">В игре по переписке</string>
   <string name="ifRatingIsPlusMinusX">Если рейтинг ± %s</string>
@@ -654,6 +680,7 @@
   <string name="crosstable">Счёт</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Можно использовать колёсико над доской для перемотки ходов.</string>
   <string name="analysisShapesHowTo">Чтобы рисовать кружки и стрелки на доске, используйте Shift+левую кнопку мыши или правую кнопку.</string>
+  <string name="confirmResignationAndDrawOffers">Подтверждать возврат хода и предложения ничей</string>
   <string name="inputMovesWithTheKeyboard">Вводить ходы с помощью клавиатуры</string>
   <string name="letOtherPlayersMessageYou">Позволить присылать Вам сообщения</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Рокировать перемещением короля на две клетки или нажатием на ладью</string>
@@ -697,6 +724,7 @@
   <string name="xLikesY">%1$s отметил %2$s как понравившееся</string>
   <string name="quickPairing">Быстрый старт</string>
   <string name="lobby">Лобби</string>
+  <string name="anonymous">Анонимно</string>
   <string name="yourScore">Ваш результат: %s</string>
   <string name="language">Язык</string>
   <string name="background">Фон</string>
