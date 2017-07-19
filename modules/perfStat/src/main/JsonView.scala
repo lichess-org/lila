@@ -51,7 +51,7 @@ final class JsonView(getLightUser: LightUser.GetterSync) {
 
 object JsonView {
 
-  private def truncate(v: Double) = lila.common.Maths.truncateAt(v, 2)
+  private def truncate(v: Double, depth: Int = 2) = lila.common.Maths.truncateAt(v, depth)
 
   private val isoFormatter = ISODateTimeFormat.dateTime
   private implicit val dateWriter: Writes[DateTime] = Writes { d =>
@@ -64,7 +64,7 @@ object JsonView {
     Json.obj(
       "rating" -> truncate(p.rating),
       "deviation" -> truncate(p.deviation),
-      "volatility" -> truncate(p.volatility),
+      "volatility" -> truncate(p.volatility, 3),
       "provisional" -> p.provisional
     )
   }
