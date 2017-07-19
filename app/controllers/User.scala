@@ -12,8 +12,8 @@ import lila.common.paginator.Paginator
 import lila.common.{ IpAddress, HTTPRequest }
 import lila.game.{ GameRepo, Game => GameModel }
 import lila.rating.PerfType
-import lila.user.{ User => UserModel, UserRepo }
 import lila.socket.UserLagCache
+import lila.user.{ User => UserModel, UserRepo }
 import views._
 
 object User extends LilaController {
@@ -321,5 +321,13 @@ object User extends LilaController {
 
   def myself = Auth { ctx => me =>
     fuccess(Redirect(routes.User.show(me.username)))
+  }
+
+  def activity(username: String) = Open { implicit ctx =>
+    OptionFuResult(UserRepo named username) { user =>
+      Env.activity.read.recent(user.id, 3) map { as =>
+        Ok(html.activity.list(user, as))
+      }
+    }
   }
 }

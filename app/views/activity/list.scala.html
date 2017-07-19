@@ -1,0 +1,47 @@
+@(u: User, as: List[lila.activity.ActivityView.AsTo])(implicit ctx: Context)
+
+@import ActivityHtml._
+
+@moreCss = {
+@cssTag("activity.css")
+}
+
+@user.layout(
+title = s"${u.username} activity",
+evenMoreCss = moreCss) {
+<div class="content_box no_padding activity">
+  <div class="content_box_top">
+    <h1 class="lichess_title">
+      <a href="@routes.User.show(u.username)">
+        @u.username activity
+      </a>
+    </h1>
+  </div>
+  <div class="timeline">
+    @as.map {
+    case lila.activity.ActivityView.AsTo(date, a) => {
+    <section>
+      <h2>@semanticDate(date)</h2>
+      @defining(a.puzzles) { p =>
+      <div class="entry puzzles">
+        <strong>Played @p.score.size tactical puzzles</strong>
+        @scoreHtml(p.score)
+      </div>
+      }
+      @a.games.value.map {
+      case (pt, score) => {
+      <div class="entry games">
+        <strong>Played @score.size @pt.name games</strong>
+        @scoreHtml(score)
+      </div>
+      }
+      }
+    </section>
+    }
+    }
+  </div>
+</h1>
+</div>
+<div class="content_box_content">right here.</div>
+</div>
+}

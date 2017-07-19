@@ -1,0 +1,25 @@
+.activity section::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 15px;
+  z-index: -1;
+  display: block;
+  width: 2px;
+  content: "";
+  background-color: #e6ebf1;
+}
+.activity section h2 {
+  font-weight: bold;
+}
+.activity .entry {
+  padding: 20px;
+}
+.activity .entry strong {
+  font-weight: normal;
+}
+.activity .score {
+  float: right;
+}
+.activity .score strong {
+}
