@@ -3,7 +3,6 @@ package lila.activity
 import ornicar.scalalib.Zero
 import lila.rating.PerfType
 import lila.study.Study
-import lila.user.User
 import model._
 
 object activities {
@@ -68,7 +67,4 @@ object activities {
     )
   }
   implicit val CorresZero = Zero.instance(Corres(0, Nil, Nil))
-
-  case class Matchups(value: Map[User.ID, Score]) extends AnyVal
-  implicit val MatchupsZero = Zero.instance(Matchups(Map.empty))
 }
