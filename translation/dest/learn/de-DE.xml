@@ -131,7 +131,7 @@
 -Es wird kein Schach geboten.</string>
   <string name="stalemateComplete">Herzlichen Glückwunsch! Lieber Patt als Matt!</string>
   <string name="advanced">Fortgeschritten</string>
-  <string name="pieceValue">Wert der Figuren</string>
+  <string name="pieceValue">Figurenwerte</string>
   <string name="evaluatePieceStrength">Bewerte die Stärke der Figuren</string>
   <string name="pieceValueIntro">Figuren mit mehr Zugmöglichkeiten besitzen einen höheren Wert!
 Dame = 9
@@ -148,7 +148,7 @@ Turm = 5
 Läufer = 3
 Springer= 3
 Bauer = 1</string>
-  <string name="checkInTwo">Schach in zwei Zügen</string>
+  <string name="checkInTwo">Schach in 2</string>
   <string name="twoMovesToGiveCheck">Zwei Züge um Schach zu bieten</string>
   <string name="checkInTwoIntro">Finde die richtige Kombination von zwei Zügen, die den gegnerischen König Schach setzt!</string>
   <string name="checkInTwoGoal">Bedrohe den gegnerischen König in zwei Zügen!</string>
@@ -156,7 +156,7 @@ Bauer = 1</string>
   <string name="whatNext">Wie geht es weiter?</string>
   <string name="youKnowHowToPlayChess">Glückwunsch, du weißt jetzt wie man Schach spielt! Möchtest du ein stärkerer Spieler werden?</string>
   <string name="register">Registrieren</string>
-  <string name="getAFreeLichessAccount">Erhalte ein kostenloses Benutzerkonto bei Lichess</string>
+  <string name="getAFreeLichessAccount">Kostenloses Benutzerkonto</string>
   <string name="practice">Üben</string>
   <string name="puzzles">Aufgaben</string>
   <string name="exerciseYourTacticalSkills">Trainiere deine taktischen Fähigkeiten</string>
