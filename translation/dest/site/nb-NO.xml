@@ -46,7 +46,16 @@
   <string name="viewTheComputerAnalysis">Se computeranalyse</string>
   <string name="requestAComputerAnalysis">Be om computeranalyse</string>
   <string name="computerAnalysis">Computeranalyse</string>
+  <string name="computerAnalysisAvailable">Datamaskinanalyse tilgjengelig</string>
   <string name="analysis">Analysebrett</string>
+  <string name="depthX">Dybde %s</string>
+  <string name="usingServerAnalysis">Bruker serveranalyse</string>
+  <string name="loadingEngine">Laster sjakkmotor ...</string>
+  <string name="cloudAnalysis">Skyanalyse</string>
+  <string name="goDeeper">Gå dypere</string>
+  <string name="showThreat">Vis trussel</string>
+  <string name="inLocalBrowser">i nettleser</string>
+  <string name="move">Trekk</string>
   <string name="openingExplorer">Åpningsutforsker &amp; database</string>
   <string name="blunders">Bukker</string>
   <string name="mistakes">Feil</string>
