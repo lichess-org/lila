@@ -582,7 +582,7 @@
     <item quantity="one">%s message posté</item>
     <item quantity="other">%s messages postés</item>
   </plurals>
-  <string name="tpTimeSpentPlaying">Temps total joué : %s</string>
+  <string name="tpTimeSpentPlaying">Temps total à jouer : %s</string>
   <string name="watchGames">Regarder ses parties</string>
   <string name="tpTimeSpentOnTV">Temps passé à la TV : %s</string>
   <string name="watch">Regarder</string>
