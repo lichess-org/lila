@@ -713,7 +713,6 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="directlySupportLichess">Directly support Lichess</string>
   <string name="playChessInStyle">Play chess in style</string>
   <string name="chessBasics">Chess basics</string>
-  <string name="learnChessByPlaying">Learn chess by playing</string>
   <string name="coaches">Coaches</string>
   <string name="invalidPgn">Invalid PGN</string>
   <string name="invalidFen">Invalid FEN</string>
