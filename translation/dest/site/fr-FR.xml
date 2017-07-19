@@ -712,7 +712,6 @@
   <string name="directlySupportLichess">Financer Lichess</string>
   <string name="playChessInStyle">Jouez stylé</string>
   <string name="chessBasics">Bases des échecs</string>
-  <string name="learnChessByPlaying">Apprendre les échecs en jouant</string>
   <string name="coaches">Coachs</string>
   <string name="invalidPgn">PGN non valide</string>
   <string name="invalidFen">FEN non valide</string>
