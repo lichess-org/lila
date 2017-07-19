@@ -51,32 +51,30 @@ private final class PushApi(
       }
     }.sequenceFu.void
 
-  def move(move: MoveEvent): Funit = move.mobilePushable ?? {
-    scheduler.after(2 seconds) {
-      GameRepo game move.gameId flatMap {
-        _.filter(_.playable) ?? { game =>
-          val pov = Pov(game, game.player.color)
-          game.player.userId ?? { userId =>
-            IfAway(pov) {
-              game.pgnMoves.lastOption ?? { sanMove =>
-                pushToAll(userId, _.move, PushApi.Data(
-                  title = "It's your turn!",
-                  body = s"${opponentName(pov)} played $sanMove",
-                  stacking = Stacking.GameMove,
-                  payload = Json.obj(
-                    "userId" -> userId,
-                    "userData" -> Json.obj(
-                      "type" -> "gameMove",
-                      "gameId" -> game.id,
-                      "fullId" -> pov.fullId,
-                      "color" -> pov.color.name,
-                      "fen" -> Forsyth.exportBoard(game.toChess.board),
-                      "lastMove" -> game.castleLastMoveTime.lastMoveString,
-                      "secondsLeft" -> pov.remainingSeconds
-                    )
+  def move(move: MoveEvent): Funit = scheduler.after(2 seconds) {
+    GameRepo game move.gameId flatMap {
+      _.filter(_.playable) ?? { game =>
+        val pov = Pov(game, game.player.color)
+        game.player.userId ?? { userId =>
+          IfAway(pov) {
+            game.pgnMoves.lastOption ?? { sanMove =>
+              pushToAll(userId, _.move, PushApi.Data(
+                title = "It's your turn!",
+                body = s"${opponentName(pov)} played $sanMove",
+                stacking = Stacking.GameMove,
+                payload = Json.obj(
+                  "userId" -> userId,
+                  "userData" -> Json.obj(
+                    "type" -> "gameMove",
+                    "gameId" -> game.id,
+                    "fullId" -> pov.fullId,
+                    "color" -> pov.color.name,
+                    "fen" -> Forsyth.exportBoard(game.toChess.board),
+                    "lastMove" -> game.castleLastMoveTime.lastMoveString,
+                    "secondsLeft" -> pov.remainingSeconds
                   )
-                ))
-              }
+                )
+              ))
             }
           }
         }

@@ -11,6 +11,7 @@ final class ActivityWriteApi(coll: Coll) {
   import Activity._
   import BSONHandlers._
   import activities._
+  import model._
 
   def game(game: Game): Funit = game.userIds.map { userId =>
     update(userId) { ActivityAggregation.game(game, userId) _ }
@@ -36,6 +37,11 @@ final class ActivityWriteApi(coll: Coll) {
   def simul(simul: lila.simul.Simul) =
     simulParticipant(simul, simul.hostId, true) >>
       simul.pairings.map(_.player.user).map { simulParticipant(simul, _, false) }.sequenceFu.void
+
+  def corresMove(gameId: Game.ID, userId: User.ID) =
+    update(userId) { a =>
+      a.copy(corres = a.corres + (GameId(gameId), true, false)).some
+    }
 
   private def simulParticipant(simul: lila.simul.Simul, userId: String, host: Boolean) =
     update(userId) { a => a.copy(simuls = a.simuls + SimulId(simul.id)).some }

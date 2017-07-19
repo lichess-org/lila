@@ -4,6 +4,8 @@ import akka.actor._
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
+import lila.hub.actorApi.round.CorresMoveEvent
+
 final class Env(
     config: Config,
     db: lila.db.Env,
@@ -29,9 +31,10 @@ final class Env(
         case res: lila.puzzle.Puzzle.UserResult => write puzzle res
         case prog: lila.practice.PracticeProgress.OnComplete => write practice prog
         case lila.simul.Simul.OnStart(simul) => write simul simul
+        case CorresMoveEvent(move, Some(userId), _, _) => write.corresMove(move.gameId, userId)
       }
     })),
-    'finishGame, 'analysisReady, 'forumPost, 'finishPuzzle, 'finishPractice, 'startSimul
+    'finishGame, 'analysisReady, 'forumPost, 'finishPuzzle, 'finishPractice, 'startSimul, 'moveEventCorres
   )
 }
 

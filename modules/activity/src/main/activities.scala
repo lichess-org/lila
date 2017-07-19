@@ -58,4 +58,13 @@ object activities {
     def +(s: SimulId) = copy(value = s :: value)
   }
   implicit val SimulsZero = Zero.instance(Simuls(Nil))
+
+  case class Corres(moves: Int, movesIn: List[GameId], end: List[GameId]) {
+    def +(gameId: GameId, moved: Boolean, ended: Boolean) = Corres(
+      moves = moves + (moved ?? 1),
+      movesIn = if (moved) (gameId :: movesIn).take(10) else movesIn,
+      end = if (ended) (gameId :: end).take(10) else end
+    )
+  }
+  implicit val CorresZero = Zero.instance(Corres(0, Nil, Nil))
 }

@@ -1,14 +1,15 @@
 package lila.activity
 
 import lila.analyse.Analysis
-import lila.game.Game
+import lila.game.{ Game, Player }
+import lila.user.User
 
 private object ActivityAggregation {
 
   import activities._
   import model._
 
-  def game(game: Game, userId: String)(a: Activity): Option[Activity] = for {
+  def game(game: Game, userId: User.ID)(a: Activity): Option[Activity] = for {
     pt <- game.perfType
     player <- game playerByUserId userId
     score = Score.make(
@@ -17,7 +18,11 @@ private object ActivityAggregation {
       RatingProg(Rating(before), Rating(before + ~player.ratingDiff))
     }
     )
-  } yield a.copy(games = a.games.add(pt, score))
+    newCorres = if (game.isCorrespondence) a.corres + (GameId(game.id), false, true) else a.corres
+  } yield a.copy(
+    games = a.games.add(pt, score),
+    corres = newCorres
+  )
 
   def analysis(analysis: Analysis)(a: Activity): Option[Activity] =
     a.copy(comps = a.comps + GameId(analysis.id)).some

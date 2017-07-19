@@ -81,6 +81,8 @@ private object BSONHandlers {
   private implicit val simulIdsHandler = bsonArrayToListHandler[SimulId]
   private implicit val simulsHandler = isoHandler[Simuls, List[SimulId], Barr]((s: Simuls) => s.value, Simuls.apply _)
 
+  private implicit val corresHandler = Macros.handler[Corres]
+
   implicit val activityHandler = new lila.db.BSON[Activity] {
 
     private val id = "_id"
@@ -91,6 +93,7 @@ private object BSONHandlers {
     private val learn = "l"
     private val practice = "r"
     private val simuls = "s"
+    private val corres = "o"
 
     def reads(r: lila.db.BSON.Reader) = Activity(
       id = r.get[Id](id),
@@ -100,7 +103,8 @@ private object BSONHandlers {
       puzzles = r.getD[Puzzles](puzzles),
       learn = r.getD[Learn](learn),
       practice = r.getD[Practice](practice),
-      simuls = r.getD[Simuls](simuls)
+      simuls = r.getD[Simuls](simuls),
+      corres = r.getD[Corres](corres)
     )
 
     def writes(w: lila.db.BSON.Writer, o: Activity) = BSONDocument(
@@ -111,7 +115,8 @@ private object BSONHandlers {
       puzzles -> w.zero(o.puzzles),
       learn -> w.zero(o.learn),
       practice -> w.zero(o.practice),
-      simuls -> w.zero(o.simuls)
+      simuls -> w.zero(o.simuls),
+      corres -> w.zero(o.corres)
     )
   }
 }
