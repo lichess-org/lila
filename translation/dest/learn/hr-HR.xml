@@ -152,4 +152,13 @@ kralj u međuvremenu prošao kroz šah.
 Blokiraj šah i tek onda rokiraj!</string>
   <string name="findAWayToCastleKingSide">Pronađi način 
 za malu rokadu!</string>
+  <string name="findAWayToCastleQueenSide">Pronađi način 
+za veliku rokadu!</string>
+  <string name="castlingComplete">Čestitke! Skoro uvijek bi trebao rokirati u partiji.</string>
+  <string name="enPassant">En passant</string>
+  <string name="theSpecialPawnMove">Poseban potez pješaka</string>
+  <string name="enPassantIntro">Kada se protivnički pješak pomakne za dva polja, možeš ga uzeti kao da se pomaknuo za jedno polje.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Crni se upravo pomaknuo pješakom
+za dva polja!
+Uzmi ga en passant.</string>
 </resources>
