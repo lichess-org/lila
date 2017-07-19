@@ -361,7 +361,7 @@
   <string name="whiteWins">Gains blancs</string>
   <string name="blackWins">Gains noirs</string>
   <string name="draws">Nulles</string>
-  <string name="nextXTournament">Prochain tournoi de %s :</string>
+  <string name="nextXTournament">Prochain tournoi de %s :</string>
   <string name="viewMoreTournaments">Voir plus de tournois</string>
   <string name="averageOpponent">Opposition moyenne</string>
   <string name="membersOnly">Membres seulement</string>
@@ -388,12 +388,12 @@
   <string name="onlinePlayers">Joueurs en ligne</string>
   <string name="activeToday">Actifs aujourd\'hui</string>
   <string name="activePlayers">Joueurs actifs</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Attention, la partie est classée, mais sans limite de temps  !</string>
-  <string name="training">Tactique</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Attention, la partie est classée, mais sans limite de temps !</string>
+  <string name="training">Problèmes</string>
   <string name="yourPuzzleRatingX">Votre classement de tactique : %s</string>
   <string name="findTheBestMoveForWhite">Trouvez le meilleur coup pour les Blancs.</string>
   <string name="findTheBestMoveForBlack">Trouvez le meilleur coup pour les Noirs.</string>
-  <string name="toTrackYourProgress">Pour suivre votre progression :</string>
+  <string name="toTrackYourProgress">Pour suivre votre progression :</string>
   <string name="trainingSignupExplanation">Lichess fournit des problèmes adaptés à votre niveau, pour de meilleures sessions d\'entraînement.</string>
   <string name="puzzleId">Problème %s</string>
   <string name="puzzleOfTheDay">Problème du jour</string>
@@ -413,7 +413,7 @@
     <item quantity="one">Joué %s fois</item>
     <item quantity="other">Joué %s fois</item>
   </plurals>
-  <string name="fromGameLink">Tiré de la partie %s</string>
+  <string name="fromGameLink">Extrait de la partie %s</string>
   <string name="startTraining">Commencer l\'entraînement</string>
   <string name="continueTraining">Continuer l\'entraînement</string>
   <string name="retryThisPuzzle">Réessayer ce problème</string>
@@ -429,7 +429,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Aller automatiquement à la prochaine partie après chaque coup</string>
   <string name="autoSwitch">Changement automatique</string>
-  <string name="puzzles">Puzzles</string>
+  <string name="puzzles">Problèmes</string>
   <string name="coordinates">Coordonnées</string>
   <string name="latestUpdates">Dernières mises à jour</string>
   <string name="tournamentWinners">Vainqueurs de tournois</string>
