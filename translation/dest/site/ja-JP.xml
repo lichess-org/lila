@@ -154,7 +154,7 @@
   <string name="password">パスワード</string>
   <string name="haveAnAccount">アカウントをお持ちですか？</string>
   <string name="changePassword">パスワードの変更</string>
-  <string name="changeEmail">メールアドレスを変更する</string>
+  <string name="changeEmail">メールアドレスの変更</string>
   <string name="email">メールアドレス</string>
   <string name="emailIsOptional">メールアドレスは必須ではありません。lichessではパスワードをリセットするために利用します</string>
   <string name="passwordReset">パスワードをリセットする</string>
@@ -694,7 +694,7 @@
   <string name="error.min">%s 以上にしてください</string>
   <string name="error.max">%s 以下にしてください</string>
   <string name="error.unknown">エラー</string>
-  <string name="custom">カスタム設定</string>
+  <string name="custom">自由設定</string>
   <string name="notifications">通知</string>
   <string name="challenges">チャレンジ</string>
   <string name="perfRatingX">レーティング: %s</string>
