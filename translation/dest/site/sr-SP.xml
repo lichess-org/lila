@@ -94,6 +94,17 @@
   <string name="delete">обриши</string>
   <string name="deleteThisImportedGame">Обриши ову увезену партију?</string>
   <string name="replayMode">понављање партије</string>
+  <string name="realtimeReplay">као уживо</string>
+  <string name="byCPL">по CPL-у</string>
+  <string name="openStudy">отвори проблем</string>
+  <string name="enable">укључи</string>
+  <string name="bestMoveArrow">стрелица за најбољи потез</string>
+  <string name="evaluationGauge">клизна полуга за процену</string>
+  <string name="multipleLines">више редова</string>
+  <string name="cpus">процесори</string>
+  <string name="memory">меморија</string>
+  <string name="infiniteAnalysis">бесконачна анализа</string>
+  <string name="removesTheDepthLimit">Уклања ограничење дубине и греје рачунар.</string>
   <string name="blunders">Грубе грешке</string>
   <string name="mistakes">Грешке</string>
   <string name="inaccuracies">Непрецизности</string>
@@ -172,6 +183,7 @@
   <string name="play">Играј</string>
   <string name="inbox">Пријемно сандуче</string>
   <string name="chatRoom">Соба за ћаскање</string>
+  <string name="loginToChat">улогуј се за ћаскање</string>
   <string name="spectatorRoom">Соба за посматраче (кибицере)</string>
   <string name="composeMessage">Напиши поруку</string>
   <string name="noNewMessages">Нема нових порука</string>
