@@ -12,28 +12,28 @@
   z-index: 2;
 }
 .activity .entries {
-  margin: 30px 40px;
+  margin: 30px 50px 30px 50px;
   margin-top: 0;
   position: relative;
   border-left: 2px solid #e6ebf1;
 }
 .activity .entry {
   margin-left: 26px;
-  padding: 23px 0 23px 15px;
+  padding: 23px 0 23px 25px;
 }
 .activity .entry:first-child {
   padding-top: 30px;
 }
 .activity .entry:last-child {
-  padding-bottom: 32px;
+  padding-bottom: 12px;
 }
-.activity .entry i {
+.activity .entry > i {
   font-size: 22px;
   float: left;
   width: 45px;
   height: 45px;
   margin-top: -11px;
-  margin-left: -67px;
+  margin-left: -76px;
   line-height: 42px;
   text-align: center;
   background-color: #e6ebf1;
@@ -69,6 +69,9 @@
   color: #fff;
   padding: 2px 4px;
   border-radius: 20%;
+  min-width: 1em;
+  display: inline-block;
+  text-align: center;
 }
 .activity win strong {
   background: #759900;

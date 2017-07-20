@@ -68,7 +68,10 @@ case (pt, score) => {
     </a>
     <ul>
       @posts.map { post =>
-      <li><a href="@routes.ForumPost.redirect(post.id)">@shorten(post.text, 120)</a></li>
+      <li>
+        @shorten(post.text, 100)
+        <a class="more" href="@routes.ForumPost.redirect(post.id)">@trans.more() »</a>
+      </li>
       }
     </ul>
     }
@@ -84,9 +87,12 @@ case (pt, score) => {
     Played @nb moves in @povs.size correspondence games
     <ul>
       @povs.map { pov =>
-      <li><a href="@routes.Round.watcher(pov.gameId, pov.color.name)">
-          vs @playerLink(pov.opponent, withRating = true, withDiff = false, withOnline = true, link = true)
-      </a></li>
+      <li>
+        <a href="@routes.Round.watcher(pov.gameId, pov.color.name)">
+          @pov.game.opening.map(_.opening.name)
+        </a> vs
+        @playerLink(pov.opponent, withRating = true, withDiff = false, withOnline = true, link = true)
+      </li>
       }
     </ul>
   </p>
@@ -98,6 +104,7 @@ case (pt, score) => {
   <i data-icon=";"></i>
   <p>
     Completed @score.size correspondence games
+    @score.rp.filterNot(_.isEmpty).map(ratingProgHtml)
     @scoreHtml(score)
     <ul>
       @povs.map { pov =>
