@@ -7,6 +7,15 @@
 @cssTag("activity.css")
 }
 
+@renderPatron(p: Patron) = {
+<div class="entry patron">
+  <i data-icon=""></i>
+  <p>
+    Supported lichess for @p.months months as a <a href="@routes.Plan.index">Patron</a>
+  </p>
+</div>
+}
+
 @renderPractice(p: Map[lila.practice.PracticeStudy, Int]) = {
 <div class="entry practice">
   <i data-icon=""></i>
@@ -46,6 +55,27 @@ case (pt, score) => {
 }
 }
 
+@renderPosts(posts: Map[lila.forum.Topic, List[lila.forum.Post]]) = {
+@posts.map {
+case (topic, posts) => {
+<div class="entry posts">
+  <i data-icon="d"></i>
+  <p>
+    Posted @posts.size messages in
+    <a href="@routes.ForumTopic.show(topic.categId, topic.id)" title="@escapeHtml(topic.name)">
+      @shorten(topic.name, 70)
+    </a>
+    <ul>
+      @posts.map { post =>
+      <li><a href="@routes.ForumPost.redirect(post.id)">@shorten(post.text, 120)</a></li>
+      }
+    </ul>
+  </p>
+</div>
+}
+}
+}
+
 @user.layout(
 title = s"${u.username} activity",
 evenMoreCss = moreCss) {
@@ -61,9 +91,11 @@ evenMoreCss = moreCss) {
     <section>
       <h2>@semanticDate(date)</h2>
       <div class="entries">
+        @a.patron.map(renderPatron)
         @a.practice.map(renderPractice)
         @a.puzzles.map(renderPuzzles)
         @a.games.map(renderGames)
+        @a.posts.map(renderPosts)
       </div>
     </section>
     }

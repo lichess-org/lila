@@ -15,7 +15,8 @@ case class Activity(
     learn: Option[Learn] = None,
     practice: Option[Practice] = None,
     simuls: Option[Simuls] = None,
-    corres: Option[Corres] = None
+    corres: Option[Corres] = None,
+    patron: Option[Patron] = None
 ) {
 
   def date = Activity.Day.genesis plusDays id.day.value

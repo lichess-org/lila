@@ -20,6 +20,8 @@ sealed abstract class PostRepo(troll: Boolean) {
 
   private val trollFilter = troll.fold($empty, $doc("troll" -> false))
 
+  def byIds(ids: List[Post.ID]) = coll.byIds[Post](ids)
+
   def byCategAndId(categSlug: String, id: String): Fu[Option[Post]] =
     coll.uno[Post](selectCateg(categSlug) ++ $id(id))
 

@@ -14,17 +14,11 @@ object activities {
   }
   implicit val GamesZero = Zero.instance(Games(Map.empty))
 
-  case class Posts(posts: Map[Posts.TopicId, List[Posts.PostId]]) {
-    def total = posts.foldLeft(0)(_ + _._2.size)
-    def +(postId: Posts.PostId, topicId: Posts.TopicId) = Posts {
-      posts + (topicId -> (postId :: ~posts.get(topicId)))
-    }
+  case class Posts(value: List[PostId]) extends AnyVal {
+    def +(postId: PostId) = Posts(postId :: value)
   }
-  object Posts {
-    case class TopicId(value: String) extends AnyVal
-    case class PostId(value: String) extends AnyVal
-  }
-  implicit val PostsZero = Zero.instance(Posts(Map.empty))
+  case class PostId(value: String) extends AnyVal
+  implicit val PostsZero = Zero.instance(Posts(Nil))
 
   case class CompAnalysis(gameIds: List[GameId]) extends AnyVal {
     def +(gameId: GameId) = CompAnalysis(gameId :: gameIds)
@@ -67,4 +61,6 @@ object activities {
     )
   }
   implicit val CorresZero = Zero.instance(Corres(0, Nil, Nil))
+
+  case class Patron(months: Int) extends AnyVal
 }

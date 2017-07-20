@@ -242,4 +242,5 @@ package study {
 
 package plan {
   case class ChargeEvent(username: String, amount: Int, percent: Int, date: DateTime)
+  case class MonthInc(userId: String, months: Int)
 }

@@ -325,7 +325,7 @@ object User extends LilaController {
 
   def activity(username: String) = Open { implicit ctx =>
     OptionFuResult(UserRepo named username) { user =>
-      Env.activity.read.recent(user.id, 3) map { as =>
+      Env.activity.read.recent(user.id, 30) map { as =>
         Ok(html.activity.list(user, as))
       }
     }

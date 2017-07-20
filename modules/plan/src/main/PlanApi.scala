@@ -134,15 +134,19 @@ final class PlanApi(
                   payPal = payPal.some
                 ).levelUpIfPossible.expireInOneMonth
                 patronColl.update($id(patron.id), p2) >>
-                  setDbUserPlan(
-                    user,
-                    if (patron.canLevelUp) user.plan.incMonths
-                    else user.plan.enable
-                  )
+                  setDbUserPlanOnCharge(user, patron)
             } >>- logger.info(s"Charged ${user.username} with paypal: $cents")
           }
         }
     }
+
+  private def setDbUserPlanOnCharge(user: User, patron: Patron): Funit = {
+    val plan =
+      if (patron.canLevelUp) user.plan.incMonths
+      else user.plan.enable
+    bus.publish(lila.hub.actorApi.plan.MonthInc(user.id, plan.months), 'plan)
+    setDbUserPlan(user, plan)
+  }
 
   def onSubscriptionDeleted(sub: StripeSubscription): Funit =
     customerIdPatron(sub.customer) flatMap {

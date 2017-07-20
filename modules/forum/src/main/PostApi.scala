@@ -134,13 +134,16 @@ final class PostApi(
   def view(post: Post): Fu[Option[PostView]] =
     views(List(post)) map (_.headOption)
 
-  def liteViews(posts: List[Post]): Fu[List[PostLiteView]] = for {
-    topics ← env.topicColl.byIds[Topic](posts.map(_.topicId).distinct)
-  } yield posts flatMap { post =>
-    topics find (_.id == post.topicId) map { topic =>
-      PostLiteView(post, topic)
+  def liteViews(posts: List[Post]): Fu[List[PostLiteView]] =
+    for {
+      topics ← env.topicColl.byIds[Topic](posts.map(_.topicId).distinct)
+    } yield posts flatMap { post =>
+      topics find (_.id == post.topicId) map { topic =>
+        PostLiteView(post, topic)
+      }
     }
-  }
+  def liteViewsByIds(postIds: List[Post.ID]): Fu[List[PostLiteView]] =
+    PostRepo.byIds(postIds) flatMap liteViews
 
   def liteView(post: Post): Fu[Option[PostLiteView]] =
     liteViews(List(post)) map (_.headOption)

@@ -3,12 +3,14 @@ package lila.activity
 import lila.analyse.Analysis
 import lila.db.dsl._
 import lila.game.Game
+import lila.practice.PracticeStructure
 import lila.user.User
 import lila.user.UserRepo.lichessId
 
 final class ActivityReadApi(
     coll: Coll,
-    practiceApi: lila.practice.PracticeApi
+    practiceApi: lila.practice.PracticeApi,
+    postApi: lila.forum.PostApi
 ) {
 
   import Activity._
@@ -20,23 +22,32 @@ final class ActivityReadApi(
     practiceStructure <- as.exists(_.practice.isDefined) ?? {
       practiceApi.structure.get map some
     }
-  } yield as.map { a =>
+    views <- as.map { one(_, practiceStructure) }.sequenceFu
+  } yield views
 
-    val practice = for {
+  private def one(a: Activity, practiceStructure: Option[PracticeStructure]): Fu[ActivityView.AsTo] = for {
+    posts <- a.posts ?? { p =>
+      postApi.liteViewsByIds(p.value.map(_.value)) dmap some
+    }
+    practice = (for {
       p <- a.practice
       struct <- practiceStructure
     } yield p.value flatMap {
       case (studyId, nb) => struct study studyId map (_ -> nb)
-    } toMap
-
-    val view = ActivityView(
+    } toMap)
+    postView = posts.map { p =>
+      p.groupBy(_.topic).mapValues { posts =>
+        posts.map(_.post).sortBy(_.createdAt)
+      }
+    }
+    view = ActivityView(
       games = a.games,
       puzzles = a.puzzles,
-      practice = practice
+      practice = practice,
+      posts = postView,
+      patron = a.patron
     )
-
-    ActivityView.AsTo(a.date, view)
-  }
+  } yield ActivityView.AsTo(a.date, view)
 
   private def makeIds(userId: User.ID, days: Int): List[Id] =
     Day.recent(days).map { Id(userId, _) }

@@ -30,7 +30,7 @@ private object ActivityAggregation {
 
   def forumPost(post: lila.forum.Post, topic: lila.forum.Topic)(a: Activity) =
     post.userId map { userId =>
-      a.copy(posts = Some(a.posts.orDefault.+(Posts.PostId(post.id), Posts.TopicId(topic.id))))
+      a.copy(posts = Some(~a.posts + PostId(post.id)))
     }
 
   def puzzle(res: lila.puzzle.Puzzle.UserResult)(a: Activity) =

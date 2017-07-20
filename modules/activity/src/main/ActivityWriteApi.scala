@@ -43,6 +43,11 @@ final class ActivityWriteApi(coll: Coll) {
       a.copy(corres = Some(~a.corres + (GameId(gameId), true, false))).some
     }
 
+  def plan(userId: User.ID, months: Int) =
+    update(userId) { a =>
+      a.copy(patron = Some(Patron(months))).some
+    }
+
   private def simulParticipant(simul: lila.simul.Simul, userId: String, host: Boolean) =
     update(userId) { a => a.copy(simuls = Some(~a.simuls + SimulId(simul.id))).some }
 

@@ -10,7 +10,8 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     system: akka.actor.ActorSystem,
-    practiceApi: lila.practice.PracticeApi
+    practiceApi: lila.practice.PracticeApi,
+    postApi: lila.forum.PostApi
 ) {
 
   private val activityColl = db(config getString "collection.activity")
@@ -21,7 +22,8 @@ final class Env(
 
   val read = new ActivityReadApi(
     coll = activityColl,
-    practiceApi = practiceApi
+    practiceApi = practiceApi,
+    postApi = postApi
   )
 
   system.lilaBus.subscribe(
@@ -34,6 +36,7 @@ final class Env(
         case prog: lila.practice.PracticeProgress.OnComplete => write practice prog
         case lila.simul.Simul.OnStart(simul) => write simul simul
         case CorresMoveEvent(move, Some(userId), _, _) => write.corresMove(move.gameId, userId)
+        case lila.hub.actorApi.plan.MonthInc(userId, months) => write.plan(userId, months)
       }
     })),
     'finishGame, 'analysisReady, 'forumPost, 'finishPuzzle, 'finishPractice, 'startSimul, 'moveEventCorres
@@ -46,6 +49,7 @@ object Env {
     db = lila.db.Env.current,
     config = lila.common.PlayApp loadConfig "activity",
     system = lila.common.PlayApp.system,
-    practiceApi = lila.practice.Env.current.api
+    practiceApi = lila.practice.Env.current.api,
+    postApi = lila.forum.Env.current.postApi
   )
 }

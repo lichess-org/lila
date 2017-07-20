@@ -45,6 +45,12 @@
 .activity .entry a {
   color: #3893E8;
 }
+.activity .entry ul {
+  font-size: 0.7em;
+}
+.activity .entry li {
+  margin: 5px 0;
+}
 .activity .entry rating {
   margin-left: 12px;
   padding: 2px 5px;

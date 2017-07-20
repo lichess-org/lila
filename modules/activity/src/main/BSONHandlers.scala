@@ -61,11 +61,9 @@ private object BSONHandlers {
   private implicit val gameIdsHandler = bsonArrayToListHandler[GameId]
   private implicit val compAnalysisHandler = isoHandler[CompAnalysis, List[GameId], Barr]((c: CompAnalysis) => c.gameIds, CompAnalysis.apply _)
 
-  private implicit val topicIdIso = Iso.string[Posts.TopicId](Posts.TopicId.apply, _.value)
-  private implicit val postIdHandler = stringAnyValHandler[Posts.PostId](_.value, Posts.PostId.apply)
-  private implicit val postIdsHandler = bsonArrayToListHandler[Posts.PostId]
-  private implicit val postsMapHandler = MapValue.MapHandler[Posts.TopicId, List[Posts.PostId]]
-  private implicit val postsHandler = isoHandler[Posts, Map[Posts.TopicId, List[Posts.PostId]], Bdoc]((p: Posts) => p.posts, Posts.apply _)
+  private implicit val postIdHandler = stringAnyValHandler[PostId](_.value, PostId.apply)
+  private implicit val postIdsHandler = bsonArrayToListHandler[PostId]
+  private implicit val postsHandler = isoHandler[Posts, List[PostId], Barr]((p: Posts) => p.value, Posts.apply _)
 
   private implicit val puzzlesHandler = Macros.handler[Puzzles]
 
@@ -82,6 +80,7 @@ private object BSONHandlers {
   private implicit val simulsHandler = isoHandler[Simuls, List[SimulId], Barr]((s: Simuls) => s.value, Simuls.apply _)
 
   private implicit val corresHandler = Macros.handler[Corres]
+  private implicit val patronHandler = intAnyValHandler[Patron](_.months, Patron.apply)
 
   implicit val activityHandler = new lila.db.BSON[Activity] {
 
@@ -94,6 +93,7 @@ private object BSONHandlers {
     private val practice = "r"
     private val simuls = "s"
     private val corres = "o"
+    private val patron = "a"
 
     def reads(r: lila.db.BSON.Reader) = Activity(
       id = r.get[Id](id),
@@ -104,7 +104,8 @@ private object BSONHandlers {
       learn = r.getO[Learn](learn),
       practice = r.getO[Practice](practice),
       simuls = r.getO[Simuls](simuls),
-      corres = r.getO[Corres](corres)
+      corres = r.getO[Corres](corres),
+      patron = r.getO[Patron](patron)
     )
 
     def writes(w: lila.db.BSON.Writer, o: Activity) = BSONDocument(
@@ -116,7 +117,8 @@ private object BSONHandlers {
       learn -> o.learn,
       practice -> o.practice,
       simuls -> o.simuls,
-      corres -> o.corres
+      corres -> o.corres,
+      patron -> o.patron
     )
   }
 }

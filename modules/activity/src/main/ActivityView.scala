@@ -10,7 +10,9 @@ import activities._
 case class ActivityView(
     games: Option[Games],
     puzzles: Option[Puzzles],
-    practice: Option[Map[PracticeStudy, Int]]
+    practice: Option[Map[PracticeStudy, Int]],
+    patron: Option[Patron],
+    posts: Option[Map[lila.forum.Topic, List[lila.forum.Post]]]
 ) {
 }
 
