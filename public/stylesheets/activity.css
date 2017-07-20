@@ -28,13 +28,13 @@
   padding-bottom: 32px;
 }
 .activity .entry i {
-  font-size: 14px;
+  font-size: 22px;
   float: left;
-  width: 32px;
-  height: 32px;
-  margin-top: -7px;
-  margin-left: -60px;
-  line-height: 28px;
+  width: 45px;
+  height: 45px;
+  margin-top: -11px;
+  margin-left: -67px;
+  line-height: 42px;
   text-align: center;
   background-color: #e6ebf1;
   border: 2px solid #fff;
