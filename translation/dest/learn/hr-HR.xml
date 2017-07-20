@@ -217,4 +217,5 @@ u dva poteza!</string>
   <string name="playMachine">Igraj protiv računala</string>
   <string name="testYourSkillsWithTheComputer">Testiraj svoje vještine protiv računala</string>
   <string name="letsGo">Kreni!</string>
+  <string name="stageX">Razina %s</string>
 </resources>
