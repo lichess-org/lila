@@ -39,7 +39,7 @@ final class Env(
         case lila.hub.actorApi.plan.MonthInc(userId, months) => write.plan(userId, months)
       }
     })),
-    'finishGame, 'analysisReady, 'forumPost, 'finishPuzzle, 'finishPractice, 'startSimul, 'moveEventCorres
+    'finishGame, 'analysisReady, 'forumPost, 'finishPuzzle, 'finishPractice, 'startSimul, 'moveEventCorres, 'plan
   )
 }
 
