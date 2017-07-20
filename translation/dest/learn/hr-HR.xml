@@ -204,4 +204,17 @@ u dva poteza!</string>
   <string name="checkInTwoComplete">Čestitke! Šahirao si protivnika, prisiljavajući ga da obrani svoga protivnika!</string>
   <string name="whatNext">Što dalje?</string>
   <string name="youKnowHowToPlayChess">Sada znaš igrati šah, čestitke! Želiš li postati jači igrač?</string>
+  <string name="register">Registriraj se</string>
+  <string name="getAFreeLichessAccount">Dobij besplatni Lichess račun</string>
+  <string name="practice">Vježbaj</string>
+  <string name="learnCommonChessPositions">Nauči uobičajene šahovske pozicije</string>
+  <string name="puzzles">Problemi</string>
+  <string name="exerciseYourTacticalSkills">Vježbaj svoje taktičke vještine</string>
+  <string name="videos">Videozapisi</string>
+  <string name="watchInstructiveChessVideos">Gledaj poučne šahovske videe</string>
+  <string name="playPeople">Igraj protiv ljudi</string>
+  <string name="opponentsFromAroundTheWorld">Protivnici sa svih strana svijeta</string>
+  <string name="playMachine">Igraj protiv računala</string>
+  <string name="testYourSkillsWithTheComputer">Testiraj svoje vještine protiv računala</string>
+  <string name="letsGo">Kreni!</string>
 </resources>
