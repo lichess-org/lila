@@ -2,7 +2,7 @@ package lila.activity
 
 import lila.analyse.Analysis
 import lila.db.dsl._
-import lila.game.Game
+import lila.game.{ Game, Pov, GameRepo }
 import lila.practice.PracticeStructure
 import lila.user.User
 import lila.user.UserRepo.lichessId
@@ -16,6 +16,7 @@ final class ActivityReadApi(
   import Activity._
   import BSONHandlers._
   import activities._
+  import model._
 
   def recent(userId: User.ID, days: Int): Fu[List[ActivityView.AsTo]] = for {
     as <- coll.byOrderedIds[Activity, Id](makeIds(userId, days))(_.id)
@@ -40,14 +41,36 @@ final class ActivityReadApi(
         posts.map(_.post).sortBy(_.createdAt)
       }
     }
+    corresMoves <- a.corres ?? { corres =>
+      getPovs(a.id.userId, corres.movesIn) dmap {
+        _.map(corres.moves -> _)
+      }
+    }
+    corresEnds <- a.corres ?? { corres =>
+      getPovs(a.id.userId, corres.end) dmap {
+        _.map { povs =>
+          Score.make(povs) -> povs
+        }
+      }
+    }
     view = ActivityView(
       games = a.games,
       puzzles = a.puzzles,
       practice = practice,
       posts = postView,
-      patron = a.patron
+      patron = a.patron,
+      corresMoves = corresMoves,
+      corresEnds = corresEnds
     )
   } yield ActivityView.AsTo(a.date, view)
+
+  private def getPovs(userId: User.ID, gameIds: List[GameId]): Fu[Option[List[Pov]]] = gameIds.nonEmpty ?? {
+    GameRepo.gamesFromSecondary(gameIds.map(_.value)).dmap {
+      _.flatMap {
+        Pov.ofUserId(_, userId)
+      }.some.filter(_.nonEmpty)
+    }
+  }
 
   private def makeIds(userId: User.ID, days: Int): List[Id] =
     Day.recent(days).map { Id(userId, _) }

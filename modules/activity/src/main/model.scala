@@ -15,6 +15,9 @@ object model {
       case (Some(rp1), Some(rp2)) => Some(rp1 + rp2)
       case _ => rp2O orElse rp1O
     }
+    def make(player: lila.game.Player) = player.rating map { rating =>
+      RatingProg(Rating(rating), Rating(rating + ~player.ratingDiff))
+    }
   }
 
   case class Score(win: Int, loss: Int, draw: Int, rp: Option[RatingProg]) {
@@ -27,12 +30,18 @@ object model {
     def size = win + loss + draw
   }
   object Score {
-    def make(res: Option[Boolean], rp: Option[RatingProg]) = Score(
+    def make(res: Option[Boolean], rp: Option[RatingProg]): Score = Score(
       win = res.has(true) ?? 1,
       loss = res.has(false) ?? 1,
       draw = res.isEmpty ?? 1,
       rp = rp
     )
+    def make(povs: List[lila.game.Pov]): Score = povs.foldLeft(ScoreZero.zero) {
+      case (score, pov) if pov.game.finished => score + make(
+        res = pov.game.wonBy(pov.color),
+        rp = RatingProg.make(pov.player)
+      )
+    }
   }
   implicit val ScoreZero = Zero.instance(Score(0, 0, 0, none))
 

@@ -109,7 +109,8 @@ private[round] final class Player(
         move = moveEvent,
         playerUserId = game.player(color).userId,
         mobilePushable = game.mobilePushable,
-        alarmable = game.alarmable
+        alarmable = game.alarmable,
+        unlimited = game.isUnlimited
       ),
       'moveEventCorres
     )

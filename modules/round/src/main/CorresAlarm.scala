@@ -73,7 +73,7 @@ private final class CorresAlarm(
     case lila.game.actorApi.FinishGame(game, _, _) =>
       if (game.hasCorrespondenceClock && !game.hasAi) coll.remove($id(game.id))
 
-    case lila.hub.actorApi.round.CorresMoveEvent(move, _, _, alarmable) if alarmable =>
+    case lila.hub.actorApi.round.CorresMoveEvent(move, _, _, alarmable, _) if alarmable =>
       GameRepo game move.gameId flatMap {
         _ ?? { game =>
           game.bothPlayersHaveMoved ?? {

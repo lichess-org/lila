@@ -2,6 +2,7 @@
 
 @import ActivityHtml._
 @import lila.activity.activities._
+@import lila.activity.model._
 
 @moreCss = {
 @cssTag("activity.css")
@@ -76,6 +77,39 @@ case (pt, score) => {
 </div>
 }
 
+@renderCorresMoves(nb: Int, povs: List[Pov]) = {
+<div class="entry corres_moves">
+  <i data-icon=";"></i>
+  <p>
+    Played @nb moves in @povs.size correspondence games
+    <ul>
+      @povs.map { pov =>
+      <li><a href="@routes.Round.watcher(pov.gameId, pov.color.name)">
+          vs @playerLink(pov.opponent, withRating = true, withDiff = false, withOnline = true, link = true)
+      </a></li>
+      }
+    </ul>
+  </p>
+</div>
+}
+
+@renderCorresEnds(score: Score, povs: List[Pov]) = {
+<div class="entry corres_ends">
+  <i data-icon=";"></i>
+  <p>
+    Completed @score.size correspondence games
+    @scoreHtml(score)
+    <ul>
+      @povs.map { pov =>
+      <li><a href="@routes.Round.watcher(pov.gameId, pov.color.name)">
+          vs @playerLink(pov.opponent, withRating = true, withDiff = false, withOnline = true, link = true)
+      </a></li>
+      }
+    </ul>
+  </p>
+</div>
+}
+
 @user.layout(
 title = s"${u.username} activity",
 evenMoreCss = moreCss) {
@@ -96,6 +130,12 @@ evenMoreCss = moreCss) {
         @a.puzzles.map(renderPuzzles)
         @a.games.map(renderGames)
         @a.posts.map(renderPosts)
+        @a.corresMoves.map {
+        case (nb, povs) => { @renderCorresMoves(nb, povs) }
+        }
+        @a.corresEnds.map {
+        case (score, povs) => { @renderCorresEnds(score, povs) }
+        }
       </div>
     </section>
     }

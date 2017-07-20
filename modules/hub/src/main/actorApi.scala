@@ -200,7 +200,8 @@ package round {
     move: MoveEvent,
     playerUserId: Option[String],
     mobilePushable: Boolean,
-    alarmable: Boolean
+    alarmable: Boolean,
+    unlimited: Boolean
   )
   case class SimulMoveEvent(
     move: MoveEvent,

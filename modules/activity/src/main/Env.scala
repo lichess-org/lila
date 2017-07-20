@@ -35,7 +35,7 @@ final class Env(
         case res: lila.puzzle.Puzzle.UserResult => write puzzle res
         case prog: lila.practice.PracticeProgress.OnComplete => write practice prog
         case lila.simul.Simul.OnStart(simul) => write simul simul
-        case CorresMoveEvent(move, Some(userId), _, _) => write.corresMove(move.gameId, userId)
+        case CorresMoveEvent(move, Some(userId), _, _, false) => write.corresMove(move.gameId, userId)
         case lila.hub.actorApi.plan.MonthInc(userId, months) => write.plan(userId, months)
       }
     })),

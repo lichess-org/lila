@@ -48,7 +48,7 @@ final class Env(
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
       case lila.game.actorApi.FinishGame(game, _, _) => pushApi finish game
-      case lila.hub.actorApi.round.CorresMoveEvent(move, _, pushable, _) if pushable => pushApi move move
+      case lila.hub.actorApi.round.CorresMoveEvent(move, _, pushable, _, _) if pushable => pushApi move move
       case lila.message.Event.NewMessage(t, p) => pushApi newMessage (t, p)
       case lila.challenge.Event.Create(c) => pushApi challengeCreate c
       case lila.challenge.Event.Accept(c, joinerId) => pushApi.challengeAccept(c, joinerId)

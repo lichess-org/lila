@@ -12,16 +12,11 @@ private object ActivityAggregation {
   def game(game: Game, userId: User.ID)(a: Activity): Option[Activity] = for {
     pt <- game.perfType
     player <- game playerByUserId userId
-    score = Score.make(
-      res = game.winnerColor map (player.color ==),
-      rp = player.rating map { before =>
-      RatingProg(Rating(before), Rating(before + ~player.ratingDiff))
-    }
-    )
+    score = Score.make(game wonBy player.color, RatingProg make player)
   } yield a.copy(
-    games = a.games.orDefault.add(pt, score).some,
+    games = if (game.isCorrespondence) a.games else a.games.orDefault.add(pt, score).some,
     corres =
-    if (game.isCorrespondence) Some { ~a.corres + (GameId(game.id), false, true) }
+    if (game.hasCorrespondenceClock) Some { ~a.corres + (GameId(game.id), false, true) }
     else a.corres
   )
 
