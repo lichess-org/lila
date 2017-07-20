@@ -175,4 +175,7 @@ samo ako je tvoj pješak na petom redu.</string>
 - crni se ne može nikamo pomaknuti
 - nema šaha.</string>
   <string name="stalemateComplete">Čestitke! Bolje biti patiran nego matiran!</string>
+  <string name="advanced">Napredno</string>
+  <string name="pieceValue">Vrijednost figura</string>
+  <string name="evaluatePieceStrength">Procijeni vrijednost figura</string>
 </resources>
