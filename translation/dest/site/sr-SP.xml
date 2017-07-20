@@ -90,6 +90,10 @@
   <string name="winPreventedBy50MoveRule">победа спречена правилом о 50 потеза</string>
   <string name="lossSavedBy50MoveRule">пораз спречен правилом о 50 потеза</string>
   <string name="allSet">Све је спремно!</string>
+  <string name="importPgn">увези PGN</string>
+  <string name="delete">обриши</string>
+  <string name="deleteThisImportedGame">Обриши ову увезену партију?</string>
+  <string name="replayMode">понављање партије</string>
   <string name="blunders">Грубе грешке</string>
   <string name="mistakes">Грешке</string>
   <string name="inaccuracies">Непрецизности</string>
