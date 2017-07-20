@@ -18,7 +18,8 @@ private[forum] final class TopicApi(
     shutup: ActorSelection,
     timeline: ActorSelection,
     detectLanguage: lila.common.DetectLanguage,
-    mentionNotifier: MentionNotifier
+    mentionNotifier: MentionNotifier,
+    bus: lila.common.Bus
 ) {
 
   import BSONHandlers._
@@ -80,7 +81,10 @@ private[forum] final class TopicApi(
                 post.isStaff.fold(prop toStaffFriendsOf userId, prop toFollowersOf userId))
             }
             lila.mon.forum.post.create()
-          } >>- mentionNotifier.notifyMentionedUsers(post, topic) inject topic
+          } >>- {
+            mentionNotifier.notifyMentionedUsers(post, topic)
+            bus.publish(actorApi.CreatePost(post, topic), 'forumPost)
+          } inject topic
     }
 
   def paginator(categ: Categ, page: Int, troll: Boolean): Fu[Paginator[TopicView]] = {
