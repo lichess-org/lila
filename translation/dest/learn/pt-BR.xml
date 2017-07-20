@@ -15,5 +15,14 @@
   <string name="rookGoal">Clique na torre para levá-la até a estrela!</string>
   <string name="grabAllTheStars">Pegue todas as estrelas!</string>
   <string name="theFewerMoves">Quanto menos movimentos você fizer, mais pontos ganhará!</string>
+  <string name="useTwoRooks">Use duas torres para acelerar as coisas!</string>
+  <string name="rookComplete">Parabéns! Você dominou a torre com sucesso.</string>
   <string name="theBishop">O bispo</string>
+  <string name="itMovesDiagonally">Move-se em diagonais</string>
+  <string name="theQueen">A dama</string>
+  <string name="theKing">O rei</string>
+  <string name="theMostImportantPiece">A peça mais importante</string>
+  <string name="kingIntro">Você é o rei. Se cair em batalha, perderá o jogo.</string>
+  <string name="theKingIsSlow">O rei é lento.</string>
+  <string name="lastOne">A última!</string>
 </resources>
