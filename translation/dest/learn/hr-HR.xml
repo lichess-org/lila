@@ -198,4 +198,10 @@ Skakač = 3
 Pješak = 1</string>
   <string name="checkInTwo">Šah u dva poteza</string>
   <string name="twoMovesToGiveCheck">Dva poteza da se da šah</string>
+  <string name="checkInTwoIntro">Pronađi najbolju kombinaciju dvaju poteza koji šahiraju protivnikovog kralja!</string>
+  <string name="checkInTwoGoal">Zaprijeti protivničkom kraju 
+u dva poteza!</string>
+  <string name="checkInTwoComplete">Čestitke! Šahirao si protivnika, prisiljavajući ga da obrani svoga protivnika!</string>
+  <string name="whatNext">Što dalje?</string>
+  <string name="youKnowHowToPlayChess">Sada znaš igrati šah, čestitke! Želiš li postati jači igrač?</string>
 </resources>
