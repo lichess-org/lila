@@ -415,6 +415,7 @@
   <string name="boardCoordinates">Прикажи координате табле (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Прикажи списак потеза током партије</string>
   <string name="chessPieceSymbol">симболи фигура</string>
+  <string name="pgnLetter">слова (К, Д, Т, Л, С)</string>
   <string name="chessClock">Шаховски сат</string>
   <string name="tenthsOfSeconds">Прикажи десетинке</string>
   <string name="never">Никада</string>
@@ -422,12 +423,18 @@
   <string name="horizontalGreenProgressBars">Прикажи водоравни зелени индикатор</string>
   <string name="soundWhenTimeGetsCritical">Упозори звуком на цајтнот</string>
   <string name="gameBehavior">Режим игре</string>
+  <string name="howDoYouMovePieces">Како померате фигуре?</string>
+  <string name="clickTwoSquares">\"кликни\" два поља</string>
+  <string name="dragPiece">вуци фигуру</string>
+  <string name="bothClicksAndDrag">на оба начина</string>
   <string name="premovesPlayingDuringOpponentTurn">Претпотез (игра се током противниковог потеза)</string>
   <string name="takebacksWithOpponentApproval">Врати потез (са пристанком противника)</string>
   <string name="promoteToQueenAutomatically">Промовиши у даму аутоматски</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">аутоматски реми после три понављања позиције</string>
   <string name="privacy">Приватност</string>
   <string name="letOtherPlayersFollowYou">Допусти да те други играчи прате</string>
   <string name="letOtherPlayersChallengeYou">Допусти да те други играчи изазивају</string>
+  <string name="letOtherPlayersInviteYouToStudy">дозволи другим играчима да те позову на проблем</string>
   <string name="sound">Звук</string>
   <string name="yourPreferencesHaveBeenSaved">Ваша подешавања су сачувана.</string>
   <string name="none">Без</string>
@@ -454,6 +461,7 @@
   <string name="starting">Почиње</string>
   <string name="allInformationIsPublicAndOptional">Све информације су јавне и по избору</string>
   <string name="yourCityRegionOrDepartment">Ваш град или област</string>
+  <string name="biographyDescription">Кажи нешто о себи, зашто волиш шах, која су ти омиљена отварања, партије, играчи…</string>
   <string name="listBlockedPlayers">Наброј блокиране играче</string>
   <string name="human">Човек</string>
   <string name="computer">Рачунар</string>
@@ -467,6 +475,7 @@
   <string name="playOnTheBoardOffline">Играј у двоје</string>
   <string name="playOfflineComputer">Играј без интернет конекције</string>
   <string name="opponent">Противник</string>
+  <string name="learnMenu">учи</string>
   <string name="community">Заједница</string>
   <string name="tools">Алати</string>
   <string name="increment">додатак</string>
@@ -479,7 +488,9 @@
   <string name="error.email">Email адреса није добра</string>
   <string name="error.email_acceptable">Email адреса није прихватљива</string>
   <string name="error.email_unique">Email адреса се већ користи</string>
+  <string name="error.email_different">Ова имејл адреса је већ пријављена.</string>
   <string name="blindfoldChess">Шах на слепо</string>
+  <string name="zenMode">зен стање</string>
   <string name="moveConfirmation">Потврди потез</string>
   <string name="inCorrespondenceGames">У дописним играма</string>
   <string name="ifRatingIsPlusMinusX">Ако рејтинг ± %s</string>
