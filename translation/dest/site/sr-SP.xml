@@ -56,6 +56,15 @@
   <string name="showThreat">покажи претњу</string>
   <string name="inLocalBrowser">у локалном веб-читачу</string>
   <string name="toggleLocalEvaluation">укључи/искључи локалну процену</string>
+  <string name="move">потез</string>
+  <string name="variantLoss">варијанта губи</string>
+  <string name="variantWin">варијанта добија</string>
+  <string name="insufficientMaterial">недовољан материјал</string>
+  <string name="pawnMove">потез пешаком</string>
+  <string name="capture">узима</string>
+  <string name="close">затвори</string>
+  <string name="winning">добија</string>
+  <string name="losing">губи</string>
   <string name="openingExplorer">Oтварање претраживача</string>
   <string name="blunders">Грубе грешке</string>
   <string name="mistakes">Грешке</string>
