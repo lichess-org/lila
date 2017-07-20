@@ -48,7 +48,63 @@
   <string name="computerAnalysis">Компьютерный анализ</string>
   <string name="computerAnalysisAvailable">Доступен компьютерный анализ</string>
   <string name="analysis">Анализ</string>
+  <string name="depthX">Глубина %s</string>
+  <string name="usingServerAnalysis">Используя компьютерный анализ</string>
+  <string name="loadingEngine">Загрузка движка...</string>
+  <string name="cloudAnalysis">Облачный анализ</string>
+  <string name="goDeeper">Глубже</string>
+  <string name="showThreat">Показывать опасные моменты</string>
+  <string name="inLocalBrowser">на компьютере</string>
+  <string name="toggleLocalEvaluation">Включить анализ на компьютере</string>
+  <string name="move">Ход</string>
+  <string name="variantLoss">Шанс проигрыша</string>
+  <string name="variantWin">Шанс выигрыша</string>
+  <string name="insufficientMaterial">Недостаточно информации</string>
+  <string name="pawnMove">Ход пешкой</string>
+  <string name="capture">Захвачен</string>
+  <string name="close">Закрыть</string>
+  <string name="winning">Выигрыш</string>
+  <string name="losing">Проигрыш</string>
+  <string name="drawn">Ничья</string>
+  <string name="unknown">Неизвестно</string>
+  <string name="database">Данные из</string>
+  <string name="whiteDrawBlack">Белые / ничья / черные</string>
+  <string name="averageRatingX">Средняя оценка: %s</string>
+  <string name="recentGames">Последние игры</string>
+  <string name="topGames">Лучшие игры</string>
+  <string name="masterDbExplanation">Два миллиона OTB игр %1$s+ FIDE игроков в рейтинге от %2$s до %3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Мат в %s ходе сторон</item>
+    <item quantity="few">Мат в %s ходах сторон</item>
+    <item quantity="other">Мат в %s ходах сторон</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Следующий захват или ход пешкой в %s ходе сторон (Дистанция до 50-го хода)</item>
+    <item quantity="few">Следующий захват или ход пешкой в %s ходах сторон (Дистанция до 50-го хода)</item>
+    <item quantity="other">Следующий захват или ход пешкой в %s ходах сторон (Дистанция до 50-го хода)</item>
+  </plurals>
+  <string name="noGameFound">Игр не найдено</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Может, стоит включить больше игр из вкладки предпочтений?</string>
   <string name="openingExplorer">Анализ дебютных вариантов</string>
+  <string name="xOpeningExplorer">Открываем проводник: %s</string>
+  <string name="winPreventedBy50MoveRule">Победа предотвращена правилом 50-го хода</string>
+  <string name="lossSavedBy50MoveRule">Поражение спасено правилом 50-го хода</string>
+  <string name="allSet">Все готово!</string>
+  <string name="importPgn">Импортировать PGN</string>
+  <string name="delete">Удалить</string>
+  <string name="deleteThisImportedGame">Удалить эту импортированную игру?</string>
+  <string name="replayMode">Режим повтора</string>
+  <string name="realtimeReplay">В реальном времени</string>
+  <string name="byCPL">Интересное</string>
+  <string name="openStudy">Начать исследование</string>
+  <string name="enable">Включить</string>
+  <string name="bestMoveArrow">Стрелочка \"лучший ход\"</string>
+  <string name="evaluationGauge">Шкала оценки</string>
+  <string name="multipleLines">Количество линий</string>
+  <string name="cpus">Процессоры</string>
+  <string name="memory">Память</string>
+  <string name="infiniteAnalysis">Бесконечный анализ</string>
+  <string name="removesTheDepthLimit">Удаляет ограничение на глубину (ваш компьютер будет горячим)</string>
   <string name="blunders">Грубые ошибки</string>
   <string name="mistakes">Ошибки</string>
   <string name="inaccuracies">Сомнительные ходы</string>
@@ -157,6 +213,8 @@
   <string name="play">Играть</string>
   <string name="inbox">Входящие</string>
   <string name="chatRoom">Окно чата</string>
+  <string name="loginToChat">Войдите, чтобы использовать чат</string>
+  <string name="youHaveBeenTimedOut">Вы были отключены.</string>
   <string name="spectatorRoom">Чат для зрителей</string>
   <string name="composeMessage">Написать сообщение</string>
   <string name="noNewMessages">Нет новых сообщений</string>
@@ -166,6 +224,16 @@
   <string name="incrementInSeconds">Прибавка в секундах</string>
   <string name="freeOnlineChess">Бесплатные онлайн-шахматы</string>
   <string name="spectators">Зрители:</string>
+  <plurals name="nbGamesPlayed">
+    <item quantity="one">%s игра сыграна</item>
+    <item quantity="few">Сыграно игр: %s</item>
+    <item quantity="other">Сыграно игр: %s</item>
+  </plurals>
+  <plurals name="nbRated">
+    <item quantity="one">Рейтинг для %s игры</item>
+    <item quantity="few">Рейтинг для %s игр</item>
+    <item quantity="other">Рейтинг для %s игр</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s выиграно</item>
     <item quantity="few">%s выиграно</item>
@@ -190,6 +258,7 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Этот игрок использует помощь шахматной программы (читер)</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Этот игрок искусственно увеличивал либо уменьшал свой рейтинг</string>
+  <string name="openingExplorerAndTablebase">Открываем проводник &amp; таблицу базы</string>
   <string name="takeback">Вернуть ход</string>
   <string name="proposeATakeback">Попросить соперника вернуть ход</string>
   <string name="takebackPropositionSent">Предложение возврата отправлено</string>
@@ -239,6 +308,8 @@
   <string name="fromPosition">С позиции</string>
   <string name="continueFromHere">Продолжить с данного места</string>
   <string name="importGame">Импорт игры</string>
+  <string name="importGameExplanation">При вставке PGN игры вы получаете повтор в браузере,
+компьютерный анализ, игровой чат и ссылку, которой можно поделиться.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Импортированная игра</item>
     <item quantity="few">%s Импортированные игры</item>
@@ -302,6 +373,17 @@
   <string name="tournamentPairingsAreNowClosed">Жеребьёвка турнира в настоящее время закрыта.</string>
   <string name="standByX">Ожидайте, %s, жеребьёвка игроков, будьте готовы!</string>
   <string name="youArePlaying">Вы в игре!</string>
+  <string name="winRate">Коэффициент победы</string>
+  <string name="berserkRate">Коэффициент ставок</string>
+  <string name="performance">Эффективность</string>
+  <string name="tournamentComplete">Соревнование завершено</string>
+  <string name="movesPlayed">Ходов сыграно</string>
+  <string name="whiteWins">Белые выиграли</string>
+  <string name="blackWins">Черные выиграли</string>
+  <string name="draws">Ничья</string>
+  <string name="nextXTournament">Следующий %s турнир:</string>
+  <string name="viewMoreTournaments">Просмотреть больше турниров</string>
+  <string name="averageOpponent">Средний рейтинг соперника</string>
   <string name="membersOnly">Только для зарегистрированных</string>
   <string name="boardEditor">Редактор доски</string>
   <string name="startPosition">Начальная позиция</string>
@@ -414,6 +496,7 @@
   <string name="closeAccountExplanation">Вы действительно желаете удалить свой аккаунт? Удаление аккаунта невозможно отменить. Вы больше не сможете зайти в игру, и ваша страница больше не будет доступна.</string>
   <string name="thisAccountIsClosed">Профиль этого пользователя был удалён.</string>
   <string name="invalidUsernameOrPassword">Неправильное имя или пароль</string>
+  <string name="incorrectPassword">Неверный пароль</string>
   <string name="emailMeALink">Выслать ссылку</string>
   <string name="currentPassword">Текущий пароль</string>
   <string name="newPassword">Новый пароль</string>
@@ -447,9 +530,9 @@
   <string name="sound">Звук</string>
   <string name="yourPreferencesHaveBeenSaved">Ваши настройки сохранены.</string>
   <string name="none">Нет</string>
-  <string name="fast">Быстрая</string>
+  <string name="fast">Быстро</string>
   <string name="normal">Нормальная</string>
-  <string name="slow">Медленная</string>
+  <string name="slow">Медленно</string>
   <string name="insideTheBoard">Внутри поля</string>
   <string name="outsideTheBoard">Вне поля</string>
   <string name="onSlowGames">В медленных играх</string>
@@ -494,6 +577,7 @@
   <string name="playOnTheBoardOffline">Играйте оффлайн</string>
   <string name="playOfflineComputer">Играть с компьютером оффлайн</string>
   <string name="opponent">Соперник</string>
+  <string name="learnMenu">Научиться</string>
   <string name="community">Сообщество</string>
   <string name="tools">Инструменты</string>
   <string name="increment">Прибавка</string>
@@ -506,7 +590,9 @@
   <string name="error.email">Адрес электронной почты является недействительным</string>
   <string name="error.email_acceptable">Адрес электронной почты не является приемлемым</string>
   <string name="error.email_unique">Адрес электронной почты занят</string>
+  <string name="error.email_different">Это ваш текущий адрес почты</string>
   <string name="blindfoldChess">Играть с завязанными глазами (невидимые фигуры)</string>
+  <string name="zenMode">Режим Дзен</string>
   <string name="moveConfirmation">Подтвердить ход</string>
   <string name="inCorrespondenceGames">В игре по переписке</string>
   <string name="ifRatingIsPlusMinusX">Если рейтинг ± %s</string>
@@ -594,6 +680,7 @@
   <string name="crosstable">Счёт</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Можно использовать колёсико над доской для перемотки ходов.</string>
   <string name="analysisShapesHowTo">Чтобы рисовать кружки и стрелки на доске, используйте Shift+левую кнопку мыши или правую кнопку.</string>
+  <string name="confirmResignationAndDrawOffers">Подтверждать возврат хода и предложения ничей</string>
   <string name="inputMovesWithTheKeyboard">Вводить ходы с помощью клавиатуры</string>
   <string name="letOtherPlayersMessageYou">Позволить присылать Вам сообщения</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Рокировать перемещением короля на две клетки или нажатием на ладью</string>
@@ -637,6 +724,7 @@
   <string name="xLikesY">%1$s отметил %2$s как понравившееся</string>
   <string name="quickPairing">Быстрый старт</string>
   <string name="lobby">Лобби</string>
+  <string name="anonymous">Анонимно</string>
   <string name="yourScore">Ваш результат: %s</string>
   <string name="language">Язык</string>
   <string name="background">Фон</string>
@@ -660,7 +748,7 @@
   <string name="error.min">Значение должно быть больше либо равным %s</string>
   <string name="error.max">Значение должно быть меньше либо равным %s</string>
   <string name="error.unknown">Ошибка</string>
-  <string name="custom">Пользовательская партия</string>
+  <string name="custom">Своя игра</string>
   <string name="notifications">Уведомления</string>
   <string name="challenges">Вызовы</string>
   <string name="perfRatingX">Рейтинг: %s</string>

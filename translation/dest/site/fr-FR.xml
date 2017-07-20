@@ -299,10 +299,10 @@
     <item quantity="other">%s parties importées</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Ceci est un CAPTCHA d\'échecs.</string>
-  <string name="clickOnTheBoardToMakeYourMove">Cliquez sur l\'échiquier pour jouer un coup, et prouvez que vous êtes humain.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Cliquez sur l\'échiquier pour jouer un coup, et prouver que vous êtes humain.</string>
   <string name="captcha.fail">Vous devez résoudre le diagramme d\'échecs.</string>
   <string name="notACheckmate">Ce n\'est pas un échec et mat</string>
-  <string name="colorPlaysCheckmateInOne">%s joue, mat en un coup</string>
+  <string name="colorPlaysCheckmateInOne">%s jouent, mat en un coup</string>
   <string name="retry">Réessayer</string>
   <string name="reconnecting">Reconnexion en cours</string>
   <string name="onlineFriends">Amis en ligne</string>
@@ -353,15 +353,15 @@
   <string name="tournamentPairingsAreNowClosed">Les appariements du tournoi sont maintenant terminés.</string>
   <string name="standByX">Appariements des joueurs, tenez-vous prêt %s !</string>
   <string name="youArePlaying">Vous êtes en train de jouer !</string>
-  <string name="winRate">Taux de victoire</string>
-  <string name="berserkRate">Taux de Berserk</string>
-  <string name="performance">Performances</string>
+  <string name="winRate">Taux de victoires</string>
+  <string name="berserkRate">Taux de berserk</string>
+  <string name="performance">Performance</string>
   <string name="tournamentComplete">Tournoi complet</string>
-  <string name="movesPlayed">Parties jouées</string>
+  <string name="movesPlayed">Coups joués</string>
   <string name="whiteWins">Gains blancs</string>
   <string name="blackWins">Gains noirs</string>
   <string name="draws">Nulles</string>
-  <string name="nextXTournament">Prochain tournoi de %s :</string>
+  <string name="nextXTournament">Prochain tournoi de %s :</string>
   <string name="viewMoreTournaments">Voir plus de tournois</string>
   <string name="averageOpponent">Opposition moyenne</string>
   <string name="membersOnly">Membres seulement</string>
@@ -389,7 +389,7 @@
   <string name="activeToday">Actifs aujourd\'hui</string>
   <string name="activePlayers">Joueurs actifs</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Attention, la partie est classée, mais sans limite de temps !</string>
-  <string name="training">Entraînement</string>
+  <string name="training">Problèmes</string>
   <string name="yourPuzzleRatingX">Votre classement de tactique : %s</string>
   <string name="findTheBestMoveForWhite">Trouvez le meilleur coup pour les Blancs.</string>
   <string name="findTheBestMoveForBlack">Trouvez le meilleur coup pour les Noirs.</string>
@@ -413,7 +413,7 @@
     <item quantity="one">Joué %s fois</item>
     <item quantity="other">Joué %s fois</item>
   </plurals>
-  <string name="fromGameLink">Tiré de la partie %s</string>
+  <string name="fromGameLink">Extrait de la partie %s</string>
   <string name="startTraining">Commencer l\'entraînement</string>
   <string name="continueTraining">Continuer l\'entraînement</string>
   <string name="retryThisPuzzle">Réessayer ce problème</string>
@@ -429,7 +429,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Aller automatiquement à la prochaine partie après chaque coup</string>
   <string name="autoSwitch">Changement automatique</string>
-  <string name="puzzles">Puzzles</string>
+  <string name="puzzles">Problèmes</string>
   <string name="coordinates">Coordonnées</string>
   <string name="latestUpdates">Dernières mises à jour</string>
   <string name="tournamentWinners">Vainqueurs de tournois</string>
@@ -566,7 +566,7 @@
   <string name="error.email_acceptable">Cette adresse courriel jetable n\'est pas autorisée</string>
   <string name="error.email_unique">Cette adresse courriel est déjà utilisée</string>
   <string name="error.email_different">C’est déjà votre adresse e-mail</string>
-  <string name="blindfoldChess">Échecs aveugles (pièces invisibles)</string>
+  <string name="blindfoldChess">Échecs à l\'aveugle (pièces invisibles)</string>
   <string name="zenMode">Mode Zen</string>
   <string name="moveConfirmation">Confirmation de coup</string>
   <string name="inCorrespondenceGames">Dans les parties par correspondance</string>
@@ -582,7 +582,7 @@
     <item quantity="one">%s message posté</item>
     <item quantity="other">%s messages postés</item>
   </plurals>
-  <string name="tpTimeSpentPlaying">Temps total joué : %s</string>
+  <string name="tpTimeSpentPlaying">Temps total à jouer : %s</string>
   <string name="watchGames">Regarder ses parties</string>
   <string name="tpTimeSpentOnTV">Temps passé à la TV : %s</string>
   <string name="watch">Regarder</string>
@@ -712,7 +712,6 @@
   <string name="directlySupportLichess">Financer Lichess</string>
   <string name="playChessInStyle">Jouez stylé</string>
   <string name="chessBasics">Bases des échecs</string>
-  <string name="learnChessByPlaying">Apprendre les échecs en jouant</string>
   <string name="coaches">Coachs</string>
   <string name="invalidPgn">PGN non valide</string>
   <string name="invalidFen">FEN non valide</string>

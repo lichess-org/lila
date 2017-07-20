@@ -138,4 +138,41 @@ Napravi bilo koji potez za nastavak.</string>
 da napraviš malu rokadu!</string>
   <string name="castleQueenSide">Pomakni svog kralja za dva polja
 da napraviš veliku rokadu!</string>
+  <string name="theKnightIsInTheWay">Skakač ti smeta!
+Pomakni ga, i onda napravi malu rokadu.</string>
+  <string name="castleKingSideMovePiecesFirst">Napravi malu rokadu!
+Ali prvo moraš pomaknuti figure.</string>
+  <string name="castleQueenSideMovePiecesFirst">Napravi veliku rokadu!
+Ali prvo moraš pomaknuti figure.</string>
+  <string name="youCannotCastleIfMoved">Ne možeš napraviti rokadu ako
+se kralj već pomaknuo 
+ili se top već pomaknuo.</string>
+  <string name="youCannotCastleIfAttacked">Ne možeš rokirati ako bi
+kralj u međuvremenu prošao kroz šah.
+Blokiraj šah i tek onda rokiraj!</string>
+  <string name="findAWayToCastleKingSide">Pronađi način 
+za malu rokadu!</string>
+  <string name="findAWayToCastleQueenSide">Pronađi način 
+za veliku rokadu!</string>
+  <string name="castlingComplete">Čestitke! Skoro uvijek bi trebao rokirati u partiji.</string>
+  <string name="enPassant">En passant</string>
+  <string name="theSpecialPawnMove">Poseban potez pješaka</string>
+  <string name="enPassantIntro">Kada se protivnički pješak pomakne za dva polja, možeš ga uzeti kao da se pomaknuo za jedno polje.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Crni se upravo pomaknuo pješakom
+za dva polja!
+Uzmi ga en passant.</string>
+  <string name="enPassantOnlyWorksImmediately">En passant je moguće napraviti
+samo neposredno nakon što je protivnik
+pomaknuo pješaka.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">En passant je moguće napraviti
+samo ako je tvoj pješak na petom redu.</string>
+  <string name="takeAllThePawnsEnPassant">Uzmi sve pješake en passant!</string>
+  <string name="enPassantComplete">Čestitke! Sada znaš uzimati en passant.</string>
+  <string name="stalemate">Pat</string>
+  <string name="theGameIsADraw">Partija završava remijem</string>
+  <string name="stalemateIntro">Kada igrač nije pod šahom i nema nijedan legalan potez, onda je pat. Ishod partije je remi: nitko ne pobjeđuje, nitko ne gubi.</string>
+  <string name="stalemateGoal">Da patiraš crnog:
+- crni se ne može nikamo pomaknuti
+- nema šaha.</string>
+  <string name="stalemateComplete">Čestitke! Bolje biti patiran nego matiran!</string>
 </resources>

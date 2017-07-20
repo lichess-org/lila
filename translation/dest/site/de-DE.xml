@@ -568,6 +568,7 @@ und eine URL um dein PGN zu teilen.</string>
   <string name="error.email_unique">Diese E-Mail-Adresse ist schon vergeben</string>
   <string name="error.email_different">Dies ist bereits deine E-Mail Adresse</string>
   <string name="blindfoldChess">Blindschach (unsichtbare Figuren)</string>
+  <string name="zenMode">Zenmodus</string>
   <string name="moveConfirmation">Zugbestätigung</string>
   <string name="inCorrespondenceGames">Im Fernschach</string>
   <string name="ifRatingIsPlusMinusX">Nur, wenn die Wertungszahl ± %s ist</string>
@@ -712,7 +713,6 @@ und eine URL um dein PGN zu teilen.</string>
   <string name="directlySupportLichess">Lichess direkt unterstützen</string>
   <string name="playChessInStyle">Schachspielen mit Style</string>
   <string name="chessBasics">Grundlagen</string>
-  <string name="learnChessByPlaying">Spielerisch Schach lernen</string>
   <string name="coaches">Coaches</string>
   <string name="invalidPgn">Fehlerhaftes PGN</string>
   <string name="invalidFen">FEN ungültig</string>
