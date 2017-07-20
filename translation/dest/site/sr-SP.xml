@@ -184,6 +184,7 @@
   <string name="inbox">Пријемно сандуче</string>
   <string name="chatRoom">Соба за ћаскање</string>
   <string name="loginToChat">улогуј се за ћаскање</string>
+  <string name="youHaveBeenTimedOut">Одјављени сте.</string>
   <string name="spectatorRoom">Соба за посматраче (кибицере)</string>
   <string name="composeMessage">Напиши поруку</string>
   <string name="noNewMessages">Нема нових порука</string>
@@ -193,10 +194,21 @@
   <string name="incrementInSeconds">Додавање у секундама</string>
   <string name="freeOnlineChess">Бесплатни интернет шах</string>
   <string name="spectators">Посматрачи:</string>
+  <plurals name="nbGamesPlayed">
+    <item quantity="one">%s партија одиграна</item>
+    <item quantity="few">%s партије одигране</item>
+    <item quantity="other">%s партија одиграно</item>
+  </plurals>
+  <plurals name="nbRated">
+    <item quantity="one">%s рангирана</item>
+    <item quantity="few">%s рангиране</item>
+    <item quantity="other">%s рангирано</item>
+  </plurals>
   <string name="exportGames">Извоз партија</string>
   <string name="ratingRange">ЕЛО ранг</string>
   <string name="thisPlayerUsesChessComputerAssistance">Овај играч користи помоћ рачунара</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ovi igrači veštački uvećavaju svoj rejting</string>
+  <string name="openingExplorerAndTablebase">отвори претраживач и базе</string>
   <string name="takeback">Повлачење потеза</string>
   <string name="proposeATakeback">Предложи повлачење потеза</string>
   <string name="takebackPropositionSent">Предлог повлачења потеза је послат</string>
