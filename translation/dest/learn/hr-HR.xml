@@ -178,4 +178,24 @@ samo ako je tvoj pješak na petom redu.</string>
   <string name="advanced">Napredno</string>
   <string name="pieceValue">Vrijednost figura</string>
   <string name="evaluatePieceStrength">Procijeni vrijednost figura</string>
+  <string name="pieceValueIntro">Figure s velikom pokretnošću imaju veću vrijednost!
+Dama = 9
+Top = 5
+Lovac = 3
+Skakač = 3
+Pješak = 1
+Kralj je neprocjenjiv! Izgubiti ga bi značilo izgubiti partiju.</string>
+  <string name="queenOverBishop">Uzmi figure
+s najvećom vrijednošću!
+Dama &gt; Lovac</string>
+  <string name="takeThePieceWithTheHighestValue">Uzmi figuru 
+s najvećom vrijednošću!</string>
+  <string name="pieceValueComplete">Čestitke! Znaš vrijednost materijala!
+Dama = 9
+Top = 5
+Lovac = 3
+Skakač = 3
+Pješak = 1</string>
+  <string name="checkInTwo">Šah u dva poteza</string>
+  <string name="twoMovesToGiveCheck">Dva poteza da se da šah</string>
 </resources>
