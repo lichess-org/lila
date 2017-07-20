@@ -8,6 +8,8 @@
   <string name="chessPieces">Фигуры в шахматах</string>
   <string name="theRook">Ладья</string>
   <string name="itMovesInStraightLines">Движется по прямым линиям</string>
+  <string name="theBishop">Слон</string>
+  <string name="itMovesDiagonally">Перемещается по диагоналям</string>
   <string name="captureComplete">Поздравляем! Теперь вы знаете, как сражаться с шахматными фигурами!</string>
   <string name="combatComplete">Поздравляем! Теперь вы знаете, как сражаться с шахматными фигурами!</string>
   <string name="practice">Практика</string>
