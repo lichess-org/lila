@@ -70,6 +70,8 @@
   <string name="noGameFound">Nulle partita trovate</string>
   <string name="openingExplorer">Explorator de initio de joco</string>
   <string name="allSet">Toto es preste!</string>
+  <string name="delete">Deler</string>
+  <string name="memory">Memoria</string>
   <string name="blunders">Errores grave</string>
   <string name="mistakes">Errores</string>
   <string name="inaccuracies">Imprecisiones</string>
@@ -488,6 +490,7 @@
   <string name="playOnTheBoardOffline">Partita local</string>
   <string name="playOfflineComputer">Computator</string>
   <string name="opponent">Adversario</string>
+  <string name="learnMenu">Apprender</string>
   <string name="community">Communitate</string>
   <string name="tools">Instrumentos</string>
   <string name="increment">Incremento</string>
