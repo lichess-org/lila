@@ -15,7 +15,7 @@ import lila.socket.actorApi.SendToFlag
 import lila.user.{ User, UserRepo }
 import makeTimeout.short
 
-private[simul] final class SimulApi(
+final class SimulApi(
     system: ActorSystem,
     sequencers: ActorRef,
     onGameStart: Game.ID => Unit,
@@ -30,6 +30,8 @@ private[simul] final class SimulApi(
 ) {
 
   def currentHostIds: Fu[Set[String]] = currentHostIdsCache.get
+
+  def byIds = repo.byIds _
 
   private val currentHostIdsCache = asyncCache.single[Set[String]](
     name = "simul.currentHostIds",

@@ -146,6 +146,31 @@ case (pt, score) => {
 </div>
 }
 
+@renderSimul(s: lila.simul.Simul) = {
+<a href="@routes.Simul.show(s.id)">@s.name simul</a>
+@scoreHtml(Score(s.wins, s.draws, s.losses, none))
+}
+
+@renderSimuls(simuls: List[lila.simul.Simul]) = {
+<div class="entry simuls">
+  <i data-icon="|"></i>
+  <p>
+    @simuls.groupBy(_.isHost(u.some)).map {
+    case (isHost, simuls) => {
+    @if(isHost) {
+    Hosted @simuls.size simultaneous exhibitions
+    } else {
+    Participated to @simuls.size simultaneous exhibitions
+    }
+    <ul><li>
+        @htmlList(simuls.map(renderSimul))
+    </li></ul>
+    }
+    }
+  </p>
+</div>
+}
+
 @user.layout(
 title = s"${u.username} activity",
 evenMoreCss = moreCss) {
@@ -173,6 +198,7 @@ evenMoreCss = moreCss) {
         case (score, povs) => { @renderCorresEnds(score, povs) }
         }
         @a.follows.map(renderFollows)
+        @a.simuls.map(renderSimuls)
       </div>
     </section>
     }

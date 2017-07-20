@@ -10,7 +10,8 @@ import lila.user.UserRepo.lichessId
 final class ActivityReadApi(
     coll: Coll,
     practiceApi: lila.practice.PracticeApi,
-    postApi: lila.forum.PostApi
+    postApi: lila.forum.PostApi,
+    simulApi: lila.simul.SimulApi
 ) {
 
   import Activity._
@@ -53,11 +54,15 @@ final class ActivityReadApi(
         }
       }
     }
+    simuls <- a.simuls ?? { simuls =>
+      simulApi byIds simuls.value.map(_.value) dmap some
+    }
     view = ActivityView(
       games = a.games,
       puzzles = a.puzzles,
       practice = practice,
       posts = postView,
+      simuls = simuls,
       patron = a.patron,
       corresMoves = corresMoves,
       corresEnds = corresEnds,

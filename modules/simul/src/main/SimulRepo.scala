@@ -56,6 +56,9 @@ private[simul] final class SimulRepo(simulColl: Coll) {
   def find(id: Simul.ID): Fu[Option[Simul]] =
     simulColl.byId[Simul](id)
 
+  def byIds(ids: List[Simul.ID]): Fu[List[Simul]] =
+    simulColl.byIds[Simul](ids)
+
   def exists(id: Simul.ID): Fu[Boolean] =
     simulColl.exists($id(id))
 

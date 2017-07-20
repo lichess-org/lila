@@ -11,7 +11,8 @@ final class Env(
     db: lila.db.Env,
     system: akka.actor.ActorSystem,
     practiceApi: lila.practice.PracticeApi,
-    postApi: lila.forum.PostApi
+    postApi: lila.forum.PostApi,
+    simulApi: lila.simul.SimulApi
 ) {
 
   private val activityColl = db(config getString "collection.activity")
@@ -23,7 +24,8 @@ final class Env(
   val read = new ActivityReadApi(
     coll = activityColl,
     practiceApi = practiceApi,
-    postApi = postApi
+    postApi = postApi,
+    simulApi = simulApi
   )
 
   system.lilaBus.subscribe(
@@ -52,6 +54,7 @@ object Env {
     config = lila.common.PlayApp loadConfig "activity",
     system = lila.common.PlayApp.system,
     practiceApi = lila.practice.Env.current.api,
-    postApi = lila.forum.Env.current.postApi
+    postApi = lila.forum.Env.current.postApi,
+    simulApi = lila.simul.Env.current.api
   )
 }
