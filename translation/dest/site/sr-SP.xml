@@ -86,6 +86,10 @@
   <string name="noGameFound">ниједна партија није нађена</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Да можда укључите више партија у менију за подешавања?</string>
   <string name="openingExplorer">Oтварање претраживача</string>
+  <string name="xOpeningExplorer">%s претаживач отварања</string>
+  <string name="winPreventedBy50MoveRule">победа спречена правилом о 50 потеза</string>
+  <string name="lossSavedBy50MoveRule">пораз спречен правилом о 50 потеза</string>
+  <string name="allSet">Све је спремно!</string>
   <string name="blunders">Грубе грешке</string>
   <string name="mistakes">Грешке</string>
   <string name="inaccuracies">Непрецизности</string>
