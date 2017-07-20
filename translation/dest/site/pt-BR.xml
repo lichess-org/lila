@@ -54,6 +54,7 @@
   <string name="goDeeper">Detalhar</string>
   <string name="showThreat">Mostrar ameaça</string>
   <string name="inLocalBrowser">no navegador local</string>
+  <string name="toggleLocalEvaluation">Ativar/Desativar análise local</string>
   <string name="move">Movimentos</string>
   <string name="insufficientMaterial">Peças insuficientes</string>
   <string name="pawnMove">Movimento de peão</string>
@@ -63,10 +64,17 @@
   <string name="drawn">Empate</string>
   <string name="unknown">Posição desconhecida</string>
   <string name="database">Base de dados</string>
+  <string name="whiteDrawBlack">Brancas / Empate / Pretas</string>
   <string name="averageRatingX">Rating médio</string>
   <string name="recentGames">Partidas recentes</string>
+  <string name="noGameFound">Nenhuma partida encontrada</string>
   <string name="openingExplorer">Explorador de abertura</string>
   <string name="allSet">Tudo pronto!</string>
+  <string name="importPgn">Importar PGN</string>
+  <string name="delete">Excluir</string>
+  <string name="deleteThisImportedGame">Excluir este jogo importado?</string>
+  <string name="realtimeReplay">Tempo Real</string>
+  <string name="enable">Ativar</string>
   <string name="blunders">Erro Grave</string>
   <string name="mistakes">Erros</string>
   <string name="inaccuracies">Imprecisões</string>
@@ -169,6 +177,7 @@
   <string name="play">Jogar</string>
   <string name="inbox">Caixa de entrada</string>
   <string name="chatRoom">Sala de chat</string>
+  <string name="loginToChat">Faça login para conversar</string>
   <string name="spectatorRoom">Sala do espetador</string>
   <string name="composeMessage">Escrever mensagem</string>
   <string name="noNewMessages">Nenhuma mensagem nova</string>
@@ -306,8 +315,15 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="youArePlaying">Você está no jogo!</string>
   <string name="winRate">Taxa de vitórias</string>
   <string name="berserkRate">Taxa Berserk</string>
+  <string name="performance">Desempenho</string>
   <string name="tournamentComplete">Torneio completo</string>
+  <string name="movesPlayed">Movimentos realizados</string>
+  <string name="whiteWins">Brancas venceram</string>
+  <string name="blackWins">Pretas venceram</string>
   <string name="draws">Empates</string>
+  <string name="nextXTournament">Próximo torneio de %s:</string>
+  <string name="viewMoreTournaments">Ver mais torneios</string>
+  <string name="averageOpponent">Oponente médio</string>
   <string name="membersOnly">Somente para membros</string>
   <string name="boardEditor">Editor de tabuleiro</string>
   <string name="startPosition">Posição inicial</string>
@@ -316,6 +332,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="loadPosition">Carregar posição</string>
   <string name="isPrivate">Privado</string>
   <string name="reportXToModerators">Reportar %s aos moderadores</string>
+  <string name="profileCompletion">Conclusão do perfil: %s</string>
   <string name="profile">Perfil</string>
   <string name="editProfile">Editar perfil</string>
   <string name="firstName">Primeiro nome</string>
@@ -490,6 +507,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="playOnTheBoardOffline">Jogar offline contra um amigo</string>
   <string name="playOfflineComputer">Jogar offline contra o computador</string>
   <string name="opponent">Oponente</string>
+  <string name="learnMenu">Aprender</string>
   <string name="community">Comunidade</string>
   <string name="tools">Ferramentas</string>
   <string name="increment">Incremento</string>
@@ -502,6 +520,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="error.email">Este endereço de email é inválido</string>
   <string name="error.email_acceptable">Este endereço de email não é aceitável</string>
   <string name="error.email_unique">Este endereço de email já existe</string>
+  <string name="error.email_different">Este já é o seu endereço de e-mail</string>
   <string name="blindfoldChess">Xadrez cego (peças invisíveis)</string>
   <string name="moveConfirmation">Confirmação de movimento</string>
   <string name="inCorrespondenceGames">Jogos por correspondência</string>
@@ -622,6 +641,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="xLikesY">%1$s curtiu %2$s</string>
   <string name="quickPairing">Partida rápida</string>
   <string name="lobby">Salão</string>
+  <string name="anonymous">Anônimo</string>
   <string name="yourScore">Sua pontuação:%s</string>
   <string name="language">Idioma</string>
   <string name="background">Fundo</string>
