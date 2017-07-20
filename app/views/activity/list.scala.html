@@ -123,6 +123,29 @@ case (pt, score) => {
 </div>
 }
 
+@renderFollows(all: Follows) = {
+<div class="entry follows">
+  <i data-icon="h"></i>
+  <p>
+    @List(all.in.map(_ -> true), all.out.map(_ -> false)).flatten.map {
+    case (f, in) => {
+    @if(in) {
+    Followed @f.actualNb players
+    } else {
+    Gained @f.actualNb new followers
+    }
+    <ul><li>
+        @htmlList(f.ids.map(id => userIdLink(id.some)))
+        @f.nb.map { nb =>
+        and @(nb - maxSubEntries) more
+        }
+    </li></ul>
+    }
+    }
+  </p>
+</div>
+}
+
 @user.layout(
 title = s"${u.username} activity",
 evenMoreCss = moreCss) {
@@ -149,6 +172,7 @@ evenMoreCss = moreCss) {
         @a.corresEnds.map {
         case (score, povs) => { @renderCorresEnds(score, povs) }
         }
+        @a.follows.map(renderFollows)
       </div>
     </section>
     }

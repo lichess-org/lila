@@ -48,6 +48,14 @@ final class ActivityWriteApi(coll: Coll) {
       a.copy(patron = Some(Patron(months))).some
     }
 
+  def follow(from: User.ID, to: User.ID) =
+    update(from) { a =>
+      a.copy(follows = Some(~a.follows addOut to)).some
+    } >>
+      update(to) { a =>
+        a.copy(follows = Some(~a.follows addIn from)).some
+      }
+
   private def simulParticipant(simul: lila.simul.Simul, userId: String, host: Boolean) =
     update(userId) { a => a.copy(simuls = Some(~a.simuls + SimulId(simul.id))).some }
 

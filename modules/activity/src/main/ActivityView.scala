@@ -16,7 +16,8 @@ case class ActivityView(
     patron: Option[Patron],
     posts: Option[Map[lila.forum.Topic, List[lila.forum.Post]]],
     corresMoves: Option[(Int, List[Pov])],
-    corresEnds: Option[(Score, List[Pov])]
+    corresEnds: Option[(Score, List[Pov])],
+    follows: Option[Follows]
 ) {
 }
 

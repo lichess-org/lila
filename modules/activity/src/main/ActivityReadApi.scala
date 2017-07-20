@@ -60,7 +60,8 @@ final class ActivityReadApi(
       posts = postView,
       patron = a.patron,
       corresMoves = corresMoves,
-      corresEnds = corresEnds
+      corresEnds = corresEnds,
+      follows = a.follows
     )
   } yield ActivityView.AsTo(a.date, view)
 

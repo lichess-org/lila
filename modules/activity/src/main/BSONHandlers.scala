@@ -8,6 +8,7 @@ import lila.db.dsl._
 import lila.rating.BSONHandlers.perfTypeKeyIso
 import lila.rating.PerfType
 import lila.study.Study
+import lila.user.User
 
 private object BSONHandlers {
 
@@ -82,6 +83,20 @@ private object BSONHandlers {
   private implicit val corresHandler = Macros.handler[Corres]
   private implicit val patronHandler = intAnyValHandler[Patron](_.months, Patron.apply)
 
+  private implicit val followIdsHandler = bsonArrayToListHandler[User.ID]
+  private implicit val followListHandler = Macros.handler[FollowList]
+
+  private implicit val followsHandler = new lila.db.BSON[Follows] {
+    def reads(r: lila.db.BSON.Reader) = Follows(
+      in = r.getO[FollowList]("i"),
+      out = r.getO[FollowList]("o")
+    )
+    def writes(w: lila.db.BSON.Writer, o: Follows) = BSONDocument(
+      "i" -> o.in,
+      "o" -> o.out
+    )
+  }
+
   implicit val activityHandler = new lila.db.BSON[Activity] {
 
     private val id = "_id"
@@ -94,6 +109,7 @@ private object BSONHandlers {
     private val simuls = "s"
     private val corres = "o"
     private val patron = "a"
+    private val follows = "f"
 
     def reads(r: lila.db.BSON.Reader) = Activity(
       id = r.get[Id](id),
@@ -105,7 +121,8 @@ private object BSONHandlers {
       practice = r.getO[Practice](practice),
       simuls = r.getO[Simuls](simuls),
       corres = r.getO[Corres](corres),
-      patron = r.getO[Patron](patron)
+      patron = r.getO[Patron](patron),
+      follows = r.getO[Follows](follows)
     )
 
     def writes(w: lila.db.BSON.Writer, o: Activity) = BSONDocument(
@@ -118,7 +135,8 @@ private object BSONHandlers {
       practice -> o.practice,
       simuls -> o.simuls,
       corres -> o.corres,
-      patron -> o.patron
+      patron -> o.patron,
+      follows -> o.follows
     )
   }
 }

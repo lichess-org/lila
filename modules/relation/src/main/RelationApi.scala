@@ -117,6 +117,7 @@ final class RelationApi(
           countFollowingCache.update(u1, 1+)
           reloadOnlineFriends(u1, u2)
           timeline ! Propagate(FollowUser(u1, u2)).toFriendsOf(u1).toUsers(List(u2))
+          bus.publish(lila.hub.actorApi.relation.Follow(u1, u2), 'relation)
           lila.mon.relation.follow()
         }
       }

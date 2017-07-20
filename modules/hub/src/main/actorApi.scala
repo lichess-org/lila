@@ -230,6 +230,7 @@ package relation {
   case class ReloadOnlineFriends(userId: String)
   case class Block(u1: String, u2: String)
   case class UnBlock(u1: String, u2: String)
+  case class Follow(u1: String, u2: String)
 }
 
 package study {

@@ -120,4 +120,8 @@ trait StringHelper { self: NumberHelper =>
 
   def addQueryParameter(url: String, key: String, value: Any) =
     if (url contains "?") s"$url&$key=$value" else s"$url?$key=$value"
+
+  def htmlList(htmls: List[Html], separator: String = ", ") = Html {
+    htmls mkString separator
+  }
 }

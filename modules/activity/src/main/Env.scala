@@ -37,9 +37,11 @@ final class Env(
         case lila.simul.Simul.OnStart(simul) => write simul simul
         case CorresMoveEvent(move, Some(userId), _, _, false) => write.corresMove(move.gameId, userId)
         case lila.hub.actorApi.plan.MonthInc(userId, months) => write.plan(userId, months)
+        case lila.hub.actorApi.relation.Follow(from, to) => write.follow(from, to)
       }
     })),
-    'finishGame, 'analysisReady, 'forumPost, 'finishPuzzle, 'finishPractice, 'startSimul, 'moveEventCorres, 'plan
+    'finishGame, 'analysisReady, 'forumPost, 'finishPuzzle, 'finishPractice,
+    'startSimul, 'moveEventCorres, 'plan, 'relation
   )
 }
 
