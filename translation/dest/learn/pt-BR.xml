@@ -3,4 +3,8 @@
 <resources>
   <string name="learnChess">Aprenda xadrez</string>
   <string name="byPlaying">jogando!</string>
+  <string name="menu">Menu</string>
+  <string name="progressX">Progresso: %s</string>
+  <string name="resetMyProgress">Redefinir meu progresso</string>
+  <string name="play">jogar!</string>
 </resources>
