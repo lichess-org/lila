@@ -20,9 +20,33 @@
   <string name="theBishop">O bispo</string>
   <string name="itMovesDiagonally">Move-se em diagonais</string>
   <string name="theQueen">A dama</string>
+  <string name="queenCombinesRookAndBishop">Dama = torre + bispo</string>
   <string name="theKing">O rei</string>
   <string name="theMostImportantPiece">A peça mais importante</string>
   <string name="kingIntro">Você é o rei. Se cair em batalha, perderá o jogo.</string>
   <string name="theKingIsSlow">O rei é lento.</string>
   <string name="lastOne">A última!</string>
+  <string name="theKnight">O cavalo</string>
+  <string name="thePawn">O peão</string>
+  <string name="fundamentals">Fundamentos</string>
+  <string name="capture">Captura</string>
+  <string name="mateInOne">Mate em um jogada</string>
+  <string name="intermediate">Intermediário</string>
+  <string name="castling">Roque</string>
+  <string name="theSpecialKingMove">O movimento especial do rei</string>
+  <string name="enPassant">En passant</string>
+  <string name="theSpecialPawnMove">O movimento especial do peão</string>
+  <string name="advanced">Avançado</string>
+  <string name="register">Registrar</string>
+  <string name="practice">Praticar</string>
+  <string name="learnCommonChessPositions">Aprenda posições comuns do xadrez</string>
+  <string name="puzzles">Quebra-cabeças</string>
+  <string name="videos">Vídeos</string>
+  <string name="watchInstructiveChessVideos">Assista a vídeos de xadrez instrutivos</string>
+  <string name="awesome">Fantástico!</string>
+  <string name="excellent">Excelente!</string>
+  <string name="greatJob">Ótimo trabalho!</string>
+  <string name="perfect">Perfeito!</string>
+  <string name="outstanding">Excepcional!</string>
+  <string name="yesYesYes">Sim, sim, sim!</string>
 </resources>
