@@ -6,5 +6,14 @@
   <string name="menu">Menu</string>
   <string name="progressX">Progresso: %s</string>
   <string name="resetMyProgress">Redefinir meu progresso</string>
+  <string name="youWillLoseAllYourProgress">Você vai perder todo o seu progresso!</string>
   <string name="play">jogar!</string>
+  <string name="chessPieces">As peças do xadrez</string>
+  <string name="theRook">A torre</string>
+  <string name="itMovesInStraightLines">Move-se em linha reta</string>
+  <string name="rookIntro">A torre é uma peça poderosa. Você está pronto para comandá-la?</string>
+  <string name="rookGoal">Clique na torre para levá-la até a estrela!</string>
+  <string name="grabAllTheStars">Pegue todas as estrelas!</string>
+  <string name="theFewerMoves">Quanto menos movimentos você fizer, mais pontos ganhará!</string>
+  <string name="theBishop">O bispo</string>
 </resources>
