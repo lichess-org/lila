@@ -56,11 +56,11 @@ case (pt, score) => {
 }
 
 @renderPosts(posts: Map[lila.forum.Topic, List[lila.forum.Post]]) = {
-@posts.map {
-case (topic, posts) => {
 <div class="entry posts">
   <i data-icon="d"></i>
   <p>
+    @posts.map {
+    case (topic, posts) => {
     Posted @posts.size messages in
     <a href="@routes.ForumTopic.show(topic.categId, topic.id)" title="@escapeHtml(topic.name)">
       @shorten(topic.name, 70)
@@ -70,10 +70,10 @@ case (topic, posts) => {
       <li><a href="@routes.ForumPost.redirect(post.id)">@shorten(post.text, 120)</a></li>
       }
     </ul>
+    }
+    }
   </p>
 </div>
-}
-}
 }
 
 @user.layout(
