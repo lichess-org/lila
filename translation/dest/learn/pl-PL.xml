@@ -38,6 +38,8 @@ Potrzebujesz ich obu!</string>
   <string name="itMovesInAnLShape">Porusza się \"po literze L\"</string>
   <string name="knightIntro">Oto wyzwanie dla Ciebie. Skoczek jest... szczwaną figurą.</string>
   <string name="knightsHaveAFancyWay">Skoczki mają nietypowy sposób poruszania się!</string>
+  <string name="knightsCanJumpOverObstacles">Skoczki mogą przeskakiwać przez przeszkody!
+Skacz i zbieraj gwiazdki!</string>
   <string name="knightComplete">Gratulacje! Opanowałeś poruszanie się skoczkiem.</string>
   <string name="thePawn">Pion</string>
   <string name="itMovesForwardOnly">Porusza się tylko do przodu</string>
@@ -87,6 +89,7 @@ Jednak czasem bardziej przydatny może być skoczek!</string>
   <string name="youCanGetOutOfCheckByTaking">Możesz obronić się przed szachem bijąc atakującą króla figurę.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Ten skoczek szachuje króla poprzez Twoją obronę!</string>
   <string name="escapeOrBlock">Odejdź królem lub zablokuj atak!</string>
+  <string name="outOfCheckComplete">Gratulacje! Twój król jest niepokonany, sprawdź czy potrafisz bronić się przed szachem!</string>
   <string name="mateInOne">Mat w 1 ruchu</string>
   <string name="defeatTheOpponentsKing">Pokonaj króla przeciwnika</string>
   <string name="mateInOneIntro">Wygrasz jeśli Twój przeciwnik nie będzie mógł obronić się przed szachem.</string>
