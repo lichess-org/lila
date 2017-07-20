@@ -46,7 +46,16 @@
   <string name="viewTheComputerAnalysis">Погледај рачунарску анализу</string>
   <string name="requestAComputerAnalysis">Затражи рачунарску анализу</string>
   <string name="computerAnalysis">Компјутерска анализа</string>
+  <string name="computerAnalysisAvailable">анализа рачунаром доступна</string>
   <string name="analysis">Табла за анализирање</string>
+  <string name="depthX">дубина %s</string>
+  <string name="usingServerAnalysis">анализа помоћу сервера</string>
+  <string name="loadingEngine">мотор се учитава...</string>
+  <string name="cloudAnalysis">анализа у облаку</string>
+  <string name="goDeeper">иди дубље</string>
+  <string name="showThreat">покажи претњу</string>
+  <string name="inLocalBrowser">у локалном веб-читачу</string>
+  <string name="toggleLocalEvaluation">укључи/искључи локалну процену</string>
   <string name="openingExplorer">Oтварање претраживача</string>
   <string name="blunders">Грубе грешке</string>
   <string name="mistakes">Грешке</string>
