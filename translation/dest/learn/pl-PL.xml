@@ -128,6 +128,9 @@ Jednak czasem bardziej przydatny może być skoczek!</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Gra zakończona remisem</string>
   <string name="stalemateIntro">Kiedy gracz nie jest szachowany i nie ma możliwości ruchu to jest to pat. Ogłaszany jest remis: nikt nie wygrywa i nikt nie przegrywa.</string>
+  <string name="stalemateGoal">Czarne dostaną pata gdy:
+- nie będą mogły się ruszyć
+- nie będą szachowane</string>
   <string name="stalemateComplete">Gratulacje! Lepiej dostać pata niż mata!</string>
   <string name="advanced">Zaawansowane</string>
   <string name="pieceValue">Wartości figur</string>
@@ -165,7 +168,7 @@ Pion = 1</string>
   <string name="watchInstructiveChessVideos">Oglądaj filmy instruktażowe</string>
   <string name="playPeople">Graj z innymi</string>
   <string name="opponentsFromAroundTheWorld">Przeciwnicy z całego świata</string>
-  <string name="playMachine">Graj z komputerem</string>
+  <string name="playMachine">Graj z maszyną</string>
   <string name="testYourSkillsWithTheComputer">Sprawdź się z komputerem</string>
   <string name="letsGo">Zaczynajmy!</string>
   <string name="stageX">Etap %s</string>
