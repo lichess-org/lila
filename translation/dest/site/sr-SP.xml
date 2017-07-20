@@ -78,6 +78,13 @@
     <item quantity="few">мат у %s полу-потеза</item>
     <item quantity="other">мат у %s полу-потеза</item>
   </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">следеће узимање или потез пешаком у %s полу-потезу (бројање до 50 потеза за реми)</item>
+    <item quantity="few">следеће узимање или потез пешаком у %s полу-потеза (бројање до 50 потеза за реми)</item>
+    <item quantity="other">следеће узимање или потез пешаком у %s полу-потеза (бројање до 50 потеза за реми)</item>
+  </plurals>
+  <string name="noGameFound">ниједна партија није нађена</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Да можда укључите више партија у менију за подешавања?</string>
   <string name="openingExplorer">Oтварање претраживача</string>
   <string name="blunders">Грубе грешке</string>
   <string name="mistakes">Грешке</string>
