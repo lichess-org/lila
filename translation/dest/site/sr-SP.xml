@@ -65,6 +65,19 @@
   <string name="close">затвори</string>
   <string name="winning">добија</string>
   <string name="losing">губи</string>
+  <string name="drawn">реми</string>
+  <string name="unknown">непознато</string>
+  <string name="database">база података</string>
+  <string name="whiteDrawBlack">бели / реми / црни</string>
+  <string name="averageRatingX">просечан рејтинг: %s</string>
+  <string name="recentGames">недавне партије</string>
+  <string name="topGames">најбоље партије</string>
+  <string name="masterDbExplanation">Два милиона партија на табли %1$s+ ФИДЕ рангираних играча од %2$s. до %3$s.</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">мат у %s полу-потезу</item>
+    <item quantity="few">мат у %s полу-потеза</item>
+    <item quantity="other">мат у %s полу-потеза</item>
+  </plurals>
   <string name="openingExplorer">Oтварање претраживача</string>
   <string name="blunders">Грубе грешке</string>
   <string name="mistakes">Грешке</string>
