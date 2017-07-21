@@ -97,7 +97,10 @@ capturando a peça atacante.</string>
 através de suas defesas!</string>
   <string name="escapeOrBlock">Escape com o rei
 ou bloqueie o ataque!</string>
-  <string name="mateInOne">Mate em um jogada</string>
+  <string name="outOfCheckComplete">Parabéns! Seu rei não deve ser tomado, certifique-se de que você pode defendê-lo de um xeque!</string>
+  <string name="mateInOne">Mate em 1</string>
+  <string name="defeatTheOpponentsKing">Derrote o rei adversário</string>
+  <string name="mateInOneIntro">Você vence quando seu oponente não pode se defender de um xeque.</string>
   <string name="intermediate">Intermediário</string>
   <string name="howTheGameStarts">Como o jogo inicia</string>
   <string name="castling">Roque</string>
