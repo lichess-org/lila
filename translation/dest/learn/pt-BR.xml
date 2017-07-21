@@ -61,8 +61,8 @@ Não é necessário promover.</string>
   <string name="selectThePieceYouWant">Escolha a peça que desejar!</string>
   <string name="fundamentals">Fundamentos</string>
   <string name="capture">Capturar</string>
-  <string name="takeTheEnemyPieces">Capture as peças inimigas</string>
-  <string name="captureIntro">Identifique as peças desprotegida do adversário, e capture-as!</string>
+  <string name="takeTheEnemyPieces">Tome as peças inimigas</string>
+  <string name="captureIntro">Identifique as peças desprotegidas do adversário, e capture-as!</string>
   <string name="takeTheBlackPieces">Capture as peças pretas!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Capture as peças pretas!
 E não perca as suas.</string>
@@ -83,6 +83,7 @@ mas você pode defender!</string>
   <string name="checkInOne">Xeque em um</string>
   <string name="attackTheOpponentsKing">Ataque o rei do seu adversário</string>
   <string name="checkInOneIntro">Para dar xeque em seu oponente, ataque o seu rei. Ele deve defende-lo!</string>
+  <string name="checkInOneGoal">Mire o rei de seu oponente em um movimento!</string>
   <string name="defendYourKing">Defenda seu rei</string>
   <string name="mateInOne">Mate em um jogada</string>
   <string name="intermediate">Intermediário</string>
