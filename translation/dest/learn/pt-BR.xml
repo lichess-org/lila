@@ -80,9 +80,9 @@ mas você pode defender!</string>
   <string name="captureAndDefendPieces">Capture e defenda peças</string>
   <string name="combatIntro">Um bom guerreiro sabe atacar e defender!</string>
   <string name="combatComplete">Parabéns! Você sabe lutar com peças de xadrez!</string>
-  <string name="checkInOne">Xeque em um</string>
+  <string name="checkInOne">Xeque em 1</string>
   <string name="attackTheOpponentsKing">Ataque o rei do seu adversário</string>
-  <string name="checkInOneIntro">Para dar xeque em seu oponente, ataque o seu rei. Ele deve defende-lo!</string>
+  <string name="checkInOneIntro">Para dar xeque, ataque o rei. Seu oponente deve defendê-lo!</string>
   <string name="checkInOneGoal">Mire o rei de seu oponente em um movimento!</string>
   <string name="defendYourKing">Defenda seu rei</string>
   <string name="mateInOne">Mate em um jogada</string>
