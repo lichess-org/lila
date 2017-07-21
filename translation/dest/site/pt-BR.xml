@@ -342,6 +342,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="isPrivate">Privado</string>
   <string name="reportXToModerators">Reportar %s aos moderadores</string>
   <string name="profileCompletion">Conclusão do perfil: %s</string>
+  <string name="xRating">Classificação %s</string>
   <string name="profile">Perfil</string>
   <string name="editProfile">Editar perfil</string>
   <string name="firstName">Primeiro nome</string>
@@ -531,6 +532,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="error.email_unique">Este endereço de email já existe</string>
   <string name="error.email_different">Este já é o seu endereço de e-mail</string>
   <string name="blindfoldChess">Xadrez cego (peças invisíveis)</string>
+  <string name="zenMode">Modo Zen</string>
   <string name="moveConfirmation">Confirmação de movimento</string>
   <string name="inCorrespondenceGames">Jogos por correspondência</string>
   <string name="ifRatingIsPlusMinusX">Se a classificação for ± %s</string>
