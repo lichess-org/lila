@@ -73,6 +73,10 @@
   <string name="recentGames">Partidas recentes</string>
   <string name="topGames">Melhores partidas</string>
   <string name="masterDbExplanation">Duas milhões de partidas de jogadores com pontuação FIDE acima de %1$s, desde %2$s a %3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Mate em %s jogada (meio movimento)</item>
+    <item quantity="other">Mate em %s jogadas (meio-movimentos)</item>
+  </plurals>
   <string name="noGameFound">Nenhuma partida encontrada</string>
   <string name="openingExplorer">Explorador de abertura</string>
   <string name="allSet">Tudo pronto!</string>
