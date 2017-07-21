@@ -348,7 +348,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="createdBy">Criado por</string>
   <string name="tournamentIsStarting">O torneio está a começar</string>
   <string name="tournamentPairingsAreNowClosed">Os pareamentos do torneio estão fechados agora.</string>
-  <string name="standByX">Aguarde %s, emparceiramento em andamento, esteja pronto!</string>
+  <string name="standByX">Aguarde por %s, pareamento em andamento, prepare-se!</string>
   <string name="youArePlaying">Você está no jogo!</string>
   <string name="winRate">Taxa de vitórias</string>
   <string name="berserkRate">Taxa Berserk</string>
@@ -385,7 +385,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="onlinePlayers">Jogadores online</string>
   <string name="activeToday">Ativos hoje</string>
   <string name="activePlayers">Jogadores ativos</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Cuidado, o jogo vale pontos de rating, mas não há controle de tempo!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Cuidado, o jogo vale pontos, mas não há controle de tempo!</string>
   <string name="training">Treino</string>
   <string name="yourPuzzleRatingX">Sua classificação de quebra-cabeças: %s</string>
   <string name="findTheBestMoveForWhite">Procure o melhor lance para as brancas.</string>
@@ -660,7 +660,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="withNobody">Com ninguém</string>
   <string name="withFriends">Com amigos</string>
   <string name="withEverybody">Com todos</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">Você ja registrou o e-mail: %s</string>
+  <string name="youHaveAlreadyRegisteredTheEmail">Você já registrou o e-mail: %s</string>
   <string name="kidMode">Modo infantil</string>
   <string name="enableKidMode">Habilitar o modo infantil</string>
   <string name="disableKidMode">Desabilitar o modo infantil</string>
