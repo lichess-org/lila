@@ -68,11 +68,11 @@ Não é necessário promover.</string>
 E não perca as suas.</string>
   <string name="captureComplete">Parabéns! Você já sabe como lutar com peças de xadrez!</string>
   <string name="protection">Defesa</string>
-  <string name="keepYourPiecesSafe">Mantenha suas peças em segurança</string>
+  <string name="keepYourPiecesSafe">Mantenha as suas peças seguras</string>
   <string name="protectionIntro">Identifique as peças atacadas pelo seu adversário e as defenda!</string>
   <string name="protectionComplete">Parabéns! Uma peça que você não perdeu é uma peça que você ganhou!</string>
   <string name="escape">Você está sob ataque!
-Fuja desta armadilha!</string>
+Fuja da ameaça!</string>
   <string name="noEscape">Não há como fugir, 
 mas você pode defender!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Não permita que ele capture qualquer peça que seja!</string>
