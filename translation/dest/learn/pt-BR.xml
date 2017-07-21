@@ -83,7 +83,7 @@ mas você pode defender!</string>
   <string name="checkInOne">Xeque em 1</string>
   <string name="attackTheOpponentsKing">Ataque o rei do seu adversário</string>
   <string name="checkInOneIntro">Para dar xeque, ataque o rei. Seu oponente deve defendê-lo!</string>
-  <string name="checkInOneGoal">Mire o rei de seu oponente em um movimento!</string>
+  <string name="checkInOneGoal">Ameace o rei de seu oponente em um movimento!</string>
   <string name="defendYourKing">Defenda seu rei</string>
   <string name="mateInOne">Mate em um jogada</string>
   <string name="intermediate">Intermediário</string>
