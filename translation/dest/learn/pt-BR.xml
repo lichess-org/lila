@@ -72,8 +72,10 @@ E não perca as suas.</string>
 Fuja desta armadilha!</string>
   <string name="noEscape">Não há como fugir, 
 mas você pode defender!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Não permita que ele capture qualquer peça que seja!</string>
   <string name="combat">Combate</string>
   <string name="captureAndDefendPieces">Capture e defenda peças</string>
+  <string name="combatIntro">Um bom guerreiro sabe atacar e defender!</string>
   <string name="defendYourKing">Defenda seu rei</string>
   <string name="mateInOne">Mate em um jogada</string>
   <string name="intermediate">Intermediário</string>
