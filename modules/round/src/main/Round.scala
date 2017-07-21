@@ -225,7 +225,10 @@ private[round] final class Round(
       messenger.system(game, (_.untranslated(
         "%s + %d seconds".format(color, duration.toSeconds)
       )))
-      (game withClock newClock) ++ List(Event.ClockInc(color, centis), Event.Clock(newClock))
+      (game withClock newClock) ++ List(
+        Event.ClockInc(color, centis),
+        Event.Clock(newClock) // BC
+      )
     }
 
   private def reportNetworkLag(pov: Pov) =

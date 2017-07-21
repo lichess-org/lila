@@ -375,35 +375,43 @@ case class Game(
           else history.reset(color).record(color, newClock)
         })
       ).updatePlayer(color, _.goBerserk)) ++
-        List(Event.Clock(newClock), Event.Berserk(color))
+        List(
+          Event.ClockInc(color, -c.config.berserkPenalty),
+          Event.Clock(newClock), // BC
+          Event.Berserk(color)
+        )
     }
 
   def resignable = playable && !abortable
   def drawable = playable && !abortable
 
-  def finish(status: Status, winner: Option[Color]) = Progress(
-    this,
-    copy(
-      status = status,
-      whitePlayer = whitePlayer.finish(winner contains White),
-      blackPlayer = blackPlayer.finish(winner contains Black),
-      clock = clock map (_.stop),
-      clockHistory = for {
-        clk <- clock
-        history <- clockHistory
-      } yield {
-        // If not already finished, we're ending due to an event
-        // in the middle of a turn, such as resignation or draw
-        // acceptance. In these cases, record a final clock time
-        // for the active color. This ensures the end time in
-        // clockHistory always matches the final clock time on
-        // the board.
-        if (!finished) history.record(turnColor, clk)
-        else history
-      }
-    ),
-    List(Event.End(winner)) ::: clock.??(c => List(Event.Clock(c)))
-  )
+  def finish(status: Status, winner: Option[Color]) = {
+    val newClock = clock map { _.stop }
+    Progress(
+      this,
+      copy(
+        status = status,
+        whitePlayer = whitePlayer.finish(winner contains White),
+        blackPlayer = blackPlayer.finish(winner contains Black),
+        clock = newClock,
+        clockHistory = for {
+          clk <- clock
+          history <- clockHistory
+        } yield {
+          // If not already finished, we're ending due to an event
+          // in the middle of a turn, such as resignation or draw
+          // acceptance. In these cases, record a final clock time
+          // for the active color. This ensures the end time in
+          // clockHistory always matches the final clock time on
+          // the board.
+          if (!finished) history.record(turnColor, clk)
+          else history
+        }
+      ),
+      // Events here for BC.
+      List(Event.End(winner)) ::: newClock.??(c => List(Event.Clock(c)))
+    )
+  }
 
   def rated = mode.rated
   def casual = !rated
