@@ -133,13 +133,16 @@ Mova-os, e então faça um roque.</string>
 Mas antes você precisa retirar as peças do meio.</string>
   <string name="castleQueenSideMovePiecesFirst">Faça um roque longo!
 Mas antes você precisa retirar as peças do meio.</string>
+  <string name="youCannotCastleIfMoved">Você não pode rocar se o rei ou se a torre já se moveram.</string>
+  <string name="youCannotCastleIfAttacked">Você não pode rocar se o rei está sob ameaça no caminho. Bloqueie o xeque, e então conclua o roque!</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">O movimento especial do peão</string>
   <string name="stalemate">Rei afogado</string>
+  <string name="theGameIsADraw">A partida está empatada</string>
   <string name="advanced">Avançado</string>
   <string name="pieceValue">Valor das peças</string>
   <string name="evaluatePieceStrength">Avalie o valor de cada peça</string>
-  <string name="checkInTwo">Cheque em duas jogadas</string>
+  <string name="checkInTwo">Xeque em 2</string>
   <string name="whatNext">O que vem depois?</string>
   <string name="youKnowHowToPlayChess">Você sabe como jogar xadrez, parabéns! Você quer se tornar um jogador mais forte?</string>
   <string name="register">Registrar</string>
@@ -164,4 +167,12 @@ Mas antes você precisa retirar as peças do meio.</string>
   <string name="wayToGo">Continue assim!</string>
   <string name="yesYesYes">Sim, sim, sim!</string>
   <string name="youreGoodAtThis">Você é bom nisso!</string>
+  <string name="nailedIt">Acertou em cheio.</string>
+  <string name="rightOn">Certo!</string>
+  <string name="stageXComplete">Etapa %s completa</string>
+  <string name="yourScore">Seus pontos</string>
+  <string name="next">Próximo</string>
+  <string name="backToMenu">Voltar ao menu</string>
+  <string name="puzzleFailed">Quebra-cabeça falhou!</string>
+  <string name="retry">Tentar de novo</string>
 </resources>
