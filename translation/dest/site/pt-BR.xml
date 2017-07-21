@@ -662,9 +662,13 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="withEverybody">Com todos</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Você já registrou o e-mail: %s</string>
   <string name="kidMode">Modo infantil</string>
+  <string name="kidModeExplanation">Isto diz respeito à segurança. No modo infantil, todas as comunicações do site são desabilitadas. Habilite isso para seus filhos e alunos, para protegê-los de outros usuários da Internet.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">No modo infantil, a logo do lichess tem um ícone %s, para que você saiba que suas crianças estão seguras.</string>
   <string name="enableKidMode">Habilitar o modo infantil</string>
   <string name="disableKidMode">Desabilitar o modo infantil</string>
   <string name="security">Segurança</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Esta é uma lista de dispositivos com os quais você logou em sua conta. Revogue qualquer sessão que você não reconheça.</string>
+  <string name="alternativelyYouCanX">Como alternativa, você pode %s.</string>
   <string name="revokeAllSessions">revogar todas as sessões</string>
   <string name="playChessEverywhere">Jogue xadrez em qualquer lugar!</string>
   <string name="asFreeAsLichess">Tão gratuito quanto o Lichess</string>
@@ -684,7 +688,8 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
     <item quantity="other">Disponível em %s idiomas!</item>
   </plurals>
   <string name="gameAnalysis">Análise da partida</string>
-  <string name="xJoinsY">%1$s entrou %2$s</string>
+  <string name="xHostsY">%1$s criou %2$s</string>
+  <string name="xJoinsY">%1$s entrou em %2$s</string>
   <string name="xLikesY">%1$s curtiu %2$s</string>
   <string name="quickPairing">Partida rápida</string>
   <string name="lobby">Salão</string>
