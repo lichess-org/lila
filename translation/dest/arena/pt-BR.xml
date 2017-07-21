@@ -29,5 +29,5 @@ Assim que terminar a sua partida, você voltará a aguardar o pareamento com um 
   <string name="howDoesItEnd">Como termina?</string>
   <string name="otherRules">Outras regras importantes</string>
   <string name="thisIsPrivate">Este é um torneio privado</string>
-  <string name="shareUrl">Compartilhe esta URL para permitir que outras pessoas entrem: %s</string>
+  <string name="shareUrl">Compartilhe este endereço para permitir que outras pessoas entrem: %s</string>
 </resources>
