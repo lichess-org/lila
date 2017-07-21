@@ -24,14 +24,10 @@ object activities {
   case class PostId(value: String) extends AnyVal
   implicit val PostsZero = Zero.instance(Posts(Nil))
 
-  case class Puzzles(score: Score, fail: List[PuzzleId]) {
-    def +(s: Score, id: PuzzleId) = Puzzles(
-      score = score + s,
-      fail = if (score.loss > 0) (id :: fail).distinct.take(maxSubEntries) else fail
-    )
+  case class Puzzles(score: Score) {
+    def +(s: Score) = Puzzles(score = score + s)
   }
-  case class PuzzleId(value: Int) extends AnyVal
-  implicit val PuzzlesZero = Zero.instance(Puzzles(ScoreZero.zero, Nil))
+  implicit val PuzzlesZero = Zero.instance(Puzzles(ScoreZero.zero))
 
   case class Learn(value: Map[Learn.Stage, Int]) {
     def +(stage: Learn.Stage) = copy(

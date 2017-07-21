@@ -32,10 +32,6 @@
 </div>
 }
 
-@puzzleLink(id: PuzzleId) = {
-<a href="@routes.Puzzle.show(id.value)">#@id.value</a>
-}
-
 @renderPuzzles(p: Puzzles) = {
 <div class="entry puzzles">
   <i data-icon="-"></i>
@@ -43,9 +39,6 @@
   <div>
     Solved @p.score.size tactical puzzles
     @p.score.rp.filterNot(_.isEmpty).map(ratingProgHtml)
-    @if(p.fail.nonEmpty) {
-    <div class="sub">Failed puzzles: @htmlList(p.fail.map(puzzleLink))</div>
-    }
   </div>
 </div>
 }
