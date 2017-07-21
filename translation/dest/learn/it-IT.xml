@@ -203,16 +203,15 @@ in due mosse!</string>
   <string name="register">Registrati</string>
   <string name="getAFreeLichessAccount">Otteni un account Lichess gratuito</string>
   <string name="practice">Allenamento</string>
-  <string name="learnCommonChessPositions">Impara le posizioni più frequenti negli scacchi</string>
+  <string name="learnCommonChessPositions">Impara le posizioni più frequenti</string>
   <string name="puzzles">Puzzle</string>
   <string name="exerciseYourTacticalSkills">Allena le tue abilità tattiche</string>
   <string name="videos">Video</string>
   <string name="watchInstructiveChessVideos">Guarda video istruttivi sugli scacchi</string>
-  <string name="playPeople">Sfida altri giocatori</string>
+  <string name="playPeople">Sfide!</string>
   <string name="opponentsFromAroundTheWorld">Avversari da tutto il mondo</string>
   <string name="playMachine">Gioca contro il computer</string>
-  <string name="testYourSkillsWithTheComputer">Metti alla prova le tue abilità
-con il computer</string>
+  <string name="testYourSkillsWithTheComputer">Metti alla prova le tue abilità</string>
   <string name="letsGo">Forza!</string>
   <string name="stageX">Fase %s</string>
   <string name="awesome">Meraviglioso!</string>
