@@ -46,8 +46,9 @@
   color: #3893E8;
 }
 .activity .entry .sub {
+  margin: 3px 0;
   font-size: 0.7em;
-  line-height: 2em;
+  line-height: 1.7em;
 }
 .activity .entry rating {
   margin-left: 12px;

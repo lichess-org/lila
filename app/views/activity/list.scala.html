@@ -21,11 +21,13 @@
 <div class="entry practice">
   <i data-icon=""></i>
   <div>
-    @p.toList.sortBy(-_._2).map {
-    case (study, nb) => {
+    @p.toList.sortBy(-_._2).zipWithIndex.map {
+    case ((study, nb), i) => {
+    @if(i == 1) {<div class="sub">}
     Practiced @nb positions on <a href="@routes.Practice.show("-", study.slug, study.id.value)">@study.name</a><br />
     }
     }
+  </div>
   </div>
 </div>
 }
