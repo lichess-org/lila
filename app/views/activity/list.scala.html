@@ -12,7 +12,7 @@
 <div class="entry patron">
   <i data-icon=""></i>
   <div>
-    Supported lichess for @p.months months as a <a href="@routes.Plan.index">Patron</a>
+    @trans.activity.supportedNbMonths.plural(p.months, p.months, Html(s"""<a href="${routes.Plan.index}">Patron</a>"""))
   </div>
 </div>
 }
@@ -24,10 +24,10 @@
     @p.toList.sortBy(-_._2).zipWithIndex.map {
     case ((study, nb), i) => {
     @if(i == 1) {<div class="sub">}
-      Practiced @nb positions on <a href="@routes.Practice.show("-", study.slug, study.id.value)">@study.name</a><br />
+      @trans.activity.practicedNbPositions.plural(nb, nb, Html(s"""<a href="${routes.Practice.show("-", study.slug, study.id.value)}">${study.name}</a>"""))
       }
       }
-    </div>
+      @if(p.size > 1) { </div> }
   </div>
 </div>
 }
@@ -37,7 +37,7 @@
   <i data-icon="-"></i>
   @scoreHtml(p.score)
   <div>
-    Solved @p.score.size tactical puzzles
+    @trans.activity.solvedNbPuzzles.pluralSame(p.score.size)
     @p.score.rp.filterNot(_.isEmpty).map(ratingProgHtml)
   </div>
 </div>
@@ -50,7 +50,7 @@ case (pt, score) => {
   <i data-icon="@pt.iconChar"></i>
   @scoreHtml(score)
   <div>
-    Played @score.size @pt.name games
+    @trans.activity.playedNbGames.plural(score.size, score.size, pt.name)
     @score.rp.filterNot(_.isEmpty).map(ratingProgHtml)
   </div>
 </div>
@@ -64,10 +64,7 @@ case (pt, score) => {
   <div>
     @posts.map {
     case (topic, posts) => {
-    Posted @posts.size messages in
-    <a href="@routes.ForumTopic.show(topic.categId, topic.id)" title="@escapeHtml(topic.name)">
-      @shorten(topic.name, 70)
-    </a>
+    @trans.activity.postedNbMessages.plural(posts.size, posts.size, Html(s"""<a href="${routes.ForumTopic.show(topic.categId, topic.id)}">${shorten(topic.name, 70)}</a>"""))
     <div class="sub">
       @posts.map { post =>
       @shorten(post.text, 100)
@@ -84,12 +81,10 @@ case (pt, score) => {
 <div class="entry corres_moves">
   <i data-icon=";"></i>
   <div>
-    Played @nb moves in @povs.size correspondence games
+    @trans.activity.playedNbMoves.plural(nb, nb, povs.size)
     <div class="sub">
       @povs.map { pov =>
-      <a href="@routes.Round.watcher(pov.gameId, pov.color.name)">
-        @pov.game.opening.map(_.opening.name)
-      </a> vs
+      <a href="@routes.Round.watcher(pov.gameId, pov.color.name)">@pov.game.opening.map(_.opening.name)</a> vs
       @playerLink(pov.opponent, withRating = true, withDiff = false, withOnline = true, link = true)<br />
       }
     </div>
@@ -101,7 +96,7 @@ case (pt, score) => {
 <div class="entry corres_ends">
   <i data-icon=";"></i>
   <div>
-    Completed @score.size correspondence games
+    @trans.activity.completedNbGames.pluralSame(score.size)
     @score.rp.filterNot(_.isEmpty).map(ratingProgHtml)
     @scoreHtml(score)
     <div class="sub">
@@ -127,9 +122,9 @@ case (pt, score) => {
     @List(all.in.map(_ -> true), all.out.map(_ -> false)).flatten.map {
     case (f, in) => {
     @if(in) {
-    Followed @f.actualNb players
+    @trans.activity.followedNbPlayers.pluralSame(f.actualNb)
     } else {
-    Gained @f.actualNb new followers
+    @trans.activity.gainedNbFollowers.pluralSame(f.actualNb)
     }
     <div class="sub">
       @htmlList(f.ids.map(id => userIdLink(id.some)))
@@ -155,9 +150,9 @@ case (pt, score) => {
     @simuls.groupBy(_.isHost(u.some)).map {
     case (isHost, simuls) => {
     @if(isHost) {
-    Hosted @simuls.size simultaneous exhibitions
+    @trans.activity.hostedNbSimuls.pluralSame(simuls.size)
     } else {
-    Participated to @simuls.size simultaneous exhibitions
+    @trans.activity.joinedNbSimuls.pluralSame(simuls.size)
     }
     <div class="sub">@htmlList(simuls.map(renderSimul))</div>
     }

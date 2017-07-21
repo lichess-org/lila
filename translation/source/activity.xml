@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <string name="supportedNbMonths">Supported lichess for %1$s months as a %2$s</string>
+  <string name="practicedNbPositions">Practiced %1$s positions on %2$s</string>
+  <string name="solvedNbPuzzles">Solved %s tactical puzzles</string>
+  <string name="playedNbGames">Played %1$s %2$s games</string>
+  <string name="postedNbMessages">Posted %1$s messages in %2$s</string>
+  <string name="playedNbMoves">Played %1$s moves in %2$s correspondence games</string>
+  <string name="completedNbGames">Completed %s correspondence games</string>
+  <string name="followedNbPlayers">Followed %s players</string>
+  <string name="gainedNbFollowers">Gained %s new followers</string>
+  <string name="hostedNbSimuls">Hosted %s simultaneous exhibitions</string>
+  <string name="joinedNbSimuls">Participated to %s simultaneous exhibitions</string>
+</resources>
