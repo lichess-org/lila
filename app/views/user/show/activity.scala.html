@@ -1,0 +1,21 @@
+@(u: User, activities: List[lila.activity.ActivityView.AsTo], info: lila.app.mashup.UserInfo, rel: Option[lila.relation.Relation], notes: List[lila.user.Note], followable: Boolean, blocked: Boolean)(implicit ctx: Context)
+
+@import lila.app.mashup.UserInfo.Angle
+
+@evenMoreJs = {
+@info.ratingChart.map { ratingChart =>
+@jsTag("chart/ratingHistory.js")
+@embedJs(s"lichess.ratingHistoryChart($ratingChart);")
+}
+}
+
+@user.layout(
+title =  s"${u.username} : ${trans.activity.activity.txt()}",
+side = side(u, info.ranks, none).some,
+evenMoreJs = evenMoreJs,
+evenMoreCss = cssTag("activity.css")) {
+<div data-username="@u.username" class="content_box no_padding user_show @if(ctx.is(u)){ myself}">
+  @header(u, info, Angle.Activity, rel, notes, followable, blocked)
+  @views.html.activity.list(u, activities)
+</div>
+}

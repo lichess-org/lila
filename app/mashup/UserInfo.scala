@@ -1,10 +1,13 @@
 package lila.app
 package mashup
 
+import play.api.data.Form
+
 import lila.api.Context
 import lila.bookmark.BookmarkApi
+import lila.common.paginator.Paginator
 import lila.forum.PostApi
-import lila.game.Crosstable
+import lila.game.{ Game, Crosstable }
 import lila.relation.RelationApi
 import lila.security.Granter
 import lila.user.{ User, Trophy, Trophies, TrophyApi }
@@ -67,6 +70,13 @@ case class UserInfo(
 }
 
 object UserInfo {
+
+  sealed trait Angle
+  object Angle {
+    case object Activity extends Angle
+    case class Games(searchForm: Option[Form[_]]) extends Angle
+    case object Other extends Angle
+  }
 
   def apply(
     bookmarkApi: BookmarkApi,

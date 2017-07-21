@@ -7,7 +7,7 @@ import scala.concurrent.duration._
 import chess.Centis
 import lila.api.BodyContext
 import lila.app._
-import lila.app.mashup.GameFilterMenu
+import lila.app.mashup.{ GameFilterMenu, GameFilter }
 import lila.common.paginator.Paginator
 import lila.common.{ IpAddress, HTTPRequest }
 import lila.game.{ GameRepo, Game => GameModel }
@@ -136,8 +136,18 @@ object User extends LilaController {
     }
     followable <- ctx.isAuth ?? { Env.pref.api followable u.id }
     blocked <- ctx.userId ?? { relationApi.fetchBlocks(u.id, _) }
-    searchForm = GameFilterMenu.searchForm(userGameSearch, filters.current)(ctx.body)
-  } yield html.user.show(u, info, pag, filters, searchForm, relation, notes, followable, blocked)
+    searchForm = (filters.current == GameFilter.Search) option GameFilterMenu.searchForm(userGameSearch, filters.current)(ctx.body)
+  } yield html.user.show.games(u, info, pag, filters, searchForm, relation, notes, followable, blocked)
+
+  def activity(username: String) = Open { implicit ctx =>
+    OptionFuResult(UserRepo named username) { u =>
+      if (u.enabled || isGranted(_.UserSpy)) {
+        Env.activity.read.recent(u.id, 30) map { as =>
+          Ok(html.activity.list(u, as))
+        }
+      } else fuccess(NotFound(html.user.disabled(u)))
+    }
+  }
 
   private val UserGamesRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 500,
@@ -154,7 +164,7 @@ object User extends LilaController {
     filterOption: Option[String],
     page: Int
   )(implicit ctx: BodyContext[_]): Fu[(String, Paginator[GameModel])] = {
-    import lila.app.mashup.GameFilter.{ All, Playing }
+    import GameFilter.{ All, Playing }
     filterOption.fold({
       Env.simul isHosting u.id map (_.fold(Playing, All).name)
     })(fuccess) flatMap { filterName =>
@@ -321,13 +331,5 @@ object User extends LilaController {
 
   def myself = Auth { ctx => me =>
     fuccess(Redirect(routes.User.show(me.username)))
-  }
-
-  def activity(username: String) = Open { implicit ctx =>
-    OptionFuResult(UserRepo named username) { user =>
-      Env.activity.read.recent(user.id, 30) map { as =>
-        Ok(html.activity.list(user, as))
-      }
-    }
   }
 }

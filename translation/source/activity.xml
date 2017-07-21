@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+  <string name="activity">Activity</string>
   <string name="supportedNbMonths">Supported lichess for %1$s months as a %2$s</string>
   <string name="practicedNbPositions">Practiced %1$s positions on %2$s</string>
   <string name="solvedNbPuzzles">Solved %s tactical puzzles</string>

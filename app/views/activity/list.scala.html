@@ -4,10 +4,6 @@
 @import lila.activity.activities._
 @import lila.activity.model._
 
-@moreCss = {
-@cssTag("activity.css")
-}
-
 @renderPatron(p: Patron) = {
 <div class="entry patron">
   <i data-icon=""></i>
@@ -175,39 +171,28 @@ case (pt, score) => {
 </div>
 }
 
-@user.layout(
-title = s"${u.username} activity",
-evenMoreCss = moreCss) {
-<div class="content_box no_padding small_content_box activity">
-  <h1 class="lichess_title">
-    <a href="@routes.User.show(u.username)">
-      @u.username activity [EARLY BETA]
-    </a>
-  </h1>
-  <div class="timeline">
-    @as.map {
-    case lila.activity.ActivityView.AsTo(date, a) => {
-    <section>
-      <h2>@semanticDate(date)</h2>
-      <div class="entries">
-        @a.patron.map(renderPatron)
-        @a.practice.map(renderPractice)
-        @a.puzzles.map(renderPuzzles)
-        @a.games.map(renderGames)
-        @a.posts.map(renderPosts)
-        @a.corresMoves.map {
-        case (nb, povs) => { @renderCorresMoves(nb, povs) }
-        }
-        @a.corresEnds.map {
-        case (score, povs) => { @renderCorresEnds(score, povs) }
-        }
-        @a.follows.map(renderFollows)
-        @a.simuls.map(renderSimuls)
-        @a.studies.map(renderStudies)
-      </div>
-    </section>
-    }
-    }
-  </div>
+<div class="activity">
+  @as.map {
+  case lila.activity.ActivityView.AsTo(date, a) => {
+  <section>
+    <h2>@semanticDate(date)</h2>
+    <div class="entries">
+      @a.patron.map(renderPatron)
+      @a.practice.map(renderPractice)
+      @a.puzzles.map(renderPuzzles)
+      @a.games.map(renderGames)
+      @a.posts.map(renderPosts)
+      @a.corresMoves.map {
+      case (nb, povs) => { @renderCorresMoves(nb, povs) }
+      }
+      @a.corresEnds.map {
+      case (score, povs) => { @renderCorresEnds(score, povs) }
+      }
+      @a.follows.map(renderFollows)
+      @a.simuls.map(renderSimuls)
+      @a.studies.map(renderStudies)
+    </div>
+  </section>
+  }
+  }
 </div>
-}
