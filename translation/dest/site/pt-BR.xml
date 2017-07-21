@@ -211,6 +211,14 @@
   <string name="incrementInSeconds">Acréscimo em segundos</string>
   <string name="freeOnlineChess">Xadrez Online Gratuito</string>
   <string name="spectators">Espectadores:</string>
+  <plurals name="nbGamesPlayed">
+    <item quantity="one">%s partida jogada</item>
+    <item quantity="other">%s partidas jogadas</item>
+  </plurals>
+  <plurals name="nbRated">
+    <item quantity="one">%s valendo pontos</item>
+    <item quantity="other">%s valendo pontos</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s vitórias</item>
     <item quantity="other">%s vitórias</item>
@@ -231,6 +239,7 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Este jogador usa a ajuda de computador</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Este jogador modificou a sua classificação de maneira artificial</string>
+  <string name="openingExplorerAndTablebase">Explorador de abertura &amp; tabela de finais</string>
   <string name="takeback">Voltar jogada</string>
   <string name="proposeATakeback">Propor voltar jogada</string>
   <string name="takebackPropositionSent">Proposta de voltar jogada enviada</string>
@@ -279,6 +288,7 @@
   <string name="fromPosition">A partir da posição</string>
   <string name="continueFromHere">Continuar daqui</string>
   <string name="importGame">Importar partida</string>
+  <string name="importGameExplanation">Após colar uma partida em PGN você poderá revisá-la interativamente, consultar uma análise de computador, utilizar o chat e compartilhar um link.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s de partidas importadas</item>
     <item quantity="other">%s de partidas importadas</item>
@@ -336,6 +346,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="winStreak">Vitórias consecutivas</string>
   <string name="createdBy">Criado por</string>
   <string name="tournamentIsStarting">O torneio está a começar</string>
+  <string name="tournamentPairingsAreNowClosed">Os pareamentos do torneio estão fechados agora.</string>
   <string name="youArePlaying">Você está no jogo!</string>
   <string name="winRate">Taxa de vitórias</string>
   <string name="berserkRate">Taxa Berserk</string>
