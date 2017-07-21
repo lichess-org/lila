@@ -101,6 +101,8 @@ ou bloqueie o ataque!</string>
   <string name="mateInOne">Mate em 1</string>
   <string name="defeatTheOpponentsKing">Derrote o rei adversário</string>
   <string name="mateInOneIntro">Você vence quando seu oponente não pode se defender de um xeque.</string>
+  <string name="attackYourOpponentsKing">Ataque o rei adversário de uma maneira que ele não possa se defender!</string>
+  <string name="mateInOneComplete">Parabéns! É assim que você vence jogos de xadrez!</string>
   <string name="intermediate">Intermediário</string>
   <string name="howTheGameStarts">Como o jogo inicia</string>
   <string name="castling">Roque</string>
