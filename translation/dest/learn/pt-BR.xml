@@ -34,6 +34,8 @@
   <string name="kingComplete">Você agora pode comandar o comandante!</string>
   <string name="theKnight">O cavalo</string>
   <string name="itMovesInAnLShape">Move-se no formato de um L</string>
+  <string name="knightIntro">Aqui está um desafio para você. O cavalo é... uma peça surpreendente.</string>
+  <string name="knightsHaveAFancyWay">Cavalos tem uma maneira elegante de saltar por aí!</string>
   <string name="thePawn">O peão</string>
   <string name="pawnsMoveForward">Peões movem-se para a frente, mas capturam na diagonal!</string>
   <string name="captureThenPromote">Capture, e então promova!</string>
