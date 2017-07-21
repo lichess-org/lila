@@ -59,7 +59,7 @@ final class ActivityReadApi(
       simulApi byIds simuls.value.map(_.value) dmap some
     }
     studies <- a.studies ?? { studies =>
-      studyApi idNames studies.value map some
+      studyApi publicIdNames studies.value map some
     }
     view = ActivityView(
       games = a.games,

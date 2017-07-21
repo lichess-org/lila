@@ -33,7 +33,7 @@ final class StudyApi(
 
   def byIds = studyRepo byOrderedIds _
 
-  def idNames = studyRepo idNames _
+  def publicIdNames = studyRepo publicIdNames _
 
   def publicByIds(ids: Seq[Study.Id]) = byIds(ids) map { _.filter(_.isPublic) }
 

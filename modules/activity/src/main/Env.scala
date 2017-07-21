@@ -43,8 +43,8 @@ final class Env(
         case lila.hub.actorApi.plan.MonthInc(userId, months) => write.plan(userId, months)
         case lila.hub.actorApi.relation.Follow(from, to) => write.follow(from, to)
         case lila.study.actorApi.StartStudy(id) =>
-          // wait 5 minutes in case the study turns private
-          system.scheduler.scheduleOnce(5 seconds) { write study id }
+          // wait some time in case the study turns private
+          system.scheduler.scheduleOnce(5 minutes) { write study id }
       }
     })),
     'finishGame, 'forumPost, 'finishPuzzle, 'finishPractice,
