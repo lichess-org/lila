@@ -2,8 +2,8 @@ package lila.security
 
 import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
-import reactivemongo.bson.Macros
 import reactivemongo.api.ReadPreference
+import reactivemongo.bson.Macros
 
 import lila.common.{ HTTPRequest, ApiVersion, IpAddress }
 import lila.db.BSON.BSONJodaDateTimeHandler
@@ -13,6 +13,8 @@ object Store {
 
   // dirty
   private val coll = Env.current.storeColl
+
+  private implicit val fingerHashBSONHandler = stringIsoHandler[FingerHash]
 
   private[security] def save(
     sessionId: String,
@@ -91,20 +93,11 @@ object Store {
       $doc("user" -> userId, "up" -> true)
     ).sort($doc("date" -> -1)).cursor[UserSession]().gather[List](nb)
 
-  def setFingerprint(id: String, fingerprint: String): Fu[String] = {
-    import java.util.Base64
-    import org.apache.commons.codec.binary.Hex
-    scala.concurrent.Future {
-      Base64.getEncoder encodeToString {
-        Hex decodeHex fingerprint.toArray
-      } take 8
-    } flatMap { hash =>
-      coll.update(
-        $doc("_id" -> id),
-        $set("fp" -> hash)
-      ) inject hash
+  def setFingerPrint(id: String, fp: FingerPrint): Fu[FingerHash] =
+    FingerHash(fp) match {
+      case None => fufail(s"Can't hash $id's fingerprint $fp")
+      case Some(hash) => coll.updateField($doc("_id" -> id), "fp", hash) inject hash
     }
-  }
 
   case class Info(ip: IpAddress, ua: String, fp: Option[String]) {
     def fingerprint = fp.map(_.toString)
@@ -135,10 +128,15 @@ object Store {
 
   private[security] def recentByIpExists(ip: IpAddress): Fu[Boolean] =
     coll.exists(
-      $doc(
-        "ip" -> ip,
-        "date" -> $gt(DateTime.now minusDays 7)
-      ),
+      $doc("ip" -> ip, "date" -> $gt(DateTime.now minusDays 7)),
       readPreference = ReadPreference.secondaryPreferred
     )
+
+  private[security] def recentByPrintExists(fp: FingerPrint): Fu[Boolean] =
+    FingerHash(fp) ?? { hash =>
+      coll.exists(
+        $doc("fp" -> hash, "date" -> $gt(DateTime.now minusDays 7)),
+        readPreference = ReadPreference.secondaryPreferred
+      )
+    }
 }

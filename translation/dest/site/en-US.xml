@@ -87,7 +87,7 @@
   <string name="xOpeningExplorer">%s opening explorer</string>
   <string name="winPreventedBy50MoveRule">Win prevented by 50-move rule</string>
   <string name="lossSavedBy50MoveRule">Loss saved by 50-move rule</string>
-  <string name="allSet">OK</string>
+  <string name="allSet">All set!</string>
   <string name="importPgn">Import PGN</string>
   <string name="delete">Delete</string>
   <string name="deleteThisImportedGame">Delete this imported game?</string>
@@ -713,7 +713,6 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="directlySupportLichess">Directly support Lichess</string>
   <string name="playChessInStyle">Play chess in style</string>
   <string name="chessBasics">Chess basics</string>
-  <string name="learnChessByPlaying">Learn chess by playing</string>
   <string name="coaches">Coaches</string>
   <string name="invalidPgn">Invalid PGN</string>
   <string name="invalidFen">Invalid FEN</string>

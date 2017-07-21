@@ -14,6 +14,9 @@ final class ChapterRepo(coll: Coll) {
 
   def byId(id: Chapter.Id): Fu[Option[Chapter]] = coll.byId[Chapter, Chapter.Id](id)
 
+  def studyIdOf(chapterId: Chapter.Id): Fu[Option[Study.Id]] =
+    coll.primitiveOne[Study.Id]($id(chapterId), "studyId")
+
   // def metadataById(id: Chapter.Id): Fu[Option[Chapter.Metadata]] =
   // coll.find($id(id), noRootProjection).one[Chapter.Metadata]
 

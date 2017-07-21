@@ -63,7 +63,8 @@ object ApplicationBuild extends Build {
     history, video, shutup, push,
     playban, insight, perfStat, slack, quote, challenge,
     study, studySearch, fishnet, explorer, learn, plan,
-    event, coach, practice, evalCache, irwin)
+    event, coach, practice, evalCache, irwin,
+    activity)
 
   lazy val moduleRefs = modules map projectToRef
   lazy val moduleCPDeps = moduleRefs map { new sbt.ClasspathDependency(_, None) }
@@ -189,6 +190,10 @@ object ApplicationBuild extends Build {
   )
 
   lazy val pool = project("pool", Seq(common, game, user)).settings(
+    libraryDependencies ++= provided(play.api, reactivemongo.driver)
+  )
+
+  lazy val activity = project("activity", Seq(common, game, analyse, user, forum, study, pool, puzzle, tournament, practice)).settings(
     libraryDependencies ++= provided(play.api, reactivemongo.driver)
   )
 
@@ -324,7 +329,7 @@ object ApplicationBuild extends Build {
       MessageCompiler(
         sourceDir = new File("translation/source"),
         destDir = new File("translation/dest"),
-        dbs = List("site", "arena", "emails", "learn"),
+        dbs = List("site", "arena", "emails", "learn", "activity"),
         compileTo = (sourceManaged in Compile).value / "messages"
       )
     }.taskValue,

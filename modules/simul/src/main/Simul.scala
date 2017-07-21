@@ -126,11 +126,17 @@ case class Simul(
     isCreated &&
       (hostRating >= 2400 || hostTitle.isDefined) &&
       applicants.size < 80
+
+  def wins = pairings.count(p => p.finished && p.wins.has(true))
+  def draws = pairings.count(p => p.finished && p.wins.isEmpty)
+  def losses = pairings.count(p => p.finished && p.wins.has(false))
 }
 
 object Simul {
 
   type ID = String
+
+  case class OnStart(simul: Simul)
 
   private def makeName(host: User) =
     if (host.title.isDefined) host.titleUsername

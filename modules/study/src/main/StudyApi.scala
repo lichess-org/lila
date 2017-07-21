@@ -3,8 +3,8 @@ package lila.study
 import akka.actor.{ ActorRef, ActorSelection }
 import scala.concurrent.duration._
 
-import chess.format.pgn.Glyph
 import chess.Centis
+import chess.format.pgn.Glyph
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.timeline.{ Propagate, StudyCreate, StudyLike }
 import lila.hub.Sequencer
@@ -32,6 +32,8 @@ final class StudyApi(
   def byId = studyRepo byId _
 
   def byIds = studyRepo byOrderedIds _
+
+  def publicIdNames = studyRepo publicIdNames _
 
   def publicByIds(ids: Seq[Study.Id]) = byIds(ids) map { _.filter(_.isPublic) }
 
@@ -77,7 +79,9 @@ final class StudyApi(
     }
   }
 
-  def create(data: DataForm.Data, user: User): Fu[Option[Study.WithChapter]] = data.as match {
+  def studyIdOf = chapterRepo.studyIdOf _
+
+  def create(data: DataForm.Data, user: User): Fu[Option[Study.WithChapter]] = (data.as match {
     case DataForm.AsNewStudy =>
       studyMaker(data, user) flatMap { res =>
         studyRepo.insert(res.study) >>
@@ -103,6 +107,10 @@ final class StudyApi(
         } yield made
       case _ => fuccess(none)
     } orElse create(data.copy(asStr = none), user)
+  }) addEffect {
+    _ ?? { sc =>
+      bus.publish(actorApi.StartStudy(sc.study.id), 'startStudy)
+    }
   }
 
   def clone(me: User, prev: Study): Fu[Option[Study]] =

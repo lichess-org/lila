@@ -101,7 +101,7 @@ or block the attack!</string>
   <string name="outOfCheckComplete">Congratulations! Your king can never be taken, make sure you can defend a check!</string>
   <string name="mateInOne">Mate in one</string>
   <string name="defeatTheOpponentsKing">Defeat the opponent\'s king</string>
-  <string name="mateInOneIntro">You win when your opponent cannot defend a check.</string>
+  <string name="mateInOneIntro">You win when your opponent cannot defend against a check.</string>
   <string name="attackYourOpponentsKing">Attack your opponent\'s king
 in a way that cannot be defended!</string>
   <string name="mateInOneComplete">Congratulations! That is how you win chess games!</string>
@@ -193,7 +193,7 @@ Pawn = 1</string>
   <string name="checkInTwo">Check in two</string>
   <string name="twoMovesToGiveCheck">Two moves to give a check</string>
   <string name="checkInTwoIntro">Find the right combination of two moves that checks the opponent king!</string>
-  <string name="checkInTwoGoal">Threaten the opponent king
+  <string name="checkInTwoGoal">Threaten the opponent\'s king
 in two moves!</string>
   <string name="checkInTwoComplete">Congratulations! You checked your opponent, forcing them to defend their king!</string>
   <string name="whatNext">What next?</string>

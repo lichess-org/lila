@@ -84,7 +84,7 @@ but you can defend!</string>
 any undefended piece!</string>
   <string name="combat">Combat</string>
   <string name="captureAndDefendPieces">Capture and defend pieces</string>
-  <string name="combatIntro">A good warrior knows both attack and defense!</string>
+  <string name="combatIntro">A good warrior knows both attack and defence!</string>
   <string name="combatComplete">Congratulations! You know how to fight with chess pieces!</string>
   <string name="checkInOne">Check in one</string>
   <string name="attackTheOpponentsKing">Attack the opponent's king</string>
@@ -125,7 +125,7 @@ They go next to the rooks.</string>
   <string name="placeTheBishops">Place the bishops!
 They go next to the knights.</string>
   <string name="placeTheQueen">Place the queen!
-She goes on her own color.</string>
+She goes on her own colour.</string>
   <string name="placeTheKing">Place the king!
 Right next to his queen.</string>
   <string name="pawnsFormTheFrontLine">Pawns form the front line.

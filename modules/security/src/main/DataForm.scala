@@ -45,14 +45,14 @@ final class DataForm(
       "username" -> username,
       "password" -> text(minLength = 4),
       "email" -> acceptableUniqueEmail(none),
+      "fp" -> optional(nonEmptyText),
       "g-recaptcha-response" -> optional(nonEmptyText)
     )(SignupData.apply)(_ => None))
 
     val mobile = Form(mapping(
       "username" -> username,
       "password" -> text(minLength = 4),
-      "email" -> acceptableUniqueEmail(none),
-      "can-confirm" -> optional(boolean)
+      "email" -> acceptableUniqueEmail(none)
     )(MobileSignupData.apply)(_ => None))
   }
 
@@ -102,18 +102,20 @@ object DataForm {
       username: String,
       password: String,
       email: String,
+      fp: Option[String],
       `g-recaptcha-response`: Option[String]
   ) {
     def recaptchaResponse = `g-recaptcha-response`
 
     def realEmail = EmailAddress(email)
+
+    def fingerPrint = fp.filter(_.nonEmpty) map FingerPrint.apply
   }
 
   case class MobileSignupData(
       username: String,
       password: String,
-      email: String,
-      canConfirm: Option[Boolean]
+      email: String
   ) {
     def realEmail = EmailAddress(email)
   }

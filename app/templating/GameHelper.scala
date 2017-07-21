@@ -136,10 +136,10 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
         val content = playerUsername(player, withRating)
         val diff = (player.ratingDiff ifTrue withDiff).fold(Html(""))(showRatingDiff)
         val mark = engine ?? s"""<span class="engine_mark" title="${I18nKeys.thisPlayerUsesChessComputerAssistance()}"></span>"""
-        val dataIcon = withOnline ?? """data-icon="r""""
+        val icon = withOnline ?? lineIcon(user)
         val space = if (withOnline) "&nbsp;" else ""
         val tag = if (link) "a" else "span"
-        s"""<$tag $dataIcon $klass href="$href">$space$content$diff$mark</$tag>$statusIcon"""
+        s"""<$tag $klass href="$href">$icon$space$content$diff$mark</$tag>$statusIcon"""
     }
   }
 

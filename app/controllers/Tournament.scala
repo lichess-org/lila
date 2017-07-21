@@ -70,6 +70,15 @@ object Tournament extends LilaController {
     } yield Ok(html.tournament.leaderboard(winners))
   }
 
+  private def canHaveChat(tour: Tour)(implicit ctx: Context) = ctx.me ?? { u =>
+    if (ctx.kid) false
+    else if (tour.isPrivate) true
+    else tour.variant match {
+      case chess.variant.Antichess => u.count.game > 10 && u.createdSinceDays(3)
+      case _ => true
+    }
+  }
+
   def show(id: String) = Open { implicit ctx =>
     val page = getInt("page")
     negotiate(
@@ -78,7 +87,7 @@ object Tournament extends LilaController {
         (for {
           verdicts <- env.api.verdicts(tour, ctx.me)
           version <- env.version(tour.id)
-          chat <- ctx.noKid ?? Env.chat.api.userChat.findMine(tour.id, ctx.me).map(some)
+          chat <- canHaveChat(tour) ?? Env.chat.api.userChat.findMine(tour.id, ctx.me).map(some)
           json <- env.jsonView(tour, page, ctx.me, none, version.some)
           _ <- chat ?? { c => Env.user.lightUserApi.preloadMany(c.chat.userIds) }
         } yield Ok(html.tournament.show(tour, verdicts, json, chat))).mon(_.http.response.tournament.show.website)

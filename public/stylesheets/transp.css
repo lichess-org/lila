@@ -142,6 +142,7 @@ body.transp .under_chat,
 body.transp #now_playing h3,
 body.transp div.sub_ratings,
 body.transp div.sub_ratings span,
+body.transp .cemetery score,
 body.transp #site_title,
 body.transp #site_header .baseline,
 body.transp #streams_on_air a.stream span {

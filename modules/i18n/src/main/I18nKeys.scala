@@ -1,7 +1,7 @@
 // Generated with bin/trans-dump.js
 package lila.i18n
 
-import I18nDb.{ Site, Arena, Emails, Learn }
+import I18nDb.{ Site, Arena, Emails, Learn, Activity }
 
 // format: OFF
 object I18nKeys {
@@ -611,7 +611,6 @@ val `usernameUnacceptable` = new Translated("usernameUnacceptable", Site)
 val `directlySupportLichess` = new Translated("directlySupportLichess", Site)
 val `playChessInStyle` = new Translated("playChessInStyle", Site)
 val `chessBasics` = new Translated("chessBasics", Site)
-val `learnChessByPlaying` = new Translated("learnChessByPlaying", Site)
 val `coaches` = new Translated("coaches", Site)
 val `invalidPgn` = new Translated("invalidPgn", Site)
 val `invalidFen` = new Translated("invalidFen", Site)
@@ -860,6 +859,21 @@ val `next` = new Translated("next", Learn)
 val `backToMenu` = new Translated("backToMenu", Learn)
 val `puzzleFailed` = new Translated("puzzleFailed", Learn)
 val `retry` = new Translated("retry", Learn)
+}
+
+object activity {
+val `supportedNbMonths` = new Translated("supportedNbMonths", Activity)
+val `practicedNbPositions` = new Translated("practicedNbPositions", Activity)
+val `solvedNbPuzzles` = new Translated("solvedNbPuzzles", Activity)
+val `playedNbGames` = new Translated("playedNbGames", Activity)
+val `postedNbMessages` = new Translated("postedNbMessages", Activity)
+val `playedNbMoves` = new Translated("playedNbMoves", Activity)
+val `completedNbGames` = new Translated("completedNbGames", Activity)
+val `followedNbPlayers` = new Translated("followedNbPlayers", Activity)
+val `gainedNbFollowers` = new Translated("gainedNbFollowers", Activity)
+val `hostedNbSimuls` = new Translated("hostedNbSimuls", Activity)
+val `joinedNbSimuls` = new Translated("joinedNbSimuls", Activity)
+val `createdNbStudies` = new Translated("createdNbStudies", Activity)
 }
 
 }

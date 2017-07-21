@@ -22,7 +22,7 @@ object Report extends LilaController {
   }
 
   private def renderList(room: String)(implicit ctx: Context) =
-    api.unprocessedAndRecentWithFilter(50, Room(room)) zip
+    api.unprocessedAndRecentWithFilter(20, Room(room)) zip
       api.countUnprocesssedByRooms flatMap {
         case reports ~ counts =>
           (Env.user.lightUserApi preloadMany reports.flatMap(_.userIds)) inject

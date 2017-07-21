@@ -194,11 +194,19 @@ package round {
   case class MoveEvent(
     gameId: String,
     fen: String,
-    move: String,
+    move: String
+  )
+  case class CorresMoveEvent(
+    move: MoveEvent,
+    playerUserId: Option[String],
     mobilePushable: Boolean,
     alarmable: Boolean,
-    opponentUserId: Option[String],
-    simulId: Option[String]
+    unlimited: Boolean
+  )
+  case class SimulMoveEvent(
+    move: MoveEvent,
+    simulId: String,
+    opponentUserId: String
   )
   case class NbRounds(nb: Int)
   case class Abort(gameId: String, byColor: String)
@@ -222,6 +230,7 @@ package relation {
   case class ReloadOnlineFriends(userId: String)
   case class Block(u1: String, u2: String)
   case class UnBlock(u1: String, u2: String)
+  case class Follow(u1: String, u2: String)
 }
 
 package study {
@@ -235,4 +244,5 @@ package study {
 
 package plan {
   case class ChargeEvent(username: String, amount: Int, percent: Int, date: DateTime)
+  case class MonthInc(userId: String, months: Int)
 }

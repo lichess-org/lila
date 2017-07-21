@@ -160,15 +160,15 @@ object RatingAt {
 
 case class Result(opInt: Int, opId: UserId, at: DateTime, gameId: String)
 
-case class Results(results: List[Result]) {
+case class Results(results: List[Result]) extends AnyVal {
   def agg(pov: Pov, comp: Int) = pov.opponent.rating.ifTrue(pov.game.rated).fold(this) { opInt =>
-    copy(
-      results = (Result(
-      opInt,
-      UserId(~pov.opponent.userId),
-      pov.game.movedAt,
-      pov.game.id
-    ) :: results).sortBy(_.opInt * comp) take Results.nb
+    Results(
+      (Result(
+        opInt,
+        UserId(~pov.opponent.userId),
+        pov.game.movedAt,
+        pov.game.id
+      ) :: results).sortBy(_.opInt * comp) take Results.nb
     )
   }
   def userIds = results.map(_.opId)

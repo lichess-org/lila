@@ -29,6 +29,7 @@ object Dimension {
   import BSONHandlers._
   import Position._
   import Entry.{ BSONFields => F }
+  import lila.rating.BSONHandlers.perfTypeIdHandler
 
   case object Period extends Dimension[Period](
     "period", "Date", F.date, Game,

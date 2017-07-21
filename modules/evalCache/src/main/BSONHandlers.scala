@@ -4,11 +4,10 @@ import reactivemongo.bson._
 import scalaz.NonEmptyList
 
 import chess.format.{ FEN, Uci }
-import lila.db.BSON
 import lila.db.dsl._
 import lila.tree.Eval._
 
-object BSONHandlers {
+private object BSONHandlers {
 
   import EvalCacheEntry._
 

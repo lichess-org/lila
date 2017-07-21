@@ -85,17 +85,13 @@ final class Env(
       case lila.game.actorApi.FinishGame(game, _, _) => api finishGame game
       case lila.hub.actorApi.mod.MarkCheater(userId, true) => api ejectCheater userId
       case lila.hub.actorApi.simul.GetHostIds => api.currentHostIds pipeTo sender
-      case move: lila.hub.actorApi.round.MoveEvent =>
-        move.simulId foreach { simulId =>
-          move.opponentUserId foreach { opId =>
-            hub.actor.userRegister ! lila.hub.actorApi.SendTo(
-              opId,
-              lila.socket.Socket.makeMessage("simulPlayerMove", move.gameId)
-            )
-          }
-        }
+      case lila.hub.actorApi.round.SimulMoveEvent(move, simulId, opponentUserId) =>
+        hub.actor.userRegister ! lila.hub.actorApi.SendTo(
+          opponentUserId,
+          lila.socket.Socket.makeMessage("simulPlayerMove", move.gameId)
+        )
     }
-  }), name = ActorName), 'finishGame, 'adjustCheater, 'moveEvent)
+  }), name = ActorName), 'finishGame, 'adjustCheater, 'moveEventSimul)
 
   def isHosting(userId: String): Fu[Boolean] = api.currentHostIds map (_ contains userId)
 

@@ -25,4 +25,4 @@ object Insight {
   case class Stacked(points: List[(Metric.MetricValueName, Point)]) extends Insight
 }
 
-case class Point(y: Double)
+case class Point(y: Double) extends AnyVal

@@ -9,6 +9,7 @@ import lila.api.Context
 import lila.app._
 import lila.common.{ LilaCookie, HTTPRequest, IpAddress }
 import lila.user.{ UserRepo, User => UserModel }
+import lila.security.FingerPrint
 import views._
 
 object Auth extends LilaController {
@@ -104,9 +105,11 @@ object Auth extends LilaController {
     }
   }
 
-  private def mustConfirmEmailByIP(ip: IpAddress, username: String): Fu[Boolean] =
-    api.recentByIpExists(ip) >>|
+  private def mustConfirmEmail(print: Option[FingerPrint])(implicit ctx: Context): Fu[Boolean] = {
+    val ip = HTTPRequest lastRemoteAddress ctx.req
+    api.recentByIpExists(ip) >>| print.??(api.recentByPrintExists) >>|
       Mod.ipIntelCache.get(ip).map(80 <).recover { case _: Exception => false }
+  }
 
   def signupPost = OpenBody { implicit ctx =>
     implicit val req = ctx.body
@@ -118,18 +121,15 @@ object Auth extends LilaController {
             data => env.recaptcha.verify(~data.recaptchaResponse, req).flatMap {
               case false => BadRequest(html.auth.signup(forms.signup.website fill data, env.RecaptchaPublicKey)).fuccess
               case true =>
-                mustConfirmEmailByIP(
-                  ip = HTTPRequest lastRemoteAddress ctx.req,
-                  username = data.username
-                ) flatMap { mustConfirmEmail =>
+                mustConfirmEmail(data.fingerPrint) flatMap { mustConfirm =>
                   lila.mon.user.register.website()
-                  lila.mon.user.register.mustConfirmEmail(mustConfirmEmail)()
+                  lila.mon.user.register.mustConfirmEmail(mustConfirm)()
                   val email = env.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
                   UserRepo.create(data.username, data.password, email, ctx.blindMode, none,
-                    mustConfirmEmail = mustConfirmEmail)
+                    mustConfirmEmail = mustConfirm)
                     .flatten(s"No user could be created for ${data.username}")
                     .map(_ -> email).flatMap {
-                      case (user, email) if mustConfirmEmail =>
+                      case (user, email) if mustConfirm =>
                         env.emailConfirm.send(user, email) >> {
                           if (env.emailConfirm.effective) Redirect(routes.Auth.checkYourEmail(user.username)).fuccess
                           else redirectNewUser(user)
@@ -141,16 +141,15 @@ object Auth extends LilaController {
           ),
           api = apiVersion => forms.signup.mobile.bindFromRequest.fold(
             err => fuccess(BadRequest(jsonError(errorsAsJson(err)))),
-            data => {
-              val mustConfirmEmail = ~data.canConfirm
+            data => mustConfirmEmail(none) flatMap { mustConfirm =>
               lila.mon.user.register.mobile()
-              lila.mon.user.register.mustConfirmEmail(mustConfirmEmail)()
+              lila.mon.user.register.mustConfirmEmail(mustConfirm)()
               val email = env.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
               UserRepo.create(data.username, data.password, email, false, apiVersion.some,
-                mustConfirmEmail = mustConfirmEmail)
+                mustConfirmEmail = mustConfirm)
                 .flatten(s"No user could be created for ${data.username}")
                 .map(_ -> email).flatMap {
-                  case (user, email) if mustConfirmEmail =>
+                  case (user, email) if mustConfirm =>
                     env.emailConfirm.send(user, email) >> {
                       if (env.emailConfirm.effective) Ok(Json.obj("email_confirm" -> true)).fuccess
                       else authenticateUser(user)
@@ -188,11 +187,11 @@ object Auth extends LilaController {
     } recoverWith authRecovery
   }
 
-  def setFingerprint(fp: String, ms: Int) = Auth { ctx => me =>
-    api.setFingerprint(ctx.req, fp) flatMap {
+  def setFingerPrint(fp: String, ms: Int) = Auth { ctx => me =>
+    api.setFingerPrint(ctx.req, FingerPrint(fp)) flatMap {
       _ ?? { hash =>
         !me.lame ?? {
-          api.recentUserIdsByFingerprint(hash).map(_.filter(me.id!=)) flatMap {
+          api.recentUserIdsByFingerHash(hash).map(_.filter(me.id!=)) flatMap {
             case otherIds if otherIds.size >= 2 => UserRepo countEngines otherIds flatMap {
               case nb if nb >= 2 && nb >= otherIds.size / 2 => Env.report.api.autoCheatPrintReport(me.id)
               case _ => funit

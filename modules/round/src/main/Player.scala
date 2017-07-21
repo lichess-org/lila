@@ -6,7 +6,6 @@ import chess.{ MoveMetrics, Centis, Status, Color, MoveOrDrop }
 import actorApi.round.{ HumanPlay, DrawNo, TakebackNo, ForecastPlay }
 import akka.actor.ActorRef
 import lila.game.{ Game, Progress, Pov, UciMemo }
-import lila.hub.actorApi.round.MoveEvent
 import scala.concurrent.duration._
 
 private[round] final class Player(
@@ -93,17 +92,37 @@ private[round] final class Player(
       )
     }
 
-  private def notifyMove(moveOrDrop: MoveOrDrop, game: Game) {
+  private def notifyMove(moveOrDrop: MoveOrDrop, game: Game): Unit = {
+    import lila.hub.actorApi.round.{ MoveEvent, CorresMoveEvent, SimulMoveEvent }
     val color = moveOrDrop.fold(_.color, _.color)
-    bus.publish(MoveEvent(
+    val moveEvent = MoveEvent(
       gameId = game.id,
       fen = Forsyth exportBoard game.toChess.board,
-      move = moveOrDrop.fold(_.toUci.keys, _.toUci.uci),
-      mobilePushable = game.mobilePushable,
-      alarmable = game.alarmable,
-      opponentUserId = game.player(!color).userId,
-      simulId = game.simulId
-    ), 'moveEvent)
+      move = moveOrDrop.fold(_.toUci.keys, _.toUci.uci)
+    )
+    // publish all moves
+    bus.publish(moveEvent, 'moveEvent)
+
+    // publish correspondence moves
+    if (game.isCorrespondence && game.nonAi) bus.publish(
+      CorresMoveEvent(
+        move = moveEvent,
+        playerUserId = game.player(color).userId,
+        mobilePushable = game.mobilePushable,
+        alarmable = game.alarmable,
+        unlimited = game.isUnlimited
+      ),
+      'moveEventCorres
+    )
+
+    // publish simul moves
+    for {
+      simulId <- game.simulId
+      opponentUserId <- game.player(!color).userId
+    } bus.publish(
+      SimulMoveEvent(move = moveEvent, simulId = simulId, opponentUserId = opponentUserId),
+      'moveEventSimul
+    )
   }
 
   private def moveFinish(game: Game, color: Color)(implicit proxy: GameProxy): Fu[Events] = game.status match {

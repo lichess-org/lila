@@ -213,7 +213,7 @@ final class Env(
   system.lilaBus.subscribe(system.actorOf(
     Props(new CorresAlarm(db(CollectionAlarm), hub.socket.round)),
     name = "corres-alarm"
-  ), 'moveEvent, 'finishGame)
+  ), 'moveEventCorres, 'finishGame)
 
   lazy val takebacker = new Takebacker(
     messenger = messenger,

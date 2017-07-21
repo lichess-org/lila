@@ -7,16 +7,13 @@ import chess.{ Role, Color }
 import lila.db.BSON
 import lila.db.dsl._
 import lila.rating.PerfType
+import lila.rating.BSONHandlers.perfTypeIdHandler
 
 private object BSONHandlers {
 
   implicit val ColorBSONHandler = new BSONHandler[BSONBoolean, Color] {
     def read(b: BSONBoolean) = Color(b.value)
     def write(c: Color) = BSONBoolean(c.white)
-  }
-  implicit val PerfTypeBSONHandler = new BSONHandler[BSONInteger, PerfType] {
-    def read(b: BSONInteger) = PerfType.byId get b.value err s"Invalid perf type id ${b.value}"
-    def write(p: PerfType) = BSONInteger(p.id)
   }
   implicit val EcopeningBSONHandler = new BSONHandler[BSONString, Ecopening] {
     def read(b: BSONString) = EcopeningDB.allByEco get b.value err s"Invalid ECO ${b.value}"

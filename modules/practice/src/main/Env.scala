@@ -21,7 +21,8 @@ final class Env(
     coll = db(CollectionProgress),
     configStore = configStore[PracticeConfig]("practice", logger),
     asyncCache = asyncCache,
-    studyApi = studyApi
+    studyApi = studyApi,
+    bus = system.lilaBus
   )
 
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {
