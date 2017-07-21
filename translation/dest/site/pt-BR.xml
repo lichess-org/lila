@@ -48,6 +48,7 @@
   <string name="computerAnalysis">Análise do computador</string>
   <string name="computerAnalysisAvailable">Análise de computador disponível</string>
   <string name="analysis">Análise</string>
+  <string name="depthX">Profundidade %s</string>
   <string name="usingServerAnalysis">Análise de servidor em uso</string>
   <string name="loadingEngine">Carregando ...</string>
   <string name="cloudAnalysis">Análise na nuvem</string>
@@ -67,6 +68,7 @@
   <string name="whiteDrawBlack">Brancas / Empate / Pretas</string>
   <string name="averageRatingX">Rating médio</string>
   <string name="recentGames">Partidas recentes</string>
+  <string name="topGames">Melhores partidas</string>
   <string name="noGameFound">Nenhuma partida encontrada</string>
   <string name="openingExplorer">Explorador de abertura</string>
   <string name="allSet">Tudo pronto!</string>
