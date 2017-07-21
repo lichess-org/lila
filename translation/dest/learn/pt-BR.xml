@@ -84,10 +84,19 @@ mas você pode defender!</string>
   <string name="attackTheOpponentsKing">Ataque o rei do seu adversário</string>
   <string name="checkInOneIntro">Para dar xeque, ataque o rei. Seu oponente deve defendê-lo!</string>
   <string name="checkInOneGoal">Ameace o rei de seu oponente em um movimento!</string>
-  <string name="checkInOneComplete">Parabéns! Você colocou o rei de seu oponente em xeque, obrigando-o a defende-lo!</string>
-  <string name="outOfCheck">Livre-se do xeque</string>
+  <string name="checkInOneComplete">Parabéns! Você deu xeque no seu oponente, forçando-o a defender o rei!</string>
+  <string name="outOfCheck">Escape do xeque</string>
   <string name="defendYourKing">Defenda seu rei</string>
   <string name="outOfCheckIntro">Você está em xeque! Você deve escapar ou bloquear o ataque.</string>
+  <string name="escapeWithTheKing">Escape com o rei!</string>
+  <string name="theKingCannotEscapeButBlock">O rei não pode escapar,
+mas você pode bloquear o ataque!</string>
+  <string name="youCanGetOutOfCheckByTaking">Você pode sair de um xeque
+capturando a peça atacante.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Este cavalo está dando xeque
+através de suas defesas!</string>
+  <string name="escapeOrBlock">Escape com o rei
+ou bloqueie o ataque!</string>
   <string name="mateInOne">Mate em um jogada</string>
   <string name="intermediate">Intermediário</string>
   <string name="howTheGameStarts">Como o jogo inicia</string>
