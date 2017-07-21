@@ -21,10 +21,12 @@ Fazendo o Berserk em jogos com controle de tempo com incremento cancela o mesmo.
 Berserk não está disponível em jogos com tempo inicial (0+1, 0+2).
 
 Berserk só garante um ponto extra se você jogar pelo menos 7 movimentos na partida.</string>
-  <string name="howIsTheWinnerDecided">Como o vencedor do Torneio é decidido?</string>
-  <string name="howIsTheWinnerDecidedAnswer">O(s) jogador(es) com mais pontos no fim da duração do Torneio é(são) declarados vencedor(es).</string>
+  <string name="howIsTheWinnerDecided">Como se decide o vencedor do torneio?</string>
+  <string name="howIsTheWinnerDecidedAnswer">O(s) jogador(es) com mais pontos no fim da duração do torneio é(são) declarados vencedor(es).</string>
   <string name="howDoesPairingWork">Como o pareamento funciona?</string>
   <string name="howDoesPairingWorkAnswer">No início do torneio, os jogadores serão pareados baseando-se em suas classificações.
 Assim que terminar a sua partida, você voltará a aguardar o pareamento com um jogador de classificação próxima à sua. Terminando a sua partida logo, você poderá jogar mais vezes e acumular mais pontos que seus adversários.</string>
   <string name="howDoesItEnd">Como termina?</string>
+  <string name="otherRules">Outras regras importantes</string>
+  <string name="thisIsPrivate">Este é um torneio privado</string>
 </resources>
