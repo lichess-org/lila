@@ -104,7 +104,22 @@ ou bloqueie o ataque!</string>
   <string name="attackYourOpponentsKing">Ataque o rei adversário de uma maneira que ele não possa se defender!</string>
   <string name="mateInOneComplete">Parabéns! É assim que você vence jogos de xadrez!</string>
   <string name="intermediate">Intermediário</string>
+  <string name="boardSetup">Posição inicial</string>
   <string name="howTheGameStarts">Como o jogo inicia</string>
+  <string name="boardSetupIntro">Os dois exércitos se enfrentam, prontos para a batalha.</string>
+  <string name="thisIsTheInitialPosition">Esta é a posição inicial de qualquer jogo de xadrez! Faça qualquer movimento para continuar.</string>
+  <string name="firstPlaceTheRooks">Primeiro posicione as torres!
+Elas ficam nos cantos.</string>
+  <string name="thenPlaceTheKnights">Agora posicione os cavalos!
+Eles ficam ao lado das torres.</string>
+  <string name="placeTheBishops">Posicione os bispos!
+Eles vão ao lado dos cavalos.</string>
+  <string name="placeTheQueen">Posicione a dama!
+Ela vai na casa de sua cor.</string>
+  <string name="placeTheKing">Posicione o rei!
+Bem ao lado de sua rainha.</string>
+  <string name="pawnsFormTheFrontLine">Peões formam a linha de frente.
+Faça qualquer movimento para continuar.</string>
   <string name="castling">Roque</string>
   <string name="theSpecialKingMove">O movimento especial do rei</string>
   <string name="enPassant">En passant</string>
