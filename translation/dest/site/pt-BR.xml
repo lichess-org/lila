@@ -80,6 +80,7 @@
   <string name="noGameFound">Nenhuma partida encontrada</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Talvez você queira incluir mais jogos a partir do menu de preferências</string>
   <string name="openingExplorer">Explorador de abertura</string>
+  <string name="xOpeningExplorer">%s Explorador de aberturas</string>
   <string name="winPreventedBy50MoveRule">Vitória impedida pela regra dos 50 movimentos</string>
   <string name="lossSavedBy50MoveRule">Derrota impedida pela regra dos 50 movimentos</string>
   <string name="allSet">Tudo pronto!</string>
@@ -347,6 +348,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="createdBy">Criado por</string>
   <string name="tournamentIsStarting">O torneio está a começar</string>
   <string name="tournamentPairingsAreNowClosed">Os pareamentos do torneio estão fechados agora.</string>
+  <string name="standByX">Aguarde %s, emparceiramento em andamento, esteja pronto!</string>
   <string name="youArePlaying">Você está no jogo!</string>
   <string name="winRate">Taxa de vitórias</string>
   <string name="berserkRate">Taxa Berserk</string>
@@ -369,6 +371,8 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="reportXToModerators">Reportar %s aos moderadores</string>
   <string name="profileCompletion">Conclusão do perfil: %s</string>
   <string name="xRating">Classificação %s</string>
+  <string name="ifNoneLeaveEmpty">Se nenhuma, deixe vazio</string>
+  <string name="gameCompletionRate">Taxa de conclusão do jogo: %s</string>
   <string name="profile">Perfil</string>
   <string name="editProfile">Editar perfil</string>
   <string name="firstName">Primeiro nome</string>
@@ -488,6 +492,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="howDoYouMovePieces">Como você move as peças?</string>
   <string name="clickTwoSquares">Clicar em duas casas</string>
   <string name="dragPiece">Arrastar a peça</string>
+  <string name="bothClicksAndDrag">Ambas</string>
   <string name="premovesPlayingDuringOpponentTurn">Pré-movimentos (jogadas durante o turno do oponente)</string>
   <string name="takebacksWithOpponentApproval">Voltar jogada (com aprovação do oponente)</string>
   <string name="promoteToQueenAutomatically">Promover a Dama automaticamente</string>
@@ -495,6 +500,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="privacy">Privacidade</string>
   <string name="letOtherPlayersFollowYou">Permitir que outros jogadores sigam você</string>
   <string name="letOtherPlayersChallengeYou">Permitir que outros jogadores desafiem você</string>
+  <string name="letOtherPlayersInviteYouToStudy">Deixe outros jogadores convidá-lo para um estudo</string>
   <string name="sound">Som</string>
   <string name="yourPreferencesHaveBeenSaved">Suas preferências foram salvas.</string>
   <string name="none">Nenhum</string>
@@ -644,9 +650,12 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="crosstable">Tabela</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Você também pode rolar sobre o tabuleiro para percorrer as jogadas.</string>
   <string name="analysisShapesHowTo">Pressione Shift+Clique ou clique com o botão direito do mouse para desenhar círculos e setas no tabuleiro.</string>
+  <string name="confirmResignationAndDrawOffers">Confirmar abandono e oferta de empate</string>
+  <string name="inputMovesWithTheKeyboard">Inclua os lances com o teclado</string>
   <string name="letOtherPlayersMessageYou">Permitir que outros jogadores lhe enviem mensagem</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Maneira de rocar</string>
   <string name="castleByMovingTwoSquares">Mova o rei duas casas</string>
+  <string name="castleByMovingOntoTheRook">Mova o Rei em direção a torre</string>
   <string name="shareYourInsightsData">Compartilhar seus dados de percepção</string>
   <string name="withNobody">Com ninguém</string>
   <string name="withFriends">Com amigos</string>
