@@ -157,7 +157,7 @@
 }
 .user_show .user_actions {
   font-size: 1.2em;
-  margin-right: 15px;
+  margin: 4px 15px 0 0;
 }
 .user_show .user_actions form {
   display: inline;
@@ -455,7 +455,6 @@ div.crosstable {
 }
 div.content_box_inter {
   display: flex!important;
-  overflow: hidden;
 }
 div.content_box_inter .intertab {
   flex: 1 1 auto;
