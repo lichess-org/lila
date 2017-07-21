@@ -53,8 +53,16 @@ Mas as vezes a um cavalo pode ser útil!</string>
 Não há necessidade de promoção.</string>
   <string name="pawnComplete">Parabéns! Peões não tem mais segredos para você.</string>
   <string name="pawnPromotion">Promoção do peão</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Seu peão alcançou a última fileira do tabuleiro!</string>
+  <string name="itNowPromotesToAStrongerPiece">Ele é agora promovido à uma peça mais forte.</string>
+  <string name="selectThePieceYouWant">Escolha a peça que desejar!</string>
   <string name="fundamentals">Fundamentos</string>
   <string name="capture">Captura</string>
+  <string name="takeTheEnemyPieces">Capture as peças inimigas</string>
+  <string name="captureIntro">Identifique as peças desprotegida do adversário, e capture-as!</string>
+  <string name="takeTheBlackPieces">Capture as peças pretas!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Capture as peças pretas!
+E não perca as suas.</string>
   <string name="protection">Defesa</string>
   <string name="combat">Combate</string>
   <string name="captureAndDefendPieces">Capture e defenda peças</string>
