@@ -48,6 +48,10 @@ Mas as vezes a um cavalo pode ser útil!</string>
   <string name="pawnsMoveForward">Peões movem-se para a frente, mas capturam na diagonal!</string>
   <string name="captureThenPromote">Capture, e então promova!</string>
   <string name="useAllThePawns">Use todos os peões! Não é necessário promover.</string>
+  <string name="aPawnOnTheSecondRank">Um peão na segunda fileira pode mover-se duas posições de uma vez!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Capture todas as estrelas!
+Não há necessidade de promoção.</string>
+  <string name="pawnComplete">Parabéns! Peões não tem mais segredos para você.</string>
   <string name="pawnPromotion">Promoção do peão</string>
   <string name="fundamentals">Fundamentos</string>
   <string name="capture">Captura</string>
