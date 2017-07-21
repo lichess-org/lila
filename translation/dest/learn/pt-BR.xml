@@ -75,7 +75,7 @@ E não perca as suas.</string>
 Fuja da ameaça!</string>
   <string name="noEscape">Não há como fugir, 
 mas você pode defender!</string>
-  <string name="dontLetThemTakeAnyUndefendedPiece">Não permita que ele capture qualquer peça que seja!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Não deixe que capturem qualquer peça indefesa!</string>
   <string name="combat">Combate</string>
   <string name="captureAndDefendPieces">Capture e defenda peças</string>
   <string name="combatIntro">Um bom guerreiro sabe atacar e defender!</string>
