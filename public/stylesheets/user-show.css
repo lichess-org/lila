@@ -146,16 +146,18 @@
   font-size: 1.4em;
 }
 .user_show .social {
-  position: relative;
   border-top: 0;
   padding: 0 0 5px 10px;
   height: 52px;
+  align-items: center;
+  justify-content: space-between;
+}
+.user_show .social .links {
+  display: flex;
 }
 .user_show .user_actions {
-  position: absolute;
-  top: 12px;
-  right: 12px;
   font-size: 1.2em;
+  margin-right: 15px;
 }
 .user_show .user_actions form {
   display: inline;
@@ -450,4 +452,36 @@ div.crosstable {
 }
 .user_show .new_player a {
   color: #3893E8;
+}
+div.content_box_inter {
+  display: flex!important;
+  overflow: hidden;
+}
+div.content_box_inter .intertab {
+  flex: 1 1 auto;
+  text-align: center;
+  line-height: 1.4em;
+  margin: 5px 0 -1px -1px;
+  padding: 0.5em 5px;
+  text-transform: capitalize;
+  border: 1px solid transparent;
+  font-family: 'Roboto';
+  font-weight: 300;
+  white-space: normal;
+}
+div.content_box_inter.tabs .intertab {
+  margin-top: 7px;
+  border-bottom: none;
+  padding-bottom: 0.8em;
+}
+div.content_box_inter .intertab strong {
+  font-family: 'Noto Sans';
+  font-weight: normal;
+}
+div.content_box_inter a.intertab:hover,
+div.content_box_inter a.intertab.active {
+  border-color: #ccc;
+}
+div.content_box_inter a.intertab.active {
+  background: #fff;
 }
