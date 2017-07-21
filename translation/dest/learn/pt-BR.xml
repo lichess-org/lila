@@ -40,6 +40,9 @@
   <string name="knightComplete">Parabéns! Você acaba tornar-se um mestre dos cavalos.</string>
   <string name="thePawn">O peão</string>
   <string name="itMovesForwardOnly">Ele se move somente para frente</string>
+  <string name="pawnIntro">Peões são fracos, mas possuem grande potencial.</string>
+  <string name="pawnsMoveOneSquareOnly">Peões se movem apenas uma casa.
+Mas quando tiverem alcançado o outro lado do tabuleiro transformam-se em uma peça mais forte!</string>
   <string name="pawnsMoveForward">Peões movem-se para a frente, mas capturam na diagonal!</string>
   <string name="captureThenPromote">Capture, e então promova!</string>
   <string name="useAllThePawns">Use todos os peões! Não é necessário promover.</string>
