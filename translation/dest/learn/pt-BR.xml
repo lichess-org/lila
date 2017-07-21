@@ -63,7 +63,15 @@ Não há necessidade de promoção.</string>
   <string name="takeTheBlackPieces">Capture as peças pretas!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Capture as peças pretas!
 E não perca as suas.</string>
+  <string name="captureComplete">Parabéns! Você já sabe como lutar com peças de xadrez!</string>
   <string name="protection">Defesa</string>
+  <string name="keepYourPiecesSafe">Mantenha suas peças em segurança</string>
+  <string name="protectionIntro">Identifique as peças atacadas pelo seu adversário e as defenda!</string>
+  <string name="protectionComplete">Parabéns! Uma peça que você não perdeu é uma peça que você ganhou!</string>
+  <string name="escape">Você está sob ataque!
+Fuja desta armadilha!</string>
+  <string name="noEscape">Não há como fugir, 
+mas você pode defender!</string>
   <string name="combat">Combate</string>
   <string name="captureAndDefendPieces">Capture e defenda peças</string>
   <string name="defendYourKing">Defenda seu rei</string>
