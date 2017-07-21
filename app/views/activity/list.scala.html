@@ -24,10 +24,10 @@
     @p.toList.sortBy(-_._2).zipWithIndex.map {
     case ((study, nb), i) => {
     @if(i == 1) {<div class="sub">}
-    Practiced @nb positions on <a href="@routes.Practice.show("-", study.slug, study.id.value)">@study.name</a><br />
-    }
-    }
-  </div>
+      Practiced @nb positions on <a href="@routes.Practice.show("-", study.slug, study.id.value)">@study.name</a><br />
+      }
+      }
+    </div>
   </div>
 </div>
 }
@@ -173,6 +173,20 @@ case (pt, score) => {
 </div>
 }
 
+@renderStudies(studies: List[lila.study.Study.IdName]) = {
+<div class="entry studies">
+  <i data-icon=""></i>
+  <div>
+    Created @studies.size new studies
+    <div class="sub">
+      @studies.map { s =>
+      <a href="@routes.Study.show(s.id.value)">@s.name</a><br />
+      }
+    </div>
+  </div>
+</div>
+}
+
 @user.layout(
 title = s"${u.username} activity",
 evenMoreCss = moreCss) {
@@ -201,6 +215,7 @@ evenMoreCss = moreCss) {
         }
         @a.follows.map(renderFollows)
         @a.simuls.map(renderSimuls)
+        @a.studies.map(renderStudies)
       </div>
     </section>
     }

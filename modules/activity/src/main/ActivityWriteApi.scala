@@ -5,8 +5,12 @@ import lila.db.dsl._
 import lila.game.Game
 import lila.user.User
 import lila.user.UserRepo.lichessId
+import lila.study.Study
 
-final class ActivityWriteApi(coll: Coll) {
+final class ActivityWriteApi(
+    coll: Coll,
+    studyApi: lila.study.StudyApi
+) {
 
   import Activity._
   import BSONHandlers._
@@ -51,6 +55,14 @@ final class ActivityWriteApi(coll: Coll) {
       update(to) { a =>
         a.copy(follows = Some(~a.follows addIn from)).some
       }
+
+  def study(id: Study.Id) = studyApi byId id flatMap {
+    _.filter(_.isPublic) ?? { s =>
+      update(s.ownerId) { a =>
+        a.copy(studies = Some(~a.studies + s.id)).some
+      }
+    }
+  }
 
   private def simulParticipant(simul: lila.simul.Simul, userId: String, host: Boolean) =
     update(userId) { a => a.copy(simuls = Some(~a.simuls + SimulId(simul.id))).some }

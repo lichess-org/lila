@@ -97,6 +97,10 @@ private object BSONHandlers {
     )
   }
 
+  private implicit val studyIdHandler = isoHandler(studyIdIso)
+  private implicit val studyIdsHandler = bsonArrayToListHandler[Study.Id]
+  private implicit val studiesHandler = isoHandler[Studies, List[Study.Id], Barr]((s: Studies) => s.value, Studies.apply _)
+
   implicit val activityHandler = new lila.db.BSON[Activity] {
 
     private val id = "_id"
@@ -109,6 +113,7 @@ private object BSONHandlers {
     private val corres = "o"
     private val patron = "a"
     private val follows = "f"
+    private val studies = "t"
 
     def reads(r: lila.db.BSON.Reader) = Activity(
       id = r.get[Id](id),
@@ -120,7 +125,8 @@ private object BSONHandlers {
       simuls = r.getO[Simuls](simuls),
       corres = r.getO[Corres](corres),
       patron = r.getO[Patron](patron),
-      follows = r.getO[Follows](follows)
+      follows = r.getO[Follows](follows),
+      studies = r.getO[Studies](studies)
     )
 
     def writes(w: lila.db.BSON.Writer, o: Activity) = BSONDocument(
@@ -133,7 +139,8 @@ private object BSONHandlers {
       simuls -> o.simuls,
       corres -> o.corres,
       patron -> o.patron,
-      follows -> o.follows
+      follows -> o.follows,
+      studies -> o.studies
     )
   }
 }

@@ -16,7 +16,8 @@ case class Activity(
     simuls: Option[Simuls] = None,
     corres: Option[Corres] = None,
     patron: Option[Patron] = None,
-    follows: Option[Follows] = None
+    follows: Option[Follows] = None,
+    studies: Option[Studies] = None
 ) {
 
   def date = Activity.Day.genesis plusDays id.day.value

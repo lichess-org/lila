@@ -110,6 +110,9 @@ final class StudyRepo(private[study] val coll: Coll) {
 
   private val idNameProjection = $doc("name" -> true)
 
+  def idNames(ids: List[Study.Id]): Fu[List[Study.IdName]] =
+    coll.find($inIds(ids), idNameProjection).list[Study.IdName]()
+
   def recentByOwner(userId: User.ID, nb: Int) =
     coll.find(
       selectOwnerId(userId),

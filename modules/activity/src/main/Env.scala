@@ -12,20 +12,23 @@ final class Env(
     system: akka.actor.ActorSystem,
     practiceApi: lila.practice.PracticeApi,
     postApi: lila.forum.PostApi,
-    simulApi: lila.simul.SimulApi
+    simulApi: lila.simul.SimulApi,
+    studyApi: lila.study.StudyApi
 ) {
 
   private val activityColl = db(config getString "collection.activity")
 
   val write = new ActivityWriteApi(
-    coll = activityColl
+    coll = activityColl,
+    studyApi = studyApi
   )
 
   val read = new ActivityReadApi(
     coll = activityColl,
     practiceApi = practiceApi,
     postApi = postApi,
-    simulApi = simulApi
+    simulApi = simulApi,
+    studyApi = studyApi
   )
 
   system.lilaBus.subscribe(
@@ -39,10 +42,13 @@ final class Env(
         case CorresMoveEvent(move, Some(userId), _, _, false) => write.corresMove(move.gameId, userId)
         case lila.hub.actorApi.plan.MonthInc(userId, months) => write.plan(userId, months)
         case lila.hub.actorApi.relation.Follow(from, to) => write.follow(from, to)
+        case lila.study.actorApi.StartStudy(id) =>
+          // wait 5 minutes in case the study turns private
+          system.scheduler.scheduleOnce(5 seconds) { write study id }
       }
     })),
     'finishGame, 'forumPost, 'finishPuzzle, 'finishPractice,
-    'startSimul, 'moveEventCorres, 'plan, 'relation
+    'startSimul, 'moveEventCorres, 'plan, 'relation, 'startStudy
   )
 }
 
@@ -54,6 +60,7 @@ object Env {
     system = lila.common.PlayApp.system,
     practiceApi = lila.practice.Env.current.api,
     postApi = lila.forum.Env.current.postApi,
-    simulApi = lila.simul.Env.current.api
+    simulApi = lila.simul.Env.current.api,
+    studyApi = lila.study.Env.current.api
   )
 }

@@ -85,4 +85,9 @@ object activities {
   }
   implicit val FollowListZero = Zero.instance(FollowList(Nil, None))
   implicit val FollowsZero = Zero.instance(Follows(None, None))
+
+  case class Studies(value: List[Study.Id]) extends AnyVal {
+    def +(s: Study.Id) = copy(value = s :: value)
+  }
+  implicit val StudiesZero = Zero.instance(Studies(Nil))
 }

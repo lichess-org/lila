@@ -11,7 +11,8 @@ final class ActivityReadApi(
     coll: Coll,
     practiceApi: lila.practice.PracticeApi,
     postApi: lila.forum.PostApi,
-    simulApi: lila.simul.SimulApi
+    simulApi: lila.simul.SimulApi,
+    studyApi: lila.study.StudyApi
 ) {
 
   import Activity._
@@ -57,6 +58,9 @@ final class ActivityReadApi(
     simuls <- a.simuls ?? { simuls =>
       simulApi byIds simuls.value.map(_.value) dmap some
     }
+    studies <- a.studies ?? { studies =>
+      studyApi idNames studies.value map some
+    }
     view = ActivityView(
       games = a.games,
       puzzles = a.puzzles,
@@ -66,7 +70,8 @@ final class ActivityReadApi(
       patron = a.patron,
       corresMoves = corresMoves,
       corresEnds = corresEnds,
-      follows = a.follows
+      follows = a.follows,
+      studies = studies
     )
   } yield ActivityView.AsTo(a.date, view)
 
