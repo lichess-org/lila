@@ -35,7 +35,7 @@ private[forum] final class Recent(
       } mkString ";"
     }
 
-  private lazy val staffCategIds = "staff" :: publicCategIds
+  private lazy val staffCategIds = Categ.staffId :: publicCategIds
 
   private val cache = asyncCache.clearable(
     name = "forum.recent",
