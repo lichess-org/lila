@@ -165,7 +165,7 @@ case (pt, score) => {
 <div class="entry studies">
   <i data-icon=""></i>
   <div>
-    Created @studies.size new studies
+    @trans.activity.createdNbStudies.pluralSame(studies.size)
     <div class="sub">
       @studies.map { s =>
       <a href="@routes.Study.show(s.id.value)">@s.name</a><br />

@@ -11,4 +11,5 @@
   <string name="gainedNbFollowers">Gained %s new followers</string>
   <string name="hostedNbSimuls">Hosted %s simultaneous exhibitions</string>
   <string name="joinedNbSimuls">Participated to %s simultaneous exhibitions</string>
+  <string name="createdNbStudies">Created %s new studies</string>
 </resources>
