@@ -48,6 +48,13 @@
   <string name="pawnsMoveOneSquareOnly">Τα πιόνια κινούνται σε ένα τετράγωνο μόνο. Αλλά όταν φθάσουν στην άλλη πλευρά της σκακιέρας, μπορούν να αντικατασταθούν με ένα ισχυρότερο κομμάτι!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">Τις περισσότερες φορές η προώθηση σε βασίλισσα είναι το καλύτερο.
 Αλλά μερικές φορές ένας ίππος μπορεί να είναι χρήσιμος!</string>
+  <string name="pawnsMoveForward">Τα πιόνια κινούνται προς τα εμπρός,
+αλλά αιχμαλωτίζουν διαγώνια!</string>
+  <string name="captureThenPromote">Αιχμαλώτισε, έπειτα προώθησε!</string>
+  <string name="aPawnOnTheSecondRank">Ένα πιόνι στην δεύτερη γραμμή μπορεί να κινηθεί 2 τετράγωνα αμέσως!</string>
+  <string name="pawnComplete">Συγχαρητήρια! Τα πιόνα δεν έχουν άλλα μυστικά για εσάς.</string>
+  <string name="pawnPromotion">Προαγωγή πιονιού</string>
+  <string name="capture">Αιχμαλώτιση</string>
   <string name="mateInOne">Ματ σε μία</string>
   <string name="boardSetup">Στήσιμο σκακιέρας</string>
   <string name="thisIsTheInitialPosition">Αυτή είναι η αρχική θέση
