@@ -69,9 +69,10 @@
   <string name="unknown">Posição desconhecida</string>
   <string name="database">Base de dados</string>
   <string name="whiteDrawBlack">Brancas / Empate / Pretas</string>
-  <string name="averageRatingX">Rating médio</string>
+  <string name="averageRatingX">Classificação média: %s</string>
   <string name="recentGames">Partidas recentes</string>
   <string name="topGames">Melhores partidas</string>
+  <string name="masterDbExplanation">Duas milhões de partidas de jogadores com pontuação FIDE acima de %1$s, desde %2$s a %3$s</string>
   <string name="noGameFound">Nenhuma partida encontrada</string>
   <string name="openingExplorer">Explorador de abertura</string>
   <string name="allSet">Tudo pronto!</string>
@@ -134,8 +135,8 @@
     <item quantity="other">%s horas</item>
   </plurals>
   <string name="time">Tempo</string>
-  <string name="rating">Rating</string>
-  <string name="ratingStats">Estatísticas de rating</string>
+  <string name="rating">Classificação</string>
+  <string name="ratingStats">Estatísticas de classificação</string>
   <string name="username">Nome de usuário</string>
   <string name="usernameOrEmail">Nome ou email do usuário</string>
   <string name="password">Senha</string>
@@ -208,13 +209,13 @@
     <item quantity="other">%s empates</item>
   </plurals>
   <string name="exportGames">Exportar partidas</string>
-  <string name="ratingRange">Rating entre</string>
+  <string name="ratingRange">Classificação entre</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dar %s segundos</item>
     <item quantity="other">Dar %s segundos</item>
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Este jogador usa a ajuda de computador</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Este jogador aumentou o seu rating de maneira artificial.</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">Este jogador modificou a sua classificação de maneira artificial</string>
   <string name="takeback">Voltar jogada</string>
   <string name="proposeATakeback">Propor voltar jogada</string>
   <string name="takebackPropositionSent">Proposta de voltar jogada enviada</string>
@@ -251,7 +252,7 @@
   <string name="teamRecentMembers">Últimos membros</string>
   <string name="xJoinedTeamY">%1$s juntou-se à equipa %2$s</string>
   <string name="xCreatedTeamY">%1$s criou a equipa %2$s</string>
-  <string name="averageElo">Média de rating</string>
+  <string name="averageElo">Média de classificação</string>
   <string name="location">Localização</string>
   <string name="settings">Configurações</string>
   <string name="filterGames">Filtrar partidas</string>
@@ -532,7 +533,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="blindfoldChess">Xadrez cego (peças invisíveis)</string>
   <string name="moveConfirmation">Confirmação de movimento</string>
   <string name="inCorrespondenceGames">Jogos por correspondência</string>
-  <string name="ifRatingIsPlusMinusX">Se o rating for ± %s</string>
+  <string name="ifRatingIsPlusMinusX">Se a classificação for ± %s</string>
   <string name="onlyFriends">Apenas amigos</string>
   <string name="menu">Menu</string>
   <string name="castling">Roque</string>
@@ -591,14 +592,14 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="tournamentDoesNotExist">Este torneio não existe.</string>
   <string name="tournamentMayHaveBeenCanceled">O evento pode ter sido cancelado, se todos os jogadores saíram antes de seu início.</string>
   <string name="returnToTournamentsHomepage">Volte à página inicial de torneios</string>
-  <string name="weeklyPerfTypeRatingDistribution">Distribuição mensal de rating em %s</string>
+  <string name="weeklyPerfTypeRatingDistribution">Distribuição mensal de classificação em %s</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">%1$s %2$s jogador desta semana.</item>
     <item quantity="other">%1$s %2$s jogadores esta semana.</item>
   </plurals>
-  <string name="yourPerfTypeRatingIsRating">Seu rating em %1$s é %2$s.</string>
+  <string name="yourPerfTypeRatingIsRating">Sua classificação em %1$s é %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Você é melhor que %1$s entre os jogadores de %2$s.</string>
-  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Você não tem rating definido em %s.</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Você não tem uma classificação definida em %s.</string>
   <string name="checkYourEmail">Verifique seu e-mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Enviamos um e-mail. Clique no link do e-mail para ativar sua conta.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se você não vir o e-mail, verifique outros locais onde possa estar, como lixeira, spam ou outras pastas.</string>
