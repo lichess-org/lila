@@ -62,7 +62,7 @@
   <string name="insufficientMaterial">Niewystarczający materiał</string>
   <string name="pawnMove">Ruch pionkiem</string>
   <string name="capture">Bicie</string>
-  <string name="close">Blisko</string>
+  <string name="close">Zamknij</string>
   <string name="winning">Wygrywa</string>
   <string name="losing">Przegrywa</string>
   <string name="drawn">Remis</string>

@@ -88,7 +88,7 @@
   <string name="combatIntro">すぐれた戦士は攻撃と防御、両方を使いこなす！</string>
   <string name="combatComplete">おめでとう！　相手の駒との戦い方を身につけました！</string>
   <string name="checkInOne">1 手でチェック</string>
-  <string name="attackTheOpponentsKing">相手のキングを攻撃します</string>
+  <string name="attackTheOpponentsKing">相手のキングを攻撃する</string>
   <string name="checkInOneIntro">チェックするには相手のキングを攻撃します。相手は何か防ぐしかない。</string>
   <string name="checkInOneGoal">1 手で相手のキングを
 狙ってください！</string>

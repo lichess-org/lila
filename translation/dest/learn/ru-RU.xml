@@ -5,8 +5,15 @@
   <string name="byPlaying">играя!</string>
   <string name="progressX">Прогресс: %s</string>
   <string name="resetMyProgress">Сбросить прогресс</string>
-  <string name="theRook">Король</string>
+  <string name="chessPieces">Фигуры в шахматах</string>
+  <string name="theRook">Ладья</string>
+  <string name="itMovesInStraightLines">Движется по прямым линиям</string>
+  <string name="theBishop">Слон</string>
+  <string name="itMovesDiagonally">Перемещается по диагоналям</string>
+  <string name="captureComplete">Поздравляем! Теперь вы знаете, как сражаться с шахматными фигурами!</string>
+  <string name="combatComplete">Поздравляем! Теперь вы знаете, как сражаться с шахматными фигурами!</string>
   <string name="practice">Практика</string>
   <string name="learnCommonChessPositions">Учите основные позиции в шахматах</string>
-  <string name="playMachine">Играть с компьютером</string>
+  <string name="playPeople">Игра онлайн</string>
+  <string name="playMachine">Игра с ботом</string>
 </resources>
