@@ -46,6 +46,8 @@
   <string name="itMovesForwardOnly">Κινείται προς τα εμπρός μόνο</string>
   <string name="pawnIntro">Τα πιόνια είναι αδύναμα, αλλά έχουν αρκετές δυνατότητες.</string>
   <string name="pawnsMoveOneSquareOnly">Τα πιόνια κινούνται σε ένα τετράγωνο μόνο. Αλλά όταν φθάσουν στην άλλη πλευρά της σκακιέρας, μπορούν να αντικατασταθούν με ένα ισχυρότερο κομμάτι!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Τις περισσότερες φορές η προώθηση σε βασίλισσα είναι το καλύτερο.
+Αλλά μερικές φορές ένας ίππος μπορεί να είναι χρήσιμος!</string>
   <string name="mateInOne">Ματ σε μία</string>
   <string name="boardSetup">Στήσιμο σκακιέρας</string>
   <string name="thisIsTheInitialPosition">Αυτή είναι η αρχική θέση
