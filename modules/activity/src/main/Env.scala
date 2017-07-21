@@ -32,7 +32,6 @@ final class Env(
     system.actorOf(Props(new Actor {
       def receive = {
         case lila.game.actorApi.FinishGame(game, _, _) if !game.aborted => write game game
-        case lila.analyse.actorApi.AnalysisReady(_, analysis) => write analysis analysis
         case lila.forum.actorApi.CreatePost(post, topic) => write.forumPost(post, topic)
         case res: lila.puzzle.Puzzle.UserResult => write puzzle res
         case prog: lila.practice.PracticeProgress.OnComplete => write practice prog
@@ -42,7 +41,7 @@ final class Env(
         case lila.hub.actorApi.relation.Follow(from, to) => write.follow(from, to)
       }
     })),
-    'finishGame, 'analysisReady, 'forumPost, 'finishPuzzle, 'finishPractice,
+    'finishGame, 'forumPost, 'finishPuzzle, 'finishPractice,
     'startSimul, 'moveEventCorres, 'plan, 'relation
   )
 }

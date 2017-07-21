@@ -17,10 +17,6 @@ final class ActivityWriteApi(coll: Coll) {
     update(userId) { ActivityAggregation.game(game, userId) _ }
   }.sequenceFu.void
 
-  def analysis(analysis: Analysis): Funit = analysis.uid.filter(lichessId !=) ?? { userId =>
-    update(userId) { ActivityAggregation.analysis(analysis) _ }
-  }
-
   def forumPost(post: lila.forum.Post, topic: lila.forum.Topic): Funit = post.userId.filter(lichessId !=) ?? { userId =>
     update(userId) { ActivityAggregation.forumPost(post, topic) _ }
   }

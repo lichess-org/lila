@@ -60,7 +60,6 @@ private object BSONHandlers {
 
   private implicit val gameIdHandler = stringAnyValHandler[GameId](_.value, GameId.apply)
   private implicit val gameIdsHandler = bsonArrayToListHandler[GameId]
-  private implicit val compAnalysisHandler = isoHandler[CompAnalysis, List[GameId], Barr]((c: CompAnalysis) => c.gameIds, CompAnalysis.apply _)
 
   private implicit val postIdHandler = stringAnyValHandler[PostId](_.value, PostId.apply)
   private implicit val postIdsHandler = bsonArrayToListHandler[PostId]
@@ -102,7 +101,6 @@ private object BSONHandlers {
 
     private val id = "_id"
     private val games = "g"
-    private val comps = "c"
     private val posts = "p"
     private val puzzles = "z"
     private val learn = "l"
@@ -115,7 +113,6 @@ private object BSONHandlers {
     def reads(r: lila.db.BSON.Reader) = Activity(
       id = r.get[Id](id),
       games = r.getO[Games](games),
-      comps = r.getO[CompAnalysis](comps),
       posts = r.getO[Posts](posts),
       puzzles = r.getO[Puzzles](puzzles),
       learn = r.getO[Learn](learn),
@@ -129,7 +126,6 @@ private object BSONHandlers {
     def writes(w: lila.db.BSON.Writer, o: Activity) = BSONDocument(
       id -> o.id,
       games -> o.games,
-      comps -> o.comps,
       posts -> o.posts,
       puzzles -> o.puzzles,
       learn -> o.learn,

@@ -20,9 +20,6 @@ private object ActivityAggregation {
     else a.corres
   )
 
-  def analysis(analysis: Analysis)(a: Activity): Option[Activity] =
-    a.copy(comps = Some(~a.comps + GameId(analysis.id))).some
-
   def forumPost(post: lila.forum.Post, topic: lila.forum.Topic)(a: Activity) =
     post.userId map { userId =>
       a.copy(posts = Some(~a.posts + PostId(post.id)))

@@ -24,11 +24,6 @@ object activities {
   case class PostId(value: String) extends AnyVal
   implicit val PostsZero = Zero.instance(Posts(Nil))
 
-  case class CompAnalysis(gameIds: List[GameId]) extends AnyVal {
-    def +(gameId: GameId) = CompAnalysis(gameId :: gameIds)
-  }
-  implicit val CompsZero = Zero.instance(CompAnalysis(Nil))
-
   case class Puzzles(score: Score, fail: List[PuzzleId]) {
     def +(s: Score, id: PuzzleId) = Puzzles(
       score = score + s,

@@ -9,7 +9,6 @@ import activities._
 case class Activity(
     id: Activity.Id,
     games: Option[Games] = None,
-    comps: Option[CompAnalysis] = None,
     posts: Option[Posts] = None,
     puzzles: Option[Puzzles] = None,
     learn: Option[Learn] = None,
