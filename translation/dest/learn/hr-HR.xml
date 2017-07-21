@@ -218,4 +218,14 @@ u dva poteza!</string>
   <string name="testYourSkillsWithTheComputer">Testiraj svoje vještine protiv računala</string>
   <string name="letsGo">Kreni!</string>
   <string name="stageX">Razina %s</string>
+  <string name="awesome">Super!</string>
+  <string name="excellent">Odlično!</string>
+  <string name="greatJob">Jako dobro!</string>
+  <string name="perfect">Perfektno!</string>
+  <string name="outstanding">Izvanredno!</string>
+  <string name="wayToGo">Tako treba!</string>
+  <string name="yesYesYes">Da, da, da!</string>
+  <string name="youreGoodAtThis">Dobar si u ovome!</string>
+  <string name="nailedIt">Točno tako.</string>
+  <string name="rightOn">Tako je!</string>
 </resources>
