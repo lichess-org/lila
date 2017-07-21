@@ -11,33 +11,40 @@
 @renderPatron(p: Patron) = {
 <div class="entry patron">
   <i data-icon=""></i>
-  <p>
+  <div>
     Supported lichess for @p.months months as a <a href="@routes.Plan.index">Patron</a>
-  </p>
+  </div>
 </div>
 }
 
 @renderPractice(p: Map[lila.practice.PracticeStudy, Int]) = {
 <div class="entry practice">
   <i data-icon=""></i>
-  <p>
+  <div>
     @p.toList.sortBy(-_._2).map {
     case (study, nb) => {
     Practiced @nb positions on <a href="@routes.Practice.show("-", study.slug, study.id.value)">@study.name</a><br />
     }
     }
-  </p>
+  </div>
 </div>
+}
+
+@puzzleLink(id: PuzzleId) = {
+<a href="@routes.Puzzle.show(id.value)">#@id.value</a>
 }
 
 @renderPuzzles(p: Puzzles) = {
 <div class="entry puzzles">
   <i data-icon="-"></i>
   @scoreHtml(p.score)
-  <p>
+  <div>
     Solved @p.score.size tactical puzzles
     @p.score.rp.filterNot(_.isEmpty).map(ratingProgHtml)
-  </p>
+    @if(p.fail.nonEmpty) {
+    <div class="sub">Failed puzzles: @htmlList(p.fail.map(puzzleLink))</div>
+    }
+  </div>
 </div>
 }
 
@@ -47,10 +54,10 @@ case (pt, score) => {
 <div class="entry games">
   <i data-icon="@pt.iconChar"></i>
   @scoreHtml(score)
-  <p>
+  <div>
     Played @score.size @pt.name games
     @score.rp.filterNot(_.isEmpty).map(ratingProgHtml)
-  </p>
+  </div>
 </div>
 }
 }
@@ -59,74 +66,69 @@ case (pt, score) => {
 @renderPosts(posts: Map[lila.forum.Topic, List[lila.forum.Post]]) = {
 <div class="entry posts">
   <i data-icon="d"></i>
-  <p>
+  <div>
     @posts.map {
     case (topic, posts) => {
     Posted @posts.size messages in
     <a href="@routes.ForumTopic.show(topic.categId, topic.id)" title="@escapeHtml(topic.name)">
       @shorten(topic.name, 70)
     </a>
-    <ul>
+    <div class="sub">
       @posts.map { post =>
-      <li>
-        @shorten(post.text, 100)
-        <a class="more" href="@routes.ForumPost.redirect(post.id)">@trans.more() »</a>
-      </li>
+      @shorten(post.text, 100)
+      <a class="more" href="@routes.ForumPost.redirect(post.id)">@trans.more() »</a><br />
       }
-    </ul>
+    </div>
     }
     }
-  </p>
+  </div>
 </div>
 }
 
 @renderCorresMoves(nb: Int, povs: List[Pov]) = {
 <div class="entry corres_moves">
   <i data-icon=";"></i>
-  <p>
+  <div>
     Played @nb moves in @povs.size correspondence games
-    <ul>
+    <div class="sub">
       @povs.map { pov =>
-      <li>
-        <a href="@routes.Round.watcher(pov.gameId, pov.color.name)">
-          @pov.game.opening.map(_.opening.name)
-        </a> vs
-        @playerLink(pov.opponent, withRating = true, withDiff = false, withOnline = true, link = true)
-      </li>
+      <a href="@routes.Round.watcher(pov.gameId, pov.color.name)">
+        @pov.game.opening.map(_.opening.name)
+      </a> vs
+      @playerLink(pov.opponent, withRating = true, withDiff = false, withOnline = true, link = true)<br />
       }
-    </ul>
-  </p>
+    </div>
+  </div>
 </div>
 }
 
 @renderCorresEnds(score: Score, povs: List[Pov]) = {
 <div class="entry corres_ends">
   <i data-icon=";"></i>
-  <p>
+  <div>
     Completed @score.size correspondence games
     @score.rp.filterNot(_.isEmpty).map(ratingProgHtml)
     @scoreHtml(score)
-    <ul>
+    <div class="sub">
       @povs.map { pov =>
-      <li>
-        <a href="@routes.Round.watcher(pov.gameId, pov.color.name)">
-          @pov.game.wonBy(pov.color) match {
-          case Some(true) => {Victory}
-          case Some(false) => {Defeat}
-          case _ => {Draw}
-          }</a>
-        vs @playerLink(pov.opponent, withRating = true, withDiff = false, withOnline = true, link = true)
-    </a></li>
+      <a href="@routes.Round.watcher(pov.gameId, pov.color.name)">
+        @pov.game.wonBy(pov.color) match {
+        case Some(true) => {Victory}
+        case Some(false) => {Defeat}
+        case _ => {Draw}
+        }</a>
+      vs @playerLink(pov.opponent, withRating = true, withDiff = false, withOnline = true, link = true)<br />
+    </a>
     }
-  </ul>
-</p>
+  </div>
+</div>
 </div>
 }
 
 @renderFollows(all: Follows) = {
 <div class="entry follows">
   <i data-icon="h"></i>
-  <p>
+  <div>
     @List(all.in.map(_ -> true), all.out.map(_ -> false)).flatten.map {
     case (f, in) => {
     @if(in) {
@@ -134,15 +136,15 @@ case (pt, score) => {
     } else {
     Gained @f.actualNb new followers
     }
-    <ul><li>
-        @htmlList(f.ids.map(id => userIdLink(id.some)))
-        @f.nb.map { nb =>
-        and @(nb - maxSubEntries) more
-        }
-    </li></ul>
+    <div class="sub">
+      @htmlList(f.ids.map(id => userIdLink(id.some)))
+      @f.nb.map { nb =>
+      and @(nb - maxSubEntries) more
+      }
+    </div>
     }
     }
-  </p>
+  </div>
 </div>
 }
 
@@ -154,7 +156,7 @@ case (pt, score) => {
 @renderSimuls(simuls: List[lila.simul.Simul]) = {
 <div class="entry simuls">
   <i data-icon="|"></i>
-  <p>
+  <div>
     @simuls.groupBy(_.isHost(u.some)).map {
     case (isHost, simuls) => {
     @if(isHost) {
@@ -162,12 +164,10 @@ case (pt, score) => {
     } else {
     Participated to @simuls.size simultaneous exhibitions
     }
-    <ul><li>
-        @htmlList(simuls.map(renderSimul))
-    </li></ul>
+    <div class="sub">@htmlList(simuls.map(renderSimul))</div>
     }
     }
-  </p>
+  </div>
 </div>
 }
 

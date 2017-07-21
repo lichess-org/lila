@@ -29,8 +29,11 @@ private object ActivityAggregation {
     }
 
   def puzzle(res: lila.puzzle.Puzzle.UserResult)(a: Activity) =
-    a.copy(puzzles = Some(~a.puzzles + Score.make(
-      res = res.result.win.some,
-      rp = RatingProg(Rating(res.rating._1), Rating(res.rating._2)).some
+    a.copy(puzzles = Some(~a.puzzles + (
+      s = Score.make(
+        res = res.result.win.some,
+        rp = RatingProg(Rating(res.rating._1), Rating(res.rating._2)).some
+      ),
+      id = PuzzleId(res.puzzleId)
     ))).some
 }

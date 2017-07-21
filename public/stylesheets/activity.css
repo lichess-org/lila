@@ -1,5 +1,5 @@
 .activity section {
-  font-size: 1.3em;
+  font-size: 1.4em;
   margin-left: 15px;
 }
 .activity section h2 {
@@ -45,11 +45,9 @@
 .activity .entry a {
   color: #3893E8;
 }
-.activity .entry ul {
+.activity .entry .sub {
   font-size: 0.7em;
-}
-.activity .entry li {
-  margin: 5px 0;
+  line-height: 2em;
 }
 .activity .entry rating {
   margin-left: 12px;
