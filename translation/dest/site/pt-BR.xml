@@ -78,7 +78,10 @@
     <item quantity="other">Mate em %s jogadas (meio-movimentos)</item>
   </plurals>
   <string name="noGameFound">Nenhuma partida encontrada</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Talvez você queira incluir mais jogos a partir do menu de preferências</string>
   <string name="openingExplorer">Explorador de abertura</string>
+  <string name="winPreventedBy50MoveRule">Vitória impedida pela regra dos 50 movimentos</string>
+  <string name="lossSavedBy50MoveRule">Derrota impedida pela regra dos 50 movimentos</string>
   <string name="allSet">Tudo pronto!</string>
   <string name="importPgn">Importar PGN</string>
   <string name="delete">Excluir</string>
@@ -88,6 +91,13 @@
   <string name="byCPL">Por erros</string>
   <string name="openStudy">Abrir estudo</string>
   <string name="enable">Ativar</string>
+  <string name="bestMoveArrow">Seta de melhor movimento</string>
+  <string name="evaluationGauge">Escala de avaliação</string>
+  <string name="multipleLines">Linhas de análise</string>
+  <string name="cpus">CPUs</string>
+  <string name="memory">Memória</string>
+  <string name="infiniteAnalysis">Análise infinita</string>
+  <string name="removesTheDepthLimit">Remove o limite de profundidade, o que aquece seu computador</string>
   <string name="blunders">Erro Grave</string>
   <string name="mistakes">Erros</string>
   <string name="inaccuracies">Imprecisões</string>
@@ -191,6 +201,7 @@
   <string name="inbox">Caixa de entrada</string>
   <string name="chatRoom">Sala de chat</string>
   <string name="loginToChat">Faça login para conversar</string>
+  <string name="youHaveBeenTimedOut">Sua sessão expirou.</string>
   <string name="spectatorRoom">Sala do espetador</string>
   <string name="composeMessage">Escrever mensagem</string>
   <string name="noNewMessages">Nenhuma mensagem nova</string>
@@ -621,7 +632,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="printFriendlyPDF">Versão para impressão (PDF)</string>
   <string name="crosstable">Tabela</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Você também pode rolar sobre o tabuleiro para percorrer as jogadas.</string>
-  <string name="analysisShapesHowTo">Pressione Shift+Clique ou clique com o botão direito do mouse para desenhar círculos e flechas no tabuleiro.</string>
+  <string name="analysisShapesHowTo">Pressione Shift+Clique ou clique com o botão direito do mouse para desenhar círculos e setas no tabuleiro.</string>
   <string name="letOtherPlayersMessageYou">Permitir que outros jogadores lhe enviem mensagem</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Maneira de rocar</string>
   <string name="castleByMovingTwoSquares">Mova o rei duas casas</string>
