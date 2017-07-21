@@ -67,7 +67,7 @@ case (pt, score) => {
     @trans.activity.postedNbMessages.plural(posts.size, posts.size, Html(s"""<a href="${routes.ForumTopic.show(topic.categId, topic.id)}">${shorten(topic.name, 70)}</a>"""))
     <div class="sub">
       @posts.map { post =>
-      @shorten(post.text, 100)
+      @shorten(post.text, 85)
       <a class="more" href="@routes.ForumPost.redirect(post.id)">@trans.more() »</a><br />
       }
     </div>

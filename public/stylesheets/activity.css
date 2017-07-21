@@ -42,13 +42,14 @@
 }
 .activity .entry p {
 }
-.activity .entry a {
+.activity .entry a:not(.user_link) {
   color: #3893E8;
 }
 .activity .entry .sub {
   margin: 3px 0;
-  font-size: 0.7em;
+  font-size: 0.8em;
   line-height: 1.7em;
+  opacity: 0.8;
 }
 .activity .entry rating {
   margin-left: 12px;
@@ -80,4 +81,21 @@
 }
 .activity loss strong {
   background: #dc322f;
+}
+
+body.dark .activity section {
+  color: #aaa;
+}
+body.dark .activity section h2 time {
+  background: #2b2b2b;
+  color: #888;
+}
+body.dark .activity .entries {
+  border-color: #444;
+}
+body.dark .activity .entry > i {
+  background-color: #444;
+}
+body.dark .activity .entry > i {
+  border-color: #2b2b2b;
 }
