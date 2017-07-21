@@ -67,7 +67,7 @@
   <string name="losing">Perdendo</string>
   <string name="drawn">Empate</string>
   <string name="unknown">Posição desconhecida</string>
-  <string name="database">Base de dados</string>
+  <string name="database">Banco de Dados</string>
   <string name="whiteDrawBlack">Brancas / Empate / Pretas</string>
   <string name="averageRatingX">Classificação média: %s</string>
   <string name="recentGames">Partidas recentes</string>
@@ -177,7 +177,7 @@
   <string name="blackOffersDraw">Pretas oferecem empate</string>
   <string name="whiteDeclinesDraw">Brancas recusam empate</string>
   <string name="blackDeclinesDraw">Pretas recusam empate</string>
-  <string name="yourOpponentOffersADraw">Seu adversário propõe empate</string>
+  <string name="yourOpponentOffersADraw">Seu oponente propõe empate</string>
   <string name="accept">Aceitar</string>
   <string name="decline">Recusar</string>
   <string name="playingRightNow">Jogando agora</string>
@@ -304,7 +304,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="onlineFriends">Amigos online</string>
   <string name="noFriendsOnline">Não há amigos online</string>
   <string name="findFriends">Encontrar amigos</string>
-  <string name="favoriteOpponents">Adversários favoritos</string>
+  <string name="favoriteOpponents">Oponentes favoritos</string>
   <string name="follow">Seguir</string>
   <string name="following">Seguindo</string>
   <string name="unfollow">Parar de seguir</string>
