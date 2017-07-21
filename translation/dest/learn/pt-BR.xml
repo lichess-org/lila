@@ -43,22 +43,24 @@ Escape e conquiste as estrelas!</string>
   <string name="itMovesForwardOnly">Move-se apenas para frente</string>
   <string name="pawnIntro">Peões são fracos, mas possuem grande potencial.</string>
   <string name="pawnsMoveOneSquareOnly">Peões se movem apenas uma casa.
-Mas quando tiverem alcançado o outro lado do tabuleiro transformam-se em uma peça mais forte!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">Na maioria das vezes o melhor é promove-lo à rainha.
-Mas as vezes a um cavalo pode ser útil!</string>
-  <string name="pawnsMoveForward">Peões movem-se para a frente, mas capturam na diagonal!</string>
+Mas quando alcançam o outro lado do tabuleiro, transformam-se em uma peça mais forte!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Na maioria das vezes o melhor é promovê-lo a uma dama.
+Mas às vezes um cavalo pode ser útil!</string>
+  <string name="pawnsMoveForward">Peões movem-se para a frente, 
+mas capturam na diagonal!</string>
   <string name="captureThenPromote">Capture, e então promova!</string>
-  <string name="useAllThePawns">Use todos os peões! Não é necessário promover.</string>
+  <string name="useAllThePawns">Use todos os peões! 
+Não é necessário promover.</string>
   <string name="aPawnOnTheSecondRank">Um peão na segunda fileira pode mover-se duas posições de uma vez!</string>
-  <string name="grabAllTheStarsNoNeedToPromote">Capture todas as estrelas!
-Não há necessidade de promoção.</string>
-  <string name="pawnComplete">Parabéns! Peões não tem mais segredos para você.</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Pegue todas as estrelas!
+Não é necessário promover.</string>
+  <string name="pawnComplete">Parabéns! Peões não têm segredos para você.</string>
   <string name="pawnPromotion">Promoção do peão</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Seu peão alcançou a última fileira do tabuleiro!</string>
-  <string name="itNowPromotesToAStrongerPiece">Ele é agora promovido à uma peça mais forte.</string>
+  <string name="itNowPromotesToAStrongerPiece">Ele agora é promovido a uma peça mais forte.</string>
   <string name="selectThePieceYouWant">Escolha a peça que desejar!</string>
   <string name="fundamentals">Fundamentos</string>
-  <string name="capture">Captura</string>
+  <string name="capture">Capturar</string>
   <string name="takeTheEnemyPieces">Capture as peças inimigas</string>
   <string name="captureIntro">Identifique as peças desprotegida do adversário, e capture-as!</string>
   <string name="takeTheBlackPieces">Capture as peças pretas!</string>
@@ -79,6 +81,7 @@ mas você pode defender!</string>
   <string name="combatIntro">Um bom guerreiro sabe atacar e defender!</string>
   <string name="combatComplete">Parabéns! Você sabe lutar com peças de xadrez!</string>
   <string name="checkInOne">Xeque em um</string>
+  <string name="attackTheOpponentsKing">Ataque o rei do seu adversário</string>
   <string name="defendYourKing">Defenda seu rei</string>
   <string name="mateInOne">Mate em um jogada</string>
   <string name="intermediate">Intermediário</string>
