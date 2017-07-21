@@ -71,6 +71,8 @@
   <string name="openingExplorer">Explorator de initio de joco</string>
   <string name="allSet">Toto es preste!</string>
   <string name="delete">Deler</string>
+  <string name="deleteThisImportedGame">Deler iste partita importate?</string>
+  <string name="openStudy">Aperir studio</string>
   <string name="memory">Memoria</string>
   <string name="blunders">Errores grave</string>
   <string name="mistakes">Errores</string>
@@ -168,6 +170,7 @@
   <string name="play">Jocar</string>
   <string name="inbox">Cassa de entrata</string>
   <string name="chatRoom">Sala de conversation</string>
+  <string name="loginToChat">Aperir session pro usar le chat</string>
   <string name="spectatorRoom">Sala de spectatores</string>
   <string name="composeMessage">Componer message</string>
   <string name="noNewMessages">Nulle messages nove</string>
