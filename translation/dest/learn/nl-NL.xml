@@ -71,4 +71,23 @@ Promoveren is niet nodig.</string>
 om naar koningszijde te rokeren!</string>
   <string name="castleQueenSide">Beweeg je koning twee vakjes
 om naar de dameszijde te rokeren!</string>
+  <string name="theKnightIsInTheWay">Het paard staat in de weg!
+Verplaats het, rokeer dan naar de koningszijde.</string>
+  <string name="castleKingSideMovePiecesFirst">Rokeer naar de koningszijde!
+Je moet eerst nog stukken wegplaatsen.</string>
+  <string name="castleQueenSideMovePiecesFirst">Rokeer naar de dameszijde!
+Je moet eerst nog stukken wegplaatsen.</string>
+  <string name="youCannotCastleIfMoved">Je kunt niet rokeren als
+de koning al heeft bewogen
+of de toren al heeft bewogen.</string>
+  <string name="youCannotCastleIfAttacked">Je kunt niet rokeren als
+de koning onderweg wordt aangevallen.
+Zorg dat je niet schaak gezet kunt worden en rokeer dan!</string>
+  <string name="findAWayToCastleKingSide">Vind een weg om
+naar de koningszijde te rokeren!</string>
+  <string name="findAWayToCastleQueenSide">Vind een weg om
+naar de dameszijde te rokeren!</string>
+  <string name="castlingComplete">Gefeliciteerd! Je moet bijna altijd rokeren in een spel.</string>
+  <string name="enPassant">En passant</string>
+  <string name="theSpecialPawnMove">De speciale pionzet</string>
 </resources>
