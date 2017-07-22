@@ -3,20 +3,28 @@
 <resources>
   <string name="learnChess">Научитесь шахматам</string>
   <string name="byPlaying">играя!</string>
+  <string name="menu">Меню</string>
   <string name="progressX">Прогресс: %s</string>
   <string name="resetMyProgress">Сбросить прогресс</string>
   <string name="chessPieces">Фигуры в шахматах</string>
   <string name="theRook">Ладья</string>
   <string name="itMovesInStraightLines">Движется по прямым линиям</string>
+  <string name="rookIntro">Ладья — это тяжёлая (мощная) фигура. Готовы ли вы маневрировать ей?</string>
   <string name="grabAllTheStars">Соберите все звезды!</string>
   <string name="theFewerMoves">Чем меньше ходов вы сделаете, тем больше очков вы получите!</string>
   <string name="theBishop">Слон</string>
   <string name="itMovesDiagonally">Перемещается по диагоналям</string>
   <string name="bishopIntro">Далее мы научимся ходить слоном!</string>
+  <string name="youNeedBothBishops">Поля белого цвета контролирует один слон, поля черного цвета — другой. Вам нужны оба слона!</string>
   <string name="theQueen">Ферзь</string>
   <string name="queenCombinesRookAndBishop">Ферзь = ладья + слон</string>
   <string name="theKing">Король</string>
   <string name="theMostImportantPiece">Самая важная фигура</string>
+  <string name="lastOne">И последний!</string>
+  <string name="theKnight">Конь</string>
+  <string name="itMovesInAnLShape">Он ходит буквой \"Г\"</string>
+  <string name="takeTheBlackPieces">Съешьте чёрные фигуры!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Съешьте все чёрные фигуры! И не потеряйте свои.</string>
   <string name="captureComplete">Поздравляем! Теперь вы знаете, как сражаться с шахматными фигурами!</string>
   <string name="combatComplete">Поздравляем! Теперь вы знаете, как сражаться с шахматными фигурами!</string>
   <string name="practice">Практика</string>
