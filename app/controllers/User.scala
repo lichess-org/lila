@@ -5,7 +5,7 @@ import play.api.mvc._
 import scala.concurrent.duration._
 
 import chess.Centis
-import lila.api.BodyContext
+import lila.api.{ Context, BodyContext }
 import lila.app._
 import lila.app.mashup.{ GameFilterMenu, GameFilter }
 import lila.common.paginator.Paginator
@@ -44,9 +44,63 @@ object User extends LilaController {
     }
   }
 
+  private def apiGames(u: UserModel, filter: String, page: Int)(implicit ctx: BodyContext[_]) = {
+    userGames(u, GameFilter.All.name, 1) flatMap Env.api.userGameApi.jsPaginator map { res =>
+      Ok(res ++ Json.obj("filter" -> GameFilter.All.name))
+    }
+  }.mon(_.http.response.user.show.mobile)
+
   def show(username: String) = OpenBody { implicit ctx =>
-    filter(username, none, 1)
+    EnabledUser(username) { u =>
+      negotiate(
+        html = renderShow(u),
+        api = _ => apiGames(u, GameFilter.All.name, 1)
+      )
+    }
   }
+  private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(implicit ctx: Context) = for {
+    as <- Env.activity.read.recent(u.id, 30)
+    info ← Env.current.userInfo(u, ctx)
+    social ← Env.current.socialInfo(u, ctx)
+  } yield status(html.user.show.activity(u, as, info, social))
+
+  def gamesAll(username: String, page: Int) = games(username, GameFilter.All.name, page)
+
+  def games(username: String, filter: String, page: Int) = OpenBody { implicit ctx =>
+    Reasonable(page) {
+      EnabledUser(username) { u =>
+        negotiate(
+          html = for {
+          info ← Env.current.userInfo(u, ctx)
+          filters = GameFilterMenu(info, ctx.me, filter)
+          pag <- GameFilterMenu.paginatorOf(
+            userGameSearch = userGameSearch,
+            user = u,
+            info = info.some,
+            filter = filters.current,
+            me = ctx.me,
+            page = page
+          )(ctx.body)
+          _ <- Env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
+          _ <- Env.tournament.cached.nameCache preloadMany pag.currentPageResults.flatMap(_.tournamentId)
+          _ <- Env.team.cached.nameCache preloadMany info.teamIds
+          social ← Env.current.socialInfo(u, ctx)
+          searchForm = (filters.current == GameFilter.Search) option GameFilterMenu.searchForm(userGameSearch, filters.current)(ctx.body)
+        } yield html.user.show.games(u, info, pag, filters, searchForm, social),
+          api = _ => apiGames(u, filter, page)
+        )
+      }
+    }
+  }
+
+  private def EnabledUser(username: String)(f: UserModel => Fu[Result])(implicit ctx: Context): Fu[Result] =
+    OptionFuResult(UserRepo named username) { u =>
+      if (u.enabled || isGranted(_.UserSpy)) f(u)
+      else negotiate(
+        html = fuccess(NotFound(html.user.disabled(u))),
+        api = _ => fuccess(NotFound(jsonError("No such user, or account closed")))
+      )
+    }
 
   def showMini(username: String) = Open { implicit ctx =>
     OptionFuResult(UserRepo named username) { user =>
@@ -74,10 +128,6 @@ object User extends LilaController {
     }
   }
 
-  def showFilter(username: String, filterName: String, page: Int) = OpenBody { implicit ctx =>
-    filter(username, filterName.some, page)
-  }
-
   def online = Open { implicit req =>
     val max = 50
     negotiate(
@@ -86,63 +136,6 @@ object User extends LilaController {
       Ok(Json.toJson(list.take(getInt("nb").fold(10)(_ min max)).map(env.jsonView(_))))
     }
     )
-  }
-
-  private def filter(
-    username: String,
-    filterOption: Option[String],
-    page: Int,
-    status: Results.Status = Results.Ok
-  )(implicit ctx: BodyContext[_]) =
-    Reasonable(page) {
-      OptionFuResult(UserRepo named username) { u =>
-        if (u.enabled || isGranted(_.UserSpy)) negotiate(
-          html = {
-            if (lila.common.HTTPRequest.isSynchronousHttp(ctx.req)) userShow(u, filterOption, page)
-            else userGames(u, filterOption, page) map {
-              case (filterName, pag) => html.user.games(u, pag, filterName)
-            }
-          }.map { status(_) }.mon(_.http.response.user.show.website),
-          api = _ => userGames(u, filterOption, page).flatMap {
-            case (filterName, pag) => Env.api.userGameApi.jsPaginator(pag) map { res =>
-              Ok(res ++ Json.obj("filter" -> filterName))
-            }
-          }.mon(_.http.response.user.show.mobile)
-        )
-        else negotiate(
-          html = fuccess(NotFound(html.user.disabled(u))),
-          api = _ => fuccess(NotFound(jsonError("No such user, or account closed")))
-        )
-      }
-    }
-
-  private def userShow(u: UserModel, filterOption: Option[String], page: Int)(implicit ctx: BodyContext[_]) = for {
-    info ← Env.current.userInfo(u, ctx)
-    filters = GameFilterMenu(info, ctx.me, filterOption)
-    pag <- GameFilterMenu.paginatorOf(
-      userGameSearch = userGameSearch,
-      user = u,
-      info = info.some,
-      filter = filters.current,
-      me = ctx.me,
-      page = page
-    )(ctx.body)
-    _ <- Env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
-    _ <- Env.tournament.cached.nameCache preloadMany pag.currentPageResults.flatMap(_.tournamentId)
-    _ <- Env.team.cached.nameCache preloadMany info.teamIds
-    social ← Env.current.socialInfo(u, ctx)
-    searchForm = (filters.current == GameFilter.Search) option GameFilterMenu.searchForm(userGameSearch, filters.current)(ctx.body)
-  } yield html.user.show.games(u, info, pag, filters, searchForm, social)
-
-  def activity(username: String) = Open { implicit ctx =>
-    OptionFuResult(UserRepo named username) { u =>
-      if (u.enabled || isGranted(_.UserSpy)) for {
-        as <- Env.activity.read.recent(u.id, 30)
-        info ← Env.current.userInfo(u, ctx)
-        social ← Env.current.socialInfo(u, ctx)
-      } yield Ok(html.user.show.activity(u, as, info, social))
-      else fuccess(NotFound(html.user.disabled(u)))
-    }
   }
 
   private val UserGamesRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
@@ -157,24 +150,20 @@ object User extends LilaController {
 
   private def userGames(
     u: UserModel,
-    filterOption: Option[String],
+    filterName: String,
     page: Int
-  )(implicit ctx: BodyContext[_]): Fu[(String, Paginator[GameModel])] = {
+  )(implicit ctx: BodyContext[_]): Fu[Paginator[GameModel]] = {
     import GameFilter.{ All, Playing }
-    filterOption.fold({
-      Env.simul isHosting u.id map (_.fold(Playing, All).name)
-    })(fuccess) flatMap { filterName =>
-      UserGamesRateLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = page, msg = s"on ${u.username}") {
-        lila.mon.http.userGames.cost(page)
-        GameFilterMenu.paginatorOf(
-          userGameSearch = userGameSearch,
-          user = u,
-          info = none,
-          filter = GameFilterMenu.currentOf(GameFilterMenu.all, filterName),
-          me = ctx.me,
-          page = page
-        )(ctx.body)
-      } map { filterName -> _ }
+    UserGamesRateLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = page, msg = s"on ${u.username}") {
+      lila.mon.http.userGames.cost(page)
+      GameFilterMenu.paginatorOf(
+        userGameSearch = userGameSearch,
+        user = u,
+        info = none,
+        filter = GameFilterMenu.currentOf(GameFilterMenu.all, filterName),
+        me = ctx.me,
+        page = page
+      )(ctx.body)
     }
   }
 
@@ -264,7 +253,7 @@ object User extends LilaController {
     OptionFuResult(UserRepo named username) { user =>
       implicit val req = ctx.body
       env.forms.note.bindFromRequest.fold(
-        err => filter(username, none, 1, Results.BadRequest),
+        err => renderShow(user, Results.BadRequest),
         data => env.noteApi.write(user, data.text, me, data.mod && isGranted(_.ModNote)) inject
           Redirect(routes.User.show(username).url + "?note")
       )

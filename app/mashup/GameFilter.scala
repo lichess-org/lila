@@ -42,7 +42,7 @@ object GameFilterMenu {
   def apply(
     info: UserInfo,
     me: Option[User],
-    currentNameOption: Option[String]
+    currentName: String
   ): GameFilterMenu = {
 
     val filters: NonEmptyList[GameFilter] = NonEmptyList.nel(All, IList fromList List(
@@ -56,11 +56,6 @@ object GameFilterMenu {
       (info.nbImported > 0) option Imported,
       (info.user.count.game > 0) option Search
     ).flatten)
-
-    val currentName = currentNameOption | info.hasSimul.fold(
-      Playing,
-      if (!info.user.hasGames && info.nbImported > 0) Imported else All
-    ).name
 
     val current = currentOf(filters, currentName)
 

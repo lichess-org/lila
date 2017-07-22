@@ -6,6 +6,7 @@
 @if(!u.lame || ctx.is(u) || isGranted(_.UserSpy)) {
 @if(filters.current.name == "search") {
 @jsTag("search.js")
+@jsTag("userShow.js")
 }
 @info.ratingChart.map { ratingChart =>
 @jsTag("chart/ratingHistory.js")
@@ -29,7 +30,7 @@ description = describeUser(u)).some) {
   @if(u.hasGames || info.nbImported > 0 || info.nbBookmark > 0) {
   <div class="content_box_inter tabs" id="games">
     @filters.list.map { f =>
-    <a class="intertab@{ (filters.current == f).??(" active") }" href="@routes.User.showFilter(u.username, f.name)">
+    <a class="intertab@{ (filters.current == f).??(" active") }" href="@routes.User.games(u.username, f.name)">
       @userGameFilterTitle(info, f)
     </a>
     }

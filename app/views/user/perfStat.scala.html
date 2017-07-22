@@ -24,7 +24,7 @@ evenMoreCss = moreCss) {
 <div class="content_box no_padding @perfType.key" id="perfStat">
   <div class="content_box_top">
     @if(u.perfs(perfType).nb > 0) {
-    <a class="button text view_games" data-icon="@perfType.iconChar" href="@routes.User.showFilter(u.username, "search")?perf=@perfType.id">
+    <a class="button text view_games" data-icon="@perfType.iconChar" href="@routes.User.games(u.username, "search")?perf=@perfType.id">
       View the games
     </a>
     }
