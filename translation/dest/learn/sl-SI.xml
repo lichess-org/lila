@@ -82,4 +82,20 @@ nezaščitene figure!</string>
   <string name="checkInOneIntro">Da šahirate nasprotnika mu napadite kralja. Morajo ga branit!</string>
   <string name="checkInOneGoal">Ciljajte na nasprotnikovega kralja v eni potezi!</string>
   <string name="checkInOneComplete">Čestitamo! Šahirali ste nasprotnika in ga prisilili, da brani kralja!</string>
+  <string name="outOfCheck">Obramba na šah</string>
+  <string name="defendYourKing">Zaščitite kralja</string>
+  <string name="outOfCheckIntro">Ste v šahu! Morate se umakniti ali zaščititi napad.</string>
+  <string name="escapeWithTheKing">Pobegnite s kraljem!</string>
+  <string name="theKingCannotEscapeButBlock">Kralj ne mora pobegniti, vendar lahko zaščitite napad!</string>
+  <string name="youCanGetOutOfCheckByTaking">Šah lahko obranite, da vzamete napadalno figuro.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Skakač daje šah
+skozi vašo obrambo!</string>
+  <string name="escapeOrBlock">Pobegnite s kraljem 
+ali zaščitite napad!</string>
+  <string name="outOfCheckComplete">Čestitamo! Vašega kralja ni mogoče vzeti poskrbite, da se ubranite pred šahom!</string>
+  <string name="mateInOne">Mat v ena</string>
+  <string name="defeatTheOpponentsKing">Premagajte nasprotnikovega kralja</string>
+  <string name="mateInOneIntro">Zmagate kadar vaš nasprotnik ne more obraniti šah.</string>
+  <string name="attackYourOpponentsKing">Napadite nasprotnikovega kralja
+tako, da obramba ne bo mogoča!</string>
 </resources>
