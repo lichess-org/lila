@@ -122,9 +122,9 @@ case (pt, score) => {
     @List(all.in.map(_ -> true), all.out.map(_ -> false)).flatten.map {
     case (f, in) => {
     @if(in) {
-    @trans.activity.followedNbPlayers.pluralSame(f.actualNb)
-    } else {
     @trans.activity.gainedNbFollowers.pluralSame(f.actualNb)
+    } else {
+    @trans.activity.followedNbPlayers.pluralSame(f.actualNb)
     }
     <div class="sub">
       @htmlList(f.ids.map(id => userIdLink(id.some)))
