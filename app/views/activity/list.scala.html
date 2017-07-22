@@ -84,7 +84,13 @@ case (pt, score) => {
     @trans.activity.playedNbMoves.plural(nb, nb, povs.size)
     <div class="sub">
       @povs.map { pov =>
-      <a href="@routes.Round.watcher(pov.gameId, pov.color.name)">@pov.game.opening.map(_.opening.name)</a> vs
+      <a href="@routes.Round.watcher(pov.gameId, pov.color.name)">
+        @if(pov.game.variant.exotic) {
+        @pov.game.variant.name
+        } else {
+        @pov.game.opening.fold("Game")(_.opening.name)
+        }
+      </a> vs
       @playerLink(pov.opponent, withRating = true, withDiff = false, withOnline = true, link = true)<br />
       }
     </div>
