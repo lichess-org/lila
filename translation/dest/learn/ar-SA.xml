@@ -25,4 +25,15 @@
 ستحتاج كلاهما!</string>
   <string name="bishopComplete">تهانينا! يمكنك قيادة الفيل.</string>
   <string name="theQueen">الملكة</string>
+  <string name="queenCombinesRookAndBishop">الملكة = رخ + فيل</string>
+  <string name="queenIntro">أقوى قطعة شطرنج تتقدم. صاحبة الجلالة الملكة!</string>
+  <string name="queenComplete">تهانينا! الملكات لدى لا تخفي أسرار عنك.</string>
+  <string name="theKing">الملك</string>
+  <string name="theMostImportantPiece">أهم قطعة</string>
+  <string name="kingIntro">أنت الملك. إذا سقطت في المعركة، خسرت المباراة.</string>
+  <string name="theKingIsSlow">الملك بطيء.</string>
+  <string name="lastOne">أخر واحد!</string>
+  <string name="kingComplete">يمكنك الآن قيادة القائد!</string>
+  <string name="theKnight">الحصان</string>
+  <string name="itMovesInAnLShape">أنه يتحرك بشكل L</string>
 </resources>
