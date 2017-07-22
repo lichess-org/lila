@@ -455,7 +455,7 @@ export default class RoundController {
     this.moveOn.next();
     this.setQuietMode();
     this.setLoading(false);
-    if (this.clock) this.clock.setClock(d, d.clock!.white, d.clock!.black);
+    if (this.clock && o.clock) this.clock.setClock(d, o.clock.wc * .01, o.clock.bc * .01);
     this.redraw();
     this.autoScroll();
     this.onChange();

@@ -219,7 +219,12 @@ object Event {
     def data = Json.obj(
       "winner" -> game.winnerColor,
       "status" -> game.status
-    ).add("clock" -> game.clock.map { c => Clock(c).data })
+    ).add("clock" -> game.clock.map { c =>
+        Json.obj(
+          "wc" -> c.remainingTime(Color.White).centis,
+          "bc" -> c.remainingTime(Color.Black).centis
+        )
+      })
       .add("ratingDiff" -> ratingDiff.map { rds =>
         Json.obj(
           Color.White.name -> rds.white,
