@@ -114,4 +114,10 @@
   <string name="excellent">ممتاز!</string>
   <string name="greatJob">عمل عظيم!</string>
   <string name="perfect">ممتاز!</string>
+  <string name="outstanding">مُمْتاز!</string>
+  <string name="wayToGo">امضي في طريقك!</string>
+  <string name="yesYesYes">نعم نعم نعم!</string>
+  <string name="youreGoodAtThis">أنت جيد في هذا!</string>
+  <string name="nailedIt">حافظ على المستوى.</string>
+  <string name="rightOn">على الطريق الصحيح!</string>
 </resources>
