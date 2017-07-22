@@ -32,4 +32,43 @@ Je hebt beiden nodig!</string>
   <string name="queenComplete">Gefeliciteerd! Dames hebben geen geheimen voor jou.</string>
   <string name="theKing">De koning</string>
   <string name="theMostImportantPiece">Het belangrijkste stuk</string>
+  <string name="kingIntro">Jij bent de koning. Als je neervalt in het gevecht, is het spel verloren.</string>
+  <string name="theKingIsSlow">De koning is traag.</string>
+  <string name="lastOne">De laatste!</string>
+  <string name="kingComplete">Je kunt nu de aanvoerder aanvoeren!</string>
+  <string name="theKnight">Het paard</string>
+  <string name="itMovesInAnLShape">Het beweegt in een L-vorm</string>
+  <string name="knightIntro">Hier is een uitdaging voor jou. Het paard is... een lastig stuk.</string>
+  <string name="knightsHaveAFancyWay">Paarden hebben een mooie manier
+om rond de springen!</string>
+  <string name="knightsCanJumpOverObstacles">Paarden kunnen over obstakels springen!
+Ontsnap en overwin de sterren!</string>
+  <string name="knightComplete">Gefeliciteerd! Je hebt het paard onder de knie.</string>
+  <string name="thePawn">De pion</string>
+  <string name="itMovesForwardOnly">Hij gaat alleen vooruit</string>
+  <string name="pawnIntro">Pionnen zijn zwak, maar ze hebben veel potentieel.</string>
+  <string name="pawnsMoveOneSquareOnly">Pionnen bewegen maar één vakje vooruit.
+Maar wanneer ze de andere kant van het bord bereiken, worden ze een sterker stuk!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Meestal is promoveren naar een dame het beste.
+Maar soms kan ook een paard handig zijn!</string>
+  <string name="pawnsMoveForward">Pionnen bewegen voorwaarts,
+maar slaan schuin!</string>
+  <string name="captureThenPromote">Sla, promoveer dan!</string>
+  <string name="useAllThePawns">Gebruik al de pionnen!
+Promoveren is niet nodig.</string>
+  <string name="aPawnOnTheSecondRank">Een pion op de tweede rij kan 2 vakjes ineens bewegen!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Grijp al de sterren!
+Promoveren is niet nodig.</string>
+  <string name="pawnComplete">Gefeliciteerd! Pionnen hebben geen geheimen voor jou.</string>
+  <string name="pawnPromotion">Promotie</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Je pion heeft het einde van het bord bereikt!</string>
+  <string name="pawnsFormTheFrontLine">Pionnen vormen de frontlinie. Maak eender welke zet om voort te gaan.</string>
+  <string name="boardSetupComplete">Gefeliciteerd! Nu weet je hoe je het schaakbord moet opstellen.</string>
+  <string name="castling">Rokade</string>
+  <string name="theSpecialKingMove">De speciale koningszet</string>
+  <string name="castlingIntro">Breng je koning naar een veilige plaats, en zet je toren in voor een aanval!</string>
+  <string name="castleKingSide">Beweeg je koning twee vakjes
+om naar koningszijde te rokeren!</string>
+  <string name="castleQueenSide">Beweeg je koning twee vakjes
+om naar de dameszijde te rokeren!</string>
 </resources>
