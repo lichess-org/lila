@@ -72,4 +72,17 @@
   <string name="noEscape">لا مفر، ولكن يمكنك الدفاع!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">لا تسمح لهم بأخذ أي قطعة غير محمية!</string>
   <string name="combat">الاشتباك</string>
+  <string name="captureAndDefendPieces">الإلتقاط والدفاع عن القطع</string>
+  <string name="combatIntro">المحارب الجيد يعرف الهجوم والدفاع على حد سواء!</string>
+  <string name="combatComplete">تهانينا! تعرف كيفية القتال بقطع الشطرنج!</string>
+  <string name="checkInOne">كش في واحد</string>
+  <string name="attackTheOpponentsKing">الهجوم على ملك الخصم</string>
+  <string name="checkInOneIntro">لكش خصمك، هاجم ملكه. فتجبره على الدفاع عنه!</string>
+  <string name="checkInOneGoal">استهدف الملك المنافس في نقلة واحدة!</string>
+  <string name="checkInOneComplete">تهانينا! لقد قمت بكش خصمك، واجبرته على الدفاع عن ملكه!</string>
+  <string name="outOfCheck">البعد عن الكش</string>
+  <string name="defendYourKing">دافع عن ملكك</string>
+  <string name="outOfCheckIntro">أنت في كش! يجب عليك الهروب أو إعاقة الهجوم.</string>
+  <string name="escapeWithTheKing">الهروب بالملك!</string>
+  <string name="theKingCannotEscapeButBlock">الملك لا يمكنه الهروب، ولكن يمكنك إعاقة الهجوم!</string>
 </resources>
