@@ -9,4 +9,12 @@
     <item quantity="one">Spelat %1$s %2$s parti</item>
     <item quantity="other">Spelat %1$s %2$s partier</item>
   </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">Skapade %s ny studie</item>
+    <item quantity="other">Skapade %s nya studier</item>
+  </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="one">Tävlade i %s turnering</item>
+    <item quantity="other">Tävlade i %s turneringar</item>
+  </plurals>
 </resources>
