@@ -141,6 +141,8 @@ Mas antes você precisa retirar as peças do meio.</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">O movimento especial do peão</string>
   <string name="enPassantIntro">Quando um peão do oponente mover-se duas posições, você pode captura-lo como se ele tivesse sido movido apenas uma posição.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">As pretas acabarão de mover o peão duas posições! Capture-o \"en passant\".</string>
+  <string name="enPassantOnlyWorksImmediately">\"En passant\" somente é possível imediatamente após o oponente mover o peão.</string>
   <string name="stalemate">Rei afogado</string>
   <string name="theGameIsADraw">A partida está empatada</string>
   <string name="advanced">Avançado</string>
