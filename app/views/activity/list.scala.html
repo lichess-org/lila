@@ -44,7 +44,7 @@
 }
 
 @renderGames(games: Games) = {
-@games.value.map {
+@games.value.toList.sortBy(-_._2.size).map {
 case (pt, score) => {
 <div class="entry games">
   <i data-icon="@pt.iconChar"></i>
