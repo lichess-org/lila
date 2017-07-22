@@ -161,6 +161,12 @@
   <string name="youKnowHowToPlayChess">أنت تعرف كيف تلعب الشطرنج، تهانينا! هل تريد أن تصبح لاعبًا أقوى؟</string>
   <string name="register">سجل</string>
   <string name="getAFreeLichessAccount">احصل على حساب مجاني في ليتشيس</string>
+  <string name="practice">الممارسة</string>
+  <string name="learnCommonChessPositions">تعلم مواقف الشطرنج الشائعة</string>
+  <string name="puzzles">الألغاز</string>
+  <string name="exerciseYourTacticalSkills">درب مهاراتك التكتيكية</string>
+  <string name="videos">مقاطع فيديو</string>
+  <string name="watchInstructiveChessVideos">مشاهدة مقاطع فيديو الشطرنج التعليمية</string>
   <string name="playPeople">اللعب مع أشخاص</string>
   <string name="opponentsFromAroundTheWorld">منافسين من مختلف أنحاء العالم</string>
   <string name="playMachine">منافسة الحاسوب</string>
