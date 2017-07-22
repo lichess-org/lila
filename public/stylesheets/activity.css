@@ -66,7 +66,7 @@
 .activity .entry rating {
   margin-left: 12px;
   padding: 2px 5px;
-  opacity: 0.5;
+  opacity: 0.7;
   font-family: 'Roboto Mono';
 }
 .activity score {
@@ -79,11 +79,17 @@
 }
 .activity .entry score strong {
   color: #fff;
-  padding: 2px 4px;
+  font-size: 1.2em;
+  padding: 1px 4px;
   border-radius: 20%;
   min-width: 1em;
   display: inline-block;
   text-align: center;
+  opacity: 0.7;
+}
+.activity .entry .sub score strong {
+  line-height: 1.6em;
+  padding: 1px 4px;
 }
 .activity win strong {
   background: #759900;
