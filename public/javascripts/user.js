@@ -111,6 +111,7 @@ $(function() {
           $content.html(html);
           lichess.pubsub.emit('content_loaded')();
           history.replaceState({}, '', path);
+          lichess.loadInfiniteScroll('.angle_content .infinitescroll');
         });
       }
       $angles.on('click', 'a', function() {

@@ -5,7 +5,7 @@
 @import lila.activity.model._
 
 @renderPatron(p: Patron) = {
-<div class="entry patron">
+<div class="entry">
   <i data-icon=""></i>
   <div>
     @trans.activity.supportedNbMonths.plural(p.months, p.months, Html(s"""<a href="${routes.Plan.index}">Patron</a>"""))
@@ -14,7 +14,7 @@
 }
 
 @renderPractice(p: Map[lila.practice.PracticeStudy, Int]) = {
-<div class="entry practice">
+<div class="entry">
   <i data-icon=""></i>
   <div>
     @p.toList.sortBy(-_._2).zipWithIndex.map {
@@ -29,7 +29,7 @@
 }
 
 @renderPuzzles(p: Puzzles) = {
-<div class="entry puzzles">
+<div class="entry">
   <i data-icon="-"></i>
   @scoreHtml(p.score)
   <div>
@@ -42,7 +42,7 @@
 @renderGames(games: Games) = {
 @games.value.toList.sortBy(-_._2.size).map {
 case (pt, score) => {
-<div class="entry games">
+<div class="entry">
   <i data-icon="@pt.iconChar"></i>
   @scoreHtml(score)
   <div>
@@ -55,12 +55,12 @@ case (pt, score) => {
 }
 
 @renderPosts(posts: Map[lila.forum.Topic, List[lila.forum.Post]]) = {
-<div class="entry posts">
+<div class="entry">
   <i data-icon="d"></i>
   <div>
     @posts.map {
     case (topic, posts) => {
-    @trans.activity.postedNbMessages.plural(posts.size, posts.size, Html(s"""<a href="${routes.ForumTopic.show(topic.categId, topic.id)}">${shorten(topic.name, 70)}</a>"""))
+    @trans.activity.postedNbMessages.plural(posts.size, posts.size, Html(s"""<a href="${routes.ForumTopic.show(topic.categId, topic.slug)}">${shorten(topic.name, 70)}</a>"""))
     <div class="sub">
       @posts.map { post =>
       <div class="line">
@@ -75,7 +75,7 @@ case (pt, score) => {
 }
 
 @renderCorresMoves(nb: Int, povs: List[Pov]) = {
-<div class="entry corres_moves">
+<div class="entry">
   <i data-icon=";"></i>
   <div>
     @trans.activity.playedNbMoves.plural(nb, nb, povs.size)
@@ -96,7 +96,7 @@ case (pt, score) => {
 }
 
 @renderCorresEnds(score: Score, povs: List[Pov]) = {
-<div class="entry corres_ends">
+<div class="entry">
   <i data-icon=";"></i>
   <div>
     @trans.activity.completedNbGames.pluralSame(score.size)
@@ -119,7 +119,7 @@ case (pt, score) => {
 }
 
 @renderFollows(all: Follows) = {
-<div class="entry follows">
+<div class="entry">
   <i data-icon="h"></i>
   <div>
     @List(all.in.map(_ -> true), all.out.map(_ -> false)).flatten.map {
@@ -149,7 +149,7 @@ case (pt, score) => {
 }
 
 @renderSimuls(simuls: List[lila.simul.Simul]) = {
-<div class="entry simuls">
+<div class="entry">
   <i data-icon="|"></i>
   <div>
     @simuls.groupBy(_.isHost(u.some)).map {
@@ -167,7 +167,7 @@ case (pt, score) => {
 }
 
 @renderStudies(studies: List[lila.study.Study.IdName]) = {
-<div class="entry studies">
+<div class="entry">
   <i data-icon=""></i>
   <div>
     @trans.activity.createdNbStudies.pluralSame(studies.size)
@@ -185,7 +185,7 @@ case (pt, score) => {
 }
 
 @renderTours(tours: lila.activity.ActivityView.Tours) = {
-<div class="entry tours">
+<div class="entry">
   <i data-icon="g"></i>
   <div>
     @trans.activity.competedInNbTournaments.pluralSame(tours.nb)
