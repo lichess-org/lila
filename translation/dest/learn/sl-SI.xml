@@ -69,4 +69,16 @@ Ne izgubite svojih.</string>
   <string name="protectionComplete">Čestitamo! Figura, ki je ne izgubite je figura, ki jo dobite!</string>
   <string name="escape">Napadeni ste!
 Pobegnite grožnji!</string>
+  <string name="noEscape">Ni pobega,
+vendar se lahko branite!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Ne dovolite, da vam vzamejo 
+nezaščitene figure!</string>
+  <string name="combat">Boj</string>
+  <string name="captureAndDefendPieces">Vzemite in ubranite figure</string>
+  <string name="combatIntro">Dober bojevnik obvlada napad in obrambo!</string>
+  <string name="combatComplete">Čestitamo! Obvladate bojevanje s figurami!</string>
+  <string name="checkInOne">Šah v ena</string>
+  <string name="attackTheOpponentsKing">Napadite nasprotnikovega kralja</string>
+  <string name="checkInOneIntro">Da šahirate nasprotnika mu napadite kralja. Morajo ga branit!</string>
+  <string name="checkInOneGoal">Ciljajte na nasprotnikovega kralja v eni potezi!</string>
 </resources>
