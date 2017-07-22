@@ -148,9 +148,9 @@ Mas antes você precisa retirar as peças do meio.</string>
   <string name="enPassantComplete">Parabéns! Você agora pode capturar en passant.</string>
   <string name="stalemate">Rei afogado</string>
   <string name="theGameIsADraw">A partida está empatada</string>
-  <string name="stalemateIntro">Quando um jogador não está em xeque e não existe nenhum movimento permitido disponível, há um \"afogamento\". O jogo termina em empate: ninguém ganhou, ninguém perdeu.</string>
-  <string name="stalemateGoal">Para \"afogar\" as pretas:
-- As pretas não podemos mover-se em qualquer lugar
+  <string name="stalemateIntro">Quando um jogador não está em xeque e não existe nenhum movimento permitido disponível, há um afogamento. O jogo termina em empate: ninguém ganhou, ninguém perdeu.</string>
+  <string name="stalemateGoal">Para afogar as pretas:
+- As pretas não podem mover-se para lugar algum
 - Não há xeque.</string>
   <string name="stalemateComplete">Parabéns! Um empate é melhor do que uma derrota!</string>
   <string name="advanced">Avançado</string>
@@ -162,11 +162,11 @@ Torre = 5
 Bispo = 3
 Cavalo = 3
 Peão = 1
-O valor do rei não é definido! Perde-lo significa perder o jogo.</string>
+O valor do rei não é definido! Perdê-lo significa perder o jogo.</string>
   <string name="queenOverBishop">Capture a peça de maior valor!
 Rainha &gt; Bispo</string>
   <string name="takeThePieceWithTheHighestValue">Capture a peça de maior valor!</string>
-  <string name="pieceValueComplete">Parabéns! Você sabe o valor do material! 
+  <string name="pieceValueComplete">Parabéns! Você conhece o valor material! 
 Rainha = 9 
 Torre = 5 
 Bispo = 3 
