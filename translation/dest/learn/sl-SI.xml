@@ -12,4 +12,17 @@
   <string name="theRook">Trdnjava</string>
   <string name="itMovesInStraightLines">Se premika v ravni črti</string>
   <string name="rookIntro">Trdnjava je močna figure. Ali ste pripravljeni, da ji ukazujete?</string>
+  <string name="rookGoal">Kliknite na trdnjavo, da jo pripeljete na zvezdo!</string>
+  <string name="grabAllTheStars">Poberite vse zvezde!</string>
+  <string name="theFewerMoves">Manj potez ko naredite, več točk dobite!</string>
+  <string name="useTwoRooks">Uporabite dve trdnjavi, da bo šlo hitreje!</string>
+  <string name="rookComplete">Čestitamo! Uspešno obvladate trdnjavo.</string>
+  <string name="theBishop">Lovec</string>
+  <string name="itMovesDiagonally">Premika se diagonalno</string>
+  <string name="bishopIntro">Naučili se bomo premikanja lovca!</string>
+  <string name="youNeedBothBishops">En belo-poljni lovec,
+en črno-poljni lovec.
+Potrebujete oba!</string>
+  <string name="bishopComplete">Čestitamo! Obvladate lovca.</string>
+  <string name="theQueen">Kraljica</string>
 </resources>
