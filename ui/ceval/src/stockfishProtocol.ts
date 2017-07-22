@@ -54,7 +54,7 @@ export default class Protocol {
         evalType = matches[5],
         nodes = parseInt(matches[6]),
         elapsedMs: number = parseInt(matches[7]),
-        moves = matches[8].split(' ', 10);
+        moves = matches[8].split(' ');
 
     // Track max pv index to determine when pv prints are done.
     if (this.expectedPvs < multiPv) this.expectedPvs = multiPv;
