@@ -7,4 +7,10 @@
   <string name="isNotRated">Ta turnir *ni* rangiran in *ne* bo vplival na vaš rating.</string>
   <string name="someRated">Nekateri turnirji so rangirani in vplivajo na rating.</string>
   <string name="howAreScoresCalculated">Kako se izračuna točke?</string>
+  <string name="howAreScoresCalculatedAnswer">Zmaga šteje 2 točki, remi 1 točko in poraz nič.
+Če zmagate zaporedoma 2 partiji se začne serija dvojnega točkovanja, ki je označena z ikono plamena.
+Naslednje partije bodo štele dvojno število točk dokler boste zmagovali.
+To pomeni, zmaga šteje 4, remi 2 in poraz ne šteje točk. 
+
+Na primer, dve zmagi, ki mu sledi remi šteje 6 točk: 2 + 2 + (2 x 1)</string>
 </resources>
