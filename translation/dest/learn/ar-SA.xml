@@ -120,6 +120,15 @@
   <string name="findAWayToCastleQueenSide">جد طريقة للتبييت في جناح-الملكة!</string>
   <string name="castlingComplete">تهانينا! يجب أن تبيت غالبًا دائمًا في أي مباراة.</string>
   <string name="enPassant">أسر بالمرور</string>
+  <string name="theSpecialPawnMove">نقلة البيدق الخاصة</string>
+  <string name="enPassantIntro">عند تحرك بيدق الخصم مربعين، يمكنك أن تأخذه كما لو أنه تحرك مربع واحد فقط.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">الأسود للتو حرك البيدق مربعين! التقطه بالمرور.</string>
+  <string name="enPassantOnlyWorksImmediately">الأخذ بالمرور يكون بعد تحريك بيدق المنافس مباشرة.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">يعمل الأخذ بالمرور فقط إذا كان البيدق على الصف الخامسة.</string>
+  <string name="takeAllThePawnsEnPassant">إلتقط جميع البيادق بالمرور!</string>
+  <string name="enPassantComplete">تهانينا! يمكنك الآن أن تأسر بالمرور.</string>
+  <string name="stalemate">الملك مخنوق</string>
+  <string name="theGameIsADraw">المباراة تعادل</string>
   <string name="opponentsFromAroundTheWorld">منافسين من مختلف أنحاء العالم</string>
   <string name="playMachine">منافسة الحاسوب</string>
   <string name="testYourSkillsWithTheComputer">اختبار مهارتك مع الكمبيوتر</string>
