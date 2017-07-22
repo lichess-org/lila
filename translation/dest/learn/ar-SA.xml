@@ -53,4 +53,11 @@
   <string name="grabAllTheStarsNoNeedToPromote">إجمع كل النجوم!
 لا حاجة للترقية.</string>
   <string name="pawnComplete">تهانينا! البيادق لا تخفي أسرار عنك.</string>
+  <string name="pawnPromotion">ترقية البيدق</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">بلغ بيدقك نهاية الرقعة!</string>
+  <string name="itNowPromotesToAStrongerPiece">يرقى الآن إلى قطعة أقوى.</string>
+  <string name="selectThePieceYouWant">حدد القطعة التي تريدها!</string>
+  <string name="fundamentals">أساسيات</string>
+  <string name="capture">الأسر</string>
+  <string name="takeTheEnemyPieces">إلتقط قطع المنافس</string>
 </resources>
