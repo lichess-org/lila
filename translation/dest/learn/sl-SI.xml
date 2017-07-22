@@ -39,4 +39,12 @@ Potrebujete oba!</string>
   <string name="knightIntro">Tukaj je izziv za vas. Skakač je... zvita figura.</string>
   <string name="knightsHaveAFancyWay">Skakači imajo prebrisan način skakanja naokrog!</string>
   <string name="knightsCanJumpOverObstacles">Skakač lahko skoči čez ovire. Pobegnite in ujemite zvezde!</string>
+  <string name="knightComplete">Čestitamo! Obvladate skakača.</string>
+  <string name="thePawn">Kmet</string>
+  <string name="itMovesForwardOnly">Premika se samo naprej</string>
+  <string name="pawnIntro">Kmetje so šibki, vendar imajo velik potencial.</string>
+  <string name="pawnsMoveOneSquareOnly">Ko dosežejo drugo stran šahovnice, postanejo močnejša figura!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Običajno je promocija v kraljico najboljša. Včasih pa je lahko priročna tudi promocija v skakača!</string>
+  <string name="pawnsMoveForward">Kmetje se premikajo naprej, vendar jemljejo diagonalno!</string>
+  <string name="captureThenPromote">Jemljite, nato promovirajte!</string>
 </resources>
