@@ -49,6 +49,12 @@ final class Env(
     completionRate = Env.playban.api.completionRate
   ) _
 
+  lazy val socialInfo = mashup.UserInfo.Social(
+    relationApi = Env.relation.api,
+    noteApi = Env.user.noteApi,
+    prefApi = Env.pref.api
+  ) _
+
   lazy val teamInfo = new mashup.TeamInfoApi(
     api = Env.team.api,
     getForumNbPosts = Env.forum.categApi.teamNbPosts _,

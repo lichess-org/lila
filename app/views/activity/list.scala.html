@@ -199,27 +199,30 @@ case (pt, score) => {
   </div>
 </div>
 }
-    @as.map {
-    case lila.activity.ActivityView.AsTo(date, a) => {
-    <section>
-      <h2>@semanticDate(date)</h2>
-      <div class="entries">
-        @a.patron.map(renderPatron)
-        @a.practice.map(renderPractice)
-        @a.puzzles.map(renderPuzzles)
-        @a.games.map(renderGames)
-        @a.posts.map(renderPosts)
-        @a.corresMoves.map {
-        case (nb, povs) => { @renderCorresMoves(nb, povs) }
-        }
-        @a.corresEnds.map {
-        case (score, povs) => { @renderCorresEnds(score, povs) }
-        }
-        @a.follows.map(renderFollows)
-        @a.simuls.map(renderSimuls)
-        @a.studies.map(renderStudies)
-        @a.tours.map(renderTours)
-      </div>
-    </section>
-    }
-    }
+
+<div class="activity">
+  @as.map {
+  case lila.activity.ActivityView.AsTo(date, a) => {
+  <section>
+    <h2>@semanticDate(date)</h2>
+    <div class="entries">
+      @a.patron.map(renderPatron)
+      @a.practice.map(renderPractice)
+      @a.puzzles.map(renderPuzzles)
+      @a.games.map(renderGames)
+      @a.posts.map(renderPosts)
+      @a.corresMoves.map {
+      case (nb, povs) => { @renderCorresMoves(nb, povs) }
+      }
+      @a.corresEnds.map {
+      case (score, povs) => { @renderCorresEnds(score, povs) }
+      }
+      @a.follows.map(renderFollows)
+      @a.simuls.map(renderSimuls)
+      @a.studies.map(renderStudies)
+      @a.tours.map(renderTours)
+    </div>
+  </section>
+  }
+  }
+</div>

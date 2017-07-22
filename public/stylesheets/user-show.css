@@ -477,10 +477,21 @@ div.content_box_inter .intertab strong {
   font-family: 'Noto Sans';
   font-weight: normal;
 }
-div.content_box_inter a.intertab:hover,
-div.content_box_inter a.intertab.active {
-  border-color: #ccc;
-}
 div.content_box_inter a.intertab.active {
   background: #fff;
+}
+div#games.content_box_inter {
+  border-top: none;
+}
+div.content_box_inter a.to_games.active,
+.angle_games div#games.content_box_inter {
+  background: #e8e8e8;
+}
+div.content_box_inter.angles .intertab {
+  font-size: 1.2em;
+  padding: 0.9em 5px;
+}
+div.content_box_inter.angles .intertab.active {
+  border: 1px solid #ccc;
+  border-bottom: none;
 }

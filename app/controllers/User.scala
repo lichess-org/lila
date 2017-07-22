@@ -130,22 +130,18 @@ object User extends LilaController {
     _ <- Env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
     _ <- Env.tournament.cached.nameCache preloadMany pag.currentPageResults.flatMap(_.tournamentId)
     _ <- Env.team.cached.nameCache preloadMany info.teamIds
-    relation <- ctx.userId ?? { relationApi.fetchRelation(_, u.id) }
-    notes <- ctx.me ?? { me =>
-      relationApi fetchFriends me.id flatMap { env.noteApi.get(u, me, _, isGranted(_.ModNote)) }
-    }
-    followable <- ctx.isAuth ?? { Env.pref.api followable u.id }
-    blocked <- ctx.userId ?? { relationApi.fetchBlocks(u.id, _) }
+    social ← Env.current.socialInfo(u, ctx)
     searchForm = (filters.current == GameFilter.Search) option GameFilterMenu.searchForm(userGameSearch, filters.current)(ctx.body)
-  } yield html.user.show.games(u, info, pag, filters, searchForm, relation, notes, followable, blocked)
+  } yield html.user.show.games(u, info, pag, filters, searchForm, social)
 
   def activity(username: String) = Open { implicit ctx =>
     OptionFuResult(UserRepo named username) { u =>
-      if (u.enabled || isGranted(_.UserSpy)) {
-        Env.activity.read.recent(u.id, 30) map { as =>
-          Ok(html.activity.list(u, as))
-        }
-      } else fuccess(NotFound(html.user.disabled(u)))
+      if (u.enabled || isGranted(_.UserSpy)) for {
+        as <- Env.activity.read.recent(u.id, 30)
+        info ← Env.current.userInfo(u, ctx)
+        social ← Env.current.socialInfo(u, ctx)
+      } yield Ok(html.user.show.activity(u, as, info, social))
+      else fuccess(NotFound(html.user.disabled(u)))
     }
   }
 

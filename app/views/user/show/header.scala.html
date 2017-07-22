@@ -1,6 +1,7 @@
-@(u: User, info: lila.app.mashup.UserInfo, angle: lila.app.mashup.UserInfo.Angle, rel: Option[lila.relation.Relation], notes: List[lila.user.Note], followable: Boolean, blocked: Boolean)(implicit ctx: Context)
+@(u: User, info: lila.app.mashup.UserInfo, angle: lila.app.mashup.UserInfo.Angle, social: lila.app.mashup.UserInfo.Social)(implicit ctx: Context)
 
 @import lila.app.mashup.UserInfo.Angle
+@import social._
 
 <div class="content_box_top">
   <h1 class="lichess_title user_link @if(isOnline(u.id)){online}else{offline}">
@@ -52,7 +53,7 @@
     }
     <a class="button hint--top-left" href="@routes.User.tv(u.username)" data-hint="@trans.watchGames()"><span data-icon="0"></span></a>
     @if(ctx.isAuth && !ctx.is(u)) {
-    @relation.actions(u.id, relation = rel, followable = followable, blocked = blocked)
+    @views.html.relation.actions(u.id, relation = relation, followable = followable, blocked = blocked)
     @NotForKids {
     <a data-hint="@trans.reportXToModerators(u.username)" class="button hint--top-left" href="@routes.Report.form?username=@u.username">
       <span data-icon="!"></span>
@@ -186,12 +187,12 @@ case _ => {
 </div>
 }
 }
-<div class="content_box_inter tabs">
-  <a class="intertab@if(angle == Angle.Activity){ active}" href="@routes.User.activity(u.username)">@trans.activity.activity()</a>
+<div class="content_box_inter angles tabs">
+  <a class="intertab to_activity @if(angle == Angle.Activity){ active}" href="@routes.User.activity(u.username)">@trans.activity.activity()</a>
   @defining(lila.app.mashup.GameFilter.All) { f =>
-  <a class="intertab@if(angle == Angle.Activity){ active}" href="@routes.User.show(u.username)">
-    @userGameFilterTitle(info, f)
+  <a class="intertab to_games @if(angle.key == "games"){ active}" href="@routes.User.show(u.username)">
+    @trans.nbGamesPlayed.pluralSame(info.user.count.game)
   </a>
-  <a class="intertab@if(angle == Angle.Activity){ active}" href="@routes.User.activity(u.username)">Other</a>
+  <a class="intertab@if(angle == Angle.Other){ active}" href="@routes.User.activity(u.username)">Other</a>
   }
 </div>

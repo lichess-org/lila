@@ -71,11 +71,35 @@ case class UserInfo(
 
 object UserInfo {
 
-  sealed trait Angle
+  sealed abstract class Angle(val key: String)
   object Angle {
-    case object Activity extends Angle
-    case class Games(searchForm: Option[Form[_]]) extends Angle
-    case object Other extends Angle
+    case object Activity extends Angle("activity")
+    case class Games(searchForm: Option[Form[_]]) extends Angle("games")
+    case object Other extends Angle("other")
+  }
+
+  case class Social(
+    relation: Option[lila.relation.Relation],
+    notes: List[lila.user.Note],
+    followable: Boolean,
+    blocked: Boolean
+  )
+
+  object Social {
+    def apply(
+      relationApi: RelationApi,
+      noteApi: lila.user.NoteApi,
+      prefApi: lila.pref.PrefApi
+    )(u: User, ctx: Context): Fu[Social] =
+      ctx.userId.?? { relationApi.fetchRelation(_, u.id) } zip
+        ctx.me.?? { me =>
+          relationApi fetchFriends me.id flatMap { noteApi.get(u, me, _, ctx.me ?? Granter(_.ModNote)) }
+        } zip
+        ctx.isAuth.?? { prefApi followable u.id } zip
+        ctx.userId.?? { relationApi.fetchBlocks(u.id, _) } map {
+          case relation ~ notes ~ followable ~ blocked =>
+            Social(relation, notes, followable, blocked)
+        }
   }
 
   def apply(
