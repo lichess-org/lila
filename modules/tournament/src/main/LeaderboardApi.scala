@@ -19,9 +19,15 @@ final class LeaderboardApi(
   import LeaderboardApi._
   import BSONHandlers._
 
-  def recentByUser(user: User, page: Int) = paginator(user, page, $doc("d" -> -1))
+  def recentByUser(user: User, page: Int) = paginator(user, page, $sort desc "d")
 
-  def bestByUser(user: User, page: Int) = paginator(user, page, $doc("w" -> 1))
+  def bestByUser(user: User, page: Int) = paginator(user, page, $sort asc "w")
+
+  def timeRange(userId: User.ID, range: (DateTime, DateTime)): Fu[List[Entry]] =
+    coll.find($doc(
+      "u" -> userId,
+      "d" $gt range._1 $lt range._2
+    )).sort($sort desc "d").list[Entry]()
 
   def chart(user: User): Fu[ChartData] = {
     import reactivemongo.bson._
@@ -73,7 +79,7 @@ object LeaderboardApi {
 
   case class TourEntry(tour: Tournament, entry: Entry)
 
-  case class Ratio(value: Double)
+  case class Ratio(value: Double) extends AnyVal
 
   case class Entry(
     id: String, // same as tournament player id

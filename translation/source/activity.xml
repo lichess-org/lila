@@ -12,4 +12,6 @@
   <string name="hostedNbSimuls">Hosted %s simultaneous exhibitions</string>
   <string name="joinedNbSimuls">Participated to %s simultaneous exhibitions</string>
   <string name="createdNbStudies">Created %s new studies</string>
+  <string name="competedInNbTournaments">Competed in %s tournaments</string>
+  <string name="rankedInTournament">Ranked #%1$s (top %2$s) with %3$s games in %4$s</string>
 </resources>

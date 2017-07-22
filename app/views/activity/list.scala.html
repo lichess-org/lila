@@ -175,6 +175,24 @@ case (pt, score) => {
 </div>
 }
 
+@tourLink(t: lila.tournament.LeaderboardApi.Entry) = {
+<a href="@routes.Tournament.show(t.tourId)">@tournamentIdToName(t.tourId)</a>
+}
+
+@renderTours(tours: lila.activity.ActivityView.Tours) = {
+<div class="entry tours">
+  <i data-icon="g"></i>
+  <div>
+    @trans.activity.competedInNbTournaments.pluralSame(tours.nb)
+    <div class="sub">
+      @tours.best.map { t =>
+      @trans.activity.rankedInTournament(t.rank, s"${Math.round(t.rankRatio.value * 100)}%", t.nbGames, tourLink(t))<br />
+      }
+    </div>
+  </div>
+</div>
+}
+
 @user.layout(
 title = s"${u.username} activity",
 evenMoreCss = moreCss) {
@@ -204,6 +222,7 @@ evenMoreCss = moreCss) {
         @a.follows.map(renderFollows)
         @a.simuls.map(renderSimuls)
         @a.studies.map(renderStudies)
+        @a.tours.map(renderTours)
       </div>
     </section>
     }

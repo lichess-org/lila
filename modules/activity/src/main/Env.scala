@@ -13,7 +13,8 @@ final class Env(
     practiceApi: lila.practice.PracticeApi,
     postApi: lila.forum.PostApi,
     simulApi: lila.simul.SimulApi,
-    studyApi: lila.study.StudyApi
+    studyApi: lila.study.StudyApi,
+    tourLeaderApi: lila.tournament.LeaderboardApi
 ) {
 
   private val activityColl = db(config getString "collection.activity")
@@ -28,7 +29,8 @@ final class Env(
     practiceApi = practiceApi,
     postApi = postApi,
     simulApi = simulApi,
-    studyApi = studyApi
+    studyApi = studyApi,
+    tourLeaderApi = tourLeaderApi
   )
 
   system.lilaBus.subscribe(
@@ -61,6 +63,7 @@ object Env {
     practiceApi = lila.practice.Env.current.api,
     postApi = lila.forum.Env.current.postApi,
     simulApi = lila.simul.Env.current.api,
-    studyApi = lila.study.Env.current.api
+    studyApi = lila.study.Env.current.api,
+    tourLeaderApi = lila.tournament.Env.current.leaderboardApi
   )
 }

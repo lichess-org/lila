@@ -12,7 +12,8 @@ final class ActivityReadApi(
     practiceApi: lila.practice.PracticeApi,
     postApi: lila.forum.PostApi,
     simulApi: lila.simul.SimulApi,
-    studyApi: lila.study.StudyApi
+    studyApi: lila.study.StudyApi,
+    tourLeaderApi: lila.tournament.LeaderboardApi
 ) {
 
   import Activity._
@@ -61,6 +62,15 @@ final class ActivityReadApi(
     studies <- a.studies ?? { studies =>
       studyApi publicIdNames studies.value map some
     }
+    tours <- a.games.exists(_.hasNonCorres) ?? {
+      val dateRange = a.date -> a.date.plusDays(1)
+      tourLeaderApi.timeRange(a.id.userId, dateRange) map { entries =>
+        ActivityView.Tours(
+          nb = entries.size,
+          best = entries.sortBy(_.rankRatio.value).take(activities.maxSubEntries)
+        ).some
+      }
+    }
     view = ActivityView(
       games = a.games,
       puzzles = a.puzzles,
@@ -71,7 +81,8 @@ final class ActivityReadApi(
       corresMoves = corresMoves,
       corresEnds = corresEnds,
       follows = a.follows,
-      studies = studies
+      studies = studies,
+      tours = tours
     )
   } yield ActivityView.AsTo(a.date, view)
 

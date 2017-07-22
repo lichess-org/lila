@@ -874,6 +874,8 @@ val `gainedNbFollowers` = new Translated("gainedNbFollowers", Activity)
 val `hostedNbSimuls` = new Translated("hostedNbSimuls", Activity)
 val `joinedNbSimuls` = new Translated("joinedNbSimuls", Activity)
 val `createdNbStudies` = new Translated("createdNbStudies", Activity)
+val `competedInNbTournaments` = new Translated("competedInNbTournaments", Activity)
+val `rankedInTournament` = new Translated("rankedInTournament", Activity)
 }
 
 }
