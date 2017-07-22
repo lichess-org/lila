@@ -105,6 +105,7 @@
   <string name="placeTheQueen">مكان الملكة! في نفس لونها.</string>
   <string name="placeTheKing">مكان الملك! بجوار الملكة.</string>
   <string name="pawnsFormTheFrontLine">البيادق تشكل الخط الأمامي. قم بأي نقلة للإستمرار.</string>
+  <string name="boardSetupComplete">تهانينا! يمكنك معرفة كيفية إعداد رقعة الشطرنج.</string>
   <string name="opponentsFromAroundTheWorld">منافسين من مختلف أنحاء العالم</string>
   <string name="playMachine">منافسة الحاسوب</string>
   <string name="testYourSkillsWithTheComputer">اختبار مهارتك مع الكمبيوتر</string>
@@ -121,4 +122,9 @@
   <string name="nailedIt">حافظ على المستوى.</string>
   <string name="rightOn">على الطريق الصحيح!</string>
   <string name="stageXComplete">المرحلة %s تمت</string>
+  <string name="yourScore">نقاطك</string>
+  <string name="next">التالي</string>
+  <string name="backToMenu">العودة إلى القائمة</string>
+  <string name="puzzleFailed">لقد خسرت اللغز!</string>
+  <string name="retry">إعادة المحاولة</string>
 </resources>
