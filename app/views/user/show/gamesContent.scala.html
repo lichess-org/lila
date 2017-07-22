@@ -2,7 +2,7 @@
 
 <div class="content_box_inter tabs" id="games">
   @filters.list.map { f =>
-  <a class="intertab@{ (filters.current == f).??(" active") }" href="@routes.User.games(u.username, f.name)">
+  <a class="intertab to_@f.name@if(filters.current == f){ active}" href="@routes.User.games(u.username, f.name)">
     @userGameFilterTitle(info, f)
   </a>
   }
@@ -15,7 +15,6 @@
 <div class="search_result">
 
   @if(filterName == "search") {
-  <div class="search_result">
     @if(pager.nbResults > 0) {
     <div class="search_status">
       <strong>@pager.nbResults.localize games found</strong> •
@@ -35,7 +34,6 @@
       <a class="permalink" href="@routes.User.games(u.username, filterName)">Permalink</a>
     </div>
     }
-  </div>
   } else {
   <div class="games infinitescroll @if(filterName == "playing" && pager.nbResults > 2) {game_list playing center}">
     @pager.nextPage.map { np =>

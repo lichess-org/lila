@@ -60,7 +60,7 @@ object User extends LilaController {
   }
   private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(implicit ctx: Context) =
     if (HTTPRequest.isSynchronousHttp(ctx.req)) for {
-      as <- Env.activity.read.recent(u.id, 30)
+      as <- Env.activity.read.recent(u.id, 7)
       info ← Env.current.userInfo(u, ctx)
       social ← Env.current.socialInfo(u, ctx)
     } yield status(html.user.show.activity(u, as, info, social))

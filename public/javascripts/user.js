@@ -122,6 +122,7 @@ $(function() {
         return false;
       });
       $('.user_show').on('click', '#games a', function() {
+        if ($('#games .to_search').hasClass('active') || $(this).hasClass('to_search')) return true;
         $filters = $(this).parent();
         $(this).addClass('active');
         browseTo($(this).attr('href'));
