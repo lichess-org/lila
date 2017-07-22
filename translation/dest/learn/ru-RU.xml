@@ -22,6 +22,8 @@
   <string name="bishopComplete">Поздравляем! Вы научились ходить слоном.</string>
   <string name="theQueen">Ферзь</string>
   <string name="queenCombinesRookAndBishop">Ферзь = ладья + слон</string>
+  <string name="queenIntro">Самая мощная фигура. Его величество — ферзь!</string>
+  <string name="queenComplete">Поздравляем! Вы научились ходить ферзём.</string>
   <string name="theKing">Король</string>
   <string name="theMostImportantPiece">Самая важная фигура</string>
   <string name="lastOne">И последний!</string>
