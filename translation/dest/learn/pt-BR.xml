@@ -144,6 +144,8 @@ Mas antes você precisa retirar as peças do meio.</string>
   <string name="blackJustMovedThePawnByTwoSquares">As pretas acabarão de mover o peão duas posições! Capture-o \"en passant\".</string>
   <string name="enPassantOnlyWorksImmediately">\"En passant\" somente é possível imediatamente após o oponente mover o peão.</string>
   <string name="enPassantOnlyWorksOnFifthRank">\"En passant\" somente é possível caso o seu peão esteja na 5ª linha.</string>
+  <string name="takeAllThePawnsEnPassant">Capture todos os peões \"en passant\"!</string>
+  <string name="enPassantComplete">Parabéns! Você agora pode capturar \"en passant\".</string>
   <string name="stalemate">Rei afogado</string>
   <string name="theGameIsADraw">A partida está empatada</string>
   <string name="advanced">Avançado</string>
