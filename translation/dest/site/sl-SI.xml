@@ -748,8 +748,8 @@
   <string name="xHostsY">%1$s gostuje %2$s</string>
   <string name="xJoinsY">%1$s se pridruži %2$s</string>
   <string name="xLikesY">%1$s všečka %2$s</string>
-  <string name="quickPairing">Hitro iskanje soigralca</string>
-  <string name="lobby">Soba</string>
+  <string name="quickPairing">Hitri pari</string>
+  <string name="lobby">Dvorana</string>
   <string name="anonymous">Anonimni</string>
   <string name="yourScore">Vaš rezultat: %s</string>
   <string name="language">Jezik</string>
