@@ -469,14 +469,14 @@
     <item quantity="one">%s igrana partija</item>
     <item quantity="two">%s igrani partiji</item>
     <item quantity="few">%s igrane partije</item>
-    <item quantity="other">%s igranih partije</item>
+    <item quantity="other">%s igranih partij</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Po vsaki potezi samodejno preklopi na naslednjo partijo</string>
   <string name="autoSwitch">Samodejno preklopi</string>
   <string name="puzzles">Problemi</string>
   <string name="coordinates">Koordinate</string>
   <string name="latestUpdates">Zadnje objave na blogu</string>
-  <string name="tournamentWinners">Zmagovalec turnirja</string>
+  <string name="tournamentWinners">Zmagovalci turnirjev</string>
   <string name="name">Ime</string>
   <string name="description">Opis</string>
   <string name="no">Ne</string>
@@ -748,8 +748,8 @@
   <string name="xHostsY">%1$s gostuje %2$s</string>
   <string name="xJoinsY">%1$s se pridruži %2$s</string>
   <string name="xLikesY">%1$s všečka %2$s</string>
-  <string name="quickPairing">Hitro iskanje soigralca</string>
-  <string name="lobby">Soba</string>
+  <string name="quickPairing">Hitri pari</string>
+  <string name="lobby">Dvorana</string>
   <string name="anonymous">Anonimni</string>
   <string name="yourScore">Vaš rezultat: %s</string>
   <string name="language">Jezik</string>
