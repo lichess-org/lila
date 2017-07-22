@@ -10,4 +10,12 @@
     <item quantity="one">A résolu %s puzzle tactique</item>
     <item quantity="other">A résolu %s puzzles tactiques</item>
   </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="one">A joué %1$s partie de %2$s</item>
+    <item quantity="other">A joué %1$s parties de %2$s</item>
+  </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="one">A posté %1$s message dans %2$s</item>
+    <item quantity="other">A posté %1$s messages dans %2$s</item>
+  </plurals>
 </resources>
