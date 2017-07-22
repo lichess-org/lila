@@ -47,4 +47,26 @@ Potrebujete oba!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">Običajno je promocija v kraljico najboljša. Včasih pa je lahko priročna tudi promocija v skakača!</string>
   <string name="pawnsMoveForward">Kmetje se premikajo naprej, vendar jemljejo diagonalno!</string>
   <string name="captureThenPromote">Jemljite, nato promovirajte!</string>
+  <string name="useAllThePawns">Uporabite vse kmete! Ni potrebno promovirati.</string>
+  <string name="aPawnOnTheSecondRank">Kmet v drugi vrsti se lahko premakne za 2 polji v potezi!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Pojejte vse zvezde! Promocija ni potrebna.</string>
+  <string name="pawnComplete">Čestitamo! Kmetje nimajo skrivnosti za vas.</string>
+  <string name="pawnPromotion">Promocija kmeta</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Vaš kmet je dosegel konec šahovnice!</string>
+  <string name="itNowPromotesToAStrongerPiece">Sedaj promovira v močnejšo figuro.</string>
+  <string name="selectThePieceYouWant">Izberite figuro ki jo želite!</string>
+  <string name="fundamentals">Osnove</string>
+  <string name="capture">Jemanje</string>
+  <string name="takeTheEnemyPieces">Pojejte nasprotnikove figure</string>
+  <string name="captureIntro">Najdite nasprotnikove nezaščitene figure in jih pojejte!</string>
+  <string name="takeTheBlackPieces">Pojejte črne figure!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Vzemite črne figure!
+Ne izgubite svojih.</string>
+  <string name="captureComplete">Čestitamo! Zdaj se znate boriti s šahovskimi figurami!</string>
+  <string name="protection">Obramba</string>
+  <string name="keepYourPiecesSafe">Držite figure na varnem</string>
+  <string name="protectionIntro">Poiščite figure, ki jih napada nasprotnik in jih zaščitite!</string>
+  <string name="protectionComplete">Čestitamo! Figura, ki je ne izgubite je figura, ki jo dobite!</string>
+  <string name="escape">Napadeni ste!
+Pobegnite grožnji!</string>
 </resources>
