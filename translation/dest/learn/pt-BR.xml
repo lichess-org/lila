@@ -22,8 +22,8 @@
   <string name="bishopIntro">A seguir, aprenderemos como o bispo se movimenta!</string>
   <string name="youNeedBothBishops">Um bispo para as casas brancas, um bispo para as casas pretas. Você precisa de ambos!</string>
   <string name="bishopComplete">Parabéns! Você pode comandar um bispo.</string>
-  <string name="theQueen">A dama</string>
-  <string name="queenCombinesRookAndBishop">Dama = torre + bispo</string>
+  <string name="theQueen">A rainha</string>
+  <string name="queenCombinesRookAndBishop">Rainha = torre + bispo</string>
   <string name="queenIntro">Entra a mais poderosa das peças. Sua majestade, a rainha (dama)!</string>
   <string name="queenComplete">Parabéns! Damas (rainhas) não têm segredos para você.</string>
   <string name="theKing">O rei</string>
@@ -84,8 +84,8 @@ mas você pode defender!</string>
   <string name="attackTheOpponentsKing">Ataque o rei do seu adversário</string>
   <string name="checkInOneIntro">Para dar xeque, ataque o rei. Seu oponente deve defendê-lo!</string>
   <string name="checkInOneGoal">Ameace o rei de seu oponente em um movimento!</string>
-  <string name="checkInOneComplete">Parabéns! Você deu xeque no seu oponente, forçando-o a defender o rei!</string>
-  <string name="outOfCheck">Escape do xeque</string>
+  <string name="checkInOneComplete">Parabéns! Você colocou o rei de seu oponente em xeque, obrigando-o a defende-lo!</string>
+  <string name="outOfCheck">Livre-se do xeque</string>
   <string name="defendYourKing">Defenda seu rei</string>
   <string name="outOfCheckIntro">Você está em xeque! Você deve escapar ou bloquear o ataque.</string>
   <string name="escapeWithTheKing">Escape com o rei!</string>
