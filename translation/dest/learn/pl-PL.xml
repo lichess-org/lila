@@ -12,7 +12,7 @@
   <string name="theRook">Wieża</string>
   <string name="itMovesInStraightLines">Porusza się po liniach prostych</string>
   <string name="rookIntro">Wieża to silna figura. Czy jesteś gotów aby nauczyć się nią poruszać?</string>
-  <string name="rookGoal">Kliknij na wieży i przynieść ją na gwiazdkę!</string>
+  <string name="rookGoal">Kliknij na wieży i przenieś ją na gwiazdkę!</string>
   <string name="grabAllTheStars">Zbierz wszystkie gwiazdki!</string>
   <string name="theFewerMoves">Czym mniej ruchów zrobisz tym więcej punktów zdobędziesz!</string>
   <string name="useTwoRooks">Użyj dwóch wież aby zrobić to szybciej!</string>
@@ -31,7 +31,7 @@ Potrzebujesz ich obu!</string>
   <string name="theKing">Król</string>
   <string name="theMostImportantPiece">Najważniejsza figura</string>
   <string name="kingIntro">To Ty jesteś królem. Jeśli polegniesz w bitwie, przegrasz.</string>
-  <string name="theKingIsSlow">Król jest bardzo powolny.</string>
+  <string name="theKingIsSlow">Król jest powolny.</string>
   <string name="lastOne">Ostatnie zadanie!</string>
   <string name="kingComplete">Możesz teraz rządzić królem!</string>
   <string name="theKnight">Skoczek</string>
