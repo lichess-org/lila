@@ -10,12 +10,16 @@
   <string name="theRook">Ладья</string>
   <string name="itMovesInStraightLines">Движется по прямым линиям</string>
   <string name="rookIntro">Ладья — это тяжёлая (мощная) фигура. Готовы ли вы маневрировать ей?</string>
+  <string name="rookGoal">Нажмите на ладью и доведите её до звезды!</string>
   <string name="grabAllTheStars">Соберите все звезды!</string>
   <string name="theFewerMoves">Чем меньше ходов вы сделаете, тем больше очков вы получите!</string>
+  <string name="useTwoRooks">Используйте две ладьи, чтобы ускорить процесс!</string>
+  <string name="rookComplete">Поздравляем! Вы научились ходить ладьёй.</string>
   <string name="theBishop">Слон</string>
   <string name="itMovesDiagonally">Перемещается по диагоналям</string>
   <string name="bishopIntro">Далее мы научимся ходить слоном!</string>
   <string name="youNeedBothBishops">Поля белого цвета контролирует один слон, поля черного цвета — другой. Вам нужны оба слона!</string>
+  <string name="bishopComplete">Поздравляем! Вы научились ходить слоном.</string>
   <string name="theQueen">Ферзь</string>
   <string name="queenCombinesRookAndBishop">Ферзь = ладья + слон</string>
   <string name="theKing">Король</string>
