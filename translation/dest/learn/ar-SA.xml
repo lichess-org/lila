@@ -20,9 +20,7 @@
   <string name="theBishop">الفيل</string>
   <string name="itMovesDiagonally">إنه يتحرك وتريًا</string>
   <string name="bishopIntro">التالي سنتعلم كيفية المناورة بالفيل!</string>
-  <string name="youNeedBothBishops">فيل للمربعات الفاتحة
-فيل للمربعات الداكنة
-ستحتاج كلاهما!</string>
+  <string name="youNeedBothBishops">فيل واحد للمربعات الفاتحة، وفيل للمربعات الداكنة. ستحتاج كلاهما!</string>
   <string name="bishopComplete">تهانينا! يمكنك قيادة الفيل.</string>
   <string name="theQueen">الملكة</string>
   <string name="queenCombinesRookAndBishop">الملكة = رخ + فيل</string>
@@ -36,4 +34,8 @@
   <string name="kingComplete">يمكنك الآن قيادة القائد!</string>
   <string name="theKnight">الحصان</string>
   <string name="itMovesInAnLShape">أنه يتحرك بشكل L</string>
+  <string name="knightIntro">هنا تحدي لك. الحصان.. قطعة صعبة.</string>
+  <string name="knightsHaveAFancyWay">للأحصنة طريقتها المميزة للقفز بالأرجاء!</string>
+  <string name="knightsCanJumpOverObstacles">الأحصنة يمكنها القفز فوق العوائق!
+الهروب وإخضاع النجوم!</string>
 </resources>
