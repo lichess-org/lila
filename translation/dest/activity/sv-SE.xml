@@ -9,6 +9,22 @@
     <item quantity="one">Spelat %1$s %2$s parti</item>
     <item quantity="other">Spelat %1$s %2$s partier</item>
   </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">Spelade %1$s drag i %2$s korrespondensparti</item>
+    <item quantity="other">Spelade %1$s drag i %2$s korrespondensparti(er)</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">Avslutade %s korrespondensparti</item>
+    <item quantity="other">Avslutade %s korrespondenspartier</item>
+  </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="one">Var värd för %s simultanmatch</item>
+    <item quantity="other">Var värd för %s simultanmatcher</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">Deltog i %s simultanmatch</item>
+    <item quantity="other">Deltog i %s simultanmatcher</item>
+  </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">Skapade %s ny studie</item>
     <item quantity="other">Skapade %s nya studier</item>
@@ -17,4 +33,5 @@
     <item quantity="one">Tävlade i %s turnering</item>
     <item quantity="other">Tävlade i %s turneringar</item>
   </plurals>
+  <string name="rankedInTournament">Rankad #%1$s (topp %2$s) med %3$s partier i %4$s</string>
 </resources>
