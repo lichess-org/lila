@@ -108,7 +108,7 @@ $(function() {
       $content = $('.angle_content');
       function browseTo(path) {
         $.get(path).then(function(html) {
-          $content.html(html).removeClass('loading');
+          $content.html(html);
           lichess.pubsub.emit('content_loaded')();
           history.replaceState({}, '', path);
         });
@@ -116,7 +116,6 @@ $(function() {
       $angles.on('click', 'a', function() {
         $angles.find('.active').removeClass('active');
         $(this).addClass('active');
-        $content.addClass('loading');
         browseTo($(this).attr('href'));
         if ($(this).data('tab') === 'activity') lichess.loadCss('/assets/stylesheets/activity.css');
         return false;
@@ -124,7 +123,6 @@ $(function() {
       $('.user_show').on('click', '#games a', function() {
         $filters = $(this).parent();
         $(this).addClass('active');
-        $content.find('.search_results').addClass('loading');
         browseTo($(this).attr('href'));
         return false;
       });

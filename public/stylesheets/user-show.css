@@ -327,7 +327,7 @@ div.sub_ratings h3 {
   color: #d59120;
 }
 .user_show div.games {
-  margin-top: 10px;
+  padding-top: 10px;
 }
 .user_show div.games.center {
   text-align: center;
@@ -501,10 +501,4 @@ div.content_box_inter.angles .intertab {
 div.content_box_inter .intertab.active {
   border: 1px solid #ccc;
   border-bottom: none;
-}
-div.angle_content {
-  transition: opacity: 0.3s;
-}
-div.angle_content.loading {
-  opacity: 0.6;
 }

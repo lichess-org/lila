@@ -1,11 +1,7 @@
-.activity {
-  margin-top: 1em;
-}
 .activity section {
   font-size: 1.4em;
   margin-left: 15px;
-}
-.activity section h2 {
+  padding-top: 1em;
 }
 .activity section h2 time {
   padding: 10px;
@@ -37,8 +33,6 @@
   background-color: #e6ebf1;
   border: 2px solid #fff;
   border-radius: 50%;
-}
-.activity .entry p {
 }
 .activity .entry a:not(.user_link) {
   color: #3893E8;
