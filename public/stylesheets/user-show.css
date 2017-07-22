@@ -491,7 +491,7 @@ div#games.content_box_inter {
   border-top: none;
 }
 div.content_box_inter a.to_games.active,
-.angle_games div#games.content_box_inter {
+div#games.content_box_inter {
   background: #e8e8e8!important;
 }
 div.content_box_inter.angles .intertab {
@@ -501,4 +501,10 @@ div.content_box_inter.angles .intertab {
 div.content_box_inter .intertab.active {
   border: 1px solid #ccc;
   border-bottom: none;
+}
+div.angle_content {
+  transition: opacity: 0.3s;
+}
+div.angle_content.loading {
+  opacity: 0.6;
 }

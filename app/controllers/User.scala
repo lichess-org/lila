@@ -58,11 +58,15 @@ object User extends LilaController {
       )
     }
   }
-  private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(implicit ctx: Context) = for {
-    as <- Env.activity.read.recent(u.id, 30)
-    info ← Env.current.userInfo(u, ctx)
-    social ← Env.current.socialInfo(u, ctx)
-  } yield status(html.user.show.activity(u, as, info, social))
+  private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(implicit ctx: Context) =
+    if (HTTPRequest.isSynchronousHttp(ctx.req)) for {
+      as <- Env.activity.read.recent(u.id, 30)
+      info ← Env.current.userInfo(u, ctx)
+      social ← Env.current.socialInfo(u, ctx)
+    } yield status(html.user.show.activity(u, as, info, social))
+    else Env.activity.read.recent(u.id, 30) map { as =>
+      status(html.activity.list(u, as))
+    }
 
   def gamesAll(username: String, page: Int) = games(username, GameFilter.All.name, page)
 
@@ -81,12 +85,17 @@ object User extends LilaController {
             me = ctx.me,
             page = page
           )(ctx.body)
-          _ <- Env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
-          _ <- Env.tournament.cached.nameCache preloadMany pag.currentPageResults.flatMap(_.tournamentId)
-          _ <- Env.team.cached.nameCache preloadMany info.teamIds
-          social ← Env.current.socialInfo(u, ctx)
-          searchForm = (filters.current == GameFilter.Search) option GameFilterMenu.searchForm(userGameSearch, filters.current)(ctx.body)
-        } yield html.user.show.games(u, info, pag, filters, searchForm, social),
+          res <- {
+            if (HTTPRequest.isSynchronousHttp(ctx.req)) for {
+              _ <- Env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
+              _ <- Env.tournament.cached.nameCache preloadMany pag.currentPageResults.flatMap(_.tournamentId)
+              _ <- Env.team.cached.nameCache preloadMany info.teamIds
+              social ← Env.current.socialInfo(u, ctx)
+              searchForm = (filters.current == GameFilter.Search) option GameFilterMenu.searchForm(userGameSearch, filters.current)(ctx.body)
+            } yield html.user.show.games(u, info, pag, filters, searchForm, social)
+            else fuccess(html.user.show.gamesContent(u, info, pag, filters, filter))
+          }
+        } yield res,
           api = _ => apiGames(u, filter, page)
         )
       }

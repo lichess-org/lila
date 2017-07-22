@@ -25,24 +25,8 @@ image = staticUrl("images/large_tile.png").some,
 title = u.titleUsernameWithBestRating,
 url = s"$netBaseUrl${routes.User.show(u.username).url}",
 description = describeUser(u)).some) {
-<div data-username="@u.username" class="content_box no_padding user_show angle_games @filters.current.name@if(ctx.is(u)){ myself}">
+<div data-username="@u.username" class="content_box no_padding user_show">
   @header(u, info, Angle.Games(searchForm), social)
-  @if(u.hasGames || info.nbImported > 0 || info.nbBookmark > 0) {
-  <div class="content_box_inter tabs" id="games">
-    @filters.list.map { f =>
-    <a class="intertab@{ (filters.current == f).??(" active") }" href="@routes.User.games(u.username, f.name)">
-      @userGameFilterTitle(info, f)
-    </a>
-    }
-  </div>
-  @if(filters.current.name == "me") {
-  @info.crosstable.map { c =>
-  <div class="crosstable">@game.crosstable(c, none)</div>
-  }
-  }
-  <div class="search_result">
-    @views.html.user.games(u, games, filters.current.name)
-  </div>
-  }
+  <div class="angle_content">@gamesContent(u, info, games, filters, filters.current.name)</div>
 </div>
 }

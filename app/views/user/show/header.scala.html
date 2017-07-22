@@ -188,11 +188,11 @@ case _ => {
 }
 }
 <div class="content_box_inter angles tabs">
-  <a class="intertab to_activity @if(angle == Angle.Activity){ active}" href="@routes.User.show(u.username)">@trans.activity.activity()</a>
+  <a data-tab="activity" class="intertab to_activity @if(angle == Angle.Activity){ active}" href="@routes.User.show(u.username)">@trans.activity.activity()</a>
   @defining(lila.app.mashup.GameFilter.All) { f =>
-  <a class="intertab to_games @if(angle.key == "games"){ active}" href="@routes.User.gamesAll(u.username)">
+  <a data-tab="games" class="intertab to_games @if(angle.key == "games"){ active}" href="@routes.User.gamesAll(u.username)">
     @trans.nbGamesPlayed.pluralSame(info.user.count.game)
   </a>
-  <a class="intertab@if(angle == Angle.Other){ active}" href="@routes.User.show(u.username)">Other</a>
+  <a data-tab="other" class="intertab@if(angle == Angle.Other){ active}" href="@routes.User.show(u.username)">Other</a>
   }
 </div>

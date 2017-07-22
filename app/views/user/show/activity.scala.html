@@ -14,8 +14,8 @@ title =  s"${u.username} : ${trans.activity.activity.txt()}",
 side = side(u, info.ranks, none).some,
 evenMoreJs = evenMoreJs,
 evenMoreCss = cssTag("activity.css")) {
-<div data-username="@u.username" class="content_box no_padding user_show angle_activity @if(ctx.is(u)){ myself}">
+<div data-username="@u.username" class="content_box no_padding user_show">
   @header(u, info, Angle.Activity, social)
-  @views.html.activity.list(u, activities)
+  <div class="angle_content">@views.html.activity.list(u, activities)</div>
 </div>
 }
