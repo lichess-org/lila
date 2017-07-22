@@ -6,4 +6,8 @@
     <item quantity="one">A pratiqué %1$s position de %2$s</item>
     <item quantity="other">A pratiqué %1$s positions de %2$s</item>
   </plurals>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="one">A résolu %s puzzle tactique</item>
+    <item quantity="other">A résolu %s puzzles tactiques</item>
+  </plurals>
 </resources>
