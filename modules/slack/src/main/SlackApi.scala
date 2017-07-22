@@ -50,7 +50,7 @@ final class SlackApi(
       if (event.username == "Anonymous") "Anonymous"
       else s"lichess.org/@/${event.username}"
 
-    private def amount(cents: Int) = s"$$${lila.common.Maths.truncateAt(cents / 100d, 2)}"
+    private def amount(cents: Int) = s"$$${BigDecimal(cents, 2)}"
   }
 
   def publishEvent(event: Event): Funit = event match {
