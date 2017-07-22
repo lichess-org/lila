@@ -49,6 +49,20 @@
 .activity .entry .sub:last-child {
   margin-bottom: -7px;
 }
+.activity .entry .line {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.activity .entry .line .more {
+  flex: 0 1 auto;
+}
+.activity .entry .line a {
+  color: #707070;
+}
+.activity .entry .line a:hover {
+  color: #3893E8!important;
+}
 .activity .entry rating {
   margin-left: 12px;
   padding: 2px 5px;
@@ -100,4 +114,7 @@ body.dark .activity .entry > i {
 }
 body.dark .activity .entry > i {
   border-color: #2b2b2b;
+}
+body.dark .activity .entry .line a {
+  color: #aaa;
 }

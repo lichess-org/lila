@@ -67,8 +67,9 @@ case (pt, score) => {
     @trans.activity.postedNbMessages.plural(posts.size, posts.size, Html(s"""<a href="${routes.ForumTopic.show(topic.categId, topic.id)}">${shorten(topic.name, 70)}</a>"""))
     <div class="sub">
       @posts.map { post =>
-      @shorten(post.text, 85)
-      <a class="more" href="@routes.ForumPost.redirect(post.id)">@trans.more() »</a><br />
+      <div class="line">
+        <a href="@routes.ForumPost.redirect(post.id)">@shorten(post.text, 120)</a>
+      </div>
       }
     </div>
     }
@@ -84,7 +85,7 @@ case (pt, score) => {
     @trans.activity.playedNbMoves.plural(nb, nb, povs.size)
     <div class="sub">
       @povs.map { pov =>
-      <a href="@routes.Round.watcher(pov.gameId, pov.color.name)">
+      <a class="glpt" href="@routes.Round.watcher(pov.gameId, pov.color.name)">
         @if(pov.game.variant.exotic) {
         @pov.game.variant.name
         } else {
@@ -107,7 +108,7 @@ case (pt, score) => {
     @scoreHtml(score)
     <div class="sub">
       @povs.map { pov =>
-      <a href="@routes.Round.watcher(pov.gameId, pov.color.name)">
+      <a class="glpt" href="@routes.Round.watcher(pov.gameId, pov.color.name)">
         @pov.game.wonBy(pov.color) match {
         case Some(true) => {Victory}
         case Some(false) => {Defeat}
