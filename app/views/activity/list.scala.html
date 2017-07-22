@@ -40,7 +40,7 @@
 }
 
 @renderGames(games: Games) = {
-@games.value.map {
+@games.value.toList.sortBy(-_._2.size).map {
 case (pt, score) => {
 <div class="entry games">
   <i data-icon="@pt.iconChar"></i>
@@ -63,8 +63,9 @@ case (pt, score) => {
     @trans.activity.postedNbMessages.plural(posts.size, posts.size, Html(s"""<a href="${routes.ForumTopic.show(topic.categId, topic.id)}">${shorten(topic.name, 70)}</a>"""))
     <div class="sub">
       @posts.map { post =>
-      @shorten(post.text, 85)
-      <a class="more" href="@routes.ForumPost.redirect(post.id)">@trans.more() »</a><br />
+      <div class="line">
+        <a href="@routes.ForumPost.redirect(post.id)">@shorten(post.text, 120)</a>
+      </div>
       }
     </div>
     }
@@ -80,7 +81,13 @@ case (pt, score) => {
     @trans.activity.playedNbMoves.plural(nb, nb, povs.size)
     <div class="sub">
       @povs.map { pov =>
-      <a href="@routes.Round.watcher(pov.gameId, pov.color.name)">@pov.game.opening.map(_.opening.name)</a> vs
+      <a class="glpt" href="@routes.Round.watcher(pov.gameId, pov.color.name)">
+        @if(pov.game.variant.exotic) {
+        @pov.game.variant.name
+        } else {
+        @pov.game.opening.fold("Game")(_.opening.name)
+        }
+      </a> vs
       @playerLink(pov.opponent, withRating = true, withDiff = false, withOnline = true, link = true)<br />
       }
     </div>
@@ -97,7 +104,7 @@ case (pt, score) => {
     @scoreHtml(score)
     <div class="sub">
       @povs.map { pov =>
-      <a href="@routes.Round.watcher(pov.gameId, pov.color.name)">
+      <a class="glpt" href="@routes.Round.watcher(pov.gameId, pov.color.name)">
         @pov.game.wonBy(pov.color) match {
         case Some(true) => {Victory}
         case Some(false) => {Defeat}
@@ -118,9 +125,9 @@ case (pt, score) => {
     @List(all.in.map(_ -> true), all.out.map(_ -> false)).flatten.map {
     case (f, in) => {
     @if(in) {
-    @trans.activity.followedNbPlayers.pluralSame(f.actualNb)
-    } else {
     @trans.activity.gainedNbFollowers.pluralSame(f.actualNb)
+    } else {
+    @trans.activity.followedNbPlayers.pluralSame(f.actualNb)
     }
     <div class="sub">
       @htmlList(f.ids.map(id => userIdLink(id.some)))
@@ -135,8 +142,10 @@ case (pt, score) => {
 }
 
 @renderSimul(s: lila.simul.Simul) = {
-<a href="@routes.Simul.show(s.id)">@s.name simul</a>
-@scoreHtml(Score(s.wins, s.draws, s.losses, none))
+<div>
+  <a href="@routes.Simul.show(s.id)">@s.name simul</a>
+  @scoreHtml(Score(s.wins, s.draws, s.losses, none))
+</div>
 }
 
 @renderSimuls(simuls: List[lila.simul.Simul]) = {
@@ -171,28 +180,46 @@ case (pt, score) => {
 </div>
 }
 
-<div class="activity">
-  @as.map {
-  case lila.activity.ActivityView.AsTo(date, a) => {
-  <section>
-    <h2>@semanticDate(date)</h2>
-    <div class="entries">
-      @a.patron.map(renderPatron)
-      @a.practice.map(renderPractice)
-      @a.puzzles.map(renderPuzzles)
-      @a.games.map(renderGames)
-      @a.posts.map(renderPosts)
-      @a.corresMoves.map {
-      case (nb, povs) => { @renderCorresMoves(nb, povs) }
+@tourLink(t: lila.tournament.LeaderboardApi.Entry) = {
+<a href="@routes.Tournament.show(t.tourId)">@tournamentIdToName(t.tourId)</a>
+}
+
+@renderTours(tours: lila.activity.ActivityView.Tours) = {
+<div class="entry tours">
+  <i data-icon="g"></i>
+  <div>
+    @trans.activity.competedInNbTournaments.pluralSame(tours.nb)
+    <div class="sub">
+      @tours.best.map { t =>
+      <div@if(t.rank <= 3) { data-icon="g" class="text@if(t.rank == 1) { is-gold}"}>
+        @trans.activity.rankedInTournament(Html(s"""<strong>${t.rank}</strong>"""), s"${Math.round(t.rankRatio.value * 100)}%", t.nbGames, tourLink(t))<br />
+      </div>
       }
-      @a.corresEnds.map {
-      case (score, povs) => { @renderCorresEnds(score, povs) }
-      }
-      @a.follows.map(renderFollows)
-      @a.simuls.map(renderSimuls)
-      @a.studies.map(renderStudies)
     </div>
-  </section>
-  }
-  }
+  </div>
 </div>
+}
+    @as.map {
+    case lila.activity.ActivityView.AsTo(date, a) => {
+    <section>
+      <h2>@semanticDate(date)</h2>
+      <div class="entries">
+        @a.patron.map(renderPatron)
+        @a.practice.map(renderPractice)
+        @a.puzzles.map(renderPuzzles)
+        @a.games.map(renderGames)
+        @a.posts.map(renderPosts)
+        @a.corresMoves.map {
+        case (nb, povs) => { @renderCorresMoves(nb, povs) }
+        }
+        @a.corresEnds.map {
+        case (score, povs) => { @renderCorresEnds(score, povs) }
+        }
+        @a.follows.map(renderFollows)
+        @a.simuls.map(renderSimuls)
+        @a.studies.map(renderStudies)
+        @a.tours.map(renderTours)
+      </div>
+    </section>
+    }
+    }

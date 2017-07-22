@@ -656,7 +656,7 @@
   <string name="usernameStartNoNumber">Kullanıcı adı bir sayı ile başlayamaz.</string>
   <string name="usernameUnacceptable">Bu kullanıcı adı uygun değil.</string>
   <string name="directlySupportLichess">Lichess\'e doğrudan destek verin</string>
-  <string name="playChessInStyle">Satrancı tarz ile oynayın</string>
+  <string name="playChessInStyle">Satranca tarz katın</string>
   <string name="chessBasics">Satrancın temel prensipleri</string>
   <string name="coaches">Eğitmenler</string>
   <string name="invalidPgn">Geçersiz PGN</string>

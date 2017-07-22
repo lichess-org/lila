@@ -87,7 +87,7 @@ bilo koju nebranjenu figuru!</string>
   <string name="captureAndDefendPieces">Uzmi i obrani figure</string>
   <string name="combatIntro">Dobar ratnik zna i napadati i braniti!</string>
   <string name="combatComplete">Čestitke! Znaš se boriti šahovskim figurama!</string>
-  <string name="checkInOne">Šah u jednom</string>
+  <string name="checkInOne">Šah</string>
   <string name="attackTheOpponentsKing">Napadni protivnikovog kralja</string>
   <string name="checkInOneIntro">Da šahiraš svog protivnika, napadni njegovog kralja. On ga mora obraniti!</string>
   <string name="checkInOneGoal">Ciljaj na protivnikovog kralja u jednom potezu!</string>
@@ -175,4 +175,63 @@ samo ako je tvoj pješak na petom redu.</string>
 - crni se ne može nikamo pomaknuti
 - nema šaha.</string>
   <string name="stalemateComplete">Čestitke! Bolje biti patiran nego matiran!</string>
+  <string name="advanced">Napredno</string>
+  <string name="pieceValue">Vrijednost figura</string>
+  <string name="evaluatePieceStrength">Procijeni vrijednost figura</string>
+  <string name="pieceValueIntro">Figure s velikom pokretnošću imaju veću vrijednost!
+Dama = 9
+Top = 5
+Lovac = 3
+Skakač = 3
+Pješak = 1
+Kralj je neprocjenjiv! Izgubiti ga bi značilo izgubiti partiju.</string>
+  <string name="queenOverBishop">Uzmi figure
+s najvećom vrijednošću!
+Dama &gt; Lovac</string>
+  <string name="takeThePieceWithTheHighestValue">Uzmi figuru 
+s najvećom vrijednošću!</string>
+  <string name="pieceValueComplete">Čestitke! Znaš vrijednost materijala!
+Dama = 9
+Top = 5
+Lovac = 3
+Skakač = 3
+Pješak = 1</string>
+  <string name="checkInTwo">Šah u dva poteza</string>
+  <string name="twoMovesToGiveCheck">Dva poteza da se da šah</string>
+  <string name="checkInTwoIntro">Pronađi najbolju kombinaciju dvaju poteza koji šahiraju protivnikovog kralja!</string>
+  <string name="checkInTwoGoal">Zaprijeti protivničkom kraju 
+u dva poteza!</string>
+  <string name="checkInTwoComplete">Čestitke! Šahirao si protivnika, prisiljavajući ga da obrani svoga protivnika!</string>
+  <string name="whatNext">Što dalje?</string>
+  <string name="youKnowHowToPlayChess">Sada znaš igrati šah, čestitke! Želiš li postati jači igrač?</string>
+  <string name="register">Registriraj se</string>
+  <string name="getAFreeLichessAccount">Dobij besplatni Lichess račun</string>
+  <string name="practice">Vježbaj</string>
+  <string name="learnCommonChessPositions">Nauči uobičajene šahovske pozicije</string>
+  <string name="puzzles">Problemi</string>
+  <string name="exerciseYourTacticalSkills">Vježbaj svoje taktičke vještine</string>
+  <string name="videos">Videozapisi</string>
+  <string name="watchInstructiveChessVideos">Gledaj poučne šahovske videe</string>
+  <string name="playPeople">Igraj protiv ljudi</string>
+  <string name="opponentsFromAroundTheWorld">Protivnici sa svih strana svijeta</string>
+  <string name="playMachine">Igraj protiv računala</string>
+  <string name="testYourSkillsWithTheComputer">Testiraj svoje vještine protiv računala</string>
+  <string name="letsGo">Kreni!</string>
+  <string name="stageX">Razina %s</string>
+  <string name="awesome">Super!</string>
+  <string name="excellent">Odlično!</string>
+  <string name="greatJob">Jako dobro!</string>
+  <string name="perfect">Perfektno!</string>
+  <string name="outstanding">Izvanredno!</string>
+  <string name="wayToGo">Tako treba!</string>
+  <string name="yesYesYes">Da, da, da!</string>
+  <string name="youreGoodAtThis">Dobar si u ovome!</string>
+  <string name="nailedIt">Točno tako.</string>
+  <string name="rightOn">Tako je!</string>
+  <string name="stageXComplete">Razina %s završena</string>
+  <string name="yourScore">Tvoj rezultat</string>
+  <string name="next">Sljedeće</string>
+  <string name="backToMenu">Povratak na izbornik</string>
+  <string name="puzzleFailed">Problem neuspješno riješen!</string>
+  <string name="retry">Pokušaj ponovno</string>
 </resources>

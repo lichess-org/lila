@@ -15,6 +15,9 @@
         </h2>
         <div class="reports">
           <div class="expendable">
+              @if(in.accuracy.isDefined) {
+              <span class="accuracy"><strong>@in.accuracy%</strong> accuracy</span>
+              }
             @in.allReports.map(renderReport)
           </div>
         </div>

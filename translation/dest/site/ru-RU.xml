@@ -98,9 +98,9 @@
   <string name="byCPL">Интересное</string>
   <string name="openStudy">Начать исследование</string>
   <string name="enable">Включить</string>
-  <string name="bestMoveArrow">Стрелочка \"лучший ход\"</string>
+  <string name="bestMoveArrow">Стрелка \"лучший ход\"</string>
   <string name="evaluationGauge">Шкала оценки</string>
-  <string name="multipleLines">Количество линий</string>
+  <string name="multipleLines">Количество стрелок</string>
   <string name="cpus">Процессоры</string>
   <string name="memory">Память</string>
   <string name="infiniteAnalysis">Бесконечный анализ</string>
@@ -200,7 +200,7 @@
   <string name="standard">Классические шахматы</string>
   <string name="unlimited">Без лимита времени</string>
   <string name="mode">Режим</string>
-  <string name="casual">Без рейтинга</string>
+  <string name="casual">Нерейтинговая</string>
   <string name="rated">Рейтинговая</string>
   <string name="thisGameIsRated">Игра на рейтинг</string>
   <string name="rematch">Реванш</string>
@@ -374,7 +374,7 @@
   <string name="standByX">Ожидайте, %s, жеребьёвка игроков, будьте готовы!</string>
   <string name="youArePlaying">Вы в игре!</string>
   <string name="winRate">Коэффициент победы</string>
-  <string name="berserkRate">Коэффициент ставок</string>
+  <string name="berserkRate">Коэффициент бешенства</string>
   <string name="performance">Эффективность</string>
   <string name="tournamentComplete">Соревнование завершено</string>
   <string name="movesPlayed">Ходов сыграно</string>
