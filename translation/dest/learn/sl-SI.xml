@@ -81,4 +81,5 @@ nezaščitene figure!</string>
   <string name="attackTheOpponentsKing">Napadite nasprotnikovega kralja</string>
   <string name="checkInOneIntro">Da šahirate nasprotnika mu napadite kralja. Morajo ga branit!</string>
   <string name="checkInOneGoal">Ciljajte na nasprotnikovega kralja v eni potezi!</string>
+  <string name="checkInOneComplete">Čestitamo! Šahirali ste nasprotnika in ga prisilili, da brani kralja!</string>
 </resources>
