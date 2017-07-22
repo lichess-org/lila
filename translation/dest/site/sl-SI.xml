@@ -469,14 +469,14 @@
     <item quantity="one">%s igrana partija</item>
     <item quantity="two">%s igrani partiji</item>
     <item quantity="few">%s igrane partije</item>
-    <item quantity="other">%s igranih partije</item>
+    <item quantity="other">%s igranih partij</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Po vsaki potezi samodejno preklopi na naslednjo partijo</string>
   <string name="autoSwitch">Samodejno preklopi</string>
   <string name="puzzles">Problemi</string>
   <string name="coordinates">Koordinate</string>
   <string name="latestUpdates">Zadnje objave na blogu</string>
-  <string name="tournamentWinners">Zmagovalec turnirja</string>
+  <string name="tournamentWinners">Zmagovalci turnirjev</string>
   <string name="name">Ime</string>
   <string name="description">Opis</string>
   <string name="no">Ne</string>
