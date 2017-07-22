@@ -50,7 +50,7 @@
   <string name="analysis">Analiza gry</string>
   <string name="depthX">Głębokość analizy %s</string>
   <string name="usingServerAnalysis">Analiza na serwerze</string>
-  <string name="loadingEngine">Wczytywanie silnika szachowego...</string>
+  <string name="loadingEngine">Wczytywanie silnika...</string>
   <string name="cloudAnalysis">Analiza w chmurze</string>
   <string name="goDeeper">Analizuj głębiej</string>
   <string name="showThreat">Pokaż zagrożenia</string>
