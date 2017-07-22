@@ -62,4 +62,14 @@
   <string name="takeTheEnemyPieces">إلتقط قطع المنافس</string>
   <string name="captureIntro">حدد قطع المنافس الغير محمية، والتقطها!</string>
   <string name="takeTheBlackPieces">إلتقط القطع السوداء!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">التقط القطع السوداء! ولا تفقد قطعك.</string>
+  <string name="captureComplete">تهانينا! تعرف كيفية القتال بقطع الشطرنج!</string>
+  <string name="protection">الحماية</string>
+  <string name="keepYourPiecesSafe">حافظ على قطعك آمنة</string>
+  <string name="protectionIntro">تحديد قطعك التي يهاجمها المنافس، ودافع عنها!</string>
+  <string name="protectionComplete">تهانينا! القطعة التي لا تفقدها هي قطعة تربحها!</string>
+  <string name="escape">أنت تحت الهجوم! إهرب من التهديد!</string>
+  <string name="noEscape">لا مفر، ولكن يمكنك الدفاع!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">لا تسمح لهم بأخذ أي قطعة غير محمية!</string>
+  <string name="combat">الاشتباك</string>
 </resources>
