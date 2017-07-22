@@ -419,8 +419,8 @@
   <string name="help">ヘルプ：</string>
   <string name="createANewTopic">新しいトピックを作成</string>
   <string name="topics">トピック</string>
-  <string name="posts">ポスト</string>
-  <string name="lastPost">最新のポスト</string>
+  <string name="posts">投稿数</string>
+  <string name="lastPost">最新の投稿</string>
   <string name="views">閲覧数</string>
   <string name="replies">返信</string>
   <string name="replyToThisTopic">このトピックに返信</string>
