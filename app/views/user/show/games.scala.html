@@ -6,7 +6,6 @@
 @if(!u.lame || ctx.is(u) || isGranted(_.UserSpy)) {
 @if(filters.current.name == "search") {
 @jsTag("search.js")
-@jsTag("vendor/jquery.infinitescroll.min.js")
 }
 @info.ratingChart.map { ratingChart =>
 @jsTag("chart/ratingHistory.js")
