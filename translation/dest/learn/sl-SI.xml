@@ -25,4 +25,18 @@ en črno-poljni lovec.
 Potrebujete oba!</string>
   <string name="bishopComplete">Čestitamo! Obvladate lovca.</string>
   <string name="theQueen">Kraljica</string>
+  <string name="queenCombinesRookAndBishop">Kraljica = trdnjava + lovec</string>
+  <string name="queenIntro">Najmočnejša šahovska figura vstopa. Njeno veličanstvo, kraljica!</string>
+  <string name="queenComplete">Čestitamo! Kraljica nima več skrivnosti pred vami.</string>
+  <string name="theKing">Kralj</string>
+  <string name="theMostImportantPiece">Najpomembnejša figura</string>
+  <string name="kingIntro">Vi ste kralj. Če izgubite bitko, je igra izgubljena.</string>
+  <string name="theKingIsSlow">Kralj je počasen.</string>
+  <string name="lastOne">Še zadnja!</string>
+  <string name="kingComplete">Sedaj lahko poveljujete poveljniku!</string>
+  <string name="theKnight">Skakač</string>
+  <string name="itMovesInAnLShape">Premika se v obliki črke L</string>
+  <string name="knightIntro">Tukaj je izziv za vas. Skakač je... zvita figura.</string>
+  <string name="knightsHaveAFancyWay">Skakači imajo prebrisan način skakanja naokrog!</string>
+  <string name="knightsCanJumpOverObstacles">Skakač lahko skoči čez ovire. Pobegnite in ujemite zvezde!</string>
 </resources>
