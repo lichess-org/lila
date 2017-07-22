@@ -135,8 +135,12 @@ Mas antes você precisa retirar as peças do meio.</string>
 Mas antes você precisa retirar as peças do meio.</string>
   <string name="youCannotCastleIfMoved">Você não pode rocar se o rei ou se a torre já se moveram.</string>
   <string name="youCannotCastleIfAttacked">Você não pode rocar se o rei está sob ameaça no caminho. Bloqueie o xeque, e então conclua o roque!</string>
+  <string name="findAWayToCastleKingSide">Encontre uma maneira de executar o roque menor (da ala do rei)!</string>
+  <string name="findAWayToCastleQueenSide">Encontre uma maneira de executar o roque maior (da ala da rainha)!</string>
+  <string name="castlingComplete">Parabéns! Você deve realizar o roque quase sempre em um jogo.</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">O movimento especial do peão</string>
+  <string name="enPassantIntro">Quando um peão do oponente mover-se duas posições, você pode captura-lo como se ele tivesse sido movido apenas uma posição.</string>
   <string name="stalemate">Rei afogado</string>
   <string name="theGameIsADraw">A partida está empatada</string>
   <string name="advanced">Avançado</string>
