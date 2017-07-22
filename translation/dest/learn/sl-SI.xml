@@ -98,4 +98,27 @@ ali zaščitite napad!</string>
   <string name="mateInOneIntro">Zmagate kadar vaš nasprotnik ne more obraniti šah.</string>
   <string name="attackYourOpponentsKing">Napadite nasprotnikovega kralja
 tako, da obramba ne bo mogoča!</string>
+  <string name="mateInOneComplete">Čestitamo! Tako se zmaga šahovsko partijo!</string>
+  <string name="intermediate">Srednji nivo</string>
+  <string name="boardSetup">Postavitev figur</string>
+  <string name="howTheGameStarts">Kako začeti igro</string>
+  <string name="getAFreeLichessAccount">Naredite si brezplačen Lichess račun</string>
+  <string name="practice">Treniraje</string>
+  <string name="learnCommonChessPositions">Naučite se pogostih pozicij</string>
+  <string name="puzzles">Problemi</string>
+  <string name="exerciseYourTacticalSkills">Vadite taktične veščine</string>
+  <string name="videos">Videi</string>
+  <string name="watchInstructiveChessVideos">Poglejte poučne šahovske videote</string>
+  <string name="playPeople">Proti ljudem</string>
+  <string name="opponentsFromAroundTheWorld">Nasprotniki iz celega sveta</string>
+  <string name="playMachine">Proti računalniku</string>
+  <string name="testYourSkillsWithTheComputer">Preskusite svoje sposobnosti proti računalniku</string>
+  <string name="letsGo">Začnimo!</string>
+  <string name="stageX">Stopnja %s</string>
+  <string name="awesome">Odlično!</string>
+  <string name="excellent">Izjemno!</string>
+  <string name="greatJob">Zelo dobro!</string>
+  <string name="perfect">Popolno!</string>
+  <string name="outstanding">Izjemno!</string>
+  <string name="wayToGo">Tako se dela!</string>
 </resources>
