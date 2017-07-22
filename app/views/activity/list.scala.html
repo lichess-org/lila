@@ -139,8 +139,10 @@ case (pt, score) => {
 }
 
 @renderSimul(s: lila.simul.Simul) = {
-<a href="@routes.Simul.show(s.id)">@s.name simul</a>
-@scoreHtml(Score(s.wins, s.draws, s.losses, none))
+<div>
+  <a href="@routes.Simul.show(s.id)">@s.name simul</a>
+  @scoreHtml(Score(s.wins, s.draws, s.losses, none))
+</div>
 }
 
 @renderSimuls(simuls: List[lila.simul.Simul]) = {
