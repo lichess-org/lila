@@ -27,8 +27,8 @@
     <item quantity="other">Completed %s correspondence games</item>
   </plurals>
   <plurals name="followedNbPlayers">
-    <item quantity="one">Followed %s player</item>
-    <item quantity="other">Followed %s players</item>
+    <item quantity="one">Started following %s player</item>
+    <item quantity="other">Started following %s players</item>
   </plurals>
   <plurals name="gainedNbFollowers">
     <item quantity="one">Gained %s new follower</item>
