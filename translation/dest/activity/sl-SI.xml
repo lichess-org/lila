@@ -38,4 +38,34 @@
     <item quantity="few">Končal %s dopisne partije</item>
     <item quantity="other">Končal %s dopisnih partij</item>
   </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="one">Ima %s novega sledilca</item>
+    <item quantity="two">Ima %s nova sledilca</item>
+    <item quantity="few">Ima %s nove sledilce</item>
+    <item quantity="other">Ima %s novih sledilcev</item>
+  </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="one">Gostil %s simultanko</item>
+    <item quantity="two">Gostil %s simultanki</item>
+    <item quantity="few">Gostil %s simultanke</item>
+    <item quantity="other">Gostil %s simultank</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">Sodeloval pri %s simultanki</item>
+    <item quantity="two">Sodeloval pri %s simultankah</item>
+    <item quantity="few">Sodeloval pri %s simultankah</item>
+    <item quantity="other">Sodeloval pri %s simultankah</item>
+  </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">Ustvaril %s novo študijo</item>
+    <item quantity="two">Ustvaril %s novi študiji</item>
+    <item quantity="few">Ustvaril %s nove študije</item>
+    <item quantity="other">Ustvaril %s novih študij</item>
+  </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="one">Končal %s turnir</item>
+    <item quantity="two">Končal %s turnirja</item>
+    <item quantity="few">Končal %s turnirje</item>
+    <item quantity="other">Končal %s turnirjev</item>
+  </plurals>
 </resources>
