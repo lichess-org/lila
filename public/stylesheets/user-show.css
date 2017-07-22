@@ -460,7 +460,7 @@ div.content_box_inter .intertab {
   flex: 1 1 auto;
   text-align: center;
   line-height: 1.4em;
-  margin: 5px 0 -1px -1px;
+  margin-top: 5px;
   padding: 0.5em 5px;
   text-transform: capitalize;
   border: 1px solid transparent;
@@ -473,25 +473,32 @@ div.content_box_inter.tabs .intertab {
   border-bottom: none;
   padding-bottom: 0.8em;
 }
+div.content_box_inter .intertab:hover {
+  background: #efefef;
+}
+div.content_box_inter.angles .intertab:hover {
+  background: #f9f9f9;
+}
 div.content_box_inter .intertab strong {
   font-family: 'Noto Sans';
   font-weight: normal;
 }
 div.content_box_inter a.intertab.active {
-  background: #fff;
+  margin-bottom: -1px;
+  background: #fff!important;
 }
 div#games.content_box_inter {
   border-top: none;
 }
 div.content_box_inter a.to_games.active,
 .angle_games div#games.content_box_inter {
-  background: #e8e8e8;
+  background: #e8e8e8!important;
 }
 div.content_box_inter.angles .intertab {
   font-size: 1.2em;
   padding: 0.9em 5px;
 }
-div.content_box_inter.angles .intertab.active {
+div.content_box_inter .intertab.active {
   border: 1px solid #ccc;
   border-bottom: none;
 }
