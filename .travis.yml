@@ -63,10 +63,6 @@ jobs:
     - stage: test
       language: node_js
       node_js: "4"
-      addons:
-        apt:
-          packages:
-           - parallel
       before_install:
        - yarn --version
        - curl -sSL https://yarnpkg.com/install.sh | bash
@@ -81,6 +77,9 @@ jobs:
         directories:
           - $HOME/.cache/yarn
       addons:
+        apt:
+          packages:
+            - parallel
         artifacts:
           bucket: lichess.org
           s3_region: eu-west-1
