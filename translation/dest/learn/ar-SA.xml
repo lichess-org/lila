@@ -120,4 +120,5 @@
   <string name="youreGoodAtThis">أنت جيد في هذا!</string>
   <string name="nailedIt">حافظ على المستوى.</string>
   <string name="rightOn">على الطريق الصحيح!</string>
+  <string name="stageXComplete">المرحلة %s تمت</string>
 </resources>
