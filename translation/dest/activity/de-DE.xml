@@ -29,4 +29,20 @@
     <item quantity="one">Hat %s neuen Folger gewonnen</item>
     <item quantity="other">Hat %s neue Folger gewonnen</item>
   </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="one">Hat %s Simultanvorstellung gegeben</item>
+    <item quantity="other">Hat %s Simultanvorstellungen gegeben</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">Hat an %s Simultanvorstellung teilgenommen</item>
+    <item quantity="other">Hat an %s Simultanvorstellungen teilgenommen</item>
+  </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">Hat %s neue Studie erstellt</item>
+    <item quantity="other">Hat %s neue Studien erstellt</item>
+  </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="one">Hat an %s Turnier teilgenommen</item>
+    <item quantity="other">Hat an %s Turnieren teilgenommen</item>
+  </plurals>
 </resources>
