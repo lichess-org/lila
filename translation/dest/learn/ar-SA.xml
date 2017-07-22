@@ -60,4 +60,6 @@
   <string name="fundamentals">أساسيات</string>
   <string name="capture">الأسر</string>
   <string name="takeTheEnemyPieces">إلتقط قطع المنافس</string>
+  <string name="captureIntro">حدد قطع المنافس الغير محمية، والتقطها!</string>
+  <string name="takeTheBlackPieces">إلتقط القطع السوداء!</string>
 </resources>
