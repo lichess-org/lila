@@ -194,11 +194,6 @@
   <string name="incrementInSeconds">Додавање у секундама</string>
   <string name="freeOnlineChess">Бесплатни интернет шах</string>
   <string name="spectators">Посматрачи:</string>
-  <plurals name="nbGamesPlayed">
-    <item quantity="one">%s партија одиграна</item>
-    <item quantity="few">%s партије одигране</item>
-    <item quantity="other">%s партија одиграно</item>
-  </plurals>
   <plurals name="nbRated">
     <item quantity="one">%s рангирана</item>
     <item quantity="few">%s рангиране</item>
