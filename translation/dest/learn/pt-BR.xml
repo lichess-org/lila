@@ -20,10 +20,12 @@
   <string name="theBishop">O bispo</string>
   <string name="itMovesDiagonally">Move-se em diagonais</string>
   <string name="bishopIntro">A seguir, aprenderemos como o bispo se movimenta!</string>
-  <string name="youNeedBothBishops">Um bispo para as casas brancas, um bispo para as casas pretas. Você precisa de ambos!</string>
+  <string name="youNeedBothBishops">Um bispo para as casas brancas,
+um bispo para as casas pretas.
+Você precisa de ambos!</string>
   <string name="bishopComplete">Parabéns! Você pode comandar um bispo.</string>
   <string name="theQueen">A rainha</string>
-  <string name="queenCombinesRookAndBishop">Rainha = torre + bispo</string>
+  <string name="queenCombinesRookAndBishop">Dama = torre + bispo</string>
   <string name="queenIntro">Entra a mais poderosa das peças. Sua majestade, a rainha (dama)!</string>
   <string name="queenComplete">Parabéns! Damas (rainhas) não têm segredos para você.</string>
   <string name="theKing">O rei</string>
@@ -185,10 +187,10 @@ Peão = 1</string>
   <string name="exerciseYourTacticalSkills">Exercite suas habilidades táticas</string>
   <string name="videos">Vídeos</string>
   <string name="watchInstructiveChessVideos">Assista a vídeos de xadrez instrutivos</string>
-  <string name="playPeople">Jogue com pessoas</string>
+  <string name="playPeople">Jogue online</string>
   <string name="opponentsFromAroundTheWorld">Oponentes de todo o mundo</string>
   <string name="playMachine">Computador</string>
-  <string name="testYourSkillsWithTheComputer">Teste suas habilidades com o computador</string>
+  <string name="testYourSkillsWithTheComputer">Desafie o computador</string>
   <string name="letsGo">Vamos lá!</string>
   <string name="stageX">Etapa %s</string>
   <string name="awesome">Fantástico!</string>
