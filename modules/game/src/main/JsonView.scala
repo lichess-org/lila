@@ -95,8 +95,7 @@ object JsonView {
       "daysPerTurn" -> c.daysPerTurn,
       "increment" -> c.increment,
       "white" -> c.whiteTime,
-      "black" -> c.blackTime,
-      "emerg" -> c.emerg
+      "black" -> c.blackTime
     )
   }
 

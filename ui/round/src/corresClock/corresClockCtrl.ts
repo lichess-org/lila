@@ -5,7 +5,6 @@ export interface CorresClockData {
   increment: Seconds;
   white: Seconds;
   black: Seconds;
-  emerg: Seconds;
   showBar: boolean;
 }
 
