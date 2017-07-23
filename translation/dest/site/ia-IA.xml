@@ -63,9 +63,13 @@
   <string name="pawnMove">Movimento de pedon</string>
   <string name="capture">Captura</string>
   <string name="close">Clauder</string>
+  <string name="winning">Vincente</string>
+  <string name="losing">Perdente</string>
+  <string name="drawn">Nulle</string>
   <string name="unknown">Incognite</string>
   <string name="database">Base de datos</string>
   <string name="whiteDrawBlack">Blanc / Nulle / Nigre</string>
+  <string name="averageRatingX">Classification medie: %s</string>
   <string name="recentGames">Partitas recente</string>
   <string name="topGames">Melior partitas</string>
   <string name="noGameFound">Nulle partita trovate</string>
@@ -612,7 +616,9 @@
   <string name="withFriends">Con amicos</string>
   <string name="withEverybody">Con tote le mundo</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Tu jam ha registrate le e-posta: %s</string>
-  <string name="kidMode">Modo de infante</string>
+  <string name="kidMode">Modo infantil</string>
+  <string name="enableKidMode">Activar modo infantil</string>
+  <string name="disableKidMode">Disactivar modo infantil</string>
   <string name="security">Securitate</string>
   <string name="alternativelyYouCanX">Alternativemente tu pote %s.</string>
   <string name="revokeAllSessions">revocar tote sessiones</string>
