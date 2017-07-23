@@ -35,11 +35,28 @@ final class ActivityWriteApi(
   }.sequenceFu.void
 
   def forumPost(post: lila.forum.Post, topic: lila.forum.Topic): Funit = post.userId.filter(lichessId !=) ?? { userId =>
-    update(userId) { ActivityAggregation.forumPost(post, topic) _ }
+    getOrCreate(userId) flatMap { a =>
+      coll.update(
+        $id(a.id),
+        $set(ActivityFields.posts -> (~a.posts + PostId(post.id))),
+        upsert = true
+      ).void
+    }
   }
 
   def puzzle(res: lila.puzzle.Puzzle.UserResult): Funit =
-    update(res.userId) { ActivityAggregation.puzzle(res) _ }
+    getOrCreate(res.userId) flatMap { a =>
+      coll.update(
+        $id(a.id),
+        $set(ActivityFields.puzzles -> {
+          ~a.puzzles + Score.make(
+            res = res.result.win.some,
+            rp = RatingProg(Rating(res.rating._1), Rating(res.rating._2)).some
+          )
+        }),
+        upsert = true
+      ).void
+    }
 
   def learn(userId: User.ID, stage: String) =
     update(userId) { a => a.copy(learn = Some(~a.learn + Learn.Stage(stage))).some }

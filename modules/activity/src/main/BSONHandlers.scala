@@ -63,9 +63,9 @@ private object BSONHandlers {
 
   private implicit val postIdHandler = stringAnyValHandler[PostId](_.value, PostId.apply)
   private implicit val postIdsHandler = bsonArrayToListHandler[PostId]
-  private implicit val postsHandler = isoHandler[Posts, List[PostId], Barr]((p: Posts) => p.value, Posts.apply _)
+  implicit val postsHandler = isoHandler[Posts, List[PostId], Barr]((p: Posts) => p.value, Posts.apply _)
 
-  private implicit val puzzlesHandler = isoHandler[Puzzles, Score, Bdoc]((p: Puzzles) => p.score, Puzzles.apply _)
+  implicit val puzzlesHandler = isoHandler[Puzzles, Score, Bdoc]((p: Puzzles) => p.score, Puzzles.apply _)
 
   private implicit val learnStageIso = Iso.string[Learn.Stage](Learn.Stage.apply, _.value)
   private implicit val learnMapHandler = MapValue.MapHandler[Learn.Stage, Int]
