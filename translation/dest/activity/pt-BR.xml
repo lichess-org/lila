@@ -18,4 +18,8 @@
     <item quantity="one">Postou %1$s mensagem em %2$s</item>
     <item quantity="other">Postou %1$s mensagens em %2$s</item>
   </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">Jogou %1$s movimento em %2$s partida(s) por correspondência</item>
+    <item quantity="other">Jogou %1$s movimentos em %2$s partida(s) por correspondência</item>
+  </plurals>
 </resources>
