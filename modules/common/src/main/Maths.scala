@@ -32,9 +32,8 @@ object Maths {
     else n toDouble upper.head
   }
 
-  def truncateAt(n: Double, p: Int): Double = {
-    val s = math.pow(10, p)
-    (math floor n * s) / s
+  def roundAt(n: Double, p: Int): BigDecimal = {
+    BigDecimal(n).setScale(p, BigDecimal.RoundingMode.HALF_UP)
   }
 
   def toInt(l: Long): Int = l.min(Int.MaxValue).max(Int.MinValue).toInt

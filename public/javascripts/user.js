@@ -102,4 +102,39 @@ $(function() {
         }]
       });
     });
+
+    function cleanupActivity() {
+      $('.activity .entry').filter(function() {
+        return this.textContent.indexOf('0 tournaments') > -1 ;
+      }).remove();
+    }
+    cleanupActivity();
+    $('.content_box_inter.angles').each(function() {
+      var $angles = $(this),
+      $content = $('.angle_content');
+      function browseTo(path) {
+        $('.angle_content .infinitescroll').infinitescroll('destroy');
+        $.get(path).then(function(html) {
+          $content.html(html);
+          cleanupActivity();
+          lichess.pubsub.emit('content_loaded')();
+          history.replaceState({}, '', path);
+          lichess.loadInfiniteScroll('.angle_content .infinitescroll');
+        });
+      }
+      $angles.on('click', 'a', function() {
+        $angles.find('.active').removeClass('active');
+        $(this).addClass('active');
+        browseTo($(this).attr('href'));
+        if ($(this).data('tab') === 'activity') lichess.loadCss('/assets/stylesheets/activity.css');
+        return false;
+      });
+      $('.user_show').on('click', '#games a', function() {
+        if ($('#games .to_search').hasClass('active') || $(this).hasClass('to_search')) return true;
+        $filters = $(this).parent();
+        $(this).addClass('active');
+        browseTo($(this).attr('href'));
+        return false;
+      });
+    });
 });

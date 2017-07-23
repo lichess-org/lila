@@ -146,16 +146,18 @@
   font-size: 1.4em;
 }
 .user_show .social {
-  position: relative;
   border-top: 0;
   padding: 0 0 5px 10px;
   height: 52px;
+  align-items: center;
+  justify-content: space-between;
+}
+.user_show .social .links {
+  display: flex;
 }
 .user_show .user_actions {
-  position: absolute;
-  top: 12px;
-  right: 12px;
   font-size: 1.2em;
+  margin: 4px 15px 0 0;
 }
 .user_show .user_actions form {
   display: inline;
@@ -325,7 +327,7 @@ div.sub_ratings h3 {
   color: #d59120;
 }
 .user_show div.games {
-  margin-top: 10px;
+  padding-top: 10px;
 }
 .user_show div.games.center {
   text-align: center;
@@ -450,4 +452,64 @@ div.crosstable {
 }
 .user_show .new_player a {
   color: #3893E8;
+}
+div.content_box_inter {
+  display: flex!important;
+}
+div.content_box_inter .intertab {
+  flex: 1 1 auto;
+  text-align: center;
+  line-height: 1.4em;
+  margin-top: 5px;
+  padding: 0.5em 5px;
+  text-transform: capitalize;
+  border: 1px solid transparent;
+  font-family: 'Roboto';
+  font-weight: 300;
+  white-space: normal;
+}
+div.content_box_inter.tabs .intertab {
+  margin-top: 7px;
+  border-bottom: none;
+  padding-bottom: 0.8em;
+}
+div.content_box_inter .intertab:hover {
+  background: #efefef;
+}
+div.content_box_inter.angles .intertab:hover {
+  background: #f9f9f9;
+}
+div.content_box_inter .intertab strong {
+  font-family: 'Noto Sans';
+  font-weight: normal;
+}
+div.content_box_inter a.intertab.active {
+  margin-bottom: -1px;
+  background: #fff!important;
+}
+div#games.content_box_inter {
+  border-top: none;
+}
+div.content_box_inter a.to_games.active,
+div#games.content_box_inter {
+  background: #e8e8e8!important;
+}
+div.content_box_inter.angles .intertab {
+  font-size: 1.2em;
+  padding: 0.9em 5px;
+}
+div.content_box_inter .intertab.active {
+  border: 1px solid #ccc;
+  border-bottom: none;
+}
+
+body.dark div.content_box_inter .intertab:hover {
+  background: #2d2d2d;
+}
+body.dark div.content_box_inter a.intertab.active {
+  background: #2b2b2b!important;
+}
+body.dark div.content_box_inter a.to_games.active,
+body.dark div#games.content_box_inter {
+  background: #353535!important;
 }

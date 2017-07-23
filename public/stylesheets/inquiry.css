@@ -138,3 +138,6 @@ body {
   font-size: 0.8em;
   padding: 0 8px;
 }
+#inquiry .accuracy {
+  float: right;
+}

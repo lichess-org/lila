@@ -600,33 +600,6 @@ div.content_box_inter {
   display: block;
   white-space: nowrap;
 }
-div.content_box_inter .intertab {
-  display: inline-block;
-  text-align: center;
-  line-height: 1.4em;
-  margin: 5px 0 -1px 0;
-  padding: 0.5em 0.7em;
-  text-transform: capitalize;
-  border: 1px solid transparent;
-  font-family: 'Roboto';
-  font-weight: 300;
-}
-div.content_box_inter.tabs .intertab {
-  margin-top: 7px;
-  border-bottom: none;
-  padding-bottom: 0.8em;
-}
-div.content_box_inter .intertab strong {
-  font-family: 'Noto Sans';
-  font-weight: normal;
-}
-div.content_box_inter a.intertab:hover,
-div.content_box_inter a.intertab.active {
-  border-color: #ccc;
-}
-div.content_box_inter a.intertab.active {
-  background: #fff;
-}
 div.content_box .lichess_title {
   font-size: 2em;
   display: block;

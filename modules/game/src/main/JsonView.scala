@@ -80,7 +80,6 @@ object JsonView {
   }
 
   implicit val clockWriter: OWrites[Clock] = OWrites { c =>
-    import lila.common.Maths.truncateAt
     Json.obj(
       "running" -> c.isRunning,
       "initial" -> c.limitSeconds,
@@ -96,8 +95,7 @@ object JsonView {
       "daysPerTurn" -> c.daysPerTurn,
       "increment" -> c.increment,
       "white" -> c.whiteTime,
-      "black" -> c.blackTime,
-      "emerg" -> c.emerg
+      "black" -> c.blackTime
     )
   }
 

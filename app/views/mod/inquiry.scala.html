@@ -15,12 +15,15 @@
         </h2>
         <div class="reports">
           <div class="expendable">
+              @if(in.accuracy.isDefined) {
+              <span class="accuracy"><strong>@in.accuracy%</strong> accuracy</span>
+              }
             @in.allReports.map(renderReport)
           </div>
         </div>
       </div>
       <div class="links">
-        <a href="@routes.User.showFilter(in.user.id, "search")?players.b=@in.report.createdBy">View<br />Games</a>
+        <a href="@routes.User.games(in.user.id, "search")?players.b=@in.report.createdBy">View<br />Games</a>
         @if(isGranted(_.MarkTroll)) {
         <a href="@routes.Mod.communication(in.user.id)">View<br />Coms</a>
         }

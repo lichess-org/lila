@@ -181,7 +181,13 @@ private[round] final class Round(
 
     case Moretime(playerRef) => handle(playerRef) { pov =>
       (pov.game moretimeable !pov.color) ?? {
-        val progress = giveMoretime(pov.game, !pov.color, moretimeDuration)
+        val progress =
+          if (pov.game.hasClock) giveMoretime(pov.game, !pov.color, moretimeDuration)
+          else pov.game.correspondenceClock.fold(Progress(pov.game)) { clock =>
+            messenger.system(pov.game, (_.untranslated(s"${!pov.color} gets more time")))
+            val p = pov.game.correspondenceGiveTime
+            p.game.correspondenceClock.map(Event.CorrespondenceClock.apply).fold(p)(p + _)
+          }
         proxy save progress inject progress.events
       }
     }
@@ -218,7 +224,7 @@ private[round] final class Round(
     }
   }
 
-  private def giveMoretime(game: Game, color: Color, duration: FiniteDuration) =
+  private def giveMoretime(game: Game, color: Color, duration: FiniteDuration): Progress =
     game.clock.fold(Progress(game)) { clock =>
       val centis = duration.toCentis
       val newClock = clock.giveTime(color, centis)

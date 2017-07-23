@@ -53,7 +53,7 @@ object Report {
 
   case class Inquiry(mod: User.ID, seenAt: DateTime)
 
-  case class WithUser(report: Report, user: User, isOnline: Boolean) {
+  case class WithUser(report: Report, user: User, isOnline: Boolean, accuracy: Option[Int]) {
 
     def urgency: Int =
       (nowSeconds - report.createdAt.getSeconds).toInt +

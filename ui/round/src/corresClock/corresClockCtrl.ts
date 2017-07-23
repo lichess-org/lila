@@ -1,15 +1,16 @@
 import { Seconds, Millis } from '../clock/clockCtrl';
+import RoundController from '../ctrl';
 
 export interface CorresClockData {
   daysPerTurn: number;
   increment: Seconds;
   white: Seconds;
   black: Seconds;
-  emerg: Seconds;
   showBar: boolean;
 }
 
 export interface CorresClockController {
+  root: RoundController;
   data: CorresClockData;
   timePercent(color: Color): number;
   update(white: Seconds, black: Seconds): void
@@ -23,7 +24,7 @@ interface Times {
   lastUpdate: Millis;
 }
 
-export function ctrl(data: CorresClockData, onFlag: () => void): CorresClockController {
+export function ctrl(root: RoundController, data: CorresClockData, onFlag: () => void): CorresClockController {
 
   const timePercentDivisor = 0.1 / data.increment;
 
@@ -54,6 +55,7 @@ export function ctrl(data: CorresClockData, onFlag: () => void): CorresClockCont
   }
 
   return {
+    root,
     data,
     timePercent,
     millisOf,

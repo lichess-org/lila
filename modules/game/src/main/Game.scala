@@ -358,8 +358,9 @@ case class Game(
 
   def boosted = rated && finished && bothPlayersHaveMoved && playedTurns < 10
 
-  def moretimeable(color: Color) =
-    playable && nonMandatory && clock.??(_ moretimeable color)
+  def moretimeable(color: Color) = playable && nonMandatory && {
+    clock.??(_ moretimeable color) || correspondenceClock.??(_ moretimeable color)
+  }
 
   def abortable = status == Status.Started && playedTurns < 2 && nonMandatory
 
@@ -481,6 +482,8 @@ case class Game(
   def isClockRunning = clock ?? (_.isRunning)
 
   def withClock(c: Clock) = Progress(this, copy(clock = Some(c)))
+
+  def correspondenceGiveTime = Progress(this, copy(movedAt = DateTime.now))
 
   def estimateClockTotalTime = clock.map(_.estimateTotalSeconds)
 

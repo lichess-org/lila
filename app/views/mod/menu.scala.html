@@ -34,5 +34,5 @@
 <a class="@active.active("irwin")" href="@routes.Irwin.dashboard">Irwin dashboard</a>
 }
 @if(isGranted(_.StaffForum)) {
-<a class="@active.active("forum")" href="@routes.ForumCateg.show("staff")">Staff Forum</a>
+<a class="@active.active("forum")" href="@routes.ForumCateg.show(lila.forum.Categ.staffId)">Staff Forum</a>
 }

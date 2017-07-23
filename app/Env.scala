@@ -30,12 +30,21 @@ final class Env(
     lightUserApi = Env.user.lightUserApi
   )
 
-  lazy val userInfo = mashup.UserInfo(
+  lazy val socialInfo = mashup.UserInfo.Social(
+    relationApi = Env.relation.api,
+    noteApi = Env.user.noteApi,
+    prefApi = Env.pref.api
+  ) _
+
+  lazy val userNbGames = mashup.UserInfo.NbGames(
+    crosstableApi = Env.game.crosstableApi,
     bookmarkApi = Env.bookmark.api,
+    gameCached = Env.game.cached
+  ) _
+
+  lazy val userInfo = mashup.UserInfo(
     relationApi = Env.relation.api,
     trophyApi = Env.user.trophyApi,
-    gameCached = Env.game.cached,
-    crosstableApi = Env.game.crosstableApi,
     postApi = Env.forum.postApi,
     studyRepo = Env.study.studyRepo,
     getRatingChart = Env.history.ratingChartApi.apply,

@@ -8,7 +8,6 @@ import chess.variant.Crazyhouse
 import chess.{ Centis, PromotableRole, Pos, Color, Situation, Move => ChessMove, Drop => ChessDrop, Clock => ChessClock, Status }
 import JsonView._
 import lila.chat.{ UserLine, PlayerLine }
-import lila.common.Maths.truncateAt
 
 sealed trait Event {
   def typ: String
@@ -278,20 +277,19 @@ object Event {
 
   sealed trait ClockEvent extends Event
 
-  case class Clock(white: Float, black: Float, nextLagComp: Option[Centis] = None) extends ClockEvent {
+  case class Clock(white: Centis, black: Centis, nextLagComp: Option[Centis] = None) extends ClockEvent {
     def typ = "clock"
     def data = Json.obj(
-      "white" -> truncateAt(white, 2),
-      "black" -> truncateAt(black, 2)
+      "white" -> white.toSeconds,
+      "black" -> black.toSeconds
     ).add("lag" -> nextLagComp.collect { case Centis(c) if c > 1 => c })
   }
   object Clock {
     def apply(clock: ChessClock): Clock = Clock(
-      clock remainingTime Color.White toSeconds,
-      clock remainingTime Color.Black toSeconds,
+      clock remainingTime Color.White,
+      clock remainingTime Color.Black,
       clock lagCompEstimate clock.color
     )
-    def tenths(white: Int, black: Int): Clock = Clock(white.toFloat / 10, black.toFloat / 10)
   }
 
   case class Berserk(color: Color) extends Event {

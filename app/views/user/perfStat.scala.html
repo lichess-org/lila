@@ -17,18 +17,18 @@ data: @Html(toJson(data))
 
 @user.layout(
 title = s"${u.username} ${perfType.name} stats",
-side = side(u, rankMap, perfType.some).some,
+side = show.side(u, rankMap, perfType.some).some,
 robots = false,
 evenMoreJs = moreJs,
 evenMoreCss = moreCss) {
 <div class="content_box no_padding @perfType.key" id="perfStat">
   <div class="content_box_top">
     @if(u.perfs(perfType).nb > 0) {
-    <a class="button text view_games" data-icon="@perfType.iconChar" href="@routes.User.showFilter(u.username, "search")?perf=@perfType.id">
+    <a class="button text view_games" data-icon="@perfType.iconChar" href="@routes.User.games(u.username, "search")?perf=@perfType.id">
       View the games
     </a>
     }
-    @perfTrophies(u, rankMap.filterKeys(perfType.key==))
+    @show.perfTrophies(u, rankMap.filterKeys(perfType.key==))
     <h1 class="lichess_title">
       <a href="@routes.User.show(u.username)" data-icon="I" class="text">
         @u.username <span>@perfType.name stats</span>

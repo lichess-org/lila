@@ -12,7 +12,8 @@ final class ActivityReadApi(
     practiceApi: lila.practice.PracticeApi,
     postApi: lila.forum.PostApi,
     simulApi: lila.simul.SimulApi,
-    studyApi: lila.study.StudyApi
+    studyApi: lila.study.StudyApi,
+    tourLeaderApi: lila.tournament.LeaderboardApi
 ) {
 
   import Activity._
@@ -20,8 +21,10 @@ final class ActivityReadApi(
   import activities._
   import model._
 
-  def recent(userId: User.ID, days: Int): Fu[List[ActivityView.AsTo]] = for {
-    as <- coll.byOrderedIds[Activity, Id](makeIds(userId, days))(_.id)
+  private val recentNb = 7
+
+  def recent(userId: User.ID): Fu[List[ActivityView.AsTo]] = for {
+    as <- coll.byOrderedIds[Activity, Id](makeIds(userId, recentNb))(_.id)
     practiceStructure <- as.exists(_.practice.isDefined) ?? {
       practiceApi.structure.get map some
     }
@@ -61,6 +64,15 @@ final class ActivityReadApi(
     studies <- a.studies ?? { studies =>
       studyApi publicIdNames studies.value map some
     }
+    tours <- a.games.exists(_.hasNonCorres) ?? {
+      val dateRange = a.date -> a.date.plusDays(1)
+      tourLeaderApi.timeRange(a.id.userId, dateRange) map { entries =>
+        entries.nonEmpty option ActivityView.Tours(
+          nb = entries.size,
+          best = entries.sortBy(_.rankRatio.value).take(activities.maxSubEntries)
+        )
+      }
+    }
     view = ActivityView(
       games = a.games,
       puzzles = a.puzzles,
@@ -71,7 +83,8 @@ final class ActivityReadApi(
       corresMoves = corresMoves,
       corresEnds = corresEnds,
       follows = a.follows,
-      studies = studies
+      studies = studies,
+      tours = tours
     )
   } yield ActivityView.AsTo(a.date, view)
 

@@ -1,5 +1,6 @@
 import _root_.java.io.File
 import sbt._, Keys._
+import scala.io.Source
 import scala.xml.XML
 
 object MessageCompiler {
@@ -19,25 +20,33 @@ object MessageCompiler {
       f.takeWhile('.' !=) -> (destDir / f)
     }.sortBy(_._1)
     compileTo.mkdirs()
-    val registryFile = writeRegistry(db, compileTo, registry)
-    val res = for (entry <- registry) yield {
-      val (locale, file) = entry
-      val compileToFile = compileTo / s"$locale.scala"
-      if (file.lastModified > compileToFile.lastModified) {
-        printToFile(compileToFile) {
-          render(db, locale, file)
+    var translatedLocales = Set.empty[String]
+    val res = for {
+      entry <- registry
+      compilable <- {
+        val (locale, file) = entry
+        val compileToFile = compileTo / s"$locale.scala"
+        if (!isFileEmpty(file)) {
+          translatedLocales = translatedLocales + locale
+          if (file.lastModified > compileToFile.lastModified) {
+            printToFile(compileToFile)(render(db, locale, file))
+          }
+          Some(compileToFile)
         }
+        else None
       }
-      compileToFile
-    }
-    registryFile :: res
+    } yield compilable
+    writeRegistry(db, compileTo, translatedLocales) :: res
   }
 
-  private def writeRegistry(db: String, compileTo: File, registry: List[(String, File)]) = {
+  private def isFileEmpty(f: File) =
+    Source.fromFile(f).getLines.drop(2).next == "<resources></resources>"
+
+  private def writeRegistry(db: String, compileTo: File, locales: Iterable[String]) = {
     val file = compileTo / "Registry.scala"
     printToFile(file) {
-      val content = registry.map {
-        case (locale, _) => s"""Lang("${locale.replace("-", "\",\"")}")->`$locale`.load"""
+      val content = locales.map { locale =>
+        s"""Lang("${locale.replace("-", "\",\"")}")->`$locale`.load"""
       } mkString ",\n"
       s"""package lila.i18n
 package db.$db
@@ -65,7 +74,7 @@ private[i18n] object Registry {
     else str.replace("\\'", "'").replace("\\\"", "\"")
   }
 
-  private def render(db: String, locale: String, file: File) = {
+  private def render(db: String, locale: String, file: File): String = {
     val xml = XML.loadFile(file)
     def quote(msg: String) = s"""""\"$msg""\""""
     val content = xml.child.collect {
