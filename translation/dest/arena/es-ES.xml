@@ -16,13 +16,6 @@ Tres victorias seguidas valen 8 puntos: 2 + 2 + (2×2)
 Dos victorias y unas tablas valen 6 puntos: 2 + 2 + (1×2)
 Dos victorias, una derrota y unas tablas valen 5 puntos: 2 + 2 + 0 + 1</string>
   <string name="berserk">Modo berserk</string>
-  <string name="berserkAnswer">Cuando un jugador hace clic en el botón de Berserk al principio del juego, pierden la mitad de su tiempo de reloj, pero la victoria vale un punto extra del torneo.  
-
-Va Berserk en controles de tiempo con un incremento también cancela el incremento. (1 + 2 es una excepción, da 1 + 0)  
-
-Berserk no está disponible para los juegos con cero tiempo inicial (0 + 1, 0 + 2).  
-
-Berserk sólo subvenciones extra punto si juegas por lo menos 7 jugadas en el juego.</string>
   <string name="howIsTheWinnerDecided">¿Cómo se decide el ganador?</string>
   <string name="howIsTheWinnerDecidedAnswer">El jugador con los más puntos al término del torneo será anunciado el ganador.</string>
   <string name="howDoesPairingWork">¿Cómo funciona el emparajamiento?</string>
