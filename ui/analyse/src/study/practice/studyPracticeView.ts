@@ -67,7 +67,7 @@ export function underboard(ctrl: StudyController): VNode {
    return h('div.feedback.ongoing', [
      h('div.goal', [renderGoal(p, p.goal().moves - p.nbMoves())]),
      p.comment() ? h('div.comment', {
-        hook: innerHTML(enrichText(p.comment(), true))
+        hook: innerHTML(p.comment(), text => enrichText(text, true))
      }) : null
    ]);
   }

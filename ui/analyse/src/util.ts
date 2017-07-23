@@ -69,17 +69,17 @@ export function spinner() {
       })])]);
 }
 
-export function innerHTML(html: string): Hooks {
+export function innerHTML<A>(a: A, toHtml: (a: A) => string): Hooks {
   return {
     insert(vnode) {
-      (vnode.elm as HTMLElement).innerHTML = html;
-      vnode.data!.innerHTML = html;
+      (vnode.elm as HTMLElement).innerHTML = toHtml(a);
+      vnode.data!.cachedA = a;
     },
     postpatch(old, vnode) {
-      if (old.data!.innerHTML !== html) {
-        (vnode.elm as HTMLElement).innerHTML = html;
+      if (old.data!.cachedA !== a) {
+        (vnode.elm as HTMLElement).innerHTML = toHtml(a);
       }
-      vnode.data!.innerHTML = html;
+      vnode.data!.cachedA = a;
     }
   };
 }

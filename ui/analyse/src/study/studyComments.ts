@@ -18,7 +18,7 @@ export function authorText(author): string {
   return author.name;
 }
 
-const commentYoutubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:.*?(?:[?&]v=)|v\/)|youtu\.be\/)(?:[^"&?\/ ]{11})\b/gi;
+const commentYoutubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:.*?(?:[?&]v=)|v\/)|youtu\.be\/)(?:[^"&?\/ ]{11})\b/i;
 
 export function enrichText(text: string, allowNewlines: boolean): string {
   let html = autolink(window.lichess.escapeHtml(text), url => {
@@ -73,7 +73,7 @@ export function currentComments(ctrl: AnalyseController, includingMine: boolean)
       ] : []),
       ': ',
       h('div.text', {
-        hook: innerHTML(enrichText(comment.text, true))
+        hook: innerHTML(comment.text, text => enrichText(text, true))
       })
     ]);
   }));
