@@ -233,11 +233,12 @@ export function renderPvs(ctrl: ParentController) {
     }
   }, range(multiPv).map(function(i) {
     if (!pvs[i]) return h('div.pv');
-    else return h('div.pv', threat ? {} : {
-      attrs: { 'data-uci': pvs[i].moves[0] }
+    const san = pv2san(instance.variant.key, node.fen, threat, pvs[i].moves, pvs[i].mate);
+    return h('div.pv', threat ? {} : {
+      attrs: { 'data-uci': pvs[i].moves[0], 'title': san }
     }, [
       multiPv > 1 ? h('strong', defined(pvs[i].mate) ? ('#' + pvs[i].mate) : renderEval(pvs[i].cp!)) : null,
-      h('span', pv2san(instance.variant.key, node.fen, threat, pvs[i].moves, pvs[i].mate))
+      h('span', san)
     ]);
   }));
 }
