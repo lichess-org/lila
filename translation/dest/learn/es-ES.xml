@@ -6,7 +6,7 @@
   <string name="menu">Menú</string>
   <string name="progressX">Progreso: %s</string>
   <string name="resetMyProgress">Reiniciar mi progreso</string>
-  <string name="youWillLoseAllYourProgress">¡Perderás tu progreso!</string>
+  <string name="youWillLoseAllYourProgress">¡Perderás todos tus progresos!</string>
   <string name="play">¡jugar!</string>
   <string name="chessPieces">Las piezas del ajedrez</string>
   <string name="theRook">La torre</string>
@@ -24,14 +24,13 @@
   <string name="bishopComplete">¡Felicidades! Sabes mover el alfil.</string>
   <string name="theQueen">La reina</string>
   <string name="queenCombinesRookAndBishop">Reina = torre + alfil</string>
-  <string name="queenIntro">Con ustedes, la pieza más poderosa del ajedrez; ¡su majestad la reina!</string>
+  <string name="queenIntro">Y ahora, la pieza más poderosa del ajedrez; ¡su majestad la reina!</string>
   <string name="queenComplete">¡Felicidades! La reina no tiene secretos para ti.</string>
   <string name="theKing">El rey</string>
   <string name="theMostImportantPiece">La pieza más importante</string>
   <string name="kingIntro">Eres el rey. Si caes en batalla, se pierde la partida.</string>
   <string name="theKingIsSlow">El rey es lento.</string>
-  <string name="lastOne">¡El ultimo!</string>
-  <string name="kingComplete">Puedes ordenar el comandante!</string>
+  <string name="lastOne">¡El último!</string>
   <string name="theKnight">El caballo</string>
   <string name="itMovesInAnLShape">Se mueve en forma de L</string>
   <string name="knightIntro">Aquí tienes un desafío. El caballo es... una pieza complicada.</string>
