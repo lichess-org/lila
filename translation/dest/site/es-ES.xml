@@ -216,10 +216,6 @@
   <string name="incrementInSeconds">Segundos de incremento</string>
   <string name="freeOnlineChess">Ajedrez en línea gratis</string>
   <string name="spectators">Espectadores:</string>
-  <plurals name="nbGamesPlayed">
-    <item quantity="one">%s partidos jugados</item>
-    <item quantity="other">%s partidos jugados</item>
-  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s victorias</item>
     <item quantity="other">%s victorias</item>
