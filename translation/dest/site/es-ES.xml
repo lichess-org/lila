@@ -237,6 +237,7 @@
   <string name="giveMoreTime">Dar más tiempo</string>
   <string name="thisPlayerUsesChessComputerAssistance">Este jugador usa un motor de ajedrez</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Este jugador incrementa/disminuye artificialmente su puntuación</string>
+  <string name="openingExplorerAndTablebase">Explorador de aperturas y base de datos de finales</string>
   <string name="takeback">Deshacer jugada</string>
   <string name="proposeATakeback">Proponer deshacer jugada</string>
   <string name="takebackPropositionSent">Propuesta de deshacer jugada enviada</string>
@@ -285,6 +286,7 @@
   <string name="fromPosition">Desde posición</string>
   <string name="continueFromHere">Continuar desde aquí</string>
   <string name="importGame">Importar partida</string>
+  <string name="importGameExplanation">Al pegar el PGN de una partida, se obtiene una repetición navegable, un análisis por ordenador, un chat de juego y una URL para compartir.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Partidas importadas</item>
     <item quantity="other">%s Partidas importadas</item>
@@ -344,6 +346,9 @@
   <string name="tournamentPairingsAreNowClosed">Los emparejamientos del torneo están cerrados.</string>
   <string name="standByX">Espere %s, emparejando jugadores, ¡prepárate!</string>
   <string name="youArePlaying">¡Está jugando!</string>
+  <string name="winRate">Porcentaje de victorias</string>
+  <string name="performance">Puntuación</string>
+  <string name="tournamentComplete">Torneo finalizado</string>
   <string name="movesPlayed">Movimientos jugados</string>
   <string name="whiteWins">Victorias blancas</string>
   <string name="blackWins">Victorias negras</string>
