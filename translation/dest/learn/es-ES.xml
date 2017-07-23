@@ -104,7 +104,7 @@ Y no pierdas las tuyas.</string>
   <string name="pawnsFormTheFrontLine">Los peones forman la línea delantera. Haz un movimiento para continuar.</string>
   <string name="boardSetupComplete">¡Felicidades! Sabes como configurar el tablero de ajedrez.</string>
   <string name="castling">Enroque</string>
-  <string name="theSpecialKingMove">El mueve especial del rey</string>
+  <string name="theSpecialKingMove">El movimiento especial del rey</string>
   <string name="castlingIntro">¡Llevar a su rey a la seguridad y desplegar tu torre para ataque!</string>
   <string name="castleKingSide">¡Se mueve el rey dos casillas para enrocar al lado del rey!</string>
   <string name="castleQueenSide">¡Se mueve el rey dos casillas para enrocar al lado de la reina!</string>
@@ -132,6 +132,39 @@ Y no pierdas las tuyas.</string>
 - No está en jaque.</string>
   <string name="stalemateComplete">¡Felicidades! ¡Mejor ahogado que recibir un jaque mate!</string>
   <string name="advanced">Avanzado</string>
+  <string name="pieceValue">Valor de las piezas</string>
+  <string name="evaluatePieceStrength">Sopesa la fuerza de tus piezas</string>
+  <string name="pieceValueIntro">¡Las piezas con alta mobilidad tienen un valor superior!
+Reina = 9
+Torre = 5
+Alfil = 3
+Caballo = 3
+Peón = 1
+¡El rey no tiene precio! Perderlo significa perder la partida.</string>
+  <string name="queenOverBishop">¡Captura la pieza más valiosa!
+Reina &gt; Alfil</string>
+  <string name="takeThePieceWithTheHighestValue">¡Captura la pieza más valiosa!</string>
+  <string name="pieceValueComplete">¡Felicidades! ¡Conoces el valor de las piezas!
+Reina = 9
+Torre = 5
+Alfil = 3
+Caballo = 3
+Peón = 1</string>
+  <string name="checkInTwo">Jaque en dos</string>
+  <string name="twoMovesToGiveCheck">Dos jugadas para dar jaque</string>
+  <string name="checkInTwoIntro">¡Encuentra la combinación de dos movimientos que da jaque al rey enemigo!</string>
+  <string name="checkInTwoGoal">¡Amenaza al rey enemigo en dos movimientos!</string>
+  <string name="checkInTwoComplete">¡Felicidades! ¡Has dado jaque a tu oponente, obligándole a defender su rey!</string>
+  <string name="whatNext">Y ahora ¿qué?</string>
+  <string name="youKnowHowToPlayChess">Sabes jugar al ajedrez ¡enhorabuena! ¿Quieres aprender a jugar mejor?</string>
+  <string name="register">Regístrate</string>
+  <string name="getAFreeLichessAccount">Crea una cuenta gratuita en Lichess</string>
+  <string name="practice">Practica</string>
+  <string name="learnCommonChessPositions">Aprende las posiciones más comunes</string>
+  <string name="puzzles">Ejercicios</string>
+  <string name="exerciseYourTacticalSkills">Practica tus habilidades tácticas</string>
+  <string name="videos">Vídeos</string>
+  <string name="watchInstructiveChessVideos">Ve vídeos educativos de ajedrez</string>
   <string name="wayToGo">¡Así se hace!</string>
   <string name="yesYesYes">¡Sí, sí, sí!</string>
   <string name="youreGoodAtThis">¡Se te da bien!</string>
