@@ -51,6 +51,21 @@
   <string name="pawnComplete">¡Felicidades! Peones no tienen ningún secreto para tu.</string>
   <string name="pawnPromotion">Promoción del peón</string>
   <string name="yourPawnReachedTheEndOfTheBoard">¡Su peón alcanza el extremo de la tabla!</string>
+  <string name="itNowPromotesToAStrongerPiece">Ahora promociona a una pieza más fuerte.</string>
+  <string name="selectThePieceYouWant">¡Selecciona la pieza a la que deseas promocionar!</string>
+  <string name="fundamentals">Fundamentos</string>
+  <string name="capture">Capturas</string>
+  <string name="takeTheEnemyPieces">Captura las piezas enemigas</string>
+  <string name="captureIntro">¡Identifica las piezas indefensas del oponente y cómetelas!</string>
+  <string name="takeTheBlackPieces">¡Captura las piezas negras!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">¡Captura las piezas negras!
+Y no pierdas las tuyas.</string>
+  <string name="captureComplete">¡Felicidades! ¡Ahora sabes luchar con tus piezas!</string>
+  <string name="protection">Protección</string>
+  <string name="keepYourPiecesSafe">Mantén tus piezas a salvo</string>
+  <string name="protectionIntro">¡Identifica las piezas que tu oponente amenaza y defiéndelas!</string>
+  <string name="protectionComplete">¡Felicidades! ¡Una pieza que no se pierde es una pieza ganada!</string>
+  <string name="escape">¡Te atacan! ¡Líbrate de la amenaza!</string>
   <string name="boardSetupComplete">¡Felicidades! Sabes como configurar el tablero de ajedrez.</string>
   <string name="castling">Enroque</string>
   <string name="theSpecialKingMove">El mueve especial del rey</string>
