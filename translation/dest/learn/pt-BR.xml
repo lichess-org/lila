@@ -159,9 +159,9 @@ Mas antes você precisa retirar as peças do meio.</string>
   <string name="evaluatePieceStrength">Avalie o valor de cada peça</string>
   <string name="pieceValueIntro">Peças com maior mobilidade possuem maior valor!
 Rainha = 9    Torre = 5
-Bispo = 3       Cavalo = 3
+Bispo = 3      Cavalo = 3
 Peão = 1
-O valor do rei não é definido! Perdê-lo significa perder o jogo.</string>
+O rei é inestimável! Perdê-lo significa ser derrotado.</string>
   <string name="queenOverBishop">Capture a peça de maior valor!
 Rainha &gt; Bispo</string>
   <string name="takeThePieceWithTheHighestValue">Capture a peça de maior valor!</string>
