@@ -3,8 +3,8 @@
   <string name="activity">Activity</string>
   <string name="supportedNbMonths">Supported lichess for %1$s months as a %2$s</string>
   <plurals name="practicedNbPositions">
-    <item quantity="one">Practiced %1$s position on %2$s</item>
-    <item quantity="other">Practiced %1$s positions on %2$s</item>
+    <item quantity="one">Practised %1$s position on %2$s</item>
+    <item quantity="other">Practised %1$s positions on %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
     <item quantity="one">Solved %s tactical puzzle</item>
