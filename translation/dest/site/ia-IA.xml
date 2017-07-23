@@ -193,9 +193,6 @@
   <string name="incrementInSeconds">Incremento in secundas</string>
   <string name="freeOnlineChess">Chacos in linea gratis</string>
   <string name="spectators">Spectatores:</string>
-  <plurals name="nbGamesPlayed">
-    <item quantity="other">%s partitas jocate</item>
-  </plurals>
   <plurals name="nbRated">
     <item quantity="other">%s classificate</item>
   </plurals>
