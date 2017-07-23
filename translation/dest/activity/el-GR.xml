@@ -31,4 +31,25 @@
     <item quantity="one">Άρχισε να ακολουθεί %s παίκτη</item>
     <item quantity="other">Άρχισε να ακολουθεί %s παίκτες</item>
   </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="one">Απέκτησε %s νέο ακόλουθο</item>
+    <item quantity="other">Απέκτησε %s νέους ακόλουθους</item>
+  </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="one">Φιλοξένησε %s ταυτόχρονη έκθεση</item>
+    <item quantity="other">Φιλοξένησε %s ταυτόχρονες εκθέσεις</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">Συμμετείχε σε %s ταυτόχρονη έκθεση</item>
+    <item quantity="other">Συμμετείχε σε %s ταυτόχρονες εκθέσεις</item>
+  </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">Δημιούργησε %s νέα μελέτη</item>
+    <item quantity="other">Δημιούργησε %s νέες μελέτες</item>
+  </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="one">Αγωνίστηκε σε %s τουρνουά</item>
+    <item quantity="other">Αγωνίστηκε σε %s τουρνουά</item>
+  </plurals>
+  <string name="rankedInTournament">Κατάταξη #%1$s (κορυφή %2$s) με %3$s παρτίδες στο %4$s</string>
 </resources>
