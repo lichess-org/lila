@@ -216,10 +216,6 @@
   <string name="incrementInSeconds">Incremento in secondi</string>
   <string name="freeOnlineChess">Scacchi Online Gratis</string>
   <string name="spectators">Spettatori</string>
-  <plurals name="nbGamesPlayed">
-    <item quantity="one">%s partite giocate</item>
-    <item quantity="other">%s partite giocate</item>
-  </plurals>
   <plurals name="nbRated">
     <item quantity="one">%s classificate</item>
     <item quantity="other">%s classificate</item>
