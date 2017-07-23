@@ -67,10 +67,10 @@
   <string name="unknown">Desconocido</string>
   <string name="database">Base de datos</string>
   <string name="whiteDrawBlack">Blancas / Tablas / Negras</string>
-  <string name="averageRatingX">Calificacion media: %s</string>
-  <string name="recentGames">Juegos recientes</string>
-  <string name="topGames">Mejores juegos</string>
-  <string name="masterDbExplanation">Juegos de OTB 2 millones de %1$s + FIDE clasificación a jugadores de %2$s a %3$s</string>
+  <string name="averageRatingX">Puntuación media: %s</string>
+  <string name="recentGames">Partidas recientes</string>
+  <string name="topGames">Mejores partidas</string>
+  <string name="masterDbExplanation">Dos millones de partidas de jugadores con ELO FIDE de %1$s+, desde %2$s a %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mate en %s movimientos de la mitad</item>
     <item quantity="other">Mate en %s movimientos de la mitad</item>
