@@ -7,7 +7,14 @@
   <string name="isNotRated">Este torneo *no* es por puntos y *no* afectará a su puntuación.</string>
   <string name="someRated">Algunos torneos son por puntos y afectarán a tu puntuación.</string>
   <string name="howAreScoresCalculated">¿Cómo se calculan las puntuaciones?</string>
-  <string name="howAreScoresCalculatedAnswer">Una victoria tiene un puntaje base de 2 puntos, un empate: 1 punto y una pérdida no es vale ningun punto. Si ganas consecutivamente dos partidos, una racha de doble puntos comenzará, representada por un icono de la llama. Los siguientes juegos van a valer dobles puntos hasta que no puedas ganar un juego. En otras palabras, una victoria le valdrá: 4 puntos, empate: 2 puntos y una pérdida permanecerá sin puntos. Por ejemplo, dos victorias seguidas por un empate valdrá 6 puntos: 2 + 2 + (2 x 1)</string>
+  <string name="howAreScoresCalculatedAnswer">De entrada, las victorias valen 2 puntos, las tablas 1 punto y las derrotas 0 puntos.
+
+Si ganas dos partidas seguidas, comenzarás una racha de puntuación doble, representada por un icono de una llama. A partir de ese momento y hasta que pierdas una partida, cada partida valdrá el doble; esto es, las victorias 4 puntos y las tablas 2 puntos. Una derrota termina la racha de puntuación doble.
+
+Por ejemplo:
+Tres victorias seguidas valen 8 puntos: 2 + 2 + (2×2)
+Dos victorias y unas tablas valen 6 puntos: 2 + 2 + (1×2)
+Dos victorias, una derrota y unas tablas valen 5 puntos: 2 + 2 + 0 + 1</string>
   <string name="berserk">Modo berserk</string>
   <string name="berserkAnswer">Cuando un jugador hace clic en el botón de Berserk al principio del juego, pierden la mitad de su tiempo de reloj, pero la victoria vale un punto extra del torneo.  
 
