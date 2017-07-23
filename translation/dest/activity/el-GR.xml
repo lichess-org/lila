@@ -7,4 +7,28 @@
     <item quantity="one">Εξάσκηση %1$s θέσης σε %2$s</item>
     <item quantity="other">Εξάσκηση %1$s θέσεων σε %2$s</item>
   </plurals>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="one">Λύσατε %s τακτική άσκηση</item>
+    <item quantity="other">Λύσατε %s τακτικές ασκήσεις</item>
+  </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="one">Παίξατε %1$s %2$s παρτίδα</item>
+    <item quantity="other">Παίξατε %1$s %2$s παρτίδες</item>
+  </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="one">Δημοσίευσε %1$s μήνυμα στο %2$s</item>
+    <item quantity="other">Δημοσίευσε %1$s μηνύματα στο %2$s</item>
+  </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">Παίχθηκε %1$s κίνηση σε %2$s παρτίδα(-ες) αλληλογραφίας</item>
+    <item quantity="other">Παίχθηκαν %1$s κινήσεις σε %2$s παρτίδα(-ες) αλληλογραφίας</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">Ολοκληρώθηκε %s παρτίδα αλληλογραφίας</item>
+    <item quantity="other">Ολοκληρώθηκαν %s παρτίδες αλληλογραφίας</item>
+  </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="one">Άρχισε να ακολουθεί %s παίκτη</item>
+    <item quantity="other">Άρχισε να ακολουθεί %s παίκτες</item>
+  </plurals>
 </resources>
