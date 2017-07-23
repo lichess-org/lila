@@ -253,7 +253,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     splitNumber(userGameFilterTitleNoTag(u, nbs, filter))
 
   def userGameFilterTitleNoTag(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(implicit ctx: UserContext): Html = (filter match {
-    case GameFilter.All => I18nKeys.nbGamesPlayed.pluralSame(u.count.game)
+    case GameFilter.All => I18nKeys.nbGames.pluralSame(u.count.game)
     case GameFilter.Me => nbs.withMe ?? I18nKeys.nbGamesWithYou.pluralSame
     case GameFilter.Rated => I18nKeys.nbRated.pluralSame(u.count.rated)
     case GameFilter.Win => I18nKeys.nbWins.pluralSame(u.count.win)
