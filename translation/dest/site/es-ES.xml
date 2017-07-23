@@ -161,15 +161,15 @@
   <string name="password">Contraseña</string>
   <string name="haveAnAccount">¿Tienes una cuenta?</string>
   <string name="changePassword">Cambiar contraseña</string>
-  <string name="changeEmail">Cambiar email</string>
-  <string name="email">Email</string>
+  <string name="changeEmail">Cambiar correo</string>
+  <string name="email">Correo</string>
   <string name="emailIsOptional">El correo es opcional. Lichess usará tu correo para restaurar tu contraseña si la olvidas.</string>
   <string name="passwordReset">Cambiar contraseña</string>
   <string name="forgotPassword">¿Olvidaste tu contraseña?</string>
   <string name="rank">Posición</string>
   <string name="gamesPlayed">Partidas jugadas</string>
   <plurals name="nbGamesWithYou">
-    <item quantity="one">%s partidas contigo</item>
+    <item quantity="one">%s partida contigo</item>
     <item quantity="other">%s partidas contigo</item>
   </plurals>
   <string name="cancel">Cancelar</string>
@@ -239,8 +239,8 @@
     <item quantity="other">Dar %s segundos</item>
   </plurals>
   <string name="giveMoreTime">Dar más tiempo</string>
-  <string name="thisPlayerUsesChessComputerAssistance">Este jugador usa un motor de ajedrez</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Este jugador incrementa/disminuye artificialmente su puntuación</string>
+  <string name="thisPlayerUsesChessComputerAssistance">Este jugador usa ayuda de un ordenador</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">Este jugador incrementa o disminuye artificialmente su puntuación</string>
   <string name="openingExplorerAndTablebase">Explorador de aperturas y base de datos de finales</string>
   <string name="takeback">Deshacer jugada</string>
   <string name="proposeATakeback">Proponer deshacer jugada</string>
@@ -256,19 +256,19 @@
   <string name="tournaments">Torneos</string>
   <string name="tournamentPoints">Puntos de torneo</string>
   <string name="viewTournament">Ver torneo</string>
-  <string name="backToTournament">Regresar al torneo</string>
+  <string name="backToTournament">Volver al torneo</string>
   <string name="backToGame">Volver a la partida</string>
   <string name="siteDescription">Servidor de ajedrez en línea gratuito. Juega al ajedrez en una interfaz simple. Sin registro, sin publicidad, sin necesidad de complementos. Juega contra el ordenador, amigos u oponentes desconocidos.</string>
   <string name="teams">Equipos</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s miembros</item>
+    <item quantity="one">%s miembro</item>
     <item quantity="other">%s miembros</item>
   </plurals>
   <string name="allTeams">Todos los equipos</string>
   <string name="newTeam">Equipo nuevo</string>
   <string name="myTeams">Mis equipos</string>
   <string name="noTeamFound">Ningún equipo encontrado</string>
-  <string name="joinTeam">Únete al equipo</string>
+  <string name="joinTeam">Unirse al equipo</string>
   <string name="quitTeam">Abandonar el equipo</string>
   <string name="anyoneCanJoin">Cualquiera puede unirse</string>
   <string name="aConfirmationIsRequiredToJoin">Se requiere una confirmación para unirse</string>
@@ -283,7 +283,7 @@
   <string name="settings">Configuración</string>
   <string name="filterGames">Filtrar partidas</string>
   <string name="reset">Reiniciar</string>
-  <string name="apply">Enviar</string>
+  <string name="apply">Aplicar cambios</string>
   <string name="leaderboard">Clasificación</string>
   <string name="pasteTheFenStringHere">Pega el texto FEN aquí</string>
   <string name="pasteThePgnStringHere">Pega el texto PGN aquí</string>
@@ -292,8 +292,8 @@
   <string name="importGame">Importar partida</string>
   <string name="importGameExplanation">Al pegar el PGN de una partida, se obtiene una repetición navegable, un análisis por ordenador, un chat de juego y una URL para compartir.</string>
   <plurals name="nbImportedGames">
-    <item quantity="one">%s Partidas importadas</item>
-    <item quantity="other">%s Partidas importadas</item>
+    <item quantity="one">%s partida importada</item>
+    <item quantity="other">%s partidas importadas</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Esto es un CAPTCHA de ajedrez.</string>
   <string name="clickOnTheBoardToMakeYourMove">Haz clic en el tablero para hacer tu jugada y demostrar que eres humano.</string>
@@ -354,25 +354,25 @@
   <string name="berserkRate">Tasa de berserk</string>
   <string name="performance">Puntuación</string>
   <string name="tournamentComplete">Torneo finalizado</string>
-  <string name="movesPlayed">Movimientos jugados</string>
+  <string name="movesPlayed">Movimientos</string>
   <string name="whiteWins">Victorias blancas</string>
   <string name="blackWins">Victorias negras</string>
   <string name="draws">Tablas</string>
   <string name="nextXTournament">Siguiente torneo %s:</string>
   <string name="viewMoreTournaments">Ver más torneos</string>
   <string name="averageOpponent">Oponente promedio</string>
-  <string name="membersOnly">Sólo miembros</string>
+  <string name="membersOnly">Sólo para miembros</string>
   <string name="boardEditor">Editor de tablero</string>
   <string name="startPosition">Posición inicial</string>
   <string name="clearBoard">Limpiar el tablero</string>
   <string name="savePosition">Guardar posición</string>
   <string name="loadPosition">Cargar posicion</string>
   <string name="isPrivate">Privado</string>
-  <string name="reportXToModerators">Reportar %s a los moderadores</string>
+  <string name="reportXToModerators">Denunciar a %s a los moderadores</string>
   <string name="profileCompletion">Perfil completado al %s</string>
-  <string name="xRating">Ranking %s</string>
-  <string name="ifNoneLeaveEmpty">Si no, déjelo en blanco</string>
-  <string name="gameCompletionRate">Tasa de terminación de juego: %s</string>
+  <string name="xRating">Puntuación %s</string>
+  <string name="ifNoneLeaveEmpty">Si no aplica, déjalo en blanco</string>
+  <string name="gameCompletionRate">Porcentaje de partidas terminadas: %s</string>
   <string name="profile">Perfil</string>
   <string name="editProfile">Editar perfil</string>
   <string name="firstName">Nombre</string>
