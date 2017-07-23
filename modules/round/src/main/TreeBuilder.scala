@@ -44,7 +44,7 @@ object TreeBuilder {
     withFlags: WithFlags,
     clocks: Option[Vector[Centis]]
   ): Root = {
-    val withClocks = clocks ifTrue withFlags.clocks
+    val withClocks = withFlags.clocks ?? clocks
     chess.Replay.gameMoveWhileValid(pgnMoves, initialFen, variant) match {
       case (init, games, error) =>
         error foreach logChessError(id)
@@ -61,7 +61,7 @@ object TreeBuilder {
           fen = fen,
           check = init.situation.check,
           opening = openingOf(fen),
-          clock = withClocks ?? (_.headOption),
+          clock = withFlags.clocks ?? init.clock.map(_.limit),
           crazyData = init.situation.board.crazyData,
           eval = infos lift 0 map makeEval
         )
