@@ -31,12 +31,13 @@
   <string name="kingIntro">Eres el rey. Si caes en batalla, se pierde la partida.</string>
   <string name="theKingIsSlow">El rey es lento.</string>
   <string name="lastOne">¡El último!</string>
+  <string name="kingComplete">¡Ya puedes dar órdenes al general!</string>
   <string name="theKnight">El caballo</string>
   <string name="itMovesInAnLShape">Se mueve en forma de L</string>
   <string name="knightIntro">Aquí tienes un desafío. El caballo es... una pieza complicada.</string>
   <string name="knightsHaveAFancyWay">¡Los caballos tienen una forma curiosa de saltar!</string>
   <string name="knightsCanJumpOverObstacles">¡Los caballos pueden saltar sobre de los obstaculos! ¡Escapa y captura las estrellas!</string>
-  <string name="knightComplete">¡Felicidades! Has dominado el movimiento del caballo.</string>
+  <string name="knightComplete">¡Felicidades! Dominas el movimiento del caballo.</string>
   <string name="thePawn">El peón</string>
   <string name="itMovesForwardOnly">Solamente se mueve hacia adelante</string>
   <string name="pawnIntro">Peones son débiles, pero encierran mucho potencial.</string>
@@ -53,9 +54,9 @@
   <string name="itNowPromotesToAStrongerPiece">Ahora promociona a una pieza más fuerte.</string>
   <string name="selectThePieceYouWant">¡Selecciona la pieza que quieras!</string>
   <string name="fundamentals">Fundamentos</string>
-  <string name="capture">Capturas</string>
-  <string name="takeTheEnemyPieces">Captura las piezas enemigas</string>
-  <string name="captureIntro">¡Identifica las piezas indefensas del oponente y cómetelas!</string>
+  <string name="capture">Captura</string>
+  <string name="takeTheEnemyPieces">Elimina las piezas enemigas</string>
+  <string name="captureIntro">¡Identifica las piezas indefensas del oponente y captúralas!</string>
   <string name="takeTheBlackPieces">¡Captura las piezas negras!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">¡Captura las piezas negras!
 Y no pierdas las tuyas.</string>
@@ -73,7 +74,7 @@ Y no pierdas las tuyas.</string>
   <string name="combatComplete">¡Felicidades! ¡Ahora sabes luchar con tus piezas!</string>
   <string name="checkInOne">Jaque en una</string>
   <string name="attackTheOpponentsKing">Ataca al rey enemigo</string>
-  <string name="checkInOneIntro">Da jaque al rey rival ¡Estará obligado a defenderlo!</string>
+  <string name="checkInOneIntro">Da jaque al rey rival ¡Está obligado a defenderlo!</string>
   <string name="checkInOneGoal">¡Ataca al rey enemigo en un movimiento!</string>
   <string name="checkInOneComplete">¡Felicidades! ¡Has dado jaque a tu oponente, obligándole a defender su rey!</string>
   <string name="outOfCheck">Escapar del jaque</string>
@@ -84,7 +85,7 @@ Y no pierdas las tuyas.</string>
   <string name="youCanGetOutOfCheckByTaking">Puedes salir del jaque capturando la pieza que ataca al rey.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">¡Este caballo está dándote jaque por encima de tus defensas!</string>
   <string name="escapeOrBlock">¡Escapa con el rey o bloquea el ataque!</string>
-  <string name="outOfCheckComplete">¡Felicidades! No puedes permitir que capturen tu rey, ¡asegúrate que te defiendes de los jaques!</string>
+  <string name="outOfCheckComplete">¡Felicidades! No puedes permitir que capturen tu rey, ¡ten tus defensas listas para un jaque!</string>
   <string name="mateInOne">Mate en una</string>
   <string name="defeatTheOpponentsKing">Derrota al rey enemigo</string>
   <string name="mateInOneIntro">Ganas cuando tu oponente no puede defenderse de un jaque.</string>
