@@ -58,14 +58,18 @@ object User extends LilaController {
       )
     }
   }
-  private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(implicit ctx: Context) = {
-    for {
-      as <- Env.activity.read.recent(u.id, 7)
-      nbs ← Env.current.userNbGames(u, ctx)
-      info ← Env.current.userInfo(u, nbs, ctx)
-      social ← Env.current.socialInfo(u, ctx)
-    } yield status(html.user.show.activity(u, as, info, social))
-  }.mon(_.http.response.user.show.website)
+  private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(implicit ctx: Context) =
+    if (HTTPRequest.isSynchronousHttp(ctx.req)) {
+      for {
+        as <- Env.activity.read.recent(u.id)
+        nbs ← Env.current.userNbGames(u, ctx)
+        info ← Env.current.userInfo(u, nbs, ctx)
+        social ← Env.current.socialInfo(u, ctx)
+      } yield status(html.user.show.activity(u, as, info, social))
+    }.mon(_.http.response.user.show.website)
+    else Env.activity.read.recent(u.id) map { as =>
+      status(html.activity.list(u, as))
+    }
 
   def gamesAll(username: String, page: Int) = games(username, GameFilter.All.name, page)
 

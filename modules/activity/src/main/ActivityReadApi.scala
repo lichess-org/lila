@@ -21,8 +21,10 @@ final class ActivityReadApi(
   import activities._
   import model._
 
-  def recent(userId: User.ID, days: Int): Fu[List[ActivityView.AsTo]] = for {
-    as <- coll.byOrderedIds[Activity, Id](makeIds(userId, days))(_.id)
+  private val recentNb = 7
+
+  def recent(userId: User.ID): Fu[List[ActivityView.AsTo]] = for {
+    as <- coll.byOrderedIds[Activity, Id](makeIds(userId, recentNb))(_.id)
     practiceStructure <- as.exists(_.practice.isDefined) ?? {
       practiceApi.structure.get map some
     }
