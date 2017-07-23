@@ -32,8 +32,8 @@
     <item quantity="other">Sigue a %s jugadores</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="one">Tiene %s seguidor</item>
-    <item quantity="other">Tiene %s seguidores</item>
+    <item quantity="one">Tiene %s seguidor nuevo</item>
+    <item quantity="other">Tiene %s seguidores nuevos</item>
   </plurals>
   <plurals name="hostedNbSimuls">
     <item quantity="one">Ha ofrecido %s exhibición simultánea</item>
@@ -52,4 +52,5 @@
     <item quantity="other">Ha competido en %s torneos</item>
   </plurals>
   <string name="rankedInTournament">Clasificado nº %1$s (entre los %2$s mejores) con %3$s partidas en %4$s</string>
+  <string name="signedUp">Registrado en Lichess</string>
 </resources>
