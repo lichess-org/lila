@@ -22,4 +22,16 @@
     <item quantity="one">Jogou %1$s movimento em %2$s partida(s) por correspondência</item>
     <item quantity="other">Jogou %1$s movimentos em %2$s partida(s) por correspondência</item>
   </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">Completou %s partida por correspondência</item>
+    <item quantity="other">Completou %s partidas por correspondência</item>
+  </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="one">Seguiu %s jogador</item>
+    <item quantity="other">Seguiu %s jogadores</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="one">Ganhou %s novo seguidor</item>
+    <item quantity="other">Ganhou %s novos seguidores</item>
+  </plurals>
 </resources>
