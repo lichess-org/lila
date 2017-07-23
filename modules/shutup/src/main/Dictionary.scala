@@ -93,7 +93,6 @@ motherfuc?k(er|)
 mthrfckr
 muff
 nazi
-negro
 nigg?(er|a|ah)
 nonce
 nutsac?k
