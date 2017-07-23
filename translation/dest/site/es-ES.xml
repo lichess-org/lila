@@ -216,6 +216,10 @@
   <string name="incrementInSeconds">Segundos de incremento</string>
   <string name="freeOnlineChess">Ajedrez en línea gratis</string>
   <string name="spectators">Espectadores:</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s por puntos</item>
+    <item quantity="other">%s por puntos</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s victorias</item>
     <item quantity="other">%s victorias</item>
@@ -347,6 +351,7 @@
   <string name="standByX">Espere %s, emparejando jugadores, ¡prepárate!</string>
   <string name="youArePlaying">¡Está jugando!</string>
   <string name="winRate">Porcentaje de victorias</string>
+  <string name="berserkRate">Tasa de berserk</string>
   <string name="performance">Puntuación</string>
   <string name="tournamentComplete">Torneo finalizado</string>
   <string name="movesPlayed">Movimientos jugados</string>
