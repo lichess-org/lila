@@ -42,4 +42,13 @@
     <item quantity="one">Participou em %s exibição simultânea</item>
     <item quantity="other">Participou em %s exibições simultâneas</item>
   </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">Criou %s novo estudo</item>
+    <item quantity="other">Criou %s novos estudos</item>
+  </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="one">Competiu em %s torneio</item>
+    <item quantity="other">Competiu em %s torneios</item>
+  </plurals>
+  <string name="rankedInTournament">Classificado #%1$s (melhores %2$s) dentre %3$s partidas em %4$s</string>
 </resources>
