@@ -9,17 +9,6 @@ private object ActivityAggregation {
   import activities._
   import model._
 
-  def game(game: Game, userId: User.ID)(a: Activity): Option[Activity] = for {
-    pt <- game.perfType
-    player <- game playerByUserId userId
-    score = Score.make(game wonBy player.color, RatingProg make player)
-  } yield a.copy(
-    games = if (game.isCorrespondence) a.games else a.games.orDefault.add(pt, score).some,
-    corres =
-    if (game.hasCorrespondenceClock) Some { ~a.corres + (GameId(game.id), false, true) }
-    else a.corres
-  )
-
   def forumPost(post: lila.forum.Post, topic: lila.forum.Topic)(a: Activity) =
     post.userId map { userId =>
       a.copy(posts = Some(~a.posts + PostId(post.id)))

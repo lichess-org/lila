@@ -56,7 +56,7 @@ private object BSONHandlers {
   }
 
   private implicit val gamesMapHandler = MapDocument.MapHandler[PerfType, Score]
-  private implicit val gamesHandler = isoHandler[Games, Map[PerfType, Score], Bdoc]((g: Games) => g.value, Games.apply _)
+  implicit val gamesHandler = isoHandler[Games, Map[PerfType, Score], Bdoc]((g: Games) => g.value, Games.apply _)
 
   private implicit val gameIdHandler = stringAnyValHandler[GameId](_.value, GameId.apply)
   private implicit val gameIdsHandler = bsonArrayToListHandler[GameId]
@@ -79,7 +79,7 @@ private object BSONHandlers {
   private implicit val simulIdsHandler = bsonArrayToListHandler[SimulId]
   private implicit val simulsHandler = isoHandler[Simuls, List[SimulId], Barr]((s: Simuls) => s.value, Simuls.apply _)
 
-  private implicit val corresHandler = Macros.handler[Corres]
+  implicit val corresHandler = Macros.handler[Corres]
   private implicit val patronHandler = intAnyValHandler[Patron](_.months, Patron.apply)
 
   private implicit val followIdsHandler = bsonArrayToListHandler[User.ID]
@@ -100,19 +100,23 @@ private object BSONHandlers {
   private implicit val studyIdsHandler = bsonArrayToListHandler[Study.Id]
   private implicit val studiesHandler = isoHandler[Studies, List[Study.Id], Barr]((s: Studies) => s.value, Studies.apply _)
 
+  object ActivityFields {
+    val id = "_id"
+    val games = "g"
+    val posts = "p"
+    val puzzles = "z"
+    val learn = "l"
+    val practice = "r"
+    val simuls = "s"
+    val corres = "o"
+    val patron = "a"
+    val follows = "f"
+    val studies = "t"
+  }
+
   implicit val activityHandler = new lila.db.BSON[Activity] {
 
-    private val id = "_id"
-    private val games = "g"
-    private val posts = "p"
-    private val puzzles = "z"
-    private val learn = "l"
-    private val practice = "r"
-    private val simuls = "s"
-    private val corres = "o"
-    private val patron = "a"
-    private val follows = "f"
-    private val studies = "t"
+    import ActivityFields._
 
     def reads(r: lila.db.BSON.Reader) = Activity(
       id = r.get[Id](id),

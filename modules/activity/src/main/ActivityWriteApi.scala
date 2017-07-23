@@ -3,9 +3,9 @@ package lila.activity
 import lila.analyse.Analysis
 import lila.db.dsl._
 import lila.game.Game
+import lila.study.Study
 import lila.user.User
 import lila.user.UserRepo.lichessId
-import lila.study.Study
 
 final class ActivityWriteApi(
     coll: Coll,
@@ -17,8 +17,21 @@ final class ActivityWriteApi(
   import activities._
   import model._
 
-  def game(game: Game): Funit = game.userIds.map { userId =>
-    update(userId) { ActivityAggregation.game(game, userId) _ }
+  def game(game: Game): Funit = game.userIds.flatMap { userId =>
+    for {
+      pt <- game.perfType
+      player <- game playerByUserId userId
+    } yield for {
+      a <- getOrCreate(userId)
+      setGames = !game.isCorrespondence ?? $doc(
+        ActivityFields.games -> a.games.orDefault.add(pt, Score.make(game wonBy player.color, RatingProg make player))
+      )
+      setCorres = game.hasCorrespondenceClock ?? $doc(
+        ActivityFields.corres -> a.corres.orDefault.+(GameId(game.id), false, true)
+      )
+      setters = setGames ++ setCorres
+      _ <- (!setters.isEmpty) ?? coll.update($id(a.id), $set(setters), upsert = true).void
+    } yield Unit
   }.sequenceFu.void
 
   def forumPost(post: lila.forum.Post, topic: lila.forum.Topic): Funit = post.userId.filter(lichessId !=) ?? { userId =>
