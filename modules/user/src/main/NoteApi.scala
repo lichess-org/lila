@@ -49,6 +49,11 @@ final class NoteApi(
       .sort($doc("date" -> -1))
       .list[Note](20)
 
+  def forMod(ids: List[User.ID]): Fu[List[Note]] =
+    coll.find($doc("to" -> $doc("$in" -> ids)))
+      .sort($doc("date" -> -1))
+      .list[Note](50)
+
   def byMod(ids: List[User.ID]): Fu[List[Note]] =
     coll.find($doc("to" $in ids))
       .sort($doc("date" -> -1))

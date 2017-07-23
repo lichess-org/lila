@@ -27,6 +27,8 @@ case class UserSpy(
       OtherUser(_, false, true)
     }
   }.sortBy(-_.user.createdAt.getMillis)
+
+  def otherUserIds = otherUsers.map(_.user.id)
 }
 
 object UserSpy {

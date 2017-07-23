@@ -273,9 +273,9 @@
         </td>
         <td data-sort="@o.count.game">@o.count.game.localize</td>
         <td class="i">
-          @defining(notes.filter(_.to == o.id)) { notes =>
-          @if(notes.nonEmpty) {
-          <a href="@routes.User.show(o.username)?notes"><i title="Notes from @notes.map(_.from).map(usernameOrId).mkString(", ")" data-icon="m" class="is-green"></i>@notes.size</a>
+          @defining(notes.filter(_.to == o.id)) { ns =>
+          @if(ns.nonEmpty) {
+          <a href="@routes.User.show(o.username)?notes"><i title="Notes from @ns.map(_.from).map(usernameOrId).mkString(", ")" data-icon="m" class="is-green"></i>@ns.size</a>
           }
           }
           @bans.get(o.id).map { nb => <i title="Playban" data-icon="p"></i>@nb }
