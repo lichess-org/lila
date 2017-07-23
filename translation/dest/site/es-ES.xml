@@ -94,7 +94,7 @@
   <string name="replayMode">Modo del repeticion</string>
   <string name="realtimeReplay">En tiempo real</string>
   <string name="byCPL">Por CPL</string>
-  <string name="openStudy">Estudio abierto</string>
+  <string name="openStudy">Abrir estudio</string>
   <string name="enable">Activar</string>
   <string name="bestMoveArrow">La flecha del mejor movimiento</string>
   <string name="evaluationGauge">Indicador de evaluación</string>
@@ -500,7 +500,7 @@
   <string name="privacy">Privacidad</string>
   <string name="letOtherPlayersFollowYou">Permitir que otros jugadores te sigan</string>
   <string name="letOtherPlayersChallengeYou">Permitir que otros jugadores te desafíen</string>
-  <string name="letOtherPlayersInviteYouToStudy">Deje que otros jugadores le inviten a estudiar</string>
+  <string name="letOtherPlayersInviteYouToStudy">Permitir que otros jugadores le inviten a estudios</string>
   <string name="sound">Sonido</string>
   <string name="yourPreferencesHaveBeenSaved">Tus preferencias han sido guardadas.</string>
   <string name="none">Ninguna</string>
@@ -653,7 +653,7 @@
   <string name="confirmResignationAndDrawOffers">Confirmar abandono y ofertas de tablas</string>
   <string name="inputMovesWithTheKeyboard">Entrada de movimientos con el teclado</string>
   <string name="letOtherPlayersMessageYou">Deja que otras personas te envíen un mensaje</string>
-  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Enroque moviendo el rey dos casillas, o en la torre</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Enroque moviendo el rey dos casillas, o hasta la torre</string>
   <string name="castleByMovingTwoSquares">Enroque moviendo dos casillas</string>
   <string name="castleByMovingOntoTheRook">Enroque moviendo hasta la torre</string>
   <string name="shareYourInsightsData">Comparte tus datos estadísticos</string>
