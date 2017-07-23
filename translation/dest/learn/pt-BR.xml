@@ -154,13 +154,11 @@ Mas antes você precisa retirar as peças do meio.</string>
 - Não há xeque.</string>
   <string name="stalemateComplete">Parabéns! Um empate é melhor do que uma derrota!</string>
   <string name="advanced">Avançado</string>
-  <string name="pieceValue">Valor material</string>
+  <string name="pieceValue">Avaliando</string>
   <string name="evaluatePieceStrength">Avalie o valor de cada peça</string>
   <string name="pieceValueIntro">Peças com maior mobilidade possuem maior valor!
-Rainha = 9
-Torre = 5
-Bispo = 3
-Cavalo = 3
+Rainha = 9    Torre = 5
+Bispo = 3       Cavalo = 3
 Peão = 1
 O valor do rei não é definido! Perdê-lo significa perder o jogo.</string>
   <string name="queenOverBishop">Capture a peça de maior valor!
@@ -180,7 +178,7 @@ Peão = 1</string>
   <string name="whatNext">O que vem depois?</string>
   <string name="youKnowHowToPlayChess">Você sabe como jogar xadrez, parabéns! Você quer se tornar um jogador mais forte?</string>
   <string name="register">Registrar</string>
-  <string name="getAFreeLichessAccount">Obtenha uma conta Lichess gratuitamente</string>
+  <string name="getAFreeLichessAccount">Obtenha uma conta Lichess grátis</string>
   <string name="practice">Praticar</string>
   <string name="learnCommonChessPositions">Aprenda posições comuns do xadrez</string>
   <string name="puzzles">Quebra-cabeças</string>
@@ -189,7 +187,7 @@ Peão = 1</string>
   <string name="watchInstructiveChessVideos">Assista a vídeos de xadrez instrutivos</string>
   <string name="playPeople">Jogue com pessoas</string>
   <string name="opponentsFromAroundTheWorld">Oponentes de todo o mundo</string>
-  <string name="playMachine">Jogue com o computador</string>
+  <string name="playMachine">Computador</string>
   <string name="testYourSkillsWithTheComputer">Teste suas habilidades com o computador</string>
   <string name="letsGo">Vamos lá!</string>
   <string name="stageX">Etapa %s</string>
