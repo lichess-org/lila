@@ -502,3 +502,14 @@ div.content_box_inter .intertab.active {
   border: 1px solid #ccc;
   border-bottom: none;
 }
+
+body.dark div.content_box_inter .intertab:hover {
+  background: #2d2d2d;
+}
+body.dark div.content_box_inter a.intertab.active {
+  background: #2b2b2b!important;
+}
+body.dark div.content_box_inter a.to_games.active,
+body.dark div#games.content_box_inter {
+  background: #353535!important;
+}

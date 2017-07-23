@@ -193,6 +193,6 @@ case _ => {
   <a data-tab="games" class="intertab to_games @if(angle.key == "games"){ active}" href="@routes.User.gamesAll(u.username)">
     @trans.nbGamesPlayed.pluralSame(info.user.count.game)
   </a>
-  <a data-tab="other" class="intertab@if(angle == Angle.Other){ active}" href="@routes.User.show(u.username)">Other</a>
+  <span data-tab="other" class="intertab@if(angle == Angle.Other){ active}"></span>
   }
 </div>
