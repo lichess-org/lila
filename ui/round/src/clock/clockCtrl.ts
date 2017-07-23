@@ -110,10 +110,10 @@ export class ClockController {
   stopClock = (): Millis|void => {
     const color = this.times.activeColor;
     if (color) {
-      const elapsed = nowFun() - this.times.lastUpdate;
-      this.times[color] -= elapsed;
+      const curElapse = this.elapsed();
+      this.times[color] = Math.max(0, this.times[color] - curElapse);
       this.times.activeColor = undefined;
-      return elapsed;
+      return curElapse;
     }
   }
 
@@ -140,8 +140,10 @@ export class ClockController {
     }
   };
 
-  millisOf = (color: Color): Millis => ((this.times.activeColor === color) ?
-     Math.max(0, this.times[color] - nowFun() + this.times.lastUpdate) :
+  elapsed = () => Math.max(0, nowFun() - this.times.lastUpdate);
+
+  millisOf = (color: Color): Millis => (this.times.activeColor === color ?
+     Math.max(0, this.times[color] - this.elapsed()) :
      this.times[color]
   );
 }
