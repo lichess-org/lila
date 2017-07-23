@@ -39,8 +39,8 @@
     <item quantity="other">Hosted %s simultaneous exhibitions</item>
   </plurals>
   <plurals name="joinedNbSimuls">
-    <item quantity="one">Participated to %s simultaneous exhibition</item>
-    <item quantity="other">Participated to %s simultaneous exhibitions</item>
+    <item quantity="one">Participated in %s simultaneous exhibition</item>
+    <item quantity="other">Participated in %s simultaneous exhibitions</item>
   </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">Created %s new study</item>
