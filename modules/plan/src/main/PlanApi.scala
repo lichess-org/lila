@@ -77,11 +77,7 @@ final class PlanApi(
                 stripe = Patron.Stripe(stripeCharge.customer).some
               ).levelUpIfPossible
               patronColl.update($id(patron.id), p2) >>
-                setDbUserPlan(
-                  user,
-                  if (patron.canLevelUp) user.plan.incMonths
-                  else user.plan.enable
-                )
+                setDbUserPlanOnCharge(user, patron)
             }
         }
       }
