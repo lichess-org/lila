@@ -43,4 +43,60 @@
     <item quantity="many">تم لعب %1$s نقلة في %2$s مباراة بالمراسلة</item>
     <item quantity="other">تم لعب %1$s نقلة في %2$s مباراة بالمراسلة</item>
   </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="zero">تم اكمال %s مباراة بالمراسلة</item>
+    <item quantity="one">تم اكمال %s مباراة بالمراسلة</item>
+    <item quantity="two">تم اكمال %s مباراة بالمراسلة</item>
+    <item quantity="few">تم اكمال %s مباراة بالمراسلة</item>
+    <item quantity="many">تم اكمال %s مباراة بالمراسلة</item>
+    <item quantity="other">تم اكمال %s مباراة بالمراسلة</item>
+  </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="zero">تم البدء في متابعة %s لاعب</item>
+    <item quantity="one">تم البدء في متابعة %s لاعب</item>
+    <item quantity="two">تم البدء في متابعة %s لاعبان</item>
+    <item quantity="few">تم البدء في متابعة %s لاعبين</item>
+    <item quantity="many">تم البدء في متابعة %s لاعبين</item>
+    <item quantity="other">تم البدء في متابعة %s لاعب</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="zero">اكتسب %s متابع جديد</item>
+    <item quantity="one">اكتسب %s متابع جديد</item>
+    <item quantity="two">اكتسب %s متابعان جديدان</item>
+    <item quantity="few">اكتسب %s متابعين جدد</item>
+    <item quantity="many">اكتسب %s متابع جديد</item>
+    <item quantity="other">اكتسب %s متابع جديد</item>
+  </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="zero">استضافة %s مباراة استعراضية في نفس الوقت</item>
+    <item quantity="one">استضافة %s مباراة استعراضية في نفس الوقت</item>
+    <item quantity="two">استضافة %s مباراة استعراضية في نفس الوقت</item>
+    <item quantity="few">استضافة %s مباراة استعراضية في نفس الوقت</item>
+    <item quantity="many">استضافة %s مباراة استعراضية في نفس الوقت</item>
+    <item quantity="other">استضافة %s مباراة استعراضية في نفس الوقت</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="zero">المشاركة في %s مباراة استعراضية في نفس الوقت</item>
+    <item quantity="one">المشاركة في %s مباراة استعراضية في نفس الوقت</item>
+    <item quantity="two">المشاركة في %s مباراة استعراضية في نفس الوقت</item>
+    <item quantity="few">المشاركة في %s مباراة استعراضية في نفس الوقت</item>
+    <item quantity="many">المشاركة في %s مباراة استعراضية في نفس الوقت</item>
+    <item quantity="other">المشاركة في %s مباراة استعراضية في نفس الوقت</item>
+  </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="zero">تم إنشاء %s دراسة جديدة</item>
+    <item quantity="one">تم إنشاء %s دراسة جديدة</item>
+    <item quantity="two">تم إنشاء %s دراسة جديدة</item>
+    <item quantity="few">تم إنشاء %s دراسة جديدة</item>
+    <item quantity="many">تم إنشاء %s دراسة جديدة</item>
+    <item quantity="other">تم إنشاء %s دراسة جديدة</item>
+  </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="zero">تنافس في %s بطولة</item>
+    <item quantity="one">تنافس في %s بطولة</item>
+    <item quantity="two">تنافس في %s بطولة</item>
+    <item quantity="few">تنافس في %s بطولة</item>
+    <item quantity="many">تنافس في %s بطولة</item>
+    <item quantity="other">تنافس في %s بطولة</item>
+  </plurals>
 </resources>
