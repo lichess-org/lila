@@ -34,4 +34,12 @@
     <item quantity="one">Ganhou %s novo seguidor</item>
     <item quantity="other">Ganhou %s novos seguidores</item>
   </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="one">Hospedou %s exibição simultânea</item>
+    <item quantity="other">Hospedou %s exibições simultâneas</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">Participou em %s exibição simultânea</item>
+    <item quantity="other">Participou em %s exibições simultâneas</item>
+  </plurals>
 </resources>
