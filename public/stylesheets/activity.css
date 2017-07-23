@@ -34,6 +34,10 @@
   border: 2px solid #fff;
   border-radius: 50%;
 }
+.activity .entry.plan > i {
+  background-color: #d59120!important;
+  color: #fff;
+}
 .activity .entry a:not(.user_link) {
   color: #3893E8;
 }
@@ -120,4 +124,7 @@ body.dark .activity .entry > i {
 }
 body.dark .activity .entry .line a {
   color: #aaa;
+}
+body.dark .activity .entry.plan > i {
+  background-color: #bf811d!important;
 }

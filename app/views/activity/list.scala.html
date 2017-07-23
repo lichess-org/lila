@@ -5,7 +5,7 @@
 @import lila.activity.model._
 
 @renderPatron(p: Patron) = {
-<div class="entry">
+<div class="entry plan">
   <i data-icon=""></i>
   <div>
     @trans.activity.supportedNbMonths.plural(p.months, p.months, Html(s"""<a href="${routes.Plan.index}">Patron</a>"""))
