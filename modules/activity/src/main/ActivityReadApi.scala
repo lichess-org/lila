@@ -1,5 +1,7 @@
 package lila.activity
 
+import org.joda.time.{ DateTime, Interval }
+
 import lila.analyse.Analysis
 import lila.db.dsl._
 import lila.game.{ Game, Pov, GameRepo }
@@ -23,15 +25,17 @@ final class ActivityReadApi(
 
   private val recentNb = 7
 
-  def recent(userId: User.ID): Fu[List[ActivityView.AsTo]] = for {
-    as <- coll.byOrderedIds[Activity, Id](makeIds(userId, recentNb))(_.id)
+  def recent(u: User): Fu[Vector[ActivityView]] = for {
+    as <- coll.find($doc("_id" -> $doc("$regex" -> s"^${u.id}:")))
+      .sort($sort desc "_id")
+      .gather[Activity, Vector](recentNb)
     practiceStructure <- as.exists(_.practice.isDefined) ?? {
       practiceApi.structure.get map some
     }
-    views <- as.map { one(_, practiceStructure) }.sequenceFu
-  } yield views
+    views <- as.map { one(u, practiceStructure) _ }.sequenceFu
+  } yield addSignup(u.createdAt, views)
 
-  private def one(a: Activity, practiceStructure: Option[PracticeStructure]): Fu[ActivityView.AsTo] = for {
+  private def one(u: User, practiceStructure: Option[PracticeStructure])(a: Activity): Fu[ActivityView] = for {
     posts <- a.posts ?? { p =>
       postApi.liteViewsByIds(p.value.map(_.value)) dmap some
     }
@@ -73,20 +77,33 @@ final class ActivityReadApi(
         )
       }
     }
-    view = ActivityView(
-      games = a.games,
-      puzzles = a.puzzles,
-      practice = practice,
-      posts = postView,
-      simuls = simuls,
-      patron = a.patron,
-      corresMoves = corresMoves,
-      corresEnds = corresEnds,
-      follows = a.follows,
-      studies = studies,
-      tours = tours
-    )
-  } yield ActivityView.AsTo(a.date, view)
+  } yield ActivityView(
+    interval = a.interval,
+    games = a.games,
+    puzzles = a.puzzles,
+    practice = practice,
+    posts = postView,
+    simuls = simuls,
+    patron = a.patron,
+    corresMoves = corresMoves,
+    corresEnds = corresEnds,
+    follows = a.follows,
+    studies = studies,
+    tours = tours
+  )
+
+  private def addSignup(at: DateTime, recent: Vector[ActivityView]) = {
+    val (found, views) = recent.foldLeft(false -> Vector.empty[ActivityView]) {
+      case ((false, as), a) if a.interval contains at => (true, as :+ a.copy(signup = true))
+      case ((found, as), a) => (found, as :+ a)
+    }
+    if (!found && views.size < recentNb && DateTime.now.minusDays(8).isBefore(at))
+      views :+ ActivityView(
+        interval = new Interval(at.withTimeAtStartOfDay, at.withTimeAtStartOfDay plusDays 1),
+        signup = true
+      )
+    else views
+  }
 
   private def getPovs(userId: User.ID, gameIds: List[GameId]): Fu[Option[List[Pov]]] = gameIds.nonEmpty ?? {
     GameRepo.gamesFromSecondary(gameIds.map(_.value)).dmap {

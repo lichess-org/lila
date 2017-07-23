@@ -1,4 +1,4 @@
-@(u: User, as: List[lila.activity.ActivityView.AsTo])(implicit ctx: Context)
+@(u: User, as: Iterable[lila.activity.ActivityView])(implicit ctx: Context)
 
 @import ActivityHtml._
 @import lila.activity.activities._
@@ -200,11 +200,19 @@ case (pt, score) => {
 </div>
 }
 
+@renderSignup() = {
+<div class="entry">
+  <i data-icon="s"></i>
+  <div>
+    @trans.activity.signedUp()
+  </div>
+</div>
+}
+
 <div class="activity">
-  @as.map {
-  case lila.activity.ActivityView.AsTo(date, a) => {
+  @as.map { a =>
   <section>
-    <h2>@semanticDate(date)</h2>
+    <h2>@semanticDate(a.interval.getStart)</h2>
     <div class="entries">
       @a.patron.map(renderPatron)
       @a.practice.map(renderPractice)
@@ -221,8 +229,8 @@ case (pt, score) => {
       @a.simuls.map(renderSimuls)
       @a.studies.map(renderStudies)
       @a.tours.map(renderTours)
+      @if(a.signup) { @renderSignup() }
     </div>
   </section>
-  }
   }
 </div>

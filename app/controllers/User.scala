@@ -61,13 +61,13 @@ object User extends LilaController {
   private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(implicit ctx: Context) =
     if (HTTPRequest.isSynchronousHttp(ctx.req)) {
       for {
-        as <- Env.activity.read.recent(u.id)
+        as <- Env.activity.read.recent(u)
         nbs ← Env.current.userNbGames(u, ctx)
         info ← Env.current.userInfo(u, nbs, ctx)
         social ← Env.current.socialInfo(u, ctx)
       } yield status(html.user.show.activity(u, as, info, social))
     }.mon(_.http.response.user.show.website)
-    else Env.activity.read.recent(u.id) map { as =>
+    else Env.activity.read.recent(u) map { as =>
       status(html.activity.list(u, as))
     }
 

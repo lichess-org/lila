@@ -1,6 +1,6 @@
 package lila.activity
 
-import org.joda.time.{ DateTime, Days }
+import org.joda.time.{ DateTime, Days, Interval }
 
 import lila.user.User
 
@@ -21,6 +21,8 @@ case class Activity(
 ) {
 
   def date = Activity.Day.genesis plusDays id.day.value
+
+  def interval = new Interval(date, date plusDays 1)
 }
 
 object Activity {
