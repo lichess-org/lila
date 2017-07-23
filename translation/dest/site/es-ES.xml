@@ -34,7 +34,7 @@
   <string name="opponentLeftChoices">Tu oponente puede haber abandonado la partida. Puedes reclamar la victoria, declarar tablas o esperar.</string>
   <string name="makeYourOpponentResign">Reclamar la victoria por abandono del oponente</string>
   <string name="forceResignation">Reclamar la victoria</string>
-  <string name="forceDraw">Declara tablas</string>
+  <string name="forceDraw">Declarar tablas</string>
   <string name="talkInChat">Por favor, sé amable en el chat</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">La primera persona que entre en este enlace jugará contigo.</string>
   <string name="whiteResigned">Las blancas abandonaron</string>
@@ -43,13 +43,13 @@
   <string name="blackLeftTheGame">Las negras han abandonado la partida</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Comparte este enlace para que los espectadores puedan ver la partida</string>
   <string name="theComputerAnalysisHasFailed">El análisis del ordenador ha fallado</string>
-  <string name="viewTheComputerAnalysis">Ve el análisis del ordenador</string>
-  <string name="requestAComputerAnalysis">Solicita un análisis del ordenador</string>
+  <string name="viewTheComputerAnalysis">Ver el análisis del ordenador</string>
+  <string name="requestAComputerAnalysis">Solicitar un análisis del ordenador</string>
   <string name="computerAnalysis">Análisis del ordenador</string>
   <string name="computerAnalysisAvailable">Análisis por ordenador disponible</string>
   <string name="analysis">Tablero de análisis</string>
   <string name="depthX">Profunidad: %s</string>
-  <string name="usingServerAnalysis">Usando analisis del servidor</string>
+  <string name="usingServerAnalysis">Usando análisis del servidor</string>
   <string name="loadingEngine">El motor esta cargando ...</string>
   <string name="cloudAnalysis">Analisis en linea</string>
   <string name="goDeeper">Vaya más profundo</string>
@@ -108,22 +108,22 @@
   <string name="inaccuracies">Imprecisiones</string>
   <string name="moveTimes">Tiempo por movimiento</string>
   <string name="flipBoard">Girar el tablero</string>
-  <string name="threefoldRepetition">Repetición de jugadas</string>
+  <string name="threefoldRepetition">Triple repetición</string>
   <string name="claimADraw">Reclamar tablas</string>
   <string name="offerDraw">Ofrecer tablas</string>
   <string name="draw">Tablas</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s jugadores</item>
+    <item quantity="one">%s jugador</item>
     <item quantity="other">%s jugadores</item>
   </plurals>
-  <string name="currentGames">Partidas actuales</string>
+  <string name="currentGames">Partidas en juego</string>
   <plurals name="nbGames">
-    <item quantity="one">%s Partidas</item>
+    <item quantity="one">%s Partida</item>
     <item quantity="other">%s Partidas</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s Partidas favoritas</item>
-    <item quantity="other">%s Partidas favoritas</item>
+    <item quantity="one">%s partida favorita</item>
+    <item quantity="other">%s partidas favoritas</item>
   </plurals>
   <string name="viewInFullSize">Ver en tamaño completo</string>
   <string name="logOut">Cerrar sesión</string>
@@ -131,7 +131,7 @@
   <string name="newToLichess">¿Nuevo en Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Necesitas crear una cuenta para hacer eso</string>
   <string name="signUp">Registrarse</string>
-  <string name="computersAreNotAllowedToPlay">No les está permitido jugar a las computadoras ni a jugadores computarizados. Por favor, no te ayudes de motores de ajedrez, bases de datos o de otros jugadores durante la partida. Además, ten en cuenta que no se aconseja la utilización de varias cuentas de usuario y que el uso de un excesivo número de cuentas resultará en la cancelación de las mismas.</string>
+  <string name="computersAreNotAllowedToPlay">No está permitido jugar a ordenadores ni a jugadores ayudados por un ordenador o por otras personas. Por favor, no te ayudes de motores de ajedrez, bases de datos o de otros jugadores durante la partida. Además, ten en cuenta que no se aconseja la utilización de varias cuentas de usuario y que el uso de un excesivo número de cuentas resultará en la cancelación de las mismas.</string>
   <string name="games">Partidas</string>
   <string name="forum">Foro</string>
   <string name="xPostedInForumY">%1$s ha escrito en el tema %2$s</string>
@@ -146,11 +146,11 @@
   <string name="daysPerTurn">Días por turno</string>
   <string name="oneDay">Un día</string>
   <plurals name="nbDays">
-    <item quantity="one">%s días</item>
+    <item quantity="one">%s día</item>
     <item quantity="other">%s días</item>
   </plurals>
   <plurals name="nbHours">
-    <item quantity="one">%s horas</item>
+    <item quantity="one">%s hora</item>
     <item quantity="other">%s horas</item>
   </plurals>
   <string name="time">Tiempo</string>
@@ -161,8 +161,8 @@
   <string name="password">Contraseña</string>
   <string name="haveAnAccount">¿Tienes una cuenta?</string>
   <string name="changePassword">Cambiar contraseña</string>
-  <string name="changeEmail">Cambiar correo</string>
-  <string name="email">Correo</string>
+  <string name="changeEmail">Cambiar email</string>
+  <string name="email">Email</string>
   <string name="emailIsOptional">El correo es opcional. Lichess usará tu correo para restaurar tu contraseña si la olvidas.</string>
   <string name="passwordReset">Cambiar contraseña</string>
   <string name="forgotPassword">¿Olvidaste tu contraseña?</string>
