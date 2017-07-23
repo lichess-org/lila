@@ -486,13 +486,13 @@
   <string name="tenthsOfSeconds">Décimas de segundo</string>
   <string name="never">Nunca</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Cuando queden menos de 10 segundos</string>
-  <string name="horizontalGreenProgressBars">Barra verde de progreso horizontal</string>
+  <string name="horizontalGreenProgressBars">Barra de progreso horizontal verde</string>
   <string name="soundWhenTimeGetsCritical">Sonido cuando quede poco tiempo</string>
   <string name="gameBehavior">Comportamiento del juego</string>
-  <string name="howDoYouMovePieces">¿Cómo mueves las piezas?</string>
-  <string name="clickTwoSquares">Clic en dos casillas</string>
-  <string name="dragPiece">Arrastrar una pieza</string>
-  <string name="bothClicksAndDrag">Con clicks o arrastrando</string>
+  <string name="howDoYouMovePieces">¿Cómo quieres mover las piezas?</string>
+  <string name="clickTwoSquares">Haciendo clic en la pieza y luego en la casilla de destino</string>
+  <string name="dragPiece">Arrastrando la pieza hasta la casilla de destino</string>
+  <string name="bothClicksAndDrag">De cualquiera de las dos maneras</string>
   <string name="premovesPlayingDuringOpponentTurn">Premovimiento (jugar durante el turno del oponente)</string>
   <string name="takebacksWithOpponentApproval">Deshacer jugada (con consentimiento del oponente)</string>
   <string name="promoteToQueenAutomatically">Promover a dama automáticamente</string>
@@ -502,7 +502,7 @@
   <string name="letOtherPlayersChallengeYou">Permitir que otros jugadores te desafíen</string>
   <string name="letOtherPlayersInviteYouToStudy">Permitir que otros jugadores le inviten a estudios</string>
   <string name="sound">Sonido</string>
-  <string name="yourPreferencesHaveBeenSaved">Tus preferencias han sido guardadas.</string>
+  <string name="yourPreferencesHaveBeenSaved">Tus preferencias se han guardado.</string>
   <string name="none">Ninguna</string>
   <string name="fast">Rápido</string>
   <string name="normal">Normal</string>
@@ -513,7 +513,7 @@
   <string name="always">Siempre</string>
   <string name="inCasualGamesOnly">Sólo en partidas amistosas</string>
   <string name="whenPremoving">Con premovimiento</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Cuando el tiempo restante &lt; 30 segundos</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Cuando queden menos de 30 segundos</string>
   <string name="difficultyEasy">Fácil</string>
   <string name="difficultyNormal">Normal</string>
   <string name="difficultyHard">Difícil</string>
@@ -576,7 +576,7 @@
   <string name="blackCastlingKingside">Negras O-O</string>
   <string name="blackCastlingQueenside">Negras O-O-O</string>
   <plurals name="nbForumPosts">
-    <item quantity="one">%s aportes en el foro</item>
+    <item quantity="one">%s aporte en el foro</item>
     <item quantity="other">%s aportes en el foro</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Tiempo total jugado: %s</string>
@@ -586,7 +586,7 @@
   <string name="internationalEvents">Eventos internacionales</string>
   <string name="videoLibrary">Videoteca</string>
   <string name="mobileApp">Aplicación para móviles</string>
-  <string name="webmasters">Web master</string>
+  <string name="webmasters">Webmaster</string>
   <string name="contribute">Contribuir</string>
   <string name="contact">Contacto</string>
   <string name="termsOfService">Condiciones de servicio</string>
@@ -598,11 +598,11 @@
   <string name="noSimulFound">Simultánea no encontrada</string>
   <string name="noSimulExplanation">Esta exhibición simultánea no existe.</string>
   <string name="returnToSimulHomepage">Volver a la página de simultáneas</string>
-  <string name="aboutSimul">Simultáneas implican un jugador enfrentándose a varios jugadores al mismo tiempo.</string>
+  <string name="aboutSimul">En las simultáneas, un jugador se enfrenta a varios oponentes al mismo tiempo.</string>
   <string name="aboutSimulImage">De 50 oponentes, Fischer ganó 47 partidas, empató 2 y perdió 1.</string>
-  <string name="aboutSimulRealLife">El concepto de simultáneas en Lichess es tomado de la vida real, donde el anfitrión va de mesa en mesa para hacer su movimiento.</string>
-  <string name="aboutSimulRules">Cuando la simultánea empieza, cada jugador comienza un juego con el anfitrión, el cual juega con las blancas. La simultánea termina cuando todos los juegos se completan.</string>
-  <string name="aboutSimulSettings">Las simultáneas son siempre partidas amistosas. Opciones de petición de revancha, deshacer jugada y agregar tiempo están deshabilitadas.</string>
+  <string name="aboutSimulRealLife">El concepto de simultáneas en Lichess se toma de la vida real, donde el anfitrión va de mesa en mesa para hacer sus movimientos.</string>
+  <string name="aboutSimulRules">Cuando la simultánea empieza, cada jugador comienza una partida con el anfitrión, que juega con blancas. La simultánea termina cuando terminan todas las partidas.</string>
+  <string name="aboutSimulSettings">Las simultáneas son siempre partidas amistosas. Las opciones de petición de revancha, deshacer jugada y agregar tiempo están deshabilitadas.</string>
   <string name="create">Crear</string>
   <string name="whenCreateSimul">Cuando creas una simultánea, juegas contra varios jugadores a la vez.</string>
   <string name="simulVariantsHint">Si seleccionas diferentes variantes, cada jugador escoge cuál jugar.</string>
