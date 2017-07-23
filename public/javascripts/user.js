@@ -113,6 +113,7 @@ $(function() {
       var $angles = $(this),
       $content = $('.angle_content');
       function browseTo(path) {
+        $('.angle_content .infinitescroll').infinitescroll('destroy');
         $.get(path).then(function(html) {
           $content.html(html);
           cleanupActivity();
