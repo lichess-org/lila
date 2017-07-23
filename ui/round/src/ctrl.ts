@@ -443,6 +443,7 @@ export default class RoundController {
     d.game.winner = o.winner;
     d.game.status = o.status;
     d.game.boosted = o.boosted;
+    this.userJump(round.lastPly(d));
     this.chessground.stop();
     if (o.ratingDiff) {
       d.player.ratingDiff = o.ratingDiff[d.player.color];
