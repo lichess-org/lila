@@ -65,10 +65,10 @@ final class ActivityReadApi(
     tours <- a.games.exists(_.hasNonCorres) ?? {
       val dateRange = a.date -> a.date.plusDays(1)
       tourLeaderApi.timeRange(a.id.userId, dateRange) map { entries =>
-        ActivityView.Tours(
+        entries.nonEmpty option ActivityView.Tours(
           nb = entries.size,
           best = entries.sortBy(_.rankRatio.value).take(activities.maxSubEntries)
-        ).some
+        )
       }
     }
     view = ActivityView(
