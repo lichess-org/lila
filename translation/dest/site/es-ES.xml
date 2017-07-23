@@ -85,22 +85,22 @@
   <string name="xOpeningExplorer">%s Explorador de Aperturas</string>
   <string name="winPreventedBy50MoveRule">Ganado esta prevenido por la regla de 50 movimientos</string>
   <string name="lossSavedBy50MoveRule">Pérdida esta preventido por regla de 50 movimientos</string>
-  <string name="allSet">Esta listo!</string>
+  <string name="allSet">¡Listo!</string>
   <string name="importPgn">Importar PGN</string>
-  <string name="delete">Eliminar</string>
+  <string name="delete">Borrar</string>
   <string name="deleteThisImportedGame">¿Borrar este juego importado?</string>
   <string name="replayMode">Modo del repeticion</string>
-  <string name="realtimeReplay">En tiempo real</string>
+  <string name="realtimeReplay">Tiempo real</string>
   <string name="byCPL">Por CPL</string>
   <string name="openStudy">Abrir estudio</string>
   <string name="enable">Activar</string>
   <string name="bestMoveArrow">La flecha del mejor movimiento</string>
   <string name="evaluationGauge">Indicador de evaluación</string>
-  <string name="multipleLines">Muchas lineas</string>
+  <string name="multipleLines">Múltiples lineas</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Memoria</string>
   <string name="infiniteAnalysis">Análisis infinito</string>
-  <string name="removesTheDepthLimit">Elimina el límite de profundidad y mantiene el equipo caliente</string>
+  <string name="removesTheDepthLimit">Elimina el límite de profundidad del análisis y hace trabajar a tu ordenador</string>
   <string name="blunders">Errores graves</string>
   <string name="mistakes">Errores</string>
   <string name="inaccuracies">Imprecisiones</string>
@@ -219,11 +219,11 @@
     <item quantity="other">%s por puntos</item>
   </plurals>
   <plurals name="nbWins">
-    <item quantity="one">%s victorias</item>
+    <item quantity="one">%s victoria</item>
     <item quantity="other">%s victorias</item>
   </plurals>
   <plurals name="nbLosses">
-    <item quantity="one">%s derrotas</item>
+    <item quantity="one">%s derrota</item>
     <item quantity="other">%s derrotas</item>
   </plurals>
   <plurals name="nbDraws">
@@ -233,7 +233,7 @@
   <string name="exportGames">Exportar partidas</string>
   <string name="ratingRange">Rango de puntuación</string>
   <plurals name="giveNbSeconds">
-    <item quantity="one">Dar %s segundos</item>
+    <item quantity="one">Dar %s segundo</item>
     <item quantity="other">Dar %s segundos</item>
   </plurals>
   <string name="giveMoreTime">Dar más tiempo</string>
@@ -295,7 +295,7 @@
   </plurals>
   <string name="thisIsAChessCaptcha">Esto es un CAPTCHA de ajedrez.</string>
   <string name="clickOnTheBoardToMakeYourMove">Haz clic en el tablero para hacer tu jugada y demostrar que eres humano.</string>
-  <string name="captcha.fail">Por favor, resuelva el captha de ajedrez.</string>
+  <string name="captcha.fail">Por favor, resuelva el captcha de ajedrez.</string>
   <string name="notACheckmate">No es jaque mate</string>
   <string name="colorPlaysCheckmateInOne">%s juegan; mate en una</string>
   <string name="retry">Reintentar</string>
@@ -313,7 +313,7 @@
   <string name="followsYou">Te sigue</string>
   <string name="xStartedFollowingY">%1$s comenzó a seguir a %2$s</string>
   <plurals name="nbFollowers">
-    <item quantity="one">%s seguidores</item>
+    <item quantity="one">%s seguidor</item>
     <item quantity="other">%s seguidores</item>
   </plurals>
   <plurals name="nbFollowing">
@@ -323,23 +323,23 @@
   <string name="more">Más</string>
   <string name="memberSince">Miembro desde</string>
   <string name="lastSeenActive">Última visita %s</string>
-  <string name="challengeToPlay">Desafía a una partida</string>
+  <string name="challengeToPlay">Desafíar a una partida</string>
   <string name="player">Jugador</string>
   <string name="list">Lista</string>
   <string name="graph">Gráfico</string>
   <plurals name="lessThanNbMinutes">
-    <item quantity="one">Menos de %s minutos</item>
+    <item quantity="one">Menos de %s minuto</item>
     <item quantity="other">Menos de %s minutos</item>
   </plurals>
-  <string name="required">Requerido.</string>
+  <string name="required">Obligatorio.</string>
   <string name="openTournaments">Torneos abiertos</string>
   <string name="duration">Duración</string>
   <string name="winner">Ganador</string>
-  <string name="standing">Ubicación</string>
+  <string name="standing">Posición</string>
   <string name="createANewTournament">Crear un nuevo torneo</string>
   <string name="join">Unirse</string>
   <string name="withdraw">Abandonar</string>
-  <string name="points">Puntos del torneo</string>
+  <string name="points">Puntos</string>
   <string name="wins">Victorias</string>
   <string name="losses">Derrotas</string>
   <string name="winStreak">Victorias consecutivas</string>
@@ -457,9 +457,9 @@
   <string name="theming">Apariencia</string>
   <string name="donate">Donar</string>
   <string name="blog">Blog</string>
-  <string name="questionsAndAnswers">Preguntas y Respuestas</string>
+  <string name="questionsAndAnswers">Preguntas y respuestas</string>
   <string name="notes">Notas</string>
-  <string name="typePrivateNotesHere">Escribe notas privadas aquí</string>
+  <string name="typePrivateNotesHere">Escribe aquí las notas privadas</string>
   <string name="gameDisplay">Configuración visual del juego</string>
   <string name="pieceAnimation">Animación de las piezas</string>
   <string name="materialDifference">Diferencia de material</string>
