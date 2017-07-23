@@ -251,6 +251,7 @@
     <item quantity="few">Dodaj %s sekundy</item>
     <item quantity="other">Dodaj %s sekund</item>
   </plurals>
+  <string name="giveMoreTime">Dodaj więcej czasu</string>
   <string name="thisPlayerUsesChessComputerAssistance">Ten gracz korzysta z pomocy programu szachowego</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ten gracz sztucznie zwiększa/obniża swój ranking</string>
   <string name="openingExplorerAndTablebase">Przeglądarka otwarć</string>
