@@ -77,6 +77,10 @@
     <item quantity="one">Mate em %s jogada (meio movimento)</item>
     <item quantity="other">Mate em %s jogadas (meio-movimentos)</item>
   </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Próxima captura ou movimento de peão em %s meio-movimento (distância até zerar o contador de 50 movimentos)</item>
+    <item quantity="other">Próxima captura ou movimento de peão em %s meio-movimentos (distância até zerar o contador de 50 movimentos)</item>
+  </plurals>
   <string name="noGameFound">Nenhuma partida encontrada</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Talvez você queira incluir mais jogos a partir do menu de preferências</string>
   <string name="openingExplorer">Explorador de abertura</string>
@@ -234,6 +238,7 @@
     <item quantity="one">Dar %s segundos</item>
     <item quantity="other">Dar %s segundos</item>
   </plurals>
+  <string name="giveMoreTime">Dar mais tempo</string>
   <string name="thisPlayerUsesChessComputerAssistance">Este jogador usa a ajuda de computador</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Este jogador modificou a sua classificação de maneira artificial</string>
   <string name="openingExplorerAndTablebase">Explorador de abertura &amp; tabela de finais</string>
