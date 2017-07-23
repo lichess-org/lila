@@ -56,9 +56,9 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     drop: ctrl.apiMove,
     reload,
     redirect: ctrl.setRedirecting,
-    clock(o) {
+    clockInc(o) {
       if (ctrl.clock) {
-        ctrl.clock.update(o.white, o.black);
+        ctrl.clock.addTime(o.color, o.time);
         ctrl.redraw();
       }
     },

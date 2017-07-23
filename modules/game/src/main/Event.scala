@@ -218,7 +218,13 @@ object Event {
     def data = Json.obj(
       "winner" -> game.winnerColor,
       "status" -> game.status
-    ).add("ratingDiff" -> ratingDiff.map { rds =>
+    ).add("clock" -> game.clock.map { c =>
+        Json.obj(
+          "wc" -> c.remainingTime(Color.White).centis,
+          "bc" -> c.remainingTime(Color.Black).centis
+        )
+      })
+      .add("ratingDiff" -> ratingDiff.map { rds =>
         Json.obj(
           Color.White.name -> rds.white,
           Color.Black.name -> rds.black
@@ -259,6 +265,14 @@ object Event {
     def typ = "premove"
     override def only = Some(color)
     override def owner = true
+  }
+
+  case class ClockInc(color: Color, time: Centis) extends Event {
+    def typ = "clockInc"
+    def data = Json.obj(
+      "color" -> color,
+      "time" -> time.centis
+    )
   }
 
   sealed trait ClockEvent extends Event

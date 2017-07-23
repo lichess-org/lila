@@ -1,5 +1,7 @@
 import { updateElements } from './clockView';
-import RoundController from '../ctrl';
+import { RoundData } from '../interfaces'
+import { game } from 'game';
+
 
 export type Seconds = number;
 export type Centis = number;
@@ -10,6 +12,8 @@ interface ClockOpts {
   soundColor?: Color
 }
 
+export type TenthsPref = 0 | 1 | 2;
+
 export interface ClockData {
   running: boolean;
   initial: Seconds;
@@ -17,7 +21,7 @@ export interface ClockData {
   white: Seconds;
   black: Seconds;
   emerg: Seconds;
-  showTenths: 0 | 1 | 2;
+  showTenths: TenthsPref;
   showBar: boolean;
   moretime: number;
 }
@@ -25,17 +29,15 @@ export interface ClockData {
 interface Times {
   white: Millis;
   black: Millis;
+  activeColor?: Color;
   lastUpdate: Millis;
 }
 
-interface Elements {
-  white: ColorElements;
-  black: ColorElements;
-}
+type ColorMap<T> = { [C in Color]: T };
 
-interface ColorElements {
-  time: HTMLElement;
-  bar: HTMLElement;
+export interface ClockElements {
+  time?: HTMLElement;
+  bar?: HTMLElement;
 }
 
 interface EmergSound {
@@ -48,6 +50,9 @@ interface EmergSound {
   };
 }
 
+const nowFun = window.performance && performance.now() > 0 ?
+  performance.now.bind(performance) : Date.now;
+
 export class ClockController {
 
   emergSound: EmergSound = {
@@ -59,48 +64,70 @@ export class ClockController {
     }
   };
 
+  showTenths: TenthsPref;
+  showBar: boolean;
   times: Times;
 
   timePercentDivisor: number
   emergMs: Millis;
 
-  elements: Elements = {
+  elements = {
     white: {},
     black: {}
-  } as Elements;
+  } as ColorMap<ClockElements>;
 
-  constructor(public data: ClockData, public opts: ClockOpts) {
+  constructor(d: RoundData, public opts: ClockOpts) {
+    const cdata = d.clock!;
 
-    this.timePercentDivisor = .1 / (Math.max(data.initial, 2) + 5 * data.increment);
+    this.showTenths = cdata.showTenths;
+    this.showBar = cdata.showBar;
+    this.timePercentDivisor = .1 / (Math.max(cdata.initial, 2) + 5 * cdata.increment);
 
-    this.emergMs = 1000 * Math.min(60, Math.max(10, data.initial * .125));
+    this.emergMs = 1000 * Math.min(60, Math.max(10, cdata.initial * .125));
 
-    this.update(data.white, data.black);
+    this.setClock(d, cdata.white, cdata.black);
   }
 
-  timePercent = (color: Color): number =>
-    Math.max(0, Math.min(100, this.times[color] * this.timePercentDivisor));
+  timePercent = (millis: number): number =>
+    Math.max(0, Math.min(100, millis * this.timePercentDivisor));
 
-  update = (white: Seconds, black: Seconds, delayCentis?: Centis): void => {
+  setClock = (d: RoundData, white: Seconds, black: Seconds, delay: Centis = 0) => {
+    const isClockRunning = game.playable(d) &&
+           ((d.game.turns - d.game.startedAtTurn) > 1 || d.clock!.running);
+
     this.times = {
       white: white * 1000,
       black: black * 1000,
-      lastUpdate: Date.now() + (delayCentis || 1) * 10
+      activeColor: isClockRunning ? d.game.player : undefined,
+      lastUpdate: nowFun() + delay * 10
     };
   };
 
-  tick = (ctrl: RoundController, color: Color): void => {
-    const now = Date.now();
-    if (now > this.times.lastUpdate) {
-      this.times[color] -= now - this.times.lastUpdate;
-      this.times.lastUpdate = now;
+  addTime = (color: Color, time: Centis): void => {
+    this.times[color] += time * 10
+  }
+
+  stopClock = (): Millis|void => {
+    const color = this.times.activeColor;
+    if (color) {
+      const elapsed = nowFun() - this.times.lastUpdate;
+      this.times[color] -= elapsed;
+      this.times.activeColor = undefined;
+      return elapsed;
     }
-    const millis = this.times[color];
+  }
+
+  tick = (): void => {
+    const color = this.times.activeColor;
+    if (!color) return;
+
+    const now = nowFun();
+    const millis = this.times[color] - now + this.times.lastUpdate;
 
     if (millis <= 0) this.opts.onFlag();
-    else updateElements(ctrl, color);
+    else updateElements(this, this.elements[color], millis);
 
-    if (this.opts.soundColor == color) {
+    if (this.opts.soundColor === color) {
       if (this.emergSound.playable[color]) {
         if (millis < this.emergMs && !(now < this.emergSound.next!)) {
           this.emergSound.play();
@@ -113,5 +140,8 @@ export class ClockController {
     }
   };
 
-  millisOf = (color: Color): Millis => Math.max(0, this.times[color]);
+  millisOf = (color: Color): Millis => ((this.times.activeColor === color) ?
+     Math.max(0, this.times[color] - nowFun() + this.times.lastUpdate) :
+     this.times[color]
+  );
 }

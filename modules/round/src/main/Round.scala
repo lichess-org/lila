@@ -7,7 +7,7 @@ import scala.concurrent.duration._
 
 import actorApi._, round._
 import chess.{ Centis, Color }
-import lila.game.{ Game, Pov, Event }
+import lila.game.{ Game, Progress, Pov, Event }
 import lila.hub.actorApi.DeployPost
 import lila.hub.actorApi.map._
 import lila.hub.actorApi.round.FishnetPlay
@@ -180,19 +180,16 @@ private[round] final class Round(
     }
 
     case Moretime(playerRef) => handle(playerRef) { pov =>
-      pov.game.clock.ifTrue(pov.game moretimeable !pov.color).map { clock =>
-        val newClock = clock.giveTime(!pov.color, moretimeDuration.toCentis)
-        val progress = (pov.game withClock newClock) + Event.Clock(newClock)
-        messenger.system(pov.game, (_.untranslated(
-          "%s + %d seconds".format(!pov.color, moretimeDuration.toSeconds)
-        )))
+      (pov.game moretimeable !pov.color) ?? {
+        val progress =
+          if (pov.game.hasClock) giveMoretime(pov.game, !pov.color, moretimeDuration)
+          else pov.game.correspondenceClock.fold(Progress(pov.game)) { clock =>
+            messenger.system(pov.game, (_.untranslated(s"${!pov.color} gets more time")))
+            val p = pov.game.correspondenceGiveTime
+            p.game.correspondenceClock.map(Event.CorrespondenceClock.apply).fold(p)(p + _)
+          }
         proxy save progress inject progress.events
-      } orElse pov.game.correspondenceClock.ifTrue(pov.game moretimeable !pov.color).map { clock =>
-        val progress = pov.game.correspondenceGiveTime
-        messenger.system(pov.game, (_.untranslated(s"${!pov.color} gets more time")))
-        val events = progress.game.correspondenceClock.map(Event.CorrespondenceClock.apply).toList
-        proxy save progress inject events
-      } getOrElse fuccess(Nil)
+      }
     }
 
     case ForecastPlay(lastMove) => handle { game =>
@@ -205,15 +202,12 @@ private[round] final class Round(
     }
 
     case DeployPost => handle { game =>
-      game.clock.filter(_ => game.playable) ?? { clock =>
-        val freeSeconds = 15
-        val freeCentis = Centis.ofSeconds(freeSeconds)
-        val newClock = clock.giveTime(Color.White, freeCentis).giveTime(Color.Black, freeCentis)
-        val progress = (game withClock newClock) + Event.Clock(newClock)
+      game.playable ?? {
+        val freeTime = 15.seconds
         messenger.system(game, (_.untranslated("Lichess has been updated")))
         messenger.system(game, (_.untranslated("Sorry for the inconvenience!")))
-        Color.all.foreach { c =>
-          messenger.system(game, (_.untranslated(s"$c + $freeSeconds seconds")))
+        val progress = giveMoretime(game, Color.White, freeTime) flatMap {
+          g => giveMoretime(g, Color.Black, freeTime)
         }
         proxy save progress inject progress.events
       }
@@ -229,6 +223,19 @@ private[round] final class Round(
       game.playable ?? finisher.other(game, _.Aborted)
     }
   }
+
+  private def giveMoretime(game: Game, color: Color, duration: FiniteDuration): Progress =
+    game.clock.fold(Progress(game)) { clock =>
+      val centis = duration.toCentis
+      val newClock = clock.giveTime(color, centis)
+      messenger.system(game, (_.untranslated(
+        "%s + %d seconds".format(color, duration.toSeconds)
+      )))
+      (game withClock newClock) ++ List(
+        Event.ClockInc(color, centis),
+        Event.Clock(newClock) // BC
+      )
+    }
 
   private def reportNetworkLag(pov: Pov) =
     if (pov.game.turns == 20) {

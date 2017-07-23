@@ -1,6 +1,6 @@
 import { VNode } from 'snabbdom/vnode';
 import { GameData, Status } from 'game';
-import { ClockData } from './clock/clockCtrl';
+import { ClockData, Seconds, Centis } from './clock/clockCtrl';
 import { CorresClockData } from './corresClock/corresClockCtrl';
 import * as cg from 'chessground/types';
 
@@ -99,9 +99,9 @@ export interface Step {
 export interface ApiMove extends Step {
   dests: { [key: string]: string };
   clock?: {
-    white: number;
-    black: number;
-    lag?: number
+    white: Seconds;
+    black: Seconds;
+    lag?: Centis;
   }
   status: Status;
   winner?: Color;
@@ -137,6 +137,10 @@ export interface ApiEnd {
     black: number;
   };
   boosted: boolean;
+  clock?: {
+    wc: Centis;
+    bc: Centis;
+  }
 }
 
 export interface StepCrazy extends Untyped {
