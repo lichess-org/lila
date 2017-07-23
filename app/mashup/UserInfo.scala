@@ -15,12 +15,9 @@ import lila.user.{ User, Trophy, Trophies, TrophyApi }
 case class UserInfo(
     user: User,
     ranks: lila.rating.UserRankMap,
-    nbPlaying: Int,
     hasSimul: Boolean,
-    crosstable: Option[Crosstable.WithMatchup],
-    nbBookmark: Int,
-    nbImported: Int,
     ratingChart: Option[String],
+    nbs: UserInfo.NbGames,
     nbFollowers: Int,
     nbBlockers: Option[Int],
     nbPosts: Int,
@@ -34,11 +31,7 @@ case class UserInfo(
     completionRate: Option[Double]
 ) {
 
-  def nbRated = user.count.rated
-
-  def nbWithMe = crosstable ?? (_.crosstable.nbGames)
-
-  def percentRated: Int = math.round(nbRated / user.count.game.toFloat * 100)
+  def crosstable = nbs.crosstable
 
   def completionRatePercent = completionRate.map { cr => math.round(cr * 100) }
 
@@ -102,12 +95,33 @@ object UserInfo {
         }
   }
 
+  case class NbGames(
+      crosstable: Option[Crosstable.WithMatchup],
+      playing: Int,
+      bookmark: Int,
+      imported: Int
+  ) {
+    def withMe: Option[Int] = crosstable.map(_.crosstable.nbGames)
+  }
+
+  object NbGames {
+    def apply(
+      bookmarkApi: BookmarkApi,
+      gameCached: lila.game.Cached,
+      crosstableApi: lila.game.CrosstableApi
+    )(u: User, ctx: Context): Fu[NbGames] =
+      (ctx.me.filter(u!=) ?? { me => crosstableApi.withMatchup(me.id, u.id) }) zip
+        gameCached.nbPlaying(u.id) zip
+        gameCached.nbImportedBy(u.id) zip
+        bookmarkApi.countByUser(u) map {
+          case crosstable ~ playing ~ imported ~ bookmark =>
+            NbGames(crosstable, playing, imported, bookmark)
+        }
+  }
+
   def apply(
-    bookmarkApi: BookmarkApi,
     relationApi: RelationApi,
     trophyApi: TrophyApi,
-    gameCached: lila.game.Cached,
-    crosstableApi: lila.game.CrosstableApi,
     postApi: PostApi,
     studyRepo: lila.study.StudyRepo,
     getRatingChart: User => Fu[Option[String]],
@@ -119,11 +133,8 @@ object UserInfo {
     insightShare: lila.insight.Share,
     getPlayTime: User => Fu[Option[User.PlayTime]],
     completionRate: User.ID => Fu[Option[Double]]
-  )(user: User, ctx: Context): Fu[UserInfo] =
+  )(user: User, nbs: NbGames, ctx: Context): Fu[UserInfo] =
     getRanks(user.id) zip
-      (gameCached nbPlaying user.id) zip
-      gameCached.nbImportedBy(user.id) zip
-      (ctx.me.filter(user!=) ?? { me => crosstableApi.withMatchup(me.id, user.id) }) zip
       getRatingChart(user) zip
       relationApi.countFollowers(user.id) zip
       (ctx.me ?? Granter(_.UserSpy) ?? { relationApi.countBlockers(user.id) map (_.some) }) zip
@@ -135,18 +146,14 @@ object UserInfo {
       fetchIsStreamer(user.id) zip
       (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
       getPlayTime(user) zip
-      completionRate(user.id) zip
-      bookmarkApi.countByUser(user) flatMap {
-        case ranks ~ nbPlaying ~ nbImported ~ crosstable ~ ratingChart ~ nbFollowers ~ nbBlockers ~ nbPosts ~ nbStudies ~ trophies ~ teamIds ~ isCoach ~ isStreamer ~ insightVisible ~ playTime ~ completionRate ~ nbBookmarks =>
-          (nbPlaying > 0) ?? isHostingSimul(user.id) map { hasSimul =>
+      completionRate(user.id) flatMap {
+        case ranks ~ ratingChart ~ nbFollowers ~ nbBlockers ~ nbPosts ~ nbStudies ~ trophies ~ teamIds ~ isCoach ~ isStreamer ~ insightVisible ~ playTime ~ completionRate =>
+          (nbs.playing > 0) ?? isHostingSimul(user.id) map { hasSimul =>
             new UserInfo(
               user = user,
               ranks = ranks,
-              nbPlaying = nbPlaying,
+              nbs = nbs,
               hasSimul = hasSimul,
-              crosstable = crosstable,
-              nbBookmark = nbBookmarks,
-              nbImported = nbImported,
               ratingChart = ratingChart,
               nbFollowers = nbFollowers,
               nbBlockers = nbBlockers,

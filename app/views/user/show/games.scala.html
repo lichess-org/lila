@@ -15,7 +15,7 @@
 }
 
 @user.layout(
-title =  s"${u.username} : ${userGameFilterTitleNoTag(info, filters.current)}${if(games.currentPage == 1) "" else " - page " + games.currentPage}",
+title =  s"${u.username} : ${userGameFilterTitleNoTag(u, info.nbs, filters.current)}${if(games.currentPage == 1) "" else " - page " + games.currentPage}",
 side = side(u, info.ranks, none).some,
 robots = false,
 evenMoreJs = evenMoreJs,
@@ -26,6 +26,6 @@ url = s"$netBaseUrl${routes.User.show(u.username).url}",
 description = describeUser(u)).some) {
 <div data-username="@u.username" class="content_box no_padding user_show">
   @header(u, info, Angle.Games(searchForm), social)
-  <div class="angle_content">@gamesContent(u, info, games, filters, filters.current.name)</div>
+  <div class="angle_content">@gamesContent(u, info.nbs, games, filters, filters.current.name)</div>
 </div>
 }

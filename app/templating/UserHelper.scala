@@ -249,20 +249,20 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     ).flatten
   }.mkString("class=\"", " ", "\"")
 
-  def userGameFilterTitle(info: UserInfo, filter: GameFilter)(implicit ctx: UserContext) =
-    splitNumber(userGameFilterTitleNoTag(info, filter))
+  def userGameFilterTitle(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(implicit ctx: UserContext) =
+    splitNumber(userGameFilterTitleNoTag(u, nbs, filter))
 
-  def userGameFilterTitleNoTag(info: UserInfo, filter: GameFilter)(implicit ctx: UserContext): Html = (filter match {
-    case GameFilter.All => I18nKeys.nbGamesPlayed.pluralSame(info.user.count.game)
-    case GameFilter.Me => ctx.me ?? (me => I18nKeys.nbGamesWithYou.pluralSame(info.nbWithMe))
-    case GameFilter.Rated => I18nKeys.nbRated.pluralSame(info.nbRated)
-    case GameFilter.Win => I18nKeys.nbWins.pluralSame(info.user.count.win)
-    case GameFilter.Loss => I18nKeys.nbLosses.pluralSame(info.user.count.loss)
-    case GameFilter.Draw => I18nKeys.nbDraws.pluralSame(info.user.count.draw)
-    case GameFilter.Playing => Html(info.nbPlaying + " playing")
-    case GameFilter.Bookmark => I18nKeys.nbBookmarks.pluralSame(info.nbBookmark)
-    case GameFilter.Imported => I18nKeys.nbImportedGames.pluralSame(info.nbImported)
-    case GameFilter.Search => Html(I18nKeys.advancedSearch().body.replaceFirst(" ", "\n"))
+  def userGameFilterTitleNoTag(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(implicit ctx: UserContext): Html = (filter match {
+    case GameFilter.All => I18nKeys.nbGamesPlayed.pluralSame(u.count.game)
+    case GameFilter.Me => nbs.withMe ?? I18nKeys.nbGamesWithYou.pluralSame
+    case GameFilter.Rated => I18nKeys.nbRated.pluralSame(u.count.rated)
+    case GameFilter.Win => I18nKeys.nbWins.pluralSame(u.count.win)
+    case GameFilter.Loss => I18nKeys.nbLosses.pluralSame(u.count.loss)
+    case GameFilter.Draw => I18nKeys.nbDraws.pluralSame(u.count.draw)
+    case GameFilter.Playing => Html(nbs.playing + " playing")
+    case GameFilter.Bookmark => I18nKeys.nbBookmarks.pluralSame(nbs.bookmark)
+    case GameFilter.Imported => I18nKeys.nbImportedGames.pluralSame(nbs.imported)
+    case GameFilter.Search => I18nKeys.advancedSearch()
   })
 
   def describeUser(user: User) = {

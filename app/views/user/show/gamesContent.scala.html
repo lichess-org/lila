@@ -1,14 +1,14 @@
-@(u: User, info: lila.app.mashup.UserInfo, pager: Paginator[Game], filters: lila.app.mashup.GameFilterMenu, filterName: String)(implicit ctx: Context)
+@(u: User, nbs: lila.app.mashup.UserInfo.NbGames, pager: Paginator[Game], filters: lila.app.mashup.GameFilterMenu, filterName: String)(implicit ctx: Context)
 
 <div class="content_box_inter tabs" id="games">
   @filters.list.map { f =>
   <a class="intertab to_@f.name@if(filters.current == f){ active}" href="@routes.User.games(u.username, f.name)">
-    @userGameFilterTitle(info, f)
+    @userGameFilterTitle(u, nbs, f)
   </a>
   }
 </div>
 @if(filters.current.name == "me") {
-@info.crosstable.map { c =>
+@nbs.crosstable.map { c =>
 <div class="crosstable">@game.crosstable(c, none)</div>
 }
 }

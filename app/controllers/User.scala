@@ -61,7 +61,8 @@ object User extends LilaController {
   private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(implicit ctx: Context) =
     if (HTTPRequest.isSynchronousHttp(ctx.req)) for {
       as <- Env.activity.read.recent(u.id, 7)
-      info ← Env.current.userInfo(u, ctx)
+      nbs ← Env.current.userNbGames(u, ctx)
+      info ← Env.current.userInfo(u, nbs, ctx)
       social ← Env.current.socialInfo(u, ctx)
     } yield status(html.user.show.activity(u, as, info, social))
     else Env.activity.read.recent(u.id, 30) map { as =>
@@ -75,25 +76,26 @@ object User extends LilaController {
       EnabledUser(username) { u =>
         negotiate(
           html = for {
-          info ← Env.current.userInfo(u, ctx)
-          filters = GameFilterMenu(info, ctx.me, filter)
+          nbs ← Env.current.userNbGames(u, ctx)
+          filters = GameFilterMenu(u, nbs, filter)
           pag <- GameFilterMenu.paginatorOf(
             userGameSearch = userGameSearch,
             user = u,
-            info = info.some,
+            nbs = nbs.some,
             filter = filters.current,
             me = ctx.me,
             page = page
           )(ctx.body)
           res <- {
             if (HTTPRequest.isSynchronousHttp(ctx.req)) for {
+              info ← Env.current.userInfo(u, nbs, ctx)
               _ <- Env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
               _ <- Env.tournament.cached.nameCache preloadMany pag.currentPageResults.flatMap(_.tournamentId)
               _ <- Env.team.cached.nameCache preloadMany info.teamIds
               social ← Env.current.socialInfo(u, ctx)
               searchForm = (filters.current == GameFilter.Search) option GameFilterMenu.searchForm(userGameSearch, filters.current)(ctx.body)
             } yield html.user.show.games(u, info, pag, filters, searchForm, social)
-            else fuccess(html.user.show.gamesContent(u, info, pag, filters, filter))
+            else fuccess(html.user.show.gamesContent(u, nbs, pag, filters, filter))
           }
         } yield res,
           api = _ => apiGames(u, filter, page)
@@ -168,7 +170,7 @@ object User extends LilaController {
       GameFilterMenu.paginatorOf(
         userGameSearch = userGameSearch,
         user = u,
-        info = none,
+        nbs = none,
         filter = GameFilterMenu.currentOf(GameFilterMenu.all, filterName),
         me = ctx.me,
         page = page
