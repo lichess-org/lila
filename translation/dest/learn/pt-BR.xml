@@ -20,10 +20,12 @@
   <string name="theBishop">O bispo</string>
   <string name="itMovesDiagonally">Move-se em diagonais</string>
   <string name="bishopIntro">A seguir, aprenderemos como o bispo se movimenta!</string>
-  <string name="youNeedBothBishops">Um bispo para as casas brancas, um bispo para as casas pretas. Você precisa de ambos!</string>
+  <string name="youNeedBothBishops">Um bispo para as casas brancas,
+um bispo para as casas pretas.
+Você precisa de ambos!</string>
   <string name="bishopComplete">Parabéns! Você pode comandar um bispo.</string>
-  <string name="theQueen">A rainha</string>
-  <string name="queenCombinesRookAndBishop">Rainha = torre + bispo</string>
+  <string name="theQueen">A dama</string>
+  <string name="queenCombinesRookAndBishop">Dama = torre + bispo</string>
   <string name="queenIntro">Entra a mais poderosa das peças. Sua majestade, a rainha (dama)!</string>
   <string name="queenComplete">Parabéns! Damas (rainhas) não têm segredos para você.</string>
   <string name="theKing">O rei</string>
@@ -35,19 +37,18 @@
   <string name="theKnight">O cavalo</string>
   <string name="itMovesInAnLShape">Move-se no formato de um L</string>
   <string name="knightIntro">Aqui está um desafio para você. O cavalo é... uma peça surpreendente.</string>
-  <string name="knightsHaveAFancyWay">Cavalos têm uma maneira elegante de saltar por aí!</string>
+  <string name="knightsHaveAFancyWay">Cavalos têm uma maneira peculiar de saltar por aí!</string>
   <string name="knightsCanJumpOverObstacles">Cavalos podem saltar sobre obstáculos!
 Escape e conquiste as estrelas!</string>
   <string name="knightComplete">Parabéns! Você acaba tornar-se um mestre dos cavalos.</string>
   <string name="thePawn">O peão</string>
   <string name="itMovesForwardOnly">Move-se apenas para frente</string>
   <string name="pawnIntro">Peões são fracos, mas possuem grande potencial.</string>
-  <string name="pawnsMoveOneSquareOnly">Peões se movem apenas uma casa.
+  <string name="pawnsMoveOneSquareOnly">Peões andam apenas uma casa.
 Mas quando alcançam o outro lado do tabuleiro, transformam-se em uma peça mais forte!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">Na maioria das vezes o melhor é promovê-lo a uma dama.
 Mas às vezes um cavalo pode ser útil!</string>
-  <string name="pawnsMoveForward">Peões movem-se para a frente, 
-mas capturam na diagonal!</string>
+  <string name="pawnsMoveForward">Peões movem-se para a frente, mas capturam na diagonal!</string>
   <string name="captureThenPromote">Capture, e então promova!</string>
   <string name="useAllThePawns">Use todos os peões! 
 Não é necessário promover.</string>
@@ -67,8 +68,8 @@ Não é necessário promover.</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Capture as peças pretas!
 E não perca as suas.</string>
   <string name="captureComplete">Parabéns! Você já sabe como lutar com peças de xadrez!</string>
-  <string name="protection">Defesa</string>
-  <string name="keepYourPiecesSafe">Mantenha suas peças em segurança</string>
+  <string name="protection">Defender</string>
+  <string name="keepYourPiecesSafe">Proteja suas peças</string>
   <string name="protectionIntro">Identifique as peças que seu oponente está atacando e defenda-as!</string>
   <string name="protectionComplete">Parabéns! Cada peça que você não perde é uma peça que você ganha!</string>
   <string name="escape">Você está sob ataque!
@@ -85,8 +86,8 @@ mas você pode defender!</string>
   <string name="checkInOneIntro">Para dar xeque, ataque o rei. Seu oponente deve defendê-lo!</string>
   <string name="checkInOneGoal">Ameace o rei de seu oponente em um movimento!</string>
   <string name="checkInOneComplete">Parabéns! Você colocou o rei de seu oponente em xeque, obrigando-o a defende-lo!</string>
-  <string name="outOfCheck">Livre-se do xeque</string>
-  <string name="defendYourKing">Defenda seu rei</string>
+  <string name="outOfCheck">Salve o rei</string>
+  <string name="defendYourKing">Defenda-se de xeques</string>
   <string name="outOfCheckIntro">Você está em xeque! Você deve escapar ou bloquear o ataque.</string>
   <string name="escapeWithTheKing">Escape com o rei!</string>
   <string name="theKingCannotEscapeButBlock">O rei não pode escapar,
@@ -104,7 +105,7 @@ ou bloqueie o ataque!</string>
   <string name="attackYourOpponentsKing">Ataque o rei adversário de uma maneira que ele não possa se defender!</string>
   <string name="mateInOneComplete">Parabéns! É assim que você vence jogos de xadrez!</string>
   <string name="intermediate">Intermediário</string>
-  <string name="boardSetup">Posição inicial</string>
+  <string name="boardSetup">Tabuleiro</string>
   <string name="howTheGameStarts">Como o jogo inicia</string>
   <string name="boardSetupIntro">Os dois exércitos se enfrentam, prontos para a batalha.</string>
   <string name="thisIsTheInitialPosition">Esta é a posição inicial de qualquer jogo de xadrez! Faça qualquer movimento para continuar.</string>
@@ -137,36 +138,34 @@ Mas antes você precisa retirar as peças do meio.</string>
   <string name="youCannotCastleIfAttacked">Você não pode rocar se o rei está sob ameaça no caminho. Bloqueie o xeque, e então conclua o roque!</string>
   <string name="findAWayToCastleKingSide">Encontre uma maneira de executar o roque menor (da ala do rei)!</string>
   <string name="findAWayToCastleQueenSide">Encontre uma maneira de executar o roque maior (da ala da rainha)!</string>
-  <string name="castlingComplete">Parabéns! Você deve realizar o roque quase sempre em um jogo.</string>
+  <string name="castlingComplete">Parabéns! Você deve rocar em quase todas as partidas.</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">O movimento especial do peão</string>
-  <string name="enPassantIntro">Quando um peão do oponente mover-se duas posições, você pode captura-lo como se ele tivesse sido movido apenas uma posição.</string>
-  <string name="blackJustMovedThePawnByTwoSquares">As pretas acabarão de mover o peão duas posições! Capture-o \"en passant\".</string>
-  <string name="enPassantOnlyWorksImmediately">\"En passant\" somente é possível imediatamente após o oponente mover o peão.</string>
-  <string name="enPassantOnlyWorksOnFifthRank">\"En passant\" somente é possível caso o seu peão esteja na 5ª linha.</string>
-  <string name="takeAllThePawnsEnPassant">Capture todos os peões \"en passant\"!</string>
-  <string name="enPassantComplete">Parabéns! Você agora pode capturar \"en passant\".</string>
+  <string name="enPassantIntro">Quando um peão do oponente mover-se duas posições, você pode capturá-lo como se ele tivesse movido apenas uma posição.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">As pretas acabaram de mover o peão duas posições! Capture-o en passant.</string>
+  <string name="enPassantOnlyWorksImmediately">En passant somente é possível imediatamente após o oponente mover o peão.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">En passant somente é possível caso o seu peão esteja na 5ª linha.</string>
+  <string name="takeAllThePawnsEnPassant">Capture todos os peões en passant!</string>
+  <string name="enPassantComplete">Parabéns! Você agora pode capturar en passant.</string>
   <string name="stalemate">Rei afogado</string>
-  <string name="theGameIsADraw">A partida está empatada</string>
-  <string name="stalemateIntro">Quando um jogador não está em xeque e não existe nenhum movimento permitido disponível, há um \"afogamento\". O jogo termina em empate: ninguém ganhou, ninguém perdeu.</string>
-  <string name="stalemateGoal">Para \"afogar\" as pretas:
-- As pretas não podemos mover-se em qualquer lugar
+  <string name="theGameIsADraw">A partida fica empatada</string>
+  <string name="stalemateIntro">Quando um jogador não está em xeque e pode fazer nenhum movimento legal, há um afogamento. O jogo termina em empate: ninguém ganha, ninguém perde.</string>
+  <string name="stalemateGoal">Para afogar as pretas:
+- As pretas não podem mover-se para lugar algum
 - Não há xeque.</string>
   <string name="stalemateComplete">Parabéns! Um empate é melhor do que uma derrota!</string>
   <string name="advanced">Avançado</string>
-  <string name="pieceValue">Valor das peças</string>
+  <string name="pieceValue">Avaliando</string>
   <string name="evaluatePieceStrength">Avalie o valor de cada peça</string>
   <string name="pieceValueIntro">Peças com maior mobilidade possuem maior valor!
-Rainha = 9
-Torre = 5
-Bispo = 3
-Cavalo = 3
+Rainha = 9    Torre = 5
+Bispo = 3      Cavalo = 3
 Peão = 1
-O valor do rei não é definido! Perde-lo significa perder o jogo.</string>
+O rei é inestimável! Perdê-lo significa ser derrotado.</string>
   <string name="queenOverBishop">Capture a peça de maior valor!
 Rainha &gt; Bispo</string>
   <string name="takeThePieceWithTheHighestValue">Capture a peça de maior valor!</string>
-  <string name="pieceValueComplete">Parabéns! Você sabe o valor do material! 
+  <string name="pieceValueComplete">Parabéns! Você conhece o valor material! 
 Rainha = 9 
 Torre = 5 
 Bispo = 3 
@@ -180,17 +179,17 @@ Peão = 1</string>
   <string name="whatNext">O que vem depois?</string>
   <string name="youKnowHowToPlayChess">Você sabe como jogar xadrez, parabéns! Você quer se tornar um jogador mais forte?</string>
   <string name="register">Registrar</string>
-  <string name="getAFreeLichessAccount">Obtenha uma conta Lichess gratuitamente</string>
+  <string name="getAFreeLichessAccount">Obtenha uma conta Lichess grátis</string>
   <string name="practice">Praticar</string>
   <string name="learnCommonChessPositions">Aprenda posições comuns do xadrez</string>
   <string name="puzzles">Quebra-cabeças</string>
   <string name="exerciseYourTacticalSkills">Exercite suas habilidades táticas</string>
   <string name="videos">Vídeos</string>
   <string name="watchInstructiveChessVideos">Assista a vídeos de xadrez instrutivos</string>
-  <string name="playPeople">Jogue com pessoas</string>
+  <string name="playPeople">Jogue online</string>
   <string name="opponentsFromAroundTheWorld">Oponentes de todo o mundo</string>
-  <string name="playMachine">Jogue com o computador</string>
-  <string name="testYourSkillsWithTheComputer">Teste suas habilidades com o computador</string>
+  <string name="playMachine">Computador</string>
+  <string name="testYourSkillsWithTheComputer">Desafie o computador</string>
   <string name="letsGo">Vamos lá!</string>
   <string name="stageX">Etapa %s</string>
   <string name="awesome">Fantástico!</string>

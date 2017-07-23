@@ -92,7 +92,7 @@
   <string name="replayMode">再現の方式</string>
   <string name="realtimeReplay">リアルタイム</string>
   <string name="byCPL">評価値変化</string>
-  <string name="openStudy">ゲーム検討を開く</string>
+  <string name="openStudy">研究を開く</string>
   <string name="enable">解析する</string>
   <string name="bestMoveArrow">最善手を表示</string>
   <string name="evaluationGauge">評価値を表示</string>
@@ -419,8 +419,8 @@
   <string name="help">ヘルプ：</string>
   <string name="createANewTopic">新しいトピックを作成</string>
   <string name="topics">トピック</string>
-  <string name="posts">ポスト</string>
-  <string name="lastPost">最新のポスト</string>
+  <string name="posts">投稿数</string>
+  <string name="lastPost">最新の投稿</string>
   <string name="views">閲覧数</string>
   <string name="replies">返信</string>
   <string name="replyToThisTopic">このトピックに返信</string>
@@ -482,7 +482,7 @@
   <string name="privacy">プライバシー</string>
   <string name="letOtherPlayersFollowYou">他人からのフォローを可能にする</string>
   <string name="letOtherPlayersChallengeYou">他人からの挑戦を可能にする</string>
-  <string name="letOtherPlayersInviteYouToStudy">ゲーム検討について他の人からの招待を認める</string>
+  <string name="letOtherPlayersInviteYouToStudy">研究について他の人からの招待を認める</string>
   <string name="sound">音声</string>
   <string name="yourPreferencesHaveBeenSaved">設定が保存されました。</string>
   <string name="none">無効</string>
@@ -683,8 +683,8 @@
   <string name="usernameInvalid">無効なユーザー名です。使えるのは英数字、アンダースコア、ダッシュだけです。</string>
   <string name="usernameStartNoNumber">ユーザー名の最初は数字であってはいけません。</string>
   <string name="usernameUnacceptable">このユーザー名は認められません。</string>
-  <string name="directlySupportLichess">Lichess を直接に支援する</string>
-  <string name="playChessInStyle">グッズ販売</string>
+  <string name="directlySupportLichess">Lichess を支援（寄付）</string>
+  <string name="playChessInStyle">グッズ購入</string>
   <string name="chessBasics">チェスの基本</string>
   <string name="coaches">コーチ</string>
   <string name="invalidPgn">無効な PGN</string>
