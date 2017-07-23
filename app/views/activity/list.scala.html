@@ -159,7 +159,7 @@ case (pt, score) => {
     } else {
     @trans.activity.joinedNbSimuls.pluralSame(simuls.size)
     }
-    <div class="sub">@htmlList(simuls.map(renderSimul))</div>
+    <div class="sub">@simuls.map(renderSimul)</div>
     }
     }
   </div>
