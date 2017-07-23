@@ -238,6 +238,7 @@
     <item quantity="one">Ge  %s sekunder</item>
     <item quantity="other">Ge  %s sekunder</item>
   </plurals>
+  <string name="giveMoreTime">Ge mer tid</string>
   <string name="thisPlayerUsesChessComputerAssistance">Den här spelaren tar hjälp av schackmotor</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Den här spelaren ökar/minskar sin rating artificiellt</string>
   <string name="openingExplorerAndTablebase">Öppningsutforskare &amp; tablebase</string>
