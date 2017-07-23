@@ -193,6 +193,7 @@ val `freeOnlineChess` = new Translated("freeOnlineChess", Site)
 val `spectators` = new Translated("spectators", Site)
 val `exportGames` = new Translated("exportGames", Site)
 val `ratingRange` = new Translated("ratingRange", Site)
+val `giveMoreTime` = new Translated("giveMoreTime", Site)
 val `thisPlayerUsesChessComputerAssistance` = new Translated("thisPlayerUsesChessComputerAssistance", Site)
 val `thisPlayerArtificiallyIncreasesTheirRating` = new Translated("thisPlayerArtificiallyIncreasesTheirRating", Site)
 val `openingExplorerAndTablebase` = new Translated("openingExplorerAndTablebase", Site)
@@ -864,6 +865,7 @@ val `retry` = new Translated("retry", Learn)
 object activity {
 val `activity` = new Translated("activity", Activity)
 val `supportedNbMonths` = new Translated("supportedNbMonths", Activity)
+val `rankedInTournament` = new Translated("rankedInTournament", Activity)
 val `practicedNbPositions` = new Translated("practicedNbPositions", Activity)
 val `solvedNbPuzzles` = new Translated("solvedNbPuzzles", Activity)
 val `playedNbGames` = new Translated("playedNbGames", Activity)
@@ -876,7 +878,6 @@ val `hostedNbSimuls` = new Translated("hostedNbSimuls", Activity)
 val `joinedNbSimuls` = new Translated("joinedNbSimuls", Activity)
 val `createdNbStudies` = new Translated("createdNbStudies", Activity)
 val `competedInNbTournaments` = new Translated("competedInNbTournaments", Activity)
-val `rankedInTournament` = new Translated("rankedInTournament", Activity)
 }
 
 }

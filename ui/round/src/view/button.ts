@@ -230,7 +230,10 @@ export function backToTournament(ctrl: RoundController): VNode | undefined {
 
 export function moretime(ctrl: RoundController) {
   return game.moretimeable(ctrl.data) ? h('a.moretime.hint--bottom-left', {
-    attrs: { 'data-hint': ctrl.trans('giveNbSeconds', ctrl.data.clock!.moretime) },
+    attrs: {
+      'data-hint': ctrl.data.clock ? ctrl.trans('giveNbSeconds', ctrl.data.clock.moretime) :
+      ctrl.trans.noarg('giveMoreTime')
+    },
     hook: util.bind('click', ctrl.socket.moreTime)
   }, [
     h('span', util.justIcon('O'))

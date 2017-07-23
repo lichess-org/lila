@@ -59,7 +59,12 @@ export function berserkableBy(data: GameData): boolean {
 }
 
 export function moretimeable(data: GameData): boolean {
-  return !!data.clock && isPlayerPlaying(data) && !mandatory(data);
+  return isPlayerPlaying(data) && !mandatory(data) && (
+    !!data.clock ||
+    (!!data.correspondence &&
+      data.correspondence[data.opponent.color] < (data.correspondence.increment - 3600)
+    )
+  );
 }
 
 export function imported(data: GameData): boolean {

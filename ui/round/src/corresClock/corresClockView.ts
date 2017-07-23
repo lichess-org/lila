@@ -2,6 +2,7 @@ import { h } from 'snabbdom'
 import { Millis } from '../clock/clockCtrl';
 import { Position } from '../interfaces';
 import { CorresClockController } from './corresClockCtrl';
+import { moretime } from '../view/button';
 
 function prefixInteger(num: number, length: number): string {
   return (num / Math.pow(10, length)).toFixed(length).substr(2);
@@ -34,10 +35,11 @@ function formatClockTime(trans: Trans, time: Millis) {
 }
 
 export default function(ctrl: CorresClockController, trans: Trans, color: Color, position: Position, runningColor: Color) {
-  const millis = ctrl.millisOf(color);
-  const update = (el: HTMLElement) => {
+  const millis = ctrl.millisOf(color),
+  update = (el: HTMLElement) => {
     el.innerHTML = formatClockTime(trans, millis);
-  };
+  },
+  isPlayer = ctrl.root.data.player.color === color;
   return h('div.correspondence.clock.clock_' + color + '.clock_' + position, {
     class: {
       outoftime: millis <= 0,
@@ -54,6 +56,7 @@ export default function(ctrl: CorresClockController, trans: Trans, color: Color,
         insert: vnode => update(vnode.elm as HTMLElement),
         postpatch: (_, vnode) => update(vnode.elm as HTMLElement)
       }
-    })
+    }),
+    isPlayer ? null : moretime(ctrl.root),
   ]);
 }

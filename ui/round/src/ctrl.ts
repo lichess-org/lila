@@ -500,6 +500,7 @@ export default class RoundController {
   private makeCorrespondenceClock = (): void => {
     if (this.data.correspondence && !this.corresClock)
     this.corresClock = makeCorresClock(
+      this,
       this.data.correspondence,
       this.socket.outoftime
     );

@@ -7,6 +7,7 @@ export interface GameData {
   simul?: Simul;
   takebackable: boolean;
   clock?: Clock;
+  correspondence?: CorrespondenceClock;
 }
 
 export interface Game {
@@ -84,6 +85,12 @@ export interface Simul {
 
 export interface Clock {
   running: boolean;
+}
+export interface CorrespondenceClock {
+  daysPerTurn: number;
+  increment: number;
+  white: number;
+  black: number;
 }
 
 export type Source = 'import' | 'lobby' | 'pool';

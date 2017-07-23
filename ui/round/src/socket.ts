@@ -62,6 +62,14 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
         ctrl.redraw();
       }
     },
+    cclock(o) {
+      if (ctrl.corresClock) {
+        ctrl.data.correspondence.white = o.white;
+        ctrl.data.correspondence.black = o.black;
+        ctrl.corresClock.update(o.white, o.black);
+        ctrl.redraw();
+      }
+    },
     crowd(o) {
       game.setOnGame(ctrl.data, 'white', o['white']);
       game.setOnGame(ctrl.data, 'black', o['black']);

@@ -241,6 +241,7 @@
     <item quantity="one">Give %s second</item>
     <item quantity="other">Give %s seconds</item>
   </plurals>
+  <string name="giveMoreTime">Give more time</string>
   <string name="thisPlayerUsesChessComputerAssistance">This player uses chess computer assistance</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">This player artificially increases/decreases their rating</string>
   <string name="openingExplorerAndTablebase">Opening explorer &amp; tablebase</string>

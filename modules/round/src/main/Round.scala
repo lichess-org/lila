@@ -180,14 +180,19 @@ private[round] final class Round(
     }
 
     case Moretime(playerRef) => handle(playerRef) { pov =>
-      pov.game.clock.ifTrue(pov.game moretimeable !pov.color) ?? { clock =>
+      pov.game.clock.ifTrue(pov.game moretimeable !pov.color).map { clock =>
         val newClock = clock.giveTime(!pov.color, moretimeDuration.toCentis)
         val progress = (pov.game withClock newClock) + Event.Clock(newClock)
         messenger.system(pov.game, (_.untranslated(
           "%s + %d seconds".format(!pov.color, moretimeDuration.toSeconds)
         )))
         proxy save progress inject progress.events
-      }
+      } orElse pov.game.correspondenceClock.ifTrue(pov.game moretimeable !pov.color).map { clock =>
+        val progress = pov.game.correspondenceGiveTime
+        messenger.system(pov.game, (_.untranslated(s"${!pov.color} gets more time")))
+        val events = progress.game.correspondenceClock.map(Event.CorrespondenceClock.apply).toList
+        proxy save progress inject events
+      } getOrElse fuccess(Nil)
     }
 
     case ForecastPlay(lastMove) => handle { game =>
