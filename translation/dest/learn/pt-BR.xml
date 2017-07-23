@@ -24,7 +24,7 @@
 um bispo para as casas pretas.
 Você precisa de ambos!</string>
   <string name="bishopComplete">Parabéns! Você pode comandar um bispo.</string>
-  <string name="theQueen">A rainha</string>
+  <string name="theQueen">A dama</string>
   <string name="queenCombinesRookAndBishop">Dama = torre + bispo</string>
   <string name="queenIntro">Entra a mais poderosa das peças. Sua majestade, a rainha (dama)!</string>
   <string name="queenComplete">Parabéns! Damas (rainhas) não têm segredos para você.</string>
@@ -37,19 +37,18 @@ Você precisa de ambos!</string>
   <string name="theKnight">O cavalo</string>
   <string name="itMovesInAnLShape">Move-se no formato de um L</string>
   <string name="knightIntro">Aqui está um desafio para você. O cavalo é... uma peça surpreendente.</string>
-  <string name="knightsHaveAFancyWay">Cavalos têm uma maneira elegante de saltar por aí!</string>
+  <string name="knightsHaveAFancyWay">Cavalos têm uma maneira peculiar de saltar por aí!</string>
   <string name="knightsCanJumpOverObstacles">Cavalos podem saltar sobre obstáculos!
 Escape e conquiste as estrelas!</string>
   <string name="knightComplete">Parabéns! Você acaba tornar-se um mestre dos cavalos.</string>
   <string name="thePawn">O peão</string>
   <string name="itMovesForwardOnly">Move-se apenas para frente</string>
   <string name="pawnIntro">Peões são fracos, mas possuem grande potencial.</string>
-  <string name="pawnsMoveOneSquareOnly">Peões se movem apenas uma casa.
+  <string name="pawnsMoveOneSquareOnly">Peões andam apenas uma casa.
 Mas quando alcançam o outro lado do tabuleiro, transformam-se em uma peça mais forte!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">Na maioria das vezes o melhor é promovê-lo a uma dama.
 Mas às vezes um cavalo pode ser útil!</string>
-  <string name="pawnsMoveForward">Peões movem-se para a frente, 
-mas capturam na diagonal!</string>
+  <string name="pawnsMoveForward">Peões movem-se para a frente, mas capturam na diagonal!</string>
   <string name="captureThenPromote">Capture, e então promova!</string>
   <string name="useAllThePawns">Use todos os peões! 
 Não é necessário promover.</string>
