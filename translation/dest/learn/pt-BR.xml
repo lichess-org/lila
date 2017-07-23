@@ -67,8 +67,8 @@ Não é necessário promover.</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Capture as peças pretas!
 E não perca as suas.</string>
   <string name="captureComplete">Parabéns! Você já sabe como lutar com peças de xadrez!</string>
-  <string name="protection">Defesa</string>
-  <string name="keepYourPiecesSafe">Mantenha suas peças em segurança</string>
+  <string name="protection">Defender</string>
+  <string name="keepYourPiecesSafe">Proteja suas peças</string>
   <string name="protectionIntro">Identifique as peças que seu oponente está atacando e defenda-as!</string>
   <string name="protectionComplete">Parabéns! Cada peça que você não perde é uma peça que você ganha!</string>
   <string name="escape">Você está sob ataque!
@@ -104,7 +104,7 @@ ou bloqueie o ataque!</string>
   <string name="attackYourOpponentsKing">Ataque o rei adversário de uma maneira que ele não possa se defender!</string>
   <string name="mateInOneComplete">Parabéns! É assim que você vence jogos de xadrez!</string>
   <string name="intermediate">Intermediário</string>
-  <string name="boardSetup">Posição inicial</string>
+  <string name="boardSetup">Tabuleiro</string>
   <string name="howTheGameStarts">Como o jogo inicia</string>
   <string name="boardSetupIntro">Os dois exércitos se enfrentam, prontos para a batalha.</string>
   <string name="thisIsTheInitialPosition">Esta é a posição inicial de qualquer jogo de xadrez! Faça qualquer movimento para continuar.</string>
@@ -147,14 +147,14 @@ Mas antes você precisa retirar as peças do meio.</string>
   <string name="takeAllThePawnsEnPassant">Capture todos os peões en passant!</string>
   <string name="enPassantComplete">Parabéns! Você agora pode capturar en passant.</string>
   <string name="stalemate">Rei afogado</string>
-  <string name="theGameIsADraw">A partida está empatada</string>
+  <string name="theGameIsADraw">A partida fica empatada</string>
   <string name="stalemateIntro">Quando um jogador não está em xeque e não existe nenhum movimento permitido disponível, há um afogamento. O jogo termina em empate: ninguém ganhou, ninguém perdeu.</string>
   <string name="stalemateGoal">Para afogar as pretas:
 - As pretas não podem mover-se para lugar algum
 - Não há xeque.</string>
   <string name="stalemateComplete">Parabéns! Um empate é melhor do que uma derrota!</string>
   <string name="advanced">Avançado</string>
-  <string name="pieceValue">Valor das peças</string>
+  <string name="pieceValue">Valor material</string>
   <string name="evaluatePieceStrength">Avalie o valor de cada peça</string>
   <string name="pieceValueIntro">Peças com maior mobilidade possuem maior valor!
 Rainha = 9
