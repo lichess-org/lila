@@ -61,7 +61,9 @@
   <string name="variantWin">Variantoverwinning</string>
   <string name="insufficientMaterial">Onvoldoende materiaal</string>
   <string name="pawnMove">Pionzet</string>
+  <string name="capture">Slagzet</string>
   <string name="close">Sluiten</string>
+  <string name="winning">Wint</string>
   <string name="unknown">Onbekend</string>
   <string name="database">Databank</string>
   <string name="whiteDrawBlack">Wit / Remise / Zwart</string>
