@@ -82,8 +82,8 @@
   <string name="noGameFound">No se ha encontrado ninguna partida</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prueba incluyendo más partidas desde el menú de preferencias</string>
   <string name="openingExplorer">Explorador de aperturas y base de datos de finales</string>
-  <string name="xOpeningExplorer">%s Explorador de Aperturas</string>
-  <string name="winPreventedBy50MoveRule">Ganado esta prevenido por la regla de 50 movimientos</string>
+  <string name="xOpeningExplorer">Explorador de la apertura %s</string>
+  <string name="winPreventedBy50MoveRule">Victoria impedida por la regla de los 50 movimientos</string>
   <string name="lossSavedBy50MoveRule">Pérdida esta preventido por regla de 50 movimientos</string>
   <string name="allSet">¡Listo!</string>
   <string name="importPgn">Importar PGN</string>
