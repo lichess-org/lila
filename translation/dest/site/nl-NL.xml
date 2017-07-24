@@ -466,6 +466,7 @@
   <string name="closeAccountExplanation">Weet je zeker dat je je account wilt sluiten? Het sluiten van uw account is een permanente keuze. U kunt dan niet langer inloggen en uw profielpagina zal dan niet langer toegankelijk zijn.</string>
   <string name="thisAccountIsClosed">Dit account is gesloten.</string>
   <string name="invalidUsernameOrPassword">Ongeldige gebruikersnaam of wachtwoord</string>
+  <string name="incorrectPassword">Onjuist wachtwoord</string>
   <string name="emailMeALink">Email me een link</string>
   <string name="currentPassword">Huidig wachtwoord</string>
   <string name="newPassword">Nieuw wachtwoord</string>
@@ -544,6 +545,7 @@
   <string name="playOnTheBoardOffline">Speel offline</string>
   <string name="playOfflineComputer">Computer</string>
   <string name="opponent">Tegenstander</string>
+  <string name="learnMenu">Leren</string>
   <string name="community">Gemeenschap</string>
   <string name="tools">Gereedschap</string>
   <string name="increment">Extra tijd</string>
@@ -556,7 +558,9 @@
   <string name="error.email">Dit emailadres is ongeldig</string>
   <string name="error.email_acceptable">Dit emailadres is onacceptabel</string>
   <string name="error.email_unique">Dit emailadres is al in gebruik</string>
+  <string name="error.email_different">Dit is uw huidige e-mailadres</string>
   <string name="blindfoldChess">Blindschaak (onzichtbare stukken)</string>
+  <string name="zenMode">Zen modus</string>
   <string name="moveConfirmation">Zetbevestiging</string>
   <string name="inCorrespondenceGames">Bij correspondentiepartijen</string>
   <string name="ifRatingIsPlusMinusX">Indien de rating ± %s is</string>
@@ -642,6 +646,7 @@
   <string name="crosstable">Onderlinge partijen</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Je kunt ook over het bord scrollen om je zetten uit te voeren.</string>
   <string name="analysisShapesHowTo">Druk op shift+linkermuisknop of rechtermuisknop om cirkels en pijlen op het bord te tekenen.</string>
+  <string name="confirmResignationAndDrawOffers">Opgave en remise-aanbod bevestigen</string>
   <string name="inputMovesWithTheKeyboard">Zetten invoeren met het toetsenbord</string>
   <string name="letOtherPlayersMessageYou">Andere spelers mogen je berichten zenden</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rokeren door de koning twee vakjes te verplaatsen, of naar de toren</string>
@@ -684,6 +689,7 @@
   <string name="xLikesY">%1$s vindt %2$s leuk</string>
   <string name="quickPairing">Snel koppelen</string>
   <string name="lobby">Lobby</string>
+  <string name="anonymous">Anoniem</string>
   <string name="yourScore">Uw score: %s</string>
   <string name="language">Taal</string>
   <string name="background">Achtergrond</string>
