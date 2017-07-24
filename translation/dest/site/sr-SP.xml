@@ -150,6 +150,16 @@
   <string name="correspondence">Кореспонденције</string>
   <string name="daysPerTurn">Дана по потезу</string>
   <string name="oneDay">Један дан</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s дан</item>
+    <item quantity="few">%s дана</item>
+    <item quantity="other">%s дана</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s сат</item>
+    <item quantity="few">%s сати</item>
+    <item quantity="other">%s сати</item>
+  </plurals>
   <string name="time">Време</string>
   <string name="rating">Рејтинг</string>
   <string name="ratingStats">Статистика рејтинга</string>
@@ -165,6 +175,11 @@
   <string name="forgotPassword">Заборавили сте лозинку?</string>
   <string name="rank">Ранг</string>
   <string name="gamesPlayed">Број одиграних партија</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s игра са вама</item>
+    <item quantity="few">%s игара са вама</item>
+    <item quantity="other">%s игара са вама</item>
+  </plurals>
   <string name="cancel">Откажи</string>
   <string name="timeOut">Истекло време</string>
   <string name="drawOfferSent">Захтев за реми је послат</string>
@@ -214,8 +229,28 @@
     <item quantity="few">%s рангиране</item>
     <item quantity="other">%s рангирано</item>
   </plurals>
+  <plurals name="nbWins">
+    <item quantity="one">%s победа</item>
+    <item quantity="few">%s победе</item>
+    <item quantity="other">%s победе</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s пораз</item>
+    <item quantity="few">%s пораза</item>
+    <item quantity="other">%s пораза</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s реми</item>
+    <item quantity="few">%s ремија</item>
+    <item quantity="other">%s ремија</item>
+  </plurals>
   <string name="exportGames">Извоз партија</string>
   <string name="ratingRange">ЕЛО ранг</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">Додај %s секунд</item>
+    <item quantity="few">Додај %s секунди</item>
+    <item quantity="other">Додај %s секунди</item>
+  </plurals>
   <string name="giveMoreTime">Додај још времена</string>
   <string name="thisPlayerUsesChessComputerAssistance">Овај играч користи помоћ рачунара</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ovi igrači veštački uvećavaju svoj rejting</string>
@@ -238,6 +273,11 @@
   <string name="backToGame">Повратак у игру</string>
   <string name="siteDescription">Бесплатни интернет шах. Играј сада у чистом окружењу. Без регистрације, реклама, додатака захтеваних. Играј шах ротив рачунара, пријатеља или насумичних противника.</string>
   <string name="teams">Тимови</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s члан</item>
+    <item quantity="few">%s чланова</item>
+    <item quantity="other">%s чланова</item>
+  </plurals>
   <string name="allTeams">Сви тимови</string>
   <string name="newTeam">Нови тим</string>
   <string name="myTeams">Моји тимови</string>
@@ -265,6 +305,11 @@
   <string name="continueFromHere">Настави одавде</string>
   <string name="importGame">Увези игру</string>
   <string name="importGameExplanation">Кад прекопирате партију у PGN-у, отвори се табла за поновно проигравање, рачунарска анализа, прозор за ћаскање и адреса странице.</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s увезена игра</item>
+    <item quantity="few">%s увезених игара</item>
+    <item quantity="other">%s увезених игара</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">Ово је шаховски КАПЧА.</string>
   <string name="clickOnTheBoardToMakeYourMove">Кликни на таблу и направи потез да би доказао да си људско биће.</string>
   <string name="captcha.fail">Решите \"капча\" шаховски проблем.</string>
@@ -284,6 +329,16 @@
   <string name="unblock">Одблокирај</string>
   <string name="followsYou">Прате тебе</string>
   <string name="xStartedFollowingY">%1$s почео праћење %2$s</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s пратиоц</item>
+    <item quantity="few">%s пратиоца</item>
+    <item quantity="other">%s пратиоца</item>
+  </plurals>
+  <plurals name="nbFollowing">
+    <item quantity="one">%s прати</item>
+    <item quantity="few">%s прати</item>
+    <item quantity="other">%s прати</item>
+  </plurals>
   <string name="more">Више</string>
   <string name="memberSince">Члан од</string>
   <string name="lastSeenActive">Последња посета %s</string>
@@ -291,6 +346,11 @@
   <string name="player">Играч</string>
   <string name="list">Списак</string>
   <string name="graph">Графикон</string>
+  <plurals name="lessThanNbMinutes">
+    <item quantity="one">Мање од %s минут</item>
+    <item quantity="few">Мање од %s минута</item>
+    <item quantity="other">Мање од %s минута</item>
+  </plurals>
   <string name="required">Обавезно.</string>
   <string name="openTournaments">Отворени турнири</string>
   <string name="duration">Трајање</string>
@@ -364,12 +424,22 @@
   <string name="pleaseVotePuzzle">Помози да се lichess побољша гласајући , користећи стрелице горе/доле</string>
   <string name="thankYou">Хвала!</string>
   <string name="ratingX">Рејтинг %s</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Играно %s пут</item>
+    <item quantity="few">Играно %s пута</item>
+    <item quantity="other">Играно %s пута</item>
+  </plurals>
   <string name="fromGameLink">Из партије %s</string>
   <string name="startTraining">Почни тренинг</string>
   <string name="continueTraining">Настави тренинг</string>
   <string name="retryThisPuzzle">Покушај поново ову вежбу</string>
   <string name="thisPuzzleIsCorrect">Ова вежба је правилна и занимљива</string>
   <string name="thisPuzzleIsWrong">Ова вежба је неправилна или досадна</string>
+  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
+    <item quantity="one">Имате %s секунд за први потез потез!</item>
+    <item quantity="few">Имате %s секунди за први потез потез!</item>
+    <item quantity="other">Имате %s секунди за први потез потез!</item>
+  </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Аутоматско пребацивање у следећу игру после потеза</string>
   <string name="autoSwitch">Аутопребацивање</string>
   <string name="puzzles">Загонетке</string>
