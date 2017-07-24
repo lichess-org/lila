@@ -62,12 +62,14 @@
   <string name="capture">Taş alma</string>
   <string name="close">Kapat</string>
   <string name="winning">Kazanan</string>
+  <string name="losing">Kayıp</string>
   <string name="drawn">Berabere</string>
   <string name="unknown">Belirsiz</string>
   <string name="database">Veritabanı</string>
   <string name="whiteDrawBlack">Beyaz / Berabere / Siyah</string>
   <string name="averageRatingX">Ortalama puan: %s</string>
   <string name="recentGames">Son oyunlar</string>
+  <string name="topGames">En yüksek puanlı oyunlar</string>
   <string name="noGameFound">Oyun bulunamadı</string>
   <string name="openingExplorer">Açılış kâşifi</string>
   <string name="allSet">Her şey tamam!</string>
