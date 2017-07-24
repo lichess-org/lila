@@ -104,7 +104,7 @@ module.exports = function(element, cfg) {
     var $panel = $panels.filter('.computer_analysis');
     if (!$("#adv_chart").length) $panel.html('<div id="adv_chart"></div>' + (loading ? chartLoader() : ''));
     else if (loading && !$("#adv_chart_loader").length) $panel.append(chartLoader());
-    lichess.loadScript('/assets/javascripts/chart/advantage.js').then(function() {
+    lichess.loadScript('/assets/javascripts/chart/acpl.js').then(function() {
       lichess.advantageChart(data);
     });
   };
