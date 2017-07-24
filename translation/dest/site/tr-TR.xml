@@ -57,6 +57,7 @@
   <string name="inLocalBrowser">yerel tarayıcı üzerinde</string>
   <string name="toggleLocalEvaluation">Yerel analizi aç/kapat</string>
   <string name="move">Hamle</string>
+  <string name="insufficientMaterial">Yetersiz materyal</string>
   <string name="pawnMove">Piyon hamlesi</string>
   <string name="close">Kapat</string>
   <string name="whiteDrawBlack">Beyaz / Berabere / Siyah</string>
@@ -685,5 +686,6 @@
   <string name="error.unknown">Hata</string>
   <string name="custom">Özel</string>
   <string name="notifications">Bildirimler</string>
+  <string name="challenges">Meydan okumalar</string>
   <string name="perfRatingX">Puan: %s</string>
 </resources>
