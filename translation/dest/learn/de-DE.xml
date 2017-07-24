@@ -76,7 +76,7 @@
   <string name="checkInOneIntro">Um deinen Gegner Schach zu setzen, greife seinen König an. Er muss ihn verteidigen!</string>
   <string name="checkInOneGoal">Ziele auf den König in einem Zug!</string>
   <string name="checkInOneComplete">Herzlichen Glückwunsch! Du hast deinen Gegner Schach gesetzt und ihn gezwungen, seinen König zu verteidigen!</string>
-  <string name="outOfCheck">Schach</string>
+  <string name="outOfCheck">Aus dem Schach</string>
   <string name="defendYourKing">Verteidige deinen König</string>
   <string name="outOfCheckIntro">Du befindest dich im Schach! Du musst fliehen oder den Angriff blocken.</string>
   <string name="escapeWithTheKing">Entkomme mit dem König!</string>
