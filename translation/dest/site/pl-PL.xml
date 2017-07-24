@@ -244,6 +244,11 @@
     <item quantity="few">%s remisy</item>
     <item quantity="other">%s remisów</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s w toku</item>
+    <item quantity="few">%s w toku</item>
+    <item quantity="other">%s w toku</item>
+  </plurals>
   <string name="exportGames">Eksportuj gry</string>
   <string name="ratingRange">Ranking przeciwnika</string>
   <plurals name="giveNbSeconds">
