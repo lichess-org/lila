@@ -55,6 +55,7 @@
   <string name="goDeeper">Hlouběji</string>
   <string name="showThreat">Zobrazit hrozbu</string>
   <string name="inLocalBrowser">v lokálním prohlížeči</string>
+  <string name="toggleLocalEvaluation">Lokální analýza</string>
   <string name="move">Tah</string>
   <string name="variantLoss">Prohra</string>
   <string name="variantWin">Výhra</string>
@@ -85,6 +86,14 @@
   <string name="replayMode">Mód přehrávání</string>
   <string name="realtimeReplay">Jako při hře</string>
   <string name="byCPL">Dle CPL</string>
+  <string name="openStudy">Otevřít studii</string>
+  <string name="enable">Povolit analýzu</string>
+  <string name="bestMoveArrow">Šipka pro nejlepší tah</string>
+  <string name="multipleLines">Počet variant</string>
+  <string name="cpus">Procesor(y)</string>
+  <string name="memory">Paměť</string>
+  <string name="infiniteAnalysis">Nekonečná analýza</string>
+  <string name="removesTheDepthLimit">Zapne nekonečnou analýzu a odstraní omezení hloubky propočtu</string>
   <string name="blunders">Hrubky</string>
   <string name="mistakes">Omyly</string>
   <string name="inaccuracies">Nepřesnosti</string>
@@ -308,7 +317,7 @@
   <string name="thisPuzzleIsCorrect">Tato úloha je správná a zajímavá</string>
   <string name="thisPuzzleIsWrong">Tato úloha je špatná nebo nudná</string>
   <string name="automaticallyProceedToNextGameAfterMoving">Automaticky přejdi k další hře po tahu</string>
-  <string name="autoSwitch">Přepni automaticky</string>
+  <string name="autoSwitch">Přepnout automaticky</string>
   <string name="puzzles">Puzzle</string>
   <string name="coordinates">Souřadnice</string>
   <string name="latestUpdates">Poslední aktualizace</string>
@@ -529,6 +538,7 @@
   <string name="viewTheSolution">Zobrazit řešení</string>
   <string name="followAndChallengeFriends">Hraj s přáteli</string>
   <string name="gameAnalysis">Analýza hry</string>
+  <string name="quickPairing">Rychlá hra</string>
   <string name="language">Jazyk</string>
   <string name="background">Pozadí</string>
   <string name="boardSize">Velikost šachovnice</string>
@@ -539,6 +549,7 @@
   <string name="invalidPgn">Neplatný formát PGN</string>
   <string name="invalidFen">Neplatný formát FEN</string>
   <string name="error.unknown">Chyba</string>
+  <string name="custom">Vlastní</string>
   <string name="notifications">Oznámení</string>
   <string name="challenges">Výzvy</string>
 </resources>
