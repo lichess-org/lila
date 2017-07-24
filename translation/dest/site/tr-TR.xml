@@ -35,7 +35,7 @@
   <string name="makeYourOpponentResign">Rakibiniz oyunu terk etsin</string>
   <string name="forceResignation">Galibiyet talep et</string>
   <string name="forceDraw">Beraberlik ilan et</string>
-  <string name="talkInChat">Lütfen sohbette nazik olunuz!</string>
+  <string name="talkInChat">Lütfen sohbette nazik ol</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Bağlantıya ilk ulaşan kişi rakibiniz olacak.</string>
   <string name="whiteResigned">Beyaz oyundan çekildi</string>
   <string name="blackResigned">Siyah oyundan çekildi</string>
@@ -60,10 +60,11 @@
   <string name="pawnMove">Piyon hamlesi</string>
   <string name="close">Kapat</string>
   <string name="whiteDrawBlack">Beyaz / Berabere / Siyah</string>
+  <string name="noGameFound">Oyun bulunamadı</string>
   <string name="openingExplorer">Açılış kâşifi</string>
   <string name="allSet">Her şey tamam!</string>
   <string name="enable">Etkinleştir</string>
-  <string name="bestMoveArrow">En iyi hamle göstergeci</string>
+  <string name="bestMoveArrow">En iyi hamle imleci</string>
   <string name="evaluationGauge">Değerlendirme çubuğu</string>
   <string name="multipleLines">Çoklu varyantlar</string>
   <string name="cpus">İşlemci</string>
