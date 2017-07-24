@@ -98,8 +98,8 @@ object UserInfo {
   case class NbGames(
       crosstable: Option[Crosstable.WithMatchup],
       playing: Int,
-      bookmark: Int,
-      imported: Int
+      imported: Int,
+      bookmark: Int
   ) {
     def withMe: Option[Int] = crosstable.map(_.crosstable.nbGames)
   }
@@ -115,7 +115,12 @@ object UserInfo {
         gameCached.nbImportedBy(u.id) zip
         bookmarkApi.countByUser(u) map {
           case crosstable ~ playing ~ imported ~ bookmark =>
-            NbGames(crosstable, playing, imported, bookmark)
+            NbGames(
+              crosstable,
+              playing = playing,
+              imported = imported,
+              bookmark = bookmark
+            )
         }
   }
 
