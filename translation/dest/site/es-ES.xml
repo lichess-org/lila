@@ -57,6 +57,8 @@
   <string name="inLocalBrowser">en el navegador local</string>
   <string name="toggleLocalEvaluation">Evaluación local</string>
   <string name="move">Movimiento</string>
+  <string name="variantLoss">Movimiento perdedor</string>
+  <string name="variantWin">Movimiento ganador</string>
   <string name="insufficientMaterial">Material insuficiente</string>
   <string name="pawnMove">Movimiento de peón</string>
   <string name="capture">Captura</string>
