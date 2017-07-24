@@ -9,8 +9,8 @@ export default function(ctrl: DasherCtrl): VNode {
 
   const d = ctrl.data, trans = ctrl.trans, noarg = trans.noarg;
 
-  function userLinks(): Array<VNode | null> | null {
-    return d.user ? [
+  function userLinks(): VNode | null {
+    return d.user ? h('div.links', [
       h(
         'a.user_link.online.text.is-green',
         linkCfg(`/@/${d.user.name}`, d.user.patron ? '' : ''),
@@ -35,18 +35,7 @@ export default function(ctrl: DasherCtrl): VNode {
         'a.text',
         linkCfg('/logout', 'w'),
         noarg('logOut'))
-    ] : null;
-  }
-
-  function anonLinks() {
-    return [
-      h('a.text',
-        linkCfg('/login', 'E'),
-        trans('signIn')),
-      h('a.text',
-        linkCfg('/signup', 'F'),
-        trans('signUp'))
-    ];
+    ]) : null;
   }
 
   const langs = h(
@@ -88,7 +77,7 @@ export default function(ctrl: DasherCtrl): VNode {
   ]) : null;
 
   return h('div', [
-    h('div.links', userLinks() || anonLinks()),
+    userLinks(),
     h('div.subs', [
       langs,
       sound,
