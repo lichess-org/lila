@@ -79,8 +79,8 @@
     <item quantity="one">Siguiente captura o peón mueve en %s mitad-movimiento (distancia a cero del contador de 50 paso)</item>
     <item quantity="other">Siguiente captura o peón mueve en %s mitad-movimiento (distancia a cero del contador de 50 paso)</item>
   </plurals>
-  <string name="noGameFound">No juego encontrado</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Es posible que puedas incluir mas juegos desde el menu de preferencias?</string>
+  <string name="noGameFound">No se ha encontrado ninguna partida</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prueba incluyendo más partidas desde el menú de preferencias</string>
   <string name="openingExplorer">Explorador de aperturas y base de datos de finales</string>
   <string name="xOpeningExplorer">%s Explorador de Aperturas</string>
   <string name="winPreventedBy50MoveRule">Ganado esta prevenido por la regla de 50 movimientos</string>
