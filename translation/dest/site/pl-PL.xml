@@ -678,7 +678,7 @@
   <string name="downloadImported">Pobierz zaimportowane gry</string>
   <string name="printFriendlyPDF">PDF do druku</string>
   <string name="crosstable">Tabela wyników</string>
-  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Możesz także przeciągnąć nad szachownicą aby poruszać się w grze.</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Możesz także wykonywać ruchy przeciągając figury po szachownicy.</string>
   <string name="analysisShapesHowTo">Naciśnij shift i kliknij lub kliknij prawym przyciskiem myszy aby rysować okręgi i strzałki na szachownicy.</string>
   <string name="confirmResignationAndDrawOffers">Potwierdzaj poddanie się i wysłanie propozycji remisu</string>
   <string name="inputMovesWithTheKeyboard">Wprowadzaj ruchy za pomocą klawiatury</string>
