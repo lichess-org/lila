@@ -238,6 +238,7 @@
     <item quantity="one">Dem Gegner %s Sekunde geben</item>
     <item quantity="other">Dem Gegner %s Sekunden geben</item>
   </plurals>
+  <string name="giveMoreTime">Mehr Zeit geben</string>
   <string name="thisPlayerUsesChessComputerAssistance">Dieser Spieler verwendet ein Schachprogramm zur Unterstützung</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Dieser Spieler manipuliert seine Wertungszahl</string>
   <string name="openingExplorerAndTablebase">Eröffnungsbuch &amp; Tablebases</string>
