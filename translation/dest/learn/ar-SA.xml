@@ -41,11 +41,11 @@
   <string name="knightComplete">تهانينا! لقد أتقنت الحصان.</string>
   <string name="thePawn">البيدق</string>
   <string name="itMovesForwardOnly">يتحرك إلى الأمام فقط</string>
-  <string name="pawnIntro">بيادق ضعيفة، إلا أنها معبأة بالكثير من الإمكانبات.</string>
-  <string name="pawnsMoveOneSquareOnly">البيادق تحرك مربع واحد فقط. ولكن عندما تصل إلى الجانب الآخر من الرقعة، فإنها تصبح قطعة أقوى!</string>
+  <string name="pawnIntro">البيادق ضعيفة، إلا أنها مليئة بالكثير من الإمكانبات.</string>
+  <string name="pawnsMoveOneSquareOnly">البيادق تتحرك مربع واحد فقط. ولكن عندما تصل إلى الجانب الآخر من الرقعة، فإنها تصبح قطعة أقوى!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">معظم الوقت الترقية إلى الملكة تكون الأفضل.
 ولكن في بعض الأحيان الحصان يمكن أن يأتي بالمساعدة!</string>
-  <string name="pawnsMoveForward">بيادق تتحرك إلى الأمام، ولكن يأسر وتريًا!</string>
+  <string name="pawnsMoveForward">البيادق تتحرك إلى الأمام، ولكن تأسر وتريًا!</string>
   <string name="captureThenPromote">التقط، ثم رقي!</string>
   <string name="useAllThePawns">استخدم جميع البيادق!
 لا حاجة للترقية.</string>
@@ -91,7 +91,7 @@
   <string name="outOfCheckComplete">تهانينا! لا يمكن ابدأ أن يؤخذ ملكك، تأكد من أنك يمكنك الدفاع ضد الكش!</string>
   <string name="mateInOne">مات في واحد</string>
   <string name="defeatTheOpponentsKing">إهزم ملك المنافس</string>
-  <string name="mateInOneIntro">يمكنك الفوز عندما لا يمكن لمنافسك الدفاع عن ضد الكش.</string>
+  <string name="mateInOneIntro">يمكنك الفوز عندما لا يمكن لمنافسك الدفاع ضد الكش.</string>
   <string name="attackYourOpponentsKing">هاجم ملك منافسك بطريقة لا يمكنه الدفاع عنه!</string>
   <string name="mateInOneComplete">تهانينا! هذا هو كيف يمكنك الفوز بمبارة شطرنج!</string>
   <string name="intermediate">متوسط</string>

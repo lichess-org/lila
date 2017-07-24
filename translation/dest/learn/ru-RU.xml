@@ -6,6 +6,8 @@
   <string name="menu">Меню</string>
   <string name="progressX">Прогресс: %s</string>
   <string name="resetMyProgress">Сбросить прогресс</string>
+  <string name="youWillLoseAllYourProgress">Весь ваш прогресс будет сброшен!</string>
+  <string name="play">играть!</string>
   <string name="chessPieces">Фигуры в шахматах</string>
   <string name="theRook">Ладья</string>
   <string name="itMovesInStraightLines">Движется по прямым линиям</string>
@@ -26,9 +28,18 @@
   <string name="queenComplete">Поздравляем! Вы научились ходить ферзём.</string>
   <string name="theKing">Король</string>
   <string name="theMostImportantPiece">Самая важная фигура</string>
+  <string name="theKingIsSlow">Король медленно передвигается.</string>
   <string name="lastOne">И последний!</string>
+  <string name="kingComplete">Вы научились ходить королём!</string>
   <string name="theKnight">Конь</string>
   <string name="itMovesInAnLShape">Он ходит буквой \"Г\"</string>
+  <string name="knightIntro">Вот вам задача. Конь — хитрая фигура.</string>
+  <string name="thePawn">Пешка</string>
+  <string name="itMovesForwardOnly">Ходит только вперед</string>
+  <string name="pawnIntro">Пешки слабы, но в них много потенциала.</string>
+  <string name="pawnsMoveOneSquareOnly">Пешки ходят только на одну клетку вперёд. Но достигнув другого конца доски, они превращаются в сильную фигуру!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">В большинстве случае пешку лучше превратить в ферзя. Но иногда превращение в коня может быть выгоднее!</string>
+  <string name="pawnsMoveForward">Пешки движутся вперёд, но бьют по диагоналям!</string>
   <string name="takeTheBlackPieces">Съешьте чёрные фигуры!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Съешьте все чёрные фигуры! И не потеряйте свои.</string>
   <string name="captureComplete">Поздравляем! Теперь вы знаете, как сражаться с шахматными фигурами!</string>

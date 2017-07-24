@@ -208,9 +208,6 @@
   <string name="incrementInSeconds">１手ごとに増える秒数</string>
   <string name="freeOnlineChess">無料オンラインチェス</string>
   <string name="spectators">観覧者:</string>
-  <plurals name="nbGamesPlayed">
-    <item quantity="other">%s 局</item>
-  </plurals>
   <plurals name="nbRated">
     <item quantity="other">%s 局レート戦</item>
   </plurals>
@@ -228,6 +225,7 @@
   <plurals name="giveNbSeconds">
     <item quantity="other">%s秒を与える</item>
   </plurals>
+  <string name="giveMoreTime">相手に時間追加</string>
   <string name="thisPlayerUsesChessComputerAssistance">このプレイヤーはチェスソフトを使用しています</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">このプレイヤーは不正にレーティングを操作しています</string>
   <string name="openingExplorerAndTablebase">序盤探索&amp;テーブルベース</string>
@@ -290,8 +288,8 @@
   <string name="colorPlaysCheckmateInOne">%s 番; １手でチェックメイト</string>
   <string name="retry">もう一度</string>
   <string name="reconnecting">再接続</string>
-  <string name="onlineFriends">オンラインにいる友達</string>
-  <string name="noFriendsOnline">オンラインに友達はいません</string>
+  <string name="onlineFriends">接続中の友達</string>
+  <string name="noFriendsOnline">接続中の友達はいません</string>
   <string name="findFriends">友達を探す</string>
   <string name="favoriteOpponents">お気に入りの対戦相手</string>
   <string name="follow">フォローする</string>
@@ -364,7 +362,7 @@
   <string name="lastName">姓</string>
   <string name="biography">自己紹介</string>
   <string name="country">国</string>
-  <string name="preferences">初期設定</string>
+  <string name="preferences">設定</string>
   <string name="watchLichessTV">Lichess TV を観戦</string>
   <string name="previouslyOnLichessTV">過去の Lichess TV 対局</string>
   <string name="onlinePlayers">接続中のプレイヤー</string>

@@ -216,10 +216,6 @@
   <string name="incrementInSeconds">Προσαύξηση σε δευτερόλεπτα</string>
   <string name="freeOnlineChess">Δωρεάν Διαδικτυακό Σκάκι</string>
   <string name="spectators">Θεατές:</string>
-  <plurals name="nbGamesPlayed">
-    <item quantity="one">%s παιγμένη παρτίδα</item>
-    <item quantity="other">%s παιγμένες παρτίδες</item>
-  </plurals>
   <plurals name="nbRated">
     <item quantity="one">%s βαθμολογημένο</item>
     <item quantity="other">%s βαθμολογημένες</item>
@@ -242,6 +238,7 @@
     <item quantity="one">Προσθέστε %s δευτερόλεπτα</item>
     <item quantity="other">Προσθέστε %s δευτερόλεπτα</item>
   </plurals>
+  <string name="giveMoreTime">Πρόσθεσε χρόνο</string>
   <string name="thisPlayerUsesChessComputerAssistance">Ο παίκτης χρησιμοποιεί υποβοήθηση υπολογιστή</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Αυτός ο παίκτης αυξάνει/μειώνει τεχνητά τη βαθμολογία</string>
   <string name="openingExplorerAndTablebase">Εξερευνητής ανοιγμάτων &amp; τελειωμάτων</string>

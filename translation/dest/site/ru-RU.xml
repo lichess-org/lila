@@ -224,11 +224,6 @@
   <string name="incrementInSeconds">Прибавка в секундах</string>
   <string name="freeOnlineChess">Бесплатные онлайн-шахматы</string>
   <string name="spectators">Зрители:</string>
-  <plurals name="nbGamesPlayed">
-    <item quantity="one">%s игра сыграна</item>
-    <item quantity="few">Сыграно игр: %s</item>
-    <item quantity="other">Сыграно игр: %s</item>
-  </plurals>
   <plurals name="nbRated">
     <item quantity="one">Рейтинг для %s игры</item>
     <item quantity="few">Рейтинг для %s игр</item>
@@ -256,6 +251,7 @@
     <item quantity="few">Дать %s секунды</item>
     <item quantity="other">Дать %s секунд</item>
   </plurals>
+  <string name="giveMoreTime">Добавить времени</string>
   <string name="thisPlayerUsesChessComputerAssistance">Этот игрок использует помощь шахматной программы (читер)</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Этот игрок искусственно увеличивал либо уменьшал свой рейтинг</string>
   <string name="openingExplorerAndTablebase">Открываем проводник &amp; таблицу базы</string>

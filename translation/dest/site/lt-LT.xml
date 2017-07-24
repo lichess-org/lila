@@ -224,11 +224,6 @@
   <string name="incrementInSeconds">Sekundžių prieaugis</string>
   <string name="freeOnlineChess">Nemokami šachmatai internete</string>
   <string name="spectators">Žiūrovai:</string>
-  <plurals name="nbGamesPlayed">
-    <item quantity="one">%s sužaista partija</item>
-    <item quantity="few">%s sužaistos partijos</item>
-    <item quantity="other">%s sužaistų partijų</item>
-  </plurals>
   <plurals name="nbRated">
     <item quantity="one">%s vertinama</item>
     <item quantity="few">%s vertinamos</item>

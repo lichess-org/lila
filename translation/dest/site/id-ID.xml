@@ -208,9 +208,6 @@
   <string name="incrementInSeconds">Increment dalam detik</string>
   <string name="freeOnlineChess">Catur online gratis!</string>
   <string name="spectators">Penonton:</string>
-  <plurals name="nbGamesPlayed">
-    <item quantity="other">%s permainan yang telah dimainkan</item>
-  </plurals>
   <plurals name="nbRated">
     <item quantity="other">%s dengan rating</item>
   </plurals>

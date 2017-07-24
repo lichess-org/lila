@@ -216,10 +216,6 @@
   <string name="incrementInSeconds">Incremento in secondi</string>
   <string name="freeOnlineChess">Scacchi Online Gratis</string>
   <string name="spectators">Spettatori</string>
-  <plurals name="nbGamesPlayed">
-    <item quantity="one">%s partite giocate</item>
-    <item quantity="other">%s partite giocate</item>
-  </plurals>
   <plurals name="nbRated">
     <item quantity="one">%s classificate</item>
     <item quantity="other">%s classificate</item>
@@ -242,6 +238,7 @@
     <item quantity="one">Concedi %s secondi</item>
     <item quantity="other">Concedi %s secondi</item>
   </plurals>
+  <string name="giveMoreTime">Dai più tempo</string>
   <string name="thisPlayerUsesChessComputerAssistance">Questo giocatore si fa aiutare da un computer</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Questo giocatore modifica il proprio punteggio irregolarmente</string>
   <string name="openingExplorerAndTablebase">Explorer delle aperture &amp; tablebase</string>

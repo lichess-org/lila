@@ -224,11 +224,6 @@
   <string name="incrementInSeconds">Dodawany czas w sekundach</string>
   <string name="freeOnlineChess">Darmowe szachy online</string>
   <string name="spectators">Widzowie:</string>
-  <plurals name="nbGamesPlayed">
-    <item quantity="one">%s rozegrana gra</item>
-    <item quantity="few">%s rozegranych gier</item>
-    <item quantity="other">%s rozegranych gier</item>
-  </plurals>
   <plurals name="nbRated">
     <item quantity="one">%s rankingowa gra</item>
     <item quantity="few">%s rankingowych gier</item>
@@ -256,6 +251,7 @@
     <item quantity="few">Dodaj %s sekundy</item>
     <item quantity="other">Dodaj %s sekund</item>
   </plurals>
+  <string name="giveMoreTime">Dodaj więcej czasu</string>
   <string name="thisPlayerUsesChessComputerAssistance">Ten gracz korzysta z pomocy programu szachowego</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ten gracz sztucznie zwiększa/obniża swój ranking</string>
   <string name="openingExplorerAndTablebase">Przeglądarka otwarć</string>

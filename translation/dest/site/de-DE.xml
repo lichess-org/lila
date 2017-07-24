@@ -216,10 +216,6 @@
   <string name="incrementInSeconds">Inkrement in Sekunden</string>
   <string name="freeOnlineChess">Kostenloses Online-Schach</string>
   <string name="spectators">Zuschauer:</string>
-  <plurals name="nbGamesPlayed">
-    <item quantity="one">%s Partie gespielt</item>
-    <item quantity="other">%s Partien gespielt</item>
-  </plurals>
   <plurals name="nbRated">
     <item quantity="one">%s gewertet</item>
     <item quantity="other">%s gewertet</item>

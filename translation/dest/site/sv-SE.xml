@@ -216,10 +216,6 @@
   <string name="incrementInSeconds">Tilläggssekunder</string>
   <string name="freeOnlineChess">Gratis schack på internet</string>
   <string name="spectators">Åskådare:</string>
-  <plurals name="nbGamesPlayed">
-    <item quantity="one">%s parti spelade</item>
-    <item quantity="other">%s partier spelade</item>
-  </plurals>
   <plurals name="nbRated">
     <item quantity="one">%s rankat</item>
     <item quantity="other">%s rankade</item>
@@ -242,6 +238,7 @@
     <item quantity="one">Ge  %s sekunder</item>
     <item quantity="other">Ge  %s sekunder</item>
   </plurals>
+  <string name="giveMoreTime">Ge mer tid</string>
   <string name="thisPlayerUsesChessComputerAssistance">Den här spelaren tar hjälp av schackmotor</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Den här spelaren ökar/minskar sin rating artificiellt</string>
   <string name="openingExplorerAndTablebase">Öppningsutforskare &amp; tablebase</string>

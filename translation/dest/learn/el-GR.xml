@@ -51,10 +51,34 @@
   <string name="pawnsMoveForward">Τα πιόνια κινούνται προς τα εμπρός,
 αλλά αιχμαλωτίζουν διαγώνια!</string>
   <string name="captureThenPromote">Αιχμαλώτισε, έπειτα προώθησε!</string>
+  <string name="useAllThePawns">Χρησιμοποιήστε όλα τα πιόνια!
+Δεν χρειάζεται προαγωγή.</string>
   <string name="aPawnOnTheSecondRank">Ένα πιόνι στην δεύτερη γραμμή μπορεί να κινηθεί 2 τετράγωνα αμέσως!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Πιάσε όλα τα αστέρια!
+Δεν χρειάζεται προαγωγή.</string>
   <string name="pawnComplete">Συγχαρητήρια! Τα πιόνα δεν έχουν άλλα μυστικά για εσάς.</string>
   <string name="pawnPromotion">Προαγωγή πιονιού</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Το πιόνι σας έφτασε στην άκρη της σκακιέρας!</string>
+  <string name="itNowPromotesToAStrongerPiece">Τώρα προάγεται σε πιο ισχυρό κομμάτι.</string>
+  <string name="selectThePieceYouWant">Επιλέξτε το κομμάτι που θέλετε!</string>
+  <string name="fundamentals">Βασικές αρχές</string>
   <string name="capture">Αιχμαλώτιση</string>
+  <string name="takeTheEnemyPieces">Κόψτε τα κομμάτια του αντιπάλου</string>
+  <string name="captureIntro">Βρείτε τα ανυπεράσπιστα κομμάτια του αντιπάλου, και κόψτε τα!</string>
+  <string name="takeTheBlackPieces">Κόψτε τα μαύρα κομμάτια!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Κόψτε τα μαύρα κομμάτια!
+Και προστατεύστε τα δικά σας.</string>
+  <string name="captureComplete">Συγχαρητήρια! Ξέρετε πώς να μάχεστε με τα κομμάτια σκακιού!</string>
+  <string name="protection">Προστασία</string>
+  <string name="keepYourPiecesSafe">Κρατήστε τα κομμάτια σας ασφαλή</string>
+  <string name="protectionIntro">Βρείτε τα κομμάτια που επιτίθεται ο αντίπαλος, και προστατεύστε τα!</string>
+  <string name="protectionComplete">Συγχαρητήρια! Ένα κομμάτι που δεν χάσατε είναι ένα κομμάτι που κερδίσατε!</string>
+  <string name="escape">Δέχεστε επίθεση!
+Αποτρέψτε την απειλή!</string>
+  <string name="noEscape">Δεν υπάρχει διαφυγή,
+αλλά υπάρχει άμυνα!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Αποτρέψτε το κόψιμο
+ανυπεράσπιστων κομματιών!</string>
   <string name="mateInOne">Ματ σε μία</string>
   <string name="boardSetup">Στήσιμο σκακιέρας</string>
   <string name="thisIsTheInitialPosition">Αυτή είναι η αρχική θέση
