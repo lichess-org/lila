@@ -882,6 +882,7 @@ div.cemetery {
   line-height: 0;
   white-space: nowrap;
   line-height: 0;
+  height: 32px;
 }
 div.cemetery:first-child {
   margin-bottom: 5px;
