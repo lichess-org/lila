@@ -201,6 +201,7 @@
   </plurals>
   <string name="exportGames">Извоз партија</string>
   <string name="ratingRange">ЕЛО ранг</string>
+  <string name="giveMoreTime">Додај још времена</string>
   <string name="thisPlayerUsesChessComputerAssistance">Овај играч користи помоћ рачунара</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ovi igrači veštački uvećavaju svoj rejting</string>
   <string name="openingExplorerAndTablebase">отвори претраживач и базе</string>
