@@ -9,7 +9,7 @@ function makeStars(nb) {
     stars.push(m('i', {
       'data-icon': 't'
     }));
-  return stars;
+    return stars;
 }
 
 function ribbon(ctrl, s, status, res) {
@@ -19,7 +19,7 @@ function ribbon(ctrl, s, status, res) {
     var p = ctrl.stageProgress(s);
     content = p[0] ? p.join(' / ') : ctrl.trans.noarg('play');
   } else
-    content = makeStars(scoring.getStageRank(s, res.scores));
+  content = makeStars(scoring.getStageRank(s, res.scores));
   if (status !== 'future') return m('span.ribbon-wrapper',
     m('span.ribbon', {
       class: status
@@ -29,7 +29,9 @@ function ribbon(ctrl, s, status, res) {
 
 function whatNext(ctrl) {
   var makeStage = function(href, img, title, subtitle, done) {
-    return m('a.stage.done', {
+    var transTitle = ctrl.trans.noarg(title);
+    return m('a', {
+      class: 'stage done' + titleVerbosityClass(transTitle),
       href: href
     }, [
       done ? m('span.ribbon-wrapper',
@@ -39,7 +41,7 @@ function whatNext(ctrl) {
         src: util.assetUrl + 'images/learn/' + img + '.svg'
       }),
       m('div.text', [
-        m('h3', ctrl.trans.noarg(title)),
+        m('h3', transTitle),
         m('p.subtitle', ctrl.trans.noarg(subtitle))
       ])
     ]);
@@ -61,6 +63,10 @@ function whatNext(ctrl) {
   ]);
 }
 
+function titleVerbosityClass(title) {
+  return title.length > 13 ? (title.length > 18 ? ' vvv' : ' vv' ): '';
+}
+
 module.exports = function(ctrl) {
   return m('div.learn.map',
     m('div.stages', [
@@ -75,8 +81,9 @@ module.exports = function(ctrl) {
               var status = 'future';
               if (complete) status = 'done';
               else if (prevComplete || res) status = 'ongoing';
+              var title = ctrl.trans.noarg(s.title);
               return m('a', {
-                class: 'stage ' + status,
+                class: 'stage ' + status + titleVerbosityClass(title),
                 href: '/' + s.id,
                 config: m.route
               }, [
@@ -85,7 +92,7 @@ module.exports = function(ctrl) {
                   src: s.image
                 }),
                 m('div.text', [
-                  m('h3', ctrl.trans.noarg(s.title)),
+                  m('h3', title),
                   m('p.subtitle', ctrl.trans.noarg(s.subtitle))
                 ])
               ]);

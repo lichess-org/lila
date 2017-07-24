@@ -712,8 +712,16 @@ body.dark #learn_app .map .categ > h2 {
 }
 #learn_app .map .stage h3 {
   font-size: 2em;
-  letter-spacing: 4px;
+  letter-spacing: 3px;
   margin: 0 0 1px -1px;
+}
+#learn_app .map .stage.vv h3 {
+  font-size: 1.6em;
+  letter-spacing: 2px;
+}
+#learn_app .map .stage.vvv h3 {
+  font-size: 1.4em;
+  letter-spacing: 1px;
 }
 @keyframes soft-bright {
   50%{
