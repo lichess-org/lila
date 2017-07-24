@@ -649,10 +649,20 @@
   <string name="crosstable">Aurreko emaitzak</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Partidan aurrera-atzera egiteko, korritze-barra ere erabili ahal duzu.</string>
   <string name="analysisShapesHowTo">Zirkuluak eta geziak marrazteko, egizu shift+klik edo eskuin-klik.</string>
+  <string name="confirmResignationAndDrawOffers">Etsitze eta berdinketa eskaeren baieztapena eskatu</string>
+  <string name="inputMovesWithTheKeyboard">Jokaldiak teklatuarekin sartu</string>
   <string name="letOtherPlayersMessageYou">Utzi beste jokalariei zuri mezuak bidaltzen</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Endrokatzeko modua</string>
+  <string name="castleByMovingTwoSquares">Erregea bi lauki mugitu</string>
+  <string name="castleByMovingOntoTheRook">Erregea gazteluaren gainera mugitu</string>
   <string name="shareYourInsightsData">Zure partiden analitika partekatu</string>
+  <string name="withNobody">Inorekin ere ez</string>
+  <string name="withFriends">Lagunekin</string>
+  <string name="withEverybody">Edonorekin</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Email hau erregistratu duzu dagoeneko: %s</string>
   <string name="kidMode">Haurrentzako modua.</string>
+  <string name="security">Segurtasuna</string>
+  <string name="revokeAllSessions">sesio guztiak itxi</string>
   <string name="playChessEverywhere">Jokatu xakean, nonnahi</string>
   <string name="asFreeAsLichess">Debalde, lichess bezala</string>
   <string name="builtForTheLoveOfChessNotMoney">Xakea maite dugulako sortuta, ez diruagatik.</string>
@@ -671,4 +681,11 @@
     <item quantity="other">%s hizkuntzatan eskuragarri!</item>
   </plurals>
   <string name="gameAnalysis">Partidaren analisia</string>
+  <string name="quickPairing">Parekatze azkarra</string>
+  <string name="anonymous">Anonimoa</string>
+  <string name="yourScore">Zure puntuaketa: %s</string>
+  <string name="language">Hizkuntza</string>
+  <string name="background">Atzeko planoa</string>
+  <string name="boardGeometry">Taularen geometria</string>
+  <string name="boardTheme">Taularen itxura</string>
 </resources>
