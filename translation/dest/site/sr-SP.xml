@@ -410,6 +410,7 @@
   <string name="pieceDestinations">Прикажи куда се фигуре могу кретати (допуштени потези и претпотези)</string>
   <string name="boardCoordinates">Прикажи координате табле (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Прикажи списак потеза током партије</string>
+  <string name="pgnPieceNotation">Нотација</string>
   <string name="chessPieceSymbol">симболи фигура</string>
   <string name="pgnLetter">слова (К, Д, Т, Л, С)</string>
   <string name="chessClock">Шаховски сат</string>
@@ -545,6 +546,11 @@
   <string name="tournamentMayHaveBeenCanceled">Možda je otkazan, jer su igrači napustili turnir pre njegovog početka</string>
   <string name="returnToTournamentsHomepage">Vratite se na \"tournaments\" početnu stranu</string>
   <string name="weeklyPerfTypeRatingDistribution">Месечна %s дитрибуција рејтинга</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">%1$s %2$s играч ове недеље.</item>
+    <item quantity="few">%1$s %2$s играча ове недеље.</item>
+    <item quantity="other">%1$s %2$s играча ове недеље.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">твоје %1$s рејтинг је %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">ви сте бољи од %1$s од %2$s играча.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Немате утврђен %s рејтинг.</string>
@@ -564,10 +570,19 @@
   <string name="crosstable">Uporedni pregled</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Možete skrolovati preko table radi povčačenja poteza u partiji.</string>
   <string name="analysisShapesHowTo">Pristisnite shifz-click ili desni klik za crtanje krugova i strelica na ploči.</string>
+  <string name="confirmResignationAndDrawOffers">Потврда за предавање и предлагање ремија</string>
+  <string name="inputMovesWithTheKeyboard">Уноеси потезе са тастатуром</string>
   <string name="letOtherPlayersMessageYou">Neka Vma drugi igrači poruče.</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Метода прављења рокаде</string>
+  <string name="castleByMovingTwoSquares">Помери краља за два поља</string>
+  <string name="castleByMovingOntoTheRook">Помери краља на топа</string>
   <string name="shareYourInsightsData">Podelite uvid u Vaše podatke.</string>
+  <string name="withNobody">Нисаким</string>
+  <string name="withFriends">Са пријатељима</string>
+  <string name="withEverybody">Са свима</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Već ste registrovali e-Mail %s</string>
   <string name="kidMode">Mod garnitura</string>
+  <string name="kidModeExplanation">Ово је око сигурности. У дечијем моду, све комуникације на сајту су искључене. Укључите ово за вашу децу и ђаке, да их заштитите од других корисника интернета.</string>
   <string name="playChessEverywhere">Igrajte šah bilo gde</string>
   <string name="asFreeAsLichess">Besplatno kao Lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Napravljen iz ljubavi prema šahu, a ne prema novcu</string>
