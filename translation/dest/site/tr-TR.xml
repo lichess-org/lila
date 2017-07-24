@@ -91,6 +91,10 @@
   <string name="importPgn">PGN\'yi içe aktar</string>
   <string name="delete">Sil</string>
   <string name="deleteThisImportedGame">İçe aktarılan bu oyun silinsin mi?</string>
+  <string name="replayMode">Tekrar modu</string>
+  <string name="realtimeReplay">Gerçek zamanlı</string>
+  <string name="byCPL">CPL ile</string>
+  <string name="openStudy">Çalışmayı aç</string>
   <string name="enable">Etkinleştir</string>
   <string name="bestMoveArrow">En iyi hamle imleci</string>
   <string name="evaluationGauge">Değerlendirme çubuğu</string>
@@ -227,6 +231,10 @@
   <plurals name="nbDraws">
     <item quantity="one">%s kez berabere kaldı</item>
     <item quantity="other">%s kez berabere kaldı</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s oynuyor</item>
+    <item quantity="other">%s oynuyor</item>
   </plurals>
   <string name="exportGames">Oyunları indir</string>
   <string name="ratingRange">Puan aralığı</string>
