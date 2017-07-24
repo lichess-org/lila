@@ -72,13 +72,36 @@
   <string name="averageRatingX">Bataz besteko puntuazioa: %s</string>
   <string name="recentGames">Azken partidak</string>
   <string name="topGames">Partidarik onenak</string>
+  <string name="masterDbExplanation">Mahaigaineko %2$s eta %3$s arteko 2 milioi partida %1$setik gorako FIDE sailkapena duten jokalarienak</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mate jokaldi erdi %sn</item>
     <item quantity="other">Mate %s jokaldi erditan</item>
   </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Hurrengo harrapaketa edo peoi mugimendua jokaldi erdi %sn (50 jokaldien kontagailua zeroan jartzeko distantzia)</item>
+    <item quantity="other">Hurrengo harrapaketa edo peoi mugimendua %s jokaldi erditan (50 jokaldien kontagailua zeroan jartzeko distantzia)</item>
+  </plurals>
   <string name="noGameFound">Ez da partidarik aurkitu</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Agian hobespenen menutik partida gehiago gehitu beharko dituzu?</string>
   <string name="openingExplorer">Hasierak arakatu</string>
+  <string name="xOpeningExplorer">%s irekiera miatzailea</string>
+  <string name="winPreventedBy50MoveRule">50 jokaldien arauak ekidindako garaipena</string>
+  <string name="lossSavedBy50MoveRule">50 jokaldien arauak ekidindako galera</string>
+  <string name="allSet">Dena prest!</string>
+  <string name="importPgn">PGNa inportatu</string>
+  <string name="delete">Ezabatu</string>
+  <string name="deleteThisImportedGame">Inportatuko partida hau ezabatu?</string>
+  <string name="realtimeReplay">Denbora errealean</string>
+  <string name="byCPL">CPL</string>
+  <string name="openStudy">Ikerketa ireki</string>
+  <string name="enable">Aktibatu</string>
+  <string name="bestMoveArrow">Jokaldi onenaren gezia</string>
+  <string name="evaluationGauge">Ebaluazio langa</string>
+  <string name="multipleLines">Linea anitz</string>
+  <string name="cpus">CPU</string>
+  <string name="memory">Memoria</string>
+  <string name="infiniteAnalysis">Analisi infinitua</string>
+  <string name="removesTheDepthLimit">Sakonera muga ezabatzendu eta zure ordenagailua epel mantentzen du</string>
   <string name="blunders">Akats larriak</string>
   <string name="mistakes">Akatsak</string>
   <string name="inaccuracies">Ez zehatzak</string>
@@ -181,6 +204,8 @@
   <string name="play">Jolastu</string>
   <string name="inbox">Mezu-sarrera</string>
   <string name="chatRoom">Txateatzeko aretoa</string>
+  <string name="loginToChat">Login egin txatera sartzeko</string>
+  <string name="youHaveBeenTimedOut">Denbora muga gainditu duzu.</string>
   <string name="spectatorRoom">Ikusle-aretoa</string>
   <string name="composeMessage">Mezua idatzi</string>
   <string name="noNewMessages">Mezu berririk ez dago</string>
@@ -190,6 +215,10 @@
   <string name="incrementInSeconds">Segundu-gehiketa</string>
   <string name="freeOnlineChess">Doako xakea Interneten</string>
   <string name="spectators">Ikusleak</string>
+  <plurals name="nbRated">
+    <item quantity="one">Sailkatutako %s</item>
+    <item quantity="other">Sailkatutako %s</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s irabazita</item>
     <item quantity="other">%s irabazita</item>
@@ -208,8 +237,10 @@
     <item quantity="one">%s segundu eman</item>
     <item quantity="other">%s segundu eman</item>
   </plurals>
+  <string name="giveMoreTime">Denbora gehiago eman</string>
   <string name="thisPlayerUsesChessComputerAssistance">Jokalari hau ordenagailuaz baliatu da</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Jokalariak bere sailkapena aldatzen du artifizialki</string>
+  <string name="openingExplorerAndTablebase">Hasierak arakatzailea &amp; finalen datu-basea</string>
   <string name="takeback">Jokaldia atzera egin</string>
   <string name="proposeATakeback">Jokaldia atzera egiteko eskatu</string>
   <string name="takebackPropositionSent">Jokaldia atzera egiteko eskaria bidali da</string>
