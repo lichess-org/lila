@@ -84,7 +84,13 @@
   <string name="noGameFound">Oyun bulunamadı</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Belki tercihler menüsündeki ayarları değiştirirsen daha fazla oyun gösterilebilir?</string>
   <string name="openingExplorer">Açılış kâşifi</string>
+  <string name="xOpeningExplorer">%s açılış kâşifi</string>
+  <string name="winPreventedBy50MoveRule">Kazanç 50 hamle kuralı tarafından engellendi</string>
+  <string name="lossSavedBy50MoveRule">Kayıp 50 hamle kuralı sayesinde kurtarıldı</string>
   <string name="allSet">Her şey tamam!</string>
+  <string name="importPgn">PGN\'yi içe aktar</string>
+  <string name="delete">Sil</string>
+  <string name="deleteThisImportedGame">İçe aktarılan bu oyun silinsin mi?</string>
   <string name="enable">Etkinleştir</string>
   <string name="bestMoveArrow">En iyi hamle imleci</string>
   <string name="evaluationGauge">Değerlendirme çubuğu</string>
