@@ -62,6 +62,10 @@
   <string name="whiteDrawBlack">Beyaz / Berabere / Siyah</string>
   <string name="openingExplorer">Açılış kâşifi</string>
   <string name="allSet">Her şey tamam!</string>
+  <string name="cpus">İşlemci</string>
+  <string name="memory">Ayrılan hafıza</string>
+  <string name="infiniteAnalysis">Sonsuz analiz</string>
+  <string name="removesTheDepthLimit">Derinlik sınırını kaldırır ve bilgisayarınızı sıcacık tutar</string>
   <string name="blunders">Vahim hatalar</string>
   <string name="mistakes">Hatalar</string>
   <string name="inaccuracies">Kusurlu hamleler</string>
@@ -165,6 +169,7 @@
   <string name="inbox">Gelen kutusu</string>
   <string name="chatRoom">Sohbet odası</string>
   <string name="loginToChat">Sohbete katılmak için oturum aç</string>
+  <string name="youHaveBeenTimedOut">Hele biraz soluklanın.</string>
   <string name="spectatorRoom">Seyirci odası</string>
   <string name="composeMessage">Mesaj oluştur</string>
   <string name="noNewMessages">Yeni mesaj yok</string>
@@ -174,6 +179,10 @@
   <string name="incrementInSeconds">Hamle başına eklenen saniye</string>
   <string name="freeOnlineChess">Ücretsiz Çevrimiçi Satranç</string>
   <string name="spectators">İzleyiciler</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s puanlı</item>
+    <item quantity="other">%s puanlı</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s kez kazandı</item>
     <item quantity="other">%s kez kazandı</item>
@@ -513,6 +522,7 @@
   <string name="error.email">Bu e-posta adresi geçersizdir</string>
   <string name="error.email_acceptable">Bu e-posta adresi kabul edilemez</string>
   <string name="error.email_unique">Bu e-posta adresi zaten alınmış</string>
+  <string name="error.email_different">Şu anda zaten bu e-posta adresini kullanıyorsun</string>
   <string name="blindfoldChess">Körleme Satranç</string>
   <string name="moveConfirmation">Hamleyi onayla</string>
   <string name="inCorrespondenceGames">Yazışmalı oyunlarda</string>
