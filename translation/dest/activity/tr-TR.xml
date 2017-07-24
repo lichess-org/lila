@@ -43,5 +43,14 @@
     <item quantity="one">%s eş zamanlı oyuna katıldı</item>
     <item quantity="other">%s eş zamanlı oyuna katıldı</item>
   </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">%s yeni inceleme oluşturdu</item>
+    <item quantity="other">%s yeni inceleme oluşturdu</item>
+  </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="one">%s turnuvaya katıldı</item>
+    <item quantity="other">%s turnuvaya katıldı</item>
+  </plurals>
+  <string name="rankedInTournament">%3$s oyun ile %4$s\'da %1$s. oldu (en iyi %2$s içinde)</string>
   <string name="signedUp">Lichess\'e üye oldu</string>
 </resources>
