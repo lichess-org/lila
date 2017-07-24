@@ -482,6 +482,7 @@ div.content_box_inter.angles .intertab:hover {
 div.content_box_inter .intertab strong {
   font-family: 'Noto Sans';
   font-weight: normal;
+  font-size: 1.1em;
 }
 div.content_box_inter a.intertab.active {
   margin-bottom: -1px;
@@ -501,6 +502,16 @@ div.content_box_inter.angles .intertab {
 div.content_box_inter .intertab.active {
   border: 1px solid #ccc;
   border-bottom: none;
+}
+div.content_box_inter .to_games .unread {
+  opacity: 0.7;
+  padding: 0 5px;
+}
+div.content_box_inter .to_playing {
+  color: #d85000!important;
+}
+div.content_box_inter .to_playing strong {
+  font-weight: bold;
 }
 
 body.dark div.content_box_inter .intertab:hover {

@@ -192,6 +192,9 @@ case _ => {
   @defining(lila.app.mashup.GameFilter.All) { f =>
   <a data-tab="games" class="intertab to_games @if(angle.key == "games"){ active}" href="@routes.User.gamesAll(u.username)">
     @trans.nbGames.plural(info.user.count.game, info.user.count.game.localize)
+    @if(info.nbs.playing > 0) {
+    <span class="unread hint--top" data-hint="@trans.nbPlaying.plural(info.nbs.playing, info.nbs.playing.localize)">@info.nbs.playing</span>
+    }
   </a>
   <span data-tab="other" class="intertab@if(angle == Angle.Other){ active}"></span>
   }
