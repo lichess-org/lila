@@ -15,7 +15,7 @@ Mağlup edilene kadar serideki oyunlardan iki katı puan kazanırsın. Yani seri
   <string name="berserk">Divane Modu</string>
   <string name="berserkAnswer">Oyunun başında Divane tuşuna tıklayan oyuncu süresinin yarısından feragat eder ancak maçı kazandığı takdirde ek 1 turnuva puanı alır.
 
-Hamle başına süre eklenen oyunlarda Divane modu açan oyuncuya hamle sonrası süre ilave edilmez.
+Hamle başına süre eklenen oyunlarda Divane modu açan oyuncuya hamle sonrası süre ilave edilmez. (1+2 bir istisnadır, bu modda süre 1+0 olur)
 
 Sıfır dakika ile başlayan oyunlarda Divane modu mevcut değildir. (0+1, 0+2).
 
