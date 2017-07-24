@@ -91,6 +91,7 @@
   <string name="importPgn">PGNa inportatu</string>
   <string name="delete">Ezabatu</string>
   <string name="deleteThisImportedGame">Inportatuko partida hau ezabatu?</string>
+  <string name="replayMode">Partida berriz ikusteko modua</string>
   <string name="realtimeReplay">Denbora errealean</string>
   <string name="byCPL">CPL</string>
   <string name="openStudy">Ikerketa ireki</string>
@@ -230,6 +231,10 @@
   <plurals name="nbDraws">
     <item quantity="one">%s Berdinduta</item>
     <item quantity="other">%s Berdinduta</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s jokatzen</item>
+    <item quantity="other">%s jokatzen</item>
   </plurals>
   <string name="exportGames">Partidak esportatu</string>
   <string name="ratingRange">Aurkariaren puntuazio-tartea</string>
