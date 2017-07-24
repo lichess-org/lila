@@ -304,7 +304,7 @@
   <string name="followsYou">あなたをフォローしています</string>
   <string name="xStartedFollowingY">%1$s が %2$s のフォローを開始</string>
   <plurals name="nbFollowers">
-    <item quantity="other">%s 人のフォロワー</item>
+    <item quantity="other">%s フォロワー</item>
   </plurals>
   <plurals name="nbFollowing">
     <item quantity="other">%s 人をフォロー</item>
@@ -557,7 +557,7 @@
   <string name="blackCastlingKingside">黒　o-o</string>
   <string name="blackCastlingQueenside">黒　o-o-o</string>
   <plurals name="nbForumPosts">
-    <item quantity="other">%s フォーラムへの投稿</item>
+    <item quantity="other">%s フォーラム投稿</item>
   </plurals>
   <string name="tpTimeSpentPlaying">プレイ時間:%s</string>
   <string name="watchGames">ゲームを見る</string>
