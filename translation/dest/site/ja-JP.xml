@@ -220,6 +220,9 @@
   <plurals name="nbDraws">
     <item quantity="other">%s回 引き分け</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="other">%s 局進行中</item>
+  </plurals>
   <string name="exportGames">対局をエクスポートする</string>
   <string name="ratingRange">レーティングの範囲</string>
   <plurals name="giveNbSeconds">
