@@ -231,6 +231,10 @@
     <item quantity="one">%s draw</item>
     <item quantity="other">%s draws</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s playing</item>
+    <item quantity="other">%s playing</item>
+  </plurals>
   <string name="exportGames">Export games</string>
   <string name="ratingRange">Rating range</string>
   <plurals name="giveNbSeconds">

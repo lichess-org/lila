@@ -109,8 +109,10 @@ trait StringHelper { self: NumberHelper =>
   private val NumberLastRegex = """^(.+)\s(\d+)$""".r
   def splitNumber(s: String)(implicit ctx: UserContext): Html = Html {
     s match {
-      case NumberFirstRegex(number, text) => "<strong>%s</strong><br />%s".format((~parseIntOption(number)).localize, text)
-      case NumberLastRegex(text, number) => "%s<br /><strong>%s</strong>".format(text, (~parseIntOption(number)).localize)
+      case NumberFirstRegex(number, text) =>
+        s"<strong>${(~parseIntOption(number)).localize}</strong><br />$text"
+      case NumberLastRegex(text, number) =>
+        s"$text<br /><strong>${(~parseIntOption(number)).localize}</strong>"
       case h => h.replace("\n", "<br />")
     }
   }
