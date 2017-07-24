@@ -103,6 +103,8 @@ Terfiye gerek yok.</string>
   <string name="evaluatePieceStrength">Taş güçlerini hesaplama</string>
   <string name="checkInTwo">Şah çekme II</string>
   <string name="twoMovesToGiveCheck">İki hamlede şah çek</string>
+  <string name="checkInTwoGoal">Rakibe iki hamlede şah çek!</string>
+  <string name="checkInTwoComplete">İşte bu kadar! Rakibe şah çekerek savunma yapmaya zorladın!</string>
   <string name="whatNext">Sırada ne var?</string>
   <string name="youKnowHowToPlayChess">Artık satrancı iyice öğrendin, tebrikler! Daha iyi bir oyuncu olmaya ne dersin?</string>
   <string name="register">Kayıt Ol</string>
@@ -117,6 +119,7 @@ Terfiye gerek yok.</string>
   <string name="opponentsFromAroundTheWorld">Dünyanın dört bir yanından oyuncular</string>
   <string name="playMachine">Bilgisayarla oyna</string>
   <string name="testYourSkillsWithTheComputer">Hünerlerini bilgisayara karşı test et</string>
+  <string name="letsGo">Başlayalım!</string>
   <string name="awesome">Çok güzel!</string>
   <string name="excellent">Harika!</string>
   <string name="greatJob">İyi iş çıkardın!</string>
