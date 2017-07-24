@@ -27,7 +27,7 @@ svgcleaner_optimize() {
   echo "$1 -> $2"
 
   if [[ $SVGCLEANER ]]; then
-    $SVGCLEANER --multipass true "$1" "$2"
+    $SVGCLEANER "$1" "$2" --multipass
   else
     cp "$1" "$2"
   fi
@@ -39,7 +39,7 @@ svg_optimize () {
   $SVGO --quiet --multipass -i "$2"
 
   if [[ $SVGCLEANER ]]; then
-    $SVGCLEANER --multipass true "$2" "$2"
+    $SVGCLEANER "$2" "$2" --multipass
   fi
 }
 
