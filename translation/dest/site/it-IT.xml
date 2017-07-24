@@ -232,6 +232,10 @@
     <item quantity="one">%s pareggi</item>
     <item quantity="other">%s pareggi</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s in corso</item>
+    <item quantity="other">%s in corso</item>
+  </plurals>
   <string name="exportGames">Esporta le partite</string>
   <string name="ratingRange">Punteggio avversario</string>
   <plurals name="giveNbSeconds">
