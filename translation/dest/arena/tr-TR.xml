@@ -21,7 +21,7 @@ Sıfır dakika ile başlayan oyunlarda Divane modu mevcut değildir. (0+1, 0+2).
 
 Divane modu açılan bir oyun en az 7 hamle oynanmadan bitmiş ise ek puan geçerli değildir.</string>
   <string name="howIsTheWinnerDecided">Kazanan nasıl belirleniyor?</string>
-  <string name="howIsTheWinnerDecidedAnswer">Turnuva sona erdiğinde en fazla puana sahip oyuncu(lar) galip ilan edilir.</string>
+  <string name="howIsTheWinnerDecidedAnswer">Turnuva süresi sona erdiğinde en yüksek puana sahip oyuncu(lar) galip ilan edilir.</string>
   <string name="howDoesPairingWork">Eşleştirme nasıl yapılıyor?</string>
   <string name="howDoesPairingWorkAnswer">Turnuvanın başında eşleştirmeler oyuncuların puanlarına göre yapılır. Oyunu bitirip lobiye döndüğün anda ise kendi sıralamana yakın bir rakip ile eşleştirilirsin. Böylece bekleme süresi en aza indirgenmiş olur fakat turnuvadaki tüm oyuncularla karşılaşamayabilirsin.
 
