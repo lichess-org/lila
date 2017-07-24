@@ -99,8 +99,13 @@ Terfiye gerek yok.</string>
   <string name="firstPlaceTheRooks">İlk önce kaleleri yerleştir! Kaleler oyuna köşelerde başlar.</string>
   <string name="thenPlaceTheKnights">Şimdi sıra atlarda! Onlar da hemen kalelerin yanında durur.</string>
   <string name="placeTheBishops">Şimdi de filleri yerleştir! Oyuna atların yanında başlarlar.</string>
+  <string name="placeTheQueen">Sıra vezirde! Kendi renginin olduğu kaleye yerleştir.</string>
+  <string name="placeTheKing">Sırada şah var! Hemen vezirin yanına yerleştir.</string>
+  <string name="pawnsFormTheFrontLine">Piyonlar ön hattı oluşturur. Devam etmek için bir hamle yap.</string>
+  <string name="boardSetupComplete">Bravo! Artık satranç taşlarının nasıl dizildiğini biliyorsun.</string>
   <string name="castling">Rok atma</string>
   <string name="theSpecialKingMove">Şaha özgü bir hareket</string>
+  <string name="castlingIntro">Şahı güvene alırken kaleni saldırıya hazırla!</string>
   <string name="enPassant">Geçerken alma</string>
   <string name="theSpecialPawnMove">Piyona özgü bir hareket</string>
   <string name="stalemate">Pat</string>
