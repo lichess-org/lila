@@ -139,6 +139,7 @@ final class ReportApi(
           monitorUnprocessed
           lila.mon.mod.report.close()
           publishProcessed(report.user, report.reason)
+          accuracyCache invalidate report.createdBy
         }
     }
   }
@@ -245,26 +246,28 @@ final class ReportApi(
     }
   } yield withNotes
 
-  private val accuracyCache = asyncCache.multi[User.ID, Int](
+  private val accuracyCache = asyncCache.clearable[User.ID, Int](
     name = "reporterAccuracy",
     f = accuracyForUser,
-    expireAfter = _.ExpireAfterWrite(10 minutes)
+    expireAfter = _.ExpireAfterWrite(1 hours)
   )
 
   private def accuracyForUser(reporterId: User.ID): Fu[Int] = for {
-    by <- coll.find($doc("createdBy" -> reporterId, "reason" -> Reason.Cheat.key)).sort($sort.createdDesc).list[Report](20, ReadPreference.secondaryPreferred)
-    users = by.filter(_.processed).map(_.user).distinct
-    accuracy <- UserRepo countEngines users map { nb =>
-      Math.round((nb + 0.5f) / (users.length + 2f) * 100)
-    }
-  } yield accuracy
+    reports <- coll.find($doc(
+      "createdBy" -> reporterId,
+      "reason" -> Reason.Cheat.key,
+      "processedBy" $exists true
+    ))
+      .sort($sort.createdDesc)
+      .list[Report](20, ReadPreference.secondaryPreferred)
+    userIds = reports.map(_.user).distinct
+    nbEngines <- UserRepo countEngines userIds
+  } yield Math.round((nbEngines + 0.5f) / (userIds.length + 2f) * 100)
 
   def accuracy(report: Report): Fu[Option[Int]] =
-    if (report.reason == Reason.Cheat && !report.processed)
-      accuracyCache get report.createdBy map { a =>
-        Some(a)
-      }
-    else fuccess(None)
+    (report.reason == Reason.Cheat && !report.processed) ?? {
+      accuracyCache get report.createdBy map some
+    }
 
   def countUnprocesssedByRooms: Fu[Room.Counts] = {
     import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
