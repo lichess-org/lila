@@ -89,9 +89,16 @@ Terfiye gerek yok.</string>
   <string name="mateInOne">Mat etme</string>
   <string name="defeatTheOpponentsKing">Rakibi tek hamlede mat et</string>
   <string name="mateInOneIntro">Rakibin çektiğin şahı engelleyemediği zaman oyunu kazanırsın.</string>
+  <string name="attackYourOpponentsKing">Rakibe öyle bir saldır ki şahını kaçacak yeri kalmasın!</string>
+  <string name="mateInOneComplete">Tebrikler! İşte satranç böyle kazanılır!</string>
   <string name="intermediate">Orta düzey</string>
   <string name="boardSetup">Tahta düzeni</string>
   <string name="howTheGameStarts">Oyun nasıl başlar</string>
+  <string name="boardSetupIntro">İki ordu karşı karşıya dizilmiş, savaşa hazır.</string>
+  <string name="thisIsTheInitialPosition">Her satranç oyunu bu düzende başlar! Devam etmek için bir hamle yap.</string>
+  <string name="firstPlaceTheRooks">İlk önce kaleleri yerleştir! Kaleler oyuna köşelerde başlar.</string>
+  <string name="thenPlaceTheKnights">Şimdi sıra atlarda! Onlar da hemen kalelerin yanında durur.</string>
+  <string name="placeTheBishops">Şimdi de filleri yerleştir! Oyuna atların yanında başlarlar.</string>
   <string name="castling">Rok atma</string>
   <string name="theSpecialKingMove">Şaha özgü bir hareket</string>
   <string name="enPassant">Geçerken alma</string>
@@ -120,6 +127,7 @@ Terfiye gerek yok.</string>
   <string name="playMachine">Bilgisayarla oyna</string>
   <string name="testYourSkillsWithTheComputer">Hünerlerini bilgisayara karşı test et</string>
   <string name="letsGo">Başlayalım!</string>
+  <string name="stageX">%s. aşama</string>
   <string name="awesome">Çok güzel!</string>
   <string name="excellent">Harika!</string>
   <string name="greatJob">İyi iş çıkardın!</string>
@@ -130,6 +138,7 @@ Terfiye gerek yok.</string>
   <string name="youreGoodAtThis">Çözdün bu işi!</string>
   <string name="nailedIt">Ahbap kimi indireceğini biliyorsun, yalnızca seç ve devam et gitsin.</string>
   <string name="rightOn">İşte böyle!</string>
+  <string name="stageXComplete">%s. aşama tamamlandı</string>
   <string name="yourScore">Puanın</string>
   <string name="next">Sıradaki</string>
   <string name="backToMenu">Menüye geri dön</string>
