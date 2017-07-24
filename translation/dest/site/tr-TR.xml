@@ -245,6 +245,7 @@
   <string name="giveMoreTime">Süre ver</string>
   <string name="thisPlayerUsesChessComputerAssistance">Bu oyuncu bir satranç programından yardım alıyor.</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Bu oyuncu puanını sahte bir şekilde artırıyor/azaltıyor</string>
+  <string name="openingExplorerAndTablebase">Açılış kâşifi &amp; oyun sonu analizi</string>
   <string name="takeback">Hamleni geri al.</string>
   <string name="proposeATakeback">Hamleyi geri almayı teklif et.</string>
   <string name="takebackPropositionSent">Hamleyi geri alma teklifi gönderildi.</string>
@@ -293,6 +294,7 @@
   <string name="fromPosition">Özel pozisyondan</string>
   <string name="continueFromHere">Bu pozisyondan devam et</string>
   <string name="importGame">Oyun yükle</string>
+  <string name="importGameExplanation">Bir oyun PGN\'si yapıştırdığınız zaman; göz atılabilir bir tekrar, bilgisayar analizi, oyun sohbeti ve paylaşılabilir bir link elde edersiniz.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Yüklenen oyunlar</item>
     <item quantity="other">%s Yüklenen oyunlar</item>
