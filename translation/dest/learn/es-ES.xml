@@ -77,7 +77,7 @@ Y no pierdas las tuyas.</string>
   <string name="checkInOneIntro">Da jaque al rey rival ¡Está obligado a defenderlo!</string>
   <string name="checkInOneGoal">¡Ataca al rey enemigo en un movimiento!</string>
   <string name="checkInOneComplete">¡Felicidades! ¡Has dado jaque a tu oponente, obligándole a defender su rey!</string>
-  <string name="outOfCheck">Escapar del jaque</string>
+  <string name="outOfCheck">Salir del jaque</string>
   <string name="defendYourKing">Defiende a tu rey</string>
   <string name="outOfCheckIntro">¡Estás en jaque! Tienes que escapar o bloquear el ataque.</string>
   <string name="escapeWithTheKing">¡Escapa con el rey!</string>
@@ -116,7 +116,7 @@ Y no pierdas las tuyas.</string>
   <string name="findAWayToCastleKingSide">¡Encuentra la forma de enrocar en corto!</string>
   <string name="findAWayToCastleQueenSide">¡Encuentra la forma de enrocar en largo!</string>
   <string name="castlingComplete">¡Enhorabuena! Conviene enrocar en casi todas las partidas.</string>
-  <string name="enPassant">Captura al paso</string>
+  <string name="enPassant">Al paso</string>
   <string name="theSpecialPawnMove">El movimiento especial del peón</string>
   <string name="enPassantIntro">Cuándo el peón oponente mueve dos casillas, puedes capturarlo como si hubiese movido sólo una.</string>
   <string name="blackJustMovedThePawnByTwoSquares">¡El negro ha movido su peón dos casillas! Captúralo al paso.</string>
