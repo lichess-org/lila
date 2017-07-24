@@ -39,10 +39,6 @@ module.exports = function(blueprint, opts) {
   // cheat
   Mousetrap.bind(['shift+enter'], complete);
 
-  var failSoundOnce = function() {
-    sound.once('failure', opts.stage.key + '/' + blueprint.id);
-  };
-
   var assertData = function() {
     return {
       scenario: scenario,
@@ -53,7 +49,7 @@ module.exports = function(blueprint, opts) {
 
   var detectFailure = function() {
     var failed = blueprint.failure && blueprint.failure(assertData());
-    if (failed) failSoundOnce();
+    if (failed) sound.failure();
     return failed;
   };
 
@@ -70,7 +66,7 @@ module.exports = function(blueprint, opts) {
     vm.failed = true;
     ground.stop();
     ground.showCapture(move);
-    failSoundOnce();
+    sound.failure();
     return true;
   };
 
@@ -81,7 +77,7 @@ module.exports = function(blueprint, opts) {
     else { // moving into check
       vm.failed = true;
       ground.showCheckmate(chess);
-      failSoundOnce();
+      sound.failure();
       return m.redraw();
     }
     var took = false,
