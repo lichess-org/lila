@@ -3,4 +3,45 @@
 <resources>
   <string name="activity">Son Eylemler</string>
   <string name="supportedNbMonths">Lichess\'i %2$s olarak %1$s ay destekledi</string>
+  <plurals name="practicedNbPositions">
+    <item quantity="one">%2$s üzerine %1$s alıştırma yaptı</item>
+    <item quantity="other">%2$s üzerine %1$s alıştırma yaptı</item>
+  </plurals>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="one">%s bulmaca çözdü</item>
+    <item quantity="other">%s bulmaca çözdü</item>
+  </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="one">%1$s kez %2$s oynadı</item>
+    <item quantity="other">%1$s kez %2$s oynadı</item>
+  </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="one">Forumda %1$s mesaj paylaştı: %2$s</item>
+    <item quantity="other">Forumda %1$s mesaj paylaştı: %2$s</item>
+  </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">%2$s yazışmalı oyunda %1$s hamle yaptı</item>
+    <item quantity="other">%2$s yazışmalı oyunda %1$s hamle yaptı</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">%s adet yazışmalı oyun tamamladı</item>
+    <item quantity="other">%s adet yazışmalı oyun tamamladı</item>
+  </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="one">%s adlı oyuncuyu takip etmeye başladı</item>
+    <item quantity="other">%s adlı oyuncuları takip etmeye başladı</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="one">%s yeni takipçi edindi</item>
+    <item quantity="other">%s yeni takipçi edindi</item>
+  </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="one">%s eş zamanlı oyuna ev sahipliği yaptı</item>
+    <item quantity="other">%s eş zamanlı oyuna ev sahipliği yaptı</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">%s eş zamanlı oyuna katıldı</item>
+    <item quantity="other">%s eş zamanlı oyuna katıldı</item>
+  </plurals>
+  <string name="signedUp">Lichess\'e üye oldu</string>
 </resources>
