@@ -114,7 +114,17 @@
   <string name="claimADraw">Затражи реми</string>
   <string name="offerDraw">Понуди реми</string>
   <string name="draw">Реми</string>
+  <plurals name="nbPlayers">
+    <item quantity="one">%s играч на вези</item>
+    <item quantity="few">%s играча на вези</item>
+    <item quantity="other">%s играча на вези</item>
+  </plurals>
   <string name="currentGames">Партије које се управо играју</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s партија у игри</item>
+    <item quantity="few">%s партије у игри</item>
+    <item quantity="other">%s партије у игри</item>
+  </plurals>
   <string name="viewInFullSize">Погледај у пуној величини</string>
   <string name="logOut">Одјави се</string>
   <string name="signIn">Пријави се</string>
@@ -583,6 +593,13 @@
   <string name="youHaveAlreadyRegisteredTheEmail">Već ste registrovali e-Mail %s</string>
   <string name="kidMode">Mod garnitura</string>
   <string name="kidModeExplanation">Ово је око сигурности. У дечијем моду, све комуникације на сајту су искључене. Укључите ово за вашу децу и ђаке, да их заштитите од других корисника интернета.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">У дечијем моду, логотип личеса добија %s икону, да би знали да су ваша деца сигурна.</string>
+  <string name="enableKidMode">Омогућите Дечији режим рада</string>
+  <string name="disableKidMode">Онемогућите Дечији режим рада</string>
+  <string name="security">Сигурност</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Ово је листа уређаја који су евидентирани у ваш налог. Опозовите све сесије које не препознајете.</string>
+  <string name="alternativelyYouCanX">Алтернативно, можете %s.</string>
+  <string name="revokeAllSessions">опозвати све сесије</string>
   <string name="playChessEverywhere">Igrajte šah bilo gde</string>
   <string name="asFreeAsLichess">Besplatno kao Lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Napravljen iz ljubavi prema šahu, a ne prema novcu</string>
@@ -597,4 +614,6 @@
   <string name="viewTheSolution">Погледај решење</string>
   <string name="followAndChallengeFriends">Прати и изазови пријатеља</string>
   <string name="gameAnalysis">Анализа партије</string>
+  <string name="xHostsY">%1$s домаћини %2$s</string>
+  <string name="xJoinsY">%1$s учествује у %2$s</string>
 </resources>
