@@ -103,12 +103,6 @@ $(function() {
       });
     });
 
-    function cleanupActivity() {
-      $('.activity .entry').filter(function() {
-        return this.textContent.indexOf('0 tournaments') > -1 ;
-      }).remove();
-    }
-    cleanupActivity();
     $('.content_box_inter.angles').each(function() {
       var $angles = $(this),
       $content = $('.angle_content');
@@ -116,7 +110,6 @@ $(function() {
         $('.angle_content .infinitescroll').infinitescroll('destroy');
         $.get(path).then(function(html) {
           $content.html(html);
-          cleanupActivity();
           lichess.pubsub.emit('content_loaded')();
           history.replaceState({}, '', path);
           lichess.loadInfiniteScroll('.angle_content .infinitescroll');
