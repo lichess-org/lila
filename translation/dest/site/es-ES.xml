@@ -346,7 +346,7 @@
   <string name="createdBy">Creado por</string>
   <string name="tournamentIsStarting">El torneo está comenzando</string>
   <string name="tournamentPairingsAreNowClosed">Los emparejamientos del torneo están cerrados.</string>
-  <string name="standByX">Espere %s, emparejando jugadores, ¡prepárate!</string>
+  <string name="standByX">Espera %s, emparejando jugadores, ¡prepárate!</string>
   <string name="youArePlaying">¡Está jugando!</string>
   <string name="winRate">Porcentaje de victorias</string>
   <string name="berserkRate">Tasa de berserk</string>
@@ -674,7 +674,7 @@
   <string name="everybodyGetsAllFeaturesForFree">Todos tienen acceso gratuito a todas las opciones</string>
   <string name="zeroAdvertisement">Sin anuncios</string>
   <string name="fullFeatured">Todas las funciones</string>
-  <string name="phoneAndTablet">Telefono y tablet</string>
+  <string name="phoneAndTablet">Teléfono y tablet</string>
   <string name="bulletBlitzClassical">Bala, relámpago, clásico</string>
   <string name="correspondenceChess">Ajedrez por correspondencia</string>
   <string name="onlineAndOfflinePlay">Jugar en línea o en local</string>
@@ -690,7 +690,7 @@
   <string name="xJoinsY">%1$s se une a %2$s</string>
   <string name="xLikesY">a %1$s le gusta %2$s</string>
   <string name="quickPairing">Emparejamiento rápido</string>
-  <string name="lobby">Lobby</string>
+  <string name="lobby">Recibidor</string>
   <string name="anonymous">Anónimo</string>
   <string name="yourScore">Tu puntuación: %s</string>
   <string name="language">Idioma</string>
@@ -718,5 +718,5 @@
   <string name="custom">Personalizado</string>
   <string name="notifications">Notificaciones</string>
   <string name="challenges">Desafíos</string>
-  <string name="perfRatingX">Clasificación: %s</string>
+  <string name="perfRatingX">Puntuación: %s</string>
 </resources>
