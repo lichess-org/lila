@@ -31,7 +31,7 @@
   <string name="kingIntro">Eres el rey. Si caes en batalla, se pierde la partida.</string>
   <string name="theKingIsSlow">El rey es lento.</string>
   <string name="lastOne">¡El último!</string>
-  <string name="kingComplete">¡Ya puedes dar órdenes al general!</string>
+  <string name="kingComplete">¡Ya puedes dar órdenes al comandante!</string>
   <string name="theKnight">El caballo</string>
   <string name="itMovesInAnLShape">Se mueve en forma de L</string>
   <string name="knightIntro">A ver cómo se te da éste. El caballo es... una pieza complicada.</string>
@@ -165,7 +165,7 @@ Peón = 1</string>
   <string name="exerciseYourTacticalSkills">Practica tus habilidades tácticas</string>
   <string name="videos">Vídeos</string>
   <string name="watchInstructiveChessVideos">Ve vídeos educativos de ajedrez</string>
-  <string name="playPeople">Juega con otros</string>
+  <string name="playPeople">Juega contra otros</string>
   <string name="opponentsFromAroundTheWorld">Oponentes de todo el mundo</string>
   <string name="playMachine">Juega contra la máquina</string>
   <string name="testYourSkillsWithTheComputer">Ponte a prueba contra el ordenador</string>
