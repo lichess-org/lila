@@ -232,6 +232,10 @@
     <item quantity="one">%s remier</item>
     <item quantity="other">%s remier</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s spelas</item>
+    <item quantity="other">%s spelas</item>
+  </plurals>
   <string name="exportGames">Exportera partier</string>
   <string name="ratingRange">Ratingomfång</string>
   <plurals name="giveNbSeconds">
