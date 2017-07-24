@@ -64,6 +64,8 @@
   <string name="capture">Slagzet</string>
   <string name="close">Sluiten</string>
   <string name="winning">Wint</string>
+  <string name="losing">Verliest</string>
+  <string name="drawn">Remise</string>
   <string name="unknown">Onbekend</string>
   <string name="database">Databank</string>
   <string name="whiteDrawBlack">Wit / Remise / Zwart</string>
@@ -75,9 +77,26 @@
     <item quantity="one">Schaakmat in %s halfzet</item>
     <item quantity="other">Schaakmat in %s halfzetten</item>
   </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Volgende slag- of pionzet in %s halfzetten (afstand tot het herstellen van de vijftig zetten teller)</item>
+    <item quantity="other">Volgende slag- of pionzet in %s halfzetten (afstand tot het herstellen van de vijftig zetten teller)</item>
+  </plurals>
   <string name="noGameFound">Geen partij gevonden</string>
   <string name="openingExplorer">Openingverkenner &amp; tablebase</string>
   <string name="xOpeningExplorer">%s openingsverkenner</string>
+  <string name="winPreventedBy50MoveRule">Winst voorkomen door vijftig-zetten regel</string>
+  <string name="lossSavedBy50MoveRule">Verlies gered door vijftig-zetten regel</string>
+  <string name="allSet">Klaar!</string>
+  <string name="importPgn">PGN importeren</string>
+  <string name="delete">Verwijderen</string>
+  <string name="deleteThisImportedGame">Deze geïmporteerde partij verwijderen?</string>
+  <string name="openStudy">Open Study</string>
+  <string name="enable">Aanzetten</string>
+  <string name="bestMoveArrow">Beste zet-pijl</string>
+  <string name="multipleLines">Meerdere varianten</string>
+  <string name="cpus">CPUs</string>
+  <string name="memory">Geheugen</string>
+  <string name="infiniteAnalysis">Oneindige analyse</string>
   <string name="blunders">Blunders</string>
   <string name="mistakes">Fouten</string>
   <string name="inaccuracies">Imperfecties</string>
@@ -207,12 +226,17 @@
     <item quantity="one">%s remise</item>
     <item quantity="other">%s remise</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s aan de gang</item>
+    <item quantity="other">%s aan de gang</item>
+  </plurals>
   <string name="exportGames">Partijen exporteren</string>
   <string name="ratingRange">Ratingbereik</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Geef %s seconde</item>
     <item quantity="other">Geef %s seconden</item>
   </plurals>
+  <string name="giveMoreTime">Meer tijd geven</string>
   <string name="thisPlayerUsesChessComputerAssistance">Deze speler maakt gebruik van een schaakprogramma</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Deze speler verhoogt/verlaagt zijn rating kunstmatig</string>
   <string name="takeback">Neem zet terug</string>
