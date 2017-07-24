@@ -184,6 +184,6 @@ Piyon = 1</string>
   <string name="yourScore">Puanın</string>
   <string name="next">Sıradaki</string>
   <string name="backToMenu">Menüye geri dön</string>
-  <string name="puzzleFailed">Boby Fischer mezarında ters döndü!</string>
+  <string name="puzzleFailed">Bulmaca çözülemedi!</string>
   <string name="retry">Tekrar dene</string>
 </resources>
