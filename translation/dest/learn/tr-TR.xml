@@ -119,8 +119,17 @@ Terfiye gerek yok.</string>
   <string name="enPassant">Geçerken alma</string>
   <string name="theSpecialPawnMove">Piyona özgü bir hareket</string>
   <string name="enPassantIntro">Rakip piyon iki kare hareket ettiğinde onu bir kare hareket etmiş gibi yiyebilirsin.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Rakibin siyah piyonu iki kare sürdü! Piyonu geçerken al.</string>
+  <string name="enPassantOnlyWorksImmediately">Geçerken almayı yalnızca rakip piyon sürüldükten hemen sonra yapabilirsin.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Geçerken almayı sadece piyonun 5. sıradayken yapabilirsin.</string>
+  <string name="takeAllThePawnsEnPassant">Tüm piyonları geçerken al!</string>
+  <string name="enPassantComplete">Çok güzel! Artık geçerken alma kuralını biliyorsun.</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Beraberlik</string>
+  <string name="stalemateIntro">Eğer bir oyuncuya şah çekilmemiş ise ve bu oyuncunun yapabilecek herhangi bir hamlesi kalmamışsa buna pat denir. Oyun berabere biter, kazanan veya kaybeden yoktur.</string>
+  <string name="stalemateGoal">Pata kalmak için:
+- Siyah hiçbir taşını oynayamamalı
+- Şah çekmemelisin.</string>
   <string name="advanced">İleri düzey</string>
   <string name="pieceValue">Taş değerleri</string>
   <string name="evaluatePieceStrength">Taş güçlerini hesaplama</string>
