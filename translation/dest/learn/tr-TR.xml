@@ -112,7 +112,7 @@ Terfiye gerek yok.</string>
   <string name="castleKingSideMovePiecesFirst">Şah tarafına rok atmalısın! Ama önce taşları aradan çıkartman gerekiyor.</string>
   <string name="castleQueenSideMovePiecesFirst">Vezir tarafına rok at! Ama önce aradaki taşları çıkarmalısın.</string>
   <string name="youCannotCastleIfMoved">Şahı veya kaleyi önceden hareket ettirmişsen rok atamazsın.</string>
-  <string name="youCannotCastleIfAttacked">Şahın geçeceği yolu rakip tehdit ediyorsa rok atamazsın. Saldırıyı engelle ve sonra rok at!</string>
+  <string name="youCannotCastleIfAttacked">Şahın geçeceği yolu rakip tehdit ediyorsa rok atamazsın. Saldırıyı engelle ve rok at!</string>
   <string name="findAWayToCastleKingSide">Şah tarafına rok atmanın bir yolunu bul!</string>
   <string name="findAWayToCastleQueenSide">Vezir tarafına rok atmanın bir yolunu bul!</string>
   <string name="castlingComplete">İyi iş çıkardın! Neredeyse tüm oyunlarda rok atman gerekir.</string>
@@ -151,6 +151,7 @@ At = 3
 Piyon = 1</string>
   <string name="checkInTwo">Şah çekme II</string>
   <string name="twoMovesToGiveCheck">İki hamlede şah çek</string>
+  <string name="checkInTwoIntro">Rakibe şah çekmeni sağlayacak iki hamleyi bul!</string>
   <string name="checkInTwoGoal">Rakibe iki hamlede şah çek!</string>
   <string name="checkInTwoComplete">İşte bu kadar! Rakibe şah çekerek savunma yapmaya zorladın!</string>
   <string name="whatNext">Sırada ne var?</string>
