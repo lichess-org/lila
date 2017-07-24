@@ -13,6 +13,13 @@ Mağlup edilene kadar serideki oyunlardan iki katı puan kazanırsın. Yani seri
 
 Örneğin, iki zaferden sonra berabere kalırsan toplamda 6 puanın olur: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Divane Modu</string>
+  <string name="berserkAnswer">Oyunun başında Divane tuşuna tıklayan oyuncu süresinin yarısından feragat eder ancak maçı kazandığı takdirde ek 1 turnuva puanı alır.
+
+Hamle başına süre eklenen oyunlarda Divane modu açan oyuncuya hamle sonrası süre ilave edilmez.
+
+Sıfır dakika ile başlayan oyunlarda Divane modu mevcut değildir. (0+1, 0+2).
+
+Divane modu açılan bir oyun en az 7 hamle oynanmadan bitmiş ise ek puan geçerli değildir.</string>
   <string name="howIsTheWinnerDecided">Kazanan nasıl belirleniyor?</string>
   <string name="howIsTheWinnerDecidedAnswer">Turnuva sona erdiğinde en fazla puana sahip oyuncu(lar) galip ilan edilir.</string>
   <string name="howDoesPairingWork">Eşleştirme nasıl yapılıyor?</string>
