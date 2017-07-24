@@ -410,7 +410,7 @@
     <item quantity="one">Jugado %s veces</item>
     <item quantity="other">Jugado %s veces</item>
   </plurals>
-  <string name="fromGameLink">Extraído de la partida %s</string>
+  <string name="fromGameLink">De la partida %s</string>
   <string name="startTraining">Iniciar entrenamiento</string>
   <string name="continueTraining">Continuar entrenamiento</string>
   <string name="retryThisPuzzle">Reintentar este ejercicio</string>
