@@ -77,7 +77,12 @@
     <item quantity="one">%s yarım hamlede mat</item>
     <item quantity="other">%s yarım hamlede mat</item>
   </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">%s yarım hamle sonra yapılacak taş alımı ya da piyon sürüşü (50 hamle kuralının sıfırlanmasına kalan uzaklık)</item>
+    <item quantity="other">%s yarım hamle sonra yapılacak taş alımı ya da piyon sürüşü (50 hamle kuralının sıfırlanmasına kalan uzaklık)</item>
+  </plurals>
   <string name="noGameFound">Oyun bulunamadı</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Belki tercihler menüsündeki ayarları değiştirirsen daha fazla oyun gösterilebilir?</string>
   <string name="openingExplorer">Açılış kâşifi</string>
   <string name="allSet">Her şey tamam!</string>
   <string name="enable">Etkinleştir</string>
