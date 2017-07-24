@@ -233,8 +233,8 @@
     <item quantity="other">%s kez berabere kaldı</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="one">%s oynuyor</item>
-    <item quantity="other">%s oynuyor</item>
+    <item quantity="one">%s oynanıyor</item>
+    <item quantity="other">%s oynanıyor</item>
   </plurals>
   <string name="exportGames">Oyunları indir</string>
   <string name="ratingRange">Puan aralığı</string>
