@@ -82,11 +82,16 @@
   <string name="noGameFound">Nulle partita trovate</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Forsan includer plus partitas per le menu preferentias?</string>
   <string name="openingExplorer">Explorator de initio de joco</string>
+  <string name="xOpeningExplorer">Explorator de initio de %s</string>
+  <string name="winPreventedBy50MoveRule">Victoria impedite per le regula del 50 movimentos</string>
+  <string name="lossSavedBy50MoveRule">Perdita impedite per le regula del 50 movimentos</string>
   <string name="allSet">Toto es preste!</string>
   <string name="importPgn">Importar PGN</string>
   <string name="delete">Deler</string>
   <string name="deleteThisImportedGame">Deler iste partita importate?</string>
+  <string name="replayMode">Revider le partita</string>
   <string name="realtimeReplay">Tempore real</string>
+  <string name="byCPL">Per errores</string>
   <string name="openStudy">Aperir studio</string>
   <string name="enable">Activar</string>
   <string name="bestMoveArrow">Flecha de melior movimento</string>
@@ -95,6 +100,7 @@
   <string name="cpus">Processatores</string>
   <string name="memory">Memoria</string>
   <string name="infiniteAnalysis">Analyse infinite</string>
+  <string name="removesTheDepthLimit">Remove le limite de profunditate del analyse e mantene tu computator calide</string>
   <string name="blunders">Errores grave</string>
   <string name="mistakes">Errores</string>
   <string name="inaccuracies">Imprecisiones</string>
