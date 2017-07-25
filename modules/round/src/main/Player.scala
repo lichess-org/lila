@@ -74,7 +74,7 @@ private[round] final class Player(
     else fuccess(round ! actorApi.round.ResignAi)
   }
 
-  private val fishnetLag = MoveMetrics()
+  private val fishnetLag = MoveMetrics(clientLag = Centis(5).some)
 
   private def applyUci(game: Game, uci: Uci, blur: Boolean, metrics: MoveMetrics): Valid[MoveResult] =
     (uci match {
