@@ -107,6 +107,9 @@ time {
 .is-gold::before {
   color: #d59120;
 }
+.blue {
+  color: #3893E8!important;
+}
 .user_link .line {
   opacity: 0.4;
   display: inline-block;

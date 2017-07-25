@@ -6,7 +6,7 @@
     @userLink(u, withOnline = false)
     @trans.nbFollowing.pluralSame(pag.nbResults)
     &amp;
-    <a href="@routes.Relation.followers(u.username)">@trans.nbFollowers.pluralSame(nbFollowers)</a>
+    <a class="blue" href="@routes.Relation.followers(u.username)">@trans.nbFollowers.pluralSame(nbFollowers)</a>
   </h1>
   @user.simpleTable(pag, routes.Relation.following(u.username))
 </div>
