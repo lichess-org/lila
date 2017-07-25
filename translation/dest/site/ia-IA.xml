@@ -231,6 +231,7 @@
   <string name="giveMoreTime">Offerer plus tempore</string>
   <string name="thisPlayerUsesChessComputerAssistance">Iste jocator usa le assistentia de un computator de chacos</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Iste jocator altera su classification de maniera artificial</string>
+  <string name="openingExplorerAndTablebase">Explorator de initio de joco &amp; tabula de finales</string>
   <string name="takeback">Retornar</string>
   <string name="proposeATakeback">Proponer un retorno del ultime movimento</string>
   <string name="takebackPropositionSent">Proposition de retorno inviate</string>
