@@ -279,6 +279,7 @@
   <string name="fromPosition">Ab position</string>
   <string name="continueFromHere">Continuar ab hic</string>
   <string name="importGame">Importar partita</string>
+  <string name="importGameExplanation">Quando tu colla un partita in PGN tu potera: revider la interactivemente, consultar un analyse de computator, utilisar le chat de joco, e publicar un ligamine URL.</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s partitas importate</item>
   </plurals>
