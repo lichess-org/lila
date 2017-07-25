@@ -33,7 +33,7 @@ case_template = '''        "{key}" -> """{contents}"""'''
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("locale_dir", help="A lichess username")
+    parser.add_argument("locale_dir", help="The path to the timeago locales")
     args = parser.parse_args()
 
     cases = {}
