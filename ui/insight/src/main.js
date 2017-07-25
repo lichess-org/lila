@@ -14,7 +14,5 @@ module.exports = function(element, opts) {
     view: view
   });
 
-  lichess.pubsub.on('timeago.locale-loaded', m.redraw);
-
   return controller;
 };

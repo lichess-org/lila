@@ -6,10 +6,7 @@
 window.timeago = (function() {
     // second, minute, hour, day, week, month, year(365 days)
     var SEC_ARRAY = [60, 60, 24, 7, 365/7/12, 12],
-    SEC_ARRAY_LEN = 6,
-    // ATTR_DATETIME = 'datetime',
-    ATTR_DATA_TID = 'data-tid',
-    timers = {}; // real-time render timers
+    SEC_ARRAY_LEN = 6;
 
   // format Date / string / timestamp to Date instance.
   function toDate(input) {
@@ -42,45 +39,12 @@ window.timeago = (function() {
     nowDate = nowDate ? toDate(nowDate) : new Date();
     return (nowDate - toDate(date)) / 1000;
   }
-  /**
-   * nextInterval: calculate the next interval time.
-   * - diff: the diff sec between now and date to be formated.
-   *
-   * What's the meaning?
-   * diff = 61 then return 59
-   * diff = 3601 (an hour + 1 second), then return 3599
-   * make the interval with high performace.
-  **/
-  function nextInterval(diff) {
-    var rst = 1, i = 0, d = Math.abs(diff);
-    for (; diff >= SEC_ARRAY[i] && i < SEC_ARRAY_LEN; i++) {
-      diff /= SEC_ARRAY[i];
-      rst *= SEC_ARRAY[i];
-    }
-    // return leftSec(d, rst);
-    d = d % rst;
-    d = d ? rst - d : rst;
-    return Math.ceil(d);
-  }
+
   // get the datetime attribute, `data-timeagp` / `datetime` are supported.
   function getDateAttr(node) {
-    return getAttr(node, 'data-timeago') || getAttr(node, 'datetime');
+    if (node.getAttribute) return node.getAttribute('datetime'); // native
+    return node.attr('datetime'); // jquery
   }
-  // get the node attribute, native DOM and jquery supported.
-  function getAttr(node, name) {
-    if(node.getAttribute) return node.getAttribute(name); // native
-    if(node.attr) return node.attr(name); // jquery
-  }
-  // set the node attribute, native DOM and jquery supported.
-  function setTidAttr(node, val) {
-    if(node.setAttribute) return node.setAttribute(ATTR_DATA_TID, val); // native
-    if(node.attr) return node.attr(ATTR_DATA_TID, val); // jquery
-  }
-  // get the timer id of node.
-  // remove the function, can save some bytes.
-  // function getTidFromNode(node) {
-  //   return getAttr(node, ATTR_DATA_TID);
-  // }
   /**
    * timeago: the function to get `timeago` instance.
    * - nowDate: the relative date, default is new Date().
@@ -93,21 +57,6 @@ window.timeago = (function() {
   function Timeago(nowDate) {
     this.nowDate = nowDate;
   }
-  // what the timer will do
-  Timeago.prototype.doRender = function(node, date) {
-    var diff = diffSec(date, this.nowDate),
-      self = this,
-      tid;
-    // delete previously assigned timeout's id to node
-    node.innerHTML = formatDiff(diff);
-    // waiting %s seconds, do the next render
-    timers[tid = setTimeout(function() {
-      self.doRender(node, date);
-      delete timers[tid];
-    }, Math.min(nextInterval(diff) * 1000, 0x7FFFFFFF))] = 0; // there is no need to save node in object.
-    // set attribute date-tid
-    setTidAttr(node, tid);
-  };
   /**
    * format: format the date to *** time ago
    * - date: the date / string / timestamp to be formated
@@ -137,45 +86,18 @@ window.timeago = (function() {
   Timeago.prototype.render = function(nodes) {
     if (nodes.length === undefined) nodes = [nodes];
     for (var i = 0, len = nodes.length; i < len; i++) {
-      this.doRender(nodes[i], getDateAttr(nodes[i])); // render item
+      var node = nodes[i],
+      html = formatDiff(diffSec(getDateAttr(nodes[i]), this.nowDate));
+      if (node.timeagoHTML !== html) {
+        node.innerHTML = html;
+        node.timeagoHTML = html;
+      }
     }
   };
 
   function timeagoFactory(nowDate) {
     return new Timeago(nowDate);
   }
-
-  /**
-   * cancel: cancels one or all the timers which are doing real-time render.
-   *
-   * How to use it?
-   * For canceling all the timers:
-   * var timeagoFactory = require('timeago.js');
-   * var timeago = timeagoFactory();
-   * timeago.render(document.querySelectorAll('.need_to_be_rendered'));
-   * timeagoFactory.cancel(); // will stop all the timers, stop render in real time.
-   *
-   * For canceling single timer on specific node:
-   * var timeagoFactory = require('timeago.js');
-   * var timeago = timeagoFactory();
-   * var nodes = document.querySelectorAll('.need_to_be_rendered');
-   * timeago.render(nodes);
-   * timeagoFactory.cancel(nodes[0]); // will clear a timer attached to the first node, stop render in real time.
-   **/
-  timeagoFactory.cancel = function(node) {
-    var tid;
-    // assigning in if statement to save space
-    if (node) {
-      tid = getAttr(node, ATTR_DATA_TID); // get the timer of DOM node(native / jq).
-      if (tid) {
-        clearTimeout(tid);
-        delete timers[tid];
-      }
-    } else {
-      for (tid in timers) clearTimeout(tid);
-      timers = {};
-    }
-  };
 
   /**
    * timeago: the function to get `timeago` instance.

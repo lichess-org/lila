@@ -329,20 +329,15 @@ lichess.topMenuIntent = function() {
 
       document.body.addEventListener('mouseover', lichess.powertip.mouseover);
 
+      var timeago = window.timeago();
       function setTimeago() {
-        // check that locale was loaded
-        if (window.timeagoLocaleUrl) return;
-        timeago().render($('.timeago').removeClass('timeago'));
+        lichess.raf(function() {
+          timeago.render(document.getElementsByClassName('timeago'));
+        });
       }
-
-      if (window.timeagoLocaleUrl) lichess.loadScript(timeagoLocaleUrl, {noVersion: true}).then(function() {
-        window.timeagoLocaleUrl = false;
-        lichess.pubsub.emit('timeago.locale-loaded')();
-        setTimeago();
-      });
-      else setTimeago();
-
+      setTimeago();
       lichess.pubsub.on('content_loaded', setTimeago);
+      setInterval(setTimeago, 2000);
 
       if ($('body').hasClass('blind_mode')) {
         var setBlindMode = function() {
