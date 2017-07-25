@@ -62,6 +62,17 @@ Promoveren is niet nodig.</string>
   <string name="pawnComplete">Gefeliciteerd! Pionnen hebben geen geheimen voor jou.</string>
   <string name="pawnPromotion">Promotie</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Je pion heeft het einde van het bord bereikt!</string>
+  <string name="itNowPromotesToAStrongerPiece">Nu promoveert het in een sterker stuk.</string>
+  <string name="selectThePieceYouWant">Selecteer het gewenste stuk!</string>
+  <string name="fundamentals">Basis</string>
+  <string name="capture">Slaan</string>
+  <string name="takeTheEnemyPieces">Sla de stukken van de tegenstander</string>
+  <string name="captureIntro">Identificeer de ongedekte stukken van de tegenstander en sla ze!</string>
+  <string name="takeTheBlackPieces">Sla de zwarte stukken!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Sla de zwarte stukken!
+En verlies uw eigen niet.</string>
+  <string name="captureComplete">Gefeliciteerd! U kunt nu vechten met schaakstukken!</string>
+  <string name="protection">Dekken</string>
   <string name="pawnsFormTheFrontLine">Pionnen vormen de frontlinie. Maak eender welke zet om voort te gaan.</string>
   <string name="boardSetupComplete">Gefeliciteerd! Nu weet je hoe je het schaakbord moet opstellen.</string>
   <string name="castling">Rokade</string>
@@ -90,4 +101,40 @@ naar de dameszijde te rokeren!</string>
   <string name="castlingComplete">Gefeliciteerd! Je moet bijna altijd rokeren in een spel.</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">De speciale pionzet</string>
+  <string name="enPassantIntro">Als de pion van de tegenstander twee velden tegelijk beweegt, kunt u het slaan alsof het maar één zet heeft bewogen.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Zwart heeft zojuist de pion
+met twee zetten bewogen!
+Sla het en passant.</string>
+  <string name="enPassantOnlyWorksImmediately">En passant werkt alleen
+meteen nadat de tegenstander
+de pion heeft gezet.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">En passant werkt alleen
+als uw pion op de vijfde rij staat.</string>
+  <string name="takeAllThePawnsEnPassant">Sla alle pionnen en passant!</string>
+  <string name="enPassantComplete">Gefeliciteerd! U kunt nu en passant slaan.</string>
+  <string name="stalemate">Pat</string>
+  <string name="theGameIsADraw">De partij eindigt in remise</string>
+  <string name="stalemateIntro">Als een speler niet schaak staat en geen legale zetten heeft, is het pat. De partij eindigt in remise: niemad wint en niemand verliest.</string>
+  <string name="stalemateGoal">Om zwart pat te zetten:
+- Zwart kan niet zetten
+- Zwart staat niet schaak.</string>
+  <string name="stalemateComplete">Gefeliciteerd! Je kunt beter pat staan dan mat!</string>
+  <string name="advanced">Geavanceerd</string>
+  <string name="pieceValue">Stukwaarde</string>
+  <string name="evaluatePieceStrength">Evalueer stukwaarde</string>
+  <string name="pieceValueIntro">Stukken die meer kunnen hebben een hogere waarde!
+Dame = 9
+Toren = 5
+Loper = 3
+Paard = 3
+Pion = 3
+De koning is onbetaalbaar! Als je hem verliest, verlies je de partij.</string>
+  <string name="queenOverBishop">Sla het stuk met
+de hoogste waarde!
+Dame &gt; loper</string>
+  <string name="takeThePieceWithTheHighestValue">Sla het stuk met
+de hoogste waarde!</string>
+  <string name="checkInTwo">Schaak in twee zetten</string>
+  <string name="twoMovesToGiveCheck">Twee zetten om schaak te geven</string>
+  <string name="checkInTwoIntro">Vind de juiste twee zetten om de koning van de tegenstander schaak te zetten!</string>
 </resources>

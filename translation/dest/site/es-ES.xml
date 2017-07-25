@@ -57,6 +57,8 @@
   <string name="inLocalBrowser">en el navegador local</string>
   <string name="toggleLocalEvaluation">Evaluación local</string>
   <string name="move">Movimiento</string>
+  <string name="variantLoss">Movimiento perdedor</string>
+  <string name="variantWin">Movimiento ganador</string>
   <string name="insufficientMaterial">Material insuficiente</string>
   <string name="pawnMove">Movimiento de peón</string>
   <string name="capture">Captura</string>
@@ -79,24 +81,24 @@
     <item quantity="one">Siguiente captura o peón mueve en %s mitad-movimiento (distancia a cero del contador de 50 paso)</item>
     <item quantity="other">Siguiente captura o peón mueve en %s mitad-movimiento (distancia a cero del contador de 50 paso)</item>
   </plurals>
-  <string name="noGameFound">No juego encontrado</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Es posible que puedas incluir mas juegos desde el menu de preferencias?</string>
+  <string name="noGameFound">No se ha encontrado ninguna partida</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prueba incluyendo más partidas desde el menú de preferencias</string>
   <string name="openingExplorer">Explorador de aperturas y base de datos de finales</string>
-  <string name="xOpeningExplorer">%s Explorador de Aperturas</string>
-  <string name="winPreventedBy50MoveRule">Ganado esta prevenido por la regla de 50 movimientos</string>
-  <string name="lossSavedBy50MoveRule">Pérdida esta preventido por regla de 50 movimientos</string>
+  <string name="xOpeningExplorer">Explorador de la apertura %s</string>
+  <string name="winPreventedBy50MoveRule">La regla de los 50 movimientos impide la victoria</string>
+  <string name="lossSavedBy50MoveRule">La regla de los 50 movimientos evita la derrota</string>
   <string name="allSet">¡Listo!</string>
   <string name="importPgn">Importar PGN</string>
   <string name="delete">Borrar</string>
   <string name="deleteThisImportedGame">¿Borrar este juego importado?</string>
-  <string name="replayMode">Modo del repeticion</string>
+  <string name="replayMode">Modo de repetición</string>
   <string name="realtimeReplay">Tiempo real</string>
-  <string name="byCPL">Por CPL</string>
+  <string name="byCPL">Por PCP</string>
   <string name="openStudy">Abrir estudio</string>
   <string name="enable">Activar</string>
-  <string name="bestMoveArrow">La flecha del mejor movimiento</string>
+  <string name="bestMoveArrow">Indicar la mejor jugada</string>
   <string name="evaluationGauge">Indicador de evaluación</string>
-  <string name="multipleLines">Múltiples lineas</string>
+  <string name="multipleLines">Múltiples líneas</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Memoria</string>
   <string name="infiniteAnalysis">Análisis infinito</string>
@@ -203,7 +205,7 @@
   <string name="play">Jugar</string>
   <string name="inbox">Recibidos</string>
   <string name="chatRoom">Sala de chat</string>
-  <string name="loginToChat">Inicio de sesión para chatear</string>
+  <string name="loginToChat">Inicia sesión para chatear</string>
   <string name="youHaveBeenTimedOut">La sesión se ha cerrado.</string>
   <string name="spectatorRoom">Chat de espectador</string>
   <string name="composeMessage">Escribir mensaje</string>
@@ -346,7 +348,7 @@
   <string name="createdBy">Creado por</string>
   <string name="tournamentIsStarting">El torneo está comenzando</string>
   <string name="tournamentPairingsAreNowClosed">Los emparejamientos del torneo están cerrados.</string>
-  <string name="standByX">Espere %s, emparejando jugadores, ¡prepárate!</string>
+  <string name="standByX">Espera %s, emparejando jugadores, ¡prepárate!</string>
   <string name="youArePlaying">¡Está jugando!</string>
   <string name="winRate">Porcentaje de victorias</string>
   <string name="berserkRate">Tasa de berserk</string>
@@ -408,7 +410,7 @@
     <item quantity="one">Jugado %s veces</item>
     <item quantity="other">Jugado %s veces</item>
   </plurals>
-  <string name="fromGameLink">Extraído de la partida %s</string>
+  <string name="fromGameLink">De la partida %s</string>
   <string name="startTraining">Iniciar entrenamiento</string>
   <string name="continueTraining">Continuar entrenamiento</string>
   <string name="retryThisPuzzle">Reintentar este ejercicio</string>
@@ -518,7 +520,7 @@
   <string name="xLeftANoteOnY">%1$s dejó una nota en %2$s</string>
   <string name="xCompetesInY">%1$s compite en %2$s</string>
   <string name="xAskedY">%1$s preguntó %2$s</string>
-  <string name="xAnsweredY">%1$s respondio %2$s</string>
+  <string name="xAnsweredY">%1$s respondió %2$s</string>
   <string name="xCommentedY">%1$s comentó %2$s</string>
   <string name="timeline">Orden cronológico</string>
   <string name="seeAllTournaments">Ver todos los torneos</string>
@@ -527,11 +529,11 @@
   <string name="yourCityRegionOrDepartment">Tu ciudad, región o provincia.</string>
   <string name="biographyDescription">Cuéntanos sobre ti, qué te gusta del ajedrez, tus aperturas favoritas, partidas, jugadores…</string>
   <plurals name="maximumNbCharacters">
-    <item quantity="one">Máximo: %s caracteres.</item>
-    <item quantity="other">Máximo: %s caracteres.</item>
+    <item quantity="one">Máximo: %s carácter.</item>
+    <item quantity="other">Máximo: %s carácteres.</item>
   </plurals>
   <plurals name="blocks">
-    <item quantity="one">%s bloqueados</item>
+    <item quantity="one">%s bloqueado</item>
     <item quantity="other">%s bloqueados</item>
   </plurals>
   <string name="listBlockedPlayers">Lista de jugadores que has bloqueado</string>
@@ -541,8 +543,8 @@
   <string name="clock">Reloj</string>
   <string name="unauthorizedError">Acceso no autorizado.</string>
   <string name="noInternetConnection">No hay conexión a Internet. Puede jugar sin conexión desde el menú.</string>
-  <string name="connectedToLichess">Está conectado a lichess.org</string>
-  <string name="signedOut">Usted ha cerrado la sesión</string>
+  <string name="connectedToLichess">Estás conectado a lichess.org</string>
+  <string name="signedOut">Has cerrado la sesión</string>
   <string name="loginSuccessful">Conectado</string>
   <string name="playOnTheBoardOffline">Jugar sin conexión</string>
   <string name="playOfflineComputer">Jugar vs CPU sin conexión</string>
@@ -652,29 +654,29 @@
   <string name="inputMovesWithTheKeyboard">Entrada de movimientos con el teclado</string>
   <string name="letOtherPlayersMessageYou">Deja que otras personas te envíen un mensaje</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Método de enroque</string>
-  <string name="castleByMovingTwoSquares">Enroque moviendo dos casillas</string>
+  <string name="castleByMovingTwoSquares">Moviendo el rey dos casillas</string>
   <string name="castleByMovingOntoTheRook">Moviendo el rey hasta la torre</string>
   <string name="shareYourInsightsData">Comparte tus datos estadísticos</string>
   <string name="withNobody">Con nadie</string>
-  <string name="withFriends">Con amigos</string>
+  <string name="withFriends">Con tus amigos</string>
   <string name="withEverybody">Con todo el mundo</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Ya has registrado el correo electrónico: %s</string>
   <string name="kidMode">Modo infantil</string>
-  <string name="kidModeExplanation">Esto es por seguridad. En el modo de niño, se desactivan todas las comunicaciones de sitio. Activar esto para sus hijos y estudiantes, para protegerlos de otros usuarios de internet de la escuela.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">En el modo de niño, el logo de lichess tiene un icono de %s, para que usted sepa que sus hijos están a salvo.</string>
-  <string name="enableKidMode">Activar el modo de niño</string>
-  <string name="disableKidMode">Desactivar el modo de niño</string>
+  <string name="kidModeExplanation">Por seguridad, en el modo infantil se desactivan todas las comunicaciones con otros usuarios de la página. Activa esto para proteger a los menores de otros usuarios de Internet.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">En el modo infantil, el logo de lichess tiene un icono de %s, indicando que los niños están seguros.</string>
+  <string name="enableKidMode">Activar el modo infantil</string>
+  <string name="disableKidMode">Desactivar el modo infantil</string>
   <string name="security">Seguridad</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Esta es una lista de dispositivos que se han registrado en su cuenta. Revoque todas las sesiones que no reconozca.</string>
-  <string name="alternativelyYouCanX">Alternativamente se puede %s.</string>
-  <string name="revokeAllSessions">revocar todas las sesiones</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Esta es una lista de dispositivos desde los que ha iniciado sesión. Cierre todas las sesiones que no reconozca.</string>
+  <string name="alternativelyYouCanX">O también puede %s.</string>
+  <string name="revokeAllSessions">cerrar todas las sesiones</string>
   <string name="playChessEverywhere">Juega ajedrez donde sea</string>
-  <string name="asFreeAsLichess">Tan gratuito como lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Construido por amor al ajedrez, no por dinero</string>
+  <string name="asFreeAsLichess">Tan gratis como lichess</string>
+  <string name="builtForTheLoveOfChessNotMoney">Construido por amor al ajedrez, no al dinero</string>
   <string name="everybodyGetsAllFeaturesForFree">Todos tienen acceso gratuito a todas las opciones</string>
   <string name="zeroAdvertisement">Sin anuncios</string>
   <string name="fullFeatured">Todas las funciones</string>
-  <string name="phoneAndTablet">Telefono y tablet</string>
+  <string name="phoneAndTablet">Teléfono y tablet</string>
   <string name="bulletBlitzClassical">Bala, relámpago, clásico</string>
   <string name="correspondenceChess">Ajedrez por correspondencia</string>
   <string name="onlineAndOfflinePlay">Jugar en línea o en local</string>
@@ -690,7 +692,7 @@
   <string name="xJoinsY">%1$s se une a %2$s</string>
   <string name="xLikesY">a %1$s le gusta %2$s</string>
   <string name="quickPairing">Emparejamiento rápido</string>
-  <string name="lobby">Lobby</string>
+  <string name="lobby">Recibidor</string>
   <string name="anonymous">Anónimo</string>
   <string name="yourScore">Tu puntuación: %s</string>
   <string name="language">Idioma</string>
@@ -718,5 +720,5 @@
   <string name="custom">Personalizado</string>
   <string name="notifications">Notificaciones</string>
   <string name="challenges">Desafíos</string>
-  <string name="perfRatingX">Clasificación: %s</string>
+  <string name="perfRatingX">Puntuación: %s</string>
 </resources>

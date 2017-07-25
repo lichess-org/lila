@@ -61,7 +61,11 @@
   <string name="variantWin">Variantoverwinning</string>
   <string name="insufficientMaterial">Onvoldoende materiaal</string>
   <string name="pawnMove">Pionzet</string>
+  <string name="capture">Slagzet</string>
   <string name="close">Sluiten</string>
+  <string name="winning">Wint</string>
+  <string name="losing">Verliest</string>
+  <string name="drawn">Remise</string>
   <string name="unknown">Onbekend</string>
   <string name="database">Databank</string>
   <string name="whiteDrawBlack">Wit / Remise / Zwart</string>
@@ -73,9 +77,26 @@
     <item quantity="one">Schaakmat in %s halfzet</item>
     <item quantity="other">Schaakmat in %s halfzetten</item>
   </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Volgende slag- of pionzet in %s halfzetten (afstand tot het herstellen van de vijftig zetten teller)</item>
+    <item quantity="other">Volgende slag- of pionzet in %s halfzetten (afstand tot het herstellen van de vijftig zetten teller)</item>
+  </plurals>
   <string name="noGameFound">Geen partij gevonden</string>
   <string name="openingExplorer">Openingverkenner &amp; tablebase</string>
   <string name="xOpeningExplorer">%s openingsverkenner</string>
+  <string name="winPreventedBy50MoveRule">Winst voorkomen door vijftig-zetten regel</string>
+  <string name="lossSavedBy50MoveRule">Verlies gered door vijftig-zetten regel</string>
+  <string name="allSet">Klaar!</string>
+  <string name="importPgn">PGN importeren</string>
+  <string name="delete">Verwijderen</string>
+  <string name="deleteThisImportedGame">Deze geïmporteerde partij verwijderen?</string>
+  <string name="openStudy">Open Study</string>
+  <string name="enable">Aanzetten</string>
+  <string name="bestMoveArrow">Beste zet-pijl</string>
+  <string name="multipleLines">Meerdere varianten</string>
+  <string name="cpus">CPUs</string>
+  <string name="memory">Geheugen</string>
+  <string name="infiniteAnalysis">Oneindige analyse</string>
   <string name="blunders">Blunders</string>
   <string name="mistakes">Fouten</string>
   <string name="inaccuracies">Imperfecties</string>
@@ -205,12 +226,17 @@
     <item quantity="one">%s remise</item>
     <item quantity="other">%s remise</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s aan de gang</item>
+    <item quantity="other">%s aan de gang</item>
+  </plurals>
   <string name="exportGames">Partijen exporteren</string>
   <string name="ratingRange">Ratingbereik</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Geef %s seconde</item>
     <item quantity="other">Geef %s seconden</item>
   </plurals>
+  <string name="giveMoreTime">Meer tijd geven</string>
   <string name="thisPlayerUsesChessComputerAssistance">Deze speler maakt gebruik van een schaakprogramma</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Deze speler verhoogt/verlaagt zijn rating kunstmatig</string>
   <string name="takeback">Neem zet terug</string>
@@ -440,6 +466,7 @@
   <string name="closeAccountExplanation">Weet je zeker dat je je account wilt sluiten? Het sluiten van uw account is een permanente keuze. U kunt dan niet langer inloggen en uw profielpagina zal dan niet langer toegankelijk zijn.</string>
   <string name="thisAccountIsClosed">Dit account is gesloten.</string>
   <string name="invalidUsernameOrPassword">Ongeldige gebruikersnaam of wachtwoord</string>
+  <string name="incorrectPassword">Onjuist wachtwoord</string>
   <string name="emailMeALink">Email me een link</string>
   <string name="currentPassword">Huidig wachtwoord</string>
   <string name="newPassword">Nieuw wachtwoord</string>
@@ -518,6 +545,7 @@
   <string name="playOnTheBoardOffline">Speel offline</string>
   <string name="playOfflineComputer">Computer</string>
   <string name="opponent">Tegenstander</string>
+  <string name="learnMenu">Leren</string>
   <string name="community">Gemeenschap</string>
   <string name="tools">Gereedschap</string>
   <string name="increment">Extra tijd</string>
@@ -530,7 +558,9 @@
   <string name="error.email">Dit emailadres is ongeldig</string>
   <string name="error.email_acceptable">Dit emailadres is onacceptabel</string>
   <string name="error.email_unique">Dit emailadres is al in gebruik</string>
+  <string name="error.email_different">Dit is uw huidige e-mailadres</string>
   <string name="blindfoldChess">Blindschaak (onzichtbare stukken)</string>
+  <string name="zenMode">Zen modus</string>
   <string name="moveConfirmation">Zetbevestiging</string>
   <string name="inCorrespondenceGames">Bij correspondentiepartijen</string>
   <string name="ifRatingIsPlusMinusX">Indien de rating ± %s is</string>
@@ -616,6 +646,7 @@
   <string name="crosstable">Onderlinge partijen</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Je kunt ook over het bord scrollen om je zetten uit te voeren.</string>
   <string name="analysisShapesHowTo">Druk op shift+linkermuisknop of rechtermuisknop om cirkels en pijlen op het bord te tekenen.</string>
+  <string name="confirmResignationAndDrawOffers">Opgave en remise-aanbod bevestigen</string>
   <string name="inputMovesWithTheKeyboard">Zetten invoeren met het toetsenbord</string>
   <string name="letOtherPlayersMessageYou">Andere spelers mogen je berichten zenden</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rokeren door de koning twee vakjes te verplaatsen, of naar de toren</string>
@@ -658,6 +689,7 @@
   <string name="xLikesY">%1$s vindt %2$s leuk</string>
   <string name="quickPairing">Snel koppelen</string>
   <string name="lobby">Lobby</string>
+  <string name="anonymous">Anoniem</string>
   <string name="yourScore">Uw score: %s</string>
   <string name="language">Taal</string>
   <string name="background">Achtergrond</string>

@@ -26,11 +26,13 @@ El modo berserk sólo proporciona un punto adicional por cada victoria si juegas
   <string name="howIsTheWinnerDecided">¿Cómo se decide el ganador?</string>
   <string name="howIsTheWinnerDecidedAnswer">El jugador con los más puntos al término del torneo será anunciado el ganador.</string>
   <string name="howDoesPairingWork">¿Cómo se realizan los emparejamientos?</string>
-  <string name="howDoesPairingWorkAnswer">Al principio del torneo, los jugadores están emparejados en base a su calificación. Tan pronto como termine un juego, volver al vestibulo del torneo: entonces serás emparejados con un jugador cerca de tu clasificación. De esta manera no necesitas esperar mucho tiempo, sin embargo no puede enfrentar todos los jugadores en el torneo. Jugar rápido y volver al lobby para jugar más juegos y ganar más puntos.</string>
-  <string name="howDoesItEnd">Como termina?</string>
-  <string name="howDoesItEndAnswer">El torneo tiene un reloj de cuenta regresiva. Cuando llegue a cero, se congelan las clasificaciones del torneo, y el ganador es anunciado. Juegos en progreso debe ser terminado, sin embargo no cuentan para el torneo.</string>
+  <string name="howDoesPairingWorkAnswer">Al principio del torneo, los jugadores se emparejan en base a su puntuación. En cuanto terminas una partida, vuelves al recibidor del torneo, y se te emparejará con un jugador con una puntuación similar a la tuya. Esto minimiza el tiempo de espera, si bien es posible que no juegues contra todos los demás jugadores del torneo.
+Juega rápido y vuelve al recibidor para jugar más partidas y ganar más puntos.</string>
+  <string name="howDoesItEnd">¿Cómo termina?</string>
+  <string name="howDoesItEndAnswer">El torneo tiene un reloj de cuenta regresiva. Cuando llegue a cero, se congelan las clasificaciones del torneo, y se proclama el ganador. Las partidas que estén en juego deben terminarse, aunque no cuentan para el resultado del torneo.</string>
   <string name="otherRules">Otras reglas importantes</string>
-  <string name="otherRulesAnswer">Estás obligado hacer su primera jugada en los 20 segundos de tu turno. Pudiendo hacer un movimiento en este tiempo perderá el juego a tu oponente. Si el juego se termina en un empate dentro de las primeras 10 jugadas del juego, ningún jugador va a ganar puntos.</string>
+  <string name="otherRulesAnswer">Debes hacer tu primer movimiento en 20 segundos. Si no lo haces, se concederá la victoria a tu oponente.
+Declarar tablas en los primeros 10 movimientos no concederá puntos a ninguno de los jugadores.</string>
   <string name="thisIsPrivate">Este es un torneo privado</string>
-  <string name="shareUrl">Comparte esta URL para permitir unas personas unir: %s</string>
+  <string name="shareUrl">Comparte esta URL para que otras personas se unan: %s</string>
 </resources>

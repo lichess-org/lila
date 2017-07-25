@@ -232,6 +232,10 @@
     <item quantity="one">%s empates</item>
     <item quantity="other">%s empates</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s jogando</item>
+    <item quantity="other">%s jogando</item>
+  </plurals>
   <string name="exportGames">Exportar partidas</string>
   <string name="ratingRange">Classificação entre</string>
   <plurals name="giveNbSeconds">

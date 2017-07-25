@@ -251,6 +251,7 @@
     <item quantity="few">Duoti %s sekundes</item>
     <item quantity="other">Duoti %s sekundžių</item>
   </plurals>
+  <string name="giveMoreTime">Duoti daugiau laiko</string>
   <string name="thisPlayerUsesChessComputerAssistance">Šis žaidejas naudojasi kompiuterio pagalba</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Šis žaidėjas dirbtinai padidina/sumažina savo reitingą</string>
   <string name="openingExplorerAndTablebase">Debiutų naršyklė ir pozicijų DB</string>
