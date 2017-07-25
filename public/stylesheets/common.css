@@ -1922,3 +1922,9 @@ body ::-webkit-scrollbar-thumb:active {
 body ::-webkit-scrollbar-track {
   box-shadow: 0 0 6px rgba(50, 50, 50, 0.3) inset;
 }
+
+.row::after {
+  content: '';
+  display: table;
+  clear: both;
+}

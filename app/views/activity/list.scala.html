@@ -151,7 +151,7 @@ case (pt, score) => {
 @renderSimuls(simuls: List[lila.simul.Simul]) = {
 <div class="entry">
   <i data-icon="|"></i>
-  <div>
+  <div class="row">
     @simuls.groupBy(_.isHost(u.some)).map {
     case (isHost, simuls) => {
     @if(isHost) {
