@@ -79,9 +79,12 @@ private[tournament] object ScoringSystem extends AbstractScoringSystem {
     }
   }
 
-  private def isOnFire = firstTwoAreWins _
+  private def isOnFire(scores: List[Score]) = scores match {
+    case Score(ResWin, _, _) :: Score(ResDraw, _, _) :: l => twoWins(l)
+    case _ => twoWins(scores)
+  }
 
-  private def firstTwoAreWins(scores: List[Score]) = scores match {
+  private def twoWins(scores: List[Score]) = scores match {
     case Score(ResWin, _, _) :: Score(ResWin, _, _) :: _ => true
     case _ => false
   }
