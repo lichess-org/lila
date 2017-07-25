@@ -332,6 +332,8 @@
   <string name="winStreak">Victorias consecutive</string>
   <string name="createdBy">Create per</string>
   <string name="tournamentIsStarting">Le torneo es sur le puncto de comenciar</string>
+  <string name="tournamentPairingsAreNowClosed">Le junction de jocatores in le torneo es claudite ora.</string>
+  <string name="standByX">Attende %s, connectente jocatores, prepara se!</string>
   <string name="youArePlaying">Tu es jocante!</string>
   <string name="winRate">Percentage de victorias</string>
   <string name="berserkRate">Percentage Berserk</string>
