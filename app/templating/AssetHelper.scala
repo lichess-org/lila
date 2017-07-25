@@ -65,17 +65,6 @@ trait AssetHelper { self: I18nHelper =>
     """<script src="//code.highcharts.com/4.1.4/highcharts-more.js"></script>"""
   }
 
-  private val timeagoLangs = Set("ar", "be", "bg", "ca", "da", "de", "el", "en", "en_short", "es", "eu", "fa", "fi", "fr", "gl", "he", "hu", "in_BG", "in_HI", "in_ID", "it", "ja", "ko", "ml", "my", "nb_NO", "nl", "nn_NO", "pl", "pt_BR", "ro", "ru", "sv", "ta", "th", "tr", "uk", "vi", "zh_CN", "zh_TW")
-  private def timeagoLangUrl(code: String) = s"/assets/vendor/timeago/locales/$code.js"
-
-  def timeagoLangUrl(implicit ctx: lila.api.Context): Option[String] = {
-    Some("/assets/vendor/timeago/dist/timeago.locales.min.js")
-    // val l = lang(ctx)
-    // if (timeagoLangs(l.code)) Some(timeagoLangUrl(l.code))
-    // else if (timeagoLangs(l.language)) Some(timeagoLangUrl(l.language))
-    // else none
-  }
-
   val tagmanagerTag = cdnOrLocal(
     cdn = "//cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.0/tagmanager.js",
     test = "$.tagsManager",
