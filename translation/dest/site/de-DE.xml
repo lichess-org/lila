@@ -94,10 +94,10 @@
   <string name="replayMode">Wiedergabemodus</string>
   <string name="realtimeReplay">Echtzeit</string>
   <string name="byCPL">Nach CPL</string>
-  <string name="openStudy">Study öffnen</string>
+  <string name="openStudy">Studie öffnen</string>
   <string name="enable">Einschalten</string>
   <string name="bestMoveArrow">Pfeil für besten Zug</string>
-  <string name="evaluationGauge">Bewertungspegel</string>
+  <string name="evaluationGauge">Bewertungsanzeige</string>
   <string name="multipleLines">Mehrere Varianten</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Arbeitsspeicher</string>
@@ -231,6 +231,10 @@
   <plurals name="nbDraws">
     <item quantity="one">%s Remis</item>
     <item quantity="other">%s Remis</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s laufende Partie</item>
+    <item quantity="other">%s laufende Partien</item>
   </plurals>
   <string name="exportGames">Partien exportieren</string>
   <string name="ratingRange">Ratingbereich</string>
