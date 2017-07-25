@@ -198,6 +198,7 @@
   <string name="inbox">Cassa de entrata</string>
   <string name="chatRoom">Sala de conversation</string>
   <string name="loginToChat">Aperir session pro usar le chat</string>
+  <string name="youHaveBeenTimedOut">Tu session ha expirate.</string>
   <string name="spectatorRoom">Sala de spectatores</string>
   <string name="composeMessage">Componer message</string>
   <string name="noNewMessages">Nulle messages nove</string>
@@ -219,11 +220,15 @@
   <plurals name="nbDraws">
     <item quantity="other">%s partitas nulle</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="other">%s jocante</item>
+  </plurals>
   <string name="exportGames">Exportar partitas</string>
   <string name="ratingRange">Intervallo de classificationes</string>
   <plurals name="giveNbSeconds">
     <item quantity="other">Dona %s secundas</item>
   </plurals>
+  <string name="giveMoreTime">Offerer plus tempore</string>
   <string name="thisPlayerUsesChessComputerAssistance">Iste jocator usa le assistentia de un computator de chacos</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Iste jocator altera su classification de maniera artificial</string>
   <string name="takeback">Retornar</string>
