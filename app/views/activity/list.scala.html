@@ -143,7 +143,7 @@ case (pt, score) => {
 
 @renderSimul(s: lila.simul.Simul) = {
 <div>
-  <a href="@routes.Simul.show(s.id)">@s.name simul</a>
+  <a href="@routes.Simul.show(s.id)">@s.name simul by @userIdLink(s.hostId.some)</a>
   @scoreHtml(Score(s.wins, s.losses, s.draws, none))
 </div>
 }
