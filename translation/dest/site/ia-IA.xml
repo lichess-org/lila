@@ -352,6 +352,7 @@
   <string name="isPrivate">Private</string>
   <string name="reportXToModerators">Reportar %s al moderatores</string>
   <string name="profileCompletion">Completion del profilo: %s</string>
+  <string name="xRating">Classification %s</string>
   <string name="ifNoneLeaveEmpty">Si necun, lassa lo vacue</string>
   <string name="gameCompletionRate">Percentage de completion de jocos: %s</string>
   <string name="profile">Profilo</string>
@@ -636,9 +637,11 @@
   <string name="withEverybody">Con tote le mundo</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Tu jam ha registrate le e-posta: %s</string>
   <string name="kidMode">Modo infantil</string>
+  <string name="kidModeExplanation">Isto concerne la securitate. In le modo infantil, tote le communicationes del sito es disactivate. Activa isto pro tu infantes e alumnos scholar, pro proteger los de altere usatores.</string>
   <string name="enableKidMode">Activar modo infantil</string>
   <string name="disableKidMode">Disactivar modo infantil</string>
   <string name="security">Securitate</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Isto es un lista de dispositivos que tu ha registrate in tu conto. Revoca qualcunque session que tu non recognosce.</string>
   <string name="alternativelyYouCanX">Alternativemente tu pote %s.</string>
   <string name="revokeAllSessions">revocar tote sessiones</string>
   <string name="playChessEverywhere">Joca chacos ubique!</string>
@@ -659,6 +662,8 @@
   </plurals>
   <string name="gameAnalysis">Analyse de joco</string>
   <string name="xHostsY">%1$s creava %2$s</string>
+  <string name="xJoinsY">%1$s univa se a %2$s</string>
+  <string name="xLikesY">%1$s ama %2$s</string>
   <string name="quickPairing">Initiar un partita rapidemente</string>
   <string name="lobby">Salon</string>
   <string name="anonymous">Anonyme</string>
