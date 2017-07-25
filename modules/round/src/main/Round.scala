@@ -12,6 +12,7 @@ import lila.hub.actorApi.DeployPost
 import lila.hub.actorApi.map._
 import lila.hub.actorApi.round.FishnetPlay
 import lila.hub.SequentialActor
+import lila.socket.UserLagCache
 import makeTimeout.large
 
 private[round] final class Round(
@@ -238,12 +239,16 @@ private[round] final class Round(
     }
 
   private def reportNetworkLag(pov: Pov) =
-    if (pov.game.turns == 20) {
+    if ((pov.game.playedTurns & 30) == 10) {
+      // Triggers every 32 moves starting on ply 10.
+      // i.e. 10, 11, 42, 43, 74, 75, ...
       for {
         clock <- pov.game.clock
-        color <- Color.all
-        lag <- clock.lag(color)
-      } lila.mon.round.move.networkLag(lag.millis)
+        lag <- clock.lag(pov.color)
+      } {
+        lila.mon.round.move.networkLag(lag.millis)
+        pov.player.userId.foreach { uid => UserLagCache.put(uid, lag) }
+      }
     }
 
   private def handle[A](op: Game => Fu[Events]): Funit =
