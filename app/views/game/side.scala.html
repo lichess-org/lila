@@ -34,7 +34,7 @@
           }
         </span>
         @game.pgnImport.flatMap(_.date).getOrElse(
-        game.isBeingPlayed.fold(trans.playingRightNow(), momentFormat(game.createdAt))
+        game.isBeingPlayed.fold(trans.playingRightNow(), momentFromNow(game.createdAt))
         )
       </div>
       @game.pgnImport.flatMap(_.date).map { date =>

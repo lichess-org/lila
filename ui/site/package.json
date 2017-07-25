@@ -20,7 +20,6 @@
     "vinyl-source-stream": "^1"
   },
   "dependencies": {
-    "gulp-concat": "^2.6",
     "tablesort": "^5.0.0"
   }
 }

@@ -16,12 +16,6 @@ function player(p) {
 }
 
 module.exports = {
-  secondsFromNow: function(seconds) {
-    var time = moment().add(seconds, 'seconds');
-    return m('time.moment-from-now', {
-      datetime: time.format()
-    }, time.fromNow());
-  },
   title: function(ctrl) {
     return m('h1.text[data-icon=|]', [
       ctrl.data.fullName,

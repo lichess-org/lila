@@ -76,16 +76,14 @@ trait DateHelper { self: I18nHelper =>
 
   def isoDate(date: DateTime): String = isoFormatter print date
 
-  def momentFormat(date: DateTime, format: String): Html = Html {
-    s"""<time class="moment" datetime="${isoDate(date)}" data-format="$format"></time>"""
-  }
-  def momentFormat(date: DateTime): Html = momentFormat(date, "calendar")
-
+  private val oneDayMillis = 1000 * 60 * 60 * 24
   def momentFromNow(date: DateTime)(implicit ctx: Context) = Html {
-    s"""<time class="moment-from-now" title="${showDate(date)}" datetime="${isoDate(date)}"></time>"""
+    val rendered = showDateTime(date)
+    if ((date.getMillis - nowMillis) > oneDayMillis) s"""<time>$rendered</time>"""
+    else s"""<time class="timeago" title="$rendered" datetime="${isoDate(date)}">$rendered</time>"""
   }
   def momentFromNowNoCtx(date: DateTime) = Html {
-    s"""<time class="moment-from-now" datetime="${isoDate(date)}"></time>"""
+    s"""<time class="timeago" datetime="${isoDate(date)}"></time>"""
   }
 
   def secondsFromNow(seconds: Int)(implicit ctx: Context) =
