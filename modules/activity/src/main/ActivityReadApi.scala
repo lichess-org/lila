@@ -49,7 +49,7 @@ final class ActivityReadApi(
       p.groupBy(_.topic).mapValues { posts =>
         posts.map(_.post).sortBy(_.createdAt)
       }
-    }
+    } filter (_.nonEmpty)
     corresMoves <- a.corres ?? { corres =>
       getPovs(a.id.userId, corres.movesIn) dmap {
         _.map(corres.moves -> _)
