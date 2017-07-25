@@ -37,6 +37,10 @@ interface Lichess {
   openInMobileApp(gameId: string): void;
   makeChat(id: string, data: any, callback?: (chat: any) => void): void;
   topMenuIntent(): void;
+  timeago: {
+    render(nodes: HTMLElement | HTMLElement[]): void;
+    format(date: any): string;
+  }
 }
 
 interface AssetUrlOpts {

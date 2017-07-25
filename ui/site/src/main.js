@@ -329,10 +329,9 @@ lichess.topMenuIntent = function() {
 
       document.body.addEventListener('mouseover', lichess.powertip.mouseover);
 
-      var timeago = window.timeago();
       function setTimeago() {
         lichess.raf(function() {
-          timeago.render(document.getElementsByClassName('timeago'));
+          lichess.timeago.render(document.getElementsByClassName('timeago'));
         });
       }
       setTimeago();

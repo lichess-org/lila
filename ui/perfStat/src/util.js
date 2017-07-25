@@ -1,7 +1,5 @@
 var m = require('mithril');
 
-const timeago = window.timeago();
-
 function fMap(v, f, orDefault) {
   return v ? f(v) : (orDefault || null);
 }
@@ -14,7 +12,7 @@ function gameLink(id, content) {
 }
 
 function date(d) {
-  return m('time', timeago.format(d));
+  return m('time', window.lichess.timeago.format(d));
 }
 
 function fromTo(s) {

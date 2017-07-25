@@ -126,9 +126,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
           h('td.reason', e.reason),
           h('td.mod', e.mod),
           h('td', h('time.timeago', {
-            attrs: {
-              datetime: new Date(e.date).toISOString()
-            }
+            attrs: { datetime: e.date }
           }))
         ]);
       })))

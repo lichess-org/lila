@@ -202,9 +202,12 @@ function generic(n: Notification, url: string | undefined, icon: string, content
 
 function drawTime(n: Notification) {
   var date = new Date(n.date);
-  return h('time', {
-    attrs: { title: date.toLocaleString() }
-  }, window.timeago().format(date));
+  return h('time.timeago', {
+    attrs: {
+      title: date.toLocaleString(),
+      datetime: n.date
+    }
+  }, window.lichess.timeago.format(date));
 }
 
 function userFullName(u?: LightUser) {
