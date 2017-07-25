@@ -6,7 +6,12 @@
   <string name="menu">Menu</string>
   <string name="progressX">Pokrok %s</string>
   <string name="resetMyProgress">Obnovit pokrok</string>
+  <string name="youWillLoseAllYourProgress">Obnovíš vše, co si se doposud naučil/a!</string>
   <string name="play">Hrat!</string>
   <string name="chessPieces">Šachové figurky</string>
   <string name="theRook">Věž</string>
+  <string name="itMovesInStraightLines">Pohybuje se v rovných řadách</string>
+  <string name="rookIntro">Věž je velmi silná figura. Jste připraven/a jí ovládnout?</string>
+  <string name="rookGoal">Klikni a přesuň věž na hvězdu!</string>
+  <string name="grabAllTheStars">Seber všechny hvězdy!</string>
 </resources>
