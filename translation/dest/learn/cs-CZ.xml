@@ -59,7 +59,7 @@
   <string name="captureIntro">Vyhledejte soupeřovy nechráněné figury a seberte je!</string>
   <string name="takeTheBlackPieces">Seberte černé figury!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Seberte černé figury! A neztraťte ty vaše.</string>
-  <string name="castleQueenSideMovePiecesFirst">Udělejte dlouhou rošádu! 
+  <string name="castleQueenSideMovePiecesFirst">Udělejte dlouhou rochádu! 
 Nejprve musíte uvolnit místo mezi králem a věží.</string>
   <string name="youCannotCastleIfMoved">Nemůžete dělat rochádu, pokud se král nebo věž pohli.</string>
   <string name="youCannotCastleIfAttacked">Nemůžete rochovat, pokud je král v šachu. 
@@ -67,4 +67,39 @@ Zabraňte šachu, a pak zarochujte!</string>
   <string name="findAWayToCastleKingSide">Najděte cestu k malé rochádě!</string>
   <string name="findAWayToCastleQueenSide">Najděte cestu k velké rochádě!</string>
   <string name="castlingComplete">Blahopřejeme! V reálné hře byste vždy měli dělat rochádu.</string>
+  <string name="enPassant">Braní mimochodem</string>
+  <string name="theSpecialPawnMove">Speciální tah pěšcem</string>
+  <string name="enPassantIntro">Když soupeř táhne pěšcem o dvě pole, můžete ho sebrat tak, jakoby táhl jen o jedno.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Černý právě pohl pěšcem
+o dvě pole! 
+Vemte ho mimochodem!</string>
+  <string name="enPassantOnlyWorksImmediately">Braní mimochodem funguje jen neprodleně poté,
+co soupeř o dvě pole
+natáhl pěšce.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Braní mimochodem funguje jen, 
+když je váš pěšec na páté řadě.</string>
+  <string name="takeAllThePawnsEnPassant">Vemte všechny pěšce mimochodem!</string>
+  <string name="enPassantComplete">Gratulace! Nyní již ovládáte pravidlo braní mimochodem.</string>
+  <string name="stalemate">Pat</string>
+  <string name="theGameIsADraw">Hra končí remízou</string>
+  <string name="stalemateIntro">Pokud hráč není v šachu a nemá jediný přípustný tah, je to pat. Hra končí remízou; nikdo nevyhrál,
+nikdo neprohrál.</string>
+  <string name="stalemateGoal">Pro zapatování černého:
+- Černý se nikam nemůže pohnout
+- Černý král není v šachu.</string>
+  <string name="stalemateComplete">Gratulujeme! Lepší být zpacen, než zmacen!</string>
+  <string name="advanced">Pokročilé</string>
+  <string name="pieceValue">Hodnota figur</string>
+  <string name="evaluatePieceStrength">Vyhodnocení síly figur</string>
+  <string name="pieceValueIntro">Figury s vyšší pohyblivostí mají větší hodnotu!
+Dáma = 9
+Věž = 5
+Střelec = 3
+Jezdec = 3
+Pěšec = 1
+Král hodnotu nemá! Ztráta krále znamená prohru partie.</string>
+  <string name="queenOverBishop">Vyberte figuru
+s nejvyšší hodnotou!
+Dáma &gt; Střelec</string>
+  <string name="takeThePieceWithTheHighestValue">Vyberte figuru s nejvyšší hodnotou!</string>
 </resources>
