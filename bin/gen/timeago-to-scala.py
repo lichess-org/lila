@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-# timeago-to-scala - convert 
+# timeago-to-scala - convert
 # https://github.com/hustcc/timeago.js/tree/master/locales to scala
 #
 # Copyright (C) 2017 Lakin Wecker <lakin@wecker.ca>
@@ -16,20 +16,22 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.  
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import argparse
 import glob
 from collections import defaultdict
 
-template = '''object TimeagoLocales {{
-    val locales: Map[String, String] = Map(
-        {cases}
-    )
+template = '''package lila.i18n
+
+object TimeagoLocales {{
+  val js: Map[String, String] = Map(
+    {cases}
+  )
 }}
 '''
 
-case_template = '''        "{key}" -> """{contents}"""'''
+case_template = '''    "{key}" -> """{contents}"""'''
 
 def main():
     parser = argparse.ArgumentParser()
@@ -47,6 +49,8 @@ def main():
         lines = [l for l in lines if l and not l.startswith("//")]
         contents = " ".join(lines)
         contents = contents.replace("module.exports = ", "")
+        contents = contents.replace("], [", "],[")
+        contents = contents.replace("', '", "','")
         cases[locale_key] = case_template.format(key=locale_key, contents=contents)
     cases = [v for k,v in sorted(cases.items())]
     print(template.format(cases=",\n".join(cases)))
