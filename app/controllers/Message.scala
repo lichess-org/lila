@@ -38,7 +38,8 @@ object Message extends LilaController {
       negotiate(
         html = OptionFuOk(api.thread(id, me)) { thread =>
         relationApi.fetchBlocks(thread otherUserId me, me.id) map { blocked =>
-          html.message.thread(thread, forms.post, blocked)
+          val form = !thread.isTooBig option forms.post
+          html.message.thread(thread, form, blocked)
         }
       } map NoCache,
         api = _ => JsonOptionFuOk(api.thread(id, me)) { thread => Env.message.jsonView.thread(thread) }
@@ -47,24 +48,21 @@ object Message extends LilaController {
   }
 
   def answer(id: String) = AuthBody { implicit ctx => implicit me =>
-    negotiate(
-      html = OptionFuResult(api.thread(id, me)) { thread =>
-        implicit val req = ctx.body
-        forms.post.bindFromRequest.fold(
+    OptionFuResult(api.thread(id, me) map (_.filterNot(_.isTooBig))) { thread =>
+      implicit val req = ctx.body
+      negotiate(
+        html = forms.post.bindFromRequest.fold(
           err => relationApi.fetchBlocks(thread otherUserId me, me.id) map { blocked =>
-            BadRequest(html.message.thread(thread, err, blocked))
+            BadRequest(html.message.thread(thread, err.some, blocked))
           },
           text => api.makePost(thread, text, me) inject Redirect(routes.Message.thread(thread.id) + "#bottom")
-        )
-      },
-      api = _ => OptionFuResult(api.thread(id, me)) { thread =>
-        implicit val req = ctx.body
-        forms.post.bindFromRequest.fold(
+        ),
+        api = _ => forms.post.bindFromRequest.fold(
           err => fuccess(BadRequest(Json.obj("err" -> "Malformed request"))),
           text => api.makePost(thread, text, me) inject Ok(Json.obj("ok" -> true, "id" -> thread.id))
         )
-      }
-    )
+      )
+    }
   }
 
   def form = Auth { implicit ctx => implicit me =>

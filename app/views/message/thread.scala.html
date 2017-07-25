@@ -1,4 +1,4 @@
-@(thread: lila.message.Thread, form: Form[_], blocks: Boolean)(implicit ctx: Context, me: User)
+@(thread: lila.message.Thread, form: Option[Form[_]], blocks: Boolean)(implicit ctx: Context, me: User)
 
 @message.layout(
 title = thread.name) {
@@ -26,16 +26,18 @@ title = thread.name) {
     @if(blocks) {
     <p>This user blocks you. You cannot answer.</p>
     } else {
+    @form.map { f =>
     <form action="@routes.Message.answer(thread.id)" method="post">
       <div class="field_body">
-        <textarea required="required" name="@form("text").name" id="@form("text").id">@form("text").value</textarea>
-        @errMsg(form("text"))
+        <textarea required="required" name="@f("text").name" id="@f("text").id">@f("text").value</textarea>
+        @errMsg(f("text"))
       </div>
       <div class="actions">
         <button class="send button" data-icon="E" type="submit"> @trans.send()</button>
         <a class="cancel" href="@routes.Message.inbox(1)">@trans.cancel()</a>
       </div>
     </form>
+    }
     }
   </div>
 </div>
