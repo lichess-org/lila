@@ -4,10 +4,6 @@ import { ModerationCtrl, ModerationOpts, ModerationData, ModerationReason } from
 import { userModInfo } from './xhr'
 import { userLink, spinner, bind } from './util';
 
-function isToday(timestamp: number) {
-  return window.moment(timestamp).isSame(Date.now(), 'day');
-}
-
 export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
 
   let data: ModerationData | undefined;
@@ -129,9 +125,8 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
         return h('tr', [
           h('td.reason', e.reason),
           h('td.mod', e.mod),
-          h('td', h('time.moment', {
+          h('td', h('time.timeago', {
             attrs: {
-              'data-format': isToday(e.date) ? 'LT' : 'DD/MM/YY',
               datetime: new Date(e.date).toISOString()
             }
           }))

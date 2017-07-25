@@ -18,7 +18,12 @@ function clock(d): VNode | undefined {
   if (d.isFinished) return;
   if (d.secondsToStart) {
     if (d.secondsToStart > oneDayInSeconds) return h('div.clock', [
-      h('time.moment-from-now.shy', { attrs: { datetime: d.startsAt } }, d.startsAt)
+      h('time.timeago.shy', {
+        attrs: {
+          title: new Date(d.startsAt).toLocaleString(),
+          datetime: Date.now() + (d.secondsToStart * 1000)
+        }
+      })
     ]);
     return h('div.clock.created', {
       hook: startClock(d.secondsToStart)

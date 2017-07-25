@@ -201,9 +201,10 @@ function generic(n: Notification, url: string | undefined, icon: string, content
 }
 
 function drawTime(n: Notification) {
-  return h('time.moment-from-now', {
-    attrs: { datetime: new Date(n.date).toISOString() }
-  });
+  var date = new Date(n.date);
+  return h('time', {
+    attrs: { title: date.toLocaleString() }
+  }, window.timeago().format(date));
 }
 
 function userFullName(u?: LightUser) {

@@ -4,9 +4,6 @@
 [submodule "public/vendor/tagmanager"]
 	path = public/vendor/tagmanager
 	url = https://github.com/max-favilli/tagmanager
-[submodule "public/vendor/moment"]
-	path = public/vendor/moment
-	url = https://github.com/moment/moment
 [submodule "public/vendor/ChessPursuit"]
 	path = public/vendor/ChessPursuit
 	url = https://github.com/ornicar/ChessPursuit

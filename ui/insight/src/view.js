@@ -29,7 +29,7 @@ var renderMeat = cache(function(ctrl) {
   ]);
 }, function(ctrl) {
   var q = ctrl.vm.answer ? ctrl.vm.answer.question : null;
-  return q ? ctrl.makeUrl(q.dimension, q.metric, q.filters) + moment.locale() : '';
+  return q ? ctrl.makeUrl(q.dimension, q.metric, q.filters) : '';
 });
 
 module.exports = function(ctrl) {

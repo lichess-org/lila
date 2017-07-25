@@ -25,7 +25,7 @@ active = "log") {
     <tbody>
       @logs.map { log =>
       <tr>
-        <td>@userIdLink(log.mod.some)<br />@momentFormat(log.date)</td>
+        <td>@userIdLink(log.mod.some)<br />@momentFromNow(log.date)</td>
         <td>@log.showAction.capitalize @log.user.map { u =>
           @userIdLink(u.some)
           }</td>

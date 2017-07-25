@@ -14,7 +14,7 @@ module.exports = function(element, opts) {
     view: view
   });
 
-  lichess.pubsub.on('moment.locale_loaded', m.redraw);
+  lichess.pubsub.on('timeago.locale-loaded', m.redraw);
 
   return controller;
 };

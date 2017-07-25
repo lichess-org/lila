@@ -57,7 +57,7 @@
         • @g.rated.fold(trans.rated(), trans.casual())
         }
       </strong>
-      @g.pgnImport.flatMap(_.date).getOrElse(momentFormat(g.createdAt))
+      @g.pgnImport.flatMap(_.date).getOrElse(momentFromNow(g.createdAt))
       @g.tournamentId.map { tourId =>
       • @tournamentLink(tourId)
       }

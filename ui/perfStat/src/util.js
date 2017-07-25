@@ -1,5 +1,7 @@
 var m = require('mithril');
 
+const timeago = window.timeago();
+
 function fMap(v, f, orDefault) {
   return v ? f(v) : (orDefault || null);
 }
@@ -12,11 +14,7 @@ function gameLink(id, content) {
 }
 
 function date(d) {
-  return m('time', {
-    class: 'moment',
-    datetime: d,
-    'data-format': 'calendar'
-  }, '...')
+  return m('time', timeago.format(d));
 }
 
 function fromTo(s) {
@@ -64,9 +62,9 @@ module.exports = {
     return v;
   },
   formatSeconds: function(s, format) {
-    var d = moment.duration(s, 'seconds');
-    var hours = d.days() * 24 + d.hours();
-    if (format === 'short') return hours + 'h, ' + d.minutes() + 'm';
-    return hours + ' hours, ' + d.minutes() + ' minutes';
+    var hours = Math.floor(s / 3600);
+    var minutes = Math.floor((s % 3600) / 60);
+    if (format === 'short') return hours + 'h, ' + minutes + 'm';
+    return hours + ' hours, ' + minutes + ' minutes';
   }
 };

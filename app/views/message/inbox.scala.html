@@ -39,7 +39,7 @@ title = trans.inbox.txt()) {
         <td class="subject">
           <a href="@routes.Message.thread(thread.id)#bottom">@thread.name</a>
         </td>
-        <td class="date">@momentFormat(thread.updatedAt)</td>
+        <td class="date">@momentFromNow(thread.updatedAt)</td>
         <td class="check">
           <input type="checkbox" name="threads" value="@thread.id" />
         </td>
