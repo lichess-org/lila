@@ -65,21 +65,15 @@ trait AssetHelper { self: I18nHelper =>
     """<script src="//code.highcharts.com/4.1.4/highcharts-more.js"></script>"""
   }
 
-  private val momentJsMissingLangs = Set("le", "pi", "tp", "ky", "ga", "zu", "la", "tg", "mg", "as", "yo", "ps", "fp", "ur", "tc", "ia", "jb", "gu", "kn", "gd", "kb", "io", "sw", "sa", "kk", "mn")
+  private val timeagoLangs = Set("ar", "be", "bg", "ca", "da", "de", "el", "en", "en_short", "es", "eu", "fa", "fi", "fr", "gl", "he", "hu", "in_BG", "in_HI", "in_ID", "it", "ja", "ko", "ml", "my", "nb_NO", "nl", "nn_NO", "pl", "pt_BR", "ro", "ru", "sv", "ta", "th", "tr", "uk", "vi", "zh_CN", "zh_TW")
+  private def timeagoLangUrl(code: String) = s"/assets/vendor/timeago/locales/$code.js"
 
-  def momentLangUrl(implicit ctx: lila.api.Context): Option[String] = {
-    val l = lang(ctx)
-    if (momentJsMissingLangs contains l.language) none
-    else ((l.language, l.country.toLowerCase) match {
-      case ("en", "us") => none
-      case ("en", "au" | "ca" | "gb") => l.code.some
-      case ("pt", "br") => l.code.some
-      case ("zh", "tw") => l.code.some
-      case ("zh", _) => "zh-cn".some
-      case ("ar", "ma" | "sa" | "tn") => l.code.some
-      case ("fr", "ca") => l.code.some
-      case _ => l.language.some
-    }).map { locale => s"/assets/vendor/moment/locale/${locale.toLowerCase}.js" }
+  def timeagoLangUrl(implicit ctx: lila.api.Context): Option[String] = {
+    Some("/assets/vendor/timeago/dist/timeago.locales.min.js")
+    // val l = lang(ctx)
+    // if (timeagoLangs(l.code)) Some(timeagoLangUrl(l.code))
+    // else if (timeagoLangs(l.language)) Some(timeagoLangUrl(l.language))
+    // else none
   }
 
   val tagmanagerTag = cdnOrLocal(

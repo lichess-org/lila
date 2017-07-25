@@ -3,10 +3,7 @@ import { Chessground } from 'chessground';
 import LobbyController from '../ctrl';
 
 function timer(pov) {
-  const time = window.moment().add(pov.secondsLeft, 'seconds');
-  return h('time.moment-from-now', {
-    attrs: { datetime: time.format() }
-  }, time.fromNow());
+  return h('time', window.timeago().format(Date.now() + pov.secondsLeft * 1000));
 }
 
 export default function(ctrl: LobbyController) {

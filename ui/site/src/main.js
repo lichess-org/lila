@@ -1,4 +1,3 @@
-
 lichess.topMenuIntent = function() {
   $('#topmenu.hover').removeClass('hover').hoverIntent(function() {
     $(this).toggleClass('hover');
@@ -330,31 +329,15 @@ lichess.topMenuIntent = function() {
 
       document.body.addEventListener('mouseover', lichess.powertip.mouseover);
 
-      function setMoment() {
-        // check that locale was loaded
-        if (!window.momentLocaleUrl) lichess.requestIdleCallback(function() {
-          $(".moment-from-now").each(function() {
-            this.textContent = moment(this.getAttribute('datetime')).fromNow();
-          });
-          $("time.moment").removeClass('moment').each(function() {
-            var parsed = moment(this.getAttribute('datetime'));
-            var format = this.getAttribute('data-format');
-            this.textContent = format === 'calendar' ? parsed.calendar(null, {
-              sameElse: 'DD/MM/YYYY HH:mm'
-            }) : parsed.format(format);
-          });
+      var timeago = window.timeago();
+      function setTimeago() {
+        lichess.raf(function() {
+          timeago.render(document.getElementsByClassName('timeago'));
         });
       }
-
-      if (window.momentLocaleUrl) lichess.loadScript(momentLocaleUrl, {noVersion: true}).then(function() {
-        delete window.momentLocaleUrl;
-        lichess.pubsub.emit('moment.locale_loaded')();
-        setMoment();
-      });
-      else setMoment();
-
-      lichess.pubsub.on('content_loaded', setMoment);
-      setInterval(setMoment, 2000);
+      setTimeago();
+      lichess.pubsub.on('content_loaded', setTimeago);
+      setInterval(setTimeago, 2000);
 
       if ($('body').hasClass('blind_mode')) {
         var setBlindMode = function() {

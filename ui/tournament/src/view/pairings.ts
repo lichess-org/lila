@@ -46,9 +46,9 @@ function nextTournament(ctrl: TournamentController): MaybeVNodes {
           ' • ',
           ...(t.finishesAt ? [
             'finishes ',
-            h('time.moment-from-now', { attrs: { datetime: t.finishesAt } }, t.finishesAt)
+            h('time.timeago', { attrs: { datetime: t.finishesAt } })
           ] : [
-            h('time.moment-from-now', { attrs: { datetime: t.startsAt } }, t.startsAt)
+            h('time.timeago', { attrs: { datetime: t.startsAt } })
           ])
         ])
       ])

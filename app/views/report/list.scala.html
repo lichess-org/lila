@@ -42,7 +42,7 @@ moreCss = cssTag("report.css")) {
       <tr class="@r.unprocessed.fold("new", "")">
         <td>
           @userIdLink(r.createdBy.some)<br />
-          @momentFormat(r.createdAt)
+          @momentFromNow(r.createdAt)
           @if(accuracy.isDefined) {
           <br /><strong>@accuracy%</strong> accuracy
           }
