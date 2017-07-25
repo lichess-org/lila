@@ -658,6 +658,7 @@
     <item quantity="other">Disponibile in %s linguas!</item>
   </plurals>
   <string name="gameAnalysis">Analyse de joco</string>
+  <string name="xHostsY">%1$s creava %2$s</string>
   <string name="quickPairing">Initiar un partita rapidemente</string>
   <string name="lobby">Salon</string>
   <string name="anonymous">Anonyme</string>
