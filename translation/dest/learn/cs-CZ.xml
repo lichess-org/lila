@@ -37,4 +37,34 @@
   <string name="knightIntro">A nyní výzva pro vás. Jezdec je... velmi obtížná figura.</string>
   <string name="knightsHaveAFancyWay">Jezdci mají bláznivé cesty na skákání okolo!</string>
   <string name="knightsCanJumpOverObstacles">Jezdci mohou skákat přes překážky! Utečte z pasti a dobyjte hvězdy!</string>
+  <string name="knightComplete">Gratulace! Zvládáte manipulovat s jezdcem.</string>
+  <string name="thePawn">Pěšec</string>
+  <string name="itMovesForwardOnly">Chodí jen dopředu</string>
+  <string name="pawnIntro">Pěšci jsou slabí, ale mají široký potenciál.</string>
+  <string name="pawnsMoveOneSquareOnly">Pěšci se pohybují jen o jedno pole, ale když dojdou na konec šachovnice, promění se v silnější figuru!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Nejčastěji je nejvhodnější proměnit pěšce v dámu, ale někdy se hodí i jezdec!</string>
+  <string name="pawnsMoveForward">Pěšci chodí dopředu, ale berou šikmo!</string>
+  <string name="captureThenPromote">Sbírejte, proměňte a zase sbírejte!</string>
+  <string name="useAllThePawns">Použijte všechny pěšce! Není třeba proměny.</string>
+  <string name="aPawnOnTheSecondRank">Pěšec na druhé řadě může o dvě pole dopředu!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Seberte všechny hvězdy! Není třeba proměny.</string>
+  <string name="pawnComplete">Blahopřejeme! Pěšci už jsou pro vás hračka.</string>
+  <string name="pawnPromotion">Proměna pěšce</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Váš pěšec dosáhl konce šachovnice!</string>
+  <string name="itNowPromotesToAStrongerPiece">Teď se promění v silnější figuru.</string>
+  <string name="selectThePieceYouWant">Vyberte figuru, kterou chcete!</string>
+  <string name="fundamentals">Základy</string>
+  <string name="capture">Braní</string>
+  <string name="takeTheEnemyPieces">Sbírejte soupeřovy figury</string>
+  <string name="captureIntro">Vyhledejte soupeřovy nechráněné figury a seberte je!</string>
+  <string name="takeTheBlackPieces">Seberte černé figury!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Seberte černé figury! A neztraťte ty vaše.</string>
+  <string name="castleQueenSideMovePiecesFirst">Udělejte dlouhou rošádu! 
+Nejprve musíte uvolnit místo mezi králem a věží.</string>
+  <string name="youCannotCastleIfMoved">Nemůžete dělat rochádu, pokud se král nebo věž pohli.</string>
+  <string name="youCannotCastleIfAttacked">Nemůžete rochovat, pokud je král v šachu. 
+Zabraňte šachu, a pak zarochujte!</string>
+  <string name="findAWayToCastleKingSide">Najděte cestu k malé rochádě!</string>
+  <string name="findAWayToCastleQueenSide">Najděte cestu k velké rochádě!</string>
+  <string name="castlingComplete">Blahopřejeme! V reálné hře byste vždy měli dělat rochádu.</string>
 </resources>
