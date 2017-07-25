@@ -72,13 +72,26 @@
   <string name="averageRatingX">Classification medie: %s</string>
   <string name="recentGames">Partitas recente</string>
   <string name="topGames">Melior partitas</string>
+  <string name="masterDbExplanation">Duo milliones de partitas de jocatores con classification FIDE super %1$s, de %2$s a %3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="other">Chaco mat in %s medie-movimentos</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="other">Proxime captura o movimento de pedon in %s medie-movimentos (distantia usque reinitiar le contator de 50 movimentos)</item>
+  </plurals>
   <string name="noGameFound">Nulle partita trovate</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Forsan includer plus partitas per le menu preferentias?</string>
   <string name="openingExplorer">Explorator de initio de joco</string>
+  <string name="xOpeningExplorer">Explorator de initio de %s</string>
+  <string name="winPreventedBy50MoveRule">Victoria impedite per le regula del 50 movimentos</string>
+  <string name="lossSavedBy50MoveRule">Perdita impedite per le regula del 50 movimentos</string>
   <string name="allSet">Toto es preste!</string>
   <string name="importPgn">Importar PGN</string>
   <string name="delete">Deler</string>
   <string name="deleteThisImportedGame">Deler iste partita importate?</string>
+  <string name="replayMode">Revider le partita</string>
   <string name="realtimeReplay">Tempore real</string>
+  <string name="byCPL">Per errores</string>
   <string name="openStudy">Aperir studio</string>
   <string name="enable">Activar</string>
   <string name="bestMoveArrow">Flecha de melior movimento</string>
@@ -87,6 +100,7 @@
   <string name="cpus">Processatores</string>
   <string name="memory">Memoria</string>
   <string name="infiniteAnalysis">Analyse infinite</string>
+  <string name="removesTheDepthLimit">Remove le limite de profunditate del analyse e mantene tu computator calide</string>
   <string name="blunders">Errores grave</string>
   <string name="mistakes">Errores</string>
   <string name="inaccuracies">Imprecisiones</string>
@@ -184,6 +198,7 @@
   <string name="inbox">Cassa de entrata</string>
   <string name="chatRoom">Sala de conversation</string>
   <string name="loginToChat">Aperir session pro usar le chat</string>
+  <string name="youHaveBeenTimedOut">Tu session ha expirate.</string>
   <string name="spectatorRoom">Sala de spectatores</string>
   <string name="composeMessage">Componer message</string>
   <string name="noNewMessages">Nulle messages nove</string>
@@ -205,13 +220,18 @@
   <plurals name="nbDraws">
     <item quantity="other">%s partitas nulle</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="other">%s jocante</item>
+  </plurals>
   <string name="exportGames">Exportar partitas</string>
   <string name="ratingRange">Intervallo de classificationes</string>
   <plurals name="giveNbSeconds">
     <item quantity="other">Dona %s secundas</item>
   </plurals>
+  <string name="giveMoreTime">Offerer plus tempore</string>
   <string name="thisPlayerUsesChessComputerAssistance">Iste jocator usa le assistentia de un computator de chacos</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Iste jocator altera su classification de maniera artificial</string>
+  <string name="openingExplorerAndTablebase">Explorator de initio de joco &amp; tabula de finales</string>
   <string name="takeback">Retornar</string>
   <string name="proposeATakeback">Proponer un retorno del ultime movimento</string>
   <string name="takebackPropositionSent">Proposition de retorno inviate</string>
@@ -259,6 +279,7 @@
   <string name="fromPosition">Ab position</string>
   <string name="continueFromHere">Continuar ab hic</string>
   <string name="importGame">Importar partita</string>
+  <string name="importGameExplanation">Quando tu colla un partita in PGN tu potera: revider la interactivemente, consultar un analyse de computator, utilisar le chat de joco, e publicar un ligamine URL.</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s partitas importate</item>
   </plurals>
@@ -311,6 +332,8 @@
   <string name="winStreak">Victorias consecutive</string>
   <string name="createdBy">Create per</string>
   <string name="tournamentIsStarting">Le torneo es sur le puncto de comenciar</string>
+  <string name="tournamentPairingsAreNowClosed">Le junction de jocatores in le torneo es claudite ora.</string>
+  <string name="standByX">Attende %s, connectente jocatores, prepara se!</string>
   <string name="youArePlaying">Tu es jocante!</string>
   <string name="winRate">Percentage de victorias</string>
   <string name="berserkRate">Percentage Berserk</string>
@@ -332,6 +355,9 @@
   <string name="isPrivate">Private</string>
   <string name="reportXToModerators">Reportar %s al moderatores</string>
   <string name="profileCompletion">Completion del profilo: %s</string>
+  <string name="xRating">Classification %s</string>
+  <string name="ifNoneLeaveEmpty">Si necun, lassa lo vacue</string>
+  <string name="gameCompletionRate">Percentage de completion de jocos: %s</string>
   <string name="profile">Profilo</string>
   <string name="editProfile">Modificar profilo</string>
   <string name="firstName">Prenomine</string>
@@ -614,9 +640,12 @@
   <string name="withEverybody">Con tote le mundo</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Tu jam ha registrate le e-posta: %s</string>
   <string name="kidMode">Modo infantil</string>
+  <string name="kidModeExplanation">Isto concerne la securitate. In le modo infantil, tote le communicationes del sito es disactivate. Activa isto pro tu infantes e alumnos scholar, pro proteger los de altere usatores.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">In le modo infantil, le logo de lichess ha un icone %s, pro que tu sape que tu infantes es secur.</string>
   <string name="enableKidMode">Activar modo infantil</string>
   <string name="disableKidMode">Disactivar modo infantil</string>
   <string name="security">Securitate</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Isto es un lista de dispositivos que tu ha registrate in tu conto. Revoca qualcunque session que tu non recognosce.</string>
   <string name="alternativelyYouCanX">Alternativemente tu pote %s.</string>
   <string name="revokeAllSessions">revocar tote sessiones</string>
   <string name="playChessEverywhere">Joca chacos ubique!</string>
@@ -636,6 +665,9 @@
     <item quantity="other">Disponibile in %s linguas!</item>
   </plurals>
   <string name="gameAnalysis">Analyse de joco</string>
+  <string name="xHostsY">%1$s creava %2$s</string>
+  <string name="xJoinsY">%1$s univa se a %2$s</string>
+  <string name="xLikesY">%1$s ama %2$s</string>
   <string name="quickPairing">Initiar un partita rapidemente</string>
   <string name="lobby">Salon</string>
   <string name="anonymous">Anonyme</string>

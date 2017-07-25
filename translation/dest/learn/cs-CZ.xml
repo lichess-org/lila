@@ -6,7 +6,106 @@
   <string name="menu">Menu</string>
   <string name="progressX">Pokrok %s</string>
   <string name="resetMyProgress">Obnovit pokrok</string>
+  <string name="youWillLoseAllYourProgress">Obnovíte vše, co jste se doposud naučil/a!</string>
   <string name="play">Hrat!</string>
   <string name="chessPieces">Šachové figurky</string>
   <string name="theRook">Věž</string>
+  <string name="itMovesInStraightLines">Pohybuje se v rovných řadách</string>
+  <string name="rookIntro">Věž je velmi silná figura. Jste připraven/a jí ovládnout?</string>
+  <string name="rookGoal">Klikněte a přesuňte věž na hvězdu!</string>
+  <string name="grabAllTheStars">Seberte všechny hvězdy!</string>
+  <string name="theFewerMoves">Méně tahů - více bodů!</string>
+  <string name="useTwoRooks">Použijte dvě věže k rychlejšímu sbírání!</string>
+  <string name="rookComplete">Gratulujeme! Úspěšně jste zvládl/a své první tahy věží.</string>
+  <string name="theBishop">Střelec</string>
+  <string name="itMovesDiagonally">Pohybuje se diagonálně</string>
+  <string name="bishopIntro">Za další se naučíme manévrovat se střelcem!</string>
+  <string name="youNeedBothBishops">Jeden černopolý a jeden bělopolý střelec. Potřebujete oba!</string>
+  <string name="bishopComplete">Gratulujeme! Teď už umíte ovládat střelce.</string>
+  <string name="theQueen">Dáma</string>
+  <string name="queenCombinesRookAndBishop">Dáma = věž + střelec</string>
+  <string name="queenIntro">A teď k nejsilnější figuře. Její veličenstvo, dáma!</string>
+  <string name="queenComplete">Blahopřejeme! Dáma už pro vás neskrývá žádná tajemství.</string>
+  <string name="theKing">Král</string>
+  <string name="theMostImportantPiece">Nejdůležitější figura</string>
+  <string name="kingIntro">Vy jste králem. Pokud v bitvě padnete, hra je prohraná.</string>
+  <string name="theKingIsSlow">Král je pomalá figura.</string>
+  <string name="lastOne">A poslední úkol...</string>
+  <string name="kingComplete">Teď již zvládáte velit veliteli!</string>
+  <string name="theKnight">Jezdec</string>
+  <string name="itMovesInAnLShape">Pohybuje se ve tvaru písmene „L”</string>
+  <string name="knightIntro">A nyní výzva pro vás. Jezdec je... velmi obtížná figura.</string>
+  <string name="knightsHaveAFancyWay">Jezdci mají bláznivé cesty na skákání okolo!</string>
+  <string name="knightsCanJumpOverObstacles">Jezdci mohou skákat přes překážky! Utečte z pasti a dobyjte hvězdy!</string>
+  <string name="knightComplete">Gratulace! Zvládáte manipulovat s jezdcem.</string>
+  <string name="thePawn">Pěšec</string>
+  <string name="itMovesForwardOnly">Chodí jen dopředu</string>
+  <string name="pawnIntro">Pěšci jsou slabí, ale mají široký potenciál.</string>
+  <string name="pawnsMoveOneSquareOnly">Pěšci se pohybují jen o jedno pole, ale když dojdou na konec šachovnice, promění se v silnější figuru!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Nejčastěji je nejvhodnější proměnit pěšce v dámu, ale někdy se hodí i jezdec!</string>
+  <string name="pawnsMoveForward">Pěšci chodí dopředu, ale berou šikmo!</string>
+  <string name="captureThenPromote">Sbírejte, proměňte a zase sbírejte!</string>
+  <string name="useAllThePawns">Použijte všechny pěšce! Není třeba proměny.</string>
+  <string name="aPawnOnTheSecondRank">Pěšec na druhé řadě může o dvě pole dopředu!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Seberte všechny hvězdy! Není třeba proměny.</string>
+  <string name="pawnComplete">Blahopřejeme! Pěšci už jsou pro vás hračka.</string>
+  <string name="pawnPromotion">Proměna pěšce</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Váš pěšec dosáhl konce šachovnice!</string>
+  <string name="itNowPromotesToAStrongerPiece">Teď se promění v silnější figuru.</string>
+  <string name="selectThePieceYouWant">Vyberte figuru, kterou chcete!</string>
+  <string name="fundamentals">Základy</string>
+  <string name="capture">Braní</string>
+  <string name="takeTheEnemyPieces">Sbírejte soupeřovy figury</string>
+  <string name="captureIntro">Vyhledejte soupeřovy nechráněné figury a seberte je!</string>
+  <string name="takeTheBlackPieces">Seberte černé figury!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Seberte černé figury! A neztraťte ty vaše.</string>
+  <string name="castleQueenSideMovePiecesFirst">Udělejte dlouhou rochádu! 
+Nejprve musíte uvolnit místo mezi králem a věží.</string>
+  <string name="youCannotCastleIfMoved">Nemůžete dělat rochádu, pokud se král nebo věž pohli.</string>
+  <string name="youCannotCastleIfAttacked">Nemůžete rochovat, pokud je král v šachu. 
+Zabraňte šachu, a pak zarochujte!</string>
+  <string name="findAWayToCastleKingSide">Najděte cestu k malé rochádě!</string>
+  <string name="findAWayToCastleQueenSide">Najděte cestu k velké rochádě!</string>
+  <string name="castlingComplete">Blahopřejeme! V reálné hře byste vždy měli dělat rochádu.</string>
+  <string name="enPassant">Braní mimochodem</string>
+  <string name="theSpecialPawnMove">Speciální tah pěšcem</string>
+  <string name="enPassantIntro">Když soupeř táhne pěšcem o dvě pole, můžete ho sebrat tak, jakoby táhl jen o jedno.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Černý právě pohl pěšcem
+o dvě pole! 
+Vemte ho mimochodem!</string>
+  <string name="enPassantOnlyWorksImmediately">Braní mimochodem funguje jen neprodleně poté,
+co soupeř o dvě pole
+natáhl pěšce.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Braní mimochodem funguje jen, 
+když je váš pěšec na páté řadě.</string>
+  <string name="takeAllThePawnsEnPassant">Vemte všechny pěšce mimochodem!</string>
+  <string name="enPassantComplete">Gratulace! Nyní již ovládáte pravidlo braní mimochodem.</string>
+  <string name="stalemate">Pat</string>
+  <string name="theGameIsADraw">Hra končí remízou</string>
+  <string name="stalemateIntro">Pokud hráč není v šachu a nemá jediný přípustný tah, je to pat. Hra končí remízou; nikdo nevyhrál,
+nikdo neprohrál.</string>
+  <string name="stalemateGoal">Pro zapatování černého:
+- Černý se nikam nemůže pohnout
+- Černý král není v šachu.</string>
+  <string name="stalemateComplete">Gratulujeme! Lepší být zpacen, než zmacen!</string>
+  <string name="advanced">Pokročilé</string>
+  <string name="pieceValue">Hodnota figur</string>
+  <string name="evaluatePieceStrength">Vyhodnocení síly figur</string>
+  <string name="pieceValueIntro">Figury s vyšší pohyblivostí mají větší hodnotu!
+Dáma = 9
+Věž = 5
+Střelec = 3
+Jezdec = 3
+Pěšec = 1
+Král hodnotu nemá! Ztráta krále znamená prohru partie.</string>
+  <string name="queenOverBishop">Vyberte figuru
+s nejvyšší hodnotou!
+Dáma &gt; Střelec</string>
+  <string name="takeThePieceWithTheHighestValue">Vyberte figuru s nejvyšší hodnotou!</string>
+  <string name="pieceValueComplete">Blahopřejeme! Nyní znáte hodnotu materiálu!
+Dáma = 9
+Věž = 5
+Střelec = 3
+Jezdec = 3
+Pěšec = 1</string>
 </resources>

@@ -244,6 +244,11 @@
     <item quantity="few">%s ремија</item>
     <item quantity="other">%s ремија</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s игра</item>
+    <item quantity="few">%s играју</item>
+    <item quantity="other">%s играју</item>
+  </plurals>
   <string name="exportGames">Извоз партија</string>
   <string name="ratingRange">ЕЛО ранг</string>
   <plurals name="giveNbSeconds">
@@ -440,6 +445,11 @@
     <item quantity="few">Имате %s секунди за први потез потез!</item>
     <item quantity="other">Имате %s секунди за први потез потез!</item>
   </plurals>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s партија се игра</item>
+    <item quantity="few">%s партија се игра</item>
+    <item quantity="other">%s партија се игра</item>
+  </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Аутоматско пребацивање у следећу игру после потеза</string>
   <string name="autoSwitch">Аутопребацивање</string>
   <string name="puzzles">Загонетке</string>
@@ -544,6 +554,16 @@
   <string name="allInformationIsPublicAndOptional">Све информације су јавне и по избору</string>
   <string name="yourCityRegionOrDepartment">Ваш град или област</string>
   <string name="biographyDescription">Кажи нешто о себи, зашто волиш шах, која су ти омиљена отварања, партије, играчи…</string>
+  <plurals name="maximumNbCharacters">
+    <item quantity="one">Највише: %s карактера</item>
+    <item quantity="few">Највише: %s карактера</item>
+    <item quantity="other">Највише: %s карактера</item>
+  </plurals>
+  <plurals name="blocks">
+    <item quantity="one">%s блокиран</item>
+    <item quantity="few">%s блокираних</item>
+    <item quantity="other">%s блокираних</item>
+  </plurals>
   <string name="listBlockedPlayers">Наброј блокиране играче</string>
   <string name="human">Човек</string>
   <string name="computer">Рачунар</string>
@@ -583,6 +603,11 @@
   <string name="whiteCastlingQueenside">Бели О-О-О</string>
   <string name="blackCastlingKingside">Црни О-О</string>
   <string name="blackCastlingQueenside">Црни О-О-О</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s коментар на форуму</item>
+    <item quantity="few">%s коментара на форуму</item>
+    <item quantity="other">%s коментара на форуму</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">Време проведено: %s</string>
   <string name="watchGames">Посматрај партије</string>
   <string name="tpTimeSpentOnTV">Време на TV: %s</string>
@@ -688,6 +713,11 @@
   <string name="correspondenceAndUnlimited">Dopisno i neograniceno</string>
   <string name="viewTheSolution">Погледај решење</string>
   <string name="followAndChallengeFriends">Прати и изазови пријатеља</string>
+  <plurals name="availableInNbLanguages">
+    <item quantity="one">Доступно у %s језику!</item>
+    <item quantity="few">Доступно у %s језика!</item>
+    <item quantity="other">Доступно у %s језика!</item>
+  </plurals>
   <string name="gameAnalysis">Анализа партије</string>
   <string name="xHostsY">%1$s домаћини %2$s</string>
   <string name="xJoinsY">%1$s учествује у %2$s</string>

@@ -244,6 +244,11 @@
     <item quantity="few">%s lygiosios</item>
     <item quantity="other">%s lygiųjų</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s žaidžiamas</item>
+    <item quantity="few">%s žaidžiami</item>
+    <item quantity="other">%s žaidžiamų</item>
+  </plurals>
   <string name="exportGames">Eksportuoti partijas</string>
   <string name="ratingRange">Reitingo rėžis</string>
   <plurals name="giveNbSeconds">
