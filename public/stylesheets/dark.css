@@ -180,7 +180,8 @@ body.dark div.mchat .presets span,
 body.dark div.mchat input.lichess_say,
 body.dark #tournament .controls,
 body.dark .rematch-decline,
-body.dark div.mchat .chat_tabs .tab {
+body.dark div.mchat .chat_tabs .tab,
+body.dark #team table.requests.for-team {
   border-color: #3d3d3d;
 }
 body.dark .tview2 > index,
