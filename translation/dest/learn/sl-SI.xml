@@ -142,6 +142,26 @@ Ubranite šah in nato rokirajte!</string>
 za rokado na kraljevo stran!</string>
   <string name="findAWayToCastleQueenSide">Najdite način
 za rokado na kraljičino stran!</string>
+  <string name="castlingComplete">Čestitamo! V skoraj vsaki partiji je dobro rokirati.</string>
+  <string name="enPassant">En passant</string>
+  <string name="theSpecialPawnMove">Posebna poteza s kmetom</string>
+  <string name="enPassantIntro">Kadar se nasprotnikov kmet premakne za dve polji, ga lahko pojeste kot če bi se premaknil za eno polje.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Črni je ravno premaknil kmeta
+za dve polji!
+Vzemite \"en passant\".</string>
+  <string name="enPassantOnlyWorksImmediately">En passant je veljaven samo
+takoj po tem, ko je nasprotnik
+premaknil kmeta.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">En passant deluje samo,
+če je vaš kmet na 5 vrsti.</string>
+  <string name="takeAllThePawnsEnPassant">Vzemite vse kmete en passant!</string>
+  <string name="enPassantComplete">Čestitamo! Zdaj znate jemati en passant.</string>
+  <string name="stalemate">Pat</string>
+  <string name="theGameIsADraw">Igra je remi</string>
+  <string name="stalemateIntro">Kadar igralec ni v šahu in nima na voljo veljavne poteze je to pat. Igra je remi: nihče ne zmaga, nihče ne izgubi.</string>
+  <string name="stalemateGoal">Da patirate črnega:
+- Črni se ne more premaknit
+- Ni v šahu.</string>
   <string name="getAFreeLichessAccount">Naredite si brezplačen Lichess račun</string>
   <string name="practice">Treniraje</string>
   <string name="learnCommonChessPositions">Naučite se pogostih pozicij</string>
