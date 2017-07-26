@@ -151,6 +151,7 @@
   <string name="play">بازی</string>
   <string name="inbox">صندوق پیام</string>
   <string name="chatRoom">اتاق گپ</string>
+  <string name="loginToChat">وارد شوید تا چت کنید</string>
   <string name="spectatorRoom">اتاق تماشاچیان</string>
   <string name="composeMessage">نوشتن پیام</string>
   <string name="noNewMessages">پیام جدیدی نیست</string>
@@ -282,6 +283,10 @@
   <string name="winStreak">برد متوالی</string>
   <string name="createdBy">ساخته شده توسط</string>
   <string name="tournamentIsStarting">مسابقه در حال شروع است</string>
+  <string name="winRate">درصد برد</string>
+  <string name="berserkRate">درصد برزرک</string>
+  <string name="performance">عملکرد</string>
+  <string name="viewMoreTournaments">تورنومنت های بیشتری نشان بده</string>
   <string name="membersOnly">فقط اعضا</string>
   <string name="boardEditor">صفحه ویرایشگر</string>
   <string name="startPosition">موقعیت شروع</string>
