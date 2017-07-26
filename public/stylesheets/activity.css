@@ -101,6 +101,11 @@
 .activity loss strong {
   background: #dc322f;
 }
+.activity .entry .row::after {
+  content: '';
+  display: table;
+  clear: both;
+}
 
 body.dark .activity section {
   color: #aaa;
