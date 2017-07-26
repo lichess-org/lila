@@ -94,7 +94,7 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
   const tags = tagsCtrl(ctrl, () => data.chapter, tagTypes);
 
   function addChapterId(req) {
-    req.ch = data.position.chapterId;
+    req.ch = vm.chapterId;
     return req;
   }
   if (vm.mode.sticky) ctrl.userJump(data.position.path);
