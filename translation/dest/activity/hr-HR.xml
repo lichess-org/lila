@@ -8,5 +8,10 @@
     <item quantity="few">Vježbao/la %1$s pozicije na %2$s</item>
     <item quantity="other">Vježbao/la %1$s pozicije na %2$s</item>
   </plurals>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="one">Riješio/la %s taktički problem</item>
+    <item quantity="few">Riješio/la %s taktičkih problema</item>
+    <item quantity="other">Riješio/la %s taktičkih problema</item>
+  </plurals>
   <string name="signedUp">Registrirao/la se na lichess</string>
 </resources>
