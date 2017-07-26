@@ -34,7 +34,7 @@
   <string name="kingComplete">Komutanın yönetimi artık sende!</string>
   <string name="theKnight">At</string>
   <string name="itMovesInAnLShape">L şeklinde hareket eder</string>
-  <string name="knightIntro">İşte şimdi senin için zorlayıcı bir mücadele. At biraz... çetrefilli bir taştır.</string>
+  <string name="knightIntro">İşte şimdi zurnanın zırt dediği yere geldik. At biraz... çetrefilli bir taştır.</string>
   <string name="knightsHaveAFancyWay">At oradan buraya zıplamasıyla meşhurdur.</string>
   <string name="knightsCanJumpOverObstacles">At engellerin üstünden atlayabilir! Oradan kaç ve yıldızları alt et!</string>
   <string name="knightComplete">Bravo! Atı iyice öğrendin.</string>
@@ -130,7 +130,7 @@ Terfiye gerek yok.</string>
   <string name="stalemateGoal">Pata kalmak için:
 - Siyah hiçbir taşını oynayamamalı
 - Şah çekmemelisin.</string>
-  <string name="stalemateComplete">İşte böyle! Mat olmaktansa pata kalma yeridir!</string>
+  <string name="stalemateComplete">İşte böyle! Mat olmaktansa pata kalmak yeridir!</string>
   <string name="advanced">İleri düzey</string>
   <string name="pieceValue">Taş değerleri</string>
   <string name="evaluatePieceStrength">Taş güçlerini hesaplama</string>
@@ -184,6 +184,6 @@ Piyon = 1</string>
   <string name="yourScore">Puanın</string>
   <string name="next">Sıradaki</string>
   <string name="backToMenu">Menüye geri dön</string>
-  <string name="puzzleFailed">Bulmaca çözülemedi!</string>
+  <string name="puzzleFailed">Boby Fischer mezarında ters döndü!</string>
   <string name="retry">Tekrar dene</string>
 </resources>
