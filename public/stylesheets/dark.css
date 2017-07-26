@@ -443,6 +443,10 @@ body.dark #puzzle .please_vote {
   background: #103410;
   color: #74a962;
 }
+body.dark #team table.requests.for-team {
+  border-top: 1px solid #3d3d3d;
+  border-bottom: 1px solid #3d3d3d;
+}
 body.dark #top .dropdown {
   border: 1px solid #3d3d3d;
   border-top: 0;
