@@ -23,6 +23,16 @@
     <item quantity="few">Napisao/la %1$s odgovora u temi %2$s</item>
     <item quantity="other">Napisao/la %1$s odgovora u temi %2$s</item>
   </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">Odigrao/la jedan potez u jednoj dopisnog šaha</item>
+    <item quantity="few">Odigrao/la %1$s poteza u %2$s partije dopisnog šaha</item>
+    <item quantity="other">Odigrao/la %1$s poteza u %2$s partija dopisnog šaha</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">Završio/la jednu partiju dopisnog šaha</item>
+    <item quantity="few">Završio/la %s partije dopisnog šaha</item>
+    <item quantity="other">Završio/la %s partija dopisnog šaha</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Počeo/la pratiti %s igrača</item>
     <item quantity="few">Počeo/la pratiti %s igrača</item>
@@ -32,6 +42,16 @@
     <item quantity="one">Dobio jednog novog pratitelja</item>
     <item quantity="few">Dobio %s novih pratitelja</item>
     <item quantity="other">Dobio %s novih pratitelja</item>
+  </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="one">Vodio/la jednu simultanku</item>
+    <item quantity="few">Vodio/la %s simultanke</item>
+    <item quantity="other">Vodio/la %s simultanki</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">Sudjelovao/la u jednoj simultanki</item>
+    <item quantity="few">Sudjelovao/la u %s simultanke</item>
+    <item quantity="other">Sudjelovao/la u %s simultanki</item>
   </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">Kreirao/la jednu novu studiju</item>
@@ -43,5 +63,6 @@
     <item quantity="few">Natjecao/la se u %s turnira</item>
     <item quantity="other">Natjecao/la se u %s turnira</item>
   </plurals>
+  <string name="rankedInTournament">Rangiran/rangirana #%1$s (top %2$s) s %3$s partija u %4$s</string>
   <string name="signedUp">Registrirao/la se na lichess</string>
 </resources>
