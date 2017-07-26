@@ -46,9 +46,9 @@ def main():
     locale_dir = args.locale_dir
     for file in glob.glob("{}/*.js".format(locale_dir)):
         locale_key = file.split("/")[-1].replace(".js", "")
-        if locale_key == "locales":
+        if locale_key == "locales" or locale_key == "en_short":
             continue
-        contents = subprocess.run(['uglifyjs', file], stdout=subprocess.PIPE).stdout.decode("utf-8")
+        contents = subprocess.run(['uglifyjs', '-c', '-m', '--', file], stdout=subprocess.PIPE).stdout.decode("utf-8")
         contents = contents.replace("module.exports=", "lichess.timeagoLocale=")
         contents = "(function(){" + contents + "})()"
         cases[locale_key] = case_template.format(key=locale_key, contents=contents)
