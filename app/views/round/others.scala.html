@@ -13,6 +13,20 @@
 </h3>
 @defining(playing.partition(_.isMyTurn)) {
 case (myTurn, otherTurn) => {
-@lobby.playing(myTurn ++ otherTurn.take(6 - myTurn.size))
+@defining(myTurn ++ otherTurn.take(6 - myTurn.size)) { povs =>
+@povs.take(9).map { pov =>
+<a href="@routes.Round.player(pov.fullId)" class="@if(pov.isMyTurn){my_turn}">
+  @gameFen(pov, withLink = false, withTitle = false, withLive = false)
+  <span class="meta">
+    @playerText(pov.opponent, withRating = false)
+    <span class="indicator">
+      @if(pov.isMyTurn) {
+      @pov.remainingSeconds.fold(trans.yourTurn())(secondsFromNow(_, true))
+      } else {&nbsp;}
+    </span>
+  </span>
+</a>
+}
+}
 }
 }

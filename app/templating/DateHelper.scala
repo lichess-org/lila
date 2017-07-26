@@ -77,16 +77,16 @@ trait DateHelper { self: I18nHelper =>
   def isoDate(date: DateTime): String = isoFormatter print date
 
   private val oneDayMillis = 1000 * 60 * 60 * 24
-  def momentFromNow(date: DateTime)(implicit ctx: Context) = Html {
+  def momentFromNow(date: DateTime, alwaysRelative: Boolean = false)(implicit ctx: Context) = Html {
     val rendered = showDateTime(date)
-    if ((date.getMillis - nowMillis) > oneDayMillis) s"""<time>$rendered</time>"""
+    if (!alwaysRelative && (date.getMillis - nowMillis) > oneDayMillis) s"""<time>$rendered</time>"""
     else s"""<time class="timeago" title="$rendered" datetime="${isoDate(date)}">$rendered</time>"""
   }
   def momentFromNowNoCtx(date: DateTime) = Html {
     s"""<time class="timeago" datetime="${isoDate(date)}"></time>"""
   }
 
-  def secondsFromNow(seconds: Int)(implicit ctx: Context) =
+  def secondsFromNow(seconds: Int, alwaysRelative: Boolean = false)(implicit ctx: Context) =
     momentFromNow(DateTime.now plusSeconds seconds)
 
   private val atomDateFormatter = ISODateTimeFormat.dateTime
