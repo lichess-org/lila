@@ -59,11 +59,11 @@ object Translator {
         }
         catch {
           case e: Exception =>
-            logger.warn(s"Failed to format txt $key -> $translation (${args.toList})", e)
+            logger.warn(s"Failed to format txt $db/$lang/$key -> $translation (${args.toList})", e)
             Some(key)
         }
       } getOrElse {
-        logger.warn(s"No translation found for $quantity $key in $lang")
+        logger.warn(s"No translation found for $quantity $db/$lang/$key in $lang")
         key
       }
   }

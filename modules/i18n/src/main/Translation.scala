@@ -17,6 +17,8 @@ private class Literal(val message: String, escapedOption: Option[String]) extend
   def formatHtml(args: Seq[Html]): Html =
     if (args.isEmpty) Html(escaped)
     else Html(escaped.format(args.map(_.body): _*))
+
+  override def toString = s"Literal($message)"
 }
 
 private class Plurals(val messages: Map[I18nQuantity, String]) extends Translation {
@@ -38,4 +40,6 @@ private class Plurals(val messages: Map[I18nQuantity, String]) extends Translati
       if (args.isEmpty) escaped
       else Html(escaped.body.format(args.map(_.body): _*))
     }
+
+  override def toString = s"Plurals($messages)"
 }
