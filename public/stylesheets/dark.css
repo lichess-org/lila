@@ -180,7 +180,8 @@ body.dark div.mchat .presets span,
 body.dark div.mchat input.lichess_say,
 body.dark #tournament .controls,
 body.dark .rematch-decline,
-body.dark div.mchat .chat_tabs .tab {
+body.dark div.mchat .chat_tabs .tab,
+body.dark #team table.requests.for-team {
   border-color: #3d3d3d;
 }
 body.dark .tview2 > index,
@@ -442,10 +443,6 @@ body.dark #puzzle > .side div.win,
 body.dark #puzzle .please_vote {
   background: #103410;
   color: #74a962;
-}
-body.dark #team table.requests.for-team {
-  border-top: 1px solid #3d3d3d;
-  border-bottom: 1px solid #3d3d3d;
 }
 body.dark #top .dropdown {
   border: 1px solid #3d3d3d;
