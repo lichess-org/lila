@@ -244,6 +244,11 @@
     <item quantity="few">%s сыграно вничью</item>
     <item quantity="other">%s сыграно вничью</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s играет</item>
+    <item quantity="few">%s играет</item>
+    <item quantity="other">%s играет</item>
+  </plurals>
   <string name="exportGames">Экспорт игр</string>
   <string name="ratingRange">Диапазон рейтинга</string>
   <plurals name="giveNbSeconds">
