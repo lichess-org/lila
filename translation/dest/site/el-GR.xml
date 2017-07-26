@@ -98,7 +98,7 @@
   <string name="enable">Ενεργοποίηση</string>
   <string name="bestMoveArrow">Καλύτερη κίνηση βέλος</string>
   <string name="evaluationGauge">Δείκτης αξιολόγησης</string>
-  <string name="multipleLines">Πολλαπλές βαριάντες</string>
+  <string name="multipleLines">Πολλαπλές γραμμές</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Μνήμη</string>
   <string name="infiniteAnalysis">Άπειρη ανάλυση</string>
@@ -242,7 +242,7 @@
     <item quantity="one">Προσθέστε %s δευτερόλεπτα</item>
     <item quantity="other">Προσθέστε %s δευτερόλεπτα</item>
   </plurals>
-  <string name="giveMoreTime">Πρόσθεσε χρόνο</string>
+  <string name="giveMoreTime">Προσθέστε περισσότερο χρόνο</string>
   <string name="thisPlayerUsesChessComputerAssistance">Ο παίκτης χρησιμοποιεί υποβοήθηση υπολογιστή</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Αυτός ο παίκτης αυξάνει/μειώνει τεχνητά τη βαθμολογία</string>
   <string name="openingExplorerAndTablebase">Εξερευνητής ανοιγμάτων &amp; τελειωμάτων</string>
@@ -364,7 +364,7 @@
   <string name="blackWins">Τα μαύρα νικούν</string>
   <string name="draws">Ισοπαλίες</string>
   <string name="nextXTournament">Επόμενο %s πρωτάθλημα:</string>
-  <string name="viewMoreTournaments">Δείτε περισσότερα τουρνουά</string>
+  <string name="viewMoreTournaments">Δείτε περισσότερα πρωταθλήματα</string>
   <string name="averageOpponent">Μέσος αντίπαλος</string>
   <string name="membersOnly">Μόνο για μέλη</string>
   <string name="boardEditor">Προετοιμαστής σκακιέρας</string>
@@ -552,7 +552,7 @@
   <string name="signedOut">Έχετε αποσυνδεθεί επιτυχώς</string>
   <string name="loginSuccessful">Είσοδος επιτυχής</string>
   <string name="playOnTheBoardOffline">Τοπικά</string>
-  <string name="playOfflineComputer">Εναντίον Υπολογιστή</string>
+  <string name="playOfflineComputer">Υπολογιστής</string>
   <string name="opponent">Αντίπαλος</string>
   <string name="learnMenu">Εκμάθηση</string>
   <string name="community">Κοινότητα</string>
@@ -561,15 +561,15 @@
   <string name="sharePGN">Κοινοποιήστε PGN</string>
   <string name="playOnline">Παίξτε σε ζωντανή σύνδεση</string>
   <string name="playOffline">Παίξτε χωρίς σύνδεση</string>
-  <string name="allowAnalytics">Επιτρέπεται αποστολή ανώνυμων στατιστικών</string>
+  <string name="allowAnalytics">Επιτρέψτε την αποστολή ανώνυμων στατιστικών</string>
   <string name="shareGameURL">Κοινοποιήστε URL παιχνιδιού</string>
   <string name="error.required">Αυτό το πεδίο είναι υποχρεωτικό</string>
   <string name="error.email">Αυτή η διεύθυνση ηλ. ταχυδρομείου δεν ισχύει</string>
   <string name="error.email_acceptable">Αυτή η διεύθυνση ηλ. ταχυδρομείου δεν είναι αποδεκτή</string>
   <string name="error.email_unique">Αυτή η διεύθυνση ηλ. ταχυδρομείου χρησιμοποιείται ήδη</string>
-  <string name="error.email_different">Αυτή είναι η υπάρχουσα διεύθυνση ηλεκτρονικού ταχυδρομείου σας</string>
+  <string name="error.email_different">Αυτή είναι η υπάρχουσα διεύθυνση ηλ.ταχυδρομείου σας</string>
   <string name="blindfoldChess">Τυφλό σκάκι (αόρατα κομμάτια)</string>
-  <string name="zenMode">Zen λειτουργία</string>
+  <string name="zenMode">Zεν λειτουργία</string>
   <string name="moveConfirmation">Επιβεβαίωση κίνησης</string>
   <string name="inCorrespondenceGames">Στις παρτίδες δι\' αλληλογραφίας</string>
   <string name="ifRatingIsPlusMinusX">Εάν η βαθμολογία είναι ± %s</string>
