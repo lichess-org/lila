@@ -5,4 +5,6 @@
   <string name="willBeNotified">وقتی که تورنومنت شروع شود به شما اطلاع داده خواهد شد، پس بازی کردن در برگه های دیگر امن است در مدت انتظار.</string>
   <string name="isRated">این تورنومنت رسمی است و بر روی امتیاز شما تاثیر خواهد گذاشت.</string>
   <string name="isNotRated">این تورنومنت رسمی نیست و بر روی امتیاز شما تاثیر نخواهد گذاشت.</string>
+  <string name="someRated">بعضی تورنومنت ها رسمی هستند و بر روی امتیاز شما تاثیر خواهند گذاشت.</string>
+  <string name="howAreScoresCalculated">نحوه محاسبه نمرات؟</string>
 </resources>
