@@ -93,7 +93,7 @@
   <string name="deleteThisImportedGame">İçe aktarılan bu oyun silinsin mi?</string>
   <string name="replayMode">Tekrar modu</string>
   <string name="realtimeReplay">Gerçek zamanlı</string>
-  <string name="byCPL">CPL ile</string>
+  <string name="byCPL">SPK ile</string>
   <string name="openStudy">Çalışmayı aç</string>
   <string name="enable">Etkinleştir</string>
   <string name="bestMoveArrow">En iyi hamle imleci</string>
@@ -711,7 +711,7 @@
   <string name="usernameStartNoNumber">Kullanıcı adı bir sayı ile başlayamaz.</string>
   <string name="usernameUnacceptable">Bu kullanıcı adı uygun değil.</string>
   <string name="directlySupportLichess">Lichess\'e doğrudan destek verin</string>
-  <string name="playChessInStyle">Satranca tarz katın</string>
+  <string name="playChessInStyle">Satrancı bir tarz ile oynayın</string>
   <string name="chessBasics">Satrancın temel prensipleri</string>
   <string name="coaches">Eğitmenler</string>
   <string name="invalidPgn">Geçersiz PGN</string>
