@@ -155,8 +155,8 @@
   margin-bottom: 20px;
 }
 #team table.requests.for-team {
-  border-top: 1px solid #3d3d3d;
-  border-bottom: 1px solid #3d3d3d;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
 }
 #team table.requests th {
   padding: 0.5em;
