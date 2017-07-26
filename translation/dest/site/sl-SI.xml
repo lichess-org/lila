@@ -256,6 +256,12 @@
     <item quantity="few">%s remije</item>
     <item quantity="other">%s remijev</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s v teku</item>
+    <item quantity="two">%s v teku</item>
+    <item quantity="few">%s v teku</item>
+    <item quantity="other">%s v teku</item>
+  </plurals>
   <string name="exportGames">Izvozi igre</string>
   <string name="ratingRange">Razpon ratinga</string>
   <plurals name="giveNbSeconds">
@@ -264,6 +270,7 @@
     <item quantity="few">Dodaj %s sekunde</item>
     <item quantity="other">Dodaj %s sekund</item>
   </plurals>
+  <string name="giveMoreTime">Dajte več časa</string>
   <string name="thisPlayerUsesChessComputerAssistance">Ta igralec uporablja pomoč računalnika</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Igralec je neregularno zvišal/znižal svoj rating</string>
   <string name="openingExplorerAndTablebase">Odpri brskalnik &amp; baz</string>
