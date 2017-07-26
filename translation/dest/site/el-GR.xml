@@ -218,7 +218,7 @@
   <string name="spectators">Θεατές:</string>
   <plurals name="nbRated">
     <item quantity="one">%s βαθμολογημένο</item>
-    <item quantity="other">%s βαθμολογημένες</item>
+    <item quantity="other">%s βαθμολογημένα</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s νίκη</item>
@@ -695,7 +695,7 @@
   <string name="gameAnalysis">Ανάλυση παιχνιδιού</string>
   <string name="xHostsY">%1$s φιλοξενεί τη %2$s</string>
   <string name="xJoinsY">%1$s συμμετέχει στη %2$s</string>
-  <string name="xLikesY">%1$s αρέσκεται στο %2$s</string>
+  <string name="xLikesY">%1$s αρέσει %2$s</string>
   <string name="quickPairing">Γρήγορη αντιστοίχιση</string>
   <string name="lobby">Δωμάτιο αναμονής</string>
   <string name="anonymous">Ανώνυμος</string>
@@ -707,7 +707,7 @@
   <string name="boardSize">Μέγεθος σκακιέρας</string>
   <string name="pieceSet">Επιλογή κομματιού</string>
   <string name="embedInYourWebsite">Ενσωματώστε στην ιστοσελίδα σας</string>
-  <string name="usernameAlreadyUsed">Αυτό το όνομα χρήστη χρησιμοποιείται ήδη, δοκιμάστε ένα άλλο.</string>
+  <string name="usernameAlreadyUsed">Αυτό το όνομα χρήστη είναι ήδη σε χρήση, παρακαλώ δοκιμάστε ένα άλλο.</string>
   <string name="usernameInvalid">Μη έγκυρο όνομα χρήστη. Παρακαλούμε χρησιμοποιήστε μόνο γράμματα, αριθμούς, χαρακτήρα υπογράμμισης και παύλα.</string>
   <string name="usernameStartNoNumber">Το όνομα χρήστη δεν πρέπει να ξεκινάει με έναν αριθμό.</string>
   <string name="usernameUnacceptable">Αυτό το όνομα χρήστη δεν είναι αποδεκτό.</string>
