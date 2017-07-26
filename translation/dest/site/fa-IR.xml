@@ -46,6 +46,7 @@
   <string name="viewTheComputerAnalysis">نمایش تحلیل رایانه</string>
   <string name="requestAComputerAnalysis">درخواست یک تحلیل رایانه ای</string>
   <string name="computerAnalysis">تجزيه تحليل رایانه ای</string>
+  <string name="computerAnalysisAvailable">تحلیل گر کامپیوتر موجود است</string>
   <string name="analysis">تحلیل</string>
   <string name="openingExplorer">باز کردن جستجوگر</string>
   <string name="blunders">اشتباهات جدی</string>

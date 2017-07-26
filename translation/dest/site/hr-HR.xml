@@ -244,6 +244,11 @@
     <item quantity="few">%s remija</item>
     <item quantity="other">%s remija</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s u tijeku</item>
+    <item quantity="few">%s u tijeku</item>
+    <item quantity="other">%s u tijeku</item>
+  </plurals>
   <string name="exportGames">Izvoz partija</string>
   <string name="ratingRange">Raspon rejtinga</string>
   <plurals name="giveNbSeconds">
@@ -251,6 +256,7 @@
     <item quantity="few">Dodaj protivniku %s sekundi</item>
     <item quantity="other">Dodaj protivniku %s sekundi</item>
   </plurals>
+  <string name="giveMoreTime">Daj više vremena</string>
   <string name="thisPlayerUsesChessComputerAssistance">Ovaj igrač koristi pomoć računala</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ovaj igrač umjetno podiže/spušta svoj rejting</string>
   <string name="openingExplorerAndTablebase">Pretraživač otvaranja &amp; baza pozicija u završnici</string>
