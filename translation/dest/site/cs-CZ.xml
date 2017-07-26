@@ -540,8 +540,10 @@
   <string name="gameAnalysis">Analýza hry</string>
   <string name="quickPairing">Rychlá hra</string>
   <string name="anonymous">Anonymní</string>
+  <string name="yourScore">Vaše skóre: %s</string>
   <string name="language">Jazyk</string>
   <string name="background">Pozadí</string>
+  <string name="boardGeometry">Typ šachovnice</string>
   <string name="boardTheme">Vzhled šachovnice</string>
   <string name="boardSize">Velikost šachovnice</string>
   <string name="pieceSet">Vzhled figur</string>
