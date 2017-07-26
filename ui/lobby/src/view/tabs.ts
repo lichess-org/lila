@@ -7,7 +7,7 @@ function tab(ctrl: LobbyController, key: Tab, active: Tab, content: MaybeVNodes)
   return h('a', {
     class: {
       active: key === active,
-      glow: key !== active && key === 'pools' && !!ctrl.poolMember
+      glow: key !== active && key === 'pools' && !!ctrl.poolMembers.length
     },
     hook: bind('mousedown', _ => ctrl.setTab(key), ctrl.redraw)
   }, content);

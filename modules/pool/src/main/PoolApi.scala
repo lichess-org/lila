@@ -24,10 +24,7 @@ final class PoolApi(
     )
   }.toMap
 
-  def join(poolId: PoolConfig.Id, joiner: Joiner) = actors foreach {
-    case (id, actor) if id == poolId => actor ! Join(joiner)
-    case (_, actor) => actor ! Leave(joiner.userId)
-  }
+  def join(poolId: PoolConfig.Id, joiner: Joiner) = sendTo(poolId, Join(joiner))
 
   def leave(poolId: PoolConfig.Id, userId: User.ID) = sendTo(poolId, Leave(userId))
 

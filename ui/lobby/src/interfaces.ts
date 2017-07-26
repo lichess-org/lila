@@ -28,11 +28,18 @@ export interface LobbyOpts extends Untyped {
 export interface LobbyData extends Untyped {
   hooks: Hook[];
   seeks: Seek[];
+  pools: Pool[];
 }
 
-export interface PoolMember {
+export interface Pool {
   id: PoolId;
-  range?: PoolRange
+  lim: number;
+  inc: number;
+  perf: string;
+}
+
+export interface PoolMembers {
+  [id: string]: PoolRange | null;
 }
 
 export type PoolId = string;

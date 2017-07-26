@@ -381,7 +381,6 @@ body.dark #hooks_wrap .hook_filter {
   justify-content: center;
   align-items: center;
   border-radius: 4px;
-  transition: opacity 0.7s;
 }
 body.dark #hooks_wrap .pools > div {
   background: rgba(20,20,20,0.5);
@@ -395,9 +394,6 @@ body.dark #hooks_wrap .pools > div {
 body.dark #hooks_wrap .pools .active {
   background: #202020;
   box-shadow-color: #000;
-}
-#hooks_wrap .pools .transp {
-  opacity: 0.5;
 }
 #hooks_wrap .pools .spinner {
   margin: 14px 0 0 0;

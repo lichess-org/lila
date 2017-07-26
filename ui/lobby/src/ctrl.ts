@@ -4,7 +4,7 @@ import * as seekRepo from './seekRepo';
 import { make as makeStores, Stores } from './store';
 import * as xhr from './xhr';
 import * as poolRangeStorage from './poolRangeStorage';
-import { LobbyOpts, LobbyData, Tab, Mode, Sort, Filter, Hook, Seek, PoolMember } from './interfaces';
+import { LobbyOpts, LobbyData, Tab, Mode, Sort, Filter, Hook, Seek, PoolMembers, PoolId, PoolRange } from './interfaces';
 import LobbySocket from './socket';
 
 const li = window.lichess;
@@ -24,7 +24,7 @@ export default class LobbyController {
   stepHooks: Hook[] = [];
   stepping: boolean = false;
   redirecting: boolean = false;
-  poolMember?: PoolMember;
+  poolMembers: PoolMembers = {};
   trans: Trans;
   redraw: () => void;
 
@@ -53,7 +53,7 @@ export default class LobbyController {
     this.poolInStorage = li.storage.make('lobby.pool-in');
     this.poolInStorage.listen(e => { // when another tab joins a pool
       if (!e.newValue || e.newValue === li.StrongSocket.sri) return; // same tab, doh, IE 11
-      this.leavePool();
+        this.leavePools();
       redraw();
     });
     this.flushHooksSchedule();
@@ -63,8 +63,8 @@ export default class LobbyController {
     if (this.playban) setTimeout(li.reload, this.playban.remainingSeconds * 1000);
     else {
       setInterval(() => {
-        if (this.poolMember) this.poolIn();
-        else if (this.tab === 'real_time' && !this.data.hooks.length) this.socket.realTimeIn();
+        this.poolIn();
+        if (this.tab === 'real_time' && !this.data.hooks.length) this.socket.realTimeIn();
       }, 10 * 1000);
       this.onNewOpponent();
     }
@@ -73,12 +73,10 @@ export default class LobbyController {
       if (this.tab === 'real_time') {
         this.data.hooks = [];
         this.socket.realTimeIn();
-      } else if (this.tab === 'pools' && this.poolMember) this.poolIn();
+      } else if (this.tab === 'pools') this.poolIn();
     });
 
-    window.addEventListener('beforeunload', () => {
-      if (this.poolMember) this.socket.poolOut(this.poolMember);
-    });
+    window.addEventListener('beforeunload', this.leavePools);
   }
 
   private doFlushHooks() {
@@ -154,37 +152,39 @@ export default class LobbyController {
     this.redraw();
   };
 
-  clickPool = (id: string) => {
+  clickPool = (id: PoolId) => {
     if (!this.data.me) {
-      xhr.anonPoolSeek(this.data.pools.find(function(p) {
-        return p.id === id;
-      }));
+      xhr.anonPoolSeek(this.data.pools.find(p => p.id === id));
       this.setTab('real_time');
-    } else if (this.poolMember && this.poolMember.id === id) this.leavePool();
-    else {
-      this.enterPool({ id });
+    } else if (id in this.poolMembers) {
+      this.leavePool(id);
+    } else {
+      this.enterPool(id, null);
       this.redraw();
     }
   };
 
-  enterPool = (member: PoolMember) => {
-    poolRangeStorage.set(member.id, member.range);
+  enterPool = (id: PoolId, range: PoolRange | null) => {
+    poolRangeStorage.set(id, range);
     this.setTab('pools');
-    this.poolMember = member;
+    this.poolMembers[id] = range;
     this.poolIn();
   };
 
-  leavePool = () => {
-    if (!this.poolMember) return;
-    this.socket.poolOut(this.poolMember);
-    this.poolMember = undefined;
+  leavePool = (id: PoolId) => {
+    if (!(id in this.poolMembers)) return;
+    delete this.poolMembers[id];
+    this.socket.poolOut(id);
     this.redraw();
   };
 
+  leavePools = () => Object.keys(this.poolMembers).forEach(this.leavePool);
+
   poolIn = () => {
-    if (!this.poolMember) return;
-    this.poolInStorage.set(li.StrongSocket.sri);
-    this.socket.poolIn(this.poolMember);
+    Object.keys(this.poolMembers).forEach(id => {
+      this.poolInStorage.set(li.StrongSocket.sri);
+      this.socket.poolIn(id);
+    });
   };
 
   gameActivity = (gameId) => {
@@ -233,12 +233,11 @@ export default class LobbyController {
     if (location.hash.indexOf('#pool/') === 0) {
       const regex = /^#pool\/(\d+\+\d+)$/,
       match = regex.exec(location.hash),
-      member: any = { id: match![1] },
-      range = poolRangeStorage.get(member.id);
-      if (range) member.range = range;
+      id: PoolId = match![1],
+      range = poolRangeStorage.get(id);
       if (match) {
         this.setTab('pools');
-        this.enterPool(member);
+        this.enterPool(id, range);
         history.replaceState(null, '', '/');
       }
     }

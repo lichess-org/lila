@@ -1,7 +1,7 @@
 import * as xhr from './xhr';
 import * as hookRepo from './hookRepo';
 import LobbyController from './ctrl';
-import { Hook, PoolMember } from './interfaces';
+import { Hook, PoolId, PoolRange } from './interfaces';
 
 interface Handlers {
   [key: string]: (data: any) => void;
@@ -70,17 +70,17 @@ export default class LobbySocket {
     this.send('hookOut');
   };
 
-  poolIn(member: PoolMember) {
+  poolIn = (id: PoolId, range?: PoolRange) => {
     // last arg=true: must not retry
     // because if poolIn is sent before socket opens,
     // then poolOut is sent,
     // then poolIn shouldn't be sent again after socket opens.
     // poolIn is sent anyway on socket open event.
-    this.send('poolIn', member, {}, true);
+    this.send('poolIn', { id, range }, {}, true);
   };
 
-  poolOut(member: PoolMember) {
-    this.send('poolOut', member.id);
+  poolOut = (id: PoolId) => {
+    this.send('poolOut', id);
   };
 
   receive = (type: string, data: any): boolean => {
