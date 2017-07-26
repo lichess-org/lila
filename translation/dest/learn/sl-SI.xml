@@ -162,6 +162,33 @@ premaknil kmeta.</string>
   <string name="stalemateGoal">Da patirate črnega:
 - Črni se ne more premaknit
 - Ni v šahu.</string>
+  <string name="stalemateComplete">Čestitamo! Bolje biti patiran kot matiran!</string>
+  <string name="advanced">Napredno</string>
+  <string name="pieceValue">Vrednosti figur</string>
+  <string name="evaluatePieceStrength">Ocenite moč figur</string>
+  <string name="pieceValueIntro">Figure z večjo gibljivostjo štejejo več točk!
+Kraljica = 9 
+Trdnjava = 5 
+Lovec = 3 
+Skakač = 3 
+Kmet = 1 
+Kralj je neprecenljiv! Izgubiti ga, pomeni izgubiti partijo.</string>
+  <string name="queenOverBishop">Vzemite figuro
+z največjo vrednostjo!
+Kraljica &gt; Lovec</string>
+  <string name="takeThePieceWithTheHighestValue">Vzemite figuro
+z najvišjo vrednostjo!</string>
+  <string name="pieceValueComplete">Čestitamo! Poznate vrednosti materjala!
+Kraljica = 9 
+Trdnjava = 5 
+Lovec = 3 
+Skakač = 3 
+Kmet = 1</string>
+  <string name="checkInTwo">Šah v dve</string>
+  <string name="twoMovesToGiveCheck">Dajte šah v dveh pozerah</string>
+  <string name="checkInTwoIntro">Najdite pravo kombinacijo dveh potez, ki šahira nasprotnikovega kralja!</string>
+  <string name="checkInTwoGoal">Ogrozite nasprotnikovega kralja
+v dveh potezah!</string>
   <string name="getAFreeLichessAccount">Naredite si brezplačen Lichess račun</string>
   <string name="practice">Treniraje</string>
   <string name="learnCommonChessPositions">Naučite se pogostih pozicij</string>
