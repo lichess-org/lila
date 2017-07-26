@@ -566,4 +566,5 @@
   <string name="custom">Vlastní</string>
   <string name="notifications">Oznámení</string>
   <string name="challenges">Výzvy</string>
+  <string name="perfRatingX">Rating: %s</string>
 </resources>
