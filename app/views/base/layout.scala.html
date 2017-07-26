@@ -178,8 +178,8 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     @jsAt(s"compiled/lichess.site${isProd??".min"}.js", async = asyncJs)
     @moreJs
     @embedJs {
-    lichess.quantity = @i18nJsQuantityFunction;
-    lichess.timeagoLocale = @timeagoLocaleScript;
+    lichess.quantity=@i18nJsQuantityFunction;
+    @timeagoLocaleScript;
     }
   </body>
 </html>
