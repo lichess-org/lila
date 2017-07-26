@@ -4,7 +4,7 @@ import * as seekRepo from './seekRepo';
 import { make as makeStores, Stores } from './store';
 import * as xhr from './xhr';
 import * as poolRangeStorage from './poolRangeStorage';
-import { LobbyOpts, LobbyData, Tab, Mode, Sort, Filter, Hook, Seek } from './interfaces';
+import { LobbyOpts, LobbyData, Tab, Mode, Sort, Filter, Hook, Seek, PoolMember } from './interfaces';
 import LobbySocket from './socket';
 
 const li = window.lichess;
@@ -24,7 +24,7 @@ export default class LobbyController {
   stepHooks: Hook[] = [];
   stepping: boolean = false;
   redirecting: boolean = false;
-  poolMember?: any;
+  poolMember?: PoolMember;
   trans: Trans;
   redraw: () => void;
 
@@ -167,7 +167,7 @@ export default class LobbyController {
     }
   };
 
-  enterPool = (member) => {
+  enterPool = (member: PoolMember) => {
     poolRangeStorage.set(member.id, member.range);
     this.setTab('pools');
     this.poolMember = member;
@@ -177,11 +177,12 @@ export default class LobbyController {
   leavePool = () => {
     if (!this.poolMember) return;
     this.socket.poolOut(this.poolMember);
-    this.poolMember = null;
+    this.poolMember = undefined;
     this.redraw();
   };
 
   poolIn = () => {
+    if (!this.poolMember) return;
     this.poolInStorage.set(li.StrongSocket.sri);
     this.socket.poolIn(this.poolMember);
   };
