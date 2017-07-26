@@ -102,6 +102,24 @@ tako, da obramba ne bo mogoča!</string>
   <string name="intermediate">Srednji nivo</string>
   <string name="boardSetup">Postavitev figur</string>
   <string name="howTheGameStarts">Kako začeti igro</string>
+  <string name="boardSetupIntro">Dve vojski ki stojita nasproti, sta pripravljeni na bitko.</string>
+  <string name="thisIsTheInitialPosition">To je začetna pozicija 
+vsake šahovske partije!
+Na nadaljevanje naredite potezo.</string>
+  <string name="firstPlaceTheRooks">Najprej postavite trdnjavi!
+Gresta v vogala.</string>
+  <string name="thenPlaceTheKnights">Nato postavite skakača.
+Stojita ob trdnjavah.</string>
+  <string name="placeTheBishops">Postavite lovca!
+Stojita ob skakačih.</string>
+  <string name="placeTheQueen">Postavite kraljico.
+Gre na polje svoje barve.</string>
+  <string name="placeTheKing">Postavite kralja!
+H kraljici.</string>
+  <string name="pawnsFormTheFrontLine">Kmetje sestavljajo prednjo vrsto.
+Za nadaljevanje naredite potezo.</string>
+  <string name="boardSetupComplete">Čestitamo! Sedaj znate postaviti šahovnico.</string>
+  <string name="castling">Rokada</string>
   <string name="getAFreeLichessAccount">Naredite si brezplačen Lichess račun</string>
   <string name="practice">Treniraje</string>
   <string name="learnCommonChessPositions">Naučite se pogostih pozicij</string>
