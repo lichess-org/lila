@@ -20,6 +20,7 @@
 
 import argparse
 import glob
+import subprocess
 from collections import defaultdict
 
 template = '''package lila.i18n
@@ -47,12 +48,8 @@ def main():
         locale_key = file.split("/")[-1].replace(".js", "")
         if locale_key == "locales":
             continue
-        lines = [l.strip() for l in open(file, "r").readlines()]
-        lines = [l for l in lines if l and not l.startswith("//")]
-        contents = "\n".join(lines)
-        contents = contents.replace("module.exports = ", "lichess.timeagoLocale=")
-        contents = contents.replace("], [", "],[")
-        contents = contents.replace("', '", "','")
+        contents = subprocess.run(['uglifyjs', file], stdout=subprocess.PIPE).stdout.decode("utf-8")
+        contents = contents.replace("module.exports=", "lichess.timeagoLocale=")
         contents = "(function(){" + contents + "})()"
         cases[locale_key] = case_template.format(key=locale_key, contents=contents)
     cases = [v for k,v in sorted(cases.items())]
