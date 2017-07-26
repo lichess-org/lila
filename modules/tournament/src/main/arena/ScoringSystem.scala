@@ -82,7 +82,7 @@ private[tournament] object ScoringSystem extends AbstractScoringSystem {
   private def isOnFire = firstTwoAreWins _
 
   private def firstTwoAreWins(scores: List[Score]) = scores match {
-    case List(Score(ResWin, _, _), Score(ResWin, _, _), _*) => true
+    case Score(ResWin, _, _) :: Score(ResWin, _, _) :: _ => true
     case _ => false
   }
 }
