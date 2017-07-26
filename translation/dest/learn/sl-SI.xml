@@ -189,6 +189,10 @@ Kmet = 1</string>
   <string name="checkInTwoIntro">Najdite pravo kombinacijo dveh potez, ki šahira nasprotnikovega kralja!</string>
   <string name="checkInTwoGoal">Ogrozite nasprotnikovega kralja
 v dveh potezah!</string>
+  <string name="checkInTwoComplete">Čestitamo! Šahirali ste nasprotnika in ga prisilili v obrambo kralja!</string>
+  <string name="whatNext">Kaj naprej?</string>
+  <string name="youKnowHowToPlayChess">Znate igrati šah, čestitamo! Ali želite postati močnejši šahist?</string>
+  <string name="register">Registrirajte se</string>
   <string name="getAFreeLichessAccount">Naredite si brezplačen Lichess račun</string>
   <string name="practice">Treniraje</string>
   <string name="learnCommonChessPositions">Naučite se pogostih pozicij</string>
