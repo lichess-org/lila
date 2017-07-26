@@ -120,6 +120,10 @@ H kraljici.</string>
 Za nadaljevanje naredite potezo.</string>
   <string name="boardSetupComplete">Čestitamo! Sedaj znate postaviti šahovnico.</string>
   <string name="castling">Rokada</string>
+  <string name="theSpecialKingMove">Posebna poteza s kraljem</string>
+  <string name="castlingIntro">Spravite svojega kralja na varno in razvijte trdnjavo v napad!</string>
+  <string name="castleKingSide">Premaknite kralja dve polji,
+da rokirate na kraljevo stran!</string>
   <string name="getAFreeLichessAccount">Naredite si brezplačen Lichess račun</string>
   <string name="practice">Treniraje</string>
   <string name="learnCommonChessPositions">Naučite se pogostih pozicij</string>
