@@ -41,4 +41,25 @@
   <string name="itMovesInAnLShape">به صورت L حرکت میکند</string>
   <string name="knightIntro">چالشی برای شما. اسب... مهره فریبنده ایه.</string>
   <string name="knightsHaveAFancyWay">اسب میتواند به صورت فریبنده به اطراف بپرد!</string>
+  <string name="knightsCanJumpOverObstacles">اسب میتونه از روی مانع ها بپره!
+فرار کن و ستاره ها رو بگیر!</string>
+  <string name="knightComplete">تبریک! شما در بازی با اسب استاد شدید.</string>
+  <string name="thePawn">پیاده</string>
+  <string name="itMovesForwardOnly">فقط به جلو حرکت میکند</string>
+  <string name="pawnIntro">پیاده ها ضعیفن، اما کوله باری از پتانسیل اند.</string>
+  <string name="pawnsMoveOneSquareOnly">پیاده ها فقط یک خونه حرکت میکنند.
+اما وقتی که به اون طرف صفحه برسند، مهره قویی میشن!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">اکثر اوقات ارتقاع دادن به وزیر بهترین گزینه است.
+اما بعضی موقع ها یه اسب میتونه بدرد بخورتر باشه!</string>
+  <string name="pawnsMoveForward">پیاده مستقیم حرکت میکنه،
+اما اُریب میزنه!</string>
+  <string name="captureThenPromote">بزن، بعد ارتقاء بده!</string>
+  <string name="useAllThePawns">از همه پیاده ها استفاده کن!
+نیازی به ارتقاء نیست.</string>
+  <string name="aPawnOnTheSecondRank">پیاده در حرکت اولش میتواند 2 خانه به جلو برود!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">همه ستاره ها رو بگیر!
+نیازی به ارتقاء نیست.</string>
+  <string name="pawnComplete">تبریک! هیچ رازی از پیاده ها بر شما پنهان نیست.</string>
+  <string name="pawnPromotion">ارتقاء پیاده</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">پیاده شما به خونه آخر رسید!</string>
 </resources>
