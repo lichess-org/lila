@@ -53,8 +53,8 @@
   <string name="loadingEngine">Φόρτωση μηχανής ...</string>
   <string name="cloudAnalysis">Ανάλυση συννέφου</string>
   <string name="goDeeper">Βαθύτερα</string>
-  <string name="showThreat">Δείξε απειλή</string>
-  <string name="inLocalBrowser">τοπική ανάλυση</string>
+  <string name="showThreat">Εμφάνιση απειλής</string>
+  <string name="inLocalBrowser">σε τοπικό περιηγητή</string>
   <string name="toggleLocalEvaluation">Εναλλαγή τοπικής αξιολόγησης</string>
   <string name="move">Κίνηση</string>
   <string name="variantLoss">Ήττα εκδοχής</string>
@@ -82,7 +82,7 @@
     <item quantity="other">Επόμενο κόψιμο ή κίνηση πιονιού σε %s μισές-κινήσεις (Απόσταση μηδενισμού μετρητή 50 κινήσεων)</item>
   </plurals>
   <string name="noGameFound">Δεν βρέθηκε παρτίδα</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Ίσως να συμπεριλάβετε περισσότερες παιχνίδια από το μενού προτιμήσεων;</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Ίσως να συμπεριλάβετε περισσότερα παιχνίδια από το μενού προτιμήσεων;</string>
   <string name="openingExplorer">Εξερευνητής ανοιγμάτων και τελειωμάτων</string>
   <string name="xOpeningExplorer">%s εξερευνητής ανοιγμάτων</string>
   <string name="winPreventedBy50MoveRule">H νίκη εμποδίζεται από τον κανόνα των 50 κινήσεων</string>
@@ -231,6 +231,10 @@
   <plurals name="nbDraws">
     <item quantity="one">%s ισοπαλία</item>
     <item quantity="other">%s ισοπαλίες</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s παίζεται</item>
+    <item quantity="other">%s παίζονται</item>
   </plurals>
   <string name="exportGames">Εξαγωγή παιχνιδιών</string>
   <string name="ratingRange">Εμβέλεια βαθμολογίας</string>
