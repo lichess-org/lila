@@ -13,5 +13,35 @@
     <item quantity="few">Riješio/la %s taktičkih problema</item>
     <item quantity="other">Riješio/la %s taktičkih problema</item>
   </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="one">Odigrao %1$s %2$s partiju</item>
+    <item quantity="few">Odigrao %1$s %2$s partije</item>
+    <item quantity="other">Odigrao %1$s %2$s partija</item>
+  </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="one">Napisao/la %1$s odgovor u temi %2$s</item>
+    <item quantity="few">Napisao/la %1$s odgovora u temi %2$s</item>
+    <item quantity="other">Napisao/la %1$s odgovora u temi %2$s</item>
+  </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="one">Počeo/la pratiti %s igrača</item>
+    <item quantity="few">Počeo/la pratiti %s igrača</item>
+    <item quantity="other">Počeo/la pratiti %s igrača</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="one">Dobio jednog novog pratitelja</item>
+    <item quantity="few">Dobio %s novih pratitelja</item>
+    <item quantity="other">Dobio %s novih pratitelja</item>
+  </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">Kreirao/la jednu novu studiju</item>
+    <item quantity="few">Kreirao/la %s nove studije</item>
+    <item quantity="other">Kreirao/la %s novih studija</item>
+  </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="one">Natjecao/la se u jednom turniru</item>
+    <item quantity="few">Natjecao/la se u %s turnira</item>
+    <item quantity="other">Natjecao/la se u %s turnira</item>
+  </plurals>
   <string name="signedUp">Registrirao/la se na lichess</string>
 </resources>
