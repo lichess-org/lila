@@ -55,7 +55,13 @@
   <string name="pawnMove">Хід пішака</string>
   <string name="capture">Захоплення</string>
   <string name="close">Закрити</string>
+  <string name="database">База даних</string>
+  <string name="whiteDrawBlack">Білі / Нічія / Чорні</string>
   <string name="openingExplorer">Перегляд дебютів</string>
+  <string name="allSet">Все готово!</string>
+  <string name="importPgn">Імпорт PGN</string>
+  <string name="realtimeReplay">У реальному часі</string>
+  <string name="memory">Пам\'ять</string>
   <string name="blunders">Грубі помилки</string>
   <string name="mistakes">Помилки</string>
   <string name="inaccuracies">Неточності</string>
