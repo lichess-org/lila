@@ -176,7 +176,7 @@ trait WithPlay { self: PackageObject =>
     def >>|(fub: => Fu[Boolean]): Fu[Boolean] =
       fua flatMap { _.fold(fuccess(true), fub) }
 
-    def unary_! = fua map (!_)
+    def unary_! = fua dmap (!_)
   }
 
   implicit final class LilaPimpedBooleanWithFuture(self: Boolean) {
