@@ -57,44 +57,13 @@
   <string name="inLocalBrowser">yerel tarayıcı üzerinde</string>
   <string name="toggleLocalEvaluation">Yerel analizi aç/kapat</string>
   <string name="move">Hamle</string>
-  <string name="variantLoss">Kayıp devam yolu</string>
-  <string name="variantWin">Kazanç devam yolu</string>
-  <string name="insufficientMaterial">Yetersiz materyal</string>
   <string name="pawnMove">Piyon hamlesi</string>
-  <string name="capture">Taş alma</string>
   <string name="close">Kapat</string>
-  <string name="winning">Kazanan</string>
-  <string name="losing">Kayıp</string>
-  <string name="drawn">Berabere</string>
-  <string name="unknown">Belirsiz</string>
-  <string name="database">Veritabanı</string>
   <string name="whiteDrawBlack">Beyaz / Berabere / Siyah</string>
-  <string name="averageRatingX">Ortalama puan: %s</string>
-  <string name="recentGames">Son oyunlar</string>
-  <string name="topGames">En yüksek puanlı oyunlar</string>
-  <string name="masterDbExplanation">%2$s\'den %3$s\'e kadar %1$s+ FİDE puanına sahip oyuncular tarafından oynanmış 2 milyon tahta üzerindeki oyun</string>
-  <plurals name="mateInXHalfMoves">
-    <item quantity="one">%s yarım hamlede mat</item>
-    <item quantity="other">%s yarım hamlede mat</item>
-  </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">%s yarım hamle sonra yapılacak taş alımı ya da piyon sürüşü (50 hamle kuralının sıfırlanmasına kalan uzaklık)</item>
-    <item quantity="other">%s yarım hamle sonra yapılacak taş alımı ya da piyon sürüşü (50 hamle kuralının sıfırlanmasına kalan uzaklık)</item>
-  </plurals>
   <string name="noGameFound">Oyun bulunamadı</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Belki tercihler menüsündeki ayarları değiştirirsen daha fazla oyun gösterilebilir?</string>
   <string name="openingExplorer">Açılış kâşifi</string>
-  <string name="xOpeningExplorer">%s açılış kâşifi</string>
-  <string name="winPreventedBy50MoveRule">Kazanç 50 hamle kuralı tarafından engellendi</string>
-  <string name="lossSavedBy50MoveRule">Kayıp 50 hamle kuralı sayesinde kurtarıldı</string>
   <string name="allSet">Her şey tamam!</string>
-  <string name="importPgn">PGN\'yi içe aktar</string>
-  <string name="delete">Sil</string>
-  <string name="deleteThisImportedGame">İçe aktarılan bu oyun silinsin mi?</string>
-  <string name="replayMode">Tekrar modu</string>
-  <string name="realtimeReplay">Gerçek zamanlı</string>
   <string name="byCPL">SPK ile</string>
-  <string name="openStudy">Çalışmayı aç</string>
   <string name="enable">Etkinleştir</string>
   <string name="bestMoveArrow">En iyi hamle imleci</string>
   <string name="evaluationGauge">Değerlendirme çubuğu</string>
@@ -232,10 +201,6 @@
     <item quantity="one">%s kez berabere kaldı</item>
     <item quantity="other">%s kez berabere kaldı</item>
   </plurals>
-  <plurals name="nbPlaying">
-    <item quantity="one">%s oynanıyor</item>
-    <item quantity="other">%s oynanıyor</item>
-  </plurals>
   <string name="exportGames">Oyunları indir</string>
   <string name="ratingRange">Puan aralığı</string>
   <plurals name="giveNbSeconds">
@@ -245,7 +210,6 @@
   <string name="giveMoreTime">Süre ver</string>
   <string name="thisPlayerUsesChessComputerAssistance">Bu oyuncu bir satranç programından yardım alıyor.</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Bu oyuncu puanını sahte bir şekilde artırıyor/azaltıyor</string>
-  <string name="openingExplorerAndTablebase">Açılış kâşifi &amp; oyun sonu analizi</string>
   <string name="takeback">Hamleni geri al.</string>
   <string name="proposeATakeback">Hamleyi geri almayı teklif et.</string>
   <string name="takebackPropositionSent">Hamleyi geri alma teklifi gönderildi.</string>
@@ -294,7 +258,6 @@
   <string name="fromPosition">Özel pozisyondan</string>
   <string name="continueFromHere">Bu pozisyondan devam et</string>
   <string name="importGame">Oyun yükle</string>
-  <string name="importGameExplanation">Bir oyun PGN\'si yapıştırdığınız zaman; göz atılabilir bir tekrar, bilgisayar analizi, oyun sohbeti ve paylaşılabilir bir link elde edersiniz.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Yüklenen oyunlar</item>
     <item quantity="other">%s Yüklenen oyunlar</item>
@@ -711,7 +674,7 @@
   <string name="usernameStartNoNumber">Kullanıcı adı bir sayı ile başlayamaz.</string>
   <string name="usernameUnacceptable">Bu kullanıcı adı uygun değil.</string>
   <string name="directlySupportLichess">Lichess\'e doğrudan destek verin</string>
-  <string name="playChessInStyle">Satrancı bir tarz ile oynayın</string>
+  <string name="playChessInStyle">Satranca tarz katın</string>
   <string name="chessBasics">Satrancın temel prensipleri</string>
   <string name="coaches">Eğitmenler</string>
   <string name="invalidPgn">Geçersiz PGN</string>
@@ -723,6 +686,5 @@
   <string name="error.unknown">Hata</string>
   <string name="custom">Özel</string>
   <string name="notifications">Bildirimler</string>
-  <string name="challenges">Meydan okumalar</string>
   <string name="perfRatingX">Puan: %s</string>
 </resources>
