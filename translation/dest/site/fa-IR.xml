@@ -48,6 +48,7 @@
   <string name="computerAnalysis">تجزيه تحليل رایانه ای</string>
   <string name="computerAnalysisAvailable">تحلیل گر کامپیوتر موجود است</string>
   <string name="analysis">تحلیل</string>
+  <string name="depthX">عمق %s</string>
   <string name="openingExplorer">باز کردن جستجوگر</string>
   <string name="blunders">اشتباهات جدی</string>
   <string name="mistakes">اشتباهات</string>
