@@ -204,6 +204,7 @@ object Auth extends LilaController {
         lila.mon.user.register.confirmEmailResult(false)()
         notFound
       case Some(user) =>
+        authLog(user.username, s"Confirmed email")
         lila.mon.user.register.confirmEmailResult(true)()
         redirectNewUser(user)
     }
