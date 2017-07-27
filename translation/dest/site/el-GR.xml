@@ -697,7 +697,7 @@
   <string name="xJoinsY">%1$s συμμετέχει στη %2$s</string>
   <string name="xLikesY">%1$s αρέσει %2$s</string>
   <string name="quickPairing">Γρήγορη αντιστοίχιση</string>
-  <string name="lobby">Δωμάτιο αναμονής</string>
+  <string name="lobby">Χώρος αναμονής</string>
   <string name="anonymous">Ανώνυμος</string>
   <string name="yourScore">Η βαθμολογία σας: %s</string>
   <string name="language">Γλώσσα</string>
