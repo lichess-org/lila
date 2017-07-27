@@ -384,6 +384,9 @@
   <string name="pieceDestinations">Možnosti figur (možné tahy a předtahy)</string>
   <string name="boardCoordinates">Souřadnice šachovnice (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Seznam tahů během hry</string>
+  <string name="pgnPieceNotation">Označení figur v notaci</string>
+  <string name="chessPieceSymbol">Symbol šachových figur</string>
+  <string name="pgnLetter">Anglickými písmeny (K, Q, R, B, N)</string>
   <string name="chessClock">Šachové hodiny</string>
   <string name="tenthsOfSeconds">Desetiny vteřin</string>
   <string name="never">Nikdy</string>
@@ -391,6 +394,10 @@
   <string name="horizontalGreenProgressBars">Vodorovný indikátor průběhu</string>
   <string name="soundWhenTimeGetsCritical">Zvuk, když zbývá velmi málo času</string>
   <string name="gameBehavior">Chování hry</string>
+  <string name="howDoYouMovePieces">Způsob provádění tahů</string>
+  <string name="clickTwoSquares">Kliknutím na dvě pole</string>
+  <string name="dragPiece">Přetažením kamene</string>
+  <string name="bothClicksAndDrag">Obojí</string>
   <string name="premovesPlayingDuringOpponentTurn">Předtahy (hraní během protivníkova tahu)</string>
   <string name="takebacksWithOpponentApproval">Vrácení tahu (s protivníkovým souhlasem)</string>
   <string name="promoteToQueenAutomatically">Povýšit na dámu automaticky</string>
@@ -451,6 +458,7 @@
   <string name="error.email">Emailová adresa je neplatná</string>
   <string name="error.email_acceptable">Emailová adresa je nepřijatelná</string>
   <string name="error.email_unique">Emailová adresa je již používaná</string>
+  <string name="error.email_different">Toto je již Vaše emailová adresa</string>
   <string name="blindfoldChess">Blindfold šachy (neviditelné figurky)</string>
   <string name="moveConfirmation">Potvrzení tahu</string>
   <string name="inCorrespondenceGames">V korespondenčním šachu</string>
