@@ -48,6 +48,13 @@
   <string name="computerAnalysis">Комп’ютерний аналіз</string>
   <string name="computerAnalysisAvailable">Комп\'ютерний аналіз доступний</string>
   <string name="analysis">Аналіз</string>
+  <string name="depthX">Глибина %s</string>
+  <string name="goDeeper">Ще глибше</string>
+  <string name="showThreat">Показати загрозу</string>
+  <string name="insufficientMaterial">Недостатньо матеріалу</string>
+  <string name="pawnMove">Хід пішака</string>
+  <string name="capture">Захоплення</string>
+  <string name="close">Закрити</string>
   <string name="openingExplorer">Перегляд дебютів</string>
   <string name="blunders">Грубі помилки</string>
   <string name="mistakes">Помилки</string>
