@@ -20,6 +20,13 @@ export interface Hook extends Untyped {
 export interface Seek extends Untyped {
 }
 
+export interface Pool {
+  id: PoolId;
+  lim: number;
+  inc: number;
+  perf: string
+}
+
 export interface LobbyOpts extends Untyped {
   element: HTMLElement;
   socketSend: SocketSend;

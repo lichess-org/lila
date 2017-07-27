@@ -4,7 +4,7 @@ import * as seekRepo from './seekRepo';
 import { make as makeStores, Stores } from './store';
 import * as xhr from './xhr';
 import * as poolRangeStorage from './poolRangeStorage';
-import { LobbyOpts, LobbyData, Tab, Mode, Sort, Filter, Hook, Seek, PoolMember } from './interfaces';
+import { LobbyOpts, LobbyData, Tab, Mode, Sort, Filter, Hook, Seek, Pool, PoolMember } from './interfaces';
 import LobbySocket from './socket';
 
 const li = window.lichess;
@@ -27,6 +27,7 @@ export default class LobbyController {
   poolMember?: PoolMember;
   trans: Trans;
   redraw: () => void;
+  pools: Pool[] = [{id:"1+0",lim:1,inc:0,perf:"Bullet"},{id:"2+1",lim:2,inc:1,perf:"Bullet"},{id:"3+0",lim:3,inc:0,perf:"Blitz"},{"id":"3+2","lim":3,"inc":2,"perf":"Blitz"},{id:"5+0",lim:5,inc:0,perf:"Blitz"},{"id":"5+3","lim":5,"inc":3,"perf":"Blitz"},{id:"10+0",lim:10,inc:0,perf:"Classical"},{id:"15+15",lim:15,inc:15,perf:"Classical"}];
 
   private poolInStorage: LichessStorage;
   private flushHooksTimeout?: number;
@@ -53,7 +54,7 @@ export default class LobbyController {
     this.poolInStorage = li.storage.make('lobby.pool-in');
     this.poolInStorage.listen(e => { // when another tab joins a pool
       if (!e.newValue || e.newValue === li.StrongSocket.sri) return; // same tab, doh, IE 11
-      this.leavePool();
+        this.leavePool();
       redraw();
     });
     this.flushHooksSchedule();
@@ -156,7 +157,7 @@ export default class LobbyController {
 
   clickPool = (id: string) => {
     if (!this.data.me) {
-      xhr.anonPoolSeek(this.data.pools.find(function(p) {
+      xhr.anonPoolSeek(this.pools.find(function(p) {
         return p.id === id;
       }));
       this.setTab('real_time');

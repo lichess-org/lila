@@ -5,6 +5,7 @@ import play.api.libs.json.{ Json, JsObject, JsArray }
 import lila.common.PimpedJson._
 import lila.game.{ GameRepo, Pov }
 import lila.lobby.SeekApi
+import lila.pool.JsonView.poolConfigJsonWriter
 import lila.setup.FilterConfig
 import lila.user.UserContext
 
@@ -15,15 +16,13 @@ final class LobbyApi(
     pools: List[lila.pool.PoolConfig]
 ) {
 
-  import lila.pool.JsonView._
-
   val poolsJson = Json toJson pools
 
   def apply(implicit ctx: Context): Fu[(JsObject, List[Pov])] =
     ctx.me.fold(seekApi.forAnon)(seekApi.forUser) zip
       (ctx.me ?? GameRepo.urgentGames) zip
       getFilter(ctx) flatMap {
-        case ((seeks, povs), filter) =>
+        case seeks ~ povs ~ filter =>
           lightUserApi.preloadMany(povs.flatMap(_.opponent.userId)) inject {
             Json.obj(
               "me" -> ctx.me.map { u =>
@@ -32,8 +31,7 @@ final class LobbyApi(
               "seeks" -> JsArray(seeks map (_.render)),
               "nowPlaying" -> JsArray(povs take 9 map nowPlaying),
               "nbNowPlaying" -> povs.size,
-              "filter" -> filter.render,
-              "pools" -> poolsJson
+              "filter" -> filter.render
             ) -> povs
           }
       }

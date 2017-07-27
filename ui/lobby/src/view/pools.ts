@@ -8,7 +8,7 @@ function renderRange(range: string) {
 
 export default function(ctrl: LobbyController) {
   const member = ctrl.poolMember;
-  return ctrl.data.pools.map(function(pool) {
+  return ctrl.pools.map(function(pool) {
     const active = !!member && member.id === pool.id,
     transp = !!member && !active;
     return h('div.pool', {
