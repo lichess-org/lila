@@ -64,6 +64,8 @@
   <string name="escapeWithTheKing">Unikněte s králem!</string>
   <string name="theKingCannotEscapeButBlock">Král nemůže uniknout, ale můžete zablokovat útok!</string>
   <string name="youCanGetOutOfCheckByTaking">Šachu můžete zabránit, když seberete figuru, která šachuje.</string>
+  <string name="mateInOne">Mat jedním tahem</string>
+  <string name="defeatTheOpponentsKing">Poražte soupeřova krále</string>
   <string name="castling">Rošáda</string>
   <string name="theSpecialKingMove">Zvláštní tah krále</string>
   <string name="castleQueenSideMovePiecesFirst">Udělejte dlouhou rochádu! 
@@ -126,6 +128,8 @@ Pěšec = 1</string>
   <string name="watchInstructiveChessVideos">Sledujte poučná šachová videa</string>
   <string name="playPeople">Hrát s lidmi</string>
   <string name="opponentsFromAroundTheWorld">Soupeři z celého světa</string>
+  <string name="playMachine">Hrát proti PC</string>
+  <string name="testYourSkillsWithTheComputer">Vyzkoušejte své dovednosti proti počítači</string>
   <string name="letsGo">Jdeme na to!</string>
   <string name="awesome">Skvělé!</string>
   <string name="excellent">Vynikající!</string>
