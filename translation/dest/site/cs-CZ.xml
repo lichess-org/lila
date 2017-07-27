@@ -324,6 +324,11 @@
   <string name="pleaseVotePuzzle">Pomozte zlepšit Lichess díky hlasování, pomocí šipek nahoru a dolů:</string>
   <string name="thankYou">Díky!</string>
   <string name="ratingX">Rating: %s</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Hráno %skrát</item>
+    <item quantity="few">Hráno %skrát</item>
+    <item quantity="other">Hráno %skrát</item>
+  </plurals>
   <string name="fromGameLink">Z partie %s</string>
   <string name="startTraining">Začít trénink</string>
   <string name="continueTraining">Pokračovat v tréninku</string>
@@ -571,6 +576,7 @@
   <string name="boardTheme">Vzhled šachovnice</string>
   <string name="boardSize">Velikost šachovnice</string>
   <string name="pieceSet">Vzhled figur</string>
+  <string name="embedInYourWebsite">Vložit na své webové stránky</string>
   <string name="usernameAlreadyUsed">Toto uživatelské jméno již existuje. Zvol, prosím, jiné.</string>
   <string name="usernameInvalid">Neplatné uživatelské jméno. Použijte pouze písmena, číslice, podtržítka a pomlčky.</string>
   <string name="usernameStartNoNumber">Uživatelské jméno nesmí začínat číslem.</string>
