@@ -49,6 +49,14 @@
   <string name="computerAnalysisAvailable">تحلیل گر کامپیوتر موجود است</string>
   <string name="analysis">تحلیل</string>
   <string name="depthX">عمق %s</string>
+  <string name="usingServerAnalysis">استفاده از تحلیل سرور</string>
+  <string name="loadingEngine">در حال بارگذاری موتور ...</string>
+  <string name="cloudAnalysis">تحلیل ابری</string>
+  <string name="goDeeper">عمیق تر برو</string>
+  <string name="showThreat">تهدید را نشان بده</string>
+  <string name="inLocalBrowser">در مرورگر موضعی</string>
+  <string name="toggleLocalEvaluation">ارزیابی موضعی تغییر وضعیت</string>
+  <string name="move">حرکت کن</string>
   <string name="openingExplorer">باز کردن جستجوگر</string>
   <string name="blunders">اشتباهات جدی</string>
   <string name="mistakes">اشتباهات</string>
