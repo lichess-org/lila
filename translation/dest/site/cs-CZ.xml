@@ -376,6 +376,7 @@
   <string name="closeAccountExplanation">Jste si jistý/á, že chcete zrušit Váš účet? Zrušení účtu je neměnné rozhodnutí. Už se na Váš účet nebudete moct nikdy přihlásit a vaše profilová stránka nebude přístupná.</string>
   <string name="thisAccountIsClosed">Tento účet je zrušen.</string>
   <string name="invalidUsernameOrPassword">Neplatné jméno či heslo</string>
+  <string name="incorrectPassword">Nesprávné heslo</string>
   <string name="emailMeALink">Pošlete mi odkaz e-mailem</string>
   <string name="currentPassword">Aktuální heslo</string>
   <string name="newPassword">Nové heslo</string>
