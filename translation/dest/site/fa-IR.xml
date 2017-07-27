@@ -48,7 +48,25 @@
   <string name="computerAnalysis">تجزيه تحليل رایانه ای</string>
   <string name="computerAnalysisAvailable">تحلیل گر کامپیوتر موجود است</string>
   <string name="analysis">تحلیل</string>
+  <string name="depthX">عمق %s</string>
+  <string name="usingServerAnalysis">استفاده از تحلیل سرور</string>
+  <string name="loadingEngine">در حال بارگذاری موتور ...</string>
+  <string name="cloudAnalysis">تحلیل ابری</string>
+  <string name="goDeeper">عمیق تر برو</string>
+  <string name="showThreat">تهدید را نشان بده</string>
+  <string name="inLocalBrowser">در مرورگر موضعی</string>
+  <string name="toggleLocalEvaluation">ارزیابی موضعی تغییر وضعیت</string>
+  <string name="move">حرکت کن</string>
+  <string name="pawnMove">حرکت پیاده</string>
+  <string name="capture">بزن</string>
+  <string name="winning">بردن</string>
+  <string name="losing">باختن</string>
+  <string name="unknown">ناشناخته</string>
+  <string name="recentGames">بازی های اخیر</string>
+  <string name="topGames">بازی های برتر</string>
+  <string name="noGameFound">بازیی یافت نشد</string>
   <string name="openingExplorer">باز کردن جستجوگر</string>
+  <string name="realtimeReplay">زمان واقعی</string>
   <string name="blunders">اشتباهات جدی</string>
   <string name="mistakes">اشتباهات</string>
   <string name="inaccuracies">بی‌ دقتی‌ ها</string>
@@ -151,6 +169,8 @@
   <string name="play">بازی</string>
   <string name="inbox">صندوق پیام</string>
   <string name="chatRoom">اتاق گپ</string>
+  <string name="loginToChat">وارد شوید تا چت کنید</string>
+  <string name="youHaveBeenTimedOut">زمان شما به پایان رسید.</string>
   <string name="spectatorRoom">اتاق تماشاچیان</string>
   <string name="composeMessage">نوشتن پیام</string>
   <string name="noNewMessages">پیام جدیدی نیست</string>
@@ -241,6 +261,7 @@
   <string name="onlineFriends">دوستان آنلاین</string>
   <string name="noFriendsOnline">هیچ دوستی آنلاین نیست</string>
   <string name="findFriends">پیدا کردن دوست</string>
+  <string name="favoriteOpponents">رقبای مورد علاقه</string>
   <string name="follow">دنبال کن</string>
   <string name="following">دنبال میکنید</string>
   <string name="unfollow">دنبال نکن</string>
@@ -282,6 +303,11 @@
   <string name="winStreak">برد متوالی</string>
   <string name="createdBy">ساخته شده توسط</string>
   <string name="tournamentIsStarting">مسابقه در حال شروع است</string>
+  <string name="youArePlaying">شما بازی میکنید!</string>
+  <string name="winRate">درصد برد</string>
+  <string name="berserkRate">درصد برزرک</string>
+  <string name="performance">عملکرد</string>
+  <string name="viewMoreTournaments">تورنومنت های بیشتری نشان بده</string>
   <string name="membersOnly">فقط اعضا</string>
   <string name="boardEditor">صفحه ویرایشگر</string>
   <string name="startPosition">موقعیت شروع</string>
@@ -387,6 +413,7 @@
   <string name="closeAccountExplanation">در صورت بستن حساب کاربری دیگر قادر نخواهید بود آنرا بازگردانید و صفحه کاربری از دسترس خارج خواهد شد . آیا اطمینان دارید ؟</string>
   <string name="thisAccountIsClosed">این حساب بسته شده است</string>
   <string name="invalidUsernameOrPassword">نام کاربری یا رمز عبور نادرست است</string>
+  <string name="incorrectPassword">رمزعبور اشتباه</string>
   <string name="emailMeALink">یک لینک به من ایمیل کنید</string>
   <string name="currentPassword">رمز جاری</string>
   <string name="newPassword">رمز جدید</string>
@@ -395,6 +422,7 @@
   <string name="pieceDestinations">مقصد مهره(حرکت معتبر و پیش حرکت )</string>
   <string name="boardCoordinates">مختصات صفحه(A-H، 1-8)</string>
   <string name="moveListWhilePlaying">لیست حرکات هنگام بازی کردن</string>
+  <string name="pgnLetter">حرف (K, Q, R, B, N)</string>
   <string name="chessClock">ساعت شطرنج</string>
   <string name="tenthsOfSeconds">دهم ثانیه</string>
   <string name="never">هرگز</string>
@@ -571,4 +599,21 @@
     <item quantity="other">در %s  زبان‌ها موجود است</item>
   </plurals>
   <string name="gameAnalysis">تجزیه و تحلیلِ بازی</string>
+  <string name="quickPairing">رویارویی سریع</string>
+  <string name="lobby">لابی</string>
+  <string name="anonymous">ناشناس</string>
+  <string name="language">زبان</string>
+  <string name="background">زمینه</string>
+  <string name="boardGeometry">بعد صفحه</string>
+  <string name="boardTheme">تم صفحه</string>
+  <string name="boardSize">اندازه صفحه</string>
+  <string name="pieceSet">نوع مهره</string>
+  <string name="embedInYourWebsite">قرار دادن در سایت خود</string>
+  <string name="error.min">باید بزرگتر یا مساوی باشه با %s</string>
+  <string name="error.max">باید کمتر یا مساوی باشه با%s</string>
+  <string name="error.unknown">خطا</string>
+  <string name="custom">دلخواه</string>
+  <string name="notifications">گزارش</string>
+  <string name="challenges">دعوت به مبارزه</string>
+  <string name="perfRatingX">ریتینگ. %s</string>
 </resources>

@@ -121,9 +121,9 @@
   </plurals>
   <string name="currentGames">Текущие партии</string>
   <plurals name="nbGames">
-    <item quantity="one">%s Игра</item>
-    <item quantity="few">%s Игры</item>
-    <item quantity="other">%s Игр</item>
+    <item quantity="one">%s игра</item>
+    <item quantity="few">%s игр</item>
+    <item quantity="other">%s игр</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s закладка</item>
@@ -225,9 +225,9 @@
   <string name="freeOnlineChess">Бесплатные онлайн-шахматы</string>
   <string name="spectators">Зрители:</string>
   <plurals name="nbRated">
-    <item quantity="one">Рейтинг для %s игры</item>
-    <item quantity="few">Рейтинг для %s игр</item>
-    <item quantity="other">Рейтинг для %s игр</item>
+    <item quantity="one">%s по рейтингу</item>
+    <item quantity="few">%s по рейтингу</item>
+    <item quantity="other">%s по рейтингу</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s выиграно</item>
@@ -243,6 +243,11 @@
     <item quantity="one">%s сыграно вничью</item>
     <item quantity="few">%s сыграно вничью</item>
     <item quantity="other">%s сыграно вничью</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s играет</item>
+    <item quantity="few">%s играет</item>
+    <item quantity="other">%s играет</item>
   </plurals>
   <string name="exportGames">Экспорт игр</string>
   <string name="ratingRange">Диапазон рейтинга</string>
