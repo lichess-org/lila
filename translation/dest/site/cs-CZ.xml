@@ -89,6 +89,7 @@
   <string name="openStudy">Otevřít studii</string>
   <string name="enable">Povolit analýzu</string>
   <string name="bestMoveArrow">Šipka pro nejlepší tah</string>
+  <string name="evaluationGauge">Měřítko hodnocení</string>
   <string name="multipleLines">Počet variant</string>
   <string name="cpus">Procesor(y)</string>
   <string name="memory">Paměť</string>
@@ -173,6 +174,7 @@
   <string name="inbox">Doručené</string>
   <string name="chatRoom">Chat</string>
   <string name="loginToChat">Přihlaš se k chatování</string>
+  <string name="youHaveBeenTimedOut">Byli jste odhlášeni.</string>
   <string name="spectatorRoom">Chat diváků</string>
   <string name="composeMessage">Napsat zprávu</string>
   <string name="noNewMessages">Žádné nové zprávy</string>
