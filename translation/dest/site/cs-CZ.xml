@@ -188,6 +188,7 @@
   <string name="ratingRange">Síla hráče</string>
   <string name="thisPlayerUsesChessComputerAssistance">Tento uživatel hrává s pomocí počítače</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Tento hráč uměle ovlivnil své hodnocení</string>
+  <string name="openingExplorerAndTablebase">Knihovna zahájení / tablebase koncovek</string>
   <string name="takeback">Vrátit tah</string>
   <string name="proposeATakeback">Navrhnout vrácení tahu</string>
   <string name="takebackPropositionSent">Návrh na vrácení byl tahu odeslán</string>
@@ -232,6 +233,7 @@
   <string name="fromPosition">Z pozice</string>
   <string name="continueFromHere">Pokračovat zde</string>
   <string name="importGame">Importuj hru</string>
+  <string name="importGameExplanation">Vložení partie ve formátu PGN Vám umožní přehrání partie, získáte počítačovou analýzu, chat ke hře a URL ke sdílení hry.</string>
   <string name="thisIsAChessCaptcha">Toto je šachové CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Kliknutím na šachovnici zadejte váš tah a dokažte, že jste človek.</string>
   <string name="notACheckmate">Toto není mat.</string>
@@ -271,6 +273,16 @@
   <string name="winStreak">Vítězná série</string>
   <string name="createdBy">Vytvořeno uživatelem</string>
   <string name="tournamentIsStarting">Turnaj začíná</string>
+  <string name="winRate">Poměr výher</string>
+  <string name="berserkRate">Poměr Berserk</string>
+  <string name="tournamentComplete">Turnaj skončil</string>
+  <string name="movesPlayed">Odehráno tahů</string>
+  <string name="whiteWins">Bílý vyhrál</string>
+  <string name="blackWins">Černý vyhrál</string>
+  <string name="draws">Remízy</string>
+  <string name="nextXTournament">Příští %s turnaj:</string>
+  <string name="viewMoreTournaments">Zobrazit další turnaje</string>
+  <string name="averageOpponent">Průměrná síla soupeře</string>
   <string name="membersOnly">Hrát pouze s registrovanými</string>
   <string name="boardEditor">Editor šachovnice</string>
   <string name="startPosition">Základní postavení</string>
