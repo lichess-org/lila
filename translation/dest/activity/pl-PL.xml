@@ -14,9 +14,9 @@
     <item quantity="other">%s rozwiązanych zadań szachowych</item>
   </plurals>
   <plurals name="playedNbGames">
-    <item quantity="one">Rozegrana %1$s %2$s partia</item>
-    <item quantity="few">Rozegrane %1$s %2$s partie</item>
-    <item quantity="other">Rozegrane %1$s %2$s partii</item>
+    <item quantity="one">Rozegrana %1$s partia %2$s</item>
+    <item quantity="few">Rozegrane %1$s partie %2$s</item>
+    <item quantity="other">Rozegrane %1$s partii %2$s</item>
   </plurals>
   <plurals name="postedNbMessages">
     <item quantity="one">Opublikowana %1$s wiadomość w %2$s</item>
@@ -63,6 +63,6 @@
     <item quantity="few">Uczestnictwo w %s turniejach</item>
     <item quantity="other">Uczestnictwo w %s turniejach</item>
   </plurals>
-  <string name="rankedInTournament">#%1$s w rankingu (top %2$s) z %3$s partiami w %4$s</string>
+  <string name="rankedInTournament">%1$s miejsce w klasyfikacji (top %2$s) z %3$s partiami w %4$s</string>
   <string name="signedUp">Zostałeś zarejestrowany na Lichess</string>
 </resources>
