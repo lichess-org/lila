@@ -11,29 +11,33 @@ private[tournament] object ScoringSystem extends AbstractScoringSystem {
   case object StreakStarter extends Flag(2)
   case object Normal extends Flag(1)
 
-  sealed abstract class Berserk
+  sealed trait Berserk
   case object NoBerserk extends Berserk
   case object ValidBerserk extends Berserk
   case object InvalidBerserk extends Berserk
 
+  sealed trait Result
+  case object ResWin extends Result
+  case object ResDraw extends Result
+  case object ResLoss extends Result
+  case object ResDQ extends Result
+
   case class Score(
-      win: Option[Boolean],
+      res: Result,
       flag: Flag,
       berserk: Berserk
   ) extends AbstractScore {
 
     def isBerserk = berserk != NoBerserk
 
-    def isWin = win contains true
-
-    val value = ((win, flag) match {
-      case (Some(true), Double) => 4
-      case (Some(true), _) => 2
-      case (None, Double) => 2
-      case (None, _) => 1
+    val value = ((res, flag) match {
+      case (ResWin, Double) => 4
+      case (ResWin, _) => 2
+      case (ResDraw, Double) => 2
+      case (ResDraw, _) => 1
       case _ => 0
     }) + {
-      if (isWin && berserk == ValidBerserk) 1 else 0
+      if (res == ResWin && berserk == ValidBerserk) 1 else 0
     }
   }
 
@@ -53,29 +57,32 @@ private[tournament] object ScoringSystem extends AbstractScoringSystem {
         }
         else NoBerserk
         (p.winner match {
-          case None if p.quickDraw => Score(Some(false), Normal, berserk)
+          case None if p.quickDraw => Score(ResDQ, Normal, berserk)
           case None => Score(
-            None,
+            ResDraw,
             if (isOnFire(scores)) Double else Normal,
             berserk
           )
           case Some(w) if userId == w => Score(
-            Some(true),
+            ResWin,
             if (isOnFire(scores)) Double
             else if (scores.headOption ?? (_.flag == StreakStarter)) StreakStarter
-            else n.flatMap(_.winner) match {
-              case Some(w) if userId == w => StreakStarter
+            else n match {
+              case None => StreakStarter
+              case Some(s) if s.winner.contains(userId) => StreakStarter
               case _ => Normal
             },
             berserk
           )
-          case _ => Score(Some(false), Normal, berserk)
+          case _ => Score(ResLoss, Normal, berserk)
         }) :: scores
     }
   }
 
   private def isOnFire = firstTwoAreWins _
 
-  private def firstTwoAreWins(scores: List[Score]) =
-    (scores.size >= 2) && (scores take 2 forall (~_.win))
+  private def firstTwoAreWins(scores: List[Score]) = scores match {
+    case Score(ResWin, _, _) :: Score(ResWin, _, _) :: _ => true
+    case _ => false
+  }
 }

@@ -158,7 +158,7 @@ final class JsonView(
     case s: arena.ScoringSystem.Sheet => Json.obj(
       "game" -> s.scores.size,
       "berserk" -> s.scores.count(_.isBerserk),
-      "win" -> s.scores.count(_.isWin)
+      "win" -> s.scores.count(_ == arena.ScoringSystem.ResWin)
     )
   }
 
