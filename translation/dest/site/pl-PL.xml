@@ -19,7 +19,7 @@
   <string name="white">Białe</string>
   <string name="black">Czarne</string>
   <string name="randomColor">Losowanie koloru</string>
-  <string name="createAGame">Nowa gra</string>
+  <string name="createAGame">Nowa partia</string>
   <string name="whiteIsVictorious">Wygrana białych</string>
   <string name="blackIsVictorious">Wygrana czarnych</string>
   <string name="kingInTheCenter">Król w centrum</string>
@@ -71,7 +71,7 @@
   <string name="whiteDrawBlack">Białe / Remis / Czarne</string>
   <string name="averageRatingX">Średni ranking: %s</string>
   <string name="recentGames">Ostatnie partie</string>
-  <string name="topGames">Najlepsze gry</string>
+  <string name="topGames">Najlepsze partie</string>
   <string name="masterDbExplanation">Dwa miliony partii zawodników FIDE (2200+) od 1952 do 2016 roku</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mat w %s posunięciu</item>
@@ -83,8 +83,8 @@
     <item quantity="few">Następne bicie lub ruch pionem w ciągu %s posunięć (zerowanie licznika posunięć reguły 50 ruchów)</item>
     <item quantity="other">Następne bicie lub ruch pionem w ciągu %s posunięć (zerowanie licznika posunięć reguły 50 ruchów)</item>
   </plurals>
-  <string name="noGameFound">Nie znaleziono gry</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Może zaimportujesz więcej gier z menu narzędzi?</string>
+  <string name="noGameFound">Nie znaleziono partii</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Może zaimportujesz więcej partii z menu narzędzi?</string>
   <string name="openingExplorer">Przeglądarka otwarć</string>
   <string name="xOpeningExplorer">Przeszukiwanie biblioteki otwarć %s</string>
   <string name="winPreventedBy50MoveRule">Zwycięstwo przez regułę 50 ruchów</string>
@@ -305,15 +305,15 @@
   <string name="apply">Zastosuj</string>
   <string name="leaderboard">Najlepsi gracze</string>
   <string name="pasteTheFenStringHere">Wklej tutaj pozycję w formacie FEN</string>
-  <string name="pasteThePgnStringHere">Poniżej wklej grę w formacie PGN</string>
+  <string name="pasteThePgnStringHere">Poniżej wklej partię w formacie PGN</string>
   <string name="fromPosition">Z pozycji</string>
   <string name="continueFromHere">Kontynuuj z tej pozycji</string>
   <string name="importGame">Importuj grę</string>
   <string name="importGameExplanation">Wklejając zapis gry będziesz miał możliwość jej odtworzenia, poproszenia o analizę komputerową, omówienia jej z innymi oraz udostępnienia linku do niej innym.</string>
   <plurals name="nbImportedGames">
-    <item quantity="one">%s zaimportowana gra</item>
-    <item quantity="few">%s zaimportowane gry</item>
-    <item quantity="other">%s zaimportowanych gier</item>
+    <item quantity="one">%s zaimportowana partia</item>
+    <item quantity="few">%s zaimportowana partie</item>
+    <item quantity="other">%s zaimportowana partii</item>
   </plurals>
   <string name="thisIsAChessCaptcha">To jest szachowa CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Kliknij na szachownicę, by zrobić ruch i udowodnić, że jesteś człowiekiem.</string>
