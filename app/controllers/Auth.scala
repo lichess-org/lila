@@ -8,8 +8,8 @@ import play.api.Play.current
 import lila.api.Context
 import lila.app._
 import lila.common.{ LilaCookie, HTTPRequest, IpAddress }
-import lila.user.{ UserRepo, User => UserModel }
 import lila.security.FingerPrint
+import lila.user.{ UserRepo, User => UserModel }
 import views._
 
 object Auth extends LilaController {
@@ -105,11 +105,29 @@ object Auth extends LilaController {
     }
   }
 
-  private def mustConfirmEmail(print: Option[FingerPrint])(implicit ctx: Context): Fu[Boolean] = {
-    val ip = HTTPRequest lastRemoteAddress ctx.req
-    api.recentByIpExists(ip) >>| print.??(api.recentByPrintExists) >>|
-      Mod.ipIntelCache.get(ip).map(80 <).recover { case _: Exception => false }
+  private sealed abstract class MustConfirmEmail(val value: Boolean)
+  private object MustConfirmEmail {
+
+    case object Nope extends MustConfirmEmail(false)
+    case object YesBecausePrint extends MustConfirmEmail(true)
+    case object YesBecauseIp extends MustConfirmEmail(true)
+    case object YesBecauseProxy extends MustConfirmEmail(true)
+
+    def apply(print: Option[FingerPrint])(implicit ctx: Context): Fu[MustConfirmEmail] = {
+      val ip = HTTPRequest lastRemoteAddress ctx.req
+      api.recentByIpExists(ip) flatMap { ipExists =>
+        if (ipExists) fuccess(YesBecauseIp)
+        else print.??(api.recentByPrintExists) flatMap { printExists =>
+          if (printExists) fuccess(YesBecausePrint)
+          else Mod.ipIntelCache.get(ip).map(80 <)
+            .recover { case _: Exception => false }
+            .map { _.fold(YesBecauseProxy, Nope) }
+        }
+      }
+    }
   }
+
+  private def authLog(user: String, msg: String) = lila.log("auth").info(s"$user $msg")
 
   def signupPost = OpenBody { implicit ctx =>
     implicit val req = ctx.body
@@ -117,19 +135,26 @@ object Auth extends LilaController {
       Firewall {
         negotiate(
           html = forms.signup.website.bindFromRequest.fold(
-            err => BadRequest(html.auth.signup(err, env.RecaptchaPublicKey)).fuccess,
+            err => {
+              err("username").value foreach { authLog(_, s"Signup fail: ${err.errors mkString ", "}") }
+              BadRequest(html.auth.signup(err, env.RecaptchaPublicKey)).fuccess
+            },
             data => env.recaptcha.verify(~data.recaptchaResponse, req).flatMap {
-              case false => BadRequest(html.auth.signup(forms.signup.website fill data, env.RecaptchaPublicKey)).fuccess
+              case false =>
+                authLog(data.username, "Signup recaptcha fail")
+                BadRequest(html.auth.signup(forms.signup.website fill data, env.RecaptchaPublicKey)).fuccess
               case true =>
-                mustConfirmEmail(data.fingerPrint) flatMap { mustConfirm =>
+                MustConfirmEmail(data.fingerPrint) flatMap { mustConfirm =>
+                  authLog(data.username, s"fp: ${data.fingerPrint} mustConfirm: $mustConfirm req:${ctx.req}")
                   lila.mon.user.register.website()
-                  lila.mon.user.register.mustConfirmEmail(mustConfirm)()
+                  lila.mon.user.register.mustConfirmEmail(mustConfirm.value)()
+                  authLog(data.username, s"Signup website must confirm email: $mustConfirm")
                   val email = env.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
                   UserRepo.create(data.username, data.password, email, ctx.blindMode, none,
-                    mustConfirmEmail = mustConfirm)
+                    mustConfirmEmail = mustConfirm.value)
                     .flatten(s"No user could be created for ${data.username}")
                     .map(_ -> email).flatMap {
-                      case (user, email) if mustConfirm =>
+                      case (user, email) if mustConfirm.value =>
                         env.emailConfirm.send(user, email) >> {
                           if (env.emailConfirm.effective) Redirect(routes.Auth.checkYourEmail(user.username)).fuccess
                           else redirectNewUser(user)
@@ -140,16 +165,20 @@ object Auth extends LilaController {
             }
           ),
           api = apiVersion => forms.signup.mobile.bindFromRequest.fold(
-            err => fuccess(BadRequest(jsonError(errorsAsJson(err)))),
-            data => mustConfirmEmail(none) flatMap { mustConfirm =>
+            err => {
+              err("username").value foreach { authLog(_, s"Signup fail: ${err.errors mkString ", "}") }
+              fuccess(BadRequest(jsonError(errorsAsJson(err))))
+            },
+            data => MustConfirmEmail(none) flatMap { mustConfirm =>
               lila.mon.user.register.mobile()
-              lila.mon.user.register.mustConfirmEmail(mustConfirm)()
+              lila.mon.user.register.mustConfirmEmail(mustConfirm.value)()
+              authLog(data.username, s"Signup mobile must confirm email: $mustConfirm")
               val email = env.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
               UserRepo.create(data.username, data.password, email, false, apiVersion.some,
-                mustConfirmEmail = mustConfirm)
+                mustConfirmEmail = mustConfirm.value)
                 .flatten(s"No user could be created for ${data.username}")
                 .map(_ -> email).flatMap {
-                  case (user, email) if mustConfirm =>
+                  case (user, email) if mustConfirm.value =>
                     env.emailConfirm.send(user, email) >> {
                       if (env.emailConfirm.effective) Ok(Json.obj("email_confirm" -> true)).fuccess
                       else authenticateUser(user)
