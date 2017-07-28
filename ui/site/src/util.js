@@ -126,11 +126,15 @@ lichess.powertip = (function() {
       else if (cl.contains('glpt')) powerTipWith(t, e, gamePowertip);
     },
     manualGameIn: function(parent) {
-      Array.prototype.forEach.call(parent.querySelectorAll('.glpt'), gamePowertip);
+      lichess.requestIdleCallback(function() {
+        Array.prototype.forEach.call(parent.querySelectorAll('.glpt'), gamePowertip);
+      });
     },
     manualUserIn: function(parent) {
-      Array.prototype.forEach.call(parent.querySelectorAll('.ulpt'), function(el) {
-        userPowertip(el);
+      lichess.requestIdleCallback(function() {
+        Array.prototype.forEach.call(parent.querySelectorAll('.ulpt'), function(el) {
+          userPowertip(el);
+        });
       });
     }
   };
