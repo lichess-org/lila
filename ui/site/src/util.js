@@ -208,11 +208,7 @@ lichess.shepherd = function(f) {
 };
 lichess.makeChat = function(id, data, callback) {
   data.loadCss = lichess.loadCss;
-  var run = function() {
-    (callback || $.noop)(LichessChat.default(document.getElementById(id), data));
-  };
-  if (window.LichessChat) lichess.requestIdleCallback(run);
-  else lichess.loadScript("/assets/compiled/lichess.chat" + (document.body.getAttribute('data-dev') ? '' : '.min') + '.js').done(run);
+  (callback || $.noop)(LichessChat.default(document.getElementById(id), data));
 };
 
 lichess.desktopNotification = (function() {
