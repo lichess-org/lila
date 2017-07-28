@@ -1047,6 +1047,7 @@ body.playing.zen #top > * {
 body.playing.zen.offline #reconnecting,
 body.playing.zen .board_left:hover .side,
 body.playing.zen .board_left:hover #chat,
+body.playing.zen .board_left:hover #site_title,
 body.playing.zen .table:hover .replay .buttons,
 body.playing.zen .clock:hover .moretime,
 body.playing.zen .underboard:hover,
@@ -1054,4 +1055,11 @@ body.playing.zen .other_games:hover,
 body.playing.zen #top:hover > *,
 body.playing.zen .dasher {
   opacity: 1!important;
+}
+@media (hover) {
+  body.playing.zen #site_title,
+  body.playing.zen .dasher:not(.shown):not(:hover) {
+    opacity: 0!important;
+    transition: 1s;
+  }
 }
