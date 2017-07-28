@@ -371,6 +371,10 @@ chalk@^1.0.0, chalk@^1.1.1:
     strip-ansi "^3.0.0"
     supports-color "^2.0.0"
 
+"chat@link:../chat":
+  version "0.0.0"
+  uid ""
+
 "chess@link:../chess":
   version "0.0.0"
   uid ""
