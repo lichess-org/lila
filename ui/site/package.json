@@ -15,6 +15,7 @@
     "gulp-streamify": "^1",
     "gulp-uglify": "^2",
     "gulp-util": "^3",
+    "gulp-concat": "^2.6",
     "request": "^2",
     "uglify-js": "^2",
     "vinyl-source-stream": "^1"
