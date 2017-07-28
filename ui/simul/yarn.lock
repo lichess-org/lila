@@ -372,6 +372,10 @@ chalk@^1.0.0, chalk@^1.1.1:
     strip-ansi "^3.0.0"
     supports-color "^2.0.0"
 
+"chat@link:../chat":
+  version "0.0.0"
+  uid ""
+
 chokidar@^1.0.0:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-1.7.0.tgz#798e689778151c8076b4b360e5edd28cda2bb468"
@@ -2098,6 +2102,10 @@ sigmund@~1.0.0:
 signal-exit@^3.0.0:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
+
+snabbdom@ornicar/snabbdom#lichess:
+  version "0.6.9-lichess"
+  resolved "https://codeload.github.com/ornicar/snabbdom/tar.gz/a408d93b54d32388f234fc121886df7fa8b9134f"
 
 sntp@1.x.x:
   version "1.0.9"

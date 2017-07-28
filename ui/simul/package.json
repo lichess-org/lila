@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "game": "link:../game",
+    "chat": "link:../chat",
     "mithril": "github:ornicar/mithril.js#lila-1"
   }
 }

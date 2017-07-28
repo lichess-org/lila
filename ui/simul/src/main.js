@@ -18,3 +18,5 @@ module.exports = function(element, opts) {
     socketReceive: controller.socket.receive
   };
 };
+
+window.LichessChat = require('chat');
