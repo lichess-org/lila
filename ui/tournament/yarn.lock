@@ -367,6 +367,10 @@ chalk@^1.0.0, chalk@^1.1.1:
     strip-ansi "^3.0.0"
     supports-color "^2.0.0"
 
+"chat@link:../chat":
+  version "0.0.0"
+  uid ""
+
 chessground@^7.0:
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/chessground/-/chessground-7.0.3.tgz#1ef76155961b0145b3833cabc86d3ede872880d9"
