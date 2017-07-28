@@ -1,7 +1,6 @@
 import { h, thunk } from 'snabbdom'
 import { VNode, VNodeData } from 'snabbdom/vnode'
 import { Ctrl, Line } from './interfaces'
-import * as spam from './spam'
 import enhance from './enhance';
 import { presetView } from './preset';
 import { lineAction } from './moderation';
@@ -72,8 +71,7 @@ function renderInput(ctrl: Ctrl): VNode | undefined {
           const kbm = document.querySelector('.keyboard-move input') as HTMLElement;
           if (kbm) kbm.focus();
         } else {
-          spam.report(txt);
-          if (ctrl.opts.public && spam.hasTeamUrl(txt)) alert("Please don't advertise teams in the chat.");
+          if (ctrl.opts.public && hasTeamUrl(txt)) alert("Please don't advertise teams in the chat.");
           else ctrl.post(txt);
           el.value = '';
           el.classList.remove('whisper');
@@ -92,8 +90,7 @@ function selectLines(ctrl: Ctrl): Array<Line> {
   ctrl.data.lines.forEach(line => {
     if (!line.d &&
       (!prev || !sameLines(prev, line)) &&
-      (!line.r || ctrl.opts.kobold) &&
-      !spam.skip(line.t)
+      (!line.r || ctrl.opts.kobold)
     ) ls.push(line);
     prev = line;
   });
@@ -138,4 +135,9 @@ function renderLine(ctrl: Ctrl, line: Line) {
     userNode,
     textNode
   ] : [userNode, textNode]);
+}
+
+const teamUrlRegex = /lichess\.org\/team\//
+function hasTeamUrl(txt: string) {
+  return !!txt.match(teamUrlRegex);
 }
