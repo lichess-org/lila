@@ -97,7 +97,7 @@ final class SimulApi(
               }
             } flatMap { s =>
               system.lilaBus.publish(Simul.OnStart(s), 'startSimul)
-              update(s)
+              update(s) >>- currentHostIdsCache.refresh
             }
           }
         }
@@ -132,7 +132,6 @@ final class SimulApi(
               _.finish(game.status, game.winnerUserId, game.turns)
             )
             update(simul2) >>- {
-              currentHostIdsCache.refresh
               if (simul2.isFinished) onComplete(simul2)
             }
           }
@@ -142,6 +141,7 @@ final class SimulApi(
   }
 
   private def onComplete(simul: Simul): Unit = {
+    currentHostIdsCache.refresh
     userRegister ! lila.hub.actorApi.SendTo(
       simul.hostId,
       lila.socket.Socket.makeMessage("simulEnd", Json.obj(
