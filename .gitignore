@@ -28,7 +28,6 @@ dist/
 node_modules/
 local/
 ui/*/npm-debug.log
-.vagrant
 hs_*.log
 
 RUNNING_PID
