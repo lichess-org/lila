@@ -207,11 +207,12 @@ lichess.shepherd = function(f) {
   });
 };
 lichess.makeChat = function(id, data, callback) {
-  var isDev = document.body.getAttribute('data-dev');
   data.loadCss = lichess.loadCss;
-  lichess.loadScript("/assets/compiled/lichess.chat" + (isDev ? '' : '.min') + '.js').done(function() {
+  var run = function() {
     (callback || $.noop)(LichessChat.default(document.getElementById(id), data));
-  });
+  };
+  if (window.LichessChat) lichess.requestIdleCallback(run);
+  else lichess.loadScript("/assets/compiled/lichess.chat" + (document.body.getAttribute('data-dev') ? '' : '.min') + '.js').done(run);
 };
 
 lichess.desktopNotification = (function() {

@@ -2,8 +2,13 @@
   "name": "chat",
   "version": "2.0.0",
   "description": "lichess.org chat UI",
+  "main": "dist/main.js",
+  "types": "dist/main",
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0",
+  "scripts": {
+    "compile": "tsc"
+  },
   "dependencies": {
     "snabbdom": "ornicar/snabbdom#lichess"
   },

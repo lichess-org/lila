@@ -13,6 +13,8 @@ import MoveOn from './moveOn';
 import { main as view } from './view/main';
 import boot from './boot';
 
+import * as chat from 'chat';
+
 const patch = init([klass, attributes]);
 
 export interface RoundApi {
@@ -45,6 +47,7 @@ export function app(opts: RoundOpts): RoundApi {
 };
 
 export { boot };
+window.LichessChat = chat;
 
 // that's for the rest of lichess to access chessground
 // without having to include it a second time

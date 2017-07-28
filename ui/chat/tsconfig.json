@@ -1,5 +1,9 @@
 {
+  "include": ["src/*.ts"],
+  "exclude": [],
   "compilerOptions": {
+    "outDir": "./dist",
+    "declaration": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
     "noUnusedLocals": true,

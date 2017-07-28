@@ -1,11 +1,12 @@
 import { h } from 'snabbdom'
+import { VNode } from 'snabbdom/vnode'
 import { Ctrl, Tab } from './interfaces'
 import discussionView from './discussion'
 import { noteView } from './note'
 import { moderationView } from './moderation'
 import { bind } from './util'
 
-export default function(ctrl: Ctrl) {
+export default function(ctrl: Ctrl): VNode {
 
   const mod = ctrl.moderation();
 

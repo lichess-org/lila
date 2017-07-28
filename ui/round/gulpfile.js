@@ -13,10 +13,10 @@ function onError(error) {
   gutil.log(gutil.colors.red(error.message));
 }
 
-function build() {
+function build(debug) {
   return browserify('src/main.ts', {
       standalone: 'LichessRound',
-      debug: true
+      debug: debug
     })
     .plugin(tsify);
 }
@@ -37,14 +37,14 @@ watchedBrowserify.on('update', bundle);
 watchedBrowserify.on('log', gutil.log);
 
 gulp.task('dev', function() {
-  return build()
+  return build(true)
     .bundle()
     .pipe(source('lichess.round.js'))
     .pipe(gulp.dest(destination));
 });
 
 gulp.task('prod', function() {
-  return build()
+  return build(true)
     .bundle()
     .pipe(source('lichess.round.min.js'))
     .pipe(buffer())

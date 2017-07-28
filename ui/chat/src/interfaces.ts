@@ -13,7 +13,7 @@ export interface ChatOpts {
   loadCss: (url: string) => void
 }
 
-interface ChatData {
+export interface ChatData {
   id: string
   name: string
   lines: Array<Line>
@@ -37,8 +37,6 @@ export interface Permissions {
 }
 
 export type Tab = 'discussion' | 'note'
-
-type Trans = any
 
 export interface Ctrl {
   data: ChatData
@@ -69,8 +67,8 @@ export interface PresetCtrl {
   post(preset: Preset): void
 }
 
-type PresetKey = string
-type PresetText = string
+export type PresetKey = string
+export type PresetText = string
 
 export interface Preset {
   key: PresetKey
@@ -136,7 +134,7 @@ export interface ModerationReason {
   name: string
 }
 
-interface ModerationHistoryEntry {
+export interface ModerationHistoryEntry {
   reason: ModerationReason
   mod: string
   date: number

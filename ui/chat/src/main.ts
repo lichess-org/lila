@@ -5,14 +5,16 @@ import { VNode } from 'snabbdom/vnode'
 
 import makeCtrl from './ctrl';
 import view from './view';
-import { ChatOpts, Ctrl } from './interfaces'
+import { ChatOpts, Ctrl, PresetCtrl } from './interfaces'
 
 import klass from 'snabbdom/modules/class';
 import attributes from 'snabbdom/modules/attributes';
 
 const patch = init([klass, attributes]);
 
-export default function LichessChat(element: Element, opts: ChatOpts) {
+export default function LichessChat(element: Element, opts: ChatOpts): {
+  preset: PresetCtrl
+} {
 
   opts.loadCss('/assets/stylesheets/chat.css');
 
