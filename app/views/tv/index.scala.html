@@ -3,7 +3,7 @@
 @title = @{ s"${channel.name} TV: ${playerText(pov.player)} vs ${playerText(pov.opponent)}" }
 
 @moreJs = {
-@jsAt(s"compiled/lichess.round${isProd??(".min")}.js", async = true)
+@roundTag(withChat = false)
 @embedJs {
 window.onload = function() {
 LichessRound.boot({
