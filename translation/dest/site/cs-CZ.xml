@@ -89,6 +89,7 @@
   <string name="openStudy">Otevřít studii</string>
   <string name="enable">Povolit analýzu</string>
   <string name="bestMoveArrow">Šipka pro nejlepší tah</string>
+  <string name="evaluationGauge">Měřítko hodnocení</string>
   <string name="multipleLines">Počet variant</string>
   <string name="cpus">Procesor(y)</string>
   <string name="memory">Paměť</string>
@@ -173,6 +174,7 @@
   <string name="inbox">Doručené</string>
   <string name="chatRoom">Chat</string>
   <string name="loginToChat">Přihlaš se k chatování</string>
+  <string name="youHaveBeenTimedOut">Byli jste odhlášeni.</string>
   <string name="spectatorRoom">Chat diváků</string>
   <string name="composeMessage">Napsat zprávu</string>
   <string name="noNewMessages">Žádné nové zprávy</string>
@@ -186,6 +188,7 @@
   <string name="ratingRange">Síla hráče</string>
   <string name="thisPlayerUsesChessComputerAssistance">Tento uživatel hrává s pomocí počítače</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Tento hráč uměle ovlivnil své hodnocení</string>
+  <string name="openingExplorerAndTablebase">Knihovna zahájení / tablebase koncovek</string>
   <string name="takeback">Vrátit tah</string>
   <string name="proposeATakeback">Navrhnout vrácení tahu</string>
   <string name="takebackPropositionSent">Návrh na vrácení byl tahu odeslán</string>
@@ -230,6 +233,7 @@
   <string name="fromPosition">Z pozice</string>
   <string name="continueFromHere">Pokračovat zde</string>
   <string name="importGame">Importuj hru</string>
+  <string name="importGameExplanation">Vložení partie ve formátu PGN Vám umožní přehrání partie, získáte počítačovou analýzu, chat ke hře a URL ke sdílení hry.</string>
   <string name="thisIsAChessCaptcha">Toto je šachové CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Kliknutím na šachovnici zadejte váš tah a dokažte, že jste človek.</string>
   <string name="notACheckmate">Toto není mat.</string>
@@ -269,6 +273,16 @@
   <string name="winStreak">Vítězná série</string>
   <string name="createdBy">Vytvořeno uživatelem</string>
   <string name="tournamentIsStarting">Turnaj začíná</string>
+  <string name="winRate">Poměr výher</string>
+  <string name="berserkRate">Poměr Berserk</string>
+  <string name="tournamentComplete">Turnaj skončil</string>
+  <string name="movesPlayed">Odehráno tahů</string>
+  <string name="whiteWins">Bílý vyhrál</string>
+  <string name="blackWins">Černý vyhrál</string>
+  <string name="draws">Remízy</string>
+  <string name="nextXTournament">Příští %s turnaj:</string>
+  <string name="viewMoreTournaments">Zobrazit další turnaje</string>
+  <string name="averageOpponent">Průměrná síla soupeře</string>
   <string name="membersOnly">Hrát pouze s registrovanými</string>
   <string name="boardEditor">Editor šachovnice</string>
   <string name="startPosition">Základní postavení</string>
@@ -310,6 +324,11 @@
   <string name="pleaseVotePuzzle">Pomozte zlepšit Lichess díky hlasování, pomocí šipek nahoru a dolů:</string>
   <string name="thankYou">Díky!</string>
   <string name="ratingX">Rating: %s</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Hráno %skrát</item>
+    <item quantity="few">Hráno %skrát</item>
+    <item quantity="other">Hráno %skrát</item>
+  </plurals>
   <string name="fromGameLink">Z partie %s</string>
   <string name="startTraining">Začít trénink</string>
   <string name="continueTraining">Pokračovat v tréninku</string>
@@ -362,6 +381,7 @@
   <string name="closeAccountExplanation">Jste si jistý/á, že chcete zrušit Váš účet? Zrušení účtu je neměnné rozhodnutí. Už se na Váš účet nebudete moct nikdy přihlásit a vaše profilová stránka nebude přístupná.</string>
   <string name="thisAccountIsClosed">Tento účet je zrušen.</string>
   <string name="invalidUsernameOrPassword">Neplatné jméno či heslo</string>
+  <string name="incorrectPassword">Nesprávné heslo</string>
   <string name="emailMeALink">Pošlete mi odkaz e-mailem</string>
   <string name="currentPassword">Aktuální heslo</string>
   <string name="newPassword">Nové heslo</string>
@@ -370,6 +390,9 @@
   <string name="pieceDestinations">Možnosti figur (možné tahy a předtahy)</string>
   <string name="boardCoordinates">Souřadnice šachovnice (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Seznam tahů během hry</string>
+  <string name="pgnPieceNotation">Označení figur v notaci</string>
+  <string name="chessPieceSymbol">Symbol šachových figur</string>
+  <string name="pgnLetter">Anglickými písmeny (K, Q, R, B, N)</string>
   <string name="chessClock">Šachové hodiny</string>
   <string name="tenthsOfSeconds">Desetiny vteřin</string>
   <string name="never">Nikdy</string>
@@ -377,6 +400,10 @@
   <string name="horizontalGreenProgressBars">Vodorovný indikátor průběhu</string>
   <string name="soundWhenTimeGetsCritical">Zvuk, když zbývá velmi málo času</string>
   <string name="gameBehavior">Chování hry</string>
+  <string name="howDoYouMovePieces">Způsob provádění tahů</string>
+  <string name="clickTwoSquares">Kliknutím na dvě pole</string>
+  <string name="dragPiece">Přetažením kamene</string>
+  <string name="bothClicksAndDrag">Obojí</string>
   <string name="premovesPlayingDuringOpponentTurn">Předtahy (hraní během protivníkova tahu)</string>
   <string name="takebacksWithOpponentApproval">Vrácení tahu (s protivníkovým souhlasem)</string>
   <string name="promoteToQueenAutomatically">Povýšit na dámu automaticky</string>
@@ -437,6 +464,7 @@
   <string name="error.email">Emailová adresa je neplatná</string>
   <string name="error.email_acceptable">Emailová adresa je nepřijatelná</string>
   <string name="error.email_unique">Emailová adresa je již používaná</string>
+  <string name="error.email_different">Toto je již Vaše emailová adresa</string>
   <string name="blindfoldChess">Blindfold šachy (neviditelné figurky)</string>
   <string name="moveConfirmation">Potvrzení tahu</string>
   <string name="inCorrespondenceGames">V korespondenčním šachu</string>
@@ -548,6 +576,7 @@
   <string name="boardTheme">Vzhled šachovnice</string>
   <string name="boardSize">Velikost šachovnice</string>
   <string name="pieceSet">Vzhled figur</string>
+  <string name="embedInYourWebsite">Vložit na své webové stránky</string>
   <string name="usernameAlreadyUsed">Toto uživatelské jméno již existuje. Zvol, prosím, jiné.</string>
   <string name="usernameInvalid">Neplatné uživatelské jméno. Použijte pouze písmena, číslice, podtržítka a pomlčky.</string>
   <string name="usernameStartNoNumber">Uživatelské jméno nesmí začínat číslem.</string>
