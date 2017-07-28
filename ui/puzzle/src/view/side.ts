@@ -9,7 +9,7 @@ function strong(txt) {
 }
 
 function hidden() {
-  return '<span class="hidden">[hidden]</span>';
+  return '<span class="hidden">?</span>';
 }
 
 function puzzleBox(ctrl: Controller) {
@@ -45,10 +45,9 @@ function gameInfos(ctrl: Controller, game, puzzle): VNode[] {
       attrs: dataIcon(game.perf.icon)
     }, [
       h('div.header', [
-        'From game ',
-        h('a.title', {
-          attrs: { href: '/' + game.id + '/' + puzzle.color + '#' + puzzle.initialPly }
-        }, '#' + game.id),
+        h('p', {
+          hook: innerHTML(ctrl.trans('fromGameLink', '<a href="/' + game.id + '/' + puzzle.color + '#' + puzzle.initialPly + '">#' + game.id + '</a>'))
+        }),
         h('p', [
           game.clock, ' • ',
           game.perf.name, ' • ',
