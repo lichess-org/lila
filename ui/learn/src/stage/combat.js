@@ -6,7 +6,7 @@ var imgUrl = util.assetUrl + 'images/learn/battle-gear.svg';
 
 module.exports = {
   key: 'combat',
-  title: 'Combat',
+  title: 'combat',
   subtitle: 'captureAndDefendPieces',
   image: imgUrl,
   intro: 'combatIntro',
