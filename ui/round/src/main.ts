@@ -13,8 +13,6 @@ import MoveOn from './moveOn';
 import { main as view } from './view/main';
 import boot from './boot';
 
-const patch = init([klass, attributes]);
-
 export interface RoundApi {
   socketReceive(typ: string, data: any): boolean;
   moveOn: MoveOn;
@@ -25,6 +23,8 @@ export interface RoundMain {
 }
 
 export function app(opts: RoundOpts): RoundApi {
+
+  const patch = init([klass, attributes]);
 
   let vnode: VNode, ctrl: RoundController;
 

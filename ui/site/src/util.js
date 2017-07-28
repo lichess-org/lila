@@ -207,8 +207,10 @@ lichess.shepherd = function(f) {
   });
 };
 lichess.makeChat = function(id, data, callback) {
-  data.loadCss = lichess.loadCss;
-  (callback || $.noop)(LichessChat.default(document.getElementById(id), data));
+  lichess.requestIdleCallback(function() {
+    data.loadCss = lichess.loadCss;
+    (callback || $.noop)(LichessChat.default(document.getElementById(id), data));
+  });
 };
 
 lichess.desktopNotification = (function() {
