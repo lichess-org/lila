@@ -29,7 +29,7 @@ export function miniBoard(game) {
       }
     }
   }, [
-    h('div.cg-board-wrap', h('div.cg-board'))
+    h('div.cg-board-wrap')
   ]);
 }
 
