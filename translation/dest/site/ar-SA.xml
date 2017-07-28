@@ -66,6 +66,12 @@
   <string name="winning">فائزًا</string>
   <string name="losing">خاسرًا</string>
   <string name="drawn">تعادل</string>
+  <string name="unknown">مجهول</string>
+  <string name="database">قاعدة بيانات</string>
+  <string name="whiteDrawBlack">أبيض / تعادل / أسود</string>
+  <string name="averageRatingX">معدل التقييم: %s</string>
+  <string name="recentGames">أحدث المباريات</string>
+  <string name="topGames">مباريات القمة</string>
   <string name="openingExplorer">مستكشف الافتتاحيات</string>
   <string name="blunders">أخطاء فادحة</string>
   <string name="mistakes">أخطاء</string>
