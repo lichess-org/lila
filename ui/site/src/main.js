@@ -217,51 +217,34 @@ lichess.topMenuIntent = function() {
     });
   };
 
-  lichess.parseFen = (function() {
-    var doParseFen = function($elem) {
-      if (!window.Chessground) return $(window).on('load', function() {
-        doParseFen($elem);
-      });
-      if (!$elem || !$elem.jquery) {
-        $elem = $('.parse_fen');
-      }
-      $elem.each(function() {
-        var $this = $(this).removeClass('parse_fen');
-        var lm = $this.data('lastmove');
-        var lastMove = lm && (lm[1] === '@' ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]);
-        var color = $this.data('color') || lichess.readServerFen($(this).data('y'));
-        var ground = $this.data('chessground');
-        var playable = !!$this.data('playable');
-        var resizable = !!$this.data('resizable');
-        var config = {
-          coordinates: false,
-          viewOnly: !playable,
-          resizable: resizable,
-          fen: $this.data('fen') || lichess.readServerFen($this.data('z')),
-          lastMove: lastMove,
-          drawable: { enabled: false }
-        };
-        if (color) config.orientation = color;
-        if (ground) ground.set(config);
-        else {
-          this.innerHTML = '<div class="cg-board-wrap"></div>';
-          $this.data('chessground', Chessground(this.firstChild, config));
-        }
-      });
-    };
-    // debounce the first parseFen at first, then process them immediately
-    // because chessground initial display does a DOM read (board dimensions)
-    // and the play page can have 6 miniboards to display (ongoing games)
-    if (document.getElementById('now_playing')) {
-      var fun = lichess.fp.debounce(doParseFen, 400, false);
-      setTimeout(function() {
-        fun = doParseFen;
-      }, 700);
-      return function($elem) {
-        fun($elem);
+  lichess.parseFen = function($elem) {
+    if (!$elem || !$elem.jquery) {
+      $elem = $('.parse_fen');
+    }
+    $elem.each(function() {
+      var $this = $(this).removeClass('parse_fen');
+      var lm = $this.data('lastmove');
+      var lastMove = lm && (lm[1] === '@' ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]);
+      var color = $this.data('color') || lichess.readServerFen($(this).data('y'));
+      var ground = $this.data('chessground');
+      var playable = !!$this.data('playable');
+      var resizable = !!$this.data('resizable');
+      var config = {
+        coordinates: false,
+        viewOnly: !playable,
+        resizable: resizable,
+        fen: $this.data('fen') || lichess.readServerFen($this.data('z')),
+        lastMove: lastMove,
+        drawable: { enabled: false }
       };
-    } else return doParseFen;
-  })();
+      if (color) config.orientation = color;
+      if (ground) ground.set(config);
+      else {
+        this.innerHTML = '<div class="cg-board-wrap"></div>';
+        $this.data('chessground', Chessground(this.firstChild, config));
+      }
+    });
+  };
 
   $(function() {
     if (lichess.analyse) LichessAnalyse.boot(document.getElementById('lichess'), lichess.analyse);
@@ -933,55 +916,52 @@ lichess.topMenuIntent = function() {
 
     lichess.requestIdleCallback(function() {
       lichess.parseFen();
-      setTimeout(function() {
-        $('div.checkmateCaptcha').each(function() {
-          var $captcha = $(this);
-          var $board = $captcha.find('.mini_board');
-          var $input = $captcha.find('input').val('');
-          var cg = $board.data('chessground');
-          var dests = JSON.parse(lichess.readServerFen($board.data('x')));
-          for (var k in dests) dests[k] = dests[k].match(/.{2}/g);
-          var config = {
-            turnColor: cg.state.orientation,
-            movable: {
-              free: false,
-              dests: dests,
-              color: cg.state.orientation,
-              events: {
-                after: function(orig, dest) {
-                  $captcha.removeClass("success failure");
-                  submit(orig + ' ' + dest);
-                }
+      $('div.checkmateCaptcha').each(function() {
+        var $captcha = $(this);
+        var $board = $captcha.find('.mini_board');
+        var $input = $captcha.find('input').val('');
+        var cg = $board.data('chessground');
+        var dests = JSON.parse(lichess.readServerFen($board.data('x')));
+        for (var k in dests) dests[k] = dests[k].match(/.{2}/g);
+        cg.set({
+          turnColor: cg.state.orientation,
+          movable: {
+            free: false,
+            dests: dests,
+            color: cg.state.orientation,
+            events: {
+              after: function(orig, dest) {
+                $captcha.removeClass("success failure");
+                submit(orig + ' ' + dest);
               }
             }
-          };
-          cg.set(config);
-
-          var submit = function(solution) {
-            $input.val(solution);
-            $.ajax({
-              url: $captcha.data('check-url'),
-              data: {
-                solution: solution
-              },
-              success: function(data) {
-                $captcha.toggleClass('success', data == 1);
-                $captcha.toggleClass('failure', data != 1);
-                if (data == 1) $board.data('chessground').stop();
-                else setTimeout(function() {
-                  lichess.parseFen($board);
-                  $board.data('chessground').set({
-                    turnColor: cg.state.orientation,
-                    movable: {
-                      dests: dests
-                    }
-                  });
-                }, 300);
-              }
-            });
-          };
+          }
         });
-      }, 1000);
+
+        var submit = function(solution) {
+          $input.val(solution);
+          $.ajax({
+            url: $captcha.data('check-url'),
+            data: {
+              solution: solution
+            },
+            success: function(data) {
+              $captcha.toggleClass('success', data == 1);
+              $captcha.toggleClass('failure', data != 1);
+              if (data == 1) $board.data('chessground').stop();
+              else setTimeout(function() {
+                lichess.parseFen($board);
+                $board.data('chessground').set({
+                  turnColor: cg.state.orientation,
+                  movable: {
+                    dests: dests
+                  }
+                });
+              }, 300);
+            }
+          });
+        };
+      });
     });
   });
 
