@@ -484,6 +484,10 @@ combined-stream@^1.0.5, combined-stream@~1.0.5:
   dependencies:
     delayed-stream "~1.0.0"
 
+commander@~2.11.0:
+  version "2.11.0"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-2.11.0.tgz#157152fd1e7a6c8d98a5b715cf376df928004563"
+
 concat-map@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
@@ -1111,17 +1115,16 @@ gulp-typescript@^3:
     through2 "~2.0.1"
     vinyl-fs "~2.4.3"
 
-gulp-uglify@^2:
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/gulp-uglify/-/gulp-uglify-2.1.2.tgz#6db85b1d0ee63d18058592b658649d65c2ec4541"
+gulp-uglify@^3:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/gulp-uglify/-/gulp-uglify-3.0.0.tgz#0df0331d72a0d302e3e37e109485dddf33c6d1ca"
   dependencies:
     gulplog "^1.0.0"
     has-gulplog "^0.1.0"
     lodash "^4.13.1"
     make-error-cause "^1.1.1"
     through2 "^2.0.0"
-    uglify-js "~2.8.10"
-    uglify-save-license "^0.4.1"
+    uglify-js "^3.0.5"
     vinyl-sourcemaps-apply "^0.2.0"
 
 gulp-util@^3, gulp-util@^3.0.0, gulp-util@~3.0.7:
@@ -2588,7 +2591,7 @@ typescript@^2:
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.4.1.tgz#c3ccb16ddaa0b2314de031e7e6fee89e5ba346bc"
 
-uglify-js@^2, uglify-js@~2.8.10:
+uglify-js@^2:
   version "2.8.29"
   resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-2.8.29.tgz#29c5733148057bb4e1f75df35b7a9cb72e6a59dd"
   dependencies:
@@ -2597,9 +2600,12 @@ uglify-js@^2, uglify-js@~2.8.10:
   optionalDependencies:
     uglify-to-browserify "~1.0.0"
 
-uglify-save-license@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/uglify-save-license/-/uglify-save-license-0.4.1.tgz#95726c17cc6fd171c3617e3bf4d8d82aa8c4cce1"
+uglify-js@^3.0.5:
+  version "3.0.26"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.0.26.tgz#ba279ca597b13fe6c62c2d87dd5188e57a7a3233"
+  dependencies:
+    commander "~2.11.0"
+    source-map "~0.5.1"
 
 uglify-to-browserify@~1.0.0:
   version "1.0.2"

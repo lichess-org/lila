@@ -25,7 +25,7 @@
     "@types/jquery": "^2.0",
     "browserify": "^14",
     "gulp": "^3",
-    "gulp-uglify": "^2",
+    "gulp-uglify": "^3",
     "gulp-util": "^3",
     "tsify": "^3",
     "types": "link:../types",
@@ -37,7 +37,7 @@
   "dependencies": {
     "ceval": "link:../ceval",
     "chess": "link:../chess",
-    "chessground": "^6.5",
+    "chessground": "^7.0",
     "common": "link:../common",
     "game": "link:../game",
     "snabbdom": "ornicar/snabbdom#lichess",

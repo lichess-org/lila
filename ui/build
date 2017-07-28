@@ -15,7 +15,7 @@ build_ts() {
   set -ev
   cd ui/$1
   yarn install --non-interactive --mutex file:$YARN_MUTEX
-  # yarn upgrade --non-interactive --mutex file:$YARN_MUTEX
+  yarn upgrade --non-interactive --mutex file:$YARN_MUTEX
   yarn run compile --non-interactive
 }
 

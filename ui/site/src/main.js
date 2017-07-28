@@ -244,7 +244,7 @@ lichess.topMenuIntent = function() {
         if (color) config.orientation = color;
         if (ground) ground.set(config);
         else {
-          this.innerHTML = '<div class="cg-board-wrap">';
+          this.innerHTML = '<div class="cg-board-wrap"></div>';
           $this.data('chessground', Chessground(this.firstChild, config));
         }
       });

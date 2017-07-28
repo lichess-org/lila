@@ -13,7 +13,7 @@
     "gulp": "^3",
     "gulp-sourcemaps": "^2",
     "gulp-typescript": "^3",
-    "gulp-uglify": "^2",
+    "gulp-uglify": "^3",
     "gulp-util": "^3",
     "tsify": "^3",
     "types": "link:../types",
