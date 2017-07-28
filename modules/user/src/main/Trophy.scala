@@ -128,16 +128,24 @@ object Trophy {
       order = 102
     )
 
+    object ZHWC extends Kind(
+      key = "zhwc",
+      name = "Crazyhouse champion",
+      icon = none,
+      url = "//lichess.org/blog/WMnMzSEAAMgA3oAW/crazyhouse-world-championship-the-candidates".some,
+      klass = none,
+      order = 1
+    )
+
     val all = List(
-      ZugMiracle,
+      Streamer, Developer, Moderator,
+      MarathonTopHundred, MarathonTopTen, MarathonTopFifty, MarathonWinner,
+      ZugMiracle, ZHWC,
       WayOfBerserk,
       MarathonSurvivor,
-      MarathonWinner, MarathonTopTen, MarathonTopFifty, MarathonTopHundred,
-      BongcloudWarrior,
-      Developer, Moderator,
-      Streamer
+      BongcloudWarrior
     )
-    def byKey(key: String) = all find (_.key == key)
+    val byKey: Map[String, Kind] = all.map { k => k.key -> k }(scala.collection.breakOut)
   }
 
   def make(userId: String, kind: Trophy.Kind) = Trophy(

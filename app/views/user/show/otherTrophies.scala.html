@@ -1,5 +1,7 @@
 @(u: User, info: lila.app.mashup.UserInfo)(implicit ctx: Context)
 
+@import lila.user.Trophy.Kind
+
 @defining(info.allTrophies.filter(_.kind.klass.has("fire_trophy"))) { fireTrophies =>
 @if(fireTrophies.nonEmpty) {
 <div class="stacked">
@@ -13,9 +15,29 @@
 </div>
 }
 }
-@info.allTrophies.find(_.kind == lila.user.Trophy.Kind.ZugMiracle).map { t =>
+@info.allTrophies.find(_.kind == Kind.ZugMiracle).map { t =>
+<style type="text/css">
+.user_show .trophy.zugMiracle {
+  height: 80px;
+  margin: 0 8px!important;
+  transition: 2s;
+}
+@@keyframes psyche {
+  100% { filter: hue-rotate(360deg); }
+}
+.user_show .trophy.zugMiracle:hover {
+  transform: translateY(-9px);
+  animation: psyche 0.3s ease-in-out infinite alternate;
+}
+</style>
 <a @t.kind.url.map { url => href="@url" } class="trophy award @t.kind.key @t.kind.klass hint--left" data-hint="@t.kind.name">
   <img src="@staticUrl("images/trophy/zug-trophy.png")" height=80 />
+</a>
+}
+@info.allTrophies.find(_.kind == Kind.ZHWC).map { t =>
+<a @t.kind.url.map { url => href="@url" } class="trophy award @t.kind.key @t.kind.klass hint--left" data-hint="@t.kind.name"
+  style="width: 65px; height: 80px; margin: 0 3px!important;">
+  <img src="@staticUrl("images/trophy/zhwc.png")" width=65 height=80 />
 </a>
 }
 @defining(info.allTrophies.filter(_.kind.klass.has("icon3d"))) { iconTrophies =>

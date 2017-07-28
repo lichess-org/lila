@@ -8,7 +8,7 @@ final class TrophyApi(coll: Coll) {
 
   private implicit val trophyKindBSONHandler = new BSONHandler[BSONString, Trophy.Kind] {
     def read(bsonString: BSONString): Trophy.Kind =
-      Trophy.Kind byKey bsonString.value err s"No such trophy kind: ${bsonString.value}"
+      Trophy.Kind.byKey get bsonString.value err s"No such trophy kind: ${bsonString.value}"
     def write(x: Trophy.Kind) = BSONString(x.key)
   }
   private implicit val trophyBSONHandler = Macros.handler[Trophy]
@@ -22,5 +22,5 @@ final class TrophyApi(coll: Coll) {
   def awardMarathonWinner(userId: String): Funit = award(userId, Trophy.Kind.MarathonWinner)
 
   def findByUser(user: User, max: Int = 12): Fu[List[Trophy]] =
-    coll.find(BSONDocument("user" -> user.id)).cursor[Trophy]().gather[List](max)
+    coll.find($doc("user" -> user.id)).list[Trophy](max)
 }
