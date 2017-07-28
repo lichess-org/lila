@@ -11,11 +11,11 @@
   "devDependencies": {
     "browserify": "^14",
     "gulp": "^3",
+    "gulp-concat": "^2.6",
     "gulp-download-stream": "^0.0",
     "gulp-streamify": "^1",
     "gulp-uglify": "^3",
     "gulp-util": "^3",
-    "gulp-concat": "^2.6",
     "request": "^2",
     "uglify-js": "^2",
     "vinyl-source-stream": "^1"
