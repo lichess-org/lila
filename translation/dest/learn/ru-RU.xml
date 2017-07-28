@@ -58,6 +58,8 @@
   <string name="takeTheBlackPiecesAndDontLoseYours">Съешьте все чёрные фигуры! И не потеряйте свои.</string>
   <string name="captureComplete">Поздравляем! Теперь вы знаете, как сражаться с шахматными фигурами!</string>
   <string name="protection">Защита</string>
+  <string name="keepYourPiecesSafe">Держите ваши фигуры под защитой</string>
+  <string name="protectionIntro">Определите, какие ваши фигуры атакует противники, и защитите их!</string>
   <string name="combatComplete">Поздравляем! Теперь вы знаете, как сражаться с шахматными фигурами!</string>
   <string name="practice">Практика</string>
   <string name="learnCommonChessPositions">Учите основные позиции в шахматах</string>
