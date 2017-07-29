@@ -559,6 +559,10 @@
   <string name="inKidModeTheLichessLogoGetsIconX">Když je zapnutý dětský režim, tak se u loga Lichess objeví ikona %s. Podle toho poznáte, je je Vaše dítě v bezpečí.</string>
   <string name="enableKidMode">Povolit dětský režim</string>
   <string name="disableKidMode">Vypnout dětský režim</string>
+  <string name="security">Zabezpečení</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Toto je přehled zařízení, na kterých došlo k přihlášení k Vašemu účtu. Pokud některé zařízení nepoznáváte, můžete zrušit jeho relaci.</string>
+  <string name="alternativelyYouCanX">Nebo můžete %s.</string>
+  <string name="revokeAllSessions">odebrat všechny relace</string>
   <string name="playChessEverywhere">Hrajte šachy kdekoliv</string>
   <string name="asFreeAsLichess">Svobodný jako lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Vytvořeno z lásky k šachům, ne pro peníze</string>
