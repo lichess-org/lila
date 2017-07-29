@@ -4,7 +4,7 @@
   <string name="activity">Aktivita</string>
   <plurals name="solvedNbPuzzles">
     <item quantity="one">Vyřešena %s taktická úloha</item>
-    <item quantity="few">Vyřešena %s taktická úloha</item>
+    <item quantity="few">Vyřešeny %s taktické úlohy</item>
     <item quantity="other">Vyřešeno %s taktických úloh</item>
   </plurals>
   <plurals name="playedNbGames">
