@@ -415,7 +415,6 @@
     <item quantity="other">%s alditan jokaturik</item>
   </plurals>
   <string name="fromGameLink">%s partidatik hartua</string>
-  <string name="startTraining">Entrenatzen hasi</string>
   <string name="continueTraining">Entrenatzen jarraitu</string>
   <string name="retryThisPuzzle">Puzzle hau birsaiatu</string>
   <string name="thisPuzzleIsCorrect">Puzzlea ondo dago, interesgarria da</string>
@@ -431,7 +430,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Mugitu ondoren, hurrengo partidara joan</string>
   <string name="autoSwitch">Hurrengo partidara</string>
   <string name="puzzles">Puzzleak</string>
-  <string name="coordinates">Koordenatuak</string>
   <string name="latestUpdates">Azken gaurkotzeak</string>
   <string name="tournamentWinners">Txapelketako irabazleak</string>
   <string name="name">Izena</string>
