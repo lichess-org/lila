@@ -23,7 +23,7 @@
   <string name="whiteIsVictorious">白の勝ちです</string>
   <string name="blackIsVictorious">黒の勝ちです</string>
   <string name="kingInTheCenter">キングがセンターに入りました</string>
-  <string name="threeChecks">三回チェックしました</string>
+  <string name="threeChecks">3回チェック成功</string>
   <string name="raceFinished">レースが終了しました</string>
   <string name="variantEnding">バリアントエンディング</string>
   <string name="newOpponent">新しい相手</string>
@@ -212,13 +212,13 @@
     <item quantity="other">%s 局レート戦</item>
   </plurals>
   <plurals name="nbWins">
-    <item quantity="other">%s回 勝ち</item>
+    <item quantity="other">%s 勝</item>
   </plurals>
   <plurals name="nbLosses">
-    <item quantity="other">%s回 負け</item>
+    <item quantity="other">%s 敗</item>
   </plurals>
   <plurals name="nbDraws">
-    <item quantity="other">%s回 引き分け</item>
+    <item quantity="other">%s 分</item>
   </plurals>
   <plurals name="nbPlaying">
     <item quantity="other">%s 局進行中</item>
@@ -282,7 +282,7 @@
   <string name="importGameExplanation">ゲームの PGN を貼りつけると、ブラウザ上でのリプレイ、
 コンピュータ解析、ゲームチャット、共有可能 URL が得られます。</string>
   <plurals name="nbImportedGames">
-    <item quantity="other">%s個の インポートしたゲーム</item>
+    <item quantity="other">%s 局をインポート</item>
   </plurals>
   <string name="thisIsAChessCaptcha">これはロボットよけの認証です。</string>
   <string name="clickOnTheBoardToMakeYourMove">駒を動かしてあなたが人間である事を証明して下さい。</string>
