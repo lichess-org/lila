@@ -1,4 +1,5 @@
 module.exports = function(cfg, element) {
+  var pools = [{id:"1+0",lim:1,inc:0,perf:"Bullet"},{id:"2+1",lim:2,inc:1,perf:"Bullet"},{id:"3+0",lim:3,inc:0,perf:"Blitz"},{"id":"3+2","lim":3,"inc":2,"perf":"Blitz"},{id:"5+0",lim:5,inc:0,perf:"Blitz"},{"id":"5+3","lim":5,"inc":3,"perf":"Blitz"},{id:"10+0",lim:10,inc:0,perf:"Classical"},{id:"15+15",lim:15,inc:15,perf:"Classical"}];
   var lobby;
   var nbRoundSpread = $.spreadNumber(
     document.querySelector('#nb_games_in_play span'),
@@ -104,6 +105,7 @@ module.exports = function(cfg, element) {
   cfg.trans = lichess.trans(cfg.i18n);
   cfg.socketSend = lichess.socket.send;
   cfg.element = element;
+  cfg.pools = pools;
   lobby = LichessLobby.start(cfg);
 
   var $startButtons = $('#start_buttons');
@@ -181,7 +183,7 @@ module.exports = function(cfg, element) {
       find('timeMode') == 1;
     if (!valid) return false;
     var id = parseFloat(find('time')) + '+' + parseInt(find('increment'));
-    var exists = lichess_lobby.data.pools.filter(function(p) {
+    var exists = pools.filter(function(p) {
       return p.id === id;
     }).length;
     if (!exists) return;

@@ -27,7 +27,7 @@ export default class LobbyController {
   poolMember?: PoolMember;
   trans: Trans;
   redraw: () => void;
-  pools: Pool[] = [{id:"1+0",lim:1,inc:0,perf:"Bullet"},{id:"2+1",lim:2,inc:1,perf:"Bullet"},{id:"3+0",lim:3,inc:0,perf:"Blitz"},{"id":"3+2","lim":3,"inc":2,"perf":"Blitz"},{id:"5+0",lim:5,inc:0,perf:"Blitz"},{"id":"5+3","lim":5,"inc":3,"perf":"Blitz"},{id:"10+0",lim:10,inc:0,perf:"Classical"},{id:"15+15",lim:15,inc:15,perf:"Classical"}];
+  pools: Pool[];
 
   private poolInStorage: LichessStorage;
   private flushHooksTimeout?: number;
@@ -37,6 +37,7 @@ export default class LobbyController {
     this.opts = opts;
     this.data = opts.data;
     this.data.hooks = [];
+    this.pools = opts.pools;
     this.playban = opts.playban;
     this.currentGame = opts.currentGame;
     this.redraw = redraw;
