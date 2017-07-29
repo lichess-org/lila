@@ -329,7 +329,7 @@ object ApplicationBuild extends Build {
       MessageCompiler(
         sourceDir = new File("translation/source"),
         destDir = new File("translation/dest"),
-        dbs = List("site", "arena", "emails", "learn", "activity"),
+        dbs = List("site", "arena", "emails", "learn", "activity", "coordinates"),
         compileTo = (sourceManaged in Compile).value / "messages"
       )
     }.taskValue,

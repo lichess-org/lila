@@ -1,9 +1,9 @@
-@(score: lila.coordinate.Score)
-@List("white" -> score.white, "black" -> score.black).map {
-case (color, s) => {
+@(score: lila.coordinate.Score)(implicit ctx: Context)
+@List((trans.coordinates.averageScoreAsWhiteX, score.white), (trans.coordinates.averageScoreAsBlackX, score.black)).map {
+case (averageScoreX, s) => {
 <div class="chart_container">
   @if(s.nonEmpty) {
-  <p>Average score as @color: <strong>@{ "%.2f".format(s.sum.toDouble / s.size) }</strong></p>
+  <p>@averageScoreX(Html(s"""<strong>${"%.2f".format(s.sum.toDouble / s.size)}</strong>"""))</p>
   <div class="user_chart" data-points="@toJson(s)"></div>
   }
 </div>
