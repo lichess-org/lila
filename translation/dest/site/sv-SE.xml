@@ -168,6 +168,11 @@
   <string name="forgotPassword">Glömt lösenord?</string>
   <string name="rank">Rankning</string>
   <string name="rankX">Placering: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Placeringen uppdateras varje %s minuter</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s schackproblem</item>
+    <item quantity="other">%s schackproblem</item>
+  </plurals>
   <string name="gamesPlayed">Partier spelade</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s partier med dig</item>
