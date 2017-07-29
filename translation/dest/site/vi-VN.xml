@@ -308,7 +308,6 @@
     <item quantity="other">Đã chơi %s lần</item>
   </plurals>
   <string name="fromGameLink">Từ ván cờ %s</string>
-  <string name="startTraining">Bắt đầu luyện</string>
   <string name="continueTraining">Tiếp tục luyện</string>
   <string name="retryThisPuzzle">Thử lại câu này</string>
   <string name="thisPuzzleIsCorrect">Câu đố này đúng và rất thú vị</string>
@@ -322,7 +321,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Tự động chuyển đến ván tiếp theo sau khi thực hiện nước đi</string>
   <string name="autoSwitch">Tự động chuyển</string>
   <string name="puzzles">Câu đố</string>
-  <string name="coordinates">Tọa độ</string>
   <string name="latestUpdates">cập nhật mới nhất</string>
   <string name="tournamentWinners">Vô địch giải</string>
   <string name="name">Tên</string>
