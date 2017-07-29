@@ -59,6 +59,9 @@
   <string name="captureIntro">Vyhledejte soupeřovy nechráněné figury a seberte je!</string>
   <string name="takeTheBlackPieces">Seberte černé figury!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Seberte černé figury! A neztraťte ty vaše.</string>
+  <string name="checkInOne">Šach prvním tahem</string>
+  <string name="attackTheOpponentsKing">Napadněte soupeřova krále</string>
+  <string name="outOfCheck">Pryč ze šachu!</string>
   <string name="defendYourKing">Ochraň svého krále</string>
   <string name="outOfCheckIntro">Jste v šachu! Musíte uniknout nebo zablokovat útok.</string>
   <string name="escapeWithTheKing">Unikněte s králem!</string>
@@ -66,6 +69,10 @@
   <string name="youCanGetOutOfCheckByTaking">Šachu můžete zabránit, když seberete figuru, která šachuje.</string>
   <string name="mateInOne">Mat jedním tahem</string>
   <string name="defeatTheOpponentsKing">Poražte soupeřova krále</string>
+  <string name="intermediate">Středně pokročilé</string>
+  <string name="boardSetup">Postavení figur</string>
+  <string name="howTheGameStarts">Jak hra začíná</string>
+  <string name="boardSetupIntro">Dvě armády stojí proti sobě, připraveny na bitvu.</string>
   <string name="castling">Rošáda</string>
   <string name="theSpecialKingMove">Zvláštní tah krále</string>
   <string name="castlingIntro">Schovejte krále do bezpečí a vyviňte věž!</string>
@@ -84,9 +91,7 @@ Zabraňte šachu, a pak zarochujte!</string>
   <string name="blackJustMovedThePawnByTwoSquares">Černý právě pohl pěšcem
 o dvě pole! 
 Vemte ho mimochodem!</string>
-  <string name="enPassantOnlyWorksImmediately">Braní mimochodem funguje jen neprodleně poté,
-co soupeř o dvě pole
-natáhl pěšce.</string>
+  <string name="enPassantOnlyWorksImmediately">Braní mimochodem funguje jen neprodleně poté, co soupeř hrál sousedním pěšcem o dvě pole.</string>
   <string name="enPassantOnlyWorksOnFifthRank">Braní mimochodem funguje jen, 
 když je váš pěšec na páté řadě.</string>
   <string name="takeAllThePawnsEnPassant">Vemte všechny pěšce mimochodem!</string>
@@ -98,7 +103,7 @@ nikdo neprohrál.</string>
   <string name="stalemateGoal">Pro zapatování černého:
 - Černý se nikam nemůže pohnout
 - Černý král není v šachu.</string>
-  <string name="stalemateComplete">Gratulujeme! Lepší být zpacen, než zmacen!</string>
+  <string name="stalemateComplete">Gratulujeme! Lepší pat než dostat mat!</string>
   <string name="advanced">Pokročilé</string>
   <string name="pieceValue">Hodnota figur</string>
   <string name="evaluatePieceStrength">Vyhodnocení síly figur</string>
