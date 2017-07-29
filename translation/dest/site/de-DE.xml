@@ -416,7 +416,6 @@ und eine URL um dein PGN zu teilen.</string>
     <item quantity="other">%s mal gespielt</item>
   </plurals>
   <string name="fromGameLink">Aus der Partie %s</string>
-  <string name="startTraining">Training beginnen</string>
   <string name="continueTraining">Training fortsetzen</string>
   <string name="retryThisPuzzle">Nochmal probieren</string>
   <string name="thisPuzzleIsCorrect">Diese Aufgabe ist korrekt und interessant</string>
@@ -432,7 +431,6 @@ und eine URL um dein PGN zu teilen.</string>
   <string name="automaticallyProceedToNextGameAfterMoving">Nach dem Zug automatisch zur nächsten Partie gehen</string>
   <string name="autoSwitch">Automatischer Wechsel</string>
   <string name="puzzles">Aufgaben</string>
-  <string name="coordinates">Koordinaten</string>
   <string name="latestUpdates">Blog</string>
   <string name="tournamentWinners">Turniersieger</string>
   <string name="name">Name</string>
