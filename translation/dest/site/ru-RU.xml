@@ -436,7 +436,6 @@
     <item quantity="other">Решено %s раз</item>
   </plurals>
   <string name="fromGameLink">Из игры %s</string>
-  <string name="startTraining">Начать тренировку</string>
   <string name="continueTraining">Продолжить тренировку</string>
   <string name="retryThisPuzzle">Попробовать ещё раз</string>
   <string name="thisPuzzleIsCorrect">Задача правильная и интересная</string>
@@ -454,7 +453,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Автоматически переходить к следующей игре после хода</string>
   <string name="autoSwitch">Автосмена</string>
   <string name="puzzles">Задачки</string>
-  <string name="coordinates">Координаты</string>
   <string name="latestUpdates">Последние обновления</string>
   <string name="tournamentWinners">Победители турнира</string>
   <string name="name">Имя</string>
