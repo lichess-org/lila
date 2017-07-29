@@ -149,8 +149,8 @@ form.color .color_3 i {
   width: 242px;
 }
 #trainer .explanation li {
-  list-style: inside disc;
-  margin-top: 1em;
+  list-style: outside disc;
+  margin: 1em 0 1em 25px;
 }
 #trainer .start {
   font-size: 20px;
