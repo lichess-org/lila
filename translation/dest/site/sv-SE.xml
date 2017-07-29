@@ -167,6 +167,7 @@
   <string name="passwordReset">Återställ lösenord</string>
   <string name="forgotPassword">Glömt lösenord?</string>
   <string name="rank">Rankning</string>
+  <string name="rankX">Placering: %s</string>
   <string name="gamesPlayed">Partier spelade</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s partier med dig</item>
