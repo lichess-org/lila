@@ -127,9 +127,9 @@ case class Simul(
       (hostRating >= 2400 || hostTitle.isDefined) &&
       applicants.size < 80
 
-  def wins = pairings.count(p => p.finished && p.wins.has(true))
+  def wins = pairings.count(p => p.finished && p.wins.has(false))
   def draws = pairings.count(p => p.finished && p.wins.isEmpty)
-  def losses = pairings.count(p => p.finished && p.wins.has(false))
+  def losses = pairings.count(p => p.finished && p.wins.has(true))
 }
 
 object Simul {
