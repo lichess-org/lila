@@ -62,6 +62,7 @@
   <string name="pawnComplete">تبریک! هیچ رازی از پیاده ها بر شما پنهان نیست.</string>
   <string name="pawnPromotion">ارتقاء پیاده</string>
   <string name="yourPawnReachedTheEndOfTheBoard">پیاده شما به خونه آخر رسید!</string>
+  <string name="itNowPromotesToAStrongerPiece">حالا به یک مهره قوی تر ارتقاء میابه.</string>
   <string name="selectThePieceYouWant">مهره ای که میخواهید را انتخاب کنید!</string>
   <string name="fundamentals">اصول</string>
   <string name="capture">زدن</string>
@@ -72,5 +73,13 @@
 و مهره های خودتان را از دست ندهید.</string>
   <string name="captureComplete">تبریک! شما می دانید چگونه با مهره های شطرنج بجنگید!</string>
   <string name="protection">محافظت</string>
+  <string name="keepYourPiecesSafe">مهره های خود را امن نگه دارید</string>
   <string name="protectionIntro">مهره هایی که حریفتان حمله میکند را شناسایی کنید، و از آن ها دفاع کنید!</string>
+  <string name="escape">شما مورد حمله قرار گرفتید!
+از تهدید فرار کنید!</string>
+  <string name="noEscape">هیچ راه فراری نیست،
+اما میتوانید فرار کنید!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">بهشون اجازه نده هیچ مهره بی دفاعی رو بگیرن!</string>
+  <string name="combat">مبارزه</string>
+  <string name="captureAndDefendPieces">زدن و دفاع کردن مهره ها</string>
 </resources>
