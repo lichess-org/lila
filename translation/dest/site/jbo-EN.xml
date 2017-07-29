@@ -311,7 +311,6 @@
     <item quantity="other">%s roi se kelci</item>
   </plurals>
   <string name="fromGameLink">ra\'i lo %s moi nunjvi</string>
-  <string name="startTraining">lo nu crezenzu\'e kei cfari</string>
   <string name="continueTraining">lo nu crezenzu\'e kei ranji</string>
   <string name="retryThisPuzzle">za\'ure\'u troci lo se namkei</string>
   <string name="thisPuzzleIsCorrect">le se namkei cu drani je cinri</string>
@@ -325,7 +324,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">ba zi lo nu muvgau cu catlu lo se lidne selkei</string>
   <string name="autoSwitch">zmiku nungalfi</string>
   <string name="puzzles">lo namkei</string>
-  <string name="coordinates">lo kurme\'e</string>
   <string name="latestUpdates">cnino nunstika</string>
   <string name="tournamentWinners">lo jinga be fo lo torneio</string>
   <string name="name">lo cmene</string>
