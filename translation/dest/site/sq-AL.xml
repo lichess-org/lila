@@ -327,7 +327,6 @@
     <item quantity="other">Luajtur %s herë</item>
   </plurals>
   <string name="fromGameLink">Prej lojës %s</string>
-  <string name="startTraining">Fillo trajnimin</string>
   <string name="continueTraining">Vazhdo trajnimin</string>
   <string name="retryThisPuzzle">Riprovo këtë ushtrim</string>
   <string name="thisPuzzleIsCorrect">Ky ushtrim është i saktë dhe interesant</string>
@@ -343,7 +342,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Automatikisht kalo në lojën tjetër pasi lëviz.</string>
   <string name="autoSwitch">Kalim automatik</string>
   <string name="puzzles">Ushtrime</string>
-  <string name="coordinates">Kordinatat</string>
   <string name="latestUpdates">Pëditësimet e fundit</string>
   <string name="tournamentWinners">Fitues të turneve</string>
   <string name="name">Emri</string>
