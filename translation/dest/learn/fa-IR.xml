@@ -62,4 +62,6 @@
   <string name="pawnComplete">تبریک! هیچ رازی از پیاده ها بر شما پنهان نیست.</string>
   <string name="pawnPromotion">ارتقاء پیاده</string>
   <string name="yourPawnReachedTheEndOfTheBoard">پیاده شما به خونه آخر رسید!</string>
+  <string name="selectThePieceYouWant">مهره ای که میخواهید را انتخاب کنید!</string>
+  <string name="fundamentals">اصول</string>
 </resources>
