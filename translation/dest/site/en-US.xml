@@ -416,7 +416,6 @@ a computer analysis, a game chat and a shareable URL.</string>
     <item quantity="other">Played %s times</item>
   </plurals>
   <string name="fromGameLink">From game %s</string>
-  <string name="startTraining">Start training</string>
   <string name="continueTraining">Continue training</string>
   <string name="retryThisPuzzle">Retry this puzzle</string>
   <string name="thisPuzzleIsCorrect">This puzzle is correct and interesting</string>
@@ -432,7 +431,6 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="automaticallyProceedToNextGameAfterMoving">Automatically proceed to next game after moving</string>
   <string name="autoSwitch">Auto switch</string>
   <string name="puzzles">Puzzles</string>
-  <string name="coordinates">Coordinates</string>
   <string name="latestUpdates">Latest updates</string>
   <string name="tournamentWinners">Tournament winners</string>
   <string name="name">Name</string>
