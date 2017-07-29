@@ -435,7 +435,6 @@
     <item quantity="other">Rozwiązywane %s razy</item>
   </plurals>
   <string name="fromGameLink">Pochodzi z partii %s</string>
-  <string name="startTraining">Rozpocznij trening</string>
   <string name="continueTraining">Kontynuuj trening</string>
   <string name="retryThisPuzzle">Powtórz to zadanie</string>
   <string name="thisPuzzleIsCorrect">To poprawne i ciekawe zadanie</string>
@@ -453,7 +452,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Przejdź do następnej gry po wykonaniu ruchu</string>
   <string name="autoSwitch">Przełącz po ruchu</string>
   <string name="puzzles">Zadania szachowe</string>
-  <string name="coordinates">Współrzędne pól</string>
   <string name="latestUpdates">Aktualności</string>
   <string name="tournamentWinners">Zwycięzcy turniejów</string>
   <string name="name">Nazwa</string>
