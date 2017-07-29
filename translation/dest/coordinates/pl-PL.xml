@@ -3,5 +3,6 @@
 <resources>
   <string name="coordinates">Współrzędne pól</string>
   <string name="knowingTheChessBoard">Znanie współrzędnych pól na szachownicy jest bardzo ważną umiejętnością:</string>
+  <string name="youCanAnalyseAGameMoreEffectively">Możesz analizować partię skuteczniej jeśli nie musisz szukać współrzędnych pól.</string>
   <string name="startTraining">Rozpocznij trening</string>
 </resources>
