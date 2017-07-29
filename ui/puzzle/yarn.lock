@@ -2089,7 +2089,7 @@ signal-exit@^3.0.0:
 
 snabbdom@ornicar/snabbdom#lichess:
   version "0.7.0-lichess"
-  resolved "https://codeload.github.com/ornicar/snabbdom/tar.gz/4b994523e175c9d806097608dad76d5a13f9d87e"
+  resolved "https://codeload.github.com/ornicar/snabbdom/tar.gz/83fb6f55fc4e449a8e81c140bfd65fc3303eeb91"
 
 sntp@1.x.x:
   version "1.0.9"
