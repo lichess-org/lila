@@ -308,7 +308,6 @@
     <item quantity="other">jan li musi e ni la tenpo wan %s</item>
   </plurals>
   <string name="fromGameLink">tan musi nanpa %s</string>
-  <string name="startTraining">o open kama sona</string>
   <string name="continueTraining">o awen kama sona</string>
   <string name="retryThisPuzzle">o musi e ni la tenpo sin</string>
   <string name="thisPuzzleIsCorrect">musi ni li pona</string>
@@ -322,7 +321,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">pali wan li pini la ilo sona o tawa musi poka</string>
   <string name="autoSwitch">ilo o tawa</string>
   <string name="puzzles">musi sijelo</string>
-  <string name="coordinates">e lon mute</string>
   <string name="name">nimi</string>
   <string name="description">toki pi kulupu</string>
   <string name="no">ala</string>
