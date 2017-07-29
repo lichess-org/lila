@@ -327,7 +327,6 @@
     <item quantity="other">Intentat %s vegades</item>
   </plurals>
   <string name="fromGameLink">De la partida %s</string>
-  <string name="startTraining">Comença l\'entrenament</string>
   <string name="continueTraining">Continua l\'entrenament</string>
   <string name="retryThisPuzzle">Reintenta aquest problema</string>
   <string name="thisPuzzleIsCorrect">Aquest problema és correcte i interessant</string>
@@ -343,7 +342,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Anar automàticament a la següent partida després de cada moviment</string>
   <string name="autoSwitch">Canvi automàtic</string>
   <string name="puzzles">Problemes</string>
-  <string name="coordinates">Coordenades</string>
   <string name="latestUpdates">Darreres actualitzacions</string>
   <string name="tournamentWinners">Guanyadors de tornejos</string>
   <string name="name">Nom</string>
