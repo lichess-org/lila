@@ -112,6 +112,7 @@ object Auth extends LilaController {
     case object YesBecausePrint extends MustConfirmEmail(true)
     case object YesBecauseIp extends MustConfirmEmail(true)
     case object YesBecauseProxy extends MustConfirmEmail(true)
+    case object YesBecauseMobile extends MustConfirmEmail(true)
 
     def apply(print: Option[FingerPrint])(implicit ctx: Context): Fu[MustConfirmEmail] = {
       val ip = HTTPRequest lastRemoteAddress ctx.req
@@ -169,7 +170,7 @@ object Auth extends LilaController {
               err("username").value foreach { authLog(_, s"Signup fail: ${err.errors mkString ", "}") }
               fuccess(BadRequest(jsonError(errorsAsJson(err))))
             },
-            data => MustConfirmEmail(none) flatMap { mustConfirm =>
+            data => fuccess(MustConfirmEmail.YesBecauseMobile) flatMap { mustConfirm =>
               lila.mon.user.register.mobile()
               lila.mon.user.register.mustConfirmEmail(mustConfirm.value)()
               authLog(data.username, s"Signup mobile must confirm email: $mustConfirm")
