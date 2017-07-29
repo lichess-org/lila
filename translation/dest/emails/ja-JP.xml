@@ -10,6 +10,7 @@
   <string name="emailChange_subject">%s さん、新しいメールアドレスの確認を</string>
   <string name="emailChange_intro">あなたはメールアドレスの変更を申請しました。</string>
   <string name="emailChange_click">このメールアドレスが利用できると確認するため、下のリンクをクリックしてください。</string>
+  <string name="welcome_subject">%s さん Lichess.org へようこそ</string>
   <string name="common_orPaste">（クリックでうまくいかない場合、URLをブラウザにペーストしてください）</string>
   <string name="common_note">これは %s のご利用に関するメールです。</string>
 </resources>
