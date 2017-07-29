@@ -327,7 +327,6 @@
     <item quantity="other">Pelattu %s kertaa</item>
   </plurals>
   <string name="fromGameLink">Pelistä %s</string>
-  <string name="startTraining">Aloita harjoittelu</string>
   <string name="continueTraining">Jatka harjoittelua</string>
   <string name="retryThisPuzzle">Yritä uudestaan</string>
   <string name="thisPuzzleIsCorrect">Tämä tehtävä toimii ja on mielenkiintoinen</string>
@@ -343,7 +342,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Siirry automaattisesti seuraavaan peliin siirron jälkeen</string>
   <string name="autoSwitch">Automaattinen siirtyminen</string>
   <string name="puzzles">Tehtävät</string>
-  <string name="coordinates">Koordinaatit</string>
   <string name="latestUpdates">Viimeisimmät päivitykset</string>
   <string name="tournamentWinners">Turnausvoittajat</string>
   <string name="name">Nimi</string>
