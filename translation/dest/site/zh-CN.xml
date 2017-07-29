@@ -320,7 +320,6 @@
     <item quantity="other">已被嘗試%s次</item>
   </plurals>
   <string name="fromGameLink">來自對局%s</string>
-  <string name="startTraining">開始訓練</string>
   <string name="continueTraining">繼續訓練</string>
   <string name="retryThisPuzzle">重試本題</string>
   <string name="thisPuzzleIsCorrect">本題正確有趣</string>
@@ -334,7 +333,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">移動棋子後自動進入下一盤棋</string>
   <string name="autoSwitch">自動更換</string>
   <string name="puzzles">題目</string>
-  <string name="coordinates">坐標</string>
   <string name="latestUpdates">最近更新</string>
   <string name="tournamentWinners">比賽贏家</string>
   <string name="name">名</string>
