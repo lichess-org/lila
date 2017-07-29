@@ -329,7 +329,6 @@
     <item quantity="other">Spelt %s gonger</item>
   </plurals>
   <string name="fromGameLink">Frå partiet %s</string>
-  <string name="startTraining">Start treninga</string>
   <string name="continueTraining">Hald fram å trena</string>
   <string name="retryThisPuzzle">Prøv om igjen</string>
   <string name="thisPuzzleIsCorrect">Denne oppgåva er korrekt og interessant</string>
@@ -345,7 +344,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Gå til neste parti automatisk etter trekk</string>
   <string name="autoSwitch">Hopp automatisk til neste parti</string>
   <string name="puzzles">Oppgåver</string>
-  <string name="coordinates">Koordinatar</string>
   <string name="latestUpdates">Siste oppdateringar</string>
   <string name="tournamentWinners">Turneringsvinnarar</string>
   <string name="name">Namn</string>
