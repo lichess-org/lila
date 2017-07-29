@@ -395,7 +395,6 @@
     <item quantity="other">Jocate %s vices</item>
   </plurals>
   <string name="fromGameLink">Ab joco %s</string>
-  <string name="startTraining">Comenciar a exercitar</string>
   <string name="continueTraining">Continuar a exercitar</string>
   <string name="retryThisPuzzle">Tentar iste enigma de novo</string>
   <string name="thisPuzzleIsCorrect">Iste enigma es correcte e interessante</string>
@@ -409,7 +408,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Automaticamente proceder al joco sequente post le movimento</string>
   <string name="autoSwitch">Cambio automatic</string>
   <string name="puzzles">Enigmas</string>
-  <string name="coordinates">Coordinatas</string>
   <string name="latestUpdates">Articulos recente</string>
   <string name="tournamentWinners">Vincitores de torneos</string>
   <string name="name">Nomine</string>
