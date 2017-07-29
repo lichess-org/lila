@@ -543,7 +543,10 @@
   <string name="crosstable">Výsledky</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">K pohybu v partii můžete také použít scrollovací kolečko myši nad šachovnicí.</string>
   <string name="analysisShapesHowTo">Kliknutím se shiftem či kliknutím pravým tlačítkem lze kreslit do šachovnice kolečka a šipky.</string>
+  <string name="confirmResignationAndDrawOffers">Potvrzovat rezignaci a nabídku remízy</string>
+  <string name="inputMovesWithTheKeyboard">Zadávání tahů pomocí klávesnice</string>
   <string name="letOtherPlayersMessageYou">Povolit zprávy od ostatních hráčů</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Způsob provádění rošády</string>
   <string name="castleByMovingTwoSquares">Pohnout králem o dvě pole</string>
   <string name="castleByMovingOntoTheRook">Pohnout králem na místo věže</string>
   <string name="shareYourInsightsData">Sdílejte výsledky analýzy vašeho hraní</string>
@@ -552,7 +555,10 @@
   <string name="withEverybody">Se všemi</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Již máte zaregistrován email: %s</string>
   <string name="kidMode">Dětský režim</string>
-  <string name="kidModeExplanation">To je pro bezpečnost. V dětském módu je jakákoli komunikace zablokována. Zapněte to pro děti a studenti, pro ochranu před ostatními na Internetu.</string>
+  <string name="kidModeExplanation">To je pro bezpečnost. V dětském režimu je jakákoli komunikace zablokována. Zapněte to pro děti a studenty, pro ochranu před ostatními na Internetu.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Když je zapnutý dětský režim, tak se u loga Lichess objeví ikona %s. Podle toho poznáte, je je Vaše dítě v bezpečí.</string>
+  <string name="enableKidMode">Povolit dětský režim</string>
+  <string name="disableKidMode">Vypnout dětský režim</string>
   <string name="playChessEverywhere">Hrajte šachy kdekoliv</string>
   <string name="asFreeAsLichess">Svobodný jako lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Vytvořeno z lásky k šachům, ne pro peníze</string>
