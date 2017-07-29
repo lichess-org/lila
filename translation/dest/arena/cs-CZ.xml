@@ -21,5 +21,15 @@ Tlačítko Berserk není přístupné pro partie s nulovým základním časem (
 
 Hráč získá za Berserk bod navíc pouze v případě, že partie měla alespoň 7 tahů.</string>
   <string name="howIsTheWinnerDecided">Kdo se stane vítězem?</string>
+  <string name="howIsTheWinnerDecidedAnswer">Hráč s nejvyšším počtem bodů na konci stanoveného časového limitu pro turnaj se stane jeho vítězem.</string>
+  <string name="howDoesPairingWork">Jak funguje párování?</string>
+  <string name="howDoesPairingWorkAnswer">Na začátku turnaje jsou hráči spárováni podle svých ratingů.
+Jakmile skončíte svou partii, vraťte se do turnajové místnosti - budete spárováni s hráčem, který má podobný rating jako Vy. Díky tomu budete na další spárování čekat velmi krátce, ale pravděpodobně nebudete hrát se všemi ostatními hráči v turnaji.
+Hrajte rychle a vraťte se vždy co nejdříve do turnajové místnosti - stihnete tak odehrát více her a získat více bodů.</string>
+  <string name="howDoesItEnd">Jak turnaj končí?</string>
+  <string name="howDoesItEndAnswer">Turnaj má hodiny s časovým odpočtem. Jakmile dosáhnou nuly, je žebříček turnaje zmrazen a je vyhlášen vítěz. Nedokončené hry se musí dohrát, ale nezapočítávají se již do turnajových výsledků.</string>
+  <string name="otherRules">Další důležitá pravidla</string>
   <string name="otherRulesAnswer">Musíte udělat první tah do 20 vteřin. Pokud to neuděláte, prohrajete partii. Pokud remizujete v prvních 10 tazích, nezíská ani jeden z hráčů žádný bod.</string>
+  <string name="thisIsPrivate">Toto je soukromý turnaj</string>
+  <string name="shareUrl">Sdílejte tuto adresu URL, aby se mohli lidé připojit: %s</string>
 </resources>
