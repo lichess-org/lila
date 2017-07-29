@@ -378,7 +378,7 @@
   <string name="createdBy">Stworzony przez</string>
   <string name="tournamentIsStarting">Rozpoczyna się turniej</string>
   <string name="tournamentPairingsAreNowClosed">Zakończono kojarzenie par.</string>
-  <string name="standByX">Szukam przeciwnika dla Ciebie, bądź gotów do gry %s!</string>
+  <string name="standByX">Szukam dla Ciebie przeciwnika, bądź gotów do gry %s!</string>
   <string name="youArePlaying">Grasz!</string>
   <string name="winRate">Zwycięstw</string>
   <string name="berserkRate">Berserk</string>
