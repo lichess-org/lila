@@ -316,11 +316,6 @@ object mon {
       val tickTime = rec("tournament.created_organizer.tick_time")
     }
   }
-  object donation {
-    val goal = rec("donation.goal")
-    val current = rec("donation.current")
-    val percent = rec("donation.percent")
-  }
   object plan {
     object amount {
       val paypal = incX("plan.amount.paypal")
