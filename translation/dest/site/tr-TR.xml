@@ -378,7 +378,6 @@
     <item quantity="other">%s defa oynandı</item>
   </plurals>
   <string name="fromGameLink">%s numaralı oyundan</string>
-  <string name="startTraining">Alıştırmalara başla</string>
   <string name="continueTraining">Alıştırmalara devam et</string>
   <string name="retryThisPuzzle">Bu bulmacayı yeniden dene</string>
   <string name="thisPuzzleIsCorrect">Bu bulmaca doğru ve ilginç</string>
@@ -394,7 +393,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Hamleden sonra otomatik olarak diğer oyuna devam edecek</string>
   <string name="autoSwitch">Otomatik Seç</string>
   <string name="puzzles">Bulmacalar</string>
-  <string name="coordinates">Koordinatlar</string>
   <string name="latestUpdates">Son güncellemeler</string>
   <string name="tournamentWinners">Turnuva şampiyonları</string>
   <string name="name">İsim</string>
