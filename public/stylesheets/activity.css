@@ -50,6 +50,9 @@
 .activity .entry .sub:last-child {
   margin-bottom: -7px;
 }
+.activity .entry .sub > div {
+  overflow: hidden;
+}
 .activity .entry .line {
   white-space: nowrap;
   overflow: hidden;
@@ -100,11 +103,6 @@
 }
 .activity loss strong {
   background: #dc322f;
-}
-.activity .entry .row::after {
-  content: '';
-  display: table;
-  clear: both;
 }
 
 body.dark .activity section {
