@@ -68,6 +68,8 @@
   <string name="defeatTheOpponentsKing">Poražte soupeřova krále</string>
   <string name="castling">Rošáda</string>
   <string name="theSpecialKingMove">Zvláštní tah krále</string>
+  <string name="castlingIntro">Schovejte krále do bezpečí a vyviňte věž!</string>
+  <string name="theKnightIsInTheWay">V cestě stojí jezdec! Pohněte s ním a poté udělejte krátkou rošádu.</string>
   <string name="castleQueenSideMovePiecesFirst">Udělejte dlouhou rochádu! 
 Nejprve musíte uvolnit místo mezi králem a věží.</string>
   <string name="youCannotCastleIfMoved">Nemůžete dělat rochádu, pokud se král nebo věž pohli.</string>
