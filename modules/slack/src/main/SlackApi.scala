@@ -98,7 +98,7 @@ final class SlackApi(
     ))
 
   def userLink(name: String) = s"<https://lichess.org/@/$name?mod|$name>"
-  def userNotesLink(name: String) = s"<https://lichess.org/@/$name?notes|$name>"
+  def userNotesLink(name: String) = s"<https://lichess.org/@/$name?notes|notes>"
 
   val userRegex = """(^|\s)@(\w[-_\w]+)\b""".r.pattern
   def linkifyUsers(msg: String) = (userRegex
