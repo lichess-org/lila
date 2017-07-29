@@ -26,9 +26,9 @@ interface Background {
 export function ctrl(data: BackgroundData, trans: Trans, redraw: Redraw, close: Close): BackgroundCtrl {
 
   const list: Background[] = [
-    { key: 'light', name: 'Light' },
-    { key: 'dark', name: 'Dark' },
-    { key: 'transp', name: 'Transparent' }
+    { key: 'light', name: trans.noarg('light') },
+    { key: 'dark', name: trans.noarg('dark') },
+    { key: 'transp', name: trans.noarg('transparent') }
   ];
 
   return {
@@ -71,11 +71,11 @@ export function view(ctrl: BackgroundCtrl): VNode {
 
 function imageInput(ctrl: BackgroundCtrl) {
   return h('div.image', [
-    h('p', 'Background image URL:'),
+    h('p', ctrl.trans.noarg('backgroundImageUrl')),
     h('input', {
       attrs: {
         type: 'text',
-        title: 'To change the background image, paste an image URL',
+        placeholder: 'https://',
         value: ctrl.getImage()
       },
       hook: {
