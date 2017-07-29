@@ -10,7 +10,7 @@
   <string name="play">今ここ</string>
   <string name="chessPieces">チェスの駒</string>
   <string name="theRook">ルーク</string>
-  <string name="itMovesInStraightLines">縦横に動く</string>
+  <string name="itMovesInStraightLines">タテヨコに動く</string>
   <string name="rookIntro">ルークは強力な駒です。用意はいいですか？</string>
   <string name="rookGoal">ルークをクリックして
 星印まで動かす！</string>
@@ -21,7 +21,7 @@
 スピードアップ！</string>
   <string name="rookComplete">おめでとう！　ルークの動きをマスターしました。</string>
   <string name="theBishop">ビショップ</string>
-  <string name="itMovesDiagonally">斜めに動く</string>
+  <string name="itMovesDiagonally">ナナメに動く</string>
   <string name="bishopIntro">次はビショップの動き方です！</string>
   <string name="youNeedBothBishops">白マスのビショップ、
 黒マスのビショップ、
@@ -67,7 +67,7 @@
   <string name="selectThePieceYouWant">好きな駒を選んでください！</string>
   <string name="fundamentals">初級</string>
   <string name="capture">駒取り</string>
-  <string name="takeTheEnemyPieces">相手の駒を取ります</string>
+  <string name="takeTheEnemyPieces">相手の駒を取る</string>
   <string name="captureIntro">守られていない相手の駒を見つけて、取ってください！</string>
   <string name="takeTheBlackPieces">黒の駒を全部取ります！</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">黒の駒を全部取ります！
