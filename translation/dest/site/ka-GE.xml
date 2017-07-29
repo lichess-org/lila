@@ -327,7 +327,6 @@
     <item quantity="other">ნათამაშებია %s</item>
   </plurals>
   <string name="fromGameLink">თამაშიდან %s</string>
-  <string name="startTraining">დაიწყე ვარჯიში</string>
   <string name="continueTraining">გააგრძელე ვარჯიში</string>
   <string name="retryThisPuzzle">გაიმეორე ეს ფაზლი</string>
   <string name="thisPuzzleIsCorrect">ფაზლი სახალისო და საინტერესოა</string>
@@ -343,7 +342,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">სვლის გაკეთების შემდეგ მომდევნო თამაშზე ავტომატური გადასვლა</string>
   <string name="autoSwitch">ავტო გადართვა</string>
   <string name="puzzles">ეტიუდები</string>
-  <string name="coordinates">კოორდინატები</string>
   <string name="latestUpdates">უკანასკნელი სიახლეები</string>
   <string name="tournamentWinners">ტურნირის გამარჯვებულნი</string>
   <string name="name">სახელი</string>
