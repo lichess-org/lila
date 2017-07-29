@@ -184,5 +184,5 @@ Bauer = 1</string>
   <string name="next">Nächstes</string>
   <string name="backToMenu">Zurück zum Menü</string>
   <string name="puzzleFailed">Nicht gelöst!</string>
-  <string name="retry">Erneut versuchen</string>
+  <string name="retry">Nochmal</string>
 </resources>
