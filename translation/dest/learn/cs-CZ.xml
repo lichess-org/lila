@@ -73,12 +73,16 @@
   <string name="combatComplete">Gratulujeme! Nyní víte, jak bojovat s šachovými figurami!</string>
   <string name="checkInOne">Šach prvním tahem</string>
   <string name="attackTheOpponentsKing">Napadněte soupeřova krále</string>
+  <string name="checkInOneIntro">Abyste dali šach soupeři, musíte napadnout jeho krále. A on se musí bránit!</string>
+  <string name="checkInOneGoal">Zamiřte na soupeřova krále jedním tahem!</string>
+  <string name="checkInOneComplete">Gratulujeme! Dali jste soupeři šach a donutili jej bránit svého krále!</string>
   <string name="outOfCheck">Pryč ze šachu!</string>
   <string name="defendYourKing">Ochraň svého krále</string>
   <string name="outOfCheckIntro">Jste v šachu! Musíte uniknout nebo zablokovat útok.</string>
   <string name="escapeWithTheKing">Unikněte s králem!</string>
   <string name="theKingCannotEscapeButBlock">Král nemůže uniknout, ale můžete zablokovat útok!</string>
   <string name="youCanGetOutOfCheckByTaking">Šachu můžete zabránit, když seberete figuru, která šachuje.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Jezdec šachu skrze Vaši obranu!</string>
   <string name="escapeOrBlock">Unikněte králem nebo zablokujte útok!</string>
   <string name="outOfCheckComplete">Gratulujeme! Na Vašeho krále si jen tak někdo nepřijde. Vždy se ujistěte, že se můžete bránit proti šachu!</string>
   <string name="mateInOne">Mat jedním tahem</string>
