@@ -396,7 +396,6 @@
     <item quantity="other">挑戦回数%s回</item>
   </plurals>
   <string name="fromGameLink">ゲーム%sから</string>
-  <string name="startTraining">トレーニングを始める</string>
   <string name="continueTraining">トレーニングを続ける</string>
   <string name="retryThisPuzzle">このパズルに再挑戦する</string>
   <string name="thisPuzzleIsCorrect">このパズルはよく出来ていて興味深い。</string>
@@ -410,7 +409,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">指した後 自動的に次のゲームに進む</string>
   <string name="autoSwitch">自動スイッチ</string>
   <string name="puzzles">タクティクス</string>
-  <string name="coordinates">マスの位置</string>
   <string name="latestUpdates">最新情報</string>
   <string name="tournamentWinners">トーナメント優勝者</string>
   <string name="name">チーム名</string>
