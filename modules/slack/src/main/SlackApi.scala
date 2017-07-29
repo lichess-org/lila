@@ -97,20 +97,29 @@ final class SlackApi(
       channel = "general"
     ))
 
+  def userLink(name: String) = s"<https://lichess.org/@/$name?mod|$name>"
+  def userNotesLink(name: String) = s"<https://lichess.org/@/$name?notes|$name>"
+
+  val userRegex = """(^|\s)@(\w[-_\w]+)\b""".r.pattern
+  def linkifyUsers(msg: String) = (userRegex
+    matcher msg
+    replaceAll "$1<https://lichess.org/@/$2?mod|@$2>")
+
   def userMod(user: User, mod: User): Funit = client(SlackMessage(
     username = mod.username,
     icon = "eyes",
-    text = s"Let's have a look at _*<https://lichess.org/@/${user.username}?mod|${user.username}>*_",
+    text = s"Let's have a look at _*${userLink(user.username)}*_",
     channel = "tavern"
   ))
 
-  def userModNote(modName: String, username: String, note: String): Funit = client(SlackMessage(
-    username = modName,
-    icon = "spiral_note_pad",
-    text = (s"_*<https://lichess.org/@/$username?mod|$username>*_ " +
-    s"(<https://lichess.org/@/$username?notes|notes>):\n${note.take(2000)}"),
-    channel = "tavern"
-  ))
+  def userModNote(modName: String, username: String, note: String): Funit =
+    client(SlackMessage(
+      username = modName,
+      icon = "spiral_note_pad",
+      text = (s"_*${userLink(username)}*_ (${userNotesLink(username)}):\n" +
+      linkifyUsers(note take 2000)),
+      channel = "tavern"
+    ))
 
   def deployPre: Funit =
     if (isProd) client(SlackMessage(
