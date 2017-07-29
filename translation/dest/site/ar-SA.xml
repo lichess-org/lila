@@ -265,6 +265,8 @@
   <string name="winStreak">فوز متتالي</string>
   <string name="createdBy">أنشأها</string>
   <string name="tournamentIsStarting">بدأت المسابقة</string>
+  <string name="winRate">معدل الفوز</string>
+  <string name="berserkRate">معدل المخاطرة</string>
   <string name="membersOnly">للأعضاء فقط</string>
   <string name="boardEditor">محررالرقعة</string>
   <string name="startPosition">وضع البداية</string>
