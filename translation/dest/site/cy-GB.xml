@@ -263,7 +263,6 @@
   <string name="thankYou">Diolch yn fawr!</string>
   <string name="ratingX">Graddfa: %s</string>
   <string name="fromGameLink">O gêm %s</string>
-  <string name="startTraining">Cychwyn hyfforddiant</string>
   <string name="continueTraining">Parhau hyfforddiant</string>
   <string name="retryThisPuzzle">Aildrio\'r pos ma</string>
   <string name="thisPuzzleIsCorrect">Mae\'r pos ma yn gywir ac yn ddiddorol</string>
@@ -271,7 +270,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Mynd i\'r gêm nesaf ar ôl symud yn awtomatig</string>
   <string name="autoSwitch">Awto nesaf</string>
   <string name="puzzles">Posau</string>
-  <string name="coordinates">Cyfesurynnau</string>
   <string name="latestUpdates">Diweddariadau newyddaf</string>
   <string name="tournamentWinners">Ennillyddion cystadleuaethau</string>
   <string name="name">Enw</string>
