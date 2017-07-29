@@ -416,7 +416,6 @@
     <item quantity="other">Παίχτηκε %s φορές</item>
   </plurals>
   <string name="fromGameLink">Από το παιχνίδι %s</string>
-  <string name="startTraining">Έναρξη εξάσκησης</string>
   <string name="continueTraining">Συνέχεια εξάσκησης</string>
   <string name="retryThisPuzzle">Επανάληψη γρίφου</string>
   <string name="thisPuzzleIsCorrect">Ο γρίφος είναι σωστός και ενδιαφέρων</string>
@@ -432,7 +431,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Προχωρήστε αυτόματα στο επόμενο παιχνίδι μετά την κίνηση</string>
   <string name="autoSwitch">Αυτόματη εναλλαγή</string>
   <string name="puzzles">Γρίφοι</string>
-  <string name="coordinates">Συντεταγμένες</string>
   <string name="latestUpdates">Τελευταίες ενημερώσεις</string>
   <string name="tournamentWinners">Νικητές πρωταθλημάτων</string>
   <string name="name">Ονομασία</string>
