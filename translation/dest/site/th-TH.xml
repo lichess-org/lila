@@ -395,7 +395,6 @@
     <item quantity="other">ถูกเล่น %s ครั้ง</item>
   </plurals>
   <string name="fromGameLink">จากเกม %s</string>
-  <string name="startTraining">เริ่มฝึก</string>
   <string name="continueTraining">ฝึกต่อ</string>
   <string name="retryThisPuzzle">ลองแก้ปริศนานี้อีกครั้ง</string>
   <string name="thisPuzzleIsCorrect">ปริศนานี้ถูกต้อง และน่าสนใจ</string>
@@ -409,7 +408,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">ดำเนินสู่เกมถัดไปอัตโนมัติหลังจากการเดิน</string>
   <string name="autoSwitch">สลับอัตโนมัติ</string>
   <string name="puzzles">ปริศนา</string>
-  <string name="coordinates">พิกัด</string>
   <string name="latestUpdates">อัปเดตล่าสุด</string>
   <string name="tournamentWinners">ผู้ชนะทัวร์นาเมนต์</string>
   <string name="name">ชื่อ</string>
