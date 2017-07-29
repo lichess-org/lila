@@ -327,7 +327,6 @@
     <item quantity="other">Бодлогыг оролдсон тоо: %s</item>
   </plurals>
   <string name="fromGameLink">%s өргөөс сэдэвлэсэн бодлого</string>
-  <string name="startTraining">Эхлүүлэх</string>
   <string name="continueTraining">Бодлого үргэлжлүүлэн бодох</string>
   <string name="retryThisPuzzle">Энэ бодлогыг дахин оролдох</string>
   <string name="thisPuzzleIsCorrect">Энэ бодлого зөв бөгөөд сонирхолтой байлаа</string>
@@ -343,7 +342,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Нүүсний дараа дараагийн тоглолт руу шууд шилжих</string>
   <string name="autoSwitch">Автоматаар шилжих</string>
   <string name="puzzles">Таавар бодлого</string>
-  <string name="coordinates">Солбилцол</string>
   <string name="latestUpdates">Сүүлд хийгдсэн шинэчлэлтүүд</string>
   <string name="tournamentWinners">Ялагчид</string>
   <string name="name">Нэр</string>
