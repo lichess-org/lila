@@ -455,7 +455,6 @@
     <item quantity="other">Problem odigran %s krat</item>
   </plurals>
   <string name="fromGameLink">Iz igre %s</string>
-  <string name="startTraining">Začni z reševanjem</string>
   <string name="continueTraining">Nadaljuj z reševanjem</string>
   <string name="retryThisPuzzle">Ponovno reši ta problem</string>
   <string name="thisPuzzleIsCorrect">Ta problem je pravilen in zanimiv</string>
@@ -475,7 +474,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Po vsaki potezi samodejno preklopi na naslednjo partijo</string>
   <string name="autoSwitch">Samodejno preklopi</string>
   <string name="puzzles">Problemi</string>
-  <string name="coordinates">Koordinate</string>
   <string name="latestUpdates">Zadnje objave na blogu</string>
   <string name="tournamentWinners">Zmagovalci turnirjev</string>
   <string name="name">Ime</string>
