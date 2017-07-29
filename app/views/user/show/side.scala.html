@@ -14,12 +14,12 @@
   <h3>@name.getOrElse(perfType.name).toUpperCase</h3>
   <span class="rating">
     <strong>@perf.glicko.intRating@if(perf.provisional){?}</strong>
-    <span>@perf.nb.localize @if(perfType.key == "puzzle") {@trans.puzzles()} else {@trans.games()}</span>
+    <span>@if(perfType.key == "puzzle") {@trans.nbPuzzles(perf.nb, perf.nb.localize)} else {@trans.nbGames(perf.nb, perf.nb.localize)}</span>
     @showProgress(perf.progress, withTitle = false)
   </span>
-  <span class="rank" title="Rank is updated every 15 minutes">
+  <span class="rank" title="@trans.rankIsUpdatedEveryXMinutes(15)">
     @rankMap.get(perfType.key).map { rank =>
-    Rank: @rank.localize@nth(rank)
+    @trans.rank(): @rank.localize@nth(rank)
     }
   </span>
   @if(lila.rating.PerfType.isGame(perfType)) {

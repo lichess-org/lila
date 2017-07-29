@@ -197,7 +197,6 @@ div.sub_ratings > a.game.active {
 }
 div.sub_ratings > a > span {
   display: block;
-  text-transform: lowercase;
 }
 div.sub_ratings > a > i {
   position: absolute;

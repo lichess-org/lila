@@ -166,6 +166,11 @@
   <string name="passwordReset">Password reset</string>
   <string name="forgotPassword">Forgot password?</string>
   <string name="rank">Rank</string>
+  <string name="rankIsUpdatedEveryXMinutes">Rank is updated every %s minutes</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s puzzle</item>
+    <item quantity="other">%s puzzles</item>
+  </plurals>
   <string name="gamesPlayed">Games played</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s game with you</item>
