@@ -6,7 +6,7 @@ cd "$(git rev-parse --show-toplevel)"
 mkdir -p public/compiled
 
 ts_apps1="common chess"
-ts_apps2="ceval game tree"
+ts_apps2="ceval game tree chat"
 apps="site chat challenge notify learn insight editor puzzle round analyse lobby tournament tournamentSchedule simul perfStat dasher"
 
 YARN_MUTEX="${TMPDIR-/tmp}/.yarn-mutex"
