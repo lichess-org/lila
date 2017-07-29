@@ -125,6 +125,11 @@
   <string name="correspondence">Korespondenčně</string>
   <string name="daysPerTurn">Dnů na tah</string>
   <string name="oneDay">Jeden den</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s den</item>
+    <item quantity="few">%s dny</item>
+    <item quantity="other">%s dnů</item>
+  </plurals>
   <string name="time">Tempo</string>
   <string name="rating">Rating</string>
   <string name="ratingStats">Statistiky hodnocení</string>
