@@ -380,8 +380,8 @@ chalk@^1.0.0, chalk@^1.1.1:
   uid ""
 
 chessground@^7.0:
-  version "7.0.4"
-  resolved "https://registry.yarnpkg.com/chessground/-/chessground-7.0.4.tgz#37ce80c307b843d4a70257f38b0159355267dbbe"
+  version "7.0.5"
+  resolved "https://registry.yarnpkg.com/chessground/-/chessground-7.0.5.tgz#1c57793bcb3b85a1d68db29132b7fd35ae82b82e"
 
 chokidar@^1.0.0:
   version "1.7.0"
