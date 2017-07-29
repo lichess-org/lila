@@ -111,6 +111,11 @@ final class Env(
     secret = LoginTokenSecret
   )
 
+  lazy val welcomeEmail = new WelcomeEmail(
+    mailgun = mailgun,
+    baseUrl = NetBaseUrl
+  )
+
   lazy val emailAddressValidator = new EmailAddressValidator(disposableEmailDomain)
 
   private lazy val disposableEmailDomain = new DisposableEmailDomain(

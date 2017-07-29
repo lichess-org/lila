@@ -157,9 +157,9 @@ object Auth extends LilaController {
                       case (user, email) if mustConfirm.value =>
                         env.emailConfirm.send(user, email) >> {
                           if (env.emailConfirm.effective) Redirect(routes.Auth.checkYourEmail(user.username)).fuccess
-                          else redirectNewUser(user)
+                          else env.welcomeEmail(user, email) >> redirectNewUser(user)
                         }
-                      case (user, email) => redirectNewUser(user)
+                      case (user, email) => env.welcomeEmail(user, email) >> redirectNewUser(user)
                     }
                 }
             }
@@ -181,9 +181,9 @@ object Auth extends LilaController {
                   case (user, email) if mustConfirm.value =>
                     env.emailConfirm.send(user, email) >> {
                       if (env.emailConfirm.effective) Ok(Json.obj("email_confirm" -> true)).fuccess
-                      else authenticateUser(user)
+                      else env.welcomeEmail(user, email) >> authenticateUser(user)
                     }
-                  case (user, _) => authenticateUser(user)
+                  case (user, _) => env.welcomeEmail(user, email) >> authenticateUser(user)
                 }
             }
           )
@@ -206,7 +206,9 @@ object Auth extends LilaController {
       case Some(user) =>
         authLog(user.username, s"Confirmed email")
         lila.mon.user.register.confirmEmailResult(true)()
-        redirectNewUser(user)
+        UserRepo.email(user.id).flatMap {
+          _.?? { env.welcomeEmail(user, _) }
+        } >> redirectNewUser(user)
     }
   }
 

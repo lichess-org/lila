@@ -685,6 +685,8 @@ val `passwordReset_clickOrIgnore` = new Translated("passwordReset_clickOrIgnore"
 val `emailChange_subject` = new Translated("emailChange_subject", Emails)
 val `emailChange_intro` = new Translated("emailChange_intro", Emails)
 val `emailChange_click` = new Translated("emailChange_click", Emails)
+val `welcome_subject` = new Translated("welcome_subject", Emails)
+val `welcome_text` = new Translated("welcome_text", Emails)
 val `common_orPaste` = new Translated("common_orPaste", Emails)
 val `common_note` = new Translated("common_note", Emails)
 }

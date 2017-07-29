@@ -50,7 +50,7 @@ trait AssetHelper { self: I18nHelper =>
   }
 
   def roundTag(withChat: Boolean)(implicit ctx: Context) =
-    jsAt(s"compiled/lichess.round${(withChat && isProd) ?? (".chat")}${isProd ?? (".min")}.js", async = true)
+    jsAt(s"compiled/lichess.round${withChat ?? (".chat")}${isProd ?? (".min")}.js", async = true)
 
   val highchartsTag = cdnOrLocal(
     cdn = "//code.highcharts.com/4.1.4/highcharts.js",
