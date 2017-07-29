@@ -263,7 +263,6 @@
   <string name="thankYou">Дзякуй!</string>
   <string name="ratingX">Рэйтынг: %s</string>
   <string name="fromGameLink">З гульні %s</string>
-  <string name="startTraining">Пачаць трэніроўку</string>
   <string name="continueTraining">Працягнуць трэнаваньне</string>
   <string name="retryThisPuzzle">Паспрабаваць разьвязаць зноў</string>
   <string name="thisPuzzleIsCorrect">Гэтая галаваломка правільная і цікавая</string>
@@ -271,7 +270,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Аўтаматычна пераходзіць да наступнай гульні пасля ходу</string>
   <string name="autoSwitch">Аўтаперамыканьне</string>
   <string name="puzzles">Загадкі</string>
-  <string name="coordinates">Каардынаты</string>
   <string name="latestUpdates">Апошнія абнаўлення</string>
   <string name="tournamentWinners">Пераможцы турніраў</string>
   <string name="name">Назва</string>
