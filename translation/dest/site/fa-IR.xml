@@ -354,7 +354,6 @@
     <item quantity="other">این جدول%s بار بازی شده است</item>
   </plurals>
   <string name="fromGameLink">برگرفته شده از بازی %s</string>
-  <string name="startTraining">شروع تمرین</string>
   <string name="continueTraining">ادامه دادن تمرین</string>
   <string name="retryThisPuzzle">این مسئله را دوباره امتحان کنید</string>
   <string name="thisPuzzleIsCorrect">این جدول صحیح و جالب است</string>
@@ -370,7 +369,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">حرکت کردن اتوماتیک برای بازی بعدی بعد از حرکت کردن</string>
   <string name="autoSwitch">تعویض خودکار</string>
   <string name="puzzles">پازل ها</string>
-  <string name="coordinates">مختصات</string>
   <string name="latestUpdates">آخرین به روز رسانی ها</string>
   <string name="tournamentWinners">برندگان مسابقات</string>
   <string name="name">نام</string>
