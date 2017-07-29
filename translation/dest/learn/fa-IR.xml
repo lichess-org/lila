@@ -64,4 +64,13 @@
   <string name="yourPawnReachedTheEndOfTheBoard">پیاده شما به خونه آخر رسید!</string>
   <string name="selectThePieceYouWant">مهره ای که میخواهید را انتخاب کنید!</string>
   <string name="fundamentals">اصول</string>
+  <string name="capture">زدن</string>
+  <string name="takeTheEnemyPieces">مهره حریف رو بزن</string>
+  <string name="captureIntro">مهره های بی دفاع حریف را شناسایی کنید، و آن ها را بزنید!</string>
+  <string name="takeTheBlackPieces">مهره های سیاه را بزنید!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">مهره های سیاه را بزنید!
+و مهره های خودتان را از دست ندهید.</string>
+  <string name="captureComplete">تبریک! شما می دانید چگونه با مهره های شطرنج بجنگید!</string>
+  <string name="protection">محافظت</string>
+  <string name="protectionIntro">مهره هایی که حریفتان حمله میکند را شناسایی کنید، و از آن ها دفاع کنید!</string>
 </resources>
