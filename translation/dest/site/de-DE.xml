@@ -167,6 +167,12 @@
   <string name="passwordReset">Passwort zurücksetzen</string>
   <string name="forgotPassword">Passwort vergessen?</string>
   <string name="rank">Rang</string>
+  <string name="rankX">Rang: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Rang wird alle %s Minuten aktualisiert</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s Aufgabe</item>
+    <item quantity="other">%s Aufgaben</item>
+  </plurals>
   <string name="gamesPlayed">Gespielte Partien</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s Partie mit dir</item>
