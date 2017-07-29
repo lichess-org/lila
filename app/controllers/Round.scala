@@ -5,8 +5,8 @@ import play.api.mvc._
 
 import lila.api.Context
 import lila.app._
-import lila.common.{ HTTPRequest, ApiVersion }
 import lila.common.PimpedJson._
+import lila.common.{ HTTPRequest, ApiVersion }
 import lila.game.{ Pov, GameRepo, Game => GameModel, PgnDump }
 import lila.tournament.MiniStanding
 import lila.user.{ User => UserModel }
@@ -46,41 +46,41 @@ object Round extends LilaController with TheftPrevention {
 
   private def requestAiMove(pov: Pov) = pov.game.playableByAi ?? Env.fishnet.player(pov.game)
 
-  private def renderPlayer(pov: Pov)(implicit ctx: Context): Fu[Result] =
-    negotiate(
-      html = pov.game.started.fold(
-        Game.preloadUsers(pov.game) >> PreventTheft(pov) {
+  private def renderPlayer(pov: Pov)(implicit ctx: Context): Fu[Result] = negotiate(
+    html = pov.game.started.fold(
+      PreventTheft(pov) {
+        Game.preloadUsers(pov.game) zip
           myTour(pov.game.tournamentId, true) zip
-            (pov.game.simulId ?? Env.simul.repo.find) zip
-            getPlayerChat(pov.game) zip
-            Env.game.crosstableApi.withMatchup(pov.game) zip
-            (pov.game.isSwitchable ?? otherPovs(pov.game)) zip
-            Env.bookmark.api.exists(pov.game, ctx.me) flatMap {
-              case tour ~ simul ~ chatOption ~ crosstable ~ playing ~ bookmarked =>
-                simul foreach Env.simul.api.onPlayerConnection(pov.game, ctx.me)
-                Env.api.roundApi.player(pov, lila.api.Mobile.Api.currentVersion) map { data =>
-                  Ok(html.round.player(pov, data,
-                    tour = tour,
-                    simul = simul,
-                    cross = crosstable,
-                    playing = playing,
-                    chatOption = chatOption,
-                    bookmarked = bookmarked))
-                }
-            }
-        }.mon(_.http.response.player.website),
-        notFound
-      ),
-      api = apiVersion => {
-        if (isTheft(pov)) fuccess(theftResponse)
-        else Env.api.roundApi.player(pov, apiVersion) zip
-          getPlayerChat(pov.game) map {
-            case (data, chat) => Ok {
-              data.add("chat", chat.map(c => lila.chat.JsonView(c.chat)))
-            }
+          (pov.game.simulId ?? Env.simul.repo.find) zip
+          getPlayerChat(pov.game) zip
+          Env.game.crosstableApi.withMatchup(pov.game) zip // probably what raises page mean time?
+          (pov.game.isSwitchable ?? otherPovs(pov.game)) zip
+          Env.bookmark.api.exists(pov.game, ctx.me) zip
+          Env.api.roundApi.player(pov, lila.api.Mobile.Api.currentVersion) map {
+            case _ ~ tour ~ simul ~ chatOption ~ crosstable ~ playing ~ bookmarked ~ data =>
+              simul foreach Env.simul.api.onPlayerConnection(pov.game, ctx.me)
+              Ok(html.round.player(pov, data,
+                tour = tour,
+                simul = simul,
+                cross = crosstable,
+                playing = playing,
+                chatOption = chatOption,
+                bookmarked = bookmarked))
           }
-      }.mon(_.http.response.player.mobile)
-    ) map NoCache
+      }.mon(_.http.response.player.website),
+      notFound
+    ),
+    api = apiVersion => {
+      if (isTheft(pov)) fuccess(theftResponse)
+      else Game.preloadUsers(pov.game) zip
+        Env.api.roundApi.player(pov, apiVersion) zip
+        getPlayerChat(pov.game) map {
+          case _ ~ data ~ chat => Ok {
+            data.add("chat", chat.map(c => lila.chat.JsonView(c.chat)))
+          }
+        }
+    }.mon(_.http.response.player.mobile)
+  ) map NoCache
 
   def player(fullId: String) = Open { implicit ctx =>
     OptionFuResult(GameRepo pov fullId) { pov =>
