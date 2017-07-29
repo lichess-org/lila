@@ -7,5 +7,10 @@
   <string name="isNotRated">Tento turnaj není hodnocený a odehrané partie nebudou mít vliv na Váš rating.</string>
   <string name="someRated">Některé turnaje jsou hodnoceny a budou mít vliv na váš rating.</string>
   <string name="howAreScoresCalculated">Jak se počítají turnajové body?</string>
+  <string name="howAreScoresCalculatedAnswer">Výhra je v základu hodnocena 2 body, remíza 1 bodem a za prohru nezískáte žádný bod. 
+Jestliže ale vyhrajete dvě hry v řadě, začne Vám \"dvojitá\" série - poznáte ji podle ikony ohně u Vašeho jména.
+Dokud budete vyhrávat, budou následující hry ohodnoceny dvojnásobným počtem bodů.
+
+Například - dvě výhry následované remízou budou ohodnoceny 6 body: 2 + 2 + (2*1)</string>
   <string name="otherRulesAnswer">Musíte udělat první tah do 20 vteřin. Pokud to neuděláte, prohrajete partii. Pokud remizujete v prvních 10 tazích, nezíská ani jeden z hráčů žádný bod.</string>
 </resources>
