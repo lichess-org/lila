@@ -416,7 +416,6 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
     <item quantity="other">Jogado %s vezes</item>
   </plurals>
   <string name="fromGameLink">Do jogo %s</string>
-  <string name="startTraining">Começar treino</string>
   <string name="continueTraining">Continuar o treino</string>
   <string name="retryThisPuzzle">Tentar novamente este quebra-cabeça</string>
   <string name="thisPuzzleIsCorrect">O quebra-cabeça está correto e é interessante</string>
@@ -432,7 +431,6 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="automaticallyProceedToNextGameAfterMoving">Passar automaticamente ao jogo seguinte após o lance</string>
   <string name="autoSwitch">Alternar automaticamente</string>
   <string name="puzzles">Quebra-cabeças</string>
-  <string name="coordinates">Coordenadas</string>
   <string name="latestUpdates">Atualizações mais recentes</string>
   <string name="tournamentWinners">Vencedores de torneio</string>
   <string name="name">Nome</string>
