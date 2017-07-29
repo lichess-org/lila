@@ -12,7 +12,7 @@
 }
 
 @base.layout(
-title = "Coordinate training",
+title = trans.coordinates.coordinateTraining.txt(),
 moreCss = moreCss,
 moreJs = moreJs,
 openGraph = lila.app.ui.OpenGraph(
@@ -31,7 +31,7 @@ zoomable = true) {
   </div>
   <div class="side">
     <div class="box">
-      <h1>@trans.coordinates()</h1>
+      <h1>@trans.coordinates.coordinates()</h1>
       @if(ctx.isAuth) {
       @scoreOption.map { score =>
       <div class="scores">
@@ -68,15 +68,15 @@ zoomable = true) {
     </div>
     <div class="right">
       <div class="explanation">
-        <p>Knowing the chessboard coordinates is a very important chess skill:</p>
+        <p>@trans.coordinates.knowingTheChessBoard()</p>
         <ul>
-          <li>Most chess courses and exercises use the algebraic notation extensively.</li>
-          <li>It makes it easier to talk to your chess friends, since you both understand the “language of chess”.</li>
-          <li>You can analyse a game more effectively if you don’t need to search for square names.</li>
+          <li>@trans.coordinates.mostChessCourses()</li>
+          <li>@trans.coordinates.talkToYourChessFriends()</li>
+          <li>@trans.coordinates.youCanAnalyseAGameMoreEffectively()</li>
         </ul>
-        <p>A square name appears on the board and you must click on the correct square. You have 30 seconds to recognize as many squares as possible!</p>
+        <p>@trans.coordinates.aSquareNameAppears()</p>
       </div>
-      <button class="start button">@trans.startTraining()</button>
+      <button class="start button">@trans.coordinates.startTraining()</button>
     </div>
   </div>
   <div class="progress_bar_container"><div class="progress_bar"></div></div>

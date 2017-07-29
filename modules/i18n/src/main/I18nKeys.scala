@@ -1,7 +1,7 @@
 // Generated with bin/trans-dump.js
 package lila.i18n
 
-import I18nDb.{ Site, Arena, Emails, Learn, Activity }
+import I18nDb.{ Site, Arena, Emails, Learn, Activity, Coordinates }
 
 // format: OFF
 object I18nKeys {
@@ -342,7 +342,6 @@ val `pleaseVotePuzzle` = new Translated("pleaseVotePuzzle", Site)
 val `thankYou` = new Translated("thankYou", Site)
 val `ratingX` = new Translated("ratingX", Site)
 val `fromGameLink` = new Translated("fromGameLink", Site)
-val `startTraining` = new Translated("startTraining", Site)
 val `continueTraining` = new Translated("continueTraining", Site)
 val `retryThisPuzzle` = new Translated("retryThisPuzzle", Site)
 val `thisPuzzleIsCorrect` = new Translated("thisPuzzleIsCorrect", Site)
@@ -350,7 +349,6 @@ val `thisPuzzleIsWrong` = new Translated("thisPuzzleIsWrong", Site)
 val `automaticallyProceedToNextGameAfterMoving` = new Translated("automaticallyProceedToNextGameAfterMoving", Site)
 val `autoSwitch` = new Translated("autoSwitch", Site)
 val `puzzles` = new Translated("puzzles", Site)
-val `coordinates` = new Translated("coordinates", Site)
 val `latestUpdates` = new Translated("latestUpdates", Site)
 val `tournamentWinners` = new Translated("tournamentWinners", Site)
 val `name` = new Translated("name", Site)
@@ -879,6 +877,19 @@ val `hostedNbSimuls` = new Translated("hostedNbSimuls", Activity)
 val `joinedNbSimuls` = new Translated("joinedNbSimuls", Activity)
 val `createdNbStudies` = new Translated("createdNbStudies", Activity)
 val `competedInNbTournaments` = new Translated("competedInNbTournaments", Activity)
+}
+
+object coordinates {
+val `coordinates` = new Translated("coordinates", Coordinates)
+val `coordinateTraining` = new Translated("coordinateTraining", Coordinates)
+val `averageScoreAsWhiteX` = new Translated("averageScoreAsWhiteX", Coordinates)
+val `averageScoreAsBlackX` = new Translated("averageScoreAsBlackX", Coordinates)
+val `knowingTheChessBoard` = new Translated("knowingTheChessBoard", Coordinates)
+val `mostChessCourses` = new Translated("mostChessCourses", Coordinates)
+val `talkToYourChessFriends` = new Translated("talkToYourChessFriends", Coordinates)
+val `youCanAnalyseAGameMoreEffectively` = new Translated("youCanAnalyseAGameMoreEffectively", Coordinates)
+val `aSquareNameAppears` = new Translated("aSquareNameAppears", Coordinates)
+val `startTraining` = new Translated("startTraining", Coordinates)
 }
 
 }
