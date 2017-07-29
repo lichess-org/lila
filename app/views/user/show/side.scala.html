@@ -19,7 +19,7 @@
   </span>
   <span class="rank" title="@trans.rankIsUpdatedEveryXMinutes(15)">
     @rankMap.get(perfType.key).map { rank =>
-    @trans.rank(): @rank.localize
+    @trans.rankX(rank.localize)
     }
   </span>
   @if(lila.rating.PerfType.isGame(perfType)) {
