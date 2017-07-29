@@ -330,7 +330,6 @@
     <item quantity="other">Hráno %skrát</item>
   </plurals>
   <string name="fromGameLink">Z partie %s</string>
-  <string name="startTraining">Začít trénink</string>
   <string name="continueTraining">Pokračovat v tréninku</string>
   <string name="retryThisPuzzle">Znovu zkusit tuto úlohu</string>
   <string name="thisPuzzleIsCorrect">Tato úloha je správná a zajímavá</string>
@@ -338,7 +337,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Automaticky přejdi k další hře po tahu</string>
   <string name="autoSwitch">Přepnout automaticky</string>
   <string name="puzzles">Puzzle</string>
-  <string name="coordinates">Souřadnice</string>
   <string name="latestUpdates">Poslední aktualizace</string>
   <string name="tournamentWinners">Vítěz turnaje</string>
   <string name="name">Jméno</string>
