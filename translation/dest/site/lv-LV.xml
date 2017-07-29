@@ -263,7 +263,6 @@
   <string name="thankYou">Paldies!</string>
   <string name="ratingX">Reitings: %s</string>
   <string name="fromGameLink">No spēles %s</string>
-  <string name="startTraining">Uzsākt treniņu</string>
   <string name="continueTraining">Turpināt treniņu</string>
   <string name="retryThisPuzzle">Atkārtot šo uzdevumu</string>
   <string name="thisPuzzleIsCorrect">Uzdevums ir pareizs un interesants</string>
@@ -271,7 +270,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Pēc gājiena izdarīšanas automātiski pāriet pie nākamās spēles</string>
   <string name="autoSwitch">Pašpārslēgšanās</string>
   <string name="puzzles">Uzdevumi</string>
-  <string name="coordinates">Koordinātas</string>
   <string name="latestUpdates">Pēdējās atjaunināšanas</string>
   <string name="tournamentWinners">Turnīra uzvarētāji</string>
   <string name="name">Vārds</string>
