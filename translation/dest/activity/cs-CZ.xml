@@ -12,6 +12,26 @@
     <item quantity="few">Odehrány %1$s %2$s hry</item>
     <item quantity="other">Odehrány %1$s %2$s hry</item>
   </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="one">Začali jste sledovat %s hráče</item>
+    <item quantity="few">Začali jste sledovat %s hráče</item>
+    <item quantity="other">Začali jste sledovat %s hráčů</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="one">Získali jste %s nového následovníka</item>
+    <item quantity="few">Získali jste %s nové následovníky</item>
+    <item quantity="other">Získali jste %s nových následovníků</item>
+  </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="one">Hostili jste %s simultánku</item>
+    <item quantity="few">Hostili jste %s simultánky</item>
+    <item quantity="other">Hostili jste %s simultánek</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">Zúčastnili jste se %s simultánky</item>
+    <item quantity="few">Zúčastnili jste se %s simultánek</item>
+    <item quantity="other">Zúčastnili jste se %s simultánek</item>
+  </plurals>
   <plurals name="competedInNbTournaments">
     <item quantity="one">Účast v %s turnaji</item>
     <item quantity="few">Účast ve %s turnajích</item>
