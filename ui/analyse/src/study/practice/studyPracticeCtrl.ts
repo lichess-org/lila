@@ -11,7 +11,7 @@ function readOnlyProp<A>(value: A): () => A {
   return function(): A {
     return value;
   };
-};
+}
 
 export default function(root: AnalyseController, studyData: StudyData, data) {
 
