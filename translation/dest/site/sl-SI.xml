@@ -181,6 +181,12 @@
   <string name="passwordReset">Ponovna nastavitev gesla</string>
   <string name="forgotPassword">Ste pozabili geslo?</string>
   <string name="rank">Rang</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s problem</item>
+    <item quantity="two">%s problema</item>
+    <item quantity="few">%s probleme</item>
+    <item quantity="other">%s problemov</item>
+  </plurals>
   <string name="gamesPlayed">Odigranih iger</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s partijo s teboj</item>
