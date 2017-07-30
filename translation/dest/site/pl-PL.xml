@@ -393,6 +393,7 @@
   <string name="averageOpponent">Średni ranking przeciwnika</string>
   <string name="membersOnly">Tylko dla zarejestrowanych</string>
   <string name="boardEditor">Edytor pozycji</string>
+  <string name="popularOpenings">Popularne otwarcia</string>
   <string name="startPosition">Ustawienie początkowe</string>
   <string name="clearBoard">Wyczyść szachownicę</string>
   <string name="savePosition">Zapisz pozycję</string>
@@ -627,6 +628,7 @@
   <string name="sourceCode">Kod źródłowy</string>
   <string name="simultaneousExhibitions">Symultany</string>
   <string name="host">Symultanista</string>
+  <string name="hostColorX">Symultanista gra: %s</string>
   <string name="createdSimuls">Nowe</string>
   <string name="hostANewSimul">Nowa symultana</string>
   <string name="noSimulFound">Nie znaleziono symultany</string>
@@ -733,6 +735,7 @@
   <string name="yourScore">Twój wynik: %s</string>
   <string name="language">Język</string>
   <string name="background">Tło</string>
+  <string name="backgroundImageUrl">Link do obrazka w tle:</string>
   <string name="boardGeometry">Szachownica</string>
   <string name="boardTheme">Kolory pól</string>
   <string name="boardSize">Rozmiar szachownicy</string>
