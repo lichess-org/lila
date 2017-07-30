@@ -48,4 +48,21 @@
     <item quantity="few">Organizavo %s simulus</item>
     <item quantity="other">Organizavo %s simulų</item>
   </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">Dalyvavo %s-me simule</item>
+    <item quantity="few">Dalyvavo %s-se simuluose</item>
+    <item quantity="other">Dalyvavo %s-yje simulų</item>
+  </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">Sukūrė %s naują studiją</item>
+    <item quantity="few">Sukūrė %s naujas studijas</item>
+    <item quantity="other">Sukūrė %s naujų studijų</item>
+  </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="one">Varžėsi %s-ame turnyre</item>
+    <item quantity="few">Varžėsi %s-uose turnyruose</item>
+    <item quantity="other">Varžėsi %s-yje turnyrų</item>
+  </plurals>
+  <string name="rankedInTournament">Užėmė #%1$s (tarp %2$s geriausiųjų) su %3$s partijomis žaidžiant „%4$s“</string>
+  <string name="signedUp">Užsiregistravo „Lichess“</string>
 </resources>
