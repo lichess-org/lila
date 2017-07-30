@@ -10,13 +10,13 @@ import { ChatOpts, Ctrl, PresetCtrl } from './interfaces'
 import klass from 'snabbdom/modules/class';
 import attributes from 'snabbdom/modules/attributes';
 
-export default function LichessChat(element: Element, opts: ChatOpts): {
+export const patch = init([klass, attributes]);
+
+export function start(element: Element, opts: ChatOpts): {
   preset: PresetCtrl
 } {
 
   opts.loadCss('/assets/stylesheets/chat.css');
-
-  const patch = init([klass, attributes]);
 
   const container = element.parentNode as HTMLElement;
 

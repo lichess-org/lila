@@ -14,7 +14,7 @@ function onError(error) {
 }
 
 function build(debug, withChat) {
-  return browserify('src/' + (withChat ? 'withChat' : 'main') + '.ts', {
+  return browserify('src/' + (withChat ? 'withChat' : 'withoutChat') + '.ts', {
     standalone: 'LichessRound',
     debug: debug
   })

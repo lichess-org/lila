@@ -2,16 +2,12 @@
 /// <reference types="types/lichess-jquery" />
 
 import { Chessground } from 'chessground';
-import { init } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode'
-import klass from 'snabbdom/modules/class';
-import attributes from 'snabbdom/modules/attributes';
 
 import { RoundOpts } from './interfaces';
 import RoundController from './ctrl';
 import MoveOn from './moveOn';
 import { main as view } from './view/main';
-import boot from './boot';
 
 export interface RoundApi {
   socketReceive(typ: string, data: any): boolean;
@@ -22,9 +18,9 @@ export interface RoundMain {
   app: (opts: RoundOpts) => RoundApi;
 }
 
-export function app(opts: RoundOpts): RoundApi {
+type Patch = (oldVnode: VNode | Element, vnode: VNode) => VNode;
 
-  const patch = init([klass, attributes]);
+export function app(opts: RoundOpts, patch: Patch): RoundApi {
 
   let vnode: VNode, ctrl: RoundController;
 
@@ -43,8 +39,6 @@ export function app(opts: RoundOpts): RoundApi {
     moveOn: ctrl.moveOn
   };
 };
-
-export { boot };
 
 // that's for the rest of lichess to access chessground
 // without having to include it a second time

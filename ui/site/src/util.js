@@ -209,7 +209,7 @@ lichess.shepherd = function(f) {
 lichess.makeChat = function(id, data, callback) {
   lichess.requestIdleCallback(function() {
     data.loadCss = lichess.loadCss;
-    (callback || $.noop)(LichessChat.default(document.getElementById(id), data));
+    (callback || $.noop)(LichessChat.start(document.getElementById(id), data));
   });
 };
 
