@@ -73,6 +73,11 @@
   <string name="recentGames">Nedávné hry</string>
   <string name="topGames">Top hry</string>
   <string name="masterDbExplanation">Dva miliony her hráčů Ela FIDE %1$s+ od let %2$s do %3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Mat v %s půltahu</item>
+    <item quantity="few">Mat v %s půltazích</item>
+    <item quantity="other">Mat v %s půltazích</item>
+  </plurals>
   <string name="noGameFound">Žádná hra nenalezena</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Možná zkuste vybrat více her z menu preferencí?</string>
   <string name="openingExplorer">Průzkumník zahájení</string>
@@ -105,6 +110,11 @@
   <string name="offerDraw">Nabídnout remízu</string>
   <string name="draw">Remíza</string>
   <string name="currentGames">Právě probíhající partie</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s partie</item>
+    <item quantity="few">Zobrazit všech %s partií</item>
+    <item quantity="other">%s partií</item>
+  </plurals>
   <string name="viewInFullSize">Zobrazit v plné velikosti</string>
   <string name="logOut">Odhlásit se</string>
   <string name="signIn">Přihlásit se</string>
@@ -432,6 +442,7 @@
   <string name="privacy">Soukromí</string>
   <string name="letOtherPlayersFollowYou">Umožnit ostatním hráčům následovat Tě</string>
   <string name="letOtherPlayersChallengeYou">Umožnit ostatním hráčům vyzvat Tě</string>
+  <string name="letOtherPlayersInviteYouToStudy">Nechat ostatní hráče pozvat Vás ke studii</string>
   <string name="sound">Zvuky</string>
   <string name="yourPreferencesHaveBeenSaved">Vaše předvolby byly uloženy.</string>
   <string name="none">Žádné</string>
@@ -487,6 +498,7 @@
   <string name="error.email_unique">Emailová adresa je již používaná</string>
   <string name="error.email_different">Toto je již Vaše emailová adresa</string>
   <string name="blindfoldChess">Blindfold šachy (neviditelné figurky)</string>
+  <string name="zenMode">Zen mód</string>
   <string name="moveConfirmation">Potvrzení tahu</string>
   <string name="inCorrespondenceGames">V korespondenčním šachu</string>
   <string name="ifRatingIsPlusMinusX">Pokud je rating ± %s</string>
@@ -511,6 +523,7 @@
   <string name="sourceCode">Zdrojový kod</string>
   <string name="simultaneousExhibitions">Simultánky</string>
   <string name="host">Host</string>
+  <string name="hostColorX">Barva zakladatele: %s</string>
   <string name="createdSimuls">Nově vytvořené simultánky</string>
   <string name="hostANewSimul">Vytvoř novou simultánku</string>
   <string name="noSimulFound">Simultánka nenalezena</string>
@@ -598,12 +611,19 @@
   <string name="viewTheSolution">Zobrazit řešení</string>
   <string name="followAndChallengeFriends">Hraj s přáteli</string>
   <string name="gameAnalysis">Analýza hry</string>
+  <string name="xHostsY">%1$s založil %2$s</string>
+  <string name="xJoinsY">%1$s se přidal k %2$s</string>
+  <string name="xLikesY">%1$s lajknul %2$s</string>
   <string name="quickPairing">Rychlá hra</string>
   <string name="lobby">Výzvy</string>
   <string name="anonymous">Anonymní</string>
   <string name="yourScore">Vaše skóre: %s</string>
   <string name="language">Jazyk</string>
   <string name="background">Pozadí</string>
+  <string name="light">Světlé</string>
+  <string name="dark">Tmavé</string>
+  <string name="transparent">Průhledné</string>
+  <string name="backgroundImageUrl">URL zdroj obrázku na pozadí:</string>
   <string name="boardGeometry">Typ šachovnice</string>
   <string name="boardTheme">Vzhled šachovnice</string>
   <string name="boardSize">Velikost šachovnice</string>
