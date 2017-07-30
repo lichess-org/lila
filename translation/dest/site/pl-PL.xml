@@ -47,8 +47,8 @@
   <string name="requestAComputerAnalysis">Poproś o analizę komputerową</string>
   <string name="computerAnalysis">Analiza komputerowa</string>
   <string name="computerAnalysisAvailable">Analiza komputerowa dostępna</string>
-  <string name="analysis">Analiza gry</string>
-  <string name="depthX">Głębokość analizy %s</string>
+  <string name="analysis">Analiza partii</string>
+  <string name="depthX">Głębokość %s</string>
   <string name="usingServerAnalysis">Analiza na serwerze</string>
   <string name="loadingEngine">Wczytywanie silnika...</string>
   <string name="cloudAnalysis">Analiza w chmurze</string>
@@ -725,7 +725,7 @@
     <item quantity="few">Dostępna w %s językach!</item>
     <item quantity="other">Dostępna w %s językach!</item>
   </plurals>
-  <string name="gameAnalysis">Analizowanie gry</string>
+  <string name="gameAnalysis">Analizowanie partii</string>
   <string name="xHostsY">%1$s utworzył %2$s</string>
   <string name="xJoinsY">%1$s dołączył do %2$s</string>
   <string name="xLikesY">%1$s polubił %2$s</string>
