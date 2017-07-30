@@ -54,4 +54,5 @@
       top: this.offsetTop
     };
   };
+  $.isArray = Array.isArray; // for ui-slider
 })($);
