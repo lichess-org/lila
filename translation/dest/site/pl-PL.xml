@@ -121,14 +121,14 @@
   </plurals>
   <string name="currentGames">Rozgrywane partie</string>
   <plurals name="nbGames">
-    <item quantity="one">%s gra</item>
-    <item quantity="few">%s gry</item>
-    <item quantity="other">%s gier</item>
+    <item quantity="one">%s partia</item>
+    <item quantity="few">%s partie</item>
+    <item quantity="other">%s partii</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s ulubiona gra</item>
-    <item quantity="few">%s ulubione gry</item>
-    <item quantity="other">%s ulubionych gier</item>
+    <item quantity="one">%s ulubiona partia</item>
+    <item quantity="few">%s ulubiona partie</item>
+    <item quantity="other">%s ulubiona partii</item>
   </plurals>
   <string name="viewInFullSize">Zobacz w pełnym rozmiarze</string>
   <string name="logOut">Wyloguj</string>
@@ -183,9 +183,9 @@
   </plurals>
   <string name="gamesPlayed">Rozegranych partii</string>
   <plurals name="nbGamesWithYou">
-    <item quantity="one">%s gra z Tobą</item>
-    <item quantity="few">%s gry z Tobą</item>
-    <item quantity="other">%s gier z Tobą</item>
+    <item quantity="one">%s partia z Tobą</item>
+    <item quantity="few">%s partie z Tobą</item>
+    <item quantity="other">%s partii z Tobą</item>
   </plurals>
   <string name="cancel">Anuluj</string>
   <string name="timeOut">Przekroczenie limitu czasu</string>
@@ -453,9 +453,9 @@
     <item quantity="other">Masz %s sekund na pierwszy ruch!</item>
   </plurals>
   <plurals name="nbGamesInPlay">
-    <item quantity="one">%s gra w toku</item>
-    <item quantity="few">%s gry w toku</item>
-    <item quantity="other">%s gier w toku</item>
+    <item quantity="one">%s partia w toku</item>
+    <item quantity="few">%s partie w toku</item>
+    <item quantity="other">%s partii w toku</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Przejdź do następnej gry po wykonaniu ruchu</string>
   <string name="autoSwitch">Przełącz po ruchu</string>
@@ -682,7 +682,7 @@
   <string name="timeToProcessAMoveOnLichessServer">Czas na przetworzenie zagrania na serwerze lichess</string>
   <string name="downloadAnnotated">Pobierz z komentarzem</string>
   <string name="downloadRaw">Pobierz bez komentarza</string>
-  <string name="downloadImported">Pobierz zaimportowane gry</string>
+  <string name="downloadImported">Pobierz zaimportowane partie</string>
   <string name="printFriendlyPDF">PDF do druku</string>
   <string name="crosstable">Tabela wyników</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Możesz także wykonywać ruchy przeciągając figury po szachownicy.</string>
