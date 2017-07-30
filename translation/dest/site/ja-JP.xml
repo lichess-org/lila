@@ -106,7 +106,7 @@
   <string name="inaccuracies">疑問手</string>
   <string name="moveTimes">消費時間</string>
   <string name="flipBoard">盤を反転させる</string>
-  <string name="threefoldRepetition">同形三複</string>
+  <string name="threefoldRepetition">同形三復</string>
   <string name="claimADraw">引き分けの申し立て</string>
   <string name="offerDraw">引き分けの提案</string>
   <string name="draw">引き分け</string>
@@ -354,6 +354,7 @@
   <string name="averageOpponent">対戦相手の平均</string>
   <string name="membersOnly">会員限定</string>
   <string name="boardEditor">盤面入力</string>
+  <string name="popularOpenings">人気のオープニング</string>
   <string name="startPosition">開始局面にする</string>
   <string name="clearBoard">盤面をクリアする</string>
   <string name="savePosition">盤面を保存</string>
@@ -465,9 +466,9 @@
   <string name="pieceDestinations">駒の行き先（ルール上動けるマス、プリムーブ）</string>
   <string name="boardCoordinates">マスの座標（A-H, 1-8）</string>
   <string name="moveListWhilePlaying">プレイ中の棋譜記録</string>
-  <string name="pgnPieceNotation">PGN 駒シンボル表示</string>
+  <string name="pgnPieceNotation">PGN 駒表示方法</string>
   <string name="chessPieceSymbol">チェス駒シンボル</string>
-  <string name="pgnLetter">PGN 文字（K、Q、R、B、N）</string>
+  <string name="pgnLetter">文字（K, Q, R, B, N）</string>
   <string name="chessClock">時間表示</string>
   <string name="tenthsOfSeconds">0.1秒単位で時間表示</string>
   <string name="never">無効</string>
@@ -526,8 +527,8 @@
   <string name="side">先手後手</string>
   <string name="clock">時間制限</string>
   <string name="unauthorizedError">アクセス権限がありません。</string>
-  <string name="noInternetConnection">インターネットに繋がっていません。メニューからオフラインで遊ぶことができます。</string>
-  <string name="connectedToLichess">lichess.org に繋がっています。</string>
+  <string name="noInternetConnection">インターネット接続なし。メニューからオフラインでプレイできます。</string>
+  <string name="connectedToLichess">lichess.org に接続しています。</string>
   <string name="signedOut">サインアウトしました。</string>
   <string name="loginSuccessful">ログインしました</string>
   <string name="playOnTheBoardOffline">オフラインで遊ぶ。ＯＴＢチェス</string>
@@ -576,6 +577,7 @@
   <string name="sourceCode">ソースコード</string>
   <string name="simultaneousExhibitions">同時対局</string>
   <string name="host">ホスト</string>
+  <string name="hostColorX">ホストの色: %s</string>
   <string name="createdSimuls">新たな同時対局</string>
   <string name="hostANewSimul">新たな同時対局を作る</string>
   <string name="noSimulFound">同時対局が見つかりません</string>
@@ -678,6 +680,10 @@
   <string name="yourScore">通算成績：%s</string>
   <string name="language">言語</string>
   <string name="background">背景</string>
+  <string name="light">明るい</string>
+  <string name="dark">暗い</string>
+  <string name="transparent">透明</string>
+  <string name="backgroundImageUrl">背景画像URL:</string>
   <string name="boardGeometry">盤の表示形式</string>
   <string name="boardTheme">盤のデザイン</string>
   <string name="boardSize">盤のサイズ</string>

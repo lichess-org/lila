@@ -10,6 +10,12 @@
   <string name="emailChange_subject">%s, подтвердите новый адрес почты</string>
   <string name="emailChange_intro">Мы получили запрос на смену вашего адреса почты.</string>
   <string name="emailChange_click">Для подтверждения наличия вами доступа к этому письму, нажмите на ссылку ниже:</string>
+  <string name="welcome_subject">Добро пожаловать на lichess.org, %s</string>
+  <string name="welcome_text">Вы успешно зарегистрировали свой аккаунт на https://lichess.org.
+
+Вот ссылка на Ваш профиль: %1$s. Вы можете настроить его здесь %2$s.
+
+Удачи, и да найдут Ваши фигуры путь к ферзю соперника!</string>
   <string name="common_orPaste">(Клик по ссылке не работает? Попробуйте вставить её в адресную строку!)</string>
   <string name="common_note">Это сервисное письмо, связанное с вашим использованием %s.</string>
 </resources>

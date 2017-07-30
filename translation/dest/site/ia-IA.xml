@@ -160,6 +160,8 @@
   <string name="passwordReset">Restabilir contrasigno</string>
   <string name="forgotPassword">Io ha oblidate mi contrasigno.</string>
   <string name="rank">Classification</string>
+  <string name="rankX">Classification: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Classification es actualisate cata %s minutas</string>
   <string name="gamesPlayed">Partitas jocate</string>
   <plurals name="nbGamesWithYou">
     <item quantity="other">%s partitas con te</item>

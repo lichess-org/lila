@@ -30,7 +30,7 @@
   <string name="theMostImportantPiece">Die wichtigste Figur</string>
   <string name="kingIntro">Du bist der König. Wenn du in der Schlacht fällst, ist das Spiel verloren.</string>
   <string name="theKingIsSlow">Der König ist langsam.</string>
-  <string name="lastOne">Er ist der Letzte!</string>
+  <string name="lastOne">Noch ein letztes Mal!</string>
   <string name="kingComplete">Du kannst jetzt den Befehlshaber befehligen!</string>
   <string name="theKnight">Der Springer</string>
   <string name="itMovesInAnLShape">Er bewegt sich in einer L-Form</string>
@@ -110,10 +110,12 @@
   <string name="theKnightIsInTheWay">Der Springer ist im Weg! Bewege ihn weg und rochiere dann kurz.</string>
   <string name="castleKingSideMovePiecesFirst">Rochiere kurz! Du musst zuerst Figuren wegbewegen.</string>
   <string name="castleQueenSideMovePiecesFirst">Rochiere lang! Du musst zuerst Figuren wegbewegen.</string>
-  <string name="youCannotCastleIfMoved">Du kannst nicht rochieren, wenn bereits der König oder der Turm bewegt wurde.</string>
+  <string name="youCannotCastleIfMoved">Du kannst nicht rochieren, wenn der König oder der Turm bereits bewegt wurde.</string>
   <string name="youCannotCastleIfAttacked">Du kannst nicht rochieren, wenn der König auf seinem Weg bedroht wird. Blocke das Schach und rochiere dann!</string>
-  <string name="findAWayToCastleKingSide">Finde eine Möglichkeit, kurz zu rochieren!</string>
-  <string name="findAWayToCastleQueenSide">Finde eine Möglichkeit, lang zu rochieren!</string>
+  <string name="findAWayToCastleKingSide">Finde eine Möglichkeit,
+kurz zu rochieren!</string>
+  <string name="findAWayToCastleQueenSide">Finde eine Möglichkeit,
+lang zu rochieren!</string>
   <string name="castlingComplete">Herzlichen Glückwunsch! Die Rochade ist in fast jedem Spiel empfehlenswert.</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Der besondere Bauernzug</string>

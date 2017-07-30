@@ -181,6 +181,8 @@
   <string name="passwordReset">Ponovna nastavitev gesla</string>
   <string name="forgotPassword">Ste pozabili geslo?</string>
   <string name="rank">Rang</string>
+  <string name="rankX">Rank: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Rank se posodobi vsakih %s minut</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s problem</item>
     <item quantity="two">%s problema</item>
