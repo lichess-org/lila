@@ -218,6 +218,9 @@ lichess.topMenuIntent = function() {
   };
 
   lichess.parseFen = function($elem) {
+    if (!window.Chessground) return setTimeout(function() {
+      lichess.parseFen($elem);
+    }, 500); // if not loaded yet
     if (!$elem || !$elem.jquery) {
       $elem = $('.parse_fen');
     }
