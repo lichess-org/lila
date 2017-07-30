@@ -373,6 +373,7 @@
   <string name="averageOpponent">Genomsnittlig motståndare</string>
   <string name="membersOnly">Endast medlemmar</string>
   <string name="boardEditor">Brädeditor</string>
+  <string name="setTheBoard">Ställ upp utgångsställning</string>
   <string name="popularOpenings">Populära öppningar</string>
   <string name="startPosition">Startposition</string>
   <string name="clearBoard">Rensa bräde</string>
