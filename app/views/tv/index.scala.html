@@ -37,7 +37,7 @@ url = s"$netBaseUrl${routes.Tv.onChannel(channel.key)}"
   </div></div>
 </div>
 <div class="game_list playing tv_history">
-  <h2>Previously on @channel.name TV</h2>
+  <h2>@trans.previouslyOnLichessTV()</h2>
   @history.map { p =>
   <div>@game.mini(p)</div>
   }
