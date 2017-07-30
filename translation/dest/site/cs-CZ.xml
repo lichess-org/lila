@@ -115,6 +115,11 @@
     <item quantity="few">Zobrazit všech %s partií</item>
     <item quantity="other">%s partií</item>
   </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s záložka</item>
+    <item quantity="few">Záložky: %s</item>
+    <item quantity="other">%s záložek</item>
+  </plurals>
   <string name="viewInFullSize">Zobrazit v plné velikosti</string>
   <string name="logOut">Odhlásit se</string>
   <string name="signIn">Přihlásit se</string>
@@ -139,6 +144,11 @@
     <item quantity="one">%s den</item>
     <item quantity="few">%s dny</item>
     <item quantity="other">%s dnů</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s hodina</item>
+    <item quantity="few">%s hodiny</item>
+    <item quantity="other">%s hodin</item>
   </plurals>
   <string name="time">Tempo</string>
   <string name="rating">Rating</string>
@@ -283,6 +293,11 @@
   <string name="player">Hráč</string>
   <string name="list">Seznam</string>
   <string name="graph">Graf</string>
+  <plurals name="lessThanNbMinutes">
+    <item quantity="one">Méně než %s minuta</item>
+    <item quantity="few">Méně než %s minuty</item>
+    <item quantity="other">Méně než %s minut</item>
+  </plurals>
   <string name="required">Vyžadováno.</string>
   <string name="openTournaments">Otevřené turnaje</string>
   <string name="duration">Trvání</string>
@@ -367,6 +382,11 @@
   <string name="retryThisPuzzle">Znovu zkusit tuto úlohu</string>
   <string name="thisPuzzleIsCorrect">Tato úloha je správná a zajímavá</string>
   <string name="thisPuzzleIsWrong">Tato úloha je špatná nebo nudná</string>
+  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
+    <item quantity="one">Máte %s sekundu na provedení prvního tahu!</item>
+    <item quantity="few">Máte %s sekund na provedení prvního tahu!</item>
+    <item quantity="other">Máte %s sekund na provedení prvního tahu!</item>
+  </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Automaticky přejdi k další hře po tahu</string>
   <string name="autoSwitch">Přepnout automaticky</string>
   <string name="puzzles">Puzzle</string>
@@ -509,6 +529,11 @@
   <string name="whiteCastlingQueenside">Bílá O-O-O</string>
   <string name="blackCastlingKingside">Černá O-O</string>
   <string name="blackCastlingQueenside">Černá O-O-O</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s příspěvek na fóru</item>
+    <item quantity="few">%s Příspěvků na fóru</item>
+    <item quantity="other">%s příspěvků na fóru</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">Čas strávený hraním %s</string>
   <string name="watchGames">Sledujte hry</string>
   <string name="tpTimeSpentOnTV">Čas v TV: %s</string>
@@ -610,6 +635,11 @@
   <string name="correspondenceAndUnlimited">Korespondeční a bez limitu</string>
   <string name="viewTheSolution">Zobrazit řešení</string>
   <string name="followAndChallengeFriends">Hraj s přáteli</string>
+  <plurals name="availableInNbLanguages">
+    <item quantity="one">Dostupné v %s jazyku!</item>
+    <item quantity="few">Dostupné v %s jazycích!</item>
+    <item quantity="other">Dostupné v %s jazycích!</item>
+  </plurals>
   <string name="gameAnalysis">Analýza hry</string>
   <string name="xHostsY">%1$s založil %2$s</string>
   <string name="xJoinsY">%1$s se přidal k %2$s</string>
