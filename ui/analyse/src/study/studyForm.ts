@@ -3,11 +3,19 @@ import * as dialog from './dialog';
 import { prop } from 'common';
 import { bind, bindSubmit } from '../util';
 
-const visibilityChoices = [
+interface Select {
+  key: string;
+  name: string;
+  choices: Choice[];
+  selected: string;
+}
+type Choice = [string, string];
+
+const visibilityChoices: Choice[] = [
   ['public', 'Public'],
   ['private', 'Invite only']
 ];
-const userSelectionChoices = [
+const userSelectionChoices: Choice[] = [
   ['nobody', 'Nobody'],
   ['owner', 'Only me'],
   ['contributor', 'Contributors'],
@@ -15,7 +23,7 @@ const userSelectionChoices = [
   ['everyone', 'Everyone']
 ];
 
-function select(s) {
+function select(s: Select) {
   return [
     h('select#study-' + s.key, s.choices.map(function(o) {
       return h('option', {
@@ -134,8 +142,8 @@ export function view(ctrl) {
             key: 'sticky',
             name: 'Enable sync',
             choices: [
-              [true, 'Yes: keep everyone on the same position'],
-              [false, 'No: let people browse freely']
+              ['true', 'Yes: keep everyone on the same position'],
+              ['false', 'No: let people browse freely']
             ],
             selected: data.settings.sticky
           })),
