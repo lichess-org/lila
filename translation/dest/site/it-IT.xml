@@ -167,6 +167,12 @@
   <string name="passwordReset">Reimposta password</string>
   <string name="forgotPassword">Password dimenticata?</string>
   <string name="rank">Livello</string>
+  <string name="rankX">Punteggio: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Il punteggio viene aggiornato ogni %s minuti</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s puzzle</item>
+    <item quantity="other">%s puzzle</item>
+  </plurals>
   <string name="gamesPlayed">Partite giocate</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s giocate con te</item>
@@ -368,6 +374,8 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="averageOpponent">Punteggio medio degli avversari</string>
   <string name="membersOnly">Solo per iscritti</string>
   <string name="boardEditor">Editor scacchiera</string>
+  <string name="setTheBoard">Prepara la scacchiera</string>
+  <string name="popularOpenings">Aperture popolari</string>
   <string name="startPosition">Posizione iniziale</string>
   <string name="clearBoard">Svuota la scacchiera</string>
   <string name="savePosition">Salva la posizione</string>
@@ -596,6 +604,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="sourceCode">Codice Sorgente</string>
   <string name="simultaneousExhibitions">Esibizioni Simultanee</string>
   <string name="host">Simultaneista</string>
+  <string name="hostColorX">Colore dell\'ospite: %s</string>
   <string name="createdSimuls">Simultanee recenti</string>
   <string name="hostANewSimul">Crea una nuova simultanea</string>
   <string name="noSimulFound">Simultanea non trovata</string>
@@ -700,6 +709,10 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="yourScore">Il tuo punteggio: %s</string>
   <string name="language">Lingua</string>
   <string name="background">Sfondo</string>
+  <string name="light">Chiaro</string>
+  <string name="dark">Scuro</string>
+  <string name="transparent">Trasparente</string>
+  <string name="backgroundImageUrl">URL dell\'immagine di sfondo:</string>
   <string name="boardGeometry">Geometria della scacchiera</string>
   <string name="boardTheme">Tema della scacchiera</string>
   <string name="boardSize">Dimensione scacchiera</string>
