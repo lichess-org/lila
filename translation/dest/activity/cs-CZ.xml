@@ -16,7 +16,7 @@
   <plurals name="playedNbGames">
     <item quantity="one">Odehrána %1$s %2$s hra</item>
     <item quantity="few">Odehrány %1$s %2$s hry</item>
-    <item quantity="other">Odehrány %1$s %2$s hry</item>
+    <item quantity="other">Odehráno %1$s %2$s her</item>
   </plurals>
   <plurals name="postedNbMessages">
     <item quantity="one">Odeslán %1$s příspěvek do %2$s</item>
