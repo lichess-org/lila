@@ -13,7 +13,11 @@
     </div>
     @trans.simulHostExtraTime(): @sim.clock.hostExtraMinutes @if(sim.clock.hostExtraMinutes == 1) { minute } else { minutes }
     <br />
-    Host color: @sim.color.getOrElse("random").capitalize
+    @trans.hostColorX(sim.color match {
+      case Some("white") => trans.white()
+      case Some("black") => trans.black()
+      case _ => trans.randomColor()
+    })
   </div>
   @trans.by(usernameOrId(sim.hostId)), <span title="@showDateTime(sim.createdAt)">@momentFromNow(sim.createdAt)</span>
 </div>
