@@ -106,7 +106,7 @@
   <string name="blunders">Vahim hatalar</string>
   <string name="mistakes">Hatalar</string>
   <string name="inaccuracies">Kusurlu hamleler</string>
-  <string name="moveTimes">Harcanan süreler</string>
+  <string name="moveTimes">Hamle zamanları</string>
   <string name="flipBoard">Tahtayı döndür</string>
   <string name="threefoldRepetition">Üç kez hamle tekrarı</string>
   <string name="claimADraw">Beraberlik talep et</string>
@@ -612,13 +612,13 @@
   <string name="aboutSimul">Eş zamanlılar tek oyuncunun aynı anda birkaç oyuncuyla mücadelesini içerir.</string>
   <string name="aboutSimulImage">Fischer 50 rakibe karşı, 47 oyun kazandı, 2 beraberlik ve 1 yenilgi aldı.</string>
   <string name="aboutSimulRealLife">Bu kavram gerçek etkinliklerden alınmıştır. Gerçek hayatta, eş zamanlının ev sahibi masadan masaya dolaşarak birer hamle yapar.</string>
-  <string name="aboutSimulRules">Eş zamanlı başladığında, her oyuncu beyaz taşlarla oynayan ev sahibine karşı maça başlar. Eş zamanlı, tüm oyunlar bittiğinde sona erer.</string>
+  <string name="aboutSimulRules">Eş zamanlı başladığında her oyuncu ev sahibine karşı maça başlar. Beyaz taşlarla oynayan taraf ilk hamleyi yapar. Bütün oyunlar bittiğinde eş zamanlı sona erer.</string>
   <string name="aboutSimulSettings">Eş zamanlılar daima puansızdır. Yeniden oynama, hamleyi geri alma ve zaman ekleme devre dışıdır.</string>
   <string name="create">Oluştur</string>
   <string name="whenCreateSimul">Eş zamanlı modda birkaç oyuncuyla aynı anda oynarsın.</string>
   <string name="simulVariantsHint">Eğer birkaç varyant seçerseniz, her oyuncu istediği varyantı seçip oynar.</string>
   <string name="simulClockHint">Fischer Saati formatı. Ne kadar fazla oyuncu ile yüzleşirsen, o kadar fazla zamana ihtiyaç duyarsın.</string>
-  <string name="simulAddExtraTime">Eş zamanlıyla başa çıkabilmek için kendi saatine ek zaman ekleyebilirsin.</string>
+  <string name="simulAddExtraTime">Eş zamanlıyla başa çıkabilmek için kendi saatinize ek zaman ekleyebilirsiniz.</string>
   <string name="simulHostExtraTime">Ev sahibinin fazladan süresi</string>
   <string name="lichessTournaments">Lichess turnuvaları</string>
   <string name="tournamentFAQ">Arena turnuvaları SSS</string>
