@@ -256,7 +256,7 @@
     <item quantity="few">%s w toku</item>
     <item quantity="other">%s w toku</item>
   </plurals>
-  <string name="exportGames">Eksportuj gry</string>
+  <string name="exportGames">Eksportuj partie</string>
   <string name="ratingRange">Ranking przeciwnika</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dodaj %s sekundę</item>
@@ -282,7 +282,7 @@
   <string name="tournamentPoints">Punkty turniejowe</string>
   <string name="viewTournament">Zobacz turniej</string>
   <string name="backToTournament">Wróć do turnieju</string>
-  <string name="backToGame">Wróć do gry</string>
+  <string name="backToGame">Wróć do partii</string>
   <string name="siteDescription">Darmowe szachy online. Zagraj teraz w szachy o przyjaznym interfejsie. Bez rejestracji, bez reklam, bez instalowania wtyczek. Zagraj w szachy z komputerem, znajomymi lub losowo wybranymi przeciwnikami.</string>
   <string name="teams">Kluby</string>
   <plurals name="nbMembers">
@@ -307,7 +307,7 @@
   <string name="averageElo">Średni ranking</string>
   <string name="location">Lokalizacja</string>
   <string name="settings">Ustawienia</string>
-  <string name="filterGames">Filtruj gry</string>
+  <string name="filterGames">Filtruj partie</string>
   <string name="reset">Przywróć domyślne</string>
   <string name="apply">Zastosuj</string>
   <string name="leaderboard">Najlepsi gracze</string>
@@ -559,7 +559,7 @@
   <string name="starting">Zaczynają się:</string>
   <string name="allInformationIsPublicAndOptional">Poniższe informacje będą publicznie dostępne. Nie musisz ich podawać.</string>
   <string name="yourCityRegionOrDepartment">Twoje miasto, region lub województwo</string>
-  <string name="biographyDescription">Opowiedz o sobie. Za co lubisz szachy? Jakie są twoje ulubione gry, otwarcia, zawodnicy…</string>
+  <string name="biographyDescription">Napisz coś o sobie. Co lubisz w szachach, jacy są Twoi ulubieni zawodnicy, ulubione partie, najczęstsze otwarcia…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maksymalnie: %s znak.</item>
     <item quantity="few">Maksymalnie: %s znaki.</item>
