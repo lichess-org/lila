@@ -92,7 +92,7 @@
   <string name="allSet">Wszystko gotowe!</string>
   <string name="importPgn">Importuj PGN</string>
   <string name="delete">Usuń</string>
-  <string name="deleteThisImportedGame">Czy usunąć tę grę?</string>
+  <string name="deleteThisImportedGame">Czy usunąć tę partię?</string>
   <string name="replayMode">Tryb odtwarzania</string>
   <string name="realtimeReplay">Naturalnie</string>
   <string name="byCPL">Wg poprawności</string>
@@ -315,7 +315,7 @@
   <string name="pasteThePgnStringHere">Poniżej wklej partię w formacie PGN</string>
   <string name="fromPosition">Z pozycji</string>
   <string name="continueFromHere">Kontynuuj z tej pozycji</string>
-  <string name="importGame">Importuj grę</string>
+  <string name="importGame">Importuj partię</string>
   <string name="importGameExplanation">Wklejając zapis gry będziesz miał możliwość jej odtworzenia, poproszenia o analizę komputerową, omówienia jej z innymi oraz udostępnienia linku do niej innym.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s zaimportowana partia</item>
