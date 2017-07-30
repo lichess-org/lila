@@ -167,6 +167,8 @@
   <string name="passwordReset">Redefinição de senha</string>
   <string name="forgotPassword">Esqueceu sua senha?</string>
   <string name="rank">Rank</string>
+  <string name="rankX">Classificação: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">A classificação é atualizada a cada %s minutos</string>
   <string name="gamesPlayed">Partidas realizadas</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s partidas contra você</item>
@@ -368,6 +370,8 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="averageOpponent">Oponente médio</string>
   <string name="membersOnly">Somente para membros</string>
   <string name="boardEditor">Editor de tabuleiro</string>
+  <string name="setTheBoard">Arranje o tabuleiro</string>
+  <string name="popularOpenings">Aberturas populares</string>
   <string name="startPosition">Posição inicial</string>
   <string name="clearBoard">Limpar tabuleiro</string>
   <string name="savePosition">Guardar posição</string>
@@ -700,6 +704,10 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="yourScore">Sua pontuação:%s</string>
   <string name="language">Idioma</string>
   <string name="background">Fundo</string>
+  <string name="light">Claro</string>
+  <string name="dark">Escuro</string>
+  <string name="transparent">Transparente</string>
+  <string name="backgroundImageUrl">URL da imagem de fundo:</string>
   <string name="boardGeometry">Geometria do tabuleiro</string>
   <string name="boardTheme">Estilo do tabuleiro</string>
   <string name="boardSize">Tamanho do tabuleiro</string>
