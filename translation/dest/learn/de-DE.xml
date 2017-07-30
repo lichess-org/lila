@@ -110,10 +110,12 @@
   <string name="theKnightIsInTheWay">Der Springer ist im Weg! Bewege ihn weg und rochiere dann kurz.</string>
   <string name="castleKingSideMovePiecesFirst">Rochiere kurz! Du musst zuerst Figuren wegbewegen.</string>
   <string name="castleQueenSideMovePiecesFirst">Rochiere lang! Du musst zuerst Figuren wegbewegen.</string>
-  <string name="youCannotCastleIfMoved">Du kannst nicht rochieren, wenn bereits der König oder der Turm bewegt wurde.</string>
+  <string name="youCannotCastleIfMoved">Du kannst nicht rochieren, wenn der König oder der Turm bereits bewegt wurde.</string>
   <string name="youCannotCastleIfAttacked">Du kannst nicht rochieren, wenn der König auf seinem Weg bedroht wird. Blocke das Schach und rochiere dann!</string>
-  <string name="findAWayToCastleKingSide">Finde eine Möglichkeit, kurz zu rochieren!</string>
-  <string name="findAWayToCastleQueenSide">Finde eine Möglichkeit, lang zu rochieren!</string>
+  <string name="findAWayToCastleKingSide">Finde eine Möglichkeit,
+kurz zu rochieren!</string>
+  <string name="findAWayToCastleQueenSide">Finde eine Möglichkeit,
+lang zu rochieren!</string>
   <string name="castlingComplete">Herzlichen Glückwunsch! Die Rochade ist in fast jedem Spiel empfehlenswert.</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Der besondere Bauernzug</string>
