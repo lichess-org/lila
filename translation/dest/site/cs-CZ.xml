@@ -144,6 +144,8 @@
   <string name="passwordReset">Změna hesla</string>
   <string name="forgotPassword">Zapomněl jste heslo?</string>
   <string name="rank">Pořadí</string>
+  <string name="rankX">Pořadí: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Pořadí je aktualizováno každých %s minut</string>
   <string name="gamesPlayed">Odehraných partií</string>
   <string name="cancel">Zrušit</string>
   <string name="timeOut">Čas vypršel</string>
@@ -196,6 +198,7 @@
   </plurals>
   <string name="exportGames">Exportovat partie</string>
   <string name="ratingRange">Síla hráče</string>
+  <string name="giveMoreTime">Přidej čas</string>
   <string name="thisPlayerUsesChessComputerAssistance">Tento uživatel hrává s pomocí počítače</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Tento hráč uměle ovlivnil své hodnocení</string>
   <string name="openingExplorerAndTablebase">Knihovna zahájení / tablebase koncovek</string>
@@ -246,6 +249,7 @@
   <string name="importGameExplanation">Vložení partie ve formátu PGN Vám umožní přehrání partie, získáte počítačovou analýzu, chat ke hře a URL ke sdílení hry.</string>
   <string name="thisIsAChessCaptcha">Toto je šachové CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Kliknutím na šachovnici zadejte váš tah a dokažte, že jste človek.</string>
+  <string name="captcha.fail">Prosím vyřešte šachovou captcha.</string>
   <string name="notACheckmate">Toto není mat.</string>
   <string name="colorPlaysCheckmateInOne">%s dává prvním tahem mat</string>
   <string name="retry">Zkusit znovu</string>
@@ -283,8 +287,12 @@
   <string name="winStreak">Vítězná série</string>
   <string name="createdBy">Vytvořeno uživatelem</string>
   <string name="tournamentIsStarting">Turnaj začíná</string>
+  <string name="tournamentPairingsAreNowClosed">Turnajové rozlosování je nyní uzavřeno.</string>
+  <string name="standByX">Vyčkejte %s, vybírám soupeře, připravte se!</string>
+  <string name="youArePlaying">Hra začala!</string>
   <string name="winRate">Poměr výher</string>
   <string name="berserkRate">Poměr Berserk</string>
+  <string name="performance">Výkon</string>
   <string name="tournamentComplete">Turnaj skončil</string>
   <string name="movesPlayed">Odehráno tahů</string>
   <string name="whiteWins">Bílý vyhrál</string>
@@ -295,12 +303,17 @@
   <string name="averageOpponent">Průměrná síla soupeře</string>
   <string name="membersOnly">Hrát pouze s registrovanými</string>
   <string name="boardEditor">Editor šachovnice</string>
+  <string name="setTheBoard">Upravit šachovnici</string>
+  <string name="popularOpenings">Populární zahájení</string>
   <string name="startPosition">Základní postavení</string>
   <string name="clearBoard">Prázdná šachovnice</string>
   <string name="savePosition">Uložit pozici</string>
   <string name="loadPosition">Nahrát pozici</string>
   <string name="isPrivate">Soukromý</string>
   <string name="reportXToModerators">Nahlásit %s moderátorům</string>
+  <string name="profileCompletion">Kompletace profilu: %s</string>
+  <string name="xRating">%s rating</string>
+  <string name="ifNoneLeaveEmpty">Pokud nemáte, nechte pole volné</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Upravit profil</string>
   <string name="firstName">Jméno</string>
