@@ -61,6 +61,8 @@
   <string name="keepYourPiecesSafe">Держите ваши фигуры под защитой</string>
   <string name="protectionIntro">Определите, какие ваши фигуры атакует противники, и защитите их!</string>
   <string name="combatComplete">Поздравляем! Теперь вы знаете, как сражаться с шахматными фигурами!</string>
+  <string name="mateInOne">Мат в один ход</string>
+  <string name="castling">Рокировка</string>
   <string name="practice">Практика</string>
   <string name="learnCommonChessPositions">Учите основные позиции в шахматах</string>
   <string name="playPeople">Игра онлайн</string>
