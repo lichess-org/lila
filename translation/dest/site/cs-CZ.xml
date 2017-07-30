@@ -658,7 +658,7 @@
   <string name="boardTheme">Vzhled šachovnice</string>
   <string name="boardSize">Velikost šachovnice</string>
   <string name="pieceSet">Vzhled figur</string>
-  <string name="embedInYourWebsite">Vložit na své webové stránky</string>
+  <string name="embedInYourWebsite">Vložit na web</string>
   <string name="usernameAlreadyUsed">Toto uživatelské jméno již existuje. Zvol, prosím, jiné.</string>
   <string name="usernameInvalid">Neplatné uživatelské jméno. Použijte pouze písmena, číslice, podtržítka a pomlčky.</string>
   <string name="usernameStartNoNumber">Uživatelské jméno nesmí začínat číslem.</string>
