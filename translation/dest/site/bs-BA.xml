@@ -263,7 +263,6 @@
   <string name="thankYou">Hvala!</string>
   <string name="ratingX">Rejting: %s</string>
   <string name="fromGameLink">Iz partije %s</string>
-  <string name="startTraining">Počnite trening</string>
   <string name="continueTraining">Nastavite trening</string>
   <string name="retryThisPuzzle">Pokušajte ponovo ovaj problem</string>
   <string name="thisPuzzleIsCorrect">Ovaj problem je ispravan i zanimljiv</string>
@@ -271,7 +270,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Automatski prebaci na sljedeću partiju poslije odigranog poteza</string>
   <string name="autoSwitch">Automatski prebaci</string>
   <string name="puzzles">Problemi</string>
-  <string name="coordinates">Koordinate</string>
   <string name="latestUpdates">Najnovija ažuriranja</string>
   <string name="tournamentWinners">Pobjednici turnira</string>
   <string name="name">Ime</string>

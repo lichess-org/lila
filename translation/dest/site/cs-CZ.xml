@@ -125,6 +125,11 @@
   <string name="correspondence">Korespondenčně</string>
   <string name="daysPerTurn">Dnů na tah</string>
   <string name="oneDay">Jeden den</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s den</item>
+    <item quantity="few">%s dny</item>
+    <item quantity="other">%s dnů</item>
+  </plurals>
   <string name="time">Tempo</string>
   <string name="rating">Rating</string>
   <string name="ratingStats">Statistiky hodnocení</string>
@@ -184,6 +189,11 @@
   <string name="incrementInSeconds">Bonus za tah (v sekundách)</string>
   <string name="freeOnlineChess">Šachy online zdarma</string>
   <string name="spectators">Diváci:</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s hodnocená</item>
+    <item quantity="few">%s hodnocené</item>
+    <item quantity="other">%s hodnocených</item>
+  </plurals>
   <string name="exportGames">Exportovat partie</string>
   <string name="ratingRange">Síla hráče</string>
   <string name="thisPlayerUsesChessComputerAssistance">Tento uživatel hrává s pomocí počítače</string>
@@ -330,7 +340,6 @@
     <item quantity="other">Hráno %skrát</item>
   </plurals>
   <string name="fromGameLink">Z partie %s</string>
-  <string name="startTraining">Začít trénink</string>
   <string name="continueTraining">Pokračovat v tréninku</string>
   <string name="retryThisPuzzle">Znovu zkusit tuto úlohu</string>
   <string name="thisPuzzleIsCorrect">Tato úloha je správná a zajímavá</string>
@@ -338,7 +347,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Automaticky přejdi k další hře po tahu</string>
   <string name="autoSwitch">Přepnout automaticky</string>
   <string name="puzzles">Puzzle</string>
-  <string name="coordinates">Souřadnice</string>
   <string name="latestUpdates">Poslední aktualizace</string>
   <string name="tournamentWinners">Vítěz turnaje</string>
   <string name="name">Jméno</string>
@@ -543,7 +551,10 @@
   <string name="crosstable">Výsledky</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">K pohybu v partii můžete také použít scrollovací kolečko myši nad šachovnicí.</string>
   <string name="analysisShapesHowTo">Kliknutím se shiftem či kliknutím pravým tlačítkem lze kreslit do šachovnice kolečka a šipky.</string>
+  <string name="confirmResignationAndDrawOffers">Potvrzovat rezignaci a nabídku remízy</string>
+  <string name="inputMovesWithTheKeyboard">Zadávání tahů pomocí klávesnice</string>
   <string name="letOtherPlayersMessageYou">Povolit zprávy od ostatních hráčů</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Způsob provádění rošády</string>
   <string name="castleByMovingTwoSquares">Pohnout králem o dvě pole</string>
   <string name="castleByMovingOntoTheRook">Pohnout králem na místo věže</string>
   <string name="shareYourInsightsData">Sdílejte výsledky analýzy vašeho hraní</string>
@@ -552,7 +563,14 @@
   <string name="withEverybody">Se všemi</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Již máte zaregistrován email: %s</string>
   <string name="kidMode">Dětský režim</string>
-  <string name="kidModeExplanation">To je pro bezpečnost. V dětském módu je jakákoli komunikace zablokována. Zapněte to pro děti a studenti, pro ochranu před ostatními na Internetu.</string>
+  <string name="kidModeExplanation">To je pro bezpečnost. V dětském režimu je jakákoli komunikace zablokována. Zapněte to pro děti a studenty, pro ochranu před ostatními na Internetu.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Když je zapnutý dětský režim, tak se u loga Lichess objeví ikona %s. Podle toho poznáte, je je Vaše dítě v bezpečí.</string>
+  <string name="enableKidMode">Povolit dětský režim</string>
+  <string name="disableKidMode">Vypnout dětský režim</string>
+  <string name="security">Zabezpečení</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Toto je přehled zařízení, na kterých došlo k přihlášení k Vašemu účtu. Pokud některé zařízení nepoznáváte, můžete zrušit jeho relaci.</string>
+  <string name="alternativelyYouCanX">Nebo můžete %s.</string>
+  <string name="revokeAllSessions">odebrat všechny relace</string>
   <string name="playChessEverywhere">Hrajte šachy kdekoliv</string>
   <string name="asFreeAsLichess">Svobodný jako lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Vytvořeno z lásky k šachům, ne pro peníze</string>
@@ -568,6 +586,7 @@
   <string name="followAndChallengeFriends">Hraj s přáteli</string>
   <string name="gameAnalysis">Analýza hry</string>
   <string name="quickPairing">Rychlá hra</string>
+  <string name="lobby">Výzvy</string>
   <string name="anonymous">Anonymní</string>
   <string name="yourScore">Vaše skóre: %s</string>
   <string name="language">Jazyk</string>

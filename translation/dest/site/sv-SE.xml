@@ -167,6 +167,12 @@
   <string name="passwordReset">Återställ lösenord</string>
   <string name="forgotPassword">Glömt lösenord?</string>
   <string name="rank">Rankning</string>
+  <string name="rankX">Placering: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Placeringen uppdateras varje %s minuter</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s schackproblem</item>
+    <item quantity="other">%s schackproblem</item>
+  </plurals>
   <string name="gamesPlayed">Partier spelade</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s partier med dig</item>
@@ -415,7 +421,6 @@
     <item quantity="other">Spelat %s gånger</item>
   </plurals>
   <string name="fromGameLink">Från parti: %s</string>
-  <string name="startTraining">Starta träning</string>
   <string name="continueTraining">Fortsätt träning</string>
   <string name="retryThisPuzzle">Testa detta schackproblem igen</string>
   <string name="thisPuzzleIsCorrect">Det här schackproblemet är korrekt och intressant</string>
@@ -431,7 +436,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Gör att du automatiskt fortsätter till nästa parti efter du gjort ett drag</string>
   <string name="autoSwitch">Automatiskt partibyte</string>
   <string name="puzzles">Problem</string>
-  <string name="coordinates">Koordinater</string>
   <string name="latestUpdates">Senaste uppdateringarna</string>
   <string name="tournamentWinners">Turneringsvinnare</string>
   <string name="name">Namn</string>

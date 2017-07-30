@@ -354,7 +354,6 @@
     <item quantity="other">Forsøkt %s ganger</item>
   </plurals>
   <string name="fromGameLink">Fra parti %s</string>
-  <string name="startTraining">Start treningen</string>
   <string name="continueTraining">Fortsett treningen</string>
   <string name="retryThisPuzzle">Prøv denne sjakknøtten om igjen</string>
   <string name="thisPuzzleIsCorrect">Dette problemet er riktig og interessant</string>
@@ -370,7 +369,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Fortsett automatisk til neste parti etter utført trekk</string>
   <string name="autoSwitch">Autosyklus</string>
   <string name="puzzles">Sjakknøtter</string>
-  <string name="coordinates">Koordinater</string>
   <string name="latestUpdates">Siste oppdateringer</string>
   <string name="tournamentWinners">Turneringsvinnere</string>
   <string name="name">Navn</string>

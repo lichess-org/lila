@@ -337,7 +337,6 @@
     <item quantity="other">Ludita %s-foje</item>
   </plurals>
   <string name="fromGameLink">El ludo %s</string>
-  <string name="startTraining">Komenci trejnadon</string>
   <string name="continueTraining">Daŭrigi trejnadon</string>
   <string name="retryThisPuzzle">Reprovi ĉi tiun puzlon</string>
   <string name="thisPuzzleIsCorrect">Ĉi tiu puzlo estas ĝusta kaj interesa</string>
@@ -353,7 +352,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Aŭtomate iri al la sekvanta ludo post movi</string>
   <string name="autoSwitch">Aŭtomata ludŝanĝado</string>
   <string name="puzzles">Puzloj</string>
-  <string name="coordinates">Koordinatoj</string>
   <string name="latestUpdates">Lastaj novaĵoj</string>
   <string name="tournamentWinners">Turniro-venkistoj</string>
   <string name="name">Nomo</string>

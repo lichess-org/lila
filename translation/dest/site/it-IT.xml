@@ -416,7 +416,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
     <item quantity="other">Giocato %s volte</item>
   </plurals>
   <string name="fromGameLink">Dalla partita %s</string>
-  <string name="startTraining">Inizia l\'allenamento</string>
   <string name="continueTraining">Continua l\'allenamento</string>
   <string name="retryThisPuzzle">Riprova questo esercizio</string>
   <string name="thisPuzzleIsCorrect">Questo esercizio è corretto e interessante</string>
@@ -432,7 +431,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="automaticallyProceedToNextGameAfterMoving">Passa automaticamente alla partita successiva dopo la mossa</string>
   <string name="autoSwitch">Passaggio automatico</string>
   <string name="puzzles">Esercizi</string>
-  <string name="coordinates">Coordinate</string>
   <string name="latestUpdates">Ultimi aggiornamenti</string>
   <string name="tournamentWinners">Vincitori dei tornei</string>
   <string name="name">Nome</string>

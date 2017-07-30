@@ -311,7 +311,6 @@
     <item quantity="other">%s회 플레이</item>
   </plurals>
   <string name="fromGameLink">게임 %s에서</string>
-  <string name="startTraining">연습 시작</string>
   <string name="continueTraining">연습 계속하기</string>
   <string name="retryThisPuzzle">다시 풀기</string>
   <string name="thisPuzzleIsCorrect">이 퍼즐은 정확하고 재밌습니다</string>
@@ -325,7 +324,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">수를 둔 다음에 자동으로 다음 게임에 이동</string>
   <string name="autoSwitch">자동 전환</string>
   <string name="puzzles">퍼즐</string>
-  <string name="coordinates">좌표</string>
   <string name="latestUpdates">최근 업데이트</string>
   <string name="tournamentWinners">토너먼트 승리자</string>
   <string name="name">팀 이름</string>

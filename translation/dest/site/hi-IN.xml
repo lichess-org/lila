@@ -346,7 +346,6 @@
     <item quantity="other">%s बार खेला गया</item>
   </plurals>
   <string name="fromGameLink">%s खेल से</string>
-  <string name="startTraining">प्रशिक्षण शुरू करें</string>
   <string name="continueTraining">प्रशिक्षण जारी रखें</string>
   <string name="retryThisPuzzle">यह पहेली पुनः खेलें</string>
   <string name="thisPuzzleIsCorrect">यह पहेली सही एवं दिलचस्प थी</string>
@@ -362,7 +361,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">चाल चलने के बाद अपने आप अगले खेल पर जाएँ</string>
   <string name="autoSwitch">अपने आप खेल बदलें।</string>
   <string name="puzzles">पहेलियाँ</string>
-  <string name="coordinates">निर्देशांक</string>
   <string name="latestUpdates">नवीनतम बदलाव (अपडेट)</string>
   <string name="tournamentWinners">टूर्नामेंट के विजेता</string>
   <string name="name">नाम</string>

@@ -327,7 +327,6 @@
     <item quantity="other">കളിച്ചത്‌ %s തവണകൾ</item>
   </plurals>
   <string name="fromGameLink">%s കളിയിൽ നിന്ന്</string>
-  <string name="startTraining">പരിശീലനം തുടങ്ങാം</string>
   <string name="continueTraining">പരിശീലനം തുടരാം</string>
   <string name="retryThisPuzzle">ഈ സമസ്യക്കു വീണ്ടും ശ്രമിക്കൂ</string>
   <string name="thisPuzzleIsCorrect">ഈ സമസ്യ കൃത്യവും രസകരവുമാണ്</string>
@@ -343,7 +342,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">നീക്കത്തിന് ശേഷം അടുത്ത കളിയിലേക്ക് താനെ തുടരാം</string>
   <string name="autoSwitch">ഓട്ടോ സ്വിച്ച്</string>
   <string name="puzzles">സമസ്യകൾ</string>
-  <string name="coordinates">സ്ഥാനാങ്കങ്ങൾ</string>
   <string name="latestUpdates">പുതിയ പരിഷ്‌കാരങ്ങൾ</string>
   <string name="tournamentWinners">പരമ്പരയിലെ ജേതാക്കൾ</string>
   <string name="name">പേര്</string>

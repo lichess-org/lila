@@ -323,7 +323,6 @@
     <item quantity="other">%s বার খেলা হয়েছে</item>
   </plurals>
   <string name="fromGameLink">%s খেলা থেকে</string>
-  <string name="startTraining">প্রশিক্ষণ শুরু করুন</string>
   <string name="continueTraining">প্রশিক্ষণ বজায় রাখুন</string>
   <string name="retryThisPuzzle">এই ধাঁধাটি কে আবার চেষ্টা করুন</string>
   <string name="thisPuzzleIsCorrect">এই ধাঁধাটি ভালো এবং আকর্ষণীয়</string>
@@ -339,7 +338,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">স্বয়ংক্রিয় ভাবে পরবর্তী খেলায় যান</string>
   <string name="autoSwitch">স্বয়ংক্রিয় পরিবর্তন</string>
   <string name="puzzles">ধাঁধা</string>
-  <string name="coordinates">Coordinates</string>
   <string name="latestUpdates">সাম্প্রতিক তথ্য</string>
   <string name="tournamentWinners">Tournament বিজয়ীরা</string>
   <string name="name">নাম</string>

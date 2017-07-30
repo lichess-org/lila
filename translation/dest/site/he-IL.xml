@@ -263,7 +263,6 @@
   <string name="thankYou">תודה רבה!</string>
   <string name="ratingX">דירוג: %s</string>
   <string name="fromGameLink">מהמשחק %s</string>
-  <string name="startTraining">התחל להתאמן.</string>
   <string name="continueTraining">המשך להתאמן</string>
   <string name="retryThisPuzzle">נסה שוב את הפאזל.</string>
   <string name="thisPuzzleIsCorrect">הפאזל נכון ומעניין.</string>
@@ -271,7 +270,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">המשך אוטומטית למשחק הבא אחרי מהלך</string>
   <string name="autoSwitch">החלפה אוטומטית</string>
   <string name="puzzles">פאזלים</string>
-  <string name="coordinates">קואורדינטות</string>
   <string name="latestUpdates">עדכונים אחרונים</string>
   <string name="tournamentWinners">מנצחי הטורנירים</string>
   <string name="name">שם</string>

@@ -286,7 +286,6 @@
   <string name="thankYou">Дякуємо!</string>
   <string name="ratingX">Рівень: %s</string>
   <string name="fromGameLink">Вилучено з гри %s</string>
-  <string name="startTraining">Розпочати тренування</string>
   <string name="continueTraining">Продовжити тренування</string>
   <string name="retryThisPuzzle">Спробувати цю задачу ще раз</string>
   <string name="thisPuzzleIsCorrect">Ця задача є правильною та цікавою</string>
@@ -294,7 +293,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Автоматично перейти до наступної гри після ходу</string>
   <string name="autoSwitch">Автоперехід</string>
   <string name="puzzles">Тактика</string>
-  <string name="coordinates">Координати</string>
   <string name="latestUpdates">Останні оновлення</string>
   <string name="tournamentWinners">Переможці турнірів</string>
   <string name="name">Назва</string>

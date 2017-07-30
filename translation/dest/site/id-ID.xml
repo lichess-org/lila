@@ -391,7 +391,6 @@
     <item quantity="other">Dimainkan %s kali</item>
   </plurals>
   <string name="fromGameLink">Dari permainan %s</string>
-  <string name="startTraining">Mulai latihan</string>
   <string name="continueTraining">Lanjutkan latihan</string>
   <string name="retryThisPuzzle">Coba lagi taktik ini</string>
   <string name="thisPuzzleIsCorrect">Taktik ini benar dan menarik</string>
@@ -405,7 +404,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Otomatis memproses permainan berikutnya setelah melangkah</string>
   <string name="autoSwitch">Pindah otomatis</string>
   <string name="puzzles">Taktik</string>
-  <string name="coordinates">Koordinat</string>
   <string name="latestUpdates">Update terbaru</string>
   <string name="tournamentWinners">Pemenang turnamen</string>
   <string name="name">Nama</string>

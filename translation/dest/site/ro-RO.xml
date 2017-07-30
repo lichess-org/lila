@@ -268,7 +268,6 @@
   <string name="thankYou">Mulțumim!</string>
   <string name="ratingX">Rating %s</string>
   <string name="fromGameLink">Din partida %s</string>
-  <string name="startTraining">Începeți antrenamentul</string>
   <string name="continueTraining">Continuați antrenamentul</string>
   <string name="retryThisPuzzle">Reîncercați această problemă</string>
   <string name="thisPuzzleIsCorrect">Această problemă este corectă și interesantă</string>
@@ -276,7 +275,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Comută automat la partida următoare după mutare</string>
   <string name="autoSwitch">Comutare automată</string>
   <string name="puzzles">Probleme de șah</string>
-  <string name="coordinates">Coordonate</string>
   <string name="latestUpdates">Ultimele noutăţi</string>
   <string name="tournamentWinners">Câștigători de turnee</string>
   <string name="name">Nume</string>

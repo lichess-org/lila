@@ -174,6 +174,13 @@
   <string name="passwordReset">Resetuj hasło</string>
   <string name="forgotPassword">Zapomniałeś hasła?</string>
   <string name="rank">Pozycja</string>
+  <string name="rankX">Ranking: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Ranking jest aktualizowany co %s minut</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s zadanie</item>
+    <item quantity="few">%s zadania</item>
+    <item quantity="other">%s zadań</item>
+  </plurals>
   <string name="gamesPlayed">Rozegranych partii</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s gra z Tobą</item>
@@ -371,7 +378,7 @@
   <string name="createdBy">Stworzony przez</string>
   <string name="tournamentIsStarting">Rozpoczyna się turniej</string>
   <string name="tournamentPairingsAreNowClosed">Zakończono kojarzenie par.</string>
-  <string name="standByX">Szukam przeciwnika dla Ciebie, bądź gotów do gry %s!</string>
+  <string name="standByX">Szukam dla Ciebie przeciwnika, bądź gotów do gry %s!</string>
   <string name="youArePlaying">Grasz!</string>
   <string name="winRate">Zwycięstw</string>
   <string name="berserkRate">Berserk</string>
@@ -435,7 +442,6 @@
     <item quantity="other">Rozwiązywane %s razy</item>
   </plurals>
   <string name="fromGameLink">Pochodzi z partii %s</string>
-  <string name="startTraining">Rozpocznij trening</string>
   <string name="continueTraining">Kontynuuj trening</string>
   <string name="retryThisPuzzle">Powtórz to zadanie</string>
   <string name="thisPuzzleIsCorrect">To poprawne i ciekawe zadanie</string>
@@ -453,7 +459,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Przejdź do następnej gry po wykonaniu ruchu</string>
   <string name="autoSwitch">Przełącz po ruchu</string>
   <string name="puzzles">Zadania szachowe</string>
-  <string name="coordinates">Współrzędne pól</string>
   <string name="latestUpdates">Aktualności</string>
   <string name="tournamentWinners">Zwycięzcy turniejów</string>
   <string name="name">Nazwa</string>

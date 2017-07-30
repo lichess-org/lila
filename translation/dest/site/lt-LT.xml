@@ -436,7 +436,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
     <item quantity="other">Žaista %s kartų</item>
   </plurals>
   <string name="fromGameLink">Iš „%s“ partijos</string>
-  <string name="startTraining">Pradėti treniruotę</string>
   <string name="continueTraining">Tęsti treniruotę</string>
   <string name="retryThisPuzzle">Kartoti šią užduotį</string>
   <string name="thisPuzzleIsCorrect">Ši užduotis yra teisinga ir įdomi</string>
@@ -454,7 +453,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="automaticallyProceedToNextGameAfterMoving">Po ėjimo automatiškai pereiti prie kito žaidimo</string>
   <string name="autoSwitch">Automatinis perjungimas</string>
   <string name="puzzles">Užduotys</string>
-  <string name="coordinates">Koordinatės</string>
   <string name="latestUpdates">Paskutiniai atnaujinimai</string>
   <string name="tournamentWinners">Turnyrų nugalėtojai</string>
   <string name="name">Pavadinimas</string>

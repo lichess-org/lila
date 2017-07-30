@@ -327,7 +327,6 @@
     <item quantity="other">Mängitud %s korda</item>
   </plurals>
   <string name="fromGameLink">%s mängudest</string>
-  <string name="startTraining">Alusta treeningut</string>
   <string name="continueTraining">Jätka treeningut</string>
   <string name="retryThisPuzzle">Proovi uuesti</string>
   <string name="thisPuzzleIsCorrect">See ülesanne on korrektne ja huvitav</string>
@@ -343,7 +342,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Pärast käiku avab järgmise mängu</string>
   <string name="autoSwitch">Vaheta automaatselt</string>
   <string name="puzzles">Pusle</string>
-  <string name="coordinates">Koordinaadid</string>
   <string name="latestUpdates">Viimased uuendused</string>
   <string name="tournamentWinners">Turniiri võitjad</string>
   <string name="name">Nimi</string>

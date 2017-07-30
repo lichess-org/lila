@@ -340,7 +340,6 @@
     <item quantity="other">%s alkalommal játszott</item>
   </plurals>
   <string name="fromGameLink">%s játékból</string>
-  <string name="startTraining">Gyakorlás kezdése</string>
   <string name="continueTraining">Gyakorlás folytatása</string>
   <string name="retryThisPuzzle">Próbálja újra</string>
   <string name="thisPuzzleIsCorrect">Ez a feladvány helyes és érdekes</string>
@@ -356,7 +355,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Lépés után automatikus ugrás a következő játékra</string>
   <string name="autoSwitch">Automatikus váltás</string>
   <string name="puzzles">Feladvány</string>
-  <string name="coordinates">Koordináták</string>
   <string name="latestUpdates">Utolsó frissítések</string>
   <string name="tournamentWinners">Verseny győztesek</string>
   <string name="name">Név</string>

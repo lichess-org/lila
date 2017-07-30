@@ -292,7 +292,6 @@
     <item quantity="one">Nanao andrana in-%s</item>
     <item quantity="other">Nanao andrana in-%s</item>
   </plurals>
-  <string name="startTraining">Manomboka ny kotrana</string>
   <string name="continueTraining">Manohy ny kotrana</string>
   <string name="retryThisPuzzle">Hamerina hamaha ny piozila</string>
   <string name="thisPuzzleIsCorrect">Marina ity piozila ity ary mahaliana</string>

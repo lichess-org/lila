@@ -327,7 +327,6 @@
     <item quantity="other">Teflt %s sinnum</item>
   </plurals>
   <string name="fromGameLink">Úr leik %s</string>
-  <string name="startTraining">Byrja að æfa</string>
   <string name="continueTraining">Halda áfram að æfa</string>
   <string name="retryThisPuzzle">Reyna aftur við þessa þraut</string>
   <string name="thisPuzzleIsCorrect">Þessi þraut er rétt og áhugaverð</string>
@@ -343,7 +342,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Skipta sjálfkrafa um skák eftir leik</string>
   <string name="autoSwitch">Skipta sjálfkrafa</string>
   <string name="puzzles">Þrautir</string>
-  <string name="coordinates">Hnit</string>
   <string name="latestUpdates">Nýjustu uppfærslur</string>
   <string name="tournamentWinners">Sigurvegarar mótsins</string>
   <string name="name">Nafn</string>

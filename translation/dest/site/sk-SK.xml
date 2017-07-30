@@ -265,7 +265,6 @@
   <string name="thankYou">Ďakujeme!</string>
   <string name="ratingX">Hodnotenie: %s</string>
   <string name="fromGameLink">Z hry %s</string>
-  <string name="startTraining">Začať tréning</string>
   <string name="continueTraining">Pokračovanie v tréningu</string>
   <string name="retryThisPuzzle">Znova riešiť tento rébus</string>
   <string name="thisPuzzleIsCorrect">Tento rébus je správny a pútavý</string>
@@ -273,7 +272,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">po ťahu automaticky prejdite k ďalšej hre</string>
   <string name="autoSwitch">Prepnite automaticky</string>
   <string name="puzzles">Rébusy</string>
-  <string name="coordinates">Súradnice</string>
   <string name="latestUpdates">Posledné aktualizácie</string>
   <string name="tournamentWinners">Víťazi turnaja</string>
   <string name="name">Meno</string>

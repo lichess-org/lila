@@ -327,7 +327,6 @@
     <item quantity="other">Փորձել են լուծել %s անգամ</item>
   </plurals>
   <string name="fromGameLink">%s խաղից</string>
-  <string name="startTraining">Սկսել մարզվել</string>
   <string name="continueTraining">Շարունակել մարզվել</string>
   <string name="retryThisPuzzle">Կրկին փորձել</string>
   <string name="thisPuzzleIsCorrect">Այս խնդիրը ստույգ է և հետաքրքիր</string>
@@ -343,7 +342,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">հակառակորդի քայլից հետո ավտոմատ կերպով անցնել հաջորդ քայլին</string>
   <string name="autoSwitch">միանգամից անցնել հաջորդ խաղին</string>
   <string name="puzzles">խնդիրներ</string>
-  <string name="coordinates">համակարգ</string>
   <string name="latestUpdates">վերջին թարմացումները</string>
   <string name="tournamentWinners">Մրցաշարի հաղթողները</string>
   <string name="name">անուն</string>

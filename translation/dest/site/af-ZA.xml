@@ -327,7 +327,6 @@
     <item quantity="other">%s keer gespeel</item>
   </plurals>
   <string name="fromGameLink">Van spel %s</string>
-  <string name="startTraining">Begin oefen</string>
   <string name="continueTraining">Aanhou oefen</string>
   <string name="retryThisPuzzle">Probeer kopkrapper weer</string>
   <string name="thisPuzzleIsCorrect">Hierdie kopkrapper is korrek en interessant</string>
@@ -343,7 +342,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Gaan outomaties voort na die volgende spel ná jy skuif</string>
   <string name="autoSwitch">Flink oorskakel</string>
   <string name="puzzles">Kopkrappers</string>
-  <string name="coordinates">Koördinate</string>
   <string name="latestUpdates">Mees onlangste bywerkings</string>
   <string name="tournamentWinners">Toernooi wenners</string>
   <string name="name">Naam</string>

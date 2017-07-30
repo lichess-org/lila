@@ -160,6 +160,11 @@
   <string name="passwordReset">パスワードをリセットする</string>
   <string name="forgotPassword">パスワードを忘れた方はこちら</string>
   <string name="rank">ランク</string>
+  <string name="rankX">ランク: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">ランクは %s 分ごとに更新します。</string>
+  <plurals name="nbPuzzles">
+    <item quantity="other">%s タクティクス</item>
+  </plurals>
   <string name="gamesPlayed">過去の対局</string>
   <plurals name="nbGamesWithYou">
     <item quantity="other">あなたと %s 局対局</item>
@@ -396,7 +401,6 @@
     <item quantity="other">挑戦回数%s回</item>
   </plurals>
   <string name="fromGameLink">ゲーム%sから</string>
-  <string name="startTraining">トレーニングを始める</string>
   <string name="continueTraining">トレーニングを続ける</string>
   <string name="retryThisPuzzle">このパズルに再挑戦する</string>
   <string name="thisPuzzleIsCorrect">このパズルはよく出来ていて興味深い。</string>
@@ -410,7 +414,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">指した後 自動的に次のゲームに進む</string>
   <string name="autoSwitch">自動スイッチ</string>
   <string name="puzzles">タクティクス</string>
-  <string name="coordinates">マスの位置</string>
   <string name="latestUpdates">最新情報</string>
   <string name="tournamentWinners">トーナメント優勝者</string>
   <string name="name">チーム名</string>
@@ -546,7 +549,7 @@
   <string name="error.email_different">すでにあなたのメールアドレスになっています</string>
   <string name="blindfoldChess">目隠しチェス</string>
   <string name="zenMode">集中モード</string>
-  <string name="moveConfirmation">着手の前に確認する</string>
+  <string name="moveConfirmation">着手を確定</string>
   <string name="inCorrespondenceGames">通信チェスのみ</string>
   <string name="ifRatingIsPlusMinusX">レーティング差が±%s以内のとき</string>
   <string name="onlyFriends">友達のみ</string>

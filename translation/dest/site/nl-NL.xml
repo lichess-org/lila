@@ -407,7 +407,6 @@
     <item quantity="other">%s keer gespeeld</item>
   </plurals>
   <string name="fromGameLink">Van partij %s</string>
-  <string name="startTraining">Begin training</string>
   <string name="continueTraining">Ga verder met de training</string>
   <string name="retryThisPuzzle">Probeer het opnieuw</string>
   <string name="thisPuzzleIsCorrect">De puzzel is correct en interessant</string>
@@ -423,7 +422,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Automatisch doorgaan naar de volgende partij na uw zet</string>
   <string name="autoSwitch">Automatische switch</string>
   <string name="puzzles">Puzzels</string>
-  <string name="coordinates">Coördinaten</string>
   <string name="latestUpdates">Laatste updates</string>
   <string name="tournamentWinners">Toernooiwinnaars</string>
   <string name="name">Naam</string>

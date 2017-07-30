@@ -181,6 +181,12 @@
   <string name="passwordReset">Ponovna nastavitev gesla</string>
   <string name="forgotPassword">Ste pozabili geslo?</string>
   <string name="rank">Rang</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s problem</item>
+    <item quantity="two">%s problema</item>
+    <item quantity="few">%s probleme</item>
+    <item quantity="other">%s problemov</item>
+  </plurals>
   <string name="gamesPlayed">Odigranih iger</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s partijo s teboj</item>
@@ -455,7 +461,6 @@
     <item quantity="other">Problem odigran %s krat</item>
   </plurals>
   <string name="fromGameLink">Iz igre %s</string>
-  <string name="startTraining">Začni z reševanjem</string>
   <string name="continueTraining">Nadaljuj z reševanjem</string>
   <string name="retryThisPuzzle">Ponovno reši ta problem</string>
   <string name="thisPuzzleIsCorrect">Ta problem je pravilen in zanimiv</string>
@@ -475,7 +480,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Po vsaki potezi samodejno preklopi na naslednjo partijo</string>
   <string name="autoSwitch">Samodejno preklopi</string>
   <string name="puzzles">Problemi</string>
-  <string name="coordinates">Koordinate</string>
   <string name="latestUpdates">Zadnje objave na blogu</string>
   <string name="tournamentWinners">Zmagovalci turnirjev</string>
   <string name="name">Ime</string>

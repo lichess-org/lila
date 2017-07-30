@@ -436,7 +436,6 @@ računalnu analizu, pričaonicu partije i URL za dijeljenje.</string>
     <item quantity="other">Odigrano %s puta</item>
   </plurals>
   <string name="fromGameLink">Iz partije %s</string>
-  <string name="startTraining">Započni trening</string>
   <string name="continueTraining">Nastavi trening</string>
   <string name="retryThisPuzzle">Pokušaj ponovo ovaj problem</string>
   <string name="thisPuzzleIsCorrect">Ovaj problem je točan i zanimljiv</string>
@@ -454,7 +453,6 @@ računalnu analizu, pričaonicu partije i URL za dijeljenje.</string>
   <string name="automaticallyProceedToNextGameAfterMoving">Automatski prebaci na sljedeću partiju nakon odigranog poteza</string>
   <string name="autoSwitch">Prebaci automatski</string>
   <string name="puzzles">Problemi</string>
-  <string name="coordinates">Koordinate</string>
   <string name="latestUpdates">Zadnje obavijesti</string>
   <string name="tournamentWinners">Pobjednici turnira</string>
   <string name="name">Ime</string>

@@ -260,7 +260,6 @@
   <string name="thankYou">Mòran taing!</string>
   <string name="ratingX">Rangachadh: %s</string>
   <string name="fromGameLink">On gheama %s</string>
-  <string name="startTraining">Tòisich air an trèanadh</string>
   <string name="continueTraining">Lean air adhart leis an trèanadh</string>
   <string name="retryThisPuzzle">Feuch ris an tòimhseachan seo a-rithist</string>
   <string name="thisPuzzleIsCorrect">Tha an tòimhseachan seo ceart is inntinneach</string>
@@ -268,7 +267,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Rach dhan ath-gheama gu fèin-obrachail às dèidh gluasad</string>
   <string name="autoSwitch">Gearr leum gu fèin-obrachail</string>
   <string name="puzzles">Tòimhseachain</string>
-  <string name="coordinates">Co-chomharran</string>
   <string name="latestUpdates">Na naidheachdan as ùire</string>
   <string name="tournamentWinners">Feadhainn a bhuannaich fèill-chluich</string>
   <string name="name">Ainm</string>

@@ -325,7 +325,6 @@
     <item quantity="other">Одиграно %s пати</item>
   </plurals>
   <string name="fromGameLink">Од игра на %s</string>
-  <string name="startTraining">почнете со обука</string>
   <string name="continueTraining">продолжи обуката</string>
   <string name="retryThisPuzzle">Пробај повторно оваа загатка</string>
   <string name="thisPuzzleIsCorrect">Оваа загатка е точно и интересно</string>
@@ -340,7 +339,6 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">По влечењето потег преминете автоматски кон наредната игра</string>
   <string name="puzzles">Проблеми</string>
-  <string name="coordinates">Координати</string>
   <string name="name">Име</string>
   <string name="description">Опис</string>
   <string name="help">Помош</string>

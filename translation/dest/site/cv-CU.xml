@@ -308,7 +308,6 @@
     <item quantity="other">%s хут выљанӑ</item>
   </plurals>
   <string name="fromGameLink">%s вӑйӑран</string>
-  <string name="startTraining">Вӗренев пуҫла</string>
   <string name="continueTraining">Хӑнӑхтарӑва малалла тӑс</string>
   <string name="retryThisPuzzle">Лартӑм ҫӗнерен шутла</string>
   <string name="thisPuzzleIsCorrect">Ку лартӑм тӗрӗс тата кӑсӑклӑ</string>
@@ -322,7 +321,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Ҫӳрени хыҫҫӑн тепӗр вӑйӑ патне хӑй халлӗн куҫ</string>
   <string name="autoSwitch">Хӑй халлӗн куҫарас</string>
   <string name="puzzles">Лартӑмсем</string>
-  <string name="coordinates">Координатсем</string>
   <string name="latestUpdates">Кайранхи ҫӗнетнисем</string>
   <string name="tournamentWinners">Турнирти ҫӗнтерӳҫсем</string>
   <string name="name">Йат</string>
