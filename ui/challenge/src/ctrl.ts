@@ -1,9 +1,10 @@
 import * as xhr from './xhr'
 import { Ctrl, ChallengeOpts, ChallengeData, ChallengeUser } from './interfaces'
 
-export default function(opts: ChallengeOpts, data: ChallengeData): Ctrl {
+export default function(opts: ChallengeOpts, data: ChallengeData, redraw: () => void): Ctrl {
 
   let trans: Trans = (key: string) => key;
+  let redirecting = false;
 
   function update(d: ChallengeData) {
     data = d;
@@ -56,6 +57,11 @@ export default function(opts: ChallengeOpts, data: ChallengeData): Ctrl {
           xhr.cancel(id);
         }
       });
+    },
+    redirecting: () => redirecting,
+    onRedirect() {
+      redirecting = true;
+      window.lichess.raf(redraw);
     }
   };
 };

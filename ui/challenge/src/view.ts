@@ -3,7 +3,9 @@ import { VNode } from 'snabbdom/vnode'
 import { Ctrl, Challenge, ChallengeData, ChallengeDirection, ChallengeUser, TimeControl } from './interfaces'
 
 export function loaded(ctrl: Ctrl): VNode {
-  return h('div#challenge_app.links.dropdown.rendered', renderContent(ctrl));
+  return ctrl.redirecting() ?
+  h('div#challenge_app.dropdown', h('div.initiating', spinner())) :
+  h('div#challenge_app.links.dropdown.rendered', renderContent(ctrl));
 }
 
 export function loading(): VNode {
@@ -73,19 +75,16 @@ function inButtons(ctrl: Ctrl, c: Challenge): VNode[] {
           'type': 'submit',
           'data-icon': 'E',
           title: trans('accept')
-        }
+        },
+        hook: onClick(ctrl.onRedirect)
       })]),
-    h('button.submit.button.decline', {
+    h('button.button.decline', {
       attrs: {
         'type': 'submit',
         'data-icon': 'L',
         title: trans('decline')
       },
-      hook: {
-        insert: (vnode: VNode) => {
-          (vnode.elm as HTMLElement).addEventListener('click', () => ctrl.decline(c.id));
-        }
-      }
+      hook: onClick(() => ctrl.decline(c.id))
     })
   ];
 }
@@ -108,11 +107,7 @@ function outButtons(ctrl: Ctrl, c: Challenge) {
         'data-icon': 'L',
         title: trans('cancel')
       },
-      hook: {
-        insert: (vnode: VNode) => {
-          (vnode.elm as HTMLElement).addEventListener('click', () => ctrl.cancel(c.id));
-        }
-      }
+      hook: onClick(() => ctrl.cancel(c.id))
     })
   ];
 }
@@ -138,7 +133,7 @@ function renderUser(u?: ChallengeUser): VNode {
     h('i.line' + (u.patron ? '.patron' : '')),
     h('name', (u.title ? u.title + ' ' : '') + u.name + ' (' + rating + ') '),
     h('signal', u.lag === undefined ? [] : [1, 2, 3, 4].map((i) => h('i', {
-        class: { off: u.lag! < i}
+      class: { off: u.lag! < i}
     })))
   ]);
 }
@@ -159,4 +154,20 @@ function empty(): VNode {
       'data-icon': '',
     }
   }, 'No challenges.');
+}
+
+function onClick(f: (e: Event) => void) {
+  return {
+    insert: (vnode: VNode) => {
+      (vnode.elm as HTMLElement).addEventListener('click', f);
+    }
+  };
+}
+
+function spinner() {
+  return h('div.spinner', [
+    h('svg', { attrs: { viewBox: '0 0 40 40' } }, [
+      h('circle', {
+        attrs: { cx: 20, cy: 20, r: 18, fill: 'none' }
+      })])]);
 }

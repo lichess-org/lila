@@ -1,8 +1,8 @@
 export interface ChallengeOpts {
   data?: ChallengeData
-  show: () => void
-  setCount: (nb: number) => void
-  pulse: () => void
+  show(): void
+  setCount(nb: number): void
+  pulse(): void
 }
 
 export interface Ctrl {
@@ -11,6 +11,8 @@ export interface Ctrl {
   trans(): Trans
   decline(id: string): void
   cancel(id: string): void
+  onRedirect(): void
+  redirecting(): boolean
 }
 
 type ChallengeStatus = 'created' | 'offline' | 'canceled' | 'declined' | 'accepted';

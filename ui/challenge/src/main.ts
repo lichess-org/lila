@@ -24,7 +24,7 @@ export default function LichessChallenge(element: Element, opts: ChallengeOpts) 
   function update(d: ChallengeData) {
     if (ctrl) ctrl.update(d);
     else {
-      ctrl = makeCtrl(opts, d);
+      ctrl = makeCtrl(opts, d, redraw);
       element.innerHTML = '';
     }
     redraw();
