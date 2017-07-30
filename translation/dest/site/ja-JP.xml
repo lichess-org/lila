@@ -354,6 +354,7 @@
   <string name="averageOpponent">対戦相手の平均</string>
   <string name="membersOnly">会員限定</string>
   <string name="boardEditor">盤面入力</string>
+  <string name="popularOpenings">人気のオープニング</string>
   <string name="startPosition">開始局面にする</string>
   <string name="clearBoard">盤面をクリアする</string>
   <string name="savePosition">盤面を保存</string>
@@ -576,6 +577,7 @@
   <string name="sourceCode">ソースコード</string>
   <string name="simultaneousExhibitions">同時対局</string>
   <string name="host">ホスト</string>
+  <string name="hostColorX">ホストの色: %s</string>
   <string name="createdSimuls">新たな同時対局</string>
   <string name="hostANewSimul">新たな同時対局を作る</string>
   <string name="noSimulFound">同時対局が見つかりません</string>
@@ -678,6 +680,10 @@
   <string name="yourScore">通算成績：%s</string>
   <string name="language">言語</string>
   <string name="background">背景</string>
+  <string name="light">明るい</string>
+  <string name="dark">暗い</string>
+  <string name="transparent">透明</string>
+  <string name="backgroundImageUrl">背景画像URL:</string>
   <string name="boardGeometry">盤の表示形式</string>
   <string name="boardTheme">盤のデザイン</string>
   <string name="boardSize">盤のサイズ</string>
