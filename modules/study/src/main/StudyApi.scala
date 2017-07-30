@@ -566,9 +566,9 @@ final class StudyApi(
     }
 
   private def sequenceStudy(studyId: Study.Id)(f: Study => Funit): Funit =
-    byId(studyId) flatMap {
-      _ ?? { study =>
-        sequence(studyId)(f(study))
+    sequence(studyId) {
+      byId(studyId) flatMap {
+        _ ?? { f(_) }
       }
     }
 
