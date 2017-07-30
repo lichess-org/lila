@@ -373,6 +373,7 @@
   <string name="averageOpponent">Genomsnittlig motståndare</string>
   <string name="membersOnly">Endast medlemmar</string>
   <string name="boardEditor">Brädeditor</string>
+  <string name="popularOpenings">Populära öppningar</string>
   <string name="startPosition">Startposition</string>
   <string name="clearBoard">Rensa bräde</string>
   <string name="savePosition">Spara ställning</string>
@@ -601,6 +602,7 @@
   <string name="sourceCode">Källkod</string>
   <string name="simultaneousExhibitions">Simultanschack</string>
   <string name="host">Värd</string>
+  <string name="hostColorX">Värdens färg: %s</string>
   <string name="createdSimuls">Nyligen skapade simultanmatcher</string>
   <string name="hostANewSimul">Skapa ny simultan</string>
   <string name="noSimulFound">Denna simultan hittades ej</string>
@@ -705,6 +707,10 @@
   <string name="yourScore">Dina poäng: %s</string>
   <string name="language">Språk</string>
   <string name="background">Bakgrund</string>
+  <string name="light">Ljus</string>
+  <string name="dark">Mörk</string>
+  <string name="transparent">Genomskinlig</string>
+  <string name="backgroundImageUrl">Bakgrundsbild URL:</string>
   <string name="boardGeometry">Brädets geometri</string>
   <string name="boardTheme">Brädets tema</string>
   <string name="boardSize">Brädets storlek</string>
