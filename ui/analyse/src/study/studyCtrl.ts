@@ -5,7 +5,7 @@ import { ctrl as chapterCtrl } from './studyChapters';
 import practiceCtrl from './practice/studyPracticeCtrl';
 import { ctrl as commentFormCtrl } from './commentForm';
 import { ctrl as glyphFormCtrl } from './studyGlyph';
-import { ctrl as studyFormCtrl } from './studyForm';
+import { ctrl as studyFormCtrl, StudyFormController } from './studyForm';
 import { ctrl as notifCtrl } from './notif';
 import { ctrl as shareCtrl } from './studyShare';
 import { ctrl as tagsCtrl } from './studyTags';
@@ -43,7 +43,7 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
 
   const notif = notifCtrl(redraw);
 
-  const form = studyFormCtrl(function(d, isNew) {
+  const form: StudyFormController = studyFormCtrl((d, isNew) => {
     send("editStudy", d);
     if (isNew && data.chapter.setup.variant.key === 'standard' && ctrl.mainline.length === 1 && !data.chapter.setup.fromFen)
       chapters.newForm.openInitial();

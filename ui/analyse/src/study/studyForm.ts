@@ -1,7 +1,23 @@
 import { h } from 'snabbdom'
+import { VNode } from 'snabbdom/vnode'
 import * as dialog from './dialog';
-import { prop } from 'common';
+import { prop, Prop } from 'common';
 import { bind, bindSubmit } from '../util';
+import { StudyData } from './interfaces';
+import { MaybeVNodes } from '../interfaces';
+
+export interface StudyFormController {
+  open: Prop<boolean>;
+  openIfNew(): void;
+  save(data: FormData, isNew: boolean): void;
+  getData(): StudyData;
+  isNew(): boolean;
+  redraw(): void;
+}
+
+interface FormData {
+  [key: string]: string;
+}
 
 interface Select {
   key: string;
@@ -23,7 +39,7 @@ const userSelectionChoices: Choice[] = [
   ['everyone', 'Everyone']
 ];
 
-function select(s: Select) {
+function select(s: Select): MaybeVNodes {
   return [
     h('select#study-' + s.key, s.choices.map(function(o) {
       return h('option', {
@@ -40,13 +56,13 @@ function select(s: Select) {
   ];
 };
 
-export function ctrl(save, getData, redraw: () => void) {
+export function ctrl(save: (data: FormData, isNew: boolean) => void, getData: () => StudyData, redraw: () => void): StudyFormController {
 
   const initAt = Date.now();
 
-  function isNew() {
-    var d = getData();
-    return d.from === 'scratch' && d.isNew && Date.now() - initAt < 9000;
+  function isNew(): boolean {
+    const d = getData();
+    return d.from === 'scratch' && !!d.isNew && Date.now() - initAt < 9000;
   }
 
   const open = prop(false);
@@ -56,7 +72,7 @@ export function ctrl(save, getData, redraw: () => void) {
     openIfNew() {
       if (isNew()) open(true);
     },
-    save(data, isNew) {
+    save(data: FormData, isNew: boolean) {
       save(data, isNew);
       open(false);
     },
@@ -66,7 +82,7 @@ export function ctrl(save, getData, redraw: () => void) {
   };
 }
 
-export function view(ctrl) {
+export function view(ctrl: StudyFormController): VNode {
   const data = ctrl.getData();
   const isNew = ctrl.isNew();
   const updateName = function(vnode, isUpdate) {
@@ -86,8 +102,8 @@ export function view(ctrl) {
       h('h2', (isNew ? 'Create' : 'Edit') + ' study'),
       h('form.material.form.align-left', {
         hook: bindSubmit(e => {
-          const obj = {};
-          'name visibility computer explorer cloneable chat sticky'.split(' ').forEach(function(n) {
+          const obj: FormData = {};
+          'name visibility computer explorer cloneable chat sticky'.split(' ').forEach(n => {
             obj[n] = ((e.target as HTMLElement).querySelector('#study-' + n) as HTMLInputElement).value;
           });
           ctrl.save(obj, isNew);
@@ -145,7 +161,7 @@ export function view(ctrl) {
               ['true', 'Yes: keep everyone on the same position'],
               ['false', 'No: let people browse freely']
             ],
-            selected: data.settings.sticky
+            selected: '' + data.settings.sticky
           })),
         ]),
         dialog.button(isNew ? 'Start' : 'Save')

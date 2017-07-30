@@ -57,7 +57,7 @@ export interface StudyData {
   members: StudyMemberMap;
   position: Position;
   ownerId: string;
-  settings: any;
+  settings: StudySettings;
   visibility: 'public' | 'private';
   createdAt: number;
   from: string;
@@ -67,6 +67,14 @@ export interface StudyData {
   features: StudyFeatures;
   chapters: StudyChapterMeta[]
   chapter: StudyChapter;
+}
+
+export interface StudySettings {
+  computer: string;
+  explorer: string;
+  cloneable: string;
+  chat: string;
+  sticky: Boolean;
 }
 
 export interface ReloadData {

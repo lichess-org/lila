@@ -24,7 +24,8 @@ function buttons(root: AnalyseController): VNode {
   const showSticky = ctrl.data.features.sticky && (canContribute || ctrl.vm.behind);
   return h('div.study_buttons', [
     h('div.member_buttons', [
-      showSticky ? h('a.button.mode.hint--top', {
+      // distinct classes (sync, write) allow snabbdom to differentiate buttons
+      showSticky ? h('a.button.mode.sync.hint--top', {
         attrs: { 'data-hint': 'All sync members remain on the same position' },
         class: { on: ctrl.vm.mode.sticky },
         hook: bind('click', ctrl.toggleSticky)
@@ -32,7 +33,7 @@ function buttons(root: AnalyseController): VNode {
         ctrl.vm.behind ? h('span.behind', ctrl.vm.behind) : h('i.is'),
         'Sync'
       ]) : null,
-      ctrl.members.canContribute() ? h('a.button.mode.hint--top', {
+      ctrl.members.canContribute() ? h('a.button.mode.write.hint--top', {
         attrs: { 'data-hint': 'Write changes to the server' },
         class: {on: ctrl.vm.mode.write },
         hook: bind('click', ctrl.toggleWrite)
