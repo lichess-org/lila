@@ -61,6 +61,9 @@
   <string name="keepYourPiecesSafe">Держите ваши фигуры под защитой</string>
   <string name="protectionIntro">Определите, какие ваши фигуры атакует противники, и защитите их!</string>
   <string name="combatComplete">Поздравляем! Теперь вы знаете, как сражаться с шахматными фигурами!</string>
+  <string name="checkInOne">Шах</string>
+  <string name="attackTheOpponentsKing">Атака на короля</string>
+  <string name="checkInOneIntro">Чтобы объявить шах, нападайте на короля противника. Он должен будет защищаться!</string>
   <string name="mateInOne">Мат в один ход</string>
   <string name="castling">Рокировка</string>
   <string name="practice">Практика</string>
