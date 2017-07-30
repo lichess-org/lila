@@ -278,10 +278,7 @@ lichess.topMenuIntent = function() {
             // Awesome! Done in five seconds, can go home.
             prev.select();
             document.execCommand('copy');
-          } else if (window.clipboardData) {
-            // For a certain specific Internet Explorer version *cough cough IE8*
-            window.clipboardData.setData('Text', prev.val());
-          } else throw 'nope';
+          } else throw '';
           $(this).attr('data-icon', 'E');
         } catch (e) {
           usePrompt();
