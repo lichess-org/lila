@@ -374,6 +374,8 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="averageOpponent">Average opponent</string>
   <string name="membersOnly">Members only</string>
   <string name="boardEditor">Board editor</string>
+  <string name="setTheBoard">Set the board</string>
+  <string name="popularOpenings">Popular openings</string>
   <string name="startPosition">Starting position</string>
   <string name="clearBoard">Clear board</string>
   <string name="savePosition">Save position</string>
@@ -602,6 +604,7 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="sourceCode">Source Code</string>
   <string name="simultaneousExhibitions">Simultaneous exhibitions</string>
   <string name="host">Host</string>
+  <string name="hostColorX">Host color: %s</string>
   <string name="createdSimuls">Newly created simuls</string>
   <string name="hostANewSimul">Host a new simul</string>
   <string name="noSimulFound">Simul not found</string>
@@ -706,6 +709,10 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="yourScore">Your score: %s</string>
   <string name="language">Language</string>
   <string name="background">Background</string>
+  <string name="light">Light</string>
+  <string name="dark">Dark</string>
+  <string name="transparent">Transparent</string>
+  <string name="backgroundImageUrl">Background image URL:</string>
   <string name="boardGeometry">Board geometry</string>
   <string name="boardTheme">Board theme</string>
   <string name="boardSize">Board size</string>
