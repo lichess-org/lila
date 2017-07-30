@@ -64,14 +64,14 @@ function controls(ctrl, fen) {
           ctrl.loadNewFen(e.target.value);
         }
       }, [
-        optgroup('Set the board', [
+        optgroup(ctrl.trans('setTheBoard'), [
           currentPosition ? null : m('option', {
             value: fen,
             selected: true
-          }, '- Position -'),
+          }, '- ' + ctrl.trans('boardEditor') + ' -'),
           ctrl.extraPositions.map(position2option)
         ]),
-        optgroup('Popular openings',
+        optgroup(ctrl.trans('popularOpenings'),
           ctrl.data.positions.map(position2option)
         )
       ]) : null

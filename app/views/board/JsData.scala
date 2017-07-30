@@ -29,10 +29,13 @@ object JsData extends lila.Steroids {
     ),
     "is3d" -> ctx.pref.is3d,
     "i18n" -> i18nJsObject(
+      I18nKeys.setTheBoard,
+      I18nKeys.boardEditor,
       I18nKeys.startPosition,
       I18nKeys.clearBoard,
       I18nKeys.flipBoard,
       I18nKeys.loadPosition,
+      I18nKeys.popularOpenings,
       I18nKeys.castling,
       I18nKeys.whiteCastlingKingside,
       I18nKeys.blackCastlingKingside,
