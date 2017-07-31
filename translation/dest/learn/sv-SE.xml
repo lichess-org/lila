@@ -8,4 +8,20 @@
   <string name="chessPieces">Schackpjäser</string>
   <string name="theRook">Tornet</string>
   <string name="itMovesInStraightLines">Den rör sig i raka linjer</string>
+  <string name="rookIntro">Tornet är en kraftfull pjäs. Är du redo att förflytta det?</string>
+  <string name="rookGoal">Klicka på tornet att föra den till stjärnan!</string>
+  <string name="grabAllTheStars">Fånga alla stjärnor!</string>
+  <string name="theFewerMoves">Färre rörelser du gör desto fler poäng vinner du!</string>
+  <string name="rookComplete">Grattis! Du behärskar framgångsrikt tornet.</string>
+  <string name="theBishop">Löparen</string>
+  <string name="itMovesDiagonally">Den rör sig diagonalt</string>
+  <string name="bishopComplete">Grattis! Du kan behärska löparen.</string>
+  <string name="theQueen">Drottningen</string>
+  <string name="queenCombinesRookAndBishop">Drottning = torn + löpare</string>
+  <string name="theKing">Kungen</string>
+  <string name="theMostImportantPiece">Den viktigaste pjäsen</string>
+  <string name="lastOne">Sista!</string>
+  <string name="theKnight">Springaren</string>
+  <string name="itMovesInAnLShape">Den rör sig i en L-form</string>
+  <string name="knightIntro">Här är en utmaning för dig. Springaren är... en knepig pjäs.</string>
 </resources>
