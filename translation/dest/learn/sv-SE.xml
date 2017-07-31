@@ -44,9 +44,13 @@
   <string name="escape">Du är under attack! Fly hotet!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Låt dem inte ta någon oförsvarad pjäs!</string>
   <string name="combat">Strid</string>
+  <string name="captureAndDefendPieces">Slå och försvara pjäser</string>
   <string name="combatComplete">Grattis! Du vet hur man slåss med schackpjäser!</string>
   <string name="checkInOne">Schack i ett drag</string>
   <string name="attackTheOpponentsKing">Attackera motståndarens kung</string>
+  <string name="defendYourKing">Försvara din kung</string>
+  <string name="outOfCheckIntro">Du är i schack! Du måste fly eller blockera attacken.</string>
+  <string name="escapeWithTheKing">Fly med kungen!</string>
   <string name="outOfCheckComplete">Grattis! Din kung kan aldrig tas, se till att du kan försvara dig mot schack!</string>
   <string name="mateInOne">Matt i ett drag</string>
   <string name="defeatTheOpponentsKing">Besegra motståndarens kung</string>
