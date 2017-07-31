@@ -3,13 +3,14 @@ import { Chessground } from 'chessground';
 import LobbyController from '../ctrl';
 
 function timer(pov) {
+  const date = Date.now() + pov.secondsLeft * 1000;
   return h('time.timeago', {
     hook: {
       insert(vnode) {
-        (vnode.elm as HTMLElement).setAttribute('datetime', '' + (Date.now() + pov.secondsLeft * 1000));
+        (vnode.elm as HTMLElement).setAttribute('datetime', '' + date);
       }
     }
-  });
+  }, window.lichess.timeago.format(date));
 }
 
 export default function(ctrl: LobbyController) {
