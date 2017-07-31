@@ -167,6 +167,7 @@
   <string name="passwordReset">Réinitialisation du mot de passe</string>
   <string name="forgotPassword">Mot de passe oublié ?</string>
   <string name="rank">Rang</string>
+  <string name="rankIsUpdatedEveryXMinutes">Le classement est mis à jour toutes les %s minutes</string>
   <string name="gamesPlayed">Parties jouées</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s partie avec vous</item>
@@ -231,6 +232,10 @@
   <plurals name="nbDraws">
     <item quantity="one">%s nulle</item>
     <item quantity="other">%s nulles</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s en cours</item>
+    <item quantity="other">%s en cours</item>
   </plurals>
   <string name="exportGames">Exporter les parties</string>
   <string name="ratingRange">Classement de vos adversaires</string>
@@ -363,6 +368,7 @@
   <string name="membersOnly">Membres seulement</string>
   <string name="boardEditor">Éditeur de partie</string>
   <string name="setTheBoard">Placer une position</string>
+  <string name="popularOpenings">Ouvertures courantes</string>
   <string name="startPosition">Position de départ</string>
   <string name="clearBoard">Vider l\'échiquier</string>
   <string name="savePosition">Enregistrer la position</string>
