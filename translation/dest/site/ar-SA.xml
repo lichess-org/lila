@@ -90,7 +90,14 @@
     <item quantity="other">أي التقاط مستقبلي أو نقل بيدق في %s نصف-نقلة (يتم تصفير عداد ال 50 نقلة)</item>
   </plurals>
   <string name="noGameFound">لم يتم العثور على مباريات</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">أترغب في ضم مباريات أكثر من قائمة التفضيلات؟</string>
   <string name="openingExplorer">مستكشف الافتتاحيات</string>
+  <string name="xOpeningExplorer">مستكشف افتتاحيات %s</string>
+  <string name="winPreventedBy50MoveRule">قاعدة ال 50 نقلة منعت الفوز</string>
+  <string name="lossSavedBy50MoveRule">قاعدة ال 50 نقلة منعت الخسارة</string>
+  <string name="allSet">إعتمد كل الإعدادات!</string>
+  <string name="importPgn">استيراد PGN</string>
+  <string name="delete">حذف</string>
   <string name="blunders">أخطاء فادحة</string>
   <string name="mistakes">أخطاء</string>
   <string name="inaccuracies">نقلات غير دقيقة</string>
