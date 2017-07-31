@@ -735,6 +735,9 @@
   <string name="yourScore">Twój wynik: %s</string>
   <string name="language">Język</string>
   <string name="background">Tło</string>
+  <string name="light">Jasne</string>
+  <string name="dark">Ciemne</string>
+  <string name="transparent">Przezroczyste</string>
   <string name="backgroundImageUrl">Link do obrazka w tle:</string>
   <string name="boardGeometry">Szachownica</string>
   <string name="boardTheme">Kolory pól</string>
