@@ -48,7 +48,6 @@ object LameName {
       "slut",
       "whore",
       "nazi",
-      "mortez",
       "buttsex",
       "retard",
       "pedo",
