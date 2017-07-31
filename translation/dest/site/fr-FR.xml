@@ -362,6 +362,7 @@
   <string name="averageOpponent">Opposition moyenne</string>
   <string name="membersOnly">Membres seulement</string>
   <string name="boardEditor">Éditeur de partie</string>
+  <string name="setTheBoard">Placer une position</string>
   <string name="startPosition">Position de départ</string>
   <string name="clearBoard">Vider l\'échiquier</string>
   <string name="savePosition">Enregistrer la position</string>
@@ -694,6 +695,10 @@
   <string name="yourScore">Votre score : %s</string>
   <string name="language">Langue</string>
   <string name="background">Arrière-plan</string>
+  <string name="light">Lumineux</string>
+  <string name="dark">Sombre</string>
+  <string name="transparent">Transparent</string>
+  <string name="backgroundImageUrl">URL de l\'image de fond :</string>
   <string name="boardGeometry">Forme de l\'échiquier</string>
   <string name="boardTheme">Thème de l\'échiquier</string>
   <string name="boardSize">Taile de l\'échiquier</string>
