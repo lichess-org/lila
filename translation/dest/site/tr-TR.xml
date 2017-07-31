@@ -57,13 +57,44 @@
   <string name="inLocalBrowser">yerel tarayıcı üzerinde</string>
   <string name="toggleLocalEvaluation">Yerel analizi aç/kapat</string>
   <string name="move">Hamle</string>
+  <string name="variantLoss">Kayıp devam yolu</string>
+  <string name="variantWin">Kazanç devam yolu</string>
+  <string name="insufficientMaterial">Yetersiz taş</string>
   <string name="pawnMove">Piyon hamlesi</string>
+  <string name="capture">Taş yeme</string>
   <string name="close">Kapat</string>
+  <string name="winning">Kazanç</string>
+  <string name="losing">Kayıp</string>
+  <string name="drawn">Berabere</string>
+  <string name="unknown">Belirsiz</string>
+  <string name="database">Veritabanı</string>
   <string name="whiteDrawBlack">Beyaz / Berabere / Siyah</string>
+  <string name="averageRatingX">Ortalama puan: %s</string>
+  <string name="recentGames">Son oyunlar</string>
+  <string name="topGames">En yüksek puanlı oyunlar</string>
+  <string name="masterDbExplanation">%2$s yılından %3$s yılına kadar %1$s+ FİDE puanına sahip oyuncular tarafından tahta üzerinde oynanmış 2 milyon oyun</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">%s yarım hamle sonra mat</item>
+    <item quantity="other">%s yarım hamle sonra mat</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">%s yarım hamle sonra yapılacak taş yeme veya piyon hamlesi (50 hamle kuralının sıfırlanmasına kalan uzaklık)</item>
+    <item quantity="other">%s yarım hamle sonra yapılacak taş yeme veya piyon hamlesi (50 hamle kuralının sıfırlanmasına kalan uzaklık)</item>
+  </plurals>
   <string name="noGameFound">Oyun bulunamadı</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Tercih ayarları değiştirilirse belki daha fazla oyun gösterilebilir?</string>
   <string name="openingExplorer">Açılış kâşifi</string>
+  <string name="xOpeningExplorer">%s açılış kâşifi</string>
+  <string name="winPreventedBy50MoveRule">Galibiyet 50 hamle kuralı yüzünden engellendi</string>
+  <string name="lossSavedBy50MoveRule">Mağlubiyet 50 hamle kuralı sayesinde kurtarıldı</string>
   <string name="allSet">Her şey tamam!</string>
+  <string name="importPgn">PGN\'yi içe aktar</string>
+  <string name="delete">Sil</string>
+  <string name="deleteThisImportedGame">İçe aktarılmış bu oyun silinsin mi?</string>
+  <string name="replayMode">Tekrar modu</string>
+  <string name="realtimeReplay">Gerçek Zamanlı</string>
   <string name="byCPL">SPK ile</string>
+  <string name="openStudy">Çalışmayı aç</string>
   <string name="enable">Etkinleştir</string>
   <string name="bestMoveArrow">En iyi hamle imleci</string>
   <string name="evaluationGauge">Değerlendirme çubuğu</string>
@@ -75,7 +106,7 @@
   <string name="blunders">Vahim hatalar</string>
   <string name="mistakes">Hatalar</string>
   <string name="inaccuracies">Kusurlu hamleler</string>
-  <string name="moveTimes">Harcanan süreler</string>
+  <string name="moveTimes">Hamle zamanları</string>
   <string name="flipBoard">Tahtayı döndür</string>
   <string name="threefoldRepetition">Üç kez hamle tekrarı</string>
   <string name="claimADraw">Beraberlik talep et</string>
@@ -136,6 +167,12 @@
   <string name="passwordReset">Şifreyi yenile</string>
   <string name="forgotPassword">Şifremi unuttum</string>
   <string name="rank">Sıralama</string>
+  <string name="rankX">Sıralama: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Sıralama her %s dakikada bir güncellenir</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s bulmaca</item>
+    <item quantity="other">%s bulmaca</item>
+  </plurals>
   <string name="gamesPlayed">Oynanan oyunlar</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">Sizinle oynadığı oyun sayısı: %s</item>
@@ -201,6 +238,10 @@
     <item quantity="one">%s kez berabere kaldı</item>
     <item quantity="other">%s kez berabere kaldı</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s oynuyor</item>
+    <item quantity="other">%s oynuyor</item>
+  </plurals>
   <string name="exportGames">Oyunları indir</string>
   <string name="ratingRange">Puan aralığı</string>
   <plurals name="giveNbSeconds">
@@ -210,6 +251,7 @@
   <string name="giveMoreTime">Süre ver</string>
   <string name="thisPlayerUsesChessComputerAssistance">Bu oyuncu bir satranç programından yardım alıyor.</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Bu oyuncu puanını sahte bir şekilde artırıyor/azaltıyor</string>
+  <string name="openingExplorerAndTablebase">Açılış kâşifi &amp; oyunsonu analizi</string>
   <string name="takeback">Hamleni geri al.</string>
   <string name="proposeATakeback">Hamleyi geri almayı teklif et.</string>
   <string name="takebackPropositionSent">Hamleyi geri alma teklifi gönderildi.</string>
@@ -258,6 +300,7 @@
   <string name="fromPosition">Özel pozisyondan</string>
   <string name="continueFromHere">Bu pozisyondan devam et</string>
   <string name="importGame">Oyun yükle</string>
+  <string name="importGameExplanation">Bir oyun PGN\'si yapıştırdığınız zaman, göz atılabilir bir tekrar, bilgisayar analizi, oyun sohbeti ve paylaşılabilir bir URL sahibi olursunuz.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Yüklenen oyunlar</item>
     <item quantity="other">%s Yüklenen oyunlar</item>
@@ -330,6 +373,8 @@
   <string name="averageOpponent">Ortalama rakip</string>
   <string name="membersOnly">Sadece üyeler</string>
   <string name="boardEditor">Tahta yapıcı</string>
+  <string name="setTheBoard">Tahtayı ayarla</string>
+  <string name="popularOpenings">Popüler açılışlar</string>
   <string name="startPosition">Başlangıç konumu</string>
   <string name="clearBoard">Tahtayı temizle</string>
   <string name="savePosition">Konumu kaydet</string>
@@ -558,6 +603,7 @@
   <string name="sourceCode">Kaynak Kodu</string>
   <string name="simultaneousExhibitions">Eş zamanlı gösteriler</string>
   <string name="host">Ev Sahibi</string>
+  <string name="hostColorX">Ev sahibi rengi: %s</string>
   <string name="createdSimuls">Yeni düzenlenen eşzamanlılar</string>
   <string name="hostANewSimul">Yeni eş zamanlıya ev sahipliği yap</string>
   <string name="noSimulFound">Eş zamanlı bulunamadı</string>
@@ -566,13 +612,13 @@
   <string name="aboutSimul">Eş zamanlılar tek oyuncunun aynı anda birkaç oyuncuyla mücadelesini içerir.</string>
   <string name="aboutSimulImage">Fischer 50 rakibe karşı, 47 oyun kazandı, 2 beraberlik ve 1 yenilgi aldı.</string>
   <string name="aboutSimulRealLife">Bu kavram gerçek etkinliklerden alınmıştır. Gerçek hayatta, eş zamanlının ev sahibi masadan masaya dolaşarak birer hamle yapar.</string>
-  <string name="aboutSimulRules">Eş zamanlı başladığında, her oyuncu beyaz taşlarla oynayan ev sahibine karşı maça başlar. Eş zamanlı, tüm oyunlar bittiğinde sona erer.</string>
+  <string name="aboutSimulRules">Eş zamanlı başladığında her oyuncu ev sahibine karşı maça başlar. Beyaz taşlarla oynayan ev sahibi ilk hamleyi yapar. Bütün oyunlar bittiğinde eş zamanlı sona erer.</string>
   <string name="aboutSimulSettings">Eş zamanlılar daima puansızdır. Yeniden oynama, hamleyi geri alma ve zaman ekleme devre dışıdır.</string>
   <string name="create">Oluştur</string>
   <string name="whenCreateSimul">Eş zamanlı modda birkaç oyuncuyla aynı anda oynarsın.</string>
   <string name="simulVariantsHint">Eğer birkaç varyant seçerseniz, her oyuncu istediği varyantı seçip oynar.</string>
   <string name="simulClockHint">Fischer Saati formatı. Ne kadar fazla oyuncu ile yüzleşirsen, o kadar fazla zamana ihtiyaç duyarsın.</string>
-  <string name="simulAddExtraTime">Eş zamanlıyla başa çıkabilmek için kendi saatine ek zaman ekleyebilirsin.</string>
+  <string name="simulAddExtraTime">Eş zamanlıyla başa çıkabilmek için kendi saatinize ek zaman ekleyebilirsiniz.</string>
   <string name="simulHostExtraTime">Ev sahibinin fazladan süresi</string>
   <string name="lichessTournaments">Lichess turnuvaları</string>
   <string name="tournamentFAQ">Arena turnuvaları SSS</string>
@@ -662,6 +708,10 @@
   <string name="yourScore">Puanınız: %s</string>
   <string name="language">Dil</string>
   <string name="background">Arkaplan</string>
+  <string name="light">Aydınlık</string>
+  <string name="dark">Karanlık</string>
+  <string name="transparent">Saydam</string>
+  <string name="backgroundImageUrl">Arka plan resim linki:</string>
   <string name="boardGeometry">Tahta geometrisi</string>
   <string name="boardTheme">Tahta teması</string>
   <string name="boardSize">Tahta boyutu</string>
@@ -684,5 +734,6 @@
   <string name="error.unknown">Hata</string>
   <string name="custom">Özel</string>
   <string name="notifications">Bildirimler</string>
+  <string name="challenges">Meydan okumalar</string>
   <string name="perfRatingX">Puan: %s</string>
 </resources>
