@@ -98,6 +98,13 @@
   <string name="allSet">إعتمد كل الإعدادات!</string>
   <string name="importPgn">استيراد PGN</string>
   <string name="delete">حذف</string>
+  <string name="deleteThisImportedGame">هل تريد حذف هذه المباراة المستوردة؟</string>
+  <string name="replayMode">نمط إعادة العرض</string>
+  <string name="realtimeReplay">ذات الوقت</string>
+  <string name="byCPL">بالاثارة</string>
+  <string name="openStudy">فتح دراسة</string>
+  <string name="enable">تمكين</string>
+  <string name="bestMoveArrow">سهم أفضل نقلة</string>
   <string name="blunders">أخطاء فادحة</string>
   <string name="mistakes">أخطاء</string>
   <string name="inaccuracies">نقلات غير دقيقة</string>
