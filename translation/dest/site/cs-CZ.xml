@@ -339,6 +339,7 @@
   <string name="profileCompletion">Kompletace profilu: %s</string>
   <string name="xRating">%s rating</string>
   <string name="ifNoneLeaveEmpty">Pokud nemáte, nechte pole volné</string>
+  <string name="gameCompletionRate">Dokončených her: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Upravit profil</string>
   <string name="firstName">Jméno</string>
