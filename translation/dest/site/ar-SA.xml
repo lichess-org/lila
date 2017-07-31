@@ -781,6 +781,14 @@
   <string name="withEverybody">مع الجميع</string>
   <string name="youHaveAlreadyRegisteredTheEmail">سبق لك تسجيل هذا البريد الإلكتروني %s</string>
   <string name="kidMode">موقع الأطفال</string>
+  <string name="kidModeExplanation">هذا يتعلق بالأمان. في نمط الطفل، يتم تعطيل كافة اتصالات المواقع. تمكين هذا للأطفال والطلاب، لحمايتهم من مستخدمي الإنترنت الأخرين.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">في نمط الطفل، يكون لشعار ليتشيس رمز %s، لكي تعرف أن أطفالك آمنين.</string>
+  <string name="enableKidMode">تمكين نمط الطفل</string>
+  <string name="disableKidMode">تعطيل نمط الطفل</string>
+  <string name="security">الأمان</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">هذه هي قائمة بالأجهزة التي قامت بتسجيل الدخول إلى حسابك. قم بإلغاء أي جلسات اعمل لا تعرفها.</string>
+  <string name="alternativelyYouCanX">وبدلاً من ذلك يمكنك %s.</string>
+  <string name="revokeAllSessions">إلغاء كافة جلسات العمل</string>
   <string name="playChessEverywhere">العب الشطرنج فى كل مكان</string>
   <string name="asFreeAsLichess">مجاني</string>
   <string name="builtForTheLoveOfChessNotMoney">تم بناؤه حباً في الشطرنج, وليس المال :)</string>
@@ -803,6 +811,7 @@
     <item quantity="other">متاح ب %s لغات!</item>
   </plurals>
   <string name="gameAnalysis">تحليل اللعبة</string>
+  <string name="xHostsY">%1$s يستضيف %2$s</string>
   <string name="quickPairing">تزويج سريع</string>
   <string name="yourScore">نقاطك: %s</string>
   <string name="boardGeometry">شكل الرقعة</string>
