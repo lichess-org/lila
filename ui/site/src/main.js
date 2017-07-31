@@ -594,6 +594,15 @@ lichess.topMenuIntent = function() {
         return false;
       });
 
+      if (window.OneSignal) OneSignal.push(["init", {
+        appId: "2d12e964-92b6-444e-9327-5b2e9a419f4c",
+        autoRegister: false,
+        allowLocalhostAsSecureOrigin: true,
+        notifyButton: {
+          enable: true
+        }
+      }]);
+
       if (window.Fingerprint2) setTimeout(function() {
         var t = Date.now()
           new Fingerprint2({

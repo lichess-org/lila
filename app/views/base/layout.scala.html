@@ -56,6 +56,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     }
     <link rel="preload" href="@staticUrl("font74/fonts/lichess.woff")" as="font" type="font/woff" crossorigin/>
     <meta name="twitter:site" content="@@lichessorg" />
+    <link rel="manifest" href="/manifest.json">
   </head>
   <body class="preload base @List(
     ctx.currentTheme.cssClass,
@@ -181,5 +182,6 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
 lichess.quantity=@i18nJsQuantityFunction;
 @timeagoLocaleScript;
     }
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script>
   </body>
 </html>
