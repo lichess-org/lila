@@ -4,6 +4,9 @@
   <string name="learnChess">Lär dig schack</string>
   <string name="byPlaying">genom att spela!</string>
   <string name="menu">Meny</string>
+  <string name="progressX">Framsteg: %s</string>
+  <string name="resetMyProgress">Återställ framsteg</string>
+  <string name="youWillLoseAllYourProgress">Du kommer att förlora alla dina framsteg!</string>
   <string name="play">spela!</string>
   <string name="chessPieces">Schackpjäser</string>
   <string name="theRook">Tornet</string>
@@ -15,6 +18,7 @@
   <string name="rookComplete">Grattis! Du behärskar framgångsrikt tornet.</string>
   <string name="theBishop">Löparen</string>
   <string name="itMovesDiagonally">Den rör sig diagonalt</string>
+  <string name="bishopIntro">Härnäst kommer vi lära dig att manövrera en löpare!</string>
   <string name="bishopComplete">Grattis! Du kan behärska löparen.</string>
   <string name="theQueen">Drottningen</string>
   <string name="queenCombinesRookAndBishop">Drottning = torn + löpare</string>
@@ -24,4 +28,25 @@
   <string name="theKnight">Springaren</string>
   <string name="itMovesInAnLShape">Den rör sig i en L-form</string>
   <string name="knightIntro">Här är en utmaning för dig. Springaren är... en knepig pjäs.</string>
+  <string name="knightComplete">Grattis! Du har bemästrat springaren.</string>
+  <string name="thePawn">Bonden</string>
+  <string name="itMovesForwardOnly">Den rör sig endast framåt</string>
+  <string name="pawnsMoveForward">Bönder flyttar framåt, men slår diagonalt!</string>
+  <string name="aPawnOnTheSecondRank">En bonde på andra raden kan flytta 2 rutor på en gång!</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Din bonde nådde andra sidan av brädet!</string>
+  <string name="outOfCheckComplete">Grattis! Din kung kan aldrig tas, se till att du kan försvara dig mot schack!</string>
+  <string name="mateInOne">Matt i ett drag</string>
+  <string name="defeatTheOpponentsKing">Besegra motståndarens kung</string>
+  <string name="mateInOneIntro">Du vinner när din motståndare inte kan försvara sig mot schack.</string>
+  <string name="attackYourOpponentsKing">Attackera motståndarens kung på ett sätt som inte kan försvaras!</string>
+  <string name="mateInOneComplete">Grattis! Så här vinner du ett schackparti!</string>
+  <string name="intermediate">Medelsvår</string>
+  <string name="howTheGameStarts">Hur partiet startar</string>
+  <string name="boardSetupIntro">De två arméerna möter varandra, redo för strid.</string>
+  <string name="thisIsTheInitialPosition">Detta är den inledande placeringen av varje schackparti! Göra ett drag för att fortsätta.</string>
+  <string name="firstPlaceTheRooks">Placera först tornen! De står i hörnen.</string>
+  <string name="thenPlaceTheKnights">Placera sedan springarna! De står bredvid tornen.</string>
+  <string name="placeTheBishops">Placera löparna! De står bredvid springarna.</string>
+  <string name="placeTheQueen">Placera drottningen! Hon står på sin egen färg.</string>
+  <string name="castling">Rockad</string>
 </resources>
