@@ -612,7 +612,7 @@
   <string name="aboutSimul">Eş zamanlılar tek oyuncunun aynı anda birkaç oyuncuyla mücadelesini içerir.</string>
   <string name="aboutSimulImage">Fischer 50 rakibe karşı, 47 oyun kazandı, 2 beraberlik ve 1 yenilgi aldı.</string>
   <string name="aboutSimulRealLife">Bu kavram gerçek etkinliklerden alınmıştır. Gerçek hayatta, eş zamanlının ev sahibi masadan masaya dolaşarak birer hamle yapar.</string>
-  <string name="aboutSimulRules">Eş zamanlı başladığında her oyuncu ev sahibine karşı maça başlar. Beyaz taşlarla oynayan taraf ilk hamleyi yapar. Bütün oyunlar bittiğinde eş zamanlı sona erer.</string>
+  <string name="aboutSimulRules">Eş zamanlı başladığında her oyuncu ev sahibine karşı maça başlar. Beyaz taşlarla oynayan ev sahibi ilk hamleyi yapar. Bütün oyunlar bittiğinde eş zamanlı sona erer.</string>
   <string name="aboutSimulSettings">Eş zamanlılar daima puansızdır. Yeniden oynama, hamleyi geri alma ve zaman ekleme devre dışıdır.</string>
   <string name="create">Oluştur</string>
   <string name="whenCreateSimul">Eş zamanlı modda birkaç oyuncuyla aynı anda oynarsın.</string>
