@@ -841,7 +841,11 @@
   <string name="invalidFen">FEN غير صالح</string>
   <string name="error.minLength">الحد الأدنى للطول هو %s</string>
   <string name="error.maxLength">حد الطول الأقصى هو %s</string>
+  <string name="error.min">يجب أن يكون أكبر أو يساوي ل %s</string>
+  <string name="error.max">يجب أن يكون أقل أو يساوي %s</string>
+  <string name="error.unknown">خطأ</string>
   <string name="custom">مخصص</string>
   <string name="notifications">إشعارات</string>
   <string name="challenges">التحديات</string>
+  <string name="perfRatingX">التقييم: %s</string>
 </resources>
