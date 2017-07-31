@@ -374,6 +374,7 @@ und eine URL um dein PGN zu teilen.</string>
   <string name="averageOpponent">Durchschnittlicher Gegner</string>
   <string name="membersOnly">Nur für Mitglieder</string>
   <string name="boardEditor">Stellung aufbauen</string>
+  <string name="popularOpenings">Beliebte Eröffnungen</string>
   <string name="startPosition">Anfangsposition</string>
   <string name="clearBoard">Brett räumen</string>
   <string name="savePosition">Stellung speichern</string>
@@ -602,6 +603,7 @@ und eine URL um dein PGN zu teilen.</string>
   <string name="sourceCode">Quellcode</string>
   <string name="simultaneousExhibitions">Simultanschach</string>
   <string name="host">Veranstalter</string>
+  <string name="hostColorX">Farbe des Alleinspielers: %s</string>
   <string name="createdSimuls">Neue Simultanspiele</string>
   <string name="hostANewSimul">Ein Simultan veranstalten</string>
   <string name="noSimulFound">Simultan nicht gefunden</string>
@@ -706,6 +708,9 @@ und eine URL um dein PGN zu teilen.</string>
   <string name="yourScore">Punktestand: %s</string>
   <string name="language">Sprache</string>
   <string name="background">Hintergrund</string>
+  <string name="light">Hell</string>
+  <string name="dark">Schwarz</string>
+  <string name="backgroundImageUrl">Hintergrundbild-URL:</string>
   <string name="boardGeometry">Brettgröße und 3D</string>
   <string name="boardTheme">Brettdesign</string>
   <string name="boardSize">Brettgröße</string>
