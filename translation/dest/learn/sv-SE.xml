@@ -48,5 +48,21 @@
   <string name="thenPlaceTheKnights">Placera sedan springarna! De står bredvid tornen.</string>
   <string name="placeTheBishops">Placera löparna! De står bredvid springarna.</string>
   <string name="placeTheQueen">Placera drottningen! Hon står på sin egen färg.</string>
+  <string name="placeTheKing">Placera kungen! Alldeles intill sin drottning.</string>
+  <string name="boardSetupComplete">Grattis! Du vet hur du ställer upp schackbrädet.</string>
   <string name="castling">Rockad</string>
+  <string name="stalemate">Patt</string>
+  <string name="stalemateIntro">När en spelare inte är i schack och har inte har något drag är det ett dödläge. Partiet är remi: ingen vinner, ingen förlorar.</string>
+  <string name="stalemateComplete">Grattis! Bättre att vara patt än schackmatt!</string>
+  <string name="advanced">Avancerat</string>
+  <string name="pieceValue">Pjäsvärde</string>
+  <string name="takeThePieceWithTheHighestValue">Slå pjäsen med högst värde!</string>
+  <string name="excellent">Utmärkt!</string>
+  <string name="greatJob">Bra jobbat!</string>
+  <string name="perfect">Perfekt!</string>
+  <string name="nailedIt">Där satt den.</string>
+  <string name="yourScore">Dina poäng</string>
+  <string name="next">Nästa</string>
+  <string name="backToMenu">Tillbaka till menyn</string>
+  <string name="retry">Försök igen</string>
 </resources>
