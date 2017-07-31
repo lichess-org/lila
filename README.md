@@ -30,7 +30,7 @@ HTTP requests and websocket connections are proxied by [nginx 1.8](http://nginx.
 Client-side is written in [mithril.js](http://mithril.js.org/).
 The [blog](https://lichess.org/blog) uses a free open content plan from [prismic.io](https://prismic.io).
 Browser testing done with [![](https://raw.githubusercontent.com/ornicar/lila/master/public/images/browserstack.png)](https://www.browserstack.com).
-Translations powered by [Crowdin](https://crowdin.com).
+Please help us [translate lichess with Crowdin](https://crowdin.com).
 
 [Join us on discord](https://discord.gg/AWSze7n) or in the #lichess freenode IRC channel for more info.
 Use [GitHub issues](https://github.com/ornicar/lila/issues) for bug reports and feature requests.
