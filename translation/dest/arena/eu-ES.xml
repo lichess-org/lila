@@ -7,7 +7,20 @@
   <string name="isNotRated">Txapelketa *ez bada* sailkatutakoa, *ez du* zure sailkapenean eraginik izango.</string>
   <string name="someRated">Txapelketa batzuk sailkapenerako balio dutenez zure sailkapenaren puntuazioa aldatuko dute.</string>
   <string name="howAreScoresCalculated">Nola kalkulatzen dira puntuazioak?</string>
+  <string name="howAreScoresCalculatedAnswer">Irabaziak 2 puntu ematen ditu, berdinketak puntu 1 eta galerak bat ere ez.
+Bi partida jarraian irabazten badituzu, suaren ikonoa agertuko da.
+Hurrengo partidek ere puntu-bikoitzen balioa izango dute, bat irabazten ez duzun arte.
+Hau da, irabazteak 4 puntu emango dizkizu, berdinketak 2 eta galerak bat ere ez.
+
+Adibidez, bi partida irabazi eta jarraian bat berdintzeak 6 puntu balioko ditu: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Arena Berserk</string>
+  <string name="berserkAnswer">Jokalari batek partidaren hasieran Berserk botoia sakatzen badu, bere erlojuko denbora erdia galduko du, baina partida irabazten badu puntu gehigarri bat lortuko du.
+
+Berserk erabiltzen baduzu denbora gehigarria ematen duten denbora kontroletan, honek denbora gehigarria ere bertan behera utziko du (1+2 da salbuespen bakarra, 1+0 ematen du).
+
+Berserk ezin da erabili hasierako denbora zero den denbora kontroletan (0+1, 0+2).
+
+Berserk-ek puntu gehigarria emango dizu paridan gutxienez 7 jokaldi egiten badituzu.</string>
   <string name="howIsTheWinnerDecided">Nola erabakitzen da garailea?</string>
   <string name="howIsTheWinnerDecidedAnswer">Txapelketari ezarritako denbora-muga heltzean puntu gehien duten jokalariak, garaile izendatuko dira.</string>
   <string name="howDoesPairingWork">Nola funtzionatzen dute parekatzeek?</string>
