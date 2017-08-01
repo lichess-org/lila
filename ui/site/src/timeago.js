@@ -64,7 +64,8 @@ lichess.timeago = (function() {
           if (abs) node.innerHTML = str;
           else node.setAttribute('title', str);
           node.classList.add('set');
-        } else if (!abs) {
+        }
+        if (!abs) {
           node.innerHTML = formatDiff(diffSec(date));
         }
       }
