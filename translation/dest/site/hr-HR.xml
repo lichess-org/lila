@@ -174,6 +174,11 @@
   <string name="passwordReset">Resetiraj lozinku</string>
   <string name="forgotPassword">Zaboravio/la si lozinku?</string>
   <string name="rank">Rang</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s problem</item>
+    <item quantity="few">%s problema</item>
+    <item quantity="other">%s problema</item>
+  </plurals>
   <string name="gamesPlayed">Broj odigranih partija</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s odigrana partija s tobom</item>
@@ -387,6 +392,8 @@ računalnu analizu, pričaonicu partije i URL za dijeljenje.</string>
   <string name="averageOpponent">Prosječni protivnik</string>
   <string name="membersOnly">Samo za članove</string>
   <string name="boardEditor">Uredi ploču</string>
+  <string name="setTheBoard">Postavi ploču</string>
+  <string name="popularOpenings">Popularna otvaranja</string>
   <string name="startPosition">Početna pozicija</string>
   <string name="clearBoard">Očisti ploču</string>
   <string name="savePosition">Spremi poziciju</string>
@@ -621,6 +628,7 @@ računalnu analizu, pričaonicu partije i URL za dijeljenje.</string>
   <string name="sourceCode">Izvorni kod</string>
   <string name="simultaneousExhibitions">Simultanke</string>
   <string name="host">Domaćin</string>
+  <string name="hostColorX">Boja domaćina: %s</string>
   <string name="createdSimuls">Novokreirane simultanke</string>
   <string name="hostANewSimul">Kreiraj novu simultanku</string>
   <string name="noSimulFound">Simultanka nije pronađena</string>
@@ -727,6 +735,10 @@ računalnu analizu, pričaonicu partije i URL za dijeljenje.</string>
   <string name="yourScore">Tvoj rezultat: %s</string>
   <string name="language">Jezik</string>
   <string name="background">Pozadina</string>
+  <string name="light">Svijetla</string>
+  <string name="dark">Tamna</string>
+  <string name="transparent">Prozirna</string>
+  <string name="backgroundImageUrl">URL pozadinske slike:</string>
   <string name="boardGeometry">Geometrija ploče</string>
   <string name="boardTheme">Tema ploče</string>
   <string name="boardSize">Veličina ploče</string>
