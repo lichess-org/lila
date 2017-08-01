@@ -3,4 +3,6 @@
 <resources>
   <string name="coordinates">Koordinate</string>
   <string name="coordinateTraining">Trening koordinata</string>
+  <string name="knowingTheChessBoard">Znanje šahovskih koordinata je jako važna šahovska vještina:</string>
+  <string name="mostChessCourses">Većina šahovskih tečajeva i vježbi opsežno koristi algebarsku notaciju.</string>
 </resources>
