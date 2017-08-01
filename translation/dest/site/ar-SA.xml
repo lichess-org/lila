@@ -477,7 +477,7 @@
   <string name="onlinePlayers">لاعبين متصلين</string>
   <string name="activeToday">نشيط اليوم</string>
   <string name="activePlayers">لاعبين نشطين</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">كن على حذر, هذه اللعبة مقيمة لكن غير مؤقتة.</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">كن على حذر, هذه المباراة مقيمة وبدون توقيت!</string>
   <string name="training">تدريب</string>
   <string name="yourPuzzleRatingX">تقييمك في حل الألغاز:  %s</string>
   <string name="findTheBestMoveForWhite">جد أفضل نقلة للأبيض</string>
@@ -506,7 +506,7 @@
     <item quantity="many">لُعِبَ %s مرة</item>
     <item quantity="other">لُعِبَ %s مرة</item>
   </plurals>
-  <string name="fromGameLink">من لعبة %s</string>
+  <string name="fromGameLink">من مباراة %s</string>
   <string name="continueTraining">استمر في التدريب</string>
   <string name="retryThisPuzzle">حاول مرة أخرى</string>
   <string name="thisPuzzleIsCorrect">هذا اللغز صحيح وممتع</string>
@@ -527,7 +527,7 @@
     <item quantity="many">%s مباراة جارية</item>
     <item quantity="other">%s مباراة جارية</item>
   </plurals>
-  <string name="automaticallyProceedToNextGameAfterMoving">الانتقال تلقائياً للعبة التالية بعد النقلة</string>
+  <string name="automaticallyProceedToNextGameAfterMoving">الانتقال تلقائياً للمباراة التالية بعد النقلة</string>
   <string name="autoSwitch">تبديل تلقائي</string>
   <string name="puzzles">ألغاز</string>
   <string name="latestUpdates">آخر المقالات</string>
@@ -555,7 +555,7 @@
   <string name="insult">إهانة</string>
   <string name="troll">إزعاج</string>
   <string name="other">أخرى</string>
-  <string name="reportDescriptionHelp">الصق رابط اللعبة واشرح بالتفصيل المشكلة في تصرف هذا المستحدم. سيكون الرد أسرع إن كتبت بالإنكليزية</string>
+  <string name="reportDescriptionHelp">الصق رابط المباراة واشرح بالتفصيل المشكلة في تصرف هذا المستحدم. سيكون الرد أسرع إن كتبت بالإنكليزية.</string>
   <string name="by">كتبها %s</string>
   <string name="thisTopicIsNowClosed">هذا الموضوع مغلق الآن</string>
   <string name="theming">السمات</string>
@@ -580,7 +580,7 @@
   <string name="boardHighlights">تلوين الرقعة (آخر نقلة والكش)</string>
   <string name="pieceDestinations">نقلات القطعة ( النقلات المتاحة والنقلات الاستباقية)</string>
   <string name="boardCoordinates">إحداثيات الرقعة  (A-H, 1-8)</string>
-  <string name="moveListWhilePlaying">قائمة النقلات خلال اللعب</string>
+  <string name="moveListWhilePlaying">قائمة النقلات خلال المباراة</string>
   <string name="pgnPieceNotation">تدوين النقلة</string>
   <string name="chessPieceSymbol">رمز قطعة الشطرنج</string>
   <string name="pgnLetter">حروف (K, Q, R, B, N)</string>
@@ -656,8 +656,8 @@
   <string name="connectedToLichess">أنت الآن متصل بـ lichess.org</string>
   <string name="signedOut">تم تسجيل الخروج.</string>
   <string name="loginSuccessful">تم الدخول بنجاح</string>
-  <string name="playOnTheBoardOffline">العب مع صديق محليا</string>
-  <string name="playOfflineComputer">العب مع الحاسب محليا</string>
+  <string name="playOnTheBoardOffline">على الرقعة</string>
+  <string name="playOfflineComputer">العب مع الحاسب دون اتصال</string>
   <string name="opponent">الخصم</string>
   <string name="learnMenu">تعلم</string>
   <string name="community">المجتمع</string>
@@ -667,7 +667,7 @@
   <string name="playOnline">العب على الإنترنت</string>
   <string name="playOffline">العب دون اتصال</string>
   <string name="allowAnalytics">السماح بإرسال إحصائيات غير شخصية</string>
-  <string name="shareGameURL">شارك رابط اللعبة</string>
+  <string name="shareGameURL">شارك رابط المباراة</string>
   <string name="error.required">هذة الخانة ضرورية</string>
   <string name="error.email">هذا البريد الإلكتروني غير صحبح</string>
   <string name="error.email_acceptable">هذا البريد الإلكتروني غير مقبول</string>
@@ -714,12 +714,12 @@
   <string name="noSimulExplanation">معرض هذه التزامنية غير موجود.</string>
   <string name="returnToSimulHomepage">العودة لصفحة التزامنية</string>
   <string name="aboutSimul">التزامنيات هي لاعب واحد يواجه عدة خصوم في وقت واحد.</string>
-  <string name="aboutSimulImage">مع 50 خصماً, فاز فيشر بـ 47 لعبة, تعادل في اثنتين , وخسر واحدة.</string>
-  <string name="aboutSimulRealLife">تم أخذ مفهوم التزامنيات من أحداث واقعية. حيث ينتقل المضيف من طاولة لأخرى للعب.</string>
-  <string name="aboutSimulRules">عندما تبدأ التزامنية، يبدأ كل لاعب لعبة مع المضيف، حيث يكون المضيف أبيض واللاعب أسود. تنتهي التزامنية عندما تنتهي جميع اللعبات</string>
-  <string name="aboutSimulSettings">التزامنيات دائما غير مقيمة. لا يمكن استرجاع النقلات، أضافة الوقت، او حتى طلب لعبة أخرى</string>
+  <string name="aboutSimulImage">مع 50 خصماً, فاز فيشر بـ 47 مباراة, تعادل في اثنتين, وخسر واحدة.</string>
+  <string name="aboutSimulRealLife">تم أخذ مفهوم التزامنيات من أحداث الحياة الواقعية. حيث ينتقل المضيف من طاولة لأخرى للعب.</string>
+  <string name="aboutSimulRules">عندما تبدأ التزامنية، يبدأ كل لاعب مباراة مع المضيف، حيث يلعب المضيف بالقطع البيضاء. تنتهي التزامنية بإنتهاء جميع المبارايات.</string>
+  <string name="aboutSimulSettings">التزامنيات دائما عفوية. لا يمكن استرجاع النقلات، أضافة الوقت، او حتى طلب لعبة أخرى.</string>
   <string name="create">ابدأ</string>
-  <string name="whenCreateSimul">عندما تبدأ تزامنية، يمكنك اللعب مع عدة لاعبين في وقت واحد</string>
+  <string name="whenCreateSimul">عندما تنشيء تزامنية، يمكنك اللعب مع عدة لاعبين في وقت واحد.</string>
   <string name="simulVariantsHint">إذا اخترت عدة أنواع, كل لاعب يمكنه اختيار النوع الذي يريد.</string>
   <string name="simulClockHint">ضبط توقيت بالزيادة . كلما زاد عدد اللاعبين كلما احتجت لوقت أطول.</string>
   <string name="simulAddExtraTime">يمكنك زيادة الوقت لساعتك للمساعدة في التزامنية.</string>
