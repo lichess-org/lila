@@ -167,6 +167,12 @@
   <string name="passwordReset">Pasahitz berria eskatu</string>
   <string name="forgotPassword">Pasahitza ahaztu duzu?</string>
   <string name="rank">Maila</string>
+  <string name="rankX">Sailkapena: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Sailkapena %s minutuero eguneratzen da</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">Puzzle %s</item>
+    <item quantity="other">%s puzzle</item>
+  </plurals>
   <string name="gamesPlayed">Partida jokaturik</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s partida zure aurka</item>
@@ -367,6 +373,7 @@
   <string name="averageOpponent">Aurkarien batazbestekoa</string>
   <string name="membersOnly">Kideak soilik</string>
   <string name="boardEditor">Taula-editorea</string>
+  <string name="setTheBoard">Xake-taula konfiguratu</string>
   <string name="startPosition">Hasierako posizioa</string>
   <string name="clearBoard">Pieza guztiak kendu</string>
   <string name="savePosition">Posizioa gorde</string>
@@ -699,6 +706,10 @@
   <string name="yourScore">Zure puntuaketa: %s</string>
   <string name="language">Hizkuntza</string>
   <string name="background">Atzeko planoa</string>
+  <string name="light">Argia</string>
+  <string name="dark">Iluna</string>
+  <string name="transparent">Gardena</string>
+  <string name="backgroundImageUrl">Atzeko-planoko irudia:</string>
   <string name="boardGeometry">Taularen geometria</string>
   <string name="boardTheme">Taularen itxura</string>
   <string name="boardSize">Taularen tamaina</string>
