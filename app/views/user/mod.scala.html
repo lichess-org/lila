@@ -203,7 +203,7 @@
     @if(charges.nonEmpty) {
     <ul>
       @charges.map { c =>
-      <li>@c.cents.usd with @c.serviceName on @showDateTime(c.date)</li>
+      <li>@c.cents.usd with @c.serviceName on @absClientDateTime(c.date)</li>
       }
     </ul>
     <br />
