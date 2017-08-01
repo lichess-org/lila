@@ -84,7 +84,7 @@
   <string name="noGameFound">Ez da partidarik aurkitu</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Agian hobespenen menutik partida gehiago gehitu beharko dituzu?</string>
   <string name="openingExplorer">Hasierak arakatu</string>
-  <string name="xOpeningExplorer">%s irekiera miatzailea</string>
+  <string name="xOpeningExplorer">%s hasiera arakatzailea</string>
   <string name="winPreventedBy50MoveRule">50 jokaldien arauak ekidindako garaipena</string>
   <string name="lossSavedBy50MoveRule">50 jokaldien arauak ekidindako galera</string>
   <string name="allSet">Dena prest!</string>
@@ -106,7 +106,7 @@
   <string name="blunders">Akats larriak</string>
   <string name="mistakes">Akatsak</string>
   <string name="inaccuracies">Ez zehatzak</string>
-  <string name="moveTimes">Denborak</string>
+  <string name="moveTimes">Jokaldi-denborak</string>
   <string name="flipBoard">Taula biratu</string>
   <string name="threefoldRepetition">Hiru mugimenduen errepikapena</string>
   <string name="claimADraw">Berdinketa eskatu</string>
@@ -251,7 +251,7 @@
   <string name="giveMoreTime">Denbora gehiago eman</string>
   <string name="thisPlayerUsesChessComputerAssistance">Jokalari hau ordenagailuaz baliatu da</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Jokalariak bere sailkapena aldatzen du artifizialki</string>
-  <string name="openingExplorerAndTablebase">Hasierak arakatzailea &amp; finalen datu-basea</string>
+  <string name="openingExplorerAndTablebase">Hasiera arakatzailea &amp; finalen datu-basea</string>
   <string name="takeback">Jokaldia atzera egin</string>
   <string name="proposeATakeback">Jokaldia atzera egiteko eskatu</string>
   <string name="takebackPropositionSent">Jokaldia atzera egiteko eskaria bidali da</string>
@@ -268,7 +268,7 @@
   <string name="viewTournament">Txapelketa ikusi</string>
   <string name="backToTournament">Txapelketara itzuli</string>
   <string name="backToGame">Partidara itzuli</string>
-  <string name="siteDescription">Doako xake zerbitzaria. Xakean jokatu, interfaze argiarekin. Izena ematea ez da beharrezkoa. Iragarkirik gabe. Jolastu xakean ordenagailu, lagun edo beste aurkariekin.</string>
+  <string name="siteDescription">Doako xake zerbitzaria. Xakean interfaze argiarekin jokatu. Izena ematea ez da beharrezkoa. Iragarkirik gabe. Jokatu xakean ordenagailu, lagun edo beste aurkariekin.</string>
   <string name="teams">Taldeak</string>
   <plurals name="nbMembers">
     <item quantity="one">%s kide</item>
@@ -564,8 +564,8 @@
   <string name="tools">Erremintak</string>
   <string name="increment">Denbora-gehikuntza</string>
   <string name="sharePGN">PGN-a partekatu</string>
-  <string name="playOnline">Online jolastu</string>
-  <string name="playOffline">Offline jolastu</string>
+  <string name="playOnline">Online jokatu</string>
+  <string name="playOffline">Offline jokatu</string>
   <string name="allowAnalytics">Estatistika anonimoak baimentzea</string>
   <string name="shareGameURL">Partidaren URLa partekatu</string>
   <string name="error.required">Koadro hau betetzea nahitaezkoa da</string>
@@ -575,7 +575,7 @@
   <string name="error.email_different">Hau jada bada zure eposta helbidea</string>
   <string name="blindfoldChess">Xakea itsu-itsuan (piezak ez dira ikusiko)</string>
   <string name="zenMode">Zen modua</string>
-  <string name="moveConfirmation">Jokaldia egiaztatzea</string>
+  <string name="moveConfirmation">Jokaldia baieztatzea</string>
   <string name="inCorrespondenceGames">Korrespondentziagatiko partidetan</string>
   <string name="ifRatingIsPlusMinusX">Puntuazioa  ± %s tartean badago</string>
   <string name="onlyFriends">Lagunak soilik</string>
@@ -615,7 +615,7 @@
   <string name="aboutSimulRules">Aldibereko partidak hastean, jokalari nagusiak pieza zuriekin hasten da partida bana. Aldiberekoa erakusketa amaitzen da partida guztiak amaitzean.</string>
   <string name="aboutSimulSettings">Aldibereko partidetan puntuazioak ez dira sekula aldatzen.  Ezin da errebantxarik, atzera-jokatzerik edo-eta denbora-gehitzerik erabili.</string>
   <string name="create">Sortu</string>
-  <string name="whenCreateSimul">Aldiberekoa sortzean,  jokalari guztien kontra jolastu behar duzu batera</string>
+  <string name="whenCreateSimul">Aldiberekoa sortzean, jokalari guztien kontra batera jokatu behar duzu.</string>
   <string name="simulVariantsHint">Aldaera batzuk hautatzen badituzu, jokalari bakoitzak nahi duena aukeratuko du</string>
   <string name="simulClockHint">Fischer erloju doikuntza. Zenbat eta jokalari gehiagoren aurka jokatua,  are denbora gehiago behar izango duzu</string>
   <string name="simulAddExtraTime">Aldibereko partidetan aritu ahal izateko, agian  denbora gehiago gehitu beharko diozu zure erlojuari</string>
