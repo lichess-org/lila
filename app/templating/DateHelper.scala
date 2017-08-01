@@ -78,9 +78,8 @@ trait DateHelper { self: I18nHelper =>
 
   private val oneDayMillis = 1000 * 60 * 60 * 24
   def momentFromNow(date: DateTime, alwaysRelative: Boolean = false)(implicit ctx: Context) = Html {
-    val rendered = showDateTime(date)
-    if (!alwaysRelative && (date.getMillis - nowMillis) > oneDayMillis) s"""<time>$rendered</time>"""
-    else s"""<time class="timeago" title="$rendered" datetime="${isoDate(date)}">$rendered</time>"""
+    val absolute = !alwaysRelative && (date.getMillis - nowMillis) > oneDayMillis
+    s"""<time class="timeago${absolute ?? " abs"}" datetime="${isoDate(date)}"></time>"""
   }
   def momentFromNowNoCtx(date: DateTime) = Html {
     s"""<time class="timeago" datetime="${isoDate(date)}"></time>"""

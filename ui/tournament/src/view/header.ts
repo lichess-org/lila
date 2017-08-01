@@ -21,7 +21,7 @@ function clock(d): VNode | undefined {
       h('time.timeago.shy', {
         attrs: {
           title: new Date(d.startsAt).toLocaleString(),
-          datetime: Date.now() + (d.secondsToStart * 1000)
+          datetime: Date.now() + d.secondsToStart * 1000
         },
         hook: {
           insert(vnode) {
