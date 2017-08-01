@@ -374,6 +374,7 @@
   <string name="membersOnly">Kideak soilik</string>
   <string name="boardEditor">Taula-editorea</string>
   <string name="setTheBoard">Xake-taula konfiguratu</string>
+  <string name="popularOpenings">Hasiera ohikoenak</string>
   <string name="startPosition">Hasierako posizioa</string>
   <string name="clearBoard">Pieza guztiak kendu</string>
   <string name="savePosition">Posizioa gorde</string>
@@ -602,6 +603,7 @@
   <string name="sourceCode">Iturri-kodea</string>
   <string name="simultaneousExhibitions">Aldibereko partidak</string>
   <string name="host">Sortzailea</string>
+  <string name="hostColorX">Emango duenaren kolorea: %s</string>
   <string name="createdSimuls">Aldibereko partida sortuberriak</string>
   <string name="hostANewSimul">Aldibereko partida sortu</string>
   <string name="noSimulFound">Aldibereko partida ezin aurkitu</string>
