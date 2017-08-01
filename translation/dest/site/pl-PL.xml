@@ -393,6 +393,7 @@
   <string name="averageOpponent">Średni ranking przeciwnika</string>
   <string name="membersOnly">Tylko dla zarejestrowanych</string>
   <string name="boardEditor">Edytor pozycji</string>
+  <string name="setTheBoard">Ustaw szachownicę</string>
   <string name="popularOpenings">Popularne otwarcia</string>
   <string name="startPosition">Ustawienie początkowe</string>
   <string name="clearBoard">Wyczyść szachownicę</string>
