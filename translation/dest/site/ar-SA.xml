@@ -90,7 +90,27 @@
     <item quantity="other">أي التقاط مستقبلي أو نقل بيدق في %s نصف-نقلة (يتم تصفير عداد ال 50 نقلة)</item>
   </plurals>
   <string name="noGameFound">لم يتم العثور على مباريات</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">أترغب في ضم مباريات أكثر من قائمة التفضيلات؟</string>
   <string name="openingExplorer">مستكشف الافتتاحيات</string>
+  <string name="xOpeningExplorer">مستكشف افتتاحيات %s</string>
+  <string name="winPreventedBy50MoveRule">قاعدة ال 50 نقلة منعت الفوز</string>
+  <string name="lossSavedBy50MoveRule">قاعدة ال 50 نقلة منعت الخسارة</string>
+  <string name="allSet">إعتمد كل الإعدادات!</string>
+  <string name="importPgn">استيراد PGN</string>
+  <string name="delete">حذف</string>
+  <string name="deleteThisImportedGame">هل تريد حذف هذه المباراة المستوردة؟</string>
+  <string name="replayMode">نمط إعادة العرض</string>
+  <string name="realtimeReplay">ذات الوقت</string>
+  <string name="byCPL">بالاثارة</string>
+  <string name="openStudy">فتح دراسة</string>
+  <string name="enable">تمكين</string>
+  <string name="bestMoveArrow">سهم أفضل نقلة</string>
+  <string name="evaluationGauge">مقياس التقييم</string>
+  <string name="multipleLines">عدد الخطوط</string>
+  <string name="cpus">المعالجات</string>
+  <string name="memory">الذاكرة</string>
+  <string name="infiniteAnalysis">تحليل لانهائي</string>
+  <string name="removesTheDepthLimit">التحليل لأبعد عمق، وابقاء حاسوبك نشطًا</string>
   <string name="blunders">أخطاء فادحة</string>
   <string name="mistakes">أخطاء</string>
   <string name="inaccuracies">نقلات غير دقيقة</string>
@@ -100,7 +120,31 @@
   <string name="claimADraw">إعلان التعادل</string>
   <string name="offerDraw">عرض التعادل</string>
   <string name="draw">تعادل</string>
+  <plurals name="nbPlayers">
+    <item quantity="zero">%s لاعب</item>
+    <item quantity="one">%s لاعب</item>
+    <item quantity="two">%s لاعب</item>
+    <item quantity="few">%s لاعبين</item>
+    <item quantity="many">%s لاعبين</item>
+    <item quantity="other">%s لاعب</item>
+  </plurals>
   <string name="currentGames">اللعبات الجارية</string>
+  <plurals name="nbGames">
+    <item quantity="zero">%s مباراة</item>
+    <item quantity="one">%s مباراة</item>
+    <item quantity="two">%s مباراة</item>
+    <item quantity="few">%s مباراة</item>
+    <item quantity="many">%s مباراة</item>
+    <item quantity="other">%s مباراة</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="zero">%s مباراة مفضلة</item>
+    <item quantity="one">%s مباراة مفضلة</item>
+    <item quantity="two">%s مباراة مفضلة</item>
+    <item quantity="few">%s مباراة مفضلة</item>
+    <item quantity="many">%s مباراة مفضلة</item>
+    <item quantity="other">%s مباراة مفضلة</item>
+  </plurals>
   <string name="viewInFullSize">عرض بالحجم الكامل</string>
   <string name="logOut">خروج</string>
   <string name="signIn">دخول</string>
@@ -121,6 +165,22 @@
   <string name="correspondence">مراسلة</string>
   <string name="daysPerTurn">يوم لكل نقلة</string>
   <string name="oneDay">يوم واحد</string>
+  <plurals name="nbDays">
+    <item quantity="zero">%s يوم</item>
+    <item quantity="one">%s يوم</item>
+    <item quantity="two">%s يوم</item>
+    <item quantity="few">%s يوم</item>
+    <item quantity="many">%s يوم</item>
+    <item quantity="other">%s يوم</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="zero">%s ساعة</item>
+    <item quantity="one">%s ساعة</item>
+    <item quantity="two">%s ساعة</item>
+    <item quantity="few">%s ساعة</item>
+    <item quantity="many">%s ساعة</item>
+    <item quantity="other">%s ساعة</item>
+  </plurals>
   <string name="time">الوقت</string>
   <string name="rating">التقييم</string>
   <string name="ratingStats">احصائيات التقييم</string>
@@ -135,7 +195,25 @@
   <string name="passwordReset">إعادة تعيين كلمة المرور</string>
   <string name="forgotPassword">هل نسيت كلمة المرور؟</string>
   <string name="rank">المرتبة</string>
+  <string name="rankX">الترتيب: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">يتم تحديث الترتيب كل %s دقيقة</string>
+  <plurals name="nbPuzzles">
+    <item quantity="zero">%s لغز</item>
+    <item quantity="one">%s لغز</item>
+    <item quantity="two">%s لغزان</item>
+    <item quantity="few">%s ألغاز</item>
+    <item quantity="many">%s لغز</item>
+    <item quantity="other">%s لغز</item>
+  </plurals>
   <string name="gamesPlayed">لعب %1$s لعبة</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="zero">%s مباراة معك</item>
+    <item quantity="one">%s مباراة معك</item>
+    <item quantity="two">%s مباراة معك</item>
+    <item quantity="few">%s مباراة معك</item>
+    <item quantity="many">%s مباراة معك</item>
+    <item quantity="other">%s مباراة معك</item>
+  </plurals>
   <string name="cancel">إلغاء</string>
   <string name="timeOut">انتهى الوقت</string>
   <string name="drawOfferSent">تم ارسال عرض التعادل</string>
@@ -169,6 +247,8 @@
   <string name="play">العب</string>
   <string name="inbox">صندوق الرسائل</string>
   <string name="chatRoom">غرفة الدردشة</string>
+  <string name="loginToChat">تسجيل الدخول للدردشة</string>
+  <string name="youHaveBeenTimedOut">تم حظرك مؤقتًا.</string>
   <string name="spectatorRoom">غرفة المشاهدين</string>
   <string name="composeMessage">اكتب رسالة</string>
   <string name="noNewMessages">لا توجد رسائل جديدة</string>
@@ -178,10 +258,60 @@
   <string name="incrementInSeconds">الزيادة بالثواني</string>
   <string name="freeOnlineChess">شطرنج مجاني على الإنترنت</string>
   <string name="spectators">المشاهدون</string>
+  <plurals name="nbRated">
+    <item quantity="zero">%s مقيمة</item>
+    <item quantity="one">%s مقيمة</item>
+    <item quantity="two">%s مقيمة</item>
+    <item quantity="few">%s مقيمة</item>
+    <item quantity="many">%s مقيمة</item>
+    <item quantity="other">%s مقيمة</item>
+  </plurals>
+  <plurals name="nbWins">
+    <item quantity="zero">%s فوز</item>
+    <item quantity="one">%s فوز</item>
+    <item quantity="two">%s فوز</item>
+    <item quantity="few">%s فوز</item>
+    <item quantity="many">%s فوز</item>
+    <item quantity="other">%s فوز</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="zero">%s خسارة</item>
+    <item quantity="one">%s خسارة</item>
+    <item quantity="two">%s خسارة</item>
+    <item quantity="few">%s خسارة</item>
+    <item quantity="many">%s خسارة</item>
+    <item quantity="other">%s خسارة</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="zero">%s تعادلات</item>
+    <item quantity="one">%s تعادلات</item>
+    <item quantity="two">%s تعادلات</item>
+    <item quantity="few">%s تعادلات</item>
+    <item quantity="many">%s تعادلات</item>
+    <item quantity="other">%s تعادلات</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="zero">%s لعبت</item>
+    <item quantity="one">%s لعبت</item>
+    <item quantity="two">%s لعبت</item>
+    <item quantity="few">%s لعبت</item>
+    <item quantity="many">%s لعبت</item>
+    <item quantity="other">%s لعبت</item>
+  </plurals>
   <string name="exportGames">تصدير المباريات</string>
   <string name="ratingRange">نطاق التقييم</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="zero">منح %s ثانية</item>
+    <item quantity="one">منح %s ثانية</item>
+    <item quantity="two">منح %s ثانية</item>
+    <item quantity="few">منح %s ثانية</item>
+    <item quantity="many">منح %s ثانية</item>
+    <item quantity="other">منح %s ثانية</item>
+  </plurals>
+  <string name="giveMoreTime">إعطاء مزيد من الوقت</string>
   <string name="thisPlayerUsesChessComputerAssistance">هذا اللاعب يستعين ببرامج الشطرنج</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">هذا اللاعب يتلاعب بتقييمه</string>
+  <string name="openingExplorerAndTablebase">مستكشف الافتتاحيات&amp; جدول النهايات</string>
   <string name="takeback">تراجع</string>
   <string name="proposeATakeback">اقتراح تراجع عن النقلة الآخيرة</string>
   <string name="takebackPropositionSent">أُرسل مقترح التراجع</string>
@@ -200,6 +330,14 @@
   <string name="backToGame">العودة للعبة</string>
   <string name="siteDescription">موقع شطرنج مجاني. العب الشطرنج الآن بتصميم نظيف، دون تسجيل او دعايات أو إضافات برمجية. العب الشطرنج مع الحاسب، الأصدقاء أو خصوما من حول الكرة الأرضية</string>
   <string name="teams">الفِرق</string>
+  <plurals name="nbMembers">
+    <item quantity="zero">%s عضو</item>
+    <item quantity="one">%s عضو</item>
+    <item quantity="two">%s عضو</item>
+    <item quantity="few">%s عضو</item>
+    <item quantity="many">%s عضو</item>
+    <item quantity="other">%s عضو</item>
+  </plurals>
   <string name="allTeams">كل الفِرق</string>
   <string name="newTeam">فريق جديد</string>
   <string name="myTeams">فرقي</string>
@@ -226,6 +364,15 @@
   <string name="fromPosition">من وضع</string>
   <string name="continueFromHere">تابع من هنا</string>
   <string name="importGame">استورد لعبة</string>
+  <string name="importGameExplanation">عند لصق مباراة PGN تحصل على إمكانية كرار استعراضها وتحليل حاسوبي ودردشة للمباراة ورابط قابل للمشاركة.</string>
+  <plurals name="nbImportedGames">
+    <item quantity="zero">مباراة مستوردة %s</item>
+    <item quantity="one">مباراة مستوردة %s</item>
+    <item quantity="two">مباراة مستوردة %s</item>
+    <item quantity="few">مباراة مستوردة %s</item>
+    <item quantity="many">مباراة مستوردة %s</item>
+    <item quantity="other">مباراة مستوردة %s</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">هذا اختبار شطرنجي  للتمييز بين الحاسب والإنسان</string>
   <string name="clickOnTheBoardToMakeYourMove">اضغط على الرقعة لاختيارالنقلة وتأكيد إنسانيتك</string>
   <string name="captcha.fail">الرجاء حل مسألة الشطرنج مات بنقلة واحدة.</string>
@@ -236,6 +383,7 @@
   <string name="onlineFriends">الأصدقاء المتصلون</string>
   <string name="noFriendsOnline">لايوجد أصدقاء متصلين</string>
   <string name="findFriends">ابحث عن أصدقاء</string>
+  <string name="favoriteOpponents">خصوم مفضلين</string>
   <string name="follow">تابع</string>
   <string name="following">متابع</string>
   <string name="unfollow">إالغاء المتابعة</string>
@@ -244,6 +392,22 @@
   <string name="unblock">إلغاء الحظر</string>
   <string name="followsYou">يتابعك</string>
   <string name="xStartedFollowingY">%1$s بدأ متابعة %2$s</string>
+  <plurals name="nbFollowers">
+    <item quantity="zero">%s متابع</item>
+    <item quantity="one">%s متابع</item>
+    <item quantity="two">%s متابع</item>
+    <item quantity="few">%s متابع</item>
+    <item quantity="many">%s متابع</item>
+    <item quantity="other">%s متابع</item>
+  </plurals>
+  <plurals name="nbFollowing">
+    <item quantity="zero">%s يتابعهم</item>
+    <item quantity="one">%s يتابعهم</item>
+    <item quantity="two">%s يتابعهم</item>
+    <item quantity="few">%s يتابعهم</item>
+    <item quantity="many">%s يتابعهم</item>
+    <item quantity="other">%s يتابعهم</item>
+  </plurals>
   <string name="more">المزيد</string>
   <string name="memberSince">مسجل منذ</string>
   <string name="lastSeenActive">آخر دخول %s</string>
@@ -251,6 +415,14 @@
   <string name="player">لاعب</string>
   <string name="list">قائمة</string>
   <string name="graph">رسم بياني</string>
+  <plurals name="lessThanNbMinutes">
+    <item quantity="zero">أقل من %s دقيقة</item>
+    <item quantity="one">أقل من %s دقيقة</item>
+    <item quantity="two">أقل من %s دقيقة</item>
+    <item quantity="few">أقل من %s دقيقة</item>
+    <item quantity="many">أقل من %s دقيقة</item>
+    <item quantity="other">أقل من %s دقيقة</item>
+  </plurals>
   <string name="required">مطلوب</string>
   <string name="openTournaments">المسابقات المفتوحة</string>
   <string name="duration">المدة</string>
@@ -265,16 +437,34 @@
   <string name="winStreak">فوز متتالي</string>
   <string name="createdBy">أنشأها</string>
   <string name="tournamentIsStarting">بدأت المسابقة</string>
+  <string name="tournamentPairingsAreNowClosed">إزواج البطولة مغلق الآن.</string>
+  <string name="standByX">تأهب يا %s، يتم إزواج اللاعبين، إستعد!</string>
+  <string name="youArePlaying">أنت تلعب!</string>
   <string name="winRate">معدل الفوز</string>
   <string name="berserkRate">معدل المخاطرة</string>
+  <string name="performance">الأداء</string>
+  <string name="tournamentComplete">إكتملت البطولة</string>
+  <string name="movesPlayed">نقلات اللعب</string>
+  <string name="whiteWins">فوز الأبيض</string>
+  <string name="blackWins">فوز الأسود</string>
+  <string name="draws">التعادلات</string>
+  <string name="nextXTournament">بطولة ال %s التالية:</string>
+  <string name="viewMoreTournaments">عرض المزيد من البطولات</string>
+  <string name="averageOpponent">معدل الخصم</string>
   <string name="membersOnly">للأعضاء فقط</string>
   <string name="boardEditor">محررالرقعة</string>
+  <string name="setTheBoard">إعداد الرقعة</string>
+  <string name="popularOpenings">إفتتاحيات شائعة</string>
   <string name="startPosition">وضع البداية</string>
   <string name="clearBoard">مسح الرقعة</string>
   <string name="savePosition">حفظ الوضع</string>
   <string name="loadPosition">تحميل الوضع</string>
   <string name="isPrivate">خاص</string>
   <string name="reportXToModerators">بلغ الإدارة عن %s</string>
+  <string name="profileCompletion">اكتمال الملف الشخصي: %s</string>
+  <string name="xRating">تقييم %s</string>
+  <string name="ifNoneLeaveEmpty">إذا لم يوجد، أتركه فارغًا</string>
+  <string name="gameCompletionRate">معدل إكمال المباراة: %s</string>
   <string name="profile">الملف الشخصي</string>
   <string name="editProfile">حرر الملف الشخصي</string>
   <string name="firstName">الاسم الأول</string>
@@ -308,11 +498,35 @@
   <string name="pleaseVotePuzzle">ساعد الموقع على تحسين الألغاز بتقييمها من خلال الأسهم.</string>
   <string name="thankYou">شكراً!</string>
   <string name="ratingX">التقييم:  %s</string>
+  <plurals name="playedXTimes">
+    <item quantity="zero">لُعِبَ %s مرة</item>
+    <item quantity="one">لُعِبَ %s مرة</item>
+    <item quantity="two">لُعِبَ %s مرة</item>
+    <item quantity="few">لُعِبَ %s مرة</item>
+    <item quantity="many">لُعِبَ %s مرة</item>
+    <item quantity="other">لُعِبَ %s مرة</item>
+  </plurals>
   <string name="fromGameLink">من لعبة %s</string>
   <string name="continueTraining">استمر في التدريب</string>
   <string name="retryThisPuzzle">حاول مرة أخرى</string>
   <string name="thisPuzzleIsCorrect">هذا اللغز صحيح وممتع</string>
   <string name="thisPuzzleIsWrong">هذا اللغز خطأ أوممل</string>
+  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
+    <item quantity="zero">أمامك %s ثانية لتقوم بنقلتك الأولى!</item>
+    <item quantity="one">أمامك %s ثانية لتقوم بنقلتك الأولى!</item>
+    <item quantity="two">أمامك %s ثانية لتقوم بنقلتك الأولى!</item>
+    <item quantity="few">أمامك %s ثانية لتقوم بنقلتك الأولى!</item>
+    <item quantity="many">أمامك %s ثانية لتقوم بنقلتك الأولى!</item>
+    <item quantity="other">أمامك %s ثانية لتقوم بنقلتك الأولى!</item>
+  </plurals>
+  <plurals name="nbGamesInPlay">
+    <item quantity="zero">%s مباراة جارية</item>
+    <item quantity="one">%s مباراة جارية</item>
+    <item quantity="two">%s مباراة جارية</item>
+    <item quantity="few">%s مباراة جارية</item>
+    <item quantity="many">%s مباراة جارية</item>
+    <item quantity="other">%s مباراة جارية</item>
+  </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">الانتقال تلقائياً للعبة التالية بعد النقلة</string>
   <string name="autoSwitch">تبديل تلقائي</string>
   <string name="puzzles">ألغاز</string>
@@ -358,6 +572,7 @@
   <string name="closeAccountExplanation">إغلاق الحساب نهائي ويستحيل إعادة الحساب أو الوصول إلى صفحة المستخدم</string>
   <string name="thisAccountIsClosed">هذا الحساب مغلق.</string>
   <string name="invalidUsernameOrPassword">اسم المستخدم أو كلمة المرور غير صحيح</string>
+  <string name="incorrectPassword">كلمة المرور غير صحيحة</string>
   <string name="emailMeALink">أرسل الرابط بالبريد الإلكتروني</string>
   <string name="currentPassword">كلمة المرور الحالية</string>
   <string name="newPassword">كلمة المرور الجديدة</string>
@@ -366,6 +581,9 @@
   <string name="pieceDestinations">نقلات القطعة ( النقلات المتاحة والنقلات الاستباقية)</string>
   <string name="boardCoordinates">إحداثيات الرقعة  (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">قائمة النقلات خلال اللعب</string>
+  <string name="pgnPieceNotation">تدوين النقلة</string>
+  <string name="chessPieceSymbol">رمز قطعة الشطرنج</string>
+  <string name="pgnLetter">حروف (K, Q, R, B, N)</string>
   <string name="chessClock">مؤقت الشطرنج</string>
   <string name="tenthsOfSeconds">أجزاء الثانية</string>
   <string name="never">إطلاقا</string>
@@ -373,6 +591,10 @@
   <string name="horizontalGreenProgressBars">الشريط الأخضر للساعة</string>
   <string name="soundWhenTimeGetsCritical">الصوت عندما يقارب الوقت على الإنتهاء</string>
   <string name="gameBehavior">سلوكيات المباراة</string>
+  <string name="howDoYouMovePieces">كيف يمكنك تحريك القطع؟</string>
+  <string name="clickTwoSquares">النقر فوق مربعين</string>
+  <string name="dragPiece">سحب القطعة</string>
+  <string name="bothClicksAndDrag">كلاهما</string>
   <string name="premovesPlayingDuringOpponentTurn">النقلات الاستباقية (اللعب خلال دور الخصم)</string>
   <string name="takebacksWithOpponentApproval">التراجع عن النقلات (بموافقة الخصم)</string>
   <string name="promoteToQueenAutomatically">الترقية إلى وزير آلياً</string>
@@ -380,6 +602,7 @@
   <string name="privacy">الخصوصية</string>
   <string name="letOtherPlayersFollowYou">اسمح للاعبين الآخرين بمتابعتك</string>
   <string name="letOtherPlayersChallengeYou">اسمح للاعبين الآخرين بتحديك</string>
+  <string name="letOtherPlayersInviteYouToStudy">السماح للاعبين الآخرين بدعوتك لدراسة</string>
   <string name="sound">الصوت</string>
   <string name="yourPreferencesHaveBeenSaved">تم حفظ تفضيلاتك.</string>
   <string name="none">بدون</string>
@@ -406,6 +629,23 @@
   <string name="starting">تبدأ في:</string>
   <string name="allInformationIsPublicAndOptional">كل المعلومات متاحة للجميع وهي اختيارية.</string>
   <string name="yourCityRegionOrDepartment">المدينة والمنطقة</string>
+  <string name="biographyDescription">عبر عن نفسك. ماذا تحب في الشطرنج، إفتتاحياتك المفضلة، المباريات، اللاعبين…</string>
+  <plurals name="maximumNbCharacters">
+    <item quantity="zero">الحد الأقصى: %s حرف.</item>
+    <item quantity="one">الحد الأقصى: %s حرف.</item>
+    <item quantity="two">الحد الأقصى: %s حرف.</item>
+    <item quantity="few">الحد الأقصى: %s حرف.</item>
+    <item quantity="many">الحد الأقصى: %s حرف.</item>
+    <item quantity="other">الحد الأقصى: %s حرف.</item>
+  </plurals>
+  <plurals name="blocks">
+    <item quantity="zero">%s حظر</item>
+    <item quantity="one">%s حظر</item>
+    <item quantity="two">%s حظر</item>
+    <item quantity="few">%s حظر</item>
+    <item quantity="many">%s حظر</item>
+    <item quantity="other">%s حظر</item>
+  </plurals>
   <string name="listBlockedPlayers">اعرض من حظرت من اللاعبين</string>
   <string name="human">إنسان</string>
   <string name="computer">حاسب</string>
@@ -419,6 +659,7 @@
   <string name="playOnTheBoardOffline">العب مع صديق محليا</string>
   <string name="playOfflineComputer">العب مع الحاسب محليا</string>
   <string name="opponent">الخصم</string>
+  <string name="learnMenu">تعلم</string>
   <string name="community">المجتمع</string>
   <string name="tools">أدوات</string>
   <string name="increment">الزيادة</string>
@@ -431,7 +672,9 @@
   <string name="error.email">هذا البريد الإلكتروني غير صحبح</string>
   <string name="error.email_acceptable">هذا البريد الإلكتروني غير مقبول</string>
   <string name="error.email_unique">هذا البريد الإلكتروني مستعمل من قبل</string>
+  <string name="error.email_different">هذا بريدك الإلكتروني بالفعل</string>
   <string name="blindfoldChess">(معصوب العينين (إخفاء القطع</string>
+  <string name="zenMode">وضع التأمل</string>
   <string name="moveConfirmation">تأكيد النقلة</string>
   <string name="inCorrespondenceGames">فى العاب المراسلة</string>
   <string name="ifRatingIsPlusMinusX">± %s اذا التقييم</string>
@@ -442,6 +685,14 @@
   <string name="whiteCastlingQueenside">تبييت طويل للأبيض</string>
   <string name="blackCastlingKingside">تبييت قصير للأسود</string>
   <string name="blackCastlingQueenside">تبييت طويل للأسود</string>
+  <plurals name="nbForumPosts">
+    <item quantity="zero">منشورات المنتدى %s</item>
+    <item quantity="one">منشورات المنتدى %s</item>
+    <item quantity="two">منشورات المنتدى %s</item>
+    <item quantity="few">منشورات المنتدى %s</item>
+    <item quantity="many">منشورات المنتدى %s</item>
+    <item quantity="other">منشورات المنتدى %s</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">الوقت المقضي في اللعب:  %s</string>
   <string name="watchGames">شاهد الألعاب</string>
   <string name="tpTimeSpentOnTV">الوقت في المشاهدة:  %s</string>
@@ -456,6 +707,7 @@
   <string name="sourceCode">الكود المصدر</string>
   <string name="simultaneousExhibitions">معارض التزامنيات</string>
   <string name="host">المضيف</string>
+  <string name="hostColorX">لون المضيف: %s</string>
   <string name="createdSimuls">تزامنيات مُنشأة حديثاً</string>
   <string name="hostANewSimul">استضف تزامنية جديدة</string>
   <string name="noSimulFound">التزامنية غير موجودة</string>
@@ -490,6 +742,14 @@
   <string name="tournamentMayHaveBeenCanceled">إذا غادر جميع اللاعبين قبل بداية المسابقة قإنها تُلغى</string>
   <string name="returnToTournamentsHomepage">الرجوع إلى المسابقات</string>
   <string name="weeklyPerfTypeRatingDistribution">توزيع التقييم الأسبوعي لـ %s</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="zero">%1$s%2$s لاعب هذا الإسبوع.</item>
+    <item quantity="one">%1$s%2$s لاعب هذا الإسبوع.</item>
+    <item quantity="two">%1$s%2$s لاعب هذا الإسبوع.</item>
+    <item quantity="few">%1$s%2$s لاعب هذا الإسبوع.</item>
+    <item quantity="many">%1$s%2$s لاعب هذا الإسبوع.</item>
+    <item quantity="other">%1$s%2$s لاعب هذا الإسبوع.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">تقييمك في %1$s هو %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">أنت أفضل من %1$s من %2$s من اللاعبين.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">ليس لديك تقييم ثابت في %s.</string>
@@ -509,12 +769,26 @@
   <string name="crosstable">تاريخ</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">يمكنك استخدام الزر الاوسط للفأرة على الرقعة لتنفيذ حركة من الدور.</string>
   <string name="analysisShapesHowTo">استخدم ز الفأرة الأيمن لرسم دوائر وأسهم على الرقعة</string>
+  <string name="confirmResignationAndDrawOffers">تأكيد الاستسلام وعرض التعادل</string>
+  <string name="inputMovesWithTheKeyboard">إدخال النقلات بلوحة المفاتيح</string>
   <string name="letOtherPlayersMessageYou">السماح للاعبين بمراسلتك</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">طريقة التحصين/التبييت</string>
+  <string name="castleByMovingTwoSquares">حرك الملك مربعين</string>
+  <string name="castleByMovingOntoTheRook">حرك الملك بإتجاه الرخ</string>
   <string name="shareYourInsightsData">مشاركة بيانات طريقة لعبك</string>
   <string name="withNobody">وحدك</string>
   <string name="withFriends">مع الأصدقاء</string>
+  <string name="withEverybody">مع الجميع</string>
   <string name="youHaveAlreadyRegisteredTheEmail">سبق لك تسجيل هذا البريد الإلكتروني %s</string>
   <string name="kidMode">موقع الأطفال</string>
+  <string name="kidModeExplanation">هذا يتعلق بالأمان. في نمط الطفل، يتم تعطيل كافة اتصالات المواقع. تمكين هذا للأطفال والطلاب، لحمايتهم من مستخدمي الإنترنت الأخرين.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">في نمط الطفل، يكون لشعار ليتشيس رمز %s، لكي تعرف أن أطفالك آمنين.</string>
+  <string name="enableKidMode">تمكين نمط الطفل</string>
+  <string name="disableKidMode">تعطيل نمط الطفل</string>
+  <string name="security">الأمان</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">هذه هي قائمة بالأجهزة التي قامت بتسجيل الدخول إلى حسابك. قم بإلغاء أي جلسات اعمل لا تعرفها.</string>
+  <string name="alternativelyYouCanX">وبدلاً من ذلك يمكنك %s.</string>
+  <string name="revokeAllSessions">إلغاء كافة جلسات العمل</string>
   <string name="playChessEverywhere">العب الشطرنج فى كل مكان</string>
   <string name="asFreeAsLichess">مجاني</string>
   <string name="builtForTheLoveOfChessNotMoney">تم بناؤه حباً في الشطرنج, وليس المال :)</string>
@@ -528,16 +802,50 @@
   <string name="correspondenceAndUnlimited">مراسلة وبدون توقيت</string>
   <string name="viewTheSolution">الحل</string>
   <string name="followAndChallengeFriends">تابع وتحدى أصدقاءك</string>
+  <plurals name="availableInNbLanguages">
+    <item quantity="zero">متاح ب %s لغات!</item>
+    <item quantity="one">متاح ب %s لغات!</item>
+    <item quantity="two">متاح ب %s لغات!</item>
+    <item quantity="few">متاح ب %s لغات!</item>
+    <item quantity="many">متاح ب %s لغات!</item>
+    <item quantity="other">متاح ب %s لغات!</item>
+  </plurals>
   <string name="gameAnalysis">تحليل اللعبة</string>
+  <string name="xHostsY">%1$s يستضيف %2$s</string>
+  <string name="xJoinsY">%1$s إنضم ل %2$s</string>
+  <string name="xLikesY">%1$s أعجب ب %2$s</string>
   <string name="quickPairing">تزويج سريع</string>
+  <string name="lobby">لوبي</string>
+  <string name="anonymous">مجهول</string>
   <string name="yourScore">نقاطك: %s</string>
+  <string name="language">اللغة</string>
+  <string name="background">الخلفية</string>
+  <string name="light">فاتح</string>
+  <string name="dark">داكن</string>
+  <string name="transparent">شفّاف</string>
+  <string name="backgroundImageUrl">رابط صورة الخلفية:</string>
   <string name="boardGeometry">شكل الرقعة</string>
   <string name="boardTheme">سِمة الطاولة</string>
   <string name="boardSize">حجم رقعة اللعب</string>
   <string name="pieceSet">مجموعة القطع</string>
+  <string name="embedInYourWebsite">تضمين في موقع الويب الخاص بك</string>
   <string name="usernameAlreadyUsed">اسم المستخدم الذي اخترته موجود بالفعل، الرجاء كتابة اسم آخر.</string>
+  <string name="usernameInvalid">اسم المستخدم غير صحيح. الرجاء استخدام الحروف والأرقام فقط، والشرطة السفلية والشرطه.</string>
   <string name="usernameStartNoNumber">لا يجب أن يبدأ اسم المستخدم برقم.</string>
   <string name="usernameUnacceptable">اسم المستخدم هذا غير مقبول.</string>
   <string name="directlySupportLichess">دعم ليتشيس مباشرة</string>
+  <string name="playChessInStyle">لعب الشطرنج في نمط</string>
+  <string name="chessBasics">أساسيات الشطرنج</string>
+  <string name="coaches">المدربين</string>
   <string name="invalidPgn">ملف بي جي ان غير صالح</string>
+  <string name="invalidFen">FEN غير صالح</string>
+  <string name="error.minLength">الحد الأدنى للطول هو %s</string>
+  <string name="error.maxLength">حد الطول الأقصى هو %s</string>
+  <string name="error.min">يجب أن يكون أكبر أو يساوي ل %s</string>
+  <string name="error.max">يجب أن يكون أقل أو يساوي %s</string>
+  <string name="error.unknown">خطأ</string>
+  <string name="custom">مخصص</string>
+  <string name="notifications">إشعارات</string>
+  <string name="challenges">التحديات</string>
+  <string name="perfRatingX">التقييم: %s</string>
 </resources>

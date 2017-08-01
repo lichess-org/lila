@@ -4,7 +4,6 @@
   <string name="emailConfirm_subject">حساب خود را در lichess.org تایید کنید،%s</string>
   <string name="emailConfirm_click">بر روی لینک کلیک کنید تا حساب شما در lichess فعال شود:</string>
   <string name="emailConfirm_ignore">اگر شما در lichess ثبت نام نکرده اید میتوانید با خیال راحت این پیام را نادیده بگیرید.</string>
-  <string name="passwordReset_subject">تغییر رمز عبور s ،lichees.org%</string>
   <string name="passwordReset_intro">ما یک درخواست برای تغییر رمز عبور حساب کاربری شما دریافت کرده ایم.</string>
   <string name="passwordReset_clickOrIgnore">اگر شما درخواست داده اید، بر روی لینک زیر کلیک کنید. اگر نه، میتوانید این ایمیل را نادیده بگیرید.</string>
   <string name="emailChange_subject">آدرس ایمیل جدید خود را تایید کنید، %s</string>

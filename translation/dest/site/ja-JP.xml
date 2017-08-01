@@ -115,7 +115,7 @@
   </plurals>
   <string name="currentGames">現在対局中</string>
   <plurals name="nbGames">
-    <item quantity="other">対局（全%s局）を見る</item>
+    <item quantity="other">全%s局 の統計</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="other">%s個の ブックマーク</item>
@@ -165,7 +165,7 @@
   <plurals name="nbPuzzles">
     <item quantity="other">%s タクティクス</item>
   </plurals>
-  <string name="gamesPlayed">過去の対局</string>
+  <string name="gamesPlayed">局をプレイ</string>
   <plurals name="nbGamesWithYou">
     <item quantity="other">あなたと %s 局対局</item>
   </plurals>
@@ -531,7 +531,7 @@
   <string name="connectedToLichess">lichess.org に接続しています。</string>
   <string name="signedOut">サインアウトしました。</string>
   <string name="loginSuccessful">ログインしました</string>
-  <string name="playOnTheBoardOffline">オフラインで遊ぶ。ＯＴＢチェス</string>
+  <string name="playOnTheBoardOffline">オフライン（2人対戦）</string>
   <string name="playOfflineComputer">オフラインでＣＰＵと対戦する</string>
   <string name="opponent">対戦相手</string>
   <string name="learnMenu">学ぶ</string>

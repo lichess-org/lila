@@ -169,6 +169,10 @@
   <string name="rank">Rank</string>
   <string name="rankX">Classificação: %s</string>
   <string name="rankIsUpdatedEveryXMinutes">A classificação é atualizada a cada %s minutos</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s quebra-cabeça</item>
+    <item quantity="other">%s quebra-cabeças</item>
+  </plurals>
   <string name="gamesPlayed">Partidas realizadas</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s partidas contra você</item>
@@ -600,6 +604,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="sourceCode">Código-fonte</string>
   <string name="simultaneousExhibitions">Exibição simultânea</string>
   <string name="host">Simultanista</string>
+  <string name="hostColorX">Cor do simultanista: %s</string>
   <string name="createdSimuls">Simultâneas recentemente criadas</string>
   <string name="hostANewSimul">Iniciar nova simultânea</string>
   <string name="noSimulFound">Simultânea não encontrada</string>
