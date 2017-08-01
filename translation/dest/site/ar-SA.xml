@@ -728,7 +728,7 @@
   <string name="tournamentFAQ">مسابقة أرينا (سؤال وجواب)</string>
   <string name="tournamentOfficial">رسمية</string>
   <string name="timeBeforeTournamentStarts">الوقت حتى بداية المسابقة</string>
-  <string name="averageCentipawnLoss">دقة اللعب (أقل أفضل)</string>
+  <string name="averageCentipawnLoss">معدل الخسارة مقيمة ب 0.01 بيدق</string>
   <string name="keyboardShortcuts">اختصارات لوحة المفاتيح</string>
   <string name="keyMoveBackwardOrForward">تحرك للخلف/للأمام</string>
   <string name="keyGoToStartOrEnd">اذهب للبداية/للنهاية</string>
@@ -775,7 +775,7 @@
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">طريقة التحصين/التبييت</string>
   <string name="castleByMovingTwoSquares">حرك الملك مربعين</string>
   <string name="castleByMovingOntoTheRook">حرك الملك بإتجاه الرخ</string>
-  <string name="shareYourInsightsData">مشاركة بيانات طريقة لعبك</string>
+  <string name="shareYourInsightsData">شارك بيانات طريقة لعبك</string>
   <string name="withNobody">وحدك</string>
   <string name="withFriends">مع الأصدقاء</string>
   <string name="withEverybody">مع الجميع</string>
@@ -810,7 +810,7 @@
     <item quantity="many">متاح ب %s لغات!</item>
     <item quantity="other">متاح ب %s لغات!</item>
   </plurals>
-  <string name="gameAnalysis">تحليل اللعبة</string>
+  <string name="gameAnalysis">تحليل المباراة</string>
   <string name="xHostsY">%1$s يستضيف %2$s</string>
   <string name="xJoinsY">%1$s إنضم ل %2$s</string>
   <string name="xLikesY">%1$s أعجب ب %2$s</string>
@@ -826,7 +826,7 @@
   <string name="backgroundImageUrl">رابط صورة الخلفية:</string>
   <string name="boardGeometry">شكل الرقعة</string>
   <string name="boardTheme">سِمة الطاولة</string>
-  <string name="boardSize">حجم رقعة اللعب</string>
+  <string name="boardSize">حجم الرقعة</string>
   <string name="pieceSet">مجموعة القطع</string>
   <string name="embedInYourWebsite">تضمين في موقع الويب الخاص بك</string>
   <string name="usernameAlreadyUsed">اسم المستخدم الذي اخترته موجود بالفعل، الرجاء كتابة اسم آخر.</string>
