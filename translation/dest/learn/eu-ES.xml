@@ -11,9 +11,68 @@
   <string name="chessPieces">Xake piezak</string>
   <string name="theRook">Gaztelua edo Dorrea</string>
   <string name="itMovesInStraightLines">Lerro zuzenetan zehar mugitzen da</string>
+  <string name="rookIntro">Gaztelua pieza indartsua da. Aurrera jarraitu nahi duzu?</string>
+  <string name="rookGoal">Egin klik gazteluan
+izarrera eramateko!</string>
+  <string name="grabAllTheStars">Hartu izar guztiak!</string>
+  <string name="theFewerMoves">Zenbat eta jokaldi gutxiago egin,
+hainbat eta puntu gehiago lortuko duzu!</string>
+  <string name="useTwoRooks">Erabili bi gazteluak
+gauzak azkartzeko!</string>
+  <string name="rookComplete">Zorionak! Gaztelua ondo menderatu duzu.</string>
   <string name="theBishop">Alfila edo Gudaria</string>
   <string name="itMovesDiagonally">Diagonalean mugitzen da</string>
+  <string name="bishopIntro">Jarraian alfila nola mugitu ikasiko dugu!</string>
+  <string name="youNeedBothBishops">Lauki argietako alfil bat,
+lauki ilunetako alfil bat. 
+Biak behar dituzu!</string>
+  <string name="bishopComplete">Zorionak! Alfila menderatzen duzu.</string>
   <string name="theQueen">Dama edo Anderea</string>
   <string name="queenCombinesRookAndBishop">Dama = gaztelua + alfila</string>
+  <string name="queenIntro">Pieza indartsuena dator jarraian. Dama!</string>
+  <string name="queenComplete">Zorionak! Damek ez dute zuretzat sekreturik.</string>
   <string name="theKing">Erregea</string>
+  <string name="theMostImportantPiece">Pieza garrantzitsuena</string>
+  <string name="kingIntro">Erregea zara. Gudan erortzen bazara, partida galdu egingo duzu.</string>
+  <string name="theKingIsSlow">Erregea geldoa da.</string>
+  <string name="lastOne">Azkena!</string>
+  <string name="kingComplete">Agintaria menperatzen duzu orain!</string>
+  <string name="theKnight">Zalduna</string>
+  <string name="itMovesInAnLShape">L eran mugitzen da</string>
+  <string name="knightIntro">Hemen zuretzako erronka. Zalduna... pieza zaila da.</string>
+  <string name="knightsHaveAFancyWay">Zaldunek hortik zehar
+salto egiteko joera dute!</string>
+  <string name="knightsCanJumpOverObstacles">Zaldunek oztopoen gainetik egin dezakete salto!
+Ihes egin eta lortu izarrak!</string>
+  <string name="knightComplete">Zorionak! Zalduna menperatzen duzu.</string>
+  <string name="thePawn">Peoia edo oinezkoa</string>
+  <string name="itMovesForwardOnly">Aurrerantz mugitzen da bakarrik</string>
+  <string name="pawnIntro">Peoiak ahulak dira, baina potentzial handia dute.</string>
+  <string name="pawnsMoveOneSquareOnly">Peoiak lauki bat bakarrik mugitzen dira.
+Baina xake-taularen beste aldera heltzean, pieza indartsu bihurtzen dira!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Gehienetan dama sustatzea izaten da onena.
+Baina batzuetan zaldua ere ona izan daiteke!</string>
+  <string name="pawnsMoveForward">Peoiak aurrerantz mugitzen dira,
+baina diagonalean harrapatzen dituzte piezak!</string>
+  <string name="captureThenPromote">Harrapatu, eta gero sustatu!</string>
+  <string name="useAllThePawns">Erabili peoi guztiak!
+Ez duzu sustatu beharrik.</string>
+  <string name="aPawnOnTheSecondRank">Bigarren lerroko peoiak 2 lauki mugitu ditzake batera!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Harrapatu izar guztiak!
+Ez duzu sustatu beharrik.</string>
+  <string name="pawnComplete">Zorionak! Peoiek ez dute zuretzat sekreturik.</string>
+  <string name="pawnPromotion">Peoia sustatzea</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Zure peoia xake-taularen bukaerara iritsi da!</string>
+  <string name="itNowPromotesToAStrongerPiece">Orain sustatu eta pieza indartsuago bihurtzen da.</string>
+  <string name="selectThePieceYouWant">Aukeratu zuk nahi duzun pieza!</string>
+  <string name="fundamentals">Oinarrizkoak</string>
+  <string name="capture">Harrapaketa</string>
+  <string name="takeTheEnemyPieces">Harrapatu aurkariaren piezak</string>
+  <string name="captureIntro">Aurkitu zure aurkariak defendatu gabe dituen piezak eta harrapatu!</string>
+  <string name="takeTheBlackPieces">Harrapatu pieza beltzak!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Harrapatu pieza beltzak!
+Eta ez galdu zureak.</string>
+  <string name="captureComplete">Zorionak! Orain badakizu nola borrokatu zure piezekin!</string>
+  <string name="protection">Babesa</string>
+  <string name="keepYourPiecesSafe">Babestu zure piezak</string>
 </resources>
