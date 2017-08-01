@@ -122,7 +122,7 @@ export class ClockController {
     if (!color) return;
 
     const now = nowFun();
-    const millis = this.times[color] - now + this.times.lastUpdate;
+    const millis = this.times[color] - this.elapsed(now);
 
     if (millis <= 0) this.opts.onFlag();
     else updateElements(this, this.elements[color], millis);
@@ -140,7 +140,7 @@ export class ClockController {
     }
   };
 
-  elapsed = () => Math.max(0, nowFun() - this.times.lastUpdate);
+  elapsed = (now = nowFun()) => Math.max(0, now - this.times.lastUpdate);
 
   millisOf = (color: Color): Millis => (this.times.activeColor === color ?
      Math.max(0, this.times[color] - this.elapsed()) :
