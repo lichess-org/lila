@@ -681,7 +681,9 @@
   <string name="language">Lingua</string>
   <string name="background">Fundo</string>
   <string name="light">Clar</string>
+  <string name="dark">Obscur</string>
   <string name="transparent">Transparente</string>
+  <string name="backgroundImageUrl">Ligamine URL del imagine de fundo:</string>
   <string name="boardGeometry">Geometria del tabuliero</string>
   <string name="boardTheme">Thema del tabuliero</string>
   <string name="boardSize">Dimension del tabuliero</string>
