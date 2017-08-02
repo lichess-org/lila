@@ -85,5 +85,6 @@ defendatu gabeko piezarik harrapatzen!</string>
   <string name="combat">Borroka</string>
   <string name="captureAndDefendPieces">Piezak harrapatu eta defendatu</string>
   <string name="combatIntro">Borrokalari on batek erasoa eta defentsa menperatzen ditu!</string>
+  <string name="combatComplete">Zorionak! Badakizu piezekin nola borrokatu!</string>
   <string name="castling">Endrokea</string>
 </resources>
