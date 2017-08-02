@@ -93,5 +93,45 @@ defendatu gabeko piezarik harrapatzen!</string>
 egin jokaldi baten!</string>
   <string name="checkInOneComplete">Zorionak, aurkariari xake eman diozu, bere erregea defendatzera behartuz!</string>
   <string name="outOfCheck">Xaketik kanpora</string>
+  <string name="defendYourKing">Defendatu zure erregea</string>
+  <string name="outOfCheckIntro">Xakean zaude! Ihes egin beharko duzu edo erasoa oztopatu.</string>
+  <string name="escapeWithTheKing">Egin ihes erregearekin!</string>
+  <string name="theKingCannotEscapeButBlock">Erregeak ezin du ihes egin,
+baina erasoa oztopatu dezakezu!</string>
+  <string name="youCanGetOutOfCheckByTaking">Xaketik irten zaitezke
+erasotzen zaituen pieza harrapatuz.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Zalduna xake ematen ari da
+zure defentsen artetik!</string>
+  <string name="escapeOrBlock">Egin ihes erregearekin
+edo oztopatu erasoa!</string>
+  <string name="outOfCheckComplete">Zorionak! Zure erregea ezin da harrapatu, baina ziurtatu xaketik defendatu dezakezula!</string>
+  <string name="mateInOne">Xake-mate jokaldi baten</string>
+  <string name="defeatTheOpponentsKing">Aurkariaren erregea garaitu</string>
+  <string name="mateInOneIntro">Zure aurkaria xaketik defendatu ezin denean irabazi egiten duzu.</string>
+  <string name="attackYourOpponentsKing">Erasotu aurkariaren erregea
+bere burua defendatu ezin daitekeen eran!</string>
+  <string name="mateInOneComplete">Zorionak! Horrela irabazten dira xake partidak!</string>
+  <string name="intermediate">Erdi-mailakoa</string>
+  <string name="boardSetup">Xake-taularen ezarpenak</string>
+  <string name="howTheGameStarts">Partida nola hasi</string>
+  <string name="boardSetupIntro">Bi armadak elkarri begira hasten dira, gudarako prest.</string>
+  <string name="thisIsTheInitialPosition">Hauxe partida guztien
+hasierako posizioa!
+Egin edozein jokaldi jarraitzeko.</string>
+  <string name="firstPlaceTheRooks">Kokatu lehenengo gazteluak!
+Bazterretan kokatzen dira.</string>
+  <string name="thenPlaceTheKnights">Jarraian kokatu zaldunak!
+Gazteluen ondoan kokatuko dira.</string>
+  <string name="placeTheBishops">Orain alfilak!
+Zaldunen ondoan doaz.</string>
+  <string name="placeTheQueen">Kokatu dama!
+Bere koloreko laukian jarri ezazu.</string>
+  <string name="placeTheKing">Jarri erregea!
+Bere damaren ondoan kokatu.</string>
+  <string name="pawnsFormTheFrontLine">Peoiek aurreko lerroa betetzen dute.
+Egin edozein jokaldi jarraitzeko.</string>
+  <string name="boardSetupComplete">Zorionak! Badakizu xake-taula nola kokatu.</string>
   <string name="castling">Endrokea</string>
+  <string name="theSpecialKingMove">Erregearen jokaldi berezia</string>
+  <string name="castlingIntro">Segurtasuna eman zure erregeari eta ekarri gaztelua erasora!</string>
 </resources>
