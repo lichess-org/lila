@@ -134,4 +134,12 @@ Egin edozein jokaldi jarraitzeko.</string>
   <string name="castling">Endrokea</string>
   <string name="theSpecialKingMove">Erregearen jokaldi berezia</string>
   <string name="castlingIntro">Segurtasuna eman zure erregeari eta ekarri gaztelua erasora!</string>
+  <string name="castleKingSide">Mugitu zure erregea bi lauki
+erregearen aldean endrokatzeko!</string>
+  <string name="castleQueenSide">Mugitu zure erregea bi lauki
+damaren aldean endrokatzeko!</string>
+  <string name="theKnightIsInTheWay">Zalduna bidean dago!
+Mugitu, eta ondoren erregearen aldean endrokatu.</string>
+  <string name="castleKingSideMovePiecesFirst">Endrokatu erregearen aldean!
+Tarteko piezak mugitu behar dituzu lehenengo.</string>
 </resources>
