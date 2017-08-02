@@ -53,16 +53,17 @@ private final class Captcher extends Actor {
     private def find(id: String): Option[Captcha] =
       challenges.list.find(_.gameId == id)
 
-    private def createFromDb: Fu[Option[Captcha]] =
+    private def createFromDb: Fu[Option[Captcha]] = {
       optionT(findCheckmateInDb(10) flatMap {
         _.fold(findCheckmateInDb(1))(g => fuccess(g.some))
       }) flatMap fromGame
+    }.run
 
     private def findCheckmateInDb(distribution: Int): Fu[Option[Game]] =
       GameRepo findRandomStandardCheckmate distribution
 
     private def getFromDb(id: String): Fu[Option[Captcha]] =
-      optionT(GameRepo game id) flatMap fromGame
+      optionT(GameRepo game id) flatMap fromGame run
 
     private def fromGame(game: Game): OptionT[Fu, Captcha] =
       optionT(GameRepo getOptionPgn game.id) flatMap { makeCaptcha(game, _) }
