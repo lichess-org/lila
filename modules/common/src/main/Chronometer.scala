@@ -13,7 +13,7 @@ object Chronometer {
     }
   }
 
-  case class FuLap[A](lap: Fu[Lap[A]]) {
+  case class FuLap[A](lap: Fu[Lap[A]]) extends AnyVal {
 
     def logIfSlow(threshold: Int, logger: lila.log.Logger)(msg: A => String) = {
       lap.dforeach(_.logIfSlow(threshold, logger)(msg))
@@ -29,6 +29,11 @@ object Chronometer {
 
     def pp: Fu[A] = lap dmap { l =>
       println(s"chrono ${l.micros} micros")
+      l.result
+    }
+
+    def pp(msg: String): Fu[A] = lap dmap { l =>
+      println(s"chrono $msg - ${l.micros} micros")
       l.result
     }
 
