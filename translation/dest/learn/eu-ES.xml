@@ -86,5 +86,12 @@ defendatu gabeko piezarik harrapatzen!</string>
   <string name="captureAndDefendPieces">Piezak harrapatu eta defendatu</string>
   <string name="combatIntro">Borrokalari on batek erasoa eta defentsa menperatzen ditu!</string>
   <string name="combatComplete">Zorionak! Badakizu piezekin nola borrokatu!</string>
+  <string name="checkInOne">Xake jokaldi baten</string>
+  <string name="attackTheOpponentsKing">Aurkariaren erregea erasotu</string>
+  <string name="checkInOneIntro">Aurkariari xake emateko, erasotu bere erregea. Defendatu egin beharko du!</string>
+  <string name="checkInOneGoal">Helburua aurkariaren erregea da,
+egin jokaldi baten!</string>
+  <string name="checkInOneComplete">Zorionak, aurkariari xake eman diozu, bere erregea defendatzera behartuz!</string>
+  <string name="outOfCheck">Xaketik kanpora</string>
   <string name="castling">Endrokea</string>
 </resources>
