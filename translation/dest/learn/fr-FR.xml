@@ -24,10 +24,10 @@
 Un Fou de case Noire.
 Vous avez besoin des 2 !</string>
   <string name="bishopComplete">Félicitations! Vous possédez la maîtrise du Fou.</string>
-  <string name="theQueen">La Reine</string>
-  <string name="queenCombinesRookAndBishop">Une Reine = Tour + Fou</string>
+  <string name="theQueen">La Dame</string>
+  <string name="queenCombinesRookAndBishop">Une Dame = Tour + Fou</string>
   <string name="queenIntro">La pièce la plus puissante du jeu, sa majesté la Reine!</string>
-  <string name="queenComplete">Félicitations! Vous possédez la maîtrise de la Reine.</string>
+  <string name="queenComplete">Félicitations! Vous possédez la maîtrise de la Dame.</string>
   <string name="theKing">Le Roi</string>
   <string name="theMostImportantPiece">La pièce la plus importante</string>
   <string name="kingIntro">Vous êtes le Roi. Si vous perdez cette pièce dans la bataille, la partie est perdue.</string>
@@ -44,5 +44,16 @@ Vous avez besoin des 2 !</string>
   <string name="itMovesForwardOnly">Se déplace vers l\'avant uniquement</string>
   <string name="pawnIntro">Les Pions sont faibles, mais peuvent se révéler redoutables.</string>
   <string name="pawnsMoveOneSquareOnly">Les Pions avancent d\'une case vers l\'avant uniquement.
-Mais, lorsqu\'ils atteignent le bord opposé de l\'échiquier, ils deviennent une pièce plus puissante!</string>
+Mais, lorsqu\'ils atteignent le bord opposé de l\'échiquier, ils deviennent une pièce plus puissante : c\'est une promotion!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">La plupart du temps, la promotion s\'effectue en Dame.
+Mais parfois, une promotion Cavalier est plus avantageuse!</string>
+  <string name="pawnsMoveForward">Les Pions se déplacent vers l\'avant,
+mais capturent en diagonale!</string>
+  <string name="captureThenPromote">Capturez, puis effectuez une promotion!</string>
+  <string name="useAllThePawns">Utilisez tous vos pions!
+Inutile d\'effectuer des promotions.</string>
+  <string name="aPawnOnTheSecondRank">Un Pion sur sa case de départ peu se déplacer initialement de 2 cases d\'un coup!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Collecter toutes les étoiles! Inutile d\'effectuer des promotions.</string>
+  <string name="pawnComplete">Félicitations! Vous possédez la maîtrise du Pion.</string>
+  <string name="pawnPromotion">La promotion du Pion</string>
 </resources>
