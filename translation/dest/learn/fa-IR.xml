@@ -75,6 +75,7 @@
   <string name="protection">محافظت</string>
   <string name="keepYourPiecesSafe">مهره های خود را امن نگه دارید</string>
   <string name="protectionIntro">مهره هایی که حریفتان حمله میکند را شناسایی کنید، و از آن ها دفاع کنید!</string>
+  <string name="protectionComplete">تبریک! مهره ای که شما از دست ندادی مهره ای است که شما بردید!</string>
   <string name="escape">شما مورد حمله قرار گرفتید!
 از تهدید فرار کنید!</string>
   <string name="noEscape">هیچ راه فراری نیست،
