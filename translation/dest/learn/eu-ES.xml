@@ -75,5 +75,15 @@ Eta ez galdu zureak.</string>
   <string name="captureComplete">Zorionak! Orain badakizu nola borrokatu zure piezekin!</string>
   <string name="protection">Babesa</string>
   <string name="keepYourPiecesSafe">Babestu zure piezak</string>
+  <string name="protectionComplete">Zorionak! Galtzen ez duzun pieza bat, irabazten duzun pieza bat da!</string>
+  <string name="escape">Erasopean zaude!
+Egin ihes mehatxuari!</string>
+  <string name="noEscape">Ez dago ihesbiderik,
+baina defendatu zaitezke!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Ez utzi inori
+defendatu gabeko piezarik harrapatzen!</string>
+  <string name="combat">Borroka</string>
+  <string name="captureAndDefendPieces">Piezak harrapatu eta defendatu</string>
+  <string name="combatIntro">Borrokalari on batek erasoa eta defentsa menperatzen ditu!</string>
   <string name="castling">Endrokea</string>
 </resources>
