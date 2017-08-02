@@ -200,14 +200,14 @@ object Round extends LilaController with TheftPrevention {
 
   private[controllers] def getWatcherChat(game: GameModel)(implicit ctx: Context) = ctx.noKid ?? {
     for {
-      chat <- Env.chat.api.userChat.findMine(s"${game.id}/w", ctx.me)
+      chat <- Env.chat.api.userChat.findMineIf(s"${game.id}/w", ctx.me, !game.justCreated)
       _ <- Env.user.lightUserApi.preloadMany(chat.chat.userIds)
     } yield chat.some
   }
 
   private[controllers] def getPlayerChat(game: GameModel)(implicit ctx: Context): Fu[Option[lila.chat.Chat.Restricted]] =
     (game.hasChat && ctx.noKid) ?? {
-      Env.chat.api.playerChat.find(game.id).map { chat =>
+      Env.chat.api.playerChat.findIf(game.id, !game.justCreated).map { chat =>
         lila.chat.Chat.Restricted(chat, game.fromLobby && ctx.isAnon).some
       }
     }
