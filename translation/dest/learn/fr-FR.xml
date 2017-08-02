@@ -28,5 +28,21 @@ Vous avez besoin des 2 !</string>
   <string name="queenCombinesRookAndBishop">Une Reine = Tour + Fou</string>
   <string name="queenIntro">La pièce la plus puissante du jeu, sa majesté la Reine!</string>
   <string name="queenComplete">Félicitations! Vous possédez la maîtrise de la Reine.</string>
+  <string name="theKing">Le Roi</string>
   <string name="theMostImportantPiece">La pièce la plus importante</string>
+  <string name="kingIntro">Vous êtes le Roi. Si vous perdez cette pièce dans la bataille, la partie est perdue.</string>
+  <string name="theKingIsSlow">Le Roi se déplace lentement.</string>
+  <string name="lastOne">Un dernier!</string>
+  <string name="kingComplete">Félicitations! Vous possédez la maîtrise du Roi!</string>
+  <string name="theKnight">La Cavalier</string>
+  <string name="itMovesInAnLShape">Se déplace en forme de L</string>
+  <string name="knightIntro">Voici un défi pour vous. Le Cavalier est une pièce.. surprenante.</string>
+  <string name="knightsHaveAFancyWay">Les Cavaliers possèdent une façon élégante de sauter partout!</string>
+  <string name="knightsCanJumpOverObstacles">Les Cavaliers peuvent sauter les obstacles pour collecter les étoiles!</string>
+  <string name="knightComplete">Félicitations! Vous possédez la maîtrise du Cavalier.</string>
+  <string name="thePawn">Le Pion</string>
+  <string name="itMovesForwardOnly">Se déplace vers l\'avant uniquement</string>
+  <string name="pawnIntro">Les Pions sont faibles, mais peuvent se révéler redoutables.</string>
+  <string name="pawnsMoveOneSquareOnly">Les Pions avancent d\'une case vers l\'avant uniquement.
+Mais, lorsqu\'ils atteignent le bord opposé de l\'échiquier, ils deviennent une pièce plus puissante!</string>
 </resources>
