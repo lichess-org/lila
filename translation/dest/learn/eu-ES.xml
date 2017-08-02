@@ -155,9 +155,36 @@ erregearen aldean endrokatzeko!</string>
   <string name="findAWayToCastleQueenSide">Aurkitu modua
 erregearen aldean endrokatzeko!</string>
   <string name="castlingComplete">Zorionak! Ia edozein partidatan endrokatu zaitezke.</string>
-  <string name="enPassant">Pausuan harrapatzea</string>
+  <string name="enPassant">Igarotzean harrapatzea</string>
   <string name="theSpecialPawnMove">Peoiaren jokaldi berezia</string>
   <string name="enPassantIntro">Aurkariak peoi bat bi lauki aurreratu duenean, bat mugitu balu bezala harrapatu dezakezu.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Beltzak peoia bi laukiz
+mugitu du!
+Harrapatu igarotzean.</string>
+  <string name="enPassantOnlyWorksImmediately">Aurkariak peoia mugitu
+duen momentuan bakarrik
+harrapatu daiteke igarotzean.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Peoia 5. lerroan badago bakarrik
+harrapatu daiteke igarotzean.</string>
+  <string name="takeAllThePawnsEnPassant">Harrapatu peoi guztiak igarotzean!</string>
+  <string name="enPassantComplete">Zorionak! Igarotzean harrapatzen dakizu.</string>
+  <string name="stalemate">Erregea itota</string>
+  <string name="theGameIsADraw">Partida berdinketarekin bukatu da</string>
+  <string name="stalemateIntro">Jokalari bat xakean ez dagoenean eta legezko jokaldirik ez dagoenean, itota dago. Partida berdinketan bukatu da: inork ez du irabazi, inork ez du galdu.</string>
+  <string name="stalemateGoal">Beltza itotzeko:
+- Beltzak ezin du inora mugitu.
+- Ez dago xakerik.</string>
+  <string name="stalemateComplete">Zorionak! Hobe da itota gelditzea xake-mate jasotzea baino!</string>
+  <string name="advanced">Aurreratua</string>
+  <string name="pieceValue">Piezen balioa</string>
+  <string name="evaluatePieceStrength">Piezen indarra baloratu</string>
+  <string name="pieceValueIntro">Mugikortasun handiago duten pizek balio handiagoa dute!
+Dama = 9
+Gaztelua = 5
+Alfila = 3
+Zalduna = 3
+Peoia = 1
+Erregeak ez du baliorik! Berau galtzeak partida galtzea baitakar.</string>
   <string name="yesYesYes">Bai, bai, bai!</string>
   <string name="youreGoodAtThis">Ona zara benetan!</string>
   <string name="nailedIt">Asmatu duzu.</string>
