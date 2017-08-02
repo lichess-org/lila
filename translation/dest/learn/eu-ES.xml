@@ -142,4 +142,30 @@ damaren aldean endrokatzeko!</string>
 Mugitu, eta ondoren erregearen aldean endrokatu.</string>
   <string name="castleKingSideMovePiecesFirst">Endrokatu erregearen aldean!
 Tarteko piezak mugitu behar dituzu lehenengo.</string>
+  <string name="castleQueenSideMovePiecesFirst">Endrokatu damaren aldean!
+Tarteko piezak mugitu behar dituzu lehenengo.</string>
+  <string name="youCannotCastleIfMoved">Ezin duzu endrokerik egin
+erregea aurrez mugitu baduzu
+edo gaztelua aurrez mugitu baduzu.</string>
+  <string name="youCannotCastleIfAttacked">Ezin duzu endrokerik egin
+erregea erasotuta badago.
+Oztopatu xakea eta ondoren endrokatu!</string>
+  <string name="findAWayToCastleKingSide">Aurkitu modua
+erregearen aldean endrokatzeko!</string>
+  <string name="findAWayToCastleQueenSide">Aurkitu modua
+erregearen aldean endrokatzeko!</string>
+  <string name="castlingComplete">Zorionak! Ia edozein partidatan endrokatu zaitezke.</string>
+  <string name="enPassant">Pausuan harrapatzea</string>
+  <string name="theSpecialPawnMove">Peoiaren jokaldi berezia</string>
+  <string name="enPassantIntro">Aurkariak peoi bat bi lauki aurreratu duenean, bat mugitu balu bezala harrapatu dezakezu.</string>
+  <string name="yesYesYes">Bai, bai, bai!</string>
+  <string name="youreGoodAtThis">Ona zara benetan!</string>
+  <string name="nailedIt">Asmatu duzu.</string>
+  <string name="rightOn">Horrela bai!</string>
+  <string name="stageXComplete">%s pausua beteta</string>
+  <string name="yourScore">Zure puntuazioa</string>
+  <string name="next">Hurrengoa</string>
+  <string name="backToMenu">Menura itzuli</string>
+  <string name="puzzleFailed">Puzzlea ez duzu asmatu!</string>
+  <string name="retry">Berriro saiatu</string>
 </resources>
