@@ -75,6 +75,7 @@ Eta ez galdu zureak.</string>
   <string name="captureComplete">Zorionak! Orain badakizu nola borrokatu zure piezekin!</string>
   <string name="protection">Babesa</string>
   <string name="keepYourPiecesSafe">Babestu zure piezak</string>
+  <string name="protectionIntro">Identifikatu zure aurkariak erasotzen dizkizun piezak eta defendatu itzazu!</string>
   <string name="protectionComplete">Zorionak! Galtzen ez duzun pieza bat, irabazten duzun pieza bat da!</string>
   <string name="escape">Erasopean zaude!
 Egin ihes mehatxuari!</string>
@@ -202,6 +203,28 @@ Peoia = 1</string>
   <string name="checkInTwoGoal">Mehatxatu aurkariaren erregea
 bi jokalditan!</string>
   <string name="checkInTwoComplete">Zorionak! Aurkariari xake eman diozu, bere erregea defendatzera behartuz!</string>
+  <string name="whatNext">Eta orain zer?</string>
+  <string name="youKnowHowToPlayChess">Badakizu xakean jokatzen, zorionak! Jokalari hobe izan nahi duzu?</string>
+  <string name="register">Izena eman</string>
+  <string name="getAFreeLichessAccount">Sortu Lichess kontu bat</string>
+  <string name="practice">Praktikatu</string>
+  <string name="learnCommonChessPositions">Ikasi ohiko posizioak</string>
+  <string name="puzzles">Puzzleak</string>
+  <string name="exerciseYourTacticalSkills">Entrenatu zure taktika</string>
+  <string name="videos">Bideoak</string>
+  <string name="watchInstructiveChessVideos">Ikusi bideoak</string>
+  <string name="playPeople">Jendearekin jokatu</string>
+  <string name="opponentsFromAroundTheWorld">Munduan zeharreko aurkariak</string>
+  <string name="playMachine">Ordenagailuarekin jokatu</string>
+  <string name="testYourSkillsWithTheComputer">Probatu zure jokoa ordenagailuarekin</string>
+  <string name="letsGo">Goazen!</string>
+  <string name="stageX">Pausua %s</string>
+  <string name="awesome">Zoragarria!</string>
+  <string name="excellent">Bikain!</string>
+  <string name="greatJob">Lan ona!</string>
+  <string name="perfect">Ederto!</string>
+  <string name="outstanding">Ezinhobeto!</string>
+  <string name="wayToGo">Hori da bidea!</string>
   <string name="yesYesYes">Bai, bai, bai!</string>
   <string name="youreGoodAtThis">Ona zara benetan!</string>
   <string name="nailedIt">Asmatu duzu.</string>
