@@ -198,6 +198,10 @@ Zalduna = 3
 Peoia = 1</string>
   <string name="checkInTwo">Xake bi jokalditan</string>
   <string name="twoMovesToGiveCheck">Bi jokaldi xake emateko</string>
+  <string name="checkInTwoIntro">Aurkitu aurkariaren erregeari bi jokalditan xake emateko konbinazio zuzena!</string>
+  <string name="checkInTwoGoal">Mehatxatu aurkariaren erregea
+bi jokalditan!</string>
+  <string name="checkInTwoComplete">Zorionak! Aurkariari xake eman diozu, bere erregea defendatzera behartuz!</string>
   <string name="yesYesYes">Bai, bai, bai!</string>
   <string name="youreGoodAtThis">Ona zara benetan!</string>
   <string name="nailedIt">Asmatu duzu.</string>
