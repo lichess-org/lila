@@ -185,6 +185,19 @@ Alfila = 3
 Zalduna = 3
 Peoia = 1
 Erregeak ez du baliorik! Berau galtzeak partida galtzea baitakar.</string>
+  <string name="queenOverBishop">Harrapatu balio handiena
+duen pieza!
+Dama &gt; Alfila</string>
+  <string name="takeThePieceWithTheHighestValue">Harrapatu balio handiena
+duen pieza!</string>
+  <string name="pieceValueComplete">Zorionak! Badakizu jada piezen balioa!
+Dama = 9
+Gaztelua = 5
+Alfila = 3
+Zalduna = 3
+Peoia = 1</string>
+  <string name="checkInTwo">Xake bi jokalditan</string>
+  <string name="twoMovesToGiveCheck">Bi jokaldi xake emateko</string>
   <string name="yesYesYes">Bai, bai, bai!</string>
   <string name="youreGoodAtThis">Ona zara benetan!</string>
   <string name="nailedIt">Asmatu duzu.</string>
