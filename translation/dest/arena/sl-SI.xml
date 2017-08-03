@@ -13,4 +13,5 @@ Naslednje partije bodo štele dvojno število točk dokler boste zmagovali.
 To pomeni, zmaga šteje 4, remi 2 in poraz ne šteje točk. 
 
 Na primer, dve zmagi, ki mu sledi remi šteje 6 točk: 2 + 2 + (2 x 1)</string>
+  <string name="berserk">Arena norenja</string>
 </resources>
