@@ -417,9 +417,9 @@
   <string name="wasThisPuzzleAnyGood">¿Crees que este ejercicio es bueno?</string>
   <string name="pleaseVotePuzzle">Ayuda a Lichess a mejorar a través de tu votación, usando las flechas arriba o abajo:</string>
   <string name="thankYou">¡Gracias!</string>
-  <string name="ratingX">Puntuación: %s</string>
+  <string name="ratingX">Valoración: %s</string>
   <plurals name="playedXTimes">
-    <item quantity="one">Jugado %s veces</item>
+    <item quantity="one">Jugado %s vez</item>
     <item quantity="other">Jugado %s veces</item>
   </plurals>
   <string name="fromGameLink">De la partida %s</string>
@@ -432,7 +432,7 @@
     <item quantity="other">¡Dispone de %s segundos para hacer su primer movimiento!</item>
   </plurals>
   <plurals name="nbGamesInPlay">
-    <item quantity="one">%s partidas en juego</item>
+    <item quantity="one">%s partida en juego</item>
     <item quantity="other">%s partidas en juego</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Proceder a la siguiente partida automáticamente despues de mi movimiento</string>
