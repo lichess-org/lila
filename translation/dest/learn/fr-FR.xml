@@ -57,6 +57,15 @@ Inutile d\'effectuer des promotions.</string>
   <string name="pawnComplete">Félicitations! Vous possédez la maîtrise du Pion.</string>
   <string name="pawnPromotion">La promotion du Pion</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Votre Pion a atteint le bord opposé!</string>
+  <string name="itNowPromotesToAStrongerPiece">Il est promu vers une pièce lourde.</string>
+  <string name="selectThePieceYouWant">Sélectionner la pièce de promotion!</string>
+  <string name="fundamentals">Les fondamentaux</string>
+  <string name="capture">La capture</string>
+  <string name="takeTheEnemyPieces">Prendre les pièces adverses</string>
+  <string name="captureIntro">Identifiez les pièces non défendues de l\'adversaire, et capturez-les!</string>
+  <string name="takeTheBlackPieces">Prenez les pièces noires!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Prenez les pièces noires! et ne perdez pas les vôtres.</string>
+  <string name="captureComplete">Félicitations! Vous maîtrisez le combat de pièces!</string>
   <string name="boardSetupComplete">Félicitations! Vous maîtrisez le déplacement des pièces.</string>
   <string name="castling">Le Roque</string>
 </resources>
