@@ -121,9 +121,9 @@ final class ChatApi(
     def find(chatId: ChatId): Fu[MixedChat] =
       findOption(chatId) dmap (_ | Chat.makeMixed(chatId))
 
-    def findIf(chatId: ChatId, cond: Boolean): Fu[MixedChat] = {
-      cond ?? findOption(chatId)
-    } dmap (_ | Chat.makeMixed(chatId))
+    def findIf(chatId: ChatId, cond: Boolean): Fu[MixedChat] =
+      if (cond) find(chatId)
+      else fuccess(Chat.makeMixed(chatId))
 
     def findNonEmpty(chatId: ChatId): Fu[Option[MixedChat]] =
       findOption(chatId) dmap (_ filter (_.nonEmpty))
