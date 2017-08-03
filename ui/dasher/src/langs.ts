@@ -75,7 +75,8 @@ function langView(current: Code, accepted: Code[]) {
     attrs: {
       type: 'submit',
       name: 'lang',
-      value: l[0]
+      value: l[0],
+      title: l[0]
     },
   }, l[1]);
 }
