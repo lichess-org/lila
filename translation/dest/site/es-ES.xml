@@ -74,12 +74,12 @@
   <string name="topGames">Mejores partidas</string>
   <string name="masterDbExplanation">Dos millones de partidas de jugadores con ELO FIDE de %1$s+, desde %2$s a %3$s</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">Mate en %s movimientos de la mitad</item>
-    <item quantity="other">Mate en %s movimientos de la mitad</item>
+    <item quantity="one">Mate en %s medio movimiento</item>
+    <item quantity="other">Mate en %s medio movimientos</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Siguiente captura o peón mueve en %s mitad-movimiento (distancia a cero del contador de 50 paso)</item>
-    <item quantity="other">Siguiente captura o peón mueve en %s mitad-movimiento (distancia a cero del contador de 50 paso)</item>
+    <item quantity="one">Siguiente captura o peón mueve en %s medio movimiento (distancia a cero del contador de 50 movimientos)</item>
+    <item quantity="other">Siguiente captura o peón mueve en %s medio movimientos (distancia a cero del contador de 50 movimientos)</item>
   </plurals>
   <string name="noGameFound">No se ha encontrado ninguna partida</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prueba incluyendo más partidas desde el menú de preferencias</string>
@@ -362,7 +362,7 @@
   <string name="youArePlaying">¡Está jugando!</string>
   <string name="winRate">Porcentaje de victorias</string>
   <string name="berserkRate">Tasa de berserk</string>
-  <string name="performance">Puntuación</string>
+  <string name="performance">Actuación</string>
   <string name="tournamentComplete">Torneo finalizado</string>
   <string name="movesPlayed">Movimientos</string>
   <string name="whiteWins">Victorias blancas</string>
