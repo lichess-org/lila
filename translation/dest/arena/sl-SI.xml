@@ -14,4 +14,13 @@ To pomeni, zmaga šteje 4, remi 2 in poraz ne šteje točk.
 
 Na primer, dve zmagi, ki mu sledi remi šteje 6 točk: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Arena norenja</string>
+  <string name="berserkAnswer">Ko igralec pritisne gumb Norenje ob začetku igre, izgubi polovico časa na uri, vendar zmaga šteje eno dodatno turnirsko točko.
+
+Ob Norenju z uro ki se povečuje, prekine norenje (1 +2 je izjema in da 1 +0)
+
+Norenje ni na voljo pri partijah z začetnim časom 0 (0+1,0+2.)
+
+Norenje podeli dodatno točko kadar igralec odigra vsaj 7 potez.</string>
+  <string name="howIsTheWinnerDecided">Kako se določi zmagovalca?</string>
+  <string name="howIsTheWinnerDecidedAnswer">Igralec(i) z največjim številom točk bodo ob poteku časa za zaključek turnirja oznanjeni kot zmagovalci.</string>
 </resources>
