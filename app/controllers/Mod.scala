@@ -85,6 +85,18 @@ object Mod extends LilaController {
     modApi.toggleReportban(me.id, username) inject redirect(username)
   }
 
+  def impersonate(username: String) = Auth { implicit ctx => me =>
+    if (username == "-" && lila.mod.Impersonate.isImpersonated(me)) fuccess {
+      lila.mod.Impersonate.stop(me)
+      Redirect(routes.User.show(me.username))
+    }
+    else if (isGranted(_.Impersonate)) OptionFuRedirect(UserRepo named username) { user =>
+      lila.mod.Impersonate.start(me, user)
+      fuccess(routes.User.show(user.username))
+    }
+    else notFound
+  }
+
   def setTitle(username: String) = SecureBody(_.SetTitle) { implicit ctx => me =>
     implicit def req = ctx.body
     lila.user.DataForm.title.bindFromRequest.fold(

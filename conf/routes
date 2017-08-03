@@ -359,6 +359,7 @@ GET   /mod/:username/communication     controllers.Mod.communication(username: S
 POST  /mod/:ip/ipban                   controllers.Mod.ipban(ip: String)
 POST  /mod/:username/kickFromRankings  controllers.Mod.kickFromRankings(username: String)
 POST  /mod/:username/reportban         controllers.Mod.reportban(username: String)
+POST  /mod/:username/impersonate       controllers.Mod.impersonate(username: String)
 GET   /mod/log                         controllers.Mod.log
 POST  /mod/:username/refreshUserAssess controllers.Mod.refreshUserAssess(username: String)
 POST  /mod/:username/email             controllers.Mod.setEmail(username: String)
