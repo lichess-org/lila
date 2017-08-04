@@ -199,7 +199,7 @@
   <string name="unlimited">Mugagabea</string>
   <string name="mode">Modua</string>
   <string name="casual">Lagunartekoa</string>
-  <string name="rated">Puntuengatik</string>
+  <string name="rated">Sailkapenerako baliogarria</string>
   <string name="thisGameIsRated">Partida honek sailkapen-puntuei eragingo die</string>
   <string name="rematch">Errebantxa</string>
   <string name="rematchOfferSent">Errebantxa eskaria bidalita</string>
@@ -231,11 +231,11 @@
     <item quantity="other">%s irabazita</item>
   </plurals>
   <plurals name="nbLosses">
-    <item quantity="one">%s Galduta</item>
+    <item quantity="one">%s galduta</item>
     <item quantity="other">%s Galduta</item>
   </plurals>
   <plurals name="nbDraws">
-    <item quantity="one">%s Berdinduta</item>
+    <item quantity="one">%s berdinduta</item>
     <item quantity="other">%s Berdinduta</item>
   </plurals>
   <plurals name="nbPlaying">
@@ -528,7 +528,7 @@
   <string name="difficultyNormal">Normala</string>
   <string name="difficultyHard">Zaila</string>
   <string name="xLeftANoteOnY">%1$s(e)k ohar bat utzi dio %2$s(r)i</string>
-  <string name="xCompetesInY">%1$s lehiatzen da %2$s(e)n</string>
+  <string name="xCompetesInY">%1$s %2$s-(e)n jokatzen ari da</string>
   <string name="xAskedY">%1$s(e)k galdetu zuen %2$s</string>
   <string name="xAnsweredY">%1$s(e)k erantzun zuen</string>
   <string name="xCommentedY">%1$s(e)k esan zuen %2$s</string>
