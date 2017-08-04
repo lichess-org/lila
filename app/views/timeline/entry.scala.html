@@ -44,15 +44,16 @@ case QaComment(userId, id, title, commentId) => {
 @trans.xCommentedY(userIdLink(userId.some, withOnline = false),
 Html("""<a href="%s#comment-%s">%s</a>""".format(routes.QaQuestion.show(id, "redirect"), commentId, escapeHtml(title))))
 }
-case GameEnd(playerId, opponent, win, perfKey) => {
+case GameEnd(playerId, opponentId, win, perfKey) => {
 @lila.rating.PerfType(perfKey).map { perf =>
+@defining(opponentId.fold(Html("Anonymous"))(userIdSpanMini(_))) { opponent =>
 <a href="@routes.Round.player(playerId)" data-icon="@perf.iconChar" class="glpt">
   @win match {
-  case Some(true) => {Victory}
-  case Some(false) => {Defeat}
-  case _ => {Draw}
-  }</a> vs @userIdLink(opponent, withOnline = false)<br />
-in @perf.name
+  case Some(true) => {@trans.victoryVs(opponent, Html(perf.name))}
+  case Some(false) => {@trans.defeatVs(opponent, Html(perf.name))}
+  case _ => {@trans.drawVs(opponent, Html(perf.name))}
+  }</a>
+}
 }
 }
 case StudyCreate(userId, studyId, studyName) => {

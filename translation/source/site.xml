@@ -527,6 +527,9 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="difficultyEasy">Easy</string>
   <string name="difficultyNormal">Normal</string>
   <string name="difficultyHard">Hard</string>
+  <string name="victoryVs">Victory vs %1$s in %2$s</string>
+  <string name="drawVs">Draw vs %1$s in %2$s</string>
+  <string name="defeatVs">Defeat vs %1$s in %2$s</string>
   <string name="xLeftANoteOnY">%1$s left a note on %2$s</string>
   <string name="xCompetesInY">%1$s competes in %2$s</string>
   <string name="xAskedY">%1$s asked %2$s</string>
