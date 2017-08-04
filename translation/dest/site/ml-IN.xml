@@ -317,6 +317,7 @@
   <string name="keepGoing">മുന്നോട്ട് പോവൂ...</string>
   <string name="puzzleFailed">സമസ്യ പരാജയം</string>
   <string name="butYouCanKeepTrying">എന്നാലും നിങ്ങൾ ശ്രമിച്ചു നോക്കൂ.</string>
+  <string name="victory">വിജയം!</string>
   <plurals name="playedXTimes">
     <item quantity="one">കളിച്ചത്‌ %s തവണകൾ</item>
     <item quantity="other">കളിച്ചത്‌ %s തവണകൾ</item>
@@ -357,7 +358,6 @@
   <string name="xAskedY">%1$sചോദിച്ചിരിക്കുന്നു %2$s</string>
   <string name="xAnsweredY">%1$s നൽകിയ ഉത്തരം %2$s</string>
   <string name="xCommentedY">%1$s അഭിപ്രായപ്പെട്ടിരിക്കുന്നത് %2$s</string>
-  <string name="victory">വിജയം!</string>
   <string name="timeline">ജീവിതകാലം</string>
   <string name="seeAllTournaments">എല്ലാ പരമ്പരകളും കാണാം</string>
   <string name="starting">തുടങ്ങിയത്:</string>
