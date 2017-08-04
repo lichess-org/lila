@@ -320,6 +320,7 @@
   <string name="keepGoing">தொடருங்கள்...</string>
   <string name="puzzleFailed">புதிரில் தோல்வியடைந்தீர்கள்</string>
   <string name="butYouCanKeepTrying">ஆனால் நீங்கள் மீண்டும் முயற்சிக்கலாம்</string>
+  <string name="victory">வெற்றி!</string>
   <plurals name="playedXTimes">
     <item quantity="one">%s முறை விளையாடப்பட்டுள்ளது</item>
     <item quantity="other">%s முறை விளையாடப்பட்டுள்ளது</item>
@@ -334,7 +335,6 @@
   <string name="fast">விரைவாக</string>
   <string name="slow">மெதுவாக</string>
   <string name="always">எப்போதும்</string>
-  <string name="victory">வெற்றி!</string>
   <string name="whiteCastlingQueenside">வெள்ளை O-O-O</string>
   <string name="blackCastlingQueenside">க்ருப்பு O-O-O</string>
 </resources>
