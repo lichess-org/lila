@@ -336,6 +336,7 @@
   <string name="keepGoing">लगे रहें …</string>
   <string name="puzzleFailed">पहेली असफल</string>
   <string name="butYouCanKeepTrying">परंतु आप फिर कोशिश कर सकतें है</string>
+  <string name="victory">जीत!</string>
   <plurals name="playedXTimes">
     <item quantity="one">%s बार खेला गया</item>
     <item quantity="other">%s बार खेला गया</item>
@@ -383,7 +384,6 @@
   <string name="xAskedY">%1$s ने %2$s से पूछा</string>
   <string name="xAnsweredY">%1$s ने %2$s को उत्तर दिया</string>
   <string name="xCommentedY">%1$s ने %2$s पर टिप्पणी की</string>
-  <string name="victory">जीत!</string>
   <string name="timeline">समयरेखा</string>
   <string name="seeAllTournaments">सभी टूर्नामेंट देखें</string>
   <string name="starting">शुरू हो रहा है:</string>
