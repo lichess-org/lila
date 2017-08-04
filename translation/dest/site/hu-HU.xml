@@ -330,6 +330,7 @@
   <string name="keepGoing">Folytasd...</string>
   <string name="puzzleFailed">A megoldás sikertelen</string>
   <string name="butYouCanKeepTrying">Még próbálkozhatsz.</string>
+  <string name="victory">Helyes megoldás!</string>
   <plurals name="playedXTimes">
     <item quantity="one">%s alkalommal játszott</item>
     <item quantity="other">%s alkalommal játszott</item>
@@ -380,7 +381,6 @@
   <string name="xAskedY">%1$s kérdést tett fel %2$s címmel</string>
   <string name="xAnsweredY">%1$s megválaszolta a %2$s című témát</string>
   <string name="xCommentedY">%1$s hozzászólt a %2$s című témához</string>
-  <string name="victory">Helyes megoldás!</string>
   <string name="timeline">Idővonal</string>
   <string name="seeAllTournaments">Összes verseny megtekintése</string>
   <string name="starting">Kezdés:</string>
