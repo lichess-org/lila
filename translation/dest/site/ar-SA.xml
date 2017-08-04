@@ -438,7 +438,7 @@
   <string name="createdBy">أنشأها</string>
   <string name="tournamentIsStarting">بدأت المسابقة</string>
   <string name="tournamentPairingsAreNowClosed">إزواج البطولة مغلق الآن.</string>
-  <string name="standByX">تأهب يا %s، يتم إزواج اللاعبين، إستعد!</string>
+  <string name="standByX">%s يتم إزواج اللاعبين، إستعد!</string>
   <string name="youArePlaying">أنت تلعب!</string>
   <string name="winRate">معدل الفوز</string>
   <string name="berserkRate">معدل المخاطرة</string>
