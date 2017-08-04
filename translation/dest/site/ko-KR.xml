@@ -302,6 +302,7 @@
   <string name="keepGoing">계속하세요...</string>
   <string name="puzzleFailed">퍼즐 풀기 실패</string>
   <string name="butYouCanKeepTrying">하지만 계속 플레이할 수 있습니다.</string>
+  <string name="victory">승리!</string>
   <plurals name="playedXTimes">
     <item quantity="other">%s회 플레이</item>
   </plurals>
@@ -342,7 +343,6 @@
   <string name="xAskedY">%1$s가 질문을 남겼습니다: %2$s</string>
   <string name="xAnsweredY">%1$s가 답변을 남겼습니다: %2$s</string>
   <string name="xCommentedY">%1$s가 댓글을 남겼습니다: %2$s</string>
-  <string name="victory">승리!</string>
   <string name="timeline">타임라인</string>
   <string name="seeAllTournaments">모든 토너먼트 보기</string>
   <string name="starting">시작합니다:</string>
