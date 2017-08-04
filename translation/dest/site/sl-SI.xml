@@ -453,6 +453,7 @@
   <string name="keepGoing">Nadaljuj...</string>
   <string name="puzzleFailed">Reševanje ti je spodletelo</string>
   <string name="butYouCanKeepTrying">Lahko poskušaš še naprej</string>
+  <string name="victory">Zmaga!</string>
   <plurals name="playedXTimes">
     <item quantity="one">Problem odigran %s krat</item>
     <item quantity="two">Problem odigran %s krat</item>
@@ -509,7 +510,6 @@
   <string name="xAskedY">%1$s je vprašal %2$s</string>
   <string name="xAnsweredY">%1$s je odgovoril na %2$s</string>
   <string name="xCommentedY">%1$s je komentiral v %2$s</string>
-  <string name="victory">Zmaga!</string>
   <string name="timeline">Časovni trak</string>
   <string name="seeAllTournaments">Poglej vse turnirje</string>
   <string name="starting">Začetek:</string>
