@@ -47,6 +47,16 @@
   <string name="requestAComputerAnalysis">Cereți o analiză a computerului</string>
   <string name="computerAnalysis">Analiza computerului</string>
   <string name="analysis">Analiza</string>
+  <string name="move">Mutare</string>
+  <string name="pawnMove">Mutare de pion</string>
+  <string name="close">Închide</string>
+  <string name="winning">Câştigă</string>
+  <string name="losing">Pierde</string>
+  <string name="drawn">Remiză</string>
+  <string name="unknown">Necunoscut</string>
+  <string name="whiteDrawBlack">Alb / Remiză / Negru</string>
+  <string name="recentGames">Jocuri recente</string>
+  <string name="topGames">Cele mai bune jocuri</string>
   <string name="openingExplorer">Cercetarea deschiderilor</string>
   <string name="blunders">Gafe</string>
   <string name="mistakes">Greșeli</string>
