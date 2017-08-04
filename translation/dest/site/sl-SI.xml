@@ -401,7 +401,7 @@
   <string name="standByX">%s počakajte. Delajo se pari, bodite pripravljeni!</string>
   <string name="youArePlaying">Vi igrate!</string>
   <string name="winRate">Delež zmag</string>
-  <string name="berserkRate">Delež hitenja</string>
+  <string name="berserkRate">Delež divjanja</string>
   <string name="performance">Izkazan rating</string>
   <string name="tournamentComplete">Turnir je zaključen</string>
   <string name="movesPlayed">Igranih potez</string>
@@ -413,6 +413,8 @@
   <string name="averageOpponent">Povprečen nasprotnik</string>
   <string name="membersOnly">Samo za člane</string>
   <string name="boardEditor">Urejanje igralne površine</string>
+  <string name="setTheBoard">Uredi šahovnico</string>
+  <string name="popularOpenings">Popularne otvoritve</string>
   <string name="startPosition">Začetna pozicija</string>
   <string name="clearBoard">Počisti igralno površino</string>
   <string name="savePosition">Shrani pozicijo</string>
@@ -653,6 +655,7 @@
   <string name="sourceCode">Izvorna koda</string>
   <string name="simultaneousExhibitions">Simultanke</string>
   <string name="host">Gostuj</string>
+  <string name="hostColorX">Gostiteljeva barva:%s</string>
   <string name="createdSimuls">Novo ustvarjene simultanke</string>
   <string name="hostANewSimul">Gostuj novo simultanko</string>
   <string name="noSimulFound">Simultanka ni najdena</string>
@@ -761,6 +764,10 @@
   <string name="yourScore">Vaš rezultat: %s</string>
   <string name="language">Jezik</string>
   <string name="background">Ozadje</string>
+  <string name="light">Svetla</string>
+  <string name="dark">Temna</string>
+  <string name="transparent">Prosojna</string>
+  <string name="backgroundImageUrl">URL slike ozadja:</string>
   <string name="boardGeometry">Geometrija šahovnice</string>
   <string name="boardTheme">Tema šahovnice</string>
   <string name="boardSize">Velikost šahovnice</string>

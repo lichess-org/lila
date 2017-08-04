@@ -354,6 +354,7 @@
   <string name="averageOpponent">対戦相手の平均</string>
   <string name="membersOnly">会員限定</string>
   <string name="boardEditor">盤面入力</string>
+  <string name="setTheBoard">盤面を指定</string>
   <string name="popularOpenings">人気のオープニング</string>
   <string name="startPosition">開始局面にする</string>
   <string name="clearBoard">盤面をクリアする</string>
@@ -592,7 +593,7 @@
   <string name="whenCreateSimul">同時対局を作成すると、同時に複数の相手と対戦できます。</string>
   <string name="simulVariantsHint">複数のバリアントを選ぶと、どのバリアントにするか相手が選べます。</string>
   <string name="simulClockHint">フィッシャーモードの設定。相手が多いほど追加時間は長めに。</string>
-  <string name="simulAddExtraTime">同時対局の作業分として、更に追加持ち時間を設定できます。</string>
+  <string name="simulAddExtraTime">同時対局の手間を考え、自分に持時間をさらに追加できます。</string>
   <string name="simulHostExtraTime">ホスト延長時間</string>
   <string name="lichessTournaments">Lichess トーナメント</string>
   <string name="tournamentFAQ">アリーナ・トーナメントFAQ</string>

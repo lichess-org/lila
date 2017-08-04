@@ -4,7 +4,7 @@
   <string name="playWithAFriend">العب مع صديق</string>
   <string name="playWithTheMachine">العب مع الحاسوب</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">أرسل هذا الرابط لخصمك</string>
-  <string name="gameOver">انتهت اللعبة</string>
+  <string name="gameOver">انتهت المباراة</string>
   <string name="waitingForOpponent">في انتظار الخصم</string>
   <string name="waiting">انتظار</string>
   <string name="yourTurn">دورك</string>
@@ -19,7 +19,7 @@
   <string name="white">أبيض</string>
   <string name="black">أسود</string>
   <string name="randomColor">لون عشوائي</string>
-  <string name="createAGame">ابدأ لعبة</string>
+  <string name="createAGame">إنشاء مباراة</string>
   <string name="whiteIsVictorious">الأبيض فاز</string>
   <string name="blackIsVictorious">الأسود فاز</string>
   <string name="kingInTheCenter">الملك في الوسط</string>
@@ -27,11 +27,11 @@
   <string name="raceFinished">نهاية السباق</string>
   <string name="variantEnding">نهاية مختلفة</string>
   <string name="newOpponent">خصم جديد</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">الخصم يريد أن يلعب مرة أخرى</string>
-  <string name="joinTheGame">اقبل اللعبة</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">يريد متحديك أن يلعب مباراة جديدة معك</string>
+  <string name="joinTheGame">انضم إلى المباراة</string>
   <string name="whitePlays">دور الأبيض</string>
   <string name="blackPlays">دور الأسود</string>
-  <string name="opponentLeftChoices">يبدو أن الخصم ترك اللعبة. يمكنك انتزاع الفوز، إعلان التعادل أو الانتظار</string>
+  <string name="opponentLeftChoices">يبدو أن الخصم ترك المباراة. يمكنك انتزاع الفوز، إعلان التعادل أو الانتظار.</string>
   <string name="makeYourOpponentResign">اجبر خصمك على الاستسلام</string>
   <string name="forceResignation">انتزاع الفوز</string>
   <string name="forceDraw">إعلان التعادل</string>
@@ -39,9 +39,9 @@
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">أول من يأتي لهذا الرابط سيكون خصمك</string>
   <string name="whiteResigned">الأبيض استسلم</string>
   <string name="blackResigned">الأسود استسلم</string>
-  <string name="whiteLeftTheGame">الأبيض ترك اللعبة</string>
-  <string name="blackLeftTheGame">الأسود ترك اللعبة</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">شارك هذا الرابط لمن يريد مشاهدة اللعبة</string>
+  <string name="whiteLeftTheGame">الأبيض ترك المباراة</string>
+  <string name="blackLeftTheGame">الأسود ترك المباراة</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">شارك هذا الرابط لمن يريد مشاهدة المباراة</string>
   <string name="theComputerAnalysisHasFailed">فشل تحليل الحاسب</string>
   <string name="viewTheComputerAnalysis">عرض تحليل الحاسب</string>
   <string name="requestAComputerAnalysis">اطلب تحليل حاسب</string>
@@ -128,7 +128,7 @@
     <item quantity="many">%s لاعبين</item>
     <item quantity="other">%s لاعب</item>
   </plurals>
-  <string name="currentGames">اللعبات الجارية</string>
+  <string name="currentGames">المباريات الحالية</string>
   <plurals name="nbGames">
     <item quantity="zero">%s مباراة</item>
     <item quantity="one">%s مباراة</item>
@@ -152,7 +152,7 @@
   <string name="youNeedAnAccountToDoThat">تحتاج حسابا لهذا</string>
   <string name="signUp">تسجيل</string>
   <string name="computersAreNotAllowedToPlay">برامج الشطرنج واللاعبين الذين يستعينون بالبرامج ممنوعين من اللعب. فضلا لا تستخدم برامج الشطرنج، قواعد البيانات، أو مساعدة لاعبين آخرين أثناء اللعب. بالإضافة إلى ذلك يرجى عدم تسجيل أكثر من حساب مما قد يؤدي إلى الحظر من الموقع</string>
-  <string name="games">لعبات</string>
+  <string name="games">المباريات</string>
   <string name="forum">منتدى</string>
   <string name="xPostedInForumY">%1$s منشور في الموضوع %2$s</string>
   <string name="latestForumPosts">آخر منشورات المنتدى</string>
@@ -205,7 +205,7 @@
     <item quantity="many">%s لغز</item>
     <item quantity="other">%s لغز</item>
   </plurals>
-  <string name="gamesPlayed">لعب %1$s لعبة</string>
+  <string name="gamesPlayed">لعب %1$s مباراة</string>
   <plurals name="nbGamesWithYou">
     <item quantity="zero">%s مباراة معك</item>
     <item quantity="one">%s مباراة معك</item>
@@ -327,7 +327,7 @@
   <string name="tournamentPoints">نقاط المسابقة</string>
   <string name="viewTournament">شاهد المسابقة</string>
   <string name="backToTournament">عودة للمسابقة</string>
-  <string name="backToGame">العودة للعبة</string>
+  <string name="backToGame">العودة للمباراة</string>
   <string name="siteDescription">موقع شطرنج مجاني. العب الشطرنج الآن بتصميم نظيف، دون تسجيل او دعايات أو إضافات برمجية. العب الشطرنج مع الحاسب، الأصدقاء أو خصوما من حول الكرة الأرضية</string>
   <string name="teams">الفِرق</string>
   <plurals name="nbMembers">
@@ -363,7 +363,7 @@
   <string name="pasteThePgnStringHere">ألصق الـPGN هنا</string>
   <string name="fromPosition">من وضع</string>
   <string name="continueFromHere">تابع من هنا</string>
-  <string name="importGame">استورد لعبة</string>
+  <string name="importGame">استورد مباراة</string>
   <string name="importGameExplanation">عند لصق مباراة PGN تحصل على إمكانية كرار استعراضها وتحليل حاسوبي ودردشة للمباراة ورابط قابل للمشاركة.</string>
   <plurals name="nbImportedGames">
     <item quantity="zero">مباراة مستوردة %s</item>
@@ -477,7 +477,7 @@
   <string name="onlinePlayers">لاعبين متصلين</string>
   <string name="activeToday">نشيط اليوم</string>
   <string name="activePlayers">لاعبين نشطين</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">كن على حذر, هذه اللعبة مقيمة لكن غير مؤقتة.</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">كن على حذر, هذه المباراة مقيمة وبدون توقيت!</string>
   <string name="training">تدريب</string>
   <string name="yourPuzzleRatingX">تقييمك في حل الألغاز:  %s</string>
   <string name="findTheBestMoveForWhite">جد أفضل نقلة للأبيض</string>
@@ -506,7 +506,7 @@
     <item quantity="many">لُعِبَ %s مرة</item>
     <item quantity="other">لُعِبَ %s مرة</item>
   </plurals>
-  <string name="fromGameLink">من لعبة %s</string>
+  <string name="fromGameLink">من مباراة %s</string>
   <string name="continueTraining">استمر في التدريب</string>
   <string name="retryThisPuzzle">حاول مرة أخرى</string>
   <string name="thisPuzzleIsCorrect">هذا اللغز صحيح وممتع</string>
@@ -527,7 +527,7 @@
     <item quantity="many">%s مباراة جارية</item>
     <item quantity="other">%s مباراة جارية</item>
   </plurals>
-  <string name="automaticallyProceedToNextGameAfterMoving">الانتقال تلقائياً للعبة التالية بعد النقلة</string>
+  <string name="automaticallyProceedToNextGameAfterMoving">الانتقال تلقائياً للمباراة التالية بعد النقلة</string>
   <string name="autoSwitch">تبديل تلقائي</string>
   <string name="puzzles">ألغاز</string>
   <string name="latestUpdates">آخر المقالات</string>
@@ -555,7 +555,7 @@
   <string name="insult">إهانة</string>
   <string name="troll">إزعاج</string>
   <string name="other">أخرى</string>
-  <string name="reportDescriptionHelp">الصق رابط اللعبة واشرح بالتفصيل المشكلة في تصرف هذا المستحدم. سيكون الرد أسرع إن كتبت بالإنكليزية</string>
+  <string name="reportDescriptionHelp">الصق رابط المباراة واشرح بالتفصيل المشكلة في تصرف هذا المستحدم. سيكون الرد أسرع إن كتبت بالإنكليزية.</string>
   <string name="by">كتبها %s</string>
   <string name="thisTopicIsNowClosed">هذا الموضوع مغلق الآن</string>
   <string name="theming">السمات</string>
@@ -580,7 +580,7 @@
   <string name="boardHighlights">تلوين الرقعة (آخر نقلة والكش)</string>
   <string name="pieceDestinations">نقلات القطعة ( النقلات المتاحة والنقلات الاستباقية)</string>
   <string name="boardCoordinates">إحداثيات الرقعة  (A-H, 1-8)</string>
-  <string name="moveListWhilePlaying">قائمة النقلات خلال اللعب</string>
+  <string name="moveListWhilePlaying">قائمة النقلات خلال المباراة</string>
   <string name="pgnPieceNotation">تدوين النقلة</string>
   <string name="chessPieceSymbol">رمز قطعة الشطرنج</string>
   <string name="pgnLetter">حروف (K, Q, R, B, N)</string>
@@ -656,8 +656,8 @@
   <string name="connectedToLichess">أنت الآن متصل بـ lichess.org</string>
   <string name="signedOut">تم تسجيل الخروج.</string>
   <string name="loginSuccessful">تم الدخول بنجاح</string>
-  <string name="playOnTheBoardOffline">العب مع صديق محليا</string>
-  <string name="playOfflineComputer">العب مع الحاسب محليا</string>
+  <string name="playOnTheBoardOffline">على الرقعة</string>
+  <string name="playOfflineComputer">العب مع الحاسب دون اتصال</string>
   <string name="opponent">الخصم</string>
   <string name="learnMenu">تعلم</string>
   <string name="community">المجتمع</string>
@@ -667,7 +667,7 @@
   <string name="playOnline">العب على الإنترنت</string>
   <string name="playOffline">العب دون اتصال</string>
   <string name="allowAnalytics">السماح بإرسال إحصائيات غير شخصية</string>
-  <string name="shareGameURL">شارك رابط اللعبة</string>
+  <string name="shareGameURL">شارك رابط المباراة</string>
   <string name="error.required">هذة الخانة ضرورية</string>
   <string name="error.email">هذا البريد الإلكتروني غير صحبح</string>
   <string name="error.email_acceptable">هذا البريد الإلكتروني غير مقبول</string>
@@ -714,12 +714,12 @@
   <string name="noSimulExplanation">معرض هذه التزامنية غير موجود.</string>
   <string name="returnToSimulHomepage">العودة لصفحة التزامنية</string>
   <string name="aboutSimul">التزامنيات هي لاعب واحد يواجه عدة خصوم في وقت واحد.</string>
-  <string name="aboutSimulImage">مع 50 خصماً, فاز فيشر بـ 47 لعبة, تعادل في اثنتين , وخسر واحدة.</string>
-  <string name="aboutSimulRealLife">تم أخذ مفهوم التزامنيات من أحداث واقعية. حيث ينتقل المضيف من طاولة لأخرى للعب.</string>
-  <string name="aboutSimulRules">عندما تبدأ التزامنية، يبدأ كل لاعب لعبة مع المضيف، حيث يكون المضيف أبيض واللاعب أسود. تنتهي التزامنية عندما تنتهي جميع اللعبات</string>
-  <string name="aboutSimulSettings">التزامنيات دائما غير مقيمة. لا يمكن استرجاع النقلات، أضافة الوقت، او حتى طلب لعبة أخرى</string>
+  <string name="aboutSimulImage">مع 50 خصماً, فاز فيشر بـ 47 مباراة, تعادل في اثنتين, وخسر واحدة.</string>
+  <string name="aboutSimulRealLife">تم أخذ مفهوم التزامنيات من أحداث الحياة الواقعية. حيث ينتقل المضيف من طاولة لأخرى للعب.</string>
+  <string name="aboutSimulRules">عندما تبدأ التزامنية، يبدأ كل لاعب مباراة مع المضيف، حيث يلعب المضيف بالقطع البيضاء. تنتهي التزامنية بإنتهاء جميع المبارايات.</string>
+  <string name="aboutSimulSettings">التزامنيات دائما عفوية. لا يمكن استرجاع النقلات، أضافة الوقت، او حتى طلب لعبة أخرى.</string>
   <string name="create">ابدأ</string>
-  <string name="whenCreateSimul">عندما تبدأ تزامنية، يمكنك اللعب مع عدة لاعبين في وقت واحد</string>
+  <string name="whenCreateSimul">عندما تنشيء تزامنية، يمكنك اللعب مع عدة لاعبين في وقت واحد.</string>
   <string name="simulVariantsHint">إذا اخترت عدة أنواع, كل لاعب يمكنه اختيار النوع الذي يريد.</string>
   <string name="simulClockHint">ضبط توقيت بالزيادة . كلما زاد عدد اللاعبين كلما احتجت لوقت أطول.</string>
   <string name="simulAddExtraTime">يمكنك زيادة الوقت لساعتك للمساعدة في التزامنية.</string>
@@ -728,7 +728,7 @@
   <string name="tournamentFAQ">مسابقة أرينا (سؤال وجواب)</string>
   <string name="tournamentOfficial">رسمية</string>
   <string name="timeBeforeTournamentStarts">الوقت حتى بداية المسابقة</string>
-  <string name="averageCentipawnLoss">دقة اللعب (أقل أفضل)</string>
+  <string name="averageCentipawnLoss">معدل الخسارة مقيمة ب 0.01 بيدق</string>
   <string name="keyboardShortcuts">اختصارات لوحة المفاتيح</string>
   <string name="keyMoveBackwardOrForward">تحرك للخلف/للأمام</string>
   <string name="keyGoToStartOrEnd">اذهب للبداية/للنهاية</string>
@@ -775,7 +775,7 @@
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">طريقة التحصين/التبييت</string>
   <string name="castleByMovingTwoSquares">حرك الملك مربعين</string>
   <string name="castleByMovingOntoTheRook">حرك الملك بإتجاه الرخ</string>
-  <string name="shareYourInsightsData">مشاركة بيانات طريقة لعبك</string>
+  <string name="shareYourInsightsData">شارك بيانات طريقة لعبك</string>
   <string name="withNobody">وحدك</string>
   <string name="withFriends">مع الأصدقاء</string>
   <string name="withEverybody">مع الجميع</string>
@@ -810,7 +810,7 @@
     <item quantity="many">متاح ب %s لغات!</item>
     <item quantity="other">متاح ب %s لغات!</item>
   </plurals>
-  <string name="gameAnalysis">تحليل اللعبة</string>
+  <string name="gameAnalysis">تحليل المباراة</string>
   <string name="xHostsY">%1$s يستضيف %2$s</string>
   <string name="xJoinsY">%1$s إنضم ل %2$s</string>
   <string name="xLikesY">%1$s أعجب ب %2$s</string>
@@ -826,7 +826,7 @@
   <string name="backgroundImageUrl">رابط صورة الخلفية:</string>
   <string name="boardGeometry">شكل الرقعة</string>
   <string name="boardTheme">سِمة الطاولة</string>
-  <string name="boardSize">حجم رقعة اللعب</string>
+  <string name="boardSize">حجم الرقعة</string>
   <string name="pieceSet">مجموعة القطع</string>
   <string name="embedInYourWebsite">تضمين في موقع الويب الخاص بك</string>
   <string name="usernameAlreadyUsed">اسم المستخدم الذي اخترته موجود بالفعل، الرجاء كتابة اسم آخر.</string>

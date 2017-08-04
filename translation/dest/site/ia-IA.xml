@@ -162,6 +162,9 @@
   <string name="rank">Classification</string>
   <string name="rankX">Classification: %s</string>
   <string name="rankIsUpdatedEveryXMinutes">Classification es actualisate cata %s minutas</string>
+  <plurals name="nbPuzzles">
+    <item quantity="other">%s enigmas</item>
+  </plurals>
   <string name="gamesPlayed">Partitas jocate</string>
   <plurals name="nbGamesWithYou">
     <item quantity="other">%s partitas con te</item>
@@ -350,6 +353,8 @@
   <string name="averageOpponent">Adversario medie</string>
   <string name="membersOnly">Solmente membros</string>
   <string name="boardEditor">Editor de tabuliero</string>
+  <string name="setTheBoard">Arrangiar le tabuliero</string>
+  <string name="popularOpenings">Initios de joco popular</string>
   <string name="startPosition">Position de initio</string>
   <string name="clearBoard">Rader tabuliero</string>
   <string name="savePosition">Salveguardar position</string>
@@ -572,6 +577,7 @@
   <string name="sourceCode">Codice-fonte</string>
   <string name="simultaneousExhibitions">Exhibitiones simultanee</string>
   <string name="host">Hospite</string>
+  <string name="hostColorX">Color del hospite: %s</string>
   <string name="createdSimuls">Exhibitiones simultanee create recentemente</string>
   <string name="hostANewSimul">Crear un nove exhibition simultanee</string>
   <string name="noSimulFound">Exhibition simultanee non trovate</string>
@@ -671,9 +677,12 @@
   <string name="quickPairing">Initiar un partita rapidemente</string>
   <string name="lobby">Salon</string>
   <string name="anonymous">Anonyme</string>
-  <string name="yourScore">Tu score: %s</string>
   <string name="language">Lingua</string>
   <string name="background">Fundo</string>
+  <string name="light">Clar</string>
+  <string name="dark">Obscur</string>
+  <string name="transparent">Transparente</string>
+  <string name="backgroundImageUrl">Ligamine URL del imagine de fundo:</string>
   <string name="boardGeometry">Geometria del tabuliero</string>
   <string name="boardTheme">Thema del tabuliero</string>
   <string name="boardSize">Dimension del tabuliero</string>
