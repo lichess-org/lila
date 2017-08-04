@@ -15,7 +15,7 @@
   <string name="chat">Chat</string>
   <string name="resign">Resignar se</string>
   <string name="checkmate">Chaco mat</string>
-  <string name="stalemate">Impasse</string>
+  <string name="stalemate">Pat</string>
   <string name="white">Blanc</string>
   <string name="black">Nigre</string>
   <string name="randomColor">Latere aleatori</string>
