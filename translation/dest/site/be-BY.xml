@@ -257,6 +257,7 @@
   <string name="keepGoing">Працягвай...</string>
   <string name="puzzleFailed">Галаваломка не разьвязаная</string>
   <string name="butYouCanKeepTrying">Але можаш спрабаваць яшчэ.</string>
+  <string name="victory">Перамога!</string>
   <string name="chessClock">Шахматны гадзіньнік</string>
   <string name="tenthsOfSeconds">Дзясятыя сэкунды</string>
   <string name="never">Ніколі</string>
@@ -291,7 +292,6 @@
   <string name="xAskedY">%1$s адказаў %2$s</string>
   <string name="xAnsweredY">%1$s адказаў на %2$s</string>
   <string name="xCommentedY">%1$s пракамэнтаваў %2$s</string>
-  <string name="victory">Перамога!</string>
   <string name="timeline">У сярбоў</string>
   <string name="seeAllTournaments">Паглядзець усе турніры</string>
   <string name="starting">Распачынаеца:</string>
