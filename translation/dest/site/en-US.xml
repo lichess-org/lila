@@ -414,7 +414,7 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="keepGoing">Keep going…</string>
   <string name="puzzleFailed">Puzzle failed</string>
   <string name="butYouCanKeepTrying">But you can keep trying.</string>
-  <string name="success">Success</string>
+  <string name="victory">Victory!</string>
   <string name="wasThisPuzzleAnyGood">Was this puzzle any good?</string>
   <string name="pleaseVotePuzzle">Help lichess improve by voting, using the up or down arrow:</string>
   <string name="thankYou">Thank you!</string>
@@ -519,7 +519,6 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="xAskedY">%1$s asked %2$s</string>
   <string name="xAnsweredY">%1$s answered %2$s</string>
   <string name="xCommentedY">%1$s commented %2$s</string>
-  <string name="victory">Victory!</string>
   <string name="timeline">Timeline</string>
   <string name="seeAllTournaments">See all tournaments</string>
   <string name="starting">Starting:</string>
