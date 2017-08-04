@@ -307,6 +307,14 @@
   <plurals name="nbGamesInPlay">
     <item quantity="other">musi %s li lon</item>
   </plurals>
+  <string name="puzzles">musi sijelo</string>
+  <string name="name">nimi</string>
+  <string name="description">toki pi kulupu</string>
+  <string name="no">ala</string>
+  <string name="yes">lon</string>
+  <string name="help">o pona</string>
+  <string name="lastPost">toki sin li</string>
+  <string name="views">oko li</string>
   <string name="chessClock">ilo tenpo</string>
   <string name="tenthsOfSeconds">tenpo lili kipisi pi luka luka</string>
   <string name="never">tenpo ala la</string>
