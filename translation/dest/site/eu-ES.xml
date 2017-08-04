@@ -413,7 +413,7 @@
   <string name="keepGoing">Jarraitu...</string>
   <string name="puzzleFailed">Huts egin duzu</string>
   <string name="butYouCanKeepTrying">Baina berriro saia zaitezke berriro.</string>
-  <string name="success">Zorionak</string>
+  <string name="victory">Garaipena</string>
   <string name="wasThisPuzzleAnyGood">Puzzle hau gustatu zaizu?</string>
   <string name="pleaseVotePuzzle">Eman botoa Lichess-i laguntzeko, goranzko zein beheranzko gezia hautatuz:</string>
   <string name="thankYou">Eskerrik asko!</string>
@@ -532,9 +532,6 @@
   <string name="xAskedY">%1$s(e)k galdetu zuen %2$s</string>
   <string name="xAnsweredY">%1$s(e)k erantzun zuen</string>
   <string name="xCommentedY">%1$s(e)k esan zuen %2$s</string>
-  <string name="victory">Garaipena</string>
-  <string name="defeat">Porrota</string>
-  <string name="xVsYinZ">%1$s %2$s-ren aurka %3$s-n</string>
   <string name="timeline">Denbora-lerroa</string>
   <string name="seeAllTournaments">Txapelketa guztiak ikusi</string>
   <string name="starting">Hasten da:</string>
