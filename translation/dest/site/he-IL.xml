@@ -257,6 +257,7 @@
   <string name="keepGoing">המשך...</string>
   <string name="puzzleFailed">נכשלת בפאזל</string>
   <string name="butYouCanKeepTrying">אבל אתה יכול להמשיך לנסות.</string>
+  <string name="victory">ניצחון!</string>
   <string name="chessClock">שעון השחמט</string>
   <string name="tenthsOfSeconds">עשיריות שניה</string>
   <string name="never">אף פעם</string>
@@ -291,7 +292,6 @@
   <string name="xAskedY">%1$s שאל %2$s</string>
   <string name="xAnsweredY">%1$s עלה על %2$s</string>
   <string name="xCommentedY">%1$s כתב %2$s</string>
-  <string name="victory">ניצחון!</string>
   <string name="timeline">ציר הזמן</string>
   <string name="seeAllTournaments">ראה את כל הטורנירים</string>
   <string name="starting">מתחיל:</string>
