@@ -6,6 +6,7 @@ import akka.actor._
 
 final class Env(
     lobbyActor: ActorSelection,
+    playbanApi: lila.playban.PlaybanApi,
     system: akka.actor.ActorSystem,
     onStart: String => Unit
 ) {
@@ -16,6 +17,7 @@ final class Env(
     configs = PoolList.all,
     hookThieve = hookThieve,
     gameStarter = gameStarter,
+    playbanApi = playbanApi,
     system = system
   )
 
@@ -32,6 +34,7 @@ object Env {
 
   lazy val current: Env = "pool" boot new Env(
     lobbyActor = lila.hub.Env.current.actor.lobby,
+    playbanApi = lila.playban.Env.current.api,
     system = lila.common.PlayApp.system,
     onStart = lila.game.Env.current.onStart
   )

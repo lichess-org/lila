@@ -189,7 +189,7 @@ object ApplicationBuild extends Build {
       reactivemongo.driver, reactivemongo.iteratees)
   )
 
-  lazy val pool = project("pool", Seq(common, game, user)).settings(
+  lazy val pool = project("pool", Seq(common, game, user, playban)).settings(
     libraryDependencies ++= provided(play.api, reactivemongo.driver)
   )
 

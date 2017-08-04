@@ -3,6 +3,7 @@ package lila.pool
 import akka.actor._
 
 import lila.game.Game
+import lila.playban.PlaybanApi
 import lila.rating.RatingRange
 import lila.socket.Socket.{ Uid => SocketId }
 import lila.user.User
@@ -11,6 +12,7 @@ final class PoolApi(
     val configs: List[PoolConfig],
     hookThieve: HookThieve,
     gameStarter: GameStarter,
+    playbanApi: lila.playban.PlaybanApi,
     system: ActorSystem
 ) {
 
@@ -24,10 +26,14 @@ final class PoolApi(
     )
   }.toMap
 
-  def join(poolId: PoolConfig.Id, joiner: Joiner) = actors foreach {
-    case (id, actor) if id == poolId => actor ! Join(joiner)
-    case (_, actor) => actor ! Leave(joiner.userId)
-  }
+  def join(poolId: PoolConfig.Id, joiner: Joiner) =
+    playbanApi.hasCurrentBan(joiner.userId) foreach {
+      case false => actors foreach {
+        case (id, actor) if id == poolId => actor ! Join(joiner)
+        case (_, actor) => actor ! Leave(joiner.userId)
+      }
+      case _ =>
+    }
 
   def leave(poolId: PoolConfig.Id, userId: User.ID) = sendTo(poolId, Leave(userId))
 
