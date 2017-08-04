@@ -493,6 +493,7 @@
   <string name="keepGoing">تابع ...</string>
   <string name="puzzleFailed">لقد خسرت اللغز</string>
   <string name="butYouCanKeepTrying">لكن حاول مرة أخرى</string>
+  <string name="victory">أحسنت!</string>
   <plurals name="playedXTimes">
     <item quantity="zero">لُعِبَ %s مرة</item>
     <item quantity="one">لُعِبَ %s مرة</item>
@@ -553,7 +554,6 @@
   <string name="xAskedY">%1$s سأل %2$s</string>
   <string name="xAnsweredY">%1$s أجاب %2$s</string>
   <string name="xCommentedY">%1$s علّق %2$s</string>
-  <string name="victory">أحسنت!</string>
   <string name="timeline">الجدول الزمني</string>
   <string name="seeAllTournaments">شاهد كل المسابقات</string>
   <string name="starting">تبدأ في:</string>
