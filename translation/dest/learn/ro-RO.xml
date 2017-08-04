@@ -13,13 +13,26 @@
   <string name="grabAllTheStars">Prinde toate stelele!</string>
   <string name="theBishop">Nebunul</string>
   <string name="theQueen">Regina</string>
+  <string name="queenCombinesRookAndBishop">Regina = Tură + Nubun</string>
   <string name="theKing">Regele</string>
   <string name="theKingIsSlow">Regele este lent.</string>
   <string name="lastOne">Ultimul!</string>
   <string name="theKnight">Calul</string>
   <string name="thePawn">Pionul</string>
+  <string name="capture">Capturează</string>
+  <string name="takeTheEnemyPieces">Ia piesele inamice</string>
+  <string name="protection">Protecție</string>
+  <string name="keepYourPiecesSafe">Protejează-ţi piesele</string>
+  <string name="defendYourKing">Apără regele</string>
+  <string name="escapeWithTheKing">Scăpa cu regele!</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Calul dă şah prin apărările tale!</string>
+  <string name="mateInOne">Mat în unu</string>
+  <string name="howTheGameStarts">Cum incepe jocul</string>
   <string name="castling">Rocada</string>
+  <string name="enPassant">En passant</string>
+  <string name="theSpecialPawnMove">Mutarea de pion specială</string>
   <string name="stalemate">Pat</string>
+  <string name="advanced">Avansat</string>
   <string name="puzzles">Probleme de șah</string>
   <string name="videos">Videoclipuri</string>
   <string name="playPeople">Joacă cu oameni</string>
@@ -27,4 +40,5 @@
   <string name="awesome">Minunat!</string>
   <string name="excellent">Excelent!</string>
   <string name="perfect">Perfect!</string>
+  <string name="next">Urmează</string>
 </resources>
