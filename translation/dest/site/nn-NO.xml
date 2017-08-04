@@ -319,6 +319,7 @@
   <string name="keepGoing">Hald fram...</string>
   <string name="puzzleFailed">Forsøket på å løysa oppgåva mislukkast</string>
   <string name="butYouCanKeepTrying">Men du kan halda fram med å prøva.</string>
+  <string name="victory">Siger!</string>
   <plurals name="playedXTimes">
     <item quantity="one">Spelt %s gonger</item>
     <item quantity="other">Spelt %s gonger</item>
@@ -362,7 +363,6 @@
   <string name="xAskedY">%1$s spurde %2$s</string>
   <string name="xAnsweredY">%1$s svarte %2$s</string>
   <string name="xCommentedY">%1$s kommenterte %2$s</string>
-  <string name="victory">Siger!</string>
   <string name="timeline">Tidslinje</string>
   <string name="seeAllTournaments">Sjå alle turneringar</string>
   <string name="starting">Startar:</string>
