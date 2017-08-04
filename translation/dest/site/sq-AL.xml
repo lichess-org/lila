@@ -317,6 +317,7 @@
   <string name="keepGoing">Vazhdo ...</string>
   <string name="puzzleFailed">Ushtrimi dështoi</string>
   <string name="butYouCanKeepTrying">Por mundesh të provosh përsëri.</string>
+  <string name="victory">Fitore!</string>
   <plurals name="playedXTimes">
     <item quantity="one">Luajtur %s herë</item>
     <item quantity="other">Luajtur %s herë</item>
@@ -359,7 +360,6 @@
   <string name="xAskedY">%1$s pyeti %2$s</string>
   <string name="xAnsweredY">%1$s u përgjigj %2$s</string>
   <string name="xCommentedY">s%1$s komentoi %2$s</string>
-  <string name="victory">Fitore!</string>
   <string name="timeline">Vija kohore</string>
   <string name="seeAllTournaments">Shiko të gjithë turnetë</string>
   <string name="starting">Fillon:</string>
