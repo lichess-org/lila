@@ -406,6 +406,7 @@
   <string name="keepGoing">Συνεχίστε…</string>
   <string name="puzzleFailed">Αποτύχατε τον γρίφο</string>
   <string name="butYouCanKeepTrying">Αλλά μπορείτε να συνεχίσετε τη προσπάθεια.</string>
+  <string name="victory">Επιτυχία!</string>
   <plurals name="playedXTimes">
     <item quantity="one">Παίχτηκε %s φορά</item>
     <item quantity="other">Παίχτηκε %s φορές</item>
@@ -458,7 +459,6 @@
   <string name="xAskedY">Ο χρήστης %1$s ρώτησε %2$s</string>
   <string name="xAnsweredY">Ο χρήστης %1$s απάντησε την ερώτηση %2$s</string>
   <string name="xCommentedY">Ο χρήστης %1$s σχολίασε την ερώτηση %2$s</string>
-  <string name="victory">Επιτυχία!</string>
   <string name="timeline">Χρονολόγιο</string>
   <string name="seeAllTournaments">Προβολή όλων των πρωταθλημάτων</string>
   <string name="starting">Αρχίζει:</string>
