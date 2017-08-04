@@ -414,6 +414,7 @@ und eine URL um dein PGN zu teilen.</string>
   <string name="keepGoing">Mach weiter...</string>
   <string name="puzzleFailed">Nicht gelöst</string>
   <string name="butYouCanKeepTrying">Aber du kannst es trotzdem weiterversuchen.</string>
+  <string name="victory">Geschafft!</string>
   <plurals name="playedXTimes">
     <item quantity="one">%s mal gespielt</item>
     <item quantity="other">%s mal gespielt</item>
@@ -466,7 +467,6 @@ und eine URL um dein PGN zu teilen.</string>
   <string name="xAskedY">%1$s fragte %2$s</string>
   <string name="xAnsweredY">%1$s beantwortete %2$s</string>
   <string name="xCommentedY">%1$s kommentierte %2$s</string>
-  <string name="victory">Geschafft!</string>
   <string name="timeline">Verlauf</string>
   <string name="seeAllTournaments">Alle Turniere anzeigen</string>
   <string name="starting">Beginnt:</string>
