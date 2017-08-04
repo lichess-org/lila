@@ -22,4 +22,9 @@
   <string name="stalemate">Pat</string>
   <string name="puzzles">Probleme de șah</string>
   <string name="videos">Videoclipuri</string>
+  <string name="playPeople">Joacă cu oameni</string>
+  <string name="playMachine">Joacă cu cumputerul</string>
+  <string name="awesome">Minunat!</string>
+  <string name="excellent">Excelent!</string>
+  <string name="perfect">Perfect!</string>
 </resources>
