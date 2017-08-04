@@ -257,6 +257,7 @@
   <string name="keepGoing">Nastavite...</string>
   <string name="puzzleFailed">Vježba neuspješna</string>
   <string name="butYouCanKeepTrying">Ali možete nastaviti pokušavati.</string>
+  <string name="victory">Pobjeda!</string>
   <string name="chessClock">Šahovski sat</string>
   <string name="tenthsOfSeconds">Desetinke sekunde</string>
   <string name="never">Nikada</string>
@@ -291,7 +292,6 @@
   <string name="xAskedY">%1$s je pitao %2$s</string>
   <string name="xAnsweredY">%1$s je odgovorio %2$s</string>
   <string name="xCommentedY">%1$s je komentarisao %2$s</string>
-  <string name="victory">Pobjeda!</string>
   <string name="timeline">Hronologija</string>
   <string name="seeAllTournaments">Pogledaj sve turnire</string>
   <string name="starting">Počinje:</string>
