@@ -299,6 +299,7 @@
   <string name="keepGoing">Малаллах выља...</string>
   <string name="puzzleFailed">Лартӑма выљаса йанӑ</string>
   <string name="butYouCanKeepTrying">Ҫапах та малалла хӑтланма пултаратӑн.</string>
+  <string name="victory">Ҫӗнтерӳ!</string>
   <plurals name="playedXTimes">
     <item quantity="other">%s хут выљанӑ</item>
   </plurals>
@@ -339,7 +340,6 @@
   <string name="xAskedY">%1$s усӑҫ %2$s ыйтнӑ</string>
   <string name="xAnsweredY">%1$s усӑҫ %2$s хуравланӑ</string>
   <string name="xCommentedY">%1$s усӑҫ %2$s шухӑш хушнӑ</string>
-  <string name="victory">Ҫӗнтерӳ!</string>
   <string name="timeline">Кун-ҫул</string>
   <string name="seeAllTournaments">Пур турнира пӑх</string>
   <string name="starting">Пуҫланниччен:</string>
