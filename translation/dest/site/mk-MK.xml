@@ -315,6 +315,7 @@
   <string name="keepGoing">Продолжи</string>
   <string name="puzzleFailed">Вежба не успеа</string>
   <string name="butYouCanKeepTrying">Сеуште се обидуваш</string>
+  <string name="victory">Победа</string>
   <plurals name="playedXTimes">
     <item quantity="one">Одиграно %s пати</item>
     <item quantity="other">Одиграно %s пати</item>
@@ -323,7 +324,6 @@
     <item quantity="one">%s Игри во тек</item>
     <item quantity="other">%s Игри во тек</item>
   </plurals>
-  <string name="victory">Победа</string>
   <string name="opponent">Противник</string>
   <string name="phoneAndTablet">Телефон и таблет</string>
   <string name="followAndChallengeFriends">Следи и предизвикај пријатели</string>
