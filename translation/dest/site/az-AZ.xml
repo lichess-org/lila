@@ -317,6 +317,7 @@
   <string name="keepGoing">Davam edin</string>
   <string name="puzzleFailed">Tapmaca həll olunmadı</string>
   <string name="butYouCanKeepTrying">Bəxtinizi bir daha sınayın</string>
+  <string name="victory">Qələbə!</string>
   <plurals name="playedXTimes">
     <item quantity="one">%s dəfə oynanıldı</item>
     <item quantity="other">%s dəfə oynanıldı</item>
@@ -359,7 +360,6 @@
   <string name="xAskedY">%1$s soruşdu %2$s</string>
   <string name="xAnsweredY">%1$s cavablandırdı %2$s</string>
   <string name="xCommentedY">%1$s şərh %2$s</string>
-  <string name="victory">Qələbə!</string>
   <string name="timeline">Zaman cədvəli</string>
   <string name="seeAllTournaments">Bütün turnirləri gör</string>
   <string name="starting">Başlanğıc</string>
