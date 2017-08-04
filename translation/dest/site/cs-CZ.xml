@@ -368,6 +368,7 @@
   <string name="keepGoing">Pokračujte ....</string>
   <string name="puzzleFailed">Úloha nevyřešena</string>
   <string name="butYouCanKeepTrying">Ale můžete to zkoušet znovu.</string>
+  <string name="victory">Vítězství!</string>
   <plurals name="playedXTimes">
     <item quantity="one">Hráno %skrát</item>
     <item quantity="few">Hráno %skrát</item>
@@ -417,7 +418,6 @@
   <string name="xAskedY">%1$s se zeptal na %2$s</string>
   <string name="xAnsweredY">%1$s odpověděl v %2$s</string>
   <string name="xCommentedY">%1$s okomentoval %2$s</string>
-  <string name="victory">Vítězství!</string>
   <string name="timeline">Timeline</string>
   <string name="seeAllTournaments">Zobrazit všechny turnaje</string>
   <string name="starting">Začíná:</string>
