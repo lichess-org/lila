@@ -327,6 +327,7 @@
   <string name="keepGoing">Daŭrigu...</string>
   <string name="puzzleFailed">Vi malsukcesis</string>
   <string name="butYouCanKeepTrying">Sed vi rajtas daŭrigi la provon.</string>
+  <string name="victory">Venko!</string>
   <plurals name="playedXTimes">
     <item quantity="one">Ludita %s-foje</item>
     <item quantity="other">Ludita %s-foje</item>
@@ -378,7 +379,6 @@
   <string name="xAskedY">%1$s demandis %2$s</string>
   <string name="xAnsweredY">%1$s respondis %2$s</string>
   <string name="xCommentedY">%1$s komentis %2$s</string>
-  <string name="victory">Venko!</string>
   <string name="timeline">Kronologio</string>
   <string name="seeAllTournaments">Montri ĉiujn turnirojn</string>
   <string name="starting">Komenciĝos je:</string>
