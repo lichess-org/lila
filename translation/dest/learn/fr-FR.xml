@@ -66,6 +66,15 @@ Inutile d\'effectuer des promotions.</string>
   <string name="takeTheBlackPieces">Prenez les pièces noires!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Prenez les pièces noires! et ne perdez pas les vôtres.</string>
   <string name="captureComplete">Félicitations! Vous maîtrisez le combat de pièces!</string>
+  <string name="protection">Protéger</string>
+  <string name="keepYourPiecesSafe">Garder vos pièces à l\'abri</string>
+  <string name="protectionIntro">Identifier vos pièces attaquées par l\'adversaire, et défendez-les!</string>
+  <string name="protectionComplete">Félicitations! Vous maîtrisez les mécanismes de protection!</string>
+  <string name="escape">Vous êtes attaqué! Protégez-vous!</string>
+  <string name="noEscape">Il n\'y a pas d\'échappatoire, mais vous pouvez vous défendre!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Ne laissez pas l\'adversaire prendre une pièce non défendue!</string>
+  <string name="combat">Combattre</string>
+  <string name="captureAndDefendPieces">Capturer et défendre les pièces</string>
   <string name="mateInOne">Mat en 1</string>
   <string name="boardSetupComplete">Félicitations! Vous maîtrisez le déplacement des pièces.</string>
   <string name="castling">Le Roque</string>
