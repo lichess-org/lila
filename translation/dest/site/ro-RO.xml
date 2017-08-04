@@ -79,7 +79,17 @@
   <string name="claimADraw">Cere remiză</string>
   <string name="offerDraw">Propune remiză</string>
   <string name="draw">Remiză</string>
+  <plurals name="nbPlayers">
+    <item quantity="one">%s jucător</item>
+    <item quantity="few">%s jucători</item>
+    <item quantity="other">%s jucători</item>
+  </plurals>
   <string name="currentGames">Partide active</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s partidă</item>
+    <item quantity="few">%s partide</item>
+    <item quantity="other">%s partide</item>
+  </plurals>
   <string name="viewInFullSize">Vezi la dimensiune completă</string>
   <string name="logOut">Deconectare</string>
   <string name="signIn">Autentificare</string>
@@ -100,6 +110,16 @@
   <string name="correspondence">Corespondență</string>
   <string name="daysPerTurn">Zile pentru o mutare</string>
   <string name="oneDay">O zi pentru mutare</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s zi</item>
+    <item quantity="few">%s zile</item>
+    <item quantity="other">%s zile</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s oră</item>
+    <item quantity="few">%s ore</item>
+    <item quantity="other">%s ore</item>
+  </plurals>
   <string name="time">Timp</string>
   <string name="rating">Rating</string>
   <string name="ratingStats">Statistică pentru clasament</string>
@@ -115,6 +135,11 @@
   <string name="forgotPassword">Ți-ai pierdut parola?</string>
   <string name="rank">Clasificare</string>
   <string name="gamesPlayed">Partide jucate</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s partidă cu tine</item>
+    <item quantity="few">%s partide cu tine</item>
+    <item quantity="other">%s partide cu tine</item>
+  </plurals>
   <string name="cancel">Anulare</string>
   <string name="timeOut">Timpul a expirat</string>
   <string name="drawOfferSent">Propunere de remiză trimisă</string>
@@ -157,8 +182,28 @@
   <string name="incrementInSeconds">Adaos de timp în secunde</string>
   <string name="freeOnlineChess">Șah online gratuit</string>
   <string name="spectators">Spectatori</string>
+  <plurals name="nbWins">
+    <item quantity="one">%s victorie</item>
+    <item quantity="few">%s victorii</item>
+    <item quantity="other">%s victorii</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s înfrângere</item>
+    <item quantity="few">%s înfrângeri</item>
+    <item quantity="other">%s înfrângeri</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s remiză</item>
+    <item quantity="few">%s remize</item>
+    <item quantity="other">%s remize</item>
+  </plurals>
   <string name="exportGames">Exportă partidele</string>
   <string name="ratingRange">Nivel valoric</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">Acordă %s secundă</item>
+    <item quantity="few">Acordă %s secunde</item>
+    <item quantity="other">Acordă %s secunde</item>
+  </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Acest jucător este asistat de un program de analiză</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Jucătorul și-a crescut ratingul în mod artificial</string>
   <string name="takeback">Revocare</string>
@@ -179,6 +224,11 @@
   <string name="backToGame">Înapoi la joacă</string>
   <string name="siteDescription">Șah online gratuit. Joacă șah acum într-o interfață simplă. Fără înregistrare, fără reclame, fără plugin-uri. Joacă șah cu calculatorul, cu prietenii sau cu alți jucători aleși la întâmplare.</string>
   <string name="teams">Echipe</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s membru</item>
+    <item quantity="few">%s membri</item>
+    <item quantity="other">%s membri</item>
+  </plurals>
   <string name="allTeams">Toate echipele</string>
   <string name="newTeam">Echipă nouă</string>
   <string name="myTeams">Echipele mele</string>
@@ -205,6 +255,11 @@
   <string name="fromPosition">De la poziția</string>
   <string name="continueFromHere">Continuați de aici</string>
   <string name="importGame">Importați partida</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s partidă importată</item>
+    <item quantity="few">%s partide importate</item>
+    <item quantity="other">%s partide importate</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">Aceasta este o verificare anti-spam pe baza unei poziții de șah.</string>
   <string name="clickOnTheBoardToMakeYourMove">Apăsați pe tablă pentru a muta, dovedind că sunteți om.</string>
   <string name="captcha.fail">Vă rugăm să completați acest puzzle.</string>
@@ -304,11 +359,28 @@
   <string name="no">Nu</string>
   <string name="yes">Da</string>
   <string name="help">Ajutor:</string>
-  <string name="createANewTopic">Creaţi un subiect nou</string>
+  <string name="createANewTopic">Creează un nou topic</string>
   <string name="topics">Subiecte</string>
   <string name="posts">Postări</string>
   <string name="lastPost">Ultima postare</string>
   <string name="views">Vizualizări</string>
+  <string name="replies">Răspunsuri</string>
+  <string name="replyToThisTopic">Răspunde la acest topic</string>
+  <string name="reply">Răspunde</string>
+  <string name="message">Mesaj</string>
+  <string name="createTheTopic">Creează un topic</string>
+  <string name="reportAUser">Raportează un utilizator</string>
+  <string name="user">Utilizator</string>
+  <string name="reason">Motiv</string>
+  <string name="whatIsIheMatter">Care este problema?</string>
+  <string name="cheat">Trișează</string>
+  <string name="insult">Insultă</string>
+  <string name="troll">Troll</string>
+  <string name="other">Altceva</string>
+  <string name="thisTopicIsNowClosed">Acest topic este acum închis.</string>
+  <string name="donate">Donează</string>
+  <string name="blog">Blog</string>
+  <string name="questionsAndAnswers">Întrebări și Răspunsuri</string>
   <string name="pgnPieceNotation">Notația PGN a pieselor</string>
   <string name="chessPieceSymbol">Simbolul piesei de șah</string>
   <string name="chessClock">Ceasul de șah</string>
@@ -486,4 +558,12 @@
   <string name="viewTheSolution">Vezi soluţia</string>
   <string name="followAndChallengeFriends">Urmareşte si provoacă-ţi prietenii</string>
   <string name="gameAnalysis">Analiza jocului</string>
+  <string name="dark">Culoare închisă</string>
+  <string name="transparent">Transparent</string>
+  <string name="usernameAlreadyUsed">Nume deja folosit, te rugam să încerci altul.</string>
+  <string name="coaches">Antrenori</string>
+  <string name="error.unknown">Eroare</string>
+  <string name="notifications">Notificări</string>
+  <string name="challenges">Provocări</string>
+  <string name="perfRatingX">Rating: %s</string>
 </resources>
