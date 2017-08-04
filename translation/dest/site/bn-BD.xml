@@ -313,6 +313,7 @@
   <string name="keepGoing">এইভাবে চালিয়ে যান</string>
   <string name="puzzleFailed">ধাঁধা সমাধান করতে ব্যর্থ</string>
   <string name="butYouCanKeepTrying">তবে চেষ্টা চালিয়ে যেতে পারেন</string>
+  <string name="victory">বিজয়!</string>
   <plurals name="playedXTimes">
     <item quantity="one">%s বার খেলা হয়েছে</item>
     <item quantity="other">%s বার খেলা হয়েছে</item>
@@ -321,7 +322,6 @@
     <item quantity="one">%s খেলা চলছে</item>
     <item quantity="other">%s খেলা চলছে</item>
   </plurals>
-  <string name="victory">বিজয়!</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">সর্বোচ্চ: %s টি অক্ষর</item>
     <item quantity="other">সর্বোচ্চ: %s টি অক্ষর</item>
