@@ -344,6 +344,7 @@
   <string name="keepGoing">Fortsett ...</string>
   <string name="puzzleFailed">Du klarte ikke sjakknøtten</string>
   <string name="butYouCanKeepTrying">Men du kan fortsette å prøve.</string>
+  <string name="victory">Seier!</string>
   <plurals name="playedXTimes">
     <item quantity="one">Forsøkt %s gang</item>
     <item quantity="other">Forsøkt %s ganger</item>
@@ -387,7 +388,6 @@
   <string name="xAskedY">%1$s spurte %2$s</string>
   <string name="xAnsweredY">%1$s svarte %2$s</string>
   <string name="xCommentedY">%1$s kommenterte %2$s</string>
-  <string name="victory">Seier!</string>
   <string name="timeline">Tidslinje</string>
   <string name="seeAllTournaments">Se alle turneringer</string>
   <string name="starting">Starter:</string>
