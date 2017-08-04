@@ -415,14 +415,44 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="puzzleFailed">Quebra-cabeça fracassado</string>
   <string name="butYouCanKeepTrying">Mas você pode continuar a tentar.</string>
   <string name="victory">Vitória!</string>
+  <string name="wasThisPuzzleAnyGood">Este quebra-cabeça foi bom?</string>
+  <string name="pleaseVotePuzzle">Ajude o Lichess a melhorar através do seu voto, usando a seta para cima ou para baixo:</string>
+  <string name="thankYou">Obrigado!</string>
+  <string name="ratingX">Classificação: %s</string>
   <plurals name="playedXTimes">
     <item quantity="one">Jogado %s vezes</item>
     <item quantity="other">Jogado %s vezes</item>
+  </plurals>
+  <string name="fromGameLink">Do jogo %s</string>
+  <string name="continueTraining">Continuar o treino</string>
+  <string name="retryThisPuzzle">Tentar novamente este quebra-cabeça</string>
+  <string name="thisPuzzleIsCorrect">O quebra-cabeça está correto e é interessante</string>
+  <string name="thisPuzzleIsWrong">O quebra-cabeça está errado ou é chato</string>
+  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
+    <item quantity="one">Você tem %s segundo para fazer a primeira jogada!</item>
+    <item quantity="other">Você tem %s segundos para fazer a primeira jogada!</item>
   </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partidas em andamento</item>
     <item quantity="other">%s partidas em andamento</item>
   </plurals>
+  <string name="automaticallyProceedToNextGameAfterMoving">Passar automaticamente ao jogo seguinte após o lance</string>
+  <string name="autoSwitch">Alternar automaticamente</string>
+  <string name="puzzles">Quebra-cabeças</string>
+  <string name="latestUpdates">Atualizações mais recentes</string>
+  <string name="tournamentWinners">Vencedores de torneios</string>
+  <string name="name">Nome</string>
+  <string name="description">Descrição</string>
+  <string name="no">Não</string>
+  <string name="yes">Sim</string>
+  <string name="help">Ajuda:</string>
+  <string name="createANewTopic">Criar novo tópico</string>
+  <string name="topics">Tópicos</string>
+  <string name="posts">Postagens</string>
+  <string name="lastPost">Última postagem</string>
+  <string name="views">Visualizações</string>
+  <string name="replies">Respostas</string>
+  <string name="replyToThisTopic">Responder a este tópico</string>
   <string name="incorrectPassword">Senha incorreta</string>
   <string name="pgnPieceNotation">Modo de notação das jogadas</string>
   <string name="chessPieceSymbol">Símbolo da peça</string>
