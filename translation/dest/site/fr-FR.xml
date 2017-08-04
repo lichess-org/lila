@@ -407,6 +407,7 @@
   <string name="keepGoing">Continuez…</string>
   <string name="puzzleFailed">Problème raté</string>
   <string name="butYouCanKeepTrying">Mais vous pouvez réessayer.</string>
+  <string name="success">Succès</string>
   <plurals name="playedXTimes">
     <item quantity="one">Joué %s fois</item>
     <item quantity="other">Joué %s fois</item>
