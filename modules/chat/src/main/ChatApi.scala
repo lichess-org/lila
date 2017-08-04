@@ -25,20 +25,24 @@ final class ChatApi(
       coll.byId[UserChat](chatId)
 
     def find(chatId: ChatId): Fu[UserChat] =
-      findOption(chatId) map (_ | Chat.makeUser(chatId))
+      findOption(chatId) dmap (_ | Chat.makeUser(chatId))
 
     def findAll(chatIds: List[ChatId]): Fu[List[UserChat]] =
       coll.byIds[UserChat](chatIds, ReadPreference.secondaryPreferred)
 
-    def findMine(chatId: ChatId, me: User): Fu[UserChat.Mine] = find(chatId) flatMap { chat =>
-      (!chat.isEmpty ?? chatTimeout.isActive(chatId, me.id)) map {
-        UserChat.Mine(chat forUser me.some, _)
-      }
+    def findMine(chatId: ChatId, me: Option[User]): Fu[UserChat.Mine] = findMineIf(chatId, me, true)
+
+    def findMineIf(chatId: ChatId, me: Option[User], cond: Boolean): Fu[UserChat.Mine] = me match {
+      case Some(user) if cond => findMine(chatId, user)
+      case Some(user) => fuccess(UserChat.Mine(Chat.makeUser(chatId) forUser user.some, false))
+      case None if cond => find(chatId) dmap { UserChat.Mine(_, false) }
+      case None => fuccess(UserChat.Mine(Chat.makeUser(chatId), false))
     }
 
-    def findMine(chatId: ChatId, me: Option[User]): Fu[UserChat.Mine] = me match {
-      case Some(user) => findMine(chatId, user)
-      case None => find(chatId) map { UserChat.Mine(_, false) }
+    private def findMine(chatId: ChatId, me: User): Fu[UserChat.Mine] = find(chatId) flatMap { chat =>
+      (!chat.isEmpty ?? chatTimeout.isActive(chatId, me.id)) dmap {
+        UserChat.Mine(chat forUser me.some, _)
+      }
     }
 
     def write(chatId: ChatId, userId: String, text: String, public: Boolean): Funit =
@@ -72,7 +76,7 @@ final class ChatApi(
     def userModInfo(username: String): Fu[Option[UserModInfo]] =
       UserRepo named username flatMap {
         _ ?? { user =>
-          chatTimeout.history(user, 20) map { UserModInfo(user, _).some }
+          chatTimeout.history(user, 20) dmap { UserModInfo(user, _).some }
         }
       }
 
@@ -100,7 +104,7 @@ final class ChatApi(
     }
 
     private[ChatApi] def makeLine(chatId: String, userId: String, t1: String): Fu[Option[UserLine]] =
-      UserRepo.byId(userId) zip chatTimeout.isActive(chatId, userId) map {
+      UserRepo.byId(userId) zip chatTimeout.isActive(chatId, userId) dmap {
         case (Some(user), false) if !user.disabled => Writer cut t1 flatMap { t2 =>
           flood.allowMessage(user.id, t2) option
             UserLine(user.username, Writer preprocessUserInput t2, troll = user.troll, deleted = false)
@@ -115,10 +119,14 @@ final class ChatApi(
       coll.byId[MixedChat](chatId)
 
     def find(chatId: ChatId): Fu[MixedChat] =
-      findOption(chatId) map (_ | Chat.makeMixed(chatId))
+      findOption(chatId) dmap (_ | Chat.makeMixed(chatId))
+
+    def findIf(chatId: ChatId, cond: Boolean): Fu[MixedChat] =
+      if (cond) find(chatId)
+      else fuccess(Chat.makeMixed(chatId))
 
     def findNonEmpty(chatId: ChatId): Fu[Option[MixedChat]] =
-      findOption(chatId) map (_ filter (_.nonEmpty))
+      findOption(chatId) dmap (_ filter (_.nonEmpty))
 
     def optionsByOrderedIds(chatIds: List[ChatId]): Fu[List[Option[MixedChat]]] =
       coll.optionsByOrderedIds[MixedChat, ChatId](chatIds, ReadPreference.secondaryPreferred)(_.id)

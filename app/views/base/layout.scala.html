@@ -38,6 +38,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     @if(ctx.pref.is3d) { @cssTag("board-3d.css") }
     @if(ctx.pref.coords == 1) { @cssTag("board.coords.inner.css") }
     @if(ctx.pageData.inquiry.isDefined) { @cssTag("inquiry.css") }
+    @if(ctx.me ?? lila.mod.Impersonate.isImpersonated) { @cssTag("impersonate.css") }
     @moreCss
     <link id="piece-sprite" href="@staticUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css?v=${ctx.pageData.assetVersion}")" type="text/css" rel="stylesheet"/>
     <meta content="@openGraph.fold(trans.siteDescription())(o => escapeHtml(o.description))" name="description">
@@ -48,14 +49,14 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     <meta name="google" content="notranslate" />
     @openGraph.map(_.html)
     @atom.getOrElse {
-    <link href="@routes.Blog.atom()" type="application/atom+xml" rel="alternate" title="Latest blog posts" />
+    <link href="@routes.Blog.atom()" type="application/atom+xml" rel="alternate" title="@trans.blog()" />
     }
     <link rel="mask-icon" href="@staticUrl("favicon.svg")" color="black">
     @ctx.transpBgImg.map { img =>
     <style type="text/css" id="bg-data">body.transp::before{background-image:url('@img');}</style>
     }
     <link rel="preload" href="@staticUrl("font74/fonts/lichess.woff")" as="font" type="font/woff" crossorigin/>
-    <meta name="twitter:site" content="@@lichessorg" />
+    <meta name="twitter:site" content="@@lichess" />
     <link rel="manifest" href="/manifest.json">
   </head>
   <body class="preload base @List(
@@ -83,6 +84,11 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     <div id="site_description">@trans.siteDescription()</div>
     @ctx.pageData.inquiry.map { inquiry =>
     @mod.inquiry(inquiry)
+    }
+    @ctx.me.map { me =>
+    @lila.mod.Impersonate.impersonatedBy(me).map { modId =>
+    @mod.impersonate(me, modId)
+    }
     }
     <div id="top" class="@ctx.pref.is3d.fold("is3d", "is2d")">
       @topmenu()
@@ -179,8 +185,8 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     @jsAt(s"compiled/lichess.site${isProd??".min"}.js", async = asyncJs)
     @moreJs
     @embedJs {
-lichess.quantity=@i18nJsQuantityFunction;
-@timeagoLocaleScript;
+    lichess.quantity=@i18nJsQuantityFunction;
+    @timeagoLocaleScript;
     }
     <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script>
   </body>

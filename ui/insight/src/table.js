@@ -12,7 +12,7 @@ function formatNumber(dt, n) {
 }
 
 function formatSerieName(dt, n) {
-  if (dt === 'date') return new Date(n).toLocaleDateString();
+  if (dt === 'date') return new Date(n * 1000).toLocaleDateString();
   return n;
 }
 

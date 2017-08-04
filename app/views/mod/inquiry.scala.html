@@ -12,51 +12,50 @@
   <div class="meat">
     <h2 class="user">
       @Html(userLink(in.user, withBestRating = true, params = "?mod").body.replace("<a ", "<a data-pt-pos=\"se\" "))
-        </h2>
-        <div class="reports">
-          <div class="expendable">
-              @if(in.accuracy.isDefined) {
-              <span class="accuracy"><strong>@in.accuracy%</strong> accuracy</span>
-              }
-            @in.allReports.map(renderReport)
-          </div>
-        </div>
-      </div>
-      <div class="links">
-        <a href="@routes.User.games(in.user.id, "search")?players.b=@in.report.createdBy">View<br />Games</a>
-        @if(isGranted(_.MarkTroll)) {
-        <a href="@routes.Mod.communication(in.user.id)">View<br />Coms</a>
+    </h2>
+    <div class="reports">
+      <div class="expendable">
+        @if(in.accuracy.isDefined) {
+        <span class="accuracy"><strong>@in.accuracy%</strong> accuracy</span>
         }
-      </div>
-      <div class="actions">
-        <form method="get" action="@routes.Message.form" data-hint="Send a moderator message" class="hint--bottom-left">
-          <input type="hidden" name="mod" value="1" />
-          <input type="hidden" name="user" value="@in.user.id" />
-          <input class="fbt" type="submit" value="Warn" />
-        </form>
-        @if(isGranted(_.MarkEngine)) {
-        <form method="post" action="@routes.Mod.engine(in.user.username)" data-hint="This user is clearly cheating." class="hint--bottom-left">
-          <input class="fbt@when(in.user.engine, " active")" type="submit" value="Engine" />
-        </form>
-        }
-        @if(isGranted(_.MarkBooster)) {
-        <form method="post" action="@routes.Mod.booster(in.user.username)" data-hint="Marks the user as a booster or sandbagger." class="hint--bottom-left">
-          <input class="fbt@when(in.user.booster, " active")" type="submit" value="Booster" />
-        </form>
-        }
-        @if(isGranted(_.MarkTroll)) {
-        <form method="post" action="@routes.Mod.troll(in.user.username)?set=@(if (in.user.troll){0}else{1})" data-hint="@if(in.user.troll){En}else{Dis}able communication features for this user." class="hint--bottom-left">
-          <input class="fbt@when(in.user.troll, " active")" type="submit" value="Shadowban" />
-        </form>
-        }
-      </div>
-      <div class="actions close">
-        <form action="@routes.Report.process(in.report.id)" method="post" data-hint="Dismiss this report as processed." class="process hint--bottom-left">
-          <button type="submit" data-icon="E" class="fbt"></button>
-        </form>
-        <form action="@routes.Report.inquiry(in.report.id)" method="post" data-hint="Cancel the inquiry, re-instore the report" class="cancel hint--bottom-left">
-          <button type="submit" data-icon="L" class="fbt"></button>
-        </form>
+        @in.allReports.map(renderReport)
       </div>
     </div>
   </div>
+  <div class="links">
+    <a href="@routes.User.games(in.user.id, "search")?players.b=@in.report.createdBy">View<br />Games</a>
+    @if(isGranted(_.MarkTroll)) {
+    <a href="@routes.Mod.communication(in.user.id)">View<br />Coms</a>
+    }
+  </div>
+  <div class="actions">
+    <form method="get" action="@routes.Message.form" data-hint="Send a moderator message" class="hint--bottom-left">
+      <input type="hidden" name="mod" value="1" />
+      <input type="hidden" name="user" value="@in.user.id" />
+      <input class="fbt" type="submit" value="Warn" />
+    </form>
+    @if(isGranted(_.MarkEngine)) {
+    <form method="post" action="@routes.Mod.engine(in.user.username)" data-hint="This user is clearly cheating." class="hint--bottom-left">
+      <input class="fbt@when(in.user.engine, " active")" type="submit" value="Engine" />
+    </form>
+    }
+    @if(isGranted(_.MarkBooster)) {
+    <form method="post" action="@routes.Mod.booster(in.user.username)" data-hint="Marks the user as a booster or sandbagger." class="hint--bottom-left">
+      <input class="fbt@when(in.user.booster, " active")" type="submit" value="Booster" />
+    </form>
+    }
+    @if(isGranted(_.MarkTroll)) {
+    <form method="post" action="@routes.Mod.troll(in.user.username)?set=@(if (in.user.troll){0}else{1})" data-hint="@if(in.user.troll){En}else{Dis}able communication features for this user." class="hint--bottom-left">
+      <input class="fbt@when(in.user.troll, " active")" type="submit" value="Shadowban" />
+    </form>
+    }
+  </div>
+  <div class="actions close">
+    <form action="@routes.Report.process(in.report.id)" method="post" data-hint="Dismiss this report as processed." class="process hint--bottom-left">
+      <button type="submit" data-icon="E" class="fbt"></button>
+    </form>
+    <form action="@routes.Report.inquiry(in.report.id)" method="post" data-hint="Cancel the inquiry, re-instore the report" class="cancel hint--bottom-left">
+      <button type="submit" data-icon="L" class="fbt"></button>
+    </form>
+  </div>
+</div>

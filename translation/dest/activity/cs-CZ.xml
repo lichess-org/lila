@@ -53,6 +53,11 @@
     <item quantity="few">Zúčastnili jste se %s simultánek</item>
     <item quantity="other">Zúčastnili jste se %s simultánek</item>
   </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">Vytvořena %s studie</item>
+    <item quantity="few">Vytvořeny %s studie</item>
+    <item quantity="other">Vytvořeno %s studií</item>
+  </plurals>
   <plurals name="competedInNbTournaments">
     <item quantity="one">Účast v %s turnaji</item>
     <item quantity="few">Účast ve %s turnajích</item>

@@ -73,10 +73,10 @@ final class RankingApi(
 
     private type Rank = Int
 
-    def of(userId: User.ID): Fu[Map[Perf.Key, Int]] =
+    def of(userId: User.ID): Fu[Map[Perf.Key, Rank]] =
       lila.common.Future.traverseSequentially(PerfType.leaderboardable) { perf =>
         cache.get(perf.id) map { _ get userId map (perf.key -> _) }
-      } map (_.flatten.toMap)
+      } map (_.flatten.toMap) nevermind
 
     private val cache = asyncCache.multi[Perf.ID, Map[User.ID, Rank]](
       name = "rankingApi.weeklyStableRanking",

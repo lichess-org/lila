@@ -45,7 +45,7 @@ case class OpenGraph(
       "card" -> "summary",
       "title" -> title,
       "description" -> description,
-      "site" -> "@lichessorg"
+      "site" -> "@lichess"
     ).map(tupledTag).mkString +
       image.?? { tag("image", _) } +
       more.map(tupledTag).mkString

@@ -41,7 +41,7 @@
   } else {
   @trans.by(usernameOrId(tour.createdBy))
   }
-  • @momentFromNow(tour.startsAt)
+  • @absClientDateTime(tour.startsAt)
   @if(!tour.position.initial) {
   <br /><br />
   <a target="_blank" href="@tour.position.url">

@@ -61,8 +61,13 @@
   </form>
   }
   @if(isGranted(_.ReportBan)) {
-  <form method="post" action="@routes.Mod.reportban(u.username)" data-hint="@if(u.reportban){En}else{Dis}able the report feature for this user." class="hint--bottom left">
+  <form method="post" action="@routes.Mod.reportban(u.username)" data-hint="@if(u.reportban){En}else{Dis}able the report feature for this user." class="hint--bottom-left">
     <input class="button@when(u.reportban, " active")" type="submit" value="Reportban" />
+  </form>
+  }
+  @if(isGranted(_.Impersonate)) {
+  <form method="post" action="@routes.Mod.impersonate(u.username)">
+    <input class="button" type="submit" value="Impersonate" />
   </form>
   }
   </div>
@@ -203,7 +208,7 @@
     @if(charges.nonEmpty) {
     <ul>
       @charges.map { c =>
-      <li>@c.cents.usd with @c.serviceName on @showDateTime(c.date)</li>
+      <li>@c.cents.usd with @c.serviceName on @absClientDateTime(c.date)</li>
       }
     </ul>
     <br />

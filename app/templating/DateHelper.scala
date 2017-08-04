@@ -49,9 +49,6 @@ trait DateHelper { self: I18nHelper =>
     }
     )
 
-  def showDateTime(date: DateTime)(implicit ctx: Context): String =
-    dateTimeFormatter(ctx) print date
-
   def showDateTimeZone(date: DateTime, zone: DateTimeZone)(implicit ctx: Context): String =
     dateTimeFormatter(ctx) print date.toDateTime(zone)
 
@@ -77,13 +74,12 @@ trait DateHelper { self: I18nHelper =>
   def isoDate(date: DateTime): String = isoFormatter print date
 
   private val oneDayMillis = 1000 * 60 * 60 * 24
-  def momentFromNow(date: DateTime, alwaysRelative: Boolean = false)(implicit ctx: Context) = Html {
-    val rendered = showDateTime(date)
-    if (!alwaysRelative && (date.getMillis - nowMillis) > oneDayMillis) s"""<time>$rendered</time>"""
-    else s"""<time class="timeago" title="$rendered" datetime="${isoDate(date)}">$rendered</time>"""
-  }
-  def momentFromNowNoCtx(date: DateTime) = Html {
+  def momentFromNow(date: DateTime, alwaysRelative: Boolean = false) = Html {
+    if (!alwaysRelative && (date.getMillis - nowMillis) > oneDayMillis) absClientDateTime(date)
     s"""<time class="timeago" datetime="${isoDate(date)}"></time>"""
+  }
+  def absClientDateTime(date: DateTime) = Html {
+    s"""<time class="timeago abs" datetime="${isoDate(date)}"></time>"""
   }
 
   def secondsFromNow(seconds: Int, alwaysRelative: Boolean = false)(implicit ctx: Context) =

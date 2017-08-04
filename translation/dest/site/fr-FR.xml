@@ -167,6 +167,7 @@
   <string name="passwordReset">Réinitialisation du mot de passe</string>
   <string name="forgotPassword">Mot de passe oublié ?</string>
   <string name="rank">Rang</string>
+  <string name="rankIsUpdatedEveryXMinutes">Le classement est mis à jour toutes les %s minutes</string>
   <string name="gamesPlayed">Parties jouées</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s partie avec vous</item>
@@ -231,6 +232,10 @@
   <plurals name="nbDraws">
     <item quantity="one">%s nulle</item>
     <item quantity="other">%s nulles</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s en cours</item>
+    <item quantity="other">%s en cours</item>
   </plurals>
   <string name="exportGames">Exporter les parties</string>
   <string name="ratingRange">Classement de vos adversaires</string>
@@ -362,6 +367,8 @@
   <string name="averageOpponent">Opposition moyenne</string>
   <string name="membersOnly">Membres seulement</string>
   <string name="boardEditor">Éditeur de partie</string>
+  <string name="setTheBoard">Placer une position</string>
+  <string name="popularOpenings">Ouvertures courantes</string>
   <string name="startPosition">Position de départ</string>
   <string name="clearBoard">Vider l\'échiquier</string>
   <string name="savePosition">Enregistrer la position</string>
@@ -385,7 +392,7 @@
   <string name="activeToday">Actifs aujourd\'hui</string>
   <string name="activePlayers">Joueurs actifs</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Attention, la partie est classée, mais sans limite de temps !</string>
-  <string name="training">Problèmes</string>
+  <string name="training">Problèmes d\'échecs</string>
   <string name="yourPuzzleRatingX">Votre classement de tactique : %s</string>
   <string name="findTheBestMoveForWhite">Trouvez le meilleur coup pour les Blancs.</string>
   <string name="findTheBestMoveForBlack">Trouvez le meilleur coup pour les Noirs.</string>
@@ -694,6 +701,10 @@
   <string name="yourScore">Votre score : %s</string>
   <string name="language">Langue</string>
   <string name="background">Arrière-plan</string>
+  <string name="light">Lumineux</string>
+  <string name="dark">Sombre</string>
+  <string name="transparent">Transparent</string>
+  <string name="backgroundImageUrl">URL de l\'image de fond :</string>
   <string name="boardGeometry">Forme de l\'échiquier</string>
   <string name="boardTheme">Thème de l\'échiquier</string>
   <string name="boardSize">Taile de l\'échiquier</string>

@@ -323,6 +323,11 @@ private[controllers] trait LilaController
       _ ifTrue (HTTPRequest isSynchronousHttp req) foreach { d =>
         Env.current.bus.publish(lila.user.User.Active(d.user), 'userActive)
       }
+    } flatMap impersonation
+
+  private def impersonation(from: Option[FingerprintedUser]): Fu[Option[FingerprintedUser]] =
+    from.map(_.user) ?? lila.mod.Impersonate.impersonating map {
+      _.fold(from) { FingerprintedUser(_, true).some }
     }
 
   protected val csrfCheck = Env.security.csrfRequestHandler.check _

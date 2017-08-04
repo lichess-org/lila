@@ -515,6 +515,8 @@ case class Game(
 
   def olderThan(seconds: Int) = movedAt isBefore DateTime.now.minusSeconds(seconds)
 
+  def justCreated = createdAt isAfter DateTime.now.minusSeconds(1)
+
   def unplayed = !bothPlayersHaveMoved && (createdAt isBefore Game.unplayedDate)
 
   def abandoned = (status <= Status.Started) && {

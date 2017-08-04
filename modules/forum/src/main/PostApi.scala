@@ -113,10 +113,12 @@ final class PostApi(
     case _ => fuccess(none)
   }
 
-  def get(postId: String): Fu[Option[(Topic, Post)]] = for {
-    post ← optionT(env.postColl.byId[Post](postId))
-    topic ← optionT(env.topicColl.byId[Topic](post.topicId))
-  } yield topic -> post
+  def get(postId: String): Fu[Option[(Topic, Post)]] = {
+    for {
+      post ← optionT(env.postColl.byId[Post](postId))
+      topic ← optionT(env.topicColl.byId[Topic](post.topicId))
+    } yield topic -> post
+  } run
 
   def views(posts: List[Post]): Fu[List[PostView]] = for {
     topics ← env.topicColl.byIds[Topic](posts.map(_.topicId).distinct)

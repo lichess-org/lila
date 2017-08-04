@@ -263,8 +263,11 @@ final class TournamentApi(
     game.tournamentId foreach { tourId =>
       Sequencing(tourId)(TournamentRepo.startedById) { tour =>
         PairingRepo.finish(game) >>
-          game.userIds.map(updatePlayer(tour)).sequenceFu.void >>-
-          socketReload(tour.id) >>- updateTournamentStanding(tour.id)
+          game.userIds.map(updatePlayer(tour)).sequenceFu.void >>- {
+            socketReload(tour.id)
+            updateTournamentStanding(tour.id)
+            withdrawNonMover(game)
+          }
       }
     }
   }
@@ -282,6 +285,13 @@ final class TournamentApi(
         }
       }
     }
+
+  private def withdrawNonMover(game: Game): Unit = for {
+    tourId <- game.tournamentId
+    if game.status == chess.Status.NoStart
+    player <- game.playerWhoDidNotMove
+    userId <- player.userId
+  } withdraw(tourId, userId)
 
   def ejectLame(userId: String) {
     TournamentRepo.recentAndNext foreach {

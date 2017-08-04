@@ -19,5 +19,5 @@
       case _ => trans.randomColor()
     })
   </div>
-  @trans.by(usernameOrId(sim.hostId)), <span title="@showDateTime(sim.createdAt)">@momentFromNow(sim.createdAt)</span>
+  @trans.by(usernameOrId(sim.hostId)), @momentFromNow(sim.createdAt)
 </div>

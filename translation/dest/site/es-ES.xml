@@ -74,12 +74,12 @@
   <string name="topGames">Mejores partidas</string>
   <string name="masterDbExplanation">Dos millones de partidas de jugadores con ELO FIDE de %1$s+, desde %2$s a %3$s</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">Mate en %s movimientos de la mitad</item>
-    <item quantity="other">Mate en %s movimientos de la mitad</item>
+    <item quantity="one">Mate en %s medio movimiento</item>
+    <item quantity="other">Mate en %s medio movimientos</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Siguiente captura o peón mueve en %s mitad-movimiento (distancia a cero del contador de 50 paso)</item>
-    <item quantity="other">Siguiente captura o peón mueve en %s mitad-movimiento (distancia a cero del contador de 50 paso)</item>
+    <item quantity="one">Siguiente captura o peón mueve en %s medio movimiento (distancia a cero del contador de 50 movimientos)</item>
+    <item quantity="other">Siguiente captura o peón mueve en %s medio movimientos (distancia a cero del contador de 50 movimientos)</item>
   </plurals>
   <string name="noGameFound">No se ha encontrado ninguna partida</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prueba incluyendo más partidas desde el menú de preferencias</string>
@@ -167,6 +167,12 @@
   <string name="passwordReset">Cambiar contraseña</string>
   <string name="forgotPassword">¿Olvidaste tu contraseña?</string>
   <string name="rank">Posición</string>
+  <string name="rankX">Clasificación: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">La clasificación se actualiza cada %s minutos</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s ejercicio</item>
+    <item quantity="other">%s ejercicios</item>
+  </plurals>
   <string name="gamesPlayed">Partidas jugadas</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s partida contigo</item>
@@ -231,6 +237,10 @@
   <plurals name="nbDraws">
     <item quantity="one">%s tablas</item>
     <item quantity="other">%s tablas</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s en juego</item>
+    <item quantity="other">%s en juego</item>
   </plurals>
   <string name="exportGames">Exportar partidas</string>
   <string name="ratingRange">Rango de puntuación</string>
@@ -352,7 +362,7 @@
   <string name="youArePlaying">¡Está jugando!</string>
   <string name="winRate">Porcentaje de victorias</string>
   <string name="berserkRate">Tasa de berserk</string>
-  <string name="performance">Puntuación</string>
+  <string name="performance">Actuación</string>
   <string name="tournamentComplete">Torneo finalizado</string>
   <string name="movesPlayed">Movimientos</string>
   <string name="whiteWins">Victorias blancas</string>
@@ -363,6 +373,8 @@
   <string name="averageOpponent">Oponente promedio</string>
   <string name="membersOnly">Sólo para miembros</string>
   <string name="boardEditor">Editor de tablero</string>
+  <string name="setTheBoard">Configurar tablero</string>
+  <string name="popularOpenings">Aperturas populares</string>
   <string name="startPosition">Posición inicial</string>
   <string name="clearBoard">Limpiar el tablero</string>
   <string name="savePosition">Guardar posición</string>
@@ -405,9 +417,9 @@
   <string name="wasThisPuzzleAnyGood">¿Crees que este ejercicio es bueno?</string>
   <string name="pleaseVotePuzzle">Ayuda a Lichess a mejorar a través de tu votación, usando las flechas arriba o abajo:</string>
   <string name="thankYou">¡Gracias!</string>
-  <string name="ratingX">Puntuación: %s</string>
+  <string name="ratingX">Valoración: %s</string>
   <plurals name="playedXTimes">
-    <item quantity="one">Jugado %s veces</item>
+    <item quantity="one">Jugado %s vez</item>
     <item quantity="other">Jugado %s veces</item>
   </plurals>
   <string name="fromGameLink">De la partida %s</string>
@@ -420,7 +432,7 @@
     <item quantity="other">¡Dispone de %s segundos para hacer su primer movimiento!</item>
   </plurals>
   <plurals name="nbGamesInPlay">
-    <item quantity="one">%s partidas en juego</item>
+    <item quantity="one">%s partida en juego</item>
     <item quantity="other">%s partidas en juego</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Proceder a la siguiente partida automáticamente despues de mi movimiento</string>
@@ -591,6 +603,7 @@
   <string name="sourceCode">Código fuente</string>
   <string name="simultaneousExhibitions">Exhibiciones simultáneas</string>
   <string name="host">Anfitrión</string>
+  <string name="hostColorX">Color del anfitrión: %s</string>
   <string name="createdSimuls">Simultáneas nuevas</string>
   <string name="hostANewSimul">Crear una nueva simultánea</string>
   <string name="noSimulFound">Simultánea no encontrada</string>
@@ -695,6 +708,10 @@
   <string name="yourScore">Tu puntuación: %s</string>
   <string name="language">Idioma</string>
   <string name="background">Fondo</string>
+  <string name="light">Claro</string>
+  <string name="dark">Oscuro</string>
+  <string name="transparent">Transparente</string>
+  <string name="backgroundImageUrl">Url de Imagen de Fondo:</string>
   <string name="boardGeometry">Geometría del tablero</string>
   <string name="boardTheme">Tema del tablero</string>
   <string name="boardSize">Tamaño del tablero</string>
