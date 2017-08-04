@@ -414,6 +414,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="keepGoing">Continue...</string>
   <string name="puzzleFailed">Quebra-cabeça fracassado</string>
   <string name="butYouCanKeepTrying">Mas você pode continuar a tentar.</string>
+  <string name="victory">Vitória!</string>
   <plurals name="playedXTimes">
     <item quantity="one">Jogado %s vezes</item>
     <item quantity="other">Jogado %s vezes</item>
@@ -466,7 +467,6 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="xAskedY">%1$s perguntou %2$s</string>
   <string name="xAnsweredY">%1$s respondeu %2$s</string>
   <string name="xCommentedY">%1$s comentou %2$s</string>
-  <string name="victory">Vitória!</string>
   <string name="timeline">Linha do tempo</string>
   <string name="seeAllTournaments">Ver todos os torneios</string>
   <string name="starting">Iniciando:</string>
