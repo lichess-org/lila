@@ -317,6 +317,7 @@
   <string name="keepGoing">Jätka samas vaimus</string>
   <string name="puzzleFailed">Kukkusid läbi</string>
   <string name="butYouCanKeepTrying">Aga võid uuesti proovida</string>
+  <string name="victory">Võit!</string>
   <plurals name="playedXTimes">
     <item quantity="one">Mängitud %s korda</item>
     <item quantity="other">Mängitud %s korda</item>
@@ -359,7 +360,6 @@
   <string name="xAskedY">%1$s küsis %2$s</string>
   <string name="xAnsweredY">%1$s vastas %2$s</string>
   <string name="xCommentedY">%1$s kommenteeris %2$s</string>
-  <string name="victory">Võit!</string>
   <string name="timeline">Ajatelg</string>
   <string name="seeAllTournaments">Näita kõik turniirid</string>
   <string name="starting">Algab:</string>
