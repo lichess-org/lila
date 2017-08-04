@@ -434,6 +434,7 @@ računalnu analizu, pričaonicu partije i URL za dijeljenje.</string>
   <string name="keepGoing">Nastavi...</string>
   <string name="puzzleFailed">Problem neuspješno riješen</string>
   <string name="butYouCanKeepTrying">Ali možeš i dalje pokušavati.</string>
+  <string name="success">Uspjeh</string>
   <plurals name="playedXTimes">
     <item quantity="one">Odigrano %s put</item>
     <item quantity="few">Odigrano %s puta</item>
