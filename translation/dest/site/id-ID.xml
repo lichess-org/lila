@@ -382,6 +382,7 @@
   <string name="keepGoing">Teruskan...</string>
   <string name="puzzleFailed">Taktik gagal diselesaikan.</string>
   <string name="butYouCanKeepTrying">Tetapi anda bisa mencoba terus.</string>
+  <string name="victory">Menang!</string>
   <plurals name="playedXTimes">
     <item quantity="other">Dimainkan %s kali</item>
   </plurals>
@@ -432,7 +433,6 @@
   <string name="xAskedY">%1$s bertanya %2$s</string>
   <string name="xAnsweredY">%1$s menjawab %2$s</string>
   <string name="xCommentedY">%1$s berkomentar %2$s</string>
-  <string name="victory">Menang!</string>
   <string name="timeline">Timeline</string>
   <string name="seeAllTournaments">Lihat semua turnamen</string>
   <string name="starting">Mulai:</string>
