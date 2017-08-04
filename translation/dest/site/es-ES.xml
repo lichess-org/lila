@@ -413,6 +413,7 @@
   <string name="keepGoing">Continúa...</string>
   <string name="puzzleFailed">Ejercicio fallido</string>
   <string name="butYouCanKeepTrying">Pero puedes seguir intentándolo.</string>
+  <string name="victory">¡Victoria!</string>
   <plurals name="playedXTimes">
     <item quantity="one">Jugado %s vez</item>
     <item quantity="other">Jugado %s veces</item>
@@ -465,7 +466,6 @@
   <string name="xAskedY">%1$s preguntó %2$s</string>
   <string name="xAnsweredY">%1$s respondió %2$s</string>
   <string name="xCommentedY">%1$s comentó %2$s</string>
-  <string name="victory">¡Victoria!</string>
   <string name="timeline">Orden cronológico</string>
   <string name="seeAllTournaments">Ver todos los torneos</string>
   <string name="starting">Comienzo:</string>
