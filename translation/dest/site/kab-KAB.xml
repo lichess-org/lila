@@ -297,9 +297,9 @@
   <string name="keepGoing">Kemmel...</string>
   <string name="puzzleFailed">Aεewwiq ixeṣren</string>
   <string name="butYouCanKeepTrying">Maca tzemred  at ɛawdeɣ tikkelt niḍen</string>
+  <string name="victory">Tarennawt!</string>
   <plurals name="playedXTimes">
     <item quantity="one">Urared %s n tikkelt</item>
     <item quantity="other">Urared %s n tikkelt</item>
   </plurals>
-  <string name="victory">Tarennawt!</string>
 </resources>
