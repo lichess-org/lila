@@ -287,7 +287,7 @@
   <string name="keepGoing">Continuați...</string>
   <string name="puzzleFailed">Problemă nerezolvată</string>
   <string name="butYouCanKeepTrying">Dar puteți să mai încercați.</string>
-  <string name="success">Succes</string>
+  <string name="victory">Victorie!</string>
   <string name="wasThisPuzzleAnyGood">Considerați utilă această problemă?</string>
   <string name="thankYou">Mulţumesc!</string>
   <string name="ratingX">Rating: %s</string>
@@ -296,6 +296,19 @@
   <string name="retryThisPuzzle">Reîncercați această problemă</string>
   <string name="thisPuzzleIsCorrect">Această problemă este corectă și interesantă</string>
   <string name="thisPuzzleIsWrong">Această problemă este incorectă sau plictisitoare</string>
+  <string name="autoSwitch">Schimbă automat</string>
+  <string name="puzzles">Probleme de șah</string>
+  <string name="latestUpdates">Ultimele noutăţi</string>
+  <string name="name">Nume</string>
+  <string name="description">Descriere</string>
+  <string name="no">Nu</string>
+  <string name="yes">Da</string>
+  <string name="help">Ajutor:</string>
+  <string name="createANewTopic">Creaţi un subiect nou</string>
+  <string name="topics">Subiecte</string>
+  <string name="posts">Postări</string>
+  <string name="lastPost">Ultima postare</string>
+  <string name="views">Vizualizări</string>
   <string name="pgnPieceNotation">Notația PGN a pieselor</string>
   <string name="chessPieceSymbol">Simbolul piesei de șah</string>
   <string name="chessClock">Ceasul de șah</string>
@@ -337,7 +350,6 @@
   <string name="xAskedY">%1$s a întrebat %2$s</string>
   <string name="xAnsweredY">%1$s a răspuns %2$s</string>
   <string name="xCommentedY">%1$s a comentat %2$s</string>
-  <string name="victory">Victorie!</string>
   <string name="timeline">Activitate recentă</string>
   <string name="seeAllTournaments">Vezi toate turneele</string>
   <string name="starting">Începe în:</string>
