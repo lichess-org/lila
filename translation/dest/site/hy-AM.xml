@@ -317,6 +317,7 @@
   <string name="keepGoing">Շարունակեք…</string>
   <string name="puzzleFailed">Խնդրի լուծումը ձախողվեց</string>
   <string name="butYouCanKeepTrying">Բայց կարող եք կրկին փորձել։</string>
+  <string name="victory">Ճիշտ լուծո՛ւմ</string>
   <plurals name="playedXTimes">
     <item quantity="one">Փորձել են լուծել %s անգամ</item>
     <item quantity="other">Փորձել են լուծել %s անգամ</item>
@@ -352,7 +353,6 @@
   <string name="difficultyNormal">Նորմալ</string>
   <string name="difficultyHard">Բարդ</string>
   <string name="xCommentedY">%1$s մեկնաբանել %2$s</string>
-  <string name="victory">Ճիշտ լուծո՛ւմ</string>
   <string name="timeline">Ժամանակացույց</string>
   <string name="seeAllTournaments">Տեսնել բոլոր մրցաշարերը</string>
   <string name="starting">Սկիզբ</string>
