@@ -317,7 +317,6 @@
   <string name="keepGoing">Продължи...</string>
   <string name="puzzleFailed">Провал</string>
   <string name="butYouCanKeepTrying">Може да продължиш да опитваш.</string>
-  <string name="victory">Успех!</string>
   <plurals name="playedXTimes">
     <item quantity="one">Изиграна %s  пъти</item>
     <item quantity="other">Изиграна %s  пъти</item>
@@ -360,6 +359,7 @@
   <string name="xAskedY">%1$s зададе въпрос %2$s</string>
   <string name="xAnsweredY">%1$s отговори %2$s</string>
   <string name="xCommentedY">%1$s говори %2$s</string>
+  <string name="victory">Успех!</string>
   <string name="timeline">Уведомления</string>
   <string name="seeAllTournaments">Виж всички турнири</string>
   <string name="starting">Начало:</string>
