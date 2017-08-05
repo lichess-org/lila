@@ -393,7 +393,6 @@
   <string name="keepGoing">Continua...</string>
   <string name="puzzleFailed">Enigma fallite</string>
   <string name="butYouCanKeepTrying">Ma tu pote continuar a tentar.</string>
-  <string name="victory">Victoria!</string>
   <string name="wasThisPuzzleAnyGood">Esque iste enigma esseva bon?</string>
   <string name="pleaseVotePuzzle">Adjuta Lichess a meliorar per tu voto, usante le sagitta a alto o a basso:</string>
   <string name="thankYou">Gratias!</string>
@@ -494,6 +493,7 @@
   <string name="xAskedY">%1$s demandava %2$s</string>
   <string name="xAnsweredY">%1$s respondeva %2$s</string>
   <string name="xCommentedY">%1$s commentava %2$s</string>
+  <string name="victory">Victoria!</string>
   <string name="timeline">Chronologia</string>
   <string name="seeAllTournaments">Vider tote le torneos</string>
   <string name="starting">Initio:</string>
