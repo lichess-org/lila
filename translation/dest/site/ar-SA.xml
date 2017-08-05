@@ -13,7 +13,7 @@
   <string name="toggleTheChat">قفل/فتح الدردشة</string>
   <string name="toggleSound">تغيير الصوت</string>
   <string name="chat">دردشة</string>
-  <string name="resign">استسلام</string>
+  <string name="resign">استسلم</string>
   <string name="checkmate">الملك مات</string>
   <string name="stalemate">الملك مخنوق</string>
   <string name="white">أبيض</string>
@@ -23,7 +23,7 @@
   <string name="whiteIsVictorious">الأبيض فاز</string>
   <string name="blackIsVictorious">الأسود فاز</string>
   <string name="kingInTheCenter">الملك في الوسط</string>
-  <string name="threeChecks">ثلاثة كشات ملك</string>
+  <string name="threeChecks">كش ملك ثلاثا</string>
   <string name="raceFinished">نهاية السباق</string>
   <string name="variantEnding">نهاية مختلفة</string>
   <string name="newOpponent">خصم جديد</string>
