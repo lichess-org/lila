@@ -320,7 +320,6 @@
   <string name="keepGoing">தொடருங்கள்...</string>
   <string name="puzzleFailed">புதிரில் தோல்வியடைந்தீர்கள்</string>
   <string name="butYouCanKeepTrying">ஆனால் நீங்கள் மீண்டும் முயற்சிக்கலாம்</string>
-  <string name="victory">வெற்றி!</string>
   <string name="wasThisPuzzleAnyGood">இந்த புதிர் எப்படி இருந்தது?</string>
   <string name="pleaseVotePuzzle">மேல் அல்லது கீழ் அம்புக்குறிகளின் மூலம் வாக்களித்து லிசெஸுக்கு உதவுங்கள்:</string>
   <string name="thankYou">நன்றி</string>
@@ -388,6 +387,7 @@
   <string name="fast">விரைவாக</string>
   <string name="slow">மெதுவாக</string>
   <string name="always">எப்போதும்</string>
+  <string name="victory">வெற்றி!</string>
   <string name="whiteCastlingQueenside">வெள்ளை O-O-O</string>
   <string name="blackCastlingQueenside">க்ருப்பு O-O-O</string>
 </resources>

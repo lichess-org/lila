@@ -302,7 +302,6 @@
   <string name="keepGoing">.i ko ranji</string>
   <string name="puzzleFailed">lo se namkei cu jai se fliba</string>
   <string name="butYouCanKeepTrying">.i ku\'i do ka\'e za\'ure\'u troci</string>
-  <string name="victory">.ui lo nunji\'a</string>
   <string name="wasThisPuzzleAnyGood">xu le se namkei xamgu</string>
   <string name="pleaseVotePuzzle">ko sidju mi\'a se zu\'e lo nu nilnei cuxna se pi\'o lo re strelka</string>
   <string name="thankYou">ki\'e</string>
@@ -408,6 +407,7 @@
   <string name="xAskedY">la\'o zoi. %1$s .zoi retsku zoi zoi. %2$s .zoi</string>
   <string name="xAnsweredY">la\'o zoi. %1$s .zoi dafsku fi zoi zoi. %2$s .zoi</string>
   <string name="xCommentedY">la\'o zoi. %1$s .zoi piksku fi zoi zoi. %2$s .zoi</string>
+  <string name="victory">.ui lo nunji\'a</string>
   <string name="timeline">citri</string>
   <string name="seeAllTournaments">catlu lo mulno liste be lo grinunjvi</string>
   <string name="starting">cfari ti\'u li</string>

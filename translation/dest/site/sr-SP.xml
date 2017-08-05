@@ -424,7 +424,6 @@
   <string name="keepGoing">Настави...</string>
   <string name="puzzleFailed">Вежба неуспешна</string>
   <string name="butYouCanKeepTrying">Али можеш да наставиш са покушајима</string>
-  <string name="victory">Победа!</string>
   <string name="wasThisPuzzleAnyGood">Да ли је ова вежба била добра?</string>
   <string name="pleaseVotePuzzle">Помози да се lichess побољша гласајући , користећи стрелице горе/доле</string>
   <string name="thankYou">Хвала!</string>
@@ -546,6 +545,7 @@
   <string name="xAskedY">%1$s је упитао %2$s</string>
   <string name="xAnsweredY">%1$s је одговорио %2$s</string>
   <string name="xCommentedY">%1$s је коментарисао %2$s</string>
+  <string name="victory">Победа!</string>
   <string name="timeline">Дневник</string>
   <string name="seeAllTournaments">Види све турнире</string>
   <string name="starting">Почиње</string>

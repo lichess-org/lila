@@ -299,7 +299,6 @@
   <string name="keepGoing">Tiếp tục...</string>
   <string name="puzzleFailed">Giải sai</string>
   <string name="butYouCanKeepTrying">Nhưng bạn có thể thử lại</string>
-  <string name="victory">Chiến thắng!</string>
   <string name="wasThisPuzzleAnyGood">Câu này có thú vị gì không?</string>
   <string name="pleaseVotePuzzle">Giúp lichess cải thiện bằng cách bình chọn, dùng mũi tên lên hoặc xuống:</string>
   <string name="thankYou">Cám ơn!</string>
@@ -405,6 +404,7 @@
   <string name="xAskedY">%1$s đã yêu cầu %2$s</string>
   <string name="xAnsweredY">%1$s đã trả lời %2$s</string>
   <string name="xCommentedY">%1$s đã bình luận %2$s</string>
+  <string name="victory">Chiến thắng!</string>
   <string name="timeline">Dòng thời gian</string>
   <string name="seeAllTournaments">Xem tất cả giải</string>
   <string name="starting">Bắt dầu đấu:</string>

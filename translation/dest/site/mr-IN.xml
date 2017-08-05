@@ -251,7 +251,6 @@
   <string name="watchLichessTV">Lichess दूरदर्शन पाहा</string>
   <string name="clickToSolve">सोडवण्यासाठी क्लिक करा</string>
   <string name="puzzleFailed">कोड्याचे उत्तर चुकीचे आहे</string>
-  <string name="victory">शाब्बास रे! पठ्ठ्या!!!</string>
   <string name="thankYou">आभारी आहे</string>
   <string name="puzzles">कोडी</string>
   <string name="name">नाव</string>
@@ -276,6 +275,7 @@
   <string name="insult">अपमान</string>
   <string name="troll">थट्टा</string>
   <string name="other">इतर</string>
+  <string name="victory">शाब्बास रे! पठ्ठ्या!!!</string>
   <string name="noInternetConnection">आंतरजालाशी संपर्क  नाही. तरीदेखील तुम्ही offline खेळू शकता</string>
   <string name="playOnTheBoardOffline">त्या समयी सुचलेली चाल</string>
   <string name="playOfflineComputer">संगणक</string>

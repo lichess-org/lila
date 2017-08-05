@@ -315,7 +315,6 @@
   <string name="keepGoing">Продолжи</string>
   <string name="puzzleFailed">Вежба не успеа</string>
   <string name="butYouCanKeepTrying">Сеуште се обидуваш</string>
-  <string name="victory">Победа</string>
   <string name="wasThisPuzzleAnyGood">Е вежба добро?</string>
   <string name="pleaseVotePuzzle">Помош lichess се подобри преку гласање, со користење нагоре или надолу стрелка:</string>
   <string name="thankYou">Благодарам!</string>
@@ -342,6 +341,7 @@
   <string name="name">Име</string>
   <string name="description">Опис</string>
   <string name="help">Помош</string>
+  <string name="victory">Победа</string>
   <string name="opponent">Противник</string>
   <string name="phoneAndTablet">Телефон и таблет</string>
   <string name="followAndChallengeFriends">Следи и предизвикај пријатели</string>

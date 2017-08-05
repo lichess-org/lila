@@ -313,7 +313,6 @@
   <string name="keepGoing">এইভাবে চালিয়ে যান</string>
   <string name="puzzleFailed">ধাঁধা সমাধান করতে ব্যর্থ</string>
   <string name="butYouCanKeepTrying">তবে চেষ্টা চালিয়ে যেতে পারেন</string>
-  <string name="victory">বিজয়!</string>
   <string name="wasThisPuzzleAnyGood">এই ধাঁধাটি কেমন ছিল ?</string>
   <string name="pleaseVotePuzzle">UP অথবা Down arrow তে ভোট করে lichess-কে সাহায্য করুন</string>
   <string name="thankYou">ধন্যবাদ</string>
@@ -384,6 +383,7 @@
   <string name="currentPassword">বর্তমান password</string>
   <string name="newPassword">নতুন password</string>
   <string name="newPasswordAgain">নতুন password (পুনরায় )</string>
+  <string name="victory">বিজয়!</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">সর্বোচ্চ: %s টি অক্ষর</item>
     <item quantity="other">সর্বোচ্চ: %s টি অক্ষর</item>

@@ -19,7 +19,7 @@
   <string name="theSpecialKingMove">Le movimento special de rege</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Le movimento special del pedon</string>
-  <string name="stalemate">Impasse</string>
+  <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Le partita es nulle</string>
   <string name="checkInTwo">Chaco in 2</string>
   <string name="puzzles">Enigmas</string>

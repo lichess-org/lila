@@ -397,7 +397,6 @@
   <string name="keepGoing">Ga verder...</string>
   <string name="puzzleFailed">Puzzel gefaald</string>
   <string name="butYouCanKeepTrying">Maar je kunt het blijven proberen.</string>
-  <string name="victory">Overwinning!</string>
   <string name="wasThisPuzzleAnyGood">Was dit een goede puzzel?</string>
   <string name="pleaseVotePuzzle">Verbeter lichess door te stemmen met de pijl naar boven of beneden.</string>
   <string name="thankYou">Bedankt!</string>
@@ -516,6 +515,7 @@
   <string name="xAskedY">%1$s vroeg %2$s</string>
   <string name="xAnsweredY">%1$s antwoordde %2$s</string>
   <string name="xCommentedY">%1$s gaf commentaar op %2$s</string>
+  <string name="victory">Overwinning!</string>
   <string name="timeline">Tijdslijn</string>
   <string name="seeAllTournaments">Zie alle toernooien</string>
   <string name="starting">Startend:</string>

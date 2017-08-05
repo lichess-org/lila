@@ -344,7 +344,6 @@
   <string name="keepGoing">ادامه دهید</string>
   <string name="puzzleFailed">مسئله را باختید</string>
   <string name="butYouCanKeepTrying">اما می‌توانید باز هم تلاش کنید</string>
-  <string name="victory">پیروزی!</string>
   <string name="wasThisPuzzleAnyGood">این جدول چقدر خوب بود؟</string>
   <string name="pleaseVotePuzzle">با رای دادن مثبت یا منفی به پیشرفت لیچس کمک کنید</string>
   <string name="thankYou">ممنون!</string>
@@ -455,6 +454,7 @@
   <string name="xAskedY">%1$s سوال %2$s را پرسید</string>
   <string name="xAnsweredY">%1$s سوال  %2$s را پاسخ داد</string>
   <string name="xCommentedY">%1$s به %2$s پیام داد.</string>
+  <string name="victory">پیروزی!</string>
   <string name="timeline">جدول زمانی</string>
   <string name="seeAllTournaments">دیدن تمام مسابقات</string>
   <string name="starting">شروع</string>

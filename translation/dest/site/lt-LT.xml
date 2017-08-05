@@ -434,7 +434,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="keepGoing">Tęskite…</string>
   <string name="puzzleFailed">Suklydote užduotyje</string>
   <string name="butYouCanKeepTrying">Tačiau galite bandyti vėl.</string>
-  <string name="victory">Pergalė!</string>
   <string name="wasThisPuzzleAnyGood">Ar užduotis buvo gera?</string>
   <string name="pleaseVotePuzzle">Padėkite „lichess“ tobulėti įvertindami užduotį (spustelėkite rodyklę į viršų ar apačią):</string>
   <string name="thankYou">Ačiū!</string>
@@ -556,6 +555,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="xAskedY">%1$s paklausė apie „%2$s“</string>
   <string name="xAnsweredY">%1$s atsakė į „%2$s“</string>
   <string name="xCommentedY">%1$s pakomentavo apie „%2$s“</string>
+  <string name="victory">Pergalė!</string>
   <string name="timeline">Veikla</string>
   <string name="seeAllTournaments">Pamatyti visus turnyrus</string>
   <string name="starting">Prasideda:</string>

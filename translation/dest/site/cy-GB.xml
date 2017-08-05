@@ -257,7 +257,6 @@
   <string name="keepGoing">Dalia ati ...</string>
   <string name="puzzleFailed">Wedi methu</string>
   <string name="butYouCanKeepTrying">Ond gelli ddal ati a thrio eto</string>
-  <string name="victory">Buddugoliaeth!</string>
   <string name="wasThisPuzzleAnyGood">Oedd y pos ma yn dda?</string>
   <string name="pleaseVotePuzzle">Helpwch wellhau lichess wrth bleidleisio a defnyddio saeth i fyny neu i lawr:</string>
   <string name="thankYou">Diolch yn fawr!</string>
@@ -354,6 +353,7 @@
   <string name="xAskedY">Gofynnodd %1$s am %2$s</string>
   <string name="xAnsweredY">Atebodd %1$s i %2$s</string>
   <string name="xCommentedY">Gadawodd %1$s sylw ar gyfer</string>
+  <string name="victory">Buddugoliaeth!</string>
   <string name="timeline">Llinell amser</string>
   <string name="seeAllTournaments">Gweld y cystadleuaethau i gyd</string>
   <string name="starting">Cychwyn:</string>

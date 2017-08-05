@@ -317,7 +317,6 @@
   <string name="keepGoing">Vazhdo ...</string>
   <string name="puzzleFailed">Ushtrimi dështoi</string>
   <string name="butYouCanKeepTrying">Por mundesh të provosh përsëri.</string>
-  <string name="victory">Fitore!</string>
   <string name="wasThisPuzzleAnyGood">A ishte ky ushtrimi i mirë?</string>
   <string name="pleaseVotePuzzle">Ndihmo lichess të përmirësohet duke votuar, me shigjetat poshtë ose lartë:</string>
   <string name="thankYou">Faleminderit!</string>
@@ -426,6 +425,7 @@
   <string name="xAskedY">%1$s pyeti %2$s</string>
   <string name="xAnsweredY">%1$s u përgjigj %2$s</string>
   <string name="xCommentedY">s%1$s komentoi %2$s</string>
+  <string name="victory">Fitore!</string>
   <string name="timeline">Vija kohore</string>
   <string name="seeAllTournaments">Shiko të gjithë turnetë</string>
   <string name="starting">Fillon:</string>

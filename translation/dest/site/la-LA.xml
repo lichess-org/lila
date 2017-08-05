@@ -320,7 +320,6 @@
   <string name="keepGoing">Perge...</string>
   <string name="puzzleFailed">Cadis in problemate</string>
   <string name="butYouCanKeepTrying">Tamen rursum contendere potes.</string>
-  <string name="victory">Victoria!</string>
   <string name="wasThisPuzzleAnyGood">Fuitne bonum hoc problema?</string>
   <string name="pleaseVotePuzzle">Meliora lichessem eligendo sorsum vel deorsum:</string>
   <string name="thankYou">Gratias tibi!</string>
@@ -430,6 +429,7 @@
   <string name="xAskedY">%1$s %2$s rogavit</string>
   <string name="xAnsweredY">%1$s %2$s responsavit</string>
   <string name="xCommentedY">%1$s %2$s annotavit</string>
+  <string name="victory">Victoria!</string>
   <string name="timeline">Linea temporis</string>
   <string name="seeAllTournaments">Omnia certamina videre</string>
   <string name="starting">Initium:</string>

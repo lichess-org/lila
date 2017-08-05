@@ -317,7 +317,6 @@
   <string name="keepGoing">ასე გააგრძელე</string>
   <string name="puzzleFailed">ფაზლში დამარცხდი</string>
   <string name="butYouCanKeepTrying">ისევ შეგიძლია სცადო.</string>
-  <string name="victory">გამარჯვება!</string>
   <string name="wasThisPuzzleAnyGood">როგორ შეაფასებდი ამ ფაზლს?</string>
   <string name="pleaseVotePuzzle">გააუმჯობესეთ Lichess ხმის მიცემით ზემოთ ან ქვემოთ მიმართული ისრების მეშვეობით:</string>
   <string name="thankYou">გმადლობთ შეფასებისთვის!</string>
@@ -426,6 +425,7 @@
   <string name="xAskedY">%1$s-მ(ა) იკითხა %2$s</string>
   <string name="xAnsweredY">%1$s-მ(ა) უპასუხა %2$s-ს</string>
   <string name="xCommentedY">%1$s-მ(ა) კომენტარი გაუკეთა %2$s-ს</string>
+  <string name="victory">გამარჯვება!</string>
   <string name="timeline">ისტორია</string>
   <string name="seeAllTournaments">ყველა ტურნირის ნახვა</string>
   <string name="starting">დასაწყისი:</string>

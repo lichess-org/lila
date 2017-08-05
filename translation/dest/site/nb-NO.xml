@@ -344,7 +344,6 @@
   <string name="keepGoing">Fortsett ...</string>
   <string name="puzzleFailed">Du klarte ikke sjakknøtten</string>
   <string name="butYouCanKeepTrying">Men du kan fortsette å prøve.</string>
-  <string name="victory">Seier!</string>
   <string name="wasThisPuzzleAnyGood">Likte du denne sjakknøtten?</string>
   <string name="pleaseVotePuzzle">Forbedre lichess ved å stemme, med opp- eller ned-pilen:</string>
   <string name="thankYou">Takk!</string>
@@ -454,6 +453,7 @@
   <string name="xAskedY">%1$s spurte %2$s</string>
   <string name="xAnsweredY">%1$s svarte %2$s</string>
   <string name="xCommentedY">%1$s kommenterte %2$s</string>
+  <string name="victory">Seier!</string>
   <string name="timeline">Tidslinje</string>
   <string name="seeAllTournaments">Se alle turneringer</string>
   <string name="starting">Starter:</string>

@@ -254,7 +254,6 @@
   <string name="keepGoing">Cum ort...</string>
   <string name="puzzleFailed">Cha deach leat</string>
   <string name="butYouCanKeepTrying">Ach faodaidh tu feuchainn a-rithist.</string>
-  <string name="victory">Buaidh!</string>
   <string name="wasThisPuzzleAnyGood">An robh an tòimhseachan seo math?</string>
   <string name="pleaseVotePuzzle">Cuidich lichess ’s cuir bhòt ann leis an t-saighead suas no sìos:</string>
   <string name="thankYou">Mòran taing!</string>
@@ -342,6 +341,7 @@
   <string name="difficultyNormal">Meadhanach</string>
   <string name="difficultyHard">Doirbh</string>
   <string name="xCompetesInY">%1$s a\' gabhail pàirt ann an %2$s</string>
+  <string name="victory">Buaidh!</string>
   <string name="timeline">Loidhne-tìm</string>
   <string name="seeAllTournaments">Faic na fèillean-cluich uile</string>
   <string name="starting">A\' tòiseachadh:</string>

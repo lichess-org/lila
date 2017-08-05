@@ -317,7 +317,6 @@
   <string name="keepGoing">Haltu áfram...</string>
   <string name="puzzleFailed">Rangt svar</string>
   <string name="butYouCanKeepTrying">En þú getur haldið áfram að reyna.</string>
-  <string name="victory">Sigur!</string>
   <string name="wasThisPuzzleAnyGood">Var þessi þraut góð?</string>
   <string name="pleaseVotePuzzle">Hjálpaðu lichess að bæta sig með því að kjósa, notaðu upp og niður örvarnar:</string>
   <string name="thankYou">Takk fyrir!</string>
@@ -426,6 +425,7 @@
   <string name="xAskedY">%1$s spurði %2$s</string>
   <string name="xAnsweredY">%1$s svaraði %2$s</string>
   <string name="xCommentedY">%1$s skrifaði %2$s</string>
+  <string name="victory">Sigur!</string>
   <string name="timeline">Tímalína</string>
   <string name="seeAllTournaments">Sjá öll skákmót</string>
   <string name="starting">Hefst:</string>

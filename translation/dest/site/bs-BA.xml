@@ -257,7 +257,6 @@
   <string name="keepGoing">Nastavite...</string>
   <string name="puzzleFailed">Vježba neuspješna</string>
   <string name="butYouCanKeepTrying">Ali možete nastaviti pokušavati.</string>
-  <string name="victory">Pobjeda!</string>
   <string name="wasThisPuzzleAnyGood">Da li je ovaj problem bio dobar?</string>
   <string name="pleaseVotePuzzle">Pomozi da se Lichess poboljša, koristeći strelice gore/dolje:</string>
   <string name="thankYou">Hvala!</string>
@@ -354,6 +353,7 @@
   <string name="xAskedY">%1$s je pitao %2$s</string>
   <string name="xAnsweredY">%1$s je odgovorio %2$s</string>
   <string name="xCommentedY">%1$s je komentarisao %2$s</string>
+  <string name="victory">Pobjeda!</string>
   <string name="timeline">Hronologija</string>
   <string name="seeAllTournaments">Pogledaj sve turnire</string>
   <string name="starting">Počinje:</string>

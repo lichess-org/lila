@@ -414,7 +414,6 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="keepGoing">Continue...</string>
   <string name="puzzleFailed">Quebra-cabeça fracassado</string>
   <string name="butYouCanKeepTrying">Mas você pode continuar a tentar.</string>
-  <string name="victory">Vitória!</string>
   <string name="wasThisPuzzleAnyGood">Este quebra-cabeça foi bom?</string>
   <string name="pleaseVotePuzzle">Ajude o Lichess a melhorar através do seu voto, usando a seta para cima ou para baixo:</string>
   <string name="thankYou">Obrigado!</string>
@@ -429,8 +428,8 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="thisPuzzleIsCorrect">O quebra-cabeça está correto e é interessante</string>
   <string name="thisPuzzleIsWrong">O quebra-cabeça está errado ou é chato</string>
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Tem %s segundos para fazer a primeira jogada!</item>
-    <item quantity="other">Tem %s segundos para fazer a primeira jogada!</item>
+    <item quantity="one">Você tem %s segundo para fazer a primeira jogada!</item>
+    <item quantity="other">Você tem %s segundos para fazer a primeira jogada!</item>
   </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partidas em andamento</item>
@@ -440,7 +439,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="autoSwitch">Alternar automaticamente</string>
   <string name="puzzles">Quebra-cabeças</string>
   <string name="latestUpdates">Atualizações mais recentes</string>
-  <string name="tournamentWinners">Vencedores de torneio</string>
+  <string name="tournamentWinners">Vencedores de torneios</string>
   <string name="name">Nome</string>
   <string name="description">Descrição</string>
   <string name="no">Não</string>
@@ -479,7 +478,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="closeAccount">Encerrar conta</string>
   <string name="changedMindDoNotCloseAccount">Eu mudei de ideia, não encerre minha conta</string>
   <string name="closeAccountExplanation">Você tem certeza de que deseja encerrar sua conta? Esta é uma decisão permanente. Você não será mais capaz de fazer login, e a página de seu perfil não será mais acessível.</string>
-  <string name="thisAccountIsClosed">Esta conta foi encerrada</string>
+  <string name="thisAccountIsClosed">Esta conta foi encerrada.</string>
   <string name="invalidUsernameOrPassword">Nome de usuário ou senha incorretos</string>
   <string name="incorrectPassword">Senha incorreta</string>
   <string name="emailMeALink">Envie-me um link</string>
@@ -533,6 +532,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="xAskedY">%1$s perguntou %2$s</string>
   <string name="xAnsweredY">%1$s respondeu %2$s</string>
   <string name="xCommentedY">%1$s comentou %2$s</string>
+  <string name="victory">Vitória!</string>
   <string name="timeline">Linha do tempo</string>
   <string name="seeAllTournaments">Ver todos os torneios</string>
   <string name="starting">Iniciando:</string>

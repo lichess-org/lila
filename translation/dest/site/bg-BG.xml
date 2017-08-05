@@ -317,7 +317,6 @@
   <string name="keepGoing">Продължи...</string>
   <string name="puzzleFailed">Провал</string>
   <string name="butYouCanKeepTrying">Може да продължиш да опитваш.</string>
-  <string name="victory">Успех!</string>
   <string name="wasThisPuzzleAnyGood">Хареса ли ви задачата?</string>
   <string name="pleaseVotePuzzle">Гласувайте, за да помогнете за подобряването на lichess, като използвате стрелките \"нагоре\" и \"надолу\"</string>
   <string name="thankYou">Благодаря!</string>
@@ -426,6 +425,7 @@
   <string name="xAskedY">%1$s зададе въпрос %2$s</string>
   <string name="xAnsweredY">%1$s отговори %2$s</string>
   <string name="xCommentedY">%1$s говори %2$s</string>
+  <string name="victory">Успех!</string>
   <string name="timeline">Уведомления</string>
   <string name="seeAllTournaments">Виж всички турнири</string>
   <string name="starting">Начало:</string>

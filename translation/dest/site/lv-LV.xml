@@ -257,7 +257,6 @@
   <string name="keepGoing">Turpini...</string>
   <string name="puzzleFailed">Uzdevums nav atrisināts</string>
   <string name="butYouCanKeepTrying">Taču tu var mēģināt kamēr izdosies.</string>
-  <string name="victory">Uzvara!</string>
   <string name="wasThisPuzzleAnyGood">Vai šis uzdevums bija labs?</string>
   <string name="pleaseVotePuzzle">Palīdzi uzlabot lichess, balsojot ar bultiņām uz augšu vai uz leju:</string>
   <string name="thankYou">Paldies!</string>
@@ -354,6 +353,7 @@
   <string name="xAskedY">%1$s uzdeva jautājumu %2$s</string>
   <string name="xAnsweredY">%1$s atbildēja %2$s</string>
   <string name="xCommentedY">%1$s sniedza komentāru %2$s</string>
+  <string name="victory">Uzvara!</string>
   <string name="timeline">Laika grafiks</string>
   <string name="seeAllTournaments">Skatīt visus turnīrus</string>
   <string name="starting">Sāksies:</string>

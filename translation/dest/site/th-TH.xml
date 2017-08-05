@@ -386,7 +386,6 @@
   <string name="keepGoing">เดินต่อไป...</string>
   <string name="puzzleFailed">แก้ปริศนาไม่สำเร็จ</string>
   <string name="butYouCanKeepTrying">แต่คุณสามารถลองแก้ต่อได้</string>
-  <string name="victory">ชัยชนะ!</string>
   <string name="wasThisPuzzleAnyGood">ปริศนานี้ดีพอหรือไม่?</string>
   <string name="pleaseVotePuzzle">ช่วย lichess ปรับปรุงโดยใช้ปุ่มลูกศรขึ้นหรือลง เพื่อทำการโหวต:</string>
   <string name="thankYou">ขอบคุณ!</string>
@@ -502,6 +501,7 @@
   <string name="xAskedY">%1$s ได้ถาม %2$s</string>
   <string name="xAnsweredY">%1$s ได้ตอบ %2$s</string>
   <string name="xCommentedY">%1$s ได้แสดงความคิดเห็น %2$s</string>
+  <string name="victory">ชัยชนะ!</string>
   <string name="timeline">ไทม์ไลน์</string>
   <string name="seeAllTournaments">ดูทัวร์นาเมนต์ทั้งหมด</string>
   <string name="starting">กำลังเริ่ม:</string>

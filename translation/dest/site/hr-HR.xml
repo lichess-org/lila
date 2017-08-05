@@ -434,7 +434,7 @@ računalnu analizu, pričaonicu partije i URL za dijeljenje.</string>
   <string name="keepGoing">Nastavi...</string>
   <string name="puzzleFailed">Problem neuspješno riješen</string>
   <string name="butYouCanKeepTrying">Ali možeš i dalje pokušavati.</string>
-  <string name="victory">Pobjeda!</string>
+  <string name="success">Uspjeh</string>
   <string name="wasThisPuzzleAnyGood">Je li ovaj problem bio dobar?</string>
   <string name="pleaseVotePuzzle">Pomozite da se lichess poboljša glasanjem, koristeći strelicu gore ili dolje:</string>
   <string name="thankYou">Hvala!</string>
@@ -487,7 +487,7 @@ računalnu analizu, pričaonicu partije i URL za dijeljenje.</string>
   <string name="insult">Vrijeđanje</string>
   <string name="troll">Provokacija</string>
   <string name="other">Ostalo</string>
-  <string name="reportDescriptionHelp">Zalijepi poveznicu na partiju/e u pitanju i objasni što nije u redu s ponašanjem korisnika.</string>
+  <string name="reportDescriptionHelp">Zalijepi poveznicu na partiju/e u pitanju i objasni što nije u redu s ponašanjem korisnika. Nemoj samo reći \"varao je\", nego reci kako si došao/la do tog zaključka. Tvoja prijava bit će obrađena brže ako ju napišeš na engleskom jeziku.</string>
   <string name="by">od %s</string>
   <string name="thisTopicIsNowClosed">Ova tema je zatvorena.</string>
   <string name="theming">Izgled</string>
@@ -556,6 +556,10 @@ računalnu analizu, pričaonicu partije i URL za dijeljenje.</string>
   <string name="xAskedY">%1$s je pitao %2$s</string>
   <string name="xAnsweredY">%1$s je odgovorio na pitanje %2$s</string>
   <string name="xCommentedY">%1$s je komentirao %2$s</string>
+  <string name="victory">Pobjeda!</string>
+  <string name="defeat">Poraz</string>
+  <string name="xVsYinZ">%1$s protiv %2$s
+u %3$s</string>
   <string name="timeline">Vremenska crta</string>
   <string name="seeAllTournaments">Vidi sve turnire</string>
   <string name="starting">Počinje:</string>

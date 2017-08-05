@@ -302,7 +302,6 @@
   <string name="keepGoing">继续……</string>
   <string name="puzzleFailed">解题失败</string>
   <string name="butYouCanKeepTrying">但你可以继续尝试。</string>
-  <string name="victory">成功！</string>
   <string name="wasThisPuzzleAnyGood">这道题目好不好？</string>
   <string name="pleaseVotePuzzle">按上箭头键或下箭头键投票，帮助Lichess改进：</string>
   <string name="thankYou">谢谢！</string>
@@ -408,6 +407,7 @@
   <string name="xAskedY">%1$s提问%2$s</string>
   <string name="xAnsweredY">%1$s回答%2$s</string>
   <string name="xCommentedY">%1$s 评论 %2$s</string>
+  <string name="victory">成功！</string>
   <string name="timeline">时间线</string>
   <string name="seeAllTournaments">显示所有比赛</string>
   <string name="starting">开始时间：</string>

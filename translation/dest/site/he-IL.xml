@@ -257,7 +257,6 @@
   <string name="keepGoing">המשך...</string>
   <string name="puzzleFailed">נכשלת בפאזל</string>
   <string name="butYouCanKeepTrying">אבל אתה יכול להמשיך לנסות.</string>
-  <string name="victory">ניצחון!</string>
   <string name="wasThisPuzzleAnyGood">האם אהבת את הפאזל?</string>
   <string name="pleaseVotePuzzle">עזור לנו להשתפר ע\"י הצבעה. השתמש בחצים למעלה ולמטה.</string>
   <string name="thankYou">תודה רבה!</string>
@@ -354,6 +353,7 @@
   <string name="xAskedY">%1$s שאל %2$s</string>
   <string name="xAnsweredY">%1$s עלה על %2$s</string>
   <string name="xCommentedY">%1$s כתב %2$s</string>
+  <string name="victory">ניצחון!</string>
   <string name="timeline">ציר הזמן</string>
   <string name="seeAllTournaments">ראה את כל הטורנירים</string>
   <string name="starting">מתחיל:</string>

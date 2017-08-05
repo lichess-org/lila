@@ -317,7 +317,6 @@
   <string name="keepGoing">Үргэлжлүүлээд байгаарай...</string>
   <string name="puzzleFailed">Бодлогыг амжилттай бодож чадсангүй</string>
   <string name="butYouCanKeepTrying">Гэхдээ та үргэлжлүүлэн бодох боломжтой.</string>
-  <string name="victory">Бодлогыг амжилттай бодлоо!</string>
   <string name="wasThisPuzzleAnyGood">Энэ бодлого хэр байв?</string>
   <string name="pleaseVotePuzzle">Бодлогын чанарыг үнэлэх</string>
   <string name="thankYou">Баярлалаа!</string>
@@ -426,6 +425,7 @@
   <string name="xAskedY">%1$s дараахь гишүүнээс асуулт асуулаа: %2$s</string>
   <string name="xAnsweredY">%1$s дараахь гишүүнд хариулт бичлээ: %2$s</string>
   <string name="xCommentedY">%1$s дараахь сэдэвт сэтгэгдлээ бичлээ: %2$s</string>
+  <string name="victory">Бодлогыг амжилттай бодлоо!</string>
   <string name="timeline">Дагагч хүмүүсийн үйлдлүүд</string>
   <string name="seeAllTournaments">Бүх тэмцээнүүдийг харах</string>
   <string name="starting">Тэмцээн эхлэхэд дараахь хугацаа үлдлээ:</string>

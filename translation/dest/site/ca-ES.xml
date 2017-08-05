@@ -317,7 +317,6 @@
   <string name="keepGoing">Continua jugant...</string>
   <string name="puzzleFailed">Solució incorrecta</string>
   <string name="butYouCanKeepTrying">Però pots seguir intentant-ho.</string>
-  <string name="victory">Victòria!</string>
   <string name="wasThisPuzzleAnyGood">Ha valgut la pena aquest problema?</string>
   <string name="pleaseVotePuzzle">Ajudeu lichess a millorar mitjançant el vostre vot amb les fletxes amunt o avall:</string>
   <string name="thankYou">Gràcies!</string>
@@ -426,6 +425,7 @@
   <string name="xAskedY">%1$s ha demanat %2$s</string>
   <string name="xAnsweredY">%1$s ha demanat %2$s</string>
   <string name="xCommentedY">%1$s ha comentat %2$s</string>
+  <string name="victory">Victòria!</string>
   <string name="timeline">Cronologia</string>
   <string name="seeAllTournaments">Veure tots els tornejos</string>
   <string name="starting">Començant:</string>

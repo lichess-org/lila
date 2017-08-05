@@ -414,7 +414,6 @@ und eine URL um dein PGN zu teilen.</string>
   <string name="keepGoing">Mach weiter...</string>
   <string name="puzzleFailed">Nicht gelöst</string>
   <string name="butYouCanKeepTrying">Aber du kannst es trotzdem weiterversuchen.</string>
-  <string name="victory">Geschafft!</string>
   <string name="wasThisPuzzleAnyGood">Wie fandest du diese Aufgabe?</string>
   <string name="pleaseVotePuzzle">Verbessere Lichess, indem du mit den Pfeilen abstimmst:</string>
   <string name="thankYou">Vielen Dank!</string>
@@ -533,6 +532,7 @@ und eine URL um dein PGN zu teilen.</string>
   <string name="xAskedY">%1$s fragte %2$s</string>
   <string name="xAnsweredY">%1$s beantwortete %2$s</string>
   <string name="xCommentedY">%1$s kommentierte %2$s</string>
+  <string name="victory">Geschafft!</string>
   <string name="timeline">Verlauf</string>
   <string name="seeAllTournaments">Alle Turniere anzeigen</string>
   <string name="starting">Beginnt:</string>

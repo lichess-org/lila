@@ -317,7 +317,6 @@
   <string name="keepGoing">Jatka...</string>
   <string name="puzzleFailed">Tehtävä epäonnistui</string>
   <string name="butYouCanKeepTrying">Mutta voit jatkaa yrittämistä.</string>
-  <string name="victory">Voitit!</string>
   <string name="wasThisPuzzleAnyGood">Piditkö tästä tehtävästä?</string>
   <string name="pleaseVotePuzzle">Auta lichessiä parantamaan tehtäviä äänestämällä nuolilla:</string>
   <string name="thankYou">Kiitos!</string>
@@ -426,6 +425,7 @@
   <string name="xAskedY">%1$s kysyi %2$s</string>
   <string name="xAnsweredY">%1$s vastasi %2$s</string>
   <string name="xCommentedY">%1$s kommentoi %2$s</string>
+  <string name="victory">Voitit!</string>
   <string name="timeline">Tapahtunutta aikajärjestyksessä</string>
   <string name="seeAllTournaments">Katso kaikki turnaukset</string>
   <string name="starting">Alkamassa:</string>

@@ -286,7 +286,6 @@
   <string name="butYouCanDoBetter">Afaka manao tsara kokoa ianao.</string>
   <string name="puzzleFailed">Tsy voavaha ny piozila</string>
   <string name="butYouCanKeepTrying">Afaka manandrana hatrany ianao.</string>
-  <string name="victory">Fandresena!</string>
   <string name="thankYou">Misaotra!</string>
   <plurals name="playedXTimes">
     <item quantity="one">Nanao andrana in-%s</item>
@@ -329,6 +328,7 @@
   <string name="difficultyEasy">Mora</string>
   <string name="difficultyNormal">Antonony</string>
   <string name="difficultyHard">Mafy</string>
+  <string name="victory">Fandresena!</string>
   <string name="yourCityRegionOrDepartment">Tanàna, faritra na faritany misy anao.</string>
   <string name="listBlockedPlayers">Listr\'ireo mpilalao nosakananao</string>
   <string name="human">Olombelona</string>

@@ -413,7 +413,6 @@
   <string name="keepGoing">Fortsätt...</string>
   <string name="puzzleFailed">Feldrag</string>
   <string name="butYouCanKeepTrying">Men du kan fortsätta försöka.</string>
-  <string name="victory">Rätt!</string>
   <string name="wasThisPuzzleAnyGood">Var det här schackproblemet bra?</string>
   <string name="pleaseVotePuzzle">Hjälp lichess att bli bättre genom att rösta (använd pil upp eller pil ner):</string>
   <string name="thankYou">Tack!</string>
@@ -532,6 +531,7 @@
   <string name="xAskedY">%1$s frågade %2$s</string>
   <string name="xAnsweredY">%1$s svarade %2$s</string>
   <string name="xCommentedY">%1$s kommenterade %2$s</string>
+  <string name="victory">Rätt!</string>
   <string name="timeline">Tidslinje</string>
   <string name="seeAllTournaments">Se alla turneringar</string>
   <string name="starting">Startar:</string>
