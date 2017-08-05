@@ -132,7 +132,7 @@ private[study] final class SocketHandler(
       reading[AtPosition](o) { position =>
         (o \ "d" \ "shapes").asOpt[List[Shape]] foreach { shapes =>
           member.userId foreach { userId =>
-            api.setShapes(userId, studyId, position.ref, Shapes(shapes take 16), uid)
+            api.setShapes(userId, studyId, position.ref, Shapes(shapes take 32), uid)
           }
         }
       }
