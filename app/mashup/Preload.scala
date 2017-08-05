@@ -18,7 +18,7 @@ final class Preload(
     tv: Tv,
     leaderboard: Unit => Fu[List[User.LightPerf]],
     tourneyWinners: Fu[List[Winner]],
-    timelineEntries: String => Fu[List[Entry]],
+    timelineEntries: String => Fu[Vector[Entry]],
     streamsOnAir: () => Fu[List[StreamOnAir]],
     dailyPuzzle: () => Fu[Option[lila.puzzle.DailyPuzzle]],
     countRounds: () => Int,
@@ -27,7 +27,7 @@ final class Preload(
     lightUserApi: LightUserApi
 ) {
 
-  private type Response = (JsObject, List[Entry], List[MiniForumPost], List[Tournament], List[Event], List[Simul], Option[Game], List[User.LightPerf], List[Winner], Option[lila.puzzle.DailyPuzzle], List[StreamOnAir], List[lila.blog.MiniPost], Option[TempBan], Option[Preload.CurrentGame], Int)
+  private type Response = (JsObject, Vector[Entry], List[MiniForumPost], List[Tournament], List[Event], List[Simul], Option[Game], List[User.LightPerf], List[Winner], Option[lila.puzzle.DailyPuzzle], List[StreamOnAir], List[lila.blog.MiniPost], Option[TempBan], Option[Preload.CurrentGame], Int)
 
   def apply(
     posts: Fu[List[MiniForumPost]],
@@ -52,7 +52,7 @@ final class Preload(
           lightUserApi.preloadMany {
             tWinners.map(_.userId) :::
               posts.flatMap(_.userId) :::
-              entries.flatMap(_.userIds)
+              entries.flatMap(_.userIds).toList
           } inject
             (data, entries, posts, tours, events, simuls, feat, lead, tWinners, puzzle, streams, Env.blog.lastPostCache.apply, playban, currentGame, countRounds())
       }

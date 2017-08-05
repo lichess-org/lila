@@ -14,7 +14,7 @@ private[timeline] final class Push(
     renderer: ActorSelection,
     getFriendIds: String => Fu[Set[String]],
     getFollowerIds: String => Fu[Set[String]],
-    entryRepo: EntryRepo,
+    entryApi: EntryApi,
     unsubApi: UnsubApi
 ) extends Actor {
 
@@ -66,10 +66,10 @@ private[timeline] final class Push(
 
   private def makeEntry(users: List[String], data: Atom): Fu[Entry] = {
     val entry = Entry.make(data)
-    entryRepo.findRecent(entry.typ, DateTime.now minusMinutes 60, 1000) flatMap { entries =>
+    entryApi.findRecent(entry.typ, DateTime.now minusMinutes 60, 1000) flatMap { entries =>
       entries.exists(_ similarTo entry) fold (
         fufail[Entry]("[timeline] a similar entry already exists"),
-        entryRepo insert Entry.ForUsers(entry, users) inject entry
+        entryApi insert Entry.ForUsers(entry, users) inject entry
       )
     }
   }
