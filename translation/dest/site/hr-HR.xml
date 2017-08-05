@@ -434,16 +434,45 @@ računalnu analizu, pričaonicu partije i URL za dijeljenje.</string>
   <string name="keepGoing">Nastavi...</string>
   <string name="puzzleFailed">Problem neuspješno riješen</string>
   <string name="butYouCanKeepTrying">Ali možeš i dalje pokušavati.</string>
+  <string name="success">Uspjeh</string>
+  <string name="wasThisPuzzleAnyGood">Je li ovaj problem bio dobar?</string>
+  <string name="pleaseVotePuzzle">Pomozite da se lichess poboljša glasanjem, koristeći strelicu gore ili dolje:</string>
+  <string name="thankYou">Hvala!</string>
+  <string name="ratingX">Rejting: %s</string>
   <plurals name="playedXTimes">
     <item quantity="one">Odigrano %s put</item>
     <item quantity="few">Odigrano %s puta</item>
     <item quantity="other">Odigrano %s puta</item>
+  </plurals>
+  <string name="fromGameLink">Iz partije %s</string>
+  <string name="continueTraining">Nastavi trening</string>
+  <string name="retryThisPuzzle">Pokušaj ponovo ovaj problem</string>
+  <string name="thisPuzzleIsCorrect">Ovaj problem je točan i zanimljiv</string>
+  <string name="thisPuzzleIsWrong">Ovaj problem je pogrešan ili dosadan</string>
+  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
+    <item quantity="one">Imaš %s sekundi da napraviš svoj prvi potez!</item>
+    <item quantity="few">Imaš %s sekundi da napraviš svoj prvi potez!</item>
+    <item quantity="other">Imaš %s sekundi da napraviš svoj prvi potez!</item>
   </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partija u tijeku</item>
     <item quantity="few">%s partija u tijeku</item>
     <item quantity="other">%s partija u tijeku</item>
   </plurals>
+  <string name="automaticallyProceedToNextGameAfterMoving">Automatski prebaci na sljedeću partiju nakon odigranog poteza</string>
+  <string name="autoSwitch">Prebaci automatski</string>
+  <string name="puzzles">Problemi</string>
+  <string name="latestUpdates">Zadnje obavijesti</string>
+  <string name="tournamentWinners">Pobjednici turnira</string>
+  <string name="name">Ime</string>
+  <string name="description">Opis</string>
+  <string name="no">Ne</string>
+  <string name="yes">Da</string>
+  <string name="help">Pomoć:</string>
+  <string name="createANewTopic">Kreiraj novu temu</string>
+  <string name="topics">Teme</string>
+  <string name="posts">Objave</string>
+  <string name="lastPost">Zadnja objava</string>
   <string name="incorrectPassword">Netočna lozinka</string>
   <string name="pgnPieceNotation">PGN notacija figura</string>
   <string name="chessPieceSymbol">Simbol šahovske figure</string>
