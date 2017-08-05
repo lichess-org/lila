@@ -434,6 +434,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="keepGoing">Tęskite…</string>
   <string name="puzzleFailed">Suklydote užduotyje</string>
   <string name="butYouCanKeepTrying">Tačiau galite bandyti vėl.</string>
+  <string name="success">Pavyko</string>
   <string name="wasThisPuzzleAnyGood">Ar užduotis buvo gera?</string>
   <string name="pleaseVotePuzzle">Padėkite „lichess“ tobulėti įvertindami užduotį (spustelėkite rodyklę į viršų ar apačią):</string>
   <string name="thankYou">Ačiū!</string>
