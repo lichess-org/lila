@@ -31,16 +31,22 @@ sealed abstract class PostRepo(troll: Boolean) {
   def isFirstPost(topicId: String, postId: String): Fu[Boolean] =
     coll.primitiveOne[String](selectTopic(topicId), $sort.createdAsc, "_id") map { _ contains postId }
 
-  def countByTopics(topics: List[String]): Fu[Int] =
-    coll.countSel(selectTopics(topics))
+  def countByTopic(topic: Topic): Fu[Int] =
+    coll.countSel(selectTopic(topic.id))
 
-  def lastByTopics(topics: List[String]): Fu[Option[Post]] =
-    coll.find(selectTopics(topics)).sort($sort.createdDesc).uno[Post]
+  def lastByCateg(categ: Categ): Fu[Option[Post]] =
+    coll.find(selectCateg(categ.id)).sort($sort.createdDesc).uno[Post]
+
+  def lastByTopic(topic: Topic): Fu[Option[Post]] =
+    coll.find(selectTopic(topic.id)).sort($sort.createdDesc).uno[Post]
 
   def recentInCategs(nb: Int)(categIds: List[String], langs: List[String]): Fu[List[Post]] =
     coll.find(
       selectCategs(categIds) ++ selectLangs(langs) ++ selectNotHidden
     ).sort($sort.createdDesc).cursor[Post]().gather[List](nb)
+
+  def countByCateg(categ: Categ): Fu[Int] =
+    coll.countSel(selectCateg(categ.id))
 
   def removeByTopic(topicId: String): Funit =
     coll.remove(selectTopic(topicId)).void
@@ -52,7 +58,6 @@ sealed abstract class PostRepo(troll: Boolean) {
   ).void
 
   def selectTopic(topicId: String) = $doc("topicId" -> topicId) ++ trollFilter
-  def selectTopics(topicIds: List[String]) = $doc("topicId" $in topicIds) ++ trollFilter
 
   def selectCateg(categId: String) = $doc("categId" -> categId) ++ trollFilter
   def selectCategs(categIds: List[String]) = $doc("categId" $in categIds) ++ trollFilter
@@ -80,9 +85,6 @@ sealed abstract class PostRepo(troll: Boolean) {
   def cursor(
     selector: Bdoc,
     readPreference: ReadPreference = ReadPreference.secondaryPreferred
-  )(
-    implicit
-    cp: CursorProducer[Post]
-  ) =
+  )(implicit cp: CursorProducer[Post]) =
     coll.find(selector).cursor[Post](readPreference)
 }

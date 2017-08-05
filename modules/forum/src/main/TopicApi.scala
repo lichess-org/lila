@@ -151,10 +151,10 @@ private[forum] final class TopicApi(
     }
 
   def denormalize(topic: Topic): Funit = for {
-    nbPosts ← PostRepo countByTopics List(topic.id)
-    lastPost ← PostRepo lastByTopics List(topic.id)
-    nbPostsTroll ← PostRepoTroll countByTopics List(topic.id)
-    lastPostTroll ← PostRepoTroll lastByTopics List(topic.id)
+    nbPosts ← PostRepo countByTopic topic
+    lastPost ← PostRepo lastByTopic topic
+    nbPostsTroll ← PostRepoTroll countByTopic topic
+    lastPostTroll ← PostRepoTroll lastByTopic topic
     _ ← env.topicColl.update($id(topic.id), topic.copy(
       nbPosts = nbPosts,
       lastPostId = lastPost ?? (_.id),

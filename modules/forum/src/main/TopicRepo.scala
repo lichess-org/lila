@@ -32,6 +32,9 @@ sealed abstract class TopicRepo(troll: Boolean) {
   def byCateg(categ: Categ): Fu[List[Topic]] =
     coll.list[Topic](byCategQuery(categ))
 
+  def countByCateg(categ: Categ): Fu[Int] =
+    coll.countSel(byCategQuery(categ))
+
   def byTree(categSlug: String, slug: String): Fu[Option[Topic]] =
     coll.uno[Topic]($doc("categId" -> categSlug, "slug" -> slug) ++ trollFilter)
 
