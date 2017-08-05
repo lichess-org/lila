@@ -315,14 +315,32 @@
   <string name="keepGoing">Продолжи</string>
   <string name="puzzleFailed">Вежба не успеа</string>
   <string name="butYouCanKeepTrying">Сеуште се обидуваш</string>
+  <string name="wasThisPuzzleAnyGood">Е вежба добро?</string>
+  <string name="pleaseVotePuzzle">Помош lichess се подобри преку гласање, со користење нагоре или надолу стрелка:</string>
+  <string name="thankYou">Благодарам!</string>
+  <string name="ratingX">Рејтинг: %s</string>
   <plurals name="playedXTimes">
     <item quantity="one">Одиграно %s пати</item>
     <item quantity="other">Одиграно %s пати</item>
+  </plurals>
+  <string name="fromGameLink">Од игра на %s</string>
+  <string name="continueTraining">продолжи обуката</string>
+  <string name="retryThisPuzzle">Пробај повторно оваа загатка</string>
+  <string name="thisPuzzleIsCorrect">Оваа загатка е точно и интересно</string>
+  <string name="thisPuzzleIsWrong">Оваа загатка е во ред или здодевни</string>
+  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
+    <item quantity="one">Имате %s секунди да направите вашиот прв потег!</item>
+    <item quantity="other">Имате %s секунди да направите вашиот прв потег!</item>
   </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s Игри во тек</item>
     <item quantity="other">%s Игри во тек</item>
   </plurals>
+  <string name="automaticallyProceedToNextGameAfterMoving">По влечењето потег преминете автоматски кон наредната игра</string>
+  <string name="puzzles">Проблеми</string>
+  <string name="name">Име</string>
+  <string name="description">Опис</string>
+  <string name="help">Помош</string>
   <string name="victory">Победа</string>
   <string name="opponent">Противник</string>
   <string name="phoneAndTablet">Телефон и таблет</string>
