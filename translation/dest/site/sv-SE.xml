@@ -413,7 +413,6 @@
   <string name="keepGoing">Fortsätt...</string>
   <string name="puzzleFailed">Feldrag</string>
   <string name="butYouCanKeepTrying">Men du kan fortsätta försöka.</string>
-  <string name="victory">Rätt!</string>
   <plurals name="playedXTimes">
     <item quantity="one">Spelat %s gånger</item>
     <item quantity="other">Spelat %s gånger</item>
@@ -466,6 +465,7 @@
   <string name="xAskedY">%1$s frågade %2$s</string>
   <string name="xAnsweredY">%1$s svarade %2$s</string>
   <string name="xCommentedY">%1$s kommenterade %2$s</string>
+  <string name="victory">Rätt!</string>
   <string name="timeline">Tidslinje</string>
   <string name="seeAllTournaments">Se alla turneringar</string>
   <string name="starting">Startar:</string>
