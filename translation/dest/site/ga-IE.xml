@@ -116,17 +116,6 @@
   <string name="createdBy">Cruthaithe ag</string>
   <string name="country">Tír</string>
   <string name="bestMove">Bogadh is fearr!</string>
-  <string name="thankYou">Go raibh maith agat!</string>
-  <string name="name">Ainm</string>
-  <string name="description">Cur síos</string>
-  <string name="no">Níl</string>
-  <string name="yes">Tá</string>
-  <string name="help">Cabhair:</string>
-  <string name="reply">Freagair</string>
-  <string name="insult">Masla</string>
-  <string name="troll">Tochardán</string>
-  <string name="other">Eile</string>
-  <string name="notes">Nótaí</string>
   <string name="chessClock">Clog fichille</string>
   <string name="sound">Fuaim</string>
   <string name="always">I gcónaí</string>
