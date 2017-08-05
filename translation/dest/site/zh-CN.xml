@@ -311,7 +311,6 @@
   <string name="keepGoing">繼續……</string>
   <string name="puzzleFailed">解題失敗</string>
   <string name="butYouCanKeepTrying">但你可以繼續嘗試。</string>
-  <string name="victory">成功！</string>
   <plurals name="playedXTimes">
     <item quantity="other">已被嘗試%s次</item>
   </plurals>
@@ -353,6 +352,7 @@
   <string name="xAskedY">%1$s提問%2$s</string>
   <string name="xAnsweredY">%1$s回答%2$s</string>
   <string name="xCommentedY">%1$s 評論%2$s</string>
+  <string name="victory">成功！</string>
   <string name="timeline">時間線</string>
   <string name="seeAllTournaments">顯示所有比賽</string>
   <string name="starting">開始時間：</string>
