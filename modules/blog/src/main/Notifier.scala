@@ -1,16 +1,13 @@
 package lila.blog
 
 import io.prismic.Document
-import org.joda.time.DateTime
-import play.api.libs.iteratee._
-import reactivemongo.bson._
 
-import lila.notify.{ Notification, NotifyApi, NewBlogPost }
-import lila.user.UserRepo
+import lila.hub.actorApi.timeline.BlogPost
+import lila.timeline.{ Entry, EntryApi }
 
 private[blog] final class Notifier(
     blogApi: BlogApi,
-    notifyApi: NotifyApi
+    timelineApi: EntryApi
 ) {
 
   def apply(prismicId: String): Funit =
@@ -19,24 +16,10 @@ private[blog] final class Notifier(
         s"No such document: $prismicId" flatMap doSend
     }
 
-  private def doSend(post: Document): Funit = {
-    import reactivemongo.play.iteratees.cursorProducer
+  private def doSend(post: Document): Funit = post.getText("blog.title") ?? { title =>
 
-    val content = NewBlogPost(
-      id = NewBlogPost.Id(post.id),
-      slug = NewBlogPost.Slug(post.slug),
-      title = NewBlogPost.Title(~post.getText("blog.title"))
-    )
-    UserRepo.recentlySeenNotKidIdsCursor(DateTime.now minusWeeks 1)
-      .enumerator(500 * 1000) &> Enumeratee.map {
-        _.getAs[String]("_id") err "User without an id"
-      } |>>>
-      Iteratee.foldM[String, Int](0) {
-        case (count, userId) => notifyApi.addNotificationWithoutSkipOrEvent(
-          Notification.make(Notification.Notifies(userId), content)
-        ) inject (count + 1)
-      } addEffect { count =>
-        logger.info(s"Sent $count notifications")
-      } void
+    timelineApi.broadcast.insert {
+      BlogPost(id = post.id, slug = post.slug, title = title)
+    }
   }
 }

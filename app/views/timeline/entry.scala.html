@@ -66,6 +66,9 @@ Html(s"""<a href="${routes.Study.show(studyId)}">${escapeHtml(studyName)}</a>"""
 case PlanStart(userId) => {
 @userIdLink(userId.some, withOnline = true) became a <a href="@routes.Plan.index">Patron</a>
 }
+case BlogPost(id, slug, title) => {
+<a data-icon="6" class="text" href="@routes.Blog.show(id, slug)">@title</a>
+}
 }
 @momentFromNow(e.date)
 }

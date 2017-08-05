@@ -6,8 +6,9 @@ import reactivemongo.bson._
 import scala.concurrent.duration._
 
 import lila.db.dsl._
+import lila.hub.actorApi.timeline.Atom
 
-private[timeline] final class EntryApi(
+final class EntryApi(
     coll: Coll,
     userMax: Int,
     asyncCache: lila.memo.AsyncCache.Builder
@@ -69,12 +70,12 @@ private[timeline] final class EntryApi(
     private[EntryApi] def interleave(entries: Vector[Entry]): Fu[Vector[Entry]] = cache.get map { bcs =>
       bcs.headOption.fold(entries) { mostRecentBc =>
         val oldestEntry = entries.lastOption
-        if (oldestEntry.fold(true)(_.date isAfter mostRecentBc.date))
+        if (oldestEntry.fold(true)(_.date isBefore mostRecentBc.date))
           (entries ++ bcs).sortBy(-_.date.getMillis)
         else entries
       }
     }
 
-    def insert(e: Entry): Funit = coll.insert(e).void >>- cache.refresh
+    def insert(atom: Atom): Funit = coll.insert(Entry make atom).void >>- cache.refresh
   }
 }

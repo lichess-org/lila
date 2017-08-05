@@ -102,7 +102,7 @@ object ApplicationBuild extends Build {
     libraryDependencies ++= provided(play.api, reactivemongo.driver)
   )
 
-  lazy val blog = project("blog", Seq(common, memo, user, message)).settings(
+  lazy val blog = project("blog", Seq(common, memo, timeline)).settings(
     libraryDependencies ++= provided(play.api, prismic,
       reactivemongo.driver, reactivemongo.iteratees)
   )
