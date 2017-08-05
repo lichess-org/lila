@@ -433,6 +433,7 @@
   <string name="keepGoing">Kontynuuj…</string>
   <string name="puzzleFailed">To zły ruch</string>
   <string name="butYouCanKeepTrying">Spróbuj jeszcze raz.</string>
+  <string name="success">Sukces</string>
   <string name="wasThisPuzzleAnyGood">Co sądzisz o tym zadaniu?</string>
   <string name="pleaseVotePuzzle">Pomóż nam podnieść jakość zadań! Oceń zadanie, naciskając strzałkę w górę lub w dół:</string>
   <string name="thankYou">Dziękujemy!</string>
@@ -555,6 +556,8 @@
   <string name="xAnsweredY">%1$s odpowiedział %2$s</string>
   <string name="xCommentedY">%1$s skomentował %2$s</string>
   <string name="victory">Brawo!</string>
+  <string name="defeat">Przegrana</string>
+  <string name="xVsYinZ">%1$s vs %2$s w %3$s</string>
   <string name="timeline">Historia</string>
   <string name="seeAllTournaments">Zobacz wszystkie turnieje</string>
   <string name="starting">Zaczynają się:</string>
