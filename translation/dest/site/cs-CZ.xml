@@ -218,6 +218,11 @@
   </plurals>
   <string name="exportGames">Exportovat partie</string>
   <string name="ratingRange">Síla hráče</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">Přidat %s sekundu</item>
+    <item quantity="few">Přidat %s sekundy</item>
+    <item quantity="other">Přidat %s sekund</item>
+  </plurals>
   <string name="giveMoreTime">Přidej čas</string>
   <string name="thisPlayerUsesChessComputerAssistance">Tento uživatel hrává s pomocí počítače</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Tento hráč uměle ovlivnil své hodnocení</string>
@@ -378,6 +383,11 @@
   </plurals>
   <string name="fromGameLink">Z partie %s</string>
   <string name="continueTraining">Pokračovat v tréninku</string>
+  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
+    <item quantity="one">Máte %s sekundu na provedení prvního tahu!</item>
+    <item quantity="few">Máte %s sekundy na provedení prvního tahu!</item>
+    <item quantity="other">Máte %s sekund na provedení prvního tahu!</item>
+  </plurals>
   <string name="invalidUsernameOrPassword">Špatné jméno nebo heslo</string>
   <string name="incorrectPassword">Nesprávné heslo</string>
   <string name="emailMeALink">Pošlete mi odkaz e-mailem</string>
@@ -388,9 +398,9 @@
   <string name="chessPieceSymbol">Symbol šachových figur</string>
   <string name="pgnLetter">Anglickými písmeny (K, Q, R, B, N)</string>
   <string name="chessClock">Šachové hodiny</string>
-  <string name="tenthsOfSeconds">Desetiny vteřin</string>
+  <string name="tenthsOfSeconds">Desetiny sekund</string>
   <string name="never">Nikdy</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">Když zbývající čas &lt; 10 vteřin</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Když zbývající čas &lt; 10 sekund</string>
   <string name="horizontalGreenProgressBars">Vodorovný indikátor průběhu</string>
   <string name="soundWhenTimeGetsCritical">Zvuk, když zbývá velmi málo času</string>
   <string name="gameBehavior">Chování hry</string>
@@ -418,7 +428,7 @@
   <string name="always">Vždy</string>
   <string name="inCasualGamesOnly">Pouze v hrách \"jen tak\"</string>
   <string name="whenPremoving">Při předtahu</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Když zbývající čas &lt; 30 vteřin</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Když zbývající čas &lt; 30 sekund</string>
   <string name="difficultyEasy">Lehká</string>
   <string name="difficultyNormal">Střední</string>
   <string name="difficultyHard">Těžká</string>
