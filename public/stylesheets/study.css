@@ -62,7 +62,7 @@ form.chapter_form.material.form .form-group textarea {
   vertical-align: middle;
 }
 div.underboard {
-  margin-top: 20px;
+  margin-top: 16px;
   min-height: 370px;
 }
 .underboard_form .title {
@@ -123,6 +123,7 @@ div.underboard .notif.error {
   width: 100%;
   overflow: hidden;
   word-wrap: break-word;
+  display: inline-block;
 }
 .study_comments .text iframe {
   margin: 10px 0;
