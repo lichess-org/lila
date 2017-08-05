@@ -13,7 +13,7 @@
   <string name="toggleTheChat">قفل/فتح الدردشة</string>
   <string name="toggleSound">تغيير الصوت</string>
   <string name="chat">دردشة</string>
-  <string name="resign">استسلم</string>
+  <string name="resign">استسلام</string>
   <string name="checkmate">الملك مات</string>
   <string name="stalemate">الملك مخنوق</string>
   <string name="white">أبيض</string>
@@ -23,7 +23,7 @@
   <string name="whiteIsVictorious">الأبيض فاز</string>
   <string name="blackIsVictorious">الأسود فاز</string>
   <string name="kingInTheCenter">الملك في الوسط</string>
-  <string name="threeChecks">كش ملك ثلاثا</string>
+  <string name="threeChecks">ثلاثة كشات ملك</string>
   <string name="raceFinished">نهاية السباق</string>
   <string name="variantEnding">نهاية مختلفة</string>
   <string name="newOpponent">خصم جديد</string>
@@ -493,7 +493,6 @@
   <string name="keepGoing">تابع ...</string>
   <string name="puzzleFailed">لقد خسرت اللغز</string>
   <string name="butYouCanKeepTrying">لكن حاول مرة أخرى</string>
-  <string name="victory">أحسنت!</string>
   <plurals name="playedXTimes">
     <item quantity="zero">لُعِبَ %s مرة</item>
     <item quantity="one">لُعِبَ %s مرة</item>
@@ -554,6 +553,7 @@
   <string name="xAskedY">%1$s سأل %2$s</string>
   <string name="xAnsweredY">%1$s أجاب %2$s</string>
   <string name="xCommentedY">%1$s علّق %2$s</string>
+  <string name="victory">أحسنت!</string>
   <string name="timeline">الجدول الزمني</string>
   <string name="seeAllTournaments">شاهد كل المسابقات</string>
   <string name="starting">تبدأ في:</string>
