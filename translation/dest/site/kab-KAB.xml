@@ -297,9 +297,19 @@
   <string name="keepGoing">Kemmel...</string>
   <string name="puzzleFailed">Aεewwiq ixeṣren</string>
   <string name="butYouCanKeepTrying">Maca tzemred  at ɛawdeɣ tikkelt niḍen</string>
+  <string name="wasThisPuzzleAnyGood">I sɣa azal ugur agi</string>
+  <string name="pleaseVotePuzzle">All Lichess a d-i sileɣ s dɣeṛ s innecaben</string>
+  <string name="thankYou">Tanemmirt!</string>
+  <string name="ratingX">Abellez : %s</string>
   <plurals name="playedXTimes">
     <item quantity="one">Urared %s n tikkelt</item>
     <item quantity="other">Urared %s n tikkelt</item>
   </plurals>
+  <string name="fromGameLink">S timlilit %s</string>
+  <string name="continueTraining">Kemmel asluɣmu</string>
+  <string name="retryThisPuzzle">Ɛawed tikkelt niḍen aεewwiq agi</string>
+  <string name="thisPuzzleIsCorrect">Ugur agi d ameggaz daɣen i sɣa azal</string>
+  <string name="thisPuzzleIsWrong">Ugur agi inezri neɣ d amessas</string>
+  <string name="closeAccount">Mdel amiḍan</string>
   <string name="victory">Tarennawt!</string>
 </resources>
