@@ -280,7 +280,6 @@
   <string name="keepGoing">Продовжуйте...</string>
   <string name="puzzleFailed">Задачу не вирішено</string>
   <string name="butYouCanKeepTrying">Але ви можете продовжувати</string>
-  <string name="victory">Перемога!</string>
   <string name="pgnPieceNotation">Фігура в PGN нотації</string>
   <string name="chessPieceSymbol">Символ шахової фігури</string>
   <string name="pgnLetter">Письмовий запис (K, Q, R, B, N)</string>
@@ -324,6 +323,7 @@
   <string name="xAskedY">%1$s має запитання %2$s</string>
   <string name="xAnsweredY">%1$s має відповідь на %2$s</string>
   <string name="xCommentedY">%1$s має коментар на %2$s</string>
+  <string name="victory">Перемога!</string>
   <string name="timeline">Смуга подій</string>
   <string name="seeAllTournaments">Дивитися усі турніри</string>
   <string name="starting">Початок:</string>
