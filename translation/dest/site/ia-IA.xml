@@ -15,7 +15,7 @@
   <string name="chat">Chat</string>
   <string name="resign">Resignar se</string>
   <string name="checkmate">Chaco mat</string>
-  <string name="stalemate">Impasse</string>
+  <string name="stalemate">Pat</string>
   <string name="white">Blanc</string>
   <string name="black">Nigre</string>
   <string name="randomColor">Latere aleatori</string>
@@ -401,7 +401,6 @@
   <plurals name="playedXTimes">
     <item quantity="other">Jocate %s vices</item>
   </plurals>
-  <string name="fromGameLink">Ab joco %s</string>
   <string name="continueTraining">Continuar a exercitar</string>
   <string name="retryThisPuzzle">Tentar iste enigma de novo</string>
   <string name="thisPuzzleIsCorrect">Iste enigma es correcte e interessante</string>
@@ -413,7 +412,6 @@
     <item quantity="other">%s partitas in curso</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Automaticamente proceder al joco sequente post le movimento</string>
-  <string name="autoSwitch">Cambio automatic</string>
   <string name="puzzles">Enigmas</string>
   <string name="latestUpdates">Articulos recente</string>
   <string name="tournamentWinners">Vincitores de torneos</string>
@@ -452,20 +450,7 @@
   <string name="gameDisplay">Presentation de joco</string>
   <string name="pieceAnimation">Animation de pecias</string>
   <string name="materialDifference">Differentia material</string>
-  <string name="closeAccount">Terminar conto</string>
-  <string name="changedMindDoNotCloseAccount">Io cambiava de idea, non termina mi conto</string>
-  <string name="closeAccountExplanation">Es tu secur de voler terminar tu conto? Terminar tu conto es un decision permanente. Tu non plus potera aperir session, e tu pagina de profilo non plus essera accessibile.</string>
-  <string name="thisAccountIsClosed">Isto conto ha essite claudite.</string>
-  <string name="invalidUsernameOrPassword">Nomine de usator o contrasigno invalide</string>
   <string name="incorrectPassword">Contrasigno incorrecte</string>
-  <string name="emailMeALink">Inviar me un ligamine per e-posta</string>
-  <string name="currentPassword">Contrasigno actual</string>
-  <string name="newPassword">Nove contrasigno</string>
-  <string name="newPasswordAgain">Confirmar nove contrasigno</string>
-  <string name="boardHighlights">Marcar le ultime movimento e chaco sur le tabuliero</string>
-  <string name="pieceDestinations">Monstrar tote le movimentos/preselectiones valide de cata pecia</string>
-  <string name="boardCoordinates">Coordinatas sur tabuliero (A-H, 1-8)</string>
-  <string name="moveListWhilePlaying">Lista de movimentos durante le joco</string>
   <string name="pgnPieceNotation">Notation de movimentos</string>
   <string name="chessPieceSymbol">Symbolo del pecia de chacos</string>
   <string name="pgnLetter">Littera (K, Q, R, B, N)</string>
