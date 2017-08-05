@@ -317,7 +317,6 @@
   <string name="keepGoing">Hou aan...</string>
   <string name="puzzleFailed">Kopkrapper mislukking</string>
   <string name="butYouCanKeepTrying">Maar jy kan aanhou probeer.</string>
-  <string name="victory">Sukses!</string>
   <plurals name="playedXTimes">
     <item quantity="one">%s keer gespeel</item>
     <item quantity="other">%s keer gespeel</item>
@@ -360,6 +359,7 @@
   <string name="xAskedY">%1$s gevra %2$s</string>
   <string name="xAnsweredY">%1$s antwoord %2$s</string>
   <string name="xCommentedY">%1$s kommentaar %2$s</string>
+  <string name="victory">Sukses!</string>
   <string name="timeline">Tydlyn</string>
   <string name="seeAllTournaments">Bekyk alle toernooie</string>
   <string name="starting">Aanvang:</string>
