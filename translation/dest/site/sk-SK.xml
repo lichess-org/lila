@@ -259,7 +259,6 @@
   <string name="keepGoing">Pokračujte...</string>
   <string name="puzzleFailed">Nesprávne vyriešený rébus</string>
   <string name="butYouCanKeepTrying">Ale môžeťe skúšať ďalej</string>
-  <string name="victory">Výhra!</string>
   <string name="chessClock">Šachové hodiny</string>
   <string name="tenthsOfSeconds">Desatiny sekundy</string>
   <string name="never">Nikdy</string>
@@ -294,6 +293,7 @@
   <string name="xAskedY">%1$s opýtaných %2$s</string>
   <string name="xAnsweredY">%1$s odpovedí %2$s</string>
   <string name="xCommentedY">%1$s komentárov %2$s</string>
+  <string name="victory">Výhra!</string>
   <string name="timeline">Rozvrh</string>
   <string name="seeAllTournaments">Zobraziť všetky turnaje</string>
   <string name="starting">Štart:</string>
