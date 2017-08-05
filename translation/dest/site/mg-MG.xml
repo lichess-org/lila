@@ -286,42 +286,14 @@
   <string name="butYouCanDoBetter">Afaka manao tsara kokoa ianao.</string>
   <string name="puzzleFailed">Tsy voavaha ny piozila</string>
   <string name="butYouCanKeepTrying">Afaka manandrana hatrany ianao.</string>
-  <string name="victory">Fandresena!</string>
-  <string name="thankYou">Misaotra!</string>
   <plurals name="playedXTimes">
     <item quantity="one">Nanao andrana in-%s</item>
     <item quantity="other">Nanao andrana in-%s</item>
-  </plurals>
-  <string name="continueTraining">Manohy ny kotrana</string>
-  <string name="retryThisPuzzle">Hamerina hamaha ny piozila</string>
-  <string name="thisPuzzleIsCorrect">Marina ity piozila ity ary mahaliana</string>
-  <string name="thisPuzzleIsWrong">Tsy marina ity piozila ity ary mankaleo</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Manana %s segondra ianao hanaovana ny hetsika voalohany!</item>
-    <item quantity="other">Manana %s segondra ianao hanaovana ny hetsika voalohany!</item>
   </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s ireo lalao amin\'izao fotoana izao</item>
     <item quantity="other">%s ireo lalao amin\'izao fotoana izao</item>
   </plurals>
-  <string name="puzzles">Piozila</string>
-  <string name="name">Anarana</string>
-  <string name="description">Mombamomba</string>
-  <string name="no">Tsia</string>
-  <string name="yes">Eny</string>
-  <string name="help">Fanampiana:</string>
-  <string name="replies">Ireo valin-kafatra</string>
-  <string name="reply">Valin-kafatra</string>
-  <string name="message">Hafatra</string>
-  <string name="reason">Antony</string>
-  <string name="other">Antony hafa</string>
-  <string name="questionsAndAnswers">Fanontaniana &amp; valiny</string>
-  <string name="notes">Naoty</string>
-  <string name="thisAccountIsClosed">Mikatona io kaonty io.</string>
-  <string name="invalidUsernameOrPassword">Anarana na teny miafina diso</string>
-  <string name="currentPassword">Teny miafina ankehitriny</string>
-  <string name="newPassword">Teny miafina vaovao</string>
-  <string name="newPasswordAgain">Teny miafina vaovao (famerenana)</string>
   <string name="sound">Feo</string>
   <string name="fast">Haingana</string>
   <string name="normal">Antonony</string>
@@ -329,6 +301,7 @@
   <string name="difficultyEasy">Mora</string>
   <string name="difficultyNormal">Antonony</string>
   <string name="difficultyHard">Mafy</string>
+  <string name="victory">Fandresena!</string>
   <string name="yourCityRegionOrDepartment">Tanàna, faritra na faritany misy anao.</string>
   <string name="listBlockedPlayers">Listr\'ireo mpilalao nosakananao</string>
   <string name="human">Olombelona</string>
