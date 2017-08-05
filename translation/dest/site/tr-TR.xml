@@ -531,7 +531,7 @@
   <string name="xAskedY">%1$s sordu %2$s</string>
   <string name="xAnsweredY">%1$s cevapladı %2$s</string>
   <string name="xCommentedY">%1$s yorumladı %2$s</string>
-  <string name="victory">Zafer!</string>
+  <string name="victory">Zafer</string>
   <string name="timeline">Zaman çubuğu</string>
   <string name="seeAllTournaments">Tüm turnuvalar gör</string>
   <string name="starting">Başlangıç:</string>
