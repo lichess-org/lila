@@ -82,8 +82,7 @@ final class PlaybanApi(
       _.flatMap(_.getAs[List[TempBan]]("b")).??(_.find(_.inEffect))
     }
 
-  def hasCurrentBan(userId: String): Fu[Boolean] =
-    coll.exists($doc("_id" -> userId, "b.0" $exists true))
+  def hasCurrentBan(userId: String): Fu[Boolean] = currentBan(userId).map(_.isDefined)
 
   def completionRate(userId: String): Fu[Option[Double]] =
     coll.primitiveOne[List[Outcome]]($id(userId), "o").map(~_) map { outcomes =>
