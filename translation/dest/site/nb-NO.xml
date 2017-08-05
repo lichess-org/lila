@@ -56,6 +56,8 @@
   <string name="showThreat">Vis trussel</string>
   <string name="inLocalBrowser">i nettleser</string>
   <string name="move">Trekk</string>
+  <string name="variantLoss">Variant tap</string>
+  <string name="variantWin">Variant seier</string>
   <string name="insufficientMaterial">Utilstrekkelig materiale</string>
   <string name="pawnMove">Bondetrekk</string>
   <string name="capture">Slag</string>
