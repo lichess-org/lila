@@ -331,7 +331,6 @@
   <string name="keepGoing">Bliv ved...</string>
   <string name="puzzleFailed">Opgave mislykket</string>
   <string name="butYouCanKeepTrying">Men du kan blive ved med at prøve.</string>
-  <string name="victory">Opgave løst!</string>
   <plurals name="playedXTimes">
     <item quantity="one">Spillet %s gange</item>
     <item quantity="other">Spillet %s gange</item>
@@ -378,6 +377,7 @@
   <string name="xAskedY">%1$s spurgte %2$s</string>
   <string name="xAnsweredY">%1$s svarede %2$s</string>
   <string name="xCommentedY">%1$s kommenterede %2$s</string>
+  <string name="victory">Opgave løst!</string>
   <string name="timeline">Tidslinje</string>
   <string name="seeAllTournaments">Vis alle turneringer</string>
   <string name="starting">Begynder:</string>
