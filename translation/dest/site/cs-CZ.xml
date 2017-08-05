@@ -368,13 +368,22 @@
   <string name="keepGoing">Pokračujte ....</string>
   <string name="puzzleFailed">Úloha nevyřešena</string>
   <string name="butYouCanKeepTrying">Ale můžete to zkoušet znovu.</string>
-  <string name="victory">Vítězství!</string>
+  <string name="wasThisPuzzleAnyGood">Líbila se Vám tato úloha?</string>
+  <string name="thankYou">Děkujeme!</string>
+  <string name="ratingX">Rating: %s</string>
   <plurals name="playedXTimes">
     <item quantity="one">Hráno %skrát</item>
     <item quantity="few">Hráno %skrát</item>
     <item quantity="other">Hráno %skrát</item>
   </plurals>
+  <string name="fromGameLink">Z partie %s</string>
+  <string name="continueTraining">Pokračovat v tréninku</string>
+  <string name="invalidUsernameOrPassword">Špatné jméno nebo heslo</string>
   <string name="incorrectPassword">Nesprávné heslo</string>
+  <string name="emailMeALink">Pošlete mi odkaz e-mailem</string>
+  <string name="currentPassword">Současné heslo</string>
+  <string name="newPassword">Nové heslo</string>
+  <string name="newPasswordAgain">Nové heslo (znovu)</string>
   <string name="pgnPieceNotation">Označení figur v notaci</string>
   <string name="chessPieceSymbol">Symbol šachových figur</string>
   <string name="pgnLetter">Anglickými písmeny (K, Q, R, B, N)</string>
@@ -418,6 +427,7 @@
   <string name="xAskedY">%1$s se zeptal na %2$s</string>
   <string name="xAnsweredY">%1$s odpověděl v %2$s</string>
   <string name="xCommentedY">%1$s okomentoval %2$s</string>
+  <string name="victory">Vítězství!</string>
   <string name="timeline">Timeline</string>
   <string name="seeAllTournaments">Zobrazit všechny turnaje</string>
   <string name="starting">Začíná:</string>
