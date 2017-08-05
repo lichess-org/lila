@@ -414,10 +414,18 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="keepGoing">Continua...</string>
   <string name="puzzleFailed">Esercizio sbagliato</string>
   <string name="butYouCanKeepTrying">Ma puoi continuare a provarci.</string>
+  <string name="success">Successo</string>
+  <string name="wasThisPuzzleAnyGood">Questo puzzle era interessante?</string>
+  <string name="pleaseVotePuzzle">Aiuta lichess a migliorare votando, utilizza la freccia su o giù:</string>
+  <string name="thankYou">Grazie!</string>
+  <string name="ratingX">Punteggio: %s</string>
   <plurals name="playedXTimes">
     <item quantity="one">Giocato %s volte</item>
     <item quantity="other">Giocato %s volte</item>
   </plurals>
+  <string name="fromGameLink">Dalla partita %s</string>
+  <string name="continueTraining">Continua l\'allenamento</string>
+  <string name="retryThisPuzzle">Riprova questo puzzle</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partite in gioco</item>
     <item quantity="other">%s partite in gioco</item>
