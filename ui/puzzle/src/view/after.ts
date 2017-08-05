@@ -46,7 +46,7 @@ export default function(ctrl) {
     h('div.half.top', [
       ctrl.vm.lastFeedback === 'win' ? h('div.complete.feedback.win', h('div.player', [
         h('div.icon', '✓'),
-        h('div.instruction', ctrl.trans.noarg('victory'))
+        h('div.instruction', ctrl.trans.noarg('success'))
       ])) : h('div.complete', 'Puzzle complete!'),
       data.user ? renderVote(ctrl) : null
     ]),

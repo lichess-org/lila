@@ -46,13 +46,11 @@ Html("""<a href="%s#comment-%s">%s</a>""".format(routes.QaQuestion.show(id, "red
 }
 case GameEnd(playerId, opponent, win, perfKey) => {
 @lila.rating.PerfType(perfKey).map { perf =>
-<a href="@routes.Round.player(playerId)" data-icon="@perf.iconChar" class="glpt">
-  @win match {
-  case Some(true) => {Victory}
-  case Some(false) => {Defeat}
-  case _ => {Draw}
-  }</a> vs @userIdLink(opponent, withOnline = false)<br />
-in @perf.name
+@trans.xVsYinZ(Html("""<a href="%s" data-icon="%s" class="glpt"> %s</a>""".format(routes.Round.player(playerId), perf.iconChar, win match {
+  case Some(true) => trans.victory()
+  case Some(false) => trans.defeat()
+  case _ => trans.draw()
+})), userIdLink(opponent, withOnline = false), perf.name)
 }
 }
 case StudyCreate(userId, studyId, studyName) => {
