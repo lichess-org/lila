@@ -212,7 +212,6 @@
   <string name="inbox">Recibidos</string>
   <string name="chatRoom">Sala de chat</string>
   <string name="loginToChat">Inicia sesión para chatear</string>
-  <string name="youHaveBeenTimedOut">La sesión se ha cerrado.</string>
   <string name="spectatorRoom">Chat de espectador</string>
   <string name="composeMessage">Escribir mensaje</string>
   <string name="noNewMessages">No hay mensajes nuevos</string>
