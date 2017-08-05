@@ -414,6 +414,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="keepGoing">Continue...</string>
   <string name="puzzleFailed">Quebra-cabeça fracassado</string>
   <string name="butYouCanKeepTrying">Mas você pode continuar a tentar.</string>
+  <string name="success">Sucesso</string>
   <string name="wasThisPuzzleAnyGood">Este quebra-cabeça foi bom?</string>
   <string name="pleaseVotePuzzle">Ajude o Lichess a melhorar através do seu voto, usando a seta para cima ou para baixo:</string>
   <string name="thankYou">Obrigado!</string>
@@ -533,6 +534,8 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="xAnsweredY">%1$s respondeu %2$s</string>
   <string name="xCommentedY">%1$s comentou %2$s</string>
   <string name="victory">Vitória!</string>
+  <string name="defeat">Derrota</string>
+  <string name="xVsYinZ">%1$s contra %2$s em %3$s</string>
   <string name="timeline">Linha do tempo</string>
   <string name="seeAllTournaments">Ver todos os torneios</string>
   <string name="starting">Iniciando:</string>
