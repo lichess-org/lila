@@ -429,7 +429,7 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="thisPuzzleIsCorrect">This puzzle is correct and interesting</string>
   <string name="thisPuzzleIsWrong">This puzzle is wrong or boring</string>
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">You have %s seconds to make your first move!</item>
+    <item quantity="one">You have %s second to make your first move!</item>
     <item quantity="other">You have %s seconds to make your first move!</item>
   </plurals>
   <plurals name="nbGamesInPlay">
