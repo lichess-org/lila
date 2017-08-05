@@ -167,7 +167,12 @@
   <string name="passwordReset">Réinitialisation du mot de passe</string>
   <string name="forgotPassword">Mot de passe oublié ?</string>
   <string name="rank">Rang</string>
+  <string name="rankX">Classement : %s</string>
   <string name="rankIsUpdatedEveryXMinutes">Le classement est mis à jour toutes les %s minutes</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s puzzle</item>
+    <item quantity="other">%s puzzles</item>
+  </plurals>
   <string name="gamesPlayed">Parties jouées</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s partie avec vous</item>
@@ -243,6 +248,7 @@
     <item quantity="one">Rajouter %s seconde</item>
     <item quantity="other">Rajouter %s secondes</item>
   </plurals>
+  <string name="giveMoreTime">Donner plus de temps</string>
   <string name="thisPlayerUsesChessComputerAssistance">Ce joueur utilise un programme d\'échecs</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ce joueur augmente ou réduit artificiellement son classement</string>
   <string name="openingExplorerAndTablebase">Arbre d\'ouvertures &amp; tables de finales</string>
@@ -407,8 +413,8 @@
   <string name="keepGoing">Continuez…</string>
   <string name="puzzleFailed">Problème raté</string>
   <string name="butYouCanKeepTrying">Mais vous pouvez réessayer.</string>
-  <string name="victory">Victoire !</string>
-  <string name="wasThisPuzzleAnyGood">Ce problème était-il intéressant ?</string>
+  <string name="victory">Victoire</string>
+  <string name="wasThisPuzzleAnyGood">Ce problème était-il intéressant  ?</string>
   <string name="pleaseVotePuzzle">Aidez Lichess à s\'améliorer en votant grâce aux flèches :</string>
   <string name="thankYou">Merci !</string>
   <string name="ratingX">Classement : %s</string>
@@ -431,7 +437,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Aller automatiquement à la prochaine partie après chaque coup</string>
   <string name="autoSwitch">Changement automatique</string>
-  <string name="puzzles">Problèmes</string>
+  <string name="puzzles">Problèmes d\'échecs</string>
   <string name="latestUpdates">Dernières mises à jour</string>
   <string name="tournamentWinners">Vainqueurs de tournois</string>
   <string name="name">Nom</string>
@@ -458,7 +464,7 @@
   <string name="troll">Troll</string>
   <string name="other">Autre</string>
   <string name="reportDescriptionHelp">Copiez le(s) lien(s) vers les parties et expliquez en quoi le comportement de cet utilisateur est inapproprié.</string>
-  <string name="by">par %s</string>
+  <string name="by">de %s</string>
   <string name="thisTopicIsNowClosed">Ce sujet est maintenant fermé.</string>
   <string name="theming">Thème</string>
   <string name="donate">Faire un don</string>
@@ -475,10 +481,10 @@
   <string name="thisAccountIsClosed">Ce compte a été fermé.</string>
   <string name="invalidUsernameOrPassword">Nom d\'utilisateur ou mot de passe invalide</string>
   <string name="incorrectPassword">Mot de passe incorrect</string>
-  <string name="emailMeALink">Envoyez-moi un lien par courriel</string>
+  <string name="emailMeALink">Envoyez-moi un lien</string>
   <string name="currentPassword">Mot de passe actuel</string>
   <string name="newPassword">Nouveau mot de passe</string>
-  <string name="newPasswordAgain">Nouveau mot de passe (confirmation)</string>
+  <string name="newPasswordAgain">Nouveau mot de passe (encore)</string>
   <string name="boardHighlights">Surligner les cases (dernier coup et échec)</string>
   <string name="pieceDestinations">Cases de destination (coups et pré-coups légaux)</string>
   <string name="boardCoordinates">Coordonnées (a-h, 1-8)</string>
@@ -597,6 +603,7 @@
   <string name="sourceCode">Code source</string>
   <string name="simultaneousExhibitions">Parties simultanées</string>
   <string name="host">Exposant(e)</string>
+  <string name="hostColorX">Couleur de l’hôte : %s</string>
   <string name="createdSimuls">Nouvelles simultanées</string>
   <string name="hostANewSimul">Créer une nouvelle simultanée</string>
   <string name="noSimulFound">Simultanée introuvable</string>
