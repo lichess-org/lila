@@ -413,7 +413,6 @@
   <string name="keepGoing">Devam et...</string>
   <string name="puzzleFailed">Bulmaca çözülemedi</string>
   <string name="butYouCanKeepTrying">ama denemeye devam edebilirsin.</string>
-  <string name="victory">Zafer!</string>
   <plurals name="playedXTimes">
     <item quantity="one">%s defa oynandı</item>
     <item quantity="other">%s defa oynandı</item>
@@ -466,6 +465,7 @@
   <string name="xAskedY">%1$s sordu %2$s</string>
   <string name="xAnsweredY">%1$s cevapladı %2$s</string>
   <string name="xCommentedY">%1$s yorumladı %2$s</string>
+  <string name="victory">Zafer!</string>
   <string name="timeline">Zaman çubuğu</string>
   <string name="seeAllTournaments">Tüm turnuvalar gör</string>
   <string name="starting">Başlangıç:</string>
