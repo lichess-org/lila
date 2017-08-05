@@ -257,7 +257,6 @@
   <string name="keepGoing">Dalia ati ...</string>
   <string name="puzzleFailed">Wedi methu</string>
   <string name="butYouCanKeepTrying">Ond gelli ddal ati a thrio eto</string>
-  <string name="victory">Buddugoliaeth!</string>
   <string name="chessClock">Cloc gwyddbwyll</string>
   <string name="tenthsOfSeconds">Degfedau eiliad</string>
   <string name="never">Byth</string>
@@ -292,6 +291,7 @@
   <string name="xAskedY">Gofynnodd %1$s am %2$s</string>
   <string name="xAnsweredY">Atebodd %1$s i %2$s</string>
   <string name="xCommentedY">Gadawodd %1$s sylw ar gyfer</string>
+  <string name="victory">Buddugoliaeth!</string>
   <string name="timeline">Llinell amser</string>
   <string name="seeAllTournaments">Gweld y cystadleuaethau i gyd</string>
   <string name="starting">Cychwyn:</string>
