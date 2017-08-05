@@ -97,18 +97,6 @@ object TeamJoined {
   case class Name(value: String) extends AnyVal with StringValue
 }
 
-case class NewBlogPost(
-  id: NewBlogPost.Id,
-  slug: NewBlogPost.Slug,
-  title: NewBlogPost.Title
-) extends NotificationContent("newBlogPost")
-
-object NewBlogPost {
-  case class Id(value: String) extends AnyVal with StringValue
-  case class Slug(value: String) extends AnyVal with StringValue
-  case class Title(value: String) extends AnyVal with StringValue
-}
-
 case object LimitedTournamentInvitation extends NotificationContent("u")
 
 case class GameEnd(

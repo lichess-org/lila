@@ -57,16 +57,6 @@ export const renderers: Renderers = {
     ]),
     text: n => "You have joined  « " + n.content.name + "  »."
   },
-  newBlogPost: {
-    html: n => generic(n, "/blog/" + n.content.id + "/" + n.content.slug, '*', [
-      h('span', [
-        h('strong', 'New blog post'),
-        drawTime(n)
-      ]),
-      h('span', n.content.title)
-    ]),
-    text: n => n.content.title
-  },
   limitedTournamentInvitation: {
     html: n => generic(n, '/tournament/limited-invitation', 'g', [
       h('span', [
