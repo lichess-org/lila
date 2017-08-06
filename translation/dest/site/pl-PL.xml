@@ -387,7 +387,7 @@
   <string name="movesPlayed">Liczba posunięć</string>
   <string name="whiteWins">Wygrana białych</string>
   <string name="blackWins">Wygrana czarnych</string>
-  <string name="draws">Remisy</string>
+  <string name="draws">Remis</string>
   <string name="nextXTournament">Następny turniej %s:</string>
   <string name="viewMoreTournaments">Pokaż inne turnieje</string>
   <string name="averageOpponent">Średni ranking przeciwnika</string>
