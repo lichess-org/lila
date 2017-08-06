@@ -413,6 +413,7 @@
   <string name="keepGoing">Fortsätt...</string>
   <string name="puzzleFailed">Feldrag</string>
   <string name="butYouCanKeepTrying">Men du kan fortsätta försöka.</string>
+  <string name="success">Rätt</string>
   <string name="wasThisPuzzleAnyGood">Var det här schackproblemet bra?</string>
   <string name="pleaseVotePuzzle">Hjälp lichess att bli bättre genom att rösta (använd pil upp eller pil ner):</string>
   <string name="thankYou">Tack!</string>
