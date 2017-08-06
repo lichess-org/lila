@@ -141,6 +141,7 @@ div.game_control .jumps button:nth-child(3) {
 }
 div.lichess_game div.lichess_ground {
   position: relative;
+  margin-bottom: -36px;
 }
 div.eval_gauge {
   position: absolute;
@@ -1462,12 +1463,13 @@ div.copyables .pgn:hover .action {
   display: block;
 }
 div.advice_summary {
-  margin-top: -12px;
+  margin-top: 13px;
   display: flex;
   flex-flow: column;
-  height: 216px;
+  height: 180px;
   justify-content: space-between;
   align-items: flex-start;
+  line-height: 1.15em;
 }
 div.advice_summary table {
   width: 100%;

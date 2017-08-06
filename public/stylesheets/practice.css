@@ -68,6 +68,9 @@ body.dark .study_box .finally {
   margin-right: 5px;
   font-size: 1.2em;
 }
+div.underboard {
+  margin-top: 20px;
+}
 .underboard .spinner {
   margin: 15px auto;
 }
