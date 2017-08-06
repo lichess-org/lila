@@ -109,6 +109,11 @@
   <string name="claimADraw">Reklamovat remízu</string>
   <string name="offerDraw">Nabídnout remízu</string>
   <string name="draw">Remíza</string>
+  <plurals name="nbPlayers">
+    <item quantity="one">%s hráč online</item>
+    <item quantity="few">%s hráči online</item>
+    <item quantity="other">%s hráčů online</item>
+  </plurals>
   <string name="currentGames">Právě probíhající partie</string>
   <plurals name="nbGames">
     <item quantity="one">%s partie</item>
@@ -215,6 +220,26 @@
     <item quantity="one">%s hodnocená</item>
     <item quantity="few">%s hodnocené</item>
     <item quantity="other">%s hodnocených</item>
+  </plurals>
+  <plurals name="nbWins">
+    <item quantity="one">%s výhra</item>
+    <item quantity="few">%s výhry</item>
+    <item quantity="other">%s výher</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s prohra</item>
+    <item quantity="few">%s prohry</item>
+    <item quantity="other">%s proher</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s remíza</item>
+    <item quantity="few">%s remízy</item>
+    <item quantity="other">%s remíz</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s právě hraje</item>
+    <item quantity="few">%s právě hraje</item>
+    <item quantity="other">%s právě hraje</item>
   </plurals>
   <string name="exportGames">Exportovat partie</string>
   <string name="ratingRange">Síla hráče</string>
@@ -373,6 +398,7 @@
   <string name="keepGoing">Pokračujte ....</string>
   <string name="puzzleFailed">Úloha nevyřešena</string>
   <string name="butYouCanKeepTrying">Ale můžete to zkoušet znovu.</string>
+  <string name="success">Úspěch</string>
   <string name="wasThisPuzzleAnyGood">Líbila se Vám tato úloha?</string>
   <string name="pleaseVotePuzzle">Pomozte zlepšit Lichess díky hlasování, pomocí šipek nahoru a dolů:</string>
   <string name="thankYou">Děkujeme!</string>
@@ -391,6 +417,11 @@
     <item quantity="one">Máte %s sekundu na provedení prvního tahu!</item>
     <item quantity="few">Máte %s sekundy na provedení prvního tahu!</item>
     <item quantity="other">Máte %s sekund na provedení prvního tahu!</item>
+  </plurals>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s rozehraná hra</item>
+    <item quantity="few">%s rozehrané hry</item>
+    <item quantity="other">%s rozehraných her</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Automaticky přejdi k další hře po tahu</string>
   <string name="autoSwitch">Přepnout automaticky</string>
@@ -496,6 +527,11 @@
   <string name="allInformationIsPublicAndOptional">Všechny informace jsou veřejné a nepovinné.</string>
   <string name="yourCityRegionOrDepartment">Vaše město, nebo region.</string>
   <string name="biographyDescription">Napiš o sobě - co máš na šachu rád, oblíbená zahájení, partie, hráči…</string>
+  <plurals name="maximumNbCharacters">
+    <item quantity="one">Maximum: %s znak.</item>
+    <item quantity="few">Maximum: %s znaky.</item>
+    <item quantity="other">Maximum: %s znaků.</item>
+  </plurals>
   <string name="listBlockedPlayers">Seznam hráčů, které jste zablokoval(a).</string>
   <string name="human">Člověk</string>
   <string name="computer">Počítač</string>
