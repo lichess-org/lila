@@ -186,9 +186,7 @@ case (pt, score) => {
   <div>
     @trans.activity.joinedNbTeams.pluralSame(teams.value.size)
     <div class="sub">
-      @teams.value.map { teamId =>
-      @teamLink(teamId)
-      }
+      @htmlList(teams.value.map(id => teamLink(id)))
     </div>
   </div>
 </div>
