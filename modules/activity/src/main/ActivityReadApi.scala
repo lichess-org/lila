@@ -89,6 +89,7 @@ final class ActivityReadApi(
     corresEnds = corresEnds,
     follows = a.follows,
     studies = studies,
+    teams = a.teams,
     tours = tours
   )
 

@@ -52,4 +52,8 @@
   </plurals>
   <string name="rankedInTournament">Ranked #%1$s (top %2$s) with %3$s games in %4$s</string>
   <string name="signedUp">Signed up to lichess.org</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">Joined %s team</item>
+    <item quantity="other">Joined %s teams</item>
+  </plurals>
 </resources>

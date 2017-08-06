@@ -9,7 +9,6 @@ final class Env(config: Config, system: ActorSystem) {
     val gameSearch = select("actor.game.search")
     val renderer = select("actor.renderer")
     val captcher = select("actor.captcher")
-    val forum = select("actor.forum.actor")
     val forumSearch = select("actor.forum.search")
     val teamSearch = select("actor.team.search")
     val fishnet = select("actor.fishnet")

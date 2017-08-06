@@ -892,6 +892,7 @@ val `hostedNbSimuls` = new Translated("hostedNbSimuls", Activity)
 val `joinedNbSimuls` = new Translated("joinedNbSimuls", Activity)
 val `createdNbStudies` = new Translated("createdNbStudies", Activity)
 val `competedInNbTournaments` = new Translated("competedInNbTournaments", Activity)
+val `joinedNbTeams` = new Translated("joinedNbTeams", Activity)
 }
 
 object coordinates {

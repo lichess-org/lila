@@ -180,6 +180,20 @@ case (pt, score) => {
 </div>
 }
 
+@renderTeams(teams: Teams) = {
+<div class="entry">
+  <i data-icon="f"></i>
+  <div>
+    @trans.activity.joinedNbTeams.pluralSame(teams.value.size)
+    <div class="sub">
+      @teams.value.map { teamId =>
+      @teamLink(teamId)
+      }
+    </div>
+  </div>
+</div>
+}
+
 @tourLink(t: lila.tournament.LeaderboardApi.Entry) = {
 <a href="@routes.Tournament.show(t.tourId)">@tournamentIdToName(t.tourId)</a>
 }
@@ -229,6 +243,7 @@ case (pt, score) => {
       @a.simuls.map(renderSimuls)
       @a.studies.map(renderStudies)
       @a.tours.map(renderTours)
+      @a.teams.map(renderTeams)
       @if(a.signup) { @renderSignup() }
     </div>
   </section>

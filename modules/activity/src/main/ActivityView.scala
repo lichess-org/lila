@@ -24,6 +24,7 @@ case class ActivityView(
     corresEnds: Option[(Score, List[Pov])] = None,
     follows: Option[Follows] = None,
     studies: Option[List[Study.IdName]] = None,
+    teams: Option[Teams] = None,
     tours: Option[ActivityView.Tours] = None,
     signup: Boolean = false
 ) {

@@ -6,7 +6,7 @@ import ornicar.scalalib.Random
 import lila.user.User
 
 case class Team(
-    _id: String, // also the url slug
+    _id: Team.ID, // also the url slug
     name: String,
     location: Option[String],
     description: String,

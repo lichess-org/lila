@@ -181,8 +181,9 @@ package notify {
   case class Notified(userId: String)
 }
 
-package forum {
-  case class MakeTeam(id: String, name: String)
+package team {
+  case class CreateTeam(id: String, name: String, userId: String)
+  case class JoinTeam(id: String, userId: String)
 }
 
 package fishnet {

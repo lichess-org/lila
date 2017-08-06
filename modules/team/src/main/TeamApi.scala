@@ -3,7 +3,7 @@ package lila.team
 import actorApi._
 import akka.actor.ActorSelection
 import lila.db.dsl._
-import lila.hub.actorApi.forum.MakeTeam
+import lila.hub.actorApi.team.{ CreateTeam, JoinTeam }
 import lila.hub.actorApi.timeline.{ Propagate, TeamJoin, TeamCreate }
 import lila.user.{ User, UserRepo, UserContext }
 import org.joda.time.Period
@@ -13,7 +13,7 @@ final class TeamApi(
     coll: Colls,
     cached: Cached,
     notifier: Notifier,
-    forum: ActorSelection,
+    bus: lila.common.Bus,
     indexer: ActorSelection,
     timeline: ActorSelection
 ) {
@@ -37,12 +37,12 @@ final class TeamApi(
     )
     coll.team.insert(team) >>
       MemberRepo.add(team.id, me.id) >>- {
-        (cached invalidateTeamIds me.id)
-        (forum ! MakeTeam(team.id, team.name))
-        (indexer ! InsertTeam(team))
-        (timeline ! Propagate(
+        cached invalidateTeamIds me.id
+        indexer ! InsertTeam(team)
+        timeline ! Propagate(
           TeamCreate(me.id, team.id)
-        ).toFollowersOf(me.id))
+        ).toFollowersOf(me.id)
+        bus.publish(CreateTeam(id = team.id, name = team.name, userId = me.id), 'team)
       } inject team
   }
 
@@ -121,6 +121,7 @@ final class TeamApi(
         TeamRepo.incMembers(team.id, +1) >>- {
           cached invalidateTeamIds userId
           timeline ! Propagate(TeamJoin(userId, team.id)).toFollowersOf(userId)
+          bus.publish(JoinTeam(id = team.id, userId = userId), 'team)
         }
     } recover lila.db.recoverDuplicateKey(_ => ())
   }

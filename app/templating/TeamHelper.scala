@@ -17,13 +17,12 @@ trait TeamHelper {
 
   def teamIdToName(id: String): Html = escapeHtml(api teamName id getOrElse id)
 
-  def teamLink(id: String, cssClass: Option[String] = None, withIcon: Boolean = true): Html = Html {
-    val klass = cssClass.??(c => s""" class="$c"""")
+  def teamLink(id: String, withIcon: Boolean = true): Html = Html {
     val href = routes.Team.show(id)
     val content = teamIdToName(id)
-    val icon = if (withIcon) """data-icon="f"""" else ""
+    val icon = if (withIcon) """ data-icon="f"""" else ""
     val space = if (withIcon) "&nbsp;" else ""
-    s"""<a $icon $klass href="$href">$space$content</a>"""
+    s"""<a$icon href="$href">$space$content</a>"""
   }
 
   def teamForumUrl(id: String) = routes.ForumCateg.show("team-" + id)

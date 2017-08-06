@@ -170,8 +170,8 @@ case _ => {
       }
       }
       <div class="teams">
-        @info.teamIds.toList.map(t => t -> myTeam(t)).sortBy(t => (!t._2, t._1)).map { t =>
-        @teamLink(t._1, cssClass = t._2.option("mine"))
+        @info.teamIds.sorted.map { t =>
+        @teamLink(t)
         }
       </div>
     </div>

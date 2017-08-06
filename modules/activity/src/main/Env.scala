@@ -47,9 +47,11 @@ final class Env(
         case lila.study.actorApi.StartStudy(id) =>
           // wait some time in case the study turns private
           system.scheduler.scheduleOnce(5 minutes) { write study id }
+        case lila.hub.actorApi.team.CreateTeam(id, _, userId) => write.team(id, userId)
+        case lila.hub.actorApi.team.JoinTeam(id, userId) => write.team(id, userId)
       }
     })),
-    'finishGame, 'forumPost, 'finishPuzzle, 'finishPractice,
+    'finishGame, 'forumPost, 'finishPuzzle, 'finishPractice, 'team,
     'startSimul, 'moveEventCorres, 'plan, 'relation, 'startStudy
   )
 }

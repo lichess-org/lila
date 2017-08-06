@@ -310,9 +310,6 @@ div.sub_ratings h3 {
   display: block;
   margin: 5px 0;
 }
-.user_show .teams a.mine {
-  color: #d59120;
-}
 .user_show div.games {
   padding-top: 10px;
 }

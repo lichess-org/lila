@@ -36,7 +36,7 @@ final class Env(
     coll = colls,
     cached = cached,
     notifier = notifier,
-    forum = hub.actor.forum,
+    bus = system.lilaBus,
     indexer = hub.actor.teamSearch,
     timeline = hub.actor.timeline
   )

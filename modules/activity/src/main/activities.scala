@@ -84,7 +84,12 @@ object activities {
   implicit val FollowsZero = Zero.instance(Follows(None, None))
 
   case class Studies(value: List[Study.Id]) extends AnyVal {
-    def +(s: Study.Id) = copy(value = s :: value)
+    def +(s: Study.Id) = copy(value = (s :: value) take maxSubEntries)
   }
   implicit val StudiesZero = Zero.instance(Studies(Nil))
+
+  case class Teams(value: List[String]) extends AnyVal {
+    def +(s: String) = copy(value = (s :: value) take maxSubEntries)
+  }
+  implicit val TeamsZero = Zero.instance(Teams(Nil))
 }
