@@ -46,8 +46,8 @@
   <string name="viewTheComputerAnalysis">Peržiūrėti kompiuterio analizę</string>
   <string name="requestAComputerAnalysis">Užsakyti kompiuterio analizę</string>
   <string name="computerAnalysis">Kompiuterio analizė</string>
-  <string name="computerAnalysisAvailable">Galima kompiuterinė analizė</string>
-  <string name="analysis">Analizė</string>
+  <string name="computerAnalysisAvailable">Galima kompiuterio analizė</string>
+  <string name="analysis">Analizės lenta</string>
   <string name="depthX">Gylis: %s</string>
   <string name="usingServerAnalysis">Naudojama serverio analizė</string>
   <string name="loadingEngine">Įkeliamas variklis...</string>
@@ -68,7 +68,7 @@
   <string name="drawn">Lygiosios</string>
   <string name="unknown">Nežinomas</string>
   <string name="database">Duomenų bazė</string>
-  <string name="whiteDrawBlack">Baltieji / Lygiosios/ Juodieji</string>
+  <string name="whiteDrawBlack">Baltieji / Lygiosios / Juodieji</string>
   <string name="averageRatingX">Vidutinis reitingas: %s</string>
   <string name="recentGames">Paskiausios partijos</string>
   <string name="topGames">Geriausios partijos</string>
