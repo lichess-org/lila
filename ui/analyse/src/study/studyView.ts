@@ -86,7 +86,7 @@ function metadata(ctrl: StudyController): VNode | undefined {
   const d = ctrl.data;
   return h('div.study_metadata.undertable', [
     h('h2.undertable_top', [
-      h('span.name', { attrs: dataIcon('') }, [
+      h('span.name', [
         d.name,
         ': ' + chapter.name
       ]),
