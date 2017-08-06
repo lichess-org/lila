@@ -78,6 +78,11 @@
     <item quantity="few">Mat v %s půltazích</item>
     <item quantity="other">Mat v %s půltazích</item>
   </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">%s půltahu do dalšího braní nebo tahu pěšcem (vynulování pravidla 50ti tahů)</item>
+    <item quantity="few">%s půltahy do dalšího braní nebo tahu pěšcem (vynulování pravidla 50ti tahů)</item>
+    <item quantity="other">%s půltahů do dalšího braní nebo tahu pěšcem (vynulování pravidla 50ti tahů)</item>
+  </plurals>
   <string name="noGameFound">Žádná hra nenalezena</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Možná zkuste vybrat více her z menu preferencí?</string>
   <string name="openingExplorer">Průzkumník zahájení</string>
@@ -171,6 +176,11 @@
   <string name="rank">Pořadí</string>
   <string name="rankX">Pořadí: %s</string>
   <string name="rankIsUpdatedEveryXMinutes">Pořadí je aktualizováno každých %s minut</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s taktická úloha</item>
+    <item quantity="few">%s taktické úlohy</item>
+    <item quantity="other">%s taktických úloh</item>
+  </plurals>
   <string name="gamesPlayed">Odehraných partií</string>
   <string name="cancel">Zrušit</string>
   <string name="timeOut">Čas vypršel</string>
@@ -270,6 +280,11 @@
   <string name="backToGame">Zpět do hry</string>
   <string name="siteDescription">Šachy online zdarma. Hrajte šachy přímo ve Vašem prohlížeči, bez registrace, bez reklam, bez dalšího stahování. Hrajte proti počítači, kamarádům nebo náhodně vybraným soupeřům.</string>
   <string name="teams">Týmy</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s člen</item>
+    <item quantity="few">%s členi</item>
+    <item quantity="other">%s členů</item>
+  </plurals>
   <string name="allTeams">Všechny týmy</string>
   <string name="newTeam">Nový tým</string>
   <string name="myTeams">Můj tým</string>
@@ -297,6 +312,11 @@
   <string name="continueFromHere">Pokračovat zde</string>
   <string name="importGame">Importuj hru</string>
   <string name="importGameExplanation">Vložení partie ve formátu PGN Vám umožní přehrání partie, získáte počítačovou analýzu, chat ke hře a URL ke sdílení hry.</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s importovaná</item>
+    <item quantity="few">%s importované</item>
+    <item quantity="other">%s importovaných</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">Toto je šachové CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Kliknutím na šachovnici zadejte váš tah a dokažte, že jste človek.</string>
   <string name="captcha.fail">Prosím vyřešte šachovou captcha.</string>
