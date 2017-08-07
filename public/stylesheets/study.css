@@ -62,7 +62,7 @@ form.chapter_form.material.form .form-group textarea {
   vertical-align: middle;
 }
 div.underboard {
-  margin-top: 16px;
+  margin-top: 17px;
   min-height: 370px;
 }
 .underboard_form .title {
@@ -701,6 +701,9 @@ table.tags td input:focus {
 table.tags #study_fen {
   font-size: 0.8em;
   margin: 0.3em 0;
+}
+div.undertable {
+  margin-top: 5px;
 }
 div.undertable_inner {
   height: auto;
