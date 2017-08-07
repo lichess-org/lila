@@ -413,7 +413,7 @@
     <item quantity="other">%s partitas in curso</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Automaticamente proceder al joco sequente post le movimento</string>
-  <string name="autoSwitch">Cambio automatic</string>
+  <string name="autoSwitch">Cambiar automaticamente</string>
   <string name="puzzles">Enigmas</string>
   <string name="latestUpdates">Articulos recente</string>
   <string name="tournamentWinners">Vincitores de torneos</string>
