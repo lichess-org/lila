@@ -135,7 +135,7 @@
   <string name="games">Partidak</string>
   <string name="forum">Foroa</string>
   <string name="xPostedInForumY">%1$s (e)k mezua idatzi du %2$s gaian.</string>
-  <string name="latestForumPosts">Foroaren azken mezuak</string>
+  <string name="latestForumPosts">Foroko azken mezuak</string>
   <string name="players">Jokalariak</string>
   <string name="minutesPerSide">Minutuak alde bakoitzeko</string>
   <string name="variant">Aldaera</string>
@@ -413,6 +413,7 @@
   <string name="keepGoing">Jarraitu...</string>
   <string name="puzzleFailed">Huts egin duzu</string>
   <string name="butYouCanKeepTrying">Baina berriro saia zaitezke berriro.</string>
+  <string name="success">Zorionak</string>
   <string name="wasThisPuzzleAnyGood">Puzzle hau gustatu zaizu?</string>
   <string name="pleaseVotePuzzle">Eman botoa Lichess-i laguntzeko, goranzko zein beheranzko gezia hautatuz:</string>
   <string name="thankYou">Eskerrik asko!</string>
@@ -507,7 +508,7 @@
   <string name="promoteToQueenAutomatically">Dama automatikoki promozionatzea</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Posizioa hirutan errepikatzen denean berdinketa automatikoki eskatu</string>
   <string name="privacy">Pribatutasuna</string>
-  <string name="letOtherPlayersFollowYou">Beste jokalari batzuek jarrai diezazutela baimentzea</string>
+  <string name="letOtherPlayersFollowYou">Beste jokalari batzuk zu jarraitzea baimendu</string>
   <string name="letOtherPlayersChallengeYou">Beste jokalari batzuk erronka egin dezatela baimentzea</string>
   <string name="letOtherPlayersInviteYouToStudy">Beste jokalari batzuk zu ikerketetara gonbidatzea aktibatu</string>
   <string name="sound">Soinua</string>
@@ -532,6 +533,8 @@
   <string name="xAnsweredY">%1$s(e)k erantzun zuen</string>
   <string name="xCommentedY">%1$s(e)k esan zuen %2$s</string>
   <string name="victory">Garaipena</string>
+  <string name="defeat">Porrota</string>
+  <string name="xVsYinZ">%1$s %2$s-ren aurka %3$s-n</string>
   <string name="timeline">Denbora-lerroa</string>
   <string name="seeAllTournaments">Txapelketa guztiak ikusi</string>
   <string name="starting">Hasten da:</string>
@@ -586,8 +589,8 @@
   <string name="blackCastlingKingside">Beltzak O-O</string>
   <string name="blackCastlingQueenside">Beltzak O-O-O</string>
   <plurals name="nbForumPosts">
-    <item quantity="one">%s foroaren mezu</item>
-    <item quantity="other">%s foroaren mezu</item>
+    <item quantity="one">Foroko mezu %s</item>
+    <item quantity="other">Foroko %s mezu</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Jolasten egondako denbora: %s</string>
   <string name="watchGames">Partidak ikusi</string>
@@ -723,7 +726,7 @@
   <string name="usernameUnacceptable">Erabiltzaile hori ezin da erabili.</string>
   <string name="directlySupportLichess">Lichess zuzenean lagundu</string>
   <string name="playChessInStyle">Xakean estiloarekin jokatu</string>
-  <string name="chessBasics">Oinarrizkoak xakea</string>
+  <string name="chessBasics">Oinarrizko xakea</string>
   <string name="coaches">Entrenatzaileak</string>
   <string name="invalidPgn">PGNa ez da zuzena</string>
   <string name="invalidFen">FENa ez da zuzena</string>
