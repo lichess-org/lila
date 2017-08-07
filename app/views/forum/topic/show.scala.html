@@ -6,7 +6,7 @@
 }
 
 @modMenu = {
-  @mod.menu("forum")
+@mod.menu("forum")
 }
 
 @forum.layout(
@@ -40,16 +40,19 @@ description = shorten(posts.currentPageResults.headOption.??(_.text).replace("\n
     @posts.currentPageResults.map { post =>
     <div class="post" id="@post.number">
       <div class="metas clearfix">
+        @defining(routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage) + s"#${post.number}") { url =>
         @authorLink(post=post, cssClass="author".some, modIcon=post.displayModIcon)
 
-        @post.updatedAt.map { updatedAt =>
+        <a href="@url">
+          @post.updatedAt.map { updatedAt =>
           <span class="post-edited">edited</span>
           @momentFromNow(updatedAt)
-        }.getOrElse {
+          }.getOrElse {
           @momentFromNow(post.createdAt)
-        }
+          }
+        </a>
 
-        <a class="anchor" href="@routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage)#@post.number">#@post.number</a>
+        <a class="anchor" href="@url">#@post.number</a>
 
         @if(isGranted(_.IpBan)) {
         <span class="mod postip">@post.ip</span>
@@ -59,6 +62,7 @@ description = shorten(posts.currentPageResults.headOption.??(_.text).replace("\n
         }
         @if(canModCateg) {
         <a class="mod thin delete button" href="@routes.ForumPost.delete(categ.slug, post.id)" data-icon="q"> Delete</a>
+        }
         }
       </div>
       <p class="message">@autoLink(post.text)</p>
