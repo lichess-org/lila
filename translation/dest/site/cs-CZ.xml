@@ -182,6 +182,11 @@
     <item quantity="other">%s taktických úloh</item>
   </plurals>
   <string name="gamesPlayed">Odehraných partií</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s hra s Vámi</item>
+    <item quantity="few">%s hry s Vámi</item>
+    <item quantity="other">%s her s Vámi</item>
+  </plurals>
   <string name="cancel">Zrušit</string>
   <string name="timeOut">Čas vypršel</string>
   <string name="drawOfferSent">Nabídka remízy byla odeslána</string>
