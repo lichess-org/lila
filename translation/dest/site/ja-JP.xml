@@ -394,12 +394,13 @@
   <string name="keepGoing">続ける</string>
   <string name="puzzleFailed">不正解</string>
   <string name="butYouCanKeepTrying">別の手をどうぞ。</string>
+  <string name="success">成功</string>
   <string name="wasThisPuzzleAnyGood">この問題はよかったですか？</string>
   <string name="pleaseVotePuzzle">今後の改善のため、上下の矢印で投票をお願いします:</string>
   <string name="thankYou">ありがとう！</string>
   <string name="ratingX">レーティング: %s</string>
   <plurals name="playedXTimes">
-    <item quantity="other">挑戦回数%s回</item>
+    <item quantity="other">解答数のべ %s 回</item>
   </plurals>
   <string name="fromGameLink">ゲーム%sから</string>
   <string name="continueTraining">トレーニングを続ける</string>
@@ -510,6 +511,7 @@
   <string name="xAnsweredY">%1$s が %2$s と答えました。</string>
   <string name="xCommentedY">%1$s が %2$s とコメントしました。</string>
   <string name="victory">勝利！</string>
+  <string name="defeat">失敗</string>
   <string name="xVsYinZ">%1$s 対 %2$s
 （%3$s）</string>
   <string name="timeline">タイムライン</string>
