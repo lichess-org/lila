@@ -650,6 +650,11 @@
   <string name="tournamentMayHaveBeenCanceled">Možná byl zrušen, jestliže jej opustili všichni hráči před jeho začátkem.</string>
   <string name="returnToTournamentsHomepage">Návrat na stránku turnajů</string>
   <string name="weeklyPerfTypeRatingDistribution">Týdenní hodnocení pro %s</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">%1$s hráč hrál %2$s tento týden.</item>
+    <item quantity="few">%1$s hráči hráli %2$s tento týden.</item>
+    <item quantity="other">%1$s hráčů hrálo %2$s tento týden.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">Vaše %1$s hodnocení je %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Jste lepší než %1$s z %2$s hráčů.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nemáte stanovené %s hodnocení.</string>
