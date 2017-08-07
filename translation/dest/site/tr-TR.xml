@@ -413,6 +413,7 @@
   <string name="keepGoing">Devam et...</string>
   <string name="puzzleFailed">Bulmaca çözülemedi</string>
   <string name="butYouCanKeepTrying">ama denemeye devam edebilirsin.</string>
+  <string name="success">Başarılı</string>
   <string name="wasThisPuzzleAnyGood">Bu bulmacayı nasıl buldun?</string>
   <string name="pleaseVotePuzzle">Okları kullanarak oylayın, lichess\'in gelişmesine yardımcı olun.</string>
   <string name="thankYou">Teşekkürler!</string>
@@ -532,6 +533,8 @@
   <string name="xAnsweredY">%1$s cevapladı %2$s</string>
   <string name="xCommentedY">%1$s yorumladı %2$s</string>
   <string name="victory">Zafer</string>
+  <string name="defeat">Başarısız</string>
+  <string name="xVsYinZ">%2$s karşısında %3$s türünde %1$s</string>
   <string name="timeline">Zaman çubuğu</string>
   <string name="seeAllTournaments">Tüm turnuvalar gör</string>
   <string name="starting">Başlangıç:</string>
@@ -722,7 +725,7 @@
   <string name="usernameStartNoNumber">Kullanıcı adı bir sayı ile başlayamaz.</string>
   <string name="usernameUnacceptable">Bu kullanıcı adı uygun değil.</string>
   <string name="directlySupportLichess">Lichess\'e doğrudan destek verin</string>
-  <string name="playChessInStyle">Satranca tarz katın</string>
+  <string name="playChessInStyle">Satrancı bir tarz ile oynayın</string>
   <string name="chessBasics">Satrancın temel prensipleri</string>
   <string name="coaches">Eğitmenler</string>
   <string name="invalidPgn">Geçersiz PGN</string>
