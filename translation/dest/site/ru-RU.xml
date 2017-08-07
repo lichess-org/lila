@@ -434,6 +434,7 @@
   <string name="keepGoing">Продолжайте...</string>
   <string name="puzzleFailed">Задача не решена.</string>
   <string name="butYouCanKeepTrying">Но вы можете попробовать ещё раз.</string>
+  <string name="success">Успех</string>
   <string name="wasThisPuzzleAnyGood">Была ли задача интересной?</string>
   <string name="pleaseVotePuzzle">Помогите сделать lichess лучше, голосуя при помощи стрелок вверх или вниз.</string>
   <string name="thankYou">Спасибо!</string>
@@ -556,6 +557,9 @@
   <string name="xAnsweredY">%1$s ответил %2$s</string>
   <string name="xCommentedY">%1$s прокомментировал %2$s</string>
   <string name="victory">Победа!</string>
+  <string name="defeat">Поражение</string>
+  <string name="xVsYinZ">%1$s с %2$s
+в %3$s</string>
   <string name="timeline">Дневник</string>
   <string name="seeAllTournaments">Открыть все турниры</string>
   <string name="starting">Начинается:</string>
