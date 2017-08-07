@@ -65,4 +65,9 @@
   </plurals>
   <string name="rankedInTournament">Užėmė #%1$s (tarp %2$s geriausiųjų) su %3$s partijomis žaidžiant „%4$s“</string>
   <string name="signedUp">Užsiregistravo „Lichess“</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">Prisijungė prie %s komandos</item>
+    <item quantity="few">Prisijungė prie %s komandų</item>
+    <item quantity="other">Prisijungė prie %s komandų</item>
+  </plurals>
 </resources>
