@@ -86,7 +86,7 @@ Terfiye gerek yok.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Bu at savunmanın üstünden şah çekmiş!</string>
   <string name="escapeOrBlock">Şahı kaç ya da saldırının önünü kes!</string>
   <string name="outOfCheckComplete">Harika! Şahın emin ellerde, şahını rakibin saldırılarına karşı korumayı unutma!</string>
-  <string name="mateInOne">Mat etme</string>
+  <string name="mateInOne">Bir hamlede mat</string>
   <string name="defeatTheOpponentsKing">Rakibi tek hamlede mat et</string>
   <string name="mateInOneIntro">Rakibin çektiğin şahı engelleyemediği zaman oyunu kazanırsın.</string>
   <string name="attackYourOpponentsKing">Rakibe öyle bir saldır ki şahını kaçacak yeri kalmasın!</string>
@@ -176,14 +176,14 @@ Piyon = 1</string>
   <string name="perfect">Mükemmel!</string>
   <string name="outstanding">Müthiş!</string>
   <string name="wayToGo">Şimdi damacılar düşünsün!</string>
-  <string name="yesYesYes">Kasparov bunu onayladı.</string>
-  <string name="youreGoodAtThis">Çözdün bu işi!</string>
-  <string name="nailedIt">Ahbap kimi indireceğini biliyorsun, yalnızca seç ve devam et gitsin.</string>
+  <string name="yesYesYes">Carlsen görse seninle gurur duyardı!</string>
+  <string name="youreGoodAtThis">Sen bu işte iyisin!</string>
+  <string name="nailedIt">Başardın!</string>
   <string name="rightOn">İşte böyle!</string>
   <string name="stageXComplete">%s. aşama tamamlandı</string>
   <string name="yourScore">Puanın</string>
   <string name="next">Sıradaki</string>
   <string name="backToMenu">Menüye geri dön</string>
-  <string name="puzzleFailed">Boby Fischer mezarında ters döndü!</string>
+  <string name="puzzleFailed">Bulmaca çözülemedi!</string>
   <string name="retry">Tekrar dene</string>
 </resources>
