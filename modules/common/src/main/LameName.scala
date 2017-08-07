@@ -41,6 +41,7 @@ object LameName {
       "faggot",
       "jerk",
       "nigg",
+      "coon",
       "piss",
       "poon",
       "prick",
