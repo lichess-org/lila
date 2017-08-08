@@ -11,12 +11,12 @@
   <string name="chessPieces">Шахматные фигуры</string>
   <string name="theRook">Ладья</string>
   <string name="itMovesInStraightLines">Движется по прямым линиям</string>
-  <string name="rookIntro">Ладья — это тяжёлая (мощная) фигура. Готовы ли вы маневрировать ей?</string>
+  <string name="rookIntro">Ладья — это тяжёлая фигура. Готовы ли вы управлять ей?</string>
   <string name="rookGoal">Нажмите на ладью и доведите её до звезды!</string>
   <string name="grabAllTheStars">Соберите все звезды!</string>
   <string name="theFewerMoves">Чем меньше ходов вы сделаете, тем больше очков вы получите!</string>
   <string name="useTwoRooks">Используйте две ладьи, чтобы ускорить процесс!</string>
-  <string name="rookComplete">Поздравляем! Вы научились ходить ладьёй.</string>
+  <string name="rookComplete">Поздравляем! Вы научились ходить ладьей.</string>
   <string name="theBishop">Слон</string>
   <string name="itMovesDiagonally">Перемещается по диагоналям</string>
   <string name="bishopIntro">Далее мы научимся ходить слоном!</string>
@@ -25,13 +25,13 @@
   <string name="theQueen">Ферзь</string>
   <string name="queenCombinesRookAndBishop">Ферзь = ладья + слон</string>
   <string name="queenIntro">Самая мощная фигура. Его величество — ферзь!</string>
-  <string name="queenComplete">Поздравляем! Вы научились ходить ферзём.</string>
+  <string name="queenComplete">Поздравляем! Вы научились ходить ферзем.</string>
   <string name="theKing">Король</string>
   <string name="theMostImportantPiece">Самая важная фигура</string>
   <string name="kingIntro">Вы - король. Если вы погибнете в битве - игра проиграна.</string>
   <string name="theKingIsSlow">Король медленно передвигается.</string>
   <string name="lastOne">И последний!</string>
-  <string name="kingComplete">Вы научились ходить королём!</string>
+  <string name="kingComplete">Вы научились ходить королем!</string>
   <string name="theKnight">Конь</string>
   <string name="itMovesInAnLShape">Он ходит буквой \"Г\"</string>
   <string name="knightIntro">Вот вам задача. Конь — хитрая фигура.</string>
@@ -56,7 +56,7 @@
   <string name="capture">Взятие</string>
   <string name="takeTheEnemyPieces">Съешьте фигуры противника</string>
   <string name="captureIntro">Определите незащищенные фигуры противника и съешьте их!</string>
-  <string name="takeTheBlackPieces">Съешьте чёрные фигуры!</string>
+  <string name="takeTheBlackPieces">Съешьте черные фигуры!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Съешьте все чёрные фигуры! И не потеряйте свои.</string>
   <string name="captureComplete">Поздравляем! Теперь вы знаете, как сражаться с шахматными фигурами!</string>
   <string name="protection">Защита</string>
@@ -99,7 +99,7 @@
   <string name="register">Регистрация</string>
   <string name="getAFreeLichessAccount">Создайте бесплатный аккаунт на Lichess</string>
   <string name="practice">Практика</string>
-  <string name="learnCommonChessPositions">Учите основные позиции в шахматах</string>
+  <string name="learnCommonChessPositions">Учите основные позиции</string>
   <string name="puzzles">Задачи</string>
   <string name="exerciseYourTacticalSkills">Осуществляйте свои тактические навыки</string>
   <string name="videos">Видео</string>
