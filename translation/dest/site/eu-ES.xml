@@ -334,7 +334,7 @@
   </plurals>
   <string name="more">Gehiago</string>
   <string name="memberSince">Noiztik kidea:</string>
-  <string name="lastSeenActive">Azken sartzea: %s</string>
+  <string name="lastSeenActive">Azken aldiz online: %s</string>
   <string name="challengeToPlay">Partida baterako erronka egin</string>
   <string name="player">Jokalaria</string>
   <string name="list">Zerrenda</string>
@@ -498,7 +498,7 @@
   <string name="whenTimeRemainingLessThanTenSeconds">Denbora 10 segunditik behera dagoenenan</string>
   <string name="horizontalGreenProgressBars">Aurrerabide-barra berdea  berdea horizontalki</string>
   <string name="soundWhenTimeGetsCritical">Soinua jo denbora bukatzear dagoenean</string>
-  <string name="gameBehavior">Partidetan nola jokatu</string>
+  <string name="gameBehavior">Partidak nola jokatu</string>
   <string name="howDoYouMovePieces">Nola mugitzen dituzu piezak?</string>
   <string name="clickTwoSquares">Bi laukitan klik eginda</string>
   <string name="dragPiece">Pieza arrastatuta</string>
@@ -579,7 +579,7 @@
   <string name="blindfoldChess">Xakea itsu-itsuan (piezak ez dira ikusiko)</string>
   <string name="zenMode">Zen modua</string>
   <string name="moveConfirmation">Jokaldia baieztatzea</string>
-  <string name="inCorrespondenceGames">Korrespondentziagatiko partidetan</string>
+  <string name="inCorrespondenceGames">Posta bidezko partidak</string>
   <string name="ifRatingIsPlusMinusX">Puntuazioa  ± %s tartean badago</string>
   <string name="onlyFriends">Lagunak soilik</string>
   <string name="menu">Menua</string>
@@ -612,7 +612,7 @@
   <string name="noSimulFound">Aldibereko partida ezin aurkitu</string>
   <string name="noSimulExplanation">Aldibereko partida ez da existitzen</string>
   <string name="returnToSimulHomepage">Aldibereko partiden orrialdera itzuli</string>
-  <string name="aboutSimul">Aldibereko partidetan jokalari batek batzuei egiten die aurre aldi berean.</string>
+  <string name="aboutSimul">Aldibereko partidetan jokalari batek beste batzuei egiten die aurre aldi berean.</string>
   <string name="aboutSimulImage">50 aurkariren aurka, Fischerrek 47 partida irabazi zituen, 2 berdindu eta  bat  bakarra galdu.</string>
   <string name="aboutSimulRealLife">Benetako bizitzean bezala, aldibereko jokalaria taulaz taula mugitu egiten da, bere jokaldia eginez.</string>
   <string name="aboutSimulRules">Aldibereko partidak hastean, jokalari nagusiak pieza zuriekin hasten da partida bana. Aldiberekoa erakusketa amaitzen da partida guztiak amaitzean.</string>
