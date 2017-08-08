@@ -90,7 +90,9 @@
   <string name="importPgn">PGN importeren</string>
   <string name="delete">Verwijderen</string>
   <string name="deleteThisImportedGame">Deze geïmporteerde partij verwijderen?</string>
+  <string name="replayMode">Herhaal modus</string>
   <string name="realtimeReplay">Realtime</string>
+  <string name="byCPL">Door CPL</string>
   <string name="openStudy">Open Study</string>
   <string name="enable">Aanzetten</string>
   <string name="bestMoveArrow">Beste zet-pijl</string>
