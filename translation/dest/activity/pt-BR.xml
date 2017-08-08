@@ -51,7 +51,6 @@
     <item quantity="one">Competiu em %s torneio</item>
     <item quantity="other">Competiu em %s torneios</item>
   </plurals>
-  <string name="rankedInTournament">Classificado #%1$s (melhores %2$s) dentre %3$s partidas em %4$s</string>
   <string name="signedUp">Registrou-se no lichess</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Uniu-se a %s time</item>
