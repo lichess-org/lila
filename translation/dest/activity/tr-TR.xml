@@ -48,7 +48,7 @@
     <item quantity="other">%s yeni çalışma oluşturdu</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="one">%s turnuvasında mücadele etti</item>
+    <item quantity="one">%s turnuvaya katıldı</item>
     <item quantity="other">%s turnuvasında mücadele etti</item>
   </plurals>
   <string name="rankedInTournament">%3$s oyun ile %4$s\'da %1$s. oldu (en iyi %2$s içinde)</string>
