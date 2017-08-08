@@ -23,19 +23,17 @@ final class Env(
     collection = PrismicCollection
   )
 
-  lazy val lastPostCache = new LastPostCache(api, LastPostCacheTtl, PrismicCollection)
-
   private lazy val notifier = new Notifier(
     blogApi = api,
     timelineApi = timelineApi
   )
 
-  def cli = new lila.common.Cli {
-    def process = {
-      case "blog" :: "notify" :: prismicId :: Nil =>
-        notifier(prismicId) inject "done!"
-    }
-  }
+  lazy val lastPostCache = new LastPostCache(
+    api,
+    notifier,
+    LastPostCacheTtl,
+    PrismicCollection
+  )
 }
 
 object Env {
