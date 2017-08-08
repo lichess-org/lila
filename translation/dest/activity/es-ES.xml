@@ -53,4 +53,8 @@
   </plurals>
   <string name="rankedInTournament">%1$sº en la clasificación (entre los %2$s mejores) con %3$s partidas en %4$s</string>
   <string name="signedUp">Registrado en Lichess</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">Ha entrado a %s equipo</item>
+    <item quantity="other">Ha entrado a %s equipos</item>
+  </plurals>
 </resources>
