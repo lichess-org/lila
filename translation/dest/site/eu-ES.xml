@@ -208,7 +208,7 @@
   <string name="rematchOfferDeclined">Errebantxa-eskaintzari uko egin dio</string>
   <string name="cancelRematchOffer">Errebantxa-eskaintza bertan behera utzi</string>
   <string name="viewRematch">Errebantxa ikusi</string>
-  <string name="play">Jolastu</string>
+  <string name="play">Jokatu</string>
   <string name="inbox">Mezu-sarrera</string>
   <string name="chatRoom">Txateatzeko aretoa</string>
   <string name="loginToChat">Login egin txatera sartzeko</string>
@@ -555,7 +555,7 @@
   <string name="side">Kolorea</string>
   <string name="clock">Erlojua</string>
   <string name="unauthorizedError">Ez baimendutako sarbidea</string>
-  <string name="noInternetConnection">Internet konexiorik ez.. Offline jolastu ahal duzu ere.</string>
+  <string name="noInternetConnection">Ez dago internet konexiorik. Offine ere jokatu dezakezu.</string>
   <string name="connectedToLichess">Lichess.org-era konektatuta</string>
   <string name="signedOut">Deskonektatuta</string>
   <string name="loginSuccessful">Konektatuta</string>
