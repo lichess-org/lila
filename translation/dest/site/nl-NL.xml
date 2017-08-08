@@ -93,6 +93,7 @@
   <string name="openStudy">Open Study</string>
   <string name="enable">Aanzetten</string>
   <string name="bestMoveArrow">Beste zet-pijl</string>
+  <string name="evaluationGauge">Evaluatie meter</string>
   <string name="multipleLines">Meerdere varianten</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Geheugen</string>
@@ -359,6 +360,7 @@
   <string name="averageOpponent">Gemiddelde tegenstander</string>
   <string name="membersOnly">Alleen voor leden</string>
   <string name="boardEditor">Bordbewerker</string>
+  <string name="popularOpenings">Populaire openingen</string>
   <string name="startPosition">Beginstelling</string>
   <string name="clearBoard">Maak het bord leeg</string>
   <string name="savePosition">Sla de stelling op</string>
@@ -397,6 +399,7 @@
   <string name="keepGoing">Ga verder...</string>
   <string name="puzzleFailed">Puzzel gefaald</string>
   <string name="butYouCanKeepTrying">Maar je kunt het blijven proberen.</string>
+  <string name="success">Succes</string>
   <string name="wasThisPuzzleAnyGood">Was dit een goede puzzel?</string>
   <string name="pleaseVotePuzzle">Verbeter lichess door te stemmen met de pijl naar boven of beneden.</string>
   <string name="thankYou">Bedankt!</string>
@@ -516,6 +519,7 @@
   <string name="xAnsweredY">%1$s antwoordde %2$s</string>
   <string name="xCommentedY">%1$s gaf commentaar op %2$s</string>
   <string name="victory">Overwinning!</string>
+  <string name="defeat">Nederlaag</string>
   <string name="timeline">Tijdslijn</string>
   <string name="seeAllTournaments">Zie alle toernooien</string>
   <string name="starting">Startend:</string>
