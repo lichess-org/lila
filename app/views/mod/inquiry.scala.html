@@ -49,6 +49,9 @@
       <input class="fbt@when(in.user.troll, " active")" type="submit" value="Shadowban" />
     </form>
     }
+    <form method="post" action="@routes.Report.xfiles(in.report.id)" data-hint="Move to X-Files" class="hint--bottom-left">
+      <input class="fbt@when(in.report.room.key == "xfiles", " active")" type="submit" value="X-Files" />
+    </form>
   </div>
   <div class="actions close">
     <form action="@routes.Report.process(in.report.id)" method="post" data-hint="Dismiss this report as processed." class="process hint--bottom-left">

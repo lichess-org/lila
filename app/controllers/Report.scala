@@ -44,6 +44,10 @@ object Report extends LilaController {
     api.process(id, me) inject Redirect(routes.Report.list)
   }
 
+  def xfiles(id: String) = Secure(_.SeeReport) { implicit ctx => me =>
+    api.moveToXfiles(id) inject Redirect(routes.Report.list)
+  }
+
   def form = Auth { implicit ctx => implicit me =>
     NotForKids {
       get("username") ?? UserRepo.named flatMap { user =>

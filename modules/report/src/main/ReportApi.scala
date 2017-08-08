@@ -180,6 +180,11 @@ final class ReportApi(
     }
   } >>- monitorUnprocessed
 
+  def moveToXfiles(id: String): Funit = coll.update(
+    $id(id),
+    $set("room" -> Room.Xfiles.key) ++ $unset("inquiry")
+  ).void
+
   private val unprocessedSelect: Bdoc = $doc(
     "processedBy" $exists false,
     "inquiry" $exists false
@@ -291,12 +296,6 @@ final class ReportApi(
       Some($doc("reason" -> Reason.Cheat.key) ++ unprocessedSelect),
       ReadPreference.secondaryPreferred
     )
-
-  private[report] def moveToXfiles: Funit = coll.update(
-    unprocessedSelect ++ roomSelect(none) ++ $doc("createdAt" $lt DateTime.now.minusDays(5)),
-    $set("room" -> Room.Xfiles.key),
-    multi = true
-  ).void
 
   private def findRecent(nb: Int, selector: Bdoc) =
     coll.find(selector).sort($sort.createdDesc).list[Report](nb)
