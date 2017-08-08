@@ -90,6 +90,7 @@
   <string name="importPgn">PGN importeren</string>
   <string name="delete">Verwijderen</string>
   <string name="deleteThisImportedGame">Deze geïmporteerde partij verwijderen?</string>
+  <string name="realtimeReplay">Realtime</string>
   <string name="openStudy">Open Study</string>
   <string name="enable">Aanzetten</string>
   <string name="bestMoveArrow">Beste zet-pijl</string>
@@ -361,6 +362,7 @@
   <string name="averageOpponent">Gemiddelde tegenstander</string>
   <string name="membersOnly">Alleen voor leden</string>
   <string name="boardEditor">Bordbewerker</string>
+  <string name="setTheBoard">Zet het bord op</string>
   <string name="popularOpenings">Populaire openingen</string>
   <string name="startPosition">Beginstelling</string>
   <string name="clearBoard">Maak het bord leeg</string>
