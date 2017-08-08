@@ -81,6 +81,12 @@
   <string name="thisIsTheInitialPosition">Это - начальная позиция в шахматах! Сделайте любой ход, чтобы продолжить.</string>
   <string name="castling">Рокировка</string>
   <string name="theSpecialKingMove">Специальный ход короля</string>
+  <string name="castleKingSide">Передвиньте своего короля на две клетки к ладье королевского фланга!</string>
+  <string name="castleQueenSide">Передвиньте своего короля на две клетки к ладье ферзевого фланга!</string>
+  <string name="theKnightIsInTheWay">Конь в пути! Сделайте ход конем, затем сделайте рокировку.</string>
+  <string name="castleKingSideMovePiecesFirst">Короткая рокировка! Сначала вам нужно развить фигуры.</string>
+  <string name="castleQueenSideMovePiecesFirst">Длинная рокировка! Сначала вам нужно развить фигуры.</string>
+  <string name="youCannotCastleIfMoved">Вы не можете делать рокировку, если король или ладья, участвующие в рокировке, делали ход.</string>
   <string name="enPassant">Взятие на проходе</string>
   <string name="enPassantComplete">Поздравляем! Теперь вы можете делать взятие на проходе.</string>
   <string name="stalemate">Пат</string>
