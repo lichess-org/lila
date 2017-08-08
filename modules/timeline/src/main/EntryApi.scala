@@ -64,7 +64,7 @@ final class EntryApi(
         "date" $gt DateTime.now.minusMonths(6)
       ))
       .sort($sort desc "date")
-      .cursor[Entry](ReadPreference.secondaryPreferred)
+      .cursor[Entry]() // must be on primary for cache refresh to work
       .gather[Vector](8)
 
     private[EntryApi] def interleave(entries: Vector[Entry]): Fu[Vector[Entry]] = cache.get map { bcs =>
