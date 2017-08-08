@@ -29,11 +29,21 @@
     }
   </div>
   <div class="actions">
-    <form method="get" action="@routes.Message.form" data-hint="Send a moderator message" class="hint--bottom-left">
-      <input type="hidden" name="mod" value="1" />
-      <input type="hidden" name="user" value="@in.user.id" />
-      <input class="fbt" type="submit" value="Warn" />
-    </form>
+    <div class="dropper warn">
+      <span>Warn</span>
+      <div>
+        @lila.message.ModPreset.all.map { preset =>
+        <form method="post" action="@routes.Mod.warn(in.user.username, preset.subject)">
+          <input class="fbt" type="submit" value="@preset.subject" />
+        </form>
+        }
+        <form method="get" action="@routes.Message.form">
+          <input type="hidden" name="mod" value="1" />
+          <input type="hidden" name="user" value="@in.user.id" />
+          <input class="fbt" type="submit" value="Custom message" />
+        </form>
+      </div>
+    </div>
     @if(isGranted(_.MarkEngine)) {
     <form method="post" action="@routes.Mod.engine(in.user.username)" data-hint="Mark as cheat" class="hint--bottom-left">
       <button data-icon="n" class="fbt icon@when(in.user.engine, " active")" type="submit"></button>

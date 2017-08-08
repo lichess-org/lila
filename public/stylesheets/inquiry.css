@@ -59,7 +59,7 @@ body {
 }
 #inquiry .reports .expendable {
   padding: 4px 20px 20px 20px;
-  background: #525252;
+  background: #555;
   position: absolute;
   top: 0;
   left: 0;
@@ -100,7 +100,7 @@ body {
   padding-right: 10px;
   border-right: 1px solid #666;
 }
-#inquiry .actions form {
+#inquiry .actions > form {
   height: 100%;
 }
 #inquiry .fbt {
@@ -129,7 +129,7 @@ body {
   color: #3893E8!important;
 }
 #inquiry .process button {
-  background: #525252;
+  background: #555;
   font-size: 1.8em;
   padding: 0 25px;
 }
@@ -152,28 +152,28 @@ body {
 #inquiry .dropper > span {
   display: block;
   height: 100%;
-  min-width: 2em;
+  padding: 0 10px;
 }
 #inquiry .dropper div {
   display: none;
   position: absolute;
   top: 100%;
   right: 0;
-  background: #525252;
+  background: #555;
   box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
 }
 #inquiry .dropper:hover > span {
-  background: #525252;
+  background: #555;
 }
 #inquiry .dropper:hover div {
   display: block;
 }
-#inquiry .dropper div a {
-  display: block;
-  padding: 6px 10px;
-  transition: background 0.13s;
+#inquiry .dropper.warn form {
+  line-height: 1em;
 }
-#inquiry .dropper div a:hover {
-  background: #f0f0f0;
-  color: #444;
+#inquiry .dropper.warn input {
+  text-transform: initial;
+  width: 100%;
+  text-align: left;
+  padding: 6px 10px;
 }
