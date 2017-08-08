@@ -394,12 +394,13 @@
   <string name="keepGoing">続ける</string>
   <string name="puzzleFailed">不正解</string>
   <string name="butYouCanKeepTrying">別の手をどうぞ。</string>
+  <string name="success">成功</string>
   <string name="wasThisPuzzleAnyGood">この問題はよかったですか？</string>
   <string name="pleaseVotePuzzle">今後の改善のため、上下の矢印で投票をお願いします:</string>
   <string name="thankYou">ありがとう！</string>
   <string name="ratingX">レーティング: %s</string>
   <plurals name="playedXTimes">
-    <item quantity="other">挑戦回数%s回</item>
+    <item quantity="other">解答数のべ %s 回</item>
   </plurals>
   <string name="fromGameLink">ゲーム%sから</string>
   <string name="continueTraining">トレーニングを続ける</string>
@@ -510,6 +511,9 @@
   <string name="xAnsweredY">%1$s が %2$s と答えました。</string>
   <string name="xCommentedY">%1$s が %2$s とコメントしました。</string>
   <string name="victory">勝利！</string>
+  <string name="defeat">失敗</string>
+  <string name="xVsYinZ">%1$s 対 %2$s
+（%3$s）</string>
   <string name="timeline">タイムライン</string>
   <string name="seeAllTournaments">全てのトーナメントを見る</string>
   <string name="starting">開始時刻：</string>
@@ -585,7 +589,7 @@
   <string name="noSimulExplanation">この同時対局は存在しません</string>
   <string name="returnToSimulHomepage">同時対局トップに戻る</string>
   <string name="aboutSimul">同時対局では、1人が多数の相手と同時に対戦します。</string>
-  <string name="aboutSimulImage">フィッシャーは50局のうち47局に勝ち、2局に引き分け、1局に負けました。</string>
+  <string name="aboutSimulImage">この時フィッシャーは 50 人と対戦して 47 勝 2 分 1 敗でした。</string>
   <string name="aboutSimulRealLife">アイデアは現実の同時対局と同じです。現実世界では1人がテーブルを回って1手ずつ指していきます。</string>
   <string name="aboutSimulRules">同時対局が始まると、全員がホスト（白番）と対戦します。同時対局はすべての対局が終わった時に終了します。</string>
   <string name="aboutSimulSettings">同時対局は非レート戦です。再対局、待った、持時間追加はできません。</string>

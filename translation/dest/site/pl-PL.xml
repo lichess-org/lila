@@ -315,7 +315,7 @@
   <string name="pasteThePgnStringHere">Poniżej wklej partię w formacie PGN</string>
   <string name="fromPosition">Z pozycji</string>
   <string name="continueFromHere">Kontynuuj z tej pozycji</string>
-  <string name="importGame">Importuj partię</string>
+  <string name="importGame">Import partii</string>
   <string name="importGameExplanation">Wklejając zapis gry będziesz miał możliwość jej odtworzenia, poproszenia o analizę komputerową, omówienia jej z innymi oraz udostępnienia linku do niej innym.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s zaimportowana partia</item>
@@ -387,7 +387,7 @@
   <string name="movesPlayed">Liczba posunięć</string>
   <string name="whiteWins">Wygrana białych</string>
   <string name="blackWins">Wygrana czarnych</string>
-  <string name="draws">Remisy</string>
+  <string name="draws">Remis</string>
   <string name="nextXTournament">Następny turniej %s:</string>
   <string name="viewMoreTournaments">Pokaż inne turnieje</string>
   <string name="averageOpponent">Średni ranking przeciwnika</string>

@@ -413,6 +413,7 @@
   <string name="keepGoing">Continuez…</string>
   <string name="puzzleFailed">Problème raté</string>
   <string name="butYouCanKeepTrying">Mais vous pouvez réessayer.</string>
+  <string name="success">Succès</string>
   <string name="wasThisPuzzleAnyGood">Ce problème était-il intéressant  ?</string>
   <string name="pleaseVotePuzzle">Aidez Lichess à s\'améliorer en votant grâce aux flèches :</string>
   <string name="thankYou">Merci !</string>
@@ -532,6 +533,7 @@
   <string name="xAnsweredY">%1$s a répondu à %2$s</string>
   <string name="xCommentedY">%1$s a commenté %2$s</string>
   <string name="victory">Victoire</string>
+  <string name="defeat">Défaite</string>
   <string name="timeline">Activité</string>
   <string name="seeAllTournaments">Voir tous les tournois</string>
   <string name="starting">Démarrage :</string>

@@ -212,6 +212,7 @@
   <string name="inbox">Recibidos</string>
   <string name="chatRoom">Sala de chat</string>
   <string name="loginToChat">Inicia sesión para chatear</string>
+  <string name="youHaveBeenTimedOut">Has sido silenciado temporalmente.</string>
   <string name="spectatorRoom">Chat de espectador</string>
   <string name="composeMessage">Escribir mensaje</string>
   <string name="noNewMessages">No hay mensajes nuevos</string>
@@ -412,6 +413,7 @@
   <string name="keepGoing">Continúa...</string>
   <string name="puzzleFailed">Ejercicio fallido</string>
   <string name="butYouCanKeepTrying">Pero puedes seguir intentándolo.</string>
+  <string name="success">Éxito</string>
   <string name="wasThisPuzzleAnyGood">¿Crees que este ejercicio es bueno?</string>
   <string name="pleaseVotePuzzle">Ayuda a Lichess a mejorar a través de tu votación, usando las flechas arriba o abajo:</string>
   <string name="thankYou">¡Gracias!</string>
@@ -531,6 +533,8 @@
   <string name="xAnsweredY">%1$s respondió %2$s</string>
   <string name="xCommentedY">%1$s comentó %2$s</string>
   <string name="victory">¡Victoria!</string>
+  <string name="defeat">Derrota</string>
+  <string name="xVsYinZ">%1$s contra %2$s en %3$s</string>
   <string name="timeline">Orden cronológico</string>
   <string name="seeAllTournaments">Ver todos los torneos</string>
   <string name="starting">Comienzo:</string>
