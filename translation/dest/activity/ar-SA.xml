@@ -99,6 +99,5 @@
     <item quantity="many">تنافس في %s بطولة</item>
     <item quantity="other">تنافس في %s بطولة</item>
   </plurals>
-  <string name="rankedInTournament">الترتيب #%1$s (أفضل %2$s) مع %3$s مباراة في %4$s</string>
   <string name="signedUp">إنشيء حساب لدى ليتشيس</string>
 </resources>

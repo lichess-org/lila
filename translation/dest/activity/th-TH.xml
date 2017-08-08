@@ -39,6 +39,5 @@
   <plurals name="competedInNbTournaments">
     <item quantity="other">ได้แข่งขันใน %s ทัวร์นาเมนต์</item>
   </plurals>
-  <string name="rankedInTournament">ได้อันดับ #%1$s (สูงสุด %2$s) ด้วย %3$s เกม ใน %4$s</string>
   <string name="signedUp">ได้ลงทะเบียนที่ lichess</string>
 </resources>

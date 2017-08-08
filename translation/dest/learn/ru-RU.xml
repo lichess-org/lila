@@ -35,6 +35,7 @@
   <string name="theKnight">Конь</string>
   <string name="itMovesInAnLShape">Он ходит буквой \"Г\"</string>
   <string name="knightIntro">Вот вам задача. Конь — хитрая фигура.</string>
+  <string name="knightsHaveAFancyWay">Кони имеют причудливый способ перепрыгивать!</string>
   <string name="knightsCanJumpOverObstacles">Кони могут прыгать через препятствия!
 Выберетесь и соберите все звезды!</string>
   <string name="knightComplete">Поздравляем! Вы освоили фигуру \"Конь\".</string>
@@ -46,6 +47,7 @@
   <string name="pawnsMoveForward">Пешки движутся вперёд, но бьют по диагоналям!</string>
   <string name="captureThenPromote">Побейте, затем превратитесь!</string>
   <string name="aPawnOnTheSecondRank">Пешка на втором ряду может ходить на два поля за ход!</string>
+  <string name="pawnComplete">Поздравляем! У пешек нет секретов для вас.</string>
   <string name="pawnPromotion">Превращение пешки</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Ваша пешка достигла края доски!</string>
   <string name="itNowPromotesToAStrongerPiece">Сейчас она превращается в фигуру по-сильнее.</string>

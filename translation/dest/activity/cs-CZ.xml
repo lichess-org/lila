@@ -63,6 +63,5 @@
     <item quantity="few">Účast ve %s turnajích</item>
     <item quantity="other">Účast v %s turnajích</item>
   </plurals>
-  <string name="rankedInTournament">Umístili jste se %1$s (lepší než %2$s hráčů) v %4$s (počet partií: %3$s)</string>
   <string name="signedUp">Vytvořen účet na lichess</string>
 </resources>

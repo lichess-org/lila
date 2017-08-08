@@ -51,7 +51,6 @@
     <item quantity="one">Txapelketa %sen hartu du parte</item>
     <item quantity="other">%s txapelketatan hartu du parte</item>
   </plurals>
-  <string name="rankedInTournament">Sailkapena %1$s. (%2$s onenen artean) %3$s partida jokatuta %4$s txapelketan</string>
   <string name="signedUp">Lichess.org-en izena eman du</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Talde %sera sartu da</item>

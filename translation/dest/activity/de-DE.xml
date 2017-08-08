@@ -51,7 +51,6 @@
     <item quantity="one">Hat an %s Turnier teilgenommen</item>
     <item quantity="other">Hat an %s Turnieren teilgenommen</item>
   </plurals>
-  <string name="rankedInTournament">Platz #%1$s (obere %2$s) mit %3$s Spielen in %4$s</string>
   <string name="signedUp">Hat sich bei Lichess angemeldet</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Ist %s Team beigetreten</item>

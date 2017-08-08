@@ -39,6 +39,5 @@
   <plurals name="competedInNbTournaments">
     <item quantity="other">Ha competite in %s torneo(s)</item>
   </plurals>
-  <string name="rankedInTournament">Classificate #%1$s (melior %2$s) intra %3$s partitas in %4$s</string>
   <string name="signedUp">Registrate in lichess.org</string>
 </resources>
