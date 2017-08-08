@@ -45,6 +45,10 @@ trait StringHelper { self: NumberHelper =>
     })
   }
 
+  def repositionTooltip(link: Html, position: String) = Html {
+    link.body.replace("<a ", s"""<a data-pt-pos="$position" """)
+  }
+
   private val urlRegex = """(?i)\b((https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,6}\/)((?:[`!\[\]{};:'".,<>?«»“”‘’]*[^\s`!\[\]{}\(\);:'".,<>?«»“”‘’])*))""".r
 
   /**

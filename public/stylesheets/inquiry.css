@@ -21,7 +21,7 @@ body {
   50% { transform: scale(1.03); background-color: #4a4a4a; }
   100% { transform: scale(1); background-color: #484541; }
 }
-#inquiry > .icon {
+#inquiry > .costello {
   flex: 0 0 160px;
   height: 160px;
   width: 160px;
@@ -33,7 +33,7 @@ body {
   border: 2px solid #666;
   box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
 }
-#inquiry > .icon:hover {
+#inquiry > .costello:hover {
   animation: octopus 0.5s ease-in-out;
 }
 #inquiry a {
@@ -111,6 +111,9 @@ body {
 #inquiry .fbt:hover {
   background: rgba(56,147,232,0.8);
 }
+#inquiry .fbt.icon::before {
+  font-size: 1.7em;
+}
 #inquiry .fbt.active {
   color: #fff!important;
 }
@@ -140,4 +143,37 @@ body {
 }
 #inquiry .accuracy {
   float: right;
+}
+#inquiry .dropper {
+  position: relative;
+  height: 100%;
+  line-height: 40px;
+}
+#inquiry .dropper > span {
+  display: block;
+  height: 100%;
+  min-width: 2em;
+}
+#inquiry .dropper div {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #525252;
+  box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
+}
+#inquiry .dropper:hover > span {
+  background: #525252;
+}
+#inquiry .dropper:hover div {
+  display: block;
+}
+#inquiry .dropper div a {
+  display: block;
+  padding: 6px 10px;
+  transition: background 0.13s;
+}
+#inquiry .dropper div a:hover {
+  background: #f0f0f0;
+  color: #444;
 }

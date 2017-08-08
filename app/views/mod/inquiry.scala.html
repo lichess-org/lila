@@ -8,10 +8,10 @@
 }
 
 <div id="inquiry">
-  <i title="Costello the Inquiry Octopus" class="icon"></i>
+  <i title="Costello the Inquiry Octopus" class="costello"></i>
   <div class="meat">
     <h2 class="user">
-      @Html(userLink(in.user, withBestRating = true, params = "?mod").body.replace("<a ", "<a data-pt-pos=\"se\" "))
+      @repositionTooltip(userLink(in.user, withBestRating = true, params = "?mod"), "se")
     </h2>
     <div class="reports">
       <div class="expendable">
@@ -35,23 +35,28 @@
       <input class="fbt" type="submit" value="Warn" />
     </form>
     @if(isGranted(_.MarkEngine)) {
-    <form method="post" action="@routes.Mod.engine(in.user.username)" data-hint="This user is clearly cheating." class="hint--bottom-left">
-      <input class="fbt@when(in.user.engine, " active")" type="submit" value="Engine" />
+    <form method="post" action="@routes.Mod.engine(in.user.username)" data-hint="Mark as cheat" class="hint--bottom-left">
+      <button data-icon="n" class="fbt icon@when(in.user.engine, " active")" type="submit"></button>
     </form>
     }
     @if(isGranted(_.MarkBooster)) {
-    <form method="post" action="@routes.Mod.booster(in.user.username)" data-hint="Marks the user as a booster or sandbagger." class="hint--bottom-left">
-      <input class="fbt@when(in.user.booster, " active")" type="submit" value="Booster" />
+    <form method="post" action="@routes.Mod.booster(in.user.username)" data-hint="Marks as booster or sandbagger" class="hint--bottom-left">
+      <button data-icon="9" class="fbt icon@when(in.user.booster, " active")" type="submit"></button>
     </form>
     }
     @if(isGranted(_.MarkTroll)) {
     <form method="post" action="@routes.Mod.troll(in.user.username)?set=@(if (in.user.troll){0}else{1})" data-hint="@if(in.user.troll){En}else{Dis}able communication features for this user." class="hint--bottom-left">
-      <input class="fbt@when(in.user.troll, " active")" type="submit" value="Shadowban" />
+      <button data-icon="c" class="fbt icon@when(in.user.troll, " active")" type="submit"></button>
     </form>
     }
-    <form method="post" action="@routes.Report.xfiles(in.report.id)" data-hint="Move to X-Files" class="hint--bottom-left">
-      <input class="fbt@when(in.report.room.key == "xfiles", " active")" type="submit" value="X-Files" />
-    </form>
+    <div class="dropper">
+      <span data-icon="u"></span>
+      <div>
+        <form method="post" action="@routes.Report.xfiles(in.report.id)">
+          <input class="fbt@when(in.report.room.key == "xfiles", " active")" type="submit" value="Move to X-Files" />
+        </form>
+      </div>
+    </div>
   </div>
   <div class="actions close">
     <form action="@routes.Report.process(in.report.id)" method="post" data-hint="Dismiss this report as processed." class="process hint--bottom-left">
