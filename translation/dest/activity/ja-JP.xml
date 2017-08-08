@@ -39,6 +39,9 @@
   <plurals name="competedInNbTournaments">
     <item quantity="other">%s 回のトーナメントに参加</item>
   </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="other">%1$s 位（上位 %2$s% %）（%4$s %3$s 局で）</item>
+  </plurals>
   <string name="signedUp">Lichess に登録</string>
   <plurals name="joinedNbTeams">
     <item quantity="other">%s チームに参加</item>
