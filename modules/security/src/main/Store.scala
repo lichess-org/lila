@@ -108,7 +108,7 @@ object Store {
     coll.find(
       $doc("user" -> userId),
       $doc("_id" -> false, "ip" -> true, "ua" -> true, "fp" -> true)
-    ).cursor[Info]().gather[List]()
+    ).list[Info]()
 
   private case class DedupInfo(_id: String, ip: String, ua: String) {
     def compositeKey = s"$ip $ua"

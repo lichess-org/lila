@@ -23,6 +23,7 @@ final class Env(
     historyApi: lila.history.HistoryApi,
     rankingApi: lila.user.RankingApi,
     relationApi: lila.relation.RelationApi,
+    noteApi: lila.user.NoteApi,
     userJson: lila.user.JsonView,
     asyncCache: lila.memo.AsyncCache.Builder,
     emailValidator: lila.security.EmailAddressValidator
@@ -107,7 +108,7 @@ final class Env(
     reportApi = reportApi
   )
 
-  lazy val inquiryApi = new InquiryApi(reportApi)
+  lazy val inquiryApi = new InquiryApi(reportApi, noteApi)
 
   // api actor
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {
@@ -144,6 +145,7 @@ object Env {
     historyApi = lila.history.Env.current.api,
     rankingApi = lila.user.Env.current.rankingApi,
     relationApi = lila.relation.Env.current.api,
+    noteApi = lila.user.Env.current.noteApi,
     userJson = lila.user.Env.current.jsonView,
     asyncCache = lila.memo.Env.current.asyncCache,
     emailValidator = lila.security.Env.current.emailAddressValidator

@@ -49,7 +49,7 @@ body {
 #inquiry h2 .user_link {
   font-size: 1.3em;
 }
-#inquiry .reports {
+#inquiry .docs {
   position: relative;
   flex: 0 0 43%;
   height: 100%;
@@ -57,7 +57,13 @@ body {
   overflow: hidden;
   color: #ccc;
 }
-#inquiry .reports .expendable {
+#inquiry .docs.reports {
+  flex: 0 0 43%;
+}
+#inquiry .docs.notes {
+  flex: 0 0 33%;
+}
+#inquiry .docs .expendable {
   padding: 4px 20px 20px 20px;
   background: #555;
   position: absolute;
@@ -65,25 +71,38 @@ body {
   left: 0;
   right: 0;
 }
-#inquiry .reports:hover {
+#inquiry .docs:hover {
   overflow: visible;
 }
-#inquiry .reports:hover .expendable {
+#inquiry .docs:hover .expendable {
   z-index: 2;
   border-bottom: 1px solid #666;
   box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.4);
   max-height: 500px;
   overflow-y: auto;
 }
-#inquiry .report:not(:last-child) {
+#inquiry .doc:not(:last-child) {
   padding-bottom: 8px;
   border-bottom: 1px dotted #777;
   margin-bottom: 8px;
 }
-#inquiry .report h3 {
+#inquiry .docs h2 {
+  font-size: 1.4em;
+  line-height: 35px;
+  margin-bottom: 5px;
+}
+#inquiry .doc h3 {
   margin: 0;
 }
-#inquiry .report p {
+#inquiry form.note textarea {
+  width: 100%;
+  box-sizing: border-box;
+  resize: vertical;
+  padding: 5px;
+  height: 80px;
+}
+#inquiry form.note .submission {
+  text-align: right;
 }
 #inquiry .actions,
 #inquiry .links {
@@ -168,12 +187,14 @@ body {
 #inquiry .dropper:hover div {
   display: block;
 }
+#inquiry .dropper input {
+  width: 100%;
+  text-align: left;
+}
 #inquiry .dropper.warn form {
   line-height: 1em;
 }
 #inquiry .dropper.warn input {
-  text-transform: initial;
-  width: 100%;
-  text-align: left;
   padding: 6px 10px;
+  text-transform: initial;
 }

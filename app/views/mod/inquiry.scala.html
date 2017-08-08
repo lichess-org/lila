@@ -1,9 +1,16 @@
 @(in: lila.mod.Inquiry)(implicit ctx: Context)
 
 @renderReport(r: lila.report.Report) = {
-<div class="report">
+<div class="doc report">
   <h3>by @userIdLink(r.createdBy.some, withOnline = false) for <strong>@r.reason.name</strong>, @momentFromNow(r.createdAt)</h3>
   <p>@autoLink(r.simplifiedText)</p>
+</div>
+}
+
+@renderNote(r: lila.user.Note) = {
+<div class="doc note">
+  <h3>by @userIdLink(r.from.some, withOnline = false), @momentFromNow(r.date)</h3>
+  <p>@autoLink(r.text)</p>
 </div>
 }
 
@@ -13,12 +20,31 @@
     <h2 class="user">
       @repositionTooltip(userLink(in.user, withBestRating = true, params = "?mod"), "se")
     </h2>
-    <div class="reports">
+    <div class="docs reports">
       <div class="expendable">
         @if(in.accuracy.isDefined) {
         <span class="accuracy"><strong>@in.accuracy%</strong> accuracy</span>
         }
         @in.allReports.map(renderReport)
+      </div>
+    </div>
+    <div class="docs notes">
+      <div class="expendable">
+        <h2>
+          @if(in.notes.isEmpty) {
+          No notes yet
+          } else {
+          @pluralize("note", in.notes.size)
+          }
+        </h2>
+        <form class="note" action="@routes.User.writeNote(in.user.username)?note" method="post">
+          <textarea name="text" placeholder="Write a mod note"></textarea>
+          <input type="hidden" name="mod" value="true" />
+          <div class="submission">
+            <button type="submit" class="button thin">SEND</button>
+          </div>
+        </form>
+        @in.notes.map(renderNote)
       </div>
     </div>
   </div>
@@ -30,7 +56,7 @@
   </div>
   <div class="actions">
     <div class="dropper warn">
-      <span>Warn</span>
+      <span>WARN</span>
       <div>
         @lila.message.ModPreset.all.map { preset =>
         <form method="post" action="@routes.Mod.warn(in.user.username, preset.subject)">
@@ -62,6 +88,9 @@
     <div class="dropper">
       <span data-icon="u"></span>
       <div>
+        <form method="post" action="@routes.Mod.notifySlack(in.user.id)">
+          <input class="fbt" type="submit" value="Notify Slack" />
+        </form>
         <form method="post" action="@routes.Report.xfiles(in.report.id)">
           <input class="fbt@when(in.report.room.key == "xfiles", " active")" type="submit" value="Move to X-Files" />
         </form>
