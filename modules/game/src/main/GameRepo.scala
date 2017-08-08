@@ -427,12 +427,11 @@ object GameRepo {
     getOptionPgn(id) map (_ filter (_.nonEmpty))
 
   def getOptionPgn(id: ID): Fu[Option[PgnMoves]] =
-    coll.find(
-      $id(id), $doc(
-        F.id -> false,
-        F.binaryPgn -> true
-      )
-    ).uno[Bdoc] map { _ flatMap extractPgnMoves }
+    coll.primitiveOne[BSONBinary]($id(id), F.binaryPgn) map {
+      _ map { bin =>
+        BinaryFormat.pgn read { ByteArray.ByteArrayBSONHandler read bin }
+      }
+    }
 
   def lastGameBetween(u1: String, u2: String, since: DateTime): Fu[Option[Game]] =
     coll.uno[Game]($doc(
@@ -440,16 +439,22 @@ object GameRepo {
       F.createdAt $gt since
     ))
 
-  def getUserIds(id: ID): Fu[List[String]] =
-    coll.find(
-      $id(id), $doc(
-        F.id -> false,
-        F.playerUids -> true
-      )
-    ).uno[Bdoc] map { ~_.flatMap(_.getAs[List[String]](F.playerUids)) }
+  def lastGamesBetween(u1: String, u2: String, since: DateTime, nb: Int): Fu[List[Game]] =
+    coll.find($doc(
+      F.playerUids $all List(u1, u2),
+      F.createdAt $gt since
+    )).list[Game](nb, ReadPreference.secondaryPreferred)
 
-  private def extractPgnMoves(doc: Bdoc) =
-    doc.getAs[BSONBinary](F.binaryPgn) map { bin =>
-      BinaryFormat.pgn read { ByteArray.ByteArrayBSONHandler read bin }
-    }
+  def getUserIds(id: ID): Fu[List[User.ID]] =
+    coll.primitiveOne[List[User.ID]]($id(id), F.playerUids) map (~_)
+
+  def recentAnalysableGamesByUserId(userId: User.ID, nb: Int) =
+    coll.find(
+      Query.finished
+        ++ Query.rated
+        ++ Query.user(userId)
+        ++ Query.turnsMoreThan(20)
+    ).sort(Query.sortCreated)
+      .cursor[Game](ReadPreference.secondaryPreferred)
+      .list(nb)
 }

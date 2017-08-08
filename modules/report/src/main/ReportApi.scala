@@ -11,6 +11,7 @@ import lila.user.{ User, UserRepo, NoteApi }
 
 final class ReportApi(
     val coll: Coll,
+    autoAnalysis: AutoAnalysis,
     noteApi: NoteApi,
     isOnline: User.ID => Boolean,
     asyncCache: lila.memo.AsyncCache.Builder,
@@ -36,7 +37,8 @@ final class ReportApi(
 
       lila.mon.mod.report.create(report.reason.key)()
 
-      def insert = coll.insert(report).void >>-
+      def insert = coll.insert(report).void >>
+        autoAnalysis(report) >>-
         bus.publish(lila.hub.actorApi.report.Created(reported.id, report.reason.key, by.id), 'report)
 
       if (by.id == UserRepo.lichessId) coll.update(

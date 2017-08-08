@@ -17,6 +17,7 @@ final class Env(
     sink: lila.analyse.Analyser
 ) {
 
+  private val ActorName = config getString "actor.name"
   private val OfflineMode = config getBoolean "offline_mode"
   private val AnalysisNodes = config getInt "analysis.nodes"
   private val MovePlies = config getInt "move.plies"
@@ -105,7 +106,7 @@ final class Env(
       case lila.hub.actorApi.fishnet.AutoAnalyse(gameId) =>
         analyser(gameId, Work.Sender(userId = none, ip = none, mod = false, system = true))
     }
-  }))
+  }), name = ActorName)
 
   def cli = new lila.common.Cli {
     def process = {
