@@ -131,7 +131,7 @@
   <string name="newToLichess">Berria Lichess-en?</string>
   <string name="youNeedAnAccountToDoThat">Kontu bat behar duzu hori egiteko</string>
   <string name="signUp">Izen ematea</string>
-  <string name="computersAreNotAllowedToPlay">Xake-programen erabilera debekatuta dago. Mesedez, ez erabili beste jokalari, xake-programa edo data baseren laguntza.  Kontuan izan kontu anitzak sortzea ere oso gaizki ikusita dagoela ;  gehiegizko kontuak sortzeak zure kanporaketa ekar dezake.</string>
+  <string name="computersAreNotAllowedToPlay">Xake-programen erabilera debekatuta dago. Mesedez, ez erabili beste jokalari, xake-programa edo datu-baseren laguntzariik. Kontuan izan kontu asko sortzea ere oso gaizki ikusita dagoela; kontu gehieg sortzeak zu kanporatzea ekar dezake.</string>
   <string name="games">Partidak</string>
   <string name="forum">Foroa</string>
   <string name="xPostedInForumY">%1$s (e)k mezua idatzi du %2$s gaian.</string>
@@ -313,7 +313,7 @@
   <string name="retry">Berriro saiatu</string>
   <string name="reconnecting">Konektatuz</string>
   <string name="onlineFriends">Konektatutako lagunak</string>
-  <string name="noFriendsOnline">Konektatutako lagunik ez dago</string>
+  <string name="noFriendsOnline">Ez dago lagunik konektatuta</string>
   <string name="findFriends">Lagunak bilatu</string>
   <string name="favoriteOpponents">Gogoko aurkariak</string>
   <string name="follow">Jarraitu</string>
@@ -564,7 +564,7 @@
   <string name="opponent">Aurkaria</string>
   <string name="learnMenu">Ikasi</string>
   <string name="community">Komunitatea</string>
-  <string name="tools">Erremintak</string>
+  <string name="tools">Tresnak</string>
   <string name="increment">Denbora-gehikuntza</string>
   <string name="sharePGN">PGN-a partekatu</string>
   <string name="playOnline">Online jokatu</string>
