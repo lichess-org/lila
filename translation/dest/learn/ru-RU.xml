@@ -70,10 +70,22 @@
   <string name="attackTheOpponentsKing">Атака на короля</string>
   <string name="checkInOneIntro">Чтобы объявить шах, нападайте на короля противника. Он должен будет защищаться!</string>
   <string name="outOfCheck">Уход из-под шаха</string>
+  <string name="outOfCheckIntro">Вам шах! Вы должны уходить или блокировать атаку.</string>
+  <string name="escapeWithTheKing">Побег королем!</string>
+  <string name="theKingCannotEscapeButBlock">Король не может уйти, но вы можете блокировать атаку!</string>
   <string name="mateInOne">Мат в один ход</string>
   <string name="castling">Рокировка</string>
+  <string name="enPassant">Взятие на проходе</string>
+  <string name="checkInTwo">Шах в 2 хода</string>
+  <string name="twoMovesToGiveCheck">Два хода на то, чтобы сделать шах</string>
+  <string name="register">Регистрация</string>
+  <string name="getAFreeLichessAccount">Создайте бесплатный аккаунт на Lichess</string>
   <string name="practice">Практика</string>
   <string name="learnCommonChessPositions">Учите основные позиции в шахматах</string>
+  <string name="puzzles">Задачи</string>
+  <string name="exerciseYourTacticalSkills">Осуществляйте свои тактические навыки</string>
+  <string name="videos">Видео</string>
+  <string name="watchInstructiveChessVideos">Смотреть обучающие видеозаписи</string>
   <string name="playPeople">Игра онлайн</string>
   <string name="playMachine">Игра с ботом</string>
 </resources>
