@@ -162,6 +162,7 @@
   <string name="passwordReset">Nieuw wachtwoord</string>
   <string name="forgotPassword">Wachtwoord vergeten?</string>
   <string name="rank">Positie</string>
+  <string name="rankX">Positie: %s</string>
   <string name="gamesPlayed">Gespeelde partijen</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s partij met u</item>
