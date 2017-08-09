@@ -167,6 +167,11 @@
   <string name="forgotPassword">Wachtwoord vergeten?</string>
   <string name="rank">Positie</string>
   <string name="rankX">Positie: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Positie wordt elke %s minuten bijgewerkt</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s puzzle</item>
+    <item quantity="other">%s puzzel</item>
+  </plurals>
   <string name="gamesPlayed">Gespeelde partijen</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s partij met u</item>
@@ -417,8 +422,8 @@
   <string name="fromGameLink">Van partij %s</string>
   <string name="continueTraining">Ga verder met de training</string>
   <string name="retryThisPuzzle">Probeer het opnieuw</string>
-  <string name="thisPuzzleIsCorrect">De puzzel is correct en interessant</string>
-  <string name="thisPuzzleIsWrong">De puzzel is fout of saai</string>
+  <string name="thisPuzzleIsCorrect">Deze puzzel is correct en interessant</string>
+  <string name="thisPuzzleIsWrong">Deze puzzel is fout of saai</string>
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">Je hebt %s seconde om je eerste zet te doen!</item>
     <item quantity="other">Je hebt %s seconden om je eerste zet te doen!</item>
@@ -597,6 +602,7 @@
   <string name="sourceCode">Broncode</string>
   <string name="simultaneousExhibitions">Simultaans</string>
   <string name="host">Simultaangever</string>
+  <string name="hostColorX">Kleur simultaangever: %s</string>
   <string name="createdSimuls">Nieuwe simultaans</string>
   <string name="hostANewSimul">Geef een nieuwe simultaan</string>
   <string name="noSimulFound">Simultaan niet gevonden</string>
