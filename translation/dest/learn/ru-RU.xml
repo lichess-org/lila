@@ -70,10 +70,14 @@
   <string name="attackTheOpponentsKing">Атака на короля</string>
   <string name="checkInOneIntro">Чтобы объявить шах, нападайте на короля противника. Он должен будет защищаться!</string>
   <string name="outOfCheck">Уход из-под шаха</string>
+  <string name="defendYourKing">Защитите своего короля</string>
   <string name="outOfCheckIntro">Вам шах! Вы должны уходить или блокировать атаку.</string>
   <string name="escapeWithTheKing">Побег королем!</string>
   <string name="theKingCannotEscapeButBlock">Король не может уйти, но вы можете блокировать атаку!</string>
   <string name="mateInOne">Мат в один ход</string>
+  <string name="defeatTheOpponentsKing">Поражение короля противника</string>
+  <string name="mateInOneIntro">Вы выигрываете, когда ваш оппонент не может защищаться от шаха.</string>
+  <string name="attackYourOpponentsKing">Атакуйте короля вашего противника таким образом, чтобы его нельзя было защитить!</string>
   <string name="intermediate">Промежуточный этап</string>
   <string name="boardSetup">Позиция на доске</string>
   <string name="howTheGameStarts">Начало шахматной партии</string>
@@ -112,6 +116,9 @@
   <string name="playMachine">Игра с ботом</string>
   <string name="testYourSkillsWithTheComputer">Проверьте свои навыки</string>
   <string name="letsGo">Поехали!</string>
+  <string name="stageX">Этап %s</string>
+  <string name="nailedIt">Успех.</string>
+  <string name="stageXComplete">Этап %s завершен</string>
   <string name="yourScore">Ваш результат</string>
   <string name="next">Дальше</string>
   <string name="backToMenu">Вернуться в меню</string>
