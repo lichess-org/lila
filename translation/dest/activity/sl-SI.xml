@@ -75,6 +75,5 @@
     <item quantity="few">Končal %s turnirje</item>
     <item quantity="other">Končal %s turnirjev</item>
   </plurals>
-  <string name="rankedInTournament">#%1$s na lestvici (zgornjih %2$s) z %3$s igrami v %4$s</string>
   <string name="signedUp">Prijavljen na lichess</string>
 </resources>

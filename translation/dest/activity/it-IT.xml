@@ -51,7 +51,10 @@
     <item quantity="one">Gareggiato in %s torneo</item>
     <item quantity="other">Gareggiato in %s tornei</item>
   </plurals>
-  <string name="rankedInTournament">Classificato #%1$s (top %2$s) con %3$s partite in %4$s</string>
+  <plurals name="rankedInTournament">
+    <item quantity="one">Classificato #%1$s (top %2$s%%) con %3$s partite in %4$s</item>
+    <item quantity="other">Classificato #%1$s (top %2$s%%) con %3$s partite in %4$s</item>
+  </plurals>
   <string name="signedUp">Registrato su lichess</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Partecipante in %s squadra</item>

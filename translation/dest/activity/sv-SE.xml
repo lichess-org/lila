@@ -51,6 +51,5 @@
     <item quantity="one">Tävlade i %s turnering</item>
     <item quantity="other">Tävlade i %s turneringar</item>
   </plurals>
-  <string name="rankedInTournament">Rankad #%1$s (topp %2$s) med %3$s partier i %4$s</string>
   <string name="signedUp">Registrerade på lichess</string>
 </resources>

@@ -51,6 +51,5 @@
     <item quantity="one">Αγωνίστηκε σε %s πρωτάθλημα</item>
     <item quantity="other">Αγωνίστηκε σε %s πρωταθλήματα</item>
   </plurals>
-  <string name="rankedInTournament">Κατάταξη #%1$s (κορυφή %2$s) με %3$s παρτίδες στο %4$s</string>
   <string name="signedUp">Εγγεγραμμένοι στο lichess</string>
 </resources>

@@ -48,10 +48,13 @@
     <item quantity="other">%s yeni çalışma oluşturdu</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="one">%s turnuvasında mücadele etti</item>
+    <item quantity="one">%s turnuvaya katıldı</item>
     <item quantity="other">%s turnuvasında mücadele etti</item>
   </plurals>
-  <string name="rankedInTournament">%3$s oyun ile %4$s\'da %1$s. oldu (en iyi %2$s içinde)</string>
+  <plurals name="rankedInTournament">
+    <item quantity="one">%3$s oyun oynayarak %4$s turnuvasında %1$s. oldu (en iyi%2$s%% içinde)</item>
+    <item quantity="other">%3$s oyun oynayarak %4$s turnuvasında %1$s. oldu (en iyi%2$s%% içinde)</item>
+  </plurals>
   <string name="signedUp">Lichess\'e üye oldu</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">%s takımına katıldın</item>

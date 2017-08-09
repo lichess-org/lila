@@ -82,6 +82,7 @@
     <item quantity="other">Volgende slag- of pionzet in %s halfzetten (afstand tot het herstellen van de vijftig zetten teller)</item>
   </plurals>
   <string name="noGameFound">Geen partij gevonden</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Misschien meer partijen toevoegen via de menu voorkeuren?</string>
   <string name="openingExplorer">Openingverkenner &amp; tablebase</string>
   <string name="xOpeningExplorer">%s openingsverkenner</string>
   <string name="winPreventedBy50MoveRule">Winst voorkomen door vijftig-zetten regel</string>
@@ -90,9 +91,13 @@
   <string name="importPgn">PGN importeren</string>
   <string name="delete">Verwijderen</string>
   <string name="deleteThisImportedGame">Deze geïmporteerde partij verwijderen?</string>
+  <string name="replayMode">Herhaal modus</string>
+  <string name="realtimeReplay">Realtime</string>
+  <string name="byCPL">Door CPL</string>
   <string name="openStudy">Open Study</string>
   <string name="enable">Aanzetten</string>
   <string name="bestMoveArrow">Beste zet-pijl</string>
+  <string name="evaluationGauge">Evaluatie meter</string>
   <string name="multipleLines">Meerdere varianten</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Geheugen</string>
@@ -161,6 +166,12 @@
   <string name="passwordReset">Nieuw wachtwoord</string>
   <string name="forgotPassword">Wachtwoord vergeten?</string>
   <string name="rank">Positie</string>
+  <string name="rankX">Positie: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Positie wordt elke %s minuten bijgewerkt</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s puzzle</item>
+    <item quantity="other">%s puzzel</item>
+  </plurals>
   <string name="gamesPlayed">Gespeelde partijen</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s partij met u</item>
@@ -359,6 +370,8 @@
   <string name="averageOpponent">Gemiddelde tegenstander</string>
   <string name="membersOnly">Alleen voor leden</string>
   <string name="boardEditor">Bordbewerker</string>
+  <string name="setTheBoard">Zet het bord op</string>
+  <string name="popularOpenings">Populaire openingen</string>
   <string name="startPosition">Beginstelling</string>
   <string name="clearBoard">Maak het bord leeg</string>
   <string name="savePosition">Sla de stelling op</string>
@@ -397,6 +410,7 @@
   <string name="keepGoing">Ga verder...</string>
   <string name="puzzleFailed">Puzzel gefaald</string>
   <string name="butYouCanKeepTrying">Maar je kunt het blijven proberen.</string>
+  <string name="success">Succes</string>
   <string name="wasThisPuzzleAnyGood">Was dit een goede puzzel?</string>
   <string name="pleaseVotePuzzle">Verbeter lichess door te stemmen met de pijl naar boven of beneden.</string>
   <string name="thankYou">Bedankt!</string>
@@ -408,8 +422,8 @@
   <string name="fromGameLink">Van partij %s</string>
   <string name="continueTraining">Ga verder met de training</string>
   <string name="retryThisPuzzle">Probeer het opnieuw</string>
-  <string name="thisPuzzleIsCorrect">De puzzel is correct en interessant</string>
-  <string name="thisPuzzleIsWrong">De puzzel is fout of saai</string>
+  <string name="thisPuzzleIsCorrect">Deze puzzel is correct en interessant</string>
+  <string name="thisPuzzleIsWrong">Deze puzzel is fout of saai</string>
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">Je hebt %s seconde om je eerste zet te doen!</item>
     <item quantity="other">Je hebt %s seconden om je eerste zet te doen!</item>
@@ -516,6 +530,8 @@
   <string name="xAnsweredY">%1$s antwoordde %2$s</string>
   <string name="xCommentedY">%1$s gaf commentaar op %2$s</string>
   <string name="victory">Overwinning!</string>
+  <string name="defeat">Nederlaag</string>
+  <string name="xVsYinZ">%1$s vs %2$s in %3$s</string>
   <string name="timeline">Tijdslijn</string>
   <string name="seeAllTournaments">Zie alle toernooien</string>
   <string name="starting">Startend:</string>
@@ -587,6 +603,7 @@
   <string name="sourceCode">Broncode</string>
   <string name="simultaneousExhibitions">Simultaans</string>
   <string name="host">Simultaangever</string>
+  <string name="hostColorX">Kleur simultaangever: %s</string>
   <string name="createdSimuls">Nieuwe simultaans</string>
   <string name="hostANewSimul">Geef een nieuwe simultaan</string>
   <string name="noSimulFound">Simultaan niet gevonden</string>
@@ -691,6 +708,10 @@
   <string name="yourScore">Uw score: %s</string>
   <string name="language">Taal</string>
   <string name="background">Achtergrond</string>
+  <string name="light">Licht</string>
+  <string name="dark">Donker</string>
+  <string name="transparent">Transparant</string>
+  <string name="backgroundImageUrl">Achtergrondafbeelding URL:</string>
   <string name="boardGeometry">Bordgeometrie</string>
   <string name="boardTheme">Bordthema</string>
   <string name="boardSize">Bordgrootte</string>
