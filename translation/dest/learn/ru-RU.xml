@@ -46,7 +46,11 @@
   <string name="mostOfTheTimePromotingToAQueenIsBest">В большинстве случае пешку лучше превратить в ферзя. Но иногда превращение в коня может быть выгоднее!</string>
   <string name="pawnsMoveForward">Пешки движутся вперёд, но бьют по диагоналям!</string>
   <string name="captureThenPromote">Побейте, затем превратитесь!</string>
+  <string name="useAllThePawns">Используйте все пешки!
+Необязательно их превращать.</string>
   <string name="aPawnOnTheSecondRank">Пешка на втором ряду может ходить на два поля за ход!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Соберите все звезды!
+Не обязательно превращать пешки.</string>
   <string name="pawnComplete">Поздравляем! У пешек нет секретов для вас.</string>
   <string name="pawnPromotion">Превращение пешки</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Ваша пешка достигла края доски!</string>
@@ -91,6 +95,7 @@
   <string name="castleKingSideMovePiecesFirst">Короткая рокировка! Сначала вам нужно развить фигуры.</string>
   <string name="castleQueenSideMovePiecesFirst">Длинная рокировка! Сначала вам нужно развить фигуры.</string>
   <string name="youCannotCastleIfMoved">Вы не можете делать рокировку, если король или ладья, участвующие в рокировке, делали ход.</string>
+  <string name="findAWayToCastleQueenSide">Найдите способ сделать длинную рокировку!</string>
   <string name="enPassant">Взятие на проходе</string>
   <string name="theSpecialPawnMove">Специальный ход пешкой</string>
   <string name="enPassantComplete">Поздравляем! Теперь вы можете делать взятие на проходе.</string>
@@ -117,7 +122,13 @@
   <string name="testYourSkillsWithTheComputer">Проверьте свои навыки</string>
   <string name="letsGo">Поехали!</string>
   <string name="stageX">Этап %s</string>
+  <string name="awesome">Прекрасно!</string>
+  <string name="excellent">Превосходно!</string>
+  <string name="greatJob">Отличная работа!</string>
+  <string name="perfect">Отлично!</string>
+  <string name="wayToGo">Вперед!</string>
   <string name="nailedIt">Успех.</string>
+  <string name="rightOn">Правильно!</string>
   <string name="stageXComplete">Этап %s завершен</string>
   <string name="yourScore">Ваш результат</string>
   <string name="next">Дальше</string>
