@@ -58,10 +58,11 @@ body {
   color: #ccc;
 }
 #inquiry .docs.reports {
-  flex: 0 0 43%;
+  flex: 4 1 auto;
 }
 #inquiry .docs.notes {
-  flex: 0 0 33%;
+  margin: 0;
+  flex: 3 1 auto;
 }
 #inquiry .docs .expendable {
   padding: 4px 20px 20px 20px;
@@ -87,7 +88,6 @@ body {
   margin-bottom: 8px;
 }
 #inquiry .docs h2 {
-  font-size: 1.4em;
   line-height: 35px;
   margin-bottom: 5px;
 }
