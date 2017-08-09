@@ -27,7 +27,7 @@ final class PerfStatIndexer(storage: PerfStatStorage, sequencer: ActorRef) {
           Pov.ofUserId(game, user.id).fold(perfStat)(perfStat.agg)
         case (perfStat, _) => perfStat
       }
-  } flatMap storage.insert
+  } flatMap storage.insert recover lila.db.recoverDuplicateKey(_ => ())
 
   def addGame(game: Game): Funit = game.players.flatMap { player =>
     player.userId.map { userId =>
