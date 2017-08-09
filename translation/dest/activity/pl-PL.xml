@@ -64,9 +64,9 @@
     <item quantity="other">Uczestnictwo w %s turniejach</item>
   </plurals>
   <plurals name="rankedInTournament">
-    <item quantity="one">%1$s miejsce w klasyfikacji (top %2$s%) z %3$s partią w %4$s</item>
-    <item quantity="few">%1$s miejsce w klasyfikacji (top %2$s%) z %3$s partiami w %4$s</item>
-    <item quantity="other">%1$s miejsce w klasyfikacji (top %2$s%) z %3$s partiami w %4$s</item>
+    <item quantity="one">%1$s miejsce w klasyfikacji (top %2$s%%) z %3$s partią w %4$s</item>
+    <item quantity="few">%1$s miejsce w klasyfikacji (top %2$s%%) z %3$s partiami w %4$s</item>
+    <item quantity="other">%1$s miejsce w klasyfikacji (top %2$s%%) z %3$s partiami w %4$s</item>
   </plurals>
   <string name="signedUp">Zostałeś zarejestrowany na Lichess</string>
   <plurals name="joinedNbTeams">
