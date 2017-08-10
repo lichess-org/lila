@@ -46,7 +46,7 @@
   <string name="viewTheComputerAnalysis">Zobacz analizę komputerową</string>
   <string name="requestAComputerAnalysis">Poproś o analizę komputerową</string>
   <string name="computerAnalysis">Analiza komputerowa</string>
-  <string name="computerAnalysisAvailable">Analiza komputerowa dostępna</string>
+  <string name="computerAnalysisAvailable">Dostępna analiza komputerowa</string>
   <string name="analysis">Analiza partii</string>
   <string name="depthX">Głębokość %s</string>
   <string name="usingServerAnalysis">Analiza na serwerze</string>
@@ -232,9 +232,9 @@
   <string name="freeOnlineChess">Darmowe szachy online</string>
   <string name="spectators">Widzowie:</string>
   <plurals name="nbRated">
-    <item quantity="one">%s rankingowa gra</item>
-    <item quantity="few">%s rankingowych gier</item>
-    <item quantity="other">%s rankingowych gier</item>
+    <item quantity="one">%s rankingowa</item>
+    <item quantity="few">%s rankingowe</item>
+    <item quantity="other">%s rankingowych</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s wygrana</item>
@@ -323,7 +323,7 @@
     <item quantity="other">%s zaimportowana partii</item>
   </plurals>
   <string name="thisIsAChessCaptcha">To jest szachowa CAPTCHA.</string>
-  <string name="clickOnTheBoardToMakeYourMove">Kliknij na szachownicę, by zrobić ruch i udowodnić, że jesteś człowiekiem.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Wykonaj ruch i udowodnij, że jesteś człowiekiem.</string>
   <string name="captcha.fail">Rozwiąż szachowe zadanie.</string>
   <string name="notACheckmate">To nie jest mat</string>
   <string name="colorPlaysCheckmateInOne">%s zaczynają i dają mata w jednym posunięciu</string>
