@@ -414,6 +414,7 @@ und eine URL um dein PGN zu teilen.</string>
   <string name="keepGoing">Mach weiter...</string>
   <string name="puzzleFailed">Nicht gelöst</string>
   <string name="butYouCanKeepTrying">Aber du kannst es trotzdem weiterversuchen.</string>
+  <string name="success">Abgeschlossen</string>
   <string name="wasThisPuzzleAnyGood">Wie fandest du diese Aufgabe?</string>
   <string name="pleaseVotePuzzle">Verbessere Lichess, indem du mit den Pfeilen abstimmst:</string>
   <string name="thankYou">Vielen Dank!</string>
