@@ -119,7 +119,7 @@
     <item quantity="few">%s graczy</item>
     <item quantity="other">%s graczy</item>
   </plurals>
-  <string name="currentGames">Rozgrywane partie</string>
+  <string name="currentGames">Partie w toku</string>
   <plurals name="nbGames">
     <item quantity="one">%s partia</item>
     <item quantity="few">%s partie</item>
@@ -201,7 +201,7 @@
   <string name="accept">Akceptuję</string>
   <string name="decline">Odrzuć</string>
   <string name="playingRightNow">W toku</string>
-  <string name="finished">Zakończono</string>
+  <string name="finished">Zakończone</string>
   <string name="abortGame">Przerwij grę</string>
   <string name="gameAborted">Gra została przerwana</string>
   <string name="standard">Standard</string>
@@ -276,7 +276,7 @@
   <string name="yourOpponentProposesATakeback">Przeciwnik chce cofnąć ruch</string>
   <string name="bookmarkThisGame">Dodaj do ulubionych</string>
   <string name="search">Szukaj</string>
-  <string name="advancedSearch">Wyszukiwanie zaawansowane</string>
+  <string name="advancedSearch">Wyszukiwarka</string>
   <string name="tournament">Turniej</string>
   <string name="tournaments">Turnieje</string>
   <string name="tournamentPoints">Punkty turniejowe</string>
