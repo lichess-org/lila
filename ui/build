@@ -1,5 +1,8 @@
 #!/bin/bash -ea
 target=${1-dev}
+mode=${2-build}
+
+echo "building ui modules with target=$target and mode=$mode"
 
 cd "$(git rev-parse --show-toplevel)"
 
@@ -15,7 +18,9 @@ build_ts() {
   set -ev
   cd ui/$1
   yarn install --non-interactive --mutex file:$YARN_MUTEX
-  # yarn upgrade --non-interactive --mutex file:$YARN_MUTEX
+  if [ $mode == "upgrade" ]; then
+    yarn upgrade --non-interactive --mutex file:$YARN_MUTEX
+  fi
   yarn run compile --non-interactive
 }
 
@@ -25,7 +30,9 @@ build() {
   app=$1
   cd ui/$app
   yarn install --non-interactive --mutex file:$YARN_MUTEX
-  # yarn upgrade --non-interactive --mutex file:$YARN_MUTEX
+  if [ $mode == "upgrade" ]; then
+    yarn upgrade --non-interactive --mutex file:$YARN_MUTEX
+  fi
   gulp $target
 }
 
