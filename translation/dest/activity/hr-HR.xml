@@ -63,6 +63,11 @@
     <item quantity="few">Natjecao/la se u %s turnira</item>
     <item quantity="other">Natjecao/la se u %s turnira</item>
   </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">Rangiran/rangirana #%1$s (top %2$s%%) s jednom partijom u turniru %4$s</item>
+    <item quantity="few">Rangiran/rangirana #%1$s (top %2$s%%) s %3$s partije u turniru %4$s</item>
+    <item quantity="other">Rangiran/rangirana #%1$s (top %2$s%%) s %3$s partija u turniru %4$s</item>
+  </plurals>
   <string name="signedUp">Registrirao/la se na lichess</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Pridružio/la se jednom timu</item>
