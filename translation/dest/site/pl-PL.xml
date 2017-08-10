@@ -672,7 +672,7 @@
     <item quantity="few">%1$s graczy grało w tym tygodniu w wariant %2$s.</item>
     <item quantity="other">%1$s graczy grało w tym tygodniu w wariant %2$s.</item>
   </plurals>
-  <string name="yourPerfTypeRatingIsRating">Twój ranking w wariancie %1$s to %2$s</string>
+  <string name="yourPerfTypeRatingIsRating">Twój ranking w wariancie %1$s to %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Jesteś lepszy niż %1$s graczy w tym wariancie.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nie masz jeszcze ustalonego rankingu w tym wariancie.</string>
   <string name="checkYourEmail">Sprawdź swoją skrzynkę e-mail</string>
