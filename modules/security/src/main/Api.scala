@@ -22,11 +22,11 @@ final class Api(
 
   val AccessUri = "access_uri"
 
-  def usernameForm = Form(single(
+  lazy val usernameForm = Form(single(
     "username" -> text
   ))
 
-  def loginForm = Form(tuple(
+  lazy val loginForm = Form(tuple(
     "username" -> nonEmptyText,
     "password" -> nonEmptyText
   ))
@@ -48,7 +48,7 @@ final class Api(
   private def authenticateCandidate(candidate: Option[User.LoginCandidate])(username: String, password: String): Option[User] =
     candidate ?? { _(password) }
 
-  def saveAuthentication(userId: String, apiVersion: Option[ApiVersion])(implicit req: RequestHeader): Fu[String] =
+  def saveAuthentication(userId: User.ID, apiVersion: Option[ApiVersion])(implicit req: RequestHeader): Fu[String] =
     UserRepo mustConfirmEmail userId flatMap {
       case true => fufail(Api MustConfirmEmail userId)
       case false =>
@@ -74,14 +74,14 @@ final class Api(
       }
     }
 
-  def locatedOpenSessions(userId: String, nb: Int): Fu[List[LocatedSession]] =
+  def locatedOpenSessions(userId: User.ID, nb: Int): Fu[List[LocatedSession]] =
     Store.openSessions(userId, nb) map {
       _.map { session =>
         LocatedSession(session, geoIP(session.ip))
       }
     }
 
-  def dedup(userId: String, req: RequestHeader): Funit =
+  def dedup(userId: User.ID, req: RequestHeader): Funit =
     reqSessionId(req) ?? { Store.dedup(userId, _) }
 
   def setFingerPrint(req: RequestHeader, fp: FingerPrint): Fu[Option[FingerHash]] =
@@ -95,14 +95,14 @@ final class Api(
 
   def recentByPrintExists(fp: FingerPrint): Fu[Boolean] = Store recentByPrintExists fp
 
-  private def userIdsSharingField(field: String)(userId: String): Fu[List[String]] =
-    coll.distinctWithReadPreference[String, List](
+  private def userIdsSharingField(field: String)(userId: String): Fu[List[User.ID]] =
+    coll.distinctWithReadPreference[User.ID, List](
       field,
       $doc("user" -> userId, field -> $doc("$exists" -> true)).some,
       readPreference = ReadPreference.secondaryPreferred
     ).flatMap {
       case Nil => fuccess(Nil)
-      case values => coll.distinctWithReadPreference[String, List](
+      case values => coll.distinctWithReadPreference[User.ID, List](
         "user",
         $doc(
           field $in values,
@@ -116,8 +116,8 @@ final class Api(
 
   def recentUserIdsByIp(ip: IpAddress) = recentUserIdsByField("ip")(ip.value)
 
-  private def recentUserIdsByField(field: String)(value: String): Fu[List[String]] =
-    coll.distinct[String, List](
+  private def recentUserIdsByField(field: String)(value: String): Fu[List[User.ID]] =
+    coll.distinct[User.ID, List](
       "user",
       $doc(
         field -> value,
@@ -128,5 +128,5 @@ final class Api(
 
 object Api {
 
-  case class MustConfirmEmail(userId: String) extends Exception
+  case class MustConfirmEmail(userId: User.ID) extends Exception
 }

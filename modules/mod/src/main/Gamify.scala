@@ -7,6 +7,7 @@ import reactivemongo.bson._
 import scala.concurrent.duration._
 
 import lila.db.dsl._
+import lila.user.UserRepo.lichessId
 
 final class Gamify(
     logColl: Coll,
@@ -80,7 +81,7 @@ final class Gamify(
   private def dateRange(from: DateTime, toOption: Option[DateTime]) =
     $doc("$gte" -> from) ++ toOption.?? { to => $doc("$lt" -> to) }
 
-  private val notLichess = $doc("$ne" -> "lichess")
+  private val notLichess = $doc("$ne" -> lichessId)
 
   private def actionLeaderboard(after: DateTime, before: Option[DateTime]): Fu[List[ModCount]] =
     logColl.aggregate(Match($doc(
