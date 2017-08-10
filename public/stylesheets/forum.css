@@ -184,11 +184,6 @@ div.post .message {
   cursor: initial;
 }
 
-div.post .message iframe.analyse,
-div.post .message iframe.video {
-  margin: 1em 0;
-}
-
 form.edit-post-form {
   display: none;
   margin-top: 1.5em;

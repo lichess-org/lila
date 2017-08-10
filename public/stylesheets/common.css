@@ -1904,6 +1904,7 @@ iframe.video {
   justify-content: center;
   box-shadow: 0 0 5px rgba(0,0,0,0.2);
   border: none;
+  margin: 1em 0;
 }
 body ::-webkit-scrollbar,
 body ::-webkit-scrollbar-corner {
