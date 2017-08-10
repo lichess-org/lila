@@ -275,15 +275,17 @@ private[controllers] trait LilaController
       case _ => html
     }).dmap(_.withHeaders("Vary" -> "Accept"))
 
-  protected def reqToCtx(req: RequestHeader): Fu[HeaderContext] = restoreUser(req) flatMap { d =>
-    val ctx = UserContext(req, d.map(_.user), lila.i18n.I18nLangPicker(req, d.map(_.user)))
-    pageDataBuilder(ctx, d.exists(_.hasFingerprint)) dmap { Context(ctx, _) }
+  protected def reqToCtx(req: RequestHeader): Fu[HeaderContext] = restoreUser(req) flatMap {
+    case (d, impersonatedBy) =>
+      val ctx = UserContext(req, d.map(_.user), impersonatedBy, lila.i18n.I18nLangPicker(req, d.map(_.user)))
+      pageDataBuilder(ctx, d.exists(_.hasFingerprint)) dmap { Context(ctx, _) }
   }
 
   protected def reqToCtx[A](req: Request[A]): Fu[BodyContext[A]] =
-    restoreUser(req) flatMap { d =>
-      val ctx = UserContext(req, d.map(_.user), lila.i18n.I18nLangPicker(req, d.map(_.user)))
-      pageDataBuilder(ctx, d.exists(_.hasFingerprint)) dmap { Context(ctx, _) }
+    restoreUser(req) flatMap {
+      case (d, impersonatedBy) =>
+        val ctx = UserContext(req, d.map(_.user), impersonatedBy, lila.i18n.I18nLangPicker(req, d.map(_.user)))
+        pageDataBuilder(ctx, d.exists(_.hasFingerprint)) dmap { Context(ctx, _) }
     }
 
   private def pageDataBuilder(ctx: UserContext, hasFingerprint: Boolean): Fu[PageData] =
@@ -318,16 +320,20 @@ private[controllers] trait LilaController
       c.value.nonEmpty && c.value == Env.api.Accessibility.hash
     }
 
-  private def restoreUser(req: RequestHeader): Fu[Option[FingerprintedUser]] =
+  // user, impersonatedBy
+  type RestoredUser = (Option[FingerprintedUser], Option[UserModel])
+  private def restoreUser(req: RequestHeader): Fu[RestoredUser] =
     Env.security.api restoreUser req addEffect {
       _ ifTrue (HTTPRequest isSynchronousHttp req) foreach { d =>
         Env.current.bus.publish(lila.user.User.Active(d.user), 'userActive)
       }
-    } flatMap impersonation
-
-  private def impersonation(from: Option[FingerprintedUser]): Fu[Option[FingerprintedUser]] =
-    from.map(_.user) ?? lila.mod.Impersonate.impersonating map {
-      _.fold(from) { FingerprintedUser(_, true).some }
+    } flatMap {
+      case None => fuccess(None -> None)
+      case Some(d) => lila.mod.Impersonate.impersonating(d.user) map {
+        _.fold[RestoredUser](d.some -> None) { impersonated =>
+          FingerprintedUser(impersonated, true).some -> d.user.some
+        }
+      }
     }
 
   protected val csrfCheck = Env.security.csrfRequestHandler.check _

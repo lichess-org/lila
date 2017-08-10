@@ -38,7 +38,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     @if(ctx.pref.is3d) { @cssTag("board-3d.css") }
     @if(ctx.pref.coords == 1) { @cssTag("board.coords.inner.css") }
     @if(ctx.pageData.inquiry.isDefined) { @cssTag("inquiry.css") }
-    @if(ctx.me ?? lila.mod.Impersonate.isImpersonated) { @cssTag("impersonate.css") }
+    @if(ctx.userContext.impersonatedBy.isDefined) { @cssTag("impersonate.css") }
     @moreCss
     <link id="piece-sprite" href="@staticUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css?v=${ctx.pageData.assetVersion}")" type="text/css" rel="stylesheet"/>
     <meta content="@openGraph.fold(trans.siteDescription())(o => escapeHtml(o.description))" name="description">
@@ -85,9 +85,7 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     @mod.inquiry(inquiry)
     }
     @ctx.me.map { me =>
-    @lila.mod.Impersonate.impersonatedBy(me).map { modId =>
-    @mod.impersonate(me, modId)
-    }
+    @if(ctx.userContext.impersonatedBy.isDefined) { @mod.impersonate(me) }
     }
     <div id="top" class="@ctx.pref.is3d.fold("is3d", "is2d")">
       @topmenu()

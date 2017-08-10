@@ -99,7 +99,7 @@ final class HeaderContext(
 object Context {
 
   def apply(req: RequestHeader, v: AssetVersion, lang: Lang): HeaderContext =
-    new HeaderContext(UserContext(req, none, lang), PageData.anon(req, v))
+    new HeaderContext(UserContext(req, none, none, lang), PageData.anon(req, v))
 
   def apply(userContext: HeaderUserContext, pageData: PageData): HeaderContext =
     new HeaderContext(userContext, pageData)
