@@ -13,6 +13,7 @@ final class ReportApi(
     val coll: Coll,
     autoAnalysis: AutoAnalysis,
     noteApi: NoteApi,
+    securityApi: lila.security.SecurityApi,
     isOnline: User.ID => Boolean,
     asyncCache: lila.memo.AsyncCache.Builder,
     bus: lila.common.Bus
@@ -101,20 +102,20 @@ final class ReportApi(
     }
   }
 
-  def autoBoostReport(userId: String, accompliceId: String): Funit = {
-    UserRepo.byId(userId) zip
-      UserRepo.byId(accompliceId) zip
-      UserRepo.lichess flatMap {
-        case ((Some(user), Some(accomplice)), Some(lichess)) => create(ReportSetup(
-          user = user,
-          reason = "boost",
-          text = s"with their accomplice @${accomplice.username}",
+  def autoBoostReport(winnerId: User.ID, loserId: User.ID): Funit =
+    securityApi.shareIpOrPrint(winnerId, loserId) zip
+      UserRepo.byId(winnerId) zip UserRepo.byId(loserId) zip UserRepo.lichess flatMap {
+        case isSame ~ Some(winner) ~ Some(loser) ~ Some(lichess) => create(ReportSetup(
+          user = winner,
+          reason = Reason.Boost.key,
+          text =
+          if (isSame) s"Farms rating points from @${loser.username} (same IP or print)"
+          else s"Sandbagging - the winning player (@${winner.username}) has different IPs & prints",
           gameId = "",
           move = ""
         ), lichess)
         case _ => funit
       }
-  }
 
   private def publishProcessed(userId: User.ID, reason: Reason) =
     bus.publish(lila.hub.actorApi.report.Processed(userId, reason.key), 'report)

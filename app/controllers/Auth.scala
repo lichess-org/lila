@@ -55,7 +55,7 @@ object Auth extends LilaController {
   }
 
   private def authRecovery(implicit ctx: Context): PartialFunction[Throwable, Fu[Result]] = {
-    case lila.security.Api.MustConfirmEmail(userId) => UserRepo byId userId map {
+    case lila.security.SecurityApi.MustConfirmEmail(userId) => UserRepo byId userId map {
       case Some(user) => BadRequest(html.auth.checkYourEmail(user))
       case None => BadRequest
     }

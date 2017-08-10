@@ -9,6 +9,7 @@ final class Env(
     db: lila.db.Env,
     isOnline: lila.user.User.ID => Boolean,
     noteApi: lila.user.NoteApi,
+    securityApi: lila.security.SecurityApi,
     system: ActorSystem,
     hub: lila.hub.Env,
     asyncCache: lila.memo.AsyncCache.Builder
@@ -27,6 +28,7 @@ final class Env(
     reportColl,
     autoAnalysis,
     noteApi,
+    securityApi,
     isOnline,
     asyncCache,
     system.lilaBus
@@ -47,8 +49,8 @@ final class Env(
         api.processTroll(userId, by)
       case lila.hub.actorApi.report.Shutup(userId, text) =>
         api.autoInsultReport(userId, text)
-      case lila.hub.actorApi.report.Booster(userId, accomplice) =>
-        api.autoBoostReport(userId, accomplice)
+      case lila.hub.actorApi.report.Booster(winnerId, loserId) =>
+        api.autoBoostReport(winnerId, loserId)
     }
   }), name = ActorName)
 
@@ -64,6 +66,7 @@ object Env {
     db = lila.db.Env.current,
     isOnline = lila.user.Env.current.isOnline,
     noteApi = lila.user.Env.current.noteApi,
+    securityApi = lila.security.Env.current.api,
     system = lila.common.PlayApp.system,
     hub = lila.hub.Env.current,
     asyncCache = lila.memo.Env.current.asyncCache

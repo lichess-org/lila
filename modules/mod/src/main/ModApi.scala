@@ -57,9 +57,9 @@ final class ModApi(
     }
   }
 
-  def autoBooster(userId: String, accomplice: String): Funit =
-    logApi.wasUnbooster(userId) map {
-      case false => reporter ! lila.hub.actorApi.report.Booster(userId, accomplice)
+  def autoBooster(winnerId: User.ID, loserId: User.ID): Funit =
+    logApi.wasUnbooster(loserId) map {
+      case false => reporter ! lila.hub.actorApi.report.Booster(winnerId, loserId)
       case true =>
     }
 

@@ -341,7 +341,7 @@ object ApplicationBuild extends Build {
       play.api, play.test, reactivemongo.driver)
   )
 
-  lazy val report = project("report", Seq(common, db, user, game)).settings(
+  lazy val report = project("report", Seq(common, db, user, game, security)).settings(
     libraryDependencies ++= provided(
       play.api, reactivemongo.driver)
   )

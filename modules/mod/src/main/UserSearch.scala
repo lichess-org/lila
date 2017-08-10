@@ -4,7 +4,7 @@ import lila.common.{ EmailAddress, IpAddress }
 import lila.user.{ User, UserRepo }
 
 final class UserSearch(
-    securityApi: lila.security.Api,
+    securityApi: lila.security.SecurityApi,
     emailValidator: lila.security.EmailAddressValidator
 ) {
 

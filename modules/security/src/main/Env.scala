@@ -130,7 +130,7 @@ final class Env(
   scheduler.once(30 seconds)(tor.refresh(_ => funit))
   scheduler.effect(TorRefreshDelay, "Refresh Tor exit nodes")(tor.refresh(firewall.unblockIps))
 
-  lazy val api = new Api(storeColl, firewall, geoIP, emailAddressValidator)
+  lazy val api = new SecurityApi(storeColl, firewall, geoIP, emailAddressValidator)
 
   lazy val csrfRequestHandler = new CSRFRequestHandler(NetDomain, enabled = CsrfEnabled)
 

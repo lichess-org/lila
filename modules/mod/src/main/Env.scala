@@ -15,7 +15,7 @@ final class Env(
     reportApi: lila.report.ReportApi,
     lightUserApi: lila.user.LightUserApi,
     userSpy: String => Fu[UserSpy],
-    securityApi: lila.security.Api,
+    securityApi: lila.security.SecurityApi,
     tournamentApi: lila.tournament.TournamentApi,
     simulEnv: lila.simul.Env,
     chatApi: lila.chat.ChatApi,

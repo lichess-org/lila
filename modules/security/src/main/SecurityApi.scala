@@ -13,7 +13,7 @@ import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
 
-final class Api(
+final class SecurityApi(
     coll: Coll,
     firewall: Firewall,
     geoIP: GeoIP,
@@ -50,7 +50,7 @@ final class Api(
 
   def saveAuthentication(userId: User.ID, apiVersion: Option[ApiVersion])(implicit req: RequestHeader): Fu[String] =
     UserRepo mustConfirmEmail userId flatMap {
-      case true => fufail(Api MustConfirmEmail userId)
+      case true => fufail(SecurityApi MustConfirmEmail userId)
       case false =>
         val sessionId = Random secureString 12
         Store.save(sessionId, userId, req, apiVersion) inject sessionId
@@ -98,7 +98,7 @@ final class Api(
   private def userIdsSharingField(field: String)(userId: String): Fu[List[User.ID]] =
     coll.distinctWithReadPreference[User.ID, List](
       field,
-      $doc("user" -> userId, field -> $doc("$exists" -> true)).some,
+      $doc("user" -> userId, field $exists true).some,
       readPreference = ReadPreference.secondaryPreferred
     ).flatMap {
       case Nil => fuccess(Nil)
@@ -116,6 +116,19 @@ final class Api(
 
   def recentUserIdsByIp(ip: IpAddress) = recentUserIdsByField("ip")(ip.value)
 
+  def shareIpOrPrint(u1: User.ID, u2: User.ID): Fu[Boolean] =
+    Store.ipsAndFps(List(u1, u2), max = 100) map {
+      _.foldLeft(Set.empty[String] -> false) {
+        case ((u1s, true), _) => u1s -> true
+        case ((u1s, _), entry) if u1 == entry.user =>
+          val newU1s = u1s + entry.ip.value
+          entry.fp.fold(newU1s)(newU1s +) -> false
+        case ((u1s, _), entry) if u2 == entry.user => u1s -> {
+          u1s(entry.ip.value) || entry.fp.??(u1s.contains)
+        }
+      }._2
+    }
+
   private def recentUserIdsByField(field: String)(value: String): Fu[List[User.ID]] =
     coll.distinct[User.ID, List](
       "user",
@@ -126,7 +139,7 @@ final class Api(
     )
 }
 
-object Api {
+object SecurityApi {
 
   case class MustConfirmEmail(userId: User.ID) extends Exception
 }
