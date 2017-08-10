@@ -401,7 +401,7 @@
   <plurals name="playedXTimes">
     <item quantity="other">Jocate %s vices</item>
   </plurals>
-  <string name="fromGameLink">Ab joco %s</string>
+  <string name="fromGameLink">Extrahite del partita %s</string>
   <string name="continueTraining">Continuar a exercitar</string>
   <string name="retryThisPuzzle">Tentar iste enigma de novo</string>
   <string name="thisPuzzleIsCorrect">Iste enigma es correcte e interessante</string>
