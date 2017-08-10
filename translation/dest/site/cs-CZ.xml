@@ -341,6 +341,16 @@
   <string name="unblock">Odblokovat</string>
   <string name="followsYou">Vás sleduje</string>
   <string name="xStartedFollowingY">%1$s začal sledovat %2$s</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s následovník</item>
+    <item quantity="few">%s následovníků</item>
+    <item quantity="other">%s následovníků</item>
+  </plurals>
+  <plurals name="nbFollowing">
+    <item quantity="one">%s sleduje</item>
+    <item quantity="few">%s sleduje</item>
+    <item quantity="other">%s sleduje</item>
+  </plurals>
   <string name="more">Více</string>
   <string name="memberSince">Členem od</string>
   <string name="lastSeenActive">Poslední přihlášení %s</string>

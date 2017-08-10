@@ -281,8 +281,8 @@
   <string name="leaderboard">Tabula del melior jocatores</string>
   <string name="pasteTheFenStringHere">Colla le notation FEN hic</string>
   <string name="pasteThePgnStringHere">Colla le notation PGN hic</string>
-  <string name="fromPosition">Ab position</string>
-  <string name="continueFromHere">Continuar ab hic</string>
+  <string name="fromPosition">A partir del position</string>
+  <string name="continueFromHere">Continuar a partir de iste position</string>
   <string name="importGame">Importar partita</string>
   <string name="importGameExplanation">Quando tu colla un partita in PGN tu potera: revider la interactivemente, consultar un analyse de computator, utilisar le chat de joco, e publicar un ligamine URL.</string>
   <plurals name="nbImportedGames">
@@ -401,7 +401,7 @@
   <plurals name="playedXTimes">
     <item quantity="other">Jocate %s vices</item>
   </plurals>
-  <string name="fromGameLink">Ab joco %s</string>
+  <string name="fromGameLink">Extrahite del partita %s</string>
   <string name="continueTraining">Continuar a exercitar</string>
   <string name="retryThisPuzzle">Tentar iste enigma de novo</string>
   <string name="thisPuzzleIsCorrect">Iste enigma es correcte e interessante</string>
@@ -531,7 +531,7 @@ in %3$s</string>
   <string name="side">Latere</string>
   <string name="clock">Horologio</string>
   <string name="unauthorizedError">Le accesso non es autorisate.</string>
-  <string name="noInternetConnection">Sin connexion de Internet. Tu ancora pote jocar disconnectite ab le menu.</string>
+  <string name="noInternetConnection">Sin connexion de Internet. Tu ancora pote jocar disconnectite a partir del menu.</string>
   <string name="connectedToLichess">Tu es ora connectite a lichess.org</string>
   <string name="signedOut">Tu ha claudite le session</string>
   <string name="loginSuccessful">Tu ha aperite un session</string>

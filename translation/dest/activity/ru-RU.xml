@@ -63,6 +63,11 @@
     <item quantity="few">Завершил турниров: %s</item>
     <item quantity="other">Завершил турниров: %s</item>
   </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">Достиг #%1$s места (лучшие %2$s%%), сыграна %3$s игра, турнир: %4$s</item>
+    <item quantity="few">Достиг #%1$s места (лучшие %2$s%%), сыграно игр: %3$s, турнир: %4$s</item>
+    <item quantity="other">Достиг #%1$s места (лучшие %2$s%%), сыграно игр: %3$s, турнир: %4$s</item>
+  </plurals>
   <string name="signedUp">Зарегистрировался на lichess</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Присоединился к %s команде</item>

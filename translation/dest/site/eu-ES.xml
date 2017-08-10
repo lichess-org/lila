@@ -412,7 +412,7 @@
   <string name="bestMove">Jokaldi onena!</string>
   <string name="keepGoing">Jarraitu...</string>
   <string name="puzzleFailed">Huts egin duzu</string>
-  <string name="butYouCanKeepTrying">Baina berriro saia zaitezke berriro.</string>
+  <string name="butYouCanKeepTrying">Baina berriro saia zaitezke.</string>
   <string name="success">Zorionak</string>
   <string name="wasThisPuzzleAnyGood">Puzzle hau gustatu zaizu?</string>
   <string name="pleaseVotePuzzle">Eman botoa Lichess-i laguntzeko, goranzko zein beheranzko gezia hautatuz:</string>

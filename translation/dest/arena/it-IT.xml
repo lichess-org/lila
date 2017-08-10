@@ -27,10 +27,10 @@ La funzionalità Berserk varrà un punto extra solo se giocherai almeno 7 mosse.
   <string name="howDoesPairingWorkAnswer">All\'inizio del torneo i giocatori sono accoppiati sulla base del loro punteggio individuale.
 Non appena finisci una partita ritorna nella lobby del toreno e attendi, verrai nuovamente accoppiate con un altro giocatore con livello simile al tuo. Questo garantisce un tempo di attesa ridotto, tuttavia potresti quindi non affrontare tutti i giocatori partecipanti al torneo.
 Gioca in fretta e ritorna nella lobby per aver la possibilità di giocare numerose partite e ottenere punti.</string>
-  <string name="howDoesItEnd">Come fiisce il torneo?</string>
+  <string name="howDoesItEnd">Come finisce?</string>
   <string name="howDoesItEndAnswer">Il torneo ha un limite di tempo che scorre alla rovescia. Quando il conteggio raggiunge lo zero, le classifiche del torneo sono bloccate e il vincitore annunciato. Le sfide in corso continueranno, tuttavia non concorreranno alla classifica del torneo.</string>
   <string name="otherRules">Altre regole importanti.</string>
-  <string name="otherRulesAnswer">Sei obbligato a fare la prima mossa entro 20 secondi dall\'inzio del tuo turno. Se non lo farai perderai automaticamente la partita.
+  <string name="otherRulesAnswer">Sei obbligato a fare la prima mossa entro 20 secondi dall\'inzio del tuo turno. Se non lo farai perderai automaticamente la partita per abbandono.
 Pareggiare la partita entro le prime 10 mosse non farà percepire nessun punto a nessuno dei due giocatori.</string>
   <string name="thisIsPrivate">Questo è un torneo privato</string>
   <string name="shareUrl">Condividi questo URL per permettere alle persone di unirsi: %s</string>
