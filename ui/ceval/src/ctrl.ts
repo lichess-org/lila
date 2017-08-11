@@ -69,7 +69,7 @@ export default function(opts: CevalOpts): CevalController {
     };
   })();
 
-  const onEmit = throttle(800, false, (ev: Tree.ClientEval, work: Work) => {
+  const onEmit = throttle(500, false, (ev: Tree.ClientEval, work: Work) => {
     sortPvsInPlace(ev.pvs, (work.ply % 2 === (work.threatMode ? 1 : 0)) ? 'white' : 'black');
     npsRecorder(ev);
     curEval = ev;
