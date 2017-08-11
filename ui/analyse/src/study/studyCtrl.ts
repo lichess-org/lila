@@ -3,7 +3,7 @@ import AnalyseController from '../ctrl';
 import { ctrl as memberCtrl } from './studyMembers';
 import { ctrl as chapterCtrl } from './studyChapters';
 import practiceCtrl from './practice/studyPracticeCtrl';
-import { PracticeData } from './practice/interfaces';
+import { PracticeData, PracticeCtrl } from './practice/interfaces';
 import { ctrl as commentFormCtrl } from './commentForm';
 import { ctrl as glyphFormCtrl } from './studyGlyph';
 import { ctrl as studyFormCtrl, StudyFormController } from './studyForm';
@@ -180,7 +180,7 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
 
   const share = shareCtrl(data, currentChapter, currentNode, redraw);
 
-  const practice = practiceData && practiceCtrl(ctrl, data, practiceData);
+  const practice: PracticeCtrl | undefined = practiceData && practiceCtrl(ctrl, data, practiceData);
 
   function mutateCgConfig(config) {
     config.drawable.onChange = function(shapes) {

@@ -3,8 +3,9 @@ import { VNode } from 'snabbdom/vnode'
 import { plural, bind, spinner, innerHTML } from '../../util';
 import { enrichText } from '../studyComments';
 import { StudyController } from '../interfaces';
+import { PracticeData, PracticeCtrl } from './interfaces';
 
-function selector(data) {
+function selector(data: PracticeData) {
   return h('select.selector', {
     hook: bind('change', e => {
       location.href = '/practice/' + (e.target as HTMLInputElement).value;
@@ -25,7 +26,7 @@ function selector(data) {
   ]);
 }
 
-function renderGoal(practice, inMoves: number) {
+function renderGoal(practice: PracticeCtrl, inMoves: number) {
   const goal = practice.goal();
   switch (goal.result) {
     case 'mate':
@@ -37,7 +38,7 @@ function renderGoal(practice, inMoves: number) {
     case 'equalIn':
       return 'Equalize in ' + plural('move', inMoves);
     case 'evalIn':
-      if (practice.isWhite() === (goal.cp >= 0))
+      if (practice.isWhite() === (goal.cp! >= 0))
         return 'Get a winning position in ' + plural('move', inMoves);
       return 'Defend for ' + plural('move', inMoves);
     case 'promotion':
@@ -60,14 +61,14 @@ export function underboard(ctrl: StudyController): VNode {
    return h('a.feedback.fail', {
      hook: bind('click', p.reset, ctrl.redraw)
    }, [
-     h('span', [renderGoal(p, p.goal().moves)]),
+     h('span', [renderGoal(p, p.goal().moves!)]),
      h('strong', 'Click to retry')
    ]);
  default:
    return h('div.feedback.ongoing', [
-     h('div.goal', [renderGoal(p, p.goal().moves - p.nbMoves())]),
+     h('div.goal', [renderGoal(p, p.goal().moves! - p.nbMoves())]),
      p.comment() ? h('div.comment', {
-        hook: innerHTML(p.comment(), text => enrichText(text, true))
+        hook: innerHTML(p.comment(), text => enrichText(text!, true))
      }) : null
    ]);
   }
@@ -75,8 +76,8 @@ export function underboard(ctrl: StudyController): VNode {
 
 export function main(ctrl: StudyController): VNode {
 
-  const current = ctrl.currentChapter();
-  const data = ctrl.practice.data;
+  const current = ctrl.currentChapter(),
+  data = ctrl.practice!.data;
 
   return h('div.side_box.study_box', [
     h('div.title', [
