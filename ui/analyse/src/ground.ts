@@ -60,7 +60,7 @@ function makeConfig(ctrl: AnalyseController): CgConfig {
     premovable: opts.premovable,
     drawable: {
       enabled: !ctrl.embed,
-      eraseOnClick: !ctrl.opts.study || ctrl.opts.practice
+      eraseOnClick: !ctrl.opts.study || !!ctrl.opts.practice
     },
     highlight: {
       lastMove: pref.highlight,

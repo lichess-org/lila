@@ -3,6 +3,7 @@ import AnalyseController from '../ctrl';
 import { ctrl as memberCtrl } from './studyMembers';
 import { ctrl as chapterCtrl } from './studyChapters';
 import practiceCtrl from './practice/studyPracticeCtrl';
+import { PracticeData } from './practice/interfaces';
 import { ctrl as commentFormCtrl } from './commentForm';
 import { ctrl as glyphFormCtrl } from './studyGlyph';
 import { ctrl as studyFormCtrl, StudyFormController } from './studyForm';
@@ -18,7 +19,7 @@ const li = window.lichess;
 
 // data.position.path represents the server state
 // ctrl.path is the client state
-export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagTypes, practiceData): StudyController {
+export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagTypes, practiceData?: PracticeData): StudyController {
 
   const send = ctrl.socket.send;
   const redraw = ctrl.redraw;

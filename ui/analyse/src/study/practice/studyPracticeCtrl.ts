@@ -3,7 +3,7 @@ import { prop } from 'common';
 import { enrichText } from '../studyComments';
 import makeSuccess from './studyPracticeSuccess';
 import makeSound from './sound';
-import { Goal } from './interfaces';
+import { PracticeData, Goal } from './interfaces';
 import { StudyData, StudyChapterMeta } from '../interfaces';
 import AnalyseController from '../../ctrl';
 
@@ -13,7 +13,7 @@ function readOnlyProp<A>(value: A): () => A {
   };
 }
 
-export default function(root: AnalyseController, studyData: StudyData, data) {
+export default function(root: AnalyseController, studyData: StudyData, data: PracticeData) {
 
   const goal = prop<Goal>(root.data.practiceGoal!);
   const comment = prop<string | undefined>(undefined);
