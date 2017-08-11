@@ -46,7 +46,7 @@
   <string name="viewTheComputerAnalysis">Zobacz analizę komputerową</string>
   <string name="requestAComputerAnalysis">Poproś o analizę komputerową</string>
   <string name="computerAnalysis">Analiza komputerowa</string>
-  <string name="computerAnalysisAvailable">Analiza komputerowa dostępna</string>
+  <string name="computerAnalysisAvailable">Dostępna analiza komputerowa</string>
   <string name="analysis">Analiza partii</string>
   <string name="depthX">Głębokość %s</string>
   <string name="usingServerAnalysis">Analiza na serwerze</string>
@@ -119,7 +119,7 @@
     <item quantity="few">%s graczy</item>
     <item quantity="other">%s graczy</item>
   </plurals>
-  <string name="currentGames">Rozgrywane partie</string>
+  <string name="currentGames">Partie w toku</string>
   <plurals name="nbGames">
     <item quantity="one">%s partia</item>
     <item quantity="few">%s partie</item>
@@ -201,7 +201,7 @@
   <string name="accept">Akceptuję</string>
   <string name="decline">Odrzuć</string>
   <string name="playingRightNow">W toku</string>
-  <string name="finished">Zakończono</string>
+  <string name="finished">Zakończone</string>
   <string name="abortGame">Przerwij grę</string>
   <string name="gameAborted">Gra została przerwana</string>
   <string name="standard">Standard</string>
@@ -232,9 +232,9 @@
   <string name="freeOnlineChess">Darmowe szachy online</string>
   <string name="spectators">Widzowie:</string>
   <plurals name="nbRated">
-    <item quantity="one">%s rankingowa gra</item>
-    <item quantity="few">%s rankingowych gier</item>
-    <item quantity="other">%s rankingowych gier</item>
+    <item quantity="one">%s rankingowa</item>
+    <item quantity="few">%s rankingowe</item>
+    <item quantity="other">%s rankingowych</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s wygrana</item>
@@ -276,7 +276,7 @@
   <string name="yourOpponentProposesATakeback">Przeciwnik chce cofnąć ruch</string>
   <string name="bookmarkThisGame">Dodaj do ulubionych</string>
   <string name="search">Szukaj</string>
-  <string name="advancedSearch">Wyszukiwanie zaawansowane</string>
+  <string name="advancedSearch">Wyszukiwarka</string>
   <string name="tournament">Turniej</string>
   <string name="tournaments">Turnieje</string>
   <string name="tournamentPoints">Punkty turniejowe</string>
@@ -323,7 +323,7 @@
     <item quantity="other">%s zaimportowana partii</item>
   </plurals>
   <string name="thisIsAChessCaptcha">To jest szachowa CAPTCHA.</string>
-  <string name="clickOnTheBoardToMakeYourMove">Kliknij na szachownicę, by zrobić ruch i udowodnić, że jesteś człowiekiem.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Wykonaj ruch i udowodnij, że jesteś człowiekiem.</string>
   <string name="captcha.fail">Rozwiąż szachowe zadanie.</string>
   <string name="notACheckmate">To nie jest mat</string>
   <string name="colorPlaysCheckmateInOne">%s zaczynają i dają mata w jednym posunięciu</string>
@@ -672,7 +672,7 @@
     <item quantity="few">%1$s graczy grało w tym tygodniu w wariant %2$s.</item>
     <item quantity="other">%1$s graczy grało w tym tygodniu w wariant %2$s.</item>
   </plurals>
-  <string name="yourPerfTypeRatingIsRating">Twój ranking w wariancie %1$s to %2$s</string>
+  <string name="yourPerfTypeRatingIsRating">Twój ranking w wariancie %1$s to %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Jesteś lepszy niż %1$s graczy w tym wariancie.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nie masz jeszcze ustalonego rankingu w tym wariancie.</string>
   <string name="checkYourEmail">Sprawdź swoją skrzynkę e-mail</string>
