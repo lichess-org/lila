@@ -41,19 +41,16 @@ final class JsonView(
           "ownerId" -> currentChapter.ownerId,
           "setup" -> currentChapter.setup,
           "tags" -> currentChapter.tags,
-          "practice" -> currentChapter.isPractice,
-          "conceal" -> currentChapter.conceal,
           "features" -> Json.obj(
             "computer" -> allowed(study.settings.computer),
             "explorer" -> allowed(study.settings.explorer)
           )
-        )
+        ).add("practice", currentChapter.isPractice)
+          .add("gamebook", currentChapter.isGamebook)
+          .add("conceal", currentChapter.conceal)
       )
     }
-  }.chronometer
-    // .mon(_.fishnet.acquire time client.skill.key)
-    .logIfSlow(100, logger)(_ => s"JsonView ${study.id} ${study.name}")
-    .result
+  }
 
   def chapterConfig(c: Chapter) = Json.obj(
     "id" -> c.id,

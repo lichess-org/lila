@@ -11,6 +11,7 @@ import AnalyseController from '../ctrl';
 export const modeChoices = [
   ['normal', "Normal analysis"],
   ['practice', "Practice with computer"],
+  ['gamebook', "Gamebook: interactive lesson"],
   ['conceal', "Hide next moves"]
 ];
 

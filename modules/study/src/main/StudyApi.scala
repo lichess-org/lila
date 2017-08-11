@@ -439,6 +439,7 @@ final class StudyApi(
           val newChapter = chapter.copy(
             name = name,
             practice = data.isPractice option true,
+            gamebook = data.isGamebook option true,
             conceal = (chapter.conceal, data.isConceal) match {
               case (None, true) => Chapter.Ply(chapter.root.ply).some
               case (Some(_), false) => None

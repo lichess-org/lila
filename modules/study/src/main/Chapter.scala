@@ -20,6 +20,7 @@ case class Chapter(
     ownerId: User.ID,
     conceal: Option[Chapter.Ply] = None,
     practice: Option[Boolean] = None,
+    gamebook: Option[Boolean] = None,
     createdAt: DateTime
 ) extends Chapter.Like {
 
@@ -68,6 +69,7 @@ case class Chapter(
   )
 
   def isPractice = ~practice
+  def isGamebook = ~gamebook
   def isConceal = conceal.isDefined
 
   def withoutChildren = copy(root = root.withoutChildren)

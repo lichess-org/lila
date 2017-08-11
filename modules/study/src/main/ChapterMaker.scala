@@ -181,8 +181,9 @@ private[study] object ChapterMaker {
   object Mode {
     case object Normal extends Mode
     case object Practice extends Mode
+    case object Gamebook extends Mode
     case object Conceal extends Mode
-    val all = List(Normal, Practice, Conceal)
+    val all = List(Normal, Practice, Gamebook, Conceal)
     def apply(key: String) = all.find(_.key == key)
   }
 
@@ -191,6 +192,7 @@ private[study] object ChapterMaker {
     def mode: String
     def realOrientation = chess.Color(orientation) | chess.White
     def isPractice = mode == Mode.Practice.key
+    def isGamebook = mode == Mode.Gamebook.key
     def isConceal = mode == Mode.Conceal.key
   }
 

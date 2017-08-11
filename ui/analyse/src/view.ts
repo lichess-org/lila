@@ -49,7 +49,7 @@ function renderResult(ctrl: AnalyseController): VNode[] {
 }
 
 function makeConcealOf(ctrl: AnalyseController): ConcealOf | undefined {
-  const conceal = (ctrl.study && ctrl.study.data.chapter.conceal !== null) ? {
+  const conceal = (ctrl.study && ctrl.study.data.chapter.conceal !== undefined) ? {
     owner: ctrl.study.isChapterOwner(),
     ply: ctrl.study.data.chapter.conceal
   } : null;

@@ -11,12 +11,11 @@ export function ctrl(send: SocketSend, chapterConfig, redraw: () => void) {
   const current = prop<StudyChapterMeta | null>(null);
 
   function open(data) {
-    // if (current()) m.redraw.strategy('all');
     current({
       id: data.id,
       name: data.name
     });
-    chapterConfig(data.id).then(function(d) {
+    chapterConfig(data.id).then(d => {
       current(d);
       redraw();
     });
@@ -57,7 +56,7 @@ export function view(ctrl): VNode | undefined {
   if (!data) return;
 
   const isLoaded = !!data.orientation;
-  const mode = data.practice ? 'practice' : (data.conceal !== null ? 'conceal' : 'normal');
+  const mode = data.practice ? 'practice' : (data.conceal !== null ? 'conceal' : (data.gamebook ? 'gamebook' : 'normal'));
 
   return dialog.form({
     onClose() {
