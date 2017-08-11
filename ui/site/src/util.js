@@ -8,7 +8,7 @@ lichess.storage = (function() {
   var withStorage = function(f) {
     // can throw an exception when storage is full
     try {
-      return !!window.localStorage ? f(window.localStorage) : null;
+      if (window.localStorage !== undefined) return f(window.localStorage);
     } catch (e) {}
   }
   return {
@@ -18,10 +18,14 @@ lichess.storage = (function() {
       });
     },
     set: function(k, v) {
-      // removing first may help http://stackoverflow.com/questions/2603682/is-anyone-else-receiving-a-quota-exceeded-err-on-their-ipad-when-accessing-local
       withStorage(function(s) {
-        s.removeItem(k);
-        s.setItem(k, v);
+        try {
+          s.setItem(k, v);
+        } catch (e) {
+          // removing first may help http://stackoverflow.com/questions/2603682/is-anyone-else-receiving-a-quota-exceeded-err-on-their-ipad-when-accessing-local
+          s.removeItem(k);
+          s.setItem(k, v);
+        }
       });
     },
     remove: function(k) {
@@ -42,7 +46,7 @@ lichess.storage = (function() {
         },
         listen: function(f) {
           window.addEventListener('storage', function(e) {
-            if (e.key === k && e.newValue !== null) f(e);
+            if (e.key === k && e.newValue !== null && e.newValue !== e.oldValue) f(e);
           });
         }
       };
