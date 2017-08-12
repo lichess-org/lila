@@ -5,12 +5,15 @@ lichess.engineName = 'Stockfish 8';
 lichess.raf = (window.requestAnimationFrame || window.setTimeout).bind(window);
 lichess.requestIdleCallback = (window.requestIdleCallback || window.setTimeout).bind(window);
 lichess.storage = (function() {
-  var withStorage = function(f) {
-    // can throw an exception when storage is full
-    try {
-      if (window.localStorage !== undefined) return f(window.localStorage);
-    } catch (e) {}
-  }
+  try {
+    // just accessing localStorage can throw an exception...
+    var storage = window.localStorage;
+  } catch (e) {}
+  var withStorage = storage ? function(f) {
+    // this can throw exceptions as well.
+    try { return f(storage); }
+    catch (e) {}
+  } : function() {};
   return {
     get: function(k) {
       return withStorage(function(s) {
