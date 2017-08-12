@@ -33,4 +33,5 @@ Igrajte hitro in se vrnite v čakalno vrsto v igralni dvorani, ter si tako zagot
   <string name="otherRulesAnswer">Prvo potezo je potrebo napraviti v 20 sekundah od časa ko ste na vrsti. Če poteze ne naredite, je igra izgubljena in zmaga nasprotnik.
 Remi v prvih 10 potezah ne podeli točk nobenemu igralcu.</string>
   <string name="thisIsPrivate">Ta turnir je zaseben</string>
+  <string name="shareUrl">Delite ta URL, da se igralci lahko pridružijo: %s</string>
 </resources>
