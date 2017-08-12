@@ -251,6 +251,7 @@
   <string name="giveMoreTime">Meer tijd geven</string>
   <string name="thisPlayerUsesChessComputerAssistance">Deze speler maakt gebruik van een schaakprogramma</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Deze speler verhoogt/verlaagt zijn rating kunstmatig</string>
+  <string name="openingExplorerAndTablebase">Openingverkenner &amp; tablebase</string>
   <string name="takeback">Neem zet terug</string>
   <string name="proposeATakeback">Stel zet terugnemen voor</string>
   <string name="takebackPropositionSent">Terugname-voorstel verstuurd</string>
