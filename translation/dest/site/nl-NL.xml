@@ -94,7 +94,7 @@
   <string name="replayMode">Herhaal modus</string>
   <string name="realtimeReplay">Realtime</string>
   <string name="byCPL">Door CPL</string>
-  <string name="openStudy">Open Study</string>
+  <string name="openStudy">Open studie</string>
   <string name="enable">Aanzetten</string>
   <string name="bestMoveArrow">Beste zet-pijl</string>
   <string name="evaluationGauge">Evaluatie meter</string>
@@ -238,8 +238,8 @@
     <item quantity="other">%s remise</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="one">%s aan de gang</item>
-    <item quantity="other">%s aan de gang</item>
+    <item quantity="one">%s bezig</item>
+    <item quantity="other">%s bezig</item>
   </plurals>
   <string name="exportGames">Partijen exporteren</string>
   <string name="ratingRange">Ratingbereik</string>
@@ -507,7 +507,7 @@
   <string name="privacy">Privacy</string>
   <string name="letOtherPlayersFollowYou">Andere spelers mogen je volgen</string>
   <string name="letOtherPlayersChallengeYou">Andere spelers mogen je uitdagen</string>
-  <string name="letOtherPlayersInviteYouToStudy">Laat andere spelers je uitnodigen voor een Study</string>
+  <string name="letOtherPlayersInviteYouToStudy">Laat andere spelers je uitnodigen voor een studie</string>
   <string name="sound">Geluid</string>
   <string name="yourPreferencesHaveBeenSaved">Uw voorkeuren werden opgeslagen.</string>
   <string name="none">Geen</string>
