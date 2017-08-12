@@ -102,6 +102,7 @@
   <string name="cpus">CPUs</string>
   <string name="memory">Geheugen</string>
   <string name="infiniteAnalysis">Oneindige analyse</string>
+  <string name="removesTheDepthLimit">Verwijdert de diepte limiet, en houdt je computer warm</string>
   <string name="blunders">Blunders</string>
   <string name="mistakes">Fouten</string>
   <string name="inaccuracies">Imperfecties</string>
