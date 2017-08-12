@@ -11,7 +11,7 @@
     <item quantity="other">%s Nieuwe volgers verkregen</item>
   </plurals>
   <plurals name="createdNbStudies">
-    <item quantity="one">%s nieuwe Study aangemaakt</item>
-    <item quantity="other">%s niewe Studies aangemaakt</item>
+    <item quantity="one">%s nieuwe studie aangemaakt</item>
+    <item quantity="other">%s nieuwe studies aangemaakt</item>
   </plurals>
 </resources>
