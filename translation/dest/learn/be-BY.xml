@@ -54,6 +54,68 @@
   <string name="pawnComplete">Віншуем! У пешак няма сакрэтаў для вас.</string>
   <string name="pawnPromotion">Ператварэнне пешкі</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Ваша пешка дасягнула краю дошкі!</string>
+  <string name="itNowPromotesToAStrongerPiece">Цяпер яна ператвараецца ў фігуру пасільней.</string>
+  <string name="selectThePieceYouWant">Выберыце фігуру, якую захаціце!</string>
+  <string name="fundamentals">Грунты</string>
+  <string name="capture">Узяцце</string>
+  <string name="takeTheEnemyPieces">З\'ешце фігуры суперніка</string>
+  <string name="captureIntro">Вызначыце неабароненыя фігуры суперніка і з\'ешце іх!</string>
+  <string name="takeTheBlackPieces">З\'ешце чорныя фігуры!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">З\'ешце ўсе чорныя фігуры! І не страцьце свае.</string>
+  <string name="captureComplete">Віншуем! Зараз вы ведаеце, як ваяваць з шахматнымі фігурамі!</string>
+  <string name="protection">Абарона</string>
+  <string name="keepYourPiecesSafe">Бараніце вашы фігуры</string>
+  <string name="protectionIntro">Вызначыце, якія вашы фігуры атакуе супернік, і абароніце іх!</string>
+  <string name="protectionComplete">Віншуем! Фігура, якую вы не прайгралі, гэта ваша перамога!</string>
+  <string name="escape">Вас атакуюць! Ухіліце пагрозу!</string>
+  <string name="noEscape">Гэта не выйсце,
+Але вы можаце абараніць!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Не дазваляйце ім з\'ядаць
+кожную неабароненую фігуру!</string>
+  <string name="combat">Бітва</string>
+  <string name="captureAndDefendPieces">Узяцце і абарона фігур</string>
+  <string name="combatIntro">Добры ваяр ведае як атаку, так і абарону!</string>
+  <string name="combatComplete">Віншуем! Зараз вы ведаеце, як ваяваць з шахматнымі фігурамі!</string>
+  <string name="checkInOne">Шах</string>
+  <string name="attackTheOpponentsKing">Атака на караля</string>
+  <string name="checkInOneIntro">Каб абвясціць шах, нападайце на караля суперніка. Ён павінен будзе бараніцца!</string>
+  <string name="checkInOneGoal">Нападзіце на караля суперніка
+за адзін ход!</string>
+  <string name="checkInOneComplete">Віншуем! Вы паставілі шах свайму суперніку, вымусіўшы бараніць свайго караля!</string>
+  <string name="outOfCheck">Сыход з-пад шаха</string>
+  <string name="defendYourKing">Абароніце свайго караля</string>
+  <string name="outOfCheckIntro">Вам шах! Вы павінны сыходзіць ці блакаваць атаку.</string>
+  <string name="escapeWithTheKing">Уцёкі каралём!</string>
+  <string name="theKingCannotEscapeButBlock">Кароль не можа пайсці, але вы можаце блакаваць атаку!</string>
+  <string name="youCanGetOutOfCheckByTaking">Вы можаце пайсці ад шаха,
+з\'еўшы атакоўную фігуру.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Гэты конь ставіць шах,
+абыходзячы тваю абарону!</string>
+  <string name="escapeOrBlock">Адвядзіце караля
+ці зачыніцеся!</string>
+  <string name="outOfCheckComplete">Віншуем! Ваш кароль не зможа быць узяты, пераканаецеся, што вы можаце абараніць яго ад шаха!</string>
+  <string name="mateInOne">Мат у адзін ход</string>
+  <string name="defeatTheOpponentsKing">Параза караля суперніка</string>
+  <string name="mateInOneIntro">Вы выйграяце, калі ваш апанент не можа бараніцца ад шаха.</string>
+  <string name="attackYourOpponentsKing">Атакуйце караля вашага суперніка такім чынам, каб яго няможна было абараніць!</string>
+  <string name="mateInOneComplete">Віншуем! Такім чынам вы выйграеце ў шахматы!</string>
+  <string name="intermediate">Прамежкавы этап</string>
+  <string name="boardSetup">Пазіцыя на дошцы</string>
+  <string name="howTheGameStarts">Пачатак шахматнай партыі</string>
+  <string name="boardSetupIntro">Абое войскі ваююць адзін з адным, гатовыя да бітвы.</string>
+  <string name="thisIsTheInitialPosition">Гэта - пачатковая пазіцыя ў шахматах! Зрабіце кожны ход, каб працягнуць.</string>
+  <string name="firstPlaceTheRooks">Спачатку расстаўце ладдзі!
+Яны знаходзяцца па кутах.</string>
+  <string name="thenPlaceTheKnights">Потым расстаўце коней!
+Яны стаяць каля ладдзей.</string>
+  <string name="placeTheBishops">Расстаўце афіцэраў!
+Яны ідуць каля коней.</string>
+  <string name="placeTheQueen">Пастаўце фярзя!
+Ферзь кахае свой колер.</string>
+  <string name="placeTheKing">Пастаўце караля!
+Ён стаіць каля фярзя.</string>
+  <string name="pawnsFormTheFrontLine">Пешкі стаяць на пярэдняй лініі.
+Зрабіце кожны ход, каб працягнуць.</string>
   <string name="boardSetupComplete">Віншуем! Зараз вы ведаеце, як ставіць фігуры на шахматнай дошцы.</string>
   <string name="castling">Ракіроўка</string>
   <string name="theSpecialKingMove">Адмысловы ход караля</string>
@@ -106,4 +168,21 @@
 Пешка = 1 пешка</string>
   <string name="checkInTwo">Шах у 2 ходу</string>
   <string name="twoMovesToGiveCheck">Два ходу на тое, каб зрабіць шах</string>
+  <string name="checkInTwoIntro">Знайдзіце камбінацыю ў два ходу, каб паставіць шах каралю суперніка!</string>
+  <string name="checkInTwoGoal">Стварыце пагрозу каралю суперніка ў два ходу!</string>
+  <string name="checkInTwoComplete">Віншуем! Вы паставілі шах вашаму суперніку, вымусіўшы яго бараніць свайго караля!</string>
+  <string name="whatNext">Што далей?</string>
+  <string name="youKnowHowToPlayChess">Вы ўмееце гуляць у шахматы, віншуем! Вы хочаце стаць мацнейшым гульцом?</string>
+  <string name="register">Рэгістрацыя</string>
+  <string name="getAFreeLichessAccount">Стварыце дармовы акаўнт</string>
+  <string name="practice">Практыка</string>
+  <string name="learnCommonChessPositions">Вучыце асноўныя пазіцыі</string>
+  <string name="puzzles">Заданні</string>
+  <string name="exerciseYourTacticalSkills">Ужыццяўляйце свае тактычныя навыкі</string>
+  <string name="videos">Відэа</string>
+  <string name="watchInstructiveChessVideos">Глядзець навучальныя відэазапісы</string>
+  <string name="playPeople">Гульня анлайн</string>
+  <string name="opponentsFromAroundTheWorld">Супернікі з усяго свету</string>
+  <string name="playMachine">Гульня з ботам</string>
+  <string name="testYourSkillsWithTheComputer">Праверце свае навыкі</string>
 </resources>
