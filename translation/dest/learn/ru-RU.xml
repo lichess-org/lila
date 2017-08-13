@@ -66,7 +66,12 @@
   <string name="protection">Защита</string>
   <string name="keepYourPiecesSafe">Защищайте ваши фигуры</string>
   <string name="protectionIntro">Определите, какие ваши фигуры атакует противники, и защитите их!</string>
+  <string name="protectionComplete">Поздравляем! Фигура, которую вы не проиграли, это ваша победа!</string>
   <string name="escape">Вас атакуют! Устраните угрозу!</string>
+  <string name="noEscape">Это не выход,
+Но вы можете защитить!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Не позволяйте им съедать
+любую незащищённую фигуру!</string>
   <string name="combat">Сражение</string>
   <string name="captureAndDefendPieces">Взятие и защита фигур</string>
   <string name="combatIntro">Хороший воин знает как атаку, так и защиту!</string>
@@ -74,11 +79,18 @@
   <string name="checkInOne">Шах</string>
   <string name="attackTheOpponentsKing">Атака на короля</string>
   <string name="checkInOneIntro">Чтобы объявить шах, нападайте на короля противника. Он должен будет защищаться!</string>
+  <string name="checkInOneGoal">Нападите на короля соперника
+за один ход!</string>
+  <string name="checkInOneComplete">Поздравляем! Вы поставили шах своему сопернику, вынудив защищать своего короля!</string>
   <string name="outOfCheck">Уход из-под шаха</string>
   <string name="defendYourKing">Защитите своего короля</string>
   <string name="outOfCheckIntro">Вам шах! Вы должны уходить или блокировать атаку.</string>
   <string name="escapeWithTheKing">Побег королем!</string>
   <string name="theKingCannotEscapeButBlock">Король не может уйти, но вы можете блокировать атаку!</string>
+  <string name="youCanGetOutOfCheckByTaking">Вы можете уйти от шаха,
+съев атакующую фигуру.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Этот конь ставит шах,
+минуя твою защиту!</string>
   <string name="mateInOne">Мат в один ход</string>
   <string name="defeatTheOpponentsKing">Поражение короля противника</string>
   <string name="mateInOneIntro">Вы выигрываете, когда ваш оппонент не может защищаться от шаха.</string>
