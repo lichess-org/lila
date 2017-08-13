@@ -126,12 +126,26 @@
   <string name="castleKingSideMovePiecesFirst">Короткая рокировка! Сначала вам нужно развить фигуры.</string>
   <string name="castleQueenSideMovePiecesFirst">Длинная рокировка! Сначала вам нужно развить фигуры.</string>
   <string name="youCannotCastleIfMoved">Вы не можете делать рокировку, если король или ладья, участвующие в рокировке, делали ход.</string>
+  <string name="youCannotCastleIfAttacked">Вы не можете рокироваться, 
+если король находится под шахом. 
+Сначала защитите короля!</string>
+  <string name="findAWayToCastleKingSide">Найдите способ сделать короткую рокировку!</string>
   <string name="findAWayToCastleQueenSide">Найдите способ сделать длинную рокировку!</string>
+  <string name="castlingComplete">Поздравляем! Вы должны почти всегда рокироваться в партиях.</string>
   <string name="enPassant">Взятие на проходе</string>
   <string name="theSpecialPawnMove">Специальный ход пешкой</string>
+  <string name="enPassantIntro">Когда пешка соперника делает ход на две клетки, вы можете взять её, как если бы она сделала ход на одну.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Чёрные только что сходили пешкой на два поля! Возьмите её.</string>
+  <string name="enPassantOnlyWorksImmediately">Пешка противника может быть взята на проходе только непосредственно после хода.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Взятие на проходе можно сделать, если ваша пешка на пятом ряду.</string>
+  <string name="takeAllThePawnsEnPassant">Возьмите все пешки на проходе!</string>
   <string name="enPassantComplete">Поздравляем! Теперь вы можете делать взятие на проходе.</string>
   <string name="stalemate">Пат</string>
   <string name="theGameIsADraw">Игра является ничейной</string>
+  <string name="stalemateIntro">Когда игроку не поставлен шах и нет возможности сделать ход, это пат. Игра заканчивается: без победителей и проигравших.</string>
+  <string name="stalemateGoal">Пат чёрным: 
+- Чёрные не могут сходить.
+- Король не под шахом.</string>
   <string name="advanced">Продвинутый этап</string>
   <string name="pieceValue">Ценность фигур</string>
   <string name="evaluatePieceStrength">Оцените силу фигуры</string>
