@@ -7,4 +7,50 @@
   <string name="progressX">Прагрэс: %s</string>
   <string name="resetMyProgress">Скінуць прагрэс</string>
   <string name="youWillLoseAllYourProgress">Увесь ваш прагрэс будзе скінуты!</string>
+  <string name="play">гуляць!</string>
+  <string name="chessPieces">Шахматныя фігуры</string>
+  <string name="theRook">Ладдзя</string>
+  <string name="itMovesInStraightLines">Рухаецца па простых лініях</string>
+  <string name="rookIntro">Ладдзя — гэта цяжкая фігура. Ці гатовы вы кіраваць ёй?</string>
+  <string name="rookGoal">Націсніце на ладдзю і давядзіце яе да зоркі!</string>
+  <string name="grabAllTheStars">Збярыце ўсе зоркі!</string>
+  <string name="theFewerMoves">Чым менш хадоў вы зробіце, тым больш ачкоў вы атрымаеце!</string>
+  <string name="useTwoRooks">Скарыстайце дзве ладдзі, каб паскорыць працэс!</string>
+  <string name="rookComplete">Віншуем! Вы навучыліся хадзіць ладдзёй.</string>
+  <string name="theBishop">Афіцэр</string>
+  <string name="itMovesDiagonally">Перасоўваецца па дыяганалях</string>
+  <string name="bishopIntro">Далей мы навучымся хадзіць афіцэрам!</string>
+  <string name="youNeedBothBishops">Палі белага колеру кантралюе адзін афіцэр, палі чорнага колеру — іншы. Вам патрэбныя абодва афіцэра!</string>
+  <string name="bishopComplete">Віншуем! Вы навучыліся хадзіць афіцэрам.</string>
+  <string name="theQueen">Ферзь</string>
+  <string name="queenCombinesRookAndBishop">Ферзь = ладдзя + афіцэр</string>
+  <string name="queenIntro">Наймагутная фігура. Яго вялікасць — ферзь!</string>
+  <string name="queenComplete">Віншуем! Вы навучыліся хадзіць фярзём.</string>
+  <string name="theKing">Кароль</string>
+  <string name="theMostImportantPiece">Найважная фігура</string>
+  <string name="kingIntro">Вы - кароль. Калі вы загінеце ў бітве - гульня прайграна.</string>
+  <string name="theKingIsSlow">Кароль павольна перасоўваецца.</string>
+  <string name="lastOne">І апошні!</string>
+  <string name="kingComplete">Вы навучыліся хадзіць каралём!</string>
+  <string name="theKnight">Конь</string>
+  <string name="itMovesInAnLShape">Ён ходзіць літарай \"Г\"</string>
+  <string name="knightIntro">Вось вам заданне. Конь — хітрая фігура.</string>
+  <string name="knightsHaveAFancyWay">Коні маюць мудрагелісты спосаб пераскокваць!</string>
+  <string name="knightsCanJumpOverObstacles">Коні могуць скакаць праз перашкоды!
+Выберацеся і збярыце ўсе зоркі!</string>
+  <string name="knightComplete">Віншуем! Вы асвоілі фігуру \"Конь\".</string>
+  <string name="thePawn">Пешка</string>
+  <string name="itMovesForwardOnly">Ходзіць толькі наперад</string>
+  <string name="pawnIntro">Пешкі слабыя, але ў іх шмат патэнцыялу.</string>
+  <string name="pawnsMoveOneSquareOnly">Пешкі ходзяць толькі на адну клетку наперад. Але дасягнуўшы іншага канца дошкі, яны ператвараюцца ў моцную фігуру!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">У большасці выпадку пешку лепш ператварыць у фярзя. Але часам ператварэнне ў каня можа быць выгадней!</string>
+  <string name="pawnsMoveForward">Пешкі рухаюцца наперад, але б\'юць па дыяганалях!</string>
+  <string name="captureThenPromote">Пабіце, потым ператворыцеся!</string>
+  <string name="useAllThePawns">Скарыстайце ўсе пешкі!
+Неабавязкова іх ператвараць.</string>
+  <string name="aPawnOnTheSecondRank">Пешка на другім шэрагу можа хадзіць на два палі за ход!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Збярыце ўсе зоркі!
+Неабавязкова ператвараць пешкі.</string>
+  <string name="pawnComplete">Віншуем! У пешак няма сакрэтаў для вас.</string>
+  <string name="pawnPromotion">Ператварэнне пешкі</string>
 </resources>
