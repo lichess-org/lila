@@ -150,6 +150,12 @@
   <string name="forgotPassword">Забылі пароль?</string>
   <string name="rank">Ранг</string>
   <string name="rankX">Рэйтынг: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Рэйтынг абнаўляецца кожныя %s хвілін</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s пазл</item>
+    <item quantity="few">%s пазла</item>
+    <item quantity="other">%s пазлаў</item>
+  </plurals>
   <string name="gamesPlayed">Партый згуляна</string>
   <string name="cancel">Скасаваць</string>
   <string name="timeOut">Час скончыўся</string>
@@ -184,6 +190,8 @@
   <string name="play">Гуляць</string>
   <string name="inbox">Уваходныя</string>
   <string name="chatRoom">Чат</string>
+  <string name="loginToChat">Увайдзіце, каб скарыстаць чат</string>
+  <string name="youHaveBeenTimedOut">Вы былі адключаны.</string>
   <string name="spectatorRoom">Пакой назіральнікаў</string>
   <string name="composeMessage">Напісаць паведамленьне</string>
   <string name="noNewMessages">Няма новых паведамленьняў</string>
@@ -193,10 +201,22 @@
   <string name="incrementInSeconds">Прырост у сэкундах</string>
   <string name="freeOnlineChess">Бясплатныя он-лайн шахматы</string>
   <string name="spectators">Назіральнікі:</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s па рэйтынгу</item>
+    <item quantity="few">%s па рэйтынгу</item>
+    <item quantity="other">%s па рэйтынгу</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s гуляе</item>
+    <item quantity="few">%s гуляе</item>
+    <item quantity="other">%s гуляе</item>
+  </plurals>
   <string name="exportGames">Экспарт гульняў</string>
   <string name="ratingRange">Рэйтынг суперніка</string>
+  <string name="giveMoreTime">Дадаць часу</string>
   <string name="thisPlayerUsesChessComputerAssistance">Гэты гулец выкарыстоўвае шахматную праграму</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Гэты гулец штучна павялічвае свой рэйтынг</string>
+  <string name="openingExplorerAndTablebase">Адкрываем праваднік &amp; табліцу базы</string>
   <string name="takeback">Скасаваць ход</string>
   <string name="proposeATakeback">Прапанаваць скасаваць ход</string>
   <string name="takebackPropositionSent">Прапанова скасаваць ход даслана</string>
@@ -241,8 +261,11 @@
   <string name="fromPosition">З пазыцыі</string>
   <string name="continueFromHere">Працягнуць адсюль</string>
   <string name="importGame">Імпартаваць гульню</string>
+  <string name="importGameExplanation">Пры ўстаўцы PGN гульні вы атрымваеце паўтор у браўзары,
+кампутарны аналіз, гульнявы чат і спасылку, якой можна падзяліцца.</string>
   <string name="thisIsAChessCaptcha">Гэта шахматны тэст.</string>
   <string name="clickOnTheBoardToMakeYourMove">Пстыркні па дошцы каб зрабіць ход, дакажы што ты чалавек.</string>
+  <string name="captcha.fail">Калі ласка, вырашыце шахматную CAPTCHA.</string>
   <string name="notACheckmate">Ня  мат</string>
   <string name="colorPlaysCheckmateInOne">%s пачынаюць; мат у адзін ход</string>
   <string name="retry">Паўтарыць</string>
@@ -250,6 +273,7 @@
   <string name="onlineFriends">Сябры он-лайн</string>
   <string name="noFriendsOnline">Няма сяброў он-лайн</string>
   <string name="findFriends">Знайсьці сяброў</string>
+  <string name="favoriteOpponents">Пераважныя супернікі</string>
   <string name="follow">Сачыць</string>
   <string name="following">Сачэньне</string>
   <string name="unfollow">Спыніць сачэньне</string>
@@ -279,14 +303,34 @@
   <string name="winStreak">Сьпіс пераможцаў</string>
   <string name="createdBy">Стварыў</string>
   <string name="tournamentIsStarting">Турнір пачынаецца</string>
+  <string name="tournamentPairingsAreNowClosed">Лёсаванне турніру ў наш час зачынена.</string>
+  <string name="standByX">Чакайце, %s, лёсаванне гульцоў, будзьце гатовы!</string>
+  <string name="youArePlaying">Вы ў гульні!</string>
+  <string name="winRate">Каэфіцыент перамогі</string>
+  <string name="berserkRate">Каэфіцыент шаленства</string>
+  <string name="performance">Эфектыўнасць</string>
+  <string name="tournamentComplete">Спаборніцтва завершана</string>
+  <string name="movesPlayed">Хадоў згуляна</string>
+  <string name="whiteWins">Белыя выйгралі</string>
+  <string name="blackWins">Чорныя выйгралі</string>
+  <string name="draws">Нічыя</string>
+  <string name="nextXTournament">Наступны %s турнір:</string>
+  <string name="viewMoreTournaments">Прагледзець больш турніраў</string>
+  <string name="averageOpponent">Сярэдні рэйтынг суперніка</string>
   <string name="membersOnly">Толькі чальцы</string>
   <string name="boardEditor">Рэдактар дошкі</string>
+  <string name="setTheBoard">Усталяваць дошку</string>
+  <string name="popularOpenings">Папулярныя дэбюты</string>
   <string name="startPosition">Пачатковая пазыцыя</string>
   <string name="clearBoard">Ачысьціць дошку</string>
   <string name="savePosition">Захаваць пазыцыю</string>
   <string name="loadPosition">Загрузіць пазыцыю</string>
   <string name="isPrivate">Прыватна</string>
   <string name="reportXToModerators">Паведаміць %s мадэратару</string>
+  <string name="profileCompletion">Запоўненасць профілю: %s</string>
+  <string name="xRating">%s рэйтынг</string>
+  <string name="ifNoneLeaveEmpty">Калі няма, пакіньце пустым</string>
+  <string name="gameCompletionRate">Завершаных гульняў: %s</string>
   <string name="profile">Профіль</string>
   <string name="editProfile">Рэдагаваць профіль</string>
   <string name="firstName">Імя</string>
@@ -315,6 +359,7 @@
   <string name="keepGoing">Працягвай...</string>
   <string name="puzzleFailed">Галаваломка не разьвязаная</string>
   <string name="butYouCanKeepTrying">Але можаш спрабаваць яшчэ.</string>
+  <string name="success">Поспех</string>
   <string name="wasThisPuzzleAnyGood">Галаваломка была добрай?</string>
   <string name="pleaseVotePuzzle">Памажы lichess палепшыць галасаваньнем, карыстаючыся стрэлкамі ўгору й удол</string>
   <string name="thankYou">Дзякуй!</string>
@@ -324,6 +369,11 @@
   <string name="retryThisPuzzle">Паспрабаваць разьвязаць зноў</string>
   <string name="thisPuzzleIsCorrect">Гэтая галаваломка правільная і цікавая</string>
   <string name="thisPuzzleIsWrong">Гэтая галаваломка няправільная або нудная</string>
+  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
+    <item quantity="one">У Вас %s секунда, каб зрабіць свой першы ход!</item>
+    <item quantity="few">У Вас %s секунды, каб зрабіць свой першы ход!</item>
+    <item quantity="other">У Вас %s секунд, каб зрабіць свой першы ход!</item>
+  </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Аўтаматычна пераходзіць да наступнай гульні пасля ходу</string>
   <string name="autoSwitch">Аўтаперамыканьне</string>
   <string name="puzzles">Загадкі</string>
@@ -369,6 +419,7 @@
   <string name="closeAccountExplanation">Упэўнены што хочаш закрыць свой акаўнт? Закрыцьцё акаўнта гэта сталая пастанова. Ты больш ня зможаш залогініцца, і твая профільная старонка больш ня будзе даступнай.</string>
   <string name="thisAccountIsClosed">Гэты акаўнт закрыты.</string>
   <string name="invalidUsernameOrPassword">Няправільнае імя карыстальніка або пароль</string>
+  <string name="incorrectPassword">Няслушны пароль</string>
   <string name="emailMeALink">Дашлеце мне спасылку на імэйл</string>
   <string name="currentPassword">Дзейны пароль</string>
   <string name="newPassword">Новы пароль</string>
@@ -377,6 +428,9 @@
   <string name="pieceDestinations">Даступныя клеткі (для хадоў і прэвэнтыўных хадоў)</string>
   <string name="boardCoordinates">Каардынаты дошкі</string>
   <string name="moveListWhilePlaying">Сьпіс хадоў падчас гульні</string>
+  <string name="pgnPieceNotation">Запіс фігуры ў PGN</string>
+  <string name="chessPieceSymbol">Знак шахматнай фігуры</string>
+  <string name="pgnLetter">Пісьмовы запіс PGN (K, Q, R, B, N)</string>
   <string name="chessClock">Шахматны гадзіньнік</string>
   <string name="tenthsOfSeconds">Дзясятыя сэкунды</string>
   <string name="never">Ніколі</string>
@@ -384,12 +438,18 @@
   <string name="horizontalGreenProgressBars">Гарызантальны зялёны радок поступу</string>
   <string name="soundWhenTimeGetsCritical">Гукавое апавяшчэньне пры нястачы часу</string>
   <string name="gameBehavior">Паводзіны ў гульні</string>
+  <string name="howDoYouMovePieces">Як вы перасоўваеце фігуры?</string>
+  <string name="clickTwoSquares">Націскам на дзве клеткі</string>
+  <string name="dragPiece">Перацягваннем фігуры</string>
+  <string name="bothClicksAndDrag">Абодвума спосабамі</string>
   <string name="premovesPlayingDuringOpponentTurn">Прэвэнтыўныя хады (праводзяцца калі чарод суперніка)</string>
   <string name="takebacksWithOpponentApproval">Касаванье апошняга ходу (з згоды суперніка)</string>
   <string name="promoteToQueenAutomatically">Пераўтвараць у Візыра аўтаматычна</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Аўтаматычна запытваць нічыю пры трохразовым паўторы ходу</string>
   <string name="privacy">Прыватнасьць</string>
   <string name="letOtherPlayersFollowYou">Дазволіць іншых гульцам падпісвацца на цябе</string>
   <string name="letOtherPlayersChallengeYou">Дазволіць іншым гульцам выклікаць цябе на гульню</string>
+  <string name="letOtherPlayersInviteYouToStudy">Дазволіць іншым гульцам запрасіць вас на вывучэнне</string>
   <string name="sound">Гук</string>
   <string name="yourPreferencesHaveBeenSaved">Твае перавагі былі захаваныя</string>
   <string name="none">Няма</string>
@@ -412,6 +472,9 @@
   <string name="xAnsweredY">%1$s адказаў на %2$s</string>
   <string name="xCommentedY">%1$s пракамэнтаваў %2$s</string>
   <string name="victory">Перамога!</string>
+  <string name="defeat">Параза</string>
+  <string name="xVsYinZ">%1$s супраць %2$s
+у %3$s</string>
   <string name="timeline">У сярбоў</string>
   <string name="seeAllTournaments">Паглядзець усе турніры</string>
   <string name="starting">Распачынаеца:</string>
@@ -582,4 +645,14 @@
   <string name="usernameStartNoNumber">Імя карыстача не павінна пачынацца з лічбы.</string>
   <string name="usernameUnacceptable">Гэта імя карыстача не з\'яўляецца прымальным.</string>
   <string name="directlySupportLichess">Падтрымвае Lichess</string>
+  <string name="playChessInStyle">У стылі шахматаў</string>
+  <string name="chessBasics">Шахматныя асновы</string>
+  <string name="coaches">Трэнеры</string>
+  <string name="invalidPgn">Некарэктны PGN</string>
+  <string name="invalidFen">Некарэктны FEN</string>
+  <string name="error.minLength">Мінімальная даўжыня — %s</string>
+  <string name="error.maxLength">Максімальная даўжыня — %s</string>
+  <string name="error.min">Значэнне павінна быць больш або роўным да %s</string>
+  <string name="error.max">Значэнне павінна быць менш або роўным да %s</string>
+  <string name="error.unknown">Абмыла</string>
 </resources>
