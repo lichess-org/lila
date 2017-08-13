@@ -185,4 +185,22 @@
   <string name="opponentsFromAroundTheWorld">Супернікі з усяго свету</string>
   <string name="playMachine">Гульня з ботам</string>
   <string name="testYourSkillsWithTheComputer">Праверце свае навыкі</string>
+  <string name="letsGo">Паехалі!</string>
+  <string name="stageX">Этап %s</string>
+  <string name="awesome">Выдатна!</string>
+  <string name="excellent">Цудоўна!</string>
+  <string name="greatJob">Выдатная праца!</string>
+  <string name="perfect">Дабрэнна!</string>
+  <string name="outstanding">Адменна!</string>
+  <string name="wayToGo">Наперад!</string>
+  <string name="yesYesYes">Так, так, так!</string>
+  <string name="youreGoodAtThis">Вы малайчына!</string>
+  <string name="nailedIt">Поспех.</string>
+  <string name="rightOn">Слушна!</string>
+  <string name="stageXComplete">Этап %s завершаны</string>
+  <string name="yourScore">Ваш вынік</string>
+  <string name="next">Далей</string>
+  <string name="backToMenu">Вярнуцца ў меню</string>
+  <string name="puzzleFailed">Заданне не вырашана!</string>
+  <string name="retry">Яшчэ раз</string>
 </resources>
