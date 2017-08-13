@@ -12,4 +12,53 @@
   <string name="theRook">Тура</string>
   <string name="itMovesInStraightLines">Рухається прямими лініями</string>
   <string name="rookIntro">Тура — це важка фігура. Чи готові ви керувати нею?</string>
+  <string name="rookGoal">Натисніть на туру й доведіть її до зірки!</string>
+  <string name="grabAllTheStars">Зберіть всі зірки!</string>
+  <string name="theFewerMoves">Чим менше ходів ви зробите, тим більше очок ви отримаєте!</string>
+  <string name="useTwoRooks">Використовуйте дві тури, аби прискорити процес!</string>
+  <string name="rookComplete">Вітаємо! Ви навчилися ходити турою.</string>
+  <string name="theBishop">Слон</string>
+  <string name="itMovesDiagonally">Переміщається діагоналями</string>
+  <string name="bishopIntro">Далі ми навчимося ходити слоном!</string>
+  <string name="youNeedBothBishops">Поля білого кольору контролює один слон, поля чорного кольору — інший. Вам потрібні обидва слона!</string>
+  <string name="bishopComplete">Вітаємо! Ви навчилися ходити слоном.</string>
+  <string name="theQueen">Ферзь</string>
+  <string name="queenCombinesRookAndBishop">Ферзь = тура + слон</string>
+  <string name="queenIntro">Найпотужніша фігура. Його величність — ферзь!</string>
+  <string name="queenComplete">Вітаємо! Ви навчилися ходити ферзем.</string>
+  <string name="theKing">Король</string>
+  <string name="theMostImportantPiece">Найважливіша фігура</string>
+  <string name="kingIntro">Ви - король. Якщо ви загинете в битві - гру програно.</string>
+  <string name="theKingIsSlow">Король повільно пересувається.</string>
+  <string name="lastOne">І останній!</string>
+  <string name="kingComplete">Ви навчилися ходити королем!</string>
+  <string name="theKnight">Кінь</string>
+  <string name="itMovesInAnLShape">Він ходить літерою «Г»</string>
+  <string name="knightIntro">Ось вам завдання. Кінь — хитра фігура.</string>
+  <string name="knightsHaveAFancyWay">Коні мають химерний спосіб перестрибувати!</string>
+  <string name="knightsCanJumpOverObstacles">Коні можуть стрибати через перешкоди!
+Виберетеся й зберіть всі зірки!</string>
+  <string name="knightComplete">Вітаємо! Ви освоїли фігуру \"Кінь\".</string>
+  <string name="thePawn">Пішак</string>
+  <string name="itMovesForwardOnly">Ходить тільки вперед</string>
+  <string name="pawnIntro">Пішаки слабкі, але в них багато потенціалу.</string>
+  <string name="pawnsMoveOneSquareOnly">Пішаки ходять тільки на одну клітинку вперед. Але досягнувши іншого кінця дошки, вони перетворюються на сильну фігуру!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">У більшості випадку пішака краще перетворити на ферзя. Але іноді перетворення в коня може бути вигідніше!</string>
+  <string name="pawnsMoveForward">Пішаки рухаються вперед, але б\'ють по діагоналях!</string>
+  <string name="captureThenPromote">Побийте, потім перетворитеся!</string>
+  <string name="useAllThePawns">Використовуйте всі пішаки!
+Необов\'язково їх перетворювати.</string>
+  <string name="aPawnOnTheSecondRank">Пішак на другому ряду може ходити на два поля за хід!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Зберіть всі зірки!
+Необов\'язково перетворювати пішаки.</string>
+  <string name="pawnComplete">Вітаємо! У пішаків немає секретів для вас.</string>
+  <string name="pawnPromotion">Перетворення пішака</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Ваш пішак досяг краю дошки!</string>
+  <string name="boardSetupComplete">Вітаємо! Тепер ви знаєте, як ставити фігури на шахівниці.</string>
+  <string name="castling">Рокіровка</string>
+  <string name="theSpecialKingMove">Спеціальний хід короля</string>
+  <string name="castlingIntro">Захистіть свого короля й виведіть у бій туру!</string>
+  <string name="castleKingSide">Пересуньте свого короля на дві клітини до тури королівського флангу!</string>
+  <string name="castleQueenSide">Пересуньте свого короля на дві клітини до тури ферзевого флангу!</string>
+  <string name="theKnightIsInTheWay">Кінь в дорозі! Зробіть хід конем, потім зробіть рокіровку.</string>
 </resources>
