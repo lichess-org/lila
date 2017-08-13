@@ -493,7 +493,7 @@
   <string name="chessPieceSymbol">Satranç taşı sembolü</string>
   <string name="pgnLetter">PGN harfi (Ş, V, K, A, F)</string>
   <string name="chessClock">Satranç saati</string>
-  <string name="tenthsOfSeconds">Son 10 saniye</string>
+  <string name="tenthsOfSeconds">Saniyenin Onda Biri</string>
   <string name="never">Asla</string>
   <string name="whenTimeRemainingLessThanTenSeconds">kalan zaman &lt; 10 saniye</string>
   <string name="horizontalGreenProgressBars">Yeşil yatay ilerleme çubuğu</string>
