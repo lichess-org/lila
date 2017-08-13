@@ -61,4 +61,57 @@
   <string name="castleKingSide">Пересуньте свого короля на дві клітини до тури королівського флангу!</string>
   <string name="castleQueenSide">Пересуньте свого короля на дві клітини до тури ферзевого флангу!</string>
   <string name="theKnightIsInTheWay">Кінь в дорозі! Зробіть хід конем, потім зробіть рокіровку.</string>
+  <string name="castleKingSideMovePiecesFirst">Коротка рокіровка! Спочатку вам потрібно розвинути фігури.</string>
+  <string name="castleQueenSideMovePiecesFirst">Довга рокіровка! Спочатку вам потрібно розвинути фігури.</string>
+  <string name="youCannotCastleIfMoved">Ви не можете робити рокіровку, якщо король чи тура, які беруть участь у рокіровці, робили хід.</string>
+  <string name="youCannotCastleIfAttacked">Ви не можете рокіруватися, 
+якщо король перебуває під шахом. 
+Спочатку захистіть короля!</string>
+  <string name="findAWayToCastleKingSide">Знайдіть спосіб зробити коротку рокіровку!</string>
+  <string name="findAWayToCastleQueenSide">Знайдіть спосіб зробити довгу рокіровку!</string>
+  <string name="castlingComplete">Вітаємо! Ви маєте майже завжди рокіруватися в партіях.</string>
+  <string name="enPassant">Взяття на проході</string>
+  <string name="theSpecialPawnMove">Спеціальний хід пішаком</string>
+  <string name="enPassantIntro">Коли пішак суперника робить хід на дві клітини, ви можете взяти його, як якщо б він зробив хід на одну.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Чорні щойно сходили пішаком на два поля! Візьміть його.</string>
+  <string name="enPassantOnlyWorksImmediately">Пішак противника може бути взято на проході тільки безпосередньо після ходу.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Взяття на проході можна зробити, якщо ваш пішак на п\'ятому рядку.</string>
+  <string name="takeAllThePawnsEnPassant">Візьміть всі пішаки на проході!</string>
+  <string name="enPassantComplete">Вітаємо! Тепер ви можете робити взяття на проході.</string>
+  <string name="stalemate">Пат</string>
+  <string name="theGameIsADraw">Гра є нічийною</string>
+  <string name="stalemateIntro">Коли гравцеві не поставлено шах і немає можливості зробити хід, це пат. Гра закінчується: без переможців та переможених.</string>
+  <string name="stalemateGoal">Пат чорним: 
+- Чорні не можуть сходити.
+- Король не під шахом.</string>
+  <string name="stalemateComplete">Вітаємо! Краще отримати пат, ніж мат!</string>
+  <string name="advanced">Просунутий етап</string>
+  <string name="pieceValue">Цінність фігур</string>
+  <string name="evaluatePieceStrength">Оцініть силу фігури</string>
+  <string name="pieceValueIntro">Фігури з високою рухливістю мають більш високу цінність!
+Ферзь = 9 пішаків
+Човен = 5 пішаків
+Слон = 3 пішаки
+Кінь = 3 пішаки
+Пішак = 1 пішак
+Король безцінний! Його втрата означає, що гру програно.</string>
+  <string name="queenOverBishop">Атакуйте фігури з більш високою цінністю!
+Ферзь &gt; Слон</string>
+  <string name="takeThePieceWithTheHighestValue">Атакуйте фігури з більш високою цінністю!</string>
+  <string name="pieceValueComplete">Вітаємо! Ви знаєте цінність фігур!
+Ферзь = 9 пішаків
+Човен = 5 пішаків
+Слон = 3 пішаки
+Кінь = 3 пішаки
+Пішак = 1 пішак</string>
+  <string name="checkInTwo">Шах в 2 ходи</string>
+  <string name="twoMovesToGiveCheck">Два ходи на те, щоб зробити шах</string>
+  <string name="checkInTwoIntro">Знайдіть комбінацію в два ходи, щоб поставити шах королю супротивника!</string>
+  <string name="checkInTwoGoal">Створіть загрозу королю противника в два ходи!</string>
+  <string name="checkInTwoComplete">Вітаємо! Ви поставили шах вашому противникові, змусивши його захищати свого короля!</string>
+  <string name="whatNext">Що далі?</string>
+  <string name="youKnowHowToPlayChess">Ви вмієте грати в шахи, вітаємо! Ви хочете стати більш сильним гравцем?</string>
+  <string name="register">Реєстрація</string>
+  <string name="getAFreeLichessAccount">Створити безкоштовний акаунт</string>
+  <string name="practice">Практика</string>
 </resources>
