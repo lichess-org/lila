@@ -170,7 +170,7 @@
   <string name="twoMovesToGiveCheck">Два хода на то, чтобы сделать шах</string>
   <string name="checkInTwoIntro">Найдите комбинацию в два хода, чтобы поставить шах королю противника!</string>
   <string name="checkInTwoGoal">Создайте угрозу королю противника в два хода!</string>
-  <string name="checkInTwoComplete">Поздравляем! Вы поставили шах вашем противнику, вынудив его защищать своего короля!</string>
+  <string name="checkInTwoComplete">Поздравляем! Вы поставили шах вашему противнику, вынудив его защищать своего короля!</string>
   <string name="whatNext">Что дальше?</string>
   <string name="youKnowHowToPlayChess">Вы умеете играть в шахматы, поздравляем! Вы хотите стать более сильным игроком?</string>
   <string name="register">Регистрация</string>
