@@ -146,11 +146,31 @@
   <string name="stalemateGoal">Пат чёрным: 
 - Чёрные не могут сходить.
 - Король не под шахом.</string>
+  <string name="stalemateComplete">Поздравляем! Лучше получить пат, чем мат!</string>
   <string name="advanced">Продвинутый этап</string>
   <string name="pieceValue">Ценность фигур</string>
   <string name="evaluatePieceStrength">Оцените силу фигуры</string>
+  <string name="pieceValueIntro">Фигуры с высокой подвижностью имеют более высокую ценность!
+Ферзь = 9 пешек
+Ладья = 5 пешек
+Слон = 3 пешки
+Конь = 3 пешки
+Пешка = 1 пешка
+Король бесценен! Его потеря означает, что игра проиграна.</string>
+  <string name="queenOverBishop">Атакуйте фигуры с более высокой ценностью!
+Ферзь &gt; Слон</string>
+  <string name="takeThePieceWithTheHighestValue">Атакуйте фигуры с более высокой ценностью!</string>
+  <string name="pieceValueComplete">Поздравляем! Вы знаете ценность фигур!
+Ферзь = 9 пешек
+Ладья = 5 пешек
+Слон = 3 пешки
+Конь = 3 пешки
+Пешка = 1 пешка</string>
   <string name="checkInTwo">Шах в 2 хода</string>
   <string name="twoMovesToGiveCheck">Два хода на то, чтобы сделать шах</string>
+  <string name="checkInTwoIntro">Найдите комбинацию в два хода, чтобы поставить шах королю противника!</string>
+  <string name="checkInTwoGoal">Создайте угрозу королю противника в два хода!</string>
+  <string name="checkInTwoComplete">Поздравляем! Вы поставили шах вашем противнику, вынудив его защищать своего короля!</string>
   <string name="whatNext">Что дальше?</string>
   <string name="youKnowHowToPlayChess">Вы умеете играть в шахматы, поздравляем! Вы хотите стать более сильным игроком?</string>
   <string name="register">Регистрация</string>
@@ -171,7 +191,10 @@
   <string name="excellent">Превосходно!</string>
   <string name="greatJob">Отличная работа!</string>
   <string name="perfect">Отлично!</string>
+  <string name="outstanding">Отлично!</string>
   <string name="wayToGo">Вперед!</string>
+  <string name="yesYesYes">Да, да, да!</string>
+  <string name="youreGoodAtThis">Вы молодец!</string>
   <string name="nailedIt">Успех.</string>
   <string name="rightOn">Правильно!</string>
   <string name="stageXComplete">Этап %s завершен</string>
