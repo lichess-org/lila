@@ -1,6 +1,7 @@
 import { h } from 'snabbdom'
 import { renderIndexAndMove } from './moveView';
 import { defined } from 'common';
+import { ConcealOf } from './interfaces';
 import AnalyseController from './ctrl';
 
 export interface ForkController {
@@ -55,17 +56,17 @@ export function make(root: AnalyseController): ForkController {
   };
 }
 
-export function view(root, concealOf) {
+export function view(root: AnalyseController, concealOf?: ConcealOf) {
   if (root.embed || root.retro) return;
-  var state = root.fork.state();
+  const state = root.fork.state();
   if (!state.displayed) return;
-  var isMainline = concealOf && root.onMainline;
+  const isMainline = concealOf && root.onMainline;
   return h('div.fork', {
     hook: {
       insert(vnode) {
         (vnode.elm as HTMLElement).addEventListener('click', e => {
-          const target = e.target as HTMLElement;
-          const it = parseInt(
+          const target = e.target as HTMLElement,
+          it = parseInt(
             (target.parentNode as HTMLElement).getAttribute('data-it') ||
             target.getAttribute('data-it') || ''
           );
@@ -75,8 +76,8 @@ export function view(root, concealOf) {
       }
     }
   },
-  state.node.children.map(function(node, it) {
-    const conceal = isMainline && concealOf(true)(root.path + node.id, node);
+  state.node.children.map((node, it) => {
+    const conceal = isMainline && concealOf!(true)(root.path + node.id, node);
     if (!conceal) return h('move', {
       class: { selected: it === state.selected },
       attrs: { 'data-it': it }

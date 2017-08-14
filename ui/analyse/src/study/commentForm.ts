@@ -27,10 +27,10 @@ interface CommentForm {
 
 export function ctrl(root: AnalyseController): CommentForm {
 
-  const current = prop<Current | null>(null);
-  const dirty = prop(true);
-  const focus = prop(false);
-  const opening = prop(false);
+  const current = prop<Current | null>(null),
+  dirty = prop(true),
+  focus = prop(false),
+  opening = prop(false);
 
   function submit(text: string): void {
     if (!current()) return;

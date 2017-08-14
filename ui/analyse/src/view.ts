@@ -18,6 +18,7 @@ import { view as keyboardView} from './keyboard';
 import explorerView from './explorer/explorerView';
 import retroView from './retrospect/retroView';
 import practiceView from './practice/practiceView';
+import { view as gamebookView } from './study/gamebook/gamebookView';
 import * as studyView from './study/studyView';
 import { view as forkView } from './fork'
 import { render as acplView } from './acpl'
@@ -265,18 +266,18 @@ export default function(ctrl: AnalyseController): VNode {
         visualBoard(ctrl),
         h('div.lichess_ground', [
           menuIsOpen ? null : renderClocks(ctrl),
-          menuIsOpen ? null : crazyView(ctrl, ctrl.topColor(), 'top')
-        ].concat(
-          menuIsOpen ? [actionMenu(ctrl)] : [
+          menuIsOpen ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
+          ...(menuIsOpen ? [actionMenu(ctrl)] : [
             cevalView.renderCeval(ctrl),
             showCevalPvs ? cevalView.renderPvs(ctrl) : null,
             renderAnalyse(ctrl, concealOf),
             forkView(ctrl, concealOf),
             retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl)
-          ]).concat([
-            menuIsOpen ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
-            buttons(ctrl)
-          ]))
+          ]),
+          menuIsOpen ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
+          buttons(ctrl),
+          gamebookView(ctrl)
+        ])
       ])
     ]),
     ctrl.embed ? null : h('div.underboard', {
