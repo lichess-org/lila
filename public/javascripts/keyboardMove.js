@@ -38,12 +38,12 @@ function makeBindings(opts, submit, clear) {
   Mousetrap.bind('enter', function() {
     opts.input.focus();
   });
-  opts.input.addEventListener('keyup', function(e) {
+  opts.input.addEventListener('keypress', function(e) {
     var v = e.target.value;
     if (v.indexOf('/') > -1) {
       focusChat();
       clear();
-    } else submit(v, e.keyCode === 13);
+    } else submit(v, e.which === 13);
   });
   opts.input.addEventListener('focus', function() {
     opts.setFocus(true);

@@ -63,7 +63,7 @@ function renderInput(ctrl: Ctrl): VNode | undefined {
       maxlength: 140,
       disabled: ctrl.vm.timeout || !ctrl.vm.writeable
     },
-    hook: bind('keyup', (e: KeyboardEvent) => {
+    hook: bind('keypress', (e: KeyboardEvent) => {
       const el = e.target as HTMLInputElement;
       const txt = el.value;
       if (e.which == 10 || e.which == 13) {

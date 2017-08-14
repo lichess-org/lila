@@ -38,7 +38,7 @@ build() {
 
 if type -p parallel; then # parallel execution!
   if [ -z "$P_OPTS" -a ! -e ~/.parallel/config ]; then
-    P_OPTS="-j+4 --halt now,fail=1"
+    P_OPTS="-j+4 --halt 2"
     [ "$TRAVIS" = "true" ] || P_OPTS+=" --bar"
   fi
   set -x

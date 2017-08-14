@@ -511,7 +511,8 @@ div.side_box .refused {
 }
 #tournament_side .scroll-shadow-soft {
   max-height: 400px;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 #tournament_side .spinner {
   width: 70px;
@@ -594,8 +595,8 @@ div.side_box .refused {
   border-left-color: #dc322f!important;
 }
 #tournament_side .player .pairings td:nth-child(2) {
-  width: 110px;
-  max-width: 110px;
+  width: 108px;
+  max-width: 108px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
