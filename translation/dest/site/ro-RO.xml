@@ -73,13 +73,24 @@
   <string name="recentGames">Jocuri recente</string>
   <string name="topGames">Cele mai bune jocuri</string>
   <string name="masterDbExplanation">Două milioane de jocuri reale OTB ale jucătorilor cu evaluare FIDE %1$s+ între %2$s și %3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Mat la prima mutare</item>
+    <item quantity="few">Mat în %s mutări</item>
+    <item quantity="other">Mat în %s mutări</item>
+  </plurals>
   <string name="noGameFound">Nu a fost găsit niciun joc</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Poate doriți să includeți mai multe jocuri din meniul de preferințe?</string>
   <string name="openingExplorer">Cercetarea deschiderilor</string>
+  <string name="xOpeningExplorer">Exploratorul de deschideri %s</string>
+  <string name="winPreventedBy50MoveRule">Victoria a fost împiedicată de regula celor 50 de mutări</string>
+  <string name="lossSavedBy50MoveRule">Pierderea partidei a fost împiedicată de regula celor 50 de mutări</string>
   <string name="allSet">Gata!</string>
+  <string name="importPgn">Importare PNG</string>
   <string name="delete">Șterge</string>
   <string name="deleteThisImportedGame">Şterge acest joc importat?</string>
   <string name="replayMode">Rejoacă joc</string>
   <string name="realtimeReplay">În timp real</string>
+  <string name="byCPL">După CPL</string>
   <string name="openStudy">Studiu deschis</string>
   <string name="enable">Activeaza</string>
   <string name="bestMoveArrow">Săgeată pentru cea mai bună mutare</string>
