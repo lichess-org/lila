@@ -69,12 +69,17 @@ export default function(opts: CevalOpts): CevalController {
     };
   })();
 
+  let lastEmitFen: string | null = null;
+
   const onEmit = throttle(500, false, (ev: Tree.ClientEval, work: Work) => {
     sortPvsInPlace(ev.pvs, (work.ply % 2 === (work.threatMode ? 1 : 0)) ? 'white' : 'black');
     npsRecorder(ev);
     curEval = ev;
     opts.emit(ev, work);
-    if (ev.millis > 1000 && ev.millis < 5000) window.lichess.storage.set('ceval.fen', ev.fen);
+    if (ev.fen !== lastEmitFen) {
+      lastEmitFen = ev.fen;
+      window.lichess.storage.set('ceval.fen', ev.fen);
+    }
   });
 
   const effectiveMaxDepth = function(): number {
