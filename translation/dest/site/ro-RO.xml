@@ -46,7 +46,9 @@
   <string name="viewTheComputerAnalysis">Vezi analiza computerului</string>
   <string name="requestAComputerAnalysis">Cereți o analiză a computerului</string>
   <string name="computerAnalysis">Analiza computerului</string>
+  <string name="computerAnalysisAvailable">Analiză computerizată disponibilă</string>
   <string name="analysis">Analiza</string>
+  <string name="depthX">Adâncime %s</string>
   <string name="move">Mutare</string>
   <string name="pawnMove">Mutare de pion</string>
   <string name="close">Închide</string>
