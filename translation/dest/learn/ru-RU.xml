@@ -66,7 +66,12 @@
   <string name="protection">Защита</string>
   <string name="keepYourPiecesSafe">Защищайте ваши фигуры</string>
   <string name="protectionIntro">Определите, какие ваши фигуры атакует противники, и защитите их!</string>
+  <string name="protectionComplete">Поздравляем! Фигура, которую вы не проиграли, это ваша победа!</string>
   <string name="escape">Вас атакуют! Устраните угрозу!</string>
+  <string name="noEscape">Это не выход,
+Но вы можете защитить!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Не позволяйте им съедать
+любую незащищённую фигуру!</string>
   <string name="combat">Сражение</string>
   <string name="captureAndDefendPieces">Взятие и защита фигур</string>
   <string name="combatIntro">Хороший воин знает как атаку, так и защиту!</string>
@@ -74,39 +79,98 @@
   <string name="checkInOne">Шах</string>
   <string name="attackTheOpponentsKing">Атака на короля</string>
   <string name="checkInOneIntro">Чтобы объявить шах, нападайте на короля противника. Он должен будет защищаться!</string>
+  <string name="checkInOneGoal">Нападите на короля соперника
+за один ход!</string>
+  <string name="checkInOneComplete">Поздравляем! Вы поставили шах своему сопернику, вынудив защищать своего короля!</string>
   <string name="outOfCheck">Уход из-под шаха</string>
   <string name="defendYourKing">Защитите своего короля</string>
   <string name="outOfCheckIntro">Вам шах! Вы должны уходить или блокировать атаку.</string>
   <string name="escapeWithTheKing">Побег королем!</string>
   <string name="theKingCannotEscapeButBlock">Король не может уйти, но вы можете блокировать атаку!</string>
+  <string name="youCanGetOutOfCheckByTaking">Вы можете уйти от шаха,
+съев атакующую фигуру.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Этот конь ставит шах,
+минуя твою защиту!</string>
+  <string name="escapeOrBlock">Уведите короля
+или закройтесь!</string>
+  <string name="outOfCheckComplete">Поздравляем! Ваш король не сможет быть взят, убедитесь, что вы можете защитить его от шаха!</string>
   <string name="mateInOne">Мат в один ход</string>
   <string name="defeatTheOpponentsKing">Поражение короля противника</string>
   <string name="mateInOneIntro">Вы выигрываете, когда ваш оппонент не может защищаться от шаха.</string>
   <string name="attackYourOpponentsKing">Атакуйте короля вашего противника таким образом, чтобы его нельзя было защитить!</string>
+  <string name="mateInOneComplete">Поздравляем! Таким образом вы выиграете в шахматы!</string>
   <string name="intermediate">Промежуточный этап</string>
   <string name="boardSetup">Позиция на доске</string>
   <string name="howTheGameStarts">Начало шахматной партии</string>
   <string name="boardSetupIntro">Обе армии сражаются друг с другом, готовые к битве.</string>
   <string name="thisIsTheInitialPosition">Это - начальная позиция в шахматах! Сделайте любой ход, чтобы продолжить.</string>
+  <string name="firstPlaceTheRooks">Сначала расставьте ладьи!
+Они находятся по углам.</string>
+  <string name="thenPlaceTheKnights">Затем расставьте коней!
+Они стоят рядом с ладьями.</string>
+  <string name="placeTheBishops">Расставьте слонов!
+Они идут рядом с конями.</string>
+  <string name="placeTheQueen">Поставьте ферзя!
+Ферзь любит свой цвет.</string>
+  <string name="placeTheKing">Поставьте короля!
+Он стоит рядом с ферзём.</string>
+  <string name="pawnsFormTheFrontLine">Пешки стоят на передней линии.
+Сделайте любой ход, чтобы продолжить.</string>
+  <string name="boardSetupComplete">Поздравляем! Теперь вы знаете, как ставить фигуры на шахматной доске.</string>
   <string name="castling">Рокировка</string>
   <string name="theSpecialKingMove">Специальный ход короля</string>
+  <string name="castlingIntro">Защитите своего короля и выведите в бой ладью!</string>
   <string name="castleKingSide">Передвиньте своего короля на две клетки к ладье королевского фланга!</string>
   <string name="castleQueenSide">Передвиньте своего короля на две клетки к ладье ферзевого фланга!</string>
   <string name="theKnightIsInTheWay">Конь в пути! Сделайте ход конем, затем сделайте рокировку.</string>
   <string name="castleKingSideMovePiecesFirst">Короткая рокировка! Сначала вам нужно развить фигуры.</string>
   <string name="castleQueenSideMovePiecesFirst">Длинная рокировка! Сначала вам нужно развить фигуры.</string>
   <string name="youCannotCastleIfMoved">Вы не можете делать рокировку, если король или ладья, участвующие в рокировке, делали ход.</string>
+  <string name="youCannotCastleIfAttacked">Вы не можете рокироваться, 
+если король находится под шахом. 
+Сначала защитите короля!</string>
+  <string name="findAWayToCastleKingSide">Найдите способ сделать короткую рокировку!</string>
   <string name="findAWayToCastleQueenSide">Найдите способ сделать длинную рокировку!</string>
+  <string name="castlingComplete">Поздравляем! Вы должны почти всегда рокироваться в партиях.</string>
   <string name="enPassant">Взятие на проходе</string>
   <string name="theSpecialPawnMove">Специальный ход пешкой</string>
+  <string name="enPassantIntro">Когда пешка соперника делает ход на две клетки, вы можете взять её, как если бы она сделала ход на одну.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Чёрные только что сходили пешкой на два поля! Возьмите её.</string>
+  <string name="enPassantOnlyWorksImmediately">Пешка противника может быть взята на проходе только непосредственно после хода.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Взятие на проходе можно сделать, если ваша пешка на пятом ряду.</string>
+  <string name="takeAllThePawnsEnPassant">Возьмите все пешки на проходе!</string>
   <string name="enPassantComplete">Поздравляем! Теперь вы можете делать взятие на проходе.</string>
   <string name="stalemate">Пат</string>
   <string name="theGameIsADraw">Игра является ничейной</string>
+  <string name="stalemateIntro">Когда игроку не поставлен шах и нет возможности сделать ход, это пат. Игра заканчивается: без победителей и проигравших.</string>
+  <string name="stalemateGoal">Пат чёрным: 
+- Чёрные не могут сходить.
+- Король не под шахом.</string>
+  <string name="stalemateComplete">Поздравляем! Лучше получить пат, чем мат!</string>
   <string name="advanced">Продвинутый этап</string>
   <string name="pieceValue">Ценность фигур</string>
   <string name="evaluatePieceStrength">Оцените силу фигуры</string>
+  <string name="pieceValueIntro">Фигуры с высокой подвижностью имеют более высокую ценность!
+Ферзь = 9 пешек
+Ладья = 5 пешек
+Слон = 3 пешки
+Конь = 3 пешки
+Пешка = 1 пешка
+Король бесценен! Его потеря означает, что игра проиграна.</string>
+  <string name="queenOverBishop">Атакуйте фигуры с более высокой ценностью!
+Ферзь &gt; Слон</string>
+  <string name="takeThePieceWithTheHighestValue">Атакуйте фигуры с более высокой ценностью!</string>
+  <string name="pieceValueComplete">Поздравляем! Вы знаете ценность фигур!
+Ферзь = 9 пешек
+Ладья = 5 пешек
+Слон = 3 пешки
+Конь = 3 пешки
+Пешка = 1 пешка</string>
   <string name="checkInTwo">Шах в 2 хода</string>
   <string name="twoMovesToGiveCheck">Два хода на то, чтобы сделать шах</string>
+  <string name="checkInTwoIntro">Найдите комбинацию в два хода, чтобы поставить шах королю противника!</string>
+  <string name="checkInTwoGoal">Создайте угрозу королю противника в два хода!</string>
+  <string name="checkInTwoComplete">Поздравляем! Вы поставили шах вашему противнику, вынудив его защищать своего короля!</string>
   <string name="whatNext">Что дальше?</string>
   <string name="youKnowHowToPlayChess">Вы умеете играть в шахматы, поздравляем! Вы хотите стать более сильным игроком?</string>
   <string name="register">Регистрация</string>
@@ -127,7 +191,10 @@
   <string name="excellent">Превосходно!</string>
   <string name="greatJob">Отличная работа!</string>
   <string name="perfect">Отлично!</string>
+  <string name="outstanding">Отлично!</string>
   <string name="wayToGo">Вперед!</string>
+  <string name="yesYesYes">Да, да, да!</string>
+  <string name="youreGoodAtThis">Вы молодец!</string>
   <string name="nailedIt">Успех.</string>
   <string name="rightOn">Правильно!</string>
   <string name="stageXComplete">Этап %s завершен</string>

@@ -94,7 +94,7 @@
   <string name="replayMode">Herhaal modus</string>
   <string name="realtimeReplay">Realtime</string>
   <string name="byCPL">Door CPL</string>
-  <string name="openStudy">Open Study</string>
+  <string name="openStudy">Open studie</string>
   <string name="enable">Aanzetten</string>
   <string name="bestMoveArrow">Beste zet-pijl</string>
   <string name="evaluationGauge">Evaluatie meter</string>
@@ -102,6 +102,7 @@
   <string name="cpus">CPUs</string>
   <string name="memory">Geheugen</string>
   <string name="infiniteAnalysis">Oneindige analyse</string>
+  <string name="removesTheDepthLimit">Verwijdert de diepte limiet, en houdt je computer warm</string>
   <string name="blunders">Blunders</string>
   <string name="mistakes">Fouten</string>
   <string name="inaccuracies">Imperfecties</string>
@@ -238,8 +239,8 @@
     <item quantity="other">%s remise</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="one">%s aan de gang</item>
-    <item quantity="other">%s aan de gang</item>
+    <item quantity="one">%s bezig</item>
+    <item quantity="other">%s bezig</item>
   </plurals>
   <string name="exportGames">Partijen exporteren</string>
   <string name="ratingRange">Ratingbereik</string>
@@ -250,6 +251,7 @@
   <string name="giveMoreTime">Meer tijd geven</string>
   <string name="thisPlayerUsesChessComputerAssistance">Deze speler maakt gebruik van een schaakprogramma</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Deze speler verhoogt/verlaagt zijn rating kunstmatig</string>
+  <string name="openingExplorerAndTablebase">Openingverkenner &amp; tablebase</string>
   <string name="takeback">Neem zet terug</string>
   <string name="proposeATakeback">Stel zet terugnemen voor</string>
   <string name="takebackPropositionSent">Terugname-voorstel verstuurd</string>
@@ -298,6 +300,7 @@
   <string name="fromPosition">Vanuit een stelling</string>
   <string name="continueFromHere">Ga vanaf hier verder</string>
   <string name="importGame">Importeer partij</string>
+  <string name="importGameExplanation">Wanneer je een PGN in het venster plakt dan krijg je een doorzoekbare replay, een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Geïmporteerde partij</item>
     <item quantity="other">%s Geïmporteerde partijen</item>
@@ -507,7 +510,7 @@
   <string name="privacy">Privacy</string>
   <string name="letOtherPlayersFollowYou">Andere spelers mogen je volgen</string>
   <string name="letOtherPlayersChallengeYou">Andere spelers mogen je uitdagen</string>
-  <string name="letOtherPlayersInviteYouToStudy">Laat andere spelers je uitnodigen voor een Study</string>
+  <string name="letOtherPlayersInviteYouToStudy">Laat andere spelers je uitnodigen voor een studie</string>
   <string name="sound">Geluid</string>
   <string name="yourPreferencesHaveBeenSaved">Uw voorkeuren werden opgeslagen.</string>
   <string name="none">Geen</string>
