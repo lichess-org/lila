@@ -10,10 +10,10 @@ div.lichess_game div.lichess_ground {
   flex-flow: column;
 }
 .gamebook .editor .title {
-  padding: 5px 0;
+  padding: 8px 0;
   text-align: center;
   border-bottom: 1px solid #ccc;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   font-weight: bold;
 }
 .gamebook .editor label span {
@@ -25,4 +25,8 @@ div.lichess_game div.lichess_ground {
   box-sizing: border-box;
   height: 5em;
   border-width: 1px 0;
+  padding: 5px;
+}
+.gamebook .editor .legend {
+  padding: 0 10px 8px 10px;
 }

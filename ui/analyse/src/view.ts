@@ -241,10 +241,13 @@ function renderChapterName(ctrl: AnalyseController) {
 let firstRender = true;
 
 export default function(ctrl: AnalyseController): VNode {
-  const concealOf = makeConcealOf(ctrl);
-  const showCevalPvs = !(ctrl.retro && ctrl.retro.isSolving()) && !ctrl.practice;
-  const menuIsOpen = ctrl.actionMenu.open;
-  const studyStateClass = ctrl.study ? ctrl.study.currentChapter().id + ctrl.study.vm.loading : 'nostudy';
+  const concealOf = makeConcealOf(ctrl),
+  showCevalPvs = !(ctrl.retro && ctrl.retro.isSolving()) && !ctrl.practice,
+  menuIsOpen = ctrl.actionMenu.open,
+  chapter = ctrl.study && ctrl.study.data.chapter,
+  studyStateClass = chapter ? chapter.id + ctrl.study.vm.loading : 'nostudy',
+  showFork = !chapter || !chapter.gamebook;
+  console.log(ctrl.study.data);
   return h('div.analyse.cg-512', [
     h('div.' + studyStateClass, {
       hook: {
@@ -271,7 +274,7 @@ export default function(ctrl: AnalyseController): VNode {
             cevalView.renderCeval(ctrl),
             showCevalPvs ? cevalView.renderPvs(ctrl) : null,
             renderAnalyse(ctrl, concealOf),
-            forkView(ctrl, concealOf),
+            showFork ? forkView(ctrl, concealOf) : undefined,
             retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl)
           ]),
           menuIsOpen ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),

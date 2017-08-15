@@ -154,8 +154,7 @@ export function view(ctrl: CommentForm): VNode | undefined {
                   ctrl.submit(el.value);
                 }, 50);
               }
-              el.onkeyup = onChange;
-              el.onpaste = onChange;
+              el.onkeyup = el.onpaste = onChange;
               el.onfocus = function() {
                 ctrl.focus(true);
                 ctrl.redraw();

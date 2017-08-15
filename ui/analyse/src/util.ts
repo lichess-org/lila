@@ -4,6 +4,10 @@ import { Attrs } from 'snabbdom/modules/attributes'
 import { fixCrazySan } from 'chess';
 import { AnalyseData } from './interfaces';
 
+export function plyColor(ply: number): Color {
+  return (ply % 2 === 0) ? 'white' : 'black';
+}
+
 export function bind(eventName: string, f: (e: Event) => any, redraw?: () => void): Hooks {
   return {
     insert: vnode => {

@@ -1,5 +1,6 @@
 import { h } from 'snabbdom'
 import AnalyseController from '../../../ctrl';
+import { nodeFullName, plyColor } from '../../../util';
 import { VNode } from 'snabbdom/vnode'
 import { throttle } from 'common';
 
@@ -9,21 +10,28 @@ export default function(ctrl: AnalyseController): VNode {
     hook: {
       insert: _ => {
         window.lichess.loadCss('/assets/stylesheets/gamebook.css')
-        window.lichess.loadCss('/assets/stylesheets/material.form.css')
       }
     }
   }, [
     h('div.editor', [
-      h('span.title', 'Gamebook editor'),
-      renderDeviation(ctrl)
+      h('span.title', [
+        'Gamebook editor: ',
+        nodeFullName(ctrl.node)
+      ]),
+      ctrl.path ? (
+        ctrl.onMainline ? (
+          plyColor(ctrl.node.ply) === ctrl.data.orientation ? renderDeviation(ctrl) : renderOpponentMove()
+        ) : renderVariation()
+      ) : h('div.legend',
+        'Help the player find the initial move, with a comment'
+      )
     ])
   ]);
 }
 
 let prevPath: Tree.Path;
 
-
-const save = throttle(500, false, (ctrl: AnalyseController, gamebook: Tree.Gamebook) => {
+const saveNode = throttle(500, false, (ctrl: AnalyseController, gamebook: Tree.Gamebook) => {
   ctrl.socket.send('setGamebook', {
     path: ctrl.path,
     ch: ctrl.study!.vm.chapterId,
@@ -48,10 +56,9 @@ function renderDeviation(ctrl: AnalyseController): VNode {
           function onChange() {
             node.gamebook = node.gamebook || {};
             node.gamebook.deviation = el.value.trim();
-            setTimeout(() => save(ctrl, node.gamebook, 50));
+            saveNode(ctrl, node.gamebook, 50);
           }
-          el.onkeyup = onChange;
-          el.onpaste = onChange;
+          el.onkeyup = el.onpaste = onChange;
           prevPath = path;
         },
         postpatch(_, vnode: VNode) {
@@ -62,5 +69,19 @@ function renderDeviation(ctrl: AnalyseController): VNode {
         }
       }
     })
+  ]);
+}
+
+function renderVariation(): VNode {
+  return h('div.legend', [
+    'Explain why this move is wrong in a comment,',
+    h('br'),
+    'or promote it as the mainline if it is the right move.'
+  ]);
+}
+
+function renderOpponentMove(): VNode {
+  return h('div.legend', [
+    'Comment the opponent move'
   ]);
 }
