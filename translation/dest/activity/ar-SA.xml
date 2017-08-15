@@ -99,5 +99,21 @@
     <item quantity="many">تنافس في %s بطولة</item>
     <item quantity="other">تنافس في %s بطولة</item>
   </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="zero">المركز #%1$s (أفضل %2$s%%) ل %3$s مباراة في %4$s</item>
+    <item quantity="one">المركز #%1$s (أفضل %2$s%%) ل %3$s مباراة في %4$s</item>
+    <item quantity="two">المركز #%1$s (أفضل %2$s%%) ل %3$s مباراة في %4$s</item>
+    <item quantity="few">المركز #%1$s (أفضل %2$s%%) ل %3$s مباراة في %4$s</item>
+    <item quantity="many">المركز #%1$s (أفضل %2$s%%) ل %3$s مباراة في %4$s</item>
+    <item quantity="other">المركز #%1$s (أفضل %2$s%%) ل %3$s مباراة في %4$s</item>
+  </plurals>
   <string name="signedUp">إنشيء حساب لدى ليتشيس</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="zero">إنضم ل %s فريق</item>
+    <item quantity="one">إنضم ل %s فريق</item>
+    <item quantity="two">إنضم لفريقين %s</item>
+    <item quantity="few">إنضم ل %s فرق</item>
+    <item quantity="many">إنضم ل %s فرقة</item>
+    <item quantity="other">إنضم ل %s فريقًا</item>
+  </plurals>
 </resources>
