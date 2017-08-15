@@ -7,7 +7,7 @@ export interface Goal {
   cp?: number
 }
 
-export interface PracticeData {
+export interface StudyPracticeData {
   study: {
     id: string;
     name: string;
@@ -32,11 +32,11 @@ export interface PracticeStudy {
   name: string;
 }
 
-export interface PracticeCtrl {
+export interface StudyPracticeCtrl {
   onReload(): void;
   onJump(): void;
   onCeval(): void;
-  data: PracticeData;
+  data: StudyPracticeData;
   goal: Prop<Goal>;
   success: Prop<boolean | null>;
   comment: Prop<string | undefined>;

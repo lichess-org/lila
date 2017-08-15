@@ -27,18 +27,19 @@ function renderGlyph(ctrl, node) {
 }
 
 export function ctrl(root: AnalyseController) {
-  const isOpen = prop(false);
-  const dirty = prop(true);
-  const all = prop<any | null>(null);
+  const study = root.study!,
+  isOpen = prop(false),
+  dirty = prop(true),
+  all = prop<any | null>(null);
 
-  var loadGlyphs = function() {
+  function loadGlyphs() {
     if (!all()) xhr.glyphs().then(function(gs) {
       all(gs);
       root.redraw();
     });
   };
 
-  var toggleGlyph = function(id) {
+  function toggleGlyph(id) {
     if (!dirty()) {
       dirty(true);
       root.redraw();
@@ -46,13 +47,13 @@ export function ctrl(root: AnalyseController) {
     doToggleGlyph(id);
   };
 
-  var doToggleGlyph = throttle(500, false, function(id) {
-    root.study.makeChange('toggleGlyph', root.study.withPosition({
+  const doToggleGlyph = throttle(500, false, function(id) {
+    study.makeChange('toggleGlyph', study.withPosition({
       id
     }));
   });
 
-  var open = function() {
+  function open() {
     loadGlyphs();
     dirty(true);
     isOpen(true);

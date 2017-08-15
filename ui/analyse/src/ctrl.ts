@@ -19,6 +19,7 @@ import { ExplorerController } from './explorer/interfaces';
 import { game, GameData } from 'game';
 import { valid as crazyValid } from './crazy/crazyCtrl';
 import makeStudy from './study/studyCtrl';
+import { StudyController } from './study/interfaces';
 import { make as makeFork, ForkController } from './fork';
 import { make as makeRetro, RetroController } from './retrospect/retroCtrl';
 import { make as makePractice, PracticeController } from './practice/practiceCtrl';
@@ -57,8 +58,8 @@ export default class AnalyseController {
   retro?: RetroController;
   fork: ForkController;
   practice?: PracticeController;
-  study?: any;
-  studyPractice?: any;
+  study?: StudyController;
+  studyPractice?: PracticeController;
 
   // state flags
   justPlayed?: string; // pos
@@ -133,8 +134,8 @@ export default class AnalyseController {
     this.onToggleComputer();
     this.startCeval();
     this.explorer.setNode();
-    this.study = opts.study ? makeStudy(opts.study, this, (opts.tagTypes || '').split(','), opts.practice) : null;
-    this.studyPractice = this.study ? this.study.practice : null;
+    this.study = opts.study ? makeStudy(opts.study, this, (opts.tagTypes || '').split(','), opts.practice) : undefined;
+    this.studyPractice = this.study ? this.study.practice : undefined;
 
     if (location.hash === '#practice' || (this.study && this.study.data.chapter.practice)) this.togglePractice();
 

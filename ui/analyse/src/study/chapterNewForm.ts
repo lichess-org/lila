@@ -5,7 +5,7 @@ import { bind, bindSubmit, spinner } from '../util';
 import { variants as xhrVariants } from './studyXhr';
 import * as dialog from './dialog';
 import { chapter as chapterTour } from './studyTour';
-import { StudyChapterMeta } from './interfaces';
+import { StudyController, StudyChapterMeta } from './interfaces';
 import AnalyseController from '../ctrl';
 
 export const modeChoices = [
@@ -22,7 +22,8 @@ export function fieldValue(e: Event, id: string) {
 
 export function ctrl(send: SocketSend, chapters: Prop<StudyChapterMeta[]>, setTab: () => void, root: AnalyseController) {
 
-  const multiPgnMax = 20;
+  const multiPgnMax = 20,
+  study: StudyController = root.study!;
 
   const vm = {
     variants: [],
@@ -83,7 +84,7 @@ export function ctrl(send: SocketSend, chapters: Prop<StudyChapterMeta[]>, setTa
             orientation: d.orientation,
             pgn,
             variant: d.variant,
-            sticky: root.study.vm.mode.sticky
+            sticky: study.vm.mode.sticky
           };
         }));
         return true;
@@ -93,7 +94,7 @@ export function ctrl(send: SocketSend, chapters: Prop<StudyChapterMeta[]>, setTa
 
   function submitSingle(d) {
     d.initial = vm.initial();
-    d.sticky = root.study.vm.mode.sticky;
+    d.sticky = study.vm.mode.sticky;
     send("addChapter", d)
   };
 

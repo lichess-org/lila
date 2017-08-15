@@ -19,9 +19,9 @@ import { StudyController, Tab } from './interfaces';
 import { MaybeVNodes } from '../interfaces';
 
 function buttons(root: AnalyseController): VNode {
-  const ctrl = root.study;
-  const canContribute = ctrl.members.canContribute();
-  const showSticky = ctrl.data.features.sticky && (canContribute || ctrl.vm.behind);
+  const ctrl = root.study!,
+  canContribute = ctrl.members.canContribute(),
+  showSticky = ctrl.data.features.sticky && (canContribute || ctrl.vm.behind);
   return h('div.study_buttons', [
     h('div.member_buttons', [
       // distinct classes (sync, write) allow snabbdom to differentiate buttons
@@ -30,7 +30,7 @@ function buttons(root: AnalyseController): VNode {
         class: { on: ctrl.vm.mode.sticky },
         hook: bind('click', ctrl.toggleSticky)
       }, [
-        ctrl.vm.behind ? h('span.behind', ctrl.vm.behind) : h('i.is'),
+        ctrl.vm.behind ? h('span.behind', '' + ctrl.vm.behind) : h('i.is'),
         'Sync'
       ]) : null,
       ctrl.members.canContribute() ? h('a.button.mode.write.hint--top', {
@@ -157,14 +157,15 @@ export function overboard(ctrl: StudyController) {
 
 export function underboard(ctrl: AnalyseController): MaybeVNodes {
   if (ctrl.embed) return [];
-  if (ctrl.studyPractice) return [practiceView.underboard(ctrl.study)];
-  const commentForm = commentFormView(ctrl.study.commentForm);
+  if (ctrl.studyPractice) return [practiceView.underboard(ctrl.study!)];
+  const study = ctrl.study!,
+  commentForm = commentFormView(study.commentForm);
   return [
-    notifView(ctrl.study.notif),
-    glyphFormView(ctrl.study.glyphForm),
+    notifView(study.notif),
+    glyphFormView(study.glyphForm),
     currentCommentsView(ctrl, !commentForm),
     commentForm,
     buttons(ctrl),
-    metadata(ctrl.study)
+    metadata(study)
   ];
 }

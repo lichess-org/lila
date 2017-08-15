@@ -90,7 +90,7 @@ export function ctrl(root: AnalyseController): CommentForm {
       else open(chapterId, path, node);
     },
     delete(chapterId: string, path: Tree.Path, id: string) {
-      root.study.makeChange('deleteComment', {
+      root.study!.makeChange('deleteComment', {
         ch: chapterId,
         path,
         id

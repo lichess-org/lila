@@ -3,7 +3,7 @@ import { prop } from 'common';
 import { enrichText } from '../studyComments';
 import makeSuccess from './studyPracticeSuccess';
 import makeSound from './sound';
-import { PracticeData, Goal, PracticeCtrl } from './interfaces';
+import { StudyPracticeData, Goal, StudyPracticeCtrl } from './interfaces';
 import { StudyData, StudyChapterMeta } from '../interfaces';
 import AnalyseController from '../../ctrl';
 
@@ -13,15 +13,16 @@ function readOnlyProp<A>(value: A): () => A {
   };
 }
 
-export default function(root: AnalyseController, studyData: StudyData, data: PracticeData): PracticeCtrl {
+export default function(root: AnalyseController, studyData: StudyData, data: StudyPracticeData): StudyPracticeCtrl {
 
-  const goal = prop<Goal>(root.data.practiceGoal!);
-  const comment = prop<string | undefined>(undefined);
-  const nbMoves = prop(0);
+  const study = root.study!,
+  goal = prop<Goal>(root.data.practiceGoal!),
+  comment = prop<string | undefined>(undefined),
+  nbMoves = prop(0),
   // null = ongoing, true = win, false = fail
-  const success = prop<boolean | null>(null);
-  const sound = makeSound();
-  const analysisUrl = prop('');
+  success = prop<boolean | null>(null),
+  sound = makeSound(),
+  analysisUrl = prop('');
 
   function makeComment(treeRoot: Tree.Node): string | undefined {
     if (!treeRoot.comments) return;
@@ -59,15 +60,15 @@ export default function(root: AnalyseController, studyData: StudyData, data: Pra
   };
 
   function onVictory(): void {
-    var chapterId = root.study.currentChapter().id;
-    var former = data.completion[chapterId] || 999;
+    const chapterId = study.currentChapter().id,
+    former = data.completion[chapterId] || 999;
     if (nbMoves() < former) {
       data.completion[chapterId] = nbMoves();
       xhr.practiceComplete(chapterId, nbMoves());
     }
     sound.success();
     const next = nextChapter();
-    if (next) setTimeout(() => root.study.setChapter(next.id), 1000);
+    if (next) setTimeout(() => study.setChapter(next.id), 1000);
   };
 
   function onFailure(): void {
@@ -76,8 +77,8 @@ export default function(root: AnalyseController, studyData: StudyData, data: Pra
   };
 
   function nextChapter(): StudyChapterMeta | undefined {
-    const chapters = root.study.data.chapters;
-    const currentId = root.study.currentChapter().id;
+    const chapters = study.data.chapters;
+    const currentId = study.currentChapter().id;
     for (var i in chapters)
       if (chapters[i].id === currentId) return chapters[parseInt(i) + 1];
   };

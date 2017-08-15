@@ -1,7 +1,7 @@
 import { Prop } from 'common';
 import { NotifController } from './notif';
 import { AnalyseData } from '../interfaces';
-import { PracticeCtrl } from './practice/interfaces';
+import { StudyPracticeCtrl } from './practice/interfaces';
 
 export interface StudyController {
   data: StudyData;
@@ -32,7 +32,7 @@ export interface StudyController {
   startTour(): void;
   userJump(path: Tree.Path): void;
   currentNode(): Tree.Node;
-  practice?: PracticeCtrl;
+  practice?: StudyPracticeCtrl;
   mutateCgConfig(config: any): void;
   redraw(): void;
 }
@@ -124,9 +124,6 @@ interface StudyChapterSetup {
 interface StudyChapterFeatures {
   computer: boolean;
   explorer: boolean;
-}
-
-export interface StudyPractice {
 }
 
 export type StudyMember = any;

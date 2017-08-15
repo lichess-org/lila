@@ -37,11 +37,11 @@ export function enrichText(text: string, allowNewlines: boolean): string {
 export function currentComments(ctrl: AnalyseController, includingMine: boolean): VNode | undefined {
   if (!ctrl.node.comments) return;
   const node = ctrl.node,
-  study: StudyController = ctrl.study,
+  study: StudyController = ctrl.study!,
   chapter = study.currentChapter(),
   comments = node.comments!;
   if (!comments.length) return;
-  return h('div.study_comments', comments.map(function(comment) {
+  return h('div.study_comments', comments.map((comment: Tree.Comment) => {
     const by: any = comment.by;
     const isMine = by.id && ctrl.opts.userId === by.id;
     if (!includingMine && isMine) return;

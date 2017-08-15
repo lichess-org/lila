@@ -3,9 +3,9 @@ import { VNode } from 'snabbdom/vnode'
 import { plural, bind, spinner, innerHTML } from '../../util';
 import { enrichText } from '../studyComments';
 import { StudyController } from '../interfaces';
-import { PracticeData, PracticeCtrl } from './interfaces';
+import { StudyPracticeData, StudyPracticeCtrl } from './interfaces';
 
-function selector(data: PracticeData) {
+function selector(data: StudyPracticeData) {
   return h('select.selector', {
     hook: bind('change', e => {
       location.href = '/practice/' + (e.target as HTMLInputElement).value;
@@ -26,7 +26,7 @@ function selector(data: PracticeData) {
   ]);
 }
 
-function renderGoal(practice: PracticeCtrl, inMoves: number) {
+function renderGoal(practice: StudyPracticeCtrl, inMoves: number) {
   const goal = practice.goal();
   switch (goal.result) {
     case 'mate':

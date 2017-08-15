@@ -1,6 +1,6 @@
 import { Player, Status, Source } from 'game';
 import * as cg from 'chessground/types';
-import { PracticeData, Goal as PracticeGoal } from './study/practice/interfaces';
+import { StudyPracticeData, Goal as PracticeGoal } from './study/practice/interfaces';
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[]
@@ -82,7 +82,7 @@ export interface AnalyseOpts {
   trans: Trans;
   study?: any;
   tagTypes?: string;
-  practice?: PracticeData;
+  practice?: StudyPracticeData;
   onChange?: (fen: Fen, path: Tree.Path, mainlinePly: Ply | false) => void;
   onToggleComputer?: (v: boolean) => void;
 }

@@ -7,6 +7,7 @@ import makeCtrl from './ctrl';
 import view from './view';
 import { main as studyView } from './study/studyView';
 import { main as studyPracticeView } from './study/practice/studyPracticeView';
+import { StudyController } from './study/interfaces';
 import boot = require('./boot');
 import { Chessground } from 'chessground';
 import * as chat from 'chat';
@@ -35,11 +36,13 @@ export function start(opts: AnalyseOpts) {
   opts.element.innerHTML = '';
   vnode = patch(opts.element, blueprint);
 
-  if (ctrl.study && opts.sideElement) {
+  const study: StudyController | undefined = ctrl.study;
+
+  if (study && opts.sideElement) {
     const sideView = ctrl.studyPractice ? studyPracticeView : studyView;
-    let sideVnode = patch(opts.sideElement, sideView(ctrl.study));
+    let sideVnode = patch(opts.sideElement, sideView(study));
     redrawSide = () => {
-      sideVnode = patch(sideVnode, sideView(ctrl.study));
+      sideVnode = patch(sideVnode, sideView(study));
     }
   }
 

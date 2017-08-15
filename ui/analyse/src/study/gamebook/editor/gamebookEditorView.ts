@@ -7,7 +7,8 @@ import { throttle } from 'common';
 
 export default function(ctrl: AnalyseController): VNode {
 
-  const isMyMove = ctrl.turnColor() === ctrl.data.orientation,
+  const study = ctrl.study!,
+  isMyMove = ctrl.turnColor() === ctrl.data.orientation,
   isCommented = !!(ctrl.node.comments || []).find(c => c.text.length > 2);
 
   let content: MaybeVNodes;
@@ -15,7 +16,7 @@ export default function(ctrl: AnalyseController): VNode {
   function commentButton(text: string = 'comment') {
     return h('a.button.thin', {
       hook: bind('click', () => {
-        ctrl.study.commentForm.open(ctrl.study.vm.chapterId, ctrl.path, ctrl.node);
+        study.commentForm.open(study.vm.chapterId, ctrl.path, ctrl.node);
       }, ctrl.redraw),
     }, text);
   }
@@ -46,14 +47,18 @@ export default function(ctrl: AnalyseController): VNode {
     ];
   }
   else content = [
-    renderVariation()
+    h('div.legend.todo', { class: { done: isCommented } }, [
+      'Explain why this move is wrong in a ',
+      commentButton(),
+      '.'
+    ]),
+    h('div.legend',
+      'Or promote it as the mainline if it is the right move.')
   ];
 
   return h('div.gamebook', {
     hook: {
-      insert: _ => {
-        window.lichess.loadCss('/assets/stylesheets/gamebook.css')
-      }
+      insert: _ => window.lichess.loadCss('/assets/stylesheets/gamebook.editor.css') 
     }
   }, [
     h('div.editor', [
@@ -110,13 +115,5 @@ function renderDeviation(ctrl: AnalyseController): VNode {
         }
       }
     })
-  ]);
-}
-
-function renderVariation(): VNode {
-  return h('div.legend', [
-    'Explain why this move is wrong in a comment,',
-    h('br'),
-    'or promote it as the mainline if it is the right move.'
   ]);
 }

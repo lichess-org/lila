@@ -245,7 +245,7 @@ export default function(ctrl: AnalyseController): VNode {
   showCevalPvs = !(ctrl.retro && ctrl.retro.isSolving()) && !ctrl.practice,
   menuIsOpen = ctrl.actionMenu.open,
   chapter = ctrl.study && ctrl.study.data.chapter,
-  studyStateClass = chapter ? chapter.id + ctrl.study.vm.loading : 'nostudy',
+  studyStateClass = chapter ? chapter.id + ctrl.study!.vm.loading : 'nostudy',
   showFork = !chapter || !chapter.gamebook;
   return h('div.analyse.cg-512', [
     h('div.' + studyStateClass, {
