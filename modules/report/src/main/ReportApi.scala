@@ -106,11 +106,11 @@ final class ReportApi(
     securityApi.shareIpOrPrint(winnerId, loserId) zip
       UserRepo.byId(winnerId) zip UserRepo.byId(loserId) zip UserRepo.lichess flatMap {
         case isSame ~ Some(winner) ~ Some(loser) ~ Some(lichess) => create(ReportSetup(
-          user = winner,
+          user = if (isSame) winner else loser,
           reason = Reason.Boost.key,
           text =
           if (isSame) s"Farms rating points from @${loser.username} (same IP or print)"
-          else s"Sandbagging - the winning player (@${winner.username}) has different IPs & prints",
+          else s"Sandbagging - the winning player @${winner.username} has different IPs & prints",
           gameId = "",
           move = ""
         ), lichess)

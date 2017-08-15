@@ -221,7 +221,7 @@
   <string name="send">Gönder</string>
   <string name="incrementInSeconds">Hamle başına eklenen saniye</string>
   <string name="freeOnlineChess">Ücretsiz Çevrimiçi Satranç</string>
-  <string name="spectators">İzleyiciler</string>
+  <string name="spectators">İzleyici:</string>
   <plurals name="nbRated">
     <item quantity="one">%s puanlı</item>
     <item quantity="other">%s puanlı</item>
@@ -493,7 +493,7 @@
   <string name="chessPieceSymbol">Satranç taşı sembolü</string>
   <string name="pgnLetter">PGN harfi (Ş, V, K, A, F)</string>
   <string name="chessClock">Satranç saati</string>
-  <string name="tenthsOfSeconds">Son 10 saniye</string>
+  <string name="tenthsOfSeconds">Saniyenin Onda Biri</string>
   <string name="never">Asla</string>
   <string name="whenTimeRemainingLessThanTenSeconds">kalan zaman &lt; 10 saniye</string>
   <string name="horizontalGreenProgressBars">Yeşil yatay ilerleme çubuğu</string>

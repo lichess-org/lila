@@ -49,19 +49,62 @@
   <string name="computerAnalysisAvailable">Комп\'ютерний аналіз доступний</string>
   <string name="analysis">Аналіз</string>
   <string name="depthX">Глибина %s</string>
+  <string name="usingServerAnalysis">Використовуючи комп\'ютерний аналіз</string>
+  <string name="loadingEngine">Завантаження гри...</string>
+  <string name="cloudAnalysis">Хмарний аналіз</string>
   <string name="goDeeper">Ще глибше</string>
   <string name="showThreat">Показати загрозу</string>
+  <string name="inLocalBrowser">на комп\'ютері</string>
+  <string name="toggleLocalEvaluation">Включити аналіз на комп\'ютері</string>
+  <string name="move">Хід</string>
+  <string name="variantLoss">Шанс програшу</string>
+  <string name="variantWin">Шанс виграшу</string>
   <string name="insufficientMaterial">Недостатньо матеріалу</string>
   <string name="pawnMove">Хід пішака</string>
   <string name="capture">Захоплення</string>
   <string name="close">Закрити</string>
+  <string name="winning">Виграш</string>
+  <string name="losing">Програш</string>
+  <string name="drawn">Нічия</string>
+  <string name="unknown">Невідомо</string>
   <string name="database">База даних</string>
   <string name="whiteDrawBlack">Білі / Нічія / Чорні</string>
+  <string name="averageRatingX">Середня оцінка: %s</string>
+  <string name="recentGames">Останні ігри</string>
+  <string name="topGames">Кращі ігри</string>
+  <string name="masterDbExplanation">Два мільйони OTB ігор %1$s+ FIDE гравців рейтингу від %2$s до %3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Мат в %s ході сторін</item>
+    <item quantity="few">Мат в %s ходах сторін</item>
+    <item quantity="other">Мат в %s ходах сторін</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Наступне захоплення або хід пішаком в %s ході сторін (Дистанція до 50-го ходу)</item>
+    <item quantity="few">Наступне захоплення або хід пішаком в %s ходах сторін (Дистанція до 50-го ходу)</item>
+    <item quantity="other">Наступне захоплення або хід пішаком в %s ходах сторін (Дистанція до 50-го ходу)</item>
+  </plurals>
+  <string name="noGameFound">Ігор не знайдено</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Може, варто включити більше ігор з вкладки переваг?</string>
   <string name="openingExplorer">Перегляд дебютів</string>
+  <string name="xOpeningExplorer">Відкриваємо провідник: %s</string>
+  <string name="winPreventedBy50MoveRule">Перемогу попереджено правилом 50-го ходу</string>
+  <string name="lossSavedBy50MoveRule">Поразку врятовано правилом 50-го ходу</string>
   <string name="allSet">Все готово!</string>
   <string name="importPgn">Імпорт PGN</string>
+  <string name="delete">Видалити</string>
+  <string name="deleteThisImportedGame">Видалити цю імпортовану гру?</string>
+  <string name="replayMode">Режим повтору</string>
   <string name="realtimeReplay">У реальному часі</string>
+  <string name="byCPL">Цікаве</string>
+  <string name="openStudy">Почати дослідження</string>
+  <string name="enable">Включити</string>
+  <string name="bestMoveArrow">Стрілка \"кращий хід\"</string>
+  <string name="evaluationGauge">Шкала оцінки</string>
+  <string name="multipleLines">Кількість стрілок</string>
+  <string name="cpus">Процесори</string>
   <string name="memory">Пам\'ять</string>
+  <string name="infiniteAnalysis">Нескінченний аналіз</string>
+  <string name="removesTheDepthLimit">Видаляє обмеження на глибину (ваш комп\'ютер буде гарячим)</string>
   <string name="blunders">Грубі помилки</string>
   <string name="mistakes">Помилки</string>
   <string name="inaccuracies">Неточності</string>
@@ -71,7 +114,22 @@
   <string name="claimADraw">Оголосити нічию</string>
   <string name="offerDraw">Запропонувати нічию</string>
   <string name="draw">Нічия</string>
+  <plurals name="nbPlayers">
+    <item quantity="one">%s гравців</item>
+    <item quantity="few">%s гравців</item>
+    <item quantity="other">%s гравців онлайн</item>
+  </plurals>
   <string name="currentGames">Поточні партії</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s Ігри</item>
+    <item quantity="few">%s Ігри</item>
+    <item quantity="other">%s ігор</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s Закладки</item>
+    <item quantity="few">%s Закладки</item>
+    <item quantity="other">%s закладок</item>
+  </plurals>
   <string name="viewInFullSize">Дивитися в повний розмір</string>
   <string name="logOut">Вийти</string>
   <string name="signIn">Увійти</string>
@@ -92,6 +150,16 @@
   <string name="correspondence">Переписка</string>
   <string name="daysPerTurn">Днів на хід</string>
   <string name="oneDay">Один день</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s днів</item>
+    <item quantity="few">%s днів</item>
+    <item quantity="other">%s днів</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s годин</item>
+    <item quantity="few">%s годин</item>
+    <item quantity="other">%s годин</item>
+  </plurals>
   <string name="time">Час</string>
   <string name="rating">Рейтинґ</string>
   <string name="ratingStats">Розподіл за рейтинґом</string>
@@ -106,7 +174,19 @@
   <string name="passwordReset">Скинути пароль</string>
   <string name="forgotPassword">Забули пароль?</string>
   <string name="rank">Ранг</string>
+  <string name="rankX">Рейтинг: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Рейтинг оновлюється кожні %s хвилин</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s пазл</item>
+    <item quantity="few">%s пазла</item>
+    <item quantity="other">%s пазлів</item>
+  </plurals>
   <string name="gamesPlayed">Партій зіграно</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s партія з вами</item>
+    <item quantity="few">%s партії з вами</item>
+    <item quantity="other">%s партії з вами</item>
+  </plurals>
   <string name="cancel">Скасувати</string>
   <string name="timeOut">Збіг час</string>
   <string name="drawOfferSent">Запит на нічию надіслано</string>
@@ -140,6 +220,8 @@
   <string name="play">Грати</string>
   <string name="inbox">Вхідні</string>
   <string name="chatRoom">Кімната балачок</string>
+  <string name="loginToChat">Увійдіть, щоб використовувати чат</string>
+  <string name="youHaveBeenTimedOut">Ви були відключені.</string>
   <string name="spectatorRoom">Кімната глядачів</string>
   <string name="composeMessage">Написати повідомлення</string>
   <string name="noNewMessages">Повідомлення відсутні</string>
@@ -149,10 +231,42 @@
   <string name="incrementInSeconds">Приріст на хід у секундах</string>
   <string name="freeOnlineChess">Безкоштовні Інтернет-шахи</string>
   <string name="spectators">Глядачі:</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s за рейтингом</item>
+    <item quantity="few">%s за рейтингом</item>
+    <item quantity="other">%s за рейтингом</item>
+  </plurals>
+  <plurals name="nbWins">
+    <item quantity="one">%s перемог</item>
+    <item quantity="few">%s перемог</item>
+    <item quantity="other">%s виграно</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s поразок</item>
+    <item quantity="few">%s поразок</item>
+    <item quantity="other">%s програно</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s нічиїх</item>
+    <item quantity="few">%s нічиїх</item>
+    <item quantity="other">%s зіграно внічию</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s грає</item>
+    <item quantity="few">%s грає</item>
+    <item quantity="other">%s грає</item>
+  </plurals>
   <string name="exportGames">Експорт ігор</string>
   <string name="ratingRange">Діапазон рейтинґу</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">Додати %s секунд</item>
+    <item quantity="few">Додати %s секунд</item>
+    <item quantity="other">Дати %s секунд</item>
+  </plurals>
+  <string name="giveMoreTime">Додати часу</string>
   <string name="thisPlayerUsesChessComputerAssistance">Цей гравець користується підказками комп’ютера</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Цей гравець штучно збільшує свій рейтинг</string>
+  <string name="openingExplorerAndTablebase">Відкриваємо провідник &amp; таблицю бази</string>
   <string name="takeback">Повернення ходу</string>
   <string name="proposeATakeback">Запропонувати повернути хід</string>
   <string name="takebackPropositionSent">Пропозицію повернути хід відправлено</string>
@@ -171,6 +285,11 @@
   <string name="backToGame">Повернутися до гри</string>
   <string name="siteDescription">Безкоштовні Інтернет-шахи. Грайте в шахи зараз із чистим інтерфейсом. Без реєстрації, без реклами, без додаткових програм. Грайте в шахи з комп\'ютером, друзями або випадковими суперниками.</string>
   <string name="teams">Команди</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s користувачів</item>
+    <item quantity="few">%s користувачів</item>
+    <item quantity="other">%s користувачів</item>
+  </plurals>
   <string name="allTeams">Усі команди</string>
   <string name="newTeam">Нова команда</string>
   <string name="myTeams">Мої команди</string>
@@ -197,6 +316,13 @@
   <string name="fromPosition">Із позиції</string>
   <string name="continueFromHere">Продовжити звідси</string>
   <string name="importGame">Імпортувати гру</string>
+  <string name="importGameExplanation">При вставці PGN-гри ви отримуєте повтор в браузері,
+комп\'ютерний аналіз, ігровий чат та посилання, яким можна поділитися.</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s імпортованих ігор</item>
+    <item quantity="few">%s імпортованих ігор</item>
+    <item quantity="other">%s Імпортованих ігор</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">Це – шаховий код.</string>
   <string name="clickOnTheBoardToMakeYourMove">Клацніть на дошці, щоби зробити хід і довести, що ви людина.</string>
   <string name="captcha.fail">Будь-ласка, вирішіть шахову капчу.</string>
@@ -216,6 +342,16 @@
   <string name="unblock">Розблокувати</string>
   <string name="followsYou">Спостерігає за вами</string>
   <string name="xStartedFollowingY">%1$s розпочали спостерігати за %2$s</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s спостерігачів</item>
+    <item quantity="few">%s спостерігачів</item>
+    <item quantity="other">%s підписників</item>
+  </plurals>
+  <plurals name="nbFollowing">
+    <item quantity="one">%s спостерігає</item>
+    <item quantity="few">%s спостерігає</item>
+    <item quantity="other">підписаний на %s гравців</item>
+  </plurals>
   <string name="more">Більше</string>
   <string name="memberSince">Зареєстрований</string>
   <string name="lastSeenActive">Востаннє заходив %s</string>
@@ -223,6 +359,11 @@
   <string name="player">Гравець</string>
   <string name="list">Список</string>
   <string name="graph">Графік</string>
+  <plurals name="lessThanNbMinutes">
+    <item quantity="one">Менше, ніж %s хвилин</item>
+    <item quantity="few">Менше, ніж %s хвилин</item>
+    <item quantity="other">Менш, ніж %s хвилин</item>
+  </plurals>
   <string name="required">Обов\'язково.</string>
   <string name="openTournaments">Відкриті турніри</string>
   <string name="duration">Тривалість</string>
@@ -240,8 +381,21 @@
   <string name="tournamentPairingsAreNowClosed">Жеребкування турніру на даний момент закрите.</string>
   <string name="standByX">Очікуйте, %s, йде жеребкування, будьте готові!</string>
   <string name="youArePlaying">Ви граєте!</string>
+  <string name="winRate">Коефіцієнт перемоги</string>
+  <string name="berserkRate">Коефіцієнт сказу</string>
+  <string name="performance">Ефективність</string>
+  <string name="tournamentComplete">Змагання завершено</string>
+  <string name="movesPlayed">Ходів зіграно</string>
+  <string name="whiteWins">Білі виграли</string>
+  <string name="blackWins">Чорні виграли</string>
+  <string name="draws">Нічия</string>
+  <string name="nextXTournament">Наступний %s турнір:</string>
+  <string name="viewMoreTournaments">Переглянути більше турнірів</string>
+  <string name="averageOpponent">Середній рейтинг суперника</string>
   <string name="membersOnly">Тільки учасники</string>
   <string name="boardEditor">Редактор дошки</string>
+  <string name="setTheBoard">Встановити дошку</string>
+  <string name="popularOpenings">Популярні дебюти</string>
   <string name="startPosition">Початкова позиція</string>
   <string name="clearBoard">Очистити дошку</string>
   <string name="savePosition">Зберегти позицію</string>
@@ -280,15 +434,31 @@
   <string name="keepGoing">Продовжуйте...</string>
   <string name="puzzleFailed">Задачу не вирішено</string>
   <string name="butYouCanKeepTrying">Але ви можете продовжувати</string>
+  <string name="success">Успіх</string>
   <string name="wasThisPuzzleAnyGood">Чи сподобалася вам ця задача?</string>
   <string name="pleaseVotePuzzle">Допоможіть Lichess зробитися кращими, натиснувши на одну зі стрілок:</string>
   <string name="thankYou">Дякуємо!</string>
   <string name="ratingX">Рівень: %s</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Показано %s разів</item>
+    <item quantity="few">Показано %s разів</item>
+    <item quantity="other">Вирішено %s разів</item>
+  </plurals>
   <string name="fromGameLink">Вилучено з гри %s</string>
   <string name="continueTraining">Продовжити тренування</string>
   <string name="retryThisPuzzle">Спробувати цю задачу ще раз</string>
   <string name="thisPuzzleIsCorrect">Ця задача є правильною та цікавою</string>
   <string name="thisPuzzleIsWrong">Ця задача є неправильною чи нудною</string>
+  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
+    <item quantity="one">У Вас %s секунда, аби зробити свій перший хід!</item>
+    <item quantity="few">У Вас %s секунди, аби зробити свій перший хід!</item>
+    <item quantity="other">У Вас %s секунд, аби зробити свій перший хід!</item>
+  </plurals>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s ігор триває</item>
+    <item quantity="few">%s ігор триває</item>
+    <item quantity="other">%s ведеться партій</item>
+  </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Автоматично перейти до наступної гри після ходу</string>
   <string name="autoSwitch">Автоперехід</string>
   <string name="puzzles">Тактика</string>
@@ -334,6 +504,7 @@
   <string name="closeAccountExplanation">Ви впевнені, що хочете закрити ваш обліковий запис? Закриття вашого облікового запису є незмінним рішенням. Ви більше не зможете заходити, а сторінка вашого профілю надалі буде недоступною.</string>
   <string name="thisAccountIsClosed">Цей обліковий запис закрито.</string>
   <string name="invalidUsernameOrPassword">Недійсне ім\'я користувача або пароль</string>
+  <string name="incorrectPassword">Невірний пароль</string>
   <string name="emailMeALink">Надішліть мені посилання</string>
   <string name="currentPassword">Поточний пароль</string>
   <string name="newPassword">Новий пароль</string>
@@ -386,12 +557,25 @@
   <string name="xAnsweredY">%1$s має відповідь на %2$s</string>
   <string name="xCommentedY">%1$s має коментар на %2$s</string>
   <string name="victory">Перемога!</string>
+  <string name="defeat">Поразка</string>
+  <string name="xVsYinZ">%1$s проти %2$s
+в %3$s</string>
   <string name="timeline">Смуга подій</string>
   <string name="seeAllTournaments">Дивитися усі турніри</string>
   <string name="starting">Початок:</string>
   <string name="allInformationIsPublicAndOptional">Уся інформація публічна та необов\'язкова.</string>
   <string name="yourCityRegionOrDepartment">Ваше місто, область або район.</string>
   <string name="biographyDescription">Розкажіть про себе: що вам подобається в шахах, які ваші улюблені дебюти, ігри, гравці…</string>
+  <plurals name="maximumNbCharacters">
+    <item quantity="one">Максимум: %s символів.</item>
+    <item quantity="few">Максимум: %s символів.</item>
+    <item quantity="other">Максимум: %s символів.</item>
+  </plurals>
+  <plurals name="blocks">
+    <item quantity="one">%s блокувань</item>
+    <item quantity="few">%s блокувань</item>
+    <item quantity="other">%s заблоковано</item>
+  </plurals>
   <string name="listBlockedPlayers">Список заблокованих гравців</string>
   <string name="human">Людина</string>
   <string name="computer">Комп\'ютер</string>
@@ -405,6 +589,7 @@
   <string name="playOnTheBoardOffline">Грайте оффлайн на ґаджеті</string>
   <string name="playOfflineComputer">Грати оффлайн з програмою</string>
   <string name="opponent">Суперник</string>
+  <string name="learnMenu">Навчатися</string>
   <string name="community">Спільнота</string>
   <string name="tools">Інструменти</string>
   <string name="increment">Додати</string>
@@ -417,7 +602,9 @@
   <string name="error.email">Ця адреса email помилкова</string>
   <string name="error.email_acceptable">Ця адреса email неприйнятна</string>
   <string name="error.email_unique">Цю адресу email уже задіяно</string>
+  <string name="error.email_different">Це ваша поточна адреса пошти</string>
   <string name="blindfoldChess">Шахи наосліп (невидимі фігури)</string>
+  <string name="zenMode">Режим Дзен</string>
   <string name="moveConfirmation">Підтвердження ходу</string>
   <string name="inCorrespondenceGames">У заочних партіях</string>
   <string name="ifRatingIsPlusMinusX">Якщо рейтинг ± %s</string>
@@ -428,6 +615,11 @@
   <string name="whiteCastlingQueenside">Білі O-O-O</string>
   <string name="blackCastlingKingside">Чорні O-O</string>
   <string name="blackCastlingQueenside">Чорні O-O-O</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s повідомлень форуму</item>
+    <item quantity="few">%s повідомлень форуму</item>
+    <item quantity="other">%s постів на форумі</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">Проведено часу у грі: %s</string>
   <string name="watchGames">Перегляд партій</string>
   <string name="tpTimeSpentOnTV">Час на ТБ: %s</string>
@@ -442,6 +634,7 @@
   <string name="sourceCode">Початковий програмний код</string>
   <string name="simultaneousExhibitions">Сеанси одночасної гри</string>
   <string name="host">Сеансер</string>
+  <string name="hostColorX">Колір організатора: %s</string>
   <string name="createdSimuls">Нові сеанси</string>
   <string name="hostANewSimul">Організувати новий сеанс</string>
   <string name="noSimulFound">Сеанс не знайдено</string>
@@ -500,6 +693,7 @@
   <string name="crosstable">Рахунок</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Також ви можете використовувати прокрутку над шахівницею для перегляду ходів у грі.</string>
   <string name="analysisShapesHowTo">Натисніть shift+ЛКМ або ПКМ, щоби намалювати кола та стрілки на шахівниці.</string>
+  <string name="confirmResignationAndDrawOffers">Підтверджувати повернення ходу та пропозиції нічий</string>
   <string name="inputMovesWithTheKeyboard">Вводити ходи за допомогою клавіатури</string>
   <string name="letOtherPlayersMessageYou">Дозволити іншим гравцям надсилати вам повідомлення</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Рокірувати, перемістивши короля на дві клітинки або натиснувши на туру</string>
@@ -532,15 +726,25 @@
   <string name="correspondenceAndUnlimited">За листуванням та необмежені</string>
   <string name="viewTheSolution">Дивитись рішення</string>
   <string name="followAndChallengeFriends">Стежте та викликайте друзів</string>
+  <plurals name="availableInNbLanguages">
+    <item quantity="one">Доступно %s мовами!</item>
+    <item quantity="few">Доступно %s мовами!</item>
+    <item quantity="other">Доступно %s мовами!</item>
+  </plurals>
   <string name="gameAnalysis">Аналіз гри</string>
   <string name="xHostsY">%1$s створив %2$s</string>
   <string name="xJoinsY">%1$s приєднався до %2$s</string>
   <string name="xLikesY">%1$s сподобалось %2$s</string>
   <string name="quickPairing">Швидкий старт</string>
   <string name="lobby">Лобі</string>
+  <string name="anonymous">Анонімно</string>
   <string name="yourScore">Ваш рахунок: %s</string>
   <string name="language">Мова</string>
   <string name="background">Фон</string>
+  <string name="light">Світла</string>
+  <string name="dark">Темна</string>
+  <string name="transparent">Прозора</string>
+  <string name="backgroundImageUrl">URL зображення в тлі:</string>
   <string name="boardGeometry">Геометрія дошки</string>
   <string name="boardTheme">Оформлення дошки</string>
   <string name="boardSize">Розмір дошки</string>
