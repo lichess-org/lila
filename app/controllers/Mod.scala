@@ -249,14 +249,9 @@ object Mod extends LilaController {
   }
 
   def emailConfirm = SecureBody(_.SetEmail) { implicit ctx => me =>
-    Ok(html.mod.emailConfirm("", none, none)).fuccess
-  }
-
-  def emailConfirmPost = SecureBody(_.SetEmail) { implicit ctx => me =>
-    implicit def req = ctx.body
-    Form(single("q" -> nonEmptyText)).bindFromRequest.fold(
-      err => BadRequest(html.mod.emailConfirm("", none, none)).fuccess,
-      rawQuery => {
+    get("q") match {
+      case None => Ok(html.mod.emailConfirm("", none, none)).fuccess
+      case Some(rawQuery) =>
         val query = rawQuery.trim.split(' ').toList
         val email = query.headOption.map(EmailAddress.apply) flatMap Env.security.emailAddressValidator.validate
         val username = query lift 1
@@ -272,7 +267,6 @@ object Mod extends LilaController {
             username ?? { tryWith(em, _) }
           }
         } getOrElse BadRequest(html.mod.emailConfirm(rawQuery, none, none)).fuccess
-      }
-    )
+    }
   }
 }

@@ -373,7 +373,6 @@ GET   /mod/:username/permissions       controllers.Mod.permissions(username: Str
 POST  /mod/:username/permissions       controllers.Mod.savePermissions(username: String)
 GET   /mod/public-chat                 controllers.Mod.publicChat
 GET   /mod/email-confirm               controllers.Mod.emailConfirm
-POST  /mod/email-confirm               controllers.Mod.emailConfirmPost
 
 # Irwin
 GET   /irwin                               controllers.Irwin.dashboard

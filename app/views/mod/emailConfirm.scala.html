@@ -38,7 +38,7 @@ moreJs = js) {
     If you provide an email and a username, it will set the email to that user,
     but only if the user has not yet confirmed their email.
   </p>
-  <form class="search" action="@routes.Mod.emailConfirmPost" method="POST">
+  <form class="search" action="@routes.Mod.emailConfirm" method="GET">
     <input name="q" placeholder="<email> <username (optional)>" value="@query" />
   </form>
   @user.map { u =>
