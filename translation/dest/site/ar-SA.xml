@@ -577,6 +577,10 @@
   <string name="currentPassword">كلمة المرور الحالية</string>
   <string name="newPassword">كلمة المرور الجديدة</string>
   <string name="newPasswordAgain">كلمة المرور الجديدة (مرة أخرى)</string>
+  <string name="boardHighlights">تميز معالم الرقعة (آخر نقلة والكش)</string>
+  <string name="pieceDestinations">نقلات القطعة ( النقلات المتاحة والنقلات الاستباقية)</string>
+  <string name="boardCoordinates">إحداثيات الرقعة (A-H, 1-8)</string>
+  <string name="moveListWhilePlaying">قائمة النقلات خلال المباراة</string>
   <string name="pgnPieceNotation">تدوين النقلة</string>
   <string name="chessPieceSymbol">رمز قطعة الشطرنج</string>
   <string name="pgnLetter">حروف (K, Q, R, B, N)</string>
