@@ -27,8 +27,7 @@ function renderGlyph(ctrl, node) {
 }
 
 export function ctrl(root: AnalyseController) {
-  const study = root.study!,
-  isOpen = prop(false),
+  const isOpen = prop(false),
   dirty = prop(true),
   all = prop<any | null>(null);
 
@@ -48,7 +47,7 @@ export function ctrl(root: AnalyseController) {
   };
 
   const doToggleGlyph = throttle(500, false, function(id) {
-    study.makeChange('toggleGlyph', study.withPosition({
+    root.study!.makeChange('toggleGlyph', root.study!.withPosition({
       id
     }));
   });
