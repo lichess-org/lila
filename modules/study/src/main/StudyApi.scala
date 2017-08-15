@@ -397,7 +397,7 @@ final class StudyApi(
 
   def setGamebook(userId: User.ID, studyId: Study.Id, position: Position.Ref, gamebook: Gamebook, uid: Uid) = sequenceStudyWithChapter(studyId, position.chapterId) {
     case Study.WithChapter(study, chapter) => Contribute(userId, study) {
-      chapter.setGamebook(gamebook, position.path) match {
+      chapter.setGamebook(gamebook.pp, position.path).pp match {
         case Some(newChapter) =>
           studyRepo.updateNow(study)
           chapterRepo.setGamebook(newChapter, position.path, gamebook) >>- {

@@ -210,7 +210,7 @@ export default class AnalyseController {
   }
 
   turnColor(): Color {
-    return this.node.ply % 2 === 0 ? 'white' : 'black';
+    return util.plyColor(this.node.ply);
   }
 
   togglePlay(delay: AutoplayDelay): void {

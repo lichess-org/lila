@@ -247,7 +247,6 @@ export default function(ctrl: AnalyseController): VNode {
   chapter = ctrl.study && ctrl.study.data.chapter,
   studyStateClass = chapter ? chapter.id + ctrl.study.vm.loading : 'nostudy',
   showFork = !chapter || !chapter.gamebook;
-  console.log(ctrl.study.data);
   return h('div.analyse.cg-512', [
     h('div.' + studyStateClass, {
       hook: {

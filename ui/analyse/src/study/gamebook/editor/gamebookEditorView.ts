@@ -1,10 +1,53 @@
 import { h } from 'snabbdom'
 import AnalyseController from '../../../ctrl';
-import { nodeFullName, plyColor } from '../../../util';
+import { nodeFullName, bind } from '../../../util';
+import { MaybeVNodes } from '../../../interfaces';
 import { VNode } from 'snabbdom/vnode'
 import { throttle } from 'common';
 
 export default function(ctrl: AnalyseController): VNode {
+
+  const isMyMove = ctrl.turnColor() === ctrl.data.orientation,
+  isCommented = !!(ctrl.node.comments || []).find(c => c.text.length > 2);
+
+  let content: MaybeVNodes;
+
+  function commentButton(text: string = 'comment') {
+    return h('a.button.thin', {
+      hook: bind('click', () => {
+        ctrl.study.commentForm.open(ctrl.study.vm.chapterId, ctrl.path, ctrl.node);
+      }, ctrl.redraw),
+    }, text);
+  }
+
+  if (!ctrl.path) content = [
+    h('div.legend.todo', { class: { done: isCommented } }, [
+      'Help the player find the initial move, with a ',
+      commentButton(),
+      '.'
+    ])
+  ];
+  else if (ctrl.onMainline) {
+    if (isMyMove) content = [
+      h('div.legend.todo', { class: { done: isCommented } }, [
+        'Comment the opponent move, and help the player find the next move, with a ',
+        commentButton(),
+        '.'
+      ])
+    ];
+    else content = [
+      h('div.legend.todo', { class: { done: isCommented } }, [
+        'Congratulate the player for this correct move, with a ',
+        commentButton(),
+        '.'
+      ]),
+      h('div.legend', 'Add variation moves to explain why specific other moves are wrong.'),
+      renderDeviation(ctrl)
+    ];
+  }
+  else content = [
+    renderVariation()
+  ];
 
   return h('div.gamebook', {
     hook: {
@@ -18,13 +61,7 @@ export default function(ctrl: AnalyseController): VNode {
         'Gamebook editor: ',
         nodeFullName(ctrl.node)
       ]),
-      ctrl.path ? (
-        ctrl.onMainline ? (
-          plyColor(ctrl.node.ply) === ctrl.data.orientation ? renderDeviation(ctrl) : renderOpponentMove()
-        ) : renderVariation()
-      ) : h('div.legend',
-        'Help the player find the initial move, with a comment'
-      )
+      ...content
     ])
   ]);
 }
@@ -37,6 +74,7 @@ const saveNode = throttle(500, false, (ctrl: AnalyseController, gamebook: Tree.G
     ch: ctrl.study!.vm.chapterId,
     gamebook: gamebook
   });
+  ctrl.redraw();
 });
 
 function renderDeviation(ctrl: AnalyseController): VNode {
@@ -44,11 +82,14 @@ function renderDeviation(ctrl: AnalyseController): VNode {
   path = ctrl.path,
   gamebook: Tree.Gamebook = node.gamebook || {},
   deviation = gamebook.deviation || '';
-  return h('div.deviation', [
+  return h('div.deviation.todo', { class: { done: deviation.length > 2 } }, [
     h('label', {
       attrs: { for: 'gamebook-deviation' }
-    }, 'When any other move is played:'),
+    }, 'Or, when any other move is played:'),
     h('textarea#gamebook-deviation', {
+      attrs: {
+        placeholder: 'Explain why all other moves are wrong'
+      },
       hook: {
         insert(vnode: VNode) {
           const el = vnode.elm as HTMLInputElement;
@@ -77,11 +118,5 @@ function renderVariation(): VNode {
     'Explain why this move is wrong in a comment,',
     h('br'),
     'or promote it as the mainline if it is the right move.'
-  ]);
-}
-
-function renderOpponentMove(): VNode {
-  return h('div.legend', [
-    'Comment the opponent move'
   ]);
 }

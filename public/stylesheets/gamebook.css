@@ -13,20 +13,30 @@ div.lichess_game div.lichess_ground {
   padding: 8px 0;
   text-align: center;
   border-bottom: 1px solid #ccc;
-  margin-bottom: 8px;
   font-weight: bold;
 }
-.gamebook .editor label span {
+.gamebook .editor .deviation {
+  padding-top: 8px;
+}
+.gamebook .editor label {
   display: block;
+  padding: 0 0 8px 10px;
 }
 .gamebook .editor textarea {
   resize: vertical;
   width: 100%;
   box-sizing: border-box;
-  height: 5em;
+  height: 10em;
   border-width: 1px 0;
   padding: 5px;
 }
 .gamebook .editor .legend {
-  padding: 0 10px 8px 10px;
+  padding: 8px 10px;
+  border-bottom: 1px solid #ccc;
+}
+.gamebook .editor .todo {
+  border-left: 5px solid #dc322f;
+}
+.gamebook .editor .done {
+  border-left: 5px solid #759900;
 }

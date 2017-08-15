@@ -208,8 +208,8 @@ private[study] final class SocketHandler(
       reading[AtPosition](o) { position =>
         for {
           userId <- member.userId
-          gamebook <- (o \ "gamebook").asOpt[Gamebook]
-        } api.setGamebook(userId, studyId, position.ref, gamebook.pp, uid)
+          gamebook <- (o \ "d" \ "gamebook").asOpt[Gamebook]
+        } api.setGamebook(userId, studyId, position.ref, gamebook, uid)
       }
 
     case ("toggleGlyph", o) =>
