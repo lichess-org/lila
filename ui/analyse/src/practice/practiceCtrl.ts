@@ -22,11 +22,11 @@ export interface PracticeController {
 
 export function make(root: AnalyseController, playableDepth: () => number): PracticeController {
 
-  const running = prop(true);
-  const comment = prop<Comment | null>(null);
-  const hovering = prop<any>(null);
-  const hinting = prop<any>(null);
-  const played = prop(false);
+  const running = prop(true),
+  comment = prop<Comment | null>(null),
+  hovering = prop<any>(null),
+  hinting = prop<any>(null),
+  played = prop(false);
 
   function ensureCevalRunning() {
     if (!root.showComputer()) root.toggleComputer();

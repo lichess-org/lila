@@ -35,10 +35,11 @@ export function ctrl(send: SocketSend, chapterConfig, redraw: () => void) {
     current,
     submit(data) {
       const c = current();
-      if (!c) return;
-      data.id = c.id;
-      send("editChapter", data)
-      current(null);
+      if (c) {
+        data.id = c.id;
+        send("editChapter", data)
+        current(null);
+      }
       redraw();
     },
     delete(id) {
@@ -56,7 +57,7 @@ export function view(ctrl): VNode | undefined {
   if (!data) return;
 
   const isLoaded = !!data.orientation;
-  const mode = data.practice ? 'practice' : (data.conceal !== null ? 'conceal' : (data.gamebook ? 'gamebook' : 'normal'));
+  const mode = data.practice ? 'practice' : (!isNaN(data.conceal) ? 'conceal' : (data.gamebook ? 'gamebook' : 'normal'));
 
   return dialog.form({
     onClose() {

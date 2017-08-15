@@ -36,18 +36,18 @@ final class JsonView(
           "sticky" -> study.settings.sticky
         ),
         "chapters" -> chapters.map(chapterMetadataWrites.writes),
-        "chapter" -> Json.obj(
-          "id" -> currentChapter.id,
-          "ownerId" -> currentChapter.ownerId,
-          "setup" -> currentChapter.setup,
-          "tags" -> currentChapter.tags,
-          "features" -> Json.obj(
-            "computer" -> allowed(study.settings.computer),
-            "explorer" -> allowed(study.settings.explorer)
-          )
-        ).add("practice", currentChapter.isPractice)
-          .add("gamebook", currentChapter.isGamebook)
-          .add("conceal", currentChapter.conceal)
+        "chapter" -> {
+          Json.obj(
+            "id" -> currentChapter.id,
+            "ownerId" -> currentChapter.ownerId,
+            "setup" -> currentChapter.setup,
+            "tags" -> currentChapter.tags,
+            "features" -> Json.obj(
+              "computer" -> allowed(study.settings.computer),
+              "explorer" -> allowed(study.settings.explorer)
+            )
+          ) |> addChapterMode(currentChapter)
+        }
       )
     }
   }
@@ -55,10 +55,13 @@ final class JsonView(
   def chapterConfig(c: Chapter) = Json.obj(
     "id" -> c.id,
     "name" -> c.name,
-    "practice" -> c.practice,
-    "conceal" -> c.conceal,
     "orientation" -> c.setup.orientation
-  )
+  ) |> addChapterMode(c)
+
+  private def addChapterMode(c: Chapter)(js: JsObject): JsObject =
+    js.add("practice", c.isPractice)
+      .add("gamebook", c.isGamebook)
+      .add("conceal", c.conceal)
 
   private[study] implicit val memberRoleWrites = Writes[StudyMember.Role] { r =>
     JsString(r.id)

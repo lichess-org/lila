@@ -224,7 +224,7 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
     currentChapter,
     isChapterOwner,
     canJumpTo(path: Tree.Path) {
-      return data.chapter.conceal === null ||
+      return data.chapter.conceal === undefined ||
         isChapterOwner() ||
         treePath.contains(ctrl.path, path) || // can always go back
         ctrl.tree.lastMainlineNode(path).ply <= data.chapter.conceal!;

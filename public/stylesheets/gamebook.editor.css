@@ -1,4 +1,4 @@
-div.lichess_game div.lichess_ground {
+.is_gamebook .lichess_game .lichess_ground {
   margin-bottom: -317px;
 }
 .gamebook {

@@ -257,7 +257,8 @@ export default function(ctrl: AnalyseController): VNode {
       },
       class: {
         'gauge_displayed': ctrl.showEvalGauge(),
-        'no_computer': !ctrl.showComputer()
+        'no_computer': !ctrl.showComputer(),
+        'is_gamebook': !!ctrl.study && ctrl.study.data.chapter.gamebook
       }
     }, [
       h('div.lichess_game', {
