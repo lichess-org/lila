@@ -107,7 +107,7 @@
     <item quantity="many">المركز #%1$s (أفضل %2$s%%) ل %3$s مباراة في %4$s</item>
     <item quantity="other">المركز #%1$s (أفضل %2$s%%) ل %3$s مباراة في %4$s</item>
   </plurals>
-  <string name="signedUp">إنشيء حساب لدى ليتشيس</string>
+  <string name="signedUp">إنشيء حساب ليتشيس جديد</string>
   <plurals name="joinedNbTeams">
     <item quantity="zero">إنضم ل %s فريق</item>
     <item quantity="one">إنضم ل %s فريق</item>
