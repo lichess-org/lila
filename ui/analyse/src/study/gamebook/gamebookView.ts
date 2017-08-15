@@ -1,6 +1,6 @@
 import AnalyseController from '../../ctrl';
 import { VNode } from 'snabbdom/vnode'
-import renderEditor from './editor/gamebookEditorView';
+import renderEditor from './gamebookEditor';
 import renderPlayer from './player/gamebookPlayerView';
 
 export interface GamebookView {

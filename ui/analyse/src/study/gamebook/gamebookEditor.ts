@@ -1,9 +1,9 @@
 import { h } from 'snabbdom'
 import { Hooks } from 'snabbdom/hooks'
-import AnalyseController from '../../../ctrl';
-import { bind } from '../../../util';
-import { MaybeVNodes } from '../../../interfaces';
 import { VNode } from 'snabbdom/vnode'
+import AnalyseController from '../../ctrl';
+import { bind } from '../../util';
+import { MaybeVNodes } from '../../interfaces';
 import { throttle } from 'common';
 import { path as treePath } from 'tree';
 
