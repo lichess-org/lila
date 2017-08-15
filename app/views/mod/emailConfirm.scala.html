@@ -6,7 +6,9 @@
 @embedJs {
 $('#mod-confirm form input').on('paste', function() {
 setTimeout(function() { $(this).parent().submit(); }.bind(this), 50);
-}).focus();
+}).focus().each(function() {
+this.setSelectionRange(this.value.length, this.value.length);
+});
 }
 }
 
