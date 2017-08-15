@@ -153,6 +153,7 @@ object Countries {
     C("MW", "Malawi"),
     C("MX", "Mexico"),
     C("MY", "Malaysia"),
+    C("MC", "Monaco"),
     C("MZ", "Mozambique"),
     C("NA", "Namibia"),
     C("NE", "Niger"),
