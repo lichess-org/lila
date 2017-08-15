@@ -495,6 +495,9 @@
   <string name="butYouCanKeepTrying">لكن حاول مرة أخرى</string>
   <string name="success">تم بنجاح</string>
   <string name="wasThisPuzzleAnyGood">هل استفدت من هذا اللغز؟</string>
+  <string name="pleaseVotePuzzle">ساعد الموقع على تحسين الألغاز بتقييمها من خلال الأسهم لأعلى وأسفل:</string>
+  <string name="thankYou">شكرًا لك!</string>
+  <string name="ratingX">التقييم: %s</string>
   <plurals name="playedXTimes">
     <item quantity="zero">لُعِبَ %s مرة</item>
     <item quantity="one">لُعِبَ %s مرة</item>
@@ -502,6 +505,19 @@
     <item quantity="few">لُعِبَ %s مرة</item>
     <item quantity="many">لُعِبَ %s مرة</item>
     <item quantity="other">لُعِبَ %s مرة</item>
+  </plurals>
+  <string name="fromGameLink">من مباراة %s</string>
+  <string name="continueTraining">مواصلة التدريب</string>
+  <string name="retryThisPuzzle">إعادة محاولة هذا اللغز</string>
+  <string name="thisPuzzleIsCorrect">هذا اللغز صحيح ومثير للإهتمام</string>
+  <string name="thisPuzzleIsWrong">هذا اللغز خطأ أوممل</string>
+  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
+    <item quantity="zero">أمامك %s ثانية لتقوم بنقلتك الأولى!</item>
+    <item quantity="one">أمامك %s ثانية لتقوم بنقلتك الأولى!</item>
+    <item quantity="two">أمامك %s ثانية لتقوم بنقلتك الأولى!</item>
+    <item quantity="few">أمامك %s ثانية لتقوم بنقلتك الأولى!</item>
+    <item quantity="many">أمامك %s ثانية لتقوم بنقلتك الأولى!</item>
+    <item quantity="other">أمامك %s ثانية لتقوم بنقلتك الأولى!</item>
   </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="zero">%s مباراة جارية</item>
@@ -511,6 +527,13 @@
     <item quantity="many">%s مباراة جارية</item>
     <item quantity="other">%s مباراة جارية</item>
   </plurals>
+  <string name="automaticallyProceedToNextGameAfterMoving">الإنتقال تلقائيًا للمباراة التالية بعد النقل</string>
+  <string name="autoSwitch">تبديل تلقائي</string>
+  <string name="puzzles">الألغاز</string>
+  <string name="latestUpdates">آخر التحديثات</string>
+  <string name="tournamentWinners">الفائزون بالبطولات</string>
+  <string name="name">الاسم</string>
+  <string name="description">الوصف</string>
   <string name="incorrectPassword">كلمة المرور غير صحيحة</string>
   <string name="pgnPieceNotation">تدوين النقلة</string>
   <string name="chessPieceSymbol">رمز قطعة الشطرنج</string>
