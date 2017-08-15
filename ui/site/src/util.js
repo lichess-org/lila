@@ -5,12 +5,15 @@ lichess.engineName = 'Stockfish 8';
 lichess.raf = (window.requestAnimationFrame || window.setTimeout).bind(window);
 lichess.requestIdleCallback = (window.requestIdleCallback || window.setTimeout).bind(window);
 lichess.storage = (function() {
-  var withStorage = function(f) {
-    // can throw an exception when storage is full
-    try {
-      return !!window.localStorage ? f(window.localStorage) : null;
-    } catch (e) {}
-  }
+  try {
+    // just accessing localStorage can throw an exception...
+    var storage = window.localStorage;
+  } catch (e) {}
+  var withStorage = storage ? function(f) {
+    // this can throw exceptions as well.
+    try { return f(storage); }
+    catch (e) {}
+  } : function() {};
   return {
     get: function(k) {
       return withStorage(function(s) {
@@ -18,10 +21,14 @@ lichess.storage = (function() {
       });
     },
     set: function(k, v) {
-      // removing first may help http://stackoverflow.com/questions/2603682/is-anyone-else-receiving-a-quota-exceeded-err-on-their-ipad-when-accessing-local
       withStorage(function(s) {
-        s.removeItem(k);
-        s.setItem(k, v);
+        try {
+          s.setItem(k, v);
+        } catch (e) {
+          // removing first may help http://stackoverflow.com/questions/2603682/is-anyone-else-receiving-a-quota-exceeded-err-on-their-ipad-when-accessing-local
+          s.removeItem(k);
+          s.setItem(k, v);
+        }
       });
     },
     remove: function(k) {
