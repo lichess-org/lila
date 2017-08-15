@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { Hooks } from 'snabbdom/hooks'
 import AnalyseController from '../../../ctrl';
-import { nodeFullName, bind } from '../../../util';
+import { bind } from '../../../util';
 import { MaybeVNodes } from '../../../interfaces';
 import { VNode } from 'snabbdom/vnode'
 import { throttle } from 'common';
@@ -67,13 +67,7 @@ export default function(ctrl: AnalyseController): VNode {
       insert: _ => window.lichess.loadCss('/assets/stylesheets/gamebook.editor.css')
     }
   }, [
-    h('div.editor', [
-      h('span.title', [
-        'Gamebook editor: ',
-        nodeFullName(ctrl.node)
-      ]),
-      ...content
-    ])
+    h('div.editor', content)
   ]);
 }
 

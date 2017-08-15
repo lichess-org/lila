@@ -9,12 +9,6 @@
   display: flex;
   flex-flow: column;
 }
-.gamebook .editor .title {
-  padding: 8px 0;
-  text-align: center;
-  border-bottom: 1px solid #ccc;
-  font-weight: bold;
-}
 .gamebook .editor .deviation,
 .gamebook .editor .hint {
   padding-top: 8px;
