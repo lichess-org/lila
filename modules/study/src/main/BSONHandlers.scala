@@ -10,7 +10,7 @@ import reactivemongo.bson._
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl._
-import lila.tree.Node.{ Shape, Shapes }
+import lila.tree.Node.{ Shape, Shapes, Comment, Comments, Gamebook }
 
 import lila.common.Iso._
 import lila.common.Iso
@@ -84,7 +84,6 @@ object BSONHandlers {
       Shapes(_)
     )
 
-  import lila.tree.Node.{ Comment, Comments }
   private implicit val CommentIdBSONHandler = stringAnyValHandler[Comment.Id](_.value, Comment.Id.apply)
   private implicit val CommentTextBSONHandler = stringAnyValHandler[Comment.Text](_.value, Comment.Text.apply)
   implicit val CommentAuthorBSONHandler = new BSONHandler[BSONValue, Comment.Author] {
@@ -113,6 +112,8 @@ object BSONHandlers {
       (s: Comments) => s.value,
       Comments(_)
     )
+
+  implicit val GamebookBSONHandler = Macros.handler[Gamebook]
 
   private implicit def CrazyDataBSONHandler: BSON[Crazyhouse.Data] = new BSON[Crazyhouse.Data] {
     private def writePocket(p: Crazyhouse.Pocket) = p.roles.map(_.forsyth).mkString
@@ -147,6 +148,7 @@ object BSONHandlers {
       check = r boolD "c",
       shapes = r.getO[Shapes]("h") | Shapes.empty,
       comments = r.getO[Comments]("co") | Comments.empty,
+      gamebook = r.getO[Gamebook]("ga"),
       glyphs = r.getO[Glyphs]("g") | Glyphs.empty,
       crazyData = r.getO[Crazyhouse.Data]("z"),
       clock = r.getO[Centis]("l"),
@@ -161,6 +163,7 @@ object BSONHandlers {
       "c" -> w.boolO(s.check),
       "h" -> s.shapes.value.nonEmpty.option(s.shapes),
       "co" -> s.comments.value.nonEmpty.option(s.comments),
+      "ga" -> s.gamebook,
       "g" -> s.glyphs.nonEmpty,
       "l" -> s.clock,
       "z" -> s.crazyData,

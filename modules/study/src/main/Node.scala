@@ -5,7 +5,7 @@ import chess.format.{ Uci, UciCharPair, FEN }
 import chess.variant.Crazyhouse
 
 import chess.Centis
-import lila.tree.Node.{ Shapes, Comment, Comments }
+import lila.tree.Node.{ Shapes, Comment, Comments, Gamebook }
 
 sealed trait RootOrNode {
   val ply: Int
@@ -28,6 +28,7 @@ case class Node(
     check: Boolean,
     shapes: Shapes = Shapes(Nil),
     comments: Comments = Comments(Nil),
+    gamebook: Option[Gamebook] = None,
     glyphs: Glyphs = Glyphs.empty,
     clock: Option[Centis],
     crazyData: Option[Crazyhouse.Data],
@@ -47,6 +48,8 @@ case class Node(
 
   def setComment(comment: Comment) = copy(comments = comments set comment)
   def deleteComment(commentId: Comment.Id) = copy(comments = comments delete commentId)
+
+  def setGamebook(gamebook: Gamebook) = copy(gamebook = gamebook.some)
 
   def setShapes(s: Shapes) = copy(shapes = s)
 
@@ -160,6 +163,8 @@ object Node {
       children: Children
   ) extends RootOrNode {
 
+    def gamebook = none
+
     def withChildren(f: Children => Option[Children]) =
       f(children) map { newChildren =>
         copy(children = newChildren)
@@ -183,6 +188,10 @@ object Node {
     def deleteCommentAt(commentId: Comment.Id, path: Path): Option[Root] =
       if (path.isEmpty) copy(comments = comments delete commentId).some
       else updateChildrenAt(path, _ deleteComment commentId)
+
+    def setGamebookAt(gamebook: Gamebook, path: Path): Option[Root] =
+      if (path.isEmpty) none
+      else updateChildrenAt(path, _ setGamebook gamebook)
 
     def toggleGlyphAt(glyph: Glyph, path: Path): Option[Root] =
       if (path.isEmpty) copy(glyphs = glyphs toggle glyph).some

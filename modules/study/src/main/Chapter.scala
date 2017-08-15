@@ -6,7 +6,7 @@ import chess.variant.Variant
 import org.joda.time.DateTime
 
 import chess.opening.{ FullOpening, FullOpeningDB }
-import lila.tree.Node.{ Shapes, Comment }
+import lila.tree.Node.{ Shapes, Comment, Gamebook }
 import lila.user.User
 
 case class Chapter(
@@ -39,6 +39,9 @@ case class Chapter(
 
   def setComment(comment: Comment, path: Path): Option[Chapter] =
     updateRoot(_.setCommentAt(comment, path))
+
+  def setGamebook(gamebook: Gamebook, path: Path): Option[Chapter] =
+    updateRoot(_.setGamebookAt(gamebook, path))
 
   def deleteComment(commentId: Comment.Id, path: Path): Option[Chapter] =
     updateRoot(_.deleteCommentAt(commentId, path))

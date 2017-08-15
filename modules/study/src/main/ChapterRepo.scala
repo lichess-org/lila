@@ -68,6 +68,9 @@ final class ChapterRepo(coll: Coll) {
   def setComments(chapter: Chapter, path: Path, comments: lila.tree.Node.Comments): Funit =
     setNodeValue(chapter, path, "co", comments.value.nonEmpty option comments)
 
+  def setGamebook(chapter: Chapter, path: Path, gamebook: lila.tree.Node.Gamebook): Funit =
+    setNodeValue(chapter, path, "ga", gamebook.nonEmpty option gamebook)
+
   def setGlyphs(chapter: Chapter, path: Path, glyphs: chess.format.pgn.Glyphs): Funit =
     setNodeValue(chapter, path, "g", glyphs.nonEmpty)
 

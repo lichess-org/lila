@@ -107,6 +107,7 @@ export interface StudyChapter {
   tags: TagArray[]
   practice: boolean;
   conceal?: number;
+  gamebook: boolean;
   features: StudyChapterFeatures;
 }
 

@@ -175,6 +175,7 @@ declare namespace Tree {
     fen: Fen;
     children: Node[];
     comments?: Comment[];
+    gamebook?: Gamebook;
     dests?: string;
     drops: string | undefined | null;
     check: boolean;
@@ -200,6 +201,10 @@ declare namespace Tree {
       name: string;
     };
     text: string;
+  }
+
+  export interface Gamebook {
+    deviation?: string;
   }
 
   export interface Opening {

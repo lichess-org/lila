@@ -38,6 +38,7 @@ object TreeBuilder {
     check = node.check,
     shapes = node.shapes,
     comments = node.comments,
+    gamebook = node.gamebook,
     glyphs = node.glyphs,
     clock = node.clock,
     crazyData = node.crazyData,

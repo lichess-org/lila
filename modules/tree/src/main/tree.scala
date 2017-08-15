@@ -20,6 +20,7 @@ sealed trait Node {
   def eval: Option[Eval]
   def shapes: Node.Shapes
   def comments: Node.Comments
+  def gamebook: Option[Node.Gamebook]
   def glyphs: Glyphs
   def children: List[Branch]
   def opening: Option[FullOpening]
@@ -64,6 +65,7 @@ case class Root(
   def addChild(branch: Branch) = copy(children = children :+ branch)
   def prependChild(branch: Branch) = copy(children = branch :: children)
   def dropFirstChild = copy(children = if (children.isEmpty) children else children.tail)
+  def gamebook = None
 }
 
 case class Branch(
@@ -78,6 +80,7 @@ case class Branch(
     eval: Option[Eval] = None,
     shapes: Node.Shapes = Node.Shapes(Nil),
     comments: Node.Comments = Node.Comments(Nil),
+    gamebook: Option[Node.Gamebook] = None,
     glyphs: Glyphs = Glyphs.empty,
     children: List[Branch] = Nil,
     opening: Option[FullOpening] = None,
@@ -168,6 +171,12 @@ object Node {
     val empty = Comments(Nil)
   }
 
+  case class Gamebook(
+      deviation: String
+  ) {
+    def nonEmpty = deviation.nonEmpty
+  }
+
   // TODO copied from lila.game
   // put all that shit somewhere else
   private implicit val crazyhousePocketWriter: OWrites[Crazyhouse.Pocket] = OWrites { v =>
@@ -226,6 +235,7 @@ object Node {
   private implicit val commentsWriter: Writes[Node.Comments] = Writes[Node.Comments] { s =>
     JsArray(s.list.map(commentWriter.writes))
   }
+  implicit val gamebookWriter = Json.writes[Node.Gamebook]
   import Eval.JsonHandlers.evalWrites
 
   def makeNodeJsonWriter(alwaysChildren: Boolean): Writes[Node] = Writes { node =>
@@ -238,6 +248,7 @@ object Node {
       add("check", true, check) _ compose
       add("eval", eval.filterNot(_.isEmpty)) _ compose
       add("comments", comments, comments.nonEmpty) _ compose
+      add("gamebook", gamebook) _ compose
       add("glyphs", glyphs.nonEmpty) _ compose
       add("shapes", shapes.list, shapes.list.nonEmpty) _ compose
       add("opening", opening) _ compose

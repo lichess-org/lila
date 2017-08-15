@@ -41,7 +41,7 @@ export function ctrl(root: AnalyseController): CommentForm {
     doSubmit(text);
   };
 
-  const doSubmit = throttle(500, false, function(text) {
+  const doSubmit = throttle(500, false, (text: string) => {
     const cur = current();
     if (cur) root.study!.makeChange('setComment', {
       ch: cur.chapterId,

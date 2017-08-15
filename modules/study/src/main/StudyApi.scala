@@ -9,7 +9,7 @@ import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.timeline.{ Propagate, StudyCreate, StudyLike }
 import lila.hub.Sequencer
 import lila.socket.Socket.Uid
-import lila.tree.Node.{ Shapes, Comment }
+import lila.tree.Node.{ Shapes, Comment, Gamebook }
 import lila.user.{ User, UserRepo }
 
 final class StudyApi(
@@ -343,10 +343,11 @@ final class StudyApi(
               studyRepo.updateNow(study)
               newChapter.root.nodeAt(position.path) ?? { node =>
                 node.comments.findBy(comment.by) ?? { c =>
-                  chapterRepo.setComments(newChapter, position.path, node.comments.filterEmpty) >>-
-                    sendTo(study, Socket.SetComment(position, c, uid)) >>-
-                    indexStudy(study) >>-
+                  chapterRepo.setComments(newChapter, position.path, node.comments.filterEmpty) >>- {
+                    sendTo(study, Socket.SetComment(position, c, uid))
+                    indexStudy(study)
                     sendStudyEnters(study, userId)
+                  }
                 }
               }
             case None =>
@@ -390,6 +391,22 @@ final class StudyApi(
             fufail(s"Invalid toggleGlyph $studyId $position $glyph") >>-
               reloadUidBecauseOf(study, uid, chapter.id)
         }
+      }
+    }
+  }
+
+  def setGamebook(userId: User.ID, studyId: Study.Id, position: Position.Ref, gamebook: Gamebook, uid: Uid) = sequenceStudyWithChapter(studyId, position.chapterId) {
+    case Study.WithChapter(study, chapter) => Contribute(userId, study) {
+      chapter.setGamebook(gamebook, position.path) match {
+        case Some(newChapter) =>
+          studyRepo.updateNow(study)
+          chapterRepo.setGamebook(newChapter, position.path, gamebook) >>- {
+            indexStudy(study)
+            sendStudyEnters(study, userId)
+          }
+        case None =>
+          fufail(s"Invalid setGamebook $studyId $position") >>-
+            reloadUidBecauseOf(study, uid, chapter.id)
       }
     }
   }

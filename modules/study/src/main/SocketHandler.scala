@@ -15,7 +15,7 @@ import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Socket.makeMessage
 import lila.socket.Socket.Uid
 import lila.socket.{ Handler, AnaMove, AnaDrop, AnaAny }
-import lila.tree.Node.{ Shape, Shapes, Comment }
+import lila.tree.Node.{ Shape, Shapes, Comment, Gamebook }
 import lila.user.User
 import makeTimeout.short
 
@@ -130,11 +130,10 @@ private[study] final class SocketHandler(
 
     case ("shapes", o) =>
       reading[AtPosition](o) { position =>
-        (o \ "d" \ "shapes").asOpt[List[Shape]] foreach { shapes =>
-          member.userId foreach { userId =>
-            api.setShapes(userId, studyId, position.ref, Shapes(shapes take 32), uid)
-          }
-        }
+        for {
+          shapes <- (o \ "d" \ "shapes").asOpt[List[Shape]]
+          userId <- member.userId
+        } api.setShapes(userId, studyId, position.ref, Shapes(shapes take 32), uid)
       }
 
     case ("setClock", o) =>
@@ -205,6 +204,14 @@ private[study] final class SocketHandler(
         } api.deleteComment(userId, studyId, position.ref, Comment.Id(id), uid)
       }
 
+    case ("setGamebook", o) =>
+      reading[AtPosition](o) { position =>
+        for {
+          userId <- member.userId
+          gamebook <- (o \ "gamebook").asOpt[Gamebook]
+        } api.setGamebook(userId, studyId, position.ref, gamebook.pp, uid)
+      }
+
     case ("toggleGlyph", o) =>
       reading[AtPosition](o) { position =>
         for {
@@ -243,6 +250,7 @@ private[study] final class SocketHandler(
   private implicit val ChapterEditDataReader = Json.reads[ChapterMaker.EditData]
   private implicit val StudyDataReader = Json.reads[Study.Data]
   private implicit val setTagReader = Json.reads[actorApi.SetTag]
+  private implicit val gamebookReader = Json.reads[Gamebook]
 
   def join(
     studyId: Study.Id,
