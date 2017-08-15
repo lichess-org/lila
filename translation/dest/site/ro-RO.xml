@@ -169,6 +169,8 @@
   <string name="passwordReset">Resetează parola</string>
   <string name="forgotPassword">Ți-ai pierdut parola?</string>
   <string name="rank">Clasificare</string>
+  <string name="rankX">Loc în clasament: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Locul în clasament este actualizat la fiecare %s minute</string>
   <string name="gamesPlayed">Partide jucate</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s partidă cu tine</item>
@@ -208,6 +210,7 @@
   <string name="play">Joacă</string>
   <string name="inbox">Căsuță poștală</string>
   <string name="chatRoom">Zona de chat</string>
+  <string name="loginToChat">Conectare la chat</string>
   <string name="spectatorRoom">Zona spectatorilor</string>
   <string name="composeMessage">Compune un mesaj</string>
   <string name="noNewMessages">Niciun mesaj nou</string>
