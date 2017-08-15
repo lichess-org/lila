@@ -75,6 +75,12 @@ En verlies uw eigen niet.</string>
   <string name="captureComplete">Gefeliciteerd! U kunt nu vechten met schaakstukken!</string>
   <string name="protection">Dekken</string>
   <string name="keepYourPiecesSafe">Houd je stukken veilig</string>
+  <string name="protectionIntro">Stel vast welke stukken door je tegenstander worden aangevallen, en verdedig ze!</string>
+  <string name="protectionComplete">Van harte! Een stuk dat je niet verliest is een stuk dat je wint!</string>
+  <string name="escape">Je wordt aangevallen!
+Ontsnap aan de dreiging!</string>
+  <string name="noEscape">Er is geen ontsnapping mogelijk,
+maar je kunt verdedigen!</string>
   <string name="pawnsFormTheFrontLine">Pionnen vormen de frontlinie. Maak eender welke zet om voort te gaan.</string>
   <string name="boardSetupComplete">Gefeliciteerd! Nu weet je hoe je het schaakbord moet opstellen.</string>
   <string name="castling">Rokade</string>
