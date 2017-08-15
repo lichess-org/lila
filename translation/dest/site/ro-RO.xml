@@ -78,6 +78,11 @@
     <item quantity="few">Mat în %s mutări</item>
     <item quantity="other">Mat în %s mutări</item>
   </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Următoarea captură sau mutare de pion la următoarea mutare (distanța până la îndeplinirea regulii de 50 de mutări)</item>
+    <item quantity="few">Următoarea captură sau mutare de pion în %s mutări (distanța până la îndeplinirea regulii de 50 de mutări)</item>
+    <item quantity="other">Următoarea captură sau mutare de pion în %s mutări (distanța până la îndeplinirea regulii de 50 de mutări)</item>
+  </plurals>
   <string name="noGameFound">Nu a fost găsit niciun joc</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Poate doriți să includeți mai multe jocuri din meniul de preferințe?</string>
   <string name="openingExplorer">Cercetarea deschiderilor</string>
