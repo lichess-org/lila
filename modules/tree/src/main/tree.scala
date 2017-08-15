@@ -171,10 +171,13 @@ object Node {
     val empty = Comments(Nil)
   }
 
-  case class Gamebook(
-      deviation: String
-  ) {
-    def nonEmpty = deviation.nonEmpty
+  case class Gamebook(deviation: Option[String], hint: Option[String]) {
+    private def trimOrNone(txt: Option[String]) = txt.map(_.trim).filter(_.nonEmpty)
+    def cleanUp = copy(
+      deviation = trimOrNone(deviation),
+      hint = trimOrNone(hint)
+    )
+    def nonEmpty = deviation.nonEmpty && hint.nonEmpty
   }
 
   // TODO copied from lila.game

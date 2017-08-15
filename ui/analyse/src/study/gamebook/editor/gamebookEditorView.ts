@@ -1,15 +1,18 @@
 import { h } from 'snabbdom'
+import { Hooks } from 'snabbdom/hooks'
 import AnalyseController from '../../../ctrl';
 import { nodeFullName, bind } from '../../../util';
 import { MaybeVNodes } from '../../../interfaces';
 import { VNode } from 'snabbdom/vnode'
 import { throttle } from 'common';
+import { path as treePath } from 'tree';
 
 export default function(ctrl: AnalyseController): VNode {
 
   const study = ctrl.study!,
   isMyMove = ctrl.turnColor() === ctrl.data.orientation,
-  isCommented = !!(ctrl.node.comments || []).find(c => c.text.length > 2);
+  isCommented = !!(ctrl.node.comments || []).find(c => c.text.length > 2),
+  hasVariation = ctrl.tree.nodeAtPath(treePath.init(ctrl.path)).children.length > 1;
 
   let content: MaybeVNodes;
 
@@ -42,8 +45,11 @@ export default function(ctrl: AnalyseController): VNode {
         commentButton(),
         '.'
       ]),
-      h('div.legend', 'Add variation moves to explain why specific other moves are wrong.'),
-      renderDeviation(ctrl)
+      hasVariation ? null : h('div.legend', {
+        attrs: { 'data-icon': '' }
+      }, 'Add variation moves to explain why specific other moves are wrong.'),
+      renderDeviation(ctrl),
+      renderHint(ctrl)
     ];
   }
   else content = [
@@ -58,7 +64,7 @@ export default function(ctrl: AnalyseController): VNode {
 
   return h('div.gamebook', {
     hook: {
-      insert: _ => window.lichess.loadCss('/assets/stylesheets/gamebook.editor.css') 
+      insert: _ => window.lichess.loadCss('/assets/stylesheets/gamebook.editor.css')
     }
   }, [
     h('div.editor', [
@@ -71,7 +77,31 @@ export default function(ctrl: AnalyseController): VNode {
   ]);
 }
 
-let prevPath: Tree.Path;
+function renderDeviation(ctrl: AnalyseController): VNode {
+  const field = 'deviation';
+  return h('div.deviation.todo', { class: { done: nodeGamebookValue(ctrl.node, field).length > 2 } }, [
+    h('label', {
+      attrs: { for: 'gamebook-deviation' }
+    }, 'Or, when any other move is played:'),
+    h('textarea#gamebook-deviation', {
+      attrs: { placeholder: 'Explain why all other moves are wrong' },
+      hook: textareaHook(ctrl, field)
+    })
+  ]);
+}
+
+function renderHint(ctrl: AnalyseController): VNode {
+  const field = 'hint';
+  return h('div.hint', [
+    h('label', {
+      attrs: { for: 'gamebook-hint' }
+    }, 'Optional, on-demand hint for the player:'),
+    h('textarea#gamebook-hint', {
+      attrs: { placeholder: 'Give the player a tip so they can find the right move' },
+      hook: textareaHook(ctrl, field)
+    })
+  ]);
+}
 
 const saveNode = throttle(500, false, (ctrl: AnalyseController, gamebook: Tree.Gamebook) => {
   ctrl.socket.send('setGamebook', {
@@ -82,38 +112,28 @@ const saveNode = throttle(500, false, (ctrl: AnalyseController, gamebook: Tree.G
   ctrl.redraw();
 });
 
-function renderDeviation(ctrl: AnalyseController): VNode {
-  const node = ctrl.node,
-  path = ctrl.path,
-  gamebook: Tree.Gamebook = node.gamebook || {},
-  deviation = gamebook.deviation || '';
-  return h('div.deviation.todo', { class: { done: deviation.length > 2 } }, [
-    h('label', {
-      attrs: { for: 'gamebook-deviation' }
-    }, 'Or, when any other move is played:'),
-    h('textarea#gamebook-deviation', {
-      attrs: {
-        placeholder: 'Explain why all other moves are wrong'
-      },
-      hook: {
-        insert(vnode: VNode) {
-          const el = vnode.elm as HTMLInputElement;
-          el.value = deviation;
-          function onChange() {
-            node.gamebook = node.gamebook || {};
-            node.gamebook.deviation = el.value.trim();
-            saveNode(ctrl, node.gamebook, 50);
-          }
-          el.onkeyup = el.onpaste = onChange;
-          prevPath = path;
-        },
-        postpatch(_, vnode: VNode) {
-          if (prevPath !== path) {
-            (vnode.elm as HTMLInputElement).value = deviation;
-            prevPath = path;
-          }
-        }
+function nodeGamebookValue(node: Tree.Node, field: string): string {
+  return (node.gamebook && node.gamebook[field]) || '';
+}
+
+function textareaHook(ctrl: AnalyseController, field: string): Hooks {
+  const value = nodeGamebookValue(ctrl.node, field);
+  return {
+    insert(vnode: VNode) {
+      const el = vnode.elm as HTMLInputElement;
+      el.value = value;
+      function onChange() {
+        const node = ctrl.node;
+        node.gamebook = node.gamebook || {};
+        node.gamebook[field] = el.value.trim();
+        saveNode(ctrl, node.gamebook, 50);
       }
-    })
-  ]);
+      el.onkeyup = el.onpaste = onChange;
+      vnode.data!.path = ctrl.path;
+    },
+    postpatch(old: VNode, vnode: VNode) {
+      if (old.data!.path !== ctrl.path) (vnode.elm as HTMLInputElement).value = value;
+      vnode.data!.path = ctrl.path;
+    }
+  }
 }

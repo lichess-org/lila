@@ -208,7 +208,7 @@ private[study] final class SocketHandler(
       reading[AtPosition](o) { position =>
         for {
           userId <- member.userId
-          gamebook <- (o \ "d" \ "gamebook").asOpt[Gamebook]
+          gamebook <- (o \ "d" \ "gamebook").asOpt[Gamebook].map(_.cleanUp)
         } api.setGamebook(userId, studyId, position.ref, gamebook, uid)
       }
 
