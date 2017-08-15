@@ -1,13 +1,20 @@
-// import { h } from 'snabbdom'
 import AnalyseController from '../../ctrl';
 import { VNode } from 'snabbdom/vnode'
 import renderEditor from './editor/gamebookEditorView';
 import renderPlayer from './player/gamebookPlayerView';
 
-export function view(root: AnalyseController): VNode | undefined {
+export interface GamebookView {
+  isEditor: boolean;
+  view: VNode
+}
+
+export function view(root: AnalyseController): GamebookView | undefined {
   if (!isGamebook(root)) return;
-  if (isEditor(root)) return renderEditor(root);
-  return renderPlayer(root);
+  const editor = isEditor(root);
+  return {
+    isEditor: editor,
+    view: editor ? renderEditor(root) : renderPlayer(root)
+  };
 }
 
 export function isEditor(root: AnalyseController): boolean {

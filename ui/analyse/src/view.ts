@@ -246,7 +246,7 @@ export default function(ctrl: AnalyseController): VNode {
   menuIsOpen = ctrl.actionMenu.open,
   chapter = ctrl.study && ctrl.study.data.chapter,
   studyStateClass = chapter ? chapter.id + ctrl.study!.vm.loading : 'nostudy',
-  showFork = !chapter || !chapter.gamebook;
+  gamebook = gamebookView(ctrl);
   return h('div.analyse.cg-512', [
     h('div.' + studyStateClass, {
       hook: {
@@ -258,7 +258,8 @@ export default function(ctrl: AnalyseController): VNode {
       class: {
         'gauge_displayed': ctrl.showEvalGauge(),
         'no_computer': !ctrl.showComputer(),
-        'is_gamebook': !!ctrl.study && ctrl.study.data.chapter.gamebook
+        'is_gamebook': !!gamebook,
+        'is_gamebook_editor': !!gamebook && gamebook.isEditor
       }
     }, [
       h('div.lichess_game', {
@@ -274,12 +275,12 @@ export default function(ctrl: AnalyseController): VNode {
             cevalView.renderCeval(ctrl),
             showCevalPvs ? cevalView.renderPvs(ctrl) : null,
             renderAnalyse(ctrl, concealOf),
-            showFork ? forkView(ctrl, concealOf) : undefined,
+            gamebook ? undefined : forkView(ctrl, concealOf),
             retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl)
           ]),
           menuIsOpen ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
           buttons(ctrl),
-          gamebookView(ctrl)
+          gamebook && gamebook.view
         ])
       ])
     ]),

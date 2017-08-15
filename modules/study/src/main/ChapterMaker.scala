@@ -56,6 +56,7 @@ private final class ChapterMaker(
           order = order,
           ownerId = userId,
           practice = data.isPractice,
+          gamebook = data.isGamebook,
           conceal = data.isConceal option Chapter.Ply(res.root.ply)
         )
       }
@@ -97,6 +98,7 @@ private final class ChapterMaker(
         order = order,
         ownerId = userId,
         practice = data.isPractice,
+        gamebook = data.isGamebook,
         conceal = None
       )
     }
@@ -120,6 +122,7 @@ private final class ChapterMaker(
         order = order,
         ownerId = userId,
         practice = data.isPractice,
+        gamebook = data.isGamebook,
         conceal = data.isConceal option Chapter.Ply(root.ply)
       ).some
     } addEffect { _ =>

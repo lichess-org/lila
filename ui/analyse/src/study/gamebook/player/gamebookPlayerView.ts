@@ -19,7 +19,7 @@ export default function(ctrl: AnalyseController): VNode {
     h('div.player', [
       h('div.turn', isMyMove ? 'Your move' : 'Opponent move'),
       h('div.comment', {
-        hook: innerHTML(comment.text, text => enrichText(text, true))
+        hook: comment && innerHTML(comment.text, text => enrichText(text, true))
       })
     ])
   ]);

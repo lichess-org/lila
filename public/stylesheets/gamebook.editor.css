@@ -1,7 +1,7 @@
-.is_gamebook .lichess_game .lichess_ground {
+.is_gamebook_editor .lichess_game .lichess_ground {
   margin-bottom: -317px;
 }
-.gamebook {
+.is_gamebook_editor .gamebook {
   height: 300px;
 }
 .gamebook .editor {

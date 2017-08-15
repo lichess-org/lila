@@ -49,6 +49,7 @@ private final class StudyMaker(
         order = 1,
         ownerId = user.id,
         practice = false,
+        gamebook = false,
         conceal = None
       )
       Study.WithChapter(study withChapter chapter, chapter)
