@@ -5,6 +5,7 @@
   <string name="byPlaying">door te spelen!</string>
   <string name="menu">Menu</string>
   <string name="progressX">Voortgang: %s</string>
+  <string name="resetMyProgress">Reset mijn voortgang</string>
   <string name="youWillLoseAllYourProgress">Je zult al je voortgang verliezen!</string>
   <string name="play">speel!</string>
   <string name="chessPieces">Schaakstukken</string>
@@ -73,6 +74,7 @@ Promoveren is niet nodig.</string>
 En verlies uw eigen niet.</string>
   <string name="captureComplete">Gefeliciteerd! U kunt nu vechten met schaakstukken!</string>
   <string name="protection">Dekken</string>
+  <string name="keepYourPiecesSafe">Houd je stukken veilig</string>
   <string name="pawnsFormTheFrontLine">Pionnen vormen de frontlinie. Maak eender welke zet om voort te gaan.</string>
   <string name="boardSetupComplete">Gefeliciteerd! Nu weet je hoe je het schaakbord moet opstellen.</string>
   <string name="castling">Rokade</string>
