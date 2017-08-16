@@ -48,6 +48,7 @@
   <string name="computerAnalysis">Sjakkprogramanalyse</string>
   <string name="computerAnalysisAvailable">Dataanalyse er tilgjengeleg</string>
   <string name="analysis">Analyse</string>
+  <string name="depthX">Djupn</string>
   <string name="openingExplorer">Opningsutforskar &amp; opningsbok</string>
   <string name="blunders">Bukk</string>
   <string name="mistakes">Mistak</string>
