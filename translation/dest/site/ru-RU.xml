@@ -110,7 +110,7 @@
   <string name="inaccuracies">Сомнительные ходы</string>
   <string name="moveTimes">Время ходов</string>
   <string name="flipBoard">Перевернуть доску</string>
-  <string name="threefoldRepetition">Троекратное повторение ходов</string>
+  <string name="threefoldRepetition">Троекратное повторение позиции</string>
   <string name="claimADraw">Объявить ничью</string>
   <string name="offerDraw">Предложить ничью</string>
   <string name="draw">Ничья</string>
