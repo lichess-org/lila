@@ -4,9 +4,9 @@
   <string name="activity">Активность</string>
   <string name="supportedNbMonths">Поддерживает lichess на протяжении %1$s месяцев как %2$s</string>
   <plurals name="practicedNbPositions">
-    <item quantity="one">Практикована позиция %1$s в %2$s</item>
-    <item quantity="few">Практикованы позиции %1$s в %2$s</item>
-    <item quantity="other">Практикованы позиции %1$s в %2$s</item>
+    <item quantity="one">Выполнено %1$s упражнение в %2$s</item>
+    <item quantity="few">Выполнены %1$s упражнения в %2$s</item>
+    <item quantity="other">Выполнено %1$s упражнений в %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
     <item quantity="one">Решен %s тактический пазл</item>
@@ -20,18 +20,18 @@
   </plurals>
   <plurals name="postedNbMessages">
     <item quantity="one">Опубликовано %1$s сообщение в %2$s</item>
-    <item quantity="few">Опубликовано %1$s сообщений в %2$s</item>
-    <item quantity="other">Опубликовано %1$s сообщений в %2$s</item>
+    <item quantity="few">Оставил(а) %1$s сообщения в %2$s</item>
+    <item quantity="other">Оставил(а) %1$s сообщений в %2$s</item>
   </plurals>
   <plurals name="playedNbMoves">
-    <item quantity="one">Сыгран %1$s ход в %2$s игре по переписке</item>
-    <item quantity="few">Сыграно %1$s ходов в %2$s игре(-ах) по переписке</item>
+    <item quantity="one">Сыгран %1$s ход в %2$s игре(-ах) по переписке</item>
+    <item quantity="few">Сыграны %1$s хода в %2$s игре(-ах) по переписке</item>
     <item quantity="other">Сыграно %1$s ходов в %2$s игре(-ах) по переписке</item>
   </plurals>
   <plurals name="completedNbGames">
-    <item quantity="one">Сыграна %s игра по переписке</item>
-    <item quantity="few">Сыграно %s игр по переписке</item>
-    <item quantity="other">Сыграно %s игр по переписке</item>
+    <item quantity="one">Завершена %s игра по переписке</item>
+    <item quantity="few">Завершены %s игры по переписке</item>
+    <item quantity="other">Завершено %s игр по переписке</item>
   </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Подписался на %s игрока</item>
