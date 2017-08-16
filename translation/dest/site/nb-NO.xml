@@ -77,6 +77,8 @@
   <string name="winPreventedBy50MoveRule">Seier hindret av 50-trekkregelen</string>
   <string name="lossSavedBy50MoveRule">Tap forhindret av 50-trekkregelen</string>
   <string name="allSet">Alt klart!</string>
+  <string name="importPgn">Importér PGN-fil</string>
+  <string name="delete">Slett</string>
   <string name="blunders">Bukker</string>
   <string name="mistakes">Feil</string>
   <string name="inaccuracies">Unøyaktigheter</string>
