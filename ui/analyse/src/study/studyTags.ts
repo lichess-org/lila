@@ -122,5 +122,5 @@ export function view(root: StudyCtrl): VNode {
   window.lichess.raf(function() {
     if (fenElement) fenElement.textContent = root.currentNode().fen;
   });
-  return thunk('div.undertable_inner', doRender, [root, key]);
+  return thunk('div.undertable_inner.' + chapter.id, doRender, [root, key]);
 }
