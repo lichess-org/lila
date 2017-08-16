@@ -5,4 +5,18 @@
   <string name="byPlaying">xogando!</string>
   <string name="progressX">Progreso: %s</string>
   <string name="resetMyProgress">Reinicia-lo meu progreso</string>
+  <string name="youWillLoseAllYourProgress">Perderás todo o teu progreso!</string>
+  <string name="play">xogar!</string>
+  <string name="chessPieces">Pezas de xadrez</string>
+  <string name="theRook">A torre</string>
+  <string name="itMovesInStraightLines">Move en liña recta</string>
+  <string name="rookIntro">A torre é unha peza poderosa. ¿Estás preparado para comandala?</string>
+  <string name="rookGoal">Pincha na torre
+para traela ata a estrela!</string>
+  <string name="grabAllTheStars">Recolle todas as estrelas!</string>
+  <string name="theFewerMoves">Cantos menos movementos fagas,
+máis puntos gañarás!</string>
+  <string name="useTwoRooks">Emprega dúas torres
+para acelerar as cousas!</string>
+  <string name="rookComplete">Parabéns! Dominaches con éxito a torre.</string>
 </resources>
