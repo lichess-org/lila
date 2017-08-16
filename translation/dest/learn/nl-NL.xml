@@ -87,7 +87,11 @@ maar je kunt verdedigen!</string>
   <string name="combatComplete">Gefeliciteerd! Nu weet je hoe je met de schaakstukken moet vechten!</string>
   <string name="checkInOne">Schaak in 1 zet</string>
   <string name="attackTheOpponentsKing">Val de koning van de tegenstander aan</string>
+  <string name="outOfCheck">Geen schaak meer mogelijk</string>
   <string name="defendYourKing">Verdedig je koning</string>
+  <string name="escapeWithTheKing">Ontsnappen met de koning!</string>
+  <string name="mateInOne">Mat in 1</string>
+  <string name="defeatTheOpponentsKing">Versla de koning van de tegenstander</string>
   <string name="pawnsFormTheFrontLine">Pionnen vormen de frontlinie. Maak eender welke zet om voort te gaan.</string>
   <string name="boardSetupComplete">Gefeliciteerd! Nu weet je hoe je het schaakbord moet opstellen.</string>
   <string name="castling">Rokade</string>
