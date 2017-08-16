@@ -15,8 +15,7 @@ function readOnlyProp<A>(value: A): () => A {
 
 export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPracticeData): StudyPracticeCtrl {
 
-  const study = root.study!,
-  goal = prop<Goal>(root.data.practiceGoal!),
+  const goal = prop<Goal>(root.data.practiceGoal!),
   comment = prop<string | undefined>(undefined),
   nbMoves = prop(0),
   // null = ongoing, true = win, false = fail
@@ -60,7 +59,7 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
   };
 
   function onVictory(): void {
-    const chapterId = study.currentChapter().id,
+    const chapterId = root.study!.currentChapter().id,
     former = data.completion[chapterId] || 999;
     if (nbMoves() < former) {
       data.completion[chapterId] = nbMoves();
@@ -68,7 +67,7 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
     }
     sound.success();
     const next = nextChapter();
-    if (next) setTimeout(() => study.setChapter(next.id), 1000);
+    if (next) setTimeout(() => root.study!.setChapter(next.id), 1000);
   };
 
   function onFailure(): void {
@@ -77,9 +76,9 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
   };
 
   function nextChapter(): StudyChapterMeta | undefined {
-    const chapters = study.data.chapters;
-    const currentId = study.currentChapter().id;
-    for (var i in chapters)
+    const chapters = root.study!.data.chapters,
+    currentId = root.study!.currentChapter().id;
+    for (let i in chapters)
       if (chapters[i].id === currentId) return chapters[parseInt(i) + 1];
   };
 
