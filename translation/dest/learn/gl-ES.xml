@@ -111,4 +111,29 @@ se o teu peón está na 5ª fila.</string>
   <string name="advanced">Avanzados</string>
   <string name="pieceValue">Valor das pezas</string>
   <string name="evaluatePieceStrength">Evalúa a forza das pezas</string>
+  <string name="pieceValueIntro">As pezas con maior mobilidade teñen un maior valor!
+Dama = 9
+Torre = 5
+Bispo = 3
+Cabalo = 3
+Peón = 1
+O rei ten un valor incalculable! Perdelo significa perder a partida.</string>
+  <string name="queenOverBishop">Toma a peza
+de maior valor!
+Dama &gt; Bispo</string>
+  <string name="takeThePieceWithTheHighestValue">Toma a peza
+de maior valor!</string>
+  <string name="pieceValueComplete">Parabéns! Sabes o valor do material!
+Dama = 9
+Torre = 5
+Bispo = 3
+Cabalo = 3
+Peón = 1</string>
+  <string name="checkInTwo">Xaque en dúas</string>
+  <string name="twoMovesToGiveCheck">Dous movementos para dar xaque</string>
+  <string name="checkInTwoIntro">Atopa a combinación axeitada de dous movementos que dan xaque ao rei rival!</string>
+  <string name="checkInTwoGoal">Ameaza o rei rival
+en dous movementos!</string>
+  <string name="checkInTwoComplete">Parabéns! Puxeches en xaque ao teu rival, forzándoo a defende-lo seu rei!</string>
+  <string name="whatNext">E despois que?</string>
 </resources>
