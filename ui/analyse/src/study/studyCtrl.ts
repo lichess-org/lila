@@ -265,6 +265,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       if (id === vm.chapterId && !force) return;
       if (!vm.mode.sticky || !makeChange("setChapter", id)) {
         vm.mode.sticky = false;
+        if (!vm.behind) vm.behind = 1;
         vm.chapterId = id;
         xhrReload();
       }
