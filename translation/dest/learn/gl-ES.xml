@@ -94,4 +94,21 @@ enrocar no flanco de dama!</string>
   <string name="blackJustMovedThePawnByTwoSquares">As negras acaban de mover o peón
 dúas casillas!
 Tómao ao paso.</string>
+  <string name="enPassantOnlyWorksImmediately">Ao paso so serve
+inmediatamente despois que o rival
+moveu o peón.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Ao paso so serve
+se o teu peón está na 5ª fila.</string>
+  <string name="takeAllThePawnsEnPassant">Toma tódolos peón ao paso!</string>
+  <string name="enPassantComplete">Parabéns! Agora podes tomar ao paso.</string>
+  <string name="stalemate">Afogado</string>
+  <string name="theGameIsADraw">A partida é táboas</string>
+  <string name="stalemateIntro">Cando un xogador non está en xaque e non ten xogada legal, está afogado. A partida son táboas: ninguén gaña, ninguén perde.</string>
+  <string name="stalemateGoal">Para afogar ás negras:
+- As negras non poden mover a ningures
+- Non hai xaque.</string>
+  <string name="stalemateComplete">Parabéns! Mellor estar afogado que en xaque mate!</string>
+  <string name="advanced">Avanzados</string>
+  <string name="pieceValue">Valor das pezas</string>
+  <string name="evaluatePieceStrength">Evalúa a forza das pezas</string>
 </resources>
