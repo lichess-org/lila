@@ -80,6 +80,14 @@ Inutile d\'effectuer des promotions.</string>
   <string name="mateInOne">Mat en 1</string>
   <string name="boardSetupComplete">Félicitations! Vous maîtrisez le déplacement des pièces.</string>
   <string name="castling">Le Roque</string>
+  <string name="takeAllThePawnsEnPassant">Prenez tous les pions en passant!</string>
+  <string name="pieceValueComplete">Félicitations! Vous connaissez la valeur des pièces!
+Dame = 9
+Tour = 5
+Fou = 3
+Cavalier= 3
+Pion= 1</string>
+  <string name="checkInTwo">Échec en deux coups</string>
   <string name="next">Suivant</string>
   <string name="backToMenu">Retour au menu</string>
 </resources>
