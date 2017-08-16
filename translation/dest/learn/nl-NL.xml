@@ -151,4 +151,8 @@ de hoogste waarde!</string>
   <string name="checkInTwo">Schaak in twee zetten</string>
   <string name="twoMovesToGiveCheck">Twee zetten om schaak te geven</string>
   <string name="checkInTwoIntro">Vind de juiste twee zetten om de koning van de tegenstander schaak te zetten!</string>
+  <string name="greatJob">Goed gedaan!</string>
+  <string name="outstanding">Uitstekend!</string>
+  <string name="wayToGo">Super, goed gedaan!</string>
+  <string name="yesYesYes">Ok, ok, ok!</string>
 </resources>
