@@ -34,4 +34,20 @@ Precisas ambos!</string>
   <string name="theKing">O rei</string>
   <string name="theMostImportantPiece">A peza máis importante</string>
   <string name="kingIntro">Ti es o rei. Se caes na batalla, o xogo está perdido.</string>
+  <string name="theKingIsSlow">O rei é lento.</string>
+  <string name="lastOne">O último!</string>
+  <string name="kingComplete">Agora podes comandar o comandante!</string>
+  <string name="theKnight">O cabalo</string>
+  <string name="itMovesInAnLShape">Move en forma de L</string>
+  <string name="knightIntro">Aquí hai un reto para ti. O cabalo é... unha peza complicada.</string>
+  <string name="knightsHaveAFancyWay">Os cabalos teñen unha forma divertida
+de ir saltando!</string>
+  <string name="knightsCanJumpOverObstacles">Os cabalos poden saltar por riba dos obstáculos!
+Escapa e derrota as estrelas!</string>
+  <string name="knightComplete">Parabéns! Dominaches o cabalo.</string>
+  <string name="thePawn">O peón</string>
+  <string name="itMovesForwardOnly">So move cara adiante</string>
+  <string name="pawnIntro">Os peóns son débiles, pero gardan unha chea de potencial.</string>
+  <string name="pawnsMoveOneSquareOnly">Os peóns moven so unha casilla.
+Pero cando chegan ó outro extremo do taboleiro, convírtense nunha peza máis forte!</string>
 </resources>
