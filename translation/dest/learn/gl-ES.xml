@@ -94,6 +94,8 @@ ningunha peza sen defender!</string>
 nun movemento!</string>
   <string name="checkInOneComplete">Parabéns! Puxeches en xaque ao teu rival, forzándoo a defende-lo seu rei!</string>
   <string name="outOfCheck">Fóra de xaque</string>
+  <string name="defendYourKing">Defende o teu rei</string>
+  <string name="outOfCheckIntro">Estás en xaque! Debes escapar ou bloquear o ataque.</string>
   <string name="boardSetupComplete">Parabéns! Sabes como colocar o taboleiro.</string>
   <string name="castling">Enroque</string>
   <string name="theSpecialKingMove">O movemento especial do rei</string>
