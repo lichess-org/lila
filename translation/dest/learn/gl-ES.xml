@@ -69,4 +69,29 @@ Non precisas coronar.</string>
   <string name="castlingIntro">Trae o teu rei a salvo, e desplega a túa torre para o ataque!</string>
   <string name="castleKingSide">Move o teu rei dúas casillas
 para enrocar no flanco de rei!</string>
+  <string name="castleQueenSide">Move o teu rei dúas casillas
+para enrocar no flanco de dama!</string>
+  <string name="theKnightIsInTheWay">O cabalo está no medio!
+Móveo, despois enroca no flanco de rei.</string>
+  <string name="castleKingSideMovePiecesFirst">Enroca no flanco de rei!
+Precisas sacar as pezas primeiro.</string>
+  <string name="castleQueenSideMovePiecesFirst">Enroca no flanco de dama!
+Precisas sacar as pezas primeiro.</string>
+  <string name="youCannotCastleIfMoved">Non podes enrocar se
+o rei xa moveu
+ou a torre xa moveu.</string>
+  <string name="youCannotCastleIfAttacked">Non podes enrocar se
+o rei está atacado no camiño.
+Bloquea o xaque e despois enroca!</string>
+  <string name="findAWayToCastleKingSide">Atopa un xeito de
+enrocar no flanco de rei!</string>
+  <string name="findAWayToCastleQueenSide">Atopa un xeito de
+enrocar no flanco de dama!</string>
+  <string name="castlingComplete">Parabéns! Deberías enrocar case sempre nunha partida.</string>
+  <string name="enPassant">Ao paso</string>
+  <string name="theSpecialPawnMove">O movemento especial do peón</string>
+  <string name="enPassantIntro">Cando o peón rival moveu dúas casillas, podes tomalo como se tivese movido unha casilla.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">As negras acaban de mover o peón
+dúas casillas!
+Tómao ao paso.</string>
 </resources>
