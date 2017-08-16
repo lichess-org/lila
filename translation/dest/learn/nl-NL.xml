@@ -87,6 +87,7 @@ maar je kunt verdedigen!</string>
   <string name="combatComplete">Gefeliciteerd! Nu weet je hoe je met de schaakstukken moet vechten!</string>
   <string name="checkInOne">Schaak in 1 zet</string>
   <string name="attackTheOpponentsKing">Val de koning van de tegenstander aan</string>
+  <string name="defendYourKing">Verdedig je koning</string>
   <string name="pawnsFormTheFrontLine">Pionnen vormen de frontlinie. Maak eender welke zet om voort te gaan.</string>
   <string name="boardSetupComplete">Gefeliciteerd! Nu weet je hoe je het schaakbord moet opstellen.</string>
   <string name="castling">Rokade</string>
@@ -151,8 +152,21 @@ de hoogste waarde!</string>
   <string name="checkInTwo">Schaak in twee zetten</string>
   <string name="twoMovesToGiveCheck">Twee zetten om schaak te geven</string>
   <string name="checkInTwoIntro">Vind de juiste twee zetten om de koning van de tegenstander schaak te zetten!</string>
+  <string name="puzzles">Puzzels</string>
+  <string name="videos">Video\'s</string>
+  <string name="letsGo">Laten we starten!</string>
+  <string name="stageX">Stap %s</string>
+  <string name="awesome">Geweldig!</string>
+  <string name="excellent">Uitstekend!</string>
   <string name="greatJob">Goed gedaan!</string>
+  <string name="perfect">Perfect!</string>
   <string name="outstanding">Uitstekend!</string>
   <string name="wayToGo">Super, goed gedaan!</string>
   <string name="yesYesYes">Ok, ok, ok!</string>
+  <string name="youreGoodAtThis">Je bent hier goed in!</string>
+  <string name="stageXComplete">Stap %s voltooid</string>
+  <string name="yourScore">Jouw score</string>
+  <string name="next">Volgende</string>
+  <string name="puzzleFailed">Puzzel mislukt!</string>
+  <string name="retry">Opnieuw proberen</string>
 </resources>
