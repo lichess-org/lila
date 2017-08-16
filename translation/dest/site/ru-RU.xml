@@ -136,7 +136,7 @@
   <string name="newToLichess">Впервые на Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Вам нужно зарегистрироваться, чтобы сделать это</string>
   <string name="signUp">Регистрация</string>
-  <string name="computersAreNotAllowedToPlay">Создание учётных записей для компьютерных программ запрещено. Пожалуйста, во время игры не используйте шахматных ботов, базы данных или подсказки от других игроков.</string>
+  <string name="computersAreNotAllowedToPlay">Создание учётных записей для ботов запрещено. Пожалуйста, во время игры не используйте шахматные движки, базы данных или подсказки других игроков. Также учтите, что создание нескольких аккаунтов не приветствуется и чрезмерное их количество приведёт к блокировке.</string>
   <string name="games">Игры</string>
   <string name="forum">Форум</string>
   <string name="xPostedInForumY">%1$s опубликовал на форуме %2$s</string>
