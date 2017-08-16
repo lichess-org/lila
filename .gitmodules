@@ -22,6 +22,3 @@
 [submodule "public/vendor/bar-rating"]
 	path = public/vendor/bar-rating
 	url = https://github.com/antennaio/jquery-bar-rating
-[submodule "public/vendor/jquery-textcomplete"]
-	path = public/vendor/jquery-textcomplete
-	url = https://github.com/ornicar/jquery-textcomplete
