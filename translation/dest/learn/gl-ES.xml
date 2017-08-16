@@ -3,6 +3,7 @@
 <resources>
   <string name="learnChess">Aprende xadrez</string>
   <string name="byPlaying">xogando!</string>
+  <string name="menu">Menú</string>
   <string name="progressX">Progreso: %s</string>
   <string name="resetMyProgress">Reinicia-lo meu progreso</string>
   <string name="youWillLoseAllYourProgress">Perderás todo o teu progreso!</string>
@@ -10,7 +11,7 @@
   <string name="chessPieces">Pezas de xadrez</string>
   <string name="theRook">A torre</string>
   <string name="itMovesInStraightLines">Move en liña recta</string>
-  <string name="rookIntro">A torre é unha peza poderosa. ¿Estás preparado para comandala?</string>
+  <string name="rookIntro">A torre é unha peza poderosa. Estás preparado para comandala?</string>
   <string name="rookGoal">Pincha na torre
 para traela ata a estrela!</string>
   <string name="grabAllTheStars">Recolle todas as estrelas!</string>
@@ -19,4 +20,18 @@ máis puntos gañarás!</string>
   <string name="useTwoRooks">Emprega dúas torres
 para acelerar as cousas!</string>
   <string name="rookComplete">Parabéns! Dominaches con éxito a torre.</string>
+  <string name="theBishop">O bispo</string>
+  <string name="itMovesDiagonally">Move en diagonal</string>
+  <string name="bishopIntro">A continuación imos aprender como maniobrar un bispo!</string>
+  <string name="youNeedBothBishops">Un bispo de casillas brancas,
+un bispo de casillas negras.
+Precisas ambos!</string>
+  <string name="bishopComplete">Parabéns! Podes comandar un bispo.</string>
+  <string name="theQueen">A dama</string>
+  <string name="queenCombinesRookAndBishop">Dama = torre + bispo</string>
+  <string name="queenIntro">A peza de xadrez máis poderosa entra. A súa maxestade a dama!</string>
+  <string name="queenComplete">Parabéns! As damas non teñen segredos para ti.</string>
+  <string name="theKing">O rei</string>
+  <string name="theMostImportantPiece">A peza máis importante</string>
+  <string name="kingIntro">Ti es o rei. Se caes na batalla, o xogo está perdido.</string>
 </resources>
