@@ -128,7 +128,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     vm.mode.sticky = (vm.mode.sticky && s.features.sticky) || (!data.features.sticky && s.features.sticky);
     if (vm.mode.sticky) vm.behind = 0;
     if (vm.mode.sticky && s.position !== data.position) commentForm.close();
-    ['position', 'name', 'visibility', 'features', 'settings', 'chapter', 'likes', 'liked'].forEach(function(key) {
+    'position name visibility features settings chapter likes liked'.split(' ').forEach(key => {
       data[key] = s[key];
     });
     if (vm.mode.sticky && !data.features.sticky)
@@ -142,14 +142,21 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     configureAnalysis();
     vm.loading = false;
 
+    let nextPath: Tree.Path;
+
     if (vm.mode.sticky) {
       vm.chapterId = data.position.chapterId;
-      ctrl.userJump(data.position.path);
+      nextPath = (
+        (vm.justSetChapterId === vm.chapterId) && chapters.localPaths[vm.chapterId]
+      ) || data.position.path;
     } else {
-      // path could be gone
-      const path = sameChapter ? ctrl.tree.longestValidPath(prevPath) : treePath.root;
-      ctrl.userJump(path);
+      nextPath = sameChapter ? prevPath : (chapters.localPaths[vm.chapterId] || treePath.root);
     }
+
+    // path could be gone (because of subtree deletion), go as far as possible
+    ctrl.userJump(ctrl.tree.longestValidPath(nextPath));
+
+    vm.justSetChapterId = undefined;
 
     configurePractice();
 
@@ -229,7 +236,10 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
         treePath.contains(ctrl.path, path) || // can always go back
         ctrl.tree.lastMainlineNode(path).ply <= data.chapter.conceal!;
     },
-    onJump: practice ? practice.onJump : $.noop,
+    onJump() {
+      chapters.localPaths[vm.chapterId] = ctrl.path;
+      if (practice) practice.onJump();
+    },
     withPosition(obj) {
       obj.ch = vm.chapterId;
       obj.path = ctrl.path;
@@ -260,6 +270,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       }
       vm.loading = true;
       vm.nextChapterId = id;
+      vm.justSetChapterId = id;
       redraw();
     },
     toggleSticky: function() {
@@ -280,7 +291,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     socketHandlers: {
       path(d) {
         const position = d.p,
-          who = d.w;
+        who = d.w;
         who && members.setActive(who.u);
         if (!vm.mode.sticky) {
           vm.behind++;
@@ -297,9 +308,9 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       },
       addNode(d) {
         const position = d.p,
-          node = d.n,
-          who = d.w,
-          sticky = d.s;
+        node = d.n,
+        who = d.w,
+        sticky = d.s;
         who && members.setActive(who.u);
         if (d.s && !vm.mode.sticky) vm.behind++;
         if (wrongChapter(d)) return;
@@ -320,7 +331,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       },
       deleteNode(d) {
         const position = d.p,
-          who = d.w;
+        who = d.w;
         who && members.setActive(who.u);
         if (wrongChapter(d)) return;
         // deleter already has it done
@@ -332,7 +343,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       },
       promote(d) {
         const position = d.p,
-          who = d.w;
+        who = d.w;
         who && members.setActive(who.u);
         if (wrongChapter(d)) return;
         if (who && who.s === sri) return;
@@ -372,7 +383,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       },
       shapes(d) {
         const position = d.p,
-          who = d.w;
+        who = d.w;
         who && members.setActive(who.u);
         if (wrongChapter(d)) return;
         if (who && who.s === sri) return;
@@ -382,7 +393,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       },
       setComment(d) {
         const position = d.p,
-          who = d.w;
+        who = d.w;
         who && members.setActive(who.u);
         if (wrongChapter(d)) return;
         if (who && who.s === sri) commentForm.dirty(false);
@@ -397,7 +408,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       },
       deleteComment(d) {
         const position = d.p,
-          who = d.w;
+        who = d.w;
         who && members.setActive(who.u);
         if (wrongChapter(d)) return;
         ctrl.tree.deleteCommentAt(d.id, position.path);
@@ -405,7 +416,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       },
       glyphs(d) {
         const position = d.p,
-          who = d.w;
+        who = d.w;
         who && members.setActive(who.u);
         if (wrongChapter(d)) return;
         if (who && who.s === sri) glyphForm.dirty(false);
@@ -414,7 +425,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       },
       clock(d) {
         const position = d.p,
-          who = d.w;
+        who = d.w;
         who && members.setActive(who.u);
         if (wrongChapter(d)) return;
         ctrl.tree.setClockAt(d.c, position.path);

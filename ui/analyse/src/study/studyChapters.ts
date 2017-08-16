@@ -5,7 +5,7 @@ import { bind, dataIcon } from '../util';
 import { ctrl as chapterNewForm } from './chapterNewForm';
 import { ctrl as chapterEditForm } from './chapterEditForm';
 import AnalyseCtrl from '../ctrl';
-import { StudyCtrl, StudyChapterMeta } from './interfaces';
+import { StudyCtrl, StudyChapterMeta, LocalPaths } from './interfaces';
 
 export function ctrl(initChapters: StudyChapterMeta[], send: SocketSend, setTab: () => void, chapterConfig, root: AnalyseCtrl) {
 
@@ -13,6 +13,8 @@ export function ctrl(initChapters: StudyChapterMeta[], send: SocketSend, setTab:
 
   const newForm = chapterNewForm(send, list, setTab, root);
   const editForm = chapterEditForm(send, chapterConfig, root.redraw, root.opts.beta);
+
+  const localPaths: LocalPaths = {};
 
   return {
     newForm,
@@ -35,7 +37,8 @@ export function ctrl(initChapters: StudyChapterMeta[], send: SocketSend, setTab:
     toggleNewForm() {
       if (newForm.vm.open || list().length < 64) newForm.toggle();
       else alert("You have reached the limit of 64 chapters per study. Please create a new study.");
-    }
+    },
+    localPaths
   };
 }
 

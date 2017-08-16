@@ -42,6 +42,7 @@ export type Tab = 'members' | 'chapters';
 export interface StudyVm {
   loading: boolean;
   nextChapterId?: string;
+  justSetChapterId?: string;
   tab: Prop<Tab>;
   chapterId: string;
   mode: {
@@ -134,3 +135,7 @@ export interface StudyMemberMap {
 
 export type TagTypes = string[];
 export type TagArray = [string, string];
+
+export interface LocalPaths {
+  [chapterId: string]: Tree.Path;
+}
