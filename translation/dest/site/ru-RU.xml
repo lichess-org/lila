@@ -98,13 +98,13 @@
   <string name="byCPL">Ошибки</string>
   <string name="openStudy">Начать исследование</string>
   <string name="enable">Включить</string>
-  <string name="bestMoveArrow">Стрелка \"лучший ход\"</string>
+  <string name="bestMoveArrow">Показывать лучший ход</string>
   <string name="evaluationGauge">Шкала оценки</string>
   <string name="multipleLines">Количество стрелок</string>
-  <string name="cpus">Процессоры</string>
+  <string name="cpus">Потоки</string>
   <string name="memory">Память</string>
   <string name="infiniteAnalysis">Бесконечный анализ</string>
-  <string name="removesTheDepthLimit">Удаляет ограничение на глубину (ваш компьютер будет горячим)</string>
+  <string name="removesTheDepthLimit">Удаляет ограничение на глубину (ваш компьютер нагреется)</string>
   <string name="blunders">Грубые ошибки</string>
   <string name="mistakes">Ошибки</string>
   <string name="inaccuracies">Сомнительные ходы</string>
