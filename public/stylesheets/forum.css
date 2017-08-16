@@ -316,8 +316,9 @@ div.bar div.pagination {
   font-weight: bold;
   cursor: pointer;
 }
-.textcomplete-dropdown li:first-child {
-  border-top: none;
+.textcomplete-dropdown li.textcomplete-header,
+.textcomplete-dropdown li.textcomplete-footer {
+  display: none;
 }
 .textcomplete-dropdown li:hover,
 .textcomplete-dropdown .active {
