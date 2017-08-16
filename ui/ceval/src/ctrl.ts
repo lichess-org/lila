@@ -28,10 +28,11 @@ export default function(opts: CevalOpts): CevalCtrl {
   const hovering = prop<Hovering | null>(null);
   const isDeeper = prop(false);
 
+  const sfPath = '/assets/vendor/stockfish/stockfish';
   const pool = new Pool({
-    asmjs: window.lichess.assetUrl('/assets/vendor/stockfish/stockfish.js', {sameDomain: true}),
-    pnacl: pnaclSupported && window.lichess.assetUrl('/assets/vendor/stockfish/stockfish.nmf'),
-    wasm: wasmSupported && window.lichess.assetUrl('/assets/vendor/stockfish/stockfish.wasm.js', {sameDomain: true}),
+    asmjs: window.lichess.assetUrl(sfPath + '.js', {sameDomain: true}),
+    pnacl: pnaclSupported && window.lichess.assetUrl(sfPath + '.nmf'),
+    wasm: wasmSupported && window.lichess.assetUrl(sfPath + '.wasm.js', {sameDomain: true}),
     onCrash: opts.onCrash
   }, {
     minDepth,
