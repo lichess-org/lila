@@ -65,7 +65,7 @@ export function view(ctrl): VNode | undefined {
     content: [
       h('h2', 'Share & export'),
       h('form.material.form.share', [
-        h('div.form-group', [
+        h('div.form-group.little-margin-bottom', [
           h('input.has-value.autoselect', {
             attrs: {
               readonly: true,
@@ -110,6 +110,12 @@ export function view(ctrl): VNode | undefined {
             h('label.control-label', 'Embed current chapter in your website or blog')
           ] : []).concat(h('i.bar'))
         ),
+        h('div.fen', {
+          attrs: { title: 'FEN - click to select' },
+          hook: bind('click', e => {
+            window.getSelection().selectAllChildren((e.target as HTMLElement))
+          })
+        }, ctrl.currentNode().fen),
         h('div.downloads', [
           ctrl.cloneable ? h('a.button.text', {
             attrs: {

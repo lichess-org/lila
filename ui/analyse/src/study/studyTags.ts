@@ -28,25 +28,18 @@ function fixed(text) {
   return h('span', text);
 }
 
-let fenElement: HTMLElement;
 let selectedType: string;
 
+type TagRow = (string | VNode)[];
+
 function renderPgnTags(chapter: StudyChapter, submit, types: string[]): VNode {
-  let rows = [
-    ['Fen', h('pre#study_fen', {
-      hook: {
-        insert(vnode) { fenElement = vnode.elm as HTMLElement; }
-      }
-    })]
-  ];
+  let rows: TagRow[] = [];
   if (chapter.setup.variant.key !== 'standard')
   rows.push(['Variant', fixed(chapter.setup.variant.name)]);
-  rows = rows.concat(chapter.tags.map(function(tag) {
-    return [
-      tag[0],
-      submit ? editable(tag[1], submit(tag[0])) : fixed(tag[1])
-    ];
-  }));
+  rows = rows.concat(chapter.tags.map(tag => [
+    tag[0],
+    submit ? editable(tag[1], submit(tag[0])) : fixed(tag[1])
+  ]));
   if (submit) {
     const existingTypes = chapter.tags.map(t => t[0]);
     rows.push([
@@ -119,8 +112,5 @@ function doRender(root: StudyCtrl): VNode {
 export function view(root: StudyCtrl): VNode {
   const chapter = root.tags.getChapter(),
   key = chapter.id + root.data.name + chapter.name + root.data.likes + chapter.tags + root.vm.mode.write;
-  window.lichess.raf(function() {
-    if (fenElement) fenElement.textContent = root.currentNode().fen;
-  });
   return thunk('div.undertable_inner.' + chapter.id, doRender, [root, key]);
 }

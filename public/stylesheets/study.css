@@ -61,6 +61,15 @@ form.chapter_form.material.form .form-group textarea {
   margin-right: 5px;
   vertical-align: middle;
 }
+.form.share .fen {
+  overflow: hidden;
+  font-family: monospace;
+  font-size: 10px;
+  white-space: nowrap;
+  margin: -1rem 0 1rem 0;
+  background: #f0f0f0;
+  border-radius: 5px;
+}
 div.underboard {
   margin-top: 17px;
   min-height: 370px;
@@ -515,6 +524,7 @@ body.dark .study_comments .comment,
 body.dark .glyph_form i::before {
   background: #262626;
 }
+body.dark .form.share .fen,
 body.dark .glyph_form a:hover {
   background: #383838;
 }

@@ -63,7 +63,7 @@ body.dark .mod_zone .slist {
 }
 .mod_zone .spy_ips li li {
   margin-left: 1em;
-  font-family: 'Roboto Mono';
+  font-family: monospace;
 }
 .mod_zone .spy_uas {
   margin-left: 34%;
