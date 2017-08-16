@@ -175,6 +175,7 @@
   <string name="forgotPassword">Заборавили сте лозинку?</string>
   <string name="rank">Ранг</string>
   <string name="rankX">Ранг: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Ранг се ажурира сваких %s минута</string>
   <string name="gamesPlayed">Број одиграних партија</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s игра са вама</item>
@@ -387,6 +388,8 @@
   <string name="averageOpponent">просечан противник</string>
   <string name="membersOnly">Само за чланове</string>
   <string name="boardEditor">Уредник табле</string>
+  <string name="setTheBoard">Постави таблу</string>
+  <string name="popularOpenings">Популарна отварања</string>
   <string name="startPosition">Почетна позиција</string>
   <string name="clearBoard">Уклони фигуре</string>
   <string name="savePosition">Сачувај позицију</string>
@@ -425,6 +428,7 @@
   <string name="keepGoing">Настави...</string>
   <string name="puzzleFailed">Вежба неуспешна</string>
   <string name="butYouCanKeepTrying">Али можеш да наставиш са покушајима</string>
+  <string name="success">Успех</string>
   <string name="wasThisPuzzleAnyGood">Да ли је ова вежба била добра?</string>
   <string name="pleaseVotePuzzle">Помози да се lichess побољша гласајући , користећи стрелице горе/доле</string>
   <string name="thankYou">Хвала!</string>
@@ -547,6 +551,9 @@
   <string name="xAnsweredY">%1$s је одговорио %2$s</string>
   <string name="xCommentedY">%1$s је коментарисао %2$s</string>
   <string name="victory">Победа!</string>
+  <string name="defeat">Пораз</string>
+  <string name="xVsYinZ">%1$s против %2$s
+у %3$s</string>
   <string name="timeline">Дневник</string>
   <string name="seeAllTournaments">Види све турнире</string>
   <string name="starting">Почиње</string>
