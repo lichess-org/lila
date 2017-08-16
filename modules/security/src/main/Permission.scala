@@ -29,7 +29,6 @@ object Permission {
   case object StreamConfig extends Permission("ROLE_STREAM_CONFIG")
   case object PracticeConfig extends Permission("ROLE_PRACTICE_CONFIG")
   case object Beta extends Permission("ROLE_BETA")
-  case object GuineaPig extends Permission("ROLE_GUINEA_PIG")
   case object MessageAnyone extends Permission("ROLE_MESSAGE_ANYONE")
   case object UserSearch extends Permission("ROLE_USER_SEARCH")
   case object CloseTeam extends Permission("ROLE_CLOSE_TEAM")
@@ -38,7 +37,7 @@ object Permission {
   case object ManageEvent extends Permission("ROLE_MANAGE_EVENT")
   case object ChangePermission extends Permission("ROLE_CHANGE_PERMISSION")
   case object PublicMod extends Permission("ROLE_PUBLIC_MOD")
-  case object Developer extends Permission("ROLE_DEVELOPER", List(GuineaPig))
+  case object Developer extends Permission("ROLE_DEVELOPER")
   case object Coach extends Permission("ROLE_COACH")
   case object PreviewCoach extends Permission("ROLE_PREVIEW_COACH")
   case object ModNote extends Permission("ROLE_MOD_NOTE")
@@ -49,7 +48,7 @@ object Permission {
 
   case object Hunter extends Permission("ROLE_HUNTER", List(
     ViewBlurs, MarkEngine, MarkBooster, StaffForum,
-    UserSpy, UserEvaluate, SeeReport, Beta, SeeInsight,
+    UserSpy, UserEvaluate, SeeReport, SeeInsight,
     UserSearch, ModNote, RemoveRanking, ModMessage
   ))
 
@@ -68,7 +67,7 @@ object Permission {
     Admin, Hunter, MarkTroll, ChatTimeout, ChangePermission, ViewBlurs, StaffForum, ModerateForum,
     UserSpy, MarkEngine, MarkBooster, IpBan, ModerateQa, StreamConfig, PracticeConfig,
     Beta, MessageAnyone, UserSearch, CloseTeam, TerminateTournament, ManageTournament, ManageEvent,
-    PublicMod, Developer, Coach, PreviewCoach, GuineaPig, ModNote, RemoveRanking, ReportBan
+    PublicMod, Developer, Coach, PreviewCoach, ModNote, RemoveRanking, ReportBan
   )
 
   lazy private val all: List[Permission] = SuperAdmin :: allButSuperAdmin
