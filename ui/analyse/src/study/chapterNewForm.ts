@@ -227,7 +227,10 @@ export function view(ctrl): VNode {
         ]) : null,
         activeTab === 'fen' ? h('div.form-group.no-label', [
           h('input#chapter-fen', {
-            attrs: { placeholder: 'Initial FEN position' }
+            attrs: {
+              value: ctrl.root.node.fen,
+              placeholder: 'Initial FEN position'
+            }
           }),
           h('i.bar')
         ]) : null,
