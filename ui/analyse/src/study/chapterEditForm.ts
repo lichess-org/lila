@@ -61,6 +61,7 @@ export function view(ctrl): VNode | undefined {
   const mode = data.practice ? 'practice' : (!isNaN(data.conceal) ? 'conceal' : (data.gamebook ? 'gamebook' : 'normal'));
 
   return dialog.form({
+    class: 'edit-' + data.id, // full redraw when changing chapter
     onClose() {
       ctrl.current(null);
       ctrl.redraw();
