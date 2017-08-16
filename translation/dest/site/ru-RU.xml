@@ -79,9 +79,9 @@
     <item quantity="other">Мат в %s полуходов</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Следующий захват или ход пешкой в %s ходе сторон (Дистанция до 50-го хода)</item>
-    <item quantity="few">Следующий захват или ход пешкой в %s ходах сторон (Дистанция до 50-го хода)</item>
-    <item quantity="other">Следующий захват или ход пешкой в %s ходах сторон (Дистанция до 50-го хода)</item>
+    <item quantity="one">Следующее взятие или ход пешкой в %s полуход (Расстояние до обнуления счётчика 50 ходов)</item>
+    <item quantity="few">Следующее взятие или ход пешкой в %s полухода (Расстояние до обнуления счётчика 50 ходов)</item>
+    <item quantity="other">Следующее взятие или ход пешкой в %s полуходов (Расстояние до обнуления счётчика 50 ходов)</item>
   </plurals>
   <string name="noGameFound">Игр не найдено</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Может, стоит включить больше игр из вкладки предпочтений?</string>
