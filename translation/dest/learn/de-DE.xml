@@ -14,12 +14,12 @@
   <string name="rookIntro">Der Turm ist eine mächtige Figur. Bist du bereit, ihn zu befehligen?</string>
   <string name="rookGoal">Klicke auf den Turm, um den Stern zu bekommen!</string>
   <string name="grabAllTheStars">Schnappe dir alle Sterne!</string>
-  <string name="theFewerMoves">Je weniger Züge du machst, desto mehr Punkte kannst du gewinnen!</string>
+  <string name="theFewerMoves">Je weniger Züge du machst, desto mehr Punkte gewinnst du!</string>
   <string name="useTwoRooks">Benutze zwei Türme, um die Sache zu beschleunigen!</string>
   <string name="rookComplete">Herzlichen Glückwunsch! Du beherrschst jetzt den Turm.</string>
   <string name="theBishop">Der Läufer</string>
   <string name="itMovesDiagonally">Er bewegt sich diagonal</string>
-  <string name="bishopIntro">Als nächstes werden wir lernen, einen Läufer zu manövrieren!</string>
+  <string name="bishopIntro">Als lernen wir, einen Läufer zu manövrieren!</string>
   <string name="youNeedBothBishops">Ein weißfeldriger Läufer, ein schwarzfeldriger Läufer. Du brauchst beide!</string>
   <string name="bishopComplete">Herzlichen Glückwunsch! Du kannst jetzt einen Läufer befehligen.</string>
   <string name="theQueen">Die Dame</string>
