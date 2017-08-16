@@ -107,7 +107,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     vm.mode.write = vm.mode.write && canContribute;
     li.pubsub.emit('chat.writeable')(data.features.chat);
     li.pubsub.emit('chat.permissions')({local: canContribute});
-    const computer = data.chapter.features.computer || data.chapter.practice;
+    const computer: boolean = !!(data.chapter.features.computer || data.chapter.practice);
     if (!computer) ctrl.getCeval().enabled(false);
     ctrl.getCeval().allowed(computer);
     if (!data.chapter.features.explorer) ctrl.explorer.disable();
