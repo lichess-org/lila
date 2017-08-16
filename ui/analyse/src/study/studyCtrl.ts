@@ -295,7 +295,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
         who && members.setActive(who.u);
         if (!vm.mode.sticky) {
           vm.behind++;
-          return;
+          return redraw();
         }
         if (position.chapterId !== data.position.chapterId ||
           !ctrl.tree.pathExists(position.path)) {
@@ -312,8 +312,11 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
         who = d.w,
         sticky = d.s;
         who && members.setActive(who.u);
-        if (d.s && !vm.mode.sticky) vm.behind++;
-        if (wrongChapter(d)) return;
+        if (sticky && !vm.mode.sticky) vm.behind++;
+        if (wrongChapter(d)) {
+          if (sticky && !vm.mode.sticky) redraw();
+          return;
+        }
         // node author already has the node
         if (sticky && who && who.s === sri) {
           data.position.path = position.path + node.id;
@@ -357,6 +360,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
         if (!vm.mode.sticky) vm.behind++;
         data.position = d.p;
         if (vm.mode.sticky) xhrReload();
+        else redraw();
       },
       addChapter(d) {
         d.w && members.setActive(d.w.u);
