@@ -222,7 +222,7 @@
   <string name="chatRoom">Окно чата</string>
   <string name="loginToChat">Войдите, чтобы использовать чат</string>
   <string name="youHaveBeenTimedOut">Вы были отключены.</string>
-  <string name="spectatorRoom">Чат для зрителей</string>
+  <string name="spectatorRoom">Чат зрителей</string>
   <string name="composeMessage">Написать сообщение</string>
   <string name="noNewMessages">Нет новых сообщений</string>
   <string name="subject">Тема</string>
