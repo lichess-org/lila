@@ -40,10 +40,10 @@ export default function(ctrl: AnalyseController): VNode {
       ])
     ];
     else content = [
-      h('div.legend.todo', { class: { done: isCommented } }, [
-        'Congratulate the player for this correct move, with a ',
+      h('div.legend', [
+        'Reflect on the player\'s correct move, with a ',
         commentButton(),
-        '.'
+        '; or leave empty to jump immediately to the next move.'
       ]),
       hasVariation ? null : h('div.legend', {
         attrs: { 'data-icon': '' }
@@ -76,7 +76,7 @@ function renderDeviation(ctrl: AnalyseController): VNode {
   return h('div.deviation.todo', { class: { done: nodeGamebookValue(ctrl.node, field).length > 2 } }, [
     h('label', {
       attrs: { for: 'gamebook-deviation' }
-    }, 'Or, when any other move is played:'),
+    }, 'When any other wrong move is played:'),
     h('textarea#gamebook-deviation', {
       attrs: { placeholder: 'Explain why all other moves are wrong' },
       hook: textareaHook(ctrl, field)
