@@ -96,6 +96,13 @@ nun movemento!</string>
   <string name="outOfCheck">Fóra de xaque</string>
   <string name="defendYourKing">Defende o teu rei</string>
   <string name="outOfCheckIntro">Estás en xaque! Debes escapar ou bloquear o ataque.</string>
+  <string name="escapeWithTheKing">Escapa co rei!</string>
+  <string name="theKingCannotEscapeButBlock">O rei non pode escapar,
+pero podes bloquear o ataque!</string>
+  <string name="youCanGetOutOfCheckByTaking">Podes saír do xaque
+tomando a peza atacante.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Este cabalo está dando xaque
+entre as túas defensas!</string>
   <string name="boardSetupComplete">Parabéns! Sabes como colocar o taboleiro.</string>
   <string name="castling">Enroque</string>
   <string name="theSpecialKingMove">O movemento especial do rei</string>
