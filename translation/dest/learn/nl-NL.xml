@@ -81,6 +81,12 @@ En verlies uw eigen niet.</string>
 Ontsnap aan de dreiging!</string>
   <string name="noEscape">Er is geen ontsnapping mogelijk,
 maar je kunt verdedigen!</string>
+  <string name="combat">Strijd</string>
+  <string name="captureAndDefendPieces">Verover en verdedig stukken</string>
+  <string name="combatIntro">Een goede strijder kan zowel aanvallen als verdedigen!</string>
+  <string name="combatComplete">Gefeliciteerd! Nu weet je hoe je met de schaakstukken moet vechten!</string>
+  <string name="checkInOne">Schaak in 1 zet</string>
+  <string name="attackTheOpponentsKing">Val de koning van de tegenstander aan</string>
   <string name="pawnsFormTheFrontLine">Pionnen vormen de frontlinie. Maak eender welke zet om voort te gaan.</string>
   <string name="boardSetupComplete">Gefeliciteerd! Nu weet je hoe je het schaakbord moet opstellen.</string>
   <string name="castling">Rokade</string>
