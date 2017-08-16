@@ -154,15 +154,13 @@ export function view(ctrl): VNode {
       ]),
       h('form.chapter_form.material.form', {
         hook: bindSubmit(e => {
-          ctrl.submit({
-            name: fieldValue(e, 'name'),
-            game: fieldValue(e, 'game'),
-            variant: fieldValue(e, 'variant'),
-            fen: fieldValue(e, 'fen') || (ctrl.vm.tab() === 'edit' ? ctrl.vm.editorFen() : null),
-            pgn: fieldValue(e, 'pgn'),
-            orientation: fieldValue(e, 'orientation'),
-            mode: fieldValue(e, 'mode')
+          const o: any = {
+            fen: fieldValue(e, 'fen') || (ctrl.vm.tab() === 'edit' ? ctrl.vm.editorFen() : null)
+          };
+          'name game variant pgn orientation mode'.split(' ').forEach(field => {
+            o[field] = fieldValue(e, field);
           });
+          ctrl.submit(o);
         }, ctrl.redraw)
       }, [
         h('div.form-group', [
