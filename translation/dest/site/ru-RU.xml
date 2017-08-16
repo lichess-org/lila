@@ -381,7 +381,7 @@
   <string name="tournamentPairingsAreNowClosed">Жеребьёвка турнира в настоящее время закрыта.</string>
   <string name="standByX">Ожидайте, %s, жеребьёвка игроков, будьте готовы!</string>
   <string name="youArePlaying">Вы в игре!</string>
-  <string name="winRate">Коэффициент победы</string>
+  <string name="winRate">Процент побед</string>
   <string name="berserkRate">Коэффициент бешенства</string>
   <string name="performance">Эффективность</string>
   <string name="tournamentComplete">Соревнование завершено</string>
