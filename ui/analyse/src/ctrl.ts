@@ -245,16 +245,16 @@ export default class AnalyseCtrl {
   });
 
   makeCgOpts(): ChessgroundConfig {
-    const node = this.node;
-    const color = this.turnColor();
-    const dests = chessUtil.readDests(this.node.dests);
-    const drops = chessUtil.readDrops(this.node.drops);
-    const movableColor = this.practice ? this.bottomColor() : (
+    const node = this.node,
+    color = this.turnColor(),
+    dests = chessUtil.readDests(this.node.dests),
+    drops = chessUtil.readDrops(this.node.drops),
+    movableColor = this.practice ? this.bottomColor() : (
       !this.embed && (
         (dests && Object.keys(dests).length > 0) ||
         drops === null || drops.length
-      ) ? color : undefined);
-    const config: ChessgroundConfig = {
+      ) ? color : undefined),
+    config: ChessgroundConfig = {
       fen: node.fen,
       turnColor: color,
       movable: this.embed ? {
@@ -321,9 +321,7 @@ export default class AnalyseCtrl {
       this.ceval.stop();
       this.startCeval();
     }
-    this.justPlayed = undefined;
-    this.justDropped = undefined;
-    this.justCaptured = undefined;
+    this.justPlayed = this.justDropped = this.justCaptured = undefined;
     this.explorer.setNode();
     this.updateHref();
     this.autoScroll();
