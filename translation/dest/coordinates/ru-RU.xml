@@ -3,12 +3,12 @@
 <resources>
   <string name="coordinates">Координаты</string>
   <string name="coordinateTraining">Координатная тренировка</string>
-  <string name="averageScoreAsWhiteX">Средний счет за белых: %s</string>
-  <string name="averageScoreAsBlackX">Средний счет за черных: %s</string>
-  <string name="knowingTheChessBoard">Знание координат шахматной доски - очень важный шахматный навык:</string>
-  <string name="mostChessCourses">Большинство шахматных задач активно используются в шахматной нотации.</string>
-  <string name="talkToYourChessFriends">Это упрощает разговор с друзьями-шахматистами, так как вы оба понимаете \"язык шахмат\".</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Вы можете более эффективно анализировать игры, если вам не нужно искать названия квадратов.</string>
+  <string name="averageScoreAsWhiteX">Средний счёт за белых: %s</string>
+  <string name="averageScoreAsBlackX">Средний счёт за чёрных: %s</string>
+  <string name="knowingTheChessBoard">Знание координат на шахматной доске — очень важный навык для шахматиста:</string>
+  <string name="mostChessCourses">Большинство шахматных курсов и упражнений активно используют в шахматную нотацию.</string>
+  <string name="talkToYourChessFriends">Вам легче разговаривать с другом-шахматистом, так как вы оба понимаете \"язык шахмат\".</string>
+  <string name="youCanAnalyseAGameMoreEffectively">Гораздо быстрее анализировать игры, когда не приходится искать названия квадратов.</string>
   <string name="aSquareNameAppears">Названия квадратов появляются на доске, и вы должны кликнуть на конкретный квадрат. У вас есть 30 секунд, чтобы определить как можно больше квадратов!</string>
   <string name="startTraining">Начать тренировку</string>
 </resources>
