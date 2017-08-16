@@ -154,6 +154,8 @@ de hoogste waarde!</string>
   <string name="checkInTwoIntro">Vind de juiste twee zetten om de koning van de tegenstander schaak te zetten!</string>
   <string name="puzzles">Puzzels</string>
   <string name="videos">Video\'s</string>
+  <string name="playPeople">Tegen mensen</string>
+  <string name="playMachine">Tegen computer</string>
   <string name="letsGo">Laten we starten!</string>
   <string name="stageX">Stap %s</string>
   <string name="awesome">Geweldig!</string>
