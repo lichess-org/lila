@@ -628,6 +628,7 @@
   <string name="sourceCode">Изворни код</string>
   <string name="simultaneousExhibitions">Симултанка</string>
   <string name="host">Домаћин</string>
+  <string name="hostColorX">Боја приређивача: %s</string>
   <string name="createdSimuls">Недавно креиране симултанке</string>
   <string name="hostANewSimul">Покрени нову симултанку</string>
   <string name="noSimulFound">Симултанка није пронађена</string>
@@ -734,6 +735,10 @@
   <string name="yourScore">Ваш резултат: %s</string>
   <string name="language">Језик</string>
   <string name="background">Позадина</string>
+  <string name="light">Светла</string>
+  <string name="dark">Тамна</string>
+  <string name="transparent">Прозирна</string>
+  <string name="backgroundImageUrl">УРЛ слике позадине:</string>
   <string name="boardGeometry">Геометрија табле</string>
   <string name="boardTheme">Тема табле</string>
   <string name="boardSize">Величина табле</string>
