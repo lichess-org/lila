@@ -301,7 +301,7 @@
   <string name="continueFromHere">Von hier aus weiterspielen</string>
   <string name="importGame">Importiere Partie</string>
   <string name="importGameExplanation">Du bekommst eine Computeranalyse, einen Chat
-und eine URL um dein PGN zu teilen.</string>
+und eine URL, wenn du dein PGN einfügst.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importierte Partie</item>
     <item quantity="other">%s importierte Partien</item>
@@ -429,7 +429,7 @@ und eine URL um dein PGN zu teilen.</string>
   <string name="thisPuzzleIsCorrect">Diese Aufgabe ist korrekt und interessant</string>
   <string name="thisPuzzleIsWrong">Diese Aufgabe ist falsch oder langweilig</string>
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Du hast eine Sekunde, um deinen ersten Zug zu machen!</item>
+    <item quantity="one">Du hast %s Sekunde, um deinen ersten Zug zu machen!</item>
     <item quantity="other">Du hast %s Sekunden, um deinen ersten Zug zu machen!</item>
   </plurals>
   <plurals name="nbGamesInPlay">
