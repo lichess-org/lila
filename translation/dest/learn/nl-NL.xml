@@ -92,6 +92,7 @@ maar je kunt verdedigen!</string>
   <string name="escapeWithTheKing">Ontsnappen met de koning!</string>
   <string name="mateInOne">Mat in 1</string>
   <string name="defeatTheOpponentsKing">Versla de koning van de tegenstander</string>
+  <string name="intermediate">Halfgevorderd</string>
   <string name="pawnsFormTheFrontLine">Pionnen vormen de frontlinie. Maak eender welke zet om voort te gaan.</string>
   <string name="boardSetupComplete">Gefeliciteerd! Nu weet je hoe je het schaakbord moet opstellen.</string>
   <string name="castling">Rokade</string>
@@ -158,6 +159,7 @@ de hoogste waarde!</string>
   <string name="checkInTwoIntro">Vind de juiste twee zetten om de koning van de tegenstander schaak te zetten!</string>
   <string name="puzzles">Puzzels</string>
   <string name="videos">Video\'s</string>
+  <string name="watchInstructiveChessVideos">Bekijk leerzame schaakvideo\'s</string>
   <string name="playPeople">Tegen mensen</string>
   <string name="playMachine">Tegen computer</string>
   <string name="letsGo">Laten we starten!</string>
