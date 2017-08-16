@@ -3,9 +3,9 @@
 <resources>
   <string name="playWithAFriend">Играј са пријатељем</string>
   <string name="playWithTheMachine">Играј против рачунара</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Да позовеш некога да игра, проследи му ову веб адресу</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Да позовеш некога да игра, проследи овaј УРЛ</string>
   <string name="gameOver">Крај игре</string>
-  <string name="waitingForOpponent">Чекање на противника</string>
+  <string name="waitingForOpponent">Чека се противник</string>
   <string name="waiting">Чекање</string>
   <string name="yourTurn">Твој потез</string>
   <string name="aiNameLevelAiLevel">%1$s ниво %2$s</string>
