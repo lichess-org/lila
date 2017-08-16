@@ -122,7 +122,7 @@
   <string name="currentGames">Текущие партии</string>
   <plurals name="nbGames">
     <item quantity="one">%s игра</item>
-    <item quantity="few">%s игр</item>
+    <item quantity="few">%s игры</item>
     <item quantity="other">%s игр</item>
   </plurals>
   <plurals name="nbBookmarks">
