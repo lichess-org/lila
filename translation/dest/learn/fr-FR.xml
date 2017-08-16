@@ -81,6 +81,14 @@ Inutile d\'effectuer des promotions.</string>
   <string name="boardSetupComplete">Félicitations! Vous maîtrisez le déplacement des pièces.</string>
   <string name="castling">Le Roque</string>
   <string name="takeAllThePawnsEnPassant">Prenez tous les pions en passant!</string>
+  <string name="stalemateIntro">Lorsqu\'un joueur n\'est pas en échec et n\'a pas de coup légal, il est en situation de pat. La partie est alors déclarée nulle.</string>
+  <string name="pieceValueIntro">Les pièces ayant une grande mobilité ont une valeur plus importante:
+Dame = 9
+Tour = 5
+Fou = 3
+Cavalier = 3
+Pion = 1
+Le roi n\'a pas de valeur! Le perdre signifie perdre la partie.</string>
   <string name="pieceValueComplete">Félicitations! Vous connaissez la valeur des pièces!
 Dame = 9
 Tour = 5
@@ -88,6 +96,8 @@ Fou = 3
 Cavalier= 3
 Pion= 1</string>
   <string name="checkInTwo">Échec en deux coups</string>
+  <string name="videos">Vidéos</string>
+  <string name="excellent">Excellent !</string>
   <string name="next">Suivant</string>
   <string name="backToMenu">Retour au menu</string>
 </resources>
