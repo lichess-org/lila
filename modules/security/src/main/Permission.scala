@@ -56,7 +56,7 @@ object Permission {
     Hunter, ModerateForum, IpBan, CloseAccount, ReopenAccount,
     ChatTimeout, MarkTroll, SetTitle, SetEmail, ModerateQa, StreamConfig,
     MessageAnyone, CloseTeam, TerminateTournament, ManageTournament, ManageEvent,
-    PreviewCoach, PracticeConfig, RemoveRanking, ReportBan
+    PreviewCoach, PracticeConfig, RemoveRanking, ReportBan, Beta
   ))
 
   case object SuperAdmin extends Permission("ROLE_SUPER_ADMIN", List(

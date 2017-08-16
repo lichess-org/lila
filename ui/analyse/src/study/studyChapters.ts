@@ -12,7 +12,7 @@ export function ctrl(initChapters: StudyChapterMeta[], send: SocketSend, setTab:
   const list: Prop<StudyChapterMeta[]> = prop(initChapters);
 
   const newForm = chapterNewForm(send, list, setTab, root);
-  const editForm = chapterEditForm(send, chapterConfig, root.redraw);
+  const editForm = chapterEditForm(send, chapterConfig, root.redraw, root.opts.beta);
 
   return {
     newForm,
@@ -96,9 +96,9 @@ export function view(ctrl: StudyCtrl): VNode {
     }
   },
   ctrl.chapters.list().map(function(chapter, i) {
-    var editing = ctrl.chapters.editForm.isEditing(chapter.id);
-    var loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId;
-    var active = !ctrl.vm.loading && current && current.id === chapter.id;
+    const editing = ctrl.chapters.editForm.isEditing(chapter.id),
+    loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId,
+    active = !ctrl.vm.loading && current && current.id === chapter.id;
     return h('div.elem.chapter.draggable', {
       key: chapter.id,
       attrs: { 'data-id': chapter.id },

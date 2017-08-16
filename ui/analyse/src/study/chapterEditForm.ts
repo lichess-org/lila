@@ -6,7 +6,7 @@ import * as dialog from './dialog';
 import * as chapterForm from './chapterNewForm';
 import { StudyChapterMeta } from './interfaces';
 
-export function ctrl(send: SocketSend, chapterConfig, redraw: () => void) {
+export function ctrl(send: SocketSend, chapterConfig, redraw: () => void, beta: boolean) {
 
   const current = prop<StudyChapterMeta | null>(null);
 
@@ -47,7 +47,8 @@ export function ctrl(send: SocketSend, chapterConfig, redraw: () => void) {
       current(null);
     },
     isEditing,
-    redraw
+    redraw,
+    beta
   }
 }
 
@@ -113,7 +114,7 @@ export function view(ctrl): VNode | undefined {
             h('i.bar')
           ]),
           h('div.form-group', [
-            h('select#chapter-mode', chapterForm.modeChoices.map(function(c) {
+            h('select#chapter-mode', chapterForm.modeChoices(ctrl.beta).map(function(c) {
               return h('option', {
                 attrs: {
                   value: c[0],
