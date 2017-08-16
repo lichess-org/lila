@@ -10,13 +10,13 @@
   </plurals>
   <plurals name="solvedNbPuzzles">
     <item quantity="one">Решен %s тактический пазл</item>
-    <item quantity="few">Решены %s тактические пазлы</item>
-    <item quantity="other">Решены %s тактические пазлы</item>
+    <item quantity="few">Решены %s тактических задачи</item>
+    <item quantity="other">Решено %s тактических задач</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">Сыграна %1$s игра в %2$s</item>
-    <item quantity="few">Сыграно %1$s игр в %2$s</item>
-    <item quantity="other">Сыграно %1$s игр в %2$s</item>
+    <item quantity="few">Сыграны %1$s игры в вариант: %2$s</item>
+    <item quantity="other">Сыграно %1$s игр в вариант: %2$s</item>
   </plurals>
   <plurals name="postedNbMessages">
     <item quantity="one">Опубликовано %1$s сообщение в %2$s</item>
