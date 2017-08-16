@@ -38,7 +38,12 @@ function makeBindings(opts, submit, clear) {
   Mousetrap.bind('enter', function() {
     opts.input.focus();
   });
-  opts.input.addEventListener('keypress', function(e) {
+  /* keypress doesn't cut it here;
+   * at the time it fires, the last typed char
+   * is not available yet. Reported by:
+   * https://lichess.org/forum/lichess-feedback/keyboard-input-changed-today-maybe-a-bug
+   */
+  opts.input.addEventListener('keyup', function(e) {
     var v = e.target.value;
     if (v.indexOf('/') > -1) {
       focusChat();
