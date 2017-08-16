@@ -266,7 +266,7 @@
   <string name="quitTeam">チームを辞める</string>
   <string name="anyoneCanJoin">誰でも参加可能</string>
   <string name="aConfirmationIsRequiredToJoin">参加には確認が必要</string>
-  <string name="joiningPolicy">参加規則</string>
+  <string name="joiningPolicy">参加条件</string>
   <string name="teamLeader">チームリーダー</string>
   <string name="teamBestPlayers">チームのベストプレイヤー</string>
   <string name="teamRecentMembers">最新チームメンバー</string>
