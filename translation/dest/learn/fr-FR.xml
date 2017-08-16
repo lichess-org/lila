@@ -81,6 +81,9 @@ Inutile d\'effectuer des promotions.</string>
   <string name="mateInOne">Mat en 1</string>
   <string name="boardSetupComplete">Félicitations! Vous maîtrisez le déplacement des pièces.</string>
   <string name="castling">Le Roque</string>
+  <string name="findAWayToCastleKingSide">Trouvez un moyen d\'effectuer le petit roque!</string>
+  <string name="findAWayToCastleQueenSide">Trouvez un moyen d\'effectuer le grand roque!</string>
+  <string name="castlingComplete">Félicitations! Vous devriez presque toujours roquer durant un partie.</string>
   <string name="enPassant">En passant</string>
   <string name="enPassantIntro">Lorsque le pion adverse avance de deux cases, on peut le prendre comme si il n\'avait avancé que d\'une case.</string>
   <string name="takeAllThePawnsEnPassant">Prenez tous les pions en passant!</string>
