@@ -1,4 +1,4 @@
-import AnalyseController from './ctrl';
+import AnalyseCtrl from './ctrl';
 
 import * as control from './control';
 
@@ -6,11 +6,11 @@ export type AutoplayDelay = number | 'realtime' | 'cpl_fast' | 'cpl_slow' | 'fas
 
 export class Autoplay {
 
-  private ctrl: AnalyseController;
+  private ctrl: AnalyseCtrl;
   private timeout: number | undefined;
   private delay: AutoplayDelay | undefined;
 
-  constructor(ctrl: AnalyseController) {
+  constructor(ctrl: AnalyseCtrl) {
     this.ctrl = ctrl;
   }
 

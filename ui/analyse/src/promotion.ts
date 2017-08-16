@@ -3,7 +3,7 @@ import * as ground from './ground';
 import { bind } from './util';
 import * as util from 'chessground/util';
 import { Role } from 'chessground/types';
-import AnalyseController from './ctrl';
+import AnalyseCtrl from './ctrl';
 import { JustCaptured } from './interfaces';
 
 interface Promoting {
@@ -17,7 +17,7 @@ type Callback = (orig: Key, dest: Key, capture: JustCaptured | undefined, role: 
 
 let promoting: Promoting | undefined;
 
-export function start(ctrl: AnalyseController, orig: Key, dest: Key, capture: JustCaptured | undefined, callback: Callback): boolean {
+export function start(ctrl: AnalyseCtrl, orig: Key, dest: Key, capture: JustCaptured | undefined, callback: Callback): boolean {
   var s = ctrl.chessground.state;
   var piece = s.pieces[dest];
   if (piece && piece.role == 'pawn' && (
@@ -35,7 +35,7 @@ export function start(ctrl: AnalyseController, orig: Key, dest: Key, capture: Ju
   return false;
 }
 
-function finish(ctrl: AnalyseController, role) {
+function finish(ctrl: AnalyseCtrl, role) {
   if (promoting) {
     ground.promote(ctrl.chessground, promoting.dest, role);
     if (promoting.callback) promoting.callback(promoting.orig, promoting.dest, promoting.capture, role);
@@ -43,7 +43,7 @@ function finish(ctrl: AnalyseController, role) {
   promoting = undefined;
 }
 
-export function cancel(ctrl: AnalyseController) {
+export function cancel(ctrl: AnalyseCtrl) {
   if (promoting) {
     promoting = undefined;
     ctrl.chessground.set(ctrl.cgConfig);
@@ -51,7 +51,7 @@ export function cancel(ctrl: AnalyseController) {
   }
 }
 
-function renderPromotion(ctrl: AnalyseController, dest: Key, pieces, color: Color, orientation: Color) {
+function renderPromotion(ctrl: AnalyseCtrl, dest: Key, pieces, color: Color, orientation: Color) {
   if (!promoting) return;
 
   let left = (8 - util.key2pos(dest)[0]) * 12.5;
@@ -81,7 +81,7 @@ function renderPromotion(ctrl: AnalyseController, dest: Key, pieces, color: Colo
   }));
 }
 
-export function view(ctrl: AnalyseController) {
+export function view(ctrl: AnalyseCtrl) {
   if (!promoting) return;
   var pieces = ['queen', 'knight', 'rook', 'bishop'];
   if (ctrl.data.game.variant.key === "antichess") pieces.push('king');

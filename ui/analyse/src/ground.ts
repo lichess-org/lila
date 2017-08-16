@@ -5,9 +5,9 @@ import { Api as CgApi } from 'chessground/api';
 import { Config as CgConfig } from 'chessground/config';
 import * as cg from 'chessground/types';
 import { DrawShape } from 'chessground/draw';
-import AnalyseController from './ctrl';
+import AnalyseCtrl from './ctrl';
 
-export function render(ctrl: AnalyseController): VNode {
+export function render(ctrl: AnalyseCtrl): VNode {
   return h('div.cg-board-wrap', {
     key: ctrl.cgVersion.js,
     hook: {
@@ -35,7 +35,7 @@ export function promote(ground: CgApi, key: Key, role: cg.Role) {
   }
 }
 
-function makeConfig(ctrl: AnalyseController): CgConfig {
+function makeConfig(ctrl: AnalyseCtrl): CgConfig {
   const d = ctrl.data, pref = d.pref, opts = ctrl.makeCgOpts();
   const config = {
     turnColor: opts.turnColor,

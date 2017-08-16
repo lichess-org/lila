@@ -1,6 +1,6 @@
 import { synthetic } from './util';
 import { initial as initialBoardFen } from 'chessground/fen';
-import AnalyseController from './ctrl';
+import AnalyseCtrl from './ctrl';
 
 type DestCache = {
   [fen: string]: DestCacheEntry
@@ -28,7 +28,7 @@ export interface Socket {
   clearCache(): void;
 }
 
-export function make(send: SocketSend, ctrl: AnalyseController): Socket {
+export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
 
   let anaMoveTimeout;
   let anaDestsTimeout;

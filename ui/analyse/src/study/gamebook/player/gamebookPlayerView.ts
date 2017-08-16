@@ -1,12 +1,12 @@
 import { h } from 'snabbdom'
-import AnalyseController from '../../../ctrl';
+import AnalyseCtrl from '../../../ctrl';
 import { innerHTML } from '../../../util';
 import { enrichText } from '../../studyComments';
 // import { MaybeVNodes } from '../../../interfaces';
 import { VNode } from 'snabbdom/vnode'
 // import { throttle } from 'common';
 
-export default function(ctrl: AnalyseController): VNode {
+export default function(ctrl: AnalyseCtrl): VNode {
 
   const isMyMove = ctrl.turnColor() === ctrl.data.orientation,
   comment = (ctrl.node.comments || [])[0];

@@ -3,7 +3,7 @@ import { VNode } from 'snabbdom/vnode'
 import { Hooks } from 'snabbdom/hooks'
 import { MaybeVNodes } from './interfaces';
 import { AutoplayDelay } from './autoplay';
-import AnalyseController from './ctrl';
+import AnalyseCtrl from './ctrl';
 import { router } from 'game';
 import { synthetic, bind, dataIcon } from './util';
 import * as pgnExport from './pgnExport';
@@ -31,7 +31,7 @@ const cplSpeeds: AutoplaySpeed[] = [{
   delay: 'cpl_slow'
 }];
 
-function deleteButton(ctrl: AnalyseController, userId: string | null): VNode | undefined {
+function deleteButton(ctrl: AnalyseCtrl, userId: string | null): VNode | undefined {
   const g = ctrl.data.game;
   if (g.source === 'import' &&
     g.importedBy && g.importedBy === userId)
@@ -52,7 +52,7 @@ function deleteButton(ctrl: AnalyseController, userId: string | null): VNode | u
   return;
 }
 
-function autoplayButtons(ctrl: AnalyseController): VNode {
+function autoplayButtons(ctrl: AnalyseCtrl): VNode {
   const d = ctrl.data;
   let speeds = (d.game.moveCentis && d.game.moveCentis.length) ? allSpeeds : baseSpeeds;
   speeds = d.analysis ? speeds.concat(cplSpeeds) : speeds;
@@ -86,7 +86,7 @@ function hiddenInput(name: string, value: string) {
   });
 }
 
-function studyButton(ctrl: AnalyseController) {
+function studyButton(ctrl: AnalyseCtrl) {
   if (ctrl.study && ctrl.embed && !ctrl.ongoing) return h('a.fbt', {
     attrs: {
       href: '/study/' + ctrl.study.data.id + '#' + ctrl.study.currentChapter().id,
@@ -121,7 +121,7 @@ function studyButton(ctrl: AnalyseController) {
   ]);
 }
 
-export class Controller {
+export class Ctrl {
   open: boolean;
 
   constructor() {
@@ -133,7 +133,7 @@ export class Controller {
   }
 }
 
-export function view(ctrl: AnalyseController): VNode {
+export function view(ctrl: AnalyseCtrl): VNode {
   const d = ctrl.data;
 
   const flipOpts = d.userAnalysis ? {

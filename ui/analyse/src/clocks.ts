@@ -1,8 +1,8 @@
-import AnalyseController from './ctrl';
+import AnalyseCtrl from './ctrl';
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 
-export default function(ctrl: AnalyseController): VNode | undefined {
+export default function(ctrl: AnalyseCtrl): VNode | undefined {
   const node = ctrl.node, clock = node.clock;
   if (!clock && clock !== 0) return;
   const parentClock = ctrl.tree.getParentClock(node, ctrl.path);

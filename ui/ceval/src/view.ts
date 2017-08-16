@@ -1,4 +1,4 @@
-import { Eval, CevalController, ParentController, NodeEvals } from './types';
+import { Eval, CevalCtrl, ParentCtrl, NodeEvals } from './types';
 import * as winningChances from './winningChances';
 import { defined } from 'common';
 import { renderEval } from 'chess';
@@ -18,7 +18,7 @@ function range(len: number): number[] {
   return r;
 }
 
-function localEvalInfo(ctrl: ParentController, evs: NodeEvals): Array<VNode | string> {
+function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> {
   const ceval = ctrl.getCeval();
   if (!evs.client) {
     return [
@@ -47,14 +47,14 @@ function localEvalInfo(ctrl: ParentController, evs: NodeEvals): Array<VNode | st
   return t;
 }
 
-function threatInfo(ctrl: ParentController, threat?: Tree.ClientEval | false): string {
+function threatInfo(ctrl: ParentCtrl, threat?: Tree.ClientEval | false): string {
   if (!threat) return ctrl.trans.noarg('loadingEngine');
   let t = ctrl.trans('depthX', (threat.depth || 0) + '/' + threat.maxDepth);
   if (threat.knps) t += ', ' + Math.round(threat.knps) + ' knodes/s';
   return t;
 }
 
-function threatButton(ctrl: ParentController): VNode | null {
+function threatButton(ctrl: ParentCtrl): VNode | null {
   if (ctrl.disableThreatMode && ctrl.disableThreatMode()) return null;
   return h('a.show-threat', {
     class: {
@@ -71,7 +71,7 @@ function threatButton(ctrl: ParentController): VNode | null {
   });
 }
 
-function engineName(ctrl: CevalController) {
+function engineName(ctrl: CevalCtrl) {
   return [
     window.lichess.engineName,
     ctrl.pnaclSupported ? h('span.native', 'pnacl') : (ctrl.wasmSupported ? h('span.native', 'wasm') : h('span.asmjs', 'asmjs'))
@@ -95,7 +95,7 @@ export function getBestEval(evs: NodeEvals): Eval | undefined {
   return serverEv;
 }
 
-export function renderGauge(ctrl: ParentController): VNode | undefined {
+export function renderGauge(ctrl: ParentCtrl): VNode | undefined {
   if (ctrl.ongoing || !ctrl.showEvalGauge()) return;
   let ev, bestEv = getBestEval(ctrl.currentEvals());
   if (bestEv) {
@@ -113,7 +113,7 @@ export function renderGauge(ctrl: ParentController): VNode | undefined {
   ].concat(gaugeTicks));
 }
 
-export function renderCeval(ctrl: ParentController): VNode | undefined {
+export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
   const instance = ctrl.getCeval();
   if (!instance.allowed() || !instance.possible || !ctrl.showComputer()) return;
   const enabled = instance.enabled();
@@ -195,13 +195,13 @@ export function renderCeval(ctrl: ParentController): VNode | undefined {
   }, [progressBar].concat(body).concat(switchButton).concat(threatButton(ctrl)));
 }
 
-function checkHover(el: HTMLElement, instance: CevalController): void {
+function checkHover(el: HTMLElement, instance: CevalCtrl): void {
   setTimeout(function() {
     instance.setHovering($(el).attr('data-fen'), $(el).find('div.pv:hover').attr('data-uci'));
   }, 100);
 }
 
-export function renderPvs(ctrl: ParentController) {
+export function renderPvs(ctrl: ParentCtrl) {
   const instance = ctrl.getCeval();
   if (!instance.allowed() || !instance.possible || !instance.enabled()) return;
   const multiPv = parseInt(instance.multiPv()),

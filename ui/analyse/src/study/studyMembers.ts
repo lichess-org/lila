@@ -3,8 +3,8 @@ import { VNode } from 'snabbdom/vnode'
 import { titleNameToId, bind, dataIcon } from '../util';
 import { prop, Prop } from 'common';
 import { ctrl as inviteFormCtrl } from './inviteForm';
-import { StudyController, StudyMember, StudyMemberMap, Tab } from './interfaces';
-import { NotifController } from './notif';
+import { StudyCtrl, StudyMember, StudyMemberMap, Tab } from './interfaces';
+import { NotifCtrl } from './notif';
 
 interface Opts {
   initDict: StudyMemberMap;
@@ -13,7 +13,7 @@ interface Opts {
   send: SocketSend;
   tab: Prop<Tab>;
   startTour(): void;
-  notif: NotifController;
+  notif: NotifCtrl;
   onBecomingContributor(): void;
   redraw(): void
 }
@@ -152,7 +152,7 @@ export function ctrl(opts: Opts) {
   };
 }
 
-export function view(ctrl: StudyController): VNode {
+export function view(ctrl: StudyCtrl): VNode {
 
   const isOwner = ctrl.members.isOwner();
 
@@ -177,7 +177,7 @@ export function view(ctrl: StudyController): VNode {
     ]);
   };
 
-  function configButton(ctrl: StudyController, member: StudyMember) {
+  function configButton(ctrl: StudyCtrl, member: StudyMember) {
     if (isOwner && member.user.id !== ctrl.members.myId)
     return h('i.action.config', {
       key: 'cfg-' + member.user.id,

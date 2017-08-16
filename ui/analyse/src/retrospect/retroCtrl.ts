@@ -2,14 +2,14 @@ import { evalSwings } from '../nodeFinder';
 import { winningChances } from 'ceval';
 import { path as treePath } from 'tree';
 import { empty, prop } from 'common';
-import AnalyseController from '../ctrl';
+import AnalyseCtrl from '../ctrl';
 
-export interface RetroController {
+export interface RetroCtrl {
   isSolving(): boolean
   [key: string]: any;
 }
 
-export function make(root: AnalyseController): RetroController {
+export function make(root: AnalyseCtrl): RetroCtrl {
 
   const game = root.data.game;
   const color = root.bottomColor();

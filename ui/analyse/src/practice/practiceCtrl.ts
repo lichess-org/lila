@@ -2,7 +2,7 @@ import { winningChances, pv2san } from 'ceval';
 import { Eval } from 'ceval';
 import { path as treePath } from 'tree';
 import { detectThreefold } from '../nodeFinder';
-import AnalyseController from '../ctrl';
+import AnalyseCtrl from '../ctrl';
 import { prop } from 'common';
 
 export interface Comment {
@@ -16,11 +16,11 @@ export interface Comment {
   }
 }
 
-export interface PracticeController {
+export interface PracticeCtrl {
   [key: string]: any; // #TODO
 }
 
-export function make(root: AnalyseController, playableDepth: () => number): PracticeController {
+export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCtrl {
 
   const running = prop(true),
   comment = prop<Comment | null>(null),

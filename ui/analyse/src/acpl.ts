@@ -1,7 +1,7 @@
 import { h, thunk } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { AnalyseData, MaybeVNode } from './interfaces';
-import AnalyseController from './ctrl';
+import AnalyseCtrl from './ctrl';
 import { game } from 'game';
 import { bind, dataIcon } from './util';
 
@@ -29,7 +29,7 @@ const advices = [
   ['blunder', 'blunders', '??']
 ];
 
-function playerTable(ctrl: AnalyseController, color: Color): VNode {
+function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
   const d = ctrl.data;
   return h('table', [
     h('thead', h('tr', [
@@ -56,7 +56,7 @@ function playerTable(ctrl: AnalyseController, color: Color): VNode {
   ])
 }
 
-function doRender(ctrl: AnalyseController): VNode {
+function doRender(ctrl: AnalyseCtrl): VNode {
   return h('div.advice_summary', {
     hook: {
       insert: vnode => {
@@ -76,7 +76,7 @@ function doRender(ctrl: AnalyseController): VNode {
   ]);
 }
 
-export function render(ctrl: AnalyseController): MaybeVNode {
+export function render(ctrl: AnalyseCtrl): MaybeVNode {
 
   if (!ctrl.data.analysis || !ctrl.showComputer()) return;
 

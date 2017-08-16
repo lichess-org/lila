@@ -54,7 +54,7 @@ export interface Started {
   threatMode: boolean;
 }
 
-export interface CevalController {
+export interface CevalCtrl {
   goDeeper(): void;
   canGoDeeper(): boolean;
   effectiveMaxDepth(): number;
@@ -80,8 +80,8 @@ export interface CevalController {
   redraw(): void;
 }
 
-export interface ParentController {
-  getCeval(): CevalController;
+export interface ParentCtrl {
+  getCeval(): CevalCtrl;
   nextNodeBest(): string | undefined;
   disableThreatMode?: Prop<Boolean>;
   toggleThreatMode(): void;

@@ -3,7 +3,7 @@ import { decomposeUci, sanToRole } from 'chess';
 import * as cg from 'chessground/types';
 import { opposite } from 'chessground/util';
 import { DrawShape } from 'chessground/draw';
-import AnalyseController from './ctrl';
+import AnalyseCtrl from './ctrl';
 
 function pieceDrop(key: cg.Key, role: cg.Role, color: Color): DrawShape {
   return {
@@ -35,7 +35,7 @@ export function makeAutoShapesFromUci(color: Color, uci: Uci, brush: string, mod
   return shapes;
 }
 
-export function compute(ctrl: AnalyseController): DrawShape[] {
+export function compute(ctrl: AnalyseCtrl): DrawShape[] {
   const color: Color = ctrl.chessground.state.movable.color as Color;
   const rcolor: Color = opposite(color);
   if (ctrl.practice) {

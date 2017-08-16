@@ -14,11 +14,11 @@ import { view as studyShareView } from './studyShare';
 import { view as notifView } from './notif';
 import { view as tagsView } from './studyTags';
 import * as practiceView from './practice/studyPracticeView';
-import AnalyseController from '../ctrl';
-import { StudyController, Tab } from './interfaces';
+import AnalyseCtrl from '../ctrl';
+import { StudyCtrl, Tab } from './interfaces';
 import { MaybeVNodes } from '../interfaces';
 
-function buttons(root: AnalyseController): VNode {
+function buttons(root: AnalyseCtrl): VNode {
   const ctrl = root.study!,
   canContribute = ctrl.members.canContribute(),
   showSticky = ctrl.data.features.sticky && (canContribute || ctrl.vm.behind);
@@ -81,7 +81,7 @@ function buttons(root: AnalyseController): VNode {
   ]);
 }
 
-function metadata(ctrl: StudyController): VNode | undefined {
+function metadata(ctrl: StudyCtrl): VNode | undefined {
   const chapter = ctrl.currentChapter();
   const d = ctrl.data;
   return h('div.study_metadata.undertable', [
@@ -103,7 +103,7 @@ function metadata(ctrl: StudyController): VNode | undefined {
   ]);
 }
 
-export function main(ctrl: StudyController): VNode {
+export function main(ctrl: StudyCtrl): VNode {
 
   const activeTab = ctrl.vm.tab();
 
@@ -132,7 +132,7 @@ export function main(ctrl: StudyController): VNode {
   ]);
 }
 
-export function contextMenu(ctrl: StudyController, path: Tree.Path, node: Tree.Node): VNode[] {
+export function contextMenu(ctrl: StudyCtrl, path: Tree.Path, node: Tree.Node): VNode[] {
   return ctrl.vm.mode.write ? [
     h('a.action', {
       attrs: dataIcon('c'),
@@ -147,7 +147,7 @@ export function contextMenu(ctrl: StudyController, path: Tree.Path, node: Tree.N
   ] : [];
 }
 
-export function overboard(ctrl: StudyController) {
+export function overboard(ctrl: StudyCtrl) {
   if (ctrl.chapters.newForm.vm.open) return chapterNewFormView(ctrl.chapters.newForm);
   if (ctrl.chapters.editForm.current()) return chapterEditFormView(ctrl.chapters.editForm);
   if (ctrl.members.inviteForm.open()) return inviteFormView(ctrl.members.inviteForm);
@@ -155,7 +155,7 @@ export function overboard(ctrl: StudyController) {
   if (ctrl.share.open()) return studyShareView(ctrl.share);
 }
 
-export function underboard(ctrl: AnalyseController): MaybeVNodes {
+export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
   if (ctrl.embed) return [];
   if (ctrl.studyPractice) return [practiceView.underboard(ctrl.study!)];
   const study = ctrl.study!,

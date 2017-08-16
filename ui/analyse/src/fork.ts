@@ -2,9 +2,9 @@ import { h } from 'snabbdom'
 import { renderIndexAndMove } from './moveView';
 import { defined } from 'common';
 import { ConcealOf } from './interfaces';
-import AnalyseController from './ctrl';
+import AnalyseCtrl from './ctrl';
 
-export interface ForkController {
+export interface ForkCtrl {
   state(): {
     node: Tree.Node;
     selected: number;
@@ -15,7 +15,7 @@ export interface ForkController {
   proceed: (it?: number) => boolean | undefined;
 }
 
-export function make(root: AnalyseController): ForkController {
+export function make(root: AnalyseCtrl): ForkCtrl {
   let prev: Tree.Node | undefined;
   let selected: number = 0;
   function displayed() {
@@ -56,7 +56,7 @@ export function make(root: AnalyseController): ForkController {
   };
 }
 
-export function view(root: AnalyseController, concealOf?: ConcealOf) {
+export function view(root: AnalyseCtrl, concealOf?: ConcealOf) {
   if (root.embed || root.retro) return;
   const state = root.fork.state();
   if (!state.displayed) return;

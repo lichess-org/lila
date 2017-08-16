@@ -1,4 +1,4 @@
-import { CevalController, NodeEvals } from 'ceval';
+import { CevalCtrl, NodeEvals } from 'ceval';
 import { Prop } from 'common';
 import { VNode } from 'snabbdom/vnode'
 
@@ -7,7 +7,7 @@ export type MaybeVNodes = MaybeVNode[]
 
 export interface Controller {
   vm: Vm;
-  getCeval(): CevalController;
+  getCeval(): CevalCtrl;
   nextNodeBest(): string | undefined;
   disableThreatMode?: Prop<Boolean>;
   toggleThreatMode(): void;

@@ -1,7 +1,7 @@
-import AnalyseController from '../ctrl';
+import AnalyseCtrl from '../ctrl';
 import { Tab } from './interfaces';
 
-export function study(ctrl: AnalyseController) {
+export function study(ctrl: AnalyseCtrl) {
   window.lichess.loadScript('/assets/javascripts/study/tour.js').then(() => {
     window.lichess['studyTour']({
       userId: ctrl.opts.userId,

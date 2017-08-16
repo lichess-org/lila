@@ -1,12 +1,12 @@
 import { renderIndexAndMove } from '../moveView';
 import { opposite } from 'chessground/util';
-import { RetroController } from './retroCtrl';
-import AnalyseController from '../ctrl';
+import { RetroCtrl } from './retroCtrl';
+import AnalyseCtrl from '../ctrl';
 import { bind, dataIcon, spinner } from '../util';
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 
-function skipOrViewSolution(ctrl: RetroController) {
+function skipOrViewSolution(ctrl: RetroCtrl) {
   return h('div.choices', [
     h('a', {
       hook: bind('click', ctrl.viewSolution, ctrl.redraw)
@@ -17,7 +17,7 @@ function skipOrViewSolution(ctrl: RetroController) {
   ]);
 }
 
-function jumpToNext(ctrl: RetroController) {
+function jumpToNext(ctrl: RetroCtrl) {
   return h('a.half.continue', {
     hook: bind('click', ctrl.jumpToNext)
   }, [
@@ -38,7 +38,7 @@ function renderEvalProgress(node: Tree.Node): VNode {
 }
 
 const feedback = {
-  find(ctrl: RetroController): VNode[] {
+  find(ctrl: RetroCtrl): VNode[] {
     return [
       h('div.player', [
         h('div.no-square', h('piece.king.' + ctrl.color)),
@@ -58,7 +58,7 @@ const feedback = {
     ];
   },
   // user has browsed away from the move to solve
-  offTrack(ctrl: RetroController): VNode[] {
+  offTrack(ctrl: RetroCtrl): VNode[] {
     return [
       h('div.player', [
         h('div.icon.off', '!'),
@@ -73,7 +73,7 @@ const feedback = {
       ])
     ];
   },
-  fail(ctrl: RetroController): VNode[] {
+  fail(ctrl: RetroCtrl): VNode[] {
     return [
       h('div.player', [
         h('div.icon', '✗'),
@@ -85,7 +85,7 @@ const feedback = {
       ])
     ];
   },
-  win(ctrl: RetroController): VNode[] {
+  win(ctrl: RetroCtrl): VNode[] {
     return [
       h('div.half.top',
         h('div.player', [
@@ -96,7 +96,7 @@ const feedback = {
       jumpToNext(ctrl)
     ];
   },
-  view(ctrl: RetroController): VNode[] {
+  view(ctrl: RetroCtrl): VNode[] {
     return [
       h('div.half.top',
         h('div.player', [
@@ -117,7 +117,7 @@ const feedback = {
       jumpToNext(ctrl)
     ];
   },
-  eval(ctrl: RetroController): VNode[] {
+  eval(ctrl: RetroCtrl): VNode[] {
     return [
       h('div.half.top',
         h('div.player.center', [
@@ -129,7 +129,7 @@ const feedback = {
       )
     ];
   },
-  end(ctrl: RetroController, flip: () => void, hasFullComputerAnalysis: () => boolean): VNode[] {
+  end(ctrl: RetroCtrl, flip: () => void, hasFullComputerAnalysis: () => boolean): VNode[] {
     if (!hasFullComputerAnalysis()) return [
       h('div.half.top',
         h('div.player', [
@@ -160,8 +160,8 @@ const feedback = {
   },
 };
 
-function renderFeedback(root: AnalyseController, fb) {
-  const ctrl: RetroController = root.retro!;
+function renderFeedback(root: AnalyseCtrl, fb) {
+  const ctrl: RetroCtrl = root.retro!;
   const current = ctrl.current();
   if (ctrl.isSolving() && current && root.path !== current.prev.path)
   return feedback.offTrack(ctrl);
@@ -170,7 +170,7 @@ function renderFeedback(root: AnalyseController, fb) {
   return feedback[fb](ctrl);
 }
 
-function renderTitle(ctrl: RetroController): VNode {
+function renderTitle(ctrl: RetroCtrl): VNode {
   var completion = ctrl.completion();
   return h('div.title', [
     h('span', 'Learn from your mistakes'),
@@ -182,7 +182,7 @@ function renderTitle(ctrl: RetroController): VNode {
   ]);
 }
 
-export default function(root: AnalyseController): VNode | undefined {
+export default function(root: AnalyseCtrl): VNode | undefined {
   const ctrl = root.retro;
   if (!ctrl) return;
   const fb = ctrl.feedback();

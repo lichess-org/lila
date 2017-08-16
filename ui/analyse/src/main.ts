@@ -1,13 +1,13 @@
 /// <reference types="types/lichess-jquery" />
 
 import { AnalyseOpts } from './interfaces';
-import AnalyseController from './ctrl';
+import AnalyseCtrl from './ctrl';
 
 import makeCtrl from './ctrl';
 import view from './view';
 import { main as studyView } from './study/studyView';
 import { main as studyPracticeView } from './study/practice/studyPracticeView';
-import { StudyController } from './study/interfaces';
+import { StudyCtrl } from './study/interfaces';
 import boot = require('./boot');
 import { Chessground } from 'chessground';
 import * as chat from 'chat';
@@ -21,7 +21,7 @@ export const patch = init([klass, attributes]);
 
 export function start(opts: AnalyseOpts) {
 
-  let vnode: VNode, ctrl: AnalyseController;
+  let vnode: VNode, ctrl: AnalyseCtrl;
 
   let redrawSide = () => {};
 
@@ -36,7 +36,7 @@ export function start(opts: AnalyseOpts) {
   opts.element.innerHTML = '';
   vnode = patch(opts.element, blueprint);
 
-  const study: StudyController | undefined = ctrl.study;
+  const study: StudyCtrl | undefined = ctrl.study;
 
   if (study && opts.sideElement) {
     const sideView = ctrl.studyPractice ? studyPracticeView : studyView;

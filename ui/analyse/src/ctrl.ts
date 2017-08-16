@@ -5,25 +5,25 @@ import * as cg from 'chessground/types';
 import { Config as ChessgroundConfig } from 'chessground/config';
 import { build as makeTree, path as treePath, ops as treeOps, TreeWrapper } from 'tree';
 import * as keyboard from './keyboard';
-import { Controller as ActionMenuController } from './actionMenu';
+import { Ctrl as ActionMenuCtrl } from './actionMenu';
 import { Autoplay, AutoplayDelay } from './autoplay';
 import * as promotion from './promotion';
 import * as util from './util';
 import * as chessUtil from 'chess';
 import { storedProp, throttle, defined, prop, Prop, StoredBooleanProp } from 'common';
 import { make as makeSocket, Socket } from './socket';
-import { make as makeForecast, ForecastController } from './forecast/forecastCtrl';
-import { ctrl as cevalCtrl, isEvalBetter, CevalController, Work as CevalWork, CevalOpts } from 'ceval';
+import { make as makeForecast, ForecastCtrl } from './forecast/forecastCtrl';
+import { ctrl as cevalCtrl, isEvalBetter, CevalCtrl, Work as CevalWork, CevalOpts } from 'ceval';
 import explorerCtrl from './explorer/explorerCtrl';
-import { ExplorerController } from './explorer/interfaces';
+import { ExplorerCtrl } from './explorer/interfaces';
 import { game, GameData } from 'game';
 import { valid as crazyValid } from './crazy/crazyCtrl';
 import makeStudy from './study/studyCtrl';
-import { StudyController } from './study/interfaces';
+import { StudyCtrl } from './study/interfaces';
 import { StudyPracticeCtrl } from './study/practice/interfaces';
-import { make as makeFork, ForkController } from './fork';
-import { make as makeRetro, RetroController } from './retrospect/retroCtrl';
-import { make as makePractice, PracticeController } from './practice/practiceCtrl';
+import { make as makeFork, ForkCtrl } from './fork';
+import { make as makeRetro, RetroCtrl } from './retrospect/retroCtrl';
+import { make as makePractice, PracticeCtrl } from './practice/practiceCtrl';
 import { make as makeEvalCache, EvalCache } from './evalCache';
 import { compute as computeAutoShapes } from './autoShape';
 import { nextGlyphSymbol } from './nodeFinder';
@@ -31,7 +31,7 @@ import { AnalyseOpts, AnalyseData, AnalyseDataWithTree, Key, CgDests, JustCaptur
 
 const li = window.lichess;
 
-export default class AnalyseController {
+export default class AnalyseCtrl {
 
   opts: AnalyseOpts;
   data: AnalyseData;
@@ -42,7 +42,7 @@ export default class AnalyseController {
   socket: Socket;
   chessground: ChessgroundApi;
   trans: Trans;
-  ceval: CevalController;
+  ceval: CevalCtrl;
   evalCache: EvalCache;
 
   // current tree state, cursor, and denormalized node lists
@@ -52,14 +52,14 @@ export default class AnalyseController {
   mainline: Tree.Node[];
 
   // sub controllers
-  actionMenu: ActionMenuController;
+  actionMenu: ActionMenuCtrl;
   autoplay: Autoplay;
-  explorer: ExplorerController;
-  forecast?: ForecastController;
-  retro?: RetroController;
-  fork: ForkController;
-  practice?: PracticeController;
-  study?: StudyController;
+  explorer: ExplorerCtrl;
+  forecast?: ForecastCtrl;
+  retro?: RetroCtrl;
+  fork: ForkCtrl;
+  practice?: PracticeCtrl;
+  study?: StudyCtrl;
   studyPractice?: StudyPracticeCtrl;
 
   // state flags
@@ -165,7 +165,7 @@ export default class AnalyseController {
     this.tree = makeTree(treeOps.reconstruct(this.data.treeParts));
     if (prevTree) this.tree.merge(prevTree);
 
-    this.actionMenu = new ActionMenuController();
+    this.actionMenu = new ActionMenuCtrl();
     this.autoplay = new Autoplay(this);
     if (this.socket) this.socket.clearCache();
     else this.socket = makeSocket(this.opts.socketSend, this);

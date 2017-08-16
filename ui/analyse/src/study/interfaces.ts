@@ -1,9 +1,9 @@
 import { Prop } from 'common';
-import { NotifController } from './notif';
+import { NotifCtrl } from './notif';
 import { AnalyseData } from '../interfaces';
 import { StudyPracticeCtrl } from './practice/interfaces';
 
-export interface StudyController {
+export interface StudyCtrl {
   data: StudyData;
   currentChapter(): StudyChapterMeta;
   socketHandlers: { [key: string]: any };
@@ -11,7 +11,7 @@ export interface StudyController {
   form: any;
   members: any;
   chapters: any;
-  notif: NotifController;
+  notif: NotifCtrl;
   commentForm: any;
   glyphForm: any;
   share: any;

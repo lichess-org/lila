@@ -3,12 +3,12 @@ import { decomposeUci } from 'chess';
 import { DrawShape } from 'chessground/draw';
 import { Vm } from './interfaces';
 import { Api as CgApi } from 'chessground/api';
-import { CevalController } from 'ceval';
+import { CevalCtrl } from 'ceval';
 import { opposite } from 'chessground/util';
 
 interface Opts {
   vm: Vm;
-  ceval: CevalController;
+  ceval: CevalCtrl;
   ground: CgApi;
   nextNodeBest?: Uci;
   threatMode: boolean;

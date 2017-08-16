@@ -1,6 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import AnalyseController from '../ctrl';
+import AnalyseCtrl from '../ctrl';
 import { renderNodesHtml } from '../pgnExport';
 import { bind, dataIcon, spinner } from '../util';
 import { fixCrazySan } from 'chess';
@@ -24,12 +24,12 @@ function onMyTurn(fctrl, cNodes) {
   ]);
 };
 
-function makeCnodes(ctrl: AnalyseController) {
+function makeCnodes(ctrl: AnalyseCtrl) {
   return ctrl.forecast!.truncate(ctrl.tree.getCurrentNodesAfterPly(
     ctrl.nodeList, ctrl.mainline, ctrl.data.game.turns))
 }
 
-export default function(ctrl: AnalyseController): VNode {
+export default function(ctrl: AnalyseCtrl): VNode {
   const fctrl = ctrl.forecast as any;
   const cNodes = makeCnodes(ctrl);
   const isCandidate = fctrl.isCandidate(cNodes);

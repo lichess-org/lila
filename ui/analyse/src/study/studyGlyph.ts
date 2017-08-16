@@ -3,7 +3,7 @@ import { VNode } from 'snabbdom/vnode'
 import * as xhr from './studyXhr';
 import { prop, throttle } from 'common';
 import { bind, nodeFullName, spinner } from '../util';
-import AnalyseController from '../ctrl';
+import AnalyseCtrl from '../ctrl';
 
 function renderGlyph(ctrl, node) {
   return function(glyph) {
@@ -26,7 +26,7 @@ function renderGlyph(ctrl, node) {
   };
 }
 
-export function ctrl(root: AnalyseController) {
+export function ctrl(root: AnalyseCtrl) {
   const isOpen = prop(false),
   dirty = prop(true),
   all = prop<any | null>(null);

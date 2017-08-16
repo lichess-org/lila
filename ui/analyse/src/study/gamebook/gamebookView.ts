@@ -1,4 +1,4 @@
-import AnalyseController from '../../ctrl';
+import AnalyseCtrl from '../../ctrl';
 import { VNode } from 'snabbdom/vnode'
 import renderEditor from './gamebookEditor';
 import renderPlayer from './player/gamebookPlayerView';
@@ -8,7 +8,7 @@ export interface GamebookView {
   view: VNode
 }
 
-export function view(root: AnalyseController): GamebookView | undefined {
+export function view(root: AnalyseCtrl): GamebookView | undefined {
   if (!isGamebook(root)) return;
   const editor = isEditor(root);
   return {
@@ -17,14 +17,14 @@ export function view(root: AnalyseController): GamebookView | undefined {
   };
 }
 
-export function isEditor(root: AnalyseController): boolean {
+export function isEditor(root: AnalyseCtrl): boolean {
   return isGamebook(root) && root.study!.members.canContribute();
 }
 
-export function isPlayer(root: AnalyseController): boolean {
+export function isPlayer(root: AnalyseCtrl): boolean {
   return isGamebook(root) && !isEditor(root);
 }
 
-export function isGamebook(root: AnalyseController): boolean {
+export function isGamebook(root: AnalyseCtrl): boolean {
   return !!root.study && root.study.data.chapter.gamebook;
 }

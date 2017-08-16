@@ -2,7 +2,7 @@ import { h, thunk } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { plural, bind, spinner, innerHTML } from '../../util';
 import { enrichText } from '../studyComments';
-import { StudyController } from '../interfaces';
+import { StudyCtrl } from '../interfaces';
 import { StudyPracticeData, StudyPracticeCtrl } from './interfaces';
 
 function selector(data: StudyPracticeData) {
@@ -46,7 +46,7 @@ function renderGoal(practice: StudyPracticeCtrl, inMoves: number) {
   }
 }
 
-export function underboard(ctrl: StudyController): VNode {
+export function underboard(ctrl: StudyCtrl): VNode {
   if (ctrl.vm.loading) return h('div.feedback', spinner());
   const p = ctrl.practice!;
   switch (p.success()) {
@@ -74,7 +74,7 @@ export function underboard(ctrl: StudyController): VNode {
   }
 }
 
-export function main(ctrl: StudyController): VNode {
+export function main(ctrl: StudyCtrl): VNode {
 
   const current = ctrl.currentChapter(),
   data = ctrl.practice!.data;

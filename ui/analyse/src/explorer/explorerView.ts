@@ -2,7 +2,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { view as renderConfig } from './explorerConfig';
 import { bind, dataIcon } from '../util';
-import AnalyseController from '../ctrl';
+import AnalyseCtrl from '../ctrl';
 
 function resultBar(move): VNode {
   const sum = move.white + move.draws + move.black;
@@ -17,7 +17,7 @@ function resultBar(move): VNode {
 
 let lastShow: VNode;
 
-function moveTableAttributes(ctrl: AnalyseController, fen: Fen) {
+function moveTableAttributes(ctrl: AnalyseCtrl, fen: Fen) {
   return {
     attrs: { 'data-fen': fen },
     hook: {
@@ -44,7 +44,7 @@ function moveTableAttributes(ctrl: AnalyseController, fen: Fen) {
   };
 }
 
-function showMoveTable(ctrl: AnalyseController, moves, fen: Fen): VNode | null {
+function showMoveTable(ctrl: AnalyseCtrl, moves, fen: Fen): VNode | null {
   if (!moves.length) return null;
   return h('table.moves', [
     h('thead', [
@@ -76,7 +76,7 @@ function showResult(winner: Color): VNode {
   return h('result.draws', '½-½');
 }
 
-function showGameTable(ctrl: AnalyseController, title: string, games): VNode | null {
+function showGameTable(ctrl: AnalyseCtrl, title: string, games): VNode | null {
   if (!ctrl.explorer.withGames || !games.length) return null;
   return h('table.games', [
     h('thead', [
@@ -112,7 +112,7 @@ function showGameTable(ctrl: AnalyseController, title: string, games): VNode | n
   ]);
 }
 
-function showTablebase(ctrl: AnalyseController, title: string, moves, fen: Fen): VNode[] {
+function showTablebase(ctrl: AnalyseCtrl, title: string, moves, fen: Fen): VNode[] {
   if (!moves.length) return [];
   const stm = fen.split(/\s/)[1];
   return [
@@ -138,7 +138,7 @@ function winner(stm, move): Color | undefined {
     return 'black';
 }
 
-function showDtm(ctrl: AnalyseController, stm, move) {
+function showDtm(ctrl: AnalyseCtrl, stm, move) {
   if (move.dtm) return h('result.' + winner(stm, move), {
     attrs: {
       title: ctrl.trans.plural('mateInXHalfMoves', Math.abs(move.dtm)) + ' (Depth To Mate)'
@@ -146,7 +146,7 @@ function showDtm(ctrl: AnalyseController, stm, move) {
   }, 'DTM ' + Math.abs(move.dtm));
 }
 
-function showDtz(ctrl: AnalyseController, stm, move): VNode | null {
+function showDtz(ctrl: AnalyseCtrl, stm, move): VNode | null {
   if (move.checkmate) return h('result.' + winner(stm, move), ctrl.trans.noarg('checkmate'));
   else if (move.stalemate) return h('result.draws', ctrl.trans.noarg('stalemate'));
   else if (move.variant_win) return h('result.' + winner(stm, move), ctrl.trans.noarg('variantLoss'));
@@ -164,14 +164,14 @@ function showDtz(ctrl: AnalyseController, stm, move): VNode | null {
   }, 'DTZ ' + Math.abs(move.dtz));
 }
 
-function closeButton(ctrl: AnalyseController): VNode {
+function closeButton(ctrl: AnalyseCtrl): VNode {
   return h('button.button.text', {
     attrs: dataIcon('L'),
     hook: bind('click', ctrl.toggleExplorer, ctrl.redraw)
   }, ctrl.trans.noarg('close'));
 }
 
-function showEmpty(ctrl: AnalyseController): VNode {
+function showEmpty(ctrl: AnalyseCtrl): VNode {
   return h('div.data.empty', [
     h('div.title', showTitle(ctrl, ctrl.data.game.variant)),
     h('div.message', [
@@ -184,7 +184,7 @@ function showEmpty(ctrl: AnalyseController): VNode {
   ]);
 }
 
-function showGameEnd(ctrl: AnalyseController, title: string): VNode {
+function showGameEnd(ctrl: AnalyseCtrl, title: string): VNode {
   return h('div.data.empty', [
     h('div.title', ctrl.trans.noarg('gameOver')),
     h('div.message', [
@@ -222,12 +222,12 @@ function show(ctrl) {
   return lastShow;
 }
 
-function showTitle(ctrl: AnalyseController, variant: Variant) {
+function showTitle(ctrl: AnalyseCtrl, variant: Variant) {
   if (variant.key === 'standard' || variant.key === 'fromPosition') return ctrl.trans.noarg('openingExplorer');
   return ctrl.trans('xOpeningExplorer', variant.name);
 }
 
-function showConfig(ctrl: AnalyseController): VNode {
+function showConfig(ctrl: AnalyseCtrl): VNode {
   return h('div.config', [
     h('div.title', showTitle(ctrl, ctrl.data.game.variant))
   ].concat(renderConfig(ctrl.explorer.config)));
@@ -246,7 +246,7 @@ function showFailing(ctrl) {
 
 let lastFen: Fen = '';
 
-export default function(ctrl: AnalyseController): VNode | undefined {
+export default function(ctrl: AnalyseCtrl): VNode | undefined {
   const explorer = ctrl.explorer;
   if (!explorer.enabled()) return;
   const data = explorer.current();

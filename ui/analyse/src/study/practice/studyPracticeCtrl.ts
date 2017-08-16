@@ -5,7 +5,7 @@ import makeSuccess from './studyPracticeSuccess';
 import makeSound from './sound';
 import { StudyPracticeData, Goal, StudyPracticeCtrl } from './interfaces';
 import { StudyData, StudyChapterMeta } from '../interfaces';
-import AnalyseController from '../../ctrl';
+import AnalyseCtrl from '../../ctrl';
 
 function readOnlyProp<A>(value: A): () => A {
   return function(): A {
@@ -13,7 +13,7 @@ function readOnlyProp<A>(value: A): () => A {
   };
 }
 
-export default function(root: AnalyseController, studyData: StudyData, data: StudyPracticeData): StudyPracticeCtrl {
+export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPracticeData): StudyPracticeCtrl {
 
   const study = root.study!,
   goal = prop<Goal>(root.data.practiceGoal!),

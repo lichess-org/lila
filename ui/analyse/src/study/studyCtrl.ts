@@ -1,25 +1,25 @@
 import { throttle, prop } from 'common';
-import AnalyseController from '../ctrl';
+import AnalyseCtrl from '../ctrl';
 import { ctrl as memberCtrl } from './studyMembers';
 import { ctrl as chapterCtrl } from './studyChapters';
 import practiceCtrl from './practice/studyPracticeCtrl';
 import { StudyPracticeData, StudyPracticeCtrl } from './practice/interfaces';
 import { ctrl as commentFormCtrl } from './commentForm';
 import { ctrl as glyphFormCtrl } from './studyGlyph';
-import { ctrl as studyFormCtrl, StudyFormController } from './studyForm';
+import { ctrl as studyFormCtrl, StudyFormCtrl } from './studyForm';
 import { ctrl as notifCtrl } from './notif';
 import { ctrl as shareCtrl } from './studyShare';
 import { ctrl as tagsCtrl } from './studyTags';
 import * as tours from './studyTour';
 import * as xhr from './studyXhr';
 import { path as treePath } from 'tree';
-import { StudyController, StudyVm, Tab, TagTypes, StudyData, StudyChapterMeta, ReloadData } from './interfaces';
+import { StudyCtrl, StudyVm, Tab, TagTypes, StudyData, StudyChapterMeta, ReloadData } from './interfaces';
 
 const li = window.lichess;
 
 // data.position.path represents the server state
 // ctrl.path is the client state
-export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagTypes, practiceData?: StudyPracticeData): StudyController {
+export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, practiceData?: StudyPracticeData): StudyCtrl {
 
   const send = ctrl.socket.send;
   const redraw = ctrl.redraw;
@@ -44,7 +44,7 @@ export default function(data: StudyData, ctrl: AnalyseController, tagTypes: TagT
 
   const notif = notifCtrl(redraw);
 
-  const form: StudyFormController = studyFormCtrl((d, isNew) => {
+  const form: StudyFormCtrl = studyFormCtrl((d, isNew) => {
     send("editStudy", d);
     if (isNew && data.chapter.setup.variant.key === 'standard' && ctrl.mainline.length === 1 && !data.chapter.setup.fromFen)
       chapters.newForm.openInitial();

@@ -1,10 +1,10 @@
 import { dragNewPiece } from 'chessground/drag';
 import { readDrops } from 'chess';
-import AnalyseController from '../ctrl';
+import AnalyseCtrl from '../ctrl';
 import * as cg from 'chessground/types';
 import { Api as ChessgroundApi } from 'chessground/api';
 
-export function drag(ctrl: AnalyseController, color: Color, e: cg.MouchEvent): void {
+export function drag(ctrl: AnalyseCtrl, color: Color, e: cg.MouchEvent): void {
   if (e.button !== undefined && e.button !== 0) return; // only touch or left click
   if (ctrl.chessground.state.movable.color !== color) return;
   const el = e.target as HTMLElement;

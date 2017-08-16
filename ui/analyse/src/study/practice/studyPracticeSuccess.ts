@@ -1,4 +1,4 @@
-import AnalyseController from '../../ctrl';
+import AnalyseCtrl from '../../ctrl';
 import { Goal } from './interfaces';
 import { Comment } from '../../practice/practiceCtrl';
 
@@ -25,15 +25,15 @@ function hasSolidEval(node: Tree.Node) {
   return node.ceval && node.ceval.depth >= 16;
 }
 
-function isMate(root: AnalyseController) {
+function isMate(root: AnalyseCtrl) {
   return root.gameOver() === 'checkmate';
 }
 
-function isMyMate(root: AnalyseController) {
+function isMyMate(root: AnalyseCtrl) {
   return isMate(root) && root.turnColor() !== root.bottomColor();
 }
 
-function isTheirMate(root: AnalyseController) {
+function isTheirMate(root: AnalyseCtrl) {
   return isMate(root) && root.turnColor() === root.bottomColor();
 }
 
@@ -42,7 +42,7 @@ function hasBlundered(comment: Comment) {
 }
 
 // returns null = ongoing, true = win, false = fail
-export default function(root: AnalyseController, goal: Goal, nbMoves: number): boolean | null {
+export default function(root: AnalyseCtrl, goal: Goal, nbMoves: number): boolean | null {
   const node = root.node;
   if (!node.uci) return null;
   if (isTheirMate(root)) return false;

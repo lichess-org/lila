@@ -7,11 +7,11 @@ import { fixCrazySan } from 'chess';
 import { path as treePath, ops as treeOps } from 'tree';
 import * as moveView from './moveView';
 import { authorText as commentAuthorText } from './study/studyComments';
-import AnalyseController from './ctrl';
+import AnalyseCtrl from './ctrl';
 import { MaybeVNodes, ConcealOf, Conceal } from './interfaces';
 
 interface Ctx {
-  ctrl: AnalyseController;
+  ctrl: AnalyseCtrl;
   concealOf: ConcealOf;
   showComputer: boolean;
   showGlyphs: boolean;
@@ -29,7 +29,7 @@ interface Opts {
 
 const scrollThrottle = dropThrottle(200);
 
-function autoScroll(ctrl: AnalyseController, el: HTMLElement): void {
+function autoScroll(ctrl: AnalyseCtrl, el: HTMLElement): void {
   scrollThrottle(() => {
     const cont = el.parentNode as HTMLElement;
     if (!cont) return;
@@ -249,7 +249,7 @@ const emptyConcealOf: ConcealOf = function() {
   return function() { return null; };
 };
 
-export default function(ctrl: AnalyseController, concealOf?: ConcealOf): VNode {
+export default function(ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
   const root = ctrl.tree.root;
   const ctx: Ctx = {
     ctrl,

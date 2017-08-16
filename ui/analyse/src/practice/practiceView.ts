@@ -2,11 +2,11 @@ import { opposite } from 'chessground/util';
 import { bind } from '../util';
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { PracticeController, Comment } from './practiceCtrl';
-import AnalyseController from '../ctrl';
+import { PracticeCtrl, Comment } from './practiceCtrl';
+import AnalyseCtrl from '../ctrl';
 import { MaybeVNodes } from '../interfaces';
 
-function renderTitle(root: AnalyseController): VNode {
+function renderTitle(root: AnalyseCtrl): VNode {
   return h('div.title', [
     h('span', 'Practice with the computer'),
     root.studyPractice ? null : h('span.close', {
@@ -29,7 +29,7 @@ const endText = {
   draw: 'Draw.'
 };
 
-function commentBest(c: Comment, ctrl: PracticeController): MaybeVNodes {
+function commentBest(c: Comment, ctrl: PracticeCtrl): MaybeVNodes {
   return c.best ? [
     c.verdict === 'good' ? 'Another was' : 'Best was',
     h('a', {
@@ -47,7 +47,7 @@ function commentBest(c: Comment, ctrl: PracticeController): MaybeVNodes {
   ] : [];
 }
 
-function renderOffTrack(ctrl: PracticeController): VNode {
+function renderOffTrack(ctrl: PracticeCtrl): VNode {
   return h('div.player.off', [
     h('div.icon.off', '!'),
     h('div.instruction', [
@@ -83,7 +83,7 @@ function renderEvalProgress(node: Tree.Node, maxDepth: number): VNode {
   }));
 }
 
-function renderRunning(root: AnalyseController, ctrl: PracticeController): VNode {
+function renderRunning(root: AnalyseCtrl, ctrl: PracticeCtrl): VNode {
   const hint = ctrl.hinting();
   return h('div.player.running', [
     h('div.no-square', h('piece.king.' + root.turnColor())),
@@ -99,7 +99,7 @@ function renderRunning(root: AnalyseController, ctrl: PracticeController): VNode
   ]);
 }
 
-export default function(root: AnalyseController): VNode | undefined {
+export default function(root: AnalyseCtrl): VNode | undefined {
   const ctrl = root.practice;
   if (!ctrl) return;
   const comment: Comment | null = ctrl.comment();

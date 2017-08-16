@@ -22,10 +22,10 @@ import { view as gamebookView } from './study/gamebook/gamebookView';
 import * as studyView from './study/studyView';
 import { view as forkView } from './fork'
 import { render as acplView } from './acpl'
-import AnalyseController from './ctrl';
+import AnalyseCtrl from './ctrl';
 import { ConcealOf } from './interfaces';
 
-function renderResult(ctrl: AnalyseController): VNode[] {
+function renderResult(ctrl: AnalyseCtrl): VNode[] {
   let result: string | undefined;
   if (ctrl.data.game.status.id >= 30) switch (ctrl.data.game.winner) {
     case 'white':
@@ -49,7 +49,7 @@ function renderResult(ctrl: AnalyseController): VNode[] {
   return tags;
 }
 
-function makeConcealOf(ctrl: AnalyseController): ConcealOf | undefined {
+function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
   const conceal = (ctrl.study && ctrl.study.data.chapter.conceal !== undefined) ? {
     owner: ctrl.study.isChapterOwner(),
     ply: ctrl.study.data.chapter.conceal
@@ -63,7 +63,7 @@ function makeConcealOf(ctrl: AnalyseController): ConcealOf | undefined {
   };
 }
 
-function renderAnalyse(ctrl: AnalyseController, concealOf?: ConcealOf) {
+function renderAnalyse(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
   return h('div.areplay', [
     renderChapterName(ctrl),
     renderOpeningBox(ctrl),
@@ -71,7 +71,7 @@ function renderAnalyse(ctrl: AnalyseController, concealOf?: ConcealOf) {
   ].concat(renderResult(ctrl)));
 }
 
-function wheel(ctrl: AnalyseController, e: WheelEvent) {
+function wheel(ctrl: AnalyseCtrl, e: WheelEvent) {
   const target = e.target as HTMLElement;
   if (target.tagName !== 'PIECE' && target.tagName !== 'SQUARE' && !target.classList.contains('cg-board')) return;
   e.preventDefault();
@@ -81,7 +81,7 @@ function wheel(ctrl: AnalyseController, e: WheelEvent) {
   return false;
 }
 
-function inputs(ctrl: AnalyseController): VNode | undefined {
+function inputs(ctrl: AnalyseCtrl): VNode | undefined {
   if (ctrl.ongoing || !ctrl.data.userAnalysis) return;
   if (ctrl.redirecting) return spinner();
   return h('div.copyables', [
@@ -119,7 +119,7 @@ function inputs(ctrl: AnalyseController): VNode | undefined {
   ]);
 }
 
-function visualBoard(ctrl: AnalyseController) {
+function visualBoard(ctrl: AnalyseCtrl) {
   return h('div.lichess_board_wrap', [
     ctrl.keyboardHelp ? keyboardView(ctrl) : null,
     ctrl.study ? studyView.overboard(ctrl.study) : null,
@@ -147,7 +147,7 @@ function dataAct(e: Event): string | null {
 }
 
 
-function navClick(ctrl: AnalyseController, action: 'prev' | 'next') {
+function navClick(ctrl: AnalyseCtrl, action: 'prev' | 'next') {
   const repeat = function() {
     control[action](ctrl);
     ctrl.redraw();
@@ -162,7 +162,7 @@ function navClick(ctrl: AnalyseController, action: 'prev' | 'next') {
   }, {once: true} as any);
 }
 
-function buttons(ctrl: AnalyseController) {
+function buttons(ctrl: AnalyseCtrl) {
   const canJumpPrev = ctrl.path !== '';
   const canJumpNext = !!ctrl.node.children[0];
   const menuIsOpen = ctrl.actionMenu.open;
@@ -223,7 +223,7 @@ function buttons(ctrl: AnalyseController) {
     ]);
 }
 
-function renderOpeningBox(ctrl: AnalyseController) {
+function renderOpeningBox(ctrl: AnalyseCtrl) {
   let opening = ctrl.tree.getOpening(ctrl.nodeList);
   if (!opening && !ctrl.path) opening = ctrl.data.game.opening;
   if (opening) return h('div.opening_box', {
@@ -234,13 +234,13 @@ function renderOpeningBox(ctrl: AnalyseController) {
   ]);
 }
 
-function renderChapterName(ctrl: AnalyseController) {
+function renderChapterName(ctrl: AnalyseCtrl) {
   if (ctrl.embed && ctrl.study) return h('div.chapter_name', ctrl.study.currentChapter().name);
 }
 
 let firstRender = true;
 
-export default function(ctrl: AnalyseController): VNode {
+export default function(ctrl: AnalyseCtrl): VNode {
   const concealOf = makeConcealOf(ctrl),
   showCevalPvs = !(ctrl.retro && ctrl.retro.isSolving()) && !ctrl.practice,
   menuIsOpen = ctrl.actionMenu.open,

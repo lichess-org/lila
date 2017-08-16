@@ -2,7 +2,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { nodeFullName, bind } from '../util';
 import { prop, throttle, Prop } from 'common';
-import AnalyseController from '../ctrl';
+import AnalyseCtrl from '../ctrl';
 
 interface Current {
   chapterId: string;
@@ -11,7 +11,7 @@ interface Current {
 }
 
 interface CommentForm {
-  root: AnalyseController;
+  root: AnalyseCtrl;
   current: Prop<Current | null>;
   dirty: Prop<boolean>;
   focus: Prop<boolean>;
@@ -25,7 +25,7 @@ interface CommentForm {
   delete(chapterId: string, path: Tree.Path, id: string): void;
 }
 
-export function ctrl(root: AnalyseController): CommentForm {
+export function ctrl(root: AnalyseCtrl): CommentForm {
 
   const current = prop<Current | null>(null),
   dirty = prop(true),

@@ -2,12 +2,12 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import studyView = require('./study/studyView');
 import { nodeFullName, bind } from './util';
-import AnalyseController from './ctrl';
+import AnalyseCtrl from './ctrl';
 import { patch } from './main';
 
 export interface Opts {
   path: Tree.Path;
-  root: AnalyseController;
+  root: AnalyseCtrl;
 }
 
 interface Coords {

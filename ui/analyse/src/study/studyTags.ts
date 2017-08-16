@@ -1,8 +1,8 @@
 import { h, thunk } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { throttle } from 'common';
-import AnalyseController from '../ctrl';
-import { StudyController, StudyChapter } from './interfaces';
+import AnalyseCtrl from '../ctrl';
+import { StudyCtrl, StudyChapter } from './interfaces';
 
 function editable(value: string, submit: (v: string, el: HTMLInputElement) => void): VNode {
   return h('input', {
@@ -91,7 +91,7 @@ function renderPgnTags(chapter: StudyChapter, submit, types: string[]): VNode {
   })));
 }
 
-export function ctrl(root: AnalyseController, getChapter: () => StudyChapter, types) {
+export function ctrl(root: AnalyseCtrl, getChapter: () => StudyChapter, types) {
 
   const submit = throttle(500, false, function(name, value) {
     root.study!.makeChange('setTag', {
@@ -109,14 +109,14 @@ export function ctrl(root: AnalyseController, getChapter: () => StudyChapter, ty
     types
   }
 }
-function doRender(root: StudyController): VNode {
+function doRender(root: StudyCtrl): VNode {
   return h('div.undertable_inner', renderPgnTags(
     root.tags.getChapter(),
     root.vm.mode.write && root.tags.submit,
     root.tags.types))
 }
 
-export function view(root: StudyController): VNode {
+export function view(root: StudyCtrl): VNode {
   const chapter = root.tags.getChapter(),
   key = chapter.id + root.data.name + chapter.name + root.data.likes + chapter.tags + root.vm.mode.write;
   window.lichess.raf(function() {

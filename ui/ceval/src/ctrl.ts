@@ -1,11 +1,11 @@
-import { CevalController, CevalOpts, Work, Step, Hovering, Started } from './types';
+import { CevalCtrl, CevalOpts, Work, Step, Hovering, Started } from './types';
 
 import Pool from './pool';
 import { median } from './math';
 import { prop, storedProp, throttle } from 'common';
 import { povChances } from './winningChances';
 
-export default function(opts: CevalOpts): CevalController {
+export default function(opts: CevalOpts): CevalCtrl {
 
   const storageKey = function(k: string): string {
     return opts.storageKeyPrefix ? opts.storageKeyPrefix + '.' + k : k;

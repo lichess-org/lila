@@ -4,10 +4,10 @@ import { prop, Prop } from 'common';
 import { bind, dataIcon } from '../util';
 import { ctrl as chapterNewForm } from './chapterNewForm';
 import { ctrl as chapterEditForm } from './chapterEditForm';
-import AnalyseController from '../ctrl';
-import { StudyController, StudyChapterMeta } from './interfaces';
+import AnalyseCtrl from '../ctrl';
+import { StudyCtrl, StudyChapterMeta } from './interfaces';
 
-export function ctrl(initChapters: StudyChapterMeta[], send: SocketSend, setTab: () => void, chapterConfig, root: AnalyseController) {
+export function ctrl(initChapters: StudyChapterMeta[], send: SocketSend, setTab: () => void, chapterConfig, root: AnalyseCtrl) {
 
   const list: Prop<StudyChapterMeta[]> = prop(initChapters);
 
@@ -39,7 +39,7 @@ export function ctrl(initChapters: StudyChapterMeta[], send: SocketSend, setTab:
   };
 }
 
-export function view(ctrl: StudyController): VNode {
+export function view(ctrl: StudyCtrl): VNode {
 
   const configButton = ctrl.members.canContribute() ? h('i.action.config', { attrs: dataIcon('%') }) : null;
   const current = ctrl.currentChapter();

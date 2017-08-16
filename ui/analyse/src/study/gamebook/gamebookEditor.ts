@@ -1,13 +1,13 @@
 import { h } from 'snabbdom'
 import { Hooks } from 'snabbdom/hooks'
 import { VNode } from 'snabbdom/vnode'
-import AnalyseController from '../../ctrl';
+import AnalyseCtrl from '../../ctrl';
 import { bind } from '../../util';
 import { MaybeVNodes } from '../../interfaces';
 import { throttle } from 'common';
 import { path as treePath } from 'tree';
 
-export default function(ctrl: AnalyseController): VNode {
+export default function(ctrl: AnalyseCtrl): VNode {
 
   const study = ctrl.study!,
   isMyMove = ctrl.turnColor() === ctrl.data.orientation,
@@ -71,7 +71,7 @@ export default function(ctrl: AnalyseController): VNode {
   ]);
 }
 
-function renderDeviation(ctrl: AnalyseController): VNode {
+function renderDeviation(ctrl: AnalyseCtrl): VNode {
   const field = 'deviation';
   return h('div.deviation.todo', { class: { done: nodeGamebookValue(ctrl.node, field).length > 2 } }, [
     h('label', {
@@ -84,7 +84,7 @@ function renderDeviation(ctrl: AnalyseController): VNode {
   ]);
 }
 
-function renderHint(ctrl: AnalyseController): VNode {
+function renderHint(ctrl: AnalyseCtrl): VNode {
   const field = 'hint';
   return h('div.hint', [
     h('label', {
@@ -97,7 +97,7 @@ function renderHint(ctrl: AnalyseController): VNode {
   ]);
 }
 
-const saveNode = throttle(500, false, (ctrl: AnalyseController, gamebook: Tree.Gamebook) => {
+const saveNode = throttle(500, false, (ctrl: AnalyseCtrl, gamebook: Tree.Gamebook) => {
   ctrl.socket.send('setGamebook', {
     path: ctrl.path,
     ch: ctrl.study!.vm.chapterId,
@@ -110,7 +110,7 @@ function nodeGamebookValue(node: Tree.Node, field: string): string {
   return (node.gamebook && node.gamebook[field]) || '';
 }
 
-function textareaHook(ctrl: AnalyseController, field: string): Hooks {
+function textareaHook(ctrl: AnalyseCtrl, field: string): Hooks {
   const value = nodeGamebookValue(ctrl.node, field);
   return {
     insert(vnode: VNode) {

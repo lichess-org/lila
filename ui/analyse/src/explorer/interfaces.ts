@@ -25,7 +25,7 @@ export interface ExplorerConfigData {
   };
 }
 
-export interface ExplorerConfigController {
+export interface ExplorerConfigCtrl {
   trans: Trans;
   redraw();
   data: ExplorerConfigData;
@@ -42,13 +42,13 @@ export interface ExplorerData {
   // TODO
 }
 
-export interface ExplorerController {
+export interface ExplorerCtrl {
   allowed: Prop<boolean>;
   loading: Prop<boolean>;
   enabled: Prop<boolean>;
   failing: Prop<boolean>;
   movesAway: Prop<number>;
-  config: ExplorerConfigController;
+  config: ExplorerConfigCtrl;
   withGames: boolean;
   current(): ExplorerData
   hovering: Prop<Hovering | null>;

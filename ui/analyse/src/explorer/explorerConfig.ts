@@ -3,9 +3,9 @@ import { VNode } from 'snabbdom/vnode'
 import { prop, storedProp, storedJsonProp } from 'common';
 import { bind, dataIcon } from '../util';
 import { Game } from '../interfaces';
-import { ExplorerDb, ExplorerSpeed, ExplorerConfigData, ExplorerConfigController } from './interfaces';
+import { ExplorerDb, ExplorerSpeed, ExplorerConfigData, ExplorerConfigCtrl } from './interfaces';
 
-export function controller(game: Game, onClose: () => void, trans: Trans, redraw: () => void): ExplorerConfigController {
+export function controller(game: Game, onClose: () => void, trans: Trans, redraw: () => void): ExplorerConfigCtrl {
 
   const variant = (game.variant.key === 'fromPosition') ? 'standard' : game.variant.key;
 
@@ -57,7 +57,7 @@ export function controller(game: Game, onClose: () => void, trans: Trans, redraw
   };
 }
 
-export function view(ctrl: ExplorerConfigController): VNode[] {
+export function view(ctrl: ExplorerConfigCtrl): VNode[] {
   const d = ctrl.data;
   return [
     h('section.db', [

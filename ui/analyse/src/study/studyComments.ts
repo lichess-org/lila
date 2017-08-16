@@ -1,8 +1,8 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import AnalyseController from '../ctrl';
+import AnalyseCtrl from '../ctrl';
 import { nodeFullName, autolink, bind, innerHTML } from '../util';
-import { StudyController } from './interfaces';
+import { StudyCtrl } from './interfaces';
 
 function authorDom(author) {
   if (!author) return 'Unknown';
@@ -34,10 +34,10 @@ export function enrichText(text: string, allowNewlines: boolean): string {
   return html;
 }
 
-export function currentComments(ctrl: AnalyseController, includingMine: boolean): VNode | undefined {
+export function currentComments(ctrl: AnalyseCtrl, includingMine: boolean): VNode | undefined {
   if (!ctrl.node.comments) return;
   const node = ctrl.node,
-  study: StudyController = ctrl.study!,
+  study: StudyCtrl = ctrl.study!,
   chapter = study.currentChapter(),
   comments = node.comments!;
   if (!comments.length) return;

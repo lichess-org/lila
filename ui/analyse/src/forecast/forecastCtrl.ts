@@ -1,13 +1,13 @@
 import { prop } from 'common';
 import { AnalyseData } from '../interfaces';
 
-export interface ForecastController {
+export interface ForecastCtrl {
   addNodes(fc): void;
   reloadToLastPly(): void;
   [key: string]: any; // #TODO
 }
 
-export function make(cfg, data: AnalyseData, redraw: () => void): ForecastController {
+export function make(cfg, data: AnalyseData, redraw: () => void): ForecastCtrl {
 
   const saveUrl = `/${data.game.id}${data.player.id}/forecasts`;
 

@@ -1,5 +1,5 @@
 import * as control from './control';
-import AnalyseController from './ctrl';
+import AnalyseCtrl from './ctrl';
 import { bind as bindEvent } from './util';
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
@@ -18,7 +18,7 @@ function preventing(f: () => void): (e: MouseEvent) => void {
 
 let i18nLoaded = false;
 
-export function bind(ctrl: AnalyseController): void {
+export function bind(ctrl: AnalyseCtrl): void {
   if (!window.Mousetrap) return;
   const kbd = window.Mousetrap;
   kbd.bind(['left', 'k'], preventing(function() {
@@ -89,7 +89,7 @@ export function bind(ctrl: AnalyseController): void {
   }
 }
 
-export function view(ctrl: AnalyseController): VNode {
+export function view(ctrl: AnalyseCtrl): VNode {
 
   const trans = ctrl.trans;
 

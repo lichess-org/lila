@@ -3,8 +3,8 @@ import { controller as configCtrl } from './explorerConfig';
 import xhr = require('./openingXhr');
 import { synthetic } from '../util';
 import { game as gameUtil } from 'game';
-import AnalyseController from '../ctrl';
-import { Hovering, ExplorerController } from './interfaces';
+import AnalyseCtrl from '../ctrl';
+import { Hovering, ExplorerCtrl } from './interfaces';
 
 function tablebaseRelevant(variant: string, fen: Fen) {
   const parts = fen.split(/\s/);
@@ -16,7 +16,7 @@ function tablebaseRelevant(variant: string, fen: Fen) {
   else return false;
 }
 
-export default function(root: AnalyseController, opts, allow: boolean): ExplorerController {
+export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
   const allowed = prop(allow);
   const enabled = root.embed ? prop(false) : storedProp('explorer.enabled', false);
   if ((location.hash === '#explorer' || location.hash === '#opening') && !root.embed) enabled(true);

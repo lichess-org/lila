@@ -6,7 +6,7 @@ import { variants as xhrVariants } from './studyXhr';
 import * as dialog from './dialog';
 import { chapter as chapterTour } from './studyTour';
 import { StudyChapterMeta } from './interfaces';
-import AnalyseController from '../ctrl';
+import AnalyseCtrl from '../ctrl';
 
 export const modeChoices = [
   ['normal', "Normal analysis"],
@@ -20,7 +20,7 @@ export function fieldValue(e: Event, id: string) {
   return el ? (el as HTMLInputElement).value : null;
 };
 
-export function ctrl(send: SocketSend, chapters: Prop<StudyChapterMeta[]>, setTab: () => void, root: AnalyseController) {
+export function ctrl(send: SocketSend, chapters: Prop<StudyChapterMeta[]>, setTab: () => void, root: AnalyseCtrl) {
 
   const multiPgnMax = 20;
 

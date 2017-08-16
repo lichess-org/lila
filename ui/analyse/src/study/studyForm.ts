@@ -6,7 +6,7 @@ import { bind, bindSubmit } from '../util';
 import { StudyData } from './interfaces';
 import { MaybeVNodes } from '../interfaces';
 
-export interface StudyFormController {
+export interface StudyFormCtrl {
   open: Prop<boolean>;
   openIfNew(): void;
   save(data: FormData, isNew: boolean): void;
@@ -56,7 +56,7 @@ function select(s: Select): MaybeVNodes {
   ];
 };
 
-export function ctrl(save: (data: FormData, isNew: boolean) => void, getData: () => StudyData, redraw: () => void): StudyFormController {
+export function ctrl(save: (data: FormData, isNew: boolean) => void, getData: () => StudyData, redraw: () => void): StudyFormCtrl {
 
   const initAt = Date.now();
 
@@ -82,7 +82,7 @@ export function ctrl(save: (data: FormData, isNew: boolean) => void, getData: ()
   };
 }
 
-export function view(ctrl: StudyFormController): VNode {
+export function view(ctrl: StudyFormCtrl): VNode {
   const data = ctrl.getData();
   const isNew = ctrl.isNew();
   const updateName = function(vnode, isUpdate) {

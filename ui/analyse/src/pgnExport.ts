@@ -1,4 +1,4 @@
-import AnalyseController from './ctrl';
+import AnalyseCtrl from './ctrl';
 import { h } from 'snabbdom'
 import { initialFen, fixCrazySan } from 'chess';
 import { MaybeVNodes } from './interfaces';
@@ -17,7 +17,7 @@ function renderNodesTxt(nodes: Tree.Node[]): string {
   return s.trim();
 }
 
-export function renderFullTxt(ctrl: AnalyseController): string {
+export function renderFullTxt(ctrl: AnalyseCtrl): string {
   var g = ctrl.data.game;
   var txt = renderNodesTxt(ctrl.tree.getNodeList(ctrl.path));
   var tags: Array<[string, string]> = [];
