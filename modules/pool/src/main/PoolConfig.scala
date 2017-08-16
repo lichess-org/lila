@@ -21,5 +21,7 @@ object PoolConfig {
 
   case class Wave(every: FiniteDuration, players: NbPlayers)
 
-  def clockToId(clock: chess.Clock.Config) = Id(clock.show)
+  // akka pools require strict ASCII, can't handle fraction symbols.
+  def clockToId(clock: chess.Clock.Config) =
+    Id(s"${BigDecimal(clock.limitSeconds) / 60}+${clock.incrementSeconds}")
 }
