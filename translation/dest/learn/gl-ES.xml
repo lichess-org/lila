@@ -234,4 +234,5 @@ en dous movementos!</string>
   <string name="next">Seguinte</string>
   <string name="backToMenu">Voltar ao menú</string>
   <string name="puzzleFailed">Problema fallado!</string>
+  <string name="retry">Volver tentar</string>
 </resources>
