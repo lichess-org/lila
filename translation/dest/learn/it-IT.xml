@@ -4,7 +4,7 @@
   <string name="learnChess">Impara a giocare a scacchi</string>
   <string name="byPlaying">giocando!</string>
   <string name="menu">Menù</string>
-  <string name="progressX">Progresso: %s</string>
+  <string name="progressX">Avanzamento: %s</string>
   <string name="resetMyProgress">Reimposta i miei progressi</string>
   <string name="youWillLoseAllYourProgress">Perderai tutti i tuoi progressi!</string>
   <string name="play">gioca!</string>
