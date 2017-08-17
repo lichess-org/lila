@@ -118,13 +118,6 @@ object Tournament extends LilaController {
     }
   }
 
-  def gameStanding(id: String) = Open { implicit ctx =>
-    env.api.miniStanding(id, true) map {
-      case Some(m) if !m.tour.isCreated => Ok(html.tournament.gameStanding(m))
-      case _ => NotFound
-    }
-  }
-
   def userGameNbMini(id: String, user: String, nb: Int) = Open { implicit ctx =>
     withUserGameNb(id, user, nb) { pov =>
       Ok(html.tournament.miniGame(pov))

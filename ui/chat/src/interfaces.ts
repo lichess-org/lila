@@ -1,3 +1,5 @@
+import { VNode } from 'snabbdom/vnode'
+
 export interface ChatOpts {
   data: ChatData
   writeable: boolean
@@ -11,12 +13,16 @@ export interface ChatOpts {
   preset?: string
   noteId?: string
   loadCss: (url: string) => void
-  extra?: ExtraTab
+  plugin?: ChatPlugin
+  alwaysEnabled: boolean;
 }
 
-export interface ExtraTab {
-  name: string; // i18n key
-  content: string; // HTML
+export interface ChatPlugin {
+  tab: {
+    key: string;
+    name: string;
+  }
+  view(): VNode;
 }
 
 export interface ChatData {
@@ -42,7 +48,7 @@ export interface Permissions {
   shadowban?: boolean
 }
 
-export type Tab = 'discussion' | 'note' | 'extra';
+export type Tab = string;
 
 export interface Ctrl {
   data: ChatData
@@ -55,6 +61,7 @@ export interface Ctrl {
   trans: Trans
   setTab(tab: Tab): void
   setEnabled(v: boolean): void
+  plugin?: ChatPlugin
 }
 
 export interface ViewModel {

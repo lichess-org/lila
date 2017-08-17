@@ -11,8 +11,9 @@ window.customWS = true;
 window.onload = function() {
 LichessRound.boot({
 data: @Html(J.stringify(data)),
-i18n: @jsI18n(),
+i18n: @jsI18n(pov.game),
 userId: @jsUserId,
+tour: @jsOrNull(tour.map(m => lila.tournament.JsonView.miniStanding(m, lightUser))),
 chat: @jsOrNull(chatOption.map(_.either).map {
 case Left(c) => {
 chat.ChatJsData.restricted(c, name = trans.chatRoom.txt(), timeout = false, withNote = true, public = false)

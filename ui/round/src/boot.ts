@@ -1,5 +1,6 @@
 import { RoundOpts, RoundData } from './interfaces';
 import { RoundApi, RoundMain } from './main';
+import { tourStandingCtrl, TourStandingData } from './tourStanding';
 
 const li = window.lichess;
 
@@ -39,14 +40,8 @@ export default function(opts: RoundOpts, element: HTMLElement): void {
             }
           });
         },
-        tournamentStanding(id: string) {
-          if (data.tournament && id === data.tournament.id) $.ajax({
-            url: '/tournament/' + id + '/game-standing',
-            success: function(html) {
-              $('#site_header div.game_tournament').replaceWith(html);
-              startTournamentClock();
-            }
-          });
+        tourStanding(data: TourStandingData) {
+          console.log(data);
         }
       }
     });
@@ -66,7 +61,7 @@ export default function(opts: RoundOpts, element: HTMLElement): void {
   };
   opts.element = element.querySelector('.round') as HTMLElement;
   opts.socketSend = li.socket.send;
-  opts.onChange = (d: RoundData) => {
+  if (!opts.tour) opts.onChange = (d: RoundData) => {
     if (chat) chat.preset.setGroup(getPresetGroup(d));
   };
   opts.crosstableEl = element.querySelector('.crosstable') as HTMLElement;
@@ -75,8 +70,14 @@ export default function(opts: RoundOpts, element: HTMLElement): void {
   function letsGo() {
     round = (window['LichessRound'] as RoundMain).app(opts);
     if (opts.chat) {
-      opts.chat.preset = getPresetGroup(opts.data);
-      opts.chat.parseMoves = true;
+      if (opts.tour) {
+        opts.chat.plugin = tourStandingCtrl(opts.tour, opts.i18n.standing);
+        console.log(opts);
+        opts.chat.alwaysEnabled = true;
+      } else {
+        opts.chat.preset = getPresetGroup(opts.data);
+        opts.chat.parseMoves = true;
+      }
       li.makeChat('chat', opts.chat, function(c) {
         chat = c;
       });

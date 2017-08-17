@@ -14,8 +14,9 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
   let moderation: ModerationCtrl | undefined;
 
   const vm: ViewModel = {
-    tab: 'discussion',
-    enabled: !li.storage.get('nochat'),
+    // tab: 'discussion',
+    tab: 'tourStanding',
+    enabled: opts.alwaysEnabled || !li.storage.get('nochat'),
     placeholderKey: 'talkInChat',
     loading: false,
     timeout: opts.timeout,
@@ -105,14 +106,15 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
     opts,
     vm,
     setTab(t: Tab) {
-      vm.tab = t
-        redraw()
+      vm.tab = t;
+      redraw()
     },
     moderation: () => moderation,
     note,
     preset,
     post,
     trans,
+    plugin: opts.plugin,
     setEnabled(v: boolean) {
       vm.enabled = v;
       emitEnabled();

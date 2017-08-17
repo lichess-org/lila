@@ -10,6 +10,8 @@ import { ChatOpts, Ctrl, PresetCtrl } from './interfaces'
 import klass from 'snabbdom/modules/class';
 import attributes from 'snabbdom/modules/attributes';
 
+export { ChatPlugin } from './interfaces';
+
 export default function LichessChat(element: Element, opts: ChatOpts): {
   preset: PresetCtrl
 } {

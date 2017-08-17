@@ -37,7 +37,7 @@ div.mchat .chat_tabs .tab.active {
 div.mchat .chat_tabs .tab input {
   cursor: pointer;
 }
-div.mchat .chat_tabs .tab.discussion {
+div.mchat.optional .chat_tabs .tab.discussion {
   display: flex;
   justify-content: space-between;
   align-items: center;
