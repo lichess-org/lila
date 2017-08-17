@@ -417,7 +417,7 @@
   <string name="success">Επιτυχία</string>
   <string name="wasThisPuzzleAnyGood">Πως σας φάνηκε ο γρίφος;</string>
   <string name="pleaseVotePuzzle">Βελτιώστε το lichess με την ψήφο σας. Μπορείτε να ψηφίσετε πατώντας το πάνω ή κάτω βελάκι.</string>
-  <string name="thankYou">Σας ευχαριστώ!</string>
+  <string name="thankYou">Ευχαριστώ!</string>
   <string name="ratingX">Βαθμολογία: %s</string>
   <plurals name="playedXTimes">
     <item quantity="one">Παίχτηκε %s φορά</item>
@@ -463,8 +463,8 @@
   <string name="cheat">Απάτη</string>
   <string name="insult">Προσβολή</string>
   <string name="troll">Εμπαιγμός</string>
-  <string name="other">Άλλου</string>
-  <string name="reportDescriptionHelp">Κάντε επικόλληση σύνδεσμο για το παιχνίδι(α) και εξηγήστε τι είναι παράξενο στη συμπεριφορά του χρήστη. Μην πείτε απλά «επειδή κλέβει», πείτε μας πως καταλήξατε σε αυτήν τη γνώμη. Η αναφορά σας θα επεξεργαστεί πιο γρήγορα αν είναι γραμμένη στα αγγλικά.</string>
+  <string name="other">Άλλο</string>
+  <string name="reportDescriptionHelp">Κάντε επικόλληση τον σύνδεσμο για το παιχνίδι(α) και εξηγήστε τι είναι παράξενο στη συμπεριφορά του χρήστη. Μην πείτε απλά «επειδή κλέβει», πείτε μας πως καταλήξατε σε αυτήν τη γνώμη. Η αναφορά σας θα επεξεργαστεί πιο γρήγορα αν είναι γραμμένη στα αγγλικά.</string>
   <string name="by">από τον %s</string>
   <string name="thisTopicIsNowClosed">Το θέμα έχει κλείσει.</string>
   <string name="theming">Εμφάνιση</string>
@@ -503,7 +503,7 @@
   <string name="howDoYouMovePieces">Πώς μετακινείτε τα κομμάτια;</string>
   <string name="clickTwoSquares">Κάντε κλικ στα δύο τετράγωνα</string>
   <string name="dragPiece">Σύρετε ένα κομμάτι</string>
-  <string name="bothClicksAndDrag">Κάντε κλικ και σύρετε</string>
+  <string name="bothClicksAndDrag">Είτε</string>
   <string name="premovesPlayingDuringOpponentTurn">Προκινήσεις (παιγμένες κατά τον χρόνο σκέψης του αντιπάλου)</string>
   <string name="takebacksWithOpponentApproval">Ανακλήσεις (με έγκριση του αντιπάλου)</string>
   <string name="promoteToQueenAutomatically">Αυτόματη προαγωγή σε βασίλισσα</string>
