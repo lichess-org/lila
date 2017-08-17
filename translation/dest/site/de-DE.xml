@@ -78,8 +78,8 @@
     <item quantity="other">Matt in %s Halbzügen</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Nächster Schlag- oder Bauernzug in %s Halbzug (Distance To Zeroing des Zählers für die 50-Züge-Regel)</item>
-    <item quantity="other">Nächster Schlag- oder Bauernzug in %s Halbzügen (Distance To Zeroing des Zählers für die 50-Züge-Regel)</item>
+    <item quantity="one">Nächster Schlag- oder Bauernzug in %s Halbzug (Distanz zum Zurücksetzen des Zählers für die 50-Züge-Regel)</item>
+    <item quantity="other">Nächster Schlag- oder Bauernzug in %s Halbzügen (Distanz zum Zurücksetzen des Zählers für die 50-Züge-Regel)</item>
   </plurals>
   <string name="noGameFound">Kein Spiel gefunden</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Vielleicht sollten mehr Spiele über das \"Einstellungen\"-Menü einbezogen werden?</string>
@@ -94,7 +94,7 @@
   <string name="replayMode">Wiedergabemodus</string>
   <string name="realtimeReplay">Echtzeit</string>
   <string name="byCPL">Nach CPL</string>
-  <string name="openStudy">Studie öffnen</string>
+  <string name="openStudy">Öffne Studie</string>
   <string name="enable">Einschalten</string>
   <string name="bestMoveArrow">Pfeil für besten Zug</string>
   <string name="evaluationGauge">Bewertungsanzeige</string>
