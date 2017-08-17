@@ -74,9 +74,9 @@ function renderInput(ctrl: Ctrl): VNode | undefined {
           if (ctrl.opts.public && hasTeamUrl(txt)) alert("Please don't advertise teams in the chat.");
           else ctrl.post(txt);
           el.value = '';
-          el.classList.remove('whisper');
+          if (ctrl.opts.public) el.classList.remove('whisper');
         }
-      } else el.classList.toggle('whisper', !!txt.match(whisperRegex));
+      } else if (!ctrl.opts.public) el.classList.toggle('whisper', !!txt.match(whisperRegex));
     })
   })
 }
