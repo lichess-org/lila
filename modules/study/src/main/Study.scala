@@ -40,6 +40,8 @@ case class Study(
     copy(position = Position.Ref(chapterId = c.id, path = Path.root))
 
   def isPublic = visibility == Study.Visibility.Public
+  def isUnlisted = visibility == Study.Visibility.Unlisted
+  def isPrivate = visibility == Study.Visibility.Private
 
   def isNew = (nowSeconds - createdAt.getSeconds) < 4
 
@@ -90,8 +92,9 @@ object Study {
   }
   object Visibility {
     case object Private extends Visibility
+    case object Unlisted extends Visibility
     case object Public extends Visibility
-    val byKey = List(Private, Public).map { v => v.key -> v }.toMap
+    val byKey = List(Private, Unlisted, Public).map { v => v.key -> v }.toMap
   }
 
   case class Likes(value: Int) extends AnyVal
