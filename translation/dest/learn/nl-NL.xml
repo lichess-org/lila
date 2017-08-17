@@ -97,6 +97,11 @@ maar je kunt verdedigen!</string>
   <string name="boardSetup">Beginstelling</string>
   <string name="howTheGameStarts">Hoe begint de partij</string>
   <string name="thisIsTheInitialPosition">Dit is de beginopstelling van elke schaakpartij! Doe een willekeurige zet om door te gaan.</string>
+  <string name="firstPlaceTheRooks">Plaats als eerste de torens! Zij gaan in de hoeken.</string>
+  <string name="thenPlaceTheKnights">Plaats dan de paarden! Zij staan naast de torens.</string>
+  <string name="placeTheBishops">Plaats de lopers! Zij staan naast de paarden.</string>
+  <string name="placeTheQueen">Plaats de koningin! Ze gaat op haar eigen kleur.</string>
+  <string name="placeTheKing">Plaats de koning! Gelijk naast zijn koningin.</string>
   <string name="pawnsFormTheFrontLine">Pionnen vormen de frontlinie. Maak eender welke zet om voort te gaan.</string>
   <string name="boardSetupComplete">Gefeliciteerd! Nu weet je hoe je het schaakbord moet opstellen.</string>
   <string name="castling">Rokade</string>
