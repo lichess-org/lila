@@ -17,7 +17,7 @@
   </plurals>
   <plurals name="postedNbMessages">
     <item quantity="one">Δημοσίευσε %1$s μήνυμα στο %2$s</item>
-    <item quantity="other">Δημοσίευσαν %1$s μηνύματα στο %2$s</item>
+    <item quantity="other">Δημοσίευσε %1$s μηνύματα στο %2$s</item>
   </plurals>
   <plurals name="playedNbMoves">
     <item quantity="one">Έπαιξε %1$s κίνηση σε %2$s παρτίδα(-ες) αλληλογραφίας</item>
