@@ -79,6 +79,12 @@
 αλλά υπάρχει άμυνα!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Αποτρέψτε το κόψιμο
 ανυπεράσπιστων κομματιών!</string>
+  <string name="combat">Δράση</string>
+  <string name="captureAndDefendPieces">Αιχμαλωτίστε και υπερασπιστείτε τα κομμάτια</string>
+  <string name="combatIntro">Ο καλός μαχητής γνωρίζει τόσο την επίθεση όσο και την άμυνα!</string>
+  <string name="combatComplete">Συγχαρητήρια! Ξέρετε πως να μάχεστε με τα κομμάτια σκακιού!</string>
+  <string name="checkInOne">Σαχ σε μία</string>
+  <string name="attackTheOpponentsKing">Επίθεση στον βασιλιά του αντιπάλου</string>
   <string name="mateInOne">Ματ σε μία</string>
   <string name="boardSetup">Στήσιμο σκακιέρας</string>
   <string name="thisIsTheInitialPosition">Αυτή είναι η αρχική θέση
