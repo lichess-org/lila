@@ -4,12 +4,12 @@
   <string name="activity">Δραστηριότητα</string>
   <string name="supportedNbMonths">Υποστήριξη στο lichess για %1$s μήνες ως %2$s</string>
   <plurals name="practicedNbPositions">
-    <item quantity="one">Εξάσκηση %1$s θέσης σε %2$s</item>
-    <item quantity="other">Εξάσκηση %1$s θέσεων σε %2$s</item>
+    <item quantity="one">Εξασκήθηκε %1$s θέση σε %2$s</item>
+    <item quantity="other">Εξασκήθηκε %1$s θέσεις σε %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">Έλυσε %s τακτική άσκηση</item>
-    <item quantity="other">Έλυσε %s τακτικές ασκήσεις</item>
+    <item quantity="one">Έλυσε %s τακτικό γρίφο</item>
+    <item quantity="other">Έλυσε %s τακτικούς γρίφους</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">Έπαιξε %1$s παρτίδα %2$s</item>
@@ -17,7 +17,7 @@
   </plurals>
   <plurals name="postedNbMessages">
     <item quantity="one">Δημοσίευσε %1$s μήνυμα στο %2$s</item>
-    <item quantity="other">Δημοσίευσε %1$s μηνύματα στο %2$s</item>
+    <item quantity="other">Δημοσίευσαν %1$s μηνύματα στο %2$s</item>
   </plurals>
   <plurals name="playedNbMoves">
     <item quantity="one">Έπαιξε %1$s κίνηση σε %2$s παρτίδα(-ες) αλληλογραφίας</item>
@@ -53,11 +53,11 @@
   </plurals>
   <plurals name="rankedInTournament">
     <item quantity="one">Κατατάχθηκε #%1$s (κορυφαίος %2$s%%) με %3$s παιχνίδι σε %4$s</item>
-    <item quantity="other">Κατατάχθηκαν #%1$s (κορυφαίοι %2$s%%) με %3$s παιχνίδια σε %4$s</item>
+    <item quantity="other">Κατατάχθηκε #%1$s (κορυφαίος %2$s%%) με %3$s παιχνίδια σε %4$s</item>
   </plurals>
   <string name="signedUp">Εγγεγραμμένοι στο lichess</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Έγινε μέλος %s της ομάδας</item>
-    <item quantity="other">Έγιναν μέλη %s των ομάδων</item>
+    <item quantity="other">Έγινε μέλος %s των ομάδων</item>
   </plurals>
 </resources>
