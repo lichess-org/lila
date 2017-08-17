@@ -171,11 +171,11 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
         List( // daily variant tournaments!
           at(today, 20) map { date => Schedule(Daily, Blitz, Crazyhouse, std, date |> orTomorrow) },
           at(today, 21) map { date => Schedule(Daily, Blitz, Chess960, std, date |> orTomorrow) },
-          at(today, 22) map { date => Schedule(Daily, Blitz, KingOfTheHill, std, date |> orTomorrow) },
-          at(today, 23) map { date => Schedule(Daily, Blitz, ThreeCheck, std, date |> orTomorrow) },
-          at(today, 0) map { date => Schedule(Daily, Blitz, Antichess, std, date |> orTomorrow) },
-          at(tomorrow, 1) map { date => Schedule(Daily, Blitz, Atomic, std, date) },
-          at(tomorrow, 2) map { date => Schedule(Daily, Blitz, Horde, std, date) },
+          at(today, 22) map { date => Schedule(Daily, SuperBlitz, KingOfTheHill, std, date |> orTomorrow) },
+          at(today, 23) map { date => Schedule(Daily, SuperBlitz, ThreeCheck, std, date |> orTomorrow) },
+          at(today, 0) map { date => Schedule(Daily, SuperBlitz, Antichess, std, date |> orTomorrow) },
+          at(tomorrow, 1) map { date => Schedule(Daily, SuperBlitz, Atomic, std, date) },
+          at(tomorrow, 2) map { date => Schedule(Daily, SuperBlitz, Horde, std, date) },
           at(tomorrow, 3) map { date => Schedule(Daily, SuperBlitz, RacingKings, std, date) }
         ).flatten,
 
@@ -212,10 +212,12 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
         (0 to 6).toList.flatMap { hourDelta =>
           val date = rightNow plusHours hourDelta
           val hour = date.getHourOfDay
-          val bulletType = if (hour % 6 == 5) HyperBullet else Bullet
+          // Hyperbullet hourlies avoid ultra, and overlap with daily hyper.
+          val bulletType = if (hour % 4 == 0) HyperBullet else Bullet
           List(
-            at(date, hour) collect { case date if hour % 6 == 3 => Schedule(Hourly, UltraBullet, Standard, std, date) },
-            at(date, hour, 30) collect { case date if hour % 6 == 3 => Schedule(Hourly, UltraBullet, Standard, std, date) },
+            // Ultra hourlies avoid hyperbullet, and overlap with daily ultra.
+            at(date, hour) collect { case date if hour % 8 == 5 => Schedule(Hourly, UltraBullet, Standard, std, date) },
+            at(date, hour, 30) collect { case date if hour % 8 == 5 => Schedule(Hourly, UltraBullet, Standard, std, date) },
             at(date, hour) map { date => Schedule(Hourly, bulletType, Standard, std, date) },
             at(date, hour, 30) map { date => Schedule(Hourly, bulletType, Standard, std, date) },
             at(date, hour) map { date => Schedule(Hourly, SuperBlitz, Standard, std, date) },
