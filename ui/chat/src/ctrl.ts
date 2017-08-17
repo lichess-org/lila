@@ -14,8 +14,7 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
   let moderation: ModerationCtrl | undefined;
 
   const vm: ViewModel = {
-    // tab: 'discussion',
-    tab: 'tourStanding',
+    tab: 'discussion',
     enabled: opts.alwaysEnabled || !li.storage.get('nochat'),
     placeholderKey: 'talkInChat',
     loading: false,
@@ -121,6 +120,7 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
       if (!v) li.storage.set('nochat', '1');
       else li.storage.remove('nochat');
       redraw();
-    }
+    },
+    redraw
   };
 };

@@ -17,19 +17,19 @@ final class Messenger(val chat: ActorSelection) {
     if (game.nonAi) chat ! SystemTalk(Chat.Id(game.id), translated)
   }
 
-  def systemForOwners(gameId: String, message: SelectI18nKey, args: Any*) {
+  def systemForOwners(gameId: Game.ID, message: SelectI18nKey, args: Any*) {
     val translated = message(I18nKeys).literalTxtTo(enLang, args)
     chat ! SystemTalk(Chat.Id(gameId), translated)
   }
 
-  def watcher(gameId: String, member: Member, text: String) =
+  def watcher(gameId: Game.ID, member: Member, text: String) =
     member.userId foreach { userId =>
       chat ! UserTalk(Chat.Id(watcherId(gameId)), userId, text)
     }
 
   private val whisperCommands = List("/whisper ", "/w ")
 
-  def owner(gameId: String, member: Member, text: String) = (member.userId match {
+  def owner(gameId: Game.ID, member: Member, text: String) = (member.userId match {
     case Some(userId) =>
       whisperCommands.collectFirst {
         case command if text startsWith command =>
@@ -42,5 +42,5 @@ final class Messenger(val chat: ActorSelection) {
       PlayerTalk(Chat.Id(gameId), member.color.white, text).some
   }) foreach chat.!
 
-  private def watcherId(gameId: String) = s"$gameId/w"
+  private def watcherId(gameId: Game.ID) = s"$gameId/w"
 }

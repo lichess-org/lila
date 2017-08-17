@@ -1,4 +1,5 @@
 import { VNode } from 'snabbdom/vnode'
+import { PresetCtrl } from './preset'
 
 export interface ChatOpts {
   data: ChatData
@@ -62,6 +63,7 @@ export interface Ctrl {
   setTab(tab: Tab): void
   setEnabled(v: boolean): void
   plugin?: ChatPlugin
+  redraw: Redraw
 }
 
 export interface ViewModel {
@@ -71,33 +73,6 @@ export interface ViewModel {
   loading: boolean
   timeout: boolean
   writeable: boolean
-}
-
-export interface PresetCtrl {
-  group(): string | undefined
-  said(): string[]
-  setGroup(group: string): void
-  post(preset: Preset): void
-}
-
-export type PresetKey = string
-export type PresetText = string
-
-export interface Preset {
-  key: PresetKey
-  text: PresetText
-}
-
-export interface PresetGroups {
-  start: Preset[]
-  end: Preset[]
-  [key: string]: Preset[]
-}
-
-export interface PresetOpts {
-  initialGroup?: string
-  redraw: Redraw
-  post(text: string): boolean
 }
 
 export interface NoteOpts {

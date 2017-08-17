@@ -1,4 +1,4 @@
-@(pov: Pov, initialFen: Option[String], tour: Option[lila.tournament.MiniStanding], simul: Option[lila.simul.Simul], userTv: Option[User] = None, bookmarked: Boolean)(implicit ctx: Context)
+@(pov: Pov, initialFen: Option[String], tour: Option[lila.tournament.Tournament], simul: Option[lila.simul.Simul], userTv: Option[User] = None, bookmarked: Boolean)(implicit ctx: Context)
 
 @import pov._
 
@@ -76,11 +76,11 @@
   </div>
   }
 
-  @tour.map { m =>
+  @tour.map { t =>
   <div class="game_tournament side_box no_padding scroll-shadow-soft">
-    <p class="top text" data-icon="g"><a href="@routes.Tournament.show(m.tour.id)">@m.tour.fullName</a></p>
-    <div class="clock" data-time="@m.tour.secondsToFinish">
-      <div class="time">@m.tour.clockStatus</div>
+    <p class="top text" data-icon="g"><a href="@routes.Tournament.show(t.id)">@t.fullName</a></p>
+    <div class="clock" data-time="@t.secondsToFinish">
+      <div class="time">@t.clockStatus</div>
     </div>
   </div>
   }.getOrElse {

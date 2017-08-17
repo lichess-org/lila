@@ -1,13 +1,14 @@
 import { RoundOpts, RoundData } from './interfaces';
 import { RoundApi, RoundMain } from './main';
-import { tourStandingCtrl, TourStandingData } from './tourStanding';
+import { ChatCtrl } from 'chat';
+import { tourStandingCtrl, TourStandingCtrl, TourStandingData } from './tourStanding';
 
 const li = window.lichess;
 
 export default function(opts: RoundOpts, element: HTMLElement): void {
   const data = opts.data;
   li.openInMobileApp(data.game.id);
-  let round: RoundApi, chat: any;
+  let round: RoundApi, chat: ChatCtrl | undefined;
   if (data.tournament) $('body').data('tournament-id', data.tournament.id);
   li.socket = li.StrongSocket(
     data.url.socket,
@@ -30,7 +31,7 @@ export default function(opts: RoundOpts, element: HTMLElement): void {
         },
         end() {
           $.ajax({
-            url: '/' + (data.tv ? ['tv', data.tv.channel, data.game.id, data.player.color, 'sides'] : [data.game.id, data.player.color, 'sides', data.player.spectator ? 'watcher' : 'player']).join('/'),
+            url: [(data.tv ? '/tv/'  + data.tv.channel : ''), data.game.id, data.player.color, 'sides'].join('/'),
             success: function(html) {
               const $html = $(html);
               $('#site_header div.side').replaceWith($html.find('.side'));
@@ -41,7 +42,8 @@ export default function(opts: RoundOpts, element: HTMLElement): void {
           });
         },
         tourStanding(data: TourStandingData) {
-          console.log(data);
+          if (opts.chat && opts.chat.plugin) (opts.chat.plugin as TourStandingCtrl).set(data);
+          chat && chat.redraw();
         }
       }
     });
@@ -54,10 +56,10 @@ export default function(opts: RoundOpts, element: HTMLElement): void {
     });
   };
   function getPresetGroup(d: RoundData) {
-    if (d.player.spectator) return null;
+    if (d.player.spectator) return;
     if (d.steps.length < 4) return 'start';
     else if (d.game.status.id >= 30) return 'end';
-    return null;
+    return;
   };
   opts.element = element.querySelector('.round') as HTMLElement;
   opts.socketSend = li.socket.send;
@@ -72,7 +74,6 @@ export default function(opts: RoundOpts, element: HTMLElement): void {
     if (opts.chat) {
       if (opts.tour) {
         opts.chat.plugin = tourStandingCtrl(opts.tour, opts.i18n.standing);
-        console.log(opts);
         opts.chat.alwaysEnabled = true;
       } else {
         opts.chat.preset = getPresetGroup(opts.data);

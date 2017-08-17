@@ -3,39 +3,43 @@ import { VNode } from 'snabbdom/vnode'
 import { ChatPlugin } from 'chat'
 import { justIcon } from './util'
 
+export interface TourStandingCtrl extends ChatPlugin {
+  set(data: TourStandingData): void;
+}
+
 export interface TourStandingData {
-  standing: RankedPlayer[]
+  top: TourPlayer[];
 }
 
-interface RankedPlayer {
-  name: string;
-  rank: number;
-  score: number;
-  title?: string;
-  fire: boolean;
-  withdraw: boolean;
+interface TourPlayer {
+  n: string; // name
+  s: number; // score
+  t?: string; // title
+  f: boolean; // fire
+  w: boolean; // withdraw
 }
 
-export function tourStandingCtrl(data: TourStandingData, name: string): ChatPlugin {
+export function tourStandingCtrl(data: TourStandingData, name: string): TourStandingCtrl {
   return {
+    set(d: TourStandingData) { data = d },
     tab: {
       key: 'tourStanding',
       name: name
     },
     view(): VNode {
       return h('table.slist',
-        h('tbody', data.standing.map(p => {
-          return h('tr.' + p.name, [
+        h('tbody', data.top.map((p: TourPlayer, i: number) => {
+          return h('tr.' + p.n, [
             h('td.name', [
-              p.withdraw ? h('span', justIcon('Z')) : h('span.rank', '' + p.rank),
+              p.w ? h('span', justIcon('Z')) : h('span.rank', '' + (i + 1)),
               h('a.user_link.ulpt', {
-                attrs: { href: `/@/${p.name}` }
-              }, (p.title ? p.title + ' ' : '') + p.name)
+                attrs: { href: `/@/${p.n}` }
+              }, (p.t ? p.t + ' ' : '') + p.n)
             ]),
-            h('td.total', p.fire ? {
+            h('td.total', p.f ? {
               class: { 'is-gold': true },
               attrs: { 'data-icon': 'Q' }
-            } : {}, '' + p.score)
+            } : {}, '' + p.s)
           ])
         }))
       );

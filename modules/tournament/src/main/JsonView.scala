@@ -324,17 +324,15 @@ final class JsonView(
 
 object JsonView {
 
-  def miniStanding(m: MiniStanding, getLightUser: LightUser.GetterSync): JsObject = Json.obj(
-    "standing" -> (~m.standing).map {
-      case RankedPlayer(rank, player) =>
-        val light = getLightUser(player.userId)
-        Json.obj(
-          "name" -> light.fold(player.userId)(_.name),
-          "rank" -> rank,
-          "score" -> player.score
-        ).add("title" -> light.flatMap(_.title))
-          .add("fire" -> scala.util.Random.nextBoolean) //player.fire)
-          .add("withdraw" -> scala.util.Random.nextBoolean) //player.withdraw)
+  def top(t: TournamentTop, getLightUser: LightUser.GetterSync): JsObject = Json.obj(
+    "top" -> t.value.map { p =>
+      val light = getLightUser(p.userId)
+      Json.obj(
+        "n" -> light.fold(p.userId)(_.name),
+        "s" -> p.score
+      ).add("t" -> light.flatMap(_.title))
+        .add("f" -> p.fire)
+        .add("w" -> p.withdraw)
     }
   )
 

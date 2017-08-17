@@ -13,7 +13,7 @@ import play.api.libs.json.{ JsObject, Json }
 import actorApi._, round._
 import lila.common.PimpedJson._
 import lila.common.IpAddress
-import lila.game.{ Pov, PovRef, GameRepo }
+import lila.game.{ Pov, PovRef, GameRepo, Game }
 import lila.hub.actorApi.map._
 import lila.hub.actorApi.round.Berserk
 import lila.socket.actorApi.{ Connected => _, _ }
@@ -34,7 +34,8 @@ private[round] final class SocketHandler(
 ) {
 
   private def controller(
-    gameId: String,
+    gameId: Game.ID,
+    chatId: Option[Chat.Id], // if using a non-game chat (tournament, simul, ...)
     socket: ActorRef,
     uid: Uid,
     ref: PovRef,
@@ -90,7 +91,7 @@ private[round] final class SocketHandler(
         case ("outoftime", _) => send(QuietFlag) // mobile app BC
         case ("flag", o) => clientFlag(o, playerId.some) foreach send
         case ("bye2", _) => socket ! Bye(ref.color)
-        case ("talk", o) => o str "d" foreach { messenger.owner(gameId, member, _) }
+        case ("talk", o) if chatId.isEmpty => o str "d" foreach { messenger.owner(gameId, member, _) }
         case ("hold", o) => for {
           d ← o obj "d"
           mean ← d int "mean"
@@ -105,7 +106,7 @@ private[round] final class SocketHandler(
           name ← d str "n"
         } selfReport(member.userId, member.ip, s"$gameId$playerId", name)
       }: Handler.Controller) orElse lila.chat.Socket.in(
-        chatId = Chat.Id(gameId),
+        chatId = chatId | Chat.Id(gameId),
         member = member,
         socket = socket,
         chat = messenger.chat
@@ -149,6 +150,10 @@ private[round] final class SocketHandler(
       ip = ip,
       userTv = userTv
     )
+    // non-game chat, for tournament or simul games; only for players
+    val publicChatId = playerId.isDefined ?? {
+      pov.game.tournamentId.map(Chat.Id) orElse pov.game.simulId.map(Chat.Id)
+    }
     socketHub ? Get(pov.gameId) mapTo manifest[ActorRef] flatMap { socket =>
       Handler(hub, socket, uid, join) {
         case Connected(enum, member) =>
@@ -158,7 +163,7 @@ private[round] final class SocketHandler(
           // register to the tournament standing channel when playing a tournament game
           if (playerId.isDefined && pov.game.isTournament)
             hub.channel.tournamentStanding ! lila.socket.Channel.Sub(member)
-          (controller(pov.gameId, socket, uid, pov.ref, member, user), enum, member)
+          (controller(pov.gameId, publicChatId, socket, uid, pov.ref, member, user), enum, member)
       }
     }
   }

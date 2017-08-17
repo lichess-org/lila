@@ -9,9 +9,10 @@ import play.api.libs.iteratee._
 import play.api.libs.json._
 
 import actorApi._
+import lila.chat.Chat
 import lila.common.LightUser
 import lila.game.actorApi.{ StartGame, UserStartGame }
-import lila.game.Event
+import lila.game.{ Game, GameRepo, Event }
 import lila.hub.actorApi.Deploy
 import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.actorApi.round.IsOnGame
@@ -22,7 +23,7 @@ import lila.socket.actorApi.{ Connected => _, _ }
 import makeTimeout.short
 
 private[round] final class Socket(
-    gameId: String,
+    gameId: Game.ID,
     history: History,
     lightUser: LightUser.Getter,
     uidTimeout: Duration,
@@ -71,10 +72,15 @@ private[round] final class Socket(
   private val whitePlayer = new Player(White)
   private val blackPlayer = new Player(Black)
 
+  private var chatIds = Socket.ChatIds(
+    priv = Chat.Id(gameId),
+    pub = Chat.Id(s"$gameId/w")
+  )
+
   override def preStart() {
     super.preStart()
     refreshSubscriptions
-    lila.game.GameRepo game gameId map SetGame.apply pipeTo self
+    GameRepo game gameId map SetGame.apply pipeTo self
   }
 
   override def postStop() {
@@ -87,7 +93,12 @@ private[round] final class Socket(
     members.flatMap { case (_, m) => m.userTv }.toList.distinct foreach { userId =>
       lilaBus.subscribe(self, Symbol(s"userStartGame:$userId"))
     }
-    lilaBus.subscribe(self, Symbol(s"chat-$gameId"), Symbol(s"chat-$gameId/w"))
+    refreshChatSubscriptions
+  }
+
+  private def refreshChatSubscriptions {
+    println(s"$gameId refreshChatSubscriptions $chatIds")
+    lilaBus.subscribe(self, Symbol(s"chat-${chatIds.priv}"), Symbol(s"chat-${chatIds.pub}"))
   }
 
   def receiveSpecific = ({
@@ -97,6 +108,10 @@ private[round] final class Socket(
       whitePlayer.userId = game.player(White).userId
       blackPlayer.userId = game.player(Black).userId
       mightBeSimul = game.isSimul
+      game.tournamentId orElse game.simulId map Chat.Id.apply foreach { chatId =>
+        chatIds = chatIds.copy(priv = chatId)
+        refreshChatSubscriptions
+      }
 
     // from lilaBus 'startGame
     // sets definitive user ids
@@ -156,7 +171,7 @@ private[round] final class Socket(
     case eventList: EventList => notify(eventList.events)
 
     case lila.chat.actorApi.ChatLine(chatId, line) => notify(List(line match {
-      case l: lila.chat.UserLine => Event.UserMessage(l, chatId.value endsWith "/w")
+      case l: lila.chat.UserLine => Event.UserMessage(l, chatId == chatIds.pub)
       case l: lila.chat.PlayerLine => Event.PlayerMessage(l)
     }))
 
@@ -256,5 +271,15 @@ private[round] final class Socket(
 
   private def playerDo(color: Color, effect: Player => Unit) {
     effect(color.fold(whitePlayer, blackPlayer))
+  }
+}
+
+object Socket {
+
+  case class ChatIds(priv: Chat.Id, pub: Chat.Id) {
+    def update(g: Game) =
+      g.tournamentId.map { id => copy(priv = Chat.Id(id)) } orElse
+        g.simulId.map { id => copy(priv = Chat.Id(id)) } getOrElse
+        this
   }
 }

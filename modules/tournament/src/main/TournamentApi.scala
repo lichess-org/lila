@@ -329,26 +329,19 @@ final class TournamentApi(
     }
   }
 
-  private val miniStandingCache = asyncCache.multi[String, List[RankedPlayer]](
-    name = "tournament.miniStanding",
-    id => PlayerRepo.bestByTourWithRank(id, 20),
+  private val tournamentTopCache = asyncCache.multi[Tournament.ID, TournamentTop](
+    name = "tournament.top",
+    id => PlayerRepo.bestByTour(id, 20) map TournamentTop.apply,
     expireAfter = _.ExpireAfterWrite(3 second)
   )
 
-  def miniStanding(tourId: String, withStanding: Boolean): Fu[Option[MiniStanding]] =
+  def tournamentTop(tourId: Tournament.ID): Fu[TournamentTop] =
+    tournamentTopCache get tourId
+
+  def miniView(tourId: Tournament.ID, withTop: Boolean): Fu[Option[TourMiniView]] =
     TournamentRepo byId tourId flatMap {
       _ ?? { tour =>
-        if (withStanding) miniStandingCache get tour.id map { rps =>
-          MiniStanding(tour, rps.some).some
-        }
-        else fuccess(MiniStanding(tour, none).some)
-      }
-    }
-
-  def miniStanding(tourId: String, userId: Option[String], withStanding: Boolean): Fu[Option[MiniStanding]] =
-    userId ?? { uid =>
-      PlayerRepo.exists(tourId, uid) flatMap {
-        _ ?? miniStanding(tourId, withStanding)
+        withTop ?? { tournamentTop(tour.id) map some } map { TourMiniView(tour, _).some }
       }
     }
 
@@ -377,10 +370,10 @@ final class TournamentApi(
       }
     }
 
-  def allCurrentLeadersInStandard: Fu[Map[Tournament, List[RankedPlayer]]] =
+  def allCurrentLeadersInStandard: Fu[Map[Tournament, TournamentTop]] =
     TournamentRepo.standardPublicStartedFromSecondary.flatMap { tours =>
       tours.map { tour =>
-        miniStandingCache get tour.id map (tour -> _)
+        tournamentTop(tour.id) map (tour -> _)
       }.sequenceFu.map(_.toMap)
     }
 
@@ -431,12 +424,10 @@ final class TournamentApi(
 
     import lila.hub.EarlyMultiThrottler
 
-    private def publishNow(tourId: Tournament.ID) = miniStanding(tourId, true) map {
-      _ ?? { m =>
-        standingChannel ! lila.socket.Channel.Publish(
-          lila.socket.Socket.makeMessage("tourStanding", JsonView.miniStanding(m, lightUserApi.sync))
-        )
-      }
+    private def publishNow(tourId: Tournament.ID) = tournamentTop(tourId) map { top =>
+      standingChannel ! lila.socket.Channel.Publish(
+        lila.socket.Socket.makeMessage("tourStanding", JsonView.top(top, lightUserApi.sync))
+      )
     }
 
     private val throttler = system.actorOf(Props(new EarlyMultiThrottler(logger = logger)))

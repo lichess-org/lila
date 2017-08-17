@@ -5,12 +5,12 @@ import play.api.mvc._
 
 import lila.api.Context
 import lila.app._
+import lila.chat.Chat
 import lila.common.PimpedJson._
 import lila.common.{ HTTPRequest, ApiVersion }
 import lila.game.{ Pov, GameRepo, Game => GameModel, PgnDump }
-import lila.tournament.MiniStanding
+import lila.tournament.TourMiniView
 import lila.user.{ User => UserModel }
-import lila.chat.Chat
 import views._
 
 object Round extends LilaController with TheftPrevention {
@@ -194,10 +194,8 @@ object Round extends LilaController with TheftPrevention {
       ) map NoCache
     }
 
-  private def myTour(tourId: Option[String], withStanding: Boolean)(implicit ctx: Context): Fu[Option[MiniStanding]] =
-    tourId ?? { tid =>
-      Env.tournament.api.miniStanding(tid, ctx.userId, withStanding)
-    }
+  private def myTour(tourId: Option[String], withTop: Boolean): Fu[Option[TourMiniView]] =
+    tourId ?? { Env.tournament.api.miniView(_, withTop) }
 
   private[controllers] def getWatcherChat(game: GameModel)(implicit ctx: Context): Fu[Option[lila.chat.UserChat.Mine]] = ctx.noKid ?? {
     Env.chat.api.userChat.findMineIf(Chat.Id(s"${game.id}/w"), ctx.me, !game.justCreated) flatMap { chat =>
@@ -234,12 +232,17 @@ object Round extends LilaController with TheftPrevention {
     }
   }
 
-  def sidesWatcher(gameId: String, color: String) = Open { implicit ctx =>
-    OptionFuResult(GameRepo.pov(gameId, color)) { sides(_, false) }
-  }
-
-  def sidesPlayer(gameId: String, color: String) = Open { implicit ctx =>
-    OptionFuResult(GameRepo.pov(gameId, color)) { sides(_, true) }
+  def sides(gameId: String, color: String) = Open { implicit ctx =>
+    OptionFuResult(GameRepo.pov(gameId, color)) { pov =>
+      (pov.game.tournamentId ?? lila.tournament.TournamentRepo.byId) zip
+        (pov.game.simulId ?? Env.simul.repo.find) zip
+        GameRepo.initialFen(pov.game) zip
+        Env.game.crosstableApi.withMatchup(pov.game) zip
+        Env.bookmark.api.exists(pov.game, ctx.me) map {
+          case tour ~ simul ~ initialFen ~ crosstable ~ bookmarked =>
+            Ok(html.game.sides(pov, initialFen, tour, crosstable, simul, bookmarked = bookmarked))
+        }
+    }
   }
 
   def writeNote(gameId: String) = AuthBody { implicit ctx => me =>
@@ -257,16 +260,6 @@ object Round extends LilaController with TheftPrevention {
       Ok(text)
     }
   }
-
-  private def sides(pov: Pov, isPlayer: Boolean)(implicit ctx: Context) =
-    myTour(pov.game.tournamentId, isPlayer) zip
-      (pov.game.simulId ?? Env.simul.repo.find) zip
-      GameRepo.initialFen(pov.game) zip
-      Env.game.crosstableApi.withMatchup(pov.game) zip
-      Env.bookmark.api.exists(pov.game, ctx.me) map {
-        case tour ~ simul ~ initialFen ~ crosstable ~ bookmarked =>
-          Ok(html.game.sides(pov, initialFen, tour, crosstable, simul, bookmarked = bookmarked))
-      }
 
   def continue(id: String, mode: String) = Open { implicit ctx =>
     OptionResult(GameRepo game id) { game =>

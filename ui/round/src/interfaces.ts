@@ -86,7 +86,7 @@ export interface RoundOpts {
 }
 
 export interface Chat {
-  preset: 'start' | 'end' | null;
+  preset: 'start' | 'end' | undefined;
   parseMoves?: boolean;
   plugin?: ChatPlugin;
   alwaysEnabled: boolean;

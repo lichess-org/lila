@@ -1,9 +1,8 @@
 package lila.tournament
 
-case class MiniStanding(
-  tour: Tournament,
-  standing: Option[RankedPlayers]
-)
+case class TournamentTop(value: List[Player]) extends AnyVal
+
+case class TourMiniView(tour: Tournament, top: Option[TournamentTop])
 
 case class PlayerInfo(rank: Int, withdraw: Boolean) {
   def page = {

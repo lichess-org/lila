@@ -10,8 +10,6 @@ export default function(ctrl: Ctrl): VNode {
 
   const mod = ctrl.moderation();
 
-  console.log(ctrl);
-
   return h('div#chat.side_box.mchat' + (ctrl.opts.alwaysEnabled ? '' : '.optional'), {
     class: {
       mod: !!mod
