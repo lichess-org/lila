@@ -1,4 +1,4 @@
-@()(implicit ctx: Context)
+@(g: Game)(implicit ctx: Context)
 @Html(J.stringify(i18nJsObject(
 trans.flipBoard,
 trans.aiNameLevelAiLevel,
@@ -35,7 +35,6 @@ trans.blackIsVictorious,
 trans.kingInTheCenter,
 trans.threeChecks,
 trans.variantEnding,
-trans.backToTournament,
 trans.withdraw,
 trans.rematch,
 trans.rematchOfferSent,
@@ -45,7 +44,6 @@ trans.cancelRematchOffer,
 trans.newOpponent,
 trans.moveConfirmation,
 trans.viewRematch,
-trans.viewTournament,
 trans.whitePlays,
 trans.blackPlays,
 trans.giveNbSeconds,
@@ -56,4 +54,8 @@ trans.yourOpponentWantsToPlayANewGameWithYou,
 trans.oneDay,
 trans.nbDays,
 trans.nbHours
-)))
+) ++ g.isTournament.fold(i18nJsObject(
+trans.backToTournament,
+trans.viewTournament,
+trans.standing
+), J.obj())))

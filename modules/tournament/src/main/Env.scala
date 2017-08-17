@@ -93,6 +93,7 @@ final class Env(
     indexLeaderboard = leaderboardIndexer.indexOne _,
     roundMap = roundMap,
     asyncCache = asyncCache,
+    lightUserApi = lightUserApi,
     standingChannel = standingChannel
   )
 

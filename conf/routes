@@ -220,7 +220,6 @@ POST  /tournament/new                         controllers.Tournament.create
 GET   /tournament/$id<\w{8}>                  controllers.Tournament.show(id: String)
 GET   /tournament/$id<\w{8}>/standing/:page   controllers.Tournament.standing(id: String, page: Int)
 GET   /tournament/$id<\w{8}>/socket/v:apiVersion controllers.Tournament.websocket(id: String, apiVersion: Int)
-GET   /tournament/$id<\w{8}>/game-standing    controllers.Tournament.gameStanding(id: String)
 POST  /tournament/$id<\w{8}>/join             controllers.Tournament.join(id: String)
 POST  /tournament/$id<\w{8}>/withdraw         controllers.Tournament.withdraw(id: String)
 GET   /tournament/$id<\w{8}>/mini/:user/:nb   controllers.Tournament.userGameNbMini(id: String, user: String, nb: Int)

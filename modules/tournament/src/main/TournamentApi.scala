@@ -36,6 +36,7 @@ final class TournamentApi(
     verify: Condition.Verify,
     indexLeaderboard: Tournament => Funit,
     asyncCache: lila.memo.AsyncCache.Builder,
+    lightUserApi: lila.user.LightUserApi,
     standingChannel: ActorRef
 ) {
 
@@ -330,7 +331,7 @@ final class TournamentApi(
 
   private val miniStandingCache = asyncCache.multi[String, List[RankedPlayer]](
     name = "tournament.miniStanding",
-    id => PlayerRepo.bestByTourWithRank(id, 30),
+    id => PlayerRepo.bestByTourWithRank(id, 20),
     expireAfter = _.ExpireAfterWrite(3 second)
   )
 
@@ -430,10 +431,12 @@ final class TournamentApi(
 
     import lila.hub.EarlyMultiThrottler
 
-    private def publishNow(tourId: Tournament.ID) = fuccess {
-      standingChannel ! lila.socket.Channel.Publish(
-        lila.socket.Socket.makeMessage("tournamentStanding", tourId)
-      )
+    private def publishNow(tourId: Tournament.ID) = miniStanding(tourId, true) map {
+      _ ?? { m =>
+        standingChannel ! lila.socket.Channel.Publish(
+          lila.socket.Socket.makeMessage("tourStanding", JsonView.miniStanding(m, lightUserApi.sync))
+        )
+      }
     }
 
     private val throttler = system.actorOf(Props(new EarlyMultiThrottler(logger = logger)))
