@@ -51,5 +51,13 @@
     <item quantity="one">Αγωνίστηκε σε %s πρωτάθλημα</item>
     <item quantity="other">Αγωνίστηκε σε %s πρωταθλήματα</item>
   </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">Κατατάχθηκε #%1$s (κορυφαίος %2$s%%) με %3$s παιχνίδι σε %4$s</item>
+    <item quantity="other">Κατατάχθηκαν #%1$s (κορυφαίοι %2$s%%) με %3$s παιχνίδια σε %4$s</item>
+  </plurals>
   <string name="signedUp">Εγγεγραμμένοι στο lichess</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">Έγινε μέλος %s της ομάδας</item>
+    <item quantity="other">Έγιναν μέλη %s των ομάδων</item>
+  </plurals>
 </resources>
