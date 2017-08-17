@@ -7,6 +7,14 @@
   <string name="isNotRated">Ce tournoi n\'est *pas* évalué et n\'aura *pas* d\'incidence sur votre côte.</string>
   <string name="someRated">Certains tournois sont cotés et auront une incidence sur votre côte.</string>
   <string name="howAreScoresCalculated">Comment les scores sont-ils calculés ?</string>
+  <string name="berserk">Arène fou furieux</string>
+  <string name="berserkAnswer">Quand un joueur clique sur le bouton berserk au début du jeu, ils perdent la moitié de leur heure d\'horloge, mais la victoire vaut un point de tournoi supplémentaire.
+
+Le fait de passer des contrôles temporels avec une augmentation annule également l\'augmentation. (1 + 2 est une exception, il donne 1 + 0)
+
+Le bouton berserk n\'est pas disponible pour les jeux avec zéro temps initial (0 + 1, 0 + 2).
+
+L\'option berserk n\'accorde qu\'un point supplémentaire si vous jouez au moins 7 mouvements dans le jeu.</string>
   <string name="howDoesItEnd">Comment finit-il?</string>
   <string name="thisIsPrivate">Ceci est un tournoi privé</string>
 </resources>
