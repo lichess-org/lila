@@ -23,4 +23,32 @@
     <item quantity="one">Fixo %1$s xogada en %2$s partida(s) por correspondencia</item>
     <item quantity="other">Fixo %1$s xogadas en %2$s partida(s) por correspondencia</item>
   </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">Xogou %s partida por correspondencia</item>
+    <item quantity="other">Xogou %s partidas por correspondencia</item>
+  </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="one">Comezou a seguir a %s xogador</item>
+    <item quantity="other">Comezou a seguir a %s xogadores</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="one">Gañou %s novo seguidor</item>
+    <item quantity="other">Gañou %s novos seguidores</item>
+  </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="one">Ofreceu %s exhibición simultánea</item>
+    <item quantity="other">Ofreceu %s exhibicións simultáneas</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">Participou en %s exhibición simultánea</item>
+    <item quantity="other">Participou en %s exhibicións simultáneas</item>
+  </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">Creou %s novo estudo</item>
+    <item quantity="other">Creou %s novos estudos</item>
+  </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="one">Competiu nun torneo</item>
+    <item quantity="other">Competiu en %s torneos</item>
+  </plurals>
 </resources>
