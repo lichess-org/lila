@@ -51,7 +51,7 @@
   <string name="depthX">Βάθος %s</string>
   <string name="usingServerAnalysis">Ανάλυση διακομιστή</string>
   <string name="loadingEngine">Φόρτωση μηχανής ...</string>
-  <string name="cloudAnalysis">Ανάλυση συννέφου</string>
+  <string name="cloudAnalysis">Ανάλυση νέφους</string>
   <string name="goDeeper">Βαθύτερα</string>
   <string name="showThreat">Εμφάνιση απειλής</string>
   <string name="inLocalBrowser">σε τοπικό περιηγητή</string>
@@ -86,7 +86,7 @@
   <string name="openingExplorer">Εξερευνητής ανοιγμάτων και τελειωμάτων</string>
   <string name="xOpeningExplorer">%s εξερευνητής ανοιγμάτων</string>
   <string name="winPreventedBy50MoveRule">H νίκη εμποδίζεται από τον κανόνα των 50 κινήσεων</string>
-  <string name="lossSavedBy50MoveRule">Ήττα αποτρέπεται από τον κανόνα των 50 κινήσεων</string>
+  <string name="lossSavedBy50MoveRule">Η ήττα αποτρέπεται από τον κανόνα των 50 κινήσεων</string>
   <string name="allSet">Εφαρμογή!</string>
   <string name="importPgn">Εισαγωγή PGN</string>
   <string name="delete">Διαγραφή</string>
