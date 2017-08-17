@@ -608,6 +608,7 @@
   <string name="sourceCode">Πηγαίος κώδικας</string>
   <string name="simultaneousExhibitions">Ταυτόχρονες εκθέσεις</string>
   <string name="host">Διοργανωτής</string>
+  <string name="hostColorX">Χρώμα διοργανωτή: %s</string>
   <string name="createdSimuls">Πρόσφατα δημιουργημένες εκθέσεις</string>
   <string name="hostANewSimul">Διοργάνωση νέας έκθεσης</string>
   <string name="noSimulFound">Έκθεση δεν ευρέθη</string>
@@ -712,6 +713,10 @@
   <string name="yourScore">Η βαθμολογία σας: %s</string>
   <string name="language">Γλώσσα</string>
   <string name="background">Φόντο</string>
+  <string name="light">Φωτεινό</string>
+  <string name="dark">Σκοτεινό</string>
+  <string name="transparent">Διάφανο</string>
+  <string name="backgroundImageUrl">Διεύθυνση URL εικόνας φόντου:</string>
   <string name="boardGeometry">Γεωμετρία σκακιέρας</string>
   <string name="boardTheme">Θέμα σκακιέρας</string>
   <string name="boardSize">Μέγεθος σκακιέρας</string>
