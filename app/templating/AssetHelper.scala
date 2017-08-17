@@ -49,8 +49,8 @@ trait AssetHelper { self: I18nHelper =>
     s"""<script src="${staticUrl("javascripts/vendor/jquery.min.js")}"></script>"""
   }
 
-  def roundTag(withChat: Boolean)(implicit ctx: Context) =
-    jsAt(s"compiled/lichess.round${withChat ?? (".chat")}${isProd ?? (".min")}.js", async = true)
+  def roundTag(implicit ctx: Context) =
+    jsAt(s"compiled/lichess.round${isProd ?? (".min")}.js", async = true)
 
   val highchartsTag = cdnOrLocal(
     cdn = "//code.highcharts.com/4.1.4/highcharts.js",

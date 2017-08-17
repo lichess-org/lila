@@ -21,21 +21,19 @@ function normalView(ctrl: Ctrl) {
   const active = ctrl.vm.tab;
   const tabs: Array<Tab> = ['discussion'];
   if (ctrl.note) tabs.push('note');
+  if (ctrl.opts.extra) tabs.push('extra');
   return [
-    h('div.chat_tabs', {
-      class: {
-        ['nb_' + tabs.length]: true
-      }
-    }, tabs.map(t => renderTab(ctrl, t, active))),
-    h('div.content.' + active, (active === 'note' && ctrl.note) ? [noteView(ctrl.note)] : discussionView(ctrl))
+    h('div.chat_tabs.nb_' + tabs.length, tabs.map(t => renderTab(ctrl, t, active))),
+    h('div.content.' + active,
+      (active === 'note' && ctrl.note) ? [noteView(ctrl.note)] : (
+        active === 'extra' ? [extraView(ctrl)] : discussionView(ctrl)
+      ))
   ]
 }
 
 function renderTab(ctrl: Ctrl, tab: Tab, active: Tab) {
   return h('div.tab.' + tab, {
-    class: {
-      active: tab === active
-    },
+    class: { active: tab === active },
     hook: bind('click', () => ctrl.setTab(tab))
   }, tabName(ctrl, tab));
 }
@@ -55,4 +53,5 @@ function tabName(ctrl: Ctrl, tab: Tab) {
     })
   ];
   if (tab === 'note') return ctrl.trans.noarg('notes');
+  if (tab === 'extra') return ctrl.trans.noarg(ctrl.opts.extra!.name);
 }

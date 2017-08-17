@@ -9,6 +9,7 @@ import lila.app._
 import lila.common.HTTPRequest
 import lila.game.{ Pov, GameRepo }
 import lila.tournament.{ System, TournamentRepo, PairingRepo, VisibleTournaments, Tournament => Tour }
+import lila.user.{ User => UserModel }
 import views._
 
 object Tournament extends LilaController {
@@ -70,14 +71,17 @@ object Tournament extends LilaController {
     } yield Ok(html.tournament.leaderboard(winners))
   }
 
-  private def canHaveChat(tour: Tour)(implicit ctx: Context) = ctx.me ?? { u =>
+  private def canHaveChat(tour: Tour)(implicit ctx: Context): Boolean = ctx.me ?? { u =>
     if (ctx.kid) false
     else if (tour.isPrivate) true
-    else tour.variant match {
+    else canHaveChat(tour.variant, u)
+  }
+
+  protected[controllers] def canHaveChat(variant: chess.variant.Variant, u: UserModel): Boolean =
+    variant match {
       case chess.variant.Antichess => u.count.game > 10 && u.createdSinceDays(3)
       case _ => true
     }
-  }
 
   def show(id: String) = Open { implicit ctx =>
     val page = getInt("page")

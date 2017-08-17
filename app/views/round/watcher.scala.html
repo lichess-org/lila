@@ -3,7 +3,7 @@
 @title = @{ s"${gameVsText(pov.game, withRatings = true)} in ${pov.gameId}" }
 
 @moreJs = {
-@roundTag(withChat = true)
+@roundTag
 @embedJs {
 window.customWS = true;
 window.onload = function() {

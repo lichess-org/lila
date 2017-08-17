@@ -1,11 +1,11 @@
-@(pov: Pov, data: play.api.libs.json.JsObject, tour: Option[lila.tournament.MiniStanding], simul: Option[lila.simul.Simul], cross: Option[lila.game.Crosstable.WithMatchup], playing: List[Pov], chatOption: Option[lila.chat.Chat.Restricted], bookmarked: Boolean)(implicit ctx: Context)
+@(pov: Pov, data: play.api.libs.json.JsObject, tour: Option[lila.tournament.MiniStanding], simul: Option[lila.simul.Simul], cross: Option[lila.game.Crosstable.WithMatchup], playing: List[Pov], chatOption: Option[lila.chat.Chat.GameOrEvent], bookmarked: Boolean)(implicit ctx: Context)
 
 @import pov._
 
 @title = @{ s"${trans.play.txt()} ${playerText(pov.opponent)} in $gameId" }
 
 @moreJs = {
-@roundTag(withChat = chatOption.isDefined)
+@roundTag
 @embedJs {
 window.customWS = true;
 window.onload = function() {
@@ -13,8 +13,13 @@ LichessRound.boot({
 data: @Html(J.stringify(data)),
 i18n: @jsI18n(),
 userId: @jsUserId,
-chat: @jsOrNull(chatOption map { c =>
+chat: @jsOrNull(chatOption.map(_.either).map {
+case Left(c) => {
 chat.ChatJsData.restricted(c, name = trans.chatRoom.txt(), timeout = false, withNote = true, public = false)
+}
+case Right(c) => {
+chat.ChatJsData.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, public = true)
+}
 })
 }, document.getElementById('lichess'));
 };
