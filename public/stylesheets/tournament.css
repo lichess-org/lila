@@ -862,8 +862,8 @@ ol.scheduled_tournaments li.marathon {
   margin-right: 4px;
 }
 #tournament_schedule .icon {
-  font-size: 1.4em;
-  margin: -6px 2px 0 4px;
+  font-size: 1.3em;
+  margin: -4px 2px -1px 4px;
 }
 #tournament_schedule .tournament .body {
   flex: 1 0;
