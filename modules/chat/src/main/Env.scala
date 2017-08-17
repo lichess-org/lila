@@ -11,6 +11,7 @@ final class Env(
     flood: lila.security.Flood,
     shutup: ActorSelection,
     modLog: ActorSelection,
+    asyncCache: lila.memo.AsyncCache.Builder,
     system: ActorSystem
 ) {
 
@@ -36,6 +37,7 @@ final class Env(
     flood = flood,
     shutup = shutup,
     modLog = modLog,
+    asyncCache = asyncCache,
     lilaBus = system.lilaBus,
     maxLinesPerChat = MaxLinesPerChat,
     netDomain = NetDomain
@@ -59,6 +61,7 @@ object Env {
     flood = lila.security.Env.current.flood,
     shutup = lila.hub.Env.current.actor.shutup,
     modLog = lila.hub.Env.current.actor.mod,
+    asyncCache = lila.memo.Env.current.asyncCache,
     system = lila.common.PlayApp.system
   )
 }

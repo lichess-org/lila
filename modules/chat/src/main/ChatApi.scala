@@ -1,5 +1,6 @@
 package lila.chat
 
+import scala.concurrent.duration._
 import chess.Color
 import reactivemongo.api.ReadPreference
 
@@ -12,6 +13,7 @@ final class ChatApi(
     flood: lila.security.Flood,
     shutup: akka.actor.ActorSelection,
     modLog: akka.actor.ActorSelection,
+    asyncCache: lila.memo.AsyncCache.Builder,
     lilaBus: lila.common.Bus,
     maxLinesPerChat: Int,
     netDomain: String
@@ -21,6 +23,29 @@ final class ChatApi(
   import Chat.chatIdBSONHandler
 
   object userChat {
+
+    // only use for public chats - tournaments, simuls
+    object cached {
+
+      private val cache = asyncCache.clearable[Chat.Id, UserChat](
+        name = "chat.user",
+        f = find,
+        expireAfter = _.ExpireAfterAccess(1 minute)
+      )
+
+      def invalidate = cache.invalidate _
+
+      def findMine(chatId: Chat.Id, me: Option[User]): Fu[UserChat.Mine] = me match {
+        case Some(user) => findMine(chatId, user)
+        case None => cache.get(chatId) dmap { UserChat.Mine(_, false) }
+      }
+
+      private def findMine(chatId: Chat.Id, me: User): Fu[UserChat.Mine] = cache.get(chatId) flatMap { chat =>
+        (!chat.isEmpty ?? chatTimeout.isActive(chatId, me.id)) dmap {
+          UserChat.Mine(chat forUser me.some, _)
+        }
+      }
+    }
 
     def findOption(chatId: Chat.Id): Fu[Option[UserChat]] =
       coll.byId[UserChat](chatId.value)
@@ -50,6 +75,7 @@ final class ChatApi(
       makeLine(chatId, userId, text) flatMap {
         _ ?? { line =>
           pushLine(chatId, line) >>- {
+            if (public) cached invalidate chatId
             shutup ! {
               import lila.hub.actorApi.shutup._
               if (public) RecordPublicChat(chatId.value, userId, text)
@@ -90,6 +116,7 @@ final class ChatApi(
       val chat = c.markDeleted(user) add line
       coll.update($id(chat.id), chat).void >>
         chatTimeout.add(c, mod, user, reason) >>- {
+          cached invalidate chat.id
           lilaBus.publish(actorApi.OnTimeout(user.username), channelOf(chat.id))
           lilaBus.publish(actorApi.ChatLine(chat.id, line), channelOf(chat.id))
           if (isMod(mod)) modLog ! lila.hub.actorApi.mod.ChatTimeout(

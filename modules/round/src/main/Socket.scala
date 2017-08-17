@@ -97,7 +97,6 @@ private[round] final class Socket(
   }
 
   private def refreshChatSubscriptions {
-    println(s"$gameId refreshChatSubscriptions $chatIds")
     lilaBus.subscribe(self, Symbol(s"chat-${chatIds.priv}"), Symbol(s"chat-${chatIds.pub}"))
   }
 
