@@ -632,7 +632,7 @@
   <string name="sourceCode">Kod źródłowy</string>
   <string name="simultaneousExhibitions">Symultany</string>
   <string name="host">Symultanista</string>
-  <string name="hostColorX">Symultanista gra: %s</string>
+  <string name="hostColorX">Kolor symultanisty: %s</string>
   <string name="createdSimuls">Nowe</string>
   <string name="hostANewSimul">Nowa symultana</string>
   <string name="noSimulFound">Nie znaleziono symultany</string>
