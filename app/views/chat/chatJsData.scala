@@ -9,6 +9,8 @@ import lila.i18n.I18nKeys
 
 object ChatJsData {
 
+  import lila.chat.JsonView.chatIdWrites
+
   def restricted(
     chat: lila.chat.Chat.Restricted,
     name: String,
@@ -42,7 +44,7 @@ object ChatJsData {
     ),
     "i18n" -> i18n(withNote = withNote),
     "writeable" -> writeable,
-    "noteId" -> withNote.option(chat.id take 8),
+    "noteId" -> withNote.option(chat.id.value take 8),
     "public" -> public,
     "permissions" -> Json.obj("local" -> localMod)
       .add("timeout" -> isGranted(_.ChatTimeout))

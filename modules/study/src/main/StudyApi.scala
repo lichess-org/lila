@@ -11,6 +11,7 @@ import lila.hub.Sequencer
 import lila.socket.Socket.Uid
 import lila.tree.Node.{ Shapes, Comment, Gamebook }
 import lila.user.{ User, UserRepo }
+import lila.chat.Chat
 
 final class StudyApi(
     studyRepo: StudyRepo,
@@ -122,7 +123,7 @@ final class StudyApi(
           studyRepo.insert(study) >>
             newChapters.map(chapterRepo.insert).sequenceFu >>- {
               chat ! lila.chat.actorApi.SystemTalk(
-                study.id.value,
+                Chat.Id(study.id.value),
                 s"Cloned from lichess.org/study/${prev.id}"
               )
             } inject study.some
@@ -151,7 +152,7 @@ final class StudyApi(
   def talk(userId: User.ID, studyId: Study.Id, text: String, socket: ActorRef) = byId(studyId) foreach {
     _ foreach { study =>
       (study canChat userId) ?? {
-        chat ! lila.chat.actorApi.UserTalk(studyId.value, userId, text)
+        chat ! lila.chat.actorApi.UserTalk(Chat.Id(studyId.value), userId, text)
       }
     }
   }

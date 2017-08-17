@@ -20,6 +20,7 @@ import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Handler
 import lila.socket.Socket.Uid
 import lila.user.User
+import lila.chat.Chat
 import makeTimeout.short
 
 private[round] final class SocketHandler(
@@ -49,7 +50,7 @@ private[round] final class SocketHandler(
       case ("outoftime", _) => send(QuietFlag) // mobile app BC
       case ("flag", o) => clientFlag(o, none) foreach send
     }: Handler.Controller) orElse evalCacheHandler(member, me) orElse lila.chat.Socket.in(
-      chatId = s"$gameId/w",
+      chatId = Chat.Id(s"$gameId/w"),
       member = member,
       socket = socket,
       chat = messenger.chat
@@ -104,7 +105,7 @@ private[round] final class SocketHandler(
           name ← d str "n"
         } selfReport(member.userId, member.ip, s"$gameId$playerId", name)
       }: Handler.Controller) orElse lila.chat.Socket.in(
-        chatId = gameId,
+        chatId = Chat.Id(gameId),
         member = member,
         socket = socket,
         chat = messenger.chat

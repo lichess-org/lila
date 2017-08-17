@@ -4,6 +4,7 @@ import lila.api.Context
 import lila.app._
 import lila.common.{ IpAddress, EmailAddress }
 import lila.user.{ UserRepo, User => UserModel }
+import lila.chat.Chat
 import views._
 
 import play.api.data._
@@ -133,7 +134,7 @@ object Mod extends LilaController {
   def communication(username: String) = Secure(_.MarkTroll) { implicit ctx => me =>
     OptionFuOk(UserRepo named username) { user =>
       lila.game.GameRepo.recentPovsByUserFromSecondary(user, 80) flatMap { povs =>
-        Env.chat.api.playerChat optionsByOrderedIds povs.map(_.gameId) zip
+        Env.chat.api.playerChat optionsByOrderedIds povs.map(_.gameId).map(Chat.Id.apply) zip
           lila.message.ThreadRepo.visibleByUser(user.id, 40).map {
             _ filter (_ hasPostsWrittenBy user.id) take 9
           } zip

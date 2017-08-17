@@ -102,7 +102,7 @@ final class Env(
         )
         def receive: Receive = ({
           case msg @ lila.chat.actorApi.ChatLine(id, line) =>
-            self ! Tell(id take 8, msg)
+            self ! Tell(id.value take 8, msg)
           case _: lila.hub.actorApi.Deploy =>
             logger.warn("Enable history persistence")
             historyPersistenceEnabled = true

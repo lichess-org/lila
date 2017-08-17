@@ -18,57 +18,58 @@ final class ChatApi(
 ) {
 
   import Chat.userChatBSONHandler
+  import Chat.chatIdBSONHandler
 
   object userChat {
 
-    def findOption(chatId: ChatId): Fu[Option[UserChat]] =
-      coll.byId[UserChat](chatId)
+    def findOption(chatId: Chat.Id): Fu[Option[UserChat]] =
+      coll.byId[UserChat](chatId.value)
 
-    def find(chatId: ChatId): Fu[UserChat] =
+    def find(chatId: Chat.Id): Fu[UserChat] =
       findOption(chatId) dmap (_ | Chat.makeUser(chatId))
 
-    def findAll(chatIds: List[ChatId]): Fu[List[UserChat]] =
-      coll.byIds[UserChat](chatIds, ReadPreference.secondaryPreferred)
+    def findAll(chatIds: List[Chat.Id]): Fu[List[UserChat]] =
+      coll.byIds[UserChat](chatIds.map(_.value), ReadPreference.secondaryPreferred)
 
-    def findMine(chatId: ChatId, me: Option[User]): Fu[UserChat.Mine] = findMineIf(chatId, me, true)
+    def findMine(chatId: Chat.Id, me: Option[User]): Fu[UserChat.Mine] = findMineIf(chatId, me, true)
 
-    def findMineIf(chatId: ChatId, me: Option[User], cond: Boolean): Fu[UserChat.Mine] = me match {
+    def findMineIf(chatId: Chat.Id, me: Option[User], cond: Boolean): Fu[UserChat.Mine] = me match {
       case Some(user) if cond => findMine(chatId, user)
       case Some(user) => fuccess(UserChat.Mine(Chat.makeUser(chatId) forUser user.some, false))
       case None if cond => find(chatId) dmap { UserChat.Mine(_, false) }
       case None => fuccess(UserChat.Mine(Chat.makeUser(chatId), false))
     }
 
-    private def findMine(chatId: ChatId, me: User): Fu[UserChat.Mine] = find(chatId) flatMap { chat =>
+    private def findMine(chatId: Chat.Id, me: User): Fu[UserChat.Mine] = find(chatId) flatMap { chat =>
       (!chat.isEmpty ?? chatTimeout.isActive(chatId, me.id)) dmap {
         UserChat.Mine(chat forUser me.some, _)
       }
     }
 
-    def write(chatId: ChatId, userId: String, text: String, public: Boolean): Funit =
+    def write(chatId: Chat.Id, userId: String, text: String, public: Boolean): Funit =
       makeLine(chatId, userId, text) flatMap {
         _ ?? { line =>
           pushLine(chatId, line) >>- {
             shutup ! {
               import lila.hub.actorApi.shutup._
-              if (public) RecordPublicChat(chatId, userId, text)
-              else RecordPrivateChat(chatId, userId, text)
+              if (public) RecordPublicChat(chatId.value, userId, text)
+              else RecordPrivateChat(chatId.value, userId, text)
             }
             lilaBus.publish(actorApi.ChatLine(chatId, line), channelOf(chatId))
           }
         }
       }
 
-    def clear(chatId: ChatId) = coll.remove($id(chatId)).void
+    def clear(chatId: Chat.Id) = coll.remove($id(chatId)).void
 
-    def system(chatId: ChatId, text: String) = {
+    def system(chatId: Chat.Id, text: String) = {
       val line = UserLine(systemUserId, text, troll = false, deleted = false)
       pushLine(chatId, line) >>-
         lilaBus.publish(actorApi.ChatLine(chatId, line), channelOf(chatId)) inject line.some
     }
 
-    def timeout(chatId: ChatId, modId: String, userId: String, reason: ChatTimeout.Reason, local: Boolean): Funit =
-      coll.byId[UserChat](chatId) zip UserRepo.byId(modId) zip UserRepo.byId(userId) flatMap {
+    def timeout(chatId: Chat.Id, modId: String, userId: String, reason: ChatTimeout.Reason, local: Boolean): Funit =
+      coll.byId[UserChat](chatId.value) zip UserRepo.byId(modId) zip UserRepo.byId(userId) flatMap {
         case Some(chat) ~ Some(mod) ~ Some(user) if isMod(mod) || local => doTimeout(chat, mod, user, reason)
         case _ => fuccess(none)
       }
@@ -103,7 +104,7 @@ final class ChatApi(
       lilaBus.publish(actorApi.OnReinstate(r.user), Symbol(s"chat-${r.chat}"))
     }
 
-    private[ChatApi] def makeLine(chatId: String, userId: String, t1: String): Fu[Option[UserLine]] =
+    private[ChatApi] def makeLine(chatId: Chat.Id, userId: String, t1: String): Fu[Option[UserLine]] =
       UserRepo.byId(userId) zip chatTimeout.isActive(chatId, userId) dmap {
         case (Some(user), false) if !user.disabled => Writer cut t1 flatMap { t2 =>
           flood.allowMessage(user.id, t2) option
@@ -115,38 +116,38 @@ final class ChatApi(
 
   object playerChat {
 
-    def findOption(chatId: ChatId): Fu[Option[MixedChat]] =
-      coll.byId[MixedChat](chatId)
+    def findOption(chatId: Chat.Id): Fu[Option[MixedChat]] =
+      coll.byId[MixedChat](chatId.value)
 
-    def find(chatId: ChatId): Fu[MixedChat] =
+    def find(chatId: Chat.Id): Fu[MixedChat] =
       findOption(chatId) dmap (_ | Chat.makeMixed(chatId))
 
-    def findIf(chatId: ChatId, cond: Boolean): Fu[MixedChat] =
+    def findIf(chatId: Chat.Id, cond: Boolean): Fu[MixedChat] =
       if (cond) find(chatId)
       else fuccess(Chat.makeMixed(chatId))
 
-    def findNonEmpty(chatId: ChatId): Fu[Option[MixedChat]] =
+    def findNonEmpty(chatId: Chat.Id): Fu[Option[MixedChat]] =
       findOption(chatId) dmap (_ filter (_.nonEmpty))
 
-    def optionsByOrderedIds(chatIds: List[ChatId]): Fu[List[Option[MixedChat]]] =
-      coll.optionsByOrderedIds[MixedChat, ChatId](chatIds, ReadPreference.secondaryPreferred)(_.id)
+    def optionsByOrderedIds(chatIds: List[Chat.Id]): Fu[List[Option[MixedChat]]] =
+      coll.optionsByOrderedIds[MixedChat, Chat.Id](chatIds, ReadPreference.secondaryPreferred)(_.id)
 
-    def write(chatId: ChatId, color: Color, text: String): Funit =
+    def write(chatId: Chat.Id, color: Color, text: String): Funit =
       makeLine(chatId, color, text) ?? { line =>
         pushLine(chatId, line) >>-
           lilaBus.publish(actorApi.ChatLine(chatId, line), channelOf(chatId))
       }
 
-    private def makeLine(chatId: ChatId, color: Color, t1: String): Option[Line] =
+    private def makeLine(chatId: Chat.Id, color: Color, t1: String): Option[Line] =
       Writer cut t1 flatMap { t2 =>
         flood.allowMessage(s"$chatId/${color.letter}", t2) option
           PlayerLine(color, Writer preprocessUserInput t2)
       }
   }
 
-  private[chat] def remove(chatId: String) = coll.remove($id(chatId)).void
+  private[chat] def remove(chatId: Chat.Id) = coll.remove($id(chatId)).void
 
-  private def pushLine(chatId: ChatId, line: Line): Funit = coll.update(
+  private def pushLine(chatId: Chat.Id, line: Line): Funit = coll.update(
     $id(chatId),
     $doc("$push" -> $doc(
       Chat.BSONFields.lines -> $doc(
@@ -157,7 +158,7 @@ final class ChatApi(
     upsert = true
   ).void >>- lila.mon.chat.message()
 
-  private def channelOf(id: String) = Symbol(s"chat-$id")
+  private def channelOf(id: Chat.Id) = Symbol(s"chat-$id")
 
   private object Writer {
 

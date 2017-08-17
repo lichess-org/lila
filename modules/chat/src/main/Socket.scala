@@ -9,7 +9,7 @@ import lila.socket.{ Handler, SocketMember }
 object Socket {
 
   def in(
-    chatId: String,
+    chatId: Chat.Id,
     member: SocketMember,
     socket: ActorRef,
     chat: ActorSelection,

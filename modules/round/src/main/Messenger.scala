@@ -3,6 +3,7 @@ package lila.round
 import akka.actor.ActorSelection
 
 import actorApi._
+import lila.chat.Chat
 import lila.chat.actorApi._
 import lila.game.Game
 import lila.i18n.I18nKey.{ Select => SelectI18nKey }
@@ -12,18 +13,18 @@ final class Messenger(val chat: ActorSelection) {
 
   def system(game: Game, message: SelectI18nKey, args: Any*) {
     val translated = message(I18nKeys).literalTxtTo(enLang, args)
-    chat ! SystemTalk(watcherId(game.id), translated)
-    if (game.nonAi) chat ! SystemTalk(game.id, translated)
+    chat ! SystemTalk(Chat.Id(watcherId(game.id)), translated)
+    if (game.nonAi) chat ! SystemTalk(Chat.Id(game.id), translated)
   }
 
   def systemForOwners(gameId: String, message: SelectI18nKey, args: Any*) {
     val translated = message(I18nKeys).literalTxtTo(enLang, args)
-    chat ! SystemTalk(gameId, translated)
+    chat ! SystemTalk(Chat.Id(gameId), translated)
   }
 
   def watcher(gameId: String, member: Member, text: String) =
     member.userId foreach { userId =>
-      chat ! UserTalk(watcherId(gameId), userId, text)
+      chat ! UserTalk(Chat.Id(watcherId(gameId)), userId, text)
     }
 
   private val whisperCommands = List("/whisper ", "/w ")
@@ -32,13 +33,13 @@ final class Messenger(val chat: ActorSelection) {
     case Some(userId) =>
       whisperCommands.collectFirst {
         case command if text startsWith command =>
-          UserTalk(watcherId(gameId), userId, text drop command.size)
+          UserTalk(Chat.Id(watcherId(gameId)), userId, text drop command.size)
       } orElse {
         if (text startsWith "/") none // mistyped command?
-        else UserTalk(gameId, userId, text, public = false).some
+        else UserTalk(Chat.Id(gameId), userId, text, public = false).some
       }
     case None =>
-      PlayerTalk(gameId, member.color.white, text).some
+      PlayerTalk(Chat.Id(gameId), member.color.white, text).some
   }) foreach chat.!
 
   private def watcherId(gameId: String) = s"$gameId/w"

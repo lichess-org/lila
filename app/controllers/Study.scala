@@ -9,6 +9,7 @@ import lila.app._
 import lila.common.{ IpAddress, HTTPRequest }
 import lila.study.Study.WithChapter
 import lila.study.{ Chapter, Order, Study => StudyModel }
+import lila.chat.Chat
 import views._
 
 object Study extends LilaController {
@@ -136,7 +137,7 @@ object Study extends LilaController {
   }
 
   private def chatOf(study: lila.study.Study)(implicit ctx: lila.api.Context) =
-    ctx.noKid ?? Env.chat.api.userChat.findMine(study.id.value, ctx.me).map(some)
+    ctx.noKid ?? Env.chat.api.userChat.findMine(Chat.Id(study.id.value), ctx.me).map(some)
 
   def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
     get("sri") ?? { uid =>
@@ -188,7 +189,7 @@ object Study extends LilaController {
 
   def clearChat(id: String) = Auth { implicit ctx => me =>
     env.api.isOwner(id, me) flatMap {
-      _ ?? Env.chat.api.userChat.clear(id)
+      _ ?? Env.chat.api.userChat.clear(Chat.Id(id))
     } inject Redirect(routes.Study.show(id))
   }
 

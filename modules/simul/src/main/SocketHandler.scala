@@ -10,6 +10,7 @@ import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Handler
 import lila.socket.Socket.Uid
 import lila.user.User
+import lila.chat.Chat
 import makeTimeout.short
 
 private[simul] final class SocketHandler(
@@ -45,7 +46,7 @@ private[simul] final class SocketHandler(
   ): Handler.Controller = ({
     case ("p", o) => socket ! Ping(uid, o)
   }: Handler.Controller) orElse lila.chat.Socket.in(
-    chatId = simId,
+    chatId = Chat.Id(simId),
     member = member,
     socket = socket,
     chat = chat

@@ -18,6 +18,8 @@ object JsonView {
       "history" -> u.history
     )
 
+  implicit val chatIdWrites: Writes[Chat.Id] = stringIsoWriter(Chat.chatIdIso)
+
   lazy val timeoutReasons = Json toJson ChatTimeout.Reason.all
 
   implicit val timeoutReasonWriter: Writes[ChatTimeout.Reason] = OWrites[ChatTimeout.Reason] { r =>

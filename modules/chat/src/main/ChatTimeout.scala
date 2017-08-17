@@ -28,15 +28,15 @@ final class ChatTimeout(
       )).void
     }
 
-  def isActive(chatId: String, userId: User.ID): Fu[Boolean] =
+  def isActive(chatId: Chat.Id, userId: User.ID): Fu[Boolean] =
     coll.exists($doc(
       "chat" -> chatId,
       "user" -> userId,
       "expiresAt" $exists true
     ))
 
-  def activeUserIds(chat: UserChat): Fu[List[String]] =
-    coll.primitive[String]($doc(
+  def activeUserIds(chat: UserChat): Fu[List[User.ID]] =
+    coll.primitive[User.ID]($doc(
       "chat" -> chat.id,
       "expiresAt" $exists true
     ), "user")

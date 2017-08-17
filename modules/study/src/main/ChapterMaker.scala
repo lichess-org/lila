@@ -7,6 +7,7 @@ import lila.game.{ Game, Pov, GameRepo, Namer }
 import lila.importer.Importer
 import lila.round.JsonView.WithFlags
 import lila.user.User
+import lila.chat.Chat
 
 private final class ChapterMaker(
     domain: String,
@@ -132,7 +133,7 @@ private final class ChapterMaker(
   def notifyChat(study: Study, game: Game, userId: User.ID) =
     if (study.isPublic) List(game.id, s"${game.id}/w") foreach { chatId =>
       chat ! lila.chat.actorApi.UserTalk(
-        chatId = chatId,
+        chatId = Chat.Id(chatId),
         userId = userId,
         text = s"I'm studying this game on lichess.org/study/${study.id}"
       )

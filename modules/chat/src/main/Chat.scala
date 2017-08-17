@@ -3,7 +3,7 @@ package lila.chat
 import lila.user.User
 
 sealed trait AnyChat {
-  def id: ChatId
+  def id: Chat.Id
   def lines: List[Line]
 
   val loginRequired: Boolean
@@ -16,13 +16,13 @@ sealed trait AnyChat {
 }
 
 sealed trait Chat[L <: Line] extends AnyChat {
-  def id: ChatId
+  def id: Chat.Id
   def lines: List[L]
   def nonEmpty = lines.exists(_.isHuman)
 }
 
 case class UserChat(
-    id: ChatId,
+    id: Chat.Id,
     lines: List[UserLine]
 ) extends Chat[UserLine] {
 
@@ -55,7 +55,7 @@ object UserChat {
 }
 
 case class MixedChat(
-    id: ChatId,
+    id: Chat.Id,
     lines: List[Line]
 ) extends Chat[Line] {
 
@@ -78,6 +78,8 @@ case class MixedChat(
 
 object Chat {
 
+  case class Id(value: String) extends AnyVal with StringValue
+
   // if restricted, only presets are available
   case class Restricted(chat: MixedChat, restricted: Boolean)
 
@@ -89,8 +91,8 @@ object Chat {
 
   import lila.db.BSON
 
-  def makeUser(id: ChatId) = UserChat(id, Nil)
-  def makeMixed(id: ChatId) = MixedChat(id, Nil)
+  def makeUser(id: Chat.Id) = UserChat(id, Nil)
+  def makeMixed(id: Chat.Id) = MixedChat(id, Nil)
 
   object BSONFields {
     val id = "_id"
@@ -101,10 +103,13 @@ object Chat {
   import reactivemongo.bson.BSONDocument
   import Line.{ lineBSONHandler, userLineBSONHandler }
 
+  implicit val chatIdIso = lila.common.Iso.string[Id](Id.apply, _.value)
+  implicit val chatIdBSONHandler = lila.db.BSON.stringIsoHandler(chatIdIso)
+
   implicit val mixedChatBSONHandler = new BSON[MixedChat] {
     def reads(r: BSON.Reader): MixedChat = {
       MixedChat(
-        id = r str id,
+        id = r.get[Id](id),
         lines = r.get[List[Line]](lines)
       )
     }
@@ -117,7 +122,7 @@ object Chat {
   implicit val userChatBSONHandler = new BSON[UserChat] {
     def reads(r: BSON.Reader): UserChat = {
       UserChat(
-        id = r str id,
+        id = r.get[Id](id),
         lines = r.get[List[UserLine]](lines)
       )
     }

@@ -1,6 +1,6 @@
 package lila.mod
 
-import lila.chat.UserChat
+import lila.chat.{ Chat, UserChat }
 import lila.simul.Simul
 import lila.tournament.Tournament
 
@@ -13,11 +13,11 @@ final class PublicChat(
   def tournamentChats: Fu[List[(Tournament, UserChat)]] =
     tournamentApi.fetchVisibleTournaments.flatMap {
       visibleTournaments =>
-        val ids = visibleTournaments.all.map(_.id)
+        val ids = visibleTournaments.all.map(_.id) map Chat.Id.apply
         chatApi.userChat.findAll(ids).map {
           chats =>
             chats.map { chat =>
-              visibleTournaments.all.find(_.id === chat.id).map(tour => (tour, chat))
+              visibleTournaments.all.find(_.id === chat.id.value).map(tour => (tour, chat))
             }.flatten
         } map sortTournamentsByRelevance
     }
@@ -25,11 +25,11 @@ final class PublicChat(
   def simulChats: Fu[List[(Simul, UserChat)]] =
     fetchVisibleSimuls.flatMap {
       simuls =>
-        val ids = simuls.map(_.id)
+        val ids = simuls.map(_.id) map Chat.Id.apply
         chatApi.userChat.findAll(ids).map {
           chats =>
             chats.map { chat =>
-              simuls.find(_.id === chat.id).map(simul => (simul, chat))
+              simuls.find(_.id === chat.id.value).map(simul => (simul, chat))
             }.flatten
         }
     }

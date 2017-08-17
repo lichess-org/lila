@@ -17,6 +17,7 @@ import lila.socket.Socket.Uid
 import lila.socket.{ Handler, AnaMove, AnaDrop, AnaAny }
 import lila.tree.Node.{ Shape, Shapes, Comment, Gamebook }
 import lila.user.User
+import lila.chat.Chat
 import makeTimeout.short
 
 private[study] final class SocketHandler(
@@ -225,7 +226,7 @@ private[study] final class SocketHandler(
       v <- (o \ "d" \ "liked").asOpt[Boolean]
     } api.like(studyId, byUserId, v, socket, uid)
   }: Handler.Controller) orElse evalCacheHandler(member, user) orElse lila.chat.Socket.in(
-    chatId = studyId.value,
+    chatId = Chat.Id(studyId.value),
     member = member,
     socket = socket,
     chat = chat,
