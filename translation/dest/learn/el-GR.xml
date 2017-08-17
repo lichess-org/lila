@@ -101,7 +101,11 @@
   <string name="defeatTheOpponentsKing">Νικήστε τον βασιλιά του αντιπάλου</string>
   <string name="mateInOneIntro">Κερδίζετε όταν ο αντίπαλος σας δεν μπορεί να υπερασπιστεί ενάντια σε σαχ.</string>
   <string name="attackYourOpponentsKing">Επιτεθείτε στον βασιλιά του αντιπάλου σας με έναν τρόπο που δεν θα μπορεί να τον υπερασπιστεί!</string>
+  <string name="mateInOneComplete">Συγχαρητήρια! Έτσι κερδίζετε τα παιχνίδια στο σκάκι!</string>
+  <string name="intermediate">Ενδιάμεσος</string>
   <string name="boardSetup">Στήσιμο σκακιέρας</string>
+  <string name="howTheGameStarts">Πως αρχίζει το παιχνίδι</string>
+  <string name="boardSetupIntro">Οι δύο στρατοί αντιμετωπίζουν ο ένας τον άλλον, έτοιμοι για τη μάχη.</string>
   <string name="thisIsTheInitialPosition">Αυτή είναι η αρχική θέση
 κάθε παρτίδας στο σκάκι!
 Κάντε οποιαδήποτε κίνηση για συνέχεια.</string>
@@ -143,6 +147,7 @@
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Ειδική κίνηση πιονιού</string>
   <string name="enPassantIntro">Όταν το αντίπαλο πιόνι κινήθηκε δύο τετράγωνα, μπορείτε να το κόψετε σαν να είχε κινηθεί μόνο ένα τετράγωνο.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Ο μαύρος μόλις μετακίνησε το πιόνι ανά δύο τετράγωνα! Πάρτε το εν διελεύσει.</string>
   <string name="stalemate">Πατ</string>
   <string name="theGameIsADraw">Η παρτίδα είναι ισόπαλη</string>
   <string name="pieceValue">Αξία κομματιού</string>
