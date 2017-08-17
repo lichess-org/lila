@@ -12,7 +12,7 @@
   <string name="level">Уровень</string>
   <string name="toggleTheChat">Показывать окно чата</string>
   <string name="toggleSound">Вкл/выкл звук</string>
-  <string name="chat">Чат</string>
+  <string name="chat">Отправить сообщение</string>
   <string name="resign">Сдаться</string>
   <string name="checkmate">Мат</string>
   <string name="stalemate">Пат</string>
