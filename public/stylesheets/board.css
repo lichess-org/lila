@@ -938,39 +938,40 @@ div.game_tournament {
   max-height: 300px;
   overflow: hidden;
 }
-div.game_tournament:hover {
-  overflow-y: auto;
-}
 div.game_tournament .clock {
   text-align: center;
   font-size: 20px;
   font-family: 'Roboto Mono', 'Roboto';
   margin: 10px 0;
 }
-div.game_tournament table.standing {
+div.tourStanding table {
   border-bottom: none;
 }
-div.game_tournament td {
+div.tourStanding:hover {
+  overflow-y: auto!important;
+}
+div.tourStanding td {
   padding: 0 10px;
   text-align: left;
-  line-height: 2em;
+  line-height: 1.8em;
   max-width: 150px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-div.game_tournament table.slist td:first-child {
+div.tourStanding .slist td:first-child {
   padding-left: 10px;
 }
-div.game_tournament tr.me td:first-child {
-  border-left: 10px solid #d59120;
-  padding-left: 5px;
-}
-div.game_tournament td.name span {
+div.tourStanding .name span {
   display: inline-block;
   width: 20px;
 }
-div.game_tournament td.total {
+div.tourStanding .name span::before {
+  font-size: 0.8em;
+  opacity: 0.4;
+}
+div.tourStanding .total {
+  font-weight: bold;
   text-align: right;
 }
 span.inline_userlist {

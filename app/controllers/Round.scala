@@ -10,6 +10,7 @@ import lila.common.{ HTTPRequest, ApiVersion }
 import lila.game.{ Pov, GameRepo, Game => GameModel, PgnDump }
 import lila.tournament.MiniStanding
 import lila.user.{ User => UserModel }
+import lila.chat.Chat
 import views._
 
 object Round extends LilaController with TheftPrevention {
@@ -76,7 +77,7 @@ object Round extends LilaController with TheftPrevention {
         Env.api.roundApi.player(pov, apiVersion) zip
         getPlayerChat(pov.game) map {
           case _ ~ data ~ chat => Ok {
-            data.add("chat", chat.map(c => lila.chat.JsonView(c.chat)))
+            data.add("chat", chat.flatMap(_.game).map(c => lila.chat.JsonView(c.chat)))
           }
         }
     }.mon(_.http.response.player.mobile)
@@ -198,19 +199,26 @@ object Round extends LilaController with TheftPrevention {
       Env.tournament.api.miniStanding(tid, ctx.userId, withStanding)
     }
 
-  private[controllers] def getWatcherChat(game: GameModel)(implicit ctx: Context) = ctx.noKid ?? {
-    for {
-      chat <- Env.chat.api.userChat.findMineIf(s"${game.id}/w", ctx.me, !game.justCreated)
-      _ <- Env.user.lightUserApi.preloadMany(chat.chat.userIds)
-    } yield chat.some
+  private[controllers] def getWatcherChat(game: GameModel)(implicit ctx: Context): Fu[Option[lila.chat.UserChat.Mine]] = ctx.noKid ?? {
+    Env.chat.api.userChat.findMineIf(s"${game.id}/w", ctx.me, !game.justCreated) flatMap { chat =>
+      Env.user.lightUserApi.preloadMany(chat.chat.userIds) inject chat.some
+    }
   }
 
-  private[controllers] def getPlayerChat(game: GameModel)(implicit ctx: Context): Fu[Option[lila.chat.Chat.Restricted]] =
-    (game.hasChat && ctx.noKid) ?? {
-      Env.chat.api.playerChat.findIf(game.id, !game.justCreated).map { chat =>
-        lila.chat.Chat.Restricted(chat, game.fromLobby && ctx.isAnon).some
+  private[controllers] def getPlayerChat(game: GameModel)(implicit ctx: Context): Fu[Option[Chat.GameOrEvent]] = ctx.noKid ?? {
+    game.tournamentId.?? { tid =>
+      ctx.me.fold(true)(Tournament.canHaveChat(game.variant, _)) ??
+        Env.chat.api.userChat.findMine(tid, ctx.me).map { chat =>
+          Chat.GameOrEvent(Right(chat truncate 50)).some
+        }
+    }.orElse {
+      game.hasChat ?? {
+        Env.chat.api.playerChat.findIf(game.id, !game.justCreated).map { chat =>
+          Chat.GameOrEvent(Left(Chat.Restricted(chat, game.fromLobby && ctx.isAnon))).some
+        }
       }
     }
+  }
 
   def playerText(fullId: String) = Open { implicit ctx =>
     OptionResult(GameRepo pov fullId) { pov =>

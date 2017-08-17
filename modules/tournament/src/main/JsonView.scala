@@ -7,6 +7,7 @@ import scala.concurrent.duration._
 
 import chess.Clock.{ Config => TournamentClock }
 import lila.common.PimpedJson._
+import lila.common.LightUser
 import lila.game.{ GameRepo, Pov }
 import lila.quote.Quote.quoteWriter
 import lila.rating.PerfType
@@ -322,6 +323,20 @@ final class JsonView(
 }
 
 object JsonView {
+
+  def miniStanding(m: MiniStanding, getLightUser: LightUser.GetterSync): JsObject = Json.obj(
+    "standing" -> (~m.standing).map {
+      case RankedPlayer(rank, player) =>
+        val light = getLightUser(player.userId)
+        Json.obj(
+          "name" -> light.fold(player.userId)(_.name),
+          "rank" -> rank,
+          "score" -> player.score
+        ).add("title" -> light.flatMap(_.title))
+          .add("fire" -> scala.util.Random.nextBoolean) //player.fire)
+          .add("withdraw" -> scala.util.Random.nextBoolean) //player.withdraw)
+    }
+  )
 
   private def formatDate(date: DateTime) = ISODateTimeFormat.dateTime print date
 

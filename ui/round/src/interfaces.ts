@@ -2,6 +2,8 @@ import { VNode } from 'snabbdom/vnode';
 import { GameData, Status } from 'game';
 import { ClockData, Seconds, Centis } from './clock/clockCtrl';
 import { CorresClockData } from './corresClock/corresClockCtrl';
+import { TourStandingData } from './tourStanding';
+import { ChatPlugin } from 'chat';
 import * as cg from 'chessground/types';
 
 export type MaybeVNode = VNode | null | undefined;
@@ -80,11 +82,14 @@ export interface RoundOpts {
   crosstableEl: HTMLElement;
   i18n: any;
   chat?: Chat;
+  tour?: TourStandingData;
 }
 
 export interface Chat {
   preset: 'start' | 'end' | null;
   parseMoves?: boolean;
+  plugin?: ChatPlugin;
+  alwaysEnabled: boolean;
 }
 
 export interface Step {

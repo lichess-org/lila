@@ -71,6 +71,8 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
   def lightUser(userId: String): Option[LightUser] = Env.user lightUserSync userId
   def lightUser(userId: Option[String]): Option[LightUser] = userId flatMap lightUser
 
+  // def lightUserSync: LightUser.SyncGetter(userId: String): Option[LightUser] = Env.user lightUserSync userId
+
   def usernameOrId(userId: String) = lightUser(userId).fold(userId)(_.titleName)
   def usernameOrAnon(userId: Option[String]) = lightUser(userId).fold(User.anonymous)(_.titleName)
 

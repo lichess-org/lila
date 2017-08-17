@@ -3,13 +3,13 @@
 @title = @{ s"${gameVsText(pov.game, withRatings = true)} in ${pov.gameId}" }
 
 @moreJs = {
-@roundTag(withChat = true)
+@roundTag
 @embedJs {
 window.customWS = true;
 window.onload = function() {
 LichessRound.boot({
 data: @Html(J.stringify(data)),
-i18n: @jsI18n(),
+i18n: @jsI18n(pov.game),
 chat: @jsOrNull(chatOption map { c =>
 chat.ChatJsData.json(c.chat, name = trans.spectatorRoom.txt(), timeout = c.timeout, withNote = ctx.isAuth, public = true)
 })

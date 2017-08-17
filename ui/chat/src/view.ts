@@ -10,7 +10,9 @@ export default function(ctrl: Ctrl): VNode {
 
   const mod = ctrl.moderation();
 
-  return h('div#chat.side_box.mchat', {
+  console.log(ctrl);
+
+  return h('div#chat.side_box.mchat' + (ctrl.opts.alwaysEnabled ? '' : '.optional'), {
     class: {
       mod: !!mod
     }
@@ -21,21 +23,19 @@ function normalView(ctrl: Ctrl) {
   const active = ctrl.vm.tab;
   const tabs: Array<Tab> = ['discussion'];
   if (ctrl.note) tabs.push('note');
+  if (ctrl.plugin) tabs.push(ctrl.plugin.tab.key);
   return [
-    h('div.chat_tabs', {
-      class: {
-        ['nb_' + tabs.length]: true
-      }
-    }, tabs.map(t => renderTab(ctrl, t, active))),
-    h('div.content.' + active, (active === 'note' && ctrl.note) ? [noteView(ctrl.note)] : discussionView(ctrl))
+    h('div.chat_tabs.nb_' + tabs.length, tabs.map(t => renderTab(ctrl, t, active))),
+    h('div.content.' + active,
+      (active === 'note' && ctrl.note) ? [noteView(ctrl.note)] : (
+        ctrl.plugin && active === ctrl.plugin.tab.key ? [ctrl.plugin.view()] : discussionView(ctrl)
+      ))
   ]
 }
 
 function renderTab(ctrl: Ctrl, tab: Tab, active: Tab) {
   return h('div.tab.' + tab, {
-    class: {
-      active: tab === active
-    },
+    class: { active: tab === active },
     hook: bind('click', () => ctrl.setTab(tab))
   }, tabName(ctrl, tab));
 }
@@ -43,7 +43,7 @@ function renderTab(ctrl: Ctrl, tab: Tab, active: Tab) {
 function tabName(ctrl: Ctrl, tab: Tab) {
   if (tab === 'discussion') return [
     h('span', ctrl.data.name),
-    h('input.toggle_chat', {
+    ctrl.opts.alwaysEnabled ? undefined : h('input.toggle_chat', {
       attrs: {
         type: 'checkbox',
         title: ctrl.trans.noarg('toggleTheChat'),
@@ -55,4 +55,5 @@ function tabName(ctrl: Ctrl, tab: Tab) {
     })
   ];
   if (tab === 'note') return ctrl.trans.noarg('notes');
+  if (ctrl.plugin && tab === ctrl.plugin.tab.key) return ctrl.plugin.tab.name;
 }

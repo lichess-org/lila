@@ -3,12 +3,12 @@
 @title = @{ s"${channel.name} TV: ${playerText(pov.player)} vs ${playerText(pov.opponent)}" }
 
 @moreJs = {
-@roundTag(withChat = false)
+@roundTag
 @embedJs {
 window.onload = function() {
 LichessRound.boot({
 data: @Html(J.stringify(data)),
-i18n: @round.jsI18n()
+i18n: @round.jsI18n(pov.game)
 }, document.getElementById('lichess'));
 };
 }

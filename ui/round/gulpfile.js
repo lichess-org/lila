@@ -13,8 +13,8 @@ function onError(error) {
   gutil.log(gutil.colors.red(error.message));
 }
 
-function build(debug, withChat) {
-  return browserify('src/' + (withChat ? 'withChat' : 'main') + '.ts', {
+function build(debug) {
+  return browserify('src/main.ts', {
     standalone: 'LichessRound',
     debug: debug
   })
@@ -35,28 +35,23 @@ function bundle() {
 watchedBrowserify.on('update', bundle);
 watchedBrowserify.on('log', gutil.log);
 
-function dev(withChat) {
-  return () => build(true, withChat)
+function dev() {
+  return () => build(true)
     .bundle()
-    .pipe(source('lichess.round' + (withChat ? '.chat' : '') + '.js'))
+    .pipe(source('lichess.round.js'))
     .pipe(gulp.dest(destination));
 };
-gulp.task('dev-alone', dev(false));
-gulp.task('dev-chat', dev(true));
+gulp.task('dev', dev(false));
 
-function prod(withChat) {
-  return () => build(false, withChat)
+function prod() {
+  return () => build(false)
     .bundle()
-    .pipe(source('lichess.round' + (withChat ? '.chat' : '') + '.min.js'))
+    .pipe(source('lichess.round.min.js'))
     .pipe(buffer())
     .pipe(uglify())
     .pipe(gulp.dest(destination));
 }
 
-gulp.task('prod-alone', prod(false));
-gulp.task('prod-chat', prod(true));
-
-gulp.task('prod', ['prod-alone', 'prod-chat']);
-gulp.task('dev', ['dev-alone', 'dev-chat']);
+gulp.task('prod', prod(false));
 
 gulp.task('default', bundle);
