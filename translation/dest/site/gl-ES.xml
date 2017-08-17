@@ -501,12 +501,17 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="soundWhenTimeGetsCritical">Aviso cando se esgota o tempo</string>
   <string name="gameBehavior">Comportamento na partida</string>
   <string name="howDoYouMovePieces">Como moves as pezas?</string>
+  <string name="clickTwoSquares">Pinchando na casilla de orixe e despois na de destino</string>
+  <string name="dragPiece">Arrastrando a peza</string>
+  <string name="bothClicksAndDrag">Ambas</string>
   <string name="premovesPlayingDuringOpponentTurn">Premovementos (xogar durante o tempo do teu rival)</string>
   <string name="takebacksWithOpponentApproval">Rectificar xogadas (co permiso do rival)</string>
   <string name="promoteToQueenAutomatically">Coroar Dama automaticamente</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Automaticamente reclamar táboas por triple repetición</string>
   <string name="privacy">Privacidade</string>
   <string name="letOtherPlayersFollowYou">Permitir a outros xogadores seguirte</string>
   <string name="letOtherPlayersChallengeYou">Permitir a outros xogadores retarte</string>
+  <string name="letOtherPlayersInviteYouToStudy">Deixa que outros xogadores che conviden a estudos</string>
   <string name="sound">Son</string>
   <string name="yourPreferencesHaveBeenSaved">As túas preferencias foron gardadas.</string>
   <string name="none">Ningunha</string>
@@ -529,11 +534,15 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="xAnsweredY">%1$s respondeu %2$s</string>
   <string name="xCommentedY">%1$s comentou %2$s</string>
   <string name="victory">Vitoria!</string>
+  <string name="defeat">Derrota</string>
+  <string name="xVsYinZ">%1$s contra %2$s
+en %3$s</string>
   <string name="timeline">Historial</string>
   <string name="seeAllTournaments">Ver todos os torneos</string>
   <string name="starting">Comezo:</string>
   <string name="allInformationIsPublicAndOptional">Toda a información é pública e opcional.</string>
   <string name="yourCityRegionOrDepartment">A túa cidade, rexión, ou provincia.</string>
+  <string name="biographyDescription">Cóntanos sobre ti, que che gusta do xadrez, as túas aperturas preferidas, partidas, xogadores…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Máximo: %s caracteres.</item>
     <item quantity="other">Máximo: %s caracteres.</item>
@@ -555,6 +564,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="playOnTheBoardOffline">No taboleiro</string>
   <string name="playOfflineComputer">Máquina</string>
   <string name="opponent">Rival</string>
+  <string name="learnMenu">Aprender</string>
   <string name="community">Comunidade</string>
   <string name="tools">Ferramentas</string>
   <string name="increment">Incremento</string>
@@ -567,7 +577,9 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="error.email">Este enderezo de correo non é válido</string>
   <string name="error.email_acceptable">Este enderezo de correo non é aceptable</string>
   <string name="error.email_unique">Este enderezo de correo xa está en uso</string>
+  <string name="error.email_different">Este xa é o teu enderezo de correo electrónico</string>
   <string name="blindfoldChess">Xadrez a cegas (pezas invisibles)</string>
+  <string name="zenMode">Modo zen</string>
   <string name="moveConfirmation">Confirmación do movemento</string>
   <string name="inCorrespondenceGames">Partidas por correspondencia</string>
   <string name="ifRatingIsPlusMinusX">Se a puntuación é ± %s</string>
@@ -596,6 +608,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="sourceCode">Código Fonte</string>
   <string name="simultaneousExhibitions">Exhibicións simultáneas</string>
   <string name="host">Anfitrión</string>
+  <string name="hostColorX">Cor do anfitrión: %s</string>
   <string name="createdSimuls">Simultáneas creadas recentemente</string>
   <string name="hostANewSimul">Crear unha nova simultánea</string>
   <string name="noSimulFound">Simultánea non atopada</string>
