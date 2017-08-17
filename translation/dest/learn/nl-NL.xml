@@ -163,14 +163,22 @@ de hoogste waarde!
 Dame &gt; loper</string>
   <string name="takeThePieceWithTheHighestValue">Sla het stuk met
 de hoogste waarde!</string>
+  <string name="pieceValueComplete">Gefeliciteerd! Je kent de waarde van materiaal! 
+Koningin = 9 
+Toren = 5 
+Loper = 3 
+Paard = 3 
+Pion = 1</string>
   <string name="checkInTwo">Schaak in twee zetten</string>
   <string name="twoMovesToGiveCheck">Twee zetten om schaak te geven</string>
   <string name="checkInTwoIntro">Vind de juiste twee zetten om de koning van de tegenstander schaak te zetten!</string>
+  <string name="whatNext">En nu?</string>
   <string name="puzzles">Puzzels</string>
   <string name="videos">Video\'s</string>
   <string name="watchInstructiveChessVideos">Bekijk leerzame schaakvideo\'s</string>
   <string name="playPeople">Tegen mensen</string>
   <string name="playMachine">Tegen computer</string>
+  <string name="testYourSkillsWithTheComputer">Test je vaardigheden tegen de computer</string>
   <string name="letsGo">Laten we starten!</string>
   <string name="stageX">Stap %s</string>
   <string name="awesome">Geweldig!</string>
@@ -181,6 +189,7 @@ de hoogste waarde!</string>
   <string name="wayToGo">Super, goed gedaan!</string>
   <string name="yesYesYes">Ok, ok, ok!</string>
   <string name="youreGoodAtThis">Je bent hier goed in!</string>
+  <string name="nailedIt">Goed gedaan.</string>
   <string name="stageXComplete">Stap %s voltooid</string>
   <string name="yourScore">Jouw score</string>
   <string name="next">Volgende</string>
