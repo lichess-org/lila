@@ -76,19 +76,19 @@
   </div>
   }
 
-  @tour match {
-  case Some(m) if !m.tour.isCreated => { @tournament.gameStanding(m) }
-  case Some(m) => {
-  <div class="game_tournament side_box no_padding">
+  @tour.map { m =>
+  <div class="game_tournament side_box no_padding scroll-shadow-soft">
     <p class="top text" data-icon="g"><a href="@routes.Tournament.show(m.tour.id)">@m.tour.fullName</a></p>
+    <div class="clock" data-time="@m.tour.secondsToFinish">
+      <div class="time">@m.tour.clockStatus</div>
+    </div>
+    @tournament.gameStanding(m)
   </div>
-  }
-  case _ => {
+  }.getOrElse {
   @game.tournamentId.map { tourId =>
   <div class="game_tournament side_box no_padding">
     <p class="top text" data-icon="g"><a href="@routes.Tournament.show(tourId)">@tournamentIdToName(tourId)</a></p>
   </div>
-  }
   }
   }
 

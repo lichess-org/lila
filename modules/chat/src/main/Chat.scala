@@ -44,10 +44,14 @@ case class UserChat(
   def mapLines(f: UserLine => UserLine) = copy(lines = lines map f)
 
   def userIds = lines.map(_.userId)
+
+  def truncate(max: Int) = copy(lines = lines.drop((lines.size - max) atLeast 0))
 }
 
 object UserChat {
-  case class Mine(chat: UserChat, timeout: Boolean)
+  case class Mine(chat: UserChat, timeout: Boolean) {
+    def truncate(max: Int) = copy(chat = chat truncate max)
+  }
 }
 
 case class MixedChat(
@@ -76,6 +80,12 @@ object Chat {
 
   // if restricted, only presets are available
   case class Restricted(chat: MixedChat, restricted: Boolean)
+
+  // left: game chat
+  // right: tournament/simul chat
+  case class GameOrEvent(either: Either[Restricted, UserChat.Mine]) {
+    def game = either.left.toOption
+  }
 
   import lila.db.BSON
 

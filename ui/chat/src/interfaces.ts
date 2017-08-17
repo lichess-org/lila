@@ -11,6 +11,12 @@ export interface ChatOpts {
   preset?: string
   noteId?: string
   loadCss: (url: string) => void
+  extra?: ExtraTab
+}
+
+export interface ExtraTab {
+  name: string; // i18n key
+  content: string; // HTML
 }
 
 export interface ChatData {
@@ -36,7 +42,7 @@ export interface Permissions {
   shadowban?: boolean
 }
 
-export type Tab = 'discussion' | 'note'
+export type Tab = 'discussion' | 'note' | 'extra';
 
 export interface Ctrl {
   data: ChatData

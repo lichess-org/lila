@@ -3,17 +3,19 @@ import { presetCtrl } from './preset'
 import { noteCtrl } from './note'
 import { moderationCtrl } from './moderation'
 
+const li = window.lichess;
+
 export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
 
   const data = opts.data;
 
-  const pubsub = window.lichess.pubsub;
+  const pubsub = li.pubsub;
 
   let moderation: ModerationCtrl | undefined;
 
   const vm: ViewModel = {
     tab: 'discussion',
-    enabled: !window.lichess.storage.get('nochat'),
+    enabled: !li.storage.get('nochat'),
     placeholderKey: 'talkInChat',
     loading: false,
     timeout: opts.timeout,
@@ -52,7 +54,7 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
     redraw();
   };
 
-  const trans = window.lichess.trans(opts.i18n);
+  const trans = li.trans(opts.i18n);
 
   function canMod() {
     return opts.permissions.timeout || opts.permissions.local;
@@ -62,7 +64,7 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
     moderation = canMod() ? moderationCtrl({
       reasons: opts.timeoutReasons || ([{key: 'other', name: 'Inappropriate behavior'}]),
       permissions: opts.permissions,
-      send: window.lichess.pubsub.emit('socket.send'),
+      send: li.pubsub.emit('socket.send'),
       redraw
     }) : undefined;
     if (canMod()) opts.loadCss('/assets/stylesheets/chat.mod.css');
@@ -114,8 +116,8 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
     setEnabled(v: boolean) {
       vm.enabled = v;
       emitEnabled();
-      if (!v) window.lichess.storage.set('nochat', '1');
-      else window.lichess.storage.remove('nochat');
+      if (!v) li.storage.set('nochat', '1');
+      else li.storage.remove('nochat');
       redraw();
     }
   };

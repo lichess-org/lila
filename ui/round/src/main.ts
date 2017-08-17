@@ -11,6 +11,7 @@ import { RoundOpts } from './interfaces';
 import RoundController from './ctrl';
 import MoveOn from './moveOn';
 import { main as view } from './view/main';
+import * as chat from 'chat';
 import boot from './boot';
 
 export interface RoundApi {
@@ -46,6 +47,7 @@ export function app(opts: RoundOpts): RoundApi {
 
 export { boot };
 
+window.LichessChat = chat;
 // that's for the rest of lichess to access chessground
 // without having to include it a second time
 window.Chessground = Chessground;
