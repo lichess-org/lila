@@ -367,9 +367,9 @@ chalk@^1.0.0, chalk@^1.1.1:
     strip-ansi "^3.0.0"
     supports-color "^2.0.0"
 
-chessground@^7.1.1:
-  version "7.1.1"
-  resolved "https://registry.yarnpkg.com/chessground/-/chessground-7.1.1.tgz#b5cfccd9ead20e8a17789318d85e200c33e79a1c"
+chessground@^7.1.2:
+  version "7.1.2"
+  resolved "https://registry.yarnpkg.com/chessground/-/chessground-7.1.2.tgz#e514ece85de99ce0874d5d2f016f99dee85d6c6e"
 
 chokidar@^1.0.0:
   version "1.7.0"
