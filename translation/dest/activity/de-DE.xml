@@ -20,7 +20,7 @@
     <item quantity="other">Hat %1$s Nachrichten in %2$s geschrieben</item>
   </plurals>
   <plurals name="playedNbMoves">
-    <item quantity="one">Hat %1$s Zug in %2$s Fernschachpartie gemacht</item>
+    <item quantity="one">Hat %1$s Zug in %2$s Fernschachpartie(n) gemacht</item>
     <item quantity="other">Hat %1$s Züge in %2$s Fernschachpartie(n) gemacht</item>
   </plurals>
   <plurals name="completedNbGames">
@@ -32,8 +32,8 @@
     <item quantity="other">Folgt %s Spielern</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="one">Hat %s neuen Folger gewonnen</item>
-    <item quantity="other">Hat %s neue Folger gewonnen</item>
+    <item quantity="one">Hat %s neue Follower</item>
+    <item quantity="other">Hat %s neue Follower</item>
   </plurals>
   <plurals name="hostedNbSimuls">
     <item quantity="one">Hat %s Simultanvorstellung gegeben</item>
@@ -52,8 +52,8 @@
     <item quantity="other">Hat an %s Turnieren teilgenommen</item>
   </plurals>
   <plurals name="rankedInTournament">
-    <item quantity="one">Platz #%1$s (obere %2$s%%) mit %3$s Spiel in %4$s</item>
-    <item quantity="other">Platz #%1$s (obere %2$s%%) mit %3$s Spielen in %4$s</item>
+    <item quantity="one">Hat Platz #%1$s (obere %2$s%%) mit %3$s Spiel in %4$s erreicht</item>
+    <item quantity="other">Hat Platz #%1$s (obere %2$s%%) mit %3$s Spielen in %4$s erreicht</item>
   </plurals>
   <string name="signedUp">Hat sich bei Lichess angemeldet</string>
   <plurals name="joinedNbTeams">
