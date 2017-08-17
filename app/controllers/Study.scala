@@ -313,7 +313,7 @@ object Study extends LilaController {
     )
 
   private def canView(study: StudyModel)(implicit ctx: lila.api.Context) =
-    study.isPublic || ctx.userId.exists(study.members.contains)
+    !study.isPrivate || ctx.userId.exists(study.members.contains)
 
   private implicit def makeStudyId(id: String): StudyModel.Id = StudyModel.Id(id)
   private implicit def makeChapterId(id: String): Chapter.Id = Chapter.Id(id)

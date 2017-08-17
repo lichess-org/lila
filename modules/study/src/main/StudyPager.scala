@@ -12,7 +12,7 @@ final class StudyPager(
 ) {
 
   import BSONHandlers._
-  import studyRepo.{ selectPublic, selectPrivate, selectMemberId, selectOwnerId, selectLiker }
+  import studyRepo.{ selectPublic, selectPrivateOrUnlisted, selectMemberId, selectOwnerId, selectLiker }
 
   def all(me: Option[User], order: Order, page: Int) = paginator(
     accessSelect(me), me, order, page, fuccess(9999).some
@@ -31,7 +31,7 @@ final class StudyPager(
   )
 
   def minePrivate(me: User, order: Order, page: Int) = paginator(
-    selectOwnerId(me.id) ++ selectPrivate, me.some, order, page
+    selectOwnerId(me.id) ++ selectPrivateOrUnlisted, me.some, order, page
   )
 
   def mineMember(me: User, order: Order, page: Int) = paginator(

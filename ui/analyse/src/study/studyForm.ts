@@ -29,6 +29,7 @@ type Choice = [string, string];
 
 const visibilityChoices: Choice[] = [
   ['public', 'Public'],
+  ['unlisted', 'Unlisted'],
   ['private', 'Invite only']
 ];
 const userSelectionChoices: Choice[] = [
