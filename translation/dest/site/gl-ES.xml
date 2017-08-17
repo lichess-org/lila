@@ -168,6 +168,11 @@
   <string name="forgotPassword">Esqueciches o teu contrasinal?</string>
   <string name="rank">Clasificación</string>
   <string name="rankX">Clasificación: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">A clasificación actualízase cada %s minutos</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s problema</item>
+    <item quantity="other">%s problema</item>
+  </plurals>
   <string name="gamesPlayed">Partidas xogadas</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s partidas contigo</item>
@@ -206,6 +211,8 @@
   <string name="play">Xogar</string>
   <string name="inbox">Bandexa de entrada</string>
   <string name="chatRoom">Sala de chat</string>
+  <string name="loginToChat">Inicia sesión para chatear</string>
+  <string name="youHaveBeenTimedOut">Foches silenciado temporalmente.</string>
   <string name="spectatorRoom">Sala do espectador</string>
   <string name="composeMessage">Escribir mensaxe</string>
   <string name="noNewMessages">Non hai novas mensaxes</string>
@@ -215,6 +222,10 @@
   <string name="incrementInSeconds">Incremento en segundos</string>
   <string name="freeOnlineChess">Xadrez libre en liña</string>
   <string name="spectators">Espectadores:</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s puntuadas</item>
+    <item quantity="other">%s puntuadas</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s vitorias</item>
     <item quantity="other">%s vitorias</item>
@@ -227,14 +238,20 @@
     <item quantity="one">%s táboas</item>
     <item quantity="other">%s táboas</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s en xogo</item>
+    <item quantity="other">%s en xogo</item>
+  </plurals>
   <string name="exportGames">Exportar partidas</string>
   <string name="ratingRange">Rango de puntuación</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dar %s segundos</item>
     <item quantity="other">Dar %s segundos</item>
   </plurals>
+  <string name="giveMoreTime">Dar máis tempo</string>
   <string name="thisPlayerUsesChessComputerAssistance">Este xogador axúdase de programas de xadrez</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Este xogador varía artificialmente a súa puntuación</string>
+  <string name="openingExplorerAndTablebase">Explorador de aperturas e base de datos de finais</string>
   <string name="takeback">Rectificar xogada</string>
   <string name="proposeATakeback">Propoñer cambio de xogada</string>
   <string name="takebackPropositionSent">Proposta de cambio enviada</string>
@@ -283,12 +300,15 @@
   <string name="fromPosition">Dende posición</string>
   <string name="continueFromHere">Continuar dende aquí</string>
   <string name="importGame">Importar partida</string>
+  <string name="importGameExplanation">Ao pegar o PGN dunha partida, obténse unha repetición navegable,
+unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Partidas importadas</item>
     <item quantity="other">%s Partidas importadas</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Isto é un CAPTCHA de xadrez.</string>
   <string name="clickOnTheBoardToMakeYourMove">Fai clic no tableiro para facer a túa xogada, e probar que es humano.</string>
+  <string name="captcha.fail">Por favor resolve o captcha de xadrez.</string>
   <string name="notACheckmate">Non é xaque mate.</string>
   <string name="colorPlaysCheckmateInOne">%s xogan; xaque mate nunha xogada</string>
   <string name="retry">Reintentar</string>
@@ -296,6 +316,7 @@
   <string name="onlineFriends">Amigos conectados</string>
   <string name="noFriendsOnline">Ningún amigo conectado</string>
   <string name="findFriends">Atopar amigos</string>
+  <string name="favoriteOpponents">Rivais preferidos</string>
   <string name="follow">Seguir</string>
   <string name="following">Seguindo</string>
   <string name="unfollow">Deixar de seguir</string>
@@ -337,14 +358,34 @@
   <string name="winStreak">Secuencia de vitorias</string>
   <string name="createdBy">Creado por</string>
   <string name="tournamentIsStarting">O torneo vai comezar</string>
+  <string name="tournamentPairingsAreNowClosed">Os emparellamentos do torneo están pechados agora.</string>
+  <string name="standByX">Agarda %s, emparellando xogadores, prepárate!</string>
+  <string name="youArePlaying">Estás xogando!</string>
+  <string name="winRate">Porcentaxe de victorias</string>
+  <string name="berserkRate">Porcentaxe de berserk</string>
+  <string name="performance">Rendemento</string>
+  <string name="tournamentComplete">Torneo rematado</string>
+  <string name="movesPlayed">Movementos xogados</string>
+  <string name="whiteWins">Brancas gañan</string>
+  <string name="blackWins">Negras gañan</string>
+  <string name="draws">Táboas</string>
+  <string name="nextXTournament">Seguinte torneo %s:</string>
+  <string name="viewMoreTournaments">Ver máis torneos</string>
+  <string name="averageOpponent">Opoñente promedio</string>
   <string name="membersOnly">Só membros</string>
   <string name="boardEditor">Editor de taboleiro</string>
+  <string name="setTheBoard">Configurar o taboleiro</string>
+  <string name="popularOpenings">Aperturas populares</string>
   <string name="startPosition">Posición inicial</string>
   <string name="clearBoard">Limpar taboleiro</string>
   <string name="savePosition">Gardar posición</string>
   <string name="loadPosition">Cargar posición</string>
   <string name="isPrivate">Privado</string>
   <string name="reportXToModerators">Denunciar a %s ós moderadores</string>
+  <string name="profileCompletion">Perfil completado ao %s</string>
+  <string name="xRating">Puntuación %s</string>
+  <string name="ifNoneLeaveEmpty">Se non aplica, déixao en branco</string>
+  <string name="gameCompletionRate">Porcentaxe de partidas completadas: %s</string>
   <string name="profile">Perfil</string>
   <string name="editProfile">Editar perfil</string>
   <string name="firstName">Nome</string>
@@ -373,6 +414,7 @@
   <string name="keepGoing">Continúa...</string>
   <string name="puzzleFailed">Problema fallado</string>
   <string name="butYouCanKeepTrying">Pero podes seguir intentándoo.</string>
+  <string name="success">Éxito</string>
   <string name="wasThisPuzzleAnyGood">Que che pareceu este problema?</string>
   <string name="pleaseVotePuzzle">Axúdanos a mellorar Lichess votando, mediante as frechas arriba e abaixo:</string>
   <string name="thankYou">Grazas!</string>
@@ -439,6 +481,7 @@
   <string name="closeAccountExplanation">Estás seguro de que queres pechar a túa conta? Pechar a túa conta é unha decisión permanente. Xa non poderás autenticarte, e o teu perfil xa non será accesible.</string>
   <string name="thisAccountIsClosed">Esta conta está pechada.</string>
   <string name="invalidUsernameOrPassword">Nome de usuario ou contrasinal non válidos</string>
+  <string name="incorrectPassword">Contrasinal incorrecto</string>
   <string name="emailMeALink">Mándame unha ligazón por correo</string>
   <string name="currentPassword">Contrasinal actual</string>
   <string name="newPassword">Novo contrasinal</string>
@@ -447,6 +490,9 @@
   <string name="pieceDestinations">Destino das pezas (xogadas válidas e premovementos)</string>
   <string name="boardCoordinates">Coordenadas do taboleiro (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Lista de xogadas mentres xogas</string>
+  <string name="pgnPieceNotation">Notación das xogadas</string>
+  <string name="chessPieceSymbol">Símbolo da peza de xadrez</string>
+  <string name="pgnLetter">Inicial (en inglés) da peza (K, Q, R, B, N)</string>
   <string name="chessClock">Reloxo de xadrez</string>
   <string name="tenthsOfSeconds">Décimas de segundo</string>
   <string name="never">Nunca</string>
@@ -454,6 +500,7 @@
   <string name="horizontalGreenProgressBars">Barras horizontais de progreso verdes</string>
   <string name="soundWhenTimeGetsCritical">Aviso cando se esgota o tempo</string>
   <string name="gameBehavior">Comportamento na partida</string>
+  <string name="howDoYouMovePieces">Como moves as pezas?</string>
   <string name="premovesPlayingDuringOpponentTurn">Premovementos (xogar durante o tempo do teu rival)</string>
   <string name="takebacksWithOpponentApproval">Rectificar xogadas (co permiso do rival)</string>
   <string name="promoteToQueenAutomatically">Coroar Dama automaticamente</string>
@@ -663,9 +710,18 @@
   <string name="usernameStartNoNumber">O nome de usuario non pode comezar cun número.</string>
   <string name="usernameUnacceptable">Este nome de usuario non é aceptable.</string>
   <string name="directlySupportLichess">Apoiar directamente a Lichess</string>
+  <string name="playChessInStyle">Xogar ao xadrez con estilo</string>
+  <string name="chessBasics">Fundamentos de xadrez</string>
+  <string name="coaches">Entrenadores</string>
+  <string name="invalidPgn">PGN non válido</string>
+  <string name="invalidFen">FEN non válido</string>
   <string name="error.minLength">A lonxitude mínima é de %s</string>
   <string name="error.maxLength">A lonxitude máxima é de %s</string>
+  <string name="error.min">Debe ser maior ou igual que %s</string>
+  <string name="error.max">Debe ser menor ou igual que %s</string>
   <string name="error.unknown">Erro</string>
+  <string name="custom">Á medida</string>
   <string name="notifications">Notificacións</string>
   <string name="challenges">Desafíos</string>
+  <string name="perfRatingX">Puntuación: %s</string>
 </resources>
