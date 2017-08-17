@@ -85,11 +85,13 @@ final class Cached(
     keyToString = _.toString
   )
 
-  val top50Online = asyncCache.single[List[User]](
+  private val top50Online = asyncCache.single[List[User]](
     name = "user.top50online",
     f = UserRepo.byIdsSortRating(onlineUserIdMemo.keys, 50),
     expireAfter = _.ExpireAfterWrite(10 seconds)
   )
+
+  def getTop50Online = top50Online.get.nevermind
 
   object ranking {
 

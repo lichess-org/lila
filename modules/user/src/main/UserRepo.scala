@@ -90,7 +90,7 @@ object UserRepo {
     )
       .sort($doc(s"perfs.standard.gl.r" -> -1))
       .list[Bdoc](nb, ReadPreference.secondaryPreferred).map {
-        _.flatMap { _.getAs[String]("_id") }
+        _.flatMap { _.getAs[User.ID]("_id") }
       }
 
   private[user] def allSortToints(nb: Int) =
