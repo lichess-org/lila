@@ -145,6 +145,9 @@ trait WithPlay { self: PackageObject =>
     def nevermind: Fu[A] = fua recover {
       case e: lila.common.LilaException => zero[A]
       case e: java.util.concurrent.TimeoutException => zero[A]
+      case e: Exception =>
+        lila.log("common").warn("Future.nevermind", e)
+        zero[A]
     }
   }
 
