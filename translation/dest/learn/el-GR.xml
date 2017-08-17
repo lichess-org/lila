@@ -209,4 +209,9 @@
   <string name="nailedIt">To βρήκες.</string>
   <string name="rightOn">Μπράβο!</string>
   <string name="stageXComplete">Στάδιο %s ολοκληρώθηκε</string>
+  <string name="yourScore">Η βαθμοί σας</string>
+  <string name="next">Επόμενο</string>
+  <string name="backToMenu">Επιστροφή στο μενού</string>
+  <string name="puzzleFailed">Αποτύχατε τον γρίφο!</string>
+  <string name="retry">Ξαναδοκιμάστε</string>
 </resources>
