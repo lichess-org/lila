@@ -211,6 +211,7 @@
   <string name="inbox">Căsuță poștală</string>
   <string name="chatRoom">Zona de chat</string>
   <string name="loginToChat">Conectare la chat</string>
+  <string name="youHaveBeenTimedOut">Timpul alocat v-a fost suprimat.</string>
   <string name="spectatorRoom">Zona spectatorilor</string>
   <string name="composeMessage">Compune un mesaj</string>
   <string name="noNewMessages">Niciun mesaj nou</string>
@@ -242,6 +243,7 @@
     <item quantity="few">Acordă %s secunde</item>
     <item quantity="other">Acordă %s secunde</item>
   </plurals>
+  <string name="giveMoreTime">Adaugă timp adversarului</string>
   <string name="thisPlayerUsesChessComputerAssistance">Acest jucător este asistat de un program de analiză</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Jucătorul și-a crescut ratingul în mod artificial</string>
   <string name="takeback">Revocare</string>
@@ -338,7 +340,10 @@
   <string name="winStreak">Victorii consecutive</string>
   <string name="createdBy">Creat de</string>
   <string name="tournamentIsStarting">Turneul începe</string>
+  <string name="tournamentPairingsAreNowClosed">Cuplarea partenerilor de turneu s-a încheiat.</string>
+  <string name="standByX">Fii pe fază, %s, jucătorii sunt cuplați, pregătește-te!</string>
   <string name="youArePlaying">Vă jucați!</string>
+  <string name="winRate">Rată de câștig</string>
   <string name="membersOnly">Doar pentru membri</string>
   <string name="boardEditor">Editorul de tablă</string>
   <string name="setTheBoard">Aşează tabla</string>
