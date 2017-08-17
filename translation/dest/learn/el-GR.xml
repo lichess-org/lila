@@ -102,7 +102,7 @@
   <string name="mateInOneIntro">Κερδίζετε όταν ο αντίπαλος σας δεν μπορεί να υπερασπιστεί ενάντια σε σαχ.</string>
   <string name="attackYourOpponentsKing">Επιτεθείτε στον βασιλιά του αντιπάλου σας με έναν τρόπο που δεν θα μπορεί να τον υπερασπιστεί!</string>
   <string name="mateInOneComplete">Συγχαρητήρια! Έτσι κερδίζετε τα παιχνίδια στο σκάκι!</string>
-  <string name="intermediate">Ενδιάμεσος</string>
+  <string name="intermediate">Για ενδιάμεσους</string>
   <string name="boardSetup">Στήσιμο σκακιέρας</string>
   <string name="howTheGameStarts">Πως αρχίζει το παιχνίδι</string>
   <string name="boardSetupIntro">Οι δύο στρατοί αντιμετωπίζουν ο ένας τον άλλον, έτοιμοι για τη μάχη.</string>
@@ -148,9 +148,34 @@
   <string name="theSpecialPawnMove">Ειδική κίνηση πιονιού</string>
   <string name="enPassantIntro">Όταν το αντίπαλο πιόνι κινήθηκε δύο τετράγωνα, μπορείτε να το κόψετε σαν να είχε κινηθεί μόνο ένα τετράγωνο.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Ο μαύρος μόλις μετακίνησε το πιόνι ανά δύο τετράγωνα! Πάρτε το εν διελεύσει.</string>
+  <string name="enPassantOnlyWorksImmediately">Το εν διελεύσει λειτουργεί μόνο αμέσως αφού ο αντίπαλος έχει μετακινήσει το πιόνι.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Το εν διελεύσει λειτουργεί μόνο αν το πιόνι σας βρίσκεται στην 5η βαθμίδα.</string>
+  <string name="takeAllThePawnsEnPassant">Πάρτε όλα τα πιόνια εν διελεύσει!</string>
+  <string name="enPassantComplete">Συγχαρητήρια! Μπορείτε να πάρετε τώρα εν διελεύσει.</string>
   <string name="stalemate">Πατ</string>
   <string name="theGameIsADraw">Η παρτίδα είναι ισόπαλη</string>
+  <string name="stalemateIntro">Όταν ένας παίκτης δεν είναι σε σαχ και δεν έχει να κάνει κάποια νόμιμη κίνηση, τότε είναι πατ. Το παιχνίδι λήγει ισόπαλο: κανείς δεν κερδίζει, κανείς δεν χάνει.</string>
+  <string name="stalemateGoal">Πατ στα μαύρα: - Ο μαύρος δεν μπορεί να κινηθεί πουθενά - δεν υπάρχει σαχ.</string>
+  <string name="stalemateComplete">Συγχαρητήρια! Καλύτερα πατ παρά σαχ-ματ!</string>
+  <string name="advanced">Για προχωρημένους</string>
   <string name="pieceValue">Αξία κομματιού</string>
+  <string name="evaluatePieceStrength">Αξιολογήστε τη δύναμη του κομματιού</string>
+  <string name="pieceValueIntro">Τα κομμάτια με υψηλή ευκινησία έχουν υψηλότερη αξία!
+Βασίλισσα = 9
+Πύργος = 5
+Αξιωματικός = 3
+Ίππος = 3
+Πιόνι = 1
+Ο βασιλιάς είναι ανεκτίμητος! Η απώλεια του σημαίνει ήττα στο παιχνίδι.</string>
+  <string name="queenOverBishop">Πάρτε το κομμάτι με την υψηλότερη αξία!
+Βασίλισσα &gt; Αξιωματικός</string>
+  <string name="takeThePieceWithTheHighestValue">Πάρτε το κομμάτι με την υψηλότερη αξία!</string>
+  <string name="pieceValueComplete">Συγχαρητήρια! Γνωρίζετε την αξία του υλικού! 
+Βασίλισσα = 9 
+Πύργος = 5 
+Αξιωματικός = 3 
+Ίππος = 3
+ Πιόνι = 1</string>
   <string name="checkInTwo">Σαχ σε δύο</string>
   <string name="twoMovesToGiveCheck">Δύο κινήσεις για σαχ</string>
   <string name="checkInTwoIntro">Βρείτε το σωστό συνδυασμό δύο κινήσεων που δίνει σαχ στο Βασιλιά του αντιπάλου!</string>
@@ -161,4 +186,9 @@
   <string name="youKnowHowToPlayChess">Γνωρίζετε πώς να παίζετε σκάκι, συγχαρητήρια! Θέλετε να γίνετε ισχυρότερος παίχτης;</string>
   <string name="register">Εγγραφή</string>
   <string name="getAFreeLichessAccount">Αποκτήστε δωρεάν λογαριασμό Lichess</string>
+  <string name="practice">Εξάσκηση</string>
+  <string name="learnCommonChessPositions">Μάθετε κοινές θέσεις σκακιού</string>
+  <string name="puzzles">Γρίφοι</string>
+  <string name="exerciseYourTacticalSkills">Εξασκήστε τις τακτικές σας ικανότητες</string>
+  <string name="videos">Βίντεο</string>
 </resources>
