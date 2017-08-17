@@ -142,17 +142,14 @@ object Schedule {
       case (Hourly, _, Classical) if s.hasMaxRating => 57
       case (Hourly, _, Classical) => 117
 
-      case (Daily | Eastern, _, UltraBullet | HyperBullet | Bullet) => 60
-      case (Daily | Eastern, _, HippoBullet | SuperBlitz) => 90
+      case (Daily | Eastern, Standard, SuperBlitz) => 90
       case (Daily | Eastern, Standard, Blitz) => 120
+      case (Daily | Eastern, _, Blitz) => 90
       case (Daily | Eastern, _, Classical) => 150
-
-      case (Daily | Eastern, Crazyhouse, Blitz) => 90
-      case (Daily | Eastern, _, Blitz) => 60 // variant daily is shorter
+      case (Daily | Eastern, _, _) => 60
 
       case (Weekly, _, UltraBullet | HyperBullet | Bullet) => 60 * 2
-      case (Weekly, _, HippoBullet | SuperBlitz) => 60 * 3
-      case (Weekly, _, Blitz) => 60 * 3
+      case (Weekly, _, HippoBullet | SuperBlitz | Blitz) => 60 * 3
       case (Weekly, _, Classical) => 60 * 4
 
       case (Weekend, _, UltraBullet | HyperBullet | Bullet) => 90
