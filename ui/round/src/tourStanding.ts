@@ -28,11 +28,9 @@ export function tourStandingCtrl(data: TourStandingData, name: string): ChatPlug
           return h('tr.' + p.name, [
             h('td.name', [
               p.withdraw ? h('span', justIcon('Z')) : h('span.rank', '' + p.rank),
-            h('a.user_link.ulpt', {
-              attrs: {
-                href: `/@/${p.name}`
-              }
-            }, (p.title ? p.title + ' ' : '') + p.name)
+              h('a.user_link.ulpt', {
+                attrs: { href: `/@/${p.name}` }
+              }, (p.title ? p.title + ' ' : '') + p.name)
             ]),
             h('td.total', p.fire ? {
               class: { 'is-gold': true },
