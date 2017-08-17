@@ -300,8 +300,7 @@
   <string name="fromPosition">Von Stellung</string>
   <string name="continueFromHere">Von hier aus weiterspielen</string>
   <string name="importGame">Importiere Partie</string>
-  <string name="importGameExplanation">Du bekommst eine Computeranalyse, einen Chat
-und eine URL, wenn du dein PGN einfügst.</string>
+  <string name="importGameExplanation">Wenn du ein PGN einfügst bekommst du eine Spielwiederholung, eine Computeranalyse, einen Spielchat und eine teilbare URL.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importierte Partie</item>
     <item quantity="other">%s importierte Partien</item>
@@ -374,7 +373,7 @@ und eine URL, wenn du dein PGN einfügst.</string>
   <string name="averageOpponent">Durchschnittlicher Gegner</string>
   <string name="membersOnly">Nur für Mitglieder</string>
   <string name="boardEditor">Stellung aufbauen</string>
-  <string name="setTheBoard">Spielbrett einstellen</string>
+  <string name="setTheBoard">Spielbrett aufbauen</string>
   <string name="popularOpenings">Beliebte Eröffnungen</string>
   <string name="startPosition">Anfangsposition</string>
   <string name="clearBoard">Brett räumen</string>
@@ -414,7 +413,7 @@ und eine URL, wenn du dein PGN einfügst.</string>
   <string name="keepGoing">Mach weiter...</string>
   <string name="puzzleFailed">Nicht gelöst</string>
   <string name="butYouCanKeepTrying">Aber du kannst es trotzdem weiterversuchen.</string>
-  <string name="success">Abgeschlossen</string>
+  <string name="success">Korrekt</string>
   <string name="wasThisPuzzleAnyGood">Wie fandest du diese Aufgabe?</string>
   <string name="pleaseVotePuzzle">Verbessere Lichess, indem du mit den Pfeilen abstimmst:</string>
   <string name="thankYou">Vielen Dank!</string>
@@ -425,12 +424,12 @@ und eine URL, wenn du dein PGN einfügst.</string>
   </plurals>
   <string name="fromGameLink">Aus der Partie %s</string>
   <string name="continueTraining">Training fortsetzen</string>
-  <string name="retryThisPuzzle">Nochmal probieren</string>
+  <string name="retryThisPuzzle">Diese Aufgabe erneut versuchen</string>
   <string name="thisPuzzleIsCorrect">Diese Aufgabe ist korrekt und interessant</string>
   <string name="thisPuzzleIsWrong">Diese Aufgabe ist falsch oder langweilig</string>
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Du hast %s Sekunde, um deinen ersten Zug zu machen!</item>
-    <item quantity="other">Du hast %s Sekunden, um deinen ersten Zug zu machen!</item>
+    <item quantity="one">Du hast %s Sekunde um deinen ersten Zug zu machen!</item>
+    <item quantity="other">Du hast %s Sekunden um deinen ersten Zug zu machen!</item>
   </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s laufende Partie</item>
@@ -439,7 +438,7 @@ und eine URL, wenn du dein PGN einfügst.</string>
   <string name="automaticallyProceedToNextGameAfterMoving">Nach dem Zug automatisch zur nächsten Partie gehen</string>
   <string name="autoSwitch">Automatischer Wechsel</string>
   <string name="puzzles">Aufgaben</string>
-  <string name="latestUpdates">Blog</string>
+  <string name="latestUpdates">Neueste Updates</string>
   <string name="tournamentWinners">Turniersieger</string>
   <string name="name">Name</string>
   <string name="description">Beschreibung</string>
@@ -450,7 +449,7 @@ und eine URL, wenn du dein PGN einfügst.</string>
   <string name="topics">Themen</string>
   <string name="posts">Beiträge</string>
   <string name="lastPost">Letzter Beitrag</string>
-  <string name="views">Angesehen</string>
+  <string name="views">Besuche</string>
   <string name="replies">Antworten</string>
   <string name="replyToThisTopic">Auf diesen Beitrag antworten</string>
   <string name="reply">Antworten</string>
