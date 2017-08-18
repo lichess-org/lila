@@ -368,7 +368,7 @@
   <string name="whiteWins">Beyaz zaferleri</string>
   <string name="blackWins">Siyah zaferleri</string>
   <string name="draws">Beraberlikler</string>
-  <string name="nextXTournament">Sıradaki %s turnuvası:</string>
+  <string name="nextXTournament">Sıradaki %s Turnuvası:</string>
   <string name="viewMoreTournaments">Diğer turnuvalara göz at</string>
   <string name="averageOpponent">Ortalama rakip</string>
   <string name="membersOnly">Sadece üyeler</string>
