@@ -23,4 +23,16 @@
     <item quantity="one">Jouer %1$s coup en %2$s partie(s) par correspondance</item>
     <item quantity="other">Jouer %1$s coups en %2$s partie(s) par correspondance</item>
   </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">%s partie par correspondance terminée</item>
+    <item quantity="other">%s parties par correspondance terminées</item>
+  </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">%s nouvelle étude créée</item>
+    <item quantity="other">%s nouvelles études créées</item>
+  </plurals>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">Rejoindre %s équipe</item>
+    <item quantity="other">Rejoindre %s équipes</item>
+  </plurals>
 </resources>
