@@ -39,7 +39,7 @@ object Simul extends LilaController {
         for {
           version <- env.version(sim.id)
           json <- env.jsonView(sim)
-          chat <- ctx.noKid ?? Env.chat.api.userChat.findMine(Chat.Id(sim.id), ctx.me).map(some)
+          chat <- ctx.noKid ?? Env.chat.api.userChat.cached.findMine(Chat.Id(sim.id), ctx.me).map(some)
           _ <- chat ?? { c => Env.user.lightUserApi.preloadMany(c.chat.userIds) }
         } yield html.simul.show(sim, version, json, chat)
       }
