@@ -27,6 +27,9 @@ body.dark #insight .ms-parent,
 body.dark #insight .ms-parent button {
   color: #a0a0a0;
 }
+body.dark #insight header {
+  color: #ddd;
+}
 body.dark #insight .ms-drop.bottom {
     box-shadow: 0 4px 5px rgba(0, 0, 0, 0.9);
 }
