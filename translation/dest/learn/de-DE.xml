@@ -84,23 +84,23 @@
   <string name="youCanGetOutOfCheckByTaking">Du kannst dem Schach entkommen, indem du die angreifende Figur schlägst.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Dieser Springer bietet durch deine Verteidigung hindurch Schach!</string>
   <string name="escapeOrBlock">Entkomme mit dem König oder blocke den Angriff!</string>
-  <string name="outOfCheckComplete">Herzlichen Glückwunsch! Der König kann nicht geschlagen werden, stelle deshalb sicher, dass du dich gegen ein Schach verteidigen kannst!</string>
-  <string name="mateInOne">Matt in 1</string>
+  <string name="outOfCheckComplete">Herzlichen Glückwunsch! Dein König kann nie geschlagen werden, stelle deshalb sicher, dass du dich gegen ein Schach verteidigen kannst!</string>
+  <string name="mateInOne">Matt in einem Zug</string>
   <string name="defeatTheOpponentsKing">Besiege den gegnerischen König</string>
   <string name="mateInOneIntro">Du gewinnst, wenn sich dein Gegner nicht gegen ein Schach verteidigen kann.</string>
   <string name="attackYourOpponentsKing">Greife den gegnerischen König so an, dass er sich nicht verteidigen kann!</string>
   <string name="mateInOneComplete">Herzlichen Glückwunsch! So gewinnt man im Schach!</string>
-  <string name="intermediate">Mittelstufe</string>
+  <string name="intermediate">Fortgeschrittener Anfänger</string>
   <string name="boardSetup">Aufstellung</string>
   <string name="howTheGameStarts">Wie das Spiel beginnt</string>
   <string name="boardSetupIntro">Die beiden Armeen stehen einander gegenüber, bereit für die Schlacht.</string>
-  <string name="thisIsTheInitialPosition">Dies ist die Ausgangsposition jeder Schachpartie. Mache einen beliebigen Zug, um fortzusetzen.</string>
+  <string name="thisIsTheInitialPosition">Dies ist die Ausgangsposition jeder Schachpartie. Ziehe einen beliebigen Zug, um fortzusetzen.</string>
   <string name="firstPlaceTheRooks">Setze zuerst die Türme! Sie stehen in den Ecken.</string>
   <string name="thenPlaceTheKnights">Platziere jetzt die Springer! Sie stehen neben den Türmen.</string>
   <string name="placeTheBishops">Platziere die Läufer! Sie stehen neben den Springern.</string>
   <string name="placeTheQueen">Platziere die Dame. Sie steht auf ihrer eigenen Farbe.</string>
   <string name="placeTheKing">Platziere den König! Direkt neben der Dame.</string>
-  <string name="pawnsFormTheFrontLine">Bauern bilden die Front. Mache einen beliebigen Zug, um fortzusetzen.</string>
+  <string name="pawnsFormTheFrontLine">Bauern bilden die Front. Ziehe einen beliebigen Zug, um fortzufahren.</string>
   <string name="boardSetupComplete">Herzlichen Glückwunsch! Du weißt jetzt, wie man die Schachfiguren aufstellt.</string>
   <string name="castling">Rochade</string>
   <string name="theSpecialKingMove">Der besondere Königszug</string>
@@ -110,7 +110,7 @@
   <string name="theKnightIsInTheWay">Der Springer ist im Weg! Bewege ihn weg und rochiere dann kurz.</string>
   <string name="castleKingSideMovePiecesFirst">Rochiere kurz! Du musst zuerst Figuren wegbewegen.</string>
   <string name="castleQueenSideMovePiecesFirst">Rochiere lang! Du musst zuerst Figuren wegbewegen.</string>
-  <string name="youCannotCastleIfMoved">Du kannst nicht rochieren, wenn der König oder der Turm bereits bewegt wurde.</string>
+  <string name="youCannotCastleIfMoved">Du kannst nicht rochieren, wenn der König oder der Turm bereits bewegt wurden.</string>
   <string name="youCannotCastleIfAttacked">Du kannst nicht rochieren, wenn der König auf seinem Weg bedroht wird. Blocke das Schach und rochiere dann!</string>
   <string name="findAWayToCastleKingSide">Finde eine Möglichkeit,
 kurz zu rochieren!</string>
