@@ -57,7 +57,10 @@ module.exports = function(ctrl) {
             }
           },
           ctrl.trans('join'))
-      )) : null,
+      )) : m('a.button.top_right.text', {
+        'data-icon': 'G',
+        href: '/login?referrer=' + window.location.pathname
+      }, ctrl.trans('signIn')),
     util.title(ctrl),
     simul.acceptedContainsMe(ctrl) ? m('div.instructions',
       'You have been selected! Hold still, the simul is about to begin.'
