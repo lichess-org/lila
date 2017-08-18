@@ -21,7 +21,7 @@
           @t.perfType.map(_.name)
           }
           @if(!t.position.initial) {
-          • thematic
+          • @trans.thematic()
           } • @t.mode.fold(trans.casual, trans.rated)()
         </span>
       </a>

@@ -11,7 +11,7 @@
         @tour.perfType.map(_.name)
         }
         @if(!tour.position.initial) {
-        • thematic
+        • @trans.thematic()
         } • @tour.durationString
       </span>
       @tour.mode.fold(trans.casual, trans.rated)() •
