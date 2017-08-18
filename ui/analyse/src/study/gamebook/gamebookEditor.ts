@@ -66,12 +66,12 @@ export function render(ctrl: AnalyseCtrl): VNode {
       'Or promote it as the mainline if it is the right move.')
   ];
 
-  return h('div.gamebook', {
+  return h('div.gamebook_wrap', {
     hook: {
       insert: _ => window.lichess.loadCss('/assets/stylesheets/gamebook.editor.css')
     }
   }, [
-    h('div.editor', content)
+    h('div.gamebook', content)
   ]);
 }
 

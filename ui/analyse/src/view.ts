@@ -164,9 +164,9 @@ function navClick(ctrl: AnalyseCtrl, action: 'prev' | 'next') {
 }
 
 function buttons(ctrl: AnalyseCtrl) {
-  const canJumpPrev = ctrl.path !== '';
-  const canJumpNext = !!ctrl.node.children[0];
-  const menuIsOpen = ctrl.actionMenu.open;
+  const canJumpPrev = ctrl.path !== '',
+  canJumpNext = !!ctrl.node.children[0],
+  menuIsOpen = ctrl.actionMenu.open;
   return h('div.game_control', {
     hook: bind('mousedown', e => {
       const action = dataAct(e);
@@ -249,8 +249,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
   studyStateClass = chapter ? chapter.id + ctrl.study!.vm.loading : 'nostudy',
   gamebookPlayer = ctrl.gamebookPlayer(),
   gamebookPlayerView = gamebookPlayer && gbPlayer.render(gamebookPlayer),
-  gamebookEditorView = gbEditor.running(ctrl) ? gbEditor.render(ctrl) : undefined,
-  isGamebook = !!(gamebookPlayerView || gamebookEditorView);
+  gamebookEditorView = gbEditor.running(ctrl) ? gbEditor.render(ctrl) : undefined;
   return h('div.analyse.cg-512', [
     h('div.' + studyStateClass, {
       hook: {
@@ -262,8 +261,8 @@ export default function(ctrl: AnalyseCtrl): VNode {
       class: {
         'gauge_displayed': ctrl.showEvalGauge(),
         'no_computer': !ctrl.showComputer(),
-        'is_gamebook': isGamebook,
-        'is_gamebook_editor': !!gamebookEditorView
+        'gb_editor': !!gamebookEditorView,
+        'gb_player': !!gamebookPlayerView
       }
     }, [
       h('div.lichess_game', {
@@ -272,19 +271,19 @@ export default function(ctrl: AnalyseCtrl): VNode {
         }
       }, [
         visualBoard(ctrl),
-        h('div.lichess_ground', [
+        h('div.lichess_ground', gamebookPlayerView || [
           menuIsOpen ? null : renderClocks(ctrl),
           menuIsOpen ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
           ...(menuIsOpen ? [actionMenu(ctrl)] : [
             cevalView.renderCeval(ctrl),
             showCevalPvs ? cevalView.renderPvs(ctrl) : null,
             renderAnalyse(ctrl, concealOf),
-            isGamebook ? undefined : forkView(ctrl, concealOf),
+            gamebookEditorView ? null : forkView(ctrl, concealOf),
             retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl)
           ]),
           menuIsOpen ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
           buttons(ctrl),
-          gamebookEditorView || gamebookPlayerView
+          gamebookEditorView
         ])
       ])
     ]),

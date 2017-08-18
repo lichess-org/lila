@@ -1,25 +1,25 @@
-.is_gamebook_editor .lichess_game .lichess_ground {
+.gb_editor .lichess_game .lichess_ground {
   margin-bottom: -517px;
 }
-.is_gamebook_editor .gamebook {
+.gb_editor .gamebook_wrap {
   height: 500px;
 }
-.gamebook .editor {
+.gb_editor .gamebook {
   background: #e0e0e0;
   display: flex;
   flex-flow: column;
 }
-.gamebook .editor .deviation,
-.gamebook .editor .hint {
+.gb_editor .gamebook .deviation,
+.gb_editor .gamebook .hint {
   padding-top: 8px;
   display: flex;
   flex-flow: column;
 }
-.gamebook .editor label {
+.gb_editor .gamebook label {
   display: block;
   padding: 0 0 8px 10px;
 }
-.gamebook .editor textarea {
+.gb_editor .gamebook textarea {
   resize: vertical;
   width: 100%;
   box-sizing: border-box;
@@ -27,23 +27,23 @@
   border-width: 1px 0;
   padding: 5px;
 }
-.gamebook .editor .hint textarea {
+.gb_editor .gamebook .hint textarea {
   height: 5em;
 }
-.gamebook .editor .legend {
+.gb_editor .gamebook .legend {
   padding: 8px 10px;
   border-bottom: 1px solid #ccc;
 }
-.gamebook .editor .legend::before {
+.gb_editor .gamebook .legend::before {
   display: block;
   float: left;
   font-size: 2.5em;
   margin: 2px 8px 0 0;
   opacity: 0.5;
 }
-.gamebook .editor .todo {
+.gb_editor .gamebook .todo {
   border-left: 5px solid #dc322f;
 }
-.gamebook .editor .done {
+.gb_editor .gamebook .done {
   border-left: 5px solid #759900;
 }

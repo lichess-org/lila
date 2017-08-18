@@ -14,9 +14,7 @@ export function render(ctrl: GamebookPlayerCtrl): VNode {
   comment = (root.node.comments || [])[0];
 
   return h('div.gamebook', {
-    hook: {
-      insert: _ => window.lichess.loadCss('/assets/stylesheets/gamebook.player.css')
-    }
+    hook: { insert: _ => window.lichess.loadCss('/assets/stylesheets/gamebook.player.css') }
   }, [
     h('div.player', [
       h('div.turn', isMyMove ? 'Your move' : 'Opponent move'),
