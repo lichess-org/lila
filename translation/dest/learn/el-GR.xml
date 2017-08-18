@@ -18,7 +18,7 @@
   <string name="useTwoRooks">Χρησιμοποιήστε δύο πύργους για να επιταχύνετε τα πράγματα!</string>
   <string name="rookComplete">Συγχαρητήρια! Επιτυχώς χειριστήκατε τον πύργο.</string>
   <string name="theBishop">Ο αξιωματικός</string>
-  <string name="itMovesDiagonally">Κινείται διαγωνίως</string>
+  <string name="itMovesDiagonally">Κινείται διαγώνια</string>
   <string name="bishopIntro">Στη συνέχεια θα μάθουμε πως να χειριζόμαστε τον αξιωματικό!</string>
   <string name="youNeedBothBishops">Ένας λευκοτετράγωνος αξιωματικός,
 ένας μαυροτετράγωνος αξιωματικός.
@@ -35,8 +35,8 @@
   <string name="lastOne">Το τελευταίο!</string>
   <string name="kingComplete">Τώρα, μπορείτε να χειρίζεστε τον στρατηγό!</string>
   <string name="theKnight">Ο ίππος</string>
-  <string name="itMovesInAnLShape">Κινείται σε σχήμα L</string>
-  <string name="knightIntro">Εδώ είναι μια δοκιμασία για εσάς. Ο ιππότης είναι.. ένα περίεργο κομμάτι.</string>
+  <string name="itMovesInAnLShape">Κινείται σε σχήμα Γ</string>
+  <string name="knightIntro">Εδώ είναι μια δοκιμασία για εσάς. Ο ίππος είναι.. ένα περίεργο κομμάτι.</string>
   <string name="knightsHaveAFancyWay">Οι ίπποι έχουν ένα παράξενο τρόπο
 να πηδούν τριγύρω!</string>
   <string name="knightsCanJumpOverObstacles">Οι ίπποι μπορούν να υπερπηδούν εμπόδια!
@@ -79,8 +79,33 @@
 αλλά υπάρχει άμυνα!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Αποτρέψτε το κόψιμο
 ανυπεράσπιστων κομματιών!</string>
+  <string name="combat">Δράση</string>
+  <string name="captureAndDefendPieces">Αιχμαλωτίστε και υπερασπιστείτε τα κομμάτια</string>
+  <string name="combatIntro">Ο καλός μαχητής γνωρίζει τόσο την επίθεση όσο και την άμυνα!</string>
+  <string name="combatComplete">Συγχαρητήρια! Ξέρετε πως να μάχεστε με τα κομμάτια σκακιού!</string>
+  <string name="checkInOne">Σαχ σε μία</string>
+  <string name="attackTheOpponentsKing">Επίθεση στον βασιλιά του αντιπάλου</string>
+  <string name="checkInOneIntro">Για να κάνετε σαχ στον αντίπαλο σας, επιτεθείτε τον βασιλιά του. Πρέπει να τον υπερασπιστεί!</string>
+  <string name="checkInOneGoal">Απειλήστε τον βασιλιά του αντιπάλου με μία κίνηση!</string>
+  <string name="checkInOneComplete">Συγχαρητήρια! Κάνατε σαχ στον αντίπαλο, αναγκάζοντας τον να προστατεύσει τον βασιλιά του!</string>
+  <string name="outOfCheck">Ξεφεύγοντας από σαχ</string>
+  <string name="defendYourKing">Υπερασπιστείτε τον βασιλιά σας</string>
+  <string name="outOfCheckIntro">Είστε σε σαχ! Πρέπει να ξεφύγετε ή να αποκλείσετε την επίθεση.</string>
+  <string name="escapeWithTheKing">Ξεφύγετε με τον βασιλιά!</string>
+  <string name="theKingCannotEscapeButBlock">Ο βασιλιάς δεν μπορεί να ξεφύγει, αλλά μπορείτε να αποκλείσετε την επίθεση!</string>
+  <string name="youCanGetOutOfCheckByTaking">Μπορείτε να ξεφύγετε από το σαχ παίρνοντας το επιτιθέμενο πιόνι.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Αυτός ο ίππος κάνει σαχ μέσω της άμυνας σας!</string>
+  <string name="escapeOrBlock">Ξεφύγετε με τον βασιλιά ή αποκλείστε την επίθεση!</string>
+  <string name="outOfCheckComplete">Συγχαρητήρια! Ο βασιλιάς σας είναι ασφαλής, βεβαιωθείτε ότι θα μπορείτε να προστατεύσετε ενάντια σε ένα σαχ!</string>
   <string name="mateInOne">Ματ σε μία</string>
+  <string name="defeatTheOpponentsKing">Νικήστε τον βασιλιά του αντιπάλου</string>
+  <string name="mateInOneIntro">Κερδίζετε όταν ο αντίπαλος σας δεν μπορεί να υπερασπιστεί ενάντια σε σαχ.</string>
+  <string name="attackYourOpponentsKing">Επιτεθείτε στον βασιλιά του αντιπάλου σας με έναν τρόπο που δεν θα μπορεί να τον υπερασπιστεί!</string>
+  <string name="mateInOneComplete">Συγχαρητήρια! Έτσι κερδίζετε τα παιχνίδια στο σκάκι!</string>
+  <string name="intermediate">Για ενδιάμεσους</string>
   <string name="boardSetup">Στήσιμο σκακιέρας</string>
+  <string name="howTheGameStarts">Πως αρχίζει το παιχνίδι</string>
+  <string name="boardSetupIntro">Οι δύο στρατοί αντιμετωπίζουν ο ένας τον άλλον, έτοιμοι για τη μάχη.</string>
   <string name="thisIsTheInitialPosition">Αυτή είναι η αρχική θέση
 κάθε παρτίδας στο σκάκι!
 Κάντε οποιαδήποτε κίνηση για συνέχεια.</string>
@@ -122,17 +147,71 @@
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Ειδική κίνηση πιονιού</string>
   <string name="enPassantIntro">Όταν το αντίπαλο πιόνι κινήθηκε δύο τετράγωνα, μπορείτε να το κόψετε σαν να είχε κινηθεί μόνο ένα τετράγωνο.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Ο μαύρος μόλις μετακίνησε το πιόνι ανά δύο τετράγωνα! Πάρτε το εν διελεύσει.</string>
+  <string name="enPassantOnlyWorksImmediately">Το εν διελεύσει λειτουργεί μόνο αμέσως αφού ο αντίπαλος έχει μετακινήσει το πιόνι.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Το εν διελεύσει λειτουργεί μόνο αν το πιόνι σας βρίσκεται στην 5η βαθμίδα.</string>
+  <string name="takeAllThePawnsEnPassant">Πάρτε όλα τα πιόνια εν διελεύσει!</string>
+  <string name="enPassantComplete">Συγχαρητήρια! Μπορείτε να πάρετε τώρα εν διελεύσει.</string>
   <string name="stalemate">Πατ</string>
   <string name="theGameIsADraw">Η παρτίδα είναι ισόπαλη</string>
+  <string name="stalemateIntro">Όταν ένας παίκτης δεν είναι σε σαχ και δεν έχει να κάνει κάποια νόμιμη κίνηση, τότε είναι πατ. Το παιχνίδι λήγει ισόπαλο: κανείς δεν κερδίζει, κανείς δεν χάνει.</string>
+  <string name="stalemateGoal">Πατ στα μαύρα: - Ο μαύρος δεν μπορεί να κινηθεί πουθενά - δεν υπάρχει σαχ.</string>
+  <string name="stalemateComplete">Συγχαρητήρια! Καλύτερα πατ παρά σαχ-ματ!</string>
+  <string name="advanced">Για προχωρημένους</string>
   <string name="pieceValue">Αξία κομματιού</string>
+  <string name="evaluatePieceStrength">Αξιολογήστε τη δύναμη του κομματιού</string>
+  <string name="pieceValueIntro">Τα κομμάτια με υψηλή ευκινησία έχουν υψηλότερη αξία!
+Βασίλισσα = 9
+Πύργος = 5
+Αξιωματικός = 3
+Ίππος = 3
+Πιόνι = 1
+Ο βασιλιάς είναι ανεκτίμητος! Η απώλεια του σημαίνει ήττα στο παιχνίδι.</string>
+  <string name="queenOverBishop">Πάρτε το κομμάτι με την υψηλότερη αξία!
+Βασίλισσα &gt; Αξιωματικός</string>
+  <string name="takeThePieceWithTheHighestValue">Πάρτε το κομμάτι με την υψηλότερη αξία!</string>
+  <string name="pieceValueComplete">Συγχαρητήρια! Γνωρίζετε την αξία του υλικού! 
+Βασίλισσα = 9 
+Πύργος = 5 
+Αξιωματικός = 3 
+Ίππος = 3
+Πιόνι = 1</string>
   <string name="checkInTwo">Σαχ σε δύο</string>
-  <string name="twoMovesToGiveCheck">Δύο κινήσεις για σαχ</string>
-  <string name="checkInTwoIntro">Βρείτε το σωστό συνδυασμό δύο κινήσεων που δίνει σαχ στο Βασιλιά του αντιπάλου!</string>
-  <string name="checkInTwoGoal">Απειλήστε τον αντίπαλο Βασιλιά
+  <string name="twoMovesToGiveCheck">Δύο κινήσεις για να κάνετε σαχ</string>
+  <string name="checkInTwoIntro">Βρείτε το σωστό συνδυασμό δύο κινήσεων που κάνει σαχ στον βασιλιά του αντιπάλου!</string>
+  <string name="checkInTwoGoal">Απειλήστε τον αντίπαλο βασιλιά
 σε δύο κινήσεις!</string>
-  <string name="checkInTwoComplete">Συγχαρητήρια! Δώσατε σαχ στον αντίπαλο, αναγκάζοντάς τον να προστατεύσει τον Βασιλιά!</string>
+  <string name="checkInTwoComplete">Συγχαρητήρια! Κάνατε σαχ στον αντίπαλο, αναγκάζοντας τον να προστατεύσει τον βασιλιά του!</string>
   <string name="whatNext">Τι υπάρχει στη συνέχεια;</string>
-  <string name="youKnowHowToPlayChess">Γνωρίζετε πώς να παίζετε σκάκι, συγχαρητήρια! Θέλετε να γίνετε ισχυρότερος παίχτης;</string>
-  <string name="register">Εγγραφή</string>
+  <string name="youKnowHowToPlayChess">Γνωρίζετε πως να παίζετε σκάκι, συγχαρητήρια! Θέλετε να γίνετε ισχυρότερος παίχτης;</string>
+  <string name="register">Εγγραφείτε</string>
   <string name="getAFreeLichessAccount">Αποκτήστε δωρεάν λογαριασμό Lichess</string>
+  <string name="practice">Εξάσκηση</string>
+  <string name="learnCommonChessPositions">Μάθετε κοινές θέσεις σκακιού</string>
+  <string name="puzzles">Γρίφοι</string>
+  <string name="exerciseYourTacticalSkills">Εξασκήστε τις τακτικές σας ικανότητες</string>
+  <string name="videos">Βίντεο</string>
+  <string name="watchInstructiveChessVideos">Παρακολουθήστε διδακτικά βίντεο</string>
+  <string name="playPeople">Παίξτε με ανθρώπους</string>
+  <string name="opponentsFromAroundTheWorld">Αντίπαλοι από όλο τον κόσμο</string>
+  <string name="playMachine">Παίξτε με τον υπολογιστή</string>
+  <string name="testYourSkillsWithTheComputer">Δοκιμάστε τις δεξιότητες σας με τον υπολογιστή</string>
+  <string name="letsGo">Πάμε!</string>
+  <string name="stageX">Στάδιο %s</string>
+  <string name="awesome">Τέλεια!</string>
+  <string name="excellent">Εξαιρετικά!</string>
+  <string name="greatJob">Πολύ καλή δουλειά!</string>
+  <string name="perfect">Τέλεια!</string>
+  <string name="outstanding">Έξοχος!</string>
+  <string name="wayToGo">Εύγε!</string>
+  <string name="yesYesYes">Ναι, ναι, ναι!</string>
+  <string name="youreGoodAtThis">Είσαι καλός σε αυτό!</string>
+  <string name="nailedIt">To βρήκες.</string>
+  <string name="rightOn">Μπράβο!</string>
+  <string name="stageXComplete">Στάδιο %s ολοκληρώθηκε</string>
+  <string name="yourScore">Η βαθμοί σας</string>
+  <string name="next">Επόμενο</string>
+  <string name="backToMenu">Επιστροφή στο μενού</string>
+  <string name="puzzleFailed">Αποτύχατε τον γρίφο!</string>
+  <string name="retry">Ξαναδοκιμάστε</string>
 </resources>

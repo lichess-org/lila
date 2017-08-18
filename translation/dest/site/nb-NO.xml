@@ -71,7 +71,14 @@
   <string name="averageRatingX">Gjennomsnittsrating: %s</string>
   <string name="recentGames">Nylige partier</string>
   <string name="topGames">Topp-partier</string>
+  <string name="noGameFound">Intet parti funnet</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Kanskje inkludere flere parti fra preferansemenyen?</string>
   <string name="openingExplorer">Åpningsutforsker &amp; database</string>
+  <string name="winPreventedBy50MoveRule">Seier hindret av 50-trekkregelen</string>
+  <string name="lossSavedBy50MoveRule">Tap forhindret av 50-trekkregelen</string>
+  <string name="allSet">Alt klart!</string>
+  <string name="importPgn">Importér PGN-fil</string>
+  <string name="delete">Slett</string>
   <string name="blunders">Bukker</string>
   <string name="mistakes">Feil</string>
   <string name="inaccuracies">Unøyaktigheter</string>

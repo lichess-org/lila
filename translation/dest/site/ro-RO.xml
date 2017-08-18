@@ -211,6 +211,7 @@
   <string name="inbox">Căsuță poștală</string>
   <string name="chatRoom">Zona de chat</string>
   <string name="loginToChat">Conectare la chat</string>
+  <string name="youHaveBeenTimedOut">Timpul alocat v-a fost suprimat.</string>
   <string name="spectatorRoom">Zona spectatorilor</string>
   <string name="composeMessage">Compune un mesaj</string>
   <string name="noNewMessages">Niciun mesaj nou</string>
@@ -242,6 +243,7 @@
     <item quantity="few">Acordă %s secunde</item>
     <item quantity="other">Acordă %s secunde</item>
   </plurals>
+  <string name="giveMoreTime">Adaugă timp adversarului</string>
   <string name="thisPlayerUsesChessComputerAssistance">Acest jucător este asistat de un program de analiză</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Jucătorul și-a crescut ratingul în mod artificial</string>
   <string name="takeback">Revocare</string>
@@ -338,7 +340,20 @@
   <string name="winStreak">Victorii consecutive</string>
   <string name="createdBy">Creat de</string>
   <string name="tournamentIsStarting">Turneul începe</string>
+  <string name="tournamentPairingsAreNowClosed">Cuplarea partenerilor de turneu s-a încheiat.</string>
+  <string name="standByX">Fii pe fază, %s, jucătorii sunt cuplați, pregătește-te!</string>
   <string name="youArePlaying">Vă jucați!</string>
+  <string name="winRate">Procent de câștig</string>
+  <string name="berserkRate">Procent jocuri cu timp înjumătățit</string>
+  <string name="performance">Performanță</string>
+  <string name="tournamentComplete">Turneu încheiat</string>
+  <string name="movesPlayed">Mutări jucate</string>
+  <string name="whiteWins">Albul câștigă</string>
+  <string name="blackWins">Negrul câștigă</string>
+  <string name="draws">Remize</string>
+  <string name="nextXTournament">Următorul turneu %s:</string>
+  <string name="viewMoreTournaments">Vezi mai multe turnee</string>
+  <string name="averageOpponent">Cota medie a adversarilor</string>
   <string name="membersOnly">Doar pentru membri</string>
   <string name="boardEditor">Editorul de tablă</string>
   <string name="setTheBoard">Aşează tabla</string>
@@ -352,6 +367,7 @@
   <string name="profileCompletion">Completarea profilului: %s</string>
   <string name="xRating">%s rating</string>
   <string name="ifNoneLeaveEmpty">Dacă nu există, nu completați</string>
+  <string name="gameCompletionRate">Procent jocuri încheiate: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Editează profilul</string>
   <string name="firstName">Prenume</string>
@@ -380,6 +396,7 @@
   <string name="keepGoing">Continuați...</string>
   <string name="puzzleFailed">Problemă nerezolvată</string>
   <string name="butYouCanKeepTrying">Dar puteți să mai încercați.</string>
+  <string name="success">Succes</string>
   <string name="wasThisPuzzleAnyGood">Considerați utilă această problemă?</string>
   <string name="pleaseVotePuzzle">Ajutați la îmbunătățirea lichess votând cu ajutorul săgeților:</string>
   <string name="thankYou">Mulţumesc!</string>
@@ -434,6 +451,7 @@
   <string name="closeAccountExplanation">Ești sigur că vrei să-ți închizi contul? Închiderea contului este o decizie permanentă. Nu vei mai avea posibilitatea să te autentifici, iar profilul tău nu va mai fi accesibil.</string>
   <string name="thisAccountIsClosed">Contul este închis.</string>
   <string name="invalidUsernameOrPassword">Nume sau parolă invalidă</string>
+  <string name="incorrectPassword">Parolă greșită</string>
   <string name="emailMeALink">Trimite-mi un email cu link-ul</string>
   <string name="currentPassword">Parola curentă</string>
   <string name="newPassword">Noua parolă</string>
@@ -444,6 +462,7 @@
   <string name="moveListWhilePlaying">Lista de mutări în timpul jocului</string>
   <string name="pgnPieceNotation">Notația PGN a pieselor</string>
   <string name="chessPieceSymbol">Simbolul piesei de șah</string>
+  <string name="pgnLetter">Literă (R, D, T, N, C)</string>
   <string name="chessClock">Ceasul de șah</string>
   <string name="tenthsOfSeconds">Zecimi de secundă</string>
   <string name="never">Niciodată</string>

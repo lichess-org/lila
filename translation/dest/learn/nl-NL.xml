@@ -81,6 +81,28 @@ En verlies uw eigen niet.</string>
 Ontsnap aan de dreiging!</string>
   <string name="noEscape">Er is geen ontsnapping mogelijk,
 maar je kunt verdedigen!</string>
+  <string name="combat">Strijd</string>
+  <string name="captureAndDefendPieces">Verover en verdedig stukken</string>
+  <string name="combatIntro">Een goede strijder kan zowel aanvallen als verdedigen!</string>
+  <string name="combatComplete">Gefeliciteerd! Nu weet je hoe je met de schaakstukken moet vechten!</string>
+  <string name="checkInOne">Schaak in 1 zet</string>
+  <string name="attackTheOpponentsKing">Val de koning van de tegenstander aan</string>
+  <string name="outOfCheck">Geen schaak meer mogelijk</string>
+  <string name="defendYourKing">Verdedig je koning</string>
+  <string name="escapeWithTheKing">Ontsnappen met de koning!</string>
+  <string name="escapeOrBlock">Ontsnap met de koning of blokkeer de aanval!</string>
+  <string name="mateInOne">Mat in 1</string>
+  <string name="defeatTheOpponentsKing">Versla de koning van de tegenstander</string>
+  <string name="mateInOneIntro">Je wint wanneer je tegenstander zich niet tegen schaak kan verdedigen.</string>
+  <string name="intermediate">Halfgevorderd</string>
+  <string name="boardSetup">Beginstelling</string>
+  <string name="howTheGameStarts">Hoe begint de partij</string>
+  <string name="thisIsTheInitialPosition">Dit is de beginopstelling van elke schaakpartij! Doe een willekeurige zet om door te gaan.</string>
+  <string name="firstPlaceTheRooks">Plaats als eerste de torens! Zij gaan in de hoeken.</string>
+  <string name="thenPlaceTheKnights">Plaats dan de paarden! Zij staan naast de torens.</string>
+  <string name="placeTheBishops">Plaats de lopers! Zij staan naast de paarden.</string>
+  <string name="placeTheQueen">Plaats de koningin! Ze gaat op haar eigen kleur.</string>
+  <string name="placeTheKing">Plaats de koning! Gelijk naast zijn koningin.</string>
   <string name="pawnsFormTheFrontLine">Pionnen vormen de frontlinie. Maak eender welke zet om voort te gaan.</string>
   <string name="boardSetupComplete">Gefeliciteerd! Nu weet je hoe je het schaakbord moet opstellen.</string>
   <string name="castling">Rokade</string>
@@ -142,7 +164,38 @@ de hoogste waarde!
 Dame &gt; loper</string>
   <string name="takeThePieceWithTheHighestValue">Sla het stuk met
 de hoogste waarde!</string>
+  <string name="pieceValueComplete">Gefeliciteerd! Je kent de waarde van materiaal! 
+Koningin = 9 
+Toren = 5 
+Loper = 3 
+Paard = 3 
+Pion = 1</string>
   <string name="checkInTwo">Schaak in twee zetten</string>
   <string name="twoMovesToGiveCheck">Twee zetten om schaak te geven</string>
   <string name="checkInTwoIntro">Vind de juiste twee zetten om de koning van de tegenstander schaak te zetten!</string>
+  <string name="checkInTwoGoal">Bedreig de koning van de tegenstander in 2 zetten!</string>
+  <string name="whatNext">En nu?</string>
+  <string name="youKnowHowToPlayChess">Je weet hoe je moet schaken, gefeliciteerd! Wil je een sterkere speler worden?</string>
+  <string name="puzzles">Puzzels</string>
+  <string name="videos">Video\'s</string>
+  <string name="watchInstructiveChessVideos">Bekijk leerzame schaakvideo\'s</string>
+  <string name="playPeople">Tegen mensen</string>
+  <string name="playMachine">Tegen computer</string>
+  <string name="testYourSkillsWithTheComputer">Test je vaardigheden tegen de computer</string>
+  <string name="letsGo">Laten we starten!</string>
+  <string name="stageX">Stap %s</string>
+  <string name="awesome">Geweldig!</string>
+  <string name="excellent">Uitstekend!</string>
+  <string name="greatJob">Goed gedaan!</string>
+  <string name="perfect">Perfect!</string>
+  <string name="outstanding">Uitstekend!</string>
+  <string name="wayToGo">Super, goed gedaan!</string>
+  <string name="yesYesYes">Ok, ok, ok!</string>
+  <string name="youreGoodAtThis">Je bent hier goed in!</string>
+  <string name="nailedIt">Goed gedaan.</string>
+  <string name="stageXComplete">Stap %s voltooid</string>
+  <string name="yourScore">Jouw score</string>
+  <string name="next">Volgende</string>
+  <string name="puzzleFailed">Puzzel mislukt!</string>
+  <string name="retry">Opnieuw proberen</string>
 </resources>

@@ -51,7 +51,7 @@
   <string name="depthX">Βάθος %s</string>
   <string name="usingServerAnalysis">Ανάλυση διακομιστή</string>
   <string name="loadingEngine">Φόρτωση μηχανής ...</string>
-  <string name="cloudAnalysis">Ανάλυση συννέφου</string>
+  <string name="cloudAnalysis">Ανάλυση νέφους</string>
   <string name="goDeeper">Βαθύτερα</string>
   <string name="showThreat">Εμφάνιση απειλής</string>
   <string name="inLocalBrowser">σε τοπικό περιηγητή</string>
@@ -86,7 +86,7 @@
   <string name="openingExplorer">Εξερευνητής ανοιγμάτων και τελειωμάτων</string>
   <string name="xOpeningExplorer">%s εξερευνητής ανοιγμάτων</string>
   <string name="winPreventedBy50MoveRule">H νίκη εμποδίζεται από τον κανόνα των 50 κινήσεων</string>
-  <string name="lossSavedBy50MoveRule">Ήττα αποτρέπεται από τον κανόνα των 50 κινήσεων</string>
+  <string name="lossSavedBy50MoveRule">Η ήττα αποτρέπεται από τον κανόνα των 50 κινήσεων</string>
   <string name="allSet">Εφαρμογή!</string>
   <string name="importPgn">Εισαγωγή PGN</string>
   <string name="delete">Διαγραφή</string>
@@ -167,6 +167,12 @@
   <string name="passwordReset">Επαναφορά κωδικού</string>
   <string name="forgotPassword">Ξεχάσατε τον κωδικό;</string>
   <string name="rank">Επίπεδο</string>
+  <string name="rankX">Κατάταξη: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Η κατάταξη ενημερώνεται κάθε %s λεπτά</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s γρίφος</item>
+    <item quantity="other">%s γρίφοι</item>
+  </plurals>
   <string name="gamesPlayed">Παιγμένα παιχνίδια</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s παιχνίδι με εσάς</item>
@@ -368,6 +374,8 @@
   <string name="averageOpponent">Μέσος αντίπαλος</string>
   <string name="membersOnly">Μόνο για μέλη</string>
   <string name="boardEditor">Προετοιμαστής σκακιέρας</string>
+  <string name="setTheBoard">Καθορίστε την σκακιέρα</string>
+  <string name="popularOpenings">Δημοφιλή ανοίγματα</string>
   <string name="startPosition">Αρχική διάταξη</string>
   <string name="clearBoard">Εκκαθάριση σκακιέρας</string>
   <string name="savePosition">Αποθηκεύστε τη θέση</string>
@@ -406,9 +414,10 @@
   <string name="keepGoing">Συνεχίστε…</string>
   <string name="puzzleFailed">Αποτύχατε τον γρίφο</string>
   <string name="butYouCanKeepTrying">Αλλά μπορείτε να συνεχίσετε τη προσπάθεια.</string>
+  <string name="success">Επιτυχία</string>
   <string name="wasThisPuzzleAnyGood">Πως σας φάνηκε ο γρίφος;</string>
   <string name="pleaseVotePuzzle">Βελτιώστε το lichess με την ψήφο σας. Μπορείτε να ψηφίσετε πατώντας το πάνω ή κάτω βελάκι.</string>
-  <string name="thankYou">Σας ευχαριστώ!</string>
+  <string name="thankYou">Ευχαριστώ!</string>
   <string name="ratingX">Βαθμολογία: %s</string>
   <plurals name="playedXTimes">
     <item quantity="one">Παίχτηκε %s φορά</item>
@@ -454,8 +463,8 @@
   <string name="cheat">Απάτη</string>
   <string name="insult">Προσβολή</string>
   <string name="troll">Εμπαιγμός</string>
-  <string name="other">Άλλου</string>
-  <string name="reportDescriptionHelp">Κάντε επικόλληση σύνδεσμο για το παιχνίδι(α) και εξηγήστε τι είναι παράξενο στη συμπεριφορά του χρήστη. Μην πείτε απλά «επειδή κλέβει», πείτε μας πως καταλήξατε σε αυτήν τη γνώμη. Η αναφορά σας θα επεξεργαστεί πιο γρήγορα αν είναι γραμμένη στα αγγλικά.</string>
+  <string name="other">Άλλο</string>
+  <string name="reportDescriptionHelp">Κάντε επικόλληση τον σύνδεσμο για το παιχνίδι(α) και εξηγήστε τι είναι παράξενο στη συμπεριφορά του χρήστη. Μην πείτε απλά «επειδή κλέβει», πείτε μας πως καταλήξατε σε αυτήν τη γνώμη. Η αναφορά σας θα επεξεργαστεί πιο γρήγορα αν είναι γραμμένη στα αγγλικά.</string>
   <string name="by">από τον %s</string>
   <string name="thisTopicIsNowClosed">Το θέμα έχει κλείσει.</string>
   <string name="theming">Εμφάνιση</string>
@@ -494,7 +503,7 @@
   <string name="howDoYouMovePieces">Πώς μετακινείτε τα κομμάτια;</string>
   <string name="clickTwoSquares">Κάντε κλικ στα δύο τετράγωνα</string>
   <string name="dragPiece">Σύρετε ένα κομμάτι</string>
-  <string name="bothClicksAndDrag">Κάντε κλικ και σύρετε</string>
+  <string name="bothClicksAndDrag">Είτε</string>
   <string name="premovesPlayingDuringOpponentTurn">Προκινήσεις (παιγμένες κατά τον χρόνο σκέψης του αντιπάλου)</string>
   <string name="takebacksWithOpponentApproval">Ανακλήσεις (με έγκριση του αντιπάλου)</string>
   <string name="promoteToQueenAutomatically">Αυτόματη προαγωγή σε βασίλισσα</string>
@@ -525,6 +534,9 @@
   <string name="xAnsweredY">Ο χρήστης %1$s απάντησε την ερώτηση %2$s</string>
   <string name="xCommentedY">Ο χρήστης %1$s σχολίασε την ερώτηση %2$s</string>
   <string name="victory">Επιτυχία!</string>
+  <string name="defeat">Ήττα</string>
+  <string name="xVsYinZ">%1$s εναντίον %2$s
+στο %3$s</string>
   <string name="timeline">Χρονολόγιο</string>
   <string name="seeAllTournaments">Προβολή όλων των πρωταθλημάτων</string>
   <string name="starting">Αρχίζει:</string>
@@ -596,6 +608,7 @@
   <string name="sourceCode">Πηγαίος κώδικας</string>
   <string name="simultaneousExhibitions">Ταυτόχρονες εκθέσεις</string>
   <string name="host">Διοργανωτής</string>
+  <string name="hostColorX">Χρώμα διοργανωτή: %s</string>
   <string name="createdSimuls">Πρόσφατα δημιουργημένες εκθέσεις</string>
   <string name="hostANewSimul">Διοργάνωση νέας έκθεσης</string>
   <string name="noSimulFound">Έκθεση δεν ευρέθη</string>
@@ -700,6 +713,10 @@
   <string name="yourScore">Η βαθμολογία σας: %s</string>
   <string name="language">Γλώσσα</string>
   <string name="background">Φόντο</string>
+  <string name="light">Φωτεινό</string>
+  <string name="dark">Σκοτεινό</string>
+  <string name="transparent">Διάφανο</string>
+  <string name="backgroundImageUrl">Διεύθυνση URL εικόνας φόντου:</string>
   <string name="boardGeometry">Γεωμετρία σκακιέρας</string>
   <string name="boardTheme">Θέμα σκακιέρας</string>
   <string name="boardSize">Μέγεθος σκακιέρας</string>

@@ -381,7 +381,7 @@
   <string name="tournamentPairingsAreNowClosed">Лёсаванне турніру ў наш час зачынена.</string>
   <string name="standByX">Чакайце, %s, лёсаванне гульцоў, будзьце гатовы!</string>
   <string name="youArePlaying">Вы ў гульні!</string>
-  <string name="winRate">Каэфіцыент перамогі</string>
+  <string name="winRate">Працэнт перамог</string>
   <string name="berserkRate">Каэфіцыент шаленства</string>
   <string name="performance">Эфектыўнасць</string>
   <string name="tournamentComplete">Спаборніцтва завершана</string>

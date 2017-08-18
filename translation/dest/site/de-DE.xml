@@ -78,8 +78,8 @@
     <item quantity="other">Matt in %s Halbzügen</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Nächster Schlag- oder Bauernzug in %s Halbzug (Distance To Zeroing des Zählers für die 50-Züge-Regel)</item>
-    <item quantity="other">Nächster Schlag- oder Bauernzug in %s Halbzügen (Distance To Zeroing des Zählers für die 50-Züge-Regel)</item>
+    <item quantity="one">Nächster Schlag- oder Bauernzug in %s Halbzug (Distanz zum Zurücksetzen des Zählers für die 50-Züge-Regel)</item>
+    <item quantity="other">Nächster Schlag- oder Bauernzug in %s Halbzügen (Distanz zum Zurücksetzen des Zählers für die 50-Züge-Regel)</item>
   </plurals>
   <string name="noGameFound">Kein Spiel gefunden</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Vielleicht sollten mehr Spiele über das \"Einstellungen\"-Menü einbezogen werden?</string>
@@ -94,7 +94,7 @@
   <string name="replayMode">Wiedergabemodus</string>
   <string name="realtimeReplay">Echtzeit</string>
   <string name="byCPL">Nach CPL</string>
-  <string name="openStudy">Studie öffnen</string>
+  <string name="openStudy">Öffne Studie</string>
   <string name="enable">Einschalten</string>
   <string name="bestMoveArrow">Pfeil für besten Zug</string>
   <string name="evaluationGauge">Bewertungsanzeige</string>
@@ -300,8 +300,7 @@
   <string name="fromPosition">Von Stellung</string>
   <string name="continueFromHere">Von hier aus weiterspielen</string>
   <string name="importGame">Importiere Partie</string>
-  <string name="importGameExplanation">Du bekommst eine Computeranalyse, einen Chat
-und eine URL um dein PGN zu teilen.</string>
+  <string name="importGameExplanation">Wenn du ein PGN einfügst bekommst du eine Spielwiederholung, eine Computeranalyse, einen Spielchat und eine teilbare URL.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importierte Partie</item>
     <item quantity="other">%s importierte Partien</item>
@@ -374,7 +373,7 @@ und eine URL um dein PGN zu teilen.</string>
   <string name="averageOpponent">Durchschnittlicher Gegner</string>
   <string name="membersOnly">Nur für Mitglieder</string>
   <string name="boardEditor">Stellung aufbauen</string>
-  <string name="setTheBoard">Spielbrett einstellen</string>
+  <string name="setTheBoard">Spielbrett aufbauen</string>
   <string name="popularOpenings">Beliebte Eröffnungen</string>
   <string name="startPosition">Anfangsposition</string>
   <string name="clearBoard">Brett räumen</string>
@@ -414,7 +413,7 @@ und eine URL um dein PGN zu teilen.</string>
   <string name="keepGoing">Mach weiter...</string>
   <string name="puzzleFailed">Nicht gelöst</string>
   <string name="butYouCanKeepTrying">Aber du kannst es trotzdem weiterversuchen.</string>
-  <string name="success">Abgeschlossen</string>
+  <string name="success">Korrekt</string>
   <string name="wasThisPuzzleAnyGood">Wie fandest du diese Aufgabe?</string>
   <string name="pleaseVotePuzzle">Verbessere Lichess, indem du mit den Pfeilen abstimmst:</string>
   <string name="thankYou">Vielen Dank!</string>
@@ -425,12 +424,12 @@ und eine URL um dein PGN zu teilen.</string>
   </plurals>
   <string name="fromGameLink">Aus der Partie %s</string>
   <string name="continueTraining">Training fortsetzen</string>
-  <string name="retryThisPuzzle">Nochmal probieren</string>
+  <string name="retryThisPuzzle">Diese Aufgabe erneut versuchen</string>
   <string name="thisPuzzleIsCorrect">Diese Aufgabe ist korrekt und interessant</string>
   <string name="thisPuzzleIsWrong">Diese Aufgabe ist falsch oder langweilig</string>
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Du hast eine Sekunde, um deinen ersten Zug zu machen!</item>
-    <item quantity="other">Du hast %s Sekunden, um deinen ersten Zug zu machen!</item>
+    <item quantity="one">Du hast %s Sekunde um deinen ersten Zug zu machen!</item>
+    <item quantity="other">Du hast %s Sekunden um deinen ersten Zug zu machen!</item>
   </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s laufende Partie</item>
@@ -439,7 +438,7 @@ und eine URL um dein PGN zu teilen.</string>
   <string name="automaticallyProceedToNextGameAfterMoving">Nach dem Zug automatisch zur nächsten Partie gehen</string>
   <string name="autoSwitch">Automatischer Wechsel</string>
   <string name="puzzles">Aufgaben</string>
-  <string name="latestUpdates">Blog</string>
+  <string name="latestUpdates">Neueste Updates</string>
   <string name="tournamentWinners">Turniersieger</string>
   <string name="name">Name</string>
   <string name="description">Beschreibung</string>
@@ -450,7 +449,7 @@ und eine URL um dein PGN zu teilen.</string>
   <string name="topics">Themen</string>
   <string name="posts">Beiträge</string>
   <string name="lastPost">Letzter Beitrag</string>
-  <string name="views">Angesehen</string>
+  <string name="views">Besuche</string>
   <string name="replies">Antworten</string>
   <string name="replyToThisTopic">Auf diesen Beitrag antworten</string>
   <string name="reply">Antworten</string>
@@ -460,20 +459,20 @@ und eine URL um dein PGN zu teilen.</string>
   <string name="user">Benutzer</string>
   <string name="reason">Grund</string>
   <string name="whatIsIheMatter">Was ist das Problem?</string>
-  <string name="cheat">Cheating</string>
+  <string name="cheat">Betrug</string>
   <string name="insult">Beleidigung</string>
   <string name="troll">Troll</string>
   <string name="other">Sonstiges</string>
-  <string name="reportDescriptionHelp">Füge den Link zur Partie ein und erkläre die Auffälligkeiten bezüglich des Spielerverhaltens. Bitte schreibe nicht einfach nur „dieser Spieler betrügt“, sondern begründe auch, wie du zu diesem Schluss kommst. Dein Bericht wird schneller bearbeitet, wenn er in englischer Sprache verfasst ist.</string>
+  <string name="reportDescriptionHelp">Füge den Link zur Partie/zu den Partien ein und erkläre die Auffälligkeiten bezüglich des Spielerverhaltens. Bitte schreibe nicht einfach nur „dieser Spieler betrügt“, sondern begründe auch, wie Du zu diesem Schluss kommst. Dein Bericht wird schneller bearbeitet, wenn er in englischer Sprache verfasst ist.</string>
   <string name="by">von %s</string>
-  <string name="thisTopicIsNowClosed">Dieses Thema ist jetzt geschlossen.</string>
+  <string name="thisTopicIsNowClosed">Dieses Thema wurde geschlossen.</string>
   <string name="theming">Design</string>
   <string name="donate">Spenden</string>
   <string name="blog">Blog</string>
   <string name="questionsAndAnswers">Fragen &amp; Antworten</string>
   <string name="notes">Notizen</string>
-  <string name="typePrivateNotesHere">Private Notizen hier eingeben</string>
-  <string name="gameDisplay">Darstellung</string>
+  <string name="typePrivateNotesHere">Private Notizen hier einfügen</string>
+  <string name="gameDisplay">Spieldarstellung</string>
   <string name="pieceAnimation">Figurenanimation</string>
   <string name="materialDifference">Materialunterschied</string>
   <string name="closeAccount">Benutzerkonto schließen</string>
@@ -488,7 +487,7 @@ und eine URL um dein PGN zu teilen.</string>
   <string name="newPasswordAgain">Neues Passwort (wiederholen)</string>
   <string name="boardHighlights">Markierungen auf dem Brett (letzter Zug und Schach)</string>
   <string name="pieceDestinations">Zielfelder markieren (gültige Züge und Vorauszüge)</string>
-  <string name="boardCoordinates">Koordinaten (A-H, 1-8)</string>
+  <string name="boardCoordinates">Brettkoordinaten (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Notation während des Spiels anzeigen</string>
   <string name="pgnPieceNotation">Figurendarstellung in der PGN-Notation</string>
   <string name="chessPieceSymbol">Schachfigurensymbol</string>
@@ -578,7 +577,7 @@ und eine URL um dein PGN zu teilen.</string>
   <string name="error.email_unique">Diese E-Mail-Adresse ist schon vergeben</string>
   <string name="error.email_different">Dies ist bereits deine E-Mail Adresse</string>
   <string name="blindfoldChess">Blindschach (unsichtbare Figuren)</string>
-  <string name="zenMode">Zenmodus</string>
+  <string name="zenMode">Zen-Modus</string>
   <string name="moveConfirmation">Zugbestätigung</string>
   <string name="inCorrespondenceGames">Im Fernschach</string>
   <string name="ifRatingIsPlusMinusX">Nur, wenn die Wertungszahl ± %s ist</string>
