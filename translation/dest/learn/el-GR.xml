@@ -63,10 +63,10 @@
   <string name="selectThePieceYouWant">Επιλέξτε το κομμάτι που θέλετε!</string>
   <string name="fundamentals">Βασικές αρχές</string>
   <string name="capture">Αιχμαλώτιση</string>
-  <string name="takeTheEnemyPieces">Κόψτε τα κομμάτια του αντιπάλου</string>
-  <string name="captureIntro">Βρείτε τα ανυπεράσπιστα κομμάτια του αντιπάλου, και κόψτε τα!</string>
-  <string name="takeTheBlackPieces">Κόψτε τα μαύρα κομμάτια!</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">Κόψτε τα μαύρα κομμάτια!
+  <string name="takeTheEnemyPieces">Πάρτε τα κομμάτια του αντιπάλου</string>
+  <string name="captureIntro">Βρείτε τα ανυπεράσπιστα κομμάτια του αντιπάλου, και πάρτε τα!</string>
+  <string name="takeTheBlackPieces">Πάρτε τα μαύρα κομμάτια!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Πάρτε τα μαύρα κομμάτια!
 Και προστατεύστε τα δικά σας.</string>
   <string name="captureComplete">Συγχαρητήρια! Ξέρετε πώς να μάχεστε με τα κομμάτια σκακιού!</string>
   <string name="protection">Προστασία</string>
@@ -144,7 +144,7 @@
   <string name="findAWayToCastleQueenSide">Βρείτε τρόπο για να κάνετε
 ροκέ στη πλευρά-Βασίλισσας!</string>
   <string name="castlingComplete">Συγχαρητήρια! Σχεδόν πάντα θα κάνετε στην παρτίδα.</string>
-  <string name="enPassant">En passant</string>
+  <string name="enPassant">Εν διελεύσει</string>
   <string name="theSpecialPawnMove">Ειδική κίνηση πιονιού</string>
   <string name="enPassantIntro">Όταν το αντίπαλο πιόνι κινήθηκε δύο τετράγωνα, μπορείτε να το κόψετε σαν να είχε κινηθεί μόνο ένα τετράγωνο.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Ο μαύρος μόλις μετακίνησε το πιόνι ανά δύο τετράγωνα! Πάρτε το εν διελεύσει.</string>
