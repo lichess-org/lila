@@ -85,7 +85,10 @@ function showBar(ctrl: ClockController, els: ClockElements, millis: Millis, bers
 export function updateElements(clock: ClockController, els: ClockElements, millis: Millis) {
   if (els.time) els.time.innerHTML = formatClockTime(clock.showTenths, millis, true);
   if (els.bar) els.bar.style.width = clock.timePercent(millis) + '%';
-  if (els.clock) els.clock.classList.toggle("emerg", millis < clock.emergMs);
+  if (els.clock) {
+    if (millis < clock.emergMs) els.clock.classList.add("emerg");
+    else els.clock.classList.remove("emerg");
+  }
 }
 
 function showBerserk(ctrl: RoundController, color: Color): boolean {
