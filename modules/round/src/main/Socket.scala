@@ -220,7 +220,7 @@ private[round] final class Socket(
         notifyAll(event.typ, event.data)
       }
 
-    case TourStanding(json) => notifyAll("tourStanding", json)
+    case TourStanding(json) => notifyOwners("tourStanding", json)
 
   }: Actor.Receive) orElse lila.chat.Socket.out(
     send = (t, d, _) => notifyAll(t, d)
@@ -264,6 +264,11 @@ private[round] final class Socket(
   def withOwnerOf(color: Color)(f: Member => Unit) =
     members.foreachValue { m =>
       if (m.owner && m.color == color) f(m)
+    }
+
+  def notifyOwners[A: Writes](t: String, data: A) =
+    members.foreachValue { m =>
+      if (m.owner) m push makeMessage(t, data)
     }
 
   def ownerIsHere(color: Color) =
