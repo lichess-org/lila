@@ -16,9 +16,6 @@ export { Ctrl as ChatCtrl, ChatPlugin } from './interfaces';
 export default function LichessChat(element: Element, opts: ChatOpts): {
   preset: PresetCtrl
 } {
-
-  opts.loadCss('/assets/stylesheets/chat.css');
-
   const patch = init([klass, attributes]);
 
   const container = element.parentNode as HTMLElement;

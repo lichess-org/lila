@@ -39,6 +39,7 @@ side = views.html.game.side(pov, (data\"game"\"initialFen").asOpt[String], tour.
 chat = chatOption.isDefined.option(chat.dom()),
 underchat = views.html.game.watchers().some,
 moreJs = moreJs,
+moreCss = cssTag("chat.css"),
 openGraph = povOpenGraph(pov).some,
 chessground = false,
 playing = true,

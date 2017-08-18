@@ -2,7 +2,6 @@ div.mchat {
   height: 100%;
   display: flex;
   flex-flow: column nowrap;
-  visibility: visible;
 }
 body.kid div.mchat {
   display: none;

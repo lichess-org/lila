@@ -1888,11 +1888,6 @@ signal > i.off {
   background-color: #d0d0d0;
 }
 
-div.mchat {
-  /* will be displayed by chat.css to prevent FOUC */
-  visibility: hidden;
-}
-
 .embedding_analyse,
 iframe.analyse,
 iframe.video {
