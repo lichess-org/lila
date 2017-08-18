@@ -26,7 +26,7 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
     placeholderKey: 'talkInChat',
     loading: false,
     timeout: opts.timeout,
-    writeable: opts.writeable,
+    writeable: opts.writeable
   };
 
   const post = function(text: string): boolean {
@@ -115,7 +115,9 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
     setTab(t: Tab) {
       vm.tab = t;
       tabStorage.set(t);
-      redraw()
+      // It's a lame way to do it. Give me a break.
+      if (t === 'discussion') li.requestIdleCallback(() => $('.mchat input.lichess_say').focus());
+      redraw();
     },
     moderation: () => moderation,
     note,
