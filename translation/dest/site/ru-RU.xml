@@ -232,14 +232,14 @@
   <string name="freeOnlineChess">Бесплатные онлайн-шахматы</string>
   <string name="spectators">Зрители:</string>
   <plurals name="nbRated">
-    <item quantity="one">%s по рейтингу</item>
-    <item quantity="few">%s по рейтингу</item>
-    <item quantity="other">%s по рейтингу</item>
+    <item quantity="one">%s рейтинговая</item>
+    <item quantity="few">%s рейтинговые</item>
+    <item quantity="other">%s рейтинговых</item>
   </plurals>
   <plurals name="nbWins">
-    <item quantity="one">%s выиграно</item>
-    <item quantity="few">%s выиграно</item>
-    <item quantity="other">%s выиграно</item>
+    <item quantity="one">%s победа</item>
+    <item quantity="few">%s победы</item>
+    <item quantity="other">%s побед</item>
   </plurals>
   <plurals name="nbLosses">
     <item quantity="one">%s проиграно</item>
