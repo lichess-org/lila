@@ -53,7 +53,7 @@ case class TempBan(
 object TempBan {
   val initialMinutes = 15
   def initial = make(initialMinutes)
-  def make(minutes: Int) = TempBan(DateTime.now, minutes atMost 60 * 18)
+  def make(minutes: Int) = TempBan(DateTime.now, minutes atMost 60 * 48)
 }
 
 sealed abstract class Outcome(
