@@ -94,7 +94,7 @@
   <string name="boardSetup">Aufstellung</string>
   <string name="howTheGameStarts">Wie das Spiel beginnt</string>
   <string name="boardSetupIntro">Die beiden Armeen stehen einander gegenüber, bereit für die Schlacht.</string>
-  <string name="thisIsTheInitialPosition">Dies ist die Ausgangsposition jeder Schachpartie. Ziehe einen beliebigen Zug, um fortzusetzen.</string>
+  <string name="thisIsTheInitialPosition">Dies ist die Ausgangsposition jeder Schachpartie. Ziehe einen beliebigen Zug, um fortzufahren.</string>
   <string name="firstPlaceTheRooks">Setze zuerst die Türme! Sie stehen in den Ecken.</string>
   <string name="thenPlaceTheKnights">Platziere jetzt die Springer! Sie stehen neben den Türmen.</string>
   <string name="placeTheBishops">Platziere die Läufer! Sie stehen neben den Springern.</string>
