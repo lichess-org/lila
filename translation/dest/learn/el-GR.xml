@@ -9,11 +9,11 @@
   <string name="youWillLoseAllYourProgress">Θα χάσετε όλη την πρόοδο σας!</string>
   <string name="play">παίξτε!</string>
   <string name="chessPieces">Σκάκι κομμάτια</string>
-  <string name="theRook">Ο Πύργος</string>
+  <string name="theRook">Ο πύργος</string>
   <string name="itMovesInStraightLines">Κινείται σε ευθείες γραμμές</string>
   <string name="rookIntro">Ο πύργος είναι ένα ισχυρό κομμάτι. Είστε έτοιμοι να το χρησιμοποιήσετε;</string>
   <string name="rookGoal">Κάντε κλικ στον πύργο για να τον μετακινήσετε στο αστέρι!</string>
-  <string name="grabAllTheStars">Πιάσε όλα τα αστέρια!</string>
+  <string name="grabAllTheStars">Πιάστε όλα τα αστέρια!</string>
   <string name="theFewerMoves">Όσες λιγότερες κινήσεις κάνετε, τόσο περισσότερους πόντους κερδίζετε!</string>
   <string name="useTwoRooks">Χρησιμοποιήστε δύο πύργους για να επιταχύνετε τα πράγματα!</string>
   <string name="rookComplete">Συγχαρητήρια! Επιτυχώς χειριστήκατε τον πύργο.</string>
