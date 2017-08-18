@@ -4,14 +4,15 @@ import { ChatPlugin } from 'chat'
 import { justIcon } from './util'
 
 export interface TourStandingCtrl extends ChatPlugin {
-  set(data: TourStandingData): void;
+  set(data: TourPlayer[]): void;
 }
 
 export interface TourStandingData {
+  id: string;
   top: TourPlayer[];
 }
 
-interface TourPlayer {
+export interface TourPlayer {
   n: string; // name
   s: number; // score
   t?: string; // title
@@ -19,16 +20,16 @@ interface TourPlayer {
   w: boolean; // withdraw
 }
 
-export function tourStandingCtrl(data: TourStandingData, name: string): TourStandingCtrl {
+export function tourStandingCtrl(data: TourPlayer[], name: string): TourStandingCtrl {
   return {
-    set(d: TourStandingData) { data = d },
+    set(d: TourPlayer[]) { data = d },
     tab: {
       key: 'tourStanding',
       name: name
     },
     view(): VNode {
       return h('table.slist',
-        h('tbody', data.top.map((p: TourPlayer, i: number) => {
+        h('tbody', data.map((p: TourPlayer, i: number) => {
           return h('tr.' + p.n, [
             h('td.name', [
               p.w ? h('span', justIcon('Z')) : h('span.rank', '' + (i + 1)),

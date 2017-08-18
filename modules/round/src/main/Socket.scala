@@ -15,7 +15,7 @@ import lila.game.actorApi.{ StartGame, UserStartGame }
 import lila.game.{ Game, GameRepo, Event }
 import lila.hub.actorApi.Deploy
 import lila.hub.actorApi.game.ChangeFeatured
-import lila.hub.actorApi.round.IsOnGame
+import lila.hub.actorApi.round.{ IsOnGame, TourStanding }
 import lila.hub.actorApi.tv.{ Select => TvSelect }
 import lila.hub.TimeBomb
 import lila.socket._
@@ -35,6 +35,11 @@ private[round] final class Socket(
 
   private var hasAi = false
   private var mightBeSimul = true // until proven false
+  private var chatIds = Socket.ChatIds(
+    priv = Chat.Id(gameId), // until replaced with tourney/simul chat
+    pub = Chat.Id(s"$gameId/w")
+  )
+  private var tournamentId = none[String] // until set, to listen to standings
 
   private val timeBomb = new TimeBomb(socketTimeout)
 
@@ -72,11 +77,6 @@ private[round] final class Socket(
   private val whitePlayer = new Player(White)
   private val blackPlayer = new Player(Black)
 
-  private var chatIds = Socket.ChatIds(
-    priv = Chat.Id(gameId),
-    pub = Chat.Id(s"$gameId/w")
-  )
-
   override def preStart() {
     super.preStart()
     refreshSubscriptions
@@ -94,10 +94,17 @@ private[round] final class Socket(
       lilaBus.subscribe(self, Symbol(s"userStartGame:$userId"))
     }
     refreshChatSubscriptions
+    refreshTournamentSubscriptions
   }
 
   private def refreshChatSubscriptions {
     lilaBus.subscribe(self, Symbol(s"chat-${chatIds.priv}"), Symbol(s"chat-${chatIds.pub}"))
+  }
+
+  private def refreshTournamentSubscriptions {
+    tournamentId foreach { id =>
+      lilaBus.subscribe(self, Symbol(s"tour-standing-$id"))
+    }
   }
 
   def receiveSpecific = ({
@@ -110,6 +117,10 @@ private[round] final class Socket(
       game.tournamentId orElse game.simulId map Chat.Id.apply foreach { chatId =>
         chatIds = chatIds.copy(priv = chatId)
         refreshChatSubscriptions
+      }
+      game.tournamentId foreach { tourId =>
+        tournamentId = tourId.some
+        refreshTournamentSubscriptions
       }
 
     // from lilaBus 'startGame
@@ -208,6 +219,8 @@ private[round] final class Socket(
         )
         notifyAll(event.typ, event.data)
       }
+
+    case TourStanding(json) => notifyAll("tourStanding", json)
 
   }: Actor.Receive) orElse lila.chat.Socket.out(
     send = (t, d, _) => notifyAll(t, d)

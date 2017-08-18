@@ -36,9 +36,10 @@ final class TournamentApi(
     verify: Condition.Verify,
     indexLeaderboard: Tournament => Funit,
     asyncCache: lila.memo.AsyncCache.Builder,
-    lightUserApi: lila.user.LightUserApi,
-    standingChannel: ActorRef
+    lightUserApi: lila.user.LightUserApi
 ) {
+
+  private val bus = system.lilaBus
 
   def createTournament(setup: TournamentSetup, me: User): Fu[Tournament] = {
     val tour = Tournament.make(
@@ -425,9 +426,10 @@ final class TournamentApi(
     import lila.hub.EarlyMultiThrottler
 
     private def publishNow(tourId: Tournament.ID) = tournamentTop(tourId) map { top =>
-      standingChannel ! lila.socket.Channel.Publish(
-        lila.socket.Socket.makeMessage("tourStanding", JsonView.top(top, lightUserApi.sync))
-      )
+      bus.publish(lila.hub.actorApi.round.TourStanding(Json.obj(
+        "id" -> tourId,
+        "top" -> JsonView.top(top, lightUserApi.sync)
+      )), Symbol(s"tour-standing-$tourId"))
     }
 
     private val throttler = system.actorOf(Props(new EarlyMultiThrottler(logger = logger)))

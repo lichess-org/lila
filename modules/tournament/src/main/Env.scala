@@ -52,8 +52,6 @@ final class Env(
   }
   import settings._
 
-  private val standingChannel = system.actorOf(Props(classOf[lila.socket.Channel]), name = ChannelStanding)
-
   lazy val forms = new DataForm
 
   lazy val cached = new Cached(
@@ -93,8 +91,7 @@ final class Env(
     indexLeaderboard = leaderboardIndexer.indexOne _,
     roundMap = roundMap,
     asyncCache = asyncCache,
-    lightUserApi = lightUserApi,
-    standingChannel = standingChannel
+    lightUserApi = lightUserApi
   )
 
   lazy val crudApi = new crud.CrudApi

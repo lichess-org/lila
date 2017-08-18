@@ -41,9 +41,11 @@ export default function(opts: RoundOpts, element: HTMLElement): void {
             }
           });
         },
-        tourStanding(data: TourStandingData) {
-          if (opts.chat && opts.chat.plugin) (opts.chat.plugin as TourStandingCtrl).set(data);
-          chat && chat.redraw();
+        tourStanding(s: TourStandingData) {
+          if (data.tournament && data.tournament.id === s.id && opts.chat && opts.chat.plugin && chat) {
+            (opts.chat.plugin as TourStandingCtrl).set(s.top);
+            chat.redraw();
+          }
         }
       }
     });

@@ -218,6 +218,7 @@ package round {
   case class IsOnGame(color: chess.Color)
   sealed trait SocketEvent
   case class FishnetPlay(uci: chess.format.Uci, currentFen: chess.format.FEN)
+  case class TourStanding(json: JsObject)
 }
 
 package evaluation {

@@ -324,8 +324,8 @@ final class JsonView(
 
 object JsonView {
 
-  def top(t: TournamentTop, getLightUser: LightUser.GetterSync): JsObject = Json.obj(
-    "top" -> t.value.map { p =>
+  def top(t: TournamentTop, getLightUser: LightUser.GetterSync): JsArray = JsArray {
+    t.value.map { p =>
       val light = getLightUser(p.userId)
       Json.obj(
         "n" -> light.fold(p.userId)(_.name),
@@ -334,7 +334,7 @@ object JsonView {
         .add("f" -> p.fire)
         .add("w" -> p.withdraw)
     }
-  )
+  }
 
   private def formatDate(date: DateTime) = ISODateTimeFormat.dateTime print date
 
