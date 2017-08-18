@@ -32,7 +32,7 @@
     <item quantity="other">Folgt %s Spielern</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="one">Hat %s neue Follower</item>
+    <item quantity="one">Hat %s neuen Follower</item>
     <item quantity="other">Hat %s neue Follower</item>
   </plurals>
   <plurals name="hostedNbSimuls">
