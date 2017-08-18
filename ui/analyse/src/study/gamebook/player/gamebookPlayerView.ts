@@ -1,15 +1,17 @@
 import { h } from 'snabbdom'
-import AnalyseCtrl from '../../../ctrl';
+import { VNode } from 'snabbdom/vnode'
+import GamebookPlayerCtrl from './gamebookPlayerCtrl';
+// import AnalyseCtrl from '../../../ctrl';
 import { innerHTML } from '../../../util';
 import { enrichText } from '../../studyComments';
 // import { MaybeVNodes } from '../../../interfaces';
-import { VNode } from 'snabbdom/vnode'
 // import { throttle } from 'common';
 
-export default function(ctrl: AnalyseCtrl): VNode {
+export function render(ctrl: GamebookPlayerCtrl): VNode {
 
-  const isMyMove = ctrl.turnColor() === ctrl.data.orientation,
-  comment = (ctrl.node.comments || [])[0];
+  const root = ctrl.root,
+  isMyMove = root.turnColor() === root.data.orientation,
+  comment = (root.node.comments || [])[0];
 
   return h('div.gamebook', {
     hook: {

@@ -4,7 +4,7 @@
   "compilerOptions": {
     "allowJs": true,
     "strictNullChecks": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "noEmitOnError": true,
     "noImplicitAny": false,
     "noImplicitReturns": false,

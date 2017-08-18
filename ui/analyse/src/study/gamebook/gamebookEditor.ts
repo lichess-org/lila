@@ -7,7 +7,11 @@ import { MaybeVNodes } from '../../interfaces';
 import { throttle } from 'common';
 import { path as treePath } from 'tree';
 
-export default function(ctrl: AnalyseCtrl): VNode {
+export function running(ctrl: AnalyseCtrl): boolean {
+  return !!ctrl.study && ctrl.study.data.chapter.gamebook && !ctrl.gamebookPlayer();
+}
+
+export function render(ctrl: AnalyseCtrl): VNode {
 
   const study = ctrl.study!,
   isMyMove = ctrl.turnColor() === ctrl.data.orientation,

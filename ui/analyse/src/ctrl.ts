@@ -28,6 +28,7 @@ import { make as makeEvalCache, EvalCache } from './evalCache';
 import { compute as computeAutoShapes } from './autoShape';
 import { nextGlyphSymbol } from './nodeFinder';
 import { AnalyseOpts, AnalyseData, AnalyseDataWithTree, Key, CgDests, JustCaptured } from './interfaces';
+import GamebookPlayerCtrl from './study/gamebook/player/gamebookPlayerCtrl';
 
 const li = window.lichess;
 
@@ -736,9 +737,7 @@ export default class AnalyseCtrl {
     if (uci) this.playUci(uci);
   }
 
-  canEvalGet = (node: Tree.Node): boolean => {
-    return this.opts.study || node.ply < 10
-  }
+  canEvalGet = (node: Tree.Node): boolean => this.opts.study || node.ply < 10;
 
   instanciateEvalCache() {
     this.evalCache = makeEvalCache({
@@ -788,6 +787,10 @@ export default class AnalyseCtrl {
   restartPractice() {
     this.practice = undefined;
     this.togglePractice();
+  }
+
+  gamebookPlayer = (): GamebookPlayerCtrl | undefined => {
+    return this.study && this.study.gamebookPlayer();
   }
 
   private withCg<A>(f: (cg: ChessgroundApi) => A): A | undefined {
