@@ -129,21 +129,21 @@
   <string name="castleQueenSide">Μετακινήστε τον βασιλιά δύο τετράγωνα για ροκέ στη πλευρά-βασίλισσας!</string>
   <string name="theKnightIsInTheWay">Ο ίππος εμποδίζει!
 Μετακινήστε τον, έπειτα κάντε ροκέ στη πλευρά-βασιλιά.</string>
-  <string name="castleKingSideMovePiecesFirst">Ροκέ στη πλευρά-Βασιλιά!
+  <string name="castleKingSideMovePiecesFirst">Ροκέ στη πλευρά-βασιλιά!
 Πρέπει πρώτα να βγάλετε τα κομμάτια.</string>
-  <string name="castleQueenSideMovePiecesFirst">Ροκέ στη πλευρά-Βασίλισσας!
+  <string name="castleQueenSideMovePiecesFirst">Ροκέ στη πλευρά-βασίλισσας!
 Πρέπει πρώτα να βγάλετε τα κομμάτια.</string>
   <string name="youCannotCastleIfMoved">Δεν επιτρέπεται ροκέ αν
-ο Βασιλιάς έχει μετακινηθεί
+ο βασιλιάς έχει μετακινηθεί
 ή ο πύργος έχει μετακινηθεί.</string>
   <string name="youCannotCastleIfAttacked">Δεν επιτρέπεται ροκέ αν
-ο Βασιλιάς δέχεται επίθεση.
+ο βασιλιάς δέχεται επίθεση.
 Αποκλείστε το σαχ και μετά κάντε ροκέ!</string>
   <string name="findAWayToCastleKingSide">Βρείτε τρόπο για να κάνετε
-ροκέ στη πλευρά-Βασιλιά!</string>
+ροκέ στη πλευρά-βασιλιά!</string>
   <string name="findAWayToCastleQueenSide">Βρείτε τρόπο για να κάνετε
-ροκέ στη πλευρά-Βασίλισσας!</string>
-  <string name="castlingComplete">Συγχαρητήρια! Σχεδόν πάντα θα κάνετε στην παρτίδα.</string>
+ροκέ στη πλευρά-βασίλισσας!</string>
+  <string name="castlingComplete">Συγχαρητήρια! Σχεδόν πάντα θα κάνετε ροκέ στην παρτίδα.</string>
   <string name="enPassant">Εν διελεύσει</string>
   <string name="theSpecialPawnMove">Ειδική κίνηση πιονιού</string>
   <string name="enPassantIntro">Όταν το αντίπαλο πιόνι κινήθηκε δύο τετράγωνα, μπορείτε να το κόψετε σαν να είχε κινηθεί μόνο ένα τετράγωνο.</string>
@@ -154,13 +154,13 @@
   <string name="enPassantComplete">Συγχαρητήρια! Μπορείτε να πάρετε τώρα εν διελεύσει.</string>
   <string name="stalemate">Πατ</string>
   <string name="theGameIsADraw">Η παρτίδα είναι ισόπαλη</string>
-  <string name="stalemateIntro">Όταν ένας παίκτης δεν είναι σε σαχ και δεν έχει να κάνει κάποια νόμιμη κίνηση, τότε είναι πατ. Το παιχνίδι λήγει ισόπαλο: κανείς δεν κερδίζει, κανείς δεν χάνει.</string>
+  <string name="stalemateIntro">Όταν ένας παίκτης δεν είναι σε σαχ και δεν μπορεί να κάνει κάποια νόμιμη κίνηση, τότε είναι πατ. Το παιχνίδι λήγει ισόπαλο: κανείς δεν κερδίζει, κανείς δεν χάνει.</string>
   <string name="stalemateGoal">Πατ στα μαύρα: - Ο μαύρος δεν μπορεί να κινηθεί πουθενά - δεν υπάρχει σαχ.</string>
   <string name="stalemateComplete">Συγχαρητήρια! Καλύτερα πατ παρά σαχ-ματ!</string>
   <string name="advanced">Για προχωρημένους</string>
   <string name="pieceValue">Αξία κομματιού</string>
   <string name="evaluatePieceStrength">Αξιολογήστε τη δύναμη του κομματιού</string>
-  <string name="pieceValueIntro">Τα κομμάτια με υψηλή ευκινησία έχουν υψηλότερη αξία!
+  <string name="pieceValueIntro">Τα κομμάτια με υψηλή κινητικότητα έχουν υψηλότερη αξία!
 Βασίλισσα = 9
 Πύργος = 5
 Αξιωματικός = 3
@@ -209,7 +209,7 @@
   <string name="nailedIt">To βρήκες.</string>
   <string name="rightOn">Μπράβο!</string>
   <string name="stageXComplete">Στάδιο %s ολοκληρώθηκε</string>
-  <string name="yourScore">Η βαθμοί σας</string>
+  <string name="yourScore">Οι βαθμοί σας</string>
   <string name="next">Επόμενο</string>
   <string name="backToMenu">Επιστροφή στο μενού</string>
   <string name="puzzleFailed">Αποτύχατε τον γρίφο!</string>
