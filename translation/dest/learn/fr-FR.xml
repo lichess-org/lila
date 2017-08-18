@@ -86,7 +86,7 @@ Inutile d\'effectuer des promotions.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Ce cavalier donne un échec à travers vos défenses!</string>
   <string name="escapeOrBlock">Fuyez avec le roi
 ou contrez l\'attaque !</string>
-  <string name="mateInOne">Mat en 1</string>
+  <string name="mateInOne">Mat en un</string>
   <string name="defeatTheOpponentsKing">Mater le roi de l\'adversaire</string>
   <string name="mateInOneIntro">Vous gagnez lorsque votre adversaire ne peut pas parer un échec.</string>
   <string name="intermediate">Intermédiaire</string>
@@ -94,6 +94,7 @@ ou contrez l\'attaque !</string>
   <string name="howTheGameStarts">Comment une partie commence</string>
   <string name="boardSetupComplete">Félicitations! Vous maîtrisez le déplacement des pièces.</string>
   <string name="castling">Le Roque</string>
+  <string name="theSpecialKingMove">Un coup spécial du roi</string>
   <string name="findAWayToCastleKingSide">Trouvez un moyen d\'effectuer le petit roque!</string>
   <string name="findAWayToCastleQueenSide">Trouvez un moyen d\'effectuer le grand roque!</string>
   <string name="castlingComplete">Félicitations! Vous devriez presque toujours roquer durant un partie.</string>
@@ -101,8 +102,10 @@ ou contrez l\'attaque !</string>
   <string name="enPassantIntro">Lorsque le pion adverse avance de deux cases, on peut le prendre comme si il n\'avait avancé que d\'une case.</string>
   <string name="takeAllThePawnsEnPassant">Prenez tous les pions en passant!</string>
   <string name="stalemate">Pat</string>
+  <string name="theGameIsADraw">La partie est nulle</string>
   <string name="stalemateIntro">Lorsqu\'un joueur n\'est pas en échec et n\'a pas de coup légal, il est en situation de pat. La partie est alors déclarée nulle.</string>
   <string name="advanced">Avancé</string>
+  <string name="pieceValue">Valeur des pièces</string>
   <string name="pieceValueIntro">Les pièces ayant une grande mobilité ont une valeur plus importante:
 Dame = 9
 Tour = 5
