@@ -6,7 +6,7 @@
   <string name="menu">Μενού</string>
   <string name="progressX">Πρόοδος: %s</string>
   <string name="resetMyProgress">Επαναφέρετε την πρόοδο μου</string>
-  <string name="youWillLoseAllYourProgress">Θα χάσετε όλη την πρόοδό σας!</string>
+  <string name="youWillLoseAllYourProgress">Θα χάσετε όλη την πρόοδο σας!</string>
   <string name="play">παίξτε!</string>
   <string name="chessPieces">Σκάκι κομμάτια</string>
   <string name="theRook">Ο Πύργος</string>
@@ -54,9 +54,9 @@
   <string name="useAllThePawns">Χρησιμοποιήστε όλα τα πιόνια!
 Δεν χρειάζεται προαγωγή.</string>
   <string name="aPawnOnTheSecondRank">Ένα πιόνι στην δεύτερη γραμμή μπορεί να κινηθεί 2 τετράγωνα αμέσως!</string>
-  <string name="grabAllTheStarsNoNeedToPromote">Πιάσε όλα τα αστέρια!
+  <string name="grabAllTheStarsNoNeedToPromote">Πιάστε όλα τα αστέρια!
 Δεν χρειάζεται προαγωγή.</string>
-  <string name="pawnComplete">Συγχαρητήρια! Τα πιόνα δεν έχουν άλλα μυστικά για εσάς.</string>
+  <string name="pawnComplete">Συγχαρητήρια! Τα πιόνια δεν έχουν άλλα μυστικά για εσάς.</string>
   <string name="pawnPromotion">Προαγωγή πιονιού</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Το πιόνι σας έφτασε στην άκρη της σκακιέρας!</string>
   <string name="itNowPromotesToAStrongerPiece">Τώρα προάγεται σε πιο ισχυρό κομμάτι.</string>
