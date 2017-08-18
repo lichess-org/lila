@@ -7,7 +7,7 @@
   <string name="averageScoreAsBlackX">Durchschnittliche Punktzahl als Schwarz: %s</string>
   <string name="knowingTheChessBoard">Die Koordinaten des Schachbretts zu kennen ist eine wichtige Fähigkeit:</string>
   <string name="mostChessCourses">Viele Schach-Kurse und Übungen verwenden die algebraische Notation.</string>
-  <string name="talkToYourChessFriends">Es erleichtert dir dich mit deinen Schachfreunden zu unterhalten, da ihr beide die \"Schachsprache\" versteht.</string>
+  <string name="talkToYourChessFriends">Es erleichtert dir, dich mit deinen Schachfreunden zu unterhalten, da ihr beide die \"Schachsprache\" versteht.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Du kannst ein Spiel effektiver analysieren, wenn du nicht immer nach den Feldbezeichnungen suchen musst.</string>
   <string name="aSquareNameAppears">Der Feldname wird auf dem Brett angezeigt und du musst auf das zugehörige Feld klicken. Du hast 30 Sekunden, um möglichst viele Felder zu erkennen!</string>
   <string name="startTraining">Training beginnen</string>
