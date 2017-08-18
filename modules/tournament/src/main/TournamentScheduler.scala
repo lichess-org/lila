@@ -212,9 +212,9 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
         (0 to 6).toList.flatMap { hourDelta =>
           val date = rightNow plusHours hourDelta
           val hour = date.getHourOfDay
-          // Hyperbullet hourlies avoid ultra, and overlap with daily hyper.
-          // Add hour 15 hyperbullet because hour 16 is daily bullet.
-          val bulletType = if (hour == 15 || hour % 4 == 0) HyperBullet else Bullet
+          // Avoid overlap with daily/eastern bullet, daily/hourly ultra.
+          // Hour 20 is daily hyper, so make hour 19 regular bullet.
+          val bulletType = if (hour % 4 == 3 && hour != 19) HyperBullet else Bullet
           List(
             // Ultra hourlies avoid hyperbullet, and overlap with daily ultra.
             at(date, hour) collect { case date if hour % 8 == 5 => Schedule(Hourly, UltraBullet, Standard, std, date) },
