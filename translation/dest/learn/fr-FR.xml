@@ -8,7 +8,7 @@
   <string name="resetMyProgress">Réinitialiser ma progression</string>
   <string name="youWillLoseAllYourProgress">Vous allez réinitialiser votre progression !</string>
   <string name="play">jouer!</string>
-  <string name="chessPieces">Le déplacement des pièces</string>
+  <string name="chessPieces">Les pièces</string>
   <string name="theRook">La Tour</string>
   <string name="itMovesInStraightLines">Se déplace en ligne droite</string>
   <string name="rookIntro">La tour est une pièce puissante, Prêt à jouer ?</string>
@@ -122,6 +122,7 @@ Il se place à côté de sa dame.</string>
   <string name="findAWayToCastleQueenSide">Trouvez un moyen d\'effectuer le grand roque!</string>
   <string name="castlingComplete">Félicitations! Vous devriez presque toujours roquer durant un partie.</string>
   <string name="enPassant">En passant</string>
+  <string name="theSpecialPawnMove">Un coup spécial du pion</string>
   <string name="enPassantIntro">Lorsque le pion adverse avance de deux cases, on peut le prendre comme si il n\'avait avancé que d\'une case.</string>
   <string name="takeAllThePawnsEnPassant">Prenez tous les pions en passant!</string>
   <string name="stalemate">Pat</string>
@@ -137,6 +138,8 @@ Fou = 3
 Cavalier = 3
 Pion = 1
 Le roi n\'a pas de valeur! Le perdre signifie perdre la partie.</string>
+  <string name="takeThePieceWithTheHighestValue">Prenez la pièce
+qui a la plus haute valeur!</string>
   <string name="pieceValueComplete">Félicitations! Vous connaissez la valeur des pièces!
 Dame = 9
 Tour = 5
@@ -145,9 +148,15 @@ Cavalier= 3
 Pion= 1</string>
   <string name="checkInTwo">Échec en deux coups</string>
   <string name="twoMovesToGiveCheck">Donner un échec en deux coups</string>
+  <string name="checkInTwoIntro">Trouvez la bonne combinaison en deux coups qui met le roi de l\'adversaire en échec!</string>
+  <string name="checkInTwoGoal">Menacez le roi adverse
+en deux coups!</string>
+  <string name="checkInTwoComplete">Félicitations! Vous avec mis votre adversaire en échec, l\'obligeant à défendre son roi!</string>
   <string name="whatNext">Que faire ensuite ?</string>
+  <string name="youKnowHowToPlayChess">Vous savez comment jouer aux échecs, félicitations ! Voulez-vous devenir un joueur plus fort ?</string>
   <string name="register">S\'inscrire</string>
   <string name="getAFreeLichessAccount">Créer un compte Lichess gratuit</string>
+  <string name="practice">Pratique</string>
   <string name="puzzles">Exercices</string>
   <string name="exerciseYourTacticalSkills">Exercez vos compétences tactiques</string>
   <string name="videos">Vidéos</string>
@@ -162,5 +171,6 @@ Pion= 1</string>
   <string name="yourScore">Votre score</string>
   <string name="next">Suivant</string>
   <string name="backToMenu">Retour au menu</string>
+  <string name="puzzleFailed">Problème raté!</string>
   <string name="retry">Réessayez</string>
 </resources>
