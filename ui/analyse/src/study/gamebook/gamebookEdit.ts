@@ -8,7 +8,7 @@ import { throttle } from 'common';
 import { path as treePath } from 'tree';
 
 export function running(ctrl: AnalyseCtrl): boolean {
-  return !!ctrl.study && ctrl.study.data.chapter.gamebook && !ctrl.gamebookPlayer();
+  return !!ctrl.study && ctrl.study.data.chapter.gamebook && !ctrl.gamebookPlay();
 }
 
 export function render(ctrl: AnalyseCtrl): VNode {
@@ -67,9 +67,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
   ];
 
   return h('div.gamebook_wrap', {
-    hook: {
-      insert: _ => window.lichess.loadCss('/assets/stylesheets/gamebook.editor.css')
-    }
+    hook: { insert: _ => window.lichess.loadCss('/assets/stylesheets/gamebook.edit.css') }
   }, [
     h('div.gamebook', content)
   ]);

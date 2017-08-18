@@ -1,7 +1,7 @@
 import AnalyseCtrl from '../../../ctrl';
 import { StudyCtrl } from '../../interfaces';
 
-export default class GamebookPlayerCtrl {
+export default class GamebookPlayCtrl {
 
   root: AnalyseCtrl;
 

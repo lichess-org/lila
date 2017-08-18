@@ -18,8 +18,8 @@ import { view as keyboardView} from './keyboard';
 import explorerView from './explorer/explorerView';
 import retroView from './retrospect/retroView';
 import practiceView from './practice/practiceView';
-import * as gbEditor from './study/gamebook/gamebookEditor';
-import * as gbPlayer from './study/gamebook/player/gamebookPlayerView';
+import * as gbEdit from './study/gamebook/gamebookEdit';
+import * as gbPlay from './study/gamebook/play/gamebookPlayView';
 import * as studyView from './study/studyView';
 import { view as forkView } from './fork'
 import { render as acplView } from './acpl'
@@ -247,9 +247,9 @@ export default function(ctrl: AnalyseCtrl): VNode {
   menuIsOpen = ctrl.actionMenu.open,
   chapter = ctrl.study && ctrl.study.data.chapter,
   studyStateClass = chapter ? chapter.id + ctrl.study!.vm.loading : 'nostudy',
-  gamebookPlayer = ctrl.gamebookPlayer(),
-  gamebookPlayerView = gamebookPlayer && gbPlayer.render(gamebookPlayer),
-  gamebookEditorView = gbEditor.running(ctrl) ? gbEditor.render(ctrl) : undefined;
+  gamebookPlay = ctrl.gamebookPlay(),
+  gamebookPlayView = gamebookPlay && gbPlay.render(gamebookPlay),
+  gamebookEditView = gbEdit.running(ctrl) ? gbEdit.render(ctrl) : undefined;
   return h('div.analyse.cg-512', [
     h('div.' + studyStateClass, {
       hook: {
@@ -261,8 +261,8 @@ export default function(ctrl: AnalyseCtrl): VNode {
       class: {
         'gauge_displayed': ctrl.showEvalGauge(),
         'no_computer': !ctrl.showComputer(),
-        'gb_editor': !!gamebookEditorView,
-        'gb_player': !!gamebookPlayerView
+        'gb_edit': !!gamebookEditView,
+        'gb_play': !!gamebookPlayView
       }
     }, [
       h('div.lichess_game', {
@@ -271,19 +271,19 @@ export default function(ctrl: AnalyseCtrl): VNode {
         }
       }, [
         visualBoard(ctrl),
-        h('div.lichess_ground', gamebookPlayerView || [
+        h('div.lichess_ground', gamebookPlayView || [
           menuIsOpen ? null : renderClocks(ctrl),
           menuIsOpen ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
           ...(menuIsOpen ? [actionMenu(ctrl)] : [
             cevalView.renderCeval(ctrl),
             showCevalPvs ? cevalView.renderPvs(ctrl) : null,
             renderAnalyse(ctrl, concealOf),
-            gamebookEditorView ? null : forkView(ctrl, concealOf),
+            gamebookEditView ? null : forkView(ctrl, concealOf),
             retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl)
           ]),
           menuIsOpen ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
           buttons(ctrl),
-          gamebookEditorView
+          gamebookEditView
         ])
       ])
     ]),

@@ -2,7 +2,7 @@ import { Prop } from 'common';
 import { NotifCtrl } from './notif';
 import { AnalyseData } from '../interfaces';
 import { StudyPracticeCtrl } from './practice/interfaces';
-import GamebookPlayerCtrl from './gamebook/player/gamebookPlayerCtrl';
+import GamebookPlayCtrl from './gamebook/play/gamebookPlayCtrl';
 
 export interface StudyCtrl {
   data: StudyData;
@@ -34,7 +34,7 @@ export interface StudyCtrl {
   userJump(path: Tree.Path): void;
   currentNode(): Tree.Node;
   practice?: StudyPracticeCtrl;
-  gamebookPlayer(): GamebookPlayerCtrl | undefined;
+  gamebookPlay(): GamebookPlayCtrl | undefined;
   mutateCgConfig(config: any): void;
   redraw(): void;
 }

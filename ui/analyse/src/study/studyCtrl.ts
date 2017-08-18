@@ -14,7 +14,7 @@ import * as tours from './studyTour';
 import * as xhr from './studyXhr';
 import { path as treePath } from 'tree';
 import { StudyCtrl, StudyVm, Tab, TagTypes, StudyData, StudyChapterMeta, ReloadData } from './interfaces';
-import GamebookPlayerCtrl from './gamebook/player/gamebookPlayerCtrl';
+import GamebookPlayCtrl from './gamebook/play/gamebookPlayCtrl';
 
 const li = window.lichess;
 
@@ -190,14 +190,14 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
 
   const practice: StudyPracticeCtrl | undefined = practiceData && practiceCtrl(ctrl, data, practiceData);
 
-  let gamebookPlayer: GamebookPlayerCtrl | undefined;
+  let gamebookPlay: GamebookPlayCtrl | undefined;
 
-  function instanciateGamebookPlayer() {
-    if (!data.chapter.gamebook || members.canContribute()) return gamebookPlayer = undefined;
-    if (gamebookPlayer && gamebookPlayer.chapterId === vm.chapterId) return;
-    gamebookPlayer = new GamebookPlayerCtrl(ctrl, vm.chapterId);
+  function instanciateGamebookPlay() {
+    if (!data.chapter.gamebook || members.canContribute()) return gamebookPlay = undefined;
+    if (gamebookPlay && gamebookPlay.chapterId === vm.chapterId) return;
+    gamebookPlay = new GamebookPlayCtrl(ctrl, vm.chapterId);
   }
-  instanciateGamebookPlayer();
+  instanciateGamebookPlay();
 
   function mutateCgConfig(config) {
     config.drawable.onChange = function(shapes) {
@@ -297,7 +297,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     userJump: ctrl.userJump,
     currentNode,
     practice,
-    gamebookPlayer: () => gamebookPlayer,
+    gamebookPlay: () => gamebookPlay,
     mutateCgConfig,
     redraw,
     socketHandlers: {

@@ -28,7 +28,7 @@ import { make as makeEvalCache, EvalCache } from './evalCache';
 import { compute as computeAutoShapes } from './autoShape';
 import { nextGlyphSymbol } from './nodeFinder';
 import { AnalyseOpts, AnalyseData, AnalyseDataWithTree, Key, CgDests, JustCaptured } from './interfaces';
-import GamebookPlayerCtrl from './study/gamebook/player/gamebookPlayerCtrl';
+import GamebookPlayCtrl from './study/gamebook/play/gamebookPlayCtrl';
 
 const li = window.lichess;
 
@@ -789,8 +789,8 @@ export default class AnalyseCtrl {
     this.togglePractice();
   }
 
-  gamebookPlayer = (): GamebookPlayerCtrl | undefined => {
-    return this.study && this.study.gamebookPlayer();
+  gamebookPlay = (): GamebookPlayCtrl | undefined => {
+    return this.study && this.study.gamebookPlay();
   }
 
   private withCg<A>(f: (cg: ChessgroundApi) => A): A | undefined {
