@@ -90,6 +90,7 @@ maar je kunt verdedigen!</string>
   <string name="outOfCheck">Geen schaak meer mogelijk</string>
   <string name="defendYourKing">Verdedig je koning</string>
   <string name="escapeWithTheKing">Ontsnappen met de koning!</string>
+  <string name="escapeOrBlock">Ontsnap met de koning of blokkeer de aanval!</string>
   <string name="mateInOne">Mat in 1</string>
   <string name="defeatTheOpponentsKing">Versla de koning van de tegenstander</string>
   <string name="mateInOneIntro">Je wint wanneer je tegenstander zich niet tegen schaak kan verdedigen.</string>
@@ -172,7 +173,9 @@ Pion = 1</string>
   <string name="checkInTwo">Schaak in twee zetten</string>
   <string name="twoMovesToGiveCheck">Twee zetten om schaak te geven</string>
   <string name="checkInTwoIntro">Vind de juiste twee zetten om de koning van de tegenstander schaak te zetten!</string>
+  <string name="checkInTwoGoal">Bedreig de koning van de tegenstander in 2 zetten!</string>
   <string name="whatNext">En nu?</string>
+  <string name="youKnowHowToPlayChess">Je weet hoe je moet schaken, gefeliciteerd! Wil je een sterkere speler worden?</string>
   <string name="puzzles">Puzzels</string>
   <string name="videos">Video\'s</string>
   <string name="watchInstructiveChessVideos">Bekijk leerzame schaakvideo\'s</string>
