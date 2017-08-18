@@ -571,7 +571,8 @@ object Quote {
     // lichess facts
     new Quote("All features for free; for everyone; forever.", "lichess.org"),
     new Quote("We will never display ads.", "lichess.org"),
-    new Quote("We do not track you. It's a rare feature, nowadays.", "lichess.org")
+    new Quote("We do not track you. It's a rare feature, nowadays.", "lichess.org"),
+    new Quote("Every chess player is a premium user.", "lichess.org")
   )
 
   implicit def quoteWriter: OWrites[Quote] = OWrites { q =>
