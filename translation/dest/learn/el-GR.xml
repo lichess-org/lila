@@ -16,18 +16,18 @@
   <string name="grabAllTheStars">Πιάστε όλα τα αστέρια!</string>
   <string name="theFewerMoves">Όσες λιγότερες κινήσεις κάνετε, τόσο περισσότερους πόντους κερδίζετε!</string>
   <string name="useTwoRooks">Χρησιμοποιήστε δύο πύργους για να επιταχύνετε τα πράγματα!</string>
-  <string name="rookComplete">Συγχαρητήρια! Επιτυχώς χειριστήκατε τον πύργο.</string>
+  <string name="rookComplete">Συγχαρητήρια! Χειριστήκατε επιτυχώς τον πύργο.</string>
   <string name="theBishop">Ο αξιωματικός</string>
   <string name="itMovesDiagonally">Κινείται διαγώνια</string>
   <string name="bishopIntro">Στη συνέχεια θα μάθουμε πως να χειριζόμαστε τον αξιωματικό!</string>
   <string name="youNeedBothBishops">Ένας λευκοτετράγωνος αξιωματικός,
 ένας μαυροτετράγωνος αξιωματικός.
-Χρειάζεσαι και τους δύο!</string>
+Χρειάζεστε και τους δύο!</string>
   <string name="bishopComplete">Συγχαρητήρια! Μπορείς χειριστείς τον αξιωματικό.</string>
   <string name="theQueen">Η βασίλισσα</string>
-  <string name="queenCombinesRookAndBishop">Βασίλισσα = Πύργος + Αξιωματικός</string>
-  <string name="queenIntro">Το πιο ισχυρό κομμάτι εισέρχεται στη σκακιέρα. Η Αυτής Μεγαλειότης η Βασίλισσα!</string>
-  <string name="queenComplete">Συγχαρητήρια! Οι Βασίλισσες δεν έχουν μυστικά από σας.</string>
+  <string name="queenCombinesRookAndBishop">Βασίλισσα = πύργος + αξιωματικός</string>
+  <string name="queenIntro">Το πιο ισχυρό κομμάτι εισέρχεται στη σκακιέρα. Η αυτού μεγαλειότης η βασίλισσα!</string>
+  <string name="queenComplete">Συγχαρητήρια! Οι βασίλισσες δεν έχουν άλλα μυστικά για εσάς.</string>
   <string name="theKing">Ο βασιλιάς</string>
   <string name="theMostImportantPiece">Το πιο σημαντικό κομμάτι</string>
   <string name="kingIntro">Είστε ο βασιλιάς. Αν πέσετε στη μάχη, το παιχνίδι είναι χαμένο.</string>
@@ -74,10 +74,10 @@
   <string name="protectionIntro">Βρείτε τα κομμάτια που επιτίθεται ο αντίπαλος, και προστατεύστε τα!</string>
   <string name="protectionComplete">Συγχαρητήρια! Ένα κομμάτι που δεν χάσατε είναι ένα κομμάτι που κερδίσατε!</string>
   <string name="escape">Δέχεστε επίθεση!
-Αποτρέψτε την απειλή!</string>
+Ξεφύγετε από την απειλή!</string>
   <string name="noEscape">Δεν υπάρχει διαφυγή,
 αλλά υπάρχει άμυνα!</string>
-  <string name="dontLetThemTakeAnyUndefendedPiece">Αποτρέψτε το κόψιμο
+  <string name="dontLetThemTakeAnyUndefendedPiece">Αποτρέψτε το πιάσιμο των
 ανυπεράσπιστων κομματιών!</string>
   <string name="combat">Δράση</string>
   <string name="captureAndDefendPieces">Αιχμαλωτίστε και υπερασπιστείτε τα κομμάτια</string>
@@ -113,22 +113,22 @@
 Πηγαίνουν στις γωνίες.</string>
   <string name="thenPlaceTheKnights">Μετά τοποθετήστε τους ίππους!
 Πηγαίνουν δίπλα στους πύργους.</string>
-  <string name="placeTheBishops">Τοποθετήστε τους Αξιωματικούς!
+  <string name="placeTheBishops">Τοποθετήστε τους αξιωματικούς!
 Πηγαίνουν δίπλα στους ίππους.</string>
-  <string name="placeTheQueen">Τοποθετήστε την Βασίλισσα!
+  <string name="placeTheQueen">Τοποθετήστε την βασίλισσα!
 Πηγαίνει στο χρώμα της.</string>
-  <string name="placeTheKing">Τοποθετήστε το Βασιλιά!
-Ακριβώς δίπλα στη Βασίλισσά του.</string>
+  <string name="placeTheKing">Τοποθετήστε τον βασιλιά!
+Ακριβώς δίπλα στη βασίλισσα του.</string>
   <string name="pawnsFormTheFrontLine">Τα πιόνια αποτελούν την πρώτη γραμμή.
 Κάντε οποιαδήποτε κίνηση για συνέχεια.</string>
-  <string name="boardSetupComplete">Συγχαρητήρια! Ξέρετε πώς να στήνετε την σκακιέρα.</string>
+  <string name="boardSetupComplete">Συγχαρητήρια! Ξέρετε πως να στήνετε την σκακιέρα.</string>
   <string name="castling">Pοκέ</string>
-  <string name="theSpecialKingMove">Ειδική κίνηση Βασιλιά</string>
+  <string name="theSpecialKingMove">Ειδική κίνηση βασιλιά</string>
   <string name="castlingIntro">Φέρτε τον Βασιλιά σε ασφάλεια, και αναπτύξτε τον πύργο για επίθεση!</string>
-  <string name="castleKingSide">Μετακινήστε τον Βασιλιά δύο τετράγωνα για ροκέ στη πλευρά-βασιλιά!</string>
-  <string name="castleQueenSide">Μετακινήστε τον Βασιλιά δύο τετράγωνα για ροκέ στη πλευρά-Βασίλισσας!</string>
+  <string name="castleKingSide">Μετακινήστε τον βασιλιά δύο τετράγωνα για ροκέ στη πλευρά-βασιλιά!</string>
+  <string name="castleQueenSide">Μετακινήστε τον βασιλιά δύο τετράγωνα για ροκέ στη πλευρά-βασίλισσας!</string>
   <string name="theKnightIsInTheWay">Ο ίππος εμποδίζει!
-Μετακινήστε τον, έπειτα κάντε ροκέ στη πλευρά-Βασιλιά.</string>
+Μετακινήστε τον, έπειτα κάντε ροκέ στη πλευρά-βασιλιά.</string>
   <string name="castleKingSideMovePiecesFirst">Ροκέ στη πλευρά-Βασιλιά!
 Πρέπει πρώτα να βγάλετε τα κομμάτια.</string>
   <string name="castleQueenSideMovePiecesFirst">Ροκέ στη πλευρά-Βασίλισσας!
