@@ -204,13 +204,17 @@ object Round extends LilaController with TheftPrevention {
   }
 
   private[controllers] def getPlayerChat(game: GameModel)(implicit ctx: Context): Fu[Option[Chat.GameOrEvent]] = ctx.noKid ?? {
-    game.tournamentId.?? { tid =>
-      ctx.me.??(Tournament.canHaveChat(game.variant, _)) ??
+    (game.tournamentId, game.simulId) match {
+      case (Some(tid), _) => ctx.me.??(Tournament.canHaveChat(game.variant, _)) ??
         Env.chat.api.userChat.cached.findMine(Chat.Id(tid), ctx.me).map { chat =>
           Chat.GameOrEvent(Right(chat truncate 50)).some
         }
-    }.orElse {
-      game.hasChat ?? {
+      case (_, Some(sid)) => game.simulId.?? { sid =>
+        Env.chat.api.userChat.cached.findMine(Chat.Id(sid), ctx.me).map { chat =>
+          Chat.GameOrEvent(Right(chat truncate 50)).some
+        }
+      }
+      case _ => game.hasChat ?? {
         Env.chat.api.playerChat.findIf(Chat.Id(game.id), !game.justCreated).map { chat =>
           Chat.GameOrEvent(Left(Chat.Restricted(chat, game.fromLobby && ctx.isAnon))).some
         }

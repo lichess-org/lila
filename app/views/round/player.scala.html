@@ -13,7 +13,9 @@ LichessRound.boot({
 data: @Html(J.stringify(data)),
 i18n: @jsI18n(pov.game),
 userId: @jsUserId,
-tour: @jsOrNull(tour.flatMap(_.top).map(lila.tournament.JsonView.top(_, lightUser))),
+@tour.map { t =>
+tour: @toJson(tour.flatMap(_.top).map(lila.tournament.JsonView.top(_, lightUser))),
+}
 chat: @jsOrNull(chatOption.map(_.either).map {
 case Left(c) => {
 chat.ChatJsData.restricted(c, name = trans.chatRoom.txt(), timeout = false, withNote = ctx.isAuth, public = false)

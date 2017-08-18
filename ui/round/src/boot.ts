@@ -6,7 +6,7 @@ import { tourStandingCtrl, TourStandingCtrl } from './tourStanding';
 const li = window.lichess;
 
 export default function(opts: RoundOpts, element: HTMLElement): void {
-  const data = opts.data;
+  const data: RoundData = opts.data;
   li.openInMobileApp(data.game.id);
   let round: RoundApi, chat: ChatCtrl | undefined;
   if (data.tournament) $('body').data('tournament-id', data.tournament.id);
@@ -65,7 +65,7 @@ export default function(opts: RoundOpts, element: HTMLElement): void {
   };
   opts.element = element.querySelector('.round') as HTMLElement;
   opts.socketSend = li.socket.send;
-  if (!opts.tour) opts.onChange = (d: RoundData) => {
+  if (!opts.tour && !data.simul) opts.onChange = (d: RoundData) => {
     if (chat) chat.preset.setGroup(getPresetGroup(d));
   };
   opts.crosstableEl = element.querySelector('.crosstable') as HTMLElement;
@@ -77,7 +77,7 @@ export default function(opts: RoundOpts, element: HTMLElement): void {
       if (opts.tour) {
         opts.chat.plugin = tourStandingCtrl(opts.tour, opts.i18n.standing);
         opts.chat.alwaysEnabled = true;
-      } else {
+      } else if (!data.simul) {
         opts.chat.preset = getPresetGroup(opts.data);
         opts.chat.parseMoves = true;
       }

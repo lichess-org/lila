@@ -78,6 +78,7 @@ export interface Tournament {
 }
 
 export interface Simul {
+  id: string;
   name: string;
   hostId: string;
   nbPlaying: number;
