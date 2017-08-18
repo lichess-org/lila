@@ -41,7 +41,7 @@
   <string name="blackResigned">Schwarz hat aufgegeben</string>
   <string name="whiteLeftTheGame">Weiß hat die Partie verlassen</string>
   <string name="blackLeftTheGame">Schwarz hat die Partie verlassen</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Mit dieser URL kannst du Zuschauer einladen</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Teile diese URL um Zuschauer einzuladen</string>
   <string name="theComputerAnalysisHasFailed">Die Computer-Analyse ist fehlgeschlagen</string>
   <string name="viewTheComputerAnalysis">Computer-Analyse betrachten</string>
   <string name="requestAComputerAnalysis">Computer-Analyse anfordern</string>
