@@ -7,11 +7,6 @@ export interface TourStandingCtrl extends ChatPlugin {
   set(data: TourPlayer[]): void;
 }
 
-export interface TourStandingData {
-  id: string;
-  top: TourPlayer[];
-}
-
 export interface TourPlayer {
   n: string; // name
   s: number; // score

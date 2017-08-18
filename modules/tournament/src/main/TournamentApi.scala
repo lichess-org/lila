@@ -426,10 +426,10 @@ final class TournamentApi(
     import lila.hub.EarlyMultiThrottler
 
     private def publishNow(tourId: Tournament.ID) = tournamentTop(tourId) map { top =>
-      bus.publish(lila.hub.actorApi.round.TourStanding(Json.obj(
-        "id" -> tourId,
-        "top" -> JsonView.top(top, lightUserApi.sync)
-      )), Symbol(s"tour-standing-$tourId"))
+      bus.publish(
+        lila.hub.actorApi.round.TourStanding(JsonView.top(top, lightUserApi.sync)),
+        Symbol(s"tour-standing-$tourId")
+      )
     }
 
     private val throttler = system.actorOf(Props(new EarlyMultiThrottler(logger = logger)))

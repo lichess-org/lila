@@ -1,7 +1,7 @@
 import { RoundOpts, RoundData } from './interfaces';
 import { RoundApi, RoundMain } from './main';
 import { ChatCtrl } from 'chat';
-import { tourStandingCtrl, TourStandingCtrl, TourStandingData } from './tourStanding';
+import { tourStandingCtrl, TourStandingCtrl, TourPlayer } from './tourStanding';
 
 const li = window.lichess;
 
@@ -41,9 +41,9 @@ export default function(opts: RoundOpts, element: HTMLElement): void {
             }
           });
         },
-        tourStanding(s: TourStandingData) {
-          if (data.tournament && data.tournament.id === s.id && opts.chat && opts.chat.plugin && chat) {
-            (opts.chat.plugin as TourStandingCtrl).set(s.top);
+        tourStanding(s: TourPlayer[]) {
+          if (opts.chat && opts.chat.plugin && chat) {
+            (opts.chat.plugin as TourStandingCtrl).set(s);
             chat.redraw();
           }
         }
