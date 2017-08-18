@@ -46,8 +46,8 @@
 }
 
 #insight header {
-  background: #333;
-  color: #ddd;
+  background: #f5f5f5;
+  color: #707070;
   height: 60px;
 }
 #insight header h2 {
@@ -64,9 +64,8 @@
   display: inline-block;
 }
 #insight header .ms-choice {
-  background: #444;
-  color: #ddd!important;
-  border-color: #666;
+  background-color: #e0e0e0;
+  border-color: #c0c0c0;
 }
 #insight .meat {
   background: #fff;
