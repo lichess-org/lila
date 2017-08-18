@@ -76,14 +76,12 @@ function view(opts: Opts, coords: Coords): VNode {
 }
 
 export default function(e: MouseEvent, opts: Opts): void {
-  const el = document.getElementById(elementId) ||
-    $('<div id="' + elementId + '">').appendTo($('body'))[0];
+  const el = $('#' + elementId)[0] || $('<div id="' + elementId + '">').appendTo($('body'))[0];
   opts.root.contextMenuPath = opts.path;
   function close() {
     opts.root.contextMenuPath = undefined;
     document.removeEventListener('click', close, false);
-    const el = document.getElementById(elementId);
-    if (el) el.classList.remove('visible');
+    $('#' + elementId).removeClass('visible');
     opts.root.redraw();
   };
   document.addEventListener('click', close, false);
