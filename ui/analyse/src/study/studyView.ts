@@ -72,7 +72,7 @@ function buttons(root: AnalyseCtrl): VNode {
         ])
       ] : [])
     ]),
-    h('span.button.help.hint--top', {
+    ctrl.gamebookPlay() ? null : h('span.button.help.hint--top', {
       attrs: { 'data-hint': 'Need help? Get the tour!' },
       hook: bind('click', ctrl.startTour)
     }, [
@@ -158,8 +158,12 @@ export function overboard(ctrl: StudyCtrl) {
 export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
   if (ctrl.embed) return [];
   if (ctrl.studyPractice) return [practiceView.underboard(ctrl.study!)];
-  const study = ctrl.study!,
-  commentForm = commentFormView(study.commentForm);
+  const study = ctrl.study!;
+  if (study.gamebookPlay()) return [
+    buttons(ctrl),
+    metadata(study)
+  ];
+  const commentForm = commentFormView(study.commentForm);
   return [
     notifView(study.notif),
     glyphFormView(study.glyphForm),

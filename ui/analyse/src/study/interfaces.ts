@@ -2,7 +2,7 @@ import { Prop } from 'common';
 import { NotifCtrl } from './notif';
 import { AnalyseData } from '../interfaces';
 import { StudyPracticeCtrl } from './practice/interfaces';
-import GamebookPlayCtrl from './gamebook/play/gamebookPlayCtrl';
+import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 
 export interface StudyCtrl {
   data: StudyData;

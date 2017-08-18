@@ -19,7 +19,7 @@ import explorerView from './explorer/explorerView';
 import retroView from './retrospect/retroView';
 import practiceView from './practice/practiceView';
 import * as gbEdit from './study/gamebook/gamebookEdit';
-import * as gbPlay from './study/gamebook/play/gamebookPlayView';
+import * as gbPlay from './study/gamebook/gamebookPlayView';
 import * as studyView from './study/studyView';
 import { view as forkView } from './fork'
 import { render as acplView } from './acpl'

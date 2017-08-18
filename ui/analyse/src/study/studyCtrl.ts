@@ -14,7 +14,7 @@ import * as tours from './studyTour';
 import * as xhr from './studyXhr';
 import { path as treePath } from 'tree';
 import { StudyCtrl, StudyVm, Tab, TagTypes, StudyData, StudyChapterMeta, ReloadData } from './interfaces';
-import GamebookPlayCtrl from './gamebook/play/gamebookPlayCtrl';
+import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 
 const li = window.lichess;
 
@@ -195,7 +195,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
   function instanciateGamebookPlay() {
     if (!data.chapter.gamebook || members.canContribute()) return gamebookPlay = undefined;
     if (gamebookPlay && gamebookPlay.chapterId === vm.chapterId) return;
-    gamebookPlay = new GamebookPlayCtrl(ctrl, vm.chapterId);
+    gamebookPlay = new GamebookPlayCtrl(ctrl, vm.chapterId, redraw);
   }
   instanciateGamebookPlay();
 

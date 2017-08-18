@@ -28,7 +28,7 @@ import { make as makeEvalCache, EvalCache } from './evalCache';
 import { compute as computeAutoShapes } from './autoShape';
 import { nextGlyphSymbol } from './nodeFinder';
 import { AnalyseOpts, AnalyseData, AnalyseDataWithTree, Key, CgDests, JustCaptured } from './interfaces';
-import GamebookPlayCtrl from './study/gamebook/play/gamebookPlayCtrl';
+import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 
 const li = window.lichess;
 

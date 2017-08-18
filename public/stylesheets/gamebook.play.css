@@ -1,2 +1,56 @@
+.gb_play .lichess_game .lichess_ground {
+  margin-bottom: 0;
+}
 .gb_play .gamebook {
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-end;
+  font-size: 1.4em;
+}
+.gb_play .comment {
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  position: relative;
+  border: 1px solid #aaa;
+}
+.gb_play .comment:after {
+  content: '';
+  position: absolute;
+  bottom: -9px;
+  left: 40%;
+  width: 15px;
+  height: 15px;
+  background: #eee;
+  border-right: 1.5px solid #aaa;
+  border-bottom: 1px solid #aaa;
+  transform: skew(-45deg) rotate(45deg);
+}
+.gb_play .comment:after {
+  background: #fff;
+}
+.gb_play .mascot {
+  margin: 1em 0;
+  width: 120px;
+  height: 120px;
+  cursor: pointer;
+}
+.gb_play .mascot:hover {
+  opacity: 0.8;
+}
+.gb_play .soapbox {
+  flex: 0 0 38.2%; /* golden ratio */
+  background: #fff;
+  border: 1px solid #ccc;
+  text-align: center;
+  background: #e0e0e0;
+}
+.gb_play .soapbox .turn {
+  line-height: 2em;
+  text-transform: uppercase;
+  font-size: 1.4em;
+  border-bottom: 1px solid #ccc;
+  margin: 20px;
+  padding-bottom: 20px;
 }
