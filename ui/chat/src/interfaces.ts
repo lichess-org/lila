@@ -55,6 +55,7 @@ export interface Ctrl {
   data: ChatData
   opts: ChatOpts
   vm: ViewModel
+  allTabs: Tab[]
   preset: PresetCtrl
   note?: NoteCtrl
   moderation(): ModerationCtrl | undefined

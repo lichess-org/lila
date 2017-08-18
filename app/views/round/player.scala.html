@@ -16,7 +16,7 @@ userId: @jsUserId,
 tour: @jsOrNull(tour.flatMap(_.top).map(lila.tournament.JsonView.top(_, lightUser))),
 chat: @jsOrNull(chatOption.map(_.either).map {
 case Left(c) => {
-chat.ChatJsData.restricted(c, name = trans.chatRoom.txt(), timeout = false, withNote = true, public = false)
+chat.ChatJsData.restricted(c, name = trans.chatRoom.txt(), timeout = false, withNote = ctx.isAuth, public = false)
 }
 case Right(c) => {
 chat.ChatJsData.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, public = true)

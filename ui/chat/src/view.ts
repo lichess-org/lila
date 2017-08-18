@@ -19,11 +19,8 @@ export default function(ctrl: Ctrl): VNode {
 
 function normalView(ctrl: Ctrl) {
   const active = ctrl.vm.tab;
-  const tabs: Array<Tab> = ['discussion'];
-  if (ctrl.note) tabs.push('note');
-  if (ctrl.plugin) tabs.push(ctrl.plugin.tab.key);
   return [
-    h('div.chat_tabs.nb_' + tabs.length, tabs.map(t => renderTab(ctrl, t, active))),
+    h('div.chat_tabs.nb_' + ctrl.allTabs.length, ctrl.allTabs.map(t => renderTab(ctrl, t, active))),
     h('div.content.' + active,
       (active === 'note' && ctrl.note) ? [noteView(ctrl.note)] : (
         ctrl.plugin && active === ctrl.plugin.tab.key ? [ctrl.plugin.view()] : discussionView(ctrl)

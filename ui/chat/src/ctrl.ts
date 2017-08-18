@@ -11,10 +11,17 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
 
   const pubsub = li.pubsub;
 
+  const allTabs: Tab[] = ['discussion'];
+  if (opts.noteId) allTabs.push('note');
+  if (opts.plugin) allTabs.push(opts.plugin.tab.key);
+
+  const tabStorage = li.storage.make('chat.tab'),
+  storedTab = tabStorage.get();
+
   let moderation: ModerationCtrl | undefined;
 
   const vm: ViewModel = {
-    tab: 'discussion',
+    tab: allTabs.indexOf(storedTab) > -1 ? storedTab : allTabs[0],
     enabled: opts.alwaysEnabled || !li.storage.get('nochat'),
     placeholderKey: 'talkInChat',
     loading: false,
@@ -71,7 +78,7 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
   }
   instanciateModeration();
 
-  const note = data.userId && opts.noteId ? noteCtrl({
+  const note = opts.noteId ? noteCtrl({
     id: opts.noteId,
     trans,
     redraw
@@ -104,8 +111,10 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
     data,
     opts,
     vm,
+    allTabs,
     setTab(t: Tab) {
       vm.tab = t;
+      tabStorage.set(t);
       redraw()
     },
     moderation: () => moderation,
