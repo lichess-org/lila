@@ -81,9 +81,6 @@ private[round] final class Round(
 
     case GoBerserk(color) => handle(color) { pov =>
       pov.game.goBerserk(color) ?? { progress =>
-        messenger.system(pov.game, (_.untranslated(
-          s"${pov.color.name.capitalize} is going berserk!"
-        )))
         proxy.save(progress) >> proxy.invalidating(_ goBerserk pov) inject progress.events
       }
     }
