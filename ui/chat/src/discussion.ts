@@ -19,20 +19,19 @@ export default function(ctrl: Ctrl): Array<VNode | undefined> {
           setTimeout(_ => el.scrollTop = 999999, 300)
         }
       }
-  }
+  },
+  m = ctrl.moderation();
   const vnodes = [
-    h('ol.messages.content.scroll-shadow-soft', {
+    h('ol.messages.content.scroll-shadow-soft' + (m ? '.as-mod' : ''), {
       hook: {
         insert(vnode) {
-          $(vnode.elm as HTMLElement)
-            .on('click', 'a.jump', (e: Event) => {
-              window.lichess.pubsub.emit('jump')((e.target as HTMLElement).getAttribute('data-ply'));
-            })
-              .on('click', '.mod', (e: Event) => {
-                const m = ctrl.moderation();
-                if (m) m.open(((e.target as HTMLElement).getAttribute('data-username') as string).split(' ')[0]);
-              });
-              scrollCb(vnode);
+          const $el = $(vnode.elm as HTMLElement).on('click', 'a.jump', (e: Event) => {
+            window.lichess.pubsub.emit('jump')((e.target as HTMLElement).getAttribute('data-ply'));
+          });
+          if (m) $el.on('click', '.mod', (e: Event) => {
+            m.open(((e.target as HTMLElement).getAttribute('data-username') as string).split(' ')[0]);
+          });
+          scrollCb(vnode);
         },
         postpatch: (_, vnode) => scrollCb(vnode)
       }
@@ -63,22 +62,25 @@ function renderInput(ctrl: Ctrl): VNode | undefined {
       maxlength: 140,
       disabled: ctrl.vm.timeout || !ctrl.vm.writeable
     },
-    hook: bind('keypress', (e: KeyboardEvent) => {
-      const el = e.target as HTMLInputElement;
-      const txt = el.value;
+    hook: bind('keypress', (e: KeyboardEvent) => setTimeout(() => {
+      const el = e.target as HTMLInputElement,
+      txt = el.value,
+      pub = ctrl.opts.public;
       if (e.which == 10 || e.which == 13) {
-        if (txt === '') {
-          const kbm = document.querySelector('.keyboard-move input') as HTMLElement;
-          if (kbm) kbm.focus();
-        } else {
-          if (ctrl.opts.public && hasTeamUrl(txt)) alert("Please don't advertise teams in the chat.");
+        if (txt === '') $('.keyboard-move input').focus();
+        else {
+          if (pub && hasTeamUrl(txt)) alert("Please don't advertise teams in the chat.");
           else ctrl.post(txt);
           el.value = '';
-          if (ctrl.opts.public) el.classList.remove('whisper');
+          if (!pub) el.classList.remove('whisper');
         }
-      } else if (!ctrl.opts.public) el.classList.toggle('whisper', !!txt.match(whisperRegex));
-    })
-  })
+      }
+      else {
+        el.removeAttribute('placeholder');
+        if (!pub) el.classList.toggle('whisper', !!txt.match(whisperRegex));
+      }
+    }))
+  });
 }
 
 function sameLines(l1: Line, l2: Line) {
@@ -137,7 +139,7 @@ function renderLine(ctrl: Ctrl, line: Line) {
   ] : [userNode, textNode]);
 }
 
-const teamUrlRegex = /lichess\.org\/team\//
+const teamUrlRegex = /lichess\.org\/team\//;
 function hasTeamUrl(txt: string) {
   return !!txt.match(teamUrlRegex);
 }
