@@ -471,7 +471,7 @@
   <string name="blog">Blog</string>
   <string name="questionsAndAnswers">Fragen &amp; Antworten</string>
   <string name="notes">Notizen</string>
-  <string name="typePrivateNotesHere">Private Notizen hier einfügen</string>
+  <string name="typePrivateNotesHere">Private Notizen hier eingeben</string>
   <string name="gameDisplay">Spieldarstellung</string>
   <string name="pieceAnimation">Figurenanimation</string>
   <string name="materialDifference">Materialunterschied</string>
