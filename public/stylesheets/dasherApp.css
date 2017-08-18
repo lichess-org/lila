@@ -42,16 +42,11 @@
   padding: 5px 0;
   border-top: 1px solid #ddd;
 }
-#dasher_app .status .led {
+#dasher_app .status signal {
   position: absolute;
   right: 10px;
   top: 12px;
-  font-size: 20px;
-  opacity: 0.8;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  box-shadow: inset 0 2px 2px 0 rgba(0, 0, 0, 0.4);
+  font-size: 14px;
 }
 #dasher_app .status .ping,
 #dasher_app .status .server {

@@ -35,11 +35,15 @@ export function ctrl(trans: Prop<Trans>, redraw: Redraw): PingCtrl {
   return { data, trans };
 }
 
-function ledStyle(d: PingData): string {
-  const l = (d.server || 0) + (d.ping || 0) - 100;
-  const ratio = Math.max(Math.min(l / 1200, 1), 0);
-  const hue = ((1 - ratio) * 120).toString(10);
-  return `background: hsl(${hue},100%,40%)`;
+function signalBars(d: PingData) {
+  const lagRating =
+    !d.ping ? 0 :
+    (d.ping < 15) ? 4 :
+    (d.ping < 30) ? 3 :
+    (d.ping < 50) ? 2 : 1;
+  const bars = [];
+  for (let i = 1; i <= 4; i++) bars.push(h(i <= lagRating ? 'i' : 'i.off'));
+  return h('signal.q' + lagRating, bars);
 }
 
 export function view(ctrl: PingCtrl): VNode {
@@ -47,9 +51,7 @@ export function view(ctrl: PingCtrl): VNode {
   const d = ctrl.data;
 
   return h('a.status', { attrs: {href: '/lag'} }, [
-    h('span.led', {
-      attrs: { style: ledStyle(d) }
-    }),
+    signalBars(d),
     h('span.ping.hint--left', {
       attrs: { 'data-hint': 'PING: ' + ctrl.trans.noarg('networkLagBetweenYouAndLichess') }
     }, [
