@@ -79,7 +79,7 @@ private[round] final class Socket(
 
   override def preStart() {
     super.preStart()
-    refreshSubscriptions
+    buscriptions.all
     GameRepo game gameId map SetGame.apply pipeTo self
   }
 
@@ -88,21 +88,21 @@ private[round] final class Socket(
     lilaBus.unsubscribe(self)
   }
 
-  private def refreshSubscriptions {
-    lilaBus.unsubscribe(self)
-    members.flatMap { case (_, m) => m.userTv }.toList.distinct foreach { userId =>
+  private object buscriptions {
+
+    def all = {
+      tv
+      chat
+      tournament
+    }
+
+    def tv = members.flatMap { case (_, m) => m.userTv }.toSet foreach { (userId: String) =>
       lilaBus.subscribe(self, Symbol(s"userStartGame:$userId"))
     }
-    refreshChatSubscriptions
-    refreshTournamentSubscriptions
-  }
 
-  private def refreshChatSubscriptions {
-    lilaBus.subscribe(self, Symbol(s"chat-${chatIds.priv}"), Symbol(s"chat-${chatIds.pub}"))
-  }
+    def chat = lilaBus.subscribe(self, Symbol(s"chat-${chatIds.priv}"), Symbol(s"chat-${chatIds.pub}"))
 
-  private def refreshTournamentSubscriptions {
-    tournamentId foreach { id =>
+    def tournament = tournamentId foreach { id =>
       lilaBus.subscribe(self, Symbol(s"tour-standing-$id"))
     }
   }
@@ -116,11 +116,11 @@ private[round] final class Socket(
       mightBeSimul = game.isSimul
       game.tournamentId orElse game.simulId map Chat.Id.apply foreach { chatId =>
         chatIds = chatIds.copy(priv = chatId)
-        refreshChatSubscriptions
+        buscriptions.chat
       }
       game.tournamentId foreach { tourId =>
         tournamentId = tourId.some
-        refreshTournamentSubscriptions
+        buscriptions.tournament
       }
 
     // from lilaBus 'startGame
@@ -175,7 +175,7 @@ private[round] final class Socket(
       notifyCrowd
       playerDo(color, _.ping)
       sender ! Connected(enumerator, member)
-      if (member.userTv.isDefined) refreshSubscriptions
+      if (member.userTv.isDefined) buscriptions.tv
 
     case Nil =>
     case eventList: EventList => notify(eventList.events)
@@ -230,7 +230,6 @@ private[round] final class Socket(
     members get uid foreach { member =>
       super.quit(uid)
       notifyCrowd
-      if (member.userTv.isDefined) refreshSubscriptions
     }
   }
 

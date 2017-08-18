@@ -3,6 +3,7 @@ package lila.common
 import akka.actor._
 import akka.event._
 
+// can only ever be instanciated once per actor system
 final class Bus private (system: ActorSystem) extends Extension with EventBus {
 
   type Event = Bus.Event
