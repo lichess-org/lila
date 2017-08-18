@@ -6,7 +6,7 @@
   display: flex;
   flex-flow: column;
   justify-content: flex-end;
-  font-size: 1.4em;
+  font-size: 1.3em;
 }
 .gb_play .comment {
   background: #fff;
@@ -14,15 +14,13 @@
   padding: 10px;
   position: relative;
   border: 1px solid #aaa;
+  overflow-y: auto;
 }
-.gb_play .comment:after {
-  content: '';
-  position: absolute;
-  bottom: -9px;
-  left: 40%;
+.gb_play .say {
+  margin: -9px 0 0 40%;
   width: 15px;
   height: 15px;
-  background: #eee;
+  background: #fff;
   border-right: 1.5px solid #aaa;
   border-bottom: 1px solid #aaa;
   transform: skew(-45deg) rotate(45deg);
@@ -31,26 +29,49 @@
   background: #fff;
 }
 .gb_play .mascot {
-  margin: 1em 0;
-  width: 120px;
-  height: 120px;
+  flex: 0 0 auto;
+  margin: 0.2em 0;
+  overflow: hidden;
   cursor: pointer;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
 }
 .gb_play .mascot:hover {
-  opacity: 0.8;
+  /* opacity: 0.8; */
 }
-.gb_play .soapbox {
-  flex: 0 0 38.2%; /* golden ratio */
-  background: #fff;
+.gb_play .turn {
+  text-align: right;
+  text-transform: uppercase;
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-end;
+}
+.gb_play .act {
   border: 1px solid #ccc;
   text-align: center;
   background: #e0e0e0;
+  display: flex;
+  flex-flow: row;
+  font-size: 0.8em;
 }
-.gb_play .soapbox .turn {
-  line-height: 2em;
-  text-transform: uppercase;
-  font-size: 1.4em;
-  border-bottom: 1px solid #ccc;
-  margin: 20px;
-  padding-bottom: 20px;
+.gb_play .act > * {
+  flex: 0 0 50%;
+  display: flex;
+  flex-flow: column;
+  padding: 1em 0;
+  opacity: 0.8;
+}
+.gb_play .act a:hover {
+  background: #3893E8;
+  color: #fff;
+  opacity: 1;
+}
+.gb_play .act i {
+  font-size: 2.3em;
+  padding-bottom: 0.3em;
+  opacity: 0.7;
+}
+.gb_play .act a:hover i {
+  opacity: 0.9;
 }

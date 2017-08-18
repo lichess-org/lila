@@ -51,6 +51,7 @@ case class Root(
     eval: Option[Eval] = None,
     shapes: Node.Shapes = Node.Shapes(Nil),
     comments: Node.Comments = Node.Comments(Nil),
+    gamebook: Option[Node.Gamebook] = None,
     glyphs: Glyphs = Glyphs.empty,
     children: List[Branch] = Nil,
     opening: Option[FullOpening] = None,
@@ -65,7 +66,6 @@ case class Root(
   def addChild(branch: Branch) = copy(children = children :+ branch)
   def prependChild(branch: Branch) = copy(children = branch :: children)
   def dropFirstChild = copy(children = if (children.isEmpty) children else children.tail)
-  def gamebook = None
 }
 
 case class Branch(
@@ -177,7 +177,7 @@ object Node {
       deviation = trimOrNone(deviation),
       hint = trimOrNone(hint)
     )
-    def nonEmpty = deviation.nonEmpty && hint.nonEmpty
+    def nonEmpty = deviation.nonEmpty || hint.nonEmpty
   }
 
   // TODO copied from lila.game

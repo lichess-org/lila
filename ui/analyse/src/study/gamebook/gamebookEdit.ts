@@ -33,7 +33,8 @@ export function render(ctrl: AnalyseCtrl): VNode {
       'Help the player find the initial move, with a ',
       commentButton(),
       '.'
-    ])
+    ]),
+    renderHint(ctrl)
   ];
   else if (ctrl.onMainline) {
     if (isMyMove) content = [
@@ -41,7 +42,8 @@ export function render(ctrl: AnalyseCtrl): VNode {
         'Comment the opponent move, and help the player find the next move, with a ',
         commentButton(),
         '.'
-      ])
+      ]),
+      renderHint(ctrl)
     ];
     else content = [
       h('div.legend', [
@@ -52,8 +54,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
       hasVariation ? null : h('div.legend', {
         attrs: { 'data-icon': '' }
       }, 'Add variation moves to explain why specific other moves are wrong.'),
-      renderDeviation(ctrl),
-      renderHint(ctrl)
+      renderDeviation(ctrl)
     ];
   }
   else content = [

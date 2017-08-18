@@ -23,6 +23,7 @@ object TreeBuilder {
     check = root.check,
     shapes = root.shapes,
     comments = root.comments,
+    gamebook = root.gamebook,
     glyphs = root.glyphs,
     clock = root.clock,
     crazyData = root.crazyData,

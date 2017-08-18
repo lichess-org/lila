@@ -16,6 +16,7 @@ sealed trait RootOrNode {
   val crazyData: Option[Crazyhouse.Data]
   val children: Node.Children
   val comments: Comments
+  val gamebook: Option[Gamebook]
   val glyphs: Glyphs
   def fullMoveNumber = 1 + ply / 2
 }
@@ -157,13 +158,12 @@ object Node {
       check: Boolean,
       shapes: Shapes = Shapes(Nil),
       comments: Comments = Comments(Nil),
+      gamebook: Option[Gamebook] = None,
       glyphs: Glyphs = Glyphs.empty,
       clock: Option[Centis],
       crazyData: Option[Crazyhouse.Data],
       children: Children
   ) extends RootOrNode {
-
-    def gamebook = none
 
     def withChildren(f: Children => Option[Children]) =
       f(children) map { newChildren =>
@@ -190,7 +190,7 @@ object Node {
       else updateChildrenAt(path, _ deleteComment commentId)
 
     def setGamebookAt(gamebook: Gamebook, path: Path): Option[Root] =
-      if (path.isEmpty) none
+      if (path.isEmpty) copy(gamebook = gamebook.some).some
       else updateChildrenAt(path, _ setGamebook gamebook)
 
     def toggleGlyphAt(glyph: Glyph, path: Path): Option[Root] =

@@ -1,5 +1,6 @@
 import AnalyseCtrl from '../../ctrl';
 import { StudyCtrl } from '../interfaces';
+import { readOnlyProp } from '../../util';
 
 export default class GamebookPlayCtrl {
 
@@ -8,7 +9,6 @@ export default class GamebookPlayCtrl {
   private mascots = [
     'octopus',
     'parrot-head',
-    'ram',
     'camel-head',
     'owl'
   ];
@@ -17,6 +17,16 @@ export default class GamebookPlayCtrl {
 
   constructor(readonly root: AnalyseCtrl, readonly chapterId: string, readonly redraw: () => void) {
     this.ply = this.root.node.ply;
+    // root.showAutoShapes = readOnlyProp(true);
+    // root.showGauge = readOnlyProp(true);
+    // root.showComputer = readOnlyProp(true);
+    // goal(root.data.practiceGoal!);
+    // nbMoves(0);
+    // success(null);
+    // comment(makeComment(root.tree.root));
+    // const chapter = studyData.chapter;
+    // history.replaceState(null, chapter.name, data.url + '/' + chapter.id);
+    // analysisUrl('/analysis/standard/' + root.node.fen.replace(/ /g, '_') + '?color=' + root.bottomColor());
   }
 
   switchMascot = () => {

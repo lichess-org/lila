@@ -21,24 +21,27 @@ export function render(ctrl: GamebookPlayCtrl): VNode {
     h('div.comment', {
       hook: comment && innerHTML(comment.text, text => enrichText(text, true))
     }),
-    h('img.mascot', {
-      attrs: {
-        src: window.lichess.assetUrl(`/assets/images/mascot/${ctrl.mascot}.svg`),
-        title: 'Click to choose your teacher'
-      },
-      hook: bind('click', ctrl.switchMascot)
-    }),
-    h('div.soapbox', [
-      h('div.turn', isMyMove ? 'Your turn' : 'Opponent turn'),
-      h('div.act', [
-        gb.hint ? h('a.hint', [
-          h('i', { attrs: dataIcon('') }),
-          'Get a hint'
-        ]) : h('span.hint'),
-        h('a.solution', [
-          h('i', { attrs: dataIcon('G') }),
-          'View the solution'
-        ])
+    h('div.say'),
+    h('div.mascot', [
+      h('img', {
+        attrs: {
+          width: 120,
+          height: 120,
+          src: window.lichess.assetUrl(`/assets/images/mascot/${ctrl.mascot}.svg`),
+          title: 'Click to choose your teacher'
+        },
+        hook: bind('click', ctrl.switchMascot)
+      }),
+      h('span.turn', isMyMove ? 'Your turn' : 'Opponent turn')
+    ]),
+    h('div.act', [
+      gb.hint ? h('a.hint', [
+        h('i', { attrs: dataIcon('') }),
+        'Get a hint'
+      ]) : h('span.hint'),
+      h('a.solution', [
+        h('i', { attrs: dataIcon('G') }),
+        'View the solution'
       ])
     ])
   ]);

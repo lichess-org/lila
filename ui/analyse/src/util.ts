@@ -30,6 +30,12 @@ export function bindSubmit(f: (e: Event) => any, redraw?: () => void): Hooks {
   }, redraw);
 }
 
+export function readOnlyProp<A>(value: A): () => A {
+  return function(): A {
+    return value;
+  };
+}
+
 export function dataIcon(icon: string): Attrs {
   return {
     'data-icon': icon

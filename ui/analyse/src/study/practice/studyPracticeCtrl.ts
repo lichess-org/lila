@@ -3,15 +3,10 @@ import { prop } from 'common';
 import { enrichText } from '../studyComments';
 import makeSuccess from './studyPracticeSuccess';
 import makeSound from './sound';
+import { readOnlyProp } from '../../util';
 import { StudyPracticeData, Goal, StudyPracticeCtrl } from './interfaces';
 import { StudyData, StudyChapterMeta } from '../interfaces';
 import AnalyseCtrl from '../../ctrl';
-
-function readOnlyProp<A>(value: A): () => A {
-  return function(): A {
-    return value;
-  };
-}
 
 export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPracticeData): StudyPracticeCtrl {
 
