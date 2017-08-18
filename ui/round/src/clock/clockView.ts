@@ -13,7 +13,9 @@ export function renderClock(ctrl: RoundController, player: Player, position: Pos
   isPlayer = ctrl.data.player.color === player.color,
   isRunning = player.color === clock.times.activeColor;
   const update = (el: HTMLElement) => {
-    clock.elements[player.color].time = el;
+    const els = clock.elements[player.color]
+    els.time = el;
+    els.clock = el.parentElement!;
     el.innerHTML = formatClockTime(clock.showTenths, millis, isRunning);
   }
   return h('div.clock.clock_' + player.color + '.clock_' + position, {
@@ -83,6 +85,10 @@ function showBar(ctrl: ClockController, els: ClockElements, millis: Millis, bers
 export function updateElements(clock: ClockController, els: ClockElements, millis: Millis) {
   if (els.time) els.time.innerHTML = formatClockTime(clock.showTenths, millis, true);
   if (els.bar) els.bar.style.width = clock.timePercent(millis) + '%';
+  if (els.clock) {
+    if (millis < clock.emergMs) els.clock.classList.add("emerg");
+    else els.clock.classList.remove("emerg");
+  }
 }
 
 function showBerserk(ctrl: RoundController, color: Color): boolean {
