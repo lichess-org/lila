@@ -702,7 +702,7 @@
     <item quantity="other">%s dilde kullanılabilir.</item>
   </plurals>
   <string name="gameAnalysis">Oyun analizi</string>
-  <string name="xHostsY">%1$s sundu: %2$s</string>
+  <string name="xHostsY">%1$s ev sahipliği yaptı: %2$s</string>
   <string name="xJoinsY">%1$s katıldı: %2$s</string>
   <string name="xLikesY">%1$s beğendi: %2$s</string>
   <string name="quickPairing">Hızlı eşleşme</string>
