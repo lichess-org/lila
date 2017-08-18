@@ -19,16 +19,16 @@
   <string name="rookComplete">Herzlichen Glückwunsch! Du beherrschst jetzt den Turm.</string>
   <string name="theBishop">Der Läufer</string>
   <string name="itMovesDiagonally">Er bewegt sich diagonal</string>
-  <string name="bishopIntro">Als lernen wir, einen Läufer zu manövrieren!</string>
+  <string name="bishopIntro">Als Nächstes lernen wir, einen Läufer zu manövrieren!</string>
   <string name="youNeedBothBishops">Ein weißfeldriger Läufer, ein schwarzfeldriger Läufer. Du brauchst beide!</string>
   <string name="bishopComplete">Herzlichen Glückwunsch! Du kannst jetzt einen Läufer befehligen.</string>
   <string name="theQueen">Die Dame</string>
   <string name="queenCombinesRookAndBishop">Dame = Turm + Läufer</string>
-  <string name="queenIntro">Die mächtigste Schachfigur tritt ein. Ihre Majestät, die Dame!</string>
+  <string name="queenIntro">Die mächtigste Schachfigur betritt das Spielfeld. Ihre Majestät, die Dame!</string>
   <string name="queenComplete">Herzlichen Glückwunsch! Damen haben keine Geheimnisse mehr vor dir.</string>
   <string name="theKing">Der König</string>
   <string name="theMostImportantPiece">Die wichtigste Figur</string>
-  <string name="kingIntro">Du bist der König. Wenn du in der Schlacht fällst, ist das Spiel verloren.</string>
+  <string name="kingIntro">Du bist der König. Wenn du in der Schlacht fällst ist das Spiel verloren.</string>
   <string name="theKingIsSlow">Der König ist langsam.</string>
   <string name="lastOne">Noch ein letztes Mal!</string>
   <string name="kingComplete">Du kannst jetzt den Befehlshaber befehligen!</string>
@@ -36,7 +36,7 @@
   <string name="itMovesInAnLShape">Er bewegt sich in einer L-Form</string>
   <string name="knightIntro">Hier ist eine Herausforderung für dich. Der Springer ist... eine knifflige Figur.</string>
   <string name="knightsHaveAFancyWay">Springer haben eine raffinierte Art herumzuhüpfen!</string>
-  <string name="knightsCanJumpOverObstacles">Springer können über Hindernisse springen! Entkomme und bezwinge die Sterne!</string>
+  <string name="knightsCanJumpOverObstacles">Springer können über Hindernisse springen! Entkomme und sammle die Sterne!</string>
   <string name="knightComplete">Herzlichen Glückwunsch! Du beherrschst jetzt den Springer.</string>
   <string name="thePawn">Der Bauer</string>
   <string name="itMovesForwardOnly">Er kann sich nur vorwärts bewegen</string>
