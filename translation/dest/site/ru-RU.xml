@@ -242,14 +242,14 @@
     <item quantity="other">%s побед</item>
   </plurals>
   <plurals name="nbLosses">
-    <item quantity="one">%s проиграно</item>
-    <item quantity="few">%s проиграно</item>
-    <item quantity="other">%s проиграно</item>
+    <item quantity="one">%s поражение</item>
+    <item quantity="few">%s поражения</item>
+    <item quantity="other">%s поражений</item>
   </plurals>
   <plurals name="nbDraws">
-    <item quantity="one">%s сыграно вничью</item>
-    <item quantity="few">%s сыграно вничью</item>
-    <item quantity="other">%s сыграно вничью</item>
+    <item quantity="one">%s ничья</item>
+    <item quantity="few">%s ничьих</item>
+    <item quantity="other">%s ничьих</item>
   </plurals>
   <plurals name="nbPlaying">
     <item quantity="one">%s играет</item>
@@ -319,9 +319,9 @@
   <string name="importGameExplanation">При вставке PGN игры вы получаете повтор в браузере,
 компьютерный анализ, игровой чат и ссылку, которой можно поделиться.</string>
   <plurals name="nbImportedGames">
-    <item quantity="one">%s Импортированная игра</item>
-    <item quantity="few">%s Импортированные игры</item>
-    <item quantity="other">%s Импортированных игр</item>
+    <item quantity="one">%s импортированная</item>
+    <item quantity="few">%s импортированные</item>
+    <item quantity="other">%s импортированных</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Это шахматная CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Кликните по доске, чтобы сделать ход и доказать, что вы человек.</string>
