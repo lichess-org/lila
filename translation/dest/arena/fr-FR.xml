@@ -15,6 +15,9 @@ Le fait de passer des contrôles temporels avec une augmentation annule égaleme
 Le bouton berserk n\'est pas disponible pour les jeux avec zéro temps initial (0 + 1, 0 + 2).
 
 L\'option berserk n\'accorde qu\'un point supplémentaire si vous jouez au moins 7 mouvements dans le jeu.</string>
+  <string name="howDoesPairingWork">Comment sont calculés les appariements ?</string>
   <string name="howDoesItEnd">Comment finit-il?</string>
+  <string name="otherRules">Autres règles importantes</string>
+  <string name="otherRulesAnswer">Vous êtes tenu de jouer votre premier coup dans les 20 secondes. Si vous ne jouez pas de coup durant ce laps de temps, la partie sera considérée comme perdue par forfait. Faire nul en moins de 10 coups conduira à l\'attribution d\'aucun point pour aucun des joueurs.</string>
   <string name="thisIsPrivate">Ceci est un tournoi privé</string>
 </resources>
