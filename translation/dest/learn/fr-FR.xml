@@ -79,10 +79,19 @@ Inutile d\'effectuer des promotions.</string>
   <string name="combatComplete">Félicitations ! Vous connaissez maintenant le déplacement des pièces !</string>
   <string name="checkInOne">Échec en un coup</string>
   <string name="attackTheOpponentsKing">Attaquez le roi adverse</string>
+  <string name="outOfCheck">Parer un échec</string>
   <string name="defendYourKing">Défendez votre roi</string>
+  <string name="outOfCheckIntro">Vous êtes en échec ! Vous devez fuir ou contrer l\'attaque.</string>
+  <string name="escapeWithTheKing">Fuite du roi !</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Ce cavalier donne un échec à travers vos défenses!</string>
+  <string name="escapeOrBlock">Fuyez avec le roi
+ou contrez l\'attaque !</string>
   <string name="mateInOne">Mat en 1</string>
+  <string name="defeatTheOpponentsKing">Mater le roi de l\'adversaire</string>
+  <string name="mateInOneIntro">Vous gagnez lorsque votre adversaire ne peut pas parer un échec.</string>
   <string name="intermediate">Intermédiaire</string>
+  <string name="boardSetup">Position de départ</string>
+  <string name="howTheGameStarts">Comment une partie commence</string>
   <string name="boardSetupComplete">Félicitations! Vous maîtrisez le déplacement des pièces.</string>
   <string name="castling">Le Roque</string>
   <string name="findAWayToCastleKingSide">Trouvez un moyen d\'effectuer le petit roque!</string>
