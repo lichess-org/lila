@@ -160,9 +160,6 @@ private[round] final class SocketHandler(
           // register to the TV channel when watching TV
           if (playerId.isEmpty && pov.game.isRecentTv)
             hub.channel.tvSelect ! lila.socket.Channel.Sub(member)
-          // register to the tournament standing channel when playing a tournament game
-          if (playerId.isDefined && pov.game.isTournament)
-            hub.channel.tournamentStanding ! lila.socket.Channel.Sub(member)
           (controller(pov.gameId, publicChatId, socket, uid, pov.ref, member, user), enum, member)
       }
     }
