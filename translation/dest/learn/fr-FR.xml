@@ -123,16 +123,40 @@ Il se place à côté de sa dame.</string>
 pour faire le roque sur l\'aile roi!</string>
   <string name="castleQueenSide">Bougez votre roi de deux cases
 pour faire le roque sur l\'aile dame!</string>
+  <string name="theKnightIsInTheWay">Le cavalier empêche le roque!
+Bougez-le puis roquez sur l\'aile roi.</string>
+  <string name="castleKingSideMovePiecesFirst">Roque sur l\'aile roi!
+Vous devez d\'abord sortir les pièces.</string>
+  <string name="castleQueenSideMovePiecesFirst">Roque sur l\'aile dame!
+Vous devez d\'abord sortir les pièces.</string>
+  <string name="youCannotCastleIfMoved">Vous ne pouvez pas roquer si
+le roi a déjà bougé
+ou si la tour a déjà bougé.</string>
+  <string name="youCannotCastleIfAttacked">Vous ne pouvez pas roquer si
+le roi est en échec.
+Parez l\'échec puis roquez!</string>
   <string name="findAWayToCastleKingSide">Trouvez un moyen d\'effectuer le petit roque!</string>
   <string name="findAWayToCastleQueenSide">Trouvez un moyen d\'effectuer le grand roque!</string>
   <string name="castlingComplete">Félicitations! Vous devriez presque toujours roquer durant un partie.</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Un coup spécial du pion</string>
   <string name="enPassantIntro">Lorsque le pion adverse avance de deux cases, on peut le prendre comme si il n\'avait avancé que d\'une case.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Les Noirs viennent juste de bouger un pion
+de deux cases!
+Prenez-le en passant.</string>
+  <string name="enPassantOnlyWorksImmediately">La prise en passant ne peut être effectuée
+qu\'immédiatement après que l\'adversaire
+ait bougé le pion.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">La prise en passant ne peut être effectuée
+que si votre pion se trouve sur la 5e rangée.</string>
   <string name="takeAllThePawnsEnPassant">Prenez tous les pions en passant!</string>
+  <string name="enPassantComplete">Félicitations! Vous savez faire maintenant la prise en passant.</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">La partie est nulle</string>
   <string name="stalemateIntro">Lorsqu\'un joueur n\'est pas en échec et n\'a pas de coup légal, il est en situation de pat. La partie est alors déclarée nulle.</string>
+  <string name="stalemateGoal">Le pat noir:
+- Les Noirs ne peuvent jouer aucun coup
+- Les Noirs ne sont pas en échec.</string>
   <string name="stalemateComplete">Félicitations ! Mieux vaut être pat qu\'échec et mat!</string>
   <string name="advanced">Avancé</string>
   <string name="pieceValue">Valeur des pièces</string>
