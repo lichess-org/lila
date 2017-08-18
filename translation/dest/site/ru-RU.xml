@@ -141,7 +141,7 @@
   <string name="forum">Форум</string>
   <string name="xPostedInForumY">%1$s опубликовал на форуме %2$s</string>
   <string name="latestForumPosts">Последние сообщения на форуме</string>
-  <string name="players">Игроки</string>
+  <string name="players">Шахматисты</string>
   <string name="minutesPerSide">Минут на партию</string>
   <string name="variant">Вариант</string>
   <string name="variants">Варианты</string>
@@ -222,12 +222,12 @@
   <string name="chatRoom">Окно чата</string>
   <string name="loginToChat">Войдите, чтобы использовать чат</string>
   <string name="youHaveBeenTimedOut">Вы были отключены.</string>
-  <string name="spectatorRoom">Чат зрителей</string>
+  <string name="spectatorRoom">Чат для зрителей</string>
   <string name="composeMessage">Написать сообщение</string>
   <string name="noNewMessages">Нет новых сообщений</string>
   <string name="subject">Тема</string>
   <string name="recipient">Получатель</string>
-  <string name="send">Послать</string>
+  <string name="send">Отправить</string>
   <string name="incrementInSeconds">Прибавка в секундах</string>
   <string name="freeOnlineChess">Бесплатные онлайн-шахматы</string>
   <string name="spectators">Зрители:</string>
