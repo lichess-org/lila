@@ -69,12 +69,12 @@
   <string name="dontLetThemTakeAnyUndefendedPiece">Lasse nicht zu, dass eine ungedeckte Figur geschlagen wird!</string>
   <string name="combat">Kampf</string>
   <string name="captureAndDefendPieces">Schlage und verteidige die Figuren</string>
-  <string name="combatIntro">Ein guter Krieger kennt Angriff und Verteidigung!</string>
-  <string name="combatComplete">Herzlichen Glückwunsch! Du weißt jetzt, wie man mit Schachfiguren kämpft!</string>
+  <string name="combatIntro">Ein guter Krieger kennt beides: Angriff und Verteidigung!</string>
+  <string name="combatComplete">Herzlichen Glückwunsch! Du weißt jetzt wie man mit Schachfiguren kämpft!</string>
   <string name="checkInOne">Schach in 1</string>
   <string name="attackTheOpponentsKing">Greife den gegnerischen König an</string>
   <string name="checkInOneIntro">Um deinen Gegner Schach zu setzen, greife seinen König an. Er muss ihn verteidigen!</string>
-  <string name="checkInOneGoal">Ziele auf den König in einem Zug!</string>
+  <string name="checkInOneGoal">Ziele in einem Zug auf den König!</string>
   <string name="checkInOneComplete">Herzlichen Glückwunsch! Du hast deinen Gegner Schach gesetzt und ihn gezwungen, seinen König zu verteidigen!</string>
   <string name="outOfCheck">Aus dem Schach</string>
   <string name="defendYourKing">Verteidige deinen König</string>
