@@ -102,7 +102,7 @@
   <string name="mateInOneIntro">Κερδίζετε όταν ο αντίπαλος σας δεν μπορεί να υπερασπιστεί ενάντια σε σαχ.</string>
   <string name="attackYourOpponentsKing">Επιτεθείτε στον βασιλιά του αντιπάλου σας με έναν τρόπο που δεν θα μπορεί να τον υπερασπιστεί!</string>
   <string name="mateInOneComplete">Συγχαρητήρια! Έτσι κερδίζετε τα παιχνίδια στο σκάκι!</string>
-  <string name="intermediate">Για ενδιάμεσους</string>
+  <string name="intermediate">Ενδιάμεσο στάδιο</string>
   <string name="boardSetup">Στήσιμο σκακιέρας</string>
   <string name="howTheGameStarts">Πως αρχίζει το παιχνίδι</string>
   <string name="boardSetupIntro">Οι δύο στρατοί αντιμετωπίζουν ο ένας τον άλλον, έτοιμοι για τη μάχη.</string>
@@ -157,7 +157,7 @@
   <string name="stalemateIntro">Όταν ένας παίκτης δεν είναι σε σαχ και δεν μπορεί να κάνει κάποια νόμιμη κίνηση, τότε είναι πατ. Το παιχνίδι λήγει ισόπαλο: κανείς δεν κερδίζει, κανείς δεν χάνει.</string>
   <string name="stalemateGoal">Πατ στα μαύρα: - Ο μαύρος δεν μπορεί να κινηθεί πουθενά - δεν υπάρχει σαχ.</string>
   <string name="stalemateComplete">Συγχαρητήρια! Καλύτερα πατ παρά σαχ-ματ!</string>
-  <string name="advanced">Για προχωρημένους</string>
+  <string name="advanced">Προχωρημένο στάδιο</string>
   <string name="pieceValue">Αξία κομματιού</string>
   <string name="evaluatePieceStrength">Αξιολογήστε τη δύναμη του κομματιού</string>
   <string name="pieceValueIntro">Τα κομμάτια με υψηλή κινητικότητα έχουν υψηλότερη αξία!
