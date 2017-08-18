@@ -566,7 +566,7 @@ object Quote {
     new Quote("I don't play unorthodox openings. I prefer to give mainstream openings my own spin.", "Magnus Carlsen"),
     new Quote("Playing long games online just takes too much time. It's fun to play blitz once in a while, where you can rely more on your intuition, your instincts rather than pure calculation and analysis.", "Magnus Carlsen"),
     new Quote("Fortune favors the lucky!", "Robert Houdart (Houdini author)"),
-    new Quote("Gens una sumus", "FIDE"),
+    new Quote("Gens una sumus; \"We are one people\"", "FIDE"),
 
     // lichess facts
     new Quote("All features for free; for everyone; forever.", "lichess.org"),
