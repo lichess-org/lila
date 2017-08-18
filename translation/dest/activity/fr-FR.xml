@@ -31,6 +31,7 @@
     <item quantity="one">%s nouvelle étude créée</item>
     <item quantity="other">%s nouvelles études créées</item>
   </plurals>
+  <string name="signedUp">Inscription à lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Rejoindre %s équipe</item>
     <item quantity="other">Rejoindre %s équipes</item>
