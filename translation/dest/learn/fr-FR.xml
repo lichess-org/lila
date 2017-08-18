@@ -118,6 +118,11 @@ Il se place à côté de sa dame.</string>
   <string name="boardSetupComplete">Félicitations! Vous maîtrisez le déplacement des pièces.</string>
   <string name="castling">Le Roque</string>
   <string name="theSpecialKingMove">Un coup spécial du roi</string>
+  <string name="castlingIntro">Mettrez votre roi en sécurité et développez votre tour pour attaquer!</string>
+  <string name="castleKingSide">Bougez votre roi de deux cases
+pour faire le roque sur l\'aile roi!</string>
+  <string name="castleQueenSide">Bougez votre roi de deux cases
+pour faire le roque sur l\'aile dame!</string>
   <string name="findAWayToCastleKingSide">Trouvez un moyen d\'effectuer le petit roque!</string>
   <string name="findAWayToCastleQueenSide">Trouvez un moyen d\'effectuer le grand roque!</string>
   <string name="castlingComplete">Félicitations! Vous devriez presque toujours roquer durant un partie.</string>
@@ -128,6 +133,7 @@ Il se place à côté de sa dame.</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">La partie est nulle</string>
   <string name="stalemateIntro">Lorsqu\'un joueur n\'est pas en échec et n\'a pas de coup légal, il est en situation de pat. La partie est alors déclarée nulle.</string>
+  <string name="stalemateComplete">Félicitations ! Mieux vaut être pat qu\'échec et mat!</string>
   <string name="advanced">Avancé</string>
   <string name="pieceValue">Valeur des pièces</string>
   <string name="evaluatePieceStrength">Évaluer la valeur des pièces</string>
@@ -138,6 +144,9 @@ Fou = 3
 Cavalier = 3
 Pion = 1
 Le roi n\'a pas de valeur! Le perdre signifie perdre la partie.</string>
+  <string name="queenOverBishop">Prenez la pièce
+avec la valeur la plus élevée!
+Dame &gt; Fou</string>
   <string name="takeThePieceWithTheHighestValue">Prenez la pièce
 qui a la plus haute valeur!</string>
   <string name="pieceValueComplete">Félicitations! Vous connaissez la valeur des pièces!
@@ -157,16 +166,21 @@ en deux coups!</string>
   <string name="register">S\'inscrire</string>
   <string name="getAFreeLichessAccount">Créer un compte Lichess gratuit</string>
   <string name="practice">Pratique</string>
+  <string name="learnCommonChessPositions">Apprendre des positions courantes aux échecs</string>
   <string name="puzzles">Exercices</string>
   <string name="exerciseYourTacticalSkills">Exercez vos compétences tactiques</string>
   <string name="videos">Vidéos</string>
   <string name="watchInstructiveChessVideos">Regarder des vidéos d\'échecs instructives</string>
   <string name="playPeople">Jouer contre des gens</string>
   <string name="opponentsFromAroundTheWorld">Des adversaires du monde entier</string>
+  <string name="playMachine">Jouer contre l\'ordinateur</string>
+  <string name="testYourSkillsWithTheComputer">Testez vos connaissances avec l’ordinateur</string>
   <string name="letsGo">C\'est parti !</string>
   <string name="awesome">Super !</string>
   <string name="excellent">Excellent !</string>
+  <string name="greatJob">Bravo!</string>
   <string name="perfect">Parfait !</string>
+  <string name="outstanding">Exceptionnel!</string>
   <string name="yesYesYes">Oui, oui, oui !</string>
   <string name="yourScore">Votre score</string>
   <string name="next">Suivant</string>
