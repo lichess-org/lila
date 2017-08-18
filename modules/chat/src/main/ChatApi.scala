@@ -24,7 +24,7 @@ final class ChatApi(
 
   object userChat {
 
-    // only use for public chats - tournaments, simuls
+    // only use for public, multi-user chats - tournaments, simuls
     object cached {
 
       private val cache = asyncCache.clearable[Chat.Id, UserChat](
