@@ -424,12 +424,20 @@ final class TournamentApi(
   private object updateTournamentStanding {
 
     import lila.hub.EarlyMultiThrottler
+    import com.github.blemale.scaffeine.{ Cache, Scaffeine }
+
+    // last published top hashCode
+    private val lastPublished: Cache[Tournament.ID, Int] = Scaffeine()
+      .expireAfterWrite(2 minute)
+      .build[Tournament.ID, Int]
 
     private def publishNow(tourId: Tournament.ID) = tournamentTop(tourId) map { top =>
-      bus.publish(
+      val lastHash: Int = ~lastPublished.getIfPresent(tourId)
+      if (lastHash != top.hashCode) bus.publish(
         lila.hub.actorApi.round.TourStanding(JsonView.top(top, lightUserApi.sync)),
         Symbol(s"tour-standing-$tourId")
       )
+      lastPublished.put(tourId, top.hashCode)
     }
 
     private val throttler = system.actorOf(Props(new EarlyMultiThrottler(logger = logger)))
