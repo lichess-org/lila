@@ -17,6 +17,9 @@ Le bouton berserk n\'est pas disponible pour les jeux avec zéro temps initial (
 L\'option berserk n\'accorde qu\'un point supplémentaire si vous jouez au moins 7 mouvements dans le jeu.</string>
   <string name="howIsTheWinnerDecidedAnswer">Le joueur avec le plus de points à la fin du temps imparti pour le tournoi sera déclaré vainqueur.</string>
   <string name="howDoesPairingWork">Comment sont calculés les appariements ?</string>
+  <string name="howDoesPairingWorkAnswer">Au début du tournoi, les joueurs sont appariés en fonction de leur classement élo.
+Dès que vous avez terminé votre partie, retournez à la page d\'accueil du tournoi : vous serez alors apparié avec un joueur qui possède un classement proche du vôtre. Cela garantit un temps d\'attente minimum entre les parties. Toutefois vous pouvez ne pas affronter tous les autres joueurs du tournoi avec cette manière d\'apparier les joueurs.
+Jouer vite et retourner à la page d\'accueil du tournoi permet de jouer plus de parties et de gagner plus de points.</string>
   <string name="howDoesItEnd">Comment finit-il?</string>
   <string name="otherRules">Autres règles importantes</string>
   <string name="otherRulesAnswer">Vous êtes tenu de jouer votre premier coup dans les 20 secondes. Si vous ne jouez pas de coup durant ce laps de temps, la partie sera considérée comme perdue par forfait. Faire nul en moins de 10 coups conduira à l\'attribution d\'aucun point pour aucun des joueurs.</string>
