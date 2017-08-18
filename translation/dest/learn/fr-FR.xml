@@ -91,9 +91,11 @@ Inutile d\'effectuer des promotions.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Ce cavalier donne un échec à travers vos défenses!</string>
   <string name="escapeOrBlock">Fuyez avec le roi
 ou contrez l\'attaque !</string>
+  <string name="outOfCheckComplete">Félicitations! Votre Roi est sain et sauf. Assurez-vous de toujours pouvoir vous défendre contre un échec!</string>
   <string name="mateInOne">Mat en un</string>
   <string name="defeatTheOpponentsKing">Mater le roi de l\'adversaire</string>
   <string name="mateInOneIntro">Vous gagnez lorsque votre adversaire ne peut pas parer un échec.</string>
+  <string name="attackYourOpponentsKing">Attaquez le Roi de votre adversaire de manière qu´il ne puisse pas être défendu!</string>
   <string name="mateInOneComplete">Félicitations! Vous savez comment gagner des parties d\'échecs!</string>
   <string name="intermediate">Intermédiaire</string>
   <string name="boardSetup">Position de départ</string>
@@ -112,6 +114,7 @@ Ils se placent à côté des cavaliers.</string>
 Elle se place sur sa propre couleur.</string>
   <string name="placeTheKing">Placez le roi!
 Il se place à côté de sa dame.</string>
+  <string name="pawnsFormTheFrontLine">Les pions forment la ligne de front. Jouez un coup pour continuer.</string>
   <string name="boardSetupComplete">Félicitations! Vous maîtrisez le déplacement des pièces.</string>
   <string name="castling">Le Roque</string>
   <string name="theSpecialKingMove">Un coup spécial du roi</string>
