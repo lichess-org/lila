@@ -76,6 +76,8 @@ Inutile d\'effectuer des promotions.</string>
   <string name="combat">Combattre</string>
   <string name="captureAndDefendPieces">Capturer et défendre les pièces</string>
   <string name="combatIntro">Un bon guerrier sait comment attaquer et défendre!</string>
+  <string name="combatComplete">Félicitations ! Vous connaissez maintenant le déplacement des pièces !</string>
+  <string name="checkInOne">Échec en un coup</string>
   <string name="attackTheOpponentsKing">Attaquez le roi adverse</string>
   <string name="defendYourKing">Défendez votre roi</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Ce cavalier donne un échec à travers vos défenses!</string>
