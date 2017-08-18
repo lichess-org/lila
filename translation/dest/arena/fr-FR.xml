@@ -21,6 +21,7 @@ L\'option berserk n\'accorde qu\'un point supplémentaire si vous jouez au moins
 Dès que vous avez terminé votre partie, retournez à la page d\'accueil du tournoi : vous serez alors apparié avec un joueur qui possède un classement proche du vôtre. Cela garantit un temps d\'attente minimum entre les parties. Toutefois vous pouvez ne pas affronter tous les autres joueurs du tournoi avec cette manière d\'apparier les joueurs.
 Jouer vite et retourner à la page d\'accueil du tournoi permet de jouer plus de parties et de gagner plus de points.</string>
   <string name="howDoesItEnd">Comment finit-il?</string>
+  <string name="howDoesItEndAnswer">Le tournoi possède un compte à rebours. Lorsqu\'il atteint zéro, le classement actuel du tournoi est gelé et le vainqueur du tournoi est annoncé. Les parties en cours doivent être terminées, mais elles ne comptent plus pour le tournoi.</string>
   <string name="otherRules">Autres règles importantes</string>
   <string name="otherRulesAnswer">Vous êtes tenu de jouer votre premier coup dans les 20 secondes. Si vous ne jouez pas de coup durant ce laps de temps, la partie sera considérée comme perdue par forfait. Faire nul en moins de 10 coups conduira à l\'attribution d\'aucun point pour aucun des joueurs.</string>
   <string name="thisIsPrivate">Ceci est un tournoi privé</string>
