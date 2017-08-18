@@ -21,4 +21,17 @@ Facer Berserk en controles de tempo con incremento tamén cancela o incremento (
 O modo Berserk non está dispoñible en partidas con tempo inicial cero (0+1, 0+2).
 
 O modo Berserk so garante un punto adicional no caso de que se xoguen polo menos 7 xogadas na partida.</string>
+  <string name="howIsTheWinnerDecided">Como se decide o gañador?</string>
+  <string name="howIsTheWinnerDecidedAnswer">O(s) xogador(es) con máis puntos á conclusión do tempo establecido para o torneo será(n) proclamado(s) gañador(es).</string>
+  <string name="howDoesPairingWork">Como funcionan os emparellamentos?</string>
+  <string name="howDoesPairingWorkAnswer">Ao comezo do torneo, os xogadores son emparellados pola súa puntuación.
+Así que rematas unha partida, voltas ao lobby do torneo e serás emparellado cun xogador que estea preto na clasificación. Esto garante o mínimo tempo de espera posible, aínda que podes non xogar contra todos os xogadores do torneo.
+Xoga rápido e volta ao lobby para xogar máis partidas e gañar máis puntos.</string>
+  <string name="howDoesItEnd">Como remata?</string>
+  <string name="howDoesItEndAnswer">O torneo ten unha conta atrás de tempo. Cando chega a cero, a clasificación do torneo se conxela, e o gañador é proclamado. As partidas en curso nese momento deben ser rematadas, pero non contan para a clasificación do torneo.</string>
+  <string name="otherRules">Outras regras importantes</string>
+  <string name="otherRulesAnswer">Debes face-lo teu primeiro movemento en 20 segundos. Se non o fas, concederáselle a victoria ao teu rival.
+Facer táboas nos primeiros 10 movementos non concederá puntos a ningún dos dous xogadores.</string>
+  <string name="thisIsPrivate">Este é un torneo privado</string>
+  <string name="shareUrl">Comparte esta URL para que a xente se una: %s</string>
 </resources>
