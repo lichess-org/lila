@@ -74,7 +74,7 @@
   <string name="topGames">Mejores partidas</string>
   <string name="masterDbExplanation">Dos millones de partidas de jugadores con ELO FIDE de %1$s+, desde %2$s a %3$s</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">Mate en %s medio movimiento</item>
+    <item quantity="one">Mate en medio movimiento</item>
     <item quantity="other">Mate en %s medios movimientos</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
@@ -99,7 +99,7 @@
   <string name="bestMoveArrow">Indicar la mejor jugada</string>
   <string name="evaluationGauge">Indicador de evaluación</string>
   <string name="multipleLines">Múltiples líneas</string>
-  <string name="cpus">CPUs</string>
+  <string name="cpus">Procesadores</string>
   <string name="memory">Memoria</string>
   <string name="infiniteAnalysis">Análisis infinito</string>
   <string name="removesTheDepthLimit">Elimina el límite de profundidad del análisis y hace trabajar a tu ordenador</string>
@@ -361,10 +361,10 @@
   <string name="tournamentPairingsAreNowClosed">Los emparejamientos del torneo están cerrados.</string>
   <string name="standByX">Espera %s, emparejando jugadores, ¡prepárate!</string>
   <string name="youArePlaying">¡Está jugando!</string>
-  <string name="winRate">Porcentaje de victorias</string>
+  <string name="winRate">Tasa de victorias</string>
   <string name="berserkRate">Tasa de berserk</string>
   <string name="performance">Actuación</string>
-  <string name="tournamentComplete">Torneo finalizado</string>
+  <string name="tournamentComplete">Torneo terminado</string>
   <string name="movesPlayed">Movimientos</string>
   <string name="whiteWins">Victorias blancas</string>
   <string name="blackWins">Victorias negras</string>
