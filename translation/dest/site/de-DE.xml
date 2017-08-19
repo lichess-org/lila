@@ -41,7 +41,7 @@
   <string name="blackResigned">Schwarz hat aufgegeben</string>
   <string name="whiteLeftTheGame">Weiß hat die Partie verlassen</string>
   <string name="blackLeftTheGame">Schwarz hat die Partie verlassen</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Mit dieser URL kannst du Zuschauer einladen</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Teile diese URL um Zuschauer einzuladen</string>
   <string name="theComputerAnalysisHasFailed">Die Computer-Analyse ist fehlgeschlagen</string>
   <string name="viewTheComputerAnalysis">Computer-Analyse betrachten</string>
   <string name="requestAComputerAnalysis">Computer-Analyse anfordern</string>
@@ -52,7 +52,7 @@
   <string name="usingServerAnalysis">Serveranalyse wird verwendet</string>
   <string name="loadingEngine">Engine wird geladen ...</string>
   <string name="cloudAnalysis">Cloud-Analyse</string>
-  <string name="goDeeper">Tiefer gehen</string>
+  <string name="goDeeper">Tiefe erhöhen</string>
   <string name="showThreat">Drohungen zeigen</string>
   <string name="inLocalBrowser">im lokalen Browser</string>
   <string name="toggleLocalEvaluation">Lokale Auswertung an-/ausschalten</string>
@@ -373,7 +373,7 @@
   <string name="averageOpponent">Durchschnittlicher Gegner</string>
   <string name="membersOnly">Nur für Mitglieder</string>
   <string name="boardEditor">Stellung aufbauen</string>
-  <string name="setTheBoard">Spielbrett aufbauen</string>
+  <string name="setTheBoard">Brett aufbauen</string>
   <string name="popularOpenings">Beliebte Eröffnungen</string>
   <string name="startPosition">Anfangsposition</string>
   <string name="clearBoard">Brett räumen</string>
@@ -451,7 +451,7 @@
   <string name="lastPost">Letzter Beitrag</string>
   <string name="views">Besuche</string>
   <string name="replies">Antworten</string>
-  <string name="replyToThisTopic">Auf diesen Beitrag antworten</string>
+  <string name="replyToThisTopic">Auf dieses Thema antworten</string>
   <string name="reply">Antworten</string>
   <string name="message">Nachricht</string>
   <string name="createTheTopic">Thema erstellen</string>
@@ -471,7 +471,7 @@
   <string name="blog">Blog</string>
   <string name="questionsAndAnswers">Fragen &amp; Antworten</string>
   <string name="notes">Notizen</string>
-  <string name="typePrivateNotesHere">Private Notizen hier einfügen</string>
+  <string name="typePrivateNotesHere">Private Notizen hier eingeben</string>
   <string name="gameDisplay">Spieldarstellung</string>
   <string name="pieceAnimation">Figurenanimation</string>
   <string name="materialDifference">Materialunterschied</string>
