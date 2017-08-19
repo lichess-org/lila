@@ -11,8 +11,8 @@
 @embedJs {
 lichess = lichess || {};
 lichess.puzzle = {
-data: @Html(toJson(data)),
-pref: @Html(toJson(pref)),
+data: @toJson(data),
+pref: @toJson(pref),
 i18n: @jsI18n()
 };
 }

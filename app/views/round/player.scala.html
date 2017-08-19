@@ -14,7 +14,7 @@ data: @Html(J.stringify(data)),
 i18n: @jsI18n(pov.game),
 userId: @jsUserId,
 @tour.map { t =>
-tour: @Html(toJson(tour.flatMap(_.top).map(lila.tournament.JsonView.top(_, lightUser)))),
+tour: @toJson(tour.flatMap(_.top).map(lila.tournament.JsonView.top(_, lightUser))),
 }
 chat: @jsOrNull(chatOption.map(_.either).map {
 case Left(c) => {

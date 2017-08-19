@@ -1,6 +1,6 @@
 @()(implicit context: Context)
 
-@Html(toJson(i18nJsObject(
+@toJson(i18nJsObject(
 trans.training,
 trans.yourPuzzleRatingX,
 trans.goodMove,
@@ -46,4 +46,4 @@ trans.showThreat,
 trans.gameOver,
 trans.inLocalBrowser,
 trans.toggleLocalEvaluation
-)))
+))
