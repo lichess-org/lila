@@ -1,5 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
+import { Hooks } from 'snabbdom/hooks'
 import GamebookPlayCtrl from './gamebookPlayCtrl';
 // import AnalyseCtrl from '../../ctrl';
 import { bind, dataIcon, innerHTML } from '../../util';
@@ -19,17 +20,16 @@ export function render(ctrl: GamebookPlayCtrl): VNode {
 
   const root = ctrl.root,
   state = ctrl.state;
-  // state.feedback = 'bad';
 
-  const comment = state.comment || defaultComments[state.feedback],
-  isMyMove = ['good', 'bad'].indexOf(state.feedback) > -1;
+  const comment = state.comment || defaultComments[state.feedback];
 
   return h('div.gamebook', {
     hook: { insert: _ => window.lichess.loadCss('/assets/stylesheets/gamebook.play.css') }
   }, [
-    h('div.comment', h('div.content', {
-      hook: innerHTML(comment, text => enrichText(text, true))
-    })),
+    h('div.comment', [
+      h('div.content', { hook: richHTML(comment) }),
+      state.showHint ? h('div.hint', { hook: richHTML(state.hint!) }) : undefined,
+    ]),
     h('img.mascot', {
       attrs: {
         width: 120,
@@ -64,4 +64,8 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
   return h('div.feedback.' + fb,
     h('span', fb === 'play' ? 'Your turn' : 'Opponent turn')
   );
+}
+
+function richHTML(text: string): Hooks {
+  return innerHTML(text, text => enrichText(text, true));
 }

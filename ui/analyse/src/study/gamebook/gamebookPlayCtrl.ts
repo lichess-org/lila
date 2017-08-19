@@ -10,6 +10,7 @@ export interface State {
   feedback: Feedback;
   comment?: string;
   hint?: string;
+  showHint: boolean;
 }
 
 export default class GamebookPlayCtrl {
@@ -63,6 +64,12 @@ export default class GamebookPlayCtrl {
     const child = this.root.node.children[0];
     if (child) this.root.userJump(this.root.path + child.id);
   }
+
+  hint = () => {
+    if (this.state.hint) this.state.showHint = !this.state.showHint;
+  }
+
+  solution = () => this.next();
 
   canJumpTo = (path: Tree.Path) => treePath.contains(this.root.path, path);
 

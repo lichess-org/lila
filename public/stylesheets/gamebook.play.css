@@ -14,6 +14,7 @@
   position: relative;
   border: 1px solid #aaa;
   display: flex;
+  flex-flow: column;
 }
 .gb_play .comment::after {
   position: absolute;
@@ -31,6 +32,13 @@
 .gb_play .comment .content {
   z-index: 2;
   overflow-y: auto;
+  padding: 10px 12px;
+}
+.gb_play .comment .hint {
+  background: #3893E8;
+  color: #fff;
+  border-radius: 0 0 5px 5px;
+  z-index: 2;
   padding: 10px 12px;
 }
 @keyframes mascot {
