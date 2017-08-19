@@ -157,7 +157,7 @@ export function view(ctrl): VNode {
           const o: any = {
             fen: fieldValue(e, 'fen') || (ctrl.vm.tab() === 'edit' ? ctrl.vm.editorFen() : null)
           };
-          'name game variant pgn orientation mode'.split(' ').forEach(field => {
+          'name game variant pgn orientation mode embed'.split(' ').forEach(field => {
             o[field] = fieldValue(e, field);
           });
           ctrl.submit(o);

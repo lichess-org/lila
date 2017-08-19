@@ -343,6 +343,7 @@ lichess.escapeHtml = function(html) {
   return div.innerHTML;
 };
 lichess.toYouTubeEmbedUrl = function(url) {
+  if (!url) return;
   var m = url.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch)?(?:\?v=)?([^"&?\/ ]{11})(?:\?|&|)(\S*)/i);
   if (!m) return;
   var start = 1;

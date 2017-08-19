@@ -21,6 +21,7 @@ case class Chapter(
     conceal: Option[Chapter.Ply] = None,
     practice: Option[Boolean] = None,
     gamebook: Option[Boolean] = None,
+    embed: Option[String] = None, // youtube URL
     createdAt: DateTime
 ) extends Chapter.Like {
 
@@ -96,7 +97,7 @@ object Chapter {
   }
 
   case class Setup(
-      gameId: Option[String],
+      gameId: Option[lila.game.Game.ID],
       variant: Variant,
       orientation: Color,
       fromFen: Option[Boolean] = None

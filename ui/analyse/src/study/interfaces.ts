@@ -112,6 +112,7 @@ export interface StudyChapter {
   conceal?: number;
   gamebook: boolean;
   features: StudyChapterFeatures;
+  embed?: string;
 }
 
 interface StudyChapterSetup {

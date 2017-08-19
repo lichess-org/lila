@@ -1,6 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { bind, plural, dataIcon } from '../util';
+import { bind, plural, dataIcon, toYouTubeEmbed, innerHTML } from '../util';
 import { view as memberView } from './studyMembers';
 import { view as chapterView } from './studyChapters';
 import { view as chapterNewFormView } from './chapterNewForm';
@@ -131,10 +131,19 @@ export function main(ctrl: StudyCtrl): VNode {
   if (activeTab === 'members') panel = memberView(ctrl);
   else if (activeTab === 'chapters') panel = chapterView(ctrl);
 
-  return h('div.side_box.study_box', [
+  const embedUrl = ctrl.data.chapter.embed;
+
+  const sideBox = h('div.side_box.study_box', [
     tabs,
     panel
   ]);
+
+  return embedUrl ? h('div', [
+    sideBox,
+    h('div.side_box.embed', {
+      hook: innerHTML(embedUrl, t => toYouTubeEmbed(t, 140)!)
+    })
+  ]) : sideBox;
 }
 
 export function contextMenu(ctrl: StudyCtrl, path: Tree.Path, node: Tree.Node): VNode[] {

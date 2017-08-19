@@ -463,7 +463,8 @@ final class StudyApi(
               case (Some(_), false) => None
               case _ => chapter.conceal
             },
-            setup = chapter.setup.copy(orientation = data.realOrientation)
+            setup = chapter.setup.copy(orientation = data.realOrientation),
+            embed = data.embed
           )
           if (chapter == newChapter) funit
           else chapterRepo.update(newChapter) >> {

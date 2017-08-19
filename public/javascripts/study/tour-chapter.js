@@ -59,12 +59,6 @@ lichess.studyTourChapter = function(study) {
       attachTo: '.study_overboard label[for=chapter-variant] left',
       when: onTab('init')
     }, {
-      title: "Puzzle mode",
-      text: "When you enable the puzzle mode, only you can see the chapter moves.<br>" +
-        "Make the other members guess what the next move is!",
-      attachTo: '.study_overboard label[for=chapter-conceal] left',
-      when: onTab('pgn')
-    }, {
       title: "Thanks for your time",
       text: "Chapters are saved forever.<br>" +
         "Have fun organizing your chess content!",

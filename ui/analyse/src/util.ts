@@ -94,6 +94,11 @@ export function innerHTML<A>(a: A, toHtml: (a: A) => string): Hooks {
   };
 }
 
+export function toYouTubeEmbed(url: string, height: number = 300): string | undefined {
+  let embedUrl = window.lichess.toYouTubeEmbedUrl(url);
+  if (embedUrl) return `<iframe width="100%" height="${height}" src="${embedUrl}" frameborder=0 allowfullscreen></iframe>`;
+}
+
 // from https://github.com/bryanwoods/autolink-js/blob/master/autolink.js
 export function autolink(str: string, callback: (str: string) => string): string {
   const pattern = /(^|[\s\n]|<[A-Za-z]*\/?>)((?:https?|ftp):\/\/[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;

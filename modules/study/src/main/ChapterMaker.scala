@@ -215,6 +215,7 @@ private[study] object ChapterMaker {
     id: Chapter.Id,
     name: Chapter.Name,
     orientation: String,
-    mode: String
+    mode: String,
+    embed: Option[String]
   ) extends ChapterData
 }

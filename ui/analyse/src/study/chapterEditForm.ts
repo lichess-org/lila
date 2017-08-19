@@ -69,11 +69,13 @@ export function view(ctrl): VNode | undefined {
     content: [
       h('h2', 'Edit chapter'),
       h('form.material.form', {
-        hook: bindSubmit(e => ctrl.submit({
-          name: chapterForm.fieldValue(e, 'name'),
-          mode: chapterForm.fieldValue(e, 'mode'),
-          orientation: chapterForm.fieldValue(e, 'orientation')
-        }))
+        hook: bindSubmit(e => {
+          const o: any = {};
+          'name mode orientation embed'.split(' ').forEach(field => {
+            o[field] = chapterForm.fieldValue(e, field);
+          });
+          ctrl.submit(o);
+        })
       }, [
         h('div.form-group', [
           h('input#chapter-name', {
@@ -126,6 +128,18 @@ export function view(ctrl): VNode | undefined {
             h('label.control-label', {
               attrs: { for: 'chapter-mode' }
             }, 'Analysis mode'),
+            h('i.bar')
+          ]),
+          h('div.form-group', [
+            h('input#chapter-embed', {
+              attrs: {
+                maxlength: 300,
+                value: data.embed
+              }
+            }),
+            h('label.control-label', {
+              attrs: { for: 'chapter-embed' }
+            }, 'YouTube video URL'),
             h('i.bar')
           ]),
           dialog.button('Save chapter')

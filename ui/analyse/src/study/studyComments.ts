@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import AnalyseCtrl from '../ctrl';
-import { nodeFullName, autolink, bind, innerHTML } from '../util';
+import { nodeFullName, autolink, bind, innerHTML, toYouTubeEmbed } from '../util';
 import { StudyCtrl } from './interfaces';
 
 function authorDom(author) {
@@ -23,9 +23,7 @@ const commentYoutubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:.*?(?
 export function enrichText(text: string, allowNewlines: boolean): string {
   let html = autolink(window.lichess.escapeHtml(text), url => {
     if (commentYoutubeRegex.test(url)) {
-      const embedUrl = window.lichess.toYouTubeEmbedUrl(url);
-      if (!embedUrl) return url;
-      return '<iframe width="100%" height="300" src="' + embedUrl + '" frameborder=0 allowfullscreen></iframe>';
+      return toYouTubeEmbed(url) || url;
     }
     const show = url.replace(/https?:\/\//, '');
     return '<a target="_blank" rel="nofollow" href="' + url + '">' + show + '</a>';
