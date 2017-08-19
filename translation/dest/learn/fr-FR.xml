@@ -11,11 +11,11 @@
   <string name="chessPieces">Les pièces</string>
   <string name="theRook">La Tour</string>
   <string name="itMovesInStraightLines">Se déplace en ligne droite</string>
-  <string name="rookIntro">La tour est une pièce puissante, Prêt à jouer ?</string>
-  <string name="rookGoal">Cliquer sur la tour et la déplacer jusqu\'aux étoiles!</string>
+  <string name="rookIntro">La Tour est une pièce puissante, Prêt à jouer ?</string>
+  <string name="rookGoal">Cliquer sur la Tour et la déplacer jusqu\'aux étoiles!</string>
   <string name="grabAllTheStars">Collecter toutes les étoiles!</string>
   <string name="theFewerMoves">Moins vous effectuez de déplacement, plus vous gagnez de points!</string>
-  <string name="useTwoRooks">Utiliser 2 tours pour collecter toutes les étoiles!</string>
+  <string name="useTwoRooks">Utiliser 2 Tours pour collecter toutes les étoiles!</string>
   <string name="rookComplete">Félicitations! Vous possédez la maîtrise de la Tour.</string>
   <string name="theBishop">Le Fou</string>
   <string name="itMovesDiagonally">Se déplace en diagonale</string>
@@ -26,7 +26,7 @@ Vous avez besoin des 2 !</string>
   <string name="bishopComplete">Félicitations! Vous possédez la maîtrise du Fou.</string>
   <string name="theQueen">La Dame</string>
   <string name="queenCombinesRookAndBishop">Une Dame = Tour + Fou</string>
-  <string name="queenIntro">La pièce la plus puissante du jeu, sa majesté la Reine!</string>
+  <string name="queenIntro">La pièce la plus puissante du jeu, sa majesté la Dame!</string>
   <string name="queenComplete">Félicitations! Vous possédez la maîtrise de la Dame.</string>
   <string name="theKing">Le Roi</string>
   <string name="theMostImportantPiece">La pièce la plus importante</string>
@@ -36,27 +36,27 @@ Vous avez besoin des 2 !</string>
   <string name="kingComplete">Félicitations! Vous possédez la maîtrise du Roi!</string>
   <string name="theKnight">La Cavalier</string>
   <string name="itMovesInAnLShape">Se déplace en forme de L</string>
-  <string name="knightIntro">Voici un défi pour vous. Le Cavalier est une pièce.. surprenante.</string>
+  <string name="knightIntro">Voici un défi pour vous. Le Cavalier est une pièce... surprenante.</string>
   <string name="knightsHaveAFancyWay">Les Cavaliers possèdent une façon élégante de sauter partout!</string>
   <string name="knightsCanJumpOverObstacles">Les Cavaliers peuvent sauter les obstacles pour collecter les étoiles!</string>
   <string name="knightComplete">Félicitations! Vous possédez la maîtrise du Cavalier.</string>
-  <string name="thePawn">Le Pion</string>
+  <string name="thePawn">Le pion</string>
   <string name="itMovesForwardOnly">Se déplace vers l\'avant uniquement</string>
-  <string name="pawnIntro">Les Pions sont faibles, mais peuvent se révéler redoutables.</string>
-  <string name="pawnsMoveOneSquareOnly">Les Pions avancent d\'une case vers l\'avant uniquement.
+  <string name="pawnIntro">Les pions sont faibles, mais peuvent se révéler redoutables.</string>
+  <string name="pawnsMoveOneSquareOnly">Les pions avancent d\'une case vers l\'avant uniquement.
 Mais, lorsqu\'ils atteignent le bord opposé de l\'échiquier, ils deviennent une pièce plus puissante : c\'est une promotion!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">La plupart du temps, la promotion s\'effectue en Dame.
-Mais parfois, une promotion Cavalier est plus avantageuse!</string>
-  <string name="pawnsMoveForward">Les Pions se déplacent vers l\'avant,
+Mais parfois, une promotion en Cavalier est plus avantageuse!</string>
+  <string name="pawnsMoveForward">Les pions se déplacent vers l\'avant,
 mais capturent en diagonale!</string>
   <string name="captureThenPromote">Capturez, puis effectuez une promotion!</string>
   <string name="useAllThePawns">Utilisez tous vos pions!
 Inutile d\'effectuer des promotions.</string>
-  <string name="aPawnOnTheSecondRank">Un Pion sur sa case de départ peu se déplacer initialement de 2 cases d\'un coup!</string>
+  <string name="aPawnOnTheSecondRank">Un pion sur sa case de départ peu se déplacer initialement de 2 cases d\'un coup!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Collecter toutes les étoiles! Inutile d\'effectuer des promotions.</string>
-  <string name="pawnComplete">Félicitations! Vous possédez la maîtrise du Pion.</string>
-  <string name="pawnPromotion">La promotion du Pion</string>
-  <string name="yourPawnReachedTheEndOfTheBoard">Votre Pion a atteint le bord opposé!</string>
+  <string name="pawnComplete">Félicitations! Vous possédez la maîtrise du pion.</string>
+  <string name="pawnPromotion">La promotion du pion</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Votre pion a atteint le bord opposé!</string>
   <string name="itNowPromotesToAStrongerPiece">Il est promu vers une pièce lourde.</string>
   <string name="selectThePieceYouWant">Sélectionner la pièce de promotion!</string>
   <string name="fundamentals">Les fondamentaux</string>
