@@ -283,7 +283,7 @@ object Api extends LilaController {
           lila.user.UserRepo named name flatMap {
             _ ?? { user =>
               Env.activity.read.recent(user) flatMap {
-                _.map { Env.activity.jsonView.apply _ }.sequenceFu
+                _.map { Env.activity.jsonView(_, user) }.sequenceFu
               }
             }
           } map toApiResult
