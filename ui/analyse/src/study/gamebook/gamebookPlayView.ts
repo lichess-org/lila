@@ -26,10 +26,10 @@ export function render(ctrl: GamebookPlayCtrl): VNode {
       attrs: {
         width: 120,
         height: 120,
-        src: window.lichess.assetUrl(`/assets/images/mascot/${ctrl.mascot}.svg`),
+        src: window.lichess.assetUrl(`/assets/images/mascot/${ctrl.mascot.current}.svg`),
         title: 'Click to choose your teacher'
       },
-      hook: bind('click', ctrl.switchMascot)
+      hook: bind('click', ctrl.mascot.switch, ctrl.redraw)
     }),
     h('div.act', [
       gb.hint ? h('a.hint', [
