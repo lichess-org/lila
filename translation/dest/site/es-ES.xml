@@ -75,11 +75,11 @@
   <string name="masterDbExplanation">Dos millones de partidas de jugadores con ELO FIDE de %1$s+, desde %2$s a %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mate en %s medio movimiento</item>
-    <item quantity="other">Mate en %s medio movimientos</item>
+    <item quantity="other">Mate en %s medios movimientos</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Siguiente captura o peón mueve en %s medio movimiento (distancia a cero del contador de 50 movimientos)</item>
-    <item quantity="other">Siguiente captura o peón mueve en %s medio movimientos (distancia a cero del contador de 50 movimientos)</item>
+    <item quantity="one">Siguiente captura o movimiento de péon en %s medio movimiento (distancia a cero del contador de 50 movimientos)</item>
+    <item quantity="other">Siguiente captura o movimiento de péon en %s medios movimientos (distancia a cero del contador de 50 movimientos)</item>
   </plurals>
   <string name="noGameFound">No se ha encontrado ninguna partida</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prueba incluyendo más partidas desde el menú de preferencias</string>
@@ -357,7 +357,7 @@
   <string name="losses">Derrotas</string>
   <string name="winStreak">Victorias consecutivas</string>
   <string name="createdBy">Creado por</string>
-  <string name="tournamentIsStarting">El torneo está comenzando</string>
+  <string name="tournamentIsStarting">El torneo va a empezar</string>
   <string name="tournamentPairingsAreNowClosed">Los emparejamientos del torneo están cerrados.</string>
   <string name="standByX">Espera %s, emparejando jugadores, ¡prepárate!</string>
   <string name="youArePlaying">¡Está jugando!</string>
