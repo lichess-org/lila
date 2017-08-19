@@ -157,13 +157,13 @@
   <string name="rating">Derece</string>
   <string name="ratingStats">Puan İstatistikleri</string>
   <string name="username">Kullanıcı adı</string>
-  <string name="usernameOrEmail">Kullanıcı Adı veya eposta</string>
+  <string name="usernameOrEmail">Kullanıcı adı veya e-posta</string>
   <string name="password">Şifre</string>
   <string name="haveAnAccount">Üye misiniz?</string>
   <string name="changePassword">Şifre değiştir</string>
-  <string name="changeEmail">E-Posta adresini değiştir</string>
-  <string name="email">E-Posta</string>
-  <string name="emailIsOptional">E-Posta isteğe bağlıdır. Lichess, e-posta adresinizi şifrenizi unutursanız onu yenilemeniz için kullanacaktır.</string>
+  <string name="changeEmail">E-posta adresini değiştir</string>
+  <string name="email">E-posta</string>
+  <string name="emailIsOptional">E-posta isteğe bağlıdır. Lichess, e-posta adresinizi şifrenizi unutursanız onu yenilemeniz için kullanacaktır.</string>
   <string name="passwordReset">Şifreyi yenile</string>
   <string name="forgotPassword">Şifremi unuttum</string>
   <string name="rank">Sıralama</string>
@@ -267,6 +267,7 @@
   <string name="tournamentPoints">Turnuvada alınan puanlar</string>
   <string name="viewTournament">Turnuvayı izle</string>
   <string name="backToTournament">Turnuvaya dön</string>
+  <string name="thematic">Tematik</string>
   <string name="backToGame">Oyuna dön</string>
   <string name="siteDescription">Bedava online Satranç sunucusu. Şimdi temiz bir arayüzde Satranç oyna. Kayıta gerek yok, reklam yok, eklenti yok. Bilgisayara karşı, arkadaşlarına veya rastgele bir rakiple Satranç oyna.</string>
   <string name="teams">Takımlar</string>
@@ -347,7 +348,7 @@
   <string name="openTournaments">Açık Turnuvalar</string>
   <string name="duration">Süre</string>
   <string name="winner">Kazanan</string>
-  <string name="standing">Durum</string>
+  <string name="standing">Sıralama</string>
   <string name="createANewTournament">Yeni turnuva oluştur</string>
   <string name="join">Katıl</string>
   <string name="withdraw">Çekil</string>
@@ -368,7 +369,7 @@
   <string name="whiteWins">Beyaz zaferleri</string>
   <string name="blackWins">Siyah zaferleri</string>
   <string name="draws">Beraberlikler</string>
-  <string name="nextXTournament">Sıradaki %s turnuvası:</string>
+  <string name="nextXTournament">Sıradaki %s Turnuvası:</string>
   <string name="viewMoreTournaments">Diğer turnuvalara göz at</string>
   <string name="averageOpponent">Ortalama rakip</string>
   <string name="membersOnly">Sadece üyeler</string>
@@ -528,7 +529,7 @@
   <string name="difficultyNormal">Normal</string>
   <string name="difficultyHard">Zor</string>
   <string name="xLeftANoteOnY">%1$s kişisine not bırak %2$s</string>
-  <string name="xCompetesInY">%1$s, %2$s\'ya meydan okudu</string>
+  <string name="xCompetesInY">%1$s, %2$s\'da mücadele etti</string>
   <string name="xAskedY">%1$s sordu %2$s</string>
   <string name="xAnsweredY">%1$s cevapladı %2$s</string>
   <string name="xCommentedY">%1$s yorumladı %2$s</string>
@@ -702,7 +703,7 @@
     <item quantity="other">%s dilde kullanılabilir.</item>
   </plurals>
   <string name="gameAnalysis">Oyun analizi</string>
-  <string name="xHostsY">%1$s sundu: %2$s</string>
+  <string name="xHostsY">%1$s ev sahipliği yaptı: %2$s</string>
   <string name="xJoinsY">%1$s katıldı: %2$s</string>
   <string name="xLikesY">%1$s beğendi: %2$s</string>
   <string name="quickPairing">Hızlı eşleşme</string>

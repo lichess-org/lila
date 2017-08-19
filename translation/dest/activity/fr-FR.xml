@@ -27,9 +27,33 @@
     <item quantity="one">%s partie par correspondance terminée</item>
     <item quantity="other">%s parties par correspondance terminées</item>
   </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="one">Commence à suivre %s joueur</item>
+    <item quantity="other">Commence à suivre %s joueurs</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="one">Gagne %s nouveau suiveur</item>
+    <item quantity="other">Gagne %s nouveaux suiveurs</item>
+  </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="one">%s simultanée en cours</item>
+    <item quantity="other">%s simultanées en cours</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">A participé à %s simultanée</item>
+    <item quantity="other">A participé à %s simultanées</item>
+  </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">%s nouvelle étude créée</item>
     <item quantity="other">%s nouvelles études créées</item>
+  </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="one">A participé à %s tournoi</item>
+    <item quantity="other">A participé à %s tournois</item>
+  </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">Classé #%1$s (rang exprimé en %: %2$s%%) avec %3$s partie dans %4$s</item>
+    <item quantity="other">Classé #%1$s (rang exprimé en %: %2$s%%) avec %3$s parties dans %4$s</item>
   </plurals>
   <string name="signedUp">Inscription à lichess.org</string>
   <plurals name="joinedNbTeams">
