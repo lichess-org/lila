@@ -683,7 +683,7 @@ u %3$s</string>
   <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Jesi li siguran/sigurna da si uopće registrirao/la svoj email na lichess-u?</string>
   <string name="itWasNotRequiredForYourRegistration">nije traženo za tvoju registraciju</string>
   <string name="weHaveSentYouAnEmailTo">Poslali smo email na %s. Klikni na link u emailu da se resetia lozinka.</string>
-  <string name="byRegisteringYouAgreeToBeBoundByOur">Registracijom prihvaćaš %s</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">Registracijom prihvaćaš naše %s.</string>
   <string name="networkLagBetweenYouAndLichess">mrežno kašnjenje između tebe i lichess-a</string>
   <string name="timeToProcessAMoveOnLichessServer">Vrijeme obrade poteza na lichess serveru</string>
   <string name="downloadAnnotated">Preuzmi s bilješkama</string>
