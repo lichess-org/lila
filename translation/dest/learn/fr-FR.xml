@@ -120,20 +120,20 @@ Il se place à côté de sa Dame.</string>
   <string name="theSpecialKingMove">Un coup spécial du Roi</string>
   <string name="castlingIntro">Mettrez votre Roi en sécurité et développez votre Tour pour attaquer!</string>
   <string name="castleKingSide">Bougez votre Roi de deux cases
-pour faire le roque sur l\'aile Roi!</string>
+pour faire le petit roque!</string>
   <string name="castleQueenSide">Bougez votre Roi de deux cases
-pour faire le roque sur l\'aile dame!</string>
+pour faire le grand roque!</string>
   <string name="theKnightIsInTheWay">Le Cavalier empêche le roque!
-Bougez-le puis roquez sur l\'aile Roi.</string>
-  <string name="castleKingSideMovePiecesFirst">Roque sur l\'aile roi!
+Bougez-le puis faites le petit roque.</string>
+  <string name="castleKingSideMovePiecesFirst">Faites le petit roque!
 Vous devez d\'abord sortir les pièces.</string>
-  <string name="castleQueenSideMovePiecesFirst">Roque sur l\'aile dame!
+  <string name="castleQueenSideMovePiecesFirst">Faites le grand roque!
 Vous devez d\'abord sortir les pièces.</string>
   <string name="youCannotCastleIfMoved">Vous ne pouvez pas roquer si
-le roi a déjà bougé
-ou si la tour a déjà bougé.</string>
+le Roi a déjà bougé
+ou si la Tour a déjà bougé.</string>
   <string name="youCannotCastleIfAttacked">Vous ne pouvez pas roquer si
-le roi est en échec.
+le Roi est en échec.
 Parez l\'échec puis roquez!</string>
   <string name="findAWayToCastleKingSide">Trouvez un moyen d\'effectuer le petit roque!</string>
   <string name="findAWayToCastleQueenSide">Trouvez un moyen d\'effectuer le grand roque!</string>
@@ -167,7 +167,7 @@ Tour = 5
 Fou = 3
 Cavalier = 3
 Pion = 1
-Le roi n\'a pas de valeur! Le perdre signifie perdre la partie.</string>
+Le Roi n\'a pas de valeur! Le perdre signifie perdre la partie.</string>
   <string name="queenOverBishop">Prenez la pièce
 avec la valeur la plus élevée!
 Dame &gt; Fou</string>
@@ -181,11 +181,11 @@ Cavalier= 3
 Pion= 1</string>
   <string name="checkInTwo">Échec en deux coups</string>
   <string name="twoMovesToGiveCheck">Donner un échec en deux coups</string>
-  <string name="checkInTwoIntro">Trouvez la bonne combinaison en deux coups qui met le roi de l\'adversaire en échec!</string>
-  <string name="checkInTwoGoal">Menacez le roi adverse
+  <string name="checkInTwoIntro">Trouvez la bonne combinaison en deux coups qui met le Roi de l\'adversaire en échec!</string>
+  <string name="checkInTwoGoal">Menacez le Roi adverse
 en deux coups!</string>
-  <string name="checkInTwoComplete">Félicitations! Vous avec mis votre adversaire en échec, l\'obligeant à défendre son roi!</string>
-  <string name="whatNext">Que faire ensuite ?</string>
+  <string name="checkInTwoComplete">Félicitations! Vous avec mis votre adversaire en échec, l\'obligeant à défendre son Roi!</string>
+  <string name="whatNext">Que faire ensuite?</string>
   <string name="youKnowHowToPlayChess">Vous savez comment jouer aux échecs, félicitations ! Voulez-vous devenir un joueur plus fort ?</string>
   <string name="register">S\'inscrire</string>
   <string name="getAFreeLichessAccount">Créer un compte Lichess gratuit</string>
