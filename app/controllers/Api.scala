@@ -124,6 +124,17 @@ object Api extends LilaController {
     key = "user_games.api.global"
   )
 
+  private def UserRateLimit(cost: Int)(run: Fu[ApiResult])(implicit ctx: Context) = {
+    val ip = HTTPRequest lastRemoteAddress ctx.req
+    UserGamesRateLimitPerIP(ip, cost = cost) {
+      UserGamesRateLimitPerUA(~HTTPRequest.userAgent(ctx.req), cost = cost, msg = ip.value) {
+        UserGamesRateLimitGlobal("-", cost = cost, msg = ip.value) {
+          run
+        }
+      }
+    }
+  }
+
   private def gameFlagsFromRequest(implicit ctx: Context) =
     lila.api.GameApi.WithFlags(
       analysis = getBool("with_analysis"),
@@ -138,26 +149,21 @@ object Api extends LilaController {
     val page = (getInt("page") | 1) atLeast 1 atMost 200
     val nb = (getInt("nb") | 10) atLeast 1 atMost 100
     val cost = page * nb + 10
-    val ip = HTTPRequest lastRemoteAddress ctx.req
-    UserGamesRateLimitPerIP(ip, cost = cost) {
-      UserGamesRateLimitPerUA(~HTTPRequest.userAgent(ctx.req), cost = cost, msg = ip.value) {
-        UserGamesRateLimitGlobal("-", cost = cost, msg = ip.value) {
-          lila.mon.api.userGames.cost(cost)
-          lila.user.UserRepo named name flatMap {
-            _ ?? { user =>
-              gameApi.byUser(
-                user = user,
-                rated = getBoolOpt("rated"),
-                playing = getBoolOpt("playing"),
-                analysed = getBoolOpt("analysed"),
-                withFlags = gameFlagsFromRequest,
-                nb = nb,
-                page = page
-              ) map some
-            }
-          } map toApiResult
+    UserRateLimit(cost = cost) {
+      lila.mon.api.userGames.cost(cost)
+      lila.user.UserRepo named name flatMap {
+        _ ?? { user =>
+          gameApi.byUser(
+            user = user,
+            rated = getBoolOpt("rated"),
+            playing = getBoolOpt("playing"),
+            analysed = getBoolOpt("analysed"),
+            withFlags = gameFlagsFromRequest,
+            nb = nb,
+            page = page
+          ) map some
         }
-      }
+      } map toApiResult
     }
   }
 
@@ -192,30 +198,25 @@ object Api extends LilaController {
     val page = (getInt("page") | 1) atLeast 1 atMost 200
     val nb = (getInt("nb") | 10) atLeast 1 atMost 100
     val cost = page * nb * 2 + 10
-    val ip = HTTPRequest lastRemoteAddress ctx.req
-    UserGamesRateLimitPerIP(ip, cost = cost) {
-      UserGamesRateLimitPerUA(~HTTPRequest.userAgent(ctx.req), cost = cost, msg = ip.value) {
-        UserGamesRateLimitGlobal("-", cost = cost, msg = ip.value) {
-          lila.mon.api.userGames.cost(cost)
-          for {
-            usersO <- lila.user.UserRepo.pair(
-              lila.user.User.normalize(u1),
-              lila.user.User.normalize(u2)
-            )
-            res <- usersO.?? { users =>
-              gameApi.byUsersVs(
-                users = users,
-                rated = getBoolOpt("rated"),
-                playing = getBoolOpt("playing"),
-                analysed = getBoolOpt("analysed"),
-                withFlags = gameFlagsFromRequest,
-                nb = nb,
-                page = page
-              ) map some
-            }
-          } yield toApiResult(res)
+    UserRateLimit(cost = cost) {
+      lila.mon.api.userGames.cost(cost)
+      for {
+        usersO <- lila.user.UserRepo.pair(
+          lila.user.User.normalize(u1),
+          lila.user.User.normalize(u2)
+        )
+        res <- usersO.?? { users =>
+          gameApi.byUsersVs(
+            users = users,
+            rated = getBoolOpt("rated"),
+            playing = getBoolOpt("playing"),
+            analysed = getBoolOpt("analysed"),
+            withFlags = gameFlagsFromRequest,
+            nb = nb,
+            page = page
+          ) map some
         }
-      }
+      } yield toApiResult(res)
     }
   }
 
@@ -232,23 +233,18 @@ object Api extends LilaController {
           val page = (getInt("page") | 1) atLeast 1 atMost 200
           val nb = (getInt("nb") | 10) atLeast 1 atMost 100
           val cost = page * nb * 5 + 10
-          val ip = HTTPRequest lastRemoteAddress ctx.req
-          UserGamesRateLimitPerIP(ip, cost = cost) {
-            UserGamesRateLimitPerUA(~HTTPRequest.userAgent(ctx.req), cost = cost, msg = ip.value) {
-              UserGamesRateLimitGlobal("-", cost = cost, msg = ip.value) {
-                lila.mon.api.userGames.cost(cost)
-                gameApi.byUsersVs(
-                  userIds = userIds,
-                  rated = getBoolOpt("rated"),
-                  playing = getBoolOpt("playing"),
-                  analysed = getBoolOpt("analysed"),
-                  withFlags = gameFlagsFromRequest,
-                  since = DateTime.now minusYears 1,
-                  nb = nb,
-                  page = page
-                ) map some map toApiResult
-              }
-            }
+          UserRateLimit(cost = cost) {
+            lila.mon.api.userGames.cost(cost)
+            gameApi.byUsersVs(
+              userIds = userIds,
+              rated = getBoolOpt("rated"),
+              playing = getBoolOpt("playing"),
+              analysed = getBoolOpt("analysed"),
+              withFlags = gameFlagsFromRequest,
+              since = DateTime.now minusYears 1,
+              nb = nb,
+              page = page
+            ) map some map toApiResult
           }
         }
     }
@@ -275,20 +271,15 @@ object Api extends LilaController {
 
   def activity(name: String) = ApiRequest { implicit ctx =>
     val cost = 50
-    val ip = HTTPRequest lastRemoteAddress ctx.req
-    UserGamesRateLimitPerIP(ip, cost = cost) {
-      UserGamesRateLimitPerUA(~HTTPRequest.userAgent(ctx.req), cost = cost, msg = ip.value) {
-        UserGamesRateLimitGlobal("-", cost = cost, msg = ip.value) {
-          lila.mon.api.activity.cost(cost)
-          lila.user.UserRepo named name flatMap {
-            _ ?? { user =>
-              Env.activity.read.recent(user) flatMap {
-                _.map { Env.activity.jsonView(_, user) }.sequenceFu
-              }
-            }
-          } map toApiResult
+    UserRateLimit(cost = cost) {
+      lila.mon.api.activity.cost(cost)
+      lila.user.UserRepo named name flatMap {
+        _ ?? { user =>
+          Env.activity.read.recent(user) flatMap {
+            _.map { Env.activity.jsonView(_, user) }.sequenceFu
+          }
         }
-      }
+      } map toApiResult
     }
   }
 
