@@ -27,7 +27,7 @@ final class ScheduleJsonView(lightUser: LightUser.Getter) {
         "createdBy" -> tour.createdBy,
         "system" -> tour.system.toString.toLowerCase,
         "minutes" -> tour.minutes,
-        "clock" -> clockJson(tour.clock),
+        "clock" -> tour.clock,
         "position" -> tour.position.some.filterNot(_.initial).map(positionJson),
         "rated" -> tour.mode.rated,
         "fullName" -> tour.fullName,

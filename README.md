@@ -314,6 +314,16 @@ name | type | default | description
 
 (1) All game statuses: https://github.com/ornicar/scalachess/blob/master/src/main/scala/Status.scala#L16-L28
 
+### `GET /api/user/<username>/activity` fetch recent user activity
+
+This API is a work in progress
+
+```
+> curl https://lichess.org/api/user/thibault/activityy
+```
+
+Returns data to generate the activity feed on https://lichess.org/@/thibault
+
 ### `GET /api/games/vs/<username>/<username>` fetch games between 2 users
 
 ```

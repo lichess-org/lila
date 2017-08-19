@@ -464,6 +464,9 @@ object mon {
     object game {
       val cost = incX("api.game.cost")
     }
+    object activity {
+      val cost = incX("api.activity.cost")
+    }
   }
   object export {
     object pgn {

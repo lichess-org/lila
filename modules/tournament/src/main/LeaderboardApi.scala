@@ -84,7 +84,7 @@ object LeaderboardApi {
   case class Entry(
     id: String, // same as tournament player id
     userId: String,
-    tourId: String,
+    tourId: Tournament.ID,
     nbGames: Int,
     score: Int,
     rank: Int,

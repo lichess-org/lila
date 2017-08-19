@@ -14,7 +14,9 @@ final class Env(
     postApi: lila.forum.PostApi,
     simulApi: lila.simul.SimulApi,
     studyApi: lila.study.StudyApi,
-    tourLeaderApi: lila.tournament.LeaderboardApi
+    lightUserApi: lila.user.LightUserApi,
+    tourLeaderApi: lila.tournament.LeaderboardApi,
+    getTourName: lila.tournament.Tournament.ID => Option[String]
 ) {
 
   private val activityColl = db(config getString "collection.activity")
@@ -31,6 +33,11 @@ final class Env(
     simulApi = simulApi,
     studyApi = studyApi,
     tourLeaderApi = tourLeaderApi
+  )
+
+  lazy val jsonView = new JsonView(
+    lightUserApi = lightUserApi,
+    getTourName = getTourName
   )
 
   system.lilaBus.subscribe(
@@ -66,6 +73,8 @@ object Env {
     postApi = lila.forum.Env.current.postApi,
     simulApi = lila.simul.Env.current.api,
     studyApi = lila.study.Env.current.api,
-    tourLeaderApi = lila.tournament.Env.current.leaderboardApi
+    lightUserApi = lila.user.Env.current.lightUserApi,
+    tourLeaderApi = lila.tournament.Env.current.leaderboardApi,
+    getTourName = lila.tournament.Env.current.cached.name _
   )
 }

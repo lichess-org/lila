@@ -1,10 +1,10 @@
 package controllers
 
 import org.joda.time.DateTime
+import ornicar.scalalib.Zero
 import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
-import ornicar.scalalib.Zero
 
 import lila.api.Context
 import lila.app._
@@ -271,6 +271,25 @@ object Api extends LilaController {
   def gameStream = Action(parse.tolerantText) { req =>
     val userIds = req.body.split(',').take(300).toSet map lila.user.User.normalize
     Ok.chunked(Env.game.stream.startedByUserIds(userIds))
+  }
+
+  def activity(name: String) = ApiRequest { implicit ctx =>
+    val cost = 50
+    val ip = HTTPRequest lastRemoteAddress ctx.req
+    UserGamesRateLimitPerIP(ip, cost = cost) {
+      UserGamesRateLimitPerUA(~HTTPRequest.userAgent(ctx.req), cost = cost, msg = ip.value) {
+        UserGamesRateLimitGlobal("-", cost = cost, msg = ip.value) {
+          lila.mon.api.activity.cost(cost)
+          lila.user.UserRepo named name flatMap {
+            _ ?? { user =>
+              Env.activity.read.recent(user) flatMap {
+                _.map { Env.activity.jsonView.apply _ }.sequenceFu
+              }
+            }
+          } map toApiResult
+        }
+      }
+    }
   }
 
   sealed trait ApiResult

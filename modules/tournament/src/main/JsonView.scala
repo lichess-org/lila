@@ -5,9 +5,8 @@ import org.joda.time.format.ISODateTimeFormat
 import play.api.libs.json._
 import scala.concurrent.duration._
 
-import chess.Clock.{ Config => TournamentClock }
-import lila.common.PimpedJson._
 import lila.common.LightUser
+import lila.common.PimpedJson._
 import lila.game.{ GameRepo, Pov }
 import lila.quote.Quote.quoteWriter
 import lila.rating.PerfType
@@ -63,7 +62,7 @@ final class JsonView(
     "perf" -> tour.perfType,
     "nbPlayers" -> tour.nbPlayers,
     "minutes" -> tour.minutes,
-    "clock" -> clockJson(tour.clock),
+    "clock" -> tour.clock,
     "verdicts" -> verdicts,
     "variant" -> tour.variant.key,
     "isStarted" -> tour.isStarted,
@@ -343,10 +342,12 @@ object JsonView {
     "speed" -> s.speed.name
   )
 
-  private[tournament] def clockJson(clock: TournamentClock) = Json.obj(
-    "limit" -> clock.limitSeconds,
-    "increment" -> clock.incrementSeconds
-  )
+  implicit val clockWrites: OWrites[chess.Clock.Config] = OWrites { clock =>
+    Json.obj(
+      "limit" -> clock.limitSeconds,
+      "increment" -> clock.incrementSeconds
+    )
+  }
 
   private[tournament] def positionJson(s: chess.StartingPosition) = Json.obj(
     "eco" -> s.eco,
