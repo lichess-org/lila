@@ -78,7 +78,7 @@
     <item quantity="other">Mate en %s medios movimientos</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Siguiente captura o movimiento de péon en %s medio movimiento (distancia a cero del contador de 50 movimientos)</item>
+    <item quantity="one">Siguiente captura o movimiento de péon en medio movimiento (distancia a cero del contador de 50 movimientos)</item>
     <item quantity="other">Siguiente captura o movimiento de péon en %s medios movimientos (distancia a cero del contador de 50 movimientos)</item>
   </plurals>
   <string name="noGameFound">No se ha encontrado ninguna partida</string>
