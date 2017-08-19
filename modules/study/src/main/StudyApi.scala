@@ -479,7 +479,8 @@ final class StudyApi(
               val shouldReload =
                 (newChapter.setup.orientation != chapter.setup.orientation) ||
                   (newChapter.practice != chapter.practice) ||
-                  (newChapter.gamebook != chapter.gamebook)
+                  (newChapter.gamebook != chapter.gamebook) ||
+                  (newChapter.embed != chapter.embed)
               if (study.position.chapterId == chapter.id && shouldReload)
                 sendTo(study, Socket.ChangeChapter(uid, study.position))
               else

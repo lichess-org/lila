@@ -141,7 +141,10 @@ export function main(ctrl: StudyCtrl): VNode {
   return embedUrl ? h('div', [
     sideBox,
     h('div.side_box.embed', {
-      hook: innerHTML(embedUrl, t => toYouTubeEmbed(t, 140)!)
+      hook: innerHTML(embedUrl, t => {
+        const html = toYouTubeEmbed(t, 140);
+        return html || (ctrl.members.canContribute() ? 'Invalid YouTube URL' : '')
+      })
     })
   ]) : sideBox;
 }
