@@ -1,5 +1,5 @@
 .gb_play .lichess_game .lichess_ground {
-  margin-bottom: 0;
+  margin-bottom: -40px;
 }
 .gb_play .gamebook {
   height: 100%;
@@ -29,23 +29,18 @@
   background: #fff;
 }
 .gb_play .mascot {
-  flex: 0 0 auto;
   margin: 0.2em 0;
-  overflow: hidden;
   cursor: pointer;
-  display: flex;
-  flex-flow: row;
-  justify-content: space-between;
-}
-.gb_play .mascot:hover {
-  /* opacity: 0.8; */
 }
 .gb_play .turn {
-  text-align: right;
   text-transform: uppercase;
-  display: flex;
-  flex-flow: column;
-  justify-content: flex-end;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 20px;
+  background: #e0e0e0;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  border-top: 0;
 }
 .gb_play .act {
   border: 1px solid #ccc;

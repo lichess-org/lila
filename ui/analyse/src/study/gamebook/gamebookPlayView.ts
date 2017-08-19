@@ -22,18 +22,15 @@ export function render(ctrl: GamebookPlayCtrl): VNode {
       hook: comment && innerHTML(comment.text, text => enrichText(text, true))
     }),
     h('div.say'),
-    h('div.mascot', [
-      h('img', {
-        attrs: {
-          width: 120,
-          height: 120,
-          src: window.lichess.assetUrl(`/assets/images/mascot/${ctrl.mascot}.svg`),
-          title: 'Click to choose your teacher'
-        },
-        hook: bind('click', ctrl.switchMascot)
-      }),
-      h('span.turn', isMyMove ? 'Your turn' : 'Opponent turn')
-    ]),
+    h('img.mascot', {
+      attrs: {
+        width: 120,
+        height: 120,
+        src: window.lichess.assetUrl(`/assets/images/mascot/${ctrl.mascot}.svg`),
+        title: 'Click to choose your teacher'
+      },
+      hook: bind('click', ctrl.switchMascot)
+    }),
     h('div.act', [
       gb.hint ? h('a.hint', [
         h('i', { attrs: dataIcon('') }),
@@ -43,6 +40,7 @@ export function render(ctrl: GamebookPlayCtrl): VNode {
         h('i', { attrs: dataIcon('G') }),
         'View the solution'
       ])
-    ])
+    ]),
+    h('span.turn', isMyMove ? 'Your turn' : 'Opponent turn')
   ]);
 }
