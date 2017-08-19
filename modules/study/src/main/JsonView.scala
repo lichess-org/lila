@@ -100,6 +100,9 @@ object JsonView {
 
   implicit val studyIdWrites: Writes[Study.Id] = stringIsoWriter(Study.idIso)
   implicit val studyNameWrites: Writes[Study.Name] = stringIsoWriter(Study.nameIso)
+  implicit val studyIdNameWrites = OWrites[Study.IdName] { s =>
+    Json.obj("id" -> s._id, "name" -> s.name)
+  }
   implicit val chapterIdWrites: Writes[Chapter.Id] = stringIsoWriter(Chapter.idIso)
   implicit val chapterNameWrites: Writes[Chapter.Name] = stringIsoWriter(Chapter.nameIso)
 

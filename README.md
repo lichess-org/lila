@@ -316,8 +316,6 @@ name | type | default | description
 
 ### `GET /api/user/<username>/activity` fetch recent user activity
 
-This API is a work in progress
-
 ```
 > curl https://lichess.org/api/user/thibault/activityy
 ```

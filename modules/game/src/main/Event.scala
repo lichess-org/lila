@@ -355,11 +355,4 @@ object Event {
       "watchers" -> watchers
     )
   }
-
-  private implicit val colorWriter: Writes[Color] = Writes { c =>
-    JsString(c.name)
-  }
-  private implicit val statusWriter: OWrites[Status] = OWrites { s =>
-    Json.obj("id" -> s.id, "name" -> s.name)
-  }
 }

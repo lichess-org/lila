@@ -62,12 +62,12 @@ final class ActivityReadApi(
         }
       }
     }
-    simuls <- a.simuls ?? { simuls =>
+    simuls <- a.simuls.?? { simuls =>
       simulApi byIds simuls.value.map(_.value) dmap some
-    }
-    studies <- a.studies ?? { studies =>
+    }.map(_ filter (_.nonEmpty))
+    studies <- a.studies.?? { studies =>
       studyApi publicIdNames studies.value map some
-    }
+    }.map(_ filter (_.nonEmpty))
     tours <- a.games.exists(_.hasNonCorres) ?? {
       val dateRange = a.date -> a.date.plusDays(1)
       tourLeaderApi.timeRange(a.id.userId, dateRange) map { entries =>

@@ -17,7 +17,7 @@ object JsonView {
     "rated" -> game.rated,
     "initialFen" -> (initialFen | chess.format.Forsyth.initial),
     "fen" -> (Forsyth >> game.toChess),
-    "player" -> game.turnColor.name,
+    "player" -> game.turnColor,
     "turns" -> game.turns,
     "startedAtTurn" -> game.startedAtTurn,
     "source" -> game.source,
@@ -26,12 +26,12 @@ object JsonView {
   ).add("threefold" -> game.toChessHistory.threefoldRepetition)
     .add("boosted" -> game.boosted)
     .add("tournamentId" -> game.tournamentId)
-    .add("winner" -> game.winnerColor.map(_.name))
+    .add("winner" -> game.winnerColor)
     .add("lastMove" -> game.castleLastMoveTime.lastMoveString)
     .add("check" -> game.check.map(_.key))
     .add("rematch" -> game.next)
 
-  implicit val statusWriter: OWrites[chess.Status] = OWrites { s =>
+  implicit val statusWrites: OWrites[chess.Status] = OWrites { s =>
     Json.obj(
       "id" -> s.id,
       "name" -> s.name
@@ -115,4 +115,8 @@ object JsonView {
   }
 
   implicit val sourceWriter: Writes[Source] = Writes { s => JsString(s.name) }
+
+  implicit val colorWrites: Writes[Color] = Writes { c =>
+    JsString(c.name)
+  }
 }
