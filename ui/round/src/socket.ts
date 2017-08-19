@@ -4,6 +4,7 @@ import * as xhr from './xhr';
 import * as sound from './sound';
 import RoundController from './ctrl';
 import { Untyped, ApiEnd } from './interfaces';
+import { Simul } from 'game';
 
 const li = window.lichess;
 
@@ -123,6 +124,12 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
         li.hasToReload = true;
         location.href = '/' + gameId;
       }
+    },
+    simulEnd(simul: Simul) {
+      $.modal($(
+        '<p>Simul complete!</p><br /><br />' +
+        '<a class="button" href="/simul/' + simul.id + '">Back to ' + simul.name + ' simul</a>'
+      ));
     }
   };
 

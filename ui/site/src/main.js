@@ -120,20 +120,12 @@ lichess.topMenuIntent = function() {
           '<div class="actions">' +
           '<a class="withdraw text" href="' + url + '/withdraw" data-icon="Z">Pause</a>' +
           '<a class="text" href="' + url + '" data-icon="G">Join</a>' +
-          '</div>' +
-          '</div>' +
-          '</div>'
+          '</div></div></div>'
         ).find("a.withdraw").click(function() {
           $.post($(this).attr("href"));
           $('#tournament_reminder').remove();
           return false;
         });
-      },
-      simulEnd: function(simul) {
-        $.modal($(
-          '<p>Simul complete!</p><br /><br />' +
-          '<a class="button" href="/simul/' + simul.id + '">Back to ' + simul.name + ' simul</a>'
-        ));
       }
     },
     params: {},
