@@ -48,7 +48,7 @@ export default class GamebookPlayCtrl {
     } else {
       state.feedback = 'bad';
       if (!state.comment) {
-        state.comment = parNode.gamebook!.deviation;
+        state.comment = parNode.children[0].gamebook!.deviation;
       }
     }
     this.state = state as State;
