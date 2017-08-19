@@ -267,6 +267,7 @@
   <string name="tournamentPoints">Puntos de torneo</string>
   <string name="viewTournament">Ver torneo</string>
   <string name="backToTournament">Volver al torneo</string>
+  <string name="thematic">Temático</string>
   <string name="backToGame">Volver a la partida</string>
   <string name="siteDescription">Servidor de ajedrez en línea gratuito. Juega al ajedrez en una interfaz simple. Sin registro, sin publicidad, sin necesidad de complementos. Juega contra el ordenador, amigos u oponentes desconocidos.</string>
   <string name="teams">Equipos</string>
