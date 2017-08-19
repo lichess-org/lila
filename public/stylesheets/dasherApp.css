@@ -45,8 +45,8 @@
 #dasher_app .status signal {
   position: absolute;
   right: 10px;
-  top: 12px;
-  font-size: 14px;
+  top: 10px;
+  font-size: 20px;
 }
 #dasher_app .status .ping,
 #dasher_app .status .server {
