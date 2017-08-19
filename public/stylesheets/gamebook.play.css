@@ -1,5 +1,5 @@
 .gb_play .lichess_game .lichess_ground {
-  margin-bottom: -40px;
+  margin-bottom: -140px;
 }
 .gb_play .gamebook {
   height: 100%;
@@ -9,64 +9,49 @@
   font-size: 1.3em;
 }
 .gb_play .comment {
+  flex: 1 1 auto;
   background: #fff;
   border-radius: 10px;
-  padding: 10px;
   position: relative;
   border: 1px solid #aaa;
-  overflow-y: auto;
+  display: flex;
 }
-.gb_play .say {
-  margin: -9px 0 0 40%;
+.gb_play .comment:after {
+  position: absolute;
+  content: '';
+  bottom: -9px;
+  left: 40%;
   width: 15px;
   height: 15px;
   background: #fff;
   border-right: 1.5px solid #aaa;
   border-bottom: 1px solid #aaa;
   transform: skew(-45deg) rotate(45deg);
+  z-index: 1;
 }
-.gb_play .comment:after {
-  background: #fff;
+.gb_play .comment .content {
+  z-index: 2;
+  overflow-y: auto;
+  padding: 10px 12px;
 }
 .gb_play .mascot {
-  margin: 0.2em 0;
+  margin: 8px 0 -7px 0;
   cursor: pointer;
+}
+.gb_play .soapbox {
+  margin-top: 20px;
+  height: 120px;
+  background: #e0e0e0;
+  border: 1px solid #ccc;
 }
 .gb_play .turn {
   text-transform: uppercase;
-  height: 40px;
-  line-height: 40px;
-  padding: 0 20px;
-  background: #e0e0e0;
-  margin: 0 auto;
-  border: 1px solid #ccc;
-  border-top: 0;
-}
-.gb_play .act {
-  border: 1px solid #ccc;
+  line-height: 120px;
   text-align: center;
-  background: #e0e0e0;
-  display: flex;
-  flex-flow: row;
-  font-size: 0.8em;
+  font-size: 1.5em;
+  color: #3893E8;
 }
-.gb_play .act > * {
-  flex: 0 0 50%;
-  display: flex;
-  flex-flow: column;
-  padding: 1em 0;
-  opacity: 0.8;
-}
-.gb_play .act a:hover {
-  background: #3893E8;
-  color: #fff;
-  opacity: 1;
-}
-.gb_play .act i {
-  font-size: 2.3em;
-  padding-bottom: 0.3em;
-  opacity: 0.7;
-}
-.gb_play .act a:hover i {
-  opacity: 0.9;
+
+.gb_buttons .button {
+  margin-left: 10px;
 }

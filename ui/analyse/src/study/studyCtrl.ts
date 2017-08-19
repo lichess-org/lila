@@ -99,7 +99,8 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     req.ch = vm.chapterId;
     return req;
   }
-  if (vm.mode.sticky) ctrl.userJump(data.position.path);
+  // remain on initial position if gamebook player
+  if (vm.mode.sticky && !(data.chapter.gamebook && !members.canContribute())) ctrl.userJump(data.position.path);
 
   function configureAnalysis() {
     if (ctrl.embed) return;
@@ -196,6 +197,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     if (!data.chapter.gamebook || members.canContribute()) return gamebookPlay = undefined;
     if (gamebookPlay && gamebookPlay.chapterId === vm.chapterId) return;
     gamebookPlay = new GamebookPlayCtrl(ctrl, vm.chapterId, redraw);
+    vm.mode.sticky = false;
   }
   instanciateGamebookPlay();
 

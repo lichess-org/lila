@@ -18,10 +18,9 @@ export function render(ctrl: GamebookPlayCtrl): VNode {
   return h('div.gamebook', {
     hook: { insert: _ => window.lichess.loadCss('/assets/stylesheets/gamebook.play.css') }
   }, [
-    h('div.comment', {
+    h('div.comment', h('div.content', {
       hook: comment && innerHTML(comment.text, text => enrichText(text, true))
-    }),
-    h('div.say'),
+    })),
     h('img.mascot', {
       attrs: {
         width: 120,
@@ -31,16 +30,8 @@ export function render(ctrl: GamebookPlayCtrl): VNode {
       },
       hook: bind('click', ctrl.mascot.switch, ctrl.redraw)
     }),
-    h('div.act', [
-      gb.hint ? h('a.hint', [
-        h('i', { attrs: dataIcon('') }),
-        'Get a hint'
-      ]) : h('span.hint'),
-      h('a.solution', [
-        h('i', { attrs: dataIcon('G') }),
-        'View the solution'
-      ])
-    ]),
-    h('span.turn', isMyMove ? 'Your turn' : 'Opponent turn')
+    h('div.soapbox', [
+      h('div.turn', isMyMove ? 'Your turn' : 'Opponent turn')
+    ])
   ]);
 }

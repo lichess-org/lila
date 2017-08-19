@@ -14,6 +14,7 @@ import { view as studyShareView } from './studyShare';
 import { view as notifView } from './notif';
 import { view as tagsView } from './studyTags';
 import * as practiceView from './practice/studyPracticeView';
+import gamebookPlayButtons from './gamebook/gamebookPlayButtons';
 import AnalyseCtrl from '../ctrl';
 import { StudyCtrl, Tab } from './interfaces';
 import { MaybeVNodes } from '../interfaces';
@@ -38,13 +39,7 @@ function buttons(root: AnalyseCtrl): VNode {
         class: {on: ctrl.vm.mode.write },
         hook: bind('click', ctrl.toggleWrite)
       }, [ h('i.is'), 'Record' ]) : null,
-      h('a.button.share.hint--top', {
-        attrs: { 'data-hint': 'Share & export' },
-        class: { active: ctrl.share.open() },
-        hook: bind('click', ctrl.share.toggle, ctrl.redraw)
-      }, [
-        h('i', { attrs: dataIcon('z') })
-      ]),
+      shareButton(ctrl),
       ...(canContribute ? [
         h('a.button.comment.hint--top', {
           attrs: { 'data-hint': 'Comment this position' },
@@ -72,12 +67,22 @@ function buttons(root: AnalyseCtrl): VNode {
         ])
       ] : [])
     ]),
-    ctrl.gamebookPlay() ? null : h('span.button.help.hint--top', {
+    h('span.button.help.hint--top', {
       attrs: { 'data-hint': 'Need help? Get the tour!' },
       hook: bind('click', ctrl.startTour)
     }, [
       h('i.text', { attrs: dataIcon('') }, 'help')
     ])
+  ]);
+}
+
+export function shareButton(ctrl: StudyCtrl) {
+  return h('a.button.share.hint--top', {
+    attrs: { 'data-hint': 'Share & export' },
+    class: { active: ctrl.share.open() },
+    hook: bind('click', ctrl.share.toggle, ctrl.redraw)
+  }, [
+    h('i', { attrs: dataIcon('z') })
   ]);
 }
 
@@ -160,7 +165,7 @@ export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
   if (ctrl.studyPractice) return [practiceView.underboard(ctrl.study!)];
   const study = ctrl.study!;
   if (study.gamebookPlay()) return [
-    buttons(ctrl),
+    gamebookPlayButtons(ctrl),
     metadata(study)
   ];
   const commentForm = commentFormView(study.commentForm);
