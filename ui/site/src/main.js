@@ -107,7 +107,7 @@ lichess.topMenuIntent = function() {
             '</div>');
           setTimeout(function() {
             $('#deploy_done').fadeOut(1000).remove();
-          }, 6000);
+          }, $('body').hasClass('playing') ? 8000 : 13000);
         });
       },
       tournamentReminder: function(data) {
