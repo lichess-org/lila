@@ -38,9 +38,9 @@ export function ctrl(trans: Prop<Trans>, redraw: Redraw): PingCtrl {
 function signalBars(d: PingData) {
   const lagRating =
     !d.ping ? 0 :
-    (d.ping < 15) ? 4 :
-    (d.ping < 30) ? 3 :
-    (d.ping < 50) ? 2 : 1;
+    (d.ping < 150) ? 4 :
+    (d.ping < 300) ? 3 :
+    (d.ping < 500) ? 2 : 1;
   const bars = [];
   for (let i = 1; i <= 4; i++) bars.push(h(i <= lagRating ? 'i' : 'i.off'));
   return h('signal.q' + lagRating, bars);
