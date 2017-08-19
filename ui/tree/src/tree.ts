@@ -29,6 +29,7 @@ export interface TreeWrapper {
   merge(tree: Tree.Node): void;
   removeCeval(): void;
   removeComputerVariations(): void;
+  parentNode(path: Tree.Path): Tree.Node;
   getParentClock(node: Tree.Node, path: Tree.Path): Tree.Clock | undefined;
 }
 
@@ -148,9 +149,7 @@ export function build(root: Tree.Node): TreeWrapper {
   }
 
   function deleteNodeAt(path: Tree.Path): void {
-    var parent = nodeAtPath(treePath.init(path));
-    var id = treePath.last(path);
-    ops.removeChild(parent, id);
+    ops.removeChild(parentNode(path), treePath.last(path));
   }
 
   function promoteAt(path: Tree.Path, toMainline: boolean): void {
@@ -198,12 +197,16 @@ export function build(root: Tree.Node): TreeWrapper {
     });
   }
 
+  function parentNode(path: Tree.Path): Tree.Node {
+    return nodeAtPath(treePath.init(path));
+  }
+
   function getParentClock(node: Tree.Node, path: Tree.Path): Tree.Clock | undefined {
     if (!('parentClock' in node)) {
-      var parent = path && nodeAtPath(treePath.init(path));
-      if (!parent) node.parentClock = node.clock;
-      else if (!('clock' in parent)) node.parentClock = undefined;
-      else node.parentClock = parent.clock;
+      const par = path && parentNode(path);
+      if (!par) node.parentClock = node.clock;
+      else if (!('clock' in par)) node.parentClock = undefined;
+      else node.parentClock = par.clock;
     }
     return node.parentClock;
   }
@@ -259,6 +262,7 @@ export function build(root: Tree.Node): TreeWrapper {
         });
       });
     },
+    parentNode,
     getParentClock
   };
 }

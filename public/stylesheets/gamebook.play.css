@@ -9,14 +9,13 @@
   font-size: 1.3em;
 }
 .gb_play .comment {
-  flex: 1 1 auto;
   background: #fff;
   border-radius: 10px;
   position: relative;
   border: 1px solid #aaa;
   display: flex;
 }
-.gb_play .comment:after {
+.gb_play .comment::after {
   position: absolute;
   content: '';
   bottom: -9px;
@@ -34,24 +33,51 @@
   overflow-y: auto;
   padding: 10px 12px;
 }
+@keyframes mascot {
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
 .gb_play .mascot {
-  margin: 8px 0 -7px 0;
+  margin: 10px 0 -7px 0;
   cursor: pointer;
 }
-.gb_play .soapbox {
+.gb_play .mascot:hover {
+  animation: mascot 0.5s ease-in-out;
+}
+.gb_play .feedback {
+  flex: 0 0 120px;
   margin-top: 20px;
   height: 120px;
-  background: #e0e0e0;
-  border: 1px solid #ccc;
-}
-.gb_play .turn {
-  text-transform: uppercase;
-  line-height: 120px;
   text-align: center;
   font-size: 1.5em;
-  color: #3893E8;
+  background: #e0e0e0;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
 }
-
+.gb_play .feedback.act {
+  font-size: 2em;
+  color: #fff;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: 0.13s;
+  border-radius: 5px;
+}
+.gb_play .feedback.act:hover {
+  opacity: 1;
+  transform: scale(1.02, 1.02);
+}
+.gb_play .feedback.act span {
+  animation: rubberBand 8s infinite;
+}
+.gb_play .feedback.bad {
+  background: #dc322f;
+}
+.gb_play .feedback.good,
+.gb_play .feedback.end {
+  background: #639B24;
+  color: #fff;
+}
 .gb_buttons .button {
   margin-left: 10px;
 }

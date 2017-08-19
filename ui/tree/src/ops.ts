@@ -57,12 +57,12 @@ export function removeChild(parent: Tree.Node, id: string): void {
 }
 
 export function countChildrenAndComments(node: Tree.Node) {
-  var count = {
+  const count = {
     nodes: 1,
     comments: (node.comments || []).length
   };
   node.children.forEach(function(child) {
-    var c = countChildrenAndComments(child);
+    const c = countChildrenAndComments(child);
     count.nodes += c.nodes;
     count.comments += c.comments;
   });
@@ -70,11 +70,11 @@ export function countChildrenAndComments(node: Tree.Node) {
 }
 
 export function reconstruct(parts: any): Tree.Node {
-  var root = parts[0],
-    node = root;
+  const root = parts[0], nb = parts.length;
+  let node = root, i: number;
   root.id = '';
-  for (var i = 1, nb = parts.length; i < nb; i++) {
-    var n = parts[i];
+  for (i = 1; i < nb; i++) {
+    const n = parts[i];
     if (node.children) node.children.unshift(n);
     else node.children = [n];
     node = n;
@@ -90,11 +90,11 @@ export function merge(n1: Tree.Node, n2: Tree.Node): void {
   n2.comments && n2.comments.forEach(function(c) {
     if (!n1.comments) n1.comments = [c];
     else if (!n1.comments.filter(function(d) {
-        return d.text === c.text;
-      }).length) n1.comments.push(c);
+      return d.text === c.text;
+    }).length) n1.comments.push(c);
   });
   n2.children.forEach(function(c) {
-    var existing = childById(n1, c.id);
+    const existing = childById(n1, c.id);
     if (existing) merge(existing, c);
     else n1.children.push(c);
   });
@@ -112,7 +112,7 @@ export function mainlineNodeList(from: Tree.Node): Tree.Node[] {
 
 export function updateAll(root: Tree.Node, f: (node: Tree.Node) => void): void {
   // applies f recursively to all nodes
-  var update = function(node: Tree.Node) {
+  function update(node: Tree.Node) {
     f(node);
     node.children.forEach(update);
   };

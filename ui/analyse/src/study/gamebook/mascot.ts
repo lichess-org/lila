@@ -16,4 +16,6 @@ export default class Mascot {
     this.current = this.list[newIndex % this.list.length];
     this.storage.set(this.current);
   }
+
+  url = () => window.lichess.assetUrl(`/assets/images/mascot/${this.current}.svg`);
 }

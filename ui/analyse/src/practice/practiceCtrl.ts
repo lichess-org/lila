@@ -108,7 +108,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
     } else {
       comment(null);
       if (node.san && commentable(node)) {
-        const parentNode = root.tree.nodeAtPath(treePath.init(root.path));
+        const parentNode = root.tree.parentNode(root.path);
         if (commentable(parentNode, +1))
         comment(makeComment(parentNode, node, root.path));
       }

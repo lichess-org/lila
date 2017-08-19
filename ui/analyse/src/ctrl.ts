@@ -250,7 +250,7 @@ export default class AnalyseCtrl {
     color = this.turnColor(),
     dests = chessUtil.readDests(this.node.dests),
     drops = chessUtil.readDrops(this.node.drops),
-    movableColor = this.practice ? this.bottomColor() : (
+    movableColor = (this.practice || this.gamebookPlay()) ? this.bottomColor() : (
       !this.embed && (
         (dests && Object.keys(dests).length > 0) ||
         drops === null || drops.length
@@ -275,7 +275,7 @@ export default class AnalyseCtrl {
       config.movable!.color = color;
     }
     config.premovable = {
-      enabled: config.movable!.color && config.turnColor !== config.movable!.color
+      enabled: config.movable!.color && config.turnColor !== config.movable!.color && !this.gamebookPlay()
     };
     this.cgConfig = config;
     return config;

@@ -99,8 +99,12 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     req.ch = vm.chapterId;
     return req;
   }
-  // remain on initial position if gamebook player
-  if (vm.mode.sticky && !(data.chapter.gamebook && !members.canContribute())) ctrl.userJump(data.position.path);
+
+  function isGamebookPlay() {
+    return data.chapter.gamebook && !members.canContribute();
+  }
+
+  if (vm.mode.sticky && !isGamebookPlay()) ctrl.userJump(data.position.path);
 
   function configureAnalysis() {
     if (ctrl.embed) return;
@@ -109,7 +113,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     vm.mode.write = vm.mode.write && canContribute;
     li.pubsub.emit('chat.writeable')(data.features.chat);
     li.pubsub.emit('chat.permissions')({local: canContribute});
-    const computer: boolean = !!(data.chapter.features.computer || data.chapter.practice);
+    const computer: boolean = !isGamebookPlay() && !!(data.chapter.features.computer || data.chapter.practice);
     if (!computer) ctrl.getCeval().enabled(false);
     ctrl.getCeval().allowed(computer);
     if (!data.chapter.features.explorer) ctrl.explorer.disable();
@@ -143,6 +147,8 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     ctrl.reloadData(d.analysis, merge);
     configureAnalysis();
     vm.loading = false;
+
+    instanciateGamebookPlay();
 
     let nextPath: Tree.Path;
 
@@ -194,7 +200,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
   let gamebookPlay: GamebookPlayCtrl | undefined;
 
   function instanciateGamebookPlay() {
-    if (!data.chapter.gamebook || members.canContribute()) return gamebookPlay = undefined;
+    if (!isGamebookPlay()) return gamebookPlay = undefined;
     if (gamebookPlay && gamebookPlay.chapterId === vm.chapterId) return;
     gamebookPlay = new GamebookPlayCtrl(ctrl, vm.chapterId, redraw);
     vm.mode.sticky = false;
@@ -243,6 +249,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     currentChapter,
     isChapterOwner,
     canJumpTo(path: Tree.Path) {
+      if (gamebookPlay) return gamebookPlay.canJumpTo(path);
       return data.chapter.conceal === undefined ||
         isChapterOwner() ||
         treePath.contains(ctrl.path, path) || // can always go back
@@ -251,6 +258,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     onJump() {
       chapters.localPaths[vm.chapterId] = ctrl.path;
       if (practice) practice.onJump();
+      if (gamebookPlay) gamebookPlay.onJump();
     },
     withPosition(obj) {
       obj.ch = vm.chapterId;

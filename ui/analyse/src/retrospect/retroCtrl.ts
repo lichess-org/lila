@@ -9,6 +9,8 @@ export interface RetroCtrl {
   [key: string]: any;
 }
 
+type Feedback = 'find' | 'eval' | 'win' | 'fail' | 'view';
+
 export function make(root: AnalyseCtrl): RetroCtrl {
 
   const game = root.data.game;
@@ -17,7 +19,7 @@ export function make(root: AnalyseCtrl): RetroCtrl {
   const explorerCancelPlies: number[] = [];
   let solvedPlies: number[] = [];
   const current = prop<any>(null);
-  const feedback = prop('find'); // find | eval | win | fail | view
+  const feedback = prop<Feedback>('find');
 
   const contains = window.lichess.fp.contains;
   const redraw = root.redraw;
