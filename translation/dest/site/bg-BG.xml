@@ -47,6 +47,7 @@
   <string name="requestAComputerAnalysis">Поискай компютърен анализ</string>
   <string name="computerAnalysis">Компютърен анализ</string>
   <string name="analysis">Анализ</string>
+  <string name="loadingEngine">Зареждане на програмата ...</string>
   <string name="openingExplorer">Изследовател на дебютите</string>
   <string name="blunders">Гафове</string>
   <string name="mistakes">Грешки</string>
