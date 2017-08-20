@@ -36,6 +36,7 @@ export interface StudyCtrl {
   practice?: StudyPracticeCtrl;
   gamebookPlay(): GamebookPlayCtrl | undefined;
   mutateCgConfig(config: any): void;
+  isUpdatedRecently(): boolean;
   redraw(): void;
 }
 
@@ -52,6 +53,7 @@ export interface StudyVm {
     write: boolean;
   };
   behind: number;
+  updatedAt: number;
 }
 
 
@@ -71,6 +73,7 @@ export interface StudyData {
   features: StudyFeatures;
   chapters: StudyChapterMeta[]
   chapter: StudyChapter;
+  secondsSinceUpdate: number;
 }
 
 export interface StudySettings {

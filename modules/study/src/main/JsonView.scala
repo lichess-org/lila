@@ -88,6 +88,7 @@ final class JsonView(
       "settings" -> s.settings,
       "visibility" -> s.visibility,
       "createdAt" -> s.createdAt,
+      "secondsSinceUpdate" -> (nowSeconds - s.updatedAt.getSeconds).toInt,
       "from" -> s.from,
       "likes" -> s.likes
     ).add("isNew" -> s.isNew)

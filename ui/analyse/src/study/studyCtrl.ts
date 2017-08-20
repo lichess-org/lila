@@ -39,7 +39,8 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
         sticky: sticked,
         write: true
       },
-      behind: 0 // how many events missed because sync=off
+      behind: 0, // how many events missed because sync=off
+      updatedAt: Date.now() - data.secondsSinceUpdate * 1000 // how stale is the study
     };
   })();
 
@@ -225,7 +226,12 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       if (vm.mode.sticky && serverData.sticky) xhrReload();
       return true;
     }
-  };
+  }
+
+  function setMemberActive(who?: {u: string}) {
+    who && members.setActive(who.u);
+    vm.updatedAt = Date.now();
+  }
 
   return {
     data,
@@ -238,6 +244,9 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     share,
     tags,
     vm,
+    isUpdatedRecently() {
+      return Date.now() - vm.updatedAt < 300 * 1000;
+    },
     toggleLike() {
       send("like", {
         liked: !data.liked
@@ -314,7 +323,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       path(d) {
         const position = d.p,
         who = d.w;
-        who && members.setActive(who.u);
+        setMemberActive(who);
         if (!vm.mode.sticky) {
           vm.behind++;
           return redraw();
@@ -333,7 +342,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
         node = d.n,
         who = d.w,
         sticky = d.s;
-        who && members.setActive(who.u);
+        setMemberActive(who);
         if (sticky && !vm.mode.sticky) vm.behind++;
         if (wrongChapter(d)) {
           if (sticky && !vm.mode.sticky) redraw();
@@ -357,7 +366,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       deleteNode(d) {
         const position = d.p,
         who = d.w;
-        who && members.setActive(who.u);
+        setMemberActive(who);
         if (wrongChapter(d)) return;
         // deleter already has it done
         if (who && who.s === sri) return;
@@ -369,7 +378,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       promote(d) {
         const position = d.p,
         who = d.w;
-        who && members.setActive(who.u);
+        setMemberActive(who);
         if (wrongChapter(d)) return;
         if (who && who.s === sri) return;
         if (!ctrl.tree.pathExists(d.p.path)) return xhrReload();
@@ -378,14 +387,14 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       },
       reload: xhrReload,
       changeChapter(d) {
-        d.w && members.setActive(d.w.u);
+        setMemberActive(d.w);
         if (!vm.mode.sticky) vm.behind++;
         data.position = d.p;
         if (vm.mode.sticky) xhrReload();
         else redraw();
       },
       addChapter(d) {
-        d.w && members.setActive(d.w.u);
+        setMemberActive(d.w);
         if (d.s && !vm.mode.sticky) vm.behind++;
         if (d.s) data.position = d.p;
         else if (d.w && d.w.s === sri) {
@@ -410,7 +419,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       shapes(d) {
         const position = d.p,
         who = d.w;
-        who && members.setActive(who.u);
+        setMemberActive(who);
         if (wrongChapter(d)) return;
         if (who && who.s === sri) return;
         ctrl.tree.setShapes(d.s, ctrl.path);
@@ -420,14 +429,14 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       setComment(d) {
         const position = d.p,
         who = d.w;
-        who && members.setActive(who.u);
+        setMemberActive(who);
         if (wrongChapter(d)) return;
         if (who && who.s === sri) commentForm.dirty(false);
         ctrl.tree.setCommentAt(d.c, position.path);
         redraw();
       },
       setTags(d) {
-        d.w && members.setActive(d.w.u);
+        setMemberActive(d.w);
         if (d.chapterId !== vm.chapterId) return;
         data.chapter.tags = d.tags;
         redraw();
@@ -435,7 +444,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       deleteComment(d) {
         const position = d.p,
         who = d.w;
-        who && members.setActive(who.u);
+        setMemberActive(who);
         if (wrongChapter(d)) return;
         ctrl.tree.deleteCommentAt(d.id, position.path);
         redraw();
@@ -443,7 +452,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       glyphs(d) {
         const position = d.p,
         who = d.w;
-        who && members.setActive(who.u);
+        setMemberActive(who);
         if (wrongChapter(d)) return;
         if (who && who.s === sri) glyphForm.dirty(false);
         ctrl.tree.setGlyphsAt(d.g, position.path);
@@ -452,7 +461,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       clock(d) {
         const position = d.p,
         who = d.w;
-        who && members.setActive(who.u);
+        setMemberActive(who);
         if (wrongChapter(d)) return;
         ctrl.tree.setClockAt(d.c, position.path);
         redraw();

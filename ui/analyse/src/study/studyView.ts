@@ -22,7 +22,7 @@ import { MaybeVNodes } from '../interfaces';
 function buttons(root: AnalyseCtrl): VNode {
   const ctrl = root.study!,
   canContribute = ctrl.members.canContribute(),
-  showSticky = ctrl.data.features.sticky && (canContribute || ctrl.vm.behind);
+  showSticky = ctrl.data.features.sticky && (canContribute || (ctrl.vm.behind && ctrl.isUpdatedRecently()));
   return h('div.study_buttons', [
     h('div.member_buttons', [
       // distinct classes (sync, write) allow snabbdom to differentiate buttons
