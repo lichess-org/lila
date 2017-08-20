@@ -217,6 +217,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
           shapes
         }));
       }
+      gamebookPlay && gamebookPlay.onShapeChange(shapes);
     };
   }
 

@@ -206,6 +206,7 @@ declare namespace Tree {
   export interface Gamebook {
     deviation?: string;
     hint?: string;
+    shapes?: Shape[]
   }
 
   export interface Opening {

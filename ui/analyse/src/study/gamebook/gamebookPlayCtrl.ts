@@ -24,7 +24,10 @@ export default class GamebookPlayCtrl {
 
     // ensure all original nodes have a gamebook entry,
     // so we can differentiate original nodes from user-made ones
-    treeOps.updateAll(root.tree.root, n => n.gamebook = n.gamebook || {});
+    treeOps.updateAll(root.tree.root, n => {
+      n.gamebook = n.gamebook || {};
+      if (n.shapes) n.gamebook.shapes = n.shapes.slice(0);
+    });
   }
 
   private makeState(): void {
@@ -77,5 +80,11 @@ export default class GamebookPlayCtrl {
     this.makeState();
   };
 
-  private study = (): StudyCtrl => this.root.study!;
+  onShapeChange = shapes => {
+    const node = this.root.node;
+    if (node.gamebook && node.gamebook.shapes && !shapes.length) {
+      node.shapes = node.gamebook.shapes.slice(0);
+      this.root.jump(this.root.path);
+    }
+  };
 }
