@@ -267,6 +267,7 @@
   <string name="tournamentPoints">Puntos en torneos</string>
   <string name="viewTournament">Ver torneo</string>
   <string name="backToTournament">Voltar ó torneo</string>
+  <string name="thematic">Temático</string>
   <string name="backToGame">Voltar á partida</string>
   <string name="siteDescription">Xadrez libre en liña. Xoga ó xadrez cunha interface limpa. Sen rexistrarse, sen anuncios, sen necesidade de plugins. Xoga ó xadrez contra o ordenador, amigos ou rivais aleatorios.</string>
   <string name="teams">Equipos</string>
@@ -643,6 +644,10 @@ en %3$s</string>
   <string name="tournamentMayHaveBeenCanceled">Poida que fose cancelado, se todos os xogadores marcharon antes de que o torneo comezase.</string>
   <string name="returnToTournamentsHomepage">Voltar a páxina de torneos</string>
   <string name="weeklyPerfTypeRatingDistribution">Distribucion semanal de calificacións %s</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">%1$s xogador de %2$s esta semana.</item>
+    <item quantity="other">%1$s xogadores de %2$s esta semana.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">A túa puntuación en %1$s é %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Es mellor que o %1$s de %2$s xogadores.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Non tes unha puntuación en %s establecida.</string>

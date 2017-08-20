@@ -708,7 +708,7 @@ en %3$s</string>
   <string name="xJoinsY">%1$s rejoint %2$s</string>
   <string name="xLikesY">%1$s aime %2$s</string>
   <string name="quickPairing">Appariement rapide</string>
-  <string name="lobby">Lobby</string>
+  <string name="lobby">Salon</string>
   <string name="anonymous">Anonyme</string>
   <string name="yourScore">Votre score : %s</string>
   <string name="language">Langue</string>

@@ -16,6 +16,6 @@
 Profil sayfanız: %1$s. Ayrıca profilinizi şuradan kişiselleştirebilirsiniz: %2$s.
 
 İyi eğlenceler, taşlarınız her zaman rakip şaha karşı yollarını bulabilsin!</string>
-  <string name="common_orPaste">(Tıklamak işe yaramadı mı? Tarayıcıya yapıştır gitsin!)</string>
+  <string name="common_orPaste">(Tıklamak işe yaramadı mı? Tarayıcıya yapıştırmayı dene!)</string>
   <string name="common_note">Bu, %s kullanımınızla ilgili otomatik bir e-postadır.</string>
 </resources>

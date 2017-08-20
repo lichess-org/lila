@@ -48,12 +48,12 @@
   <string name="computerAnalysis">Компјутерска анализа</string>
   <string name="computerAnalysisAvailable">анализа рачунаром доступна</string>
   <string name="analysis">Табла за анализирање</string>
-  <string name="depthX">дубина %s</string>
-  <string name="usingServerAnalysis">анализа помоћу сервера</string>
-  <string name="loadingEngine">мотор се учитава...</string>
-  <string name="cloudAnalysis">анализа у облаку</string>
-  <string name="goDeeper">иди дубље</string>
-  <string name="showThreat">покажи претњу</string>
+  <string name="depthX">Дубина %s</string>
+  <string name="usingServerAnalysis">Анализа помоћу сервера</string>
+  <string name="loadingEngine">Мотор се учитава...</string>
+  <string name="cloudAnalysis">Анализа у облаку</string>
+  <string name="goDeeper">Иди дубље</string>
+  <string name="showThreat">Прикажи претњу</string>
   <string name="inLocalBrowser">у локалном веб-читачу</string>
   <string name="toggleLocalEvaluation">укључи/искључи локалну процену</string>
   <string name="move">потез</string>
@@ -282,6 +282,33 @@
   <string name="tournamentPoints">Поени на такмичењима</string>
   <string name="viewTournament">Погледај турнир</string>
   <string name="backToTournament">Повратак у турнир</string>
+  <string name="thematic">Тематски</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s рангирана игра</item>
+    <item quantity="few">≥ %s рангиране игре</item>
+    <item quantity="other">≥ %s рангираних игара</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2%s рангирана игра</item>
+    <item quantity="few">≥ %1$s %2%s рангиране игре</item>
+    <item quantity="other">≥ %1$s %2%s рангираних игара</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Морате одиграти још %1$s %2$s рангирану игру</item>
+    <item quantity="few">Морате одиграти још %1$s %2$s рангиране игре</item>
+    <item quantity="other">Морате одиграти још %1$s %2$s рангираних игара</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Морате одиграти још %s рангирану игру</item>
+    <item quantity="few">Морате одиграти још %s рангиране игре</item>
+    <item quantity="other">Морате одиграти још %s рангираних игара</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Ваш %s рејтинг је привремен</string>
+  <string name="yourPerfRatingIsTooHigh">Ваш %1$s рејтинг (%2$s) је превисок</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Ваш највиши недељни %1$s рејтинг (%2$s) је превисок</string>
+  <string name="yourPerfRatingIsTooLow">Ваш %1$s рејтинг (%2$s) је пренизак</string>
+  <string name="ratedMoreThanInPerf">Рејтинг ≥ %1$s у %2$s</string>
+  <string name="ratedLessThanInPerf">Рејтинг ≤ %1$s у %2$s</string>
   <string name="backToGame">Повратак у игру</string>
   <string name="siteDescription">Бесплатни интернет шах. Играј сада у чистом окружењу. Без регистрације, реклама, додатака захтеваних. Играј шах ротив рачунара, пријатеља или насумичних противника.</string>
   <string name="teams">Тимови</string>
