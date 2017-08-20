@@ -12,7 +12,7 @@ import { State } from './gamebookPlayCtrl';
 const defaultComments = {
   play: 'What would you play in this position?',
   good: 'Yes indeed, good move!',
-  bad: 'This is not the move you are looking for.',
+  bad: 'That\'s not the right move',
   end: 'And that is all she wrote.'
 };
 
