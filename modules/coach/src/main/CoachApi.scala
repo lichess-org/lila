@@ -148,6 +148,14 @@ final class CoachApi(
     def allByCoach(c: Coach): Fu[CoachReview.Reviews] =
       findRecent($doc("coachId" -> c.id.value))
 
+    def deleteAllBy(userId: User.ID): Funit = for {
+      reviews <- reviewColl.find($doc("userId" -> userId)).list[CoachReview]
+      _ <- reviews.map { review =>
+        reviewColl.remove($doc("userId" -> review.userId)).void
+      }.sequenceFu
+      _ <- reviews.map(_.coachId).distinct.map(refreshCoachNbReviews).sequenceFu
+    } yield ()
+
     private def findRecent(selector: Bdoc): Fu[CoachReview.Reviews] =
       reviewColl.find(selector)
         .sort($sort desc "createdAt")

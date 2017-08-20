@@ -1,11 +1,14 @@
 package lila.coach
 
+import scala.concurrent.duration._
 import com.typesafe.config.Config
+import akka.actor._
 
 final class Env(
     config: Config,
     notifyApi: lila.notify.NotifyApi,
     asyncCache: lila.memo.AsyncCache.Builder,
+    system: ActorSystem,
     db: lila.db.Env
 ) {
 
@@ -29,6 +32,16 @@ final class Env(
 
   lazy val pager = new CoachPager(api)
 
+  system.lilaBus.subscribe(
+    system.actorOf(Props(new Actor {
+      def receive = {
+        case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
+          system.scheduler.scheduleOnce(5 minutes) { api.reviews.deleteAllBy(userId) }
+      }
+    })),
+    'adjustCheater
+  )
+
   def cli = new lila.common.Cli {
     def process = {
       case "coach" :: "enable" :: username :: Nil => api.toggleApproved(username, true)
@@ -43,6 +56,7 @@ object Env {
     config = lila.common.PlayApp loadConfig "coach",
     notifyApi = lila.notify.Env.current.api,
     asyncCache = lila.memo.Env.current.asyncCache,
+    system = lila.common.PlayApp.system,
     db = lila.db.Env.current
   )
 }
