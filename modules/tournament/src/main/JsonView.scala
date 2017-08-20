@@ -3,6 +3,7 @@ package lila.tournament
 import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
 import play.api.libs.json._
+import play.api.i18n.Lang
 import scala.concurrent.duration._
 
 import lila.common.LightUser
@@ -22,7 +23,6 @@ final class JsonView(
 ) {
 
   import JsonView._
-  import Condition.JSONHandlers._
 
   private case class CachableData(
     pairings: JsArray,
@@ -36,7 +36,8 @@ final class JsonView(
     page: Option[Int],
     me: Option[User],
     playerInfoExt: Option[PlayerInfoExt],
-    socketVersion: Option[Int]
+    socketVersion: Option[Int],
+    lang: Lang
   ): Fu[JsObject] = for {
     data <- cachableData get tour.id
     myInfo <- me ?? { u => PlayerRepo.playerInfo(tour.id, u.id) }
@@ -63,7 +64,7 @@ final class JsonView(
     "nbPlayers" -> tour.nbPlayers,
     "minutes" -> tour.minutes,
     "clock" -> tour.clock,
-    "verdicts" -> verdicts,
+    "verdicts" -> Condition.JSONHandlers.verdictsFor(verdicts, lang),
     "variant" -> tour.variant.key,
     "isStarted" -> tour.isStarted,
     "isFinished" -> tour.isFinished,

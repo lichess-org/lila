@@ -93,7 +93,7 @@ object Tournament extends LilaController {
           verdicts <- env.api.verdicts(tour, ctx.me)
           version <- env.version(tour.id)
           chat <- canHaveChat(tour) ?? Env.chat.api.userChat.cached.findMine(Chat.Id(tour.id), ctx.me).map(some)
-          json <- env.jsonView(tour, page, ctx.me, none, version.some)
+          json <- env.jsonView(tour, page, ctx.me, none, version.some, ctx.lang)
           _ <- chat ?? { c => Env.user.lightUserApi.preloadMany(c.chat.userIds) }
         } yield Ok(html.tournament.show(tour, verdicts, json, chat))).mon(_.http.response.tournament.show.website)
       }
@@ -104,7 +104,7 @@ object Tournament extends LilaController {
         get("playerInfo").?? { env.api.playerInfo(tour.id, _) } zip
           getBool("socketVersion").??(env version tour.id map some) flatMap {
             case (playerInfoExt, socketVersion) =>
-              env.jsonView(tour, page, ctx.me, playerInfoExt, socketVersion)
+              env.jsonView(tour, page, ctx.me, playerInfoExt, socketVersion, ctx.lang)
           } map { Ok(_) }
       }.mon(_.http.response.tournament.show.mobile)
     } map (_ as JSON)

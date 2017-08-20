@@ -34,7 +34,7 @@ function laneGrouper(t) {
     return 99;
   } else if (t.perf.key === 'ultraBullet') {
     return 70;
-  } else if (t.schedule && t.conditions && t.conditions.maxRating) {
+  } else if (t.schedule && t.hasMaxRating) {
     return 50 + parseInt(t.fullName.slice(1,5)) / 10000;
   } else if (t.schedule && t.schedule.speed === 'superblitz') {
     return t.perf.position - 0.5;
@@ -98,7 +98,7 @@ function tournamentClass(tour) {
     'title-created': userCreated && isByTitledUser(tour),
     thematic: !!tour.position,
     short: tour.minutes <= 30,
-    'max-rating': tour.conditions && tour.conditions.maxRating
+    'max-rating': tour.hasMaxRating
   };
   if (tour.schedule) classes[tour.schedule.freq] = true;
   return classes;

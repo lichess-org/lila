@@ -1,16 +1,17 @@
 package lila.tournament
 
-import lila.rating.PerfType
+import play.api.i18n.Lang
+
+import lila.i18n.I18nKeys
 import lila.rating.BSONHandlers.perfTypeKeyHandler
+import lila.rating.PerfType
 import lila.user.User
 
 sealed trait Condition {
 
-  def name: String
+  def name(lang: Lang): String
 
   def withVerdict(verdict: Condition.Verdict) = Condition.WithVerdict(this, verdict)
-
-  override def toString = name
 }
 
 object Condition {
@@ -24,7 +25,7 @@ object Condition {
 
   sealed abstract class Verdict(val accepted: Boolean)
   case object Accepted extends Verdict(true)
-  case class Refused(reason: String) extends Verdict(false)
+  case class Refused(reason: Lang => String) extends Verdict(false)
 
   case class WithVerdict(condition: Condition, verdict: Verdict)
 
@@ -34,44 +35,58 @@ object Condition {
       if (user.hasTitle) Accepted
       else perf match {
         case Some(p) if user.perfs(p).nb >= nb => Accepted
-        case Some(p) => Refused(s"Only ${user.perfs(p).nb} of $nb rated ${p.name} games played")
+        case Some(p) => Refused { lang =>
+          val missing = nb - user.perfs(p).nb
+          I18nKeys.needNbMorePerfGames.pluralTxtTo(lang, missing, List(missing, p.name))
+        }
         case None if user.count.rated >= nb => Accepted
-        case None => Refused(s"Only ${user.count.rated} of $nb rated games played")
+        case None => Refused { lang =>
+          val missing = nb - user.count.rated
+          I18nKeys.needNbMoreGames.pluralTxtTo(lang, missing, List(missing))
+        }
       }
 
-    def name = perf match {
-      case None => s"≥ $nb rated games"
-      case Some(p) => s"≥ $nb ${p.name} rated games"
+    def name(lang: Lang) = perf match {
+      case None => I18nKeys.moreThanNbRatedGames.pluralTxtTo(lang, nb, List(nb))
+      case Some(p) => I18nKeys.moreThanNbRatedGames.pluralTxtTo(lang, nb, List(nb, p.name))
     }
   }
 
   case class MaxRating(perf: PerfType, rating: Int) extends Condition {
 
     def apply(getMaxRating: GetMaxRating)(user: User): Fu[Verdict] =
-      if (user.perfs(perf).provisional) fuccess(Refused(s"Provisional ${perf.name} rating"))
-      else if (user.perfs(perf).intRating > rating) fuccess(Refused {
-        s"${perf.name} rating (${user.perfs(perf).intRating}) is too high"
+      if (user.perfs(perf).provisional) fuccess(Refused { lang =>
+        I18nKeys.yourPerfRatingIsProvisional.literalTxtTo(lang, perf.name)
+      })
+      else if (user.perfs(perf).intRating > rating) fuccess(Refused { lang =>
+        I18nKeys.yourPerfRatingIsTooHigh.literalTxtTo(lang, List(perf.name, user.perfs(perf).intRating))
       })
       else getMaxRating(perf) map {
         case r if r <= rating => Accepted
-        case r => Refused(s"Top weekly ${perf.name} rating ($r) is too high")
+        case r => Refused { lang =>
+          I18nKeys.yourTopWeeklyPerfRatingIsTooHigh.literalTxtTo(lang, List(perf.name, r))
+        }
       }
 
     def maybe(user: User): Boolean =
       !user.perfs(perf).provisional && user.perfs(perf).intRating <= rating
 
-    def name = s"Rated ≤ $rating in ${perf.name}"
+    def name(lang: Lang) = I18nKeys.ratedLessThanInPerf.literalTxtTo(lang, List(rating, perf.name))
   }
 
   case class MinRating(perf: PerfType, rating: Int) extends Condition with FlatCond {
 
     def apply(user: User) =
       if (user.hasTitle) Accepted
-      else if (user.perfs(perf).provisional) Refused(s"Provisional ${perf.name} rating")
-      else if (user.perfs(perf).intRating < rating) Refused(s"Current ${perf.name} rating is too low")
+      else if (user.perfs(perf).provisional) Refused { lang =>
+        I18nKeys.yourPerfRatingIsProvisional.literalTxtTo(lang, perf.name)
+      }
+      else if (user.perfs(perf).intRating < rating) Refused { lang =>
+        I18nKeys.yourPerfRatingIsTooLow.literalTxtTo(lang, List(perf.name, user.perfs(perf).intRating))
+      }
       else Accepted
 
-    def name = s"Rated ≥ $rating in ${perf.name}"
+    def name(lang: Lang) = I18nKeys.ratedMoreThanInPerf.literalTxtTo(lang, List(rating, perf.name))
   }
 
   case class All(
@@ -104,7 +119,7 @@ object Condition {
   object All {
     val empty = All(nbRatedGame = none, maxRating = none, minRating = none)
 
-    case class WithVerdicts(list: List[WithVerdict]) {
+    case class WithVerdicts(list: List[WithVerdict]) extends AnyVal {
       def relevant = list.nonEmpty
       def accepted = list.forall(_.verdict.accepted)
     }
@@ -132,18 +147,19 @@ object Condition {
     private implicit val perfTypeWriter: OWrites[PerfType] = OWrites { pt =>
       Json.obj("key" -> pt.key, "name" -> pt.name)
     }
-    private implicit val ConditionWriter: Writes[Condition] = Writes { o =>
-      JsString(o.name)
-    }
-    private implicit val VerdictWriter: Writes[Verdict] = Writes {
-      case Refused(reason) => JsString(reason)
-      case Accepted => JsString("ok")
-    }
-    implicit val AllJSONWriter = Json.writes[All]
-    implicit val WithVerdictJSONWriter = Json.writes[WithVerdict]
-    implicit val AllWithVerdictsJSONWriter = Writes[All.WithVerdicts] { o =>
-      Json.obj("list" -> o.list, "accepted" -> o.accepted)
-    }
+
+    def verdictsFor(verdicts: All.WithVerdicts, lang: Lang) = Json.obj(
+      "list" -> verdicts.list.map {
+        case WithVerdict(cond, verd) => Json.obj(
+          "condition" -> (cond name lang),
+          "verd" -> (verd match {
+            case Refused(reason) => reason(lang)
+            case Accepted => JsString("ok")
+          })
+        )
+      },
+      "accepted" -> verdicts.accepted
+    )
   }
 
   object DataForm {
