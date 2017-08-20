@@ -322,6 +322,10 @@ name | type | default | description
 
 Returns data to generate the activity feed on https://lichess.org/@/thibault
 
+Here's a [sample output](https://gist.github.com/ornicar/0ee2d2427cb74ed1a35e86f5ba09fabc).
+
+It might not contain all entries types. Feel free to contribute proper JSON format documentation.
+
 ### `GET /api/games/vs/<username>/<username>` fetch games between 2 users
 
 ```
