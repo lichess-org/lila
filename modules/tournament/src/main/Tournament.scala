@@ -57,9 +57,9 @@ case class Tournament(
 
   def hasWaitedEnough = startsAt isBefore DateTime.now
 
-  def secondsToStart = (startsAt.getSeconds - nowSeconds).toInt max 0
+  def secondsToStart = (startsAt.getSeconds - nowSeconds).toInt atLeast 0
 
-  def secondsToFinish = (finishesAt.getSeconds - nowSeconds).toInt max 0
+  def secondsToFinish = (finishesAt.getSeconds - nowSeconds).toInt atLeast 0
 
   def pairingsClosed = secondsToFinish < math.max(30, math.min(clock.limitSeconds / 2, 120))
 
