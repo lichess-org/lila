@@ -269,7 +269,7 @@
   <string name="backToTournament">Volver al torneo</string>
   <string name="thematic">Temático</string>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Te falta jugar %1$s partidas %2$s puntuadas más</item>
+    <item quantity="one">Te falta jugar %1$s partidas %2$s puntuadas</item>
     <item quantity="other">Necesitas jugar %1$s más %2$s partidas puntuadas</item>
   </plurals>
   <plurals name="needNbMoreGames">
@@ -374,10 +374,10 @@
   <string name="tournamentIsStarting">El torneo va a empezar</string>
   <string name="tournamentPairingsAreNowClosed">Los emparejamientos del torneo están cerrados.</string>
   <string name="standByX">Espera %s, emparejando jugadores, ¡prepárate!</string>
-  <string name="youArePlaying">¡Está jugando!</string>
+  <string name="youArePlaying">¡Estás jugando!</string>
   <string name="winRate">Tasa de victorias</string>
   <string name="berserkRate">Tasa de berserk</string>
-  <string name="performance">Actuación</string>
+  <string name="performance">Rendimiento</string>
   <string name="tournamentComplete">Torneo terminado</string>
   <string name="movesPlayed">Movimientos</string>
   <string name="whiteWins">Victorias blancas</string>
@@ -452,7 +452,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Proceder a la siguiente partida automáticamente despues de mi movimiento</string>
   <string name="autoSwitch">Cambio automático</string>
-  <string name="puzzles">Problemas</string>
+  <string name="puzzles">Ejercicios</string>
   <string name="latestUpdates">Últimas actualizaciones</string>
   <string name="tournamentWinners">Ganadores del torneo</string>
   <string name="name">Nombre</string>
