@@ -793,7 +793,7 @@ export default class AnalyseCtrl {
     return this.study && this.study.gamebookPlay();
   }
 
-  private withCg<A>(f: (cg: ChessgroundApi) => A): A | undefined {
+  withCg<A>(f: (cg: ChessgroundApi) => A): A | undefined {
     if (this.chessground && this.cgVersion.js === this.cgVersion.dom)
       return f(this.chessground);
   }
