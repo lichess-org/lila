@@ -38,7 +38,7 @@
     "ceval": "link:../ceval",
     "chat": "link:../chat",
     "chess": "link:../chess",
-    "chessground": "^7.1.2",
+    "chessground": "^7.1.3",
     "common": "link:../common",
     "game": "link:../game",
     "snabbdom": "ornicar/snabbdom#lichess",
