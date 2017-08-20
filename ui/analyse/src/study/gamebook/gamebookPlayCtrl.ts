@@ -57,7 +57,7 @@ export default class GamebookPlayCtrl {
     if (state.feedback === 'good' && !state.comment) setTimeout(() => {
       this.next();
       this.redraw();
-    }, 1000);
+    }, this.root.path ? 1000 : 0);
   }
 
   isMyMove = () => this.root.turnColor() === this.root.data.orientation;
