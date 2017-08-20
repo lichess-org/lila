@@ -182,7 +182,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     ).then(onReload, li.reload);
   };
 
-  const onSetPath = throttle(300, false, function(path) {
+  const onSetPath = throttle(300, false, (path: Tree.Path) => {
     if (vm.mode.sticky && path !== data.position.path) makeChange("setPath", addChapterId({
       path
     }));
@@ -327,6 +327,8 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     setGamebookOverride(o: GamebookOverride) {
       vm.gamebookOverride = o;
       instanciateGamebookPlay();
+      vm.mode.write = o !== 'play';
+      if (!o) xhrReload();
     },
     mutateCgConfig,
     redraw,
