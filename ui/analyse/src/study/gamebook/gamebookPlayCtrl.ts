@@ -1,6 +1,4 @@
 import AnalyseCtrl from '../../ctrl';
-import { StudyCtrl } from '../interfaces';
-import { readOnlyProp } from '../../util';
 import { path as treePath, ops as treeOps } from 'tree';
 import Mascot from './mascot';
 

@@ -1,5 +1,4 @@
 import { Prop } from 'common';
-import { StudyChapterMeta } from '../interfaces';
 
 export interface Goal {
   result: string;

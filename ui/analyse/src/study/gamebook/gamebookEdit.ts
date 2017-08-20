@@ -5,7 +5,6 @@ import AnalyseCtrl from '../../ctrl';
 import { bind } from '../../util';
 import { MaybeVNodes } from '../../interfaces';
 import { throttle } from 'common';
-import { path as treePath } from 'tree';
 
 export function running(ctrl: AnalyseCtrl): boolean {
   return !!ctrl.study && ctrl.study.data.chapter.gamebook && !ctrl.gamebookPlay();

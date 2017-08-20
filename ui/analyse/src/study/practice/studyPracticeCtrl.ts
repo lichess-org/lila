@@ -5,7 +5,7 @@ import makeSuccess from './studyPracticeSuccess';
 import makeSound from './sound';
 import { readOnlyProp } from '../../util';
 import { StudyPracticeData, Goal, StudyPracticeCtrl } from './interfaces';
-import { StudyData, StudyChapterMeta } from '../interfaces';
+import { StudyData } from '../interfaces';
 import AnalyseCtrl from '../../ctrl';
 
 export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPracticeData): StudyPracticeCtrl {

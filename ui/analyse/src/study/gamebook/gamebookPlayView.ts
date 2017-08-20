@@ -17,10 +17,8 @@ const defaultComments = {
 
 export function render(ctrl: GamebookPlayCtrl): VNode {
 
-  const root = ctrl.root,
-  state = ctrl.state;
-
-  const comment = state.comment || defaultComments[state.feedback];
+  const state = ctrl.state,
+  comment = state.comment || defaultComments[state.feedback];
 
   return h('div.gamebook', {
     hook: { insert: _ => window.lichess.loadCss('/assets/stylesheets/gamebook.play.css') }
