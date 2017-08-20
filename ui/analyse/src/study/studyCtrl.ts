@@ -139,7 +139,6 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     'position name visibility features settings chapter likes liked'.split(' ').forEach(key => {
       data[key] = s[key];
     });
-    if (vm.mode.sticky && !data.features.sticky)
     document.title = data.name;
     members.dict(s.members);
     chapters.list(s.chapters);
