@@ -725,7 +725,7 @@ div.undertable_inner {
 .board_left.no_chat .study_box .list {
   max-height: 500px;
 }
-div.side_box.embed {
+div.chapter_embed {
   line-height: 0;
-  border: 0;
+  margin-bottom: 5px;
 }
