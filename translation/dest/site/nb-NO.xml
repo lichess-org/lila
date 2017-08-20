@@ -55,6 +55,7 @@
   <string name="goDeeper">Gå dypere</string>
   <string name="showThreat">Vis trussel</string>
   <string name="inLocalBrowser">i nettleser</string>
+  <string name="toggleLocalEvaluation">Lokal evaluering</string>
   <string name="move">Trekk</string>
   <string name="variantLoss">Variant tap</string>
   <string name="variantWin">Variant seier</string>
@@ -71,14 +72,25 @@
   <string name="averageRatingX">Gjennomsnittsrating: %s</string>
   <string name="recentGames">Nylige partier</string>
   <string name="topGames">Topp-partier</string>
+  <string name="masterDbExplanation">To millioner spil av %1$s+ FIDE ratede spillere fra %2$s til %3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Matt om %s halvtrekk</item>
+    <item quantity="other">Matt om %s halvtrekk</item>
+  </plurals>
   <string name="noGameFound">Intet parti funnet</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Kanskje inkludere flere parti fra preferansemenyen?</string>
   <string name="openingExplorer">Åpningsutforsker &amp; database</string>
+  <string name="xOpeningExplorer">Utforsk åpning %s</string>
   <string name="winPreventedBy50MoveRule">Seier hindret av 50-trekkregelen</string>
   <string name="lossSavedBy50MoveRule">Tap forhindret av 50-trekkregelen</string>
   <string name="allSet">Alt klart!</string>
   <string name="importPgn">Importér PGN-fil</string>
   <string name="delete">Slett</string>
+  <string name="realtimeReplay">Sanntid</string>
+  <string name="multipleLines">Flere linjer</string>
+  <string name="cpus">Prosessorer</string>
+  <string name="memory">Minne</string>
+  <string name="infiniteAnalysis">Uendelig analyse</string>
   <string name="blunders">Bukker</string>
   <string name="mistakes">Feil</string>
   <string name="inaccuracies">Unøyaktigheter</string>
@@ -316,6 +328,12 @@
   <string name="tournamentIsStarting">Turneringen begynner</string>
   <string name="standByX">Vent litt %s, kobler sammen spillere, vær klar!</string>
   <string name="youArePlaying">Du spiller!</string>
+  <string name="performance">Prestasjon</string>
+  <string name="tournamentComplete">Turnering fullført</string>
+  <string name="whiteWins">Hvit vinner</string>
+  <string name="blackWins">Sort vinner</string>
+  <string name="draws">Remis</string>
+  <string name="viewMoreTournaments">Se flere turneringer</string>
   <string name="membersOnly">Kun for medlemmer</string>
   <string name="boardEditor">Oppsett</string>
   <string name="startPosition">Startposisjon</string>
@@ -353,6 +371,7 @@
   <string name="keepGoing">Fortsett ...</string>
   <string name="puzzleFailed">Du klarte ikke sjakknøtten</string>
   <string name="butYouCanKeepTrying">Men du kan fortsette å prøve.</string>
+  <string name="success">Vellykket</string>
   <string name="wasThisPuzzleAnyGood">Likte du denne sjakknøtten?</string>
   <string name="pleaseVotePuzzle">Forbedre lichess ved å stemme, med opp- eller ned-pilen:</string>
   <string name="thankYou">Takk!</string>
@@ -419,6 +438,7 @@
   <string name="closeAccountExplanation">Er du sikker på at du vil avslutte kontoen din? Dette vil være permanent. Du kan ikke lenger logge inn og profilsiden din vil ikke være tilgjengelig lenger.</string>
   <string name="thisAccountIsClosed">Denne kontoen er avsluttet.</string>
   <string name="invalidUsernameOrPassword">Ugyldig brukernavn eller passord</string>
+  <string name="incorrectPassword">Feil passord</string>
   <string name="emailMeALink">Send meg en lenke</string>
   <string name="currentPassword">Nåværende passord</string>
   <string name="newPassword">Nytt passord</string>
@@ -427,6 +447,9 @@
   <string name="pieceDestinations">Brikkedestinasjoner (gyldige trekk og fortrekk)</string>
   <string name="boardCoordinates">Brettkoordinater (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Notasjonsliste mens du spiller</string>
+  <string name="pgnPieceNotation">Notasjon</string>
+  <string name="chessPieceSymbol">Brikkesymbol</string>
+  <string name="pgnLetter">Bokstav (K, D, T, L, S)</string>
   <string name="chessClock">Sjakklokke</string>
   <string name="tenthsOfSeconds">Tidels sekund</string>
   <string name="never">Aldri</string>
@@ -434,6 +457,10 @@
   <string name="horizontalGreenProgressBars">Horisontal grønn progresjonslinje</string>
   <string name="soundWhenTimeGetsCritical">Lyd når tiden blir kritisk</string>
   <string name="gameBehavior">Spilloppførsel</string>
+  <string name="howDoYouMovePieces">Hvordan flytte brikker?</string>
+  <string name="clickTwoSquares">Klikk to felt</string>
+  <string name="dragPiece">Dra brikke</string>
+  <string name="bothClicksAndDrag">Begge</string>
   <string name="premovesPlayingDuringOpponentTurn">Førtrekk (gjør trekk når det er motstanders trekk)</string>
   <string name="takebacksWithOpponentApproval">Angre trekk (med motstanders godkjennelse)</string>
   <string name="promoteToQueenAutomatically">Forvandle til dronning automatisk</string>
@@ -463,6 +490,7 @@
   <string name="xAnsweredY">%1$s svarte %2$s</string>
   <string name="xCommentedY">%1$s kommenterte %2$s</string>
   <string name="victory">Seier!</string>
+  <string name="defeat">Tap</string>
   <string name="timeline">Tidslinje</string>
   <string name="seeAllTournaments">Se alle turneringer</string>
   <string name="starting">Starter:</string>
@@ -490,6 +518,7 @@
   <string name="playOnTheBoardOffline">Spill frakoblet, på enheten</string>
   <string name="playOfflineComputer">Spill frakoblet mot datamaskinen</string>
   <string name="opponent">Motstander</string>
+  <string name="learnMenu">Lær</string>
   <string name="community">Fellesskap</string>
   <string name="tools">Verktøy</string>
   <string name="increment">Tilleggstid</string>
@@ -503,6 +532,7 @@
   <string name="error.email_acceptable">Denne e-postadressen er uakseptabel</string>
   <string name="error.email_unique">Denne e-postadressen er allerede registrert</string>
   <string name="blindfoldChess">Blindsjakk (usynlige brikker)</string>
+  <string name="zenMode">Zen-modus</string>
   <string name="moveConfirmation">Trekkbekreftelse</string>
   <string name="inCorrespondenceGames">I fjernsjakk</string>
   <string name="ifRatingIsPlusMinusX">Hvis rating er ± %s</string>
@@ -511,7 +541,7 @@
   <string name="castling">Rokade</string>
   <string name="whiteCastlingKingside">Hvit 0-0</string>
   <string name="whiteCastlingQueenside">Hvit 0-0-0</string>
-  <string name="blackCastlingKingside">Svart 0-0</string>
+  <string name="blackCastlingKingside">Sort 0-0</string>
   <string name="blackCastlingQueenside">Svart 0-0-0</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s Foruminnlegg</item>
@@ -590,8 +620,12 @@
   <string name="analysisShapesHowTo">Trykk shift+klikk eller høyreklikk for å tegne sirkler og piler på brettet.</string>
   <string name="letOtherPlayersMessageYou">La andre spillere kontakte deg.</string>
   <string name="shareYourInsightsData">Del dine innsikts data</string>
+  <string name="withNobody">Med ingen</string>
+  <string name="withFriends">Med venner</string>
+  <string name="withEverybody">Med alle</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Du har allerede registrert e-postadressen: %s</string>
   <string name="kidMode">Barnemodus</string>
+  <string name="security">Sikkerhet</string>
   <string name="playChessEverywhere">Spill sjakk overalt</string>
   <string name="asFreeAsLichess">Like gratis som lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Bygget for kjærlighet til sjakk, ikke penger</string>
@@ -615,9 +649,14 @@
   <string name="xLikesY">%1$s liker %2$s</string>
   <string name="quickPairing">Raskt pairing</string>
   <string name="lobby">Lobby</string>
+  <string name="anonymous">Anonym</string>
   <string name="yourScore">Din poengsum: %s</string>
   <string name="language">Språk</string>
   <string name="background">Bakgrunn</string>
+  <string name="light">Lys</string>
+  <string name="dark">Mørk</string>
+  <string name="transparent">Gjennomsiktig</string>
+  <string name="backgroundImageUrl">URL for bakgrunnsbilde:</string>
   <string name="boardGeometry">Brett geometri</string>
   <string name="boardTheme">Brett tema</string>
   <string name="boardSize">Brett størrelse</string>
@@ -637,6 +676,7 @@
   <string name="error.maxLength">Maksimumslengden er %s</string>
   <string name="error.min">Må være større eller lik %s</string>
   <string name="error.max">Må være mindre eller lik %s</string>
+  <string name="error.unknown">Feil</string>
   <string name="custom">Tilpasset</string>
   <string name="notifications">Varsler</string>
   <string name="challenges">Utfordringer</string>
