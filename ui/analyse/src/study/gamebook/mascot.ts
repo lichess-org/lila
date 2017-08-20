@@ -12,8 +12,7 @@ export default class Mascot {
   current = this.storage.get() || this.list[0];
 
   switch = () => {
-    const newIndex = this.list.indexOf(this.current) + 1;
-    this.current = this.list[newIndex % this.list.length];
+    this.current = this.list[(this.list.indexOf(this.current) + 1) % this.list.length];
     this.storage.set(this.current);
   }
 
