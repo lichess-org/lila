@@ -20,14 +20,14 @@ export default class GamebookPlayCtrl {
 
   constructor(readonly root: AnalyseCtrl, readonly chapterId: string, readonly redraw: () => void) {
 
-    this.makeState();
-
     // ensure all original nodes have a gamebook entry,
     // so we can differentiate original nodes from user-made ones
     treeOps.updateAll(root.tree.root, n => {
       n.gamebook = n.gamebook || {};
       if (n.shapes) n.gamebook.shapes = n.shapes.slice(0);
     });
+
+    this.makeState();
   }
 
   private makeState = (): void => {
