@@ -251,7 +251,7 @@
   <string name="giveMoreTime">Mehr Zeit geben</string>
   <string name="thisPlayerUsesChessComputerAssistance">Dieser Spieler verwendet ein Schachprogramm zur Unterstützung</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Dieser Spieler manipuliert seine Wertungszahl</string>
-  <string name="openingExplorerAndTablebase">Eröffnungsbuch &amp; Tablebases</string>
+  <string name="openingExplorerAndTablebase">Eröffnungsbuch &amp; Tablebase</string>
   <string name="takeback">Zugrücknahme</string>
   <string name="proposeATakeback">Zugrücknahme vorschlagen</string>
   <string name="takebackPropositionSent">Zugrücknahme angefordert</string>
