@@ -542,7 +542,7 @@
   <string name="whiteCastlingKingside">Hvit 0-0</string>
   <string name="whiteCastlingQueenside">Hvit 0-0-0</string>
   <string name="blackCastlingKingside">Sort 0-0</string>
-  <string name="blackCastlingQueenside">Svart 0-0-0</string>
+  <string name="blackCastlingQueenside">Sort 0-0-0</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s Foruminnlegg</item>
     <item quantity="other">%s Foruminnlegg</item>
