@@ -209,7 +209,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
   instanciateGamebookPlay();
 
   function mutateCgConfig(config) {
-    config.drawable.onChange = function(shapes) {
+    config.drawable.onChange = shapes => {
       if (vm.mode.write) {
         ctrl.tree.setShapes(shapes, ctrl.path);
         makeChange("shapes", addChapterId({
@@ -423,7 +423,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
         if (wrongChapter(d)) return;
         if (who && who.s === sri) return;
         ctrl.tree.setShapes(d.s, ctrl.path);
-        if (ctrl.path === position.path && ctrl.chessground) ctrl.chessground.setShapes(d.s);
+        if (ctrl.path === position.path) ctrl.withCg(cg => cg.setShapes(d.s));
         redraw();
       },
       setComment(d) {
