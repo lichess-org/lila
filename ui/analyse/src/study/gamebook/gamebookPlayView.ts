@@ -11,7 +11,6 @@ import { State } from './gamebookPlayCtrl';
 
 const defaultComments = {
   play: 'What would you play in this position?',
-  good: 'Yes indeed, good move!',
   bad: 'That\'s not the right move',
   end: 'And that is all she wrote.'
 };
@@ -26,10 +25,10 @@ export function render(ctrl: GamebookPlayCtrl): VNode {
   return h('div.gamebook', {
     hook: { insert: _ => window.lichess.loadCss('/assets/stylesheets/gamebook.play.css') }
   }, [
-    h('div.comment', [
+    comment ? h('div.comment', [
       h('div.content', { hook: richHTML(comment) }),
       state.showHint ? h('div.hint', { hook: richHTML(state.hint!) }) : undefined
-    ]),
+    ]) : undefined,
     h('img.mascot', {
       attrs: {
         width: 120,
