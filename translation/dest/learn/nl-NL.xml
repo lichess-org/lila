@@ -81,19 +81,36 @@ En verlies uw eigen niet.</string>
 Ontsnap aan de dreiging!</string>
   <string name="noEscape">Er is geen ontsnapping mogelijk,
 maar je kunt verdedigen!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Laat hen geen enkel
+onbeschermd stuk slaan!</string>
   <string name="combat">Strijd</string>
   <string name="captureAndDefendPieces">Verover en verdedig stukken</string>
   <string name="combatIntro">Een goede strijder kan zowel aanvallen als verdedigen!</string>
   <string name="combatComplete">Gefeliciteerd! Nu weet je hoe je met de schaakstukken moet vechten!</string>
   <string name="checkInOne">Schaak in 1 zet</string>
   <string name="attackTheOpponentsKing">Val de koning van de tegenstander aan</string>
+  <string name="checkInOneIntro">Om je tegenstanders schaak te zetten, moet je hun koning aanvallen. Zij moeten hem verdedigen!</string>
+  <string name="checkInOneGoal">Right op de koning van de tegenstander
+in één zet!</string>
+  <string name="checkInOneComplete">Gefeliciteerd! Je hebt je tegenstander schaak gezet, dus hem gedwongen zijn koning te verdedigen!</string>
   <string name="outOfCheck">Geen schaak meer mogelijk</string>
   <string name="defendYourKing">Verdedig je koning</string>
+  <string name="outOfCheckIntro">Je staat schaak! Je moet ontsnappen of de aanval blokkeren.</string>
   <string name="escapeWithTheKing">Ontsnappen met de koning!</string>
+  <string name="theKingCannotEscapeButBlock">De koning kan niet ontsnappen,
+maar je kunt de aanval blokkeren!</string>
+  <string name="youCanGetOutOfCheckByTaking">Je kunt ontsnappen uit de aanval
+door het aanvallende stuk te slaan.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Het paard zet je schaak
+doorheen je verdediging!</string>
   <string name="escapeOrBlock">Ontsnap met de koning of blokkeer de aanval!</string>
+  <string name="outOfCheckComplete">Gefeliciteerd! Je koning kan nooit geslagen worden, zorg ervoor dat je je kunt verdedigen als je schaak staat!</string>
   <string name="mateInOne">Mat in 1</string>
   <string name="defeatTheOpponentsKing">Versla de koning van de tegenstander</string>
   <string name="mateInOneIntro">Je wint wanneer je tegenstander zich niet tegen schaak kan verdedigen.</string>
+  <string name="attackYourOpponentsKing">Val de koning van de tegenstander aan
+op een manier die niet kan worden verdedigd!</string>
+  <string name="mateInOneComplete">Gefeliciteerd! Dit is hoe je schaakpartijen wint!</string>
   <string name="intermediate">Halfgevorderd</string>
   <string name="boardSetup">Beginstelling</string>
   <string name="howTheGameStarts">Hoe begint de partij</string>
@@ -175,6 +192,7 @@ Pion = 1</string>
   <string name="twoMovesToGiveCheck">Twee zetten om schaak te geven</string>
   <string name="checkInTwoIntro">Vind de juiste twee zetten om de koning van de tegenstander schaak te zetten!</string>
   <string name="checkInTwoGoal">Bedreig de koning van de tegenstander in 2 zetten!</string>
+  <string name="checkInTwoComplete">Gefeliciteerd! Je hebt je tegenstander schaak gezet, dus hem gedwongen zijn koning te verdedigen!</string>
   <string name="whatNext">En nu?</string>
   <string name="youKnowHowToPlayChess">Je weet hoe je moet schaken, gefeliciteerd! Wil je een sterkere speler worden?</string>
   <string name="register">Registreren</string>
