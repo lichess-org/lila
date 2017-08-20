@@ -55,6 +55,10 @@ export default class GamebookPlayCtrl {
       }
     }
     this.state = state as State;
+    if (state.feedback === 'good' && !state.comment) setTimeout(() => {
+      this.next();
+      this.redraw();
+    }, 1000);
   }
 
   retry = () => {

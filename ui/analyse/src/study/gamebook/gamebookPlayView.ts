@@ -51,7 +51,7 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
     h('i', { attrs: dataIcon('P') }),
     h('span', 'Retry')
   ]);
-  if (fb === 'good') return h('div.feedback.act.good', {
+  if (fb === 'good' && state.comment) return h('div.feedback.act.good', {
     hook: bind('click', ctrl.next, ctrl.redraw)
   }, [
     h('i', { attrs: dataIcon('G') }),
@@ -61,7 +61,7 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
     h('i', { attrs: dataIcon('E') }),
     h('span', 'Gamebook complete')
   ]);
-  return h('div.feedback.' + fb,
+  return h('div.feedback',
     h('span', fb === 'play' ? 'Your turn' : 'Opponent turn')
   );
 }
