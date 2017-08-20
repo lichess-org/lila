@@ -284,9 +284,9 @@
     <item quantity="one">Je moet %s partij meer met rating spelen</item>
     <item quantity="other">Je moet %s partijen meer met rating spelen</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Uw %s-rating is een voorlopige</string>
+  <string name="yourPerfRatingIsProvisional">Je %s rating is een voorlopige</string>
   <string name="yourPerfRatingIsTooHigh">Je rating %1$s (%2$s) is te hoog</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Je beste week %1$s rating (%2$s) is te hoog</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Je beste hoogste rating deze week %1$s (%2$s) is te hoog</string>
   <string name="yourPerfRatingIsTooLow">Je rating %1$s (%2$s) is te hoog</string>
   <string name="ratedMoreThanInPerf">Met rating ≥ %1$s in %2$s</string>
   <string name="ratedLessThanInPerf">Met rating ≤ %1$s in %2$s</string>
