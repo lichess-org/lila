@@ -276,6 +276,20 @@
     <item quantity="one">≥ %1$s %2%s partij met rating</item>
     <item quantity="other">≥ %1$s %2%s partijen met rating</item>
   </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Je moet %1$s meer %2$s partij met rating spelen</item>
+    <item quantity="other">Je moet %1$s %2$s partijen meer met rating spelen</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Je moet %s partij meer met rating spelen</item>
+    <item quantity="other">Je moet %s partijen meer met rating spelen</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Uw %s-rating is een voorlopige</string>
+  <string name="yourPerfRatingIsTooHigh">Je rating %1$s (%2$s) is te hoog</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Je beste week %1$s rating (%2$s) is te hoog</string>
+  <string name="yourPerfRatingIsTooLow">Je rating %1$s (%2$s) is te hoog</string>
+  <string name="ratedMoreThanInPerf">Met rating ≥ %1$s in %2$s</string>
+  <string name="ratedLessThanInPerf">Met rating ≤ %1$s in %2$s</string>
   <string name="backToGame">Terug naar partij</string>
   <string name="siteDescription">Gratis online schaken. Schaak nu met een heldere vormgeving. Geen registratie nodig, geen advertenties, geen plug-ins vereist. Schaak tegen de computer, vrienden of willekeurige tegenstanders.</string>
   <string name="teams">Teams</string>
