@@ -10,7 +10,29 @@
   <string name="play">spill!</string>
   <string name="chessPieces">Sjakkbrikkene</string>
   <string name="theRook">Tårnet</string>
-  <string name="itMovesInStraightLines">Det kan bevege seg i rette linjer</string>
+  <string name="itMovesInStraightLines">Flyttes i rette linjer</string>
   <string name="rookIntro">Tårnet er en kraftig brikke. Er du klar til å ta det i bruk?</string>
   <string name="rookGoal">Klikk på tårnet for å flytte den til stjernen!</string>
+  <string name="grabAllTheStars">Fang alle stjernene!</string>
+  <string name="theFewerMoves">Jo færre trekk du gjør, desto fler poeng vinner du!</string>
+  <string name="useTwoRooks">Bruk to tårn for å sette litt fart på sakene!</string>
+  <string name="rookComplete">Gratulerer! Du har nå mestret tårnet.</string>
+  <string name="theBishop">Løperen</string>
+  <string name="itMovesDiagonally">Flyttes diagonalt</string>
+  <string name="bishopIntro">Nå skal vi lære hvordan man manøvrerer en løper!</string>
+  <string name="youNeedBothBishops">Én hvitfeltsløper,
+én sortfeltsløper.
+Du trenger begge!</string>
+  <string name="bishopComplete">Gratulerer! Du kan ta kommando over løperen.</string>
+  <string name="theQueen">Dronningen</string>
+  <string name="queenCombinesRookAndBishop">Dronning = tårn + løper</string>
+  <string name="queenIntro">Den sterkeste sjakkbrikken gjør sin entré. Hennes Majestet Dronningen!</string>
+  <string name="queenComplete">Gratulerer! Dronninger holder ingen hemmeligheter for deg.</string>
+  <string name="theKing">Kongen</string>
+  <string name="theMostImportantPiece">Den viktigste brikken</string>
+  <string name="kingIntro">Du er kongen. Faller du i strid, er spillet tapt.</string>
+  <string name="theKingIsSlow">Kongen er treg.</string>
+  <string name="lastOne">Siste!</string>
+  <string name="kingComplete">Du kan nå befale befalet!</string>
+  <string name="theKnight">Springeren</string>
 </resources>
