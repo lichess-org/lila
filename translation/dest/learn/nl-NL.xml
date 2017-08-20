@@ -97,6 +97,7 @@ maar je kunt verdedigen!</string>
   <string name="intermediate">Halfgevorderd</string>
   <string name="boardSetup">Beginstelling</string>
   <string name="howTheGameStarts">Hoe begint de partij</string>
+  <string name="boardSetupIntro">De 2 legers staan tegenover elkaar, klaar voor de strijd.</string>
   <string name="thisIsTheInitialPosition">Dit is de beginopstelling van elke schaakpartij! Doe een willekeurige zet om door te gaan.</string>
   <string name="firstPlaceTheRooks">Plaats als eerste de torens! Zij gaan in de hoeken.</string>
   <string name="thenPlaceTheKnights">Plaats dan de paarden! Zij staan naast de torens.</string>

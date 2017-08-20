@@ -252,7 +252,7 @@
   <string name="tournamentPoints">トーナメントポイント</string>
   <string name="viewTournament">トーナメントを見る</string>
   <string name="backToTournament">トーナメントに戻る</string>
-  <string name="thematic">局面指定戦</string>
+  <string name="thematic">局面指定</string>
   <string name="backToGame">ゲームに戻る</string>
   <string name="siteDescription">無料オンラインチェス。簡素なインターフェースですぐに対局を。登録不要、広告なし、プラグイン不要。AIと、友達と、知らない相手とも対局できます。</string>
   <string name="teams">チーム</string>

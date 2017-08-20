@@ -74,12 +74,12 @@
   <string name="topGames">Mejores partidas</string>
   <string name="masterDbExplanation">Dos millones de partidas de jugadores con ELO FIDE de %1$s+, desde %2$s a %3$s</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">Mate en %s medio movimiento</item>
-    <item quantity="other">Mate en %s medio movimientos</item>
+    <item quantity="one">Mate en medio movimiento</item>
+    <item quantity="other">Mate en %s medios movimientos</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Siguiente captura o peón mueve en %s medio movimiento (distancia a cero del contador de 50 movimientos)</item>
-    <item quantity="other">Siguiente captura o peón mueve en %s medio movimientos (distancia a cero del contador de 50 movimientos)</item>
+    <item quantity="one">Siguiente captura o movimiento de péon en medio movimiento (distancia a cero del contador de 50 movimientos)</item>
+    <item quantity="other">Siguiente captura o movimiento de péon en %s medios movimientos (distancia a cero del contador de 50 movimientos)</item>
   </plurals>
   <string name="noGameFound">No se ha encontrado ninguna partida</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prueba incluyendo más partidas desde el menú de preferencias</string>
@@ -99,7 +99,7 @@
   <string name="bestMoveArrow">Indicar la mejor jugada</string>
   <string name="evaluationGauge">Indicador de evaluación</string>
   <string name="multipleLines">Múltiples líneas</string>
-  <string name="cpus">CPUs</string>
+  <string name="cpus">Procesadores</string>
   <string name="memory">Memoria</string>
   <string name="infiniteAnalysis">Análisis infinito</string>
   <string name="removesTheDepthLimit">Elimina el límite de profundidad del análisis y hace trabajar a tu ordenador</string>
@@ -267,6 +267,7 @@
   <string name="tournamentPoints">Puntos de torneo</string>
   <string name="viewTournament">Ver torneo</string>
   <string name="backToTournament">Volver al torneo</string>
+  <string name="thematic">Temático</string>
   <string name="backToGame">Volver a la partida</string>
   <string name="siteDescription">Servidor de ajedrez en línea gratuito. Juega al ajedrez en una interfaz simple. Sin registro, sin publicidad, sin necesidad de complementos. Juega contra el ordenador, amigos u oponentes desconocidos.</string>
   <string name="teams">Equipos</string>
@@ -356,14 +357,14 @@
   <string name="losses">Derrotas</string>
   <string name="winStreak">Victorias consecutivas</string>
   <string name="createdBy">Creado por</string>
-  <string name="tournamentIsStarting">El torneo está comenzando</string>
+  <string name="tournamentIsStarting">El torneo va a empezar</string>
   <string name="tournamentPairingsAreNowClosed">Los emparejamientos del torneo están cerrados.</string>
   <string name="standByX">Espera %s, emparejando jugadores, ¡prepárate!</string>
   <string name="youArePlaying">¡Está jugando!</string>
-  <string name="winRate">Porcentaje de victorias</string>
+  <string name="winRate">Tasa de victorias</string>
   <string name="berserkRate">Tasa de berserk</string>
   <string name="performance">Actuación</string>
-  <string name="tournamentComplete">Torneo finalizado</string>
+  <string name="tournamentComplete">Torneo terminado</string>
   <string name="movesPlayed">Movimientos</string>
   <string name="whiteWins">Victorias blancas</string>
   <string name="blackWins">Victorias negras</string>
