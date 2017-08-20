@@ -23,7 +23,7 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
     const c = enrichText(treeRoot.comments[0].text, false);
     delete treeRoot.comments;
     return c;
-  };
+  }
 
   function onLoad() {
     root.showAutoShapes = readOnlyProp(true);
@@ -36,14 +36,14 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
     const chapter = studyData.chapter;
     history.replaceState(null, chapter.name, data.url + '/' + chapter.id);
     analysisUrl('/analysis/standard/' + root.node.fen.replace(/ /g, '_') + '?color=' + root.bottomColor());
-  };
+  }
   onLoad();
 
   function computeNbMoves(): number {
     let plies = root.node.ply - root.tree.root.ply;
     if (root.bottomColor() !== root.data.player.color) plies--;
     return Math.ceil(plies / 2);
-  };
+  }
 
   function checkSuccess(): void {
     if (success() !== null) return;
@@ -51,7 +51,7 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
     const res = success(makeSuccess(root, goal(), nbMoves()));
     if (res) onVictory();
     else if (res === false) onFailure();
-  };
+  }
 
   function onVictory(): void {
     const chapterId = root.study!.currentChapter().id,
@@ -61,21 +61,14 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
       xhr.practiceComplete(chapterId, nbMoves());
     }
     sound.success();
-    const next = nextChapter();
+    const next = root.study!.nextChapter();
     if (next) setTimeout(() => root.study!.setChapter(next.id), 1000);
-  };
+  }
 
   function onFailure(): void {
     root.node.fail = true;
     sound.failure();
-  };
-
-  function nextChapter(): StudyChapterMeta | undefined {
-    const chapters = root.study!.data.chapters,
-    currentId = root.study!.currentChapter().id;
-    for (let i in chapters)
-      if (chapters[i].id === currentId) return chapters[parseInt(i) + 1];
-  };
+  }
 
   return {
     onReload: onLoad,
@@ -99,7 +92,6 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
     isWhite() {
       return root.bottomColor() === 'white';
     },
-    analysisUrl,
-    nextChapter
+    analysisUrl
   };
 }

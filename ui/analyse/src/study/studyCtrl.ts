@@ -318,6 +318,12 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     currentNode,
     practice,
     gamebookPlay: () => gamebookPlay,
+    nextChapter(): StudyChapterMeta | undefined {
+      const chapters = data.chapters,
+      currentId = currentChapter().id;
+      for (let i in chapters)
+      if (chapters[i].id === currentId) return chapters[parseInt(i) + 1];
+    },
     mutateCgConfig,
     redraw,
     socketHandlers: {

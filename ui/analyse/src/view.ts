@@ -125,7 +125,7 @@ function visualBoard(ctrl: AnalyseCtrl) {
     ctrl.keyboardHelp ? keyboardView(ctrl) : null,
     ctrl.study ? studyView.overboard(ctrl.study) : null,
     h('div.lichess_board.' + ctrl.data.game.variant.key, {
-      hook: bind('wheel', e => wheel(ctrl, e as WheelEvent))
+      hook: ctrl.gamebookPlay() ? undefined : bind('wheel', e => wheel(ctrl, e as WheelEvent))
     }, [
       chessground.render(ctrl),
       renderPromotion(ctrl)

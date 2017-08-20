@@ -55,7 +55,7 @@ export function underboard(ctrl: StudyCtrl): VNode {
         attrs: { href: '/practice' }
       }, [
         h('span', 'Success!'),
-        p.nextChapter() ? null : 'Back to practice menu'
+        ctrl.nextChapter() ? null : 'Back to practice menu'
       ]);
  case false:
    return h('a.feedback.fail', {

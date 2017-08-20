@@ -44,5 +44,4 @@ export interface StudyPracticeCtrl {
   reset(): void;
   isWhite(): boolean;
   analysisUrl: Prop<string>;
-  nextChapter(): StudyChapterMeta | undefined
 }

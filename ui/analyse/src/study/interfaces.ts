@@ -35,6 +35,7 @@ export interface StudyCtrl {
   currentNode(): Tree.Node;
   practice?: StudyPracticeCtrl;
   gamebookPlay(): GamebookPlayCtrl | undefined;
+  nextChapter(): StudyChapterMeta | undefined;
   mutateCgConfig(config: any): void;
   isUpdatedRecently(): boolean;
   redraw(): void;

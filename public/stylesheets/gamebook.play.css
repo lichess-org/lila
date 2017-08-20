@@ -35,12 +35,13 @@
   padding: 10px 12px;
 }
 .gb_play .comment .hint {
+  padding: 10px 12px;
   background: #3893E8;
   color: #fff;
   border-radius: 0 0 5px 5px;
   z-index: 2;
-  padding: 10px 12px;
 }
+
 @keyframes mascot {
   50% { transform: scale(1.03); }
   100% { transform: scale(1); }
@@ -57,11 +58,13 @@
   margin-top: 20px;
   height: 120px;
   text-align: center;
-  font-size: 1.5em;
-  background: #e0e0e0;
   display: flex;
   flex-flow: column;
   justify-content: center;
+}
+.gb_play .feedback.info {
+  background: #e0e0e0;
+  font-size: 1.6em;
 }
 .gb_play .feedback.act {
   font-size: 2em;
@@ -69,7 +72,7 @@
   cursor: pointer;
   opacity: 0.8;
   transition: 0.13s;
-  border-radius: 5px;
+  border-radius: 7px;
 }
 .gb_play .feedback.act:hover {
   opacity: 1;
@@ -81,10 +84,39 @@
 .gb_play .feedback.bad {
   background: #dc322f;
 }
-.gb_play .feedback.good,
-.gb_play .feedback.end {
+.gb_play .feedback.good {
   background: #639B24;
   color: #fff;
+}
+.gb_play .feedback.end {
+  flex-flow: row;
+  justify-content: space-between;
+}
+.gb_play .feedback.end a {
+  background: rgba(56,147,232,0.8);
+  font-size: 1em;
+  color: #fff;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+  border-left: 1px solid rgba(255,255,255,0.5);
+  line-height: 1.2em;
+  transition: 0.13s;
+}
+.gb_play .feedback.end a::before {
+  font-size: 2em;
+  margin: 12px 0 8px 0;
+}
+.gb_play .feedback.end a:first-child {
+  border-radius: 7px 0 0 7px;
+}
+.gb_play .feedback.end a:last-child {
+  border-radius: 0 7px 7px 0;
+}
+.gb_play .feedback.end a:hover {
+  background: #3893E8;
 }
 .gb_buttons .button {
   margin-left: 10px;

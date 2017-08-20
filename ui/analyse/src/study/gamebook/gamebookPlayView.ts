@@ -28,7 +28,7 @@ export function render(ctrl: GamebookPlayCtrl): VNode {
   }, [
     h('div.comment', [
       h('div.content', { hook: richHTML(comment) }),
-      state.showHint ? h('div.hint', { hook: richHTML(state.hint!) }) : undefined,
+      state.showHint ? h('div.hint', { hook: richHTML(state.hint!) }) : undefined
     ]),
     h('img.mascot', {
       attrs: {
@@ -57,13 +57,28 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
     h('i', { attrs: dataIcon('G') }),
     h('span', 'Next')
   ]);
-  if (fb === 'end') return h('div.feedback.end', [
-    h('i', { attrs: dataIcon('E') }),
-    h('span', 'Gamebook complete')
-  ]);
-  return h('div.feedback',
+  if (fb === 'end') return renderEnd(ctrl);
+  return h('div.feedback.info',
     h('span', fb === 'play' ? 'Your turn' : 'Opponent turn')
   );
+}
+
+function renderEnd(ctrl: GamebookPlayCtrl) {
+  const study = ctrl.root.study!,
+  nextChapter = study.nextChapter();
+  return h('div.feedback.end', [
+    nextChapter ? h('a.next.text', {
+      attrs: dataIcon('G'),
+      hook: bind('click', () => study!.setChapter(nextChapter.id))
+    }, 'Next chapter') : undefined,
+    h('a.retry', {
+      attrs: dataIcon('P'),
+      hook: bind('click', () => ctrl.root.userJump(''))
+    }, 'Play again'),
+    h('a.analyse', {
+      attrs: dataIcon('A')
+    }, 'Analyse')
+  ]);
 }
 
 function richHTML(text: string): Hooks {

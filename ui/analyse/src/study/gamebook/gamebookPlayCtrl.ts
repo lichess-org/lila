@@ -39,18 +39,14 @@ export default class GamebookPlayCtrl {
     parPath = treePath.init(this.root.path),
     parNode = this.root.tree.nodeAtPath(parPath);
     if (!this.root.onMainline && !this.root.tree.pathIsMainline(parPath)) return;
-    if (!node.children.length) {
+    if (this.root.onMainline && !node.children[0]) {
       state.feedback = 'end';
     }
     else if (this.root.turnColor() === this.root.data.orientation) {
       state.feedback = 'play';
       state.hint = (node.gamebook || {}).hint;
     } else if (this.root.onMainline) {
-      if (node.children[0]) {
-        state.feedback = 'good';
-      } else {
-        state.feedback = 'end';
-      }
+      state.feedback = 'good';
     } else {
       state.feedback = 'bad';
       if (!state.comment) {
