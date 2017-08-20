@@ -529,7 +529,7 @@
   <string name="difficultyNormal">Normal</string>
   <string name="difficultyHard">Zor</string>
   <string name="xLeftANoteOnY">%1$s kişisine not bırak %2$s</string>
-  <string name="xCompetesInY">%1$s, %2$s\'da mücadele etti</string>
+  <string name="xCompetesInY">%1$s, %2$s\'ya meydan okudu</string>
   <string name="xAskedY">%1$s sordu %2$s</string>
   <string name="xAnsweredY">%1$s cevapladı %2$s</string>
   <string name="xCommentedY">%1$s yorumladı %2$s</string>
