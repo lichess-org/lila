@@ -7,6 +7,8 @@ lichess.keyboardMove = function(opts) {
   var writer = sanWriter();
   var sans = null;
   var submit = function(v, force) {
+    // consider 0's as O's for castling
+    v = v.replace(/0/g, 'O');
     var foundUci = v.length >= 2 && sans && sanToUci(v, sans);
     if (foundUci) {
       // ambiguous castle
