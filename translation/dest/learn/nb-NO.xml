@@ -35,4 +35,22 @@ Du trenger begge!</string>
   <string name="lastOne">Siste!</string>
   <string name="kingComplete">Du kan nå befale befalet!</string>
   <string name="theKnight">Springeren</string>
+  <string name="itMovesInAnLShape">Den flyttes i en L-form</string>
+  <string name="knightIntro">Dette blir en utfordring. Springeren er en... vanskelig brikke.</string>
+  <string name="knightsHaveAFancyWay">Springere har en fancy måte å hoppe rundt på!</string>
+  <string name="knightsCanJumpOverObstacles">Springere kan hoppe over hindringer! 
+Flykt og beseir stjernene!</string>
+  <string name="knightComplete">Gratulerer! Du har mestret springeren.</string>
+  <string name="thePawn">Bonden</string>
+  <string name="itMovesForwardOnly">Den går bare fremover</string>
+  <string name="pawnIntro">Bonder er svake, men de innehar en masse potensial.</string>
+  <string name="pawnsMoveOneSquareOnly">Bonder beveger seg kun én rute av gangen,
+men når de når den andre siden av brettet,
+blir de en sterkere brikke!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Vanligvis er det best å gjøre den om til en dronning,
+men noen ganger kan en springer være fin å ha!</string>
+  <string name="pawnsMoveForward">Bonder går fremover, men fanger andre brikker diagonalt!</string>
+  <string name="captureThenPromote">Fang, så promoter!</string>
+  <string name="useAllThePawns">Bruk alle bondene!
+Ingen grunn til å promotere.</string>
 </resources>
