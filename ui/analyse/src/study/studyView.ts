@@ -14,7 +14,7 @@ import { view as studyShareView } from './studyShare';
 import { view as notifView } from './notif';
 import { view as tagsView } from './studyTags';
 import * as practiceView from './practice/studyPracticeView';
-import gamebookPlayButtons from './gamebook/gamebookPlayButtons';
+import { playButtons as gbPlayButtons, previewButton as gbPreviewButton } from './gamebook/gamebookButtons';
 import AnalyseCtrl from '../ctrl';
 import { StudyCtrl, Tab } from './interfaces';
 import { MaybeVNodes } from '../interfaces';
@@ -67,12 +67,16 @@ function buttons(root: AnalyseCtrl): VNode {
         ])
       ] : [])
     ]),
-    h('span.button.help.hint--top', {
-      attrs: { 'data-hint': 'Need help? Get the tour!' },
-      hook: bind('click', ctrl.startTour)
-    }, [
-      h('i.text', { attrs: dataIcon('') }, 'help')
-    ])
+    gbPreviewButton(ctrl) || helpButton(ctrl)
+  ]);
+}
+
+function helpButton(ctrl: StudyCtrl) {
+  return h('span.button.help.hint--top', {
+    attrs: { 'data-hint': 'Need help? Get the tour!' },
+    hook: bind('click', ctrl.startTour)
+  }, [
+    h('i.text', { attrs: dataIcon('') }, 'help')
   ]);
 }
 
@@ -177,7 +181,7 @@ export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
   if (ctrl.studyPractice) return [practiceView.underboard(ctrl.study!)];
   const study = ctrl.study!;
   if (study.gamebookPlay()) return [
-    gamebookPlayButtons(ctrl),
+    gbPlayButtons(ctrl),
     metadata(study)
   ];
   const commentForm = commentFormView(study.commentForm);

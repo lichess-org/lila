@@ -13,7 +13,7 @@ import { ctrl as tagsCtrl } from './studyTags';
 import * as tours from './studyTour';
 import * as xhr from './studyXhr';
 import { path as treePath } from 'tree';
-import { StudyCtrl, StudyVm, Tab, TagTypes, StudyData, StudyChapterMeta, ReloadData } from './interfaces';
+import { StudyCtrl, StudyVm, Tab, TagTypes, StudyData, StudyChapterMeta, ReloadData, GamebookOverride } from './interfaces';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 
 const li = window.lichess;
@@ -40,7 +40,8 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
         write: true
       },
       behind: 0, // how many events missed because sync=off
-      updatedAt: Date.now() - data.secondsSinceUpdate * 1000 // how stale is the study
+      updatedAt: Date.now() - data.secondsSinceUpdate * 1000, // how stale is the study
+      gamebookOverride: undefined
     };
   })();
 
@@ -102,7 +103,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
   }
 
   function isGamebookPlay() {
-    return data.chapter.gamebook && !members.canContribute();
+    return data.chapter.gamebook && (vm.gamebookOverride === 'play' || !members.canContribute());
   }
 
   if (vm.mode.sticky && !isGamebookPlay()) ctrl.userJump(data.position.path);
@@ -323,6 +324,10 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       currentId = currentChapter().id;
       for (let i in chapters)
       if (chapters[i].id === currentId) return chapters[parseInt(i) + 1];
+    },
+    setGamebookOverride(o: GamebookOverride) {
+      vm.gamebookOverride = o;
+      instanciateGamebookPlay();
     },
     mutateCgConfig,
     redraw,

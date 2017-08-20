@@ -38,6 +38,7 @@ export interface StudyCtrl {
   nextChapter(): StudyChapterMeta | undefined;
   mutateCgConfig(config: any): void;
   isUpdatedRecently(): boolean;
+  setGamebookOverride(o: GamebookOverride): void;
   redraw(): void;
 }
 
@@ -55,8 +56,10 @@ export interface StudyVm {
   };
   behind: number;
   updatedAt: number;
+  gamebookOverride: GamebookOverride;
 }
 
+export type GamebookOverride = undefined | 'edit' | 'play' | 'analyse';
 
 export interface StudyData {
   id: string;
