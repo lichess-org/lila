@@ -269,7 +269,7 @@
   <string name="backToTournament">Volver al torneo</string>
   <string name="thematic">Temático</string>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Necesitas jugar %1$s más %2$s partidas puntuadas</item>
+    <item quantity="one">Te falta jugar %1$s partidas %2$s puntuadas más</item>
     <item quantity="other">Necesitas jugar %1$s más %2$s partidas puntuadas</item>
   </plurals>
   <plurals name="needNbMoreGames">
@@ -278,6 +278,10 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">Tu puntuación de %s aún no es definitivo</string>
   <string name="yourPerfRatingIsTooHigh">Tu puntuación de %1$s (%2$s) es muy alta</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Tu máxima puntación semanal de %1$s (%2$s) es muy alta</string>
+  <string name="yourPerfRatingIsTooLow">Tu puntuación de %1$s (%2$s) es muy baja</string>
+  <string name="ratedMoreThanInPerf">Puntuación ≥ %1$s en %2$s</string>
+  <string name="ratedLessThanInPerf">Puntuación ≤ %1$s en %2$s</string>
   <string name="backToGame">Volver a la partida</string>
   <string name="siteDescription">Servidor de ajedrez en línea gratuito. Juega al ajedrez en una interfaz simple. Sin registro, sin publicidad, sin necesidad de complementos. Juega contra el ordenador, amigos u oponentes desconocidos.</string>
   <string name="teams">Equipos</string>
