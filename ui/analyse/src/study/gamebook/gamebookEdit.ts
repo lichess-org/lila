@@ -28,14 +28,23 @@ export function render(ctrl: AnalyseCtrl): VNode {
     }, text);
   }
 
-  if (!ctrl.path) content = [
-    h('div.legend.todo', { class: { done: isCommented } }, [
-      'Help the player find the initial move, with a ',
-      commentButton(),
-      '.'
-    ]),
-    renderHint(ctrl)
-  ];
+  if (!ctrl.path) {
+    if (isMyMove) content = [
+      h('div.legend.todo', { class: { done: isCommented } }, [
+        'Help the player find the initial move, with a ',
+        commentButton(),
+        '.'
+      ]),
+      renderHint(ctrl)
+    ];
+    else  content = [
+      h('div.legend.todo', { class: { done: isCommented } }, [
+        'Introduce the gamebook with a ',
+        commentButton(),
+        ', and put the opponent\'s first move on the board.'
+      ])
+    ];
+  }
   else if (ctrl.onMainline) {
     if (isMyMove) content = [
       h('div.legend.todo', { class: { done: isCommented } }, [
