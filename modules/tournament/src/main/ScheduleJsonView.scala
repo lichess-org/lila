@@ -3,6 +3,7 @@ package lila.tournament
 import play.api.libs.json._
 
 import lila.common.LightUser
+import lila.common.PimpedJson._
 import lila.rating.PerfType
 
 final class ScheduleJsonView(lightUser: LightUser.Getter) {
@@ -28,11 +29,9 @@ final class ScheduleJsonView(lightUser: LightUser.Getter) {
         "system" -> tour.system.toString.toLowerCase,
         "minutes" -> tour.minutes,
         "clock" -> tour.clock,
-        "position" -> tour.position.some.filterNot(_.initial).map(positionJson),
         "rated" -> tour.mode.rated,
         "fullName" -> tour.fullName,
         "nbPlayers" -> tour.nbPlayers,
-        "private" -> tour.`private`,
         "variant" -> Json.obj(
           "key" -> tour.variant.key,
           "short" -> tour.variant.shortName,
@@ -42,11 +41,12 @@ final class ScheduleJsonView(lightUser: LightUser.Getter) {
         "startsAt" -> tour.startsAt,
         "finishesAt" -> tour.finishesAt,
         "status" -> tour.status.id,
-        "schedule" -> tour.schedule.map(scheduleJson),
         "winner" -> winner.map(userJson),
-        "conditions" -> tour.conditions.ifNonEmpty,
         "perf" -> tour.perfType.map(perfJson)
-      )
+      ).add("hasMaxRating", tour.conditions.maxRating.isDefined)
+        .add("private", tour.`private`)
+        .add("position", tour.position.some.filterNot(_.initial) map positionJson)
+        .add("schedule", tour.schedule map scheduleJson)
     }
 
   private def userJson(u: LightUser) = Json.obj(
