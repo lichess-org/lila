@@ -45,10 +45,6 @@
 .gb_play .mascot {
   margin: 10px 0 -7px 0;
   cursor: pointer;
-  transition: margin 1s;
-}
-.gb_play .mascot:hover {
-  margin-left: 8px;
 }
 .gb_play .feedback {
   flex: 0 0 120px;
