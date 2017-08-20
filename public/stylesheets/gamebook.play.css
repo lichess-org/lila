@@ -42,16 +42,13 @@
   z-index: 2;
 }
 
-@keyframes mascot {
-  50% { transform: scale(1.03); }
-  100% { transform: scale(1); }
-}
 .gb_play .mascot {
   margin: 10px 0 -7px 0;
   cursor: pointer;
+  transition: margin 1s;
 }
 .gb_play .mascot:hover {
-  animation: mascot 0.5s ease-in-out;
+  margin-left: 8px;
 }
 .gb_play .feedback {
   flex: 0 0 120px;
@@ -70,13 +67,12 @@
   font-size: 2em;
   color: #fff;
   cursor: pointer;
-  opacity: 0.8;
+  opacity: 0.85;
   transition: 0.13s;
   border-radius: 7px;
 }
 .gb_play .feedback.act:hover {
   opacity: 1;
-  transform: scale(1.02, 1.02);
 }
 .gb_play .feedback.act span {
   animation: rubberBand 8s infinite;
