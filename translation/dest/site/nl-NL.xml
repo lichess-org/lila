@@ -268,6 +268,14 @@
   <string name="viewTournament">Bekijk het toernooi</string>
   <string name="backToTournament">Terug naar het toernooi</string>
   <string name="thematic">Thematisch</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s partij met rating</item>
+    <item quantity="other">≥ %s partijen met rating</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2%s partij met rating</item>
+    <item quantity="other">≥ %1$s %2%s partijen met rating</item>
+  </plurals>
   <string name="backToGame">Terug naar partij</string>
   <string name="siteDescription">Gratis online schaken. Schaak nu met een heldere vormgeving. Geen registratie nodig, geen advertenties, geen plug-ins vereist. Schaak tegen de computer, vrienden of willekeurige tegenstanders.</string>
   <string name="teams">Teams</string>
