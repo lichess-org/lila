@@ -72,7 +72,9 @@ export function bind(ctrl: AnalyseCtrl): void {
     ctrl.redraw();
   }));
   kbd.bind('space', preventing(function() {
-    if (ctrl.ceval.enabled()) ctrl.playBestMove();
+    const gb = ctrl.gamebookPlay();
+    if (gb) gb.next();
+    else if (ctrl.ceval.enabled()) ctrl.playBestMove();
     else ctrl.toggleCeval();
   }));
   if (ctrl.study) {

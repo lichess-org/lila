@@ -30,7 +30,7 @@ export default class GamebookPlayCtrl {
     });
   }
 
-  private makeState(): void {
+  private makeState = (): void => {
     const node = this.root.node,
     nodeComment = (node.comments || [])[0],
     state: Partial<State> = {
@@ -42,7 +42,7 @@ export default class GamebookPlayCtrl {
     if (this.root.onMainline && !node.children[0]) {
       state.feedback = 'end';
     }
-    else if (this.root.turnColor() === this.root.data.orientation) {
+    else if (this.isMyMove()) {
       state.feedback = 'play';
       state.hint = (node.gamebook || {}).hint;
     } else if (this.root.onMainline) {
@@ -60,28 +60,30 @@ export default class GamebookPlayCtrl {
     }, 1000);
   }
 
+  isMyMove = () => this.root.turnColor() === this.root.data.orientation;
+
   retry = () => {
     let path = this.root.path;
     while (path && !this.root.tree.pathIsMainline(path)) path = treePath.init(path);
     this.root.userJump(path);
   }
 
-  next = () => {
+  next = (force?: boolean) => {
+    if (!force && this.isMyMove()) return;
     const child = this.root.node.children[0];
     if (child) this.root.userJump(this.root.path + child.id);
+    this.redraw();
   }
 
   hint = () => {
     if (this.state.hint) this.state.showHint = !this.state.showHint;
   }
 
-  solution = () => this.next();
+  solution = () => this.next(true);
 
   canJumpTo = (path: Tree.Path) => treePath.contains(this.root.path, path);
 
-  onJump = () => {
-    this.makeState();
-  };
+  onJump = this.makeState;
 
   onShapeChange = shapes => {
     const node = this.root.node;

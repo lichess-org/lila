@@ -52,7 +52,7 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
     h('span', 'Retry')
   ]);
   if (fb === 'good' && state.comment) return h('div.feedback.act.good', {
-    hook: bind('click', ctrl.next, ctrl.redraw)
+    hook: bind('click', () => ctrl.next())
   }, [
     h('i', { attrs: dataIcon('G') }),
     h('span', 'Next')
@@ -73,7 +73,7 @@ function renderEnd(ctrl: GamebookPlayCtrl) {
     }, 'Next chapter') : undefined,
     h('a.retry', {
       attrs: dataIcon('P'),
-      hook: bind('click', () => ctrl.root.userJump(''))
+      hook: bind('click', () => ctrl.root.userJump(''), ctrl.redraw)
     }, 'Play again'),
     h('a.analyse', {
       attrs: dataIcon('A')
