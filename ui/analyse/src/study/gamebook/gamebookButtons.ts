@@ -10,25 +10,26 @@ export function playButtons(root: AnalyseCtrl): VNode | undefined {
   ctrl = study.gamebookPlay();
   if (!ctrl) return;
   const state = ctrl.state,
-  fb = state.feedback;
+  fb = state.feedback,
+  myTurn = fb === 'play';
   return h('div.study_buttons', [
     shareButton(study),
-    fb === 'play' ? h('div.gb_buttons', [
-      state.hint ? h('a.button.text', {
+    h('div.gb_buttons', [
+      myTurn && state.hint ? h('a.button.text.hint', {
         attrs: dataIcon(''),
         hook: bind('click', ctrl.hint, ctrl.redraw)
       }, 'Get a hint') : null,
-      h('a.button.text', {
+      myTurn ? h('a.button.text.solution', {
         attrs: dataIcon('G'),
         hook: bind('click', ctrl.solution, ctrl.redraw)
-      }, 'View the solution'),
+      }, 'View the solution') : undefined,
       study.vm.gamebookOverride === 'play' ? previewButton(study) : undefined
-    ]) : undefined,
+    ]),
   ]);
 }
 
 export function previewButton(study: StudyCtrl): VNode | undefined {
-  if (study.data.chapter.gamebook) return h('a.button.text', {
+  if (study.data.chapter.gamebook) return h('a.button.text.preview', {
     class: { active: study.vm.gamebookOverride === 'play' },
     attrs: dataIcon('v'),
     hook: bind('click', () => {
