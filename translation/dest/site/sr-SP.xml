@@ -50,10 +50,10 @@
   <string name="analysis">Табла за анализирање</string>
   <string name="depthX">Дубина %s</string>
   <string name="usingServerAnalysis">Анализа помоћу сервера</string>
-  <string name="loadingEngine">мотор се учитава...</string>
-  <string name="cloudAnalysis">анализа у облаку</string>
-  <string name="goDeeper">иди дубље</string>
-  <string name="showThreat">покажи претњу</string>
+  <string name="loadingEngine">Мотор се учитава...</string>
+  <string name="cloudAnalysis">Анализа у облаку</string>
+  <string name="goDeeper">Иди дубље</string>
+  <string name="showThreat">Прикажи претњу</string>
   <string name="inLocalBrowser">у локалном веб-читачу</string>
   <string name="toggleLocalEvaluation">укључи/искључи локалну процену</string>
   <string name="move">потез</string>
