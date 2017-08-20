@@ -53,4 +53,8 @@ men noen ganger kan en springer være fin å ha!</string>
   <string name="captureThenPromote">Fang, så promoter!</string>
   <string name="useAllThePawns">Bruk alle bondene!
 Ingen grunn til å promotere.</string>
+  <string name="aPawnOnTheSecondRank">En bonde på andreraden kan flytte 2 ruter samtidig!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Ta alle stjernene!
+Ingen grunn til å promotere.</string>
+  <string name="pawnComplete">Gratulerer! Bondene holder ingen hemmeligheter for deg.</string>
 </resources>
