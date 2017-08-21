@@ -719,6 +719,9 @@ div.control.icons .act_confirm {
   visibility: visible;
   position: relative;
 }
+div.control.icons .act_confirm .yes {
+  animation: fbt-glowing 1s ease-in-out infinite;
+}
 div.control.icons .act_confirm .no {
   padding: 8px 0;
   width: 30px;
