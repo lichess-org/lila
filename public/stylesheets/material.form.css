@@ -168,6 +168,7 @@ body.dark .material.form .form-group * {
 }
 body.dark .material.form .form-group select option {
   color: #bbb;
+  background-color: #2b2b2b;
 }
 .material.form .form-group select ~ .control-label,
 .material.form .form-group input:focus ~ .control-label,
