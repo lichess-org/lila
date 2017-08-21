@@ -32,7 +32,11 @@
 .gb_play .comment .content {
   z-index: 2;
   overflow-y: auto;
-  padding: 10px 12px;
+  padding: 12px;
+  min-height: 3em;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
 }
 .gb_play .comment .hint {
   padding: 10px 12px;
@@ -93,7 +97,7 @@
   align-items: center;
   text-align: center;
   padding: 10px;
-  border-left: 1px solid rgba(255,255,255,0.5);
+  border-left: 1px solid rgba(255,255,255,0.3);
   line-height: 1.2em;
   transition: 0.13s;
 }
