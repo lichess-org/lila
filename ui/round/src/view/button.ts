@@ -106,7 +106,7 @@ function actConfirm(ctrl: RoundController, f: (v: boolean) => void, transKey: st
     h('button.fbt.yes.active.hint--bottom.' + (klass || ''), {
       attrs: {'data-hint': ctrl.trans.noarg(transKey) },
       hook: util.bind('click', () => f(true))
-    }, [h('span', util.justIcon(icon)), ' ?']),
+    }, [h('span', util.justIcon(icon))]),
     h('button.fbt.no.hint--bottom', {
       attrs: { 'data-hint': ctrl.trans.noarg('cancel') },
       hook: util.bind('click', () => f(false))

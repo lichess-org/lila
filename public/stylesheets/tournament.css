@@ -245,7 +245,6 @@ ol.scheduled_tournaments a {
   position: absolute;
   right: 5px;
   top: -3px;
-  transform: translate(0px,0px);
   padding: 8px 20px;
   border-radius: 8px;
   color: #FFF;
@@ -253,8 +252,8 @@ ol.scheduled_tournaments a {
   background: #82BF56;
   border-bottom: 5px solid #759900;
   text-shadow: 0 -1px #759900;
-  transition: all 0.08s;
-  filter: brightness(1);
+  transition: all 0.1s;
+  transform: translate(0px,0px);
 }
 #tournament .highlight:hover {
   filter: brightness(1.06);
