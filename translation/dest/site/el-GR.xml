@@ -41,7 +41,7 @@
   <string name="blackResigned">Τα μαύρα παραιτήθηκαν</string>
   <string name="whiteLeftTheGame">Τα λευκά έφυγαν από το παιχνίδι</string>
   <string name="blackLeftTheGame">Τα μαύρα έφυγαν από το παιχνίδι</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Στείλτε αυτήν τη διεύθυνση για να επιτρέψτε σε θεατές να δουν το παιχνίδι</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Στείλτε αυτήν τη διεύθυνση για να επιτρέψετε σε θεατές να δουν το παιχνίδι</string>
   <string name="theComputerAnalysisHasFailed">Η ανάλυση του υπολογιστή απέτυχε</string>
   <string name="viewTheComputerAnalysis">Δείτε την ανάλυση του υπολογιστή</string>
   <string name="requestAComputerAnalysis">Ζητήστε ανάλυση υπολογιστή</string>
@@ -50,7 +50,7 @@
   <string name="analysis">Σκακιέρα ανάλυσης</string>
   <string name="depthX">Βάθος %s</string>
   <string name="usingServerAnalysis">Ανάλυση διακομιστή</string>
-  <string name="loadingEngine">Φόρτωση μηχανής ...</string>
+  <string name="loadingEngine">Εκκίνηση μηχανής ...</string>
   <string name="cloudAnalysis">Ανάλυση νέφους</string>
   <string name="goDeeper">Βαθύτερα</string>
   <string name="showThreat">Εμφάνιση απειλής</string>
@@ -90,7 +90,7 @@
   <string name="allSet">Εφαρμογή!</string>
   <string name="importPgn">Εισαγωγή PGN</string>
   <string name="delete">Διαγραφή</string>
-  <string name="deleteThisImportedGame">Διαγραφή εισαγόμενης παρτίδας;</string>
+  <string name="deleteThisImportedGame">Διαγραφή εισηγμένης παρτίδας;</string>
   <string name="replayMode">Λειτουργία επανάληψης αναπαραγωγής</string>
   <string name="realtimeReplay">Σε πραγματικό χρόνο</string>
   <string name="byCPL">Με CPL</string>
