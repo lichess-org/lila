@@ -48,7 +48,9 @@ final class JsonView(
       JsString(v.key)
     }
     // writes as percentage
-    implicit val tourRatioWrites = intIsoWriter(Iso.int[TourRatio](r => TourRatio(r.toDouble / 100), r => (r.value * 100).toInt))
+    implicit val tourRatioWrites = Writes[TourRatio] { r =>
+      JsNumber((r.value * 100).toInt atLeast 1)
+    }
     implicit val tourEntryWrites = OWrites[TourEntry] { e =>
       Json.obj(
         "tournament" -> Json.obj(

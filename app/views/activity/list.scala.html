@@ -204,7 +204,7 @@ case (pt, score) => {
     <div class="sub">
       @tours.best.map { t =>
       <div@if(t.rank <= 3) { data-icon="g" class="text@if(t.rank == 1) { is-gold}"}>
-        @trans.activity.rankedInTournament.plural(t.nbGames, Html(s"""<strong>${t.rank}</strong>"""), Math.round(t.rankRatio.value * 100), t.nbGames, tourLink(t))<br />
+        @trans.activity.rankedInTournament.plural(t.nbGames, Html(s"""<strong>${t.rank}</strong>"""), (t.rankRatio.value * 100).toInt atLeast 1, t.nbGames, tourLink(t))<br />
       </div>
       }
     </div>
