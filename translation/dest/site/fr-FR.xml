@@ -268,6 +268,14 @@
   <string name="viewTournament">Voir le tournoi</string>
   <string name="backToTournament">Retour au tournoi</string>
   <string name="thematic">Thématique</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s partie classée</item>
+    <item quantity="other">≥ %s parties classées</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Vous avez besoin de jouer encore %s partie classée</item>
+    <item quantity="other">Vous avez besoin de jouer encore %s parties classées</item>
+  </plurals>
   <string name="backToGame">Retour à la partie</string>
   <string name="siteDescription">Jeu d\'échecs gratuit en ligne. Jouez aux échecs immédiatement avec une interface simple. Pas d\'inscription obligatoire, pas de publicité, pas de plugin. Jouez aux échecs avec des adversaires en ligne, avec des amis ou contre l\'ordinateur.</string>
   <string name="teams">Équipes</string>
