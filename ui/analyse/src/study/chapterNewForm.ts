@@ -6,6 +6,7 @@ import { variants as xhrVariants } from './studyXhr';
 import * as dialog from './dialog';
 import { chapter as chapterTour } from './studyTour';
 import { StudyChapterMeta } from './interfaces';
+import { title as descTitle } from './chapterDescription';
 import AnalyseCtrl from '../ctrl';
 
 export function modeChoices(beta: boolean) {
@@ -297,7 +298,7 @@ export function descriptionGroup(desc?: string) {
   return h('div.form-group', [
     h('select#chapter-description', [
       ['', 'None'],
-      ['1', 'Display a persistent description']
+      ['1', 'Right under the board']
     ].map(v => {
       return h('option', {
         attrs: {
@@ -308,7 +309,7 @@ export function descriptionGroup(desc?: string) {
     })),
     h('label.control-label', {
       attrs: { for: 'chapter-description' }
-    }, 'Chapter description'),
+    }, descTitle),
     h('i.bar')
   ]);
 }

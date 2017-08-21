@@ -25,7 +25,7 @@ export class ChapterDescriptionCtrl {
   }
 }
 
-const editTitle = 'Edit chapter permanent description';
+export const title = 'Chapter pinned comment';
 
 export function view(study: StudyCtrl): VNode | undefined {
   const desc = study.desc,
@@ -35,7 +35,7 @@ export function view(study: StudyCtrl): VNode | undefined {
   if (!desc.text || (isEmpty && !contrib)) return;
   return h('div.chapter_desc', [
     contrib && !isEmpty ? h('div.contrib', [
-      h('span', editTitle),
+      h('span', title),
       isEmpty ? null : h('a', {
         attrs: {
           'data-icon': 'm',
@@ -55,7 +55,7 @@ export function view(study: StudyCtrl): VNode | undefined {
     ]) : null,
     isEmpty ? h('a.text.empty.button', {
       hook: bind('click', _ => { desc.edit = true; }, desc.redraw)
-    }, editTitle) : h('div.text', {
+    }, title) : h('div.text', {
       hook: innerHTML(desc.text, text => enrichText(text, true))
     })
   ]);
@@ -75,7 +75,7 @@ function edit(ctrl: ChapterDescriptionCtrl): VNode {
         },
         hook: bind('click', () => ctrl.edit = false, ctrl.redraw)
       }),
-      editTitle,
+      title,
     ]),
     h('form.material.form', [
       h('div.form-group', [
