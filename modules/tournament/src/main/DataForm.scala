@@ -30,7 +30,7 @@ final class DataForm {
     Constraints minLength 2,
     Constraints maxLength 30,
     Constraints.pattern(
-      regex = """\p{L}+""".r,
+      regex = """[\p{L}\p{N}-\s:,;]+""".r,
       error = "error.unknown"
     )
   )
