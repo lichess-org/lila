@@ -286,6 +286,7 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">%s puanınız geçicidir</string>
   <string name="yourPerfRatingIsTooHigh">%1$s puanınız (%2$s) gerekenden fazla</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Haftalık %1$s puanınız (%2$s) gerekenden fazla</string>
   <string name="yourPerfRatingIsTooLow">%1$s puanınız (%2$s) gerekenden az</string>
   <string name="ratedMoreThanInPerf">%2$s puanı ≥ %1$s olmalı</string>
   <string name="ratedLessThanInPerf">%2$s puanı ≤ %1$s olmalı</string>
