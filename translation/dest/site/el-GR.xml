@@ -386,7 +386,7 @@
   <string name="profileCompletion">Ολοκλήρωση προφίλ: %s</string>
   <string name="xRating">Βαθμολογία %s</string>
   <string name="ifNoneLeaveEmpty">Αν δεν υπάρχει, αφήστε κενό</string>
-  <string name="gameCompletionRate">Ποσοστό ολοκλήρωσης παιχνιδιού: %s</string>
+  <string name="gameCompletionRate">Ποσοστό ολοκλήρωσης παιχνιδιών: %s</string>
   <string name="profile">Προφίλ</string>
   <string name="editProfile">Επεξεργασία προφίλ</string>
   <string name="firstName">Όνομα</string>
