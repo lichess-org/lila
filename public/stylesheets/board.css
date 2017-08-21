@@ -151,7 +151,7 @@ piece.fading {
   flex-flow: column;
 }
 .cg-board-wrap coords.files {
-  bottom: -16px;
+  bottom: -15px;
   left: 0;
   flex-flow: row;
   width: 100%;

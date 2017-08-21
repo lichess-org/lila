@@ -71,7 +71,7 @@ export function view(ctrl): VNode | undefined {
       h('form.material.form', {
         hook: bindSubmit(e => {
           const o: any = {};
-          'name mode orientation embed'.split(' ').forEach(field => {
+          'name mode orientation description'.split(' ').forEach(field => {
             o[field] = chapterForm.fieldValue(e, field);
           });
           ctrl.submit(o);
@@ -101,7 +101,7 @@ export function view(ctrl): VNode | undefined {
         ])
       ].concat(
         isLoaded ? [
-          h('div.form-group', [
+          h('div.form-group.little-margin-bottom', [
             h('select#chapter-orientation', ['White', 'Black'].map(function(color) {
               const v = color.toLowerCase();
               return h('option', {
@@ -116,7 +116,7 @@ export function view(ctrl): VNode | undefined {
             }, 'Orientation'),
             h('i.bar')
           ]),
-          h('div.form-group', [
+          h('div.form-group.little-margin-bottom', [
             h('select#chapter-mode', chapterForm.modeChoices(ctrl.beta).map(function(c) {
               return h('option', {
                 attrs: {
@@ -130,18 +130,7 @@ export function view(ctrl): VNode | undefined {
             }, 'Analysis mode'),
             h('i.bar')
           ]),
-          h('div.form-group', [
-            h('input#chapter-embed', {
-              attrs: {
-                maxlength: 300,
-                value: data.embed
-              }
-            }),
-            h('label.control-label', {
-              attrs: { for: 'chapter-embed' }
-            }, 'YouTube video URL'),
-            h('i.bar')
-          ]),
+          chapterForm.descriptionGroup(data.description),
           dialog.button('Save chapter')
         ] : [spinner()]
       )),

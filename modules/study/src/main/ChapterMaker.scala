@@ -212,10 +212,14 @@ private[study] object ChapterMaker {
   ) extends ChapterData
 
   case class EditData(
-    id: Chapter.Id,
-    name: Chapter.Name,
-    orientation: String,
-    mode: String,
-    embed: Option[String]
-  ) extends ChapterData
+      id: Chapter.Id,
+      name: Chapter.Name,
+      orientation: String,
+      mode: String,
+      description: String // boolean
+  ) extends ChapterData {
+    def hasDescription = description.nonEmpty
+  }
+
+  case class DescData(id: Chapter.Id, description: String)
 }

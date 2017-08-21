@@ -63,12 +63,14 @@ final class StudySearchApi(
   private def chapterText(c: Chapter): String = {
     nodeText(c.root) :: c.tags.collect {
       case Tag(name, value) if relevantPgnTags.contains(name) => value
-    } ::: chapterModeText(c)
+    } :: extraText(c)
   }.mkString(" ").trim
 
-  private def chapterModeText(c: Chapter) = List(
+  private def extraText(c: Chapter): List[String] = List(
     c.isPractice option "practice",
-    c.isConceal option "conceal puzzle"
+    c.isConceal option "conceal puzzle",
+    c.isGamebook option "gamebook lesson",
+    c.description
   ).flatten
 
   private def nodeText(n: RootOrNode): String =

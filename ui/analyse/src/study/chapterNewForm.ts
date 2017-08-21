@@ -157,7 +157,7 @@ export function view(ctrl): VNode {
           const o: any = {
             fen: fieldValue(e, 'fen') || (ctrl.vm.tab() === 'edit' ? ctrl.vm.editorFen() : null)
           };
-          'name game variant pgn orientation mode embed'.split(' ').forEach(field => {
+          'name game variant pgn orientation mode'.split(' ').forEach(field => {
             o[field] = fieldValue(e, field);
           });
           ctrl.submit(o);
@@ -241,7 +241,7 @@ export function view(ctrl): VNode {
           h('i.bar')
         ]) : null,
         h('div', [
-          h('div.form-group.half', [
+          h('div.form-group.half.little-margin-bottom', [
             h('select#chapter-variant', {
               attrs: { disabled: gameOrPgn }
             }, gameOrPgn ? [
@@ -258,7 +258,7 @@ export function view(ctrl): VNode {
             }, 'Variant'),
             h('i.bar')
           ]),
-          h('div.form-group.half', [
+          h('div.form-group.half.little-margin-bottom', [
             h('select#chapter-orientation', {
               hook: bind('change', e => {
                 ctrl.vm.editor && ctrl.vm.editor.setOrientation((e.target as HTMLInputElement).value);
@@ -278,7 +278,7 @@ export function view(ctrl): VNode {
             h('i.bar')
           ])
         ]),
-        h('div.form-group', [
+        h('div.form-group.little-margin-bottom', [
           h('select#chapter-mode', modeChoices(ctrl.root.opts.beta).map(c => h('option', {
             attrs: { value: c[0] }
           }, c[1]))),
@@ -291,4 +291,24 @@ export function view(ctrl): VNode {
       ])
     ]
   });
+}
+
+export function descriptionGroup(desc?: string) {
+  return h('div.form-group', [
+    h('select#chapter-description', [
+      ['', 'None'],
+      ['1', 'Display a persistent description']
+    ].map(v => {
+      return h('option', {
+        attrs: {
+          value: v[0],
+          selected: !v[0] === !desc
+        }
+      }, v[1] as string)
+    })),
+    h('label.control-label', {
+      attrs: { for: 'chapter-description' }
+    }, 'Chapter description'),
+    h('i.bar')
+  ]);
 }

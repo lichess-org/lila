@@ -46,7 +46,7 @@ final class JsonView(
               "computer" -> allowed(study.settings.computer),
               "explorer" -> allowed(study.settings.explorer)
             )
-          ).add("embed", currentChapter.embed) |> addChapterMode(currentChapter)
+          ).add("description", currentChapter.description) |> addChapterMode(currentChapter)
         }
       )
     }
@@ -56,7 +56,7 @@ final class JsonView(
     "id" -> c.id,
     "name" -> c.name,
     "orientation" -> c.setup.orientation
-  ).add("embed", c.embed) |> addChapterMode(c)
+  ).add("description", c.description) |> addChapterMode(c)
 
   private def addChapterMode(c: Chapter)(js: JsObject): JsObject =
     js.add("practice", c.isPractice)

@@ -21,7 +21,7 @@ case class Chapter(
     conceal: Option[Chapter.Ply] = None,
     practice: Option[Boolean] = None,
     gamebook: Option[Boolean] = None,
-    embed: Option[String] = None, // youtube URL
+    description: Option[String] = None,
     createdAt: DateTime
 ) extends Chapter.Like {
 

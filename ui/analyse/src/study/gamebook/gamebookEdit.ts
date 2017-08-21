@@ -127,13 +127,12 @@ function textareaHook(ctrl: AnalyseCtrl, field: string): Hooks {
     insert(vnode: VNode) {
       const el = vnode.elm as HTMLInputElement;
       el.value = value;
-      function onChange() {
+      el.onkeyup = el.onpaste = () => {
         const node = ctrl.node;
         node.gamebook = node.gamebook || {};
         node.gamebook[field] = el.value.trim();
         saveNode(ctrl, node.gamebook, 50);
-      }
-      el.onkeyup = el.onpaste = onChange;
+      };
       vnode.data!.path = ctrl.path;
     },
     postpatch(old: VNode, vnode: VNode) {

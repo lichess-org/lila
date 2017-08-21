@@ -110,6 +110,12 @@ private final class Socket(
       "w" -> who(uid)
     ), noMessadata)
 
+    case DescChapter(uid, chapterId, description) => notifyVersion("descChapter", Json.obj(
+      "chapterId" -> chapterId,
+      "description" -> description,
+      "w" -> who(uid)
+    ), noMessadata)
+
     case AddChapter(uid, pos, sticky) => notifyVersion("addChapter", Json.obj(
       "p" -> pos,
       "w" -> who(uid),
@@ -291,6 +297,7 @@ private object Socket {
   case class ReloadChapters(chapters: List[Chapter.Metadata])
   case object ReloadAll
   case class ChangeChapter(uid: Uid, position: Position.Ref)
+  case class DescChapter(uid: Uid, chapterId: Chapter.Id, description: Option[String])
   case class AddChapter(uid: Uid, position: Position.Ref, sticky: Boolean)
   case class SetConceal(position: Position.Ref, ply: Option[Chapter.Ply])
   case class SetLiking(liking: Study.Liking, uid: Uid)

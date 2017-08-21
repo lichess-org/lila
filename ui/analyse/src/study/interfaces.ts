@@ -3,6 +3,7 @@ import { NotifCtrl } from './notif';
 import { AnalyseData } from '../interfaces';
 import { StudyPracticeCtrl } from './practice/interfaces';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
+import { ChapterDescriptionCtrl } from './chapterDescription';
 
 export interface StudyCtrl {
   data: StudyData;
@@ -17,6 +18,7 @@ export interface StudyCtrl {
   glyphForm: any;
   share: any;
   tags: any;
+  desc: ChapterDescriptionCtrl;
   toggleLike(): void;
   position(): Position;
   isChapterOwner(): boolean;
@@ -119,7 +121,7 @@ export interface StudyChapter {
   conceal?: number;
   gamebook: boolean;
   features: StudyChapterFeatures;
-  embed?: string;
+  description?: string;
 }
 
 interface StudyChapterSetup {

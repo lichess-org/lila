@@ -15,6 +15,7 @@ import { view as notifView } from './notif';
 import { view as tagsView } from './studyTags';
 import * as practiceView from './practice/studyPracticeView';
 import { playButtons as gbPlayButtons, previewButton as gbPreviewButton } from './gamebook/gamebookButtons';
+import { view as descView } from './chapterDescription';
 import AnalyseCtrl from '../ctrl';
 import { StudyCtrl, Tab } from './interfaces';
 import { MaybeVNodes } from '../interfaces';
@@ -170,6 +171,7 @@ export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
   const study = ctrl.study!;
   if (study.gamebookPlay()) return [
     gbPlayButtons(ctrl),
+    descView(study),
     metadata(study)
   ];
   const commentForm = commentFormView(study.commentForm);
@@ -179,6 +181,7 @@ export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
     currentCommentsView(ctrl, !commentForm),
     commentForm,
     buttons(ctrl),
+    descView(study),
     metadata(study)
   ];
 }

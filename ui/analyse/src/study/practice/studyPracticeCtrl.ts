@@ -1,9 +1,8 @@
 import * as xhr from '../studyXhr';
 import { prop } from 'common';
-import { enrichText } from '../studyComments';
 import makeSuccess from './studyPracticeSuccess';
 import makeSound from './sound';
-import { readOnlyProp } from '../../util';
+import { readOnlyProp, enrichText } from '../../util';
 import { StudyPracticeData, Goal, StudyPracticeCtrl } from './interfaces';
 import { StudyData } from '../interfaces';
 import AnalyseCtrl from '../../ctrl';

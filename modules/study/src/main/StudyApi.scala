@@ -5,13 +5,13 @@ import scala.concurrent.duration._
 
 import chess.Centis
 import chess.format.pgn.Glyph
+import lila.chat.Chat
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.timeline.{ Propagate, StudyCreate, StudyLike }
 import lila.hub.Sequencer
 import lila.socket.Socket.Uid
 import lila.tree.Node.{ Shapes, Comment, Gamebook }
 import lila.user.{ User, UserRepo }
-import lila.chat.Chat
 
 final class StudyApi(
     studyRepo: StudyRepo,
@@ -464,7 +464,9 @@ final class StudyApi(
               case _ => chapter.conceal
             },
             setup = chapter.setup.copy(orientation = data.realOrientation),
-            embed = data.embed
+            description = data.hasDescription option {
+              chapter.description | "-"
+            }
           )
           if (chapter == newChapter) funit
           else chapterRepo.update(newChapter) >> {
@@ -480,7 +482,7 @@ final class StudyApi(
                 (newChapter.setup.orientation != chapter.setup.orientation) ||
                   (newChapter.practice != chapter.practice) ||
                   (newChapter.gamebook != chapter.gamebook) ||
-                  (newChapter.embed != chapter.embed)
+                  (newChapter.description != chapter.description)
               if (study.position.chapterId == chapter.id && shouldReload)
                 sendTo(study, Socket.ChangeChapter(uid, study.position))
               else
@@ -488,6 +490,24 @@ final class StudyApi(
             }
           }
         } >>- indexStudy(study)
+      }
+    }
+  }
+
+  def descChapter(byUserId: User.ID, studyId: Study.Id, data: ChapterMaker.DescData, socket: ActorRef, uid: Uid) = sequenceStudy(studyId) { study =>
+    Contribute(byUserId, study) {
+      chapterRepo.byIdAndStudy(data.id, studyId) flatMap {
+        _ ?? { chapter =>
+          val newChapter = chapter.copy(
+            description = data.description.nonEmpty option data.description
+          )
+          (chapter != newChapter) ?? {
+            chapterRepo.update(newChapter) >>- {
+              sendTo(study, Socket.DescChapter(uid, newChapter.id, newChapter.description))
+              indexStudy(study)
+            }
+          }
+        }
       }
     }
   }

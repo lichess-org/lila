@@ -1,7 +1,6 @@
 import { h, thunk } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { plural, bind, spinner, innerHTML } from '../../util';
-import { enrichText } from '../studyComments';
+import { plural, bind, spinner, innerHTML, enrichText } from '../../util';
 import { StudyCtrl } from '../interfaces';
 import { StudyPracticeData, StudyPracticeCtrl } from './interfaces';
 

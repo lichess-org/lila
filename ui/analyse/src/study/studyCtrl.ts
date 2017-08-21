@@ -15,6 +15,7 @@ import * as xhr from './studyXhr';
 import { path as treePath } from 'tree';
 import { StudyCtrl, StudyVm, Tab, TagTypes, StudyData, StudyChapterMeta, ReloadData, GamebookOverride } from './interfaces';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
+import { ChapterDescriptionCtrl } from './chapterDescription';
 
 const li = window.lichess;
 
@@ -40,8 +41,8 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
         write: true
       },
       behind: 0, // how many events missed because sync=off
-      updatedAt: Date.now() - data.secondsSinceUpdate * 1000, // how stale is the study
-      gamebookOverride: undefined
+        updatedAt: Date.now() - data.secondsSinceUpdate * 1000, // how stale is the study
+        gamebookOverride: undefined
     };
   })();
 
@@ -96,6 +97,13 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
   const commentForm = commentFormCtrl(ctrl);
   const glyphForm = glyphFormCtrl(ctrl);
   const tags = tagsCtrl(ctrl, () => data.chapter, tagTypes);
+  const desc = new ChapterDescriptionCtrl(data.chapter.description, t => {
+    data.chapter.description = t;
+    send("descChapter", {
+      id: vm.chapterId,
+      description: t
+    });
+  }, redraw);
 
   function addChapterId(req) {
     req.ch = vm.chapterId;
@@ -139,6 +147,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     'position name visibility features settings chapter likes liked'.split(' ').forEach(key => {
       data[key] = s[key];
     });
+    desc.set(data.chapter.description);
     document.title = data.name;
     members.dict(s.members);
     chapters.list(s.chapters);
@@ -244,6 +253,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     glyphForm,
     share,
     tags,
+    desc,
     vm,
     isUpdatedRecently() {
       return Date.now() - vm.updatedAt < 300 * 1000;
@@ -405,6 +415,15 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
         data.position = d.p;
         if (vm.mode.sticky) xhrReload();
         else redraw();
+      },
+      descChapter(d) {
+        setMemberActive(d.w);
+        if (d.w && d.w.s === sri) return;
+        if (data.chapter.id === d.chapterId) {
+          data.chapter.description = d.description;
+          desc.set(d.description);
+        }
+        redraw();
       },
       addChapter(d) {
         setMemberActive(d.w);

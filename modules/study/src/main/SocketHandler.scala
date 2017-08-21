@@ -162,8 +162,15 @@ private[study] final class SocketHandler(
 
     case ("editChapter", o) =>
       reading[ChapterMaker.EditData](o) { data =>
-        member.userId foreach { byUserId =>
-          api.editChapter(byUserId, studyId, data, socket, uid)
+        member.userId foreach {
+          api.editChapter(_, studyId, data, socket, uid)
+        }
+      }
+
+    case ("descChapter", o) =>
+      reading[ChapterMaker.DescData](o) { data =>
+        member.userId foreach {
+          api.descChapter(_, studyId, data, socket, uid)
         }
       }
 
@@ -249,6 +256,7 @@ private[study] final class SocketHandler(
   private implicit val SetRoleReader = Json.reads[SetRole]
   private implicit val ChapterDataReader = Json.reads[ChapterMaker.Data]
   private implicit val ChapterEditDataReader = Json.reads[ChapterMaker.EditData]
+  private implicit val ChapterDescDataReader = Json.reads[ChapterMaker.DescData]
   private implicit val StudyDataReader = Json.reads[Study.Data]
   private implicit val setTagReader = Json.reads[actorApi.SetTag]
   private implicit val gamebookReader = Json.reads[Gamebook]

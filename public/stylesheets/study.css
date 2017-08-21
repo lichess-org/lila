@@ -104,16 +104,19 @@ div.underboard .notif {
 div.underboard .notif.error {
   background-color: #d59120;
 }
-.study_comment_form form.material.form {
+.study_comment_form form.material.form,
+.chapter_desc_form form.material.form {
   display: flex;
   align-items: center;
   margin: 0;
 }
-.study_comment_form form .form-group {
+.study_comment_form form .form-group,
+.chapter_desc_form form .form-group {
   width: 100%;
   margin-bottom: 15px!important;
 }
-.study_comment_form form.material.form textarea {
+.study_comment_form form.material.form textarea,
+.chapter_desc_form form.material.form textarea {
   height: 80px;
   font-size: 1.2em;
   line-height: 1.3em;
@@ -134,20 +137,17 @@ div.underboard .notif.error {
   word-wrap: break-word;
   display: inline-block;
 }
-.study_comments .text iframe {
-  margin: 10px 0;
-}
 .study_comments .text a {
   color: #3893E8!important;
 }
 .study_comments .edit {
   float: right;
   margin-left: 8px;
-  opacity: 0;
-  transition: 0.13s;
+  opacity: 0.7;
+  display: none;
 }
 .study_comments .comment:hover .edit {
-  opacity: 0.7;
+  display: block;
 }
 .study_comments .comment .edit:hover {
   opacity: 1;
@@ -155,6 +155,33 @@ div.underboard .notif.error {
 .study_comments .user_link,
 .study_comments .node {
   font-weight: bold;
+}
+
+.chapter_desc {
+  margin: 10px 0;
+  text-align: left;
+  font-size: 1.2em;
+  position: relative;
+}
+.chapter_desc .contrib {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #fff;
+  padding: 5px 10px;
+  display: none;
+}
+.chapter_desc:hover .contrib {
+  display: block;
+}
+.chapter_desc .contrib a {
+  margin-left: 8px;
+}
+.chapter_desc_form {
+  margin-top: 10px;
+}
+.chapter_desc_form textarea {
+  height: 15em!important;
 }
 
 .study_box .list {

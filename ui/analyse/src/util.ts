@@ -99,6 +99,20 @@ export function toYouTubeEmbed(url: string, height: number = 300): string | unde
   if (embedUrl) return `<iframe width="100%" height="${height}" src="${embedUrl}" frameborder=0 allowfullscreen></iframe>`;
 }
 
+const commentYoutubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:.*?(?:[?&]v=)|v\/)|youtu\.be\/)(?:[^"&?\/ ]{11})\b/i;
+
+export function enrichText(text: string, allowNewlines: boolean): string {
+  let html = autolink(window.lichess.escapeHtml(text), url => {
+    if (commentYoutubeRegex.test(url)) {
+      return toYouTubeEmbed(url) || url;
+    }
+    const show = url.replace(/https?:\/\//, '');
+    return '<a target="_blank" rel="nofollow" href="' + url + '">' + show + '</a>';
+  });
+  if (allowNewlines) html = html.replace(/\n/g, '<br>');
+  return html;
+}
+
 // from https://github.com/bryanwoods/autolink-js/blob/master/autolink.js
 export function autolink(str: string, callback: (str: string) => string): string {
   const pattern = /(^|[\s\n]|<[A-Za-z]*\/?>)((?:https?|ftp):\/\/[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;

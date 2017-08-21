@@ -3,8 +3,7 @@ import { VNode } from 'snabbdom/vnode'
 import { Hooks } from 'snabbdom/hooks'
 import GamebookPlayCtrl from './gamebookPlayCtrl';
 // import AnalyseCtrl from '../../ctrl';
-import { bind, dataIcon, innerHTML } from '../../util';
-import { enrichText } from '../studyComments';
+import { bind, dataIcon, enrichText, innerHTML } from '../../util';
 import { State } from './gamebookPlayCtrl';
 // import { MaybeVNodes } from '../../interfaces';
 // import { throttle } from 'common';

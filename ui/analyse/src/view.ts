@@ -2,7 +2,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 
 import * as chessground from './ground';
-import { synthetic, bind, dataIcon, iconTag, spinner, toYouTubeEmbed, innerHTML } from './util';
+import { synthetic, bind, dataIcon, iconTag, spinner } from './util';
 import { game, router, view as gameView } from 'game';
 import { path as treePath } from 'tree';
 import treeView from './treeView';
@@ -239,16 +239,6 @@ function renderChapterName(ctrl: AnalyseCtrl) {
   if (ctrl.embed && ctrl.study) return h('div.chapter_name', ctrl.study.currentChapter().name);
 }
 
-export function chapterEmbed(ctrl: AnalyseCtrl): VNode | undefined {
-  const embed = ctrl.study && ctrl.study.data.chapter.embed;
-  if (embed) return h('div.chapter_embed', {
-    hook: innerHTML(embed, t => {
-      const html = toYouTubeEmbed(t, 157);
-      return html || (ctrl.study!.members.canContribute() ? 'Invalid YouTube URL' : '')
-    })
-  });
-}
-
 let firstRender = true;
 
 export default function(ctrl: AnalyseCtrl): VNode {
@@ -281,9 +271,8 @@ export default function(ctrl: AnalyseCtrl): VNode {
         }
       }, [
         visualBoard(ctrl),
-        h('div.lichess_ground', gamebookPlay ? [chapterEmbed(ctrl), gamebookPlayView] : [
+        h('div.lichess_ground', gamebookPlayView || [
           menuIsOpen ? null : renderClocks(ctrl),
-          chapterEmbed(ctrl),
           menuIsOpen ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
           ...(menuIsOpen ? [actionMenu(ctrl)] : [
             cevalView.renderCeval(ctrl),
