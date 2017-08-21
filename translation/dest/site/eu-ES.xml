@@ -267,6 +267,29 @@
   <string name="tournamentPoints">Txapelketa-puntuak</string>
   <string name="viewTournament">Txapelketa ikusi</string>
   <string name="backToTournament">Txapelketara itzuli</string>
+  <string name="thematic">Hasiera finkoduna</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">Sailkapenerako partida %s baino gehiago</item>
+    <item quantity="other">Sailkapenerako %s partida baino gehiago</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">%2%s partida %1$s baino gehiago</item>
+    <item quantity="other">%1$s %2%s partida baino gehiago</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Sailkapenerako balio duen beste %2$s partida %1$s jokatu behar duzu</item>
+    <item quantity="other">Sailkapenerako balio duten beste %2$s partida %1$s jokatu behar dituzu</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Sailkapenerako balio duen beste partida %s jokatu behar duzu</item>
+    <item quantity="other">Sailkapenerako balio duten beste %s partida jokatu behar dituzu</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Zure %s sailkapena behin-behinekoa</string>
+  <string name="yourPerfRatingIsTooHigh">Zure %1$s sailkapena (%2$s) altuegia da</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Zure asteko %1$s sailkapen onena (%2$s) altuegia da</string>
+  <string name="yourPerfRatingIsTooLow">Zure %1$s sailkapena (%2$s) baxuegia da</string>
+  <string name="ratedMoreThanInPerf">%1$s baino sailkapen handiagoa %2$s-n</string>
+  <string name="ratedLessThanInPerf">%1$s baino sailkapen txikiagoa %2$s-n</string>
   <string name="backToGame">Partidara itzuli</string>
   <string name="siteDescription">Doako xake zerbitzaria. Xakean interfaze argiarekin jokatu. Izena ematea ez da beharrezkoa. Iragarkirik gabe. Jokatu xakean ordenagailu, lagun edo beste aurkariekin.</string>
   <string name="teams">Taldeak</string>
