@@ -32,6 +32,7 @@ moreJs = moreJs) {
           <td>
             <style>.tournament_box form.create input[name=name] { width: 15em!important; }</style>
             @base.form.input(form("name")) Arena<br />
+            @errMsg(form("name"))
             Pick a <strong>very safe name</strong>.<br />
             Anything even <strong>slightly inappropriate</strong> could get your account closed.
           </td>

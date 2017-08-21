@@ -100,6 +100,10 @@ private[tournament] case class TournamentSetup(
     password: Option[String]
 ) {
 
+  def cleanName = name flatMap { n =>
+    n.trim.some.filter(_.size > 2)
+  }
+
   def validClock = (clockTime + clockIncrement) > 0
 
   def validTiming = (minutes * 60) >= (3 * estimatedGameDuration)
