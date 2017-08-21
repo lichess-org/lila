@@ -272,6 +272,23 @@
     <item quantity="one">≥ %s puanlı oyun</item>
     <item quantity="other">≥ %s puanlı oyun</item>
   </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2%s puanlı oyun</item>
+    <item quantity="other">≥ %1$s %2%s puanlı oyun</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">%1$s tane daha puanlı %2$s oynamanız gerekiyor</item>
+    <item quantity="other">%1$s tane daha puanlı %2$s oynamanız gerekiyor</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">%s tane daha puanlı oyun oynamanız gerekiyor</item>
+    <item quantity="other">%s tane daha puanlı oyun oynamanız gerekiyor</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">%s puanınız geçicidir</string>
+  <string name="yourPerfRatingIsTooHigh">%1$s puanınız (%2$s) gerekenden fazla</string>
+  <string name="yourPerfRatingIsTooLow">%1$s puanınız (%2$s) gerekenden az</string>
+  <string name="ratedMoreThanInPerf">%2$s puanı ≥ %1$s olmalı</string>
+  <string name="ratedLessThanInPerf">%2$s puanı ≤ %1$s olmalı</string>
   <string name="backToGame">Oyuna dön</string>
   <string name="siteDescription">Bedava online Satranç sunucusu. Şimdi temiz bir arayüzde Satranç oyna. Kayıta gerek yok, reklam yok, eklenti yok. Bilgisayara karşı, arkadaşlarına veya rastgele bir rakiple Satranç oyna.</string>
   <string name="teams">Takımlar</string>
