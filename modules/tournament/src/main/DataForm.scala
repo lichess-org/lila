@@ -25,8 +25,13 @@ final class DataForm {
     mode = Mode.Rated.id.some
   )
 
+  private val htmlPattern = """.*[<>&"'].*""".r.pattern
+
   private lazy val create = Form(mapping(
-    "name" -> optional(nonEmptyText(minLength = 2, maxLength = 30)),
+    "name" -> optional {
+      nonEmptyText(minLength = 2, maxLength = 30)
+        .verifying("Invalid characters", n => n.isEmpty || !htmlPattern.matcher(n).matches)
+    },
     "clockTime" -> numberInDouble(clockTimePrivateChoices),
     "clockIncrement" -> numberIn(clockIncrementPrivateChoices),
     "minutes" -> numberIn(minutePrivateChoices),
