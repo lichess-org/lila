@@ -268,6 +268,14 @@
   <string name="viewTournament">Ver torneo</string>
   <string name="backToTournament">Volver al torneo</string>
   <string name="thematic">Temático</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s partida por puntos</item>
+    <item quantity="other">≥ %s partidas por puntos</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2%s partida por puntos</item>
+    <item quantity="other">≥ %1$s %2%s partidas por puntos</item>
+  </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Te falta jugar %1$s partidas %2$s puntuadas</item>
     <item quantity="other">Necesitas jugar %1$s más %2$s partidas puntuadas</item>
