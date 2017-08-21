@@ -371,7 +371,7 @@
   <string name="blackWins">Τα μαύρα νικούν</string>
   <string name="draws">Ισοπαλίες</string>
   <string name="nextXTournament">Επόμενο %s πρωτάθλημα:</string>
-  <string name="viewMoreTournaments">Δείτε περισσότερα πρωταθλήματα</string>
+  <string name="viewMoreTournaments">Δείτε περισσότερα τουρνουά</string>
   <string name="averageOpponent">Μέσος αντίπαλος</string>
   <string name="membersOnly">Μόνο για μέλη</string>
   <string name="boardEditor">Προετοιμαστής σκακιέρας</string>
@@ -430,7 +430,7 @@
   <string name="thisPuzzleIsCorrect">Ο γρίφος είναι σωστός και ενδιαφέρων</string>
   <string name="thisPuzzleIsWrong">Ο γρίφος είναι λανθασμένος ή βαρετός</string>
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Έχετε %s δευτερόλεπτα για να κάνετε τη πρώτη σας κίνηση!</item>
+    <item quantity="one">Έχετε %s δευτερόλεπτα για να κάνετε την πρώτη σας κίνηση!</item>
     <item quantity="other">Έχετε %s δευτερόλεπτα για να κάνετε τη πρώτη σας κίνηση!</item>
   </plurals>
   <plurals name="nbGamesInPlay">
@@ -441,7 +441,7 @@
   <string name="autoSwitch">Αυτόματη εναλλαγή</string>
   <string name="puzzles">Γρίφοι</string>
   <string name="latestUpdates">Τελευταίες ενημερώσεις</string>
-  <string name="tournamentWinners">Νικητές πρωταθλημάτων</string>
+  <string name="tournamentWinners">Νικητές τουρνουά</string>
   <string name="name">Ονομασία</string>
   <string name="description">Περιγραφή</string>
   <string name="no">Όχι</string>
@@ -602,7 +602,7 @@
   <string name="internationalEvents">Διεθνείς εκδηλώσεις</string>
   <string name="videoLibrary">Βιβλιοθήκη τηλεοπτικού υλικού</string>
   <string name="mobileApp">Εφαρμογή για Κινητά</string>
-  <string name="webmasters">Διαχειριστές ιστοχώρου</string>
+  <string name="webmasters">Διαχειριστές</string>
   <string name="contribute">Συνεισφέρετε</string>
   <string name="contact">Επικοινωνία</string>
   <string name="termsOfService">Όροι χρήσης</string>
@@ -635,7 +635,7 @@
   <string name="keyMoveBackwardOrForward">μετακίνηση προς τα πίσω / προς τα εμπρός</string>
   <string name="keyGoToStartOrEnd">πηγαίνετε στην έναρξη / λήξη</string>
   <string name="keyShowOrHideComments">εμφάνιση / απόκρυψη σχολίων</string>
-  <string name="keyEnterOrExitVariation">είσοδος / έξοδος εκδοχής</string>
+  <string name="keyEnterOrExitVariation">είσοδος / έξοδος βαριάντας</string>
   <string name="newTournament">Νέο πρωτάθλημα</string>
   <string name="tournamentHomeTitle">Σκακιστικό πρωτάθλημα διαφόρων χρόνων και εκδοχών</string>
   <string name="tournamentHomeDescription">Παίξτε στιγμιαία πρωταθλήματα. Συμμετάσχετε σε ένα επίσημο πρωτάθλημα ή δημιουργήστε δικά σας. Υπερταχέα, Ταχέα, Κλασσικά, 960, Βασιλιάς στο κέντρο, Τρία σαχ και πολλές άλλες επιλογές για ατελείωτη διασκέδαση.</string>
