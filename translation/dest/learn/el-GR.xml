@@ -8,11 +8,12 @@
   <string name="resetMyProgress">Επαναφέρετε την πρόοδο μου</string>
   <string name="youWillLoseAllYourProgress">Θα χάσετε όλη την πρόοδο σας!</string>
   <string name="play">παίξτε!</string>
-  <string name="chessPieces">Σκάκι κομμάτια</string>
+  <string name="chessPieces">Κομμάτια σκακιού</string>
   <string name="theRook">Ο πύργος</string>
   <string name="itMovesInStraightLines">Κινείται σε ευθείες γραμμές</string>
   <string name="rookIntro">Ο πύργος είναι ένα ισχυρό κομμάτι. Είστε έτοιμοι να το χρησιμοποιήσετε;</string>
-  <string name="rookGoal">Κάντε κλικ στον πύργο για να τον μετακινήσετε στο αστέρι!</string>
+  <string name="rookGoal">Κάντε κλικ στον πύργο
+για να τον μετακινήσετε στο αστέρι!</string>
   <string name="grabAllTheStars">Πιάστε όλα τα αστέρια!</string>
   <string name="theFewerMoves">Όσες λιγότερες κινήσεις κάνετε, τόσο περισσότερους πόντους κερδίζετε!</string>
   <string name="useTwoRooks">Χρησιμοποιήστε δύο πύργους για να επιταχύνετε τα πράγματα!</string>
@@ -36,7 +37,7 @@
   <string name="kingComplete">Τώρα, μπορείτε να χειρίζεστε τον στρατηγό!</string>
   <string name="theKnight">Ο ίππος</string>
   <string name="itMovesInAnLShape">Κινείται σε σχήμα Γ</string>
-  <string name="knightIntro">Εδώ είναι μια δοκιμασία για εσάς. Ο ίππος είναι.. ένα περίεργο κομμάτι.</string>
+  <string name="knightIntro">Εδώ είναι μια δοκιμασία για εσάς. Ο ίππος είναι… ένα περίεργο κομμάτι.</string>
   <string name="knightsHaveAFancyWay">Οι ίπποι έχουν ένα παράξενο τρόπο
 να πηδούν τριγύρω!</string>
   <string name="knightsCanJumpOverObstacles">Οι ίπποι μπορούν να υπερπηδούν εμπόδια!
@@ -198,7 +199,7 @@
   <string name="testYourSkillsWithTheComputer">Δοκιμάστε τις δεξιότητες σας με τον υπολογιστή</string>
   <string name="letsGo">Πάμε!</string>
   <string name="stageX">Στάδιο %s</string>
-  <string name="awesome">Τέλεια!</string>
+  <string name="awesome">Τρομερό!</string>
   <string name="excellent">Εξαιρετικά!</string>
   <string name="greatJob">Πολύ καλή δουλειά!</string>
   <string name="perfect">Τέλεια!</string>
