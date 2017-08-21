@@ -546,6 +546,7 @@ div.underboard .notif.error {
   background: #3893E8!important;
   color: #fff!important;
 }
+
 body.dark .underboard_form .title,
 body.dark .study_comments .comment,
 body.dark .glyph_form i::before {
@@ -555,6 +556,7 @@ body.dark .form.share .fen,
 body.dark .glyph_form a:hover {
   background: #383838;
 }
+body.dark .chapter_desc .contrib,
 body.dark .study_box .add,
 body.dark .glyph_form a:hover i::before {
   background: #303030;
