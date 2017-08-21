@@ -338,6 +338,8 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       vm.gamebookOverride = o;
       instanciateGamebookPlay();
       vm.mode.write = o !== 'play';
+      configureAnalysis();
+      ctrl.userJump(ctrl.path);
       if (!o) xhrReload();
     },
     mutateCgConfig,
