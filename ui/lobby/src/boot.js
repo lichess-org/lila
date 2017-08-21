@@ -473,11 +473,4 @@ module.exports = function(cfg, element) {
 
     history.replaceState(null, null, '/');
   }
-
-  function killTrackingCookies() {
-    var cookies = document.cookie.split(";");
-    for (var i = 0; i < cookies.length; i++)
-      document.cookie = cookies[i].split("=")[0] + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=lichess.org';
-  }
-  if (document.cookie.length) lichess.requestIdleCallback(killTrackingCookies);
 };
