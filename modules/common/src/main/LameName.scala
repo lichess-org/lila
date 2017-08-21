@@ -2,9 +2,10 @@ package lila.common
 
 object LameName {
 
-  def apply(name: String) =
-    lameWords.matcher(name).find ||
-      lameTitlePrefix.matcher(name).lookingAt
+  def username(name: String) =
+    anyName(name) || lameTitlePrefix.matcher(name).lookingAt
+
+  def anyName(name: String) = lameWords.matcher(name).find
 
   private val lameTitlePrefix =
     "[Ww]?[NCFIGl1L]M|(?i:w?[ncfigl1])m[-_A-Z0-9]".r.pattern

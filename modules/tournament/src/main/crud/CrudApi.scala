@@ -35,6 +35,7 @@ final class CrudApi {
 
   private def empty = Tournament.make(
     by = Left("lichess"),
+    name = none,
     clock = chess.Clock.Config(0, 0),
     minutes = 0,
     system = System.Arena,

@@ -186,7 +186,7 @@ object Tournament extends LilaController {
 
   def form = Auth { implicit ctx => me =>
     NoLame {
-      Ok(html.tournament.form(env.forms.create, env.forms)).fuccess
+      Ok(html.tournament.form(env.forms(me), env.forms, me)).fuccess
     }
   }
 
@@ -196,13 +196,13 @@ object Tournament extends LilaController {
       import play.api.Play.current
       implicit val req = ctx.body
       negotiate(
-        html = env.forms.create.bindFromRequest.fold(
-          err => BadRequest(html.tournament.form(err, env.forms)).fuccess,
+        html = env.forms(me).bindFromRequest.fold(
+          err => BadRequest(html.tournament.form(err, env.forms, me)).fuccess,
           setup => env.api.createTournament(setup, me) map { tour =>
             Redirect(routes.Tournament.show(tour.id))
           }
         ),
-        api = _ => env.forms.create.bindFromRequest.fold(
+        api = _ => env.forms(me).bindFromRequest.fold(
           err => BadRequest(errorsAsJson(err)).fuccess,
           setup => env.api.createTournament(setup, me) map { tour =>
             Ok(Json.obj("id" -> tour.id))

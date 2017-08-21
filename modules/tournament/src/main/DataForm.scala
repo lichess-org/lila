@@ -6,12 +6,27 @@ import play.api.data.Forms._
 import chess.Mode
 import chess.StartingPosition
 import lila.common.Form._
+import lila.user.User
 
 final class DataForm {
 
   import DataForm._
 
-  lazy val create = Form(mapping(
+  def apply(user: User) = create fill TournamentSetup(
+    name = canPickName(user) option user.titleUsername,
+    clockTime = clockTimeDefault,
+    clockIncrement = clockIncrementDefault,
+    minutes = minuteDefault,
+    waitMinutes = waitMinuteDefault,
+    variant = chess.variant.Standard.id,
+    position = StartingPosition.initial.eco,
+    `private` = None,
+    password = None,
+    mode = Mode.Rated.id.some
+  )
+
+  private lazy val create = Form(mapping(
+    "name" -> optional(nonEmptyText(minLength = 2, maxLength = 30)),
     "clockTime" -> numberInDouble(clockTimePrivateChoices),
     "clockIncrement" -> numberIn(clockIncrementPrivateChoices),
     "minutes" -> numberIn(minutePrivateChoices),
@@ -24,20 +39,14 @@ final class DataForm {
   )(TournamentSetup.apply)(TournamentSetup.unapply)
     .verifying("Invalid clock", _.validClock)
     .verifying("15s variant games cannot be rated", _.validRatedUltraBulletVariant)
-    .verifying("Increase tournament duration, or decrease game clock", _.validTiming)) fill TournamentSetup(
-    clockTime = clockTimeDefault,
-    clockIncrement = clockIncrementDefault,
-    minutes = minuteDefault,
-    waitMinutes = waitMinuteDefault,
-    variant = chess.variant.Standard.id,
-    position = StartingPosition.initial.eco,
-    `private` = None,
-    password = None,
-    mode = Mode.Rated.id.some
-  )
+    .verifying("Increase tournament duration, or decrease game clock", _.validTiming))
 }
 
 object DataForm {
+
+  def canPickName(u: User) = {
+    u.count.game >= 10 && u.createdSinceDays(3) && !u.troll
+  } || u.hasTitle
 
   import chess.variant._
 
@@ -79,6 +88,7 @@ object DataForm {
 }
 
 private[tournament] case class TournamentSetup(
+    name: Option[String],
     clockTime: Double,
     clockIncrement: Int,
     minutes: Int,

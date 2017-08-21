@@ -38,7 +38,7 @@ final class DataForm(
         regex = User.usernameRegex,
         error = "usernameInvalid"
       )
-    ).verifying("usernameUnacceptable", u => !LameName(u))
+    ).verifying("usernameUnacceptable", u => !LameName.username(u))
       .verifying("usernameAlreadyUsed", u => !UserRepo.nameExists(u).awaitSeconds(4))
 
     val website = Form(mapping(

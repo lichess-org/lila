@@ -44,6 +44,7 @@ final class TournamentApi(
   def createTournament(setup: TournamentSetup, me: User): Fu[Tournament] = {
     val tour = Tournament.make(
       by = Right(me),
+      name = DataForm.canPickName(me) ?? setup.name,
       clock = setup.clockConfig,
       minutes = setup.minutes,
       waitMinutes = setup.waitMinutes,
@@ -54,6 +55,11 @@ final class TournamentApi(
       variant = setup.realVariant,
       position = StartingPosition.byEco(setup.position).ifTrue(setup.realVariant.standard) | StartingPosition.initial
     )
+    if (lila.common.LameName anyName tour.name) {
+      val msg = s"""@${me.username} created tournament "${tour.name} Arena" :kappa: https://lichess.org/tournament/${tour.id}"""
+      logger warn msg
+      bus.publish(lila.hub.actorApi.slack.Warning(msg), 'slack)
+    }
     logger.info(s"Create $tour")
     TournamentRepo.insert(tour) >>- join(tour.id, me, tour.password) inject tour
   }

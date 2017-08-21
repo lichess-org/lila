@@ -1,4 +1,4 @@
-@(form: Form[_], config: lila.tournament.DataForm)(implicit ctx: Context)
+@(form: Form[_], config: lila.tournament.DataForm, me: User)(implicit ctx: Context)
 
 @import config._
 @import lila.tournament.DataForm._
@@ -26,6 +26,17 @@ moreJs = moreJs) {
           <th><label for="@form("password").id">@trans.password()</label></th>
           <td>@base.form.input(form("password"))</td>
         </tr>
+        @if(lila.tournament.DataForm.canPickName(me)) {
+        <tr class="name">
+          <th><label for="@form("name").id">@trans.name()</label></th>
+          <td>
+            <style>.tournament_box form.create input[name=name] { width: 15em!important; }</style>
+            @base.form.input(form("name")) Arena<br />
+            Pick a <strong>very safe name</strong>.<br />
+            Anything even <strong>slightly inappropriate</strong> could get your account closed.
+          </td>
+        </tr>
+        }
         <tr class="variant">
           <th><label for="@form("variant").id">@trans.variant()</label></th>
           <td>@base.form.select(form("variant"), translatedVariantChoicesWithVariants.map(x => x._1 -> x._2))</td>

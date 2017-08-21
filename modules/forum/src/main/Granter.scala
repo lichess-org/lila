@@ -27,8 +27,9 @@ trait Granter {
       }
     }
 
-  private def isOldEnoughToForum(u: User) =
+  private def isOldEnoughToForum(u: User) = {
     u.count.game > 0 && u.createdSinceDays(2)
+  } || u.hasTitle
 
   def isGrantedMod(categSlug: String)(implicit ctx: UserContext): Fu[Boolean] =
     categSlug match {

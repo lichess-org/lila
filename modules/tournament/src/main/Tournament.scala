@@ -121,6 +121,7 @@ object Tournament {
 
   def make(
     by: Either[User.ID, User],
+    name: Option[String],
     clock: ClockConfig,
     minutes: Int,
     system: System,
@@ -132,10 +133,11 @@ object Tournament {
     waitMinutes: Int
   ) = Tournament(
     id = Random nextString 8,
-    name =
+    name = name | {
     if (position.initial)
       by.right.toOption.filter(_.hasTitle).fold(GreatPlayer.randomName)(_.titleUsername)
-    else position.shortName,
+    else position.shortName
+  },
     status = Status.Created,
     system = system,
     clock = clock,
