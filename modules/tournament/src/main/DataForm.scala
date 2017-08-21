@@ -2,6 +2,7 @@ package lila.tournament
 
 import play.api.data._
 import play.api.data.Forms._
+import play.api.data.validation.Constraints
 
 import chess.Mode
 import chess.StartingPosition
@@ -25,13 +26,17 @@ final class DataForm {
     mode = Mode.Rated.id.some
   )
 
-  private val htmlPattern = """.*[<>&"'].*""".r.pattern
+  private val nameType = nonEmptyText.verifying(
+    Constraints minLength 2,
+    Constraints maxLength 30,
+    Constraints.pattern(
+      regex = """\p{L}+""".r,
+      error = "error.unknown"
+    )
+  )
 
   private lazy val create = Form(mapping(
-    "name" -> optional {
-      nonEmptyText(minLength = 2, maxLength = 30)
-        .verifying("Invalid characters", n => n.isEmpty || !htmlPattern.matcher(n).matches)
-    },
+    "name" -> optional(nameType),
     "clockTime" -> numberInDouble(clockTimePrivateChoices),
     "clockIncrement" -> numberIn(clockIncrementPrivateChoices),
     "minutes" -> numberIn(minutePrivateChoices),
@@ -104,10 +109,6 @@ private[tournament] case class TournamentSetup(
     `private`: Option[String],
     password: Option[String]
 ) {
-
-  def cleanName = name flatMap { n =>
-    n.trim.some.filter(_.size > 2)
-  }
 
   def validClock = (clockTime + clockIncrement) > 0
 

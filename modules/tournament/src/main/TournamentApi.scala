@@ -44,7 +44,7 @@ final class TournamentApi(
   def createTournament(setup: TournamentSetup, me: User): Fu[Tournament] = {
     val tour = Tournament.make(
       by = Right(me),
-      name = DataForm.canPickName(me) ?? setup.cleanName,
+      name = DataForm.canPickName(me) ?? setup.name,
       clock = setup.clockConfig,
       minutes = setup.minutes,
       waitMinutes = setup.waitMinutes,
