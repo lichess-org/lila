@@ -57,14 +57,26 @@
   <string name="inLocalBrowser">در مرورگر موضعی</string>
   <string name="toggleLocalEvaluation">ارزیابی موضعی تغییر وضعیت</string>
   <string name="move">حرکت کن</string>
-  <string name="variantLoss">حرکت باخته</string>
+  <string name="variantLoss">حرکت باخت</string>
+  <string name="variantWin">حرکت برد</string>
+  <string name="insufficientMaterial">نیرو کافی نیست</string>
   <string name="pawnMove">حرکت پیاده</string>
   <string name="capture">بزن</string>
+  <string name="close">بستن</string>
   <string name="winning">بردن</string>
   <string name="losing">باختن</string>
+  <string name="drawn">مساوی</string>
   <string name="unknown">ناشناخته</string>
+  <string name="database">پایگاه داده</string>
+  <string name="whiteDrawBlack">سفید / مساوی / سیاه</string>
+  <string name="averageRatingX">میانگین امتیاز: %s</string>
   <string name="recentGames">بازی های اخیر</string>
   <string name="topGames">بازی های برتر</string>
+  <string name="masterDbExplanation">دو ملیون بازی واقعی بازیکنان با امتیاز %1$s+ فیده از %2$s تا %3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">مات در %s نیمه حرکت</item>
+    <item quantity="other">مات در %s نیمه حرکت</item>
+  </plurals>
   <string name="noGameFound">بازیی یافت نشد</string>
   <string name="openingExplorer">باز کردن جستجوگر</string>
   <string name="realtimeReplay">زمان واقعی</string>
