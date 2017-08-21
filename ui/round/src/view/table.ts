@@ -84,7 +84,7 @@ function renderTablePlay(ctrl: RoundController) {
   return [
     renderReplay(ctrl),
     h('div.control.icons', {
-      class: { 'confirm': ctrl.drawConfirm || ctrl.resignConfirm }
+      class: { 'confirm': !!(ctrl.drawConfirm || ctrl.resignConfirm) }
     }, icons),
     h('div.control.buttons', buttons),
     renderPlayer(ctrl, bottomPlayer(ctrl))

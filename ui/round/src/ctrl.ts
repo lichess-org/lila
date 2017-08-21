@@ -29,6 +29,8 @@ interface GoneBerserk {
   black?: boolean;
 };
 
+type Timeout = number;
+
 const li = window.lichess;
 
 export default class RoundController {
@@ -53,9 +55,10 @@ export default class RoundController {
   moveToSubmit?: SocketMove;
   dropToSubmit?: SocketDrop;
   goneBerserk: GoneBerserk = {};
-  resignConfirm: boolean = false;
-  drawConfirm: boolean = false;
-  autoScroll: () => void = $.noop; // will be replaced by view layer
+  resignConfirm?: Timeout = undefined;
+  drawConfirm?: Timeout = undefined;
+  // will be replaced by view layer
+  autoScroll: () => void = $.noop;
   challengeRematched: boolean = false;
   justDropped?: cg.Role;
   justCaptured?: cg.Piece;
@@ -528,9 +531,14 @@ export default class RoundController {
   resign = (v: boolean): void => {
     if (this.resignConfirm) {
       if (v) this.socket.sendLoading('resign');
-      else this.resignConfirm = false;
+      else {
+        clearTimeout(this.resignConfirm);
+        this.resignConfirm = undefined;
+      }
     } else if (v) {
-      if (this.data.pref.confirmResign) this.resignConfirm = true;
+      if (this.data.pref.confirmResign) this.resignConfirm = setTimeout(() => {
+        this.resign(false);
+      }, 3000);
       else this.socket.sendLoading('resign');
     }
     this.redraw();
@@ -613,9 +621,12 @@ export default class RoundController {
     if (this.canOfferDraw()) {
       if (this.drawConfirm) {
         if (v) this.doOfferDraw();
-        this.drawConfirm = false;
+        clearTimeout(this.drawConfirm);
+        this.drawConfirm = undefined;
       } else if (v) {
-        if (this.data.pref.confirmResign) this.drawConfirm = true;
+        if (this.data.pref.confirmResign) this.drawConfirm = setTimeout(() => {
+          this.offerDraw(false);
+        }, 3000);
         else this.doOfferDraw();
       }
     }
