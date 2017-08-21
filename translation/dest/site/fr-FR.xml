@@ -272,6 +272,10 @@
     <item quantity="one">≥ %s partie classée</item>
     <item quantity="other">≥ %s parties classées</item>
   </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2%s Partie classée</item>
+    <item quantity="other">≥ %1$s %2%s parties classées</item>
+  </plurals>
   <plurals name="needNbMoreGames">
     <item quantity="one">Vous avez besoin de jouer encore %s partie classée</item>
     <item quantity="other">Vous avez besoin de jouer encore %s parties classées</item>
