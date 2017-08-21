@@ -87,9 +87,6 @@
 .material.form .form-group input:not([type="checkbox"]) {
   height: 1.9rem;
 }
-.material.form .form-group textarea {
-  resize: none;
-}
 .material.form .form-group select {
   width: 100%;
   font-size: 1rem;
@@ -150,6 +147,11 @@
 }
 .material.form .form-group textarea {
   line-height: 1.7;
+  resize: none;
+}
+body.dark .material.form .form-group textarea,
+body.dark .material.form .form-group .bar {
+  border-color: #3d3d3d;
 }
 .material.form .form-group input[type="file"] {
   line-height: 1;

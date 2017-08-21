@@ -42,8 +42,16 @@
   opacity: 0.5;
 }
 .gb_edit .gamebook .todo {
-  border-left: 5px solid #dc322f;
+  border-left: 5px solid #dc322f!important;
 }
 .gb_edit .gamebook .done {
-  border-left: 5px solid #759900;
+  border-left: 5px solid #759900!important;
+}
+
+body.dark .gb_edit .gamebook {
+  background: #262626;
+}
+body.dark .gb_edit .gamebook textarea,
+body.dark .gb_edit .gamebook .legend {
+  border-color: #3d3d3d;
 }
