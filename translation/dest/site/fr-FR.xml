@@ -277,6 +277,11 @@
     <item quantity="other">Vous avez besoin de jouer encore %s parties classées</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Votre classement %s est provisoire</string>
+  <string name="yourPerfRatingIsTooHigh">Votre cote %1$s (%2$s) est trop élevé</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Votre meilleure cote hebdomadaire de %1$s (%2$s) est trop élevé</string>
+  <string name="yourPerfRatingIsTooLow">Votre cote de %1$s (%2$s) est trop faible</string>
+  <string name="ratedMoreThanInPerf">Cote : ≥ %1$s dans %2$s</string>
+  <string name="ratedLessThanInPerf">Cote ≤ %1$s dans %2$s</string>
   <string name="backToGame">Retour à la partie</string>
   <string name="siteDescription">Jeu d\'échecs gratuit en ligne. Jouez aux échecs immédiatement avec une interface simple. Pas d\'inscription obligatoire, pas de publicité, pas de plugin. Jouez aux échecs avec des adversaires en ligne, avec des amis ou contre l\'ordinateur.</string>
   <string name="teams">Équipes</string>
