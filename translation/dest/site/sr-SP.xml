@@ -22,12 +22,12 @@
   <string name="createAGame">Започни нову партију</string>
   <string name="whiteIsVictorious">Бели је победник</string>
   <string name="blackIsVictorious">Црни је победник</string>
-  <string name="kingInTheCenter">Краљ је у центру табле</string>
+  <string name="kingInTheCenter">Краљ је у центру</string>
   <string name="threeChecks">Три шаха</string>
   <string name="raceFinished">Трка је завршена</string>
   <string name="variantEnding">Крај варијацијом</string>
   <string name="newOpponent">Нови противник</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">Твој противник жели да игра још једну партију са тобом</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Твој противник жели да игра нову партију са тобом</string>
   <string name="joinTheGame">Придружи се партији</string>
   <string name="whitePlays">Бели је на потезу</string>
   <string name="blackPlays">Црни је на потезу</string>
