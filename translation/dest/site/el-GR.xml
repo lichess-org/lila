@@ -48,7 +48,7 @@
   <string name="computerAnalysis">Ανάλυση υπολογιστή</string>
   <string name="computerAnalysisAvailable">Ανάλυση υπολογιστή διαθέσιμη</string>
   <string name="analysis">Σκακιέρα ανάλυσης</string>
-  <string name="depthX">Βάθος %s</string>
+  <string name="depthX">%s βάθος</string>
   <string name="usingServerAnalysis">Ανάλυση διακομιστή</string>
   <string name="loadingEngine">Εκκίνηση μηχανής ...</string>
   <string name="cloudAnalysis">Ανάλυση νέφους</string>
@@ -69,7 +69,7 @@
   <string name="unknown">Άγνωστο</string>
   <string name="database">Βάση δεδομένων</string>
   <string name="whiteDrawBlack">Λευκά / Ισοπαλία / Μαύρα</string>
-  <string name="averageRatingX">Mέση βαθμολογία: %s</string>
+  <string name="averageRatingX">Μέση βαθμολογία: %s</string>
   <string name="recentGames">Πρόσφατα παιχνίδια</string>
   <string name="topGames">Κορυφαίες παρτίδες</string>
   <string name="masterDbExplanation">Δύο εκατομμύρια OTB παρτίδες %1$s + παικτών με αξιολόγηση FIDE από %2$s έως %3$s</string>
