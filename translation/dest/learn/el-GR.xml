@@ -176,9 +176,11 @@
 Ίππος = 3
 Πιόνι = 1
 Ο βασιλιάς είναι ανεκτίμητος! Η απώλεια του σημαίνει ήττα στο παιχνίδι.</string>
-  <string name="queenOverBishop">Πάρτε το κομμάτι με την υψηλότερη αξία!
+  <string name="queenOverBishop">Πάρτε το κομμάτι
+με την υψηλότερη αξία!
 Βασίλισσα &gt; Αξιωματικός</string>
-  <string name="takeThePieceWithTheHighestValue">Πάρτε το κομμάτι με την υψηλότερη αξία!</string>
+  <string name="takeThePieceWithTheHighestValue">Πάρτε το κομμάτι
+με την υψηλότερη αξία!</string>
   <string name="pieceValueComplete">Συγχαρητήρια! Γνωρίζετε την αξία του υλικού! 
 Βασίλισσα = 9 
 Πύργος = 5 
