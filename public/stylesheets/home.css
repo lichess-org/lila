@@ -493,6 +493,8 @@ div.blog.undertable time {
 }
 #lichess .enterable_list td:first-child {
   padding-left: 1em;
+  overflow: hidden;
+  max-width: 250px;
 }
 #enterable_tournaments td:last-child {
   padding-right: 10px;

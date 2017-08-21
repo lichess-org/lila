@@ -41,6 +41,7 @@ ol.scheduled_tournaments a {
 #tournament .header h1 {
   flex: 9 1 auto;
   padding: 0;
+  overflow: hidden;
 }
 #tournament.scheduled .header h1 {
   letter-spacing: 2px;
@@ -876,6 +877,8 @@ ol.scheduled_tournaments li.marathon {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  display: inline-block;
+  max-width: 66%;
 }
 #tournament_schedule .infos {
   display: inline-flex;
@@ -895,6 +898,7 @@ ol.scheduled_tournaments li.marathon {
 }
 #tournament_schedule .large .name {
   display: block;
+  max-width: none;
 }
 #tournament_schedule .large .name {
   display: flex;
