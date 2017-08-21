@@ -283,6 +283,20 @@
   <string name="viewTournament">Zobrazit turnaj</string>
   <string name="backToTournament">Zpět k turnaji</string>
   <string name="thematic">Tématický</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s hodnocená hra</item>
+    <item quantity="few">≥ %s hodnocené hry</item>
+    <item quantity="other">≥ %s hodnocených her</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2%s hodnocená hra</item>
+    <item quantity="few">≥ %1$s %2%s hodnocené hry</item>
+    <item quantity="other">≥ %1$s %2%s hodnocených her</item>
+  </plurals>
+  <string name="yourPerfRatingIsTooHigh">Váš %1$s rating (%2$s) je příliš vysoký</string>
+  <string name="yourPerfRatingIsTooLow">Váš %1$s rating (%2$s) je příliš nízký</string>
+  <string name="ratedMoreThanInPerf">Rating ≥ %1$s v %2$s variantě</string>
+  <string name="ratedLessThanInPerf">Rating ≤ %1$s v %2$s variantě</string>
   <string name="backToGame">Zpět do hry</string>
   <string name="siteDescription">Šachy online zdarma. Hrajte šachy přímo ve Vašem prohlížeči, bez registrace, bez reklam, bez dalšího stahování. Hrajte proti počítači, kamarádům nebo náhodně vybraným soupeřům.</string>
   <string name="teams">Týmy</string>
