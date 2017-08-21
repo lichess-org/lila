@@ -268,6 +268,24 @@
   <string name="viewTournament">Voir le tournoi</string>
   <string name="backToTournament">Retour au tournoi</string>
   <string name="thematic">Thématique</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s partie classée</item>
+    <item quantity="other">≥ %s parties classées</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2%s Partie classée</item>
+    <item quantity="other">≥ %1$s %2%s parties classées</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Vous avez besoin de jouer encore %s partie classée</item>
+    <item quantity="other">Vous avez besoin de jouer encore %s parties classées</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Votre classement %s est provisoire</string>
+  <string name="yourPerfRatingIsTooHigh">Votre cote %1$s (%2$s) est trop élevé</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Votre meilleure cote hebdomadaire de %1$s (%2$s) est trop élevé</string>
+  <string name="yourPerfRatingIsTooLow">Votre cote de %1$s (%2$s) est trop faible</string>
+  <string name="ratedMoreThanInPerf">Cote : ≥ %1$s dans %2$s</string>
+  <string name="ratedLessThanInPerf">Cote ≤ %1$s dans %2$s</string>
   <string name="backToGame">Retour à la partie</string>
   <string name="siteDescription">Jeu d\'échecs gratuit en ligne. Jouez aux échecs immédiatement avec une interface simple. Pas d\'inscription obligatoire, pas de publicité, pas de plugin. Jouez aux échecs avec des adversaires en ligne, avec des amis ou contre l\'ordinateur.</string>
   <string name="teams">Équipes</string>
@@ -708,7 +726,7 @@ en %3$s</string>
   <string name="xJoinsY">%1$s rejoint %2$s</string>
   <string name="xLikesY">%1$s aime %2$s</string>
   <string name="quickPairing">Appariement rapide</string>
-  <string name="lobby">Lobby</string>
+  <string name="lobby">Salon</string>
   <string name="anonymous">Anonyme</string>
   <string name="yourScore">Votre score : %s</string>
   <string name="language">Langue</string>
