@@ -113,3 +113,19 @@
 .gb_buttons .button {
   margin-left: 10px;
 }
+
+body.dark .gb_play .comment,
+body.dark .gb_play .comment::after {
+  background: #404040;
+  color: #f0f0f0;
+}
+body.dark .gb_play .comment,
+body.dark .gb_play .comment::after {
+  border-color: #666;
+}
+body.dark .gb_play .feedback.info {
+  background: #303030;
+}
+body.dark .gb_play .feedback.end a {
+  border-left: 1px solid rgba(0,0,0,0.2);
+}
