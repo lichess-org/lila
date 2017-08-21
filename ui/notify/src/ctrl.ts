@@ -2,13 +2,15 @@ import { Ctrl, NotifyOpts, NotifyData, Redraw } from './interfaces'
 
 import { asText } from './view'
 
+const li = window.lichess;
+
 export default function ctrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
 
   let data: NotifyData | undefined
   let initiating = true;
   let scrolling = false;
 
-  const readAllStorage = window.lichess.storage.make('notify-read-all');
+  const readAllStorage = li.storage.make('notify-read-all');
 
   readAllStorage.listen(() => {
     if (data) {
@@ -37,9 +39,9 @@ export default function ctrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
     var notif = data.pager.currentPageResults.find(n => !n.read);
     if (!notif) return;
     opts.pulse();
-    if (!window.lichess.quietMode) window.lichess.sound.newPM();
+    if (!li.quietMode) li.sound.newPM();
     var text = asText(notif);
-    if (text) window.lichess.desktopNotification(text);
+    if (text) li.desktopNotification(text);
   }
 
   function loadPage(page: number) {
