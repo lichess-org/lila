@@ -53,7 +53,7 @@ private[forum] final class TopicApi(
         )
         val post = Post.make(
           topicId = topic.id,
-          author = data.post.author,
+          author = none,
           userId = ctx.me map (_.id),
           ip = ctx.isAnon option ctx.req.remoteAddress,
           troll = ctx.troll,

@@ -9,7 +9,6 @@ private[forum] final class DataForm(val captcher: akka.actor.ActorSelection) ext
 
   val postMapping = mapping(
     "text" -> text(minLength = 3),
-    "author" -> optional(text),
     "gameId" -> text,
     "move" -> text,
     "modIcon" -> optional(boolean)
@@ -32,7 +31,6 @@ object DataForm {
 
   case class PostData(
     text: String,
-    author: Option[String],
     gameId: String,
     move: String,
     modIcon: Option[Boolean]

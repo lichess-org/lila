@@ -1,4 +1,4 @@
-@(text: Field, author: Field, topic: Option[lila.forum.Topic])(implicit ctx: Context)
+@(text: Field, topic: Option[lila.forum.Topic])(implicit ctx: Context)
 <label>
   <span class="required">@trans.message()</span>
   @topic match {
@@ -7,10 +7,3 @@
   }
   @errMsg(text)
 </label>
-
-@if(!ctx.isAuth) {
-<label>
-  <span>Author</span>
-  <input class="author" type="text" name="@author.name" value="@author.value" id="@author.id">
-</label>
-}

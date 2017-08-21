@@ -34,7 +34,7 @@ final class PostApi(
       case ((number, lang), topicUserIds) =>
         val post = Post.make(
           topicId = topic.id,
-          author = data.author,
+          author = none,
           userId = ctx.me map (_.id),
           ip = ctx.req.remoteAddress.some,
           text = lila.security.Spam.replace(data.text),
