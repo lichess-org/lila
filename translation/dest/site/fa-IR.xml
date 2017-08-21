@@ -57,6 +57,7 @@
   <string name="inLocalBrowser">در مرورگر موضعی</string>
   <string name="toggleLocalEvaluation">ارزیابی موضعی تغییر وضعیت</string>
   <string name="move">حرکت کن</string>
+  <string name="variantLoss">حرکت باخته</string>
   <string name="pawnMove">حرکت پیاده</string>
   <string name="capture">بزن</string>
   <string name="winning">بردن</string>
