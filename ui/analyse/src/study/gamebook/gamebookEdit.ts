@@ -58,7 +58,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
         hook: commentHook,
       }, [
         iconTag('c'),
-        h('p', 'Reflect on the player\'s correct move, with a comment; or leave empty to jump immediately to the next move.')
+        h('p', 'You may reflect on the player\'s correct move, with a comment; or leave empty to jump immediately to the next move.')
       ]),
       hasVariation ? null : h('div.legend.clickable', {
         hook: bind('click', () => control.prev(ctrl), ctrl.redraw)
