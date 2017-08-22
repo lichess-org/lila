@@ -75,10 +75,10 @@ description = shorten(q.body.replace("\n", ""), 152).body).some) {
         <textarea class="answer-body" name="@form("body").name">@form("body").value</textarea>
         @errMsg(form("body"))
         @base.captcha(form("move"), form("gameId"), captcha)
-        @if(isGranted(_.PublicMod)){
-          <div class="submit"><input type="checkbox" name="modIcon" value="true" /> Show moderator icon next to my name</div>
-        }
         <button class="pure submit button" type="submit">Post your answer</button>
+        @if(isGranted(_.PublicMod)){
+          <button class="pure button" type="submit" data-icon="" name="modIcon" value="true"> Answer as mod</button>
+        }
       </form>
     </div>
     }
