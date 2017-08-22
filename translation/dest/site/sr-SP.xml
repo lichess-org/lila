@@ -190,7 +190,7 @@
   <string name="cancel">Откажи</string>
   <string name="timeOut">Истекло време</string>
   <string name="drawOfferSent">Захтев за реми је послат</string>
-  <string name="drawOfferDeclined">Захтев за реми је одбијен</string>
+  <string name="drawOfferDeclined">Предлог за реми је одбијен</string>
   <string name="drawOfferAccepted">Предлог за реми је прихваћен</string>
   <string name="drawOfferCanceled">Предлог за реми је повучен</string>
   <string name="whiteOffersDraw">Бели нуди реми</string>
@@ -202,7 +202,7 @@
   <string name="decline">Одбиј</string>
   <string name="playingRightNow">Управо игра</string>
   <string name="finished">Завршен</string>
-  <string name="abortGame">Прекини партију</string>
+  <string name="abortGame">Прекините партију</string>
   <string name="gameAborted">Партија прекинута</string>
   <string name="standard">Стандардно</string>
   <string name="unlimited">Неограничено</string>
