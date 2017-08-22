@@ -24,8 +24,12 @@ function renderEval(e): VNode {
   return h('eval', e);
 }
 
+export function renderIndexText(ply: Ply, withDots?: boolean): string {
+  return plyToTurn(ply) + (withDots ? (ply % 2 === 1 ? '.' : '...') : '');
+}
+
 export function renderIndex(ply: Ply, withDots?: boolean): VNode {
-  return h('index', plyToTurn(ply) + (withDots ? (ply % 2 === 1 ? '.' : '...') : ''));
+  return h('index', renderIndexText(ply, withDots));
 }
 
 export function renderMove(ctx: Ctx, node: Tree.Node): VNode[] {

@@ -16,17 +16,17 @@ function renderNode(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes {
   const path = opts.parentPath + node.id,
   c = ctx.ctrl;
   return [
-    node.ply & 1 ? moveView.renderIndex(node.ply, false) : null,
     h('move', {
       attrs: { p: path },
       class: nodeClasses(c, path)
     }, [
-      ...moveView.renderMove(ctx, node),
-      ...(renderChildrenOf(ctx, node, {
-        parentPath: path,
-        isMainline: true
-      }) || [])
-    ])
+      node.ply & 1 ? moveView.renderIndexText(node.ply, false) + ' ' : null,
+      ...moveView.renderMove(ctx, node)
+    ]),
+    ...(renderChildrenOf(ctx, node, {
+      parentPath: path,
+      isMainline: true
+    }) || [])
   ];
 }
 

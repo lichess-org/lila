@@ -979,6 +979,7 @@ body.dark .practice_box .comment {
   margin-left: 0;
 }
 .lichess_ground .areplay {
+  background: #fff;
   border: 1px solid #ccc;
   flex: 2 1 0px;
   position: relative; /* for autoscroll */
@@ -1195,24 +1196,42 @@ body.dark .aclock.active {
 }
 
 .tview2 {
-  display: flex;
-  flex-flow: row wrap;
-  background: #fff;
   font-size: 13.5px;
   white-space: normal;
   line-height: 1.25;
 }
+.tview2.column {
+  display: flex;
+  flex-flow: row wrap;
+}
+.tview2.literal {
+  padding: 8px 5px;
+}
 .tview2 move {
   font-family: 'ChessSansPiratf', sans-serif;
-  font-size: 1.092em;
   white-space: nowrap;
   overflow: hidden;
   display: inline-block;
-  padding: 0 2px;
   cursor: pointer;
 }
 body.piece_letter .tview2 move {
   font-family: 'Noto Sans';
+}
+.tview2.column move {
+  font-size: 1.092em;
+  padding: 0 2px;
+}
+.tview2.literal move {
+  padding-left: 7px;
+  padding-right: 3px;
+  white-space: nowrap;
+  vertical-align: center;
+  background: #aaa;
+}
+.tview2.literal move san {
+  font-size: 1.185em;
+  line-height: 1.75em;
+  /* font-weight: bold; */
 }
 .tview2 move.parent {
   color: #3893e8!important;
@@ -1242,16 +1261,21 @@ body.piece_letter .tview2 move {
 }
 .tview2 move index {
   font-size: 90%;
-  padding-left: 5px;
   color: #999;
 }
-.tview2 move index:first-child {
+.tview2.column move index {
+  padding-left: 5px;
+}
+.tview2.column move index:first-child {
   padding-left: 0;
+}
+.tview2.literal move index {
+  padding-right: 5px;
 }
 .tview2 line move {
   color: #606060;
 }
-.tview2 > move {
+.tview2.column > move {
   flex: 0 0 43.5%;
   max-width: 43.5%; /* required by IE 11 https://github.com/philipwalton/flexbugs/issues/3 */
   display: flex;
@@ -1261,7 +1285,7 @@ body.piece_letter .tview2 move {
   padding-left: 7px;
   padding-right: 3px;
 }
-.tview2 > index + move {
+.tview2.column > index + move {
   border-right: 1px solid #ddd;
 }
 .tview2 eval {
@@ -1283,7 +1307,7 @@ body.piece_letter .tview2 move {
 .tview2 > move glyph:first-child {
   margin-left: 3px;
 }
-.tview2 > index {
+.tview2.column > index {
   flex: 0 0 13%;
   max-width: 13%; /* required by IE 11 https://github.com/philipwalton/flexbugs/issues/3 */
   display: flex;
