@@ -4,10 +4,10 @@
   <string name="playWithAFriend">Играј са пријатељем</string>
   <string name="playWithTheMachine">Играј против рачунара</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Да позовеш некога да игра, проследи овaј УРЛ</string>
-  <string name="gameOver">Крај игре</string>
+  <string name="gameOver">Крај партије</string>
   <string name="waitingForOpponent">Чека се противник</string>
   <string name="waiting">Чекање</string>
-  <string name="yourTurn">Твој потез</string>
+  <string name="yourTurn">Ваш потез</string>
   <string name="aiNameLevelAiLevel">%1$s ниво %2$s</string>
   <string name="level">Ниво</string>
   <string name="toggleTheChat">Укључи/искључи ћаскање</string>
