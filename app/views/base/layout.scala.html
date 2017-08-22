@@ -41,6 +41,9 @@ asyncJs: Boolean = false)(body: Html)(implicit ctx: Context)
     @ctx.zoom.map { z =>
     @zoomStyle(z / 100f, ctx.pref.is3d) }
     }
+    @if(playing && ctx.pref.isZen) {
+    @cssTag("zen.css")
+    }
     @if(ctx.pref.is3d) { @cssTag("board-3d.css") }
     @if(ctx.pref.coords == 1) { @cssTag("board.coords.inner.css") }
     @if(ctx.pageData.inquiry.isDefined) { @cssTag("inquiry.css") }
