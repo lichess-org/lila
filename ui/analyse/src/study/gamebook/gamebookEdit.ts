@@ -36,10 +36,17 @@ export function render(ctrl: AnalyseCtrl): VNode {
       ]),
       renderHint(ctrl)
     ];
-    else  content = [
-      h('div.legend.todo', { class: { done: isCommented } },
-        'Introduce the gamebook with a comment, and put the opponent\'s first move on the board.'
-      )
+    else content = [
+      h('div.legend.clickable', {
+        hook: commentHook
+      }, [
+        iconTag('c'),
+        h('p', 'Introduce the gamebook with a comment')
+      ]),
+      h('div.legend.todo', { class: { done: !!ctrl.node.children[0] }}, [
+        iconTag('G'),
+        h('p', 'Put the opponent\'s first move on the board.')
+      ])
     ];
   }
   else if (ctrl.onMainline) {
