@@ -277,9 +277,19 @@
     <item quantity="other">≥ %1$s %2%s βαθμολογημένα παιχνίδια</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Θα πρέπει να παίξετε %1$s επιπλέον %2$s βαθμολογημένο παιχνίδι</item>
-    <item quantity="other">Θα πρέπει να παίξετε %1$s επιπλέον %2$s βαθμολογημένα παιχνίδια</item>
+    <item quantity="one">Πρέπει να παίξετε %1$s επιπλέον %2$s βαθμολογημένο παιχνίδι</item>
+    <item quantity="other">Πρέπει να παίξετε %1$s επιπλέον %2$s βαθμολογημένα παιχνίδια</item>
   </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Πρέπει να παίξετε %s βαθμολογημένο παιχνίδι</item>
+    <item quantity="other">Πρέπει να παίξετε %s βαθμολογημένα παιχνίδια</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Η %s βαθμολογία σας είναι προσωρινή</string>
+  <string name="yourPerfRatingIsTooHigh">Η %1$s βαθμολογία σας (%2$s) είναι πολύ υψηλή</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Η κορυφαία εβδομαδιαία %1$s βαθμολογία σας (%2$s) είναι πολύ υψηλή</string>
+  <string name="yourPerfRatingIsTooLow">Η %1$s βαθμολογία σας (%2$s) είναι πολύ χαμηλή</string>
+  <string name="ratedMoreThanInPerf">Βαθμολογημένο ≥ %1$s από %2$s</string>
+  <string name="ratedLessThanInPerf">Βαθμολογημένο ≤ %1$s από %2$s</string>
   <string name="backToGame">Επιστρέψτε στο παιχνίδι</string>
   <string name="siteDescription">Δωρεάν διαδικτυακό παιχνίδι Σκακιού. Παίξτε Σκάκι τώρα σε καθαρό γραφικό περιβάλλον. Χωρίς εγγραφές, χωρίς διαφημίσεις, χωρίς πρόσθετα. Παίξτε Σκάκι με τον υπολογιστή, με φίλους ή με τυχαίους αντιπάλους.</string>
   <string name="teams">Ομάδες</string>
