@@ -22,7 +22,7 @@
   <string name="createAGame">Создать игру</string>
   <string name="whiteIsVictorious">Победа белых</string>
   <string name="blackIsVictorious">Победа чёрных</string>
-  <string name="kingInTheCenter">Король в центре</string>
+  <string name="kingInTheCenter">Король достиг центра</string>
   <string name="threeChecks">Три шаха</string>
   <string name="raceFinished">Гонка окончена</string>
   <string name="variantEnding">Вариация завершена</string>
@@ -31,7 +31,7 @@
   <string name="joinTheGame">Присоединиться</string>
   <string name="whitePlays">Ход белых</string>
   <string name="blackPlays">Ход чёрных</string>
-  <string name="opponentLeftChoices">Ваш соперник покинул игру. Вы можете запросить победу, объявить ничью или подождать.</string>
+  <string name="opponentLeftChoices">Вероятно, ваш соперник покинул игру. Вы можете запросить победу, объявить ничью или подождать.</string>
   <string name="makeYourOpponentResign">Сопернику будет засчитано техническое поражение</string>
   <string name="forceResignation">Запросить победу</string>
   <string name="forceDraw">Объявить ничью</string>
@@ -283,6 +283,22 @@
   <string name="viewTournament">Просмотр турнира</string>
   <string name="backToTournament">Обратно в турнир</string>
   <string name="thematic">Тематический</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">%s рейтинговая игра</item>
+    <item quantity="few">%s рейтинговые игры</item>
+    <item quantity="other">%s рейтинговых игр</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2%s рейтинговая игра</item>
+    <item quantity="few">≥ %1$s %2%s рейтинговые игры</item>
+    <item quantity="other">≥ %1$s %2%s рейтинговых игр</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Вы должны сыграть еще %1$s рейтинговую игру в %2$s</item>
+    <item quantity="few">Вы должны сыграть еще %1$s рейтинговые игры в %2$s</item>
+    <item quantity="other">Вы должны сыграть еще %1$s рейтинговых игр в %2$s</item>
+  </plurals>
+  <string name="yourPerfRatingIsTooHigh">Ваш рейтинг в %1$s (%2$s) слишком высок</string>
   <string name="backToGame">Возврат к игре</string>
   <string name="siteDescription">Бесплатные онлайн-шахматы. Играйте в шахматы прямо сейчас в простом интерфейсе без рекламы. Не требует регистрации и скачивания программы. Играйте в шахматы с компьютером, друзьями или случайными соперниками.</string>
   <string name="teams">Команды</string>

@@ -90,7 +90,7 @@
   <string name="allSet">Εφαρμογή!</string>
   <string name="importPgn">Εισαγωγή PGN</string>
   <string name="delete">Διαγραφή</string>
-  <string name="deleteThisImportedGame">Διαγραφή εισηγμένης παρτίδας;</string>
+  <string name="deleteThisImportedGame">Διαγραφή εισαγόμενης παρτίδας;</string>
   <string name="replayMode">Λειτουργία επανάληψης αναπαραγωγής</string>
   <string name="realtimeReplay">Σε πραγματικό χρόνο</string>
   <string name="byCPL">Με CPL</string>
@@ -268,6 +268,28 @@
   <string name="viewTournament">Παρακολούθηση πρωταθλήματος</string>
   <string name="backToTournament">Επιστροφή στο πρωτάθλημα</string>
   <string name="thematic">Θεματικό</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s βαθμολογημένο παιχνίδι</item>
+    <item quantity="other">≥ %s βαθμολογημένα παιχνίδια</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2%s βαθμολογημένο παιχνίδι</item>
+    <item quantity="other">≥ %1$s %2%s βαθμολογημένα παιχνίδια</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Πρέπει να παίξετε %1$s επιπλέον %2$s βαθμολογημένο παιχνίδι</item>
+    <item quantity="other">Πρέπει να παίξετε %1$s επιπλέον %2$s βαθμολογημένα παιχνίδια</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Πρέπει να παίξετε %s βαθμολογημένο παιχνίδι</item>
+    <item quantity="other">Πρέπει να παίξετε %s βαθμολογημένα παιχνίδια</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Η %s βαθμολογία σας είναι προσωρινή</string>
+  <string name="yourPerfRatingIsTooHigh">Η %1$s βαθμολογία σας (%2$s) είναι πολύ υψηλή</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Η κορυφαία εβδομαδιαία %1$s βαθμολογία σας (%2$s) είναι πολύ υψηλή</string>
+  <string name="yourPerfRatingIsTooLow">Η %1$s βαθμολογία σας (%2$s) είναι πολύ χαμηλή</string>
+  <string name="ratedMoreThanInPerf">Βαθμολογημένο ≥ %1$s από %2$s</string>
+  <string name="ratedLessThanInPerf">Βαθμολογημένο ≤ %1$s από %2$s</string>
   <string name="backToGame">Επιστρέψτε στο παιχνίδι</string>
   <string name="siteDescription">Δωρεάν διαδικτυακό παιχνίδι Σκακιού. Παίξτε Σκάκι τώρα σε καθαρό γραφικό περιβάλλον. Χωρίς εγγραφές, χωρίς διαφημίσεις, χωρίς πρόσθετα. Παίξτε Σκάκι με τον υπολογιστή, με φίλους ή με τυχαίους αντιπάλους.</string>
   <string name="teams">Ομάδες</string>
@@ -365,7 +387,7 @@
   <string name="winRate">Ποσοστό νικών</string>
   <string name="berserkRate">Ποσοστό μπερσερκ</string>
   <string name="performance">Επίδοση</string>
-  <string name="tournamentComplete">Το τουρνουά ολοκληρώθηκε</string>
+  <string name="tournamentComplete">Το πρωτάθλημα ολοκληρώθηκε</string>
   <string name="movesPlayed">Κινήσεις που παίχτηκαν</string>
   <string name="whiteWins">Τα άσπρα νικούν</string>
   <string name="blackWins">Τα μαύρα νικούν</string>
@@ -430,8 +452,8 @@
   <string name="thisPuzzleIsCorrect">Ο γρίφος είναι σωστός και ενδιαφέρων</string>
   <string name="thisPuzzleIsWrong">Ο γρίφος είναι λανθασμένος ή βαρετός</string>
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Έχετε %s δευτερόλεπτα για να κάνετε την πρώτη σας κίνηση!</item>
-    <item quantity="other">Έχετε %s δευτερόλεπτα για να κάνετε τη πρώτη σας κίνηση!</item>
+    <item quantity="one">Έχετε %s δευτερόλεπτο για να κάνετε την πρώτη σας κίνηση!</item>
+    <item quantity="other">Έχετε %s δευτερόλεπτα για να κάνετε την πρώτη σας κίνηση!</item>
   </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s παιχνίδι παίζεται τώρα</item>
@@ -441,7 +463,7 @@
   <string name="autoSwitch">Αυτόματη εναλλαγή</string>
   <string name="puzzles">Γρίφοι</string>
   <string name="latestUpdates">Τελευταίες ενημερώσεις</string>
-  <string name="tournamentWinners">Νικητές τουρνουά</string>
+  <string name="tournamentWinners">Νικητές πρωταθλημάτων</string>
   <string name="name">Ονομασία</string>
   <string name="description">Περιγραφή</string>
   <string name="no">Όχι</string>
@@ -482,7 +504,7 @@
   <string name="closeAccountExplanation">Είστε σίγουροι ότι θέλετε να κλείσετε το λογαριασμό σας; Το κλείσιμο του λογαριασμού σας είναι μια μόνιμη απόφαση. Δε θα μπορείτε πλέον να συνδεθείτε, και η σελίδα του προφίλ σας δε θα είναι πια προσβάσιμη.</string>
   <string name="thisAccountIsClosed">Αυτός ο λογαριασμός έχει κλείσει.</string>
   <string name="invalidUsernameOrPassword">Άκυρο όνομα χρήστη ή κωδικός</string>
-  <string name="incorrectPassword">Λάθος κωδικός</string>
+  <string name="incorrectPassword">Εσφαλμένος κωδικός</string>
   <string name="emailMeALink">Στείλτε μου σύνδεσμο μέσω ηλ. ταχυδρομείου</string>
   <string name="currentPassword">Κωδικός σε ισχύ</string>
   <string name="newPassword">Νέος κωδικός</string>
@@ -602,7 +624,7 @@
   <string name="internationalEvents">Διεθνείς εκδηλώσεις</string>
   <string name="videoLibrary">Βιβλιοθήκη τηλεοπτικού υλικού</string>
   <string name="mobileApp">Εφαρμογή για Κινητά</string>
-  <string name="webmasters">Διαχειριστές</string>
+  <string name="webmasters">Διαχειριστές ιστοχώρου</string>
   <string name="contribute">Συνεισφέρετε</string>
   <string name="contact">Επικοινωνία</string>
   <string name="termsOfService">Όροι χρήσης</string>
@@ -635,7 +657,7 @@
   <string name="keyMoveBackwardOrForward">μετακίνηση προς τα πίσω / προς τα εμπρός</string>
   <string name="keyGoToStartOrEnd">πηγαίνετε στην έναρξη / λήξη</string>
   <string name="keyShowOrHideComments">εμφάνιση / απόκρυψη σχολίων</string>
-  <string name="keyEnterOrExitVariation">είσοδος / έξοδος βαριάντας</string>
+  <string name="keyEnterOrExitVariation">είσοδος / έξοδος εκδοχής</string>
   <string name="newTournament">Νέο πρωτάθλημα</string>
   <string name="tournamentHomeTitle">Σκακιστικό πρωτάθλημα διαφόρων χρόνων και εκδοχών</string>
   <string name="tournamentHomeDescription">Παίξτε στιγμιαία πρωταθλήματα. Συμμετάσχετε σε ένα επίσημο πρωτάθλημα ή δημιουργήστε δικά σας. Υπερταχέα, Ταχέα, Κλασσικά, 960, Βασιλιάς στο κέντρο, Τρία σαχ και πολλές άλλες επιλογές για ατελείωτη διασκέδαση.</string>
@@ -667,19 +689,19 @@
   <string name="crosstable">Αποτελέσματα</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Μπορείτε επίσης να κινήσετε πάνω στην σκακιέρα για να μετακινηθείτε στο παιχνίδι.</string>
   <string name="analysisShapesHowTo">Πατήστε Shift + κλικ ή δεξί κλικ για να σχεδιάσετε κύκλους και βέλη στην σκακιέρα.</string>
-  <string name="confirmResignationAndDrawOffers">Επιβεβαίωση εγκατάλειψης και πρότασης ισοπαλίας</string>
+  <string name="confirmResignationAndDrawOffers">Επιβεβαίωση παραίτησης και προσφοράς ισοπαλίας</string>
   <string name="inputMovesWithTheKeyboard">Εισάγετε κινήσεις με το πληκτρολόγιο</string>
   <string name="letOtherPlayersMessageYou">Επιτρέψτε άλλους παίκτες να σας στέλνουν μηνύματα</string>
-  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Ροκέ μετακινώντας το βασιλιά δύο τετράγωνα, ή πάνω στον πύργο</string>
-  <string name="castleByMovingTwoSquares">Ροκέ μετακινώντας τον βασιλιά δύο τετράγωνα</string>
-  <string name="castleByMovingOntoTheRook">Ροκέ μετακινώντας τον βασιλιά πάνω στον πύργο</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Μέθοδος ροκέ</string>
+  <string name="castleByMovingTwoSquares">Μετακίνηση βασιλιά ανά δύο τετράγωνα</string>
+  <string name="castleByMovingOntoTheRook">Μετακίνηση βασιλιά πάνω στον πύργο</string>
   <string name="shareYourInsightsData">Κοινή χρήση των δεδομένων σας</string>
   <string name="withNobody">Με κανέναν</string>
   <string name="withFriends">Με φίλους</string>
   <string name="withEverybody">Με όλους</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Έχετε ήδη εγγραφεί με το ηλ.ταχυδρομείο: %s</string>
   <string name="kidMode">Λειτουργία παιδιού</string>
-  <string name="kidModeExplanation">Αυτό έχει σχέση με την ασφάλεια. Στην λειτουργία \"παιδιού\", απενεργοποιούνται όλες οι επικοινωνίες της ιστοσελίδας. Ενεργοποιήστε το για τα παιδιά σας και τους μαθητές για την προστασία τους από άλλους διαδικτυακούς χρήστες.</string>
+  <string name="kidModeExplanation">Αυτό έχει σχέση με την ασφάλεια. Στην λειτουργία για παιδιού, απενεργοποιούνται όλες οι επικοινωνίες της ιστοσελίδας. Ενεργοποιήστε το για τα παιδιά σας και τους σχολικούς μαθητές, για την προστασία τους από άλλους διαδικτυακούς χρήστες.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Στην λειτουργία παιδιού, το λογότυπο του lichess παίρνει ένα εικονίδιο %s, έτσι ώστε να γνωρίζετε ότι τα παιδιά σας είναι ασφαλή.</string>
   <string name="enableKidMode">Ενεργοποίηση λειτουργίας παιδιού</string>
   <string name="disableKidMode">Απενεργοποίηση λειτουργίας παιδιού</string>
@@ -691,7 +713,7 @@
   <string name="asFreeAsLichess">Δωρεάν</string>
   <string name="builtForTheLoveOfChessNotMoney">Φτιαγμένο από αγάπη για το σκάκι, όχι για τα χρήματα</string>
   <string name="everybodyGetsAllFeaturesForFree">Όλα τα στοιχεία είναι δωρεάν για όλους</string>
-  <string name="zeroAdvertisement">Μηδέν διαφήμιση</string>
+  <string name="zeroAdvertisement">Χωρίς διαφημίσεις</string>
   <string name="fullFeatured">Πλήρη χαρακτηριστικά</string>
   <string name="phoneAndTablet">Τηλέφωνο και τάμπλετ</string>
   <string name="bulletBlitzClassical">Υπερταχέα, ταχέα, κλασσικά</string>
@@ -723,13 +745,13 @@
   <string name="boardSize">Μέγεθος σκακιέρας</string>
   <string name="pieceSet">Επιλογή κομματιού</string>
   <string name="embedInYourWebsite">Ενσωματώστε στην ιστοσελίδα σας</string>
-  <string name="usernameAlreadyUsed">Αυτό το όνομα χρήστη είναι ήδη σε χρήση, παρακαλώ δοκιμάστε ένα άλλο.</string>
+  <string name="usernameAlreadyUsed">Αυτό το όνομα χρήστη ήδη χρησιμοποιείται, παρακαλώ δοκιμάστε ένα άλλο.</string>
   <string name="usernameInvalid">Μη έγκυρο όνομα χρήστη. Παρακαλούμε χρησιμοποιήστε μόνο γράμματα, αριθμούς, χαρακτήρα υπογράμμισης και παύλα.</string>
   <string name="usernameStartNoNumber">Το όνομα χρήστη δεν πρέπει να ξεκινάει με αριθμό.</string>
   <string name="usernameUnacceptable">Αυτό το όνομα χρήστη δεν είναι αποδεκτό.</string>
   <string name="directlySupportLichess">Υποστηρίξτε άμεσα το Lichess</string>
   <string name="playChessInStyle">Παίξτε σκάκι με στυλ</string>
-  <string name="chessBasics">Βασικά σκακιού</string>
+  <string name="chessBasics">Βασικά στοιχεία</string>
   <string name="coaches">Προπονητές</string>
   <string name="invalidPgn">Μη έγκυρο PGN</string>
   <string name="invalidFen">Μη έγκυρο FEN</string>
