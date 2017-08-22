@@ -1,6 +1,7 @@
 import AnalyseCtrl from '../../ctrl';
 import { path as treePath, ops as treeOps } from 'tree';
 import Mascot from './mascot';
+import { makeShapesFromUci } from '../../autoShape';
 
 type Feedback = 'play' | 'good' | 'bad' | 'end';
 
@@ -9,6 +10,7 @@ export interface State {
   comment?: string;
   hint?: string;
   showHint: boolean;
+  showSolution: boolean;
 }
 
 export default class GamebookPlayCtrl {
@@ -32,7 +34,9 @@ export default class GamebookPlayCtrl {
     const node = this.root.node,
     nodeComment = (node.comments || [])[0],
     state: Partial<State> = {
-      comment: nodeComment ? nodeComment.text : undefined
+      comment: nodeComment ? nodeComment.text : undefined,
+      showHint: false,
+      showSolution: false
     },
     parPath = treePath.init(this.root.path),
     parNode = this.root.tree.nodeAtPath(parPath);
@@ -77,7 +81,16 @@ export default class GamebookPlayCtrl {
     if (this.state.hint) this.state.showHint = !this.state.showHint;
   }
 
-  solution = () => this.next(true);
+  solution = () => {
+    this.state.showSolution = !this.state.showSolution;
+    const node = this.root.node;
+    if (this.state.showSolution) {
+      node.shapes = makeShapesFromUci(this.root.turnColor(), node.children[0].uci, 'green');
+    } else {
+      node.shapes = (node.gamebook!.shapes || []).slice(0);
+    }
+    this.root.jump(this.root.path);
+  }
 
   canJumpTo = (path: Tree.Path) => treePath.contains(this.root.path, path);
 

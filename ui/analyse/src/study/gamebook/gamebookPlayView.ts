@@ -2,16 +2,13 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { Hooks } from 'snabbdom/hooks'
 import GamebookPlayCtrl from './gamebookPlayCtrl';
-// import AnalyseCtrl from '../../ctrl';
 import { bind, dataIcon, enrichText, innerHTML } from '../../util';
 import { State } from './gamebookPlayCtrl';
-// import { MaybeVNodes } from '../../interfaces';
-// import { throttle } from 'common';
 
 const defaultComments = {
   play: 'What would you play in this position?',
   bad: 'That\'s not the right move',
-  end: 'And that is all she wrote.'
+  end: 'Congratulations! You completed this gamebook.'
 };
 
 export function render(ctrl: GamebookPlayCtrl): VNode {
