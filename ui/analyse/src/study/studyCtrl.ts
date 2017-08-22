@@ -13,7 +13,7 @@ import { ctrl as tagsCtrl } from './studyTags';
 import * as tours from './studyTour';
 import * as xhr from './studyXhr';
 import { path as treePath } from 'tree';
-import { StudyCtrl, StudyVm, Tab, TagTypes, StudyData, StudyChapterMeta, ReloadData, GamebookOverride } from './interfaces';
+import { StudyCtrl, StudyVm, Tab, TagTypes, StudyData, StudyChapterMeta, ReloadData } from './interfaces';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { ChapterDescriptionCtrl } from './chapterDescription';
 
@@ -40,9 +40,11 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
         sticky: sticked,
         write: true
       },
-      behind: 0, // how many events missed because sync=off
-        updatedAt: Date.now() - data.secondsSinceUpdate * 1000, // how stale is the study
-        gamebookOverride: undefined
+      // how many events missed because sync=off
+      behind: 0,
+      // how stale is the study
+      updatedAt: Date.now() - data.secondsSinceUpdate * 1000,
+      gamebookOverride: undefined
     };
   })();
 
@@ -334,7 +336,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       for (let i in chapters)
       if (chapters[i].id === currentId) return chapters[parseInt(i) + 1];
     },
-    setGamebookOverride(o: GamebookOverride) {
+    setGamebookOverride(o) {
       vm.gamebookOverride = o;
       instanciateGamebookPlay();
       vm.mode.write = o !== 'play';

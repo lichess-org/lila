@@ -2,8 +2,9 @@ import { Prop } from 'common';
 import { NotifCtrl } from './notif';
 import { AnalyseData } from '../interfaces';
 import { StudyPracticeCtrl } from './practice/interfaces';
-import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { ChapterDescriptionCtrl } from './chapterDescription';
+import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
+import { GamebookOverride } from './gamebook/interfaces';
 
 export interface StudyCtrl {
   data: StudyData;
@@ -60,8 +61,6 @@ export interface StudyVm {
   updatedAt: number;
   gamebookOverride: GamebookOverride;
 }
-
-export type GamebookOverride = undefined | 'edit' | 'play' | 'analyse';
 
 export interface StudyData {
   id: string;

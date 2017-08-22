@@ -2,7 +2,7 @@ import { h } from 'snabbdom'
 import { Hooks } from 'snabbdom/hooks'
 import { VNode } from 'snabbdom/vnode'
 import AnalyseCtrl from '../../ctrl';
-import { bind } from '../../util';
+import { bind, iconTag } from '../../util';
 import { MaybeVNodes } from '../../interfaces';
 import { throttle } from 'common';
 
@@ -19,60 +19,63 @@ export function render(ctrl: AnalyseCtrl): VNode {
 
   let content: MaybeVNodes;
 
-  function commentButton(text: string = 'comment') {
-    return h('a.button.thin', {
-      hook: bind('click', () => {
-        study.commentForm.open(study.vm.chapterId, ctrl.path, ctrl.node);
-      }, ctrl.redraw),
-    }, text);
-  }
+  const commentHook: Hooks = bind('click', () => {
+    study.commentForm.open(study.vm.chapterId, ctrl.path, ctrl.node);
+  }, ctrl.redraw);
 
   if (!ctrl.path) {
     if (isMyMove) content = [
-      h('div.legend.todo', { class: { done: isCommented } }, [
-        'Help the player find the initial move, with a ',
-        commentButton(),
-        '.'
+      h('div.legend.todo.clickable', {
+        hook: commentHook,
+        class: { done: isCommented }
+      }, [
+        iconTag('c'),
+        h('p', 'Help the player find the initial move, with a comment.')
       ]),
       renderHint(ctrl)
     ];
     else  content = [
-      h('div.legend.todo', { class: { done: isCommented } }, [
-        'Introduce the gamebook with a ',
-        commentButton(),
-        ', and put the opponent\'s first move on the board.'
-      ])
+      h('div.legend.todo', { class: { done: isCommented } },
+        'Introduce the gamebook with a comment, and put the opponent\'s first move on the board.'
+      )
     ];
   }
   else if (ctrl.onMainline) {
     if (isMyMove) content = [
-      h('div.legend.todo', { class: { done: isCommented } }, [
-        'Comment the opponent move, and help the player find the next move, with a ',
-        commentButton(),
-        '.'
+      h('div.legend.todo.clickable', {
+        hook: commentHook,
+        class: { done: isCommented }
+      }, [
+        iconTag('c'),
+        h('p', 'Explain the opponent move, and help the player find the next move, with a comment.')
       ]),
       renderHint(ctrl)
     ];
     else content = [
-      h('div.legend', [
-        'Reflect on the player\'s correct move, with a ',
-        commentButton(),
-        '; or leave empty to jump immediately to the next move.'
+      h('div.legend.clickable', {
+        hook: commentHook,
+      }, [
+        iconTag('c'),
+        h('p', 'Reflect on the player\'s correct move, with a comment; or leave empty to jump immediately to the next move.')
       ]),
-      hasVariation ? null : h('div.legend', {
-        attrs: { 'data-icon': '' }
-      }, 'Add variation moves to explain why specific other moves are wrong.'),
+      hasVariation ? null : h('div.legend', [
+        iconTag('G'),
+        h('p', 'Add variation moves to explain why specific other moves are wrong.')
+      ]),
       renderDeviation(ctrl)
     ];
   }
   else content = [
-    h('div.legend.todo', { class: { done: isCommented } }, [
-      'Explain why this move is wrong in a ',
-      commentButton(),
-      '.'
+    h('div.legend.todo.clickable', {
+      hook: commentHook,
+      class: { done: isCommented }
+    }, [
+      iconTag('c'),
+      h('p', 'Explain why this move is wrong in a comment')
     ]),
-    h('div.legend',
-      'Or promote it as the mainline if it is the right move.')
+    h('div.legend', [
+      h('p', 'Or promote it as the mainline if it is the right move.')
+    ])
   ];
 
   return h('div.gamebook_wrap', {
@@ -84,11 +87,12 @@ export function render(ctrl: AnalyseCtrl): VNode {
 
 function renderDeviation(ctrl: AnalyseCtrl): VNode {
   const field = 'deviation';
-  return h('div.deviation.todo', { class: { done: nodeGamebookValue(ctrl.node, field).length > 2 } }, [
-    h('label', {
-      attrs: { for: 'gamebook-deviation' }
-    }, 'When any other wrong move is played:'),
-    h('textarea#gamebook-deviation', {
+  return h('div.deviation', [
+    h('div.legend.todo', { class: { done: nodeGamebookValue(ctrl.node, field).length > 2 } }, [
+      iconTag('c'),
+      h('p', 'When any other wrong move is played:')
+    ]),
+    h('textarea', {
       attrs: { placeholder: 'Explain why all other moves are wrong' },
       hook: textareaHook(ctrl, field)
     })
@@ -98,10 +102,11 @@ function renderDeviation(ctrl: AnalyseCtrl): VNode {
 function renderHint(ctrl: AnalyseCtrl): VNode {
   const field = 'hint';
   return h('div.hint', [
-    h('label', {
-      attrs: { for: 'gamebook-hint' }
-    }, 'Optional, on-demand hint for the player:'),
-    h('textarea#gamebook-hint', {
+    h('div.legend', [
+      iconTag(''),
+      h('p', 'Optional, on-demand hint for the player:')
+    ]),
+    h('textarea', {
       attrs: { placeholder: 'Give the player a tip so they can find the right move' },
       hook: textareaHook(ctrl, field)
     })
