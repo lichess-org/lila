@@ -1,6 +1,7 @@
 import { h, thunk } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { throttle } from 'common';
+import { option } from '../util';
 import AnalyseCtrl from '../ctrl';
 import { StudyCtrl, StudyChapter } from './interfaces';
 
@@ -59,10 +60,8 @@ function renderPgnTags(chapter: StudyChapter, submit, types: string[]): VNode {
         }
       }, [
         h('option', 'New tag'),
-        ...types.map(function(t) {
-          if (!window.lichess.fp.contains(existingTypes, t)) return h('option', {
-            attrs: { value: t }
-          }, t);
+        ...types.map(t => {
+          if (!window.lichess.fp.contains(existingTypes, t)) return option(t, '', t);
         })
       ]),
       editable('', (value, el) => {

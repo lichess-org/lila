@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { prop } from 'common';
-import { bind, bindSubmit, spinner } from '../util';
+import { bind, bindSubmit, spinner, option } from '../util';
 import * as dialog from './dialog';
 import * as chapterForm from './chapterNewForm';
 import { StudyChapterMeta } from './interfaces';
@@ -103,12 +103,7 @@ export function view(ctrl): VNode | undefined {
           h('div.form-group.little-margin-bottom', [
             h('select#chapter-orientation', ['White', 'Black'].map(function(color) {
               const v = color.toLowerCase();
-              return h('option', {
-                attrs: {
-                  value: v,
-                  selected: v == data.orientation
-                }
-              }, color)
+              return option(v, data.orientation, color);
             })),
             h('label.control-label', {
               attrs: { for: 'chapter-orientation' }
@@ -117,12 +112,7 @@ export function view(ctrl): VNode | undefined {
           ]),
           h('div.form-group.little-margin-bottom', [
             h('select#chapter-mode', chapterForm.modeChoices.map(c => {
-              return h('option', {
-                attrs: {
-                  value: c[0],
-                  selected: c[0] === mode
-                },
-              }, c[1])
+              return option(c[0], mode, c[1]);
             })),
             h('label.control-label', {
               attrs: { for: 'chapter-mode' }

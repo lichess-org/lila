@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { prop, storedProp, Prop } from 'common';
-import { bind, bindSubmit, spinner } from '../util';
+import { bind, bindSubmit, spinner, option } from '../util';
 import { variants as xhrVariants } from './studyXhr';
 import * as dialog from './dialog';
 import { chapter as chapterTour } from './studyTour';
@@ -247,12 +247,7 @@ export function view(ctrl): VNode {
             }, gameOrPgn ? [
               h('option', 'Automatic')
             ] :
-            ctrl.vm.variants.map(v => h('option', {
-              attrs: {
-                value: v.key,
-                selected: v.key === currentChapterSetup.variant.key
-              }
-            }, v.name))),
+            ctrl.vm.variants.map(v => option(v.key, currentChapterSetup.variant.key, v.name))),
             h('label.control-label', {
               attrs: { 'for': 'chapter-variant' }
             }, 'Variant'),
@@ -265,12 +260,7 @@ export function view(ctrl): VNode {
               })
             }, ['White', 'Black'].map(function(color) {
               const c = color.toLowerCase();
-              return h('option', {
-                attrs: {
-                  value: c,
-                  selected: c === currentChapterSetup.orientation
-                }
-              }, color)
+              return option(c, currentChapterSetup.orientation, color);
             })),
             h('label.control-label', {
               attrs: { 'for': 'chapter-orientation' }
@@ -279,9 +269,7 @@ export function view(ctrl): VNode {
           ])
         ]),
         h('div.form-group.little-margin-bottom', [
-          h('select#chapter-mode', modeChoices.map(c => h('option', {
-            attrs: { value: c[0] }
-          }, c[1]))),
+          h('select#chapter-mode', modeChoices.map(c => option(c[0], '', c[1]))),
           h('label.control-label', {
             attrs: { 'for': 'chapter-mode' }
           }, 'Analysis mode'),
@@ -298,14 +286,7 @@ export function descriptionGroup(desc?: string) {
     h('select#chapter-description', [
       ['', 'None'],
       ['1', 'Right under the board']
-    ].map(v => {
-      return h('option', {
-        attrs: {
-          value: v[0],
-          selected: !v[0] === !desc
-        }
-      }, v[1] as string)
-    })),
+    ].map(v => option(v[0], desc ? '1' : '', v[1]))),
     h('label.control-label', {
       attrs: { for: 'chapter-description' }
     }, descTitle),

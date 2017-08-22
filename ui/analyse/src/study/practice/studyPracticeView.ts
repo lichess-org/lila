@@ -1,6 +1,6 @@
 import { h, thunk } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { plural, bind, spinner, innerHTML, enrichText } from '../../util';
+import { plural, bind, spinner, innerHTML, enrichText, option } from '../../util';
 import { StudyCtrl } from '../interfaces';
 import { StudyPracticeData, StudyPracticeCtrl } from './interfaces';
 
@@ -17,9 +17,10 @@ function selector(data: StudyPracticeData) {
       return h('optgroup', {
         attrs: { label: section.name }
       }, section.studies.map(function(study) {
-        return h('option', {
-          attrs: { value: section.id + '/' + study.slug + '/' + study.id }
-        }, study.name);
+        return option(
+          section.id + '/' + study.slug + '/' + study.id,
+          '',
+          study.name);
       }));
     })
   ]);
@@ -67,7 +68,7 @@ export function underboard(ctrl: StudyCtrl): VNode {
    return h('div.feedback.ongoing', [
      h('div.goal', [renderGoal(p, p.goal().moves! - p.nbMoves())]),
      p.comment() ? h('div.comment', {
-        hook: innerHTML(p.comment(), text => enrichText(text!, true))
+       hook: innerHTML(p.comment(), text => enrichText(text!, true))
      }) : null
    ]);
   }

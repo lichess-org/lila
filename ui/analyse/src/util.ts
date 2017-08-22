@@ -120,3 +120,12 @@ export function autolink(str: string, callback: (str: string) => string): string
     return "" + space + callback(url);
   });
 }
+
+export function option(value: string, current: string | undefined, name: string) {
+  return h('option', {
+    attrs: {
+      value: value,
+      selected: value === current
+    },
+  }, name);
+}
