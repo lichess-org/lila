@@ -18,4 +18,9 @@
     <item quantity="few">Одиграо/ла %1$s %2$s игре</item>
     <item quantity="other">Одиграо/ла %1$s %2$s игара</item>
   </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="one">Поставили %1$s поруку у %2$s</item>
+    <item quantity="few">Поставили %1$s поруке у %2$s</item>
+    <item quantity="other">Поставили %1$s порука у %2$s</item>
+  </plurals>
 </resources>
