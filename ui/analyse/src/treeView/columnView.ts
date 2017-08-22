@@ -1,14 +1,13 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { empty, defined } from 'common';
-import { game } from 'game';
 import { fixCrazySan } from 'chess';
 import { path as treePath, ops as treeOps } from 'tree';
 import * as moveView from '../moveView';
 import { authorText as commentAuthorText } from '../study/studyComments';
 import AnalyseCtrl from '../ctrl';
 import { MaybeVNodes, ConcealOf, Conceal } from '../interfaces';
-import { autoScroll, nonEmpty, renderMainlineCommentsOf, truncateComment, mainHook } from './treeView';
+import { autoScroll, nonEmpty, renderMainlineCommentsOf, truncateComment, mainHook, nodeClasses } from './treeView';
 import { Ctx as BaseCtx, Opts as BaseOpts } from './treeView';
 
 interface Ctx extends BaseCtx {
@@ -114,14 +113,7 @@ function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
 function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   const path = opts.parentPath + node.id,
   c = ctx.ctrl,
-  current = (path === c.initialPath && game.playable(c.data)) || (
-    c.retro && c.retro.current() && c.retro.current().prev.path === path),
-  classes = {
-    active: path === c.path,
-    context_menu: path === c.contextMenuPath,
-    current,
-    nongame: !current && !!c.gamePath && treePath.contains(path, c.gamePath) && path !== c.gamePath
-  };
+  classes = nodeClasses(c, path);
   if (opts.conceal) classes[opts.conceal as string] = true;
   return h('move', {
     attrs: { p: path },
@@ -204,7 +196,7 @@ export default function(ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
     showEval: !!ctrl.study || ctrl.showComputer()
   };
   const commentTags = renderMainlineCommentsOf(ctx, root, false, false);
-  return h('div.tview2', {
+  return h('div.tview2.column', {
     hook: mainHook(ctrl)
   }, ([
     empty(commentTags) ? null : h('interrupt', commentTags),

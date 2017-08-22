@@ -1,10 +1,12 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { Hooks } from 'snabbdom/hooks'
+import { game } from 'game';
 import AnalyseCtrl from '../ctrl';
 import contextMenu from '../contextMenu';
 import { MaybeVNodes, ConcealOf, Conceal } from '../interfaces';
 import { authorText as commentAuthorText } from '../study/studyComments';
+import { path as treePath } from 'tree';
 import column from './columnView';
 import literate from './literateView';
 import { empty, defined, dropThrottle } from 'common';
@@ -25,9 +27,30 @@ export interface Opts {
   truncate?: number;
 }
 
+export interface NodeClasses {
+  active: boolean;
+  context_menu: boolean;
+  current: boolean;
+  nongame: boolean;
+  [key: string]: boolean;
+}
+
+// entry point, dispatching to selected view
 export default function(ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
   if (ctrl.treeView === 'column') return column(ctrl, concealOf);
   return literate(ctrl);
+}
+
+export function nodeClasses(c: AnalyseCtrl, path: Tree.Path): NodeClasses {
+  const current = (path === c.initialPath && game.playable(c.data)) || (
+    c.retro && c.retro.current() && c.retro.current().prev.path === path
+  );
+  return {
+    active: path === c.path,
+    context_menu: path === c.contextMenuPath,
+    current,
+    nongame: !current && !!c.gamePath && treePath.contains(path, c.gamePath) && path !== c.gamePath
+  };
 }
 
 export function renderMainlineCommentsOf(ctx: Ctx, node: Tree.Node, conceal: Conceal, withColor: boolean): MaybeVNodes {
