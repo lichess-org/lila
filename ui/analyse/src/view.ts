@@ -5,7 +5,7 @@ import * as chessground from './ground';
 import { synthetic, bind, dataIcon, iconTag, spinner } from './util';
 import { game, router, view as gameView } from 'game';
 import { path as treePath } from 'tree';
-import treeView from './treeView';
+import treeView from './treeView/treeView';
 import * as control from './control';
 import { view as actionMenu } from './actionMenu';
 import { view as renderPromotion } from './promotion';

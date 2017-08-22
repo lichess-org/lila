@@ -97,3 +97,5 @@ export interface JustCaptured extends cg.Piece {
 
 export type Conceal = boolean | 'conceal' | 'hide' | null;
 export type ConcealOf = (isMainline: boolean) => (path: Tree.Path, node: Tree.Node) => Conceal;
+
+export type TreeView = 'column' | 'literate';

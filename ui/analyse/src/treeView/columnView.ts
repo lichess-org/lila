@@ -1,53 +1,34 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import contextMenu from './contextMenu';
-import { empty, defined, dropThrottle } from 'common';
+import { empty, defined } from 'common';
 import { game } from 'game';
 import { fixCrazySan } from 'chess';
 import { path as treePath, ops as treeOps } from 'tree';
-import * as moveView from './moveView';
-import { authorText as commentAuthorText } from './study/studyComments';
-import AnalyseCtrl from './ctrl';
-import { MaybeVNodes, ConcealOf, Conceal } from './interfaces';
+import * as moveView from '../moveView';
+import { authorText as commentAuthorText } from '../study/studyComments';
+import AnalyseCtrl from '../ctrl';
+import { MaybeVNodes, ConcealOf, Conceal } from '../interfaces';
+import { autoScroll, nonEmpty, renderMainlineCommentsOf, truncateComment, mainHook } from './treeView';
+import { Ctx as BaseCtx, Opts as BaseOpts } from './treeView';
 
-interface Ctx {
-  ctrl: AnalyseCtrl;
+interface Ctx extends BaseCtx {
   concealOf: ConcealOf;
-  showComputer: boolean;
-  showGlyphs: boolean;
-  showEval: boolean;
 }
-interface Opts {
+interface Opts extends BaseOpts {
   conceal?: Conceal;
   noConceal?: boolean;
-  parentPath: Tree.Path;
-  isMainline: boolean;
-  inline?: Tree.Node;
-  withIndex?: boolean;
-  truncate?: number;
-}
-
-const scrollThrottle = dropThrottle(200);
-
-function autoScroll(ctrl: AnalyseCtrl, el: HTMLElement): void {
-  scrollThrottle(() => {
-    const cont = el.parentNode as HTMLElement;
-    if (!cont) return;
-    const target = el.querySelector('.active') as HTMLElement;
-    if (!target) {
-      cont.scrollTop = ctrl.path === treePath.root ? 0 : 99999;
-      return;
-    }
-    cont.scrollTop = target.offsetTop - cont.offsetHeight / 2 + target.offsetHeight;
-  });
 }
 
 function pathContains(ctx: Ctx, path: Tree.Path): boolean {
   return treePath.contains(ctx.ctrl.path, path);
 }
 
-function nonEmpty(x: any): boolean {
-  return !!x;
+function emptyMove(conceal?: Conceal): VNode {
+  const c = {};
+  if (conceal) c[conceal as string] = true;
+  return h('move.empty', {
+    class: c
+  }, '...');
 }
 
 function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | undefined {
@@ -197,34 +178,6 @@ function renderInline(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   }));
 }
 
-function emptyMove(conceal?: Conceal): VNode {
-  const c = {};
-  if (conceal) c[conceal as string] = true;
-  return h('move.empty', {
-    class: c
-  }, '...');
-}
-
-function renderMainlineCommentsOf(ctx: Ctx, node: Tree.Node, conceal: Conceal, withColor: boolean): MaybeVNodes {
-
-  if (!ctx.ctrl.showComments || empty(node.comments)) return [];
-
-  const colorClass = withColor ? (node.ply % 2 === 0 ? '.black ' : '.white ') : '';
-
-  return node.comments!.map(comment => {
-    if (comment.by === 'lichess' && !ctx.showComputer) return;
-    let sel = 'comment' + colorClass;
-    if (comment.text.indexOf('Inaccuracy.') === 0) sel += '.inaccuracy';
-    else if (comment.text.indexOf('Mistake.') === 0) sel += '.mistake';
-    else if (comment.text.indexOf('Blunder.') === 0) sel += '.blunder';
-    if (conceal) sel += '.' + conceal;
-    return h(sel, [
-      node.comments![1] ? h('span.by', commentAuthorText(comment.by)) : null,
-      truncateComment(comment.text, 400, ctx)
-    ]);
-  });
-}
-
 function renderVariationCommentsOf(ctx: Ctx, node: Tree.Node): MaybeVNodes {
   if (!ctx.ctrl.showComments || empty(node.comments)) return [];
   return node.comments!.map(comment => {
@@ -236,15 +189,6 @@ function renderVariationCommentsOf(ctx: Ctx, node: Tree.Node): MaybeVNodes {
   });
 }
 
-function truncateComment(text: string, len: number, ctx: Ctx) {
-  return ctx.ctrl.embed || text.length <= len ? text : text.slice(0, len - 10) + ' [...]';
-}
-
-function eventPath(e: MouseEvent): Tree.Path | null {
-  return (e.target as HTMLElement).getAttribute('p') ||
-  ((e.target as HTMLElement).parentNode as HTMLElement).getAttribute('p');
-}
-
 const emptyConcealOf: ConcealOf = function() {
   return function() { return null; };
 };
@@ -253,6 +197,7 @@ export default function(ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
   const root = ctrl.tree.root;
   const ctx: Ctx = {
     ctrl,
+    truncateComments: !ctrl.embed,
     concealOf: concealOf || emptyConcealOf,
     showComputer: ctrl.showComputer() && !ctrl.retro,
     showGlyphs: !!ctrl.study || ctrl.showComputer(),
@@ -260,33 +205,7 @@ export default function(ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
   };
   const commentTags = renderMainlineCommentsOf(ctx, root, false, false);
   return h('div.tview2', {
-    hook: {
-      insert: vnode => {
-        const el = vnode.elm as HTMLElement;
-        if (ctrl.path !== treePath.root) autoScroll(ctrl, el);
-        el.oncontextmenu = (e: MouseEvent) => {
-          const path = eventPath(e);
-          if (path !== null) contextMenu(e, {
-            path,
-            root: ctrl
-          });
-          ctrl.redraw();
-          return false;
-        };
-        el.addEventListener('mousedown', (e: MouseEvent) => {
-          if (defined(e.button) && e.button !== 0) return; // only touch or left click
-          const path = eventPath(e);
-          if (path) ctrl.userJump(path);
-          ctrl.redraw();
-        });
-      },
-      postpatch: (_, vnode) => {
-        if (ctrl.autoScrollRequested && ctrl.path !== treePath.root) {
-          autoScroll(ctrl, vnode.elm as HTMLElement);
-          ctrl.autoScrollRequested = false;
-        }
-      }
-    }
+    hook: mainHook(ctrl)
   }, ([
     empty(commentTags) ? null : h('interrupt', commentTags),
     root.ply & 1 ? moveView.renderIndex(root.ply, false) : null,
