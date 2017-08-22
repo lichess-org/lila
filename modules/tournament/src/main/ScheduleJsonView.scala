@@ -5,6 +5,7 @@ import play.api.libs.json._
 import lila.common.LightUser
 import lila.common.PimpedJson._
 import lila.rating.PerfType
+import lila.user.UserRepo.lichessId
 
 final class ScheduleJsonView(lightUser: LightUser.Getter) {
 
@@ -21,33 +22,34 @@ final class ScheduleJsonView(lightUser: LightUser.Getter) {
     "finished" -> finished
   )
 
-  private def tournamentJson(tour: Tournament): Fu[JsObject] =
-    tour.winnerId.??(lightUser).map { winner =>
-      Json.obj(
-        "id" -> tour.id,
-        "createdBy" -> tour.createdBy,
-        "system" -> tour.system.toString.toLowerCase,
-        "minutes" -> tour.minutes,
-        "clock" -> tour.clock,
-        "rated" -> tour.mode.rated,
-        "fullName" -> tour.fullName,
-        "nbPlayers" -> tour.nbPlayers,
-        "variant" -> Json.obj(
-          "key" -> tour.variant.key,
-          "short" -> tour.variant.shortName,
-          "name" -> tour.variant.name
-        ),
-        "secondsToStart" -> tour.secondsToStart,
-        "startsAt" -> tour.startsAt,
-        "finishesAt" -> tour.finishesAt,
-        "status" -> tour.status.id,
-        "winner" -> winner.map(userJson),
-        "perf" -> tour.perfType.map(perfJson)
-      ).add("hasMaxRating", tour.conditions.maxRating.isDefined)
-        .add("private", tour.`private`)
-        .add("position", tour.position.some.filterNot(_.initial) map positionJson)
-        .add("schedule", tour.schedule map scheduleJson)
-    }
+  private def tournamentJson(tour: Tournament): Fu[JsObject] = for {
+    owner <- tour.nonLichessCreatedBy.??(lightUser)
+    winner <- tour.winnerId.??(lightUser)
+  } yield Json.obj(
+    "id" -> tour.id,
+    "createdBy" -> tour.createdBy,
+    "system" -> tour.system.toString.toLowerCase,
+    "minutes" -> tour.minutes,
+    "clock" -> tour.clock,
+    "rated" -> tour.mode.rated,
+    "fullName" -> tour.fullName,
+    "nbPlayers" -> tour.nbPlayers,
+    "variant" -> Json.obj(
+      "key" -> tour.variant.key,
+      "short" -> tour.variant.shortName,
+      "name" -> tour.variant.name
+    ),
+    "secondsToStart" -> tour.secondsToStart,
+    "startsAt" -> tour.startsAt,
+    "finishesAt" -> tour.finishesAt,
+    "status" -> tour.status.id,
+    "winner" -> winner.map(userJson),
+    "perf" -> tour.perfType.map(perfJson)
+  ).add("hasMaxRating", tour.conditions.maxRating.isDefined)
+    .add("major", owner.exists(_.title.isDefined))
+    .add("private", tour.`private`)
+    .add("position", tour.position.some.filterNot(_.initial) map positionJson)
+    .add("schedule", tour.schedule map scheduleJson)
 
   private def userJson(u: LightUser) = Json.obj(
     "id" -> u.id,

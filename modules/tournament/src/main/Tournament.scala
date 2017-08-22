@@ -109,6 +109,8 @@ case class Tournament(
     )
   }
 
+  def nonLichessCreatedBy = (createdBy != lichessId) option createdBy
+
   override def toString = s"$id $startsAt $fullName $minutes minutes, $clock"
 }
 

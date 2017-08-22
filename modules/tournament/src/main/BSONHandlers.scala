@@ -105,7 +105,7 @@ object BSONHandlers {
       },
       "nbPlayers" -> o.nbPlayers,
       "createdAt" -> w.date(o.createdAt),
-      "createdBy" -> o.createdBy.some.filter(lichessId !=),
+      "createdBy" -> o.nonLichessCreatedBy,
       "startsAt" -> w.date(o.startsAt),
       "winner" -> o.winnerId,
       "featured" -> o.featuredId,
