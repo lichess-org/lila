@@ -420,6 +420,10 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
         if (vm.mode.sticky) xhrReload();
         else redraw();
       },
+      updateChapter(d) {
+        setMemberActive(d.w);
+        xhrReload();
+      },
       descChapter(d) {
         setMemberActive(d.w);
         if (d.w && d.w.s === sri) return;

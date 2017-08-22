@@ -483,10 +483,8 @@ final class StudyApi(
                   (newChapter.practice != chapter.practice) ||
                   (newChapter.gamebook != chapter.gamebook) ||
                   (newChapter.description != chapter.description)
-              if (study.position.chapterId == chapter.id && shouldReload)
-                sendTo(study, Socket.ChangeChapter(uid, study.position))
-              else
-                reloadChapters(study)
+              if (shouldReload) sendTo(study, Socket.UpdateChapter(uid, chapter.id))
+              else reloadChapters(study)
             }
           }
         } >>- indexStudy(study)
