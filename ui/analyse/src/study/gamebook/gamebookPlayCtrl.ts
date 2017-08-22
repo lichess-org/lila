@@ -10,6 +10,7 @@ export interface State {
   comment?: string;
   hint?: string;
   showHint: boolean;
+  init: boolean; // on root path
 }
 
 export default class GamebookPlayCtrl {
@@ -33,6 +34,7 @@ export default class GamebookPlayCtrl {
     const node = this.root.node,
     nodeComment = (node.comments || [])[0],
     state: Partial<State> = {
+      init: this.root.path === '',
       comment: nodeComment ? nodeComment.text : undefined,
       showHint: false,
     },
