@@ -53,7 +53,7 @@
   <string name="loadingEngine">Cargando el motor...</string>
   <string name="cloudAnalysis">Análisis en el servidor</string>
   <string name="goDeeper">Aumentar la profundidad del análisis</string>
-  <string name="showThreat">Mostrar la amenaza</string>
+  <string name="showThreat">Mostrar amenaza</string>
   <string name="inLocalBrowser">en el navegador local</string>
   <string name="toggleLocalEvaluation">Evaluación local</string>
   <string name="move">Movimiento</string>
@@ -460,7 +460,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Proceder a la siguiente partida automáticamente despues de mi movimiento</string>
   <string name="autoSwitch">Cambio automático</string>
-  <string name="puzzles">Ejercicios</string>
+  <string name="puzzles">Problemas</string>
   <string name="latestUpdates">Últimas actualizaciones</string>
   <string name="tournamentWinners">Ganadores del torneo</string>
   <string name="name">Nombre</string>
