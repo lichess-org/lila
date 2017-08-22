@@ -137,8 +137,7 @@ object Tournament {
   ) = Tournament(
     id = Random nextString 8,
     name = name | {
-    if (position.initial)
-      by.right.toOption.filter(_.hasTitle).fold(GreatPlayer.randomName)(_.titleUsername)
+    if (position.initial) GreatPlayer.randomName
     else position.shortName
   },
     status = Status.Created,
