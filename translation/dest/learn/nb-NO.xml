@@ -57,4 +57,9 @@ Ingen grunn til å promotere.</string>
   <string name="grabAllTheStarsNoNeedToPromote">Ta alle stjernene!
 Ingen grunn til å promotere.</string>
   <string name="pawnComplete">Gratulerer! Bondene holder ingen hemmeligheter for deg.</string>
+  <string name="pawnPromotion">Bondeforvandling</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Din bonde nådde enden av brettet!</string>
+  <string name="itNowPromotesToAStrongerPiece">Nå kan den forvandles til en sterkere brikke.</string>
+  <string name="selectThePieceYouWant">Velg hvilken brikke du vil ha!</string>
+  <string name="fundamentals">Grunnleggende</string>
 </resources>
