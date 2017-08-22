@@ -62,10 +62,10 @@
   <string name="insufficientMaterial">недовољан материјал</string>
   <string name="pawnMove">потез пешаком</string>
   <string name="capture">узима</string>
-  <string name="close">затвори</string>
-  <string name="winning">добија</string>
-  <string name="losing">губи</string>
-  <string name="drawn">реми</string>
+  <string name="close">Затворите</string>
+  <string name="winning">Добија</string>
+  <string name="losing">Губи</string>
+  <string name="drawn">Реми</string>
   <string name="unknown">непознато</string>
   <string name="database">база података</string>
   <string name="whiteDrawBlack">бели / реми / црни</string>
