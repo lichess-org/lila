@@ -63,6 +63,9 @@
   background: #e0e0e0;
   font-size: 1.6em;
 }
+.gb_play .feedback.init {
+  visibility: hidden;
+}
 .gb_play .feedback.act {
   font-size: 2em;
   color: #fff;

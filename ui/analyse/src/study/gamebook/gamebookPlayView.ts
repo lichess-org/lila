@@ -51,8 +51,8 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
     h('span', 'Next')
   ]);
   if (fb === 'end') return renderEnd(ctrl);
-  return h('div.feedback.info',
-    h('span', fb === 'play' ? 'Your turn' : 'Opponent turn')
+  return h('div.feedback.info.' + fb + (state.init ? '.init' : ''),
+    h('span', fb === 'play' ? 'Your turn' : 'Good move!')
   );
 }
 
