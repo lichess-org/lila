@@ -96,15 +96,15 @@
   <string name="replayMode">Понављање партије</string>
   <string name="realtimeReplay">Као уживо</string>
   <string name="byCPL">По рачунару</string>
-  <string name="openStudy">отвори проблем</string>
-  <string name="enable">укључи</string>
-  <string name="bestMoveArrow">стрелица за најбољи потез</string>
-  <string name="evaluationGauge">клизна полуга за процену</string>
-  <string name="multipleLines">више редова</string>
-  <string name="cpus">процесори</string>
-  <string name="memory">меморија</string>
-  <string name="infiniteAnalysis">бесконачна анализа</string>
-  <string name="removesTheDepthLimit">Уклања ограничење дубине и греје рачунар.</string>
+  <string name="openStudy">Отвори проуку</string>
+  <string name="enable">Укључи</string>
+  <string name="bestMoveArrow">Стрелица за најбољи потез</string>
+  <string name="evaluationGauge">Линија за процену</string>
+  <string name="multipleLines">Више стрелица</string>
+  <string name="cpus">Процесори</string>
+  <string name="memory">Меморија</string>
+  <string name="infiniteAnalysis">Бесконачна анализа</string>
+  <string name="removesTheDepthLimit">Уклања ограничење дубине и греје рачунар</string>
   <string name="blunders">Грубе грешке</string>
   <string name="mistakes">Грешке</string>
   <string name="inaccuracies">Непрецизности</string>
@@ -121,9 +121,9 @@
   </plurals>
   <string name="currentGames">Партије које се управо играју</string>
   <plurals name="nbGames">
-    <item quantity="one">%s партија у игри</item>
-    <item quantity="few">%s партије у игри</item>
-    <item quantity="other">%s партије у игри</item>
+    <item quantity="one">%s партија</item>
+    <item quantity="few">%s партије</item>
+    <item quantity="other">%s партије</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s обележена игра</item>
