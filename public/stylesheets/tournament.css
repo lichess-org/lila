@@ -877,6 +877,7 @@ ol.scheduled_tournaments li.marathon {
   text-overflow: ellipsis;
   white-space: nowrap;
   display: inline-block;
+  vertical-align: top;
   max-width: 66%;
 }
 #tournament_schedule .infos {
@@ -893,7 +894,7 @@ ol.scheduled_tournaments li.marathon {
 
 #tournament_schedule .large .icon {
   font-size: 2.4em;
-  margin: -6px 2px 0 4px;
+  margin: -6px 4px 0 4px;
 }
 #tournament_schedule .large .name {
   display: block;
