@@ -452,8 +452,8 @@
   <string name="thisPuzzleIsCorrect">Ο γρίφος είναι σωστός και ενδιαφέρων</string>
   <string name="thisPuzzleIsWrong">Ο γρίφος είναι λανθασμένος ή βαρετός</string>
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Έχετε %s δευτερόλεπτα για να κάνετε την πρώτη σας κίνηση!</item>
-    <item quantity="other">Έχετε %s δευτερόλεπτα για να κάνετε τη πρώτη σας κίνηση!</item>
+    <item quantity="one">Έχετε %s δευτερόλεπτο για να κάνετε την πρώτη σας κίνηση!</item>
+    <item quantity="other">Έχετε %s δευτερόλεπτα για να κάνετε την πρώτη σας κίνηση!</item>
   </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s παιχνίδι παίζεται τώρα</item>
@@ -463,7 +463,7 @@
   <string name="autoSwitch">Αυτόματη εναλλαγή</string>
   <string name="puzzles">Γρίφοι</string>
   <string name="latestUpdates">Τελευταίες ενημερώσεις</string>
-  <string name="tournamentWinners">Νικητές τουρνουά</string>
+  <string name="tournamentWinners">Νικητές πρωταθλημάτων</string>
   <string name="name">Ονομασία</string>
   <string name="description">Περιγραφή</string>
   <string name="no">Όχι</string>
