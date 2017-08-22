@@ -729,6 +729,11 @@ div.control.icons .act_confirm .no {
   right: -34px;
 }
 
+@keyframes icon-flash {
+  from { border-radius: 8px; }
+  to { border-radius: 20px; }
+}
+
 div.control.icons .act_confirm .yes  {
   position: absolute;
   right: 0;
@@ -741,6 +746,7 @@ div.control.icons .act_confirm .yes  {
   text-shadow: 0 -1px #759900;
   transition: all 0.1s;
   transform: translate(0px,0px);
+  animation: icon-flash 1s infinite alternate;
 }
 div.control.icons .act_confirm .yes:hover {
   filter: brightness(1.06);
@@ -750,6 +756,7 @@ div.control.icons .act_confirm .yes:active {
   border-bottom-width: 1px;
   text-shadow: 0 0 #759900;
   filter: brightness(1);
+  animation-play-state: paused;
 }
 
 div.control .button.disabled {
