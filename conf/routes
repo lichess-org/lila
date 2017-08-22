@@ -502,6 +502,7 @@ GET   /embed                           controllers.Main.embed
 GET   /mobile                          controllers.Main.mobile
 GET   /lag                             controllers.Main.lag
 GET   /fpmenu                          controllers.Main.fpmenu
+GET   /fishnet                         controllers.Main.fishnet
 
 # Mobile Push
 POST  /mobile/register/:platform/:deviceId controllers.Main.mobileRegister(platform: String, deviceId: String)
