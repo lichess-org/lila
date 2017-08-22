@@ -63,28 +63,28 @@ final class SlackApi(
   def publishError(msg: String): Funit = client(SlackMessage(
     username = "lichess error",
     icon = "lightning",
-    text = msg,
+    text = linkifyUsers(msg),
     channel = "general"
   ))
 
   def publishWarning(msg: String): Funit = client(SlackMessage(
     username = "lichess warning",
     icon = "thinking_face",
-    text = msg,
+    text = linkifyUsers(msg),
     channel = "general"
   ))
 
   def publishVictory(msg: String): Funit = client(SlackMessage(
     username = "lichess victory",
     icon = "tada",
-    text = msg,
+    text = linkifyUsers(msg),
     channel = "general"
   ))
 
   def publishInfo(msg: String): Funit = client(SlackMessage(
     username = "lichess info",
     icon = "monkey",
-    text = msg,
+    text = linkifyUsers(msg),
     channel = "general"
   ))
 
@@ -97,13 +97,12 @@ final class SlackApi(
       channel = "general"
     ))
 
-  def userLink(name: String) = s"<https://lichess.org/@/$name?mod|$name>"
-  def userNotesLink(name: String) = s"<https://lichess.org/@/$name?notes|notes>"
+  private def userLink(name: String) = s"<https://lichess.org/@/$name?mod|$name>"
+  private def userNotesLink(name: String) = s"<https://lichess.org/@/$name?notes|notes>"
 
-  val userRegex = """(^|\s)@(\w[-_\w]+)\b""".r.pattern
-  def linkifyUsers(msg: String) = (userRegex
-    matcher msg
-    replaceAll "$1<https://lichess.org/@/$2?mod|@$2>")
+  private val userRegex = """(^|\s)@(\w[-_\w]+)\b""".r.pattern
+  private def linkifyUsers(msg: String) =
+    userRegex matcher msg replaceAll "$1<https://lichess.org/@/$2?mod|@$2>"
 
   def userMod(user: User, mod: User): Funit = client(SlackMessage(
     username = mod.username,
