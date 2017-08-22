@@ -5,6 +5,7 @@ import AnalyseCtrl from '../../ctrl';
 import { bind, iconTag } from '../../util';
 import { MaybeVNodes } from '../../interfaces';
 import { throttle } from 'common';
+import * as control from '../../control';
 
 export function running(ctrl: AnalyseCtrl): boolean {
   return !!ctrl.study && ctrl.study.data.chapter.gamebook && !ctrl.gamebookPlay();
@@ -58,7 +59,9 @@ export function render(ctrl: AnalyseCtrl): VNode {
         iconTag('c'),
         h('p', 'Reflect on the player\'s correct move, with a comment; or leave empty to jump immediately to the next move.')
       ]),
-      hasVariation ? null : h('div.legend', [
+      hasVariation ? null : h('div.legend.clickable', {
+        hook: bind('click', () => control.prev(ctrl), ctrl.redraw)
+      }, [
         iconTag('G'),
         h('p', 'Add variation moves to explain why specific other moves are wrong.')
       ]),
