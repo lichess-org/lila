@@ -69,10 +69,16 @@ final class EntryApi(
 
     private[EntryApi] def interleave(entries: Vector[Entry]): Fu[Vector[Entry]] = cache.get map { bcs =>
       bcs.headOption.fold(entries) { mostRecentBc =>
-        val oldestEntry = entries.lastOption
-        if (oldestEntry.fold(true)(_.date isBefore mostRecentBc.date))
-          (entries ++ bcs).sortBy(-_.date.getMillis)
-        else entries
+        val interleaved = {
+          val oldestEntry = entries.lastOption
+          if (oldestEntry.fold(true)(_.date isBefore mostRecentBc.date))
+            (entries ++ bcs).sortBy(-_.date.getMillis)
+          else entries
+        }
+        // sneak recent broadcast at first place
+        if (mostRecentBc.date.isAfter(DateTime.now minusDays 1))
+          mostRecentBc +: interleaved.filter(mostRecentBc !=)
+        else interleaved
       }
     }
 
