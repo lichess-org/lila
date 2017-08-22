@@ -85,7 +85,6 @@ export interface AnalyseOpts {
   practice?: StudyPracticeData;
   onChange?: (fen: Fen, path: Tree.Path, mainlinePly: Ply | false) => void;
   onToggleComputer?: (v: boolean) => void;
-  beta: boolean;
 }
 
 export interface CgDests {

@@ -12,7 +12,7 @@ export function ctrl(initChapters: StudyChapterMeta[], send: SocketSend, setTab:
   const list: Prop<StudyChapterMeta[]> = prop(initChapters);
 
   const newForm = chapterNewForm(send, list, setTab, root);
-  const editForm = chapterEditForm(send, chapterConfig, root.redraw, root.opts.beta);
+  const editForm = chapterEditForm(send, chapterConfig, root.redraw);
 
   const localPaths: LocalPaths = {};
 

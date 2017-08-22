@@ -9,13 +9,12 @@ import { StudyChapterMeta } from './interfaces';
 import { title as descTitle } from './chapterDescription';
 import AnalyseCtrl from '../ctrl';
 
-export function modeChoices(beta: boolean) {
-  return [
-    ['normal', "Normal analysis"],
-    ['practice', "Practice with computer"],
-    ['conceal', "Hide next moves"]
-  ].concat(beta ? [['gamebook', "Gamebook: interactive lesson"]] : []);
-}
+export const modeChoices = [
+  ['normal', "Normal analysis"],
+  ['practice', "Practice with computer"],
+  ['conceal', "Hide next moves"],
+  ['gamebook', "Gamebook: interactive lesson [BETA]"]
+];
 
 export function fieldValue(e: Event, id: string) {
   const el = (e.target as HTMLElement).querySelector('#chapter-' + id);
@@ -280,7 +279,7 @@ export function view(ctrl): VNode {
           ])
         ]),
         h('div.form-group.little-margin-bottom', [
-          h('select#chapter-mode', modeChoices(ctrl.root.opts.beta).map(c => h('option', {
+          h('select#chapter-mode', modeChoices.map(c => h('option', {
             attrs: { value: c[0] }
           }, c[1]))),
           h('label.control-label', {
