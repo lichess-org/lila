@@ -74,7 +74,7 @@
   <string name="topGames">Mejores partidas</string>
   <string name="masterDbExplanation">Dos millones de partidas de jugadores con ELO FIDE de %1$s+, desde %2$s a %3$s</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">Mate en medio movimiento</item>
+    <item quantity="one">Mate en %s medio movimiento</item>
     <item quantity="other">Mate en %s medios movimientos</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
@@ -240,7 +240,7 @@
   </plurals>
   <plurals name="nbPlaying">
     <item quantity="one">%s en juego</item>
-    <item quantity="other">%s en juego</item>
+    <item quantity="other">%s Jugando</item>
   </plurals>
   <string name="exportGames">Exportar partidas</string>
   <string name="ratingRange">Rango de puntuación</string>
@@ -269,11 +269,11 @@
   <string name="backToTournament">Volver al torneo</string>
   <string name="thematic">Temático</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="one">≥ %s partida por puntos</item>
+    <item quantity="one">≥ %s partidas puntuadas</item>
     <item quantity="other">≥ %s partidas por puntos</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2%s partida por puntos</item>
+    <item quantity="one">≥ %1$s %2%s partidas puntuadas</item>
     <item quantity="other">≥ %1$s %2%s partidas por puntos</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
