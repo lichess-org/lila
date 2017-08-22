@@ -17,13 +17,14 @@ function pieceDrop(key: cg.Key, role: cg.Role, color: Color): DrawShape {
   };
 }
 
-export function makeAutoShapesFromUci(color: Color, uci: Uci, brush: string, modifiers?: any): DrawShape[] {
+export function makeShapesFromUci(color: Color, uci: Uci, brush: string, modifiers?: any): DrawShape[] {
   const move = decomposeUci(uci);
-  if (uci[1] === '@') return [{
-    orig: move[1],
-    brush
-  },
-  pieceDrop(move[1] as cg.Key, sanToRole[uci[0].toUpperCase()], color)
+  if (uci[1] === '@') return [
+    {
+      orig: move[1],
+      brush
+    },
+    pieceDrop(move[1] as cg.Key, sanToRole[uci[0].toUpperCase()], color)
   ];
   const shapes: DrawShape[] = [{
     orig: move[0],
@@ -39,10 +40,10 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
   const color: Color = ctrl.chessground.state.movable.color as Color;
   const rcolor: Color = opposite(color);
   if (ctrl.practice) {
-    if (ctrl.practice.hovering()) return makeAutoShapesFromUci(color, ctrl.practice.hovering().uci, 'green');
+    if (ctrl.practice.hovering()) return makeShapesFromUci(color, ctrl.practice.hovering().uci, 'green');
     const hint = ctrl.practice.hinting();
     if (hint) {
-      if (hint.mode === 'move') return makeAutoShapesFromUci(color, hint.uci, 'paleBlue');
+      if (hint.mode === 'move') return makeShapesFromUci(color, hint.uci, 'paleBlue');
       else return [{
         orig: hint.uci[1] === '@' ? hint.uci.slice(2, 4) : hint.uci.slice(0, 2),
         brush: 'paleBlue'
@@ -61,23 +62,23 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
 
   let shapes: DrawShape[] = [];
   if (ctrl.retro && ctrl.retro.showBadNode()) {
-    return makeAutoShapesFromUci(color, ctrl.retro.showBadNode().uci, 'paleRed', {
+    return makeShapesFromUci(color, ctrl.retro.showBadNode().uci, 'paleRed', {
       lineWidth: 8
     });
   }
-  if (hovering && hovering.fen === nFen) shapes = shapes.concat(makeAutoShapesFromUci(color, hovering.uci, 'paleBlue'));
+  if (hovering && hovering.fen === nFen) shapes = shapes.concat(makeShapesFromUci(color, hovering.uci, 'paleBlue'));
   if (ctrl.showAutoShapes() && ctrl.showComputer()) {
-    if (nEval.best) shapes = shapes.concat(makeAutoShapesFromUci(rcolor, nEval.best, 'paleGreen'));
+    if (nEval.best) shapes = shapes.concat(makeShapesFromUci(rcolor, nEval.best, 'paleGreen'));
     if (!hovering) {
       let nextBest = ctrl.nextNodeBest();
       if (!nextBest && instance.enabled() && nCeval) nextBest = nCeval.pvs[0].moves[0];
-      if (nextBest) shapes = shapes.concat(makeAutoShapesFromUci(color, nextBest, 'paleBlue'));
+      if (nextBest) shapes = shapes.concat(makeShapesFromUci(color, nextBest, 'paleBlue'));
       if (instance.enabled() && nCeval && nCeval.pvs[1] && !(ctrl.threatMode() && nThreat && nThreat.pvs.length > 2)) {
         nCeval.pvs.forEach(function(pv) {
           if (pv.moves[0] === nextBest) return;
           const shift = winningChances.povDiff(color, nCeval.pvs[0], pv);
           if (shift >= 0 && shift < 0.2) {
-            shapes = shapes.concat(makeAutoShapesFromUci(color, pv.moves[0], 'paleGrey', {
+            shapes = shapes.concat(makeShapesFromUci(color, pv.moves[0], 'paleGrey', {
               lineWidth: Math.round(12 - shift * 50) // 12 to 2
             }));
           }
@@ -88,13 +89,13 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
   if (instance.enabled() && ctrl.threatMode() && nThreat) {
     const [pv0, ...pv1s] = nThreat.pvs;
 
-    shapes = shapes.concat(makeAutoShapesFromUci(rcolor, pv0.moves[0],
+    shapes = shapes.concat(makeShapesFromUci(rcolor, pv0.moves[0],
       pv1s.length > 0 ? 'paleRed' : 'red'));
 
     pv1s.forEach(function(pv) {
       const shift = winningChances.povDiff(rcolor, pv, pv0);
       if (shift >= 0 && shift < 0.2) {
-        shapes = shapes.concat(makeAutoShapesFromUci(rcolor, pv.moves[0], 'paleRed', {
+        shapes = shapes.concat(makeShapesFromUci(rcolor, pv.moves[0], 'paleRed', {
           lineWidth: Math.round(11 - shift * 45) // 11 to 2
         }));
       }

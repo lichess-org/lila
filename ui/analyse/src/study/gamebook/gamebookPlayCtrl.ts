@@ -1,6 +1,7 @@
 import AnalyseCtrl from '../../ctrl';
 import { path as treePath, ops as treeOps } from 'tree';
 import Mascot from './mascot';
+import { makeShapesFromUci } from '../../autoShape';
 
 type Feedback = 'play' | 'good' | 'bad' | 'end';
 
@@ -32,7 +33,8 @@ export default class GamebookPlayCtrl {
     const node = this.root.node,
     nodeComment = (node.comments || [])[0],
     state: Partial<State> = {
-      comment: nodeComment ? nodeComment.text : undefined
+      comment: nodeComment ? nodeComment.text : undefined,
+      showHint: false,
     },
     parPath = treePath.init(this.root.path),
     parNode = this.root.tree.nodeAtPath(parPath);
@@ -77,7 +79,10 @@ export default class GamebookPlayCtrl {
     if (this.state.hint) this.state.showHint = !this.state.showHint;
   }
 
-  solution = () => this.next(true);
+  solution = () => {
+    this.root.chessground.setShapes(
+      makeShapesFromUci(this.root.turnColor(), this.root.node.children[0].uci, 'green'));
+  }
 
   canJumpTo = (path: Tree.Path) => treePath.contains(this.root.path, path);
 

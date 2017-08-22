@@ -20,6 +20,7 @@ export function playButtons(root: AnalyseCtrl): VNode | undefined {
         hook: bind('click', () => root.userJump(''), ctrl.redraw)
       }, 'Back') : null,
       myTurn && state.hint ? h('a.button.text.hint', {
+        class: { active: state.showHint },
         attrs: dataIcon(''),
         hook: bind('click', ctrl.hint, ctrl.redraw)
       }, 'Get a hint') : null,

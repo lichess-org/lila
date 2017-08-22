@@ -22,6 +22,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
 
   const commentHook: Hooks = bind('click', () => {
     study.commentForm.open(study.vm.chapterId, ctrl.path, ctrl.node);
+    window.lichess.requestIdleCallback(() => $('#comment-text').focus());
   }, ctrl.redraw);
 
   if (!ctrl.path) {
