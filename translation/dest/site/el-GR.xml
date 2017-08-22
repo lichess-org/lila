@@ -90,7 +90,7 @@
   <string name="allSet">Εφαρμογή!</string>
   <string name="importPgn">Εισαγωγή PGN</string>
   <string name="delete">Διαγραφή</string>
-  <string name="deleteThisImportedGame">Διαγραφή εισηγμένης παρτίδας;</string>
+  <string name="deleteThisImportedGame">Διαγραφή εισαγόμενης παρτίδας;</string>
   <string name="replayMode">Λειτουργία επανάληψης αναπαραγωγής</string>
   <string name="realtimeReplay">Σε πραγματικό χρόνο</string>
   <string name="byCPL">Με CPL</string>
@@ -268,6 +268,18 @@
   <string name="viewTournament">Παρακολούθηση πρωταθλήματος</string>
   <string name="backToTournament">Επιστροφή στο πρωτάθλημα</string>
   <string name="thematic">Θεματικό</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s βαθμολογημένο παιχνίδι</item>
+    <item quantity="other">≥ %s βαθμολογημένα παιχνίδια</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2%s βαθμολογημένο παιχνίδι</item>
+    <item quantity="other">≥ %1$s %2%s βαθμολογημένα παιχνίδια</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Θα πρέπει να παίξετε %1$s επιπλέον %2$s βαθμολογημένο παιχνίδι</item>
+    <item quantity="other">Θα πρέπει να παίξετε %1$s επιπλέον %2$s βαθμολογημένα παιχνίδια</item>
+  </plurals>
   <string name="backToGame">Επιστρέψτε στο παιχνίδι</string>
   <string name="siteDescription">Δωρεάν διαδικτυακό παιχνίδι Σκακιού. Παίξτε Σκάκι τώρα σε καθαρό γραφικό περιβάλλον. Χωρίς εγγραφές, χωρίς διαφημίσεις, χωρίς πρόσθετα. Παίξτε Σκάκι με τον υπολογιστή, με φίλους ή με τυχαίους αντιπάλους.</string>
   <string name="teams">Ομάδες</string>
