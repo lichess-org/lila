@@ -120,8 +120,10 @@ gulp.task('user-mod', function() {
 
 const tasks = ['jquery-fill', 'ab', 'standalones'];
 if (!process.env.TRAVIS || process.env.GITHUB_API_TOKEN) {
-  tasks.push('stockfish.pexe');
-  tasks.push('stockfish.js');
+  if (!process.env.NO_SF) { // to skip SF download
+    tasks.push('stockfish.pexe');
+    tasks.push('stockfish.js');
+  }
 }
 
 gulp.task('dev', tasks.concat(['dev-source']), makeBundle('lichess.site.source.js'));
