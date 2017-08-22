@@ -1,11 +1,12 @@
 package lila.tournament
 
-import chess.variant.Variant
 import chess.Clock.{ Config => ClockConfig }
+import chess.variant.Variant
 import chess.{ Mode, StartingPosition }
 import lila.db.BSON
 import lila.db.dsl._
 import lila.rating.PerfType
+import lila.user.UserRepo.lichessId
 import reactivemongo.bson._
 
 object BSONHandlers {
@@ -76,7 +77,7 @@ object BSONHandlers {
         } yield Schedule(freq, speed, variant, position, startsAt, conditions),
         nbPlayers = r int "nbPlayers",
         createdAt = r date "createdAt",
-        createdBy = r str "createdBy",
+        createdBy = r strO "createdBy" getOrElse lichessId,
         startsAt = startsAt,
         winnerId = r strO "winner",
         featuredId = r strO "featured",
@@ -104,7 +105,7 @@ object BSONHandlers {
       },
       "nbPlayers" -> o.nbPlayers,
       "createdAt" -> w.date(o.createdAt),
-      "createdBy" -> w.str(o.createdBy),
+      "createdBy" -> o.createdBy.some.filter(lichessId !=),
       "startsAt" -> w.date(o.startsAt),
       "winner" -> o.winnerId,
       "featured" -> o.featuredId,

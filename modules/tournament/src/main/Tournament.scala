@@ -7,6 +7,7 @@ import chess.Clock.{ Config => ClockConfig }
 import chess.{ Speed, Mode, StartingPosition }
 import lila.game.PerfPicker
 import lila.user.User
+import lila.user.UserRepo.lichessId
 
 case class Tournament(
     id: Tournament.ID,
@@ -162,7 +163,7 @@ object Tournament {
     system = System.default,
     clock = Schedule clockFor sched,
     minutes = minutes,
-    createdBy = "lichess",
+    createdBy = lichessId,
     createdAt = DateTime.now,
     nbPlayers = 0,
     variant = sched.variant,
