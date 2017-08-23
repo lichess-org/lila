@@ -267,6 +267,7 @@
   <string name="tournamentPoints">Punti di torneo</string>
   <string name="viewTournament">Visualizza torneo</string>
   <string name="backToTournament">Ritorna al torneo</string>
+  <string name="thematic">Torneo che inizia con una posizione personalizzata, ad esempio https://lichess. org/tournament/rnvlWp3T</string>
   <string name="ratedLessThanInPerf">Punteggio ≤ %1$s in %2$s</string>
   <string name="backToGame">Torna alla partita</string>
   <string name="siteDescription">Scacchi online gratis. Gioca subito a scacchi con un\'interfaccia semplice. Niente registrazioni, annunci, plug-in. Gioca a scacchi contro computer, amici o avversari occasionali.</string>

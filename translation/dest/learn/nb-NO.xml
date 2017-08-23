@@ -62,4 +62,17 @@ Ingen grunn til å promotere.</string>
   <string name="itNowPromotesToAStrongerPiece">Nå kan den forvandles til en sterkere brikke.</string>
   <string name="selectThePieceYouWant">Velg hvilken brikke du vil ha!</string>
   <string name="fundamentals">Grunnleggende</string>
+  <string name="capture">Slå brikker</string>
+  <string name="takeTheEnemyPieces">Slå motstanderens brikker</string>
+  <string name="captureIntro">Identifiser motstanderens uforsvarte brikker, å slå dem!</string>
+  <string name="takeTheBlackPieces">Slå de svarte brikkene!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Slå de svarte brikkene! Og ikke miste dine egne.</string>
+  <string name="captureComplete">Gratulerer! Du vet hvordan man kjemper med sjakkbrikker!</string>
+  <string name="protection">Beskyttelse</string>
+  <string name="keepYourPiecesSafe">Hold dine brikker trygge</string>
+  <string name="protectionIntro">Identifiser brikkene motstanderen din angriper, og forsvar dem!</string>
+  <string name="protectionComplete">Gratulerer! En brikke du ikke mister er en brikke du vinner!</string>
+  <string name="escape">Du er under angrep! Unnslipp trusselen!</string>
+  <string name="noEscape">Det er ingen flukt,
+men du kan forsvare!</string>
 </resources>

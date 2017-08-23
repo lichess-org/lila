@@ -11,7 +11,7 @@
   <plurals name="solvedNbPuzzles">
     <item quantity="one">Vyřešena %s taktická úloha</item>
     <item quantity="few">Vyřešeny %s taktické úlohy</item>
-    <item quantity="other">Vyřešeno %s taktických úloh</item>
+    <item quantity="other">Vyřešil %s taktických úloh</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">Odehrána %1$s %2$s hra</item>
@@ -63,5 +63,15 @@
     <item quantity="few">Účast ve %s turnajích</item>
     <item quantity="other">Účast v %s turnajích</item>
   </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">Skončil #%1$s (top %2$s%%) s %3$s hrou v %4$s</item>
+    <item quantity="few">Skončil #%1$s (top %2$s%%) s %3$s hrami v %4$s</item>
+    <item quantity="other">Skončil #%1$s (top %2$s%%) s %3$s hrami v %4$s</item>
+  </plurals>
   <string name="signedUp">Vytvořen účet na lichess</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">Přidal se k %s týmu</item>
+    <item quantity="few">Přidal se k %s týmům</item>
+    <item quantity="other">Přidal se k %s týmům</item>
+  </plurals>
 </resources>

@@ -15,24 +15,40 @@
   <string name="rookGoal">Klicka på tornet att föra den till stjärnan!</string>
   <string name="grabAllTheStars">Fånga alla stjärnor!</string>
   <string name="theFewerMoves">Färre rörelser du gör desto fler poäng vinner du!</string>
+  <string name="useTwoRooks">Använd två torn för att snabba på det hela!</string>
   <string name="rookComplete">Grattis! Du behärskar framgångsrikt tornet.</string>
   <string name="theBishop">Löparen</string>
   <string name="itMovesDiagonally">Den rör sig diagonalt</string>
   <string name="bishopIntro">Härnäst kommer vi lära dig att manövrera en löpare!</string>
+  <string name="youNeedBothBishops">En ljus löpare,
+en mörk löpare.
+Du behöver bägge!</string>
   <string name="bishopComplete">Grattis! Du kan behärska löparen.</string>
   <string name="theQueen">Drottningen</string>
   <string name="queenCombinesRookAndBishop">Drottning = torn + löpare</string>
+  <string name="queenIntro">Den mäktigaste pjäsen gör entré. Hennes Majestät Drottningen!</string>
+  <string name="queenComplete">Grattis! Drottningen har inga hemligheter för dig.</string>
   <string name="theKing">Kungen</string>
   <string name="theMostImportantPiece">Den viktigaste pjäsen</string>
+  <string name="kingIntro">Du är kungen. Om du faller i strid, är spelet förlorat.</string>
   <string name="theKingIsSlow">Kungen är långsam.</string>
   <string name="lastOne">Sista!</string>
+  <string name="kingComplete">Du styr nu befälhavaren!</string>
   <string name="theKnight">Springaren</string>
   <string name="itMovesInAnLShape">Den rör sig i en L-form</string>
   <string name="knightIntro">Här är en utmaning för dig. Springaren är... en knepig pjäs.</string>
+  <string name="knightsHaveAFancyWay">Springare hoppare runt på ett märkligt sätt!</string>
+  <string name="knightsCanJumpOverObstacles">Springare kan hoppa över hinder! Fly och övervinn stjärnorna!</string>
   <string name="knightComplete">Grattis! Du har bemästrat springaren.</string>
   <string name="thePawn">Bonden</string>
   <string name="itMovesForwardOnly">Den rör sig endast framåt</string>
+  <string name="pawnIntro">Bönder är svaga, men med en väldig potential.</string>
+  <string name="pawnsMoveOneSquareOnly">Bönder gå en ruta i taget, men när de når den andra sidan blir de en starkare pjäs!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">För det mesta är det bäst att uppgradera till drottning.
+Men ibland kan en springare vara smidig!</string>
   <string name="pawnsMoveForward">Bönder flyttar framåt, men slår diagonalt!</string>
+  <string name="captureThenPromote">Slå ut och sedan befodras!</string>
+  <string name="useAllThePawns">Använd alla bönder! Ingen behöver befodras.</string>
   <string name="aPawnOnTheSecondRank">En bonde på andra raden kan flytta 2 rutor på en gång!</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Din bonde nådde andra sidan av brädet!</string>
   <string name="takeTheEnemyPieces">Slå fiendens pjäser</string>

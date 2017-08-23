@@ -293,6 +293,17 @@
     <item quantity="few">≥ %1$s %2%s hodnocené hry</item>
     <item quantity="other">≥ %1$s %2%s hodnocených her</item>
   </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Potřebujete odehrát ještě %1$s %2$s hodnocenou partii</item>
+    <item quantity="few">Potřebujete odehrát ještě %1$s %2$s hodnocené partie</item>
+    <item quantity="other">Potřebujete odehrát ještě %1$s %2$s hodnocených partií</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Potřebujete odehrát ještě %s hodnocenou partii</item>
+    <item quantity="few">Potřebujete odehrát ještě %s hodnocené partie</item>
+    <item quantity="other">Potřebujete odehrát ještě %s hodnocených partií</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Váš rating %s je provizorní</string>
   <string name="yourPerfRatingIsTooHigh">Váš %1$s rating (%2$s) je příliš vysoký</string>
   <string name="yourPerfRatingIsTooLow">Váš %1$s rating (%2$s) je příliš nízký</string>
   <string name="ratedMoreThanInPerf">Rating ≥ %1$s v %2$s variantě</string>
@@ -571,6 +582,9 @@
   <string name="xAnsweredY">%1$s odpověděl v %2$s</string>
   <string name="xCommentedY">%1$s okomentoval %2$s</string>
   <string name="victory">Vítězství!</string>
+  <string name="defeat">Porážka</string>
+  <string name="xVsYinZ">%1$s proti %2$s
+v %3$s</string>
   <string name="timeline">Timeline</string>
   <string name="seeAllTournaments">Zobrazit všechny turnaje</string>
   <string name="starting">Začíná:</string>
@@ -581,6 +595,11 @@
     <item quantity="one">Maximum: %s znak.</item>
     <item quantity="few">Maximum: %s znaky.</item>
     <item quantity="other">Maximum: %s znaků.</item>
+  </plurals>
+  <plurals name="blocks">
+    <item quantity="one">%s zablokovaný hráč</item>
+    <item quantity="few">%s zablokovaní hráči</item>
+    <item quantity="other">%s zablokovaných hráčů</item>
   </plurals>
   <string name="listBlockedPlayers">Seznam hráčů, které jste zablokoval(a).</string>
   <string name="human">Člověk</string>
