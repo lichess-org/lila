@@ -63,6 +63,32 @@ Ei tarvitse korottaa.</string>
   <string name="pawnPromotion">Sotilaan korotus</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Sotilaasi on saapunut laudan toiseen päähän!</string>
   <string name="itNowPromotesToAStrongerPiece">Se korottuu nyt vahvemmaksi nappulaksi.</string>
+  <string name="selectThePieceYouWant">Valitse haluamasi nappula!</string>
+  <string name="fundamentals">Alkeet</string>
+  <string name="capture">Lyöminen</string>
+  <string name="takeTheEnemyPieces">Poista vastustajan nappulat</string>
+  <string name="captureIntro">Tunnista vastustajan suojaamattomat nappulat ja lyö ne!</string>
+  <string name="takeTheBlackPieces">Lyö mustat nappulat!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Lyö mustat nappulat!
+Äläkä menetä omiasi.</string>
+  <string name="captureComplete">Onneksi olkoon! Osaat nyt tapella shakkinappuloilla!</string>
+  <string name="protection">Suojaaminen</string>
+  <string name="keepYourPiecesSafe">Pidä nappulasi turvassa</string>
+  <string name="protectionIntro">Tunnista nappulat joita vastustaja uhkaa ja puolusta niitä!</string>
+  <string name="protectionComplete">Onnittelut! Nappula jota et menetä on voitettu nappula!</string>
+  <string name="escape">Vastustaja hyökkää!
+Pakene uhkaa!</string>
+  <string name="noEscape">Et voi paeta,
+mutta voit puolustaa!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Älä anna hänen lyödä
+suojaamatonta nappulaa!</string>
+  <string name="combat">Taisteleminen</string>
+  <string name="captureAndDefendPieces">Lyö ja puolusta nappuloita</string>
+  <string name="combatIntro">Hyvä soturi hallitsee sekä hyökkäyksen että puolustuksen!</string>
+  <string name="combatComplete">Onneksi olkoon! Osaat nyt tapella shakkinappuloilla!</string>
+  <string name="checkInOne">Yhden siirron shakki</string>
+  <string name="attackTheOpponentsKing">Hyökkää vastustajan kuningasta vastaan</string>
+  <string name="checkInOneIntro">Shakkaa vastustajaasi uhkaamalla hänen kuningastaan. Hänen on pakko puolustaa sitä!</string>
   <string name="boardSetupComplete">Onneksi olkoon! Osaat asetella shakkilaudan.</string>
   <string name="castling">Linnoitus</string>
   <string name="theSpecialKingMove">Kuninkaan erikoissiirto</string>
