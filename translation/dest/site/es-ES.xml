@@ -57,8 +57,8 @@
   <string name="inLocalBrowser">en el navegador local</string>
   <string name="toggleLocalEvaluation">Evaluación local</string>
   <string name="move">Movimiento</string>
-  <string name="variantLoss">Movimiento perdedor</string>
-  <string name="variantWin">Movimiento ganador</string>
+  <string name="variantLoss">Variante perdedora</string>
+  <string name="variantWin">Variante ganadora</string>
   <string name="insufficientMaterial">Material insuficiente</string>
   <string name="pawnMove">Movimiento de peón</string>
   <string name="capture">Captura</string>
@@ -240,7 +240,7 @@
   </plurals>
   <plurals name="nbPlaying">
     <item quantity="one">%s en juego</item>
-    <item quantity="other">%s Jugando</item>
+    <item quantity="other">%s en juego</item>
   </plurals>
   <string name="exportGames">Exportar partidas</string>
   <string name="ratingRange">Rango de puntuación</string>
@@ -281,10 +281,10 @@
     <item quantity="other">Necesitas jugar %1$s más %2$s partidas puntuadas</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">Te falta jugar %s partidas puntuadas</item>
+    <item quantity="one">Te falta jugar %s partida puntuada</item>
     <item quantity="other">Te falta jugar %s partidas puntuadas</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Tu puntuación de %s aún no es definitivo</string>
+  <string name="yourPerfRatingIsProvisional">Tu puntuación de %s aún no es definitiva</string>
   <string name="yourPerfRatingIsTooHigh">Tu puntuación de %1$s (%2$s) es muy alta</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Tu máxima puntación semanal de %1$s (%2$s) es muy alta</string>
   <string name="yourPerfRatingIsTooLow">Tu puntuación de %1$s (%2$s) es muy baja</string>
@@ -458,7 +458,7 @@
     <item quantity="one">%s partida en juego</item>
     <item quantity="other">%s partidas en juego</item>
   </plurals>
-  <string name="automaticallyProceedToNextGameAfterMoving">Proceder a la siguiente partida automáticamente despues de mi movimiento</string>
+  <string name="automaticallyProceedToNextGameAfterMoving">Proceder automáticamente a la siguiente partida en juego después de mi movimiento</string>
   <string name="autoSwitch">Cambio automático</string>
   <string name="puzzles">Problemas</string>
   <string name="latestUpdates">Últimas actualizaciones</string>
@@ -468,7 +468,7 @@
   <string name="no">No</string>
   <string name="yes">Sí</string>
   <string name="help">Ayuda:</string>
-  <string name="createANewTopic">Crear un tema nuevo</string>
+  <string name="createANewTopic">Crear un nuevo tema</string>
   <string name="topics">Temas</string>
   <string name="posts">Publicaciones</string>
   <string name="lastPost">Última publicación</string>
@@ -708,7 +708,7 @@
   <string name="alternativelyYouCanX">O también puede %s.</string>
   <string name="revokeAllSessions">cerrar todas las sesiones</string>
   <string name="playChessEverywhere">Juega ajedrez donde sea</string>
-  <string name="asFreeAsLichess">Tan gratis como lichess</string>
+  <string name="asFreeAsLichess">Tan gratuito como lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Construido por amor al ajedrez, no al dinero</string>
   <string name="everybodyGetsAllFeaturesForFree">Todos tienen acceso gratuito a todas las opciones</string>
   <string name="zeroAdvertisement">Sin anuncios</string>
