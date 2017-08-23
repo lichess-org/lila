@@ -6,7 +6,12 @@ package object i18n extends PackageObject with WithPlay {
 
   type Count = Int
   type MessageKey = String
-  private[i18n]type Messages = Map[Lang, Map[MessageKey, Translation]]
+
+  /* of course we don't need/use the mutability
+   * it's just that AnyRefMap is the fastest scala hashmap implementation
+   */
+  private[i18n]type MessageMap = scala.collection.mutable.AnyRefMap[MessageKey, Translation]
+  private[i18n]type Messages = Map[Lang, MessageMap]
 
   private[i18n] def logger = lila.log("i18n")
 

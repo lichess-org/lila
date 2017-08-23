@@ -69,12 +69,15 @@ object JsDump {
     }
   }
 
-  def dbToObject(ref: I18nDb.Ref, lang: Lang): JsObject = JsObject {
+  val emptyMessages: MessageMap = scala.collection.mutable.AnyRefMap.empty
+
+  def dbToObject(ref: I18nDb.Ref, lang: Lang): JsObject =
     I18nDb(ref).get(defaultLang) ?? { defaultMsgs =>
-      val msgs = ~I18nDb(ref).get(lang)
-      defaultMsgs.flatMap {
-        case (k, v) => translatedJs(k, msgs get k getOrElse v, lang)
+      JsObject {
+        val msgs = I18nDb(ref).get(lang) | emptyMessages
+        defaultMsgs.flatMap {
+          case (k, v) => translatedJs(k, msgs get k getOrElse v, lang)
+        }
       }
     }
-  }
 }
