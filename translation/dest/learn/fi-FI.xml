@@ -111,6 +111,23 @@ tai torju hyökkäys!</string>
   <string name="attackYourOpponentsKing">Uhkaa vastustajan kuningasta niin
 ettei sitä voi puolustaa!</string>
   <string name="mateInOneComplete">Onnittelut! Näin shakkipeli voitetaan!</string>
+  <string name="intermediate">Keskitaso</string>
+  <string name="boardSetup">Laudan asettaminen</string>
+  <string name="howTheGameStarts">Kuinka peli alkaa</string>
+  <string name="boardSetupIntro">Kaksi armeijaa on vastakkain, valmiina taistoon.</string>
+  <string name="thisIsTheInitialPosition">Tämä on alkuasema
+jokaisessa shakkipelissä!
+Aloita tekemällä mikä siirto tahansa.</string>
+  <string name="firstPlaceTheRooks">Ensin aseta tornit!
+Ne kuuluvat kulmiin.</string>
+  <string name="thenPlaceTheKnights">Sitten ratsut!
+Ne kuuluvat tornien viereen.</string>
+  <string name="placeTheBishops">Astea lähetit!
+Ne kuuluvat ratsujen viereen.</string>
+  <string name="placeTheQueen">Aseta kuningatar!
+Hän kuuluu itsensä väriseen ruutuun.</string>
+  <string name="placeTheKing">Aseta kuningas!
+Kuningattarensa rinnalle.</string>
   <string name="boardSetupComplete">Onneksi olkoon! Osaat asetella shakkilaudan.</string>
   <string name="castling">Linnoitus</string>
   <string name="theSpecialKingMove">Kuninkaan erikoissiirto</string>
