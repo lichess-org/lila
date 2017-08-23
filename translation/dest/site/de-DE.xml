@@ -629,7 +629,7 @@
   <string name="sourceCode">Quellcode</string>
   <string name="simultaneousExhibitions">Simultanschach</string>
   <string name="host">Veranstalter</string>
-  <string name="hostColorX">Farbe des Alleinspielers: %s</string>
+  <string name="hostColorX">Farbe des Ausrichters: %s</string>
   <string name="createdSimuls">Neue Simultanspiele</string>
   <string name="hostANewSimul">Ein Simultan veranstalten</string>
   <string name="noSimulFound">Simultan nicht gefunden</string>

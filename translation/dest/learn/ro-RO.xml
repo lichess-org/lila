@@ -9,29 +9,89 @@
   <string name="youWillLoseAllYourProgress">Vei pierde tot progresul!</string>
   <string name="play">joacă!</string>
   <string name="chessPieces">Piese de şah</string>
-  <string name="theRook">Tura</string>
+  <string name="theRook">Turn</string>
+  <string name="itMovesInStraightLines">Se mișcă în linii drepte</string>
+  <string name="rookIntro">Turnul e o piesă puternică. Ești pregătit s-o mânuiești?</string>
+  <string name="rookGoal">Apasă click pe turn ca să-l aduci pe stea!</string>
   <string name="grabAllTheStars">Prinde toate stelele!</string>
+  <string name="theFewerMoves">Cu cât mai puține mutări făcute,
+cu atât mai multe puncte câștigate!</string>
+  <string name="useTwoRooks">Folosește două turnuri ca să grăbești lucrurile!</string>
+  <string name="rookComplete">Felicitări! Ai reușit să stăpânești turnul.</string>
   <string name="theBishop">Nebunul</string>
+  <string name="itMovesDiagonally">Se mișcă în diagonală</string>
+  <string name="bishopIntro">Următorul lucru pe care-l vom învăța este manevrarea nebunului!</string>
+  <string name="youNeedBothBishops">Un nebun alb,
+un nebun negru,
+ai nevoie de ambii!</string>
+  <string name="bishopComplete">Felicitări! Poți mânui un nebun.</string>
   <string name="theQueen">Regina</string>
   <string name="queenCombinesRookAndBishop">Regina = Tură + Nubun</string>
+  <string name="queenIntro">Cea mai puternică piesă își face intrarea. Majestatea sa regina!</string>
+  <string name="queenComplete">Felicitări! Regina nu are secrete pentru tine.</string>
   <string name="theKing">Regele</string>
+  <string name="theMostImportantPiece">Cea mai importantă piesă</string>
+  <string name="kingIntro">Tu ești regele. Dacă cazi în luptă, jocul e pierdut.</string>
   <string name="theKingIsSlow">Regele este lent.</string>
   <string name="lastOne">Ultimul!</string>
+  <string name="kingComplete">Acum poți comanda comandantul!</string>
   <string name="theKnight">Calul</string>
+  <string name="itMovesInAnLShape">Se mișcă în formă de L</string>
+  <string name="knightIntro">Aici e o provocare pentru tine. Calul este... o piesă șireată.</string>
+  <string name="knightsHaveAFancyWay">Caii au un mod șiret în a sări împrejur!</string>
+  <string name="knightsCanJumpOverObstacles">Caii pot sări peste obstacole!
+Evadează și cucerește stelele!</string>
+  <string name="knightComplete">Felicitări! Ai învățat să folosești calul.</string>
   <string name="thePawn">Pionul</string>
+  <string name="itMovesForwardOnly">Se mișcă doar înainte</string>
+  <string name="pawnIntro">Pionii sunt slabi, dar au un mare potențial.</string>
+  <string name="pawnsMoveOneSquareOnly">Pionii se mișcă doar o pătrățică.
+Dar atunci când ajung la celălalt capăt al tablei, ei devin piese mai puternice!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">De cele mai multe ori, promovând pionul într-o regină e cea mai bună alegere.
+Dar uneori, un cal poate fi util!</string>
+  <string name="pawnsMoveForward">Pionii se mișcă înainte,
+dar mănâncă în diagonală!</string>
+  <string name="captureThenPromote">Mănâncă, apoi promovează!</string>
+  <string name="useAllThePawns">Folosește toți pionii!
+Nu trebuie să-i promovezi.</string>
+  <string name="aPawnOnTheSecondRank">Un pion de pe a doua linie se poate mișca două pătrățele deodată!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Capturează toate stelele!
+Nu trebuie să promovezi.</string>
+  <string name="pawnComplete">Felicitări! Ai învățat să controlezi pionul.</string>
+  <string name="pawnPromotion">Promovarea pionului</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Pionul tău a atins capătul tablei!</string>
+  <string name="itNowPromotesToAStrongerPiece">Acum este promovat într-o piesă mai puternică.</string>
+  <string name="selectThePieceYouWant">Alege piesa pe care o vrei!</string>
+  <string name="fundamentals">Principiile</string>
   <string name="capture">Capturează</string>
   <string name="takeTheEnemyPieces">Ia piesele inamice</string>
+  <string name="captureIntro">Identifică piesele neprotejate ale oponentului și capturează-le!</string>
   <string name="takeTheBlackPieces">Ia piesele negre!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Ia piesele negre! Și nu le pierde pe ale tale.</string>
+  <string name="captureComplete">Felicitări! Știi cum să lupți cu piesele șahului!</string>
   <string name="protection">Protecție</string>
   <string name="keepYourPiecesSafe">Protejează-ţi piesele</string>
-  <string name="protectionComplete">Felicitări! O piesă care nu o pierze este o piesă câştigată!</string>
-  <string name="escape">Esti atacat! Scăpa din ameninţare!</string>
+  <string name="protectionIntro">Identifică piesele pe care oponentul tău le atacă și protejează-le!</string>
+  <string name="protectionComplete">Felicitări! O piesă care nu o pierde este o piesă câștigată!</string>
+  <string name="escape">Ești atacat! Scăpa de amenințare!</string>
+  <string name="noEscape">Nu este nicio scăpare,
+dar poți proteja!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Nu-i lăsa să ia vreo piesă neprotejată!</string>
   <string name="combat">Luptă</string>
   <string name="captureAndDefendPieces">Capturează şi protejează piese</string>
+  <string name="combatIntro">Un bun războinic știe despre atac și apărare!</string>
+  <string name="combatComplete">Felicitări! Știi cum să lupți cu piesele șahului!</string>
+  <string name="checkInOne">Șah într-o mutare</string>
   <string name="attackTheOpponentsKing">Atacă regele adversarului</string>
+  <string name="checkInOneIntro">Ca să dai șah oponentului, atacă-i regele. Va trebui să-l protejeze!</string>
+  <string name="checkInOneGoal">Țintește către regele inamic într-o mutare!</string>
+  <string name="checkInOneComplete">Felicitări! Ai dat șah inamicului, forțându-l să-și apere regele!</string>
+  <string name="outOfCheck">În afara șahului</string>
   <string name="defendYourKing">Apără regele</string>
+  <string name="outOfCheckIntro">Ești în șah! Trebuie să evadezi sau să blochezi atacul.</string>
   <string name="escapeWithTheKing">Scăpa cu regele!</string>
+  <string name="theKingCannotEscapeButBlock">Regele nu poate scăpa, dar poți bloca atacul!</string>
+  <string name="youCanGetOutOfCheckByTaking">Poți ieși din șah capturând piesa care-ți atacă regele.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Calul dă şah prin apărările tale!</string>
   <string name="mateInOne">Mat în unu</string>
   <string name="howTheGameStarts">Cum incepe jocul</string>
@@ -41,12 +101,33 @@
   <string name="theSpecialPawnMove">Mutarea de pion specială</string>
   <string name="stalemate">Pat</string>
   <string name="advanced">Avansat</string>
+  <string name="youKnowHowToPlayChess">Știi cum să joci șah, felicitări! Vrei să devii un jucător mai putenic?</string>
+  <string name="register">Înregistrează-te</string>
+  <string name="getAFreeLichessAccount">Obține un cont de Lichess gratuit</string>
+  <string name="practice">Practică</string>
+  <string name="learnCommonChessPositions">Învață poziții comune din șah</string>
   <string name="puzzles">Probleme de șah</string>
+  <string name="exerciseYourTacticalSkills">Exersează-ți abilitățile tactice</string>
   <string name="videos">Videoclipuri</string>
+  <string name="watchInstructiveChessVideos">Urmărește videoclipuri de șah instructive</string>
   <string name="playPeople">Joacă cu oameni</string>
+  <string name="opponentsFromAroundTheWorld">Oponenți din jurul lumii</string>
   <string name="playMachine">Joacă cu cumputerul</string>
+  <string name="testYourSkillsWithTheComputer">Testează-ți abilitățile cu computerul</string>
+  <string name="letsGo">Să începem!</string>
+  <string name="stageX">Etapa %s</string>
   <string name="awesome">Minunat!</string>
   <string name="excellent">Excelent!</string>
+  <string name="greatJob">Bună treabă!</string>
   <string name="perfect">Perfect!</string>
+  <string name="outstanding">Remarcabil!</string>
+  <string name="yesYesYes">Da, da, da!</string>
+  <string name="youreGoodAtThis">Ești bun la asta!</string>
+  <string name="nailedIt">Ai nimerit-o.</string>
+  <string name="stageXComplete">Etapa %s completă</string>
+  <string name="yourScore">Scorul tău</string>
   <string name="next">Urmează</string>
+  <string name="backToMenu">Înapoi la meniu</string>
+  <string name="puzzleFailed">Puzzle eșuat!</string>
+  <string name="retry">Reîncearcă</string>
 </resources>
