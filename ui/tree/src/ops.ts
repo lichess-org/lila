@@ -101,8 +101,8 @@ export function merge(n1: Tree.Node, n2: Tree.Node): void {
 }
 
 export function hasBranching(node: Tree.Node, maxDepth: number): boolean {
-  return maxDepth <= 0 || node.children[1] ? true : (
-    node.children[0] ? hasBranching(node.children[0], maxDepth - 1) : false
+  return maxDepth <= 0 || !!node.children[1] || (
+    node.children[0] && hasBranching(node.children[0], maxDepth - 1)
   );
 }
 

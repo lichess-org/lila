@@ -471,7 +471,6 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
         who = d.w;
         setMemberActive(who);
         if (wrongChapter(d)) return;
-        if (who && who.s === sri) commentForm.dirty(false);
         ctrl.tree.setCommentAt(d.c, position.path);
         redraw();
       },
@@ -494,7 +493,6 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
         who = d.w;
         setMemberActive(who);
         if (wrongChapter(d)) return;
-        if (who && who.s === sri) glyphForm.dirty(false);
         ctrl.tree.setGlyphsAt(d.g, position.path);
         redraw();
       },

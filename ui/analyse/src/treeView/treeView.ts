@@ -73,6 +73,17 @@ export function renderMainlineCommentsOf(ctx: Ctx, node: Tree.Node, conceal: Con
   });
 }
 
+export function renderInlineCommentsOf(ctx: Ctx, node: Tree.Node): MaybeVNodes {
+  if (!ctx.ctrl.showComments || empty(node.comments)) return [];
+  return node.comments!.map(comment => {
+    if (comment.by === 'lichess' && !ctx.showComputer) return;
+    return h('comment', [
+      node.comments![1] ? h('span.by', commentAuthorText(comment.by)) : null,
+      truncateComment(comment.text, 300, ctx)
+    ]);
+  }).filter(nonEmpty);
+}
+
 export function truncateComment(text: string, len: number, ctx: Ctx) {
   return ctx.truncateComments && text.length > len ? text.slice(0, len - 10) + ' [...]' : text;
 }
@@ -99,7 +110,7 @@ export function mainHook(ctrl: AnalyseCtrl): Hooks {
       });
     },
     postpatch: (_, vnode) => {
-      if (ctrl.autoScrollRequested && ctrl.path !== '') {
+      if (ctrl.autoScrollRequested) {
         autoScroll(ctrl, vnode.elm as HTMLElement);
         ctrl.autoScrollRequested = false;
       }

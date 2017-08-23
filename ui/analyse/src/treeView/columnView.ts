@@ -7,7 +7,7 @@ import * as moveView from '../moveView';
 import { authorText as commentAuthorText } from '../study/studyComments';
 import AnalyseCtrl from '../ctrl';
 import { MaybeVNodes, ConcealOf, Conceal } from '../interfaces';
-import { autoScroll, nonEmpty, renderMainlineCommentsOf, truncateComment, mainHook, nodeClasses } from './treeView';
+import { autoScroll, nonEmpty, renderMainlineCommentsOf, truncateComment, mainHook, nodeClasses, renderInlineCommentsOf } from './treeView';
 import { Ctx as BaseCtx, Opts as BaseOpts } from './treeView';
 
 interface Ctx extends BaseCtx {
@@ -16,10 +16,6 @@ interface Ctx extends BaseCtx {
 interface Opts extends BaseOpts {
   conceal?: Conceal;
   noConceal?: boolean;
-}
-
-function pathContains(ctx: Ctx, path: Tree.Path): boolean {
-  return treePath.contains(ctx.ctrl.path, path);
 }
 
 function emptyMove(conceal?: Conceal): VNode {
@@ -101,7 +97,7 @@ function renderLines(ctx: Ctx, nodes: Tree.Node[], opts: Opts): VNode {
       isMainline: false,
       withIndex: true,
       noConceal: opts.noConceal,
-      truncate: n.comp && !pathContains(ctx, opts.parentPath + n.id) ? 3 : undefined
+      truncate: n.comp && !treePath.contains(ctx.ctrl.path, opts.parentPath + n.id) ? 3 : undefined
     }));
   }));
 }
@@ -144,7 +140,7 @@ function renderMoveAndChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVN
     }, [h('index', '[...]')])
   ];
   return ([renderMoveOf(ctx, node, opts)] as MaybeVNodes)
-    .concat(renderVariationCommentsOf(ctx, node))
+    .concat(renderInlineCommentsOf(ctx, node))
     .concat(opts.inline ? renderInline(ctx, opts.inline, opts) : null)
     .concat(renderChildrenOf(ctx, node, {
       parentPath: path,
@@ -162,17 +158,6 @@ function renderInline(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
     noConceal: opts.noConceal,
     truncate: opts.truncate
   }));
-}
-
-function renderVariationCommentsOf(ctx: Ctx, node: Tree.Node): MaybeVNodes {
-  if (!ctx.ctrl.showComments || empty(node.comments)) return [];
-  return node.comments!.map(comment => {
-    if (comment.by === 'lichess' && !ctx.showComputer) return;
-    return h('comment', [
-      node.comments![1] ? h('span.by', commentAuthorText(comment.by)) : null,
-      truncateComment(comment.text, 300, ctx)
-    ]);
-  });
 }
 
 const emptyConcealOf: ConcealOf = function() {

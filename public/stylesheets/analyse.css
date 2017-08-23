@@ -1196,16 +1196,18 @@ body.dark .aclock.active {
 }
 
 .tview2 {
-  font-size: 13.5px;
   white-space: normal;
-  line-height: 1.25;
 }
 .tview2.column {
   display: flex;
   flex-flow: row wrap;
+  font-size: 13.5px;
+  line-height: 1.25;
 }
 .tview2.literal {
   padding: 8px 5px;
+  font-size: 18px;
+  line-height: 1.3em;
 }
 .tview2 move {
   font-family: 'ChessSansPiratf', sans-serif;
@@ -1222,15 +1224,9 @@ body.piece_letter .tview2 move {
   padding: 0 2px;
 }
 .tview2.literal move {
-  padding-left: 7px;
-  padding-right: 3px;
+  padding: 3px;
   white-space: nowrap;
-  vertical-align: center;
-}
-.tview2.literal move san {
-  font-size: 1.185em;
-  line-height: 1.75em;
-  /* font-weight: bold; */
+  display: inline;
 }
 .tview2 move.parent {
   color: #3893e8!important;
@@ -1330,6 +1326,13 @@ body.piece_letter .tview2 move {
   padding: 3px 5px;
   word-wrap: break-word;
 }
+.tview2.literal comment {
+  display: inline;
+  vertical-align: top;
+  word-wrap: break-word;
+  color: #7492bf;
+  margin-left: 0.1em;
+}
 .tview2 comment .by {
   display: inline-block;
   vertical-align: -0.3em;
@@ -1362,10 +1365,12 @@ body.piece_letter .tview2 move {
   border-color: #66558C;
 }
 .tview2 line comment {
+  font-size: 90%;
+}
+.tview2.column line comment {
   display: inline;
   color: #808080;
   word-wrap: break-word;
-  font-size: 90%;
   padding: 0 5px 0 3px;
   vertical-align: top;
 }
