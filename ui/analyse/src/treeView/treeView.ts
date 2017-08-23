@@ -4,7 +4,7 @@ import { Hooks } from 'snabbdom/hooks'
 import { game } from 'game';
 import AnalyseCtrl from '../ctrl';
 import contextMenu from '../contextMenu';
-import { MaybeVNodes, ConcealOf, Conceal } from '../interfaces';
+import { MaybeVNodes, ConcealOf } from '../interfaces';
 import { authorText as commentAuthorText } from '../study/studyComments';
 import { path as treePath } from 'tree';
 import column from './columnView';
@@ -53,26 +53,6 @@ export function nodeClasses(c: AnalyseCtrl, path: Tree.Path): NodeClasses {
   };
 }
 
-export function renderMainlineCommentsOf(ctx: Ctx, node: Tree.Node, conceal: Conceal, withColor: boolean): MaybeVNodes {
-
-  if (!ctx.ctrl.showComments || empty(node.comments)) return [];
-
-  const colorClass = withColor ? (node.ply % 2 === 0 ? '.black ' : '.white ') : '';
-
-  return node.comments!.map(comment => {
-    if (comment.by === 'lichess' && !ctx.showComputer) return;
-    let sel = 'comment' + colorClass;
-    if (comment.text.indexOf('Inaccuracy.') === 0) sel += '.inaccuracy';
-    else if (comment.text.indexOf('Mistake.') === 0) sel += '.mistake';
-    else if (comment.text.indexOf('Blunder.') === 0) sel += '.blunder';
-    if (conceal) sel += '.' + conceal;
-    return h(sel, [
-      node.comments![1] ? h('span.by', commentAuthorText(comment.by)) : null,
-      truncateComment(comment.text, 400, ctx)
-    ]);
-  });
-}
-
 export function renderInlineCommentsOf(ctx: Ctx, node: Tree.Node): MaybeVNodes {
   if (!ctx.ctrl.showComments || empty(node.comments)) return [];
   return node.comments!.map(comment => {
@@ -116,6 +96,11 @@ export function mainHook(ctrl: AnalyseCtrl): Hooks {
       }
     }
   };
+}
+
+export function retroLine(ctx: Ctx, node: Tree.Node, opts: Opts): VNode | undefined {
+  return node.comp && ctx.ctrl.retro && ctx.ctrl.retro.hideComputerLine(node, opts.parentPath) ?
+  h('line', 'Learn from this mistake') : undefined;
 }
 
 function eventPath(e: MouseEvent): Tree.Path | null {

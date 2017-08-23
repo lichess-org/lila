@@ -4,12 +4,12 @@
   "compilerOptions": {
     "allowJs": true,
     "strictNullChecks": true,
-    "noUnusedLocals": false,
+    "noUnusedLocals": true,
     "noEmitOnError": true,
     "noImplicitAny": false,
     "noImplicitReturns": false,
     "noImplicitThis": true,
-    "noUnusedParameters": false,
+    "noUnusedParameters": true,
     "target": "es5",
     "lib": ["DOM", "ES5"]
   }

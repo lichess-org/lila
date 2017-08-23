@@ -1,15 +1,11 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-// import contextMenu from '../contextMenu';
-import { empty, defined } from 'common';
-// import { game } from 'game';
 import { fixCrazySan } from 'chess';
 import { path as treePath, ops as treeOps } from 'tree';
 import * as moveView from '../moveView';
-// import { authorText as commentAuthorText } from '../study/studyComments';
 import AnalyseCtrl from '../ctrl';
 import { MaybeVNodes } from '../interfaces';
-import { autoScroll, renderMainlineCommentsOf, mainHook, nodeClasses, renderInlineCommentsOf } from './treeView';
+import { mainHook, nodeClasses, renderInlineCommentsOf, retroLine } from './treeView';
 import { Ctx, Opts } from './treeView';
 
 function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | undefined {
@@ -56,9 +52,7 @@ function renderInlined(ctx: Ctx, nodes: Tree.Node[], opts: Opts): MaybeVNodes | 
 
 function renderLines(ctx: Ctx, nodes: Tree.Node[], opts: Opts): VNode {
   return h('lines', nodes.map(n => {
-    if (n.comp && ctx.ctrl.retro && ctx.ctrl.retro.hideComputerLine(n, opts.parentPath))
-    return h('line', 'Learn from this mistake');
-    return h('line', renderMoveAndChildrenOf(ctx, n, {
+    return retroLine(ctx, n, opts) || h('line', renderMoveAndChildrenOf(ctx, n, {
       parentPath: opts.parentPath,
       isMainline: false,
       withIndex: true,
@@ -113,11 +107,11 @@ export default function(ctrl: AnalyseCtrl): VNode {
     showGlyphs: !!ctrl.study || ctrl.showComputer(),
     showEval: !!ctrl.study || ctrl.showComputer()
   };
-  const commentTags = renderMainlineCommentsOf(ctx, root, false, false);
+  const commentTags = renderInlineCommentsOf(ctx, root);
   return h('div.tview2.literal', {
     hook: mainHook(ctrl)
   }, [
-    empty(commentTags) ? null : h('interrupt', commentTags),
+    ...commentTags,
     ...(renderChildrenOf(ctx, root, {
       parentPath: '',
       isMainline: true

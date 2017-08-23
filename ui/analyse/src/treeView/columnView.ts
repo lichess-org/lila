@@ -1,13 +1,13 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { empty, defined } from 'common';
+import { empty } from 'common';
 import { fixCrazySan } from 'chess';
 import { path as treePath, ops as treeOps } from 'tree';
 import * as moveView from '../moveView';
 import { authorText as commentAuthorText } from '../study/studyComments';
 import AnalyseCtrl from '../ctrl';
 import { MaybeVNodes, ConcealOf, Conceal } from '../interfaces';
-import { autoScroll, nonEmpty, renderMainlineCommentsOf, truncateComment, mainHook, nodeClasses, renderInlineCommentsOf } from './treeView';
+import { nonEmpty, mainHook, nodeClasses, renderInlineCommentsOf, truncateComment, retroLine } from './treeView';
 import { Ctx as BaseCtx, Opts as BaseOpts } from './treeView';
 
 interface Ctx extends BaseCtx {
@@ -90,9 +90,7 @@ function renderLines(ctx: Ctx, nodes: Tree.Node[], opts: Opts): VNode {
   return h('lines', {
     class: { single: !nodes[1] }
   }, nodes.map(n => {
-    if (n.comp && ctx.ctrl.retro && ctx.ctrl.retro.hideComputerLine(n, opts.parentPath))
-    return h('line', 'Learn from this mistake');
-    return h('line', renderMoveAndChildrenOf(ctx, n, {
+    return retroLine(ctx, n, opts) || h('line', renderMoveAndChildrenOf(ctx, n, {
       parentPath: opts.parentPath,
       isMainline: false,
       withIndex: true,
@@ -158,6 +156,26 @@ function renderInline(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
     noConceal: opts.noConceal,
     truncate: opts.truncate
   }));
+}
+
+function renderMainlineCommentsOf(ctx: Ctx, node: Tree.Node, conceal: Conceal, withColor: boolean): MaybeVNodes {
+
+  if (!ctx.ctrl.showComments || empty(node.comments)) return [];
+
+  const colorClass = withColor ? (node.ply % 2 === 0 ? '.black ' : '.white ') : '';
+
+  return node.comments!.map(comment => {
+    if (comment.by === 'lichess' && !ctx.showComputer) return;
+    let sel = 'comment' + colorClass;
+    if (comment.text.indexOf('Inaccuracy.') === 0) sel += '.inaccuracy';
+    else if (comment.text.indexOf('Mistake.') === 0) sel += '.mistake';
+    else if (comment.text.indexOf('Blunder.') === 0) sel += '.blunder';
+    if (conceal) sel += '.' + conceal;
+    return h(sel, [
+      node.comments![1] ? h('span.by', commentAuthorText(comment.by)) : null,
+      truncateComment(comment.text, 400, ctx)
+    ]);
+  });
 }
 
 const emptyConcealOf: ConcealOf = function() {

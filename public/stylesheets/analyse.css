@@ -1205,9 +1205,9 @@ body.dark .aclock.active {
   line-height: 1.25;
 }
 .tview2.literal {
-  padding: 8px 5px;
+  padding: 7px 0px 7px 5px;
   font-size: 18px;
-  line-height: 1.3em;
+  line-height: 1.05em;
 }
 .tview2 move {
   font-family: 'ChessSansPiratf', sans-serif;
@@ -1224,9 +1224,8 @@ body.piece_letter .tview2 move {
   padding: 0 2px;
 }
 .tview2.literal move {
-  padding: 3px;
+  padding: 0.25em 0.17em;
   white-space: nowrap;
-  display: inline;
 }
 .tview2 move.parent {
   color: #3893e8!important;
@@ -1245,6 +1244,7 @@ body.piece_letter .tview2 move {
 .tview2 move:not(.empty):hover eval {
   background: #3893e8;
   color: #fff!important;
+  border-radius: 3px;
 }
 .tview2 move.empty {
   color: #aaa;
@@ -1265,7 +1265,7 @@ body.piece_letter .tview2 move {
   padding-left: 0;
 }
 .tview2.literal move index {
-  padding-right: 5px;
+  padding-right: 0.2em;
 }
 .tview2 line move {
   color: #606060;
@@ -1292,15 +1292,13 @@ body.piece_letter .tview2 move {
 }
 .tview2 glyph {
   font-family: 'Noto Sans';
+  margin-left: 0.08em;
 }
-.tview2 > move glyph {
+.tview2.column > move glyph {
   flex: 0 1 auto;
   text-align: center;
   overflow: hidden;
   font-size: 0.82em;
-}
-.tview2 > move glyph:first-child {
-  margin-left: 3px;
 }
 .tview2.column > index {
   flex: 0 0 13%;
@@ -1315,6 +1313,7 @@ body.piece_letter .tview2 move {
 }
 .tview2 > interrupt {
   flex: 0 0 100%;
+  font-size: 95%;
   background: #f8f8f8;
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
@@ -1327,11 +1326,11 @@ body.piece_letter .tview2 move {
   word-wrap: break-word;
 }
 .tview2.literal comment {
-  display: inline;
-  vertical-align: top;
+  vertical-align: 0.62em;
   word-wrap: break-word;
   color: #7492bf;
   margin-left: 0.1em;
+  font-size: 0.8em;
 }
 .tview2 comment .by {
   display: inline-block;
@@ -1345,23 +1344,23 @@ body.piece_letter .tview2 move {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.tview2 comment.white {
+.tview2.column comment.white {
   border-left: 3px solid;
 }
-.tview2 comment.black {
+.tview2.column comment.black {
   border-right: 3px solid;
   overflow-x: hidden;
 }
-.tview2 comment.inaccuracy {
+.tview2.column comment.inaccuracy {
   border-color: #56B4E9;
 }
-.tview2 comment.mistake {
+.tview2.column comment.mistake {
   border-color: #E69F00;
 }
-.tview2 comment.blunder {
+.tview2.column comment.blunder {
   border-color: #DF5353;
 }
-.tview2 comment.undefined {
+.tview2.column comment.undefined {
   border-color: #66558C;
 }
 .tview2 line comment {
@@ -1393,12 +1392,10 @@ body.piece_letter .tview2 move {
 }
 .tview2 line {
   display: block;
-  margin: 2px 0;
   padding-left: 4px;
 }
-.tview2 > interrupt {
-  flex: 0 0 100%;
-  font-size: 95%;
+.tview2.column line {
+  margin: 2px 0;
 }
 .tview2 lines lines move {
   font-size: 13px;
@@ -1416,7 +1413,7 @@ body.piece_letter .tview2 move {
   height: 6px;
 }
 .tview2 lines line::before {
-  margin-top: 0.624em;
+  margin-top: 0.7em;
   margin-left: -4px;
   content: ' ';
   border-top: 1px solid #c0c0c0;
@@ -1446,6 +1443,10 @@ body.piece_letter .tview2 move {
 .tview2 inline::after {
   content: ')';
   margin-right: 2px;
+}
+.tview2.literal inline::before,
+.tview2.literal inline::after {
+  vertical-align: 0.7em;
 }
 .tview2 .conceal {
   opacity: 0.4;
