@@ -98,6 +98,12 @@ yhdellä siirrolla!</string>
   <string name="escapeWithTheKing">Pakene kuninkaalla!</string>
   <string name="theKingCannotEscapeButBlock">Kuningas ei voi paeta,
 mutta voit torjua hyökkäyksen!</string>
+  <string name="youCanGetOutOfCheckByTaking">Voit purkaa shakin
+lyömällä hyökkäävän nappulan.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Ratsu hyökkää
+yli puolustuksesi!</string>
+  <string name="escapeOrBlock">Pakene kuninkaalla
+tai torju hyökkäys!</string>
   <string name="boardSetupComplete">Onneksi olkoon! Osaat asetella shakkilaudan.</string>
   <string name="castling">Linnoitus</string>
   <string name="theSpecialKingMove">Kuninkaan erikoissiirto</string>
