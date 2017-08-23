@@ -47,6 +47,8 @@
   <string name="requestAComputerAnalysis">컴퓨터 분석 요청</string>
   <string name="computerAnalysis">컴퓨터 분석</string>
   <string name="analysis">분석</string>
+  <string name="usingServerAnalysis">서버 분석 사용하기</string>
+  <string name="loadingEngine">엔진 로드 중 ...</string>
   <string name="openingExplorer">오프닝 탐색기</string>
   <string name="blunders">치명적 실수</string>
   <string name="mistakes">실수</string>
