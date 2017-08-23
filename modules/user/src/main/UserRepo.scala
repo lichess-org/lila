@@ -35,7 +35,7 @@ object UserRepo {
   def byIdsSecondary(ids: Iterable[ID]): Fu[List[User]] = coll.byIds[User](ids, ReadPreference.secondaryPreferred)
 
   def byEmail(email: EmailAddress): Fu[Option[User]] = coll.uno[User]($doc(F.email -> email))
-  def byPrevEmail(email: EmailAddress): Fu[Option[User]] = coll.uno[User]($doc(F.prevEmail -> email))
+  def byPrevEmail(email: EmailAddress): Fu[List[User]] = coll.find($doc(F.prevEmail -> email)).list[User]()
 
   def idByEmail(email: EmailAddress): Fu[Option[String]] =
     coll.primitiveOne[String]($doc(F.email -> email), "_id")

@@ -19,7 +19,10 @@ final class UserSearch(
 
   private def searchUsername(username: String) = UserRepo named username map (_.toList)
 
-  private def searchEmail(email: EmailAddress) = emailValidator.validate(email) ?? { fixed =>
-    UserRepo.byEmail(fixed) orElse UserRepo.byPrevEmail(fixed) map (_.toList)
-  }
+  private def searchEmail(email: EmailAddress): Fu[List[User]] =
+    emailValidator.validate(email) ?? { fixed =>
+      UserRepo.byEmail(fixed) flatMap { current =>
+        UserRepo.byPrevEmail(fixed) map current.toList.:::
+      }
+    }
 }
