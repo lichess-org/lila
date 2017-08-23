@@ -89,6 +89,15 @@ suojaamatonta nappulaa!</string>
   <string name="checkInOne">Yhden siirron shakki</string>
   <string name="attackTheOpponentsKing">Hyökkää vastustajan kuningasta vastaan</string>
   <string name="checkInOneIntro">Shakkaa vastustajaasi uhkaamalla hänen kuningastaan. Hänen on pakko puolustaa sitä!</string>
+  <string name="checkInOneGoal">Saata kuningas uhatuksi
+yhdellä siirrolla!</string>
+  <string name="checkInOneComplete">Onnittelut! Shakkasit vastustajaasi ja pakotit hänet puolustamaan kuningastaan!</string>
+  <string name="outOfCheck">Shakin purkaminen</string>
+  <string name="defendYourKing">Puolusta kuningastasi</string>
+  <string name="outOfCheckIntro">Olet shakissa! Sinun täytyy paeta tai torjua hyökkäys.</string>
+  <string name="escapeWithTheKing">Pakene kuninkaalla!</string>
+  <string name="theKingCannotEscapeButBlock">Kuningas ei voi paeta,
+mutta voit torjua hyökkäyksen!</string>
   <string name="boardSetupComplete">Onneksi olkoon! Osaat asetella shakkilaudan.</string>
   <string name="castling">Linnoitus</string>
   <string name="theSpecialKingMove">Kuninkaan erikoissiirto</string>
