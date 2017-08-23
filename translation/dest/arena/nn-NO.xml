@@ -19,4 +19,5 @@ Det er ikkje mogleg å gå Berserk i part med null i starttid (0+1, 0+2).
 Berserk gjev eitt ekstrapoeng berre om du spelar minst 7 trekk i partiet.</string>
   <string name="howIsTheWinnerDecided">Korleis avgjer ein kven som vinn?</string>
   <string name="howIsTheWinnerDecidedAnswer">Spelaren eller spelarane med flest poeng ved slutten av turneringsfristen vil verta utropt som vinnar(ar).</string>
+  <string name="howDoesPairingWork">Korleis vert turneringspara sett saman?</string>
 </resources>
