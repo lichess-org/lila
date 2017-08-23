@@ -57,11 +57,11 @@ maar slaan schuin!</string>
   <string name="captureThenPromote">Sla, promoveer dan!</string>
   <string name="useAllThePawns">Gebruik al de pionnen!
 Promoveren is niet nodig.</string>
-  <string name="aPawnOnTheSecondRank">Een pion op de tweede rij kan 2 vakjes ineens bewegen!</string>
+  <string name="aPawnOnTheSecondRank">Een pion op de tweede rij kan 2 vakjes in een keer bewegen!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Grijp al de sterren!
 Promoveren is niet nodig.</string>
   <string name="pawnComplete">Gefeliciteerd! Pionnen hebben geen geheimen voor jou.</string>
-  <string name="pawnPromotion">Pionpromotie</string>
+  <string name="pawnPromotion">Promotie</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Je pion heeft het einde van het bord bereikt!</string>
   <string name="itNowPromotesToAStrongerPiece">Nu promoveert het in een sterker stuk.</string>
   <string name="selectThePieceYouWant">Selecteer het gewenste stuk!</string>
