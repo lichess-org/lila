@@ -26,4 +26,5 @@ Berserk gjev eitt ekstrapoeng berre om du spelar minst 7 trekk i partiet.</strin
   <string name="otherRules">Andre viktige reglar</string>
   <string name="otherRulesAnswer">Du må gjera det første trekket ditt innan 20 sekund, gjer du ikkje det vil sigeren gå til motspelaren. Ingen av spelarane får poeng om det vert remis før ti trekk er spelt.</string>
   <string name="thisIsPrivate">Dette er ein privat turnering</string>
+  <string name="shareUrl">Gje andre spelarar denne URL-en så dei kan verta med: %s</string>
 </resources>
