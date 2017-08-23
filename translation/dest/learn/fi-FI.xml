@@ -62,6 +62,7 @@ Ei tarvitse korottaa.</string>
   <string name="pawnComplete">Onnittelut! Tunnet kaikki sotilaiden tavat.</string>
   <string name="pawnPromotion">Sotilaan korotus</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Sotilaasi on saapunut laudan toiseen päähän!</string>
+  <string name="itNowPromotesToAStrongerPiece">Se korottuu nyt vahvemmaksi nappulaksi.</string>
   <string name="boardSetupComplete">Onneksi olkoon! Osaat asetella shakkilaudan.</string>
   <string name="castling">Linnoitus</string>
   <string name="theSpecialKingMove">Kuninkaan erikoissiirto</string>
