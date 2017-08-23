@@ -5,7 +5,7 @@ import { path as treePath, ops as treeOps } from 'tree';
 import * as moveView from '../moveView';
 import AnalyseCtrl from '../ctrl';
 import { MaybeVNodes } from '../interfaces';
-import { mainHook, nodeClasses, renderInlineCommentsOf, retroLine, nonEmpty } from './treeView';
+import { mainHook, nodeClasses, renderInlineCommentsOf, retroLine } from './treeView';
 import { Ctx, Opts } from './treeView';
 
 function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | undefined {
@@ -76,7 +76,7 @@ function renderMoveAndChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVN
       parentPath: path,
       isMainline: opts.isMainline,
       truncate: opts.truncate ? opts.truncate - 1 : undefined,
-      withIndex: nonEmpty(comments)
+      withIndex: !!comments[0]
     }) || []);
 }
 

@@ -1454,6 +1454,28 @@ body.piece_letter .tview2 move {
 .tview2 .hide {
   display: none;
 }
+body.dark .tview2 > index {
+  color: #6a6a6a;
+}
+body.dark .tview2 move {
+  color: #aaa;
+}
+body.dark .tview2 move.active {
+  color: #ff7729;
+}
+body.dark .tview2.column comment {
+  color: #999;
+}
+body.dark .tview2.column line comment {
+  color: #888;
+}
+body.dark .tview2.literal comment {
+  color: #869fc3;
+}
+body.dark .tview2 lines lines::before,
+body.dark .tview2 lines line::before {
+  border-color: #606060;
+}
 .lichess_ground .areplay .result,
 .lichess_ground .areplay .status {
   background: #f8f8f8;

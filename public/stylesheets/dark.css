@@ -532,25 +532,6 @@ body.dark div.eval_gauge .black {
 body.dark div.eval_gauge tick {
   border-color: #a0a0a0;
 }
-body.dark .tview2 > index {
-  color: #6a6a6a;
-}
-body.dark .tview2 move {
-  color: #aaa;
-}
-body.dark .tview2 move.active {
-  color: #ff7729;
-}
-body.dark .tview2 comment {
-  color: #999;
-}
-body.dark .tview2 line comment {
-  color: #888;
-}
-body.dark .tview2 lines lines::before,
-body.dark .tview2 lines line::before {
-  border-color: #606060;
-}
 body.dark div.side_box .game_infos .variant-link {
   border-color: #8c8c8c;
 }
