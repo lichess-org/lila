@@ -268,6 +268,28 @@
   <string name="viewTournament">Ver torneo</string>
   <string name="backToTournament">Voltar ó torneo</string>
   <string name="thematic">Temático</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ partida puntuada %s</item>
+    <item quantity="other">≥ partidas puntuadas %s</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s partida puntuada %2%s</item>
+    <item quantity="other">≥ %1$s partidas puntuadas %2%s</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Necesitas xogar %1$s partida %2$s puntuada máis</item>
+    <item quantity="other">Necesitas xogar %1$s partidas %2$s puntuadas máis</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Necesitas xogar %s partida puntuada máis</item>
+    <item quantity="other">Necesitas xogar %s partidas puntuadas máis</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">A túa puntuación %s é provisional</string>
+  <string name="yourPerfRatingIsTooHigh">A túa puntuación %1$s (%2$s) é demasiado alta</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">A túa puntuación máxima semanal %1$s (%2$s) é demasiado alta</string>
+  <string name="yourPerfRatingIsTooLow">A túa puntuación %1$s (%2$s) é demasiado baixa</string>
+  <string name="ratedMoreThanInPerf">Puntuación ≥ %1$s en %2$s</string>
+  <string name="ratedLessThanInPerf">Puntuación ≤ %1$s en %2$s</string>
   <string name="backToGame">Voltar á partida</string>
   <string name="siteDescription">Xadrez libre en liña. Xoga ó xadrez cunha interface limpa. Sen rexistrarse, sen anuncios, sen necesidade de plugins. Xoga ó xadrez contra o ordenador, amigos ou rivais aleatorios.</string>
   <string name="teams">Equipos</string>
