@@ -283,6 +283,21 @@
   <string name="viewTournament">Wróć do turnieju</string>
   <string name="backToTournament">Wróć do turnieju</string>
   <string name="thematic">Tematyczny</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s partia rankingowa (%s)</item>
+    <item quantity="few">≥ %s partie rankingowe (%s)</item>
+    <item quantity="other">≥ %s partii rankingowych (%s)</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s rankingowa partia (%2$s)</item>
+    <item quantity="few">≥ %1$s rankingowe partie (%2$s)</item>
+    <item quantity="other">≥ %1$s rankingowych partii (%2$s)</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Musisz rozegrać jeszcze %1$s rankingową partię (%2$s)</item>
+    <item quantity="few">Musisz rozegrać jeszcze %1$s rankingowe partie (%2$s)</item>
+    <item quantity="other">Musisz rozegrać jeszcze %1$s rankingowych partii (%2$s)</item>
+  </plurals>
   <plurals name="needNbMoreGames">
     <item quantity="one">Musisz rozegrać jeszcze %1$s partię rankingową %2$s</item>
     <item quantity="few">Musisz rozegrać jeszcze %1$s partie rankingowe %2$s</item>
@@ -290,7 +305,10 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">Twój ranking (%s) jest prowizoryczny</string>
   <string name="yourPerfRatingIsTooHigh">Twój ranking %1$s (%2$s) jest za wysoki</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Twój ranking z tego tygodnia (%1$s) jest za wysoki (%2$s)</string>
   <string name="yourPerfRatingIsTooLow">Twój ranking %2$s (%1$s) jest zbyt niski</string>
+  <string name="ratedMoreThanInPerf">Ranking ≥ %1$s w %2$s</string>
+  <string name="ratedLessThanInPerf">Ranking ≥ %1$s w %2$s</string>
   <string name="backToGame">Wróć do partii</string>
   <string name="siteDescription">Darmowe szachy online. Zagraj teraz w szachy o przyjaznym interfejsie. Bez rejestracji, bez reklam, bez instalowania wtyczek. Zagraj w szachy z komputerem, znajomymi lub losowo wybranymi przeciwnikami.</string>
   <string name="teams">Kluby</string>
