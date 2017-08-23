@@ -57,8 +57,8 @@ object TempBan {
 }
 
 sealed abstract class Outcome(
-  val id: Int,
-  val name: String
+    val id: Int,
+    val name: String
 )
 
 object Outcome {

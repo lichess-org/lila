@@ -101,16 +101,16 @@ final class SecurityApi(
       $doc("user" -> userId, field $exists true).some,
       readPreference = ReadPreference.secondaryPreferred
     ).flatMap {
-      case Nil => fuccess(Nil)
-      case values => coll.distinctWithReadPreference[User.ID, List](
-        "user",
-        $doc(
-          field $in values,
-          "user" $ne userId
-        ).some,
-        ReadPreference.secondaryPreferred
-      )
-    }
+        case Nil => fuccess(Nil)
+        case values => coll.distinctWithReadPreference[User.ID, List](
+          "user",
+          $doc(
+            field $in values,
+            "user" $ne userId
+          ).some,
+          ReadPreference.secondaryPreferred
+        )
+      }
 
   def recentUserIdsByFingerHash(fh: FingerHash) = recentUserIdsByField("fp")(fh.value)
 

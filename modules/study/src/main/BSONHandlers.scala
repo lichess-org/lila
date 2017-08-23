@@ -201,16 +201,14 @@ object BSONHandlers {
     private val nodesHandler = bsonArrayToVectorHandler[Node]
     def read(b: Barr) = try {
       Node.Children(nodesHandler read b)
-    }
-    catch {
+    } catch {
       case e: StackOverflowError =>
         println(s"study handler ${e.toString}")
         Node.emptyChildren
     }
     def write(x: Node.Children) = try {
       nodesHandler write x.nodes
-    }
-    catch {
+    } catch {
       case e: StackOverflowError =>
         println(s"study handler ${e.toString}")
         $arr()

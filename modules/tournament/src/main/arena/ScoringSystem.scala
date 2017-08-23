@@ -54,8 +54,7 @@ private[tournament] object ScoringSystem extends AbstractScoringSystem {
       case (scores, (p, n)) =>
         val berserk = if (p berserkOf userId) {
           if (p.notSoQuickFinish) ValidBerserk else InvalidBerserk
-        }
-        else NoBerserk
+        } else NoBerserk
         (p.winner match {
           case None if p.quickDraw => Score(ResDQ, Normal, berserk)
           case None => Score(

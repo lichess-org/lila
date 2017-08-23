@@ -52,8 +52,8 @@ object Relation extends LilaController {
         RelatedPager(env.api.followingPaginatorAdapter(user.id), page) flatMap { pag =>
           negotiate(
             html = env.api countFollowers user.id map { nbFollowers =>
-            Ok(html.relation.following(user, pag, nbFollowers))
-          },
+              Ok(html.relation.following(user, pag, nbFollowers))
+            },
             api = _ => Ok(jsonRelatedPaginator(pag)).fuccess
           )
         }
@@ -67,8 +67,8 @@ object Relation extends LilaController {
         RelatedPager(env.api.followersPaginatorAdapter(user.id), page) flatMap { pag =>
           negotiate(
             html = env.api countFollowing user.id map { nbFollowing =>
-            Ok(html.relation.followers(user, pag, nbFollowing))
-          },
+              Ok(html.relation.followers(user, pag, nbFollowing))
+            },
             api = _ => Ok(jsonRelatedPaginator(pag)).fuccess
           )
         }

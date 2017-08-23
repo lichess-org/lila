@@ -22,16 +22,16 @@ case class VisibleTournaments(
 }
 
 case class PlayerInfoExt(
-  tour: Tournament,
-  user: lila.user.User,
-  player: Player,
-  recentPovs: List[lila.game.Pov]
+    tour: Tournament,
+    user: lila.user.User,
+    player: Player,
+    recentPovs: List[lila.game.Pov]
 )
 
 case class TourAndRanks(
-  tour: Tournament,
-  whiteRank: Int,
-  blackRank: Int
+    tour: Tournament,
+    whiteRank: Int,
+    blackRank: Int
 )
 
 case class RankedPairing(pairing: Pairing, rank1: Int, rank2: Int) {
@@ -66,7 +66,7 @@ object RankedPlayer {
 }
 
 case class FeaturedGame(
-  game: lila.game.Game,
-  white: RankedPlayer,
-  black: RankedPlayer
+    game: lila.game.Game,
+    white: RankedPlayer,
+    black: RankedPlayer
 )

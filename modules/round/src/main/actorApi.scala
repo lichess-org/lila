@@ -72,12 +72,12 @@ case class Watcher(
 }
 
 case class Join(
-  uid: Uid,
-  user: Option[User],
-  color: Color,
-  playerId: Option[String],
-  ip: IpAddress,
-  userTv: Option[String]
+    uid: Uid,
+    user: Option[User],
+    color: Color,
+    playerId: Option[String],
+    ip: IpAddress,
+    userTv: Option[String]
 )
 case class Connected(enumerator: JsEnumerator, member: Member)
 case class Bye(color: Color)

@@ -66,8 +66,7 @@ private[round] final class Player(
                 )
           }
       else requestFishnet(game, round) >> fufail(FishnetError("Invalid AI move current FEN"))
-    }
-    else fufail(FishnetError("Not AI turn"))
+    } else fufail(FishnetError("Not AI turn"))
 
   private def requestFishnet(game: Game, round: ActorRef): Funit = game.playableByAi ?? {
     if (game.turns <= fishnetPlayer.maxPlies) fishnetPlayer(game)

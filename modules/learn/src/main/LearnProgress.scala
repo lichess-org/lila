@@ -13,8 +13,8 @@ case class LearnProgress(
 
   def withScore(stage: String, level: Int, s: StageProgress.Score) = copy(
     stages = stages + (
-    stage -> stages.getOrElse(stage, StageProgress.empty).withScore(level, s)
-  ),
+      stage -> stages.getOrElse(stage, StageProgress.empty).withScore(level, s)
+    ),
     updatedAt = DateTime.now
   )
 }

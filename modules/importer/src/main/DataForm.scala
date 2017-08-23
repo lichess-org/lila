@@ -22,11 +22,11 @@ private[importer] final class DataForm {
 
 private[importer] case class Result(status: Status, winner: Option[Color])
 case class Preprocessed(
-  game: Game,
-  replay: Replay,
-  result: Option[Result],
-  initialFen: Option[FEN],
-  parsed: ParsedPgn
+    game: Game,
+    replay: Replay,
+    result: Option[Result],
+    initialFen: Option[FEN],
+    parsed: ParsedPgn
 )
 
 case class ImportData(pgn: String, analyse: Option[String]) {

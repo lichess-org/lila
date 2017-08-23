@@ -78,28 +78,28 @@ object User extends LilaController {
       EnabledUser(username) { u =>
         negotiate(
           html = for {
-          nbs ← Env.current.userNbGames(u, ctx)
-          filters = GameFilterMenu(u, nbs, filter)
-          pag <- GameFilterMenu.paginatorOf(
-            userGameSearch = userGameSearch,
-            user = u,
-            nbs = nbs.some,
-            filter = filters.current,
-            me = ctx.me,
-            page = page
-          )(ctx.body)
-          res <- {
-            if (HTTPRequest.isSynchronousHttp(ctx.req)) for {
-              info ← Env.current.userInfo(u, nbs, ctx)
-              _ <- Env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
-              _ <- Env.tournament.cached.nameCache preloadMany pag.currentPageResults.flatMap(_.tournamentId)
-              _ <- Env.team.cached.nameCache preloadMany info.teamIds
-              social ← Env.current.socialInfo(u, ctx)
-              searchForm = (filters.current == GameFilter.Search) option GameFilterMenu.searchForm(userGameSearch, filters.current)(ctx.body)
-            } yield html.user.show.games(u, info, pag, filters, searchForm, social)
-            else fuccess(html.user.show.gamesContent(u, nbs, pag, filters, filter))
-          }
-        } yield res,
+            nbs ← Env.current.userNbGames(u, ctx)
+            filters = GameFilterMenu(u, nbs, filter)
+            pag <- GameFilterMenu.paginatorOf(
+              userGameSearch = userGameSearch,
+              user = u,
+              nbs = nbs.some,
+              filter = filters.current,
+              me = ctx.me,
+              page = page
+            )(ctx.body)
+            res <- {
+              if (HTTPRequest.isSynchronousHttp(ctx.req)) for {
+                info ← Env.current.userInfo(u, nbs, ctx)
+                _ <- Env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
+                _ <- Env.tournament.cached.nameCache preloadMany pag.currentPageResults.flatMap(_.tournamentId)
+                _ <- Env.team.cached.nameCache preloadMany info.teamIds
+                social ← Env.current.socialInfo(u, ctx)
+                searchForm = (filters.current == GameFilter.Search) option GameFilterMenu.searchForm(userGameSearch, filters.current)(ctx.body)
+              } yield html.user.show.games(u, info, pag, filters, searchForm, social)
+              else fuccess(html.user.show.gamesContent(u, nbs, pag, filters, filter))
+            }
+          } yield res,
           api = _ => apiGames(u, filter, page)
         )
       }
@@ -125,16 +125,16 @@ object User extends LilaController {
         ping = env.isOnline(user.id) ?? UserLagCache.getLagRating(user.id)
         res <- negotiate(
           html = !ctx.is(user) ?? GameRepo.lastPlayedPlaying(user) map { pov =>
-          Ok(html.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
-            .withHeaders(CACHE_CONTROL -> "max-age=5")
-        },
+            Ok(html.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
+              .withHeaders(CACHE_CONTROL -> "max-age=5")
+          },
           api = _ => {
-          import lila.game.JsonView.crosstableWrites
-          fuccess(Ok(Json.obj(
-            "crosstable" -> crosstable,
-            "perfs" -> lila.user.JsonView.perfs(user, user.best8Perfs)
-          )))
-        }
+            import lila.game.JsonView.crosstableWrites
+            fuccess(Ok(Json.obj(
+              "crosstable" -> crosstable,
+              "perfs" -> lila.user.JsonView.perfs(user, user.best8Perfs)
+            )))
+          }
         )
       } yield res
       else fuccess(Ok(html.user.miniClosed(user)))
@@ -146,8 +146,8 @@ object User extends LilaController {
     negotiate(
       html = notFound,
       api = _ => env.cached.getTop50Online map { list =>
-      Ok(Json.toJson(list.take(getInt("nb").fold(10)(_ min max)).map(env.jsonView(_))))
-    }
+        Ok(Json.toJson(list.take(getInt("nb").fold(10)(_ min max)).map(env.jsonView(_))))
+      }
     )
   }
 
@@ -234,8 +234,8 @@ object User extends LilaController {
     negotiate(
       html = notFound,
       api = _ => env.cached.topWeek(()).map { users =>
-      Ok(Json toJson users.map(env.jsonView.lightPerfIsOnline))
-    }
+        Ok(Json toJson users.map(env.jsonView.lightPerfIsOnline))
+      }
     )
   }
 
@@ -300,10 +300,10 @@ object User extends LilaController {
           response <- negotiate(
             html = Ok(html.user.perfStat(u, ranks, perfType, data)).fuccess,
             api = _ => getBool("graph").?? {
-            Env.history.ratingChartApi.singlePerf(u, perfType).map(_.some)
-          } map {
-            _.fold(data) { graph => data + ("graph" -> graph) }
-          } map { Ok(_) }
+              Env.history.ratingChartApi.singlePerf(u, perfType).map(_.some)
+            } map {
+              _.fold(data) { graph => data + ("graph" -> graph) }
+            } map { Ok(_) }
           )
         } yield response
       }

@@ -14,9 +14,9 @@ private[study] object CommentParser {
   private val clockRemoveRegex = """\[\%clk[\s\r\n]+[\d:]+\]""".r
 
   case class ParsedComment(
-    shapes: Shapes,
-    clock: Option[Centis],
-    comment: String
+      shapes: Shapes,
+      clock: Option[Centis],
+      comment: String
   )
 
   def apply(comment: String): ParsedComment =

@@ -11,11 +11,11 @@ object Mobile {
   object Api {
 
     case class Old(
-      version: ApiVersion,
-      // date when a newer version was released
-      deprecatedAt: DateTime,
-      // date when the server stops accepting requests
-      unsupportedAt: DateTime
+        version: ApiVersion,
+        // date when a newer version was released
+        deprecatedAt: DateTime,
+        // date when the server stops accepting requests
+        unsupportedAt: DateTime
     )
 
     val currentVersion = ApiVersion(2)

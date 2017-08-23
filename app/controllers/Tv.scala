@@ -36,16 +36,16 @@ object Tv extends LilaController {
         val onTv = lila.round.OnLichessTv(channel.key, flip)
         negotiate(
           html = {
-          Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = onTv.some) zip
-            Env.game.crosstableApi.withMatchup(game) zip
-            Env.tv.tv.getChampions map {
-              case ((data, cross), champions) => NoCache {
-                NoIframe { // can be heavy as TV reloads for each game
-                  Ok(html.tv.index(channel, champions, pov, data, cross, flip, history))
+            Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = onTv.some) zip
+              Env.game.crosstableApi.withMatchup(game) zip
+              Env.tv.tv.getChampions map {
+                case ((data, cross), champions) => NoCache {
+                  NoIframe { // can be heavy as TV reloads for each game
+                    Ok(html.tv.index(channel, champions, pov, data, cross, flip, history))
+                  }
                 }
               }
-            }
-        },
+          },
           api = apiVersion => Env.api.roundApi.watcher(pov, apiVersion, tv = onTv.some) map { Ok(_) }
         )
     }

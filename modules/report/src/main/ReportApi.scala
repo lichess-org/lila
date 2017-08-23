@@ -109,8 +109,8 @@ final class ReportApi(
           user = if (isSame) winner else loser,
           reason = Reason.Boost.key,
           text =
-          if (isSame) s"Farms rating points from @${loser.username} (same IP or print)"
-          else s"Sandbagging - the winning player @${winner.username} has different IPs & prints",
+            if (isSame) s"Farms rating points from @${loser.username} (same IP or print)"
+            else s"Sandbagging - the winning player @${winner.username} has different IPs & prints",
           gameId = "",
           move = ""
         ), lichess)

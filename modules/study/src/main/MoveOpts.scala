@@ -3,10 +3,10 @@ package lila.study
 import chess.Centis
 
 private case class MoveOpts(
-  write: Boolean,
-  sticky: Boolean,
-  promoteToMainline: Boolean,
-  clock: Option[Centis]
+    write: Boolean,
+    sticky: Boolean,
+    promoteToMainline: Boolean,
+    clock: Option[Centis]
 )
 
 private object MoveOpts {

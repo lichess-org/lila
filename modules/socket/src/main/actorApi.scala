@@ -7,8 +7,8 @@ import chess.Centis
 import lila.common.PimpedJson._
 
 case class Connected[M <: SocketMember](
-  enumerator: JsEnumerator,
-  member: M
+    enumerator: JsEnumerator,
+    member: M
 )
 case class Sync(uid: String, friends: List[String])
 case class Ping(uid: String, version: Option[Int], lagCentis: Option[Centis])

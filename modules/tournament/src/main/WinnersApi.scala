@@ -9,10 +9,10 @@ import lila.db.dsl._
 import Schedule.{ Freq, Speed }
 
 case class Winner(
-  tourId: String,
-  userId: String,
-  tourName: String,
-  date: DateTime
+    tourId: String,
+    userId: String,
+    tourName: String,
+    date: DateTime
 )
 
 case class FreqWinners(

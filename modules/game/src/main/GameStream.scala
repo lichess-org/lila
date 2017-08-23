@@ -23,21 +23,21 @@ final class GameStream(system: ActorSystem) {
 
     val enumerator = Concurrent.unicast[Game](
       onStart = channel => {
-      val actor = system.actorOf(Props(new Actor {
-        def receive = {
-          case StartGame(game) if matches(game) => channel push game
-          case FinishGame(game, _, _) if matches(game) => channel push game
-        }
-      }))
-      system.lilaBus.subscribe(actor, 'startGame, 'finishGame)
-      stream = actor.some
-    },
+        val actor = system.actorOf(Props(new Actor {
+          def receive = {
+            case StartGame(game) if matches(game) => channel push game
+            case FinishGame(game, _, _) if matches(game) => channel push game
+          }
+        }))
+        system.lilaBus.subscribe(actor, 'startGame, 'finishGame)
+        stream = actor.some
+      },
       onComplete = {
-      stream.foreach { actor =>
-        system.lilaBus.unsubscribe(actor)
-        actor ! PoisonPill
+        stream.foreach { actor =>
+          system.lilaBus.unsubscribe(actor)
+          actor ! PoisonPill
+        }
       }
-    }
     )
 
     enumerator &> withInitialFen &> toJson &> stringify

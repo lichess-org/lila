@@ -88,26 +88,26 @@ object Tournament extends LilaController {
     val page = getInt("page")
     negotiate(
       html = repo byId id flatMap {
-      _.fold(tournamentNotFound.fuccess) { tour =>
-        (for {
-          verdicts <- env.api.verdicts(tour, ctx.me)
-          version <- env.version(tour.id)
-          chat <- canHaveChat(tour) ?? Env.chat.api.userChat.cached.findMine(Chat.Id(tour.id), ctx.me).map(some)
-          json <- env.jsonView(tour, page, ctx.me, none, version.some, ctx.lang)
-          _ <- chat ?? { c => Env.user.lightUserApi.preloadMany(c.chat.userIds) }
-        } yield Ok(html.tournament.show(tour, verdicts, json, chat))).mon(_.http.response.tournament.show.website)
-      }
-    },
+        _.fold(tournamentNotFound.fuccess) { tour =>
+          (for {
+            verdicts <- env.api.verdicts(tour, ctx.me)
+            version <- env.version(tour.id)
+            chat <- canHaveChat(tour) ?? Env.chat.api.userChat.cached.findMine(Chat.Id(tour.id), ctx.me).map(some)
+            json <- env.jsonView(tour, page, ctx.me, none, version.some, ctx.lang)
+            _ <- chat ?? { c => Env.user.lightUserApi.preloadMany(c.chat.userIds) }
+          } yield Ok(html.tournament.show(tour, verdicts, json, chat))).mon(_.http.response.tournament.show.website)
+        }
+      },
       api = _ => repo byId id flatMap {
-      case None => NotFound(jsonError("No such tournament")).fuccess
-      case Some(tour) => {
-        get("playerInfo").?? { env.api.playerInfo(tour.id, _) } zip
-          getBool("socketVersion").??(env version tour.id map some) flatMap {
-            case (playerInfoExt, socketVersion) =>
-              env.jsonView(tour, page, ctx.me, playerInfoExt, socketVersion, ctx.lang)
-          } map { Ok(_) }
-      }.mon(_.http.response.tournament.show.mobile)
-    } map (_ as JSON)
+        case None => NotFound(jsonError("No such tournament")).fuccess
+        case Some(tour) => {
+          get("playerInfo").?? { env.api.playerInfo(tour.id, _) } zip
+            getBool("socketVersion").??(env version tour.id map some) flatMap {
+              case (playerInfoExt, socketVersion) =>
+                env.jsonView(tour, page, ctx.me, playerInfoExt, socketVersion, ctx.lang)
+            } map { Ok(_) }
+        }.mon(_.http.response.tournament.show.mobile)
+      } map (_ as JSON)
     ) map NoCache
   }
 
@@ -153,17 +153,17 @@ object Tournament extends LilaController {
       val password = ctx.body.body.\("p").asOpt[String]
       negotiate(
         html = repo enterableById id map {
-        case None => tournamentNotFound
-        case Some(tour) =>
-          env.api.join(tour.id, me, password)
-          Redirect(routes.Tournament.show(tour.id))
-      },
+          case None => tournamentNotFound
+          case Some(tour) =>
+            env.api.join(tour.id, me, password)
+            Redirect(routes.Tournament.show(tour.id))
+        },
         api = _ => OptionFuResult(repo enterableById id) { tour =>
-        env.api.joinWithResult(tour.id, me, password) map { result =>
-          if (result) Ok(jsonOkBody)
-          else BadRequest(Json.obj("joined" -> false))
+          env.api.joinWithResult(tour.id, me, password) map { result =>
+            if (result) Ok(jsonOkBody)
+            else BadRequest(Json.obj("joined" -> false))
+          }
         }
-      }
       )
     }
   }

@@ -73,19 +73,19 @@ final class PerfsUpdater(
     }
 
   private final case class Ratings(
-    chess960: Rating,
-    kingOfTheHill: Rating,
-    threeCheck: Rating,
-    antichess: Rating,
-    atomic: Rating,
-    horde: Rating,
-    racingKings: Rating,
-    crazyhouse: Rating,
-    ultraBullet: Rating,
-    bullet: Rating,
-    blitz: Rating,
-    classical: Rating,
-    correspondence: Rating
+      chess960: Rating,
+      kingOfTheHill: Rating,
+      threeCheck: Rating,
+      antichess: Rating,
+      atomic: Rating,
+      horde: Rating,
+      racingKings: Rating,
+      crazyhouse: Rating,
+      ultraBullet: Rating,
+      bullet: Rating,
+      blitz: Rating,
+      classical: Rating,
+      correspondence: Rating
   )
 
   private def mkRatings(perfs: Perfs) = Ratings(
@@ -120,8 +120,7 @@ final class PerfsUpdater(
     }
     try {
       system.updateRatings(results)
-    }
-    catch {
+    } catch {
       case e: Exception => logger.error("update ratings", e)
     }
   }

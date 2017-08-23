@@ -11,8 +11,7 @@ final class Scheduler(scheduler: akka.actor.Scheduler, enabled: Boolean, debug: 
     batch.zipWithIndex foreach {
       case (a, i) => try {
         scheduler.scheduleOnce((1 + i) * delay) { op(a) }
-      }
-      catch {
+      } catch {
         case e: java.lang.IllegalStateException =>
         // the actor system is being stopped, can't schedule
       }

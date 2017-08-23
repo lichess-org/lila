@@ -71,16 +71,16 @@ case class Simul(
     startedAt = DateTime.now.some,
     applicants = Nil,
     pairings = applicants collect {
-    case a if a.accepted => SimulPairing(a.player)
-  },
+      case a if a.accepted => SimulPairing(a.player)
+    },
     hostSeenAt = none
   )
 
   def updatePairing(gameId: String, f: SimulPairing => SimulPairing) = copy(
     pairings = pairings collect {
-    case p if p.gameId == gameId => f(p)
-    case p => p
-  }
+      case p if p.gameId == gameId => f(p)
+      case p => p
+    }
   ).finishIfDone
 
   def ejectCheater(userId: String): Option[Simul] =

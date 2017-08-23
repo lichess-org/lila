@@ -3,11 +3,11 @@ package lila.study
 import lila.user.User
 
 case class Settings(
-  computer: Settings.UserSelection,
-  explorer: Settings.UserSelection,
-  cloneable: Settings.UserSelection,
-  chat: Settings.UserSelection,
-  sticky: Boolean
+    computer: Settings.UserSelection,
+    explorer: Settings.UserSelection,
+    cloneable: Settings.UserSelection,
+    chat: Settings.UserSelection,
+    sticky: Boolean
 )
 
 object Settings {

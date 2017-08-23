@@ -116,7 +116,7 @@ final class SlackApi(
       username = modName,
       icon = "spiral_note_pad",
       text = (s"_*${userLink(username)}*_ (${userNotesLink(username)}):\n" +
-      linkifyUsers(note take 2000)),
+        linkifyUsers(note take 2000)),
       channel = "tavern"
     ))
 

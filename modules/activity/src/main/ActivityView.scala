@@ -32,7 +32,7 @@ case class ActivityView(
 object ActivityView {
 
   case class Tours(
-    nb: Int,
-    best: List[TourEntry]
+      nb: Int,
+      best: List[TourEntry]
   )
 }

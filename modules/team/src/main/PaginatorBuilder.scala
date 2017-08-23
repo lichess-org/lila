@@ -15,11 +15,11 @@ private[team] final class PaginatorBuilder(
 
   def popularTeams(page: Int): Fu[Paginator[Team]] = Paginator(
     adapter = new Adapter(
-    collection = coll.team,
-    selector = TeamRepo.enabledQuery,
-    projection = $empty,
-    sort = TeamRepo.sortPopular
-  ),
+      collection = coll.team,
+      selector = TeamRepo.enabledQuery,
+      projection = $empty,
+      sort = TeamRepo.sortPopular
+    ),
     page,
     maxPerPage
   )

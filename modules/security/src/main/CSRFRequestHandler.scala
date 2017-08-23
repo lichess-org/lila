@@ -23,8 +23,7 @@ final class CSRFRequestHandler(domain: String, enabled: Boolean) {
         if (isSocket(req)) {
           lila.mon.http.csrf.websocket()
           logger.info(s"WS ${print(req)}")
-        }
-        else {
+        } else {
           lila.mon.http.csrf.forbidden()
           logger.info(print(req))
         }

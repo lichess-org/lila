@@ -11,8 +11,8 @@ package object i18n extends PackageObject with WithPlay {
    * Of course we don't need/use the mutability;
    * it's just that AnyRefMap is the fastest scala hashmap implementation
    */
-  private[i18n]type MessageMap = scala.collection.Map[MessageKey, Translation]
-  private[i18n]type Messages = Map[Lang, MessageMap]
+  private[i18n] type MessageMap = scala.collection.Map[MessageKey, Translation]
+  private[i18n] type Messages = Map[Lang, MessageMap]
 
   private[i18n] def logger = lila.log("i18n")
 

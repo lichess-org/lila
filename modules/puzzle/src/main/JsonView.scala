@@ -78,8 +78,7 @@ final class JsonView(
       if (fullSolution.isEmpty) {
         logger.warn(s"Puzzle ${puzzle.id} has an empty solution from ${puzzle.lines}")
         fullSolution
-      }
-      else if (fullSolution.size % 2 == 0) fullSolution.init
+      } else if (fullSolution.size % 2 == 0) fullSolution.init
       else fullSolution
     val init = chess.Game(none, puzzle.fenAfterInitialMove).withTurns(puzzle.initialPly)
     val (_, branchList) = solution.foldLeft[(chess.Game, List[tree.Branch])]((init, Nil)) {

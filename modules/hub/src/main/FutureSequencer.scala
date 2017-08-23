@@ -90,9 +90,9 @@ object FutureSequencer {
   private object FSequencer {
 
     case class Work[A](
-      run: () => Fu[A],
-      promise: Promise[A],
-      timeout: Option[FiniteDuration] = None
+        run: () => Fu[A],
+        promise: Promise[A],
+        timeout: Option[FiniteDuration] = None
     )
 
     def work[A](

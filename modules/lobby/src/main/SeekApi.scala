@@ -27,9 +27,9 @@ final class SeekApi(
   private val cache = asyncCache.clearable[CacheKey, List[Seek]](
     name = "lobby.seek.list",
     f = {
-    case ForAnon => allCursor.gather[List](maxPerPage)
-    case ForUser => allCursor.gather[List]()
-  },
+      case ForAnon => allCursor.gather[List](maxPerPage)
+      case ForUser => allCursor.gather[List]()
+    },
     maxCapacity = 2,
     expireAfter = _.ExpireAfterWrite(3.seconds)
   )

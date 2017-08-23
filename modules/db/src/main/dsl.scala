@@ -260,8 +260,8 @@ trait dsl extends LowPriorityDsl {
    *
    */
   case class CompositeExpression(field: String, value: BSONDocument)
-      extends Expression[BSONDocument]
-      with ComparisonOperators {
+    extends Expression[BSONDocument]
+    with ComparisonOperators {
     override def append(value: BSONDocument): BSONDocument = {
       this.value ++ value
     }

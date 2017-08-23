@@ -58,9 +58,7 @@ private[round] final class Titivate(
               bookmark ! lila.hub.actorApi.bookmark.Remove(game.id)
               chat ! lila.chat.actorApi.Remove(lila.chat.Chat.Id(game.id))
               GameRepo remove game.id
-            }
-
-            else game.clock match {
+            } else game.clock match {
 
               case Some(clock) if clock.isRunning =>
                 val minutes = clock.estimateTotalSeconds / 60

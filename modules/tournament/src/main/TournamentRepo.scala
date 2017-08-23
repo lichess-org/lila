@@ -100,14 +100,14 @@ object TournamentRepo {
 
   def finishedPaginator(maxPerPage: Int, page: Int) = Paginator(
     adapter = new CachedAdapter(
-    new Adapter[Tournament](
-      collection = coll,
-      selector = finishedSelect,
-      projection = $empty,
-      sort = $doc("startsAt" -> -1)
+      new Adapter[Tournament](
+        collection = coll,
+        selector = finishedSelect,
+        projection = $empty,
+        sort = $doc("startsAt" -> -1)
+      ),
+      nbResults = fuccess(200 * 1000)
     ),
-    nbResults = fuccess(200 * 1000)
-  ),
     currentPage = page,
     maxPerPage = maxPerPage
   )

@@ -22,9 +22,9 @@ case class IrwinStatus(report: Option[IrwinReport.WithPovs], request: Option[Irw
 object IrwinReport {
 
   case class GameReport(
-    gameId: Game.ID,
-    activation: Int,
-    moves: List[MoveReport]
+      gameId: Game.ID,
+      activation: Int,
+      moves: List[MoveReport]
   )
 
   object GameReport {

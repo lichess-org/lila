@@ -29,8 +29,7 @@ final class ConfigStore[A: Configs](coll: Coll, id: String, logger: lila.log.Log
 
   def parse(text: String): Either[List[String], A] = try {
     ConfigFactory.parseString(text).extract[A].toEither.left.map(_.messages.toList.map(_.toString))
-  }
-  catch {
+  } catch {
     case e: com.typesafe.config.ConfigException => Left(List(e.getMessage))
   }
 

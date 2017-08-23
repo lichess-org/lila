@@ -33,8 +33,7 @@ object MessageCompiler {
             printToFile(compileToFile)(render(db, locale, file))
           }
           Some(compileToFile)
-        }
-        else None
+        } else None
       }
     } yield compilable
     writeRegistry(db, compileTo, translatedLocales) :: res

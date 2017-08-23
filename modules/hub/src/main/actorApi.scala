@@ -196,21 +196,21 @@ package user {
 
 package round {
   case class MoveEvent(
-    gameId: String,
-    fen: String,
-    move: String
+      gameId: String,
+      fen: String,
+      move: String
   )
   case class CorresMoveEvent(
-    move: MoveEvent,
-    playerUserId: Option[String],
-    mobilePushable: Boolean,
-    alarmable: Boolean,
-    unlimited: Boolean
+      move: MoveEvent,
+      playerUserId: Option[String],
+      mobilePushable: Boolean,
+      alarmable: Boolean,
+      unlimited: Boolean
   )
   case class SimulMoveEvent(
-    move: MoveEvent,
-    simulId: String,
-    opponentUserId: String
+      move: MoveEvent,
+      simulId: String,
+      opponentUserId: String
   )
   case class NbRounds(nb: Int)
   case class Abort(gameId: String, byColor: String)

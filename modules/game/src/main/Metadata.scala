@@ -26,11 +26,11 @@ private[game] object Metadata {
 }
 
 case class PgnImport(
-  user: Option[String],
-  date: Option[String],
-  pgn: String,
-  // hashed PGN for DB unicity
-  h: Option[ByteArray]
+    user: Option[String],
+    date: Option[String],
+    pgn: String,
+    // hashed PGN for DB unicity
+    h: Option[ByteArray]
 )
 
 object PgnImport {

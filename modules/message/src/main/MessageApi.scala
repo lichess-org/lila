@@ -20,11 +20,11 @@ final class MessageApi(
 
   def inbox(me: User, page: Int): Fu[Paginator[Thread]] = Paginator(
     adapter = new Adapter(
-    collection = coll,
-    selector = ThreadRepo visibleByUserQuery me.id,
-    projection = $empty,
-    sort = ThreadRepo.recentSort
-  ),
+      collection = coll,
+      selector = ThreadRepo visibleByUserQuery me.id,
+      projection = $empty,
+      sort = ThreadRepo.recentSort
+    ),
     currentPage = page,
     maxPerPage = maxPerPage
   )

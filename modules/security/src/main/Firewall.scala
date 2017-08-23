@@ -39,8 +39,7 @@ final class Firewall(
     } addEffect { v =>
       if (v) lila.mon.security.firewall.block()
     }
-  }
-  else fuccess(false)
+  } else fuccess(false)
 
   def accepts(req: RequestHeader): Fu[Boolean] = blocks(req) map (!_)
 

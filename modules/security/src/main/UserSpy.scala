@@ -50,8 +50,8 @@ object UserSpy {
     sharingFingerprint ← exploreSimilar("fp")(user)(coll)
   } yield UserSpy(
     ips = ips zip blockedIps zip locations map {
-    case ((ip, blocked), location) => IPData(ip, blocked, location)
-  },
+      case ((ip, blocked), location) => IPData(ip, blocked, location)
+    },
     uas = infos.map(_.ua).distinct,
     usersSharingIp = (sharingIp + user).toList.sortBy(-_.createdAt.getMillis),
     usersSharingFingerprint = (sharingFingerprint + user).toList.sortBy(-_.createdAt.getMillis)

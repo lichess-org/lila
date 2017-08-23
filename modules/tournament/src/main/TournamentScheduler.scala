@@ -283,8 +283,7 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
         case (scheds, sched) if overlaps(sched, scheds) => scheds
         case (scheds, sched) => sched :: scheds
       } foreach api.createScheduled
-    }
-    catch {
+    } catch {
       case e: org.joda.time.IllegalInstantException =>
         logger.error(s"failed to schedule all: ${e.getMessage}")
     }
@@ -308,8 +307,7 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
 
   private def at(day: DateTime, hour: Int, minute: Int = 0): Option[DateTime] = try {
     Some(day withHourOfDay hour withMinuteOfHour minute withSecondOfMinute 0 withMillisOfSecond 0)
-  }
-  catch {
+  } catch {
     case e: Exception =>
       logger.error(s"failed to schedule one: ${e.getMessage}")
       None

@@ -123,17 +123,17 @@ final class PgnDump(
         chessPgn.Turn(
           number = index + from,
           white = moves.headOption filter (".." !=) map { san =>
-          chessPgn.Move(
-            san = san,
-            secondsLeft = clocks lift (index * 2 - clockOffset) map (_.roundSeconds)
-          )
-        },
+            chessPgn.Move(
+              san = san,
+              secondsLeft = clocks lift (index * 2 - clockOffset) map (_.roundSeconds)
+            )
+          },
           black = moves lift 1 map { san =>
-          chessPgn.Move(
-            san = san,
-            secondsLeft = clocks lift (index * 2 + 1 - clockOffset) map (_.roundSeconds)
-          )
-        }
+            chessPgn.Move(
+              san = san,
+              secondsLeft = clocks lift (index * 2 + 1 - clockOffset) map (_.roundSeconds)
+            )
+          }
         )
     } filterNot (_.isEmpty)
 }
@@ -141,7 +141,7 @@ final class PgnDump(
 object PgnDump {
 
   case class WithFlags(
-    clocks: Boolean = true
+      clocks: Boolean = true
   )
 
   def result(game: Game) =

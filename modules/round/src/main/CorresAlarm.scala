@@ -22,9 +22,9 @@ private final class CorresAlarm(
   object Run
 
   case class Alarm(
-    _id: String, // game id
-    ringsAt: DateTime, // when to notify the player
-    expiresAt: DateTime
+      _id: String, // game id
+      ringsAt: DateTime, // when to notify the player
+      expiresAt: DateTime
   )
 
   private implicit val AlarmHandler = reactivemongo.bson.Macros.handler[Alarm]

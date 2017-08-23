@@ -58,8 +58,7 @@ private[tournament] object PairingSystem extends AbstractPairingSystem {
         val groupSize = (idles.size / 4 * 2) atMost maxGroupSize
         smartPairings(data, idles take groupSize) :::
           smartPairings(data, idles drop groupSize take groupSize)
-      }
-      else if (idles.size > 1) smartPairings(data, idles)
+      } else if (idles.size > 1) smartPairings(data, idles)
       else Nil
     }
   }.chronometer.mon(_.tournament.pairing.prepTime).logIfSlow(200, pairingLogger) { preps =>

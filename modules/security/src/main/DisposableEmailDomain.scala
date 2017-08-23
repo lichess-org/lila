@@ -29,8 +29,7 @@ final class DisposableEmailDomain(
       makeMatcher(regex)
     }
     failed = false
-  }
-  catch {
+  } catch {
     case e: Exception => onError(e)
   }
 

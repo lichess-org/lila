@@ -30,15 +30,15 @@ private[forum] final class DataForm(val captcher: akka.actor.ActorSelection) ext
 object DataForm {
 
   case class PostData(
-    text: String,
-    gameId: String,
-    move: String,
-    modIcon: Option[Boolean]
+      text: String,
+      gameId: String,
+      move: String,
+      modIcon: Option[Boolean]
   )
 
   case class TopicData(
-    name: String,
-    post: PostData
+      name: String,
+      post: PostData
   )
 
   case class PostEdit(changes: String)

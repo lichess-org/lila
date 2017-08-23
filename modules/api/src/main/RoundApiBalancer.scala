@@ -26,13 +26,13 @@ private[api] final class RoundApiBalancer(
 
     case class Player(pov: Pov, apiVersion: ApiVersion, ctx: Context)
     case class Watcher(pov: Pov, apiVersion: ApiVersion, tv: Option[lila.round.OnTv],
-      initialFenO: Option[Option[String]] = None,
-      ctx: Context)
+        initialFenO: Option[Option[String]] = None,
+        ctx: Context)
     case class Review(pov: Pov, apiVersion: ApiVersion, tv: Option[lila.round.OnTv],
-      analysis: Option[Analysis] = None,
-      initialFenO: Option[Option[String]] = None,
-      withFlags: WithFlags,
-      ctx: Context)
+        analysis: Option[Analysis] = None,
+        initialFenO: Option[Option[String]] = None,
+        withFlags: WithFlags,
+        ctx: Context)
     case class UserAnalysis(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color, owner: Boolean, me: Option[User])
     case class FreeStudy(pov: Pov, pref: Pref, initialFen: Option[String], orientation: chess.Color, me: Option[User])
 

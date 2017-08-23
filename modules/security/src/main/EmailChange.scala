@@ -66,7 +66,7 @@ ${Mailgun.txt.serviceNote}
   private val tokener = new StringToken[Option[TokenPayload]](
     secret = tokenerSecret,
     getCurrentValue = p => p ?? {
-    case TokenPayload(userId, _) => UserRepo email userId map (_.??(_.value))
-  }
+      case TokenPayload(userId, _) => UserRepo email userId map (_.??(_.value))
+    }
   )
 }

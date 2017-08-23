@@ -19,8 +19,8 @@ case class HookConfig(
 
   def fixColor = copy(
     color = if (mode == Mode.Rated &&
-    lila.game.Game.variantsWhereWhiteIsBetter(variant) &&
-    color != Color.Random) Color.Random else color
+      lila.game.Game.variantsWhereWhiteIsBetter(variant) &&
+      color != Color.Random) Color.Random else color
   )
 
   def >> = (variant.id, timeMode.id, time, increment, days, mode.id.some, ratingRange.toString.some, color.name).some

@@ -15,11 +15,11 @@ import lila.security.{ Permission, Granter, FingerprintedUser }
 import lila.user.{ UserContext, User => UserModel }
 
 private[controllers] trait LilaController
-    extends Controller
-    with ContentTypes
-    with RequestGetter
-    with ResponseWriter
-    with LilaSocket {
+  extends Controller
+  with ContentTypes
+  with RequestGetter
+  with ResponseWriter
+  with LilaSocket {
 
   protected val controllerLogger = lila.log("controller")
 
@@ -222,8 +222,8 @@ private[controllers] trait LilaController
 
   def notFound(implicit ctx: Context): Fu[Result] = negotiate(
     html =
-    if (HTTPRequest isSynchronousHttp ctx.req) Main notFound ctx.req
-    else fuccess(Results.NotFound("Resource not found")),
+      if (HTTPRequest isSynchronousHttp ctx.req) Main notFound ctx.req
+      else fuccess(Results.NotFound("Resource not found")),
     api = _ => notFoundJson("Resource not found")
   )
 
@@ -258,8 +258,8 @@ private[controllers] trait LilaController
 
   protected def authorizationFailed(implicit ctx: Context): Fu[Result] = negotiate(
     html =
-    if (HTTPRequest isSynchronousHttp ctx.req) Main authFailed ctx.req
-    else fuccess(Results.Forbidden("Authorization failed")),
+      if (HTTPRequest isSynchronousHttp ctx.req) Main authFailed ctx.req
+      else fuccess(Results.Forbidden("Authorization failed")),
     api = _ => fuccess(Forbidden(jsonError("Authorization failed")))
   )
 

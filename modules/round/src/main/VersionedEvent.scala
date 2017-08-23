@@ -30,8 +30,7 @@ case class VersionedEvent(
       "t" -> typ,
       "d" -> decoded
     )
-  }
-  else Json.obj("v" -> version)
+  } else Json.obj("v" -> version)
 
   private def visibleBy(m: Member): Boolean =
     if (watcher && m.owner) false

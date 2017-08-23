@@ -37,11 +37,11 @@ object Message extends LilaController {
     NotForKids {
       negotiate(
         html = OptionFuOk(api.thread(id, me)) { thread =>
-        relationApi.fetchBlocks(thread otherUserId me, me.id) map { blocked =>
-          val form = !thread.isTooBig option forms.post
-          html.message.thread(thread, form, blocked)
-        }
-      } map NoCache,
+          relationApi.fetchBlocks(thread otherUserId me, me.id) map { blocked =>
+            val form = !thread.isTooBig option forms.post
+            html.message.thread(thread, form, blocked)
+          }
+        } map NoCache,
         api = _ => JsonOptionFuOk(api.thread(id, me)) { thread => Env.message.jsonView.thread(thread) }
       )
     }

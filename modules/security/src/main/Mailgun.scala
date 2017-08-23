@@ -25,8 +25,7 @@ final class Mailgun(
     if (debug) {
       println(msg)
       funit
-    }
-    else WS.url(s"$apiUrl/messages").withAuth("api", apiKey, WSAuthScheme.BASIC).post(Map(
+    } else WS.url(s"$apiUrl/messages").withAuth("api", apiKey, WSAuthScheme.BASIC).post(Map(
       "from" -> Seq(msg.from | from),
       "to" -> Seq(msg.to.value),
       "h:Reply-To" -> Seq(msg.replyTo | replyTo),
@@ -49,14 +48,14 @@ final class Mailgun(
 object Mailgun {
 
   case class Message(
-    to: EmailAddress,
-    subject: String,
-    text: String,
-    htmlBody: Option[String] = none,
-    from: Option[String] = none,
-    replyTo: Option[String] = none,
-    tag: Option[String] = none,
-    retriesLeft: Int = 3
+      to: EmailAddress,
+      subject: String,
+      text: String,
+      htmlBody: Option[String] = none,
+      from: Option[String] = none,
+      replyTo: Option[String] = none,
+      tag: Option[String] = none,
+      retriesLeft: Int = 3
   )
 
   object txt {

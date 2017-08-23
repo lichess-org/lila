@@ -18,8 +18,7 @@ object FingerHash {
         Hex decodeHex print.value.toArray
       } take length
     } some
-  }
-  catch {
+  } catch {
     case _: Exception => none
   }
 

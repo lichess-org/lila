@@ -4,13 +4,13 @@ import play.twirl.api.Html
 import reactivemongo.bson._
 
 sealed abstract class Metric(
-  val key: String,
-  val name: String,
-  val dbKey: String,
-  val position: Position,
-  val per: Position,
-  val dataType: Metric.DataType,
-  val description: Html
+    val key: String,
+    val name: String,
+    val dbKey: String,
+    val position: Position,
+    val per: Position,
+    val dataType: Metric.DataType,
+    val description: Html
 )
 
 object Metric {

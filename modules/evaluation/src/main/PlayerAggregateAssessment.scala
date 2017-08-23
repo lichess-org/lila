@@ -74,8 +74,7 @@ case class PlayerAggregateAssessment(
       else if (reportable && exceptionalDif && cheatingSum >= 1) Engine
       else if (reportable) reportVariousReasons
       else Nothing
-    }
-    else {
+    } else {
       if (markable) reportVariousReasons
       else if (reportable) reportVariousReasons
       else Nothing
@@ -142,13 +141,13 @@ object PlayerAggregateAssessment {
 }
 
 case class PlayerFlags(
-  suspiciousErrorRate: Boolean,
-  alwaysHasAdvantage: Boolean,
-  highBlurRate: Boolean,
-  moderateBlurRate: Boolean,
-  consistentMoveTimes: Boolean,
-  noFastMoves: Boolean,
-  suspiciousHoldAlert: Boolean
+    suspiciousErrorRate: Boolean,
+    alwaysHasAdvantage: Boolean,
+    highBlurRate: Boolean,
+    moderateBlurRate: Boolean,
+    consistentMoveTimes: Boolean,
+    noFastMoves: Boolean,
+    suspiciousHoldAlert: Boolean
 )
 
 object PlayerFlags {

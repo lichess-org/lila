@@ -18,8 +18,7 @@ object String {
   def decodeUriPath(input: String): Option[String] = {
     try {
       play.utils.UriEncoding.decodePath(input, "UTF-8").some
-    }
-    catch {
+    } catch {
       case e: play.utils.InvalidUriEncodingException => None
     }
   }
@@ -37,8 +36,7 @@ object String {
       Base64.getEncoder.encodeToString(txt getBytes StandardCharsets.UTF_8)
     def decode(txt: String): Option[String] = try {
       Some(new String(Base64.getDecoder decode txt))
-    }
-    catch {
+    } catch {
       case _: java.lang.IllegalArgumentException => none
     }
   }
@@ -68,8 +66,7 @@ object String {
           i += 1
         }
         sb.toString
-      }
-      else s
+      } else s
     }
   }
 }

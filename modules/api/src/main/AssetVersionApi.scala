@@ -19,12 +19,12 @@ final class AssetVersionApi(
   private val cache = new Syncache[Boolean, AssetVersion](
     name = "asset.version",
     compute = _ => coll.primitiveOne[BSONNumberLike]($id("asset"), "version").map {
-    _.fold(lastVersion) { v =>
-      AssetVersion(v.toInt max initialVersion.value)
-    }
-  } addEffect { version =>
-    lastVersion = version
-  },
+      _.fold(lastVersion) { v =>
+        AssetVersion(v.toInt max initialVersion.value)
+      }
+    } addEffect { version =>
+      lastVersion = version
+    },
     default = _ => lastVersion,
     strategy = Syncache.NeverWait,
     expireAfter = Syncache.ExpireAfterWrite(5 seconds),

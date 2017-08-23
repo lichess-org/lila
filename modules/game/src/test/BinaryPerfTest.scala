@@ -20,7 +20,7 @@ class BinaryPerfTest extends Specification {
     Set(A1, H1, A8),
     // Set(A8, H8),
     // Set(A1, H8),
-    // Set(A1, H1), 
+    // Set(A1, H1),
     // Set(H1, A8),
     Set()
   ) map UnmovedRooks.apply

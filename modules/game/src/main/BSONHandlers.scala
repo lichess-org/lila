@@ -38,14 +38,14 @@ object BSONHandlers {
 
     def reads(r: BSON.Reader) = Crazyhouse.Data(
       pockets = {
-      val (white, black) = {
-        r.str("p").flatMap(chess.Piece.fromChar)(breakOut): List[chess.Piece]
-      }.partition(_ is chess.White)
-      Pockets(
-        white = Pocket(white.map(_.role)),
-        black = Pocket(black.map(_.role))
-      )
-    },
+        val (white, black) = {
+          r.str("p").flatMap(chess.Piece.fromChar)(breakOut): List[chess.Piece]
+        }.partition(_ is chess.White)
+        Pockets(
+          white = Pocket(white.map(_.role)),
+          black = Pocket(black.map(_.role))
+        )
+      },
       promoted = r.str("t").flatMap(chess.Pos.piotr)(breakOut)
     )
 
@@ -117,11 +117,11 @@ object BSONHandlers {
         clock = gameClock,
         crazyData = (g.variant == Crazyhouse) option r.get[Crazyhouse.Data](crazyData),
         clockHistory = for {
-        clk <- gameClock
-        bw <- r bytesO whiteClockHistory
-        bb <- r bytesO blackClockHistory
-        history <- BinaryFormat.clockHistory.read(clk.limit, bw, bb, g.flagged, g.id)
-      } yield history
+          clk <- gameClock
+          bw <- r bytesO whiteClockHistory
+          bb <- r bytesO blackClockHistory
+          history <- BinaryFormat.clockHistory.read(clk.limit, bw, bb, g.flagged, g.id)
+        } yield history
       )
     }
 

@@ -47,9 +47,9 @@ final class DataForm {
 }
 
 case class SimulSetup(
-  clockTime: Int,
-  clockIncrement: Int,
-  clockExtra: Int,
-  variants: List[Int],
-  color: String
+    clockTime: Int,
+    clockIncrement: Int,
+    clockExtra: Int,
+    variants: List[Int],
+    color: String
 )

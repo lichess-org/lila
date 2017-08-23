@@ -10,15 +10,15 @@ object PovToEntry {
   private type Ply = Int
 
   case class RichPov(
-    pov: Pov,
-    provisional: Boolean,
-    initialFen: Option[String],
-    analysis: Option[lila.analyse.Analysis],
-    division: chess.Division,
-    moveAccuracy: Option[List[Int]],
-    boards: NonEmptyList[Board],
-    movetimes: NonEmptyList[Int],
-    advices: Map[Ply, Advice]
+      pov: Pov,
+      provisional: Boolean,
+      initialFen: Option[String],
+      analysis: Option[lila.analyse.Analysis],
+      division: chess.Division,
+      moveAccuracy: Option[List[Int]],
+      boards: NonEmptyList[Board],
+      movetimes: NonEmptyList[Int],
+      advices: Map[Ply, Advice]
   )
 
   def apply(game: Game, userId: String, provisional: Boolean): Fu[Either[Game, Entry]] =
@@ -142,8 +142,8 @@ object PovToEntry {
       color = pov.color,
       perf = perfType,
       eco =
-      if (game.playable || game.turns < 4 || game.fromPosition || game.variant.exotic) none
-      else chess.opening.Ecopening fromGame game.pgnMoves.toList,
+        if (game.playable || game.turns < 4 || game.fromPosition || game.variant.exotic) none
+        else chess.opening.Ecopening fromGame game.pgnMoves.toList,
       myCastling = Castling.fromMoves(game pgnMoves pov.color),
       opponentRating = opRating,
       opponentStrength = RelativeStrength(opRating - myRating),

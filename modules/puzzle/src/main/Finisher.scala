@@ -82,8 +82,7 @@ private[puzzle] final class Finisher(
         case (prev, next) if next.getRating - prev < -30 => next.setRating(prev - 30)
         case _ =>
       }
-    }
-    catch {
+    } catch {
       case e: Exception => logger.error("finisher", e)
     }
   }

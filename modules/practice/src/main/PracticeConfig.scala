@@ -14,13 +14,13 @@ object PracticeConfig {
 }
 
 case class PracticeConfigSection(
-  id: String,
-  name: String,
-  studies: List[PracticeConfigStudy]
+    id: String,
+    name: String,
+    studies: List[PracticeConfigStudy]
 )
 
 case class PracticeConfigStudy(
-  id: String, // study ID
-  name: String,
-  desc: String
+    id: String, // study ID
+    name: String,
+    desc: String
 )

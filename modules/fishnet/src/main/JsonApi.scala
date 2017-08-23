@@ -33,9 +33,9 @@ object JsonApi {
     sealed trait Result
 
     case class Fishnet(
-      version: Client.Version,
-      python: Option[Client.Python],
-      apikey: Client.Key
+        version: Client.Version,
+        python: Option[Client.Python],
+        apikey: Client.Key
     )
 
     sealed trait Engine {
@@ -45,8 +45,8 @@ object JsonApi {
     case class BaseEngine(name: String) extends Engine
 
     case class FullEngine(
-      name: String,
-      options: EngineOptions
+        name: String,
+        options: EngineOptions
     ) extends Engine
 
     case class EngineOptions(
@@ -58,14 +58,14 @@ object JsonApi {
     }
 
     case class Acquire(
-      fishnet: Fishnet,
-      stockfish: BaseEngine
+        fishnet: Fishnet,
+        stockfish: BaseEngine
     ) extends Request
 
     case class PostMove(
-      fishnet: Fishnet,
-      stockfish: BaseEngine,
-      move: MoveResult
+        fishnet: Fishnet,
+        stockfish: BaseEngine,
+        move: MoveResult
     ) extends Request with Result
 
     case class MoveResult(bestmove: String) {
@@ -99,9 +99,9 @@ object JsonApi {
     }
 
     case class PartialAnalysis(
-      fishnet: Fishnet,
-      stockfish: FullEngine,
-      analysis: List[Option[Evaluation]]
+        fishnet: Fishnet,
+        stockfish: FullEngine,
+        analysis: List[Option[Evaluation]]
     )
 
     case class Evaluation(
@@ -137,10 +137,10 @@ object JsonApi {
   }
 
   case class Game(
-    game_id: String,
-    position: FEN,
-    variant: Variant,
-    moves: String
+      game_id: String,
+      position: FEN,
+      variant: Variant,
+      moves: String
   )
 
   def fromGame(g: W.Game) = Game(
@@ -155,16 +155,16 @@ object JsonApi {
     val game: Game
   }
   case class Move(
-    id: String,
-    level: Int,
-    game: Game,
-    clock: Option[Work.Clock]
+      id: String,
+      level: Int,
+      game: Game,
+      clock: Option[Work.Clock]
   ) extends Work
 
   case class Analysis(
-    id: String,
-    game: Game,
-    nodes: Int
+      id: String,
+      game: Game,
+      nodes: Int
   ) extends Work
 
   def moveFromWork(m: Work.Move) = Move(m.id.value, m.level, fromGame(m.game), m.clock)

@@ -5,11 +5,11 @@ import org.joda.time.DateTime
 import lila.user.User
 
 case class Spotlight(
-  headline: String,
-  description: String,
-  homepageHours: Option[Int] = None, // feature on homepage hours before start (max 24)
-  iconFont: Option[String] = None,
-  iconImg: Option[String] = None
+    headline: String,
+    description: String,
+    homepageHours: Option[Int] = None, // feature on homepage hours before start (max 24)
+    iconFont: Option[String] = None,
+    iconImg: Option[String] = None
 )
 
 object Spotlight {

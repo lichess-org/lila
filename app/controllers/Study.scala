@@ -101,20 +101,20 @@ object Study extends LilaController {
           data = lila.study.JsonView.JsData(
             study = studyJson,
             analysis = baseData ++ Json.obj(
-            "treeParts" -> partitionTreeJsonWriter.writes {
-              lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
-            }
-          )
+              "treeParts" -> partitionTreeJsonWriter.writes {
+                lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
+              }
+            )
           )
           res <- negotiate(
             html = for {
-            chat <- chatOf(study)
-            sVersion <- env.version(study.id)
-          } yield Ok(html.study.show(study, data, chat, sVersion)),
+              chat <- chatOf(study)
+              sVersion <- env.version(study.id)
+            } yield Ok(html.study.show(study, data, chat, sVersion)),
             api = _ => Ok(Json.obj(
-            "study" -> data.study,
-            "analysis" -> data.analysis
-          )).fuccess
+              "study" -> data.study,
+              "analysis" -> data.analysis
+            )).fuccess
           )
         } yield res
       }

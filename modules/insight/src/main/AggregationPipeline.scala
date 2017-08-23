@@ -179,14 +179,14 @@ private final class AggregationPipeline {
             group(dimension, SumValue(1)) :::
             List(
               Project($doc(
-              "v" -> true,
-              "ids" -> true,
-              "nb" -> $doc("$size" -> "$ids")
-            )).some,
+                "v" -> true,
+                "ids" -> true,
+                "nb" -> $doc("$size" -> "$ids")
+              )).some,
               AddFields(
-              $doc("v" -> $doc("$divide" -> $arr("$v", "$nb"))) ++
-                gameIdsSlice
-            ).some
+                $doc("v" -> $doc("$divide" -> $arr("$v", "$nb"))) ++
+                  gameIdsSlice
+              ).some
             )
           case M.Movetime => List(
             projectForMove,

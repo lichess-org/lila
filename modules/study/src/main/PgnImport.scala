@@ -14,9 +14,9 @@ import lila.tree.Node.{ Comment, Comments, Shapes }
 private object PgnImport {
 
   case class Result(
-    root: Node.Root,
-    variant: chess.variant.Variant,
-    tags: List[Tag]
+      root: Node.Root,
+      variant: chess.variant.Variant,
+      tags: List[Tag]
   )
 
   def apply(pgn: String, contributors: List[LightUser]): Valid[Result] =

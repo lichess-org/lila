@@ -24,7 +24,6 @@ object BuildSettings {
   ) ++ Seq(
       ScalariformKeys.preferences := ScalariformKeys.preferences.value
         .setPreference(DanglingCloseParenthesis, Force)
-        .setPreference(CompactControlReadability, true)
         .setPreference(DoubleIndentConstructorArguments, true)
     )
 

@@ -26,7 +26,7 @@ private[video] final class Youtube(
       api.video.setMetadata(entry.id, Metadata(
         views = ~parseIntOption(entry.statistics.viewCount),
         likes = ~parseIntOption(entry.statistics.likeCount) -
-        ~parseIntOption(entry.statistics.dislikeCount),
+          ~parseIntOption(entry.statistics.dislikeCount),
         description = entry.snippet.description,
         duration = Some(entry.contentDetails.seconds),
         publishedAt = entry.snippet.publishedAt.flatMap { at =>
@@ -60,29 +60,29 @@ object Youtube {
   def empty = Metadata(0, 0, None, None, None)
 
   case class Metadata(
-    views: Int,
-    likes: Int,
-    description: Option[String],
-    duration: Option[Int], // in seconds
-    publishedAt: Option[DateTime]
+      views: Int,
+      likes: Int,
+      description: Option[String],
+      duration: Option[Int], // in seconds
+      publishedAt: Option[DateTime]
   )
 
   private[video] case class Entry(
-    id: String,
-    snippet: Snippet,
-    statistics: Statistics,
-    contentDetails: ContentDetails
+      id: String,
+      snippet: Snippet,
+      statistics: Statistics,
+      contentDetails: ContentDetails
   )
 
   private[video] case class Snippet(
-    description: Option[String],
-    publishedAt: Option[String]
+      description: Option[String],
+      publishedAt: Option[String]
   )
 
   private[video] case class Statistics(
-    viewCount: String,
-    likeCount: String,
-    dislikeCount: String
+      viewCount: String,
+      likeCount: String,
+      dislikeCount: String
   )
 
   private val iso8601Formatter = org.joda.time.format.ISOPeriodFormat.standard()

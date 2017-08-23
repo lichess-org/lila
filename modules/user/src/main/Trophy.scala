@@ -19,12 +19,12 @@ case class Trophy(
 object Trophy {
 
   sealed abstract class Kind(
-    val key: String,
-    val name: String,
-    val icon: Option[String],
-    val url: Option[String],
-    val klass: Option[String],
-    val order: Int
+      val key: String,
+      val name: String,
+      val icon: Option[String],
+      val url: Option[String],
+      val klass: Option[String],
+      val order: Int
   )
 
   object Kind {

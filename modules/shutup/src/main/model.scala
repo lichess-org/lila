@@ -33,9 +33,9 @@ case class TextAnalysis(
 }
 
 sealed abstract class TextType(
-  val key: String,
-  val rotation: Int,
-  val name: String
+    val key: String,
+    val rotation: Int,
+    val name: String
 )
 
 object TextType {

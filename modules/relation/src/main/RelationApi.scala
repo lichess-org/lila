@@ -49,8 +49,8 @@ final class RelationApi(
     Project($id($doc("$setIntersection" -> $arr("$u1", "$u2"))))
   ),
     ReadPreference.secondaryPreferred).map {
-    ~_.firstBatch.headOption.flatMap(_.getAs[Set[String]]("_id")) - userId
-  }
+      ~_.firstBatch.headOption.flatMap(_.getAs[Set[String]]("_id")) - userId
+    }
 
   def fetchFollows(u1: ID, u2: ID): Fu[Boolean] = (u1 != u2) ?? {
     coll.exists($doc("_id" -> makeId(u1, u2), "r" -> Follow))

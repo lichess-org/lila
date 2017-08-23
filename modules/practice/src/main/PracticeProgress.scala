@@ -21,8 +21,8 @@ case class PracticeProgress(
 
   def withNbMoves(chapterId: Chapter.Id, nbMoves: PracticeProgress.NbMoves) = copy(
     chapters = chapters - chapterId + {
-    chapterId -> NbMoves(math.min(chapters.get(chapterId).fold(999)(_.value), nbMoves.value))
-  },
+      chapterId -> NbMoves(math.min(chapters.get(chapterId).fold(999)(_.value), nbMoves.value))
+    },
     updatedAt = DateTime.now
   )
 

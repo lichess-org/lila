@@ -112,7 +112,7 @@ final class GameSearchApi(client: ESClient) extends SearchReadApi[Game, Query] {
       .enumerator(maxGames) &>
       Enumeratee.grouped(Iteratee takeUpTo batchSize) |>>>
       Enumeratee.mapM[Seq[Game]].apply[(Seq[Game], Set[String])] { games =>
-        GameRepo filterAnalysed games.map(_.id) map games. ->
+        GameRepo filterAnalysed games.map(_.id) map games.->
       } &>
       Iteratee.foldM[(Seq[Game], Set[String]), Long](nowMillis) {
         case (millis, (games, analysedIds)) =>

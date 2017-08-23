@@ -96,12 +96,10 @@ final class PlanApi(
     if (key != payPalIpnKey) {
       logger.error(s"Invalid PayPal IPN key $key from $ip $userId $cents")
       funit
-    }
-    else if (cents.value < 100) {
+    } else if (cents.value < 100) {
       logger.info(s"Ignoring small paypal charge from $ip $userId $cents $txnId")
       funit
-    }
-    else {
+    } else {
       val charge = Charge.make(
         userId = userId,
         payPal = Charge.PayPal(
@@ -210,8 +208,7 @@ final class PlanApi(
         if (!user.plan.active) {
           logger.warn(s"${user.username} sync: enable plan of customer with paypal")
           setDbUserPlan(user, user.plan.enable) inject ReloadUser
-        }
-        else fuccess(Synced(patron.some, none))
+        } else fuccess(Synced(patron.some, none))
 
       case (None, None) if user.plan.active =>
         logger.warn(s"${user.username} sync: disable plan of patron with no paypal or stripe")
@@ -225,8 +222,8 @@ final class PlanApi(
   private val recentChargeUserIdsCache = asyncCache.single[List[User.ID]](
     name = "plan.recentChargeUserIds",
     f = chargeColl.primitive[User.ID](
-    $empty, sort = $doc("date" -> -1), nb = recentChargeUserIdsNb * 3 / 2, "userId"
-  ) flatMap filterUserIds map (_ take recentChargeUserIdsNb),
+      $empty, sort = $doc("date" -> -1), nb = recentChargeUserIdsNb * 3 / 2, "userId"
+    ) flatMap filterUserIds map (_ take recentChargeUserIdsNb),
     expireAfter = _.ExpireAfterWrite(1 hour)
   )
 
@@ -239,14 +236,14 @@ final class PlanApi(
   private val topPatronUserIdsCache = asyncCache.single[List[User.ID]](
     name = "plan.topPatronUserIds",
     f = chargeColl.aggregate(
-    Match($doc("userId" $exists true)), List(
-      GroupField("userId")("total" -> SumField("cents")),
-      Sort(Descending("total")),
-      Limit(topPatronUserIdsNb * 3 / 2)
-    )
-  ).map {
-      _.firstBatch.flatMap { _.getAs[User.ID]("_id") }
-    } flatMap filterUserIds map (_ take topPatronUserIdsNb),
+      Match($doc("userId" $exists true)), List(
+        GroupField("userId")("total" -> SumField("cents")),
+        Sort(Descending("total")),
+        Limit(topPatronUserIdsNb * 3 / 2)
+      )
+    ).map {
+        _.firstBatch.flatMap { _.getAs[User.ID]("_id") }
+      } flatMap filterUserIds map (_ take topPatronUserIdsNb),
     expireAfter = _.ExpireAfterWrite(1 hour)
   )
 
@@ -276,8 +273,7 @@ final class PlanApi(
         if (charge.isPayPal) {
           lila.mon.plan.amount.paypal(charge.cents.value)
           lila.mon.plan.count.paypal()
-        }
-        else if (charge.isStripe) {
+        } else if (charge.isStripe) {
           lila.mon.plan.amount.stripe(charge.cents.value)
           lila.mon.plan.count.stripe()
         }

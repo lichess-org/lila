@@ -59,9 +59,9 @@ final class Sequencer(
 object Sequencer {
 
   case class Work(
-    run: () => Funit,
-    promise: Option[Promise[Unit]] = None,
-    timeout: Option[FiniteDuration] = None
+      run: () => Funit,
+      promise: Option[Promise[Unit]] = None,
+      timeout: Option[FiniteDuration] = None
   )
 
   def work(

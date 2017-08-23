@@ -39,27 +39,27 @@ object DataForm {
   )(PrefData.apply)(PrefData.unapply))
 
   case class DisplayData(
-    animation: Int,
-    captured: Int,
-    highlight: Int,
-    destination: Int,
-    coords: Int,
-    replay: Int,
-    pieceNotation: Option[Int],
-    zen: Option[Int],
-    blindfold: Int
+      animation: Int,
+      captured: Int,
+      highlight: Int,
+      destination: Int,
+      coords: Int,
+      replay: Int,
+      pieceNotation: Option[Int],
+      zen: Option[Int],
+      blindfold: Int
   )
 
   case class BehaviorData(
-    moveEvent: Option[Int],
-    premove: Int,
-    takeback: Int,
-    autoQueen: Int,
-    autoThreefold: Int,
-    submitMove: Int,
-    confirmResign: Int,
-    keyboardMove: Option[Int],
-    rookCastle: Option[Int]
+      moveEvent: Option[Int],
+      premove: Int,
+      takeback: Int,
+      autoQueen: Int,
+      autoThreefold: Int,
+      submitMove: Int,
+      confirmResign: Int,
+      keyboardMove: Option[Int],
+      rookCastle: Option[Int]
   )
 
   case class PrefData(

@@ -279,10 +279,10 @@ final class JsonView(
 object JsonView {
 
   case class WithFlags(
-    opening: Boolean = false,
-    movetimes: Boolean = false,
-    division: Boolean = false,
-    clocks: Boolean = false,
-    blurs: Boolean = false
+      opening: Boolean = false,
+      movetimes: Boolean = false,
+      division: Boolean = false,
+      clocks: Boolean = false,
+      blurs: Boolean = false
   )
 }

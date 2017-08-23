@@ -37,8 +37,7 @@ private[round] final class Finisher(
     if (!PlayApp.startedSinceSeconds(60) && (game.movedAt isBefore PlayApp.startedAt)) {
       logger.info(s"Aborting game last played before JVM boot: ${game.id}")
       other(game, _.Aborted, none)
-    }
-    else {
+    } else {
       val winner = Some(!game.player.color) filterNot { color =>
         game.toChess.board.variant.insufficientWinningMaterial(game.toChess.situation.board, color)
       }
@@ -80,22 +79,22 @@ private[round] final class Finisher(
             g.whitePlayer.userId,
             g.blackPlayer.userId
           ).zip {
-            // because the game comes from the round GameProxy,
-            // it doesn't have the tvAt field set
-            // so we fetch it from the DB
-            GameRepo hydrateTvAt g
-          } flatMap {
-            case ((whiteO, blackO), g) => {
-              val finish = FinishGame(g, whiteO, blackO)
-              updateCountAndPerfs(finish) map { ratingDiffs =>
-                message foreach { messenger.system(g, _) }
-                GameRepo game g.id foreach { newGame =>
-                  bus.publish(finish.copy(game = newGame | g), 'finishGame)
+              // because the game comes from the round GameProxy,
+              // it doesn't have the tvAt field set
+              // so we fetch it from the DB
+              GameRepo hydrateTvAt g
+            } flatMap {
+              case ((whiteO, blackO), g) => {
+                val finish = FinishGame(g, whiteO, blackO)
+                updateCountAndPerfs(finish) map { ratingDiffs =>
+                  message foreach { messenger.system(g, _) }
+                  GameRepo game g.id foreach { newGame =>
+                    bus.publish(finish.copy(game = newGame | g), 'finishGame)
+                  }
+                  prog.events :+ lila.game.Event.EndData(g, ratingDiffs)
                 }
-                prog.events :+ lila.game.Event.EndData(g, ratingDiffs)
               }
             }
-          }
       }
   } >>- proxy.invalidate
 

@@ -91,8 +91,7 @@ final class FishnetApi(
             if (complete.weak && work.game.variant.standard) {
               Monitor.weak(work, client, complete)
               repo.updateOrGiveUpAnalysis(work.weak) >> fufail(WeakAnalysis)
-            }
-            else AnalysisBuilder(client, work, complete.analysis) flatMap { analysis =>
+            } else AnalysisBuilder(client, work, complete.analysis) flatMap { analysis =>
               monitor.analysis(work, client, complete)
               repo.deleteAnalysis(work) inject PostAnalysisResult.Complete(analysis)
             }

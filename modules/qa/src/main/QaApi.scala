@@ -80,11 +80,11 @@ final class QaApi(
     private def paginator(selector: Bdoc, sort: Bdoc, page: Int, perPage: Int): Fu[Paginator[Question]] =
       Paginator(
         adapter = new Adapter[Question](
-        collection = questionColl,
-        selector = selector,
-        projection = $empty,
-        sort = sort
-      ),
+          collection = questionColl,
+          selector = selector,
+          projection = $empty,
+          sort = sort
+        ),
         currentPage = page,
         maxPerPage = perPage
       )
@@ -92,8 +92,8 @@ final class QaApi(
     private def popularCache = mongoCache[Int, List[Question]](
       prefix = "qa:popular",
       f = nb => questionColl.find($empty)
-      .sort($doc("vote.score" -> -1))
-      .cursor[Question]().gather[List](nb),
+        .sort($doc("vote.score" -> -1))
+        .cursor[Question]().gather[List](nb),
       timeToLive = 6 hour,
       keyToString = _.toString
     )

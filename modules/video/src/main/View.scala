@@ -3,10 +3,10 @@ package lila.video
 import org.joda.time.DateTime
 
 case class View(
-  id: String, // userId/videoId
-  videoId: Video.ID,
-  userId: String,
-  date: DateTime
+    id: String, // userId/videoId
+    videoId: Video.ID,
+    userId: String,
+    date: DateTime
 )
 
 case class VideoView(video: Video, view: Boolean)

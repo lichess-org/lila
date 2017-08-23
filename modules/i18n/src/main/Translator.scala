@@ -23,8 +23,7 @@ object Translator {
             case literal: Literal => Some(literal.formatHtml(htmlArgs))
             case plurals: Plurals => plurals.formatHtml(quantity, htmlArgs)
           }
-        }
-        catch {
+        } catch {
           case e: Exception =>
             logger.warn(s"Failed to format html $key -> $translation (${args.toList})", e)
             Some(Html(key))
@@ -56,8 +55,7 @@ object Translator {
             case literal: Literal => Some(literal.formatTxt(args))
             case plurals: Plurals => plurals.formatTxt(quantity, args)
           }
-        }
-        catch {
+        } catch {
           case e: Exception =>
             logger.warn(s"Failed to format txt $db/$lang/$key -> $translation (${args.toList})", e)
             Some(key)

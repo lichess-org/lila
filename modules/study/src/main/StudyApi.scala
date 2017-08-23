@@ -476,8 +476,7 @@ final class StudyApi(
                 studyRepo.setPosition(study.id, newPosition)
               } >>-
                 sendTo(study, Socket.ReloadAll)
-            }
-            else fuccess {
+            } else fuccess {
               val shouldReload =
                 (newChapter.setup.orientation != chapter.setup.orientation) ||
                   (newChapter.practice != chapter.practice) ||
@@ -542,8 +541,7 @@ final class StudyApi(
       )
       if (!study.isPublic && newStudy.isPublic) {
         bus.publish(lila.hub.actorApi.study.StudyBecamePublic(studyId.value, study.members.contributorIds), 'study)
-      }
-      else if (study.isPublic && !newStudy.isPublic) {
+      } else if (study.isPublic && !newStudy.isPublic) {
         bus.publish(lila.hub.actorApi.study.StudyBecamePrivate(studyId.value, study.members.contributorIds), 'study)
       }
       (newStudy != study) ?? {

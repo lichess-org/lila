@@ -36,10 +36,10 @@ private final class MoveDB(
   private case class Add(move: Move)
   private case class Acquire(client: Client)
   private case class PostResult(
-    moveId: Work.Id,
-    client: Client,
-    data: JsonApi.Request.PostMove,
-    measurement: lila.mon.Measurement
+      moveId: Work.Id,
+      client: Client,
+      data: JsonApi.Request.PostMove,
+      measurement: lila.mon.Measurement
   )
 
   private val actor = system.actorOf(Props(new Actor {
@@ -103,8 +103,7 @@ private final class MoveDB(
       if (move.isOutOfTries) {
         logger.warn(s"Give up on move $move")
         coll -= move.id
-      }
-      else coll += (move.id -> move)
+      } else coll += (move.id -> move)
 
     def clearIfFull =
       if (coll.size > maxSize) {

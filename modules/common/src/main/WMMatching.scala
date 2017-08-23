@@ -205,8 +205,7 @@ object WMMatching {
       if (t == 1) {
         //b became an S-vertex/blossom; add it(s vertices) to the queue.
         blossomLeaves(b).foreach(queue ::= _)
-      }
-      else if (t == 2) {
+      } else if (t == 2) {
         // b became a T-vertex/blossom; assign label S to its mate.
         // (If b is a non-trivial blossom, its base is the only vertex
         // with an external mate.)
@@ -387,8 +386,7 @@ object WMMatching {
           if (label(bv) == 1) {
             // This sub-blossom just got label S through one of its
             // neighbours; leave it.
-          }
-          else {
+          } else {
             (blossomLeaves(bv).find(x => label(x) != 0)).foreach(v => {
               label(v) = 0
               label(endpoint(mate(blossombase(bv)))) = 0
@@ -481,8 +479,7 @@ object WMMatching {
         // Trace one step back.
         if (labelend(bs) == -1) {
           //Reached single vertex; stop.
-        }
-        else {
+        } else {
           val t = endpoint(labelend(bs))
           val bt = inblossom(t)
           // Trace one step back.
@@ -515,8 +512,7 @@ object WMMatching {
           if (inblossom(v) == inblossom(w)) {
             //this edge is internal to a blossom; ignore it
             false
-          }
-          else {
+          } else {
             var kslack = 0
             if (!allowedge(k)) {
               kslack = slack(k)
@@ -530,8 +526,7 @@ object WMMatching {
                 // label w with T and label its mate with S (R12).
                 assignLabel(w, 2, p ^ 1)
                 false
-              }
-              else if (label(inblossom(w)) == 1) {
+              } else if (label(inblossom(w)) == 1) {
                 // (C2) w is an S-vertex (not in the same blossom);
                 // follow back-links to discover either an
                 // augmenting path or a new blossom.
@@ -541,15 +536,13 @@ object WMMatching {
                   // bookkeeping and turn it into an S-blossom.
                   addBlossom(base, k)
                   false
-                }
-                else {
+                } else {
                   // Found an augmenting path; augment the
                   // matching and end this stage.
                   augmentMatching(k)
                   true
                 }
-              }
-              else if (label(w) == 0) {
+              } else if (label(w) == 0) {
                 // w is inside a T-blossom, but w itself has not
                 // yet been reached from outside the blossom;
                 // mark it as reached (we need this to relabel
@@ -557,12 +550,10 @@ object WMMatching {
                 label(w) = 2
                 labelend(w) = p ^ 1
                 false
-              }
-              else {
+              } else {
                 false
               }
-            }
-            else if (label(inblossom(w)) == 1) {
+            } else if (label(inblossom(w)) == 1) {
               // keep track of the least-slack non-allowable edge to
               // a different S-blossom.
               val b = inblossom(v)
@@ -570,8 +561,7 @@ object WMMatching {
                 bestedge(b) = k
               }
               false
-            }
-            else if (label(w) == 0) {
+            } else if (label(w) == 0) {
               // w is a free vertex (or an unreached vertex inside
               // a T-blossom) but we can not reach it yet;
               // keep track of the least-slack edge that reaches w.
@@ -579,16 +569,14 @@ object WMMatching {
                 bestedge(w) = k
               }
               false
-            }
-            else {
+            } else {
               false
             }
           }
         }
         if (neighbend(v).exists(go)) {
           true
-        }
-        else {
+        } else {
           substage()
         }
       }
@@ -656,8 +644,7 @@ object WMMatching {
         if (label(inblossom(v)) == 1) {
           // S-vertex: 2*u = 2*u - 2*delta
           dualvar(v) -= dt.delta
-        }
-        else if (label(inblossom(v)) == 2) {
+        } else if (label(inblossom(v)) == 2) {
           //T-vertex: 2*u = 2*u + 2*delta
           dualvar(v) += dt.delta
         }
@@ -675,21 +662,18 @@ object WMMatching {
       // Take action at the point where minimum delta occurred.
       if (dt.tp == 1) {
         // No further improvement possible; optimum reached.
-      }
-      else if (dt.tp == 2) {
+      } else if (dt.tp == 2) {
         // Use the least-slack edge to continue the search.
         allowedge(dt.extra) = true
         val (ei, ej, _) = edges(dt.extra)
         val (i, _) = if (label(inblossom(ei)) == 0) (ej, ei) else (ei, ej)
         queue ::= i
-      }
-      else if (dt.tp == 3) {
+      } else if (dt.tp == 3) {
         // Use the least-slack edge to continue the search.
         allowedge(dt.extra) = true
         val (i, _, _) = edges(dt.extra)
         queue ::= i
-      }
-      else if (dt.tp == 4) {
+      } else if (dt.tp == 4) {
         expandBlossom(dt.extra, false)
       }
       dt.tp > 1

@@ -133,22 +133,22 @@ case class Perfs(
 
   def updateStandard = copy(
     standard = {
-    val subs = List(bullet, blitz, classical, correspondence)
-    subs.maxBy(_.latest.fold(0l)(_.getMillis)).latest.fold(standard) { date =>
-      val nb = subs.map(_.nb).sum
-      val glicko = Glicko(
-        rating = subs.map(s => s.glicko.rating * (s.nb / nb.toDouble)).sum,
-        deviation = subs.map(s => s.glicko.deviation * (s.nb / nb.toDouble)).sum,
-        volatility = subs.map(s => s.glicko.volatility * (s.nb / nb.toDouble)).sum
-      )
-      Perf(
-        glicko = glicko,
-        nb = nb,
-        recent = Nil,
-        latest = date.some
-      )
+      val subs = List(bullet, blitz, classical, correspondence)
+      subs.maxBy(_.latest.fold(0l)(_.getMillis)).latest.fold(standard) { date =>
+        val nb = subs.map(_.nb).sum
+        val glicko = Glicko(
+          rating = subs.map(s => s.glicko.rating * (s.nb / nb.toDouble)).sum,
+          deviation = subs.map(s => s.glicko.deviation * (s.nb / nb.toDouble)).sum,
+          volatility = subs.map(s => s.glicko.volatility * (s.nb / nb.toDouble)).sum
+        )
+        Perf(
+          glicko = glicko,
+          nb = nb,
+          recent = Nil,
+          latest = date.some
+        )
+      }
     }
-  }
   )
 
   def latest: Option[DateTime] =
@@ -234,17 +234,17 @@ case object Perfs {
   }
 
   case class Leaderboards(
-    ultraBullet: List[User.LightPerf],
-    bullet: List[User.LightPerf],
-    blitz: List[User.LightPerf],
-    classical: List[User.LightPerf],
-    crazyhouse: List[User.LightPerf],
-    chess960: List[User.LightPerf],
-    kingOfTheHill: List[User.LightPerf],
-    threeCheck: List[User.LightPerf],
-    antichess: List[User.LightPerf],
-    atomic: List[User.LightPerf],
-    horde: List[User.LightPerf],
-    racingKings: List[User.LightPerf]
+      ultraBullet: List[User.LightPerf],
+      bullet: List[User.LightPerf],
+      blitz: List[User.LightPerf],
+      classical: List[User.LightPerf],
+      crazyhouse: List[User.LightPerf],
+      chess960: List[User.LightPerf],
+      kingOfTheHill: List[User.LightPerf],
+      threeCheck: List[User.LightPerf],
+      antichess: List[User.LightPerf],
+      atomic: List[User.LightPerf],
+      horde: List[User.LightPerf],
+      racingKings: List[User.LightPerf]
   )
 }

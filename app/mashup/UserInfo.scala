@@ -72,10 +72,10 @@ object UserInfo {
   }
 
   case class Social(
-    relation: Option[lila.relation.Relation],
-    notes: List[lila.user.Note],
-    followable: Boolean,
-    blocked: Boolean
+      relation: Option[lila.relation.Relation],
+      notes: List[lila.user.Note],
+      followable: Boolean,
+      blocked: Boolean
   )
 
   object Social {

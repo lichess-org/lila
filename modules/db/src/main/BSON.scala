@@ -8,9 +8,9 @@ import dsl._
 import lila.common.Iso
 
 abstract class BSON[T]
-    extends BSONHandler[Bdoc, T]
-    with BSONDocumentReader[T]
-    with BSONDocumentWriter[T] {
+  extends BSONHandler[Bdoc, T]
+  with BSONDocumentReader[T]
+  with BSONDocumentWriter[T] {
 
   val logMalformed = true
 
@@ -21,8 +21,7 @@ abstract class BSON[T]
 
   def read(doc: Bdoc): T = if (logMalformed) try {
     reads(new Reader(doc))
-  }
-  catch {
+  } catch {
     case e: Exception =>
       logger.warn(s"Can't read malformed doc ${debug(doc)}", e)
       throw e
@@ -44,8 +43,7 @@ object BSON extends Handlers {
     new BSONHandler[Bdoc, T] with BSONDocumentReader[T] with BSONDocumentWriter[T] {
       def read(doc: Bdoc): T = try {
         handler read doc
-      }
-      catch {
+      } catch {
         case e: Exception =>
           logger.warn(s"Can't read malformed doc ${debug(doc)}", e)
           throw e

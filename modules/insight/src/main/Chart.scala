@@ -5,33 +5,33 @@ import lila.common.PimpedJson._
 import play.api.libs.json._
 
 case class Chart(
-  question: JsonQuestion,
-  xAxis: Chart.Xaxis,
-  valueYaxis: Chart.Yaxis,
-  sizeYaxis: Chart.Yaxis,
-  series: List[Chart.Serie],
-  sizeSerie: Chart.Serie,
-  games: List[JsObject]
+    question: JsonQuestion,
+    xAxis: Chart.Xaxis,
+    valueYaxis: Chart.Yaxis,
+    sizeYaxis: Chart.Yaxis,
+    series: List[Chart.Serie],
+    sizeSerie: Chart.Serie,
+    games: List[JsObject]
 )
 
 object Chart {
 
   case class Xaxis(
-    name: String,
-    categories: List[JsValue],
-    dataType: String
+      name: String,
+      categories: List[JsValue],
+      dataType: String
   )
 
   case class Yaxis(
-    name: String,
-    dataType: String
+      name: String,
+      dataType: String
   )
 
   case class Serie(
-    name: String,
-    dataType: String,
-    stack: Option[String],
-    data: List[Double]
+      name: String,
+      dataType: String,
+      stack: Option[String],
+      data: List[Double]
   )
 
   def fromAnswer[X](getLightUser: LightUser.GetterSync)(answer: Answer[X]): Chart = {

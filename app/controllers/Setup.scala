@@ -76,10 +76,10 @@ object Setup extends LilaController with TheftPrevention {
                   variant = config.variant,
                   initialFen = config.fen,
                   timeControl = config.makeClock map { c =>
-                  TimeControl.Clock(c)
-                } orElse config.makeDaysPerTurn.map {
-                  TimeControl.Correspondence.apply
-                } getOrElse TimeControl.Unlimited,
+                    TimeControl.Clock(c)
+                  } orElse config.makeDaysPerTurn.map {
+                    TimeControl.Correspondence.apply
+                  } getOrElse TimeControl.Unlimited,
                   mode = config.mode,
                   color = config.color.name,
                   challenger = (ctx.me, HTTPRequest sid req) match {

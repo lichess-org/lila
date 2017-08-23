@@ -9,9 +9,9 @@ import play.api.Play.current
 final class DetectLanguage(url: String, key: String) {
 
   private case class Detection(
-    language: String,
-    confidence: Float,
-    isReliable: Boolean
+      language: String,
+      confidence: Float,
+      isReliable: Boolean
   )
 
   private implicit val DetectionReads = Json.reads[Detection]

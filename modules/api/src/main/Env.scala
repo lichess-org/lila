@@ -99,13 +99,13 @@ final class Env(
 
   val roundApi = new RoundApiBalancer(
     api = new RoundApi(
-    jsonView = roundJsonView,
-    noteApi = noteApi,
-    forecastApi = forecastApi,
-    bookmarkApi = bookmarkApi,
-    getTourAndRanks = getTourAndRanks,
-    getSimul = getSimul
-  ),
+      jsonView = roundJsonView,
+      noteApi = noteApi,
+      forecastApi = forecastApi,
+      bookmarkApi = bookmarkApi,
+      getTourAndRanks = getTourAndRanks,
+      getSimul = getSimul
+    ),
     system = system,
     nbActors = math.max(1, math.min(16, Runtime.getRuntime.availableProcessors - 1))
   )

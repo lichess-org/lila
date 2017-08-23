@@ -137,9 +137,9 @@ object Tournament {
   ) = Tournament(
     id = Random nextString 8,
     name = name | {
-    if (position.initial) GreatPlayer.randomName
-    else position.shortName
-  },
+      if (position.initial) GreatPlayer.randomName
+      else position.shortName
+    },
     status = Status.Created,
     system = system,
     clock = clock,

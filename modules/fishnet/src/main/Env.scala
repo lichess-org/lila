@@ -56,11 +56,11 @@ final class Env(
     monitor = monitor,
     sink = sink,
     socketExists = id => {
-    import lila.hub.actorApi.map.Exists
-    import akka.pattern.ask
-    import makeTimeout.short
-    hub.socket.round ? Exists(id) mapTo manifest[Boolean]
-  },
+      import lila.hub.actorApi.map.Exists
+      import akka.pattern.ask
+      import makeTimeout.short
+      hub.socket.round ? Exists(id) mapTo manifest[Boolean]
+    },
     clientVersion = clientVersion,
     offlineMode = OfflineMode,
     analysisNodes = AnalysisNodes

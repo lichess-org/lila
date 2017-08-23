@@ -82,10 +82,10 @@ case class Vote(up: Set[String], down: Set[String], score: Int) {
 }
 
 case class Comment(
-  id: CommentId, // random string
-  userId: String,
-  body: String,
-  createdAt: DateTime
+    id: CommentId, // random string
+    userId: String,
+    body: String,
+    createdAt: DateTime
 )
 
 object Comment {

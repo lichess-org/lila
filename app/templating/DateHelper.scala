@@ -44,9 +44,9 @@ trait DateHelper { self: I18nHelper =>
   private def periodFormatter(ctx: Context): PeriodFormatter =
     periodFormatters.getOrElseUpdate(
       lang(ctx).code, {
-      Locale setDefault Locale.ENGLISH
-      PeriodFormat wordBased lang(ctx).toLocale
-    }
+        Locale setDefault Locale.ENGLISH
+        PeriodFormat wordBased lang(ctx).toLocale
+      }
     )
 
   def showDateTimeZone(date: DateTime, zone: DateTimeZone)(implicit ctx: Context): String =

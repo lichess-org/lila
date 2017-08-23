@@ -43,8 +43,7 @@ private object AnalysisBuilder {
                   if (!isPartial && analysis.emptyRatio >= 1d / 10)
                     fufail(s"${game.variant.key} analysis $debug has ${analysis.nbEmptyInfos} empty infos out of ${analysis.infos.size}")
                   else fuccess(analysis)
-                }
-                else fufail(s"${game.variant.key} analysis $debug is empty")
+                } else fufail(s"${game.variant.key} analysis $debug is empty")
             }
           )
         }

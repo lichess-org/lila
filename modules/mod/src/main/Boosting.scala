@@ -72,8 +72,7 @@ final class BoostingApi(
         }
         case none => funit
       }
-    }
-    else {
+    } else {
       funit
     }
   }
@@ -87,7 +86,7 @@ object BoostingApi {
   }
 
   case class GameResult(
-    winner: User,
-    loser: User
+      winner: User,
+      loser: User
   )
 }

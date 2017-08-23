@@ -55,12 +55,12 @@ final class LeaderboardApi(
 
   private def paginator(user: User, page: Int, sort: Bdoc): Fu[Paginator[TourEntry]] = Paginator(
     adapter = new Adapter[Entry](
-    collection = coll,
-    selector = $doc("u" -> user.id),
-    projection = $empty,
-    sort = sort,
-    readPreference = ReadPreference.secondaryPreferred
-  ) mapFutureList withTournaments,
+      collection = coll,
+      selector = $doc("u" -> user.id),
+      projection = $empty,
+      sort = sort,
+      readPreference = ReadPreference.secondaryPreferred
+    ) mapFutureList withTournaments,
     currentPage = page,
     maxPerPage = maxPerPage
   )
@@ -82,17 +82,17 @@ object LeaderboardApi {
   case class Ratio(value: Double) extends AnyVal
 
   case class Entry(
-    id: String, // same as tournament player id
-    userId: String,
-    tourId: Tournament.ID,
-    nbGames: Int,
-    score: Int,
-    rank: Int,
-    rankRatio: Ratio, // ratio * rankRatioMultiplier. function of rank and tour.nbPlayers. less is better.
-    freq: Option[Schedule.Freq],
-    speed: Option[Schedule.Speed],
-    perf: PerfType,
-    date: DateTime
+      id: String, // same as tournament player id
+      userId: String,
+      tourId: Tournament.ID,
+      nbGames: Int,
+      score: Int,
+      rank: Int,
+      rankRatio: Ratio, // ratio * rankRatioMultiplier. function of rank and tour.nbPlayers. less is better.
+      freq: Option[Schedule.Freq],
+      speed: Option[Schedule.Speed],
+      perf: PerfType,
+      date: DateTime
   )
 
   case class ChartData(perfResults: List[(PerfType, ChartData.PerfResult)]) {

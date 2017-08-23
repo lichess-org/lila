@@ -157,23 +157,23 @@ object Mod extends LilaController {
     Env.memo.asyncCache.multi[IpAddress, Int](
       name = "ipIntel",
       f = ip => {
-      import play.api.libs.ws.WS
-      import play.api.Play.current
-      val email = Env.api.Net.Email
-      val url = s"http://check.getipintel.net/check.php?ip=$ip&contact=$email"
-      WS.url(url).get().map(_.body).mon(_.security.proxy.request.time).flatMap { str =>
-        parseFloatOption(str).fold[Fu[Int]](fufail(s"Invalid ratio ${str.take(140)}")) { ratio =>
-          if (ratio < 0) fufail(s"Error code $ratio")
-          else fuccess((ratio * 100).toInt)
-        }
-      }.addEffects(
-        fail = _ => lila.mon.security.proxy.request.failure(),
-        succ = percent => {
-        lila.mon.security.proxy.percent(percent max 0)
-        lila.mon.security.proxy.request.success()
-      }
-      )
-    },
+        import play.api.libs.ws.WS
+        import play.api.Play.current
+        val email = Env.api.Net.Email
+        val url = s"http://check.getipintel.net/check.php?ip=$ip&contact=$email"
+        WS.url(url).get().map(_.body).mon(_.security.proxy.request.time).flatMap { str =>
+          parseFloatOption(str).fold[Fu[Int]](fufail(s"Invalid ratio ${str.take(140)}")) { ratio =>
+            if (ratio < 0) fufail(s"Error code $ratio")
+            else fuccess((ratio * 100).toInt)
+          }
+        }.addEffects(
+          fail = _ => lila.mon.security.proxy.request.failure(),
+          succ = percent => {
+            lila.mon.security.proxy.percent(percent max 0)
+            lila.mon.security.proxy.request.success()
+          }
+        )
+      },
       expireAfter = _.ExpireAfterAccess(3 days)
     )
 

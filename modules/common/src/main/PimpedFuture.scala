@@ -106,8 +106,7 @@ object PimpedFuture {
 
     def awaitOrElse(duration: FiniteDuration, default: => A): A = try {
       scala.concurrent.Await.result(fua, duration)
-    }
-    catch {
+    } catch {
       case _: Exception => default
     }
 

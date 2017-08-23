@@ -100,7 +100,7 @@ private[team] case class TeamEdit(
 }
 
 private[team] case class RequestSetup(
-  message: String,
-  gameId: String,
-  move: String
+    message: String,
+    gameId: String,
+    move: String
 )

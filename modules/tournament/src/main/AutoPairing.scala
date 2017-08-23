@@ -30,22 +30,22 @@ final class AutoPairing(
     val user2 = usersMap get pairing.user2 err s"Missing pairing user $pairing"
     val game1 = Game.make(
       game = chess.Game(
-      variantOption = tour.variant.some,
-      fen = tour.position.some.filterNot(_.initial).map(_.fen)
-    ) |> { g =>
-        val turns = g.player.fold(0, 1)
-        g.copy(
-          clock = tour.clock.toClock.some,
-          turns = turns,
-          startedAtTurn = turns
-        )
-      },
+        variantOption = tour.variant.some,
+        fen = tour.position.some.filterNot(_.initial).map(_.fen)
+      ) |> { g =>
+          val turns = g.player.fold(0, 1)
+          g.copy(
+            clock = tour.clock.toClock.some,
+            turns = turns,
+            startedAtTurn = turns
+          )
+        },
       whitePlayer = GamePlayer.white,
       blackPlayer = GamePlayer.black,
       mode = tour.mode,
       variant =
-      if (tour.position.initial) tour.variant
-      else chess.variant.FromPosition,
+        if (tour.position.initial) tour.variant
+        else chess.variant.FromPosition,
       source = Source.Tournament,
       pgnImport = None
     )
@@ -75,8 +75,7 @@ final class AutoPairing(
               (pov.game.movedAt.getSeconds - nowSeconds + secondsToMove).toInt,
               false
             )
-        }
-        else roundMap ! Tell(pov.gameId, NoStartColor(pov.color))
+        } else roundMap ! Tell(pov.gameId, NoStartColor(pov.color))
       }
     }
   }

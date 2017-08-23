@@ -48,14 +48,14 @@ private[video] final class VideoApi(
       val textScore = $doc("score" -> $doc("$meta" -> "textScore"))
       Paginator(
         adapter = new Adapter[Video](
-        collection = videoColl,
-        selector = $doc(
-          "$text" -> $doc("$search" -> q)
-        ),
-        projection = textScore,
-        sort = textScore,
-        readPreference = ReadPreference.secondaryPreferred
-      ) mapFutureList videoViews(user),
+          collection = videoColl,
+          selector = $doc(
+            "$text" -> $doc("$search" -> q)
+          ),
+          projection = textScore,
+          sort = textScore,
+          readPreference = ReadPreference.secondaryPreferred
+        ) mapFutureList videoViews(user),
         currentPage = page,
         maxPerPage = maxPerPage
       )
@@ -83,12 +83,12 @@ private[video] final class VideoApi(
 
     def popular(user: Option[User], page: Int): Fu[Paginator[VideoView]] = Paginator(
       adapter = new Adapter[Video](
-      collection = videoColl,
-      selector = $empty,
-      projection = $empty,
-      sort = $doc("metadata.likes" -> -1),
-      readPreference = ReadPreference.secondaryPreferred
-    ) mapFutureList videoViews(user),
+        collection = videoColl,
+        selector = $empty,
+        projection = $empty,
+        sort = $doc("metadata.likes" -> -1),
+        readPreference = ReadPreference.secondaryPreferred
+      ) mapFutureList videoViews(user),
       currentPage = page,
       maxPerPage = maxPerPage
     )
@@ -97,12 +97,12 @@ private[video] final class VideoApi(
       if (tags.isEmpty) popular(user, page)
       else Paginator(
         adapter = new Adapter[Video](
-        collection = videoColl,
-        selector = $doc("tags" $all tags),
-        projection = $empty,
-        sort = $doc("metadata.likes" -> -1),
-        readPreference = ReadPreference.secondaryPreferred
-      ) mapFutureList videoViews(user),
+          collection = videoColl,
+          selector = $doc("tags" $all tags),
+          projection = $empty,
+          sort = $doc("metadata.likes" -> -1),
+          readPreference = ReadPreference.secondaryPreferred
+        ) mapFutureList videoViews(user),
         currentPage = page,
         maxPerPage = maxPerPage
       )
@@ -110,12 +110,12 @@ private[video] final class VideoApi(
     def byAuthor(user: Option[User], author: String, page: Int): Fu[Paginator[VideoView]] =
       Paginator(
         adapter = new Adapter[Video](
-        collection = videoColl,
-        selector = $doc("author" -> author),
-        projection = $empty,
-        sort = $doc("metadata.likes" -> -1),
-        readPreference = ReadPreference.secondaryPreferred
-      ) mapFutureList videoViews(user),
+          collection = videoColl,
+          selector = $doc("author" -> author),
+          projection = $empty,
+          sort = $doc("metadata.likes" -> -1),
+          readPreference = ReadPreference.secondaryPreferred
+        ) mapFutureList videoViews(user),
         currentPage = page,
         maxPerPage = maxPerPage
       )
@@ -175,8 +175,8 @@ private[video] final class VideoApi(
       viewColl.distinct[String, Set](
         View.BSONFields.videoId,
         $inIds(videos.map { v =>
-        View.makeId(v.id, user.id)
-      }).some
+          View.makeId(v.id, user.id)
+        }).some
       )
   }
 
@@ -193,36 +193,36 @@ private[video] final class VideoApi(
     private val pathsCache = asyncCache.clearable[List[Tag], List[TagNb]](
       name = "video.paths",
       f = filterTags => {
-      val allPaths =
-        if (filterTags.isEmpty) allPopular map { tags =>
-          tags.filterNot(_.isNumeric)
-        }
-        else videoColl.aggregateWithReadPreference(
-          Match($doc("tags" $all filterTags)),
-          List(Project($doc("tags" -> true)), UnwindField("tags"),
-            GroupField("tags")("nb" -> SumValue(1))),
-          ReadPreference.secondaryPreferred
-        ).map(
-            _.firstBatch.flatMap(_.asOpt[TagNb])
-          )
+        val allPaths =
+          if (filterTags.isEmpty) allPopular map { tags =>
+            tags.filterNot(_.isNumeric)
+          }
+          else videoColl.aggregateWithReadPreference(
+            Match($doc("tags" $all filterTags)),
+            List(Project($doc("tags" -> true)), UnwindField("tags"),
+              GroupField("tags")("nb" -> SumValue(1))),
+            ReadPreference.secondaryPreferred
+          ).map(
+              _.firstBatch.flatMap(_.asOpt[TagNb])
+            )
 
-      allPopular zip allPaths map {
-        case (all, paths) =>
-          val tags = all map { t =>
-            paths find (_._id == t._id) getOrElse TagNb(t._id, 0)
-          } filterNot (_.empty) take max
-          val missing = filterTags filterNot { t =>
-            tags exists (_.tag == t)
-          }
-          val list = tags.take(max - missing.size) ::: missing.flatMap { t =>
-            all find (_.tag == t)
-          }
-          list.sortBy { t =>
-            if (filterTags contains t.tag) Int.MinValue
-            else -t.nb
-          }
-      }
-    },
+        allPopular zip allPaths map {
+          case (all, paths) =>
+            val tags = all map { t =>
+              paths find (_._id == t._id) getOrElse TagNb(t._id, 0)
+            } filterNot (_.empty) take max
+            val missing = filterTags filterNot { t =>
+              tags exists (_.tag == t)
+            }
+            val list = tags.take(max - missing.size) ::: missing.flatMap { t =>
+              all find (_.tag == t)
+            }
+            list.sortBy { t =>
+              if (filterTags contains t.tag) Int.MinValue
+              else -t.nb
+            }
+        }
+      },
       expireAfter = _.ExpireAfterAccess(10 minutes)
     )
 

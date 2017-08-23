@@ -3,12 +3,12 @@ package lila.blog
 import org.joda.time.DateTime
 
 case class MiniPost(
-  id: String,
-  slug: String,
-  title: String,
-  shortlede: String,
-  date: DateTime,
-  image: String
+    id: String,
+    slug: String,
+    title: String,
+    shortlede: String,
+    date: DateTime,
+    image: String
 )
 
 object MiniPost {

@@ -21,9 +21,9 @@ final class CoachPager(api: CoachApi) {
 object CoachPager {
 
   sealed abstract class Order(
-    val key: String,
-    val name: String,
-    val predicate: (Coach.WithUser, Coach.WithUser) => Boolean
+      val key: String,
+      val name: String,
+      val predicate: (Coach.WithUser, Coach.WithUser) => Boolean
   )
 
   object Order {

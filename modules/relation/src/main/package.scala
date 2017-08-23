@@ -6,7 +6,7 @@ package object relation extends PackageObject with WithPlay {
   val Follow: Relation = true
   val Block: Relation = false
 
-  private[relation]type ID = String
+  private[relation] type ID = String
 
-  private[relation]type OnlineStudyingCache = com.github.blemale.scaffeine.Cache[ID, String]
+  private[relation] type OnlineStudyingCache = com.github.blemale.scaffeine.Cache[ID, String]
 }

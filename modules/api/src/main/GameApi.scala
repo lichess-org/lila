@@ -37,35 +37,35 @@ private[api] final class GameApi(
     page: Int
   ): Fu[JsObject] = Paginator(
     adapter = new CachedAdapter(
-    adapter = new Adapter[Game](
-    collection = GameRepo.coll,
-    selector = {
-    if (~playing) lila.game.Query.nowPlaying(user.id)
-    else $doc(
-      G.playerUids -> user.id,
-      G.status $gte chess.Status.Mate.id,
-      G.analysed -> analysed.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false)))
-    )
-  } ++ $doc(
-    G.rated -> rated.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false)))
-  ),
-    projection = $empty,
-    sort = $doc(G.createdAt -> -1),
-    readPreference = ReadPreference.secondaryPreferred
-  ),
-    nbResults =
-    if (~playing) gameCache.nbPlaying(user.id)
-    else fuccess {
-      rated.fold(user.count.game)(_.fold(user.count.rated, user.count.casual))
-    }
-  ),
+      adapter = new Adapter[Game](
+        collection = GameRepo.coll,
+        selector = {
+          if (~playing) lila.game.Query.nowPlaying(user.id)
+          else $doc(
+            G.playerUids -> user.id,
+            G.status $gte chess.Status.Mate.id,
+            G.analysed -> analysed.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false)))
+          )
+        } ++ $doc(
+          G.rated -> rated.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false)))
+        ),
+        projection = $empty,
+        sort = $doc(G.createdAt -> -1),
+        readPreference = ReadPreference.secondaryPreferred
+      ),
+      nbResults =
+        if (~playing) gameCache.nbPlaying(user.id)
+        else fuccess {
+          rated.fold(user.count.game)(_.fold(user.count.rated, user.count.casual))
+        }
+    ),
     currentPage = page,
     maxPerPage = nb
   ) flatMap { pag =>
-    gamesJson(withFlags = withFlags)(pag.currentPageResults) map { games =>
-      PaginatorJson(pag withCurrentPageResults games)
+      gamesJson(withFlags = withFlags)(pag.currentPageResults) map { games =>
+        PaginatorJson(pag withCurrentPageResults games)
+      }
     }
-  }
 
   def one(id: String, withFlags: WithFlags): Fu[Option[JsObject]] =
     GameRepo game id flatMap {
@@ -89,32 +89,32 @@ private[api] final class GameApi(
     page: Int
   ): Fu[JsObject] = Paginator(
     adapter = new CachedAdapter(
-    adapter = new Adapter[Game](
-    collection = GameRepo.coll,
-    selector = {
-    if (~playing) lila.game.Query.nowPlayingVs(users._1.id, users._2.id)
-    else lila.game.Query.opponents(users._1, users._2) ++ $doc(
-      G.status $gte chess.Status.Mate.id,
-      G.analysed -> analysed.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false)))
-    )
-  } ++ $doc(
-    G.rated -> rated.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false)))
-  ),
-    projection = $empty,
-    sort = $doc(G.createdAt -> -1),
-    readPreference = ReadPreference.secondaryPreferred
-  ),
-    nbResults =
-    if (~playing) gameCache.nbPlaying(users._1.id)
-    else crosstableApi(users._1.id, users._2.id, 5 seconds).map { _ ?? (_.nbGames) }
-  ),
+      adapter = new Adapter[Game](
+        collection = GameRepo.coll,
+        selector = {
+          if (~playing) lila.game.Query.nowPlayingVs(users._1.id, users._2.id)
+          else lila.game.Query.opponents(users._1, users._2) ++ $doc(
+            G.status $gte chess.Status.Mate.id,
+            G.analysed -> analysed.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false)))
+          )
+        } ++ $doc(
+          G.rated -> rated.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false)))
+        ),
+        projection = $empty,
+        sort = $doc(G.createdAt -> -1),
+        readPreference = ReadPreference.secondaryPreferred
+      ),
+      nbResults =
+        if (~playing) gameCache.nbPlaying(users._1.id)
+        else crosstableApi(users._1.id, users._2.id, 5 seconds).map { _ ?? (_.nbGames) }
+    ),
     currentPage = page,
     maxPerPage = nb
   ) flatMap { pag =>
-    gamesJson(withFlags.copy(fens = false))(pag.currentPageResults) map { games =>
-      PaginatorJson(pag withCurrentPageResults games)
+      gamesJson(withFlags.copy(fens = false))(pag.currentPageResults) map { games =>
+        PaginatorJson(pag withCurrentPageResults games)
+      }
     }
-  }
 
   def byUsersVs(
     userIds: Iterable[User.ID],
@@ -127,28 +127,28 @@ private[api] final class GameApi(
     page: Int
   ): Fu[JsObject] = Paginator(
     adapter = new Adapter[Game](
-    collection = GameRepo.coll,
-    selector = {
-    if (~playing) lila.game.Query.nowPlayingVs(userIds)
-    else lila.game.Query.opponents(userIds) ++ $doc(
-      G.status $gte chess.Status.Mate.id,
-      G.analysed -> analysed.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false)))
-    )
-  } ++ $doc(
-    G.rated -> rated.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false))),
-    G.createdAt $gte since
-  ),
-    projection = $empty,
-    sort = $doc(G.createdAt -> -1),
-    readPreference = ReadPreference.secondaryPreferred
-  ),
+      collection = GameRepo.coll,
+      selector = {
+        if (~playing) lila.game.Query.nowPlayingVs(userIds)
+        else lila.game.Query.opponents(userIds) ++ $doc(
+          G.status $gte chess.Status.Mate.id,
+          G.analysed -> analysed.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false)))
+        )
+      } ++ $doc(
+        G.rated -> rated.map(_.fold[BSONValue](BSONBoolean(true), $doc("$exists" -> false))),
+        G.createdAt $gte since
+      ),
+      projection = $empty,
+      sort = $doc(G.createdAt -> -1),
+      readPreference = ReadPreference.secondaryPreferred
+    ),
     currentPage = page,
     maxPerPage = nb
   ) flatMap { pag =>
-    gamesJson(withFlags.copy(fens = false))(pag.currentPageResults) map { games =>
-      PaginatorJson(pag withCurrentPageResults games)
+      gamesJson(withFlags.copy(fens = false))(pag.currentPageResults) map { games =>
+        PaginatorJson(pag withCurrentPageResults games)
+      }
     }
-  }
 
   private def makeUrl(game: Game) = s"$netBaseUrl/${game.id}/${game.firstPlayer.color.name}"
 

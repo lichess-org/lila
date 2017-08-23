@@ -52,12 +52,12 @@ case class PostView(
 case class PostLiteView(post: Post, topic: Topic)
 
 case class MiniForumPost(
-  isTeam: Boolean,
-  postId: String,
-  topicName: String,
-  userId: Option[String],
-  text: String,
-  createdAt: DateTime
+    isTeam: Boolean,
+    postId: String,
+    topicName: String,
+    userId: Option[String],
+    text: String,
+    createdAt: DateTime
 )
 
 case class PostUrlData(categ: String, topic: String, page: Int, number: Int)

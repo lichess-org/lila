@@ -7,9 +7,9 @@ import lila.socket.SocketMember
 import lila.user.User
 
 private[simul] case class Member(
-  channel: JsChannel,
-  userId: Option[String],
-  troll: Boolean
+    channel: JsChannel,
+    userId: Option[String],
+    troll: Boolean
 ) extends SocketMember
 
 private[simul] object Member {

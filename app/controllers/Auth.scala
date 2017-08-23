@@ -40,16 +40,16 @@ object Auth extends LilaController {
       api.saveAuthentication(u.id, ctx.mobileApiVersion) flatMap { sessionId =>
         negotiate(
           html = result | Redirect {
-          get("referrer").filter(goodReferrer) orElse
-            req.session.get(api.AccessUri) getOrElse
-            routes.Lobby.home.url
-        }.fuccess,
+            get("referrer").filter(goodReferrer) orElse
+              req.session.get(api.AccessUri) getOrElse
+              routes.Lobby.home.url
+          }.fuccess,
           api = _ => mobileUserOk(u)
         ) map {
-          _ withCookies LilaCookie.withSession { session =>
-            session + ("sessionId" -> sessionId) - api.AccessUri
+            _ withCookies LilaCookie.withSession { session =>
+              session + ("sessionId" -> sessionId) - api.AccessUri
+            }
           }
-        }
       } recoverWith authRecovery
     )
   }

@@ -205,9 +205,9 @@ private final class PushApi(
 private object PushApi {
 
   case class Data(
-    title: String,
-    body: String,
-    stacking: Stacking,
-    payload: JsObject
+      title: String,
+      body: String,
+      stacking: Stacking,
+      payload: JsObject
   )
 }

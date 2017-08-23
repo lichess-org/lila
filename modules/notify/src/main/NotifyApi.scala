@@ -22,11 +22,11 @@ final class NotifyApi(
 
   def getNotifications(userId: Notification.Notifies, page: Int): Fu[Paginator[Notification]] = Paginator(
     adapter = new Adapter(
-    collection = repo.coll,
-    selector = repo.userNotificationsQuery(userId),
-    projection = $empty,
-    sort = repo.recentSort
-  ),
+      collection = repo.coll,
+      selector = repo.userNotificationsQuery(userId),
+      projection = $empty,
+      sort = repo.recentSort
+    ),
     currentPage = page,
     maxPerPage = perPage
   )

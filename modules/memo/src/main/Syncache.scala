@@ -74,8 +74,7 @@ final class Syncache[K, V](
       // println(s"*** preload $name $k")
       incPreload()
       chm.computeIfAbsent(k, loadFunction).void
-    }
-    else funit
+    } else funit
 
   // maybe optimize later with cach batching
   def preloadMany(ks: Seq[K]): Funit = ks.distinct.map(preloadOne).sequenceFu.void
@@ -110,8 +109,7 @@ final class Syncache[K, V](
     try {
       // monitoring: increment lock time
       lila.mon.measureIncMicros(_ => incWaitMicros)(fu await duration)
-    }
-    catch {
+    } catch {
       case e: java.util.concurrent.TimeoutException =>
         incTimeout()
         default(k)

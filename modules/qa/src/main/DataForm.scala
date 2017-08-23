@@ -81,10 +81,10 @@ private[qa] case class QuestionData(
 }
 
 private[qa] case class AnswerData(
-  body: String,
-  gameId: String,
-  move: String,
-  modIcon: Option[Boolean]
+    body: String,
+    gameId: String,
+    move: String,
+    modIcon: Option[Boolean]
 )
 
 private[qa] case class CommentData(body: String)

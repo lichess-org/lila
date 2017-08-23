@@ -45,10 +45,10 @@ final class LateMultiThrottler(
 object LateMultiThrottler {
 
   case class Work(
-    id: String,
-    run: () => Funit,
-    delay: Option[FiniteDuration], // how long to wait before running
-    timeout: Option[FiniteDuration]
+      id: String,
+      run: () => Funit,
+      delay: Option[FiniteDuration], // how long to wait before running
+      timeout: Option[FiniteDuration]
   ) // how long to wait before timing out
 
   case class Done(id: String)

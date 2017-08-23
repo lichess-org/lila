@@ -25,10 +25,10 @@ final class JsonView(
   import JsonView._
 
   private case class CachableData(
-    pairings: JsArray,
-    featured: Option[JsObject],
-    podium: Option[JsArray],
-    next: Option[JsObject]
+      pairings: JsArray,
+      featured: Option[JsObject],
+      podium: Option[JsArray],
+      next: Option[JsObject]
   )
 
   def apply(

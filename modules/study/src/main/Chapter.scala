@@ -106,9 +106,9 @@ object Chapter {
   }
 
   case class Metadata(
-    _id: Chapter.Id,
-    name: Chapter.Name,
-    setup: Chapter.Setup
+      _id: Chapter.Id,
+      name: Chapter.Name,
+      setup: Chapter.Setup
   ) extends Like
 
   case class IdName(id: Id, name: Name)

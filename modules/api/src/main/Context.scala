@@ -9,15 +9,15 @@ import lila.relation.actorApi.OnlineFriends
 import lila.user.{ UserContext, HeaderUserContext, BodyUserContext }
 
 case class PageData(
-  onlineFriends: OnlineFriends,
-  teamNbRequests: Int,
-  nbChallenges: Int,
-  nbNotifications: Int,
-  pref: Pref,
-  blindMode: Boolean,
-  hasFingerprint: Boolean,
-  assetVersion: AssetVersion,
-  inquiry: Option[lila.mod.Inquiry]
+    onlineFriends: OnlineFriends,
+    teamNbRequests: Int,
+    nbChallenges: Int,
+    nbNotifications: Int,
+    pref: Pref,
+    blindMode: Boolean,
+    hasFingerprint: Boolean,
+    assetVersion: AssetVersion,
+    inquiry: Option[lila.mod.Inquiry]
 )
 
 object PageData {
@@ -79,8 +79,8 @@ sealed trait Context extends lila.user.UserContextWrapper {
 }
 
 sealed abstract class BaseContext(
-  val userContext: lila.user.UserContext,
-  val pageData: PageData
+    val userContext: lila.user.UserContext,
+    val pageData: PageData
 ) extends Context
 
 final class BodyContext[A](
@@ -92,8 +92,8 @@ final class BodyContext[A](
 }
 
 final class HeaderContext(
-  headerContext: HeaderUserContext,
-  data: PageData
+    headerContext: HeaderUserContext,
+    data: PageData
 ) extends BaseContext(headerContext, data)
 
 object Context {

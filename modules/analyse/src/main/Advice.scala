@@ -47,9 +47,9 @@ object Advice {
 }
 
 private[analyse] case class CpAdvice(
-  judgment: Advice.Judgment,
-  info: Info,
-  prev: Info
+    judgment: Advice.Judgment,
+    info: Info,
+    prev: Info
 ) extends Advice
 
 private[analyse] object CpAdvice {
@@ -89,10 +89,10 @@ private[analyse] object MateSequence {
     }
 }
 private[analyse] case class MateAdvice(
-  sequence: MateSequence,
-  judgment: Advice.Judgment,
-  info: Info,
-  prev: Info
+    sequence: MateSequence,
+    judgment: Advice.Judgment,
+    info: Info,
+    prev: Info
 ) extends Advice
 private[analyse] object MateAdvice {
 

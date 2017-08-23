@@ -14,12 +14,12 @@ object Timeline extends LilaController {
     me =>
       negotiate(
         html = {
-        if (HTTPRequest.isXhr(ctx.req))
-          Env.timeline.entryApi.userEntries(me.id) map { html.timeline.entries(_) }
-        else {
-          Env.timeline.entryApi.moreUserEntries(me.id, nb) map { html.timeline.more(_) }
-        }
-      },
+          if (HTTPRequest.isXhr(ctx.req))
+            Env.timeline.entryApi.userEntries(me.id) map { html.timeline.entries(_) }
+          else {
+            Env.timeline.entryApi.moreUserEntries(me.id, nb) map { html.timeline.more(_) }
+          }
+        },
         _ => {
           val entries = Env.timeline.entryApi.moreUserEntries(me.id, nb)
           entries map { es => Ok(Json.obj("entries" -> es)) }

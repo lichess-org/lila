@@ -274,9 +274,9 @@ private final class Socket(
 private object Socket {
 
   case class Member(
-    channel: JsChannel,
-    userId: Option[String],
-    troll: Boolean
+      channel: JsChannel,
+      userId: Option[String],
+      troll: Boolean
   ) extends lila.socket.SocketMember
 
   case class Who(u: String, s: Uid)

@@ -199,8 +199,7 @@ final class TournamentApi(
             }
           }
         }
-      }
-      else fuccess(socketReload(tour.id))
+      } else fuccess(socketReload(tour.id))
     }
   }
 
