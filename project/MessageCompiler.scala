@@ -56,7 +56,7 @@ import play.api.i18n.Lang
 // format: OFF
 private[i18n] object Registry {
 
-  def load = Map[Lang, Map[MessageKey, Translation]]($content)
+  def load = Map[Lang, scala.collection.mutable.AnyRefMap[MessageKey, Translation]]($content)
 }
 """
     }
@@ -96,7 +96,7 @@ import I18nQuantity._
 // format: OFF
 private object `$locale` {
 
-  def load = Map[MessageKey, Translation](\n${content mkString ",\n"})
+  def load = scala.collection.mutable.AnyRefMap[MessageKey, Translation](\n${content mkString ",\n"})
 }
 """
   }
