@@ -77,7 +77,7 @@ function renderInlined(ctx: Ctx, nodes: Tree.Node[], opts: Opts): MaybeVNodes | 
   // only 2 branches
   if (!nodes[1] || nodes[2]) return;
   // only if second branch has no sub-branches
-  if (treeOps.hasBranching(nodes[1], 4)) return;
+  if (treeOps.hasBranching(nodes[1], 6)) return;
   return renderMoveAndChildrenOf(ctx, nodes[0], {
     parentPath: opts.parentPath,
     isMainline: false,
