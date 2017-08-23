@@ -20,4 +20,8 @@ Berserk gjev eitt ekstrapoeng berre om du spelar minst 7 trekk i partiet.</strin
   <string name="howIsTheWinnerDecided">Korleis avgjer ein kven som vinn?</string>
   <string name="howIsTheWinnerDecidedAnswer">Spelaren eller spelarane med flest poeng ved slutten av turneringsfristen vil verta utropt som vinnar(ar).</string>
   <string name="howDoesPairingWork">Korleis vert turneringspara sett saman?</string>
+  <string name="howDoesPairingWorkAnswer">Når turneringa startar er spelarane sett saman på grunnlag av ratinga deira. Gå attende til turneringslobbyen straks du er ferdig med eit spel, og du vert då sett saman med ein spelar nær rangeringa di på turneringsstigen. Dette sikrar minimal ventetid, men du møter ikkje nødvendigvis alle dei andre spelarane i turneringa. Spel snøgt og gå attende til lobbyen for å spela fleire parti og vinna fleire poeng.</string>
+  <string name="howDoesItEnd">Korleis vert turneringa avgjort?</string>
+  <string name="howDoesItEndAnswer">Turneringa har ei nedteljingsklokke. Når den når null vert turneringsrangeringa stogga og vinnaren utropa. Parti som framleis er i spel må spelast til endes, men reknast ikkje med i turneringa.</string>
+  <string name="otherRules">Andre viktige reglar</string>
 </resources>
