@@ -3,4 +3,8 @@
 <resources>
   <string name="activity">Toiminta</string>
   <string name="supportedNbMonths">On tukenut lichess.orgia %1$s kuukauden ajan: hän on %2$s</string>
+  <plurals name="practicedNbPositions">
+    <item quantity="one">Harjoitteli %1$s %2$s -tilannetta</item>
+    <item quantity="other">Harjoitteli %1$s %2$s -tilannetta</item>
+  </plurals>
 </resources>
