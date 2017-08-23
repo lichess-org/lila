@@ -63,6 +63,10 @@
   <string name="capture">Captura</string>
   <string name="close">Fechar</string>
   <string name="winning">Vitoriosos</string>
+  <string name="losing">Perdedores</string>
+  <string name="drawn">Empates</string>
+  <string name="unknown">Desconhecido</string>
+  <string name="database">Base de Dados</string>
   <string name="openingExplorer">Explorador de abertura</string>
   <string name="blunders">Erro Grave</string>
   <string name="mistakes">Erros</string>
