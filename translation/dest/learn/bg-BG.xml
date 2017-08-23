@@ -37,6 +37,10 @@
   <string name="theKnight">Конят</string>
   <string name="itMovesInAnLShape">Движи се по формата на буквата Г</string>
   <string name="knightIntro">Ето предизвикателство за вас. Конят е... трудна фигура.</string>
+  <string name="knightsHaveAFancyWay">Конете имат забавен начин да подскачат наоколо!</string>
+  <string name="knightsCanJumpOverObstacles">Конят може да прескача препятствия!
+Измъкнете се и вземете звездите!</string>
+  <string name="knightComplete">Поздравления! Вие овладяхте коня.</string>
   <string name="thePawn">Пешката</string>
   <string name="itMovesForwardOnly">Движи се само напред</string>
   <string name="pawnIntro">Пешките са слаби, но имат много потенциал.</string>
