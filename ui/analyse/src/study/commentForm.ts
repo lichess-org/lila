@@ -13,7 +13,6 @@ interface Current {
 interface CommentForm {
   root: AnalyseCtrl;
   current: Prop<Current | null>;
-  dirty: Prop<boolean>;
   focus: Prop<boolean>;
   opening: Prop<boolean>;
   open(chapterId: string, path: Tree.Path, node: Tree.Node): void;
@@ -28,16 +27,11 @@ interface CommentForm {
 export function ctrl(root: AnalyseCtrl): CommentForm {
 
   const current = prop<Current | null>(null),
-  dirty = prop(true),
   focus = prop(false),
   opening = prop(false);
 
   function submit(text: string): void {
     if (!current()) return;
-    if (!dirty()) {
-      dirty(true);
-      root.redraw();
-    }
     doSubmit(text);
   };
 
@@ -51,7 +45,6 @@ export function ctrl(root: AnalyseCtrl): CommentForm {
   });
 
   function open(chapterId: string, path: Tree.Path, node: Tree.Node): void {
-    dirty(true);
     opening(true);
     current({
       chapterId,
@@ -68,7 +61,6 @@ export function ctrl(root: AnalyseCtrl): CommentForm {
   return {
     root,
     current,
-    dirty,
     focus,
     opening,
     open,
@@ -80,7 +72,6 @@ export function ctrl(root: AnalyseCtrl): CommentForm {
         cur.path = path;
         cur.node = node;
         current(cur);
-        dirty(true);
         root.redraw();
       }
     },
@@ -131,16 +122,7 @@ export function view(ctrl: CommentForm): VNode | undefined {
       h('button.button', {
         class: { active: ctrl.root.path === current.path },
         hook: bind('click', _ => ctrl.root.userJump(current.path), ctrl.redraw)
-      }, nodeFullName(current.node)),
-      h('span.saved', {
-        hook: {
-          postpatch: (_, vnode) => {
-            const el = vnode.elm as HTMLElement;
-            if (ctrl.dirty()) el.classList.remove('visible');
-            else el.classList.add('visible');
-          }
-        }
-      }, 'Saved.')
+      }, nodeFullName(current.node))
     ]),
     h('form.material.form', [
       h('div.form-group', [

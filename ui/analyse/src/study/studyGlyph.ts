@@ -28,7 +28,6 @@ function renderGlyph(ctrl, node) {
 
 export function ctrl(root: AnalyseCtrl) {
   const isOpen = prop(false),
-  dirty = prop(true),
   all = prop<any | null>(null);
 
   function loadGlyphs() {
@@ -38,15 +37,7 @@ export function ctrl(root: AnalyseCtrl) {
     });
   };
 
-  function toggleGlyph(id) {
-    if (!dirty()) {
-      dirty(true);
-      root.redraw();
-    }
-    doToggleGlyph(id);
-  };
-
-  const doToggleGlyph = throttle(500, false, function(id) {
+  const toggleGlyph = throttle(500, false, function(id) {
     root.study!.makeChange('toggleGlyph', root.study!.withPosition({
       id
     }));
@@ -54,7 +45,6 @@ export function ctrl(root: AnalyseCtrl) {
 
   function open() {
     loadGlyphs();
-    dirty(true);
     isOpen(true);
   };
 
@@ -63,7 +53,6 @@ export function ctrl(root: AnalyseCtrl) {
     all,
     open,
     isOpen,
-    dirty,
     toggle() {
       if (isOpen()) isOpen(false);
       else open();
@@ -89,10 +78,7 @@ export function view(ctrl): VNode | undefined {
         hook: bind('click', () => ctrl.isOpen(false), ctrl.redraw)
       }),
       'Annotating position after ',
-      h('strong', nodeFullName(node)),
-      h('span.saved', {
-        class: { visible: !ctrl.dirty() }
-      }, 'Saved.')
+      h('strong', nodeFullName(node))
     ]),
     all ? h('div.glyph_form', [
       h('div.move', all.move.map(renderGlyph(ctrl, node))),

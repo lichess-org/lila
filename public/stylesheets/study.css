@@ -78,15 +78,6 @@ div.underboard {
   background: #e0e0e0;
   line-height: 30px;
 }
-.underboard_form .saved {
-  color: #759900;
-  margin-left: 10px;
-  opacity: 0;
-}
-.underboard_form .saved.visible {
-  opacity: 1;
-  transition: opacity 0.5s;
-}
 .underboard_form .close {
   float: right;
 }
