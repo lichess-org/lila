@@ -140,8 +140,12 @@ object User {
   // No: contact@lichess.org, @1, http://example.com/@happy0
   val atUsernameRegex = """(?<=\s|^)@(?>([a-zA-Z_-][\w-]{1,19}))(?![\w-])""".r
 
-  val usernameRegex = """(?i)[a-z][\w-]*[a-z0-9]""".r
-  def couldBeUsername(str: String) = usernameRegex.pattern.matcher(str).matches
+  // what existing usernames are like
+  val historicalUsernameRegex = """(?i)[\w-]*[a-z0-9]""".r
+  // what new usernames should be like
+  val newUsernameRegex = """(?i)[a-z][\w-]*[a-z0-9]""".r
+
+  def couldBeUsername(str: String) = historicalUsernameRegex.pattern.matcher(str).matches
 
   def normalize(username: String) = username.toLowerCase
 
