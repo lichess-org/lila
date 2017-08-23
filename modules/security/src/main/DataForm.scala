@@ -35,7 +35,7 @@ final class DataForm(
       Constraints minLength 2,
       Constraints maxLength 20,
       Constraints.pattern(
-        regex = User.usernameRegex,
+        regex = User.newUsernameRegex,
         error = "usernameInvalid"
       )
     ).verifying("usernameUnacceptable", u => !LameName.username(u))
