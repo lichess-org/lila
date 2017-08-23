@@ -31,8 +31,8 @@ function emptyMove(conceal?: Conceal): VNode {
 }
 
 function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | undefined {
-  const cs = node.children;
-  const main = cs[0];
+  const cs = node.children,
+  main = cs[0];
   if (!main) return;
   const conceal = opts.noConceal ? null : (opts.conceal || ctx.concealOf(true)(opts.parentPath + main.id, main));
   if (conceal === 'hide') return;
@@ -112,8 +112,7 @@ function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
 
 function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   const path = opts.parentPath + node.id,
-  c = ctx.ctrl,
-  classes = nodeClasses(c, path);
+  classes = nodeClasses(ctx.ctrl, path);
   if (opts.conceal) classes[opts.conceal as string] = true;
   return h('move', {
     attrs: { p: path },
@@ -124,16 +123,11 @@ function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
 function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   const withIndex = opts.withIndex || node.ply % 2 === 1,
   path = opts.parentPath + node.id,
-  active = path === ctx.ctrl.path,
   content: MaybeVNodes = [
     withIndex ? moveView.renderIndex(node.ply, true) : null,
     fixCrazySan(node.san!)
   ],
-  classes = {
-    active,
-    parent: !active && pathContains(ctx, path),
-    context_menu: path === ctx.ctrl.contextMenuPath,
-  };
+  classes = nodeClasses(ctx.ctrl, path);
   if (opts.conceal) classes[opts.conceal as string] = true;
   if (node.glyphs) moveView.renderGlyphs(node.glyphs).forEach(g => content.push(g));
   return h('move', {
@@ -143,7 +137,7 @@ function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
 }
 
 function renderMoveAndChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes {
-  var path = opts.parentPath + node.id;
+  const path = opts.parentPath + node.id;
   if (opts.truncate === 0) return [
     h('move', {
       attrs: { p: path }

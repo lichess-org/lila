@@ -82,7 +82,8 @@ export default class AnalyseCtrl {
   showComputer: StoredBooleanProp = storedProp('show-computer', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
-  treeView: TreeView = 'literate';
+  treeView: TreeView = li.storage.get('analyse.literate') ? 'literate' : 'column';
+  // treeView: TreeView = 'column';
   cgVersion = {
     js: 1, // increment to recreate chessground
     dom: 1

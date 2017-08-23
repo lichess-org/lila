@@ -1226,7 +1226,6 @@ body.piece_letter .tview2 move {
   padding-right: 3px;
   white-space: nowrap;
   vertical-align: center;
-  background: #aaa;
 }
 .tview2.literal move san {
   font-size: 1.185em;
