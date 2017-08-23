@@ -56,6 +56,19 @@
   <string name="pawnComplete">Поздравления! Пешките нямат тайни от вас.</string>
   <string name="pawnPromotion">Произвеждане на пешка</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Вашата пешка достигна до края на дъската!</string>
+  <string name="itNowPromotesToAStrongerPiece">Сега ще се произведе в по-силна фигура.</string>
+  <string name="selectThePieceYouWant">Изберете желаната фигура!</string>
+  <string name="fundamentals">Основи</string>
+  <string name="capture">Взимане</string>
+  <string name="takeTheEnemyPieces">Вземете противниковите фигури</string>
+  <string name="captureIntro">Разберете кои противникови фигури не се пазят и ги вземете!</string>
+  <string name="takeTheBlackPieces">Вземете черните фигури!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Вземете черните фигури!
+И не губете вашите.</string>
+  <string name="captureComplete">Поздравления! Вие знаете как да се биете с шахматните фигури!</string>
+  <string name="protection">Защита</string>
+  <string name="keepYourPiecesSafe">Пазете си фигурите</string>
+  <string name="protectionIntro">Разберете кои фигури са атакуван от вашия противник и ги защитете!</string>
   <string name="mateInOne">Мат след 1 ход</string>
   <string name="castling">Рокада</string>
 </resources>
