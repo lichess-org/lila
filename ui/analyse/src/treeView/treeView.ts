@@ -9,7 +9,7 @@ import { authorText as commentAuthorText } from '../study/studyComments';
 import { path as treePath } from 'tree';
 import column from './columnView';
 import literate from './literateView';
-import { empty, defined, dropThrottle } from 'common';
+import { empty, defined, dropThrottle, storedProp, StoredProp } from 'common';
 
 export interface Ctx {
   ctrl: AnalyseCtrl;
@@ -35,9 +35,27 @@ export interface NodeClasses {
   [key: string]: boolean;
 }
 
+export type TreeViewKey = 'column' | 'literate';
+
+export interface TreeView {
+  get: StoredProp<TreeViewKey>;
+  toggle(): void;
+}
+
+export function ctrl(): TreeView {
+  const value = storedProp<TreeViewKey>('treeView', 'column');
+  return {
+    get: value,
+    toggle() {
+      value(value() === 'column' ? 'literate' : 'column');
+    }
+  };
+}
+
+
 // entry point, dispatching to selected view
-export default function(ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
-  if (ctrl.treeView === 'column') return column(ctrl, concealOf);
+export function render(ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
+  if (ctrl.treeView.get() === 'column') return column(ctrl, concealOf);
   return literate(ctrl);
 }
 

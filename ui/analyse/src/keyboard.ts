@@ -50,6 +50,10 @@ export function bind(ctrl: AnalyseCtrl): void {
     ctrl.autoScroll();
     ctrl.redraw();
   }));
+  kbd.bind('shift+t', preventing(function() {
+    ctrl.treeView.toggle();
+    ctrl.redraw();
+  }));
   kbd.bind('esc', function() {
     ctrl.chessground.cancelMove();
   });

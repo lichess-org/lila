@@ -35,6 +35,8 @@ export interface StoredBooleanProp {
   (v: boolean): void;
 }
 
+const storage = window.lichess.storage;
+
 export function storedProp(k: string, defaultValue: boolean): StoredBooleanProp;
 export function storedProp<T>(k: string, defaultValue: T): StoredProp<T>;
 export function storedProp(k: string, defaultValue: any) {
@@ -44,9 +46,9 @@ export function storedProp(k: string, defaultValue: any) {
   return function(v: any) {
     if (defined(v) && v != value) {
       value = v + '';
-      window.lichess.storage.set(sk, v);
+      storage.set(sk, v);
     } else if (!defined(value)) {
-      value = window.lichess.storage.get(sk);
+      value = storage.get(sk);
       if (value === null) value = defaultValue + '';
     }
     return isBoolean ? value === 'true' : value;
@@ -61,10 +63,10 @@ export interface StoredJsonProp<T> {
 export function storedJsonProp<T>(key: string, defaultValue: T): StoredJsonProp<T> {
   return function(v?: T) {
     if (defined(v)) {
-      window.lichess.storage.set(key, JSON.stringify(v));
+      storage.set(key, JSON.stringify(v));
       return v;
     }
-    const ret = JSON.parse(window.lichess.storage.get(key));
+    const ret = JSON.parse(storage.get(key));
     return (ret !== null) ? ret : defaultValue;
   };
 }

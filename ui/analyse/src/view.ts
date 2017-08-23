@@ -5,7 +5,7 @@ import * as chessground from './ground';
 import { synthetic, bind, dataIcon, iconTag, spinner } from './util';
 import { game, router, view as gameView } from 'game';
 import { path as treePath } from 'tree';
-import treeView from './treeView/treeView';
+import { render as renderTreeView } from './treeView/treeView';
 import * as control from './control';
 import { view as actionMenu } from './actionMenu';
 import { view as renderPromotion } from './promotion';
@@ -68,7 +68,7 @@ function renderAnalyse(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
   return h('div.areplay', [
     renderChapterName(ctrl),
     renderOpeningBox(ctrl),
-    treeView(ctrl, concealOf),
+    renderTreeView(ctrl, concealOf),
   ].concat(renderResult(ctrl)));
 }
 

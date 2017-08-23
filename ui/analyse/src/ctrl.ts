@@ -27,8 +27,9 @@ import { make as makePractice, PracticeCtrl } from './practice/practiceCtrl';
 import { make as makeEvalCache, EvalCache } from './evalCache';
 import { compute as computeAutoShapes } from './autoShape';
 import { nextGlyphSymbol } from './nodeFinder';
-import { AnalyseOpts, AnalyseData, AnalyseDataWithTree, Key, CgDests, JustCaptured, TreeView } from './interfaces';
+import { AnalyseOpts, AnalyseData, AnalyseDataWithTree, Key, CgDests, JustCaptured } from './interfaces';
 import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
+import { ctrl as treeViewCtrl, TreeView } from './treeView/treeView';
 
 const li = window.lichess;
 
@@ -82,8 +83,7 @@ export default class AnalyseCtrl {
   showComputer: StoredBooleanProp = storedProp('show-computer', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
-  treeView: TreeView = li.storage.get('analyse.literate') ? 'literate' : 'column';
-  // treeView: TreeView = 'column';
+  treeView: TreeView = treeViewCtrl();
   cgVersion = {
     js: 1, // increment to recreate chessground
     dom: 1
