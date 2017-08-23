@@ -11,7 +11,8 @@ object MessageCompiler {
         db = db,
         sourceFile = sourceDir / s"$db.xml",
         destDir = destDir / db,
-        compileTo = compileTo / db)
+        compileTo = compileTo / db
+      )
     }
 
   private def doFile(db: String, sourceFile: File, destDir: File, compileTo: File): Seq[File] = {

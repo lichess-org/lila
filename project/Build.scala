@@ -37,7 +37,8 @@ object ApplicationBuild extends Build {
         reactivemongo.driver, reactivemongo.iteratees, akka.actor, akka.slf4j,
         maxmind, prismic, netty, guava,
         kamon.core, kamon.influxdb,
-        java8compat, semver, scrimage, configs, scaffeine),
+        java8compat, semver, scrimage, configs, scaffeine
+      ),
       TwirlKeys.templateImports ++= Seq(
         "lila.game.{ Game, Player, Pov }",
         "lila.tournament.Tournament",
@@ -46,7 +47,8 @@ object ApplicationBuild extends Build {
         "lila.app.templating.Environment._",
         "lila.api.Context",
         "lila.i18n.{ I18nKeys => trans }",
-        "lila.common.paginator.Paginator"),
+        "lila.common.paginator.Paginator"
+      ),
       // trump sbt-web into not looking at public/
       resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets",
       // don't autoformat play generated routes classes
@@ -64,7 +66,8 @@ object ApplicationBuild extends Build {
     playban, insight, perfStat, slack, quote, challenge,
     study, studySearch, fishnet, explorer, learn, plan,
     event, coach, practice, evalCache, irwin,
-    activity)
+    activity
+  )
 
   lazy val moduleRefs = modules map projectToRef
   lazy val moduleCPDeps = moduleRefs map { new sbt.ClasspathDependency(_, None) }
@@ -74,23 +77,27 @@ object ApplicationBuild extends Build {
       libraryDependencies ++= provided(
         play.api, hasher, config, findbugs,
         reactivemongo.driver, reactivemongo.iteratees,
-        kamon.core, kamon.influxdb)
+        kamon.core, kamon.influxdb
+      )
     ) aggregate (moduleRefs: _*)
 
   lazy val puzzle = project("puzzle", Seq(
-    common, memo, hub, db, user, rating, pref, tree, game)).settings(
+    common, memo, hub, db, user, rating, pref, tree, game
+  )).settings(
     libraryDependencies ++= provided(play.api, reactivemongo.driver)
   )
 
   lazy val quote = project("quote", Seq())
 
   lazy val video = project("video", Seq(
-    common, memo, hub, db, user)).settings(
+    common, memo, hub, db, user
+  )).settings(
     libraryDependencies ++= provided(play.api, reactivemongo.driver)
   )
 
   lazy val coach = project("coach", Seq(
-    common, hub, db, user, security, notifyModule)).settings(
+    common, hub, db, user, security, notifyModule
+  )).settings(
     libraryDependencies ++= provided(play.api, reactivemongo.driver, scrimage)
   )
 
@@ -108,7 +115,8 @@ object ApplicationBuild extends Build {
   )
 
   lazy val evaluation = project("evaluation", Seq(
-    common, hub, db, user, game, analyse)).settings(
+    common, hub, db, user, game, analyse
+  )).settings(
     libraryDependencies ++= provided(play.api, reactivemongo.driver)
   )
 
@@ -172,7 +180,9 @@ object ApplicationBuild extends Build {
 
   lazy val gameSearch = project("gameSearch", Seq(common, hub, chess, search, game)).settings(
     libraryDependencies ++= provided(
-      play.api, reactivemongo.driver, reactivemongo.iteratees))
+      play.api, reactivemongo.driver, reactivemongo.iteratees
+    )
+  )
 
   lazy val tv = project("tv", Seq(common, db, hub, socket, game, user, chess)).settings(
     libraryDependencies ++= provided(play.api, reactivemongo.driver, hasher)
@@ -184,7 +194,8 @@ object ApplicationBuild extends Build {
 
   lazy val round = project("round", Seq(
     common, db, memo, hub, socket, chess, game, user,
-    i18n, fishnet, pref, chat, history, playban)).settings(
+    i18n, fishnet, pref, chat, history, playban
+  )).settings(
     libraryDependencies ++= provided(play.api, hasher, kamon.core,
       reactivemongo.driver, reactivemongo.iteratees)
   )
@@ -199,12 +210,14 @@ object ApplicationBuild extends Build {
 
   lazy val lobby = project("lobby", Seq(
     common, db, memo, hub, socket, chess, game, user,
-    round, timeline, relation, playban, security, pool)).settings(
+    round, timeline, relation, playban, security, pool
+  )).settings(
     libraryDependencies ++= provided(play.api, reactivemongo.driver)
   )
 
   lazy val setup = project("setup", Seq(
-    common, db, memo, hub, socket, chess, game, user, lobby, pref, relation)).settings(
+    common, db, memo, hub, socket, chess, game, user, lobby, pref, relation
+  )).settings(
     libraryDependencies ++= provided(play.api, reactivemongo.driver)
   )
 
@@ -218,18 +231,22 @@ object ApplicationBuild extends Build {
   ).settings(
       libraryDependencies ++= provided(
         play.api,
-        reactivemongo.driver, reactivemongo.iteratees)
+        reactivemongo.driver, reactivemongo.iteratees
+      )
     )
 
   lazy val tournament = project("tournament", Seq(
-    common, hub, socket, chess, game, round, security, chat, memo, quote, history, notifyModule, i18n)).settings(
+    common, hub, socket, chess, game, round, security, chat, memo, quote, history, notifyModule, i18n
+  )).settings(
     libraryDependencies ++= provided(
       play.api,
-      reactivemongo.driver, reactivemongo.iteratees)
+      reactivemongo.driver, reactivemongo.iteratees
+    )
   )
 
   lazy val simul = project("simul", Seq(
-    common, hub, socket, chess, game, round, chat, memo, quote)).settings(
+    common, hub, socket, chess, game, round, chat, memo, quote
+  )).settings(
     libraryDependencies ++= provided(play.api, reactivemongo.driver)
   )
 
@@ -254,14 +271,16 @@ object ApplicationBuild extends Build {
   )
 
   lazy val study = project("study", Seq(
-    common, db, hub, socket, game, round, importer, notifyModule, relation, evalCache)).settings(
+    common, db, hub, socket, game, round, importer, notifyModule, relation, evalCache
+  )).settings(
     libraryDependencies ++= provided(play.api, reactivemongo.driver)
   )
 
   lazy val studySearch = project("studySearch", Seq(common, hub, study, search)).settings(
     libraryDependencies ++= provided(
       play.api,
-      reactivemongo.driver, reactivemongo.iteratees)
+      reactivemongo.driver, reactivemongo.iteratees
+    )
   )
 
   lazy val learn = project("learn", Seq(common, db, user)).settings(
@@ -311,7 +330,8 @@ object ApplicationBuild extends Build {
   lazy val forumSearch = project("forumSearch", Seq(common, hub, forum, search)).settings(
     libraryDependencies ++= provided(
       play.api,
-      reactivemongo.driver, reactivemongo.iteratees)
+      reactivemongo.driver, reactivemongo.iteratees
+    )
   )
 
   lazy val team = project("team", Seq(common, memo, db, user, forum, security, hub, notifyModule)).settings(
@@ -321,7 +341,8 @@ object ApplicationBuild extends Build {
   lazy val teamSearch = project("teamSearch", Seq(common, hub, team, search)).settings(
     libraryDependencies ++= provided(
       play.api,
-      reactivemongo.driver, reactivemongo.iteratees)
+      reactivemongo.driver, reactivemongo.iteratees
+    )
   )
 
   lazy val i18n = project("i18n", Seq(common, db, user, hub)).settings(
@@ -338,18 +359,21 @@ object ApplicationBuild extends Build {
 
   lazy val bookmark = project("bookmark", Seq(common, memo, db, hub, user, game)).settings(
     libraryDependencies ++= provided(
-      play.api, play.test, reactivemongo.driver)
+      play.api, play.test, reactivemongo.driver
+    )
   )
 
   lazy val report = project("report", Seq(common, db, user, game, security)).settings(
     libraryDependencies ++= provided(
-      play.api, reactivemongo.driver)
+      play.api, reactivemongo.driver
+    )
   )
 
   lazy val explorer = project("explorer", Seq(common, db, game)).settings(
     libraryDependencies ++= provided(
       play.api,
-      reactivemongo.driver, reactivemongo.iteratees)
+      reactivemongo.driver, reactivemongo.iteratees
+    )
   )
 
   lazy val notifyModule = project("notify", Seq(common, db, game, user, hub, relation)).settings(

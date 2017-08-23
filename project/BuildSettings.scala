@@ -1,4 +1,3 @@
-import com.typesafe.sbt.SbtScalariform
 import com.typesafe.sbt.SbtScalariform.ScalariformKeys
 import play.sbt.Play.autoImport._
 import sbt._, Keys._
@@ -22,11 +21,12 @@ object BuildSettings {
     publishArtifact in (Compile, packageDoc) := false,
     // disable publishing the main sources jar
     publishArtifact in (Compile, packageSrc) := false
-  ) ++
-    SbtScalariform.scalariformSettings ++ Seq(
+  ) ++ Seq(
       ScalariformKeys.preferences := ScalariformKeys.preferences.value
+        .setPreference(DanglingCloseParenthesis, Force)
         .setPreference(CompactControlReadability, true)
-        .setPreference(DoubleIndentClassDeclaration, true))
+        .setPreference(DoubleIndentConstructorArguments, true)
+    )
 
   def defaultDeps = Seq(scalaz, scalalib, jodaTime, ws, java8compat, specs2)
 
@@ -38,13 +38,13 @@ object BuildSettings {
       name,
       file("modules/" + name)
     )
-    .dependsOn(deps: _*)
-    .settings(
-      version := "2.0",
-      libraryDependencies := defaultDeps,
-      buildSettings,
-      srcMain
-    )
+      .dependsOn(deps: _*)
+      .settings(
+        version := "2.0",
+        libraryDependencies := defaultDeps,
+        buildSettings,
+        srcMain
+      )
 
   val compilerOptions = Seq(
     "-deprecation", "-unchecked", "-feature", "-language:_",
@@ -53,7 +53,8 @@ object BuildSettings {
     // "-Ywarn-unused-import",
     // "-Ywarn-unused",
     // "-Xlint:missing-interpolator",
-    "-Ybackend:GenBCode", "-Ydelambdafy:method", "-target:jvm-1.8")
+    "-Ybackend:GenBCode", "-Ydelambdafy:method", "-target:jvm-1.8"
+  )
 
   val srcMain = Seq(
     scalaSource in Compile := (sourceDirectory in Compile).value,
