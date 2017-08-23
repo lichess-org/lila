@@ -33,10 +33,7 @@
   z-index: 2;
   overflow-y: auto;
   padding: 12px;
-  min-height: 3em;
-  display: flex;
-  flex-flow: column;
-  justify-content: center;
+  min-height: 2.5em;
 }
 .gb_play .comment .hint {
   padding: 10px 12px;
