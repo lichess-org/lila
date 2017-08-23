@@ -14,4 +14,18 @@ Siis voitosta saat 4 pistettä ja tasapelistä kaksi; tappiosta et saa pisteitä
 
 Esimerkiksi kaksi voittoa joiden jälkeen tasapeli tuottaa 6 pistettä: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Areenaberserkki</string>
+  <string name="berserkAnswer">Kun pelaaja klikkaa berserkkinappulaa pelin alkaessa, hän menettää puolet ajastaan pelikellossa, mutta ansaitsee voittaessaan lisäpisteen turnauksen pistetaulukkoon.
+
+Berserkkitilassa ei saa myöskään lisäaikaa siirroista, vaikka turnauksen kelloasetukset olisivat sellaiset (1+2 on poikkeus, berserkkitilassa käytössä on 1+0)
+
+Berserkkitila ei ole mahdollinen peleissä joissa on 0 sekuntia aikaa alun pitäen (0+1, 0+2).
+
+Berserkkitilan lisäpisteen saa vain, jos pelaa vähintään seitsemän siirtoa pelissä.</string>
+  <string name="howIsTheWinnerDecided">Kuinka voittaja määräytyy?</string>
+  <string name="howIsTheWinnerDecidedAnswer">Pelaaja(t) jo(i)lla on eniten pisteitä turnausajan päättyessä julistetaan voittajaksi tai voittajiksi.</string>
+  <string name="howDoesPairingWork">Kuinka paritus toimii?</string>
+  <string name="howDoesPairingWorkAnswer">Turnauksen aluksi pelaajat paritetaan vajvuuslukujen perusteella.
+Kun saat pelin pelatuksi, palaa turnausaulaan. Sinut paritetaan sitten pelaajan kanssa, jonka sijoitus on lähellä omaasi. Tämä minimoi odotusajan, muttet välttämättä kohtaa kaikkia muita pelaajia turnaukseen osallistuvia.
+Pelaa nopeasti ja palaa aulaan niin voit pelata lisää pelejä ja ansaita lisää pisteitä.</string>
+  <string name="howDoesItEnd">Kuinka turnaus päättyy?</string>
 </resources>
