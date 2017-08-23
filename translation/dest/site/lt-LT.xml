@@ -283,6 +283,21 @@
   <string name="viewTournament">Stebėti turnyrą</string>
   <string name="backToTournament">Grįžti į turnyrą</string>
   <string name="thematic">Tematinis</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s vertinama partija</item>
+    <item quantity="few">≥ %s vertinamos partijos</item>
+    <item quantity="other">≥ %s vertinamų partijų</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Jums reikia sužaisti dar %s vertinamą partiją</item>
+    <item quantity="few">Jums reikia sužaisti dar %s vertinamas partijas</item>
+    <item quantity="other">Jums reikia sužaisti dar %s vertinamų partijų</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Jūsų %s reitingas yra laikinas</string>
+  <string name="yourPerfRatingIsTooHigh">Jūsų %1$s reitingas (%2$s) yra per aukštas</string>
+  <string name="yourPerfRatingIsTooLow">Jūsų %1$s reitingas (%2$s) yra per žemas</string>
+  <string name="ratedMoreThanInPerf">≥ %1$s %2$s reitingas</string>
+  <string name="ratedLessThanInPerf">≤ %1$s %2$s reitingas</string>
   <string name="backToGame">Grįžti į partiją</string>
   <string name="siteDescription">Nemokamas šachmatų žaidimas internete. Žaiskite šachmatais patrauklioje sąsajoje. Nebūtina registracija, nėra reklamų, nereikia jokių priedų. Žaiskite šachmatais prieš kompiuterį, draugus arba atsitiktinius varžovus.</string>
   <string name="teams">Komandos</string>
