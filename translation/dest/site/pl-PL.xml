@@ -283,6 +283,12 @@
   <string name="viewTournament">Wróć do turnieju</string>
   <string name="backToTournament">Wróć do turnieju</string>
   <string name="thematic">Tematyczny</string>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Musisz rozegrać jeszcze %1$s partię rankingową %2$s</item>
+    <item quantity="few">Musisz rozegrać jeszcze %1$s partie rankingowe %2$s</item>
+    <item quantity="other">Musisz rozegrać jeszcze %1$s partii rankingowych %2$s</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Twój ranking (%s) jest prowizoryczny</string>
   <string name="yourPerfRatingIsTooHigh">Twój ranking %1$s (%2$s) jest za wysoki</string>
   <string name="yourPerfRatingIsTooLow">Twój ranking %2$s (%1$s) jest zbyt niski</string>
   <string name="backToGame">Wróć do partii</string>
