@@ -46,7 +46,7 @@ Du behöver bägge!</string>
   <string name="pawnsMoveOneSquareOnly">Bönder flyttar oftast en ruta i taget, men när de når andra sidan av brädet så promoveras de till en starkare pjäs!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">Oftast är det bäst att promovera till en dam, men ibland kan en springare vara till nytta!</string>
   <string name="pawnsMoveForward">Bönder flyttar framåt, men slår diagonalt!</string>
-  <string name="captureThenPromote">Slå ut och sedan befodras!</string>
+  <string name="captureThenPromote">Slå först och promovera därefter!</string>
   <string name="useAllThePawns">Använd alla bönder! Ingen anledning att promovera.</string>
   <string name="aPawnOnTheSecondRank">En bonde på andra raden kan flytta 2 rutor på en gång!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Erövra alla stjärnor! Ingen anledning till att promovera.</string>
