@@ -78,8 +78,8 @@
     <item quantity="other">Ματ σε %s μισές κινήσεις</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Επόμενο πιάσιμο ή κίνηση πιονιού σε %s μισή-κίνηση (Απόσταση μηδενισμού μετρητή 50 κινήσεων)</item>
-    <item quantity="other">Επόμενο κόψιμο ή κίνηση πιονιού σε %s μισές-κινήσεις (Απόσταση μηδενισμού μετρητή 50 κινήσεων)</item>
+    <item quantity="one">Επόμενο πιάσιμο ή κίνηση πιονιού σε %s μισή κίνηση (Απόσταση μηδενισμού μετρητή 50 κινήσεων)</item>
+    <item quantity="other">Επόμενο πιάσιμο ή κίνηση πιονιού σε %s μισές κινήσεις (Απόσταση μηδενισμού μετρητή 50 κινήσεων)</item>
   </plurals>
   <string name="noGameFound">Δεν βρέθηκε παρτίδα</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Δοκιμάστε να συμπεριλάβετε περισσότερα παιχνίδια από το μενού προτιμήσεων.</string>
@@ -324,7 +324,7 @@
   <string name="continueFromHere">Συνέχεια από εδώ</string>
   <string name="importGame">Εισαγωγή παιχνιδιού</string>
   <string name="importGameExplanation">Κατά την επικόλληση παιχνιδιού PGN δημιουργείται μια περιηγήσιμη αναπαραγωγή, 
-ανάλυση με υπολογιστή, συνομιλία παιχνιδιού και ένα κοινόχρηστο URL.</string>
+ανάλυση από υπολογιστή, συνομιλία παιχνιδιού και ένα κοινόχρηστο URL.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Εισαγόμενο παιχνίδι</item>
     <item quantity="other">%s Εισαγόμενα παιχνίδια</item>
