@@ -27,6 +27,10 @@
     <item quantity="one">Har spela %s fjernsjakkparti</item>
     <item quantity="other">Har spela %s fjernsjakkparti</item>
   </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="one">Fylgjer %s spelar</item>
+    <item quantity="other">Fylgjer %s spelarar</item>
+  </plurals>
   <plurals name="gainedNbFollowers">
     <item quantity="one">Har %s nye fylgjarar</item>
     <item quantity="other">Har %s nye fylgjarar</item>
