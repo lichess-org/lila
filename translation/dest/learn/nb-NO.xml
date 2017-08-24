@@ -75,4 +75,11 @@ Ingen grunn til å promotere.</string>
   <string name="escape">Du er under angrep! Unnslipp trusselen!</string>
   <string name="noEscape">Det er ingen flukt,
 men du kan forsvare!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">La ikke motstanderen ta en udekket brikke!</string>
+  <string name="combat">Kamp</string>
+  <string name="captureAndDefendPieces">Slå ut og forsvar brikker</string>
+  <string name="combatIntro">En god kriger mestrer både angrep og forsvar!</string>
+  <string name="combatComplete">Gratulerer! Du kjenner til hvordan en kjemper med sjakkbrikker!</string>
+  <string name="checkInOne">Sjakk i ett trekk</string>
+  <string name="attackTheOpponentsKing">Angrip motspillerens konge</string>
 </resources>
