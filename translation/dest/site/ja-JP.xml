@@ -495,7 +495,7 @@
   <string name="whenTimeRemainingLessThanTenSeconds">持時間が残り10秒以下の場合</string>
   <string name="horizontalGreenProgressBars">プログレスバー</string>
   <string name="soundWhenTimeGetsCritical">時間が迫ってきたら音を鳴らす</string>
-  <string name="gameBehavior">対局中の行動</string>
+  <string name="gameBehavior">対局中の動作</string>
   <string name="howDoYouMovePieces">駒の移動方法</string>
   <string name="clickTwoSquares">2 つのマスをクリック</string>
   <string name="dragPiece">駒をドラッグ</string>
