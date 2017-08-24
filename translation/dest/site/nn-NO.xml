@@ -5,7 +5,7 @@
   <string name="playWithTheMachine">Spel mot sjakkprogrammet</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Send denne lekkja til den du utfordrar</string>
   <string name="gameOver">Partiet er avslutta</string>
-  <string name="waitingForOpponent">Ventar på motspelaren</string>
+  <string name="waitingForOpponent">Ventar på motspelar</string>
   <string name="waiting">Ventar</string>
   <string name="yourTurn">Ditt trekk</string>
   <string name="aiNameLevelAiLevel">%1$s på nivå %2$s</string>
@@ -24,7 +24,7 @@
   <string name="blackIsVictorious">Svart vann partiet</string>
   <string name="kingInTheCenter">Kongen i sentrum</string>
   <string name="threeChecks">Sjakk tre gongar</string>
-  <string name="raceFinished">Laupet er ferdig</string>
+  <string name="raceFinished">Målgang</string>
   <string name="variantEnding">Variant slutt</string>
   <string name="newOpponent">Ny motspelar</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Motspelaren din ønskjer å spela eit nytt parti med deg</string>
@@ -490,7 +490,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="reportDescriptionHelp">Lim inn link til partiet/partia og forklar kva som er gale med åtferda til denne brukaren.</string>
   <string name="by">av %s</string>
   <string name="thisTopicIsNowClosed">Dette emnet er no lukka.</string>
-  <string name="theming">Utsjånad</string>
+  <string name="theming">Tema</string>
   <string name="donate">Donér</string>
   <string name="blog">Blogg</string>
   <string name="questionsAndAnswers">Spørsmål og svar</string>
