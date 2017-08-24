@@ -478,6 +478,7 @@ body.piece_letter .lichess_ground .replay move {
   border-radius: 3px;
   box-shadow: 0 2px 3px rgba(0,0,0,0.3) inset;
   width: 100%;
+  max-width: 280px;
   flex: 0 0 56px;
   background: #888;
   white-space: nowrap;
