@@ -527,7 +527,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="clickTwoSquares">Klikk to felt</string>
   <string name="dragPiece">Dra brikke</string>
   <string name="bothClicksAndDrag">Begge</string>
-  <string name="premovesPlayingDuringOpponentTurn">Førehandstrekk</string>
+  <string name="premovesPlayingDuringOpponentTurn">Førehandstrekk (når det er motspelaren sitt trekk)</string>
   <string name="takebacksWithOpponentApproval">Tilbaketrekk (med godkjenning frå motstandaren)</string>
   <string name="promoteToQueenAutomatically">Gjer om til dronning automatisk</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Krev uavgjort etter stillingsgjentagelse automatisk</string>
