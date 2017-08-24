@@ -98,13 +98,13 @@ Det er inga grunn til omvandling.</string>
   <string name="attackYourOpponentsKing">Gå til åtak på motspelaren sin konge på eit vis det ikkje er mogleg å verje seg mot!</string>
   <string name="mateInOneComplete">Gratulerar! På dette viset vinn du eit parti sjakk!</string>
   <string name="intermediate">Middels vanskeleg</string>
-  <string name="boardSetup">Oppstilling</string>
+  <string name="boardSetup">Oppstilling på brettet</string>
   <string name="howTheGameStarts">Korleis partiet startar</string>
   <string name="boardSetupIntro">Dei to arméane står andsynes kvarandre, klåre til strid.</string>
-  <string name="thisIsTheInitialPosition">Dette er det innleiande oppsettet i alle sjakkparti! Gjer eit drag for å gå vidare.</string>
+  <string name="thisIsTheInitialPosition">Dette er det innleiande oppsettet i alle sjakkparti! Gjer eit trekk for å gå vidare.</string>
   <string name="firstPlaceTheRooks">Sett først tårna på plass! Dei står i hjørna.</string>
-  <string name="thenPlaceTheKnights">Sett så springarane på plassane sine! Dei står ved sida av tårna.</string>
-  <string name="placeTheBishops">Sett på plass løparane! Dei står inn mot springarane.</string>
+  <string name="thenPlaceTheKnights">Sett så ut springarane! Dei skal stå ved sida av tårna.</string>
+  <string name="placeTheBishops">Få løparane på plass! Dei står inntil springarane.</string>
   <string name="placeTheQueen">Sett dronningane på rett plassar! Svart dronning står på svart felt, kvit dronning på kvitt felt.</string>
   <string name="placeTheKing">Sett kongen på plassen sin! Rett ved sida av dronninga.</string>
   <string name="pawnsFormTheFrontLine">Bøndene utgjer frontlina. Gjer eit valfritt trekk når du vil halda fram.</string>
