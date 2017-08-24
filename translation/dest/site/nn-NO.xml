@@ -31,12 +31,12 @@
   <string name="joinTheGame">Bli med</string>
   <string name="whitePlays">Kvit i trekket</string>
   <string name="blackPlays">Svart i trekket</string>
-  <string name="opponentLeftChoices">Den andre spelaren kan ha forlete partiet. Du kan velja mellom å krevja siger eller remis, eller du kan venta litt til.</string>
+  <string name="opponentLeftChoices">Motspelaren kan ha forlate partiet. Du kan velja mellom å krevja siger eller erklæra remis, eller venta til motspelaren kjem attende.</string>
   <string name="makeYourOpponentResign">Tving motstandaren til å gje opp</string>
   <string name="forceResignation">Krev siger</string>
   <string name="forceDraw">Erklær remis</string>
   <string name="talkInChat">Vær venleg i praterommet</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Den første personen som kjem til denne lekkja vil spela med deg</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Den første som kjem til denne lekkja vil spela med deg.</string>
   <string name="whiteResigned">Kvit gav opp</string>
   <string name="blackResigned">Svart gav opp</string>
   <string name="whiteLeftTheGame">Kvit har forlate partiet</string>
