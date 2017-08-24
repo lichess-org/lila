@@ -423,6 +423,10 @@ body.piece_letter .fork move {
     min-width: 25vw;
   }
   div.analyse .fork { left: 90px; }
+
+  .pocket piece {
+    flex: 0 0 50px;
+  }
 }
 
 .explorer_box {
