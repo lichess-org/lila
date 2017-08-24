@@ -31,4 +31,25 @@
     <item quantity="one">Har %s nye fylgjarar</item>
     <item quantity="other">Har %s nye fylgjarar</item>
   </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="one">Har vore vert for %s simultan-matcher</item>
+    <item quantity="other">Har vore vert for %s simultan-matcher</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">Har vore deltakar i %s simultanmatcher</item>
+    <item quantity="other">Har vore deltakar i %s simultanmatcher</item>
+  </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">Har laga %s nye studiar</item>
+    <item quantity="other">Har laga %s nye studiar</item>
+  </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="one">Har deltatt i %s turneringar</item>
+    <item quantity="other">Har deltatt i %s turneringar</item>
+  </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">Kom på plass #%1$s (topp %2$s%%) med %3$s parti i %4$s</item>
+    <item quantity="other">Kom på plass #%1$s (topp %2$s%%) med %3$s parti i %4$s</item>
+  </plurals>
+  <string name="signedUp">Er registrert på Lichess</string>
 </resources>
