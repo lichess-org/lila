@@ -3,13 +3,24 @@ package lila.user
 import org.specs2.mutable.Specification
 
 class UserTest extends Specification {
+
+  def canSignup(str: User.ID) =
+    User.newUsernameRegex.pattern.matcher(str).matches
+
   "username regex" in {
     import User.couldBeUsername
-    "bad prefix" in {
-      couldBeUsername("000") must beFalse
-      couldBeUsername("0foo") must beFalse
+    "bad prefix: can login" in {
+      couldBeUsername("000") must beTrue
+      couldBeUsername("0foo") must beTrue
       couldBeUsername("_foo") must beFalse
       couldBeUsername("-foo") must beFalse
+    }
+
+    "bad prefix: cannot signup" in {
+      canSignup("000") must beFalse
+      canSignup("0foo") must beFalse
+      canSignup("_foo") must beFalse
+      canSignup("-foo") must beFalse
     }
 
     "bad suffix" in {
