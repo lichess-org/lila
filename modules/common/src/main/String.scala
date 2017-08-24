@@ -66,7 +66,7 @@ object String {
 
     def autoLink(text: String): Html = nl2br(addUserProfileLinksUnsafe(addLinksUnsafe(escapeHtmlUnsafe(text))))
     private val urlRegex = """(?i)\b((https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,6}\/)((?:[`!\[\]{};:'".,<>?«»“”‘’]*[^\s`!\[\]{}\(\);:'".,<>?«»“”‘’])*))""".r
-    private val imgRegex = """(?:!\[(.*?)\]\((.*?)\))""".r
+    // private val imgRegex = """(?:(?:https?:\/\/))[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b(?:[-a-zA-Z0-9@:%_\+.~#?&\/=]*(\.jpg|\.png|\.jpeg))""".r
     private val netDomain = "lichess.org" // whatever...
 
     /**
@@ -93,21 +93,21 @@ object String {
           if (s"${m.group(3)}/" startsWith s"$netDomain/") {
             // internal
             val link = m.group(3)
-            s"""<a rel="nofollow" href="//$link">$link</a>"""
+            s"""<a rel="nofollow" href="//$link">${urlOrImgUnsafe(link)}</a>"""
           } else {
             // external
             val link = m.group(1)
-            s"""<a rel="nofollow" href="$link" target="_blank">$link</a>"""
+            s"""<a rel="nofollow" href="$link" target="_blank">${urlOrImgUnsafe(link)}</a>"""
           }
         } else {
           if (s"${m.group(2)}/" startsWith s"$netDomain/") {
             // internal
             val link = m.group(1)
-            s"""<a rel="nofollow" href="//$link">$link</a>"""
+            s"""<a rel="nofollow" href="//$link">${urlOrImgUnsafe(link)}</a>"""
           } else {
             // external
             val link = m.group(1)
-            s"""<a rel="nofollow" href="http://$link" target="_blank">$link</a>"""
+            s"""<a rel="nofollow" href="http://$link" target="_blank">${urlOrImgUnsafe(link)}</a>"""
           }
         }
       })
@@ -116,6 +116,14 @@ object String {
         lila.log("templating").error(s"addLinks($text)", e)
         text
     }
+
+    private val imgUrlPattern = """.*\.(jpg|jpeg|png|gif)$""".r.pattern
+
+    private def urlToImgUnsafe(url: String): Option[String] =
+      imgUrlPattern.matcher(url).matches option
+        s"""<img src="$url" width="100%" style="max-width:100%" />"""
+
+    private def urlOrImgUnsafe(url: String) = urlToImgUnsafe(url) getOrElse url
 
     // from https://github.com/android/platform_frameworks_base/blob/d59921149bb5948ffbcb9a9e832e9ac1538e05a0/core/java/android/text/TextUtils.java#L1361
     def escapeHtml(s: String): Html = Html(escapeHtmlUnsafe(s))
