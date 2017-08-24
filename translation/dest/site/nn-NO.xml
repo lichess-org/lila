@@ -188,7 +188,7 @@
   <string name="blackOffersDraw">Svart tilbyr remis</string>
   <string name="whiteDeclinesDraw">Kvit avslår remis</string>
   <string name="blackDeclinesDraw">Svart avslår remis</string>
-  <string name="yourOpponentOffersADraw">Din motstandar tilbyr remis</string>
+  <string name="yourOpponentOffersADraw">Motspelaren tilbyr remis</string>
   <string name="accept">Godta</string>
   <string name="decline">Avslå</string>
   <string name="playingRightNow">Spelar nett no</string>
@@ -196,16 +196,16 @@
   <string name="abortGame">Avbryt partiet</string>
   <string name="gameAborted">Partiet blei avbrote</string>
   <string name="standard">Standard</string>
-  <string name="unlimited">Uendeleg</string>
-  <string name="mode">Type</string>
-  <string name="casual">Urata</string>
-  <string name="rated">Rata</string>
-  <string name="thisGameIsRated">Dette partiet er rata</string>
+  <string name="unlimited">Uavgrensa</string>
+  <string name="mode">Modus</string>
+  <string name="casual">Ikkje rangert</string>
+  <string name="rated">Rangert</string>
+  <string name="thisGameIsRated">Dette partiet er rangert</string>
   <string name="rematch">Tilby omkamp</string>
-  <string name="rematchOfferSent">Tilbod om omkamp blei sendt</string>
-  <string name="rematchOfferAccepted">Tilbod om omkamp blei godteke</string>
-  <string name="rematchOfferCanceled">Førespurnad om omkamp blei trekt tilbake</string>
-  <string name="rematchOfferDeclined">Omkamp avvist</string>
+  <string name="rematchOfferSent">Tilbod om omkamp sendt</string>
+  <string name="rematchOfferAccepted">Tilbod om omkamp godteke</string>
+  <string name="rematchOfferCanceled">Førespurnad om omkamp trekt tilbake</string>
+  <string name="rematchOfferDeclined">Tilbod om omkamp avslått</string>
   <string name="cancelRematchOffer">Avbryt førespurnad om omkamp</string>
   <string name="viewRematch">Sjå omkamp</string>
   <string name="play">Spel</string>
@@ -214,7 +214,7 @@
   <string name="loginToChat">Logg inn for å chatte</string>
   <string name="youHaveBeenTimedOut">Tidsavbrot.</string>
   <string name="spectatorRoom">Tilskodarrom</string>
-  <string name="composeMessage">Skriv ei melding</string>
+  <string name="composeMessage">Skriv melding</string>
   <string name="noNewMessages">Ingen nye meldingar</string>
   <string name="subject">Emne</string>
   <string name="recipient">Mottakar</string>
@@ -227,7 +227,7 @@
     <item quantity="other">%s rata</item>
   </plurals>
   <plurals name="nbWins">
-    <item quantity="one">%s sigrar</item>
+    <item quantity="one">%s siger</item>
     <item quantity="other">%s sigrar</item>
   </plurals>
   <plurals name="nbLosses">
@@ -236,7 +236,7 @@
   </plurals>
   <plurals name="nbDraws">
     <item quantity="one">%s remis</item>
-    <item quantity="other">%s remis</item>
+    <item quantity="other">%s remisar</item>
   </plurals>
   <plurals name="nbPlaying">
     <item quantity="one">%s vert spela</item>
