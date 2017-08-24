@@ -5,7 +5,7 @@
   <string name="byPlaying">παίζοντας!</string>
   <string name="menu">Μενού</string>
   <string name="progressX">Πρόοδος: %s</string>
-  <string name="resetMyProgress">Επαναφέρετε την πρόοδο μου</string>
+  <string name="resetMyProgress">Μηδενισμός προόδου</string>
   <string name="youWillLoseAllYourProgress">Θα χάσετε όλη την πρόοδο σας!</string>
   <string name="play">παίξτε!</string>
   <string name="chessPieces">Κομμάτια σκακιού</string>
@@ -168,7 +168,7 @@
   <string name="stalemateComplete">Συγχαρητήρια! Καλύτερα πατ παρά σαχ-ματ!</string>
   <string name="advanced">Προχωρημένο στάδιο</string>
   <string name="pieceValue">Αξία πιονιού</string>
-  <string name="evaluatePieceStrength">Αξιολογήστε τη δύναμη κάθε κομματιού</string>
+  <string name="evaluatePieceStrength">Αξιολογήστε τη δύναμη κάθε πιονιού</string>
   <string name="pieceValueIntro">Τα κομμάτια με υψηλή κινητικότητα έχουν υψηλότερη αξία!
 Βασίλισσα = 9
 Πύργος = 5
@@ -209,7 +209,7 @@
   <string name="testYourSkillsWithTheComputer">Δοκιμάστε τις δεξιότητες σας με τον υπολογιστή</string>
   <string name="letsGo">Πάμε!</string>
   <string name="stageX">Στάδιο %s</string>
-  <string name="awesome">Τρομερό!</string>
+  <string name="awesome">Τέλεια!</string>
   <string name="excellent">Εξαιρετικά!</string>
   <string name="greatJob">Πολύ καλή δουλειά!</string>
   <string name="perfect">Τέλεια!</string>
