@@ -31,10 +31,16 @@ export default function(ctrl: DasherCtrl): VNode {
         linkCfg('/coach/edit', ':'),
         'Coach manager'),
 
-      h(
-        'a.text',
-        linkCfg('/logout', 'w'),
-        noarg('logOut'))
+      h('form', {
+        attrs: { method: 'post', action: '/logout' }
+      }, [
+        h('button.text', {
+          attrs: {
+            type: 'submit',
+            'data-icon': 'w'
+          }
+        }, noarg('logOut'))
+      ])
     ]) : null;
   }
 
