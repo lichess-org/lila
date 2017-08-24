@@ -4,15 +4,31 @@
   <string name="activity">Aktivitet</string>
   <string name="supportedNbMonths">Har støtta lichess i %1$s månader som %2$s</string>
   <plurals name="practicedNbPositions">
-    <item quantity="one">Øvde %1$s stillingar i emnet %2$s</item>
-    <item quantity="other">Øvde %1$s stillingar i emnet %2$s</item>
+    <item quantity="one">Har øvd på %1$s stillingar i emnet %2$s</item>
+    <item quantity="other">Har øvd på %1$s stillingar i emnet %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">Løyste %s taktikkproblem</item>
-    <item quantity="other">Løyste %s taktikkoppgåver</item>
+    <item quantity="one">Har løyst %s taktikkoppgåver</item>
+    <item quantity="other">Har løyst %s taktikkoppgåver</item>
   </plurals>
   <plurals name="playedNbGames">
-    <item quantity="one">Spela %1$s %2$s parti</item>
-    <item quantity="other">Spela %1$s %2$s parti</item>
+    <item quantity="one">Har spela %1$s %2$s parti</item>
+    <item quantity="other">Har spela %1$s %2$s parti</item>
+  </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="one">Har skrive %1$s innlegg i %2$s</item>
+    <item quantity="other">Har skrive %1$s innlegg i %2$s</item>
+  </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">Har spela %1$s trekk i %2$s fjernsjakkparti</item>
+    <item quantity="other">Har spela %1$s trekk i %2$s fjernsjakkparti</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">Har spela %s fjernsjakkparti</item>
+    <item quantity="other">Har spela %s fjernsjakkparti</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="one">Har %s nye fylgjarar</item>
+    <item quantity="other">Har %s nye fylgjarar</item>
   </plurals>
 </resources>
