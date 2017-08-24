@@ -21,31 +21,27 @@ object BuildSettings {
     // disable publishing the main API jar
     publishArtifact in (Compile, packageDoc) := false,
     // disable publishing the main sources jar
-    publishArtifact in (Compile, packageSrc) := false
-  ) ++ Seq(
+    publishArtifact in (Compile, packageSrc) := false) ++ Seq(
       ScalariformKeys.preferences := ScalariformKeys.preferences.value
         .setPreference(DanglingCloseParenthesis, Force)
         .setPreference(DoubleIndentConstructorArguments, true),
-      excludeFilter in scalariformFormat := "*Routes*"
-    )
+      excludeFilter in scalariformFormat := "*Routes*")
 
   def defaultDeps = Seq(scalaz, scalalib, jodaTime, ws, java8compat, specs2)
 
   def compile(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "compile")
   def provided(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "provided")
 
-  def project(name: String, deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]] = Seq.empty) =
+  def module(name: String, deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]] = Seq.empty) =
     Project(
       name,
-      file("modules/" + name)
-    )
+      file("modules/" + name))
       .dependsOn(deps: _*)
       .settings(
         version := "2.0",
         libraryDependencies := defaultDeps,
         buildSettings,
-        srcMain
-      )
+        srcMain)
 
   val compilerOptions = Seq(
     "-deprecation", "-unchecked", "-feature", "-language:_",

@@ -24,7 +24,7 @@ object Dependencies {
 
   val scalaz = "org.scalaz" %% "scalaz-core" % "7.2.13"
   val scalalib = "com.github.ornicar" %% "scalalib" % "6.3"
-  val config = "com.typesafe" % "config" % "1.3.1"
+  val typesafeConfig = "com.typesafe" % "config" % "1.3.1"
   val findbugs = "com.google.code.findbugs" % "jsr305" % "3.0.1"
   val hasher = "com.roundeights" %% "hasher" % "1.2.0"
   val jodaTime = "joda-time" % "joda-time" % "2.9.7"
@@ -34,7 +34,7 @@ object Dependencies {
   val java8compat = "org.scala-lang.modules" %% "scala-java8-compat" % "0.8.0"
   val semver = "com.gilt" %% "gfc-semver" % "0.0.5"
   val scrimage = "com.sksamuel.scrimage" %% "scrimage-core" % "2.1.8"
-  val configs = "com.github.kxbmap" %% "configs" % "0.4.4"
+  val scalaConfigs = "com.github.kxbmap" %% "configs" % "0.4.4"
   val scaffeine = "com.github.blemale" %% "scaffeine" % "2.2.0" % "compile"
   val netty = "io.netty" % "netty" % "3.10.6.Final"
   val guava = "com.google.guava" % "guava" % "21.0"
