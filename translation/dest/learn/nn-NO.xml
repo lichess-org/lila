@@ -11,6 +11,21 @@
   <string name="chessPieces">Sjakkbrikker</string>
   <string name="theRook">Tårnet</string>
   <string name="itMovesInStraightLines">Vert flytta i rette liner</string>
+  <string name="rookIntro">Tårnet er ei kraftig brikke. Er du klar til å ta det i bruk?</string>
+  <string name="rookGoal">Klikk på tårnet for å flytte det til stjerna!</string>
+  <string name="grabAllTheStars">Grip alle stjernene!</string>
+  <string name="theFewerMoves">Jo færre trekk du gjer, dess fleire poeng vinn du!</string>
+  <string name="useTwoRooks">Ta i bruk to tårn for å sette litt fart på sakene!</string>
+  <string name="rookComplete">Gratulerar! Du meistrar no tårnet.</string>
+  <string name="theBishop">Løparen</string>
+  <string name="itMovesDiagonally">Vert flytta diagonalt</string>
+  <string name="bishopIntro">No skal vi lære korleis manøvrere ein løpar!</string>
+  <string name="youNeedBothBishops">Ein kvitfeltsløpar,
+ein svartfeltsløpar.
+Du treng dei begge!</string>
+  <string name="bishopComplete">Gratulerar! Du veit å ta kommando over løparen.</string>
+  <string name="theQueen">Dronninga</string>
+  <string name="queenCombinesRookAndBishop">Dronning = tårn + løpar</string>
   <string name="queenIntro">Den sterkaste sjakkbrikka kjem på scena. Hennar Majestet Dronninga!</string>
   <string name="queenComplete">Gratulerer! Dronninger held ikkje noko løynd for deg.</string>
   <string name="theKing">Kongen</string>
@@ -66,6 +81,7 @@ Det er inga grunn til forvandling.</string>
   <string name="checkInOne">Sjakk i eit trekk</string>
   <string name="attackTheOpponentsKing">Gå til åtak på kongen til motspelaren</string>
   <string name="checkInOneIntro">Om du vil sjakke motstandaren må du gå til åtak på kongen, for den må forsvarast!</string>
+  <string name="checkInOneGoal">Gå etter kongen til motspelaren i eitt trekk!</string>
   <string name="theGameIsADraw">Partiet endar i remis</string>
   <string name="stalemateIntro">Når ein spelar ikkje er i sjakk utan å ha eit lovleg trekk å gjera er det patt. Partiet er remis: ingen vinn, ingen tapar.</string>
   <string name="stalemateGoal">For å setje svart patt:
