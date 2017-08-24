@@ -137,9 +137,9 @@ Det er inga grunn til omvandling.</string>
 - Svart kan ikkje flytte nokon stad
 - Det er ikkje sjakk.</string>
   <string name="stalemateComplete">Gratulerar! Det er bedre å verta sett patt enn sjakk matt!</string>
-  <string name="advanced">Fordjupingsstoff</string>
-  <string name="pieceValue">Brikkeverdi</string>
-  <string name="evaluatePieceStrength">Vurdering av brikkestyrken</string>
+  <string name="advanced">Vidarekomande</string>
+  <string name="pieceValue">Brikkeverde</string>
+  <string name="evaluatePieceStrength">Vurdering av styrken til brikkene</string>
   <string name="pieceValueIntro">Brikker med flest trekkmoglegheiter har høgast verde!
 Dronning = 9
 Tårn = 5
@@ -151,15 +151,15 @@ Kongen er uvurderleg! Misser du han har du tapt spelet.</string>
 med det høgste verdet!
 Dronning &gt; løpar</string>
   <string name="takeThePieceWithTheHighestValue">Slå ut brikka
-med høgast verdi!</string>
-  <string name="pieceValueComplete">Gratulerar! Du kjenner verdien til brikkene! 
+med høgast verde!</string>
+  <string name="pieceValueComplete">Gratulerar! Du kjenner verdet til brikkene! 
 Dronning = 9 
 Tårn = 5 
 Løpar = 3 
 Springar = 3 
 Bonde = 1</string>
   <string name="checkInTwo">Sjakk i to trekk</string>
-  <string name="twoMovesToGiveCheck">To trekk til ein sjakk</string>
+  <string name="twoMovesToGiveCheck">Sjakk om to trekk</string>
   <string name="checkInTwoIntro">Finn den rette kombinasjonen av to trekk som sjakkar kongen til motspelaren!</string>
   <string name="checkInTwoGoal">Du kan no truge motstandarkongen i to trekk!</string>
   <string name="checkInTwoComplete">Gratulerar! Du sette motstandaren i sjakk og tvang fram eit kongeforsvar!</string>
@@ -168,15 +168,15 @@ Bonde = 1</string>
   <string name="register">Registrer deg</string>
   <string name="getAFreeLichessAccount">Få ein gratis brukarkonto hos Lichess</string>
   <string name="practice">Øv</string>
-  <string name="learnCommonChessPositions">Lær deg dei sjakkposisjonar som opptrer oftast</string>
+  <string name="learnCommonChessPositions">Lær deg dei sjakkposisjonane som opptrer oftast</string>
   <string name="puzzles">Taktikkoppgåver</string>
   <string name="exerciseYourTacticalSkills">Øv opp den taktiske dugleiken din</string>
   <string name="videos">Videoar</string>
-  <string name="watchInstructiveChessVideos">Sjå lærerike sjakkvideoar</string>
+  <string name="watchInstructiveChessVideos">Se instruktive sjakkvideoar</string>
   <string name="playPeople">Spel mot andre online</string>
   <string name="opponentsFromAroundTheWorld">Motspelarar frå heile verda</string>
-  <string name="playMachine">Spela mot datamaskina</string>
-  <string name="testYourSkillsWithTheComputer">Test kunnsapane dine i spel mot eit sjakkprogram</string>
+  <string name="playMachine">Spela mot sjakkprogrammet</string>
+  <string name="testYourSkillsWithTheComputer">Test kunnskapane dine i spel mot sjakkprogrammet</string>
   <string name="letsGo">Vi tek laus!</string>
   <string name="stageX">Nivå %s</string>
   <string name="awesome">Veldig bra!</string>
@@ -194,5 +194,5 @@ Bonde = 1</string>
   <string name="next">Neste</string>
   <string name="backToMenu">Attende til menyen</string>
   <string name="puzzleFailed">Oppgava vart ikke løyst!</string>
-  <string name="retry">Forsøk på nytt</string>
+  <string name="retry">Prøv på nytt</string>
 </resources>
