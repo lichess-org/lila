@@ -33,7 +33,7 @@ body.transp::before {
   z-index: -1;
 }
 body.transp #timeline,
-body.dark .tview2,
+body.dark .areplay,
 body.transp div.training .box,
 body.transp div.side_box,
 body.transp div.box,
