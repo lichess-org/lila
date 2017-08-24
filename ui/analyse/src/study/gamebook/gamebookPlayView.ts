@@ -7,7 +7,7 @@ import { State } from './gamebookPlayCtrl';
 
 const defaultComments = {
   play: 'What would you play in this position?',
-  bad: 'That\'s not the right move',
+  bad: 'That\'s not the right move.',
   end: 'Congratulations! You completed this gamebook.'
 };
 
