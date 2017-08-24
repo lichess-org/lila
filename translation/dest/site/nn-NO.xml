@@ -456,8 +456,8 @@ få en computeranalyse, chatte eller dele ein URL.</string>
     <item quantity="other">Du har %s sekund på å gjera ditt første trekk!</item>
   </plurals>
   <plurals name="nbGamesInPlay">
-    <item quantity="one">%s parti pågår</item>
-    <item quantity="other">%s parti pågår</item>
+    <item quantity="one">%s parti spelast</item>
+    <item quantity="other">%s parti spelast</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Gå automatisk til neste parti etter trekk</string>
   <string name="autoSwitch">Hopp automatisk til neste parti</string>
@@ -496,7 +496,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="questionsAndAnswers">Spørsmål og svar</string>
   <string name="notes">Notatar</string>
   <string name="typePrivateNotesHere">Skriv private notatar her</string>
-  <string name="gameDisplay">Utsjånad</string>
+  <string name="gameDisplay">Brettutsjånad</string>
   <string name="pieceAnimation">Farta på brikkerørslene</string>
   <string name="materialDifference">Materiellskilnad</string>
   <string name="closeAccount">Steng konto</string>
