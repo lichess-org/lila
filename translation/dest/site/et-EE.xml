@@ -73,6 +73,10 @@
   <string name="recentGames">Hiljutised mängud</string>
   <string name="topGames">Parimad mängud</string>
   <string name="masterDbExplanation">Kaks miljonit päriselumängu %1$s+ FIDE hinnatud mängijat alates %2$s kuni %3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Matt %s käiguga</item>
+    <item quantity="other">Šahhmatt %s käiguga</item>
+  </plurals>
   <string name="openingExplorer">Avangute avastamine</string>
   <string name="blunders">vigu</string>
   <string name="mistakes">eksimusi</string>
