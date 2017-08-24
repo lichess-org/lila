@@ -41,14 +41,88 @@ object String {
     }
   }
 
+  // Matches a lichess username with an '@' prefix if it is used as a single
+  // word (i.e. preceded and followed by space or appropriate punctuation):
+  // Yes: everyone says @ornicar is a pretty cool guy
+  // No: contact@lichess.org, @1, http://example.com/@happy0
+  val atUsernameRegex = """(?<=\s|^)@(?>([a-zA-Z_-][\w-]{1,19}))(?![\w-])""".r
+
   object html {
 
+    private def nl2brUnsafe(text: String): String =
+      text.replace("\r\n", "<br />").replace("\n", "<br />")
+
+    def nl2br(text: String) = Html(nl2brUnsafe(text))
+
+    def shortenWithBr(text: String, length: Int) = Html {
+      nl2brUnsafe(escapeHtmlUnsafe(text).take(length)).replace("<br /><br />", "<br />")
+    }
+
+    def shorten(text: String, length: Int, sep: String = "…"): Html = {
+      val t = text.replace("\n", " ")
+      if (t.size > (length + sep.size)) Html(escapeHtmlUnsafe(t take length) ++ sep)
+      else escapeHtml(t)
+    }
+
+    def autoLink(text: String): Html = nl2br(addUserProfileLinksUnsafe(addLinksUnsafe(escapeHtmlUnsafe(text))))
+    private val urlRegex = """(?i)\b((https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,6}\/)((?:[`!\[\]{};:'".,<>?«»“”‘’]*[^\s`!\[\]{}\(\);:'".,<>?«»“”‘’])*))""".r
+    private val imgRegex = """(?:!\[(.*?)\]\((.*?)\))""".r
+    private val netDomain = "lichess.org" // whatever...
+
+    /**
+     * Creates hyperlinks to user profiles mentioned using the '@' prefix. e.g. @ornicar
+     * @param text The text to regex match
+     * @return The text as a HTML hyperlink
+     */
+    def addUserProfileLinks(text: String) = Html(addUserProfileLinksUnsafe(text))
+
+    private def addUserProfileLinksUnsafe(text: String): String =
+      atUsernameRegex.replaceAllIn(text, m => {
+        val user = m group 1
+        val url = s"//$netDomain/@/$user"
+
+        s"""<a href="$url">@$user</a>"""
+      })
+
+    def addLinks(text: String) = Html(addLinksUnsafe(text))
+
+    private def addLinksUnsafe(text: String): String = try {
+      urlRegex.replaceAllIn(text, m => {
+        if (m.group(0) contains "&quot") m.group(0)
+        else if (m.group(2) == "http://" || m.group(2) == "https://") {
+          if (s"${m.group(3)}/" startsWith s"$netDomain/") {
+            // internal
+            val link = m.group(3)
+            s"""<a rel="nofollow" href="//$link">$link</a>"""
+          } else {
+            // external
+            val link = m.group(1)
+            s"""<a rel="nofollow" href="$link" target="_blank">$link</a>"""
+          }
+        } else {
+          if (s"${m.group(2)}/" startsWith s"$netDomain/") {
+            // internal
+            val link = m.group(1)
+            s"""<a rel="nofollow" href="//$link">$link</a>"""
+          } else {
+            // external
+            val link = m.group(1)
+            s"""<a rel="nofollow" href="http://$link" target="_blank">$link</a>"""
+          }
+        }
+      })
+    } catch {
+      case e: IllegalArgumentException =>
+        lila.log("templating").error(s"addLinks($text)", e)
+        text
+    }
+
     // from https://github.com/android/platform_frameworks_base/blob/d59921149bb5948ffbcb9a9e832e9ac1538e05a0/core/java/android/text/TextUtils.java#L1361
-    def escape(s: String): Html = Html(escapeUnsafe(s))
+    def escapeHtml(s: String): Html = Html(escapeHtmlUnsafe(s))
 
     private val badChars = "[<>&\"']".r.pattern
 
-    def escapeUnsafe(s: String): String = {
+    def escapeHtmlUnsafe(s: String): String = {
       if (badChars.matcher(s).find) {
         val sb = new StringBuilder(s.size + 10) // wet finger style
         var i = 0
@@ -67,6 +141,14 @@ object String {
         }
         sb.toString
       } else s
+    }
+
+    private val markdownLinkRegex = """\[([^\[]+)\]\(([^\)]+)\)""".r
+
+    def markdownLinks(text: String): Html = nl2br {
+      markdownLinkRegex.replaceAllIn(escapeHtmlUnsafe(text), m => {
+        s"""<a href="${m group 2}">${m group 1}</a>"""
+      })
     }
   }
 }

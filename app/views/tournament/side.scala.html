@@ -21,7 +21,7 @@
   </div>
   @tour.spotlight.map { s =>
   <div class="game_infos spotlight">
-    @markdownLinks(s.description)
+    @lila.common.String.html.markdownLinks(s.description)
   </div>
   }
   @if(verdicts.relevant) {

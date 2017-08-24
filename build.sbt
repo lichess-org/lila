@@ -46,7 +46,8 @@ TwirlKeys.templateImports ++= Seq(
   "lila.app.templating.Environment._",
   "lila.api.Context",
   "lila.i18n.{ I18nKeys => trans }",
-  "lila.common.paginator.Paginator"
+  "lila.common.paginator.Paginator",
+  "lila.common.String.html._"
 )
 resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets"
 

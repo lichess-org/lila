@@ -134,12 +134,6 @@ object User {
   }
   implicit def playTimeHandler = reactivemongo.bson.Macros.handler[PlayTime]
 
-  // Matches a lichess username with an '@' prefix if it is used as a single
-  // word (i.e. preceded and followed by space or appropriate punctuation):
-  // Yes: everyone says @ornicar is a pretty cool guy
-  // No: contact@lichess.org, @1, http://example.com/@happy0
-  val atUsernameRegex = """(?<=\s|^)@(?>([a-zA-Z_-][\w-]{1,19}))(?![\w-])""".r
-
   // what existing usernames are like
   val historicalUsernameRegex = """(?i)[a-z0-9][\w-]*[a-z0-9]""".r
   // what new usernames should be like

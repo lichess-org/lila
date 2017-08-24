@@ -3,7 +3,7 @@ package lila.i18n
 import play.api.i18n.Lang
 import play.twirl.api.Html
 
-import lila.common.String.html.{ escape => escapeHtml }
+import lila.common.String.html.escapeHtml
 
 object Translator {
 

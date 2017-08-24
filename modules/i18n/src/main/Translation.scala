@@ -2,7 +2,7 @@ package lila.i18n
 
 import play.twirl.api.Html
 
-import lila.common.String.html.{ escape => escapeHtml }
+import lila.common.String.html.escapeHtml
 
 private sealed trait Translation
 

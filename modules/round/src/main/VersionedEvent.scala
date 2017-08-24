@@ -4,9 +4,7 @@ import play.api.libs.json._
 
 import actorApi.Member
 import chess.Color
-import lila.common.ApiVersion
 import lila.game.Event
-import lila.common.String.html.{ escape => escapeHtml }
 
 case class VersionedEvent(
     version: Int,
