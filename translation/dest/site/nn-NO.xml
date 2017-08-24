@@ -369,9 +369,9 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   </plurals>
   <string name="required">Påkrevd.</string>
   <string name="openTournaments">Opne turneringar</string>
-  <string name="duration">Lengd</string>
+  <string name="duration">Tidslengd</string>
   <string name="winner">Vinnar</string>
-  <string name="standing">Stillinga</string>
+  <string name="standing">Stilling</string>
   <string name="createANewTournament">Lag ei ny turnering</string>
   <string name="join">Bli med</string>
   <string name="withdraw">Trekk deg</string>
@@ -399,9 +399,9 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="boardEditor">Brettskipar</string>
   <string name="setTheBoard">Still opp brett</string>
   <string name="popularOpenings">Omtykte opningar</string>
-  <string name="startPosition">Utgangsposisjon</string>
-  <string name="clearBoard">Oppsett</string>
-  <string name="savePosition">Lagra posisjon</string>
+  <string name="startPosition">Startposisjon</string>
+  <string name="clearBoard">Tøm brettet</string>
+  <string name="savePosition">Lagre stilling</string>
   <string name="loadPosition">Last inn posisjon</string>
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Meld %s til moderator</string>
@@ -410,7 +410,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="ifNoneLeaveEmpty">Om ingen, lat stå tomt</string>
   <string name="gameCompletionRate">Prosent fullførde parti: %s</string>
   <string name="profile">Profil</string>
-  <string name="editProfile">Gjer om profil</string>
+  <string name="editProfile">Rediger profilen</string>
   <string name="firstName">Førenamn</string>
   <string name="lastName">Etternamn</string>
   <string name="biography">Biografi</string>
@@ -421,13 +421,13 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="onlinePlayers">Innlogga spelarar</string>
   <string name="activeToday">Aktive i dag</string>
   <string name="activePlayers">Aktive spelarar</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Til informasjon, spelet er rata, men ikkje tidsavgrensa!</string>
-  <string name="training">Trening</string>
-  <string name="yourPuzzleRatingX">Treningsratinga di: %s</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Til informasjon, spelet er rata, men er ikkje tidsavgrensa!</string>
+  <string name="training">Taktikkoppgåver</string>
+  <string name="yourPuzzleRatingX">Problemløysar-ratinga di: %s</string>
   <string name="findTheBestMoveForWhite">Finn beste trekket for kvit.</string>
   <string name="findTheBestMoveForBlack">Finn beste trekket for svart.</string>
   <string name="toTrackYourProgress">Finn ut kor stor framgong du har:</string>
-  <string name="trainingSignupExplanation">Lichess gjev deg oppgåver som er tilpassa ditt nivå, og dette gjev betre treningar.</string>
+  <string name="trainingSignupExplanation">Lichess gjev deg oppgåver som er tilpassa ditt nivå, og dette gjev betre treningsøkter.</string>
   <string name="puzzleId">Oppgåve %s</string>
   <string name="puzzleOfTheDay">Dagens oppgåve</string>
   <string name="clickToSolve">Trykk for å løysa oppgåva</string>
