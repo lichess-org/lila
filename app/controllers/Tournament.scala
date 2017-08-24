@@ -177,8 +177,8 @@ object Tournament extends LilaController {
   }
 
   def terminate(id: String) = Secure(_.TerminateTournament) { implicit ctx => me =>
-    OptionResult(repo startedById id) { tour =>
-      env.api finish tour
+    OptionResult(repo byId id) { tour =>
+      env.api kill tour
       Env.mod.logApi.terminateTournament(me.id, tour.fullName)
       Redirect(routes.Tournament show tour.id)
     }

@@ -52,11 +52,11 @@
   <br /><br />
   @trans.winner(): @userIdLink(userId.some)
   }
-  @if(isGranted(_.TerminateTournament) && tour.isStarted) {
+  @if(isGranted(_.TerminateTournament)) {
   <form class="terminate" method="post" action="@routes.Tournament.terminate(tour.id)"
     style="margin-top: 7px; text-align: right;">
     <button data-icon="j" class="submit text button thin confirm" type="submit"
-      title="Terminates the tournament immediately! Use only if the tournament is killing lichess!">Terminate now</button>
+      title="Terminates the tournament immediately">Terminate now</button>
   </form>
   }
 </div>
