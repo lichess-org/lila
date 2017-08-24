@@ -26,6 +26,7 @@
   <string name="youNeedBothBishops">Један ловац на белом пољу,
 један ловац на црном пољу.
 Требају ти оба!</string>
+  <string name="bishopComplete">Честитамо! Можете управљати ловцем.</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Ваш пешак је стигао до краја табле!</string>
   <string name="boardSetupComplete">Честитамо! Знате да поставите шаховску таблу.</string>
   <string name="enPassantOnlyWorksOnFifthRank">Ан пасан је могућ само
