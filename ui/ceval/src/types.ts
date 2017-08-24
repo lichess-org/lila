@@ -65,7 +65,7 @@ export interface CevalCtrl {
   possible: boolean;
   isComputing(): boolean;
   variant: Variant;
-  setHovering: (fen: string, uci: string | null) => void;
+  setHovering: (fen: string, uci?: string) => void;
   multiPv: StoredProp<number>;
   start: (path: string, steps: Step[], threatMode: boolean, deeper: boolean) => void;
   stop(): void;

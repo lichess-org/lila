@@ -192,17 +192,26 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
     class: {
       computing: percent < 100 && instance.isComputing()
     }
-  }, [progressBar].concat(body).concat(switchButton).concat(threatButton(ctrl)));
+  }, [
+    progressBar,
+    ...body,
+    switchButton,
+    threatButton(ctrl)
+  ]);
 }
 
 function getElFen(el: HTMLElement): string {
   return el.getAttribute('data-fen')!;
 }
 
+function getElUci(e: MouseEvent): string | undefined {
+  return $(e.target).closest('div.pv').attr('data-uci');
+}
+
 function checkHover(el: HTMLElement, instance: CevalCtrl): void {
-  setTimeout(function() {
+  window.lichess.requestIdleCallback(() => {
     instance.setHovering(getElFen(el), $(el).find('div.pv:hover').attr('data-uci'));
-  }, 100);
+  });
 }
 
 export function renderPvs(ctrl: ParentCtrl) {
@@ -221,14 +230,14 @@ export function renderPvs(ctrl: ParentCtrl) {
     hook: {
       insert: vnode => {
         const el = vnode.elm as HTMLElement;
-        el.addEventListener('mouseover', function(e) {
-          instance.setHovering(getElFen(el), $(e.target).closest('div.pv').attr('data-uci'));
+        el.addEventListener('mouseover', (e: MouseEvent) => {
+          instance.setHovering(getElFen(el), getElUci(e));
         });
-        el.addEventListener('mouseout', function() {
-          instance.setHovering(getElFen(el), null);
+        el.addEventListener('mouseout', () => {
+          instance.setHovering(getElFen(el));
         });
-        el.addEventListener('mousedown', function(e) {
-          const uci = $(e.target).closest('div.pv').attr('data-uci');
+        el.addEventListener('mousedown', (e: MouseEvent) => {
+          const uci = getElUci(e);
           if (uci) ctrl.playUci(uci);
         });
         checkHover(el, instance);
