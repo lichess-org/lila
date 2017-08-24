@@ -67,14 +67,14 @@
   <string name="selectThePieceYouWant">Επιλέξτε το κομμάτι που θέλετε!</string>
   <string name="fundamentals">Βασικές αρχές</string>
   <string name="capture">Αιχμαλώτιση</string>
-  <string name="takeTheEnemyPieces">Πάρτε τα κομμάτια του αντιπάλου</string>
-  <string name="captureIntro">Βρείτε τα ανυπεράσπιστα κομμάτια του αντιπάλου, και πάρτε τα!</string>
-  <string name="takeTheBlackPieces">Πάρτε τα μαύρα κομμάτια!</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">Πάρτε τα μαύρα κομμάτια!
+  <string name="takeTheEnemyPieces">Πάρτε τα πιόνια του αντιπάλου</string>
+  <string name="captureIntro">Βρείτε τα ανυπεράσπιστα πιόνια του αντιπάλου, και πάρτε τα!</string>
+  <string name="takeTheBlackPieces">Πάρτε τα μαύρα πιόνια!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Πάρτε τα μαύρα πιόνια!
 Και προστατεύστε τα δικά σας.</string>
-  <string name="captureComplete">Συγχαρητήρια! Ξέρετε πως να μάχεστε με τα κομμάτια σκακιού!</string>
+  <string name="captureComplete">Συγχαρητήρια! Ξέρετε πως να παίζετε με τα πιόνια του σκακιού!</string>
   <string name="protection">Προστασία</string>
-  <string name="keepYourPiecesSafe">Κρατήστε τα κομμάτια σας ασφαλή</string>
+  <string name="keepYourPiecesSafe">Κρατήστε τα πιόνια σας ασφαλή</string>
   <string name="protectionIntro">Βρείτε τα πιόνια που επιτίθεται ο αντίπαλος και προστατεύστε τα!</string>
   <string name="protectionComplete">Συγχαρητήρια! Ένα πιόνι που δεν χάνεται είναι ένα πιόνι που κερδίζεται!</string>
   <string name="escape">Δέχεστε επίθεση!
