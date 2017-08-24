@@ -12,7 +12,7 @@
   <string name="theRook">Tornis</string>
   <string name="itMovesInStraightLines">Pārvietojas taisnās līnijās</string>
   <string name="rookIntro">Tornis ir spēcīga figūra. Esi gatavs to vadīt?</string>
-  <string name="rookGoal">Noklikšķini uz torņa lai novietotu to uz zvaigznes!</string>
+  <string name="rookGoal">Noklikšķini uz torņa un pārvieto to uz zvaigznes!</string>
   <string name="grabAllTheStars">Savāc visas zvaigznes!</string>
   <string name="theFewerMoves">Jo mazāk gājienu izdarīsi, jo vairāk punktus iegūsi!</string>
   <string name="useTwoRooks">Izmanto divus troņus lai veiktos ātrāk!</string>

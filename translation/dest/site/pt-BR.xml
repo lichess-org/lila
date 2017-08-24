@@ -268,6 +268,28 @@
   <string name="viewTournament">Ver torneio</string>
   <string name="backToTournament">Voltar ao torneio</string>
   <string name="thematic">Temático</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s jogo valendo pontos</item>
+    <item quantity="other">≥ %s jogos valendo pontos</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2%s partida valendo pontos</item>
+    <item quantity="other">≥ %1$s %2%s partidas valendo pontos</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Você precisa jogar %1$s mais %2$s partidas valendo pontos</item>
+    <item quantity="other">Você precisa jogar %1$s mais %2$s partidas valendo pontos</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Você precisa jogar %s mais partidas valendo pontos</item>
+    <item quantity="other">Você precisa jogar %s mais partidas valendo pontos</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Sua %s pontuação é provisória</string>
+  <string name="yourPerfRatingIsTooHigh">Sua %1$s pontuação (%2$s) é muito alta</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Sua melhor pontuação da semana %1$s (%2$s) é muito alta</string>
+  <string name="yourPerfRatingIsTooLow">Sua %1$s pontuação (%2$s) é muito baixa</string>
+  <string name="ratedMoreThanInPerf">Pontuação ≥ %1$s em %2$s</string>
+  <string name="ratedLessThanInPerf">Pontuação ≤ %1$s em %2$s</string>
   <string name="backToGame">Retorne à partida</string>
   <string name="siteDescription">Xadrez online gratuito. Jogue xadrez agora numa interface simples. Sem registro, sem anúncios, sem plugins. Jogue xadrez contra computador, amigos ou oponentes aleatórios.</string>
   <string name="teams">Equipes</string>

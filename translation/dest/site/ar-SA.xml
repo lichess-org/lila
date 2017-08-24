@@ -327,6 +327,20 @@
   <string name="tournamentPoints">نقاط المسابقة</string>
   <string name="viewTournament">شاهد المسابقة</string>
   <string name="backToTournament">عودة للمسابقة</string>
+  <string name="thematic">موضوعية</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="zero">%s لعبة مُقيمة</item>
+    <item quantity="one">لعبة مقيمة %s</item>
+    <item quantity="two">≥ %s لعبة مقيمة</item>
+    <item quantity="few">≥ %s ألعاب مقيمة</item>
+    <item quantity="many">≥ %s ألعاب مقيمة</item>
+    <item quantity="other">≥ %s ألعاب مقيمة</item>
+  </plurals>
+  <string name="yourPerfRatingIsTooHigh">تقييمك %1$s (%2$s) مرتفع جداً</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">تقييمك %1$s (%2$s) مرتفع جداً</string>
+  <string name="yourPerfRatingIsTooLow">تقييمك %1$s (%2$s) منخفض جداً</string>
+  <string name="ratedMoreThanInPerf">مصنفة ≥ %1$s خلال %2$s</string>
+  <string name="ratedLessThanInPerf">مصنفة ≥ %1$s خلال %2$s</string>
   <string name="backToGame">العودة للمباراة</string>
   <string name="siteDescription">موقع شطرنج مجاني. العب الشطرنج الآن بتصميم نظيف، دون تسجيل او دعايات أو إضافات برمجية. العب الشطرنج مع الحاسب، الأصدقاء أو خصوما من حول الكرة الأرضية</string>
   <string name="teams">الفِرق</string>
