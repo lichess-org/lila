@@ -147,7 +147,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
     hook: {
       postpatch: (old, vnode) => {
         if (old.data!.percent > percent || !!old.data!.threatMode != threatMode) {
-          const el = (vnode.elm as HTMLElement);
+          const el = vnode.elm as HTMLElement;
           const p = el.parentNode as HTMLElement;
           p.removeChild(el);
           p.appendChild(el);
@@ -195,9 +195,13 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
   }, [progressBar].concat(body).concat(switchButton).concat(threatButton(ctrl)));
 }
 
+function getElFen(el: HTMLElement): string {
+  return el.getAttribute('data-fen')!;
+}
+
 function checkHover(el: HTMLElement, instance: CevalCtrl): void {
   setTimeout(function() {
-    instance.setHovering($(el).attr('data-fen'), $(el).find('div.pv:hover').attr('data-uci'));
+    instance.setHovering(getElFen(el), $(el).find('div.pv:hover').attr('data-uci'));
   }, 100);
 }
 
@@ -218,10 +222,10 @@ export function renderPvs(ctrl: ParentCtrl) {
       insert: vnode => {
         const el = vnode.elm as HTMLElement;
         el.addEventListener('mouseover', function(e) {
-          instance.setHovering($(el).attr('data-fen'), $(e.target).closest('div.pv').attr('data-uci'));
+          instance.setHovering(getElFen(el), $(e.target).closest('div.pv').attr('data-uci'));
         });
         el.addEventListener('mouseout', function() {
-          instance.setHovering($(el).attr('data-fen'), null);
+          instance.setHovering(getElFen(el), null);
         });
         el.addEventListener('mousedown', function(e) {
           const uci = $(e.target).closest('div.pv').attr('data-uci');
@@ -233,9 +237,9 @@ export function renderPvs(ctrl: ParentCtrl) {
     }
   }, range(multiPv).map(function(i) {
     if (!pvs[i]) return h('div.pv');
-    const san = pv2san(instance.variant.key, node.fen, threat, pvs[i].moves, pvs[i].mate);
+    const san = pv2san(instance.variant.key, node.fen, threat, pvs[i].moves.slice(0, 12), pvs[i].mate);
     return h('div.pv', threat ? {} : {
-      attrs: { 'data-uci': pvs[i].moves[0], 'title': san }
+      attrs: { 'data-uci': pvs[i].moves[0] }
     }, [
       multiPv > 1 ? h('strong', defined(pvs[i].mate) ? ('#' + pvs[i].mate) : renderEval(pvs[i].cp!)) : null,
       h('span', san)
