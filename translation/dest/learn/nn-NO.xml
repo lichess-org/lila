@@ -89,6 +89,14 @@ Det er inga grunn til forvandling.</string>
   <string name="escapeWithTheKing">Fly unna med kongen!</string>
   <string name="theKingCannotEscapeButBlock">Kongen kjem ikkje unna, men du kan sperre for åtaket!</string>
   <string name="youCanGetOutOfCheckByTaking">Du kan komme unna sjakken ved å slå ut brikka som går til åtak.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Denne springaren sjakkar rett gjennom forsvarsverket ditt!</string>
+  <string name="escapeOrBlock">Fly unna med kongen eller sperr for åtaket!</string>
+  <string name="outOfCheckComplete">Gratulerar! Det er ikkje mogeleg å ta kongen, sjå til at du kan verje deg mot å bli sett sjakk!</string>
+  <string name="mateInOne">Matt i eit drag</string>
+  <string name="defeatTheOpponentsKing">Sigra over kongen til motspelaren</string>
+  <string name="mateInOneIntro">Du vinn når motspelaren ikkje kan verje seg mot sjakk.</string>
+  <string name="attackYourOpponentsKing">Gå til åtak på kongen til motspelaren på eit vis det ikkje er mogleg å verje seg mot!</string>
+  <string name="mateInOneComplete">Gratulerar! På dette viset vinn du eit parti sjakk!</string>
   <string name="theGameIsADraw">Partiet endar i remis</string>
   <string name="stalemateIntro">Når ein spelar ikkje er i sjakk utan å ha eit lovleg trekk å gjera er det patt. Partiet er remis: ingen vinn, ingen tapar.</string>
   <string name="stalemateGoal">For å setje svart patt:
