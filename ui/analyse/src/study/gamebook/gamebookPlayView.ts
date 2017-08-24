@@ -8,7 +8,7 @@ import { State } from './gamebookPlayCtrl';
 const defaultComments = {
   play: 'What would you play in this position?',
   bad: 'That\'s not the right move.',
-  end: 'Congratulations! You completed this gamebook.'
+  end: 'Congratulations! You completed this lesson.'
 };
 
 export function render(ctrl: GamebookPlayCtrl): VNode {
@@ -29,8 +29,7 @@ export function render(ctrl: GamebookPlayCtrl): VNode {
         attrs: {
           width: 120,
           height: 120,
-          src: window.lichess.assetUrl('/assets/images/mascot/octopus.svg'),
-          title: 'Click to choose your teacher'
+          src: window.lichess.assetUrl('/assets/images/mascot/octopus.svg')
         }
       })
     ])
