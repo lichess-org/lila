@@ -129,18 +129,26 @@ Men ibland kan en springare vara smidig!</string>
   <string name="stalemate">Patt</string>
   <string name="theGameIsADraw">Partiet är remi</string>
   <string name="stalemateIntro">När en spelare inte är i schack och har inte har något drag är det ett dödläge. Partiet är remi: ingen vinner, ingen förlorar.</string>
+  <string name="stalemateGoal">Svart blir patt om:
+- svart inte kan flytta någon pjäs alls och
+- svart inte är i schack.</string>
   <string name="stalemateComplete">Grattis! Bättre att vara patt än schackmatt!</string>
   <string name="advanced">Avancerat</string>
   <string name="pieceValue">Pjäsvärde</string>
+  <string name="evaluatePieceStrength">Värdera pjäser</string>
   <string name="pieceValueIntro">Pjäser med hög rörlighet har ett högre värde! Drottning = 9 Torn = 5 Löpare = 3 Springare = 3 Bonde = 1 kungen är ovärderlig! Förlora du den förlorar du spelet.</string>
   <string name="queenOverBishop">Ta pjäsen med det högsta värdet! Drottning &gt; Löpare</string>
   <string name="takeThePieceWithTheHighestValue">Slå pjäsen med högst värde!</string>
   <string name="pieceValueComplete">Grattis! Du vet värdet av pjäserna! Drottning = 9 Torn = 5 Löpare = 3 Springare = 3 Bonde = 1</string>
   <string name="checkInTwo">Schack i två drag</string>
+  <string name="twoMovesToGiveCheck">Schacka efter två drag</string>
+  <string name="checkInTwoIntro">Hitta rätt dragföljd som schackar motståndarens kung i två drag!</string>
   <string name="checkInTwoGoal">Hota motståndarens kung i två drag!</string>
+  <string name="checkInTwoComplete">Grattis! Du schackade din motståndare och tvingade hen att försvara sin kung!</string>
   <string name="whatNext">Vad kommer härnäst?</string>
   <string name="youKnowHowToPlayChess">Du vet hur man spelar schack, Grattis! Vill du bli en starkare spelare?</string>
   <string name="register">Registrera dig</string>
+  <string name="getAFreeLichessAccount">Skaffa ett gratis Lichesskonto</string>
   <string name="practice">Träna</string>
   <string name="learnCommonChessPositions">Lär dig vanligt förekommande schackställningar</string>
   <string name="puzzles">Schackproblem</string>
@@ -152,15 +160,21 @@ Men ibland kan en springare vara smidig!</string>
   <string name="playMachine">Spela mot datorn</string>
   <string name="testYourSkillsWithTheComputer">Testa dina kunskaper med datorn</string>
   <string name="letsGo">Nu kör vi!</string>
+  <string name="stageX">Nivå %s</string>
   <string name="awesome">Grymt!</string>
   <string name="excellent">Utmärkt!</string>
   <string name="greatJob">Bra jobbat!</string>
   <string name="perfect">Perfekt!</string>
+  <string name="outstanding">Utmärkt!</string>
+  <string name="wayToGo">Helt rätt!</string>
   <string name="yesYesYes">Ja, ja, ja!</string>
   <string name="youreGoodAtThis">Du är bra på detta!</string>
   <string name="nailedIt">Där satt den.</string>
+  <string name="rightOn">Rätt på!</string>
+  <string name="stageXComplete">Nivå %s klar</string>
   <string name="yourScore">Dina poäng</string>
   <string name="next">Nästa</string>
   <string name="backToMenu">Tillbaka till menyn</string>
+  <string name="puzzleFailed">Felaktig lösning!</string>
   <string name="retry">Försök igen</string>
 </resources>
