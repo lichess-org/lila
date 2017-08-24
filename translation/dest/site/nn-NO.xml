@@ -168,7 +168,7 @@
   <string name="forgotPassword">Har du gløymt passordet?</string>
   <string name="rank">Rangering</string>
   <string name="rankX">Plassering: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Plassering vert oppdatert kvart %s minutt</string>
+  <string name="rankIsUpdatedEveryXMinutes">Plasseringa blir oppdatert kvart %s minutt</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s sjakkproblem</item>
     <item quantity="other">%s sjakkproblem</item>
@@ -181,8 +181,8 @@
   <string name="cancel">Avbryt</string>
   <string name="timeOut">Tida er ute</string>
   <string name="drawOfferSent">Tilbod om remis er sendt</string>
-  <string name="drawOfferDeclined">Remistilbodet blei avslått</string>
-  <string name="drawOfferAccepted">Remistilbodet blei godteke</string>
+  <string name="drawOfferDeclined">Remistilbod avslått</string>
+  <string name="drawOfferAccepted">Remistilbod godtatt</string>
   <string name="drawOfferCanceled">Remistilbodet blei trekt tilbake</string>
   <string name="whiteOffersDraw">Kvit tilbyr remis</string>
   <string name="blackOffersDraw">Svart tilbyr remis</string>
