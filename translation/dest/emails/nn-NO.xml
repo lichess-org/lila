@@ -16,4 +16,6 @@
 Her finn du profilsida di: %1$s. Du kan tilpasse den på %2$s.
 
 Ha det kjekt, og må brikkene dine alltid finne vegen til motspelarens konge!</string>
+  <string name="common_orPaste">(Fungerar det ikkje å klikke? Prøv å lime den inn i nettlesaren!)</string>
+  <string name="common_note">Dette er ein service-e-post i samband med bruken din av %s.</string>
 </resources>
