@@ -74,7 +74,7 @@
   <string name="topGames">Κορυφαίες παρτίδες</string>
   <string name="masterDbExplanation">Δύο εκατομμύρια OTB παρτίδες %1$s + παικτών με αξιολόγηση FIDE από %2$s έως %3$s</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">Ματ σε %s μισή-κίνηση</item>
+    <item quantity="one">Ματ σε %s μισή κίνηση</item>
     <item quantity="other">Ματ σε %s μισές-κινήσεις</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
@@ -82,7 +82,7 @@
     <item quantity="other">Επόμενο κόψιμο ή κίνηση πιονιού σε %s μισές-κινήσεις (Απόσταση μηδενισμού μετρητή 50 κινήσεων)</item>
   </plurals>
   <string name="noGameFound">Δεν βρέθηκε παρτίδα</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Ίσως να συμπεριλάβετε περισσότερα παιχνίδια από το μενού προτιμήσεων;</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Δοκιμάστε να συμπεριλάβετε περισσότερα παιχνίδια από το μενού προτιμήσεων.</string>
   <string name="openingExplorer">Εξερευνητής ανοιγμάτων και τελειωμάτων</string>
   <string name="xOpeningExplorer">%s εξερευνητής ανοιγμάτων</string>
   <string name="winPreventedBy50MoveRule">H νίκη εμποδίζεται από τον κανόνα των 50 κινήσεων</string>
@@ -90,13 +90,13 @@
   <string name="allSet">Εφαρμογή!</string>
   <string name="importPgn">Εισαγωγή PGN</string>
   <string name="delete">Διαγραφή</string>
-  <string name="deleteThisImportedGame">Διαγραφή εισαγόμενης παρτίδας;</string>
-  <string name="replayMode">Λειτουργία επανάληψης αναπαραγωγής</string>
+  <string name="deleteThisImportedGame">Διαγραφή εισηγμένης παρτίδας;</string>
+  <string name="replayMode">Επανάληψη</string>
   <string name="realtimeReplay">Σε πραγματικό χρόνο</string>
   <string name="byCPL">Με CPL</string>
   <string name="openStudy">Άνοιγμα μελέτης</string>
   <string name="enable">Ενεργοποίηση</string>
-  <string name="bestMoveArrow">Καλύτερη κίνηση βέλος</string>
+  <string name="bestMoveArrow">Βέλτιστη κίνηση βέλους</string>
   <string name="evaluationGauge">Δείκτης αξιολόγησης</string>
   <string name="multipleLines">Πολλαπλές γραμμές</string>
   <string name="cpus">CPUs</string>
@@ -166,7 +166,7 @@
   <string name="emailIsOptional">Το ηλ. ταχυδρομείο είναι προαιρετικό. Το Lichess θα το χρησιμοποιήσει μόνο σε περίπτωση που ξεχάσετε τον κωδικό σας για την επαναφορά του.</string>
   <string name="passwordReset">Επαναφορά κωδικού</string>
   <string name="forgotPassword">Ξεχάσατε τον κωδικό;</string>
-  <string name="rank">Επίπεδο</string>
+  <string name="rank">Κατάταξη</string>
   <string name="rankX">Κατάταξη: %s</string>
   <string name="rankIsUpdatedEveryXMinutes">Η κατάταξη ενημερώνεται κάθε %s λεπτά</string>
   <plurals name="nbPuzzles">
@@ -469,7 +469,7 @@
   <string name="no">Όχι</string>
   <string name="yes">Ναι</string>
   <string name="help">Βοήθεια:</string>
-  <string name="createANewTopic">Δημιουργήστε καινούργιο θέμα</string>
+  <string name="createANewTopic">Δημιουργήστε καινούριο θέμα</string>
   <string name="topics">Θέματα</string>
   <string name="posts">Δημοσιεύσεις</string>
   <string name="lastPost">Τελευταία δημοσίευση</string>
