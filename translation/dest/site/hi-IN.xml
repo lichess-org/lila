@@ -634,6 +634,11 @@
   <string name="networkLagBetweenYouAndLichess">आप और lichess के बीच नेटवर्क के अंतराल</string>
   <string name="timeToProcessAMoveOnLichessServer">Lichess सर्वर पर एक कदम प्रक्रिया के लिए समय</string>
   <string name="downloadAnnotated">एनोटेट डाउनलोड करें</string>
+  <string name="printFriendlyPDF">प्रिंट-अनुकूल PDF</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">आप खेल में जाने के लिए बोर्ड पर भी स्क्रॉल कर सकते हैं।</string>
+  <string name="analysisShapesHowTo">बोर्ड पर मंडलियां और तीरों को आकर्षित करने के लिए shift + click या right-click दबाएं</string>
+  <string name="confirmResignationAndDrawOffers">इस्तीफे की पुष्टि करें और ड्रा ऑफर करें</string>
+  <string name="inputMovesWithTheKeyboard">कंप्यूटर कीबोर्ड के साथ इनपुट करें</string>
   <string name="letOtherPlayersMessageYou">अन्य खिलाड़ियों को आपको संदेश देने दें</string>
   <string name="castleByMovingTwoSquares">राजा दो चौकों ले जाएँ</string>
   <string name="castleByMovingOntoTheRook">राजा हाथी पर ले जाएँ</string>
@@ -644,12 +649,16 @@
   <string name="youHaveAlreadyRegisteredTheEmail">आपने पहले ही ईमेल दर्ज कर लिया है: %s</string>
   <string name="kidMode">बच्चा मोड</string>
   <string name="kidModeExplanation">यह सुरक्षा के बारे में है। बच्चे मोड में, सभी साइट संचार अक्षम हैं। यह अपने बच्चों के लिए सक्षम और स्कूल के छात्रों उन्हें अन्य इंटरनेट उपयोगकर्ताओं से सुरक्षित करने के लिए।</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">बच्चे के मोड में, lichess लोगो को %s आइकन मिलता है, इसलिए आप जानते हैं कि आपके बच्चे सुरक्षित हैं</string>
   <string name="enableKidMode">बच्चे मोड को सक्षम करें</string>
   <string name="disableKidMode">बच्चे मोड अक्षम करें</string>
   <string name="security">सुरक्षा</string>
   <string name="alternativelyYouCanX">वैकल्पिक रूप से आप %s कर सकते हैं।</string>
   <string name="revokeAllSessions">सभी सत्र रद्द</string>
   <string name="playChessEverywhere">हर जगह शतरंज खेलें</string>
+  <string name="asFreeAsLichess">Lichess जैसा मुक्त</string>
+  <string name="builtForTheLoveOfChessNotMoney">शतरंज के प्यार के लिए निर्मित, धन के लिए नहीं</string>
+  <string name="everybodyGetsAllFeaturesForFree">हर कोई मुफ्त में सभी सुविधाओं प्राप्त करता है</string>
   <string name="zeroAdvertisement">शून्य विज्ञापन</string>
   <string name="fullFeatured">पूरा विशेष रुप से प्रदर्शित</string>
   <string name="phoneAndTablet">फोन और टैबलेट</string>
@@ -665,6 +674,7 @@
   <string name="gameAnalysis">खेल अध्ययन</string>
   <string name="xHostsY">%1$s मेजबान %2$s</string>
   <string name="xLikesY">%1$s ने %2$s पसंद किया:</string>
+  <string name="quickPairing">त्वरित युग्मन</string>
   <string name="lobby">लॉबी</string>
   <string name="anonymous">अज्ञात</string>
   <string name="yourScore">आपका स्कोर: %s</string>
