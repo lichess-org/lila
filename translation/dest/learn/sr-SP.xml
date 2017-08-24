@@ -27,6 +27,15 @@
 један ловац на црном пољу.
 Требају ти оба!</string>
   <string name="bishopComplete">Честитамо! Можете управљати ловцем.</string>
+  <string name="theQueen">Дама</string>
+  <string name="queenCombinesRookAndBishop">Дама = топ + ловац</string>
+  <string name="queenIntro">Најснажнија шаховска фигура улази. Њено величанство, дама!</string>
+  <string name="queenComplete">Честитамо! Даме немају тајне за тебе.</string>
+  <string name="theKing">Краљ</string>
+  <string name="theMostImportantPiece">Најважнија фигура</string>
+  <string name="kingIntro">Ви сте краљ. Ако паднете у борби, изгубили сте.</string>
+  <string name="theKingIsSlow">Краљ је спор.</string>
+  <string name="lastOne">Последњи!</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Ваш пешак је стигао до краја табле!</string>
   <string name="boardSetupComplete">Честитамо! Знате да поставите шаховску таблу.</string>
   <string name="enPassantOnlyWorksOnFifthRank">Ан пасан је могућ само
