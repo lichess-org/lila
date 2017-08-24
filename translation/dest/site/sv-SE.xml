@@ -35,7 +35,7 @@
   <string name="makeYourOpponentResign">Begär vinst</string>
   <string name="forceResignation">Begär vinst</string>
   <string name="forceDraw">Begär remi</string>
-  <string name="talkInChat">Var snäll och uppträd trevligt i chatten!</string>
+  <string name="talkInChat">Vänligen uppträd trevligt i chatten!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Den första som använder den här länken kommer att spela med dig.</string>
   <string name="whiteResigned">Vit har gett upp</string>
   <string name="blackResigned">Svart har gett upp</string>
@@ -725,10 +725,10 @@
   <string name="usernameInvalid">Ogiltigt användarnamn. Använd bara bokstäver, siffror, understreck och bindestreck.</string>
   <string name="usernameStartNoNumber">Användarnamnet får inte inledas med ett nummer.</string>
   <string name="usernameUnacceptable">Detta användarnamn är inte acceptabelt.</string>
-  <string name="directlySupportLichess">Stöd lichess direkt</string>
-  <string name="playChessInStyle">Spela schack i stil</string>
-  <string name="chessBasics">Grunder i schack</string>
-  <string name="coaches">Coacher</string>
+  <string name="directlySupportLichess">Stöd Lichess</string>
+  <string name="playChessInStyle">Spela schack med stil</string>
+  <string name="chessBasics">Grunderna i schack</string>
+  <string name="coaches">Schackcoacher</string>
   <string name="invalidPgn">Ogiltig PGN</string>
   <string name="invalidFen">Ogiltig FEN</string>
   <string name="error.minLength">Minimilängd är %s</string>
