@@ -92,7 +92,7 @@ lichess.topMenuIntent = function() {
         setTimeout(function() {
           lichess.hasToReload = true;
           $.redirect(o);
-        }, 300);
+        }, 200);
       },
       deployPost: function(html) {
         $('#notifications').append(
