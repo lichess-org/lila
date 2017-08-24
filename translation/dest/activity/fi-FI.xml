@@ -7,4 +7,25 @@
     <item quantity="one">Harjoitteli %1$s %2$s -tilannetta</item>
     <item quantity="other">Harjoitteli %1$s %2$s -tilannetta</item>
   </plurals>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="one">Harjoitteli %s taktiikkatehtävää</item>
+    <item quantity="other">Harjoitteli %s taktiikkatehtävää</item>
+  </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="one">Pelasi %1$s %2$s-pelin</item>
+    <item quantity="other">Pelasi %1$s %2$s-peliä</item>
+  </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="one">Lähetti %1$s viestin alueelle %2$s</item>
+    <item quantity="other">Lähetti %1$s viestiä alueelle %2$s</item>
+  </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">Pelasi %1$s siirron %2$s-kirjeshakkipel(e)issä</item>
+    <item quantity="other">Pelasi %1$s siirtoa %2$s-kirjeshakkipel(e)issä</item>
+  </plurals>
+  <string name="signedUp">Liittyi lichess.orgiin</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">Liittyi %s joukkueeseen</item>
+    <item quantity="other">Liittyi %s joukkueeseen</item>
+  </plurals>
 </resources>
