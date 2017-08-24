@@ -87,20 +87,20 @@
   <string name="captureAndDefendPieces">Αιχμαλωτίστε και υπερασπιστείτε πιόνια</string>
   <string name="combatIntro">Ο καλός παίκτης γνωρίζει τόσο την επίθεση όσο και την άμυνα!</string>
   <string name="combatComplete">Συγχαρητήρια! Ξέρετε πως να μάχεστε με τα πιόνια του σκακιού!</string>
-  <string name="checkInOne">Σαχ σε μία</string>
+  <string name="checkInOne">Σαχ σε μία κίνηση</string>
   <string name="attackTheOpponentsKing">Επίθεση στον βασιλιά του αντιπάλου</string>
   <string name="checkInOneIntro">Για να κάνετε σαχ στον αντίπαλο σας, επιτεθείτε στον βασιλιά του. Πρέπει να τον υπερασπιστεί!</string>
   <string name="checkInOneGoal">Απειλήστε τον βασιλιά του αντιπάλου με μία κίνηση!</string>
-  <string name="checkInOneComplete">Συγχαρητήρια! Κάνατε σαχ στον αντίπαλο, αναγκάζοντας τον να προστατεύσει τον βασιλιά του!</string>
+  <string name="checkInOneComplete">Συγχαρητήρια! Κάνατε σαχ στον αντίπαλο, αναγκάζοντάς τον να προστατεύσει τον βασιλιά του!</string>
   <string name="outOfCheck">Ξεφεύγοντας από σαχ</string>
   <string name="defendYourKing">Υπερασπιστείτε τον βασιλιά σας</string>
-  <string name="outOfCheckIntro">Είστε σε σαχ! Πρέπει να ξεφύγετε ή να αποκλείσετε την επίθεση.</string>
+  <string name="outOfCheckIntro">Είστε σε σαχ! Πρέπει να ξεφύγετε ή να εμποδίσετε την επίθεση.</string>
   <string name="escapeWithTheKing">Ξεφύγετε με τον βασιλιά!</string>
-  <string name="theKingCannotEscapeButBlock">Ο βασιλιάς δεν μπορεί να ξεφύγει, αλλά μπορείτε να αποκλείσετε την επίθεση!</string>
+  <string name="theKingCannotEscapeButBlock">Ο βασιλιάς δεν μπορεί να ξεφύγει, αλλά μπορείτε να εμποδίσετε την επίθεση!</string>
   <string name="youCanGetOutOfCheckByTaking">Μπορείτε να ξεφύγετε από το σαχ παίρνοντας το επιτιθέμενο πιόνι.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Αυτός ο ίππος κάνει σαχ μέσω της άμυνας σας!</string>
-  <string name="escapeOrBlock">Ξεφύγετε με τον βασιλιά ή αποκλείστε την επίθεση!</string>
-  <string name="outOfCheckComplete">Συγχαρητήρια! Ο βασιλιάς σας είναι ασφαλής, βεβαιωθείτε ότι θα μπορείτε να προστατεύσετε ενάντια σε ένα σαχ!</string>
+  <string name="escapeOrBlock">Ξεφύγετε με τον βασιλιά ή εμποδίστε την επίθεση!</string>
+  <string name="outOfCheckComplete">Συγχαρητήρια! Ο βασιλιάς πρέπει να είναι πάντα ασφαλής, βεβαιωθείτε ότι θα τον προστατεύετε ενάντια σε ένα σαχ!</string>
   <string name="mateInOne">Ματ σε μία</string>
   <string name="defeatTheOpponentsKing">Νικήστε τον βασιλιά του αντιπάλου</string>
   <string name="mateInOneIntro">Κερδίζετε όταν ο αντίπαλος σας δεν μπορεί να υπερασπιστεί ενάντια σε σαχ.</string>
@@ -108,19 +108,19 @@
   <string name="mateInOneComplete">Συγχαρητήρια! Έτσι κερδίζετε τα παιχνίδια στο σκάκι!</string>
   <string name="intermediate">Ενδιάμεσο στάδιο</string>
   <string name="boardSetup">Στήσιμο σκακιέρας</string>
-  <string name="howTheGameStarts">Πως αρχίζει το παιχνίδι</string>
+  <string name="howTheGameStarts">Πώς αρχίζει το παιχνίδι</string>
   <string name="boardSetupIntro">Οι δύο στρατοί αντιμετωπίζουν ο ένας τον άλλον, έτοιμοι για τη μάχη.</string>
   <string name="thisIsTheInitialPosition">Αυτή είναι η αρχική θέση
 κάθε παρτίδας στο σκάκι!
 Κάντε οποιαδήποτε κίνηση για συνέχεια.</string>
   <string name="firstPlaceTheRooks">Πρώτα τοποθετήστε τους πύργους!
-Πηγαίνουν στις γωνίες.</string>
+Μπαίνουν στις γωνίες.</string>
   <string name="thenPlaceTheKnights">Μετά τοποθετήστε τους ίππους!
-Πηγαίνουν δίπλα στους πύργους.</string>
+Μπαίνουν δίπλα στους πύργους.</string>
   <string name="placeTheBishops">Τοποθετήστε τους αξιωματικούς!
-Πηγαίνουν δίπλα στους ίππους.</string>
+Μπαίνουν δίπλα στους ίππους.</string>
   <string name="placeTheQueen">Τοποθετήστε την βασίλισσα!
-Πηγαίνει στο χρώμα της.</string>
+Μπαίνει στο χρώμα της.</string>
   <string name="placeTheKing">Τοποθετήστε τον βασιλιά!
 Ακριβώς δίπλα στη βασίλισσά του.</string>
   <string name="pawnsFormTheFrontLine">Τα πιόνια αποτελούν την πρώτη γραμμή.
@@ -149,13 +149,13 @@
 ροκέ στη πλευρά του βασιλιά!</string>
   <string name="findAWayToCastleQueenSide">Βρείτε τρόπο για να κάνετε
 ροκέ στη πλευρά της βασίλισσας!</string>
-  <string name="castlingComplete">Συγχαρητήρια! Σχεδόν πάντα θα κάνετε ροκέ στην παρτίδα.</string>
+  <string name="castlingComplete">Συγχαρητήρια! Προτείνεται να κάνετε ροκέ σε κάθε παρτίδα.</string>
   <string name="enPassant">Εν διελεύσει</string>
   <string name="theSpecialPawnMove">Ειδική κίνηση πιονιού</string>
-  <string name="enPassantIntro">Όταν το αντίπαλο πιόνι κινήθηκε δύο τετράγωνα, μπορείτε να το κόψετε σαν να είχε κινηθεί μόνο ένα τετράγωνο.</string>
-  <string name="blackJustMovedThePawnByTwoSquares">Ο μαύρος μόλις μετακίνησε το πιόνι ανά δύο τετράγωνα!
+  <string name="enPassantIntro">Όταν το αντίπαλο πιόνι κινηθεί δύο τετράγωνα, μπορείτε να το πάρετε σαν να είχε κινηθεί μόνο ένα τετράγωνο.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Τα μαύρα μόλις μετακίνησαν το πιόνι ανά δύο τετράγωνα!
 Πάρτε το εν διελεύσει.</string>
-  <string name="enPassantOnlyWorksImmediately">Το εν διελεύσει λειτουργεί μόνο αμέσως αφού ο αντίπαλος έχει μετακινήσει το πιόνι.</string>
+  <string name="enPassantOnlyWorksImmediately">Το εν διελεύσει λειτουργεί μόνο αμέσω ςμετά την μετακίνηση του αντίπαλου πιονιού.</string>
   <string name="enPassantOnlyWorksOnFifthRank">Το εν διελεύσει λειτουργεί μόνο αν το πιόνι σας βρίσκεται στην 5η βαθμίδα.</string>
   <string name="takeAllThePawnsEnPassant">Πάρτε όλα τα πιόνια εν διελεύσει!</string>
   <string name="enPassantComplete">Συγχαρητήρια! Μπορείτε να πάρετε τώρα εν διελεύσει.</string>
@@ -167,7 +167,7 @@
 - Δεν υπάρχει σαχ.</string>
   <string name="stalemateComplete">Συγχαρητήρια! Καλύτερα πατ παρά σαχ-ματ!</string>
   <string name="advanced">Προχωρημένο στάδιο</string>
-  <string name="pieceValue">Αξία κομματιού</string>
+  <string name="pieceValue">Αξία πιονιού</string>
   <string name="evaluatePieceStrength">Αξιολογήστε τη δύναμη κάθε κομματιού</string>
   <string name="pieceValueIntro">Τα κομμάτια με υψηλή κινητικότητα έχουν υψηλότερη αξία!
 Βασίλισσα = 9
