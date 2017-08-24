@@ -148,7 +148,6 @@ object Puzzle extends LilaController {
             env.finisher.incPuzzleAttempts(puzzle)
             Ok(Json.obj("user" -> false)).fuccess
         }
-
       ) map (_ as JSON)
     }
   }

@@ -1,8 +1,5 @@
-import com.typesafe.sbt.SbtScalariform.ScalariformKeys
-import com.typesafe.sbt.SbtScalariform.autoImport.scalariformFormat
 import play.sbt.Play.autoImport._
 import sbt._, Keys._
-import scalariform.formatter.preferences._
 
 object BuildSettings {
 
@@ -21,11 +18,8 @@ object BuildSettings {
     // disable publishing the main API jar
     publishArtifact in (Compile, packageDoc) := false,
     // disable publishing the main sources jar
-    publishArtifact in (Compile, packageSrc) := false) ++ Seq(
-      ScalariformKeys.preferences := ScalariformKeys.preferences.value
-        .setPreference(DanglingCloseParenthesis, Force)
-        .setPreference(DoubleIndentConstructorArguments, true),
-      excludeFilter in scalariformFormat := "*Routes*")
+    publishArtifact in (Compile, packageSrc) := false
+  )
 
   def defaultDeps = Seq(scalaz, scalalib, jodaTime, ws, java8compat, specs2)
 
@@ -35,13 +29,15 @@ object BuildSettings {
   def module(name: String, deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]] = Seq.empty) =
     Project(
       name,
-      file("modules/" + name))
+      file("modules/" + name)
+    )
       .dependsOn(deps: _*)
       .settings(
         version := "2.0",
         libraryDependencies := defaultDeps,
         buildSettings,
-        srcMain)
+        srcMain
+      )
 
   val compilerOptions = Seq(
     "-deprecation", "-unchecked", "-feature", "-language:_",

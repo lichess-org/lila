@@ -1,3 +1,6 @@
+import com.typesafe.sbt.SbtScalariform.ScalariformKeys
+import scalariform.formatter.preferences._
+import com.typesafe.sbt.SbtScalariform.autoImport.scalariformFormat
 import com.typesafe.sbt.packager.Keys.scriptClasspath
 import com.typesafe.sbt.web.SbtWeb.autoImport._
 import play.Play.autoImport._
@@ -12,43 +15,46 @@ lazy val root = Project("lila", file("."))
   .enablePlugins(_root_.play.sbt.PlayScala)
   .dependsOn(api)
   .aggregate(api)
-  .settings(Seq(
-    scalaVersion := globalScalaVersion,
-    resolvers ++= Dependencies.Resolvers.commons,
-    scalacOptions := compilerOptions,
-    incOptions := incOptions.value.withNameHashing(true),
-    updateOptions := updateOptions.value.withCachedResolution(true),
-    sources in doc in Compile := List(),
-    // disable publishing the main API jar
-    publishArtifact in (Compile, packageDoc) := false,
-    // disable publishing the main sources jar
-    publishArtifact in (Compile, packageSrc) := false,
-    // don't stage the conf dir
-    externalizeResources := false,
-    // shorter prod classpath
-    scriptClasspath := Seq("*"),
-    // offline := true,
-    libraryDependencies ++= Seq(
-      scalaz, scalalib, hasher, typesafeConfig, findbugs,
-      reactivemongo.driver, reactivemongo.iteratees, akka.actor, akka.slf4j,
-      maxmind, prismic, netty, guava,
-      kamon.core, kamon.influxdb,
-      java8compat, semver, scrimage, scalaConfigs, scaffeine
-    ),
-    TwirlKeys.templateImports ++= Seq(
-      "lila.game.{ Game, Player, Pov }",
-      "lila.tournament.Tournament",
-      "lila.user.{ User, UserContext }",
-      "lila.security.Permission",
-      "lila.app.templating.Environment._",
-      "lila.api.Context",
-      "lila.i18n.{ I18nKeys => trans }",
-      "lila.common.paginator.Paginator"
-    ),
-    // trump sbt-web into not looking at public/
-    resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets",
-    excludeFilter in scalariformFormat := "*Routes*"
-  ))
+
+scalaVersion := globalScalaVersion
+resolvers ++= Dependencies.Resolvers.commons
+scalacOptions := compilerOptions
+incOptions := incOptions.value.withNameHashing(true)
+updateOptions := updateOptions.value.withCachedResolution(true)
+sources in doc in Compile := List()
+// disable publishing the main API jar
+publishArtifact in (Compile, packageDoc) := false
+// disable publishing the main sources jar
+publishArtifact in (Compile, packageSrc) := false
+// don't stage the conf dir
+externalizeResources := false
+// shorter prod classpath
+scriptClasspath := Seq("*")
+// offline := true
+libraryDependencies ++= Seq(
+  scalaz, scalalib, hasher, typesafeConfig, findbugs,
+  reactivemongo.driver, reactivemongo.iteratees, akka.actor, akka.slf4j,
+  maxmind, prismic, netty, guava,
+  kamon.core, kamon.influxdb,
+  java8compat, semver, scrimage, scalaConfigs, scaffeine
+)
+TwirlKeys.templateImports ++= Seq(
+  "lila.game.{ Game, Player, Pov }",
+  "lila.tournament.Tournament",
+  "lila.user.{ User, UserContext }",
+  "lila.security.Permission",
+  "lila.app.templating.Environment._",
+  "lila.api.Context",
+  "lila.i18n.{ I18nKeys => trans }",
+  "lila.common.paginator.Paginator"
+)
+resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets"
+
+Seq(
+  ScalariformKeys.preferences := ScalariformKeys.preferences.value
+  .setPreference(DanglingCloseParenthesis, Force)
+  .setPreference(DoubleIndentConstructorArguments, true),
+  excludeFilter in scalariformFormat := "*Routes*")
 
 lazy val modules = Seq(
   chess, common, db, rating, user, security, hub, socket,
