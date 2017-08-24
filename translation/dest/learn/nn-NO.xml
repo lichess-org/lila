@@ -106,7 +106,8 @@ Det er inga grunn til forvandling.</string>
   <string name="thenPlaceTheKnights">Sett så springarane på plassane sine! Dei står ved sida av tårna.</string>
   <string name="placeTheBishops">Sett på plass løparane! Dei står inn mot springarane.</string>
   <string name="placeTheQueen">Sett dronningene på plassane deira! Svart dronning på svart felt, kvit dronning på kvitt felt.</string>
-  <string name="placeTheKing">Sett kongen på plassen sin. Rett ved sida av dronninga.</string>
+  <string name="placeTheKing">Sett kongen på plassen sin! Rett ved sida av dronninga.</string>
+  <string name="pawnsFormTheFrontLine">Bøndene utgjer frontlina. Gjer eit valfritt trekk når du vil halda fram.</string>
   <string name="theGameIsADraw">Partiet endar i remis</string>
   <string name="stalemateIntro">Når ein spelar ikkje er i sjakk utan å ha eit lovleg trekk å gjera er det patt. Partiet er remis: ingen vinn, ingen tapar.</string>
   <string name="stalemateGoal">For å setje svart patt:
