@@ -64,6 +64,15 @@
   <string name="capture">Võtta</string>
   <string name="close">Sulge</string>
   <string name="winning">Võidab</string>
+  <string name="losing">Kaotav</string>
+  <string name="drawn">Viik</string>
+  <string name="unknown">Teadmata</string>
+  <string name="database">Andmebaas</string>
+  <string name="whiteDrawBlack">Valge / Viik / Must</string>
+  <string name="averageRatingX">Keskmine reiting: %s</string>
+  <string name="recentGames">Hiljutised mängud</string>
+  <string name="topGames">Parimad mängud</string>
+  <string name="masterDbExplanation">Kaks miljonit päriselumängu %1$s+ FIDE hinnatud mängijat alates %2$s kuni %3$s</string>
   <string name="openingExplorer">Avangute avastamine</string>
   <string name="blunders">vigu</string>
   <string name="mistakes">eksimusi</string>
