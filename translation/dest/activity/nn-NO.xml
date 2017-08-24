@@ -52,4 +52,8 @@
     <item quantity="other">Kom på plass #%1$s (topp %2$s%%) med %3$s parti i %4$s</item>
   </plurals>
   <string name="signedUp">Er registrert på Lichess</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">Er medlem av %s lag</item>
+    <item quantity="other">Er medlem av %s lag</item>
+  </plurals>
 </resources>
