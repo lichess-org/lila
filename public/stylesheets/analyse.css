@@ -1241,6 +1241,8 @@ body.piece_letter .tview2 move {
 .tview2 move:not(.empty):hover eval {
   background: #3893e8;
   color: #fff!important;
+}
+.tview2.literal move:hover {
   border-radius: 3px;
 }
 .tview2 move.empty {
