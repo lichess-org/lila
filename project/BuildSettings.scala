@@ -1,4 +1,5 @@
 import com.typesafe.sbt.SbtScalariform.ScalariformKeys
+import com.typesafe.sbt.SbtScalariform.autoImport.scalariformFormat
 import play.sbt.Play.autoImport._
 import sbt._, Keys._
 import scalariform.formatter.preferences._
@@ -24,7 +25,8 @@ object BuildSettings {
   ) ++ Seq(
       ScalariformKeys.preferences := ScalariformKeys.preferences.value
         .setPreference(DanglingCloseParenthesis, Force)
-        .setPreference(DoubleIndentConstructorArguments, true)
+        .setPreference(DoubleIndentConstructorArguments, true),
+      excludeFilter in scalariformFormat := "*Routes*"
     )
 
   def defaultDeps = Seq(scalaz, scalalib, jodaTime, ws, java8compat, specs2)

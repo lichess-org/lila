@@ -1,6 +1,5 @@
 import com.typesafe.sbt.packager.Keys.scriptClasspath
 import com.typesafe.sbt.web.SbtWeb.autoImport._
-import com.typesafe.sbt.SbtScalariform
 import play.Play.autoImport._
 import play.sbt.PlayImport._
 import play.twirl.sbt.Import._
@@ -50,9 +49,7 @@ object ApplicationBuild extends Build {
         "lila.common.paginator.Paginator"
       ),
       // trump sbt-web into not looking at public/
-      resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets",
-      // don't autoformat play generated routes classes
-      excludeFilter in SbtScalariform.autoImport.scalariformFormat in Compile := "*Routes*"
+      resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets"
     ))
 
   lazy val modules = Seq(
