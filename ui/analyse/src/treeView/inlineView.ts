@@ -111,7 +111,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
     showEval: !!ctrl.study || ctrl.showComputer()
   };
   const commentTags = renderInlineCommentsOf(ctx, root);
-  return h('div.tview2.literal', {
+  return h('div.tview2.inline', {
     hook: mainHook(ctrl)
   }, [
     ...commentTags,

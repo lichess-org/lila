@@ -1209,7 +1209,7 @@ body.dark .aclock.active {
   font-size: 13.5px;
   line-height: 1.25;
 }
-.tview2.literal {
+.tview2.inline {
   padding: 7px 0px 7px 7px;
   font-size: 18px;
   line-height: 1.05em;
@@ -1228,7 +1228,7 @@ body.piece_letter .tview2 move {
   font-size: 1.092em;
   padding: 0 2px;
 }
-.tview2.literal move {
+.tview2.inline move {
   padding: 0.25em 0.17em;
   white-space: nowrap;
 }
@@ -1250,7 +1250,7 @@ body.piece_letter .tview2 move {
   background: #3893e8;
   color: #fff!important;
 }
-.tview2.literal move:hover {
+.tview2.inline move:hover {
   border-radius: 3px;
 }
 .tview2 move.empty {
@@ -1271,7 +1271,7 @@ body.piece_letter .tview2 move {
 .tview2.column move index:first-child {
   padding-left: 0;
 }
-.tview2.literal move index {
+.tview2.inline move index {
   padding-right: 0.2em;
 }
 .tview2 line move {
@@ -1334,7 +1334,7 @@ body.piece_letter .tview2 move {
   padding: 3px 5px;
   word-wrap: break-word;
 }
-.tview2.literal comment {
+.tview2.inline comment {
   vertical-align: 0.62em;
   word-wrap: break-word;
   color: #7492bf;
@@ -1455,8 +1455,8 @@ body.piece_letter .tview2 move {
   content: ')';
   margin-right: 2px;
 }
-.tview2.literal inline::before,
-.tview2.literal inline::after {
+.tview2.inline inline::before,
+.tview2.inline inline::after {
   vertical-align: 0.7em;
 }
 .tview2 .conceal {
@@ -1480,7 +1480,7 @@ body.dark .tview2.column comment {
 body.dark .tview2.column line comment {
   color: #888;
 }
-body.dark .tview2.literal comment {
+body.dark .tview2.inline comment {
   color: #869fc3;
 }
 body.dark .tview2 lines,

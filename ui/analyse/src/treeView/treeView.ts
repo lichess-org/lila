@@ -8,7 +8,7 @@ import { MaybeVNodes, ConcealOf } from '../interfaces';
 import { authorText as commentAuthorText } from '../study/studyComments';
 import { path as treePath } from 'tree';
 import column from './columnView';
-import literate from './literateView';
+import inline from './inlineView';
 import { empty, defined, dropThrottle, storedProp, StoredProp } from 'common';
 
 export interface Ctx {
@@ -35,7 +35,7 @@ export interface NodeClasses {
   [key: string]: boolean;
 }
 
-export type TreeViewKey = 'column' | 'literate';
+export type TreeViewKey = 'column' | 'inline';
 
 export interface TreeView {
   get: StoredProp<TreeViewKey>;
@@ -47,7 +47,7 @@ export function ctrl(): TreeView {
   return {
     get: value,
     toggle() {
-      value(value() === 'column' ? 'literate' : 'column');
+      value(value() === 'column' ? 'inline' : 'column');
     }
   };
 }
@@ -56,7 +56,7 @@ export function ctrl(): TreeView {
 // entry point, dispatching to selected view
 export function render(ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
   if (ctrl.treeView.get() === 'column') return column(ctrl, concealOf);
-  return literate(ctrl);
+  return inline(ctrl);
 }
 
 export function nodeClasses(c: AnalyseCtrl, path: Tree.Path): NodeClasses {
