@@ -120,4 +120,9 @@ men du kan forsvare!</string>
   <string name="castleKingSideMovePiecesFirst">Roker kort! Du må få ut brikkene dine først.</string>
   <string name="castleQueenSideMovePiecesFirst">Roker langt! Du må få ut brikkene dine først.</string>
   <string name="youCannotCastleIfMoved">Du kan ikke rokere etter at kongen eller tårnet er flytta på.</string>
+  <string name="youCannotCastleIfAttacked">Du kan ikke rokere om kongen er under angrep. Blokker sjakken først og roker etterpå!</string>
+  <string name="findAWayToCastleKingSide">Finn en måte å rokere kort på!</string>
+  <string name="findAWayToCastleQueenSide">Finn en måte å rokere langt på!</string>
+  <string name="castlingComplete">Gratulerer! Du bør nesten alltid rokere.</string>
+  <string name="enPassant">En passant</string>
 </resources>
