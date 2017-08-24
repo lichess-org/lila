@@ -268,6 +268,14 @@
   <string name="viewTournament">Visa turnering</string>
   <string name="backToTournament">Tillbaka till turnering</string>
   <string name="thematic">Tema</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s rankat parti</item>
+    <item quantity="other">≥ %s rankade partier</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2%s rankat parti</item>
+    <item quantity="other">≥ %1$s %2%s rankade partier</item>
+  </plurals>
   <string name="backToGame">Tillbaka till partiet</string>
   <string name="siteDescription">Gratis Schack på internet. Spela Schack nu, med ett enkelt gränssnitt. Ingen registrering, inga annonser, inga insticksprogram behövs. Spela schack mot datorn, vänner eller vem som helst.</string>
   <string name="teams">Lag</string>
