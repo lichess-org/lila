@@ -114,6 +114,16 @@ Det er inga grunn til forvandling.</string>
   <string name="castlingIntro">Få kongen din i tryggleik og ta i bruk tårnet som angrepsvåpen!</string>
   <string name="castleKingSide">Flytt kongen kongen to felt inn på kongefløya for å førebu ein kort rokade!</string>
   <string name="castleQueenSide">Flytt kongen kongen to felt inn på dronningfløya for å førebu ein lang rokade!</string>
+  <string name="theKnightIsInTheWay">Springaren står i vegen! Flytt den og ta ein kort rokade.</string>
+  <string name="castleKingSideMovePiecesFirst">Roker kort! Du må få ut brikkene dine først.</string>
+  <string name="castleQueenSideMovePiecesFirst">Roker langt! Du må få ut brikkene dine først.</string>
+  <string name="youCannotCastleIfMoved">Du kan ikkje rokere etter at kongen eller tårnet er flytta på.</string>
+  <string name="youCannotCastleIfAttacked">Du kan ikkje rokere om kongen er under åtak. Blokker sjakken først og roker etterpå!</string>
+  <string name="findAWayToCastleKingSide">Finn eit vis å rokere kort på!</string>
+  <string name="findAWayToCastleQueenSide">Finn eit vis å rokere langt på!</string>
+  <string name="castlingComplete">Gratulerar! Du bør nesten alltid rokere.</string>
+  <string name="enPassant">En passant</string>
+  <string name="theSpecialPawnMove">Det særeigne bondetrekket</string>
   <string name="theGameIsADraw">Partiet endar i remis</string>
   <string name="stalemateIntro">Når ein spelar ikkje er i sjakk utan å ha eit lovleg trekk å gjera er det patt. Partiet er remis: ingen vinn, ingen tapar.</string>
   <string name="stalemateGoal">For å setje svart patt:
