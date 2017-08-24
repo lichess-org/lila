@@ -3,4 +3,24 @@
 <resources>
   <string name="activity">Aktivitet</string>
   <string name="supportedNbMonths">Støtt lichess i %1$s måneder som en %2$s</string>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="one">Har løst %s taktikkoppgaver</item>
+    <item quantity="other">Har løst %s taktikkoppgaver</item>
+  </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="one">Har spilt %1$s %2$s partier</item>
+    <item quantity="other">Har spilt %1$s %2$s partier</item>
+  </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="one">Har skrevet %1$s innlegg i %2$s</item>
+    <item quantity="other">Har skrevet %1$s innlegg i %2$s</item>
+  </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">Har spilt %1$s trekk i %2$s korrespondensparti</item>
+    <item quantity="other">Har spilt %1$s trekk i %2$s korrespondensparti</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">Har spilt %s fjernsjakkparti</item>
+    <item quantity="other">Har spilt %s fjernsjakkpartier</item>
+  </plurals>
 </resources>
