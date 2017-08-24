@@ -564,9 +564,9 @@
   <string name="sound">Dźwięk</string>
   <string name="yourPreferencesHaveBeenSaved">Twoje ustawienia zostały zapisane.</string>
   <string name="none">Brak</string>
-  <string name="fast">Szybko</string>
+  <string name="fast">Szybka</string>
   <string name="normal">Normalna</string>
-  <string name="slow">Wolno</string>
+  <string name="slow">Wolna</string>
   <string name="insideTheBoard">Na szachownicy</string>
   <string name="outsideTheBoard">Poza szachownicą</string>
   <string name="onSlowGames">W wolniejszych grach</string>
@@ -629,7 +629,7 @@
   <string name="error.email_unique">Podany adres email został już użyty</string>
   <string name="error.email_different">To już jest Twój adres e-mail</string>
   <string name="blindfoldChess">Gra na ślepo (figury niewidoczne)</string>
-  <string name="zenMode">Tryb Zen</string>
+  <string name="zenMode">Tryb Zen (minimalistyczny interfejs)</string>
   <string name="moveConfirmation">Potwierdzenie ruchu</string>
   <string name="inCorrespondenceGames">W grze korespondencyjnej</string>
   <string name="ifRatingIsPlusMinusX">O rankingu ± %s</string>
