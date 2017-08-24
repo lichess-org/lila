@@ -82,4 +82,24 @@ men du kan forsvare!</string>
   <string name="combatComplete">Gratulerer! Du kjenner til hvordan en kjemper med sjakkbrikker!</string>
   <string name="checkInOne">Sjakk i ett trekk</string>
   <string name="attackTheOpponentsKing">Angrip motspillerens konge</string>
+  <string name="checkInOneIntro">Angrip og sjakk motspillerens konge, for den må forsvares!</string>
+  <string name="checkInOneGoal">Gå etter motspillerens konge ett trekk!</string>
+  <string name="checkInOneComplete">Gratulerer! Du satte motspilleren i sjakk og tvang med det fram et forsvar av kongen!</string>
+  <string name="outOfCheck">Ut av sjakkingen</string>
+  <string name="defendYourKing">Forsvar kongen din</string>
+  <string name="outOfCheckIntro">Du står i sjakk! Du må flykte fra trusselen eller blokkere angrepet.</string>
+  <string name="escapeWithTheKing">Få kongen vekk!</string>
+  <string name="theKingCannotEscapeButBlock">Kongen kommer ikke unna, men du kan blokkere angrepet!</string>
+  <string name="youCanGetOutOfCheckByTaking">Du kan komme unna sjakken ved å slå ut den angripende brikken.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Denne springeren sjakker rett gjennom forsvarsverket ditt!</string>
+  <string name="escapeOrBlock">Få kongen vekk eller blokker angrepet!</string>
+  <string name="outOfCheckComplete">Gratulerer! Kongen din kan ikke tas, pass på at du kan forsvare deg mot å bli satt sjakk!</string>
+  <string name="mateInOne">Matt i ett trekk</string>
+  <string name="defeatTheOpponentsKing">Beseire motspillerens konge</string>
+  <string name="mateInOneIntro">Du vinner når motspilleren ikke kan forsvare seg mot sjakk.</string>
+  <string name="attackYourOpponentsKing">Angrip motspillerens konge på en måte som det ikke er mulig å forsvare seg mot!</string>
+  <string name="mateInOneComplete">Gratulerer! Slik vinner du et sjakkparti!</string>
+  <string name="intermediate">Middels vanskelig</string>
+  <string name="boardSetup">Oppstilling på brettet</string>
+  <string name="howTheGameStarts">Hvordan partiet starter</string>
 </resources>
