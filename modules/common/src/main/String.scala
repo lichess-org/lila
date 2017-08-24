@@ -121,7 +121,7 @@ object String {
 
     private def urlToImgUnsafe(url: String): Option[String] =
       imgUrlPattern.matcher(url).matches option
-        s"""<img src="$url" width="100%" style="max-width:100%" />"""
+        s"""<img class="embed" src="$url" width="100%" style="max-width:100%" />"""
 
     private def urlOrImgUnsafe(url: String) = urlToImgUnsafe(url) getOrElse url
 

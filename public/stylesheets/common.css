@@ -1901,6 +1901,11 @@ iframe.video {
   border: none;
   margin: 1em 0;
 }
+img.embed {
+  max-height: 600px;
+  background: rgba(127, 127, 127, 0.05);
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
 body ::-webkit-scrollbar,
 body ::-webkit-scrollbar-corner {
   width: 8px;
