@@ -103,12 +103,12 @@
   <string name="memory">Minne</string>
   <string name="infiniteAnalysis">Uendeleg analyse</string>
   <string name="removesTheDepthLimit">Tar bort avgrensing i søke-djupna, og varmar opp maskina</string>
-  <string name="blunders">Bukk</string>
+  <string name="blunders">Bukkar</string>
   <string name="mistakes">Mistak</string>
-  <string name="inaccuracies">Sleiv</string>
+  <string name="inaccuracies">Småfeil</string>
   <string name="moveTimes">Tidsbruk per trekk</string>
   <string name="flipBoard">Snu brettet</string>
-  <string name="threefoldRepetition">Trekkgjentaking (tre tilfelle av identisk stilling)</string>
+  <string name="threefoldRepetition">Trefaldig trekkgjentaking</string>
   <string name="claimADraw">Krev remis</string>
   <string name="offerDraw">Tilby remis</string>
   <string name="draw">Remis</string>
@@ -118,8 +118,8 @@
   </plurals>
   <string name="currentGames">Parti som blir spelt nett no</string>
   <plurals name="nbGames">
-    <item quantity="one">Sjå alle %s parti</item>
-    <item quantity="other">Sjå alle %s parti</item>
+    <item quantity="one">%s parti</item>
+    <item quantity="other">%s parti</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s Bokmerke</item>
