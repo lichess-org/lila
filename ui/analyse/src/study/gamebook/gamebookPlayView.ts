@@ -23,16 +23,18 @@ export function render(ctrl: GamebookPlayCtrl): VNode {
       h('div.content', { hook: richHTML(comment) }),
       state.showHint ? h('div.hint', { hook: richHTML(state.hint!) }) : undefined
     ]) : undefined,
-    h('img.mascot', {
-      attrs: {
-        width: 120,
-        height: 120,
-        src: ctrl.mascot.url(),
-        title: 'Click to choose your teacher'
-      },
-      hook: bind('click', ctrl.mascot.switch, ctrl.redraw)
-    }),
-    renderFeedback(ctrl, state)
+    h('div.floor', [
+      renderFeedback(ctrl, state),
+      h('img.mascot', {
+        attrs: {
+          width: 120,
+          height: 120,
+          src: ctrl.mascot.url(),
+          title: 'Click to choose your teacher'
+        },
+        hook: bind('click', ctrl.mascot.switch, ctrl.redraw)
+      })
+    ])
   ]);
 }
 
