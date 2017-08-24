@@ -29,10 +29,10 @@
   <string name="newOpponent">Ny motspelar</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Motspelaren din ønskjer å spela eit nytt parti med deg</string>
   <string name="joinTheGame">Bli med</string>
-  <string name="whitePlays">Kvit sitt trekk</string>
-  <string name="blackPlays">Svart sitt trekk</string>
+  <string name="whitePlays">Kvit i trekket</string>
+  <string name="blackPlays">Svart i trekket</string>
   <string name="opponentLeftChoices">Den andre spelaren kan ha forlete partiet. Du kan velja mellom å krevja siger eller remis, eller du kan venta litt til.</string>
-  <string name="makeYourOpponentResign">Tving motspelaren din til å gje opp</string>
+  <string name="makeYourOpponentResign">Tving motstandaren til å gje opp</string>
   <string name="forceResignation">Krev siger</string>
   <string name="forceDraw">Erklær remis</string>
   <string name="talkInChat">Vær venleg i praterommet</string>
