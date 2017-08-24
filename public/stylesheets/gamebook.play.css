@@ -52,7 +52,6 @@
 .gb_play .mascot {
   flex: 0 0 120px;
   margin-left: 20px;
-  cursor: pointer;
 }
 .gb_play .feedback {
   flex: 1 1 100%;

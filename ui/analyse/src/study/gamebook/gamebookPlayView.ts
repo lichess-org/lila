@@ -29,10 +29,9 @@ export function render(ctrl: GamebookPlayCtrl): VNode {
         attrs: {
           width: 120,
           height: 120,
-          src: ctrl.mascot.url(),
+          src: window.lichess.assetUrl('/assets/images/mascot/octopus.svg'),
           title: 'Click to choose your teacher'
-        },
-        hook: bind('click', ctrl.mascot.switch, ctrl.redraw)
+        }
       })
     ])
   ]);
