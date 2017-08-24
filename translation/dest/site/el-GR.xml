@@ -482,7 +482,7 @@
   <string name="reportAUser">Αναφορά χρήστη</string>
   <string name="user">Χρήστης</string>
   <string name="reason">Αιτία</string>
-  <string name="whatIsIheMatter">Τι είδους;</string>
+  <string name="whatIsIheMatter">Τι τρέχει;</string>
   <string name="cheat">Απάτη</string>
   <string name="insult">Προσβολή</string>
   <string name="troll">Εμπαιγμός</string>
@@ -585,7 +585,7 @@
   <string name="signedOut">Έχετε αποσυνδεθεί επιτυχώς</string>
   <string name="loginSuccessful">Είσοδος επιτυχής</string>
   <string name="playOnTheBoardOffline">Τοπικά</string>
-  <string name="playOfflineComputer">Υπολογιστής</string>
+  <string name="playOfflineComputer">Εναντίον Υπολογιστή</string>
   <string name="opponent">Αντίπαλος</string>
   <string name="learnMenu">Εκμάθηση</string>
   <string name="community">Κοινότητα</string>
