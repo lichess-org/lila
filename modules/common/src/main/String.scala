@@ -119,9 +119,9 @@ object String {
 
     private val imgUrlPattern = """.*\.(jpg|jpeg|png|gif)$""".r.pattern
 
-    private def urlToImgUnsafe(url: String): Option[String] =
-      imgUrlPattern.matcher(url).matches option
-        s"""<img class="embed" src="$url" style="max-width:100%" />"""
+    private def urlToImgUnsafe(url: String): Option[String] = {
+      imgUrlPattern.matcher(url).matches && !url.contains(s"://$netDomain")
+    } option s"""<img class="embed" src="$url" style="max-width:100%" />"""
 
     private def urlOrImgUnsafe(url: String) = urlToImgUnsafe(url) getOrElse url
 
