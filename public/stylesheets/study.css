@@ -128,7 +128,8 @@ div.underboard .notif.error {
   word-wrap: break-word;
   display: inline-block;
 }
-.study_comments .text a {
+.study_comments .text a,
+.chapter_desc .text a {
   color: #3893E8!important;
 }
 .study_comments .edit {
