@@ -9,4 +9,6 @@
   <string name="passwordReset_clickOrIgnore">Klikk på lenka nedanfor om det er du som står bak denne førespurnaden. Sjå bort frå denne e-posten om det ikkje var du.</string>
   <string name="emailChange_subject">Stadfest ny e-postadresse, %s</string>
   <string name="emailChange_intro">Du har bedt om å endre e-postadressen din.</string>
+  <string name="emailChange_click">For å stadfeste at du har tilgang til denne e-posten, kan du klikke på lenka nedanfor:</string>
+  <string name="welcome_subject">Velkomen til lichess.org, %s</string>
 </resources>
