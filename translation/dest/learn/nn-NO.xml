@@ -97,6 +97,10 @@ Det er inga grunn til forvandling.</string>
   <string name="mateInOneIntro">Du vinn når motspelaren ikkje kan verje seg mot sjakk.</string>
   <string name="attackYourOpponentsKing">Gå til åtak på kongen til motspelaren på eit vis det ikkje er mogleg å verje seg mot!</string>
   <string name="mateInOneComplete">Gratulerar! På dette viset vinn du eit parti sjakk!</string>
+  <string name="intermediate">Vidarekomande nybyrjar</string>
+  <string name="boardSetup">Oppstilling</string>
+  <string name="howTheGameStarts">Korleis partiet startar</string>
+  <string name="boardSetupIntro">Dei to arméane står andsynes kvarandre, klåre til strid.</string>
   <string name="theGameIsADraw">Partiet endar i remis</string>
   <string name="stalemateIntro">Når ein spelar ikkje er i sjakk utan å ha eit lovleg trekk å gjera er det patt. Partiet er remis: ingen vinn, ingen tapar.</string>
   <string name="stalemateGoal">For å setje svart patt:
