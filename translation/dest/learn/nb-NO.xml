@@ -191,4 +191,10 @@ Bonde = 1</string>
   <string name="youreGoodAtThis">Dette er du god til!</string>
   <string name="nailedIt">Du traff spikeren på hodet.</string>
   <string name="rightOn">Midt i blinken!</string>
+  <string name="stageXComplete">Nivå %s er fullført</string>
+  <string name="yourScore">Dine poeng</string>
+  <string name="next">Neste</string>
+  <string name="backToMenu">Tilbake til menyen</string>
+  <string name="puzzleFailed">Feilaktig løsning!</string>
+  <string name="retry">Forsøk på nytt</string>
 </resources>
