@@ -108,8 +108,8 @@ div.underboard .notif.error {
 }
 .study_comment_form form.material.form textarea,
 .chapter_desc_form form.material.form textarea {
-  height: 80px;
-  font-size: 1.2em;
+  height: 100px;
+  font-size: 1.1em;
   line-height: 1.3em;
   resize: vertical;
 }
