@@ -46,7 +46,7 @@ function rematchButtons(ctrl: RoundController): MaybeVNodes {
           me ? ctrl.trans.noarg('rematchOfferSent') : '')
       },
       hook: util.bind('click', () => {
-        var d = ctrl.data;
+        const d = ctrl.data;
         if (d.game.rematch) location.href = router.game(d.game.rematch, d.opponent.color);
         else if (d.player.offeringRematch) {
           d.player.offeringRematch = false;
