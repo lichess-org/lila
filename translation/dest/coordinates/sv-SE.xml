@@ -8,6 +8,7 @@
   <string name="knowingTheChessBoard">Att veta schackbrädets koordinater är en mycket viktig schackfärdighet:</string>
   <string name="mostChessCourses">De flesta schackkurserna och övningarna använder algebraisk notation.</string>
   <string name="talkToYourChessFriends">Det gör det lättare att prata med dina schackvänner eftersom ni båda förstår ”schackspråket”.</string>
+  <string name="youCanAnalyseAGameMoreEffectively">Ett parti analyseras ännu effektivare om du inte behöver söka efter rutornas koordinater.</string>
   <string name="aSquareNameAppears">Rutornas namn visas på brädet och du måste klicka på rätt ruta. Du har 30 sekunder att identifiera så många rutor som möjligt!</string>
   <string name="startTraining">Starta träning</string>
 </resources>
