@@ -83,6 +83,10 @@ Men ibland kan en springare vara smidig!</string>
   <string name="defendYourKing">Försvara din kung</string>
   <string name="outOfCheckIntro">Du är i schack! Du måste fly eller blockera attacken.</string>
   <string name="escapeWithTheKing">Fly med kungen!</string>
+  <string name="theKingCannotEscapeButBlock">Kungen kan inte fly, men du kan blockera angreppet!</string>
+  <string name="youCanGetOutOfCheckByTaking">Du kan försvara dig mot schacken genom att slå den angripande pjäsen.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Springaren schackar sig genom ditt försvar!</string>
+  <string name="escapeOrBlock">Fly med kungen eller blockera angreppet!</string>
   <string name="outOfCheckComplete">Grattis! Din kung kan aldrig tas, se till att du kan försvara dig mot schack!</string>
   <string name="mateInOne">Matt i ett drag</string>
   <string name="defeatTheOpponentsKing">Besegra motståndarens kung</string>
@@ -90,6 +94,7 @@ Men ibland kan en springare vara smidig!</string>
   <string name="attackYourOpponentsKing">Attackera motståndarens kung på ett sätt som inte kan försvaras!</string>
   <string name="mateInOneComplete">Grattis! Så här vinner du ett schackparti!</string>
   <string name="intermediate">Medelsvår</string>
+  <string name="boardSetup">Brädets uppsättning</string>
   <string name="howTheGameStarts">Hur partiet startar</string>
   <string name="boardSetupIntro">De två arméerna möter varandra, redo för strid.</string>
   <string name="thisIsTheInitialPosition">Detta är den inledande placeringen av varje schackparti! Göra ett drag för att fortsätta.</string>
@@ -98,8 +103,14 @@ Men ibland kan en springare vara smidig!</string>
   <string name="placeTheBishops">Placera löparna! De står bredvid springarna.</string>
   <string name="placeTheQueen">Placera drottningen! Hon står på sin egen färg.</string>
   <string name="placeTheKing">Placera kungen! Alldeles intill sin drottning.</string>
+  <string name="pawnsFormTheFrontLine">Bönder bildar frontlinjen. Gör ett valfritt drag för att fortsätta.</string>
   <string name="boardSetupComplete">Grattis! Du vet hur du ställer upp schackbrädet.</string>
   <string name="castling">Rockad</string>
+  <string name="theSpecialKingMove">Det speciella kungsdraget</string>
+  <string name="castlingIntro">För din kung i säkerhet, och använd ditt torn till att angripa!</string>
+  <string name="castleKingSide">Flytta din kung två rutor för att rockera kort!</string>
+  <string name="castleQueenSide">Flytta din kung två rutor för att rockera långt!</string>
+  <string name="theKnightIsInTheWay">Springaren står i vägen! Flytta den och gör sedan kort rockad.</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Det speciella bondedraget</string>
   <string name="enPassantIntro">När motståndarens bonde flyttade två rutor, kan du ta den som om den flyttade en ruta.</string>
