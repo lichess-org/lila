@@ -105,7 +105,7 @@ Det er inga grunn til forvandling.</string>
   <string name="firstPlaceTheRooks">Sett først tårna på plass! Dei står i hjørna.</string>
   <string name="thenPlaceTheKnights">Sett så springarane på plassane sine! Dei står ved sida av tårna.</string>
   <string name="placeTheBishops">Sett på plass løparane! Dei står inn mot springarane.</string>
-  <string name="placeTheQueen">Sett dronningene på plassane deira! Svart dronning på svart felt, kvit dronning på kvitt felt.</string>
+  <string name="placeTheQueen">Sett dronningane på rett plassar! Svart dronning står på svart felt, kvit dronning på kvitt felt.</string>
   <string name="placeTheKing">Sett kongen på plassen sin! Rett ved sida av dronninga.</string>
   <string name="pawnsFormTheFrontLine">Bøndene utgjer frontlina. Gjer eit valfritt trekk når du vil halda fram.</string>
   <string name="boardSetupComplete">Gratulerar! No kjenner du til korleis brikkene står på brettet når eit parti sjakk startar.</string>
