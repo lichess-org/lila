@@ -87,11 +87,11 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   def ping(uid: String, lagCentis: Option[Centis]) {
     setAlive(uid)
     withMember(uid) { member =>
+      member push pong
       for {
         lc <- lagCentis
         user <- member.userId
       } UserLagCache.put(user, lc)
-      member push pong
     }
   }
 
