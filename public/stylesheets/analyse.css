@@ -412,12 +412,9 @@ body.piece_letter .fork move {
 
 @media (min-width: 1050px) {
   div.lichess_game div.lichess_ground {
-    width: 280px;
-    min-width: 280px;
+    min-width: 25vw;
   }
-  .fork {
-    left: 90px;
-  }
+  .fork { left: 90px; }
 }
 
 .explorer_box {
