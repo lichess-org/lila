@@ -51,7 +51,7 @@
   <string name="depthX">%s βάθος</string>
   <string name="usingServerAnalysis">Ανάλυση διακομιστή</string>
   <string name="loadingEngine">Εκκίνηση μηχανής ...</string>
-  <string name="cloudAnalysis">Ανάλυση νέφους</string>
+  <string name="cloudAnalysis">Ανάλυση σε νέφος</string>
   <string name="goDeeper">Βαθύτερα</string>
   <string name="showThreat">Εμφάνιση απειλής</string>
   <string name="inLocalBrowser">σε τοπικό περιηγητή</string>
@@ -75,7 +75,7 @@
   <string name="masterDbExplanation">Δύο εκατομμύρια OTB παρτίδες %1$s + παικτών με αξιολόγηση FIDE από %2$s έως %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Ματ σε %s μισή κίνηση</item>
-    <item quantity="other">Ματ σε %s μισές-κινήσεις</item>
+    <item quantity="other">Ματ σε %s μισές κινήσεις</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
     <item quantity="one">Επόμενο πιάσιμο ή κίνηση πιονιού σε %s μισή-κίνηση (Απόσταση μηδενισμού μετρητή 50 κινήσεων)</item>
@@ -288,8 +288,8 @@
   <string name="yourPerfRatingIsTooHigh">Η %1$s βαθμολογία σας (%2$s) είναι πολύ υψηλή</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Η κορυφαία εβδομαδιαία %1$s βαθμολογία σας (%2$s) είναι πολύ υψηλή</string>
   <string name="yourPerfRatingIsTooLow">Η %1$s βαθμολογία σας (%2$s) είναι πολύ χαμηλή</string>
-  <string name="ratedMoreThanInPerf">Βαθμολογημένο ≥ %1$s από %2$s</string>
-  <string name="ratedLessThanInPerf">Βαθμολογημένο ≤ %1$s από %2$s</string>
+  <string name="ratedMoreThanInPerf">Βαθμολογημένο ≥ %1$s στο %2$s</string>
+  <string name="ratedLessThanInPerf">Βαθμολογημένο ≤ %1$s στο %2$s</string>
   <string name="backToGame">Επιστρέψτε στο παιχνίδι</string>
   <string name="siteDescription">Δωρεάν διαδικτυακό παιχνίδι Σκακιού. Παίξτε Σκάκι τώρα σε καθαρό γραφικό περιβάλλον. Χωρίς εγγραφές, χωρίς διαφημίσεις, χωρίς πρόσθετα. Παίξτε Σκάκι με τον υπολογιστή, με φίλους ή με τυχαίους αντιπάλους.</string>
   <string name="teams">Ομάδες</string>
@@ -739,14 +739,14 @@
   <string name="light">Φωτεινό</string>
   <string name="dark">Σκοτεινό</string>
   <string name="transparent">Διάφανο</string>
-  <string name="backgroundImageUrl">Διεύθυνση URL εικόνας φόντου:</string>
+  <string name="backgroundImageUrl">Διεύθυνση εικόνας φόντου:</string>
   <string name="boardGeometry">Γεωμετρία σκακιέρας</string>
   <string name="boardTheme">Θέμα σκακιέρας</string>
   <string name="boardSize">Μέγεθος σκακιέρας</string>
   <string name="pieceSet">Επιλογή κομματιού</string>
   <string name="embedInYourWebsite">Ενσωματώστε στην ιστοσελίδα σας</string>
   <string name="usernameAlreadyUsed">Αυτό το όνομα χρήστη ήδη χρησιμοποιείται, παρακαλώ δοκιμάστε ένα άλλο.</string>
-  <string name="usernameInvalid">Μη έγκυρο όνομα χρήστη. Παρακαλούμε χρησιμοποιήστε μόνο γράμματα, αριθμούς, χαρακτήρα υπογράμμισης και παύλα.</string>
+  <string name="usernameInvalid">Άκυρο όνομα χρήστη. Παρακαλούμε χρησιμοποιήστε μόνο γράμματα, αριθμούς, κάτω παύλα και παύλα.</string>
   <string name="usernameStartNoNumber">Το όνομα χρήστη δεν πρέπει να ξεκινάει με αριθμό.</string>
   <string name="usernameUnacceptable">Αυτό το όνομα χρήστη δεν είναι αποδεκτό.</string>
   <string name="directlySupportLichess">Υποστηρίξτε άμεσα το Lichess</string>
