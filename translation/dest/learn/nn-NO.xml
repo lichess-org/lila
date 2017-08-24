@@ -101,6 +101,11 @@ Det er inga grunn til forvandling.</string>
   <string name="boardSetup">Oppstilling</string>
   <string name="howTheGameStarts">Korleis partiet startar</string>
   <string name="boardSetupIntro">Dei to arméane står andsynes kvarandre, klåre til strid.</string>
+  <string name="thisIsTheInitialPosition">Dette er det innleiande oppsettet i alle sjakkparti! Gjer eit drag for å gå vidare.</string>
+  <string name="firstPlaceTheRooks">Sett først tårna på plass! Dei står i hjørna.</string>
+  <string name="thenPlaceTheKnights">Sett så springarane på plassane sine! Dei står ved sida av tårna.</string>
+  <string name="placeTheBishops">Sett på plass løparane! Dei står inn mot springarane.</string>
+  <string name="placeTheQueen">Sett dronningene på plassane deira! Svart dronning på svart felt, kvit dronning på kvitt felt.</string>
   <string name="theGameIsADraw">Partiet endar i remis</string>
   <string name="stalemateIntro">Når ein spelar ikkje er i sjakk utan å ha eit lovleg trekk å gjera er det patt. Partiet er remis: ingen vinn, ingen tapar.</string>
   <string name="stalemateGoal">For å setje svart patt:
@@ -130,4 +135,8 @@ Springar = 3
 Bonde = 1</string>
   <string name="checkInTwo">Sjakk i to trekk</string>
   <string name="twoMovesToGiveCheck">To trekk til ein sjakk</string>
+  <string name="yesYesYes">Ja, ja, ja!</string>
+  <string name="youreGoodAtThis">Dette er du god på!</string>
+  <string name="nailedIt">Du traff spikeren på hovudet.</string>
+  <string name="rightOn">Midt i blinken!</string>
 </resources>
