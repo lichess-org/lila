@@ -36,6 +36,8 @@
   <string name="kingIntro">Ви сте краљ. Ако паднете у борби, изгубили сте.</string>
   <string name="theKingIsSlow">Краљ је спор.</string>
   <string name="lastOne">Последњи!</string>
+  <string name="kingComplete">Sada možeš komandovati komandiru!</string>
+  <string name="theKnight">Skakač</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Ваш пешак је стигао до краја табле!</string>
   <string name="boardSetupComplete">Честитамо! Знате да поставите шаховску таблу.</string>
   <string name="enPassantOnlyWorksOnFifthRank">Ан пасан је могућ само
