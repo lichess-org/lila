@@ -129,7 +129,7 @@
   <string name="logOut">Logg ut</string>
   <string name="signIn">Logg inn</string>
   <string name="newToLichess">Er du ny på Lichess?</string>
-  <string name="youNeedAnAccountToDoThat">Du må registrera deg inn for å gjera dette</string>
+  <string name="youNeedAnAccountToDoThat">For å gjera det treng du ein konto</string>
   <string name="signUp">Registrer deg</string>
   <string name="computersAreNotAllowedToPlay">Datamaskinar og spelarar som brukar sjakkprogram har ikkje lov til å spela. Ver venleg å ikkje ta i bruk hjelp frå sjakkprogram, databasar eller andre spelarar så lenge partiet er i gang. Merk at det vert sterkt frårådd å oppretta fleire kontoar. Oppretting av svært mange kontoar vil føra til utestenging.</string>
   <string name="games">Parti</string>
@@ -146,18 +146,18 @@
   <string name="daysPerTurn">Dagar per trekk</string>
   <string name="oneDay">Ein dag</string>
   <plurals name="nbDays">
-    <item quantity="one">%s dagar</item>
+    <item quantity="one">%s dag</item>
     <item quantity="other">%s dagar</item>
   </plurals>
   <plurals name="nbHours">
-    <item quantity="one">%s timar</item>
+    <item quantity="one">%s time</item>
     <item quantity="other">%s timar</item>
   </plurals>
   <string name="time">Tid</string>
   <string name="rating">Rating</string>
   <string name="ratingStats">Ratingstatistikk</string>
-  <string name="username">Brukarnavn</string>
-  <string name="usernameOrEmail">Brukarnamn eller epost</string>
+  <string name="username">Brukarnamn</string>
+  <string name="usernameOrEmail">Brukarnamn eller e-post</string>
   <string name="password">Passord</string>
   <string name="haveAnAccount">Har du ein konto her?</string>
   <string name="changePassword">Byt passord</string>
