@@ -528,11 +528,11 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="dragPiece">Dra brikke</string>
   <string name="bothClicksAndDrag">Begge</string>
   <string name="premovesPlayingDuringOpponentTurn">Førehandstrekk (når det er motspelaren sitt trekk)</string>
-  <string name="takebacksWithOpponentApproval">Tilbaketrekk (med godkjenning frå motstandaren)</string>
-  <string name="promoteToQueenAutomatically">Gjer om til dronning automatisk</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically">Krev uavgjort etter stillingsgjentagelse automatisk</string>
-  <string name="privacy">Følgjarar og utfordrarar</string>
-  <string name="letOtherPlayersFollowYou">Lat andre spelarar følgja deg</string>
+  <string name="takebacksWithOpponentApproval">Ta trekket attende (etter stadfesting frå motstandaren)</string>
+  <string name="promoteToQueenAutomatically">Omvandle til dronning automatisk</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Krev remis automatisk ved trekkgjentaking</string>
+  <string name="privacy">Privatsfære</string>
+  <string name="letOtherPlayersFollowYou">Lat andre spelarar fylgja deg</string>
   <string name="letOtherPlayersChallengeYou">Lat andre spelarar utfordra deg</string>
   <string name="letOtherPlayersInviteYouToStudy">Lat andre spelarar invitere til studium</string>
   <string name="sound">Lyd</string>
