@@ -1210,7 +1210,7 @@ body.dark .aclock.active {
   line-height: 1.25;
 }
 .tview2.literal {
-  padding: 7px 0px 7px 5px;
+  padding: 7px 0px 7px 7px;
   font-size: 18px;
   line-height: 1.05em;
 }
@@ -1319,15 +1319,17 @@ body.piece_letter .tview2 move {
   color: #c0c0c0;
 }
 .tview2 > interrupt {
-  flex: 0 0 100%;
   font-size: 95%;
+}
+.tview2.column > interrupt {
+  flex: 0 0 100%;
   background: #f8f8f8;
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
   box-sizing: border-box;
   max-width: 100%;
 }
-.tview2 > interrupt > comment {
+.tview2.column > interrupt > comment {
   display: block;
   padding: 3px 5px;
   word-wrap: break-word;
@@ -1386,10 +1388,13 @@ body.piece_letter .tview2 move {
 }
 .tview2 lines {
   display: block;
-  padding-top: 2px;
-  margin-left: 5px;
+  margin-top: 2px;
+  margin-left: 6px;
   margin-bottom: 0.8em;
-  border-left: 1px solid #ccc;
+  border-left: 2px solid #ccc;
+}
+.tview2 > interrupt > lines {
+  margin-left: 0px;
 }
 .tview2 lines.single {
   border-left: none;
@@ -1399,7 +1404,7 @@ body.piece_letter .tview2 move {
 }
 .tview2 line {
   display: block;
-  padding-left: 4px;
+  padding-left: 7px;
 }
 .tview2.column line {
   margin: 2px 0;
@@ -1412,20 +1417,19 @@ body.piece_letter .tview2 move {
 }
 .tview2 lines lines::before {
   content: ' ';
-  border-top: 1px solid #c0c0c0;
+  border-top: 2px solid #ccc;
   position: absolute;
-  margin-left: -5.5px;
-  margin-top: -2px;
-  width: 5px;
+  margin-left: -11px;
+  width: 9px;
   height: 6px;
 }
 .tview2 lines line::before {
-  margin-top: 0.7em;
-  margin-left: -4px;
+  margin-top: 0.65em;
+  margin-left: -8px;
   content: ' ';
-  border-top: 1px solid #c0c0c0;
+  border-top: 2px solid #ccc;
   position: absolute;
-  width: 5px;
+  width: 8px;
   height: 6px;
 }
 .tview2 lines lines:last-child {
@@ -1479,9 +1483,10 @@ body.dark .tview2.column line comment {
 body.dark .tview2.literal comment {
   color: #869fc3;
 }
+body.dark .tview2 lines,
 body.dark .tview2 lines lines::before,
 body.dark .tview2 lines line::before {
-  border-color: #606060;
+  border-color: #666;
 }
 .lichess_ground .areplay .result,
 .lichess_ground .areplay .status {
