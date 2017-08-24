@@ -32,11 +32,13 @@ blumpkin
 bollock
 boner
 boob
+bot
 bugger
 buk?kake
 bull?shit
 cancer
 cawk
+cheat(er|)
 chess(|-|_)bot(.?com)?
 chink
 choad
@@ -56,6 +58,7 @@ dogg?ystyle
 dong
 douche(bag|)
 dyke
+engine
 (f|ph)ag
 (f|ph)agg?ot
 fanny
@@ -78,7 +81,7 @@ horny
 humping
 idiot
 incest
-jerks?
+jerk
 jizz?(um|)
 kaffir
 kike
@@ -144,11 +147,10 @@ spunk
 stfu
 stripper
 stupid
-suc?k
 taint
 tart
 terrorist
-tit(s|ies|ties|ty)(fuc?k)
+tit(|t?ies|ty)(fuc?k)
 tosser
 turd
 twat
