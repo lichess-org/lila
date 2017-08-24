@@ -10,7 +10,7 @@
   <string name="play">spel!</string>
   <string name="chessPieces">Sjakkbrikker</string>
   <string name="theRook">Tårnet</string>
-  <string name="itMovesInStraightLines">Vert flytta i rette liner</string>
+  <string name="itMovesInStraightLines">Blir flytta i rette liner</string>
   <string name="rookIntro">Tårnet er ei kraftig brikke. Er du klar til å ta det i bruk?</string>
   <string name="rookGoal">Klikk på tårnet for å flytte det til stjerna!</string>
   <string name="grabAllTheStars">Grip alle stjernene!</string>
@@ -18,7 +18,7 @@
   <string name="useTwoRooks">Ta i bruk to tårn for å sette litt fart på sakene!</string>
   <string name="rookComplete">Gratulerar! Du meistrar no tårnet.</string>
   <string name="theBishop">Løparen</string>
-  <string name="itMovesDiagonally">Vert flytta diagonalt</string>
+  <string name="itMovesDiagonally">Blir flytta diagonalt</string>
   <string name="bishopIntro">No skal vi lære korleis manøvrere ein løpar!</string>
   <string name="youNeedBothBishops">Ein kvitfeltsløpar,
 ein svartfeltsløpar.
@@ -27,7 +27,7 @@ Du treng dei begge!</string>
   <string name="theQueen">Dronninga</string>
   <string name="queenCombinesRookAndBishop">Dronning = tårn + løpar</string>
   <string name="queenIntro">Den sterkaste sjakkbrikka kjem på scena. Hennar Majestet Dronninga!</string>
-  <string name="queenComplete">Gratulerer! Dronninger held ikkje noko løynd for deg.</string>
+  <string name="queenComplete">Gratulerar! Dronninger har ingen løyndomar for deg.</string>
   <string name="theKing">Kongen</string>
   <string name="theMostImportantPiece">Den viktigaste brikka</string>
   <string name="kingIntro">Du er kongen. Fell du i strid, er spelet tapa.</string>
