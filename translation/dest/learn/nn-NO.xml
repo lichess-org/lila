@@ -82,6 +82,13 @@ Det er inga grunn til forvandling.</string>
   <string name="attackTheOpponentsKing">Gå til åtak på kongen til motspelaren</string>
   <string name="checkInOneIntro">Om du vil sjakke motstandaren må du gå til åtak på kongen, for den må forsvarast!</string>
   <string name="checkInOneGoal">Gå etter kongen til motspelaren i eitt trekk!</string>
+  <string name="checkInOneComplete">Gratulerar! Ved å sette motspelaren i sjakk tvang du fram eit vern om kongen!</string>
+  <string name="outOfCheck">Ut av sjakkinga</string>
+  <string name="defendYourKing">Vern om kongen din</string>
+  <string name="outOfCheckIntro">Du står i sjakk! Du må flykte eller blokkere åtaket.</string>
+  <string name="escapeWithTheKing">Fly unna med kongen!</string>
+  <string name="theKingCannotEscapeButBlock">Kongen kjem ikkje unna, men du kan sperre for åtaket!</string>
+  <string name="youCanGetOutOfCheckByTaking">Du kan komme unna sjakken ved å slå ut brikka som går til åtak.</string>
   <string name="theGameIsADraw">Partiet endar i remis</string>
   <string name="stalemateIntro">Når ein spelar ikkje er i sjakk utan å ha eit lovleg trekk å gjera er det patt. Partiet er remis: ingen vinn, ingen tapar.</string>
   <string name="stalemateGoal">For å setje svart patt:
