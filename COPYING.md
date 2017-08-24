@@ -67,7 +67,6 @@ public/piece-src/spatial | [Maurizio Monge](http://poisson.phc.unipi.it/~monge/c
 public/piece-src/reillycraig | [Reilly Craig](https://instagram.com/fader_) |
 public/piece/other | [Twitch](http://lazythunk.com/kappa/) |
 public/images/staunton/staunton/Staunton | [Eden Murs](https://userstyles.org/styles/134558/lichess-pieces-3d-staunton) (?) |
-public/vendor/ChessPursuit | [Saturnyn](https://github.com/Saturnyn) | [CC BY-NC-SA](https://github.com/Saturnyn/ChessPursuit/issues/1#issuecomment-141067515)
 
 * The other sounds in public/sound.
 * The other artwork in public/images.
