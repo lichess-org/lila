@@ -328,6 +328,14 @@
   <string name="viewTournament">شاهد المسابقة</string>
   <string name="backToTournament">عودة للمسابقة</string>
   <string name="thematic">موضوعية</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="zero">%s لعبة مُقيمة</item>
+    <item quantity="one">لعبة مقيمة %s</item>
+    <item quantity="two">≥ %s لعبة مقيمة</item>
+    <item quantity="few">≥ %s ألعاب مقيمة</item>
+    <item quantity="many">≥ %s ألعاب مقيمة</item>
+    <item quantity="other">≥ %s ألعاب مقيمة</item>
+  </plurals>
   <string name="yourPerfRatingIsTooHigh">تقييمك %1$s (%2$s) مرتفع جداً</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">تقييمك %1$s (%2$s) مرتفع جداً</string>
   <string name="yourPerfRatingIsTooLow">تقييمك %1$s (%2$s) منخفض جداً</string>
