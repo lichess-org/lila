@@ -284,7 +284,9 @@
   <string name="backToTournament">Povratak na turnir</string>
   <string name="thematic">Tematski</string>
   <string name="yourPerfRatingIsProvisional">Vaš %s rejting je privremen</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Tvoj najvisi tjedni %1$s rejting %2$s je previsok</string>
   <string name="yourPerfRatingIsTooLow">Vaš %1$s rejting (%2$s) je prenizak</string>
+  <string name="ratedLessThanInPerf">Rangirano  %1$s u %2$s</string>
   <string name="backToGame">Natrag na partiju</string>
   <string name="siteDescription">Besplatni internetski šah. Igrajte odmah, u čistom sučelju. Bez registriranja, bez reklama, bez dodatnih preuzimanja. Igrajte šah protiv računala, prijatelja ili nasumičnih protivnika.</string>
   <string name="teams">Ekipe</string>

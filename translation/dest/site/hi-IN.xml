@@ -48,16 +48,56 @@
   <string name="computerAnalysis">कंप्यूटर विश्लेषण</string>
   <string name="computerAnalysisAvailable">कंप्यूटर विश्लेषण उपलब्ध</string>
   <string name="analysis">विश्लेषण मैदान</string>
+  <string name="usingServerAnalysis">सर्वर विश्लेषण का उपयोग करना</string>
+  <string name="loadingEngine">इंजन लोड हो रहा है ...</string>
+  <string name="goDeeper">भीतर जाओ</string>
+  <string name="showThreat">खतरे को दिखाएं</string>
+  <string name="inLocalBrowser">स्थानीय ब्राउज़र में</string>
+  <string name="toggleLocalEvaluation">स्थानीय मूल्यांकन को टॉगल करें</string>
+  <string name="move">चाल</string>
+  <string name="pawnMove">प्यादा कदम</string>
+  <string name="capture">कब्जा</string>
   <string name="close">बंद करें</string>
+  <string name="winning">जीतना</string>
+  <string name="losing">हार</string>
+  <string name="drawn">ड्रा</string>
   <string name="unknown">अज्ञात</string>
+  <string name="database">डेटाबेस</string>
+  <string name="whiteDrawBlack">सफ़ेद / ड्रा / काला</string>
+  <string name="averageRatingX">औसत रेटिंग: %s</string>
+  <string name="recentGames">हाल के गेम</string>
+  <string name="topGames">शीर्ष खेल</string>
+  <string name="masterDbExplanation">%2$s से %3$s तक %1$s + FIDE रेटेड खिलाड़ियों के 20 लाख गेम</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">%s आधे-कदम में चेकमैट</item>
+    <item quantity="other">%s आधे-कदम में चेकमैट</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">%s आधे-कदम में अगला कैप्चर या मोहर चाल (50 कदम काउंटर के शून्यकरण करने के लिए दूरी)</item>
+    <item quantity="other">%s आधे-कदम में अगला कैप्चर या मोहर चाल (50 कदम काउंटर के शून्यकरण करने के लिए दूरी)</item>
+  </plurals>
+  <string name="noGameFound">कोई गेम नहीं मिला</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">शायद प्राथमिकताएं मेनू से अधिक गेम शामिल हैं?</string>
   <string name="openingExplorer">उद्घाटन खोज</string>
+  <string name="xOpeningExplorer">%s ओपनिंग एक्सप्लोरर</string>
+  <string name="winPreventedBy50MoveRule">जीत 50-चालन नियम से रोका गया</string>
+  <string name="lossSavedBy50MoveRule">हार 50-चाल नियम द्वारा बचाया</string>
+  <string name="allSet">सब तैयार!</string>
+  <string name="importPgn">PGN आयात करें</string>
+  <string name="delete">हटाएँ</string>
+  <string name="deleteThisImportedGame">इस आयात किए गए गेम को हटाएं?</string>
+  <string name="replayMode">रीप्ले मोड</string>
   <string name="realtimeReplay">रियल टाइम</string>
+  <string name="byCPL">CPL द्वारा</string>
+  <string name="openStudy">अध्ययन खोलो</string>
   <string name="enable">सक्षम करें</string>
+  <string name="bestMoveArrow">सर्वश्रेष्ठ कदम तीर</string>
   <string name="evaluationGauge">मूल्यांकन गेज</string>
   <string name="multipleLines">एकाधिक पंक्तियाँ</string>
   <string name="cpus">CPU</string>
   <string name="memory">मेमोरी</string>
   <string name="infiniteAnalysis">अनंत विश्लेषण</string>
+  <string name="removesTheDepthLimit">गहराई सीमा को निकालता है, और आपके कंप्यूटर को गर्म रखता है</string>
   <string name="blunders">गंभीर गल्तियां</string>
   <string name="mistakes">गलतियाँ</string>
   <string name="inaccuracies">त्रुटियाँ</string>
@@ -122,6 +162,12 @@
   <string name="passwordReset">पासवर्ड बदलें</string>
   <string name="forgotPassword">क्या आप अपना पासवर्ड भूल गए हैं?</string>
   <string name="rank">श्रेणी (रैंक)</string>
+  <string name="rankX">रैंक: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">रैंक हर %s मिनटों में अपडेट किया जाता है</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s पहेली</item>
+    <item quantity="other">%s पहेली</item>
+  </plurals>
   <string name="gamesPlayed">खेले हुए खेल</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">आपके साथ %s खेल</item>
@@ -161,6 +207,7 @@
   <string name="inbox">आपके सन्देश (इनबॉक्स)</string>
   <string name="chatRoom">बातचीत का कमरा</string>
   <string name="loginToChat">चैट के लिए लॉग इन</string>
+  <string name="youHaveBeenTimedOut">आप का समय समाप्त हो गया है</string>
   <string name="spectatorRoom">दर्शकों का कमरा</string>
   <string name="composeMessage">सन्देश बनाएँ</string>
   <string name="noNewMessages">कोई नया सन्देश नहीं</string>
@@ -182,14 +229,20 @@
     <item quantity="one">%s खेल बराबरी पे समाप्त</item>
     <item quantity="other">%s खेल बराबरी पे समाप्त</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s खेल रहा है</item>
+    <item quantity="other">%s खेल रहा है</item>
+  </plurals>
   <string name="exportGames">खेल को निर्यात (एक्सपोर्ट) करें</string>
   <string name="ratingRange">अंकों की सीमा</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s सेकंड्स दें</item>
     <item quantity="other">%s सेकंड्स दें</item>
   </plurals>
+  <string name="giveMoreTime">अधिक समय दें</string>
   <string name="thisPlayerUsesChessComputerAssistance">यह खिलाड़ी शतरंज खेलने के लिये कम्प्यूटर की सहायता लेता है</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">यह खिलाड़ी धोखे से अपने अंक बदलता है</string>
+  <string name="openingExplorerAndTablebase">ओपनिंग एक्सप्लोरर &amp; टेबलबेस</string>
   <string name="takeback">चाल को वापस लें</string>
   <string name="proposeATakeback">चाल को वापस लेने की प्रस्ताव को भेजें</string>
   <string name="takebackPropositionSent">चाल को वापस लेने के प्रस्ताव को भेज दिया गया है</string>
@@ -296,8 +349,16 @@
   <string name="tournamentIsStarting">प्रतियोगित शुरू हो रही है</string>
   <string name="tournamentPairingsAreNowClosed">टूर्नामेंट जोड़ियां अब बंद हो गयी हैं।</string>
   <string name="youArePlaying">आप खेल रहे हैं!</string>
+  <string name="whiteWins">सफ़ेद विजयी हुआ</string>
+  <string name="blackWins">काला विजयी हुआ</string>
+  <string name="draws">ड्रा</string>
+  <string name="nextXTournament">अगले %s टूर्नामेंट:</string>
+  <string name="viewMoreTournaments">अधिक टूर्नामेंट देखें</string>
+  <string name="averageOpponent">औसत प्रतिद्वंद्वी</string>
   <string name="membersOnly">केवल खाता वाले</string>
   <string name="boardEditor">बोर्ड संपादक</string>
+  <string name="setTheBoard">बोर्ड सेट करें</string>
+  <string name="popularOpenings">लोकप्रिय प्रारंभ</string>
   <string name="startPosition">शुरुआत की स्थिती</string>
   <string name="clearBoard">बोर्ड सॉफ करें</string>
   <string name="savePosition">जगह सुरक्षित करें</string>
@@ -336,6 +397,7 @@
   <string name="keepGoing">लगे रहें …</string>
   <string name="puzzleFailed">पहेली असफल</string>
   <string name="butYouCanKeepTrying">परंतु आप फिर कोशिश कर सकतें है</string>
+  <string name="success">सफलता</string>
   <string name="wasThisPuzzleAnyGood">क्या यह पहेली बढ़िया थी?</string>
   <string name="pleaseVotePuzzle">वोट करके लीचेस की सहायता करियें, ऊपर या नीचे वाले तीर का इस्तेमाल करें</string>
   <string name="thankYou">धन्यवाद!</string>
@@ -402,6 +464,7 @@
   <string name="closeAccountExplanation">क्या आपको यकीन है कि आप अपना ख़ाता बंद करना चाहते हैं? अपना ख़ाता बंद करना एक स्थायी फ़ैसला है| आप लॉग इन नहीं कर पाएँगे और आपका प्रोफ़ाइल का पेज पहुँच से बाहर हो जाएगा|</string>
   <string name="thisAccountIsClosed">यह ख़ाता बंद है|</string>
   <string name="invalidUsernameOrPassword">अमान्य यूज़र का नाम या पासवर्ड</string>
+  <string name="incorrectPassword">गलत पासवर्ड</string>
   <string name="emailMeALink">मुझे एक लिंक ईमेल करें</string>
   <string name="currentPassword">वर्तमान पासवर्ड</string>
   <string name="newPassword">नया पासवर्ड</string>
@@ -428,6 +491,7 @@
   <string name="privacy">एकांतता (प्राइवेसी)</string>
   <string name="letOtherPlayersFollowYou">दूसरे खिलाड़ियों को अपना अनुसरण (फॉलो) करने दें</string>
   <string name="letOtherPlayersChallengeYou">दूसरे खिलाड़ियों को आपको चुनौती देने दें</string>
+  <string name="letOtherPlayersInviteYouToStudy">अन्य खिलाड़ियों को अध्ययन करने के लिए आमंत्रित करें</string>
   <string name="sound">आवाज़</string>
   <string name="yourPreferencesHaveBeenSaved">आपकी प्राथमिकताओं को सुरक्षित (स्मरण) कर दिया गया है।</string>
   <string name="none">कोई नहीं</string>
@@ -450,6 +514,7 @@
   <string name="xAnsweredY">%1$s ने %2$s को उत्तर दिया</string>
   <string name="xCommentedY">%1$s ने %2$s पर टिप्पणी की</string>
   <string name="victory">जीत!</string>
+  <string name="defeat">हार</string>
   <string name="timeline">समयरेखा</string>
   <string name="seeAllTournaments">सभी टूर्नामेंट देखें</string>
   <string name="starting">शुरू हो रहा है:</string>
@@ -477,6 +542,7 @@
   <string name="playOnTheBoardOffline">बोर्ड पर</string>
   <string name="playOfflineComputer">कंप्यूटर</string>
   <string name="opponent">प्रतिद्वंद्वी</string>
+  <string name="learnMenu">सीखें</string>
   <string name="community">समुदाय</string>
   <string name="tools">उपकरण</string>
   <string name="increment">वृद्धि</string>
@@ -489,7 +555,9 @@
   <string name="error.email">यह ई-मेल सही नहीं हैं</string>
   <string name="error.email_acceptable">यह ई-मेल स्वीकार नहीं की जा सकती है</string>
   <string name="error.email_unique">यह ईमेल पहले ही ली जा चुकी है</string>
+  <string name="error.email_different">यह पहले से ही आपका ईमेल पता है</string>
   <string name="blindfoldChess">अदृश्य शतरंज (अदृश्य मोहरे )</string>
+  <string name="zenMode">ज़ेन मोड</string>
   <string name="moveConfirmation">चाल की पुष्टि करें</string>
   <string name="inCorrespondenceGames">लम्बे खेलों में</string>
   <string name="ifRatingIsPlusMinusX">अगर स्तर %s ऊपर निचे हो तब</string>
@@ -518,6 +586,7 @@
   <string name="sourceCode">सोर्स कोड</string>
   <string name="simultaneousExhibitions">एकसमयी प्रदर्शनी</string>
   <string name="host">मेजबानी  करें</string>
+  <string name="hostColorX">मेजबान रंग: %s</string>
   <string name="createdSimuls">नयें सिमुल</string>
   <string name="hostANewSimul">एक नए सिमुल की मेजबानी  करें</string>
   <string name="noSimulFound">सिमुल नहीं मिला</string>
@@ -564,6 +633,7 @@
   <string name="byRegisteringYouAgreeToBeBoundByOur">दर्ज करके, आप हमारे %s द्वारा बाध्य होने के लिए सहमत हैं।</string>
   <string name="networkLagBetweenYouAndLichess">आप और lichess के बीच नेटवर्क के अंतराल</string>
   <string name="timeToProcessAMoveOnLichessServer">Lichess सर्वर पर एक कदम प्रक्रिया के लिए समय</string>
+  <string name="downloadAnnotated">एनोटेट डाउनलोड करें</string>
   <string name="letOtherPlayersMessageYou">अन्य खिलाड़ियों को आपको संदेश देने दें</string>
   <string name="castleByMovingTwoSquares">राजा दो चौकों ले जाएँ</string>
   <string name="castleByMovingOntoTheRook">राजा हाथी पर ले जाएँ</string>
@@ -596,8 +666,17 @@
   <string name="xHostsY">%1$s मेजबान %2$s</string>
   <string name="xLikesY">%1$s ने %2$s पसंद किया:</string>
   <string name="lobby">लॉबी</string>
+  <string name="anonymous">अज्ञात</string>
   <string name="yourScore">आपका स्कोर: %s</string>
   <string name="language">भाषा</string>
+  <string name="background">पृष्ठभूमि</string>
+  <string name="light">हल्का</string>
+  <string name="dark">काला</string>
+  <string name="transparent">पारदर्शी</string>
+  <string name="backgroundImageUrl">पृष्ठभूमि छवि URL:</string>
+  <string name="boardGeometry">बोर्ड की ज्यामिति</string>
+  <string name="boardTheme">बोर्ड विषय</string>
+  <string name="boardSize">बोर्ड का आकार</string>
   <string name="pieceSet">मोहरे</string>
   <string name="embedInYourWebsite">अपनी वेबसाइट में एम्बेड करें</string>
   <string name="usernameAlreadyUsed">यह उपयोगकर्ता नाम पहले से उपयोग में है, कृपया एक दूसरे का प्रयास करें।</string>
@@ -605,6 +684,7 @@
   <string name="usernameStartNoNumber">उपयोगकर्ता नाम किसी संख्या से प्रारंभ नहीं होना चाहिए।</string>
   <string name="usernameUnacceptable">यह उपयोगकर्ता नाम स्वीकार्य नहीं है।</string>
   <string name="directlySupportLichess">Lichess का समर्थन करें</string>
+  <string name="playChessInStyle">शैली में शतरंज खेलें</string>
   <string name="chessBasics">शतरंज मूल बातें</string>
   <string name="coaches">कोच</string>
   <string name="invalidPgn">अमान्य PGN</string>
@@ -613,6 +693,8 @@
   <string name="error.maxLength">अधिकतम लंबाई %s है</string>
   <string name="error.min">%s से बड़ा या बराबर होना चाहिए</string>
   <string name="error.max">%s से कम या बराबर होना चाहिए</string>
+  <string name="error.unknown">त्रुटि</string>
+  <string name="custom">कस्टम</string>
   <string name="notifications">सूचनाएँ</string>
   <string name="challenges">चुनौतियाँ</string>
   <string name="perfRatingX">रेटिंग: %s</string>

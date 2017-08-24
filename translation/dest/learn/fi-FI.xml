@@ -111,6 +111,25 @@ tai torju hyökkäys!</string>
   <string name="attackYourOpponentsKing">Uhkaa vastustajan kuningasta niin
 ettei sitä voi puolustaa!</string>
   <string name="mateInOneComplete">Onnittelut! Näin shakkipeli voitetaan!</string>
+  <string name="intermediate">Keskitaso</string>
+  <string name="boardSetup">Laudan asettaminen</string>
+  <string name="howTheGameStarts">Kuinka peli alkaa</string>
+  <string name="boardSetupIntro">Kaksi armeijaa on vastakkain, valmiina taistoon.</string>
+  <string name="thisIsTheInitialPosition">Tämä on alkuasema
+jokaisessa shakkipelissä!
+Aloita tekemällä mikä siirto tahansa.</string>
+  <string name="firstPlaceTheRooks">Ensin aseta tornit!
+Ne kuuluvat kulmiin.</string>
+  <string name="thenPlaceTheKnights">Sitten ratsut!
+Ne kuuluvat tornien viereen.</string>
+  <string name="placeTheBishops">Astea lähetit!
+Ne kuuluvat ratsujen viereen.</string>
+  <string name="placeTheQueen">Aseta kuningatar!
+Hän kuuluu itsensä väriseen ruutuun.</string>
+  <string name="placeTheKing">Aseta kuningas!
+Kuningattarensa rinnalle.</string>
+  <string name="pawnsFormTheFrontLine">Sotilaat muodostavat etulinjan.
+Jatka tekemällä mikä tahansa siirto.</string>
   <string name="boardSetupComplete">Onneksi olkoon! Osaat asetella shakkilaudan.</string>
   <string name="castling">Linnoitus</string>
   <string name="theSpecialKingMove">Kuninkaan erikoissiirto</string>
@@ -194,4 +213,25 @@ kahdella siirrolla!</string>
   <string name="videos">Videoita</string>
   <string name="watchInstructiveChessVideos">Katso havainnollistavia shakkivideoita</string>
   <string name="playPeople">Pelaa toisia vastaan</string>
+  <string name="opponentsFromAroundTheWorld">Vastustajia kaikkialta maailmasta</string>
+  <string name="playMachine">Tietokonetta vastaan</string>
+  <string name="testYourSkillsWithTheComputer">Mittaa taitojasi konetta vastaan</string>
+  <string name="letsGo">Aloitetaan!</string>
+  <string name="stageX">Taso %s</string>
+  <string name="awesome">Mahtavaa!</string>
+  <string name="excellent">Erinomaista!</string>
+  <string name="greatJob">Hyvin tehty!</string>
+  <string name="perfect">Täydellistä!</string>
+  <string name="outstanding">Loistavaa!</string>
+  <string name="wayToGo">Niin sitä pitää!</string>
+  <string name="yesYesYes">Kyllä!</string>
+  <string name="youreGoodAtThis">Olet hyvä tässä!</string>
+  <string name="nailedIt">Juuri niin.</string>
+  <string name="rightOn">Naulan kantaan!</string>
+  <string name="stageXComplete">Taso %s valmis</string>
+  <string name="yourScore">Tuloksesi</string>
+  <string name="next">Seuraava</string>
+  <string name="backToMenu">Valikkoon</string>
+  <string name="puzzleFailed">Tehtävä epäonnistui!</string>
+  <string name="retry">Yritä uudelleen</string>
 </resources>

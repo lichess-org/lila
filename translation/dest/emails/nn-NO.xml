@@ -6,4 +6,6 @@
   <string name="emailConfirm_ignore">Viss du ikkje har registrert deg på Lichess, kan du trygt oversjå denne meldinga.</string>
   <string name="passwordReset_subject">Tilbakestill lichess.org-passordet ditt,</string>
   <string name="passwordReset_intro">Me har mottatt ein førespurnad om å tilbakestilla passordet for kontoen din.</string>
+  <string name="passwordReset_clickOrIgnore">Klikk på lenka nedanfor om det er du som står bak denne førespurnaden. Sjå bort frå denne e-posten om det ikkje var du.</string>
+  <string name="emailChange_subject">Stadfest ny e-postadresse, %s</string>
 </resources>
