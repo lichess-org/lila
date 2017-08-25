@@ -7,7 +7,6 @@ import { State } from './gamebookPlayCtrl';
 
 const defaultComments = {
   play: 'What would you play in this position?',
-  bad: 'That\'s not the right move.',
   end: 'Congratulations! You completed this lesson.'
 };
 
@@ -39,13 +38,13 @@ export function render(ctrl: GamebookPlayCtrl): VNode {
 function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
   const fb = state.feedback;
   if (fb === 'bad') return h('div.feedback.act.bad' + (state.comment ? '.com' : ''), {
-    hook: bind('click', ctrl.retry, ctrl.redraw)
+    hook: bind('click', ctrl.retry)
   }, [
     h('i', { attrs: dataIcon('P') }),
     h('span', 'Retry')
   ]);
   if (fb === 'good' && state.comment) return h('div.feedback.act.good.com', {
-    hook: bind('click', () => ctrl.next())
+    hook: bind('click', ctrl.next)
   }, [
     h('i', { attrs: dataIcon('G') }),
     h('span', 'Next')

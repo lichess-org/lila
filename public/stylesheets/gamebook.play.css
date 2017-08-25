@@ -86,7 +86,7 @@
   background: #dc322f;
 }
 .gb_play .feedback.good {
-  background: #639B24;
+  background: #639B24!important;
   color: #fff;
 }
 .gb_play .feedback.end {
