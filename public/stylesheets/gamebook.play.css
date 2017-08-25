@@ -36,12 +36,18 @@
   padding: 12px;
   min-height: 2.5em;
 }
-.gb_play .comment .hint {
+.gb_play .comment div.hint {
   padding: 10px 12px;
   background: #3893E8;
   color: #fff;
+  cursor: pointer;
   border-radius: 0 0 5px 5px;
   z-index: 2;
+}
+.gb_play .comment a.hint {
+  padding: 0 0 10px 12px;
+  color: #3893E8;
+  font-size: 0.8em;
 }
 
 .gb_play .floor {

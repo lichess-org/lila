@@ -20,7 +20,7 @@ export function render(ctrl: GamebookPlayCtrl): VNode {
   }, [
     comment ? h('div.comment', [
       h('div.content', { hook: richHTML(comment) }),
-      state.showHint ? h('div.hint', { hook: richHTML(state.hint!) }) : undefined
+      hintZone(ctrl)
     ]) : undefined,
     h('div.floor', [
       renderFeedback(ctrl, state),
@@ -33,6 +33,17 @@ export function render(ctrl: GamebookPlayCtrl): VNode {
       })
     ])
   ]);
+}
+
+function hintZone(ctrl: GamebookPlayCtrl) {
+  const state = ctrl.state,
+  clickHook = () => ({
+    hook: bind('click', ctrl.hint, ctrl.redraw)
+  });
+  if (state.showHint) return h('div', clickHook(), [
+    h('div.hint', { hook: richHTML(state.hint!) })
+  ]);
+  if (state.hint) return h('a.hint', clickHook(), 'Get a hint');
 }
 
 function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
