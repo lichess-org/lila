@@ -1214,7 +1214,7 @@ body.dark .aclock.active {
   line-height: 1.25;
 }
 .tview2.inline {
-  padding: 7px 0px 7px 7px;
+  padding: 7px 3px 7px 7px;
   font-size: 18px;
   line-height: 1.05em;
 }
@@ -1278,6 +1278,7 @@ body.piece_letter .tview2 move {
 }
 .tview2.inline move index {
   padding-right: 0.2em;
+  line-height: 111.11%
 }
 .tview2 line move {
   color: #606060;
@@ -1340,7 +1341,7 @@ body.piece_letter .tview2 move {
   word-wrap: break-word;
 }
 .tview2.inline comment {
-  vertical-align: 50%;
+  vertical-align: 45%;
   word-wrap: break-word;
   margin: 0 0.2em 0 0.1em;
   font-size: 0.9em;
