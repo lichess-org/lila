@@ -62,6 +62,7 @@
   <string name="bestMoveArrow">Показване на най-добър ход</string>
   <string name="cpus">Процесори</string>
   <string name="memory">Памет</string>
+  <string name="infiniteAnalysis">Неограничен анализ</string>
   <string name="blunders">Гафове</string>
   <string name="mistakes">Грешки</string>
   <string name="inaccuracies">Неточности</string>
@@ -191,6 +192,7 @@
     <item quantity="one">Дай %s sec</item>
     <item quantity="other">Дай %s sec</item>
   </plurals>
+  <string name="giveMoreTime">Дайте повече време</string>
   <string name="thisPlayerUsesChessComputerAssistance">Този играч използва компютърна помощ</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Този играч изкуствено увеличава/намалява своята оценка</string>
   <string name="takeback">Върни ход</string>
@@ -479,6 +481,7 @@
   <string name="error.email_acceptable">Адресът на ел. поща е недопустим</string>
   <string name="error.email_unique">Тази ел. поща е вече заета</string>
   <string name="blindfoldChess">Блинд (невидими фигури)</string>
+  <string name="zenMode">Режим Zen</string>
   <string name="moveConfirmation">Потвърждение на хода</string>
   <string name="inCorrespondenceGames">Кореспондентски игри</string>
   <string name="ifRatingIsPlusMinusX">Ако рейтингът е ± %s</string>
