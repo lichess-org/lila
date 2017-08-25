@@ -43,8 +43,8 @@ Du treng dei begge!</string>
   <string name="thePawn">Bonden</string>
   <string name="itMovesForwardOnly">Den går berre framover</string>
   <string name="pawnIntro">Bønder er spelemessig veike, men sit på eit stort potensial.</string>
-  <string name="pawnsMoveOneSquareOnly">Bønder flyttar seg eit felt av gongen,
-men dei når fram til den andre sida av brettet,
+  <string name="pawnsMoveOneSquareOnly">Bønder blir flytta eit felt av gongen,
+men om dei rekk fram til den andre sida av brettet,
 vert dei ei sterkare brikke!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">Til vanleg er det best å omvandla til ei dronning,
 men nokre gonger kan ein springar vera fin å ha!</string>
