@@ -31,14 +31,13 @@ function renderVote(ctrl) {
 
 export default function(ctrl) {
   const data = ctrl.getData();
-  const nbToVote = ctrl.nbToVoteCall();
-  const voteCall = nbToVote < 1 && data.puzzle.enabled && data.voted === undefined;
+  const voteCall = ctrl.callToVote() && data.puzzle.enabled && data.voted === undefined;
   return h('div.feedback.after' + (voteCall ? '.call' : ''), [
     voteCall ? h('div.vote_call', [
       h('strong', ctrl.trans('wasThisPuzzleAnyGood')),
       h('br'),
       h('span', ctrl.trans('pleaseVotePuzzle'))
-    ]) : (nbToVote === '5' ?  h('div.vote_call',
+    ]) : (ctrl.thanks() ? h('div.vote_call',
       h('strong', ctrl.trans('thankYou'))
     ) : null),
     h('div.half.top', [

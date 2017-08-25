@@ -415,8 +415,12 @@ export default function(opts, redraw: () => void): Controller {
   }
 
   const nbToVoteCall = storedProp('puzzle.vote-call', 3);
+  let thanksUntil: number | undefined;
+
+  const callToVote = () => parseInt(nbToVoteCall()) < 1;
 
   const vote = throttle(1000, false, function(v) {
+    if (callToVote()) thanksUntil = Date.now() + 2000;
     nbToVoteCall(5);
     vm.voted = v;
     xhr.vote(data.puzzle.id, v).then(function(res) {
@@ -465,7 +469,10 @@ export default function(opts, redraw: () => void): Controller {
     viewSolution,
     nextPuzzle,
     recentHash,
-    nbToVoteCall,
+    callToVote,
+    thanks() {
+      return !!thanksUntil && Date.now() < thanksUntil;
+    },
     vote,
     getCeval,
     pref: opts.pref,
