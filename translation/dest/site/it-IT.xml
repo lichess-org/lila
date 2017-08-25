@@ -46,7 +46,7 @@
   <string name="viewTheComputerAnalysis">Guarda l\'analisi del computer</string>
   <string name="requestAComputerAnalysis">Chiedi un\'analisi del computer</string>
   <string name="computerAnalysis">Analisi del computer</string>
-  <string name="computerAnalysisAvailable">Disponibile analisi del computer</string>
+  <string name="computerAnalysisAvailable">Analisi del computer disponibile</string>
   <string name="analysis">Scacchiera di analisi</string>
   <string name="depthX">Profondità %s</string>
   <string name="usingServerAnalysis">Usare le analisi del server</string>
@@ -109,8 +109,8 @@
   <string name="moveTimes">Tempo per mossa</string>
   <string name="flipBoard">Ruota la scacchiera</string>
   <string name="threefoldRepetition">Triplice ripetizione</string>
-  <string name="claimADraw">Reclama la patta</string>
-  <string name="offerDraw">Offri la patta</string>
+  <string name="claimADraw">Reclama patta</string>
+  <string name="offerDraw">Offri patta</string>
   <string name="draw">Patta</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s giocatori collegati</item>
