@@ -8,7 +8,7 @@ import moveTestBuild from './moveTest';
 import mergeSolution from './solution';
 import makePromotion from './promotion';
 import computeAutoShapes from './autoShape';
-import { prop, throttle } from 'common';
+import { prop, throttle, storedProp } from 'common';
 import * as xhr from './xhr';
 import { sound } from './sound';
 import { Api as CgApi } from 'chessground/api';
@@ -215,6 +215,7 @@ export default function(opts, redraw: () => void): Controller {
   function sendResult(win) {
     if (vm.resultSent) return;
     vm.resultSent = true;
+    nbToVoteCall(Math.max(0, parseInt(nbToVoteCall()) - 1));
     xhr.round(data.puzzle.id, win).then(function(res) {
       data.user = res.user;
       vm.round = res.round;
@@ -413,10 +414,10 @@ export default function(opts, redraw: () => void): Controller {
     }, '') : '');
   }
 
-  const hasEverVoted = window.lichess.storage.make('puzzle-ever-voted');
+  const nbToVoteCall = storedProp('puzzle.vote-call', 3);
 
   const vote = throttle(1000, false, function(v) {
-    hasEverVoted.set('1');
+    nbToVoteCall(5);
     vm.voted = v;
     xhr.vote(data.puzzle.id, v).then(function(res) {
       data.puzzle.vote = res[1];
@@ -464,7 +465,7 @@ export default function(opts, redraw: () => void): Controller {
     viewSolution,
     nextPuzzle,
     recentHash,
-    hasEverVoted,
+    nbToVoteCall,
     vote,
     getCeval,
     pref: opts.pref,
