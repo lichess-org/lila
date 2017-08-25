@@ -267,7 +267,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
       h('h2', noarg('preferences')),
       boolSetting(ctrl, {
         name: 'Inline notation',
-        title: 'Keyboard: Shift+i',
+        title: 'Keyboard: Shift+I',
         id: 'inline',
         checked: ctrl.treeView.inline(),
         change(v) {
