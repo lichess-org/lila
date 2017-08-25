@@ -142,7 +142,7 @@ object Main extends LilaController {
     Ok(html.base.fpmenu()).fuccess
   }
 
-  def fishnet = Open { implicit ctx =>
-    Ok(html.site.fishnet()).fuccess
+  def getFishnet = Open { implicit ctx =>
+    Ok(html.site.getFishnet()).fuccess
   }
 }

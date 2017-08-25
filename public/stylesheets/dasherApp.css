@@ -10,6 +10,7 @@
   padding: 5px 0;
 }
 #dasher_app .links a,
+#dasher_app .links button,
 #dasher_app .subs .sub {
   display: block;
   padding: 5px 10px;
@@ -17,10 +18,17 @@
   white-space: nowrap;
 }
 #dasher_app .links a:hover,
+#dasher_app .links button:hover,
 #dasher_app .subs .sub:hover,
 #dasher_app .langs form > *:hover {
   background: #F0F0F0;
   color: #444;
+}
+#dasher_app .links button {
+  width: 100%;
+  text-align: left;
+  border: 0;
+  background: none;
 }
 #dasher_app .subs {
   border-top: 1px solid #ddd;
@@ -400,11 +408,15 @@ body.dark #dasher_app .board .zoom {
 }
 body.dark #dasher_app .head,
 body.dark #dasher_app .links a:hover,
+body.dark #dasher_app .links button:hover,
 body.dark #dasher_app .subs a:hover,
 body.dark #dasher_app .langs form > *:hover,
 body.dark #dasher_app .selector a:hover {
   background: #3e3e3e;
   color: #b0b0b0;
+}
+body.dark #dasher_app .links button {
+  color: #8f8f8f;
 }
 body.dark #dasher_app .selector a:hover::before {
   color: #555;

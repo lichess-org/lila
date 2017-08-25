@@ -167,6 +167,11 @@ final class TournamentApi(
     }
   }
 
+  def kill(tour: Tournament) {
+    if (tour.isStarted) finish(tour)
+    else if (tour.isCreated) wipe(tour)
+  }
+
   private def awardTrophies(tour: Tournament): Funit =
     tour.schedule.??(_.freq == Schedule.Freq.Marathon) ?? {
       PlayerRepo.bestByTourWithRank(tour.id, 100).flatMap {

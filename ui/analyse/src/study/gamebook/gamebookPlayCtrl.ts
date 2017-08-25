@@ -1,6 +1,5 @@
 import AnalyseCtrl from '../../ctrl';
 import { path as treePath, ops as treeOps } from 'tree';
-import Mascot from './mascot';
 import { makeShapesFromUci } from '../../autoShape';
 
 type Feedback = 'play' | 'good' | 'bad' | 'end';
@@ -15,7 +14,6 @@ export interface State {
 
 export default class GamebookPlayCtrl {
 
-  mascot = new Mascot();
   state: State;
 
   constructor(readonly root: AnalyseCtrl, readonly chapterId: string, readonly redraw: () => void) {

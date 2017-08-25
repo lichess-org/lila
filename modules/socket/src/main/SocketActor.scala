@@ -46,7 +46,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   // generic message handler
   def receiveGeneric: Receive = {
 
-    case Ping(uid, None, lagCentis) => ping(uid, lagCentis)
+    case Ping(uid, _, lagCentis) => ping(uid, lagCentis)
 
     case Broom => broom
 
@@ -87,11 +87,11 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
   def ping(uid: String, lagCentis: Option[Centis]) {
     setAlive(uid)
     withMember(uid) { member =>
+      member push pong
       for {
         lc <- lagCentis
         user <- member.userId
       } UserLagCache.put(user, lc)
-      member push pong
     }
   }
 

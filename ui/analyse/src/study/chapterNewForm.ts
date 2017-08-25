@@ -13,7 +13,7 @@ export const modeChoices = [
   ['normal', "Normal analysis"],
   ['practice', "Practice with computer"],
   ['conceal', "Hide next moves"],
-  ['gamebook', "Gamebook: interactive lesson [BETA]"]
+  ['gamebook', "Interactive lesson"]
 ];
 
 export function fieldValue(e: Event, id: string) {

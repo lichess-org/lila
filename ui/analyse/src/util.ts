@@ -67,8 +67,7 @@ export function plural(noun: string, nb: number): string {
 
 export function titleNameToId(titleName: string): string {
   const split = titleName.split(' ');
-  const name = split.length == 1 ? split[0] : split[1];
-  return name.toLowerCase();
+  return (split.length === 1 ? split[0] : split[1]).toLowerCase();
 }
 
 export function spinner() {
@@ -95,30 +94,35 @@ export function innerHTML<A>(a: A, toHtml: (a: A) => string): Hooks {
 }
 
 export function toYouTubeEmbed(url: string, height: number = 300): string | undefined {
-  let embedUrl = window.lichess.toYouTubeEmbedUrl(url);
+  const embedUrl = window.lichess.toYouTubeEmbedUrl(url);
   if (embedUrl) return `<iframe width="100%" height="${height}" src="${embedUrl}" frameborder=0 allowfullscreen></iframe>`;
 }
 
 const commentYoutubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:.*?(?:[?&]v=)|v\/)|youtu\.be\/)(?:[^"&?\/ ]{11})\b/i;
+const imgUrlRegex = /\.(jpg|jpeg|png|gif)$/;
+const newLineRegex = /\n/g;
+
+function imageTag(url: string): string | undefined {
+  if (imgUrlRegex.test(url)) return `<img src="${url}" class="embed"/>`;
+}
+
+function toLink(url: string) {
+  if (commentYoutubeRegex.test(url)) return toYouTubeEmbed(url) || url;
+  const show = imageTag(url) || url.replace(/https?:\/\//, '');
+  return '<a target="_blank" rel="nofollow" href="' + url + '">' + show + '</a>';
+}
 
 export function enrichText(text: string, allowNewlines: boolean): string {
-  let html = autolink(window.lichess.escapeHtml(text), url => {
-    if (commentYoutubeRegex.test(url)) {
-      return toYouTubeEmbed(url) || url;
-    }
-    const show = url.replace(/https?:\/\//, '');
-    return '<a target="_blank" rel="nofollow" href="' + url + '">' + show + '</a>';
-  });
-  if (allowNewlines) html = html.replace(/\n/g, '<br>');
+  let html = autolink(window.lichess.escapeHtml(text), toLink);
+  if (allowNewlines) html = html.replace(newLineRegex, '<br>');
   return html;
 }
 
 // from https://github.com/bryanwoods/autolink-js/blob/master/autolink.js
+const linkRegex = /(^|[\s\n]|<[A-Za-z]*\/?>)((?:https?|ftp):\/\/[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;
+
 export function autolink(str: string, callback: (str: string) => string): string {
-  const pattern = /(^|[\s\n]|<[A-Za-z]*\/?>)((?:https?|ftp):\/\/[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;
-  return str.replace(pattern, function(_, space, url) {
-    return "" + space + callback(url);
-  });
+  return str.replace(linkRegex, (_, space, url) => space + callback(url));
 }
 
 export function option(value: string, current: string | undefined, name: string) {

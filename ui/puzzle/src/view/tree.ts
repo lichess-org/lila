@@ -184,7 +184,7 @@ export function render(ctrl): VNode {
     ctrl: ctrl,
     showComputer: false
   };
-  return h('div.tview2', {
+  return h('div.tview2.column', {
     hook: {
       insert: vnode => {
         const el = vnode.elm as HTMLElement;

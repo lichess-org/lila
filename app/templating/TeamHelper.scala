@@ -6,7 +6,7 @@ import play.twirl.api.Html
 
 import lila.api.Context
 import lila.team.Env.{ current => teamEnv }
-import lila.common.String.html.{ escape => escapeHtml }
+import lila.common.String.html.escapeHtml
 
 trait TeamHelper {
 

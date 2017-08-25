@@ -8,7 +8,7 @@ import { State } from './gamebookPlayCtrl';
 const defaultComments = {
   play: 'What would you play in this position?',
   bad: 'That\'s not the right move.',
-  end: 'Congratulations! You completed this gamebook.'
+  end: 'Congratulations! You completed this lesson.'
 };
 
 export function render(ctrl: GamebookPlayCtrl): VNode {
@@ -23,16 +23,16 @@ export function render(ctrl: GamebookPlayCtrl): VNode {
       h('div.content', { hook: richHTML(comment) }),
       state.showHint ? h('div.hint', { hook: richHTML(state.hint!) }) : undefined
     ]) : undefined,
-    h('img.mascot', {
-      attrs: {
-        width: 120,
-        height: 120,
-        src: ctrl.mascot.url(),
-        title: 'Click to choose your teacher'
-      },
-      hook: bind('click', ctrl.mascot.switch, ctrl.redraw)
-    }),
-    renderFeedback(ctrl, state)
+    h('div.floor', [
+      renderFeedback(ctrl, state),
+      h('img.mascot', {
+        attrs: {
+          width: 120,
+          height: 120,
+          src: window.lichess.assetUrl('/assets/images/mascot/octopus.svg')
+        }
+      })
+    ])
   ]);
 }
 

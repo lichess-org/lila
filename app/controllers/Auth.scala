@@ -94,9 +94,21 @@ object Auth extends LilaController {
     implicit val req = ctx.req
     req.session get "sessionId" foreach lila.security.Store.delete
     negotiate(
-      html = fuccess(Redirect(routes.Main.mobile)),
-      api = apiVersion => Ok(Json.obj("ok" -> true)).fuccess
+      html = Redirect(routes.Main.mobile).fuccess,
+      api = _ => Ok(Json.obj("ok" -> true)).fuccess
     ) map (_ withCookies LilaCookie.newSession)
+  }
+
+  // mobile app BC logout with GET
+  def logoutGet = Open { implicit ctx =>
+    implicit val req = ctx.req
+    negotiate(
+      html = notFound,
+      api = _ => {
+        req.session get "sessionId" foreach lila.security.Store.delete
+        Ok(Json.obj("ok" -> true)).withCookies(LilaCookie.newSession).fuccess
+      }
+    )
   }
 
   def signup = Open { implicit ctx =>

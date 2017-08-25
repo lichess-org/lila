@@ -33,7 +33,7 @@ body.transp::before {
   z-index: -1;
 }
 body.transp #timeline,
-body.dark .tview2,
+body.dark .areplay,
 body.transp div.training .box,
 body.transp div.side_box,
 body.transp div.box,
@@ -73,6 +73,7 @@ body.transp form.translation_form div.message,
 body.transp #video_side .tag_list a.checked,
 body.transp #powerTip,
 body.transp .study_comment_form .material.form .form-group textarea,
+body.transp .chapter_desc,
 body.transp div.vstext,
 body.transp .action_menu {
   background: rgba(0, 0, 0, 0.6);
@@ -186,4 +187,7 @@ body.transp ::-webkit-scrollbar-corner {
 }
 body.transp .action_menu .setting {
   margin-right: 10px;
+}
+body.transp #analyse-cm {
+  color: #888;
 }

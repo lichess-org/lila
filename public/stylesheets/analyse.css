@@ -411,10 +411,22 @@ body.piece_letter .fork move {
 }
 
 @media (min-width: 1050px) {
-  div.lichess_game div.lichess_ground {
+
+  #puzzle div.lichess_game div.lichess_ground {
+    width: 280px;
+    min-width: 280px;
+  }
+  #puzzle .fork { left: 90px; }
+
+  div.analyse div.lichess_game div.lichess_ground {
+    width: 25vw;
     min-width: 25vw;
   }
-  .fork { left: 90px; }
+  div.analyse .fork { left: 90px; }
+
+  .pocket piece {
+    flex: 0 0 50px;
+  }
 }
 
 .explorer_box {
@@ -1201,8 +1213,8 @@ body.dark .aclock.active {
   font-size: 13.5px;
   line-height: 1.25;
 }
-.tview2.literal {
-  padding: 7px 0px 7px 5px;
+.tview2.inline {
+  padding: 7px 0px 7px 7px;
   font-size: 18px;
   line-height: 1.05em;
 }
@@ -1220,7 +1232,7 @@ body.piece_letter .tview2 move {
   font-size: 1.092em;
   padding: 0 2px;
 }
-.tview2.literal move {
+.tview2.inline move {
   padding: 0.25em 0.17em;
   white-space: nowrap;
 }
@@ -1242,7 +1254,7 @@ body.piece_letter .tview2 move {
   background: #3893e8;
   color: #fff!important;
 }
-.tview2.literal move:hover {
+.tview2.inline move:hover {
   border-radius: 3px;
 }
 .tview2 move.empty {
@@ -1263,7 +1275,7 @@ body.piece_letter .tview2 move {
 .tview2.column move index:first-child {
   padding-left: 0;
 }
-.tview2.literal move index {
+.tview2.inline move index {
   padding-right: 0.2em;
 }
 .tview2 line move {
@@ -1311,20 +1323,22 @@ body.piece_letter .tview2 move {
   color: #c0c0c0;
 }
 .tview2 > interrupt {
-  flex: 0 0 100%;
   font-size: 95%;
+}
+.tview2.column > interrupt {
+  flex: 0 0 100%;
   background: #f8f8f8;
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
   box-sizing: border-box;
   max-width: 100%;
 }
-.tview2 > interrupt > comment {
+.tview2.column > interrupt > comment {
   display: block;
   padding: 3px 5px;
   word-wrap: break-word;
 }
-.tview2.literal comment {
+.tview2.inline comment {
   vertical-align: 0.62em;
   word-wrap: break-word;
   color: #7492bf;
@@ -1378,10 +1392,13 @@ body.piece_letter .tview2 move {
 }
 .tview2 lines {
   display: block;
-  padding-top: 2px;
-  margin-left: 5px;
+  margin-top: 2px;
+  margin-left: 6px;
   margin-bottom: 0.8em;
-  border-left: 1px solid #ccc;
+  border-left: 2px solid #ccc;
+}
+.tview2 > interrupt > lines {
+  margin-left: 0px;
 }
 .tview2 lines.single {
   border-left: none;
@@ -1391,7 +1408,7 @@ body.piece_letter .tview2 move {
 }
 .tview2 line {
   display: block;
-  padding-left: 4px;
+  padding-left: 7px;
 }
 .tview2.column line {
   margin: 2px 0;
@@ -1404,20 +1421,19 @@ body.piece_letter .tview2 move {
 }
 .tview2 lines lines::before {
   content: ' ';
-  border-top: 1px solid #c0c0c0;
+  border-top: 2px solid #ccc;
   position: absolute;
-  margin-left: -5.5px;
-  margin-top: -2px;
-  width: 5px;
+  margin-left: -11px;
+  width: 9px;
   height: 6px;
 }
 .tview2 lines line::before {
-  margin-top: 0.7em;
-  margin-left: -4px;
+  margin-top: 0.65em;
+  margin-left: -8px;
   content: ' ';
-  border-top: 1px solid #c0c0c0;
+  border-top: 2px solid #ccc;
   position: absolute;
-  width: 5px;
+  width: 8px;
   height: 6px;
 }
 .tview2 lines lines:last-child {
@@ -1443,8 +1459,8 @@ body.piece_letter .tview2 move {
   content: ')';
   margin-right: 2px;
 }
-.tview2.literal inline::before,
-.tview2.literal inline::after {
+.tview2.inline inline::before,
+.tview2.inline inline::after {
   vertical-align: 0.7em;
 }
 .tview2 .conceal {
@@ -1468,12 +1484,13 @@ body.dark .tview2.column comment {
 body.dark .tview2.column line comment {
   color: #888;
 }
-body.dark .tview2.literal comment {
+body.dark .tview2.inline comment {
   color: #869fc3;
 }
+body.dark .tview2 lines,
 body.dark .tview2 lines lines::before,
 body.dark .tview2 lines line::before {
-  border-color: #606060;
+  border-color: #666;
 }
 .lichess_ground .areplay .result,
 .lichess_ground .areplay .status {

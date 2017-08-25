@@ -329,7 +329,8 @@ POST  /translation/select              controllers.I18n.select
 # Authentication
 GET   /login                           controllers.Auth.login
 POST  /login                           controllers.Auth.authenticate
-GET   /logout                          controllers.Auth.logout
+GET   /logout                          controllers.Auth.logoutGet
+POST  /logout                          controllers.Auth.logout
 GET   /signup                          controllers.Auth.signup
 POST  /signup                          controllers.Auth.signupPost
 GET   /signup/check-your-email/:name   controllers.Auth.checkYourEmail(name: String)
@@ -502,7 +503,7 @@ GET   /embed                           controllers.Main.embed
 GET   /mobile                          controllers.Main.mobile
 GET   /lag                             controllers.Main.lag
 GET   /fpmenu                          controllers.Main.fpmenu
-GET   /fishnet                         controllers.Main.fishnet
+GET   /get-fishnet                     controllers.Main.getFishnet
 
 # Mobile Push
 POST  /mobile/register/:platform/:deviceId controllers.Main.mobileRegister(platform: String, deviceId: String)

@@ -6,17 +6,18 @@ import AnalyseCtrl from '../ctrl';
 import contextMenu from '../contextMenu';
 import { MaybeVNodes, ConcealOf } from '../interfaces';
 import { authorText as commentAuthorText } from '../study/studyComments';
+import { enrichText, innerHTML } from '../util';
 import { path as treePath } from 'tree';
 import column from './columnView';
-import literate from './literateView';
+import inline from './inlineView';
 import { empty, defined, dropThrottle, storedProp, StoredProp } from 'common';
 
 export interface Ctx {
   ctrl: AnalyseCtrl;
-  truncateComments: boolean;
   showComputer: boolean;
   showGlyphs: boolean;
   showEval: boolean;
+  truncateComments: boolean;
 }
 
 export interface Opts {
@@ -35,7 +36,7 @@ export interface NodeClasses {
   [key: string]: boolean;
 }
 
-export type TreeViewKey = 'column' | 'literate';
+export type TreeViewKey = 'column' | 'inline';
 
 export interface TreeView {
   get: StoredProp<TreeViewKey>;
@@ -47,7 +48,7 @@ export function ctrl(): TreeView {
   return {
     get: value,
     toggle() {
-      value(value() === 'column' ? 'literate' : 'column');
+      value(value() === 'column' ? 'inline' : 'column');
     }
   };
 }
@@ -56,7 +57,7 @@ export function ctrl(): TreeView {
 // entry point, dispatching to selected view
 export function render(ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
   if (ctrl.treeView.get() === 'column') return column(ctrl, concealOf);
-  return literate(ctrl);
+  return inline(ctrl);
 }
 
 export function nodeClasses(c: AnalyseCtrl, path: Tree.Path): NodeClasses {
@@ -71,12 +72,15 @@ export function nodeClasses(c: AnalyseCtrl, path: Tree.Path): NodeClasses {
   };
 }
 
-export function renderInlineCommentsOf(ctx: Ctx, node: Tree.Node): MaybeVNodes {
+export function renderInlineCommentsOf(ctx: Ctx, node: Tree.Node, rich?: boolean): MaybeVNodes {
   if (!ctx.ctrl.showComments || empty(node.comments)) return [];
   return node.comments!.map(comment => {
     if (comment.by === 'lichess' && !ctx.showComputer) return;
-    return h('comment', [
-      node.comments![1] ? h('span.by', commentAuthorText(comment.by)) : null,
+    const by = node.comments![1] ? h('span.by', commentAuthorText(comment.by)) : null;
+    return rich ? h('comment', {
+      hook: innerHTML(comment.text, text => enrichText(text, true))
+    }) : h('comment', [
+      by,
       truncateComment(comment.text, 300, ctx)
     ]);
   }).filter(nonEmpty);

@@ -34,6 +34,7 @@
 .gb_edit .gamebook .legend {
   display: flex;
   border-bottom: 1px solid #ccc;
+  min-height: 3.5em;
 }
 .gb_edit .gamebook .legend i {
   flex: 0 0 50px;
@@ -54,6 +55,8 @@
 .gb_edit .gamebook .legend p {
   flex: 1 1 100%;
   padding: 8px 10px;
+  display: flex;
+  align-items: center;
 }
 .gb_edit .gamebook .todo i {
   background: #dc322f;

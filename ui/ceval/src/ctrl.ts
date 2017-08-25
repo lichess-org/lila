@@ -172,7 +172,7 @@ export default function(opts: CevalOpts): CevalCtrl {
     hashSize,
     infinite,
     hovering,
-    setHovering(fen: Fen, uci: Uci) {
+    setHovering(fen: Fen, uci?: Uci) {
       hovering(uci ? {
         fen,
         uci
