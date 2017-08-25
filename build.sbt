@@ -1,12 +1,12 @@
-import com.typesafe.sbt.SbtScalariform.ScalariformKeys
-import scalariform.formatter.preferences._
-import com.typesafe.sbt.SbtScalariform.autoImport.scalariformFormat
 import com.typesafe.sbt.packager.Keys.scriptClasspath
+import com.typesafe.sbt.SbtScalariform.autoImport.scalariformFormat
+import com.typesafe.sbt.SbtScalariform.ScalariformKeys
 import com.typesafe.sbt.web.SbtWeb.autoImport._
 import play.Play.autoImport._
 import play.sbt.PlayImport._
 import play.twirl.sbt.Import._
 import PlayKeys._
+import scalariform.formatter.preferences._
 
 import BuildSettings._
 import Dependencies._
@@ -53,9 +53,10 @@ resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets"
 
 Seq(
   ScalariformKeys.preferences := ScalariformKeys.preferences.value
-  .setPreference(DanglingCloseParenthesis, Force)
-  .setPreference(DoubleIndentConstructorArguments, true),
-  excludeFilter in scalariformFormat := "*Routes*")
+    .setPreference(DanglingCloseParenthesis, Force)
+    .setPreference(DoubleIndentConstructorArguments, true),
+  excludeFilter in scalariformFormat := "*Routes*"
+)
 
 lazy val modules = Seq(
   chess, common, db, rating, user, security, hub, socket,
