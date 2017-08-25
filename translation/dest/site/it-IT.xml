@@ -49,7 +49,7 @@
   <string name="computerAnalysisAvailable">Analisi del computer disponibile</string>
   <string name="analysis">Scacchiera di analisi</string>
   <string name="depthX">Profondità %s</string>
-  <string name="usingServerAnalysis">Usare le analisi del server</string>
+  <string name="usingServerAnalysis">Analisi del computer in uso</string>
   <string name="loadingEngine">Sto caricando il motore...</string>
   <string name="cloudAnalysis">Analisi nel cloud</string>
   <string name="goDeeper">Andare più a fondo</string>
@@ -270,6 +270,7 @@
   <string name="thematic">A tema</string>
   <string name="yourPerfRatingIsProvisional">Il tuo punteggio %s è provvisorio</string>
   <string name="yourPerfRatingIsTooHigh">Il tuo punteggio %1$s (%2$s) è troppo alto</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Il tuo miglior punteggio settimanale %1$s (%2$s) è troppo alto</string>
   <string name="yourPerfRatingIsTooLow">Il tuo punteggio %1$s (%2$s) è troppo basso</string>
   <string name="ratedMoreThanInPerf">Elo ≥ %1$s in %2$s</string>
   <string name="ratedLessThanInPerf">Punteggio ≤ %1$s in %2$s</string>
@@ -372,8 +373,8 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="performance">Performance</string>
   <string name="tournamentComplete">Torneo terminato</string>
   <string name="movesPlayed">Mosse giocate</string>
-  <string name="whiteWins">Il Bianco ha vinto</string>
-  <string name="blackWins">Il Nero ha vinto</string>
+  <string name="whiteWins">Il Bianco vince</string>
+  <string name="blackWins">Il Nero vince</string>
   <string name="draws">Patte</string>
   <string name="nextXTournament">Prossimo torneo %s:</string>
   <string name="viewMoreTournaments">Mostrare altri tornei</string>
