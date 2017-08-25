@@ -46,7 +46,7 @@
   <string name="viewTheComputerAnalysis">Виж компютърния анализ</string>
   <string name="requestAComputerAnalysis">Поискай компютърен анализ</string>
   <string name="computerAnalysis">Компютърен анализ</string>
-  <string name="computerAnalysisAvailable">Компютърният анализ не е достъпен</string>
+  <string name="computerAnalysisAvailable">Компютърния анализ е наличен</string>
   <string name="analysis">Анализ</string>
   <string name="depthX">Дълбочина %s</string>
   <string name="loadingEngine">Зареждане на програмата ...</string>
@@ -54,6 +54,7 @@
   <string name="capture">Взимане</string>
   <string name="noGameFound">Не е открита игра</string>
   <string name="openingExplorer">Изследовател на дебютите</string>
+  <string name="winPreventedBy50MoveRule">Победата е предотвратена от 50-ходовото правило</string>
   <string name="delete">Изтрий</string>
   <string name="blunders">Гафове</string>
   <string name="mistakes">Грешки</string>
