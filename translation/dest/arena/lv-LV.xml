@@ -13,12 +13,12 @@ Nākamās spēles turpmāk būs divkāršu punktu vērtas līdzkamēr tiks piedz
 Tas ir, par uzvaru tiek piešķirti 4 punkti, neizšķirtu 2 punkti un zaudējums tāpat kā iepriekš - neviens.
 
 Piemēram, trim uzvarām sekojošs neizšķirts būs 10 punktu vērts: 2 + 2 + (2 x 2) + (2 x 1)</string>
-  <string name="berserk">Berserk Arēna</string>
-  <string name="berserkAnswer">Kad spēlētājs spēlei sākoties nospiež uz Berserk (berserk - no angļu valodas - nekontrolējams niknums) pogas, viņi zaudē pusi no sava pulksteņa laika, taču par uzvaru tiek piešķirts viens papildus punkts.
+  <string name="berserk">Kurbada Arēna</string>
+  <string name="berserkAnswer">Kad spēlētājs spēlei sākoties nospiež uz Kurbads pogas, viņi zaudē pusi no sava pulksteņa laika, taču par uzvaru tiek piešķirts viens papildus punkts.
 
-Spēlējot Berserk laika kontrolēm ar inkrementu tiek noņemts inkrements. (1+2 ir izņēmums, tas pārvēršas par 1+0)
+Spēlējot Kurbads laika kontrolēm ar inkrementu tiek noņemts inkrements. (1+2 ir izņēmums, tas pārvēršas par 1+0)
 
-Berserk nav pieejams spēlēm ar nulles sākotnējo laiku (0+1, 0+2).
+Kurbads nav pieejams spēlēm ar nulles sākotnējo laiku (0+1, 0+2).
 
 Papildus punkts tiek piešķirts tikai tad, ja Berserk spēlē izdarīti vismaz 7 gājieni.</string>
   <string name="howIsTheWinnerDecided">Kā tiek noteikts uzvarētājs?</string>
