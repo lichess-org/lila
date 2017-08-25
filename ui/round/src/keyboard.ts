@@ -39,4 +39,5 @@ export function init(ctrl: RoundController) {
     ctrl.redraw();
   }));
   k.bind('f', preventing(ctrl.flipNow));
+  k.bind('z', preventing(ctrl.toggleZen));
 }

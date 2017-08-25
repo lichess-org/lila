@@ -127,7 +127,7 @@
 }
 #dasher_app .selector a:hover::before {
   opacity: 1;
-  color: #fff;
+  color: #3893E8;
 }
 #dasher_app .selector a.active::before {
   opacity: 1;
