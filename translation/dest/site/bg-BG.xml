@@ -340,7 +340,7 @@
   <string name="thankYou">Благодаря!</string>
   <string name="ratingX">Рейтинг: %s</string>
   <plurals name="playedXTimes">
-    <item quantity="one">Изиграна %s  пъти</item>
+    <item quantity="one">Решавана %s пъти</item>
     <item quantity="other">Изиграна %s  пъти</item>
   </plurals>
   <string name="fromGameLink">От игра  %s</string>
