@@ -1235,6 +1235,7 @@ body.piece_letter .tview2 move {
 .tview2.inline move {
   padding: 0.25em 0.17em;
   white-space: nowrap;
+  font-weight: bold;
 }
 .tview2 move.parent {
   color: #3893e8!important;
@@ -1341,7 +1342,6 @@ body.piece_letter .tview2 move {
 .tview2.inline comment {
   vertical-align: 0.62em;
   word-wrap: break-word;
-  color: #7492bf;
   margin-left: 0.1em;
   font-size: 0.8em;
 }
@@ -1483,9 +1483,6 @@ body.dark .tview2.column comment {
 }
 body.dark .tview2.column line comment {
   color: #888;
-}
-body.dark .tview2.inline comment {
-  color: #869fc3;
 }
 body.dark .tview2 lines,
 body.dark .tview2 lines lines::before,
