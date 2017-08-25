@@ -257,7 +257,7 @@
   <string name="takebackPropositionSent">Framlegg om å gjera om trekket blei sendt</string>
   <string name="takebackPropositionDeclined">Framlegget om å gjera om trekket blei avslått</string>
   <string name="takebackPropositionAccepted">Framlegget om å gjera om trekket blei godteke</string>
-  <string name="takebackPropositionCanceled">Framlegget om å gjera om draget blei trekt attende</string>
+  <string name="takebackPropositionCanceled">Framlegget om å få gjera om att trekket vart kansellert</string>
   <string name="yourOpponentProposesATakeback">Motstandaren gjer framlegg om å gjera om trekket</string>
   <string name="bookmarkThisGame">Bokmerk denne sida</string>
   <string name="search">Søk</string>
