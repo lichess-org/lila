@@ -332,22 +332,22 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="followsYou">Ti segue</string>
   <string name="xStartedFollowingY">%1$s ha iniziato a seguire %2$s</string>
   <plurals name="nbFollowers">
-    <item quantity="one">%s Lo seguono</item>
-    <item quantity="other">%s Lo seguono</item>
+    <item quantity="one">%s lo segue</item>
+    <item quantity="other">%s lo seguono</item>
   </plurals>
   <plurals name="nbFollowing">
-    <item quantity="one">%s persone seguite</item>
+    <item quantity="one">%s persona seguita</item>
     <item quantity="other">%s persone seguite</item>
   </plurals>
   <string name="more">Altro</string>
   <string name="memberSince">Membro dal</string>
-  <string name="lastSeenActive">Ultimo ingresso %s</string>
+  <string name="lastSeenActive">Ultimo accesso %s</string>
   <string name="challengeToPlay">Sfida a una partita</string>
   <string name="player">Giocatore</string>
   <string name="list">Lista</string>
   <string name="graph">Grafico</string>
   <plurals name="lessThanNbMinutes">
-    <item quantity="one">Meno di %s minuti</item>
+    <item quantity="one">Meno di %s minuto</item>
     <item quantity="other">Meno di %s minuti</item>
   </plurals>
   <string name="required">Richiesto.</string>
@@ -365,16 +365,16 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="createdBy">Creato da</string>
   <string name="tournamentIsStarting">Sta per iniziare il torneo</string>
   <string name="tournamentPairingsAreNowClosed">Gli accoppiamenti del torneo sono ora chiusi.</string>
-  <string name="standByX">Resta in attesa %s, accoppiamento giocatori, sii pronto!</string>
+  <string name="standByX">Resta in attesa %s, accoppiamento giocatori, preparati!</string>
   <string name="youArePlaying">Stai giocando!</string>
   <string name="winRate">Percentuale di vittorie</string>
   <string name="berserkRate">Percentuale Berserk</string>
   <string name="performance">Performance</string>
   <string name="tournamentComplete">Torneo terminato</string>
   <string name="movesPlayed">Mosse giocate</string>
-  <string name="whiteWins">Il bianco ha vinto</string>
-  <string name="blackWins">Il nero ha vinto</string>
-  <string name="draws">Patta</string>
+  <string name="whiteWins">Il Bianco ha vinto</string>
+  <string name="blackWins">Il Nero ha vinto</string>
+  <string name="draws">Patte</string>
   <string name="nextXTournament">Prossimo torneo %s:</string>
   <string name="viewMoreTournaments">Mostrare altri tornei</string>
   <string name="averageOpponent">Punteggio medio degli avversari</string>
@@ -383,7 +383,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="setTheBoard">Prepara la scacchiera</string>
   <string name="popularOpenings">Aperture popolari</string>
   <string name="startPosition">Posizione iniziale</string>
-  <string name="clearBoard">Svuota la scacchiera</string>
+  <string name="clearBoard">Svuota scacchiera</string>
   <string name="savePosition">Salva la posizione</string>
   <string name="loadPosition">Carica una posizione</string>
   <string name="isPrivate">Privato</string>
@@ -391,7 +391,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="profileCompletion">Completamento del profilo: %s</string>
   <string name="xRating">%s punteggio</string>
   <string name="ifNoneLeaveEmpty">Se nessuno, lasciare vuoto</string>
-  <string name="gameCompletionRate">Percentuale di completamento: %s</string>
+  <string name="gameCompletionRate">Percentuale di partite finite: %s</string>
   <string name="profile">Profilo</string>
   <string name="editProfile">Modifica profilo</string>
   <string name="firstName">Nome</string>
