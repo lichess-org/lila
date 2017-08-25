@@ -320,7 +320,7 @@
   <string name="leaderboard">Rangliste</string>
   <string name="pasteTheFenStringHere">Lim inn FEN-strengen her</string>
   <string name="pasteThePgnStringHere">Lim inn PGN-fila her</string>
-  <string name="fromPosition">Frå posisjon</string>
+  <string name="fromPosition">Frå stilling</string>
   <string name="continueFromHere">Fortsett herfrå</string>
   <string name="importGame">Importér parti</string>
   <string name="importGameExplanation">Når du limer inn eit PGN-parti kan du bla gjennom partiet,
@@ -402,7 +402,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="startPosition">Startposisjon</string>
   <string name="clearBoard">Tøm brettet</string>
   <string name="savePosition">Lagre stilling</string>
-  <string name="loadPosition">Last inn posisjon</string>
+  <string name="loadPosition">Last inn stilling</string>
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Meld %s til moderator</string>
   <string name="profileCompletion">Profil fullført: %s</string>
