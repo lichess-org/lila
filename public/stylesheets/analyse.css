@@ -1611,29 +1611,6 @@ span.blurs {
 span.hold {
   border-color: #E73B38;
 }
-div.shortcuts .inner {
-  display: none;
-}
-div.shortcuts:hover .inner {
-  display: block;
-}
-div.shortcuts .title {
-  margin: 1.5em 0 0.5em 0;
-  display: block;
-  font-weight: bold;
-  border-bottom: 1px solid #ccc;
-}
-div.shortcuts li {
-  display: block;
-  margin: 0.5em 0;
-}
-#site_header div.shortcuts strong {
-  font-weight: bold;
-}
-.back_to_game {
-  margin-top: 30px;
-  text-align: center;
-}
 .copyables > p {
   margin-top: 7px;
 }
@@ -1650,6 +1627,10 @@ div.shortcuts li {
   top: 53px;
   left: -241px;
   width: 226px;
+}
+.back_to_game {
+  margin-top: 30px;
+  text-align: center;
 }
 
 .mselect {
