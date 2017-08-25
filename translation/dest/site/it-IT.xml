@@ -581,9 +581,9 @@ in %3$s</string>
   <string name="shareGameURL">Condividi URL della partita</string>
   <string name="error.required">Questo campo è obbligatorio</string>
   <string name="error.email">Questa indirizzo email non è valido</string>
-  <string name="error.email_acceptable">Questa email non è accettabile</string>
-  <string name="error.email_unique">Questa email viene già utilizzata</string>
-  <string name="error.email_different">Questo è gia il tuo indirizzo mail</string>
+  <string name="error.email_acceptable">Impossibile accettare questo indirizzo email</string>
+  <string name="error.email_unique">Questo indirizzo email è già utilizzato</string>
+  <string name="error.email_different">Questo è già il tuo indirizzo mail</string>
   <string name="blindfoldChess">Scacchi alla cieca</string>
   <string name="zenMode">Modalità Zen</string>
   <string name="moveConfirmation">Conferma della mossa</string>
@@ -597,8 +597,8 @@ in %3$s</string>
   <string name="blackCastlingKingside">Nero O-O</string>
   <string name="blackCastlingQueenside">Nero O-O-O</string>
   <plurals name="nbForumPosts">
-    <item quantity="one">%s Post nel Forum</item>
-    <item quantity="other">%s Post nel Forum</item>
+    <item quantity="one">%s post nel forum</item>
+    <item quantity="other">%s post nel forum</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Tempo in partita: %s</string>
   <string name="watchGames">Guarda le partite</string>
@@ -612,14 +612,14 @@ in %3$s</string>
   <string name="contact">Contattaci</string>
   <string name="termsOfService">Termini di Servizio</string>
   <string name="sourceCode">Codice Sorgente</string>
-  <string name="simultaneousExhibitions">Esibizioni Simultanee</string>
+  <string name="simultaneousExhibitions">Esibizioni simultanee</string>
   <string name="host">Simultaneista</string>
-  <string name="hostColorX">Colore dell\'ospite: %s</string>
+  <string name="hostColorX">Colore del simultaneista: %s</string>
   <string name="createdSimuls">Simultanee recenti</string>
   <string name="hostANewSimul">Crea una nuova simultanea</string>
   <string name="noSimulFound">Simultanea non trovata</string>
   <string name="noSimulExplanation">Questa esibizione simultanea non esiste.</string>
-  <string name="returnToSimulHomepage">Ritorna alla homepage delle simultanee</string>
+  <string name="returnToSimulHomepage">Ritorna alla pagina delle simultanee</string>
   <string name="aboutSimul">Nelle simultanee un giocatore sfida diversi avversari contemporaneamente.</string>
   <string name="aboutSimulImage">Su 50 avversari, Fischer vinse 47 partite, ne pareggiò 2 e ne perse 1.</string>
   <string name="aboutSimulRealLife">Questo concetto è preso da eventi reali. Nella vita reale, questo implica che il simultaneista si muova da un tavolo all\'altro per giocare le singole mosse.</string>
@@ -634,13 +634,13 @@ in %3$s</string>
   <string name="lichessTournaments">Tornei Lichess</string>
   <string name="tournamentFAQ">FAQ tornei Arena</string>
   <string name="tournamentOfficial">Ufficiale</string>
-  <string name="timeBeforeTournamentStarts">Tempo restante per l\'inizio del torneo</string>
+  <string name="timeBeforeTournamentStarts">Tempo prima dell\'inizio del torneo</string>
   <string name="averageCentipawnLoss">Centesimi di pedone persi in media</string>
-  <string name="keyboardShortcuts">Shortcuts</string>
-  <string name="keyMoveBackwardOrForward">Muovi indietro/avanti</string>
-  <string name="keyGoToStartOrEnd">Vai all\'inizio/fine</string>
-  <string name="keyShowOrHideComments">Mostra/nascondi i commenti</string>
-  <string name="keyEnterOrExitVariation">Entra/esci dalla variante</string>
+  <string name="keyboardShortcuts">Scorciatoie da tastiera</string>
+  <string name="keyMoveBackwardOrForward">muovi indietro/avanti</string>
+  <string name="keyGoToStartOrEnd">vai all\'inizio/fine</string>
+  <string name="keyShowOrHideComments">mostra/nascondi i commenti</string>
+  <string name="keyEnterOrExitVariation">entra/esci dalla variante</string>
   <string name="newTournament">Nuovo torneo</string>
   <string name="tournamentHomeTitle">Torneo con diversi controlli del tempo e varianti</string>
   <string name="tournamentHomeDescription">Partecipa a frenetici tornei di scacchi! Unisciti a un torneo ufficiale programmato o creane uno. Bullet, Blitz, Chess960, King of the Hill, Threecheck e altre opzioni per un divertimento scacchistico senza fine.</string>
@@ -650,8 +650,8 @@ in %3$s</string>
   <string name="returnToTournamentsHomepage">Torna alla pagina iniziale del torneo</string>
   <string name="weeklyPerfTypeRatingDistribution">Distribuzione settimanale dei punteggi %s</string>
   <plurals name="nbPerfTypePlayersThisWeek">
-    <item quantity="one">%1$s %2$s giocatori questa settimana.</item>
-    <item quantity="other">%1$s %2$s giocatori questa settimana.</item>
+    <item quantity="one">%1$s giocatore %2$s questa settimana.</item>
+    <item quantity="other">%1$s giocatori %2$s questa settimana.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Il tuo punteggio %1$s è %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Giochi meglio del %1$s di giocatori %2$s.</string>
