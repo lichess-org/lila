@@ -407,6 +407,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="reportXToModerators">Teata kasutajast %s moderaatoritele</string>
   <string name="profileCompletion">Profiili täitmine: %s</string>
   <string name="xRating">%s reiting</string>
+  <string name="ifNoneLeaveEmpty">Kui pole, jätke tühjaks</string>
   <string name="profile">Profiil</string>
   <string name="editProfile">Muuda profiili</string>
   <string name="firstName">Eesnimi</string>
