@@ -132,10 +132,10 @@ Det er inga grunn til omvandling.</string>
   <string name="enPassantComplete">Gratulerar! Du kan nå slå \"en passant\".</string>
   <string name="stalemate">Patt</string>
   <string name="theGameIsADraw">Partiet endar i remis</string>
-  <string name="stalemateIntro">Når ein spelar ikkje er i sjakk utan å ha eit lovleg trekk å gjera er det patt. Partiet er remis: ingen vinn, ingen tapar.</string>
-  <string name="stalemateGoal">For å setje svart patt:
-- Svart kan ikkje flytte nokon stad
-- Det er ikkje sjakk.</string>
+  <string name="stalemateIntro">Når ein spelar ikkje står i sjakk og ikkje har eit einaste lovleg trekk å gjera, er det patt. Partiet er remis: ingen vinn, ingen tapar.</string>
+  <string name="stalemateGoal">Svart blir sett patt om:
+- svart ikkje har eit einaste lovleg trekk å gjera
+- svart ikkje står i sjakk.</string>
   <string name="stalemateComplete">Gratulerar! Det er bedre å verta sett patt enn sjakk matt!</string>
   <string name="advanced">Vidarekomande</string>
   <string name="pieceValue">Brikkeverde</string>
