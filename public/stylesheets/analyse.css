@@ -1340,10 +1340,10 @@ body.piece_letter .tview2 move {
   word-wrap: break-word;
 }
 .tview2.inline comment {
-  vertical-align: 0.62em;
+  vertical-align: 50%;
   word-wrap: break-word;
-  margin-left: 0.1em;
-  font-size: 0.8em;
+  margin: 0 0.2em 0 0.1em;
+  font-size: 0.9em;
 }
 .tview2 comment .by {
   display: inline-block;
