@@ -84,6 +84,7 @@
   <string name="noGameFound">Ühtegi mängu ei leitud</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Kas kaasata eelistuste menüüst rohkem mänge?</string>
   <string name="openingExplorer">Avangute avastamine</string>
+  <string name="xOpeningExplorer">%s avangute uurija</string>
   <string name="blunders">vigu</string>
   <string name="mistakes">eksimusi</string>
   <string name="inaccuracies">ebatäpsused</string>
