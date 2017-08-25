@@ -56,6 +56,12 @@
   <string name="openingExplorer">Изследовател на дебютите</string>
   <string name="winPreventedBy50MoveRule">Победата е предотвратена от 50-ходовото правило</string>
   <string name="delete">Изтрий</string>
+  <string name="realtimeReplay">В реално време</string>
+  <string name="byCPL">По CPL</string>
+  <string name="enable">Включване</string>
+  <string name="bestMoveArrow">Показване на най-добър ход</string>
+  <string name="cpus">Процесори</string>
+  <string name="memory">Памет</string>
   <string name="blunders">Гафове</string>
   <string name="mistakes">Грешки</string>
   <string name="inaccuracies">Неточности</string>
