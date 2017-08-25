@@ -655,9 +655,9 @@ in %3$s</string>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Il tuo punteggio %1$s è %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Giochi meglio del %1$s di giocatori %2$s.</string>
-  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Non si dispone di un rating %s consolidato.</string>
-  <string name="checkYourEmail">Controlla la tua  e-mail</string>
-  <string name="weHaveSentYouAnEmailClickTheLink">Ti abbiamo mandato un\'email. Clicca sul link nella mail per attivare il tuo account.</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Non disponi di un rating %s consolidato.</string>
+  <string name="checkYourEmail">Controlla la tua e-mail</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Ti abbiamo inviato un\'email. Clicca sul link nella mail per attivare il tuo account.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se non vedi l\'e-mail, controlla la cartella spam o altre cartelle.</string>
   <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Sei certo di aver registrato la tua email su Lichess?</string>
   <string name="itWasNotRequiredForYourRegistration">Non è richiesto per la registrazione.</string>
@@ -677,7 +677,7 @@ in %3$s</string>
   <string name="letOtherPlayersMessageYou">Lascia che gli altri giocatori ti inviino messaggi</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Metodo di arrocco</string>
   <string name="castleByMovingTwoSquares">Muovi il re di due caselle</string>
-  <string name="castleByMovingOntoTheRook">Muovi il re al posto della torre</string>
+  <string name="castleByMovingOntoTheRook">Muovi il re sopra la Torre</string>
   <string name="shareYourInsightsData">Condividi i tuoi dati Insights</string>
   <string name="withNobody">Con nessuno</string>
   <string name="withFriends">Con gli amici</string>
@@ -685,7 +685,7 @@ in %3$s</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Hai già registrato l\'email: %s</string>
   <string name="kidMode">Modalità bambino</string>
   <string name="kidModeExplanation">Questa modalità riguarda la sicurezza: in modalità bambino tutte le comunicazioni sono disabilitate. Si consiglia di attivare questa modalità per bambini e studenti, in modo da proteggerli dagli altri utenti.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">In \"modalità bambino\", il logo di lichess ha una icona %s, in questo modo sai che il bambino è sicuro.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">In \"modalità bambino\", al logo di lichess viene aggiunto %s, in questo modo sai che il bambino è sicuro.</string>
   <string name="enableKidMode">Attiva \"modalità bambino\"</string>
   <string name="disableKidMode">Disattiva \"modalità bambino\"</string>
   <string name="security">Sicurezza</string>
@@ -709,9 +709,9 @@ in %3$s</string>
     <item quantity="one">Disponibile in %s lingue!</item>
     <item quantity="other">Disponibile in %s lingue!</item>
   </plurals>
-  <string name="gameAnalysis">Analisi del gioco</string>
-  <string name="xHostsY">%1$s ospiti %2$s</string>
-  <string name="xJoinsY">%1$s partecipanti %2$s</string>
+  <string name="gameAnalysis">Analisi partita</string>
+  <string name="xHostsY">%1$s ospita %2$s</string>
+  <string name="xJoinsY">%1$s ha partecipato a %2$s</string>
   <string name="xLikesY">A %1$s piace %2$s</string>
   <string name="quickPairing">Accoppiamento rapido</string>
   <string name="lobby">Lobby</string>
@@ -732,7 +732,7 @@ in %3$s</string>
   <string name="usernameInvalid">Nome utente non valido. Si prega di utilizzare solo lettere, numeri e tratti ( \"-\" o \"_\" ).</string>
   <string name="usernameStartNoNumber">Un nome utente non può iniziare con un numero.</string>
   <string name="usernameUnacceptable">Questo nome utente non è permesso.</string>
-  <string name="directlySupportLichess">Supporta Lichess</string>
+  <string name="directlySupportLichess">Supporta direttamente Lichess</string>
   <string name="playChessInStyle">Gioca a scacchi con stile</string>
   <string name="chessBasics">Basi scacchistiche</string>
   <string name="coaches">Allenatori</string>
