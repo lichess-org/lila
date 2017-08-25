@@ -191,7 +191,7 @@
   <string name="yourOpponentOffersADraw">Motspelaren tilbyr remis</string>
   <string name="accept">Godta</string>
   <string name="decline">Avslå</string>
-  <string name="playingRightNow">Spelar nett no</string>
+  <string name="playingRightNow">Spelast nett no</string>
   <string name="finished">Slutt</string>
   <string name="abortGame">Avbryt partiet</string>
   <string name="gameAborted">Partiet blei avbrote</string>
@@ -291,7 +291,7 @@
   <string name="ratedMoreThanInPerf">Rata ≥ %1$s i %2$s</string>
   <string name="ratedLessThanInPerf">Rata ≤ %1$s i %2$s</string>
   <string name="backToGame">Tilbake til partiet</string>
-  <string name="siteDescription">Fritt tilgjengeleg nettsjakk. Spel sjakk på ei rein nettside uten registrering, reklame eller programtillegg. Spel sjakk mot datamaskin, vener eller tilfeldige motspelarar.</string>
+  <string name="siteDescription">Fritt tilgjengeleg nettsjakk. Spel sjakk på ei rein nettside utan registrering, reklame eller programtillegg. Spel sjakk mot datamaskin, vener eller tilfeldige motspelarar.</string>
   <string name="teams">Lag</string>
   <plurals name="nbMembers">
     <item quantity="one">%s medlem</item>
