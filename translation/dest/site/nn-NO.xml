@@ -536,7 +536,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="letOtherPlayersChallengeYou">Lat andre spelarar utfordra deg</string>
   <string name="letOtherPlayersInviteYouToStudy">Lat andre spelarar invitere til studium</string>
   <string name="sound">Lyd</string>
-  <string name="yourPreferencesHaveBeenSaved">Preferansane dine har blitt lagra.</string>
+  <string name="yourPreferencesHaveBeenSaved">Preferansane dine er lagra.</string>
   <string name="none">Ingen</string>
   <string name="fast">Rask</string>
   <string name="normal">Normal</string>
@@ -694,14 +694,14 @@ i %3$s</string>
   <string name="letOtherPlayersMessageYou">Lat andre spelarar ta kontakt med deg</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Metode for å rokere</string>
   <string name="castleByMovingTwoSquares">Flytt kongen to felt</string>
-  <string name="castleByMovingOntoTheRook">Flytt kongen til tårnet eller to steg</string>
+  <string name="castleByMovingOntoTheRook">Sett kongen på tårnet, eller to felt</string>
   <string name="shareYourInsightsData">Del din personlege spelarstatistikk</string>
   <string name="withNobody">Med ingen</string>
   <string name="withFriends">Med vener</string>
   <string name="withEverybody">Med alle</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Du har allereie registrert epostadressa: %s</string>
   <string name="kidMode">Barnemodus</string>
-  <string name="kidModeExplanation">Dette handlar om tryggleik. I barnemodus vert all kommunikasjon skrudd av. Bruk dette for å verne barn og skoleelever mot andre Internett-brukarar.</string>
+  <string name="kidModeExplanation">Dette handlar om tryggleik. I barnemodus er all kommunikasjon avskrudd. Bruk dette for å verne barn og skoleelevar mot andre Internett-brukarar.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">I barnemodus får lichess-logoen eit %s symbol, så du kan sjå at barna dine er trygge.</string>
   <string name="enableKidMode">Skru på barnemodus</string>
   <string name="disableKidMode">Skru av barnemodus</string>
