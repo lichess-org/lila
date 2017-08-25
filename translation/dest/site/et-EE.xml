@@ -286,6 +286,10 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">Teie %s reiting on hinnanguline</string>
   <string name="yourPerfRatingIsTooHigh">Teie %1$s reiting (%2$s) on liiga kõrge</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Teie parim nädalane %1$s reiting (%2$s) on liiga kõrge</string>
+  <string name="yourPerfRatingIsTooLow">Teie %1$s reiting (%2$s) on liiga madal</string>
+  <string name="ratedMoreThanInPerf">Reiting ≥ %1$s %2$s</string>
+  <string name="ratedLessThanInPerf">Reiting ≤ %1$s %2$s</string>
   <string name="backToGame">Tagasi mängule</string>
   <string name="siteDescription">Tasuta online malemäng. Mängi malet nüüd puhtas kasutajaliideses. Pole registreerimist, pole reklaami, pole pluginaid vaja. Mängi malet arvuti, sõbrade või juhusliku vastasega.</string>
   <string name="teams">Võistkonnad</string>
