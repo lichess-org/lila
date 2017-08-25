@@ -77,6 +77,12 @@
     <item quantity="one">Matt %s käiguga</item>
     <item quantity="other">Šahhmatt %s käiguga</item>
   </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Järgmine löömine või etturikäik %s käiguga (50-käigu reegli järelejäänud käigud)</item>
+    <item quantity="other">Järgmine löömine või etturikäik %s käigu jooksul (50 käigu reegli järelejäänud käigud)</item>
+  </plurals>
+  <string name="noGameFound">Ühtegi mängu ei leitud</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Kas kaasata eelistuste menüüst rohkem mänge?</string>
   <string name="openingExplorer">Avangute avastamine</string>
   <string name="blunders">vigu</string>
   <string name="mistakes">eksimusi</string>
