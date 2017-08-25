@@ -74,12 +74,12 @@
   <string name="topGames">Migliori partite</string>
   <string name="masterDbExplanation">Due milioni di partite dal %2$s al %3$s di giocatori con punteggio FIDE %1$s+</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">Matto in %s mossa</item>
-    <item quantity="other">Matto in %s mosse</item>
+    <item quantity="one">Matto in %s semi-mossa</item>
+    <item quantity="other">Matto in %s semi-mosse</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Prossima cattura o mossa di un pedone in %s mossa (distanza dall\'azzeramento del conteggio delle 50 mosse)</item>
-    <item quantity="other">Prossima cattura o mossa di un pedone in %s mosse (distanza dall\'azzeramento del conteggio delle 50 mosse)</item>
+    <item quantity="one">Prossima cattura o mossa di pedone in %s semi-mossa (distanza dall\'azzeramento del conteggio delle 50 mosse)</item>
+    <item quantity="other">Prossima cattura o mossa di pedone in %s semi-mosse (distanza dall\'azzeramento del conteggio delle 50 mosse)</item>
   </plurals>
   <string name="noGameFound">Nessun partita trovata</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Includere più partite dal menù delle preferenze?</string>
@@ -94,7 +94,7 @@
   <string name="replayMode">Modalità replay</string>
   <string name="realtimeReplay">In tempo reale</string>
   <string name="byCPL">Per CPL</string>
-  <string name="openStudy">Studio pubblico</string>
+  <string name="openStudy">Apri studio</string>
   <string name="enable">Abilita</string>
   <string name="bestMoveArrow">Freccia della mossa migliore</string>
   <string name="evaluationGauge">Scala di valutazione</string>
@@ -102,7 +102,7 @@
   <string name="cpus">Processori</string>
   <string name="memory">Memoria</string>
   <string name="infiniteAnalysis">Analisi infinita</string>
-  <string name="removesTheDepthLimit">Rimuove il limite di profondità di analisi e mantiene il tuo computer caldo</string>
+  <string name="removesTheDepthLimit">Rimuove il limite di profondità di analisi e tiene il tuo computer caldo</string>
   <string name="blunders">Errori gravi</string>
   <string name="mistakes">Errori</string>
   <string name="inaccuracies">Imprecisioni</string>
@@ -113,17 +113,17 @@
   <string name="offerDraw">Offri patta</string>
   <string name="draw">Patta</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s giocatori collegati</item>
+    <item quantity="one">%s giocatore collegato</item>
     <item quantity="other">%s giocatori collegati</item>
   </plurals>
   <string name="currentGames">Partite in corso</string>
   <plurals name="nbGames">
-    <item quantity="one">%s Partite</item>
-    <item quantity="other">%s Partite</item>
+    <item quantity="one">%s partita</item>
+    <item quantity="other">%s partite</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s Preferiti</item>
-    <item quantity="other">%s Preferiti</item>
+    <item quantity="one">%s preferito</item>
+    <item quantity="other">%s preferiti</item>
   </plurals>
   <string name="viewInFullSize">Visualizza a schermo intero</string>
   <string name="logOut">Esci</string>
