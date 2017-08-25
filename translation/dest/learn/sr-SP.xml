@@ -52,7 +52,18 @@
   <string name="captureThenPromote">Nosi, onda promovisi!</string>
   <string name="useAllThePawns">Upotrebi sve pešake! Nema potrebe za promocijom.</string>
   <string name="aPawnOnTheSecondRank">Pešak na drugom redu može skočiti za dva polja!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Зграбите све звезде!
+Нема потребе за промоцијом.</string>
+  <string name="pawnComplete">Честитамо! Пешаци немају тајне за тебе.</string>
+  <string name="pawnPromotion">Промоција пешака</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Ваш пешак је стигао до краја табле!</string>
+  <string name="itNowPromotesToAStrongerPiece">Сада се промовише у јачу фигуру.</string>
+  <string name="selectThePieceYouWant">Изаберите фигуру коју желите!</string>
+  <string name="fundamentals">Основе</string>
+  <string name="capture">Једење</string>
+  <string name="takeTheEnemyPieces">Узми противничке фигуре</string>
+  <string name="captureIntro">Идентификујте противничке небрањене фигуре и поједите их!</string>
+  <string name="takeTheBlackPieces">Узмите црне фигуре!</string>
   <string name="boardSetupComplete">Честитамо! Знате да поставите шаховску таблу.</string>
   <string name="enPassantOnlyWorksOnFifthRank">Ан пасан је могућ само
 ако вам је пешак на петом реду.</string>
