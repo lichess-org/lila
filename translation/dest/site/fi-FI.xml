@@ -77,6 +77,10 @@
     <item quantity="one">Matti %s puolisiirrolla</item>
     <item quantity="other">Matti %s puolisiirrolla</item>
   </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Seuraava lyönti tai sotilassiirto %s puolisiirron päästä (DTZ tulee sanoista \"Distance To Zeroing of the 50 move counter\")</item>
+    <item quantity="other">Seuraava lyönti tai sotilassiirto %s puolisiirron päästä (DTZ tulee sanoista \"Distance To Zeroing of the 50 move counter\")</item>
+  </plurals>
   <string name="noGameFound">Pelejä ei löytynyt</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Voisit sisällyttää lisää pelejä asetusvalikosta?</string>
   <string name="openingExplorer">Avaus- ja loppupelitietokanta</string>
@@ -90,6 +94,7 @@
   <string name="replayMode">Toistotapa</string>
   <string name="realtimeReplay">Reaaliaik.</string>
   <string name="byCPL">Virheet</string>
+  <string name="openStudy">Avaa tutkielma</string>
   <string name="enable">Käytössä</string>
   <string name="bestMoveArrow">Parhaan siirron nuoli</string>
   <string name="evaluationGauge">Arviomittari</string>
@@ -218,8 +223,8 @@
   <string name="freeOnlineChess">Maksutonta shakkia verkossa</string>
   <string name="spectators">Katsojat:</string>
   <plurals name="nbRated">
-    <item quantity="one">%s rankattu</item>
-    <item quantity="other">%s rankattua</item>
+    <item quantity="one">%s pisteytetty</item>
+    <item quantity="other">%s pisteytettyä</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s voittoa</item>
@@ -264,12 +269,20 @@
   <string name="backToTournament">Takaisin turnaukseen</string>
   <string name="thematic">Teemallinen</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="one">≥ %s rankattu peli</item>
-    <item quantity="other">≥ %s rankattua peliä</item>
+    <item quantity="one">≥ %s pisteytetty peli</item>
+    <item quantity="other">≥ %s pisteytettyä peliä</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s pisteytetty %2%s-peli</item>
+    <item quantity="other">≥ %1$s pisteytettyä %2%s-peliä</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Sinun pitää pelata vielä %1$s pisteytetty %2$s-peli</item>
+    <item quantity="other">Sinun pitää pelata vielä %1$s pisteytettyä %2$s-peliä</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">Sinun täytyy pelata vielä %s rankattu peli</item>
-    <item quantity="other">Sinun täytyy pelata vielä %s rankattua peliä</item>
+    <item quantity="one">Sinun täytyy pelata vielä %s pisteytetty peli</item>
+    <item quantity="other">Sinun täytyy pelata vielä %s pisteytettyä peliä</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Vahvuuslukusi %s on tilapäinen</string>
   <string name="yourPerfRatingIsTooHigh">%1$s-vahvuuslukusi (%2$s) on liian suuri</string>

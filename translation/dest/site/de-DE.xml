@@ -94,7 +94,7 @@
   <string name="replayMode">Wiedergabemodus</string>
   <string name="realtimeReplay">Echtzeit</string>
   <string name="byCPL">Nach CPL</string>
-  <string name="openStudy">Öffne Studie</string>
+  <string name="openStudy">Studie öffnen</string>
   <string name="enable">Einschalten</string>
   <string name="bestMoveArrow">Pfeil für besten Zug</string>
   <string name="evaluationGauge">Bewertungsanzeige</string>

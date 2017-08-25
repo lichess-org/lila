@@ -5,7 +5,7 @@
   <string name="playWithTheMachine">Spel mot sjakkprogrammet</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Send denne lekkja til den du utfordrar</string>
   <string name="gameOver">Partiet er avslutta</string>
-  <string name="waitingForOpponent">Ventar på motspelaren</string>
+  <string name="waitingForOpponent">Ventar på motspelar</string>
   <string name="waiting">Ventar</string>
   <string name="yourTurn">Ditt trekk</string>
   <string name="aiNameLevelAiLevel">%1$s på nivå %2$s</string>
@@ -24,19 +24,19 @@
   <string name="blackIsVictorious">Svart vann partiet</string>
   <string name="kingInTheCenter">Kongen i sentrum</string>
   <string name="threeChecks">Sjakk tre gongar</string>
-  <string name="raceFinished">Laupet er ferdig</string>
+  <string name="raceFinished">Målgang</string>
   <string name="variantEnding">Variant slutt</string>
   <string name="newOpponent">Ny motspelar</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Motspelaren din ønskjer å spela eit nytt parti med deg</string>
   <string name="joinTheGame">Bli med</string>
   <string name="whitePlays">Kvit i trekket</string>
   <string name="blackPlays">Svart i trekket</string>
-  <string name="opponentLeftChoices">Den andre spelaren kan ha forlete partiet. Du kan velja mellom å krevja siger eller remis, eller du kan venta litt til.</string>
+  <string name="opponentLeftChoices">Motspelaren kan ha forlate partiet. Du kan velja mellom å krevja siger eller erklæra remis, eller venta til motspelaren kjem attende.</string>
   <string name="makeYourOpponentResign">Tving motstandaren til å gje opp</string>
   <string name="forceResignation">Krev siger</string>
   <string name="forceDraw">Erklær remis</string>
   <string name="talkInChat">Vær venleg i praterommet</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Den første personen som kjem til denne lekkja vil spela med deg</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Den første som kjem til denne lekkja vil spela med deg.</string>
   <string name="whiteResigned">Kvit gav opp</string>
   <string name="blackResigned">Svart gav opp</string>
   <string name="whiteLeftTheGame">Kvit har forlate partiet</string>
@@ -456,8 +456,8 @@ få en computeranalyse, chatte eller dele ein URL.</string>
     <item quantity="other">Du har %s sekund på å gjera ditt første trekk!</item>
   </plurals>
   <plurals name="nbGamesInPlay">
-    <item quantity="one">%s parti pågår</item>
-    <item quantity="other">%s parti pågår</item>
+    <item quantity="one">%s parti spelast</item>
+    <item quantity="other">%s parti spelast</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Gå automatisk til neste parti etter trekk</string>
   <string name="autoSwitch">Hopp automatisk til neste parti</string>
@@ -490,13 +490,13 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="reportDescriptionHelp">Lim inn link til partiet/partia og forklar kva som er gale med åtferda til denne brukaren.</string>
   <string name="by">av %s</string>
   <string name="thisTopicIsNowClosed">Dette emnet er no lukka.</string>
-  <string name="theming">Utsjånad</string>
+  <string name="theming">Tema</string>
   <string name="donate">Donér</string>
   <string name="blog">Blogg</string>
   <string name="questionsAndAnswers">Spørsmål og svar</string>
   <string name="notes">Notatar</string>
   <string name="typePrivateNotesHere">Skriv private notatar her</string>
-  <string name="gameDisplay">Utsjånad</string>
+  <string name="gameDisplay">Brettutsjånad</string>
   <string name="pieceAnimation">Farta på brikkerørslene</string>
   <string name="materialDifference">Materiellskilnad</string>
   <string name="closeAccount">Steng konto</string>
