@@ -36,12 +36,12 @@
   <string name="forceResignation">Reclama la vittoria</string>
   <string name="forceDraw">Stabilisci la patta</string>
   <string name="talkInChat">Sii educato in chat!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">La prima persona che si presenta a questa URL giocherà con te.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">La prima persona che si presenta a questo URL giocherà con te.</string>
   <string name="whiteResigned">Il Bianco si è arreso</string>
   <string name="blackResigned">Il Nero si è arreso</string>
   <string name="whiteLeftTheGame">Il Bianco ha lasciato la partita</string>
   <string name="blackLeftTheGame">Il Nero ha lasciato la partita</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Condividi questa URL per ammettere spettatori alla partita</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Condividi questo URL per ammettere spettatori alla partita</string>
   <string name="theComputerAnalysisHasFailed">Il computer ha fallito l\'analisi</string>
   <string name="viewTheComputerAnalysis">Guarda l\'analisi del computer</string>
   <string name="requestAComputerAnalysis">Chiedi un\'analisi del computer</string>
@@ -53,9 +53,9 @@
   <string name="loadingEngine">Sto caricando il motore...</string>
   <string name="cloudAnalysis">Analisi nel cloud</string>
   <string name="goDeeper">Andare più a fondo</string>
-  <string name="showThreat">Mostrare la minaccia</string>
+  <string name="showThreat">Mostra minaccia</string>
   <string name="inLocalBrowser">nel browser locale</string>
-  <string name="toggleLocalEvaluation">Analisi in locale</string>
+  <string name="toggleLocalEvaluation">Attiva/disattiva analisi locale</string>
   <string name="move">Fai una mossa</string>
   <string name="variantLoss">Variante perdente</string>
   <string name="variantWin">Variante vincente</string>
