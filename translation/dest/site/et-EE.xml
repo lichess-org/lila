@@ -222,6 +222,10 @@
   <string name="incrementInSeconds">Lisatavad sekundid</string>
   <string name="freeOnlineChess">Tasuta onlain male</string>
   <string name="spectators">Pealtvaatajad</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s reitinguga</item>
+    <item quantity="other">%s reitinguga</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s võitu</item>
     <item quantity="other">%s võitu</item>
@@ -234,14 +238,20 @@
     <item quantity="one">%s viiki</item>
     <item quantity="other">%s viiki</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s mängimas</item>
+    <item quantity="other">%s mängimas</item>
+  </plurals>
   <string name="exportGames">Ekspordi mängud</string>
   <string name="ratingRange">Elo vahemik</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Lisa %s sekundit</item>
     <item quantity="other">Lisa %s sekundit</item>
   </plurals>
+  <string name="giveMoreTime">Anna lisaaega</string>
   <string name="thisPlayerUsesChessComputerAssistance">See mängija kasutab maletates arvuti abi</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">See mängija tõstab kunstlikult / vähendab oma reitingut</string>
+  <string name="openingExplorerAndTablebase">Avangute uurija &amp; lõppmängude andmebaas</string>
   <string name="takeback">Tagasivõtt</string>
   <string name="proposeATakeback">Paku tagasivõttu</string>
   <string name="takebackPropositionSent">Tagasivõtu ettepanek esitatud</string>
@@ -257,6 +267,25 @@
   <string name="tournamentPoints">Turniiri punktid</string>
   <string name="viewTournament">Vaata turniiri</string>
   <string name="backToTournament">Tagasi turniirile</string>
+  <string name="thematic">Temaatiline</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s reitinguga mängu</item>
+    <item quantity="other">≥ %s reitinguga mängu</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2%s reitinguga mängu</item>
+    <item quantity="other">≥ %1$s %2%s reitinguga mängu</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Peate mängima veel %1$s %2$s reitinguga mängu</item>
+    <item quantity="other">Peate mängima veel %1$s %2$s reitinguga mängu</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Peate veel mängima %s reitinguga mängu</item>
+    <item quantity="other">Peate veel mängima %s reitinguga mängu</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Teie %s reiting on hinnanguline</string>
+  <string name="yourPerfRatingIsTooHigh">Teie %1$s reiting (%2$s) on liiga kõrge</string>
   <string name="backToGame">Tagasi mängule</string>
   <string name="siteDescription">Tasuta online malemäng. Mängi malet nüüd puhtas kasutajaliideses. Pole registreerimist, pole reklaami, pole pluginaid vaja. Mängi malet arvuti, sõbrade või juhusliku vastasega.</string>
   <string name="teams">Võistkonnad</string>
