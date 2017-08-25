@@ -221,13 +221,13 @@
   <string name="send">Invia</string>
   <string name="incrementInSeconds">Incremento in secondi</string>
   <string name="freeOnlineChess">Scacchi Online Gratis</string>
-  <string name="spectators">Spettatori</string>
+  <string name="spectators">Spettatori:</string>
   <plurals name="nbRated">
-    <item quantity="one">%s classificate</item>
+    <item quantity="one">%s classificata</item>
     <item quantity="other">%s classificate</item>
   </plurals>
   <plurals name="nbWins">
-    <item quantity="one">%s vittorie</item>
+    <item quantity="one">%s vittoria</item>
     <item quantity="other">%s vittorie</item>
   </plurals>
   <plurals name="nbLosses">
@@ -245,7 +245,7 @@
   <string name="exportGames">Esporta le partite</string>
   <string name="ratingRange">Punteggio avversario</string>
   <plurals name="giveNbSeconds">
-    <item quantity="one">Concedi %s secondi</item>
+    <item quantity="one">Concedi %s secondo</item>
     <item quantity="other">Concedi %s secondi</item>
   </plurals>
   <string name="giveMoreTime">Dai più tempo</string>
@@ -258,26 +258,26 @@
   <string name="takebackPropositionDeclined">Proposta di ritiro mossa rifiutata</string>
   <string name="takebackPropositionAccepted">Proposta di ritiro mossa accettata</string>
   <string name="takebackPropositionCanceled">Proposta di ritiro mossa annullata</string>
-  <string name="yourOpponentProposesATakeback">Il tuo avversario propone di ritirare la mossa</string>
+  <string name="yourOpponentProposesATakeback">Il tuo avversario chiede di ritirare la mossa</string>
   <string name="bookmarkThisGame">Aggiungi questa partita ai preferiti</string>
   <string name="search">Cerca</string>
-  <string name="advancedSearch">Ricerca Avanzata</string>
+  <string name="advancedSearch">Ricerca avanzata</string>
   <string name="tournament">Torneo</string>
   <string name="tournaments">Tornei</string>
   <string name="tournamentPoints">Punti di torneo</string>
   <string name="viewTournament">Visualizza torneo</string>
   <string name="backToTournament">Ritorna al torneo</string>
-  <string name="thematic">Torneo che inizia con una posizione personalizzata, ad esempio https://lichess. org/tournament/rnvlWp3T</string>
+  <string name="thematic">A tema</string>
   <string name="yourPerfRatingIsProvisional">Il tuo punteggio %s è provvisorio</string>
   <string name="yourPerfRatingIsTooHigh">Il tuo punteggio %1$s (%2$s) è troppo alto</string>
   <string name="yourPerfRatingIsTooLow">Il tuo punteggio %1$s (%2$s) è troppo basso</string>
   <string name="ratedMoreThanInPerf">Elo ≥ %1$s in %2$s</string>
   <string name="ratedLessThanInPerf">Punteggio ≤ %1$s in %2$s</string>
   <string name="backToGame">Torna alla partita</string>
-  <string name="siteDescription">Scacchi online gratis. Gioca subito a scacchi con un\'interfaccia semplice. Niente registrazioni, annunci, plug-in. Gioca a scacchi contro computer, amici o avversari occasionali.</string>
+  <string name="siteDescription">Scacchi online gratis. Gioca subito a scacchi con un\'interfaccia semplice. Niente registrazioni, annunci, plug-in. Gioca a scacchi contro computer, amici o avversari casuali.</string>
   <string name="teams">Gruppi</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s membri</item>
+    <item quantity="one">%s membro</item>
     <item quantity="other">%s membri</item>
   </plurals>
   <string name="allTeams">Tutti i gruppi</string>
@@ -309,8 +309,8 @@
   <string name="importGameExplanation">Quando incolli una partita tramite PGN potrai ripercorrerla,
 analizzarla con il computer, commentarla in chat, e condividerla tramire indirizzo URL.</string>
   <plurals name="nbImportedGames">
-    <item quantity="one">%s Partite importate</item>
-    <item quantity="other">%s Partite importate</item>
+    <item quantity="one">%s partita importata</item>
+    <item quantity="other">%s partite importate</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Questo è un CAPTCHA di scacchi.</string>
   <string name="clickOnTheBoardToMakeYourMove">Clicca sulla scacchiera e fai la tua mossa, per provare che sei un umano.</string>
