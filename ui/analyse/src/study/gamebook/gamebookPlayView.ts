@@ -18,7 +18,9 @@ export function render(ctrl: GamebookPlayCtrl): VNode {
   return h('div.gamebook', {
     hook: { insert: _ => window.lichess.loadCss('/assets/stylesheets/gamebook.play.css') }
   }, [
-    comment ? h('div.comment', [
+    comment ? h('div.comment', {
+      class: { hinted: state.showHint }
+    }, [
       h('div.content', { hook: richHTML(comment) }),
       hintZone(ctrl)
     ]) : undefined,

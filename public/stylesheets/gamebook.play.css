@@ -30,6 +30,9 @@
   transform: skew(45deg) rotate(45deg);
   z-index: 1;
 }
+.gb_play .comment.hinted::after {
+  background: #3893E8!important;
+}
 .gb_play .comment .content {
   z-index: 2;
   overflow-y: auto;
@@ -42,6 +45,7 @@
   color: #fff;
   cursor: pointer;
   border-radius: 0 0 5px 5px;
+  font-size: 0.9em;
   z-index: 2;
 }
 .gb_play .comment a.hint {
