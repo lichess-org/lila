@@ -102,6 +102,7 @@
   <string name="cpus">CPU-d</string>
   <string name="memory">Mälu</string>
   <string name="infiniteAnalysis">Lõputu analüüs</string>
+  <string name="removesTheDepthLimit">Eemaldab sügavuslimiidi ja hoiab arvuti soojana</string>
   <string name="blunders">vigu</string>
   <string name="mistakes">eksimusi</string>
   <string name="inaccuracies">ebatäpsused</string>
@@ -166,6 +167,12 @@
   <string name="passwordReset">Salasõna lähtestamine</string>
   <string name="forgotPassword">Unustasid salasõna?</string>
   <string name="rank">Asetus</string>
+  <string name="rankX">Reiting %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Reitingut uuendatakse iga %s minuti tagant</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s ülesanne</item>
+    <item quantity="other">%s ülesanded</item>
+  </plurals>
   <string name="gamesPlayed">Mänge mängitud</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s mängudest sinuga</item>
@@ -204,6 +211,8 @@
   <string name="play">Mängi</string>
   <string name="inbox">Postkast</string>
   <string name="chatRoom">Jututuba</string>
+  <string name="loginToChat">Vestlemiseks logi sisse</string>
+  <string name="youHaveBeenTimedOut">Olete välja logitud.</string>
   <string name="spectatorRoom">Pealtvaatajate tuba</string>
   <string name="composeMessage">Koosta sõnum</string>
   <string name="noNewMessages">Pole uusi sõnumeid</string>
