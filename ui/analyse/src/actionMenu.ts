@@ -134,7 +134,8 @@ export class Ctrl {
 }
 
 export function view(ctrl: AnalyseCtrl): VNode {
-  const d = ctrl.data;
+  const d = ctrl.data,
+  noarg = ctrl.trans.noarg;
 
   const flipOpts = d.userAnalysis ? {
     hook: bind('click', ctrl.flip)
@@ -150,7 +151,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
     h('div.tools', [
       h('a.fbt', flipOpts, [
         h('i.icon', { attrs: dataIcon('B') }),
-        ctrl.trans('flipBoard')
+        noarg('flipBoard')
       ]),
       ctrl.ongoing ? null : h('a.fbt', {
         attrs: {
@@ -160,7 +161,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
         }
       }, [
         h('i.icon', { attrs: dataIcon('m') }),
-        ctrl.trans('boardEditor')
+        noarg('boardEditor')
       ]),
       canContinue ? h('a.fbt', {
         hook: bind('click', _ => $.modal($('.continue_with.g_' + d.game.id)))
@@ -168,14 +169,14 @@ export function view(ctrl: AnalyseCtrl): VNode {
         h('i.icon', {
           attrs: dataIcon('U')
         }),
-        ctrl.trans('continueFromHere')
+        noarg('continueFromHere')
       ]) : null,
       studyButton(ctrl)
     ])
   ];
 
   const cevalConfig: MaybeVNodes = (ceval && ceval.possible && ceval.allowed()) ? ([
-    h('h2', ctrl.trans.noarg('computerAnalysis'))
+    h('h2', noarg('computerAnalysis'))
   ] as MaybeVNodes).concat([
     boolSetting(ctrl, {
       name: 'enable',
@@ -210,7 +211,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
       (id => {
         const max = 5;
         return h('div.setting', [
-          h('label', { attrs: { 'for': id } }, ctrl.trans.noarg('multipleLines')),
+          h('label', { attrs: { 'for': id } }, noarg('multipleLines')),
           h('input#' + id, {
             attrs: {
               type: 'range',
@@ -230,7 +231,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
         if (!max) return;
         if (max > 2) max--; // don't overload your computer, you dummy
         return h('div.setting', [
-          h('label', { attrs: { 'for': id } }, ctrl.trans.noarg('cpus')),
+          h('label', { attrs: { 'for': id } }, noarg('cpus')),
           h('input#' + id, {
             attrs: {
               type: 'range',
@@ -246,7 +247,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
         ]);
       })('analyse-threads') : null,
       ceval.pnaclSupported ? (id => h('div.setting', [
-        h('label', { attrs: { 'for': id } }, ctrl.trans.noarg('memory')),
+        h('label', { attrs: { 'for': id } }, noarg('memory')),
         h('input#' + id, {
           attrs: {
             type: 'range',
@@ -263,7 +264,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ] : []) : [];
 
     const notationConfig = [
-      h('h2', ctrl.trans.noarg('preferences')),
+      h('h2', noarg('preferences')),
       boolSetting(ctrl, {
         name: 'Inline notation',
         title: 'Keyboard: Shift+i',
@@ -280,7 +281,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
       tools
         .concat(notationConfig)
         .concat(cevalConfig)
-        .concat(ctrl.mainline.length > 4 ? [h('h2', ctrl.trans.noarg('replayMode')), autoplayButtons(ctrl)] : [])
+        .concat(ctrl.mainline.length > 4 ? [h('h2', noarg('replayMode')), autoplayButtons(ctrl)] : [])
         .concat([
           deleteButton(ctrl, ctrl.opts.userId),
           canContinue ? h('div.continue_with.g_' + d.game.id, [
@@ -289,14 +290,14 @@ export function view(ctrl: AnalyseCtrl): VNode {
                 href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#ai' : router.cont(d, 'ai') + '?fen=' + ctrl.node.fen,
                 rel: 'nofollow'
               }
-            }, ctrl.trans('playWithTheMachine')),
+            }, noarg('playWithTheMachine')),
             h('br'),
             h('a.button', {
               attrs: {
                 href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#friend' : router.cont(d, 'friend') + '?fen=' + ctrl.node.fen,
                 rel: 'nofollow'
               }
-            }, ctrl.trans('playWithAFriend'))
+            }, noarg('playWithAFriend'))
           ]) : null
         ])
     );
