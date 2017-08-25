@@ -177,71 +177,39 @@ export function view(ctrl: AnalyseCtrl): VNode {
   const cevalConfig: MaybeVNodes = (ceval && ceval.possible && ceval.allowed()) ? ([
     h('h2', ctrl.trans.noarg('computerAnalysis'))
   ] as MaybeVNodes).concat([
-    (id => {
-      return h('div.setting', {
-        attrs: { title: mandatoryCeval ? "Required by practice mode" : window.lichess.engineName }
-      }, [
-        h('label', { attrs: { 'for': id } }, ctrl.trans.noarg('enable')),
-        h('div.switch', [
-          h('input#' + id + '.cmn-toggle.cmn-toggle-round', {
-            attrs: {
-              type: 'checkbox',
-              checked: ctrl.showComputer(),
-              disabled: mandatoryCeval
-            },
-            hook: bind('change', ctrl.toggleComputer, ctrl.redraw),
-          }),
-          h('label', { attrs: { 'for': id } })
-        ])
-      ]);
-    })('analyse-toggle-all')
+    boolSetting(ctrl, {
+      name: 'enable',
+      title: mandatoryCeval ? "Required by practice mode" : window.lichess.engineName,
+      id: 'all',
+      checked: ctrl.showComputer(),
+      disabled: mandatoryCeval,
+      change: ctrl.toggleComputer
+    })
   ]).concat(
     ctrl.showComputer() ? [
-      (id => h('div.setting', [
-        h('label', { attrs: { 'for': id } }, ctrl.trans.noarg('bestMoveArrow')),
-        h('div.switch', [
-          h('input#' + id + '.cmn-toggle.cmn-toggle-round', {
-            attrs: {
-              type: 'checkbox',
-              checked: ctrl.showAutoShapes()
-            },
-            hook: bind('change', e => {
-              ctrl.toggleAutoShapes((e.target as HTMLInputElement).checked);
-            }, ctrl.redraw)
-          }),
-          h('label', { attrs: { 'for': id } })
-        ])
-      ]))('analyse-toggle-shapes'),
-      (id => h('div.setting', [
-        h('label', { attrs: { 'for': id } }, ctrl.trans.noarg('evaluationGauge')),
-        h('div.switch', [
-          h('input#' + id + '.cmn-toggle.cmn-toggle-round', {
-            attrs: {
-              type: 'checkbox',
-              checked: ctrl.showGauge()
-            },
-            hook: bind('change', () => ctrl.toggleGauge(), ctrl.redraw)
-          }),
-          h('label', { attrs: { 'for': id } })
-        ])
-      ]))('analyse-toggle-gauge'),
-      (id => h('div.setting', {
-        attrs: { title: ctrl.trans.noarg('removesTheDepthLimit') }
-      }, [
-        h('label', { attrs: { 'for': id } }, ctrl.trans.noarg('infiniteAnalysis')),
-        h('div.switch', [
-          h('input#' + id + '.cmn-toggle.cmn-toggle-round', {
-            attrs: {
-              type: 'checkbox',
-              checked: ceval.infinite()
-            },
-            hook: bind('change', e => {
-              ctrl.cevalSetInfinite((e.target as HTMLInputElement).checked);
-            })
-          }),
-          h('label', { attrs: { 'for': id } })
-        ])
-      ]))('analyse-toggle-infinite'),
+      boolSetting(ctrl, {
+        name: 'bestMoveArrow',
+        id: 'shapes',
+        checked: ctrl.showAutoShapes(),
+        change(e) {
+          ctrl.toggleAutoShapes((e.target as HTMLInputElement).checked);
+        }
+      }),
+      boolSetting(ctrl, {
+        name: 'evaluationGauge',
+        id: 'gauge',
+        checked: ctrl.showGauge(),
+        change: ctrl.toggleGauge
+      }),
+      boolSetting(ctrl, {
+        name: 'infiniteAnalysis',
+        title: 'removesTheDepthLimit',
+        id: 'infinite',
+        checked: ceval.infinite(),
+        change(e) {
+          ctrl.cevalSetInfinite((e.target as HTMLInputElement).checked);
+        }
+      }),
       (id => {
         const max = 5;
         return h('div.setting', [
@@ -320,4 +288,32 @@ export function view(ctrl: AnalyseCtrl): VNode {
           ]) : null
         ])
     );
+}
+
+interface BoolSetting {
+  name: string,
+  title?: string,
+  id: string,
+  checked: boolean;
+  disabled?: boolean;
+  change(e: MouseEvent): void;
+}
+
+function boolSetting(ctrl: AnalyseCtrl, o: BoolSetting) {
+  const fullId = 'abset-' + o.id;
+  return h('div.setting', o.title ? {
+    attrs: { title: ctrl.trans.noarg(o.title) }
+  } : {}, [
+    h('label', { attrs: { 'for': fullId } }, ctrl.trans.noarg(o.name)),
+    h('div.switch', [
+      h('input#' + fullId + '.cmn-toggle.cmn-toggle-round', {
+        attrs: {
+          type: 'checkbox',
+          checked: o.checked
+        },
+        hook: bind('change', o.change, ctrl.redraw)
+      }),
+      h('label', { attrs: { 'for': fullId } })
+    ])
+  ]);
 }
