@@ -92,7 +92,7 @@ Det er inga grunn til omvandling.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Denne springaren sjakkar rett gjennom forsvarsverket ditt!</string>
   <string name="escapeOrBlock">Fly unna med kongen eller sperr for åtaket!</string>
   <string name="outOfCheckComplete">Gratulerar! Det er ikkje mogeleg å ta kongen, sjå til at du kan verje deg mot å bli sett sjakk!</string>
-  <string name="mateInOne">Matt i eit trekk</string>
+  <string name="mateInOne">Matt i eitt trekk</string>
   <string name="defeatTheOpponentsKing">Sigra over motspelaren sin konge</string>
   <string name="mateInOneIntro">Du vinn når motspelaren ikkje kan verje seg mot sjakk.</string>
   <string name="attackYourOpponentsKing">Gå til åtak på motspelaren sin konge på eit vis det ikkje er mogleg å verje seg mot!</string>
