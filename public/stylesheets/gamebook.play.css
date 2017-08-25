@@ -79,7 +79,7 @@
 .gb_play .feedback.act:hover {
   opacity: 1;
 }
-.gb_play .feedback.act span {
+.gb_play .feedback.act.com span {
   animation: rubberBand 8s infinite;
 }
 .gb_play .feedback.bad {

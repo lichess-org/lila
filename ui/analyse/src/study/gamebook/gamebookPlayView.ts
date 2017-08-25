@@ -38,13 +38,13 @@ export function render(ctrl: GamebookPlayCtrl): VNode {
 
 function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
   const fb = state.feedback;
-  if (fb === 'bad') return h('div.feedback.act.bad', {
+  if (fb === 'bad') return h('div.feedback.act.bad' + (state.comment ? '.com' : ''), {
     hook: bind('click', ctrl.retry, ctrl.redraw)
   }, [
     h('i', { attrs: dataIcon('P') }),
     h('span', 'Retry')
   ]);
-  if (fb === 'good' && state.comment) return h('div.feedback.act.good', {
+  if (fb === 'good' && state.comment) return h('div.feedback.act.good.com', {
     hook: bind('click', () => ctrl.next())
   }, [
     h('i', { attrs: dataIcon('G') }),
