@@ -74,14 +74,15 @@ function renderEnd(ctrl: GamebookPlayCtrl) {
   return h('div.feedback.end', [
     nextChapter ? h('a.next.text', {
       attrs: dataIcon('G'),
-      hook: bind('click', () => study!.setChapter(nextChapter.id))
+      hook: bind('click', () => study.setChapter(nextChapter.id))
     }, 'Next chapter') : undefined,
     h('a.retry', {
       attrs: dataIcon('P'),
       hook: bind('click', () => ctrl.root.userJump(''), ctrl.redraw)
     }, 'Play again'),
     h('a.analyse', {
-      attrs: dataIcon('A')
+      attrs: dataIcon('A'),
+      hook: bind('click', () => study.setGamebookOverride('analyse'), ctrl.redraw)
     }, 'Analyse')
   ]);
 }

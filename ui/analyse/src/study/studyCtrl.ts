@@ -113,7 +113,8 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
   }
 
   function isGamebookPlay() {
-    return data.chapter.gamebook && (vm.gamebookOverride === 'play' || !members.canContribute());
+    return data.chapter.gamebook && vm.gamebookOverride !== 'analyse' &&
+    (vm.gamebookOverride === 'play' || !members.canContribute());
   }
 
   if (vm.mode.sticky && !isGamebookPlay()) ctrl.userJump(data.position.path);
@@ -160,6 +161,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     configureAnalysis();
     vm.loading = false;
 
+    vm.gamebookOverride = undefined;
     instanciateGamebookPlay();
 
     let nextPath: Tree.Path;
@@ -339,7 +341,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     setGamebookOverride(o) {
       vm.gamebookOverride = o;
       instanciateGamebookPlay();
-      vm.mode.write = o !== 'play';
+      vm.mode.write = !o;
       configureAnalysis();
       ctrl.userJump(ctrl.path);
       if (!o) xhrReload();

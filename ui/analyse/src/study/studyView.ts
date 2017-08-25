@@ -14,7 +14,7 @@ import { view as studyShareView } from './studyShare';
 import { view as notifView } from './notif';
 import { view as tagsView } from './studyTags';
 import * as practiceView from './practice/studyPracticeView';
-import { playButtons as gbPlayButtons, previewButton as gbPreviewButton } from './gamebook/gamebookButtons';
+import { playButtons as gbPlayButtons, overrideButton as gbOverrideButton } from './gamebook/gamebookButtons';
 import { view as descView } from './chapterDescription';
 import AnalyseCtrl from '../ctrl';
 import { StudyCtrl, Tab } from './interfaces';
@@ -68,7 +68,7 @@ function buttons(root: AnalyseCtrl): VNode {
         ])
       ] : [])
     ]),
-    gbPreviewButton(ctrl) || helpButton(ctrl)
+    gbOverrideButton(ctrl) || helpButton(ctrl)
   ]);
 }
 
