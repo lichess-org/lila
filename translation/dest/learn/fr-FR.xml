@@ -23,7 +23,7 @@
   <string name="youNeedBothBishops">Un Fou de case blanche,
 Un Fou de case Noire.
 Vous avez besoin des deux !</string>
-  <string name="bishopComplete">Félicitations! Vous possédez la maîtrise du Fou.</string>
+  <string name="bishopComplete">Félicitations! Vous maîtrisez les déplacements du Fou.</string>
   <string name="theQueen">La Dame</string>
   <string name="queenCombinesRookAndBishop">Une Dame = Tour + Fou</string>
   <string name="queenIntro">La pièce la plus puissante du jeu, sa majesté la Dame!</string>
