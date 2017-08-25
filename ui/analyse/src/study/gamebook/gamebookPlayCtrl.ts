@@ -81,6 +81,11 @@ export default class GamebookPlayCtrl {
     this.redraw();
   }
 
+  onSpace = () => {
+    if (this.state.feedback === 'bad') this.retry();
+    else this.next();
+  }
+
   hint = () => {
     if (this.state.hint) this.state.showHint = !this.state.showHint;
   }
