@@ -11,4 +11,5 @@
   <string name="chessPieces">Malendid</string>
   <string name="theRook">Vanker</string>
   <string name="itMovesInStraightLines">Liigub sirgjooneliselt</string>
+  <string name="rookIntro">Vanker on võimas nupp. Kas olete selle käsutamiseks valmis?</string>
 </resources>
