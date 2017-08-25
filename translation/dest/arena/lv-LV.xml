@@ -29,4 +29,10 @@ Tiklīdz spēle beigusies, atgriezies turnīra vestibilā: tad tiksi sapārots a
 Tādā veidā tiek panākts mazāks gaidīšanas laiks, taču var gadīties, ka netiksies ar katru turnīra spēlētāju.
 Spēlē ātri un atgriezies vestibilā lai spēlētu vairāk spēļu un iegūtu vairāk punktu.</string>
   <string name="howDoesItEnd">Kā tas viss beidzas?</string>
+  <string name="howDoesItEndAnswer">Turnīram ir laika atpakaļskaitīšanas pulkstenis. Kad tas sasniedz nulli, turnīra rangs tiek iesaldēts un tiek paziņots uzvarētājs. Iesāktās spēles tiek pabeigtas, taču tās vairs netiek ieskaitītas turnīra rezultātā.</string>
+  <string name="otherRules">Citi svarīgi noteikumi</string>
+  <string name="otherRulesAnswer">Tev ir pienākums izdarīt pirmo gājienu 20 sekunžu laikā. Neizdarot gājienu atvēlētajā laikā uzvara tiek piešķirta pretiniekam.
+Ja neizšķirts tiek panākts spēles pirmajos 10 gājienos, tad punktus neiegūst neviens no spēlētājiem.</string>
+  <string name="thisIsPrivate">Šis ir privātais turnīrs</string>
+  <string name="shareUrl">Dalies ar šo saiti lai citi pievienotos: %s</string>
 </resources>
