@@ -162,7 +162,6 @@ body.dark #lichess_blog .body h2,
 body.dark #lichess_blog .body img,
 body.dark #tournament_side h2,
 body.dark div.doc_box h2,
-body.dark #puzzle div.box,
 body.dark div.force_resign_zone,
 body.dark div.negotiation,
 body.dark div.side_box .game_infos,
@@ -427,21 +426,6 @@ body.dark #hooks_wrap .hooks_chart > span.label {
   text-shadow: 0 0 3px #000;
 }
 
-body.dark #puzzle > .side div.fail,
-body.dark #puzzle > .side div.loss {
-  color: #e97472;
-  background: #582b33;
-}
-body.dark #puzzle > .side div.retry {
-  color: #8482c9;
-  background: #101034;
-}
-body.dark #puzzle > .side div.great,
-body.dark #puzzle > .side div.win,
-body.dark #puzzle .please_vote {
-  background: #103410;
-  color: #74a962;
-}
 body.dark #top .dropdown {
   border: 1px solid #3d3d3d;
   border-top: 0;
