@@ -407,8 +407,8 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="bewareTheGameIsRatedButHasNoClock">Attenzione, la partita è classificata ma senza limite di tempo!</string>
   <string name="training">Allenamento</string>
   <string name="yourPuzzleRatingX">Il tuo punteggio in allenamento: %s</string>
-  <string name="findTheBestMoveForWhite">Trova la mossa migliore per il bianco.</string>
-  <string name="findTheBestMoveForBlack">Trova la mossa migliore per il nero.</string>
+  <string name="findTheBestMoveForWhite">Trova la mossa migliore per il Bianco.</string>
+  <string name="findTheBestMoveForBlack">Trova la mossa migliore per il Nero.</string>
   <string name="toTrackYourProgress">Tieni traccia dei tuoi progressi:</string>
   <string name="trainingSignupExplanation">Lichess ti assegnerà esercizi in base alle tue abilità, in modo da poterti allenare sempre meglio.</string>
   <string name="puzzleId">Esercizio %s</string>
@@ -420,17 +420,17 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="keepGoing">Continua...</string>
   <string name="puzzleFailed">Esercizio sbagliato</string>
   <string name="butYouCanKeepTrying">Ma puoi continuare a provarci.</string>
-  <string name="success">Successo</string>
+  <string name="success">Completato</string>
   <string name="wasThisPuzzleAnyGood">Questo puzzle era interessante?</string>
-  <string name="pleaseVotePuzzle">Aiuta lichess a migliorare votando, utilizza la freccia su o giù:</string>
+  <string name="pleaseVotePuzzle">Aiuta lichess a migliorare, utilizza la freccia su o giù per dare un giudizio:</string>
   <string name="thankYou">Grazie!</string>
   <string name="ratingX">Punteggio: %s</string>
   <plurals name="playedXTimes">
-    <item quantity="one">Giocato %s volte</item>
+    <item quantity="one">Giocato %s volta</item>
     <item quantity="other">Giocato %s volte</item>
   </plurals>
   <string name="fromGameLink">Dalla partita %s</string>
-  <string name="continueTraining">Continua l\'allenamento</string>
+  <string name="continueTraining">Continua allenamento</string>
   <string name="retryThisPuzzle">Riprova questo puzzle</string>
   <string name="thisPuzzleIsCorrect">Questo puzzle è corretto e interessante</string>
   <string name="thisPuzzleIsWrong">Questo puzzle è sbagliato o noioso</string>
@@ -443,14 +443,14 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
     <item quantity="other">%s partite in gioco</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Passa automaticamente alla partita successiva dopo aver mosso</string>
-  <string name="autoSwitch">Cambia in automatico</string>
+  <string name="autoSwitch">Cambia automaticamente</string>
   <string name="puzzles">Puzzle</string>
   <string name="latestUpdates">Ultimi aggiornamenti</string>
   <string name="tournamentWinners">Vincitori del torneo</string>
   <string name="name">Nome</string>
   <string name="description">Descrizione</string>
   <string name="no">No</string>
-  <string name="yes">Sí</string>
+  <string name="yes">Sì</string>
   <string name="help">Aiuto:</string>
   <string name="createANewTopic">Crea una nuova discussione</string>
   <string name="topics">Discussioni</string>
@@ -470,11 +470,11 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="insult">Insulti</string>
   <string name="troll">Provocazioni</string>
   <string name="other">Altro</string>
-  <string name="reportDescriptionHelp">Incolla il link della partita o partite e spiega cosa non è appropriato del comportamento di questo utente. Non dire soltanto \"ha imbrogliato\", ma specifica come sei arrivato a questa conclusione. Il tuo report verrà proccessato più velocemente se scritto in Inglese.</string>
+  <string name="reportDescriptionHelp">Incolla il link della partita/e e spiega cosa non va con questo giocatore. Non dire soltanto \"ha imbrogliato\", ma specifica come sei arrivato a questa conclusione. Il tuo report verrà processato più velocemente se scritto in lingua inglese.</string>
   <string name="by">da %s</string>
   <string name="thisTopicIsNowClosed">Questa discussione è chiusa.</string>
   <string name="theming">Temi</string>
-  <string name="donate">Donazioni</string>
+  <string name="donate">Dona</string>
   <string name="blog">Blog</string>
   <string name="questionsAndAnswers">Domande &amp; risposte</string>
   <string name="notes">Note</string>
@@ -482,7 +482,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="gameDisplay">Schermata di gioco</string>
   <string name="pieceAnimation">Animazione dei pezzi</string>
   <string name="materialDifference">Differenza di materiale</string>
-  <string name="closeAccount">Chiudi l\'account</string>
+  <string name="closeAccount">Chiudi account</string>
   <string name="changedMindDoNotCloseAccount">Ho cambiato idea, non chiudere il mio account</string>
   <string name="closeAccountExplanation">Sei sicuro di voler chiudere il tuo account? La chiusura del tuo account è un\'azione irreversibile. Non ti sarà più possibile effettuare il login, e la pagina del tuo profilo non sarà più accessibile.</string>
   <string name="thisAccountIsClosed">Questo account è stato chiuso.</string>
