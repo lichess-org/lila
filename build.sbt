@@ -32,7 +32,7 @@ externalizeResources := false
 scriptClasspath := Seq("*")
 // offline := true
 libraryDependencies ++= Seq(
-  scalaz, scalalib, hasher, typesafeConfig, findbugs,
+  scalaz, chess, scalalib, hasher, typesafeConfig, findbugs,
   reactivemongo.driver, reactivemongo.iteratees, akka.actor, akka.slf4j,
   maxmind, prismic, netty, guava,
   kamon.core, kamon.influxdb,
@@ -59,7 +59,7 @@ Seq(
 )
 
 lazy val modules = Seq(
-  chess, common, db, rating, user, security, hub, socket,
+  common, db, rating, user, security, hub, socket,
   message, notifyModule, i18n, game, bookmark, search,
   gameSearch, timeline, forum, forumSearch, team, teamSearch,
   analyse, mod, site, round, pool, lobby, setup,
@@ -128,15 +128,15 @@ lazy val evaluation = module("evaluation", Seq(
 //   libraryDependencies ++= provided(play.api, reactivemongo.driver)
 // )
 
-lazy val common = module("common", Seq(chess)).settings(
+lazy val common = module("common", Seq()).settings(
   libraryDependencies ++= provided(play.api, play.test, reactivemongo.driver, kamon.core)
 )
 
-lazy val rating = module("rating", Seq(common, db, chess)).settings(
+lazy val rating = module("rating", Seq(common, db)).settings(
   libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )
 
-lazy val perfStat = module("perfStat", Seq(common, db, chess, user, game, rating)).settings(
+lazy val perfStat = module("perfStat", Seq(common, db, user, game, rating)).settings(
   libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )
 
@@ -173,30 +173,30 @@ lazy val mod = module("mod", Seq(common, db, user, hub, security, tournament, si
   libraryDependencies ++= provided(play.api, play.test, reactivemongo.driver)
 )
 
-lazy val user = module("user", Seq(common, memo, db, hub, chess, rating)).settings(
+lazy val user = module("user", Seq(common, memo, db, hub, rating)).settings(
   libraryDependencies ++= provided(play.api, play.test, reactivemongo.driver, hasher)
 )
 
-lazy val game = module("game", Seq(common, memo, db, hub, user, chess, chat)).settings(
+lazy val game = module("game", Seq(common, memo, db, hub, user, chat)).settings(
   libraryDependencies ++= provided(play.api, reactivemongo.driver, reactivemongo.iteratees)
 )
 
-lazy val gameSearch = module("gameSearch", Seq(common, hub, chess, search, game)).settings(
+lazy val gameSearch = module("gameSearch", Seq(common, hub, search, game)).settings(
   libraryDependencies ++= provided(
     play.api, reactivemongo.driver, reactivemongo.iteratees
   )
 )
 
-lazy val tv = module("tv", Seq(common, db, hub, socket, game, user, chess)).settings(
+lazy val tv = module("tv", Seq(common, db, hub, socket, game, user)).settings(
   libraryDependencies ++= provided(play.api, reactivemongo.driver, hasher)
 )
 
-lazy val analyse = module("analyse", Seq(common, hub, chess, game, user, notifyModule, evalCache)).settings(
+lazy val analyse = module("analyse", Seq(common, hub, game, user, notifyModule, evalCache)).settings(
   libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )
 
 lazy val round = module("round", Seq(
-  common, db, memo, hub, socket, chess, game, user,
+  common, db, memo, hub, socket, game, user,
   i18n, fishnet, pref, chat, history, playban
 )).settings(
   libraryDependencies ++= provided(play.api, hasher, kamon.core,
@@ -212,48 +212,46 @@ lazy val activity = module("activity", Seq(common, game, analyse, user, forum, s
 )
 
 lazy val lobby = module("lobby", Seq(
-  common, db, memo, hub, socket, chess, game, user,
+  common, db, memo, hub, socket, game, user,
   round, timeline, relation, playban, security, pool
 )).settings(
   libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )
 
 lazy val setup = module("setup", Seq(
-  common, db, memo, hub, socket, chess, game, user, lobby, pref, relation
+  common, db, memo, hub, socket, game, user, lobby, pref, relation
 )).settings(
   libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )
 
-lazy val importer = module("importer", Seq(common, chess, game, round)).settings(
+lazy val importer = module("importer", Seq(common, game, round)).settings(
   libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )
 
 lazy val insight = module(
   "insight",
-  Seq(common, chess, game, user, analyse, relation, pref, socket, round, security)
+  Seq(common, game, user, analyse, relation, pref, socket, round, security)
 ).settings(
     libraryDependencies ++= provided(
-      play.api,
-      reactivemongo.driver, reactivemongo.iteratees
+      play.api, reactivemongo.driver, reactivemongo.iteratees
     )
   )
 
 lazy val tournament = module("tournament", Seq(
-  common, hub, socket, chess, game, round, security, chat, memo, quote, history, notifyModule, i18n
+  common, hub, socket, game, round, security, chat, memo, quote, history, notifyModule, i18n
 )).settings(
   libraryDependencies ++= provided(
-    play.api,
-    reactivemongo.driver, reactivemongo.iteratees
+    play.api, reactivemongo.driver, reactivemongo.iteratees
   )
 )
 
 lazy val simul = module("simul", Seq(
-  common, hub, socket, chess, game, round, chat, memo, quote
+  common, hub, socket, game, round, chat, memo, quote
 )).settings(
   libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )
 
-lazy val fishnet = module("fishnet", Seq(common, chess, game, analyse, db)).settings(
+lazy val fishnet = module("fishnet", Seq(common, game, analyse, db)).settings(
   libraryDependencies ++= provided(play.api, reactivemongo.driver, semver)
 )
 
@@ -387,7 +385,7 @@ lazy val site = module("site", Seq(common, socket)).settings(
   libraryDependencies ++= provided(play.api)
 )
 
-lazy val tree = module("tree", Seq(common, chess)).settings(
+lazy val tree = module("tree", Seq(common)).settings(
   libraryDependencies ++= provided(play.api)
 )
 
@@ -395,8 +393,6 @@ lazy val socket = module("socket", Seq(common, hub, memo, tree)).settings(
   libraryDependencies ++= provided(play.api)
 )
 
-lazy val hub = module("hub", Seq(common, chess)).settings(
+lazy val hub = module("hub", Seq(common)).settings(
   libraryDependencies ++= provided(play.api)
 )
-
-lazy val chess = module("chess")
