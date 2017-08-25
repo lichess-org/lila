@@ -85,6 +85,8 @@
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Kas kaasata eelistuste menüüst rohkem mänge?</string>
   <string name="openingExplorer">Avangute avastamine</string>
   <string name="xOpeningExplorer">%s avangute uurija</string>
+  <string name="winPreventedBy50MoveRule">50 käigu reegel ei lase võita</string>
+  <string name="lossSavedBy50MoveRule">50 käigu reegel päästis kaotusest</string>
   <string name="blunders">vigu</string>
   <string name="mistakes">eksimusi</string>
   <string name="inaccuracies">ebatäpsused</string>
