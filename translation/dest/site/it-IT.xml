@@ -268,6 +268,22 @@
   <string name="viewTournament">Visualizza torneo</string>
   <string name="backToTournament">Ritorna al torneo</string>
   <string name="thematic">A tema</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s partita valida per la classifica</item>
+    <item quantity="other">≥ %s partite valide per la classifica</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2%s partita valida per la classifica</item>
+    <item quantity="other">≥ %1$s %2%s partite valide per la classifica</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Devi giocare ancora %1$s partita valida per la classifica %2$s</item>
+    <item quantity="other">Devi giocare ancora %1$s partite valide per la classifica %2$s</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Devi giocare ancora %s partita valida per la classifica</item>
+    <item quantity="other">Devi giocare ancora %s partite valide per la classifica</item>
+  </plurals>
   <string name="yourPerfRatingIsProvisional">Il tuo punteggio %s è provvisorio</string>
   <string name="yourPerfRatingIsTooHigh">Il tuo punteggio %1$s (%2$s) è troppo alto</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Il tuo miglior punteggio settimanale %1$s (%2$s) è troppo alto</string>
