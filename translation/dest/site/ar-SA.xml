@@ -336,6 +336,7 @@
     <item quantity="many">≥ %s ألعاب مقيمة</item>
     <item quantity="other">≥ %s ألعاب مقيمة</item>
   </plurals>
+  <string name="yourPerfRatingIsProvisional">تقييمك %s مؤقت</string>
   <string name="yourPerfRatingIsTooHigh">تقييمك %1$s (%2$s) مرتفع جداً</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">تقييمك %1$s (%2$s) مرتفع جداً</string>
   <string name="yourPerfRatingIsTooLow">تقييمك %1$s (%2$s) منخفض جداً</string>
