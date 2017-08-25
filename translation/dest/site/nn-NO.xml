@@ -239,8 +239,8 @@
     <item quantity="other">%s remisar</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="one">%s spelast</item>
-    <item quantity="other">%s spelast</item>
+    <item quantity="one">%s løpande parti</item>
+    <item quantity="other">%s løpande parti</item>
   </plurals>
   <string name="exportGames">Eksporter parti</string>
   <string name="ratingRange">Ratingspenn</string>
