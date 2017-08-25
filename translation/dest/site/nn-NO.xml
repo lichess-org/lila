@@ -603,7 +603,7 @@ i %3$s</string>
   <string name="error.email_different">Dette er allereie mailadressen din</string>
   <string name="blindfoldChess">Blindsjakk</string>
   <string name="zenMode">Zen-modus</string>
-  <string name="moveConfirmation">Trekkbekrefting</string>
+  <string name="moveConfirmation">Stadfesting av trekk</string>
   <string name="inCorrespondenceGames">I fjernsjakksparti</string>
   <string name="ifRatingIsPlusMinusX">Dersom rating er ± %s</string>
   <string name="onlyFriends">Berre vener</string>
