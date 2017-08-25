@@ -497,7 +497,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="boardCoordinates">Coordinate della scacchiera (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Lista delle mosse mentre giochi</string>
   <string name="pgnPieceNotation">Notazione mossa</string>
-  <string name="chessPieceSymbol">Simbolo del pezzo di scacchi</string>
+  <string name="chessPieceSymbol">Simbolo del pezzo</string>
   <string name="pgnLetter">Lettera (R, D, T, A, C)</string>
   <string name="chessClock">Orologio</string>
   <string name="tenthsOfSeconds">Decimi di secondo</string>
@@ -512,7 +512,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="bothClicksAndDrag">Entrambi</string>
   <string name="premovesPlayingDuringOpponentTurn">Pre-mosse (mentre tocca all\'avversario)</string>
   <string name="takebacksWithOpponentApproval">Ritiro della mossa (su accordo dell\'avversario)</string>
-  <string name="promoteToQueenAutomatically">Promuovi a Regina automaticamente</string>
+  <string name="promoteToQueenAutomatically">Promuovi a Donna automaticamente</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reclama patta automaticamente dopo triplice ripetizione</string>
   <string name="privacy">Privacy</string>
   <string name="letOtherPlayersFollowYou">Permetti ad altri giocatori di seguirti</string>
@@ -535,7 +535,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="difficultyNormal">Normale</string>
   <string name="difficultyHard">Difficile</string>
   <string name="xLeftANoteOnY">%1$s ha lasciato una nota a %2$s</string>
-  <string name="xCompetesInY">%1$s compete in %2$s</string>
+  <string name="xCompetesInY">%1$s ha giocato in %2$s</string>
   <string name="xAskedY">%1$s ha chiesto %2$s</string>
   <string name="xAnsweredY">%1$s ha risposto %2$s</string>
   <string name="xCommentedY">%1$s ha commentato %2$s</string>
@@ -550,23 +550,23 @@ in %3$s</string>
   <string name="yourCityRegionOrDepartment">La tua città, regione o provincia.</string>
   <string name="biographyDescription">Parlaci di te, cosa ti piace degli scacchi, le tue aperture preferite, giochi, giocatori preferiti…</string>
   <plurals name="maximumNbCharacters">
-    <item quantity="one">Massimo: %s caratteri.</item>
+    <item quantity="one">Massimo: %s carattere.</item>
     <item quantity="other">Massimo: %s caratteri.</item>
   </plurals>
   <plurals name="blocks">
-    <item quantity="one">%s giocatori bloccati</item>
+    <item quantity="one">%s giocatore bloccato</item>
     <item quantity="other">%s giocatori bloccati</item>
   </plurals>
-  <string name="listBlockedPlayers">Lista dei giocatori bloccati</string>
+  <string name="listBlockedPlayers">Lista dei giocatori bloccati da te</string>
   <string name="human">Umano</string>
   <string name="computer">Computer</string>
   <string name="side">Lato</string>
   <string name="clock">Orologio</string>
-  <string name="unauthorizedError">Accesso non autorizzato</string>
+  <string name="unauthorizedError">Accesso non autorizzato.</string>
   <string name="noInternetConnection">Nessuna connessione internet. Ma puoi sempre giocare offline dal menù.</string>
   <string name="connectedToLichess">Sei ora connesso a lichess.org</string>
   <string name="signedOut">Disconnessione riuscita</string>
-  <string name="loginSuccessful">Autenticazione riuscita</string>
+  <string name="loginSuccessful">Accesso riuscito</string>
   <string name="playOnTheBoardOffline">Gioca offline</string>
   <string name="playOfflineComputer">Sfida il computer</string>
   <string name="opponent">Avversario</string>
@@ -580,7 +580,7 @@ in %3$s</string>
   <string name="allowAnalytics">Permetti statistiche anonime</string>
   <string name="shareGameURL">Condividi URL della partita</string>
   <string name="error.required">Questo campo è obbligatorio</string>
-  <string name="error.email">Questa email non è valida</string>
+  <string name="error.email">Questa indirizzo email non è valido</string>
   <string name="error.email_acceptable">Questa email non è accettabile</string>
   <string name="error.email_unique">Questa email viene già utilizzata</string>
   <string name="error.email_different">Questo è gia il tuo indirizzo mail</string>
