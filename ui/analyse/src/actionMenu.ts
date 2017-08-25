@@ -189,11 +189,10 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ctrl.showComputer() ? [
       boolSetting(ctrl, {
         name: 'bestMoveArrow',
+        title: 'Keyboard: a',
         id: 'shapes',
         checked: ctrl.showAutoShapes(),
-        change(e) {
-          ctrl.toggleAutoShapes((e.target as HTMLInputElement).checked);
-        }
+        change: ctrl.toggleAutoShapes
       }),
       boolSetting(ctrl, {
         name: 'evaluationGauge',
@@ -206,9 +205,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
         title: 'removesTheDepthLimit',
         id: 'infinite',
         checked: ceval.infinite(),
-        change(e) {
-          ctrl.cevalSetInfinite((e.target as HTMLInputElement).checked);
-        }
+        change: ctrl.cevalSetInfinite
       }),
       (id => {
         const max = 5;
@@ -265,8 +262,23 @@ export function view(ctrl: AnalyseCtrl): VNode {
       ]))('analyse-memory') : null
     ] : []) : [];
 
+    const notationConfig = [
+      h('h2', ctrl.trans.noarg('preferences')),
+      boolSetting(ctrl, {
+        name: 'Inline notation',
+        title: 'Keyboard: Shift+i',
+        id: 'inline',
+        checked: ctrl.treeView.inline(),
+        change(v) {
+          ctrl.treeView.set(v);
+          ctrl.actionMenu.toggle();
+        }
+      })
+    ];
+
     return h('div.action_menu',
       tools
+        .concat(notationConfig)
         .concat(cevalConfig)
         .concat(ctrl.mainline.length > 4 ? [h('h2', ctrl.trans.noarg('replayMode')), autoplayButtons(ctrl)] : [])
         .concat([
@@ -296,7 +308,7 @@ interface BoolSetting {
   id: string,
   checked: boolean;
   disabled?: boolean;
-  change(e: MouseEvent): void;
+  change(v: boolean): void;
 }
 
 function boolSetting(ctrl: AnalyseCtrl, o: BoolSetting) {
@@ -311,7 +323,7 @@ function boolSetting(ctrl: AnalyseCtrl, o: BoolSetting) {
           type: 'checkbox',
           checked: o.checked
         },
-        hook: bind('change', o.change, ctrl.redraw)
+        hook: bind('change', e => o.change((e.target as HTMLInputElement).checked), ctrl.redraw)
       }),
       h('label', { attrs: { 'for': fullId } })
     ])

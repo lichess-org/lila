@@ -1,6 +1,6 @@
 import * as control from './control';
 import AnalyseCtrl from './ctrl';
-import { bind as bindEvent } from './util';
+import { bind as bindEvent, dataIcon } from './util';
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 
@@ -50,13 +50,10 @@ export function bind(ctrl: AnalyseCtrl): void {
     ctrl.autoScroll();
     ctrl.redraw();
   }));
-  kbd.bind('shift+t', preventing(function() {
+  kbd.bind('shift+i', preventing(function() {
     ctrl.treeView.toggle();
     ctrl.redraw();
   }));
-  kbd.bind('esc', function() {
-    ctrl.chessground.cancelMove();
-  });
 
   if (ctrl.studyPractice) return;
 
@@ -132,7 +129,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
     }
   }, [
     h('a.close.icon', {
-      attrs: { 'data-icon': 'L' },
+      attrs: dataIcon('L'),
       hook: bindEvent('click', () => ctrl.keyboardHelp = false, ctrl.redraw)
     }),
     h('div.scrollable', [
@@ -146,6 +143,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
         row([k('shift'), k('←'), or(), k('shift'), k('→')], trans('keyEnterOrExitVariation')),
         row([k('shift'), k('j'), or(), k('shift'), k('k')], trans('keyEnterOrExitVariation')),
         header('Analysis options'),
+        row([k('shift'), k('i')], 'Inline notation'),
         row([k('l')], 'Local computer analysis'),
         row([k('a')], 'Computer arrows'),
         row([k('space')], 'Play computer best move'),

@@ -40,24 +40,33 @@ export type TreeViewKey = 'column' | 'inline';
 
 export interface TreeView {
   get: StoredProp<TreeViewKey>;
+  set(inline: boolean): void;
   toggle(): void;
+  inline(): boolean;
 }
 
 export function ctrl(): TreeView {
   const value = storedProp<TreeViewKey>('treeView', 'column');
+  function inline() {
+    return value() === 'inline';
+  }
+  function set(i: boolean) {
+    value(i ? 'inline' : 'column');
+  }
   return {
     get: value,
+    set,
     toggle() {
-      value(value() === 'column' ? 'inline' : 'column');
-    }
+      set(!inline());
+    },
+    inline
   };
 }
 
 
 // entry point, dispatching to selected view
 export function render(ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
-  if (ctrl.treeView.get() === 'column') return column(ctrl, concealOf);
-  return inline(ctrl);
+  return ctrl.treeView.inline() ? inline(ctrl) : column(ctrl, concealOf);
 }
 
 export function nodeClasses(c: AnalyseCtrl, path: Tree.Path): NodeClasses {
