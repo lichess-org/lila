@@ -105,4 +105,17 @@ amikor a gyalogod az 5. sorban van.</string>
   <string name="theGameIsADraw">A döntetlen játszma</string>
   <string name="stalemateIntro">Amikor a játékos nincs sakkban és nem tud szabályosan lépni, az patt.
 A játszma döntetlen: senki sem győzött vagy vesztett.</string>
+  <string name="stalemateGoal">Hogy bepattoljuk sötétet:
+- Sötétnek nem lehet lépése
+- Nincs sakkban.</string>
+  <string name="stalemateComplete">Gratulálunk! Jobb ha bepattolnak mintha bemattolnának!</string>
+  <string name="advanced">Haladó</string>
+  <string name="pieceValue">Figura érték</string>
+  <string name="pieceValueIntro">A mozgékonyabb figuráknak nagyobb az értéke!
+Királynő = 9
+Bástya = 5
+Futó = 3
+Huszár = 3
+Gyalog = 1
+A király a legértékesebb! Ha elesik, elveszett a játszma.</string>
 </resources>
