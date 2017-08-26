@@ -405,7 +405,7 @@
   <string name="isPrivate">Privát</string>
   <string name="reportXToModerators">%s jelentése a moderátoknak</string>
   <string name="profileCompletion">Profil teljessége: %s</string>
-  <string name="xRating">%s rang</string>
+  <string name="xRating">%s pontszám</string>
   <string name="ifNoneLeaveEmpty">Ha nincs, hagyd üresen</string>
   <string name="gameCompletionRate">Befejezett játszmák: %s</string>
   <string name="profile">Profil</string>
@@ -422,7 +422,7 @@
   <string name="activePlayers">Aktív játékosok</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Időmérés nélküli, de rangsorolt meccs!</string>
   <string name="training">Gyakorlás</string>
-  <string name="yourPuzzleRatingX">A feladatmegoldások értékelése: %s</string>
+  <string name="yourPuzzleRatingX">Feladatmegoldási pontszámod: %s</string>
   <string name="findTheBestMoveForWhite">Találd meg a legjobb lépést világossal.</string>
   <string name="findTheBestMoveForBlack">Találd meg a legjobb lépést sötéttel.</string>
   <string name="toTrackYourProgress">Fejlődésed nyomon követéséhez:</string>
@@ -440,7 +440,7 @@
   <string name="wasThisPuzzleAnyGood">Jónak találtad ezt a feladványt?</string>
   <string name="pleaseVotePuzzle">Segíts a Lichess fejlesztésében szavazatoddal, a fel és le nyilakat használva:</string>
   <string name="thankYou">Köszönjük!</string>
-  <string name="ratingX">Értékelés: %s</string>
+  <string name="ratingX">Pontszám: %s</string>
   <plurals name="playedXTimes">
     <item quantity="one">%s alkalommal játszott</item>
     <item quantity="other">%s alkalommal játszott</item>
@@ -531,8 +531,8 @@
   <string name="promoteToQueenAutomatically">Gyalog automatikus előléptetése vezérré</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Háromszori ismétlés esetén automatikus döntetlen igénylése</string>
   <string name="privacy">Személyes</string>
-  <string name="letOtherPlayersFollowYou">Követésed engedélyezése a többi játékosnak</string>
-  <string name="letOtherPlayersChallengeYou">Kihívásod engedélyezése a többi játékosnak</string>
+  <string name="letOtherPlayersFollowYou">Mások követhetnek téged</string>
+  <string name="letOtherPlayersChallengeYou">Mások kihívhatnak egy játszmára</string>
   <string name="letOtherPlayersInviteYouToStudy">Mások meghívhatnak játszma tanulmányozásra</string>
   <string name="sound">Hang</string>
   <string name="yourPreferencesHaveBeenSaved">Beállításaid elmentettük.</string>
@@ -689,7 +689,7 @@
   <string name="analysisShapesHowTo">Shift-kattintva vagy jobb egérgombbal rajzolhatsz karikákat és nyilakat a táblára</string>
   <string name="confirmResignationAndDrawOffers">Feladás és döntetlen kérelem megerősítése</string>
   <string name="inputMovesWithTheKeyboard">Lépések bevitele a billentyűzettel</string>
-  <string name="letOtherPlayersMessageYou">Más játékosok küldhetnek neked üzenetet</string>
+  <string name="letOtherPlayersMessageYou">Mások küldhetnek neked üzenetet</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Sáncolás módszere</string>
   <string name="castleByMovingTwoSquares">Király mozog két mezőt</string>
   <string name="castleByMovingOntoTheRook">Király mozog a bástyára</string>
