@@ -48,9 +48,16 @@
   <string name="computerAnalysis">Gépi elemzés</string>
   <string name="computerAnalysisAvailable">Számítógépes elemzés elérhető</string>
   <string name="analysis">Elemző tábla</string>
+  <string name="loadingEngine">Motor betöltése ...</string>
+  <string name="goDeeper">Mélyebben</string>
+  <string name="showThreat">Fenyegetés mutatása</string>
   <string name="inLocalBrowser">a böngészőben</string>
+  <string name="toggleLocalEvaluation">Helyi elemzés bekapcsolása</string>
+  <string name="winning">Nyerő</string>
+  <string name="losing">Vesztő</string>
+  <string name="drawn">Döntetlen</string>
   <string name="openingExplorer">Megnyitás tallózó</string>
-  <string name="blunders">Súlyos hibák</string>
+  <string name="blunders">Durva hibák</string>
   <string name="mistakes">Hibák</string>
   <string name="inaccuracies">Pontatlanságok</string>
   <string name="moveTimes">Lépésidők</string>
