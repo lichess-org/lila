@@ -129,6 +129,8 @@ A bástyák mellett állnak.</string>
 Sajátmagával azonos színű mezőn áll.</string>
   <string name="placeTheKing">Helyezd el a királyt!
 A vezér mellett áll.</string>
+  <string name="pawnsFormTheFrontLine">A gyalogok alkotják a frontvonalat.
+A folytatáshoz lépj bármit.</string>
   <string name="boardSetupComplete">Gratulálunk! Most már tudod hogyan kell fölállítani a sakktáblát.</string>
   <string name="castling">Sáncolás</string>
   <string name="theSpecialKingMove">A király egyik speciális lépése</string>
@@ -176,6 +178,7 @@ A játszma döntetlen: senki sem győzött vagy vesztett.</string>
   <string name="stalemateComplete">Gratulálunk! Jobb ha bepattolnak mintha bemattolnának!</string>
   <string name="advanced">Haladó</string>
   <string name="pieceValue">Figura érték</string>
+  <string name="evaluatePieceStrength">Mérlegeld a figurák erősségét</string>
   <string name="pieceValueIntro">A mozgékonyabb figuráknak nagyobb az értéke!
 Királynő = 9
 Bástya = 5
@@ -183,4 +186,16 @@ Futó = 3
 Huszár = 3
 Gyalog = 1
 A király a legértékesebb! Ha elesik, elveszett a játszma.</string>
+  <string name="queenOverBishop">Üsd ki a legértékesebb figurát!
+Vezér &gt; Futó</string>
+  <string name="takeThePieceWithTheHighestValue">Üsd ki a legértékesebb figurát!</string>
+  <string name="pieceValueComplete">Gratulálunk! Most már ismered a figurák anyagi értékét!
+Vezér = 9
+Bástya = 5
+Futó = 3
+Huszár = 3
+Gyalog = 1</string>
+  <string name="checkInTwo">Sakk két lépésben</string>
+  <string name="twoMovesToGiveCheck">Adj sakkot két lépésből</string>
+  <string name="checkInTwoIntro">Találd meg azt a kombinációt, ami két lépésben sakkot ad az ellenfél királyának!</string>
 </resources>
