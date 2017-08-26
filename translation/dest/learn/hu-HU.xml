@@ -70,8 +70,22 @@ Nem kell átváltoztatni.</string>
   <string name="capture">Ütés</string>
   <string name="takeTheEnemyPieces">Nyerd el az ellenfél figuráit</string>
   <string name="captureIntro">Keresd meg az ellenfél védtelen figuráit és üsd le őket!</string>
+  <string name="takeTheBlackPieces">Üsd le sötét figuráit!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Üsd le sötét figuráit!
+És ne veszítsd el a sajátaidat.</string>
+  <string name="captureComplete">Gratulálunk! Most már tudod hogy harcolj a sakkfigurákkal!</string>
   <string name="protection">Védelem</string>
+  <string name="keepYourPiecesSafe">Védd meg a figuráidat</string>
+  <string name="protectionIntro">Keresd meg az ellenfeled által megtámadott figurákat, és védd meg őket!</string>
+  <string name="protectionComplete">Gratulálunk! Egy figura amit nem veszítesz el kész nyereség!</string>
+  <string name="escape">Megtámadtak!
+Menekülj a fenyegtéstől!</string>
+  <string name="noEscape">Nincs menekvés,
+de meg tudod védeni!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Ne engedd kiütni
+a védtelen figuráidat!</string>
   <string name="combat">Harc</string>
+  <string name="captureAndDefendPieces">Figurák kiütése és védelme</string>
   <string name="checkInOne">Egy lépéses sakk</string>
   <string name="mateInOne">Egy lépéses matt</string>
   <string name="intermediate">Középfok</string>
