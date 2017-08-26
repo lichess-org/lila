@@ -283,6 +283,32 @@
   <string name="viewTournament">Назіраць за турнірам</string>
   <string name="backToTournament">Вярнуцца да турніру</string>
   <string name="thematic">Тэматычны</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">%s рэйтынгавая гульня</item>
+    <item quantity="few">%s рэйтынгавыя гульні</item>
+    <item quantity="other">%s рэйтынгавых гульняў</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2%s рэйтынгавая гульня</item>
+    <item quantity="few">≥ %1$s %2%s рэйтынгавыя гульні</item>
+    <item quantity="other">≥ %1$s %2%s рэйтынгавых гульняў</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Вы павінны згуляць яшчэ %1$s рэйтынгавую гульню ў %2$s</item>
+    <item quantity="few">Вы павінны згуляць яшчэ %1$s рэйтынгавыя гульні ў %2$s</item>
+    <item quantity="other">Вы павінны згуляць яшчэ %1$s рэйтынгавых гульняў у %2$s</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Вы павінны згуляць яшчэ %s рэйтынгавую гульню</item>
+    <item quantity="few">Вы павінны згуляць яшчэ %s рэйтынгавыя гульні</item>
+    <item quantity="other">Вы павінны згуляць яшчэ %s рэйтынгавых гульняў</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Ваш папярэдні рэйтынг: %s</string>
+  <string name="yourPerfRatingIsTooHigh">Ваш рэйтынг у %1$s (%2$s) занадта высокі</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Ваш штотыднёвы рэйтынг %1$s рэйтынг (%2$s) занадта высокі</string>
+  <string name="yourPerfRatingIsTooLow">Ваш рэйтынг %1$s (%2$s) занадта нізкі</string>
+  <string name="ratedMoreThanInPerf">Рэйтынг ≥ %1$s у %2$s</string>
+  <string name="ratedLessThanInPerf">Рэйтынг ≤ %1$s у %2$s</string>
   <string name="backToGame">Вярнуцца да гульні</string>
   <string name="siteDescription">Бясплатныя он-лайн шахматы. Гуляй у шахматы з зручным інтэрфэйсам. Без рэгістрацыі, без рэклямы, без дадатковых праграм. Гуляй у шахматы з камп\'ютарам, сябрамі ці выпадковым супернікам.</string>
   <string name="teams">Каманды</string>
