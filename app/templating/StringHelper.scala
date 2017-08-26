@@ -12,6 +12,11 @@ trait StringHelper { self: NumberHelper =>
 
   implicit val LilaHtmlZero: Zero[Html] = Zero.instance(Html(""))
 
+  implicit val LilaHtmlMonoid = scalaz.Monoid.instance[Html](
+    (a, b) => Html(a.body + b.body),
+    LilaHtmlZero.zero
+  )
+
   val slugify = lila.common.String.slugify _
 
   def pluralize(s: String, n: Int) = s"$n $s${if (n > 1) "s" else ""}"

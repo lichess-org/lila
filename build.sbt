@@ -8,8 +8,7 @@ import BuildSettings._
 import Dependencies._
 
 lazy val root = Project("lila", file(".")).dependsOn(api).aggregate(api)
-  .enablePlugins(PlayScala, PlayNettyServer, JavaAppPackaging)
-  .disablePlugins(PlayAkkaHttpServer)
+  .enablePlugins(PlayScala, JavaAppPackaging)
   .disablePlugins(PlayFilters)
 
 scalaVersion := globalScalaVersion

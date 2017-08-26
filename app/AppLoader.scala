@@ -3,6 +3,8 @@ import play.api.inject.ApplicationLifecycle
 
 final class LilaLoader extends ApplicationLoader {
 
+  println("LilaLoader")
+
   // def load(context: Context) = {
   //   val application = new GuiceApplicationBuilder(
   //     environment = context.environment,
@@ -13,11 +15,12 @@ final class LilaLoader extends ApplicationLoader {
   // }
 
   def load(context: ApplicationLoader.Context): Application = {
+    println("LilaLoader.load")
     val components = new LilaComponents(context)
     val app = components.application
     old.play.Env.start(app)
-    startKamon(context.lifecycle)
-    lila.app.Env.current
+    // startKamon(context.lifecycle)
+    // lila.app.Env.current
     app
   }
 
@@ -29,6 +32,8 @@ final class LilaLoader extends ApplicationLoader {
 
 final class LilaComponents(context: ApplicationLoader.Context)
   extends BuiltInComponentsFromContext(context) {
+
+  def router = _root_.router.Routes
 
   def httpFilters = Nil
 }

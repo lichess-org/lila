@@ -7,7 +7,6 @@ import akka.actor.{ ActorSystem, Scheduler }
 import akka.stream.Materializer
 import play.api._
 import play.api.ApplicationLoader.Context
-import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.inject.Injector
 import play.api.libs.ws.{ WSClient, StandaloneWSClient }
 import play.api.Mode
@@ -21,11 +20,16 @@ import scala.concurrent.ExecutionContext
  */
 object Env {
 
+  println("################# common Env")
+
   private val _ref: AtomicReference[Application] = new AtomicReference[Application]()
 
   def start(app: Application) = _ref.set(app)
 
-  lazy val application: Application = Option(_ref.get()).get
+  lazy val application: Application = {
+    println("################# common Env application")
+    Option(_ref.get()).get
+  }
   lazy val actorSystem: ActorSystem = application.actorSystem
   lazy val materializer: Materializer = application.materializer
   lazy val configuration: Configuration = application.configuration

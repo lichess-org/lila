@@ -41,9 +41,10 @@ object Main extends LilaController {
     }
   }
 
-  def apiWebsocket = WebSocket.tryAccept { req =>
-    Env.site.apiSocketHandler.apply map Right.apply
-  }
+  def apiWebsocket = TODO
+  // WebSocket.tryAccept { req =>
+  //   Env.site.apiSocketHandler.apply map Right.apply
+  // }
 
   def captchaCheck(id: String) = Open { implicit ctx =>
     Env.hub.actor.captcher ? ValidCaptcha(id, ~get("solution")) map {
