@@ -6,4 +6,20 @@
   <string name="menu">Menü</string>
   <string name="progressX">Haladás: %s</string>
   <string name="resetMyProgress">Haladásom nullázása</string>
+  <string name="youWillLoseAllYourProgress">Az összes eddigi haladásod el fog veszni!</string>
+  <string name="play">játssz!</string>
+  <string name="chessPieces">Sakkfigurák</string>
+  <string name="theRook">A bástya</string>
+  <string name="itMovesInStraightLines">Egyenes vonalban mozog</string>
+  <string name="rookIntro">A bástya erős figura. Felkészültél az irányítására?</string>
+  <string name="rookGoal">Kattints a bástyára
+és mozgasd a csillagokhoz!</string>
+  <string name="grabAllTheStars">Szedd fel az összes csillagot!</string>
+  <string name="theFewerMoves">Minél kevesebbszer lépsz,
+annál több pontot kapsz!</string>
+  <string name="useTwoRooks">Használd mindkét bástyát
+és gyorsítsd fel a dolgokat!</string>
+  <string name="rookComplete">Gratulálunk! Sikeresen elsajátítottad a bástya mozgását.</string>
+  <string name="theBishop">A futó</string>
+  <string name="itMovesDiagonally">Átlósan mozog</string>
 </resources>
