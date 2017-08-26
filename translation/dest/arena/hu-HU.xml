@@ -6,4 +6,17 @@
   <string name="isNotRated">Ez egy *nem* rangsorolt verseny, *nem* befolyásolja a pontszámodat.</string>
   <string name="someRated">Egyes versenyek rangsoroltak, és befolyásolják a pontszámodat.</string>
   <string name="howAreScoresCalculated">Hogy van a pontszámok kiszámítása?</string>
+  <string name="howAreScoresCalculatedAnswer">Egy győzelem alapból 2 pontot, egy döntetlen 1 pont, egy veszteség pedig nem ér pontot.
+Ha egymás után két játszmát nyersz, beindul a pont duplázási sorozatod, amit egy láng ikon jelez.
+A következő játszmákért egészen addig dupla pontot kapsz ameddig nem vesztesz.
+Vagyis egy győzelem 4 pontot, egy döntetlen 2 pontot, és egy győzelem pedig továbbra is nulla pontot ér.
+
+Például két győzelem után egy döntetlen, az összesen 6 pontot ér: 2 + 2 + (2 x 1)</string>
+  <string name="berserk">Aréna Berserk</string>
+  <string name="howDoesPairingWork">Hogyan zajlik a párosítás?</string>
+  <string name="otherRules">Egyéb fontos szabályok</string>
+  <string name="otherRulesAnswer">Az első lépést kötelező 20 másodpercen belül megtenni. Aki ez alatt az idő alatt nem lép az veszít, és az ellenfele győz.
+Az első 10 lépésen belüli döntetlenért egyik játékos sem kap pontot.</string>
+  <string name="thisIsPrivate">Ez egy privát verseny</string>
+  <string name="shareUrl">Ezt az URL-t oszd meg azokkal, akiket meg akarsz hívni: %s</string>
 </resources>
