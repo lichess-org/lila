@@ -58,4 +58,26 @@ de átlósan ütnek!</string>
   <string name="captureThenPromote">Üsd ki, és változtasd át!</string>
   <string name="useAllThePawns">Használd az összes gyalogot!
 Nem kell átváltoztatni.</string>
+  <string name="aPawnOnTheSecondRank">A második sorban levő gyalogok kettőt is léphetnek!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Szedd fel az összes csillagot!
+Nem kell átváltoztatni.</string>
+  <string name="pawnComplete">Gratulálunk! Kiismerted a gyalogok rejtelmeit.</string>
+  <string name="pawnPromotion">Gyalog átváltozás</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">A gyalogod elérte a tábla szélét!</string>
+  <string name="boardSetupComplete">Gratulálunk! Most már tudod hogyan kell fölállítani a sakktáblát.</string>
+  <string name="castling">Sáncolás</string>
+  <string name="theSpecialKingMove">A király egyik speciális lépése</string>
+  <string name="castlingIntro">Helyezd a királyod biztonságba, és mozgósítsd a bástyádat!</string>
+  <string name="castleKingSide">Lépj a királyoddal két mezőt,
+a király-szárnyra sáncoláshoz!</string>
+  <string name="castleQueenSide">Lépj a királyoddal két mezőt,
+a vezér-szárnyra sáncoláshoz!</string>
+  <string name="theKnightIsInTheWay">A huszár útban van!
+Vidd odébb, és sáncolj a király szárnyra.</string>
+  <string name="castleKingSideMovePiecesFirst">Sáncolj a király-szárnyra!
+Először el kell lépned a figuráiddal.</string>
+  <string name="castleQueenSideMovePiecesFirst">Sáncolj a vezér-szárnyra!
+Először el kell lépned a figuráiddal.</string>
+  <string name="youCannotCastleIfMoved">Nem sáncolhatsz ha a király
+vagy a bástya már lépett.</string>
 </resources>
