@@ -286,6 +286,8 @@
   <string name="yourPerfRatingIsTooHigh">A %1$s pontszámod (%2$s) túl magas</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">A %1$s heti csúcs pontszámod (%2$s) túl magas</string>
   <string name="yourPerfRatingIsTooLow">A %1$s pontszámod (%2$s) túl alacsony</string>
+  <string name="ratedMoreThanInPerf">%2$s pontszám ≥ %1$s</string>
+  <string name="ratedLessThanInPerf">%2$s pontszám ≤ %1$s</string>
   <string name="backToGame">Vissza a játékhoz</string>
   <string name="siteDescription">Ingyenes online sakk játék. Sakkozz letisztult kezelőfelületen. Nem szükséges regisztráció vagy pluginok, és hirdetéseket sem kell nézned. Sakkozz a számítógéppel, barátokkal vagy véletlenszerű ellenfelekkel.</string>
   <string name="teams">Csapatok</string>
@@ -319,6 +321,7 @@
   <string name="fromPosition">Adott állásból</string>
   <string name="continueFromHere">Folytatás innen</string>
   <string name="importGame">Játszma importálása</string>
+  <string name="importGameExplanation">PGN játszma beillesztéséhez, böngészhető újrajátszást, számítógépes elemzést, chatet és egy megosztható URL-t is biztosítunk.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Importált játszma</item>
     <item quantity="other">%s Importált játszma</item>
@@ -375,6 +378,7 @@
   <string name="winStreak">Győzelmi sorozat</string>
   <string name="createdBy">Készítette:</string>
   <string name="tournamentIsStarting">A verseny kezdődik</string>
+  <string name="tournamentPairingsAreNowClosed">A verseny párosítások már lezárultak.</string>
   <string name="youArePlaying">Te következel!</string>
   <string name="winRate">Nyerési arány</string>
   <string name="performance">Teljesítmény</string>
