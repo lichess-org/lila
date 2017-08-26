@@ -30,4 +30,10 @@ Mindkettőre szükséged van!</string>
   <string name="theQueen">A királynő</string>
   <string name="queenCombinesRookAndBishop">Királynő = bástya + futó</string>
   <string name="queenIntro">Színre lép a legerősebb sakkfigura. Őfelsége a királynő!</string>
+  <string name="queenComplete">Gratulálunk! A királynőknek már nincs titka előtted.</string>
+  <string name="theKing">A király</string>
+  <string name="theMostImportantPiece">A legfontosabb figura</string>
+  <string name="kingIntro">Te vagy a király. Ha elesel a csatában, elveszted a játszmát.</string>
+  <string name="theKingIsSlow">A király lassú.</string>
+  <string name="lastOne">Az utolsó!</string>
 </resources>
