@@ -73,7 +73,7 @@ Nem kell átváltoztatni.</string>
   <string name="takeTheBlackPieces">Üsd le sötét figuráit!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Üsd le sötét figuráit!
 És ne veszítsd el a sajátaidat.</string>
-  <string name="captureComplete">Gratulálunk! Most már tudod hogy harcolj a sakkfigurákkal!</string>
+  <string name="captureComplete">Gratulálunk! Most már tudod hogyan harcolj a sakkfigurákkal!</string>
   <string name="protection">Védelem</string>
   <string name="keepYourPiecesSafe">Védd meg a figuráidat</string>
   <string name="protectionIntro">Keresd meg az ellenfeled által megtámadott figurákat, és védd meg őket!</string>
@@ -86,7 +86,16 @@ de meg tudod védeni!</string>
 a védtelen figuráidat!</string>
   <string name="combat">Harc</string>
   <string name="captureAndDefendPieces">Figurák kiütése és védelme</string>
+  <string name="combatIntro">Egy jó harcos egyaránt ismeri a támadást és a védekezést!</string>
+  <string name="combatComplete">Gratulálunk! Most már tudod hogyan harcolj a sakkfigurákkal!</string>
   <string name="checkInOne">Egy lépéses sakk</string>
+  <string name="attackTheOpponentsKing">Támadd meg az ellenfél királyát</string>
+  <string name="checkInOneIntro">Hogy sakkot adj az ellenfelednek, támadd meg a királyát. Meg kell védenie!</string>
+  <string name="checkInOneGoal">Támadd meg az ellenfél királyát egy lépésben!</string>
+  <string name="checkInOneComplete">Gratulálunk! Sakkban tartottad az ellenfeled, kénytelen volt védeni a királyát!</string>
+  <string name="outOfCheck">Sakk elhárítása</string>
+  <string name="defendYourKing">Védd a királyod</string>
+  <string name="outOfCheckIntro">Sakkban vagy! El kell menekülnöd vagy hárítanod a támadást.</string>
   <string name="mateInOne">Egy lépéses matt</string>
   <string name="intermediate">Középfok</string>
   <string name="boardSetupComplete">Gratulálunk! Most már tudod hogyan kell fölállítani a sakktáblát.</string>
