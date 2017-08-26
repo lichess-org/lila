@@ -40,7 +40,7 @@ object PlayApp {
     debug = loadConfig getBoolean "app.scheduler.debug"
   )
 
-  def lifecycle = withApp(_.injector.instanceOf[play.api.inject.ApplicationLifecycle])
+  def lifecycle = old.play.Env.lifecycle
 
   lazy val isDev = isMode(_.Dev)
   lazy val isTest = isMode(_.Test)

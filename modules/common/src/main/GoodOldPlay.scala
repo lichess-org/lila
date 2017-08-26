@@ -3,14 +3,15 @@ package old.play
 import java.util.concurrent.atomic.{ AtomicReference }
 // import java.util.concurrent.{Executors, ThreadFactory}
 
+import lila.common.LilaComponents
+
 import akka.actor.{ ActorSystem, Scheduler }
 import akka.stream.Materializer
 import play.api._
 import play.api.ApplicationLoader.Context
-import play.api.inject.Injector
+import play.api.inject.ApplicationLifecycle
 import play.api.libs.ws.{ WSClient, StandaloneWSClient }
 import play.api.Mode
-import play.api.mvc.{ SessionCookieBaker, ActionBuilder, DefaultActionBuilder }
 
 import scala.concurrent.ExecutionContext
 
@@ -20,27 +21,41 @@ import scala.concurrent.ExecutionContext
  */
 object Env {
 
-  println("################# common Env")
+  private val _ref: AtomicReference[LilaComponents] = new AtomicReference[LilaComponents]()
 
-  private val _ref: AtomicReference[Application] = new AtomicReference[Application]()
+  def start(components: LilaComponents) = _ref.set(components)
 
-  def start(app: Application) = _ref.set(app)
+  private lazy val components: LilaComponents = Option(_ref.get()).get
 
-  lazy val application: Application = {
-    println("################# common Env application")
-    Option(_ref.get()).get
-  }
+  lazy val application: Application = components.application
+  lazy val lifecycle: ApplicationLifecycle = components.applicationLifecycle
+
   lazy val actorSystem: ActorSystem = application.actorSystem
   lazy val materializer: Materializer = application.materializer
   lazy val configuration: Configuration = application.configuration
   lazy val mode: Mode = application.mode
   lazy val scheduler: Scheduler = actorSystem.scheduler
-  lazy val injector: Injector = application.injector
-  lazy val defaultContext: ExecutionContext = injector.instanceOf[ExecutionContext]
-  lazy val environment: Environment = injector.instanceOf[Environment]
-  lazy val WS: WSClient = injector.instanceOf[WSClient]
-  lazy val cookieBaker: SessionCookieBaker = injector.instanceOf[SessionCookieBaker]
-  lazy val actionBuilder: DefaultActionBuilder = injector.instanceOf[DefaultActionBuilder]
+  lazy val defaultContext: ExecutionContext = components.executionContext
+  lazy val environment: Environment = components.environment
+
+  lazy val WS: WSClient = {
+    import play.api.libs.ws.ahc.{ AsyncHttpClientProvider, AhcWSClientProvider }
+    implicit val mat = materializer
+    implicit val ec = defaultContext
+    val asyncHttpClient = new AsyncHttpClientProvider(environment, configuration, lifecycle).get
+    new AhcWSClientProvider(asyncHttpClient).get
+  }
+  import play.api.http.HttpConfiguration
+  import play.api.mvc.{ SessionCookieBaker, DefaultSessionCookieBaker }
+  import play.api.libs.crypto.{ CookieSigner, DefaultCookieSigner }
+  lazy val httpConf = HttpConfiguration.fromConfiguration(configuration, environment)
+  lazy val cookieSigner: CookieSigner = new DefaultCookieSigner(httpConf.secret)
+  lazy val cookieBaker: SessionCookieBaker = {
+    new DefaultSessionCookieBaker(httpConf.session, httpConf.secret, cookieSigner)
+  }
+
+  import play.api.mvc.{ ActionBuilder, Request, AnyContent }
+  lazy val actionBuilder: ActionBuilder[Request, AnyContent] = components.controllerComponents.actionBuilder
 
   lazy val standaloneWSClient: StandaloneWSClient = new StandaloneWSClient {
     def underlying[T] = WS.asInstanceOf[T]
@@ -61,36 +76,10 @@ object Env {
 
 }
 
-trait GoodOldPlay {
-
-  object Implicits {
-    implicit def defaultActorSystem: ActorSystem = Env.actorSystem
-    implicit def defaultMaterializer: Materializer = Env.materializer
-    implicit def defaultScheduler: Scheduler = Env.scheduler
-    implicit def defaultContext: ExecutionContext = Env.defaultContext
-  }
-
-  def WS = Env.WS
-  def Configuration = Env.configuration
-  def Application = Env.configuration
-  def Injector = Env.configuration
-  def Mode = Env.configuration
-
-  def currentApplication = Env.application
-  def defaultContext = Env.defaultContext
-  def defaultScheduler = Env.scheduler
-  def defaultMaterializer = Env.scheduler
-  def defaultActorSystem = Env.configuration
-  // def httpRequestsContext = Env.httpRequestExecContext
-  // def httpCallsContext = Env.httpCallsExecContext
-  // def dataStoreContext = Env.dataStoreExecContext
-}
-
 object api {
   object Play {
     def application = Env.application
     def maybeApplication = Option(Env.application)
-    def injector = Env.injector
     def classloader = Env.application.classloader
     def configuration = Env.configuration
     def current = Env.application

@@ -29,7 +29,7 @@ scriptClasspath := Seq("*")
 libraryDependencies ++= Seq(
   play.jodaJson, play.iteratee, play.streams,
   scalaz, chess, scalalib, hasher, typesafeConfig, findbugs,
-  reactivemongo.driver, reactivemongo.iteratees, akka.actor, akka.slf4j,
+  reactivemongo.driver, reactivemongo.iteratees, akka.actor,
   maxmind, prismic, guava,
   kamon.core, kamon.influxdb, semver, scrimage, scalaConfigs, scaffeine
 )

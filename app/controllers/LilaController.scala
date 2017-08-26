@@ -336,7 +336,7 @@ private[controllers] trait LilaController
       }
     }
 
-  protected val csrfCheck = Env.security.csrfRequestHandler.check _
+  protected def csrfCheck = Env.security.csrfRequestHandler.check _
   protected val csrfForbiddenResult = Forbidden("Cross origin request forbidden").fuccess
 
   private def CSRF(req: RequestHeader)(f: => Fu[Result]): Fu[Result] =
