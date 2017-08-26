@@ -405,6 +405,7 @@
   <string name="profileCompletion">Profil teljessége: %s</string>
   <string name="xRating">%s rang</string>
   <string name="ifNoneLeaveEmpty">Ha nincs, hagyd üresen</string>
+  <string name="gameCompletionRate">Befejezett játszmák: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profil szerkesztése</string>
   <string name="firstName">Keresztnév</string>
@@ -499,6 +500,7 @@
   <string name="closeAccountExplanation">Biztos hogy zárolod a fiókodat? A zárolás végleges. Nem leszel képes bejelentkezni, és a profilod sem lesz elérhető.</string>
   <string name="thisAccountIsClosed">Ez a fiók zárolva van</string>
   <string name="invalidUsernameOrPassword">Érvénytelen felhasználónév vagy jelszó</string>
+  <string name="incorrectPassword">Hibás jelszó</string>
   <string name="emailMeALink">Link küldése e-mailben</string>
   <string name="currentPassword">Jelenlegi jelszó</string>
   <string name="newPassword">Új jelszó</string>
@@ -528,6 +530,7 @@
   <string name="privacy">Személyes</string>
   <string name="letOtherPlayersFollowYou">Követésed engedélyezése a többi játékosnak</string>
   <string name="letOtherPlayersChallengeYou">Kihívásod engedélyezése a többi játékosnak</string>
+  <string name="letOtherPlayersInviteYouToStudy">Mások meghívhatnak játszma tanulmányozásra</string>
   <string name="sound">Hang</string>
   <string name="yourPreferencesHaveBeenSaved">Beállításaid elmentettük.</string>
   <string name="none">Nincs</string>
@@ -550,6 +553,7 @@
   <string name="xAnsweredY">%1$s megválaszolta a %2$s című témát</string>
   <string name="xCommentedY">%1$s hozzászólt a %2$s című témához</string>
   <string name="victory">Helyes megoldás!</string>
+  <string name="defeat">Vereség</string>
   <string name="timeline">Idővonal</string>
   <string name="seeAllTournaments">Összes verseny megtekintése</string>
   <string name="starting">Kezdés:</string>
@@ -590,6 +594,7 @@
   <string name="error.email_acceptable">A megadott e-mail cím nem használható</string>
   <string name="error.email_unique">A megadott e-mail cím már használatban van</string>
   <string name="blindfoldChess">Vakjátszma (láthatatlan bábuk)</string>
+  <string name="zenMode">Zen mód</string>
   <string name="moveConfirmation">Lépés jóváhagyatása</string>
   <string name="inCorrespondenceGames">Levelező mérkőzés</string>
   <string name="ifRatingIsPlusMinusX">Ha a pontszám ± %s</string>
@@ -618,6 +623,7 @@
   <string name="sourceCode">Forráskód</string>
   <string name="simultaneousExhibitions">Szimultán játékok</string>
   <string name="host">Létrehozó</string>
+  <string name="hostColorX">Szimultánt adó színe: %s</string>
   <string name="createdSimuls">Új szimultán játékok</string>
   <string name="hostANewSimul">Új szimultán csata létrehozása</string>
   <string name="noSimulFound">Szimultán csata nem található</string>
@@ -675,6 +681,7 @@
   <string name="crosstable">Eredménytábla</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Görgess az egérgörgővel a tábla felett, hogy láthasd lépéseket.</string>
   <string name="analysisShapesHowTo">Shift-kattintva vagy jobb egérgombbal rajzolhatsz karikákat és nyilakat a táblára</string>
+  <string name="confirmResignationAndDrawOffers">Feladás és döntetlen kérelem megerősítése</string>
   <string name="inputMovesWithTheKeyboard">Lépések bevitele a billentyűzettel</string>
   <string name="letOtherPlayersMessageYou">Más játékosok küldhetnek neked üzenetet</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Sáncolás módszere</string>
@@ -716,6 +723,7 @@
   <string name="xLikesY">%1$s kedveli %2$s</string>
   <string name="quickPairing">Gyors játszma</string>
   <string name="lobby">Lobbi</string>
+  <string name="anonymous">Névtelen</string>
   <string name="yourScore">A te eredményed: %s</string>
   <string name="language">Nyelv</string>
   <string name="background">Háttér</string>
