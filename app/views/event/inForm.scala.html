@@ -25,7 +25,7 @@
   @base.form.select(form("enabled"), booleanChoices)
   }
   @base.form.group(form("homepageHours"), Html("Hours on homepage (0 to 24)"), half = true) {
-  @base.form.input(form("homepageHours"))
+  @base.form.input(form("homepageHours"), "Ask first!".some)
   }
 </div>
 
