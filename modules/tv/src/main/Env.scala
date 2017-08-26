@@ -94,7 +94,7 @@ object Env {
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
     lightUser = lila.user.Env.current.lightUserSync,
-    system = lila.common.PlayApp.system,
+    system = old.play.Env.actorSystem,
     scheduler = lila.common.PlayApp.scheduler,
     asyncCache = lila.memo.Env.current.asyncCache,
     isProd = lila.common.PlayApp.isProd

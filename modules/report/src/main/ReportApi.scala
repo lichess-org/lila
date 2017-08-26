@@ -282,7 +282,7 @@ final class ReportApi(
     coll.aggregate(
       Match(unprocessedSelect),
       List(
-        GroupField("room")("nb" -> SumValue(1))
+        GroupField("room")("nb" -> SumAll)
       )
     ).map { res =>
         Room.Counts(res.firstBatch.flatMap { doc =>

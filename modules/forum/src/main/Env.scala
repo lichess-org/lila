@@ -31,7 +31,7 @@ final class Env(
     val CollectionCateg = config getString "collection.categ"
     val CollectionTopic = config getString "collection.topic"
     val CollectionPost = config getString "collection.post"
-    import scala.collection.JavaConversions._
+    import scala.collection.JavaConverters._
     val PublicCategIds = (config getStringList "public_categ_ids").toList
   }
   import settings._
@@ -93,6 +93,6 @@ object Env {
     notifyApi = lila.notify.Env.current.api,
     relationApi = lila.relation.Env.current.api,
     asyncCache = lila.memo.Env.current.asyncCache,
-    system = lila.common.PlayApp.system
+    system = old.play.Env.actorSystem
   )
 }

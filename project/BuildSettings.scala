@@ -41,7 +41,7 @@ object BuildSettings {
 
   val compilerOptions = Seq(
     "-deprecation", "-unchecked", "-feature", "-language:_",
-    "-Xfatal-warnings",
+    // "-Xfatal-warnings",
     "-Ywarn-dead-code",
     // "-Ywarn-unused-import",
     // "-Ywarn-unused",

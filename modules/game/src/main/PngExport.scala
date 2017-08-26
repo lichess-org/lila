@@ -1,8 +1,7 @@
 package lila.game
 
 import play.api.libs.iteratee._
-import play.api.libs.ws.WS
-import play.api.Play.current
+import old.play.api.libs.ws.WS
 
 import chess.format.{ Forsyth, FEN }
 
@@ -33,7 +32,7 @@ final class PngExport(url: String, size: Int) {
         orientation.map { "orientation" -> _.name }
       ).flatten
 
-    WS.url(url).withQueryString(queryString: _*).getStream() flatMap {
+    WS.url(url).withQueryString(queryString: _*).withMethod("GET").stream() flatMap {
       case (res, body) if res.status != 200 =>
         logger.warn(s"PgnExport $logHint ${fen.value} ${res.status}")
         fufail(res.status.toString)

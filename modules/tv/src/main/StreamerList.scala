@@ -1,7 +1,7 @@
 package lila.tv
 
 import com.typesafe.config.ConfigFactory
-import scala.collection.JavaConversions._
+import scala.collection.JavaConverters._
 import scala.util.{ Try, Success, Failure }
 
 final class StreamerList(

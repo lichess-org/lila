@@ -4,7 +4,8 @@ import scala.concurrent.duration._
 
 import akka.actor.ActorSystem
 import play.api.i18n.Lang
-import play.api.libs.ws.{ WS, WSAuthScheme }
+import old.play.api.libs.ws.WS
+import play.api.libs.ws.WSAuthScheme
 import play.api.Play.current
 import play.twirl.api.Html
 

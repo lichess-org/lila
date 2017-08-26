@@ -283,7 +283,7 @@ object Round extends LilaController with TheftPrevention {
       } else {
         env resign pov
         import scala.concurrent.duration._
-        val scheduler = lila.common.PlayApp.system.scheduler
+        val scheduler = old.play.Env.actorSystem.scheduler
         akka.pattern.after(500 millis, scheduler)(fuccess(routes.Lobby.home))
       }
     }

@@ -30,7 +30,7 @@ object Env {
   lazy val mode: Mode = application.mode
   lazy val scheduler: Scheduler = actorSystem.scheduler
   lazy val injector: Injector = application.injector
-  lazy val playExecutionContext: ExecutionContext = injector.instanceOf(classOf[ExecutionContext])
+  lazy val defaultContext: ExecutionContext = injector.instanceOf(classOf[ExecutionContext])
   lazy val environment: Environment = injector.instanceOf(classOf[Environment])
   lazy val WS: WSClient = injector.instanceOf(classOf[WSClient])
   // lazy val cache: CacheApi = injector.instanceOf(classOf[CacheApi])
@@ -53,7 +53,7 @@ trait GoodOldPlay {
     implicit def defaultActorSystem: ActorSystem = Env.actorSystem
     implicit def defaultMaterializer: Materializer = Env.materializer
     implicit def defaultScheduler: Scheduler = Env.scheduler
-    implicit def defaultContext: ExecutionContext = Env.playExecutionContext
+    implicit def defaultContext: ExecutionContext = Env.defaultContext
   }
 
   def WS = Env.WS
@@ -63,7 +63,7 @@ trait GoodOldPlay {
   def Mode = Env.configuration
 
   def currentApplication = Env.application
-  def defaultContext = Env.playExecutionContext
+  def defaultContext = Env.defaultContext
   def defaultScheduler = Env.scheduler
   def defaultMaterializer = Env.scheduler
   def defaultActorSystem = Env.configuration
@@ -106,9 +106,9 @@ object api {
       }
       object Execution {
         object Implicits {
-          implicit def defaultContext: ExecutionContext = Env.playExecutionContext
+          implicit def defaultContext: ExecutionContext = Env.defaultContext
         }
-        def defaultContext: ExecutionContext = Env.playExecutionContext
+        def defaultContext: ExecutionContext = Env.defaultContext
         // def httpRequestsContext = Env.httpRequestExecContext
         // def httpCallsContext = Env.httpCallsExecContext
         // def dataStoreContext = Env.dataStoreExecContext

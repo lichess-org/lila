@@ -29,6 +29,6 @@ object Env {
   lazy val current = "site" boot new Env(
     config = lila.common.PlayApp loadConfig "site",
     hub = lila.hub.Env.current,
-    system = lila.common.PlayApp.system
+    system = old.play.Env.actorSystem
   )
 }

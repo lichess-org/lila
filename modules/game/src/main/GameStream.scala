@@ -3,6 +3,7 @@ package lila.game
 import akka.actor._
 import play.api.libs.iteratee._
 import play.api.libs.json._
+import play.api.libs.json.JodaWrites._
 
 import actorApi.{ StartGame, FinishGame }
 import chess.format.FEN

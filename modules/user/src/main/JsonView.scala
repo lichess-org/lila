@@ -3,6 +3,7 @@ package lila.user
 import lila.common.PimpedJson._
 import lila.rating.{ Perf, PerfType }
 import play.api.libs.json._
+import play.api.libs.json.JodaWrites._
 import User.{ PlayTime, LightPerf }
 
 final class JsonView(isOnline: String => Boolean) {

@@ -79,7 +79,7 @@ object PairingRepo {
       List(
         Project($doc("u" -> true, "_id" -> false)),
         UnwindField("u"),
-        GroupField("u")("nb" -> SumValue(1))
+        GroupField("u")("nb" -> SumAll)
       )
     ).map {
         _.firstBatch.flatMap { doc =>
@@ -145,7 +145,7 @@ object PairingRepo {
           "b2" -> $doc("$cond" -> $arr("$b2", 1, 0))
         )),
         GroupField("w")(
-          "games" -> SumValue(1),
+          "games" -> SumAll,
           "moves" -> SumField("t"),
           "b1" -> SumField("b1"),
           "b2" -> SumField("b2")

@@ -46,7 +46,7 @@ object Env {
   lazy val current = "analyse" boot new Env(
     config = lila.common.PlayApp loadConfig "analyse",
     db = lila.db.Env.current,
-    system = lila.common.PlayApp.system,
+    system = old.play.Env.actorSystem,
     evalCacheHandler = lila.evalCache.Env.current.socketHandler,
     hub = lila.hub.Env.current,
     roundSocket = lila.hub.Env.current.socket.round,

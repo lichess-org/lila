@@ -88,7 +88,7 @@ final class Gamify(
       "date" -> dateRange(after, before),
       "mod" -> notLichess
     )), List(
-      GroupField("mod")("nb" -> SumValue(1)),
+      GroupField("mod")("nb" -> SumAll),
       Sort(Descending("nb"))
     )).map {
       _.firstBatch.flatMap { obj =>
@@ -102,7 +102,7 @@ final class Gamify(
         "createdAt" -> dateRange(after, before),
         "processedBy" -> notLichess
       )), List(
-        GroupField("processedBy")("nb" -> SumValue(1)),
+        GroupField("processedBy")("nb" -> SumAll),
         Sort(Descending("nb"))
       )
     ).map {

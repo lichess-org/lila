@@ -44,6 +44,6 @@ object Env {
   lazy val current = "explorer" boot new Env(
     config = lila.common.PlayApp loadConfig "explorer",
     gameColl = lila.game.Env.current.gameColl,
-    system = lila.common.PlayApp.system
+    system = old.play.Env.actorSystem
   )
 }
