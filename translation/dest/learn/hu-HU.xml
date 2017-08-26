@@ -66,8 +66,10 @@ Nem kell átváltoztatni.</string>
   <string name="yourPawnReachedTheEndOfTheBoard">A gyalogod elérte a tábla szélét!</string>
   <string name="itNowPromotesToAStrongerPiece">És most átváltozik egy erősebb figurává.</string>
   <string name="selectThePieceYouWant">Válaszd ki a kívánt figurát!</string>
-  <string name="fundamentals">Alapok</string>
+  <string name="fundamentals">Alapfok</string>
   <string name="capture">Ütés</string>
+  <string name="takeTheEnemyPieces">Nyerd el az ellenfél figuráit</string>
+  <string name="captureIntro">Keresd meg az ellenfél védtelen figuráit és üsd le őket!</string>
   <string name="protection">Védelem</string>
   <string name="combat">Harc</string>
   <string name="checkInOne">Egy lépéses sakk</string>
