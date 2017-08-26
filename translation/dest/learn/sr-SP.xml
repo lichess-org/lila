@@ -64,6 +64,20 @@
   <string name="takeTheEnemyPieces">Узми противничке фигуре</string>
   <string name="captureIntro">Идентификујте противничке небрањене фигуре и поједите их!</string>
   <string name="takeTheBlackPieces">Узмите црне фигуре!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Узмите црне фигуре!
+И немојте изгубити своје.</string>
+  <string name="captureComplete">Честитамо! Знате како да се борите шаховским фигурама!</string>
+  <string name="protection">Заштита</string>
+  <string name="keepYourPiecesSafe">Заштитите своје фигуре</string>
+  <string name="protectionIntro">Видите које фигуре ваш противник напада, и одбраните их!</string>
+  <string name="protectionComplete">Честитамо! Фигура коју не изгубите је фигура коју добијете!</string>
+  <string name="escape">Ви сте над нападом!
+Избегните претњу!</string>
+  <string name="noEscape">Нема излаза,
+али можете бранити!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Не дозволите им да вам узму
+ниједну не одбрањену фигуру!</string>
+  <string name="combat">Борба</string>
   <string name="boardSetupComplete">Честитамо! Знате да поставите шаховску таблу.</string>
   <string name="enPassantOnlyWorksOnFifthRank">Ан пасан је могућ само
 ако вам је пешак на петом реду.</string>
