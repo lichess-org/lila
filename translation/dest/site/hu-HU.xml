@@ -92,6 +92,7 @@
   <string name="replayMode">Visszajátszás</string>
   <string name="realtimeReplay">Valósidő</string>
   <string name="byCPL">CPL-ek</string>
+  <string name="openStudy">Tanulmány megnyitása</string>
   <string name="enable">Bekapcsolva</string>
   <string name="bestMoveArrow">Legjobb lépés nyíl</string>
   <string name="evaluationGauge">Értékelő mérce</string>
@@ -209,6 +210,7 @@
   <string name="inbox">Beérkező üzenetek</string>
   <string name="chatRoom">Csevegő</string>
   <string name="loginToChat">Jelentkezz be a chateléshez</string>
+  <string name="youHaveBeenTimedOut">Lelettél tiltva egy időre.</string>
   <string name="spectatorRoom">Figyelő szoba</string>
   <string name="composeMessage">Üzenet írása</string>
   <string name="noNewMessages">Nincs új üzenet</string>
@@ -218,6 +220,10 @@
   <string name="incrementInSeconds">Másodpercnövekmény</string>
   <string name="freeOnlineChess">Ingyenes Online Sakk</string>
   <string name="spectators">Nézők:</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s rangsorolt</item>
+    <item quantity="other">%s rangsorolt</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s győzelem</item>
     <item quantity="other">%s győzelem</item>
@@ -230,12 +236,17 @@
     <item quantity="one">%s döntetlen</item>
     <item quantity="other">%s döntetlen</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s zajlik</item>
+    <item quantity="other">%s zajlik</item>
+  </plurals>
   <string name="exportGames">Játékok exportálása</string>
   <string name="ratingRange">Pontszámtartomány</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Adj %s másodpercet</item>
     <item quantity="other">Adj %s másodpercet</item>
   </plurals>
+  <string name="giveMoreTime">Több idő adása</string>
   <string name="thisPlayerUsesChessComputerAssistance">Ez a játékos számítógépes sakkprogram segítségét használja</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ez a játékos mesterségesen növeli/csökkenti a pontszámát</string>
   <string name="takeback">Visszalépés</string>
