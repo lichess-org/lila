@@ -249,6 +249,7 @@
   <string name="giveMoreTime">Több idő adása</string>
   <string name="thisPlayerUsesChessComputerAssistance">Ez a játékos számítógépes sakkprogram segítségét használja</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ez a játékos mesterségesen növeli/csökkenti a pontszámát</string>
+  <string name="openingExplorerAndTablebase">Megnyitás tallózó &amp; tablebase</string>
   <string name="takeback">Visszalépés</string>
   <string name="proposeATakeback">Visszalépés kérése</string>
   <string name="takebackPropositionSent">Visszalépés kérése elküldve</string>
@@ -264,6 +265,27 @@
   <string name="tournamentPoints">Verseny pontok</string>
   <string name="viewTournament">Verseny nézése</string>
   <string name="backToTournament">Vissza a versenyhez</string>
+  <string name="thematic">Tematikus</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s rangsorolt játszma</item>
+    <item quantity="other">≥ %s rangsorolt játszma</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2%s rangsorolt játszma</item>
+    <item quantity="other">≥ %1$s %2%s rangsorolt játszma</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Még %1$s további %2$s rangsorolt játszma szükséges</item>
+    <item quantity="other">Még %1$s további %2$s rangsorolt játszma szükséges</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Még %s további rangsorolt játszma szükséges</item>
+    <item quantity="other">Még %s további rangsorolt játszma szükséges</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">A %s pontszámod ideiglenes</string>
+  <string name="yourPerfRatingIsTooHigh">A %1$s pontszámod (%2$s) túl magas</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">A %1$s heti csúcs pontszámod (%2$s) túl magas</string>
+  <string name="yourPerfRatingIsTooLow">A %1$s pontszámod (%2$s) túl alacsony</string>
   <string name="backToGame">Vissza a játékhoz</string>
   <string name="siteDescription">Ingyenes online sakk játék. Sakkozz letisztult kezelőfelületen. Nem szükséges regisztráció vagy pluginok, és hirdetéseket sem kell nézned. Sakkozz a számítógéppel, barátokkal vagy véletlenszerű ellenfelekkel.</string>
   <string name="teams">Csapatok</string>
