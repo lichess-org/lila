@@ -1,0 +1,78 @@
+package lila.common
+
+// Welford's numerically stable online variance.
+//
+sealed trait Stats {
+  def samples: Int
+  def mean: Float
+  def variance: Float
+  def record(value: Float): Stats
+  def +(o: Stats): Stats
+
+  def record[T](values: Traversable[T])(implicit n: Numeric[T]): Stats =
+    values.foldLeft(this) { (s, v) => s record n.toFloat(v) }
+
+  def stdDev = Math.sqrt(variance).toFloat
+}
+
+protected final case class StatHolder(
+    samples: Int,
+    mean: Float,
+    sn: Float
+) extends Stats {
+  def variance = if (samples < 2) Float.NaN else sn / (samples - 1)
+
+  def record(value: Float) = {
+    val newSamples = samples + 1
+    val delta = value - mean
+    val newMean = mean + delta / newSamples
+    val newSN = sn + delta * (value - newMean)
+
+    StatHolder(
+      samples = newSamples,
+      mean = newMean,
+      sn = newSN
+    )
+  }
+
+  def +(o: Stats) = o match {
+    case StatHolder(oSamples, oMean, oSN) => {
+      val invTotal = 1f / (samples + oSamples)
+      val combMean = {
+        if (samples == oSamples) (mean + oMean) * 0.5f
+        else (mean * samples + oMean * oSamples) * invTotal
+      }
+
+      val meanDiff = mean - oMean
+
+      StatHolder(
+        samples = samples + oSamples,
+        mean = combMean,
+        sn = sn + oSN + meanDiff * meanDiff * samples * oSamples * invTotal
+      )
+    }
+
+    case EmptyStats => this
+  }
+}
+
+protected object EmptyStats extends Stats {
+  val samples = 0
+  val mean = 0f
+  val variance = Float.NaN
+
+  def record(value: Float) = StatHolder(
+    samples = 1,
+    mean = value,
+    sn = 0f
+  )
+
+  def +(o: Stats) = o
+}
+
+object Stats {
+  val empty = EmptyStats
+
+  def apply(value: Float) = empty.record(value)
+  def apply[T: Numeric](values: Traversable[T]) = empty.record(values)
+}

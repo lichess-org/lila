@@ -92,7 +92,10 @@ object JsonApi {
       def medianNodes = analysis
         .filterNot(_.mateFound)
         .filterNot(_.deadDraw)
-        .flatMap(_.nodes).toNel map Maths.median[Int]
+        .flatMap(_.nodes) match {
+          case Nil => None
+          case x => Maths.median(x).some
+        }
 
       def strong = medianNodes.fold(true)(_ > Evaluation.acceptableNodes)
       def weak = !strong
