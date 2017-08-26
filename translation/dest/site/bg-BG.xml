@@ -46,7 +46,7 @@
   <string name="viewTheComputerAnalysis">Виж компютърния анализ</string>
   <string name="requestAComputerAnalysis">Поискай компютърен анализ</string>
   <string name="computerAnalysis">Компютърен анализ</string>
-  <string name="computerAnalysisAvailable">Компютърният анализ не е достъпен</string>
+  <string name="computerAnalysisAvailable">Компютърния анализ е наличен</string>
   <string name="analysis">Анализ</string>
   <string name="depthX">Дълбочина %s</string>
   <string name="loadingEngine">Зареждане на програмата ...</string>
@@ -54,7 +54,15 @@
   <string name="capture">Взимане</string>
   <string name="noGameFound">Не е открита игра</string>
   <string name="openingExplorer">Изследовател на дебютите</string>
+  <string name="winPreventedBy50MoveRule">Победата е предотвратена от 50-ходовото правило</string>
   <string name="delete">Изтрий</string>
+  <string name="realtimeReplay">В реално време</string>
+  <string name="byCPL">По CPL</string>
+  <string name="enable">Включване</string>
+  <string name="bestMoveArrow">Показване на най-добър ход</string>
+  <string name="cpus">Процесори</string>
+  <string name="memory">Памет</string>
+  <string name="infiniteAnalysis">Неограничен анализ</string>
   <string name="blunders">Гафове</string>
   <string name="mistakes">Грешки</string>
   <string name="inaccuracies">Неточности</string>
@@ -184,6 +192,7 @@
     <item quantity="one">Дай %s sec</item>
     <item quantity="other">Дай %s sec</item>
   </plurals>
+  <string name="giveMoreTime">Дайте повече време</string>
   <string name="thisPlayerUsesChessComputerAssistance">Този играч използва компютърна помощ</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Този играч изкуствено увеличава/намалява своята оценка</string>
   <string name="takeback">Върни ход</string>
@@ -240,6 +249,7 @@
   </plurals>
   <string name="thisIsAChessCaptcha">Това е шахматна CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Играйте хода си на дъската и докажете че сте човек</string>
+  <string name="captcha.fail">Моля решете шахматната captcha</string>
   <string name="notACheckmate">Не е шах-и-мат</string>
   <string name="colorPlaysCheckmateInOne">%s играят; мат в един ход</string>
   <string name="retry">Опитай отново</string>
@@ -247,6 +257,7 @@
   <string name="onlineFriends">Приятели</string>
   <string name="noFriendsOnline">Няма свързани приятели</string>
   <string name="findFriends">Намери приятели</string>
+  <string name="favoriteOpponents">Предпочитани съперници</string>
   <string name="follow">Следвай</string>
   <string name="following">Следвам</string>
   <string name="unfollow">Не следвай</string>
@@ -329,7 +340,7 @@
   <string name="thankYou">Благодаря!</string>
   <string name="ratingX">Рейтинг: %s</string>
   <plurals name="playedXTimes">
-    <item quantity="one">Изиграна %s  пъти</item>
+    <item quantity="one">Решавана %s пъти</item>
     <item quantity="other">Изиграна %s  пъти</item>
   </plurals>
   <string name="fromGameLink">От игра  %s</string>
@@ -472,6 +483,7 @@
   <string name="error.email_acceptable">Адресът на ел. поща е недопустим</string>
   <string name="error.email_unique">Тази ел. поща е вече заета</string>
   <string name="blindfoldChess">Блинд (невидими фигури)</string>
+  <string name="zenMode">Режим Zen</string>
   <string name="moveConfirmation">Потвърждение на хода</string>
   <string name="inCorrespondenceGames">Кореспондентски игри</string>
   <string name="ifRatingIsPlusMinusX">Ако рейтингът е ± %s</string>

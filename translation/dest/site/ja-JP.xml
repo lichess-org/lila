@@ -115,7 +115,7 @@
   </plurals>
   <string name="currentGames">現在対局中</string>
   <plurals name="nbGames">
-    <item quantity="other">全%s局 の統計</item>
+    <item quantity="other">全%s局</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="other">%s個の ブックマーク</item>

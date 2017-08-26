@@ -191,7 +191,7 @@
   <string name="yourOpponentOffersADraw">Motspelaren tilbyr remis</string>
   <string name="accept">Godta</string>
   <string name="decline">Avslå</string>
-  <string name="playingRightNow">Spelar nett no</string>
+  <string name="playingRightNow">Spelast nett no</string>
   <string name="finished">Slutt</string>
   <string name="abortGame">Avbryt partiet</string>
   <string name="gameAborted">Partiet blei avbrote</string>
@@ -239,8 +239,8 @@
     <item quantity="other">%s remisar</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="one">%s spelast</item>
-    <item quantity="other">%s spelast</item>
+    <item quantity="one">%s løpande parti</item>
+    <item quantity="other">%s løpande parti</item>
   </plurals>
   <string name="exportGames">Eksporter parti</string>
   <string name="ratingRange">Ratingspenn</string>
@@ -257,7 +257,7 @@
   <string name="takebackPropositionSent">Framlegg om å gjera om trekket blei sendt</string>
   <string name="takebackPropositionDeclined">Framlegget om å gjera om trekket blei avslått</string>
   <string name="takebackPropositionAccepted">Framlegget om å gjera om trekket blei godteke</string>
-  <string name="takebackPropositionCanceled">Framlegget om å gjera om draget blei trekt attende</string>
+  <string name="takebackPropositionCanceled">Framlegget om å få gjera om att trekket vart kansellert</string>
   <string name="yourOpponentProposesATakeback">Motstandaren gjer framlegg om å gjera om trekket</string>
   <string name="bookmarkThisGame">Bokmerk denne sida</string>
   <string name="search">Søk</string>
@@ -291,7 +291,7 @@
   <string name="ratedMoreThanInPerf">Rata ≥ %1$s i %2$s</string>
   <string name="ratedLessThanInPerf">Rata ≤ %1$s i %2$s</string>
   <string name="backToGame">Tilbake til partiet</string>
-  <string name="siteDescription">Fritt tilgjengeleg nettsjakk. Spel sjakk på ei rein nettside uten registrering, reklame eller programtillegg. Spel sjakk mot datamaskin, vener eller tilfeldige motspelarar.</string>
+  <string name="siteDescription">Fritt tilgjengeleg nettsjakk. Spel sjakk på ei rein nettside utan registrering, reklame eller programtillegg. Spel sjakk mot datamaskin, vener eller tilfeldige motspelarar.</string>
   <string name="teams">Lag</string>
   <plurals name="nbMembers">
     <item quantity="one">%s medlem</item>
@@ -320,7 +320,7 @@
   <string name="leaderboard">Rangliste</string>
   <string name="pasteTheFenStringHere">Lim inn FEN-strengen her</string>
   <string name="pasteThePgnStringHere">Lim inn PGN-fila her</string>
-  <string name="fromPosition">Frå posisjon</string>
+  <string name="fromPosition">Frå stilling</string>
   <string name="continueFromHere">Fortsett herfrå</string>
   <string name="importGame">Importér parti</string>
   <string name="importGameExplanation">Når du limer inn eit PGN-parti kan du bla gjennom partiet,
@@ -333,7 +333,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="clickOnTheBoardToMakeYourMove">Gjer eit trekk på brettet for å prova at du er eit menneske.</string>
   <string name="captcha.fail">Ver venleg og løys sjakkproblemet.</string>
   <string name="notACheckmate">Ikkje sjakk matt</string>
-  <string name="colorPlaysCheckmateInOne">%s i draget; sjakk matt i eitt trekk</string>
+  <string name="colorPlaysCheckmateInOne">%s set sjakk matt i eitt trekk</string>
   <string name="retry">Prøv om att</string>
   <string name="reconnecting">Koplar til på ny</string>
   <string name="onlineFriends">Innlogga vener</string>
@@ -402,7 +402,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="startPosition">Startposisjon</string>
   <string name="clearBoard">Tøm brettet</string>
   <string name="savePosition">Lagre stilling</string>
-  <string name="loadPosition">Last inn posisjon</string>
+  <string name="loadPosition">Last inn stilling</string>
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Meld %s til moderator</string>
   <string name="profileCompletion">Profil fullført: %s</string>
@@ -536,7 +536,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="letOtherPlayersChallengeYou">Lat andre spelarar utfordra deg</string>
   <string name="letOtherPlayersInviteYouToStudy">Lat andre spelarar invitere til studium</string>
   <string name="sound">Lyd</string>
-  <string name="yourPreferencesHaveBeenSaved">Preferansane dine har blitt lagra.</string>
+  <string name="yourPreferencesHaveBeenSaved">Preferansane dine er lagra.</string>
   <string name="none">Ingen</string>
   <string name="fast">Rask</string>
   <string name="normal">Normal</string>
@@ -603,7 +603,7 @@ i %3$s</string>
   <string name="error.email_different">Dette er allereie mailadressen din</string>
   <string name="blindfoldChess">Blindsjakk</string>
   <string name="zenMode">Zen-modus</string>
-  <string name="moveConfirmation">Trekkbekrefting</string>
+  <string name="moveConfirmation">Stadfest trekket</string>
   <string name="inCorrespondenceGames">I fjernsjakksparti</string>
   <string name="ifRatingIsPlusMinusX">Dersom rating er ± %s</string>
   <string name="onlyFriends">Berre vener</string>
@@ -694,14 +694,14 @@ i %3$s</string>
   <string name="letOtherPlayersMessageYou">Lat andre spelarar ta kontakt med deg</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Metode for å rokere</string>
   <string name="castleByMovingTwoSquares">Flytt kongen to felt</string>
-  <string name="castleByMovingOntoTheRook">Flytt kongen til tårnet eller to steg</string>
+  <string name="castleByMovingOntoTheRook">Sett kongen på tårnet, eller to felt</string>
   <string name="shareYourInsightsData">Del din personlege spelarstatistikk</string>
   <string name="withNobody">Med ingen</string>
   <string name="withFriends">Med vener</string>
   <string name="withEverybody">Med alle</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Du har allereie registrert epostadressa: %s</string>
   <string name="kidMode">Barnemodus</string>
-  <string name="kidModeExplanation">Dette handlar om tryggleik. I barnemodus vert all kommunikasjon skrudd av. Bruk dette for å verne barn og skoleelever mot andre Internett-brukarar.</string>
+  <string name="kidModeExplanation">Dette handlar om tryggleik. I barnemodus er all kommunikasjon avskrudd. Bruk dette for å verne barn og skoleelevar mot andre Internett-brukarar.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">I barnemodus får lichess-logoen eit %s symbol, så du kan sjå at barna dine er trygge.</string>
   <string name="enableKidMode">Skru på barnemodus</string>
   <string name="disableKidMode">Skru av barnemodus</string>
@@ -744,7 +744,7 @@ i %3$s</string>
   <string name="boardTheme">Brett-tema</string>
   <string name="boardSize">Brettstorleik</string>
   <string name="pieceSet">Brikkesett</string>
-  <string name="embedInYourWebsite">Bygg inn i din nettside</string>
+  <string name="embedInYourWebsite">Bygg inn i nettsida di</string>
   <string name="usernameAlreadyUsed">Dette brukarnamnet er allereie i bruk, ver venleg og prøv eit anna.</string>
   <string name="usernameInvalid">Ugyldig brukarnamn. Ver venleg og berre bruk bokstavar, tal, understreking og bindestrek.</string>
   <string name="usernameStartNoNumber">Brukarnamnet kan ikkje starta med eit tal.</string>

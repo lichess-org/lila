@@ -51,6 +51,10 @@
     <item quantity="one">Har deltatt i %s turnering</item>
     <item quantity="other">Har deltatt i %s turneringer</item>
   </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">Kom på plass #%1$s (topp %2$s%%) med %3$s parti i %4$s</item>
+    <item quantity="other">Kom på plass #%1$s (topp %2$s%%) med %3$s partier i %4$s</item>
+  </plurals>
   <string name="signedUp">Er registrert på Lichess</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Er medlem av %s lag</item>

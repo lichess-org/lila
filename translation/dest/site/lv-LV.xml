@@ -323,7 +323,7 @@
   <string name="standByX">Stājieties pretī %s, sapārosim dalībniekus, esiet gatavi!</string>
   <string name="youArePlaying">Tu jau spēlē!</string>
   <string name="winRate">Uzvaru attiecība</string>
-  <string name="berserkRate">Berserk attiecība</string>
+  <string name="berserkRate">Kurbads attiecība</string>
   <string name="performance">Sniegums</string>
   <string name="tournamentComplete">Turnīrs beidzies</string>
   <string name="movesPlayed">Izpēlēti gājieni</string>

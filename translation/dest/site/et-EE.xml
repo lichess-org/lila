@@ -77,7 +77,32 @@
     <item quantity="one">Matt %s käiguga</item>
     <item quantity="other">Šahhmatt %s käiguga</item>
   </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Järgmine löömine või etturikäik %s käiguga (50-käigu reegli järelejäänud käigud)</item>
+    <item quantity="other">Järgmine löömine või etturikäik %s käigu jooksul (50 käigu reegli järelejäänud käigud)</item>
+  </plurals>
+  <string name="noGameFound">Ühtegi mängu ei leitud</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Kas kaasata eelistuste menüüst rohkem mänge?</string>
   <string name="openingExplorer">Avangute avastamine</string>
+  <string name="xOpeningExplorer">%s avangute uurija</string>
+  <string name="winPreventedBy50MoveRule">50 käigu reegel ei lase võita</string>
+  <string name="lossSavedBy50MoveRule">50 käigu reegel päästis kaotusest</string>
+  <string name="allSet">Valmis!</string>
+  <string name="importPgn">Impordi PGN</string>
+  <string name="delete">Kustuta</string>
+  <string name="deleteThisImportedGame">Kustuta imporditud mäng?</string>
+  <string name="replayMode">Kordusrežiim</string>
+  <string name="realtimeReplay">Reaalajas</string>
+  <string name="byCPL">ESK järgi</string>
+  <string name="openStudy">Ava uuring</string>
+  <string name="enable">Luba</string>
+  <string name="bestMoveArrow">Parima käigu nool</string>
+  <string name="evaluationGauge">Hinnangunäidik</string>
+  <string name="multipleLines">Mitu liini</string>
+  <string name="cpus">CPU-d</string>
+  <string name="memory">Mälu</string>
+  <string name="infiniteAnalysis">Lõputu analüüs</string>
+  <string name="removesTheDepthLimit">Eemaldab sügavuslimiidi ja hoiab arvuti soojana</string>
   <string name="blunders">vigu</string>
   <string name="mistakes">eksimusi</string>
   <string name="inaccuracies">ebatäpsused</string>
@@ -142,6 +167,12 @@
   <string name="passwordReset">Salasõna lähtestamine</string>
   <string name="forgotPassword">Unustasid salasõna?</string>
   <string name="rank">Asetus</string>
+  <string name="rankX">Reiting %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Reitingut uuendatakse iga %s minuti tagant</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s ülesanne</item>
+    <item quantity="other">%s ülesanded</item>
+  </plurals>
   <string name="gamesPlayed">Mänge mängitud</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s mängudest sinuga</item>
@@ -180,6 +211,8 @@
   <string name="play">Mängi</string>
   <string name="inbox">Postkast</string>
   <string name="chatRoom">Jututuba</string>
+  <string name="loginToChat">Vestlemiseks logi sisse</string>
+  <string name="youHaveBeenTimedOut">Olete välja logitud.</string>
   <string name="spectatorRoom">Pealtvaatajate tuba</string>
   <string name="composeMessage">Koosta sõnum</string>
   <string name="noNewMessages">Pole uusi sõnumeid</string>
@@ -189,6 +222,10 @@
   <string name="incrementInSeconds">Lisatavad sekundid</string>
   <string name="freeOnlineChess">Tasuta onlain male</string>
   <string name="spectators">Pealtvaatajad</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s reitinguga</item>
+    <item quantity="other">%s reitinguga</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s võitu</item>
     <item quantity="other">%s võitu</item>
@@ -201,14 +238,20 @@
     <item quantity="one">%s viiki</item>
     <item quantity="other">%s viiki</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s mängimas</item>
+    <item quantity="other">%s mängimas</item>
+  </plurals>
   <string name="exportGames">Ekspordi mängud</string>
   <string name="ratingRange">Elo vahemik</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Lisa %s sekundit</item>
     <item quantity="other">Lisa %s sekundit</item>
   </plurals>
+  <string name="giveMoreTime">Anna lisaaega</string>
   <string name="thisPlayerUsesChessComputerAssistance">See mängija kasutab maletates arvuti abi</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">See mängija tõstab kunstlikult / vähendab oma reitingut</string>
+  <string name="openingExplorerAndTablebase">Avangute uurija &amp; lõppmängude andmebaas</string>
   <string name="takeback">Tagasivõtt</string>
   <string name="proposeATakeback">Paku tagasivõttu</string>
   <string name="takebackPropositionSent">Tagasivõtu ettepanek esitatud</string>
@@ -224,6 +267,29 @@
   <string name="tournamentPoints">Turniiri punktid</string>
   <string name="viewTournament">Vaata turniiri</string>
   <string name="backToTournament">Tagasi turniirile</string>
+  <string name="thematic">Temaatiline</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s reitinguga mängu</item>
+    <item quantity="other">≥ %s reitinguga mängu</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2%s reitinguga mängu</item>
+    <item quantity="other">≥ %1$s %2%s reitinguga mängu</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Peate mängima veel %1$s %2$s reitinguga mängu</item>
+    <item quantity="other">Peate mängima veel %1$s %2$s reitinguga mängu</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Peate veel mängima %s reitinguga mängu</item>
+    <item quantity="other">Peate veel mängima %s reitinguga mängu</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Teie %s reiting on hinnanguline</string>
+  <string name="yourPerfRatingIsTooHigh">Teie %1$s reiting (%2$s) on liiga kõrge</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Teie parim nädalane %1$s reiting (%2$s) on liiga kõrge</string>
+  <string name="yourPerfRatingIsTooLow">Teie %1$s reiting (%2$s) on liiga madal</string>
+  <string name="ratedMoreThanInPerf">Reiting ≥ %1$s %2$s</string>
+  <string name="ratedLessThanInPerf">Reiting ≤ %1$s %2$s</string>
   <string name="backToGame">Tagasi mängule</string>
   <string name="siteDescription">Tasuta online malemäng. Mängi malet nüüd puhtas kasutajaliideses. Pole registreerimist, pole reklaami, pole pluginaid vaja. Mängi malet arvuti, sõbrade või juhusliku vastasega.</string>
   <string name="teams">Võistkonnad</string>
@@ -257,12 +323,15 @@
   <string name="fromPosition">Positsioonilt</string>
   <string name="continueFromHere">Jätka siit</string>
   <string name="importGame">Impordi mäng</string>
+  <string name="importGameExplanation">Mängu PGN-i kleepimisel saate vaadeldava korduse,
+arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Importitud mängud</item>
     <item quantity="other">%s Importitud mängud</item>
   </plurals>
   <string name="thisIsAChessCaptcha">See on male CAPTCHA</string>
   <string name="clickOnTheBoardToMakeYourMove">Tee käik ja tõesta, et oled inimene</string>
+  <string name="captcha.fail">Palun lahendage male robotilõks.</string>
   <string name="notACheckmate">Pole matistatud</string>
   <string name="colorPlaysCheckmateInOne">%s mängib; matt ühe käiguga</string>
   <string name="retry">Uuesti</string>
@@ -270,6 +339,7 @@
   <string name="onlineFriends">Seesolevad sõbrad</string>
   <string name="noFriendsOnline">Pole sõpru sees</string>
   <string name="findFriends">Leia sõpru</string>
+  <string name="favoriteOpponents">Lemmikvastased</string>
   <string name="follow">Jälgi</string>
   <string name="following">Jälgimine</string>
   <string name="unfollow">Katkesta jälgimine</string>
@@ -311,14 +381,33 @@
   <string name="winStreak">Järjest võidetuid</string>
   <string name="createdBy">Lõi kasutaja</string>
   <string name="tournamentIsStarting">Turniir algab</string>
+  <string name="tournamentPairingsAreNowClosed">Turniiri paarimine on nüüd lõppenud.</string>
+  <string name="standByX">Palun oodake %s, paarime mängijaid, olge valmis!</string>
+  <string name="youArePlaying">Te mängite!</string>
+  <string name="winRate">Võidumäär</string>
+  <string name="berserkRate">Berserk määr</string>
+  <string name="performance">Sooritus</string>
+  <string name="tournamentComplete">Turniir lõppenud</string>
+  <string name="movesPlayed">Tehtud käikude arv</string>
+  <string name="whiteWins">Valge võite</string>
+  <string name="blackWins">Musta võite</string>
+  <string name="draws">Viike</string>
+  <string name="nextXTournament">Järgmine %s turniir:</string>
+  <string name="viewMoreTournaments">Vaata rohkem turniire</string>
+  <string name="averageOpponent">Keskmine vastane</string>
   <string name="membersOnly">Ainult liikmetele</string>
   <string name="boardEditor">Muudetav laud</string>
+  <string name="setTheBoard">Seadista lauda</string>
+  <string name="popularOpenings">Populaarsed avangud</string>
   <string name="startPosition">Algseis</string>
   <string name="clearBoard">Puhasta laud</string>
   <string name="savePosition">Salvesta seis</string>
   <string name="loadPosition">Lae positsioon</string>
   <string name="isPrivate">Privaatne</string>
   <string name="reportXToModerators">Teata kasutajast %s moderaatoritele</string>
+  <string name="profileCompletion">Profiili täitmine: %s</string>
+  <string name="xRating">%s reiting</string>
+  <string name="ifNoneLeaveEmpty">Kui pole, jätke tühjaks</string>
   <string name="profile">Profiil</string>
   <string name="editProfile">Muuda profiili</string>
   <string name="firstName">Eesnimi</string>
