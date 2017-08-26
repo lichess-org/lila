@@ -14,8 +14,8 @@ object Maths {
     val size = arr.size
     if (size == 0) Double.NaN
     else {
-      val mid = size >> 1
-      if (size % 2 == 0) (n.toDouble(arr(mid)) + n.toDouble(arr(mid - 1))) / 2.0
+      val mid = size / 2
+      if (size % 2 == 0) (n.toDouble(arr(mid)) + n.toDouble(arr(mid - 1))) / 2
       else n.toDouble(arr(mid))
     }
   }
