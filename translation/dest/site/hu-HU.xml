@@ -69,7 +69,13 @@
   <string name="averageRatingX">Átlagos pontszám: %s</string>
   <string name="recentGames">Legutóbbi játszmák</string>
   <string name="masterDbExplanation">Két millió verseny játszma %2$s és %3$s között %1$s fölött rangsorolt FIDE játékosoktól</string>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">A következő ütés vagy gyaloglépés %s fél-lépésre van (az 50 lépés számláló nullázásához szükséges táv)</item>
+    <item quantity="other">A következő ütés vagy gyaloglépés %s fél-lépésre van (az 50 lépés számláló nullázásához szükséges táv)</item>
+  </plurals>
+  <string name="noGameFound">Nem található játszma</string>
   <string name="openingExplorer">Megnyitás tallózó</string>
+  <string name="winPreventedBy50MoveRule">Az 50 lépés szabály miatt nem nyert</string>
   <string name="blunders">Durva hibák</string>
   <string name="mistakes">Hibák</string>
   <string name="inaccuracies">Pontatlanságok</string>
