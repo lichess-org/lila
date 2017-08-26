@@ -76,6 +76,17 @@
   <string name="noGameFound">Nem található játszma</string>
   <string name="openingExplorer">Megnyitás tallózó</string>
   <string name="winPreventedBy50MoveRule">Az 50 lépés szabály miatt nem nyert</string>
+  <string name="lossSavedBy50MoveRule">Az 50 lépés szabály miatt nem vesztett</string>
+  <string name="allSet">Mehet!</string>
+  <string name="importPgn">PGN importálás</string>
+  <string name="delete">Töröl</string>
+  <string name="deleteThisImportedGame">Törlöd ezt az importált játszmát?</string>
+  <string name="replayMode">Visszajátszás</string>
+  <string name="realtimeReplay">Valósidő</string>
+  <string name="byCPL">CPL-ek</string>
+  <string name="enable">Bekapcsolva</string>
+  <string name="bestMoveArrow">Legjobb lépés nyíl</string>
+  <string name="evaluationGauge">Értékelő mérce</string>
   <string name="blunders">Durva hibák</string>
   <string name="mistakes">Hibák</string>
   <string name="inaccuracies">Pontatlanságok</string>
