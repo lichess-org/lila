@@ -26,16 +26,16 @@ object PlayApp {
   def withApp[A](op: Application => A): A =
     Play.maybeApplication map op err "Play application is not started!"
 
-  def system = withApp { implicit app =>
-    play.api.libs.concurrent.Akka.system
-  }
+  // def system = withApp { implicit app =>
+  //   old.play.api.libs.concurrent.Akka.system
+  // }
 
   lazy val langs = loadConfig.getStringList("play.i18n.langs").map(Lang.apply)(scala.collection.breakOut)
 
   private def enableScheduler = !(loadConfig getBoolean "app.scheduler.disabled")
 
   lazy val scheduler = new Scheduler(
-    system.scheduler,
+    old.play.Env.actorSystem.scheduler,
     enabled = enableScheduler && isServer,
     debug = loadConfig getBoolean "app.scheduler.debug"
   )

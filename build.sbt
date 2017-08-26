@@ -1,20 +1,16 @@
 import com.typesafe.sbt.packager.Keys.scriptClasspath
-import com.typesafe.sbt.SbtScalariform.autoImport.scalariformFormat
-import com.typesafe.sbt.SbtScalariform.ScalariformKeys
 import com.typesafe.sbt.web.SbtWeb.autoImport._
-import play.Play.autoImport._
-import play.sbt.PlayImport._
 import play.twirl.sbt.Import._
+import play.sbt.PlayImport._
 import PlayKeys._
-import scalariform.formatter.preferences._
 
 import BuildSettings._
 import Dependencies._
 
-lazy val root = Project("lila", file("."))
-  .enablePlugins(_root_.play.sbt.PlayScala)
-  .dependsOn(api)
-  .aggregate(api)
+lazy val root = Project("lila", file(".")).dependsOn(api).aggregate(api)
+  .enablePlugins(PlayScala, PlayNettyServer, JavaAppPackaging)
+  .disablePlugins(PlayAkkaHttpServer)
+  .disablePlugins(PlayFilters)
 
 scalaVersion := globalScalaVersion
 resolvers ++= Dependencies.Resolvers.commons
@@ -34,9 +30,8 @@ scriptClasspath := Seq("*")
 libraryDependencies ++= Seq(
   scalaz, chess, scalalib, hasher, typesafeConfig, findbugs,
   reactivemongo.driver, reactivemongo.iteratees, akka.actor, akka.slf4j,
-  maxmind, prismic, netty, guava,
-  kamon.core, kamon.influxdb,
-  java8compat, semver, scrimage, scalaConfigs, scaffeine
+  maxmind, prismic, guava,
+  kamon.core, kamon.influxdb, semver, scrimage, scalaConfigs, scaffeine
 )
 TwirlKeys.templateImports ++= Seq(
   "lila.game.{ Game, Player, Pov }",
@@ -51,6 +46,9 @@ TwirlKeys.templateImports ++= Seq(
 )
 resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets"
 
+import com.typesafe.sbt.SbtScalariform.autoImport.scalariformFormat
+import com.typesafe.sbt.SbtScalariform.ScalariformKeys
+import scalariform.formatter.preferences._
 Seq(
   ScalariformKeys.preferences := ScalariformKeys.preferences.value
     .setPreference(DanglingCloseParenthesis, Force)
@@ -129,7 +127,7 @@ lazy val evaluation = module("evaluation", Seq(
 // )
 
 lazy val common = module("common", Seq()).settings(
-  libraryDependencies ++= provided(play.api, play.test, reactivemongo.driver, kamon.core)
+  libraryDependencies ++= provided(play.api, play.test, play.jodaForms, reactivemongo.driver, kamon.core)
 )
 
 lazy val rating = module("rating", Seq(common, db)).settings(
