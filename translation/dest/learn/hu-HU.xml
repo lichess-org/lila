@@ -80,4 +80,29 @@ Először el kell lépned a figuráiddal.</string>
 Először el kell lépned a figuráiddal.</string>
   <string name="youCannotCastleIfMoved">Nem sáncolhatsz ha a király
 vagy a bástya már lépett.</string>
+  <string name="youCannotCastleIfAttacked">Nem sáncolhtasz ha
+a királyt menet közben támadás éri.
+Blokkold a sakkot és azután sáncolj!</string>
+  <string name="findAWayToCastleKingSide">Találd meg a módját hogy
+a király-szárnyra sáncolj!</string>
+  <string name="findAWayToCastleQueenSide">Találd meg a módját hogy
+a vezér-szárnyra sáncolj!</string>
+  <string name="castlingComplete">Gratulálunk! Szinte minden partiban érdemes sáncolnod.</string>
+  <string name="enPassant">En passant</string>
+  <string name="theSpecialPawnMove">A gyalog egyik speciális lépése</string>
+  <string name="enPassantIntro">Amikor az ellenfél gyalogja két mezőt lép, ugyanúgy kiütheted mintha csak egyet lépett volna.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Sötét most lépett
+két mezőt a gyaloggal
+Üsd ki en passant.</string>
+  <string name="enPassantOnlyWorksImmediately">En passant ütés csak közvetlenül
+az ellenfél gyalog lépése
+után lehetséges.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">En passant csak akkor lehetséges
+amikor a gyalogod az 5. sorban van.</string>
+  <string name="takeAllThePawnsEnPassant">Üsd ki az összes gyalogot en passant!</string>
+  <string name="enPassantComplete">Gratulálunk! Mos már tudsz en passant ütni.</string>
+  <string name="stalemate">Patt</string>
+  <string name="theGameIsADraw">A döntetlen játszma</string>
+  <string name="stalemateIntro">Amikor a játékos nincs sakkban és nem tud szabályosan lépni, az patt.
+A játszma döntetlen: senki sem győzött vagy vesztett.</string>
 </resources>
