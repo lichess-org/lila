@@ -14,6 +14,13 @@ Vagyis egy győzelem 4 pontot, egy döntetlen 2 pontot, és egy győzelem pedig 
 
 Például két győzelem után egy döntetlen, az összesen 6 pontot ér: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Berserk Aréna</string>
+  <string name="berserkAnswer">Amikor valaki rákattint a Berserk gombra a játszma kezdetekor, elveszti a gondolkodási idejének a felét, de győzelem esetén egy extra pontot kap.
+
+Növekményes gondolkodási időknél a növekmény is eltűnik (az 1+2 kivétel, amiből 1+0 lesz).
+
+Nem lehet Berserk-elni amikor nulla a kezdő idő (0+1, 0+2).
+
+Berserk-nél az extra pont csak legalább 7 lépés megtétele után jár.</string>
   <string name="howIsTheWinnerDecided">Ki nyeri a versenyt?</string>
   <string name="howIsTheWinnerDecidedAnswer">Az a játékos (vagy játékosok) lesz a győztes, akinek a verseny előre meghirdetett lezárásakor a legtöbb pontja van (lehet több győztes is).</string>
   <string name="howDoesPairingWork">Hogyan történik a párosítás?</string>
