@@ -64,6 +64,15 @@ Nem kell átváltoztatni.</string>
   <string name="pawnComplete">Gratulálunk! Kiismerted a gyalogok rejtelmeit.</string>
   <string name="pawnPromotion">Gyalog átváltozás</string>
   <string name="yourPawnReachedTheEndOfTheBoard">A gyalogod elérte a tábla szélét!</string>
+  <string name="itNowPromotesToAStrongerPiece">És most átváltozik egy erősebb figurává.</string>
+  <string name="selectThePieceYouWant">Válaszd ki a kívánt figurát!</string>
+  <string name="fundamentals">Alapok</string>
+  <string name="capture">Ütés</string>
+  <string name="protection">Védelem</string>
+  <string name="combat">Harc</string>
+  <string name="checkInOne">Egy lépéses sakk</string>
+  <string name="mateInOne">Egy lépéses matt</string>
+  <string name="intermediate">Középfok</string>
   <string name="boardSetupComplete">Gratulálunk! Most már tudod hogyan kell fölállítani a sakktáblát.</string>
   <string name="castling">Sáncolás</string>
   <string name="theSpecialKingMove">A király egyik speciális lépése</string>
