@@ -35,16 +35,16 @@ Du treng dei begge!</string>
   <string name="lastOne">Siste!</string>
   <string name="kingComplete">Du kan no rå over befalet!</string>
   <string name="theKnight">Springaren</string>
-  <string name="itMovesInAnLShape">Den blir flytta i ein L-form</string>
+  <string name="itMovesInAnLShape">Blir flytta i ein L-form</string>
   <string name="knightIntro">Dette vert ei utmaning. Springaren er ikkje lett... å handtere.</string>
   <string name="knightsHaveAFancyWay">Springarar hoppar rundt på ein pussig måte!</string>
   <string name="knightsCanJumpOverObstacles">Springarar kan hoppa over hindre! Flykt og vinn over stjernene!</string>
   <string name="knightComplete">Gratulerar! Du meistra springaren.</string>
   <string name="thePawn">Bonden</string>
-  <string name="itMovesForwardOnly">Den går berre framover</string>
+  <string name="itMovesForwardOnly">Kan berre gå framover</string>
   <string name="pawnIntro">Bønder er spelemessig veike, men sit på eit stort potensial.</string>
-  <string name="pawnsMoveOneSquareOnly">Bønder flyttar seg eit felt av gongen,
-men dei når fram til den andre sida av brettet,
+  <string name="pawnsMoveOneSquareOnly">Bønder blir flytta eit felt av gongen,
+men om dei rekk fram til den andre sida av brettet,
 vert dei ei sterkare brikke!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">Til vanleg er det best å omvandla til ei dronning,
 men nokre gonger kan ein springar vera fin å ha!</string>
@@ -65,7 +65,7 @@ Det er inga grunn til omvandling.</string>
   <string name="takeTheEnemyPieces">Slå ut brikkene til motspelaren</string>
   <string name="captureIntro">Oppdag dei udekka brikkene til motspelaren og slå dei ut!</string>
   <string name="takeTheBlackPieces">Slå ut dei svarte brikkene!</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">Slå ut dei svarte brikkene! Og pass godt på dine eigne.</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Slå ut dei svarte brikkene! Og mist ikkje dine eigne.</string>
   <string name="captureComplete">Gratulerar! Du veit korleis ein kjempar med sjakkbrikker!</string>
   <string name="protection">Vern</string>
   <string name="keepYourPiecesSafe">Vern om brikkene dine</string>
@@ -92,7 +92,7 @@ Det er inga grunn til omvandling.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Denne springaren sjakkar rett gjennom forsvarsverket ditt!</string>
   <string name="escapeOrBlock">Fly unna med kongen eller sperr for åtaket!</string>
   <string name="outOfCheckComplete">Gratulerar! Det er ikkje mogeleg å ta kongen, sjå til at du kan verje deg mot å bli sett sjakk!</string>
-  <string name="mateInOne">Matt i eit trekk</string>
+  <string name="mateInOne">Matt i eitt trekk</string>
   <string name="defeatTheOpponentsKing">Sigra over motspelaren sin konge</string>
   <string name="mateInOneIntro">Du vinn når motspelaren ikkje kan verje seg mot sjakk.</string>
   <string name="attackYourOpponentsKing">Gå til åtak på motspelaren sin konge på eit vis det ikkje er mogleg å verje seg mot!</string>
@@ -132,10 +132,10 @@ Det er inga grunn til omvandling.</string>
   <string name="enPassantComplete">Gratulerar! Du kan nå slå \"en passant\".</string>
   <string name="stalemate">Patt</string>
   <string name="theGameIsADraw">Partiet endar i remis</string>
-  <string name="stalemateIntro">Når ein spelar ikkje er i sjakk utan å ha eit lovleg trekk å gjera er det patt. Partiet er remis: ingen vinn, ingen tapar.</string>
-  <string name="stalemateGoal">For å setje svart patt:
-- Svart kan ikkje flytte nokon stad
-- Det er ikkje sjakk.</string>
+  <string name="stalemateIntro">Når ein spelar ikkje står i sjakk og ikkje har eit einaste lovleg trekk å gjera, er det patt. Partiet er remis: ingen vinn, ingen tapar.</string>
+  <string name="stalemateGoal">Svart blir sett patt om:
+- svart ikkje har eit einaste lovleg trekk å gjera
+- svart ikkje står i sjakk.</string>
   <string name="stalemateComplete">Gratulerar! Det er bedre å verta sett patt enn sjakk matt!</string>
   <string name="advanced">Vidarekomande</string>
   <string name="pieceValue">Brikkeverde</string>
@@ -164,18 +164,18 @@ Bonde = 1</string>
   <string name="checkInTwoGoal">Du kan no truge motstandarkongen i to trekk!</string>
   <string name="checkInTwoComplete">Gratulerar! Du sette motstandaren i sjakk og tvang fram eit kongeforsvar!</string>
   <string name="whatNext">Kva kjem no?</string>
-  <string name="youKnowHowToPlayChess">No veit du korleis sjakk vert spela, gratulerar! Vil du bli ein sterkare spelar?</string>
+  <string name="youKnowHowToPlayChess">No veit du korleis sjakk skal spelast, gratulerar! Vil du verta ein sterkare spelar?</string>
   <string name="register">Registrer deg</string>
   <string name="getAFreeLichessAccount">Få ein gratis brukarkonto hos Lichess</string>
   <string name="practice">Øv</string>
-  <string name="learnCommonChessPositions">Lær deg dei sjakkposisjonane som opptrer oftast</string>
+  <string name="learnCommonChessPositions">Lær deg dei sjakkstillingane som ein ser oftast</string>
   <string name="puzzles">Taktikkoppgåver</string>
   <string name="exerciseYourTacticalSkills">Øv opp den taktiske dugleiken din</string>
   <string name="videos">Videoar</string>
-  <string name="watchInstructiveChessVideos">Se instruktive sjakkvideoar</string>
+  <string name="watchInstructiveChessVideos">Sjå instruktive sjakkvideoar</string>
   <string name="playPeople">Spel mot andre online</string>
   <string name="opponentsFromAroundTheWorld">Motspelarar frå heile verda</string>
-  <string name="playMachine">Spela mot sjakkprogrammet</string>
+  <string name="playMachine">Spel mot datamaskina</string>
   <string name="testYourSkillsWithTheComputer">Test kunnskapane dine i spel mot sjakkprogrammet</string>
   <string name="letsGo">Vi tek laus!</string>
   <string name="stageX">Nivå %s</string>
@@ -190,7 +190,7 @@ Bonde = 1</string>
   <string name="nailedIt">Du traff spikeren på hovudet.</string>
   <string name="rightOn">Midt i blinken!</string>
   <string name="stageXComplete">Nivå %s er fullført</string>
-  <string name="yourScore">Dine poeng</string>
+  <string name="yourScore">Opptente poeng</string>
   <string name="next">Neste</string>
   <string name="backToMenu">Attende til menyen</string>
   <string name="puzzleFailed">Oppgava vart ikke løyst!</string>

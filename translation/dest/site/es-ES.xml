@@ -78,7 +78,7 @@
     <item quantity="other">Mate en %s medios movimientos</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Siguiente captura o movimiento de péon en medio movimiento (distancia a cero del contador de 50 movimientos)</item>
+    <item quantity="one">Siguiente captura o peón mueve en %s medio movimiento (distancia a cero del contador de 50 movimientos)</item>
     <item quantity="other">Siguiente captura o movimiento de péon en %s medios movimientos (distancia a cero del contador de 50 movimientos)</item>
   </plurals>
   <string name="noGameFound">No se ha encontrado ninguna partida</string>
@@ -460,7 +460,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Proceder automáticamente a la siguiente partida en juego después de mi movimiento</string>
   <string name="autoSwitch">Cambio automático</string>
-  <string name="puzzles">Ejercicios</string>
+  <string name="puzzles">Problemas</string>
   <string name="latestUpdates">Últimas actualizaciones</string>
   <string name="tournamentWinners">Ganadores del torneo</string>
   <string name="name">Nombre</string>
@@ -468,7 +468,7 @@
   <string name="no">No</string>
   <string name="yes">Sí</string>
   <string name="help">Ayuda:</string>
-  <string name="createANewTopic">Crear un nuevo tema</string>
+  <string name="createANewTopic">Crear un tema nuevo</string>
   <string name="topics">Temas</string>
   <string name="posts">Publicaciones</string>
   <string name="lastPost">Última publicación</string>

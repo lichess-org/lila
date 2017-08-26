@@ -48,7 +48,7 @@
     <item quantity="other">Har laga %s nye studiar</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="one">Har deltatt i %s turneringar</item>
+    <item quantity="one">Har deltatt i %s turnering</item>
     <item quantity="other">Har deltatt i %s turneringar</item>
   </plurals>
   <plurals name="rankedInTournament">
