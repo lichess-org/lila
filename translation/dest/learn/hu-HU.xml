@@ -96,7 +96,21 @@ a védtelen figuráidat!</string>
   <string name="outOfCheck">Sakk elhárítása</string>
   <string name="defendYourKing">Védd a királyod</string>
   <string name="outOfCheckIntro">Sakkban vagy! El kell menekülnöd vagy hárítanod a támadást.</string>
+  <string name="escapeWithTheKing">Menekülj a királlyal!</string>
+  <string name="theKingCannotEscapeButBlock">A királyod nem menekülhet,
+de elháríthatod a támadást!</string>
+  <string name="youCanGetOutOfCheckByTaking">Hárítsd el a sakkot
+az ellenfél figurájának leütésével.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Ez a huszár a védelmeden
+keresztül is sakkot ad!</string>
+  <string name="escapeOrBlock">Menekülj el a királlyal
+vagy hárítsd el a támadást!</string>
+  <string name="outOfCheckComplete">Gratulálunk! A királyt nem lehet leütni, de figyelj hogy mindig megvédhesd a sakktól!</string>
   <string name="mateInOne">Egy lépéses matt</string>
+  <string name="defeatTheOpponentsKing">Győzd le az ellenfél királyát</string>
+  <string name="mateInOneIntro">Győzöl ha az ellenfeled nem tudja elhárítani a sakkot.</string>
+  <string name="attackYourOpponentsKing">Támadd meg az ellenfeled királyát úgy,
+hogy ne tudja kivédeni!</string>
   <string name="intermediate">Középfok</string>
   <string name="boardSetupComplete">Gratulálunk! Most már tudod hogyan kell fölállítani a sakktáblát.</string>
   <string name="castling">Sáncolás</string>
