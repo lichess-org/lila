@@ -2,6 +2,7 @@ package lila.learn
 
 import lila.common.PimpedJson._
 import play.api.libs.json._
+import play.api.libs.json.JodaWrites._
 
 object JSONHandlers {
 

@@ -2,7 +2,6 @@ package lila.site
 
 import akka.actor._
 import com.typesafe.config.Config
-import play.api.libs.concurrent.Akka.system
 
 import lila.common.PimpedConfig._
 

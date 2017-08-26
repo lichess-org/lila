@@ -47,6 +47,6 @@ object CoachProfileForm {
 
   import CoachProfile.RichText
 
-  private def richText = of[RichText]
   private implicit val richTextFormat = lila.common.Form.formatter.stringFormatter[RichText](_.value, RichText.apply)
+  private def richText = of[RichText]
 }

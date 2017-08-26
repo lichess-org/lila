@@ -3,6 +3,7 @@ package lila.tournament
 import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
 import play.api.libs.json._
+import play.api.libs.json.JodaWrites._
 import play.api.i18n.Lang
 import scala.concurrent.duration._
 
@@ -178,7 +179,7 @@ final class JsonView(
 
   private val firstPageCache = asyncCache.clearable[String, JsObject](
     name = "tournament.firstPage",
-    id => TournamentRepo byId id flatten s"No such tournament: $id" flatMap { computeStanding(_, 1) },
+    id => TournamentRepo byId id err s"No such tournament: $id" flatMap { computeStanding(_, 1) },
     expireAfter = _.ExpireAfterWrite(1 second)
   )
 

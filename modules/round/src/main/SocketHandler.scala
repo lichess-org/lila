@@ -61,18 +61,14 @@ private[round] final class SocketHandler(
         case ("move", o) => parseMove(o) foreach {
           case (move, blur, lag) =>
             val promise = Promise[Unit]
-            promise.future onFailure {
-              case _: Exception => socket ! Resync(uid.value)
-            }
+            promise.future addFailureEffect { _ => socket ! Resync(uid.value) }
             send(HumanPlay(playerId, move, blur, lag, promise.some))
             member push ackEvent
         }
         case ("drop", o) => parseDrop(o) foreach {
           case (drop, blur, lag) =>
             val promise = Promise[Unit]
-            promise.future onFailure {
-              case _: Exception => socket ! Resync(uid.value)
-            }
+            promise.future addFailureEffect { _ => socket ! Resync(uid.value) }
             send(HumanPlay(playerId, drop, blur, lag, promise.some))
             member push ackEvent
         }

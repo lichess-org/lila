@@ -51,6 +51,7 @@ object Query {
 
   import lila.common.Form._
   import play.api.libs.json._
+  import play.api.libs.json.JodaWrites._
 
   import Range.rangeJsonWriter
   private implicit val sortingJsonWriter = Json.writes[Sorting]

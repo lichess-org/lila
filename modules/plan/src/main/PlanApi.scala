@@ -72,7 +72,7 @@ final class PlanApi(
             funit
           case Some(patron) =>
             logger.info(s"Charged $charge $patron")
-            UserRepo byId patron.userId flatten s"Missing user for $patron" flatMap { user =>
+            UserRepo byId patron.userId err s"Missing user for $patron" flatMap { user =>
               val p2 = patron.copy(
                 stripe = Patron.Stripe(stripeCharge.customer).some
               ).levelUpIfPossible
@@ -148,7 +148,7 @@ final class PlanApi(
         logger.warn(s"Deleted subscription of unknown patron $sub")
         funit
       case Some(patron) =>
-        UserRepo byId patron.userId flatten s"Missing user for $patron" flatMap { user =>
+        UserRepo byId patron.userId err s"Missing user for $patron" flatMap { user =>
           setDbUserPlan(user, user.plan.disable) >>
             patronColl.update($id(user.id), patron.removeStripe).void >>
             notifier.onExpire(user) >>-

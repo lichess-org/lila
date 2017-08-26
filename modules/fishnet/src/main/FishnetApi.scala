@@ -163,7 +163,7 @@ final class FishnetApi(
 
   private[fishnet] def setClientSkill(key: Client.Key, skill: String) =
     Client.Skill.byKey(skill).fold(fufail[Unit](s"Invalid skill $skill")) { sk =>
-      repo getClient key flatten s"No client with key $key" flatMap { client =>
+      repo getClient key err s"No client with key $key" flatMap { client =>
         repo updateClient client.copy(skill = sk)
       }
     }

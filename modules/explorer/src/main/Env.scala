@@ -24,8 +24,7 @@ final class Env(
   }
 
   def fetchPgn(id: String): Fu[Option[String]] = {
-    import play.api.libs.ws.WS
-    import play.api.Play.current
+    import old.play.api.libs.ws.WS
     WS.url(s"$InternalEndpoint/master/pgn/$id").get() map {
       case res if res.status == 200 => res.body.some
       case _ => None

@@ -12,7 +12,6 @@ final class Env(
     system: ActorSystem,
     hub: lila.hub.Env,
     getLightUser: lila.common.LightUser.GetterSync,
-    appPath: String,
     isProd: Boolean,
     asyncCache: lila.memo.AsyncCache.Builder,
     scheduler: lila.common.Scheduler
@@ -105,7 +104,6 @@ object Env {
     system = old.play.Env.actorSystem,
     hub = lila.hub.Env.current,
     getLightUser = lila.user.Env.current.lightUserSync,
-    appPath = play.api.Play.current.path.getCanonicalPath,
     isProd = lila.common.PlayApp.isProd,
     asyncCache = lila.memo.Env.current.asyncCache,
     scheduler = lila.common.PlayApp.scheduler

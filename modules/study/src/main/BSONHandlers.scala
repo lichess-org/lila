@@ -139,6 +139,24 @@ object BSONHandlers {
     def write(x: Glyphs) = BSONArray(x.toList.map(_.id).map(BSONInteger.apply))
   }
 
+  implicit val ChildrenBSONHandler = new BSONHandler[Barr, Node.Children] {
+    private val nodesHandler = bsonArrayToVectorHandler[Node]
+    def read(b: Barr) = try {
+      Node.Children(nodesHandler read b)
+    } catch {
+      case e: StackOverflowError =>
+        println(s"study handler ${e.toString}")
+        Node.emptyChildren
+    }
+    def write(x: Node.Children) = try {
+      nodesHandler write x.nodes
+    } catch {
+      case e: StackOverflowError =>
+        println(s"study handler ${e.toString}")
+        $arr()
+    }
+  }
+
   private implicit def NodeBSONHandler: BSON[Node] = new BSON[Node] {
     def reads(r: Reader) = Node(
       id = r.get[UciCharPair]("i"),
@@ -196,23 +214,6 @@ object BSONHandlers {
       "z" -> s.crazyData,
       "n" -> s.children
     )
-  }
-  implicit val ChildrenBSONHandler = new BSONHandler[Barr, Node.Children] {
-    private val nodesHandler = bsonArrayToVectorHandler[Node]
-    def read(b: Barr) = try {
-      Node.Children(nodesHandler read b)
-    } catch {
-      case e: StackOverflowError =>
-        println(s"study handler ${e.toString}")
-        Node.emptyChildren
-    }
-    def write(x: Node.Children) = try {
-      nodesHandler write x.nodes
-    } catch {
-      case e: StackOverflowError =>
-        println(s"study handler ${e.toString}")
-        $arr()
-    }
   }
 
   implicit val PathBSONHandler = new BSONHandler[BSONString, Path] {

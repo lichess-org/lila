@@ -11,6 +11,7 @@ import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.inject.Injector
 import play.api.libs.ws.WSClient
 import play.api.Mode
+import play.api.mvc.{ SessionCookieBaker, ActionBuilder, DefaultActionBuilder }
 
 import scala.concurrent.ExecutionContext
 
@@ -30,9 +31,11 @@ object Env {
   lazy val mode: Mode = application.mode
   lazy val scheduler: Scheduler = actorSystem.scheduler
   lazy val injector: Injector = application.injector
-  lazy val defaultContext: ExecutionContext = injector.instanceOf(classOf[ExecutionContext])
-  lazy val environment: Environment = injector.instanceOf(classOf[Environment])
-  lazy val WS: WSClient = injector.instanceOf(classOf[WSClient])
+  lazy val defaultContext: ExecutionContext = injector.instanceOf[ExecutionContext]
+  lazy val environment: Environment = injector.instanceOf[Environment]
+  lazy val WS: WSClient = injector.instanceOf[WSClient]
+  lazy val cookieBaker: SessionCookieBaker = injector.instanceOf[SessionCookieBaker]
+  lazy val actionBuilder: DefaultActionBuilder = injector.instanceOf[DefaultActionBuilder]
   // lazy val cache: CacheApi = injector.instanceOf(classOf[CacheApi])
   // lazy val procNbr = Runtime.getRuntime.availableProcessors()
 

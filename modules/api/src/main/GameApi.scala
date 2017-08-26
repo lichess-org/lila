@@ -2,6 +2,7 @@ package lila.api
 
 import org.joda.time.DateTime
 import play.api.libs.json._
+import play.api.libs.json.JodaWrites._
 import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
 import scala.concurrent.duration._

@@ -1,8 +1,7 @@
 package lila.push
 
 import play.api.libs.json._
-import play.api.libs.ws.WS
-import play.api.Play.current
+import old.play.api.libs.ws.WS
 
 private final class GooglePush(
     getDevice: String => Fu[Option[Device]],
@@ -14,7 +13,7 @@ private final class GooglePush(
     getDevice(userId) flatMap {
       _ ?? { device =>
         WS.url(url)
-          .withHeaders(
+          .addHttpHeaders(
             "Authorization" -> s"key=$key",
             "Accept" -> "application/json",
             "Content-type" -> "application/json"

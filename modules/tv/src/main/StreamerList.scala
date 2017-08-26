@@ -24,7 +24,7 @@ final class StreamerList(
   }
 
   private[tv] def validate(text: String): (List[Streamer], List[Exception]) = Try {
-    ConfigFactory.parseString(text).getConfigList("streamers").toList.map { c =>
+    ConfigFactory.parseString(text).getConfigList("streamers").asScala.toList.map { c =>
       Try {
         Streamer(
           service = c getString "service" match {

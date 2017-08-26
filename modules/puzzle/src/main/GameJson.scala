@@ -25,7 +25,7 @@ private final class GameJson(
 
   def generate(ck: CacheKey): Fu[JsObject] = ck match {
     case CacheKey(gameId, plies) => for {
-      game <- (GameRepo game gameId).flatten(s"Missing puzzle game $gameId!")
+      game <- GameRepo game gameId err s"Missing puzzle game $gameId!"
       _ <- lightUserApi preloadMany game.userIds
       perfType = lila.rating.PerfType orDefault PerfPicker.key(game)
       tree = TreeBuilder(game, plies)

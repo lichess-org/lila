@@ -2,6 +2,7 @@ package lila.timeline
 
 import org.joda.time.DateTime
 import play.api.libs.json._
+import play.api.libs.json.JodaWrites._
 import reactivemongo.bson._
 import scala.util.{ Try, Success, Failure }
 
