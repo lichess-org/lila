@@ -283,6 +283,32 @@
   <string name="viewTournament">Переглянути турнір</string>
   <string name="backToTournament">Повернутися до турніру</string>
   <string name="thematic">Тематичний</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">%s рейтингова гра</item>
+    <item quantity="few">%s рейтингові ігри</item>
+    <item quantity="other">%s рейтингові ігри</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2%s рейтингова гра</item>
+    <item quantity="few">≥ %1$s %2%s рейтингові ігри</item>
+    <item quantity="other">≥ %1$s %2%s рейтингові ігри</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Ви маєте зіграти ще %1$s рейтингову гру в %2$s</item>
+    <item quantity="few">Ви маєте зіграти ще %1$s рейтингові грі в %2$s</item>
+    <item quantity="other">Ви маєте зіграти ще %1$s рейтингових ігор в %2$s</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Ви повинні зіграти ще %s рейтингову гру</item>
+    <item quantity="few">Ви повинні зіграти ще %s рейтингових гри</item>
+    <item quantity="other">Ви повинні зіграти ще %s рейтингових ігор</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Ваш попередній рейтинг: %s</string>
+  <string name="yourPerfRatingIsTooHigh">Ваш рейтинг у %1$s (%2$s) дуже високий</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Ваш щотижневий рейтинг %1$s рейтинг (%2$s) дуже високий</string>
+  <string name="yourPerfRatingIsTooLow">Ваш рейтинг %1$s (%2$s) дуже низький</string>
+  <string name="ratedMoreThanInPerf">Рейтинг ≥ %1$s в %2$s</string>
+  <string name="ratedLessThanInPerf">Рейтинг ≤ %1$s в %2$s</string>
   <string name="backToGame">Повернутися до гри</string>
   <string name="siteDescription">Безкоштовні Інтернет-шахи. Грайте в шахи зараз із чистим інтерфейсом. Без реєстрації, без реклами, без додаткових програм. Грайте в шахи з комп\'ютером, друзями або випадковими суперниками.</string>
   <string name="teams">Команди</string>
