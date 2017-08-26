@@ -20,12 +20,15 @@ class StatsTest extends Specification with ValidationMatchers {
   def beLike(comp: Stats) = (s: Stats) => {
     s.samples must_== comp.samples
     s.mean must beApprox(comp.mean)
-    s.variance must beApprox(comp.variance)
+    (s.variance, comp.variance) match {
+      case (Some(sv), Some(cv)) => sv must beApprox(cv)
+      case (sv, cv) => sv must_== cv
+    }
   }
 
   "empty stats" should {
     "have good defaults" in {
-      Stats.empty.variance.isNaN must beTrue
+      Stats.empty.variance must_== None
       Stats.empty.mean must_== 0f
       Stats.empty.samples must_== 0
     }
@@ -35,7 +38,7 @@ class StatsTest extends Specification with ValidationMatchers {
 
       "with good stats" in {
         Stats(5).samples must_== 1
-        Stats(5).variance.isNaN must beTrue
+        Stats(5).variance must_== None
         Stats(5).mean must_== 5f
       }
     }
@@ -51,7 +54,7 @@ class StatsTest extends Specification with ValidationMatchers {
     val statsN = Stats.empty record shuffledData
     "match actuals" in {
       statsN.mean must beApprox(realMean(data))
-      statsN.variance must beApprox(realVar(data))
+      statsN.variance.get must beApprox(realVar(data))
       statsN.samples must_== 400
     }
     "match concat" in {

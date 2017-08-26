@@ -112,8 +112,8 @@ object LeaderboardApi {
   object ChartData {
 
     case class Ints(v: List[Int]) {
-      def mean = if (v.isEmpty) None else Maths.mean(v).some
-      def median = if (v.isEmpty) None else Maths.median(v).some
+      def mean = Maths.mean(v)
+      def median = Maths.median(v)
       def sum = v.sum
       def :::(i: Ints) = Ints(v ::: i.v)
     }

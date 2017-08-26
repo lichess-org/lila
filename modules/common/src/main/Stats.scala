@@ -5,14 +5,14 @@ package lila.common
 sealed trait Stats {
   def samples: Int
   def mean: Float
-  def variance: Float
+  def variance: Option[Float]
   def record(value: Float): Stats
   def +(o: Stats): Stats
 
   def record[T](values: Traversable[T])(implicit n: Numeric[T]): Stats =
     values.foldLeft(this) { (s, v) => s record n.toFloat(v) }
 
-  def stdDev = Math.sqrt(variance).toFloat
+  def stdDev = variance.map { Math.sqrt(_).toFloat }
 }
 
 protected final case class StatHolder(
@@ -20,7 +20,7 @@ protected final case class StatHolder(
     mean: Float,
     sn: Float
 ) extends Stats {
-  def variance = if (samples < 2) Float.NaN else sn / (samples - 1)
+  def variance = (samples > 1) option (sn / (samples - 1))
 
   def record(value: Float) = {
     val newSamples = samples + 1
@@ -58,7 +58,7 @@ protected final case class StatHolder(
 protected object EmptyStats extends Stats {
   val samples = 0
   val mean = 0f
-  val variance = Float.NaN
+  val variance = None
 
   def record(value: Float) = StatHolder(
     samples = 1,
