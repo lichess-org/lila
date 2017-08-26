@@ -6,14 +6,16 @@
   <string name="emailConfirm_ignore">Ha nem te regisztráltál a Lichess-re, nyugodtan hagyd figyelmen kívül ezt az üzenetet.</string>
   <string name="passwordReset_subject">%s a lichess.org jelszód átállítása</string>
   <string name="passwordReset_intro">Kérelem érkezett a fiókod jelszavának megváltoztatására.</string>
-  <string name="passwordReset_clickOrIgnore">Ha te kérvényezted, kattints az alábbi linkre. Különben, hagyd figyelmen kívül ezt az emailt.</string>
+  <string name="passwordReset_clickOrIgnore">Ha te kérvényezted, kattints az alábbi linkre. Különben, hagyd figyelmen kívül ezt az e-mailt.</string>
   <string name="emailChange_subject">Új e-mail cím megerősítése, %s</string>
+  <string name="emailChange_intro">Kérelem érkezett az e-mail címed megváltoztatására.</string>
+  <string name="emailChange_click">Erősítsd meg, hogy van hozzáférésed ehhez az e-mailhez, kérünk kattints a linkre:</string>
   <string name="welcome_subject">Üdvözöl a lichess.org, %s</string>
   <string name="welcome_text">Sikeresen létrehoztad a https://lichess.org fiókod.
 
-Itt találod a profil oldalad: %1$s. És itt állíthatod be tetszésed szerint: %2$s.
+A profil oldalad itt van: %1$s. Itt állíthatod be tetszésed szerint: %2$s.
 
-Jó szórakozást, és mindig találd meg az útat az ellenfél királyához!</string>
+Jó szórakozást kívánunk, és mindig találd meg az útat az ellenfél királyához!</string>
   <string name="common_orPaste">(Nem működik a kattintás? Próbáld beilleszteni a böngésződ címsorába!)</string>
   <string name="common_note">Ez egy szolgálati e-mail, ami ezzel kapcsolatos: %s.</string>
 </resources>
