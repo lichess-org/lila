@@ -36,6 +36,7 @@ protected final case class StatHolder(
   }
 
   def +(o: Stats) = o match {
+    case EmptyStats => this
     case StatHolder(oSamples, oMean, oSN) => {
       val invTotal = 1f / (samples + oSamples)
       val combMean = {
@@ -51,8 +52,6 @@ protected final case class StatHolder(
         sn = sn + oSN + meanDiff * meanDiff * samples * oSamples * invTotal
       )
     }
-
-    case EmptyStats => this
   }
 }
 
