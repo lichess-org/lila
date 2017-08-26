@@ -111,7 +111,24 @@ vagy hárítsd el a támadást!</string>
   <string name="mateInOneIntro">Győzöl ha az ellenfeled nem tudja elhárítani a sakkot.</string>
   <string name="attackYourOpponentsKing">Támadd meg az ellenfeled királyát úgy,
 hogy ne tudja kivédeni!</string>
+  <string name="mateInOneComplete">Gratulálunk! Most már tudod hogyan nyerhetsz meg egy játszmát!</string>
   <string name="intermediate">Középfok</string>
+  <string name="boardSetup">Tábla felállítása</string>
+  <string name="howTheGameStarts">Hogyan kezdődik a játék</string>
+  <string name="boardSetupIntro">A két hadsereg egymással szemben, készen a harcra.</string>
+  <string name="thisIsTheInitialPosition">Ez minden sakkjátszma
+kezdő állása!
+Lépj akármit a folytatáshoz.</string>
+  <string name="firstPlaceTheRooks">Először a bástyákat helyezd el!
+A sarokban van a helyük.</string>
+  <string name="thenPlaceTheKnights">Ezután a huszárokat tedd a helyükre!
+A bástyák mellett állnak.</string>
+  <string name="placeTheBishops">Majd a futókat!
+Ők a huszárok mellett állnak.</string>
+  <string name="placeTheQueen">Majd a vezért!
+Sajátmagával azonos színű mezőn áll.</string>
+  <string name="placeTheKing">Helyezd el a királyt!
+A vezér mellett áll.</string>
   <string name="boardSetupComplete">Gratulálunk! Most már tudod hogyan kell fölállítani a sakktáblát.</string>
   <string name="castling">Sáncolás</string>
   <string name="theSpecialKingMove">A király egyik speciális lépése</string>
