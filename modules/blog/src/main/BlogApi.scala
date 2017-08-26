@@ -10,12 +10,7 @@ final class BlogApi(
     collection: String
 ) {
 
-  implicit val httpClient: StandaloneWSClient = new StandaloneWSClient {
-    import old.play.api.libs.ws.WS
-    def underlying[T] = WS.asInstanceOf[T]
-    def url(url: String) = WS.url(url)
-    def close() = {}
-  }
+  implicit val httpClient = old.play.Env.standaloneWSClient
 
   def recent(api: Api, ref: Option[String], nb: Int): Fu[Option[Response]] =
     api.forms(collection).ref(resolveRef(api)(ref) | api.master.ref)

@@ -28,6 +28,7 @@ externalizeResources := false
 scriptClasspath := Seq("*")
 // offline := true
 libraryDependencies ++= Seq(
+  play.jodaJson, play.iteratee, play.streams,
   scalaz, chess, scalalib, hasher, typesafeConfig, findbugs,
   reactivemongo.driver, reactivemongo.iteratees, akka.actor, akka.slf4j,
   maxmind, prismic, guava,
@@ -44,6 +45,7 @@ TwirlKeys.templateImports ++= Seq(
   "lila.common.paginator.Paginator",
   "lila.common.String.html._"
 )
+routesGenerator := StaticRoutesGenerator
 resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets"
 
 import com.typesafe.sbt.SbtScalariform.autoImport.scalariformFormat

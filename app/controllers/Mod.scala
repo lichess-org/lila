@@ -157,8 +157,7 @@ object Mod extends LilaController {
     Env.memo.asyncCache.multi[IpAddress, Int](
       name = "ipIntel",
       f = ip => {
-        import play.api.libs.ws.WS
-        import play.api.Play.current
+        import old.play.api.libs.ws.WS
         val email = Env.api.Net.Email
         val url = s"http://check.getipintel.net/check.php?ip=$ip&contact=$email"
         WS.url(url).get().map(_.body).mon(_.security.proxy.request.time).flatMap { str =>

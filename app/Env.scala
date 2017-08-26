@@ -22,9 +22,9 @@ final class Env(
     leaderboard = Env.user.cached.topWeek,
     tourneyWinners = Env.tournament.winners.all.map(_.top),
     timelineEntries = Env.timeline.entryApi.userEntries _,
-    dailyPuzzle = tryDailyPuzzle,
+    dailyPuzzle = tryDailyPuzzle _,
     streamsOnAir = () => Env.tv.streamsOnAir.all,
-    countRounds = Env.round.count,
+    countRounds = Env.round.count _,
     lobbyApi = Env.api.lobbyApi,
     getPlayban = Env.playban.api.currentBan _,
     lightUserApi = Env.user.lightUserApi

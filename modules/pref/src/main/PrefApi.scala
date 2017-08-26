@@ -109,7 +109,6 @@ final class PrefApi(
     expireAfter = _.ExpireAfterAccess(cacheTtl)
   )
 
-
   def saveTag(user: User, name: String, value: String) =
     coll.update(
       $id(user.id),

@@ -1,8 +1,10 @@
 package controllers
 
+import akka.stream.scaladsl._
 import ornicar.scalalib.Zero
 import play.api.data.Form
 import play.api.http._
+import play.api.libs.iteratee._
 import play.api.libs.json.{ Json, JsObject, Writes }
 import play.api.mvc._
 import play.twirl.api.Html
@@ -384,4 +386,9 @@ private[controllers] trait LilaController
   }
 
   protected val pgnContentType = "application/x-chess-pgn"
+
+  implicit protected def enumeratorToSource[A](enumerator: Enumerator[A]): Source[A, _] = {
+    import play.api.libs.iteratee.streams.IterateeStreams
+    Source.fromPublisher(IterateeStreams enumeratorToPublisher enumerator)
+  }
 }

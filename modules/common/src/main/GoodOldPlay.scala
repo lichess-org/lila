@@ -9,7 +9,7 @@ import play.api._
 import play.api.ApplicationLoader.Context
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.inject.Injector
-import play.api.libs.ws.WSClient
+import play.api.libs.ws.{ WSClient, StandaloneWSClient }
 import play.api.Mode
 import play.api.mvc.{ SessionCookieBaker, ActionBuilder, DefaultActionBuilder }
 
@@ -21,8 +21,9 @@ import scala.concurrent.ExecutionContext
  */
 object Env {
 
-  // I know it's really bad ...
-  private[play] val _ref: AtomicReference[Application] = new AtomicReference[Application]()
+  private val _ref: AtomicReference[Application] = new AtomicReference[Application]()
+
+  def start(app: Application) = _ref.set(app)
 
   lazy val application: Application = Option(_ref.get()).get
   lazy val actorSystem: ActorSystem = application.actorSystem
@@ -36,6 +37,12 @@ object Env {
   lazy val WS: WSClient = injector.instanceOf[WSClient]
   lazy val cookieBaker: SessionCookieBaker = injector.instanceOf[SessionCookieBaker]
   lazy val actionBuilder: DefaultActionBuilder = injector.instanceOf[DefaultActionBuilder]
+
+  lazy val standaloneWSClient: StandaloneWSClient = new StandaloneWSClient {
+    def underlying[T] = WS.asInstanceOf[T]
+    def url(url: String) = WS.url(url)
+    def close() = {}
+  }
   // lazy val cache: CacheApi = injector.instanceOf(classOf[CacheApi])
   // lazy val procNbr = Runtime.getRuntime.availableProcessors()
 
