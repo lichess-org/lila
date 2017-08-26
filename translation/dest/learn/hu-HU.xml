@@ -22,4 +22,12 @@ annál több pontot kapsz!</string>
   <string name="rookComplete">Gratulálunk! Sikeresen elsajátítottad a bástya mozgását.</string>
   <string name="theBishop">A futó</string>
   <string name="itMovesDiagonally">Átlósan mozog</string>
+  <string name="bishopIntro">Most pedig megtanuljuk hogyan kell manőverezni a futóval!</string>
+  <string name="youNeedBothBishops">Egyik világos mezős futó,
+másik sötét mezős futó.
+Mindkettőre szükséged van!</string>
+  <string name="bishopComplete">Gratulálunk! Most már tudod hogyan irányíts egy futót.</string>
+  <string name="theQueen">A királynő</string>
+  <string name="queenCombinesRookAndBishop">Királynő = bástya + futó</string>
+  <string name="queenIntro">Színre lép a legerősebb sakkfigura. Őfelsége a királynő!</string>
 </resources>
