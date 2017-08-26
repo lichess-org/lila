@@ -66,6 +66,7 @@
   <string name="unknown">Bizonytalan</string>
   <string name="database">Adatbázis</string>
   <string name="whiteDrawBlack">Világos / Remi / Sötét</string>
+  <string name="averageRatingX">Átlagos pontszám: %s</string>
   <string name="recentGames">Legutóbbi játszmák</string>
   <string name="openingExplorer">Megnyitás tallózó</string>
   <string name="blunders">Durva hibák</string>
