@@ -87,6 +87,11 @@
   <string name="enable">Bekapcsolva</string>
   <string name="bestMoveArrow">Legjobb lépés nyíl</string>
   <string name="evaluationGauge">Értékelő mérce</string>
+  <string name="multipleLines">Több változat</string>
+  <string name="cpus">CPU-k</string>
+  <string name="memory">Memória</string>
+  <string name="infiniteAnalysis">Végtelen elemzés</string>
+  <string name="removesTheDepthLimit">Feloldja a mélységi korlátot, és melegen tartja a számítógéped</string>
   <string name="blunders">Durva hibák</string>
   <string name="mistakes">Hibák</string>
   <string name="inaccuracies">Pontatlanságok</string>
@@ -151,6 +156,12 @@
   <string name="passwordReset">Jelszó visszaállítása</string>
   <string name="forgotPassword">Elfelejtetted a jelszavad?</string>
   <string name="rank">Rang</string>
+  <string name="rankX">Rang: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">A rang %s percenként frissül</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s feladvány</item>
+    <item quantity="other">%s feladvány</item>
+  </plurals>
   <string name="gamesPlayed">Lejátszott játékok</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s játszma veled</item>
@@ -653,6 +664,8 @@
   <string name="yourScore">A te eredményed: %s</string>
   <string name="language">Nyelv</string>
   <string name="background">Háttér</string>
+  <string name="transparent">Áttetsző</string>
+  <string name="backgroundImageUrl">Háttérkép URL címe:</string>
   <string name="boardGeometry">Tábla geometria</string>
   <string name="boardTheme">Tábla szín</string>
   <string name="boardSize">Tábla mérete</string>
