@@ -49,6 +49,7 @@
   <string name="computerAnalysisAvailable">Számítógépes elemzés elérhető</string>
   <string name="analysis">Elemző tábla</string>
   <string name="loadingEngine">Motor betöltése ...</string>
+  <string name="cloudAnalysis">Elemzés felhőben</string>
   <string name="goDeeper">Mélyebben</string>
   <string name="showThreat">Fenyegetés mutatása</string>
   <string name="inLocalBrowser">a böngészőben</string>
@@ -68,13 +69,20 @@
   <string name="whiteDrawBlack">Világos / Remi / Sötét</string>
   <string name="averageRatingX">Átlagos pontszám: %s</string>
   <string name="recentGames">Legutóbbi játszmák</string>
+  <string name="topGames">Legjobb játszmák</string>
   <string name="masterDbExplanation">Két millió verseny játszma %2$s és %3$s között %1$s fölött rangsorolt FIDE játékosoktól</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Matt %s fél lépésben</item>
+    <item quantity="other">Matt %s fél-lépésben</item>
+  </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
     <item quantity="one">A következő ütés vagy gyaloglépés %s fél-lépésre van (az 50 lépés számláló nullázásához szükséges táv)</item>
     <item quantity="other">A következő ütés vagy gyaloglépés %s fél-lépésre van (az 50 lépés számláló nullázásához szükséges táv)</item>
   </plurals>
   <string name="noGameFound">Nem található játszma</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Próbáltál több játszmát hozzáadni a beállítások menüben?</string>
   <string name="openingExplorer">Megnyitás tallózó</string>
+  <string name="xOpeningExplorer">%s megnyitás kereső</string>
   <string name="winPreventedBy50MoveRule">Az 50 lépés szabály miatt nem nyert</string>
   <string name="lossSavedBy50MoveRule">Az 50 lépés szabály miatt nem vesztett</string>
   <string name="allSet">Mehet!</string>
