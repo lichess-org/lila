@@ -32,7 +32,7 @@
   <string name="whitePlays">Kvit i trekket</string>
   <string name="blackPlays">Svart i trekket</string>
   <string name="opponentLeftChoices">Motspelaren kan ha forlate partiet. Du kan velja mellom å krevja siger eller erklæra remis, eller venta til motspelaren kjem attende.</string>
-  <string name="makeYourOpponentResign">Tving motstandaren til å gje opp</string>
+  <string name="makeYourOpponentResign">Tving motspelaren til å gje opp</string>
   <string name="forceResignation">Krev siger</string>
   <string name="forceDraw">Erklær remis</string>
   <string name="talkInChat">Vær venleg i praterommet</string>
@@ -528,7 +528,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="dragPiece">Dra brikke</string>
   <string name="bothClicksAndDrag">Begge</string>
   <string name="premovesPlayingDuringOpponentTurn">Førehandstrekk (når det er motspelaren sitt trekk)</string>
-  <string name="takebacksWithOpponentApproval">Ta trekket attende (etter stadfesting frå motstandaren)</string>
+  <string name="takebacksWithOpponentApproval">Ta trekket attende (etter stadfesting frå motspelaren)</string>
   <string name="promoteToQueenAutomatically">Omvandle til dronning automatisk</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Krev remis automatisk ved trekkgjentaking</string>
   <string name="privacy">Privatsfære</string>
@@ -638,7 +638,7 @@ i %3$s</string>
   <string name="noSimulExplanation">Denne simultanoppvisinga finst ikkje.</string>
   <string name="returnToSimulHomepage">Returner til simultanheimesida</string>
   <string name="aboutSimul">Simultanoppvising inneber at ein spelar utfordrar fleiere spelarar på ein gong.</string>
-  <string name="aboutSimulImage">Ut av 50 motstandarar, vant Fischer 47 parti, spelte 2 remi og tapte eitt parti.</string>
+  <string name="aboutSimulImage">Mot 50 motspelarar, vann Fischer 47 parti, spelte to remis og tapte eitt.</string>
   <string name="aboutSimulRealLife">Konseptet er teke frå ei verkeleg hending. I verkelegheita så inneber dette at simultanverten flyttar seg frå brett til brett for kvart trekk.</string>
   <string name="aboutSimulRules">Når simultanoppvisninga startar, byrjar alle spelarane eit parti med verten, som får spela med dei kvite brikkene. Simultanoppvisninga ender når alle partia er ferdige.</string>
   <string name="aboutSimulSettings">Simultanoppvisningar er alltid urangert. Omstart, tilbaketrekk og \"meirtid\" er slått av.</string>
