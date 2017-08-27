@@ -85,6 +85,7 @@
   <string name="deleteThisImportedGame">Excluir este jogo importado?</string>
   <string name="replayMode">Modo Repetição</string>
   <string name="realtimeReplay">Tempo Real</string>
+  <string name="byCPL">Por CPP</string>
   <string name="openStudy">Abrir estudo</string>
   <string name="enable">Ativar</string>
   <string name="bestMoveArrow">Seta de melhor movimento</string>
