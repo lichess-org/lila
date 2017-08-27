@@ -118,8 +118,8 @@
   </plurals>
   <string name="currentGames">Éppen zajló játékok</string>
   <plurals name="nbGames">
-    <item quantity="one">%s Játék</item>
-    <item quantity="other">%s Játék</item>
+    <item quantity="one">%s játszma</item>
+    <item quantity="other">%s játszma</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s könyvjelző</item>
@@ -167,7 +167,7 @@
   <string name="passwordReset">Jelszó visszaállítása</string>
   <string name="forgotPassword">Elfelejtetted a jelszavad?</string>
   <string name="rank">Rang</string>
-  <string name="rankX">Rang: %s</string>
+  <string name="rankX">Helyezés: %s.</string>
   <string name="rankIsUpdatedEveryXMinutes">A rang %s percenként frissül</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s feladvány</item>
@@ -442,10 +442,10 @@
   <string name="thankYou">Köszönjük!</string>
   <string name="ratingX">Pontszám: %s</string>
   <plurals name="playedXTimes">
-    <item quantity="one">%s alkalommal játszott</item>
-    <item quantity="other">%s alkalommal játszott</item>
+    <item quantity="one">%s beküldött megfejtés</item>
+    <item quantity="other">%s beküldött megfejtés</item>
   </plurals>
-  <string name="fromGameLink">%s játékból</string>
+  <string name="fromGameLink">%s játszmából</string>
   <string name="continueTraining">Gyakorlás folytatása</string>
   <string name="retryThisPuzzle">Próbálja újra</string>
   <string name="thisPuzzleIsCorrect">Ez a feladvány helyes és érdekes</string>
