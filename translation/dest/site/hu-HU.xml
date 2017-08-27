@@ -264,7 +264,7 @@
   <string name="advancedSearch">Bővített keresés</string>
   <string name="tournament">Verseny</string>
   <string name="tournaments">Versenyek</string>
-  <string name="tournamentPoints">Verseny pontok</string>
+  <string name="tournamentPoints">Verseny pont</string>
   <string name="viewTournament">Verseny nézése</string>
   <string name="backToTournament">Vissza a versenyhez</string>
   <string name="thematic">Tematikus</string>
@@ -349,7 +349,7 @@
   <string name="xStartedFollowingY">%1$s követni kezdte a következő játékost:  %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s követő</item>
-    <item quantity="other">%s követők</item>
+    <item quantity="other">%s követő</item>
   </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s követett</item>
