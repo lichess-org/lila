@@ -13,6 +13,7 @@ Următoarele meciuri vor valora punctaj dublu până se va întrerupe șirul de 
 Asta înseamnă că: un câștig va valora 4 puncte, o remiză: 2 puncte, iar o înfrângere niciun punct.
 
 De exemplu, două câștiguri urmate de o remiză vor valora 6 puncte: 2 + 2 + (2 x 1)</string>
+  <string name="berserk">Arena Berserk</string>
   <string name="berserkAnswer">Când un jucător apasă pe butonul Berserk la începutul meciului, li se va înjumătăți timpul, dar câștigul va valora un punct în plus.
 
 Apăsând pe butonul Berserk, nu vei beneficia de incrementarea timpului. (1+2 este o excepție, va fi 1+0)
@@ -23,8 +24,14 @@ Modul Berserk îți va oferi un punct în plus doar dacă vei juca cel puțin 7 
   <string name="howIsTheWinnerDecided">Cum este decis câștigătorul?</string>
   <string name="howIsTheWinnerDecidedAnswer">Jucătorul(-ii) cu cele mai multe puncte la finalul timpului competiției va fi anunțat câștigătorul(-ii).</string>
   <string name="howDoesPairingWork">Cum funcționează potrivirea jucătorilor?</string>
+  <string name="howDoesPairingWorkAnswer">La începutul competiției, jucătorii sunt potriviți în funcție de scorul lor.
+De îndată ce termini un meci și te întorci la lobby-ul competiției, vei fi potrivit cu un jucător al cărui scor este apropiat de scorul tău. Aceasta asigură un timp de așteptare minim, în orice caz este posibil să nu joci cu toți jucătorii din competiție.
+Joacă rapid și întoarce-te la lobby pentru a juca mai multe meciuri și pentru a câștiga mai multe puncte.</string>
   <string name="howDoesItEnd">Cum se termină?</string>
+  <string name="howDoesItEndAnswer">Competiția are un o limită de timp. Când ajunge la zero, scorurile din competiție sunt înghețate și câștigătorul este anunțat. Meciurile în desfășurare trebuie terminate, deși nu sunt luate în considerare pentru competiție.</string>
   <string name="otherRules">Alte reguli importante</string>
+  <string name="otherRulesAnswer">Ești obligat să faci prima mutare în maxim 20 de secunde. Dacă nu faci prima mutare în timp, vei pierde meciul.
+Dacă meciul va fi remiză în primele 10 mutări, niciunul nu va primi vreun punct.</string>
   <string name="thisIsPrivate">Acesta este o competiție privată</string>
   <string name="shareUrl">Pentru a distribui, folosiți acest URL: %s</string>
 </resources>
