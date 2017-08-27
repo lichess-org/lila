@@ -123,7 +123,7 @@
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s könyvjelző</item>
-    <item quantity="other">%s könyvjelzők</item>
+    <item quantity="other">%s könyvjelző</item>
   </plurals>
   <string name="viewInFullSize">Teljes méret</string>
   <string name="logOut">Kijelentkezés</string>
@@ -239,8 +239,8 @@
     <item quantity="other">%s döntetlen</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="one">%s zajlik</item>
-    <item quantity="other">%s zajlik</item>
+    <item quantity="one">%s folyamatban</item>
+    <item quantity="other">%s folyamatban</item>
   </plurals>
   <string name="exportGames">Játékok exportálása</string>
   <string name="ratingRange">Pontszámtartomány</string>
