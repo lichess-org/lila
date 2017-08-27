@@ -323,7 +323,7 @@
   <string name="following">フォローしています</string>
   <string name="unfollow">フォローをやめる</string>
   <string name="block">ブロックする</string>
-  <string name="blocked">ブロックされています</string>
+  <string name="blocked">ブロック済</string>
   <string name="unblock">ブロックを外す</string>
   <string name="followsYou">あなたをフォローしています</string>
   <string name="xStartedFollowingY">%1$s が %2$s のフォローを開始</string>
