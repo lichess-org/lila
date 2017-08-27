@@ -93,8 +93,24 @@ dar poți proteja!</string>
   <string name="theKingCannotEscapeButBlock">Regele nu poate scăpa, dar poți bloca atacul!</string>
   <string name="youCanGetOutOfCheckByTaking">Poți ieși din șah capturând piesa care-ți atacă regele.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Calul dă şah prin apărările tale!</string>
+  <string name="escapeOrBlock">Evadează cu regele
+sau blochează atacul!</string>
+  <string name="outOfCheckComplete">Felicitări! Regele tău nu poate fi capturat, asigură-te că-l poți apăra de șah!</string>
   <string name="mateInOne">Mat în unu</string>
+  <string name="defeatTheOpponentsKing">Înfrânge regele oponentului</string>
+  <string name="mateInOneIntro">Câștigi când oponentul tău nu se poate apăra de șah.</string>
+  <string name="attackYourOpponentsKing">Atacă regele oponentului
+într-un mod prin care nu poate fi apărat!</string>
+  <string name="mateInOneComplete">Felicitări! Așa câștigi jocurile de șah!</string>
+  <string name="intermediate">Intermediar</string>
+  <string name="boardSetup">Pregătirea tablei</string>
   <string name="howTheGameStarts">Cum incepe jocul</string>
+  <string name="boardSetupIntro">Cele două armate sunt față în față, gata pentru bătălie.</string>
+  <string name="thisIsTheInitialPosition">Aceasta este poziția inițială
+a fiecărui joc de șah!
+Mută orice piesă pentru a continua.</string>
+  <string name="firstPlaceTheRooks">Prima dată, așază turnurile!
+Ele vor fi în colțuri.</string>
   <string name="castling">Rocada</string>
   <string name="theSpecialKingMove">Mutarea specială a regelui</string>
   <string name="enPassant">En passant</string>
@@ -121,9 +137,11 @@ dar poți proteja!</string>
   <string name="greatJob">Bună treabă!</string>
   <string name="perfect">Perfect!</string>
   <string name="outstanding">Remarcabil!</string>
+  <string name="wayToGo">Bravo!</string>
   <string name="yesYesYes">Da, da, da!</string>
   <string name="youreGoodAtThis">Ești bun la asta!</string>
   <string name="nailedIt">Ai nimerit-o.</string>
+  <string name="rightOn">Perfect!</string>
   <string name="stageXComplete">Etapa %s completă</string>
   <string name="yourScore">Scorul tău</string>
   <string name="next">Urmează</string>
