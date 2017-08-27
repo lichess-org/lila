@@ -42,10 +42,10 @@
   <string name="whiteLeftTheGame">Világos elhagyta a játékot</string>
   <string name="blackLeftTheGame">Sötét elhagyta a játékot</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Oszd meg ezt az linket, hogy mások is láthassák a játszmát</string>
-  <string name="theComputerAnalysisHasFailed">A számítógépes elemzés nem sikerült</string>
+  <string name="theComputerAnalysisHasFailed">A számítógépes elemzés sikertelen</string>
   <string name="viewTheComputerAnalysis">Számítógépes elemzés megtekintése</string>
   <string name="requestAComputerAnalysis">Számítógépes elemzés kérése</string>
-  <string name="computerAnalysis">Gépi elemzés</string>
+  <string name="computerAnalysis">Számítógépes elemzés</string>
   <string name="computerAnalysisAvailable">Számítógépes elemzés elérhető</string>
   <string name="analysis">Elemző tábla</string>
   <string name="depthX">%s mélység</string>
