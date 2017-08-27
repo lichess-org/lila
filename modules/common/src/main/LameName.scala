@@ -34,7 +34,6 @@ object LameName {
       "bastard",
       "bitch",
       "shit",
-      "shiz",
       "cunniling",
       "cunt",
       "kunt",
