@@ -262,6 +262,22 @@
   <string name="viewTournament">Vizualizați turneu</string>
   <string name="backToTournament">Înapoi la turneu</string>
   <string name="thematic">Tematică</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">%s meci evaluat</item>
+    <item quantity="few">%s meciuri evaluate</item>
+    <item quantity="other">%s meciuri evaluate</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Trebuie să joci încă %1$s meci %2$s evaluat</item>
+    <item quantity="few">Trebuie să joci încă %1$s meciuri %2$s evaluate</item>
+    <item quantity="other">Trebuie să joci încă %1$s meciuri %2$s evaluate</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Trebuie să joci încă %s meci evaluat</item>
+    <item quantity="few">Trebuie să joci încă %s meciuri evaluate</item>
+    <item quantity="other">Trebuie să joci încă %s meciuri evaluate</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Scorul tău la %s este provizoriu</string>
   <string name="backToGame">Înapoi la joacă</string>
   <string name="siteDescription">Șah online gratuit. Joacă șah acum într-o interfață simplă. Fără înregistrare, fără reclame, fără plugin-uri. Joacă șah cu calculatorul, cu prietenii sau cu alți jucători aleși la întâmplare.</string>
   <string name="teams">Echipe</string>
@@ -474,6 +490,7 @@
   <string name="howDoYouMovePieces">Cum mutați piesele?</string>
   <string name="clickTwoSquares">Apasă pe două pătrățele</string>
   <string name="dragPiece">Trage o piesă</string>
+  <string name="bothClicksAndDrag">Ambele</string>
   <string name="premovesPlayingDuringOpponentTurn">Mutare anticipată (mută pe timpul adversarului)</string>
   <string name="takebacksWithOpponentApproval">Dă înapoi (cu aprobarea adversarului)</string>
   <string name="promoteToQueenAutomatically">Promovează automat in damă</string>
@@ -504,6 +521,7 @@
   <string name="xAnsweredY">%1$s a răspuns %2$s</string>
   <string name="xCommentedY">%1$s a comentat %2$s</string>
   <string name="victory">Victorie!</string>
+  <string name="defeat">Înfrângere</string>
   <string name="timeline">Activitate recentă</string>
   <string name="seeAllTournaments">Vezi toate turneele</string>
   <string name="starting">Începe în:</string>
@@ -523,6 +541,7 @@
   <string name="playOnTheBoardOffline">Joacă offline folosind tabla</string>
   <string name="playOfflineComputer">Joacă offline cu calculatorul</string>
   <string name="opponent">Oponent</string>
+  <string name="learnMenu">Învață</string>
   <string name="community">Comunitate</string>
   <string name="tools">Unelte</string>
   <string name="increment">Suplimentar</string>
@@ -535,7 +554,9 @@
   <string name="error.email">Această adresă de email este invalidă</string>
   <string name="error.email_acceptable">Această adresă de email este inacceptabilă</string>
   <string name="error.email_unique">Această adresă de email este deja folosită</string>
+  <string name="error.email_different">Aceasta este deja adresa dvs. de email</string>
   <string name="blindfoldChess">Șah ”legat la ochi” (piese invizibile)</string>
+  <string name="zenMode">Modul Zen</string>
   <string name="moveConfirmation">Confirmare mutare</string>
   <string name="inCorrespondenceGames">În jocuri prin corespondență</string>
   <string name="ifRatingIsPlusMinusX">Dacă rating-ul este ± %s</string>
@@ -560,6 +581,7 @@
   <string name="sourceCode">Cod sursă</string>
   <string name="simultaneousExhibitions">Simultane de șah</string>
   <string name="host">Gazdă</string>
+  <string name="hostColorX">Culoarea gazdei: %s</string>
   <string name="createdSimuls">Simultan nou creat</string>
   <string name="hostANewSimul">Găzduiește un nou simultan</string>
   <string name="noSimulFound">Simultanul nu a fost gasit</string>
@@ -613,6 +635,7 @@
   <string name="crosstable">Tabel de scoruri</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">De asemenea, poti acționa rotița mouse-ului pentru a face mutări pe tablă.</string>
   <string name="analysisShapesHowTo">Apasă shift+click sau click-dreapta pentru a desena cercuri și săgeti pe tablă.</string>
+  <string name="confirmResignationAndDrawOffers">Confirmă abandonarea și oferirea remizei</string>
   <string name="inputMovesWithTheKeyboard">Introdu mutări folosind tastatura</string>
   <string name="letOtherPlayersMessageYou">Permite altor jucători să îți trimită mesaje</string>
   <string name="castleByMovingTwoSquares">Fă rocada mutând două pătrățele</string>
