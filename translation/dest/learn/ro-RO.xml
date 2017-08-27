@@ -149,8 +149,44 @@ să faci rocada mare!</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Mutarea de pion specială</string>
   <string name="enPassantIntro">Când pionul oponentului a fost mutat două pătrățele, îl poți captura ca și cum ar fi mutat doar o pătrățică.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Jucătorul cu piesele negre tocmai a mutat pionul două pătrățele!
+Ia-l prin metoda en passant.</string>
+  <string name="enPassantOnlyWorksImmediately">Metoda en passant funcționează doar
+o mutare după ce oponentul a mutat pionul.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Metoda en passant merge doar
+dacă pionul tău este pe al 5-lea rând.</string>
+  <string name="takeAllThePawnsEnPassant">Ia toți pionii prin metoda en passant!</string>
+  <string name="enPassantComplete">Felicitări! Ai învățat să capturezi prin metoda en passant.</string>
   <string name="stalemate">Pat</string>
+  <string name="theGameIsADraw">Acest meci este o remiză</string>
+  <string name="stalemateIntro">Când un jucător nu este în șah și nu are nicio mutare validă, este pat. Meciul e o remiză: nimeni nu câștigă, nimeni nu pierde.</string>
+  <string name="stalemateGoal">Ca să dai pat jucătorului cu piesele negre, va trebui ca el:
+- Să nu poată muta vreo piesă.
+- Să nu fie în șah.</string>
+  <string name="stalemateComplete">Felicitări! Mai bine să fie pat decât să pierzi!</string>
   <string name="advanced">Avansat</string>
+  <string name="pieceValue">Valoarea piesei</string>
+  <string name="evaluatePieceStrength">Evaluează puterea piesei</string>
+  <string name="pieceValueIntro">Piesele cu mobilitate mare au o valoare mai mare!
+Regina = 9
+Turnul = 5
+Nebunul = 3
+Calul = 3
+Pionul = 1
+Regele este de neprețuit! Pierzându-l, pierzi jocul.</string>
+  <string name="queenOverBishop">Capturează piesa
+cu cea mai mare valoare!
+Regina &gt; Nebunul</string>
+  <string name="takeThePieceWithTheHighestValue">Capturează piesa
+cu cea mai mare valoare!</string>
+  <string name="pieceValueComplete">Felicitări! Acum știi valoarea pieselor!
+Regina = 9
+Turnul = 5
+Nebunul = 3
+Calul = 3
+Pionul = 1</string>
+  <string name="checkInTwo">Șah mat în două mutări</string>
+  <string name="twoMovesToGiveCheck">Două mutări pentru a da șah</string>
   <string name="youKnowHowToPlayChess">Știi cum să joci șah, felicitări! Vrei să devii un jucător mai putenic?</string>
   <string name="register">Înregistrează-te</string>
   <string name="getAFreeLichessAccount">Obține un cont de Lichess gratuit</string>
