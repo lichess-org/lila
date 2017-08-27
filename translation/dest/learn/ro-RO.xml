@@ -150,13 +150,13 @@ să faci rocada mare!</string>
   <string name="theSpecialPawnMove">Mutarea de pion specială</string>
   <string name="enPassantIntro">Când pionul oponentului a fost mutat două pătrățele, îl poți captura ca și cum ar fi mutat doar o pătrățică.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Jucătorul cu piesele negre tocmai a mutat pionul două pătrățele!
-Ia-l prin metoda en passant.</string>
-  <string name="enPassantOnlyWorksImmediately">Metoda en passant funcționează doar
+Ia-l prin mișcarea en passant.</string>
+  <string name="enPassantOnlyWorksImmediately">Mișcarea en passant funcționează doar
 o mutare după ce oponentul a mutat pionul.</string>
-  <string name="enPassantOnlyWorksOnFifthRank">Metoda en passant merge doar
+  <string name="enPassantOnlyWorksOnFifthRank">Mișcarea en passant merge doar
 dacă pionul tău este pe al 5-lea rând.</string>
-  <string name="takeAllThePawnsEnPassant">Ia toți pionii prin metoda en passant!</string>
-  <string name="enPassantComplete">Felicitări! Ai învățat să capturezi prin metoda en passant.</string>
+  <string name="takeAllThePawnsEnPassant">Ia toți pionii prin mișcarea en passant!</string>
+  <string name="enPassantComplete">Felicitări! Ai învățat să capturezi prin mișcarea en passant.</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Acest meci este o remiză</string>
   <string name="stalemateIntro">Când un jucător nu este în șah și nu are nicio mutare validă, este pat. Meciul e o remiză: nimeni nu câștigă, nimeni nu pierde.</string>
