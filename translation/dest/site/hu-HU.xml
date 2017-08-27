@@ -421,8 +421,8 @@
   <string name="activeToday">Aktív ma</string>
   <string name="activePlayers">Aktív játékosok</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Időmérés nélküli, de rangsorolt meccs!</string>
-  <string name="training">Gyakorlás</string>
-  <string name="yourPuzzleRatingX">Feladatmegoldási pontszámod: %s</string>
+  <string name="training">Feladványok</string>
+  <string name="yourPuzzleRatingX">Feladvány pontszámod: %s</string>
   <string name="findTheBestMoveForWhite">Találd meg a legjobb lépést világossal.</string>
   <string name="findTheBestMoveForBlack">Találd meg a legjobb lépést sötéttel.</string>
   <string name="toTrackYourProgress">Fejlődésed nyomon követéséhez:</string>
