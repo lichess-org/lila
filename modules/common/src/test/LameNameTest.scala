@@ -24,8 +24,8 @@ class LameNameTest extends Specification {
       test("1Mfoo") must beTrue
     }
     "gross" in {
-      test("Shiz") must beTrue
-      test("Sh1z") must beTrue
+      test("Shit") must beTrue
+      test("Sh1t") must beTrue
       test("douchebag") must beTrue
       test("d0uchebag") must beTrue
       test("urcunt-blah") must beTrue
