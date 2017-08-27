@@ -32,11 +32,11 @@
   <string name="whitePlays">Világos lép</string>
   <string name="blackPlays">Sötét lép</string>
   <string name="opponentLeftChoices">Az ellenfeled valamiért elhagyta a játékot. Igényelhetsz győzelmet, döntetlent vagy várhatsz rá.</string>
-  <string name="makeYourOpponentResign">Feladom a nevében</string>
+  <string name="makeYourOpponentResign">Ha ellenfeled valamiért kilépett, igényt tarthatsz a győzelemre</string>
   <string name="forceResignation">Győzelem igénylése</string>
-  <string name="forceDraw">Döntetlen felajánlása</string>
+  <string name="forceDraw">Döntetlen</string>
   <string name="talkInChat">Légy udvarias másokkal!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Az első ember aki ezt a linket használja játékba fog lépni veled.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Az első ember, aki erre a linkre látogat, fog veled játszani.</string>
   <string name="whiteResigned">Világos feladta</string>
   <string name="blackResigned">Sötét feladta</string>
   <string name="whiteLeftTheGame">Világos elhagyta a játékot</string>
