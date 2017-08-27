@@ -5,4 +5,28 @@
     <item quantity="one">Megoldott %s taktikai feladványt</item>
     <item quantity="other">Megoldott %s taktikai feladványt</item>
   </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="one">%1$s %2$s partit játszott</item>
+    <item quantity="other">%1$s %2$s partit játszott</item>
+  </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="one">%1$s üzenetet írt a %2$s témába</item>
+    <item quantity="other">%1$s üzenetet írt a %2$s témába</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">Befejezett %s levelezősakk partit</item>
+    <item quantity="other">Befejezett %s levelezősakk partit</item>
+  </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">%s új tanulmány</item>
+    <item quantity="other">%s új tanulmány</item>
+  </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="one">%s versenyen vett részt</item>
+    <item quantity="other">%s versenyen vett részt</item>
+  </plurals>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">%s csapathoz csatlakozott</item>
+    <item quantity="other">%s csapathoz csatlakozott</item>
+  </plurals>
 </resources>
