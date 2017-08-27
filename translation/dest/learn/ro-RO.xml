@@ -111,10 +111,44 @@ a fiecărui joc de șah!
 Mută orice piesă pentru a continua.</string>
   <string name="firstPlaceTheRooks">Prima dată, așază turnurile!
 Ele vor fi în colțuri.</string>
+  <string name="thenPlaceTheKnights">Apoi caii!
+Vor fi lângă turnuri.</string>
+  <string name="placeTheBishops">Urmează nebunii!
+Vor fi lângă cai.</string>
+  <string name="placeTheQueen">Așază regina!
+Va fi pusă pe culoarea ei.</string>
+  <string name="placeTheKing">Și regele!
+Fix lângă regina sa.</string>
+  <string name="pawnsFormTheFrontLine">Pionii formează prima linie.
+Mută oricare piesă pentru a continua.</string>
+  <string name="boardSetupComplete">Felicitări! Știi cum să pregătești tabla de șah.</string>
   <string name="castling">Rocada</string>
   <string name="theSpecialKingMove">Mutarea specială a regelui</string>
+  <string name="castlingIntro">Protejează-ți regele și lansează-ți turnul pentru atac!</string>
+  <string name="castleKingSide">Mută-ți regele două pătrățele
+pentru a face rocada mică!</string>
+  <string name="castleQueenSide">Mută-ți regele două pătrățele
+pentru a face rocada mare!</string>
+  <string name="theKnightIsInTheWay">Calul stă în cale!
+Mută-l, apoi fă rocada mică.</string>
+  <string name="castleKingSideMovePiecesFirst">Fă rocada mică!
+Trebuie să muți piesele din cale mai întâi.</string>
+  <string name="castleQueenSideMovePiecesFirst">Fă rocada mare!
+Trebuie să muți piesele din cale mai întâi.</string>
+  <string name="youCannotCastleIfMoved">Nu poți face rocada dacă
+regele sau turnul a fost
+deja mutat.</string>
+  <string name="youCannotCastleIfAttacked">Nu poți face rocada dacă
+regele este atacat.
+Blochează atacul, iar apoi fă rocada!</string>
+  <string name="findAWayToCastleKingSide">Găsește o cale
+prin care să faci rocada mică!</string>
+  <string name="findAWayToCastleQueenSide">Găsește o cale prin care
+să faci rocada mare!</string>
+  <string name="castlingComplete">Felicitări! Ar trebui să faci rocada mai mereu.</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Mutarea de pion specială</string>
+  <string name="enPassantIntro">Când pionul oponentului a fost mutat două pătrățele, îl poți captura ca și cum ar fi mutat doar o pătrățică.</string>
   <string name="stalemate">Pat</string>
   <string name="advanced">Avansat</string>
   <string name="youKnowHowToPlayChess">Știi cum să joci șah, felicitări! Vrei să devii un jucător mai putenic?</string>
