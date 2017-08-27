@@ -27,10 +27,10 @@ annál több pontot kapsz!</string>
 másik sötét mezős futó.
 Mindkettőre szükséged van!</string>
   <string name="bishopComplete">Gratulálunk! Most már tudod hogyan irányíts egy futót.</string>
-  <string name="theQueen">A királynő</string>
-  <string name="queenCombinesRookAndBishop">Királynő = bástya + futó</string>
-  <string name="queenIntro">Színre lép a legerősebb sakkfigura. Őfelsége a királynő!</string>
-  <string name="queenComplete">Gratulálunk! A királynőknek már nincs titka előtted.</string>
+  <string name="theQueen">A vezér</string>
+  <string name="queenCombinesRookAndBishop">Vezér= bástya + futó</string>
+  <string name="queenIntro">Színre lép a legerősebb sakkfigura. Őméltósága a vezér!</string>
+  <string name="queenComplete">Gratulálunk! Kiismerted a vezér rejtelmeit.</string>
   <string name="theKing">A király</string>
   <string name="theMostImportantPiece">A legfontosabb figura</string>
   <string name="kingIntro">Te vagy a király. Ha elesel a csatában, elveszted a játszmát.</string>
