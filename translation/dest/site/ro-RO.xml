@@ -261,6 +261,7 @@
   <string name="giveMoreTime">Adaugă timp adversarului</string>
   <string name="thisPlayerUsesChessComputerAssistance">Acest jucător este asistat de un program de analiză</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Jucătorul și-a crescut ratingul în mod artificial</string>
+  <string name="openingExplorerAndTablebase">Deschide exploratorul &amp; baza de date</string>
   <string name="takeback">Revocare</string>
   <string name="proposeATakeback">Propune revocarea mutării</string>
   <string name="takebackPropositionSent">Propunere de revocare trimisă</string>
@@ -294,6 +295,8 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">Scorul tău la %s este provizoriu</string>
   <string name="yourPerfRatingIsTooHigh">Scorul tău la %1$s (%2$s) este prea mare</string>
+  <string name="ratedMoreThanInPerf">Evaluat ≥ %1$s în %2$s</string>
+  <string name="ratedLessThanInPerf">Evaluat ≤ %1$s în %2$s</string>
   <string name="backToGame">Înapoi la joacă</string>
   <string name="siteDescription">Șah online gratuit. Joacă șah acum într-o interfață simplă. Fără înregistrare, fără reclame, fără plugin-uri. Joacă șah cu calculatorul, cu prietenii sau cu alți jucători aleși la întâmplare.</string>
   <string name="teams">Echipe</string>
@@ -328,6 +331,7 @@
   <string name="fromPosition">De la poziția</string>
   <string name="continueFromHere">Continuați de aici</string>
   <string name="importGame">Importați partida</string>
+  <string name="importGameExplanation">Când inserați un joc în format PGN, obțineți o reluare dinamică, o analiză a computerului, un chat și un URL pentru distribuire.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partidă importată</item>
     <item quantity="few">%s partide importate</item>
@@ -538,6 +542,8 @@
   <string name="xCommentedY">%1$s a comentat %2$s</string>
   <string name="victory">Victorie!</string>
   <string name="defeat">Înfrângere</string>
+  <string name="xVsYinZ">%1$s vs %2$s
+în %3$s</string>
   <string name="timeline">Activitate recentă</string>
   <string name="seeAllTournaments">Vezi toate turneele</string>
   <string name="starting">Începe în:</string>
@@ -685,6 +691,7 @@
   <string name="followAndChallengeFriends">Urmareşte si provoacă-ţi prietenii</string>
   <string name="gameAnalysis">Analiza jocului</string>
   <string name="xHostsY">%1$s găzduiește %2$s</string>
+  <string name="xJoinsY">%1$s se alătură %2$s</string>
   <string name="xLikesY">%1$s îi place %2$s</string>
   <string name="quickPairing">Potrivire rapidă</string>
   <string name="lobby">Lobby</string>
