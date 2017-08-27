@@ -73,6 +73,14 @@
   <string name="recentGames">Jogos recentes</string>
   <string name="topGames">Melhores jogos</string>
   <string name="masterDbExplanation">Dois milhões de jogos de tabuleiro de jogadores de %1$s+ classificação FIDE desde %2$s a %3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Xeque-mate em %s meio-movimento</item>
+    <item quantity="other">Xeque-mate em %s meio-movimentos</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Próxima captura ou movimento de peão em %s meio-movimento (Distância para zerar o contador de 50 movimentos)</item>
+    <item quantity="other">Próxima captura ou movimento de peão em %s meio-movimentos (Distância para zerar o contador de 50 movimentos)</item>
+  </plurals>
   <string name="noGameFound">Nenhum jogo encontrado</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Talvez incluir mais jogos no menu de preferências?</string>
   <string name="openingExplorer">Explorador de abertura</string>
@@ -89,6 +97,11 @@
   <string name="openStudy">Abrir estudo</string>
   <string name="enable">Ativar</string>
   <string name="bestMoveArrow">Seta de melhor movimento</string>
+  <string name="multipleLines">Múltiplas continuações</string>
+  <string name="cpus">CPUs</string>
+  <string name="memory">Memória</string>
+  <string name="infiniteAnalysis">Análise infinita</string>
+  <string name="removesTheDepthLimit">Remove o limite de profundidade e mantém o seu computador quente</string>
   <string name="blunders">Erro Grave</string>
   <string name="mistakes">Erros</string>
   <string name="inaccuracies">Imprecisões</string>
@@ -103,6 +116,14 @@
     <item quantity="other">%s jogadores conectados</item>
   </plurals>
   <string name="currentGames">Partidas atuais</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s jogo</item>
+    <item quantity="other">%s jogos</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s favorito</item>
+    <item quantity="other">%s favoritos</item>
+  </plurals>
   <string name="viewInFullSize">Ver em tela cheia</string>
   <string name="logOut">Sair</string>
   <string name="signIn">Entrar</string>
@@ -123,6 +144,14 @@
   <string name="correspondence">Correspondência</string>
   <string name="daysPerTurn">Dias por lance</string>
   <string name="oneDay">Um dia</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s dia</item>
+    <item quantity="other">%s dias</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s hora</item>
+    <item quantity="other">%s horas</item>
+  </plurals>
   <string name="time">Tempo</string>
   <string name="rating">Rating</string>
   <string name="ratingStats">Estatísticas de rating</string>
@@ -137,6 +166,12 @@
   <string name="passwordReset">Redefinição de senha</string>
   <string name="forgotPassword">Esqueceu sua senha?</string>
   <string name="rank">Rank</string>
+  <string name="rankX">Classificação: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">A classificação é atualizado a cada %s minutos</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s quebra-cabeça</item>
+    <item quantity="other">%s quebra-cabeças</item>
+  </plurals>
   <string name="gamesPlayed">Partidas realizadas</string>
   <string name="cancel">Cancelar</string>
   <string name="timeOut">Tempo esgotado</string>
