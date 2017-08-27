@@ -12,8 +12,8 @@
   <string name="level">Szint</string>
   <string name="toggleTheChat">Csevegő ki-be</string>
   <string name="toggleSound">Hang ki-be</string>
-  <string name="chat">Csevegő</string>
-  <string name="resign">Feladom</string>
+  <string name="chat">Csevegés</string>
+  <string name="resign">Feladás</string>
   <string name="checkmate">Sakk-matt</string>
   <string name="stalemate">Patt</string>
   <string name="white">Világos</string>
@@ -31,7 +31,7 @@
   <string name="joinTheGame">Csatlakozás a játékhoz</string>
   <string name="whitePlays">Világos lép</string>
   <string name="blackPlays">Sötét lép</string>
-  <string name="opponentLeftChoices">Az ellenfél elhagyta a játékot. Feladhatod a nevében, vagy várhatsz rá.</string>
+  <string name="opponentLeftChoices">Az ellenfeled valamiért elhagyta a játékot. Igényelhetsz győzelmet, döntetlent vagy várhatsz rá.</string>
   <string name="makeYourOpponentResign">Feladom a nevében</string>
   <string name="forceResignation">Győzelem igénylése</string>
   <string name="forceDraw">Döntetlen felajánlása</string>
