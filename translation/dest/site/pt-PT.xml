@@ -173,6 +173,10 @@
     <item quantity="other">%s quebra-cabeças</item>
   </plurals>
   <string name="gamesPlayed">Partidas realizadas</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s jogo contra ti</item>
+    <item quantity="other">%s jogos contra ti</item>
+  </plurals>
   <string name="cancel">Cancelar</string>
   <string name="timeOut">Tempo esgotado</string>
   <string name="drawOfferSent">Proposta de empate enviada</string>
@@ -206,6 +210,8 @@
   <string name="play">Jogar</string>
   <string name="inbox">Caixa de entrada</string>
   <string name="chatRoom">Sala de chat</string>
+  <string name="loginToChat">Entre para conversar</string>
+  <string name="youHaveBeenTimedOut">Tu foste desconectado.</string>
   <string name="spectatorRoom">Sala do espetador</string>
   <string name="composeMessage">Escrever mensagem</string>
   <string name="noNewMessages">Nenhuma mensagem nova</string>
@@ -215,12 +221,33 @@
   <string name="incrementInSeconds">Acréscimo em segundos</string>
   <string name="freeOnlineChess">Xadrez Online Gratuito</string>
   <string name="spectators">Espectadores:</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s classificado</item>
+    <item quantity="other">%s classificados</item>
+  </plurals>
+  <plurals name="nbWins">
+    <item quantity="one">%s vitória</item>
+    <item quantity="other">%s vitórias</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s derrota</item>
+    <item quantity="other">%s derrotas</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s empate</item>
+    <item quantity="other">%s empates</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s jogando</item>
+    <item quantity="other">%s jogando</item>
+  </plurals>
   <string name="exportGames">Exportar partidas</string>
   <string name="ratingRange">Rating entre</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dar %s segundos</item>
     <item quantity="other">Dar %s segundos</item>
   </plurals>
+  <string name="giveMoreTime">Dê mais tempo</string>
   <string name="thisPlayerUsesChessComputerAssistance">Este jogador usa a ajuda de computador</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Este jogador aumentou o seu rating de maneira artificial.</string>
   <string name="takeback">Voltar jogada</string>
@@ -239,6 +266,14 @@
   <string name="viewTournament">Ver torneio</string>
   <string name="backToTournament">Voltar ao torneio</string>
   <string name="thematic">Temático</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s jogo classificado</item>
+    <item quantity="other">≥ %s jogos classificados</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2$s jogo classificado</item>
+    <item quantity="other">≥ %1$s %2$s jogos classificados</item>
+  </plurals>
   <string name="backToGame">Retorne à partida</string>
   <string name="siteDescription">Xadrez online gratuito. Jogue xadrez agora numa interface simples. Sem registro, sem anúncios, sem plugins. Jogue xadrez contra computador, amigos ou oponentes aleatórios.</string>
   <string name="teams">Equipas</string>
