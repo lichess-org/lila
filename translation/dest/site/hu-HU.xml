@@ -427,7 +427,7 @@
   <string name="findTheBestMoveForBlack">Találd meg a legjobb lépést sötéttel.</string>
   <string name="toTrackYourProgress">Fejlődésed nyomon követéséhez:</string>
   <string name="trainingSignupExplanation">Lichess a képességeidnek megfelelő feladványokat biztosít, hogy minél jobb képzésben részesülj.</string>
-  <string name="puzzleId">Feladvány %s</string>
+  <string name="puzzleId">%s. feladvány</string>
   <string name="puzzleOfTheDay">A nap feladványa</string>
   <string name="clickToSolve">Katt a megoldáshoz</string>
   <string name="goodMove">Jó lépés</string>
