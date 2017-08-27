@@ -24,8 +24,8 @@
     <item quantity="other">%1$s lépést tett %2$s levelező sakk játszmában</item>
   </plurals>
   <plurals name="completedNbGames">
-    <item quantity="one">Befejezett %s levelezősakk partit</item>
-    <item quantity="other">Befejezett %s levelezősakk partit</item>
+    <item quantity="one">Befejezett %s levelező sakk játszmát</item>
+    <item quantity="other">Befejezett %s levelező sakk játszmát</item>
   </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">%s játékost kezdett követni</item>
