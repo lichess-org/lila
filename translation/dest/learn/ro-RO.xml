@@ -187,6 +187,11 @@ Calul = 3
 Pionul = 1</string>
   <string name="checkInTwo">Șah mat în două mutări</string>
   <string name="twoMovesToGiveCheck">Două mutări pentru a da șah</string>
+  <string name="checkInTwoIntro">Găsește combinația corectă de două mutări care dă șah regelui oponentului!</string>
+  <string name="checkInTwoGoal">Amenință regele oponentului
+în două mutări!</string>
+  <string name="checkInTwoComplete">Felicitări! Ai dat șah oponentului tău, forțându-i să-și apere regele!</string>
+  <string name="whatNext">Ce urmează?</string>
   <string name="youKnowHowToPlayChess">Știi cum să joci șah, felicitări! Vrei să devii un jucător mai putenic?</string>
   <string name="register">Înregistrează-te</string>
   <string name="getAFreeLichessAccount">Obține un cont de Lichess gratuit</string>
