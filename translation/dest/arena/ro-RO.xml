@@ -23,4 +23,8 @@ Modul Berserk îți va oferi un punct în plus doar dacă vei juca cel puțin 7 
   <string name="howIsTheWinnerDecided">Cum este decis câștigătorul?</string>
   <string name="howIsTheWinnerDecidedAnswer">Jucătorul(-ii) cu cele mai multe puncte la finalul timpului competiției va fi anunțat câștigătorul(-ii).</string>
   <string name="howDoesPairingWork">Cum funcționează potrivirea jucătorilor?</string>
+  <string name="howDoesItEnd">Cum se termină?</string>
+  <string name="otherRules">Alte reguli importante</string>
+  <string name="thisIsPrivate">Acesta este o competiție privată</string>
+  <string name="shareUrl">Pentru a distribui, folosiți acest URL: %s</string>
 </resources>
