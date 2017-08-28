@@ -298,7 +298,17 @@
     <item quantity="few">Вы должны сыграть еще %1$s рейтинговые игры в %2$s</item>
     <item quantity="other">Вы должны сыграть еще %1$s рейтинговых игр в %2$s</item>
   </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Вы должны сыграть еще %s рейтинговую игру</item>
+    <item quantity="few">Вы должны сыграть еще %s рейтинговых игр</item>
+    <item quantity="other">Вы должны сыграть еще %s рейтинговых игр</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Ваш предварительный рейтинг: %s</string>
   <string name="yourPerfRatingIsTooHigh">Ваш рейтинг в %1$s (%2$s) слишком высок</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Ваш рейтинг еженедельный %1$s рейтинг (%2$s) слишком высок</string>
+  <string name="yourPerfRatingIsTooLow">Ваш рейтинг %1$s (%2$s) слишком низок</string>
+  <string name="ratedMoreThanInPerf">Рейтинг ≥ %1$s в %2$s</string>
+  <string name="ratedLessThanInPerf">Рейтинг ≤ %1$s в %2$s</string>
   <string name="backToGame">Возврат к игре</string>
   <string name="siteDescription">Бесплатные онлайн-шахматы. Играйте в шахматы прямо сейчас в простом интерфейсе без рекламы. Не требует регистрации и скачивания программы. Играйте в шахматы с компьютером, друзьями или случайными соперниками.</string>
   <string name="teams">Команды</string>
