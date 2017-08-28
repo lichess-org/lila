@@ -52,6 +52,7 @@
   <string name="loadingEngine">Зареждане на програмата ...</string>
   <string name="move">Ход</string>
   <string name="capture">Взимане</string>
+  <string name="unknown">Неизвестно</string>
   <string name="database">База от данни</string>
   <string name="recentGames">Скорошни игри</string>
   <string name="topGames">Водещи игри</string>
