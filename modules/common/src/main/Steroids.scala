@@ -111,8 +111,6 @@ trait FloatSteroids {
 
   implicit final class LilaPimpedFloat(self: Float) {
 
-    def nan = java.lang.Float.isNaN(self)
-
     def atLeast(bottomValue: Float): Float = self max bottomValue
 
     def atMost(topValue: Float): Float = self min topValue
@@ -122,8 +120,6 @@ trait FloatSteroids {
 trait DoubleSteroids {
 
   implicit final class LilaPimpedDouble(self: Double) {
-
-    def nan = java.lang.Double.isNaN(self)
 
     def atLeast(bottomValue: Double): Double = self max bottomValue
 
