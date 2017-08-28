@@ -112,8 +112,8 @@ object LeaderboardApi {
   object ChartData {
 
     case class Ints(v: List[Int]) {
-      def mean = v.toNel map Maths.mean[Int]
-      def median = v.toNel map Maths.median[Int]
+      def mean = Maths.mean(v)
+      def median = Maths.median(v)
       def sum = v.sum
       def :::(i: Ints) = Ints(v ::: i.v)
     }

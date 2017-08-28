@@ -1,36 +1,23 @@
 package lila.common
 
 import scala.annotation._
-import scala.math.{ pow, sqrt }
-import scalaz.{ NonEmptyList, IList, INil, ICons }
+import scala.Numeric.Implicits._
+import scala.reflect.ClassTag
+import scala.util.Sorting
 
 object Maths {
+  def mean[T](a: Traversable[T])(implicit n: Numeric[T]): Option[Double] =
+    a.nonEmpty option (n.toDouble(a.sum) / a.size)
 
-  def variance[T](a: NonEmptyList[T])(implicit n: Numeric[T]): Double = {
-    val m = mean(a)
-    a.map(i => pow(n.toDouble(i) - m, 2)).toList.sum / a.size
-  }
-
-  def deviation[T](a: NonEmptyList[T])(implicit n: Numeric[T]): Double = sqrt(variance(a))
-
-  // ridiculously performance optimized mean function
-  def mean[T](a: NonEmptyList[T])(implicit n: Numeric[T]): Double = {
-    @tailrec def recurse(a: IList[T], sum: T, depth: Int): Double = {
-      a match {
-        case ICons(x, xs) => recurse(xs, n.plus(sum, x), depth + 1)
-        case _ => n.toDouble(sum) / depth
-      }
+  def median[T: ClassTag](a: Traversable[T])(implicit n: Numeric[T]) =
+    a.nonEmpty option {
+      val arr = a.toArray
+      Sorting.stableSort(arr)
+      val size = arr.size
+      val mid = size / 2
+      if (size % 2 == 0) n.toDouble(arr(mid) + arr(mid - 1)) / 2
+      else n.toDouble(arr(mid))
     }
-    recurse(a.tail, a.head, 1)
-  }
-
-  def median[T](a: NonEmptyList[T])(implicit n: Numeric[T]): Double = {
-    val list = a.toList
-    val size = a.size
-    val (lower, upper) = list.sorted.splitAt(size / 2)
-    if (size % 2 == 0) (n.toDouble(lower.last) + n.toDouble(upper.head)) / 2.0
-    else n toDouble upper.head
-  }
 
   def roundAt(n: Double, p: Int): BigDecimal = {
     BigDecimal(n).setScale(p, BigDecimal.RoundingMode.HALF_UP)

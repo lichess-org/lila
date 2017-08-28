@@ -37,6 +37,8 @@ trait Steroids
 
   with BooleanSteroids
   with IntSteroids
+  with FloatSteroids
+  with DoubleSteroids
   with OptionSteroids
   with ListSteroids
 
@@ -102,6 +104,26 @@ trait IntSteroids {
     def atLeast(bottomValue: Int): Int = self max bottomValue
 
     def atMost(topValue: Int): Int = self min topValue
+  }
+}
+
+trait FloatSteroids {
+
+  implicit final class LilaPimpedFloat(self: Float) {
+
+    def atLeast(bottomValue: Float): Float = self max bottomValue
+
+    def atMost(topValue: Float): Float = self min topValue
+  }
+}
+
+trait DoubleSteroids {
+
+  implicit final class LilaPimpedDouble(self: Double) {
+
+    def atLeast(bottomValue: Double): Double = self max bottomValue
+
+    def atMost(topValue: Double): Double = self min topValue
   }
 }
 
