@@ -201,7 +201,7 @@
   <string name="casual">Ikkje rangert</string>
   <string name="rated">Rangert</string>
   <string name="thisGameIsRated">Dette partiet er rangert</string>
-  <string name="rematch">Tilby omkamp</string>
+  <string name="rematch">Omkamp</string>
   <string name="rematchOfferSent">Tilbod om omkamp sendt</string>
   <string name="rematchOfferAccepted">Tilbod om omkamp godteke</string>
   <string name="rematchOfferCanceled">Førespurnad om omkamp trekt tilbake</string>
