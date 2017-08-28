@@ -629,13 +629,13 @@ i %3$s</string>
   <string name="contact">Kontakt</string>
   <string name="termsOfService">Brukarvilkår</string>
   <string name="sourceCode">Kjeldekode</string>
-  <string name="simultaneousExhibitions">Simultanoppvising</string>
+  <string name="simultaneousExhibitions">Simultanframsyningar</string>
   <string name="host">Vert</string>
   <string name="hostColorX">Vertsfarge: %s</string>
   <string name="createdSimuls">Nyleg laga simultanarrangement</string>
-  <string name="hostANewSimul">Lag ei ny simultanoppvising</string>
-  <string name="noSimulFound">Finn ikkje simultanoppvising</string>
-  <string name="noSimulExplanation">Denne simultanoppvisinga finst ikkje.</string>
+  <string name="hostANewSimul">Lag ei ny simultanframsyning</string>
+  <string name="noSimulFound">Finn ikkje simultanframsyning</string>
+  <string name="noSimulExplanation">Denne simultanframsyninga finst ikkje.</string>
   <string name="returnToSimulHomepage">Returner til simultanheimesida</string>
   <string name="aboutSimul">Simultanoppvising inneber at ein spelar utfordrar fleiere spelarar på ein gong.</string>
   <string name="aboutSimulImage">Mot 50 motspelarar, vann Fischer 47 parti, spelte to remis og tapte eitt.</string>
