@@ -139,7 +139,7 @@ object Study extends LilaController {
   private def chatOf(study: lila.study.Study)(implicit ctx: lila.api.Context) =
     ctx.noKid ?? Env.chat.api.userChat.findMine(Chat.Id(study.id.value), ctx.me).map(some)
 
-  def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
+  def websocket(id: String, apiVersion: Int) = SocketOption { implicit ctx =>
     get("sri") ?? { uid =>
       env.api byId id flatMap {
         _.filter(canView) ?? { study =>

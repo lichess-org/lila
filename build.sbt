@@ -9,6 +9,7 @@ import Dependencies._
 
 lazy val root = Project("lila", file(".")).dependsOn(api).aggregate(api)
   .enablePlugins(PlayScala, JavaAppPackaging)
+  // .enablePlugins(PlayScala, PlayNettyServer).disablePlugins(PlayAkkaHttpServer)
   .disablePlugins(PlayFilters)
 
 scalaVersion := globalScalaVersion

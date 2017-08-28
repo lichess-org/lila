@@ -18,7 +18,7 @@ object Round extends LilaController with TheftPrevention {
   private def env = Env.round
   private def analyser = Env.analyse.analyser
 
-  def websocketWatcher(gameId: String, color: String) = SocketOption[JsValue] { implicit ctx =>
+  def websocketWatcher(gameId: String, color: String) = SocketOption { implicit ctx =>
     getSocketUid("sri") ?? { uid =>
       env.socketHandler.watcher(
         gameId = gameId,
@@ -31,7 +31,7 @@ object Round extends LilaController with TheftPrevention {
     }
   }
 
-  def websocketPlayer(fullId: String, apiVersion: Int) = SocketEither[JsValue] { implicit ctx =>
+  def websocketPlayer(fullId: String, apiVersion: Int) = SocketEither { implicit ctx =>
     GameRepo pov fullId flatMap {
       case Some(pov) =>
         if (isTheft(pov)) fuccess(Left(theftResponse))

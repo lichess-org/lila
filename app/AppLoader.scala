@@ -19,7 +19,6 @@ final class LilaLoader extends ApplicationLoader {
   // }
 
   def load(context: ApplicationLoader.Context): Application = {
-    println("LilaLoader.load")
     LoggerConfigurator(context.environment.classLoader).foreach {
       _.configure(context.environment, context.initialConfiguration, Map.empty)
     }
@@ -28,7 +27,6 @@ final class LilaLoader extends ApplicationLoader {
     old.play.Env.start(components)
     startKamon(context.lifecycle)
     lila.app.Env.current
-    println("------------- app ready")
     app
   }
 
