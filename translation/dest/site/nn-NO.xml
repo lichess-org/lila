@@ -637,9 +637,9 @@ i %3$s</string>
   <string name="noSimulFound">Finn ikkje simultanframsyning</string>
   <string name="noSimulExplanation">Denne simultanframsyninga finst ikkje.</string>
   <string name="returnToSimulHomepage">Returner til simultanheimesida</string>
-  <string name="aboutSimul">Simultanoppvising inneber at ein spelar utfordrar fleiere spelarar på ein gong.</string>
+  <string name="aboutSimul">Simultanframsyning inneber at ein spelar møter fleire motspelarar samstundes.</string>
   <string name="aboutSimulImage">Mot 50 motspelarar, vann Fischer 47 parti, spelte to remis og tapte eitt.</string>
-  <string name="aboutSimulRealLife">Konseptet er teke frå ei verkeleg hending. I verkelegheita så inneber dette at simultanverten flyttar seg frå brett til brett for kvart trekk.</string>
+  <string name="aboutSimulRealLife">Konseptet liknar på verkelege simultansjakkframsyningar, der verten for arrangementet går frå bord til bord og spelar mot fleire motstandarar samstundes.</string>
   <string name="aboutSimulRules">Når simultanoppvisninga startar, byrjar alle spelarane eit parti med verten, som får spela med dei kvite brikkene. Simultanoppvisninga ender når alle partia er ferdige.</string>
   <string name="aboutSimulSettings">Simultanoppvisningar er alltid urangert. Omstart, tilbaketrekk og \"meirtid\" er slått av.</string>
   <string name="create">Opprett</string>
