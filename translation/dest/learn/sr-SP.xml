@@ -78,6 +78,17 @@
   <string name="dontLetThemTakeAnyUndefendedPiece">Не дозволите им да вам узму
 ниједну не одбрањену фигуру!</string>
   <string name="combat">Борба</string>
+  <string name="captureAndDefendPieces">Једи и брани фигуре</string>
+  <string name="combatIntro">Добар ратник зна и да напада и да се брани!</string>
+  <string name="combatComplete">Честитамо! Знате како да се борите са шаховским фигурама!</string>
+  <string name="checkInOne">Шах у један</string>
+  <string name="attackTheOpponentsKing">Нападните противничког краља</string>
+  <string name="checkInOneIntro">Да би дали шах противнику, нападните њиховог краља. Морају га одбранити!</string>
+  <string name="checkInOneGoal">Циљајте на противничког краља
+у једном потезу!</string>
+  <string name="checkInOneComplete">Честитамо! Да ли сте шах вашем противнику, терајући га да одбране њиховог краља!</string>
+  <string name="outOfCheck">Излазак из шаха</string>
+  <string name="defendYourKing">Одбраните вашег краља</string>
   <string name="boardSetupComplete">Честитамо! Знате да поставите шаховску таблу.</string>
   <string name="enPassantOnlyWorksOnFifthRank">Ан пасан је могућ само
 ако вам је пешак на петом реду.</string>
