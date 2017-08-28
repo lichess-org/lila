@@ -46,6 +46,7 @@
   <string name="requestAComputerAnalysis">কম্পিউটার বিশ্লেষণের জন্য অবেদন করুন</string>
   <string name="computerAnalysis">কম্পিউটারের বিশ্লেষণ</string>
   <string name="analysis">বিশ্লেষণ</string>
+  <string name="move">চাল</string>
   <string name="blunders">চালে ভুল</string>
   <string name="mistakes">ভুল</string>
   <string name="inaccuracies">যথার্থতার অভাব</string>

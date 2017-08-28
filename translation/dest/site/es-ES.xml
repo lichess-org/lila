@@ -382,7 +382,7 @@
   <string name="tournamentIsStarting">El torneo va a empezar</string>
   <string name="tournamentPairingsAreNowClosed">Los emparejamientos del torneo están cerrados.</string>
   <string name="standByX">Espera %s, emparejando jugadores, ¡prepárate!</string>
-  <string name="youArePlaying">¡Estás jugando!</string>
+  <string name="youArePlaying">¡Está jugando!</string>
   <string name="winRate">Tasa de victorias</string>
   <string name="berserkRate">Tasa de berserk</string>
   <string name="performance">Rendimiento</string>
@@ -442,7 +442,7 @@
   <string name="thankYou">¡Gracias!</string>
   <string name="ratingX">Valoración: %s</string>
   <plurals name="playedXTimes">
-    <item quantity="one">Jugado %s vez</item>
+    <item quantity="one">Jugado %s veces</item>
     <item quantity="other">Jugado %s veces</item>
   </plurals>
   <string name="fromGameLink">De la partida %s</string>
@@ -729,7 +729,7 @@
   <string name="xJoinsY">%1$s se une a %2$s</string>
   <string name="xLikesY">a %1$s le gusta %2$s</string>
   <string name="quickPairing">Emparejamiento rápido</string>
-  <string name="lobby">Recibidor</string>
+  <string name="lobby">Vestíbulo</string>
   <string name="anonymous">Anónimo</string>
   <string name="yourScore">Tu puntuación: %s</string>
   <string name="language">Idioma</string>

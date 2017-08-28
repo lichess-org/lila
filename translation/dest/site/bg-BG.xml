@@ -19,7 +19,7 @@
   <string name="white">Бели</string>
   <string name="black">Черни</string>
   <string name="randomColor">Произволен цвят</string>
-  <string name="createAGame">Създай игра</string>
+  <string name="createAGame">Създаване на игра</string>
   <string name="whiteIsVictorious">Белите победиха</string>
   <string name="blackIsVictorious">Черните победиха</string>
   <string name="kingInTheCenter">Царят е в центъра</string>
@@ -50,8 +50,13 @@
   <string name="analysis">Анализ</string>
   <string name="depthX">Дълбочина %s</string>
   <string name="loadingEngine">Зареждане на програмата ...</string>
+  <string name="inLocalBrowser">в местния браузър</string>
   <string name="move">Ход</string>
   <string name="capture">Взимане</string>
+  <string name="unknown">Неизвестно</string>
+  <string name="database">База от данни</string>
+  <string name="recentGames">Скорошни игри</string>
+  <string name="topGames">Водещи игри</string>
   <string name="noGameFound">Не е открита игра</string>
   <string name="openingExplorer">Изследовател на дебютите</string>
   <string name="winPreventedBy50MoveRule">Победата е предотвратена от 50-ходовото правило</string>
@@ -299,6 +304,9 @@
   <string name="winStreak">Поредни победи</string>
   <string name="createdBy">от</string>
   <string name="tournamentIsStarting">Турнирът започва</string>
+  <string name="youArePlaying">Играете!</string>
+  <string name="winRate">Успеваемост</string>
+  <string name="performance">Производителност</string>
   <string name="membersOnly">Само за записани</string>
   <string name="boardEditor">Шахматен редактор</string>
   <string name="startPosition">Начална позиция</string>
@@ -335,6 +343,7 @@
   <string name="keepGoing">Продължи...</string>
   <string name="puzzleFailed">Провал</string>
   <string name="butYouCanKeepTrying">Може да продължиш да опитваш.</string>
+  <string name="success">Успех</string>
   <string name="wasThisPuzzleAnyGood">Хареса ли ви задачата?</string>
   <string name="pleaseVotePuzzle">Гласувайте, за да помогнете за подобряването на lichess, като използвате стрелките \"нагоре\" и \"надолу\"</string>
   <string name="thankYou">Благодаря!</string>
@@ -401,6 +410,7 @@
   <string name="closeAccountExplanation">Сигурен ли сте, че искате да закриете своята сметка? Закриването на вашата сметка е крайно решение. Вие няма да може да влизате с това име и вашият профил ще бъде недостъпен.</string>
   <string name="thisAccountIsClosed">Тази регистрация е закрита.</string>
   <string name="invalidUsernameOrPassword">Грешен потребител или парола</string>
+  <string name="incorrectPassword">Неправилна парола</string>
   <string name="emailMeALink">Изпрати ми препратка на ел. поща</string>
   <string name="currentPassword">Текуща парола</string>
   <string name="newPassword">Нова парола</string>
@@ -567,8 +577,12 @@
   <string name="analysisShapesHowTo">Натисни shift едновременно с ляво или дясно копче за да рисуваш кръгове и стрелки върху дъската.</string>
   <string name="letOtherPlayersMessageYou">Разреши на другите да ви пишат</string>
   <string name="shareYourInsightsData">Споделете измерванията върху вашата игра</string>
+  <string name="withNobody">С никой</string>
+  <string name="withFriends">С приятели</string>
+  <string name="withEverybody">С всеки</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Вече сте записали ел. поща: %s</string>
   <string name="kidMode">Детски режим</string>
+  <string name="security">Сигурност</string>
   <string name="playChessEverywhere">Играй шах навсякъде</string>
   <string name="asFreeAsLichess">Така безплатно, както lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Създадено с любов към шаха, а не към парите</string>
@@ -587,4 +601,15 @@
     <item quantity="other">Преведена на %s езика!</item>
   </plurals>
   <string name="gameAnalysis">Анализ на партията</string>
+  <string name="yourScore">Резултатът ви: %s</string>
+  <string name="language">Език</string>
+  <string name="background">Фон</string>
+  <string name="light">Светъл</string>
+  <string name="dark">Тъмен</string>
+  <string name="transparent">Прозрачен</string>
+  <string name="backgroundImageUrl">URL адрес на изображението за фон:</string>
+  <string name="boardSize">Големина на дъската</string>
+  <string name="error.unknown">Грешка</string>
+  <string name="notifications">Известия</string>
+  <string name="challenges">Предизвикателства</string>
 </resources>
