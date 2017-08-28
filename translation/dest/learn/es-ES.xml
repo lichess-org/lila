@@ -92,7 +92,7 @@ Y no pierdas las tuyas.</string>
   <string name="attackYourOpponentsKing">¡Ataca el rey rival de forma que no pueda defenderse!</string>
   <string name="mateInOneComplete">¡Felicidades! ¡Así es como se ganan partidas!</string>
   <string name="intermediate">Intermedio</string>
-  <string name="boardSetup">Colocación</string>
+  <string name="boardSetup">Disposición del tablero</string>
   <string name="howTheGameStarts">Cómo empezar</string>
   <string name="boardSetupIntro">Los dos ejércitos se enfrentan, preparados para la batalla.</string>
   <string name="thisIsTheInitialPosition">Esta es la posición inicial de cualquier partida de ajedrez. Mueve cualquier pieza para continuar.</string>
@@ -133,14 +133,14 @@ Y no pierdas las tuyas.</string>
   <string name="stalemateComplete">¡Felicidades! ¡Mejor ahogado que recibir un jaque mate!</string>
   <string name="advanced">Avanzado</string>
   <string name="pieceValue">Valor de las piezas</string>
-  <string name="evaluatePieceStrength">Sopesa la fuerza de tus piezas</string>
+  <string name="evaluatePieceStrength">Evaluar la fuerza de las piezas</string>
   <string name="pieceValueIntro">¡Las piezas con más movilidad tienen más valor!
 Reina = 9
 Torre = 5
 Alfil = 3
 Caballo = 3
 Peón = 1
-¡El rey es precioso! Perderlo significa perder la partida.</string>
+¡El rey es invaluable! Perderlo significa perder la partida.</string>
   <string name="queenOverBishop">¡Captura la pieza más valiosa!
 Reina &gt; Alfil</string>
   <string name="takeThePieceWithTheHighestValue">¡Captura la pieza más valiosa!</string>
