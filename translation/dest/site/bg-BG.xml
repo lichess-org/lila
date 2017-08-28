@@ -52,6 +52,9 @@
   <string name="loadingEngine">Зареждане на програмата ...</string>
   <string name="move">Ход</string>
   <string name="capture">Взимане</string>
+  <string name="database">База от данни</string>
+  <string name="recentGames">Скорошни игри</string>
+  <string name="topGames">Водещи игри</string>
   <string name="noGameFound">Не е открита игра</string>
   <string name="openingExplorer">Изследовател на дебютите</string>
   <string name="winPreventedBy50MoveRule">Победата е предотвратена от 50-ходовото правило</string>
