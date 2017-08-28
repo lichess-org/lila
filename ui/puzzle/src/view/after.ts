@@ -30,19 +30,16 @@ function renderVote(ctrl) {
 }
 
 export default function(ctrl) {
-  var data = ctrl.getData();
-  return h('div.feedback.after', [
-    // (!ctrl.hasEverVoted.get() && data.puzzle.enabled && data.voted === null) ? m('div.please_vote', [
-    //   m('p.first', [
-    //     m('strong', ctrl.trans('wasThisPuzzleAnyGood')),
-    //     m('br'),
-    //     m('span', ctrl.trans('pleaseVotePuzzle'))
-    //   ]),
-    //   m('p.then',
-    //     m('strong', ctrl.trans('thankYou'))
-    //   )
-    // ]) : null,
-    // (data.puzzle.enabled && data.user) ? renderVote(ctrl) : null,
+  const data = ctrl.getData();
+  const voteCall = ctrl.callToVote() && data.puzzle.enabled && data.voted === undefined;
+  return h('div.feedback.after' + (voteCall ? '.call' : ''), [
+    voteCall ? h('div.vote_call', [
+      h('strong', ctrl.trans('wasThisPuzzleAnyGood')),
+      h('br'),
+      h('span', ctrl.trans('pleaseVotePuzzle'))
+    ]) : (ctrl.thanks() ? h('div.vote_call',
+      h('strong', ctrl.trans('thankYou'))
+    ) : null),
     h('div.half.top', [
       ctrl.vm.lastFeedback === 'win' ? h('div.complete.feedback.win', h('div.player', [
         h('div.icon', '✓'),

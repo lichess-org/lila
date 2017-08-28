@@ -54,10 +54,10 @@ export default class GamebookPlayCtrl {
       }
     }
     this.state = state as State;
-    if (state.feedback === 'good' && !state.comment) setTimeout(() => {
-      this.next();
-      this.redraw();
-    }, this.root.path ? 1000 : 300);
+    if (!state.comment) {
+      if (state.feedback === 'good') setTimeout(this.next, this.root.path ? 1000 : 300);
+      else if (state.feedback === 'bad') setTimeout(this.retry, 800);
+    }
   }
 
   isMyMove = () => this.root.turnColor() === this.root.data.orientation;
@@ -66,13 +66,20 @@ export default class GamebookPlayCtrl {
     let path = this.root.path;
     while (path && !this.root.tree.pathIsMainline(path)) path = treePath.init(path);
     this.root.userJump(path);
+    this.redraw();
   }
 
-  next = (force?: boolean) => {
-    if (!force && this.isMyMove()) return;
-    const child = this.root.node.children[0];
-    if (child) this.root.userJump(this.root.path + child.id);
+  next = () => {
+    if (!this.isMyMove()) {
+      const child = this.root.node.children[0];
+      if (child) this.root.userJump(this.root.path + child.id);
+    }
     this.redraw();
+  }
+
+  onSpace = () => {
+    if (this.state.feedback === 'bad') this.retry();
+    else this.next();
   }
 
   hint = () => {

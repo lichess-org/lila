@@ -1,6 +1,6 @@
 import * as control from './control';
 import AnalyseCtrl from './ctrl';
-import { bind as bindEvent } from './util';
+import { bind as bindEvent, dataIcon } from './util';
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 
@@ -50,13 +50,10 @@ export function bind(ctrl: AnalyseCtrl): void {
     ctrl.autoScroll();
     ctrl.redraw();
   }));
-  kbd.bind('shift+t', preventing(function() {
+  kbd.bind('shift+i', preventing(function() {
     ctrl.treeView.toggle();
     ctrl.redraw();
   }));
-  kbd.bind('esc', function() {
-    ctrl.chessground.cancelMove();
-  });
 
   if (ctrl.studyPractice) return;
 
@@ -77,7 +74,7 @@ export function bind(ctrl: AnalyseCtrl): void {
   }));
   kbd.bind('space', preventing(function() {
     const gb = ctrl.gamebookPlay();
-    if (gb) gb.next();
+    if (gb) gb.onSpace();
     else if (ctrl.ceval.enabled()) ctrl.playBestMove();
     else ctrl.toggleCeval();
   }));
@@ -132,7 +129,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
     }
   }, [
     h('a.close.icon', {
-      attrs: { 'data-icon': 'L' },
+      attrs: dataIcon('L'),
       hook: bindEvent('click', () => ctrl.keyboardHelp = false, ctrl.redraw)
     }),
     h('div.scrollable', [
@@ -144,8 +141,9 @@ export function view(ctrl: AnalyseCtrl): VNode {
         row([k('↑'), or(), k('↓')], trans('keyGoToStartOrEnd')),
         row([k('0'), or(), k('$')], trans('keyGoToStartOrEnd')),
         row([k('shift'), k('←'), or(), k('shift'), k('→')], trans('keyEnterOrExitVariation')),
-        row([k('shift'), k('j'), or(), k('shift'), k('k')], trans('keyEnterOrExitVariation')),
+        row([k('shift'), k('J'), or(), k('shift'), k('K')], trans('keyEnterOrExitVariation')),
         header('Analysis options'),
+        row([k('shift'), k('I')], 'Inline notation'),
         row([k('l')], 'Local computer analysis'),
         row([k('a')], 'Computer arrows'),
         row([k('space')], 'Play computer best move'),
@@ -153,7 +151,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
         row([k('e')], 'Opening/endgame explorer'),
         row([k('f')], trans('flipBoard')),
         row([k('/')], 'Focus chat'),
-        row([k('shift'), k('c')], trans('keyShowOrHideComments')),
+        row([k('shift'), k('C')], trans('keyShowOrHideComments')),
         row([k('?')], 'Show this help dialog'),
         ctrl.study ? [
           header('Study actions'),

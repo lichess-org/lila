@@ -1214,7 +1214,7 @@ body.dark .aclock.active {
   line-height: 1.25;
 }
 .tview2.inline {
-  padding: 7px 0px 7px 7px;
+  padding: 7px 3px 7px 7px;
   font-size: 18px;
   line-height: 1.05em;
 }
@@ -1235,6 +1235,7 @@ body.piece_letter .tview2 move {
 .tview2.inline move {
   padding: 0.25em 0.17em;
   white-space: nowrap;
+  font-weight: bold;
 }
 .tview2 move.parent {
   color: #3893e8!important;
@@ -1277,6 +1278,7 @@ body.piece_letter .tview2 move {
 }
 .tview2.inline move index {
   padding-right: 0.2em;
+  line-height: 111.11%
 }
 .tview2 line move {
   color: #606060;
@@ -1339,11 +1341,10 @@ body.piece_letter .tview2 move {
   word-wrap: break-word;
 }
 .tview2.inline comment {
-  vertical-align: 0.62em;
+  vertical-align: 45%;
   word-wrap: break-word;
-  color: #7492bf;
-  margin-left: 0.1em;
-  font-size: 0.8em;
+  margin: 0 0.2em 0 0.1em;
+  font-size: 0.9em;
 }
 .tview2 comment .by {
   display: inline-block;
@@ -1484,9 +1485,6 @@ body.dark .tview2.column comment {
 body.dark .tview2.column line comment {
   color: #888;
 }
-body.dark .tview2.inline comment {
-  color: #869fc3;
-}
 body.dark .tview2 lines,
 body.dark .tview2 lines lines::before,
 body.dark .tview2 lines line::before {
@@ -1611,29 +1609,6 @@ span.blurs {
 span.hold {
   border-color: #E73B38;
 }
-div.shortcuts .inner {
-  display: none;
-}
-div.shortcuts:hover .inner {
-  display: block;
-}
-div.shortcuts .title {
-  margin: 1.5em 0 0.5em 0;
-  display: block;
-  font-weight: bold;
-  border-bottom: 1px solid #ccc;
-}
-div.shortcuts li {
-  display: block;
-  margin: 0.5em 0;
-}
-#site_header div.shortcuts strong {
-  font-weight: bold;
-}
-.back_to_game {
-  margin-top: 30px;
-  text-align: center;
-}
 .copyables > p {
   margin-top: 7px;
 }
@@ -1651,112 +1626,9 @@ div.shortcuts li {
   left: -241px;
   width: 226px;
 }
-.forecast {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  transition: opacity 0.13s;
-  position: relative;
-}
-.forecast.loading .box,
-.forecast.loading .add {
-  opacity: 0.5;
-}
-.forecast .overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-}
-.forecast .entries {
-  border: 1px solid #ccc;
-}
-.forecast .entries .top {
-  border-bottom: 1px solid #ccc;
-  padding: 3px 5px;
-  font-weight: bold;
-  color: #999;
-}
-.forecast .entry {
-  padding: 12px 2px 12px 10px;
-  margin-left: -2px;
-  transition: 0.13s;
-  position: relative;
-  cursor: pointer;
-}
-.forecast .entry::before {
-  margin-left: -10px;
-  opacity: 0.4;
-}
-.forecast .entry:hover {
-  background: #e0e0e0;
-}
-.forecast .entry .del {
-  position: absolute;
-  right: 5px;
-  top: 8px;
-  width: 10px;
-  height: 10px;
-  line-height: 10px;
+.back_to_game {
+  margin-top: 30px;
   text-align: center;
-  display: block;
-  font-size: 13px;
-  opacity: 0;
-  transition: 0.13s;
-  background: #fff;
-  padding: 5px;
-  border-radius: 50%;
-  color: #dc322f;
-}
-.forecast .entry:hover .del {
-  opacity: 0.8;
-}
-.forecast .entry:hover .del:hover {
-  opacity: 1;
-}
-.forecast .add {
-  display: block;
-  width: 100%;
-  text-align: left;
-  border-width: 1px 0 0 0;
-  transition: 0.5s;
-}
-.forecast .add::before {
-  font-size: 32px;
-  float: left;
-  margin: 1px 10px 0 0;
-  opacity: 0.6;
-  transition: opacity 0.13s;
-}
-.forecast .add.enabled::before {
-  color: #759900;
-}
-.forecast .add:hover::before {
-  opacity: 0.9;
-}
-.forecast .add span {
-  display: block;
-  white-space: normal;
-  font-weight: normal;
-}
-.forecast sans {
-  font-family: 'Roboto';
-  font-weight: 300;
-}
-.forecast sans san {
-  font-family: 'ChessSansPiratf', sans-serif;
-  font-weight: bold;
-}
-body.piece_letter .forecast sans san {
-  font-family: 'Noto Sans';
-}
-.forecast button.on-my-turn {
-  margin-top: 20px;
-}
-.forecast button.on-my-turn::before {
-  color: #759900;
 }
 
 .mselect {

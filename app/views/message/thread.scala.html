@@ -24,7 +24,13 @@ title = thread.name) {
 
   <div class="answer" id="bottom">
     @if(blocks) {
-    <p>This user blocks you. You cannot answer.</p>
+    <p class="end">@userIdLink(thread.otherUserId(me).some) blocks you. You cannot answer.</p>
+    } else {
+    @if(!thread.isVisibleByOther(me) && !me.troll) {
+    <p class="end">
+      @userIdLink(thread.otherUserId(me).some) has closed this thread.
+      <a href="@routes.Message.form?user=@thread.otherUserId(me)" class="button">Create a new one</a>
+    </p>
     } else {
     @form.map { f =>
     <form action="@routes.Message.answer(thread.id)" method="post">
@@ -37,6 +43,7 @@ title = thread.name) {
         <a class="cancel" href="@routes.Message.inbox(1)">@trans.cancel()</a>
       </div>
     </form>
+    }
     }
     }
   </div>

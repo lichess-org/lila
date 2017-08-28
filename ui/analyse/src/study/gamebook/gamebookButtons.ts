@@ -19,26 +19,35 @@ export function playButtons(root: AnalyseCtrl): VNode | undefined {
         attrs: dataIcon('I'),
         hook: bind('click', () => root.userJump(''), ctrl.redraw)
       }, 'Back') : null,
-      myTurn && state.hint ? h('a.button.text.hint', {
-        class: { active: state.showHint },
-        attrs: dataIcon(''),
-        hook: bind('click', ctrl.hint, ctrl.redraw)
-      }, 'Get a hint') : null,
       myTurn ? h('a.button.text.solution', {
         attrs: dataIcon('G'),
         hook: bind('click', ctrl.solution, ctrl.redraw)
       }, 'View the solution') : undefined,
-      study.vm.gamebookOverride === 'play' ? previewButton(study) : undefined
-    ]),
+      overrideButton(study)
+    ])
   ]);
 }
 
-export function previewButton(study: StudyCtrl): VNode | undefined {
-  if (study.data.chapter.gamebook) return h('a.button.text.preview', {
-    class: { active: study.vm.gamebookOverride === 'play' },
-    attrs: dataIcon('v'),
-    hook: bind('click', () => {
-      study.setGamebookOverride(study.vm.gamebookOverride === 'play' ? undefined : 'play');
-    }, study.redraw)
-  }, 'Preview');
+export function overrideButton(study: StudyCtrl): VNode | undefined {
+  if (study.data.chapter.gamebook) {
+    const o = study.vm.gamebookOverride;
+    if (study.members.canContribute()) return h('a.button.text.preview', {
+      class: { active: o === 'play' },
+      attrs: dataIcon('v'),
+      hook: bind('click', () => {
+        study.setGamebookOverride(o === 'play' ? undefined : 'play');
+      }, study.redraw)
+    }, 'Preview');
+    else {
+      const isAnalyse = o === 'analyse',
+      ctrl = study.gamebookPlay();
+      if (isAnalyse || (ctrl && ctrl.state.feedback === 'end')) return h('a.button.text.preview', {
+        class: { active: isAnalyse },
+        attrs: dataIcon('A'),
+        hook: bind('click', () => {
+          study.setGamebookOverride(isAnalyse ? undefined : 'analyse');
+        }, study.redraw)
+      }, 'Analyse');
+    }
+  }
 }

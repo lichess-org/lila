@@ -118,12 +118,15 @@ object String {
     }
 
     private val imgUrlPattern = """.*\.(jpg|jpeg|png|gif)$""".r.pattern
+    private val imgurRegex = """https?://imgur\.com/(\w+)""".r
 
-    private def urlToImgUnsafe(url: String): Option[String] = {
-      imgUrlPattern.matcher(url).matches && !url.contains(s"://$netDomain")
-    } option s"""<img class="embed" src="$url"/>"""
+    private def urlToImgUnsafe(url: String): Option[String] = (url match {
+      case imgurRegex(id) => s"""https://i.imgur.com/$id.jpg""".some
+      case u if imgUrlPattern.matcher(url).matches && !url.contains(s"://$netDomain") => u.some
+      case _ => none
+    }) map { imgUrl => s"""<img class="embed" src="$imgUrl"/>""" }
 
-    private def urlOrImgUnsafe(url: String) = urlToImgUnsafe(url) getOrElse url
+    private def urlOrImgUnsafe(url: String): String = urlToImgUnsafe(url) getOrElse url
 
     // from https://github.com/android/platform_frameworks_base/blob/d59921149bb5948ffbcb9a9e832e9ac1538e05a0/core/java/android/text/TextUtils.java#L1361
     def escapeHtml(s: String): Html = Html(escapeHtmlUnsafe(s))

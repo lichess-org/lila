@@ -645,6 +645,14 @@ export default class RoundController {
     }
   };
 
+  toggleZen = () => {
+    if (game.isPlayerPlaying(this.data)) {
+      const zen = !$('body').hasClass('zen');
+      $('body').toggleClass('zen', zen)
+      $.post('/pref/zen', { zen: zen ? 1 : 0 });
+    }
+  }
+
   private delayedInit = () => {
     if (game.isPlayerPlaying(this.data) && game.nbMoves(this.data, this.data.player.color) === 0 && !this.isSimulHost()) {
       li.sound.genericNotify();

@@ -140,6 +140,16 @@ body.dark #puzzle .feedback {
   font-size: 2.5em;
   margin-right: 10px;
 }
+#puzzle .feedback.call {
+  flex: 1.9 1 0;
+}
+#puzzle .feedback .vote_call {
+  font-size: 1.1em;
+  text-align: right;
+  background: #759900!important;
+  color: #fff!important;
+  padding: 8px 10px;
+}
 
 #puzzle move {
   justify-content: space-between;

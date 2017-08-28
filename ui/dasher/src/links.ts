@@ -31,10 +31,16 @@ export default function(ctrl: DasherCtrl): VNode {
         linkCfg('/coach/edit', ':'),
         'Coach manager'),
 
-      h(
-        'a.text',
-        linkCfg('/logout', 'w'),
-        noarg('logOut'))
+      h('form', {
+        attrs: { method: 'post', action: '/logout' }
+      }, [
+        h('button.text', {
+          attrs: {
+            type: 'submit',
+            'data-icon': 'w'
+          }
+        }, noarg('logOut'))
+      ])
     ]) : null;
   }
 
@@ -71,7 +77,10 @@ export default function(ctrl: DasherCtrl): VNode {
   const zenToggle = ctrl.opts.playing ? h('div.zen.selector', [
     h('a', {
       class: { active: !!ctrl.data.zen },
-      attrs: { 'data-icon': ctrl.data.zen ? 'E' : 'K' },
+      attrs: {
+        'data-icon': ctrl.data.zen ? 'E' : 'K',
+        title: 'Keyboard: z'
+      },
       hook: bind('click', ctrl.toggleZen)
     }, noarg('zenMode'))
   ]) : null;

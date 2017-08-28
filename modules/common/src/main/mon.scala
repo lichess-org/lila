@@ -160,6 +160,7 @@ object mon {
         def create = makeTrace("round.move.trace")
       }
       val networkLag = rec("round.move.network_lag")
+      val lagLowEstimate = rec("round.move.lag_low_estimate")
     }
     object error {
       val client = inc("round.error.client")

@@ -8,7 +8,8 @@ import { throttle } from 'common';
 import * as control from '../../control';
 
 export function running(ctrl: AnalyseCtrl): boolean {
-  return !!ctrl.study && ctrl.study.data.chapter.gamebook && !ctrl.gamebookPlay();
+  return !!ctrl.study && ctrl.study.data.chapter.gamebook &&
+  !ctrl.gamebookPlay() && ctrl.study.vm.gamebookOverride !== 'analyse';
 }
 
 export function render(ctrl: AnalyseCtrl): VNode {

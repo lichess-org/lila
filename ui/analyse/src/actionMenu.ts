@@ -134,7 +134,8 @@ export class Ctrl {
 }
 
 export function view(ctrl: AnalyseCtrl): VNode {
-  const d = ctrl.data;
+  const d = ctrl.data,
+  noarg = ctrl.trans.noarg;
 
   const flipOpts = d.userAnalysis ? {
     hook: bind('click', ctrl.flip)
@@ -150,7 +151,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
     h('div.tools', [
       h('a.fbt', flipOpts, [
         h('i.icon', { attrs: dataIcon('B') }),
-        ctrl.trans('flipBoard')
+        noarg('flipBoard')
       ]),
       ctrl.ongoing ? null : h('a.fbt', {
         attrs: {
@@ -160,7 +161,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
         }
       }, [
         h('i.icon', { attrs: dataIcon('m') }),
-        ctrl.trans('boardEditor')
+        noarg('boardEditor')
       ]),
       canContinue ? h('a.fbt', {
         hook: bind('click', _ => $.modal($('.continue_with.g_' + d.game.id)))
@@ -168,84 +169,49 @@ export function view(ctrl: AnalyseCtrl): VNode {
         h('i.icon', {
           attrs: dataIcon('U')
         }),
-        ctrl.trans('continueFromHere')
+        noarg('continueFromHere')
       ]) : null,
       studyButton(ctrl)
     ])
   ];
 
   const cevalConfig: MaybeVNodes = (ceval && ceval.possible && ceval.allowed()) ? ([
-    h('h2', ctrl.trans.noarg('computerAnalysis'))
+    h('h2', noarg('computerAnalysis'))
   ] as MaybeVNodes).concat([
-    (id => {
-      return h('div.setting', {
-        attrs: { title: mandatoryCeval ? "Required by practice mode" : window.lichess.engineName }
-      }, [
-        h('label', { attrs: { 'for': id } }, ctrl.trans.noarg('enable')),
-        h('div.switch', [
-          h('input#' + id + '.cmn-toggle.cmn-toggle-round', {
-            attrs: {
-              type: 'checkbox',
-              checked: ctrl.showComputer(),
-              disabled: mandatoryCeval
-            },
-            hook: bind('change', ctrl.toggleComputer, ctrl.redraw),
-          }),
-          h('label', { attrs: { 'for': id } })
-        ])
-      ]);
-    })('analyse-toggle-all')
+    boolSetting(ctrl, {
+      name: 'enable',
+      title: mandatoryCeval ? "Required by practice mode" : window.lichess.engineName,
+      id: 'all',
+      checked: ctrl.showComputer(),
+      disabled: mandatoryCeval,
+      change: ctrl.toggleComputer
+    })
   ]).concat(
     ctrl.showComputer() ? [
-      (id => h('div.setting', [
-        h('label', { attrs: { 'for': id } }, ctrl.trans.noarg('bestMoveArrow')),
-        h('div.switch', [
-          h('input#' + id + '.cmn-toggle.cmn-toggle-round', {
-            attrs: {
-              type: 'checkbox',
-              checked: ctrl.showAutoShapes()
-            },
-            hook: bind('change', e => {
-              ctrl.toggleAutoShapes((e.target as HTMLInputElement).checked);
-            }, ctrl.redraw)
-          }),
-          h('label', { attrs: { 'for': id } })
-        ])
-      ]))('analyse-toggle-shapes'),
-      (id => h('div.setting', [
-        h('label', { attrs: { 'for': id } }, ctrl.trans.noarg('evaluationGauge')),
-        h('div.switch', [
-          h('input#' + id + '.cmn-toggle.cmn-toggle-round', {
-            attrs: {
-              type: 'checkbox',
-              checked: ctrl.showGauge()
-            },
-            hook: bind('change', () => ctrl.toggleGauge(), ctrl.redraw)
-          }),
-          h('label', { attrs: { 'for': id } })
-        ])
-      ]))('analyse-toggle-gauge'),
-      (id => h('div.setting', {
-        attrs: { title: ctrl.trans.noarg('removesTheDepthLimit') }
-      }, [
-        h('label', { attrs: { 'for': id } }, ctrl.trans.noarg('infiniteAnalysis')),
-        h('div.switch', [
-          h('input#' + id + '.cmn-toggle.cmn-toggle-round', {
-            attrs: {
-              type: 'checkbox',
-              checked: ceval.infinite()
-            },
-            hook: bind('change', e => {
-              ctrl.cevalSetInfinite((e.target as HTMLInputElement).checked);
-            })
-          }),
-          h('label', { attrs: { 'for': id } })
-        ])
-      ]))('analyse-toggle-infinite'),
+      boolSetting(ctrl, {
+        name: 'bestMoveArrow',
+        title: 'Keyboard: a',
+        id: 'shapes',
+        checked: ctrl.showAutoShapes(),
+        change: ctrl.toggleAutoShapes
+      }),
+      boolSetting(ctrl, {
+        name: 'evaluationGauge',
+        id: 'gauge',
+        checked: ctrl.showGauge(),
+        change: ctrl.toggleGauge
+      }),
+      boolSetting(ctrl, {
+        name: 'infiniteAnalysis',
+        title: 'removesTheDepthLimit',
+        id: 'infinite',
+        checked: ceval.infinite(),
+        change: ctrl.cevalSetInfinite
+      }),
       (id => {
         const max = 5;
         return h('div.setting', [
-          h('label', { attrs: { 'for': id } }, ctrl.trans.noarg('multipleLines')),
+          h('label', { attrs: { 'for': id } }, noarg('multipleLines')),
           h('input#' + id, {
             attrs: {
               type: 'range',
@@ -265,7 +231,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
         if (!max) return;
         if (max > 2) max--; // don't overload your computer, you dummy
         return h('div.setting', [
-          h('label', { attrs: { 'for': id } }, ctrl.trans.noarg('cpus')),
+          h('label', { attrs: { 'for': id } }, noarg('cpus')),
           h('input#' + id, {
             attrs: {
               type: 'range',
@@ -281,7 +247,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
         ]);
       })('analyse-threads') : null,
       ceval.pnaclSupported ? (id => h('div.setting', [
-        h('label', { attrs: { 'for': id } }, ctrl.trans.noarg('memory')),
+        h('label', { attrs: { 'for': id } }, noarg('memory')),
         h('input#' + id, {
           attrs: {
             type: 'range',
@@ -297,10 +263,25 @@ export function view(ctrl: AnalyseCtrl): VNode {
       ]))('analyse-memory') : null
     ] : []) : [];
 
+    const notationConfig = [
+      h('h2', noarg('preferences')),
+      boolSetting(ctrl, {
+        name: 'Inline notation',
+        title: 'Keyboard: Shift+I',
+        id: 'inline',
+        checked: ctrl.treeView.inline(),
+        change(v) {
+          ctrl.treeView.set(v);
+          ctrl.actionMenu.toggle();
+        }
+      })
+    ];
+
     return h('div.action_menu',
       tools
+        .concat(notationConfig)
         .concat(cevalConfig)
-        .concat(ctrl.mainline.length > 4 ? [h('h2', ctrl.trans.noarg('replayMode')), autoplayButtons(ctrl)] : [])
+        .concat(ctrl.mainline.length > 4 ? [h('h2', noarg('replayMode')), autoplayButtons(ctrl)] : [])
         .concat([
           deleteButton(ctrl, ctrl.opts.userId),
           canContinue ? h('div.continue_with.g_' + d.game.id, [
@@ -309,15 +290,43 @@ export function view(ctrl: AnalyseCtrl): VNode {
                 href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#ai' : router.cont(d, 'ai') + '?fen=' + ctrl.node.fen,
                 rel: 'nofollow'
               }
-            }, ctrl.trans('playWithTheMachine')),
+            }, noarg('playWithTheMachine')),
             h('br'),
             h('a.button', {
               attrs: {
                 href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#friend' : router.cont(d, 'friend') + '?fen=' + ctrl.node.fen,
                 rel: 'nofollow'
               }
-            }, ctrl.trans('playWithAFriend'))
+            }, noarg('playWithAFriend'))
           ]) : null
         ])
     );
+}
+
+interface BoolSetting {
+  name: string,
+  title?: string,
+  id: string,
+  checked: boolean;
+  disabled?: boolean;
+  change(v: boolean): void;
+}
+
+function boolSetting(ctrl: AnalyseCtrl, o: BoolSetting) {
+  const fullId = 'abset-' + o.id;
+  return h('div.setting', o.title ? {
+    attrs: { title: ctrl.trans.noarg(o.title) }
+  } : {}, [
+    h('label', { attrs: { 'for': fullId } }, ctrl.trans.noarg(o.name)),
+    h('div.switch', [
+      h('input#' + fullId + '.cmn-toggle.cmn-toggle-round', {
+        attrs: {
+          type: 'checkbox',
+          checked: o.checked
+        },
+        hook: bind('change', e => o.change((e.target as HTMLInputElement).checked), ctrl.redraw)
+      }),
+      h('label', { attrs: { 'for': fullId } })
+    ])
+  ]);
 }

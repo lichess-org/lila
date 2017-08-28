@@ -69,7 +69,7 @@ final class StudySearchApi(
   private def extraText(c: Chapter): List[String] = List(
     c.isPractice option "practice",
     c.isConceal option "conceal puzzle",
-    c.isGamebook option "gamebook lesson",
+    c.isGamebook option "lesson",
     c.description
   ).flatten
 

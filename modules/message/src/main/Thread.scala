@@ -82,7 +82,9 @@ case class Thread(
 
   def isVisibleBy(userId: User.ID) = visibleByUserIds contains userId
 
-  def hasPostsWrittenBy(userId: String) = posts exists (_.isByCreator == (creatorId == userId))
+  def isVisibleByOther(user: User) = isVisibleBy(otherUserId(user))
+
+  def hasPostsWrittenBy(userId: User.ID) = posts exists (_.isByCreator == (creatorId == userId))
 
   def endsWith(post: Post) = posts.lastOption ?? post.similar
 }

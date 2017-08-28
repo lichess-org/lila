@@ -55,7 +55,7 @@ private[round] final class Round(
       handleHumanPlay(p) { pov =>
         if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
         else {
-          reportNetworkLag(pov)
+          recordLagStats(pov)
           player.human(p, self)(pov)
         }
       } >>- {
@@ -229,13 +229,10 @@ private[round] final class Round(
       messenger.system(game, (_.untranslated(
         "%s + %d seconds".format(color, duration.toSeconds)
       )))
-      (game withClock newClock) ++ List(
-        Event.ClockInc(color, centis),
-        Event.Clock(newClock) // BC
-      )
+      (game withClock newClock) ++ List(Event.ClockInc(color, centis))
     }
 
-  private def reportNetworkLag(pov: Pov) =
+  private def recordLagStats(pov: Pov) =
     if ((pov.game.playedTurns & 30) == 10) {
       // Triggers every 32 moves starting on ply 10.
       // i.e. 10, 11, 42, 43, 74, 75, ...
@@ -243,8 +240,13 @@ private[round] final class Round(
         clock <- pov.game.clock
         lag <- clock.lag(pov.color)
       } {
-        lila.mon.round.move.networkLag(lag.millis)
-        pov.player.userId.foreach { uid => UserLagCache.put(uid, lag) }
+        pov.player.userId.foreach { UserLagCache.put(_, lag) }
+        if (pov.game.playedTurns < 12) {
+          lila.mon.round.move.networkLag(lag.millis)
+          clock.lagCompEstimate(pov.color).foreach {
+            l => lila.mon.round.move.lagLowEstimate(l.centis)
+          }
+        }
       }
     }
 
