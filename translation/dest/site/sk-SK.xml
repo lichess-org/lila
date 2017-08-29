@@ -263,6 +263,7 @@
   <string name="winStreak">Séria výhier</string>
   <string name="createdBy">Vytvorené</string>
   <string name="tournamentIsStarting">Turnaj sa začína</string>
+  <string name="movesPlayed">Odohraných ťahov</string>
   <string name="membersOnly">Len pre členov</string>
   <string name="boardEditor">Editor šachovnice</string>
   <string name="startPosition">Štartovacia pozícia</string>
@@ -303,6 +304,11 @@
   <string name="pleaseVotePuzzle">Pomôžte zlepšiť lichess hlasovaním, kliknutím na šípku hore alebo dole:</string>
   <string name="thankYou">Ďakujeme!</string>
   <string name="ratingX">Hodnotenie: %s</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Hrané %skrát</item>
+    <item quantity="few">Hrané %skrát</item>
+    <item quantity="other">Hrané %skrát</item>
+  </plurals>
   <string name="fromGameLink">Z hry %s</string>
   <string name="continueTraining">Pokračovanie v tréningu</string>
   <string name="retryThisPuzzle">Znova riešiť tento rébus</string>
