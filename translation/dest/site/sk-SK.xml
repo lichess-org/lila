@@ -49,6 +49,8 @@
   <string name="computerAnalysisAvailable">Počítačová analýza je k dispozícii</string>
   <string name="analysis">Analýza</string>
   <string name="depthX">Hĺbka %s</string>
+  <string name="usingServerAnalysis">Používanie analýzy servera</string>
+  <string name="loadingEngine">Zavádzanie motora ...</string>
   <string name="openingExplorer">Prieskumník otvorení</string>
   <string name="blunders">Hrubé chyby</string>
   <string name="mistakes">Chyby</string>
