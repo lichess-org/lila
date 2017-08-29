@@ -78,6 +78,11 @@
     <item quantity="few">Mat v %s. polťahu</item>
     <item quantity="other">Mat v %s. polťahu</item>
   </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">%s polťah do ďalšieho brania alebo ťahu pešiakom (vynulovanie pravidla 50 ťahov)</item>
+    <item quantity="few">%s polťahy do ďalšieho brania alebo ťahu pešiakom (vynulovanie pravidla 50 ťahov)</item>
+    <item quantity="other">%s polťahov do ďalšieho brania alebo ťahu pešiakom (vynulovanie pravidla 50 ťahov)</item>
+  </plurals>
   <string name="noGameFound">Nenašla sa žiadna partia</string>
   <string name="openingExplorer">Prieskumník otvorení</string>
   <string name="blunders">Hrubé chyby</string>
@@ -124,6 +129,11 @@
   <string name="passwordReset">Obnova hesla</string>
   <string name="forgotPassword">Zabudli ste heslo?</string>
   <string name="rank">Priečka</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s úloha</item>
+    <item quantity="few">%s úlohy</item>
+    <item quantity="other">%s úloh</item>
+  </plurals>
   <string name="gamesPlayed">Odohraných hier</string>
   <string name="cancel">Zrušiť</string>
   <string name="timeOut">Čas vypršal</string>
