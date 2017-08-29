@@ -384,6 +384,9 @@
   <string name="horizontalGreenProgressBars">Vodorovné zelené ukazovatele priebehu</string>
   <string name="soundWhenTimeGetsCritical">Zvuk, keď nastane kritický čas</string>
   <string name="gameBehavior">Správanie hry</string>
+  <string name="clickTwoSquares">Kliknutím na dve polia</string>
+  <string name="dragPiece">Presunutím figúrky</string>
+  <string name="bothClicksAndDrag">Oboje</string>
   <string name="premovesPlayingDuringOpponentTurn">Predťahy (hranie počas súperovho ťahu)</string>
   <string name="takebacksWithOpponentApproval">Vrátenie ťahu (so súhlasom súpera)</string>
   <string name="promoteToQueenAutomatically">Povýšiť pešiaka na Kráľovnú automaticky</string>
@@ -521,6 +524,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">K pohybu v partii môžete tiež použiť scrollovacie koliečko myši nad šachovnicou.</string>
   <string name="analysisShapesHowTo">Stlačte shift+ľavé tlačidlo na myši alebo pravé tlačidlo na myši na kreslenie kruhov a šípok na šachovnici.</string>
   <string name="letOtherPlayersMessageYou">Povoliť ostatným hráčom napísať Vám správu</string>
+  <string name="castleByMovingTwoSquares">Presunúť kráľa o dve polia</string>
   <string name="shareYourInsightsData">Zdiaľajte výsledky analýzy vašeho hrania</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Ste registrovaný na tento e-mail: %s</string>
   <string name="kidMode">Detský režim</string>
@@ -537,5 +541,12 @@
   <string name="correspondenceAndUnlimited">Korešpondenčný a nekonečný</string>
   <string name="viewTheSolution">Pozrite riešenie</string>
   <string name="followAndChallengeFriends">Nasledujte a vyzvite priateľov</string>
+  <plurals name="availableInNbLanguages">
+    <item quantity="one">Dostupné v %s jazykoch!</item>
+    <item quantity="few">Dostupné v %s jazykoch!</item>
+    <item quantity="other">Dostupné v %s jazykoch!</item>
+  </plurals>
   <string name="gameAnalysis">Analýza hry</string>
+  <string name="language">Jazyk</string>
+  <string name="notifications">Upozornenia</string>
 </resources>
