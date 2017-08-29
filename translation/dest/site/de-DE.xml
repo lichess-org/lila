@@ -451,7 +451,7 @@
   <string name="thisPuzzleIsCorrect">Diese Aufgabe ist korrekt und interessant</string>
   <string name="thisPuzzleIsWrong">Diese Aufgabe ist falsch oder langweilig</string>
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Du hast %s Sekunde um deinen ersten Zug zu machen!</item>
+    <item quantity="one">Du hast %s Sekunde, um deinen ersten Zug zu machen!</item>
     <item quantity="other">Du hast %s Sekunden um deinen ersten Zug zu machen!</item>
   </plurals>
   <plurals name="nbGamesInPlay">
@@ -510,7 +510,7 @@
   <string name="newPasswordAgain">Neues Passwort (wiederholen)</string>
   <string name="boardHighlights">Markierungen auf dem Brett (letzter Zug und Schach)</string>
   <string name="pieceDestinations">Zielfelder markieren (gültige Züge und Vorauszüge)</string>
-  <string name="boardCoordinates">Brettkoordinaten (A-H, 1-8)</string>
+  <string name="boardCoordinates">Koordinaten (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Notation während des Spiels anzeigen</string>
   <string name="pgnPieceNotation">Figurendarstellung in der PGN-Notation</string>
   <string name="chessPieceSymbol">Schachfigurensymbol</string>
