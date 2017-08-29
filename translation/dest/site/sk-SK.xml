@@ -233,7 +233,7 @@
   <string name="reconnecting">Pripájanie</string>
   <string name="onlineFriends">Online pritelia</string>
   <string name="noFriendsOnline">Žiadni priatelia online</string>
-  <string name="findFriends">Nájdi priateľov</string>
+  <string name="findFriends">Nájsť priateľov</string>
   <string name="follow">Nasledovať</string>
   <string name="following">Nasleduješ</string>
   <string name="unfollow">Zrušiť nasledovanie</string>
@@ -263,9 +263,16 @@
   <string name="winStreak">Séria výhier</string>
   <string name="createdBy">Vytvorené</string>
   <string name="tournamentIsStarting">Turnaj sa začína</string>
+  <string name="youArePlaying">Hra začala!</string>
+  <string name="winRate">Pomer výhier</string>
+  <string name="berserkRate">Šialenosť</string>
+  <string name="performance">Výkon</string>
   <string name="movesPlayed">Odohraných ťahov</string>
+  <string name="whiteWins">Biely vyhral</string>
   <string name="membersOnly">Len pre členov</string>
   <string name="boardEditor">Editor šachovnice</string>
+  <string name="setTheBoard">Upraviť šachovnicu</string>
+  <string name="popularOpenings">Populárne otvorenia</string>
   <string name="startPosition">Štartovacia pozícia</string>
   <string name="clearBoard">Vyčistiť šachovnicu</string>
   <string name="savePosition">Uložiť pozíciu</string>
@@ -385,7 +392,7 @@
   <string name="soundWhenTimeGetsCritical">Zvuk, keď nastane kritický čas</string>
   <string name="gameBehavior">Správanie hry</string>
   <string name="clickTwoSquares">Kliknutím na dve polia</string>
-  <string name="dragPiece">Presunutím figúrky</string>
+  <string name="dragPiece">Presun figúrky</string>
   <string name="bothClicksAndDrag">Oboje</string>
   <string name="premovesPlayingDuringOpponentTurn">Predťahy (hranie počas súperovho ťahu)</string>
   <string name="takebacksWithOpponentApproval">Vrátenie ťahu (so súhlasom súpera)</string>
@@ -558,7 +565,10 @@
   <string name="dark">Tmavá</string>
   <string name="transparent">Priehľadná</string>
   <string name="boardTheme">Vzhľad šachovnice</string>
+  <string name="usernameInvalid">Neplatné užívateľské meno. Použite iba písmená, číslice, podčiarkovník a pomlčku.</string>
   <string name="chessBasics">Základy šachu</string>
   <string name="coaches">Tréneri</string>
+  <string name="error.min">Musí byť väčšie alebo rovné %s</string>
+  <string name="error.max">Musí byť menšie alebo rovné %s</string>
   <string name="notifications">Upozornenia</string>
 </resources>
