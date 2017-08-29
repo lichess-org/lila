@@ -279,6 +279,10 @@
   <string name="loadPosition">Načítať pozíciu</string>
   <string name="isPrivate">Súkromný</string>
   <string name="reportXToModerators">Nahlásiť %s moderátorom</string>
+  <string name="profileCompletion">Úplnosť profilu: %s</string>
+  <string name="xRating">%s rating</string>
+  <string name="ifNoneLeaveEmpty">Ak nemáte, nechajte prázdne</string>
+  <string name="gameCompletionRate">Pomer ukončených partií: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Upraviť profil</string>
   <string name="firstName">Meno</string>
@@ -307,6 +311,7 @@
   <string name="keepGoing">Pokračujte...</string>
   <string name="puzzleFailed">Nesprávne vyriešený rébus</string>
   <string name="butYouCanKeepTrying">Ale môžeťe skúšať ďalej</string>
+  <string name="success">Úspech</string>
   <string name="wasThisPuzzleAnyGood">Bol tento rébus dobrý?</string>
   <string name="pleaseVotePuzzle">Pomôžte zlepšiť lichess hlasovaním, kliknutím na šípku hore alebo dole:</string>
   <string name="thankYou">Ďakujeme!</string>
@@ -376,6 +381,7 @@
   <string name="closeAccountExplanation">Ste si istí, že chcete zrušiť svoj účet? Zrušenie účtu je trvalé rozhodnutie. Nebudete sa môcť prihlásiť, a vaša stránka s profilom už nebude k dispozícii.</string>
   <string name="thisAccountIsClosed">Účet zrušený.</string>
   <string name="invalidUsernameOrPassword">Nesprávne meno alebo heslo</string>
+  <string name="incorrectPassword">Nesprávne heslo</string>
   <string name="emailMeALink">Pošlite link emailom</string>
   <string name="currentPassword">Aktuálne heslo</string>
   <string name="newPassword">Nové heslo</string>
@@ -384,6 +390,9 @@
   <string name="pieceDestinations">Zobrazovať dostupné polia  (možné ťahy a predťahy)</string>
   <string name="boardCoordinates">Šachovnicové súradnice (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Zobraziť zoznam ťahov počas hry</string>
+  <string name="pgnPieceNotation">Označenie figúr v notácii</string>
+  <string name="chessPieceSymbol">Symboly šachových figúr</string>
+  <string name="pgnLetter">Písmená (K, Q, R, B, N)</string>
   <string name="chessClock">Šachové hodiny</string>
   <string name="tenthsOfSeconds">Desatiny sekundy</string>
   <string name="never">Nikdy</string>
@@ -391,12 +400,14 @@
   <string name="horizontalGreenProgressBars">Vodorovné zelené ukazovatele priebehu</string>
   <string name="soundWhenTimeGetsCritical">Zvuk, keď nastane kritický čas</string>
   <string name="gameBehavior">Správanie hry</string>
+  <string name="howDoYouMovePieces">Ako presúvate figúrky?</string>
   <string name="clickTwoSquares">Kliknutím na dve polia</string>
   <string name="dragPiece">Presun figúrky</string>
   <string name="bothClicksAndDrag">Oboje</string>
   <string name="premovesPlayingDuringOpponentTurn">Predťahy (hranie počas súperovho ťahu)</string>
   <string name="takebacksWithOpponentApproval">Vrátenie ťahu (so súhlasom súpera)</string>
   <string name="promoteToQueenAutomatically">Povýšiť pešiaka na Kráľovnú automaticky</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Automaticky vyžiadať remízu pri treťom opakovaní pozície</string>
   <string name="privacy">Súkromie</string>
   <string name="letOtherPlayersFollowYou">Nechajte ostatných hráčov následovať vás</string>
   <string name="letOtherPlayersChallengeYou">Ostatní hráči vás môžu vyzývať</string>
@@ -423,6 +434,7 @@
   <string name="xAnsweredY">%1$s odpovedí %2$s</string>
   <string name="xCommentedY">%1$s komentárov %2$s</string>
   <string name="victory">Výhra!</string>
+  <string name="defeat">Porážka</string>
   <string name="timeline">Rozvrh</string>
   <string name="seeAllTournaments">Zobraziť všetky turnaje</string>
   <string name="starting">Štart:</string>
@@ -441,6 +453,7 @@
   <string name="playOnTheBoardOffline">Hrať bez pripojenia</string>
   <string name="playOfflineComputer">Počítač</string>
   <string name="opponent">Protihráč</string>
+  <string name="learnMenu">Učiť sa</string>
   <string name="community">Komunita</string>
   <string name="tools">Nástroje</string>
   <string name="increment">Prídavok</string>
@@ -453,7 +466,9 @@
   <string name="error.email">Neplatná emailová adresa</string>
   <string name="error.email_acceptable">Neprístupná emailová adresa</string>
   <string name="error.email_unique">tento email sa už používa</string>
+  <string name="error.email_different">Táto emailová adresa je už Vaša</string>
   <string name="blindfoldChess">Šach naslepo (neviditeľné figúrky)</string>
+  <string name="zenMode">Zen mód</string>
   <string name="moveConfirmation">Potvrdenie ťahu</string>
   <string name="inCorrespondenceGames">Korešpondenčná hra</string>
   <string name="ifRatingIsPlusMinusX">Keď je hodnotenie ± %s</string>
@@ -540,6 +555,7 @@
   <string name="withEverybody">S každým</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Ste registrovaný na tento e-mail: %s</string>
   <string name="kidMode">Detský režim</string>
+  <string name="security">Zabezpečenie</string>
   <string name="playChessEverywhere">Hrajte šachy kdekoľvek</string>
   <string name="asFreeAsLichess">Slobodný ako lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Vytvorené z lásky k šachom, nie pre peniaze</string>
@@ -559,12 +575,16 @@
     <item quantity="other">Dostupné v %s jazykoch!</item>
   </plurals>
   <string name="gameAnalysis">Analýza hry</string>
+  <string name="lobby">Výzvy</string>
+  <string name="anonymous">Anonymný</string>
   <string name="language">Jazyk</string>
   <string name="background">Pozadie</string>
   <string name="light">Svetlá</string>
   <string name="dark">Tmavá</string>
   <string name="transparent">Priehľadná</string>
   <string name="boardTheme">Vzhľad šachovnice</string>
+  <string name="boardSize">Veľkosť šachovnice</string>
+  <string name="pieceSet">Vzhľad figúr</string>
   <string name="usernameInvalid">Neplatné užívateľské meno. Použite iba písmená, číslice, podčiarkovník a pomlčku.</string>
   <string name="chessBasics">Základy šachu</string>
   <string name="coaches">Tréneri</string>
