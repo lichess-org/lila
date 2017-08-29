@@ -49,7 +49,7 @@
     </a>
     }
     @if(isGranted(_.UserSpy)) {
-    <a class="button mod_zone_toggle hint--top-left" href="@u.username?mod" data-href="@routes.User.mod(u.username)" data-hint="Mod zone"><span data-icon=""></span></a>
+    <a class="button mod_zone_toggle hint--top-left" href="?mod" data-href="@routes.User.mod(u.username)" data-hint="Mod zone"><span data-icon=""></span></a>
     }
     <a class="button hint--top-left" href="@routes.User.tv(u.username)" data-hint="@trans.watchGames()"><span data-icon="1"></span></a>
     @if(ctx.isAuth && !ctx.is(u)) {
