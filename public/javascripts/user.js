@@ -46,7 +46,7 @@ $(function() {
       if ($zone.is(':visible')) $zone.hide();
       else {
         $zone.html(lichess.spinnerHtml).show();
-        $zone.load($(this).attr('data-href'));
+        $zone.load($(this).attr('href'));
       }
       return false;
     });
@@ -56,7 +56,6 @@ $(function() {
   $("div.user_show .note_zone_toggle").each(function() {
     $(this).click(function() {
       $("div.user_show .note_zone").toggle();
-      setTimeout(function() { $("div.user_show textarea").focus(); }, 0);
     });
     if (location.search.indexOf('note') != -1) $(this).click();
   });
