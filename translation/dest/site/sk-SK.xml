@@ -556,9 +556,13 @@
   <string name="withEverybody">S každým</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Ste registrovaný na tento e-mail: %s</string>
   <string name="kidMode">Detský režim</string>
+  <string name="kidModeExplanation">V detskom režime je pre ochranu detí a mládeže pred ostatnými užívateľmi akákoľvek komunikácia zablokovaná.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Keď je zapnutý detský režim, tak sa pri logu Lichess objaví ikona %s. Podľa toho viete, že je Vaše dieťa v bezpečí.</string>
   <string name="enableKidMode">Povoliť detský režim</string>
   <string name="disableKidMode">Vypnúť detský režim</string>
   <string name="security">Zabezpečenie</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Toto je prehľad zariadení, ktoré sa prihlásili cez Váš účet. Ak niektoré zariadenie nespoznávate, môžete zrušiť jeho reláciu.</string>
+  <string name="alternativelyYouCanX">Alebo môžete %s.</string>
   <string name="revokeAllSessions">odobrať všetky relácie</string>
   <string name="playChessEverywhere">Hrajte šachy kdekoľvek</string>
   <string name="asFreeAsLichess">Slobodný ako lichess</string>
@@ -579,6 +583,9 @@
     <item quantity="other">Dostupné v %s jazykoch!</item>
   </plurals>
   <string name="gameAnalysis">Analýza hry</string>
+  <string name="xHostsY">%1$s založil %2$s</string>
+  <string name="xJoinsY">%1$s sa pridal k %2$s</string>
+  <string name="xLikesY">%1$s lajkol %2$s</string>
   <string name="quickPairing">Rýchla hra</string>
   <string name="lobby">Výzvy</string>
   <string name="anonymous">Anonymný</string>
@@ -593,7 +600,10 @@
   <string name="boardTheme">Vzhľad šachovnice</string>
   <string name="boardSize">Veľkosť šachovnice</string>
   <string name="pieceSet">Vzhľad figúr</string>
+  <string name="embedInYourWebsite">Vložiť na web</string>
+  <string name="usernameAlreadyUsed">Toto užívateľské meno už existuje. Zvoľte si, prosím, iné.</string>
   <string name="usernameInvalid">Neplatné užívateľské meno. Použite iba písmená, číslice, podčiarkovník a pomlčku.</string>
+  <string name="usernameStartNoNumber">Užívateľské meno nesmie začínať číslom.</string>
   <string name="chessBasics">Základy šachu</string>
   <string name="coaches">Tréneri</string>
   <string name="error.min">Musí byť väčšie alebo rovné %s</string>
