@@ -547,6 +547,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">K pohybu v partii môžete tiež použiť scrollovacie koliečko myši nad šachovnicou.</string>
   <string name="analysisShapesHowTo">Stlačte shift+ľavé tlačidlo na myši alebo pravé tlačidlo na myši na kreslenie kruhov a šípok na šachovnici.</string>
   <string name="letOtherPlayersMessageYou">Povoliť ostatným hráčom napísať Vám správu</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Spôsob vykonania rošády</string>
   <string name="castleByMovingTwoSquares">Presunúť kráľa o dve polia</string>
   <string name="castleByMovingOntoTheRook">Presunúť kráľa na vežu</string>
   <string name="shareYourInsightsData">Zdiaľajte výsledky analýzy vašeho hrania</string>
@@ -555,7 +556,10 @@
   <string name="withEverybody">S každým</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Ste registrovaný na tento e-mail: %s</string>
   <string name="kidMode">Detský režim</string>
+  <string name="enableKidMode">Povoliť detský režim</string>
+  <string name="disableKidMode">Vypnúť detský režim</string>
   <string name="security">Zabezpečenie</string>
+  <string name="revokeAllSessions">odobrať všetky relácie</string>
   <string name="playChessEverywhere">Hrajte šachy kdekoľvek</string>
   <string name="asFreeAsLichess">Slobodný ako lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Vytvorené z lásky k šachom, nie pre peniaze</string>
@@ -575,13 +579,17 @@
     <item quantity="other">Dostupné v %s jazykoch!</item>
   </plurals>
   <string name="gameAnalysis">Analýza hry</string>
+  <string name="quickPairing">Rýchla hra</string>
   <string name="lobby">Výzvy</string>
   <string name="anonymous">Anonymný</string>
+  <string name="yourScore">Vaše skóre: %s</string>
   <string name="language">Jazyk</string>
   <string name="background">Pozadie</string>
   <string name="light">Svetlá</string>
   <string name="dark">Tmavá</string>
   <string name="transparent">Priehľadná</string>
+  <string name="backgroundImageUrl">URL obrázka na pozadí:</string>
+  <string name="boardGeometry">Typ šachovnice</string>
   <string name="boardTheme">Vzhľad šachovnice</string>
   <string name="boardSize">Veľkosť šachovnice</string>
   <string name="pieceSet">Vzhľad figúr</string>
