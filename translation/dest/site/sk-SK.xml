@@ -90,6 +90,7 @@
   <string name="importPgn">Vložiť PGN</string>
   <string name="delete">Zmazat</string>
   <string name="replayMode">Mód prehrávania</string>
+  <string name="byCPL">CPL</string>
   <string name="enable">Povoliť analýzu</string>
   <string name="bestMoveArrow">Šípka pre najlepší ťah</string>
   <string name="evaluationGauge">Ukazovateľ hodnotenia</string>
@@ -209,6 +210,7 @@
   <string name="tournamentPoints">Turnajové body</string>
   <string name="viewTournament">Zobraz turnaj</string>
   <string name="backToTournament">Návrat do turnaja</string>
+  <string name="thematic">Tématický</string>
   <string name="backToGame">Návrat do hry</string>
   <string name="siteDescription">Šach online zadarmo. Hrajte šach teraz v novom rozhraní. Bez registrácie, reklám a  zásuvných modulov. Hrajte šach s počítačom, priateľmi alebo náhodnými protivníkmi.</string>
   <string name="teams">Tímy</string>
@@ -280,8 +282,11 @@
   <string name="winRate">Pomer výhier</string>
   <string name="berserkRate">Šialenosť</string>
   <string name="performance">Výkon</string>
+  <string name="tournamentComplete">Turnaj skončil</string>
   <string name="movesPlayed">Odohraných ťahov</string>
   <string name="whiteWins">Biely vyhral</string>
+  <string name="blackWins">Čierny vyhral</string>
+  <string name="draws">Remízy</string>
   <string name="membersOnly">Len pre členov</string>
   <string name="boardEditor">Editor šachovnice</string>
   <string name="setTheBoard">Upraviť šachovnicu</string>
