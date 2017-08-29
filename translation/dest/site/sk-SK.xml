@@ -85,6 +85,18 @@
   </plurals>
   <string name="noGameFound">Nenašla sa žiadna partia</string>
   <string name="openingExplorer">Prieskumník otvorení</string>
+  <string name="xOpeningExplorer">%s prieskumník otvorení</string>
+  <string name="allSet">Všetko nastavené!</string>
+  <string name="importPgn">Vložiť PGN</string>
+  <string name="delete">Zmazat</string>
+  <string name="replayMode">Mód prehrávania</string>
+  <string name="enable">Povoliť analýzu</string>
+  <string name="bestMoveArrow">Šípka pre najlepší ťah</string>
+  <string name="evaluationGauge">Ukazovateľ hodnotenia</string>
+  <string name="multipleLines">Počet variantov</string>
+  <string name="cpus">Procesory</string>
+  <string name="memory">Pamäť</string>
+  <string name="infiniteAnalysis">Nekonečná analýza</string>
   <string name="blunders">Hrubé chyby</string>
   <string name="mistakes">Chyby</string>
   <string name="inaccuracies">Nepresnosti</string>
@@ -168,6 +180,7 @@
   <string name="play">Hrať</string>
   <string name="inbox">Správy</string>
   <string name="chatRoom">Chatovacia miestnosť</string>
+  <string name="loginToChat">Prihlásiť sa do četu</string>
   <string name="spectatorRoom">Miestnosť pre divákov</string>
   <string name="composeMessage">Napísať správu</string>
   <string name="noNewMessages">Žiadne nové správy</string>
@@ -604,8 +617,12 @@
   <string name="usernameAlreadyUsed">Toto užívateľské meno už existuje. Zvoľte si, prosím, iné.</string>
   <string name="usernameInvalid">Neplatné užívateľské meno. Použite iba písmená, číslice, podčiarkovník a pomlčku.</string>
   <string name="usernameStartNoNumber">Užívateľské meno nesmie začínať číslom.</string>
+  <string name="usernameUnacceptable">Toto užívateľské meno nie je prijateľné.</string>
+  <string name="directlySupportLichess">Podporte Lichess priamo</string>
+  <string name="playChessInStyle">Hrajte šach štýlovo</string>
   <string name="chessBasics">Základy šachu</string>
   <string name="coaches">Tréneri</string>
+  <string name="invalidPgn">Neplatný formát PGN</string>
   <string name="error.min">Musí byť väčšie alebo rovné %s</string>
   <string name="error.max">Musí byť menšie alebo rovné %s</string>
   <string name="notifications">Upozornenia</string>
