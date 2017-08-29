@@ -317,7 +317,7 @@ name | type | default | description
 ### `GET /api/user/<username>/activity` fetch recent user activity
 
 ```
-> curl https://lichess.org/api/user/thibault/activityy
+> curl https://lichess.org/api/user/thibault/activity
 ```
 
 Returns data to generate the activity feed on https://lichess.org/@/thibault
