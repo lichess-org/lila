@@ -23,13 +23,13 @@ final class SlackApi(
     def apply(event: ChargeEvent): Funit =
       if (event.amount < 5000) addToBuffer(event)
       else displayMessage {
-        s"${link(event)} donated ${amount(event.amount)}. Monthly progress: ${event.percent}%"
+        s"${link(event.username)} donated ${amount(event.amount)}. Monthly progress: ${event.percent}%"
       }
 
     private def addToBuffer(event: ChargeEvent): Funit = {
       buffer = buffer :+ event
-      (buffer.head.date isBefore DateTime.now.minusHours(4)) ?? {
-        val patrons = buffer map (_.username) mkString ", "
+      (buffer.head.date isBefore DateTime.now.minusHours(6)) ?? {
+        val patrons = buffer map (_.username) map link mkString ", "
         val amountSum = buffer.map(_.amount).sum
         displayMessage {
           s"$patrons donated ${amount(amountSum)}. Monthly progress: ${buffer.last.percent}%"
@@ -42,13 +42,13 @@ final class SlackApi(
     private def displayMessage(text: String) = client(SlackMessage(
       username = "Patron",
       icon = "four_leaf_clover",
-      text = text,
+      text = linkifyUsers(text),
       channel = "general"
     ))
 
-    private def link(event: ChargeEvent) =
-      if (event.username == "Anonymous") "Anonymous"
-      else s"lichess.org/@/${event.username}"
+    private def link(username: String) =
+      if (username == "Anonymous") "Anonymous"
+      else s"@$username"
 
     private def amount(cents: Int) = s"$$${BigDecimal(cents, 2)}"
   }
