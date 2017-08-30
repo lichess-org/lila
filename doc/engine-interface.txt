@@ -380,7 +380,7 @@ Engine to GUI:
 		   or computer to the engine.
 		   The format of the string has to be [GM|IM|FM|WGM|WIM|none] [<elo>|none] [computer|human] <name>
 		   Examples:
-		   "setoption name UCI_Opponent value GM 2800 human Gary Kasparov"
+		   "setoption name UCI_Opponent value GM 2800 human Garry Kasparov"
 		   "setoption name UCI_Opponent value none none computer Shredder"
 		 * <id> = UCI_EngineAbout, type string
 		   With this command, the engine tells the GUI information about itself, for example a license text,
