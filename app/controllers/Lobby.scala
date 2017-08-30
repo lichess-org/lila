@@ -51,8 +51,8 @@ object Lobby extends LilaController {
   }
 
   private val MessageLimitPerIP = new lila.memo.RateLimit[IpAddress](
-    credits = 40,
-    duration = 10 seconds,
+    credits = 50,
+    duration = 15 seconds,
     name = "lobby socket message per IP",
     key = "lobby_socket.message.ip"
   )
