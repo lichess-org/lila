@@ -283,9 +283,21 @@
   <string name="viewTournament">Pogledaj turnir</string>
   <string name="backToTournament">Povratak na turnir</string>
   <string name="thematic">Tematski</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ jedne partije za bodove</item>
+    <item quantity="few">≥ %s partije za bodove</item>
+    <item quantity="other">≥ %s partija za bodove</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Trebaš odigrati još jednu partiju za bodove</item>
+    <item quantity="few">Trebaš odigrati još %s partije za bodove</item>
+    <item quantity="other">Trebaš odigrati još %s partija za bodove</item>
+  </plurals>
   <string name="yourPerfRatingIsProvisional">Vaš %s rejting je privremen</string>
+  <string name="yourPerfRatingIsTooHigh">Tvoj %1$s rejting (%2$s) je previsok</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Tvoj najvisi tjedni %1$s rejting %2$s je previsok</string>
   <string name="yourPerfRatingIsTooLow">Vaš %1$s rejting (%2$s) je prenizak</string>
+  <string name="ratedMoreThanInPerf">%2$s rejting ≥ %1$s</string>
   <string name="ratedLessThanInPerf">Rangirano  %1$s u %2$s</string>
   <string name="backToGame">Natrag na partiju</string>
   <string name="siteDescription">Besplatni internetski šah. Igrajte odmah, u čistom sučelju. Bez registriranja, bez reklama, bez dodatnih preuzimanja. Igrajte šah protiv računala, prijatelja ili nasumičnih protivnika.</string>

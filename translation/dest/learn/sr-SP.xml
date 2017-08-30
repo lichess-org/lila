@@ -78,6 +78,31 @@
   <string name="dontLetThemTakeAnyUndefendedPiece">Не дозволите им да вам узму
 ниједну не одбрањену фигуру!</string>
   <string name="combat">Борба</string>
+  <string name="captureAndDefendPieces">Једи и брани фигуре</string>
+  <string name="combatIntro">Добар ратник зна и да напада и да се брани!</string>
+  <string name="combatComplete">Честитамо! Знате како да се борите са шаховским фигурама!</string>
+  <string name="checkInOne">Шах у један</string>
+  <string name="attackTheOpponentsKing">Нападните противничког краља</string>
+  <string name="checkInOneIntro">Да би дали шах противнику, нападните њиховог краља. Морају га одбранити!</string>
+  <string name="checkInOneGoal">Циљајте на противничког краља
+у једном потезу!</string>
+  <string name="checkInOneComplete">Честитамо! Да ли сте шах вашем противнику, терајући га да одбране њиховог краља!</string>
+  <string name="outOfCheck">Излазак из шаха</string>
+  <string name="defendYourKing">Одбраните вашег краља</string>
+  <string name="outOfCheckIntro">У шаху сте! Морате избећи или блокирати напад.</string>
+  <string name="escapeWithTheKing">Побегните са краљем!</string>
+  <string name="theKingCannotEscapeButBlock">Краљ не може побећи,
+али ви можете блокирати напад!</string>
+  <string name="youCanGetOutOfCheckByTaking">Можете изаћи из шаха
+узимајући нападачку фигуру.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Скакач даје шах
+кроз вашу одбрану!</string>
+  <string name="escapeOrBlock">Побегните са краљем
+или блокирајте напад!</string>
+  <string name="outOfCheckComplete">Честитамо! Ваш краљ никад неможе бити узет, побрините се да се можете бранити против шаха!</string>
+  <string name="mateInOne">Мат у један</string>
+  <string name="defeatTheOpponentsKing">Поразите противничког краља</string>
+  <string name="mateInOneIntro">Ви сте победник када ваш противник не може да се одбрани од шаха.</string>
   <string name="boardSetupComplete">Честитамо! Знате да поставите шаховску таблу.</string>
   <string name="enPassantOnlyWorksOnFifthRank">Ан пасан је могућ само
 ако вам је пешак на петом реду.</string>

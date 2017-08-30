@@ -177,7 +177,7 @@
   <string name="rematchOfferDeclined">Revanša piedāvājums noraidīts</string>
   <string name="cancelRematchOffer">Atcelt revanša piedāvājumu</string>
   <string name="viewRematch">Skatīties revanšu</string>
-  <string name="play">Spēlēt</string>
+  <string name="play">Spēlē</string>
   <string name="inbox">Ziņas</string>
   <string name="chatRoom">Čata istaba</string>
   <string name="loginToChat">Pieslēdzieties lai tērzētu</string>
@@ -334,7 +334,7 @@
   <string name="viewMoreTournaments">Vairāk turnīru</string>
   <string name="averageOpponent">Vidējais pretinieks</string>
   <string name="membersOnly">Tikai dalībniekiem</string>
-  <string name="boardEditor">Lauciņa redaktors</string>
+  <string name="boardEditor">Galdiņa redaktors</string>
   <string name="setTheBoard">Uzstādīt galdiņu</string>
   <string name="popularOpenings">Populāras atklātnes</string>
   <string name="startPosition">Sākuma pozīcija</string>
@@ -360,7 +360,7 @@
   <string name="activeToday">Aktīvākie šodien</string>
   <string name="activePlayers">Aktīvākie spēlētāji</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Uzmanību! Spēle ir ar reitinga aprēķinu, bet bez laika limita!</string>
-  <string name="training">Treniņš</string>
+  <string name="training">Puzles</string>
   <string name="yourPuzzleRatingX">Tavs uzdevumu reitings: %s</string>
   <string name="findTheBestMoveForWhite">Atrodi vislabāko gājienu baltajiem</string>
   <string name="findTheBestMoveForBlack">Atrodi vislabāko gājienu melnajiem</string>
@@ -437,7 +437,7 @@
   <string name="newPasswordAgain">Jaunā parole (atkārtoti)</string>
   <string name="boardHighlights">Lauciņu izcelšana (pēdējais gājiens vai piesakot šahu)</string>
   <string name="pieceDestinations">Figūru galamērķi (legāli gājieni vai priekšgājieni)</string>
-  <string name="boardCoordinates">Lauciņa koordinātas (A-H, 1-8)</string>
+  <string name="boardCoordinates">Galdiņa koordinātas (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Gājienu saraksts spēles laikā</string>
   <string name="pgnPieceNotation">Gājienu notācija</string>
   <string name="chessPieceSymbol">Šaha figūras simbols</string>
@@ -467,8 +467,8 @@
   <string name="fast">Ātra</string>
   <string name="normal">Normāls</string>
   <string name="slow">Lēna</string>
-  <string name="insideTheBoard">Lauciņa iekšpusē</string>
-  <string name="outsideTheBoard">Lauciņa ārpusē</string>
+  <string name="insideTheBoard">Galdiņa iekšpusē</string>
+  <string name="outsideTheBoard">Galdiņa ārpusē</string>
   <string name="onSlowGames">Lēnajās spēlēs</string>
   <string name="always">Vienmēr</string>
   <string name="inCasualGamesOnly">Tikai parastajās spēlēs</string>
@@ -597,7 +597,7 @@
   <string name="printFriendlyPDF">Drukājams PDF</string>
   <string name="crosstable">Šķērstabula</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Vari arī skrollēt gājienus uz spēles laukuma.</string>
-  <string name="analysisShapesHowTo">Nospied uz lauciņa shift+kreiso taustiņu vai labo taustiņu lai zīmētu riņķus un bultas.</string>
+  <string name="analysisShapesHowTo">Nospied uz galdiņa shift+kreiso taustiņu vai labo taustiņu lai zīmētu riņķus un bultas.</string>
   <string name="confirmResignationAndDrawOffers">Apstiprināt padošanos un neizšķirta piedāvājumus</string>
   <string name="inputMovesWithTheKeyboard">Ievadīt gājienus ar klaviatūru</string>
   <string name="letOtherPlayersMessageYou">Atļaut citiem spēlētājiem sūtīt tev ziņas</string>
