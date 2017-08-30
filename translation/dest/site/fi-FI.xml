@@ -286,6 +286,7 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">Vahvuuslukusi %s on tilapäinen</string>
   <string name="yourPerfRatingIsTooHigh">%1$s-vahvuuslukusi (%2$s) on liian suuri</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Viikon korkein %1$s-vahvuuslukusi (%2$s) on liian suuri</string>
   <string name="yourPerfRatingIsTooLow">%1$s-vahvuuslukusi (%2$s) ei riitä</string>
   <string name="ratedMoreThanInPerf">%2$s-vahvuusluku ≥ %1$s</string>
   <string name="ratedLessThanInPerf">%2$s-vahvuusluku ≤ %1$s</string>

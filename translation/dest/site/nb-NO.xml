@@ -146,7 +146,7 @@
   <string name="daysPerTurn">Dager per trekk</string>
   <string name="oneDay">Én dag</string>
   <plurals name="nbDays">
-    <item quantity="one">%s dager</item>
+    <item quantity="one">%s dag</item>
     <item quantity="other">%s dager</item>
   </plurals>
   <plurals name="nbHours">
@@ -201,9 +201,9 @@
   <string name="casual">Urangert</string>
   <string name="rated">Rangert</string>
   <string name="thisGameIsRated">Dette partiet er rangert</string>
-  <string name="rematch">Revansj</string>
-  <string name="rematchOfferSent">Tilbud om revansj sendt</string>
-  <string name="rematchOfferAccepted">Tilbud om revansj godtatt</string>
+  <string name="rematch">Omkamp</string>
+  <string name="rematchOfferSent">Tilbud om omkamp sendt</string>
+  <string name="rematchOfferAccepted">Tilbud om omkamp godtatt</string>
   <string name="rematchOfferCanceled">Tilbud om revansj trukket tilbake</string>
   <string name="rematchOfferDeclined">Tilbud om omkamp avslått</string>
   <string name="cancelRematchOffer">Avbryt tilbud om omkamp</string>
@@ -452,11 +452,11 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="thisPuzzleIsCorrect">Dette problemet er riktig og interessant</string>
   <string name="thisPuzzleIsWrong">Dette problemet er feil eller kjedelig</string>
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Du har %s sekunder på deg til å gjøre første trekk!</item>
+    <item quantity="one">Du har %s sekund på deg til å gjøre første trekk!</item>
     <item quantity="other">Du har %s sekunder på deg til å gjøre første trekk!</item>
   </plurals>
   <plurals name="nbGamesInPlay">
-    <item quantity="one">%s partier spilles</item>
+    <item quantity="one">%s parti spilles</item>
     <item quantity="other">%s partier spilles</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Fortsett automatisk til neste parti etter utført trekk</string>

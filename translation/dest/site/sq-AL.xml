@@ -47,7 +47,14 @@
   <string name="requestAComputerAnalysis">Kërko analizë kompjuterike</string>
   <string name="computerAnalysis">Analizë kompjuterike</string>
   <string name="analysis">Analiza</string>
+  <string name="drawn">barazim</string>
+  <string name="unknown">I panjohur</string>
+  <string name="database">Baza e të dhënave</string>
+  <string name="whiteDrawBlack">e bardhë/barazim/e zezë</string>
+  <string name="averageRatingX">mesatare pikë:%s</string>
   <string name="openingExplorer">Studiues i hapjeve</string>
+  <string name="realtimeReplay">kohe reale</string>
+  <string name="byCPL">nga CPL</string>
   <string name="blunders">Gafat</string>
   <string name="mistakes">Gabimet</string>
   <string name="inaccuracies">Pasaktësitë</string>
