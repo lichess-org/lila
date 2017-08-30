@@ -103,6 +103,22 @@
   <string name="mateInOne">Мат у један</string>
   <string name="defeatTheOpponentsKing">Поразите противничког краља</string>
   <string name="mateInOneIntro">Ви сте победник када ваш противник не може да се одбрани од шаха.</string>
+  <string name="attackYourOpponentsKing">Нападните противничког краља
+на начин који се не може одбранити!</string>
+  <string name="mateInOneComplete">Честитамо! Тако се добијају партије!</string>
+  <string name="intermediate">Средње</string>
+  <string name="boardSetup">Намештање табле</string>
+  <string name="howTheGameStarts">Тако почиње партија</string>
+  <string name="boardSetupIntro">Две армије се суочавају, спремне за битку.</string>
+  <string name="thisIsTheInitialPosition">Ово је почетна позиција
+сваке шаховске партије!
+Направите било који потез да наставите.</string>
+  <string name="firstPlaceTheRooks">Прво ставите топове!
+Они иду у ћошкове.</string>
+  <string name="thenPlaceTheKnights">Затим ставите скакаче!
+Они иду поред топова.</string>
+  <string name="placeTheBishops">Ставите ловчеве!
+Они иду поред скакача.</string>
   <string name="boardSetupComplete">Честитамо! Знате да поставите шаховску таблу.</string>
   <string name="enPassantOnlyWorksOnFifthRank">Ан пасан је могућ само
 ако вам је пешак на петом реду.</string>
