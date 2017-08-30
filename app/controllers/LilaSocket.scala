@@ -31,9 +31,9 @@ trait LilaSocket { self: LilaController =>
 
   private def iterateeToFlow(i: IterateeWs): FlowWs = iterateeToSinkAndSource(i) match {
     case (sink, source) => Flow.fromSinkAndSource(sink, source)
-      .watchTermination()((_, f) => f.onComplete {
-        case cause => println(s"WS stream terminated $cause")
-      })
+    // .watchTermination()((_, f) => f.onComplete {
+    //   case cause => println(s"WS stream terminated $cause")
+    // })
   }
 
   private def iterateeToSinkAndSource(i: IterateeWs) = i match {
