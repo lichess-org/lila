@@ -519,7 +519,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="chessClock">Sjakklokke</string>
   <string name="tenthsOfSeconds">Tidels sekund</string>
   <string name="never">Aldri</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">Når det er mindre enn 10 sekund att</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Når det er mindre enn 10 sekundar igjen</string>
   <string name="horizontalGreenProgressBars">Horisontal grøn progresjonsline</string>
   <string name="soundWhenTimeGetsCritical">Lyd når det er kritisk lite tid att</string>
   <string name="gameBehavior">Spelatferd</string>
@@ -547,7 +547,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="always">Alltid</string>
   <string name="inCasualGamesOnly">Berre i parti som ikkje påverkar rating</string>
   <string name="whenPremoving">Ved førehandstrekk</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Når attverande tid &lt; 30 sekund</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Når attverande tid &lt; 30 sekundar</string>
   <string name="difficultyEasy">Enkel</string>
   <string name="difficultyNormal">Middels</string>
   <string name="difficultyHard">Vanskeleg</string>
