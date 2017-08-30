@@ -296,7 +296,7 @@ object Api extends LilaController {
     js(ctx) map toHttp
   }
 
-  private val tooManyRequests = TooManyRequest(jsonError("Try again later"))
+  private val tooManyRequests = TooManyRequests(jsonError("Try again later"))
 
   private def toHttp(result: ApiResult)(implicit ctx: Context): Result = result match {
     case Limited => tooManyRequests

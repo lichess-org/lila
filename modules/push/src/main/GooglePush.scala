@@ -1,7 +1,7 @@
 package lila.push
 
 import play.api.libs.json._
-import old.play.api.libs.ws.WS
+import old.play.Env.WS
 
 private final class GooglePush(
     getDevice: String => Fu[Option[Device]],

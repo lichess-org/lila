@@ -3,7 +3,7 @@ package lila.tv
 import akka.actor._
 import akka.pattern.{ ask, pipe }
 import play.api.libs.json._
-import old.play.api.libs.ws.WS
+import old.play.Env.WS
 
 private final class Streaming(
     system: ActorSystem,

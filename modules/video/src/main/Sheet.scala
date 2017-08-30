@@ -2,7 +2,7 @@ package lila.video
 
 import org.joda.time.DateTime
 import play.api.libs.json._
-import old.play.api.libs.ws.WS
+import old.play.Env.WS
 
 private[video] final class Sheet(
     url: String,

@@ -7,17 +7,6 @@ final class LilaLoader extends ApplicationLoader {
 
   println("LilaLoader")
 
-  // def load(context: ApplicationLoader.Context) = {
-  //   import play.api.inject.guice.GuiceApplicationBuilder
-  //   val application = new GuiceApplicationBuilder(
-  //     environment = context.environment,
-  //     configuration = context.initialConfiguration
-  //   ).build()
-  //   // Env._ref.set(application)
-  //   old.play.Env.start(application)
-  //   application
-  // }
-
   def load(context: ApplicationLoader.Context): Application = {
     LoggerConfigurator(context.environment.classLoader).foreach {
       _.configure(context.environment, context.initialConfiguration, Map.empty)

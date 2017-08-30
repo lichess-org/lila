@@ -148,7 +148,7 @@ object Tournament extends LilaController {
     }
   }
 
-  def join(id: String) = AuthBody(BodyParsers.parse.json) { implicit ctx => implicit me =>
+  def join(id: String) = AuthBody(parse.json) { implicit ctx => implicit me =>
     NoLame {
       val password = ctx.body.body.\("p").asOpt[String]
       negotiate(

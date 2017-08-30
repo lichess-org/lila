@@ -1,7 +1,7 @@
 package lila.plan
 
 import play.api.libs.json._
-import old.play.api.libs.ws.WS
+import old.play.Env.WS
 import play.api.libs.ws.WSResponse
 
 import lila.user.User

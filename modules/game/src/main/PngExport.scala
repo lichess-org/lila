@@ -2,7 +2,7 @@ package lila.game
 
 import akka.stream.scaladsl.{ Source => StreamSource }
 import akka.util.ByteString
-import old.play.api.libs.ws.WS
+import old.play.Env.WS
 
 import chess.format.{ Forsyth, FEN }
 

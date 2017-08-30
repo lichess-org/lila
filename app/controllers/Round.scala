@@ -301,7 +301,7 @@ object Round extends LilaController with TheftPrevention {
     }
   }
 
-  def atom(gameId: String, color: String) = Action.async { implicit req =>
+  def atom(gameId: String, color: String) = old.play.Env.actionBuilder.async { implicit req =>
     GameRepo.pov(gameId, color) flatMap {
       case Some(pov) => GameRepo initialFen pov.game map { initialFen =>
         val pgn = Env.game.pgnDump(pov.game, initialFen, PgnDump.WithFlags(clocks = false))

@@ -22,7 +22,7 @@ final class ESClientHttp(
     val index: Index,
     writeable: Boolean
 ) extends ESClient {
-  import old.play.api.libs.ws.WS
+  import old.play.Env.WS
 
   def store(id: Id, doc: JsObject) = writeable ?? monitor("store") {
     HTTP(s"store/${index.name}/${id.value}", doc)

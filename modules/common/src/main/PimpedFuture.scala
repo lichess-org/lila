@@ -1,6 +1,6 @@
 package lila
 
-import old.play.api.libs.concurrent.Execution.Implicits._
+import old.play.Env.defaultContext
 import scala.concurrent.duration._
 import scala.concurrent.{ Future, ExecutionContext }
 

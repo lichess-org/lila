@@ -1,7 +1,7 @@
 package lila.api
 
 import akka.actor._
-import old.play.api.libs.ws.WS
+import old.play.Env.WS
 
 import lila.hub.actorApi.{ DeployPre, DeployPost }
 

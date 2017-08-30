@@ -1,7 +1,7 @@
 package lila.slack
 
 import play.api.libs.json._
-import old.play.api.libs.ws.WS
+import old.play.Env.WS
 
 import lila.common.PimpedJson._
 

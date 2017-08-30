@@ -1,6 +1,6 @@
 package lila.security
 
-import old.play.api.libs.ws.WS
+import old.play.Env.WS
 
 final class DisposableEmailDomain(
     providerUrl: String,
