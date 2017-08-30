@@ -62,9 +62,9 @@
   <string name="insufficientMaterial">Onvoldoende materiaal</string>
   <string name="pawnMove">Pionzet</string>
   <string name="capture">Slagzet</string>
-  <string name="close">Sluiten</string>
-  <string name="winning">Wint</string>
-  <string name="losing">Verliest</string>
+  <string name="close">Sluit</string>
+  <string name="winning">Winnend</string>
+  <string name="losing">Verloren</string>
   <string name="drawn">Remise</string>
   <string name="unknown">Onbekend</string>
   <string name="database">Databases</string>
