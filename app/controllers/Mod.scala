@@ -135,8 +135,8 @@ object Mod extends LilaController {
     OptionFuOk(UserRepo named username) { user =>
       lila.game.GameRepo.recentPovsByUserFromSecondary(user, 80) flatMap { povs =>
         Env.chat.api.playerChat optionsByOrderedIds povs.map(_.gameId).map(Chat.Id.apply) zip
-          lila.message.ThreadRepo.visibleByUser(user.id, 40).map {
-            _ filter (_ hasPostsWrittenBy user.id) take 9
+          lila.message.ThreadRepo.visibleByUser(user.id, 60).map {
+            _ filter (_ hasPostsWrittenBy user.id) take 30
           } zip
           (Env.shutup.api getPublicLines user.id) zip
           (Env.security userSpy user.id) zip
@@ -145,7 +145,7 @@ object Mod extends LilaController {
             case chats ~ threads ~ publicLines ~ spy ~ notes ~ history =>
               val povWithChats = (povs zip chats) collect {
                 case (p, Some(c)) if c.nonEmpty => p -> c
-              } take 9
+              } take 15
               val filteredNotes = notes.filter(_.from != "irwin")
               html.mod.communication(user, povWithChats, threads, publicLines, spy, filteredNotes, history)
           }
