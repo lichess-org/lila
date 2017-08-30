@@ -1,7 +1,7 @@
+package lila.app
+
 import play.api._
 import play.api.inject.ApplicationLifecycle
-
-import lila.common.LilaComponents
 
 final class LilaLoader extends ApplicationLoader {
 
@@ -13,7 +13,13 @@ final class LilaLoader extends ApplicationLoader {
     }
     val components = new LilaComponents(context, _root_.router.Routes)
     val app = components.application
-    old.play.Env.start(components)
+    old.play.Env.start(old.play.Env.Deps(
+      components.application,
+      components.applicationLifecycle,
+      components.executionContext,
+      components.environment,
+      components.controllerComponents
+    ))
     startKamon(context.lifecycle)
     lila.app.Env.current
     app

@@ -1,14 +1,11 @@
 package old.play
 
 import java.util.concurrent.atomic.{ AtomicReference }
-// import java.util.concurrent.{Executors, ThreadFactory}
-
-import lila.common.LilaComponents
 
 import akka.actor.{ ActorSystem, Scheduler }
 import akka.stream.Materializer
 import play.api._
-import play.api.ApplicationLoader.Context
+import play.api.mvc.ControllerComponents
 import play.api.inject.ApplicationLifecycle
 import play.api.libs.ws.{ WSClient, StandaloneWSClient }
 import play.api.Mode
@@ -21,22 +18,31 @@ import scala.concurrent.ExecutionContext
  */
 object Env {
 
-  private val _ref: AtomicReference[LilaComponents] = new AtomicReference[LilaComponents]()
+  case class Deps(
+      application: Application,
+      lifecycle: ApplicationLifecycle,
+      context: ExecutionContext,
+      environment: Environment,
+      controllerComponents: ControllerComponents
+  )
 
-  def start(components: LilaComponents) = _ref.set(components)
+  private val _ref: AtomicReference[Deps] = new AtomicReference[Deps]()
 
-  lazy val components: LilaComponents = Option(_ref.get()).get
+  def start(deps: Deps) = _ref.set(deps)
 
-  lazy val application: Application = components.application
-  lazy val lifecycle: ApplicationLifecycle = components.applicationLifecycle
-  implicit lazy val defaultContext: ExecutionContext = components.executionContext
+  lazy val deps: Deps = Option(_ref.get()).get
+
+  lazy val application: Application = deps.application
+  lazy val lifecycle: ApplicationLifecycle = deps.lifecycle
+  implicit lazy val defaultContext: ExecutionContext = deps.context
 
   lazy val actorSystem: ActorSystem = application.actorSystem
   lazy val materializer: Materializer = application.materializer
   lazy val configuration: Configuration = application.configuration
   lazy val mode: Mode = application.mode
   lazy val scheduler: Scheduler = actorSystem.scheduler
-  lazy val environment: Environment = components.environment
+  lazy val environment: Environment = deps.environment
+  lazy val controllerComponents = deps.controllerComponents
 
   lazy val WS: WSClient = {
     import play.api.libs.ws.ahc.{ AsyncHttpClientProvider, AhcWSClientProvider }
@@ -54,7 +60,7 @@ object Env {
   }
 
   import play.api.mvc.{ ActionBuilder, Request, AnyContent }
-  lazy val actionBuilder: ActionBuilder[Request, AnyContent] = components.controllerComponents.actionBuilder
+  lazy val actionBuilder: ActionBuilder[Request, AnyContent] = controllerComponents.actionBuilder
 
   lazy val standaloneWSClient: StandaloneWSClient = new StandaloneWSClient {
     def underlying[T] = WS.asInstanceOf[T]

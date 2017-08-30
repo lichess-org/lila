@@ -23,7 +23,7 @@ private[controllers] trait LilaController
   with ResponseWriter
   with LilaSocket {
 
-  protected def controllerComponents = old.play.Env.components.controllerComponents
+  protected def controllerComponents = old.play.Env.controllerComponents
 
   protected val controllerLogger = lila.log("controller")
 

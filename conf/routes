@@ -528,7 +528,6 @@ GET   /help/stream-on-lichess          controllers.Page.streamHowTo
 
 POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id)
 
-# Assets
 GET   /glyphs                          controllers.Main.glyphs
 
 GET   /robots.txt                      controllers.Main.robots
