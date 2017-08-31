@@ -508,10 +508,10 @@
   <string name="currentPassword">Mot de passe actuel</string>
   <string name="newPassword">Nouveau mot de passe</string>
   <string name="newPasswordAgain">Nouveau mot de passe (encore)</string>
-  <string name="boardHighlights">Surligner les cases (dernier coup et échec)</string>
+  <string name="boardHighlights">Mettre en évidence les cases (dernier coup et échec)</string>
   <string name="pieceDestinations">Cases de destination (coups et pré-coups légaux)</string>
   <string name="boardCoordinates">Coordonnées (a-h, 1-8)</string>
-  <string name="moveListWhilePlaying">Notation des coups durant la partie</string>
+  <string name="moveListWhilePlaying">Liste des coups durant la partie</string>
   <string name="pgnPieceNotation">Notation des coups</string>
   <string name="chessPieceSymbol">Figurine de la pièce</string>
   <string name="pgnLetter">Lettre de la pièce (K, Q, R, B, N)</string>
@@ -551,7 +551,7 @@
   <string name="difficultyNormal">Normal</string>
   <string name="difficultyHard">Difficile</string>
   <string name="xLeftANoteOnY">%1$s a laissé une note sur %2$s</string>
-  <string name="xCompetesInY">%1$s joue à %2$s</string>
+  <string name="xCompetesInY">%1$s participe à %2$s</string>
   <string name="xAskedY">%1$s a demandé %2$s</string>
   <string name="xAnsweredY">%1$s a répondu à %2$s</string>
   <string name="xCommentedY">%1$s a commenté %2$s</string>
@@ -561,12 +561,12 @@
 en %3$s</string>
   <string name="timeline">Activité</string>
   <string name="seeAllTournaments">Voir tous les tournois</string>
-  <string name="starting">Démarrage :</string>
+  <string name="starting">Début :</string>
   <string name="allInformationIsPublicAndOptional">Toutes les informations sont publiques et facultatives.</string>
   <string name="yourCityRegionOrDepartment">Votre ville, région ou département.</string>
   <string name="biographyDescription">Parlez de vous, de ce que vous aimez dans les échecs, vos ouvertures préférées, vos parties, vos joueurs, …</string>
   <plurals name="maximumNbCharacters">
-    <item quantity="one">Maximum : %s caractères.</item>
+    <item quantity="one">Maximum : %s caractère.</item>
     <item quantity="other">Maximum : %s caractères.</item>
   </plurals>
   <plurals name="blocks">
@@ -582,7 +582,7 @@ en %3$s</string>
   <string name="noInternetConnection">Pas de connexion à Internet. Vous pouvez cependant jouer hors ligne à partir du menu.</string>
   <string name="connectedToLichess">Vous êtes maintenant connecté à lichess.org</string>
   <string name="signedOut">Vous vous êtes déconnecté</string>
-  <string name="loginSuccessful">Connexion réussie</string>
+  <string name="loginSuccessful">Vous êtes connecté</string>
   <string name="playOnTheBoardOffline">Jouer hors ligne, avec un ami</string>
   <string name="playOfflineComputer">Jouer hors ligne, avec l\'ordinateur</string>
   <string name="opponent">Adversaire</string>
