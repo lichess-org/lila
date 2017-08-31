@@ -429,9 +429,13 @@
   <string name="horizontalGreenProgressBars">녹색 수평 진행 바</string>
   <string name="soundWhenTimeGetsCritical">시간이 위태로울 때 소리 재생</string>
   <string name="gameBehavior">동작</string>
+  <string name="clickTwoSquares">현재 위치와 원하는 위치에 클릭하기</string>
+  <string name="dragPiece">드래그</string>
+  <string name="bothClicksAndDrag">아무 방법으로</string>
   <string name="premovesPlayingDuringOpponentTurn">미리두기 (상대 턴일 때)</string>
   <string name="takebacksWithOpponentApproval">무르기 (상대 승인과 함께)</string>
   <string name="promoteToQueenAutomatically">퀸으로 자동 승급</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">세 번 반복하면 자동으로 무승부 요청</string>
   <string name="privacy">보안</string>
   <string name="letOtherPlayersFollowYou">다른 사람이 팔로우할 수 있게 함</string>
   <string name="letOtherPlayersChallengeYou">다른 사람이 나에게 도전할 수 있게 함</string>
@@ -457,11 +461,15 @@
   <string name="xAnsweredY">%1$s가 답변을 남겼습니다: %2$s</string>
   <string name="xCommentedY">%1$s가 댓글을 남겼습니다: %2$s</string>
   <string name="victory">승리!</string>
+  <string name="defeat">패배</string>
+  <string name="xVsYinZ">%3$s에서
+%1$s 대 %2$s</string>
   <string name="timeline">타임라인</string>
   <string name="seeAllTournaments">모든 토너먼트 보기</string>
   <string name="starting">시작합니다:</string>
   <string name="allInformationIsPublicAndOptional">모든 정보는 공개되며 선택 사항입니다.</string>
   <string name="yourCityRegionOrDepartment">시도급 또는 시군구급.</string>
+  <string name="biographyDescription">자신을 알려주세요. 왜 체스를 좋아하는지, 좋아하는 오프닝, 게임, 선수 등등...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="other">최대 %s자.</item>
   </plurals>
@@ -481,6 +489,7 @@
   <string name="playOnTheBoardOffline">오프라인, 로컬 게임</string>
   <string name="playOfflineComputer">오프라인 컴퓨터와 대국하기</string>
   <string name="opponent">상대</string>
+  <string name="learnMenu">배우기</string>
   <string name="community">커뮤니티</string>
   <string name="tools">도구</string>
   <string name="increment">시간 증가</string>
@@ -493,6 +502,7 @@
   <string name="error.email">이메일 주소가 유효하지 않습니다.</string>
   <string name="error.email_acceptable">이 이메일 주소는 받을 수 없습니다.</string>
   <string name="error.email_unique">이미 사용 중인 이메일 주소입니다.</string>
+  <string name="error.email_different">이미 등록된 이메일 주소입니다.</string>
   <string name="blindfoldChess">눈을 가리고 체스</string>
   <string name="moveConfirmation">피스를 움직이기 전에 물음</string>
   <string name="inCorrespondenceGames">긴 대국에서만</string>
