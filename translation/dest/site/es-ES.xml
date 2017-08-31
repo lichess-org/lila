@@ -684,7 +684,7 @@
   <string name="downloadRaw">Descarga la partida simple</string>
   <string name="downloadImported">Descargar la partida importada</string>
   <string name="printFriendlyPDF">Imprimir en formato PDF simple</string>
-  <string name="crosstable">Tabla volteada</string>
+  <string name="crosstable">Tablas cruzadas</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Puedes usar la rueda del ratón para desplazarte por la partida.</string>
   <string name="analysisShapesHowTo">Presiona mayúsculas o clic derecho del ratón para marcar círculos y flechas en el tablero.</string>
   <string name="confirmResignationAndDrawOffers">Confirmar resignación y ofertas de tablas</string>
