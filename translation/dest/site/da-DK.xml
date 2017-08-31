@@ -77,9 +77,14 @@
     <item quantity="one">Mat i %s halv-træk</item>
     <item quantity="other">Mat i %s halv-træk</item>
   </plurals>
+  <string name="noGameFound">Ingen spil fundet</string>
   <string name="openingExplorer">Åbning Opdagelse</string>
   <string name="delete">Slet</string>
   <string name="deleteThisImportedGame">Slet dette importerede spil?</string>
+  <string name="enable">Aktiver</string>
+  <string name="bestMoveArrow">Bedste træk pil</string>
+  <string name="multipleLines">Flere linjer</string>
+  <string name="cpus">CPU\'er</string>
   <string name="blunders">Brølere</string>
   <string name="mistakes">Fejl</string>
   <string name="inaccuracies">Unøjagtigheder</string>
