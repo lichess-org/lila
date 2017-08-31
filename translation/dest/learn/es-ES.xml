@@ -11,7 +11,7 @@
   <string name="chessPieces">Las piezas de ajedrez</string>
   <string name="theRook">La torre</string>
   <string name="itMovesInStraightLines">Se mueve en línea recta</string>
-  <string name="rookIntro">La torre es una pieza poderosa. ¿Estás listo para dirigirla?</string>
+  <string name="rookIntro">La Torre es una pieza poderosa. ¿Estás listo para dirigirla?</string>
   <string name="rookGoal">¡Haz clic en la torre para llevarla hasta la estrella!</string>
   <string name="grabAllTheStars">¡Captura todas las estrellas!</string>
   <string name="theFewerMoves">¡Cuantos menos movimientos hagas, más puntos ganas!</string>
@@ -34,7 +34,7 @@
   <string name="kingComplete">¡Ya puedes dar órdenes al comandante!</string>
   <string name="theKnight">El caballo</string>
   <string name="itMovesInAnLShape">Se mueve en forma de L</string>
-  <string name="knightIntro">A ver cómo se te da éste. El caballo es... una pieza complicada.</string>
+  <string name="knightIntro">A ver cómo se te da éste. El Caballo es... una pieza complicada.</string>
   <string name="knightsHaveAFancyWay">¡Los caballos tienen una forma curiosa de saltar!</string>
   <string name="knightsCanJumpOverObstacles">¡Los caballos pueden saltar obstáculos! ¡Escapa y captura las estrellas!</string>
   <string name="knightComplete">¡Felicidades! Dominas el movimiento del caballo.</string>
