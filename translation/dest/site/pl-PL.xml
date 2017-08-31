@@ -89,7 +89,7 @@
   <string name="xOpeningExplorer">Przeszukiwanie biblioteki otwarć %s</string>
   <string name="winPreventedBy50MoveRule">Zwycięstwo przez regułę 50 ruchów</string>
   <string name="lossSavedBy50MoveRule">Przegrana przez regułę 50 ruchów</string>
-  <string name="allSet">Wszystko gotowe!</string>
+  <string name="allSet">Gotowe!</string>
   <string name="importPgn">Importuj PGN</string>
   <string name="delete">Usuń</string>
   <string name="deleteThisImportedGame">Czy usunąć tę partię?</string>
