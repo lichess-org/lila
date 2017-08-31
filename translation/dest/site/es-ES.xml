@@ -65,7 +65,7 @@
   <string name="close">Cerrar</string>
   <string name="winning">Ganador</string>
   <string name="losing">Perdedor</string>
-  <string name="drawn">Resulta en tablas</string>
+  <string name="drawn">Resultó empate</string>
   <string name="unknown">Desconocido</string>
   <string name="database">Base de datos</string>
   <string name="whiteDrawBlack">Blancas / Tablas / Negras</string>
@@ -382,7 +382,7 @@
   <string name="tournamentIsStarting">El torneo va a empezar</string>
   <string name="tournamentPairingsAreNowClosed">Los emparejamientos del torneo están cerrados.</string>
   <string name="standByX">Espera %s, emparejando jugadores, ¡prepárate!</string>
-  <string name="youArePlaying">¡Está jugando!</string>
+  <string name="youArePlaying">¡Estás jugando!</string>
   <string name="winRate">Tasa de victorias</string>
   <string name="berserkRate">Tasa de berserk</string>
   <string name="performance">Rendimiento</string>
@@ -685,11 +685,11 @@
   <string name="downloadImported">Descargar la partida importada</string>
   <string name="printFriendlyPDF">Imprimir en formato PDF simple</string>
   <string name="crosstable">Tabla volteada</string>
-  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">También puedes usar la rueda del mouse para moverte en la partida.</string>
-  <string name="analysisShapesHowTo">Presiona Mayús+clic o clic derecho para dibujar círculos y flechas en el tablero.</string>
-  <string name="confirmResignationAndDrawOffers">Confirmar abandono y ofertas de tablas</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Puedes usar la rueda del ratón para desplazarte por la partida.</string>
+  <string name="analysisShapesHowTo">Presiona mayúsculas o clic derecho del ratón para marcar círculos y flechas en el tablero.</string>
+  <string name="confirmResignationAndDrawOffers">Confirmar resignación y ofertas de tablas</string>
   <string name="inputMovesWithTheKeyboard">Entrada de movimientos con el teclado</string>
-  <string name="letOtherPlayersMessageYou">Deja que otras personas te envíen un mensaje</string>
+  <string name="letOtherPlayersMessageYou">Permitir que otras personas te envíen un mensaje</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Método de enroque</string>
   <string name="castleByMovingTwoSquares">Moviendo el rey dos casillas</string>
   <string name="castleByMovingOntoTheRook">Moviendo el rey hasta la torre</string>
@@ -705,9 +705,9 @@
   <string name="disableKidMode">Desactivar el modo infantil</string>
   <string name="security">Seguridad</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Esta es una lista de dispositivos desde los que ha iniciado sesión. Cierre todas las sesiones que no reconozca.</string>
-  <string name="alternativelyYouCanX">O también puede %s.</string>
+  <string name="alternativelyYouCanX">O también puedes %s.</string>
   <string name="revokeAllSessions">cerrar todas las sesiones</string>
-  <string name="playChessEverywhere">Juega ajedrez donde sea</string>
+  <string name="playChessEverywhere">Jugar ajedrez donde sea</string>
   <string name="asFreeAsLichess">Tan gratuito como lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Construido por amor al ajedrez, no por dinero</string>
   <string name="everybodyGetsAllFeaturesForFree">Todos tienen acceso gratuito a todas las opciones</string>
