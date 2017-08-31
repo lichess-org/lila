@@ -61,6 +61,9 @@
   <string name="variantWin">변형 체스에서 승리</string>
   <string name="insufficientMaterial">말이 부족하여 무승부입니다.</string>
   <string name="pawnMove">폰 이동</string>
+  <string name="whiteDrawBlack">백 : 무승부 : 흑</string>
+  <string name="averageRatingX">평균 레이팅: %s</string>
+  <string name="recentGames">최근 게임</string>
   <string name="openingExplorer">오프닝 탐색기</string>
   <string name="blunders">치명적 실수</string>
   <string name="mistakes">실수</string>
@@ -573,6 +576,10 @@
     <item quantity="other">%s개의 언어 지원!</item>
   </plurals>
   <string name="gameAnalysis">게임 분석기</string>
+  <string name="xHostsY">%2$s가 %1$s를 시작했습니다.</string>
+  <string name="xJoinsY">%2$s가 %1$s에 참여했습니다.</string>
+  <string name="xLikesY">%2$s가 %1$s를 좋아합니다.</string>
+  <string name="quickPairing">빠른 상대 찾기</string>
   <string name="lobby">로비</string>
   <string name="anonymous">익명 플레이어</string>
   <string name="yourScore">당신의 점수는 %s입니다.</string>
@@ -582,6 +589,7 @@
   <string name="dark">어둡게</string>
   <string name="transparent">투명하게</string>
   <string name="backgroundImageUrl">배경 이미지 URL:</string>
+  <string name="boardGeometry">보드 모양</string>
   <string name="boardTheme">보드 테마</string>
   <string name="boardSize">보드 크기</string>
   <string name="pieceSet">조각 세트</string>
@@ -598,4 +606,11 @@
   <string name="invalidFen">잘못된 FEN입니다.</string>
   <string name="error.minLength">최소 길이는 %s입니다.</string>
   <string name="error.maxLength">최대 길이는 %s입니다.</string>
+  <string name="error.min">크기가 최소 %s이여야합니다.</string>
+  <string name="error.max">크기가 최대 %s이여야합니다.</string>
+  <string name="error.unknown">오류</string>
+  <string name="custom">사용자 지정</string>
+  <string name="notifications">알림</string>
+  <string name="challenges">도전</string>
+  <string name="perfRatingX">레이팅: %s</string>
 </resources>
