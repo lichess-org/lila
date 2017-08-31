@@ -124,7 +124,7 @@ Jednak czasem bardziej przydatny może być skoczek!</string>
   <string name="theSpecialPawnMove">Specjalny ruch piona</string>
   <string name="enPassantIntro">Kiedy pion przeciwnika poruszył się o dwa pola do przodu, możesz zbić go tak jakby poruszył się tylko o jedno pole.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Czarne właśnie ruszyły się pionem o dwa pola do przodu! Zbij go biciem w przelocie.</string>
-  <string name="enPassantOnlyWorksImmediately">Bicie w przelocie działa tylko od razu po ruchu przeciwnika pionkiem.</string>
+  <string name="enPassantOnlyWorksImmediately">Bicie w przelocie działa tylko od razu po ruchu przeciwnika pionem.</string>
   <string name="enPassantOnlyWorksOnFifthRank">Bicie w przelocie działa tylko wtedy gdy pion jest na 5 linii.</string>
   <string name="takeAllThePawnsEnPassant">Zbij wszystkie piony biciem w przelocie!</string>
   <string name="enPassantComplete">Gratulacje! Potrafisz teraz wykonać bicie w przelocie.</string>
