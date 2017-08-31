@@ -595,10 +595,10 @@ en %3$s</string>
   <string name="playOffline">Jouer hors ligne</string>
   <string name="allowAnalytics">Autoriser l\'envoi de statistiques anonymes</string>
   <string name="shareGameURL">Partager l\'URL de la partie</string>
-  <string name="error.required">Ce champ est requis</string>
-  <string name="error.email">Cette adresse courriel est invalide</string>
-  <string name="error.email_acceptable">Cette adresse courriel jetable n\'est pas autorisée</string>
-  <string name="error.email_unique">Cette adresse courriel est déjà utilisée</string>
+  <string name="error.required">Ce champ est obligatoire</string>
+  <string name="error.email">Cette adresse email est invalide</string>
+  <string name="error.email_acceptable">Cette adresse email n\'est pas acceptable</string>
+  <string name="error.email_unique">Cette adresse email est déjà utilisée</string>
   <string name="error.email_different">C’est déjà votre adresse e-mail</string>
   <string name="blindfoldChess">Échecs à l\'aveugle (pièces invisibles)</string>
   <string name="zenMode">Mode Zen</string>
