@@ -396,7 +396,7 @@
   <string name="averageOpponent">Opposition moyenne</string>
   <string name="membersOnly">Membres seulement</string>
   <string name="boardEditor">Éditeur de partie</string>
-  <string name="setTheBoard">Placer une position</string>
+  <string name="setTheBoard">Entrer une position</string>
   <string name="popularOpenings">Ouvertures courantes</string>
   <string name="startPosition">Position de départ</string>
   <string name="clearBoard">Vider l\'échiquier</string>
@@ -436,11 +436,11 @@
   <string name="keepGoing">Continuez…</string>
   <string name="puzzleFailed">Problème raté</string>
   <string name="butYouCanKeepTrying">Mais vous pouvez réessayer.</string>
-  <string name="success">Succès</string>
+  <string name="success">Réussi</string>
   <string name="wasThisPuzzleAnyGood">Ce problème était-il intéressant  ?</string>
   <string name="pleaseVotePuzzle">Aidez Lichess à s\'améliorer en votant grâce aux flèches :</string>
   <string name="thankYou">Merci !</string>
-  <string name="ratingX">Classement : %s</string>
+  <string name="ratingX">Cote : %s</string>
   <plurals name="playedXTimes">
     <item quantity="one">Joué %s fois</item>
     <item quantity="other">Joué %s fois</item>
@@ -460,7 +460,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Aller automatiquement à la prochaine partie après chaque coup</string>
   <string name="autoSwitch">Changement automatique</string>
-  <string name="puzzles">Problèmes d\'échecs</string>
+  <string name="puzzles">Problèmes</string>
   <string name="latestUpdates">Dernières mises à jour</string>
   <string name="tournamentWinners">Vainqueurs de tournois</string>
   <string name="name">Nom</string>
