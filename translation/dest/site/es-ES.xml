@@ -729,7 +729,7 @@
   <string name="xJoinsY">%1$s se une a %2$s</string>
   <string name="xLikesY">a %1$s le gusta %2$s</string>
   <string name="quickPairing">Emparejamiento rápido</string>
-  <string name="lobby">Vestíbulo</string>
+  <string name="lobby">Sala de espera</string>
   <string name="anonymous">Anónimo</string>
   <string name="yourScore">Tu puntuación: %s</string>
   <string name="language">Idioma</string>
