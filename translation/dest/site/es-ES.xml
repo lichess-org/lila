@@ -277,11 +277,11 @@
     <item quantity="other">≥ %1$s %2%s partidas por puntos</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Te falta jugar %1$s partidas %2$s puntuadas</item>
-    <item quantity="other">Necesitas jugar %1$s más %2$s partidas puntuadas</item>
+    <item quantity="one">Necesitas jugar %1$s partida %2$s puntuada</item>
+    <item quantity="other">Necesitas jugar %1$s partidas %2$s puntuadas</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">Te falta jugar %s partida puntuada</item>
+    <item quantity="one">Necesitas jugar %s partida puntuada</item>
     <item quantity="other">Te falta jugar %s partidas puntuadas</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Tu puntuación de %s aún no es definitiva</string>
@@ -478,7 +478,7 @@
   <string name="reply">Responder</string>
   <string name="message">Mensaje</string>
   <string name="createTheTopic">Crear tema</string>
-  <string name="reportAUser">Denunciar a un usuario</string>
+  <string name="reportAUser">Reportar al usuario</string>
   <string name="user">Usuario</string>
   <string name="reason">Motivo</string>
   <string name="whatIsIheMatter">¿Qué ocurre?</string>
@@ -583,7 +583,7 @@
   <string name="signedOut">Has cerrado la sesión</string>
   <string name="loginSuccessful">Conectado</string>
   <string name="playOnTheBoardOffline">Jugar sin conexión</string>
-  <string name="playOfflineComputer">Jugar vs CPU sin conexión</string>
+  <string name="playOfflineComputer">Jugar contra la computadora</string>
   <string name="opponent">Oponente</string>
   <string name="learnMenu">Aprender</string>
   <string name="community">Comunidad</string>
@@ -761,5 +761,5 @@
   <string name="custom">Personalizado</string>
   <string name="notifications">Notificaciones</string>
   <string name="challenges">Desafíos</string>
-  <string name="perfRatingX">Puntuación: %s</string>
+  <string name="perfRatingX">Clasificación: %s</string>
 </resources>
