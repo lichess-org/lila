@@ -284,7 +284,7 @@
     <item quantity="one">Necesitas jugar %s partida puntuada</item>
     <item quantity="other">Te falta jugar %s partidas puntuadas</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Tu puntuación de %s aún no es definitiva</string>
+  <string name="yourPerfRatingIsProvisional">Tu puntuación de %s es provisional</string>
   <string name="yourPerfRatingIsTooHigh">Tu puntuación de %1$s (%2$s) es muy alta</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Tu máxima puntación semanal de %1$s (%2$s) es muy alta</string>
   <string name="yourPerfRatingIsTooLow">Tu puntuación de %1$s (%2$s) es muy baja</string>
