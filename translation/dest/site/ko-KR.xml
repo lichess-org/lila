@@ -64,6 +64,12 @@
   <string name="whiteDrawBlack">백 : 무승부 : 흑</string>
   <string name="averageRatingX">평균 레이팅: %s</string>
   <string name="recentGames">최근 게임</string>
+  <string name="masterDbExplanation">%2$s년과 %3$s년 사이 FIDE 레이팅이 최소 %1$s였던 선수들의 기보가 약 2백만개 있습니다.</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="other">%s반수만에 체크메이트</item>
+  </plurals>
+  <string name="noGameFound">게임을 찾을 수 없습니다.</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">설정에서 더 많은 게임을 포함하세요.</string>
   <string name="openingExplorer">오프닝 탐색기</string>
   <string name="blunders">치명적 실수</string>
   <string name="mistakes">실수</string>
