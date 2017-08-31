@@ -460,7 +460,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Proceder automáticamente a la siguiente partida en juego después de mi movimiento</string>
   <string name="autoSwitch">Cambio automático</string>
-  <string name="puzzles">Problemas</string>
+  <string name="puzzles">Ejercicios</string>
   <string name="latestUpdates">Últimas actualizaciones</string>
   <string name="tournamentWinners">Ganadores del torneo</string>
   <string name="name">Nombre</string>
@@ -709,7 +709,7 @@
   <string name="revokeAllSessions">cerrar todas las sesiones</string>
   <string name="playChessEverywhere">Juega ajedrez donde sea</string>
   <string name="asFreeAsLichess">Tan gratuito como lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Construido por amor al ajedrez, no al dinero</string>
+  <string name="builtForTheLoveOfChessNotMoney">Construido por amor al ajedrez, no por dinero</string>
   <string name="everybodyGetsAllFeaturesForFree">Todos tienen acceso gratuito a todas las opciones</string>
   <string name="zeroAdvertisement">Sin anuncios</string>
   <string name="fullFeatured">Todas las funciones</string>
