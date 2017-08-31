@@ -85,6 +85,9 @@
   <string name="bestMoveArrow">Bedste træk pil</string>
   <string name="multipleLines">Flere linjer</string>
   <string name="cpus">CPU\'er</string>
+  <string name="memory">Hukommelse</string>
+  <string name="infiniteAnalysis">Uendelig analyse</string>
+  <string name="removesTheDepthLimit">Fjerner dybdegrænsen, og holder din computer varm</string>
   <string name="blunders">Brølere</string>
   <string name="mistakes">Fejl</string>
   <string name="inaccuracies">Unøjagtigheder</string>
@@ -149,6 +152,8 @@
   <string name="passwordReset">Nulstil adgangskode</string>
   <string name="forgotPassword">Glemt adgangskode?</string>
   <string name="rank">Rang</string>
+  <string name="rankX">Rang: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Rang opdateres hvert %s minut</string>
   <string name="gamesPlayed">Antal partier spillet</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s partier med dig</item>
@@ -187,6 +192,7 @@
   <string name="play">Spil</string>
   <string name="inbox">Indbakke</string>
   <string name="chatRoom">Chatrum</string>
+  <string name="loginToChat">Log ind for at chatte</string>
   <string name="spectatorRoom">Tilskuerrum</string>
   <string name="composeMessage">Skriv besked</string>
   <string name="noNewMessages">Ingen nye beskeder</string>
@@ -214,6 +220,7 @@
     <item quantity="one">Giv %s sekunder</item>
     <item quantity="other">Giv %s sekunder</item>
   </plurals>
+  <string name="giveMoreTime">Give mere tid</string>
   <string name="thisPlayerUsesChessComputerAssistance">Denne spiller bruger skakcomputerassistance</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Denne spiller forøger eller sænker sin rating kunstigt</string>
   <string name="takeback">Omtræk</string>
@@ -231,6 +238,7 @@
   <string name="tournamentPoints">Turneringspoint</string>
   <string name="viewTournament">Se turneringen</string>
   <string name="backToTournament">Tilbage til turneringen</string>
+  <string name="thematic">Tematisk</string>
   <string name="backToGame">Vend tilbage til spil</string>
   <string name="siteDescription">Gratis online skakspil. Spil skak med det samme i et rent design. Ingen registrering, ingen reklamer, ingen plugins nødvendige. Spil skak mod computeren, venner eller tilfældige modstandere.</string>
   <string name="teams">Hold</string>
