@@ -275,24 +275,24 @@
   <string name="findFriends">친구 찾기</string>
   <string name="follow">팔로우</string>
   <string name="following">팔로잉</string>
-  <string name="unfollow">언팔로우</string>
+  <string name="unfollow">팔로우 취소</string>
   <string name="block">차단</string>
   <string name="blocked">차단됨</string>
   <string name="unblock">차단 해제</string>
   <string name="followsYou">팔로워</string>
   <string name="xStartedFollowingY">%1$s(이)가 %2$s(을)를 팔로우했습니다</string>
   <plurals name="nbFollowers">
-    <item quantity="other">%s 팔로워</item>
+    <item quantity="other">팔로워 %s명</item>
   </plurals>
   <plurals name="nbFollowing">
-    <item quantity="other">%s 팔로잉</item>
+    <item quantity="other">팔로잉 %s명</item>
   </plurals>
   <string name="more">더보기</string>
   <string name="memberSince">가입 시기:</string>
   <string name="lastSeenActive">최근 로그인: %s</string>
   <string name="challengeToPlay">도전하기</string>
   <string name="player">플레이어</string>
-  <string name="list">리스트</string>
+  <string name="list">목록</string>
   <string name="graph">그래프</string>
   <plurals name="lessThanNbMinutes">
     <item quantity="other">%s분 미만</item>
@@ -303,7 +303,7 @@
   <string name="winner">승자</string>
   <string name="standing">순위</string>
   <string name="createANewTournament">새 토너먼트 생성</string>
-  <string name="join">참가</string>
+  <string name="join">참가하기</string>
   <string name="withdraw">중단</string>
   <string name="points">포인트</string>
   <string name="wins">승리</string>
@@ -311,6 +311,8 @@
   <string name="winStreak">연속 승리</string>
   <string name="createdBy">토너먼트 주최자:</string>
   <string name="tournamentIsStarting">토너먼트가 곧 시작됩니다</string>
+  <string name="nextXTournament">다음 %s 대회:</string>
+  <string name="viewMoreTournaments">더 많은 대회 보기</string>
   <string name="membersOnly">회원 전용</string>
   <string name="boardEditor">보드 편집기</string>
   <string name="startPosition">원래대로</string>
@@ -319,6 +321,8 @@
   <string name="loadPosition">포지션 불러오기</string>
   <string name="isPrivate">비공개</string>
   <string name="reportXToModerators">%s 신고</string>
+  <string name="profileCompletion">프로필 완성도: %s</string>
+  <string name="xRating">레이팅: %s</string>
   <string name="ifNoneLeaveEmpty">없으면 무시하세요</string>
   <string name="profile">프로필</string>
   <string name="editProfile">프로필 수정</string>
@@ -566,6 +570,9 @@
   <string name="tournamentMayHaveBeenCanceled">모든 플레이어가 퇴장하여 취소된 게임일 수 있습니다.</string>
   <string name="returnToTournamentsHomepage">토너먼트 홈으로 돌아가기</string>
   <string name="weeklyPerfTypeRatingDistribution">주간 %s 레이팅 분포</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="other">이번 주에 %2$s 사용자는 %1$s명입니다.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">당신의 %1$s 레이팅은 %2$s입니다.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">당신은 상위 %1$s 의 %2$s 성적을 기록했습니다.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">아직 확정된 %s 레이팅을 갖지 않으셨습니다.</string>
@@ -589,6 +596,7 @@
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">캐슬링 방법</string>
   <string name="castleByMovingTwoSquares">왕을 2칸 옮기기</string>
   <string name="shareYourInsightsData">당신의 게임 분석 결과를 공유합니다.</string>
+  <string name="withNobody">나만 보기</string>
   <string name="withFriends">친구들만</string>
   <string name="withEverybody">공개</string>
   <string name="youHaveAlreadyRegisteredTheEmail">이 계정은 이미 해당 주소로 연결 되어 있습니다: %s</string>
