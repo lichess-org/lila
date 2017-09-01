@@ -119,7 +119,24 @@
 Они иду поред топова.</string>
   <string name="placeTheBishops">Ставите ловчеве!
 Они иду поред скакача.</string>
+  <string name="placeTheQueen">Ставите краљицу!
+Она иде на њену боју.</string>
+  <string name="placeTheKing">Ставите краља!
+Одмах поред његове краљице.</string>
+  <string name="pawnsFormTheFrontLine">Пешаци формирају предњу линију.
+Направите било који потез да наставите.</string>
   <string name="boardSetupComplete">Честитамо! Знате да поставите шаховску таблу.</string>
+  <string name="castling">Рокада</string>
+  <string name="theSpecialKingMove">Специјалан краљев потез</string>
+  <string name="castlingIntro">Доведите краља у сигурност, и доведите топа да напада!</string>
+  <string name="castleKingSide">Померите краља за два поља
+да урадите малу рокаду!</string>
+  <string name="castleQueenSide">Померите краља за два поља
+да урадите велику рокаду!</string>
+  <string name="theKnightIsInTheWay">Скакач је на путу!
+Померите га, и онда направите малу рокаду.</string>
+  <string name="castleKingSideMovePiecesFirst">Направите малу рокаду!
+Прво морате развити фигуре.</string>
   <string name="enPassantOnlyWorksOnFifthRank">Ан пасан је могућ само
 ако вам је пешак на петом реду.</string>
   <string name="checkInTwoIntro">Пронађите најбољу комбинацију два потеза којом шахирате противниковог краља!</string>
