@@ -14,4 +14,15 @@
   <string name="rookComplete">축하드립니다! 루크를 성공적으로 마스터하셨습니다.</string>
   <string name="theBishop">비숍</string>
   <string name="itMovesDiagonally">대각선으로 움직입니다.</string>
+  <string name="bishopIntro">비숍을 어떻게 옮기는지 배워볼까요?</string>
+  <string name="enPassant">앙 파상</string>
+  <string name="awesome">좋아요!</string>
+  <string name="excellent">멋져요!</string>
+  <string name="greatJob">잘 하셨어요!</string>
+  <string name="perfect">완벽해요!</string>
+  <string name="outstanding">대단해요!</string>
+  <string name="wayToGo">그렇죠!</string>
+  <string name="yesYesYes">맞아요!</string>
+  <string name="youreGoodAtThis">잘 하시네요!</string>
+  <string name="nailedIt">바로 그거에요.</string>
 </resources>
