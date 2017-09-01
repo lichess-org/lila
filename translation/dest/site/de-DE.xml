@@ -288,8 +288,8 @@
   <string name="yourPerfRatingIsTooHigh">Deine %1$s Wertung (%2$s) ist zu hoch</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Deine beste wöchentliche %1$s Wertung (%2$s) ist zu hoch</string>
   <string name="yourPerfRatingIsTooLow">Deine %1$s Wertung (%2$s) ist zu niedrig</string>
-  <string name="ratedMoreThanInPerf">Wertungszahl ≥ %1$s in %2$s</string>
-  <string name="ratedLessThanInPerf">Wertungszahl ≤ %1$s in %2$s</string>
+  <string name="ratedMoreThanInPerf">Wertung ≥ %1$s in %2$s</string>
+  <string name="ratedLessThanInPerf">Wertung ≤ %1$s in %2$s</string>
   <string name="backToGame">Zurück zum Spiel</string>
   <string name="siteDescription">Kostenloses Online-Schach. Spiele jetzt in einer einladenden Umgebung Schach! Keine Werbung, keine Registrierung oder Plugins erforderlich. Spiele gegen den Computer, Freunde oder zufällige Gegner!</string>
   <string name="teams">Teams</string>
@@ -510,7 +510,7 @@
   <string name="newPasswordAgain">Neues Passwort (wiederholen)</string>
   <string name="boardHighlights">Markierungen auf dem Brett (letzter Zug und Schach)</string>
   <string name="pieceDestinations">Zielfelder markieren (gültige Züge und Vorauszüge)</string>
-  <string name="boardCoordinates">Koordinaten (A-H, 1-8)</string>
+  <string name="boardCoordinates">Brettkoordinaten (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Notation während des Spiels anzeigen</string>
   <string name="pgnPieceNotation">Figurendarstellung in der PGN-Notation</string>
   <string name="chessPieceSymbol">Schachfigurensymbol</string>
@@ -600,7 +600,7 @@
   <string name="error.email_unique">Diese E-Mail-Adresse ist schon vergeben</string>
   <string name="error.email_different">Dies ist bereits deine E-Mail Adresse</string>
   <string name="blindfoldChess">Blindschach (unsichtbare Figuren)</string>
-  <string name="zenMode">Zenmodus</string>
+  <string name="zenMode">Zen-Modus</string>
   <string name="moveConfirmation">Zugbestätigung</string>
   <string name="inCorrespondenceGames">Im Fernschach</string>
   <string name="ifRatingIsPlusMinusX">Nur, wenn die Wertungszahl ± %s ist</string>
