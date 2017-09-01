@@ -47,7 +47,7 @@
   <string name="requestAComputerAnalysis">طلب تحليل الحاسوب</string>
   <string name="computerAnalysis">تحليل الحاسوب</string>
   <string name="computerAnalysisAvailable">تحليل الحاسوب متاح</string>
-  <string name="analysis">تحليل اللعبة</string>
+  <string name="analysis">لوحة التحليل</string>
   <string name="depthX">عمق التحليل %s</string>
   <string name="usingServerAnalysis">استخدام تحليل السيرفر</string>
   <string name="loadingEngine">تحميل المحرك...</string>
