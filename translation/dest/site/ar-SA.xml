@@ -3,8 +3,8 @@
 <resources>
   <string name="playWithAFriend">اللعب مع صديق</string>
   <string name="playWithTheMachine">اللعب مع الحاسوب</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">لدعوة شخص ما للعب، أرسل هذا الرابط</string>
-  <string name="gameOver">انتهت المباراة</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">لدعوة شخص ما للعب، أرسل له هذا الرابط</string>
+  <string name="gameOver">إنتهت المباراة</string>
   <string name="waitingForOpponent">في إنتظار المنافس</string>
   <string name="waiting">إنتظار</string>
   <string name="yourTurn">دورك</string>
@@ -12,8 +12,8 @@
   <string name="level">المستوى</string>
   <string name="toggleTheChat">تعطيل/تشغيل الدردشة</string>
   <string name="toggleSound">تعطيل/تشغيل الصوت</string>
-  <string name="chat">دردشة</string>
-  <string name="resign">استسلام</string>
+  <string name="chat">الدردشة</string>
+  <string name="resign">إستسلام</string>
   <string name="checkmate">كش مات</string>
   <string name="stalemate">الملك مخنوق</string>
   <string name="white">أبيض</string>
