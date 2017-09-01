@@ -61,6 +61,7 @@
   <string name="variantWin">변형 체스에서 승리</string>
   <string name="insufficientMaterial">말이 부족하여 무승부입니다.</string>
   <string name="pawnMove">폰 이동</string>
+  <string name="drawn">무승부</string>
   <string name="whiteDrawBlack">백 : 무승부 : 흑</string>
   <string name="averageRatingX">평균 레이팅: %s</string>
   <string name="recentGames">최근 게임</string>
