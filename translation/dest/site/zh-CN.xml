@@ -561,6 +561,9 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">您也可以用滾動鍵在棋盤遊戲中移動。</string>
   <string name="analysisShapesHowTo">按shift點擊或右鍵棋盤上繪製圓圈和箭頭。</string>
   <string name="letOtherPlayersMessageYou">然其他人給你發信息。</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">王车易位方法</string>
+  <string name="castleByMovingTwoSquares">挪王两位</string>
+  <string name="castleByMovingOntoTheRook">挪王到车上面</string>
   <string name="shareYourInsightsData">分享您的慧眼數據</string>
   <string name="withNobody">不分享</string>
   <string name="withFriends">和朋友分享</string>
