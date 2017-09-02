@@ -296,6 +296,8 @@
   <string name="averageOpponent">对手的平均分</string>
   <string name="membersOnly">只限註冊成員</string>
   <string name="boardEditor">棋盤編輯器</string>
+  <string name="setTheBoard">摆棋</string>
+  <string name="popularOpenings">明开口</string>
   <string name="startPosition">初始局面</string>
   <string name="clearBoard">清空棋盤</string>
   <string name="savePosition">保存局面</string>
@@ -462,6 +464,7 @@
   <string name="playOnTheBoardOffline">面對面</string>
   <string name="playOfflineComputer">電腦</string>
   <string name="opponent">對手</string>
+  <string name="learnMenu">学</string>
   <string name="community">社區</string>
   <string name="tools">工具</string>
   <string name="increment">加秒</string>
@@ -587,4 +590,7 @@
   <string name="boardGeometry">棋盘几何</string>
   <string name="boardSize">棋盘大小</string>
   <string name="pieceSet">棋子件套</string>
+  <string name="notifications">通知</string>
+  <string name="challenges">盘问</string>
+  <string name="perfRatingX">分: %s</string>
 </resources>
