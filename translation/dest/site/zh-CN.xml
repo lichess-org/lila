@@ -76,6 +76,10 @@
   </plurals>
   <string name="noGameFound">没找到</string>
   <string name="openingExplorer">開局瀏覽器</string>
+  <string name="allSet">好了！</string>
+  <string name="importPgn">上传PGN</string>
+  <string name="delete">删</string>
+  <string name="deleteThisImportedGame">删打开的盘？</string>
   <string name="cpus">CPUs</string>
   <string name="blunders">漏著</string>
   <string name="mistakes">錯著</string>
@@ -300,6 +304,8 @@
   <string name="youArePlaying">你开始玩了</string>
   <string name="winRate">赢率</string>
   <string name="berserkRate">英雄的率</string>
+  <string name="performance">比赛性能的分：</string>
+  <string name="tournamentComplete">比赛完了</string>
   <string name="movesPlayed">多少圈</string>
   <string name="whiteWins">白赢了</string>
   <string name="blackWins">黑赢了</string>
