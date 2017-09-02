@@ -590,6 +590,7 @@
   <string name="boardGeometry">棋盘几何</string>
   <string name="boardSize">棋盘大小</string>
   <string name="pieceSet">棋子件套</string>
+  <string name="directlySupportLichess">帮助我们</string>
   <string name="notifications">通知</string>
   <string name="challenges">盘问</string>
   <string name="perfRatingX">分: %s</string>
