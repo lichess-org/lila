@@ -46,7 +46,9 @@
   <string name="viewTheComputerAnalysis">查看電腦分析結果</string>
   <string name="requestAComputerAnalysis">請求電腦分析</string>
   <string name="computerAnalysis">電腦分析</string>
+  <string name="computerAnalysisAvailable">有电脑分析</string>
   <string name="analysis">分析</string>
+  <string name="depthX">深度 %s</string>
   <string name="loadingEngine">正在载入引擎</string>
   <string name="cloudAnalysis">云分析</string>
   <string name="goDeeper">深入分析</string>
@@ -54,6 +56,7 @@
   <string name="inLocalBrowser">在本地浏览器</string>
   <string name="toggleLocalEvaluation">切换本地评估</string>
   <string name="move">移动</string>
+  <string name="pawnMove">兵走了</string>
   <string name="openingExplorer">開局瀏覽器</string>
   <string name="blunders">漏著</string>
   <string name="mistakes">錯著</string>
