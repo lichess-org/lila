@@ -597,8 +597,12 @@
   <string name="quickPairing">快速配对</string>
   <string name="lobby">大堂</string>
   <string name="anonymous">匿名</string>
+  <string name="yourScore">分：%s</string>
   <string name="language">语言</string>
   <string name="background">背景</string>
+  <string name="light">亮</string>
+  <string name="dark">暗</string>
+  <string name="transparent">透明</string>
   <string name="boardGeometry">棋盘几何</string>
   <string name="boardSize">棋盘大小</string>
   <string name="pieceSet">棋子件套</string>
