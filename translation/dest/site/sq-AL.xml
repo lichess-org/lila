@@ -47,6 +47,7 @@
   <string name="requestAComputerAnalysis">Kërko analizë kompjuterike</string>
   <string name="computerAnalysis">Analizë kompjuterike</string>
   <string name="analysis">Analiza</string>
+  <string name="depthX">Thellesia%s </string>
   <string name="drawn">barazim</string>
   <string name="unknown">I panjohur</string>
   <string name="database">Baza e të dhënave</string>
