@@ -59,6 +59,7 @@
   <string name="pawnMove">兵移动</string>
   <string name="capture">吃</string>
   <string name="close">关</string>
+  <string name="noGameFound">没找到</string>
   <string name="openingExplorer">開局瀏覽器</string>
   <string name="cpus">CPUs</string>
   <string name="blunders">漏著</string>
