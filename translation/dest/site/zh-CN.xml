@@ -59,6 +59,7 @@
   <string name="pawnMove">兵移动</string>
   <string name="capture">吃</string>
   <string name="close">关</string>
+  <string name="topGames">名盘</string>
   <string name="noGameFound">没找到</string>
   <string name="openingExplorer">開局瀏覽器</string>
   <string name="cpus">CPUs</string>
@@ -181,6 +182,7 @@
   <plurals name="giveNbSeconds">
     <item quantity="other">加%s秒</item>
   </plurals>
+  <string name="giveMoreTime">给跟多时间</string>
   <string name="thisPlayerUsesChessComputerAssistance">該棋手使用電腦輔助</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">該棋手偽造等級</string>
   <string name="takeback">悔棋</string>
@@ -198,6 +200,7 @@
   <string name="tournamentPoints">比賽得分</string>
   <string name="viewTournament">觀看比賽</string>
   <string name="backToTournament">返回比賽</string>
+  <string name="yourPerfRatingIsTooLow">你的 %1$s 分 (%2$s) 太少了</string>
   <string name="backToGame">返回遊戲</string>
   <string name="siteDescription">界面清新的免費線上國際象棋平台。不用註冊，沒有廣告，無需插件。快來與電腦、朋友和陌生人一起對戰吧！</string>
   <string name="teams">團隊</string>
