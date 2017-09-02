@@ -405,6 +405,7 @@
   <string name="boardCoordinates">棋盤坐標（AH, 1-8）</string>
   <string name="moveListWhilePlaying">遊戲進行時顯示棋譜</string>
   <string name="chessPieceSymbol">国际象棋件符号</string>
+  <string name="pgnLetter">字母 （K、 Q、 R、 B ，N）</string>
   <string name="chessClock">棋鐘</string>
   <string name="tenthsOfSeconds">十分之一秒</string>
   <string name="never">從不</string>
@@ -412,6 +413,8 @@
   <string name="horizontalGreenProgressBars">綠色橫進度條</string>
   <string name="soundWhenTimeGetsCritical">時間不足時聲音提醒</string>
   <string name="gameBehavior">遊戲行為</string>
+  <string name="clickTwoSquares">点两个位</string>
+  <string name="bothClicksAndDrag">都行</string>
   <string name="premovesPlayingDuringOpponentTurn">預先走棋（在對手的回合走棋）</string>
   <string name="takebacksWithOpponentApproval">悔棋（經過對手同意）</string>
   <string name="promoteToQueenAutomatically">自動升後</string>
@@ -570,6 +573,9 @@
   <string name="withEverybody">和每个人分享</string>
   <string name="youHaveAlreadyRegisteredTheEmail">你已經用《%s》登記過賬戶。</string>
   <string name="kidMode">受限模式</string>
+  <string name="kidModeExplanation">安全第一。在受限模式， 网站的通讯关了。一般保护你的小孩</string>
+  <string name="enableKidMode">打开受限模式</string>
+  <string name="disableKidMode">关受限模式</string>
   <string name="security">安全保护</string>
   <string name="playChessEverywhere">隨處下棋！</string>
   <string name="asFreeAsLichess">完全又永遠的免費。</string>
@@ -590,6 +596,7 @@
   <string name="gameAnalysis">象棋分析研究</string>
   <string name="quickPairing">快速配对</string>
   <string name="lobby">大堂</string>
+  <string name="anonymous">匿名</string>
   <string name="language">语言</string>
   <string name="background">背景</string>
   <string name="boardGeometry">棋盘几何</string>
