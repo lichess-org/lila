@@ -59,6 +59,10 @@
   <string name="pawnMove">兵移动</string>
   <string name="capture">吃</string>
   <string name="close">关</string>
+  <string name="drawn">和局</string>
+  <string name="whiteDrawBlack">百／和／黑</string>
+  <string name="averageRatingX">平均分：%s</string>
+  <string name="recentGames">最近玩的盘</string>
   <string name="topGames">名盘</string>
   <string name="noGameFound">没找到</string>
   <string name="openingExplorer">開局瀏覽器</string>
@@ -284,6 +288,8 @@
   <string name="createdBy">創建者：</string>
   <string name="tournamentIsStarting">錦標賽即將開始</string>
   <string name="youArePlaying">你开始玩了</string>
+  <string name="whiteWins">白赢了</string>
+  <string name="blackWins">黑赢了</string>
   <string name="membersOnly">只限註冊成員</string>
   <string name="boardEditor">棋盤編輯器</string>
   <string name="startPosition">初始局面</string>
