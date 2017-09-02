@@ -634,6 +634,7 @@
   <string name="boardSize">棋盘大小</string>
   <string name="pieceSet">棋子件套</string>
   <string name="directlySupportLichess">帮助我们</string>
+  <string name="chessBasics">国际象棋学徒</string>
   <string name="coaches">教练</string>
   <string name="invalidPgn">PGN错了</string>
   <string name="invalidFen">FEN错了</string>
