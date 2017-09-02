@@ -566,7 +566,7 @@
   <string name="none">Brak</string>
   <string name="fast">Szybko</string>
   <string name="normal">Normalna</string>
-  <string name="slow">Wolna</string>
+  <string name="slow">Wolno</string>
   <string name="insideTheBoard">Na szachownicy</string>
   <string name="outsideTheBoard">Poza szachownicą</string>
   <string name="onSlowGames">W wolniejszych grach</string>
