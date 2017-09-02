@@ -56,6 +56,8 @@
   <string name="inLocalBrowser">在本地浏览器</string>
   <string name="toggleLocalEvaluation">切换本地评估</string>
   <string name="move">移动</string>
+  <string name="variantLoss">变种输了</string>
+  <string name="variantWin">变种赢了</string>
   <string name="pawnMove">兵移动</string>
   <string name="capture">吃</string>
   <string name="close">关</string>
@@ -604,6 +606,7 @@
   <string name="dark">暗</string>
   <string name="transparent">透明</string>
   <string name="boardGeometry">棋盘几何</string>
+  <string name="boardTheme">棋类型</string>
   <string name="boardSize">棋盘大小</string>
   <string name="pieceSet">棋子件套</string>
   <string name="directlySupportLichess">帮助我们</string>
