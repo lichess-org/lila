@@ -440,11 +440,13 @@
   <string name="xAnsweredY">%1$s回答%2$s</string>
   <string name="xCommentedY">%1$s 評論%2$s</string>
   <string name="victory">成功！</string>
+  <string name="defeat">输了</string>
   <string name="timeline">時間線</string>
   <string name="seeAllTournaments">顯示所有比賽</string>
   <string name="starting">開始時間：</string>
   <string name="allInformationIsPublicAndOptional">所有資料公開選填。</string>
   <string name="yourCityRegionOrDepartment">您的城市、區域或省份。</string>
+  <string name="biographyDescription">写你什么样的人， 你为蛇么喜欢国际象棋， 喜欢的开口， 盘， 棋手。。。</string>
   <plurals name="maximumNbCharacters">
     <item quantity="other">最多%s個字符</item>
   </plurals>
