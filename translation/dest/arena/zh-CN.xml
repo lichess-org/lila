@@ -3,4 +3,5 @@
 <resources>
   <string name="isItRated">算分吗？</string>
   <string name="howDoesItEnd">这么完成？</string>
+  <string name="otherRules">其他重要的规则</string>
 </resources>
