@@ -416,6 +416,7 @@
   <string name="closeAccountExplanation">您確定註銷賬號？此操作不可逆。您將無法再登錄，而您的個人資料也將不可使用。</string>
   <string name="thisAccountIsClosed">此帳號已被註銷。</string>
   <string name="invalidUsernameOrPassword">賬號名稱或密碼錯誤</string>
+  <string name="incorrectPassword">密码错了</string>
   <string name="emailMeALink">向我電郵鏈接</string>
   <string name="currentPassword">當前密碼</string>
   <string name="newPassword">新密碼</string>
@@ -434,6 +435,7 @@
   <string name="soundWhenTimeGetsCritical">時間不足時聲音提醒</string>
   <string name="gameBehavior">遊戲行為</string>
   <string name="clickTwoSquares">点两个位</string>
+  <string name="dragPiece">拖拉</string>
   <string name="bothClicksAndDrag">都行</string>
   <string name="premovesPlayingDuringOpponentTurn">預先走棋（在對手的回合走棋）</string>
   <string name="takebacksWithOpponentApproval">悔棋（經過對手同意）</string>
@@ -617,6 +619,7 @@
     <item quantity="other">%s 種語言!</item>
   </plurals>
   <string name="gameAnalysis">象棋分析研究</string>
+  <string name="xLikesY">%1$s喜欢%2$s</string>
   <string name="quickPairing">快速配对</string>
   <string name="lobby">大堂</string>
   <string name="anonymous">匿名</string>
@@ -638,6 +641,7 @@
   <string name="error.maxLength">最大长度：%s</string>
   <string name="error.min">大于等于%s</string>
   <string name="error.max">小于等于%s</string>
+  <string name="error.unknown">错误</string>
   <string name="notifications">通知</string>
   <string name="challenges">盘问</string>
   <string name="perfRatingX">分: %s</string>
