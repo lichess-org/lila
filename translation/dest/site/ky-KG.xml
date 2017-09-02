@@ -18,12 +18,14 @@
   <string name="stalemate">Пат</string>
   <string name="white">Ак</string>
   <string name="black">Кара</string>
+  <string name="randomColor">Оң келген тарап</string>
   <string name="createAGame">Оюн куруу</string>
   <string name="whiteIsVictorious">Ак түстөгү оюнчу утту</string>
   <string name="blackIsVictorious">Кара түстөгү оюнчу утту</string>
   <string name="kingInTheCenter">Хан ортодо</string>
   <string name="threeChecks">Үч шах</string>
   <string name="raceFinished">Гонка бүдтүү</string>
+  <string name="variantEnding">Вариант бүтүшү</string>
   <string name="newOpponent">Жаңы өнөктөш</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Сиздин өнөктөшүңүз сиз менен жаңы оюн ойноого чакырат</string>
   <string name="joinTheGame">Оюрга кошулуу</string>
