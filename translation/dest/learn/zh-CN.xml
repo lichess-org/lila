@@ -10,4 +10,7 @@
   <string name="perfect">完美</string>
   <string name="outstanding">优秀！</string>
   <string name="wayToGo">太棒了！</string>
+  <string name="yourScore">呢的分</string>
+  <string name="next">下一个</string>
+  <string name="retry">重试</string>
 </resources>
