@@ -80,6 +80,7 @@
   <string name="importPgn">上传PGN</string>
   <string name="delete">删</string>
   <string name="deleteThisImportedGame">删打开的盘？</string>
+  <string name="byCPL">输了中兵</string>
   <string name="cpus">CPUs</string>
   <string name="blunders">漏著</string>
   <string name="mistakes">錯著</string>
@@ -321,6 +322,7 @@
   <string name="loadPosition">載入局面</string>
   <string name="isPrivate">私人</string>
   <string name="reportXToModerators">將%s報告給管理人員</string>
+  <string name="xRating">%s分</string>
   <string name="ifNoneLeaveEmpty">如果没有，请留空</string>
   <string name="profile">資料</string>
   <string name="editProfile">編輯資料</string>
@@ -626,6 +628,10 @@
   <string name="boardSize">棋盘大小</string>
   <string name="pieceSet">棋子件套</string>
   <string name="directlySupportLichess">帮助我们</string>
+  <string name="invalidPgn">PGN错了</string>
+  <string name="invalidFen">FEN错了</string>
+  <string name="error.minLength">最小长度：%s</string>
+  <string name="error.maxLength">最大长度：%s</string>
   <string name="notifications">通知</string>
   <string name="challenges">盘问</string>
   <string name="perfRatingX">分: %s</string>
