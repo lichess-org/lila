@@ -350,6 +350,7 @@
   <string name="keepGoing">繼續……</string>
   <string name="puzzleFailed">解題失敗</string>
   <string name="butYouCanKeepTrying">但你可以繼續嘗試。</string>
+  <string name="success">成功</string>
   <string name="wasThisPuzzleAnyGood">這道題目好不好？</string>
   <string name="pleaseVotePuzzle">按上箭頭鍵或下箭頭鍵投票，幫助Lichess改進：</string>
   <string name="thankYou">謝謝！</string>
