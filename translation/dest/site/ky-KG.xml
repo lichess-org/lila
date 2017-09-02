@@ -64,6 +64,17 @@
   <string name="close">Жабуу</string>
   <string name="winning">Утуп жатат</string>
   <string name="losing">Утулуп жатат</string>
+  <string name="drawn">Тең</string>
+  <string name="unknown">Белгисиз</string>
+  <string name="database">Берилиш базасы</string>
+  <string name="whiteDrawBlack">Актар / Тең / Кара</string>
+  <string name="averageRatingX">Орточо рейтинг: %s</string>
+  <string name="recentGames">Жакында бүткөн оюндар</string>
+  <string name="topGames">Мыкты оюндар</string>
+  <string name="masterDbExplanation">Эки миллион OTB оюндар %1$sтен + FIDE рейтинги оюнчулары %2$sдан %3$sга чейин</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="other">%s жарым жүрүштөө мат</item>
+  </plurals>
   <string name="blunders">Одоно ката</string>
   <string name="mistakes">Жаңылыштык</string>
   <string name="inaccuracies">Так эместик</string>
