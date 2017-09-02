@@ -137,6 +137,28 @@
 Померите га, и онда направите малу рокаду.</string>
   <string name="castleKingSideMovePiecesFirst">Направите малу рокаду!
 Прво морате развити фигуре.</string>
+  <string name="castleQueenSideMovePiecesFirst">Направите велику рокаду!
+Прво морате развити фигуре.</string>
+  <string name="youCannotCastleIfMoved">Неможете направити рокаду ако
+се краљ већ померио
+или ако се то већ померио.</string>
+  <string name="youCannotCastleIfAttacked">Неможете направити рокаду ако
+је краљ нападнут на путу.
+Блокирајте шах па онда направите рокаду!</string>
+  <string name="findAWayToCastleKingSide">Нађите начин да
+направите малу рокаду!</string>
+  <string name="findAWayToCastleQueenSide">Нађите начин да
+направите велику рокаду!</string>
+  <string name="castlingComplete">Честитамо! Требали би скоро увек направити рокаду током партије.</string>
+  <string name="enPassant">Ен пасант</string>
+  <string name="theSpecialPawnMove">Специјалан пешаков потез</string>
+  <string name="enPassantIntro">Када се противнички пешак помери за два поља, можете да га поједете као да се померију за једно поље.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Црни играч је таман померио пешака
+за два поља!
+Поједите га ен пасант.</string>
+  <string name="enPassantOnlyWorksImmediately">Ен пасант једино ради
+одмах након што је противник
+померио пешака.</string>
   <string name="enPassantOnlyWorksOnFifthRank">Ан пасан је могућ само
 ако вам је пешак на петом реду.</string>
   <string name="checkInTwoIntro">Пронађите најбољу комбинацију два потеза којом шахирате противниковог краља!</string>
