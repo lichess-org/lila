@@ -18,7 +18,7 @@
   <string name="stalemate">Pat</string>
   <string name="white">Białe</string>
   <string name="black">Czarne</string>
-  <string name="randomColor">Losowanie koloru</string>
+  <string name="randomColor">Losowo</string>
   <string name="createAGame">Nowa partia</string>
   <string name="whiteIsVictorious">Wygrana białych</string>
   <string name="blackIsVictorious">Wygrana czarnych</string>
