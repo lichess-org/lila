@@ -304,11 +304,11 @@
     <item quantity="other">Musisz rozegrać jeszcze %1$s partii rankingowych %2$s</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Twój ranking (%s) jest prowizoryczny</string>
-  <string name="yourPerfRatingIsTooHigh">Twój ranking %1$s (%2$s) jest za wysoki</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Twój ranking z tego tygodnia (%1$s) jest za wysoki (%2$s)</string>
+  <string name="yourPerfRatingIsTooHigh">Twój ranking %2$s (%1$s) jest za wysoki</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Twój ranking z tego tygodnia %2$s (%1$s) jest za wysoki</string>
   <string name="yourPerfRatingIsTooLow">Twój ranking %2$s (%1$s) jest zbyt niski</string>
-  <string name="ratedMoreThanInPerf">Ranking ≥ %1$s w %2$s</string>
-  <string name="ratedLessThanInPerf">Ranking ≤ %1$s w %2$s</string>
+  <string name="ratedMoreThanInPerf">Ranking ≥ %1$s (%2$s)</string>
+  <string name="ratedLessThanInPerf">Ranking ≤ %1$s (%2$s)</string>
   <string name="backToGame">Wróć do partii</string>
   <string name="siteDescription">Darmowe szachy online. Zagraj teraz w szachy o przyjaznym interfejsie. Bez rejestracji, bez reklam, bez instalowania wtyczek. Zagraj w szachy z komputerem, znajomymi lub losowo wybranymi przeciwnikami.</string>
   <string name="teams">Kluby</string>
@@ -700,7 +700,7 @@
     <item quantity="other">%1$s graczy grało w tym tygodniu w wariant %2$s.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Twój ranking w wariancie %1$s to %2$s.</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">Jesteś lepszy niż %1$s graczy w tym wariancie.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Jesteś lepszy niż %1$s graczy (%2$s).</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nie masz jeszcze ustalonego rankingu w tym wariancie.</string>
   <string name="checkYourEmail">Sprawdź swoją skrzynkę e-mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Wysłaliśmy do Ciebie wiadomość e-mail. Kliknij w link znajdujący się w e-mailu aby aktywować swoje konto.</string>
