@@ -61,6 +61,13 @@
   <string name="close">Затвори</string>
   <string name="winning">Победува</string>
   <string name="losing">Губи</string>
+  <string name="drawn">Реми</string>
+  <string name="unknown">Непознато</string>
+  <string name="database">База на податоци</string>
+  <string name="whiteDrawBlack">Бели / Реми / Црни</string>
+  <string name="averageRatingX">Просечен пласман %s</string>
+  <string name="recentGames">Неодамнешни игри</string>
+  <string name="topGames">Топ игри</string>
   <string name="blunders">Сериозни пропусти</string>
   <string name="mistakes">Грешки</string>
   <string name="inaccuracies">Неточности</string>
