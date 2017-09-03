@@ -53,6 +53,14 @@
   <string name="cloudAnalysis">Анализа на облакот</string>
   <string name="goDeeper">Оди подлабоку</string>
   <string name="showThreat">Покажи закана</string>
+  <string name="inLocalBrowser">на вашиот прелистувач (локално)</string>
+  <string name="toggleLocalEvaluation">Вклчи локална еваулација</string>
+  <string name="move">Потег</string>
+  <string name="insufficientMaterial">Нема доволно материјал</string>
+  <string name="capture">Зема</string>
+  <string name="close">Затвори</string>
+  <string name="winning">Победува</string>
+  <string name="losing">Губи</string>
   <string name="blunders">Сериозни пропусти</string>
   <string name="mistakes">Грешки</string>
   <string name="inaccuracies">Неточности</string>
