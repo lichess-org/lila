@@ -173,7 +173,32 @@
   <string name="advanced">Напредно</string>
   <string name="pieceValue">Вредност фигура</string>
   <string name="evaluatePieceStrength">Процените снагу фигуре</string>
+  <string name="pieceValueIntro">Фигуре са више поља на које могу да се помере су вредније!
+Дама = 9
+Топ = 5
+Ловац = 3
+Скакач = 3
+Пешак = 1
+Краљ нема вредност! Ако га изгубите, изгубили сте партију.</string>
+  <string name="queenOverBishop">Поједите фигуру
+са највећом вредношћу!
+Дама &gt; Ловац</string>
+  <string name="takeThePieceWithTheHighestValue">Поједите фигуру
+са највећом вредношћу!</string>
+  <string name="pieceValueComplete">Честитамо! Знате вредност материјала!
+Дама = 9
+Топ = 5
+Ловац = 3
+Скакач = 3
+Пешак = 1</string>
+  <string name="checkInTwo">Шах у два</string>
+  <string name="twoMovesToGiveCheck">Два потеза да дате шах</string>
   <string name="checkInTwoIntro">Пронађите најбољу комбинацију два потеза којом шахирате противниковог краља!</string>
+  <string name="checkInTwoGoal">Претите противничком краљу
+у два потеза!</string>
+  <string name="checkInTwoComplete">Честитамо! Дали сте шах вашем противнику, терајући их да одбране свог краља!</string>
+  <string name="whatNext">Шта је следеће?</string>
+  <string name="youKnowHowToPlayChess">Знате како да играте шах, честитамо! Да ли желите постати бољи играч?</string>
   <string name="learnCommonChessPositions">Научите честе шаховске позиције</string>
   <string name="exerciseYourTacticalSkills">Вежбајте ваше тактичке вештине</string>
   <string name="watchInstructiveChessVideos">Гледајте инструктивне шаховске снимке</string>
