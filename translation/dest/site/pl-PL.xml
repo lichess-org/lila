@@ -560,7 +560,7 @@
   <string name="privacy">Prywatność</string>
   <string name="letOtherPlayersFollowYou">Inni gracze mogą Cię obserwować</string>
   <string name="letOtherPlayersChallengeYou">Inni gracze mogą rzucić Ci wyzwanie</string>
-  <string name="letOtherPlayersInviteYouToStudy">Pozwól innym zapraszać Cię do wspólnego omówienia partii</string>
+  <string name="letOtherPlayersInviteYouToStudy">Inni gracze mogą zapraszać Cię do omówienia partii</string>
   <string name="sound">Dźwięk</string>
   <string name="yourPreferencesHaveBeenSaved">Twoje ustawienia zostały zapisane.</string>
   <string name="none">Brak</string>
@@ -695,9 +695,9 @@
   <string name="returnToTournamentsHomepage">Wróć do turnieju</string>
   <string name="weeklyPerfTypeRatingDistribution">Tygodniowy rozkład rankingu w wariancie %s</string>
   <plurals name="nbPerfTypePlayersThisWeek">
-    <item quantity="one">%1$s gracz grał w tym tygodniu w wariant %2$s.</item>
-    <item quantity="few">%1$s graczy grało w tym tygodniu w wariant %2$s.</item>
-    <item quantity="other">%1$s graczy grało w tym tygodniu w wariant %2$s.</item>
+    <item quantity="one">%1$s gracz w tym tygodniu (%2$s).</item>
+    <item quantity="few">%1$s graczy w tym tygodniu (%2$s).</item>
+    <item quantity="other">%1$s graczy w tym tygodniu (%2$s).</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Twój ranking w wariancie %1$s to %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Jesteś lepszy niż %1$s graczy (%2$s).</string>
@@ -720,7 +720,7 @@
   <string name="analysisShapesHowTo">Naciśnij shift i kliknij lub kliknij prawym przyciskiem myszy aby rysować okręgi i strzałki na szachownicy.</string>
   <string name="confirmResignationAndDrawOffers">Potwierdzaj poddanie się i wysłanie propozycji remisu</string>
   <string name="inputMovesWithTheKeyboard">Wprowadzaj ruchy za pomocą klawiatury</string>
-  <string name="letOtherPlayersMessageYou">Pozwól innym graczom na pisanie do Ciebie</string>
+  <string name="letOtherPlayersMessageYou">Inni gracze mogą pisać do Ciebie</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Sposób roszowania</string>
   <string name="castleByMovingTwoSquares">Przesuwając króla o dwa pola</string>
   <string name="castleByMovingOntoTheRook">Przesuwając króla na wieżę</string>
