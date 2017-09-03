@@ -327,7 +327,7 @@
   <string name="tournamentPoints">نقاط المسابقة</string>
   <string name="viewTournament">شاهد المسابقة</string>
   <string name="backToTournament">عودة للمسابقة</string>
-  <string name="thematic">موضوعية</string>
+  <string name="thematic">وضعية مخصصة</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="zero">%s لعبة مُقيمة</item>
     <item quantity="one">لعبة مقيمة %s</item>
@@ -491,11 +491,11 @@
   <string name="viewMoreTournaments">عرض المزيد من البطولات</string>
   <string name="averageOpponent">معدل الخصم</string>
   <string name="membersOnly">للأعضاء فقط</string>
-  <string name="boardEditor">محررالرقعة</string>
+  <string name="boardEditor">محرر الرقعة</string>
   <string name="setTheBoard">إعداد الرقعة</string>
   <string name="popularOpenings">إفتتاحيات شائعة</string>
   <string name="startPosition">وضع البداية</string>
-  <string name="clearBoard">مسح الرقعة</string>
+  <string name="clearBoard">رقعة بلا قطع</string>
   <string name="savePosition">حفظ الوضع</string>
   <string name="loadPosition">تحميل الوضع</string>
   <string name="isPrivate">خاص</string>
@@ -867,7 +867,7 @@
   <string name="transparent">شفّاف</string>
   <string name="backgroundImageUrl">رابط صورة الخلفية:</string>
   <string name="boardGeometry">شكل الرقعة</string>
-  <string name="boardTheme">سِمة الطاولة</string>
+  <string name="boardTheme">مربعات الرقعة</string>
   <string name="boardSize">حجم الرقعة</string>
   <string name="pieceSet">مجموعة القطع</string>
   <string name="embedInYourWebsite">تضمين في موقع الويب الخاص بك</string>
