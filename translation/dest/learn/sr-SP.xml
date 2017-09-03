@@ -165,6 +165,14 @@
   <string name="enPassantComplete">Честитамо! Сада можете узимати ен пасант.</string>
   <string name="stalemate">Пат</string>
   <string name="theGameIsADraw">Партија је нерешена</string>
+  <string name="stalemateIntro">Када играч није у шаху и неможе направити ниједан потез, то је пат. Партија је нерешена: нико не добија, нико не губи.</string>
+  <string name="stalemateGoal">Да направите пат:
+- Црни играч не може нигде да се помери
+- Нема шаха.</string>
+  <string name="stalemateComplete">Честитамо! Боље правите пат него да добијете шах мат!</string>
+  <string name="advanced">Напредно</string>
+  <string name="pieceValue">Вредност фигура</string>
+  <string name="evaluatePieceStrength">Процените снагу фигуре</string>
   <string name="checkInTwoIntro">Пронађите најбољу комбинацију два потеза којом шахирате противниковог краља!</string>
   <string name="learnCommonChessPositions">Научите честе шаховске позиције</string>
   <string name="exerciseYourTacticalSkills">Вежбајте ваше тактичке вештине</string>
