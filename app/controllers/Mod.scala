@@ -141,8 +141,10 @@ object Mod extends LilaController {
           (Env.shutup.api getPublicLines user.id) zip
           (Env.security userSpy user.id) zip
           Env.user.noteApi.forMod(user.id) zip
-          Env.mod.logApi.userHistory(user.id) map {
-            case chats ~ threads ~ publicLines ~ spy ~ notes ~ history =>
+          Env.mod.logApi.userHistory(user.id) zip
+          Env.report.api.inquiries.ofModId(me.id) map {
+            case chats ~ threads ~ publicLines ~ spy ~ notes ~ history ~ inquiry =>
+              Env.slack.api.commlog(mod = me, user = user, inquiry.map(_.createdBy))
               val povWithChats = (povs zip chats) collect {
                 case (p, Some(c)) if c.nonEmpty => p -> c
               } take 15
