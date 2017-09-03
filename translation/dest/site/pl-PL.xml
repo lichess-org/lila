@@ -85,7 +85,7 @@
   </plurals>
   <string name="noGameFound">Nie znaleziono partii</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Może zaimportujesz więcej partii z menu narzędzi?</string>
-  <string name="openingExplorer">Przeglądarka otwarć</string>
+  <string name="openingExplorer">Biblioteka otwarć</string>
   <string name="xOpeningExplorer">Przeszukiwanie biblioteki otwarć %s</string>
   <string name="winPreventedBy50MoveRule">Zwycięstwo przez regułę 50 ruchów</string>
   <string name="lossSavedBy50MoveRule">Przegrana przez regułę 50 ruchów</string>
@@ -266,7 +266,7 @@
   <string name="giveMoreTime">Dodaj więcej czasu</string>
   <string name="thisPlayerUsesChessComputerAssistance">Ten gracz korzysta z pomocy programu szachowego</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ten gracz sztucznie zwiększa/obniża swój ranking</string>
-  <string name="openingExplorerAndTablebase">Przeglądarka otwarć</string>
+  <string name="openingExplorerAndTablebase">Biblioteka otwarć i końcówek</string>
   <string name="takeback">Cofnij ruch</string>
   <string name="proposeATakeback">Poproś o cofnięcie ruchu</string>
   <string name="takebackPropositionSent">Wysłano prośbę o cofnięcie ruchu</string>
