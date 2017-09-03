@@ -161,6 +161,10 @@
 померио пешака.</string>
   <string name="enPassantOnlyWorksOnFifthRank">Ан пасан је могућ само
 ако вам је пешак на петом реду.</string>
+  <string name="takeAllThePawnsEnPassant">Узмите све пешаке ен пасант!</string>
+  <string name="enPassantComplete">Честитамо! Сада можете узимати ен пасант.</string>
+  <string name="stalemate">Пат</string>
+  <string name="theGameIsADraw">Партија је нерешена</string>
   <string name="checkInTwoIntro">Пронађите најбољу комбинацију два потеза којом шахирате противниковог краља!</string>
   <string name="learnCommonChessPositions">Научите честе шаховске позиције</string>
   <string name="exerciseYourTacticalSkills">Вежбајте ваше тактичке вештине</string>
