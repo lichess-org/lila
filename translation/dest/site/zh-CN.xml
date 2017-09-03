@@ -304,7 +304,7 @@
   <string name="tournamentIsStarting">錦標賽即將開始</string>
   <string name="youArePlaying">你开始玩了</string>
   <string name="winRate">赢率</string>
-  <string name="berserkRate">英雄的率</string>
+  <string name="berserkRate">英雄率</string>
   <string name="performance">比赛性能的分：</string>
   <string name="tournamentComplete">比赛完了</string>
   <string name="movesPlayed">多少圈</string>
