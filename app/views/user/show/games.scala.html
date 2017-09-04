@@ -3,10 +3,10 @@
 @import lila.app.mashup.UserInfo.Angle
 
 @evenMoreJs = {
-@if(!u.lame || ctx.is(u) || isGranted(_.UserSpy)) {
 @if(filters.current.name == "search") {
 @jsTag("search.js")
 }
+@if(!u.lame || ctx.is(u) || isGranted(_.UserSpy)) {
 @info.ratingChart.map { ratingChart =>
 @jsTag("chart/ratingHistory.js")
 @embedJs(s"lichess.ratingHistoryChart($ratingChart);")
