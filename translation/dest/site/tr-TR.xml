@@ -669,7 +669,7 @@
     <item quantity="other">Bu hafta %1$s %2$s oyuncusu.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">%1$s puanınız %2$s.</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">%1$s %2$s oyuncularından daha iyisiniz.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">%2$s oyuncunun %1$s tanesinden daha iyisiniz.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Sabit bir %s puanınız yok.</string>
   <string name="checkYourEmail">E-postanızı kontrol edin</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Size e-posta yolladık. Hesabınızı aktifleştirmek için e-postanızdaki linke tıklayın.</string>
@@ -748,7 +748,7 @@
   <string name="usernameStartNoNumber">Kullanıcı adı bir sayı ile başlayamaz.</string>
   <string name="usernameUnacceptable">Bu kullanıcı adı uygun değil.</string>
   <string name="directlySupportLichess">Lichess\'e doğrudan destek verin</string>
-  <string name="playChessInStyle">Satrancı bir tarz ile oynayın</string>
+  <string name="playChessInStyle">Tarzınızla satranç oynayın</string>
   <string name="chessBasics">Satrancın temel prensipleri</string>
   <string name="coaches">Eğitmenler</string>
   <string name="invalidPgn">Geçersiz PGN</string>
