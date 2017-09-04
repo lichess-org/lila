@@ -3,7 +3,7 @@
 <resources>
   <string name="playWithAFriend">Spiele mit einem Freund</string>
   <string name="playWithTheMachine">Spiele mit dem Computer</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Versende diese URL, um jemanden zum Spiel einzuladen</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Versende diese URL um jemanden zum Spiel einzuladen</string>
   <string name="gameOver">Spiel vorbei</string>
   <string name="waitingForOpponent">Auf den Gegner warten</string>
   <string name="waiting">Warten</string>
@@ -451,7 +451,7 @@
   <string name="thisPuzzleIsCorrect">Diese Aufgabe ist korrekt und interessant</string>
   <string name="thisPuzzleIsWrong">Diese Aufgabe ist falsch oder langweilig</string>
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Du hast %s Sekunde, um deinen ersten Zug zu machen!</item>
+    <item quantity="one">Du hast %s Sekunde um deinen ersten Zug zu machen!</item>
     <item quantity="other">Du hast %s Sekunden um deinen ersten Zug zu machen!</item>
   </plurals>
   <plurals name="nbGamesInPlay">
