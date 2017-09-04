@@ -101,7 +101,7 @@
   border-bottom: 1px solid #ccc;
 }
 #perfStat .highlow a,
-#perfStat .highlow .na {
+#perfStat .highlow span {
   font-size: 1.2em;
   text-indent: 20px;
   display: inline-block;

@@ -5,11 +5,11 @@ function ratingAt(title, opt, color) {
   return util.fMap(opt, function(r) {
     return [
       m('h2', [title + ': ', m('strong', color(r.int))]),
-      util.gameLink(r.gameId, ['reached ', util.date(r.at)])
+      util.gameLink(r.gameId, util.date(r.at))
     ];
   }, [
     m('h2', title + ': '),
-    m('span.na', util.noData)
+    m('span', util.noData)
   ]);
 }
 
