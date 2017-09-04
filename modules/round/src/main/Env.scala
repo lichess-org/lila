@@ -181,7 +181,8 @@ final class Env(
   )
 
   lazy val messenger = new Messenger(
-    chat = hub.actor.chat)
+    chat = hub.actor.chat
+  )
 
   def version(gameId: String): Fu[Int] =
     socketHub ? Ask(gameId, GetVersion) mapTo manifest[Int]

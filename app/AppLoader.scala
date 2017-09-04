@@ -5,8 +5,6 @@ import play.api.inject.ApplicationLifecycle
 
 final class LilaLoader extends ApplicationLoader {
 
-  println("LilaLoader")
-
   def load(context: ApplicationLoader.Context): Application = {
     LoggerConfigurator(context.environment.classLoader).foreach {
       _.configure(context.environment, context.initialConfiguration, Map.empty)
