@@ -86,7 +86,10 @@ case class Comment(
     userId: String,
     body: String,
     createdAt: DateTime
-)
+) extends Ordered[Comment] {
+
+  def compare(other: Comment) = createdAt.getSeconds compare other.createdAt.getSeconds
+}
 
 object Comment {
 
