@@ -16,6 +16,7 @@ object Permission {
   case object ChatTimeout extends Permission("ROLE_CHAT_TIMEOUT")
   case object UserSpy extends Permission("ROLE_USER_SPY")
   case object UserEvaluate extends Permission("ROLE_USER_EVALUATE")
+  case object ViewPrivateComms extends Permission("ROLE_VIEW_PRIVATE_COMS")
   case object MarkTroll extends Permission("ROLE_CHAT_BAN", List(UserSpy, ChatTimeout))
   case object MarkEngine extends Permission("ROLE_ADJUST_CHEATER", List(UserSpy))
   case object MarkBooster extends Permission("ROLE_ADJUST_BOOSTER", List(UserSpy))
@@ -53,7 +54,7 @@ object Permission {
   ))
 
   case object Admin extends Permission("ROLE_ADMIN", List(
-    Hunter, ModerateForum, IpBan, CloseAccount, ReopenAccount,
+    Hunter, ModerateForum, IpBan, CloseAccount, ReopenAccount, ViewPrivateComms,
     ChatTimeout, MarkTroll, SetTitle, SetEmail, ModerateQa, StreamConfig,
     MessageAnyone, CloseTeam, TerminateTournament, ManageTournament, ManageEvent,
     PreviewCoach, PracticeConfig, RemoveRanking, ReportBan, Beta

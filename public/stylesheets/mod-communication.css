@@ -1,3 +1,19 @@
+#communication h1 {
+  font-size: 1.5em;
+  display: flex;
+  justify-content: space-between;
+}
+#communication .user_link {
+  margin-left: -.5em;
+}
+#communication .actions {
+  display: flex;
+  align-items: center;
+}
+#communication .actions .priv {
+  margin-right: 5px;
+  font-weight: normal;
+}
 #communication h2 {
   font-size: 1.6em;
   margin-top: 1.6em;

@@ -33,7 +33,7 @@ object Report extends LilaController {
     api.inquiries.toggle(me, id) map {
       _.fold(Redirect(routes.Report.list)) { report =>
         Redirect(report.room match {
-          case lila.report.Room.Coms => routes.Mod.communication(report.user).url
+          case lila.report.Room.Coms => routes.Mod.communicationPublic(report.user).url
           case _ => routes.User.show(report.user).url + "?mod"
         })
       }
