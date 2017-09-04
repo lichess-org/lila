@@ -212,7 +212,7 @@
   <string name="inbox">Gelen kutusu</string>
   <string name="chatRoom">Sohbet odası</string>
   <string name="loginToChat">Sohbete katılmak için oturum aç</string>
-  <string name="youHaveBeenTimedOut">Hele biraz soluklanın.</string>
+  <string name="youHaveBeenTimedOut">Sohbet bağlantısı kesildi.</string>
   <string name="spectatorRoom">Seyirci odası</string>
   <string name="composeMessage">Mesaj oluştur</string>
   <string name="noNewMessages">Yeni mesaj yok</string>
@@ -291,7 +291,7 @@
   <string name="ratedMoreThanInPerf">%2$s puanı ≥ %1$s olmalı</string>
   <string name="ratedLessThanInPerf">%2$s puanı ≤ %1$s olmalı</string>
   <string name="backToGame">Oyuna dön</string>
-  <string name="siteDescription">Bedava online Satranç sunucusu. Şimdi temiz bir arayüzde Satranç oyna. Kayıta gerek yok, reklam yok, eklenti yok. Bilgisayara karşı, arkadaşlarına veya rastgele bir rakiple Satranç oyna.</string>
+  <string name="siteDescription">Bedava çevrimiçi Satranç sunucusu. Şimdi temiz bir arayüzde Satranç oyna. Kayda gerek yok, reklam yok, eklenti yok. Bilgisayara karşı, arkadaşlarınla veya rastgele bir rakiple Satranç oyna.</string>
   <string name="teams">Takımlar</string>
   <plurals name="nbMembers">
     <item quantity="one">%s üyeler</item>
