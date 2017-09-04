@@ -10,7 +10,7 @@ import lila.challenge.Challenge
 import lila.common.LightUser
 import lila.game.{ Game, GameRepo, Pov, Namer }
 import lila.hub.actorApi.map.Ask
-import lila.hub.actorApi.round.{ MoveEvent, IsOnGame, CorresTakebackEvent }
+import lila.hub.actorApi.round.{ MoveEvent, IsOnGame }
 import lila.message.{ Thread, Post }
 
 private final class PushApi(
@@ -74,7 +74,7 @@ private final class PushApi(
     }
   }
 
-  def takeback(gameId: Game.ID): Funit = scheduler.after(1 seconds) {
+  def takebackOffer(gameId: Game.ID): Funit = scheduler.after(1 seconds) {
     GameRepo game gameId flatMap {
       _.filter(_.playable).?? { game =>
         game.players.collectFirst {
@@ -85,10 +85,34 @@ private final class PushApi(
               pushToAll(userId, _.takeback, PushApi.Data(
                 title = "Takeback offer",
                 body = s"${opponentName(pov)} proposes a takeback",
-                stacking = Stacking.GameMove,
+                stacking = Stacking.GameTakebackOffer,
                 payload = Json.obj(
                   "userId" -> userId,
-                  "userData" -> corresGameJson(pov, "gameTakeback")
+                  "userData" -> corresGameJson(pov, "gameTakebackOffer")
+                )
+              ))
+            }
+          }
+        }
+      }
+    }
+  }
+
+  def drawOffer(gameId: Game.ID): Funit = scheduler.after(1 seconds) {
+    GameRepo game gameId flatMap {
+      _.filter(_.playable).?? { game =>
+        game.players.collectFirst {
+          case p if p.isOfferingDraw => Pov(game, game opponent p)
+        } ?? { pov => // the pov of the receiver
+          pov.player.userId ?? { userId =>
+            IfAway(pov) {
+              pushToAll(userId, _.takeback, PushApi.Data(
+                title = "Draw offer",
+                body = s"${opponentName(pov)} offers a draw",
+                stacking = Stacking.GameDrawOffer,
+                payload = Json.obj(
+                  "userId" -> userId,
+                  "userData" -> corresGameJson(pov, "gameDrawOffer")
                 )
               ))
             }

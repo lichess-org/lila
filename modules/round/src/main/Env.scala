@@ -174,7 +174,8 @@ final class Env(
   private lazy val drawer = new Drawer(
     prefApi = prefApi,
     messenger = messenger,
-    finisher = finisher
+    finisher = finisher,
+    bus = system.lilaBus
   )
 
   lazy val messenger = new Messenger(chat = hub.actor.chat)

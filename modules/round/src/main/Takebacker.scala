@@ -22,7 +22,7 @@ private[round] final class Takebacker(
         val progress = Progress(game) map { g =>
           g.updatePlayer(color, _ proposeTakeback g.turns)
         }
-        proxy.save(progress) >>- publishTakeback(pov) inject
+        proxy.save(progress) >>- publishTakebackOffer(pov) inject
           List(Event.TakebackOffers(color.white, color.black))
       } map (_ -> situation)
       case _ => fufail(ClientError("[takebacker] invalid yes " + pov))
@@ -55,11 +55,11 @@ private[round] final class Takebacker(
       }
     }
 
-  private def publishTakeback(pov: Pov): Unit =
+  private def publishTakebackOffer(pov: Pov): Unit =
     if (pov.game.isCorrespondence && pov.game.nonAi) pov.player.userId foreach { userId =>
       bus.publish(
-        lila.hub.actorApi.round.CorresTakebackEvent(pov.gameId),
-        'takebackEventCorres
+        lila.hub.actorApi.round.CorresTakebackOfferEvent(pov.gameId),
+        'offerEventCorres
       )
     }
 
