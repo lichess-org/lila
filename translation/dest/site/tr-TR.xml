@@ -82,7 +82,7 @@
     <item quantity="other">%s yarım hamle sonra yapılacak taş yeme veya piyon hamlesi (50 hamle kuralının sıfırlanmasına kalan uzaklık)</item>
   </plurals>
   <string name="noGameFound">Oyun bulunamadı</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Tercih ayarları değiştirilirse belki daha fazla oyun gösterilebilir?</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Tercihler menüsünden daha fazla oyun dahil edilebilir belki?</string>
   <string name="openingExplorer">Açılış kâşifi</string>
   <string name="xOpeningExplorer">%s açılış kâşifi</string>
   <string name="winPreventedBy50MoveRule">Galibiyet 50 hamle kuralı yüzünden engellendi</string>
@@ -250,7 +250,7 @@
   </plurals>
   <string name="giveMoreTime">Süre ver</string>
   <string name="thisPlayerUsesChessComputerAssistance">Bu oyuncu bir satranç programından yardım alıyor.</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Bu oyuncu puanını sahte bir şekilde artırıyor/azaltıyor</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">Bu oyuncu puanını beklenmedik miktarlarda artırıyor/azaltıyor</string>
   <string name="openingExplorerAndTablebase">Açılış kâşifi &amp; oyunsonu analizi</string>
   <string name="takeback">Hamleni geri al.</string>
   <string name="proposeATakeback">Hamleyi geri almayı teklif et.</string>
@@ -381,7 +381,7 @@
   <string name="createdBy">Oluşturan kişi</string>
   <string name="tournamentIsStarting">Turnuva başlıyor</string>
   <string name="tournamentPairingsAreNowClosed">Turnuva eşleştirmeleri şu anda kapalıdır.</string>
-  <string name="standByX">Biraz bekle %s, eşleştiriliyorsun, hazır ol!</string>
+  <string name="standByX">Bekle %s, oyuncular eşleştiriliyor, hazır ol!</string>
   <string name="youArePlaying">Şu an oyundasınız!</string>
   <string name="winRate">Kazanma oranı</string>
   <string name="berserkRate">Berserk oranı</string>
