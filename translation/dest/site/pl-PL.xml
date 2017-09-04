@@ -18,7 +18,7 @@
   <string name="stalemate">Pat</string>
   <string name="white">Białe</string>
   <string name="black">Czarne</string>
-  <string name="randomColor">Losowanie koloru</string>
+  <string name="randomColor">Losowo</string>
   <string name="createAGame">Nowa partia</string>
   <string name="whiteIsVictorious">Wygrana białych</string>
   <string name="blackIsVictorious">Wygrana czarnych</string>
@@ -60,7 +60,7 @@
   <string name="variantLoss">Wariant przegrany</string>
   <string name="variantWin">Wariant wygrany</string>
   <string name="insufficientMaterial">Niewystarczający materiał</string>
-  <string name="pawnMove">Ruch pionkiem</string>
+  <string name="pawnMove">Ruch pionem</string>
   <string name="capture">Bicie</string>
   <string name="close">Zamknij</string>
   <string name="winning">Wygrywa</string>
@@ -85,11 +85,11 @@
   </plurals>
   <string name="noGameFound">Nie znaleziono partii</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Może zaimportujesz więcej partii z menu narzędzi?</string>
-  <string name="openingExplorer">Przeglądarka otwarć</string>
+  <string name="openingExplorer">Biblioteka otwarć</string>
   <string name="xOpeningExplorer">Przeszukiwanie biblioteki otwarć %s</string>
   <string name="winPreventedBy50MoveRule">Zwycięstwo przez regułę 50 ruchów</string>
   <string name="lossSavedBy50MoveRule">Przegrana przez regułę 50 ruchów</string>
-  <string name="allSet">Wszystko gotowe!</string>
+  <string name="allSet">Gotowe!</string>
   <string name="importPgn">Importuj PGN</string>
   <string name="delete">Usuń</string>
   <string name="deleteThisImportedGame">Czy usunąć tę partię?</string>
@@ -266,7 +266,7 @@
   <string name="giveMoreTime">Dodaj więcej czasu</string>
   <string name="thisPlayerUsesChessComputerAssistance">Ten gracz korzysta z pomocy programu szachowego</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ten gracz sztucznie zwiększa/obniża swój ranking</string>
-  <string name="openingExplorerAndTablebase">Przeglądarka otwarć</string>
+  <string name="openingExplorerAndTablebase">Biblioteka otwarć i końcówek</string>
   <string name="takeback">Cofnij ruch</string>
   <string name="proposeATakeback">Poproś o cofnięcie ruchu</string>
   <string name="takebackPropositionSent">Wysłano prośbę o cofnięcie ruchu</string>
@@ -304,11 +304,11 @@
     <item quantity="other">Musisz rozegrać jeszcze %1$s partii rankingowych %2$s</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Twój ranking (%s) jest prowizoryczny</string>
-  <string name="yourPerfRatingIsTooHigh">Twój ranking %1$s (%2$s) jest za wysoki</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Twój ranking z tego tygodnia (%1$s) jest za wysoki (%2$s)</string>
+  <string name="yourPerfRatingIsTooHigh">Twój ranking %2$s (%1$s) jest za wysoki</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Twój ranking z tego tygodnia %2$s (%1$s) jest za wysoki</string>
   <string name="yourPerfRatingIsTooLow">Twój ranking %2$s (%1$s) jest zbyt niski</string>
-  <string name="ratedMoreThanInPerf">Ranking ≥ %1$s w %2$s</string>
-  <string name="ratedLessThanInPerf">Ranking ≤ %1$s w %2$s</string>
+  <string name="ratedMoreThanInPerf">Ranking ≥ %1$s (%2$s)</string>
+  <string name="ratedLessThanInPerf">Ranking ≤ %1$s (%2$s)</string>
   <string name="backToGame">Wróć do partii</string>
   <string name="siteDescription">Darmowe szachy online. Zagraj teraz w szachy o przyjaznym interfejsie. Bez rejestracji, bez reklam, bez instalowania wtyczek. Zagraj w szachy z komputerem, znajomymi lub losowo wybranymi przeciwnikami.</string>
   <string name="teams">Kluby</string>
@@ -560,13 +560,13 @@
   <string name="privacy">Prywatność</string>
   <string name="letOtherPlayersFollowYou">Inni gracze mogą Cię obserwować</string>
   <string name="letOtherPlayersChallengeYou">Inni gracze mogą rzucić Ci wyzwanie</string>
-  <string name="letOtherPlayersInviteYouToStudy">Pozwól innym zapraszać Cię do wspólnego omówienia partii</string>
+  <string name="letOtherPlayersInviteYouToStudy">Inni gracze mogą zapraszać Cię do omówienia partii</string>
   <string name="sound">Dźwięk</string>
   <string name="yourPreferencesHaveBeenSaved">Twoje ustawienia zostały zapisane.</string>
   <string name="none">Brak</string>
-  <string name="fast">Szybka</string>
-  <string name="normal">Normalna</string>
-  <string name="slow">Wolna</string>
+  <string name="fast">Szybko</string>
+  <string name="normal">Normalnie</string>
+  <string name="slow">Wolno</string>
   <string name="insideTheBoard">Na szachownicy</string>
   <string name="outsideTheBoard">Poza szachownicą</string>
   <string name="onSlowGames">W wolniejszych grach</string>
@@ -695,12 +695,12 @@
   <string name="returnToTournamentsHomepage">Wróć do turnieju</string>
   <string name="weeklyPerfTypeRatingDistribution">Tygodniowy rozkład rankingu w wariancie %s</string>
   <plurals name="nbPerfTypePlayersThisWeek">
-    <item quantity="one">%1$s gracz grał w tym tygodniu w wariant %2$s.</item>
-    <item quantity="few">%1$s graczy grało w tym tygodniu w wariant %2$s.</item>
-    <item quantity="other">%1$s graczy grało w tym tygodniu w wariant %2$s.</item>
+    <item quantity="one">%1$s gracz w tym tygodniu (%2$s).</item>
+    <item quantity="few">%1$s graczy w tym tygodniu (%2$s).</item>
+    <item quantity="other">%1$s graczy w tym tygodniu (%2$s).</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Twój ranking w wariancie %1$s to %2$s.</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">Jesteś lepszy niż %1$s graczy w tym wariancie.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Jesteś lepszy niż %1$s graczy (%2$s).</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nie masz jeszcze ustalonego rankingu w tym wariancie.</string>
   <string name="checkYourEmail">Sprawdź swoją skrzynkę e-mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Wysłaliśmy do Ciebie wiadomość e-mail. Kliknij w link znajdujący się w e-mailu aby aktywować swoje konto.</string>
@@ -720,7 +720,7 @@
   <string name="analysisShapesHowTo">Naciśnij shift i kliknij lub kliknij prawym przyciskiem myszy aby rysować okręgi i strzałki na szachownicy.</string>
   <string name="confirmResignationAndDrawOffers">Potwierdzaj poddanie się i wysłanie propozycji remisu</string>
   <string name="inputMovesWithTheKeyboard">Wprowadzaj ruchy za pomocą klawiatury</string>
-  <string name="letOtherPlayersMessageYou">Pozwól innym graczom na pisanie do Ciebie</string>
+  <string name="letOtherPlayersMessageYou">Inni gracze mogą pisać do Ciebie</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Sposób roszowania</string>
   <string name="castleByMovingTwoSquares">Przesuwając króla o dwa pola</string>
   <string name="castleByMovingOntoTheRook">Przesuwając króla na wieżę</string>

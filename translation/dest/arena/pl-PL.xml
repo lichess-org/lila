@@ -21,14 +21,14 @@ Berserk w partii z przyrostem czasu anuluje również przyrost (wyjątkiem jest 
 Berserk nie jest dostępny w partiach z zerowym czasem początkowym (0 + 1, 0 + 2). 
 
 Berserk przynosi dodatkowe punkty tylko wtedy gdy zrobisz co najmniej 7 posunięć w partii.</string>
-  <string name="howIsTheWinnerDecided">Jak jest wyłaniany zwycięzca?</string>
+  <string name="howIsTheWinnerDecided">Jak wyłaniany jest zwycięzca?</string>
   <string name="howIsTheWinnerDecidedAnswer">Zwycięzcą turnieju zostaje gracz (lub gracze) który w momencie upłynięcia czasu przeznaczonego na turniej posiada największą liczbę punktów turniejowych.</string>
   <string name="howDoesPairingWork">W jaki sposób dobierani są przeciwnicy?</string>
   <string name="howDoesPairingWorkAnswer">Na początku turnieju gracze dobierani są do wspólnej gry na podstawie swoich rankingów. 
 Zaraz po zakończeniu gry i powrocie do poczekalni zostanie Ci ponownie dobrany gracz o rankingu zbliżonym do Twojego. Dzięki temu czas oczekiwania jest minimalny, możesz jednak nie mieć okazji zagrać z wszystkimi graczami uczestniczącymi w turnieju.
 Graj szybko i wracaj do poczekalni aby rozegrać jak najwięcej partii i zdobyć jak najwięcej punktów.</string>
   <string name="howDoesItEnd">Kiedy kończy się turniej?</string>
-  <string name="howDoesItEndAnswer">Turniej ma zegar który odlicza czas wstecz. Gdy osiągnie zero, rankingi turniejowe są zamrażane i ogłasza się zwycięzcę. Gry w toku muszą zostać zakończone, jednak nie są już wliczane do turnieju.</string>
+  <string name="howDoesItEndAnswer">Turniej ma zegar który odlicza czas wstecz. Gdy osiągnie zero, punkty zdobyte w turnieju są zamrażane i ogłasza się zwycięzcę. Gry w toku muszą zostać zakończone, jednak nie są już wliczane do turnieju.</string>
   <string name="otherRules">Inne ważne zasady</string>
   <string name="otherRulesAnswer">Jesteś zobowiązany do wykonania pierwszego ruchu w ciągu 20 sekund. Nie wykonanie ruchu w tym czasie spowoduje przegranie partii. 
 Jeżeli w ciągu pierwszych 10 ruchów gry uzgodnicie remis to żaden z graczy nie zdobędzie punktów.</string>

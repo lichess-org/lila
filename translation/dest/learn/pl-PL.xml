@@ -48,7 +48,7 @@ Skacz i zbieraj gwiazdki!</string>
 Ale jeśli dojdą do ostatniej linii mogą zamienić się w silniejszą figurę!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">W większości przypadków najlepiej promować piona do królowej. 
 Jednak czasem bardziej przydatny może być skoczek!</string>
-  <string name="pawnsMoveForward">Pionki poruszają się do przodu ale biją po przekątnej!</string>
+  <string name="pawnsMoveForward">Piony poruszają się do przodu ale biją po przekątnej!</string>
   <string name="captureThenPromote">Zbij, a później promuj piona!</string>
   <string name="useAllThePawns">Użyj wszystkich swoich pionów! Nie ma potrzeby promowania.</string>
   <string name="aPawnOnTheSecondRank">Pion będący na drugiej linii może poruszyć się o 2 pola do przodu!</string>
@@ -124,9 +124,9 @@ Jednak czasem bardziej przydatny może być skoczek!</string>
   <string name="theSpecialPawnMove">Specjalny ruch piona</string>
   <string name="enPassantIntro">Kiedy pion przeciwnika poruszył się o dwa pola do przodu, możesz zbić go tak jakby poruszył się tylko o jedno pole.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Czarne właśnie ruszyły się pionem o dwa pola do przodu! Zbij go biciem w przelocie.</string>
-  <string name="enPassantOnlyWorksImmediately">Bicie w przelocie działa tylko od razu po ruchu przeciwnika pionkiem.</string>
+  <string name="enPassantOnlyWorksImmediately">Bicie w przelocie działa tylko od razu po ruchu przeciwnika pionem.</string>
   <string name="enPassantOnlyWorksOnFifthRank">Bicie w przelocie działa tylko wtedy gdy pion jest na 5 linii.</string>
-  <string name="takeAllThePawnsEnPassant">Zbij wszystkie pionki biciem w przelocie!</string>
+  <string name="takeAllThePawnsEnPassant">Zbij wszystkie piony biciem w przelocie!</string>
   <string name="enPassantComplete">Gratulacje! Potrafisz teraz wykonać bicie w przelocie.</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Gra zakończona remisem</string>

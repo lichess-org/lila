@@ -305,6 +305,7 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">Váš rating %s je provizorní</string>
   <string name="yourPerfRatingIsTooHigh">Váš %1$s rating (%2$s) je příliš vysoký</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Váš týdenní rating ve variantě %1$s (%2$s) je příliš vysoký</string>
   <string name="yourPerfRatingIsTooLow">Váš %1$s rating (%2$s) je příliš nízký</string>
   <string name="ratedMoreThanInPerf">Rating ≥ %1$s v %2$s variantě</string>
   <string name="ratedLessThanInPerf">Rating ≤ %1$s v %2$s variantě</string>
