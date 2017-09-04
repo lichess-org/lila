@@ -64,15 +64,55 @@ private final class PushApi(
                 stacking = Stacking.GameMove,
                 payload = Json.obj(
                   "userId" -> userId,
-                  "userData" -> Json.obj(
-                    "type" -> "gameMove",
-                    "gameId" -> game.id,
-                    "fullId" -> pov.fullId,
-                    "color" -> pov.color.name,
-                    "fen" -> Forsyth.exportBoard(game.toChess.board),
-                    "lastMove" -> game.castleLastMoveTime.lastMoveString,
-                    "secondsLeft" -> pov.remainingSeconds
-                  )
+                  "userData" -> corresGameJson(pov, "gameMove")
+                )
+              ))
+            }
+          }
+        }
+      }
+    }
+  }
+
+  def takebackOffer(gameId: Game.ID): Funit = scheduler.after(1 seconds) {
+    GameRepo game gameId flatMap {
+      _.filter(_.playable).?? { game =>
+        game.players.collectFirst {
+          case p if p.isProposingTakeback => Pov(game, game opponent p)
+        } ?? { pov => // the pov of the receiver
+          pov.player.userId ?? { userId =>
+            IfAway(pov) {
+              pushToAll(userId, _.takeback, PushApi.Data(
+                title = "Takeback offer",
+                body = s"${opponentName(pov)} proposes a takeback",
+                stacking = Stacking.GameTakebackOffer,
+                payload = Json.obj(
+                  "userId" -> userId,
+                  "userData" -> corresGameJson(pov, "gameTakebackOffer")
+                )
+              ))
+            }
+          }
+        }
+      }
+    }
+  }
+
+  def drawOffer(gameId: Game.ID): Funit = scheduler.after(1 seconds) {
+    GameRepo game gameId flatMap {
+      _.filter(_.playable).?? { game =>
+        game.players.collectFirst {
+          case p if p.isOfferingDraw => Pov(game, game opponent p)
+        } ?? { pov => // the pov of the receiver
+          pov.player.userId ?? { userId =>
+            IfAway(pov) {
+              pushToAll(userId, _.takeback, PushApi.Data(
+                title = "Draw offer",
+                body = s"${opponentName(pov)} offers a draw",
+                stacking = Stacking.GameDrawOffer,
+                payload = Json.obj(
+                  "userId" -> userId,
+                  "userData" -> corresGameJson(pov, "gameDrawOffer")
                 )
               ))
             }
@@ -90,18 +130,20 @@ private final class PushApi(
         stacking = Stacking.GameMove,
         payload = Json.obj(
           "userId" -> userId,
-          "userData" -> Json.obj(
-            "type" -> "corresAlarm",
-            "gameId" -> pov.gameId,
-            "fullId" -> pov.fullId,
-            "color" -> pov.color.name,
-            "fen" -> Forsyth.exportBoard(pov.game.toChess.board),
-            "lastMove" -> pov.game.castleLastMoveTime.lastMoveString,
-            "secondsLeft" -> pov.remainingSeconds
-          )
+          "userData" -> corresGameJson(pov, "corresAlarm")
         )
       ))
     }
+
+  private def corresGameJson(pov: Pov, typ: String) = Json.obj(
+    "type" -> typ,
+    "gameId" -> pov.game.id,
+    "fullId" -> pov.fullId,
+    "color" -> pov.color.name,
+    "fen" -> Forsyth.exportBoard(pov.game.toChess.board),
+    "lastMove" -> pov.game.castleLastMoveTime.lastMoveString,
+    "secondsLeft" -> pov.remainingSeconds
+  )
 
   def newMessage(t: Thread, p: Post): Funit =
     lightUser(t.visibleSenderOf(p)) ?? { sender =>

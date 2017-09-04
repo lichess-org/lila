@@ -285,10 +285,10 @@
     <item quantity="other">Vous devez encore jouer %s parties classées</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Votre classement %s est provisoire</string>
-  <string name="yourPerfRatingIsTooHigh">Votre cote %1$s (%2$s) est trop élevé</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Votre meilleure cote hebdomadaire de %1$s (%2$s) est trop élevé</string>
-  <string name="yourPerfRatingIsTooLow">Votre cote de %1$s (%2$s) est trop faible</string>
-  <string name="ratedMoreThanInPerf">Cote : ≥ %1$s dans %2$s</string>
+  <string name="yourPerfRatingIsTooHigh">Votre cote %1$s (%2$s) est trop élevée</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Votre meilleure cote %1$s hebdomadaire (%2$s) est trop élevée</string>
+  <string name="yourPerfRatingIsTooLow">Votre cote %1$s (%2$s) est trop faible</string>
+  <string name="ratedMoreThanInPerf">Cote ≥ %1$s en %2$s</string>
   <string name="ratedLessThanInPerf">Cote ≤ %1$s dans %2$s</string>
   <string name="backToGame">Retour à la partie</string>
   <string name="siteDescription">Jeu d\'échecs gratuit en ligne. Jouez aux échecs immédiatement avec une interface simple. Pas d\'inscription obligatoire, pas de publicité, pas de plugin. Jouez aux échecs avec des adversaires en ligne, avec des amis ou contre l\'ordinateur.</string>
@@ -396,7 +396,7 @@
   <string name="averageOpponent">Opposition moyenne</string>
   <string name="membersOnly">Membres seulement</string>
   <string name="boardEditor">Éditeur de partie</string>
-  <string name="setTheBoard">Placer une position</string>
+  <string name="setTheBoard">Entrer une position</string>
   <string name="popularOpenings">Ouvertures courantes</string>
   <string name="startPosition">Position de départ</string>
   <string name="clearBoard">Vider l\'échiquier</string>
@@ -436,11 +436,11 @@
   <string name="keepGoing">Continuez…</string>
   <string name="puzzleFailed">Problème raté</string>
   <string name="butYouCanKeepTrying">Mais vous pouvez réessayer.</string>
-  <string name="success">Succès</string>
+  <string name="success">Réussi</string>
   <string name="wasThisPuzzleAnyGood">Ce problème était-il intéressant  ?</string>
   <string name="pleaseVotePuzzle">Aidez Lichess à s\'améliorer en votant grâce aux flèches :</string>
   <string name="thankYou">Merci !</string>
-  <string name="ratingX">Classement : %s</string>
+  <string name="ratingX">Cote : %s</string>
   <plurals name="playedXTimes">
     <item quantity="one">Joué %s fois</item>
     <item quantity="other">Joué %s fois</item>
@@ -460,7 +460,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Aller automatiquement à la prochaine partie après chaque coup</string>
   <string name="autoSwitch">Changement automatique</string>
-  <string name="puzzles">Problèmes d\'échecs</string>
+  <string name="puzzles">Problèmes</string>
   <string name="latestUpdates">Dernières mises à jour</string>
   <string name="tournamentWinners">Vainqueurs de tournois</string>
   <string name="name">Nom</string>
@@ -508,10 +508,10 @@
   <string name="currentPassword">Mot de passe actuel</string>
   <string name="newPassword">Nouveau mot de passe</string>
   <string name="newPasswordAgain">Nouveau mot de passe (encore)</string>
-  <string name="boardHighlights">Surligner les cases (dernier coup et échec)</string>
+  <string name="boardHighlights">Mettre en évidence les cases (dernier coup et échec)</string>
   <string name="pieceDestinations">Cases de destination (coups et pré-coups légaux)</string>
   <string name="boardCoordinates">Coordonnées (a-h, 1-8)</string>
-  <string name="moveListWhilePlaying">Notation des coups durant la partie</string>
+  <string name="moveListWhilePlaying">Liste des coups durant la partie</string>
   <string name="pgnPieceNotation">Notation des coups</string>
   <string name="chessPieceSymbol">Figurine de la pièce</string>
   <string name="pgnLetter">Lettre de la pièce (K, Q, R, B, N)</string>
@@ -551,7 +551,7 @@
   <string name="difficultyNormal">Normal</string>
   <string name="difficultyHard">Difficile</string>
   <string name="xLeftANoteOnY">%1$s a laissé une note sur %2$s</string>
-  <string name="xCompetesInY">%1$s joue à %2$s</string>
+  <string name="xCompetesInY">%1$s participe à %2$s</string>
   <string name="xAskedY">%1$s a demandé %2$s</string>
   <string name="xAnsweredY">%1$s a répondu à %2$s</string>
   <string name="xCommentedY">%1$s a commenté %2$s</string>
@@ -561,12 +561,12 @@
 en %3$s</string>
   <string name="timeline">Activité</string>
   <string name="seeAllTournaments">Voir tous les tournois</string>
-  <string name="starting">Démarrage :</string>
+  <string name="starting">Début :</string>
   <string name="allInformationIsPublicAndOptional">Toutes les informations sont publiques et facultatives.</string>
   <string name="yourCityRegionOrDepartment">Votre ville, région ou département.</string>
   <string name="biographyDescription">Parlez de vous, de ce que vous aimez dans les échecs, vos ouvertures préférées, vos parties, vos joueurs, …</string>
   <plurals name="maximumNbCharacters">
-    <item quantity="one">Maximum : %s caractères.</item>
+    <item quantity="one">Maximum : %s caractère.</item>
     <item quantity="other">Maximum : %s caractères.</item>
   </plurals>
   <plurals name="blocks">
@@ -582,7 +582,7 @@ en %3$s</string>
   <string name="noInternetConnection">Pas de connexion à Internet. Vous pouvez cependant jouer hors ligne à partir du menu.</string>
   <string name="connectedToLichess">Vous êtes maintenant connecté à lichess.org</string>
   <string name="signedOut">Vous vous êtes déconnecté</string>
-  <string name="loginSuccessful">Connexion réussie</string>
+  <string name="loginSuccessful">Vous êtes connecté</string>
   <string name="playOnTheBoardOffline">Jouer hors ligne, avec un ami</string>
   <string name="playOfflineComputer">Jouer hors ligne, avec l\'ordinateur</string>
   <string name="opponent">Adversaire</string>
@@ -595,10 +595,10 @@ en %3$s</string>
   <string name="playOffline">Jouer hors ligne</string>
   <string name="allowAnalytics">Autoriser l\'envoi de statistiques anonymes</string>
   <string name="shareGameURL">Partager l\'URL de la partie</string>
-  <string name="error.required">Ce champ est requis</string>
-  <string name="error.email">Cette adresse courriel est invalide</string>
-  <string name="error.email_acceptable">Cette adresse courriel jetable n\'est pas autorisée</string>
-  <string name="error.email_unique">Cette adresse courriel est déjà utilisée</string>
+  <string name="error.required">Ce champ est obligatoire</string>
+  <string name="error.email">Cette adresse email est invalide</string>
+  <string name="error.email_acceptable">Cette adresse email n\'est pas acceptable</string>
+  <string name="error.email_unique">Cette adresse email est déjà utilisée</string>
   <string name="error.email_different">C’est déjà votre adresse e-mail</string>
   <string name="blindfoldChess">Échecs à l\'aveugle (pièces invisibles)</string>
   <string name="zenMode">Mode Zen</string>
@@ -629,7 +629,7 @@ en %3$s</string>
   <string name="termsOfService">Conditions d\'utilisation</string>
   <string name="sourceCode">Code source</string>
   <string name="simultaneousExhibitions">Parties simultanées</string>
-  <string name="host">Exposant(e)</string>
+  <string name="host">Hôte</string>
   <string name="hostColorX">Couleur de l’hôte : %s</string>
   <string name="createdSimuls">Nouvelles simultanées</string>
   <string name="hostANewSimul">Créer une nouvelle simultanée</string>
@@ -639,14 +639,14 @@ en %3$s</string>
   <string name="aboutSimul">Une simultanée est une rencontre entre un joueur et plusieurs adversaires chacun sur un échiquier séparé.</string>
   <string name="aboutSimulImage">Sur 50 adversaires, Fischer a gagné 47 parties, fait 2 nulles et perdu 1 partie.</string>
   <string name="aboutSimulRealLife">Le concept est inspiré de la vie réelle, où le joueur passe d\'un échiquier à l\'autre pour jouer chaque coup.</string>
-  <string name="aboutSimulRules">Le joueur a les Blancs sur chacun des échiquiers et ses adversaires jouent au moment où il se présente devant leur échiquier. La simultanée prend fin lorsque toutes les parties sont terminées.</string>
+  <string name="aboutSimulRules">Quand la simultanée commence, chaque joueur débute une partie contre l\'hôte, qui a les Blancs. La simultanée prend fin lorsque toutes les parties sont terminées.</string>
   <string name="aboutSimulSettings">Les parties simultanées sont toujours amicales. Les revanches, l\'annulation de coups et la possibilité de donner du temps sont désactivées.</string>
   <string name="create">Créer</string>
   <string name="whenCreateSimul">Lorsque vous créez une simultanée, vouz affrontez plusieurs adversaires à la fois.</string>
   <string name="simulVariantsHint">Si vous sélectionnez plusieurs variantes, chaque joueur doit choisir laquelle jouer.</string>
   <string name="simulClockHint">Configuration de la cadence Fischer. Plus il y a d\'adversaires, plus vous pourriez avoir besoin de temps.</string>
   <string name="simulAddExtraTime">Vous pouvez ajouter du temps supplémentaire à votre pendule pour gérer la simultanée.</string>
-  <string name="simulHostExtraTime">Temps supplémentaire de l\'exposant(e)</string>
+  <string name="simulHostExtraTime">Temps supplémentaire de l\'hôte</string>
   <string name="lichessTournaments">Tournois Lichess</string>
   <string name="tournamentFAQ">FAQ des tournois</string>
   <string name="tournamentOfficial">Officiel</string>
@@ -660,25 +660,25 @@ en %3$s</string>
   <string name="newTournament">Nouveau tournoi</string>
   <string name="tournamentHomeTitle">Tournoi réunissant plusieurs variantes et cadences</string>
   <string name="tournamentHomeDescription">Jouez des tournois d\'échecs palpitants ! Rejoignez un tournoi officiel programmé ou créez le vôtre. Bullet, Blitz, Classique, Chess960, King of the Hill, Threecheck et d\'autres options sont disponibles pour s\'amuser sans fin.</string>
-  <string name="tournamentNotFound">Tournoi inexistant</string>
+  <string name="tournamentNotFound">Tournoi non trouvé</string>
   <string name="tournamentDoesNotExist">Ce tournoi n\'existe pas.</string>
   <string name="tournamentMayHaveBeenCanceled">Il a peut-être été annulé, si tous les joueurs l\'ont quitté avant le début.</string>
   <string name="returnToTournamentsHomepage">Retour à la page des tournois</string>
-  <string name="weeklyPerfTypeRatingDistribution">Distribution des classements mensuels en %s</string>
+  <string name="weeklyPerfTypeRatingDistribution">Distribution hebdomadaire des cotes en %s</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">Un joueur de %2$s cette semaine.</item>
     <item quantity="other">%1$s joueurs de %2$s cette semaine.</item>
   </plurals>
-  <string name="yourPerfTypeRatingIsRating">Votre classement en %1$s est de %2$s.</string>
+  <string name="yourPerfTypeRatingIsRating">Votre cote en %1$s est de %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Vous êtes meilleur que %1$s des joueurs de %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Vous n\'avez pas de classement établi en %s.</string>
-  <string name="checkYourEmail">Vérifiez vos courriels</string>
-  <string name="weHaveSentYouAnEmailClickTheLink">Nous vous avons envoyé un courriel.  Visitez le lien qui s\'y trouve pour activer votre compte.</string>
-  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si vous ne trouvez pas le courriel dans votre boîte de réception, vérifiez dans vos courriels indésirables ou autres dossiers.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Êtes vous certain d\'avoir enregistré votre adresse électronique sur lichess ?</string>
+  <string name="checkYourEmail">Vérifiez vos emails</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Nous vous avons envoyé un email. Visitez le lien qui s\'y trouve pour activer votre compte.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si vous ne trouvez pas l\'email dans votre boîte de réception, vérifiez dans vos emails indésirables ou autres dossiers.</string>
+  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Êtes-vous certain d\'avoir enregistré votre adresse électronique sur lichess ?</string>
   <string name="itWasNotRequiredForYourRegistration">Elle n\'était pas nécessaire pour vous enregistrer initialement.</string>
-  <string name="weHaveSentYouAnEmailTo">Nous avons envoyé un courriel à %s.  Cliquez le lien qui s\'y trouve pour réinitialiser votre mot de passe.</string>
-  <string name="byRegisteringYouAgreeToBeBoundByOur">En vous inscrivant, vous acceptez d\'être lié à notre %s.</string>
+  <string name="weHaveSentYouAnEmailTo">Nous avons envoyé un email à %s. Cliquez le lien qui s\'y trouve pour réinitialiser votre mot de passe.</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">En vous inscrivant, vous acceptez d\'être lié à nos %s.</string>
   <string name="networkLagBetweenYouAndLichess">Latence du réseau entre vous et lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Temps nécessaire au traitement d\'un coup sur un serveur lichess</string>
   <string name="downloadAnnotated">Télécharger le PGN annoté</string>

@@ -27,7 +27,7 @@ object Search extends LilaController {
 
   def index(p: Int) = OpenBody { implicit ctx =>
     NotForBots {
-      val page = p min 100 max 1
+      val page = p atLeast 1
       Reasonable(page, 100) {
         val ip = HTTPRequest lastRemoteAddress ctx.req
         val cost = scala.math.sqrt(page).toInt

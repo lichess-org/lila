@@ -11,18 +11,18 @@ function gameLink(id, content) {
   }, content);
 }
 
-function date(d) {
-  return m('time', window.lichess.timeago.format(d));
+function absDate(d) {
+  return m('time', window.lichess.timeago.absolute(d));
 }
 
 function fromTo(s) {
   return fMap(s.from, function(r) {
     return [
       'from ',
-      gameLink(r.gameId, date(r.at)),
+      gameLink(r.gameId, absDate(r.at)),
       ' to ',
       fMap(s.to, function(r) {
-        return gameLink(r.gameId, date(r.at));
+        return gameLink(r.gameId, absDate(r.at));
       }, 'now')
     ];
   }, m.trust('&nbsp;'));
@@ -31,7 +31,7 @@ function fromTo(s) {
 module.exports = {
   fMap: fMap,
   gameLink: gameLink,
-  date: date,
+  date: absDate,
   showUser: function(u, rating) {
     return m('a', {
       class: 'ulpt',

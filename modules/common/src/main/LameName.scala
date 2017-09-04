@@ -57,6 +57,7 @@ object LameName {
       "cheat",
       "administrator",
       "cock",
+      "dick",
       "fart"
     ) map { _ map subs mkString } mkString "|" r).pattern
   }

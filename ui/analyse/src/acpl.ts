@@ -31,7 +31,13 @@ const advices = [
 
 function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
   const d = ctrl.data;
-  return h('table', [
+  return h('table', {
+    hook: {
+      insert(vnode) {
+        window.lichess.powertip.manualUserIn(vnode.elm);
+      }
+    }
+  }, [
     h('thead', h('tr', [
       h('td', h('i.is.color-icon.' + color)),
       h('th', renderPlayer(d, color))

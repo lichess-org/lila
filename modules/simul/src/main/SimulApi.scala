@@ -7,7 +7,7 @@ import scala.concurrent.duration._
 
 import chess.variant.Variant
 import lila.common.Debouncer
-import lila.game.{ Game, GameRepo }
+import lila.game.{ Game, GameRepo, PerfPicker }
 import lila.hub.actorApi.lobby.ReloadSimuls
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.timeline.{ Propagate, SimulCreate, SimulJoin }
@@ -63,7 +63,17 @@ final class SimulApi(
       else {
         timeline ! (Propagate(SimulJoin(user.id, simul.id, simul.fullName)) toFollowersOf user.id)
         Variant(variantKey).filter(simul.variants.contains).fold(simul) { variant =>
-          simul addApplicant SimulApplicant.make(SimulPlayer.make(user, variant))
+          simul addApplicant SimulApplicant.make(
+            SimulPlayer.make(
+              user,
+              variant,
+              PerfPicker.mainOrDefault(
+                speed = chess.Speed(simul.clock.config.some),
+                variant = variant,
+                daysPerTurn = none
+              )(user.perfs)
+            )
+          )
         }
       }
     }

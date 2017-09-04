@@ -2,9 +2,9 @@ package controllers
 
 import lila.api.Context
 import lila.app._
+import lila.chat.Chat
 import lila.common.{ IpAddress, EmailAddress }
 import lila.user.{ UserRepo, User => UserModel }
-import lila.chat.Chat
 import views._
 
 import play.api.data._
@@ -131,27 +131,38 @@ object Mod extends LilaController {
     modLogApi.recent map { html.mod.log(_) }
   }
 
-  def communication(username: String) = Secure(_.MarkTroll) { implicit ctx => me =>
+  private def communications(username: String, priv: Boolean) = Secure {
+    perms => if (priv) perms.ViewPrivateComms else perms.MarkTroll
+  } { implicit ctx => me =>
     OptionFuOk(UserRepo named username) { user =>
       lila.game.GameRepo.recentPovsByUserFromSecondary(user, 80) flatMap { povs =>
-        Env.chat.api.playerChat optionsByOrderedIds povs.map(_.gameId).map(Chat.Id.apply) zip
-          lila.message.ThreadRepo.visibleByUser(user.id, 60).map {
-            _ filter (_ hasPostsWrittenBy user.id) take 30
+        priv.?? {
+          Env.chat.api.playerChat optionsByOrderedIds povs.map(_.gameId).map(Chat.Id.apply)
+        } zip
+          priv.?? {
+            lila.message.ThreadRepo.visibleByUser(user.id, 60).map {
+              _ filter (_ hasPostsWrittenBy user.id) take 30
+            }
           } zip
           (Env.shutup.api getPublicLines user.id) zip
           (Env.security userSpy user.id) zip
           Env.user.noteApi.forMod(user.id) zip
-          Env.mod.logApi.userHistory(user.id) map {
-            case chats ~ threads ~ publicLines ~ spy ~ notes ~ history =>
+          Env.mod.logApi.userHistory(user.id) zip
+          Env.report.api.inquiries.ofModId(me.id) map {
+            case chats ~ threads ~ publicLines ~ spy ~ notes ~ history ~ inquiry =>
+              if (priv) Env.slack.api.commlog(mod = me, user = user, inquiry.map(_.createdBy))
               val povWithChats = (povs zip chats) collect {
                 case (p, Some(c)) if c.nonEmpty => p -> c
               } take 15
               val filteredNotes = notes.filter(_.from != "irwin")
-              html.mod.communication(user, povWithChats, threads, publicLines, spy, filteredNotes, history)
+              html.mod.communication(user, povWithChats, threads, publicLines, spy, filteredNotes, history, priv)
           }
       }
     }
   }
+
+  def communicationPublic(username: String) = communications(username, false)
+  def communicationPrivate(username: String) = communications(username, true)
 
   private[controllers] val ipIntelCache =
     Env.memo.asyncCache.multi[IpAddress, Int](

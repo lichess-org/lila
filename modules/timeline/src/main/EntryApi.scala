@@ -25,7 +25,10 @@ final class EntryApi(
     userEntries(userId, nb) flatMap broadcast.interleave
 
   private def userEntries(userId: String, max: Int): Fu[Vector[Entry]] =
-    coll.find($doc("users" -> userId), projection)
+    coll.find($doc(
+      "users" -> userId,
+      "date" $gt DateTime.now.minusWeeks(2)
+    ), projection)
       .sort($sort desc "date")
       .cursor[Entry](ReadPreference.secondaryPreferred)
       .gather[Vector](max)
@@ -61,11 +64,11 @@ final class EntryApi(
     private def fetch: Fu[Vector[Entry]] = coll
       .find($doc(
         "users" $exists false,
-        "date" $gt DateTime.now.minusMonths(6)
+        "date" $gt DateTime.now.minusWeeks(2)
       ))
       .sort($sort desc "date")
       .cursor[Entry]() // must be on primary for cache refresh to work
-      .gather[Vector](8)
+      .gather[Vector](3)
 
     private[EntryApi] def interleave(entries: Vector[Entry]): Fu[Vector[Entry]] = cache.get map { bcs =>
       bcs.headOption.fold(entries) { mostRecentBc =>

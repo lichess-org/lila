@@ -1,10 +1,10 @@
 package lila.forum
 
-import lila.notify.{ Notification, MentionedInThread }
+import lila.common.Future
 import lila.notify.NotifyApi
+import lila.notify.{ Notification, MentionedInThread }
 import lila.relation.RelationApi
 import lila.user.{ UserRepo, User }
-import lila.common.Future
 
 /**
  * Notifier to inform users if they have been mentioned in a post
@@ -13,17 +13,14 @@ import lila.common.Future
  */
 final class MentionNotifier(notifyApi: NotifyApi, relationApi: RelationApi) {
 
-  def notifyMentionedUsers(post: Post, topic: Topic): Unit = if (!post.troll) {
-    post.userId foreach { author =>
-      val mentionedUsers = extractMentionedUsers(post)
-      val mentionedBy = MentionedInThread.MentionedBy(author)
-
-      for {
-        validUsers <- filterValidUsers(mentionedUsers, author)
-        notifications = validUsers.map(createMentionNotification(post, topic, _, mentionedBy))
-      } yield notifyApi.addNotifications(notifications)
+  def notifyMentionedUsers(post: Post, topic: Topic): Funit =
+    post.userId.ifFalse(post.troll) ?? { author =>
+      filterValidUsers(extractMentionedUsers(post), author) flatMap { validUsers =>
+        val mentionedBy = MentionedInThread.MentionedBy(author)
+        val notifications = validUsers.map(createMentionNotification(post, topic, _, mentionedBy))
+        notifyApi.addNotifications(notifications)
+      }
     }
-  }
 
   /**
    * Checks the database to make sure that the users mentioned exist, and removes any users that do not exist
@@ -38,7 +35,7 @@ final class MentionNotifier(notifyApi: NotifyApi, relationApi: RelationApi) {
   }
 
   private def filterNotBlockedByUsers(usersMentioned: List[String], mentionedBy: String): Fu[List[String]] = {
-    Future.filterNot(usersMentioned)(mentioned => relationApi.fetchBlocks(mentioned, mentionedBy))
+    Future.filterNot(usersMentioned) { relationApi.fetchBlocks(_, mentionedBy) }
   }
 
   private def createMentionNotification(post: Post, topic: Topic, mentionedUser: Notification.Notifies, mentionedBy: MentionedInThread.MentionedBy): Notification = {

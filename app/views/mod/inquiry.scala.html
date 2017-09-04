@@ -51,7 +51,7 @@
   <div class="links">
     <a href="@routes.User.games(in.user.id, "search")?players.b=@in.report.createdBy">View<br />Games</a>
     @if(isGranted(_.MarkTroll)) {
-    <a href="@routes.Mod.communication(in.user.id)">View<br />Coms</a>
+    <a href="@routes.Mod.communicationPublic(in.user.id)">View<br />Comms</a>
     }
   </div>
   <div class="actions">

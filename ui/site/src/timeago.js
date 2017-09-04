@@ -77,8 +77,12 @@ lichess.timeago = (function() {
           if (!abs) node.innerHTML = formatDiff(diffSec(date));
         }
       },
+      // relative
       format: function(date) {
         return formatDiff(diffSec(date));
+      },
+      absolute: function(d) {
+        return formatter(toDate(d));
       }
     };
 })();

@@ -359,7 +359,6 @@ div.sub_ratings h3 {
 }
 .user_show .note_zone p.text {
   min-height: 2.7em;
-  word-break: break-all;
 }
 .user_show div.content_box_inter.tabs {
   margin-left: -8px;

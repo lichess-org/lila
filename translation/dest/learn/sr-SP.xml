@@ -103,10 +103,102 @@
   <string name="mateInOne">Мат у један</string>
   <string name="defeatTheOpponentsKing">Поразите противничког краља</string>
   <string name="mateInOneIntro">Ви сте победник када ваш противник не може да се одбрани од шаха.</string>
+  <string name="attackYourOpponentsKing">Нападните противничког краља
+на начин који се не може одбранити!</string>
+  <string name="mateInOneComplete">Честитамо! Тако се добијају партије!</string>
+  <string name="intermediate">Средње</string>
+  <string name="boardSetup">Намештање табле</string>
+  <string name="howTheGameStarts">Тако почиње партија</string>
+  <string name="boardSetupIntro">Две армије се суочавају, спремне за битку.</string>
+  <string name="thisIsTheInitialPosition">Ово је почетна позиција
+сваке шаховске партије!
+Направите било који потез да наставите.</string>
+  <string name="firstPlaceTheRooks">Прво ставите топове!
+Они иду у ћошкове.</string>
+  <string name="thenPlaceTheKnights">Затим ставите скакаче!
+Они иду поред топова.</string>
+  <string name="placeTheBishops">Ставите ловчеве!
+Они иду поред скакача.</string>
+  <string name="placeTheQueen">Ставите краљицу!
+Она иде на њену боју.</string>
+  <string name="placeTheKing">Ставите краља!
+Одмах поред његове краљице.</string>
+  <string name="pawnsFormTheFrontLine">Пешаци формирају предњу линију.
+Направите било који потез да наставите.</string>
   <string name="boardSetupComplete">Честитамо! Знате да поставите шаховску таблу.</string>
+  <string name="castling">Рокада</string>
+  <string name="theSpecialKingMove">Специјалан краљев потез</string>
+  <string name="castlingIntro">Доведите краља у сигурност, и доведите топа да напада!</string>
+  <string name="castleKingSide">Померите краља за два поља
+да урадите малу рокаду!</string>
+  <string name="castleQueenSide">Померите краља за два поља
+да урадите велику рокаду!</string>
+  <string name="theKnightIsInTheWay">Скакач је на путу!
+Померите га, и онда направите малу рокаду.</string>
+  <string name="castleKingSideMovePiecesFirst">Направите малу рокаду!
+Прво морате развити фигуре.</string>
+  <string name="castleQueenSideMovePiecesFirst">Направите велику рокаду!
+Прво морате развити фигуре.</string>
+  <string name="youCannotCastleIfMoved">Неможете направити рокаду ако
+се краљ већ померио
+или ако се то већ померио.</string>
+  <string name="youCannotCastleIfAttacked">Неможете направити рокаду ако
+је краљ нападнут на путу.
+Блокирајте шах па онда направите рокаду!</string>
+  <string name="findAWayToCastleKingSide">Нађите начин да
+направите малу рокаду!</string>
+  <string name="findAWayToCastleQueenSide">Нађите начин да
+направите велику рокаду!</string>
+  <string name="castlingComplete">Честитамо! Требали би скоро увек направити рокаду током партије.</string>
+  <string name="enPassant">Ен пасант</string>
+  <string name="theSpecialPawnMove">Специјалан пешаков потез</string>
+  <string name="enPassantIntro">Када се противнички пешак помери за два поља, можете да га поједете као да се померију за једно поље.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Црни играч је таман померио пешака
+за два поља!
+Поједите га ен пасант.</string>
+  <string name="enPassantOnlyWorksImmediately">Ен пасант једино ради
+одмах након што је противник
+померио пешака.</string>
   <string name="enPassantOnlyWorksOnFifthRank">Ан пасан је могућ само
 ако вам је пешак на петом реду.</string>
+  <string name="takeAllThePawnsEnPassant">Узмите све пешаке ен пасант!</string>
+  <string name="enPassantComplete">Честитамо! Сада можете узимати ен пасант.</string>
+  <string name="stalemate">Пат</string>
+  <string name="theGameIsADraw">Партија је нерешена</string>
+  <string name="stalemateIntro">Када играч није у шаху и неможе направити ниједан потез, то је пат. Партија је нерешена: нико не добија, нико не губи.</string>
+  <string name="stalemateGoal">Да направите пат:
+- Црни играч не може нигде да се помери
+- Нема шаха.</string>
+  <string name="stalemateComplete">Честитамо! Боље правите пат него да добијете шах мат!</string>
+  <string name="advanced">Напредно</string>
+  <string name="pieceValue">Вредност фигура</string>
+  <string name="evaluatePieceStrength">Процените снагу фигуре</string>
+  <string name="pieceValueIntro">Фигуре са више поља на које могу да се помере су вредније!
+Дама = 9
+Топ = 5
+Ловац = 3
+Скакач = 3
+Пешак = 1
+Краљ нема вредност! Ако га изгубите, изгубили сте партију.</string>
+  <string name="queenOverBishop">Поједите фигуру
+са највећом вредношћу!
+Дама &gt; Ловац</string>
+  <string name="takeThePieceWithTheHighestValue">Поједите фигуру
+са највећом вредношћу!</string>
+  <string name="pieceValueComplete">Честитамо! Знате вредност материјала!
+Дама = 9
+Топ = 5
+Ловац = 3
+Скакач = 3
+Пешак = 1</string>
+  <string name="checkInTwo">Шах у два</string>
+  <string name="twoMovesToGiveCheck">Два потеза да дате шах</string>
   <string name="checkInTwoIntro">Пронађите најбољу комбинацију два потеза којом шахирате противниковог краља!</string>
+  <string name="checkInTwoGoal">Претите противничком краљу
+у два потеза!</string>
+  <string name="checkInTwoComplete">Честитамо! Дали сте шах вашем противнику, терајући их да одбране свог краља!</string>
+  <string name="whatNext">Шта је следеће?</string>
+  <string name="youKnowHowToPlayChess">Знате како да играте шах, честитамо! Да ли желите постати бољи играч?</string>
   <string name="learnCommonChessPositions">Научите честе шаховске позиције</string>
   <string name="exerciseYourTacticalSkills">Вежбајте ваше тактичке вештине</string>
   <string name="watchInstructiveChessVideos">Гледајте инструктивне шаховске снимке</string>

@@ -60,6 +60,18 @@ final class SlackApi(
     case Victory(msg) => publishVictory(msg)
   }
 
+  def commlog(mod: User, user: User, reportBy: Option[User.ID]): Funit = client(SlackMessage(
+    username = mod.username,
+    icon = "eye",
+    text = {
+      val finalS = if (user.username endsWith "s") "" else "s"
+      s"checked out _*${userLink(user.username)}*_'$finalS communications "
+    } + reportBy.filter(mod.id !=).fold("spontaneously") { by =>
+      s"while investigating a report created by ${userLink(by)}"
+    },
+    channel = "commlog"
+  ))
+
   def publishError(msg: String): Funit = client(SlackMessage(
     username = "lichess error",
     icon = "lightning",

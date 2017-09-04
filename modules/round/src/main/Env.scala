@@ -58,6 +58,8 @@ final class Env(
   }
   import settings._
 
+  private val bus = system.lilaBus
+
   private val moveTimeChannel = system.actorOf(Props(classOf[lila.socket.Channel]), name = ChannelMoveTime)
 
   lazy val eventHistory = History(db(CollectionHistory)) _
@@ -79,7 +81,7 @@ final class Env(
     def receive: Receive = ({
       case actorApi.GetNbRounds =>
         nbRounds = size
-        system.lilaBus.publish(lila.hub.actorApi.round.NbRounds(nbRounds), 'nbRounds)
+        bus.publish(lila.hub.actorApi.round.NbRounds(nbRounds), 'nbRounds)
     }: Receive) orElse actorMapReceive
   }), name = ActorMapName)
 
@@ -117,7 +119,7 @@ final class Env(
       }),
       name = SocketName
     )
-    system.lilaBus.subscribe(actor, 'tvSelect, 'startGame, 'deploy)
+    bus.subscribe(actor, 'tvSelect, 'startGame, 'deploy)
     actor
   }
 
@@ -130,7 +132,7 @@ final class Env(
     messenger = messenger,
     evalCacheHandler = evalCacheHandler,
     selfReport = selfReport,
-    bus = system.lilaBus
+    bus = bus
   )
 
   lazy val perfsUpdater = new PerfsUpdater(historyApi, rankingApi)
@@ -152,7 +154,7 @@ final class Env(
     crosstableApi = crosstableApi,
     notifier = notifier,
     playban = playban,
-    bus = system.lilaBus,
+    bus = bus,
     casualOnly = CasualOnly,
     getSocketStatus = getSocketStatus
   )
@@ -166,7 +168,7 @@ final class Env(
 
   private lazy val player: Player = new Player(
     fishnetPlayer = fishnetPlayer,
-    bus = system.lilaBus,
+    bus = bus,
     finisher = finisher,
     uciMemo = uciMemo
   )
@@ -174,10 +176,12 @@ final class Env(
   private lazy val drawer = new Drawer(
     prefApi = prefApi,
     messenger = messenger,
-    finisher = finisher
+    finisher = finisher,
+    bus = bus
   )
 
-  lazy val messenger = new Messenger(chat = hub.actor.chat)
+  lazy val messenger = new Messenger(
+    chat = hub.actor.chat)
 
   def version(gameId: String): Fu[Int] =
     socketHub ? Ask(gameId, GetVersion) mapTo manifest[Int]
@@ -210,7 +214,7 @@ final class Env(
     name = "titivate"
   )
 
-  system.lilaBus.subscribe(system.actorOf(
+  bus.subscribe(system.actorOf(
     Props(new CorresAlarm(db(CollectionAlarm), hub.socket.round)),
     name = "corres-alarm"
   ), 'moveEventCorres, 'finishGame)
@@ -218,11 +222,12 @@ final class Env(
   lazy val takebacker = new Takebacker(
     messenger = messenger,
     uciMemo = uciMemo,
-    prefApi = prefApi
+    prefApi = prefApi,
+    bus = bus
   )
 
   val tvBroadcast = system.actorOf(Props(classOf[TvBroadcast]))
-  system.lilaBus.subscribe(tvBroadcast, 'moveEvent, 'changeFeaturedGame)
+  bus.subscribe(tvBroadcast, 'moveEvent, 'changeFeaturedGame)
 
   def checkOutoftime(game: Game) {
     if (game.playable && game.started && !game.isUnlimited)

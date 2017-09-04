@@ -66,9 +66,8 @@ final class NotifyApi(
   def exists = repo.exists _
 
   private def shouldSkip(notification: Notification) =
-    UserRepo.isKid(notification.notifies.value) flatMap {
-      case true => fuccess(true)
-      case false => notification.content match {
+    UserRepo.isKid(notification.notifies.value) >>| {
+      notification.content match {
         case MentionedInThread(_, _, topicId, _, _) => repo.hasRecentNotificationsInThread(notification.notifies, topicId)
         case InvitedToStudy(invitedBy, _, studyId) => repo.hasRecentStudyInvitation(notification.notifies, studyId)
         case PrivateMessage(_, thread, _) => repo.hasRecentPrivateMessageFrom(notification.notifies, thread)

@@ -683,7 +683,7 @@ export default class AnalyseCtrl {
     else this.chessground && this.chessground.setAutoShapes([]);
   }
 
-  toggleAutoShapes(v: boolean) {
+  toggleAutoShapes = (v: boolean): void => {
     this.showAutoShapes(v);
     this.resetAutoShapes();
   }
