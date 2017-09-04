@@ -64,7 +64,8 @@ final class SlackApi(
     username = mod.username,
     icon = "eye",
     text = {
-      s"checked out _*${userLink(user.username)}*_' communications "
+      val finalS = if (user.username endsWith "s") "" else "s"
+      s"checked out _*${userLink(user.username)}*_'$finalS communications "
     } + reportBy.filter(mod.id !=).fold("spontaneously") { by =>
       s"while investigating a report created by ${userLink(by)}"
     },
