@@ -20,18 +20,18 @@
   <string name="black">Schwarz</string>
   <string name="randomColor">Zufällige Farbe</string>
   <string name="createAGame">Neue Partie</string>
-  <string name="whiteIsVictorious">Weiß hat gewonnen</string>
-  <string name="blackIsVictorious">Schwarz hat gewonnen</string>
+  <string name="whiteIsVictorious">Weiß gewinnt</string>
+  <string name="blackIsVictorious">Schwarz gewinnt</string>
   <string name="kingInTheCenter">König im Zentrum</string>
   <string name="threeChecks">Dreimal Schach gegeben</string>
   <string name="raceFinished">Rennen beendet</string>
-  <string name="variantEnding">Ende der Schachvariante</string>
+  <string name="variantEnding">Ende der Variante</string>
   <string name="newOpponent">Neuer Gegner</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">Dein Gegner möchte eine Revanche mit dir spielen</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Dein Gegner möchte ein neues Spiel mit dir spielen</string>
   <string name="joinTheGame">Der Partie beitreten</string>
   <string name="whitePlays">Weiß am Zug</string>
   <string name="blackPlays">Schwarz am Zug</string>
-  <string name="opponentLeftChoices">Dein Gegner hat die Partie verlassen. Du kannst den Sieg beanspruchen, das Spiel remis erklären oder auf deinen Gegner warten.</string>
+  <string name="opponentLeftChoices">Dein Gegner hat die Partie möglicherweise verlassen. Du kannst den Sieg beanspruchen, das Spiel Remis erklären oder auf deinen Gegner warten.</string>
   <string name="makeYourOpponentResign">Zwinge deinen Gegener zur Aufgabe</string>
   <string name="forceResignation">Sieg beanspruchen</string>
   <string name="forceDraw">Remis erklären</string>
@@ -273,8 +273,8 @@
     <item quantity="other">≥ %s gewertete Spiele</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2%s gewertetes Spiel</item>
-    <item quantity="other">≥ %1$s %2%s gewertete Spiele</item>
+    <item quantity="one">≥ %1$s gewertetes %2$s Spiel</item>
+    <item quantity="other">≥ %1$s gewertete %2$s Spiele</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Du musst noch %1$s gewertete Partie mehr %2$s spielen</item>
