@@ -6,7 +6,8 @@ import lila.pref.{ Pref, PrefApi }
 private[round] final class Takebacker(
     messenger: Messenger,
     uciMemo: UciMemo,
-    prefApi: PrefApi
+    prefApi: PrefApi,
+    bus: lila.common.Bus
 ) {
 
   def yes(situation: Round.TakebackSituation)(pov: Pov)(implicit proxy: GameProxy): Fu[(Events, Round.TakebackSituation)] = IfAllowed(pov.game) {
@@ -21,7 +22,8 @@ private[round] final class Takebacker(
         val progress = Progress(game) map { g =>
           g.updatePlayer(color, _ proposeTakeback g.turns)
         }
-        proxy.save(progress) inject List(Event.TakebackOffers(color.white, color.black))
+        proxy.save(progress) >>- publishTakeback(pov) inject
+          List(Event.TakebackOffers(color.white, color.black))
       } map (_ -> situation)
       case _ => fufail(ClientError("[takebacker] invalid yes " + pov))
     }
@@ -51,6 +53,14 @@ private[round] final class Takebacker(
       _.forall { p =>
         p == Pref.Takeback.ALWAYS || (p == Pref.Takeback.CASUAL && game.casual)
       }
+    }
+
+  private def publishTakeback(pov: Pov): Unit =
+    if (pov.game.isCorrespondence && pov.game.nonAi) pov.player.userId foreach { userId =>
+      bus.publish(
+        lila.hub.actorApi.round.CorresTakebackEvent(pov.gameId),
+        'takebackEventCorres
+      )
     }
 
   private def IfAllowed[A](game: Game)(f: => Fu[A]): Fu[A] =

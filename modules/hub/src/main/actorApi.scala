@@ -207,6 +207,7 @@ package round {
       alarmable: Boolean,
       unlimited: Boolean
   )
+  case class CorresTakebackEvent(gameId: String)
   case class SimulMoveEvent(
       move: MoveEvent,
       simulId: String,

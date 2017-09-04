@@ -218,7 +218,8 @@ final class Env(
   lazy val takebacker = new Takebacker(
     messenger = messenger,
     uciMemo = uciMemo,
-    prefApi = prefApi
+    prefApi = prefApi,
+    bus = system.lilaBus
   )
 
   val tvBroadcast = system.actorOf(Props(classOf[TvBroadcast]))

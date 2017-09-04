@@ -382,6 +382,7 @@ object mon {
     }
     object send {
       def move(platform: String) = inc(s"push.send.$platform.move")()
+      def takeback(platform: String) = inc(s"push.send.$platform.takeback")()
       def corresAlarm(platform: String) = inc(s"push.send.$platform.corresAlarm")()
       def finish(platform: String) = inc(s"push.send.$platform.finish")()
       def message(platform: String) = inc(s"push.send.$platform.message")()
