@@ -499,7 +499,7 @@
   <string name="pieceAnimation">Hamle canlandırma</string>
   <string name="materialDifference">Taş farkı</string>
   <string name="closeAccount">Hesabı kapat</string>
-  <string name="changedMindDoNotCloseAccount">Fikrimi değiştirdim, hesabımı kapatmak istemiyorum</string>
+  <string name="changedMindDoNotCloseAccount">Fikrimi değiştirdim, hesabımı kapatma</string>
   <string name="closeAccountExplanation">Hesabınızı kapatmak istediğinizden emin misiniz? Hesap kapatmak geri dönüşü olmayan bir işlemdir. Tekrar giriş yapamayacaksınız ve profil sayfanıza erişiminiz kalmayacaktır.</string>
   <string name="thisAccountIsClosed">Hesap kapatılmıştır.</string>
   <string name="invalidUsernameOrPassword">Hatalı kullanıcı adı ya da şifre</string>
@@ -526,7 +526,7 @@
   <string name="clickTwoSquares">İki kareye tıklayarak</string>
   <string name="dragPiece">Taşı sürükleyerek</string>
   <string name="bothClicksAndDrag">Hem tıklayıp hem sürükleyerek</string>
-  <string name="premovesPlayingDuringOpponentTurn">Ön hamleler (rakibin hamlesini beklerken hamle tanımlama)</string>
+  <string name="premovesPlayingDuringOpponentTurn">Ön hamleler (hamle sırası rakipteyken oynama)</string>
   <string name="takebacksWithOpponentApproval">Geri Alma (rakibin onayıyla)</string>
   <string name="promoteToQueenAutomatically">Piyonu otomatik olarak vezire terfi etsin</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Üçlü tekrarda otomatik olarak beraberlik teklif et</string>
@@ -657,7 +657,7 @@
   <string name="keyShowOrHideComments">yorumları gizle/göster</string>
   <string name="keyEnterOrExitVariation">varyasyona gir/çık</string>
   <string name="newTournament">Yeni turnuva</string>
-  <string name="tournamentHomeTitle">Çeşitli zaman kontrolleri ve varyantlatları içeren satranç turnuvası</string>
+  <string name="tournamentHomeTitle">Çeşitli zaman kontrolleri ve varyantları içeren satranç turnuvası</string>
   <string name="tournamentHomeDescription">Hızlı tempolu satranç turnuvalarında oynayın! Önceden planlanmış turnuvalara katılın, ya da kendi turnuvanızı oluşturun. Sınırsız satranç eğlenceniz için Kurşun, Yıldırım, Klasik, Satranç960, Tepenin Şahı, Üçşah ve daha fazla seçenek mevcuttur.</string>
   <string name="tournamentNotFound">Turnuva bulunamadı.</string>
   <string name="tournamentDoesNotExist">Böyle bir turnuva yok.</string>
