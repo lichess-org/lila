@@ -32,8 +32,25 @@
   <string name="pawnPromotion">폰 진급</string>
   <string name="yourPawnReachedTheEndOfTheBoard">당신의 폰이 보드 끝을 도달하였습니다!</string>
   <string name="fundamentals">기본</string>
+  <string name="protection">보호</string>
+  <string name="defendYourKing">킹을 보호하라</string>
   <string name="intermediate">중급</string>
+  <string name="boardSetup">보드 준비</string>
+  <string name="castling">캐슬링</string>
   <string name="enPassant">앙 파상</string>
+  <string name="stalemate">스테일메이트</string>
+  <string name="theGameIsADraw">게임이 무승부입니다</string>
+  <string name="advanced">상급</string>
+  <string name="register">회원가입</string>
+  <string name="getAFreeLichessAccount">무료 Lichess 계정 받기</string>
+  <string name="practice">연습</string>
+  <string name="puzzles">퍼즐</string>
+  <string name="videos">동영상</string>
+  <string name="playPeople">사람들이랑 플레이</string>
+  <string name="playMachine">컴퓨터랑 게임하기</string>
+  <string name="testYourSkillsWithTheComputer">컴퓨터로 실력 평가하기</string>
+  <string name="letsGo">시작하기</string>
+  <string name="stageX">스테이지 %s</string>
   <string name="awesome">좋아요!</string>
   <string name="excellent">멋져요!</string>
   <string name="greatJob">잘 하셨어요!</string>
@@ -43,4 +60,10 @@
   <string name="yesYesYes">맞아요!</string>
   <string name="youreGoodAtThis">잘 하시네요!</string>
   <string name="nailedIt">바로 그거에요.</string>
+  <string name="rightOn">맞습니다!</string>
+  <string name="yourScore">당신의 점수</string>
+  <string name="next">다음</string>
+  <string name="backToMenu">다시 메뉴로</string>
+  <string name="puzzleFailed">퍼즐 실패</string>
+  <string name="retry">다시하기</string>
 </resources>
