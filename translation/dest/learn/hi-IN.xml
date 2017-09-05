@@ -18,11 +18,15 @@
   <string name="rookComplete">बधाई हो! आपने हाथियों का प्रयोग करना सफलतापूर्वक सीख लिया है</string>
   <string name="theBishop">ऊंट</string>
   <string name="itMovesDiagonally">यह तिरछे चलता है</string>
+  <string name="bishopIntro">अब हम ऊंट के चाल को सीखेंगे</string>
+  <string name="youNeedBothBishops">आपको दोनों सफ़ेद और काले रंग के ऊंट की ज़रूरत पड़ेगी</string>
+  <string name="bishopComplete">बधाई हो! आपने ऊंट की चाल चलना सीख लिया है</string>
   <string name="theQueen">रानी</string>
   <string name="queenCombinesRookAndBishop">रानी = हाथी + ऊंट</string>
   <string name="theKing">राजा</string>
   <string name="theMostImportantPiece">सबसे महत्वपूर्ण टुकड़ा</string>
   <string name="theKingIsSlow">राजा धीमा है।</string>
+  <string name="lastOne">आखरी सबक</string>
   <string name="kingComplete">अब आप कमांडर को कमान कर सकते हैं!</string>
   <string name="theKnight">घोड़ा</string>
   <string name="itMovesInAnLShape">यह L आकार में चलता है</string>
