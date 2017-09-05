@@ -213,4 +213,18 @@
   <string name="testYourSkillsWithTheComputer">Тестирајте ваше вептине са компјутером</string>
   <string name="letsGo">Кренимо!</string>
   <string name="stageX">Фаза %s</string>
+  <string name="awesome">Сјајно!</string>
+  <string name="excellent">Одлично!</string>
+  <string name="greatJob">Одличан посао!</string>
+  <string name="perfect">Савршено!</string>
+  <string name="outstanding">Изванредно!</string>
+  <string name="wayToGo">Тако треба!</string>
+  <string name="yesYesYes">Да, да, да!</string>
+  <string name="youreGoodAtThis">Добри сте у овоме!</string>
+  <string name="nailedIt">Погодио.</string>
+  <string name="rightOn">Браво!</string>
+  <string name="stageXComplete">Фаза %s завршена</string>
+  <string name="yourScore">Ваш резултат</string>
+  <string name="next">Следеће</string>
+  <string name="backToMenu">Повратак на мени</string>
 </resources>
