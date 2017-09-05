@@ -269,7 +269,7 @@
   <string name="backToTournament">Volver al torneo</string>
   <string name="thematic">Temático</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="one">≥ %s partidas puntuadas</item>
+    <item quantity="one">≥ %s partida por puntos</item>
     <item quantity="other">≥ %s partidas por puntos</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
