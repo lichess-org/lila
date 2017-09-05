@@ -199,8 +199,18 @@
   <string name="checkInTwoComplete">Честитамо! Дали сте шах вашем противнику, терајући их да одбране свог краља!</string>
   <string name="whatNext">Шта је следеће?</string>
   <string name="youKnowHowToPlayChess">Знате како да играте шах, честитамо! Да ли желите постати бољи играч?</string>
+  <string name="register">Региструјте се</string>
+  <string name="getAFreeLichessAccount">Добијте бесплатан Личес налог</string>
+  <string name="practice">Вежбај</string>
   <string name="learnCommonChessPositions">Научите честе шаховске позиције</string>
+  <string name="puzzles">Тактике</string>
   <string name="exerciseYourTacticalSkills">Вежбајте ваше тактичке вештине</string>
+  <string name="videos">Видеи</string>
   <string name="watchInstructiveChessVideos">Гледајте инструктивне шаховске снимке</string>
+  <string name="playPeople">Играј против осталих</string>
   <string name="opponentsFromAroundTheWorld">Противници из целог света</string>
+  <string name="playMachine">Играј против компјутера</string>
+  <string name="testYourSkillsWithTheComputer">Тестирајте ваше вептине са компјутером</string>
+  <string name="letsGo">Кренимо!</string>
+  <string name="stageX">Фаза %s</string>
 </resources>
