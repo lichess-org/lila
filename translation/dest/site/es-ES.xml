@@ -591,7 +591,7 @@
   <string name="increment">Incremento</string>
   <string name="sharePGN">Compartir PGN</string>
   <string name="playOnline">Jugar en línea</string>
-  <string name="playOffline">Jugar fuera de línea</string>
+  <string name="playOffline">Jugar sin conexión</string>
   <string name="allowAnalytics">Permitir estadísticas anónimas</string>
   <string name="shareGameURL">Compartir el enlace del juego</string>
   <string name="error.required">Este campo es requerido</string>
@@ -663,7 +663,7 @@
   <string name="tournamentDoesNotExist">Este torneo no existe.</string>
   <string name="tournamentMayHaveBeenCanceled">Puede que se haya cancelado, si todos los jugadores abandonaron antes de comenzar el torneo.</string>
   <string name="returnToTournamentsHomepage">Volver a la página principal de torneos</string>
-  <string name="weeklyPerfTypeRatingDistribution">Distribución mensual de puntos de %s</string>
+  <string name="weeklyPerfTypeRatingDistribution">Distribución mensual de puntos en %s</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">%1$s jugador de %2$s esta semana.</item>
     <item quantity="other">%1$s jugadores de %2$s esta semana.</item>
@@ -708,7 +708,7 @@
   <string name="alternativelyYouCanX">O también puedes %s.</string>
   <string name="revokeAllSessions">cerrar todas las sesiones</string>
   <string name="playChessEverywhere">Jugar ajedrez donde sea</string>
-  <string name="asFreeAsLichess">Tan gratuito como lichess</string>
+  <string name="asFreeAsLichess">Tan gratis como lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Construido por amor al ajedrez, no por dinero</string>
   <string name="everybodyGetsAllFeaturesForFree">Todos tienen acceso gratuito a todas las opciones</string>
   <string name="zeroAdvertisement">Sin anuncios</string>
@@ -761,5 +761,5 @@
   <string name="custom">Personalizado</string>
   <string name="notifications">Notificaciones</string>
   <string name="challenges">Desafíos</string>
-  <string name="perfRatingX">Clasificación: %s</string>
+  <string name="perfRatingX">Puntuación: %s</string>
 </resources>
