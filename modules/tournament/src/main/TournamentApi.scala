@@ -53,7 +53,7 @@ final class TournamentApi(
       password = setup.password.ifTrue(setup.isPrivate),
       system = System.Arena,
       variant = setup.realVariant,
-      position = StartingPosition.byEco(setup.position).ifTrue(setup.realVariant.standard) | StartingPosition.initial
+      position = DataForm.startingPosition(setup.position, setup.realVariant)
     )
     if (tour.name != me.titleUsername && lila.common.LameName.anyName(tour.name)) {
       val msg = s"""@${me.username} created tournament "${tour.name} Arena" :kappa: https://lichess.org/tournament/${tour.id}"""
