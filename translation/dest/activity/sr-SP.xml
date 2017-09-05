@@ -43,4 +43,35 @@
     <item quantity="few">Стекли %s нова пратиоца</item>
     <item quantity="other">Стекли %s нова пратиоца</item>
   </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="one">Направили %s симултанку</item>
+    <item quantity="few">Направили %s симултанке</item>
+    <item quantity="other">Направили %s симултанке</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">Учествовали у %s симултанки</item>
+    <item quantity="few">Учествовали у %s симултанке</item>
+    <item quantity="other">Учествовали у %s симултанке</item>
+  </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">Направили %s ново учење</item>
+    <item quantity="few">Направили %s нова учења</item>
+    <item quantity="other">Направили %s нова учења</item>
+  </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="one">Учествовали у %s турниру</item>
+    <item quantity="few">Учествовали у %s турнира</item>
+    <item quantity="other">Учествовали у %s турнира</item>
+  </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">Рангиран #%1$s (првих %2$s%%) са %3$s игром у %4$s</item>
+    <item quantity="few">Рангиран #%1$s (првих %2$s%%) са %3$s игре у %4$s</item>
+    <item quantity="other">Рангиран #%1$s (првих %2$s%%) са %3$s игре у %4$s</item>
+  </plurals>
+  <string name="signedUp">Пријављени на Личесу</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">Ушли у %s тим</item>
+    <item quantity="few">Ушли у %s тима</item>
+    <item quantity="other">Ушли у %s тима</item>
+  </plurals>
 </resources>
