@@ -43,6 +43,9 @@
   @base.form.select(form("clockIncrement"), clockIncrementPrivateChoices)
   }
 </div>
+@base.form.group(form("position"), trans.startPosition()) {
+@tournament.startingPosition(form("position"))
+}
 <h2>Conditions of entry</h2>
 <div>
   @base.form.group(form("conditions.nbRatedGame.nb"), Html("Minimum rated games"), half = true) {
