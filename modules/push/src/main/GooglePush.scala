@@ -1,6 +1,8 @@
 package lila.push
 
 import play.api.libs.json._
+import play.api.libs.ws.JsonBodyReadables._
+import play.api.libs.ws.JsonBodyWritables._
 import old.play.Env.WS
 
 private final class GooglePush(
