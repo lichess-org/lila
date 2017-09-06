@@ -590,7 +590,7 @@
   <string name="starting">Zaczynają się:</string>
   <string name="allInformationIsPublicAndOptional">Poniższe informacje będą publicznie dostępne. Nie musisz ich podawać.</string>
   <string name="yourCityRegionOrDepartment">Twoje miasto, region lub województwo</string>
-  <string name="biographyDescription">Napisz coś o sobie. Co lubisz w szachach, jacy są Twoi ulubieni zawodnicy, ulubione partie, najczęstsze otwarcia…</string>
+  <string name="biographyDescription">Napisz coś o sobie. Dlaczego grasz w szachy? Kto jest Twoim ulubionym szachistą? Masz swoje ulubione partie, najczęstsze otwarcia?</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maksymalnie: %s znak.</item>
     <item quantity="few">Maksymalnie: %s znaki.</item>
