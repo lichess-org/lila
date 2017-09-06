@@ -10,7 +10,7 @@
   <string name="yourTurn">Tavs gājiens</string>
   <string name="aiNameLevelAiLevel">%1$s līmenis %2$s</string>
   <string name="level">Līmenis</string>
-  <string name="toggleTheChat">Ieslēgt/izslēgt čatu</string>
+  <string name="toggleTheChat">Ieslēgt/izslēgt sarunu</string>
   <string name="toggleSound">Ieslēgt/Izslēgt skaņu</string>
   <string name="chat">Čats</string>
   <string name="resign">Padoties</string>
@@ -179,7 +179,7 @@
   <string name="viewRematch">Skatīties revanšu</string>
   <string name="play">Spēlē</string>
   <string name="inbox">Ziņas</string>
-  <string name="chatRoom">Čata istaba</string>
+  <string name="chatRoom">Sarunu istaba</string>
   <string name="loginToChat">Pieslēdzieties lai tērzētu</string>
   <string name="youHaveBeenTimedOut">Jūs esat uz laiku izraidīts.</string>
   <string name="spectatorRoom">Skatītāju istaba</string>
@@ -505,7 +505,7 @@
   <string name="playOfflineComputer">Spēlē pret datoru</string>
   <string name="opponent">Pretinieks</string>
   <string name="learnMenu">Apgūsti</string>
-  <string name="community">Komūna</string>
+  <string name="community">Kopiena</string>
   <string name="tools">Rīki</string>
   <string name="increment">Inkrements</string>
   <string name="sharePGN">Dalies ar PGN</string>
