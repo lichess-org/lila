@@ -44,7 +44,7 @@ object Insight extends LilaController {
     }
   }
 
-  def json(username: String) = OpenBody(BodyParsers.parse.json) { implicit ctx =>
+  def json(username: String) = OpenBody(parse.json) { implicit ctx =>
     import lila.insight.JsonQuestion, JsonQuestion._
     Accessible(username) { user =>
       ctx.body.body.validate[JsonQuestion].fold(

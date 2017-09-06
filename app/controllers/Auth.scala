@@ -165,7 +165,7 @@ object Auth extends LilaController {
                   val email = env.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
                   UserRepo.create(data.username, data.password, email, ctx.blindMode, none,
                     mustConfirmEmail = mustConfirm.value)
-                    .flatten(s"No user could be created for ${data.username}")
+                    .err(s"No user could be created for ${data.username}")
                     .map(_ -> email).flatMap {
                       case (user, email) if mustConfirm.value =>
                         env.emailConfirm.send(user, email) >> {
@@ -189,7 +189,7 @@ object Auth extends LilaController {
               val email = env.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
               UserRepo.create(data.username, data.password, email, false, apiVersion.some,
                 mustConfirmEmail = mustConfirm.value)
-                .flatten(s"No user could be created for ${data.username}")
+                .err(s"No user could be created for ${data.username}")
                 .map(_ -> email).flatMap {
                   case (user, email) if mustConfirm.value =>
                     env.emailConfirm.send(user, email) >> {

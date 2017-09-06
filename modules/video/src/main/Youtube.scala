@@ -2,8 +2,7 @@ package lila.video
 
 import org.joda.time.DateTime
 import play.api.libs.json._
-import play.api.libs.ws.WS
-import play.api.Play.current
+import old.play.Env.WS
 
 private[video] final class Youtube(
     url: String,
@@ -39,7 +38,7 @@ private[video] final class Youtube(
   }
 
   private def fetch: Fu[List[Entry]] = api.video.allIds flatMap { ids =>
-    WS.url(url).withQueryString(
+    WS.url(url).addQueryStringParameters(
       "id" -> scala.util.Random.shuffle(ids).take(max).mkString(","),
       "part" -> "id,statistics,snippet,contentDetails",
       "key" -> apiKey

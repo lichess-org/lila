@@ -9,6 +9,7 @@ import play.api.libs.json._
 
 import chess.format.FEN
 import chess.format.pgn.Glyph
+import lila.chat.Chat
 import lila.common.PimpedJson._
 import lila.hub.actorApi.map._
 import lila.socket.actorApi.{ Connected => _, _ }
@@ -17,7 +18,6 @@ import lila.socket.Socket.Uid
 import lila.socket.{ Handler, AnaMove, AnaDrop, AnaAny }
 import lila.tree.Node.{ Shape, Shapes, Comment, Gamebook }
 import lila.user.User
-import lila.chat.Chat
 import makeTimeout.short
 
 private[study] final class SocketHandler(
@@ -61,6 +61,27 @@ private[study] final class SocketHandler(
           member push makeMessage("stepFailure", err.toString)
       }
     }
+
+  private def reading[A](o: JsValue)(f: A => Unit)(implicit reader: Reads[A]): Unit =
+    o obj "d" flatMap { d => reader.reads(d).asOpt } foreach f
+
+  private implicit val chapterIdReader = stringIsoReader(Chapter.idIso)
+  private case class AtPosition(path: String, chapterId: Chapter.Id) {
+    def ref = Position.Ref(chapterId, Path(path))
+  }
+  private implicit val atPositionReader = (
+    (__ \ "path").read[String] and
+    (__ \ "ch").read[Chapter.Id]
+  )(AtPosition.apply _)
+  private case class SetRole(userId: String, role: String)
+  private implicit val chapterNameReader = stringIsoReader(Chapter.nameIso)
+  private implicit val setRoleReader = Json.reads[SetRole]
+  private implicit val chapterDataReader = Json.reads[ChapterMaker.Data]
+  private implicit val chapterEditDataReader = Json.reads[ChapterMaker.EditData]
+  private implicit val chapterDescDataReader = Json.reads[ChapterMaker.DescData]
+  private implicit val studyDataReader = Json.reads[Study.Data]
+  private implicit val setTagReader = Json.reads[actorApi.SetTag]
+  private implicit val gamebookReader = Json.reads[Gamebook]
 
   private def controller(
     socket: ActorRef,
@@ -239,27 +260,6 @@ private[study] final class SocketHandler(
     chat = chat,
     canTimeout = Some(() => user.?? { u => api.isContributor(studyId, u.id) })
   )
-
-  private def reading[A](o: JsValue)(f: A => Unit)(implicit reader: Reads[A]): Unit =
-    o obj "d" flatMap { d => reader.reads(d).asOpt } foreach f
-
-  private case class AtPosition(path: String, chapterId: Chapter.Id) {
-    def ref = Position.Ref(chapterId, Path(path))
-  }
-  private implicit val chapterIdReader = stringIsoReader(Chapter.idIso)
-  private implicit val chapterNameReader = stringIsoReader(Chapter.nameIso)
-  private implicit val atPositionReader = (
-    (__ \ "path").read[String] and
-    (__ \ "ch").read[Chapter.Id]
-  )(AtPosition.apply _)
-  private case class SetRole(userId: String, role: String)
-  private implicit val SetRoleReader = Json.reads[SetRole]
-  private implicit val ChapterDataReader = Json.reads[ChapterMaker.Data]
-  private implicit val ChapterEditDataReader = Json.reads[ChapterMaker.EditData]
-  private implicit val ChapterDescDataReader = Json.reads[ChapterMaker.DescData]
-  private implicit val StudyDataReader = Json.reads[Study.Data]
-  private implicit val setTagReader = Json.reads[actorApi.SetTag]
-  private implicit val gamebookReader = Json.reads[Gamebook]
 
   def join(
     studyId: Study.Id,

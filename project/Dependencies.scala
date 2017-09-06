@@ -30,19 +30,17 @@ object Dependencies {
   val jodaTime = "joda-time" % "joda-time" % "2.9.9"
 
   val chess = "org.lichess" %% "scalachess" % "6.8"
-  val maxmind = "com.sanoma.cda" %% "maxmind-geoip2-scala" % "1.2.3-THIB"
-  val prismic = "io.prismic" %% "scala-kit" % "1.2.11-THIB"
-  val java8compat = "org.scala-lang.modules" %% "scala-java8-compat" % "0.8.0"
+  val maxmind = "com.sanoma.cda" %% "maxmind-geoip2-scala" % "1.3.0-THIB"
+  val prismic = "io.prismic" %% "scala-kit" % "1.2.12-THIB"
   val semver = "com.gilt" %% "gfc-semver" % "0.0.5"
   val scrimage = "com.sksamuel.scrimage" %% "scrimage-core" % "2.1.8"
   val scalaConfigs = "com.github.kxbmap" %% "configs" % "0.4.4"
   val scaffeine = "com.github.blemale" %% "scaffeine" % "2.2.0" % "compile"
-  val netty = "io.netty" % "netty" % "3.10.6.Final"
   val guava = "com.google.guava" % "guava" % "21.0"
   val specs2 = "org.specs2" %% "specs2-core" % "3.9.2" % "test"
 
   object reactivemongo {
-    val version = "0.12.2"
+    val version = "0.12.6"
     val driver = ("org.reactivemongo" %% "reactivemongo" % version)
       .exclude("com.typesafe.akka", "*") // provided by Play
       .exclude("com.typesafe.play", "*")
@@ -52,18 +50,20 @@ object Dependencies {
   }
 
   object play {
-    val version = "2.4.6"
+    val version = "2.6.3"
     val api = "com.typesafe.play" %% "play" % version
+    val jodaForms = "com.typesafe.play" %% "play-joda-forms" % version
     val test = "com.typesafe.play" %% "play-test" % version
+    val iteratee = "com.typesafe.play" %% "play-iteratees" % "2.6.1"
+    val streams = "com.typesafe.play" %% "play-iteratees-reactive-streams" % "2.6.1"
   }
   object akka {
-    val version = "2.4.16"
+    val version = "2.5.4"
     val actor = "com.typesafe.akka" %% "akka-actor" % version
-    val slf4j = "com.typesafe.akka" %% "akka-slf4j" % version
+    // val slf4j = "com.typesafe.akka" %% "akka-slf4j" % version
   }
   object kamon {
-    val version = "0.6.4.2-LILA"
-    val core = "io.kamon" %% "kamon-core" % version
-    val influxdb = "io.kamon" %% "kamon-influxdb" % version
+    val core = "io.kamon" %% "kamon-core" % "0.6.7"
+    val influxdb = "io.kamon" %% "kamon-influxdb" % "0.6.8"
   }
 }

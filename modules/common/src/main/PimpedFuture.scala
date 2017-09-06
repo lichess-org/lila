@@ -1,6 +1,6 @@
 package lila
 
-import play.api.libs.concurrent.Execution.Implicits._
+import old.play.Env.defaultContext
 import scala.concurrent.duration._
 import scala.concurrent.{ Future, ExecutionContext }
 
@@ -50,8 +50,9 @@ object PimpedFuture {
     def logFailure(logger: => lila.log.Logger): Fu[A] = logFailure(logger, _.toString)
 
     def addFailureEffect(effect: Exception => Unit) = {
-      fua onFailure {
-        case e: Exception => effect(e)
+      fua onComplete {
+        case scala.util.Failure(e: Exception) => effect(e)
+        case _ =>
       }
       fua
     }

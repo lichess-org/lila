@@ -53,6 +53,6 @@ object Env {
     config = lila.common.PlayApp loadConfig "forumSearch",
     postApi = lila.forum.Env.current.postApi,
     makeClient = lila.search.Env.current.makeClient,
-    system = lila.common.PlayApp.system
+    system = old.play.Env.actorSystem
   )
 }

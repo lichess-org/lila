@@ -120,7 +120,7 @@ POST  /training/:id/attempt            controllers.Puzzle.round(id: Int)
 # User Analysis
 GET   /analysis/socket                 controllers.UserAnalysis.socket
 GET   /analysis/keyboard-i18n          controllers.UserAnalysis.keyboardI18n
-GET   /analysis/*something             controllers.UserAnalysis.parse(something: String)
+GET   /analysis/*something             controllers.UserAnalysis.parseUri(something: String)
 GET   /analysis                        controllers.UserAnalysis.index
 POST  /analysis/pgn                    controllers.UserAnalysis.pgn
 
@@ -529,8 +529,6 @@ GET   /help/stream-on-lichess          controllers.Page.streamHowTo
 
 POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id)
 
-# Assets
 GET   /glyphs                          controllers.Main.glyphs
-GET   /assets/*file                    controllers.Assets.at(path="/public", file)
 
 GET   /robots.txt                      controllers.Main.robots

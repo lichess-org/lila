@@ -24,8 +24,7 @@ final class Env(
   }
 
   def fetchPgn(id: String): Fu[Option[String]] = {
-    import play.api.libs.ws.WS
-    import play.api.Play.current
+    import old.play.Env.WS
     WS.url(s"$InternalEndpoint/master/pgn/$id").get() map {
       case res if res.status == 200 => res.body.some
       case _ => None
@@ -44,6 +43,6 @@ object Env {
   lazy val current = "explorer" boot new Env(
     config = lila.common.PlayApp loadConfig "explorer",
     gameColl = lila.game.Env.current.gameColl,
-    system = lila.common.PlayApp.system
+    system = old.play.Env.actorSystem
   )
 }

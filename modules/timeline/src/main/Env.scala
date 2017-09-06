@@ -64,6 +64,6 @@ object Env {
     lobbySocket = lila.hub.Env.current.socket.lobby,
     renderer = lila.hub.Env.current.actor.renderer,
     asyncCache = lila.memo.Env.current.asyncCache,
-    system = lila.common.PlayApp.system
+    system = old.play.Env.actorSystem
   )
 }

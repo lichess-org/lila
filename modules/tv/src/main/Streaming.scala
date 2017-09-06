@@ -3,8 +3,7 @@ package lila.tv
 import akka.actor._
 import akka.pattern.{ ask, pipe }
 import play.api.libs.json._
-import play.api.libs.ws.WS
-import play.api.Play.current
+import old.play.Env.WS
 
 private final class Streaming(
     system: ActorSystem,
@@ -72,8 +71,8 @@ private final class Streaming(
       case Search => streamerList.get.map(_.filter(_.featured)).foreach { streamers =>
         val max = 5
         val twitch = WS.url("https://api.twitch.tv/kraken/streams")
-          .withQueryString("channel" -> streamers.filter(_.twitch).map(_.streamerName).mkString(","))
-          .withHeaders(
+          .addQueryStringParameters("channel" -> streamers.filter(_.twitch).map(_.streamerName).mkString(","))
+          .addHttpHeaders(
             "Accept" -> "application/vnd.twitchtv.v3+json",
             "Client-ID" -> twitchClientId
           )
@@ -86,7 +85,7 @@ private final class Streaming(
             }
           }
         val youtube = googleApiKey.nonEmpty ?? {
-          WS.url("https://www.googleapis.com/youtube/v3/search").withQueryString(
+          WS.url("https://www.googleapis.com/youtube/v3/search").addQueryStringParameters(
             "part" -> "snippet",
             "type" -> "video",
             "eventType" -> "live",

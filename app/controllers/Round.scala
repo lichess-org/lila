@@ -18,7 +18,7 @@ object Round extends LilaController with TheftPrevention {
   private def env = Env.round
   private def analyser = Env.analyse.analyser
 
-  def websocketWatcher(gameId: String, color: String) = SocketOption[JsValue] { implicit ctx =>
+  def websocketWatcher(gameId: String, color: String) = SocketOption { implicit ctx =>
     getSocketUid("sri") ?? { uid =>
       env.socketHandler.watcher(
         gameId = gameId,
@@ -31,7 +31,7 @@ object Round extends LilaController with TheftPrevention {
     }
   }
 
-  def websocketPlayer(fullId: String, apiVersion: Int) = SocketEither[JsValue] { implicit ctx =>
+  def websocketPlayer(fullId: String, apiVersion: Int) = SocketEither { implicit ctx =>
     GameRepo pov fullId flatMap {
       case Some(pov) =>
         if (isTheft(pov)) fuccess(Left(theftResponse))
@@ -283,7 +283,7 @@ object Round extends LilaController with TheftPrevention {
       } else {
         env resign pov
         import scala.concurrent.duration._
-        val scheduler = lila.common.PlayApp.system.scheduler
+        val scheduler = old.play.Env.actorSystem.scheduler
         akka.pattern.after(500 millis, scheduler)(fuccess(routes.Lobby.home))
       }
     }
@@ -301,7 +301,7 @@ object Round extends LilaController with TheftPrevention {
     }
   }
 
-  def atom(gameId: String, color: String) = Action.async { implicit req =>
+  def atom(gameId: String, color: String) = old.play.Env.actionBuilder.async { implicit req =>
     GameRepo.pov(gameId, color) flatMap {
       case Some(pov) => GameRepo initialFen pov.game map { initialFen =>
         val pgn = Env.game.pgnDump(pov.game, initialFen, PgnDump.WithFlags(clocks = false))

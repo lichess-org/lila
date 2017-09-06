@@ -282,7 +282,7 @@ final class ReportApi(
     coll.aggregate(
       Match(unprocessedSelect),
       List(
-        GroupField("room")("nb" -> SumValue(1))
+        GroupField("room")("nb" -> SumAll)
       )
     ).map { res =>
         Room.Counts(res.firstBatch.flatMap { doc =>
@@ -316,7 +316,7 @@ final class ReportApi(
     def ofModId(modId: User.ID): Fu[Option[Report]] = coll.uno[Report]($doc("inquiry.mod" -> modId))
 
     def toggle(mod: User, id: String): Fu[Option[Report]] = for {
-      report <- coll.byId[Report](id) flatten s"No report $id found"
+      report <- coll.byId[Report](id) err s"No report $id found"
       current <- ofModId(mod.id)
       _ <- current ?? cancel(mod)
       isSame = current.exists(_.id == report.id)

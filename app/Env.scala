@@ -22,9 +22,9 @@ final class Env(
     leaderboard = Env.user.cached.topWeek,
     tourneyWinners = Env.tournament.winners.all.map(_.top),
     timelineEntries = Env.timeline.entryApi.userEntries _,
-    dailyPuzzle = tryDailyPuzzle,
+    dailyPuzzle = tryDailyPuzzle _,
     streamsOnAir = () => Env.tv.streamsOnAir.all,
-    countRounds = Env.round.count,
+    countRounds = Env.round.count _,
     lobbyApi = Env.api.lobbyApi,
     getPlayban = Env.playban.api.currentBan _,
     lightUserApi = Env.user.lightUserApi
@@ -128,7 +128,7 @@ object Env {
   lazy val current = "app" boot new Env(
     config = lila.common.PlayApp.loadConfig,
     scheduler = lila.common.PlayApp.scheduler,
-    system = lila.common.PlayApp.system,
+    system = old.play.Env.actorSystem,
     appPath = lila.common.PlayApp withApp (_.path.getCanonicalPath)
   )
 

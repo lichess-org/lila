@@ -72,7 +72,7 @@ final class PerfsUpdater(
       }
     }
 
-  private final case class Ratings(
+  private case class Ratings(
       chess960: Rating,
       kingOfTheHill: Rating,
       threeCheck: Rating,

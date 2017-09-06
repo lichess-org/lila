@@ -4,8 +4,8 @@ import scala.concurrent.duration._
 
 import akka.actor.ActorSystem
 import play.api.i18n.Lang
-import play.api.libs.ws.{ WS, WSAuthScheme }
-import play.api.Play.current
+import old.play.Env.WS
+import play.api.libs.ws.WSAuthScheme
 import play.twirl.api.Html
 
 import lila.common.EmailAddress

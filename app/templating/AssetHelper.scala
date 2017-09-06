@@ -1,7 +1,6 @@
 package lila.app
 package templating
 
-import controllers.routes
 import play.twirl.api.Html
 
 import lila.api.Context
@@ -16,7 +15,7 @@ trait AssetHelper { self: I18nHelper =>
   val assetBaseUrl = s"//$assetDomain"
 
   def cdnUrl(path: String) = s"$assetBaseUrl$path"
-  def staticUrl(path: String) = s"$assetBaseUrl${routes.Assets.at(path)}"
+  def staticUrl(path: String) = s"$assetBaseUrl/assets/$path"
 
   def dbImageUrl(path: String) = s"$assetBaseUrl/image/$path"
 
@@ -27,7 +26,7 @@ trait AssetHelper { self: I18nHelper =>
     cssAt("vendor/" + name, staticDomain)
 
   def cssAt(path: String, staticDomain: Boolean, version: AssetVersion): Html = Html {
-    val href = if (staticDomain) staticUrl(path) else routes.Assets.at(path)
+    val href = if (staticDomain) staticUrl(path) else s"/assets/$path"
     s"""<link href="$href?v=$version" type="text/css" rel="stylesheet"/>"""
   }
   def cssAt(path: String, staticDomain: Boolean = true)(implicit ctx: Context): Html =

@@ -12,17 +12,17 @@ private final class Photographer(coll: Coll) {
   private def pictureId(id: Coach.Id) = s"coach:${id.value}:picture"
 
   def apply(coachId: Coach.Id, uploaded: Photographer.Uploaded): Fu[DbImage] =
-    if (uploaded.ref.file.length > uploadMaxBytes)
+    if (uploaded.ref.path.toFile.length > uploadMaxBytes)
       fufail(s"File size must not exceed ${uploadMaxMb}MB.")
     else {
 
-      process(uploaded.ref.file)
+      process(uploaded.ref.path.toFile)
 
       val image = DbImage.make(
         id = pictureId(coachId),
         name = sanitizeName(uploaded.filename),
         contentType = uploaded.contentType,
-        file = uploaded.ref.file
+        file = uploaded.ref.path.toFile
       )
 
       coll.update($id(image.id), image, upsert = true) inject image

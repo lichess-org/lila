@@ -48,7 +48,7 @@ object Env {
   lazy val current: Env = "shutup" boot new Env(
     config = lila.common.PlayApp loadConfig "shutup",
     reporter = lila.hub.Env.current.actor.report,
-    system = lila.common.PlayApp.system,
+    system = old.play.Env.actorSystem,
     follows = lila.relation.Env.current.api.fetchFollows _,
     db = lila.db.Env.current
   )

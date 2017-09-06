@@ -96,7 +96,7 @@ final class SimulApi(
       repo.findCreated(simulId) flatMap {
         _ ?? { simul =>
           simul.start ?? { started =>
-            UserRepo byId started.hostId flatten s"No such host: ${simul.hostId}" flatMap { host =>
+            UserRepo byId started.hostId err s"No such host: ${simul.hostId}" flatMap { host =>
               started.pairings.map(makeGame(started, host)).sequenceFu map { games =>
                 games.headOption foreach {
                   case (game, _) => sendTo(simul.id, actorApi.StartSimul(game, simul.hostId))
@@ -181,7 +181,7 @@ final class SimulApi(
     repo find id map2 { (simul: Simul) => simul.fullName }
 
   private def makeGame(simul: Simul, host: User)(pairing: SimulPairing): Fu[(Game, chess.Color)] = for {
-    user ← UserRepo byId pairing.player.user flatten s"No user with id ${pairing.player.user}"
+    user ← UserRepo byId pairing.player.user err s"No user with id ${pairing.player.user}"
     hostColor = simul.hostColor
     whiteUser = hostColor.fold(host, user)
     blackUser = hostColor.fold(user, host)

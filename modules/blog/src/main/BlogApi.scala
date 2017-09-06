@@ -2,6 +2,7 @@ package lila.blog
 
 import io.prismic._
 import scala.concurrent.duration._
+import play.api.libs.ws.StandaloneWSClient
 
 final class BlogApi(
     asyncCache: lila.memo.AsyncCache.Builder,
@@ -9,15 +10,17 @@ final class BlogApi(
     collection: String
 ) {
 
+  implicit val httpClient = old.play.Env.standaloneWSClient
+
   def recent(api: Api, ref: Option[String], nb: Int): Fu[Option[Response]] =
     api.forms(collection).ref(resolveRef(api)(ref) | api.master.ref)
       .orderings(s"[my.$collection.date desc]")
-      .pageSize(nb).page(1).submit().fold(_ => none, some _)
+      .pageSize(nb).page(1).submit.fold(_ => none, some _)
 
   def one(api: Api, ref: Option[String], id: String) =
     api.forms(collection)
       .query(s"""[[:d = at(document.id, "$id")]]""")
-      .ref(resolveRef(api)(ref) | api.master.ref).submit() map (_.results.headOption)
+      .ref(resolveRef(api)(ref) | api.master.ref).submit map (_.results.headOption)
 
   // -- Build a Prismic context
   def context(refName: Option[String])(implicit linkResolver: (Api, Option[String]) => DocumentLinkResolver) =

@@ -1,6 +1,7 @@
 package lila.report
 
 import play.api.libs.json._
+
 import lila.common.PimpedJson._
 
 object JsonView {

@@ -6,6 +6,7 @@ import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.Constraints._
 
+import chess.StartingPosition
 import lila.common.Form._
 
 object CrudForm {
@@ -20,6 +21,7 @@ object CrudForm {
     "clockIncrement" -> numberIn(clockIncrementPrivateChoices),
     "minutes" -> number(min = 20, max = 1440),
     "variant" -> number.verifying(validVariantIds contains _),
+    "position" -> nonEmptyText.verifying(DataForm.positions contains _),
     "date" -> utcDate,
     "image" -> stringIn(imageChoices),
     "headline" -> nonEmptyText(minLength = 5, maxLength = 30),
@@ -34,6 +36,7 @@ object CrudForm {
     clockIncrement = clockIncrementDefault,
     minutes = minuteDefault,
     variant = chess.variant.Standard.id,
+    position = StartingPosition.initial.eco,
     date = DateTime.now plusDays 7,
     image = "",
     headline = "",
@@ -48,6 +51,7 @@ object CrudForm {
       clockIncrement: Int,
       minutes: Int,
       variant: Int,
+      position: String,
       date: DateTime,
       image: String,
       headline: String,
