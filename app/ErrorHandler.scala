@@ -33,8 +33,7 @@ class ErrorHandler(
       InternalServerError(views.html.base.errorPage(exception) {
         lila.api.Context(req, lila.app.Env.api.assetVersion.get, lila.i18n.defaultLang)
       })
-    }
-    else InternalServerError(exception.getMessage)
+    } else InternalServerError(exception.getMessage)
   }
 
   override def onClientError(req: RequestHeader, statusCode: Int, message: String) = {
@@ -50,7 +49,7 @@ class ErrorHandler(
     }
   }
 
-  override def onHandlerNotFound(req: RequestHeader) =
+  private def onHandlerNotFound(req: RequestHeader) =
     if (niceError(req)) {
       logHttp(404, req)
       controllers.Main.notFound(req)
