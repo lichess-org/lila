@@ -79,7 +79,7 @@
   <string name="checkInOne">Шах</string>
   <string name="attackTheOpponentsKing">Атака на короля</string>
   <string name="checkInOneIntro">Щоб оголосити шах, нападайте на короля супротивника. Він має буде захищатися!</string>
-  <string name="checkInOneGoal">Нападите на короля суперника
+  <string name="checkInOneGoal">Нападіть на короля суперника
 за один хід!</string>
   <string name="checkInOneComplete">Вітаємо! Ви поставили шах свого суперника, змусивши захищати свого короля!</string>
   <string name="outOfCheck">Відхід з-під шаха</string>
