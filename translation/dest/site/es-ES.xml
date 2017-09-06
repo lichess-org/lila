@@ -157,7 +157,7 @@
   <string name="rating">Puntuación</string>
   <string name="ratingStats">Estadísticas de puntuación</string>
   <string name="username">Nombre de usuario</string>
-  <string name="usernameOrEmail">Nombre de usuario o email</string>
+  <string name="usernameOrEmail">Nombre de usuario o correo</string>
   <string name="password">Contraseña</string>
   <string name="haveAnAccount">¿Tienes una cuenta?</string>
   <string name="changePassword">Cambiar contraseña</string>
@@ -269,7 +269,7 @@
   <string name="backToTournament">Volver al torneo</string>
   <string name="thematic">Temático</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="one">≥ %s partidas puntuadas</item>
+    <item quantity="one">≥ %s partida por puntos</item>
     <item quantity="other">≥ %s partidas por puntos</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
@@ -382,7 +382,7 @@
   <string name="tournamentIsStarting">El torneo va a empezar</string>
   <string name="tournamentPairingsAreNowClosed">Los emparejamientos del torneo están cerrados.</string>
   <string name="standByX">Espera %s, emparejando jugadores, ¡prepárate!</string>
-  <string name="youArePlaying">¡Estás jugando!</string>
+  <string name="youArePlaying">¡Te toca jugar!</string>
   <string name="winRate">Tasa de victorias</string>
   <string name="berserkRate">Tasa de berserk</string>
   <string name="performance">Rendimiento</string>
@@ -438,11 +438,11 @@
   <string name="butYouCanKeepTrying">Pero puedes seguir intentándolo.</string>
   <string name="success">Éxito</string>
   <string name="wasThisPuzzleAnyGood">¿Crees que este ejercicio es bueno?</string>
-  <string name="pleaseVotePuzzle">Ayuda a Lichess a mejorar a través de tu votación, usando las flechas arriba o abajo:</string>
+  <string name="pleaseVotePuzzle">Ayuda a lichess a mejorar. Vota usando las flechas arriba o abajo:</string>
   <string name="thankYou">¡Gracias!</string>
   <string name="ratingX">Rango: %s</string>
   <plurals name="playedXTimes">
-    <item quantity="one">Jugado %s veces</item>
+    <item quantity="one">Jugado %s vez</item>
     <item quantity="other">Jugado %s veces</item>
   </plurals>
   <string name="fromGameLink">De la partida %s</string>
@@ -468,7 +468,7 @@
   <string name="no">No</string>
   <string name="yes">Sí</string>
   <string name="help">Ayuda:</string>
-  <string name="createANewTopic">Crear un nuevo tema</string>
+  <string name="createANewTopic">Crear un tema nuevo</string>
   <string name="topics">Temas</string>
   <string name="posts">Publicaciones</string>
   <string name="lastPost">Última publicación</string>
@@ -497,14 +497,14 @@
   <string name="typePrivateNotesHere">Escribe aquí tus notas</string>
   <string name="gameDisplay">Configuración del tablero</string>
   <string name="pieceAnimation">Animación de las piezas</string>
-  <string name="materialDifference">Diferencia material</string>
+  <string name="materialDifference">Diferencia de material</string>
   <string name="closeAccount">Cerrar cuenta</string>
-  <string name="changedMindDoNotCloseAccount">Cambié de opinión, no cierren mi cuenta</string>
+  <string name="changedMindDoNotCloseAccount">He cambiado de opinión, no cierren mi cuenta</string>
   <string name="closeAccountExplanation">¿Estás seguro de cerrar tu cuenta? Será una decisión permanente. No podrás iniciar sesión y tu perfil no estará disponible.</string>
-  <string name="thisAccountIsClosed">Esta cuenta fue cerrada.</string>
-  <string name="invalidUsernameOrPassword">Nombre de usuario o contraseña inválido</string>
+  <string name="thisAccountIsClosed">Esta cuenta está cerrada.</string>
+  <string name="invalidUsernameOrPassword">Nombre de usuario o contraseña erróneo</string>
   <string name="incorrectPassword">Contraseña incorrecta</string>
-  <string name="emailMeALink">Envíame el enlace por correo electrónico</string>
+  <string name="emailMeALink">Envíame un enlace por correo electrónico</string>
   <string name="currentPassword">Contraseña actual</string>
   <string name="newPassword">Contraseña nueva</string>
   <string name="newPasswordAgain">Contraseña nueva (repite)</string>
@@ -591,14 +591,14 @@
   <string name="increment">Incremento</string>
   <string name="sharePGN">Compartir PGN</string>
   <string name="playOnline">Jugar en línea</string>
-  <string name="playOffline">Jugar fuera de línea</string>
+  <string name="playOffline">Jugar sin conexión</string>
   <string name="allowAnalytics">Permitir estadísticas anónimas</string>
   <string name="shareGameURL">Compartir el enlace del juego</string>
-  <string name="error.required">Este campo es requerido</string>
-  <string name="error.email">Este correo es inválido</string>
-  <string name="error.email_acceptable">Este correo no es aceptado</string>
+  <string name="error.required">Este campo es obligatorio</string>
+  <string name="error.email">Este correo no es válido</string>
+  <string name="error.email_acceptable">Este correo no es aceptable</string>
   <string name="error.email_unique">Este correo ya está en uso</string>
-  <string name="error.email_different">Este es el mismo correo electrónico que tiene en uso</string>
+  <string name="error.email_different">Esta es el mismo correo que tiene actualmente</string>
   <string name="blindfoldChess">Ajedrez a ciegas (piezas invisibles)</string>
   <string name="zenMode">Modo Zen</string>
   <string name="moveConfirmation">Confirmación de movimiento</string>
@@ -663,21 +663,21 @@
   <string name="tournamentDoesNotExist">Este torneo no existe.</string>
   <string name="tournamentMayHaveBeenCanceled">Puede que se haya cancelado, si todos los jugadores abandonaron antes de comenzar el torneo.</string>
   <string name="returnToTournamentsHomepage">Volver a la página principal de torneos</string>
-  <string name="weeklyPerfTypeRatingDistribution">Distribución mensual de puntos de %s</string>
+  <string name="weeklyPerfTypeRatingDistribution">Distribución mensual de puntos en %s</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">%1$s jugador de %2$s esta semana.</item>
     <item quantity="other">%1$s jugadores de %2$s esta semana.</item>
   </plurals>
-  <string name="yourPerfTypeRatingIsRating">Tu puntuación de %1$s es %2$s.</string>
+  <string name="yourPerfTypeRatingIsRating">Tu puntuación en %1$s es %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Eres mejor que el %1$s de los jugadores en %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Careces de puntuación de %s establecida.</string>
   <string name="checkYourEmail">Revisa tu correo</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Te hemos enviado un correo. Activa tu cuenta en el enlace proporcionado.</string>
-  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si no ves el correo, revísalo en otros lugares destino: papelera, correo basura, social u otras carpetas.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si no encuentras el correo, mira a ver si está en otras carpetas (spam, social, ...).</string>
   <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">¿Estás seguro de que has registrado tu correo en Lichess?</string>
   <string name="itWasNotRequiredForYourRegistration">No se requirió para tu registro.</string>
-  <string name="weHaveSentYouAnEmailTo">Te hemos enviado un correo a %s. Restablece tu contraseña dando clic en el enlace.</string>
-  <string name="byRegisteringYouAgreeToBeBoundByOur">Al registrarte, estás de acuerdo a estar sujeto a nuestras %s.</string>
+  <string name="weHaveSentYouAnEmailTo">Te hemos enviado un correo a %s. Restablece tu contraseña haciendo clic en el enlace.</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">Al registrarte, aceptas las %s.</string>
   <string name="networkLagBetweenYouAndLichess">Demora en el intervalo de conexión entre tu equipo y Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tiempo para procesar un movimiento en el servidor de Lichess</string>
   <string name="downloadAnnotated">Descargar la partida anotada</string>
@@ -687,7 +687,7 @@
   <string name="crosstable">Tablas cruzadas</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Puedes usar la rueda del ratón para desplazarte por la partida.</string>
   <string name="analysisShapesHowTo">Presiona mayúsculas o clic derecho del ratón para marcar círculos y flechas en el tablero.</string>
-  <string name="confirmResignationAndDrawOffers">Confirmar resignación y ofertas de tablas</string>
+  <string name="confirmResignationAndDrawOffers">Confirmar abandono y ofertas de tablas</string>
   <string name="inputMovesWithTheKeyboard">Entrada de movimientos con el teclado</string>
   <string name="letOtherPlayersMessageYou">Permitir que otras personas te envíen un mensaje</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Método de enroque</string>
@@ -708,7 +708,7 @@
   <string name="alternativelyYouCanX">O también puedes %s.</string>
   <string name="revokeAllSessions">cerrar todas las sesiones</string>
   <string name="playChessEverywhere">Jugar ajedrez donde sea</string>
-  <string name="asFreeAsLichess">Tan gratuito como lichess</string>
+  <string name="asFreeAsLichess">Tan gratis como lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Construido por amor al ajedrez, no por dinero</string>
   <string name="everybodyGetsAllFeaturesForFree">Todos tienen acceso gratuito a todas las opciones</string>
   <string name="zeroAdvertisement">Sin anuncios</string>
@@ -761,5 +761,5 @@
   <string name="custom">Personalizado</string>
   <string name="notifications">Notificaciones</string>
   <string name="challenges">Desafíos</string>
-  <string name="perfRatingX">Clasificación: %s</string>
+  <string name="perfRatingX">Puntuación: %s</string>
 </resources>

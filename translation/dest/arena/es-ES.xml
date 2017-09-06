@@ -24,7 +24,7 @@ El modo berserk no está disponible en controles de tiempo con tiempo inicial ce
 
 El modo berserk sólo proporciona un punto adicional por cada victoria si juegas al menos 7 movimientos en la partida.</string>
   <string name="howIsTheWinnerDecided">¿Cómo se decide el ganador?</string>
-  <string name="howIsTheWinnerDecidedAnswer">El (los) jugador(es) con más puntos al finalizar el torneo será(n) el (los) ganador(es).</string>
+  <string name="howIsTheWinnerDecidedAnswer">Ganará el jugador (o jugadores) que tenga más puntos al término del torneo.</string>
   <string name="howDoesPairingWork">¿Cómo se realizan los emparejamientos?</string>
   <string name="howDoesPairingWorkAnswer">Al principio del torneo, los jugadores se emparejan en base a su puntuación. En cuanto terminas una partida, vuelves al recibidor del torneo, y se te emparejará con un jugador con una puntuación similar a la tuya. Esto minimiza el tiempo de espera, si bien es posible que no juegues contra todos los demás jugadores del torneo.
 Juega rápido y vuelve al recibidor para jugar más partidas y ganar más puntos.</string>

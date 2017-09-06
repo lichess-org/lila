@@ -61,10 +61,13 @@
   <string name="variantWin">변형 체스에서 승리</string>
   <string name="insufficientMaterial">말이 부족하여 무승부입니다.</string>
   <string name="pawnMove">폰 이동</string>
+  <string name="close">닫기</string>
   <string name="drawn">무승부</string>
+  <string name="database">데이터베이스</string>
   <string name="whiteDrawBlack">백 : 무승부 : 흑</string>
   <string name="averageRatingX">평균 레이팅: %s</string>
   <string name="recentGames">최근 게임</string>
+  <string name="topGames">최고 레이팅 게임</string>
   <string name="masterDbExplanation">%2$s년과 %3$s년 사이 FIDE 레이팅이 최소 %1$s였던 선수들의 기보가 약 2백만개 있습니다.</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="other">%s반수만에 체크메이트</item>
@@ -74,6 +77,7 @@
   <string name="openingExplorer">오프닝 탐색기</string>
   <string name="winPreventedBy50MoveRule">50수 규칙에 의하여 승리가 불가능합니다.</string>
   <string name="lossSavedBy50MoveRule">50수 규칙에 의하여 패배가 불가능합니다.</string>
+  <string name="allSet">적용</string>
   <string name="importPgn">PGN 가져오기</string>
   <string name="delete">삭제</string>
   <string name="deleteThisImportedGame">가져온 게임을 삭제할까요?</string>
@@ -273,6 +277,7 @@
   <string name="onlineFriends">접속 중인 친구</string>
   <string name="noFriendsOnline">접속 중인 친구가 없습니다</string>
   <string name="findFriends">친구 찾기</string>
+  <string name="favoriteOpponents">관심있는 상대</string>
   <string name="follow">팔로우</string>
   <string name="following">팔로잉</string>
   <string name="unfollow">팔로우 취소</string>
@@ -315,6 +320,7 @@
   <string name="viewMoreTournaments">더 많은 대회 보기</string>
   <string name="membersOnly">회원 전용</string>
   <string name="boardEditor">보드 편집기</string>
+  <string name="setTheBoard">보드 세팅하기</string>
   <string name="startPosition">원래대로</string>
   <string name="clearBoard">보드 지우기</string>
   <string name="savePosition">포지션 저장</string>
@@ -434,6 +440,7 @@
   <string name="horizontalGreenProgressBars">녹색 수평 진행 바</string>
   <string name="soundWhenTimeGetsCritical">시간이 위태로울 때 소리 재생</string>
   <string name="gameBehavior">동작</string>
+  <string name="howDoYouMovePieces">기물을 어떻게 움직이나요?</string>
   <string name="clickTwoSquares">현재 위치와 원하는 위치에 클릭하기</string>
   <string name="dragPiece">드래그</string>
   <string name="bothClicksAndDrag">아무 방법으로</string>
@@ -594,6 +601,7 @@
   <string name="crosstable">점수판</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">마우스 스크롤을 돌림으로써 수를 진행할 수 있습니다.</string>
   <string name="analysisShapesHowTo">Shift + 왼쪽/오른쪽 클릭으로 원이나 화살표를 보드 상에 그릴 수 있습니다.</string>
+  <string name="confirmResignationAndDrawOffers">기권 또는 무승부 제안시 물음</string>
   <string name="inputMovesWithTheKeyboard">키보드 입력</string>
   <string name="letOtherPlayersMessageYou">다른 사람들이 당신에게 메시지를 보낼 수 있도록 합니다.</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">캐슬링 방법</string>
