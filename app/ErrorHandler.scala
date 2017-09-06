@@ -33,21 +33,28 @@ class ErrorHandler(
       InternalServerError(views.html.base.errorPage(exception) {
         lila.api.Context(req, lila.app.Env.api.assetVersion.get, lila.i18n.defaultLang)
       })
-    } else InternalServerError(exception.getMessage)
+    }
+    else InternalServerError(exception.getMessage)
   }
 
   override def onClientError(req: RequestHeader, statusCode: Int, message: String) = {
-    logHttp(statusCode, req)
+    lila.mon.http.response.code400()
     if (message startsWith "Illegal character in path") fuccess(Redirect("/"))
-    else if (niceError(req)) {
-      lila.mon.http.response.code400()
-      statusCode match {
-        case 404 => controllers.Main.notFound(req)
-        case _ if (message startsWith "Cannot parse parameter") => controllers.Main.notFound(req)
-        case _ => controllers.Lobby.handleStatus(req, Results.BadRequest)
-      }
-    } else super.onClientError(req, statusCode, message)
+    else statusCode match {
+      case 404 => onHandlerNotFound(req)
+      case _ if message startsWith "Cannot parse parameter" => controllers.Main.notFound(req)
+      case _ if niceError(req) =>
+        logHttp(statusCode, req)
+        controllers.Lobby.handleStatus(req, Results.BadRequest)
+      case _ => fuccess(BadRequest(message))
+    }
   }
+
+  override def onHandlerNotFound(req: RequestHeader) =
+    if (niceError(req)) {
+      logHttp(404, req)
+      controllers.Main.notFound(req)
+    } else fuccess(NotFound("404 - Resource not found"))
 
   private def niceError(req: RequestHeader): Boolean =
     req.method == "GET" &&
