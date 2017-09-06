@@ -4,7 +4,7 @@
   <string name="playWithAFriend">Partia ze znajomym</string>
   <string name="playWithTheMachine">Partia z komputerem</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Aby zaprosić znajomego do gry, przekaż mu ten link</string>
-  <string name="gameOver">Koniec gry</string>
+  <string name="gameOver">Partia zakończona</string>
   <string name="waitingForOpponent">Oczekiwanie na przeciwnika</string>
   <string name="waiting">Oczekiwanie</string>
   <string name="yourTurn">Twój ruch</string>
@@ -42,7 +42,7 @@
   <string name="whiteLeftTheGame">Białe opuściły grę</string>
   <string name="blackLeftTheGame">Czarne opuściły grę</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Podziel się tym linkiem, aby zaprosić innych do obserwowania tej gry</string>
-  <string name="theComputerAnalysisHasFailed">Analiza komputerowa nie udała się</string>
+  <string name="theComputerAnalysisHasFailed">Nie udało się przeanalizować tej partii</string>
   <string name="viewTheComputerAnalysis">Zobacz analizę komputerową</string>
   <string name="requestAComputerAnalysis">Poproś o analizę komputerową</string>
   <string name="computerAnalysis">Analiza komputerowa</string>
