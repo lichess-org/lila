@@ -407,11 +407,11 @@
   <string name="tournamentPairingsAreNowClosed">Zakończono kojarzenie par.</string>
   <string name="standByX">Szukam dla Ciebie przeciwnika, bądź gotów do gry %s!</string>
   <string name="youArePlaying">Grasz!</string>
-  <string name="winRate">Zwycięstw</string>
+  <string name="winRate">Wygranych</string>
   <string name="berserkRate">Berserk</string>
   <string name="performance">Wynik</string>
   <string name="tournamentComplete">Turniej zakończony</string>
-  <string name="movesPlayed">Liczba posunięć</string>
+  <string name="movesPlayed">Liczba ruchów</string>
   <string name="whiteWins">Wygrana białych</string>
   <string name="blackWins">Wygrana czarnych</string>
   <string name="draws">Remis</string>
