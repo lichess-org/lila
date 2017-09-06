@@ -28,6 +28,7 @@ externalizeResources := false
 scriptClasspath := Seq("*")
 // offline := true
 libraryDependencies ++= Seq(
+  ws,
   play.jodaJson, play.jodaForms, play.iteratee, play.streams,
   scalaz, chess, scalalib, hasher, typesafeConfig, findbugs,
   reactivemongo.driver, reactivemongo.iteratees, akka.actor,

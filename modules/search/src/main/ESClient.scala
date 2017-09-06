@@ -1,6 +1,8 @@
 package lila.search
 
 import play.api.libs.json._
+import play.api.libs.ws.JsonBodyReadables._
+import play.api.libs.ws.JsonBodyWritables._
 
 sealed trait ESClient {
 
