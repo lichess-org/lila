@@ -3,7 +3,6 @@ package lila.tournament
 import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
 import play.api.libs.json._
-import play.api.libs.json.JodaWrites._
 import play.api.i18n.Lang
 import scala.concurrent.duration._
 

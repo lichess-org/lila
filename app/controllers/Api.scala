@@ -3,13 +3,13 @@ package controllers
 import org.joda.time.DateTime
 import ornicar.scalalib.Zero
 import play.api.libs.json._
-import play.api.libs.json.JodaWrites._
 import play.api.mvc._
 import scala.concurrent.duration._
 
 import lila.api.Context
 import lila.app._
 import lila.common.{ HTTPRequest, IpAddress }
+import lila.common.PimpedJson.jodaDateWrites
 
 object Api extends LilaController {
 

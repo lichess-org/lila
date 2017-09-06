@@ -1,7 +1,6 @@
 package lila.game
 
 import play.api.libs.json._
-import play.api.libs.json.JodaWrites._
 
 import chess.format.Forsyth
 import chess.variant.Crazyhouse

@@ -1,7 +1,6 @@
 package lila.mod
 
 import play.api.libs.json._
-import play.api.libs.json.JodaWrites._
 
 import chess.format.FEN
 import lila.common.PimpedJson._

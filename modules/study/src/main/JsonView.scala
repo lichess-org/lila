@@ -3,7 +3,6 @@ package lila.study
 import chess.format.{ Uci, UciCharPair, FEN }
 import chess.Pos
 import play.api.libs.json._
-import play.api.libs.json.JodaWrites._
 
 import lila.common.LightUser
 import lila.common.PimpedJson._

@@ -28,8 +28,7 @@ externalizeResources := false
 scriptClasspath := Seq("*")
 // offline := true
 libraryDependencies ++= Seq(
-  ws,
-  play.jodaJson, play.jodaForms, play.iteratee, play.streams,
+  ws, play.jodaForms, play.iteratee, play.streams,
   scalaz, chess, scalalib, hasher, typesafeConfig, findbugs,
   reactivemongo.driver, reactivemongo.iteratees, akka.actor,
   maxmind, prismic, guava,
@@ -79,7 +78,7 @@ lazy val moduleCPDeps = moduleRefs map { new sbt.ClasspathDependency(_, None) }
 lazy val api = module("api", moduleCPDeps)
   .settings(
     libraryDependencies ++= provided(
-      play.api, play.iteratee, play.jodaJson, hasher,
+      play.api, play.iteratee, hasher,
       reactivemongo.driver, reactivemongo.iteratees,
       typesafeConfig, findbugs,
       kamon.core, kamon.influxdb
@@ -139,7 +138,7 @@ lazy val rating = module("rating", Seq(common, db)).settings(
 )
 
 lazy val perfStat = module("perfStat", Seq(common, db, user, game, rating)).settings(
-  libraryDependencies ++= provided(play.api, play.jodaJson, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )
 
 lazy val history = module("history", Seq(common, db, memo, game, user)).settings(
@@ -159,11 +158,11 @@ lazy val search = module("search", Seq(common, hub)).settings(
 )
 
 lazy val chat = module("chat", Seq(common, db, user, security, i18n, socket)).settings(
-  libraryDependencies ++= provided(play.api, play.jodaJson, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )
 
 lazy val timeline = module("timeline", Seq(common, db, game, user, hub, security, relation)).settings(
-  libraryDependencies ++= provided(play.api, play.jodaJson, play.test, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, play.test, reactivemongo.driver)
 )
 
 lazy val event = module("event", Seq(common, db, memo)).settings(
@@ -172,20 +171,20 @@ lazy val event = module("event", Seq(common, db, memo)).settings(
 
 lazy val mod = module("mod", Seq(common, db, user, hub, security, tournament, simul, game, analyse, evaluation,
   report, notifyModule, history)).settings(
-  libraryDependencies ++= provided(play.api, play.jodaJson, play.test, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, play.test, reactivemongo.driver)
 )
 
 lazy val user = module("user", Seq(common, memo, db, hub, rating)).settings(
-  libraryDependencies ++= provided(play.api, play.test, play.jodaJson, reactivemongo.driver, hasher)
+  libraryDependencies ++= provided(play.api, play.test, reactivemongo.driver, hasher)
 )
 
 lazy val game = module("game", Seq(common, memo, db, hub, user, chat)).settings(
-  libraryDependencies ++= provided(play.api, play.iteratee, play.jodaJson, reactivemongo.driver, reactivemongo.iteratees)
+  libraryDependencies ++= provided(play.api, play.iteratee, reactivemongo.driver, reactivemongo.iteratees)
 )
 
 lazy val gameSearch = module("gameSearch", Seq(common, hub, search, game)).settings(
   libraryDependencies ++= provided(
-    play.api, play.iteratee, play.jodaJson, reactivemongo.driver, reactivemongo.iteratees
+    play.api, play.iteratee, reactivemongo.driver, reactivemongo.iteratees
   )
 )
 
@@ -201,7 +200,7 @@ lazy val round = module("round", Seq(
   common, db, memo, hub, socket, game, user,
   i18n, fishnet, pref, chat, history, playban
 )).settings(
-  libraryDependencies ++= provided(play.api, play.iteratee, play.jodaJson, hasher, kamon.core,
+  libraryDependencies ++= provided(play.api, play.iteratee, hasher, kamon.core,
     reactivemongo.driver, reactivemongo.iteratees)
 )
 
@@ -243,7 +242,7 @@ lazy val tournament = module("tournament", Seq(
   common, hub, socket, game, round, security, chat, memo, quote, history, notifyModule, i18n
 )).settings(
   libraryDependencies ++= provided(
-    play.api, play.iteratee, play.jodaJson, reactivemongo.driver, reactivemongo.iteratees
+    play.api, play.iteratee, reactivemongo.driver, reactivemongo.iteratees
   )
 )
 
@@ -276,7 +275,7 @@ lazy val challenge = module("challenge", Seq(common, db, hub, setup, game, relat
 lazy val study = module("study", Seq(
   common, db, hub, socket, game, round, importer, notifyModule, relation, evalCache
 )).settings(
-  libraryDependencies ++= provided(play.api, play.iteratee, play.jodaJson, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, play.iteratee, reactivemongo.driver)
 )
 
 lazy val studySearch = module("studySearch", Seq(common, hub, study, search)).settings(
@@ -286,7 +285,7 @@ lazy val studySearch = module("studySearch", Seq(common, hub, study, search)).se
 )
 
 lazy val learn = module("learn", Seq(common, db, user)).settings(
-  libraryDependencies ++= provided(play.api, play.jodaJson, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )
 
 lazy val evalCache = module("evalCache", Seq(common, db, user, security, socket, tree)).settings(
@@ -322,7 +321,7 @@ lazy val pref = module("pref", Seq(common, db, user)).settings(
 )
 
 lazy val message = module("message", Seq(common, db, user, hub, relation, security, notifyModule)).settings(
-  libraryDependencies ++= provided(play.api, play.jodaJson, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )
 
 lazy val forum = module("forum", Seq(common, db, user, security, hub, mod, notifyModule)).settings(
@@ -331,7 +330,7 @@ lazy val forum = module("forum", Seq(common, db, user, security, hub, mod, notif
 
 lazy val forumSearch = module("forumSearch", Seq(common, hub, forum, search)).settings(
   libraryDependencies ++= provided(
-    play.api, play.iteratee, play.jodaJson, reactivemongo.driver, reactivemongo.iteratees
+    play.api, play.iteratee, reactivemongo.driver, reactivemongo.iteratees
   )
 )
 
@@ -364,7 +363,7 @@ lazy val bookmark = module("bookmark", Seq(common, memo, db, hub, user, game)).s
 )
 
 lazy val report = module("report", Seq(common, db, user, game, security)).settings(
-  libraryDependencies ++= provided(play.api, play.jodaJson, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )
 
 lazy val explorer = module("explorer", Seq(common, db, game)).settings(
@@ -374,7 +373,7 @@ lazy val explorer = module("explorer", Seq(common, db, game)).settings(
 )
 
 lazy val notifyModule = module("notify", Seq(common, db, game, user, hub, relation)).settings(
-  libraryDependencies ++= provided(play.api, play.jodaJson, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )
 
 lazy val site = module("site", Seq(common, socket)).settings(

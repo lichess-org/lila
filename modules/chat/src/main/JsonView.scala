@@ -1,9 +1,9 @@
 package lila.chat
 
+import play.api.libs.json._
+
 import lila.common.LightUser
 import lila.common.PimpedJson._
-import play.api.libs.json._
-import play.api.libs.json.JodaWrites._
 
 object JsonView {
 
