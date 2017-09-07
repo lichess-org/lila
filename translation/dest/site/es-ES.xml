@@ -440,7 +440,7 @@
   <string name="wasThisPuzzleAnyGood">¿Crees que este ejercicio es bueno?</string>
   <string name="pleaseVotePuzzle">Ayuda a lichess a mejorar. Vota usando las flechas arriba o abajo:</string>
   <string name="thankYou">¡Gracias!</string>
-  <string name="ratingX">Rango: %s</string>
+  <string name="ratingX">Puntuacion: %s</string>
   <plurals name="playedXTimes">
     <item quantity="one">Jugado %s vez</item>
     <item quantity="other">Jugado %s veces</item>
@@ -452,7 +452,7 @@
   <string name="thisPuzzleIsWrong">Este ejercicio es erróneo o aburrido</string>
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">¡Tienes de %s segundo para hacer el primer movimiento!</item>
-    <item quantity="other">¡Tienes de %s segundos para hacer el primer movimiento!</item>
+    <item quantity="other">¡Tienes %s segundos para hacer el primer movimiento!</item>
   </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partida en juego</item>
@@ -478,7 +478,7 @@
   <string name="reply">Responder</string>
   <string name="message">Mensaje</string>
   <string name="createTheTopic">Crear tema</string>
-  <string name="reportAUser">Reportar al usuario</string>
+  <string name="reportAUser">Denunciar usuario</string>
   <string name="user">Usuario</string>
   <string name="reason">Motivo</string>
   <string name="whatIsIheMatter">¿Qué ocurre?</string>
@@ -486,7 +486,7 @@
   <string name="insult">Insulto</string>
   <string name="troll">Acoso</string>
   <string name="other">Otro</string>
-  <string name="reportDescriptionHelp">Pega el enlace a la(s) partida(s) y explícanos qué hay de malo en el comportamiento de este usuario. No digas simplemente \"hace trampa\", explícanos cómo has llegado a esta conclusión. Tu informe será procesado más rápido si está escrito en inglés.</string>
+  <string name="reportDescriptionHelp">Pega el enlace a la(s) partida(s) y explícanos qué hay de malo en el comportamiento de este usuario. No digas simplemente \"hace trampa\"; explícanos cómo has llegado a esta conclusión. Tu informe será procesado más rápido si está escrito en inglés.</string>
   <string name="by">por %s</string>
   <string name="thisTopicIsNowClosed">Este tema está cerrado.</string>
   <string name="theming">Apariencia</string>
