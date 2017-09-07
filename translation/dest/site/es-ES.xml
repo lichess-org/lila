@@ -451,8 +451,8 @@
   <string name="thisPuzzleIsCorrect">Este ejercicio es correcto e interesante</string>
   <string name="thisPuzzleIsWrong">Este ejercicio es erróneo o aburrido</string>
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">¡Tienes de %s segundo para hacer el primer movimiento!</item>
-    <item quantity="other">¡Tienes %s segundos para hacer el primer movimiento!</item>
+    <item quantity="one">¡Dispones de %s segundos para hacer tu primer movimiento!</item>
+    <item quantity="other">¡Dispones de %s segundos para hacer tu primer movimiento!</item>
   </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partida en juego</item>
@@ -557,7 +557,7 @@
   <string name="xCommentedY">%1$s comentó %2$s</string>
   <string name="victory">¡Victoria!</string>
   <string name="defeat">Derrota</string>
-  <string name="xVsYinZ">%1$s contra %2$s en %3$s</string>
+  <string name="xVsYinZ">%1$s vs %2$s en %3$s</string>
   <string name="timeline">Orden cronológico</string>
   <string name="seeAllTournaments">Ver todos los torneos</string>
   <string name="starting">Inicio:</string>
@@ -583,7 +583,7 @@
   <string name="signedOut">Has cerrado la sesión</string>
   <string name="loginSuccessful">Conectado</string>
   <string name="playOnTheBoardOffline">Jugar sin conexión</string>
-  <string name="playOfflineComputer">Jugar contra la computadora</string>
+  <string name="playOfflineComputer">Ordenador</string>
   <string name="opponent">Oponente</string>
   <string name="learnMenu">Aprender</string>
   <string name="community">Comunidad</string>
@@ -681,7 +681,7 @@
   <string name="networkLagBetweenYouAndLichess">Demora en el intervalo de conexión entre tu equipo y Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tiempo para procesar un movimiento en el servidor de Lichess</string>
   <string name="downloadAnnotated">Descargar la partida anotada</string>
-  <string name="downloadRaw">Descarga la partida simple</string>
+  <string name="downloadRaw">Descargar partida simple</string>
   <string name="downloadImported">Descargar la partida importada</string>
   <string name="printFriendlyPDF">Imprimir en formato PDF simple</string>
   <string name="crosstable">Tablas cruzadas</string>
