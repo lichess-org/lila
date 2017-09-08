@@ -334,15 +334,15 @@
     <item quantity="two">≥ %s لعبة مقيمة</item>
     <item quantity="few">≥ %s ألعاب مقيمة</item>
     <item quantity="many">≥ %s ألعاب مقيمة</item>
-    <item quantity="other">≥ %s ألعاب مقيمة</item>
+    <item quantity="other">≥ %s مبارايات مقيمة</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
     <item quantity="zero">≥ %2%s %1$s مباراة مقيمة</item>
-    <item quantity="one">≥ %2%s %1$s مباراة مقيمة</item>
+    <item quantity="one">≥ %2$s %1$s مباراة مقيمة</item>
     <item quantity="two">≥ %2%s %1$s مباراة مقيمة</item>
     <item quantity="few">≥ %2%s %1$s مباراة مقيمة</item>
     <item quantity="many">≥ %2%s %1$s مباراة مقيمة</item>
-    <item quantity="other">≥ %2%s %1$s مباراة مقيمة</item>
+    <item quantity="other">≥ %2$s %1$s مباريات مقيمة</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="zero">يجب أن تلعب %1$s أكثر %2$s مباراة مقيمة</item>
