@@ -21,7 +21,7 @@ build_ts() {
   if [ $mode == "upgrade" ]; then
     yarn upgrade --non-interactive --mutex file:$YARN_MUTEX
   fi
-  yarn run compile --non-interactive
+  yarn run compile
 }
 
 build() {
