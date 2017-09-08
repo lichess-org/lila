@@ -288,14 +288,25 @@
     <item quantity="few">≥ %s vertinamos partijos</item>
     <item quantity="other">≥ %s vertinamų partijų</item>
   </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s vertinama „%2$s“ partija</item>
+    <item quantity="few">≥ %1$s vertinamos „%2$s“ partijos</item>
+    <item quantity="other">≥ %1$s vertinamų „%2$s“ partijų</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Jums reikia sužaisti dar %1$s vertinamą „%2$s“ partiją</item>
+    <item quantity="few">Jums reikia sužaisti dar %1$s vertinamas „%2$s“ partijas</item>
+    <item quantity="other">Jums reikia sužaisti dar %1$s vertinamų „%2$s“ partijų</item>
+  </plurals>
   <plurals name="needNbMoreGames">
     <item quantity="one">Jums reikia sužaisti dar %s vertinamą partiją</item>
     <item quantity="few">Jums reikia sužaisti dar %s vertinamas partijas</item>
     <item quantity="other">Jums reikia sužaisti dar %s vertinamų partijų</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Jūsų %s reitingas yra laikinas</string>
-  <string name="yourPerfRatingIsTooHigh">Jūsų %1$s reitingas (%2$s) yra per aukštas</string>
-  <string name="yourPerfRatingIsTooLow">Jūsų %1$s reitingas (%2$s) yra per žemas</string>
+  <string name="yourPerfRatingIsTooHigh">Jūsų „%1$s“ reitingas (%2$s) yra per aukštas</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Jūsų geriausias savaitinis „%1$s“ reitingas (%2$s) yra per aukštas</string>
+  <string name="yourPerfRatingIsTooLow">Jūsų „%1$s“ reitingas (%2$s) yra per žemas</string>
   <string name="ratedMoreThanInPerf">≥ %1$s %2$s reitingas</string>
   <string name="ratedLessThanInPerf">≤ %1$s %2$s reitingas</string>
   <string name="backToGame">Grįžti į partiją</string>
