@@ -300,7 +300,7 @@
   </plurals>
   <plurals name="needNbMoreGames">
     <item quantity="one">Вы должны сыграть еще %s рейтинговую игру</item>
-    <item quantity="few">Вы должны сыграть еще %s рейтинговых игр</item>
+    <item quantity="few">Вы должны сыграть еще %s рейтинговые игры</item>
     <item quantity="other">Вы должны сыграть еще %s рейтинговых игр</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Ваш предварительный рейтинг: %s</string>
@@ -367,7 +367,7 @@
   <string name="block">Заблокировать</string>
   <string name="blocked">Заблокированные</string>
   <string name="unblock">Разблокировать</string>
-  <string name="followsYou">Подписаны на вас</string>
+  <string name="followsYou">Подписан на вас</string>
   <string name="xStartedFollowingY">%1$s подписался на %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s подписчик</item>
@@ -376,7 +376,7 @@
   </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">подписан на %s игрока</item>
-    <item quantity="few">%s подписан</item>
+    <item quantity="few">подписан на %s игрока</item>
     <item quantity="other">подписан на %s игроков</item>
   </plurals>
   <string name="more">Ещё</string>
