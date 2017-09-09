@@ -317,6 +317,7 @@
   <string name="keepGoing">Үргэлжлүүлээд байгаарай...</string>
   <string name="puzzleFailed">Бодлогыг амжилттай бодож чадсангүй</string>
   <string name="butYouCanKeepTrying">Гэхдээ та үргэлжлүүлэн бодох боломжтой.</string>
+  <string name="victory">Бодлогыг амжилттай бодлоо!</string>
   <string name="wasThisPuzzleAnyGood">Энэ бодлого хэр байв?</string>
   <string name="pleaseVotePuzzle">Бодлогын чанарыг үнэлэх</string>
   <string name="thankYou">Баярлалаа!</string>
@@ -326,6 +327,7 @@
     <item quantity="other">Бодлогыг оролдсон тоо: %s</item>
   </plurals>
   <string name="fromGameLink">%s өргөөс сэдэвлэсэн бодлого</string>
+  <string name="startTraining">Эхлүүлэх</string>
   <string name="continueTraining">Бодлого үргэлжлүүлэн бодох</string>
   <string name="retryThisPuzzle">Энэ бодлогыг дахин оролдох</string>
   <string name="thisPuzzleIsCorrect">Энэ бодлого зөв бөгөөд сонирхолтой байлаа</string>
@@ -341,6 +343,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Нүүсний дараа дараагийн тоглолт руу шууд шилжих</string>
   <string name="autoSwitch">Автоматаар шилжих</string>
   <string name="puzzles">Таавар бодлого</string>
+  <string name="coordinates">Солбилцол</string>
   <string name="latestUpdates">Сүүлд хийгдсэн шинэчлэлтүүд</string>
   <string name="tournamentWinners">Ялагчид</string>
   <string name="name">Нэр</string>
@@ -425,7 +428,6 @@
   <string name="xAskedY">%1$s дараахь гишүүнээс асуулт асуулаа: %2$s</string>
   <string name="xAnsweredY">%1$s дараахь гишүүнд хариулт бичлээ: %2$s</string>
   <string name="xCommentedY">%1$s дараахь сэдэвт сэтгэгдлээ бичлээ: %2$s</string>
-  <string name="victory">Бодлогыг амжилттай бодлоо!</string>
   <string name="timeline">Дагагч хүмүүсийн үйлдлүүд</string>
   <string name="seeAllTournaments">Бүх тэмцээнүүдийг харах</string>
   <string name="starting">Тэмцээн эхлэхэд дараахь хугацаа үлдлээ:</string>
@@ -452,6 +454,7 @@
   <string name="playOnTheBoardOffline">Нүүр тулсан өрөг</string>
   <string name="playOfflineComputer">Компьютер</string>
   <string name="opponent">Өрсөлдөгч</string>
+  <string name="learn">Сургалт</string>
   <string name="community">Гишүүд</string>
   <string name="tools">Хэрэглүүр</string>
   <string name="increment">Нэмэгдэл</string>

@@ -46,28 +46,7 @@
   <string name="viewTheComputerAnalysis">Погледнете ја компјутерската анализа</string>
   <string name="requestAComputerAnalysis">Побарајте компјутерска анализа</string>
   <string name="computerAnalysis">Компјутерска анализа</string>
-  <string name="computerAnalysisAvailable">Достапна е компјутерска анализа</string>
   <string name="analysis">Анализа</string>
-  <string name="depthX">Длабочина %s</string>
-  <string name="loadingEngine">Се вчитува компјутерската програма ...</string>
-  <string name="cloudAnalysis">Анализа на облакот</string>
-  <string name="goDeeper">Оди подлабоку</string>
-  <string name="showThreat">Покажи закана</string>
-  <string name="inLocalBrowser">на вашиот прелистувач (локално)</string>
-  <string name="toggleLocalEvaluation">Вклчи локална еваулација</string>
-  <string name="move">Потег</string>
-  <string name="insufficientMaterial">Нема доволно материјал</string>
-  <string name="capture">Зема</string>
-  <string name="close">Затвори</string>
-  <string name="winning">Победува</string>
-  <string name="losing">Губи</string>
-  <string name="drawn">Реми</string>
-  <string name="unknown">Непознато</string>
-  <string name="database">База на податоци</string>
-  <string name="whiteDrawBlack">Бели / Реми / Црни</string>
-  <string name="averageRatingX">Просечен пласман %s</string>
-  <string name="recentGames">Неодамнешни игри</string>
-  <string name="topGames">Топ игри</string>
   <string name="blunders">Сериозни пропусти</string>
   <string name="mistakes">Грешки</string>
   <string name="inaccuracies">Неточности</string>
@@ -336,6 +315,7 @@
   <string name="keepGoing">Продолжи</string>
   <string name="puzzleFailed">Вежба не успеа</string>
   <string name="butYouCanKeepTrying">Сеуште се обидуваш</string>
+  <string name="victory">Победа</string>
   <string name="wasThisPuzzleAnyGood">Е вежба добро?</string>
   <string name="pleaseVotePuzzle">Помош lichess се подобри преку гласање, со користење нагоре или надолу стрелка:</string>
   <string name="thankYou">Благодарам!</string>
@@ -345,6 +325,7 @@
     <item quantity="other">Одиграно %s пати</item>
   </plurals>
   <string name="fromGameLink">Од игра на %s</string>
+  <string name="startTraining">почнете со обука</string>
   <string name="continueTraining">продолжи обуката</string>
   <string name="retryThisPuzzle">Пробај повторно оваа загатка</string>
   <string name="thisPuzzleIsCorrect">Оваа загатка е точно и интересно</string>
@@ -359,10 +340,10 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">По влечењето потег преминете автоматски кон наредната игра</string>
   <string name="puzzles">Проблеми</string>
+  <string name="coordinates">Координати</string>
   <string name="name">Име</string>
   <string name="description">Опис</string>
   <string name="help">Помош</string>
-  <string name="victory">Победа</string>
   <string name="opponent">Противник</string>
   <string name="phoneAndTablet">Телефон и таблет</string>
   <string name="followAndChallengeFriends">Следи и предизвикај пријатели</string>

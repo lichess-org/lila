@@ -317,6 +317,7 @@
   <string name="keepGoing">Haltu áfram...</string>
   <string name="puzzleFailed">Rangt svar</string>
   <string name="butYouCanKeepTrying">En þú getur haldið áfram að reyna.</string>
+  <string name="victory">Sigur!</string>
   <string name="wasThisPuzzleAnyGood">Var þessi þraut góð?</string>
   <string name="pleaseVotePuzzle">Hjálpaðu lichess að bæta sig með því að kjósa, notaðu upp og niður örvarnar:</string>
   <string name="thankYou">Takk fyrir!</string>
@@ -326,6 +327,7 @@
     <item quantity="other">Teflt %s sinnum</item>
   </plurals>
   <string name="fromGameLink">Úr leik %s</string>
+  <string name="startTraining">Byrja að æfa</string>
   <string name="continueTraining">Halda áfram að æfa</string>
   <string name="retryThisPuzzle">Reyna aftur við þessa þraut</string>
   <string name="thisPuzzleIsCorrect">Þessi þraut er rétt og áhugaverð</string>
@@ -341,6 +343,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Skipta sjálfkrafa um skák eftir leik</string>
   <string name="autoSwitch">Skipta sjálfkrafa</string>
   <string name="puzzles">Þrautir</string>
+  <string name="coordinates">Hnit</string>
   <string name="latestUpdates">Nýjustu uppfærslur</string>
   <string name="tournamentWinners">Sigurvegarar mótsins</string>
   <string name="name">Nafn</string>
@@ -425,7 +428,6 @@
   <string name="xAskedY">%1$s spurði %2$s</string>
   <string name="xAnsweredY">%1$s svaraði %2$s</string>
   <string name="xCommentedY">%1$s skrifaði %2$s</string>
-  <string name="victory">Sigur!</string>
   <string name="timeline">Tímalína</string>
   <string name="seeAllTournaments">Sjá öll skákmót</string>
   <string name="starting">Hefst:</string>
@@ -452,6 +454,7 @@
   <string name="playOnTheBoardOffline">Yfir borðið</string>
   <string name="playOfflineComputer">Skáktölva</string>
   <string name="opponent">Andstæðingur</string>
+  <string name="learn">Læra</string>
   <string name="community">Samfélag</string>
   <string name="tools">Tól</string>
   <string name="increment">Aukning</string>

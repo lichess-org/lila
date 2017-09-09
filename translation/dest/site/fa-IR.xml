@@ -46,40 +46,8 @@
   <string name="viewTheComputerAnalysis">نمایش تحلیل رایانه</string>
   <string name="requestAComputerAnalysis">درخواست یک تحلیل رایانه ای</string>
   <string name="computerAnalysis">تجزيه تحليل رایانه ای</string>
-  <string name="computerAnalysisAvailable">تحلیل گر کامپیوتر موجود است</string>
   <string name="analysis">تحلیل</string>
-  <string name="depthX">عمق %s</string>
-  <string name="usingServerAnalysis">استفاده از تحلیل سرور</string>
-  <string name="loadingEngine">در حال بارگذاری موتور ...</string>
-  <string name="cloudAnalysis">تحلیل ابری</string>
-  <string name="goDeeper">عمیق تر برو</string>
-  <string name="showThreat">تهدید را نشان بده</string>
-  <string name="inLocalBrowser">در مرورگر موضعی</string>
-  <string name="toggleLocalEvaluation">ارزیابی موضعی تغییر وضعیت</string>
-  <string name="move">حرکت کن</string>
-  <string name="variantLoss">حرکت باخت</string>
-  <string name="variantWin">حرکت برد</string>
-  <string name="insufficientMaterial">نیرو کافی نیست</string>
-  <string name="pawnMove">حرکت پیاده</string>
-  <string name="capture">بزن</string>
-  <string name="close">بستن</string>
-  <string name="winning">بردن</string>
-  <string name="losing">باختن</string>
-  <string name="drawn">مساوی</string>
-  <string name="unknown">ناشناخته</string>
-  <string name="database">پایگاه داده</string>
-  <string name="whiteDrawBlack">سفید / مساوی / سیاه</string>
-  <string name="averageRatingX">میانگین امتیاز: %s</string>
-  <string name="recentGames">بازی های اخیر</string>
-  <string name="topGames">بازی های برتر</string>
-  <string name="masterDbExplanation">دو ملیون بازی واقعی بازیکنان با امتیاز %1$s+ فیده از %2$s تا %3$s</string>
-  <plurals name="mateInXHalfMoves">
-    <item quantity="one">مات در %s نیمه حرکت</item>
-    <item quantity="other">مات در %s نیمه حرکت</item>
-  </plurals>
-  <string name="noGameFound">بازیی یافت نشد</string>
   <string name="openingExplorer">باز کردن جستجوگر</string>
-  <string name="realtimeReplay">زمان واقعی</string>
   <string name="blunders">اشتباهات جدی</string>
   <string name="mistakes">اشتباهات</string>
   <string name="inaccuracies">بی‌ دقتی‌ ها</string>
@@ -182,8 +150,6 @@
   <string name="play">بازی</string>
   <string name="inbox">صندوق پیام</string>
   <string name="chatRoom">اتاق گپ</string>
-  <string name="loginToChat">وارد شوید تا چت کنید</string>
-  <string name="youHaveBeenTimedOut">زمان شما به پایان رسید.</string>
   <string name="spectatorRoom">اتاق تماشاچیان</string>
   <string name="composeMessage">نوشتن پیام</string>
   <string name="noNewMessages">پیام جدیدی نیست</string>
@@ -274,7 +240,6 @@
   <string name="onlineFriends">دوستان آنلاین</string>
   <string name="noFriendsOnline">هیچ دوستی آنلاین نیست</string>
   <string name="findFriends">پیدا کردن دوست</string>
-  <string name="favoriteOpponents">رقبای مورد علاقه</string>
   <string name="follow">دنبال کن</string>
   <string name="following">دنبال میکنید</string>
   <string name="unfollow">دنبال نکن</string>
@@ -316,11 +281,6 @@
   <string name="winStreak">برد متوالی</string>
   <string name="createdBy">ساخته شده توسط</string>
   <string name="tournamentIsStarting">مسابقه در حال شروع است</string>
-  <string name="youArePlaying">شما بازی میکنید!</string>
-  <string name="winRate">درصد برد</string>
-  <string name="berserkRate">درصد برزرک</string>
-  <string name="performance">عملکرد</string>
-  <string name="viewMoreTournaments">تورنومنت های بیشتری نشان بده</string>
   <string name="membersOnly">فقط اعضا</string>
   <string name="boardEditor">صفحه ویرایشگر</string>
   <string name="startPosition">موقعیت شروع</string>
@@ -357,6 +317,7 @@
   <string name="keepGoing">ادامه دهید</string>
   <string name="puzzleFailed">مسئله را باختید</string>
   <string name="butYouCanKeepTrying">اما می‌توانید باز هم تلاش کنید</string>
+  <string name="victory">پیروزی!</string>
   <string name="wasThisPuzzleAnyGood">این جدول چقدر خوب بود؟</string>
   <string name="pleaseVotePuzzle">با رای دادن مثبت یا منفی به پیشرفت لیچس کمک کنید</string>
   <string name="thankYou">ممنون!</string>
@@ -366,6 +327,7 @@
     <item quantity="other">این جدول%s بار بازی شده است</item>
   </plurals>
   <string name="fromGameLink">برگرفته شده از بازی %s</string>
+  <string name="startTraining">شروع تمرین</string>
   <string name="continueTraining">ادامه دادن تمرین</string>
   <string name="retryThisPuzzle">این مسئله را دوباره امتحان کنید</string>
   <string name="thisPuzzleIsCorrect">این جدول صحیح و جالب است</string>
@@ -381,6 +343,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">حرکت کردن اتوماتیک برای بازی بعدی بعد از حرکت کردن</string>
   <string name="autoSwitch">تعویض خودکار</string>
   <string name="puzzles">پازل ها</string>
+  <string name="coordinates">مختصات</string>
   <string name="latestUpdates">آخرین به روز رسانی ها</string>
   <string name="tournamentWinners">برندگان مسابقات</string>
   <string name="name">نام</string>
@@ -423,7 +386,6 @@
   <string name="closeAccountExplanation">در صورت بستن حساب کاربری دیگر قادر نخواهید بود آنرا بازگردانید و صفحه کاربری از دسترس خارج خواهد شد . آیا اطمینان دارید ؟</string>
   <string name="thisAccountIsClosed">این حساب بسته شده است</string>
   <string name="invalidUsernameOrPassword">نام کاربری یا رمز عبور نادرست است</string>
-  <string name="incorrectPassword">رمزعبور اشتباه</string>
   <string name="emailMeALink">یک لینک به من ایمیل کنید</string>
   <string name="currentPassword">رمز جاری</string>
   <string name="newPassword">رمز جدید</string>
@@ -432,7 +394,6 @@
   <string name="pieceDestinations">مقصد مهره(حرکت معتبر و پیش حرکت )</string>
   <string name="boardCoordinates">مختصات صفحه(A-H، 1-8)</string>
   <string name="moveListWhilePlaying">لیست حرکات هنگام بازی کردن</string>
-  <string name="pgnLetter">حرف (K, Q, R, B, N)</string>
   <string name="chessClock">ساعت شطرنج</string>
   <string name="tenthsOfSeconds">دهم ثانیه</string>
   <string name="never">هرگز</string>
@@ -467,7 +428,6 @@
   <string name="xAskedY">%1$s سوال %2$s را پرسید</string>
   <string name="xAnsweredY">%1$s سوال  %2$s را پاسخ داد</string>
   <string name="xCommentedY">%1$s به %2$s پیام داد.</string>
-  <string name="victory">پیروزی!</string>
   <string name="timeline">جدول زمانی</string>
   <string name="seeAllTournaments">دیدن تمام مسابقات</string>
   <string name="starting">شروع</string>
@@ -494,6 +454,7 @@
   <string name="playOnTheBoardOffline">آفلاین روی تخته بازی کنید</string>
   <string name="playOfflineComputer">بازی آفلاین با رایانه</string>
   <string name="opponent">حریف</string>
+  <string name="learn">یادگیری</string>
   <string name="community">انجمن</string>
   <string name="tools">ابزارها</string>
   <string name="increment">افزایش زمان</string>
@@ -610,21 +571,4 @@
     <item quantity="other">در %s  زبان‌ها موجود است</item>
   </plurals>
   <string name="gameAnalysis">تجزیه و تحلیلِ بازی</string>
-  <string name="quickPairing">رویارویی سریع</string>
-  <string name="lobby">لابی</string>
-  <string name="anonymous">ناشناس</string>
-  <string name="language">زبان</string>
-  <string name="background">زمینه</string>
-  <string name="boardGeometry">بعد صفحه</string>
-  <string name="boardTheme">تم صفحه</string>
-  <string name="boardSize">اندازه صفحه</string>
-  <string name="pieceSet">نوع مهره</string>
-  <string name="embedInYourWebsite">قرار دادن در سایت خود</string>
-  <string name="error.min">باید بزرگتر یا مساوی باشه با %s</string>
-  <string name="error.max">باید کمتر یا مساوی باشه با%s</string>
-  <string name="error.unknown">خطا</string>
-  <string name="custom">دلخواه</string>
-  <string name="notifications">گزارش</string>
-  <string name="challenges">دعوت به مبارزه</string>
-  <string name="perfRatingX">ریتینگ. %s</string>
 </resources>

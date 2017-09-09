@@ -3,7 +3,7 @@
 <resources>
   <string name="playWithAFriend">Bermain melawan teman</string>
   <string name="playWithTheMachine">Bermain melawan komputer</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Undang mengundang yang lain bermain, berikan URL ini</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Undang yang lain dengan memberikan URL berikut</string>
   <string name="gameOver">Permainan berakhir</string>
   <string name="waitingForOpponent">Menunggu lawan</string>
   <string name="waiting">Menunggu</string>
@@ -46,61 +46,8 @@
   <string name="viewTheComputerAnalysis">Lihat analisis komputer</string>
   <string name="requestAComputerAnalysis">Minta analisis komputer</string>
   <string name="computerAnalysis">Analisis komputer</string>
-  <string name="computerAnalysisAvailable">Analisa komputer tersedia</string>
   <string name="analysis">Papan analisis</string>
-  <string name="depthX">Kedalaman %s</string>
-  <string name="usingServerAnalysis">Menggunakan server analisis</string>
-  <string name="loadingEngine">Mesin loading...</string>
-  <string name="cloudAnalysis">Awan analisis</string>
-  <string name="goDeeper">Lihat lebih detail</string>
-  <string name="showThreat">Menunjukkan ancaman</string>
-  <string name="inLocalBrowser">di browser lokal</string>
-  <string name="toggleLocalEvaluation">Toggle evaluasi lokal</string>
-  <string name="move">Langkah</string>
-  <string name="variantLoss">Varian kerugian</string>
-  <string name="variantWin">Varian menang</string>
-  <string name="insufficientMaterial">Bidak tidak cukup</string>
-  <string name="pawnMove">Langkah pion</string>
-  <string name="capture">Makan</string>
-  <string name="close">Tutup</string>
-  <string name="winning">Akan menang</string>
-  <string name="losing">Akan kalah</string>
-  <string name="drawn">Langkah remis</string>
-  <string name="unknown">Tak diketahui</string>
-  <string name="database">Basis Data</string>
-  <string name="whiteDrawBlack">Putih / Remis / Hitam</string>
-  <string name="averageRatingX">Rating rata-rata%s</string>
-  <string name="recentGames">Permainan baru-baru ini</string>
-  <string name="topGames">Permaninan kelas atas</string>
-  <string name="masterDbExplanation">Permainan OTB dua juta 2200 + FIDE dinilai pemain dari tahun 1952 untuk 2016</string>
-  <plurals name="mateInXHalfMoves">
-    <item quantity="other">Mat %s setengah-langkah</item>
-  </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="other">Memakan berikutnya atau pion melangkah dalam setengah %s-bergerak (jarak ke Zeroing counter 50 bergerak)</item>
-  </plurals>
-  <string name="noGameFound">Permainan tidak ditemukan</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Apakah ingin memasukan Permainan lainnya dari menu preferensi?</string>
   <string name="openingExplorer">Perambah pembukaan</string>
-  <string name="xOpeningExplorer">%s menelusuri pembukaan</string>
-  <string name="winPreventedBy50MoveRule">Tidak bisa menang karena peraturan 50 langkah</string>
-  <string name="lossSavedBy50MoveRule">Kekalahan terhindari karena peraturan 50 langkah</string>
-  <string name="allSet">Siap!</string>
-  <string name="importPgn">Impor PGN</string>
-  <string name="delete">Hapus</string>
-  <string name="deleteThisImportedGame">Hapus permainan impor ini?</string>
-  <string name="replayMode">Moda Putar Ulang</string>
-  <string name="realtimeReplay">Langsung</string>
-  <string name="byCPL">Secara CPL</string>
-  <string name="openStudy">Buka studi</string>
-  <string name="enable">Aktifkan</string>
-  <string name="bestMoveArrow">Panah Langkah terbaik</string>
-  <string name="evaluationGauge">Evaluasi gauge</string>
-  <string name="multipleLines">Beberapa variasi</string>
-  <string name="cpus">CPU</string>
-  <string name="memory">Memori</string>
-  <string name="infiniteAnalysis">Analisis tak terbatas</string>
-  <string name="removesTheDepthLimit">Menghapus batas kedalaman, dan membuat komputer Anda hangat</string>
   <string name="blunders">Blunder</string>
   <string name="mistakes">Kesalahan</string>
   <string name="inaccuracies">Ketidaktepatan</string>
@@ -197,8 +144,6 @@
   <string name="play">Mainkan</string>
   <string name="inbox">Kotak Masuk</string>
   <string name="chatRoom">Ruang Ngobrol</string>
-  <string name="loginToChat">Login untuk chatting</string>
-  <string name="youHaveBeenTimedOut">Waktu Anda telah habis.</string>
   <string name="spectatorRoom">Ruang penonton</string>
   <string name="composeMessage">Tulis pesan</string>
   <string name="noNewMessages">Tidak ada pesan sekarang</string>
@@ -208,9 +153,6 @@
   <string name="incrementInSeconds">Increment dalam detik</string>
   <string name="freeOnlineChess">Catur online gratis!</string>
   <string name="spectators">Penonton:</string>
-  <plurals name="nbRated">
-    <item quantity="other">%s dengan rating</item>
-  </plurals>
   <plurals name="nbWins">
     <item quantity="other">%s menang</item>
   </plurals>
@@ -227,7 +169,6 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Pemain ini menggunakan bantuan komputer</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Pemain ini bertambah/berkurang ratingnya</string>
-  <string name="openingExplorerAndTablebase">Pembukaan explorer &amp; tablebase</string>
   <string name="takeback">Langkah Batal</string>
   <string name="proposeATakeback">Ajukan langkah batal</string>
   <string name="takebackPropositionSent">Penawaran untuk langkah batal terkirim</string>
@@ -275,7 +216,6 @@
   <string name="fromPosition">Dari posisi</string>
   <string name="continueFromHere">Lanjutkan dari sini</string>
   <string name="importGame">Masukkan permainan</string>
-  <string name="importGameExplanation">Ketika menyalin PGN permainan Anda dapat putar-ulang di browser analisis komputer, obrolan permainan dan URL yand dapat di bagi.</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s permainan telah dimasukkan</item>
   </plurals>
@@ -328,20 +268,6 @@
   <string name="winStreak">Menang beruntun</string>
   <string name="createdBy">Dibuat oleh</string>
   <string name="tournamentIsStarting">Turnamen sudah dimulai</string>
-  <string name="tournamentPairingsAreNowClosed">Pairing pemain sudah ditutup.</string>
-  <string name="standByX">Bersiaplah %s, pairing pemain sedang dilakukan!</string>
-  <string name="youArePlaying">Anda bermain!</string>
-  <string name="winRate">Rating kemenangan</string>
-  <string name="berserkRate">Rating berserk</string>
-  <string name="performance">Prestasi</string>
-  <string name="tournamentComplete">Turnamen selesai</string>
-  <string name="movesPlayed">Langkah yang dijalankan</string>
-  <string name="whiteWins">Putih Menang</string>
-  <string name="blackWins">Hitam Menang</string>
-  <string name="draws">Remis</string>
-  <string name="nextXTournament">Turnamen %s selanjutnya:</string>
-  <string name="viewMoreTournaments">Lihat turnamen</string>
-  <string name="averageOpponent">Rata-rata lawan</string>
   <string name="membersOnly">Hanya untuk anggota</string>
   <string name="boardEditor">Edit Papan</string>
   <string name="startPosition">Posisi Awal</string>
@@ -350,10 +276,6 @@
   <string name="loadPosition">Panggil posisi</string>
   <string name="isPrivate">Pribadi</string>
   <string name="reportXToModerators">Lapor %s ke moderator</string>
-  <string name="profileCompletion">Kelengkapan profil %s</string>
-  <string name="xRating">peringkat %s</string>
-  <string name="ifNoneLeaveEmpty">Jika tidak ada, biarkan kosong</string>
-  <string name="gameCompletionRate">Tingkat penyelesaian permainan: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Ubah profil</string>
   <string name="firstName">Nama depan</string>
@@ -382,6 +304,7 @@
   <string name="keepGoing">Teruskan...</string>
   <string name="puzzleFailed">Taktik gagal diselesaikan.</string>
   <string name="butYouCanKeepTrying">Tetapi anda bisa mencoba terus.</string>
+  <string name="victory">Menang!</string>
   <string name="wasThisPuzzleAnyGood">Apakah taktik ini bagus?</string>
   <string name="pleaseVotePuzzle">Bantu lichess berkembang dengan vote, gunakan tanda panah ke atas atau bawah:</string>
   <string name="thankYou">Terima Kasih!</string>
@@ -390,6 +313,7 @@
     <item quantity="other">Dimainkan %s kali</item>
   </plurals>
   <string name="fromGameLink">Dari permainan %s</string>
+  <string name="startTraining">Mulai latihan</string>
   <string name="continueTraining">Lanjutkan latihan</string>
   <string name="retryThisPuzzle">Coba lagi taktik ini</string>
   <string name="thisPuzzleIsCorrect">Taktik ini benar dan menarik</string>
@@ -403,6 +327,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Otomatis memproses permainan berikutnya setelah melangkah</string>
   <string name="autoSwitch">Pindah otomatis</string>
   <string name="puzzles">Taktik</string>
+  <string name="coordinates">Koordinat</string>
   <string name="latestUpdates">Update terbaru</string>
   <string name="tournamentWinners">Pemenang turnamen</string>
   <string name="name">Nama</string>
@@ -445,7 +370,6 @@
   <string name="closeAccountExplanation">Serius mau nutup akun anda? Penutupan akun bersifat permanen. Akun anda tidak akan bisa dikembalikan ulang dan diakses lagi.</string>
   <string name="thisAccountIsClosed">Akun ini telah ditutup.</string>
   <string name="invalidUsernameOrPassword">Username dan atau password salah</string>
-  <string name="incorrectPassword">Kata sandi salah</string>
   <string name="emailMeALink">Emailkan ke saya sebuah link</string>
   <string name="currentPassword">Password saat ini</string>
   <string name="newPassword">Password baru</string>
@@ -454,9 +378,6 @@
   <string name="pieceDestinations">Jejak buah catur (langkah sah dan premove)</string>
   <string name="boardCoordinates">Koordinat Papan (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Daftar langkah ketika bermain</string>
-  <string name="pgnPieceNotation">Catatan langkah</string>
-  <string name="chessPieceSymbol">Simbol bidak catur</string>
-  <string name="pgnLetter">Huruf (K, Q, R, B, N)</string>
   <string name="chessClock">Jam catur</string>
   <string name="tenthsOfSeconds">Sepersepuluh detik</string>
   <string name="never">Tidak pernah</string>
@@ -464,10 +385,6 @@
   <string name="horizontalGreenProgressBars">Indikator horisontal perkembangan warna hijau</string>
   <string name="soundWhenTimeGetsCritical">Suara ketika waktu krisis</string>
   <string name="gameBehavior">Lingkungan permainan</string>
-  <string name="howDoYouMovePieces">Bagaimana Anda melangkahkan bidak?</string>
-  <string name="clickTwoSquares">Klik dua kotak</string>
-  <string name="dragPiece">Seret sebuah bidak</string>
-  <string name="bothClicksAndDrag">Salah satu</string>
   <string name="premovesPlayingDuringOpponentTurn">Premove (siapkan langkah saat giliran lawan)</string>
   <string name="takebacksWithOpponentApproval">Langkah batal (dengan persetujuan lawan)</string>
   <string name="promoteToQueenAutomatically">Otomatis promosikan Menteri</string>
@@ -475,7 +392,6 @@
   <string name="privacy">Privasi</string>
   <string name="letOtherPlayersFollowYou">Biarkan pengguna lain mengikuti anda</string>
   <string name="letOtherPlayersChallengeYou">Biarkan pengguna lain menantang anda</string>
-  <string name="letOtherPlayersInviteYouToStudy">Ijinkan pemain lain mengajak Anda untuk belajar</string>
   <string name="sound">Suara</string>
   <string name="yourPreferencesHaveBeenSaved">Preferensi telah disimpan.</string>
   <string name="none">Tidak Ada</string>
@@ -497,7 +413,6 @@
   <string name="xAskedY">%1$s bertanya %2$s</string>
   <string name="xAnsweredY">%1$s menjawab %2$s</string>
   <string name="xCommentedY">%1$s berkomentar %2$s</string>
-  <string name="victory">Menang!</string>
   <string name="timeline">Timeline</string>
   <string name="seeAllTournaments">Lihat semua turnamen</string>
   <string name="starting">Mulai:</string>
@@ -523,7 +438,7 @@
   <string name="playOnTheBoardOffline">Di atas papan</string>
   <string name="playOfflineComputer">Komputer</string>
   <string name="opponent">Lawan</string>
-  <string name="learnMenu">Belajar</string>
+  <string name="learn">Belajar</string>
   <string name="community">Komunitas</string>
   <string name="tools">Alat</string>
   <string name="increment">Increment</string>
@@ -536,9 +451,7 @@
   <string name="error.email">Alamat email ini tidak sah</string>
   <string name="error.email_acceptable">Alamat email ini tidak bisa diakses</string>
   <string name="error.email_unique">Alamat email ini telah digunakan</string>
-  <string name="error.email_different">Ini sudah menjadi alamat email Anda</string>
   <string name="blindfoldChess">Catur buta (buah catur disembunyikan)</string>
-  <string name="zenMode">Moda Zen</string>
   <string name="moveConfirmation">Konfirmasi langkah</string>
   <string name="inCorrespondenceGames">Pada partai korespondensi</string>
   <string name="ifRatingIsPlusMinusX">Jika ratingnya ± %s</string>
@@ -622,26 +535,10 @@
   <string name="crosstable">Napak tilas</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Anda juga bisa menggunakan tombol gulung untuk bergerak dalam permainan</string>
   <string name="analysisShapesHowTo">Tekan shift+klik atau klik-kanan untuk menggambar lingkaran dan panah di papan.</string>
-  <string name="confirmResignationAndDrawOffers">Mengkonfirmasi tawaran nyerah dan remis</string>
-  <string name="inputMovesWithTheKeyboard">Melangkah dengan menggunakan keyboard</string>
   <string name="letOtherPlayersMessageYou">Memperbolehkan pemain lain mengirim pesan untuk Anda</string>
-  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Cara rokade</string>
-  <string name="castleByMovingTwoSquares">Memindahkan raja dua kotak</string>
-  <string name="castleByMovingOntoTheRook">Memindahkan raja ke benteng</string>
   <string name="shareYourInsightsData">Berbagi data permainan anda</string>
-  <string name="withNobody">Tidak dengan siapapun</string>
-  <string name="withFriends">Dengan teman</string>
-  <string name="withEverybody">Dengan semua orang</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Anda sudah mendaftarkan sebuah email: %s</string>
   <string name="kidMode">Mode anak</string>
-  <string name="kidModeExplanation">Ini adalah tentang keselamatan. Dalam modus anak, semua situs komunikasi dinonaktifkan. Mengaktifkan ini untuk anak-anak Anda dan sekolah siswa, untuk melindungi mereka dari pengguna internet yang lain.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">Dalam modus anak, lichess logo mendapat ikon %s, sehingga Anda tahu anak-anak Anda aman.</string>
-  <string name="enableKidMode">Mengaktifkan mode anak</string>
-  <string name="disableKidMode">Menonaktifkan modus anak</string>
-  <string name="security">Keamanan</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Ini adalah daftar perangkat yang memiliki login ke akun Anda. Batalkan setiap sesi yang Anda tidak mengenali.</string>
-  <string name="alternativelyYouCanX">Atau Anda dapat %s.</string>
-  <string name="revokeAllSessions">mencabut semua sesi</string>
   <string name="playChessEverywhere">Bermain catur dimanapun</string>
   <string name="asFreeAsLichess">Gratis seperti lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Dibuat atas dasar cinta terhadap catur, bukan uang</string>
@@ -664,7 +561,6 @@
   <string name="xLikesY">%1$s suka %2$s</string>
   <string name="quickPairing">Pencarian lawan dengan cepat</string>
   <string name="lobby">Ruang Lobi</string>
-  <string name="anonymous">Tanpa Nama</string>
   <string name="yourScore">Skor Anda: %s</string>
   <string name="language">Bahasa</string>
   <string name="background">Latar</string>
@@ -687,7 +583,6 @@
   <string name="error.maxLength">Panjang minimum adalah %s</string>
   <string name="error.min">Harus lebih besar atau sama dengan %s</string>
   <string name="error.max">Harus kurang atau sama dengan %s</string>
-  <string name="error.unknown">Kesalahan</string>
   <string name="custom">Atur</string>
   <string name="notifications">Notifikasi</string>
   <string name="challenges">Tantangan</string>

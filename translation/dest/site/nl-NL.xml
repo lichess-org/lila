@@ -50,7 +50,7 @@
   <string name="analysis">Analyse</string>
   <string name="depthX">Diepte %s</string>
   <string name="usingServerAnalysis">Met serveranalyse</string>
-  <string name="loadingEngine">Laden van computer ...</string>
+  <string name="loadingEngine">Laden van computer...</string>
   <string name="cloudAnalysis">Cloud-analyse</string>
   <string name="goDeeper">Dieper gaan</string>
   <string name="showThreat">Toon bedreiging</string>
@@ -61,13 +61,10 @@
   <string name="variantWin">Variantoverwinning</string>
   <string name="insufficientMaterial">Onvoldoende materiaal</string>
   <string name="pawnMove">Pionzet</string>
-  <string name="capture">Slagzet</string>
-  <string name="close">Sluit</string>
-  <string name="winning">Winnend</string>
-  <string name="losing">Verloren</string>
-  <string name="drawn">Remise</string>
+  <string name="close">Sluiten</string>
   <string name="unknown">Onbekend</string>
-  <string name="database">Databases</string>
+  <string name="database">Databank</string>
+  <string name="gameSpeed">Snelheid van spel</string>
   <string name="whiteDrawBlack">Wit / Remise / Zwart</string>
   <string name="averageRatingX">Gemiddelde rating: %s</string>
   <string name="recentGames">Recente partijen</string>
@@ -77,32 +74,10 @@
     <item quantity="one">Schaakmat in %s halfzet</item>
     <item quantity="other">Schaakmat in %s halfzetten</item>
   </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Volgende slag- of pionzet in %s halfzetten (afstand tot het herstellen van de vijftig zetten teller)</item>
-    <item quantity="other">Volgende slag- of pionzet in %s halfzetten (afstand tot het herstellen van de vijftig zetten teller)</item>
-  </plurals>
   <string name="noGameFound">Geen partij gevonden</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Misschien meer partijen toevoegen via de menu voorkeuren?</string>
+  <string name="alreadySearchingThroughAllAvailableGames">Al aan het zoeken door alle beschikbare partijen</string>
   <string name="openingExplorer">Openingverkenner &amp; tablebase</string>
   <string name="xOpeningExplorer">%s openingsverkenner</string>
-  <string name="winPreventedBy50MoveRule">Winst voorkomen door vijftig-zetten regel</string>
-  <string name="lossSavedBy50MoveRule">Verlies gered door vijftig-zetten regel</string>
-  <string name="allSet">Klaar!</string>
-  <string name="importPgn">PGN importeren</string>
-  <string name="delete">Verwijderen</string>
-  <string name="deleteThisImportedGame">Deze geïmporteerde partij verwijderen?</string>
-  <string name="replayMode">Herhaal modus</string>
-  <string name="realtimeReplay">Realtime</string>
-  <string name="byCPL">Door CPL</string>
-  <string name="openStudy">Open studie</string>
-  <string name="enable">Aanzetten</string>
-  <string name="bestMoveArrow">Beste zet-pijl</string>
-  <string name="evaluationGauge">Evaluatie meter</string>
-  <string name="multipleLines">Meerdere varianten</string>
-  <string name="cpus">CPUs</string>
-  <string name="memory">Geheugen</string>
-  <string name="infiniteAnalysis">Oneindige analyse</string>
-  <string name="removesTheDepthLimit">Verwijdert de diepte limiet, en houdt je computer warm</string>
   <string name="blunders">Blunders</string>
   <string name="mistakes">Fouten</string>
   <string name="inaccuracies">Imperfecties</string>
@@ -167,12 +142,6 @@
   <string name="passwordReset">Nieuw wachtwoord</string>
   <string name="forgotPassword">Wachtwoord vergeten?</string>
   <string name="rank">Positie</string>
-  <string name="rankX">Positie: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Positie wordt elke %s minuten bijgewerkt</string>
-  <plurals name="nbPuzzles">
-    <item quantity="one">%s puzzle</item>
-    <item quantity="other">%s puzzel</item>
-  </plurals>
   <string name="gamesPlayed">Gespeelde partijen</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s partij met u</item>
@@ -222,6 +191,10 @@
   <string name="incrementInSeconds">Seconden extra per zet</string>
   <string name="freeOnlineChess">Gratis online schaken</string>
   <string name="spectators">Toeschouwers:</string>
+  <plurals name="nbGamesPlayed">
+    <item quantity="one">%s partij gespeeld</item>
+    <item quantity="other">%s partijen gespeeld</item>
+  </plurals>
   <plurals name="nbRated">
     <item quantity="one">%s met rating</item>
     <item quantity="other">%s met rating</item>
@@ -238,20 +211,14 @@
     <item quantity="one">%s remise</item>
     <item quantity="other">%s remise</item>
   </plurals>
-  <plurals name="nbPlaying">
-    <item quantity="one">%s bezig</item>
-    <item quantity="other">%s bezig</item>
-  </plurals>
   <string name="exportGames">Partijen exporteren</string>
   <string name="ratingRange">Ratingbereik</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Geef %s seconde</item>
     <item quantity="other">Geef %s seconden</item>
   </plurals>
-  <string name="giveMoreTime">Meer tijd geven</string>
   <string name="thisPlayerUsesChessComputerAssistance">Deze speler maakt gebruik van een schaakprogramma</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Deze speler verhoogt/verlaagt zijn rating kunstmatig</string>
-  <string name="openingExplorerAndTablebase">Openingverkenner &amp; tablebase</string>
   <string name="takeback">Neem zet terug</string>
   <string name="proposeATakeback">Stel zet terugnemen voor</string>
   <string name="takebackPropositionSent">Terugname-voorstel verstuurd</string>
@@ -267,29 +234,6 @@
   <string name="tournamentPoints">Toernooipunten</string>
   <string name="viewTournament">Bekijk het toernooi</string>
   <string name="backToTournament">Terug naar het toernooi</string>
-  <string name="thematic">Thematisch</string>
-  <plurals name="moreThanNbRatedGames">
-    <item quantity="one">≥ %s partij met rating</item>
-    <item quantity="other">≥ %s partijen met rating</item>
-  </plurals>
-  <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2%s partij met rating</item>
-    <item quantity="other">≥ %1$s %2%s partijen met rating</item>
-  </plurals>
-  <plurals name="needNbMorePerfGames">
-    <item quantity="one">Je moet %1$s meer %2$s partij met rating spelen</item>
-    <item quantity="other">Je moet %1$s %2$s partijen meer met rating spelen</item>
-  </plurals>
-  <plurals name="needNbMoreGames">
-    <item quantity="one">Je moet %s partij meer met rating spelen</item>
-    <item quantity="other">Je moet %s partijen meer met rating spelen</item>
-  </plurals>
-  <string name="yourPerfRatingIsProvisional">Je %s rating is een voorlopige</string>
-  <string name="yourPerfRatingIsTooHigh">Je rating %1$s (%2$s) is te hoog</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Je beste hoogste rating deze week %1$s (%2$s) is te hoog</string>
-  <string name="yourPerfRatingIsTooLow">Je rating %1$s (%2$s) is te hoog</string>
-  <string name="ratedMoreThanInPerf">Met rating ≥ %1$s in %2$s</string>
-  <string name="ratedLessThanInPerf">Met rating ≤ %1$s in %2$s</string>
   <string name="backToGame">Terug naar partij</string>
   <string name="siteDescription">Gratis online schaken. Schaak nu met een heldere vormgeving. Geen registratie nodig, geen advertenties, geen plug-ins vereist. Schaak tegen de computer, vrienden of willekeurige tegenstanders.</string>
   <string name="teams">Teams</string>
@@ -323,7 +267,6 @@
   <string name="fromPosition">Vanuit een stelling</string>
   <string name="continueFromHere">Ga vanaf hier verder</string>
   <string name="importGame">Importeer partij</string>
-  <string name="importGameExplanation">Wanneer je een PGN in het venster plakt dan krijg je een doorzoekbare replay, een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Geïmporteerde partij</item>
     <item quantity="other">%s Geïmporteerde partijen</item>
@@ -396,8 +339,6 @@
   <string name="averageOpponent">Gemiddelde tegenstander</string>
   <string name="membersOnly">Alleen voor leden</string>
   <string name="boardEditor">Bordbewerker</string>
-  <string name="setTheBoard">Zet het bord op</string>
-  <string name="popularOpenings">Populaire openingen</string>
   <string name="startPosition">Beginstelling</string>
   <string name="clearBoard">Maak het bord leeg</string>
   <string name="savePosition">Sla de stelling op</string>
@@ -436,7 +377,7 @@
   <string name="keepGoing">Ga verder...</string>
   <string name="puzzleFailed">Puzzel gefaald</string>
   <string name="butYouCanKeepTrying">Maar je kunt het blijven proberen.</string>
-  <string name="success">Succes</string>
+  <string name="victory">Overwinning!</string>
   <string name="wasThisPuzzleAnyGood">Was dit een goede puzzel?</string>
   <string name="pleaseVotePuzzle">Verbeter lichess door te stemmen met de pijl naar boven of beneden.</string>
   <string name="thankYou">Bedankt!</string>
@@ -446,10 +387,11 @@
     <item quantity="other">%s keer gespeeld</item>
   </plurals>
   <string name="fromGameLink">Van partij %s</string>
+  <string name="startTraining">Begin training</string>
   <string name="continueTraining">Ga verder met de training</string>
   <string name="retryThisPuzzle">Probeer het opnieuw</string>
-  <string name="thisPuzzleIsCorrect">Deze puzzel is correct en interessant</string>
-  <string name="thisPuzzleIsWrong">Deze puzzel is fout of saai</string>
+  <string name="thisPuzzleIsCorrect">De puzzel is correct en interessant</string>
+  <string name="thisPuzzleIsWrong">De puzzel is fout of saai</string>
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
     <item quantity="one">Je hebt %s seconde om je eerste zet te doen!</item>
     <item quantity="other">Je hebt %s seconden om je eerste zet te doen!</item>
@@ -461,6 +403,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Automatisch doorgaan naar de volgende partij na uw zet</string>
   <string name="autoSwitch">Automatische switch</string>
   <string name="puzzles">Puzzels</string>
+  <string name="coordinates">Coördinaten</string>
   <string name="latestUpdates">Laatste updates</string>
   <string name="tournamentWinners">Toernooiwinnaars</string>
   <string name="name">Naam</string>
@@ -503,7 +446,6 @@
   <string name="closeAccountExplanation">Weet je zeker dat je je account wilt sluiten? Het sluiten van uw account is een permanente keuze. U kunt dan niet langer inloggen en uw profielpagina zal dan niet langer toegankelijk zijn.</string>
   <string name="thisAccountIsClosed">Dit account is gesloten.</string>
   <string name="invalidUsernameOrPassword">Ongeldige gebruikersnaam of wachtwoord</string>
-  <string name="incorrectPassword">Onjuist wachtwoord</string>
   <string name="emailMeALink">Email me een link</string>
   <string name="currentPassword">Huidig wachtwoord</string>
   <string name="newPassword">Nieuw wachtwoord</string>
@@ -533,7 +475,7 @@
   <string name="privacy">Privacy</string>
   <string name="letOtherPlayersFollowYou">Andere spelers mogen je volgen</string>
   <string name="letOtherPlayersChallengeYou">Andere spelers mogen je uitdagen</string>
-  <string name="letOtherPlayersInviteYouToStudy">Laat andere spelers je uitnodigen voor een studie</string>
+  <string name="letOtherPlayersInviteYouToStudy">Laat andere spelers je uitnodigen voor een Study</string>
   <string name="sound">Geluid</string>
   <string name="yourPreferencesHaveBeenSaved">Uw voorkeuren werden opgeslagen.</string>
   <string name="none">Geen</string>
@@ -555,9 +497,6 @@
   <string name="xAskedY">%1$s vroeg %2$s</string>
   <string name="xAnsweredY">%1$s antwoordde %2$s</string>
   <string name="xCommentedY">%1$s gaf commentaar op %2$s</string>
-  <string name="victory">Overwinning!</string>
-  <string name="defeat">Nederlaag</string>
-  <string name="xVsYinZ">%1$s vs %2$s in %3$s</string>
   <string name="timeline">Tijdslijn</string>
   <string name="seeAllTournaments">Zie alle toernooien</string>
   <string name="starting">Startend:</string>
@@ -585,7 +524,7 @@
   <string name="playOnTheBoardOffline">Speel offline</string>
   <string name="playOfflineComputer">Computer</string>
   <string name="opponent">Tegenstander</string>
-  <string name="learnMenu">Leren</string>
+  <string name="learn">Leren</string>
   <string name="community">Gemeenschap</string>
   <string name="tools">Gereedschap</string>
   <string name="increment">Extra tijd</string>
@@ -598,9 +537,7 @@
   <string name="error.email">Dit emailadres is ongeldig</string>
   <string name="error.email_acceptable">Dit emailadres is onacceptabel</string>
   <string name="error.email_unique">Dit emailadres is al in gebruik</string>
-  <string name="error.email_different">Dit is uw huidige e-mailadres</string>
   <string name="blindfoldChess">Blindschaak (onzichtbare stukken)</string>
-  <string name="zenMode">Zen modus</string>
   <string name="moveConfirmation">Zetbevestiging</string>
   <string name="inCorrespondenceGames">Bij correspondentiepartijen</string>
   <string name="ifRatingIsPlusMinusX">Indien de rating ± %s is</string>
@@ -629,7 +566,6 @@
   <string name="sourceCode">Broncode</string>
   <string name="simultaneousExhibitions">Simultaans</string>
   <string name="host">Simultaangever</string>
-  <string name="hostColorX">Kleur simultaangever: %s</string>
   <string name="createdSimuls">Nieuwe simultaans</string>
   <string name="hostANewSimul">Geef een nieuwe simultaan</string>
   <string name="noSimulFound">Simultaan niet gevonden</string>
@@ -687,7 +623,6 @@
   <string name="crosstable">Onderlinge partijen</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Je kunt ook over het bord scrollen om je zetten uit te voeren.</string>
   <string name="analysisShapesHowTo">Druk op shift+linkermuisknop of rechtermuisknop om cirkels en pijlen op het bord te tekenen.</string>
-  <string name="confirmResignationAndDrawOffers">Opgave en remise-aanbod bevestigen</string>
   <string name="inputMovesWithTheKeyboard">Zetten invoeren met het toetsenbord</string>
   <string name="letOtherPlayersMessageYou">Andere spelers mogen je berichten zenden</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rokeren door de koning twee vakjes te verplaatsen, of naar de toren</string>
@@ -730,14 +665,9 @@
   <string name="xLikesY">%1$s vindt %2$s leuk</string>
   <string name="quickPairing">Snel koppelen</string>
   <string name="lobby">Lobby</string>
-  <string name="anonymous">Anoniem</string>
   <string name="yourScore">Uw score: %s</string>
   <string name="language">Taal</string>
   <string name="background">Achtergrond</string>
-  <string name="light">Licht</string>
-  <string name="dark">Donker</string>
-  <string name="transparent">Transparant</string>
-  <string name="backgroundImageUrl">Achtergrondafbeelding URL:</string>
   <string name="boardGeometry">Bordgeometrie</string>
   <string name="boardTheme">Bordthema</string>
   <string name="boardSize">Bordgrootte</string>

@@ -12,8 +12,8 @@
   <string name="level">Szint</string>
   <string name="toggleTheChat">Csevegő ki-be</string>
   <string name="toggleSound">Hang ki-be</string>
-  <string name="chat">Csevegés</string>
-  <string name="resign">Feladás</string>
+  <string name="chat">Csevegő</string>
+  <string name="resign">Feladom</string>
   <string name="checkmate">Sakk-matt</string>
   <string name="stalemate">Patt</string>
   <string name="white">Világos</string>
@@ -31,79 +31,26 @@
   <string name="joinTheGame">Csatlakozás a játékhoz</string>
   <string name="whitePlays">Világos lép</string>
   <string name="blackPlays">Sötét lép</string>
-  <string name="opponentLeftChoices">Az ellenfeled valamiért elhagyta a játékot. Igényelhetsz győzelmet, döntetlent vagy várhatsz rá.</string>
-  <string name="makeYourOpponentResign">Ha ellenfeled valamiért kilépett, igényt tarthatsz a győzelemre</string>
+  <string name="opponentLeftChoices">Az ellenfél elhagyta a játékot. Feladhatod a nevében, vagy várhatsz rá.</string>
+  <string name="makeYourOpponentResign">Feladom a nevében</string>
   <string name="forceResignation">Győzelem igénylése</string>
-  <string name="forceDraw">Döntetlen</string>
+  <string name="forceDraw">Döntetlen felajánlása</string>
   <string name="talkInChat">Légy udvarias másokkal!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Az első ember, aki erre a linkre látogat, fog veled játszani.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Az első ember aki ezt a linket használja játékba fog lépni veled.</string>
   <string name="whiteResigned">Világos feladta</string>
   <string name="blackResigned">Sötét feladta</string>
   <string name="whiteLeftTheGame">Világos elhagyta a játékot</string>
   <string name="blackLeftTheGame">Sötét elhagyta a játékot</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Oszd meg ezt az linket, hogy mások is láthassák a játszmát</string>
-  <string name="theComputerAnalysisHasFailed">A számítógépes elemzés sikertelen</string>
+  <string name="theComputerAnalysisHasFailed">A számítógépes elemzés nem sikerült</string>
   <string name="viewTheComputerAnalysis">Számítógépes elemzés megtekintése</string>
   <string name="requestAComputerAnalysis">Számítógépes elemzés kérése</string>
-  <string name="computerAnalysis">Számítógépes elemzés</string>
+  <string name="computerAnalysis">Gépi elemzés</string>
   <string name="computerAnalysisAvailable">Számítógépes elemzés elérhető</string>
   <string name="analysis">Elemző tábla</string>
-  <string name="depthX">%s mélység</string>
-  <string name="usingServerAnalysis">Szerver elemzését használja</string>
-  <string name="loadingEngine">Motor betöltése ...</string>
-  <string name="cloudAnalysis">Elemzés felhőben</string>
-  <string name="goDeeper">Mélyebben</string>
-  <string name="showThreat">Fenyegetés mutatása</string>
   <string name="inLocalBrowser">a böngészőben</string>
-  <string name="toggleLocalEvaluation">Helyi elemzés bekapcsolása</string>
-  <string name="move">Lépés</string>
-  <string name="variantLoss">Vesztő</string>
-  <string name="variantWin">Nyerő</string>
-  <string name="insufficientMaterial">Nincs elég figura</string>
-  <string name="pawnMove">Gyalog lépés</string>
-  <string name="capture">Ütés</string>
-  <string name="close">Bezár</string>
-  <string name="winning">Nyerő</string>
-  <string name="losing">Vesztő</string>
-  <string name="drawn">Döntetlen</string>
-  <string name="unknown">Bizonytalan</string>
-  <string name="database">Adatbázis</string>
-  <string name="whiteDrawBlack">Világos / Remi / Sötét</string>
-  <string name="averageRatingX">Átlagos pontszám: %s</string>
-  <string name="recentGames">Legutóbbi játszmák</string>
-  <string name="topGames">Legjobb játszmák</string>
-  <string name="masterDbExplanation">Két millió verseny játszma %2$s és %3$s között %1$s fölött rangsorolt FIDE játékosoktól</string>
-  <plurals name="mateInXHalfMoves">
-    <item quantity="one">Matt %s fél lépésben</item>
-    <item quantity="other">Matt %s fél-lépésben</item>
-  </plurals>
-  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">A következő ütés vagy gyaloglépés %s fél-lépésre van (az 50 lépés számláló nullázásához szükséges táv)</item>
-    <item quantity="other">A következő ütés vagy gyaloglépés %s fél-lépésre van (az 50 lépés számláló nullázásához szükséges táv)</item>
-  </plurals>
-  <string name="noGameFound">Nem található játszma</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Próbáltál több játszmát hozzáadni a beállítások menüben?</string>
   <string name="openingExplorer">Megnyitás tallózó</string>
-  <string name="xOpeningExplorer">%s megnyitás kereső</string>
-  <string name="winPreventedBy50MoveRule">Az 50 lépés szabály miatt nem nyert</string>
-  <string name="lossSavedBy50MoveRule">Az 50 lépés szabály miatt nem vesztett</string>
-  <string name="allSet">Mehet!</string>
-  <string name="importPgn">PGN importálás</string>
-  <string name="delete">Töröl</string>
-  <string name="deleteThisImportedGame">Törlöd ezt az importált játszmát?</string>
-  <string name="replayMode">Visszajátszás</string>
-  <string name="realtimeReplay">Valósidő</string>
-  <string name="byCPL">CPL-ek</string>
-  <string name="openStudy">Tanulmány megnyitása</string>
-  <string name="enable">Bekapcsolva</string>
-  <string name="bestMoveArrow">Legjobb lépés nyíl</string>
-  <string name="evaluationGauge">Értékelő mérce</string>
-  <string name="multipleLines">Több változat</string>
-  <string name="cpus">CPU-k</string>
-  <string name="memory">Memória</string>
-  <string name="infiniteAnalysis">Végtelen elemzés</string>
-  <string name="removesTheDepthLimit">Feloldja a mélységi korlátot, és melegen tartja a számítógéped</string>
-  <string name="blunders">Durva hibák</string>
+  <string name="blunders">Súlyos hibák</string>
   <string name="mistakes">Hibák</string>
   <string name="inaccuracies">Pontatlanságok</string>
   <string name="moveTimes">Lépésidők</string>
@@ -118,12 +65,12 @@
   </plurals>
   <string name="currentGames">Éppen zajló játékok</string>
   <plurals name="nbGames">
-    <item quantity="one">%s játszma</item>
-    <item quantity="other">%s játszma</item>
+    <item quantity="one">%s Játék</item>
+    <item quantity="other">%s Játék</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s könyvjelző</item>
-    <item quantity="other">%s könyvjelző</item>
+    <item quantity="other">%s könyvjelzők</item>
   </plurals>
   <string name="viewInFullSize">Teljes méret</string>
   <string name="logOut">Kijelentkezés</string>
@@ -167,12 +114,6 @@
   <string name="passwordReset">Jelszó visszaállítása</string>
   <string name="forgotPassword">Elfelejtetted a jelszavad?</string>
   <string name="rank">Rang</string>
-  <string name="rankX">Helyezés: %s.</string>
-  <string name="rankIsUpdatedEveryXMinutes">A rang %s percenként frissül</string>
-  <plurals name="nbPuzzles">
-    <item quantity="one">%s feladvány</item>
-    <item quantity="other">%s feladvány</item>
-  </plurals>
   <string name="gamesPlayed">Lejátszott játékok</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s játszma veled</item>
@@ -212,7 +153,6 @@
   <string name="inbox">Beérkező üzenetek</string>
   <string name="chatRoom">Csevegő</string>
   <string name="loginToChat">Jelentkezz be a chateléshez</string>
-  <string name="youHaveBeenTimedOut">Lelettél tiltva egy időre.</string>
   <string name="spectatorRoom">Figyelő szoba</string>
   <string name="composeMessage">Üzenet írása</string>
   <string name="noNewMessages">Nincs új üzenet</string>
@@ -222,10 +162,6 @@
   <string name="incrementInSeconds">Másodpercnövekmény</string>
   <string name="freeOnlineChess">Ingyenes Online Sakk</string>
   <string name="spectators">Nézők:</string>
-  <plurals name="nbRated">
-    <item quantity="one">%s rangsorolt</item>
-    <item quantity="other">%s rangsorolt</item>
-  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s győzelem</item>
     <item quantity="other">%s győzelem</item>
@@ -238,20 +174,14 @@
     <item quantity="one">%s döntetlen</item>
     <item quantity="other">%s döntetlen</item>
   </plurals>
-  <plurals name="nbPlaying">
-    <item quantity="one">%s folyamatban</item>
-    <item quantity="other">%s folyamatban</item>
-  </plurals>
   <string name="exportGames">Játékok exportálása</string>
   <string name="ratingRange">Pontszámtartomány</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Adj %s másodpercet</item>
     <item quantity="other">Adj %s másodpercet</item>
   </plurals>
-  <string name="giveMoreTime">Több idő adása</string>
   <string name="thisPlayerUsesChessComputerAssistance">Ez a játékos számítógépes sakkprogram segítségét használja</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ez a játékos mesterségesen növeli/csökkenti a pontszámát</string>
-  <string name="openingExplorerAndTablebase">Megnyitás tallózó &amp; tablebase</string>
   <string name="takeback">Visszalépés</string>
   <string name="proposeATakeback">Visszalépés kérése</string>
   <string name="takebackPropositionSent">Visszalépés kérése elküldve</string>
@@ -264,32 +194,9 @@
   <string name="advancedSearch">Bővített keresés</string>
   <string name="tournament">Verseny</string>
   <string name="tournaments">Versenyek</string>
-  <string name="tournamentPoints">Verseny pont</string>
+  <string name="tournamentPoints">Verseny pontok</string>
   <string name="viewTournament">Verseny nézése</string>
   <string name="backToTournament">Vissza a versenyhez</string>
-  <string name="thematic">Tematikus</string>
-  <plurals name="moreThanNbRatedGames">
-    <item quantity="one">≥ %s rangsorolt játszma</item>
-    <item quantity="other">≥ %s rangsorolt játszma</item>
-  </plurals>
-  <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2%s rangsorolt játszma</item>
-    <item quantity="other">≥ %1$s %2%s rangsorolt játszma</item>
-  </plurals>
-  <plurals name="needNbMorePerfGames">
-    <item quantity="one">Még %1$s további %2$s rangsorolt játszma szükséges</item>
-    <item quantity="other">Még %1$s további %2$s rangsorolt játszma szükséges</item>
-  </plurals>
-  <plurals name="needNbMoreGames">
-    <item quantity="one">Még %s további rangsorolt játszma szükséges</item>
-    <item quantity="other">Még %s további rangsorolt játszma szükséges</item>
-  </plurals>
-  <string name="yourPerfRatingIsProvisional">A %s pontszámod ideiglenes</string>
-  <string name="yourPerfRatingIsTooHigh">A %1$s pontszámod (%2$s) túl magas</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">A %1$s heti csúcs pontszámod (%2$s) túl magas</string>
-  <string name="yourPerfRatingIsTooLow">A %1$s pontszámod (%2$s) túl alacsony</string>
-  <string name="ratedMoreThanInPerf">%2$s pontszám ≥ %1$s</string>
-  <string name="ratedLessThanInPerf">%2$s pontszám ≤ %1$s</string>
   <string name="backToGame">Vissza a játékhoz</string>
   <string name="siteDescription">Ingyenes online sakk játék. Sakkozz letisztult kezelőfelületen. Nem szükséges regisztráció vagy pluginok, és hirdetéseket sem kell nézned. Sakkozz a számítógéppel, barátokkal vagy véletlenszerű ellenfelekkel.</string>
   <string name="teams">Csapatok</string>
@@ -323,7 +230,6 @@
   <string name="fromPosition">Adott állásból</string>
   <string name="continueFromHere">Folytatás innen</string>
   <string name="importGame">Játszma importálása</string>
-  <string name="importGameExplanation">PGN játszma beillesztéséhez, böngészhető újrajátszást, számítógépes elemzést, chatet és egy megosztható URL-t is biztosítunk.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Importált játszma</item>
     <item quantity="other">%s Importált játszma</item>
@@ -349,7 +255,7 @@
   <string name="xStartedFollowingY">%1$s követni kezdte a következő játékost:  %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s követő</item>
-    <item quantity="other">%s követő</item>
+    <item quantity="other">%s követők</item>
   </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s követett</item>
@@ -380,34 +286,22 @@
   <string name="winStreak">Győzelmi sorozat</string>
   <string name="createdBy">Készítette:</string>
   <string name="tournamentIsStarting">A verseny kezdődik</string>
-  <string name="tournamentPairingsAreNowClosed">A verseny párosítások már lezárultak.</string>
-  <string name="standByX">Állj készen %s, hamarosan ellenfelet kapsz!</string>
   <string name="youArePlaying">Te következel!</string>
   <string name="winRate">Nyerési arány</string>
-  <string name="berserkRate">Berserk arány</string>
   <string name="performance">Teljesítmény</string>
-  <string name="tournamentComplete">Verseny összefoglaló</string>
-  <string name="movesPlayed">Lépések száma</string>
   <string name="whiteWins">Világos győzelmek</string>
   <string name="blackWins">Sötét győzelmek</string>
   <string name="draws">Döntetlenek</string>
-  <string name="nextXTournament">Következő %s verseny:</string>
-  <string name="viewMoreTournaments">További versenyek megnézése</string>
-  <string name="averageOpponent">Ellenfelek átlaga</string>
   <string name="membersOnly">Csak tagoknak</string>
   <string name="boardEditor">Táblaszerkesztő</string>
-  <string name="setTheBoard">Tábla felállítás</string>
-  <string name="popularOpenings">Népszerű megnyitások</string>
   <string name="startPosition">Kezdő pozíció</string>
   <string name="clearBoard">Tábla törlése</string>
   <string name="savePosition">Pozíció mentése</string>
   <string name="loadPosition">Állás betöltése</string>
   <string name="isPrivate">Privát</string>
   <string name="reportXToModerators">%s jelentése a moderátoknak</string>
-  <string name="profileCompletion">Profil teljessége: %s</string>
-  <string name="xRating">%s pontszám</string>
+  <string name="xRating">%s rang</string>
   <string name="ifNoneLeaveEmpty">Ha nincs, hagyd üresen</string>
-  <string name="gameCompletionRate">Befejezett játszmák: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profil szerkesztése</string>
   <string name="firstName">Keresztnév</string>
@@ -421,13 +315,13 @@
   <string name="activeToday">Aktív ma</string>
   <string name="activePlayers">Aktív játékosok</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Időmérés nélküli, de rangsorolt meccs!</string>
-  <string name="training">Feladványok</string>
-  <string name="yourPuzzleRatingX">Feladvány pontszámod: %s</string>
+  <string name="training">Gyakorlás</string>
+  <string name="yourPuzzleRatingX">A feladatmegoldások értékelése: %s</string>
   <string name="findTheBestMoveForWhite">Találd meg a legjobb lépést világossal.</string>
   <string name="findTheBestMoveForBlack">Találd meg a legjobb lépést sötéttel.</string>
   <string name="toTrackYourProgress">Fejlődésed nyomon követéséhez:</string>
   <string name="trainingSignupExplanation">Lichess a képességeidnek megfelelő feladványokat biztosít, hogy minél jobb képzésben részesülj.</string>
-  <string name="puzzleId">%s. feladvány</string>
+  <string name="puzzleId">Feladvány %s</string>
   <string name="puzzleOfTheDay">A nap feladványa</string>
   <string name="clickToSolve">Katt a megoldáshoz</string>
   <string name="goodMove">Jó lépés</string>
@@ -436,16 +330,17 @@
   <string name="keepGoing">Folytasd...</string>
   <string name="puzzleFailed">A megoldás sikertelen</string>
   <string name="butYouCanKeepTrying">Még próbálkozhatsz.</string>
-  <string name="success">Győzelem</string>
+  <string name="victory">Helyes megoldás!</string>
   <string name="wasThisPuzzleAnyGood">Jónak találtad ezt a feladványt?</string>
   <string name="pleaseVotePuzzle">Segíts a Lichess fejlesztésében szavazatoddal, a fel és le nyilakat használva:</string>
   <string name="thankYou">Köszönjük!</string>
-  <string name="ratingX">Pontszám: %s</string>
+  <string name="ratingX">Értékelés: %s</string>
   <plurals name="playedXTimes">
-    <item quantity="one">%s beküldött megfejtés</item>
-    <item quantity="other">%s beküldött megfejtés</item>
+    <item quantity="one">%s alkalommal játszott</item>
+    <item quantity="other">%s alkalommal játszott</item>
   </plurals>
-  <string name="fromGameLink">%s játszmából</string>
+  <string name="fromGameLink">%s játékból</string>
+  <string name="startTraining">Gyakorlás kezdése</string>
   <string name="continueTraining">Gyakorlás folytatása</string>
   <string name="retryThisPuzzle">Próbálja újra</string>
   <string name="thisPuzzleIsCorrect">Ez a feladvány helyes és érdekes</string>
@@ -461,6 +356,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Lépés után automatikus ugrás a következő játékra</string>
   <string name="autoSwitch">Automatikus váltás</string>
   <string name="puzzles">Feladvány</string>
+  <string name="coordinates">Koordináták</string>
   <string name="latestUpdates">Utolsó frissítések</string>
   <string name="tournamentWinners">Verseny győztesek</string>
   <string name="name">Név</string>
@@ -503,7 +399,6 @@
   <string name="closeAccountExplanation">Biztos hogy zárolod a fiókodat? A zárolás végleges. Nem leszel képes bejelentkezni, és a profilod sem lesz elérhető.</string>
   <string name="thisAccountIsClosed">Ez a fiók zárolva van</string>
   <string name="invalidUsernameOrPassword">Érvénytelen felhasználónév vagy jelszó</string>
-  <string name="incorrectPassword">Hibás jelszó</string>
   <string name="emailMeALink">Link küldése e-mailben</string>
   <string name="currentPassword">Jelenlegi jelszó</string>
   <string name="newPassword">Új jelszó</string>
@@ -531,9 +426,8 @@
   <string name="promoteToQueenAutomatically">Gyalog automatikus előléptetése vezérré</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Háromszori ismétlés esetén automatikus döntetlen igénylése</string>
   <string name="privacy">Személyes</string>
-  <string name="letOtherPlayersFollowYou">Mások követhetnek téged</string>
-  <string name="letOtherPlayersChallengeYou">Mások kihívhatnak egy játszmára</string>
-  <string name="letOtherPlayersInviteYouToStudy">Mások meghívhatnak játszma tanulmányozásra</string>
+  <string name="letOtherPlayersFollowYou">Követésed engedélyezése a többi játékosnak</string>
+  <string name="letOtherPlayersChallengeYou">Kihívásod engedélyezése a többi játékosnak</string>
   <string name="sound">Hang</string>
   <string name="yourPreferencesHaveBeenSaved">Beállításaid elmentettük.</string>
   <string name="none">Nincs</string>
@@ -555,9 +449,6 @@
   <string name="xAskedY">%1$s kérdést tett fel %2$s címmel</string>
   <string name="xAnsweredY">%1$s megválaszolta a %2$s című témát</string>
   <string name="xCommentedY">%1$s hozzászólt a %2$s című témához</string>
-  <string name="victory">Helyes megoldás!</string>
-  <string name="defeat">Vereség</string>
-  <string name="xVsYinZ">%1$s %2$s ellen %3$s-ban</string>
   <string name="timeline">Idővonal</string>
   <string name="seeAllTournaments">Összes verseny megtekintése</string>
   <string name="starting">Kezdés:</string>
@@ -585,7 +476,7 @@
   <string name="playOnTheBoardOffline">Asztali játék</string>
   <string name="playOfflineComputer">Játssz gép ellen</string>
   <string name="opponent">Ellenfél</string>
-  <string name="learnMenu">Tanulás</string>
+  <string name="learn">Tanulás</string>
   <string name="community">Közösség</string>
   <string name="tools">Eszközök</string>
   <string name="increment">Növekmény</string>
@@ -598,9 +489,7 @@
   <string name="error.email">Érvénytelen e-mail cím</string>
   <string name="error.email_acceptable">A megadott e-mail cím nem használható</string>
   <string name="error.email_unique">A megadott e-mail cím már használatban van</string>
-  <string name="error.email_different">Már ez az e-mail címed</string>
   <string name="blindfoldChess">Vakjátszma (láthatatlan bábuk)</string>
-  <string name="zenMode">Zen mód</string>
   <string name="moveConfirmation">Lépés jóváhagyatása</string>
   <string name="inCorrespondenceGames">Levelező mérkőzés</string>
   <string name="ifRatingIsPlusMinusX">Ha a pontszám ± %s</string>
@@ -629,7 +518,6 @@
   <string name="sourceCode">Forráskód</string>
   <string name="simultaneousExhibitions">Szimultán játékok</string>
   <string name="host">Létrehozó</string>
-  <string name="hostColorX">Szimultánt adó színe: %s</string>
   <string name="createdSimuls">Új szimultán játékok</string>
   <string name="hostANewSimul">Új szimultán csata létrehozása</string>
   <string name="noSimulFound">Szimultán csata nem található</string>
@@ -687,9 +575,8 @@
   <string name="crosstable">Eredménytábla</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Görgess az egérgörgővel a tábla felett, hogy láthasd lépéseket.</string>
   <string name="analysisShapesHowTo">Shift-kattintva vagy jobb egérgombbal rajzolhatsz karikákat és nyilakat a táblára</string>
-  <string name="confirmResignationAndDrawOffers">Feladás és döntetlen kérelem megerősítése</string>
   <string name="inputMovesWithTheKeyboard">Lépések bevitele a billentyűzettel</string>
-  <string name="letOtherPlayersMessageYou">Mások küldhetnek neked üzenetet</string>
+  <string name="letOtherPlayersMessageYou">Más játékosok küldhetnek neked üzenetet</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Sáncolás módszere</string>
   <string name="castleByMovingTwoSquares">Király mozog két mezőt</string>
   <string name="castleByMovingOntoTheRook">Király mozog a bástyára</string>
@@ -726,18 +613,12 @@
   </plurals>
   <string name="gameAnalysis">Játék elemzés</string>
   <string name="xHostsY">%1$s létrehozta a %2$s-t</string>
-  <string name="xJoinsY">%1$s csatlakozott a %2$shoz</string>
   <string name="xLikesY">%1$s kedveli %2$s</string>
   <string name="quickPairing">Gyors játszma</string>
   <string name="lobby">Lobbi</string>
-  <string name="anonymous">Névtelen</string>
   <string name="yourScore">A te eredményed: %s</string>
   <string name="language">Nyelv</string>
   <string name="background">Háttér</string>
-  <string name="light">Világos</string>
-  <string name="dark">Sötét</string>
-  <string name="transparent">Áttetsző</string>
-  <string name="backgroundImageUrl">Háttérkép URL címe:</string>
   <string name="boardGeometry">Tábla geometria</string>
   <string name="boardTheme">Tábla szín</string>
   <string name="boardSize">Tábla mérete</string>
@@ -761,5 +642,4 @@
   <string name="custom">Egyéni</string>
   <string name="notifications">Értesítések</string>
   <string name="challenges">Kihívások</string>
-  <string name="perfRatingX">Pontszám: %s</string>
 </resources>

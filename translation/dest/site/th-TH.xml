@@ -49,30 +49,30 @@
   <string name="computerAnalysisAvailable">มีการวิเคราะห์ด้วยคอมพิวเตอร์</string>
   <string name="analysis">กระดานวิเคราะห์</string>
   <string name="depthX">ความลึก %s</string>
-  <string name="usingServerAnalysis">กำลังใช้การวิเคราะห์เซิร์ฟเวอร์</string>
+  <string name="usingServerAnalysis">ใช้การวิเคราะห์เซิร์ฟเวอร์</string>
   <string name="loadingEngine">กำลังโหลดจักรกล...</string>
   <string name="cloudAnalysis">การวิเคราะห์คลาวด์</string>
   <string name="goDeeper">ลึกลงอีก</string>
   <string name="showThreat">แสดงภัยคุกคาม</string>
   <string name="inLocalBrowser">ในเบราว์เซอร์ท้องถิ่น</string>
   <string name="toggleLocalEvaluation">เปิด/ปิดการประเมินท้องถิ่น</string>
-  <string name="move">เดิน</string>
+  <string name="move">การเดิน</string>
   <string name="variantLoss">ตัวแปรฯที่แพ้</string>
   <string name="variantWin">ตัวแปรฯที่ชนะ</string>
-  <string name="insufficientMaterial">วัสดุไม่เพียงพอ</string>
-  <string name="pawnMove">เดินเบี้ย</string>
+  <string name="insufficientMaterial">วัตถุประกอบไม่เพียงพอ</string>
+  <string name="pawnMove">การเดินเบี้ย</string>
   <string name="capture">จับกิน</string>
   <string name="close">ปิด</string>
   <string name="winning">การชนะ</string>
   <string name="losing">การแพ้</string>
-  <string name="drawn">การเสมอ</string>
   <string name="unknown">ไม่ทราบ</string>
   <string name="database">ฐานข้อมูล</string>
-  <string name="whiteDrawBlack">ขาว / เสมอ / ดำ</string>
+  <string name="gameSpeed">ความ​เร็ว​เกม</string>
+  <string name="whiteDrawBlack">ขาวเสมอดำ</string>
   <string name="averageRatingX">ระดับคะแนนเฉลี่ย: %s</string>
   <string name="recentGames">เกมเมื่อเร็วๆนี้</string>
   <string name="topGames">เกมเด่น</string>
-  <string name="masterDbExplanation">เกม OTB สองล้านเกมของผู้เล่นระดับคะแนน FIDE %1$s+ จาก %2$s ถึง %3$s</string>
+  <string name="masterDbExplanation">เกม OTB สองล้านเกมของผู้เล่นระดับคะแนน FIDE 2200+ จาก 1952 ถึง 2016</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="other">จนใน %s ครึ่งรอบเดิน</item>
   </plurals>
@@ -80,27 +80,13 @@
     <item quantity="other">การจับกินถัดไปหรือการเดินเบี้ยใน %s ครึ่งรอบเดิน (ระยะห่างจากศูนย์ของตัวนับ 50 รอบเดิน)</item>
   </plurals>
   <string name="noGameFound">ไม่พบเกมใดๆ</string>
+  <string name="alreadySearchingThroughAllAvailableGames">ค้นหาทั่วเกมที่มีอยู่ทั้งหมดแล้ว</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">อาจรวมถึงเกมเพิ่มเติมจากเมนูการตั้งค่าใช่หรือไม่?</string>
   <string name="openingExplorer">ตัวสำรวจการเปิดเกม</string>
-  <string name="xOpeningExplorer">ตัวสำรวจการเปิดเกม %s</string>
+  <string name="xOpeningExplorer">ตัวสำรวจการเปิด %s</string>
   <string name="winPreventedBy50MoveRule">การชนะถูกป้องกันโดยกฎ 50-รอบเดิน</string>
   <string name="lossSavedBy50MoveRule">การแพ้ถูกป้องกันโดยกฎ 50-รอบเดิน</string>
   <string name="allSet">ยืนยัน!</string>
-  <string name="importPgn">นำเข้า PGN</string>
-  <string name="delete">ลบ</string>
-  <string name="deleteThisImportedGame">ลบเกมนี้นำเข้านี้ใช่ไหม?</string>
-  <string name="replayMode">โหมดเล่นซ้ำ</string>
-  <string name="realtimeReplay">เวลาตามจริง</string>
-  <string name="byCPL">ตาม CPL</string>
-  <string name="openStudy">เปิดการศึกษา</string>
-  <string name="enable">เปิดใช้งาน</string>
-  <string name="bestMoveArrow">ศรการเดินที่ดีที่สุด</string>
-  <string name="evaluationGauge">เครื่องวัดการประเมิน</string>
-  <string name="multipleLines">หลายบรรทัด</string>
-  <string name="cpus">ซีพียู</string>
-  <string name="memory">หน่วยความจำ</string>
-  <string name="infiniteAnalysis">การวิเคราะห์อนันต์</string>
-  <string name="removesTheDepthLimit">เอาข้อจำกัดความลึกออก และทำให้คอมพิวเตอร์ของคุณอุ่น</string>
   <string name="blunders">ความผิดพลาดมหันต์</string>
   <string name="mistakes">ความผิดพลาด</string>
   <string name="inaccuracies">ความไม่ถูกต้อง</string>
@@ -160,11 +146,6 @@
   <string name="passwordReset">ตั้งรหัสผ่านใหม่</string>
   <string name="forgotPassword">ลืมรหัสผ่าน?</string>
   <string name="rank">อันดับ</string>
-  <string name="rankX">อันดับ: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">อันดับถูกอัพเดตทุก %s นาที</string>
-  <plurals name="nbPuzzles">
-    <item quantity="other">%s ปริศนา</item>
-  </plurals>
   <string name="gamesPlayed">เกมที่ได้เล่น</string>
   <plurals name="nbGamesWithYou">
     <item quantity="other">%s เกมเล่นกับคุณ</item>
@@ -213,6 +194,9 @@
   <string name="incrementInSeconds">วินาทีที่บวกเพิ่ม</string>
   <string name="freeOnlineChess">หมากรุกสากลออนไลน์ฟรี</string>
   <string name="spectators">ผู้สังเกตการณ์:</string>
+  <plurals name="nbGamesPlayed">
+    <item quantity="other">%s เกมที่ได้เล่น</item>
+  </plurals>
   <plurals name="nbRated">
     <item quantity="other">%s เกมที่คิดคะแนน</item>
   </plurals>
@@ -225,15 +209,11 @@
   <plurals name="nbDraws">
     <item quantity="other">เสมอ %s</item>
   </plurals>
-  <plurals name="nbPlaying">
-    <item quantity="other">%s เกมกำลังเล่น</item>
-  </plurals>
   <string name="exportGames">ส่งออกเกม</string>
   <string name="ratingRange">ช่วงระดับคะแนน</string>
   <plurals name="giveNbSeconds">
     <item quantity="other">ให้ %s วินาที</item>
   </plurals>
-  <string name="giveMoreTime">ให้เวลาเพิ่ม</string>
   <string name="thisPlayerUsesChessComputerAssistance">ผู้เล่นรายนี้ใช้การช่วยเหลือจากคอมพิวเตอร์หมากรุก</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">ผู้เล่นรายนี้เพิ่ม/ลดระดับคะแนนตัวเองโดยทุจริต</string>
   <string name="openingExplorerAndTablebase">ตัวสำรวจการเปิด &amp; ฐานตาราง</string>
@@ -284,7 +264,6 @@
   <string name="fromPosition">จากตำแหน่ง</string>
   <string name="continueFromHere">เล่นต่อจากที่นี่</string>
   <string name="importGame">นำเข้าเกม</string>
-  <string name="importGameExplanation">เมื่อวาง PGN ของเกมแล้ว คุณจะได้รับความสามารถเรียกดูการเล่นซ้ำ, การวิเคราะห์ด้วยคอมพิวเตอร์, แชทของเกม และ URL ที่สามารถแชร์ได้</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s เกมที่ถูกนำเข้า</item>
   </plurals>
@@ -353,8 +332,6 @@
   <string name="averageOpponent">ค่าเฉลี่ยของคู่แข่ง</string>
   <string name="membersOnly">เฉพาะสมาชิก</string>
   <string name="boardEditor">ตัวแก้ไขกระดาน</string>
-  <string name="setTheBoard">จัดค่ากระดาน</string>
-  <string name="popularOpenings">การเปิดหมากยอดนิยม</string>
   <string name="startPosition">ตำแหน่งเริ่มต้น</string>
   <string name="clearBoard">ล้างกระดาน</string>
   <string name="savePosition">บันทึกตำแหน่ง</string>
@@ -393,7 +370,7 @@
   <string name="keepGoing">เดินต่อไป...</string>
   <string name="puzzleFailed">แก้ปริศนาไม่สำเร็จ</string>
   <string name="butYouCanKeepTrying">แต่คุณสามารถลองแก้ต่อได้</string>
-  <string name="success">สำเร็จ</string>
+  <string name="victory">ชัยชนะ!</string>
   <string name="wasThisPuzzleAnyGood">ปริศนานี้ดีพอหรือไม่?</string>
   <string name="pleaseVotePuzzle">ช่วย lichess ปรับปรุงโดยใช้ปุ่มลูกศรขึ้นหรือลง เพื่อทำการโหวต:</string>
   <string name="thankYou">ขอบคุณ!</string>
@@ -402,6 +379,7 @@
     <item quantity="other">ถูกเล่น %s ครั้ง</item>
   </plurals>
   <string name="fromGameLink">จากเกม %s</string>
+  <string name="startTraining">เริ่มฝึก</string>
   <string name="continueTraining">ฝึกต่อ</string>
   <string name="retryThisPuzzle">ลองแก้ปริศนานี้อีกครั้ง</string>
   <string name="thisPuzzleIsCorrect">ปริศนานี้ถูกต้อง และน่าสนใจ</string>
@@ -415,6 +393,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">ดำเนินสู่เกมถัดไปอัตโนมัติหลังจากการเดิน</string>
   <string name="autoSwitch">สลับอัตโนมัติ</string>
   <string name="puzzles">ปริศนา</string>
+  <string name="coordinates">พิกัด</string>
   <string name="latestUpdates">อัปเดตล่าสุด</string>
   <string name="tournamentWinners">ผู้ชนะทัวร์นาเมนต์</string>
   <string name="name">ชื่อ</string>
@@ -457,7 +436,6 @@
   <string name="closeAccountExplanation">คุณแน่ใจนะว่าจะปิดบัญชีของคุณ? การปิดบัญชีจะเป็นการตัดสินใจที่ถาวร คุณจะไม่สามารถลงชื่อเข้าได้อีก และข้อมูลประจำตัวของคุณจะไม่สามารถเข้าถึงได้อีกเลย</string>
   <string name="thisAccountIsClosed">บัญชีนี้ถูกปิดแล้ว</string>
   <string name="invalidUsernameOrPassword">ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง</string>
-  <string name="incorrectPassword">รหัสผ่านไม่ถูกต้อง</string>
   <string name="emailMeALink">ส่งลิงค์ให้ฉันทางอีเมล</string>
   <string name="currentPassword">รหัสผ่านปัจจุบัน</string>
   <string name="newPassword">รหัสผ่านใหม่</string>
@@ -509,10 +487,6 @@
   <string name="xAskedY">%1$s ได้ถาม %2$s</string>
   <string name="xAnsweredY">%1$s ได้ตอบ %2$s</string>
   <string name="xCommentedY">%1$s ได้แสดงความคิดเห็น %2$s</string>
-  <string name="victory">ชัยชนะ</string>
-  <string name="defeat">ปราชัย</string>
-  <string name="xVsYinZ">%1$s ต่อ %2$s
-ใน %3$s</string>
   <string name="timeline">ไทม์ไลน์</string>
   <string name="seeAllTournaments">ดูทัวร์นาเมนต์ทั้งหมด</string>
   <string name="starting">กำลังเริ่ม:</string>
@@ -538,7 +512,7 @@
   <string name="playOnTheBoardOffline">เล่นกระดานเดียวกัน</string>
   <string name="playOfflineComputer">คอมพิวเตอร์</string>
   <string name="opponent">คู่แข่ง</string>
-  <string name="learnMenu">เรียนรู้</string>
+  <string name="learn">เรียนรู้</string>
   <string name="community">ชุมชน</string>
   <string name="tools">เครื่องมือ</string>
   <string name="increment">เพิ่มขึ้น</string>
@@ -551,9 +525,7 @@
   <string name="error.email">ที่อยู่อีเมลนี้ไม่ถูกต้อง</string>
   <string name="error.email_acceptable">ที่อยู่อีเมลนี้ไม่ถูกยอมรับ</string>
   <string name="error.email_unique">ที่อยู่อีเมลนี้ถูกใช้ไปแล้ว</string>
-  <string name="error.email_different">นี่เป็นที่อยู่อีเมลของคุณอยู่แล้ว</string>
   <string name="blindfoldChess">หมากรุกอำพราง (ไม่เห็นตัวหมาก)</string>
-  <string name="zenMode">โหมดซ่อนเร้น</string>
   <string name="moveConfirmation">ยืนยันการเดิน</string>
   <string name="inCorrespondenceGames">เกมแบบยาวนาน</string>
   <string name="ifRatingIsPlusMinusX">ถ้าระดับคะแนน ± %s</string>
@@ -581,7 +553,6 @@
   <string name="sourceCode">ซอร์สโค้ด</string>
   <string name="simultaneousExhibitions">มหกรรมไซมัลเทเนียส</string>
   <string name="host">โฮสต์</string>
-  <string name="hostColorX">สีโฮสต์: %s</string>
   <string name="createdSimuls">ไซมัลที่สร้างใหม่</string>
   <string name="hostANewSimul">เป็นโฮสต์ไซมัลใหม่</string>
   <string name="noSimulFound">ไม่พบไซมัล</string>
@@ -680,14 +651,9 @@
   <string name="xLikesY">%1$s ชื่นชอบ %2$s</string>
   <string name="quickPairing">จับคู่ด่วน</string>
   <string name="lobby">ล็อบบี้</string>
-  <string name="anonymous">นิรนาม</string>
   <string name="yourScore">สกอร์ของคุณ: %s</string>
   <string name="language">ภาษา</string>
   <string name="background">พื้นหลัง</string>
-  <string name="light">สว่าง</string>
-  <string name="dark">มืด</string>
-  <string name="transparent">โปร่งใส</string>
-  <string name="backgroundImageUrl">URL รูปภาพพื้นหลัง:</string>
   <string name="boardGeometry">รูปทรงกระดาน</string>
   <string name="boardTheme">รูปลักษณ์กระดาน</string>
   <string name="boardSize">ขนาดกระดาน</string>

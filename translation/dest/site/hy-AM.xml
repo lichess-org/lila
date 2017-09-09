@@ -317,6 +317,7 @@
   <string name="keepGoing">Շարունակեք…</string>
   <string name="puzzleFailed">Խնդրի լուծումը ձախողվեց</string>
   <string name="butYouCanKeepTrying">Բայց կարող եք կրկին փորձել։</string>
+  <string name="victory">Ճիշտ լուծո՛ւմ</string>
   <string name="wasThisPuzzleAnyGood">Լա՞վն էր այս խնդիրը։</string>
   <string name="pleaseVotePuzzle">Օգնեք lichess-ին բարելավվել` քվեարկելով վերև կամ ներքև սլաքի օգնությամբ․</string>
   <string name="thankYou">Շնորհակալությո՛ւն։</string>
@@ -326,6 +327,7 @@
     <item quantity="other">Փորձել են լուծել %s անգամ</item>
   </plurals>
   <string name="fromGameLink">%s խաղից</string>
+  <string name="startTraining">Սկսել մարզվել</string>
   <string name="continueTraining">Շարունակել մարզվել</string>
   <string name="retryThisPuzzle">Կրկին փորձել</string>
   <string name="thisPuzzleIsCorrect">Այս խնդիրը ստույգ է և հետաքրքիր</string>
@@ -341,6 +343,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">հակառակորդի քայլից հետո ավտոմատ կերպով անցնել հաջորդ քայլին</string>
   <string name="autoSwitch">միանգամից անցնել հաջորդ խաղին</string>
   <string name="puzzles">խնդիրներ</string>
+  <string name="coordinates">համակարգ</string>
   <string name="latestUpdates">վերջին թարմացումները</string>
   <string name="tournamentWinners">Մրցաշարի հաղթողները</string>
   <string name="name">անուն</string>
@@ -414,7 +417,6 @@
   <string name="difficultyNormal">Նորմալ</string>
   <string name="difficultyHard">Բարդ</string>
   <string name="xCommentedY">%1$s մեկնաբանել %2$s</string>
-  <string name="victory">Ճիշտ լուծո՛ւմ</string>
   <string name="timeline">Ժամանակացույց</string>
   <string name="seeAllTournaments">Տեսնել բոլոր մրցաշարերը</string>
   <string name="starting">Սկիզբ</string>
@@ -436,6 +438,7 @@
   <string name="loginSuccessful">Դուք հաջողությամբ մուտք գործեցիք ձեր էջ</string>
   <string name="playOfflineComputer">Համակարգիչ</string>
   <string name="opponent">Մրցակից</string>
+  <string name="learn">Սովորել</string>
   <string name="community">Համայնք</string>
   <string name="tools">Գործիքներ</string>
   <string name="sharePGN">Տարածել PGN -ն</string>

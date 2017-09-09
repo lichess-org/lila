@@ -46,7 +46,6 @@
   <string name="requestAComputerAnalysis">কম্পিউটার বিশ্লেষণের জন্য অবেদন করুন</string>
   <string name="computerAnalysis">কম্পিউটারের বিশ্লেষণ</string>
   <string name="analysis">বিশ্লেষণ</string>
-  <string name="move">চাল</string>
   <string name="blunders">চালে ভুল</string>
   <string name="mistakes">ভুল</string>
   <string name="inaccuracies">যথার্থতার অভাব</string>
@@ -314,6 +313,7 @@
   <string name="keepGoing">এইভাবে চালিয়ে যান</string>
   <string name="puzzleFailed">ধাঁধা সমাধান করতে ব্যর্থ</string>
   <string name="butYouCanKeepTrying">তবে চেষ্টা চালিয়ে যেতে পারেন</string>
+  <string name="victory">বিজয়!</string>
   <string name="wasThisPuzzleAnyGood">এই ধাঁধাটি কেমন ছিল ?</string>
   <string name="pleaseVotePuzzle">UP অথবা Down arrow তে ভোট করে lichess-কে সাহায্য করুন</string>
   <string name="thankYou">ধন্যবাদ</string>
@@ -323,6 +323,7 @@
     <item quantity="other">%s বার খেলা হয়েছে</item>
   </plurals>
   <string name="fromGameLink">%s খেলা থেকে</string>
+  <string name="startTraining">প্রশিক্ষণ শুরু করুন</string>
   <string name="continueTraining">প্রশিক্ষণ বজায় রাখুন</string>
   <string name="retryThisPuzzle">এই ধাঁধাটি কে আবার চেষ্টা করুন</string>
   <string name="thisPuzzleIsCorrect">এই ধাঁধাটি ভালো এবং আকর্ষণীয়</string>
@@ -338,6 +339,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">স্বয়ংক্রিয় ভাবে পরবর্তী খেলায় যান</string>
   <string name="autoSwitch">স্বয়ংক্রিয় পরিবর্তন</string>
   <string name="puzzles">ধাঁধা</string>
+  <string name="coordinates">Coordinates</string>
   <string name="latestUpdates">সাম্প্রতিক তথ্য</string>
   <string name="tournamentWinners">Tournament বিজয়ীরা</string>
   <string name="name">নাম</string>
@@ -384,7 +386,6 @@
   <string name="currentPassword">বর্তমান password</string>
   <string name="newPassword">নতুন password</string>
   <string name="newPasswordAgain">নতুন password (পুনরায় )</string>
-  <string name="victory">বিজয়!</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">সর্বোচ্চ: %s টি অক্ষর</item>
     <item quantity="other">সর্বোচ্চ: %s টি অক্ষর</item>

@@ -299,6 +299,7 @@
   <string name="keepGoing">Малаллах выља...</string>
   <string name="puzzleFailed">Лартӑма выљаса йанӑ</string>
   <string name="butYouCanKeepTrying">Ҫапах та малалла хӑтланма пултаратӑн.</string>
+  <string name="victory">Ҫӗнтерӳ!</string>
   <string name="wasThisPuzzleAnyGood">Ку лартӑм лайӑх пулнӑ-и мӗн?</string>
   <string name="pleaseVotePuzzle">Lichess лайӑхлатас тесен, ҫи йе ай йӗппипе усӑ курса хак пар:</string>
   <string name="thankYou">Тавах!</string>
@@ -307,6 +308,7 @@
     <item quantity="other">%s хут выљанӑ</item>
   </plurals>
   <string name="fromGameLink">%s вӑйӑран</string>
+  <string name="startTraining">Вӗренев пуҫла</string>
   <string name="continueTraining">Хӑнӑхтарӑва малалла тӑс</string>
   <string name="retryThisPuzzle">Лартӑм ҫӗнерен шутла</string>
   <string name="thisPuzzleIsCorrect">Ку лартӑм тӗрӗс тата кӑсӑклӑ</string>
@@ -320,6 +322,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Ҫӳрени хыҫҫӑн тепӗр вӑйӑ патне хӑй халлӗн куҫ</string>
   <string name="autoSwitch">Хӑй халлӗн куҫарас</string>
   <string name="puzzles">Лартӑмсем</string>
+  <string name="coordinates">Координатсем</string>
   <string name="latestUpdates">Кайранхи ҫӗнетнисем</string>
   <string name="tournamentWinners">Турнирти ҫӗнтерӳҫсем</string>
   <string name="name">Йат</string>
@@ -403,7 +406,6 @@
   <string name="xAskedY">%1$s усӑҫ %2$s ыйтнӑ</string>
   <string name="xAnsweredY">%1$s усӑҫ %2$s хуравланӑ</string>
   <string name="xCommentedY">%1$s усӑҫ %2$s шухӑш хушнӑ</string>
-  <string name="victory">Ҫӗнтерӳ!</string>
   <string name="timeline">Кун-ҫул</string>
   <string name="seeAllTournaments">Пур турнира пӑх</string>
   <string name="starting">Пуҫланниччен:</string>
@@ -428,6 +430,7 @@
   <string name="playOnTheBoardOffline">Пӗр хӑма ҫинче</string>
   <string name="playOfflineComputer">Компйутӑр</string>
   <string name="opponent">Ӑмӑртуҫӑ</string>
+  <string name="learn">Вӗренӳ</string>
   <string name="community">Пӗрлешӳ</string>
   <string name="tools">Мехел</string>
   <string name="increment">Инкремент</string>
