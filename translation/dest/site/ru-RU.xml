@@ -68,9 +68,9 @@
   <string name="drawn">Ничья</string>
   <string name="unknown">Неизвестный исход</string>
   <string name="database">База данных</string>
-  <string name="whiteDrawBlack">Белые / ничья / чёрные</string>
+  <string name="whiteDrawBlack">Белые / Ничья / Чёрные</string>
   <string name="averageRatingX">Средний рейтинг: %s</string>
-  <string name="recentGames">Недавние игры</string>
+  <string name="recentGames">Последние игры</string>
   <string name="topGames">Игры сильнейших</string>
   <string name="masterDbExplanation">Два миллиона официальных партий между игроками с FIDE-рейтингом %1$s+, сыгранных с %2$s по %3$s годы</string>
   <plurals name="mateInXHalfMoves">
@@ -139,7 +139,7 @@
   <string name="computersAreNotAllowedToPlay">Создание учётных записей для ботов запрещено. Пожалуйста, во время игры не используйте шахматные движки, базы данных или подсказки других игроков. Также учтите, что создание нескольких аккаунтов не приветствуется и чрезмерное их количество приведёт к блокировке.</string>
   <string name="games">Игры</string>
   <string name="forum">Форум</string>
-  <string name="xPostedInForumY">%1$s опубликовал на форуме %2$s</string>
+  <string name="xPostedInForumY">%1$s оставил сообщение в топике %2$s</string>
   <string name="latestForumPosts">Последние сообщения на форуме</string>
   <string name="players">Шахматисты</string>
   <string name="minutesPerSide">Минут на партию</string>
@@ -228,7 +228,7 @@
   <string name="subject">Тема</string>
   <string name="recipient">Получатель</string>
   <string name="send">Отправить</string>
-  <string name="incrementInSeconds">Прибавка в секундах</string>
+  <string name="incrementInSeconds">Добавление секунд на ход</string>
   <string name="freeOnlineChess">Бесплатные онлайн-шахматы</string>
   <string name="spectators">Зрители:</string>
   <plurals name="nbRated">
@@ -583,7 +583,7 @@
   <string name="xAskedY">%1$s спрашивает %2$s</string>
   <string name="xAnsweredY">%1$s ответил %2$s</string>
   <string name="xCommentedY">%1$s прокомментировал %2$s</string>
-  <string name="victory">Победа!</string>
+  <string name="victory">Победа</string>
   <string name="defeat">Поражение</string>
   <string name="xVsYinZ">%1$s с %2$s
 в %3$s</string>
