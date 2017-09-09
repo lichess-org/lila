@@ -200,8 +200,8 @@
   <string name="yourOpponentOffersADraw">Ваш оппонент предлагает ничью</string>
   <string name="accept">Принять</string>
   <string name="decline">Отклонить</string>
-  <string name="playingRightNow">Активная партия</string>
-  <string name="finished">Закончено</string>
+  <string name="playingRightNow">Идёт игра</string>
+  <string name="finished">Закончен</string>
   <string name="abortGame">Отменить игру</string>
   <string name="gameAborted">Игра отменена</string>
   <string name="standard">Классические шахматы</string>
