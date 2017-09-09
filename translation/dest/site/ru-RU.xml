@@ -264,9 +264,9 @@
     <item quantity="other">Дать %s секунд</item>
   </plurals>
   <string name="giveMoreTime">Добавить времени</string>
-  <string name="thisPlayerUsesChessComputerAssistance">Этот игрок использует помощь шахматной программы (читер)</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Этот игрок искусственно увеличивал либо уменьшал свой рейтинг</string>
-  <string name="openingExplorerAndTablebase">Открываем проводник &amp; таблицу базы</string>
+  <string name="thisPlayerUsesChessComputerAssistance">Этот игрок использует помощь шахматного движка (читер)</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">Этот игрок искусственно завышает/преуменьшает свой рейтинг</string>
+  <string name="openingExplorerAndTablebase">Анализ дебютных вариантов</string>
   <string name="takeback">Вернуть ход</string>
   <string name="proposeATakeback">Попросить соперника вернуть ход</string>
   <string name="takebackPropositionSent">Предложение возврата отправлено</string>
