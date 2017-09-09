@@ -56,7 +56,7 @@ object Env {
     config = lila.common.PlayApp loadConfig "coach",
     notifyApi = lila.notify.Env.current.api,
     asyncCache = lila.memo.Env.current.asyncCache,
-    system = old.play.Env.actorSystem,
+    system = lila.common.PlayApp.system,
     db = lila.db.Env.current
   )
 }

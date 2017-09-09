@@ -95,9 +95,6 @@ object DataForm {
   val validVariants = List(Standard, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings, Crazyhouse)
 
   val validVariantIds = validVariants.map(_.id).toSet
-
-  def startingPosition(eco: String, variant: Variant): StartingPosition =
-    StartingPosition.byEco(eco).ifTrue(variant.standard) | StartingPosition.initial
 }
 
 private[tournament] case class TournamentSetup(

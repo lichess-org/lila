@@ -1,10 +1,8 @@
 package controllers
 
-import akka.stream.scaladsl._
 import ornicar.scalalib.Zero
 import play.api.data.Form
 import play.api.http._
-import play.api.libs.iteratee._
 import play.api.libs.json.{ Json, JsObject, Writes }
 import play.api.mvc._
 import play.twirl.api.Html
@@ -17,17 +15,17 @@ import lila.security.{ Permission, Granter, FingerprintedUser }
 import lila.user.{ UserContext, User => UserModel }
 
 private[controllers] trait LilaController
-  extends BaseController
+  extends Controller
   with ContentTypes
   with RequestGetter
   with ResponseWriter
   with LilaSocket {
 
-  protected def controllerComponents = old.play.Env.controllerComponents
-
   protected val controllerLogger = lila.log("controller")
 
   protected implicit val LilaResultZero = Zero.instance[Result](Results.NotFound)
+
+  protected implicit val LilaHtmlMonoid = lila.app.templating.Environment.LilaHtmlMonoid
 
   protected implicit final class LilaPimpedResult(result: Result) {
     def fuccess = scala.concurrent.Future successful result
@@ -53,7 +51,7 @@ private[controllers] trait LilaController
   )
 
   protected def Open(f: Context => Fu[Result]): Action[Unit] =
-    Open(parse.empty)(f)
+    Open(BodyParsers.parse.empty)(f)
 
   protected def Open[A](p: BodyParser[A])(f: Context => Fu[Result]): Action[A] =
     Action.async(p) { req =>
@@ -63,7 +61,7 @@ private[controllers] trait LilaController
     }
 
   protected def OpenBody(f: BodyContext[_] => Fu[Result]): Action[AnyContent] =
-    OpenBody(parse.anyContent)(f)
+    OpenBody(BodyParsers.parse.anyContent)(f)
 
   protected def OpenBody[A](p: BodyParser[A])(f: BodyContext[A] => Fu[Result]): Action[A] =
     Action.async(p) { req =>
@@ -73,7 +71,7 @@ private[controllers] trait LilaController
     }
 
   protected def Auth(f: Context => UserModel => Fu[Result]): Action[Unit] =
-    Auth(parse.empty)(f)
+    Auth(BodyParsers.parse.empty)(f)
 
   protected def Auth[A](p: BodyParser[A])(f: Context => UserModel => Fu[Result]): Action[A] =
     Action.async(p) { req =>
@@ -85,7 +83,7 @@ private[controllers] trait LilaController
     }
 
   protected def AuthBody(f: BodyContext[_] => UserModel => Fu[Result]): Action[AnyContent] =
-    AuthBody(parse.anyContent)(f)
+    AuthBody(BodyParsers.parse.anyContent)(f)
 
   protected def AuthBody[A](p: BodyParser[A])(f: BodyContext[A] => UserModel => Fu[Result]): Action[A] =
     Action.async(p) { req =>
@@ -100,7 +98,7 @@ private[controllers] trait LilaController
     Secure(perm(Permission))(f)
 
   protected def Secure(perm: Permission)(f: Context => UserModel => Fu[Result]): Action[AnyContent] =
-    Secure(parse.anyContent)(perm)(f)
+    Secure(BodyParsers.parse.anyContent)(perm)(f)
 
   protected def Secure[A](p: BodyParser[A])(perm: Permission)(f: Context => UserModel => Fu[Result]): Action[A] =
     Auth(p) { implicit ctx => me =>
@@ -108,7 +106,7 @@ private[controllers] trait LilaController
     }
 
   protected def SecureF(s: UserModel => Boolean)(f: Context => UserModel => Fu[Result]): Action[AnyContent] =
-    Auth(parse.anyContent) { implicit ctx => me =>
+    Auth(BodyParsers.parse.anyContent) { implicit ctx => me =>
       s(me).fold(f(ctx)(me), authorizationFailed)
     }
 
@@ -118,7 +116,7 @@ private[controllers] trait LilaController
     }
 
   protected def SecureBody(perm: Permission.type => Permission)(f: BodyContext[_] => UserModel => Fu[Result]): Action[AnyContent] =
-    SecureBody(parse.anyContent)(perm(Permission))(f)
+    SecureBody(BodyParsers.parse.anyContent)(perm(Permission))(f)
 
   protected def Firewall[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     Env.security.firewall.accepts(ctx.req) flatMap {
@@ -338,7 +336,7 @@ private[controllers] trait LilaController
       }
     }
 
-  protected def csrfCheck = Env.security.csrfRequestHandler.check _
+  protected val csrfCheck = Env.security.csrfRequestHandler.check _
   protected val csrfForbiddenResult = Forbidden("Cross origin request forbidden").fuccess
 
   private def CSRF(req: RequestHeader)(f: => Fu[Result]): Fu[Result] =
@@ -386,9 +384,4 @@ private[controllers] trait LilaController
   }
 
   protected val pgnContentType = "application/x-chess-pgn"
-
-  implicit protected def enumeratorToSource[A](enumerator: Enumerator[A]): Source[A, _] = {
-    import play.api.libs.iteratee.streams.IterateeStreams
-    Source.fromPublisher(IterateeStreams enumeratorToPublisher enumerator)
-  }
 }

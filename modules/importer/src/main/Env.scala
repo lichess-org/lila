@@ -21,7 +21,7 @@ object Env {
 
   lazy val current = "importer" boot new Env(
     config = lila.common.PlayApp loadConfig "importer",
-    scheduler = old.play.Env.actorSystem.scheduler,
+    scheduler = lila.common.PlayApp.system.scheduler,
     roundMap = lila.round.Env.current.roundMap
   )
 }

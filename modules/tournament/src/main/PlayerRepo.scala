@@ -64,7 +64,7 @@ object PlayerRepo {
     coll.find(selectTourUser(tourId, userId)).uno[Player]
 
   def update(tourId: String, userId: String)(f: Player => Fu[Player]) =
-    find(tourId, userId) err s"No such player: $tourId/$userId" flatMap f flatMap { player =>
+    find(tourId, userId) flatten s"No such player: $tourId/$userId" flatMap f flatMap { player =>
       coll.update(selectId(player._id), player).void
     }
 

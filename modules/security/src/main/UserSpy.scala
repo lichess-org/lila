@@ -41,7 +41,7 @@ object UserSpy {
   case class IPData(ip: IpAddress, blocked: Boolean, location: Location)
 
   private[security] def apply(firewall: Firewall, geoIP: GeoIP)(coll: Coll)(userId: String): Fu[UserSpy] = for {
-    user ← UserRepo named userId err "[spy] user not found"
+    user ← UserRepo named userId flatten "[spy] user not found"
     infos ← Store.findInfoByUser(user.id)
     ips = infos.map(_.ip).distinct
     blockedIps ← (ips map firewall.blocksIp).sequenceFu

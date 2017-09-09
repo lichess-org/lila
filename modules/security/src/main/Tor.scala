@@ -2,7 +2,8 @@ package lila.security
 
 import lila.common.IpAddress
 
-import old.play.Env.WS
+import play.api.libs.ws.WS
+import play.api.Play.current
 
 final class Tor(providerUrl: String) {
 

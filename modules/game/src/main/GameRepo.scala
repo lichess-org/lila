@@ -394,7 +394,7 @@ object GameRepo {
       )),
       UnwindField(F.playerUids),
       Match($doc(F.playerUids -> $doc("$ne" -> userId))),
-      GroupField(F.playerUids)("gs" -> SumAll),
+      GroupField(F.playerUids)("gs" -> SumValue(1)),
       Sort(Descending("gs")),
       Limit(limit)
     ), ReadPreference.secondaryPreferred).map(_.firstBatch.flatMap { obj =>

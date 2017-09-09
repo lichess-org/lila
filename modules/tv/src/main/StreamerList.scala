@@ -1,7 +1,7 @@
 package lila.tv
 
 import com.typesafe.config.ConfigFactory
-import scala.collection.JavaConverters._
+import scala.collection.JavaConversions._
 import scala.util.{ Try, Success, Failure }
 
 final class StreamerList(
@@ -24,7 +24,7 @@ final class StreamerList(
   }
 
   private[tv] def validate(text: String): (List[Streamer], List[Exception]) = Try {
-    ConfigFactory.parseString(text).getConfigList("streamers").asScala.toList.map { c =>
+    ConfigFactory.parseString(text).getConfigList("streamers").toList.map { c =>
       Try {
         Streamer(
           service = c getString "service" match {

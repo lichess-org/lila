@@ -139,7 +139,7 @@ object Study extends LilaController {
   private def chatOf(study: lila.study.Study)(implicit ctx: lila.api.Context) =
     ctx.noKid ?? Env.chat.api.userChat.findMine(Chat.Id(study.id.value), ctx.me).map(some)
 
-  def websocket(id: String, apiVersion: Int) = SocketOption { implicit ctx =>
+  def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
     get("sri") ?? { uid =>
       env.api byId id flatMap {
         _.filter(canView) ?? { study =>
@@ -280,8 +280,9 @@ object Study extends LilaController {
             lila.mon.export.pgn.study()
             env.pgnDump(study) map { pgns =>
               Ok(pgns.mkString("\n\n\n")).withHeaders(
+                CONTENT_TYPE -> pgnContentType,
                 CONTENT_DISPOSITION -> ("attachment; filename=" + (env.pgnDump filename study))
-              ) as pgnContentType
+              )
             }
           }
         }
@@ -296,8 +297,9 @@ object Study extends LilaController {
           case WithChapter(study, chapter) => CanViewResult(study) {
             lila.mon.export.pgn.studyChapter()
             Ok(env.pgnDump.ofChapter(study, chapter).toString).withHeaders(
+              CONTENT_TYPE -> pgnContentType,
               CONTENT_DISPOSITION -> ("attachment; filename=" + (env.pgnDump.filename(study, chapter)))
-            ).as(pgnContentType).fuccess
+            ).fuccess
           }
         }
       }

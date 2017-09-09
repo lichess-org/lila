@@ -139,24 +139,6 @@ object BSONHandlers {
     def write(x: Glyphs) = BSONArray(x.toList.map(_.id).map(BSONInteger.apply))
   }
 
-  implicit val ChildrenBSONHandler = new BSONHandler[Barr, Node.Children] {
-    private val nodesHandler = bsonArrayToVectorHandler[Node]
-    def read(b: Barr) = try {
-      Node.Children(nodesHandler read b)
-    } catch {
-      case e: StackOverflowError =>
-        println(s"study handler ${e.toString}")
-        Node.emptyChildren
-    }
-    def write(x: Node.Children) = try {
-      nodesHandler write x.nodes
-    } catch {
-      case e: StackOverflowError =>
-        println(s"study handler ${e.toString}")
-        $arr()
-    }
-  }
-
   private implicit def NodeBSONHandler: BSON[Node] = new BSON[Node] {
     def reads(r: Reader) = Node(
       id = r.get[UciCharPair]("i"),
@@ -215,6 +197,23 @@ object BSONHandlers {
       "n" -> s.children
     )
   }
+  implicit val ChildrenBSONHandler = new BSONHandler[Barr, Node.Children] {
+    private val nodesHandler = bsonArrayToVectorHandler[Node]
+    def read(b: Barr) = try {
+      Node.Children(nodesHandler read b)
+    } catch {
+      case e: StackOverflowError =>
+        println(s"study handler ${e.toString}")
+        Node.emptyChildren
+    }
+    def write(x: Node.Children) = try {
+      nodesHandler write x.nodes
+    } catch {
+      case e: StackOverflowError =>
+        println(s"study handler ${e.toString}")
+        $arr()
+    }
+  }
 
   implicit val PathBSONHandler = new BSONHandler[BSONString, Path] {
     def read(b: BSONString): Path = Path(b.value)
@@ -238,6 +237,8 @@ object BSONHandlers {
   implicit val ChapterBSONHandler = Macros.handler[Chapter]
   implicit val ChapterMetadataBSONHandler = Macros.handler[Chapter.Metadata]
 
+  private implicit val ChaptersMap = BSON.MapDocument.MapHandler[Chapter.Id, Chapter]
+
   implicit val PositionRefBSONHandler = new BSONHandler[BSONString, Position.Ref] {
     def read(b: BSONString) = Position.Ref.decode(b.value) err s"Invalid position ${b.value}"
     def write(x: Position.Ref) = BSONString(x.encode)
@@ -252,8 +253,8 @@ object BSONHandlers {
     def write(x: StudyMember) = DbMemberBSONHandler write DbMember(x.role, x.addedAt)
   }
   private[study] implicit val MembersBSONHandler = new BSONHandler[Bdoc, StudyMembers] {
-    private val mapReader = MapReader[String, DbMember]
-    def read(b: Bdoc) = StudyMembers(mapReader read b map {
+    private val mapHandler = BSON.MapDocument.MapHandler[String, DbMember]
+    def read(b: Bdoc) = StudyMembers(mapHandler read b map {
       case (id, dbMember) => id -> StudyMember(id, dbMember.role, dbMember.addedAt)
     })
     def write(x: StudyMembers) = BSONDocument(x.members.mapValues(StudyMemberBSONWriter.write))

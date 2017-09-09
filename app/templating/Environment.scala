@@ -41,11 +41,16 @@ object Environment
   with SimulHelper
   with ChessgroundHelper {
 
+  implicit val LilaHtmlMonoid = scalaz.Monoid.instance[Html](
+    (a, b) => Html(a.body + b.body),
+    LilaHtmlZero.zero
+  )
+
   type FormWithCaptcha = (play.api.data.Form[_], lila.common.Captcha)
 
   def netDomain = apiEnv.Net.Domain
   def netBaseUrl = apiEnv.Net.BaseUrl
-  lazy val isGloballyCrawlable = apiEnv.Net.Crawlable
+  val isGloballyCrawlable = apiEnv.Net.Crawlable
 
   def isProd = apiEnv.isProd
 

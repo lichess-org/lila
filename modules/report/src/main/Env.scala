@@ -67,7 +67,7 @@ object Env {
     isOnline = lila.user.Env.current.isOnline,
     noteApi = lila.user.Env.current.noteApi,
     securityApi = lila.security.Env.current.api,
-    system = old.play.Env.actorSystem,
+    system = lila.common.PlayApp.system,
     hub = lila.hub.Env.current,
     asyncCache = lila.memo.Env.current.asyncCache
   )

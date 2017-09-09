@@ -9,7 +9,6 @@ import scala.concurrent.duration._
 import lila.api.Context
 import lila.app._
 import lila.common.{ HTTPRequest, IpAddress }
-import lila.common.PimpedJson.jodaDateWrites
 
 object Api extends LilaController {
 
@@ -296,7 +295,7 @@ object Api extends LilaController {
     js(ctx) map toHttp
   }
 
-  private val tooManyRequests = TooManyRequests(jsonError("Try again later"))
+  private val tooManyRequests = TooManyRequest(jsonError("Try again later"))
 
   private def toHttp(result: ApiResult)(implicit ctx: Context): Result = result match {
     case Limited => tooManyRequests

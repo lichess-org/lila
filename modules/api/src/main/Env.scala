@@ -154,7 +154,7 @@ object Env {
     prefApi = lila.pref.Env.current.api,
     gamePgnDump = lila.game.Env.current.pgnDump,
     gameCache = lila.game.Env.current.cached,
-    system = old.play.Env.actorSystem,
+    system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
     pools = lila.pool.Env.current.api.configs,
     isProd = lila.common.PlayApp.isProd

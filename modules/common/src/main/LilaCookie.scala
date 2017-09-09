@@ -4,7 +4,6 @@ import java.util.regex.Matcher.quoteReplacement
 
 import ornicar.scalalib.Random
 import play.api.mvc.{ Cookie, Session, RequestHeader }
-import old.play.Env.cookieBaker
 
 object LilaCookie {
 
@@ -24,17 +23,17 @@ object LilaCookie {
   def newSession(implicit req: RequestHeader): Cookie = withSession(identity)
 
   def withSession(op: Session => Session)(implicit req: RequestHeader): Cookie = cookie(
-    cookieBaker.COOKIE_NAME,
-    Session.encode(cookieBaker.serialize(op(req.session)))
+    Session.COOKIE_NAME,
+    Session.encode(Session.serialize(op(req.session)))
   )
 
   def cookie(name: String, value: String, maxAge: Option[Int] = None, httpOnly: Option[Boolean] = None)(implicit req: RequestHeader): Cookie = Cookie(
     name,
     value,
-    maxAge orElse cookieBaker.maxAge orElse 86400.some,
+    maxAge orElse Session.maxAge orElse 86400.some,
     "/",
     domain(req).some,
-    cookieBaker.secure || req.headers.get("X-Forwarded-Proto").contains("https"),
-    httpOnly | cookieBaker.httpOnly
+    Session.secure || req.headers.get("X-Forwarded-Proto").contains("https"),
+    httpOnly | Session.httpOnly
   )
 }

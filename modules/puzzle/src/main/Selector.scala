@@ -34,7 +34,7 @@ private[puzzle] final class Selector(
             }
         }
     }
-  }.mon(_.puzzle.selector.time) err "No puzzles available" addEffect { puzzle =>
+  }.mon(_.puzzle.selector.time) flatten "No puzzles available" addEffect { puzzle =>
     lila.mon.puzzle.selector.vote(puzzle.vote.sum)
   }
 

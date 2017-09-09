@@ -2,6 +2,7 @@ package lila.site
 
 import akka.actor._
 import com.typesafe.config.Config
+import play.api.libs.concurrent.Akka.system
 
 import lila.common.PimpedConfig._
 
@@ -28,6 +29,6 @@ object Env {
   lazy val current = "site" boot new Env(
     config = lila.common.PlayApp loadConfig "site",
     hub = lila.hub.Env.current,
-    system = old.play.Env.actorSystem
+    system = lila.common.PlayApp.system
   )
 }

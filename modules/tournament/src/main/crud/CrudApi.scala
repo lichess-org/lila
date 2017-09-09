@@ -17,7 +17,6 @@ final class CrudApi {
     clockIncrement = tour.clock.incrementSeconds,
     minutes = tour.minutes,
     variant = tour.variant.id,
-    position = tour.position.eco,
     date = tour.startsAt,
     image = ~tour.spotlight.flatMap(_.iconImg),
     headline = tour.spotlight.??(_.headline),
@@ -73,7 +72,6 @@ final class CrudApi {
         iconFont = none,
         iconImg = image.some.filter(_.nonEmpty)
       ).some,
-      position = DataForm.startingPosition(data.position, v),
       conditions = data.conditions.convert
     )
   }

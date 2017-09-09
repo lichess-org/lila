@@ -55,6 +55,6 @@ object Env {
     notifyApi = lila.notify.Env.current.api,
     userCache = lila.user.Env.current.cached,
     scheduler = lila.common.PlayApp.scheduler,
-    system = old.play.Env.actorSystem
+    system = lila.common.PlayApp.system
   )
 }

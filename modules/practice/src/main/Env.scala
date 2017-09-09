@@ -41,6 +41,6 @@ object Env {
     studyApi = lila.study.Env.current.api,
     asyncCache = lila.memo.Env.current.asyncCache,
     db = lila.db.Env.current,
-    system = old.play.Env.actorSystem
+    system = lila.common.PlayApp.system
   )
 }

@@ -50,8 +50,6 @@ object Form {
   }
 
   object UTCDate {
-    import play.api.data.JodaForms._
-    import play.api.data.format.JodaFormats._
     val dateTimePattern = "yyyy-MM-dd HH:mm"
     val utcDate = jodaDate(dateTimePattern, DateTimeZone.UTC)
     implicit val dateTimeFormat = jodaDateTimeFormat(dateTimePattern)

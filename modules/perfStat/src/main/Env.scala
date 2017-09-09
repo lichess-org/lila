@@ -50,7 +50,7 @@ object Env {
 
   lazy val current: Env = "perfStat" boot new Env(
     config = lila.common.PlayApp loadConfig "perfStat",
-    system = old.play.Env.actorSystem,
+    system = lila.common.PlayApp.system,
     lightUser = lila.user.Env.current.lightUserSync,
     db = lila.db.Env.current
   )

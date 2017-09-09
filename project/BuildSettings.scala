@@ -5,7 +5,7 @@ object BuildSettings {
 
   import Dependencies._
 
-  val globalScalaVersion = "2.12.3"
+  val globalScalaVersion = "2.11.11"
 
   def buildSettings = Defaults.coreDefaultSettings ++ Seq(
     organization := "org.lichess",
@@ -21,7 +21,7 @@ object BuildSettings {
     publishArtifact in (Compile, packageSrc) := false
   )
 
-  def defaultDeps = Seq(scalaz, chess, scalalib, jodaTime, ws, specs2)
+  def defaultDeps = Seq(scalaz, chess, scalalib, jodaTime, ws, java8compat, specs2)
 
   def compile(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "compile")
   def provided(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "provided")
@@ -41,12 +41,12 @@ object BuildSettings {
 
   val compilerOptions = Seq(
     "-deprecation", "-unchecked", "-feature", "-language:_",
-    // "-Xfatal-warnings",
+    "-Xfatal-warnings",
     "-Ywarn-dead-code",
     // "-Ywarn-unused-import",
     // "-Ywarn-unused",
     // "-Xlint:missing-interpolator",
-    "-Ydelambdafy:method"
+    "-Ybackend:GenBCode", "-Ydelambdafy:method", "-target:jvm-1.8"
   )
 
   val srcMain = Seq(

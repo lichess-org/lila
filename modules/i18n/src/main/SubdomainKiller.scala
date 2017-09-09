@@ -5,13 +5,12 @@ import play.api.mvc._
 import play.api.mvc.Results.MovedPermanently
 
 import lila.common.HTTPRequest
-import old.play.Env.actionBuilder
 
 final class SubdomainKiller(domain: String) {
 
   def apply(req: RequestHeader): Option[Handler] =
     if (appliesTo(req) && !allowMobileEn(req))
-      Some(actionBuilder(MovedPermanently {
+      Some(Action(MovedPermanently {
         val protocol = s"http${if (req.secure) "s" else ""}"
         s"$protocol://$domain${req.uri}"
       }))

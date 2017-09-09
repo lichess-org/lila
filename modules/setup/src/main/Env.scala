@@ -52,6 +52,6 @@ object Env {
     prefApi = lila.pref.Env.current.api,
     relationApi = lila.relation.Env.current.api,
     gameCache = lila.game.Env.current.cached,
-    system = old.play.Env.actorSystem
+    system = lila.common.PlayApp.system
   )
 }

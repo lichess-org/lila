@@ -39,8 +39,9 @@ object Game extends LilaController {
           import org.joda.time.format.DateTimeFormat
           val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
           Ok.chunked(Env.api.pgnDump exportUserGames userId).withHeaders(
+            CONTENT_TYPE -> pgnContentType,
             CONTENT_DISPOSITION -> ("attachment; filename=" + s"lichess_${me.username}_$date.pgn")
-          ) as pgnContentType
+          )
         }
       )
     else notFound

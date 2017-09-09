@@ -44,6 +44,6 @@ object Env {
     asyncCache = lila.memo.Env.current.asyncCache,
     timelineApi = lila.timeline.Env.current.entryApi
   )(
-    old.play.Env.actorSystem
+    lila.common.PlayApp.system
   )
 }

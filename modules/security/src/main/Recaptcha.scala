@@ -1,7 +1,8 @@
 package lila.security
 
-import old.play.Env.WS
+import play.api.libs.ws.WS
 import play.api.mvc.RequestHeader
+import play.api.Play.current
 
 import lila.common.PimpedJson._
 

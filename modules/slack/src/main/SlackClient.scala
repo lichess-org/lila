@@ -1,9 +1,8 @@
 package lila.slack
 
 import play.api.libs.json._
-import play.api.libs.ws.JsonBodyReadables._
-import play.api.libs.ws.JsonBodyWritables._
-import old.play.Env.WS
+import play.api.libs.ws.WS
+import play.api.Play.current
 
 import lila.common.PimpedJson._
 

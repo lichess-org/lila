@@ -1,8 +1,6 @@
 package lila.search
 
 import play.api.libs.json._
-import play.api.libs.ws.JsonBodyReadables._
-import play.api.libs.ws.JsonBodyWritables._
 
 sealed trait ESClient {
 
@@ -24,7 +22,8 @@ final class ESClientHttp(
     val index: Index,
     writeable: Boolean
 ) extends ESClient {
-  import old.play.Env.WS
+  import play.api.libs.ws.WS
+  import play.api.Play.current
 
   def store(id: Id, doc: JsObject) = writeable ?? monitor("store") {
     HTTP(s"store/${index.name}/${id.value}", doc)

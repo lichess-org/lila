@@ -1,8 +1,8 @@
 package lila.plan
 
 import play.api.libs.json._
-import old.play.Env.WS
-import play.api.libs.ws.WSResponse
+import play.api.libs.ws.{ WS, WSResponse }
+import play.api.Play.current
 
 import lila.user.User
 
@@ -120,7 +120,7 @@ private final class StripeClient(config: StripeClient.Config) {
 
   private def get[A: Reads](url: String, queryString: Seq[(Symbol, Any)]): Fu[A] = {
     logger.info(s"GET $url ${debugInput(queryString)}")
-    request(url).addQueryStringParameters(fixInput(queryString): _*).get() flatMap response[A]
+    request(url).withQueryString(fixInput(queryString): _*).get() flatMap response[A]
   }
 
   private def post[A: Reads](url: String, data: Seq[(Symbol, Any)]): Fu[A] = {
@@ -130,11 +130,11 @@ private final class StripeClient(config: StripeClient.Config) {
 
   private def delete[A: Reads](url: String, data: Seq[(Symbol, Any)]): Fu[A] = {
     logger.info(s"DELETE $url ${debugInput(data)}")
-    request(url).addQueryStringParameters(fixInput(data): _*).delete() flatMap response[A]
+    request(url).withQueryString(fixInput(data): _*).delete() flatMap response[A]
   }
 
   private def request(url: String) =
-    WS.url(s"${config.endpoint}/$url").addHttpHeaders("Authorization" -> s"Bearer ${config.secretKey}")
+    WS.url(s"${config.endpoint}/$url").withHeaders("Authorization" -> s"Bearer ${config.secretKey}")
 
   private def response[A: Reads](res: WSResponse): Fu[A] = res.status match {
     case 200 => (implicitly[Reads[A]] reads res.json).fold(

@@ -193,7 +193,7 @@ object Env {
 
   lazy val current = "tournament" boot new Env(
     config = lila.common.PlayApp loadConfig "tournament",
-    system = old.play.Env.actorSystem,
+    system = lila.common.PlayApp.system,
     db = lila.db.Env.current,
     mongoCache = lila.memo.Env.current.mongoCache,
     asyncCache = lila.memo.Env.current.asyncCache,

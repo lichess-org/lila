@@ -1,9 +1,8 @@
 package lila.chat
 
-import play.api.libs.json._
-
 import lila.common.LightUser
 import lila.common.PimpedJson._
+import play.api.libs.json._
 
 object JsonView {
 
@@ -13,6 +12,11 @@ object JsonView {
   }
 
   def apply(line: Line): JsValue = lineWriter writes line
+
+  def userModInfo(u: UserModInfo)(implicit lightUser: LightUser.GetterSync) =
+    lila.user.JsonView.modWrites.writes(u.user) ++ Json.obj(
+      "history" -> u.history
+    )
 
   implicit val chatIdWrites: Writes[Chat.Id] = stringIsoWriter(Chat.chatIdIso)
 
@@ -56,9 +60,4 @@ object JsonView {
       "t" -> l.text
     )
   }
-
-  def userModInfo(u: UserModInfo)(implicit lightUser: LightUser.GetterSync) =
-    lila.user.JsonView.modWrites.writes(u.user) ++ Json.obj(
-      "history" -> u.history
-    )
 }

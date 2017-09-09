@@ -23,6 +23,6 @@ object Env {
     config = lila.common.PlayApp loadConfig "event",
     db = lila.db.Env.current,
     asyncCache = lila.memo.Env.current.asyncCache,
-    system = old.play.Env.actorSystem
+    system = lila.common.PlayApp.system
   )
 }

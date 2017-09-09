@@ -131,7 +131,7 @@ object Env {
     config = lila.common.PlayApp loadConfig "mod",
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
-    system = old.play.Env.actorSystem,
+    system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
     firewall = lila.security.Env.current.firewall,
     reportApi = lila.report.Env.current.api,

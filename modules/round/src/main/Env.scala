@@ -247,7 +247,7 @@ object Env {
 
   lazy val current = "round" boot new Env(
     config = lila.common.PlayApp loadConfig "round",
-    system = old.play.Env.actorSystem,
+    system = lila.common.PlayApp.system,
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
     fishnetPlayer = lila.fishnet.Env.current.player,

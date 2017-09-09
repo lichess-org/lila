@@ -19,7 +19,7 @@ package object i18n extends PackageObject with WithPlay {
   private[i18n] val lichessCodes: Map[String, Lang] = Map(
     "fp" -> Lang("frp", "IT"),
     "jb" -> Lang("jbo", "EN"),
-    "kb" -> Lang("kab", "KA"),
+    "kb" -> Lang("kab", "KAB"),
     "tc" -> Lang("zh", "CN")
   )
 

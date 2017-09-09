@@ -127,14 +127,14 @@ final class Env(
 object Env {
 
   lazy val current: Env = "fishnet" boot new Env(
-    system = old.play.Env.actorSystem,
+    system = lila.common.PlayApp.system,
     uciMemo = lila.game.Env.current.uciMemo,
     requesterApi = lila.analyse.Env.current.requesterApi,
     hub = lila.hub.Env.current,
     db = lila.db.Env.current,
     config = lila.common.PlayApp loadConfig "fishnet",
     scheduler = lila.common.PlayApp.scheduler,
-    bus = old.play.Env.actorSystem.lilaBus,
+    bus = lila.common.PlayApp.system.lilaBus,
     asyncCache = lila.memo.Env.current.asyncCache,
     sink = lila.analyse.Env.current.analyser
   )

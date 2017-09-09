@@ -188,7 +188,7 @@ private[video] final class VideoApi(
 
     private val max = 25
 
-    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Descending, GroupField, Match, Project, UnwindField, Sort, SumAll }
+    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Descending, GroupField, Match, Project, UnwindField, Sort, SumValue }
 
     private val pathsCache = asyncCache.clearable[List[Tag], List[TagNb]](
       name = "video.paths",
@@ -200,7 +200,7 @@ private[video] final class VideoApi(
           else videoColl.aggregateWithReadPreference(
             Match($doc("tags" $all filterTags)),
             List(Project($doc("tags" -> true)), UnwindField("tags"),
-              GroupField("tags")("nb" -> SumAll)),
+              GroupField("tags")("nb" -> SumValue(1))),
             ReadPreference.secondaryPreferred
           ).map(
               _.firstBatch.flatMap(_.asOpt[TagNb])
@@ -230,7 +230,7 @@ private[video] final class VideoApi(
       name = "video.popular",
       f = videoColl.aggregateWithReadPreference(
         Project($doc("tags" -> true)), List(
-          UnwindField("tags"), GroupField("tags")("nb" -> SumAll),
+          UnwindField("tags"), GroupField("tags")("nb" -> SumValue(1)),
           Sort(Descending("nb"))
         ),
         readPreference = ReadPreference.secondaryPreferred

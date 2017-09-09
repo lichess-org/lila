@@ -158,7 +158,7 @@ object Env {
     notifyApi = lila.notify.Env.current.api,
     getPref = lila.pref.Env.current.api.getPref,
     getRelation = lila.relation.Env.current.api.fetchRelation,
-    system = old.play.Env.actorSystem,
+    system = lila.common.PlayApp.system,
     hub = lila.hub.Env.current,
     db = lila.db.Env.current,
     asyncCache = lila.memo.Env.current.asyncCache

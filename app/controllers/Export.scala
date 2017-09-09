@@ -19,8 +19,9 @@ object Export extends LilaController {
         asRaw = get("as").contains("raw")
       ) map { content =>
           Ok(content).withHeaders(
+            CONTENT_TYPE -> pgnContentType,
             CONTENT_DISPOSITION -> ("attachment; filename=" + (Env.api.pgnDump filename game))
-          ) as pgnContentType
+          )
         } recover {
           case err => NotFound(err.getMessage)
         }
@@ -53,8 +54,9 @@ object Export extends LilaController {
         OptionFuResult(GameRepo game id) { game =>
           env.pngExport fromGame game map { stream =>
             Ok.chunked(stream).withHeaders(
+              CONTENT_TYPE -> "image/png",
               CACHE_CONTROL -> "max-age=7200"
-            ).as("image/png")
+            )
           }
         }
       }
@@ -74,8 +76,9 @@ object Export extends LilaController {
             logHint = s"puzzle $id"
           ) map { stream =>
               Ok.chunked(stream).withHeaders(
+                CONTENT_TYPE -> "image/png",
                 CACHE_CONTROL -> "max-age=7200"
-              ) as "image/png"
+              )
             }
         }
       }

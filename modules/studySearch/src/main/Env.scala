@@ -67,6 +67,6 @@ object Env {
     config = lila.common.PlayApp loadConfig "studySearch",
     studyEnv = lila.study.Env.current,
     makeClient = lila.search.Env.current.makeClient,
-    system = old.play.Env.actorSystem
+    system = lila.common.PlayApp.system
   )
 }

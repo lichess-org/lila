@@ -18,10 +18,6 @@ final class MongoCache[K, V: MongoCache.Handler] private (
     keyToString: K => String
 ) {
 
-  private case class Entry(_id: String, v: V, e: DateTime)
-
-  private implicit val entryBSONHandler = Macros.handler[Entry]
-
   def apply(k: K): Fu[V] = cache.get(k, k =>
     coll.find($id(makeKey(k))).uno[Entry] flatMap {
       case None => f(k) flatMap { v =>
@@ -37,6 +33,10 @@ final class MongoCache[K, V: MongoCache.Handler] private (
       persist(k, v).void
     }
   }
+
+  private case class Entry(_id: String, v: V, e: DateTime)
+
+  private implicit val entryBSONHandler = Macros.handler[Entry]
 
   private def makeKey(k: K) = s"$prefix:${keyToString(k)}"
 
