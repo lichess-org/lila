@@ -25,10 +25,10 @@
   <string name="kingInTheCenter">Король достиг центра</string>
   <string name="threeChecks">Три шаха</string>
   <string name="raceFinished">Гонка окончена</string>
-  <string name="variantEnding">Вариация завершена</string>
+  <string name="variantEnding">Вариант завершен</string>
   <string name="newOpponent">Новый соперник</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Соперник предлагает сыграть ещё раз</string>
-  <string name="joinTheGame">Присоединиться</string>
+  <string name="joinTheGame">Принять</string>
   <string name="whitePlays">Ход белых</string>
   <string name="blackPlays">Ход чёрных</string>
   <string name="opponentLeftChoices">Вероятно, ваш соперник покинул игру. Вы можете запросить победу, объявить ничью или подождать.</string>
