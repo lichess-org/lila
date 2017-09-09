@@ -675,7 +675,7 @@ export default class AnalyseCtrl {
   }
 
   hasFullComputerAnalysis = (): boolean => {
-    return this.mainline[0].eval ? Object.keys(this.mainline[0].eval).length > 0 : false;
+    return Object.keys(this.mainline[0].eval || {}).length > 0;
   }
 
   private resetAutoShapes() {

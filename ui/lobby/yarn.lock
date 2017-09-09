@@ -367,9 +367,9 @@ chalk@^1.0.0, chalk@^1.1.1:
     strip-ansi "^3.0.0"
     supports-color "^2.0.0"
 
-chessground@^7.1.3:
-  version "7.1.3"
-  resolved "https://registry.yarnpkg.com/chessground/-/chessground-7.1.3.tgz#be88530626f4e9a4786a9e2cc3b69b71a095ffd2"
+chessground@^7.2:
+  version "7.2.4"
+  resolved "https://registry.yarnpkg.com/chessground/-/chessground-7.2.4.tgz#4372c9783d212099d0be03e56b29ecf6da613853"
 
 chokidar@^1.0.0:
   version "1.7.0"
@@ -2278,8 +2278,8 @@ tsconfig@^5.0.3:
     strip-json-comments "^2.0.0"
 
 tsify@^3:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/tsify/-/tsify-3.0.1.tgz#23509ff3b4e7110ca9656f6c27ca13ec856056f6"
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/tsify/-/tsify-3.0.3.tgz#a032e1a6a71c2621c3f25c0415459d53b70b9ec0"
   dependencies:
     convert-source-map "^1.1.0"
     fs.realpath "^1.0.0"
@@ -2311,8 +2311,8 @@ typedarray@~0.0.5:
   uid ""
 
 typescript@^2:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.4.2.tgz#f8395f85d459276067c988aa41837a8f82870844"
+  version "2.5.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.5.2.tgz#038a95f7d9bbb420b1bf35ba31d4c5c1dd3ffe34"
 
 uglify-js@^3.0.5:
   version "3.0.27"

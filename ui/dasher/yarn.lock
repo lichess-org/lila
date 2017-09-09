@@ -11,8 +11,8 @@
   resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-2.0.48.tgz#3e90d8cde2d29015e5583017f7830cb3975b2eef"
 
 "@types/jqueryui@^1.11":
-  version "1.11.35"
-  resolved "https://registry.yarnpkg.com/@types/jqueryui/-/jqueryui-1.11.35.tgz#3245b652c018a0d3f299c4577a610467e41f2af9"
+  version "1.11.36"
+  resolved "https://registry.yarnpkg.com/@types/jqueryui/-/jqueryui-1.11.36.tgz#a7d8ebd6aef404d4e328418db6a2d92efa7cb153"
   dependencies:
     "@types/jquery" "*"
 
@@ -2280,8 +2280,8 @@ tsconfig@^5.0.3:
     strip-json-comments "^2.0.0"
 
 tsify@^3:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/tsify/-/tsify-3.0.1.tgz#23509ff3b4e7110ca9656f6c27ca13ec856056f6"
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/tsify/-/tsify-3.0.3.tgz#a032e1a6a71c2621c3f25c0415459d53b70b9ec0"
   dependencies:
     convert-source-map "^1.1.0"
     fs.realpath "^1.0.0"
@@ -2313,8 +2313,8 @@ typedarray@~0.0.5:
   uid ""
 
 typescript@^2:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.4.2.tgz#f8395f85d459276067c988aa41837a8f82870844"
+  version "2.5.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.5.2.tgz#038a95f7d9bbb420b1bf35ba31d4c5c1dd3ffe34"
 
 uglify-js@^3.0.5:
   version "3.0.27"

@@ -63,6 +63,7 @@ window.onload = function() {
 
   var ground = Chessground(element.querySelector('.lichess_board'), {
     viewOnly: true,
+    drawable: { enabled: false, visible: false },
     fen: challenge.initialFen,
     orientation: (opts.owner ^ challenge.color === 'black') ? 'white' : 'black',
     coordinates: false,

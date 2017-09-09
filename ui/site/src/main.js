@@ -230,7 +230,7 @@ lichess.topMenuIntent = function() {
         resizable: resizable,
         fen: $this.data('fen') || lichess.readServerFen($this.data('z')),
         lastMove: lastMove,
-        drawable: { enabled: false }
+        drawable: { enabled: false, visible: false }
       };
       if (color) config.orientation = color;
       if (ground) ground.set(config);

@@ -27,7 +27,7 @@ export default function(ctrl: LobbyController) {
                 const lm = pov.lastMove;
                 const config = {
                   coordinates: false,
-                  drawable: { enabled: false },
+                  drawable: { enabled: false, visible: false },
                   resizable: false,
                   viewOnly: true,
                   orientation: pov.variant.key === 'racingKings' ? 'white' : pov.color,

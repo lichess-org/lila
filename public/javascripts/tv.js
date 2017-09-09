@@ -10,7 +10,7 @@ function parseFen($elem) {
     var config = {
       coordinates: false,
       resizable: false,
-      drawable: { enabled: false },
+      drawable: { enabled: false, visible: false },
       viewOnly: true,
       fen: $this.data('fen'),
       lastMove: lm && [lm[0] + lm[1], lm[2] + lm[3]]
