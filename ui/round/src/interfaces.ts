@@ -17,6 +17,7 @@ export interface Untyped {
 
 export interface SocketOpts {
   ackable: boolean;
+  withLag?: boolean;
   millis?: number;
 }
 

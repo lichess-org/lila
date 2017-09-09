@@ -229,6 +229,7 @@ export default class RoundController {
       ackable: true
     };
     if (this.clock) {
+      socketOpts.withLag = !this.shouldSendMoveTime || !this.clock.isRunning;
       const moveMillis = this.clock.stopClock();
       if (this.shouldSendMoveTime) {
         if (meta.premove) socketOpts.millis = 0;
