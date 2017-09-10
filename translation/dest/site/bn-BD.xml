@@ -24,6 +24,7 @@
   <string name="blackIsVictorious">কালো বিজয়ী</string>
   <string name="kingInTheCenter">রাজাকে center এ আনুন</string>
   <string name="threeChecks">তিনটি কিস্তি</string>
+  <string name="raceFinished">প্রতিযোগিতা শেষ</string>
   <string name="variantEnding">ভিন্ন রকমের সমাপ্তি</string>
   <string name="newOpponent">নতুন প্রতিপক্ষ</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">আপনার প্রতিপক্ষ পুনরায়  আপনার সাথে খেলতে চায়</string>
@@ -45,8 +46,16 @@
   <string name="viewTheComputerAnalysis">কম্পিউটারের বিশ্লেষণটি দেখুন</string>
   <string name="requestAComputerAnalysis">কম্পিউটার বিশ্লেষণের জন্য অবেদন করুন</string>
   <string name="computerAnalysis">কম্পিউটারের বিশ্লেষণ</string>
+  <string name="computerAnalysisAvailable">কম্পিউটার বিশ্লেষণ পাওয়া যায়</string>
   <string name="analysis">বিশ্লেষণ</string>
+  <string name="depthX">গভীরতার %</string>
+  <string name="usingServerAnalysis">সার্ভারের বিশ্লেষণ ব্যবহার করা হচ্ছে</string>
+  <string name="loadingEngine">ইঞ্জিন লোড করা হচ্ছে...</string>
   <string name="move">চাল</string>
+  <string name="cpus">সিপিইউ</string>
+  <string name="memory">মেমরি</string>
+  <string name="infiniteAnalysis">অনন্ত বিশ্লেষণ</string>
+  <string name="removesTheDepthLimit">গভীরতার সীমা অপসারণ করে এবং আপনার কম্পিউটারকে গরম রাখে</string>
   <string name="blunders">চালে ভুল</string>
   <string name="mistakes">ভুল</string>
   <string name="inaccuracies">যথার্থতার অভাব</string>
