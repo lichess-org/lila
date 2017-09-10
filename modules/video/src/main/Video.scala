@@ -17,7 +17,7 @@ case class Video(
 
   def id = _id
 
-  def thumbnail = s"http://img.youtube.com/vi/$id/0.jpg"
+  def thumbnail = s"https://img.youtube.com/vi/$id/0.jpg"
 
   def similarity(other: Video) =
     (tags intersect other.tags).size +
