@@ -147,4 +147,6 @@ export class ClockController {
      Math.max(0, this.times[color] - this.elapsed()) :
      this.times[color]
   );
+
+  isRunning = () => this.times.activeColor !== undefined;
 }
