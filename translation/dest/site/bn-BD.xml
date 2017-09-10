@@ -56,6 +56,9 @@
   <string name="drawn">ড্র</string>
   <string name="unknown">অজানা</string>
   <string name="database">ডেটাবেজ</string>
+  <string name="whiteDrawBlack">সাদা / ড্র / কালো</string>
+  <string name="topGames">সেরা গেম</string>
+  <string name="allSet">সব প্রস্তুত!</string>
   <string name="cpus">সিপিইউ</string>
   <string name="memory">মেমরি</string>
   <string name="infiniteAnalysis">অনন্ত বিশ্লেষণ</string>
