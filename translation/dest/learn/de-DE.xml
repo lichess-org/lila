@@ -90,7 +90,7 @@
   <string name="mateInOneIntro">Du gewinnst, wenn sich dein Gegner nicht gegen ein Schach verteidigen kann.</string>
   <string name="attackYourOpponentsKing">Greife den gegnerischen König so an, dass er sich nicht verteidigen kann!</string>
   <string name="mateInOneComplete">Herzlichen Glückwunsch! So gewinnt man im Schach!</string>
-  <string name="intermediate">Fortgeschrittener Anfänger</string>
+  <string name="intermediate">Mittleres Niveau</string>
   <string name="boardSetup">Aufstellung</string>
   <string name="howTheGameStarts">Wie das Spiel beginnt</string>
   <string name="boardSetupIntro">Die beiden Armeen stehen einander gegenüber, bereit für die Schlacht.</string>
