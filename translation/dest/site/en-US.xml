@@ -68,7 +68,6 @@
   <string name="drawn">Drawn</string>
   <string name="unknown">Unknown</string>
   <string name="database">Database</string>
-  <string name="gameSpeed">Time control</string>
   <string name="whiteDrawBlack">White / Draw / Black</string>
   <string name="averageRatingX">Average rating: %s</string>
   <string name="recentGames">Recent games</string>
@@ -83,13 +82,27 @@
     <item quantity="other">Next capture or pawn move in %s half-moves (Distance To Zeroing of the 50 move counter)</item>
   </plurals>
   <string name="noGameFound">No game found</string>
-  <string name="alreadySearchingThroughAllAvailableGames">Already searching through all available games</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Maybe include more games from the preferences menu?</string>
   <string name="openingExplorer">Opening explorer &amp; tablebase</string>
   <string name="xOpeningExplorer">%s opening explorer</string>
   <string name="winPreventedBy50MoveRule">Win prevented by 50-move rule</string>
   <string name="lossSavedBy50MoveRule">Loss saved by 50-move rule</string>
-  <string name="allSet">OK</string>
+  <string name="allSet">All set!</string>
+  <string name="importPgn">Import PGN</string>
+  <string name="delete">Delete</string>
+  <string name="deleteThisImportedGame">Delete this imported game?</string>
+  <string name="replayMode">Replay mode</string>
+  <string name="realtimeReplay">Realtime</string>
+  <string name="byCPL">By CPL</string>
+  <string name="openStudy">Open study</string>
+  <string name="enable">Enable</string>
+  <string name="bestMoveArrow">Best move arrow</string>
+  <string name="evaluationGauge">Evaluation gauge</string>
+  <string name="multipleLines">Multiple lines</string>
+  <string name="cpus">CPUs</string>
+  <string name="memory">Memory</string>
+  <string name="infiniteAnalysis">Infinite analysis</string>
+  <string name="removesTheDepthLimit">Removes the depth limit, and keeps your computer warm</string>
   <string name="blunders">Blunders</string>
   <string name="mistakes">Mistakes</string>
   <string name="inaccuracies">Inaccuracies</string>
@@ -154,6 +167,12 @@
   <string name="passwordReset">Password reset</string>
   <string name="forgotPassword">Forgot password?</string>
   <string name="rank">Rank</string>
+  <string name="rankX">Rank: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Rank is updated every %s minutes</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s puzzle</item>
+    <item quantity="other">%s puzzles</item>
+  </plurals>
   <string name="gamesPlayed">Games played</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s game with you</item>
@@ -203,10 +222,6 @@
   <string name="incrementInSeconds">Increment in seconds</string>
   <string name="freeOnlineChess">Free Online Chess</string>
   <string name="spectators">Spectators:</string>
-  <plurals name="nbGamesPlayed">
-    <item quantity="one">%s game played</item>
-    <item quantity="other">%s games played</item>
-  </plurals>
   <plurals name="nbRated">
     <item quantity="one">%s rated</item>
     <item quantity="other">%s rated</item>
@@ -223,12 +238,17 @@
     <item quantity="one">%s draw</item>
     <item quantity="other">%s draws</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s playing</item>
+    <item quantity="other">%s playing</item>
+  </plurals>
   <string name="exportGames">Export games</string>
   <string name="ratingRange">Rating range</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Give %s seconds</item>
     <item quantity="other">Give %s seconds</item>
   </plurals>
+  <string name="giveMoreTime">Give more time</string>
   <string name="thisPlayerUsesChessComputerAssistance">This player uses chess computer assistance</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">This player artificially increases/decreases their rating</string>
   <string name="openingExplorerAndTablebase">Opening explorer &amp; tablebase</string>
@@ -247,6 +267,29 @@
   <string name="tournamentPoints">Tournament points</string>
   <string name="viewTournament">View tournament</string>
   <string name="backToTournament">Back to tournament</string>
+  <string name="thematic">Thematic</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s rated game</item>
+    <item quantity="other">≥ %s rated games</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2%s rated game</item>
+    <item quantity="other">≥ %1$s %2%s rated games</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">You need to play %1$s more %2$s rated game</item>
+    <item quantity="other">You need to play %1$s more %2$s rated games</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">You need to play %s more rated game</item>
+    <item quantity="other">You need to play %s more rated games</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Your %s rating is provisional</string>
+  <string name="yourPerfRatingIsTooHigh">Your %1$s rating (%2$s) is too high</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Your top weekly %1$s rating (%2$s) is too high</string>
+  <string name="yourPerfRatingIsTooLow">Your %1$s rating (%2$s) is too low</string>
+  <string name="ratedMoreThanInPerf">Rated ≥ %1$s in %2$s</string>
+  <string name="ratedLessThanInPerf">Rated ≤ %1$s in %2$s</string>
   <string name="backToGame">Back to game</string>
   <string name="siteDescription">Free online Chess server. Play Chess now in a clean interface. No registration, no ads, no plugin required. Play Chess with the computer, friends or random opponents.</string>
   <string name="teams">Teams</string>
@@ -280,6 +323,8 @@
   <string name="fromPosition">From position</string>
   <string name="continueFromHere">Continue from here</string>
   <string name="importGame">Import game</string>
+  <string name="importGameExplanation">When pasting a game PGN you get a browsable replay,
+a computer analysis, a game chat and a shareable URL.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s imported game</item>
     <item quantity="other">%s imported games</item>
@@ -352,6 +397,8 @@
   <string name="averageOpponent">Average opponent</string>
   <string name="membersOnly">Members only</string>
   <string name="boardEditor">Board editor</string>
+  <string name="setTheBoard">Set the board</string>
+  <string name="popularOpenings">Popular openings</string>
   <string name="startPosition">Starting position</string>
   <string name="clearBoard">Clear board</string>
   <string name="savePosition">Save position</string>
@@ -390,7 +437,7 @@
   <string name="keepGoing">Keep going…</string>
   <string name="puzzleFailed">Puzzle failed</string>
   <string name="butYouCanKeepTrying">But you can keep trying.</string>
-  <string name="victory">Victory!</string>
+  <string name="success">Success</string>
   <string name="wasThisPuzzleAnyGood">Was this puzzle any good?</string>
   <string name="pleaseVotePuzzle">Help lichess improve by voting, using the up or down arrow:</string>
   <string name="thankYou">Thank you!</string>
@@ -400,13 +447,12 @@
     <item quantity="other">Played %s times</item>
   </plurals>
   <string name="fromGameLink">From game %s</string>
-  <string name="startTraining">Start training</string>
   <string name="continueTraining">Continue training</string>
   <string name="retryThisPuzzle">Retry this puzzle</string>
   <string name="thisPuzzleIsCorrect">This puzzle is correct and interesting</string>
   <string name="thisPuzzleIsWrong">This puzzle is wrong or boring</string>
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">You have %s seconds to make your first move!</item>
+    <item quantity="one">You have %s second to make your first move!</item>
     <item quantity="other">You have %s seconds to make your first move!</item>
   </plurals>
   <plurals name="nbGamesInPlay">
@@ -416,7 +462,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Automatically proceed to next game after moving</string>
   <string name="autoSwitch">Auto switch</string>
   <string name="puzzles">Puzzles</string>
-  <string name="coordinates">Coordinates</string>
   <string name="latestUpdates">Latest updates</string>
   <string name="tournamentWinners">Tournament winners</string>
   <string name="name">Name</string>
@@ -459,6 +504,7 @@
   <string name="closeAccountExplanation">Are you sure you want to close your account? Closing your account is a permanent decision. You will no longer be able to login, and your profile page will no longer be accessible.</string>
   <string name="thisAccountIsClosed">This account is closed.</string>
   <string name="invalidUsernameOrPassword">Invalid username or password</string>
+  <string name="incorrectPassword">Incorrect password</string>
   <string name="emailMeALink">Email me a link</string>
   <string name="currentPassword">Current password</string>
   <string name="newPassword">New password</string>
@@ -510,6 +556,10 @@
   <string name="xAskedY">%1$s asked %2$s</string>
   <string name="xAnsweredY">%1$s answered %2$s</string>
   <string name="xCommentedY">%1$s commented %2$s</string>
+  <string name="victory">Victory!</string>
+  <string name="defeat">Defeat</string>
+  <string name="xVsYinZ">%1$s vs %2$s
+in %3$s</string>
   <string name="timeline">Timeline</string>
   <string name="seeAllTournaments">See all tournaments</string>
   <string name="starting">Starting:</string>
@@ -537,7 +587,7 @@
   <string name="playOnTheBoardOffline">Over the board</string>
   <string name="playOfflineComputer">Computer</string>
   <string name="opponent">Opponent</string>
-  <string name="learn">Learn</string>
+  <string name="learnMenu">Learn</string>
   <string name="community">Community</string>
   <string name="tools">Tools</string>
   <string name="increment">Increment</string>
@@ -550,7 +600,9 @@
   <string name="error.email">This email address is invalid</string>
   <string name="error.email_acceptable">This email address is not acceptable</string>
   <string name="error.email_unique">This email address is already taken</string>
+  <string name="error.email_different">This is already your email address</string>
   <string name="blindfoldChess">Blindfold chess (invisible pieces)</string>
+  <string name="zenMode">Zen mode</string>
   <string name="moveConfirmation">Move confirmation</string>
   <string name="inCorrespondenceGames">Correspondence games</string>
   <string name="ifRatingIsPlusMinusX">If rating is ± %s</string>
@@ -579,6 +631,7 @@
   <string name="sourceCode">Source Code</string>
   <string name="simultaneousExhibitions">Simultaneous exhibitions</string>
   <string name="host">Host</string>
+  <string name="hostColorX">Host color: %s</string>
   <string name="createdSimuls">Newly created simuls</string>
   <string name="hostANewSimul">Host a new simul</string>
   <string name="noSimulFound">Simul not found</string>
@@ -636,6 +689,7 @@
   <string name="crosstable">Crosstable</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">You can also scroll over the board to move in the game.</string>
   <string name="analysisShapesHowTo">Press shift+click or right-click to draw circles and arrows on the board.</string>
+  <string name="confirmResignationAndDrawOffers">Confirm resignation and draw offers</string>
   <string name="inputMovesWithTheKeyboard">Input moves with the keyboard</string>
   <string name="letOtherPlayersMessageYou">Let other players message you</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Castling method</string>
@@ -678,9 +732,14 @@
   <string name="xLikesY">%1$s likes %2$s</string>
   <string name="quickPairing">Quick pairing</string>
   <string name="lobby">Lobby</string>
+  <string name="anonymous">Anonymous</string>
   <string name="yourScore">Your score: %s</string>
   <string name="language">Language</string>
   <string name="background">Background</string>
+  <string name="light">Light</string>
+  <string name="dark">Dark</string>
+  <string name="transparent">Transparent</string>
+  <string name="backgroundImageUrl">Background image URL:</string>
   <string name="boardGeometry">Board geometry</string>
   <string name="boardTheme">Board theme</string>
   <string name="boardSize">Board size</string>

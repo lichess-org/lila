@@ -46,8 +46,36 @@
   <string name="viewTheComputerAnalysis">Shiko analizën e kompjuterit</string>
   <string name="requestAComputerAnalysis">Kërko analizë kompjuterike</string>
   <string name="computerAnalysis">Analizë kompjuterike</string>
+  <string name="computerAnalysisAvailable">Perdor analizen e kopmjuterit</string>
   <string name="analysis">Analiza</string>
+  <string name="depthX">Thellesia%s </string>
+  <string name="usingServerAnalysis">Analiza me server</string>
+  <string name="loadingEngine">Duke ngarkuar...</string>
+  <string name="cloudAnalysis">Analiza cloud</string>
+  <string name="goDeeper">Me thelle</string>
+  <string name="showThreat">Shiko rrezikun</string>
+  <string name="inLocalBrowser">browser lokal</string>
+  <string name="toggleLocalEvaluation">Celesi i kalkulimit</string>
+  <string name="move">Levizjet</string>
+  <string name="variantLoss">Varianti humbes</string>
+  <string name="variantWin">Varianti fitues</string>
+  <string name="insufficientMaterial">Ska material</string>
+  <string name="pawnMove">Levizje ushtarit</string>
+  <string name="capture">Zapto</string>
+  <string name="close">Mbyll</string>
+  <string name="winning">Fitues</string>
+  <string name="losing">Humbes</string>
+  <string name="drawn">barazim</string>
+  <string name="unknown">I panjohur</string>
+  <string name="database">Baza e të dhënave</string>
+  <string name="whiteDrawBlack">e bardhë/barazim/e zezë</string>
+  <string name="averageRatingX">mesatare pikë:%s</string>
+  <string name="recentGames">Lojra te meparshme</string>
+  <string name="topGames">Lojërat më të mira</string>
+  <string name="masterDbExplanation">Dy milion lojra OTB %1$s + FIDE nga lojtare ranked nga %2$s ne %3$s</string>
   <string name="openingExplorer">Studiues i hapjeve</string>
+  <string name="realtimeReplay">kohe reale</string>
+  <string name="byCPL">nga CPL</string>
   <string name="blunders">Gafat</string>
   <string name="mistakes">Gabimet</string>
   <string name="inaccuracies">Pasaktësitë</string>
@@ -317,7 +345,6 @@
   <string name="keepGoing">Vazhdo ...</string>
   <string name="puzzleFailed">Ushtrimi dështoi</string>
   <string name="butYouCanKeepTrying">Por mundesh të provosh përsëri.</string>
-  <string name="victory">Fitore!</string>
   <string name="wasThisPuzzleAnyGood">A ishte ky ushtrimi i mirë?</string>
   <string name="pleaseVotePuzzle">Ndihmo lichess të përmirësohet duke votuar, me shigjetat poshtë ose lartë:</string>
   <string name="thankYou">Faleminderit!</string>
@@ -327,7 +354,6 @@
     <item quantity="other">Luajtur %s herë</item>
   </plurals>
   <string name="fromGameLink">Prej lojës %s</string>
-  <string name="startTraining">Fillo trajnimin</string>
   <string name="continueTraining">Vazhdo trajnimin</string>
   <string name="retryThisPuzzle">Riprovo këtë ushtrim</string>
   <string name="thisPuzzleIsCorrect">Ky ushtrim është i saktë dhe interesant</string>
@@ -343,7 +369,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Automatikisht kalo në lojën tjetër pasi lëviz.</string>
   <string name="autoSwitch">Kalim automatik</string>
   <string name="puzzles">Ushtrime</string>
-  <string name="coordinates">Kordinatat</string>
   <string name="latestUpdates">Pëditësimet e fundit</string>
   <string name="tournamentWinners">Fitues të turneve</string>
   <string name="name">Emri</string>
@@ -428,6 +453,7 @@
   <string name="xAskedY">%1$s pyeti %2$s</string>
   <string name="xAnsweredY">%1$s u përgjigj %2$s</string>
   <string name="xCommentedY">s%1$s komentoi %2$s</string>
+  <string name="victory">Fitore!</string>
   <string name="timeline">Vija kohore</string>
   <string name="seeAllTournaments">Shiko të gjithë turnetë</string>
   <string name="starting">Fillon:</string>
@@ -454,7 +480,6 @@
   <string name="playOnTheBoardOffline">Luaj i shkëputur, në ekran.</string>
   <string name="playOfflineComputer">Luaj me kompjuterin</string>
   <string name="opponent">Kundërshtari</string>
-  <string name="learn">Mëso</string>
   <string name="community">Komuniteti</string>
   <string name="tools">Vegla</string>
   <string name="increment">Shtesa</string>

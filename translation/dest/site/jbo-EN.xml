@@ -302,7 +302,6 @@
   <string name="keepGoing">.i ko ranji</string>
   <string name="puzzleFailed">lo se namkei cu jai se fliba</string>
   <string name="butYouCanKeepTrying">.i ku\'i do ka\'e za\'ure\'u troci</string>
-  <string name="victory">.ui lo nunji\'a</string>
   <string name="wasThisPuzzleAnyGood">xu le se namkei xamgu</string>
   <string name="pleaseVotePuzzle">ko sidju mi\'a se zu\'e lo nu nilnei cuxna se pi\'o lo re strelka</string>
   <string name="thankYou">ki\'e</string>
@@ -311,7 +310,6 @@
     <item quantity="other">%s roi se kelci</item>
   </plurals>
   <string name="fromGameLink">ra\'i lo %s moi nunjvi</string>
-  <string name="startTraining">lo nu crezenzu\'e kei cfari</string>
   <string name="continueTraining">lo nu crezenzu\'e kei ranji</string>
   <string name="retryThisPuzzle">za\'ure\'u troci lo se namkei</string>
   <string name="thisPuzzleIsCorrect">le se namkei cu drani je cinri</string>
@@ -325,7 +323,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">ba zi lo nu muvgau cu catlu lo se lidne selkei</string>
   <string name="autoSwitch">zmiku nungalfi</string>
   <string name="puzzles">lo namkei</string>
-  <string name="coordinates">lo kurme\'e</string>
   <string name="latestUpdates">cnino nunstika</string>
   <string name="tournamentWinners">lo jinga be fo lo torneio</string>
   <string name="name">lo cmene</string>
@@ -410,6 +407,7 @@
   <string name="xAskedY">la\'o zoi. %1$s .zoi retsku zoi zoi. %2$s .zoi</string>
   <string name="xAnsweredY">la\'o zoi. %1$s .zoi dafsku fi zoi zoi. %2$s .zoi</string>
   <string name="xCommentedY">la\'o zoi. %1$s .zoi piksku fi zoi zoi. %2$s .zoi</string>
+  <string name="victory">.ui lo nunji\'a</string>
   <string name="timeline">citri</string>
   <string name="seeAllTournaments">catlu lo mulno liste be lo grinunjvi</string>
   <string name="starting">cfari ti\'u li</string>
@@ -434,7 +432,7 @@
   <string name="playOnTheBoardOffline">pilno lo pa fonxa</string>
   <string name="playOfflineComputer">skami</string>
   <string name="opponent">lo se jivna</string>
-  <string name="learn">cilre</string>
+  <string name="learnMenu">cilre</string>
   <string name="community">cecmu</string>
   <string name="tools">tutci</string>
   <string name="increment">ditcu se jmina</string>

@@ -24,9 +24,9 @@
     <item quantity="other">Opublikowane %1$s wiadomości w %2$s</item>
   </plurals>
   <plurals name="playedNbMoves">
-    <item quantity="one">%1$s ruch w %2$s partii korespondencyjnej</item>
-    <item quantity="few">%1$s ruchy w %2$s partiach korespondencyjnych</item>
-    <item quantity="other">%1$s ruchów w %2$s partiach korespondencyjnych</item>
+    <item quantity="one">%1$s ruch w partii korespondencyjnej:</item>
+    <item quantity="few">%1$s ruchy w partiach korespondencyjnych:</item>
+    <item quantity="other">%1$s ruchów w partiach korespondencyjnych:</item>
   </plurals>
   <plurals name="completedNbGames">
     <item quantity="one">Zakończona %s partia korespondencyjna</item>

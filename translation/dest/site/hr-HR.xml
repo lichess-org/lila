@@ -50,16 +50,24 @@
   <string name="analysis">Ploča za analizu</string>
   <string name="depthX">Dubina %s</string>
   <string name="usingServerAnalysis">U uporabi je serverska analiza</string>
+  <string name="loadingEngine">Učitavanje računalne analize...</string>
   <string name="cloudAnalysis">Analiza u oblaku</string>
   <string name="goDeeper">Idi dublje</string>
   <string name="showThreat">Pokaži prijetnju</string>
   <string name="inLocalBrowser">u lokalnom pregledniku</string>
   <string name="toggleLocalEvaluation">Prekidač za lokalnu evaluaciju</string>
+  <string name="move">Potez</string>
+  <string name="variantLoss">Poraz varijante</string>
+  <string name="variantWin">Pobjeda varijante</string>
+  <string name="insufficientMaterial">Nedostatan materijal</string>
+  <string name="pawnMove">Potez pješakom</string>
   <string name="capture">Uzimanje figure</string>
+  <string name="close">Zatvori</string>
   <string name="winning">Pobjeđuje</string>
+  <string name="losing">Gubi</string>
+  <string name="drawn">Remizira</string>
   <string name="unknown">Nepoznati ishod</string>
   <string name="database">Baza podataka</string>
-  <string name="gameSpeed">Vremenska kontrola</string>
   <string name="whiteDrawBlack">Bijeli / remi / Crni</string>
   <string name="averageRatingX">Prosječni rejting: %s</string>
   <string name="recentGames">Nedavne partije</string>
@@ -70,12 +78,33 @@
     <item quantity="few">Mat u %s međupoteza</item>
     <item quantity="other">Mat u %s međupoteza</item>
   </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Sljedeće uzimanje ili potez pješakom u %s polupotezu (udaljenost od resetiranja brojača 50 poteza)</item>
+    <item quantity="few">Sljedeće uzimanje ili potez pješakom u %s polupoteza (udaljenost od resetiranja brojača 50 poteza)</item>
+    <item quantity="other">Sljedeće uzimanje ili potez pješakom u %s polupoteza (udaljenost od resetiranja brojača 50 poteza)</item>
+  </plurals>
   <string name="noGameFound">Nije pronađena nijedna partija</string>
-  <string name="alreadySearchingThroughAllAvailableGames">Već se pretražuju sve dostupne partije</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Probaj uključiti više partija u postavkama pretraživača pozicija</string>
   <string name="openingExplorer">Pretraživač otvaranja &amp; baza pozicija u završnici</string>
+  <string name="xOpeningExplorer">%s pretraživač otvaranja</string>
   <string name="winPreventedBy50MoveRule">Pobjeda spriječena na bazi pravila o 50 poteza</string>
   <string name="lossSavedBy50MoveRule">Poraz spriječen na bazi pravila o 50 poteza</string>
   <string name="allSet">U redu</string>
+  <string name="importPgn">Uvezi PGN</string>
+  <string name="delete">Izbriši</string>
+  <string name="deleteThisImportedGame">Želiš li izbrisati ovu uvezenu partiju?</string>
+  <string name="replayMode">Repriza partije</string>
+  <string name="realtimeReplay">U stvarnom vremenu</string>
+  <string name="byCPL">Po SDP</string>
+  <string name="openStudy">Otvori studiju</string>
+  <string name="enable">Omogući</string>
+  <string name="bestMoveArrow">Strelica za najbolji potez</string>
+  <string name="evaluationGauge">Mjerilo evaluacije</string>
+  <string name="multipleLines">Višestrukih varijanti</string>
+  <string name="cpus">Procesora</string>
+  <string name="memory">Memorija</string>
+  <string name="infiniteAnalysis">Neprekidna analiza</string>
+  <string name="removesTheDepthLimit">Uklanja granicu do koje računalo može analizirati, i održava tvoje računalo toplim</string>
   <string name="blunders">Previdi</string>
   <string name="mistakes">Greške</string>
   <string name="inaccuracies">Nepreciznosti</string>
@@ -145,6 +174,13 @@
   <string name="passwordReset">Resetiraj lozinku</string>
   <string name="forgotPassword">Zaboravio/la si lozinku?</string>
   <string name="rank">Rang</string>
+  <string name="rankX">Rang: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Rang se ažurira svakih %s minuta</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s problem</item>
+    <item quantity="few">%s problema</item>
+    <item quantity="other">%s problema</item>
+  </plurals>
   <string name="gamesPlayed">Broj odigranih partija</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s odigrana partija s tobom</item>
@@ -195,11 +231,6 @@
   <string name="incrementInSeconds">Dodatak u sekundama</string>
   <string name="freeOnlineChess">Besplatni Internetski Šah</string>
   <string name="spectators">Gledatelji:</string>
-  <plurals name="nbGamesPlayed">
-    <item quantity="one">%s odigrana partija</item>
-    <item quantity="few">%s odigranih partija</item>
-    <item quantity="other">%s odigranih partija</item>
-  </plurals>
   <plurals name="nbRated">
     <item quantity="one">%s Za bodove</item>
     <item quantity="few">%s Za bodove</item>
@@ -220,6 +251,11 @@
     <item quantity="few">%s remija</item>
     <item quantity="other">%s remija</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s u tijeku</item>
+    <item quantity="few">%s u tijeku</item>
+    <item quantity="other">%s u tijeku</item>
+  </plurals>
   <string name="exportGames">Izvoz partija</string>
   <string name="ratingRange">Raspon rejtinga</string>
   <plurals name="giveNbSeconds">
@@ -227,6 +263,7 @@
     <item quantity="few">Dodaj protivniku %s sekundi</item>
     <item quantity="other">Dodaj protivniku %s sekundi</item>
   </plurals>
+  <string name="giveMoreTime">Daj više vremena</string>
   <string name="thisPlayerUsesChessComputerAssistance">Ovaj igrač koristi pomoć računala</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ovaj igrač umjetno podiže/spušta svoj rejting</string>
   <string name="openingExplorerAndTablebase">Pretraživač otvaranja &amp; baza pozicija u završnici</string>
@@ -245,6 +282,23 @@
   <string name="tournamentPoints">Turnirski bodovi</string>
   <string name="viewTournament">Pogledaj turnir</string>
   <string name="backToTournament">Povratak na turnir</string>
+  <string name="thematic">Tematski</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ jedne partije za bodove</item>
+    <item quantity="few">≥ %s partije za bodove</item>
+    <item quantity="other">≥ %s partija za bodove</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Trebaš odigrati još jednu partiju za bodove</item>
+    <item quantity="few">Trebaš odigrati još %s partije za bodove</item>
+    <item quantity="other">Trebaš odigrati još %s partija za bodove</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Vaš %s rejting je privremen</string>
+  <string name="yourPerfRatingIsTooHigh">Tvoj %1$s rejting (%2$s) je previsok</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Tvoj najvisi tjedni %1$s rejting %2$s je previsok</string>
+  <string name="yourPerfRatingIsTooLow">Vaš %1$s rejting (%2$s) je prenizak</string>
+  <string name="ratedMoreThanInPerf">%2$s rejting ≥ %1$s</string>
+  <string name="ratedLessThanInPerf">Rangirano  %1$s u %2$s</string>
   <string name="backToGame">Natrag na partiju</string>
   <string name="siteDescription">Besplatni internetski šah. Igrajte odmah, u čistom sučelju. Bez registriranja, bez reklama, bez dodatnih preuzimanja. Igrajte šah protiv računala, prijatelja ili nasumičnih protivnika.</string>
   <string name="teams">Ekipe</string>
@@ -279,6 +333,8 @@
   <string name="fromPosition">Od pozicije</string>
   <string name="continueFromHere">Nastavi odavde</string>
   <string name="importGame">Uvezi partiju</string>
+  <string name="importGameExplanation">Kada zalijepiš PGN neke partije, dobivaš reprizu partije (koju možeš pretraživati), 
+računalnu analizu, pričaonicu partije i URL za dijeljenje.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s uvezena partija</item>
     <item quantity="few">%s uvezenih partija</item>
@@ -355,6 +411,8 @@
   <string name="averageOpponent">Prosječni protivnik</string>
   <string name="membersOnly">Samo za članove</string>
   <string name="boardEditor">Uredi ploču</string>
+  <string name="setTheBoard">Postavi ploču</string>
+  <string name="popularOpenings">Popularna otvaranja</string>
   <string name="startPosition">Početna pozicija</string>
   <string name="clearBoard">Očisti ploču</string>
   <string name="savePosition">Spremi poziciju</string>
@@ -393,7 +451,7 @@
   <string name="keepGoing">Nastavi...</string>
   <string name="puzzleFailed">Problem neuspješno riješen</string>
   <string name="butYouCanKeepTrying">Ali možeš i dalje pokušavati.</string>
-  <string name="victory">Pobjeda!</string>
+  <string name="success">Uspjeh</string>
   <string name="wasThisPuzzleAnyGood">Je li ovaj problem bio dobar?</string>
   <string name="pleaseVotePuzzle">Pomozite da se lichess poboljša glasanjem, koristeći strelicu gore ili dolje:</string>
   <string name="thankYou">Hvala!</string>
@@ -404,7 +462,6 @@
     <item quantity="other">Odigrano %s puta</item>
   </plurals>
   <string name="fromGameLink">Iz partije %s</string>
-  <string name="startTraining">Započni trening</string>
   <string name="continueTraining">Nastavi trening</string>
   <string name="retryThisPuzzle">Pokušaj ponovo ovaj problem</string>
   <string name="thisPuzzleIsCorrect">Ovaj problem je točan i zanimljiv</string>
@@ -422,7 +479,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Automatski prebaci na sljedeću partiju nakon odigranog poteza</string>
   <string name="autoSwitch">Prebaci automatski</string>
   <string name="puzzles">Problemi</string>
-  <string name="coordinates">Koordinate</string>
   <string name="latestUpdates">Zadnje obavijesti</string>
   <string name="tournamentWinners">Pobjednici turnira</string>
   <string name="name">Ime</string>
@@ -431,8 +487,8 @@
   <string name="yes">Da</string>
   <string name="help">Pomoć:</string>
   <string name="createANewTopic">Kreiraj novu temu</string>
-  <string name="topics">Teme</string>
-  <string name="posts">Objave</string>
+  <string name="topics">Tema</string>
+  <string name="posts">Objava</string>
   <string name="lastPost">Zadnja objava</string>
   <string name="views">Pregleda</string>
   <string name="replies">Odgovora</string>
@@ -448,7 +504,7 @@
   <string name="insult">Vrijeđanje</string>
   <string name="troll">Provokacija</string>
   <string name="other">Ostalo</string>
-  <string name="reportDescriptionHelp">Zalijepi poveznicu na partiju/e u pitanju i objasni što nije u redu s ponašanjem korisnika.</string>
+  <string name="reportDescriptionHelp">Zalijepi poveznicu na partiju/e u pitanju i objasni što nije u redu s ponašanjem korisnika. Nemoj samo reći \"varao je\", nego reci kako si došao/la do tog zaključka. Tvoja prijava bit će obrađena brže ako ju napišeš na engleskom jeziku.</string>
   <string name="by">od %s</string>
   <string name="thisTopicIsNowClosed">Ova tema je zatvorena.</string>
   <string name="theming">Izgled</string>
@@ -465,6 +521,7 @@
   <string name="closeAccountExplanation">Jesi li siguran/sigurna? Zatvaranje tvog računa je trajna odluka. Više se nećeš moći prijaviti na svoj račun i stranica tvog profila više neće biti dostupna.</string>
   <string name="thisAccountIsClosed">Račun je zatvoren.</string>
   <string name="invalidUsernameOrPassword">Pogrešno korisničko ime ili lozinka</string>
+  <string name="incorrectPassword">Netočna lozinka</string>
   <string name="emailMeALink">Pošalji mi email</string>
   <string name="currentPassword">Trenutna lozinka</string>
   <string name="newPassword">Nova lozinka</string>
@@ -514,8 +571,12 @@
   <string name="xLeftANoteOnY">%1$s je ostavio bilješku na %2$s</string>
   <string name="xCompetesInY">%1$s se natječe u %2$s</string>
   <string name="xAskedY">%1$s je pitao %2$s</string>
-  <string name="xAnsweredY">%1$s je odgovorio %2$s</string>
+  <string name="xAnsweredY">%1$s je odgovorio na pitanje %2$s</string>
   <string name="xCommentedY">%1$s je komentirao %2$s</string>
+  <string name="victory">Pobjeda!</string>
+  <string name="defeat">Poraz</string>
+  <string name="xVsYinZ">%1$s protiv %2$s
+u %3$s</string>
   <string name="timeline">Vremenska crta</string>
   <string name="seeAllTournaments">Vidi sve turnire</string>
   <string name="starting">Počinje:</string>
@@ -545,7 +606,7 @@
   <string name="playOnTheBoardOffline">Igraj bez mreže, preko uređaja</string>
   <string name="playOfflineComputer">Igraj protiv računala</string>
   <string name="opponent">Protivnik</string>
-  <string name="learn">Učenje</string>
+  <string name="learnMenu">Učenje</string>
   <string name="community">Zajednica</string>
   <string name="tools">Alati</string>
   <string name="increment">Dodatak</string>
@@ -558,7 +619,9 @@
   <string name="error.email">Ova email adresa je neispravna</string>
   <string name="error.email_acceptable">Ova email adresa nije prihvatljiva</string>
   <string name="error.email_unique">Ova email adresa je već iskorištena</string>
+  <string name="error.email_different">Već koristiš ovu e-mail adresu</string>
   <string name="blindfoldChess">Šah na slijepo (nevidljive figure)</string>
+  <string name="zenMode">Zen način</string>
   <string name="moveConfirmation">Potvrda poteza</string>
   <string name="inCorrespondenceGames">U dopisnim partijama</string>
   <string name="ifRatingIsPlusMinusX">Ukoliko je rejting ± %s</string>
@@ -588,6 +651,7 @@
   <string name="sourceCode">Izvorni kod</string>
   <string name="simultaneousExhibitions">Simultanke</string>
   <string name="host">Domaćin</string>
+  <string name="hostColorX">Boja domaćina: %s</string>
   <string name="createdSimuls">Novokreirane simultanke</string>
   <string name="hostANewSimul">Kreiraj novu simultanku</string>
   <string name="noSimulFound">Simultanka nije pronađena</string>
@@ -631,12 +695,12 @@
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Bolji si od %1$s od %2$s igrača.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nemaš službeni %s rejting.</string>
   <string name="checkYourEmail">Provjeri svoj e-mail.</string>
-  <string name="weHaveSentYouAnEmailClickTheLink">Poslali smo ti e-mail. Klikni na link u e-mailu kako da aktiviraš svoj račun.</string>
-  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ako ne vidiš email, pogledaj na drugim mjestima (otpad/smeće, neželjena pošta, društvene mreže ili druge mape).</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Poslali smo ti e-mail. Klikni na link u e-mailu da se aktivira tvoj račun.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ako ne vidiš email, možda se nalazi u drugim mapama: smeće, neželjena pošta, društvene mreže ili druge mape.</string>
   <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Jesi li siguran/sigurna da si uopće registrirao/la svoj email na lichess-u?</string>
   <string name="itWasNotRequiredForYourRegistration">nije traženo za tvoju registraciju</string>
-  <string name="weHaveSentYouAnEmailTo">Poslali smo email na %s. Klikni link u emailu da resetiraš lozinku.</string>
-  <string name="byRegisteringYouAgreeToBeBoundByOur">Registracijom prihvaćaš %s</string>
+  <string name="weHaveSentYouAnEmailTo">Poslali smo email na %s. Klikni na link u emailu da se resetia lozinka.</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">Registracijom prihvaćaš naše %s.</string>
   <string name="networkLagBetweenYouAndLichess">mrežno kašnjenje između tebe i lichess-a</string>
   <string name="timeToProcessAMoveOnLichessServer">Vrijeme obrade poteza na lichess serveru</string>
   <string name="downloadAnnotated">Preuzmi s bilješkama</string>
@@ -646,6 +710,7 @@
   <string name="crosstable">Tablica križanja</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Možeš skrolirati preko ploče za micanje u partiji.</string>
   <string name="analysisShapesHowTo">Pritisni shift + lijevi klik ili desni klik kako bi crtao/la krugove i strelice na ploči.</string>
+  <string name="confirmResignationAndDrawOffers">Potvrdi predaju i ponudu za remi</string>
   <string name="inputMovesWithTheKeyboard">Omogući unošenje poteza tipkovnicom</string>
   <string name="letOtherPlayersMessageYou">Dopusti drugim igračima da ti pošalju poruku</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Način igranja rokade</string>
@@ -689,9 +754,14 @@
   <string name="xLikesY">%1$s se sviđa %2$s</string>
   <string name="quickPairing">Brzo uparivanje</string>
   <string name="lobby">Lobi</string>
+  <string name="anonymous">Anoniman igrač</string>
   <string name="yourScore">Tvoj rezultat: %s</string>
   <string name="language">Jezik</string>
   <string name="background">Pozadina</string>
+  <string name="light">Svijetla</string>
+  <string name="dark">Tamna</string>
+  <string name="transparent">Prozirna</string>
+  <string name="backgroundImageUrl">URL pozadinske slike:</string>
   <string name="boardGeometry">Geometrija ploče</string>
   <string name="boardTheme">Tema ploče</string>
   <string name="boardSize">Veličina ploče</string>

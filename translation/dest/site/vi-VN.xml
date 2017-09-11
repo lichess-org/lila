@@ -299,7 +299,6 @@
   <string name="keepGoing">Tiếp tục...</string>
   <string name="puzzleFailed">Giải sai</string>
   <string name="butYouCanKeepTrying">Nhưng bạn có thể thử lại</string>
-  <string name="victory">Chiến thắng!</string>
   <string name="wasThisPuzzleAnyGood">Câu này có thú vị gì không?</string>
   <string name="pleaseVotePuzzle">Giúp lichess cải thiện bằng cách bình chọn, dùng mũi tên lên hoặc xuống:</string>
   <string name="thankYou">Cám ơn!</string>
@@ -308,7 +307,6 @@
     <item quantity="other">Đã chơi %s lần</item>
   </plurals>
   <string name="fromGameLink">Từ ván cờ %s</string>
-  <string name="startTraining">Bắt đầu luyện</string>
   <string name="continueTraining">Tiếp tục luyện</string>
   <string name="retryThisPuzzle">Thử lại câu này</string>
   <string name="thisPuzzleIsCorrect">Câu đố này đúng và rất thú vị</string>
@@ -322,7 +320,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Tự động chuyển đến ván tiếp theo sau khi thực hiện nước đi</string>
   <string name="autoSwitch">Tự động chuyển</string>
   <string name="puzzles">Câu đố</string>
-  <string name="coordinates">Tọa độ</string>
   <string name="latestUpdates">cập nhật mới nhất</string>
   <string name="tournamentWinners">Vô địch giải</string>
   <string name="name">Tên</string>
@@ -407,6 +404,7 @@
   <string name="xAskedY">%1$s đã yêu cầu %2$s</string>
   <string name="xAnsweredY">%1$s đã trả lời %2$s</string>
   <string name="xCommentedY">%1$s đã bình luận %2$s</string>
+  <string name="victory">Chiến thắng!</string>
   <string name="timeline">Dòng thời gian</string>
   <string name="seeAllTournaments">Xem tất cả giải</string>
   <string name="starting">Bắt dầu đấu:</string>
@@ -431,7 +429,6 @@
   <string name="playOnTheBoardOffline">Chơi ngoại tuyến, trên bàn cờ.</string>
   <string name="playOfflineComputer">Chơi ngoiaj tuyến với máy tính</string>
   <string name="opponent">Đối thủ</string>
-  <string name="learn">Học tập</string>
   <string name="community">Cộng đồng</string>
   <string name="tools">Công cụ</string>
   <string name="increment">Gia tăng</string>

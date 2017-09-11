@@ -24,10 +24,10 @@
 jeden czarnopolowy goniec.
 Potrzebujesz ich obu!</string>
   <string name="bishopComplete">Gratulacje! Potrafisz poruszać się gońcem.</string>
-  <string name="theQueen">Królowa</string>
-  <string name="queenCombinesRookAndBishop">Królowa = wieża + goniec</string>
-  <string name="queenIntro">Czas na najpotężniejszą szachową figurę. Jej wysokość Królowa!</string>
-  <string name="queenComplete">Gratulacje! Królowa nie ma dla Ciebie tajemnic.</string>
+  <string name="theQueen">Hetman</string>
+  <string name="queenCombinesRookAndBishop">Hetman = wieża + goniec</string>
+  <string name="queenIntro">Czas na najpotężniejszą szachową figurę. Hetman!</string>
+  <string name="queenComplete">Gratulacje! Hetman nie ma dla Ciebie tajemnic.</string>
   <string name="theKing">Król</string>
   <string name="theMostImportantPiece">Najważniejsza figura</string>
   <string name="kingIntro">To Ty jesteś królem. Jeśli polegniesz w bitwie, przegrasz.</string>
@@ -46,7 +46,7 @@ Skacz i zbieraj gwiazdki!</string>
   <string name="pawnIntro">Piony są słabe, ale mają w sobie duży potencjał.</string>
   <string name="pawnsMoveOneSquareOnly">Piony poruszają się tylko o jedno pole. 
 Ale jeśli dojdą do ostatniej linii mogą zamienić się w silniejszą figurę!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">W większości przypadków najlepiej promować piona do królowej. 
+  <string name="mostOfTheTimePromotingToAQueenIsBest">W większości przypadków najlepiej promować piona na hetmana. 
 Jednak czasem bardziej przydatny może być skoczek!</string>
   <string name="pawnsMoveForward">Piony poruszają się do przodu ale biją po przekątnej!</string>
   <string name="captureThenPromote">Zbij, a później promuj piona!</string>
@@ -103,8 +103,8 @@ Jednak czasem bardziej przydatny może być skoczek!</string>
   <string name="firstPlaceTheRooks">Najpierw umieścić na szachownicy wieże! Ustaw je w rogach.</string>
   <string name="thenPlaceTheKnights">Następnie rozmieść skoczki! Postaw je obok wież.</string>
   <string name="placeTheBishops">Teraz ustaw gońce. Postaw je obok skoczków.</string>
-  <string name="placeTheQueen">Ustaw królową. Pamiętaj - królowa zawsze trzyma się własnego koloru!</string>
-  <string name="placeTheKing">Ustaw króla - postaw go obok królowej.</string>
+  <string name="placeTheQueen">Ustaw hetmana. Pamiętaj - hetman zawsze trzyma się własnego koloru!</string>
+  <string name="placeTheKing">Ustaw króla - postaw go obok hetmana.</string>
   <string name="pawnsFormTheFrontLine">Piony tworzą linię frontu. Zrób dowolny ruch aby kontynuować.</string>
   <string name="boardSetupComplete">Gratulacje! Wiesz jak prawidłowo ustawić figury na szachownicy.</string>
   <string name="castling">Roszada</string>
@@ -139,17 +139,17 @@ Jednak czasem bardziej przydatny może być skoczek!</string>
   <string name="pieceValue">Wartości figur</string>
   <string name="evaluatePieceStrength">Oceń siłę każdej figury</string>
   <string name="pieceValueIntro">Figury mające większe możliwości poruszania się warte są więcej!
-Królowa = 9
+Hetman = 9
 Wieża = 5
 Goniec = 3
 Skoczek = 3
 Pion = 1
 Król jest bezcenny! Tracąc króla przegrywasz grę.</string>
   <string name="queenOverBishop">Zbij figurę o największej wartości!
-królowa &gt; goniec</string>
+hetman &gt; goniec</string>
   <string name="takeThePieceWithTheHighestValue">Zbij figurę o najwyższej wartości!</string>
   <string name="pieceValueComplete">Gratulacje! Znasz wartości poszczególnych figur!
-Królowa = 9
+Hetman = 9
 Wieża = 5
 Goniec = 3
 Skoczek = 3

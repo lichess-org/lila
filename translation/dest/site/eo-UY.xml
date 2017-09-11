@@ -327,7 +327,6 @@
   <string name="keepGoing">Daŭrigu...</string>
   <string name="puzzleFailed">Vi malsukcesis</string>
   <string name="butYouCanKeepTrying">Sed vi rajtas daŭrigi la provon.</string>
-  <string name="victory">Venko!</string>
   <string name="wasThisPuzzleAnyGood">Ĉu vi ŝatis ĉi tiun puzlon?</string>
   <string name="pleaseVotePuzzle">Helpu al Lichess pliboniĝi per voĉdoni, uzante la supren- aŭ suben-sagbutonojn:</string>
   <string name="thankYou">Dankon!</string>
@@ -337,7 +336,6 @@
     <item quantity="other">Ludita %s-foje</item>
   </plurals>
   <string name="fromGameLink">El ludo %s</string>
-  <string name="startTraining">Komenci trejnadon</string>
   <string name="continueTraining">Daŭrigi trejnadon</string>
   <string name="retryThisPuzzle">Reprovi ĉi tiun puzlon</string>
   <string name="thisPuzzleIsCorrect">Ĉi tiu puzlo estas ĝusta kaj interesa</string>
@@ -353,7 +351,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Aŭtomate iri al la sekvanta ludo post movi</string>
   <string name="autoSwitch">Aŭtomata ludŝanĝado</string>
   <string name="puzzles">Puzloj</string>
-  <string name="coordinates">Koordinatoj</string>
   <string name="latestUpdates">Lastaj novaĵoj</string>
   <string name="tournamentWinners">Turniro-venkistoj</string>
   <string name="name">Nomo</string>
@@ -447,6 +444,7 @@
   <string name="xAskedY">%1$s demandis %2$s</string>
   <string name="xAnsweredY">%1$s respondis %2$s</string>
   <string name="xCommentedY">%1$s komentis %2$s</string>
+  <string name="victory">Venko!</string>
   <string name="timeline">Kronologio</string>
   <string name="seeAllTournaments">Montri ĉiujn turnirojn</string>
   <string name="starting">Komenciĝos je:</string>
@@ -474,7 +472,6 @@
   <string name="playOnTheBoardOffline">Ludi fizike kun aliulo</string>
   <string name="playOfflineComputer">Ludi elrete kontraŭ komputilo</string>
   <string name="opponent">Kontraŭulo</string>
-  <string name="learn">Lerni</string>
   <string name="community">Komunumo</string>
   <string name="tools">Iloj</string>
   <string name="increment">Pliiĝo</string>

@@ -317,7 +317,6 @@
   <string name="keepGoing">മുന്നോട്ട് പോവൂ...</string>
   <string name="puzzleFailed">സമസ്യ പരാജയം</string>
   <string name="butYouCanKeepTrying">എന്നാലും നിങ്ങൾ ശ്രമിച്ചു നോക്കൂ.</string>
-  <string name="victory">വിജയം!</string>
   <string name="wasThisPuzzleAnyGood">ഈ സമസ്യ നല്ലതായിരുന്നോ?</string>
   <string name="pleaseVotePuzzle">Lichess മികവുറ്റതാക്കാൻ അപ്പ് അല്ലെങ്കിൽ ഡൗൺ ആരോ ഉപയോഗിച്ച് വോട്ട് ചെയ്തു സഹായിക്കൂ:</string>
   <string name="thankYou">നന്ദി!</string>
@@ -327,7 +326,6 @@
     <item quantity="other">കളിച്ചത്‌ %s തവണകൾ</item>
   </plurals>
   <string name="fromGameLink">%s കളിയിൽ നിന്ന്</string>
-  <string name="startTraining">പരിശീലനം തുടങ്ങാം</string>
   <string name="continueTraining">പരിശീലനം തുടരാം</string>
   <string name="retryThisPuzzle">ഈ സമസ്യക്കു വീണ്ടും ശ്രമിക്കൂ</string>
   <string name="thisPuzzleIsCorrect">ഈ സമസ്യ കൃത്യവും രസകരവുമാണ്</string>
@@ -343,7 +341,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">നീക്കത്തിന് ശേഷം അടുത്ത കളിയിലേക്ക് താനെ തുടരാം</string>
   <string name="autoSwitch">ഓട്ടോ സ്വിച്ച്</string>
   <string name="puzzles">സമസ്യകൾ</string>
-  <string name="coordinates">സ്ഥാനാങ്കങ്ങൾ</string>
   <string name="latestUpdates">പുതിയ പരിഷ്‌കാരങ്ങൾ</string>
   <string name="tournamentWinners">പരമ്പരയിലെ ജേതാക്കൾ</string>
   <string name="name">പേര്</string>
@@ -423,6 +420,7 @@
   <string name="xAskedY">%1$sചോദിച്ചിരിക്കുന്നു %2$s</string>
   <string name="xAnsweredY">%1$s നൽകിയ ഉത്തരം %2$s</string>
   <string name="xCommentedY">%1$s അഭിപ്രായപ്പെട്ടിരിക്കുന്നത് %2$s</string>
+  <string name="victory">വിജയം!</string>
   <string name="timeline">ജീവിതകാലം</string>
   <string name="seeAllTournaments">എല്ലാ പരമ്പരകളും കാണാം</string>
   <string name="starting">തുടങ്ങിയത്:</string>
@@ -449,7 +447,6 @@
   <string name="playOnTheBoardOffline">ചതുരംഗ പലകയിൽ</string>
   <string name="playOfflineComputer">കമ്പ്യൂട്ടർ</string>
   <string name="opponent">എതിരാളി</string>
-  <string name="learn">അഭ്യസിക്കുക</string>
   <string name="community">സമാജം</string>
   <string name="tools">ഉപകരണങ്ങൾ</string>
   <string name="increment">കയറ്റം</string>

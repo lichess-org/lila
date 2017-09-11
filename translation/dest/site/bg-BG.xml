@@ -19,7 +19,7 @@
   <string name="white">Бели</string>
   <string name="black">Черни</string>
   <string name="randomColor">Произволен цвят</string>
-  <string name="createAGame">Създай игра</string>
+  <string name="createAGame">Създаване на игра</string>
   <string name="whiteIsVictorious">Белите победиха</string>
   <string name="blackIsVictorious">Черните победиха</string>
   <string name="kingInTheCenter">Царят е в центъра</string>
@@ -46,8 +46,28 @@
   <string name="viewTheComputerAnalysis">Виж компютърния анализ</string>
   <string name="requestAComputerAnalysis">Поискай компютърен анализ</string>
   <string name="computerAnalysis">Компютърен анализ</string>
+  <string name="computerAnalysisAvailable">Компютърния анализ е наличен</string>
   <string name="analysis">Анализ</string>
+  <string name="depthX">Дълбочина %s</string>
+  <string name="loadingEngine">Зареждане на програмата ...</string>
+  <string name="inLocalBrowser">в местния браузър</string>
+  <string name="move">Ход</string>
+  <string name="capture">Взимане</string>
+  <string name="unknown">Неизвестно</string>
+  <string name="database">База от данни</string>
+  <string name="recentGames">Скорошни игри</string>
+  <string name="topGames">Водещи игри</string>
+  <string name="noGameFound">Не е открита игра</string>
   <string name="openingExplorer">Изследовател на дебютите</string>
+  <string name="winPreventedBy50MoveRule">Победата е предотвратена от 50-ходовото правило</string>
+  <string name="delete">Изтрий</string>
+  <string name="realtimeReplay">В реално време</string>
+  <string name="byCPL">По CPL</string>
+  <string name="enable">Включване</string>
+  <string name="bestMoveArrow">Показване на най-добър ход</string>
+  <string name="cpus">Процесори</string>
+  <string name="memory">Памет</string>
+  <string name="infiniteAnalysis">Неограничен анализ</string>
   <string name="blunders">Гафове</string>
   <string name="mistakes">Грешки</string>
   <string name="inaccuracies">Неточности</string>
@@ -177,6 +197,7 @@
     <item quantity="one">Дай %s sec</item>
     <item quantity="other">Дай %s sec</item>
   </plurals>
+  <string name="giveMoreTime">Дайте повече време</string>
   <string name="thisPlayerUsesChessComputerAssistance">Този играч използва компютърна помощ</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Този играч изкуствено увеличава/намалява своята оценка</string>
   <string name="takeback">Върни ход</string>
@@ -233,6 +254,7 @@
   </plurals>
   <string name="thisIsAChessCaptcha">Това е шахматна CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Играйте хода си на дъската и докажете че сте човек</string>
+  <string name="captcha.fail">Моля решете шахматната captcha</string>
   <string name="notACheckmate">Не е шах-и-мат</string>
   <string name="colorPlaysCheckmateInOne">%s играят; мат в един ход</string>
   <string name="retry">Опитай отново</string>
@@ -240,6 +262,7 @@
   <string name="onlineFriends">Приятели</string>
   <string name="noFriendsOnline">Няма свързани приятели</string>
   <string name="findFriends">Намери приятели</string>
+  <string name="favoriteOpponents">Предпочитани съперници</string>
   <string name="follow">Следвай</string>
   <string name="following">Следвам</string>
   <string name="unfollow">Не следвай</string>
@@ -281,6 +304,9 @@
   <string name="winStreak">Поредни победи</string>
   <string name="createdBy">от</string>
   <string name="tournamentIsStarting">Турнирът започва</string>
+  <string name="youArePlaying">Играете!</string>
+  <string name="winRate">Успеваемост</string>
+  <string name="performance">Производителност</string>
   <string name="membersOnly">Само за записани</string>
   <string name="boardEditor">Шахматен редактор</string>
   <string name="startPosition">Начална позиция</string>
@@ -317,17 +343,16 @@
   <string name="keepGoing">Продължи...</string>
   <string name="puzzleFailed">Провал</string>
   <string name="butYouCanKeepTrying">Може да продължиш да опитваш.</string>
-  <string name="victory">Успех!</string>
+  <string name="success">Успех</string>
   <string name="wasThisPuzzleAnyGood">Хареса ли ви задачата?</string>
   <string name="pleaseVotePuzzle">Гласувайте, за да помогнете за подобряването на lichess, като използвате стрелките \"нагоре\" и \"надолу\"</string>
   <string name="thankYou">Благодаря!</string>
   <string name="ratingX">Рейтинг: %s</string>
   <plurals name="playedXTimes">
-    <item quantity="one">Изиграна %s  пъти</item>
+    <item quantity="one">Решавана %s пъти</item>
     <item quantity="other">Изиграна %s  пъти</item>
   </plurals>
   <string name="fromGameLink">От игра  %s</string>
-  <string name="startTraining">Започни упражнението</string>
   <string name="continueTraining">Продължи упражнението</string>
   <string name="retryThisPuzzle">Опитай отново тази задача</string>
   <string name="thisPuzzleIsCorrect">Тази задача е точна и интересна</string>
@@ -343,7 +368,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Автоматично преминаване към следващата игра след хода</string>
   <string name="autoSwitch">Автоматично превключване</string>
   <string name="puzzles">Задачи</string>
-  <string name="coordinates">Разпознаване</string>
   <string name="latestUpdates">Последни развития</string>
   <string name="tournamentWinners">Победители от състезанията</string>
   <string name="name">Име</string>
@@ -386,6 +410,7 @@
   <string name="closeAccountExplanation">Сигурен ли сте, че искате да закриете своята сметка? Закриването на вашата сметка е крайно решение. Вие няма да може да влизате с това име и вашият профил ще бъде недостъпен.</string>
   <string name="thisAccountIsClosed">Тази регистрация е закрита.</string>
   <string name="invalidUsernameOrPassword">Грешен потребител или парола</string>
+  <string name="incorrectPassword">Неправилна парола</string>
   <string name="emailMeALink">Изпрати ми препратка на ел. поща</string>
   <string name="currentPassword">Текуща парола</string>
   <string name="newPassword">Нова парола</string>
@@ -428,6 +453,7 @@
   <string name="xAskedY">%1$s зададе въпрос %2$s</string>
   <string name="xAnsweredY">%1$s отговори %2$s</string>
   <string name="xCommentedY">%1$s говори %2$s</string>
+  <string name="victory">Успех!</string>
   <string name="timeline">Уведомления</string>
   <string name="seeAllTournaments">Виж всички турнири</string>
   <string name="starting">Начало:</string>
@@ -454,7 +480,6 @@
   <string name="playOnTheBoardOffline">Играй на дъската</string>
   <string name="playOfflineComputer">Компютър</string>
   <string name="opponent">Противник</string>
-  <string name="learn">Обучение</string>
   <string name="community">Общност</string>
   <string name="tools">Инструменти</string>
   <string name="increment">Прибавяне</string>
@@ -468,6 +493,7 @@
   <string name="error.email_acceptable">Адресът на ел. поща е недопустим</string>
   <string name="error.email_unique">Тази ел. поща е вече заета</string>
   <string name="blindfoldChess">Блинд (невидими фигури)</string>
+  <string name="zenMode">Режим Zen</string>
   <string name="moveConfirmation">Потвърждение на хода</string>
   <string name="inCorrespondenceGames">Кореспондентски игри</string>
   <string name="ifRatingIsPlusMinusX">Ако рейтингът е ± %s</string>
@@ -551,8 +577,12 @@
   <string name="analysisShapesHowTo">Натисни shift едновременно с ляво или дясно копче за да рисуваш кръгове и стрелки върху дъската.</string>
   <string name="letOtherPlayersMessageYou">Разреши на другите да ви пишат</string>
   <string name="shareYourInsightsData">Споделете измерванията върху вашата игра</string>
+  <string name="withNobody">С никой</string>
+  <string name="withFriends">С приятели</string>
+  <string name="withEverybody">С всеки</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Вече сте записали ел. поща: %s</string>
   <string name="kidMode">Детски режим</string>
+  <string name="security">Сигурност</string>
   <string name="playChessEverywhere">Играй шах навсякъде</string>
   <string name="asFreeAsLichess">Така безплатно, както lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Създадено с любов към шаха, а не към парите</string>
@@ -571,4 +601,15 @@
     <item quantity="other">Преведена на %s езика!</item>
   </plurals>
   <string name="gameAnalysis">Анализ на партията</string>
+  <string name="yourScore">Резултатът ви: %s</string>
+  <string name="language">Език</string>
+  <string name="background">Фон</string>
+  <string name="light">Светъл</string>
+  <string name="dark">Тъмен</string>
+  <string name="transparent">Прозрачен</string>
+  <string name="backgroundImageUrl">URL адрес на изображението за фон:</string>
+  <string name="boardSize">Големина на дъската</string>
+  <string name="error.unknown">Грешка</string>
+  <string name="notifications">Известия</string>
+  <string name="challenges">Предизвикателства</string>
 </resources>

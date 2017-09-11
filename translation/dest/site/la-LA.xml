@@ -159,10 +159,6 @@
   <string name="incrementInSeconds">Incrementum (secundae)</string>
   <string name="freeOnlineChess">Scacci gratis in rete</string>
   <string name="spectators">Spectatores</string>
-  <plurals name="nbGamesPlayed">
-    <item quantity="one">%s ludus lusus</item>
-    <item quantity="other">%s ludi lusi</item>
-  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s victoriae</item>
     <item quantity="other">%s victoriae</item>
@@ -324,7 +320,6 @@
   <string name="keepGoing">Perge...</string>
   <string name="puzzleFailed">Cadis in problemate</string>
   <string name="butYouCanKeepTrying">Tamen rursum contendere potes.</string>
-  <string name="victory">Victoria!</string>
   <string name="wasThisPuzzleAnyGood">Fuitne bonum hoc problema?</string>
   <string name="pleaseVotePuzzle">Meliora lichessem eligendo sorsum vel deorsum:</string>
   <string name="thankYou">Gratias tibi!</string>
@@ -334,7 +329,6 @@
     <item quantity="other">Ludatum totiens %s</item>
   </plurals>
   <string name="fromGameLink">Ab ludo %s</string>
-  <string name="startTraining">Incipere exercitium</string>
   <string name="continueTraining">Continuare exercitium</string>
   <string name="retryThisPuzzle">Reconari hoc problema</string>
   <string name="thisPuzzleIsCorrect">Hoc problema probatum lepidumque est</string>
@@ -350,7 +344,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Post movendum automatice progredi ad ludum sequentem</string>
   <string name="autoSwitch">Automatice ire</string>
   <string name="puzzles">Problema</string>
-  <string name="coordinates">Coordinatae</string>
   <string name="latestUpdates">Nuntii recentissimi</string>
   <string name="tournamentWinners">Victores certaminis</string>
   <string name="name">Nomen</string>
@@ -436,6 +429,7 @@
   <string name="xAskedY">%1$s %2$s rogavit</string>
   <string name="xAnsweredY">%1$s %2$s responsavit</string>
   <string name="xCommentedY">%1$s %2$s annotavit</string>
+  <string name="victory">Victoria!</string>
   <string name="timeline">Linea temporis</string>
   <string name="seeAllTournaments">Omnia certamina videre</string>
   <string name="starting">Initium:</string>
@@ -463,7 +457,7 @@
   <string name="playOnTheBoardOffline">Trans tabulam</string>
   <string name="playOfflineComputer">Computratum</string>
   <string name="opponent">Adversarius</string>
-  <string name="learn">Disce</string>
+  <string name="learnMenu">Disce</string>
   <string name="community">Communitas</string>
   <string name="tools">Instrumenta</string>
   <string name="increment">Incrementum</string>

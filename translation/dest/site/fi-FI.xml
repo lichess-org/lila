@@ -46,8 +46,63 @@
   <string name="viewTheComputerAnalysis">Katso tietokoneanalyysi</string>
   <string name="requestAComputerAnalysis">Pyydä tietokoneanalyysiä</string>
   <string name="computerAnalysis">Tietokoneanalyysi</string>
+  <string name="computerAnalysisAvailable">Tietokoneanalyysi käytettävissä</string>
   <string name="analysis">Analyysilauta</string>
+  <string name="depthX">Syvyys %s</string>
+  <string name="usingServerAnalysis">Palvelimen analyysi</string>
+  <string name="loadingEngine">Tietokonetta ladataan ...</string>
+  <string name="cloudAnalysis">Pilvianalyysi</string>
+  <string name="goDeeper">Syvennä analyysiä</string>
+  <string name="showThreat">Näytä uhka</string>
+  <string name="inLocalBrowser">paikallisesta selaimesta</string>
+  <string name="toggleLocalEvaluation">Paikallinen analyysi päälle/päältä</string>
+  <string name="move">Siirto</string>
+  <string name="variantLoss">Variantin tappio</string>
+  <string name="variantWin">Variantin voitto</string>
+  <string name="insufficientMaterial">Riittämätön materiaali</string>
+  <string name="pawnMove">Sotilaan siirto</string>
+  <string name="capture">Lyönti</string>
+  <string name="close">Sulje</string>
+  <string name="winning">Voitto</string>
+  <string name="losing">Häviö</string>
+  <string name="drawn">Tasapeli</string>
+  <string name="unknown">Tuntematon</string>
+  <string name="database">Tietokanta</string>
+  <string name="whiteDrawBlack">Valkoinen / Tasapeli / Musta</string>
+  <string name="averageRatingX">Vahvuuslukukeskiarvo %s</string>
+  <string name="recentGames">Viimeaikaiset pelit</string>
+  <string name="topGames">Huippupelit</string>
+  <string name="masterDbExplanation">2 miljoonaa %1$s+ FIDE-rankattujen pelaajien vuosina %2$s-%3$s laudalla pelaamaa peliä</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Matti %s puolisiirrolla</item>
+    <item quantity="other">Matti %s puolisiirrolla</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Seuraava lyönti tai sotilassiirto %s puolisiirron päästä (DTZ tulee sanoista \"Distance To Zeroing of the 50 move counter\")</item>
+    <item quantity="other">Seuraava lyönti tai sotilassiirto %s puolisiirron päästä (DTZ tulee sanoista \"Distance To Zeroing of the 50 move counter\")</item>
+  </plurals>
+  <string name="noGameFound">Pelejä ei löytynyt</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Voisit sisällyttää lisää pelejä asetusvalikosta?</string>
   <string name="openingExplorer">Avaus- ja loppupelitietokanta</string>
+  <string name="xOpeningExplorer">%s avausten tutkiskeluohjelma</string>
+  <string name="winPreventedBy50MoveRule">50 siirron sääntö esti voiton</string>
+  <string name="lossSavedBy50MoveRule">50 siirron sääntö esti tappion</string>
+  <string name="allSet">Valmis!</string>
+  <string name="importPgn">Tuo PGN</string>
+  <string name="delete">Poista</string>
+  <string name="deleteThisImportedGame">Poista tuotu peli?</string>
+  <string name="replayMode">Toistotapa</string>
+  <string name="realtimeReplay">Reaaliaik.</string>
+  <string name="byCPL">Virheet</string>
+  <string name="openStudy">Avaa tutkielma</string>
+  <string name="enable">Käytössä</string>
+  <string name="bestMoveArrow">Parhaan siirron nuoli</string>
+  <string name="evaluationGauge">Arviomittari</string>
+  <string name="multipleLines">Montako linjaa</string>
+  <string name="cpus">Suorittimia</string>
+  <string name="memory">Muistia</string>
+  <string name="infiniteAnalysis">Loputon analyysi</string>
+  <string name="removesTheDepthLimit">Poistaa syvyysrajoituksen ja pitää koneesi lämpöisenä</string>
   <string name="blunders">Vakavat virheet</string>
   <string name="mistakes">Virheet</string>
   <string name="inaccuracies">Epätarkkuudet</string>
@@ -112,6 +167,12 @@
   <string name="passwordReset">Salasanan uusiminen</string>
   <string name="forgotPassword">Unohditko salasanasi?</string>
   <string name="rank">Sijoitus</string>
+  <string name="rankX">Sijoitus: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Sijoitus päivittyy joka %s minuutti</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s tehtävä</item>
+    <item quantity="other">%s tehtävää</item>
+  </plurals>
   <string name="gamesPlayed">Pelattua peliä</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s pelejä kanssasi</item>
@@ -150,6 +211,8 @@
   <string name="play">Pelaa</string>
   <string name="inbox">Postilaatikko</string>
   <string name="chatRoom">Keskusteluhuone</string>
+  <string name="loginToChat">Kirjaudu chattiin</string>
+  <string name="youHaveBeenTimedOut">Olet jäähyllä.</string>
   <string name="spectatorRoom">Katsojienhuone</string>
   <string name="composeMessage">Luo viesti</string>
   <string name="noNewMessages">Ei uusia viestejä</string>
@@ -159,6 +222,10 @@
   <string name="incrementInSeconds">Lisäaika sekunteina</string>
   <string name="freeOnlineChess">Maksutonta shakkia verkossa</string>
   <string name="spectators">Katsojat:</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s pisteytetty</item>
+    <item quantity="other">%s pisteytettyä</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s voittoa</item>
     <item quantity="other">%s voittoa</item>
@@ -171,14 +238,20 @@
     <item quantity="one">%s tasapeliä</item>
     <item quantity="other">%s tasapeliä</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s meneillään</item>
+    <item quantity="other">%s meneillään</item>
+  </plurals>
   <string name="exportGames">Vie pelejä</string>
   <string name="ratingRange">Vahvuuslukualue</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Anna %s sekuntia</item>
     <item quantity="other">Anna %s sekuntia</item>
   </plurals>
+  <string name="giveMoreTime">Anna lisää aikaa</string>
   <string name="thisPlayerUsesChessComputerAssistance">Tämä pelaaja käyttää tietokoneohjelmaa apunaan</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Tämä pelaaja yrittää keinotekoisesti nostaa pisteitään</string>
+  <string name="openingExplorerAndTablebase">Avausten tutkiskeluohjelma &amp; tietokanta</string>
   <string name="takeback">Peruuta siirto</string>
   <string name="proposeATakeback">Ehdota siirron peruutusta</string>
   <string name="takebackPropositionSent">Siirron peruutuksen ehdotus lähetetty</string>
@@ -194,6 +267,29 @@
   <string name="tournamentPoints">Turnauspisteet</string>
   <string name="viewTournament">Katso turnausta</string>
   <string name="backToTournament">Takaisin turnaukseen</string>
+  <string name="thematic">Teemallinen</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s pisteytetty peli</item>
+    <item quantity="other">≥ %s pisteytettyä peliä</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s pisteytetty %2%s-peli</item>
+    <item quantity="other">≥ %1$s pisteytettyä %2%s-peliä</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Sinun pitää pelata vielä %1$s pisteytetty %2$s-peli</item>
+    <item quantity="other">Sinun pitää pelata vielä %1$s pisteytettyä %2$s-peliä</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Sinun täytyy pelata vielä %s pisteytetty peli</item>
+    <item quantity="other">Sinun täytyy pelata vielä %s pisteytettyä peliä</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Vahvuuslukusi %s on tilapäinen</string>
+  <string name="yourPerfRatingIsTooHigh">%1$s-vahvuuslukusi (%2$s) on liian suuri</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Viikon korkein %1$s-vahvuuslukusi (%2$s) on liian suuri</string>
+  <string name="yourPerfRatingIsTooLow">%1$s-vahvuuslukusi (%2$s) ei riitä</string>
+  <string name="ratedMoreThanInPerf">%2$s-vahvuusluku ≥ %1$s</string>
+  <string name="ratedLessThanInPerf">%2$s-vahvuusluku ≤ %1$s</string>
   <string name="backToGame">Takaisin peliin</string>
   <string name="siteDescription">Ilmaista virtuaalishakkia. Pelaa shakkia nyt selkeällä käyttöliittymällä. Ei rekisteröitymistä, mainoksia tai selaimen lisäosia. Pelaa shakkia tekoälyn, ystävien tai satunnaisten pelaajien kanssa.</string>
   <string name="teams">Joukkueet</string>
@@ -227,12 +323,14 @@
   <string name="fromPosition">Asemasta</string>
   <string name="continueFromHere">Jatka tästä</string>
   <string name="importGame">Tuo peli</string>
+  <string name="importGameExplanation">Kun liität pelin PGN:n, voit selata peliä, näet tietokoneen analyysin ja pelille luodaan chat sekä URL, jonka voi jakaa.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Tuotua peliä</item>
     <item quantity="other">%s Tuotua peliä</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Tämä on shakkivarmistus.</string>
   <string name="clickOnTheBoardToMakeYourMove">Tee siirtosi todistaaksesi olevasi ihminen.</string>
+  <string name="captcha.fail">Ratkaise shakki-captcha.</string>
   <string name="notACheckmate">Siirto ei ole shakkimatti</string>
   <string name="colorPlaysCheckmateInOne">%s pelaa; shakkimatti yhdellä siirrolla</string>
   <string name="retry">Yritä uudelleen</string>
@@ -240,6 +338,7 @@
   <string name="onlineFriends">Kaverit</string>
   <string name="noFriendsOnline">Ei kavereita paikalla</string>
   <string name="findFriends">Etsi kavereita</string>
+  <string name="favoriteOpponents">Suosikkivastustajat</string>
   <string name="follow">Seuraa</string>
   <string name="following">Seurataan</string>
   <string name="unfollow">Älä seuraa</string>
@@ -281,14 +380,34 @@
   <string name="winStreak">Voittoputki</string>
   <string name="createdBy">Tekijä:</string>
   <string name="tournamentIsStarting">Turnaus alkaa</string>
+  <string name="tournamentPairingsAreNowClosed">Paritus turnauksessa on päättynyt.</string>
+  <string name="standByX">Valmistaudu %s, pelaajia paritetaan!</string>
+  <string name="youArePlaying">Sinä pelaat!</string>
+  <string name="winRate">Voittoprosentti</string>
+  <string name="berserkRate">Berserkprosentti</string>
+  <string name="performance">Suoritus</string>
+  <string name="tournamentComplete">Turnaus päättynyt</string>
+  <string name="movesPlayed">Siirtoja</string>
+  <string name="whiteWins">Valkean voittoja</string>
+  <string name="blackWins">Mustan voittoja</string>
+  <string name="draws">Tasapelejä</string>
+  <string name="nextXTournament">Seuraava %s-turnaus:</string>
+  <string name="viewMoreTournaments">Lisää turnauksia</string>
+  <string name="averageOpponent">Keskimääräinen vastustaja</string>
   <string name="membersOnly">Vain jäsenet</string>
   <string name="boardEditor">Lautaeditori</string>
+  <string name="setTheBoard">Asettele lauta</string>
+  <string name="popularOpenings">Suosittuja avauksia</string>
   <string name="startPosition">Alkuasema</string>
   <string name="clearBoard">Tyhjennä lauta</string>
   <string name="savePosition">Tallenna asema</string>
   <string name="loadPosition">Lataa asema</string>
   <string name="isPrivate">Yksityinen</string>
   <string name="reportXToModerators">Ilmianna %s moderaattoreille</string>
+  <string name="profileCompletion">Profiilia täytetty: %s</string>
+  <string name="xRating">%s-vahvuusluku</string>
+  <string name="ifNoneLeaveEmpty">Jätä tyhjäksi jos ei ole</string>
+  <string name="gameCompletionRate">Pelien loppuunvientiprosentti: %s</string>
   <string name="profile">Profiili</string>
   <string name="editProfile">Muokkaa profiilia</string>
   <string name="firstName">Etunimi</string>
@@ -317,7 +436,7 @@
   <string name="keepGoing">Jatka...</string>
   <string name="puzzleFailed">Tehtävä epäonnistui</string>
   <string name="butYouCanKeepTrying">Mutta voit jatkaa yrittämistä.</string>
-  <string name="victory">Voitit!</string>
+  <string name="success">Onnistuit</string>
   <string name="wasThisPuzzleAnyGood">Piditkö tästä tehtävästä?</string>
   <string name="pleaseVotePuzzle">Auta lichessiä parantamaan tehtäviä äänestämällä nuolilla:</string>
   <string name="thankYou">Kiitos!</string>
@@ -327,7 +446,6 @@
     <item quantity="other">Pelattu %s kertaa</item>
   </plurals>
   <string name="fromGameLink">Pelistä %s</string>
-  <string name="startTraining">Aloita harjoittelu</string>
   <string name="continueTraining">Jatka harjoittelua</string>
   <string name="retryThisPuzzle">Yritä uudestaan</string>
   <string name="thisPuzzleIsCorrect">Tämä tehtävä toimii ja on mielenkiintoinen</string>
@@ -343,7 +461,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Siirry automaattisesti seuraavaan peliin siirron jälkeen</string>
   <string name="autoSwitch">Automaattinen siirtyminen</string>
   <string name="puzzles">Tehtävät</string>
-  <string name="coordinates">Koordinaatit</string>
   <string name="latestUpdates">Viimeisimmät päivitykset</string>
   <string name="tournamentWinners">Turnausvoittajat</string>
   <string name="name">Nimi</string>
@@ -386,6 +503,7 @@
   <string name="closeAccountExplanation">Oletko varma, että haluat sulkea tilisi? Tilisi sulkeminen on pysyvä ratkaisu. Et enää pysty kirjautumaan ja profiilisivuusi ei ole enää pääsyä.</string>
   <string name="thisAccountIsClosed">Tämä tili on suljettu.</string>
   <string name="invalidUsernameOrPassword">Virheellinen käyttäjätunnus tai salasana</string>
+  <string name="incorrectPassword">Salasana ei kelpaa</string>
   <string name="emailMeALink">Lähetä minulle linkki</string>
   <string name="currentPassword">Nykyinen salasana</string>
   <string name="newPassword">Uusi salasana</string>
@@ -394,6 +512,9 @@
   <string name="pieceDestinations">Lailliset siirrot ja esisiirrot</string>
   <string name="boardCoordinates">Laudan koordinaatit (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Siirtolista pelin aikana</string>
+  <string name="pgnPieceNotation">Siirtojen merkintätapa</string>
+  <string name="chessPieceSymbol">Shakkinappulasymbolit</string>
+  <string name="pgnLetter">Kirjaimet (K, D, T, L, R)</string>
   <string name="chessClock">Shakkikello</string>
   <string name="tenthsOfSeconds">Sekunnin kymmenesosat</string>
   <string name="never">Ei koskaan</string>
@@ -401,12 +522,18 @@
   <string name="horizontalGreenProgressBars">Vaakasuora vihreä ajanetenemispalkki</string>
   <string name="soundWhenTimeGetsCritical">Äänimerkki kun aika on vähissä</string>
   <string name="gameBehavior">Pelillisiä lisäasetuksia</string>
+  <string name="howDoYouMovePieces">Kuinka siirrät nappuloita?</string>
+  <string name="clickTwoSquares">Klikkaa kahta ruutua</string>
+  <string name="dragPiece">Raahaa nappulaa</string>
+  <string name="bothClicksAndDrag">Molemmat</string>
   <string name="premovesPlayingDuringOpponentTurn">Esisiirrot (pelaaminen vastustajan vuorolla)</string>
   <string name="takebacksWithOpponentApproval">Siirtojen peruminen (vastustajan hyväksynnällä)</string>
   <string name="promoteToQueenAutomatically">Korota automaattisesti kuningattareksi</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Vaadi tasapeli automaattisesti kolminkertaisen toiston sattuessa</string>
   <string name="privacy">Yksityisyys</string>
   <string name="letOtherPlayersFollowYou">Anna muiden pelaajien seurata sinua</string>
   <string name="letOtherPlayersChallengeYou">Anna muiden pelaajien haastaa sinut</string>
+  <string name="letOtherPlayersInviteYouToStudy">Salli muiden pelaajien kutsua sinut tutkielmiin</string>
   <string name="sound">Äänet</string>
   <string name="yourPreferencesHaveBeenSaved">Asetuksesi on tallennettu.</string>
   <string name="none">Ei ollenkaan</string>
@@ -428,11 +555,16 @@
   <string name="xAskedY">%1$s kysyi %2$s</string>
   <string name="xAnsweredY">%1$s vastasi %2$s</string>
   <string name="xCommentedY">%1$s kommentoi %2$s</string>
+  <string name="victory">Voitit!</string>
+  <string name="defeat">Tappio</string>
+  <string name="xVsYinZ">%1$s vs %2$s
+%3$s-pelimuodossa</string>
   <string name="timeline">Tapahtunutta aikajärjestyksessä</string>
   <string name="seeAllTournaments">Katso kaikki turnaukset</string>
   <string name="starting">Alkamassa:</string>
   <string name="allInformationIsPublicAndOptional">Kaikki informaatio on julkista ja vapaaehtoista.</string>
   <string name="yourCityRegionOrDepartment">Kaupunkisi, alueesi tai maakuntasi.</string>
+  <string name="biographyDescription">Kerro itsestäsi, parhaista asioista shakissa tai suosikkiavauksistasi, -peleistäsi, -pelaajistasi…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maksimi: %s merkkiä.</item>
     <item quantity="other">Maksimi: %s merkkiä.</item>
@@ -454,7 +586,7 @@
   <string name="playOnTheBoardOffline">Pelaa offline-tilassa kaveria vastaan</string>
   <string name="playOfflineComputer">Pelaa tietokonetta vastaan</string>
   <string name="opponent">Vastapelaaja</string>
-  <string name="learn">Opi</string>
+  <string name="learnMenu">Opi</string>
   <string name="community">Yhteisö</string>
   <string name="tools">Työkalut</string>
   <string name="increment">Lisäaika</string>
@@ -467,7 +599,9 @@
   <string name="error.email">Tämä sähköpostiosoite on virheellinen</string>
   <string name="error.email_acceptable">Tämä sähköpostiosoite ei ole hyväksyttävä</string>
   <string name="error.email_unique">Tämä sähköpostiosoite on jo käytössä</string>
+  <string name="error.email_different">Tämä on jo nyt sähköpostiosoitteesi</string>
   <string name="blindfoldChess">Sokkoshakki (näkymättömät nappulat)</string>
+  <string name="zenMode">Zen-moodi</string>
   <string name="moveConfirmation">Siirron vahvistus</string>
   <string name="inCorrespondenceGames">Kirjeshakissa</string>
   <string name="ifRatingIsPlusMinusX">Jos vahvuusluku on ± %s</string>
@@ -496,6 +630,7 @@
   <string name="sourceCode">Lähdekoodi</string>
   <string name="simultaneousExhibitions">Yhtäaikainen näytösottelu</string>
   <string name="host">Isäntä</string>
+  <string name="hostColorX">Isännän väri: %s</string>
   <string name="createdSimuls">Äskettäin luodut simultaanit</string>
   <string name="hostANewSimul">Isännöi uutta simultaania</string>
   <string name="noSimulFound">Simultaania ei löydy</string>
@@ -530,6 +665,10 @@
   <string name="tournamentMayHaveBeenCanceled">Se on saatettua perua, jos kaikki pelaajat poistuivat turnauksesta ennen sen alkamista.</string>
   <string name="returnToTournamentsHomepage">Palaa turnausten aloitussivulle</string>
   <string name="weeklyPerfTypeRatingDistribution">Viikoittainen pelaajien vahvuuslukujakauma (%s)</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">%1$s %2$s-pelaaja tällä viikolla.</item>
+    <item quantity="other">%1$s %2$s-pelaajaa tällä viikolla.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">Sinun %1$s-vahvuuslukusi on %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Olet parempi kuin %1$s %2$s-pelaajista.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Sinulla ei ole luotettavaa %s-vahvuuslukua.</string>
@@ -549,10 +688,26 @@
   <string name="crosstable">Pistetaulukko</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Voit kelata siirtoja myös hiiren vieritysrullalla.</string>
   <string name="analysisShapesHowTo">Käytä hiiren kakkospainiketta (tai shiftiä ja ykköspainiketta) piirtääksesi ympyröitä ja nuolia laudalle.</string>
+  <string name="confirmResignationAndDrawOffers">Vahvista luovutukset ja tasapelitarjoukset</string>
+  <string name="inputMovesWithTheKeyboard">Syötä siirtoja näppäimistöllä</string>
   <string name="letOtherPlayersMessageYou">Anna muiden käyttäjien lähettää sinulle viestejä</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Kuinka linnoittaudut</string>
+  <string name="castleByMovingTwoSquares">Siirrä kuningasta kaksi ruutua</string>
+  <string name="castleByMovingOntoTheRook">Siirrä kuningas tornin päälle</string>
   <string name="shareYourInsightsData">Jaa Insights-tietosi</string>
+  <string name="withNobody">Ei kenellekään</string>
+  <string name="withFriends">Kavereille</string>
+  <string name="withEverybody">Kaikille</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Olet jo rekisteröinyt sähköpostiosoitteen: %s</string>
   <string name="kidMode">Lapsitila</string>
+  <string name="kidModeExplanation">Turvallisuusasia. Lapsitilassa kaikki kommunikointi sivustolla on pois käytöstä. Käytä tätä suojaamaan lasta tai koululaista muilta internetin käyttäjiltä.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Lapsitilassa Lichessin logoon liitetään %s-ikoni, jotta tiedät lapsesi olevan turvassa.</string>
+  <string name="enableKidMode">Lapsitila käyttöön</string>
+  <string name="disableKidMode">Lapsitila käytöstä</string>
+  <string name="security">Turvallisuus</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Lista laitteista joihin olet kirjautunut tunnuksellasi. Katkaise sessiot, joita et tunnista.</string>
+  <string name="alternativelyYouCanX">Tai voit %s.</string>
+  <string name="revokeAllSessions">katkaista kaikki sessiot</string>
   <string name="playChessEverywhere">Pelaa shakkia kaikkialla</string>
   <string name="asFreeAsLichess">Yhtä ilmainen ja vapaa kuin lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Rakennettu rakkaudesta shakkiin, ei rahan</string>
@@ -571,4 +726,41 @@
     <item quantity="other">Saatavilla %s eri kielellä!</item>
   </plurals>
   <string name="gameAnalysis">Pelianalyysi</string>
+  <string name="xHostsY">%1$s isännöi %2$s</string>
+  <string name="xJoinsY">%1$s liittyi %2$s</string>
+  <string name="xLikesY">%1$s tykkää %2$s</string>
+  <string name="quickPairing">Nopea paritus</string>
+  <string name="lobby">Aula</string>
+  <string name="anonymous">Nimetön</string>
+  <string name="yourScore">Pisteesi: %s</string>
+  <string name="language">Kieli</string>
+  <string name="background">Tausta</string>
+  <string name="light">Vaalea</string>
+  <string name="dark">Tumma</string>
+  <string name="transparent">Läpinäkyvä</string>
+  <string name="backgroundImageUrl">Taustakuvan URL:</string>
+  <string name="boardGeometry">Laudan geometria</string>
+  <string name="boardTheme">Laudan tyyli</string>
+  <string name="boardSize">Laudan koko</string>
+  <string name="pieceSet">Nappuloiden tyyli</string>
+  <string name="embedInYourWebsite">Upota sivustollesi</string>
+  <string name="usernameAlreadyUsed">Käyttäjänimi varattu, kokeile jotain toista.</string>
+  <string name="usernameInvalid">Käyttäjänimi ei kelpaa. Vain kirjaimet, numerot, alaviivat ja viivamerkit ovat sallittuja.</string>
+  <string name="usernameStartNoNumber">Käyttäjänimi ei voi alkaa numerolla.</string>
+  <string name="usernameUnacceptable">Käyttäjänimi ei kelpaa.</string>
+  <string name="directlySupportLichess">Lahjoita Lichessille</string>
+  <string name="playChessInStyle">Tyylikästä shakinpeluuta</string>
+  <string name="chessBasics">Shakin perusteet</string>
+  <string name="coaches">Valmentajat</string>
+  <string name="invalidPgn">PGN ei kelpaa</string>
+  <string name="invalidFen">FEN ei kelpaa</string>
+  <string name="error.minLength">Vähimmäispituus on %s</string>
+  <string name="error.maxLength">Enimmäispituus on %s</string>
+  <string name="error.min">Täytyy olla vähintään %s</string>
+  <string name="error.max">Saa olla enintään %s</string>
+  <string name="error.unknown">Virhe</string>
+  <string name="custom">Mukautettu</string>
+  <string name="notifications">Ilmoitukset</string>
+  <string name="challenges">Haasteet</string>
+  <string name="perfRatingX">Vahvuusluku: %s</string>
 </resources>

@@ -3,7 +3,7 @@
 <resources>
   <string name="playWithAFriend">Spiele mit einem Freund</string>
   <string name="playWithTheMachine">Spiele mit dem Computer</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Versende diese URL, um jemanden zum Spiel einzuladen</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Versende diese URL um jemanden zum Spiel einzuladen</string>
   <string name="gameOver">Spiel vorbei</string>
   <string name="waitingForOpponent">Auf den Gegner warten</string>
   <string name="waiting">Warten</string>
@@ -20,18 +20,18 @@
   <string name="black">Schwarz</string>
   <string name="randomColor">Zufällige Farbe</string>
   <string name="createAGame">Neue Partie</string>
-  <string name="whiteIsVictorious">Weiß hat gewonnen</string>
-  <string name="blackIsVictorious">Schwarz hat gewonnen</string>
+  <string name="whiteIsVictorious">Weiß gewinnt</string>
+  <string name="blackIsVictorious">Schwarz gewinnt</string>
   <string name="kingInTheCenter">König im Zentrum</string>
   <string name="threeChecks">Dreimal Schach gegeben</string>
   <string name="raceFinished">Rennen beendet</string>
-  <string name="variantEnding">Ende der Schachvariante</string>
+  <string name="variantEnding">Ende der Variante</string>
   <string name="newOpponent">Neuer Gegner</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">Dein Gegner möchte eine Revanche mit dir spielen</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Dein Gegner möchte ein neues Spiel mit dir spielen</string>
   <string name="joinTheGame">Der Partie beitreten</string>
   <string name="whitePlays">Weiß am Zug</string>
   <string name="blackPlays">Schwarz am Zug</string>
-  <string name="opponentLeftChoices">Dein Gegner hat die Partie verlassen. Du kannst den Sieg beanspruchen, das Spiel remis erklären oder auf deinen Gegner warten.</string>
+  <string name="opponentLeftChoices">Dein Gegner hat die Partie möglicherweise verlassen. Du kannst den Sieg beanspruchen, das Spiel Remis erklären oder auf deinen Gegner warten.</string>
   <string name="makeYourOpponentResign">Zwinge deinen Gegener zur Aufgabe</string>
   <string name="forceResignation">Sieg beanspruchen</string>
   <string name="forceDraw">Remis erklären</string>
@@ -41,7 +41,7 @@
   <string name="blackResigned">Schwarz hat aufgegeben</string>
   <string name="whiteLeftTheGame">Weiß hat die Partie verlassen</string>
   <string name="blackLeftTheGame">Schwarz hat die Partie verlassen</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Mit dieser URL kannst du Zuschauer einladen</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Teile diese URL um Zuschauer einzuladen</string>
   <string name="theComputerAnalysisHasFailed">Die Computer-Analyse ist fehlgeschlagen</string>
   <string name="viewTheComputerAnalysis">Computer-Analyse betrachten</string>
   <string name="requestAComputerAnalysis">Computer-Analyse anfordern</string>
@@ -52,8 +52,8 @@
   <string name="usingServerAnalysis">Serveranalyse wird verwendet</string>
   <string name="loadingEngine">Engine wird geladen ...</string>
   <string name="cloudAnalysis">Cloud-Analyse</string>
-  <string name="goDeeper">Tiefer gehen</string>
-  <string name="showThreat">Drohungen anzeigen</string>
+  <string name="goDeeper">Tiefe erhöhen</string>
+  <string name="showThreat">Drohungen zeigen</string>
   <string name="inLocalBrowser">im lokalen Browser</string>
   <string name="toggleLocalEvaluation">Lokale Auswertung an-/ausschalten</string>
   <string name="move">Zug</string>
@@ -62,26 +62,47 @@
   <string name="insufficientMaterial">Zu wenig Material</string>
   <string name="pawnMove">Bauernzug</string>
   <string name="capture">Schlagzug</string>
+  <string name="close">Schließen</string>
+  <string name="winning">Gewinnt</string>
+  <string name="losing">Verliert</string>
   <string name="drawn">Remis</string>
   <string name="unknown">Unbekannt</string>
   <string name="database">Datenbank</string>
-  <string name="gameSpeed">Spielgeschwindigkeit</string>
   <string name="whiteDrawBlack">Weiß / Remis / Schwarz</string>
   <string name="averageRatingX">Durchschnittliche Wertungszahl: %s</string>
-  <string name="recentGames">Aktuelle Spiele</string>
+  <string name="recentGames">Neue Partien</string>
   <string name="topGames">Spitzenpartien</string>
+  <string name="masterDbExplanation">Zwei Millionen OTB-Partien von Spielern mit einer Wertungszahl über %1$s FIDE aus den Jahren %2$s bis %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Matt in %s Halbzug</item>
     <item quantity="other">Matt in %s Halbzügen</item>
   </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Nächster Schlag- oder Bauernzug in %s Halbzug (Distanz zum Zurücksetzen des Zählers für die 50-Züge-Regel)</item>
+    <item quantity="other">Nächster Schlag- oder Bauernzug in %s Halbzügen (Distanz zum Zurücksetzen des Zählers für die 50-Züge-Regel)</item>
+  </plurals>
   <string name="noGameFound">Kein Spiel gefunden</string>
-  <string name="alreadySearchingThroughAllAvailableGames">Es werden bereits alle verfügbaren Spiele durchsucht</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Vielleicht sollten mehr Spiele über das \"Einstellungen\"-Menü einbezogen werden?</string>
   <string name="openingExplorer">Eröffnungsdatenbank &amp; Tablebases</string>
   <string name="xOpeningExplorer">%s Eröffnungsbuch</string>
   <string name="winPreventedBy50MoveRule">Sieg durch 50-Züge-Regel verhindert</string>
   <string name="lossSavedBy50MoveRule">Verlust durch 50-Züge-Regel verhindert</string>
   <string name="allSet">Fertig!</string>
+  <string name="importPgn">PGN importieren</string>
+  <string name="delete">Löschen</string>
+  <string name="deleteThisImportedGame">Dieses importierte Spiel löschen?</string>
+  <string name="replayMode">Wiedergabemodus</string>
+  <string name="realtimeReplay">Echtzeit</string>
+  <string name="byCPL">Nach CPL</string>
+  <string name="openStudy">Studie öffnen</string>
+  <string name="enable">Einschalten</string>
+  <string name="bestMoveArrow">Pfeil für besten Zug</string>
+  <string name="evaluationGauge">Bewertungsanzeige</string>
+  <string name="multipleLines">Mehrere Varianten</string>
+  <string name="cpus">CPUs</string>
+  <string name="memory">Arbeitsspeicher</string>
+  <string name="infiniteAnalysis">Unendliche Analyse</string>
+  <string name="removesTheDepthLimit">Entfernt die Tiefenbegrenzung und hält deinen Computer warm</string>
   <string name="blunders">Grobe Patzer</string>
   <string name="mistakes">Fehler</string>
   <string name="inaccuracies">Ungenauigkeiten</string>
@@ -115,7 +136,7 @@
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s postete im Thread %2$s</string>
   <string name="latestForumPosts">Neueste Forenbeiträge</string>
-  <string name="players">Schachspieler</string>
+  <string name="players">Spieler</string>
   <string name="minutesPerSide">Minuten pro Spieler</string>
   <string name="variant">Schachvariante</string>
   <string name="variants">Schachvarianten</string>
@@ -146,6 +167,12 @@
   <string name="passwordReset">Passwort zurücksetzen</string>
   <string name="forgotPassword">Passwort vergessen?</string>
   <string name="rank">Rang</string>
+  <string name="rankX">Platz: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Platzierung wird alle %s Minuten aktualisiert</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s Aufgabe</item>
+    <item quantity="other">%s Aufgaben</item>
+  </plurals>
   <string name="gamesPlayed">Gespielte Partien</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s Partie mit dir</item>
@@ -195,10 +222,6 @@
   <string name="incrementInSeconds">Inkrement in Sekunden</string>
   <string name="freeOnlineChess">Kostenloses Online-Schach</string>
   <string name="spectators">Zuschauer:</string>
-  <plurals name="nbGamesPlayed">
-    <item quantity="one">%s Spiel gespielt</item>
-    <item quantity="other">%s Spiele gespielt</item>
-  </plurals>
   <plurals name="nbRated">
     <item quantity="one">%s gewertet</item>
     <item quantity="other">%s gewertet</item>
@@ -215,15 +238,20 @@
     <item quantity="one">%s Remis</item>
     <item quantity="other">%s Remis</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s laufende Partie</item>
+    <item quantity="other">%s laufende Partien</item>
+  </plurals>
   <string name="exportGames">Partien exportieren</string>
   <string name="ratingRange">Ratingbereich</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dem Gegner %s Sekunde geben</item>
     <item quantity="other">Dem Gegner %s Sekunden geben</item>
   </plurals>
+  <string name="giveMoreTime">Mehr Zeit geben</string>
   <string name="thisPlayerUsesChessComputerAssistance">Dieser Spieler verwendet ein Schachprogramm zur Unterstützung</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Dieser Spieler manipuliert seine Wertungszahl</string>
-  <string name="openingExplorerAndTablebase">Eröffnungsbuch &amp; Tablebases</string>
+  <string name="openingExplorerAndTablebase">Eröffnungsbuch &amp; Tablebase</string>
   <string name="takeback">Zugrücknahme</string>
   <string name="proposeATakeback">Zugrücknahme vorschlagen</string>
   <string name="takebackPropositionSent">Zugrücknahme angefordert</string>
@@ -239,6 +267,29 @@
   <string name="tournamentPoints">Turnierpunkte</string>
   <string name="viewTournament">Turnier anschauen</string>
   <string name="backToTournament">Zurück zum Turnier</string>
+  <string name="thematic">Thematisch</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s gewertetes Spiel</item>
+    <item quantity="other">≥ %s gewertete Spiele</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s gewertetes %2$s Spiel</item>
+    <item quantity="other">≥ %1$s gewertete %2$s Spiele</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Du musst noch %1$s gewertete Partie mehr %2$s spielen</item>
+    <item quantity="other">Du musst noch %1$s gewertete Partien mehr %2$s spielen</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Du musst noch %s gewertetes Spiel mehr spielen</item>
+    <item quantity="other">Du musst noch %s gewertete Spiele mehr spielen</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Deine %s Wertung ist provisorisch</string>
+  <string name="yourPerfRatingIsTooHigh">Deine %1$s Wertung (%2$s) ist zu hoch</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Deine beste wöchentliche %1$s Wertung (%2$s) ist zu hoch</string>
+  <string name="yourPerfRatingIsTooLow">Deine %1$s Wertung (%2$s) ist zu niedrig</string>
+  <string name="ratedMoreThanInPerf">Wertung ≥ %1$s in %2$s</string>
+  <string name="ratedLessThanInPerf">Wertung ≤ %1$s in %2$s</string>
   <string name="backToGame">Zurück zum Spiel</string>
   <string name="siteDescription">Kostenloses Online-Schach. Spiele jetzt in einer einladenden Umgebung Schach! Keine Werbung, keine Registrierung oder Plugins erforderlich. Spiele gegen den Computer, Freunde oder zufällige Gegner!</string>
   <string name="teams">Teams</string>
@@ -272,6 +323,7 @@
   <string name="fromPosition">Von Stellung</string>
   <string name="continueFromHere">Von hier aus weiterspielen</string>
   <string name="importGame">Importiere Partie</string>
+  <string name="importGameExplanation">Wenn du ein PGN einfügst bekommst du eine Spielwiederholung, eine Computeranalyse, einen Spielchat und eine teilbare URL.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importierte Partie</item>
     <item quantity="other">%s importierte Partien</item>
@@ -333,17 +385,19 @@
   <string name="youArePlaying">Dein Spiel beginnt!</string>
   <string name="winRate">Gewinnrate</string>
   <string name="berserkRate">Berserkrate</string>
-  <string name="performance">Performance</string>
+  <string name="performance">Turnierleistung</string>
   <string name="tournamentComplete">Turnier beendet</string>
   <string name="movesPlayed">Gespielte Züge</string>
-  <string name="whiteWins">Weiß gewinnt</string>
-  <string name="blackWins">Schwarz gewinnt</string>
-  <string name="draws">Remis</string>
+  <string name="whiteWins">Weiße Siege</string>
+  <string name="blackWins">Schwarze Siege</string>
+  <string name="draws">Remisen</string>
   <string name="nextXTournament">Nächstes %s Turnier:</string>
   <string name="viewMoreTournaments">Weitere Turniere anzeigen</string>
   <string name="averageOpponent">Durchschnittlicher Gegner</string>
   <string name="membersOnly">Nur für Mitglieder</string>
   <string name="boardEditor">Stellung aufbauen</string>
+  <string name="setTheBoard">Brett aufbauen</string>
+  <string name="popularOpenings">Beliebte Eröffnungen</string>
   <string name="startPosition">Anfangsposition</string>
   <string name="clearBoard">Brett räumen</string>
   <string name="savePosition">Stellung speichern</string>
@@ -367,7 +421,7 @@
   <string name="activeToday">Heute aktiv</string>
   <string name="activePlayers">Aktive Spieler</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Achtung! Das Spiel wird gewertet, aber ohne Uhr gespielt!</string>
-  <string name="training">Puzzles</string>
+  <string name="training">Taktikaufgaben</string>
   <string name="yourPuzzleRatingX">Deine Taktikwertung: %s</string>
   <string name="findTheBestMoveForWhite">Finde den besten Zug für Weiß.</string>
   <string name="findTheBestMoveForBlack">Finde den besten Zug für Schwarz.</string>
@@ -382,7 +436,7 @@
   <string name="keepGoing">Mach weiter...</string>
   <string name="puzzleFailed">Nicht gelöst</string>
   <string name="butYouCanKeepTrying">Aber du kannst es trotzdem weiterversuchen.</string>
-  <string name="victory">Geschafft!</string>
+  <string name="success">Korrekt</string>
   <string name="wasThisPuzzleAnyGood">Wie fandest du diese Aufgabe?</string>
   <string name="pleaseVotePuzzle">Verbessere Lichess, indem du mit den Pfeilen abstimmst:</string>
   <string name="thankYou">Vielen Dank!</string>
@@ -392,14 +446,13 @@
     <item quantity="other">%s mal gespielt</item>
   </plurals>
   <string name="fromGameLink">Aus der Partie %s</string>
-  <string name="startTraining">Training beginnen</string>
   <string name="continueTraining">Training fortsetzen</string>
-  <string name="retryThisPuzzle">Nochmal probieren</string>
+  <string name="retryThisPuzzle">Diese Aufgabe erneut versuchen</string>
   <string name="thisPuzzleIsCorrect">Diese Aufgabe ist korrekt und interessant</string>
   <string name="thisPuzzleIsWrong">Diese Aufgabe ist falsch oder langweilig</string>
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Du hast eine Sekunde, um deinen ersten Zug zu machen!</item>
-    <item quantity="other">Du hast %s Sekunden, um deinen ersten Zug zu machen!</item>
+    <item quantity="one">Du hast %s Sekunde um deinen ersten Zug zu machen!</item>
+    <item quantity="other">Du hast %s Sekunden um deinen ersten Zug zu machen!</item>
   </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s laufende Partie</item>
@@ -408,8 +461,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Nach dem Zug automatisch zur nächsten Partie gehen</string>
   <string name="autoSwitch">Automatischer Wechsel</string>
   <string name="puzzles">Aufgaben</string>
-  <string name="coordinates">Koordinaten</string>
-  <string name="latestUpdates">Blog</string>
+  <string name="latestUpdates">Neueste Updates</string>
   <string name="tournamentWinners">Turniersieger</string>
   <string name="name">Name</string>
   <string name="description">Beschreibung</string>
@@ -420,9 +472,9 @@
   <string name="topics">Themen</string>
   <string name="posts">Beiträge</string>
   <string name="lastPost">Letzter Beitrag</string>
-  <string name="views">Angesehen</string>
+  <string name="views">Besuche</string>
   <string name="replies">Antworten</string>
-  <string name="replyToThisTopic">Auf diesen Beitrag antworten</string>
+  <string name="replyToThisTopic">Auf dieses Thema antworten</string>
   <string name="reply">Antworten</string>
   <string name="message">Nachricht</string>
   <string name="createTheTopic">Thema erstellen</string>
@@ -430,20 +482,20 @@
   <string name="user">Benutzer</string>
   <string name="reason">Grund</string>
   <string name="whatIsIheMatter">Was ist das Problem?</string>
-  <string name="cheat">Cheating</string>
+  <string name="cheat">Betrug</string>
   <string name="insult">Beleidigung</string>
   <string name="troll">Troll</string>
   <string name="other">Sonstiges</string>
-  <string name="reportDescriptionHelp">Füge den Link zur Partie ein und erkläre die Auffälligkeiten bezüglich des Spielerverhaltens. Bitte schreibe nicht einfach nur „dieser Spieler betrügt“, sondern begründe auch, wie du zu diesem Schluss kommst. Dein Bericht wird schneller bearbeitet, wenn er in englischer Sprache verfasst ist.</string>
+  <string name="reportDescriptionHelp">Füge den Link zu einer oder mehreren Partien ein und erkläre die Auffälligkeiten bezüglich des Spielerverhaltens. Bitte schreibe nicht einfach nur „dieser Spieler betrügt“, sondern begründe auch, wie Du zu diesem Schluss kommst. Dein Bericht wird schneller bearbeitet, wenn er in englischer Sprache verfasst ist.</string>
   <string name="by">von %s</string>
-  <string name="thisTopicIsNowClosed">Dieses Thema ist jetzt geschlossen.</string>
+  <string name="thisTopicIsNowClosed">Dieses Thema wurde geschlossen.</string>
   <string name="theming">Design</string>
   <string name="donate">Spenden</string>
   <string name="blog">Blog</string>
   <string name="questionsAndAnswers">Fragen &amp; Antworten</string>
   <string name="notes">Notizen</string>
   <string name="typePrivateNotesHere">Private Notizen hier eingeben</string>
-  <string name="gameDisplay">Darstellung</string>
+  <string name="gameDisplay">Spieldarstellung</string>
   <string name="pieceAnimation">Figurenanimation</string>
   <string name="materialDifference">Materialunterschied</string>
   <string name="closeAccount">Benutzerkonto schließen</string>
@@ -451,17 +503,18 @@
   <string name="closeAccountExplanation">Möchtest du dein Benutzerkonto wirklich schließen? Diese Entscheidung ist endgültig. Ein Login ist danach nicht mehr möglich und die Profilseite nicht mehr verfügbar.</string>
   <string name="thisAccountIsClosed">Dieses Benutzerkonto ist geschlossen.</string>
   <string name="invalidUsernameOrPassword">Ungültiger Benutzername oder Passwort</string>
+  <string name="incorrectPassword">Falsches Passwort</string>
   <string name="emailMeALink">Schicke mir einen Link per E-Mail</string>
   <string name="currentPassword">Derzeitiges Passwort</string>
   <string name="newPassword">Neues Passwort</string>
   <string name="newPasswordAgain">Neues Passwort (wiederholen)</string>
   <string name="boardHighlights">Markierungen auf dem Brett (letzter Zug und Schach)</string>
   <string name="pieceDestinations">Zielfelder markieren (gültige Züge und Vorauszüge)</string>
-  <string name="boardCoordinates">Koordinaten (A-H, 1-8)</string>
+  <string name="boardCoordinates">Brettkoordinaten (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Notation während des Spiels anzeigen</string>
   <string name="pgnPieceNotation">Figurendarstellung in der PGN-Notation</string>
   <string name="chessPieceSymbol">Schachfigurensymbol</string>
-  <string name="pgnLetter">PGN-Buchstabe (K, Q, R, B, N)</string>
+  <string name="pgnLetter">Buchstaben (K, Q, R, B, N)</string>
   <string name="chessClock">Schachuhr</string>
   <string name="tenthsOfSeconds">Zehntelsekunden</string>
   <string name="never">Nie</string>
@@ -502,6 +555,9 @@
   <string name="xAskedY">%1$s fragte %2$s</string>
   <string name="xAnsweredY">%1$s beantwortete %2$s</string>
   <string name="xCommentedY">%1$s kommentierte %2$s</string>
+  <string name="victory">Geschafft!</string>
+  <string name="defeat">Niederlage</string>
+  <string name="xVsYinZ">%1$s gegen %2$s in %3$s</string>
   <string name="timeline">Verlauf</string>
   <string name="seeAllTournaments">Alle Turniere anzeigen</string>
   <string name="starting">Beginnt:</string>
@@ -529,7 +585,7 @@
   <string name="playOnTheBoardOffline">Spiele offline gegen Mensch</string>
   <string name="playOfflineComputer">Spiele offline gegen Computer</string>
   <string name="opponent">Gegner</string>
-  <string name="learn">Lernen</string>
+  <string name="learnMenu">Lernen</string>
   <string name="community">Gemeinschaft</string>
   <string name="tools">Werkzeuge</string>
   <string name="increment">Inkrement</string>
@@ -542,7 +598,9 @@
   <string name="error.email">Diese E-Mail-Adresse ist ungültig</string>
   <string name="error.email_acceptable">Diese E-Mail-Adresse wird nicht akzeptiert</string>
   <string name="error.email_unique">Diese E-Mail-Adresse ist schon vergeben</string>
+  <string name="error.email_different">Dies ist bereits deine E-Mail Adresse</string>
   <string name="blindfoldChess">Blindschach (unsichtbare Figuren)</string>
+  <string name="zenMode">Zen-Modus</string>
   <string name="moveConfirmation">Zugbestätigung</string>
   <string name="inCorrespondenceGames">Im Fernschach</string>
   <string name="ifRatingIsPlusMinusX">Nur, wenn die Wertungszahl ± %s ist</string>
@@ -571,6 +629,7 @@
   <string name="sourceCode">Quellcode</string>
   <string name="simultaneousExhibitions">Simultanschach</string>
   <string name="host">Veranstalter</string>
+  <string name="hostColorX">Farbe des Ausrichters: %s</string>
   <string name="createdSimuls">Neue Simultanspiele</string>
   <string name="hostANewSimul">Ein Simultan veranstalten</string>
   <string name="noSimulFound">Simultan nicht gefunden</string>
@@ -628,6 +687,7 @@
   <string name="crosstable">Matchverlauf</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kannst auch auf dem Brett scrollen, um die Partie durchzugehen.</string>
   <string name="analysisShapesHowTo">Drücke Shift+Mausklick oder Rechtsklick, um Kreise und Pfeile auf dem Brett zu zeichnen.</string>
+  <string name="confirmResignationAndDrawOffers">Aufgabe und Remis-Angebote bestätigen</string>
   <string name="inputMovesWithTheKeyboard">Züge mit der Tastatur eingeben</string>
   <string name="letOtherPlayersMessageYou">Erlaube anderen Spielern dich zu kontaktieren</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rochiere, indem der König zwei Felder oder auf den Turm bewegt wird</string>
@@ -670,9 +730,14 @@
   <string name="xLikesY">%1$s gefällt %2$s</string>
   <string name="quickPairing">Schnelles Spiel</string>
   <string name="lobby">Lobby</string>
+  <string name="anonymous">Anonym</string>
   <string name="yourScore">Punktestand: %s</string>
   <string name="language">Sprache</string>
   <string name="background">Hintergrund</string>
+  <string name="light">Hell</string>
+  <string name="dark">Dunkel</string>
+  <string name="transparent">Transparent</string>
+  <string name="backgroundImageUrl">Hintergrundbild-URL:</string>
   <string name="boardGeometry">Brettgröße und 3D</string>
   <string name="boardTheme">Brettdesign</string>
   <string name="boardSize">Brettgröße</string>

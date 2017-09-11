@@ -317,7 +317,6 @@
   <string name="keepGoing">Hou aan...</string>
   <string name="puzzleFailed">Kopkrapper mislukking</string>
   <string name="butYouCanKeepTrying">Maar jy kan aanhou probeer.</string>
-  <string name="victory">Sukses!</string>
   <string name="wasThisPuzzleAnyGood">Was dit \'n goeie kopkrapper?</string>
   <string name="pleaseVotePuzzle">Verbeter lichess deur te stem met die op of af pyltjie:</string>
   <string name="thankYou">Dankie!</string>
@@ -327,7 +326,6 @@
     <item quantity="other">%s keer gespeel</item>
   </plurals>
   <string name="fromGameLink">Van spel %s</string>
-  <string name="startTraining">Begin oefen</string>
   <string name="continueTraining">Aanhou oefen</string>
   <string name="retryThisPuzzle">Probeer kopkrapper weer</string>
   <string name="thisPuzzleIsCorrect">Hierdie kopkrapper is korrek en interessant</string>
@@ -343,7 +341,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Gaan outomaties voort na die volgende spel ná jy skuif</string>
   <string name="autoSwitch">Flink oorskakel</string>
   <string name="puzzles">Kopkrappers</string>
-  <string name="coordinates">Koördinate</string>
   <string name="latestUpdates">Mees onlangste bywerkings</string>
   <string name="tournamentWinners">Toernooi wenners</string>
   <string name="name">Naam</string>
@@ -428,6 +425,7 @@
   <string name="xAskedY">%1$s gevra %2$s</string>
   <string name="xAnsweredY">%1$s antwoord %2$s</string>
   <string name="xCommentedY">%1$s kommentaar %2$s</string>
+  <string name="victory">Sukses!</string>
   <string name="timeline">Tydlyn</string>
   <string name="seeAllTournaments">Bekyk alle toernooie</string>
   <string name="starting">Aanvang:</string>
@@ -454,7 +452,6 @@
   <string name="playOnTheBoardOffline">Oor die bord</string>
   <string name="playOfflineComputer">Rekenaar</string>
   <string name="opponent">Opponent</string>
-  <string name="learn">Leer</string>
   <string name="community">Gemeenskap</string>
   <string name="tools">Gereedskap</string>
   <string name="increment">Toename</string>

@@ -317,7 +317,6 @@
   <string name="keepGoing">Davam edin</string>
   <string name="puzzleFailed">Tapmaca həll olunmadı</string>
   <string name="butYouCanKeepTrying">Bəxtinizi bir daha sınayın</string>
-  <string name="victory">Qələbə!</string>
   <string name="wasThisPuzzleAnyGood">Bu tapmaca sizə yararlı oldu?</string>
   <string name="pleaseVotePuzzle">Lichess inkişafına tövhə vermək üçün səs verin, yuxarı və aşağı oxlardan istifadə edin.</string>
   <string name="thankYou">Təşşəkkür edirik!</string>
@@ -327,7 +326,6 @@
     <item quantity="other">%s dəfə oynanıldı</item>
   </plurals>
   <string name="fromGameLink">%s oyunundan</string>
-  <string name="startTraining">Təlimə başla</string>
   <string name="continueTraining">Təlimə davam et</string>
   <string name="retryThisPuzzle">Bu tapmacanı yenidən sınayın</string>
   <string name="thisPuzzleIsCorrect">Bu tapmaca doğrudur və maraqlıdır</string>
@@ -343,7 +341,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Gedişdən sonra növbəti oyuna avtomatik keçid</string>
   <string name="autoSwitch">Avtomatik keçid / dəyiş</string>
   <string name="puzzles">Puzzlelar</string>
-  <string name="coordinates">Kordinatlar</string>
   <string name="latestUpdates">Son yeniliklər</string>
   <string name="tournamentWinners">Turnirin qalibləri</string>
   <string name="name">Komanda adı</string>
@@ -428,6 +425,7 @@
   <string name="xAskedY">%1$s soruşdu %2$s</string>
   <string name="xAnsweredY">%1$s cavablandırdı %2$s</string>
   <string name="xCommentedY">%1$s şərh %2$s</string>
+  <string name="victory">Qələbə!</string>
   <string name="timeline">Zaman cədvəli</string>
   <string name="seeAllTournaments">Bütün turnirləri gör</string>
   <string name="starting">Başlanğıc</string>
@@ -454,7 +452,6 @@
   <string name="playOnTheBoardOffline">Taxta üzərində</string>
   <string name="playOfflineComputer">Kompüter</string>
   <string name="opponent">rəqib</string>
-  <string name="learn">Öyrən</string>
   <string name="community">Cəmiyyət</string>
   <string name="tools">Alətlər</string>
   <string name="increment">Artım</string>

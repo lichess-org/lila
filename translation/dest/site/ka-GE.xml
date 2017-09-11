@@ -317,7 +317,6 @@
   <string name="keepGoing">ასე გააგრძელე</string>
   <string name="puzzleFailed">ფაზლში დამარცხდი</string>
   <string name="butYouCanKeepTrying">ისევ შეგიძლია სცადო.</string>
-  <string name="victory">გამარჯვება!</string>
   <string name="wasThisPuzzleAnyGood">როგორ შეაფასებდი ამ ფაზლს?</string>
   <string name="pleaseVotePuzzle">გააუმჯობესეთ Lichess ხმის მიცემით ზემოთ ან ქვემოთ მიმართული ისრების მეშვეობით:</string>
   <string name="thankYou">გმადლობთ შეფასებისთვის!</string>
@@ -327,7 +326,6 @@
     <item quantity="other">ნათამაშებია %s</item>
   </plurals>
   <string name="fromGameLink">თამაშიდან %s</string>
-  <string name="startTraining">დაიწყე ვარჯიში</string>
   <string name="continueTraining">გააგრძელე ვარჯიში</string>
   <string name="retryThisPuzzle">გაიმეორე ეს ფაზლი</string>
   <string name="thisPuzzleIsCorrect">ფაზლი სახალისო და საინტერესოა</string>
@@ -343,7 +341,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">სვლის გაკეთების შემდეგ მომდევნო თამაშზე ავტომატური გადასვლა</string>
   <string name="autoSwitch">ავტო გადართვა</string>
   <string name="puzzles">ეტიუდები</string>
-  <string name="coordinates">კოორდინატები</string>
   <string name="latestUpdates">უკანასკნელი სიახლეები</string>
   <string name="tournamentWinners">ტურნირის გამარჯვებულნი</string>
   <string name="name">სახელი</string>
@@ -428,6 +425,7 @@
   <string name="xAskedY">%1$s-მ(ა) იკითხა %2$s</string>
   <string name="xAnsweredY">%1$s-მ(ა) უპასუხა %2$s-ს</string>
   <string name="xCommentedY">%1$s-მ(ა) კომენტარი გაუკეთა %2$s-ს</string>
+  <string name="victory">გამარჯვება!</string>
   <string name="timeline">ისტორია</string>
   <string name="seeAllTournaments">ყველა ტურნირის ნახვა</string>
   <string name="starting">დასაწყისი:</string>
@@ -454,7 +452,6 @@
   <string name="playOnTheBoardOffline">ადგილობრივი თამაში</string>
   <string name="playOfflineComputer">ეთამაშეთ რობოტს</string>
   <string name="opponent">მოწინააღმდეგე</string>
-  <string name="learn">სწავლა</string>
   <string name="community">საზოგადოება</string>
   <string name="tools">ინსტრუმენთა პანელი</string>
   <string name="increment">დანამატი</string>

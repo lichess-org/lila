@@ -257,13 +257,11 @@
   <string name="keepGoing">Nastavite...</string>
   <string name="puzzleFailed">Vježba neuspješna</string>
   <string name="butYouCanKeepTrying">Ali možete nastaviti pokušavati.</string>
-  <string name="victory">Pobjeda!</string>
   <string name="wasThisPuzzleAnyGood">Da li je ovaj problem bio dobar?</string>
   <string name="pleaseVotePuzzle">Pomozi da se Lichess poboljša, koristeći strelice gore/dolje:</string>
   <string name="thankYou">Hvala!</string>
   <string name="ratingX">Rejting: %s</string>
   <string name="fromGameLink">Iz partije %s</string>
-  <string name="startTraining">Počnite trening</string>
   <string name="continueTraining">Nastavite trening</string>
   <string name="retryThisPuzzle">Pokušajte ponovo ovaj problem</string>
   <string name="thisPuzzleIsCorrect">Ovaj problem je ispravan i zanimljiv</string>
@@ -271,7 +269,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Automatski prebaci na sljedeću partiju poslije odigranog poteza</string>
   <string name="autoSwitch">Automatski prebaci</string>
   <string name="puzzles">Problemi</string>
-  <string name="coordinates">Koordinate</string>
   <string name="latestUpdates">Najnovija ažuriranja</string>
   <string name="tournamentWinners">Pobjednici turnira</string>
   <string name="name">Ime</string>
@@ -356,6 +353,7 @@
   <string name="xAskedY">%1$s je pitao %2$s</string>
   <string name="xAnsweredY">%1$s je odgovorio %2$s</string>
   <string name="xCommentedY">%1$s je komentarisao %2$s</string>
+  <string name="victory">Pobjeda!</string>
   <string name="timeline">Hronologija</string>
   <string name="seeAllTournaments">Pogledaj sve turnire</string>
   <string name="starting">Počinje:</string>
@@ -374,7 +372,6 @@
   <string name="playOnTheBoardOffline">Igraj u dvoje</string>
   <string name="playOfflineComputer">Igraj protiv računara</string>
   <string name="opponent">Protivnik</string>
-  <string name="learn">Učenje</string>
   <string name="community">Zajednica</string>
   <string name="tools">Alati</string>
   <string name="increment">Inkrement</string>

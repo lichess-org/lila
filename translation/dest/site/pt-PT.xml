@@ -46,8 +46,62 @@
   <string name="viewTheComputerAnalysis">Ver a análise do computador</string>
   <string name="requestAComputerAnalysis">Solicitar uma análise do computador</string>
   <string name="computerAnalysis">Análise do computador</string>
+  <string name="computerAnalysisAvailable">Análise de Computador disponível</string>
   <string name="analysis">Análise</string>
+  <string name="depthX">Profundidade %s</string>
+  <string name="usingServerAnalysis">Usando análise de servidores</string>
+  <string name="loadingEngine">Carregando motor de jogo ...</string>
+  <string name="cloudAnalysis">Análise na nuvem</string>
+  <string name="goDeeper">Detalhar</string>
+  <string name="showThreat">Mostrar ameaça</string>
+  <string name="inLocalBrowser">no navegador local</string>
+  <string name="toggleLocalEvaluation">Alternar avaliação local</string>
+  <string name="move">Jogada</string>
+  <string name="variantLoss">Variante perdida</string>
+  <string name="variantWin">Variante ganha</string>
+  <string name="insufficientMaterial">Material insuficiente</string>
+  <string name="pawnMove">Movimento de peão</string>
+  <string name="capture">Captura</string>
+  <string name="close">Fechar</string>
+  <string name="winning">Vitoriosos</string>
+  <string name="losing">Perdedores</string>
+  <string name="drawn">Empates</string>
+  <string name="unknown">Desconhecido</string>
+  <string name="database">Base de Dados</string>
+  <string name="whiteDrawBlack">Branco / Empate / Preto</string>
+  <string name="averageRatingX">Classificação média: %s</string>
+  <string name="recentGames">Jogos recentes</string>
+  <string name="topGames">Melhores jogos</string>
+  <string name="masterDbExplanation">Dois milhões de jogos de tabuleiro de jogadores de %1$s+ classificação FIDE desde %2$s a %3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Xeque-mate em %s meio-movimento</item>
+    <item quantity="other">Xeque-mate em %s meio-movimentos</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Próxima captura ou movimento de peão em %s meio-movimento (Distância para zerar o contador de 50 movimentos)</item>
+    <item quantity="other">Próxima captura ou movimento de peão em %s meio-movimentos (Distância para zerar o contador de 50 movimentos)</item>
+  </plurals>
+  <string name="noGameFound">Nenhum jogo encontrado</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Talvez incluir mais jogos no menu de preferências?</string>
   <string name="openingExplorer">Explorador de abertura</string>
+  <string name="xOpeningExplorer">%s Explorador de Aberturas</string>
+  <string name="winPreventedBy50MoveRule">Vitória impedida pela regra dos 50 movimentos</string>
+  <string name="lossSavedBy50MoveRule">Derrota evitada pela regra dos 50 movimentos</string>
+  <string name="allSet">Tudo pronto!</string>
+  <string name="importPgn">Importar PGN</string>
+  <string name="delete">Apagar</string>
+  <string name="deleteThisImportedGame">Excluir este jogo importado?</string>
+  <string name="replayMode">Modo Repetição</string>
+  <string name="realtimeReplay">Tempo Real</string>
+  <string name="byCPL">Por CPP</string>
+  <string name="openStudy">Abrir estudo</string>
+  <string name="enable">Ativar</string>
+  <string name="bestMoveArrow">Seta de melhor movimento</string>
+  <string name="multipleLines">Múltiplas continuações</string>
+  <string name="cpus">CPUs</string>
+  <string name="memory">Memória</string>
+  <string name="infiniteAnalysis">Análise infinita</string>
+  <string name="removesTheDepthLimit">Remove o limite de profundidade e mantém o seu computador quente</string>
   <string name="blunders">Erro Grave</string>
   <string name="mistakes">Erros</string>
   <string name="inaccuracies">Imprecisões</string>
@@ -62,6 +116,14 @@
     <item quantity="other">%s jogadores conectados</item>
   </plurals>
   <string name="currentGames">Partidas atuais</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s jogo</item>
+    <item quantity="other">%s jogos</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s favorito</item>
+    <item quantity="other">%s favoritos</item>
+  </plurals>
   <string name="viewInFullSize">Ver em tela cheia</string>
   <string name="logOut">Sair</string>
   <string name="signIn">Entrar</string>
@@ -82,6 +144,14 @@
   <string name="correspondence">Correspondência</string>
   <string name="daysPerTurn">Dias por lance</string>
   <string name="oneDay">Um dia</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s dia</item>
+    <item quantity="other">%s dias</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s hora</item>
+    <item quantity="other">%s horas</item>
+  </plurals>
   <string name="time">Tempo</string>
   <string name="rating">Rating</string>
   <string name="ratingStats">Estatísticas de rating</string>
@@ -96,7 +166,17 @@
   <string name="passwordReset">Redefinição de senha</string>
   <string name="forgotPassword">Esqueceu sua senha?</string>
   <string name="rank">Rank</string>
+  <string name="rankX">Classificação: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">A classificação é atualizado a cada %s minutos</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s quebra-cabeça</item>
+    <item quantity="other">%s quebra-cabeças</item>
+  </plurals>
   <string name="gamesPlayed">Partidas realizadas</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s jogo contra ti</item>
+    <item quantity="other">%s jogos contra ti</item>
+  </plurals>
   <string name="cancel">Cancelar</string>
   <string name="timeOut">Tempo esgotado</string>
   <string name="drawOfferSent">Proposta de empate enviada</string>
@@ -130,6 +210,8 @@
   <string name="play">Jogar</string>
   <string name="inbox">Caixa de entrada</string>
   <string name="chatRoom">Sala de chat</string>
+  <string name="loginToChat">Entre para conversar</string>
+  <string name="youHaveBeenTimedOut">Tu foste desconectado.</string>
   <string name="spectatorRoom">Sala do espetador</string>
   <string name="composeMessage">Escrever mensagem</string>
   <string name="noNewMessages">Nenhuma mensagem nova</string>
@@ -139,12 +221,33 @@
   <string name="incrementInSeconds">Acréscimo em segundos</string>
   <string name="freeOnlineChess">Xadrez Online Gratuito</string>
   <string name="spectators">Espectadores:</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s classificado</item>
+    <item quantity="other">%s classificados</item>
+  </plurals>
+  <plurals name="nbWins">
+    <item quantity="one">%s vitória</item>
+    <item quantity="other">%s vitórias</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s derrota</item>
+    <item quantity="other">%s derrotas</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s empate</item>
+    <item quantity="other">%s empates</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s jogando</item>
+    <item quantity="other">%s jogando</item>
+  </plurals>
   <string name="exportGames">Exportar partidas</string>
   <string name="ratingRange">Rating entre</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dar %s segundos</item>
     <item quantity="other">Dar %s segundos</item>
   </plurals>
+  <string name="giveMoreTime">Dê mais tempo</string>
   <string name="thisPlayerUsesChessComputerAssistance">Este jogador usa a ajuda de computador</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Este jogador aumentou o seu rating de maneira artificial.</string>
   <string name="takeback">Voltar jogada</string>
@@ -162,6 +265,15 @@
   <string name="tournamentPoints">Pontos de torneios</string>
   <string name="viewTournament">Ver torneio</string>
   <string name="backToTournament">Voltar ao torneio</string>
+  <string name="thematic">Temático</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s jogo classificado</item>
+    <item quantity="other">≥ %s jogos classificados</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2$s jogo classificado</item>
+    <item quantity="other">≥ %1$s %2$s jogos classificados</item>
+  </plurals>
   <string name="backToGame">Retorne à partida</string>
   <string name="siteDescription">Xadrez online gratuito. Jogue xadrez agora numa interface simples. Sem registro, sem anúncios, sem plugins. Jogue xadrez contra computador, amigos ou oponentes aleatórios.</string>
   <string name="teams">Equipas</string>
@@ -273,13 +385,11 @@
   <string name="keepGoing">Continue...</string>
   <string name="puzzleFailed">Quebra-cabeça fracassado</string>
   <string name="butYouCanKeepTrying">Mas você pode continuar a tentar.</string>
-  <string name="victory">Vitória!</string>
   <string name="wasThisPuzzleAnyGood">Este quebra-cabeça foi bom?</string>
   <string name="pleaseVotePuzzle">Ajude o Lichess a melhorar através do seu voto, usando a seta para cima ou para baixo:</string>
   <string name="thankYou">Obrigado!</string>
   <string name="ratingX">Classificação: %s</string>
   <string name="fromGameLink">Do jogo %s</string>
-  <string name="startTraining">Começar treino</string>
   <string name="continueTraining">Continuar o treino</string>
   <string name="retryThisPuzzle">Tentar novamente este quebra-cabeça</string>
   <string name="thisPuzzleIsCorrect">O quebra-cabeça está correto e é interessante</string>
@@ -291,7 +401,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Passar automaticamente ao jogo seguinte após o lance</string>
   <string name="autoSwitch">Alternar automaticamente</string>
   <string name="puzzles">Quebra-cabeças</string>
-  <string name="coordinates">Coordenadas</string>
   <string name="latestUpdates">Atualizações mais recentes</string>
   <string name="tournamentWinners">Vencedores de torneio</string>
   <string name="name">Nome</string>
@@ -376,6 +485,7 @@
   <string name="xAskedY">%1$s perguntou %2$s</string>
   <string name="xAnsweredY">%1$s respondeu %2$s</string>
   <string name="xCommentedY">%1$s comentou %2$s</string>
+  <string name="victory">Vitória!</string>
   <string name="timeline">Linha do tempo</string>
   <string name="seeAllTournaments">Ver todos os torneios</string>
   <string name="starting">Iniciando:</string>
@@ -402,7 +512,6 @@
   <string name="playOnTheBoardOffline">Jogar offline contra um amigo</string>
   <string name="playOfflineComputer">Jogar offline contra o computador</string>
   <string name="opponent">Oponente</string>
-  <string name="learn">Aprender</string>
   <string name="community">Comunidade</string>
   <string name="tools">Ferramentas</string>
   <string name="increment">Incremento</string>

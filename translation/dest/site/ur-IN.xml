@@ -317,7 +317,6 @@
   <string name="keepGoing">سوچ بچار جاری رکھیں ۔ ۔ ۔</string>
   <string name="puzzleFailed">معمہ حل کرنے میں ناکام!</string>
   <string name="butYouCanKeepTrying">کوشش جاری رکھیں</string>
-  <string name="victory">شاباش!</string>
   <string name="wasThisPuzzleAnyGood">آپ کو یہ معمہ کیسا لگا؟</string>
   <string name="pleaseVotePuzzle">بہتری کے لیے  رائے دہی کا استمعال کیجئے، سِرے کو اوپر یا نیچے کیجئے</string>
   <string name="thankYou">آپ کا شکریہ!</string>
@@ -327,7 +326,6 @@
     <item quantity="other">%s بار کھیلا جا چکا ہے</item>
   </plurals>
   <string name="fromGameLink">مقابلہ %s</string>
-  <string name="startTraining">تربیت شروع کریں</string>
   <string name="continueTraining">تربیت جاری رکھیں</string>
   <string name="retryThisPuzzle">دوبارہ کوشش کریں</string>
   <string name="thisPuzzleIsCorrect">یہ معمہ صحیح اور دلچسپ ہے</string>
@@ -343,7 +341,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">چال چلتے ہی خودبخود اگلے مقابلے پر جائیں</string>
   <string name="autoSwitch">خودکار تبدیلی</string>
   <string name="puzzles">معمہ جات</string>
-  <string name="coordinates">خانہ جات</string>
   <string name="latestUpdates">تازہ ترین</string>
   <string name="tournamentWinners">مسابقوں کے فاتحین</string>
   <string name="name">نام</string>
@@ -428,6 +425,7 @@
   <string name="xAskedY">%1$s کا سوال %2$s</string>
   <string name="xAnsweredY">%1$s کا جواب %2$s</string>
   <string name="xCommentedY">%1$s کا تبصرہ %2$s</string>
+  <string name="victory">شاباش!</string>
   <string name="timeline">مصروفیات</string>
   <string name="seeAllTournaments">تمام مسابقے</string>
   <string name="starting">شروعات:</string>
@@ -454,7 +452,6 @@
   <string name="playOnTheBoardOffline">حقیقی بساط پر</string>
   <string name="playOfflineComputer">کمپیوٹر</string>
   <string name="opponent">حریف</string>
-  <string name="learn">سیکھیں</string>
   <string name="community">برادری</string>
   <string name="tools">اوزار</string>
   <string name="increment">اضافہ</string>

@@ -254,13 +254,11 @@
   <string name="keepGoing">Cum ort...</string>
   <string name="puzzleFailed">Cha deach leat</string>
   <string name="butYouCanKeepTrying">Ach faodaidh tu feuchainn a-rithist.</string>
-  <string name="victory">Buaidh!</string>
   <string name="wasThisPuzzleAnyGood">An robh an tòimhseachan seo math?</string>
   <string name="pleaseVotePuzzle">Cuidich lichess ’s cuir bhòt ann leis an t-saighead suas no sìos:</string>
   <string name="thankYou">Mòran taing!</string>
   <string name="ratingX">Rangachadh: %s</string>
   <string name="fromGameLink">On gheama %s</string>
-  <string name="startTraining">Tòisich air an trèanadh</string>
   <string name="continueTraining">Lean air adhart leis an trèanadh</string>
   <string name="retryThisPuzzle">Feuch ris an tòimhseachan seo a-rithist</string>
   <string name="thisPuzzleIsCorrect">Tha an tòimhseachan seo ceart is inntinneach</string>
@@ -268,7 +266,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Rach dhan ath-gheama gu fèin-obrachail às dèidh gluasad</string>
   <string name="autoSwitch">Gearr leum gu fèin-obrachail</string>
   <string name="puzzles">Tòimhseachain</string>
-  <string name="coordinates">Co-chomharran</string>
   <string name="latestUpdates">Na naidheachdan as ùire</string>
   <string name="tournamentWinners">Feadhainn a bhuannaich fèill-chluich</string>
   <string name="name">Ainm</string>
@@ -344,6 +341,7 @@
   <string name="difficultyNormal">Meadhanach</string>
   <string name="difficultyHard">Doirbh</string>
   <string name="xCompetesInY">%1$s a\' gabhail pàirt ann an %2$s</string>
+  <string name="victory">Buaidh!</string>
   <string name="timeline">Loidhne-tìm</string>
   <string name="seeAllTournaments">Faic na fèillean-cluich uile</string>
   <string name="starting">A\' tòiseachadh:</string>
@@ -359,7 +357,6 @@
   <string name="loginSuccessful">Chaidh do chlàradh a-steach</string>
   <string name="playOfflineComputer">Coimpiutair</string>
   <string name="opponent">Neach-dùbhlain</string>
-  <string name="learn">Ionnsaich</string>
   <string name="community">Coimhearsnachd</string>
   <string name="tools">Goireasean</string>
   <string name="increment">Ioncramaid</string>
