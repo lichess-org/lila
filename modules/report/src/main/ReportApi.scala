@@ -138,7 +138,6 @@ final class ReportApi(
   def process(mod: Mod, sus: Suspect, rooms: Set[Room], reportId: Option[Report.ID] = None): Funit =
     inquiries.ofModId(mod.user.id) map (_.filter(_.user == sus.user.id)) flatMap { inquiry =>
       val relatedSelector = $doc(
-        "other" -> "removeme",
         "user" -> sus.user.id,
         "room" $in rooms,
         "processedBy" $exists false
