@@ -11,10 +11,10 @@
   <string name="chessPieces">Schackpjäser</string>
   <string name="theRook">Tornet</string>
   <string name="itMovesInStraightLines">Den rör sig i raka linjer</string>
-  <string name="rookIntro">Tornet är en kraftfull pjäs. Är du redo att förflytta det?</string>
-  <string name="rookGoal">Klicka på tornet att föra den till stjärnan!</string>
+  <string name="rookIntro">Tornet är en kraftfull pjäs. Är du redo att styra det?</string>
+  <string name="rookGoal">Klicka på tornet för att föra det till stjärnan!</string>
   <string name="grabAllTheStars">Fånga alla stjärnor!</string>
-  <string name="theFewerMoves">Färre rörelser du gör desto fler poäng vinner du!</string>
+  <string name="theFewerMoves">Ju färre drag du gör desto fler poäng vinner du!</string>
   <string name="useTwoRooks">Använd två torn för att snabba på det hela!</string>
   <string name="rookComplete">Grattis! Du behärskar framgångsrikt tornet.</string>
   <string name="theBishop">Löparen</string>
@@ -23,7 +23,7 @@
   <string name="youNeedBothBishops">En ljus löpare,
 en mörk löpare.
 Du behöver bägge!</string>
-  <string name="bishopComplete">Grattis! Du kan behärska löparen.</string>
+  <string name="bishopComplete">Grattis! Du behärskar löparen.</string>
   <string name="theQueen">Drottningen</string>
   <string name="queenCombinesRookAndBishop">Drottning = torn + löpare</string>
   <string name="queenIntro">Den mäktigaste pjäsen gör entré. Hennes Majestät Drottningen!</string>
