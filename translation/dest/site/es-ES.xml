@@ -78,7 +78,7 @@
     <item quantity="other">Mate en %s medios movimientos</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Siguiente captura o movimiento de péon en medio movimiento (distancia a cero del contador de 50 movimientos)</item>
+    <item quantity="one">Próxima captura o movimiento de peón en %s medio movimientos (distancia de puesta a cero del contador de 50 movimientos)</item>
     <item quantity="other">Siguiente captura o movimiento de péon en %s medios movimientos (distancia a cero del contador de 50 movimientos)</item>
   </plurals>
   <string name="noGameFound">No se ha encontrado ninguna partida</string>
@@ -281,7 +281,7 @@
     <item quantity="other">Necesitas jugar %1$s partidas %2$s puntuadas</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">Necesitas jugar %s partida puntuada</item>
+    <item quantity="one">Necesitas jugar %s partidas puntuadas más</item>
     <item quantity="other">Te falta jugar %s partidas puntuadas</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Tu puntuación de %s es provisional</string>
