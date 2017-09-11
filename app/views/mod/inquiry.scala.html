@@ -71,17 +71,17 @@
       </div>
     </div>
     @if(isGranted(_.MarkEngine)) {
-    <form method="post" action="@routes.Mod.engine(in.user.username)" data-hint="Mark as cheat" class="hint--bottom-left">
+    <form method="post" action="@routes.Mod.engine(in.user.username, !in.user.engine)" data-hint="Mark as cheat" class="hint--bottom-left">
       <button data-icon="n" class="fbt icon@when(in.user.engine, " active")" type="submit"></button>
     </form>
     }
     @if(isGranted(_.MarkBooster)) {
-    <form method="post" action="@routes.Mod.booster(in.user.username)" data-hint="Marks as booster or sandbagger" class="hint--bottom-left">
+    <form method="post" action="@routes.Mod.booster(in.user.username, !in.user.booster)" data-hint="Marks as booster or sandbagger" class="hint--bottom-left">
       <button data-icon="9" class="fbt icon@when(in.user.booster, " active")" type="submit"></button>
     </form>
     }
     @if(isGranted(_.MarkTroll)) {
-    <form method="post" action="@routes.Mod.troll(in.user.username)?set=@(if (in.user.troll){0}else{1})" data-hint="@if(in.user.troll){En}else{Dis}able communication features for this user." class="hint--bottom-left">
+    <form method="post" action="@routes.Mod.troll(in.user.username, !in.user.troll)" data-hint="@if(in.user.troll){En}else{Dis}able communication features for this user." class="hint--bottom-left">
       <button data-icon="c" class="fbt icon@when(in.user.troll, " active")" type="submit"></button>
     </form>
     }

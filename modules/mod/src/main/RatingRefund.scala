@@ -9,27 +9,28 @@ import lila.game.BSONHandlers._
 import lila.game.{ Game, GameRepo, Query }
 import lila.rating.PerfType
 import lila.user.{ User, UserRepo }
+import lila.report.{ Suspect, Victim }
 
 private final class RatingRefund(
     scheduler: lila.common.Scheduler,
     notifier: ModNotifier,
     historyApi: lila.history.HistoryApi,
     rankingApi: lila.user.RankingApi,
-    wasUnengined: User.ID => Fu[Boolean]
+    wasUnengined: Suspect => Fu[Boolean]
 ) {
 
   import RatingRefund._
 
-  def schedule(cheater: User): Unit = scheduler.once(delay)(apply(cheater))
+  def schedule(sus: Suspect): Unit = scheduler.once(delay)(apply(sus))
 
-  private def apply(cheater: User): Unit = wasUnengined(cheater.id) flatMap {
+  private def apply(sus: Suspect): Unit = wasUnengined(sus) flatMap {
     case true => funit
     case false =>
 
-      logger.info(s"Refunding ${cheater.username} victims")
+      logger.info(s"Refunding ${sus.user.username} victims")
 
       def lastGames = GameRepo.coll.find(
-        Query.win(cheater.id) ++ Query.rated ++ Query.createdSince(DateTime.now minusDays 3)
+        Query.win(sus.user.id) ++ Query.rated ++ Query.createdSince(DateTime.now minusDays 3)
       ).sort(Query.sortCreated)
         .cursor[Game](readPreference = ReadPreference.secondaryPreferred)
         .list(30)
@@ -37,7 +38,7 @@ private final class RatingRefund(
       def makeRefunds(games: List[Game]) = games.foldLeft(Refunds(List.empty)) {
         case (refs, g) => (for {
           perf <- g.perfType
-          op <- g.playerByUserId(cheater.id) map g.opponent
+          op <- g.playerByUserId(sus.user.id) map g.opponent
           if !op.provisional
           victim <- op.userId
           diff <- op.ratingDiff
@@ -50,12 +51,12 @@ private final class RatingRefund(
         ref.diff - user.perfs(ref.perf).intRating + 100 + ref.topRating
       } min ref.diff min 200 max 0
 
-      def refundPoints(user: User, pt: PerfType, points: Int): Funit = {
-        val newPerf = user.perfs(pt) refund points
-        UserRepo.setPerf(user.id, pt, newPerf) >>
-          historyApi.setPerfRating(user, pt, newPerf.intRating) >>
-          rankingApi.save(user.id, pt, newPerf) >>
-          notifier.refund(user, pt, points)
+      def refundPoints(victim: Victim, pt: PerfType, points: Int): Funit = {
+        val newPerf = victim.user.perfs(pt) refund points
+        UserRepo.setPerf(victim.user.id, pt, newPerf) >>
+          historyApi.setPerfRating(victim.user, pt, newPerf.intRating) >>
+          rankingApi.save(victim.user.id, pt, newPerf) >>
+          notifier.refund(victim, pt, points)
       }
 
       def applyRefund(ref: Refund) =
@@ -63,7 +64,7 @@ private final class RatingRefund(
           _ ?? { user =>
             val points = pointsToRefund(ref, user)
             logger.info(s"Refunding $ref -> $points")
-            (points > 0) ?? refundPoints(user, ref.perf, points)
+            (points > 0) ?? refundPoints(Victim(user), ref.perf, points)
           }
         }
 

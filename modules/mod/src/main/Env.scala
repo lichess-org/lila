@@ -61,6 +61,7 @@ final class Env(
     userSpy = userSpy,
     firewall = firewall,
     reporter = hub.actor.report,
+    reportApi = reportApi,
     lightUserApi = lightUserApi,
     notifier = notifier,
     refunder = ratingRefund,

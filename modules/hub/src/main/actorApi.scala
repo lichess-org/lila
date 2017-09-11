@@ -40,9 +40,6 @@ case class HasUserId(userId: String)
 
 package report {
   case class Cheater(userId: String, text: String)
-  case class Clean(userId: String)
-  case class MarkCheater(userId: String, by: String)
-  case class MarkTroll(userId: String, by: String)
   case class Shutup(userId: String, text: String)
   case class Booster(winnerId: String, loserId: String)
   case class Created(userId: String, reason: String, reporterId: String)

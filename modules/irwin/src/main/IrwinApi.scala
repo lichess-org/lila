@@ -6,7 +6,7 @@ import reactivemongo.bson._
 import lila.db.dsl._
 import lila.game.{ Pov, GameRepo }
 import lila.tournament.{ Tournament, TournamentTop }
-import lila.user.User
+import lila.user.{ User, UserRepo }
 
 final class IrwinApi(
     reportColl: Coll,
@@ -51,9 +51,16 @@ final class IrwinApi(
 
     private val hasTheSlaveWhip = false
 
+    private def getIrwin =
+      UserRepo byId "irwin" flatten s"Irwin user not found" map lila.report.Mod.apply
+
     private def actAsMod(report: IrwinReport): Funit = hasTheSlaveWhip ?? {
       report.isLegit ?? {
-        case false => modApi.setEngine("irwin", report.userId, true)
+        case false => for {
+          irwin <- getIrwin
+          sus <- UserRepo byId report.userId flatten s"suspect ${report.userId} not found" map lila.report.Suspect.apply
+          _ <- modApi.setEngine(irwin, sus, true)
+        } yield ()
         case _ => funit // don't close report of legit player
       }
     }

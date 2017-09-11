@@ -2,6 +2,7 @@ package lila.mod
 
 import lila.db.dsl._
 import lila.security.Permission
+import lila.report.{ Mod, Suspect }
 
 final class ModlogApi(coll: Coll) {
 
@@ -16,20 +17,20 @@ final class ModlogApi(coll: Coll) {
     Modlog(mod, none, Modlog.practiceConfig)
   }
 
-  def engine(mod: String, user: String, v: Boolean) = add {
-    Modlog(mod, user.some, v.fold(Modlog.engine, Modlog.unengine))
+  def engine(mod: Mod, sus: Suspect, v: Boolean) = add {
+    Modlog.make(mod, sus, if (v) Modlog.engine else Modlog.unengine)
   }
 
-  def booster(mod: String, user: String, v: Boolean) = add {
-    Modlog(mod, user.some, v.fold(Modlog.booster, Modlog.unbooster))
+  def booster(mod: Mod, sus: Suspect, v: Boolean) = add {
+    Modlog.make(mod, sus, if (v) Modlog.booster else Modlog.unbooster)
   }
 
-  def troll(mod: String, user: String, v: Boolean) = add {
-    Modlog(mod, user.some, v.fold(Modlog.troll, Modlog.untroll))
+  def troll(mod: Mod, sus: Suspect) = add {
+    Modlog.make(mod, sus, if (sus.user.troll) Modlog.troll else Modlog.untroll)
   }
 
-  def ban(mod: String, user: String, v: Boolean) = add {
-    Modlog(mod, user.some, v.fold(Modlog.ipban, Modlog.ipunban))
+  def ban(mod: Mod, sus: Suspect) = add {
+    Modlog.make(mod, sus, if (sus.user.ipBan) Modlog.ipban else Modlog.ipunban)
   }
 
   def closeAccount(mod: String, user: String) = add {
@@ -109,8 +110,8 @@ final class ModlogApi(coll: Coll) {
     Modlog(mod, user.some, Modlog.kickFromRankings)
   }
 
-  def reportban(mod: String, user: String, v: Boolean) = add {
-    Modlog(mod, user.some, v.fold(Modlog.reportban, Modlog.unreportban))
+  def reportban(mod: Mod, sus: Suspect, v: Boolean) = add {
+    Modlog.make(mod, sus, if (v) Modlog.reportban else Modlog.unreportban)
   }
 
   def modMessage(mod: String, user: String, subject: String) = add {
@@ -119,8 +120,8 @@ final class ModlogApi(coll: Coll) {
 
   def recent = coll.find($empty).sort($sort naturalDesc).cursor[Modlog]().gather[List](100)
 
-  def wasUnengined(userId: String) = coll.exists($doc(
-    "user" -> userId,
+  def wasUnengined(sus: Suspect) = coll.exists($doc(
+    "user" -> sus.user.id,
     "action" -> Modlog.unengine
   ))
 

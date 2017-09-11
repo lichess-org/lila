@@ -11,6 +11,14 @@ object ModPreset {
    */
   val all = List("""
 
+Warning: Offensive language
+
+On Lichess, you *must* be nice when communicating with other players. At all times.
+
+Lichess is intended to be a fun and friendly environment for everyone. Please note that repeated violation of chat policy will result in loss of chat privileges.
+
+""", /* ---------------------------------------------------------------*/ """
+
 Warning: Leaving games / stalling on time
 
 In your game history, you have several games where you have left the game or just let the time run out instead of playing or resigning. This can be very annoying for your opponents. If this behavior continues to happen, your account will be terminated.
@@ -44,14 +52,6 @@ You have reported a significant number of players for cheating. However, none or
 Warning: Aborting games
 
 In your game history, you have many games where you aborted the game before play started. Repeatedly aborting games can be very annoying for your opponents. If this behavior continues to happen, your account will be terminated.
-
-""", /* ---------------------------------------------------------------*/ """
-
-Warning: Offensive language
-
-On Lichess, you *must* be nice when communicating with other players. At all times.
-
-Lichess is intended to be a fun and friendly environment for everyone. Please note that repeated violation of chat policy will result in loss of chat privileges.
 
 """, /* ---------------------------------------------------------------*/ """
 

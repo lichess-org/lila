@@ -6,7 +6,7 @@ import ornicar.scalalib.Random
 import lila.user.{ User, Note }
 
 case class Report(
-    _id: String, // also the url slug
+    _id: Report.ID, // also the url slug
     user: User.ID, // the reportee
     reason: Reason,
     room: Room,
@@ -34,8 +34,6 @@ case class Report(
   def unprocessedInsult = unprocessed && isInsult
   def unprocessedTrollOrInsult = unprocessed && isTrollOrInsult
 
-  def isCommunication = Reason.communication contains reason
-
   def isAutomatic = createdBy == "lichess"
   def isManual = !isAutomatic
 
@@ -47,9 +45,13 @@ case class Report(
   def userIds = List(user, createdBy)
 
   def simplifiedText = text.lines.filterNot(_ startsWith "[AUTOREPORT]") mkString "\n"
+
+  def isRecentComm = room == Room.Coms && !processed
 }
 
 object Report {
+
+  type ID = String
 
   case class Inquiry(mod: User.ID, seenAt: DateTime)
 

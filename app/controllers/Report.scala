@@ -4,8 +4,8 @@ import views._
 
 import lila.api.Context
 import lila.app._
-import lila.report.Room
-import lila.user.UserRepo
+import lila.report.{ Room, Report => ReportModel, Mod => AsMod }
+import lila.user.{ UserRepo, User => UserModel }
 
 object Report extends LilaController {
 
@@ -31,17 +31,31 @@ object Report extends LilaController {
 
   def inquiry(id: String) = Secure(_.SeeReport) { implicit ctx => me =>
     api.inquiries.toggle(me, id) map {
-      _.fold(Redirect(routes.Report.list)) { report =>
-        Redirect(report.room match {
-          case lila.report.Room.Coms => routes.Mod.communicationPublic(report.user).url
-          case _ => routes.User.show(report.user).url + "?mod"
-        })
-      }
+      _.fold(Redirect(routes.Report.list))(onInquiryStart)
     }
   }
 
+  private def onInquiryStart(inquiry: ReportModel) =
+    Redirect(inquiry.room match {
+      case Room.Coms => routes.Mod.communicationPrivate(inquiry.user).url
+      case _ => routes.User.show(inquiry.user).url + "?mod"
+    })
+
+  protected[controllers] def onInquiryClose(inquiry: Option[ReportModel], me: UserModel) = inquiry match {
+    case None => Redirect(routes.Report.list).fuccess
+    case Some(prev) =>
+      def redirectToList = Redirect(routes.Report.listWithFilter(prev.room.key))
+      api.next(prev.room) flatMap {
+        _.fold(redirectToList.fuccess) { report =>
+          api.inquiries.toggle(me, report.id) map {
+            _.fold(redirectToList)(onInquiryStart)
+          }
+        }
+      }
+  }
+
   def process(id: String) = Secure(_.SeeReport) { implicit ctx => me =>
-    api.process(id, me) inject Redirect(routes.Report.list)
+    api.process(AsMod(me), id) inject Redirect(routes.Report.list)
   }
 
   def xfiles(id: String) = Secure(_.SeeReport) { implicit ctx => me =>

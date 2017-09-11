@@ -4,6 +4,7 @@ import lila.api.Context
 import lila.app._
 import lila.chat.Chat
 import lila.common.{ IpAddress, EmailAddress }
+import lila.report.{ Room, Suspect, Mod => AsMod }
 import lila.user.{ UserRepo, User => UserModel }
 import views._
 
@@ -19,8 +20,10 @@ object Mod extends LilaController {
   private def modLogApi = Env.mod.logApi
   private def assessApi = Env.mod.assessApi
 
-  def engine(username: String) = Secure(_.MarkEngine) { _ => me =>
-    modApi.toggleEngine(me.id, username) inject redirect(username)
+  def engine(username: String, v: Boolean) = Secure(_.MarkEngine) { implicit ctx => me =>
+    withSuspect(username) { sus =>
+      modApi.setEngine(AsMod(me), sus, v) inject redirect(username)
+    }
   }
 
   def publicChat = Secure(_.ChatTimeout) { implicit ctx => _ =>
@@ -33,35 +36,40 @@ object Mod extends LilaController {
     }
   }
 
-  def booster(username: String) = Secure(_.MarkBooster) { _ => me =>
-    modApi.toggleBooster(me.id, username) inject redirect(username)
+  def booster(username: String, v: Boolean) = Secure(_.MarkBooster) { implicit ctx => me =>
+    withSuspect(username) { sus =>
+      modApi.setBooster(AsMod(me), sus, v) inject redirect(username)
+    }
   }
 
-  def troll(username: String) = Secure(_.MarkTroll) { implicit ctx => me =>
-    modApi.troll(me.id, username, getBool("set")) inject {
-      get("then") match {
-        case Some("reports") => Redirect(routes.Report.list)
-        case _ => redirect(username)
-      }
+  def troll(username: String, v: Boolean) = Secure(_.MarkTroll) { implicit ctx => me =>
+    withSuspect(username) { prev =>
+      for {
+        inquiry <- Env.report.api.inquiries ofModId me.id
+        user <- modApi.setTroll(AsMod(me), prev, v)
+        res <- Report.onInquiryClose(inquiry, me)
+      } yield res
     }
   }
 
   def warn(username: String, subject: String) = Secure(_.ModMessage) { implicit ctx => me =>
     lila.message.ModPreset.bySubject(subject).fold(notFound) { preset =>
-      UserRepo named username flatMap {
-        _.fold(notFound) { user =>
-          Env.message.api.sendPreset(me, user, preset) flatMap { thread =>
-            modApi.troll(me.id, username, user.troll) >>-
-              Env.mod.logApi.modMessage(thread.creatorId, thread.invitedId, thread.name) inject
-              Redirect(routes.Report.list)
-          }
-        }
+      withSuspect(username) { sus =>
+        for {
+          inquiry <- Env.report.api.inquiries ofModId me.id
+          user <- modApi.setTroll(AsMod(me), sus, sus.user.troll)
+          thread <- Env.message.api.sendPreset(me, sus.user, preset)
+          _ <- Env.mod.logApi.modMessage(thread.creatorId, thread.invitedId, thread.name)
+          res <- Report.onInquiryClose(inquiry, me)
+        } yield res
       }
     }
   }
 
-  def ban(username: String) = Secure(_.IpBan) { implicit ctx => me =>
-    modApi.ban(me.id, username) inject redirect(username)
+  def ban(username: String, v: Boolean) = Secure(_.IpBan) { implicit ctx => me =>
+    withSuspect(username) { sus =>
+      modApi.setBan(AsMod(me), sus, v)
+    } inject redirect(username)
   }
 
   def ipban(ip: String) = Secure(_.IpBan) { implicit ctx => me =>
@@ -82,8 +90,10 @@ object Mod extends LilaController {
     modApi.kickFromRankings(me.id, username) inject redirect(username)
   }
 
-  def reportban(username: String) = Secure(_.ReportBan) { implicit ctx => me =>
-    modApi.toggleReportban(me.id, username) inject redirect(username)
+  def reportban(username: String, v: Boolean) = Secure(_.ReportBan) { implicit ctx => me =>
+    withSuspect(username) { sus =>
+      modApi.setReportban(AsMod(me), sus, v) inject redirect(username)
+    }
   }
 
   def impersonate(username: String) = Auth { implicit ctx => me =>
@@ -150,7 +160,8 @@ object Mod extends LilaController {
           Env.mod.logApi.userHistory(user.id) zip
           Env.report.api.inquiries.ofModId(me.id) map {
             case chats ~ threads ~ publicLines ~ spy ~ notes ~ history ~ inquiry =>
-              if (priv) Env.slack.api.commlog(mod = me, user = user, inquiry.map(_.createdBy))
+              if (priv && !inquiry.??(_.isRecentComm))
+                Env.slack.api.commlog(mod = me, user = user, inquiry.map(_.createdBy))
               val povWithChats = (povs zip chats) collect {
                 case (p, Some(c)) if c.nonEmpty => p -> c
               } take 15
@@ -281,4 +292,9 @@ object Mod extends LilaController {
         } getOrElse BadRequest(html.mod.emailConfirm(rawQuery, none, none)).fuccess
     }
   }
+
+  private def withSuspect(username: String)(f: Suspect => Fu[Result])(implicit ctx: Context) =
+    Env.report.api getSuspect username flatMap {
+      _.fold(notFound)(f)
+    }
 }

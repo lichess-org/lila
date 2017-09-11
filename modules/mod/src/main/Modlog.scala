@@ -2,6 +2,8 @@ package lila.mod
 
 import org.joda.time.DateTime
 
+import lila.report.{ Mod, Suspect }
+
 case class Modlog(
     mod: String,
     user: Option[String],
@@ -52,6 +54,14 @@ case class Modlog(
 }
 
 object Modlog {
+
+  def make(mod: Mod, sus: Suspect, action: String, details: Option[String] = None): Modlog =
+    Modlog(
+      mod = mod.user.id,
+      user = sus.user.id.some,
+      action = action,
+      details = details
+    )
 
   val engine = "engine"
   val unengine = "unengine"

@@ -22,22 +22,22 @@
   •
   }
   @if(isGranted(_.MarkEngine)) {
-  <form method="post" action="@routes.Mod.engine(u.username)" data-hint="This user is clearly cheating." class="hint--bottom">
+  <form method="post" action="@routes.Mod.engine(u.username, !u.engine)" data-hint="This user is clearly cheating." class="hint--bottom">
     <input class="button@when(u.engine, " active")" type="submit" value="Engine" />
   </form>
   }
   @if(isGranted(_.MarkBooster)) {
-  <form method="post" action="@routes.Mod.booster(u.username)" data-hint="Marks the user as a booster or sandbagger." class="hint--bottom">
+  <form method="post" action="@routes.Mod.booster(u.username, !u.booster)" data-hint="Marks the user as a booster or sandbagger." class="hint--bottom">
     <input class="button@when(u.booster, " active")" type="submit" value="Booster" />
   </form>
   }
   @if(isGranted(_.MarkTroll)) {
-  <form method="post" action="@routes.Mod.troll(u.username)?set=@(if (u.troll){0}else{1})" data-hint="@if(u.troll){En}else{Dis}able communication features for this user." class="hint--bottom">
+  <form method="post" action="@routes.Mod.troll(u.username, !u.troll)" data-hint="@if(u.troll){En}else{Dis}able communication features for this user." class="hint--bottom">
     <input class="button@when(u.troll, " active")" type="submit" value="Shadowban" />
   </form>
   }
   @if(isGranted(_.IpBan)) {
-  <form method="post" action="@routes.Mod.ban(u.username)" data-hint="Bans all @spy.ips.size IPs under this account from logging into this site." class="hint--bottom-left">
+  <form method="post" action="@routes.Mod.ban(u.username, !u.ipBan)" data-hint="Bans all @spy.ips.size IPs under this account from logging into this site." class="hint--bottom-left">
     <input class="button@when(u.ipBan, " active")" type="submit" value="IP ban @spy.ips.size" />
   </form>
   }
@@ -61,7 +61,7 @@
   </form>
   }
   @if(isGranted(_.ReportBan)) {
-  <form method="post" action="@routes.Mod.reportban(u.username)" data-hint="@if(u.reportban){En}else{Dis}able the report feature for this user." class="hint--bottom-left">
+  <form method="post" action="@routes.Mod.reportban(u.username, !u.reportban)" data-hint="@if(u.reportban){En}else{Dis}able the report feature for this user." class="hint--bottom-left">
     <input class="button@when(u.reportban, " active")" type="submit" value="Reportban" />
   </form>
   }

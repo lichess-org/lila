@@ -62,6 +62,14 @@ final class ReportApi(
       (report.isAutomatic && report.isOther && user.troll) ||
       (report.isTrollOrInsult && user.troll)
 
+  def getMod(username: String): Fu[Option[Mod]] =
+    UserRepo named username map2 Mod.apply
+
+  def getLichess: Fu[Option[Mod]] = UserRepo.lichess map2 Mod.apply
+
+  def getSuspect(username: String): Fu[Option[Suspect]] =
+    UserRepo named username map2 Suspect.apply
+
   def autoCheatPrintReport(userId: String): Funit = {
     UserRepo byId userId zip UserRepo.lichess flatMap {
       case (Some(user), Some(lichess)) => create(ReportSetup(
@@ -117,58 +125,32 @@ final class ReportApi(
         case _ => funit
       }
 
-  private def publishProcessed(userId: User.ID, reason: Reason) =
-    bus.publish(lila.hub.actorApi.report.Processed(userId, reason.key), 'report)
+  private def publishProcessed(sus: Suspect, reason: Reason) =
+    bus.publish(lila.hub.actorApi.report.Processed(sus.user.id, reason.key), 'report)
 
-  def clean(userId: User.ID): Funit = coll.update(
-    $doc(
-      "user" -> userId,
-      "reason" -> Reason.Cheat.key
-    ) ++ unprocessedSelect,
-    $set("processedBy" -> "lichess"),
-    multi = true
-  ).void >>- publishProcessed(userId, Reason.Cheat)
+  def process(mod: Mod, reportId: Report.ID): Funit = for {
+    report <- coll.byId[Report](reportId) flatten s"no such report $reportId"
+    suspect <- getSuspect(report.user) flatten s"No such suspect $report"
+    rooms = Set(Room(report.reason))
+    res <- process(mod, suspect, rooms)
+  } yield res
 
-  def process(id: String, by: User): Funit = coll.byId[Report](id) flatMap {
-    _ ?? { report =>
-      coll.update(
-        $doc(
-          "user" -> report.user,
-          "reason" -> report.reason
-        ),
-        $set("processedBy" -> by.id) ++ $unset("inquiry"),
-        multi = true
-      ).void >>- {
-          monitorUnprocessed
-          lila.mon.mod.report.close()
-          publishProcessed(report.user, report.reason)
-          accuracyCache invalidate report.createdBy
-        }
-    }
+  def process(mod: Mod, sus: Suspect, rooms: Set[Room]): Funit = {
+    val reportSelector = $doc(
+      "user" -> sus.user.id,
+      "room" $in rooms,
+      "processedBy" $exists false
+    )
+    coll.update(
+      reportSelector,
+      $set("processedBy" -> mod.user.id) ++ $unset("inquiry"),
+      multi = true
+    ).void >> accuracy.invalidate(reportSelector) >>- {
+        monitorUnprocessed
+        lila.mon.mod.report.close()
+        rooms.flatMap(Room.toReasons) foreach { publishProcessed(sus, _) }
+      }
   }
-
-  def processEngine(userId: String, byModId: String): Funit = coll.update(
-    $doc(
-      "user" -> userId,
-      "reason" $in List(Reason.Cheat.key, Reason.CheatPrint.key),
-      "processedBy" $exists false
-    ),
-    $set("processedBy" -> byModId),
-    multi = true
-  ).void >>- {
-      monitorUnprocessed
-      publishProcessed(userId, Reason.Cheat)
-    }
-
-  def processTroll(userId: String, byModId: String): Funit = coll.update(
-    $doc(
-      "user" -> userId,
-      "reason" $in List(Reason.Insult.key, Reason.Troll.key, Reason.Other.key),
-      "processedBy" $exists false
-    ),
-    $set("processedBy" -> byModId),
-    multi = true
-  ).void >>- monitorUnprocessed
 
   def autoInsultReport(userId: String, text: String): Funit = {
     UserRepo byId userId zip UserRepo.lichess flatMap {
@@ -215,9 +197,9 @@ final class ReportApi(
     about <- recent(user, nb, ReadPreference.secondaryPreferred)
   } yield Report.ByAndAbout(by, about)
 
-  def recentReportersOf(user: User): Fu[List[User.ID]] =
+  def recentReportersOf(sus: Suspect): Fu[List[User.ID]] =
     coll.distinctWithReadPreference[String, List]("createdBy", $doc(
-      "user" -> user.id,
+      "user" -> sus.user.id,
       "createdAt" $gt DateTime.now.minusDays(3),
       "createdBy" $ne "lichess"
     ).some,
@@ -231,8 +213,8 @@ final class ReportApi(
     withNotes <- addUsersAndNotes(unprocessed ++ processed)
   } yield withNotes
 
-  def unprocessedWithFilter(nb: Int, room: Option[Room]): Fu[List[Report.WithUserAndNotes]] =
-    findRecent(nb, unprocessedSelect ++ roomSelect(room)) flatMap addUsersAndNotes
+  def next(room: Room): Fu[Option[Report]] =
+    unprocessedAndRecentWithFilter(1, room.some) map (_.headOption.map(_.report))
 
   private def addUsersAndNotes(reports: List[Report]): Fu[List[Report.WithUserAndNotes]] = for {
     withUsers <- UserRepo byIdsSecondary reports.map(_.user).distinct map { users =>
@@ -254,28 +236,36 @@ final class ReportApi(
     }
   } yield withNotes
 
-  private val accuracyCache = asyncCache.clearable[User.ID, Int](
-    name = "reporterAccuracy",
-    f = accuracyForUser,
-    expireAfter = _.ExpireAfterWrite(1 hours)
-  )
+  object accuracy {
 
-  private def accuracyForUser(reporterId: User.ID): Fu[Int] = for {
-    reports <- coll.find($doc(
-      "createdBy" -> reporterId,
-      "reason" -> Reason.Cheat.key,
-      "processedBy" $exists true
-    ))
-      .sort($sort.createdDesc)
-      .list[Report](20, ReadPreference.secondaryPreferred)
-    userIds = reports.map(_.user).distinct
-    nbEngines <- UserRepo countEngines userIds
-  } yield Math.round((nbEngines + 0.5f) / (userIds.length + 2f) * 100)
+    private val cache = asyncCache.clearable[User.ID, Int](
+      name = "reporterAccuracy",
+      f = forUser,
+      expireAfter = _.ExpireAfterWrite(1 hours)
+    )
 
-  def accuracy(report: Report): Fu[Option[Int]] =
-    (report.reason == Reason.Cheat && !report.processed) ?? {
-      accuracyCache get report.createdBy map some
-    }
+    private def forUser(reporterId: User.ID): Fu[Int] = for {
+      reports <- coll.find($doc(
+        "createdBy" -> reporterId,
+        "reason" -> Reason.Cheat.key,
+        "processedBy" $exists true
+      ))
+        .sort($sort.createdDesc)
+        .list[Report](20, ReadPreference.secondaryPreferred)
+      userIds = reports.map(_.user).distinct
+      nbEngines <- UserRepo countEngines userIds
+    } yield Math.round((nbEngines + 0.5f) / (userIds.length + 2f) * 100)
+
+    def apply(report: Report): Fu[Option[Int]] =
+      (report.reason == Reason.Cheat && !report.processed) ?? {
+        cache get report.createdBy map some
+      }
+
+    def invalidate(selector: Bdoc): Funit =
+      coll.distinct[User.ID, List]("createdBy", selector.some).map {
+        _ foreach cache.invalidate
+      }.void
+  }
 
   def countUnprocesssedByRooms: Fu[Room.Counts] = {
     import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._

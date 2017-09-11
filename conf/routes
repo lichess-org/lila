@@ -345,11 +345,11 @@ POST  /auth/token                      controllers.Auth.makeLoginToken
 GET   /auth/token/:token               controllers.Auth.loginWithToken(token: String)
 
 # Mod
-POST  /mod/:username/engine            controllers.Mod.engine(username: String)
-POST  /mod/:username/booster           controllers.Mod.booster(username: String)
-POST  /mod/:username/troll             controllers.Mod.troll(username: String)
+POST  /mod/:username/engine/:v         controllers.Mod.engine(username: String, v: Boolean)
+POST  /mod/:username/booster/:v        controllers.Mod.booster(username: String, v: Boolean)
+POST  /mod/:username/troll/:v          controllers.Mod.troll(username: String, v: Boolean)
+POST  /mod/:username/ban/:v            controllers.Mod.ban(username: String, v: Boolean)
 POST  /mod/:username/warn              controllers.Mod.warn(username: String, subject: String)
-POST  /mod/:username/ban               controllers.Mod.ban(username: String)
 POST  /mod/:username/close             controllers.Mod.closeAccount(username: String)
 POST  /mod/:username/reopen            controllers.Mod.reopenAccount(username: String)
 POST  /mod/:username/title             controllers.Mod.setTitle(username: String)
@@ -358,7 +358,7 @@ GET   /mod/:username/communication     controllers.Mod.communicationPublic(usern
 GET   /mod/:username/communication/private controllers.Mod.communicationPrivate(username: String)
 POST  /mod/:ip/ipban                   controllers.Mod.ipban(ip: String)
 POST  /mod/:username/kickFromRankings  controllers.Mod.kickFromRankings(username: String)
-POST  /mod/:username/reportban         controllers.Mod.reportban(username: String)
+POST  /mod/:username/reportban/:v      controllers.Mod.reportban(username: String, v: Boolean)
 POST  /mod/:username/impersonate       controllers.Mod.impersonate(username: String)
 GET   /mod/log                         controllers.Mod.log
 POST  /mod/:username/refreshUserAssess controllers.Mod.refreshUserAssess(username: String)

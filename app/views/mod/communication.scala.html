@@ -28,17 +28,6 @@ side = side.some) {
       <a class="priv button" href="@routes.Mod.communicationPrivate(u.username)" title="View private messages. This will be logged in #commlog">PMs</a>
       }
       }
-      <form method="post" action="@routes.Mod.troll(u.username)?set=1&then=reports">
-        <input class="button@when(u.troll, " active")" type="submit" value="Shadowban" />
-      </form>
-      @defining("Warning: Offensive language") { subject =>
-      <form method="post" action="@routes.Mod.warn(u.username, subject)">
-        <input class="button" type="submit" value="Warn" title='Sends the "@subject" message'/>
-      </form>
-      }
-      <form method="post" action="@routes.Mod.troll(u.username)?set=0&then=reports">
-        <input class="button@when(!u.troll, " active")" type="submit" value="OK" />
-      </form>
     </div>
   </h1>
 
