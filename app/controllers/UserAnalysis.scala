@@ -7,13 +7,14 @@ import chess.variant.{ Variant, Standard, FromPosition }
 import play.api.i18n.Messages.Implicits._
 import play.api.libs.json.Json
 import play.api.mvc._
-import play.api.Play.current
 import scala.concurrent.duration._
 
+import lila.api.Context
 import lila.app._
-import lila.game.{ GameRepo, Pov }
+import lila.game.{ GameRepo, Pov, PgnDump }
 import lila.i18n.I18nKeys
 import lila.round.Forecast.{ forecastStepJsonFormat, forecastJsonWriter }
+import lila.round.JsonView.WithFlags
 import views._
 
 object UserAnalysis extends LilaController with TheftPrevention {
@@ -81,15 +82,40 @@ object UserAnalysis extends LilaController with TheftPrevention {
 
   def game(id: String, color: String) = Open { implicit ctx =>
     OptionFuResult(GameRepo game id) { game =>
-      if (game.finished) fuccess(Redirect(routes.Round.watcher(game.id, color)))
+      val pov = Pov(game, chess.Color(color == "white"))
+      if (game.finished) negotiate(
+        html = fuccess(Redirect(routes.Round.watcher(game.id, color))),
+        api = apiVersion => mobileAnalysis(pov, apiVersion)
+      )
       else GameRepo initialFen game.id flatMap { initialFen =>
-        val pov = Pov(game, chess.Color(color == "white"))
         Env.api.roundApi.userAnalysisJson(pov, ctx.pref, initialFen, pov.color, owner = isMyPov(pov), me = ctx.me) map { data =>
           Ok(html.board.userAnalysis(data, pov))
         }
       } map NoCache
     }
   }
+
+  private def mobileAnalysis(pov: Pov, apiVersion: lila.common.ApiVersion)(implicit ctx: Context): Fu[Result] =
+    GameRepo initialFen pov.game.id flatMap { initialFen =>
+      Game.preloadUsers(pov.game) zip
+        (Env.analyse.analyser get pov.game.id) zip
+        // Env.fishnet.api.prioritaryAnalysisInProgress(pov.game.id) zip
+        // (pov.game.simulId ?? Env.simul.repo.find) zip
+        // Round.getWatcherChat(pov.game) zip
+        // Env.game.crosstableApi.withMatchup(pov.game) zip
+        Env.bookmark.api.exists(pov.game, ctx.me) zip
+        Env.api.pgnDump(pov.game, initialFen, PgnDump.WithFlags(clocks = false)) flatMap {
+          // case _ ~ analysis ~ analysisInProgress ~ simul ~ chat ~ crosstable ~ bookmarked ~ pgn =>
+          case _ ~ analysis ~ bookmarked ~ pgn =>
+            Env.api.roundApi.review(pov, apiVersion,
+              tv = none,
+              analysis,
+              initialFenO = initialFen.some,
+              withFlags = WithFlags(division = true, opening = true)) map { data =>
+                Ok(data)
+              }
+        }
+    }
 
   def socket = SocketOption { implicit ctx =>
     getSocketUid("sri") ?? { uid =>
