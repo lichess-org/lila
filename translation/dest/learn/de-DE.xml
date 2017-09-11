@@ -192,6 +192,6 @@ Bauer = 1</string>
   <string name="yourScore">Deine Punktzahl</string>
   <string name="next">Als Nächstes</string>
   <string name="backToMenu">Zurück zum Menü</string>
-  <string name="puzzleFailed">Aufgabe nicht gelöst!</string>
+  <string name="puzzleFailed">Aufgabe misslungen!</string>
   <string name="retry">Erneut versuchen</string>
 </resources>
