@@ -4,7 +4,7 @@ import views._
 
 import lila.api.Context
 import lila.app._
-import lila.report.{ Room, Report => ReportModel, Mod => AsMod }
+import lila.report.{ Room, Report => ReportModel, Mod => AsMod, Suspect }
 import lila.user.{ UserRepo, User => UserModel }
 
 object Report extends LilaController {
@@ -30,9 +30,10 @@ object Report extends LilaController {
       }
 
   def inquiry(id: String) = Secure(_.SeeReport) { implicit ctx => me =>
-    api.inquiries.toggle(me, id) map {
-      _.fold(Redirect(routes.Report.list))(onInquiryStart)
-    }
+    for {
+      current <- Env.report.api.inquiries ofModId me.id
+      newInquiry <- api.inquiries.toggle(AsMod(me), id)
+    } yield newInquiry.fold(Redirect(routes.Report.list))(onInquiryStart)
   }
 
   private def onInquiryStart(inquiry: ReportModel) =
@@ -47,7 +48,7 @@ object Report extends LilaController {
       def redirectToList = Redirect(routes.Report.listWithFilter(prev.room.key))
       api.next(prev.room) flatMap {
         _.fold(redirectToList.fuccess) { report =>
-          api.inquiries.toggle(me, report.id) map {
+          api.inquiries.toggle(AsMod(me), report.id) map {
             _.fold(redirectToList)(onInquiryStart)
           }
         }
@@ -55,7 +56,9 @@ object Report extends LilaController {
   }
 
   def process(id: String) = Secure(_.SeeReport) { implicit ctx => me =>
-    api.process(AsMod(me), id) inject Redirect(routes.Report.list)
+    Env.report.api.inquiries ofModId me.id flatMap { inquiry =>
+      api.process(AsMod(me), id) >> onInquiryClose(inquiry, me)
+    }
   }
 
   def xfiles(id: String) = Secure(_.SeeReport) { implicit ctx => me =>

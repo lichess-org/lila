@@ -216,7 +216,7 @@ object Mod extends LilaController {
 
   def spontaneousInquiry(username: String) = Secure(_.SeeReport) { implicit ctx => me =>
     OptionFuResult(UserRepo named username) { user =>
-      Env.report.api.inquiries.spontaneous(user, me) inject Redirect(routes.User.show(user.username) + "?mod")
+      Env.report.api.inquiries.spontaneous(AsMod(me), Suspect(user)) inject Redirect(routes.User.show(user.username) + "?mod")
     }
   }
 

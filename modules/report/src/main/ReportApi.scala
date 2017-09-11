@@ -132,25 +132,30 @@ final class ReportApi(
     report <- coll.byId[Report](reportId) flatten s"no such report $reportId"
     suspect <- getSuspect(report.user) flatten s"No such suspect $report"
     rooms = Set(Room(report.reason))
-    res <- process(mod, suspect, rooms)
+    res <- process(mod, suspect, rooms, reportId.some)
   } yield res
 
-  def process(mod: Mod, sus: Suspect, rooms: Set[Room]): Funit = {
-    val reportSelector = $doc(
-      "user" -> sus.user.id,
-      "room" $in rooms,
-      "processedBy" $exists false
-    )
-    coll.update(
-      reportSelector,
-      $set("processedBy" -> mod.user.id) ++ $unset("inquiry"),
-      multi = true
-    ).void >> accuracy.invalidate(reportSelector) >>- {
-        monitorUnprocessed
-        lila.mon.mod.report.close()
-        rooms.flatMap(Room.toReasons) foreach { publishProcessed(sus, _) }
+  def process(mod: Mod, sus: Suspect, rooms: Set[Room], reportId: Option[Report.ID] = None): Funit =
+    inquiries.ofModId(mod.user.id) map (_.filter(_.user == sus.user.id)) flatMap { inquiry =>
+      val relatedSelector = $doc(
+        "other" -> "removeme",
+        "user" -> sus.user.id,
+        "room" $in rooms,
+        "processedBy" $exists false
+      )
+      val reportSelector = reportId.orElse(inquiry.map(_.id)).fold(relatedSelector) { id =>
+        $or($id(id), relatedSelector)
       }
-  }
+      coll.update(
+        reportSelector,
+        $set("processedBy" -> mod.user.id) ++ $unset("inquiry"),
+        multi = true
+      ).void >> accuracy.invalidate(reportSelector) >>- {
+          monitorUnprocessed
+          lila.mon.mod.report.close()
+          rooms.flatMap(Room.toReasons) foreach { publishProcessed(sus, _) }
+        }
+    }
 
   def autoInsultReport(userId: String, text: String): Funit = {
     UserRepo byId userId zip UserRepo.lichess flatMap {
@@ -305,30 +310,35 @@ final class ReportApi(
 
     def ofModId(modId: User.ID): Fu[Option[Report]] = coll.uno[Report]($doc("inquiry.mod" -> modId))
 
-    def toggle(mod: User, id: String): Fu[Option[Report]] = for {
+    /*
+     * If the mod has no current inquiry, just start this one.
+     * If they had another inquiry, cancel it and start this one instead.
+     * If they already are on this inquiry, cancel it.
+     */
+    def toggle(mod: Mod, id: Report.ID): Fu[Option[Report]] = for {
       report <- coll.byId[Report](id) flatten s"No report $id found"
-      current <- ofModId(mod.id)
+      current <- ofModId(mod.user.id)
       _ <- current ?? cancel(mod)
       isSame = current.exists(_.id == report.id)
       _ <- !isSame ?? coll.updateField(
         $id(report.id),
         "inquiry",
-        Report.Inquiry(mod.id, DateTime.now)
+        Report.Inquiry(mod.user.id, DateTime.now)
       ).void
     } yield !isSame option report
 
-    def cancel(mod: User)(report: Report): Funit =
-      if (report.isOther && report.createdBy == mod.id) coll.remove($id(report.id)).void
+    def cancel(mod: Mod)(report: Report): Funit =
+      if (report.isOther && report.createdBy == mod.user.id) coll.remove($id(report.id)).void
       else coll.update(
         $id(report.id),
         $unset("inquiry", "processedBy")
       ).void
 
-    def spontaneous(user: User, mod: User): Fu[Report] = ofModId(mod.id) flatMap { current =>
+    def spontaneous(mod: Mod, sus: Suspect): Fu[Report] = ofModId(mod.user.id) flatMap { current =>
       current.??(cancel(mod)) >> {
         val report = Report.make(
-          user, Reason.Other, Report.spontaneousText, mod
-        ).copy(inquiry = Report.Inquiry(mod.id, DateTime.now).some)
+          sus.user, Reason.Other, Report.spontaneousText, mod.user
+        ).copy(inquiry = Report.Inquiry(mod.user.id, DateTime.now).some)
         coll.insert(report) inject report
       }
     }
