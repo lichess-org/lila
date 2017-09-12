@@ -71,7 +71,7 @@ side = side.some) {
     case (pov, chat) => {
     <div class="game">
       <a class="title" href="@routes.Round.player(pov.fullId)"
-        @if(pov.game.fromFriend) { style="color:green;" title="Friend" }>
+        @if(pov.game.fromFriend) { style="color:green;font-style:italic" title="Friend" }>
         @usernameOrAnon(pov.opponent.userId) – @momentFromNow(pov.game.movedAt)
       </a>
       <div class="chat">
