@@ -35,8 +35,7 @@ private final class SandbagWatch(messenger: MessageApi) {
     if (record.immaculate) fuccess(records invalidate userId)
     else {
       records.put(userId, record)
-      if (record.latestIsSandbag && record.outcomes.size > 1) sendMessage(userId)
-      else funit
+      record.alert ?? sendMessage(userId)
     }
 
   private val records: Cache[User.ID, Record] = Scaffeine()
@@ -58,15 +57,17 @@ private object SandbagWatch {
   case object Good extends Outcome
   case object Sandbag extends Outcome
 
-  val maxOutcomes = 5
+  val maxOutcomes = 7
 
   case class Record(outcomes: List[Outcome]) {
 
     def +(outcome: Outcome) = copy(outcomes = outcome :: outcomes.take(maxOutcomes - 1))
 
-    def latestIsSandbag = outcomes.headOption.exists(_ == Sandbag)
+    def alert = latestIsSandbag && outcomes.count(Sandbag ==) >= 3
 
-    def immaculate = outcomes.size == maxOutcomes && outcomes.forall(Good.==)
+    def latestIsSandbag = outcomes.headOption.exists(Sandbag ==)
+
+    def immaculate = outcomes.size == maxOutcomes && outcomes.forall(Good ==)
   }
 
   val newRecord = Record(Nil)
