@@ -38,11 +38,16 @@ body {
   animation: octopus 0.5s ease-in-out;
 }
 #inquiry.hidden {
+  transition: height 0.3s;
   height: 0;
   border: none;
 }
 #inquiry.hidden > div {
   display: none;
+}
+#inquiry.hidden > .costello {
+  transition: opacity 0.3s;
+  opacity: 0.5;
 }
 body.no-inquiry {
   transition: margin 0.3s;
@@ -210,4 +215,17 @@ body.no-inquiry {
 #inquiry .dropper.warn input {
   padding: 6px 10px;
   text-transform: initial;
+}
+
+#inquiry .switcher {
+  margin-left: -10px;
+}
+#inquiry .switcher label {
+  transform: scale(0.6);
+}
+#inquiry .switcher label::before {
+  background-color: #999;
+}
+#inquiry .switcher .cmn-toggle-round:checked + label::before {
+  background-color: rgba(117, 153, 0, 1)!important;
 }

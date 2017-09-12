@@ -6,4 +6,13 @@ $(function() {
     $('#inquiry').toggleClass('hidden');
     $('body').toggleClass('no-inquiry');
   });
+
+  var nextStore = lichess.storage.make('inquiry-auto-next');
+
+  if (!nextStore.get()) $('#inquiry .switcher input').attr('checked', false);
+
+  $('#inquiry .switcher input').on('change', function() {
+    if (nextStore.get()) nextStore.remove();
+    else nextStore.set(1);
+  });
 });
