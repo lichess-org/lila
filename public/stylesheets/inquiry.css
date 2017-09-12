@@ -27,14 +27,26 @@ body {
   width: 160px;
   margin: -80px 0 0 -80px;
   background: #484541 no-repeat url(../images/icons/octopus.svg);
-  background-size: 37% 37%;
-  background-position: 82% 82%;
+  background-size: 35% 35%;
+  background-position: 81% 81%;
   border-radius: 0 0 50% 0;
   border: 2px solid #666;
   box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
 }
 #inquiry > .costello:hover {
   animation: octopus 0.5s ease-in-out;
+}
+#inquiry.hidden {
+  height: 0;
+  border: none;
+}
+#inquiry.hidden > div {
+  display: none;
+}
+body.no-inquiry {
+  transition: margin 0.3s;
+  margin-top: 0;
 }
 #inquiry a {
   color: #f0f0f0!important;
@@ -130,7 +142,8 @@ body {
 #inquiry .fbt:hover {
   background: rgba(56,147,232,0.8);
 }
-#inquiry .fbt.icon::before {
+#inquiry .fbt.icon::before,
+#inquiry .warn span::before {
   font-size: 1.7em;
 }
 #inquiry .fbt.active {
