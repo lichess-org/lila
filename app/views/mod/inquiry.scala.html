@@ -56,7 +56,9 @@
   </div>
   <div class="actions">
     <div class="dropper warn">
-      <span>WARN</span>
+      <span class="hint--bottom-left" data-hint="Send a warning message">
+        <span data-icon="e"></span>
+      </span>
       <div>
         @lila.message.ModPreset.all.map { preset =>
         <form method="post" action="@routes.Mod.warn(in.user.username, preset.subject)">
