@@ -1,5 +1,5 @@
 export function skip(txt: string) {
-  return analyse(txt) && isSpammer.get() != '1';
+  return analyse(txt) && window.lichess.storage.get('chat-spam') != '1';
 }
 export function hasTeamUrl(txt: string) {
   return !!txt.match(teamUrlRegex);
@@ -7,11 +7,9 @@ export function hasTeamUrl(txt: string) {
 export function report(txt: string) {
   if (analyse(txt)) {
     $.post('/jslog/____________?n=spam');
-    isSpammer.set('1');
+    window.lichess.storage.set('chat-spam', '1');
   }
 }
-
-const isSpammer = window.lichess.storage.make('spammer');
 
 const spamRegex = new RegExp([
   'xcamweb.com',
