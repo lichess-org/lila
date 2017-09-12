@@ -1,8 +1,10 @@
 package controllers
 
+import play.api.mvc.AnyContentAsFormUrlEncoded
+
 import views._
 
-import lila.api.Context
+import lila.api.{ Context, BodyContext }
 import lila.app._
 import lila.report.{ Room, Report => ReportModel, Mod => AsMod, Suspect }
 import lila.user.{ UserRepo, User => UserModel }
@@ -42,20 +44,27 @@ object Report extends LilaController {
       case _ => routes.User.show(inquiry.user).url + "?mod"
     })
 
-  protected[controllers] def onInquiryClose(inquiry: Option[ReportModel], me: UserModel) = inquiry match {
-    case None => Redirect(routes.Report.list).fuccess
-    case Some(prev) =>
-      def redirectToList = Redirect(routes.Report.listWithFilter(prev.room.key))
-      api.next(prev.room) flatMap {
-        _.fold(redirectToList.fuccess) { report =>
-          api.inquiries.toggle(AsMod(me), report.id) map {
-            _.fold(redirectToList)(onInquiryStart)
+  protected[controllers] def onInquiryClose(inquiry: Option[ReportModel], me: UserModel)(implicit ctx: BodyContext[_]) = {
+    val autoNext = ctx.body.body match {
+      case AnyContentAsFormUrlEncoded(data) => data.get("next").exists(_.headOption contains "1")
+      case _ => false
+    }
+    inquiry match {
+      case None => Redirect(routes.Report.list).fuccess
+      case Some(prev) =>
+        def redirectToList = Redirect(routes.Report.listWithFilter(prev.room.key))
+        if (!autoNext) Redirect(s"${routes.User.show(prev.user)}?mod").fuccess
+        else api.next(prev.room) flatMap {
+          _.fold(redirectToList.fuccess) { report =>
+            api.inquiries.toggle(AsMod(me), report.id) map {
+              _.fold(redirectToList)(onInquiryStart)
+            }
           }
         }
-      }
+    }
   }
 
-  def process(id: String) = Secure(_.SeeReport) { implicit ctx => me =>
+  def process(id: String) = SecureBody(_.SeeReport) { implicit ctx => me =>
     Env.report.api.inquiries ofModId me.id flatMap { inquiry =>
       api.process(AsMod(me), id) >> onInquiryClose(inquiry, me)
     }

@@ -20,7 +20,7 @@ object Mod extends LilaController {
   private def modLogApi = Env.mod.logApi
   private def assessApi = Env.mod.assessApi
 
-  def engine(username: String, v: Boolean) = Secure(_.MarkEngine) { implicit ctx => me =>
+  def engine(username: String, v: Boolean) = SecureBody(_.MarkEngine) { implicit ctx => me =>
     withSuspect(username) { sus =>
       for {
         inquiry <- Env.report.api.inquiries ofModId me.id
@@ -46,7 +46,7 @@ object Mod extends LilaController {
     }
   }
 
-  def troll(username: String, v: Boolean) = Secure(_.MarkTroll) { implicit ctx => me =>
+  def troll(username: String, v: Boolean) = SecureBody(_.MarkTroll) { implicit ctx => me =>
     withSuspect(username) { prev =>
       for {
         inquiry <- Env.report.api.inquiries ofModId me.id
@@ -56,7 +56,7 @@ object Mod extends LilaController {
     }
   }
 
-  def warn(username: String, subject: String) = Secure(_.ModMessage) { implicit ctx => me =>
+  def warn(username: String, subject: String) = SecureBody(_.ModMessage) { implicit ctx => me =>
     lila.message.ModPreset.bySubject(subject).fold(notFound) { preset =>
       withSuspect(username) { sus =>
         for {

@@ -14,6 +14,10 @@
 </div>
 }
 
+@autoNextInput = {
+<input class="auto-next" type="hidden" name="next" value="1" />
+}
+
 <div id="inquiry">
   <i title="Costello the Inquiry Octopus" class="costello"></i>
   <div class="meat">
@@ -63,6 +67,7 @@
         @lila.message.ModPreset.all.map { preset =>
         <form method="post" action="@routes.Mod.warn(in.user.username, preset.subject)">
           <input class="fbt" type="submit" value="@preset.subject" />
+          @autoNextInput
         </form>
         }
         <form method="get" action="@routes.Message.form">
@@ -75,16 +80,19 @@
     @if(isGranted(_.MarkEngine)) {
     <form method="post" action="@routes.Mod.engine(in.user.username, !in.user.engine)" data-hint="Mark as cheat" class="hint--bottom-left">
       <button data-icon="n" class="fbt icon@when(in.user.engine, " active")" type="submit"></button>
+      @autoNextInput
     </form>
     }
     @if(isGranted(_.MarkBooster)) {
     <form method="post" action="@routes.Mod.booster(in.user.username, !in.user.booster)" data-hint="Marks as booster or sandbagger" class="hint--bottom-left">
       <button data-icon="9" class="fbt icon@when(in.user.booster, " active")" type="submit"></button>
+      @autoNextInput
     </form>
     }
     @if(isGranted(_.MarkTroll)) {
     <form method="post" action="@routes.Mod.troll(in.user.username, !in.user.troll)" data-hint="@if(in.user.troll){En}else{Dis}able communication features for this user." class="hint--bottom-left">
       <button data-icon="c" class="fbt icon@when(in.user.troll, " active")" type="submit"></button>
+      @autoNextInput
     </form>
     }
     <div class="dropper">
@@ -95,6 +103,7 @@
         </form>
         <form method="post" action="@routes.Report.xfiles(in.report.id)">
           <input class="fbt@when(in.report.room.key == "xfiles", " active")" type="submit" value="Move to X-Files" />
+          @autoNextInput
         </form>
       </div>
     </div>
@@ -110,6 +119,7 @@
     }
     <form action="@routes.Report.process(in.report.id)" method="post" data-hint="Dismiss this report as processed." class="process hint--bottom-left">
       <button type="submit" data-icon="E" class="fbt"></button>
+      @autoNextInput
     </form>
     <form action="@routes.Report.inquiry(in.report.id)" method="post" data-hint="Cancel the inquiry, re-instore the report" class="cancel hint--bottom-left">
       <button type="submit" data-icon="L" class="fbt"></button>
