@@ -112,11 +112,15 @@ div.mchat .messages .system {
 }
 div.mchat .messages span,
 div.mchat .messages .user_link {
-  font-family: 'Roboto';
+  font-weight: bold;
   padding: 0;
-  margin-right: 6px;
-  opacity: 0.8;
-  word-spacing: -.25em;
+  color: #888;
+  word-spacing: 0.3em;
+  letter-spacing: -1px;
+}
+body.dark div.mchat .messages span,
+body.dark div.mchat .messages .user_link {
+  color: #777;
 }
 div.mchat .messages a:not(.user_link) {
   font-family: 'Roboto';
