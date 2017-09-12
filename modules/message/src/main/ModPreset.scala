@@ -106,6 +106,14 @@ Our cheating detection algorithms have marked your account for using computer as
         none
     }
 
+  lazy val sandbagAuto = ModPreset(
+    subject = "Warning: possible sandbagging",
+    text = """You have lost a couple games after a few moves. Please note that you MUST try to win every rated game.
+Losing rated games on purpose is called "sandbagging", and is not allowed on lichess.
+
+Thank you for your understanding."""
+  )
+
   lazy val asJson = play.api.libs.json.Json.toJson {
     all.map { p =>
       List(p.subject, p.text)

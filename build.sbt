@@ -296,7 +296,7 @@ lazy val practice = module("practice", Seq(common, db, memo, user, study)).setti
   libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )
 
-lazy val playban = module("playban", Seq(common, db, game)).settings(
+lazy val playban = module("playban", Seq(common, db, game, message)).settings(
   libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )
 

@@ -565,6 +565,8 @@ case class Game(
   def pov(c: Color) = Pov(this, c)
   def whitePov = pov(White)
   def blackPov = pov(Black)
+  def playerPov(p: Player) = pov(p.color)
+  def loserPov = loser map playerPov
 }
 
 object Game {
