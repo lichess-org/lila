@@ -8,7 +8,7 @@
 <div class="actions clearfix">
   @if(isGranted(_.UserEvaluate)) {
   <form method="post" action="@routes.Mod.spontaneousInquiry(u.username)" data-hint="Start an inquiry" class="hint--bottom">
-    <button class="button inquiry" type="submit"></button>
+    <button class="button inquiry" type="submit"><i></i></button>
   </form>
   <form method="post" action="@routes.Mod.refreshUserAssess(u.username)" data-hint="Collect data and analyze if the user is suspicious." class="hint--bottom">
     <input class="button" type="submit" value="Evaluate" />
