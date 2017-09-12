@@ -116,6 +116,7 @@ div.mchat .messages .user_link {
   padding: 0;
   margin-right: 6px;
   opacity: 0.8;
+  word-spacing: -.25em;
 }
 div.mchat .messages a:not(.user_link) {
   font-family: 'Roboto';
