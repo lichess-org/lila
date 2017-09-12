@@ -70,10 +70,9 @@ side = side.some) {
     @players.map {
     case (pov, chat) => {
     <div class="game">
-      <a class="title" href="@routes.Round.player(pov.fullId)">
-        @if(pov.game.fromFriend) {
-          <strong>[F]</strong>
-        } @usernameOrAnon(pov.opponent.userId) – @momentFromNow(pov.game.movedAt)
+      <a class="title" href="@routes.Round.player(pov.fullId)"
+        @if(pov.game.fromFriend) { style="color:green;" title="Friend" }>
+        @usernameOrAnon(pov.opponent.userId) – @momentFromNow(pov.game.movedAt)
       </a>
       <div class="chat">
         @chat.lines.map { line =>
