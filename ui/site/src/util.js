@@ -22,9 +22,13 @@ lichess.storage = (function() {
     },
     set: function(k, v) {
       withStorage(function(s) {
-        // must remove first, or else listeners won't be triggered if old == new
-        s.removeItem(k);
-        s.setItem(k, v);
+        try {
+          s.setItem(k, v);
+        } catch (e) {
+          // removing first may help http://stackoverflow.com/questions/2603682/is-anyone-else-receiving-a-quota-exceeded-err-on-their-ipad-when-accessing-local
+          s.removeItem(k);
+          s.setItem(k, v);
+        }
       });
     },
     remove: function(k) {
