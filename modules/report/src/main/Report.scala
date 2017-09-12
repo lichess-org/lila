@@ -47,6 +47,7 @@ case class Report(
   def simplifiedText = text.lines.filterNot(_ startsWith "[AUTOREPORT]") mkString "\n"
 
   def isRecentComm = room == Room.Coms && !processed
+  def isRecentCommOf(sus: Suspect) = isRecentComm && user == sus.user.id
 }
 
 object Report {
