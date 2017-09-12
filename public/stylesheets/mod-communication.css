@@ -52,6 +52,10 @@
   display: block;
   padding: 6px;
 }
+#communication .player_chats .game .friend_title {
+  color: green;
+  font-style: italic;
+}
 #communication .player_chats .game .title {
   text-align: center;
   border-bottom: 1px solid #ccc;
