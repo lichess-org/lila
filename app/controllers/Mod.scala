@@ -22,7 +22,11 @@ object Mod extends LilaController {
 
   def engine(username: String, v: Boolean) = Secure(_.MarkEngine) { implicit ctx => me =>
     withSuspect(username) { sus =>
-      modApi.setEngine(AsMod(me), sus, v) inject redirect(username)
+      for {
+        inquiry <- Env.report.api.inquiries ofModId me.id
+        _ <- modApi.setEngine(AsMod(me), sus, v)
+        res <- Report.onInquiryClose(inquiry, me)
+      } yield res
     }
   }
 
@@ -46,7 +50,7 @@ object Mod extends LilaController {
     withSuspect(username) { prev =>
       for {
         inquiry <- Env.report.api.inquiries ofModId me.id
-        user <- modApi.setTroll(AsMod(me), prev, v)
+        _ <- modApi.setTroll(AsMod(me), prev, v)
         res <- Report.onInquiryClose(inquiry, me)
       } yield res
     }
@@ -57,7 +61,7 @@ object Mod extends LilaController {
       withSuspect(username) { sus =>
         for {
           inquiry <- Env.report.api.inquiries ofModId me.id
-          user <- modApi.setTroll(AsMod(me), sus, sus.user.troll)
+          _ <- modApi.setTroll(AsMod(me), sus, sus.user.troll)
           thread <- Env.message.api.sendPreset(me, sus.user, preset)
           _ <- Env.mod.logApi.modMessage(thread.creatorId, thread.invitedId, thread.name)
           res <- Report.onInquiryClose(inquiry, me)
