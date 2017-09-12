@@ -10,6 +10,7 @@ import lila.user.UserRepo
 
 final class PlaybanApi(
     coll: Coll,
+    sandbag: SandbagWatch,
     isRematch: String => Boolean
 ) {
 
@@ -24,7 +25,7 @@ final class PlaybanApi(
 
   private case class Blame(player: Player, outcome: Outcome)
 
-  val blameableSources: Set[Source] = Set(Source.Lobby, Source.Pool, Source.Tournament)
+  private val blameableSources: Set[Source] = Set(Source.Lobby, Source.Pool, Source.Tournament)
 
   private def blameable(game: Game): Fu[Boolean] =
     (game.source.exists(s => blameableSources(s)) && game.hasClock && !isRematch(game.id)) ?? {
@@ -46,31 +47,34 @@ final class PlaybanApi(
     }
   }
 
-  def rageQuit(game: Game, quitterColor: Color): Funit = IfBlameable(game) {
-    game.player(quitterColor).userId ?? save(Outcome.RageQuit)
-  }
+  def rageQuit(game: Game, quitterColor: Color): Funit =
+    sandbag(game, quitterColor) >> IfBlameable(game) {
+      game.player(quitterColor).userId ?? save(Outcome.RageQuit)
+    }
 
-  def sittingOrGood(game: Game, sitterColor: Color): Funit = IfBlameable(game) {
-    List(
-      goodFinish(game, !sitterColor),
-      (for {
-        userId <- game.player(sitterColor).userId
-        seconds = nowSeconds - game.movedAt.getSeconds
-        clock <- game.clock
-        limit = (clock.estimateTotalSeconds / 8) atLeast 15 atMost (2 * 60)
-        if seconds >= limit
-      } yield save(Outcome.Sitting)(userId)) | goodFinish(game, sitterColor)
-    ).sequenceFu.void
-  }
+  def sittingOrGood(game: Game, sitterColor: Color): Funit =
+    sandbag(game, sitterColor) >> IfBlameable(game) {
+      List(
+        goodFinish(game, !sitterColor),
+        (for {
+          userId <- game.player(sitterColor).userId
+          seconds = nowSeconds - game.movedAt.getSeconds
+          clock <- game.clock
+          limit = (clock.estimateTotalSeconds / 8) atLeast 15 atMost (2 * 60)
+          if seconds >= limit
+        } yield save(Outcome.Sitting)(userId)) | goodFinish(game, sitterColor)
+      ).sequenceFu.void
+    }
 
-  def other(game: Game, status: Status.type => Status, winner: Option[Color]): Funit = IfBlameable(game) {
-    ((for {
-      w <- winner
-      loserId <- game.player(!w).userId
-      if Status.NoStart is status
-    } yield List(save(Outcome.NoPlay)(loserId), goodFinish(game, w))) |
-      game.userIds.map(save(Outcome.Good))).sequenceFu.void
-  }
+  def other(game: Game, status: Status.type => Status, winner: Option[Color]): Funit =
+    winner.?? { w => sandbag(game, !w) } >> IfBlameable(game) {
+      ((for {
+        w <- winner
+        loserId <- game.player(!w).userId
+        if Status.NoStart is status
+      } yield List(save(Outcome.NoPlay)(loserId), goodFinish(game, w))) |
+        game.userIds.map(save(Outcome.Good))).sequenceFu.void
+    }
 
   private def goodFinish(game: Game, color: Color): Funit =
     ~(game.player(color).userId.map(save(Outcome.Good)))
