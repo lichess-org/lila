@@ -109,8 +109,18 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       comment(null);
       if (node.san && commentable(node)) {
         const parentNode = root.tree.parentNode(root.path);
-        if (commentable(parentNode, +1))
-        comment(makeComment(parentNode, node, root.path));
+        if (commentable(parentNode, +1)) comment(makeComment(parentNode, node, root.path));
+        else {
+          /*
+           * Looks like the parent node didn't get enough analysis time
+           * to be commentable :-/ it can happen if the player premoves
+           * or just makes a move before the position is sufficiently analysed.
+           * In this case, fall back to comparing to the position before,
+           * Since computer moves are supposed to preserve eval anyway.
+           */
+          const olderNode = root.tree.parentNode(treePath.init(root.path));
+          if (commentable(olderNode, +1)) comment(makeComment(olderNode, node, root.path));
+        }
       }
       if (!played() && playable(node)) {
         root.playUci(node.ceval!.pvs[0].moves[0]);
