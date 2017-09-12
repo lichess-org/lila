@@ -129,8 +129,6 @@ private final class Streaming(
         }
     }
   }))
-
-  actor ! Search
 }
 
 object Streaming {
