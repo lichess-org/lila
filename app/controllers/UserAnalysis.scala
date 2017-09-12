@@ -104,7 +104,7 @@ object UserAnalysis extends LilaController with TheftPrevention {
         // Round.getWatcherChat(pov.game) zip
         // Env.game.crosstableApi.withMatchup(pov.game) zip
         Env.bookmark.api.exists(pov.game, ctx.me) zip
-        Env.api.pgnDump(pov.game, initialFen, PgnDump.WithFlags(clocks = false)) flatMap {
+        Env.api.pgnDump(pov.game, initialFen, PgnDump.WithFlags(clocks = true)) flatMap {
           // case _ ~ analysis ~ analysisInProgress ~ simul ~ chat ~ crosstable ~ bookmarked ~ pgn =>
           case _ ~ analysis ~ bookmarked ~ pgn =>
             Env.api.roundApi.review(pov, apiVersion,
