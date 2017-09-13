@@ -50,9 +50,13 @@
   <string name="analysis">Explicare</string>
   <string name="move">Actio</string>
   <string name="openingExplorer">Explicatio initiorum</string>
+  <string name="allSet">Hic bonus est.</string>
   <string name="importPgn">Inferre PGN</string>
   <string name="delete">Delere</string>
   <string name="deleteThisImportedGame">Delerene hunc ludum inlatum?</string>
+  <string name="realtimeReplay">Praesens tempus</string>
+  <string name="byCPL">Ab CPL</string>
+  <string name="openStudy">Aperire explorationem</string>
   <string name="memory">Memoria</string>
   <string name="blunders">Errata gravia</string>
   <string name="mistakes">Errata</string>
