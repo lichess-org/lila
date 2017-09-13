@@ -29,7 +29,8 @@ const spamRegex = new RegExp([
   '.ssl443.org',
   '.ns02.us',
   '.myftp.info',
-  '.flinkup.com'
+  '.flinkup.com',
+  '.serveusers.com'
 ].map(url => {
   return url.replace(/\./g, '\\.').replace(/\//g, '\\/');
 }).join('|'));
