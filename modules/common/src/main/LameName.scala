@@ -44,6 +44,7 @@ object LameName {
       "coon",
       "piss",
       "poon",
+      "poop",
       "prick",
       "pussy",
       "slut",
