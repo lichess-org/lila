@@ -394,6 +394,7 @@ export default class AnalyseCtrl {
       success: (data: AnalyseData) => {
         this.reloadData(data, false);
         this.userJump(this.mainlinePathToPly(this.tree.lastPly()));
+        this.redraw();
       },
       error: error => {
         console.log(error);
