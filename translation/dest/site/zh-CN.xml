@@ -72,8 +72,12 @@
   <string name="averageRatingX">平均分：%s</string>
   <string name="recentGames">最近玩的盘</string>
   <string name="topGames">名盘</string>
+  <string name="masterDbExplanation">%2$s-%3$s年国际棋联两等级分%1$s以上选手的百万局棋谱</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="other">將死还有%s着</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="other">下次吃子或走兵发生在%s步后（与重置50步计数的距离）</item>
   </plurals>
   <string name="noGameFound">没找到</string>
   <string name="openingExplorer">開局瀏覽器</string>
