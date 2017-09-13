@@ -57,6 +57,8 @@
   <string name="realtimeReplay">Praesens tempus</string>
   <string name="byCPL">Ab CPL</string>
   <string name="openStudy">Aperire explorationem</string>
+  <string name="enable">Habilitare</string>
+  <string name="bestMoveArrow">Optimus actio adnotamentum</string>
   <string name="memory">Memoria</string>
   <string name="blunders">Errata gravia</string>
   <string name="mistakes">Errata</string>
