@@ -49,6 +49,7 @@
   <string name="computerAnalysisAvailable">有电脑分析</string>
   <string name="analysis">分析</string>
   <string name="depthX">深度 %s</string>
+  <string name="usingServerAnalysis">正在用服务器分析</string>
   <string name="loadingEngine">正在载入引擎</string>
   <string name="cloudAnalysis">云分析</string>
   <string name="goDeeper">深入分析</string>
