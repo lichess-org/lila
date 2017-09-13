@@ -32,7 +32,7 @@
         @in.allReports.map(renderReport)
       </div>
     </div>
-    <div class="dropper counter history">
+    <div class="dropper counter history @if(in.history.isEmpty){empty}">
       <span>
         <count>@in.history.size</count>
         Mod log
@@ -47,7 +47,7 @@
       </div>
       }
     </div>
-    <div class="dropper counter notes">
+    <div class="dropper counter notes @if(in.notes.isEmpty){empty}">
       <span>
         <count>@in.notes.size</count>
         Notes
@@ -100,7 +100,7 @@
     </form>
     }
     @if(isGranted(_.MarkTroll)) {
-    <form method="post" action="@routes.Mod.troll(in.user.username, !in.user.troll)" data-hint="@if(in.user.troll){En}else{Dis}able communication features for this user." class="hint--bottom-left">
+    <form method="post" action="@routes.Mod.troll(in.user.username, !in.user.troll)" data-hint="@if(in.user.troll){Un-s}else{S}hadowban" class="hint--bottom-left">
       <button data-icon="c" class="fbt icon@when(in.user.troll, " active")" type="submit"></button>
       @autoNextInput
     </form>

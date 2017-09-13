@@ -70,7 +70,7 @@ body.no-inquiry {
   position: relative;
   flex: 0 0 43%;
   height: 100%;
-  margin: 0 10px;
+  margin-left: 10px;
   overflow: hidden;
   color: #ccc;
 }
@@ -212,7 +212,7 @@ body.no-inquiry {
   line-height: 40px;
 }
 #inquiry .dropper.warn input {
-  padding: 6px 10px;
+  padding: 6px 20px;
   text-transform: initial;
 }
 
@@ -222,6 +222,11 @@ body.no-inquiry {
   flex-flow: column;
   align-items: center;
   justify-content: center;
+}
+#inquiry .dropper.counter.empty > span {
+  opacity: 0.5;
+}
+#inquiry .dropper.counter:not(.empty) > span {
   background: #555;
 }
 #inquiry .dropper.counter > span count {
@@ -230,11 +235,15 @@ body.no-inquiry {
   height: 1.1em;
 }
 #inquiry .dropper.counter > div {
+  padding: 4px 20px 20px 20px;
+}
+#inquiry .dropper.counter > div,
+#inquiry .dropper.warn > div {
+  box-sizing: border-box;
   width: 360px;
-  right: -168px;
+  right: -155px;
   max-height: 500px;
   overflow-y: auto;
-  padding: 4px 20px 20px 20px;
 }
 #inquiry .history li {
   white-space: nowrap;
