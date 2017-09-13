@@ -44,8 +44,8 @@ object Report extends LilaController {
       case _ => routes.User.show(inquiry.user).url + "?mod"
     })
 
-  protected[controllers] def onInquiryClose(inquiry: Option[ReportModel], me: UserModel)(implicit ctx: BodyContext[_]) = {
-    val autoNext = ctx.body.body match {
+  protected[controllers] def onInquiryClose(inquiry: Option[ReportModel], me: UserModel, force: Boolean = false)(implicit ctx: BodyContext[_]) = {
+    def autoNext = ctx.body.body match {
       case AnyContentAsFormUrlEncoded(data) => data.get("next").exists(_.headOption contains "1")
       case _ => false
     }
@@ -53,20 +53,23 @@ object Report extends LilaController {
       case None => Redirect(routes.Report.list).fuccess
       case Some(prev) =>
         def redirectToList = Redirect(routes.Report.listWithFilter(prev.room.key))
-        if (!autoNext) Redirect(s"${routes.User.show(prev.user)}?mod").fuccess
-        else api.next(prev.room) flatMap {
+        if (autoNext) api.next(prev.room) flatMap {
           _.fold(redirectToList.fuccess) { report =>
             api.inquiries.toggle(AsMod(me), report.id) map {
               _.fold(redirectToList)(onInquiryStart)
             }
           }
         }
+        else if (force) Redirect(s"${routes.User.show(prev.user)}?mod").fuccess
+        else api.inquiries.toggle(AsMod(me), prev.id) map {
+          _.fold(redirectToList)(onInquiryStart)
+        }
     }
   }
 
   def process(id: String) = SecureBody(_.SeeReport) { implicit ctx => me =>
     Env.report.api.inquiries ofModId me.id flatMap { inquiry =>
-      api.process(AsMod(me), id) >> onInquiryClose(inquiry, me)
+      api.process(AsMod(me), id) >> onInquiryClose(inquiry, me, force = true)
     }
   }
 
