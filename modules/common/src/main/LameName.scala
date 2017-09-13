@@ -44,6 +44,7 @@ object LameName {
       "coon",
       "piss",
       "poon",
+      "poop",
       "prick",
       "pussy",
       "slut",
@@ -59,6 +60,7 @@ object LameName {
       "cock",
       "dick",
       "wanker",
+      "feces",
       "fart"
     ) map { _ map subs mkString } mkString "|" r).pattern
   }
