@@ -12,6 +12,7 @@ case class Inquiry(
     accuracy: Option[Int],
     moreReports: List[Report],
     notes: List[Note],
+    history: List[lila.mod.Modlog],
     user: User
 ) {
 
@@ -20,7 +21,8 @@ case class Inquiry(
 
 final class InquiryApi(
     reportApi: ReportApi,
-    noteApi: NoteApi
+    noteApi: NoteApi,
+    logApi: ModlogApi
 ) {
 
   def forMod(mod: User): Fu[Option[Inquiry]] =
@@ -30,10 +32,11 @@ final class InquiryApi(
           reportApi.moreLike(report, 10) zip
             UserRepo.named(report.user) zip
             reportApi.accuracy(report) zip
-            noteApi.forMod(report.user) map {
-              case moreReports ~ userOption ~ accuracy ~ notes =>
+            noteApi.forMod(report.user) zip
+            logApi.userHistory(report.user) map {
+              case moreReports ~ userOption ~ accuracy ~ notes ~ history =>
                 userOption ?? { user =>
-                  Inquiry(mod.light, report, accuracy, moreReports, notes, user).some
+                  Inquiry(mod.light, report, accuracy, moreReports, notes, history, user).some
                 }
             }
         }

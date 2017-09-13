@@ -109,7 +109,7 @@ final class Env(
     reportApi = reportApi
   )
 
-  lazy val inquiryApi = new InquiryApi(reportApi, noteApi)
+  lazy val inquiryApi = new InquiryApi(reportApi, noteApi, logApi)
 
   // api actor
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {

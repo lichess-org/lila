@@ -70,16 +70,20 @@ body.no-inquiry {
   position: relative;
   flex: 0 0 43%;
   height: 100%;
-  margin: 0 20px;
+  margin: 0 10px;
   overflow: hidden;
   color: #ccc;
 }
 #inquiry .docs.reports {
   flex: 4 1 auto;
 }
+#inquiry .docs.history {
+  margin-left: 0;
+  flex: 3 1 auto;
+}
 #inquiry .docs.notes {
   margin: 0;
-  flex: 3 1 auto;
+  flex: 2 1 auto;
 }
 #inquiry .docs .expendable {
   padding: 4px 20px 20px 20px;

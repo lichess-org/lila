@@ -32,6 +32,17 @@
         @in.allReports.map(renderReport)
       </div>
     </div>
+    <div class="docs history">
+      <div class="expendable">
+        @if(in.history.isEmpty) {
+          Clean record.
+        } else {
+        @in.history.map { e =>
+        <li>@userIdLink(e.mod.some) <b>@e.showAction</b> @e.details @momentFromNow(e.date)</li>
+        }
+        }
+      </div>
+    </div>
     <div class="docs notes">
       <div class="expendable">
         <h2>
