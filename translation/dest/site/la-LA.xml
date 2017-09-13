@@ -49,6 +49,10 @@
   <string name="computerAnalysisAvailable">Explicatio, ordinatrō fit, praebitus est</string>
   <string name="analysis">Explicare</string>
   <string name="openingExplorer">Explicatio initiorum</string>
+  <string name="importPgn">Inferre PGN</string>
+  <string name="delete">Delere</string>
+  <string name="deleteThisImportedGame">Delerene hunc ludum inlatum?</string>
+  <string name="memory">Memoria</string>
   <string name="blunders">Errata gravia</string>
   <string name="mistakes">Errata</string>
   <string name="inaccuracies">Menda</string>
@@ -113,6 +117,7 @@
   <string name="passwordReset">Recrea tesseram</string>
   <string name="forgotPassword">Tessera oblita?</string>
   <string name="rank">Ordo</string>
+  <string name="rankX">Locus: %s</string>
   <string name="gamesPlayed">Lusi lusiones</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s ludi tecum</item>
