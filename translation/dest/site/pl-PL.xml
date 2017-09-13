@@ -710,7 +710,7 @@
   <string name="weHaveSentYouAnEmailTo">Wysłaliśmy wiadomość e-mail do %s.Kliknij w link znajdujący się w wiadomości aby zresetować swoje hasło.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Rejestrując się wyrażasz zgodę na przestrzeganie %s.</string>
   <string name="networkLagBetweenYouAndLichess">Opóźnienie w połączeniu internetowym pomiędzy Tobą i lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">Czas na przetworzenie zagrania na serwerze lichess</string>
+  <string name="timeToProcessAMoveOnLichessServer">Czas przetwarzania ruchu na serwerze lichess</string>
   <string name="downloadAnnotated">Pobierz z komentarzem</string>
   <string name="downloadRaw">Pobierz bez komentarza</string>
   <string name="downloadImported">Pobierz zaimportowane partie</string>
