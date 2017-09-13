@@ -74,16 +74,12 @@ body.no-inquiry {
   overflow: hidden;
   color: #ccc;
 }
-#inquiry .docs.reports {
+#inquiry .reports {
   flex: 4 1 auto;
 }
-#inquiry .docs.history {
-  margin-left: 0;
-  flex: 3 1 auto;
-}
-#inquiry .docs.notes {
-  margin: 0;
-  flex: 2 1 auto;
+#inquiry .counter {
+  margin-left: 0.3em;
+  flex: 0 0 auto;
 }
 #inquiry .docs .expendable {
   padding: 4px 20px 20px 20px;
@@ -188,14 +184,13 @@ body.no-inquiry {
 #inquiry .dropper {
   position: relative;
   height: 100%;
-  line-height: 40px;
 }
 #inquiry .dropper > span {
   display: block;
   height: 100%;
   padding: 0 10px;
 }
-#inquiry .dropper div {
+#inquiry .dropper > div {
   display: none;
   position: absolute;
   top: 100%;
@@ -213,12 +208,39 @@ body.no-inquiry {
   width: 100%;
   text-align: left;
 }
-#inquiry .dropper.warn form {
-  line-height: 1em;
+#inquiry .dropper > span.icon {
+  line-height: 40px;
 }
 #inquiry .dropper.warn input {
   padding: 6px 10px;
   text-transform: initial;
+}
+
+#inquiry .dropper.counter > span {
+  font-family: Roboto;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  background: #555;
+}
+#inquiry .dropper.counter > span count {
+  font-size: 1.2em;
+  display: block;
+  height: 1.1em;
+}
+#inquiry .dropper.counter > div {
+  width: 360px;
+  right: -168px;
+  max-height: 500px;
+  overflow-y: auto;
+  padding: 4px 20px 20px 20px;
+}
+#inquiry .history li {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 6px 0;
 }
 
 #inquiry .switcher {
