@@ -252,6 +252,25 @@
   <string name="tournamentPoints">แต้มทัวร์นาเมนต์</string>
   <string name="viewTournament">ดูทัวร์นาเมนต์</string>
   <string name="backToTournament">กลับสู่ทัวร์นาเมนต์</string>
+  <string name="thematic">ธีมาติก</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="other">≥ %s เกมที่คิดคะแนน</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="other">≥ %1$s เกม %2$s ที่คิดคะแนน</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="other">คุณจำเป็นต้องเล่น %1$s มากกว่า %2$s เกมที่คิดคะแนน</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="other">คุณจำเป็นต้องเล่นเกม %s ที่คิดคะแนนเพิ่มเติม</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">ระดับคะแนน %s ของคุณเป็นแบบชั่วคราว</string>
+  <string name="yourPerfRatingIsTooHigh">ระดับคะแนน %1$s ของคุณ (%2$s) สูงเกินไป</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">ระดับคะแนน %1$s รายสัปดาห์ของคุณ (%2$s) สูงเกินไป</string>
+  <string name="yourPerfRatingIsTooLow">ระดับคะแนน %1$s ของคุณ (%2$s) ต่ำเกินไป</string>
+  <string name="ratedMoreThanInPerf">ระดับคะแนน ≥ %1$s สำหรับ %2$s</string>
+  <string name="ratedLessThanInPerf">ระดับคะแนน ≤ %1$s สำหรับ %2$s</string>
   <string name="backToGame">กลับสู่เกม</string>
   <string name="siteDescription">เกมหมากรุกสากลออนไลน์ฟรี เล่นได้ทันทีในรูปลักษณ์ที่สะอาดตา โดยไม่จำเป็นต้องลงทะเบียน, ไม่มีโฆษณา, ไม่ต้องการปลั๊กอิน, เล่นหมากรุกกับคอมพิวเตอร์หรือเพื่อน หรือสุ่มคู่แข่งก็ได้</string>
   <string name="teams">ทีม</string>
