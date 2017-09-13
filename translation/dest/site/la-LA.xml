@@ -48,6 +48,7 @@
   <string name="computerAnalysis">Analysis computoris</string>
   <string name="computerAnalysisAvailable">Explicatio, ordinatrō fit, praebitus est</string>
   <string name="analysis">Explicare</string>
+  <string name="move">Actio</string>
   <string name="openingExplorer">Explicatio initiorum</string>
   <string name="importPgn">Inferre PGN</string>
   <string name="delete">Delere</string>
@@ -214,6 +215,8 @@
     <item quantity="one">Tibi %s plus censitus ludus ludendus</item>
     <item quantity="other">Tibi %s plures censiti ludi ludendi</item>
   </plurals>
+  <string name="yourPerfRatingIsTooHigh">Tuus %1$s indictio (%2$s) altissimus est</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Tuus maximus %1$s indictio hebdomade (%2$s) altissimus est</string>
   <string name="backToGame">Referre ad ludo</string>
   <string name="siteDescription">Liberi scacci in rete. Lude jam scaccos super clarissimas pagines. Nec conventum, nec praeconia mercatoria, nec plugin necesse sunt. Lude scaccos sive cum computatro, sive cum amicis, sive cum aleatoriis adversariis.</string>
   <string name="teams">Legiones</string>
