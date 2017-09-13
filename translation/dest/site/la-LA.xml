@@ -210,6 +210,10 @@
     <item quantity="one">≥ %1$s %2$s censitus ludus</item>
     <item quantity="other">≥ %1$s %2$s censiti ludi</item>
   </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Tibi %s plus censitus ludus ludendus</item>
+    <item quantity="other">Tibi %s plures censiti ludi ludendi</item>
+  </plurals>
   <string name="backToGame">Referre ad ludo</string>
   <string name="siteDescription">Liberi scacci in rete. Lude jam scaccos super clarissimas pagines. Nec conventum, nec praeconia mercatoria, nec plugin necesse sunt. Lude scaccos sive cum computatro, sive cum amicis, sive cum aleatoriis adversariis.</string>
   <string name="teams">Legiones</string>
