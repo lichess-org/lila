@@ -13,10 +13,10 @@ object LameName {
   private val lameWords = {
     val extras = Map(
       'a' -> "4",
-      'e' -> "3",
+      'e' -> "38",
       'i' -> "l1",
       'l' -> "I1",
-      'o' -> "0",
+      'o' -> "08",
       's' -> "5",
       'z' -> "2"
     )
