@@ -37,6 +37,7 @@
         <count>@in.history.size</count>
         Mod log
       </span>
+      @if(in.history.nonEmpty) {
       <div>
         <ul>
           @in.history.map { e =>
@@ -44,6 +45,7 @@
           }
         </ul>
       </div>
+      }
     </div>
     <div class="dropper counter notes">
       <span>
