@@ -42,6 +42,10 @@
   <string name="itMovesForwardOnly">它只向前移动</string>
   <string name="pawnIntro">兵是弱小的，但它们内含很多潜力。</string>
   <string name="pawnsMoveOneSquareOnly">兵只移动一格。但是它们到达棋盘的另一侧时变成更强大的棋子！</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">多数时候，升变为后是最好的选择。但有时候，升变为马也能派上用场。</string>
+  <string name="pawnsMoveForward">兵向前直行，但斜着吃子。</string>
+  <string name="captureThenPromote">吃子，然后升变！</string>
+  <string name="useAllThePawns">使用所有的兵！不需要升变。</string>
   <string name="playMachine">跟电脑玩</string>
   <string name="testYourSkillsWithTheComputer">看你多强</string>
   <string name="letsGo">开始！</string>
