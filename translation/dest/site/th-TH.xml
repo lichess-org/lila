@@ -96,7 +96,7 @@
   <string name="enable">เปิดใช้งาน</string>
   <string name="bestMoveArrow">ศรการเดินที่ดีที่สุด</string>
   <string name="evaluationGauge">เครื่องวัดการประเมิน</string>
-  <string name="multipleLines">หลายบรรทัด</string>
+  <string name="multipleLines">หลายเส้นทาง</string>
   <string name="cpus">ซีพียู</string>
   <string name="memory">หน่วยความจำ</string>
   <string name="infiniteAnalysis">การวิเคราะห์อนันต์</string>
