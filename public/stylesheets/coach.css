@@ -33,6 +33,10 @@
   text-shadow: none!important;
   white-space: nowrap;
 }
+.coach .top h1.large {
+  letter-spacing: 2px;
+  font-size: 30px;
+}
 .coach .top .headline {
   font-family: 'PT Serif', 'Noto Sans', 'Lucida Grande';
   font-size: 16px;

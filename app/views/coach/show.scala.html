@@ -43,7 +43,7 @@ moreCss = moreCss) {
     @pic(c, 250)
     @defining(c.user.profileOrDefault) { profile =>
     <div class="overview">
-      <h1>
+      <h1 class="@if(c.user.realNameOrUsername.size > 20) { large }">
         @c.user.title.map { t => @t }@c.user.realNameOrUsername
       </h1>
       @c.coach.profile.headline.map { h =>
