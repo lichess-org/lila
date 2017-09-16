@@ -60,8 +60,8 @@
   <string name="variantLoss">Губитак из варијанте</string>
   <string name="variantWin">Победа из варијанте</string>
   <string name="insufficientMaterial">Недовољно материјала</string>
-  <string name="pawnMove">потез пешаком</string>
-  <string name="capture">узима</string>
+  <string name="pawnMove">Потез пешаком</string>
+  <string name="capture">Једење</string>
   <string name="close">Затворите</string>
   <string name="winning">Добија</string>
   <string name="losing">Губи</string>
@@ -133,13 +133,13 @@
   <string name="viewInFullSize">Погледај у пуној величини</string>
   <string name="logOut">Одјави се</string>
   <string name="signIn">Пријави се</string>
-  <string name="newToLichess">Нови у Lichess-у?</string>
+  <string name="newToLichess">Нови на Личесу?</string>
   <string name="youNeedAnAccountToDoThat">Треба вам налог да бисте то урадили</string>
-  <string name="signUp">Региструј се</string>
+  <string name="signUp">Региструјте се</string>
   <string name="computersAreNotAllowedToPlay">Игра уз асистенцију рачунара није дозвољена. Молимо Вас да не користите шаховске програме, базе података, и помоћ других играча. Отварање вишеструких налога такође није пожељно док ће прекомерно отварање налога резултирати бановањем.</string>
   <string name="games">Партије</string>
   <string name="forum">Форум</string>
-  <string name="xPostedInForumY">%1$s постовао на форуму %2$s</string>
+  <string name="xPostedInForumY">%1$s је написао/ла коментар на теми %2$s</string>
   <string name="latestForumPosts">Последњe оглашавање на форуму</string>
   <string name="players">Шахисти</string>
   <string name="minutesPerSide">Минута по страни</string>
