@@ -47,6 +47,7 @@
   <string name="requestAComputerAnalysis">კომპიუტერული ანალიზის მოთხოვნა</string>
   <string name="computerAnalysis">კომპიუტერული ანალიზი</string>
   <string name="analysis">ანალიზის დაფა</string>
+  <string name="depthX">სიღრმ</string>
   <string name="openingExplorer">ეტიუდების გზამკვლევი</string>
   <string name="blunders">დაუკვირვებლობები</string>
   <string name="mistakes">შეცდომები</string>
