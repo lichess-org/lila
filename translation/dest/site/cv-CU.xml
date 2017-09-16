@@ -532,4 +532,5 @@
     <item quantity="other">%s чӗлхене куҫарнӑ!</item>
   </plurals>
   <string name="gameAnalysis">Вӑййа тишкересси</string>
+  <string name="language">Чӗлхе</string>
 </resources>
