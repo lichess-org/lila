@@ -243,20 +243,20 @@ private[round] final class Round(
       } {
         pov.player.userId.foreach { UserLagCache.put(_, lag) }
         if (pov.game.playedTurns < 12) {
-          import lila.mon.round.{ move => mRec }
-          mRec.networkLag(lag.millis) // Deprecated. Other stats use centis.
-          mRec.avgClientLag(lag.centis)
+          import lila.mon.round.move.{ lag => lRec }
+          lila.mon.round.move.networkLag(lag.millis) // Deprecated.
+          lRec.avgReported(lag.centis)
           lt.history match {
-            case h: DecayingStats => mRec.lagCompDeviation(h.deviation.toInt)
+            case h: DecayingStats => lRec.compDeviation(h.deviation.toInt)
           }
           for {
             lowEst <- lt.lowEstimate
             avgComp <- lt.avgLagComp
             uncomp <- (lt.totalLag - lt.totalComp) / lt.lagSteps
           } {
-            mRec.lagEstimateError((avgComp - lowEst).centis + 100)
-            mRec.uncompedLag(f"${lt.quotaGain.roundTenths}%02d")(uncomp.centis)
-            mRec.uncompedLagAll(uncomp.centis)
+            lRec.estimateError((avgComp - lowEst).centis + 100)
+            lRec.uncomped(f"${lt.quotaGain.roundTenths}%02d")(uncomp.centis)
+            lRec.uncompedAll(uncomp.centis)
           }
         }
       }

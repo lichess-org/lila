@@ -160,12 +160,14 @@ object mon {
         def create = makeTrace("round.move.trace")
       }
       val networkLag = rec("round.move.network_lag") // Deprecated.
-      val avgClientLag = rec("round.move.avg_client_lag")
-      val lagEstimateError = rec("round.move.lag_estimate_error")
-      val lagCompDeviation = rec("round.move.lag_comp_deviation")
-      def uncompedLag(key: String) = rec(s"round.move.uncomped_lag.$key")
-      val uncompedLagAll = rec(s"round.move.uncomped_lag.all")
 
+      object lag {
+        val avgReported = rec("round.move.lag.avg_reported")
+        val estimateError = rec("round.move.lag.estimate_error")
+        val compDeviation = rec("round.move.lag.comp_deviation")
+        def uncomped(key: String) = rec(s"round.move.lag.uncomped.$key")
+        val uncompedAll = rec(s"round.move.lag.uncomped.all")
+      }
     }
     object error {
       val client = inc("round.error.client")
