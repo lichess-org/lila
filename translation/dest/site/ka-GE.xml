@@ -69,7 +69,13 @@
   <string name="averageRatingX">საშუალო რეიტინგი: %</string>
   <string name="recentGames">ახლანდელი თამაშები</string>
   <string name="topGames">ტოპ თამაშები</string>
+  <string name="noGameFound">თამაში ვერ მოიძებნა</string>
   <string name="openingExplorer">ეტიუდების გზამკვლევი</string>
+  <string name="allSet">ყველაფერი მზადაა!</string>
+  <string name="importPgn">PGN-ის იმპორტი</string>
+  <string name="delete">წაშლა</string>
+  <string name="deleteThisImportedGame">წაიშალოს ეს იმპორტირებული თამაში?</string>
+  <string name="replayMode">გამეორების რეჟიმი</string>
   <string name="blunders">დაუკვირვებლობები</string>
   <string name="mistakes">შეცდომები</string>
   <string name="inaccuracies">უზუსტობები</string>
