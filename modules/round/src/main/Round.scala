@@ -6,7 +6,7 @@ import org.joda.time.DateTime
 import scala.concurrent.duration._
 
 import actorApi._, round._
-import chess.{ Centis, Color }
+import chess.{ Centis, DecayingStats, Color }
 import lila.game.{ Game, Progress, Pov, Event }
 import lila.hub.actorApi.DeployPost
 import lila.hub.actorApi.map._
@@ -238,13 +238,25 @@ private[round] final class Round(
       // i.e. 10, 11, 42, 43, 74, 75, ...
       for {
         clock <- pov.game.clock
-        lag <- clock.lag(pov.color)
+        lt = clock.lag(pov.color)
+        lag <- lt.avgLag
       } {
         pov.player.userId.foreach { UserLagCache.put(_, lag) }
         if (pov.game.playedTurns < 12) {
-          lila.mon.round.move.networkLag(lag.millis)
-          clock.lagCompEstimate(pov.color).foreach {
-            l => lila.mon.round.move.lagLowEstimate(l.centis)
+          import lila.mon.round.{ move => mRec }
+          mRec.networkLag(lag.millis) // Deprecated. Other stats use centis.
+          mRec.avgClientLag(lag.centis)
+          lt.history match {
+            case h: DecayingStats => mRec.lagCompDeviation(h.deviation.toInt)
+          }
+          for {
+            lowEst <- lt.lowEstimate
+            avgComp <- lt.avgLagComp
+            uncomp <- (lt.totalLag - lt.totalComp) / lt.lagSteps
+          } {
+            mRec.lagEstimateError((avgComp - lowEst).centis + 100)
+            mRec.uncompedLag(f"${lt.quotaGain.roundTenths}%02d")(uncomp.centis)
+            mRec.uncompedLagAll(uncomp.centis)
           }
         }
       }
