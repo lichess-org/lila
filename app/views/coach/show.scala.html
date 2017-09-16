@@ -21,8 +21,13 @@ $('.review-form form').show();
 }
 
 @side = {
-@reviewForm(c, reviewApproval)
-@reviews(c, coachReviews)
+<div class="coach-side">
+  <div class="profile">
+    <a class="blue" href="@routes.User.show(c.user.username)">View @c.user.username lichess profile</a>
+  </div>
+  @reviewForm(c, reviewApproval)
+  @reviews(c, coachReviews)
+</div>
 }
 
 @section(title: String, text: Option[lila.coach.CoachProfile.RichText]) = {

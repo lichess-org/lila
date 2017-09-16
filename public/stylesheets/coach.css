@@ -121,7 +121,6 @@ body.dark .coach .studies h1 {
 }
 
 .review-form {
-  margin-top: 30px;
   text-align: center;
 }
 .review-form .toggle {
@@ -192,6 +191,10 @@ body.dark .coach .studies h1 {
     margin-left: 0!important;
     width: 196px!important;
   }
+}
+.coach-side .profile {
+  text-align: right;
+  margin-bottom: 1em;
 }
 
 /* review score */
