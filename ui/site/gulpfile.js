@@ -103,12 +103,13 @@ function makeBundle(filename) {
 
 gulp.task('git-sha', function(cb) {
   exec("git rev-parse -q --short HEAD", function (err, stdout) {
+    if (err) throw err;
+    if (!fs.existsSync('./dist')) fs.mkdirSync('./dist');
     var date = new Date().toISOString().split('.')[0];
-    if (err) cb(err);
-    else fs.writeFile('./dist/consolemsg.js',
-        'console.info("Lichess is open source! See https://github.com/ornicar/lila");' +
-        `lichess.info = "Assets built ${date} from sha ${stdout.trim()}";`,
-      (err) => cb(err));
+    fs.writeFileSync('./dist/consolemsg.js',
+      'console.info("Lichess is open source! See https://github.com/ornicar/lila");' +
+      `lichess.info = "Assets built ${date} from sha ${stdout.trim()}";`);
+    cb();
   });
 });
 
