@@ -10,5 +10,8 @@
   <string name="grabAllTheStars">აიყვანე ყველა ვარსკვლავი!</string>
   <string name="theBishop">კუ</string>
   <string name="theQueen">ლაზიერი</string>
+  <string name="theKing">მეფე</string>
+  <string name="theKingIsSlow">მეფე ნელა მოძრაობს.</string>
+  <string name="theKnight">მხედარი</string>
   <string name="thePawn">ჯონჯოლი</string>
 </resources>
