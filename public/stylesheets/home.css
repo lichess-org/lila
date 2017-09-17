@@ -90,6 +90,8 @@ body.dark #hooks_wrap {
   border: 1px solid #ccc;
   background: #dadada;
   transition: 0.13s;
+  white-space: nowrap;
+  overflow: hidden;
 }
 #hooks_wrap .tabs a:hover {
   background: #f0f0f0;
