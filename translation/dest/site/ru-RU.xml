@@ -341,7 +341,7 @@
   <string name="pasteTheFenStringHere">Вставьте строку в формате FEN</string>
   <string name="pasteThePgnStringHere">Вставьте строку в формате PGN</string>
   <string name="fromPosition">С позиции</string>
-  <string name="continueFromHere">Продолжить с данного места</string>
+  <string name="continueFromHere">Продолжить отсюда</string>
   <string name="importGame">Импорт игры</string>
   <string name="importGameExplanation">При вставке PGN игры вы получаете повтор в браузере,
 компьютерный анализ, игровой чат и ссылку, которой можно поделиться.</string>
@@ -381,8 +381,8 @@
   </plurals>
   <string name="more">Ещё</string>
   <string name="memberSince">Дата регистрации</string>
-  <string name="lastSeenActive">Последнее посещение %s</string>
-  <string name="challengeToPlay">Вызвать на игру</string>
+  <string name="lastSeenActive">Был онлайн %s</string>
+  <string name="challengeToPlay">Предложить сыграть</string>
   <string name="player">Игрок</string>
   <string name="list">Список</string>
   <string name="graph">График</string>

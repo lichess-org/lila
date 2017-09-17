@@ -68,7 +68,7 @@
     <item quantity="few">%1$s miejsce w klasyfikacji (top %2$s%%) z %3$s partiami w %4$s</item>
     <item quantity="other">%1$s miejsce w klasyfikacji (top %2$s%%) z %3$s partiami w %4$s</item>
   </plurals>
-  <string name="signedUp">Zostałeś zarejestrowany na Lichess</string>
+  <string name="signedUp">Zarejestrowany na lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Dołączył do %s klubu</item>
     <item quantity="few">Dołączył do %s klubów</item>

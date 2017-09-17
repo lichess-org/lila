@@ -49,6 +49,7 @@
   <string name="computerAnalysisAvailable">有电脑分析</string>
   <string name="analysis">分析</string>
   <string name="depthX">深度 %s</string>
+  <string name="usingServerAnalysis">正在用服务器分析</string>
   <string name="loadingEngine">正在载入引擎</string>
   <string name="cloudAnalysis">云分析</string>
   <string name="goDeeper">深入分析</string>
@@ -71,8 +72,12 @@
   <string name="averageRatingX">平均分：%s</string>
   <string name="recentGames">最近玩的盘</string>
   <string name="topGames">名盘</string>
+  <string name="masterDbExplanation">%2$s-%3$s年国际棋联两等级分%1$s以上选手的百万局棋谱</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="other">將死还有%s着</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="other">下次吃子或走兵发生在%s步后（与重置50步计数的距离）</item>
   </plurals>
   <string name="noGameFound">没找到</string>
   <string name="openingExplorer">開局瀏覽器</string>

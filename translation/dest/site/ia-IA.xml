@@ -511,7 +511,7 @@
   <string name="xAnsweredY">%1$s respondeva %2$s</string>
   <string name="xCommentedY">%1$s commentava %2$s</string>
   <string name="victory">Victoria!</string>
-  <string name="defeat">Défaite</string>
+  <string name="defeat">Defaite</string>
   <string name="xVsYinZ">%1$s contra %2$s
 in %3$s</string>
   <string name="timeline">Chronologia</string>
