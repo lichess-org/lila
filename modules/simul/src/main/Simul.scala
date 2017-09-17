@@ -130,6 +130,7 @@ case class Simul(
   def wins = pairings.count(p => p.finished && p.wins.has(false))
   def draws = pairings.count(p => p.finished && p.wins.isEmpty)
   def losses = pairings.count(p => p.finished && p.wins.has(true))
+  def ongoing = pairings.count(_.ongoing)
 }
 
 object Simul {

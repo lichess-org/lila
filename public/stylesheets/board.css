@@ -1052,6 +1052,44 @@ div.underboard a {
   display: inline-block;
 }
 
+#now_playing.other_games {
+  width: 512px;
+}
+#now_playing .switcher {
+  font-size: 0.7em;
+  display: flex;
+  height: 1.5em;
+  line-height: 22px;
+}
+#now_playing .switcher label {
+  cursor: pointer;
+}
+#now_playing .switcher .switch {
+  margin-left: 10px;
+}
+#now_playing.other_games > a {
+  padding: 5px;
+}
+#now_playing h3 {
+  font-size: 1.4em;
+  flex: 0 0 100%;
+  display: flex;
+  justify-content: space-between;
+}
+#now_playing .simul span {
+  font-weight: bold;
+  margin: 0 .5em;
+}
+#now_playing .simul .win {
+  color: #759900;
+}
+#now_playing .simul .draw {
+  color: #bf811d;
+}
+#now_playing .simul .loss {
+  color: #ac524f;
+}
+
 body.playing.zen .table {
   padding: 0;
 }

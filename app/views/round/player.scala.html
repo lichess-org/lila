@@ -54,9 +54,9 @@ atom = atom.some) {
       }
   </div></div>
 </div>
-@if(playing.nonEmpty) {
-<div id="now_playing" class="other_games @if(ctx.pref.isBlindfold){blindfold}" data-reload-url="@routes.Round.others(pov.gameId)">
-  @others(playing)
+@if(playing.nonEmpty || simul.nonEmpty) {
+<div id="now_playing" class="other_games @if(ctx.pref.isBlindfold){blindfold}">
+  @others(playing, simul)
 </div>
 }
 }

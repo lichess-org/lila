@@ -1,6 +1,16 @@
-@(playing: List[Pov])(implicit ctx: Context)
+@(playing: List[Pov], simul: Option[lila.simul.Simul])(implicit ctx: Context)
 <h3>
+  @simul.map { s =>
+  <span class="simul">
+    SIMUL
+    <span class="win">@s.wins W</span>/
+    <span class="draw">@s.draws D</span>/
+    <span class="loss">@s.losses L</span>/
+    @s.ongoing ongoing
+  </span>
+  }.getOrElse {
   @trans.currentGames()
+  }
   @defining("round-toggle-autoswitch") { id =>
   <span class="move_on switcher hint--bottom-left" data-hint="@trans.automaticallyProceedToNextGameAfterMoving()">
     <label for="@id">@trans.autoSwitch()</label>

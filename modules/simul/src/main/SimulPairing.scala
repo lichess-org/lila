@@ -11,6 +11,7 @@ case class SimulPairing(
 ) {
 
   def finished = status >= chess.Status.Mate
+  def ongoing = !finished
 
   def is(userId: String): Boolean = player is userId
   def is(other: SimulPlayer): Boolean = player is other

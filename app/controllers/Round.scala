@@ -103,14 +103,6 @@ object Round extends LilaController with TheftPrevention {
       pov.isMyTurn && (pov.game.hasClock || !currentGame.hasClock)
     }
 
-  def others(gameId: String) = Open { implicit ctx =>
-    OptionFuResult(GameRepo game gameId) { currentGame =>
-      otherPovs(currentGame) map { povs =>
-        Ok(html.round.others(povs))
-      }
-    }
-  }
-
   def whatsNext(fullId: String) = Open { implicit ctx =>
     OptionFuResult(GameRepo pov fullId) { currentPov =>
       if (currentPov.isMyTurn) fuccess {
