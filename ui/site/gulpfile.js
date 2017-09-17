@@ -132,7 +132,7 @@ gulp.task('user-mod', function() {
     .pipe(gulp.dest(destination));
 });
 
-const tasks = ['jquery-fill', 'ab', 'standalones', 'git-sha'];
+const tasks = ['git-sha', 'jquery-fill', 'ab', 'standalones'];
 if (!process.env.TRAVIS || process.env.GITHUB_API_TOKEN) {
   if (!process.env.NO_SF) { // to skip SF download
     tasks.push('stockfish.pexe');
@@ -143,7 +143,7 @@ if (!process.env.TRAVIS || process.env.GITHUB_API_TOKEN) {
 gulp.task('dev', tasks.concat(['dev-source']), makeBundle('lichess.site.source.js'));
 gulp.task('prod', tasks.concat(['prod-source']), makeBundle('lichess.site.source.min.js'));
 
-gulp.task('watch', ['jquery-fill', 'ab', 'standalones', 'user-mod', 'git-sha', 'dev-source'],
+gulp.task('watch', ['git-sha', 'jquery-fill', 'ab', 'standalones', 'user-mod', 'dev-source'],
   makeBundle('lichess.site.source.js'));
 
 gulp.task('default', ['watch'], function() {
