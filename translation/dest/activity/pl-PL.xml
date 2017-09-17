@@ -39,9 +39,9 @@
     <item quantity="other">Obserwowanych %s graczy</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="one">%s nowy obserwator</item>
-    <item quantity="few">%s nowych obserwatorów</item>
-    <item quantity="other">%s nowych obserwatorów</item>
+    <item quantity="one">%s nowy obserwujący</item>
+    <item quantity="few">%s nowych obserwujących</item>
+    <item quantity="other">%s nowych obserwujących</item>
   </plurals>
   <plurals name="hostedNbSimuls">
     <item quantity="one">%s rozegrana symultana</item>
