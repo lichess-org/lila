@@ -7,6 +7,8 @@ const streamify = require('gulp-streamify');
 const concat = require('gulp-concat');
 const request = require('request');
 const download = require('gulp-download-stream');
+const exec = require('child_process').exec;
+const fs = require('fs');
 
 const destination = '../../public/compiled/';
 const standalone = 'Lichess';
@@ -91,12 +93,24 @@ function makeBundle(filename) {
       './dep/mousetrap.min.js',
       './dep/hoverintent.min.js',
       './dist/' + filename,
-      './dist/ab.js'
+      './dist/ab.js',
+      './dist/consolemsg.js'
     ])
       .pipe(concat(filename.replace('source.', '')))
       .pipe(gulp.dest(destination));
   };
 }
+
+gulp.task('git-sha', function(cb) {
+  exec("git rev-parse -q --short HEAD", function (err, stdout) {
+    if (err) cb(err);
+    else fs.writeFile('./dist/consolemsg.js',
+        'console.info("Lichess is open source! See https://github.com/ornicar/lila\\n' +
+        'Assets built ' + new Date().toISOString().split('.')[0] +
+        ' from sha ' + stdout.trim() + '");\n',
+      (err) => cb(err));
+  });
+});
 
 gulp.task('standalones', function() {
   return gulp.src([
@@ -118,7 +132,7 @@ gulp.task('user-mod', function() {
     .pipe(gulp.dest(destination));
 });
 
-const tasks = ['jquery-fill', 'ab', 'standalones'];
+const tasks = ['jquery-fill', 'ab', 'standalones', 'git-sha'];
 if (!process.env.TRAVIS || process.env.GITHUB_API_TOKEN) {
   if (!process.env.NO_SF) { // to skip SF download
     tasks.push('stockfish.pexe');
