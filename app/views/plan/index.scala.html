@@ -4,6 +4,7 @@
 
 @moreJs = {
 <script src="https://checkout.stripe.com/checkout.js"></script>
+<script src="https://js.stripe.com/v2/"></script>
 @jsTag("checkout.js")
 @embedJs {
 lichess.checkout("@stripePublicKey");
@@ -137,6 +138,9 @@ description = "Free chess for everyone, forever!").some) {
             <label for="plan_other">Other</label>
           </div>
           </group>
+          <div class="service apple-pay-service" id="apple-pay-div">
+            <button class="button apple-pay-button apple-pay-button-white">Use Apple Pay!</button>
+          </div>
           <div class="service">
             <button class="stripe button">Use your credit card</button>
             <button class="paypal button">Use PayPal</button>
@@ -153,7 +157,7 @@ description = "Free chess for everyone, forever!").some) {
         <dd>
           First of all, powerful servers. We need speed and reliability.<br />
           Then we pay a full-time developer/administrator: @userIdLink("thibault".some), the founder of lichess.<br />
-          See the <a href="https://docs.google.com/spreadsheets/d/1CGgu-7aNxlZkjLl9l-OlL00fch06xp0Q7eCVDDakYEE/edit?usp=sharing">detailed cost breakdown</a>.
+          See the <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vTqMXZWfZc1eTqbNjmrdYJQcnUVIMHS6Tyb5UTyZXmPw9HEHFE0wI9eEuxYDt74_xBCDm8Aee1JgaRi/pubhtml">detailed cost breakdown</a>.
         </dd>
       </dl>
       <dl>
