@@ -32,7 +32,7 @@
   <string name="whitePlays">Ruch białych</string>
   <string name="blackPlays">Ruch czarnych</string>
   <string name="opponentLeftChoices">Twój przeciwnik opuścił grę. Możesz ogłosić swoje zwycięstwo, ogłosić remis lub poczekać.</string>
-  <string name="makeYourOpponentResign">Przeciwnik zrezygnował z dalszej gry</string>
+  <string name="makeYourOpponentResign">Wymuś rezygnację przeciwnika</string>
   <string name="forceResignation">Ogłoś wygraną</string>
   <string name="forceDraw">Ogłoś remis</string>
   <string name="talkInChat">Bądź miły na czacie</string>
