@@ -1,4 +1,4 @@
-@(c: lila.coach.Coach.WithUser, coachReviews: lila.coach.CoachReview.Reviews, studies: Seq[lila.study.Study.WithChaptersAndLiked], reviewApproval: Boolean)(implicit ctx: Context)
+@(c: lila.coach.Coach.WithUser, coachReviews: lila.coach.CoachReview.Reviews, studies: Seq[lila.study.Study.WithChaptersAndLiked], myReview: Option[lila.coach.CoachReview])(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("coach.css")
@@ -25,7 +25,9 @@ $('.review-form form').show();
   <div class="profile">
     <a class="blue" href="@routes.User.show(c.user.username)">View @c.user.username lichess profile</a>
   </div>
-  @reviewForm(c, reviewApproval)
+  @if(ctx.me.exists(_.id != c.user.id)) {
+  @reviewForm(c, myReview)
+  }
   @reviews(c, coachReviews)
 </div>
 }

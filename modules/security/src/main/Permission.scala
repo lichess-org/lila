@@ -46,6 +46,7 @@ object Permission {
   case object ReportBan extends Permission("ROLE_REPORT_BAN")
   case object ModMessage extends Permission("ROLE_MOD_MESSAGE")
   case object Impersonate extends Permission("ROLE_IMPERSONATE")
+  case object DisapproveCoachReview extends Permission("ROLE_DISAPPROVE_COACH_REVIEW")
 
   case object Hunter extends Permission("ROLE_HUNTER", List(
     ViewBlurs, MarkEngine, MarkBooster, StaffForum,
@@ -57,7 +58,7 @@ object Permission {
     Hunter, ModerateForum, IpBan, CloseAccount, ReopenAccount, ViewPrivateComms,
     ChatTimeout, MarkTroll, SetTitle, SetEmail, ModerateQa, StreamConfig,
     MessageAnyone, CloseTeam, TerminateTournament, ManageTournament, ManageEvent,
-    PreviewCoach, PracticeConfig, RemoveRanking, ReportBan, Beta
+    PreviewCoach, PracticeConfig, RemoveRanking, ReportBan, Beta, DisapproveCoachReview
   ))
 
   case object SuperAdmin extends Permission("ROLE_SUPER_ADMIN", List(

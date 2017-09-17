@@ -136,6 +136,12 @@ body.dark .coach_picture .cancel {
 .coach_edit .reviews .user > * {
   display: block;
 }
+.coach_edit .reviews .modded {
+  background: #dc322f;
+  color: #fff;
+  padding: 8px 10px;
+  margin-bottom: 1em;
+}
 .coach_edit .reviews .content {
   margin: 0 20px;
   box-sizing: border-box;

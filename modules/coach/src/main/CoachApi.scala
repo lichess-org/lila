@@ -121,15 +121,21 @@ final class CoachApi(
 
     def byId(id: String) = reviewColl.byId[CoachReview](id)
 
-    def isPending(user: User, coach: Coach): Fu[Boolean] =
-      reviewColl.exists(
-        $id(CoachReview.makeId(user, coach)) ++ $doc("approved" -> false)
-      )
+    def mine(user: User, coach: Coach): Fu[Option[CoachReview]] =
+      reviewColl.byId[CoachReview](CoachReview.makeId(user, coach))
 
     def approve(r: CoachReview, v: Boolean) = {
-      if (v) reviewColl.update($id(r.id), $set("approved" -> v)).void
+      if (v) reviewColl.update(
+        $id(r.id),
+        $set("approved" -> v) ++ $unset("moddedAt")
+      ).void
       else reviewColl.remove($id(r.id)).void
     } >> refreshCoachNbReviews(r.coachId)
+
+    def mod(r: CoachReview) = reviewColl.update($id(r.id), $set(
+      "approved" -> false,
+      "moddedAt" -> DateTime.now
+    )) >> refreshCoachNbReviews(r.coachId)
 
     private def refreshCoachNbReviews(id: Coach.Id): Funit =
       reviewColl.countSel($doc("coachId" -> id.value, "approved" -> true)) flatMap {

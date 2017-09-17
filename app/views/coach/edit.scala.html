@@ -105,9 +105,21 @@ side = side.some) {
             @barRating(selected = r.score.some, enabled = false)
             @momentFromNow(r.updatedAt)
           </div>
-          <div class="content">@autoLink(r.text)</div>
+          <div class="content">
+            @if(r.moddedAt.isDefined) {
+            <div class="modded">
+              Moderators have disapproved this review. Please only accept reviews from
+              actual students, based on actual lessons. Reviews must be about your coaching services.
+              <br />
+              You may delete this review, or ask the author to rephrase it, then approve it.
+            </div>
+            }
+            @autoLink(r.text)
+          </div>
           <div class="actions">
+            @if(r.moddedAt.fold(true)(_.isBefore(r.updatedAt))) {
             <a data-value="1" class="yes" data-icon="E"></a>
+            }
             <a data-value="0" class="no" data-icon="L"></a>
           </div>
         </div>

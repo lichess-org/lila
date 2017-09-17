@@ -27,9 +27,9 @@ object Coach extends LilaController {
           c.coach.profile.studyIds.map(_.value).map(lila.study.Study.Id.apply)
         } flatMap Env.study.pager.withChaptersAndLiking(ctx.me) flatMap { studies =>
           api.reviews.approvedByCoach(c.coach) flatMap { reviews =>
-            ctx.me.?? { api.reviews.isPending(_, c.coach) } map { isPending =>
+            ctx.me.?? { api.reviews.mine(_, c.coach) } map { myReview =>
               lila.mon.coach.pageView.profile(c.coach.id.value)()
-              Ok(html.coach.show(c, reviews, studies, reviewApproval = isPending))
+              Ok(html.coach.show(c, reviews, studies, myReview))
             }
           }
         }
@@ -65,6 +65,13 @@ object Coach extends LilaController {
         case false => notFound
         case true => api.reviews.approve(review, getBool("v")) inject Ok
       }
+    }
+  }
+
+  def modReview(id: String) = SecureBody(_.DisapproveCoachReview) { implicit ctx => me =>
+    OptionFuResult(api.reviews byId id) { review =>
+      Env.mod.logApi.coachReview(me.id, review.coachId.value, review.userId) >>
+        api.reviews.mod(review) inject Redirect(routes.Coach.show(review.coachId.value))
     }
   }
 

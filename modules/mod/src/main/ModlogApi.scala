@@ -118,6 +118,10 @@ final class ModlogApi(coll: Coll) {
     Modlog(mod, user.some, Modlog.modMessage, details = subject.some)
   }
 
+  def coachReview(mod: String, coach: String, author: String) = add {
+    Modlog(mod, coach.some, Modlog.coachReview, details = s"by $author".some)
+  }
+
   def recent = coll.find($empty).sort($sort naturalDesc).cursor[Modlog]().gather[List](100)
 
   def wasUnengined(sus: Suspect) = coll.exists($doc(
