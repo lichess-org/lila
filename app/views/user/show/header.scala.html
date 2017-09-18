@@ -169,9 +169,14 @@ case _ => {
       <p>@trans.tpTimeSpentOnTV(showPeriod(tvPeriod))</p>
       }
       }
-      <div class="teams">
+      <div class="social_links col2">
+        @profile.actualLinks.map { link =>
+        <a href="@link.url" rel="no-follow">@link.site.name</a>
+        }
+      </div>
+      <div class="teams col2">
         @info.teamIds.sorted.map { t =>
-        @teamLink(t)
+        @teamLink(t, withIcon = false)
         }
       </div>
     </div>

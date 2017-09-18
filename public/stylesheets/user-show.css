@@ -299,16 +299,22 @@ div.sub_ratings h3 {
 .user_show .bio,
 .user_show .stats,
 .user_show .tournament_points,
+.user_show .social_links,
 .user_show .teams {
   display: block;
   margin-top: 16px;
 }
+.user_show .col2 {
+  display: flex;
+  flex-flow: row wrap;
+  line-height: 1.7em;
+}
+.user_show .col2 > a {
+  flex: 0 0 50%;
+  color: #3893E8!important;
+}
 .user_show .bio {
   font-style: italic;
-}
-.user_show .teams a {
-  display: block;
-  margin: 5px 0;
 }
 .user_show div.games {
   padding-top: 10px;

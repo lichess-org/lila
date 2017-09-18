@@ -40,6 +40,13 @@ evenMoreCss =cssTag("material.form.css")) {
         }
         }
       </div>
+      @base.form.group(form("links"), Html("Social media links ")) {
+      <textarea name="@form("links").name" id="@form("links").id" rows=5 maxlength=600>@form("links").value</textarea>
+      <p class="form-help">
+        Such as Twitter, Facebook, Github, Chess.com, ...<br />
+        One URL per line.
+      </p>
+      }
       @errMsg(form)
       @base.form.submit()
     </form>
