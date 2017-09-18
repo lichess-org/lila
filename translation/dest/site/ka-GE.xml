@@ -46,6 +46,7 @@
   <string name="viewTheComputerAnalysis">კომპიუტერული ანალიზის ნახვა</string>
   <string name="requestAComputerAnalysis">კომპიუტერული ანალიზის მოთხოვნა</string>
   <string name="computerAnalysis">კომპიუტერული ანალიზი</string>
+  <string name="computerAnalysisAvailable">შესაძლებელია კომპიუტერული ანალიზი</string>
   <string name="analysis">ანალიზის დაფა</string>
   <string name="depthX">სიღრმ</string>
   <string name="usingServerAnalysis">მიმდინარეობს სერვერის ანალიზი</string>
@@ -76,6 +77,7 @@
   <string name="delete">წაშლა</string>
   <string name="deleteThisImportedGame">წაიშალოს ეს იმპორტირებული თამაში?</string>
   <string name="replayMode">გამეორების რეჟიმი</string>
+  <string name="enable">ჯონჯოლი</string>
   <string name="blunders">დაუკვირვებლობები</string>
   <string name="mistakes">შეცდომები</string>
   <string name="inaccuracies">უზუსტობები</string>
@@ -268,6 +270,7 @@
   <string name="onlineFriends">მეგობრები ხაზზე</string>
   <string name="noFriendsOnline">არცერთი მეგობარი არ არის ხაზზე</string>
   <string name="findFriends">იპოვეთ მეგობრები</string>
+  <string name="favoriteOpponents">საყვარელი ოპონენტები</string>
   <string name="follow">გაყოლა</string>
   <string name="following">მიმდინარე</string>
   <string name="unfollow">არამიმდინარე</string>
@@ -309,6 +312,8 @@
   <string name="winStreak">მოგებული ხაზი</string>
   <string name="createdBy">შემქმნელი</string>
   <string name="tournamentIsStarting">ტურნირი იწყება</string>
+  <string name="tournamentPairingsAreNowClosed">ტურნირში დაწყვილებები დახურულია.</string>
+  <string name="youArePlaying">თქვენ ახლა თამაშობთ!</string>
   <string name="membersOnly">მხოლოდ წევრები</string>
   <string name="boardEditor">დაფის რედაქტირება</string>
   <string name="startPosition">საწყისი პოზიცია</string>

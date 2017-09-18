@@ -27,7 +27,7 @@
   <string name="raceFinished">Pretek ukončený</string>
   <string name="variantEnding">Koniec varianty</string>
   <string name="newOpponent">Nový súper</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">Váš súper by si s vami rád zahral odvetný zápas</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Váš súper by si s Vami rád zahral odvetný zápas</string>
   <string name="joinTheGame">Pridať sa k hre</string>
   <string name="whitePlays">Biely na ťahu</string>
   <string name="blackPlays">Čierny na ťahu</string>
@@ -36,7 +36,7 @@
   <string name="forceResignation">Vynútiť výhru</string>
   <string name="forceDraw">Vyhlásiť remízu</string>
   <string name="talkInChat">Prosíme, aby ste sa v chate chovali slušne!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Prvá osoba, ktorá použije tento odkaz, s vami začne hru.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Prvá osoba, ktorá použije tento odkaz, s Vami začne hru.</string>
   <string name="whiteResigned">Biely sa vzdal</string>
   <string name="blackResigned">Čierny sa vzdal</string>
   <string name="whiteLeftTheGame">Biely opustil hru</string>
