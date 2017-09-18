@@ -159,8 +159,6 @@ object mon {
       object trace {
         def create = makeTrace("round.move.trace")
       }
-      val networkLag = rec("round.move.network_lag") // Deprecated.
-
       object lag {
         val avgReported = rec("round.move.lag.avg_reported")
         val estimateError = rec("round.move.lag.estimate_error")
