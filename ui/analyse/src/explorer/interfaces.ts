@@ -93,7 +93,7 @@ export interface ExplorerCtrl {
   movesAway: Prop<number>;
   config: ExplorerConfigCtrl;
   withGames: boolean;
-  current(): ExplorerData
+  current(): ExplorerData | undefined;
   hovering: Prop<Hovering | null>;
   setNode();
   toggle();

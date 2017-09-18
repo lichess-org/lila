@@ -200,13 +200,13 @@ function showGameEnd(ctrl: AnalyseCtrl, title: string): VNode {
 function show(ctrl: AnalyseCtrl) {
   const trans = ctrl.trans.noarg,
   data = ctrl.explorer.current();
-  if (isOpening(data)) {
+  if (data && isOpening(data)) {
     const moveTable = showMoveTable(ctrl, data.moves, data.fen),
     recentTable = showGameTable(ctrl, trans('recentGames'), data['recentGames'] || []),
     topTable = showGameTable(ctrl, trans('topGames'), data['topGames'] || []);
     if (moveTable || recentTable || topTable) lastShow = h('div.data', [moveTable, topTable, recentTable]);
     else lastShow = showEmpty(ctrl);
-  } else if (isTablebase(data)) {
+  } else if (data && isTablebase(data)) {
     const moves = data.moves;
     if (moves.length) lastShow = h('div.data', [
       [trans('winning'), m => m.wdl === -2],
