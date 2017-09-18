@@ -68,18 +68,18 @@
   <string name="threefoldRepetition">Triplex repetitio</string>
   <string name="claimADraw">Indutia asciscere</string>
   <string name="offerDraw">Indutia offerre</string>
-  <string name="draw">Pax</string>
+  <string name="draw">Indutia</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s lusor</item>
     <item quantity="other">%s lusores</item>
   </plurals>
-  <string name="currentGames">Nunc ludentes lusiones</string>
+  <string name="currentGames">Nunc ludi luduntur</string>
   <plurals name="nbGames">
     <item quantity="one">%s ludus</item>
     <item quantity="other">%s ludi</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s bookmarks</item>
+    <item quantity="one">%s ludus contemplatus</item>
     <item quantity="other">%s bookmarks</item>
   </plurals>
   <string name="viewInFullSize">Integro modo vide</string>
