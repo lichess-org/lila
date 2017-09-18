@@ -45,7 +45,7 @@ object User extends LilaController {
   }
 
   private def apiGames(u: UserModel, filter: String, page: Int)(implicit ctx: BodyContext[_]) = {
-    userGames(u, GameFilter.All.name, page) flatMap Env.api.userGameApi.jsPaginator map { res =>
+    userGames(u, filter, page) flatMap Env.api.userGameApi.jsPaginator map { res =>
       Ok(res ++ Json.obj("filter" -> GameFilter.All.name))
     }
   }.mon(_.http.response.user.show.mobile)
