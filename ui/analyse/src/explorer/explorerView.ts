@@ -3,9 +3,9 @@ import { VNode } from 'snabbdom/vnode'
 import { view as renderConfig } from './explorerConfig';
 import { bind, dataIcon } from '../util';
 import AnalyseCtrl from '../ctrl';
-import { isOpening, isTablebase } from './interfaces';
+import { isOpening, isTablebase, TablebaseMoveStats, OpeningMoveStats } from './interfaces';
 
-function resultBar(move): VNode {
+function resultBar(move: OpeningMoveStats): VNode {
   const sum = move.white + move.draws + move.black;
   function section(key) {
     const percent = move[key] * 100 / sum;
@@ -45,7 +45,7 @@ function moveTableAttributes(ctrl: AnalyseCtrl, fen: Fen) {
   };
 }
 
-function showMoveTable(ctrl: AnalyseCtrl, moves, fen: Fen): VNode | null {
+function showMoveTable(ctrl: AnalyseCtrl, moves: OpeningMoveStats[], fen: Fen): VNode | null {
   if (!moves.length) return null;
   return h('table.moves', [
     h('thead', [
@@ -55,7 +55,7 @@ function showMoveTable(ctrl: AnalyseCtrl, moves, fen: Fen): VNode | null {
         h('th', ctrl.trans.noarg('whiteDrawBlack'))
       ])
     ]),
-    h('tbody', moveTableAttributes(ctrl, fen), moves.map(function(move) {
+    h('tbody', moveTableAttributes(ctrl, fen), moves.map(move => {
       return h('tr', {
         key: move.uci,
         attrs: {
@@ -113,13 +113,13 @@ function showGameTable(ctrl: AnalyseCtrl, title: string, games): VNode | null {
   ]);
 }
 
-function showTablebase(ctrl: AnalyseCtrl, title: string, moves, fen: Fen): VNode[] {
+function showTablebase(ctrl: AnalyseCtrl, title: string, moves: TablebaseMoveStats[], fen: Fen): VNode[] {
   if (!moves.length) return [];
   const stm = fen.split(/\s/)[1];
   return [
     h('div.title', title),
     h('table.tablebase', [
-      h('tbody', moveTableAttributes(ctrl, fen), moves.map(function(move) {
+      h('tbody', moveTableAttributes(ctrl, fen), moves.map(move => {
         return h('tr', {
           key: move.uci,
           attrs: { 'data-uci': move.uci }
@@ -132,14 +132,14 @@ function showTablebase(ctrl: AnalyseCtrl, title: string, moves, fen: Fen): VNode
   ];
 }
 
-function winner(stm, move): Color | undefined {
+function winner(stm: string, move: TablebaseMoveStats): Color | undefined {
   if ((stm[0] == 'w' && move.wdl < 0) || (stm[0] == 'b' && move.wdl > 0))
     return 'white';
   if ((stm[0] == 'b' && move.wdl < 0) || (stm[0] == 'w' && move.wdl > 0))
     return 'black';
 }
 
-function showDtm(ctrl: AnalyseCtrl, stm, move) {
+function showDtm(ctrl: AnalyseCtrl, stm: string, move: TablebaseMoveStats) {
   if (move.dtm) return h('result.' + winner(stm, move), {
     attrs: {
       title: ctrl.trans.plural('mateInXHalfMoves', Math.abs(move.dtm)) + ' (Depth To Mate)'
@@ -147,7 +147,7 @@ function showDtm(ctrl: AnalyseCtrl, stm, move) {
   }, 'DTM ' + Math.abs(move.dtm));
 }
 
-function showDtz(ctrl: AnalyseCtrl, stm, move): VNode | null {
+function showDtz(ctrl: AnalyseCtrl, stm: string, move: TablebaseMoveStats): VNode | null {
   const trans = ctrl.trans.noarg;
   if (move.checkmate) return h('result.' + winner(stm, move), trans('checkmate'));
   else if (move.stalemate) return h('result.draws', trans('stalemate'));
@@ -236,7 +236,7 @@ function showConfig(ctrl: AnalyseCtrl): VNode {
   ].concat(renderConfig(ctrl.explorer.config)));
 }
 
-function showFailing(ctrl) {
+function showFailing(ctrl: AnalyseCtrl) {
   return h('div.data.empty', [
     h('div.title', showTitle(ctrl, ctrl.data.game.variant)),
     h('div.failing.message', [
