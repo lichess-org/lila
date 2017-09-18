@@ -4,16 +4,12 @@ object Links {
 
   def make(text: String): List[Link] = text.lines.toList.map(_.trim) flatMap toLink
 
-  private val UrlRegex = """^(?:http[s]?:\/\/)?(.+)/.+""".r
+  private val UrlRegex = """^(?:http[s]?:\/\/)?([^/]+)/?.*$""".r
 
   private def toLink(line: String): Option[Link] = line match {
     case UrlRegex(domain) => Link(
-      site = Link.Site.allKnown find { site =>
-        site.domains.contains(domain)
-      } getOrElse Link.Site.Other(domain),
-      url =
-        if (line startsWith "http") line
-        else s"https://$line"
+      site = Link.Site.allKnown find (_ matches domain) getOrElse Link.Site.Other(domain),
+      url = if (line startsWith "http") line else s"https://$line"
     ).some
     case _ => none
   }
@@ -23,7 +19,13 @@ case class Link(site: Link.Site, url: String)
 
 object Link {
 
-  sealed abstract class Site(val name: String, val domains: List[String])
+  sealed abstract class Site(val name: String, val domains: List[String]) {
+
+    def matches(domain: String) = domains.exists { d =>
+      domain endsWith d
+    }
+  }
+
   object Site {
     case object Twitter extends Site("Twitter", List("twitter.com"))
     case object Facebook extends Site("Facebook", List("facebook.com"))
