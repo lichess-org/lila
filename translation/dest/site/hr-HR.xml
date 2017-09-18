@@ -694,8 +694,8 @@ u %3$s</string>
   <string name="yourPerfTypeRatingIsRating">Tvoj %1$s rejting je %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Bolji si od %1$s od %2$s igrača.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nemaš službeni %s rejting.</string>
-  <string name="checkYourEmail">Provjeri svoj e-mail.</string>
-  <string name="weHaveSentYouAnEmailClickTheLink">Poslali smo ti e-mail. Klikni na link u e-mailu da se aktivira tvoj račun.</string>
+  <string name="checkYourEmail">Provjeri svoj e-mail</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Poslali smo ti e-mail. Klikni na link u e-mailu kako da aktiviraš svoj račun.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ako ne vidiš email, možda se nalazi u drugim mapama: smeće, neželjena pošta, društvene mreže ili druge mape.</string>
   <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Jesi li siguran/sigurna da si uopće registrirao/la svoj email na lichess-u?</string>
   <string name="itWasNotRequiredForYourRegistration">nije traženo za tvoju registraciju</string>
@@ -721,7 +721,7 @@ u %3$s</string>
   <string name="withFriends">S prijateljima</string>
   <string name="withEverybody">Sa svima</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Već si se registrirao/la ovim emailom: %s</string>
-  <string name="kidMode">Dječji način</string>
+  <string name="kidMode">Dječji mod</string>
   <string name="kidModeExplanation">Ovdje se radi se o sigurnosti. U dječjem načinu, sve komunikacije na stranici su onemogućene. Omogući ovo za svoju djecu i učenike, da ih zaštitiš od drugih internet korisnika.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">U dječjem načinu, logo lichess-a dobiva %s ikonu, tako da znaš da su tvoja djeca sigurna.</string>
   <string name="enableKidMode">Omogući dječji način</string>
@@ -730,7 +730,7 @@ u %3$s</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Ovo je popis uređaja koji su se prijavili u tvoj račun. Opozovi bilo koju sesiju koju ne prepoznaješ.</string>
   <string name="alternativelyYouCanX">Alternativno, možeš %s.</string>
   <string name="revokeAllSessions">opozvati sve sesije</string>
-  <string name="playChessEverywhere">Igraj šah svugdje</string>
+  <string name="playChessEverywhere">Igraj šah bilo gdje</string>
   <string name="asFreeAsLichess">Besplatno kao i lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Napravljeno iz ljubavi prema šahu, ne novcu</string>
   <string name="everybodyGetsAllFeaturesForFree">Svi dobivaju sve usluge besplatno</string>
