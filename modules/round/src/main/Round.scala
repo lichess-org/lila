@@ -244,7 +244,6 @@ private[round] final class Round(
         pov.player.userId.foreach { UserLagCache.put(_, lag) }
         if (pov.game.playedTurns < 12) {
           import lila.mon.round.move.{ lag => lRec }
-          lila.mon.round.move.networkLag(lag.millis) // Deprecated.
           lRec.avgReported(lag.centis)
           lt.history match {
             case h: DecayingStats => lRec.compDeviation(h.deviation.toInt)
