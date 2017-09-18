@@ -41,10 +41,10 @@
   <string name="blackResigned">Ater concessit</string>
   <string name="whiteLeftTheGame">Albus ludō decessus est</string>
   <string name="blackLeftTheGame">Ater ludō decessus est</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Distribueto hanc URL, ut sinas spectatores visuros esse lusionem.</string>
-  <string name="theComputerAnalysisHasFailed">Analysis computore defuit</string>
-  <string name="viewTheComputerAnalysis">Videre analysim computatoris</string>
-  <string name="requestAComputerAnalysis">Quaerere analysim computatoris</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Divide hōc URL ut sinas spectatores ludum visuros esse</string>
+  <string name="theComputerAnalysisHasFailed">Explicatio, quae ordinatrō fuit, defuit</string>
+  <string name="viewTheComputerAnalysis">Explicationem, quae ordinatrō fuit, videre</string>
+  <string name="requestAComputerAnalysis">Explicatio, quae ordinatrō fuit, quaerere</string>
   <string name="computerAnalysis">Analysis computoris</string>
   <string name="computerAnalysisAvailable">Explicatio, ordinatrō fit, praebitus est</string>
   <string name="analysis">Explicatio</string>
