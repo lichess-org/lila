@@ -33,12 +33,12 @@
   <string name="blackPlays">Ater lusurus</string>
   <string name="opponentLeftChoices">Alius lusor a lusione profectus est. Sive reditum expectare, sive hunc ad decedendum cogere potes.</string>
   <string name="makeYourOpponentResign">Coge adversarium ad decedendum</string>
-  <string name="forceResignation">Ad decedendum cogere</string>
+  <string name="forceResignation">Victoriam asciscere</string>
   <string name="forceDraw">Agere indutiam</string>
-  <string name="talkInChat">Per disputationis fenestram loqui</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Quis primus ad hanc URL venturus sit, lusurus est tecum.</string>
-  <string name="whiteResigned">Concedit albus</string>
-  <string name="blackResigned">Concedit niger</string>
+  <string name="talkInChat">Es lepidus in sermo!</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Primus homo quis venit ad hōc URL tecum ludet.</string>
+  <string name="whiteResigned">Albus concessit</string>
+  <string name="blackResigned">Ater concessit</string>
   <string name="whiteLeftTheGame">Profectus est a lusione albus</string>
   <string name="blackLeftTheGame">Profectus est a lusione niger</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Distribueto hanc URL, ut sinas spectatores visuros esse lusionem.</string>
