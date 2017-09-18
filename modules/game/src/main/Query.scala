@@ -28,9 +28,7 @@ object Query {
 
   val mate: Bdoc = status(Status.Mate)
 
-  val draw: Bdoc = F.status $in List(Status.Draw.id, Status.Stalemate.id)
-
-  def draw(u: String): Bdoc = user(u) ++ draw
+  def draw(u: String): Bdoc = user(u) ++ finished ++ F.winnerId.$exists(false)
 
   val finished: Bdoc = F.status $gte Status.Mate.id
 
@@ -76,7 +74,10 @@ object Query {
 
   def loss(u: String) = user(u) ++ $doc(
     F.status $in Status.finishedWithWinner.map(_.id),
-    F.winnerId $ne u
+    F.winnerId -> $doc(
+      "$exists" -> true,
+      "$ne" -> u
+    )
   )
 
   def opponents(u1: User, u2: User) =
