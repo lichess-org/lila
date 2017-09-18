@@ -48,6 +48,9 @@
   <string name="computerAnalysis">Explicatio quae ordinatrō fuit</string>
   <string name="computerAnalysisAvailable">Explicatio, ordinatrō fit, praebitus est</string>
   <string name="analysis">Explicatio</string>
+  <string name="depthX">Profunditas %s</string>
+  <string name="usingServerAnalysis">Explicatio credentariō utitur</string>
+  <string name="loadingEngine">Ordinatrum incohatur ...</string>
   <string name="move">Actio</string>
   <string name="openingExplorer">Aperis indagatorem</string>
   <string name="allSet">Hic bonus est.</string>
