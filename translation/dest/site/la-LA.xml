@@ -28,9 +28,9 @@
   <string name="variantEnding">Finis variationis</string>
   <string name="newOpponent">Adversarius novus</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Tuus adversarius tecum novum ludum ludere vult</string>
-  <string name="joinTheGame">Convenire ad lusionem</string>
-  <string name="whitePlays">Albo est ludendum</string>
-  <string name="blackPlays">Nigro est ludendum</string>
+  <string name="joinTheGame">Inire ad ludum</string>
+  <string name="whitePlays">Albus lusurus</string>
+  <string name="blackPlays">Ater lusurus</string>
   <string name="opponentLeftChoices">Alius lusor a lusione profectus est. Sive reditum expectare, sive hunc ad decedendum cogere potes.</string>
   <string name="makeYourOpponentResign">Coge adversarium ad decedendum</string>
   <string name="forceResignation">Ad decedendum cogere</string>
