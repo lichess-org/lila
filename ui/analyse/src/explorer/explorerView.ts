@@ -86,26 +86,34 @@ function showGameTable(ctrl: AnalyseCtrl, title: string, games): VNode | null {
       ])
     ]),
     h('tbody', {
-      hook: bind('click', e => {
-        const $tr = $(e.target).parents('tr');
-        if (!$tr.length) return;
-        const orientation = ctrl.chessground.state.orientation;
-        const fenParam = ctrl.node.ply > 0 ? ('?fen=' + ctrl.node.fen) : '';
-        if (ctrl.explorer.config.data.db.selected() === 'lichess')
-          window.open('/' + $tr.data('id') + '/' + orientation + fenParam, '_blank');
-        else window.open('/import/master/' + $tr.data('id') + '/' + orientation + fenParam, '_blank');
-      })
+      insert: vnode => {
+        const el = vnode.elm as HTMLElement;
+        el.addEventListener('click', e => {
+          const $tr = $(e.target).parents('tr');
+          if (!$tr.length) return;
+          const orientation = ctrl.chessground.state.orientation;
+          const fenParam = ctrl.node.ply > 0 ? ('?fen=' + ctrl.node.fen) : '';
+          if (ctrl.explorer.config.data.db.selected() === 'lichess')
+            window.open('/' + $tr.data('id') + '/' + orientation + fenParam, '_blank');
+          else window.open('/import/master/' + $tr.data('id') + '/' + orientation + fenParam, '_blank');
+        });
+        // el.oncontextmenu = (e: MouseEvent) => {
+        //   const path = eventPath(e);
+        //   if (path !== null) contextMenu(e, {
+        //     path,
+        //     root: ctrl
+        //   });
+        //   ctrl.redraw();
+        //   return false;
+        // };
+      }
     }, games.map(function(game) {
       return h('tr', {
         key: game.id,
         attrs: { 'data-id': game.id }
       }, [
-        h('td', [game.white, game.black].map(function(p) {
-          return h('span', p.rating);
-        })),
-        h('td', [game.white, game.black].map(function(p) {
-          return h('span', p.name);
-        })),
+        h('td', [game.white, game.black].map(p => h('span', p.rating))),
+        h('td', [game.white, game.black].map(p => h('span', p.name))),
         h('td', showResult(game.winner)),
         h('td', game.year)
       ]);
@@ -179,8 +187,8 @@ function showEmpty(ctrl: AnalyseCtrl): VNode {
     h('div.message', [
       h('h3', ctrl.trans.noarg('noGameFound')),
       ctrl.explorer.config.fullHouse() ?
-        null :
-        h('p.explanation', ctrl.trans.noarg('maybeIncludeMoreGamesFromThePreferencesMenu')),
+      null :
+      h('p.explanation', ctrl.trans.noarg('maybeIncludeMoreGamesFromThePreferencesMenu')),
       closeButton(ctrl)
     ])
   ]);
@@ -252,11 +260,11 @@ let lastFen: Fen = '';
 export default function(ctrl: AnalyseCtrl): VNode | undefined {
   const explorer = ctrl.explorer;
   if (!explorer.enabled()) return;
-  const data = explorer.current();
-  const config = explorer.config;
-  const configOpened = config.data.open();
-  const loading = !configOpened && (explorer.loading() || (!data && !explorer.failing()));
-  const content = configOpened ? showConfig(ctrl) : (explorer.failing() ? showFailing(ctrl) : show(ctrl));
+  const data = explorer.current(),
+  config = explorer.config,
+  configOpened = config.data.open(),
+  loading = !configOpened && (explorer.loading() || (!data && !explorer.failing())),
+  content = configOpened ? showConfig(ctrl) : (explorer.failing() ? showFailing(ctrl) : show(ctrl));
   return h('div.explorer_box', {
     class: {
       loading,

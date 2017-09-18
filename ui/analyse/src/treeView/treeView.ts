@@ -3,7 +3,7 @@ import { VNode } from 'snabbdom/vnode'
 import { Hooks } from 'snabbdom/hooks'
 import { game } from 'game';
 import AnalyseCtrl from '../ctrl';
-import contextMenu from '../contextMenu';
+import contextMenu from './contextMenu';
 import { MaybeVNodes, ConcealOf } from '../interfaces';
 import { authorText as commentAuthorText } from '../study/studyComments';
 import { enrichText, innerHTML } from '../util';
