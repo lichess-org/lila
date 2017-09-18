@@ -41,7 +41,6 @@ export interface ExplorerData {
   moves: MoveStats[];
   opening?: true;
   tablebase?: true;
-  // TODO
 }
 
 export interface OpeningData extends ExplorerData {
