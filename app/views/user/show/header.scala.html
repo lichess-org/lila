@@ -171,7 +171,7 @@ case _ => {
       }
       <div class="social_links col2">
         @profile.actualLinks.map { link =>
-        <a href="@link.url" rel="no-follow">@link.site.name</a>
+        <a href="@link.url" target="_blank" rel="no-follow">@link.site.name</a>
         }
       </div>
       <div class="teams col2">
