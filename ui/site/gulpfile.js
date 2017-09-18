@@ -107,7 +107,7 @@ gulp.task('git-sha', function(cb) {
     if (!fs.existsSync('./dist')) fs.mkdirSync('./dist');
     var date = new Date().toISOString().split('.')[0];
     fs.writeFileSync('./dist/consolemsg.js',
-      'console.info("Lichess is open source! See https://github.com/ornicar/lila");' +
+      'console.info("Lichess is open source! https://github.com/ornicar/lila");' +
       `lichess.info = "Assets built ${date} from sha ${stdout.trim()}";`);
     cb();
   });
