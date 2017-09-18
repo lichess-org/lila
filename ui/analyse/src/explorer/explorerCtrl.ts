@@ -4,7 +4,7 @@ import xhr = require('./openingXhr');
 import { synthetic } from '../util';
 import { game as gameUtil } from 'game';
 import AnalyseCtrl from '../ctrl';
-import { Hovering, ExplorerCtrl } from './interfaces';
+import { Hovering, ExplorerCtrl, ExplorerData, OpeningData } from './interfaces';
 
 function tablebaseRelevant(variant: string, fen: Fen) {
   const parts = fen.split(/\s/);
@@ -38,15 +38,13 @@ export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
 
   const fetch = throttle(250, function() {
     const fen = root.node.fen;
-    const request = (withGames && tablebaseRelevant(effectiveVariant, fen)) ?
+    const request: JQueryPromise<ExplorerData> = (withGames && tablebaseRelevant(effectiveVariant, fen)) ?
       xhr.tablebase(opts.tablebaseEndpoint, effectiveVariant, fen) :
       xhr.opening(opts.endpoint, effectiveVariant, fen, config.data, withGames);
 
-    request.then(function(res) {
-      res.nbMoves = res.moves.length;
-      res.fen = fen;
+    request.then((res: ExplorerData) => {
       cache[fen] = res;
-      movesAway(res.nbMoves ? 0 : movesAway() + 1);
+      movesAway(res.moves.length ? 0 : movesAway() + 1);
       loading(false);
       failing(false);
       root.redraw();
@@ -54,7 +52,7 @@ export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
       loading(false);
       failing(true);
       root.redraw();
-    })
+    });
   }, false);
 
   const empty = {
@@ -70,7 +68,7 @@ export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
     }
     const cached = cache[root.node.fen];
     if (cached) {
-      movesAway(cached.nbMoves ? 0 : movesAway() + 1);
+      movesAway(cached.moves.length ? 0 : movesAway() + 1);
       loading(false);
       failing(false);
     } else {
@@ -111,13 +109,13 @@ export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
     },
     fetchMasterOpening: (function() {
       const masterCache = {};
-      return function(fen) {
-        if (masterCache[fen]) return $.Deferred().resolve(masterCache[fen]);
+      return (fen: Fen): JQueryPromise<OpeningData> => {
+        if (masterCache[fen]) return $.Deferred().resolve(masterCache[fen]).promise() as JQueryPromise<OpeningData>;
         return xhr.opening(opts.endpoint, 'standard', fen, {
           db: {
             selected: prop('masters')
           }
-        }, false).then(function(res) {
+        }, false).then((res: OpeningData) => {
           masterCache[fen] = res;
           return res;
         });

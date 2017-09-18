@@ -1,6 +1,8 @@
-export function opening(endpoint, variant, fen, config, withGames) {
-  var url;
-  var params: any = {
+import { OpeningData, TablebaseData } from './interfaces';
+
+export function opening(endpoint: string, variant: string, fen: Fen, config, withGames: boolean): JQueryPromise<OpeningData> {
+  let url: string;
+  const params: any = {
     fen,
     moves: 12
   };
@@ -19,19 +21,21 @@ export function opening(endpoint, variant, fen, config, withGames) {
     url: endpoint + url,
     data: params,
     cache: true
-  }).then(function(data) {
+  }).then((data: Partial<OpeningData>) => {
     data.opening = true;
-    return data;
+    data.fen = fen;
+    return data as OpeningData;
   });
 }
 
-export function tablebase(endpoint, variant, fen) {
+export function tablebase(endpoint: string, variant: string, fen: Fen): JQueryPromise<TablebaseData> {
   return $.ajax({
     url: endpoint + '/' + variant,
     data: { fen },
     cache: true
-  }).then(function(data) {
+  }).then((data: Partial<TablebaseData>) => {
     data.tablebase = true;
-    return data;
+    data.fen = fen;
+    return data as TablebaseData;
   });
 }

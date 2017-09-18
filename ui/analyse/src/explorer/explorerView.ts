@@ -3,6 +3,7 @@ import { VNode } from 'snabbdom/vnode'
 import { view as renderConfig } from './explorerConfig';
 import { bind, dataIcon } from '../util';
 import AnalyseCtrl from '../ctrl';
+import { isOpening, isTablebase } from './interfaces';
 
 function resultBar(move): VNode {
   const sum = move.white + move.draws + move.black;
@@ -147,16 +148,17 @@ function showDtm(ctrl: AnalyseCtrl, stm, move) {
 }
 
 function showDtz(ctrl: AnalyseCtrl, stm, move): VNode | null {
-  if (move.checkmate) return h('result.' + winner(stm, move), ctrl.trans.noarg('checkmate'));
-  else if (move.stalemate) return h('result.draws', ctrl.trans.noarg('stalemate'));
-  else if (move.variant_win) return h('result.' + winner(stm, move), ctrl.trans.noarg('variantLoss'));
-  else if (move.variant_loss) return h('result.' + winner(stm, move), ctrl.trans.noarg('variantWin'));
-  else if (move.insufficient_material) return h('result.draws', ctrl.trans.noarg('insufficientMaterial'));
+  const trans = ctrl.trans.noarg;
+  if (move.checkmate) return h('result.' + winner(stm, move), trans('checkmate'));
+  else if (move.stalemate) return h('result.draws', trans('stalemate'));
+  else if (move.variant_win) return h('result.' + winner(stm, move), trans('variantLoss'));
+  else if (move.variant_loss) return h('result.' + winner(stm, move), trans('variantWin'));
+  else if (move.insufficient_material) return h('result.draws', trans('insufficientMaterial'));
   else if (move.dtz === null) return null;
-  else if (move.dtz === 0) return h('result.draws', ctrl.trans.noarg('draw'));
+  else if (move.dtz === 0) return h('result.draws', trans('draw'));
   else if (move.zeroing) return move.san.indexOf('x') !== -1 ?
-  h('result.' + winner(stm, move), ctrl.trans.noarg('capture')) :
-  h('result.' + winner(stm, move), ctrl.trans.noarg('pawnMove'));
+  h('result.' + winner(stm, move), trans('capture')) :
+  h('result.' + winner(stm, move), trans('pawnMove'));
   return h('result.' + winner(stm, move), {
     attrs: {
       title: ctrl.trans.plural('nextCaptureOrPawnMoveInXHalfMoves', Math.abs(move.dtz))
@@ -195,28 +197,29 @@ function showGameEnd(ctrl: AnalyseCtrl, title: string): VNode {
   ]);
 }
 
-function show(ctrl) {
-  var data = ctrl.explorer.current();
-  if (data && data.opening) {
-    var moveTable = showMoveTable(ctrl, data.moves, data.fen);
-    var recentTable = showGameTable(ctrl, ctrl.trans.noarg('recentGames'), data['recentGames'] || []);
-    var topTable = showGameTable(ctrl, ctrl.trans.noarg('topGames'), data['topGames'] || []);
+function show(ctrl: AnalyseCtrl) {
+  const trans = ctrl.trans.noarg,
+  data = ctrl.explorer.current();
+  if (isOpening(data)) {
+    const moveTable = showMoveTable(ctrl, data.moves, data.fen),
+    recentTable = showGameTable(ctrl, trans('recentGames'), data['recentGames'] || []),
+    topTable = showGameTable(ctrl, trans('topGames'), data['topGames'] || []);
     if (moveTable || recentTable || topTable) lastShow = h('div.data', [moveTable, topTable, recentTable]);
     else lastShow = showEmpty(ctrl);
-  } else if (data && data.tablebase) {
+  } else if (isTablebase(data)) {
     const moves = data.moves;
     if (moves.length) lastShow = h('div.data', [
-      [ctrl.trans.noarg('winning'), m => m.wdl === -2],
-      [ctrl.trans.noarg('unknown'), m => m.wdl === null],
-      [ctrl.trans.noarg('winPreventedBy50MoveRule'), m => m.wdl === -1],
-      [ctrl.trans.noarg('drawn'), m => m.wdl === 0],
-      [ctrl.trans.noarg('lossSavedBy50MoveRule'), m => m.wdl === 1],
-      [ctrl.trans.noarg('losing'), m => m.wdl === 2],
+      [trans('winning'), m => m.wdl === -2],
+      [trans('unknown'), m => m.wdl === null],
+      [trans('winPreventedBy50MoveRule'), m => m.wdl === -1],
+      [trans('drawn'), m => m.wdl === 0],
+      [trans('lossSavedBy50MoveRule'), m => m.wdl === 1],
+      [trans('losing'), m => m.wdl === 2],
     ].map(a => showTablebase(ctrl, a[0] as string, moves.filter(a[1]), data.fen))
       .reduce(function(a, b) { return a.concat(b); }, []))
-    else if (data.checkmate) lastShow = showGameEnd(ctrl, ctrl.trans.noarg('checkmate'))
-      else if (data.stalemate) lastShow = showGameEnd(ctrl, ctrl.trans.noarg('stalemate'))
-        else if (data.variant_win || data.variant_loss) lastShow = showGameEnd(ctrl, ctrl.trans.noarg('variantEnding'));
+    else if (data.checkmate) lastShow = showGameEnd(ctrl, trans('checkmate'))
+      else if (data.stalemate) lastShow = showGameEnd(ctrl, trans('stalemate'))
+        else if (data.variant_win || data.variant_loss) lastShow = showGameEnd(ctrl, trans('variantEnding'));
       else lastShow = showEmpty(ctrl);
   }
   return lastShow;

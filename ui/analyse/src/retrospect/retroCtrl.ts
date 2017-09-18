@@ -2,6 +2,7 @@ import { evalSwings } from '../nodeFinder';
 import { winningChances } from 'ceval';
 import { path as treePath } from 'tree';
 import { empty, prop } from 'common';
+import { OpeningData } from '../explorer/interfaces';
 import AnalyseCtrl from '../ctrl';
 
 export interface RetroCtrl {
@@ -64,7 +65,7 @@ export function make(root: AnalyseCtrl): RetroCtrl {
     });
     // fetch opening explorer moves
     if (game.variant.key === 'standard' && game.division && (!game.division.middle || fault.node.ply < game.division.middle)) {
-      root.explorer.fetchMasterOpening(prev.node.fen).then(function(res) {
+      root.explorer.fetchMasterOpening(prev.node.fen).then((res: OpeningData) => {
         const cur = current();
         const ucis: Uci[] = [];
         res!.moves.forEach(function(m) {

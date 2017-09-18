@@ -38,8 +38,43 @@ export interface ExplorerConfigCtrl {
 
 export interface ExplorerData {
   fen: Fen;
-  moves: any;
+  moves: MoveStats[];
+  opening?: true;
+  tablebase?: true;
   // TODO
+}
+
+export interface OpeningData extends ExplorerData {
+  moves: OpeningMoveStats[];
+}
+
+export interface TablebaseData extends ExplorerData {
+  moves: TablebaseMoveStats[];
+  checkmate: boolean;
+  stalemate: boolean;
+  variant_win: boolean;
+  variant_loss: boolean;
+}
+
+export interface MoveStats {
+  uci: Uci;
+  san: San;
+}
+
+export interface OpeningMoveStats extends MoveStats {
+  white: number;
+  black: number;
+  draws: number;
+  averageRating: number;
+}
+export interface TablebaseMoveStats extends MoveStats {
+}
+
+export function isOpening(m: ExplorerData): m is OpeningData {
+  return !!m.opening;
+}
+export function isTablebase(m: ExplorerData): m is TablebaseData {
+  return !!m.tablebase;
 }
 
 export interface ExplorerCtrl {
@@ -56,5 +91,5 @@ export interface ExplorerCtrl {
   toggle();
   disable();
   setHovering(fen: Fen, uci: Uci | null);
-  fetchMasterOpening(fen: Fen): JQueryPromise<ExplorerData>
+  fetchMasterOpening(fen: Fen): JQueryPromise<OpeningData>
 }
