@@ -58,11 +58,11 @@
   <string name="byCPL">Ab DCP</string>
   <string name="openStudy">Aperire explorationem</string>
   <string name="enable">Habilitare</string>
-  <string name="bestMoveArrow">Optimus actio adnotamentum</string>
+  <string name="bestMoveArrow">Optimus adnotamentum actionis</string>
   <string name="memory">Memoria</string>
-  <string name="blunders">Errata gravia</string>
+  <string name="blunders">Gravia errata</string>
   <string name="mistakes">Errata</string>
-  <string name="inaccuracies">Menda</string>
+  <string name="inaccuracies">Minuscula errata</string>
   <string name="moveTimes">Durationes Movimentorum</string>
   <string name="flipBoard">Tabulam vertere</string>
   <string name="threefoldRepetition">Triplex iteratio</string>
@@ -75,7 +75,7 @@
   </plurals>
   <string name="currentGames">Nunc ludentes lusiones</string>
   <plurals name="nbGames">
-    <item quantity="one">%s ludi</item>
+    <item quantity="one">%s ludus</item>
     <item quantity="other">%s ludi</item>
   </plurals>
   <plurals name="nbBookmarks">
