@@ -312,6 +312,12 @@ div.sub_ratings h3 {
 .user_show .col2 > a {
   flex: 0 0 50%;
   color: #3893E8!important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.user_show .teams {
+  margin-bottom: 10px;
 }
 .user_show .bio {
   font-style: italic;
