@@ -40,7 +40,10 @@ private final class ExplorerGame(
     val fromEndPath = fromNodes.drop(1).foldLeft(fromPath)(_ + _)
     val (path, foundGameNode) = fromNodes.reverse.foldLeft((fromEndPath, none[Node])) {
       case ((path, None), fromNode) =>
-        path.init -> gameNodes.find(_.fen == fromNode.fen)
+        gameNodes.find(_.fen == fromNode.fen) match {
+          case Some(gameNode) => path -> gameNode.some
+          case None => path.init -> none
+        }
       case (found, _) => found
     }
     foundGameNode.flatMap(_.children.first).map { nextGameNode =>
@@ -68,9 +71,9 @@ private final class ExplorerGame(
     val result = chess.Color.showResult(g.winnerColor)
     val event = {
       val raw = pgn.flatMap(_.tag(_.Event))
-      val year = gameYear(pgn, g)
+      val year = gameYear(pgn, g).toString
       if (raw.exists(_ contains year)) raw
-      else raw.fold(year.toString)(e => s"$e, $year")
+      else raw.fold(year)(e => s"$e, $year")
     }
     s"$white - $black, $result, $event"
   }

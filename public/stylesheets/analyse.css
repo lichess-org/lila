@@ -632,7 +632,7 @@ body.dark .explorer_box .black {
 .explorer_box .game_menu .menu a:hover {
   background: rgba(255,255,255,0.2);
 }
-@media (max-width: 1140px) {
+@media (max-width: 1120px) {
 .explorer_box .game_menu {
   font-size: 0.8em;
   letter-spacing: 0;
