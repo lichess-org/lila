@@ -613,12 +613,12 @@ body.dark .explorer_box .black {
 .explorer_box td.game_menu {
   background: #759900;
   cursor: default;
-  padding: 5px 0 0 0;
+  padding: 0;
 }
 .explorer_box .game_menu .game_title {
   text-align: center;
-  font-style: italic;
   color: #fff;
+  margin: 3px 0 1px 0;
 }
 .explorer_box .game_menu .menu {
   display: flex;
@@ -627,7 +627,7 @@ body.dark .explorer_box .black {
 }
 .explorer_box .game_menu .menu a {
   color: #fff;
-  padding: 5px;
+  padding: 4px 8px;
 }
 .explorer_box .game_menu .menu a:hover {
   background: rgba(255,255,255,0.2);
