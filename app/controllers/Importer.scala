@@ -44,16 +44,13 @@ object Importer extends LilaController {
     )
   }
 
-  import lila.game.GameRepo
-  import org.joda.time.DateTime
-  private val masterGameEncodingFixedAt = new DateTime(2016, 3, 9, 0, 0)
-
   def masterGame(id: String, orientation: String) = Open { implicit ctx =>
-    def redirectAtFen(game: lila.game.Game) = Redirect {
-      val url = routes.Round.watcher(game.id, orientation).url
-      val fenParam = get("fen").??(f => s"?fen=$f")
-      s"$url$fenParam"
+    Env.explorer.importer(id) map {
+      _ ?? { game =>
+        val url = routes.Round.watcher(game.id, orientation).url
+        val fenParam = get("fen").??(f => s"?fen=$f")
+        Redirect(s"$url$fenParam")
+      }
     }
-    Env.explorer.importer(id) map2 redirectAtFen
   }
 }

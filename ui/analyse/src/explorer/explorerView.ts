@@ -110,16 +110,23 @@ function showGameTable(ctrl: AnalyseCtrl, title: string, games): VNode | null {
                 else window.open('/import/master/' + openedId + '/' + orientation + fenParam, '_blank');
               })
             }, 'View'),
-            ...(ctrl.study ? [
-              h('a.text', {
-                attrs: dataIcon('c'),
-                hook: bind('click', _ => ctrl.study!.explorerGame(openedId, false), ctrl.redraw)
-              }, 'Quote'),
-              h('a.text', {
-                attrs: dataIcon('O'),
-                hook: bind('click', _ => ctrl.study!.explorerGame(openedId, true), ctrl.redraw)
-              }, 'Insert')
-            ] : []),
+            ...(ctrl.study ? (function() {
+              function send(insert: boolean) {
+                ctrl.study!.explorerGame(openedId!, insert);
+                ctrl.explorer.gameMenu(null);
+                ctrl.redraw();
+              }
+              return [
+                h('a.text', {
+                  attrs: dataIcon('c'),
+                  hook: bind('click', _ => send(false), ctrl.redraw)
+                }, 'Quote'),
+                h('a.text', {
+                  attrs: dataIcon('O'),
+                  hook: bind('click', _ => send(true), ctrl.redraw)
+                }, 'Insert')
+              ];
+            })() : []),
             h('a.text', {
               attrs: dataIcon('L'),
               hook: bind('click', _ => ctrl.explorer.gameMenu(null), ctrl.redraw)

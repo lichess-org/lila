@@ -5,9 +5,9 @@ import org.joda.time.DateTime
 import lila.game.{ Game, GameRepo }
 import lila.importer.{ Importer, ImportData }
 
-final class ExplorerImport(
+final class ExplorerImporter(
     endpoint: String,
-    importer: Importer
+    gameImporter: Importer
 ) {
 
   private val masterGameEncodingFixedAt = new DateTime(2016, 3, 9, 0, 0)
@@ -17,7 +17,7 @@ final class ExplorerImport(
       case Some(game) if game.createdAt.isAfter(masterGameEncodingFixedAt) => fuccess(game.some)
       case _ => (GameRepo remove id) >> fetchPgn(id) flatMap {
         case None => fuccess(none)
-        case Some(pgn) => importer(
+        case Some(pgn) => gameImporter(
           ImportData(pgn, none),
           user = "lichess".some,
           forceId = id.some

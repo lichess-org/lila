@@ -1,37 +1,45 @@
 package lila.study
 
-import lila.game.{ Game, Namer, PgnImport }
-import lila.user.User
+import org.joda.time.DateTime
+import scala.util.Try
+
 import chess.format.pgn.{ Parser, Reader, ParsedPgn, Tag, TagType }
+import lila.common.LightUser
+import lila.game.{ Game, Namer }
+import lila.tree.Node.Comment
+import lila.user.User
 
 private final class ExplorerGame(
-    importer: lila.explorer.ExplorerImport
+    importer: lila.explorer.ExplorerImporter,
+    lightUser: LightUser.GetterSync
 ) {
 
-  def quote(userId: User.ID, study: Study, chapter: Chapter, path: Path, gameId: Game.ID): Fu[Comment] =
-    importer(gameId) flatMap {
-      _.fold(false) { game =>
-
-          val comment = Comment(
+  def quote(userId: User.ID, gameId: Game.ID): Fu[Option[Comment]] =
+    lightUser(userId) ?? { author =>
+      importer(gameId) map {
+        _ ?? { game =>
+          Comment(
             id = Comment.Id.make,
-            text = game.pgnImport.fold(lichessTitle)(importTitle(game)),
+            text = Comment.Text(gameTitle(game)),
             by = Comment.Author.User(author.id, author.titleName)
-          )
+          ).some
+        }
       }
     }
 
-  private def importTitle(g: Game)(pgnImport: PgnImport): String =
-    Parser.full(pgnImport.pgn) flatMap {
-    case ParsedPgn(_, tags, _) => 
-        def tag(which: Tag.type => TagType): Option[String] =
-          tags find (_.name == which(Tag)) map (_.value)
+  private def gameYear(pgn: Option[ParsedPgn], g: Game): Int = pgn.flatMap { p =>
+    p.tag(_.UTCDate) orElse p.tag(_.Date)
+  }.flatMap { pgnDate =>
+    Try(DateTime.parse(pgnDate, Tag.UTCDate.format)).toOption map (_.getYear)
+  } | g.createdAt.getYear
 
-    ImportData(pgnImport.pgn, none).preprocess(none).fold(
-      _ => lichessTitle(g),
-      processed =>
-        val players = Namer.vsText(game, withRatings = true)
-        val result = chess.Color.showResult(game.winnerColor)
-        val text = s"$players, $result
+  private def gameTitle(g: Game): String = {
+    val pgn = g.pgnImport.flatMap(pgnImport => Parser.full(pgnImport.pgn).toOption)
+    val white = pgn.flatMap(_.tag(_.White)) | Namer.playerText(g.whitePlayer)(lightUser)
+    val black = pgn.flatMap(_.tag(_.Black)) | Namer.playerText(g.blackPlayer)(lightUser)
+    val result = chess.Color.showResult(g.winnerColor)
+    val event = pgn.flatMap(_.tag(_.Event)) | gameYear(pgn, g).toString
+    s"$white - $black, $result, $event"
   }
 
   def insert(userId: User.ID, study: Study, chapter: Chapter, gameId: Game.ID) = ???

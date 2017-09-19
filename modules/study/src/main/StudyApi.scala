@@ -21,6 +21,7 @@ final class StudyApi(
     chapterMaker: ChapterMaker,
     inviter: StudyInvite,
     tagsFixer: ChapterTagsFixer,
+    explorerGameHandler: ExplorerGame,
     lightUser: lila.common.LightUser.GetterSync,
     scheduler: akka.actor.Scheduler,
     chat: ActorSelection,
@@ -332,29 +333,27 @@ final class StudyApi(
 
   def setComment(userId: User.ID, studyId: Study.Id, position: Position.Ref, text: Comment.Text, uid: Uid) = sequenceStudyWithChapter(studyId, position.chapterId) {
     case Study.WithChapter(study, chapter) => Contribute(userId, study) {
-      (study.members get userId) ?? { byMember =>
-        lightUser(userId) ?? { author =>
-          val comment = Comment(
-            id = Comment.Id.make,
-            text = text,
-            by = Comment.Author.User(author.id, author.titleName)
-          )
-          chapter.setComment(comment, position.path) match {
-            case Some(newChapter) =>
-              studyRepo.updateNow(study)
-              newChapter.root.nodeAt(position.path) ?? { node =>
-                node.comments.findBy(comment.by) ?? { c =>
-                  chapterRepo.setComments(newChapter, position.path, node.comments.filterEmpty) >>- {
-                    sendTo(study, Socket.SetComment(position, c, uid))
-                    indexStudy(study)
-                    sendStudyEnters(study, userId)
-                  }
+      lightUser(userId) ?? { author =>
+        val comment = Comment(
+          id = Comment.Id.make,
+          text = text,
+          by = Comment.Author.User(author.id, author.titleName)
+        )
+        chapter.setComment(comment, position.path) match {
+          case Some(newChapter) =>
+            studyRepo.updateNow(study)
+            newChapter.root.nodeAt(position.path) ?? { node =>
+              node.comments.findBy(comment.by) ?? { c =>
+                chapterRepo.setComments(newChapter, position.path, node.comments.filterEmpty) >>- {
+                  sendTo(study, Socket.SetComment(position, c, uid))
+                  indexStudy(study)
+                  sendStudyEnters(study, userId)
                 }
               }
-            case None =>
-              fufail(s"Invalid setComment $studyId $position") >>-
-                reloadUidBecauseOf(study, uid, chapter.id)
-          }
+            }
+          case None =>
+            fufail(s"Invalid setComment $studyId $position") >>-
+              reloadUidBecauseOf(study, uid, chapter.id)
         }
       }
     }
@@ -362,36 +361,32 @@ final class StudyApi(
 
   def deleteComment(userId: User.ID, studyId: Study.Id, position: Position.Ref, id: Comment.Id, uid: Uid) = sequenceStudyWithChapter(studyId, position.chapterId) {
     case Study.WithChapter(study, chapter) => Contribute(userId, study) {
-      (study.members get userId) ?? { byMember =>
-        chapter.deleteComment(id, position.path) match {
-          case Some(newChapter) =>
-            chapterRepo.update(newChapter) >>-
-              sendTo(study, Socket.DeleteComment(position, id, uid)) >>-
-              indexStudy(study)
-          case None =>
-            fufail(s"Invalid deleteComment $studyId $position $id") >>-
-              reloadUidBecauseOf(study, uid, chapter.id)
-        }
+      chapter.deleteComment(id, position.path) match {
+        case Some(newChapter) =>
+          chapterRepo.update(newChapter) >>-
+            sendTo(study, Socket.DeleteComment(position, id, uid)) >>-
+            indexStudy(study)
+        case None =>
+          fufail(s"Invalid deleteComment $studyId $position $id") >>-
+            reloadUidBecauseOf(study, uid, chapter.id)
       }
     }
   }
 
   def toggleGlyph(userId: User.ID, studyId: Study.Id, position: Position.Ref, glyph: Glyph, uid: Uid) = sequenceStudyWithChapter(studyId, position.chapterId) {
     case Study.WithChapter(study, chapter) => Contribute(userId, study) {
-      (study.members get userId) ?? { byMember =>
-        chapter.toggleGlyph(glyph, position.path) match {
-          case Some(newChapter) =>
-            studyRepo.updateNow(study)
-            newChapter.root.nodeAt(position.path) ?? { node =>
-              chapterRepo.setGlyphs(newChapter, position.path, node.glyphs) >>-
-                newChapter.root.nodeAt(position.path).foreach { node =>
-                  sendTo(study, Socket.SetGlyphs(position, node.glyphs, uid))
-                }
-            }
-          case None =>
-            fufail(s"Invalid toggleGlyph $studyId $position $glyph") >>-
-              reloadUidBecauseOf(study, uid, chapter.id)
-        }
+      chapter.toggleGlyph(glyph, position.path) match {
+        case Some(newChapter) =>
+          studyRepo.updateNow(study)
+          newChapter.root.nodeAt(position.path) ?? { node =>
+            chapterRepo.setGlyphs(newChapter, position.path, node.glyphs) >>-
+              newChapter.root.nodeAt(position.path).foreach { node =>
+                sendTo(study, Socket.SetGlyphs(position, node.glyphs, uid))
+              }
+          }
+        case None =>
+          fufail(s"Invalid toggleGlyph $studyId $position $glyph") >>-
+            reloadUidBecauseOf(study, uid, chapter.id)
       }
     }
   }
@@ -408,6 +403,32 @@ final class StudyApi(
         case None =>
           fufail(s"Invalid setGamebook $studyId $position") >>-
             reloadUidBecauseOf(study, uid, chapter.id)
+      }
+    }
+  }
+
+  def explorerGame(userId: User.ID, studyId: Study.Id, data: actorApi.ExplorerGame, uid: Uid) = sequenceStudyWithChapter(studyId, data.position.chapterId) {
+    case Study.WithChapter(study, chapter) => Contribute(userId, study) {
+      if (data.insert) ???
+      else explorerGameHandler.quote(userId, data.gameId) flatMap {
+        _ ?? { comment =>
+          chapter.setComment(comment, data.position.path) match {
+            case Some(newChapter) =>
+              studyRepo.updateNow(study)
+              newChapter.root.nodeAt(data.position.path) ?? { node =>
+                node.comments.findBy(comment.by) ?? { c =>
+                  chapterRepo.setComments(newChapter, data.position.path, node.comments.filterEmpty) >>- {
+                    sendTo(study, Socket.SetComment(data.position, c, uid))
+                    indexStudy(study)
+                    sendStudyEnters(study, userId)
+                  }
+                }
+              }
+            case None =>
+              fufail(s"Invalid explorerGame quote $studyId $data") >>-
+                reloadUidBecauseOf(study, uid, chapter.id)
+          }
+        }
       }
     }
   }

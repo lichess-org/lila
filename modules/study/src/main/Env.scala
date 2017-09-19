@@ -18,6 +18,7 @@ final class Env(
     lightUserApi: lila.user.LightUserApi,
     gamePgnDump: lila.game.PgnDump,
     importer: lila.importer.Importer,
+    explorerImporter: lila.explorer.ExplorerImporter,
     evalCacheHandler: lila.evalCache.EvalCacheSocketHandler,
     notifyApi: lila.notify.NotifyApi,
     getPref: User => Fu[lila.pref.Pref],
@@ -84,6 +85,11 @@ final class Env(
     domain = NetDomain
   )
 
+  private lazy val explorerGame = new ExplorerGame(
+    importer = explorerImporter,
+    lightUser = lightUserApi.sync
+  )
+
   private lazy val studyMaker = new StudyMaker(
     lightUser = lightUserApi.sync,
     chapterMaker = chapterMaker
@@ -104,6 +110,7 @@ final class Env(
     studyMaker = studyMaker,
     inviter = studyInvite,
     tagsFixer = new ChapterTagsFixer(chapterRepo, gamePgnDump),
+    explorerGameHandler = explorerGame,
     lightUser = lightUserApi.sync,
     scheduler = system.scheduler,
     chat = hub.actor.chat,
@@ -154,6 +161,7 @@ object Env {
     lightUserApi = lila.user.Env.current.lightUserApi,
     gamePgnDump = lila.game.Env.current.pgnDump,
     importer = lila.importer.Env.current.importer,
+    explorerImporter = lila.explorer.Env.current.importer,
     evalCacheHandler = lila.evalCache.Env.current.socketHandler,
     notifyApi = lila.notify.Env.current.api,
     getPref = lila.pref.Env.current.api.getPref,

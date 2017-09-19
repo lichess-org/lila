@@ -6,7 +6,7 @@ import com.typesafe.config.Config
 final class Env(
     config: Config,
     gameColl: lila.db.dsl.Coll,
-    importer: lila.importer.Importer,
+    gameImporter: lila.importer.Importer,
     system: ActorSystem
 ) {
 
@@ -16,6 +16,11 @@ final class Env(
   private lazy val indexer = new ExplorerIndexer(
     gameColl = gameColl,
     internalEndpoint = InternalEndpoint
+  )
+
+  lazy val importer = new ExplorerImporter(
+    endpoint = InternalEndpoint,
+    gameImporter = gameImporter
   )
 
   def cli = new lila.common.Cli {
@@ -36,7 +41,7 @@ object Env {
   lazy val current = "explorer" boot new Env(
     config = lila.common.PlayApp loadConfig "explorer",
     gameColl = lila.game.Env.current.gameColl,
-    importer = lila.importer.Env.current.importer,
+    gameImporter = lila.importer.Env.current.importer,
     system = lila.common.PlayApp.system
   )
 }
