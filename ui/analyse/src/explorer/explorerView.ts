@@ -90,8 +90,11 @@ function showGameTable(ctrl: AnalyseCtrl, title: string, games: OpeningGame[]): 
       hook: bind('click', e => {
         const $tr = $(e.target).parents('tr');
         if (!$tr.length) return;
-        ctrl.explorer.gameMenu($tr.data('id'));
-        ctrl.redraw();
+        const id = $tr.data('id');
+        if (ctrl.study) {
+          ctrl.explorer.gameMenu(id);
+          ctrl.redraw();
+        } else openGame(ctrl, id);
       })
     }, games.map(game => {
       return openedId === game.id ? gameActions(ctrl, game) : h('tr', {
@@ -105,6 +108,14 @@ function showGameTable(ctrl: AnalyseCtrl, title: string, games: OpeningGame[]): 
       ]);
     }))
   ]);
+}
+
+function openGame(ctrl: AnalyseCtrl, gameId: string) {
+  const orientation = ctrl.chessground.state.orientation,
+  fenParam = ctrl.node.ply > 0 ? ('?fen=' + ctrl.node.fen) : '';
+  if (ctrl.explorer.config.data.db.selected() === 'lichess')
+    window.open('/' + gameId + '/' + orientation + fenParam, '_blank');
+  else window.open('/import/master/' + gameId + '/' + orientation + fenParam, '_blank');
 }
 
 function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
@@ -121,13 +132,7 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
       h('div.menu', [
         h('a.text', {
           attrs: dataIcon('v'),
-          hook: bind('click', _ => {
-            const orientation = ctrl.chessground.state.orientation,
-            fenParam = ctrl.node.ply > 0 ? ('?fen=' + ctrl.node.fen) : '';
-            if (ctrl.explorer.config.data.db.selected() === 'lichess')
-              window.open('/' + game.id + '/' + orientation + fenParam, '_blank');
-            else window.open('/import/master/' + game.id + '/' + orientation + fenParam, '_blank');
-          })
+          hook: bind('click', _ => openGame(ctrl, game.id))
         }, 'View'),
         ...(ctrl.study ? [
           h('a.text', {
