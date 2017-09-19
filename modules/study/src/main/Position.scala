@@ -1,6 +1,9 @@
 package lila.study
 
-case class Position(chapter: Chapter, path: Path)
+case class Position(chapter: Chapter, path: Path) {
+
+  def ref = Position.Ref(chapter.id, path)
+}
 
 case object Position {
 

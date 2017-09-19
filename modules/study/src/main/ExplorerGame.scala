@@ -14,17 +14,14 @@ private final class ExplorerGame(
     lightUser: LightUser.GetterSync
 ) {
 
-  def quote(userId: User.ID, gameId: Game.ID): Fu[Option[Comment]] =
-    lightUser(userId) ?? { author =>
-      importer(gameId) map {
-        _ ?? { game =>
-          Comment(
-            id = Comment.Id.make,
-            text = Comment.Text(gameTitle(game)),
-            // by = Comment.Author.User(author.id, author.titleName)
-            by = Comment.Author.Lichess
-          ).some
-        }
+  def quote(gameId: Game.ID): Fu[Option[Comment]] =
+    importer(gameId) map {
+      _ ?? { game =>
+        Comment(
+          id = Comment.Id.make,
+          text = Comment.Text(gameTitle(game)),
+          by = Comment.Author.Lichess
+        ).some
       }
     }
 

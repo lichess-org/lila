@@ -339,25 +339,28 @@ final class StudyApi(
           text = text,
           by = Comment.Author.User(author.id, author.titleName)
         )
-        chapter.setComment(comment, position.path) match {
-          case Some(newChapter) =>
-            studyRepo.updateNow(study)
-            newChapter.root.nodeAt(position.path) ?? { node =>
-              node.comments.findBy(comment.by) ?? { c =>
-                chapterRepo.setComments(newChapter, position.path, node.comments.filterEmpty) >>- {
-                  sendTo(study, Socket.SetComment(position, c, uid))
-                  indexStudy(study)
-                  sendStudyEnters(study, userId)
-                }
-              }
-            }
-          case None =>
-            fufail(s"Invalid setComment $studyId $position") >>-
-              reloadUidBecauseOf(study, uid, chapter.id)
-        }
+        doSetComment(userId, study, Position(chapter, position.path), comment, uid)
       }
     }
   }
+
+  private def doSetComment(userId: User.ID, study: Study, position: Position, comment: Comment, uid: Uid): Funit =
+    position.chapter.setComment(comment, position.path) match {
+      case Some(newChapter) =>
+        studyRepo.updateNow(study)
+        newChapter.root.nodeAt(position.path) ?? { node =>
+          node.comments.findBy(comment.by) ?? { c =>
+            chapterRepo.setComments(newChapter, position.path, node.comments.filterEmpty) >>- {
+              sendTo(study, Socket.SetComment(position.ref, c, uid))
+              indexStudy(study)
+              sendStudyEnters(study, userId)
+            }
+          }
+        }
+      case None =>
+        fufail(s"Invalid setComment ${study.id} $position") >>-
+          reloadUidBecauseOf(study, uid, position.chapter.id)
+    }
 
   def deleteComment(userId: User.ID, studyId: Study.Id, position: Position.Ref, id: Comment.Id, uid: Uid) = sequenceStudyWithChapter(studyId, position.chapterId) {
     case Study.WithChapter(study, chapter) => Contribute(userId, study) {
@@ -410,24 +413,9 @@ final class StudyApi(
   def explorerGame(userId: User.ID, studyId: Study.Id, data: actorApi.ExplorerGame, uid: Uid) = sequenceStudyWithChapter(studyId, data.position.chapterId) {
     case Study.WithChapter(study, chapter) => Contribute(userId, study) {
       if (data.insert) ???
-      else explorerGameHandler.quote(userId, data.gameId) flatMap {
-        _ ?? { comment =>
-          chapter.setComment(comment, data.position.path) match {
-            case Some(newChapter) =>
-              studyRepo.updateNow(study)
-              newChapter.root.nodeAt(data.position.path) ?? { node =>
-                node.comments.findBy(comment.by) ?? { c =>
-                  chapterRepo.setComments(newChapter, data.position.path, node.comments.filterEmpty) >>- {
-                    sendTo(study, Socket.SetComment(data.position, c, uid))
-                    indexStudy(study)
-                    sendStudyEnters(study, userId)
-                  }
-                }
-              }
-            case None =>
-              fufail(s"Invalid explorerGame quote $studyId $data") >>-
-                reloadUidBecauseOf(study, uid, chapter.id)
-          }
+      else explorerGameHandler.quote(data.gameId) flatMap {
+        _ ?? {
+          doSetComment(userId, study, Position(chapter, data.position.path), _, uid)
         }
       }
     }
