@@ -143,7 +143,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
         row([k('shift'), k('←'), or(), k('shift'), k('→')], trans('keyEnterOrExitVariation')),
         row([k('shift'), k('J'), or(), k('shift'), k('K')], trans('keyEnterOrExitVariation')),
         header('Analysis options'),
-        row([k('shift'), k('I')], 'Inline notation'),
+        row([k('shift'), k('I')], trans('inlineNotation')),
         row([k('l')], 'Local computer analysis'),
         row([k('a')], 'Computer arrows'),
         row([k('space')], 'Play computer best move'),
