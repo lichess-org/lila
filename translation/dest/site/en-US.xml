@@ -694,7 +694,7 @@ in %3$s</string>
   <string name="letOtherPlayersMessageYou">Let other players message you</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Castling method</string>
   <string name="castleByMovingTwoSquares">Move king two squares</string>
-  <string name="castleByMovingOntoTheRook">Move king onto rook or 2 squares</string>
+  <string name="castleByMovingOntoTheRook">Move king onto rook</string>
   <string name="shareYourInsightsData">Share your chess insights data</string>
   <string name="withNobody">With nobody</string>
   <string name="withFriends">With friends</string>
