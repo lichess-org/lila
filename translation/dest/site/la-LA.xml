@@ -51,6 +51,8 @@
   <string name="depthX">Profunditas %s</string>
   <string name="usingServerAnalysis">Explicatio credentariō utitur</string>
   <string name="loadingEngine">Ordinatrum incohatur ...</string>
+  <string name="cloudAnalysis">Explicatio nimbō</string>
+  <string name="goDeeper">Plus analyzare</string>
   <string name="move">Actio</string>
   <string name="openingExplorer">Aperis indagatorem</string>
   <string name="allSet">Hic bonus est.</string>
