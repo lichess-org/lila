@@ -3,6 +3,8 @@ package lila.study
 case class Position(chapter: Chapter, path: Path) {
 
   def ref = Position.Ref(chapter.id, path)
+
+  def node: Option[RootOrNode] = chapter.root nodeAt path
 }
 
 case object Position {

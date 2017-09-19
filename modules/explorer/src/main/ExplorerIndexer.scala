@@ -21,7 +21,6 @@ private final class ExplorerIndexer(
 
   private val maxGames = Int.MaxValue
   private val batchSize = 50
-  private val maxPlies = 50
   private val separator = "\n\n\n"
   private val datePattern = "yyyy-MM-dd"
   private val dateFormatter = DateTimeFormat forPattern datePattern

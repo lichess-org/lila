@@ -19,6 +19,7 @@ sealed trait RootOrNode {
   val gamebook: Option[Gamebook]
   val glyphs: Glyphs
   def fullMoveNumber = 1 + ply / 2
+  def mainline: List[Node]
 }
 
 case class Node(
@@ -62,6 +63,8 @@ case class Node(
     children.first.fold(f(this)) { main =>
       copy(children = children.update(main updateMainlineLast f))
     }
+
+  override def toString = s"$id:${move.san}"
 }
 
 object Node {

@@ -3,11 +3,10 @@ package lila.study
 import chess.format.pgn.Tag
 import chess.format.{ Forsyth, FEN }
 import chess.variant.{ Variant, Crazyhouse }
+import lila.chat.Chat
 import lila.game.{ Game, Pov, GameRepo, Namer }
 import lila.importer.Importer
-import lila.round.JsonView.WithFlags
 import lila.user.User
-import lila.chat.Chat
 
 private final class ChapterMaker(
     domain: String,
@@ -140,29 +139,9 @@ private final class ChapterMaker(
     }
 
   def game2root(game: Game, initialFen: Option[FEN] = None): Fu[Node.Root] =
-    initialFen.fold(GameRepo initialFen game) { fen =>
-      fuccess(fen.value.some)
-    } map { initialFen =>
-      val root = Node.Root.fromRoot {
-        lila.round.TreeBuilder(
-          game = game,
-          analysis = none,
-          initialFen = initialFen | game.variant.initialFen,
-          withFlags = WithFlags(clocks = true)
-        )
-      }
-      endComment(game).fold(root) { comment =>
-        root updateMainlineLast { _.setComment(comment) }
-      }
-    }
-
-  private def endComment(game: Game) = game.finished option {
-    import lila.tree.Node.Comment
-    val result = chess.Color.showResult(game.winnerColor)
-    val status = lila.game.StatusText(game)
-    val text = s"$result $status"
-    Comment(Comment.Id.make, Comment.Text(text), Comment.Author.Lichess)
-  }
+    initialFen.fold(GameRepo initialFen game map2 FEN.apply) { fen =>
+      fuccess(fen.some)
+    } map { GameToRoot(game, _, withClocks = true) }
 
   private val UrlRegex = {
     val escapedDomain = domain.replace(".", "\\.")

@@ -412,7 +412,19 @@ final class StudyApi(
 
   def explorerGame(userId: User.ID, studyId: Study.Id, data: actorApi.ExplorerGame, uid: Uid) = sequenceStudyWithChapter(studyId, data.position.chapterId) {
     case Study.WithChapter(study, chapter) => Contribute(userId, study) {
-      if (data.insert) ???
+      if (data.insert) explorerGameHandler.insert(userId, study, Position(chapter, data.position.path), data.gameId) flatMap {
+        case None =>
+          fufail(s"Invalid explorerGame insert $studyId $data") >>-
+            reloadUidBecauseOf(study, uid, chapter.id)
+        case Some((chapter, path)) =>
+          studyRepo.updateNow(study)
+          chapter.root.nodeAt(path) ?? { parent =>
+            chapterRepo.setChildren(chapter, path, parent.children) >>- {
+              sendStudyEnters(study, userId)
+              sendTo(study, Socket.ReloadAll)
+            }
+          }
+      }
       else explorerGameHandler.quote(data.gameId) flatMap {
         _ ?? {
           doSetComment(userId, study, Position(chapter, data.position.path), _, uid)
