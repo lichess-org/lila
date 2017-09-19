@@ -631,8 +631,8 @@
   <string name="embedInYourWebsite">Ostende in locum</string>
   <string name="usernameAlreadyUsed">Username hanc iam usus aliquam alia.</string>
   <string name="usernameInvalid">Irritum nomen usoris. Quaeso uti literis tantum, numero et offendas.</string>
-  <string name="usernameStartNoNumber">Nomen usoris incipere cum numero non potest.</string>
-  <string name="usernameUnacceptable">Hoc nomen usoris acceptum non est.</string>
+  <string name="usernameStartNoNumber">Nomen usoris cum numero non coependum.</string>
+  <string name="usernameUnacceptable">Hoc nomen usoris acceptabile non est.</string>
   <string name="directlySupportLichess">Lichess directe auxilium</string>
   <string name="playChessInStyle">Lude scacos moris</string>
   <string name="chessBasics">Scacci fundamenta</string>
@@ -645,6 +645,6 @@
   <string name="error.max">%s paribus minor est</string>
   <string name="custom">Alius</string>
   <string name="notifications">Nuntii</string>
-  <string name="challenges">Proelia</string>
+  <string name="challenges">Provocationes</string>
   <string name="perfRatingX">Ordo: %s</string>
 </resources>
