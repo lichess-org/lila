@@ -203,17 +203,24 @@
     </table>
   </div>
   }
+    @charges.headOption.map { firstCharge =>
   <div class="plan_charges">
-    <strong class="text" data-icon="@patronIconChar">Patron payments@if(charges.isEmpty){: none.}</strong>
-    @if(charges.nonEmpty) {
+    <strong class="text" data-icon="@patronIconChar">
+      Patron payments
+      @if(isGranted(_.PayPal)) {
+      @firstCharge.payPal.flatMap(_.subId).map { subId =>
+      - <a href="https://www.paypal.com/fr/cgi-bin/webscr?cmd=_profile-recurring-payments&encrypted_profile_id=@subId">[PayPal sub]</a>
+      }
+      }
+    </strong>
     <ul>
       @charges.map { c =>
       <li>@c.cents.usd with @c.serviceName on @absClientDateTime(c.date)</li>
       }
     </ul>
     <br />
-    }
   </div>
+    }
   <div class="mod_log">
     <strong class="text" data-icon="!">Moderation history@if(history.isEmpty){: nothing to show.}</strong>
     @if(history.nonEmpty) {
