@@ -124,7 +124,9 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
     ctrl.explorer.gameMenu(null);
     ctrl.redraw();
   }
-  return h('tr', [
+  return h('tr', {
+    key: game.id + '-m',
+  }, [
     h('td.game_menu', {
       attrs: { colspan: 4 },
     }, [
