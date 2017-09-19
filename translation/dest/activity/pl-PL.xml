@@ -54,9 +54,9 @@
     <item quantity="other">Udział w %s symultanach</item>
   </plurals>
   <plurals name="createdNbStudies">
-    <item quantity="one">Utworzono %s nowe omówienie</item>
-    <item quantity="few">Utworzono %s nowe omówienia</item>
-    <item quantity="other">Utworzono %s nowych omówień</item>
+    <item quantity="one">Utworzono %s nowe studium</item>
+    <item quantity="few">Utworzono %s nowe studia</item>
+    <item quantity="other">Utworzono %s nowe studiów</item>
   </plurals>
   <plurals name="competedInNbTournaments">
     <item quantity="one">Uczestnictwo w %s turnieju</item>
