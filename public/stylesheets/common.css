@@ -83,7 +83,7 @@ time {
 }
 .is.text::before,
 .text[data-icon]::before {
-  margin-right: 5px;
+  margin-right: 0.25em;
 }
 [data-icon].is2::before {
   font-size: 20px;
