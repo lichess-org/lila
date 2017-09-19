@@ -18,4 +18,6 @@
   <string name="thePawn">Pėstininkas</string>
   <string name="itMovesForwardOnly">Eina tik į priekį</string>
   <string name="pawnIntro">Pėstininkai yra silpni, tačiau turi daug potencialo.</string>
+  <string name="pawnsMoveForward">Pėstininkai eina į priekį,
+tačiau kerta įstrižai!</string>
 </resources>
