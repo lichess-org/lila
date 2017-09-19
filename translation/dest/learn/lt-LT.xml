@@ -6,4 +6,9 @@
   <string name="menu">Meniu</string>
   <string name="progressX">Progresas: %s</string>
   <string name="resetMyProgress">Atkurti mano progresą</string>
+  <string name="theRook">Bokštas</string>
+  <string name="theBishop">Rikis</string>
+  <string name="theQueen">Karalienė</string>
+  <string name="theKing">Karalius</string>
+  <string name="theMostImportantPiece">Pati svarbiausia figūra</string>
 </resources>
