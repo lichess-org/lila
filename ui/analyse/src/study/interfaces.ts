@@ -42,6 +42,7 @@ export interface StudyCtrl {
   mutateCgConfig(config: any): void;
   isUpdatedRecently(): boolean;
   setGamebookOverride(o: GamebookOverride): void;
+  explorerGame(gameId: string, insert: boolean): void;
   redraw(): void;
 }
 

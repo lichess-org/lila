@@ -247,6 +247,12 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     vm.updatedAt = Date.now();
   }
 
+  function withPosition(obj: any) {
+    obj.ch = vm.chapterId;
+    obj.path = ctrl.path;
+    return obj;
+  }
+
   return {
     data,
     form,
@@ -284,11 +290,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       if (practice) practice.onJump();
       if (gamebookPlay) gamebookPlay.onJump();
     },
-    withPosition(obj) {
-      obj.ch = vm.chapterId;
-      obj.path = ctrl.path;
-      return obj;
-    },
+    withPosition,
     setPath(path, node) {
       onSetPath(path);
       setTimeout(() => commentForm.onSetPath(path, node), 100);
@@ -347,6 +349,9 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       if (!o) xhrReload();
     },
     mutateCgConfig,
+    explorerGame(gameId: string, insert: boolean) {
+      makeChange('explorerGame', withPosition({ gameId, insert }));
+    },
     redraw,
     socketHandlers: {
       path(d) {

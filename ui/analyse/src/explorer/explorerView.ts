@@ -79,6 +79,7 @@ function showResult(winner: Color): VNode {
 
 function showGameTable(ctrl: AnalyseCtrl, title: string, games): VNode | null {
   if (!ctrl.explorer.withGames || !games.length) return null;
+  const openedId = ctrl.explorer.gameMenu();
   return h('table.games', [
     h('thead', [
       h('tr', [
@@ -86,29 +87,46 @@ function showGameTable(ctrl: AnalyseCtrl, title: string, games): VNode | null {
       ])
     ]),
     h('tbody', {
-      insert: vnode => {
-        const el = vnode.elm as HTMLElement;
-        el.addEventListener('click', e => {
-          const $tr = $(e.target).parents('tr');
-          if (!$tr.length) return;
-          const orientation = ctrl.chessground.state.orientation;
-          const fenParam = ctrl.node.ply > 0 ? ('?fen=' + ctrl.node.fen) : '';
-          if (ctrl.explorer.config.data.db.selected() === 'lichess')
-            window.open('/' + $tr.data('id') + '/' + orientation + fenParam, '_blank');
-          else window.open('/import/master/' + $tr.data('id') + '/' + orientation + fenParam, '_blank');
-        });
-        // el.oncontextmenu = (e: MouseEvent) => {
-        //   const path = eventPath(e);
-        //   if (path !== null) contextMenu(e, {
-        //     path,
-        //     root: ctrl
-        //   });
-        //   ctrl.redraw();
-        //   return false;
-        // };
-      }
-    }, games.map(function(game) {
-      return h('tr', {
+      hook: bind('click', e => {
+        const $tr = $(e.target).parents('tr');
+        if (!$tr.length) return;
+        ctrl.explorer.gameMenu($tr.data('id'));
+        ctrl.redraw();
+      })
+    }, games.map(game => {
+      return openedId && openedId === game.id ? h('tr', [
+        h('td.game_menu', {
+          attrs: { colspan: 4 },
+        }, [
+          h('div.game_title', `${game.white.name} - ${game.black.name}, ${showResult(game.winner).text}, ${game.year}`),
+          h('div.menu', [
+            h('a.text', {
+              attrs: dataIcon('v'),
+              hook: bind('click', _ => {
+                const orientation = ctrl.chessground.state.orientation,
+                fenParam = ctrl.node.ply > 0 ? ('?fen=' + ctrl.node.fen) : '';
+                if (ctrl.explorer.config.data.db.selected() === 'lichess')
+                  window.open('/' + openedId + '/' + orientation + fenParam, '_blank');
+                else window.open('/import/master/' + openedId + '/' + orientation + fenParam, '_blank');
+              })
+            }, 'View'),
+            ...(ctrl.study ? [
+              h('a.text', {
+                attrs: dataIcon('c'),
+                hook: bind('click', _ => ctrl.study!.explorerGame(openedId, false), ctrl.redraw)
+              }, 'Quote'),
+              h('a.text', {
+                attrs: dataIcon('O'),
+                hook: bind('click', _ => ctrl.study!.explorerGame(openedId, true), ctrl.redraw)
+              }, 'Insert')
+            ] : []),
+            h('a.text', {
+              attrs: dataIcon('L'),
+              hook: bind('click', _ => ctrl.explorer.gameMenu(null), ctrl.redraw)
+            }, 'Close')
+          ])
+        ])
+      ]) : h('tr', {
         key: game.id,
         attrs: { 'data-id': game.id }
       }, [

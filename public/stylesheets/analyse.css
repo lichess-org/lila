@@ -608,8 +608,29 @@ body.dark .explorer_box .black {
   text-align: center;
   padding: 3px 5px;
   border-radius: 3px;
-  font-family: 'Roboto Mono', 'Roboto';
   font-size: 0.9em;
+}
+.explorer_box td.game_menu {
+  background: #759900;
+  cursor: default;
+  padding: 5px 0 0 0;
+}
+.explorer_box .game_menu .game_title {
+  text-align: center;
+  font-style: italic;
+  color: #fff;
+}
+.explorer_box .game_menu .menu {
+  display: flex;
+  justify-content: space-between;
+  text-transform: uppercase;
+}
+.explorer_box .game_menu .menu a {
+  color: #fff;
+  padding: 5px;
+}
+.explorer_box .game_menu .menu a:hover {
+  background: rgba(255,255,255,0.2);
 }
 .explorer_box .tablebase {
   width: 100%;

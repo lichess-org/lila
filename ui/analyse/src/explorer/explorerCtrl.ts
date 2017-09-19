@@ -17,13 +17,15 @@ function tablebaseRelevant(variant: string, fen: Fen) {
 }
 
 export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
-  const allowed = prop(allow);
-  const enabled = root.embed ? prop(false) : storedProp('explorer.enabled', false);
+  const allowed = prop(allow),
+  enabled = root.embed ? prop(false) : storedProp('explorer.enabled', false),
+  loading = prop(true),
+  failing = prop(false),
+  hovering = prop<Hovering | null>(null),
+  movesAway = prop(0),
+  gameMenu = prop<string | null>(null);
+
   if ((location.hash === '#explorer' || location.hash === '#opening') && !root.embed) enabled(true);
-  const loading = prop(true);
-  const failing = prop(false);
-  const hovering = prop<Hovering | null>(null);
-  const movesAway = prop(0);
 
   let cache = {};
   function onConfigClose() {
@@ -62,6 +64,7 @@ export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
 
   function setNode() {
     if (!enabled()) return;
+    gameMenu(null);
     const node = root.node;
     if (node.ply > 50 && !tablebaseRelevant(effectiveVariant, node.fen)) {
       cache[node.fen] = empty;
@@ -87,6 +90,7 @@ export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
     movesAway,
     config,
     withGames,
+    gameMenu,
     current: () => cache[root.node.fen],
     toggle() {
       movesAway(0);
@@ -97,6 +101,7 @@ export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
     disable() {
       if (enabled()) {
         enabled(false);
+        gameMenu(null);
         root.autoScroll();
       }
     },

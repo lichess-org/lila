@@ -54,16 +54,6 @@ object Importer extends LilaController {
       val fenParam = get("fen").??(f => s"?fen=$f")
       s"$url$fenParam"
     }
-    GameRepo game id flatMap {
-      case Some(game) if game.createdAt.isAfter(masterGameEncodingFixedAt) => fuccess(redirectAtFen(game))
-      case _ => (GameRepo remove id) >> Env.explorer.fetchPgn(id) flatMap {
-        case None => fuccess(NotFound)
-        case Some(pgn) => env.importer(
-          lila.importer.ImportData(pgn, none),
-          user = "lichess".some,
-          forceId = id.some
-        ) map redirectAtFen
-      }
-    }
+    Env.explorer.importer(id) map2 redirectAtFen
   }
 }

@@ -228,6 +228,13 @@ private[study] final class SocketHandler(
         } api.toggleGlyph(userId, studyId, position.ref, glyph, uid)
       }
 
+    case ("explorerGame", o) =>
+      reading[actorApi.ExplorerGame](o) { data =>
+        member.userId foreach { byUserId =>
+          api.explorerGame(byUserId, studyId, data, uid)
+        }
+      }
+
     case ("like", o) => for {
       byUserId <- member.userId
       v <- (o \ "d" \ "liked").asOpt[Boolean]
@@ -260,6 +267,7 @@ private[study] final class SocketHandler(
   private implicit val StudyDataReader = Json.reads[Study.Data]
   private implicit val setTagReader = Json.reads[actorApi.SetTag]
   private implicit val gamebookReader = Json.reads[Gamebook]
+  private implicit val explorerGame = Json.reads[actorApi.ExplorerGame]
 
   def join(
     studyId: Study.Id,

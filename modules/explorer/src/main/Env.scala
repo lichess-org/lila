@@ -6,6 +6,7 @@ import com.typesafe.config.Config
 final class Env(
     config: Config,
     gameColl: lila.db.dsl.Coll,
+    importer: lila.importer.Importer,
     system: ActorSystem
 ) {
 
@@ -23,15 +24,6 @@ final class Env(
     }
   }
 
-  def fetchPgn(id: String): Fu[Option[String]] = {
-    import play.api.libs.ws.WS
-    import play.api.Play.current
-    WS.url(s"$InternalEndpoint/master/pgn/$id").get() map {
-      case res if res.status == 200 => res.body.some
-      case _ => None
-    }
-  }
-
   if (IndexFlow) system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
       case lila.game.actorApi.FinishGame(game, _, _) if !game.aborted => indexer(game)
@@ -44,6 +36,7 @@ object Env {
   lazy val current = "explorer" boot new Env(
     config = lila.common.PlayApp loadConfig "explorer",
     gameColl = lila.game.Env.current.gameColl,
+    importer = lila.importer.Env.current.importer,
     system = lila.common.PlayApp.system
   )
 }

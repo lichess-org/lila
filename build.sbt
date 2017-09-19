@@ -272,7 +272,7 @@ lazy val challenge = module("challenge", Seq(common, db, hub, setup, game, relat
 )
 
 lazy val study = module("study", Seq(
-  common, db, hub, socket, game, round, importer, notifyModule, relation, evalCache
+  common, db, hub, socket, game, round, importer, notifyModule, relation, evalCache, explorer
 )).settings(
   libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )
@@ -370,7 +370,7 @@ lazy val report = module("report", Seq(common, db, user, game, security)).settin
   )
 )
 
-lazy val explorer = module("explorer", Seq(common, db, game)).settings(
+lazy val explorer = module("explorer", Seq(common, db, game, importer)).settings(
   libraryDependencies ++= provided(
     play.api,
     reactivemongo.driver, reactivemongo.iteratees
