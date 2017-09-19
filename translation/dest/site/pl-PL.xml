@@ -96,7 +96,7 @@
   <string name="replayMode">Tryb odtwarzania</string>
   <string name="realtimeReplay">Naturalnie</string>
   <string name="byCPL">Wg poprawności</string>
-  <string name="openStudy">Stwórz omówienie partii</string>
+  <string name="openStudy">Stwórz studium</string>
   <string name="enable">Włącz</string>
   <string name="bestMoveArrow">Strzałka najlepszego ruchu</string>
   <string name="evaluationGauge">Pasek ewaluacji</string>
@@ -560,7 +560,7 @@
   <string name="privacy">Prywatność</string>
   <string name="letOtherPlayersFollowYou">Inni gracze mogą Cię obserwować</string>
   <string name="letOtherPlayersChallengeYou">Inni gracze mogą rzucić Ci wyzwanie</string>
-  <string name="letOtherPlayersInviteYouToStudy">Inni gracze mogą zapraszać Cię do studiowania partii</string>
+  <string name="letOtherPlayersInviteYouToStudy">Inni gracze mogą zapraszać Cię do studium</string>
   <string name="sound">Dźwięk</string>
   <string name="yourPreferencesHaveBeenSaved">Twoje ustawienia zostały zapisane.</string>
   <string name="none">Brak</string>
