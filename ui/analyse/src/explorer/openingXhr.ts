@@ -6,10 +6,7 @@ export function opening(endpoint: string, variant: string, fen: Fen, config, wit
     fen,
     moves: 12
   };
-  if (!withGames) {
-    params.topGames = 0;
-    params.recentGames = 0;
-  }
+  if (!withGames) params.topGames = params.recentGames = 0;
   if (config.db.selected() === 'masters') url = '/master';
   else {
     url = '/lichess';
