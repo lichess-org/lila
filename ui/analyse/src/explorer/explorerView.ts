@@ -94,46 +94,7 @@ function showGameTable(ctrl: AnalyseCtrl, title: string, games): VNode | null {
         ctrl.redraw();
       })
     }, games.map(game => {
-      return openedId && openedId === game.id ? h('tr', [
-        h('td.game_menu', {
-          attrs: { colspan: 4 },
-        }, [
-          h('div.game_title', `${game.white.name} - ${game.black.name}, ${showResult(game.winner).text}, ${game.year}`),
-          h('div.menu', [
-            h('a.text', {
-              attrs: dataIcon('v'),
-              hook: bind('click', _ => {
-                const orientation = ctrl.chessground.state.orientation,
-                fenParam = ctrl.node.ply > 0 ? ('?fen=' + ctrl.node.fen) : '';
-                if (ctrl.explorer.config.data.db.selected() === 'lichess')
-                  window.open('/' + openedId + '/' + orientation + fenParam, '_blank');
-                else window.open('/import/master/' + openedId + '/' + orientation + fenParam, '_blank');
-              })
-            }, 'View'),
-            ...(ctrl.study ? (function() {
-              function send(insert: boolean) {
-                ctrl.study!.explorerGame(openedId!, insert);
-                ctrl.explorer.gameMenu(null);
-                ctrl.redraw();
-              }
-              return [
-                h('a.text', {
-                  attrs: dataIcon('c'),
-                  hook: bind('click', _ => send(false), ctrl.redraw)
-                }, 'Quote'),
-                h('a.text', {
-                  attrs: dataIcon('O'),
-                  hook: bind('click', _ => send(true), ctrl.redraw)
-                }, 'Insert')
-              ];
-            })() : []),
-            h('a.text', {
-              attrs: dataIcon('L'),
-              hook: bind('click', _ => ctrl.explorer.gameMenu(null), ctrl.redraw)
-            }, 'Close')
-          ])
-        ])
-      ]) : h('tr', {
+      return openedId && openedId === game.id ? gameActions(ctrl, openedId) : h('tr', {
         key: game.id,
         attrs: { 'data-id': game.id }
       }, [
@@ -143,6 +104,47 @@ function showGameTable(ctrl: AnalyseCtrl, title: string, games): VNode | null {
         h('td', game.year)
       ]);
     }))
+  ]);
+}
+
+function gameActions(ctrl: AnalyseCtrl, game): VNode {
+  function send(insert: boolean) {
+    ctrl.study!.explorerGame(game.id, insert);
+    ctrl.explorer.gameMenu(null);
+    ctrl.redraw();
+  }
+  return h('tr', [
+    h('td.game_menu', {
+      attrs: { colspan: 4 },
+    }, [
+      h('div.game_title', `${game.white.name} - ${game.black.name}, ${showResult(game.winner).text}, ${game.year}`),
+      h('div.menu', [
+        h('a.text', {
+          attrs: dataIcon('v'),
+          hook: bind('click', _ => {
+            const orientation = ctrl.chessground.state.orientation,
+            fenParam = ctrl.node.ply > 0 ? ('?fen=' + ctrl.node.fen) : '';
+            if (ctrl.explorer.config.data.db.selected() === 'lichess')
+              window.open('/' + game.id + '/' + orientation + fenParam, '_blank');
+            else window.open('/import/master/' + game.id + '/' + orientation + fenParam, '_blank');
+          })
+        }, 'View'),
+        ...(ctrl.study ? [
+          h('a.text', {
+            attrs: dataIcon('c'),
+            hook: bind('click', _ => send(false), ctrl.redraw)
+          }, 'Quote'),
+          h('a.text', {
+            attrs: dataIcon('O'),
+            hook: bind('click', _ => send(true), ctrl.redraw)
+          }, 'Insert')
+        ] : []),
+        h('a.text', {
+          attrs: dataIcon('L'),
+          hook: bind('click', _ => ctrl.explorer.gameMenu(null), ctrl.redraw)
+        }, 'Close')
+      ])
+    ])
   ]);
 }
 
