@@ -45,6 +45,21 @@ export interface ExplorerData {
 
 export interface OpeningData extends ExplorerData {
   moves: OpeningMoveStats[];
+  topGames?: OpeningGame[];
+  recentGames?: OpeningGame[];
+}
+
+export interface OpeningGame {
+  id: string;
+  white: OpeningPlayer;
+  black: OpeningPlayer;
+  winner?: Color;
+  year?: string;
+}
+
+interface OpeningPlayer {
+  name: string;
+  rating: number;
 }
 
 export interface TablebaseData extends ExplorerData {

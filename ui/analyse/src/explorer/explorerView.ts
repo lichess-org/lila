@@ -3,7 +3,7 @@ import { VNode } from 'snabbdom/vnode'
 import { view as renderConfig } from './explorerConfig';
 import { bind, dataIcon } from '../util';
 import AnalyseCtrl from '../ctrl';
-import { isOpening, isTablebase, TablebaseMoveStats, OpeningMoveStats } from './interfaces';
+import { isOpening, isTablebase, TablebaseMoveStats, OpeningMoveStats, OpeningGame } from './interfaces';
 
 function resultBar(move: OpeningMoveStats): VNode {
   const sum = move.white + move.draws + move.black;
@@ -71,13 +71,13 @@ function showMoveTable(ctrl: AnalyseCtrl, moves: OpeningMoveStats[], fen: Fen): 
   ]);
 }
 
-function showResult(winner: Color): VNode {
+function showResult(winner?: Color): VNode {
   if (winner === 'white') return h('result.white', '1-0');
   if (winner === 'black') return h('result.black', '0-1');
   return h('result.draws', '½-½');
 }
 
-function showGameTable(ctrl: AnalyseCtrl, title: string, games): VNode | null {
+function showGameTable(ctrl: AnalyseCtrl, title: string, games: OpeningGame[]): VNode | null {
   if (!ctrl.explorer.withGames || !games.length) return null;
   const openedId = ctrl.explorer.gameMenu();
   return h('table.games', [
@@ -94,20 +94,20 @@ function showGameTable(ctrl: AnalyseCtrl, title: string, games): VNode | null {
         ctrl.redraw();
       })
     }, games.map(game => {
-      return openedId && openedId === game.id ? gameActions(ctrl, openedId) : h('tr', {
+      return openedId === game.id ? gameActions(ctrl, game) : h('tr', {
         key: game.id,
         attrs: { 'data-id': game.id }
       }, [
-        h('td', [game.white, game.black].map(p => h('span', p.rating))),
+        h('td', [game.white, game.black].map(p => h('span', '' + p.rating))),
         h('td', [game.white, game.black].map(p => h('span', p.name))),
         h('td', showResult(game.winner)),
-        h('td', game.year)
+        h('td', [game.year])
       ]);
     }))
   ]);
 }
 
-function gameActions(ctrl: AnalyseCtrl, game): VNode {
+function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
   function send(insert: boolean) {
     ctrl.study!.explorerGame(game.id, insert);
     ctrl.explorer.gameMenu(null);
@@ -237,8 +237,8 @@ function show(ctrl: AnalyseCtrl) {
   data = ctrl.explorer.current();
   if (data && isOpening(data)) {
     const moveTable = showMoveTable(ctrl, data.moves, data.fen),
-    recentTable = showGameTable(ctrl, trans('recentGames'), data['recentGames'] || []),
-    topTable = showGameTable(ctrl, trans('topGames'), data['topGames'] || []);
+    recentTable = showGameTable(ctrl, trans('recentGames'), data.recentGames || []),
+    topTable = showGameTable(ctrl, trans('topGames'), data.topGames || []);
     if (moveTable || recentTable || topTable) lastShow = h('div.data', [moveTable, topTable, recentTable]);
     else lastShow = showEmpty(ctrl);
   } else if (data && isTablebase(data)) {
