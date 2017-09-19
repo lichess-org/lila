@@ -91,7 +91,7 @@ function showGameTable(ctrl: AnalyseCtrl, title: string, games: OpeningGame[]): 
         const $tr = $(e.target).parents('tr');
         if (!$tr.length) return;
         const id = $tr.data('id');
-        if (ctrl.study) {
+        if (ctrl.study && ctrl.study.members.canContribute()) {
           ctrl.explorer.gameMenu(id);
           ctrl.redraw();
         } else openGame(ctrl, id);
