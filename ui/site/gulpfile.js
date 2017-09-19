@@ -32,7 +32,7 @@ gulp.task('ab', function() {
   }
 });
 
-function latestGithubRelease(repo, cb) {
+function downloadGithubRelease(repo, dest, cb) {
   const headers = {'User-Agent': 'lila/gulpfile.js'};
   if (process.env.GITHUB_API_TOKEN) {
     headers['Authorization'] = 'token ' + process.env.GITHUB_API_TOKEN;
@@ -43,27 +43,25 @@ function latestGithubRelease(repo, cb) {
     headers: headers
   }, function(err, res, body) {
     if (err) throw err;
-    var release = JSON.parse(body);
-    cb(release.assets.map(function (asset) {
+    const release = JSON.parse(body);
+
+    download(release.assets.filter(function(asset) {
+      const path = dest + asset.name;
+      if (!fs.existsSync(path)) return true;
+      const stat = fs.statSync(path);
+      return stat.mtime < new Date(asset.updated_at) || stat.size != asset.size;
+    }).map(function (asset) {
       return asset.browser_download_url;
-    }));
+    })).pipe(gulp.dest(dest)).on('end', cb);
   });
 }
 
 gulp.task('stockfish.pexe', function(cb) {
-  latestGithubRelease('niklasf/stockfish.pexe', function(urls) {
-    download(urls)
-      .pipe(gulp.dest('../../public/vendor/stockfish/'))
-      .on('end', cb);
-  });
+  downloadGithubRelease('niklasf/stockfish.pexe', '../../public/vendor/stockfish/', cb);
 });
 
 gulp.task('stockfish.js', function(cb) {
-  latestGithubRelease('niklasf/stockfish.js', function(urls) {
-    download(urls)
-      .pipe(gulp.dest('../../public/vendor/stockfish/'))
-      .on('end', cb);
-  });
+  downloadGithubRelease('niklasf/stockfish.js', '../../public/vendor/stockfish/', cb);
 });
 
 gulp.task('prod-source', function() {
