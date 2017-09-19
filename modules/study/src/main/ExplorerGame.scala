@@ -38,7 +38,12 @@ private final class ExplorerGame(
     val white = pgn.flatMap(_.tag(_.White)) | Namer.playerText(g.whitePlayer)(lightUser)
     val black = pgn.flatMap(_.tag(_.Black)) | Namer.playerText(g.blackPlayer)(lightUser)
     val result = chess.Color.showResult(g.winnerColor)
-    val event = pgn.flatMap(_.tag(_.Event)) | gameYear(pgn, g).toString
+    val event = {
+      val raw = pgn.flatMap(_.tag(_.Event))
+      val year = gameYear(pgn, g)
+      if (raw.exists(_ contains year)) raw
+      else raw.fold(year.toString)(e => s"$e, $year")
+    }
     s"$white - $black, $result, $event"
   }
 
