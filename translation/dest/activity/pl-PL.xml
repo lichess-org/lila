@@ -34,9 +34,9 @@
     <item quantity="other">Zakończone %s partii korespondencyjnych</item>
   </plurals>
   <plurals name="followedNbPlayers">
-    <item quantity="one">Obserwowany %s gracz</item>
-    <item quantity="few">Obserwowanych %s graczy</item>
-    <item quantity="other">Obserwowanych %s graczy</item>
+    <item quantity="one">%s nowy obserwowany gracz</item>
+    <item quantity="few">%s nowych obserwowanych graczy</item>
+    <item quantity="other">%s nowych obserwowanych graczy</item>
   </plurals>
   <plurals name="gainedNbFollowers">
     <item quantity="one">%s nowy obserwujący</item>
