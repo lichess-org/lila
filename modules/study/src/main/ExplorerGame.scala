@@ -21,7 +21,8 @@ private final class ExplorerGame(
           Comment(
             id = Comment.Id.make,
             text = Comment.Text(gameTitle(game)),
-            by = Comment.Author.User(author.id, author.titleName)
+            // by = Comment.Author.User(author.id, author.titleName)
+            by = Comment.Author.Lichess
           ).some
         }
       }
