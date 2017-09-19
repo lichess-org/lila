@@ -35,20 +35,19 @@ private final class ExplorerGame(
     }
 
   private def merge(fromNode: RootOrNode, fromPath: Path, game: Node.Root, comment: Comment): Option[(Node, Path)] = {
-    val gameNodes = game.mainline.take(lila.explorer.maxPlies).reverse
-    val fromNodes = fromNode.mainline.take(lila.explorer.maxPlies - fromNode.ply)
-    val fromEndPath = fromNodes.drop(1).foldLeft(fromPath)(_ + _)
-    val (path, foundGameNode) = fromNodes.reverse.foldLeft((fromEndPath, none[Node])) {
-      case ((path, None), fromNode) =>
-        gameNodes.find(_.fen == fromNode.fen) match {
-          case Some(gameNode) => path -> gameNode.some
-          case None => path.init -> none
+    val gameNodes = game.mainline.dropWhile(_.fen != fromNode.fen) drop 1
+    val (path, foundGameNode) = gameNodes.foldLeft((Path.root, none[Node])) {
+      case ((path, None), gameNode) =>
+        val nextPath = path + gameNode
+        fromNode.children.nodeAt(nextPath) match {
+          case Some(child) => (nextPath, none)
+          case None => (path, gameNode.some)
         }
       case (found, _) => found
     }
-    foundGameNode.flatMap(_.children.first).map { nextGameNode =>
+    foundGameNode.map { nextGameNode =>
       val commentedNode = nextGameNode setComment comment
-      commentedNode -> path
+      commentedNode -> fromPath.+(path)
     }
   }
 
