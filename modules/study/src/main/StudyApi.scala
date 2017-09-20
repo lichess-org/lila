@@ -177,25 +177,28 @@ final class StudyApi(
 
   def addNode(userId: User.ID, studyId: Study.Id, position: Position.Ref, node: Node, uid: Uid, opts: MoveOpts) = sequenceStudyWithChapter(studyId, position.chapterId) {
     case Study.WithChapter(study, chapter) => Contribute(userId, study) {
-      chapter.addNode(node, position.path) match {
-        case None =>
-          fufail(s"Invalid addNode $studyId $position $node") >>-
-            reloadUidBecauseOf(study, uid, chapter.id)
-        case Some(chapter) =>
-          chapter.root.nodeAt(position.path) ?? { parent =>
-            val newPosition = position + node
-            chapterRepo.setChildren(chapter, position.path, parent.children) >>
-              (opts.sticky ?? studyRepo.setPosition(study.id, newPosition)) >>
-              updateConceal(study, chapter, newPosition) >>- {
-                sendTo(study, Socket.AddNode(position, node, chapter.setup.variant, uid, sticky = opts.sticky))
-                sendStudyEnters(study, userId)
-                if (opts.promoteToMainline && !Path.isMainline(chapter.root, newPosition.path))
-                  promote(userId, studyId, position + node, toMainline = true, uid)
-              }
-          }
-      }
+      doAddNode(userId, study, Position(chapter, position.path), node, uid, opts).void
     }
   }
+
+  def doAddNode(userId: User.ID, study: Study, position: Position, node: Node, uid: Uid, opts: MoveOpts): Fu[Option[Position]] =
+    position.chapter.addNode(node, position.path) match {
+      case None =>
+        fufail(s"Invalid addNode ${study.id} ${position.ref} $node") >>-
+          reloadUidBecauseOf(study, uid, position.chapter.id) inject none
+      case Some(chapter) =>
+        chapter.root.nodeAt(position.path) ?? { parent =>
+          val newPosition = position.ref + node
+          chapterRepo.setChildren(chapter, position.path, parent.children) >>
+            (opts.sticky ?? studyRepo.setPosition(study.id, newPosition)) >>
+            updateConceal(study, chapter, newPosition) >>- {
+              sendTo(study, Socket.AddNode(position.ref, node, chapter.setup.variant, uid, sticky = opts.sticky))
+              sendStudyEnters(study, userId)
+              if (opts.promoteToMainline && !Path.isMainline(chapter.root, newPosition.path))
+                promote(userId, study.id, position.ref + node, toMainline = true, uid)
+            } inject Position(chapter, position.path + node).some
+        }
+    }
 
   private def updateConceal(study: Study, chapter: Chapter, position: Position.Ref) =
     chapter.conceal ?? { conceal =>
@@ -442,18 +445,21 @@ final class StudyApi(
               chapterRepo.firstByStudy(study.id) flatMap {
                 _.filter(_.isEmptyInitial) ?? chapterRepo.delete
               }
-            } >> chapterRepo.insert(chapter) >> {
-              val newStudy = study withChapter chapter
-              (sticky ?? studyRepo.updateSomeFields(newStudy)) >>-
-                sendTo(study, Socket.AddChapter(uid, newStudy.position, sticky))
-            } >>-
-              studyRepo.updateNow(study) >>-
-              indexStudy(study)
+            } >> doAddChapter(study, chapter, sticky, uid)
           }
         }
       }
     }
   }
+
+  def doAddChapter(study: Study, chapter: Chapter, sticky: Boolean, uid: Uid) =
+    chapterRepo.insert(chapter) >> {
+      val newStudy = study withChapter chapter
+      (sticky ?? studyRepo.updateSomeFields(newStudy)) >>-
+        sendTo(study, Socket.AddChapter(uid, newStudy.position, sticky))
+    } >>-
+      studyRepo.updateNow(study) >>-
+      indexStudy(study)
 
   def setChapter(byUserId: User.ID, studyId: Study.Id, chapterId: Chapter.Id, socket: ActorRef, uid: Uid) = sequenceStudy(studyId) { study =>
     study.canContribute(byUserId) ?? doSetChapter(study, chapterId, socket, uid)

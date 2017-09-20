@@ -18,7 +18,7 @@ private final class RelaySync(
   case object Tick
 
   def scheduleNext =
-    context.system.scheduler.scheduleOnce(1 seconds, self, Tick)
+    context.system.scheduler.scheduleOnce(3 seconds, self, Tick)
 
   def receive = {
 
@@ -34,7 +34,7 @@ private final class RelaySync(
           api.sync(relay, res.body)
         } recover {
           case e: Exception =>
-            logger.warn(s"Fetch $relay", e)
+            logger.info(s"Can't fetch $relay")
             ()
         }
       }.sequenceFu.chronometer

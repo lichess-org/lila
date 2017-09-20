@@ -4,6 +4,14 @@ import scala.concurrent.duration._
 
 object Future {
 
+  def fold[T, R](list: List[T])(zero: R)(op: (R, T) => Fu[R]): Fu[R] =
+    list match {
+      case head :: rest => op(zero, head) flatMap { res =>
+        fold(rest)(res)(op)
+      }
+      case Nil => fuccess(zero)
+    }
+
   def lazyFold[T, R](futures: Stream[Fu[T]])(zero: R)(op: (R, T) => R): Fu[R] =
     Stream.cons.unapply(futures).fold(fuccess(zero)) {
       case (future, rest) => future flatMap { f =>
