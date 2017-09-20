@@ -113,9 +113,9 @@ function showGameTable(ctrl: AnalyseCtrl, title: string, games: OpeningGame[]): 
 function openGame(ctrl: AnalyseCtrl, gameId: string) {
   const orientation = ctrl.chessground.state.orientation,
   fenParam = ctrl.node.ply > 0 ? ('?fen=' + ctrl.node.fen) : '';
-  if (ctrl.explorer.config.data.db.selected() === 'lichess')
-    window.open('/' + gameId + '/' + orientation + fenParam, '_blank');
-  else window.open('/import/master/' + gameId + '/' + orientation + fenParam, '_blank');
+  let url = '/' + gameId + '/' + orientation + fenParam;
+  if (ctrl.explorer.config.data.db.selected() === 'master') url = '/import/master' + url;
+  window.open(url, '_blank');
 }
 
 function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
