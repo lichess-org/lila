@@ -67,12 +67,17 @@
   <string name="intermediate">中级</string>
   <string name="boardSetup">开局时摆法</string>
   <string name="howTheGameStarts">棋局是怎么开始的</string>
+  <string name="boardSetupComplete">恭喜！您已经懂得如何摆棋子。</string>
   <string name="castling">王车易位</string>
   <string name="theSpecialKingMove">王的特殊走法</string>
+  <string name="castlingIntro">王车易位的目的是为了让王安全，同时使车可以投入到进攻中。</string>
+  <string name="castleKingSide">请将王移动两格进行短易位。</string>
+  <string name="castleQueenSide">请将王移动两格进行长易位。</string>
   <string name="theKnightIsInTheWay">马阻止了王车易位。请把马移开，然后进行短易位。</string>
   <string name="castleKingSideMovePiecesFirst">请进行短易位。在此之前您需要先移开其他棋子。</string>
   <string name="castleQueenSideMovePiecesFirst">请进行长易位。在此之前您需要先移开其他棋子。</string>
   <string name="youCannotCastleIfMoved">如果王或车在此之前已经移动过则不得进行王车易位。</string>
+  <string name="youCannotCastleIfAttacked">如果王在易位途中被将军则不得进行王车易位。请先阻挡将军然后进行易位。</string>
   <string name="findAWayToCastleKingSide">请设法进行短易位。</string>
   <string name="findAWayToCastleQueenSide">请设法进行长易位。</string>
   <string name="castlingComplete">恭喜！您在下棋时一般需要进行王车易位。</string>
