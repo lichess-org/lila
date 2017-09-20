@@ -14,7 +14,7 @@
   <string name="toggleSound">聲音開關</string>
   <string name="chat">聊天</string>
   <string name="resign">認輸</string>
-  <string name="checkmate">將死</string>
+  <string name="checkmate">将死</string>
   <string name="stalemate">逼和</string>
   <string name="white">白方</string>
   <string name="black">黑方</string>
@@ -80,6 +80,7 @@
     <item quantity="other">下次吃子或走兵发生在%s步后（与重置50步计数的距离）</item>
   </plurals>
   <string name="noGameFound">没找到</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">请尝试在“选择”菜单内包括更多棋局。</string>
   <string name="openingExplorer">開局瀏覽器</string>
   <string name="xOpeningExplorer">%s开局浏览器</string>
   <string name="winPreventedBy50MoveRule">本局面本应赢棋，但因为50回合规则对方可以逼和。</string>
@@ -89,7 +90,10 @@
   <string name="delete">删</string>
   <string name="deleteThisImportedGame">删打开的盘？</string>
   <string name="byCPL">输了中兵</string>
+  <string name="enable">启用</string>
   <string name="cpus">CPUs</string>
+  <string name="memory">内存使用</string>
+  <string name="infiniteAnalysis">无限分析</string>
   <string name="blunders">漏著</string>
   <string name="mistakes">錯著</string>
   <string name="inaccuracies">失誤</string>
@@ -149,6 +153,8 @@
   <string name="passwordReset">重置密碼</string>
   <string name="forgotPassword">忘記密碼？</string>
   <string name="rank">排名</string>
+  <string name="rankX">排名：%s</string>
+  <string name="rankIsUpdatedEveryXMinutes">每%s分钟更新排名</string>
   <string name="gamesPlayed">盤棋已完成</string>
   <plurals name="nbGamesWithYou">
     <item quantity="other">和你下了%s盤棋</item>
@@ -341,7 +347,7 @@
   <string name="lastName">姓</string>
   <string name="biography">個人簡介</string>
   <string name="country">國家</string>
-  <string name="preferences">偏好設置</string>
+  <string name="preferences">偏好设置</string>
   <string name="watchLichessTV">觀看Lichess直播</string>
   <string name="previouslyOnLichessTV">直播歷史</string>
   <string name="onlinePlayers">在線棋手</string>
@@ -457,7 +463,7 @@
   <string name="letOtherPlayersFollowYou">允許其他玩家關注</string>
   <string name="letOtherPlayersChallengeYou">允許其他玩家挑戰</string>
   <string name="sound">聲音</string>
-  <string name="yourPreferencesHaveBeenSaved">您的設置已保存。</string>
+  <string name="yourPreferencesHaveBeenSaved">您的设置已保存。</string>
   <string name="none">無</string>
   <string name="fast">快</string>
   <string name="normal">普通</string>
@@ -602,6 +608,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">您也可以用滾動鍵在棋盤遊戲中移動。</string>
   <string name="analysisShapesHowTo">按shift點擊或右鍵棋盤上繪製圓圈和箭頭。</string>
   <string name="confirmResignationAndDrawOffers">认输以及提出和棋需要确认</string>
+  <string name="inputMovesWithTheKeyboard">用键盘输入棋步</string>
   <string name="letOtherPlayersMessageYou">然其他人給你發信息。</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">王车易位方法</string>
   <string name="castleByMovingTwoSquares">挪王两位</string>
@@ -612,10 +619,10 @@
   <string name="withEverybody">和每个人分享</string>
   <string name="youHaveAlreadyRegisteredTheEmail">你已經用《%s》登記過賬戶。</string>
   <string name="kidMode">受限模式</string>
-  <string name="kidModeExplanation">安全第一。在受限模式， 网站的通讯关了。一般保护你的小孩</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">在儿童模式下，lichess标志前有%s图标。出现该图标您就知道您的孩子是安全的。</string>
+  <string name="kidModeExplanation">安全第一。在受限模式下， 站内信无法使用。为了保护你的孩子和学生免受站内其他用户的伤害请启用受限模式。</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">在受限模式下，lichess标志前有%s图标。出现该图标您就知道您的孩子是安全的。</string>
   <string name="enableKidMode">打开受限模式</string>
-  <string name="disableKidMode">关受限模式</string>
+  <string name="disableKidMode">关闭受限模式</string>
   <string name="security">安全保护</string>
   <string name="alternativelyYouCanX">或者你可以干 %s。</string>
   <string name="playChessEverywhere">隨處下棋！</string>
