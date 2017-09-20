@@ -1264,7 +1264,8 @@ body.piece_letter .tview2 move {
   white-space: nowrap;
   font-weight: bold;
 }
-.tview2 move.parent {
+.tview2 move.parent,
+.tview2 comment a {
   color: #3893e8!important;
 }
 .tview2 move.current {

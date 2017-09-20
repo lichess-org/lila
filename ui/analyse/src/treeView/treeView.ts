@@ -81,17 +81,15 @@ export function nodeClasses(c: AnalyseCtrl, path: Tree.Path): NodeClasses {
   };
 }
 
-export function renderInlineCommentsOf(ctx: Ctx, node: Tree.Node, rich?: boolean): MaybeVNodes {
+export function renderInlineCommentsOf(ctx: Ctx, node: Tree.Node): MaybeVNodes {
   if (!ctx.ctrl.showComments || empty(node.comments)) return [];
   return node.comments!.map(comment => {
     if (comment.by === 'lichess' && !ctx.showComputer) return;
-    const by = node.comments![1] ? h('span.by', commentAuthorText(comment.by)) : null;
-    return rich ? h('comment', {
-      hook: innerHTML(comment.text, text => enrichText(text, true))
-    }) : h('comment', [
-      by,
-      truncateComment(comment.text, 300, ctx)
-    ]);
+    const by = node.comments![1] ? `<span class="by">${commentAuthorText(comment.by)}</span>` : '',
+    truncated = truncateComment(comment.text, 300, ctx);
+    return h('comment', {
+      hook: innerHTML(truncated, text => by + enrichText(text, true))
+    });
   }).filter(nonEmpty);
 }
 

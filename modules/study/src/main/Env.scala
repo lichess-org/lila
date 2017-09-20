@@ -87,7 +87,8 @@ final class Env(
 
   private lazy val explorerGame = new ExplorerGame(
     importer = explorerImporter,
-    lightUser = lightUserApi.sync
+    lightUser = lightUserApi.sync,
+    baseUrl = NetBaseUrl
   )
 
   private lazy val studyMaker = new StudyMaker(

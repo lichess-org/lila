@@ -24,7 +24,7 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | 
         isMainline: true,
         withIndex: opts.withIndex
       }),
-      ...renderInlineCommentsOf(ctx, main, true),
+      ...renderInlineCommentsOf(ctx, main),
       h('interrupt', renderLines(ctx, cs.slice(1), {
         parentPath: opts.parentPath,
         isMainline: true
@@ -65,7 +65,7 @@ function renderLines(ctx: Ctx, nodes: Tree.Node[], opts: Opts): VNode {
 
 function renderMoveAndChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes {
   const path = opts.parentPath + node.id,
-  comments = renderInlineCommentsOf(ctx, node, true);
+  comments = renderInlineCommentsOf(ctx, node);
   if (opts.truncate === 0) return [
     h('move', { attrs: { p: path } }, '[...]')
   ];
@@ -110,7 +110,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
     showGlyphs: !!ctrl.study || ctrl.showComputer(),
     showEval: !!ctrl.study || ctrl.showComputer()
   };
-  const commentTags = renderInlineCommentsOf(ctx, root, true);
+  const commentTags = renderInlineCommentsOf(ctx, root);
   return h('div.tview2.inline', {
     hook: mainHook(ctrl)
   }, [

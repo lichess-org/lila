@@ -12,7 +12,8 @@ import lila.user.User
 
 private final class ExplorerGame(
     importer: lila.explorer.ExplorerImporter,
-    lightUser: LightUser.GetterSync
+    lightUser: LightUser.GetterSync,
+    baseUrl: String
 ) {
 
   def quote(gameId: Game.ID): Fu[Option[Comment]] =
@@ -53,9 +54,11 @@ private final class ExplorerGame(
 
   private def gameComment(game: Game) = Comment(
     id = Comment.Id.make,
-    text = Comment.Text(gameTitle(game)),
+    text = Comment.Text(s"${gameTitle(game)}, ${gameUrl(game)}"),
     by = Comment.Author.Lichess
   )
+
+  private def gameUrl(game: Game) = s"$baseUrl/${game.id}"
 
   private def gameYear(pgn: Option[ParsedPgn], g: Game): Int = pgn.flatMap { p =>
     p.tag(_.UTCDate) orElse p.tag(_.Date)
