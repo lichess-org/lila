@@ -485,9 +485,9 @@
   <string name="pieceDestinations">เส้นทางของหมาก (ช่องที่เดินได้ และการเดินล่วงหน้า)</string>
   <string name="boardCoordinates">พิกัดกระดาน</string>
   <string name="moveListWhilePlaying">แสดงรายชื่อตาที่เดินในขณะที่เล่น</string>
-  <string name="pgnPieceNotation">สัญลักษณ์หมาก PGN</string>
+  <string name="pgnPieceNotation">สัญกรณ์การเดิน</string>
   <string name="chessPieceSymbol">สัญลักษณ์ตัวหมากรุก</string>
-  <string name="pgnLetter">อักษร PGN (K, Q, R, B, N)</string>
+  <string name="pgnLetter">ตัวอักษร (K, Q, R, B, N)</string>
   <string name="chessClock">นาฬิกาหมากรุก</string>
   <string name="tenthsOfSeconds">ทศนิยมของวินาที</string>
   <string name="never">ไม่ต้อง</string>
