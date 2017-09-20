@@ -440,6 +440,7 @@
   <string name="biography">Біографія</string>
   <string name="country">Країна</string>
   <string name="preferences">Налаштування</string>
+  <string name="inlineNotation">Вбудована нотація</string>
   <string name="watchLichessTV">Дивитися Lichess ТБ</string>
   <string name="previouslyOnLichessTV">Попередні трансляції на Lichess ТБ</string>
   <string name="onlinePlayers">Гравці онлайн</string>
