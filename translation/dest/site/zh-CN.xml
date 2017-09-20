@@ -66,22 +66,22 @@
   <string name="winning">赢棋</string>
   <string name="losing">输棋</string>
   <string name="drawn">和局</string>
-  <string name="unknown">未知</string>
+  <string name="unknown">结局未知</string>
   <string name="database">数据库</string>
-  <string name="whiteDrawBlack">百／和／黑</string>
-  <string name="averageRatingX">平均分：%s</string>
-  <string name="recentGames">最近玩的盘</string>
-  <string name="topGames">名盘</string>
-  <string name="masterDbExplanation">%2$s-%3$s年国际棋联两等级分%1$s以上选手的百万局棋谱</string>
+  <string name="whiteDrawBlack">白胜／和棋／黑胜</string>
+  <string name="averageRatingX">平均积分：%s</string>
+  <string name="recentGames">最近下的棋局</string>
+  <string name="topGames">名局</string>
+  <string name="masterDbExplanation">%2$s-%3$s年国际棋联等级分%1$s以上选手的两百万局棋谱</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="other">將死还有%s着</item>
+    <item quantity="other">离将死还有%s着</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
     <item quantity="other">下次吃子或走兵发生在%s步后（与重置50步计数的距离）</item>
   </plurals>
-  <string name="noGameFound">没找到</string>
+  <string name="noGameFound">没找到符合要求的棋局</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">请尝试在“选择”菜单内包括更多棋局。</string>
-  <string name="openingExplorer">開局瀏覽器</string>
+  <string name="openingExplorer">开局浏览器</string>
   <string name="xOpeningExplorer">%s开局浏览器</string>
   <string name="winPreventedBy50MoveRule">本局面本应赢棋，但因为50回合规则对方可以逼和。</string>
   <string name="lossSavedBy50MoveRule">本局面本应输棋，但因为50回合规则可以和棋。</string>
@@ -98,20 +98,20 @@
   <string name="mistakes">錯著</string>
   <string name="inaccuracies">失誤</string>
   <string name="moveTimes">走棋時間</string>
-  <string name="flipBoard">翻轉棋盤</string>
-  <string name="threefoldRepetition">三次重複情況</string>
-  <string name="claimADraw">和棋</string>
+  <string name="flipBoard">翻转棋盘</string>
+  <string name="threefoldRepetition">三次重复局面</string>
+  <string name="claimADraw">要求和棋</string>
   <string name="offerDraw">提出和棋</string>
   <string name="draw">和棋</string>
   <plurals name="nbPlayers">
-    <item quantity="other">在線棋手%s位</item>
+    <item quantity="other">在线棋手%s位</item>
   </plurals>
-  <string name="currentGames">當前對局</string>
+  <string name="currentGames">当前对局</string>
   <plurals name="nbGames">
-    <item quantity="other">查看所有%s盤棋</item>
+    <item quantity="other">查看所有%s盘棋</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="other">%s個收藏</item>
+    <item quantity="other">书签里有%s盘棋</item>
   </plurals>
   <string name="viewInFullSize">瀏覽完整尺寸</string>
   <string name="logOut">登出</string>
