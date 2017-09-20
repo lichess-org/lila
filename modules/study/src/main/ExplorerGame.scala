@@ -27,15 +27,21 @@ private final class ExplorerGame(
     importer(gameId) map {
       _ ?? { game =>
         position.node ?? { fromNode =>
-          val gameRoot = GameToRoot(game, none, false)
-          merge(fromNode, position.path, gameRoot, gameComment(game)) flatMap {
-            case (newNode, path) => position.chapter.addNode(newNode, path) map (_ -> path)
+          GameToRoot(game, none, false).|> { root =>
+            root.setCommentAt(
+              comment = gameComment(game),
+              path = Path(root.mainline.map(_.id))
+            )
+          } ?? { gameRoot =>
+            merge(fromNode, position.path, gameRoot) flatMap {
+              case (newNode, path) => position.chapter.addNode(newNode, path) map (_ -> path)
+            }
           }
         }
       }
     }
 
-  private def merge(fromNode: RootOrNode, fromPath: Path, game: Node.Root, comment: Comment): Option[(Node, Path)] = {
+  private def merge(fromNode: RootOrNode, fromPath: Path, game: Node.Root): Option[(Node, Path)] = {
     val gameNodes = game.mainline.dropWhile(_.fen != fromNode.fen) drop 1
     val (path, foundGameNode) = gameNodes.foldLeft((Path.root, none[Node])) {
       case ((path, None), gameNode) =>
@@ -46,10 +52,7 @@ private final class ExplorerGame(
         }
       case (found, _) => found
     }
-    foundGameNode.map { nextGameNode =>
-      val commentedNode = nextGameNode setComment comment
-      commentedNode -> fromPath.+(path)
-    }
+    foundGameNode.map { _ -> fromPath.+(path) }
   }
 
   private def gameComment(game: Game) = Comment(
