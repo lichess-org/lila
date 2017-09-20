@@ -81,6 +81,9 @@
   </plurals>
   <string name="noGameFound">没找到</string>
   <string name="openingExplorer">開局瀏覽器</string>
+  <string name="xOpeningExplorer">%s开局浏览器</string>
+  <string name="winPreventedBy50MoveRule">本局面本应赢棋，但因为50回合规则对方可以逼和。</string>
+  <string name="lossSavedBy50MoveRule">本局面本应输棋，但因为50回合规则可以和棋。</string>
   <string name="allSet">好了！</string>
   <string name="importPgn">上传PGN</string>
   <string name="delete">删</string>
@@ -512,6 +515,7 @@
   <string name="error.email_unique">電郵地址已被使用</string>
   <string name="error.email_different">这是你当前的电子邮箱</string>
   <string name="blindfoldChess">蒙眼象棋(看不見棋子)</string>
+  <string name="zenMode">禅意模式</string>
   <string name="moveConfirmation">走棋確認</string>
   <string name="inCorrespondenceGames">在長期對局中</string>
   <string name="ifRatingIsPlusMinusX">允許評級範圍±%s</string>
