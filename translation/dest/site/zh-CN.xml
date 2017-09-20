@@ -266,6 +266,7 @@
   </plurals>
   <string name="thisIsAChessCaptcha">這是一個國際象棋驗證碼。</string>
   <string name="clickOnTheBoardToMakeYourMove">點擊棋盤走棋以證明你是人類。</string>
+  <string name="captcha.fail">请解决国际象棋CAPTCHA。</string>
   <string name="notACheckmate">沒有將死</string>
   <string name="colorPlaysCheckmateInOne">%s走棋；一步將殺</string>
   <string name="retry">重試</string>
@@ -600,6 +601,7 @@
   <string name="crosstable">歷史表</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">您也可以用滾動鍵在棋盤遊戲中移動。</string>
   <string name="analysisShapesHowTo">按shift點擊或右鍵棋盤上繪製圓圈和箭頭。</string>
+  <string name="confirmResignationAndDrawOffers">认输以及提出和棋需要确认</string>
   <string name="letOtherPlayersMessageYou">然其他人給你發信息。</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">王车易位方法</string>
   <string name="castleByMovingTwoSquares">挪王两位</string>
@@ -611,6 +613,7 @@
   <string name="youHaveAlreadyRegisteredTheEmail">你已經用《%s》登記過賬戶。</string>
   <string name="kidMode">受限模式</string>
   <string name="kidModeExplanation">安全第一。在受限模式， 网站的通讯关了。一般保护你的小孩</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">在儿童模式下，lichess标志前有%s图标。出现该图标您就知道您的孩子是安全的。</string>
   <string name="enableKidMode">打开受限模式</string>
   <string name="disableKidMode">关受限模式</string>
   <string name="security">安全保护</string>
