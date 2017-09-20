@@ -667,17 +667,17 @@
   <string name="withNobody">不分享</string>
   <string name="withFriends">和朋友分享</string>
   <string name="withEverybody">和每个人分享</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">你已經用《%s》登記過賬戶。</string>
+  <string name="youHaveAlreadyRegisteredTheEmail">您已经用 %s 电子邮箱注册了Lichess帐户</string>
   <string name="kidMode">受限模式</string>
   <string name="kidModeExplanation">安全第一。在受限模式下， 站内信无法使用。为了保护你的孩子和学生免受站内其他用户的伤害请启用受限模式。</string>
   <string name="inKidModeTheLichessLogoGetsIconX">在受限模式下，lichess标志前有%s图标。出现该图标您就知道您的孩子是安全的。</string>
   <string name="enableKidMode">打开受限模式</string>
   <string name="disableKidMode">关闭受限模式</string>
-  <string name="security">安全保护</string>
+  <string name="security">安全</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">以下是通过您的帐户登录的设备列表。请注销所有您不认为是您本人开启的会话。</string>
-  <string name="alternativelyYouCanX">或者你可以干 %s。</string>
+  <string name="alternativelyYouCanX">或者你可以 %s。</string>
   <string name="revokeAllSessions">注销所有会话</string>
-  <string name="playChessEverywhere">隨處下棋！</string>
+  <string name="playChessEverywhere">在任何地方下国际象棋！</string>
   <string name="asFreeAsLichess">完全又永遠的免費。</string>
   <string name="builtForTheLoveOfChessNotMoney">不是為了錢，而是為了棋所創建。</string>
   <string name="everybodyGetsAllFeaturesForFree">每個人都能免費使用所有功能</string>
@@ -729,6 +729,6 @@
   <string name="error.unknown">错误</string>
   <string name="custom">自定义</string>
   <string name="notifications">通知</string>
-  <string name="challenges">盘问</string>
-  <string name="perfRatingX">分: %s</string>
+  <string name="challenges">挑战</string>
+  <string name="perfRatingX">积分：%s</string>
 </resources>
