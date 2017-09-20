@@ -330,6 +330,7 @@
   <string name="loadPosition">載入局面</string>
   <string name="isPrivate">私人</string>
   <string name="reportXToModerators">將%s報告給管理人員</string>
+  <string name="profileCompletion">账户信息完整程度：%s</string>
   <string name="xRating">%s分</string>
   <string name="ifNoneLeaveEmpty">如果没有，请留空</string>
   <string name="profile">資料</string>
@@ -442,12 +443,14 @@
   <string name="horizontalGreenProgressBars">綠色橫進度條</string>
   <string name="soundWhenTimeGetsCritical">時間不足時聲音提醒</string>
   <string name="gameBehavior">遊戲行為</string>
+  <string name="howDoYouMovePieces">您想通过什么方式走棋？</string>
   <string name="clickTwoSquares">点两个位</string>
   <string name="dragPiece">拖拉</string>
   <string name="bothClicksAndDrag">都行</string>
   <string name="premovesPlayingDuringOpponentTurn">預先走棋（在對手的回合走棋）</string>
   <string name="takebacksWithOpponentApproval">悔棋（經過對手同意）</string>
   <string name="promoteToQueenAutomatically">自動升後</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">在三次重复局面时自动要求和局</string>
   <string name="privacy">隱私</string>
   <string name="letOtherPlayersFollowYou">允許其他玩家關注</string>
   <string name="letOtherPlayersChallengeYou">允許其他玩家挑戰</string>
