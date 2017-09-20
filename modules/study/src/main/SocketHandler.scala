@@ -137,16 +137,6 @@ private[study] final class SocketHandler(
         } api.setShapes(userId, studyId, position.ref, Shapes(shapes take 32), uid)
       }
 
-    case ("setClock", o) =>
-      import chess.Centis
-      import MoveOpts.clockReader
-      reading[AtPosition](o) { position =>
-        val clock = (o \ "d" \ "clock").asOpt[Centis]
-        member.userId foreach { userId =>
-          api.setClock(userId, studyId, position.ref, clock, uid)
-        }
-      }
-
     case ("addChapter", o) =>
       reading[ChapterMaker.Data](o) { data =>
         member.userId foreach { byUserId =>
