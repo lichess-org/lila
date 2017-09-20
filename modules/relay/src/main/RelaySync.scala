@@ -26,8 +26,20 @@ private final class RelaySync(
     game.root.mainline.foldLeft(Path.root -> none[Node]) {
       case ((parentPath, None), gameNode) =>
         val path = parentPath + gameNode
-        if (chapter.root.nodeAt(path).isDefined) path -> none
-        else (parentPath -> gameNode.some)
+        chapter.root.nodeAt(path) match {
+          case None => parentPath -> gameNode.some
+          case Some(existing) =>
+            gameNode.clock.filter(c => !existing.clock.has(c)) ?? { c =>
+              studyApi.doSetClock(
+                userId = chapter.ownerId,
+                study = study,
+                position = Position(chapter, path),
+                clock = c.some,
+                uid = socketUid
+              )
+            }
+            path -> none
+        }
       case (found, _) => found
     } match {
       case (_, None) => funit

@@ -304,6 +304,17 @@ final class StudyApi(
     }
   }
 
+  def doSetClock(userId: User.ID, study: Study, position: Position, clock: Option[Centis], uid: Uid) =
+    position.chapter.setClock(clock, position.path) match {
+      case Some(newChapter) =>
+        studyRepo.updateNow(study)
+        chapterRepo.setClock(newChapter, position.path, clock) >>-
+          sendTo(study, Socket.SetClock(position.ref, clock, uid))
+      case None =>
+        fufail(s"Invalid setClock $position $clock") >>-
+          reloadUidBecauseOf(study, uid, position.chapter.id)
+    }
+
   def setTag(userId: User.ID, studyId: Study.Id, setTag: actorApi.SetTag, uid: Uid) = sequenceStudy(studyId) { study =>
     Contribute(userId, study) {
       chapterRepo.byIdAndStudy(setTag.chapterId, studyId) flatMap {
