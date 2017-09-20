@@ -3,7 +3,7 @@ package lila.tournament
 import akka.actor._
 import scala.concurrent.duration._
 
-private[tournament] final class CreatedOrganizer(
+private final class CreatedOrganizer(
     api: TournamentApi,
     isOnline: String => Boolean
 ) extends Actor {

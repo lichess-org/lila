@@ -113,7 +113,8 @@ final class Env(
     Env.plan, // required to load the actor
     Env.studySearch, // required to load the actor
     Env.event, // required to load the actor
-    Env.activity // required to load the actor
+    Env.activity, // required to load the actor
+    Env.relay // you know the drill by now
   )) { lap =>
     lila.log("boot").info(s"${lap.millis}ms Preloading complete")
   }
@@ -190,4 +191,5 @@ object Env {
   def practice = lila.practice.Env.current
   def irwin = lila.irwin.Env.current
   def activity = lila.activity.Env.current
+  def relay = lila.relay.Env.current
 }
