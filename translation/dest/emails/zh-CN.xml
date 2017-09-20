@@ -9,4 +9,5 @@
   <string name="passwordReset_clickOrIgnore">如果是您发出了这个请求，请点击下面的链接。如果不是，请您忽略本邮件。</string>
   <string name="emailChange_subject">%s, 请确认您的新电子邮件地址。</string>
   <string name="emailChange_intro">您已请求更改您的电子邮件地址。</string>
+  <string name="welcome_subject">%s,欢迎来到lichess.org。</string>
 </resources>
