@@ -190,7 +190,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ctrl.showComputer() ? [
       boolSetting(ctrl, {
         name: 'bestMoveArrow',
-        title: 'Keyboard: a',
+        title: 'a',
         id: 'shapes',
         checked: ctrl.showAutoShapes(),
         change: ctrl.toggleAutoShapes
@@ -266,8 +266,8 @@ export function view(ctrl: AnalyseCtrl): VNode {
     const notationConfig = [
       h('h2', noarg('preferences')),
       boolSetting(ctrl, {
-        name: 'Inline notation',
-        title: 'Keyboard: Shift+I',
+        name: noarg('inlineNotation'),
+        title: 'Shift+I',
         id: 'inline',
         checked: ctrl.treeView.inline(),
         change(v) {
