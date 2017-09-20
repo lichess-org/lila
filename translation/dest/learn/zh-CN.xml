@@ -61,6 +61,8 @@
   <string name="captureComplete">恭喜！您已经懂得如何用棋子去战斗！</string>
   <string name="protection">保护</string>
   <string name="keepYourPiecesSafe">确保您的棋子安全</string>
+  <string name="checkInOne">一步将</string>
+  <string name="attackTheOpponentsKing">攻击敌王</string>
   <string name="mateInOne">一步杀</string>
   <string name="intermediate">中级</string>
   <string name="boardSetup">开局时摆法</string>
@@ -84,12 +86,15 @@
 王是无价的。如果您的王被将死了您就输了这盘棋。</string>
   <string name="queenOverBishop">请吃掉价值大的棋子！
 后>象</string>
+  <string name="takeThePieceWithTheHighestValue">请吃掉价值大的棋子！</string>
   <string name="pieceValueComplete">恭喜！您已经懂得子力价值！
 后=9
 车=5
 象=3
 马=3
 兵=1</string>
+  <string name="checkInTwo">二步杀</string>
+  <string name="twoMovesToGiveCheck">二步将</string>
   <string name="whatNext">下一步</string>
   <string name="youKnowHowToPlayChess">恭喜您！您已经学会怎么下国际象棋了！您想要成为一位更出色的棋手吗？</string>
   <string name="register">注册</string>
