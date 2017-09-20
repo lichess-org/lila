@@ -14,7 +14,7 @@ final class ExplorerImporter(
 
   def apply(id: Game.ID): Fu[Option[Game]] =
     GameRepo game id flatMap {
-      case Some(game) if game.createdAt.isAfter(masterGameEncodingFixedAt) => fuccess(game.some)
+      case Some(game) if !game.isPgnImport || game.createdAt.isAfter(masterGameEncodingFixedAt) => fuccess(game.some)
       case _ => (GameRepo remove id) >> fetchPgn(id) flatMap {
         case None => fuccess(none)
         case Some(pgn) => gameImporter(
