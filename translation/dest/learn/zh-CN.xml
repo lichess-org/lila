@@ -68,7 +68,16 @@
   <string name="boardSetup">开局时摆法</string>
   <string name="howTheGameStarts">棋局是怎么开始的</string>
   <string name="castling">王车易位</string>
+  <string name="theSpecialKingMove">王的特殊走法</string>
+  <string name="theKnightIsInTheWay">马阻止了王车易位。请把马移开，然后进行短易位。</string>
+  <string name="castleKingSideMovePiecesFirst">请进行短易位。在此之前您需要先移开其他棋子。</string>
+  <string name="castleQueenSideMovePiecesFirst">请进行长易位。在此之前您需要先移开其他棋子。</string>
+  <string name="youCannotCastleIfMoved">如果王或车在此之前已经移动过则不得进行王车易位。</string>
+  <string name="findAWayToCastleKingSide">请设法进行短易位。</string>
+  <string name="findAWayToCastleQueenSide">请设法进行长易位。</string>
+  <string name="castlingComplete">恭喜！您在下棋时一般需要进行王车易位。</string>
   <string name="enPassant">吃过路兵</string>
+  <string name="theSpecialPawnMove">兵的特殊走法</string>
   <string name="takeAllThePawnsEnPassant">通过吃过路兵吃掉所有敌兵！</string>
   <string name="enPassantComplete">恭喜！您已经学会吃过路兵。</string>
   <string name="stalemate">逼和</string>
