@@ -46,6 +46,8 @@
   <string name="pawnsMoveForward">兵向前直行，但斜着吃子。</string>
   <string name="captureThenPromote">吃子，然后升变！</string>
   <string name="useAllThePawns">使用所有的兵！不需要升变。</string>
+  <string name="castling">王车易位</string>
+  <string name="enPassant">吃过路兵</string>
   <string name="playMachine">跟电脑玩</string>
   <string name="testYourSkillsWithTheComputer">看你多强</string>
   <string name="letsGo">开始！</string>

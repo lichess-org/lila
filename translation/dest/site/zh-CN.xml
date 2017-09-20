@@ -81,6 +81,9 @@
   </plurals>
   <string name="noGameFound">没找到</string>
   <string name="openingExplorer">開局瀏覽器</string>
+  <string name="xOpeningExplorer">%s开局浏览器</string>
+  <string name="winPreventedBy50MoveRule">本局面本应赢棋，但因为50回合规则对方可以逼和。</string>
+  <string name="lossSavedBy50MoveRule">本局面本应输棋，但因为50回合规则可以和棋。</string>
   <string name="allSet">好了！</string>
   <string name="importPgn">上传PGN</string>
   <string name="delete">删</string>
@@ -327,6 +330,7 @@
   <string name="loadPosition">載入局面</string>
   <string name="isPrivate">私人</string>
   <string name="reportXToModerators">將%s報告給管理人員</string>
+  <string name="profileCompletion">账户信息完整程度：%s</string>
   <string name="xRating">%s分</string>
   <string name="ifNoneLeaveEmpty">如果没有，请留空</string>
   <string name="profile">資料</string>
@@ -439,12 +443,14 @@
   <string name="horizontalGreenProgressBars">綠色橫進度條</string>
   <string name="soundWhenTimeGetsCritical">時間不足時聲音提醒</string>
   <string name="gameBehavior">遊戲行為</string>
+  <string name="howDoYouMovePieces">您想通过什么方式走棋？</string>
   <string name="clickTwoSquares">点两个位</string>
   <string name="dragPiece">拖拉</string>
   <string name="bothClicksAndDrag">都行</string>
   <string name="premovesPlayingDuringOpponentTurn">預先走棋（在對手的回合走棋）</string>
   <string name="takebacksWithOpponentApproval">悔棋（經過對手同意）</string>
   <string name="promoteToQueenAutomatically">自動升後</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">在三次重复局面时自动要求和局</string>
   <string name="privacy">隱私</string>
   <string name="letOtherPlayersFollowYou">允許其他玩家關注</string>
   <string name="letOtherPlayersChallengeYou">允許其他玩家挑戰</string>
@@ -512,6 +518,7 @@
   <string name="error.email_unique">電郵地址已被使用</string>
   <string name="error.email_different">这是你当前的电子邮箱</string>
   <string name="blindfoldChess">蒙眼象棋(看不見棋子)</string>
+  <string name="zenMode">禅意模式</string>
   <string name="moveConfirmation">走棋確認</string>
   <string name="inCorrespondenceGames">在長期對局中</string>
   <string name="ifRatingIsPlusMinusX">允許評級範圍±%s</string>
@@ -634,10 +641,15 @@
   <string name="light">亮</string>
   <string name="dark">暗</string>
   <string name="transparent">透明</string>
+  <string name="backgroundImageUrl">背景图片的URL:</string>
   <string name="boardGeometry">棋盘几何</string>
   <string name="boardTheme">棋类型</string>
   <string name="boardSize">棋盘大小</string>
   <string name="pieceSet">棋子件套</string>
+  <string name="usernameAlreadyUsed">该用户名已被使用，请使用另一个。</string>
+  <string name="usernameInvalid">该用户名非法。在用户名中只能使用拉丁字母，数字，下划线以及连接号。</string>
+  <string name="usernameStartNoNumber">用户名不能以数字开头。</string>
+  <string name="usernameUnacceptable">该用户名不被接受。</string>
   <string name="directlySupportLichess">帮助我们</string>
   <string name="chessBasics">国际象棋学徒</string>
   <string name="coaches">教练</string>
@@ -648,6 +660,7 @@
   <string name="error.min">大于等于%s</string>
   <string name="error.max">小于等于%s</string>
   <string name="error.unknown">错误</string>
+  <string name="custom">自定义</string>
   <string name="notifications">通知</string>
   <string name="challenges">盘问</string>
   <string name="perfRatingX">分: %s</string>

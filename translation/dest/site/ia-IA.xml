@@ -124,7 +124,7 @@
   <string name="logOut">Clauder session</string>
   <string name="signIn">Aperir session</string>
   <string name="newToLichess">Tu es nove a Lichess?</string>
-  <string name="youNeedAnAccountToDoThat">Te manca un conto pro isto</string>
+  <string name="youNeedAnAccountToDoThat">Tu manca un conto pro isto</string>
   <string name="signUp">Crear conto</string>
   <string name="computersAreNotAllowedToPlay">Le uso de computatores e programmas non es permittite. Per favor, non prende assistentia de motores de chacos, bases de datos o de altere jocatores durante que joca. De plus, nota que crear multiple contos es fortemente discoragiate e iste practica excessive conduce a interdiction de uso.</string>
   <string name="games">Jocos</string>
@@ -456,7 +456,7 @@
   <string name="closeAccount">Terminar conto</string>
   <string name="changedMindDoNotCloseAccount">Io cambiava de idea, non termina mi conto</string>
   <string name="closeAccountExplanation">Es tu secur de voler terminar tu conto? Terminar tu conto es un decision permanente. Tu non plus potera aperir session, e tu pagina de profilo non plus essera accessibile.</string>
-  <string name="thisAccountIsClosed">Isto conto ha essite claudite.</string>
+  <string name="thisAccountIsClosed">Iste conto ha essite claudite.</string>
   <string name="invalidUsernameOrPassword">Nomine de usator o contrasigno invalide</string>
   <string name="incorrectPassword">Contrasigno incorrecte</string>
   <string name="emailMeALink">Inviar me un ligamine per e-posta</string>

@@ -6,4 +6,18 @@
   <string name="menu">Meniu</string>
   <string name="progressX">Progresas: %s</string>
   <string name="resetMyProgress">Atkurti mano progresą</string>
+  <string name="theRook">Bokštas</string>
+  <string name="theBishop">Rikis</string>
+  <string name="theQueen">Karalienė</string>
+  <string name="theKing">Karalius</string>
+  <string name="theMostImportantPiece">Pati svarbiausia figūra</string>
+  <string name="kingIntro">Jūs esate karalius. Jeigu krisite kovoje, partija bus pralošta.</string>
+  <string name="theKingIsSlow">Karalius yra lėtas.</string>
+  <string name="lastOne">Paskutinis!</string>
+  <string name="theKnight">Žirgas</string>
+  <string name="thePawn">Pėstininkas</string>
+  <string name="itMovesForwardOnly">Eina tik į priekį</string>
+  <string name="pawnIntro">Pėstininkai yra silpni, tačiau turi daug potencialo.</string>
+  <string name="pawnsMoveForward">Pėstininkai eina į priekį,
+tačiau kerta įstrižai!</string>
 </resources>
