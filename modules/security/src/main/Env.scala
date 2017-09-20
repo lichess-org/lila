@@ -42,7 +42,6 @@ final class Env(
     val RecaptchaEndpoint = config getString "recaptcha.endpoint"
     val RecaptchaEnabled = config getBoolean "recaptcha.enabled"
     val NetDomain = config getString "net.domain"
-    val CsrfEnabled = config getBoolean "csrf.enabled"
   }
   import settings._
 
@@ -132,7 +131,7 @@ final class Env(
 
   lazy val api = new SecurityApi(storeColl, firewall, geoIP, emailAddressValidator)
 
-  lazy val csrfRequestHandler = new CSRFRequestHandler(NetDomain, enabled = CsrfEnabled)
+  lazy val csrfRequestHandler = new CSRFRequestHandler(NetDomain)
 
   def cli = new Cli
 
