@@ -641,10 +641,15 @@
   <string name="light">亮</string>
   <string name="dark">暗</string>
   <string name="transparent">透明</string>
+  <string name="backgroundImageUrl">背景图片的URL:</string>
   <string name="boardGeometry">棋盘几何</string>
   <string name="boardTheme">棋类型</string>
   <string name="boardSize">棋盘大小</string>
   <string name="pieceSet">棋子件套</string>
+  <string name="usernameAlreadyUsed">该用户名已被使用，请使用另一个。</string>
+  <string name="usernameInvalid">该用户名非法。在用户名中只能使用拉丁字母，数字，下划线以及连接号。</string>
+  <string name="usernameStartNoNumber">用户名不能以数字开头。</string>
+  <string name="usernameUnacceptable">该用户名不被接受。</string>
   <string name="directlySupportLichess">帮助我们</string>
   <string name="chessBasics">国际象棋学徒</string>
   <string name="coaches">教练</string>
@@ -655,6 +660,7 @@
   <string name="error.min">大于等于%s</string>
   <string name="error.max">小于等于%s</string>
   <string name="error.unknown">错误</string>
+  <string name="custom">自定义</string>
   <string name="notifications">通知</string>
   <string name="challenges">盘问</string>
   <string name="perfRatingX">分: %s</string>
