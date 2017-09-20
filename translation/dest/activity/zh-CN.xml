@@ -7,10 +7,10 @@
     <item quantity="other">在%2$s里练习了%1$s个局面</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="other">解决了%s道战术难题</item>
+    <item quantity="other">解决了%s道训练题</item>
   </plurals>
   <plurals name="playedNbGames">
-    <item quantity="other">玩了%1$s局%2$s游戏</item>
+    <item quantity="other">下了%1$s局%2$s象棋</item>
   </plurals>
   <plurals name="postedNbMessages">
     <item quantity="other">在%2$s发布%1$s条消息</item>
