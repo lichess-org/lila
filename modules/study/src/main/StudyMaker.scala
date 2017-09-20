@@ -1,6 +1,7 @@
 package lila.study
 
 import chess.format.FEN
+import chess.format.pgn.Tags
 import lila.game.{ GameRepo, Pov, Namer }
 import lila.user.User
 
@@ -45,7 +46,7 @@ private final class StudyMaker(
           orientation = pov.color
         ),
         root = root,
-        tags = Nil,
+        tags = Tags.empty,
         order = 1,
         ownerId = user.id,
         practice = false,

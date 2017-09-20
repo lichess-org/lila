@@ -1,7 +1,7 @@
 package lila.study
 
 import chess.{ Color, Centis }
-import chess.format.pgn.{ Glyph, Tag }
+import chess.format.pgn.{ Glyph, Tag, Tags }
 import chess.variant.Variant
 import org.joda.time.DateTime
 
@@ -15,7 +15,7 @@ case class Chapter(
     name: Chapter.Name,
     setup: Chapter.Setup,
     root: Node.Root,
-    tags: List[Tag],
+    tags: Tags,
     order: Int,
     ownerId: User.ID,
     conceal: Option[Chapter.Ply] = None,
@@ -69,7 +69,7 @@ case class Chapter(
   def metadata = Chapter.Metadata(_id = _id, name = name, setup = setup)
 
   def setTag(tag: Tag) = copy(
-    tags = PgnTags(tag :: tags.filterNot(_.name == tag.name))
+    tags = PgnTags(tags + tag)
   )
 
   def isPractice = ~practice
@@ -128,7 +128,7 @@ object Chapter {
 
   def makeId = Id(scala.util.Random.alphanumeric take idSize mkString)
 
-  def make(studyId: Study.Id, name: Name, setup: Setup, root: Node.Root, tags: List[Tag], order: Int, ownerId: User.ID, practice: Boolean, gamebook: Boolean, conceal: Option[Ply]) = Chapter(
+  def make(studyId: Study.Id, name: Name, setup: Setup, root: Node.Root, tags: Tags, order: Int, ownerId: User.ID, practice: Boolean, gamebook: Boolean, conceal: Option[Ply]) = Chapter(
     _id = makeId,
     studyId = studyId,
     name = fixName(name),

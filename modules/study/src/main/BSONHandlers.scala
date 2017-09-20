@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.format.pgn.{ Glyph, Glyphs, Tag }
+import chess.format.pgn.{ Glyph, Glyphs, Tag, Tags }
 import chess.format.{ Uci, UciCharPair, FEN }
 import chess.variant.{ Variant, Crazyhouse }
 import chess.{ Centis, Pos, Role, PromotableRole }
@@ -231,6 +231,11 @@ object BSONHandlers {
     }
     def write(t: Tag) = BSONString(s"${t.name}:${t.value}")
   }
+  implicit val PgnTagsBSONHandler: BSONHandler[BSONArray, Tags] =
+    isoHandler[Tags, List[Tag], BSONArray](
+      (s: Tags) => s.value,
+      Tags(_)
+    )
   private implicit val ChapterSetupBSONHandler = Macros.handler[Chapter.Setup]
   import Chapter.Ply
   implicit val PlyBSONHandler = intAnyValHandler[Ply](_.value, Ply.apply)

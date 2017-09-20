@@ -3,7 +3,7 @@ package lila.study
 import org.joda.time.DateTime
 import scala.util.Try
 
-import chess.format.pgn.{ Parser, Reader, ParsedPgn, Tag, TagType }
+import chess.format.pgn.{ Parser, ParsedPgn, Tag }
 import lila.common.LightUser
 import lila.game.{ Game, Namer }
 import lila.round.JsonView.WithFlags
@@ -63,19 +63,18 @@ private final class ExplorerGame(
 
   private def gameUrl(game: Game) = s"$baseUrl/${game.id}"
 
-  private def gameYear(pgn: Option[ParsedPgn], g: Game): Int = pgn.flatMap { p =>
-    p.tag(_.UTCDate) orElse p.tag(_.Date)
-  }.flatMap { pgnDate =>
-    Try(DateTime.parse(pgnDate, Tag.UTCDate.format)).toOption map (_.getYear)
-  } | g.createdAt.getYear
+  private def gameYear(pgn: Option[ParsedPgn], g: Game): Int =
+    pgn.flatMap(_.tags.anyDate).flatMap { pgnDate =>
+      Try(DateTime.parse(pgnDate, Tag.UTCDate.format)).toOption map (_.getYear)
+    } | g.createdAt.getYear
 
   private def gameTitle(g: Game): String = {
     val pgn = g.pgnImport.flatMap(pgnImport => Parser.full(pgnImport.pgn).toOption)
-    val white = pgn.flatMap(_.tag(_.White)) | Namer.playerText(g.whitePlayer)(lightUser)
-    val black = pgn.flatMap(_.tag(_.Black)) | Namer.playerText(g.blackPlayer)(lightUser)
+    val white = pgn.flatMap(_.tags(_.White)) | Namer.playerText(g.whitePlayer)(lightUser)
+    val black = pgn.flatMap(_.tags(_.Black)) | Namer.playerText(g.blackPlayer)(lightUser)
     val result = chess.Color.showResult(g.winnerColor)
     val event: String = {
-      val raw = pgn.flatMap(_.tag(_.Event))
+      val raw = pgn.flatMap(_.tags(_.Event))
       val year = gameYear(pgn, g).toString
       raw.find(_ contains year) | raw.fold(year)(e => s"$e, $year")
     }

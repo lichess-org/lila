@@ -1,7 +1,7 @@
 package lila.study
 
 import chess.format.Forsyth
-import chess.format.pgn.{ Pgn, Tag, Initial }
+import chess.format.pgn.{ Pgn, Tag, Tags, Initial }
 import chess.format.{ pgn => chessPgn }
 import org.joda.time.format.DateTimeFormat
 
@@ -53,7 +53,7 @@ final class PgnDump(
   private def annotatorTag(study: Study) =
     Tag(_.Annotator, s"https://lichess.org/@/${ownerName(study)}")
 
-  private def makeTags(study: Study, chapter: Chapter): List[Tag] = {
+  private def makeTags(study: Study, chapter: Chapter): Tags = Tags {
     val opening = chapter.opening
     val genTags = List(
       Tag(_.Event, s"${study.name}: ${chapter.name}"),
@@ -68,7 +68,7 @@ final class PgnDump(
         Tag(_.FEN, chapter.root.fen.value),
         Tag("SetUp", "1")
       ))
-    genTags.foldLeft(chapter.tags.reverse) {
+    genTags.foldLeft(chapter.tags.value.reverse) {
       case (tags, tag) =>
         if (tags.exists(t => tag.name == t.name)) tags
         else tag :: tags

@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.format.pgn.Tag
+import chess.format.pgn.Tags
 import chess.format.{ Forsyth, FEN }
 import chess.variant.{ Variant, Crazyhouse }
 import lila.chat.Chat
@@ -42,8 +42,8 @@ private final class ChapterMaker(
         Chapter.make(
           studyId = study.id,
           name = (for {
-            white <- Tag.find(res.tags, "White")
-            black <- Tag.find(res.tags, "Black")
+            white <- res.tags(_.White)
+            black <- res.tags(_.Black)
             if data.name.value.isEmpty || Chapter.isDefaultName(data.name)
           } yield Chapter.Name(s"$white - $black")) | data.name,
           setup = Chapter.Setup(
@@ -94,7 +94,7 @@ private final class ChapterMaker(
           fromFen = isFromFen option true
         ),
         root = root,
-        tags = Nil,
+        tags = Tags.empty,
         order = order,
         ownerId = userId,
         practice = data.isPractice,
@@ -118,7 +118,7 @@ private final class ChapterMaker(
           data.realOrientation
         ),
         root = root,
-        tags = Nil,
+        tags = Tags.empty,
         order = order,
         ownerId = userId,
         practice = data.isPractice,

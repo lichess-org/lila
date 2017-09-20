@@ -3,7 +3,7 @@ package lila.study
 import scalaz.Validation.FlatMap._
 import scalaz.Validation.success
 
-import chess.format.pgn.{ Tag, Glyphs, San, Dumper, ParsedPgn }
+import chess.format.pgn.{ Tags, Glyphs, San, Dumper, ParsedPgn }
 import chess.format.{ Forsyth, FEN, Uci, UciCharPair }
 
 import chess.Centis
@@ -11,12 +11,12 @@ import lila.common.LightUser
 import lila.importer.{ ImportData, Preprocessed }
 import lila.tree.Node.{ Comment, Comments, Shapes }
 
-private object PgnImport {
+object PgnImport {
 
   case class Result(
       root: Node.Root,
       variant: chess.variant.Variant,
-      tags: List[Tag]
+      tags: Tags
   )
 
   def apply(pgn: String, contributors: List[LightUser]): Valid[Result] =
@@ -32,11 +32,11 @@ private object PgnImport {
               shapes = shapes,
               comments = comments,
               glyphs = Glyphs.empty,
-              clock = parsedPgn.clockConfig.map(_.limit),
+              clock = parsedPgn.tags.clockConfig.map(_.limit),
               crazyData = replay.setup.situation.board.crazyData,
               children = makeNode(
                 prev = replay.setup,
-                sans = parsedPgn.sans,
+                sans = parsedPgn.sans.value,
                 annotator = annotator
               ).fold(
                 err => {
@@ -45,7 +45,7 @@ private object PgnImport {
                 },
                 node =>
                   Node.Children {
-                    val variations = makeVariations(parsedPgn.sans, replay.setup, annotator)
+                    val variations = makeVariations(parsedPgn.sans.value, replay.setup, annotator)
                     node.fold(variations)(_ :: variations).toVector
                   }
               )
@@ -64,7 +64,7 @@ private object PgnImport {
     }
 
   private def findAnnotator(pgn: ParsedPgn, contributors: List[LightUser]): Option[Comment.Author] =
-    pgn tag "annotator" map { a =>
+    pgn tags "annotator" map { a =>
       val lowered = a.toLowerCase
       contributors.find { c =>
         c.name == lowered || c.titleName == lowered || lowered.endsWith(s"/${c.id}")
@@ -90,7 +90,7 @@ private object PgnImport {
   private def makeVariations(sans: List[San], game: chess.Game, annotator: Option[Comment.Author]) =
     sans.headOption.?? {
       _.metas.variations.flatMap { variation =>
-        makeNode(game, variation, annotator).fold({ err =>
+        makeNode(game, variation.value, annotator).fold({ err =>
           logger.warn(s"$variation $err")
           none
         }, identity)

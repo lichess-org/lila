@@ -36,26 +36,26 @@ case class ImportData(pgn: String, analyse: Option[String]) {
   private val maxPlies = 600
 
   def preprocess(user: Option[String]): Valid[Preprocessed] = Parser.full(pgn) flatMap {
-    case ParsedPgn(_, _, sans) if sans.size > maxPlies => !!("Replay is too long")
+    case ParsedPgn(_, _, sans) if sans.value.size > maxPlies => !!("Replay is too long")
     case parsed @ ParsedPgn(_, tags, sans) => Reader.full(pgn) map {
       case replay @ Replay(setup, _, game) =>
-        val initBoard = parsed.tag(_.FEN) flatMap Forsyth.<< map (_.board)
-        val fromPosition = initBoard.nonEmpty && parsed.tag(_.FEN) != Forsyth.initial.some
+        val initBoard = parsed.tags.fen.map(_.value) flatMap Forsyth.<< map (_.board)
+        val fromPosition = initBoard.nonEmpty && !parsed.tags.fen.contains(FEN(Forsyth.initial))
         val variant = {
-          parsed.tag(_.Variant).map(Chess960.fixVariantName).flatMap(chess.variant.Variant.byName) | {
+          parsed.tags.variant | {
             if (fromPosition) chess.variant.FromPosition
             else chess.variant.Standard
           }
         } match {
           case chess.variant.Chess960 if !Chess960.isStartPosition(setup.board) => chess.variant.FromPosition
-          case chess.variant.FromPosition if parsed.tag(_.FEN).isEmpty => chess.variant.Standard
+          case chess.variant.FromPosition if parsed.tags.fen.isEmpty => chess.variant.Standard
           case v => v
         }
-        val initialFen = parsed.tag(_.FEN) flatMap {
+        val initialFen = parsed.tags.fen.map(_.value) flatMap {
           Forsyth.<<<@(variant, _)
         } map Forsyth.>> map FEN.apply
 
-        val status = parsed.tag(_.Termination).map(_.toLowerCase) match {
+        val status = parsed.tags(_.Termination).map(_.toLowerCase) match {
           case Some("normal") | None => Status.Resign
           case Some("abandoned") => Status.Aborted
           case Some("time forfeit") => Status.Outoftime
@@ -63,7 +63,7 @@ case class ImportData(pgn: String, analyse: Option[String]) {
           case Some(_) => Status.UnknownFinish
         }
 
-        val result = parsed.tag(_.Result) ifFalse game.situation.end collect {
+        val result = parsed.tags(_.Result) ifFalse game.situation.end collect {
           case "1-0" => Result(status, Color.White.some)
           case "0-1" => Result(status, Color.Black.some)
           case "*" => Result(Status.Started, none)
@@ -71,10 +71,10 @@ case class ImportData(pgn: String, analyse: Option[String]) {
           case "1/2-1/2" => Result(Status.Draw, none)
         }
 
-        val date = parsed.tag(_.Date)
+        val date = parsed.tags.anyDate
 
-        def name(whichName: TagPicker, whichRating: TagPicker): String = parsed.tag(whichName).fold("?") { n =>
-          n + ~parsed.tag(whichRating).map(e => s" (${e take 8})")
+        def name(whichName: TagPicker, whichRating: TagPicker): String = parsed.tags(whichName).fold("?") { n =>
+          n + ~parsed.tags(whichRating).map(e => s" (${e take 8})")
         }
 
         val dbGame = Game.make(

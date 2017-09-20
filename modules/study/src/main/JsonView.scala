@@ -162,6 +162,9 @@ object JsonView {
   implicit val pgnTagWrites: Writes[chess.format.pgn.Tag] = Writes[chess.format.pgn.Tag] { t =>
     Json.arr(t.name.toString, t.value)
   }
+  implicit val pgnTagsWrites = Writes[chess.format.pgn.Tags] { tags =>
+    JsArray(tags.value map pgnTagWrites.writes)
+  }
   private implicit val chapterSetupWrites = Json.writes[Chapter.Setup]
   private[study] implicit val chapterMetadataWrites = OWrites[Chapter.Metadata] { c =>
     Json.obj("id" -> c._id, "name" -> c.name)
