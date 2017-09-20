@@ -11,4 +11,11 @@
   <plurals name="postedNbMessages">
     <item quantity="other">在%2$s发布%1$s条消息</item>
   </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="other">新关注%s个用户</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="other">新增%s个关注者</item>
+  </plurals>
+  <string name="signedUp">在lichess.org上注册帐户</string>
 </resources>
