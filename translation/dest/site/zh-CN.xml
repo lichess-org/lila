@@ -95,9 +95,12 @@
   <string name="openStudy">进入研讨室</string>
   <string name="enable">启用</string>
   <string name="bestMoveArrow">箭头指示最佳着</string>
+  <string name="evaluationGauge">估值函数表</string>
+  <string name="multipleLines">多线搜索</string>
   <string name="cpus">CPUs</string>
   <string name="memory">内存使用</string>
   <string name="infiniteAnalysis">无限分析</string>
+  <string name="removesTheDepthLimit">取消深度限制，使你的电脑发热。</string>
   <string name="blunders">漏著</string>
   <string name="mistakes">錯著</string>
   <string name="inaccuracies">失誤</string>
@@ -249,6 +252,13 @@
   <string name="tournamentPoints">锦标赛分数</string>
   <string name="viewTournament">观看锦标赛</string>
   <string name="backToTournament">返回锦标赛主页</string>
+  <string name="thematic">从常见开局开始的锦标赛</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="other">您需要至少已下%s盘有积分棋局才能参加本锦标赛</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="other">您需要至少已下%1$s盘有积分%2$s棋局才能参加本锦标赛</item>
+  </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="other">您需要再下%1$s盘有积分%2$s棋局</item>
   </plurals>
@@ -663,7 +673,9 @@
   <string name="enableKidMode">打开受限模式</string>
   <string name="disableKidMode">关闭受限模式</string>
   <string name="security">安全保护</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">以下是通过您的帐户登录的设备列表。请注销所有您不认为是您本人开启的会话。</string>
   <string name="alternativelyYouCanX">或者你可以干 %s。</string>
+  <string name="revokeAllSessions">注销所有会话</string>
   <string name="playChessEverywhere">隨處下棋！</string>
   <string name="asFreeAsLichess">完全又永遠的免費。</string>
   <string name="builtForTheLoveOfChessNotMoney">不是為了錢，而是為了棋所創建。</string>
@@ -704,6 +716,7 @@
   <string name="usernameStartNoNumber">用户名不能以数字开头。</string>
   <string name="usernameUnacceptable">该用户名不被接受。</string>
   <string name="directlySupportLichess">帮助我们</string>
+  <string name="playChessInStyle">有型地下棋</string>
   <string name="chessBasics">国际象棋学徒</string>
   <string name="coaches">教练</string>
   <string name="invalidPgn">PGN错了</string>
