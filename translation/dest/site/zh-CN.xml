@@ -94,6 +94,7 @@
   <string name="byCPL">输了中兵</string>
   <string name="openStudy">进入研讨室</string>
   <string name="enable">启用</string>
+  <string name="bestMoveArrow">箭头指示最佳着</string>
   <string name="cpus">CPUs</string>
   <string name="memory">内存使用</string>
   <string name="infiniteAnalysis">无限分析</string>
@@ -248,6 +249,12 @@
   <string name="tournamentPoints">锦标赛分数</string>
   <string name="viewTournament">观看锦标赛</string>
   <string name="backToTournament">返回锦标赛主页</string>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="other">您需要再下%1$s盘有积分%2$s棋局</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="other">您需要再下%s盘有积分棋局才能参加本锦标赛</item>
+  </plurals>
   <string name="yourPerfRatingIsProvisional">您的%s积分是暂时的</string>
   <string name="yourPerfRatingIsTooHigh">您的 %1$s 积分 (%2$s) 过高</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">您本周最高 %1$s 积分 (%2$s) 太高</string>
@@ -691,6 +698,7 @@
   <string name="boardTheme">棋类型</string>
   <string name="boardSize">棋盘大小</string>
   <string name="pieceSet">棋子件套</string>
+  <string name="embedInYourWebsite">嵌入到您的网站上</string>
   <string name="usernameAlreadyUsed">该用户名已被使用，请使用另一个。</string>
   <string name="usernameInvalid">该用户名非法。在用户名中只能使用拉丁字母，数字，下划线以及连接号。</string>
   <string name="usernameStartNoNumber">用户名不能以数字开头。</string>
