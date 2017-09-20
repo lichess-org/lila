@@ -89,7 +89,10 @@
   <string name="importPgn">上传PGN</string>
   <string name="delete">删</string>
   <string name="deleteThisImportedGame">删打开的盘？</string>
+  <string name="replayMode">重放模式</string>
+  <string name="realtimeReplay">实时重放</string>
   <string name="byCPL">输了中兵</string>
+  <string name="openStudy">进入研讨室</string>
   <string name="enable">启用</string>
   <string name="cpus">CPUs</string>
   <string name="memory">内存使用</string>
@@ -671,6 +674,8 @@
     <item quantity="other">%s 種語言!</item>
   </plurals>
   <string name="gameAnalysis">象棋分析研究</string>
+  <string name="xHostsY">%1$s 主持 %2$s</string>
+  <string name="xJoinsY">%1$s 参加 %2$s</string>
   <string name="xLikesY">%1$s喜欢%2$s</string>
   <string name="quickPairing">快速配对</string>
   <string name="lobby">大堂</string>
