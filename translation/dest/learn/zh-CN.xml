@@ -47,6 +47,7 @@
   <string name="captureThenPromote">吃子，然后升变！</string>
   <string name="useAllThePawns">使用所有的兵！不需要升变。</string>
   <string name="aPawnOnTheSecondRank">第二行上的兵可以一步进两格！</string>
+  <string name="grabAllTheStarsNoNeedToPromote">拿到所有的星星。兵不需要升变。</string>
   <string name="pawnComplete">恭喜！兵已向您倾吐一切秘密。</string>
   <string name="pawnPromotion">兵的升变</string>
   <string name="yourPawnReachedTheEndOfTheBoard">您的兵已经走到棋盘另一头！</string>
@@ -75,6 +76,15 @@
   <string name="checkInOneIntro">攻击敌王是将军。对方必须应将。</string>
   <string name="checkInOneGoal">一步将。</string>
   <string name="checkInOneComplete">恭喜！您成功地将对手将军，迫使对方应将。</string>
+  <string name="outOfCheck">应将</string>
+  <string name="defendYourKing">保护您的王</string>
+  <string name="outOfCheckIntro">您被将军了。您必须将王移开或用其他棋子来阻挡将军。</string>
+  <string name="escapeWithTheKing">请将王移开！</string>
+  <string name="theKingCannotEscapeButBlock">王无法移开，但您可以用其他棋子来阻挡将军。</string>
+  <string name="youCanGetOutOfCheckByTaking">您可以吃掉攻击王的敌子来应将。</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">这个马已经穿过您的防线对您的王进行将军。</string>
+  <string name="escapeOrBlock">请将王移开或者用其他棋子来阻挡将军。</string>
+  <string name="outOfCheckComplete">恭喜！王无法被吃掉。但是请务必确保它不被将死！</string>
   <string name="mateInOne">一步杀</string>
   <string name="defeatTheOpponentsKing">将死敌王</string>
   <string name="mateInOneIntro">当您的对手无法应将时您赢得了一局。</string>
