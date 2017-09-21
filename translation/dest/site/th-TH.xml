@@ -391,6 +391,7 @@
   <string name="biography">ชีวประวัติ</string>
   <string name="country">ประเทศ</string>
   <string name="preferences">การตั้งค่า</string>
+  <string name="inlineNotation">สัญกรณ์ในบรรทัด</string>
   <string name="watchLichessTV">ดู Lichess TV</string>
   <string name="previouslyOnLichessTV">Lichess TV ก่อนหน้า</string>
   <string name="onlinePlayers">ผู้เล่นออนไลน์</string>
@@ -485,9 +486,9 @@
   <string name="pieceDestinations">เส้นทางของหมาก (ช่องที่เดินได้ และการเดินล่วงหน้า)</string>
   <string name="boardCoordinates">พิกัดกระดาน</string>
   <string name="moveListWhilePlaying">แสดงรายชื่อตาที่เดินในขณะที่เล่น</string>
-  <string name="pgnPieceNotation">สัญลักษณ์หมาก PGN</string>
+  <string name="pgnPieceNotation">สัญกรณ์การเดิน</string>
   <string name="chessPieceSymbol">สัญลักษณ์ตัวหมากรุก</string>
-  <string name="pgnLetter">อักษร PGN (K, Q, R, B, N)</string>
+  <string name="pgnLetter">ตัวอักษร (K, Q, R, B, N)</string>
   <string name="chessClock">นาฬิกาหมากรุก</string>
   <string name="tenthsOfSeconds">ทศนิยมของวินาที</string>
   <string name="never">ไม่ต้อง</string>
@@ -650,7 +651,7 @@
   <string name="byRegisteringYouAgreeToBeBoundByOur">โดยการลงทะเบียน คุณยอมรับที่จะผูกพันธ์ด้วย %s ของเรา</string>
   <string name="networkLagBetweenYouAndLichess">เครือข่ายล่าช้าระหว่างคุณกับ lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">เวลาเพื่อทำการเดินหนึ่งครั้งบนเซิร์ฟเวอร์ของ lichess</string>
-  <string name="downloadAnnotated">ดาวน์โหลดพร้อมตัวอธิบาย</string>
+  <string name="downloadAnnotated">ดาวน์โหลดพร้อมสัญกรณ์</string>
   <string name="downloadRaw">ดาวน์โหลดข้อมูลดิบ</string>
   <string name="downloadImported">ดาวน์โหลดสิ่งที่นำเข้า</string>
   <string name="printFriendlyPDF">พิมพ์เป็นแฟ้ม PDF</string>

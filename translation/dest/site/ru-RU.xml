@@ -440,6 +440,7 @@
   <string name="biography">О себе</string>
   <string name="country">Страна</string>
   <string name="preferences">Настройки</string>
+  <string name="inlineNotation">Встроенная нотация</string>
   <string name="watchLichessTV">Смотреть Lichess TV</string>
   <string name="previouslyOnLichessTV">Ранее на Lichess TV</string>
   <string name="onlinePlayers">Игроки в сети</string>
