@@ -70,11 +70,7 @@ export function userHtml(ctrl: RoundController, player: Player) {
 
 export function userTxt(ctrl: RoundController, player: Player) {
   if (player.user) {
-    const perf = player.user.perfs[ctrl.data.game.perf],
-    name = (player.user.title ? player.user.title + ' ' : '') + player.user.username,
-    rating = player.rating ? player.rating : (perf ? perf.rating : null),
-    showRating = rating ? ' (' + rating + (player.provisional ? '?' : '') + ')' : '';
-    return name + showRating;
+    return (player.user.title ? player.user.title + ' ' : '') + player.user.username;
   } else if (player.ai) return aiName(ctrl, player)
   else return 'Anonymous';
 }
