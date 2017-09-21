@@ -1,11 +1,39 @@
 package lila.relay
 
+import org.joda.time.DateTime
+
 import lila.study.{ Study }
+import lila.user.User
 
 case class Relay(
-    studyId: Study.Id,
-    url: String
+    _id: Relay.Id,
+    name: String,
+    description: String,
+    pgnUrl: String,
+    ownerId: User.ID,
+    createdAt: DateTime,
+    startsAt: DateTime,
+    closedAt: Option[DateTime]
 ) {
 
-  override def toString = s"study:$studyId url:$url"
+  def id = _id
+
+  def studyId = Study.Id(id.value)
+
+  override def toString = s"id:$id pgnUrl:$pgnUrl"
+}
+
+object Relay {
+
+  case class Id(value: String) extends AnyVal with StringValue
+
+  def makeId = Id(ornicar.scalalib.Random nextString 8)
+
+  case class WithStudy(relay: Relay, study: Study)
+
+  case class Selection(
+      created: List[WithStudy],
+      started: List[WithStudy],
+      closed: List[WithStudy]
+  )
 }

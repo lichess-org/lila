@@ -7,7 +7,7 @@ import scala.concurrent.duration._
 
 private final class RelayFetch(
     sync: RelaySync,
-    getCurrents: () => Fu[List[Relay]]
+    getStarted: () => Fu[List[Relay]]
 ) extends Actor {
 
   override def preStart {
@@ -30,9 +30,9 @@ private final class RelayFetch(
 
     case Tick =>
       val startAt = nowMillis
-      getCurrents().flatMap {
+      getStarted().flatMap {
         _.map { relay =>
-          WS.url(relay.url).get().flatMap { res =>
+          WS.url(relay.pgnUrl).get().flatMap { res =>
             sync(relay, res.body)
           } recover {
             case e: Exception =>

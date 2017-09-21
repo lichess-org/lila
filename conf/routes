@@ -149,6 +149,12 @@ GET   /study/$id<\w{8}>/$chapterId<\w{8}>/meta   controllers.Study.chapterMeta(i
 GET   /study/embed/$id<\w{8}>/$chapterId<\w{8}>  controllers.Study.embed(id: String, chapterId: String)
 POST  /study/$id<\w{8}>/clear-chat     controllers.Study.clearChat(id: String)
 
+# Relay
+GET   /relay                           controllers.Relay.index
+GET   /relay/new                       controllers.Relay.form
+POST  /relay/new                       controllers.Relay.create
+GET   /relay/$id<\w{8}>                controllers.Relay.show(id: String)
+
 # Learn
 GET   /learn                           controllers.Learn.index
 POST  /learn/score                     controllers.Learn.score

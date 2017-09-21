@@ -1,0 +1,7 @@
+.relay_form h1.lichess_title {
+  text-align: center;
+  margin-bottom: 0!important;
+}
+.relay_form textarea.description {
+  height: 10em;
+}

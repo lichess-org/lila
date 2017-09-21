@@ -46,7 +46,7 @@ object HTTPRequest {
 
   case class UaMatcher(regex: String) {
     val pattern = regex.r.pattern
-    
+
     def apply(req: RequestHeader): Boolean =
       userAgent(req) ?? { ua => pattern.matcher(ua).find }
   }

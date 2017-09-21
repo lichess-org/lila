@@ -1,0 +1,8 @@
+@(r: lila.relay.Relay)(implicit ctx: Context)
+
+@base.layout(
+title = r.name,
+moreCss = cssTag("relay.css")
+) {
+<h1 class="lichess_title">@r.name</h1>
+}
