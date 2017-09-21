@@ -8,7 +8,7 @@
   <string name="waitingForOpponent">等待对手</string>
   <string name="waiting">等待中</string>
   <string name="yourTurn">你的回合</string>
-  <string name="aiNameLevelAiLevel">%1$s級別%2$s</string>
+  <string name="aiNameLevelAiLevel">%1$s级別%2$s</string>
   <string name="level">级别</string>
   <string name="toggleTheChat">聊天开关</string>
   <string name="toggleSound">声音开关</string>
@@ -391,7 +391,7 @@
   <string name="biography">个人简介</string>
   <string name="country">国家</string>
   <string name="preferences">偏好设置</string>
-  <string name="inlineNotation">内联记法</string>
+  <string name="inlineNotation">棋谱无格式</string>
   <string name="watchLichessTV">观看Lichess直播</string>
   <string name="previouslyOnLichessTV">过去的Lichess直播</string>
   <string name="onlinePlayers">在线棋手</string>
