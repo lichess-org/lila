@@ -114,7 +114,7 @@ function openGame(ctrl: AnalyseCtrl, gameId: string) {
   const orientation = ctrl.chessground.state.orientation,
   fenParam = ctrl.node.ply > 0 ? ('?fen=' + ctrl.node.fen) : '';
   let url = '/' + gameId + '/' + orientation + fenParam;
-  if (ctrl.explorer.config.data.db.selected() === 'master') url = '/import/master' + url;
+  if (ctrl.explorer.config.data.db.selected() === 'masters') url = '/import/master' + url;
   window.open(url, '_blank');
 }
 
