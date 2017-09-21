@@ -439,6 +439,7 @@
   <string name="biography">Биографија</string>
   <string name="country">Држава</string>
   <string name="preferences">Подешавања</string>
+  <string name="inlineNotation">Нотација у реду</string>
   <string name="watchLichessTV">Гледајте Lichess ТВ</string>
   <string name="previouslyOnLichessTV">Претходно на Lichess ТВ</string>
   <string name="onlinePlayers">Играчи на мрежи</string>
