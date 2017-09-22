@@ -439,6 +439,7 @@
   <string name="biography">O mně</string>
   <string name="country">Země</string>
   <string name="preferences">Předvolby</string>
+  <string name="inlineNotation">Notace v řádcích</string>
   <string name="watchLichessTV">Sledujte Lichess TV</string>
   <string name="previouslyOnLichessTV">Dříve na Lichess TV</string>
   <string name="onlinePlayers">Hráči online</string>
