@@ -1,7 +1,6 @@
 package lila.user
 
 import com.roundeights.hasher.Implicits._
-import com.roundeights.hasher.Algo
 import org.joda.time.DateTime
 import reactivemongo.api._
 import reactivemongo.api.commands.GetLastError
@@ -273,8 +272,10 @@ object UserRepo {
       case _ => none
     }
 
-  def getPasswordHash(id: ID): Fu[Option[String]] =
-    coll.primitiveOne[String]($id(id), "password")
+  def getPasswordHash(id: ID): Fu[Option[String]] = coll.byId[AuthData](id) map {
+    case Some(auth) => auth.bpass.fold(auth.password){ _.drop(16).toBase64.some }
+    case _ => none
+  }
 
   def create(
     username: String,
