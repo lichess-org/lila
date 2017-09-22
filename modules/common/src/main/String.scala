@@ -35,7 +35,7 @@ object String {
     def encode(txt: String) =
       Base64.getEncoder.encodeToString(txt getBytes StandardCharsets.UTF_8)
     def decode(txt: String): Option[String] = try {
-      Some(new String(Base64.getDecoder decode txt))
+      Some(new String(Base64.getDecoder decode txt, StandardCharsets.UTF_8))
     } catch {
       case _: java.lang.IllegalArgumentException => none
     }
