@@ -1,6 +1,7 @@
 package lila.user
 
 import com.roundeights.hasher.Implicits._
+import com.roundeights.hasher.Algo
 import org.joda.time.DateTime
 import reactivemongo.api._
 import reactivemongo.api.commands.GetLastError
@@ -231,8 +232,28 @@ object UserRepo {
   def authenticateByEmail(email: EmailAddress, password: String): Fu[Option[User]] =
     loginCandidateByEmail(email) map { _ flatMap { _(password) } }
 
-  private case class AuthData(password: String, salt: String, sha512: Option[Boolean]) {
-    def compare(p: String) = password == (~sha512).fold(hash512(p, salt), hash(p, salt))
+  @inline def passHasher = Env.current.passwordHasher
+
+  private def authSalt(p: String, salt: String) = s"$p{$salt}"
+  private def passEnc(pass: String, id: String) = passHasher.hash(authSalt(pass, id))
+
+  private case class AuthData(
+      _id: String,
+      bpass: Option[Array[Byte]],
+      password: Option[String],
+      salt: String,
+      sha512: Option[Boolean]
+  ) {
+    @inline private def salted(p: String) = authSalt(p, salt)
+
+    def compare(p: String) = bpass match {
+      case None => // Deprecated fallback. Log & fail after DB migration.
+        password ?? { _ == (~sha512).fold(salted(p).sha512, salted(p).sha1) }
+      case Some(encBpass) => passHasher.check(
+        authSalt(sha512.fold(p) { _.fold(salted(p).sha512, salted(p).sha1).hex }, _id),
+        encBpass
+      )
+    }
   }
 
   private implicit val AuthDataBSONHandler = Macros.handler[AuthData]
@@ -332,15 +353,8 @@ object UserRepo {
     }
   )
 
-  def passwd(id: ID, password: String): Funit =
-    coll.primitiveOne[String]($id(id), "salt") flatMap { saltOption =>
-      saltOption ?? { salt =>
-        coll.update($id(id), $set(
-          "password" -> hash(password, salt),
-          "sha512" -> false
-        )).void
-      }
-    }
+  def passwd(id: ID, pass: String): Funit =
+    coll.update($id(id), $set(F.bpass -> passEnc(pass, id)) ++ $unset(F.salt, F.password, F.sha512)).void
 
   def email(id: ID, email: EmailAddress): Funit =
     coll.update($id(id), $set(F.email -> email) ++ $unset(F.prevEmail)).void
@@ -442,18 +456,18 @@ object UserRepo {
     mustConfirmEmail: Boolean
   ) = {
 
-    val salt = ornicar.scalalib.Random secureString 32
     implicit def countHandler = Count.countBSONHandler
     implicit def perfsHandler = Perfs.perfsBSONHandler
     import lila.db.BSON.BSONJodaDateTimeHandler
 
+    val id = normalize(username)
+
     $doc(
-      F.id -> normalize(username),
+      F.id -> id,
       F.username -> username,
       F.email -> email,
       F.mustConfirmEmail -> mustConfirmEmail.option(DateTime.now),
-      "password" -> hash(password, salt),
-      "salt" -> salt,
+      F.bpass -> passEnc(password, id),
       F.perfs -> $empty,
       F.count -> Count.default,
       F.enabled -> true,
@@ -465,7 +479,4 @@ object UserRepo {
         if (blind) $doc("blind" -> true) else $empty
       }
   }
-
-  private def hash(pass: String, salt: String): String = "%s{%s}".format(pass, salt).sha1
-  private def hash512(pass: String, salt: String): String = "%s{%s}".format(pass, salt).sha512
 }

@@ -188,6 +188,10 @@ object User {
     val colorIt = "colorIt"
     val plan = "plan"
     val reportban = "reportban"
+    val salt = "salt"
+    val bpass = "bpass"
+    val password = "password"
+    val sha512 = "sha512"
   }
 
   import lila.db.BSON

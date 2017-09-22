@@ -24,6 +24,7 @@ final class Env(
     val CollectionNote = config getString "collection.note"
     val CollectionTrophy = config getString "collection.trophy"
     val CollectionRanking = config getString "collection.ranking"
+    val PasswordHashSecret = config getString "passhash.secret"
   }
   import settings._
 
@@ -85,6 +86,10 @@ final class Env(
     mongoCache = mongoCache,
     asyncCache = asyncCache,
     rankingApi = rankingApi
+  )
+
+  lazy val passwordHasher = new PasswordHasher(
+    secret = PasswordHashSecret
   )
 }
 
