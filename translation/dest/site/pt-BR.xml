@@ -416,6 +416,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="biography">Biografia</string>
   <string name="country">País</string>
   <string name="preferences">Preferências</string>
+  <string name="inlineNotation">Notação em linha</string>
   <string name="watchLichessTV">Assistir Lichess TV</string>
   <string name="previouslyOnLichessTV">Anteriormente em Lichess TV</string>
   <string name="onlinePlayers">Jogadores online</string>
