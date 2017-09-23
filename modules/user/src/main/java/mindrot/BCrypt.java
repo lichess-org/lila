@@ -644,13 +644,16 @@ public final class BCrypt {
         encipher(cdata, j);
     }
 
-    ret = new byte[C_LEN * 4];
-    for (i = 0, j = 0; i < C_LEN; i++) {
+    ret = new byte[C_LEN * 4 - 1];
+    for (i = 0, j = 0; i < C_LEN - 1; i++) {
       ret[j++] = (byte)(cdata[i] >>> 24);
       ret[j++] = (byte)(cdata[i] >>> 16);
       ret[j++] = (byte)(cdata[i] >>> 8);
       ret[j++] = (byte)cdata[i];
     }
+    ret[j++] = (byte)(cdata[C_LEN - 1] >>> 24);
+    ret[j++] = (byte)(cdata[C_LEN - 1] >>> 16);
+    ret[j++] = (byte)(cdata[C_LEN - 1] >>> 8);
     return ret;
   }
 
@@ -714,7 +717,7 @@ public final class BCrypt {
     rs.append(Integer.toString(rounds));
     rs.append("$");
     rs.append(encode_base64(saltb, saltb.length));
-    rs.append(encode_base64(hashed, C_LEN * 4 - 1));
+    rs.append(encode_base64(hashed, hashed.length));
     return rs.toString();
   }
 

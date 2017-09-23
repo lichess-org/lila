@@ -240,13 +240,13 @@ object UserRepo {
       _id: String,
       bpass: Option[Array[Byte]],
       password: Option[String],
-      salt: String,
+      salt: Option[String],
       sha512: Option[Boolean]
   ) {
     def compare(p: String) = {
       val newP = (password, sha512) match {
         case (None, None) => p
-        case _ => (~sha512).fold(salted(p, salt).sha512, salted(p, salt).sha1).hex
+        case _ => (~sha512).fold(salted(p, ~salt).sha512, salted(p, ~salt).sha1).hex
       }
 
       bpass match {
