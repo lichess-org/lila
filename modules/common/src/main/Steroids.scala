@@ -41,6 +41,7 @@ trait Steroids
   with DoubleSteroids
   with OptionSteroids
   with ListSteroids
+  with ByteArraySteroids
 
   with JodaTimeSteroids
 
@@ -124,6 +125,13 @@ trait DoubleSteroids {
     def atLeast(bottomValue: Double): Double = self max bottomValue
 
     def atMost(topValue: Double): Double = self min topValue
+  }
+}
+
+trait ByteArraySteroids {
+
+  implicit final class LilaPimpedByteArray(self: Array[Byte]) {
+    def toBase64 = java.util.Base64.getEncoder.encodeToString(self)
   }
 }
 
