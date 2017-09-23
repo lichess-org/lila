@@ -18,7 +18,7 @@
   <string name="stalemate">Пат</string>
   <string name="white">Білі</string>
   <string name="black">Чорні</string>
-  <string name="randomColor">Довільний колір</string>
+  <string name="randomColor">Випадковий колір</string>
   <string name="createAGame">Створити гру</string>
   <string name="whiteIsVictorious">Білі перемогли</string>
   <string name="blackIsVictorious">Чорні перемогли</string>
@@ -32,7 +32,7 @@
   <string name="whitePlays">Хід білих</string>
   <string name="blackPlays">Хід чорних</string>
   <string name="opponentLeftChoices">Ваш суперник залишив гру. Ви можете оголосити перемогу чи нічию, або зачекати.</string>
-  <string name="makeYourOpponentResign">Примусити вашого суперника здатися</string>
+  <string name="makeYourOpponentResign">Оголосити перемогу</string>
   <string name="forceResignation">Оголосити перемогу</string>
   <string name="forceDraw">Вимагати нічиєї</string>
   <string name="talkInChat">Будь ласка, будьте ввічливими!</string>
@@ -50,7 +50,7 @@
   <string name="analysis">Аналіз</string>
   <string name="depthX">Глибина %s</string>
   <string name="usingServerAnalysis">Використовуючи комп\'ютерний аналіз</string>
-  <string name="loadingEngine">Завантаження гри...</string>
+  <string name="loadingEngine">Завантаження шахового рушія...</string>
   <string name="cloudAnalysis">Хмарний аналіз</string>
   <string name="goDeeper">Ще глибше</string>
   <string name="showThreat">Показати загрозу</string>
@@ -61,7 +61,7 @@
   <string name="variantWin">Шанс виграшу</string>
   <string name="insufficientMaterial">Недостатньо матеріалу</string>
   <string name="pawnMove">Хід пішака</string>
-  <string name="capture">Захоплення</string>
+  <string name="capture">Взяття</string>
   <string name="close">Закрити</string>
   <string name="winning">Виграш</string>
   <string name="losing">Програш</string>
