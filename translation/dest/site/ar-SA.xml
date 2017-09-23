@@ -511,6 +511,7 @@
   <string name="biography">نبذة عنك</string>
   <string name="country">البلد</string>
   <string name="preferences">تفضيلات</string>
+  <string name="inlineNotation">تنسيق التدوين</string>
   <string name="watchLichessTV">شاهد ليتشيس تي في</string>
   <string name="previouslyOnLichessTV">سابقاً على تلفاز ليتشيس</string>
   <string name="onlinePlayers">لاعبين متصلين</string>
