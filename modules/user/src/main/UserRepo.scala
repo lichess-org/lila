@@ -246,15 +246,34 @@ object UserRepo {
     def compare(p: String) = {
       val newP = (password, sha512) match {
         case (None, None) => p
-        case _ => (~sha512).fold(salted(p, ~salt).sha512, salted(p, ~salt).sha1).hex
+        case _ => {
+          val pSalt = salt.fold(p) { salted(p, _) }
+          (~sha512).fold(pSalt.sha512, pSalt.sha1).hex
+        }
       }
 
-      bpass match {
+      val res = bpass match {
         // Deprecated fallback. Log & fail after DB migration.
         case None => password ?? { _ == newP }
         case Some(bHash) => passHasher.check(bHash, salted(newP, _id))
       }
+
+      if (res && password.isDefined && Env.current.upgradeShaPasswords)
+        passwd(id = _id, pass = p)
+
+      res
     }
+  }
+
+  // This creates a bcrypt password using the an existing sha hash as
+  // the "plain text", allowing us to migrate all users in bulk.
+  def upgradePassword(a: AuthData) = (a.bpass, a.password) match {
+    case (None, Some(p)) => coll.update($id(a._id), $set(
+      F.sha512 -> ~a.sha512,
+      F.bpass -> passEnc(p, a._id)
+    ) ++ $unset(F.password)).void.some
+
+    case _ => None
   }
 
   private implicit val AuthDataBSONHandler = Macros.handler[AuthData]

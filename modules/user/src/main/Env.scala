@@ -24,7 +24,8 @@ final class Env(
     val CollectionNote = config getString "collection.note"
     val CollectionTrophy = config getString "collection.trophy"
     val CollectionRanking = config getString "collection.ranking"
-    val PasswordHashSecret = config getString "passhash.secret"
+    val PasswordBPassSecret = config getString "password.bpass.secret"
+    val PasswordUpgradeSha = config getBoolean "password.bpass.autoupgrade"
   }
   import settings._
 
@@ -89,8 +90,10 @@ final class Env(
   )
 
   lazy val passwordHasher = new PasswordHasher(
-    secret = PasswordHashSecret
+    secret = PasswordBPassSecret
   )
+
+  lazy val upgradeShaPasswords = PasswordUpgradeSha
 }
 
 object Env {
