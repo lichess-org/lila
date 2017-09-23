@@ -20,6 +20,8 @@ case class Relay(
 
   def studyId = Study.Id(id.value)
 
+  def slug = lila.common.String slugify name
+
   override def toString = s"id:$id pgnUrl:$pgnUrl"
 }
 

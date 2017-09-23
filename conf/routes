@@ -153,7 +153,7 @@ POST  /study/$id<\w{8}>/clear-chat     controllers.Study.clearChat(id: String)
 GET   /relay                           controllers.Relay.index
 GET   /relay/new                       controllers.Relay.form
 POST  /relay/new                       controllers.Relay.create
-GET   /relay/$id<\w{8}>                controllers.Relay.show(id: String)
+GET   /relay/:slug/$id<\w{8}>          controllers.Relay.show(slug: String, id: String)
 
 # Learn
 GET   /learn                           controllers.Learn.index

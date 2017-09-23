@@ -1,18 +1,18 @@
 @(form: Form[_])(implicit ctx: Context)
 
 @base.form.group(form("name"), Html("Event name")) {
-@base.form.input(form("name"))
+@base.form.input(form("name"), required = true)
 }
 @defining(form("description")) { field =>
 @base.form.group(field, Html("Event description")) {
-<textarea class="description" name="@field.name" id="@field.id">@field.value</textarea>
+<textarea class="description" name="@field.name" id="@field.id" required>@field.value</textarea>
 }
 }
 @base.form.group(form("startsAt"), Html("Start date <strong>UTC</strong>")) {
 @base.form.flatpickr(form("startsAt"))
 }
 @base.form.group(form("pgnUrl"), Html("Live PGN URL")) {
-@base.form.input(form("pgnUrl"))
+@base.form.input(form("pgnUrl"), typ = "url", required = true)
 }
 
 @base.form.submit()

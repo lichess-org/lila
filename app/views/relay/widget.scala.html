@@ -1,5 +1,5 @@
 @(r: lila.relay.Relay.WithStudy)(implicit ctx: Context)
-<a class="overlay" href="@routes.Relay.show(r.relay.id.value)"></a>
+<a class="overlay" href="@routes.Relay.show(r.relay.slug, r.relay.id.value)"></a>
 <h2>
   <i class="icon" data-icon=""></i>
   <strong>@r.relay.name</strong>

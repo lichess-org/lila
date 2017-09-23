@@ -28,14 +28,15 @@ object Relay extends LilaController {
     env.forms.create.bindFromRequest.fold(
       err => BadRequest(html.relay.create(err)).fuccess,
       setup => env.api.create(setup, me) map { relay =>
-        Redirect(routes.Relay.show(relay.id.value))
+        Redirect(routes.Relay.show(relay.slug, relay.id.value))
       }
     )
   }
 
-  def show(id: String) = Open { implicit ctx =>
-    OptionOk(env.api byId RelayModel.Id(id)) { relay =>
-      html.relay.show(relay)
+  def show(slug: String, id: String) = Open { implicit ctx =>
+    OptionFuResult(env.api byId RelayModel.Id(id)) { relay =>
+      if (relay.slug != slug) Redirect(routes.Relay.show(relay.slug, relay.id.value)).fuccess
+      else Ok(html.relay.show(relay)).fuccess
     }
   }
 }

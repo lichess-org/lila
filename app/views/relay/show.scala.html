@@ -1,8 +1,39 @@
-@(r: lila.relay.Relay)(implicit ctx: Context)
+@(r: lila.relay.Relay, data: lila.relay.JsonView.JsData)(implicit ctx: Context)
+
+@moreCss = {
+@cssTag("analyse.css")
+@cssTag("study.css")
+@cssTag("relay.css")
+}
+
+@moreJs = {
+@jsAt(s"compiled/lichess.analyse${isProd??(".min")}.js")
+@embedJs {
+lichess = lichess || {};
+lichess.relay = {
+relay: @Html(J.stringify(data.relay)),
+study: @Html(J.stringify(data.study)),
+data: @Html(J.stringify(data.analysis)),
+i18n: @board.userAnalysisI18n(),
+explorer: {
+endpoint: "@explorerEndpoint",
+tablebaseEndpoint: "@tablebaseEndpoint"
+}
+};
+}
+}
+
+@side = {
+<div class="side_box study_box"></div>
+}
 
 @base.layout(
-title = r.name,
-moreCss = cssTag("relay.css")
-) {
-<h1 class="lichess_title">@r.name</h1>
+title = relay.relay.name,
+side = side.some,
+underchat = none,
+moreCss = moreCss,
+moreJs = moreJs,
+chessground = false,
+zoomable = true) {
+<div class="analyse cg-512">@miniBoardContent</div>
 }

@@ -1,13 +1,22 @@
 @(form: Form[_])(implicit ctx: Context)
 
 @moreCss = {
+@cssTag("flatpickr.css")
 @cssTag("material.form.css")
 @cssTag("relay.css")
 }
 
+@moreJs = {
+@jsAt("vendor/flatpickr/dist/flatpickr.min.js")
+@embedJs {
+$(".flatpickr").flatpickr();
+}
+}
+
 @base.layout(
 title = "New live broadcast",
-moreCss = moreCss
+moreCss = moreCss,
+moreJs = moreJs
 ) {
 <div class="relay_form content_box small_box no_padding">
   <h1 class="lichess_title">New live broadcast</h1>

@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import reactivemongo.bson._
 
 import lila.db.dsl._
-import lila.study.StudyApi
+import lila.study.{ StudyApi, Study }
 import lila.user.User
 
 final class RelayApi(
@@ -15,6 +15,15 @@ final class RelayApi(
   import BSONHandlers._
 
   def byId(id: Relay.Id) = coll.byId[Relay](id.value)
+
+  def byIdWithStudy(id: Relay.Id): Fu[Option[Relay.WithStudy]] =
+    byId(id) flatMap {
+      _ ?? { relay =>
+        studyApi.byId(relay.studyId) map2 { (study: Study) =>
+          Relay.WithStudy(relay, study)
+        }
+      }
+    }
 
   def all: Fu[Relay.Selection] =
     created.flatMap(withStudy) zip
