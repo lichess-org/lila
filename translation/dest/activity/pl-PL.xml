@@ -9,9 +9,9 @@
     <item quantity="other">Przerobione %1$s ćwiczeń w %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">%s rozwiązane zadanie szachowe</item>
-    <item quantity="few">%s rozwiązane zadania szachowe</item>
-    <item quantity="other">%s rozwiązanych zadań szachowych</item>
+    <item quantity="one">Rozwiązane %s zadanie szachowe</item>
+    <item quantity="few">Rozwiązane %s zadania szachowe</item>
+    <item quantity="other">Rozwiązane %s zadań szachowych</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">Rozegrana %1$s partia %2$s</item>
