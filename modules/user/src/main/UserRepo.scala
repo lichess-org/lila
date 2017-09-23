@@ -233,8 +233,8 @@ object UserRepo {
 
   @inline def passHasher = Env.current.passwordHasher
 
-  private def authSalt(p: String, salt: String) = s"$p{$salt}"
-  private def passEnc(pass: String, id: String) = passHasher.hash(authSalt(pass, id))
+  private def salted(p: String, salt: String) = s"$p{$salt}"
+  private def passEnc(pass: String, id: String) = passHasher.hash(salted(pass, id))
 
   private case class AuthData(
       _id: String,
@@ -243,15 +243,17 @@ object UserRepo {
       salt: String,
       sha512: Option[Boolean]
   ) {
-    @inline private def salted(p: String) = authSalt(p, salt)
+    def compare(p: String) = {
+      val newP = (password, sha512) match {
+        case (None, None) => p
+        case _ => (~sha512).fold(salted(p, salt).sha512, salted(p, salt).sha1).hex
+      }
 
-    def compare(p: String) = bpass match {
-      case None => // Deprecated fallback. Log & fail after DB migration.
-        password ?? { _ == (~sha512).fold(salted(p).sha512, salted(p).sha1) }
-      case Some(encBpass) => passHasher.check(
-        authSalt(sha512.fold(p) { _.fold(salted(p).sha512, salted(p).sha1).hex }, _id),
-        encBpass
-      )
+      bpass match {
+        // Deprecated fallback. Log & fail after DB migration.
+        case None => password ?? { _ == newP }
+        case Some(bHash) => passHasher.check(bHash, salted(newP, _id))
+      }
     }
   }
 
@@ -273,8 +275,7 @@ object UserRepo {
     }
 
   def getPasswordHash(id: ID): Fu[Option[String]] = coll.byId[AuthData](id) map {
-    case Some(auth) => auth.bpass.fold(auth.password){ _.drop(16).toBase64.some }
-    case _ => none
+    _.map { auth => auth.bpass.fold(~auth.password) { _.sha512.hex } }
   }
 
   def create(

@@ -5,16 +5,16 @@ import javax.crypto.spec.{ IvParameterSpec, SecretKeySpec }
 import java.util.Base64
 
 class PasswordHasher(secret: String) {
-  private val sKey = {
-    val decoded = Base64.getDecoder.decode(secret)
-    if (decoded.size != 32) throw new AssertionError
-    new SecretKeySpec(decoded, "AES")
+  private val (lameIv, sKey) = {
+    val bs = Base64.getDecoder.decode(secret)
+    if (bs.size != 32) throw new IllegalStateException
+    (new IvParameterSpec(bs take 16), new SecretKeySpec(bs drop 16, "AES"))
   }
 
-  private def aes(mode: Int, iv: Array[Byte], data: Array[Byte]) = {
-    if (iv.size != 16) throw new AssertionError
+  // Static IV because bcrypt hashes start with 16 bytes of random data
+  private def dumbAes(mode: Int, data: Array[Byte]) = {
     val c = Cipher.getInstance("AES/CTS/NoPadding")
-    c.init(mode, sKey, new IvParameterSpec(iv))
+    c.init(mode, sKey, lameIv)
     c.doFinal(data)
   }
 
@@ -24,16 +24,12 @@ class PasswordHasher(secret: String) {
   def hash(pass: String) = {
     val salt = BCrypt.gensaltRaw
     val hash = BCrypt.hashpwRaw(pass, 'a', 12, salt)
-
-    salt ++ aes(ENCRYPT_MODE, salt, hash)
+    dumbAes(ENCRYPT_MODE, salt ++ hash)
   }
 
-  def check(pass: String, storedData: Array[Byte]) = {
-    val (salt, encHash) = storedData.splitAt(16)
+  def check(encHash: Array[Byte], pass: String) = encHash.size == 39 && {
+    val (salt, hash) = dumbAes(DECRYPT_MODE, encHash).splitAt(16)
     val newHash = BCrypt.hashpwRaw(pass, 'a', 12, salt)
-
-    val storedHash = aes(DECRYPT_MODE, salt, encHash)
-
-    BCrypt.bytesEqualSecure(storedHash, newHash)
+    BCrypt.bytesEqualSecure(hash, newHash)
   }
 }

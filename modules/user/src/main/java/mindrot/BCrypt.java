@@ -743,8 +743,6 @@ public final class BCrypt {
     return rs.toString();
   }
 
-  private static final SecureRandom sRand = new SecureRandom();
-
   public static byte[] gensaltRaw(SecureRandom random) {
     byte rnd[] = new byte[BCRYPT_SALT_LEN];
     random.nextBytes(rnd);
@@ -752,7 +750,7 @@ public final class BCrypt {
   }
 
   public static byte[] gensaltRaw() {
-    return gensaltRaw(sRand);
+    return gensaltRaw(new SecureRandom());
   }
 
 
@@ -764,7 +762,7 @@ public final class BCrypt {
    * @return  an encoded salt value
    */
   public static String gensalt(int log_rounds) {
-    return gensalt(log_rounds, sRand);
+    return gensalt(log_rounds, new SecureRandom());
   }
 
   /**
