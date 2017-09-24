@@ -288,6 +288,11 @@
     <item quantity="few">≥ %s partije za bodove</item>
     <item quantity="other">≥ %s partija za bodove</item>
   </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2$s partije</item>
+    <item quantity="few">≥ %1$s %2$s partije</item>
+    <item quantity="other">≥ %1$s %2$s partija</item>
+  </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Trebaš igrati još jednu %2$s partiju za bodove</item>
     <item quantity="few">Trebaš igrati još %1$s %2$s partije za bodove</item>
