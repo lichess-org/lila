@@ -4,7 +4,6 @@ import org.specs2.mutable.Specification
 import org.mindrot.BCrypt
 
 class PasswordHasherTest extends Specification {
-  val secret = Array.fill(32)(1.toByte).toBase64
 
   "bad secrets throw exceptions" in {
     new DumbAes("") must throwA[IllegalStateException]
@@ -12,6 +11,8 @@ class PasswordHasherTest extends Specification {
     new PasswordHasher("t=", 12) must throwA[IllegalArgumentException]
   }
 
+  val secret = Array.fill(32)(1.toByte).toBase64
+  
   "aes" should {
     val aes = new DumbAes(secret)
     def emptyArr(i: Int) = new Array[Byte](i)
@@ -32,7 +33,5 @@ class PasswordHasherTest extends Specification {
     "accept good" >> passHasher.check(liHash, "abc")
     "reject bad" >> !passHasher.check(liHash, "abc ")
     "uniq hash" >> { liHash !== passHasher.hash("abc") }
-
   }
-
 }

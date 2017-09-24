@@ -6,6 +6,7 @@ import javax.crypto.Cipher.{ ENCRYPT_MODE, DECRYPT_MODE }
 import BCrypt.{ bytesEqualSecure => bcryptEq }
 
 class BCryptTest extends Specification {
+
   // From jBcrypt test suite.
   val pass = "abc"
   val b64Hash = "$2a$06$If6bvum7DFjUnE9p2uDeDu0YHzrHM6tf.iqN8.yx.jNN1ILEf7h0i"

@@ -1,17 +1,12 @@
 package lila.user
 
 import org.specs2.mutable.Specification
-import org.mindrot.BCrypt
-import javax.crypto.Cipher.{ ENCRYPT_MODE, DECRYPT_MODE }
-import BCrypt.{ bytesEqualSecure => bcryptEq }
 import java.util.Base64
 
 class AuthTest extends Specification {
 
   val secret = Array.fill(32)(1.toByte).toBase64
-  val aes = new DumbAes(secret)
-  val passHasher = new PasswordHasher(secret, 2)
-  val authWrapper = new Authenticator(passHasher)
+  val authWrapper = new Authenticator(new PasswordHasher(secret, 2))
   import authWrapper.{ passEnc, AuthData }
 
   // Extracted from mongo
