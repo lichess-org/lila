@@ -2,7 +2,6 @@ package lila.user
 
 import org.specs2.mutable.Specification
 import org.mindrot.BCrypt
-import javax.crypto.Cipher.{ ENCRYPT_MODE, DECRYPT_MODE }
 import BCrypt.{ bytesEqualSecure => bcryptEq }
 
 class BCryptTest extends Specification {
