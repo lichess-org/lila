@@ -7,12 +7,15 @@ import java.util.Base64
 /**
  * Encryption for bcrypt hashes.
  *
- *  Security is dependent on plaintext format.
- *  This class should not be used for other purposes.
+ *  The AES parameters were chosen based on application
+ *  (bcrypt hashes) and are incorrect for general use.
+ *
+ *  In particular, CTS reveals input length and a
+ *  static IV usually compromises confidentiality.
  */
-private[user] class DumbAes(secret: String) {
+private[user] final class DumbAes(secret: String) {
   // Bcrypt hashes start with a full block (16 bytes) of
-  // random data, so a static IV won't break primitives.
+  // random data, so a static IV is acceptable.
   private val (sIV, sKey) = {
     val bs = Base64.getDecoder.decode(secret)
     if (bs.size != 32) throw new IllegalStateException
@@ -30,12 +33,12 @@ private[user] class DumbAes(secret: String) {
   def decrypt(data: Array[Byte]) = process(DECRYPT_MODE, data)
 }
 
-sealed class PasswordHasher(secret: String, logRounds: Int,
+final class PasswordHasher(secret: String, logRounds: Int,
   hashTimer: (=> Array[Byte]) => Array[Byte] = x => x) {
   import org.mindrot.BCrypt
 
   private val aes = new DumbAes(secret)
-  protected def bHash(pass: String, salt: Array[Byte]) =
+  private def bHash(pass: String, salt: Array[Byte]) =
     hashTimer(BCrypt.hashpwRaw(pass, 'a', logRounds, salt))
 
   def hash(pass: String) = {

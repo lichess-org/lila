@@ -258,7 +258,7 @@ object User {
   }
 }
 
-class Authenticator(passHasher: PasswordHasher, onShaLogin: => Unit) {
+final class Authenticator(passHasher: PasswordHasher, onShaLogin: => Unit) {
   import com.roundeights.hasher.Implicits._
 
   private def salted(p: String, salt: String) = s"$p{$salt}"
