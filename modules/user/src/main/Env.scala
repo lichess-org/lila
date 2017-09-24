@@ -89,9 +89,10 @@ final class Env(
     rankingApi = rankingApi
   )
 
-  lazy val passwordHasher = new TimedPasswordHasher(
+  lazy val passwordHasher = new PasswordHasher(
     secret = PasswordBPassSecret,
-    logRounds = 10
+    logRounds = 10,
+    lila.mon.measure(_.user.auth.hashTime)
   )
 
   lazy val upgradeShaPasswords = PasswordUpgradeSha

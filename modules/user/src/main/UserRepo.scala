@@ -230,7 +230,10 @@ object UserRepo {
   def authenticateByEmail(email: EmailAddress, password: String): Fu[Option[User]] =
     loginCandidateByEmail(email) map { _ flatMap { _(password) } }
 
-  private val authWrapper = new Authenticator(Env.current.passwordHasher)
+  private val authWrapper = new Authenticator(
+    Env.current.passwordHasher, lila.mon.user.auth.shaLogin()
+  )
+
   import authWrapper.{ passEnc, AuthData }
 
   // This creates a bcrypt hash using the existing sha as input,
