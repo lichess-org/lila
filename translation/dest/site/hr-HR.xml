@@ -288,6 +288,11 @@
     <item quantity="few">≥ %s partije za bodove</item>
     <item quantity="other">≥ %s partija za bodove</item>
   </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Trebaš igrati još jednu %2$s partiju za bodove</item>
+    <item quantity="few">Trebaš igrati još %1$s %2$s partije za bodove</item>
+    <item quantity="other">Trebaš igrati još %1$s %2$s partija za bodove</item>
+  </plurals>
   <plurals name="needNbMoreGames">
     <item quantity="one">Trebaš odigrati još jednu partiju za bodove</item>
     <item quantity="few">Trebaš odigrati još %s partije za bodove</item>
@@ -430,6 +435,7 @@ računalnu analizu, pričaonicu partije i URL za dijeljenje.</string>
   <string name="biography">Životopis</string>
   <string name="country">Zemlja</string>
   <string name="preferences">Postavke</string>
+  <string name="inlineNotation">Kompaktnija notacija</string>
   <string name="watchLichessTV">Gledaj Lichess TV</string>
   <string name="previouslyOnLichessTV">Prethodno na Lichess TV-u</string>
   <string name="onlinePlayers">Online igrači</string>
