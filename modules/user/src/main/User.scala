@@ -114,7 +114,7 @@ object User {
   case class LoginCandidate(user: User, check: CredentialCheck) {
     def apply(password: String): Option[User] = {
       val res = check(password)
-      lila.mon.user.auth.result(res)
+      lila.mon.user.auth.result(res)()
       res option user
     }
   }
