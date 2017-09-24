@@ -236,10 +236,13 @@ object UserRepo {
   // This creates a bcrypt hash using the existing sha as input,
   // allowing us to migrate all users in bulk.
   def upgradePassword(a: AuthData) = (a.bpass, a.password) match {
-    case (None, Some(pass)) => coll.update($id(a._id), $set(
-      F.sha512 -> ~a.sha512,
-      F.bpass -> passEnc(id = a._id, pass = pass)
-    ) ++ $unset(F.password)).void.some
+    case (None, Some(pass)) => Some(coll.update(
+      $id(a._id),
+      $set(
+        F.sha512 -> ~a.sha512,
+        F.bpass -> passEnc(id = a._id, pass = pass)
+      ) ++ $unset(F.password)
+    ).void >>- lila.mon.user.auth.shaBcUpgrade())
 
     case _ => None
   }
@@ -258,7 +261,7 @@ object UserRepo {
   def authWithBenefits(auth: AuthData)(p: String) = {
     val res = auth compare p
     if (res && auth.salt.isDefined && Env.current.upgradeShaPasswords)
-      passwd(id = auth._id, pass = p)
+      passwd(id = auth._id, pass = p) >>- lila.mon.user.auth.bcFullMigrate()
     res
   }
 

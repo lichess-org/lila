@@ -89,7 +89,7 @@ final class Env(
     rankingApi = rankingApi
   )
 
-  lazy val passwordHasher = new PasswordHasher(
+  lazy val passwordHasher = new TimedPasswordHasher(
     secret = PasswordBPassSecret,
     logRounds = 10
   )

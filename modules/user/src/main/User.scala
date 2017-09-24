@@ -112,7 +112,11 @@ object User {
 
   type CredentialCheck = String => Boolean
   case class LoginCandidate(user: User, check: CredentialCheck) {
-    def apply(password: String): Option[User] = check(password) option user
+    def apply(password: String): Option[User] = {
+      val res = check(password)
+      lila.mon.user.auth.result(res)
+      res option user
+    }
   }
 
   val anonymous = "Anonymous"
@@ -278,7 +282,7 @@ class Authenticator(passHasher: PasswordHasher) {
 
       bpass match {
         // Deprecated fallback. Log & fail after DB migration.
-        case None => password ?? { _ == newP }
+        case None => password ?? { lila.mon.user.auth.shaLogin(); _ == newP }
         case Some(bHash) => passHasher.check(bHash, salted(newP, _id))
       }
     }

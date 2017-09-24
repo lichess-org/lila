@@ -30,20 +30,28 @@ private[user] class DumbAes(secret: String) {
   def decrypt(data: Array[Byte]) = process(DECRYPT_MODE, data)
 }
 
-class PasswordHasher(secret: String, logRounds: Int) {
-  private val aes = new DumbAes(secret)
-
+sealed class PasswordHasher(secret: String, logRounds: Int) {
   import org.mindrot.BCrypt
+
+  private val aes = new DumbAes(secret)
+  protected def bHash(pass: String, salt: Array[Byte]) =
+    BCrypt.hashpwRaw(pass, 'a', logRounds, salt)
 
   def hash(pass: String) = {
     val salt = BCrypt.gensaltRaw
-    val hash = BCrypt.hashpwRaw(pass, 'a', logRounds, salt)
-    aes.encrypt(salt ++ hash)
+    aes.encrypt(salt ++ bHash(pass, salt))
   }
 
   def check(encHash: Array[Byte], pass: String) = encHash.size == 39 && {
     val (salt, hash) = aes.decrypt(encHash).splitAt(16)
-    val newHash = BCrypt.hashpwRaw(pass, 'a', logRounds, salt)
-    BCrypt.bytesEqualSecure(hash, newHash)
+    BCrypt.bytesEqualSecure(hash, bHash(pass, salt))
   }
+}
+
+class TimedPasswordHasher(secret: String, logRounds: Int)
+  extends PasswordHasher(secret, logRounds) {
+  protected override def bHash(pass: String, salt: Array[Byte]) =
+    lila.mon.measure(_.user.auth.hashTime) {
+      super.bHash(pass, salt)
+    }
 }

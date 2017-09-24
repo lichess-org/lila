@@ -12,7 +12,7 @@ class PasswordHasherTest extends Specification {
   }
 
   val secret = Array.fill(32)(1.toByte).toBase64
-  
+
   "aes" should {
     val aes = new DumbAes(secret)
     def emptyArr(i: Int) = new Array[Byte](i)

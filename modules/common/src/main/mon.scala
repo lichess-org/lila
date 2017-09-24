@@ -233,6 +233,13 @@ object mon {
       def mustConfirmEmail(v: Boolean) = inc(s"user.register.must_confirm_email.$v")
       def confirmEmailResult(v: Boolean) = inc(s"user.register.confirm_email.$v")
     }
+    object auth {
+      val shaBcUpgrade = inc("user.auth.sha_bc_upgrade")
+      val bcFullMigrate = inc("user.auth.bc_full_migrate")
+      val shaLogin = inc("user.auth.sha_login")
+      val hashTime = rec("user.auth.hash_time")
+      def result(v: Boolean) = inc(s"user.auth.result.$v")
+    }
   }
   object socket {
     val member = rec("socket.count")
