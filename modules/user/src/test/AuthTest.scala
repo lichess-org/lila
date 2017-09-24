@@ -6,7 +6,7 @@ import java.util.Base64
 class AuthTest extends Specification {
 
   val secret = Array.fill(32)(1.toByte).toBase64
-  val authWrapper = new Authenticator(new PasswordHasher(secret, 2))
+  val authWrapper = new Authenticator(new PasswordHasher(secret, 2), None)
   import authWrapper.{ passEnc, AuthData }
 
   // Extracted from mongo
@@ -43,7 +43,7 @@ class AuthTest extends Specification {
     // sanity check of aes encryption
     "wrong secret" >> !{
       val badHasher = new PasswordHasher((new Array[Byte](32)).toBase64, 2)
-      new Authenticator(badHasher).AuthData(
+      new Authenticator(badHasher, None).AuthData(
         _id = "foo",
         bpass = bCryptUser.bpass
       ).compare("password")

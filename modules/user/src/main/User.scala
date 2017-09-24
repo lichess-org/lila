@@ -258,7 +258,8 @@ object User {
   }
 }
 
-class Authenticator(passHasher: PasswordHasher) {
+class Authenticator(passHasher: PasswordHasher,
+    authMon: Option[lila.mon.user.auth.type] = Some(lila.mon.user.auth)) {
   import com.roundeights.hasher.Implicits._
 
   private def salted(p: String, salt: String) = s"$p{$salt}"
@@ -282,7 +283,7 @@ class Authenticator(passHasher: PasswordHasher) {
 
       bpass match {
         // Deprecated fallback. Log & fail after DB migration.
-        case None => password ?? { lila.mon.user.auth.shaLogin(); _ == newP }
+        case None => password ?? { authMon.foreach { _.shaLogin() }; _ == newP }
         case Some(bHash) => passHasher.check(bHash, salted(newP, _id))
       }
     }
