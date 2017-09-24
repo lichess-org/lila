@@ -257,7 +257,7 @@ object UserRepo {
 
   def authWithBenefits(auth: AuthData)(p: String) = {
     val res = auth compare p
-    if (res && auth.password.isDefined && Env.current.upgradeShaPasswords)
+    if (res && auth.salt.isDefined && Env.current.upgradeShaPasswords)
       passwd(id = auth._id, pass = p)
     res
   }
