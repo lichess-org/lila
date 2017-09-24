@@ -1,6 +1,5 @@
 package lila.user
 
-import com.roundeights.hasher.Implicits._
 import org.joda.time.DateTime
 import reactivemongo.api._
 import reactivemongo.api.commands.GetLastError
@@ -231,46 +230,15 @@ object UserRepo {
   def authenticateByEmail(email: EmailAddress, password: String): Fu[Option[User]] =
     loginCandidateByEmail(email) map { _ flatMap { _(password) } }
 
-  @inline def passHasher = Env.current.passwordHasher
+  private val authWrapper = new Authenticator(Env.current.passwordHasher)
+  import authWrapper.{ passEnc, AuthData }
 
-  private def salted(p: String, salt: String) = s"$p{$salt}"
-  private def passEnc(pass: String, id: String) = passHasher.hash(salted(pass, id))
-
-  private case class AuthData(
-      _id: String,
-      bpass: Option[Array[Byte]],
-      password: Option[String],
-      salt: Option[String],
-      sha512: Option[Boolean]
-  ) {
-    def compare(p: String) = {
-      val newP = (password, sha512) match {
-        case (None, None) => p
-        case _ => {
-          val pSalt = salt.fold(p) { salted(p, _) }
-          (~sha512).fold(pSalt.sha512, pSalt.sha1).hex
-        }
-      }
-
-      val res = bpass match {
-        // Deprecated fallback. Log & fail after DB migration.
-        case None => password ?? { _ == newP }
-        case Some(bHash) => passHasher.check(bHash, salted(newP, _id))
-      }
-
-      if (res && password.isDefined && Env.current.upgradeShaPasswords)
-        passwd(id = _id, pass = p)
-
-      res
-    }
-  }
-
-  // This creates a bcrypt password using the an existing sha hash as
-  // the "plain text", allowing us to migrate all users in bulk.
+  // This creates a bcrypt hash using the existing sha as input,
+  // allowing us to migrate all users in bulk.
   def upgradePassword(a: AuthData) = (a.bpass, a.password) match {
-    case (None, Some(p)) => coll.update($id(a._id), $set(
+    case (None, Some(pass)) => coll.update($id(a._id), $set(
       F.sha512 -> ~a.sha512,
-      F.bpass -> passEnc(p, a._id)
+      F.bpass -> passEnc(id = a._id, pass = pass)
     ) ++ $unset(F.password)).void.some
 
     case _ => None
@@ -287,14 +255,22 @@ object UserRepo {
   def loginCandidate(u: User): Fu[User.LoginCandidate] =
     loginCandidateById(u.id) map { _ | User.LoginCandidate(u, _ => false) }
 
+  def authWithBenefits(auth: AuthData)(p: String) = {
+    val res = auth compare p
+    if (res && auth.password.isDefined && Env.current.upgradeShaPasswords)
+      passwd(id = auth._id, pass = p)
+    res
+  }
+
   private def loginCandidate(select: Bdoc): Fu[Option[User.LoginCandidate]] =
     coll.uno[AuthData](select) zip coll.uno[User](select) map {
-      case (Some(login), Some(user)) if user.enabled => User.LoginCandidate(user, login.compare).some
+      case (Some(authData), Some(user)) if user.enabled =>
+        User.LoginCandidate(user, authWithBenefits(authData)).some
       case _ => none
     }
 
   def getPasswordHash(id: ID): Fu[Option[String]] = coll.byId[AuthData](id) map {
-    _.map { auth => auth.bpass.fold(~auth.password) { _.sha512.hex } }
+    _.map { _.hashToken }
   }
 
   def create(
@@ -375,7 +351,8 @@ object UserRepo {
   )
 
   def passwd(id: ID, pass: String): Funit =
-    coll.update($id(id), $set(F.bpass -> passEnc(pass, id)) ++ $unset(F.salt, F.password, F.sha512)).void
+    coll.update($id(id), $set(F.bpass -> passEnc(id, pass = pass))
+      ++ $unset(F.salt, F.password, F.sha512)).void
 
   def email(id: ID, email: EmailAddress): Funit =
     coll.update($id(id), $set(F.email -> email) ++ $unset(F.prevEmail)).void
@@ -488,7 +465,7 @@ object UserRepo {
       F.username -> username,
       F.email -> email,
       F.mustConfirmEmail -> mustConfirmEmail.option(DateTime.now),
-      F.bpass -> passEnc(password, id),
+      F.bpass -> passEnc(id, pass = password),
       F.perfs -> $empty,
       F.count -> Count.default,
       F.enabled -> true,

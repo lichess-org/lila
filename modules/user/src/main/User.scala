@@ -253,3 +253,36 @@ object User {
     )
   }
 }
+
+class Authenticator(passHasher: PasswordHasher) {
+  import com.roundeights.hasher.Implicits._
+
+  private def salted(p: String, salt: String) = s"$p{$salt}"
+  def passEnc(id: String, pass: String) = passHasher.hash(salted(pass, id))
+
+  case class AuthData(
+      _id: String,
+      bpass: Option[Array[Byte]] = None,
+      password: Option[String] = None,
+      salt: Option[String] = None,
+      sha512: Option[Boolean] = None
+  ) {
+    def compare(p: String) = {
+      val newP = (password, sha512) match {
+        case (None, None) => p
+        case _ => {
+          val pSalt = salt.fold(p) { salted(p, _) }
+          (~sha512).fold(pSalt.sha512, pSalt.sha1).hex
+        }
+      }
+
+      bpass match {
+        // Deprecated fallback. Log & fail after DB migration.
+        case None => password ?? { _ == newP }
+        case Some(bHash) => passHasher.check(bHash, salted(newP, _id))
+      }
+    }
+
+    def hashToken = bpass.fold(~password) { _.sha512.hex }
+  }
+}

@@ -90,7 +90,8 @@ final class Env(
   )
 
   lazy val passwordHasher = new PasswordHasher(
-    secret = PasswordBPassSecret
+    secret = PasswordBPassSecret,
+    logRounds = 12
   )
 
   lazy val upgradeShaPasswords = PasswordUpgradeSha
