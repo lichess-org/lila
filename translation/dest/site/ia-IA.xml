@@ -214,7 +214,7 @@
   <string name="freeOnlineChess">Chacos in linea gratis</string>
   <string name="spectators">Spectatores:</string>
   <plurals name="nbRated">
-    <item quantity="other">%s classificate</item>
+    <item quantity="other">%s partitas classificatori</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="other">%s victorias</item>
