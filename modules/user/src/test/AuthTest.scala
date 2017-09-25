@@ -31,7 +31,7 @@ class AuthTest extends Specification {
     val bCryptUser = AuthData(
       _id = "foo",
       bpass = Some(Base64.getDecoder.decode(
-        "nMY6Pi45178YiOMcWncklizO3Z2enZfiFF5RDBkFZFYEOP7rZ2F0"
+        "qRDaT9KiCL4WlssyZuqezCb/3E0ddU6WX7bTknnNWBu8uv/yqR+F"
       ))
     )
     "correct" >> bCryptUser.compare("password")
@@ -47,6 +47,22 @@ class AuthTest extends Specification {
         _id = "foo",
         bpass = bCryptUser.bpass
       ).compare("password")
+    }
+
+    "very long password" in {
+      val longPass = "a" * 100
+      val user = AuthData("foo", bpass = Some(passEnc("foo", longPass)))
+      "correct" >> user.compare(longPass)
+      "wrong fails" >> !user.compare("a" * 99)
+    }
+
+    "handle crazy passwords" in {
+      val abcUser = AuthData("foo", bpass = Some(passEnc("foo", "abc")))
+
+      "test eq" >> abcUser.compare("abc")
+      "vs null bytes" >> !abcUser.compare("abc\u0000")
+      "vs unicode" >> !abcUser.compare("abc\uD83D\uDE01")
+      "vs empty" >> !abcUser.compare("")
     }
   }
 

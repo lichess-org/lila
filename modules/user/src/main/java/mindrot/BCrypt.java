@@ -20,6 +20,7 @@ package org.mindrot;
 
 import java.io.UnsupportedEncodingException;
 import java.security.SecureRandom;
+import java.util.Arrays;
 
 /**
  * BCrypt implements OpenBSD-style Blowfish password hashing using
@@ -57,7 +58,7 @@ import java.security.SecureRandom;
  * String stronger_salt = BCrypt.gensalt(12)<br />
  * </code>
  * <p>
- * The amount of work increases exponentially (2**log_rounds), so 
+ * The amount of work increases exponentially (2**log_rounds), so
  * each increment is twice as much work. The default log_rounds is
  * 10, and the valid range is 4 to 30.
  *
@@ -655,16 +656,9 @@ public final class BCrypt {
     return ret;
   }
 
-  public static byte[] hashpwRaw(String password, char minorV, int rounds, byte[] salt) {
-    byte[] passwordb;
-    if (minorV >= 'a') password += '\0';
-    try {
-      passwordb = password.getBytes("UTF-8");
-    } catch (UnsupportedEncodingException uee) {
-      throw new AssertionError("UTF-8 is not supported");
-    }
-
-    return new BCrypt().crypt_raw(passwordb, salt, rounds);
+  public static byte[] hashpwRaw(byte[] password, char minorV, int rounds, byte[] salt) {
+    if (minorV >= 'a') password = Arrays.copyOf(password, password.length + 1);
+    return new BCrypt().crypt_raw(password, salt, rounds);
   }
 
   /**
@@ -676,7 +670,7 @@ public final class BCrypt {
    */
   public static String hashpw(String password, String salt) {
     String real_salt;
-    byte saltb[], hashed[];
+    byte passwordb[], saltb[], hashed[];
     char minor = (char)0;
     int rounds, off = 0;
     StringBuilder rs = new StringBuilder();
@@ -698,9 +692,15 @@ public final class BCrypt {
     rounds = Integer.parseInt(salt.substring(off, off + 2));
 
     real_salt = salt.substring(off + 3, off + 25);
+    try {
+        passwordb = password.getBytes("UTF-8");
+    } catch (UnsupportedEncodingException uee) {
+        throw new AssertionError("UTF-8 is not supported");
+    }
+
     saltb = decode_base64(real_salt, BCRYPT_SALT_LEN);
 
-    hashed = hashpwRaw(password, minor, rounds, saltb);
+    hashed = hashpwRaw(passwordb, minor, rounds, saltb);
 
     rs.append("$2");
     if (minor >= 'a')

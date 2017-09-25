@@ -4,6 +4,8 @@ import javax.crypto.Cipher
 import javax.crypto.spec.{ IvParameterSpec, SecretKeySpec }
 import java.util.Base64
 
+import com.roundeights.hasher.Implicits._
+
 /**
  * Encryption for bcrypt hashes.
  *
@@ -34,12 +36,12 @@ private[user] final class DumbAes(secret: String) {
 }
 
 final class PasswordHasher(secret: String, logRounds: Int,
-  hashTimer: (=> Array[Byte]) => Array[Byte] = x => x) {
+    hashTimer: (=> Array[Byte]) => Array[Byte] = x => x) {
   import org.mindrot.BCrypt
 
   private val aes = new DumbAes(secret)
   private def bHash(pass: String, salt: Array[Byte]) =
-    hashTimer(BCrypt.hashpwRaw(pass, 'a', logRounds, salt))
+    hashTimer(BCrypt.hashpwRaw(pass.sha512, 'a', logRounds, salt))
 
   def hash(pass: String) = {
     val salt = BCrypt.gensaltRaw

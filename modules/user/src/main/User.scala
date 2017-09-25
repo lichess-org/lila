@@ -262,7 +262,7 @@ final class Authenticator(passHasher: PasswordHasher, onShaLogin: => Unit) {
   import com.roundeights.hasher.Implicits._
 
   private def salted(p: String, salt: String) = s"$p{$salt}"
-  def passEnc(id: String, pass: String) = passHasher.hash(salted(pass, id))
+  def passEnc(id: String, pass: String) = passHasher.hash(salted(id, pass))
 
   case class AuthData(
       _id: String,
@@ -283,7 +283,7 @@ final class Authenticator(passHasher: PasswordHasher, onShaLogin: => Unit) {
       bpass match {
         // Deprecated fallback. Log & fail after DB migration.
         case None => password ?? { onShaLogin; _ == newP }
-        case Some(bHash) => passHasher.check(bHash, salted(newP, _id))
+        case Some(bHash) => passHasher.check(bHash, salted(_id, newP))
       }
     }
 
