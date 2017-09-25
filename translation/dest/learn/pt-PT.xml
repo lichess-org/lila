@@ -4,4 +4,11 @@
   <string name="learnChess">Aprenda xadrez</string>
   <string name="menu">Menu</string>
   <string name="progressX">Progresso: %s</string>
+  <string name="play">jogar!</string>
+  <string name="theRook">A torre</string>
+  <string name="theBishop">O bispo</string>
+  <string name="theQueen">A rainha</string>
+  <string name="theKing">O rei</string>
+  <string name="theKnight">O cavaleiro</string>
+  <string name="thePawn">O peão</string>
 </resources>
