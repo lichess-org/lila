@@ -502,7 +502,7 @@
   <string name="bothClicksAndDrag">Ambe manieras</string>
   <string name="premovesPlayingDuringOpponentTurn">Preselection (jocar durante le torno del adversario)</string>
   <string name="takebacksWithOpponentApproval">Retorno del ultime movimento (con approbation del adversario)</string>
-  <string name="promoteToQueenAutomatically">Promover a Regina automaticamente</string>
+  <string name="promoteToQueenAutomatically">Promover a Dama automaticamente</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Declarar automaticamente le partita como nulle post un repetition triple</string>
   <string name="privacy">Confidentialitate</string>
   <string name="letOtherPlayersFollowYou">Lassar altere jocatores sequer te</string>
@@ -524,12 +524,12 @@
   <string name="difficultyEasy">Facile</string>
   <string name="difficultyNormal">Normal</string>
   <string name="difficultyHard">Difficile</string>
-  <string name="xLeftANoteOnY">%1$s lassava un nota a %2$s</string>
+  <string name="xLeftANoteOnY">%1$s ha lassate un nota a %2$s</string>
   <string name="xCompetesInY">%1$s compete in %2$s</string>
-  <string name="xAskedY">%1$s demandava %2$s</string>
-  <string name="xAnsweredY">%1$s respondeva %2$s</string>
-  <string name="xCommentedY">%1$s commentava %2$s</string>
-  <string name="victory">Victoria!</string>
+  <string name="xAskedY">%1$s ha demandate %2$s</string>
+  <string name="xAnsweredY">%1$s ha respondite %2$s</string>
+  <string name="xCommentedY">%1$s ha commentate %2$s</string>
+  <string name="victory">Victoria</string>
   <string name="defeat">Defaite</string>
   <string name="xVsYinZ">%1$s contra %2$s
 in %3$s</string>
@@ -570,7 +570,7 @@ in %3$s</string>
   <string name="error.required">Iste campo es requirite</string>
   <string name="error.email">Iste adresse de e-posta es invalide</string>
   <string name="error.email_acceptable">Iste adresse de e-posta non es acceptabile</string>
-  <string name="error.email_unique">Iste adresse de e-posta es jam prendite</string>
+  <string name="error.email_unique">Iste adresse de e-posta es ja prendite</string>
   <string name="error.email_different">Iste ja es tu adresse de e-posta</string>
   <string name="blindfoldChess">Chacos al oculos bandate (pecias invisibile)</string>
   <string name="zenMode">Modo Zen</string>
@@ -580,10 +580,10 @@ in %3$s</string>
   <string name="onlyFriends">Solmente amicos</string>
   <string name="menu">Menu</string>
   <string name="castling">Roc</string>
-  <string name="whiteCastlingKingside">Roc curte del Blanc</string>
-  <string name="whiteCastlingQueenside">Roc longe del Blanc</string>
-  <string name="blackCastlingKingside">Roc curte del Nigre</string>
-  <string name="blackCastlingQueenside">Roc longe del Nigre</string>
+  <string name="whiteCastlingKingside">Blanc O-O</string>
+  <string name="whiteCastlingQueenside">Blanc O-O-O</string>
+  <string name="blackCastlingKingside">Nigre O-O</string>
+  <string name="blackCastlingQueenside">Nigre O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="other">%s Messages in le Foro</item>
   </plurals>
