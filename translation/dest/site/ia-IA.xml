@@ -355,9 +355,9 @@
   <string name="losses">Perditas</string>
   <string name="winStreak">Victorias consecutive</string>
   <string name="createdBy">Create per</string>
-  <string name="tournamentIsStarting">Le torneo es sur le puncto de comenciar</string>
+  <string name="tournamentIsStarting">Le torneo comencia ora</string>
   <string name="tournamentPairingsAreNowClosed">Le junction de jocatores in le torneo es claudite ora.</string>
-  <string name="standByX">Attende %s, connectente jocatores, prepara se!</string>
+  <string name="standByX">Attende %s, connectente jocatores, prepara te!</string>
   <string name="youArePlaying">Tu es jocante!</string>
   <string name="winRate">Percentage de victorias</string>
   <string name="berserkRate">Percentage Berserk</string>
@@ -369,7 +369,7 @@
   <string name="draws">Partitas nulle</string>
   <string name="nextXTournament">Torneo %s sequente:</string>
   <string name="viewMoreTournaments">Vider plus torneos</string>
-  <string name="averageOpponent">Adversario medie</string>
+  <string name="averageOpponent">Classification medie</string>
   <string name="membersOnly">Solmente membros</string>
   <string name="boardEditor">Editor de tabuliero</string>
   <string name="setTheBoard">Arrangiar le tabuliero</string>
@@ -397,7 +397,7 @@
   <string name="onlinePlayers">Jocatores in linea</string>
   <string name="activeToday">Active hodie</string>
   <string name="activePlayers">Jocatores active</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Attention, le partita es classificatori sed illo non ha controlo de tempore!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Attention, le partita es classificatori ma illo non ha controlo de tempore!</string>
   <string name="training">Exercitio</string>
   <string name="yourPuzzleRatingX">Tu classification de enigmas: %s</string>
   <string name="findTheBestMoveForWhite">Cerca le optime movimento pro le blanc.</string>
