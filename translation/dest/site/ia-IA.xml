@@ -207,7 +207,7 @@
   <string name="spectatorRoom">Sala de spectatores</string>
   <string name="composeMessage">Componer message</string>
   <string name="noNewMessages">Nulle messages nove</string>
-  <string name="subject">Subjecto</string>
+  <string name="subject">Topico</string>
   <string name="recipient">Destinatario</string>
   <string name="send">Inviar</string>
   <string name="incrementInSeconds">Incremento in secundas</string>
@@ -236,7 +236,7 @@
   <string name="giveMoreTime">Offerer plus tempore</string>
   <string name="thisPlayerUsesChessComputerAssistance">Iste jocator usa le assistentia de un computator de chacos</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Iste jocator altera su classification de maniera artificial</string>
-  <string name="openingExplorerAndTablebase">Explorator de initio de joco &amp; tabula de finales</string>
+  <string name="openingExplorerAndTablebase">Explorator de initio de joco e tabula de finales</string>
   <string name="takeback">Retornar</string>
   <string name="proposeATakeback">Proponer un retorno del ultime movimento</string>
   <string name="takebackPropositionSent">Proposition de retorno inviate</string>
@@ -283,14 +283,14 @@
   <string name="noTeamFound">Nulle equipa trovate</string>
   <string name="joinTeam">Adherer al equipa</string>
   <string name="quitTeam">Abandonar equipa</string>
-  <string name="anyoneCanJoin">Libere pro totes</string>
+  <string name="anyoneCanJoin">Libere a totes</string>
   <string name="aConfirmationIsRequiredToJoin">Un confirmation es requirite pro adherer</string>
   <string name="joiningPolicy">Politica de adhesion</string>
   <string name="teamLeader">Conductor del equipa</string>
   <string name="teamBestPlayers">Le melior jocatores</string>
   <string name="teamRecentMembers">Membros recente</string>
-  <string name="xJoinedTeamY">%1$s adhereva a %2$s</string>
-  <string name="xCreatedTeamY">%1$s creava le equipa %2$s</string>
+  <string name="xJoinedTeamY">%1$s ha adherite a %2$s</string>
+  <string name="xCreatedTeamY">%1$s ha create le equipa %2$s</string>
   <string name="averageElo">Classification medie</string>
   <string name="location">Loco</string>
   <string name="settings">Configuration</string>
@@ -298,8 +298,8 @@
   <string name="reset">Reinitialisar</string>
   <string name="apply">Submitter</string>
   <string name="leaderboard">Tabula del melior jocatores</string>
-  <string name="pasteTheFenStringHere">Colla le notation FEN hic</string>
-  <string name="pasteThePgnStringHere">Colla le notation PGN hic</string>
+  <string name="pasteTheFenStringHere">Colla le notation FEN ci</string>
+  <string name="pasteThePgnStringHere">Colla le notation PGN ci</string>
   <string name="fromPosition">A partir del position</string>
   <string name="continueFromHere">Continuar a partir de iste position</string>
   <string name="importGame">Importar partita</string>
@@ -335,7 +335,7 @@
   <string name="more">Plus</string>
   <string name="memberSince">Membro desde</string>
   <string name="lastSeenActive">Ultime connexion %s</string>
-  <string name="challengeToPlay">Defiar a un joco</string>
+  <string name="challengeToPlay">Defiar a un partita</string>
   <string name="player">Jocator</string>
   <string name="list">Lista</string>
   <string name="graph">Graphico</string>
