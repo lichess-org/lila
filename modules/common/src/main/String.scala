@@ -45,7 +45,7 @@ object String {
   // word (i.e. preceded and followed by space or appropriate punctuation):
   // Yes: everyone says @ornicar is a pretty cool guy
   // No: contact@lichess.org, @1, http://example.com/@happy0
-  val atUsernameRegex = """(?<=\s|^)@(?>([a-zA-Z_-][\w-]{1,19}))(?![\w-])""".r
+  val atUsernameRegex = """(?<=^|[^\w@#/])@(?>([\w-]{2,20}))(?![@\w-])""".r
 
   object html {
 
@@ -79,9 +79,7 @@ object String {
     private def addUserProfileLinksUnsafe(text: String): String =
       atUsernameRegex.replaceAllIn(text, m => {
         val user = m group 1
-        val url = s"//$netDomain/@/$user"
-
-        s"""<a href="$url">@$user</a>"""
+        s"""<a href="/@/$user">@$user</a>"""
       })
 
     def addLinks(text: String) = Html(addLinksUnsafe(text))
@@ -93,7 +91,7 @@ object String {
           if (s"${m.group(3)}/" startsWith s"$netDomain/") {
             // internal
             val link = m.group(3)
-            s"""<a rel="nofollow" href="//$link">${urlOrImgUnsafe(link)}</a>"""
+            s"""<a href="//$link">${urlOrImgUnsafe(link)}</a>"""
           } else {
             // external
             val link = m.group(1)
@@ -103,7 +101,7 @@ object String {
           if (s"${m.group(2)}/" startsWith s"$netDomain/") {
             // internal
             val link = m.group(1)
-            s"""<a rel="nofollow" href="//$link">${urlOrImgUnsafe(link)}</a>"""
+            s"""<a href="//$link">${urlOrImgUnsafe(link)}</a>"""
           } else {
             // external
             val link = m.group(1)
