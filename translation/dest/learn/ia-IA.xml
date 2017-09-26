@@ -55,4 +55,5 @@ pro conducer lo al stella!</string>
   <string name="yourScore">Tu punctos</string>
   <string name="next">Sequente</string>
   <string name="backToMenu">Retro al menu</string>
+  <string name="puzzleFailed">Enigma fallite!</string>
 </resources>
