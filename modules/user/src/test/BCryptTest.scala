@@ -15,17 +15,18 @@ class BCryptTest extends Specification {
     "reject bad password" >> !BCrypt.checkpw("", b64Hash)
 
     val salt = BCrypt.gensaltRaw
-    "with raw bytes" in {
+    "have uniq salts" >> { salt !== BCrypt.gensaltRaw }
+
+    "raw bytes" in {
       val rawHash = BCrypt.hashpwRaw(pass.getBytes("UTF-8"), 'a', 6, salt)
 
       salt.size must_== 16
       rawHash.size must_== 23
+
       import BCrypt.{ encode_base64 => bc64 }
       val bString = "$2a$06$" + bc64(salt) + bc64(rawHash)
-
       "accept good" >> BCrypt.checkpw(pass, bString)
       "reject bad" >> !BCrypt.checkpw("", bString)
-      "uniq salts" >> { salt !== BCrypt.gensaltRaw }
     }
   }
 }
