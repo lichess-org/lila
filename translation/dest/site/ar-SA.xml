@@ -329,12 +329,12 @@
   <string name="backToTournament">عودة للمسابقة</string>
   <string name="thematic">موضوعي</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="zero">%s لعبة مُقيمة</item>
+    <item quantity="zero">≥ %s مباراة مقيمة</item>
     <item quantity="one">≥ %s مباراة مقيمة</item>
-    <item quantity="two">≥ %s لعبة مقيمة</item>
-    <item quantity="few">≥ %s ألعاب مقيمة</item>
-    <item quantity="many">≥ %s ألعاب مقيمة</item>
-    <item quantity="other">≥ %s مبارايات مقيمة</item>
+    <item quantity="two">≥ %s مباراة مقيمة</item>
+    <item quantity="few">≥ %s مباراة مقيمة</item>
+    <item quantity="many">≥ %s مباراة مقيمة</item>
+    <item quantity="other">≥ %s مباراة مقيمة</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
     <item quantity="zero">≥ %1$s مباراة %2$s مقيمة</item>
