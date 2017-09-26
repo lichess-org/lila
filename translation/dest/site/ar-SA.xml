@@ -345,20 +345,20 @@
     <item quantity="other">≥ %1$s مباراة %2$s مقيمة</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="zero">يجب أن تلعب %1$s أكثر %2$s مباراة مقيمة</item>
-    <item quantity="one">يجب أن تلعب %1$s أكثر %2$s مباراة مقيمة</item>
-    <item quantity="two">يجب أن تلعب %1$s أكثر %2$s مباراة مقيمة</item>
-    <item quantity="few">يجب أن تلعب %1$s أكثر %2$s مباراة مقيمة</item>
-    <item quantity="many">يجب أن تلعب %1$s أكثر %2$s مباراة مقيمة</item>
-    <item quantity="other">يجب أن تلعب %1$s أكثر %2$s مباريات مقيمة</item>
+    <item quantity="zero">يجب أن تلعب %1$s مباراة %2$s مقيمة إضافية</item>
+    <item quantity="one">يجب أن تلعب %1$s مباراة %2$s مقيمة إضافية</item>
+    <item quantity="two">يجب أن تلعب %1$s مباراة %2$s مقيمة إضافية</item>
+    <item quantity="few">يجب أن تلعب %1$s مباراة %2$s مقيمة إضافية</item>
+    <item quantity="many">يجب أن تلعب %1$s مباراة %2$s مقيمة إضافية</item>
+    <item quantity="other">يجب أن تلعب %1$s مباراة %2$s مقيمة إضافية</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="zero">يجب أن تلعب %s مباراة مقيمة أخرى</item>
-    <item quantity="one">يجب أن تلعب %s أكثر مباراة مقيمة</item>
-    <item quantity="two">يجب أن تلعب %s مباراة مقيمة أخرى</item>
-    <item quantity="few">يجب أن تلعب %s مباراة مقيمة أخرى</item>
-    <item quantity="many">يجب أن تلعب %s مباراة مقيمة أخرى</item>
-    <item quantity="other">يجب أن تلعب %s أكثر مباريات مقيمة</item>
+    <item quantity="zero">يجب أن تلعب %s مباراة مقيمة إضافية</item>
+    <item quantity="one">يجب أن تلعب %s مباراة مقيمة إضافية</item>
+    <item quantity="two">يجب أن تلعب %s مباراة مقيمة إضافية</item>
+    <item quantity="few">يجب أن تلعب %s مباراة مقيمة إضافية</item>
+    <item quantity="many">يجب أن تلعب %s مباراة مقيمة إضافية</item>
+    <item quantity="other">يجب أن تلعب %s مباراة مقيمة إضافية</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">تقييمك %s مؤقت</string>
   <string name="yourPerfRatingIsTooHigh">تقييمك في %1$s وقدره %2$s عالي جدًا</string>
@@ -511,7 +511,7 @@
   <string name="biography">نبذة عنك</string>
   <string name="country">البلد</string>
   <string name="preferences">تفضيلات</string>
-  <string name="inlineNotation">تنسيق التدوين</string>
+  <string name="inlineNotation">أسطر التدوين </string>
   <string name="watchLichessTV">شاهد ليتشيس تي في</string>
   <string name="previouslyOnLichessTV">سابقاً على تلفاز ليتشيس</string>
   <string name="onlinePlayers">لاعبين متصلين</string>
