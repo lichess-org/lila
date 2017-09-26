@@ -362,8 +362,8 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">تقييمك %s مؤقت</string>
   <string name="yourPerfRatingIsTooHigh">تقييمك في %1$s وقدره %2$s عالي جدًا</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">تقييمك %1$s (%2$s) مرتفع جداً</string>
-  <string name="yourPerfRatingIsTooLow">تقييمك %1$s (%2$s) منخفض جداً</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">تقييمك الأسبوعي في %1$s وقدره %2$s عالي جدًا</string>
+  <string name="yourPerfRatingIsTooLow">تقييمك في %1$s وقدره %2$s منخفض جدًا</string>
   <string name="ratedMoreThanInPerf">مصنفة ≥ %1$s خلال %2$s</string>
   <string name="ratedLessThanInPerf">مصنفة ≥ %1$s خلال %2$s</string>
   <string name="backToGame">العودة للمباراة</string>
