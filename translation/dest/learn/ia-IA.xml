@@ -11,6 +11,15 @@
   <string name="chessPieces">Le pecias de chacos</string>
   <string name="theRook">Le turre</string>
   <string name="itMovesInStraightLines">Illo move se in lineas recte</string>
+  <string name="rookIntro">Le turre es un pecia potente. Es tu preste a commandar lo?</string>
+  <string name="rookGoal">Clicca sur le turre
+pro conducer lo al stella!</string>
+  <string name="grabAllTheStars">Prende tote le stellas!</string>
+  <string name="theBishop">Le alfil</string>
+  <string name="itMovesDiagonally">Illo move se in diagonales</string>
+  <string name="theQueen">Le dama</string>
+  <string name="queenCombinesRookAndBishop">Dama = turre + alfil</string>
+  <string name="queenIntro">Le plus potente pecia de chacos entra. Su majestate le regina!</string>
   <string name="theKing">Le rege</string>
   <string name="thePawn">Le pedon</string>
   <string name="combat">Combatto</string>
