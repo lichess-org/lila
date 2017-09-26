@@ -253,6 +253,24 @@
   <string name="viewTournament">Vider torneo</string>
   <string name="backToTournament">Retro al torneo</string>
   <string name="thematic">Thematic</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="other">≥ %s partitas classificatori</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="other">≥ %1$s partitas classificatori de %2$s</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="other">Tu debe jocar plus %1$s partitas classificatori del variante %2$s</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="other">Tu debe jocar plus %s partitas classificatori</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Tu classification de %s es provisori</string>
+  <string name="yourPerfRatingIsTooHigh">Tu classification (%2$s) de %1$s es troppo elevate</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Tu melior classification septimanal (%2$s) de %1$s es troppo elevate</string>
+  <string name="yourPerfRatingIsTooLow">Tu classification (%2$s) de %1$s es troppo basse</string>
+  <string name="ratedMoreThanInPerf">Classification ≥ %1$s in %2$s</string>
+  <string name="ratedLessThanInPerf">Classification ≤ %1$s in %2$s</string>
   <string name="backToGame">Retro al partite</string>
   <string name="siteDescription">Servitor de chacos gratis in linea. Joca al chacos ora in un interfacie simple. Nulle registration, nulle annuncios, nulle plugin requirite. Joca al chacos con le computator, con amicos o con adversarios aleatori.</string>
   <string name="teams">Equipas</string>
