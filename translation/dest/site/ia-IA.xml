@@ -629,8 +629,8 @@ in %3$s</string>
   <string name="keyShowOrHideComments">monstrar/celar commentos</string>
   <string name="keyEnterOrExitVariation">entrar/sortir variation</string>
   <string name="newTournament">Nove torneo</string>
-  <string name="tournamentHomeTitle">Torneo de chacos con plure controlos de tempore e variantes in evidentia</string>
-  <string name="tournamentHomeDescription">Joca al chacos in rhythmo veloce! Participa in torneos official, o crdea tu proprie. Bullet, Blitz, Classic, Chess960, King of the Hill, Tres Chacos, e plus optiones disponibile pro illimitate divertimento con chacos.</string>
+  <string name="tournamentHomeTitle">Torneo de chacos con plure variantes e controlos de tempore</string>
+  <string name="tournamentHomeDescription">Joca chacos in rhythmo veloce! Participa in torneos official, o crea tu proprie. Bullet, Blitz, Classic, Chacos960, Rege in le Collina, Tres Chacos, e ancora plus optiones disponibile pro illimitate divertimento con chacos.</string>
   <string name="tournamentNotFound">Torneo non trovate</string>
   <string name="tournamentDoesNotExist">Iste torneo non existe.</string>
   <string name="tournamentMayHaveBeenCanceled">Le evento forsan esseva cancellate, si tote le jocatores abandonava lo ante le initio.</string>
