@@ -121,8 +121,9 @@ final class Env(
           case (whiteUser, blackUser) => boosting.check(game, whiteUser, blackUser) >>
             assessApi.onGameReady(game, whiteUser, blackUser)
         }
+      case lila.game.actorApi.FinishGame(game, _, _) if game.status == chess.Status.Cheat =>
+        game.loserUserId foreach { logApi.cheatDetected(_, game.id) }
       case lila.hub.actorApi.mod.ChatTimeout(mod, user, reason) => logApi.chatTimeout(mod, user, reason)
-      case lila.hub.actorApi.mod.CheatDetected(userId, gameId) => logApi.cheatDetected(userId, gameId)
     }
   }), name = ActorName), 'finishGame, 'analysisReady)
 }

@@ -59,7 +59,6 @@ package mod {
   case class MarkBooster(userId: String)
   case class ChatTimeout(mod: String, user: String, reason: String)
   case class KickFromRankings(userId: String)
-  case class CheatDetected(userId: String, gameId: String)
 }
 
 package captcha {

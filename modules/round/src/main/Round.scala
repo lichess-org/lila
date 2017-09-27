@@ -26,8 +26,7 @@ private[round] final class Round(
     forecastApi: ForecastApi,
     socketHub: ActorRef,
     moretimeDuration: FiniteDuration,
-    activeTtl: Duration,
-    modLog: akka.actor.ActorSelection
+    activeTtl: Duration
 ) extends SequentialActor {
 
   context setReceiveTimeout activeTtl
@@ -140,9 +139,6 @@ private[round] final class Round(
     case DrawForce => handle(drawer force _)
     case Cheat(color) => handle { game =>
       (game.playable && !game.imported) ?? {
-        game.player(color).userId.foreach { player =>
-          modLog ! lila.hub.actorApi.mod.CheatDetected(player, gameId)
-        }
         finisher.other(game, _.Cheat, Some(!color))
       }
     }
