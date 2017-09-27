@@ -61,17 +61,3 @@ final class PasswordHasher(
     BCrypt.bytesEqualSecure(hash, bHash(salt, pass))
   }
 }
-
-final class AsyncPasswordHasher(
-    hasher: PasswordHasher,
-    sequencer: lila.hub.SyncMultiSequencer
-) {
-
-  def hash(pass: String): Fu[Array[Byte]] = sequencer {
-    hasher.hash(pass)
-  }
-
-  def check(bytes: Array[Byte], pass: String): Fu[Boolean] = sequencer {
-    hasher.check(bytes, pass)
-  }
-}
