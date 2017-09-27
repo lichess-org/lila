@@ -122,6 +122,7 @@ final class Env(
             assessApi.onGameReady(game, whiteUser, blackUser)
         }
       case lila.hub.actorApi.mod.ChatTimeout(mod, user, reason) => logApi.chatTimeout(mod, user, reason)
+      case lila.hub.actorApi.mod.CheatDetected(userId, gameId) => logApi.cheatDetected(userId, gameId)
     }
   }), name = ActorName), 'finishGame, 'analysisReady)
 }
