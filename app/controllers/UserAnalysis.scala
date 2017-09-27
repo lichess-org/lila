@@ -11,6 +11,7 @@ import scala.concurrent.duration._
 
 import lila.api.Context
 import lila.app._
+import lila.common.PimpedJson._
 import lila.game.{ GameRepo, Pov, PgnDump }
 import lila.i18n.I18nKeys
 import lila.round.Forecast.{ forecastStepJsonFormat, forecastJsonWriter }
@@ -99,19 +100,17 @@ object UserAnalysis extends LilaController with TheftPrevention {
     GameRepo initialFen pov.game.id flatMap { initialFen =>
       Game.preloadUsers(pov.game) zip
         (Env.analyse.analyser get pov.game.id) zip
-        // Env.fishnet.api.prioritaryAnalysisInProgress(pov.game.id) zip
-        // (pov.game.simulId ?? Env.simul.repo.find) zip
-        // Round.getWatcherChat(pov.game) zip
-        // Env.game.crosstableApi.withMatchup(pov.game) zip
+        Env.game.crosstableApi.withMatchup(pov.game) zip
         Env.bookmark.api.exists(pov.game, ctx.me) flatMap {
           // case _ ~ analysis ~ analysisInProgress ~ simul ~ chat ~ crosstable ~ bookmarked ~ pgn =>
-          case _ ~ analysis ~ bookmarked =>
+          case _ ~ analysis ~ crosstable ~ bookmarked =>
+            import lila.game.JsonView.crosstableWithMatchupWrites
             Env.api.roundApi.review(pov, apiVersion,
               tv = none,
               analysis,
               initialFenO = initialFen.some,
-              withFlags = WithFlags(division = true, opening = true, clocks = true)) map { data =>
-                Ok(data)
+              withFlags = WithFlags(division = true, opening = true, clocks = true, movetimes = true)) map { data =>
+                Ok(data.add("crosstable", crosstable))
               }
         }
     }

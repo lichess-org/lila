@@ -40,15 +40,27 @@ object JsonView {
 
   implicit val crosstableResultWrites = Json.writes[Crosstable.Result]
 
+  implicit val crosstableUsersWrites = OWrites[Crosstable.Users] { users =>
+    JsObject(users.toList.map { u =>
+      u.id -> JsNumber(u.score / 10d)
+    })
+  }
+
   implicit val crosstableWrites = OWrites[Crosstable] { c =>
     Json.obj(
-      "users" -> JsObject(c.users.toList.map { u =>
-        u.id -> JsNumber(u.score / 10d)
-      }),
+      "users" -> c.users,
       "results" -> c.results,
-      "nbGames" -> c.users.nbGames
+      "nbGames" -> c.nbGames
     )
   }
+
+  implicit val matchupWrites = OWrites[Crosstable.Matchup] { m =>
+    Json.obj(
+      "users" -> m.users,
+      "nbGames" -> m.users.nbGames
+    )
+  }
+  implicit val crosstableWithMatchupWrites = Json.writes[Crosstable.WithMatchup]
 
   implicit val crazyhousePocketWriter: OWrites[Crazyhouse.Pocket] = OWrites { v =>
     JsObject(
