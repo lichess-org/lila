@@ -16,11 +16,11 @@ import com.roundeights.hasher.Implicits._
 private[user] final class Aes(secret: String) {
   private val sKey = {
     val sk = Base64.getDecoder.decode(secret)
-    if (sk.length != 16) {
-      if (!(sk.length == 24 || sk.length == 32))
-        throw new IllegalArgumentException("Invalid key length")
-      if (sk.length > Cipher.getMaxAllowedKeyLength("AES/CTS/NoPadding"))
-        throw new IllegalStateException(s"${sk.length * 8}b AES unavailable")
+    val kBits = sk.length * 8
+    if (kBits != 128) {
+      if (!(kBits == 192 || kBits == 256)) throw new IllegalArgumentException
+      if (kBits > Cipher.getMaxAllowedKeyLength("AES/CTS/NoPadding"))
+        throw new IllegalStateException(s"$kBits bit AES unavailable")
     }
     new SecretKeySpec(sk, "AES")
   }
