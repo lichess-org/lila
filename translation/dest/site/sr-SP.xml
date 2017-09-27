@@ -147,7 +147,7 @@
   <string name="variants">Варијанте</string>
   <string name="timeControl">Временско ограничење</string>
   <string name="realTime">Игра на време</string>
-  <string name="correspondence">Кореспонденције</string>
+  <string name="correspondence">Дописни шах</string>
   <string name="daysPerTurn">Дана по потезу</string>
   <string name="oneDay">Један дан</string>
   <plurals name="nbDays">
