@@ -26,7 +26,8 @@ final class Gamify(
       "month" -> -1
     )).cursor[HistoryMonth]().gather[List]().flatMap { months =>
       months.headOption match {
-        case Some(m) if m._id == lastId || !orCompute => fuccess(months)
+        case Some(m) if m._id == lastId => fuccess(months)
+        case _ if !orCompute => fuccess(months)
         case Some(m) => buildHistoryAfter(m.year, m.month, until) >> history(false)
         case _ => buildHistoryAfter(2012, 6, until) >> history(false)
       }
