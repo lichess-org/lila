@@ -233,6 +233,10 @@ object mon {
       def mustConfirmEmail(v: Boolean) = inc(s"user.register.must_confirm_email.$v")
       def confirmEmailResult(v: Boolean) = inc(s"user.register.confirm_email.$v")
     }
+    object auth {
+      def passwordResetRequest(s: String) = inc(s"user.auth.password_reset_request.$s")
+      def passwordResetConfirm(s: String) = inc(s"user.auth.password_reset_confirm.$s")
+    }
   }
   object socket {
     val member = rec("socket.count")
