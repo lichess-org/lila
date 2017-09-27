@@ -3,6 +3,7 @@ package lila.user
 import scala.concurrent.duration._
 
 import lila.common.{ LightUser, EmailAddress }
+import reactivemongo.bson.Macros
 
 import lila.rating.PerfType
 import org.joda.time.DateTime
@@ -261,8 +262,7 @@ object User {
 final class Authenticator(passHasher: PasswordHasher, onShaLogin: => Unit) {
   import com.roundeights.hasher.Implicits._
 
-  private def salted(p: String, salt: String) = s"$p{$salt}"
-  def passEnc(id: String, pass: String) = passHasher.hash(salted(id, pass))
+  def passEnc(pass: String) = passHasher.hash(pass)
 
   case class AuthData(
       _id: String,
@@ -272,21 +272,20 @@ final class Authenticator(passHasher: PasswordHasher, onShaLogin: => Unit) {
       sha512: Option[Boolean] = None
   ) {
     def compare(p: String) = {
-      val newP = (password, sha512) match {
-        case (None, None) => p
-        case _ => {
-          val pSalt = salt.fold(p) { salted(p, _) }
-          (~sha512).fold(pSalt.sha512, pSalt.sha1).hex
-        }
+      val newP = salt.fold(p) { s =>
+        val salted = s"$p{$s}" // BC
+        (~sha512).fold(salted.sha512, salted.sha1).hex
       }
 
       bpass match {
         // Deprecated fallback. Log & fail after DB migration.
         case None => password ?? { onShaLogin; _ == newP }
-        case Some(bHash) => passHasher.check(bHash, salted(_id, newP))
+        case Some(bHash) => passHasher.check(bHash, newP)
       }
     }
 
     def hashToken = bpass.fold(~password) { _.sha512.hex }
   }
+
+  implicit val AuthDataBSONHandler = Macros.handler[AuthData]
 }

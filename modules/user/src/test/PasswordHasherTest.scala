@@ -6,25 +6,28 @@ import org.mindrot.BCrypt
 class PasswordHasherTest extends Specification {
 
   "bad secrets throw exceptions" in {
-    new DumbAes("") must throwA[IllegalStateException]
-    new PasswordHasher("", 12) must throwA[IllegalStateException]
+    new Aes("") must throwA[IllegalArgumentException]
+    new PasswordHasher("", 12) must throwA[IllegalArgumentException]
     new PasswordHasher("t=", 12) must throwA[IllegalArgumentException]
   }
 
-  val secret = Array.fill(32)(1.toByte).toBase64
+  val secret = Array.fill(16)(1.toByte).toBase64
 
   "aes" should {
-    val aes = new DumbAes(secret)
     def emptyArr(i: Int) = new Array[Byte](i)
+
+    val aes = new Aes(secret)
+    val iv = emptyArr(16)
+
     "preserve size" in {
-      aes.encrypt(emptyArr(20)).size must_== 20
-      aes.encrypt(emptyArr(39)).size must_== 39
+      aes.encrypt(iv, emptyArr(20)).size must_== 20
+      aes.encrypt(iv, emptyArr(39)).size must_== 39
     }
 
-    val enc20 = aes.encrypt(emptyArr(20))
+    val enc20 = aes.encrypt(iv, emptyArr(20))
     "encrypt input" >> { enc20 !== emptyArr(20) }
-    "and decrypt" >> { aes.decrypt(aes.encrypt(emptyArr(20))).sum == 0 }
-    "constant encryption" >> { enc20 === aes.encrypt(emptyArr(20)) }
+    "and decrypt" >> { aes.decrypt(iv, aes.encrypt(iv, emptyArr(20))).sum == 0 }
+    "constant encryption" >> { enc20 === aes.encrypt(iv, emptyArr(20)) }
   }
 
   "hasher" should {

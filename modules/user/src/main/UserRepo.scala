@@ -230,27 +230,18 @@ object UserRepo {
   def authenticateByEmail(email: EmailAddress, password: String): Fu[Option[User]] =
     loginCandidateByEmail(email) map { _ flatMap { _(password) } }
 
-  private val authWrapper = new Authenticator(
-    Env.current.passwordHasher, lila.mon.user.auth.shaLogin()
-  )
-
-  import authWrapper.{ passEnc, AuthData }
+  import Env.current.passAuth._
 
   // This creates a bcrypt hash using the existing sha as input,
   // allowing us to migrate all users in bulk.
   def upgradePassword(a: AuthData) = (a.bpass, a.password) match {
     case (None, Some(pass)) => Some(coll.update(
       $id(a._id),
-      $set(
-        F.sha512 -> ~a.sha512,
-        F.bpass -> passEnc(id = a._id, pass = pass)
-      ) ++ $unset(F.password)
+      $set(F.bpass -> passEnc(pass)) ++ $unset(F.password)
     ).void >>- lila.mon.user.auth.shaBcUpgrade())
 
     case _ => None
   }
-
-  private implicit val AuthDataBSONHandler = Macros.handler[AuthData]
 
   def loginCandidateById(id: ID): Fu[Option[User.LoginCandidate]] =
     loginCandidate($id(id))
@@ -357,7 +348,7 @@ object UserRepo {
   )
 
   def passwd(id: ID, pass: String): Funit =
-    coll.update($id(id), $set(F.bpass -> passEnc(id, pass = pass))
+    coll.update($id(id), $set(F.bpass -> passEnc(pass))
       ++ $unset(F.salt, F.password, F.sha512)).void
 
   def email(id: ID, email: EmailAddress): Funit =
@@ -464,14 +455,12 @@ object UserRepo {
     implicit def perfsHandler = Perfs.perfsBSONHandler
     import lila.db.BSON.BSONJodaDateTimeHandler
 
-    val id = normalize(username)
-
     $doc(
-      F.id -> id,
+      F.id -> normalize(username),
       F.username -> username,
       F.email -> email,
       F.mustConfirmEmail -> mustConfirmEmail.option(DateTime.now),
-      F.bpass -> passEnc(id, pass = password),
+      F.bpass -> passEnc(password),
       F.perfs -> $empty,
       F.count -> Count.default,
       F.enabled -> true,
