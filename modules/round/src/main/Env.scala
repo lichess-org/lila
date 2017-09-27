@@ -76,7 +76,8 @@ final class Env(
       forecastApi = forecastApi,
       socketHub = socketHub,
       moretimeDuration = Moretime,
-      activeTtl = ActiveTtl
+      activeTtl = ActiveTtl,
+      modLog = lila.hub.Env.current.actor.mod
     )
     def receive: Receive = ({
       case actorApi.GetNbRounds =>

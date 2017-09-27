@@ -48,6 +48,7 @@ case class Modlog(
     case Modlog.unreportban => "un-reportban"
     case Modlog.modMessage => "send message"
     case Modlog.coachReview => "disapprove coach review"
+    case Modlog.cheatDetected => "game lost by cheat detection"
     case a => a
   }
 
@@ -99,4 +100,5 @@ object Modlog {
   val unreportban = "unreportban"
   val modMessage = "modMessage"
   val coachReview = "coachReview"
+  val cheatDetected = "cheatDetected"
 }
