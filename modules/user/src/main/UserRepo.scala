@@ -225,21 +225,24 @@ object UserRepo {
   def removeAllToints = coll.update($empty, $unset("toints"), multi = true)
 
   def authenticateById(id: ID, password: String): Fu[Option[User]] =
-    loginCandidateById(id) map { _ flatMap { _(password) } }
+    loginCandidateById(id) flatMap { _ ?? { _(password) } }
 
   def authenticateByEmail(email: EmailAddress, password: String): Fu[Option[User]] =
-    loginCandidateByEmail(email) map { _ flatMap { _(password) } }
+    loginCandidateByEmail(email) flatMap { _ ?? { _(password) } }
 
   import Env.current.passwordAuth._
 
   // This creates a bcrypt hash using the existing sha as input,
   // allowing us to migrate all users in bulk.
   def upgradePassword(a: AuthData) = (a.bpass, a.password) match {
-    case (None, Some(pass)) => Some(coll.update(
-      $id(a._id),
-      $set(F.bpass -> passEnc(pass)) ++ $unset(F.password)
-    ).void >>- lila.mon.user.auth.shaBcUpgrade())
-
+    case (None, Some(pass)) => Some {
+      passEnc(pass) flatMap { hash =>
+        coll.update(
+          $id(a._id),
+          $set(F.bpass -> hash) ++ $unset(F.password)
+        ).void >>- lila.mon.user.auth.shaBcUpgrade()
+      }
+    }
     case _ => None
   }
 
@@ -250,19 +253,19 @@ object UserRepo {
     loginCandidate($doc(F.email -> email))
 
   def loginCandidate(u: User): Fu[User.LoginCandidate] =
-    loginCandidateById(u.id) map { _ | User.LoginCandidate(u, _ => false) }
+    loginCandidateById(u.id) map { _ | User.LoginCandidate(u, _ => fuccess(false)) }
 
-  def authWithBenefits(auth: AuthData)(p: String) = {
-    val res = auth compare p
-    if (res && auth.salt.isDefined && Env.current.upgradeShaPasswords)
-      passwd(id = auth._id, pass = p) >>- lila.mon.user.auth.bcFullMigrate()
-    res
-  }
+  def authWithBenefits(auth: AuthData)(p: String): Fu[Boolean] =
+    auth compare p map { res =>
+      if (res && auth.salt.isDefined && Env.current.upgradeShaPasswords)
+        passwd(id = auth._id, pass = p) >>- lila.mon.user.auth.bcFullMigrate()
+      res
+    }
 
   private def loginCandidate(select: Bdoc): Fu[Option[User.LoginCandidate]] =
     coll.uno[AuthData](select) zip coll.uno[User](select) map {
       case (Some(authData), Some(user)) if user.enabled =>
-        User.LoginCandidate(user, authWithBenefits(authData)).some
+        User.LoginCandidate(user, authWithBenefits(authData) _).some
       case _ => none
     }
 
@@ -280,9 +283,11 @@ object UserRepo {
   ): Fu[Option[User]] =
     !nameExists(username) flatMap {
       _ ?? {
-        val doc = newUser(username, password, email, blind, mobileApiVersion, mustConfirmEmail) ++
-          ("len" -> BSONInteger(username.size))
-        coll.insert(doc) >> named(normalize(username))
+        passEnc(password) flatMap { hash =>
+          val doc = newUser(username, hash, email, blind, mobileApiVersion, mustConfirmEmail) ++
+            ("len" -> BSONInteger(username.size))
+          coll.insert(doc) >> named(normalize(username))
+        }
       }
     }
 
@@ -347,9 +352,12 @@ object UserRepo {
     }
   )
 
-  def passwd(id: ID, pass: String): Funit =
-    coll.update($id(id), $set(F.bpass -> passEnc(pass))
-      ++ $unset(F.salt, F.password, F.sha512)).void
+  def passwd(id: ID, pass: String): Funit = passEnc(pass) flatMap { hash =>
+    coll.update(
+      $id(id),
+      $set(F.bpass -> hash) ++ $unset(F.salt, F.password, F.sha512)
+    ).void
+  }
 
   def email(id: ID, email: EmailAddress): Funit =
     coll.update($id(id), $set(F.email -> email) ++ $unset(F.prevEmail)).void
@@ -444,7 +452,7 @@ object UserRepo {
 
   private def newUser(
     username: String,
-    password: String,
+    passwordHash: Array[Byte],
     email: EmailAddress,
     blind: Boolean,
     mobileApiVersion: Option[ApiVersion],
@@ -460,7 +468,7 @@ object UserRepo {
       F.username -> username,
       F.email -> email,
       F.mustConfirmEmail -> mustConfirmEmail.option(DateTime.now),
-      F.bpass -> passEnc(password),
+      F.bpass -> passwordHash,
       F.perfs -> $empty,
       F.count -> Count.default,
       F.enabled -> true,

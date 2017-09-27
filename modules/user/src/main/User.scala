@@ -111,13 +111,13 @@ object User {
 
   type ID = String
 
-  type CredentialCheck = String => Boolean
+  type CredentialCheck = String => Fu[Boolean]
   case class LoginCandidate(user: User, check: CredentialCheck) {
-    def apply(password: String): Option[User] = {
-      val res = check(password)
-      lila.mon.user.auth.result(res)()
-      res option user
-    }
+    def apply(password: String): Fu[Option[User]] =
+      check(password) map { res =>
+        lila.mon.user.auth.result(res)()
+        res option user
+      }
   }
 
   val anonymous = "Anonymous"
@@ -259,10 +259,10 @@ object User {
   }
 }
 
-final class Authenticator(passHasher: PasswordHasher, onShaLogin: => Unit) {
+final class Authenticator(passHasher: AsyncPasswordHasher, onShaLogin: => Unit) {
   import com.roundeights.hasher.Implicits._
 
-  def passEnc(pass: String) = passHasher.hash(pass)
+  def passEnc(pass: String): Fu[Array[Byte]] = passHasher.hash(pass)
 
   case class AuthData(
       _id: String,
@@ -271,7 +271,7 @@ final class Authenticator(passHasher: PasswordHasher, onShaLogin: => Unit) {
       salt: Option[String] = None,
       sha512: Option[Boolean] = None
   ) {
-    def compare(p: String) = {
+    def compare(p: String): Fu[Boolean] = {
       val newP = salt.fold(p) { s =>
         val salted = s"$p{$s}" // BC
         (~sha512).fold(salted.sha512, salted.sha1).hex
@@ -279,7 +279,7 @@ final class Authenticator(passHasher: PasswordHasher, onShaLogin: => Unit) {
 
       bpass match {
         // Deprecated fallback. Log & fail after DB migration.
-        case None => password ?? { onShaLogin; _ == newP }
+        case None => password ?? { p => onShaLogin; fuccess(p == newP) }
         case Some(bHash) => passHasher.check(bHash, newP)
       }
     }

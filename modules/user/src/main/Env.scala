@@ -3,8 +3,8 @@ package lila.user
 import akka.actor._
 import com.typesafe.config.Config
 
-import lila.common.PimpedConfig._
 import lila.common.EmailAddress
+import lila.common.PimpedConfig._
 
 final class Env(
     config: Config,
@@ -26,6 +26,7 @@ final class Env(
     val CollectionRanking = config getString "collection.ranking"
     val PasswordBPassSecret = config getString "password.bpass.secret"
     val PasswordUpgradeSha = config getBoolean "password.bpass.autoupgrade"
+    val PasswordParallelism = config getInt "password.bpass.parallelism"
   }
   import settings._
 
@@ -90,11 +91,18 @@ final class Env(
   )
 
   lazy val passwordAuth = new Authenticator(
-    new PasswordHasher(
-      secret = PasswordBPassSecret,
-      logRounds = 10,
-      lila.mon.measure(_.user.auth.hashTime)
-    ), lila.mon.user.auth.shaLogin()
+    new AsyncPasswordHasher(
+      new PasswordHasher(
+        secret = PasswordBPassSecret,
+        logRounds = 10,
+        hashTimer = lila.mon.measure(_.user.auth.hashTime)
+      ),
+      new lila.hub.SyncMultiSequencer(
+        system = system,
+        parallelismFactor = PasswordParallelism
+      )
+    ),
+    lila.mon.user.auth.shaLogin()
   )
 
   lazy val upgradeShaPasswords = PasswordUpgradeSha

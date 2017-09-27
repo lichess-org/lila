@@ -14,6 +14,7 @@ import com.roundeights.hasher.Implicits._
  * this application.
  */
 private[user] final class Aes(secret: String) {
+
   private val sKey = {
     val sk = Base64.getDecoder.decode(secret)
     val kBits = sk.length * 8
@@ -36,24 +37,41 @@ private[user] final class Aes(secret: String) {
   def decrypt(iv: Array[Byte], b: Array[Byte]) = run(DECRYPT_MODE, iv, b)
 }
 
-final class PasswordHasher(secret: String, logRounds: Int,
-    hashTimer: (=> Array[Byte]) => Array[Byte] = x => x) {
+final class PasswordHasher(
+    secret: String,
+    logRounds: Int,
+    hashTimer: (=> Array[Byte]) => Array[Byte] = x => x
+) {
   import org.mindrot.BCrypt
 
   private val aes = new Aes(secret)
   private def bHash(salt: Array[Byte], pass: String) =
     hashTimer(BCrypt.hashpwRaw(pass.sha512, 'a', logRounds, salt))
 
-  def hash(pass: String) = {
+  def hash(pass: String): Array[Byte] = {
     val salt = new Array[Byte](16)
     new SecureRandom().nextBytes(salt)
 
     salt ++ aes.encrypt(salt, bHash(salt, pass))
   }
 
-  def check(bytes: Array[Byte], pass: String) = bytes.size == 39 && {
+  def check(bytes: Array[Byte], pass: String): Boolean = bytes.size == 39 && {
     val (salt, encHash) = bytes.splitAt(16)
     val hash = aes.decrypt(salt, encHash)
     BCrypt.bytesEqualSecure(hash, bHash(salt, pass))
+  }
+}
+
+final class AsyncPasswordHasher(
+    hasher: PasswordHasher,
+    sequencer: lila.hub.SyncMultiSequencer
+) {
+
+  def hash(pass: String): Fu[Array[Byte]] = sequencer {
+    hasher.hash(pass)
+  }
+
+  def check(bytes: Array[Byte], pass: String): Fu[Boolean] = sequencer {
+    hasher.check(bytes, pass)
   }
 }

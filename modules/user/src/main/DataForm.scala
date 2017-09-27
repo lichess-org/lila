@@ -2,6 +2,7 @@ package lila.user
 
 import play.api.data._
 import play.api.data.Forms._
+import scala.concurrent.duration._
 
 object DataForm {
 
@@ -38,7 +39,11 @@ object DataForm {
 
   def passwd(u: User) = UserRepo loginCandidate u map { candidate =>
     Form(mapping(
-      "oldPasswd" -> nonEmptyText.verifying("incorrectPassword", candidate.check),
+      "oldPasswd" -> nonEmptyText.verifying("incorrectPassword", { pass =>
+        // ugly shit, but Play forms are synchronous.
+        // make sure the form is ratelimited by user upstream
+        candidate.check(pass) await 2.seconds
+      }),
       "newPasswd1" -> nonEmptyText(minLength = 2),
       "newPasswd2" -> nonEmptyText(minLength = 2)
     )(Passwd.apply)(Passwd.unapply).verifying("the new passwords don't match", _.samePasswords))
