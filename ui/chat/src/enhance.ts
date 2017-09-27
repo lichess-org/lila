@@ -13,8 +13,15 @@ function linkReplace(_: string, before: string, url: string) {
   return before + '<a target="_blank" rel="nofollow" href="' + fullUrl + '">' + minUrl + '</a>';
 }
 
+const userPattern = /(^|[^\w@#/])@([\w-]{2,})/g
+
+function userLinkReplace(orig: string, prefix: String, user: string) {
+  if (user.length > 20) return orig;
+  return prefix + '<a href="/@/' + user + '">@' + user + "</a>";
+}
+
 function autoLink(html: string) {
-  return html.replace(linkPattern, linkReplace);
+  return html.replace(linkPattern, linkReplace).replace(userPattern, userLinkReplace);
 }
 
 function escapeHtml(html: string) {

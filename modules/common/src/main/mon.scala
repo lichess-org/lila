@@ -239,6 +239,9 @@ object mon {
       val shaLogin = inc("user.auth.sha_login")
       val hashTime = rec("user.auth.hash_time")
       def result(v: Boolean) = inc(s"user.auth.result.$v")
+
+      def passwordResetRequest(s: String) = inc(s"user.auth.password_reset_request.$s")
+      def passwordResetConfirm(s: String) = inc(s"user.auth.password_reset_confirm.$s")
     }
   }
   object socket {

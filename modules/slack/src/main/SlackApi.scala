@@ -112,9 +112,10 @@ final class SlackApi(
   private def userLink(name: String) = s"<https://lichess.org/@/$name?mod|$name>"
   private def userNotesLink(name: String) = s"<https://lichess.org/@/$name?notes|notes>"
 
-  private val userRegex = """(^|\s)@(\w[-_\w]+)\b""".r.pattern
+  val userRegex = lila.common.String.atUsernameRegex.pattern
+
   private def linkifyUsers(msg: String) =
-    userRegex matcher msg replaceAll "$1<https://lichess.org/@/$2?mod|@$2>"
+    userRegex matcher msg replaceAll "<https://lichess.org/@/$1?mod|@$1>"
 
   def userMod(user: User, mod: User): Funit = client(SlackMessage(
     username = mod.username,
