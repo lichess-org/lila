@@ -89,7 +89,7 @@ final class Env(
     rankingApi = rankingApi
   )
 
-  lazy val passAuth = new Authenticator(
+  lazy val passwordAuth = new Authenticator(
     new PasswordHasher(
       secret = PasswordBPassSecret,
       logRounds = 10,

@@ -230,7 +230,7 @@ object UserRepo {
   def authenticateByEmail(email: EmailAddress, password: String): Fu[Option[User]] =
     loginCandidateByEmail(email) map { _ flatMap { _(password) } }
 
-  import Env.current.passAuth._
+  import Env.current.passwordAuth._
 
   // This creates a bcrypt hash using the existing sha as input,
   // allowing us to migrate all users in bulk.
