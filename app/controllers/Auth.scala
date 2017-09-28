@@ -10,6 +10,7 @@ import scala.concurrent.duration._
 import lila.api.Context
 import lila.app._
 import lila.common.{ LilaCookie, HTTPRequest, IpAddress }
+import lila.memo.RateLimit
 import lila.security.FingerPrint
 import lila.user.{ UserRepo, User => UserModel }
 import views._
@@ -77,13 +78,16 @@ object Auth extends LilaController {
           html = Unauthorized(html.auth.login(api.loginForm, referrer)).fuccess,
           api = _ => Unauthorized(errorsAsJson(err)).fuccess
         ),
-        username => HasherRateLimit(username) {
+        username => HasherRateLimit(username) { chargeIpLimiter =>
           api.loadLoginForm(username) flatMap { loginForm =>
             loginForm.bindFromRequest.fold(
-              err => negotiate(
-                html = Unauthorized(html.auth.login(err, referrer)).fuccess,
-                api = _ => Unauthorized(errorsAsJson(err)).fuccess
-              ), {
+              err => {
+                chargeIpLimiter(1)
+                negotiate(
+                  html = Unauthorized(html.auth.login(err, referrer)).fuccess,
+                  api = _ => Unauthorized(errorsAsJson(err)).fuccess
+                )
+              }, {
                 case None => InternalServerError("Authentication error").fuccess
                 case Some(u) => authenticateUser(u)
               }
@@ -160,7 +164,7 @@ object Auth extends LilaController {
               case false =>
                 authLog(data.username, "Signup recaptcha fail")
                 BadRequest(html.auth.signup(forms.signup.website fill data, env.RecaptchaPublicKey)).fuccess
-              case true =>
+              case true => HasherRateLimit(data.username) { _ =>
                 MustConfirmEmail(data.fingerPrint) flatMap { mustConfirm =>
                   authLog(data.username, s"fp: ${data.fingerPrint} mustConfirm: $mustConfirm req:${ctx.req}")
                   lila.mon.user.register.website()
@@ -180,6 +184,7 @@ object Auth extends LilaController {
                       case (user, email) => env.welcomeEmail(user, email) >> redirectNewUser(user)
                     }
                 }
+              }
             }
           ),
           api = apiVersion => forms.signup.mobile.bindFromRequest.fold(
@@ -187,7 +192,7 @@ object Auth extends LilaController {
               err("username").value foreach { authLog(_, s"Signup fail: ${err.errors mkString ", "}") }
               fuccess(BadRequest(jsonError(errorsAsJson(err))))
             },
-            data => HasherRateLimit(data.username) {
+            data => HasherRateLimit(data.username) { _ =>
               fuccess(MustConfirmEmail.YesBecauseMobile) flatMap { mustConfirm =>
                 lila.mon.user.register.mobile()
                 lila.mon.user.register.mustConfirmEmail(mustConfirm.value)()
@@ -312,17 +317,18 @@ object Auth extends LilaController {
         lila.mon.user.auth.passwordResetConfirm("token_post_fail")()
         notFound
       }
-      case Some(user) => HasherRateLimit(user.username) {
+      case Some(user) =>
         implicit val req = ctx.body
         FormFuResult(forms.passwdReset) { err =>
           fuccess(html.auth.passwordResetConfirm(user, token, err, false.some))
         } { data =>
-          Env.user.authenticator.setPassword(user.id, data.newPasswd1) >>
-            env.store.disconnect(user.id) >>
-            authenticateUser(user) >>-
-            lila.mon.user.auth.passwordResetConfirm("success")()
+          HasherRateLimit(user.username) { _ =>
+            Env.user.authenticator.setPassword(user.id, data.newPasswd1) >>
+              env.store.disconnect(user.id) >>
+              authenticateUser(user) >>-
+              lila.mon.user.auth.passwordResetConfirm("success")()
+          }
         }
-      }
     }
   }
 
@@ -347,42 +353,42 @@ object Auth extends LilaController {
 
   private implicit val limitedDefault = Zero.instance[Result](TooManyRequest)
 
-  private val HasherRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
-    credits = 30,
+  private val HasherRateLimitPerIP = new RateLimit[IpAddress](
+    credits = 20 * 2, // double cost in case of hash check failure
     duration = 10 minutes,
     name = "Password hashes per IP",
     key = "password.hashes.ip"
   )
 
-  private val HasherRateLimitPerUA = new lila.memo.RateLimit[String](
+  private val HasherRateLimitPerUA = new RateLimit[String](
     credits = 30,
     duration = 20 seconds,
     name = "Password hashes per UA",
     key = "password.hashes.ua"
   )
 
-  private val HasherRateLimitPerUser = new lila.memo.RateLimit[String](
+  private val HasherRateLimitPerUser = new RateLimit[String](
     credits = 6,
     duration = 1.minute,
     name = "Password hashes per user",
     key = "password.hashes.user"
   )
 
-  private val HasherRateLimitGlobal = new lila.memo.RateLimit[String](
+  private val HasherRateLimitGlobal = new RateLimit[String](
     credits = 4 * 10 * 60, // max out 4 cores for 60 seconds
     duration = 1 minute,
     name = "Password hashes global",
     key = "password.hashes.global"
   )
 
-  private[controllers] def HasherRateLimit(username: String)(run: => Fu[Result])(implicit ctx: Context) = {
+  private[controllers] def HasherRateLimit(username: String)(run: RateLimit.Charge => Fu[Result])(implicit ctx: Context) = {
     val cost = 1
     val ip = HTTPRequest lastRemoteAddress ctx.req
     HasherRateLimitPerUser(username, cost = cost) {
-      HasherRateLimitPerIP(ip, cost = cost) {
+      HasherRateLimitPerIP.chargeable(ip, cost = cost) { charge =>
         HasherRateLimitPerUA(~HTTPRequest.userAgent(ctx.req), cost = cost, msg = ip.value) {
           HasherRateLimitGlobal("-", cost = cost, msg = ip.value) {
-            run
+            run(charge)
           }
         }
       }
