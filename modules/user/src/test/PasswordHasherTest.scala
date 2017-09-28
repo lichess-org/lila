@@ -2,6 +2,7 @@ package lila.user
 
 import org.specs2.mutable.Specification
 import org.mindrot.BCrypt
+import User.{ClearPassword => P}
 
 class PasswordHasherTest extends Specification {
 
@@ -32,9 +33,9 @@ class PasswordHasherTest extends Specification {
 
   "hasher" should {
     val passHasher = new PasswordHasher(secret, 2)
-    val liHash = passHasher.hash("abc")
-    "accept good" >> passHasher.check(liHash, "abc")
-    "reject bad" >> !passHasher.check(liHash, "abc ")
-    "uniq hash" >> { liHash !== passHasher.hash("abc") }
+    val liHash = passHasher.hash(P("abc"))
+    "accept good" >> passHasher.check(liHash, P("abc"))
+    "reject bad" >> !passHasher.check(liHash, P("abc "))
+    "uniq hash" >> { liHash !== passHasher.hash(P("abc")) }
   }
 }

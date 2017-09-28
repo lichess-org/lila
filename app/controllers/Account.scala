@@ -8,6 +8,7 @@ import lila.app._
 import lila.common.PimpedJson._
 import lila.common.{ LilaCookie, EmailAddress }
 import lila.user.{ User => UserModel, UserRepo }
+import UserModel.ClearPassword
 import views.html
 
 object Account extends LilaController {
@@ -90,7 +91,7 @@ object Account extends LilaController {
         fuccess(html.account.passwd(err))
       } { data =>
         HasherRateLimit(me.username) { _ =>
-          Env.user.authenticator.setPassword(me.id, data.newPasswd1) inject
+          Env.user.authenticator.setPassword(me.id, ClearPassword(data.newPasswd1)) inject
             Redirect(s"${routes.Account.passwd}?ok=1")
         }
       }
@@ -140,7 +141,7 @@ object Account extends LilaController {
     FormFuResult(Env.security.forms.closeAccount) { err =>
       fuccess(html.account.close(me, err))
     } { password =>
-      Env.user.authenticator.authenticateById(me.id, password).map(_.isDefined) flatMap {
+      Env.user.authenticator.authenticateById(me.id, ClearPassword(password)).map(_.isDefined) flatMap {
         case false => BadRequest(html.account.close(me, Env.security.forms.closeAccount)).fuccess
         case true => doClose(me) inject {
           Redirect(routes.User show me.username) withCookies LilaCookie.newSession

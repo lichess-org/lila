@@ -13,6 +13,7 @@ import lila.common.{ LilaCookie, HTTPRequest, IpAddress }
 import lila.memo.RateLimit
 import lila.security.FingerPrint
 import lila.user.{ UserRepo, User => UserModel }
+import UserModel.ClearPassword
 import views._
 
 object Auth extends LilaController {
@@ -171,7 +172,7 @@ object Auth extends LilaController {
                   lila.mon.user.register.mustConfirmEmail(mustConfirm.value)()
                   authLog(data.username, s"Signup website must confirm email: $mustConfirm")
                   val email = env.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
-                  val passwordHash = Env.user.authenticator passEnc data.password
+                  val passwordHash = Env.user.authenticator passEnc ClearPassword(data.password)
                   UserRepo.create(data.username, passwordHash, email, ctx.blindMode, none,
                     mustConfirmEmail = mustConfirm.value)
                     .flatten(s"No user could be created for ${data.username}")
@@ -198,7 +199,7 @@ object Auth extends LilaController {
                 lila.mon.user.register.mustConfirmEmail(mustConfirm.value)()
                 authLog(data.username, s"Signup mobile must confirm email: $mustConfirm")
                 val email = env.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
-                val passwordHash = Env.user.authenticator passEnc data.password
+                val passwordHash = Env.user.authenticator passEnc ClearPassword(data.password)
                 UserRepo.create(data.username, passwordHash, email, false, apiVersion.some,
                   mustConfirmEmail = mustConfirm.value)
                   .flatten(s"No user could be created for ${data.username}")
@@ -323,7 +324,7 @@ object Auth extends LilaController {
           fuccess(html.auth.passwordResetConfirm(user, token, err, false.some))
         } { data =>
           HasherRateLimit(user.username) { _ =>
-            Env.user.authenticator.setPassword(user.id, data.newPasswd1) >>
+            Env.user.authenticator.setPassword(user.id, ClearPassword(data.newPasswd1)) >>
               env.store.disconnect(user.id) >>
               authenticateUser(user) >>-
               lila.mon.user.auth.passwordResetConfirm("success")()
