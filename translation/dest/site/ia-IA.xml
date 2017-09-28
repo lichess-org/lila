@@ -362,6 +362,10 @@
   <string name="player">Jocator</string>
   <string name="list">Lista</string>
   <string name="graph">Graphico</string>
+  <plurals name="lessThanNbMinutes">
+    <item quantity="one">Minus de %s minutas</item>
+    <item quantity="other">Minus de %s minutas</item>
+  </plurals>
   <string name="required">Requirite.</string>
   <string name="openTournaments">Torneos aperte</string>
   <string name="duration">Duration</string>
@@ -438,11 +442,23 @@
   <string name="pleaseVotePuzzle">Adjuta Lichess a meliorar per tu voto, usante le sagitta a alto o a basso:</string>
   <string name="thankYou">Gratias!</string>
   <string name="ratingX">Classification: %s</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Jocate %s vices</item>
+    <item quantity="other">Jocate %s vices</item>
+  </plurals>
   <string name="fromGameLink">Extrahite del partita %s</string>
   <string name="continueTraining">Continuar a exercitar</string>
   <string name="retryThisPuzzle">Tentar iste enigma de novo</string>
   <string name="thisPuzzleIsCorrect">Iste enigma es correcte e interessante</string>
   <string name="thisPuzzleIsWrong">Iste enigma es incorrecte o enoiose</string>
+  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
+    <item quantity="one">Tu ha %s secundas pro facer tu prime movimento!</item>
+    <item quantity="other">Tu ha %s secundas pro facer tu prime movimento!</item>
+  </plurals>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s partitas in curso</item>
+    <item quantity="other">%s partitas in curso</item>
+  </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Automaticamente proceder al joco sequente post le movimento</string>
   <string name="autoSwitch">Cambiar automaticamente</string>
   <string name="puzzles">Enigmas</string>
@@ -550,6 +566,14 @@ in %3$s</string>
   <string name="allInformationIsPublicAndOptional">Tote information es public e optional.</string>
   <string name="yourCityRegionOrDepartment">Tu citate, region o provincia.</string>
   <string name="biographyDescription">Scribe super te, lo que tu ama in chacos, tu initios de joco preferite, partitas e jocatores favorite…</string>
+  <plurals name="maximumNbCharacters">
+    <item quantity="one">Maximo: %s characteres.</item>
+    <item quantity="other">Maximo: %s characteres.</item>
+  </plurals>
+  <plurals name="blocks">
+    <item quantity="one">%s jocatores blocate</item>
+    <item quantity="other">%s jocatores blocate</item>
+  </plurals>
   <string name="listBlockedPlayers">Lista de jocatores que tu blocava</string>
   <string name="human">Humano</string>
   <string name="computer">Computator</string>
@@ -589,6 +613,10 @@ in %3$s</string>
   <string name="whiteCastlingQueenside">Blanc O-O-O</string>
   <string name="blackCastlingKingside">Nigre O-O</string>
   <string name="blackCastlingQueenside">Nigre O-O-O</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s Messages in le Foro</item>
+    <item quantity="other">%s messages in le foro</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">Tempore jocante: %s</string>
   <string name="watchGames">Spectar jocos</string>
   <string name="tpTimeSpentOnTV">Tempore spectante Lichess TV: %s</string>
@@ -638,6 +666,10 @@ in %3$s</string>
   <string name="tournamentMayHaveBeenCanceled">Le evento forsan esseva cancellate, si tote le jocatores abandonava lo ante le initio.</string>
   <string name="returnToTournamentsHomepage">Retorna al pagina initial de torneos</string>
   <string name="weeklyPerfTypeRatingDistribution">Distribution del classification septimanal de %s</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">%1$s jocatores de %2$s iste septimana.</item>
+    <item quantity="other">%1$s jocatores de %2$s iste septimana.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">Tu classification de %1$s es %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Tu es melior que %1$s intra %2$s jocatores.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Tu non ha establite un classification de %s.</string>
@@ -690,6 +722,10 @@ in %3$s</string>
   <string name="correspondenceAndUnlimited">Per correspondentia e illimitate</string>
   <string name="viewTheSolution">Vider le solution</string>
   <string name="followAndChallengeFriends">Seque e defia amicos</string>
+  <plurals name="availableInNbLanguages">
+    <item quantity="one">Disponibile in %s linguas!</item>
+    <item quantity="other">Disponibile in %s linguas!</item>
+  </plurals>
   <string name="gameAnalysis">Analyse de joco</string>
   <string name="xHostsY">%1$s ha create %2$s</string>
   <string name="xJoinsY">%1$s ha unite se a %2$s</string>
