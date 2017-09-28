@@ -46,7 +46,13 @@
   <string name="viewTheComputerAnalysis">Pogledajte računarsku analizu</string>
   <string name="requestAComputerAnalysis">Zatražite računarsku analizu</string>
   <string name="computerAnalysis">Računarska analiza</string>
+  <string name="computerAnalysisAvailable">Kompjuterska analiza dostupna</string>
   <string name="analysis">Ploča za analizu</string>
+  <string name="move">Potez</string>
+  <string name="drawn">Neriješeno</string>
+  <string name="unknown">Nepoznato</string>
+  <string name="database">Baza podataka</string>
+  <string name="whiteDrawBlack">Bijeli/Neriješeno/Crni</string>
   <string name="openingExplorer">Pretraživač otvaranja</string>
   <string name="blunders">Grubi previdi</string>
   <string name="mistakes">Greške</string>
