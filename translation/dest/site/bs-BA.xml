@@ -54,6 +54,17 @@
   <string name="database">Baza podataka</string>
   <string name="whiteDrawBlack">Bijeli/Neriješeno/Crni</string>
   <string name="openingExplorer">Pretraživač otvaranja</string>
+  <string name="winPreventedBy50MoveRule">Pobjeda spriječena zbog pravila 50-poteza</string>
+  <string name="lossSavedBy50MoveRule">Poraz spriječen zbog pravila 50-poteza</string>
+  <string name="allSet">Sve spremno!</string>
+  <string name="delete">Obriši</string>
+  <string name="realtimeReplay">Stvarno vrijeme</string>
+  <string name="enable">Omogućiti</string>
+  <string name="bestMoveArrow">Strelica za najbolji potez</string>
+  <string name="multipleLines">Višestruke linije</string>
+  <string name="memory">Memorija</string>
+  <string name="infiniteAnalysis">Beskonačna analiza</string>
+  <string name="removesTheDepthLimit">Uklanja ograničenje dubine, i grije vaše računalo</string>
   <string name="blunders">Grubi previdi</string>
   <string name="mistakes">Greške</string>
   <string name="inaccuracies">Nepreciznosti</string>
@@ -98,6 +109,7 @@
   <string name="passwordReset">Resetovanje lozinke</string>
   <string name="forgotPassword">Zaboravljena lozinka?</string>
   <string name="rank">Poredak</string>
+  <string name="rankX">Rejting: %s</string>
   <string name="gamesPlayed">Broj odigranih partija</string>
   <string name="cancel">Otkažite</string>
   <string name="timeOut">Vrijeme je isteklo</string>
