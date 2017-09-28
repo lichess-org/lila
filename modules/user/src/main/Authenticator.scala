@@ -1,7 +1,7 @@
 package lila.user
 
 import com.roundeights.hasher.Implicits._
-import reactivemongo.bson.Macros
+import reactivemongo.bson._
 
 import lila.common.EmailAddress
 import lila.db.dsl._
@@ -15,17 +15,17 @@ final class Authenticator(
 ) {
   import Authenticator._
 
-  def passEnc(pass: String): HashedPass = passHasher.hash(pass)
+  def passEnc(pass: String): HashedPassword = passHasher.hash(pass)
 
   def compare(auth: AuthData, p: String): Boolean = {
     val newP = auth.salt.fold(p) { s =>
       val salted = s"$p{$s}" // BC
       (~auth.sha512).fold(salted.sha512, salted.sha1).hex
     }
-    auth.bcryptHash match {
+    auth.bpass match {
       // Deprecated fallback. Log & fail after DB migration.
       case None => auth.password ?? { p => onShaLogin(); p == newP }
-      case Some(bHash) => passHasher.check(bHash, newP)
+      case Some(bpass) => passHasher.check(bpass, newP)
     }
   }
 
@@ -80,15 +80,19 @@ object Authenticator {
 
   case class AuthData(
       _id: User.ID,
-      bpass: Option[Array[Byte]] = None,
+      bpass: Option[HashedPassword] = None,
       password: Option[String] = None,
       salt: Option[String] = None,
       sha512: Option[Boolean] = None
   ) {
 
-    def bcryptHash = bpass map HashedPass
-
-    def hashToken: String = bpass.fold(~password) { _.sha512.hex }
+    def hashToken: String = bpass.fold(~password) { _.bytes.sha512.hex }
   }
+
+  implicit val HashedPasswordBsonHandler = new BSONHandler[BSONBinary, HashedPassword] {
+    def read(b: BSONBinary) = HashedPassword(b.byteArray)
+    def write(hash: HashedPassword) = BSONBinary(hash.bytes, Subtype.GenericBinarySubtype)
+  }
+
   implicit val AuthDataBSONHandler = Macros.handler[AuthData]
 }

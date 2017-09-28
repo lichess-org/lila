@@ -226,7 +226,7 @@ object UserRepo {
 
   def create(
     username: String,
-    passwordHash: HashedPass,
+    passwordHash: HashedPassword,
     email: EmailAddress,
     blind: Boolean,
     mobileApiVersion: Option[ApiVersion],
@@ -301,7 +301,7 @@ object UserRepo {
     }
   )
 
-  import Authenticator.AuthDataBSONHandler
+  import Authenticator._
   def getPasswordHash(id: User.ID): Fu[Option[String]] =
     coll.byId[Authenticator.AuthData](id) map {
       _.map { _.hashToken }
@@ -400,7 +400,7 @@ object UserRepo {
 
   private def newUser(
     username: String,
-    passwordHash: HashedPass,
+    passwordHash: HashedPassword,
     email: EmailAddress,
     blind: Boolean,
     mobileApiVersion: Option[ApiVersion],
@@ -416,7 +416,7 @@ object UserRepo {
       F.username -> username,
       F.email -> email,
       F.mustConfirmEmail -> mustConfirmEmail.option(DateTime.now),
-      F.bpass -> passwordHash.bytes,
+      F.bpass -> passwordHash,
       F.perfs -> $empty,
       F.count -> Count.default,
       F.enabled -> true,

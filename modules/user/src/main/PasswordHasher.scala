@@ -42,8 +42,8 @@ private[user] object Aes {
   def iv(bytes: Array[Byte]): InitVector = new IvParameterSpec(bytes)
 }
 
-case class HashedPass(bytes: Array[Byte]) extends AnyVal {
-  def parse = bytes.size == 39 option bytes.splitAt(16)
+case class HashedPassword(bytes: Array[Byte]) extends AnyVal {
+  def parse = bytes.length == 39 option bytes.splitAt(16)
 }
 
 final class PasswordHasher(
@@ -57,14 +57,14 @@ final class PasswordHasher(
   private def bHash(salt: Array[Byte], p: String) =
     hashTimer(BCrypt.hashpwRaw(p.sha512, 'a', logRounds, salt))
 
-  def hash(p: String): HashedPass = {
+  def hash(p: String): HashedPassword = {
     val salt = new Array[Byte](16)
     new SecureRandom().nextBytes(salt)
 
-    HashedPass(salt ++ aes.encrypt(Aes.iv(salt), bHash(salt, p)))
+    HashedPassword(salt ++ aes.encrypt(Aes.iv(salt), bHash(salt, p)))
   }
 
-  def check(bytes: HashedPass, p: String): Boolean = bytes.parse ?? {
+  def check(bytes: HashedPassword, p: String): Boolean = bytes.parse ?? {
     case (salt, encHash) =>
       val hash = aes.decrypt(Aes.iv(salt), encHash)
       BCrypt.bytesEqualSecure(hash, bHash(salt, p))
