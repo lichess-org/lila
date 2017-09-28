@@ -154,6 +154,7 @@ GET   /relay                           controllers.Relay.index
 GET   /relay/new                       controllers.Relay.form
 POST  /relay/new                       controllers.Relay.create
 GET   /relay/:slug/$id<\w{8}>          controllers.Relay.show(slug: String, id: String)
+# GET   /study/:slug/$id<\w{8}>/$chapterId<\w{8}> controllers.Relay.chapter(slug: String, id: String, chapterId: String)
 
 # Learn
 GET   /learn                           controllers.Learn.index

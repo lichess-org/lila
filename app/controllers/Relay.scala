@@ -36,7 +36,16 @@ object Relay extends LilaController {
   def show(slug: String, id: String) = Open { implicit ctx =>
     OptionFuResult(env.api byId RelayModel.Id(id)) { relay =>
       if (relay.slug != slug) Redirect(routes.Relay.show(relay.slug, relay.id.value)).fuccess
-      else Ok(html.relay.show(relay)).fuccess
+      else Env.study.api byIdWithChapter relay.studyId flatMap {
+        _ ?? { oldSc =>
+          for {
+            (sc, studyData) <- Study.getJsonData(oldSc)
+            data = lila.relay.JsonView.makeData(relay, studyData)
+            chat <- Study.chatOf(sc.study)
+            sVersion <- Env.study.version(sc.study.id)
+          } yield Ok(html.relay.show(relay, sc.study, data, chat, sVersion))
+        }
+      }
     }
   }
 }

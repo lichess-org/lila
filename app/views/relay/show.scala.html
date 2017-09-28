@@ -1,4 +1,4 @@
-@(r: lila.relay.Relay, data: lila.relay.JsonView.JsData)(implicit ctx: Context)
+@(r: lila.relay.Relay, s: lila.study.Study, data: lila.relay.JsonView.JsData, chatOption: Option[lila.chat.UserChat.Mine], socketVersion: Int)(implicit ctx: Context)
 
 @moreCss = {
 @cssTag("analyse.css")
@@ -18,7 +18,9 @@ i18n: @board.userAnalysisI18n(),
 explorer: {
 endpoint: "@explorerEndpoint",
 tablebaseEndpoint: "@tablebaseEndpoint"
-}
+},
+socketUrl: "@routes.Study.websocket(s.id.value, apiVersion.value)",
+socketVersion: @socketVersion
 };
 }
 }
@@ -28,12 +30,15 @@ tablebaseEndpoint: "@tablebaseEndpoint"
 }
 
 @base.layout(
-title = relay.relay.name,
+title = r.name,
 side = side.some,
-underchat = none,
+chat = chat.dom().some,
+underchat = views.html.game.watchers().some,
 moreCss = moreCss,
 moreJs = moreJs,
 chessground = false,
 zoomable = true) {
-<div class="analyse cg-512">@miniBoardContent</div>
+<div class="analyse cg-512">
+  @board.domPreload(none)
+</div>
 }
