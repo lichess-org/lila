@@ -83,9 +83,9 @@ final class StudyApi(
 
   def studyIdOf = chapterRepo.studyIdOf _
 
-  def create(data: DataForm.Data, user: User): Fu[Option[Study.WithChapter]] = (data.as match {
+  def create(data: DataForm.Data, user: User, forceId: Option[Study.Id] = None): Fu[Option[Study.WithChapter]] = (data.as match {
     case DataForm.AsNewStudy =>
-      studyMaker(data, user) flatMap { res =>
+      studyMaker(data, user, forceId) flatMap { res =>
         studyRepo.insert(res.study) >>
           chapterRepo.insert(res.chapter) >>-
           indexStudy(res.study) >>-

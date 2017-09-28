@@ -47,7 +47,8 @@ final class RelayApi(
 
   def create(data: RelayForm.Data, user: User): Fu[Relay] = {
     val relay = data make user
-    coll.insert(relay) inject relay
+    coll.insert(relay) >>
+      studyApi.create(lila.study.DataForm.Data(), user, relay.studyId.some) inject relay
   }
 
   private def withStudy(relays: List[Relay]): Fu[List[Relay.WithStudy]] =

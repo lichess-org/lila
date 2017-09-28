@@ -152,14 +152,14 @@ object Study {
 
   def makeId = Id(scala.util.Random.alphanumeric take idSize mkString)
 
-  def make(user: User, from: From) = {
+  def make(user: User, from: From, forceId: Option[Study.Id] = None) = {
     val owner = StudyMember(
       id = user.id,
       role = StudyMember.Role.Write,
       addedAt = DateTime.now
     )
     Study(
-      _id = makeId,
+      _id = forceId | makeId,
       name = Name(s"${user.username}'s Study"),
       members = StudyMembers(Map(user.id -> owner)),
       position = Position.Ref(Chapter.Id(""), Path.root),

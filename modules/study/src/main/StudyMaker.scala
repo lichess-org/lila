@@ -10,14 +10,14 @@ private final class StudyMaker(
     chapterMaker: ChapterMaker
 ) {
 
-  def apply(data: DataForm.Data, user: User): Fu[Study.WithChapter] =
+  def apply(data: DataForm.Data, user: User, forceId: Option[Study.Id] = None): Fu[Study.WithChapter] =
     (data.gameId ?? GameRepo.gameWithInitialFen).flatMap {
-      case Some((game, initialFen)) => createFromPov(Pov(game, data.orientation), initialFen, user)
-      case None => createFromScratch(data, user)
+      case Some((game, initialFen)) => createFromPov(Pov(game, data.orientation), initialFen, user, forceId)
+      case None => createFromScratch(data, user, forceId)
     }
 
-  private def createFromScratch(data: DataForm.Data, user: User): Fu[Study.WithChapter] = {
-    val study = Study.make(user, Study.From.Scratch)
+  private def createFromScratch(data: DataForm.Data, user: User, forceId: Option[Study.Id] = None): Fu[Study.WithChapter] = {
+    val study = Study.make(user, Study.From.Scratch, forceId)
     chapterMaker.fromFenOrPgnOrBlank(study, ChapterMaker.Data(
       game = none,
       name = Chapter.Name("Chapter 1"),
@@ -34,9 +34,9 @@ private final class StudyMaker(
     }
   }
 
-  private def createFromPov(pov: Pov, initialFen: Option[FEN], user: User): Fu[Study.WithChapter] =
+  private def createFromPov(pov: Pov, initialFen: Option[FEN], user: User, forceId: Option[Study.Id] = None): Fu[Study.WithChapter] =
     chapterMaker.game2root(pov.game, initialFen) map { root =>
-      val study = Study.make(user, Study.From.Game(pov.game.id)).copy(name = Study.Name("Game study"))
+      val study = Study.make(user, Study.From.Game(pov.game.id), forceId).copy(name = Study.Name("Game study"))
       val chapter: Chapter = Chapter.make(
         studyId = study.id,
         name = Chapter.Name(Namer.gameVsText(pov.game, withRatings = false)(lightUser)),
