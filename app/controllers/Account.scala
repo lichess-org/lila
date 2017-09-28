@@ -84,12 +84,12 @@ object Account extends LilaController {
   }
 
   def passwdApply = AuthBody { implicit ctx => me =>
-    HasherRateLimit(me.username) {
-      implicit val req = ctx.body
-      env.forms passwd me flatMap { form =>
-        FormFuResult(form) { err =>
-          fuccess(html.account.passwd(err))
-        } { data =>
+    implicit val req = ctx.body
+    env.forms passwd me flatMap { form =>
+      FormFuResult(form) { err =>
+        fuccess(html.account.passwd(err))
+      } { data =>
+        HasherRateLimit(me.username) { _ =>
           Env.user.authenticator.setPassword(me.id, data.newPasswd1) inject
             Redirect(s"${routes.Account.passwd}?ok=1")
         }
@@ -109,15 +109,13 @@ object Account extends LilaController {
   }
 
   def emailApply = AuthBody { implicit ctx => me =>
-    HasherRateLimit(me.username) {
-      implicit val req = ctx.body
-      emailForm(me) flatMap { form =>
-        FormFuResult(form) { err =>
-          fuccess(html.account.email(me, err))
-        } { data =>
-          Env.security.emailChange.send(me, data.realEmail) inject Redirect {
-            s"${routes.Account.email}?check=1"
-          }
+    implicit val req = ctx.body
+    emailForm(me) flatMap { form =>
+      FormFuResult(form) { err =>
+        fuccess(html.account.email(me, err))
+      } { data =>
+        Env.security.emailChange.send(me, data.realEmail) inject Redirect {
+          s"${routes.Account.email}?check=1"
         }
       }
     }
@@ -138,16 +136,14 @@ object Account extends LilaController {
   }
 
   def closeConfirm = AuthBody { implicit ctx => me =>
-    HasherRateLimit(me.username) {
-      implicit val req = ctx.body
-      FormFuResult(Env.security.forms.closeAccount) { err =>
-        fuccess(html.account.close(me, err))
-      } { password =>
-        Env.user.authenticator.authenticateById(me.id, password).map(_.isDefined) flatMap {
-          case false => BadRequest(html.account.close(me, Env.security.forms.closeAccount)).fuccess
-          case true => doClose(me) inject {
-            Redirect(routes.User show me.username) withCookies LilaCookie.newSession
-          }
+    implicit val req = ctx.body
+    FormFuResult(Env.security.forms.closeAccount) { err =>
+      fuccess(html.account.close(me, err))
+    } { password =>
+      Env.user.authenticator.authenticateById(me.id, password).map(_.isDefined) flatMap {
+        case false => BadRequest(html.account.close(me, Env.security.forms.closeAccount)).fuccess
+        case true => doClose(me) inject {
+          Redirect(routes.User show me.username) withCookies LilaCookie.newSession
         }
       }
     }
