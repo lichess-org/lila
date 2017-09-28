@@ -3,8 +3,8 @@ package lila.user
 import akka.actor._
 import com.typesafe.config.Config
 
-import lila.common.PimpedConfig._
 import lila.common.EmailAddress
+import lila.common.PimpedConfig._
 
 final class Env(
     config: Config,
@@ -24,6 +24,9 @@ final class Env(
     val CollectionNote = config getString "collection.note"
     val CollectionTrophy = config getString "collection.trophy"
     val CollectionRanking = config getString "collection.ranking"
+    val PasswordBPassSecret = config getString "password.bpass.secret"
+    val PasswordUpgradeSha = config getBoolean "password.bpass.autoupgrade"
+    val PasswordParallelism = config getInt "password.bpass.parallelism"
   }
   import settings._
 
@@ -40,8 +43,6 @@ final class Env(
   lazy val rankingApi = new RankingApi(db(CollectionRanking), mongoCache, asyncCache, lightUser)
 
   lazy val jsonView = new JsonView(isOnline)
-
-  val forms = DataForm
 
   def lightUser(id: User.ID): Fu[Option[lila.common.LightUser]] = lightUserApi async id
   def lightUserSync(id: User.ID): Option[lila.common.LightUser] = lightUserApi sync id
@@ -86,6 +87,19 @@ final class Env(
     asyncCache = asyncCache,
     rankingApi = rankingApi
   )
+
+  lazy val authenticator = new Authenticator(
+    passHasher = new PasswordHasher(
+      secret = PasswordBPassSecret,
+      logRounds = 10,
+      hashTimer = lila.mon.measure(_.user.auth.hashTime)
+    ),
+    userRepo = UserRepo,
+    upgradeShaPasswords = PasswordUpgradeSha,
+    onShaLogin = lila.mon.user.auth.shaLogin
+  )
+
+  lazy val forms = new DataForm(authenticator)
 }
 
 object Env {

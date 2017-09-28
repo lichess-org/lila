@@ -2,6 +2,7 @@ package controllers
 
 import play.api.mvc._
 
+import controllers.Auth.HasherRateLimit
 import lila.api.Context
 import lila.app._
 import lila.common.PimpedJson._
@@ -13,15 +14,14 @@ object Account extends LilaController {
 
   private def env = Env.user
   private def relationEnv = Env.relation
-  private def forms = lila.user.DataForm
 
   def profile = Auth { implicit ctx => me =>
-    Ok(html.account.profile(me, forms profileOf me)).fuccess
+    Ok(html.account.profile(me, env.forms profileOf me)).fuccess
   }
 
   def profileApply = AuthBody { implicit ctx => me =>
     implicit val req: Request[_] = ctx.body
-    FormFuResult(forms.profile) { err =>
+    FormFuResult(env.forms.profile) { err =>
       fuccess(html.account.profile(me, err))
     } { profile =>
       UserRepo.setProfile(me.id, profile) inject Redirect(routes.User show me.username)
@@ -78,19 +78,21 @@ object Account extends LilaController {
   }
 
   def passwd = Auth { implicit ctx => me =>
-    forms passwd me map { form =>
+    env.forms passwd me map { form =>
       Ok(html.account.passwd(form))
     }
   }
 
   def passwdApply = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
-    forms passwd me flatMap { form =>
+    env.forms passwd me flatMap { form =>
       FormFuResult(form) { err =>
         fuccess(html.account.passwd(err))
       } { data =>
-        UserRepo.passwd(me.id, data.newPasswd1) inject
-          Redirect(s"${routes.Account.passwd}?ok=1")
+        HasherRateLimit(me.username) { _ =>
+          Env.user.authenticator.setPassword(me.id, data.newPasswd1) inject
+            Redirect(s"${routes.Account.passwd}?ok=1")
+        }
       }
     }
   }
@@ -138,7 +140,7 @@ object Account extends LilaController {
     FormFuResult(Env.security.forms.closeAccount) { err =>
       fuccess(html.account.close(me, err))
     } { password =>
-      UserRepo.authenticateById(me.id, password).map(_.isDefined) flatMap {
+      Env.user.authenticator.authenticateById(me.id, password).map(_.isDefined) flatMap {
         case false => BadRequest(html.account.close(me, Env.security.forms.closeAccount)).fuccess
         case true => doClose(me) inject {
           Redirect(routes.User show me.username) withCookies LilaCookie.newSession
