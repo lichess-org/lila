@@ -124,7 +124,7 @@ object Api extends LilaController {
     key = "user_games.api.global"
   )
 
-  private def UserRateLimit(cost: Int)(run: Fu[ApiResult])(implicit ctx: Context) = {
+  private def UserRateLimit(cost: Int)(run: => Fu[ApiResult])(implicit ctx: Context) = {
     val ip = HTTPRequest lastRemoteAddress ctx.req
     UserGamesRateLimitPerIP(ip, cost = cost) {
       UserGamesRateLimitPerUA(~HTTPRequest.userAgent(ctx.req), cost = cost, msg = ip.value) {
