@@ -5,7 +5,7 @@ import reactivemongo.bson._
 
 import lila.common.EmailAddress
 import lila.db.dsl._
-import lila.user.User.{ BSONFields => F }
+import lila.user.User.{ ClearPassword, BSONFields => F }
 
 final class Authenticator(
     passHasher: PasswordHasher,
@@ -15,24 +15,24 @@ final class Authenticator(
 ) {
   import Authenticator._
 
-  def passEnc(pass: String): HashedPassword = passHasher.hash(pass)
+  def passEnc(p: ClearPassword): HashedPassword = passHasher.hash(p)
 
-  def compare(auth: AuthData, p: String): Boolean = {
+  def compare(auth: AuthData, p: ClearPassword): Boolean = {
     val newP = auth.salt.fold(p) { s =>
-      val salted = s"$p{$s}" // BC
-      (~auth.sha512).fold(salted.sha512, salted.sha1).hex
+      val salted = s"${p.value}{$s}" // BC
+      ClearPassword((~auth.sha512).fold(salted.sha512, salted.sha1))
     }
     auth.bpass match {
       // Deprecated fallback. Log & fail after DB migration.
-      case None => auth.password ?? { p => onShaLogin(); p == newP }
+      case None => auth.password ?? { sHash => onShaLogin(); sHash == newP.value }
       case Some(bpass) => passHasher.check(bpass, newP)
     }
   }
 
-  def authenticateById(id: User.ID, password: String): Fu[Option[User]] =
+  def authenticateById(id: User.ID, password: ClearPassword): Fu[Option[User]] =
     loginCandidateById(id) map { _ flatMap { _(password) } }
 
-  def authenticateByEmail(email: EmailAddress, password: String): Fu[Option[User]] =
+  def authenticateByEmail(email: EmailAddress, password: ClearPassword): Fu[Option[User]] =
     loginCandidateByEmail(email) map { _ flatMap { _(password) } }
 
   // This creates a bcrypt hash using the existing sha as input,
@@ -40,7 +40,7 @@ final class Authenticator(
   def upgradePassword(a: AuthData) = (a.bpass, a.password) match {
     case (None, Some(shaHash)) => Some(userRepo.coll.update(
       $id(a._id),
-      $set(F.bpass -> passEnc(shaHash).bytes) ++ $unset(F.password)
+      $set(F.bpass -> passEnc(ClearPassword(shaHash)).bytes) ++ $unset(F.password)
     ).void >>- lila.mon.user.auth.shaBcUpgrade())
 
     case _ => None
@@ -55,16 +55,16 @@ final class Authenticator(
   def loginCandidateByEmail(email: EmailAddress): Fu[Option[User.LoginCandidate]] =
     loginCandidate($doc(F.email -> email))
 
-  def setPassword(id: User.ID, pass: String): Funit =
+  def setPassword(id: User.ID, p: ClearPassword): Funit =
     userRepo.coll.update(
       $id(id),
-      $set(F.bpass -> passEnc(pass).bytes) ++ $unset(F.salt, F.password, F.sha512)
+      $set(F.bpass -> passEnc(p).bytes) ++ $unset(F.salt, F.password, F.sha512)
     ).void
 
-  private def authWithBenefits(auth: AuthData)(p: String): Boolean = {
+  private def authWithBenefits(auth: AuthData)(p: ClearPassword): Boolean = {
     val res = compare(auth, p)
     if (res && auth.salt.isDefined && upgradeShaPasswords)
-      setPassword(id = auth._id, pass = p) >>- lila.mon.user.auth.bcFullMigrate()
+      setPassword(id = auth._id, p) >>- lila.mon.user.auth.bcFullMigrate()
     res
   }
 

@@ -111,10 +111,10 @@ object User {
 
   type ID = String
 
-  type CredentialCheck = String => Boolean
+  type CredentialCheck = ClearPassword => Boolean
   case class LoginCandidate(user: User, check: CredentialCheck) {
-    def apply(password: String): Option[User] = {
-      val res = check(password)
+    def apply(p: ClearPassword): Option[User] = {
+      val res = check(p)
       lila.mon.user.auth.result(res)()
       res option user
     }
@@ -130,6 +130,10 @@ object User {
   case class Active(user: User)
 
   case class Emails(current: Option[EmailAddress], previous: Option[EmailAddress])
+
+  case class ClearPassword(value: String) extends AnyVal {
+    override def toString = "ClearPassword(****)"
+  }
 
   case class PlayTime(total: Int, tv: Int) {
     import org.joda.time.Period

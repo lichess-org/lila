@@ -52,19 +52,20 @@ final class PasswordHasher(
     hashTimer: (=> Array[Byte]) => Array[Byte] = x => x
 ) {
   import org.mindrot.BCrypt
+  import User.ClearPassword
 
   private val aes = new Aes(secret)
-  private def bHash(salt: Array[Byte], p: String) =
-    hashTimer(BCrypt.hashpwRaw(p.sha512, 'a', logRounds, salt))
+  private def bHash(salt: Array[Byte], p: ClearPassword) =
+    hashTimer(BCrypt.hashpwRaw(p.value.sha512, 'a', logRounds, salt))
 
-  def hash(p: String): HashedPassword = {
+  def hash(p: ClearPassword): HashedPassword = {
     val salt = new Array[Byte](16)
     new SecureRandom().nextBytes(salt)
 
     HashedPassword(salt ++ aes.encrypt(Aes.iv(salt), bHash(salt, p)))
   }
 
-  def check(bytes: HashedPassword, p: String): Boolean = bytes.parse ?? {
+  def check(bytes: HashedPassword, p: ClearPassword): Boolean = bytes.parse ?? {
     case (salt, encHash) =>
       val hash = aes.decrypt(Aes.iv(salt), encHash)
       BCrypt.bytesEqualSecure(hash, bHash(salt, p))

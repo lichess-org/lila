@@ -47,7 +47,7 @@ final class SecurityApi(
   } map loadedLoginForm _
 
   private def authenticateCandidate(candidate: Option[User.LoginCandidate])(username: String, password: String): Option[User] =
-    candidate ?? { _(password) }
+    candidate ?? { _(User.ClearPassword(password)) }
 
   def saveAuthentication(userId: User.ID, apiVersion: Option[ApiVersion])(implicit req: RequestHeader): Fu[String] =
     UserRepo mustConfirmEmail userId flatMap {
