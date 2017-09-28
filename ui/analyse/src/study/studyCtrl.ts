@@ -326,6 +326,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     },
     toggleWrite: function() {
       vm.mode.write = !vm.mode.write && members.canContribute();
+      if (!vm.mode.write) commentForm.close();
       xhrReload();
     },
     makeChange,
