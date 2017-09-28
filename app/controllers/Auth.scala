@@ -310,7 +310,7 @@ object Auth extends LilaController {
         lila.mon.user.auth.passwordResetConfirm("token_post_fail")()
         notFound
       }
-      case Some(user) => {
+      case Some(user) => HasherRateLimit(user.username) {
         implicit val req = ctx.body
         FormFuResult(forms.passwdReset) { err =>
           fuccess(html.auth.passwordResetConfirm(user, token, err, false.some))
