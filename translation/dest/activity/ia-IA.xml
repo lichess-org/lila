@@ -4,46 +4,20 @@
   <string name="activity">Activitate</string>
   <string name="supportedNbMonths">Ha appoiate lichess.org durante %1$s menses como un %2$s</string>
   <plurals name="practicedNbPositions">
-    <item quantity="other">Ha practicate %1$s position(es) in %2$s</item>
+    <item quantity="one">Ha practicate %1$s position(es) in %2$s</item>
+    <item quantity="other">Ha practicate %1$s positiones in %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="other">Ha resolvite %s enigma(s) tactic</item>
+    <item quantity="one">Ha resolvite %s enigma(s) tactic</item>
+    <item quantity="other">Ha resolvite %s enigmas tactic</item>
   </plurals>
   <plurals name="playedNbGames">
-    <item quantity="other">Ha jocate %1$s partita(s) de %2$s</item>
+    <item quantity="one">Ha jocate %1$s partita(s) de %2$s</item>
+    <item quantity="other">Ha jocate %1$s partitas de %2$s</item>
   </plurals>
   <plurals name="postedNbMessages">
-    <item quantity="other">Ha postate %1$s message(s) in %2$s</item>
-  </plurals>
-  <plurals name="playedNbMoves">
-    <item quantity="other">Ha jocate %1$s movimento(s) in %2$s partita(s) per correspondentia</item>
-  </plurals>
-  <plurals name="completedNbGames">
-    <item quantity="other">Ha completate %s partita(s) per correspondentia</item>
-  </plurals>
-  <plurals name="followedNbPlayers">
-    <item quantity="other">Ha sequite %s jocator(es)</item>
-  </plurals>
-  <plurals name="gainedNbFollowers">
-    <item quantity="other">Ha ganiate %s nove sequitor(es)</item>
-  </plurals>
-  <plurals name="hostedNbSimuls">
-    <item quantity="other">Ha create %s exhibition(es) simultanee</item>
-  </plurals>
-  <plurals name="joinedNbSimuls">
-    <item quantity="other">Ha participate in %s exhibition(es) simultanee</item>
-  </plurals>
-  <plurals name="createdNbStudies">
-    <item quantity="other">Ha create %s nove studio(s)</item>
-  </plurals>
-  <plurals name="competedInNbTournaments">
-    <item quantity="other">Ha competite in %s torneo(s)</item>
-  </plurals>
-  <plurals name="rankedInTournament">
-    <item quantity="other">Classificate #%1$s (melior %2$s%%) intra %3$s partitas in %4$s</item>
+    <item quantity="one">Ha postate %1$s message(s) in %2$s</item>
+    <item quantity="other">Ha postate %1$s messages in %2$s</item>
   </plurals>
   <string name="signedUp">Registrate in lichess.org</string>
-  <plurals name="joinedNbTeams">
-    <item quantity="other">Ha adherite a %s equipa(s)</item>
-  </plurals>
 </resources>
