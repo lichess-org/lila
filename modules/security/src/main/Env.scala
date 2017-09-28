@@ -8,6 +8,7 @@ import lila.common.PimpedConfig._
 final class Env(
     config: Config,
     captcher: akka.actor.ActorSelection,
+    authenticator: lila.user.Authenticator,
     system: akka.actor.ActorSystem,
     scheduler: lila.common.Scheduler,
     asyncCache: lila.memo.AsyncCache.Builder,
@@ -66,6 +67,7 @@ final class Env(
 
   lazy val forms = new DataForm(
     captcher = captcher,
+    authenticator = authenticator,
     emailValidator = emailAddressValidator
   )
 
@@ -129,7 +131,7 @@ final class Env(
   scheduler.once(30 seconds)(tor.refresh(_ => funit))
   scheduler.effect(TorRefreshDelay, "Refresh Tor exit nodes")(tor.refresh(firewall.unblockIps))
 
-  lazy val api = new SecurityApi(storeColl, firewall, geoIP, emailAddressValidator)
+  lazy val api = new SecurityApi(storeColl, firewall, geoIP, authenticator, emailAddressValidator)
 
   lazy val csrfRequestHandler = new CSRFRequestHandler(NetDomain)
 
@@ -144,6 +146,7 @@ object Env {
   lazy val current = "security" boot new Env(
     config = lila.common.PlayApp loadConfig "security",
     db = lila.db.Env.current,
+    authenticator = lila.user.Env.current.authenticator,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
     asyncCache = lila.memo.Env.current.asyncCache,

@@ -9,6 +9,7 @@ import lila.user.{ User, UserRepo }
 
 final class DataForm(
     val captcher: akka.actor.ActorSelection,
+    authenticator: lila.user.Authenticator,
     emailValidator: EmailAddressValidator
 ) extends lila.hub.CaptchedForm {
 
@@ -81,7 +82,7 @@ final class DataForm(
       _.samePasswords
     ))
 
-  def changeEmail(u: User, old: Option[EmailAddress]) = UserRepo loginCandidate u map { candidate =>
+  def changeEmail(u: User, old: Option[EmailAddress]) = authenticator loginCandidate u map { candidate =>
     Form(mapping(
       "passwd" -> nonEmptyText.verifying("incorrectPassword", candidate.check),
       "email" -> acceptableUniqueEmail(candidate.user.some).verifying(emailValidator differentConstraint old)

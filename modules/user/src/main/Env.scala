@@ -44,8 +44,6 @@ final class Env(
 
   lazy val jsonView = new JsonView(isOnline)
 
-  val forms = DataForm
-
   def lightUser(id: User.ID): Fu[Option[lila.common.LightUser]] = lightUserApi async id
   def lightUserSync(id: User.ID): Option[lila.common.LightUser] = lightUserApi sync id
 
@@ -90,16 +88,18 @@ final class Env(
     rankingApi = rankingApi
   )
 
-  lazy val passwordAuth = new Authenticator(
-    new PasswordHasher(
+  lazy val authenticator = new Authenticator(
+    passHasher = new PasswordHasher(
       secret = PasswordBPassSecret,
       logRounds = 10,
       hashTimer = lila.mon.measure(_.user.auth.hashTime)
     ),
+    userRepo = UserRepo,
+    upgradeShaPasswords = PasswordUpgradeSha,
     onShaLogin = lila.mon.user.auth.shaLogin
   )
 
-  lazy val upgradeShaPasswords = PasswordUpgradeSha
+  lazy val forms = new DataForm(authenticator)
 }
 
 object Env {

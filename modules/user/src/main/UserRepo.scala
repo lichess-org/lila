@@ -19,7 +19,7 @@ object UserRepo {
   import User.{ BSONFields => F }
 
   // dirty
-  private val coll = Env.current.userColl
+  private[user] val coll = Env.current.userColl
   import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Match, Group, SumField }
 
   val normalize = User normalize _
@@ -224,55 +224,9 @@ object UserRepo {
   def incToints(id: ID, nb: Int) = coll.update($id(id), $inc("toints" -> nb))
   def removeAllToints = coll.update($empty, $unset("toints"), multi = true)
 
-  def authenticateById(id: ID, password: String): Fu[Option[User]] =
-    loginCandidateById(id) map { _ flatMap { _(password) } }
-
-  def authenticateByEmail(email: EmailAddress, password: String): Fu[Option[User]] =
-    loginCandidateByEmail(email) map { _ flatMap { _(password) } }
-
-  import Env.current.passwordAuth._
-
-  // This creates a bcrypt hash using the existing sha as input,
-  // allowing us to migrate all users in bulk.
-  def upgradePassword(a: AuthData) = (a.bpass, a.password) match {
-    case (None, Some(pass)) => Some(coll.update(
-      $id(a._id),
-      $set(F.bpass -> passEnc(pass)) ++ $unset(F.password)
-    ).void >>- lila.mon.user.auth.shaBcUpgrade())
-
-    case _ => None
-  }
-
-  def loginCandidateById(id: ID): Fu[Option[User.LoginCandidate]] =
-    loginCandidate($id(id))
-
-  def loginCandidateByEmail(email: EmailAddress): Fu[Option[User.LoginCandidate]] =
-    loginCandidate($doc(F.email -> email))
-
-  def loginCandidate(u: User): Fu[User.LoginCandidate] =
-    loginCandidateById(u.id) map { _ | User.LoginCandidate(u, _ => false) }
-
-  def authWithBenefits(auth: AuthData)(p: String) = {
-    val res = auth compare p
-    if (res && auth.salt.isDefined && Env.current.upgradeShaPasswords)
-      passwd(id = auth._id, pass = p) >>- lila.mon.user.auth.bcFullMigrate()
-    res
-  }
-
-  private def loginCandidate(select: Bdoc): Fu[Option[User.LoginCandidate]] =
-    coll.uno[AuthData](select) zip coll.uno[User](select) map {
-      case (Some(authData), Some(user)) if user.enabled =>
-        User.LoginCandidate(user, authWithBenefits(authData)).some
-      case _ => none
-    }
-
-  def getPasswordHash(id: ID): Fu[Option[String]] = coll.byId[AuthData](id) map {
-    _.map { _.hashToken }
-  }
-
   def create(
     username: String,
-    password: String,
+    passwordHash: Array[Byte],
     email: EmailAddress,
     blind: Boolean,
     mobileApiVersion: Option[ApiVersion],
@@ -280,7 +234,7 @@ object UserRepo {
   ): Fu[Option[User]] =
     !nameExists(username) flatMap {
       _ ?? {
-        val doc = newUser(username, password, email, blind, mobileApiVersion, mustConfirmEmail) ++
+        val doc = newUser(username, passwordHash, email, blind, mobileApiVersion, mustConfirmEmail) ++
           ("len" -> BSONInteger(username.size))
         coll.insert(doc) >> named(normalize(username))
       }
@@ -347,9 +301,11 @@ object UserRepo {
     }
   )
 
-  def passwd(id: ID, pass: String): Funit =
-    coll.update($id(id), $set(F.bpass -> passEnc(pass))
-      ++ $unset(F.salt, F.password, F.sha512)).void
+  import Authenticator.AuthDataBSONHandler
+  def getPasswordHash(id: User.ID): Fu[Option[String]] =
+    coll.byId[Authenticator.AuthData](id) map {
+      _.map { _.hashToken }
+    }
 
   def email(id: ID, email: EmailAddress): Funit =
     coll.update($id(id), $set(F.email -> email) ++ $unset(F.prevEmail)).void
@@ -444,7 +400,7 @@ object UserRepo {
 
   private def newUser(
     username: String,
-    password: String,
+    passwordHash: Array[Byte],
     email: EmailAddress,
     blind: Boolean,
     mobileApiVersion: Option[ApiVersion],
@@ -460,7 +416,7 @@ object UserRepo {
       F.username -> username,
       F.email -> email,
       F.mustConfirmEmail -> mustConfirmEmail.option(DateTime.now),
-      F.bpass -> passEnc(password),
+      F.bpass -> passwordHash,
       F.perfs -> $empty,
       F.count -> Count.default,
       F.enabled -> true,

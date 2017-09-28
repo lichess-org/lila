@@ -167,7 +167,8 @@ object Auth extends LilaController {
                   lila.mon.user.register.mustConfirmEmail(mustConfirm.value)()
                   authLog(data.username, s"Signup website must confirm email: $mustConfirm")
                   val email = env.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
-                  UserRepo.create(data.username, data.password, email, ctx.blindMode, none,
+                  val passwordHash = Env.user.authenticator passEnc data.password
+                  UserRepo.create(data.username, passwordHash, email, ctx.blindMode, none,
                     mustConfirmEmail = mustConfirm.value)
                     .flatten(s"No user could be created for ${data.username}")
                     .map(_ -> email).flatMap {
@@ -192,7 +193,8 @@ object Auth extends LilaController {
                 lila.mon.user.register.mustConfirmEmail(mustConfirm.value)()
                 authLog(data.username, s"Signup mobile must confirm email: $mustConfirm")
                 val email = env.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
-                UserRepo.create(data.username, data.password, email, false, apiVersion.some,
+                val passwordHash = Env.user.authenticator passEnc data.password
+                UserRepo.create(data.username, passwordHash, email, false, apiVersion.some,
                   mustConfirmEmail = mustConfirm.value)
                   .flatten(s"No user could be created for ${data.username}")
                   .map(_ -> email).flatMap {
@@ -315,7 +317,7 @@ object Auth extends LilaController {
         FormFuResult(forms.passwdReset) { err =>
           fuccess(html.auth.passwordResetConfirm(user, token, err, false.some))
         } { data =>
-          UserRepo.passwd(user.id, data.newPasswd1) >>
+          Env.user.authenticator.setPassword(user.id, data.newPasswd1) >>
             env.store.disconnect(user.id) >>
             authenticateUser(user) >>-
             lila.mon.user.auth.passwordResetConfirm("success")()

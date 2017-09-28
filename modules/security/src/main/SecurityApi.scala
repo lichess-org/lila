@@ -17,6 +17,7 @@ final class SecurityApi(
     coll: Coll,
     firewall: Firewall,
     geoIP: GeoIP,
+    authenticator: lila.user.Authenticator,
     emailValidator: EmailAddressValidator
 ) {
 
@@ -39,8 +40,8 @@ final class SecurityApi(
 
   def loadLoginForm(str: String): Fu[Form[Option[User]]] = {
     emailValidator.validate(EmailAddress(str)) match {
-      case Some(email) => UserRepo.loginCandidateByEmail(email)
-      case None if User.couldBeUsername(str) => UserRepo.loginCandidateById(User normalize str)
+      case Some(email) => authenticator.loginCandidateByEmail(email)
+      case None if User.couldBeUsername(str) => authenticator.loginCandidateById(User normalize str)
       case _ => fuccess(none)
     }
   } map loadedLoginForm _
