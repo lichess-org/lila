@@ -2,6 +2,7 @@ package controllers
 
 import play.api.mvc._
 
+import controllers.Auth.HasherRateLimit
 import lila.api.Context
 import lila.app._
 import lila.common.PimpedJson._
@@ -84,13 +85,15 @@ object Account extends LilaController {
   }
 
   def passwdApply = AuthBody { implicit ctx => me =>
-    implicit val req = ctx.body
-    forms passwd me flatMap { form =>
-      FormFuResult(form) { err =>
-        fuccess(html.account.passwd(err))
-      } { data =>
-        UserRepo.passwd(me.id, data.newPasswd1) inject
-          Redirect(s"${routes.Account.passwd}?ok=1")
+    HasherRateLimit(me.username) {
+      implicit val req = ctx.body
+      forms passwd me flatMap { form =>
+        FormFuResult(form) { err =>
+          fuccess(html.account.passwd(err))
+        } { data =>
+          UserRepo.passwd(me.id, data.newPasswd1) inject
+            Redirect(s"${routes.Account.passwd}?ok=1")
+        }
       }
     }
   }
@@ -107,13 +110,15 @@ object Account extends LilaController {
   }
 
   def emailApply = AuthBody { implicit ctx => me =>
-    implicit val req = ctx.body
-    emailForm(me) flatMap { form =>
-      FormFuResult(form) { err =>
-        fuccess(html.account.email(me, err))
-      } { data =>
-        Env.security.emailChange.send(me, data.realEmail) inject Redirect {
-          s"${routes.Account.email}?check=1"
+    HasherRateLimit(me.username) {
+      implicit val req = ctx.body
+      emailForm(me) flatMap { form =>
+        FormFuResult(form) { err =>
+          fuccess(html.account.email(me, err))
+        } { data =>
+          Env.security.emailChange.send(me, data.realEmail) inject Redirect {
+            s"${routes.Account.email}?check=1"
+          }
         }
       }
     }
@@ -134,14 +139,16 @@ object Account extends LilaController {
   }
 
   def closeConfirm = AuthBody { implicit ctx => me =>
-    implicit val req = ctx.body
-    FormFuResult(Env.security.forms.closeAccount) { err =>
-      fuccess(html.account.close(me, err))
-    } { password =>
-      UserRepo.authenticateById(me.id, password).map(_.isDefined) flatMap {
-        case false => BadRequest(html.account.close(me, Env.security.forms.closeAccount)).fuccess
-        case true => doClose(me) inject {
-          Redirect(routes.User show me.username) withCookies LilaCookie.newSession
+    HasherRateLimit(me.username) {
+      implicit val req = ctx.body
+      FormFuResult(Env.security.forms.closeAccount) { err =>
+        fuccess(html.account.close(me, err))
+      } { password =>
+        UserRepo.authenticateById(me.id, password).map(_.isDefined) flatMap {
+          case false => BadRequest(html.account.close(me, Env.security.forms.closeAccount)).fuccess
+          case true => doClose(me) inject {
+            Redirect(routes.User show me.username) withCookies LilaCookie.newSession
+          }
         }
       }
     }

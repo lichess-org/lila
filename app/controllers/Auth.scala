@@ -1,9 +1,11 @@
 package controllers
 
+import ornicar.scalalib.Zero
 import play.api.i18n.Messages.Implicits._
 import play.api.libs.json._
 import play.api.mvc._
 import play.api.Play.current
+import scala.concurrent.duration._
 
 import lila.api.Context
 import lila.app._
@@ -75,16 +77,18 @@ object Auth extends LilaController {
           html = Unauthorized(html.auth.login(api.loginForm, referrer)).fuccess,
           api = _ => Unauthorized(errorsAsJson(err)).fuccess
         ),
-        username => api.loadLoginForm(username) flatMap { loginForm =>
-          loginForm.bindFromRequest.fold(
-            err => negotiate(
-              html = Unauthorized(html.auth.login(err, referrer)).fuccess,
-              api = _ => Unauthorized(errorsAsJson(err)).fuccess
-            ), {
-              case None => InternalServerError("Authentication error").fuccess
-              case Some(u) => authenticateUser(u)
-            }
-          )
+        username => HasherRateLimit(username) {
+          api.loadLoginForm(username) flatMap { loginForm =>
+            loginForm.bindFromRequest.fold(
+              err => negotiate(
+                html = Unauthorized(html.auth.login(err, referrer)).fuccess,
+                api = _ => Unauthorized(errorsAsJson(err)).fuccess
+              ), {
+                case None => InternalServerError("Authentication error").fuccess
+                case Some(u) => authenticateUser(u)
+              }
+            )
+          }
         }
       )
     }
@@ -182,22 +186,24 @@ object Auth extends LilaController {
               err("username").value foreach { authLog(_, s"Signup fail: ${err.errors mkString ", "}") }
               fuccess(BadRequest(jsonError(errorsAsJson(err))))
             },
-            data => fuccess(MustConfirmEmail.YesBecauseMobile) flatMap { mustConfirm =>
-              lila.mon.user.register.mobile()
-              lila.mon.user.register.mustConfirmEmail(mustConfirm.value)()
-              authLog(data.username, s"Signup mobile must confirm email: $mustConfirm")
-              val email = env.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
-              UserRepo.create(data.username, data.password, email, false, apiVersion.some,
-                mustConfirmEmail = mustConfirm.value)
-                .flatten(s"No user could be created for ${data.username}")
-                .map(_ -> email).flatMap {
-                  case (user, email) if mustConfirm.value =>
-                    env.emailConfirm.send(user, email) >> {
-                      if (env.emailConfirm.effective) Ok(Json.obj("email_confirm" -> true)).fuccess
-                      else env.welcomeEmail(user, email) >> authenticateUser(user)
-                    }
-                  case (user, _) => env.welcomeEmail(user, email) >> authenticateUser(user)
-                }
+            data => HasherRateLimit(data.username) {
+              fuccess(MustConfirmEmail.YesBecauseMobile) flatMap { mustConfirm =>
+                lila.mon.user.register.mobile()
+                lila.mon.user.register.mustConfirmEmail(mustConfirm.value)()
+                authLog(data.username, s"Signup mobile must confirm email: $mustConfirm")
+                val email = env.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
+                UserRepo.create(data.username, data.password, email, false, apiVersion.some,
+                  mustConfirmEmail = mustConfirm.value)
+                  .flatten(s"No user could be created for ${data.username}")
+                  .map(_ -> email).flatMap {
+                    case (user, email) if mustConfirm.value =>
+                      env.emailConfirm.send(user, email) >> {
+                        if (env.emailConfirm.effective) Ok(Json.obj("email_confirm" -> true)).fuccess
+                        else env.welcomeEmail(user, email) >> authenticateUser(user)
+                      }
+                    case (user, _) => env.welcomeEmail(user, email) >> authenticateUser(user)
+                  }
+              }
             }
           )
         )
@@ -333,6 +339,50 @@ object Auth extends LilaController {
     Firewall {
       env.loginToken consume token flatMap {
         _.fold(notFound)(authenticateUser(_))
+      }
+    }
+  }
+
+  private implicit val limitedDefault = Zero.instance[Result](TooManyRequest)
+
+  private val HasherRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
+    credits = 30,
+    duration = 10 minutes,
+    name = "Password hashes per IP",
+    key = "password.hashes.ip"
+  )
+
+  private val HasherRateLimitPerUA = new lila.memo.RateLimit[String](
+    credits = 30,
+    duration = 20 seconds,
+    name = "Password hashes per UA",
+    key = "password.hashes.ua"
+  )
+
+  private val HasherRateLimitPerUser = new lila.memo.RateLimit[String](
+    credits = 6,
+    duration = 1.minute,
+    name = "Password hashes per user",
+    key = "password.hashes.user"
+  )
+
+  private val HasherRateLimitGlobal = new lila.memo.RateLimit[String](
+    credits = 4 * 10 * 60, // max out 4 cores for 60 seconds
+    duration = 1 minute,
+    name = "Password hashes global",
+    key = "password.hashes.global"
+  )
+
+  private[controllers] def HasherRateLimit(username: String)(run: => Fu[Result])(implicit ctx: Context) = {
+    val cost = 1
+    val ip = HTTPRequest lastRemoteAddress ctx.req
+    HasherRateLimitPerUser(username, cost = cost) {
+      HasherRateLimitPerIP(ip, cost = cost) {
+        HasherRateLimitPerUA(~HTTPRequest.userAgent(ctx.req), cost = cost, msg = ip.value) {
+          HasherRateLimitGlobal("-", cost = cost, msg = ip.value) {
+            run
+          }
+        }
       }
     }
   }
