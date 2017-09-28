@@ -62,7 +62,7 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
     if (c) {
       req.ch = c;
       if (isWrite) {
-        if (ctrl.study!.vm.mode.write) {
+        if (ctrl.study!.isWriting()) {
           if (!ctrl.study!.vm.mode.sticky) req.sticky = false;
         }
         else req.write = false;

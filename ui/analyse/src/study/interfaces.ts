@@ -32,6 +32,7 @@ export interface StudyCtrl {
   setChapter(id: string, force?: boolean): void;
   toggleSticky(): void;
   toggleWrite(): void;
+  isWriting(): boolean;
   makeChange(t: string, d: any): boolean;
   startTour(): void;
   userJump(path: Tree.Path): void;

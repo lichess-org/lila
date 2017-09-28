@@ -122,6 +122,10 @@ final class ModlogApi(coll: Coll) {
     Modlog(mod, coach.some, Modlog.coachReview, details = s"by $author".some)
   }
 
+  def cheatDetected(user: String, gameId: String) = add {
+    Modlog("lichess", user.some, Modlog.cheatDetected, details = s"game $gameId".some)
+  }
+
   def recent = coll.find($empty).sort($sort naturalDesc).cursor[Modlog]().gather[List](100)
 
   def wasUnengined(sus: Suspect) = coll.exists($doc(

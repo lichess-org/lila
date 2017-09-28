@@ -88,8 +88,12 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     return ctrl.opts.userId === data.chapter.ownerId;
   };
 
+  function isWriting(): boolean {
+    return vm.mode.write && !isGamebookPlay();
+  }
+
   function makeChange(t: string, d: any): boolean {
-    if (vm.mode.write) {
+    if (isWriting()) {
       send(t, d);
       return true;
     }
@@ -326,8 +330,10 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     },
     toggleWrite: function() {
       vm.mode.write = !vm.mode.write && members.canContribute();
+      if (!vm.mode.write) commentForm.close();
       xhrReload();
     },
+    isWriting,
     makeChange,
     startTour,
     userJump: ctrl.userJump,
@@ -343,7 +349,6 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     setGamebookOverride(o) {
       vm.gamebookOverride = o;
       instanciateGamebookPlay();
-      vm.mode.write = !o;
       configureAnalysis();
       ctrl.userJump(ctrl.path);
       if (!o) xhrReload();

@@ -263,10 +263,15 @@ object Auth extends LilaController {
       data => {
         val email = env.emailAddressValidator.validate(data.realEmail) | data.realEmail
         UserRepo enabledByEmail email flatMap {
-          case Some(user) =>
+          case Some(user) => {
+            lila.mon.user.auth.passwordResetRequest("success")()
             Env.security.passwordReset.send(user, email) inject Redirect(routes.Auth.passwordResetSent(data.email))
-          case _ => forms.passwordResetWithCaptcha map {
-            case (form, captcha) => BadRequest(html.auth.passwordReset(form, captcha, false.some))
+          }
+          case _ => {
+            lila.mon.user.auth.passwordResetRequest("no_email")()
+            forms.passwordResetWithCaptcha map {
+              case (form, captcha) => BadRequest(html.auth.passwordReset(form, captcha, false.some))
+            }
           }
         }
       }
@@ -281,7 +286,13 @@ object Auth extends LilaController {
 
   def passwordResetConfirm(token: String) = Open { implicit ctx =>
     Env.security.passwordReset confirm token flatMap {
-      _ ?? { user =>
+      case None => {
+        lila.mon.user.auth.passwordResetConfirm("token_fail")()
+        notFound
+      }
+      case Some(user) => {
+        authLog(user.username, s"Confirmed email")
+        lila.mon.user.auth.passwordResetConfirm("token_ok")()
         fuccess(html.auth.passwordResetConfirm(user, token, forms.passwdReset, none))
       }
     }
@@ -289,14 +300,19 @@ object Auth extends LilaController {
 
   def passwordResetConfirmApply(token: String) = OpenBody { implicit ctx =>
     Env.security.passwordReset confirm token flatMap {
-      _ ?? { user =>
+      case None => {
+        lila.mon.user.auth.passwordResetConfirm("token_post_fail")()
+        notFound
+      }
+      case Some(user) => {
         implicit val req = ctx.body
         FormFuResult(forms.passwdReset) { err =>
           fuccess(html.auth.passwordResetConfirm(user, token, err, false.some))
         } { data =>
           UserRepo.passwd(user.id, data.newPasswd1) >>
             env.store.disconnect(user.id) >>
-            authenticateUser(user)
+            authenticateUser(user) >>-
+            lila.mon.user.auth.passwordResetConfirm("success")()
         }
       }
     }

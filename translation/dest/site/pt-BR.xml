@@ -284,7 +284,7 @@
     <item quantity="one">Você precisa jogar %s mais partidas valendo pontos</item>
     <item quantity="other">Você precisa jogar %s mais partidas valendo pontos</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Sua %s pontuação é provisória</string>
+  <string name="yourPerfRatingIsProvisional">Sua pontuação %s é provisória</string>
   <string name="yourPerfRatingIsTooHigh">Sua %1$s pontuação (%2$s) é muito alta</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Sua melhor pontuação da semana %1$s (%2$s) é muito alta</string>
   <string name="yourPerfRatingIsTooLow">Sua %1$s pontuação (%2$s) é muito baixa</string>
@@ -416,6 +416,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="biography">Biografia</string>
   <string name="country">País</string>
   <string name="preferences">Preferências</string>
+  <string name="inlineNotation">Notação em linha</string>
   <string name="watchLichessTV">Assistir Lichess TV</string>
   <string name="previouslyOnLichessTV">Anteriormente em Lichess TV</string>
   <string name="onlinePlayers">Jogadores online</string>

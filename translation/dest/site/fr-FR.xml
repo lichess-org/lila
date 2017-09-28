@@ -415,6 +415,7 @@
   <string name="biography">Biographie</string>
   <string name="country">Pays</string>
   <string name="preferences">Préférences</string>
+  <string name="inlineNotation">Notation en ligne</string>
   <string name="watchLichessTV">Regarder Lichess TV</string>
   <string name="previouslyOnLichessTV">Précédemment sur Lichess TV</string>
   <string name="onlinePlayers">Joueurs en ligne</string>
