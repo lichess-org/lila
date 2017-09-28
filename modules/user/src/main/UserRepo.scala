@@ -226,7 +226,7 @@ object UserRepo {
 
   def create(
     username: String,
-    passwordHash: Array[Byte],
+    passwordHash: HashedPass,
     email: EmailAddress,
     blind: Boolean,
     mobileApiVersion: Option[ApiVersion],
@@ -400,7 +400,7 @@ object UserRepo {
 
   private def newUser(
     username: String,
-    passwordHash: Array[Byte],
+    passwordHash: HashedPass,
     email: EmailAddress,
     blind: Boolean,
     mobileApiVersion: Option[ApiVersion],
@@ -416,7 +416,7 @@ object UserRepo {
       F.username -> username,
       F.email -> email,
       F.mustConfirmEmail -> mustConfirmEmail.option(DateTime.now),
-      F.bpass -> passwordHash,
+      F.bpass -> passwordHash.bytes,
       F.perfs -> $empty,
       F.count -> Count.default,
       F.enabled -> true,
