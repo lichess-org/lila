@@ -163,7 +163,7 @@
   <string name="changePassword">Passwort ändern</string>
   <string name="changeEmail">E-Mail-Adresse ändern</string>
   <string name="email">E-Mail</string>
-  <string name="emailIsOptional">Die E-Mail-Adresse ist optional. Lichess verwendet sie, um dein Passwort zurückzusetzen, wenn du es vergisst.</string>
+  <string name="emailIsOptional">Die E-Mail-Adresse ist optional. Lichess verwendet sie, um dein Passwort zurückzusetzen, falls du es vergisst.</string>
   <string name="passwordReset">Passwort zurücksetzen</string>
   <string name="forgotPassword">Passwort vergessen?</string>
   <string name="rank">Rang</string>
