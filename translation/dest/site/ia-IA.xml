@@ -73,6 +73,14 @@
   <string name="recentGames">Partitas recente</string>
   <string name="topGames">Melior partitas</string>
   <string name="masterDbExplanation">Duo milliones de partitas de jocatores con classification FIDE super %1$s, de %2$s a %3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Chaco mat in %s medie-movimento</item>
+    <item quantity="other">Chaco mat in %s medie-movimentos</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Proxime captura o movimento de pedon in %s medie-movimentos (distantia usque reinitiar le contator de 50 movimentos)</item>
+    <item quantity="other">Proxime captura o movimento de pedon in %s medie-movimentos (distantia usque reinitiar le contator de 50 movimentos)</item>
+  </plurals>
   <string name="noGameFound">Nulle partita trovate</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Forsan includer plus partitas per le menu preferentias?</string>
   <string name="openingExplorer">Explorator de initio de joco</string>
@@ -104,7 +112,19 @@
   <string name="claimADraw">Declarar le partita como nulle</string>
   <string name="offerDraw">Offerer que le partita sia nulle</string>
   <string name="draw">Partita nulle</string>
+  <plurals name="nbPlayers">
+    <item quantity="one">%s jocatores</item>
+    <item quantity="other">%s jocatores</item>
+  </plurals>
   <string name="currentGames">Partitas currente</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s Jocos</item>
+    <item quantity="other">%s partitas</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s Favorites</item>
+    <item quantity="other">%s favorites</item>
+  </plurals>
   <string name="viewInFullSize">Vider in plen dimension</string>
   <string name="logOut">Clauder session</string>
   <string name="signIn">Aperir session</string>
@@ -125,6 +145,14 @@
   <string name="correspondence">Correspondentia</string>
   <string name="daysPerTurn">Dies per torno</string>
   <string name="oneDay">Un die</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s dies</item>
+    <item quantity="other">%s dies</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s horas</item>
+    <item quantity="other">%s horas</item>
+  </plurals>
   <string name="time">Tempore</string>
   <string name="rating">Classification</string>
   <string name="ratingStats">Statisticas de classification</string>
@@ -141,7 +169,15 @@
   <string name="rank">Classification</string>
   <string name="rankX">Classification: %s</string>
   <string name="rankIsUpdatedEveryXMinutes">Classification es actualisate cata %s minutas</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s enigmas</item>
+    <item quantity="other">%s enigmas</item>
+  </plurals>
   <string name="gamesPlayed">Partitas jocate</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s partitas con te</item>
+    <item quantity="other">%s partitas con te</item>
+  </plurals>
   <string name="cancel">Cancellar</string>
   <string name="timeOut">Tempore finite</string>
   <string name="drawOfferSent">Offerta de partita nulle inviate</string>
@@ -186,8 +222,32 @@
   <string name="incrementInSeconds">Incremento in secundas</string>
   <string name="freeOnlineChess">Chacos in linea gratis</string>
   <string name="spectators">Spectatores:</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s partitas classificatori</item>
+    <item quantity="other">%s partitas classificatori</item>
+  </plurals>
+  <plurals name="nbWins">
+    <item quantity="one">%s victorias</item>
+    <item quantity="other">%s victorias</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s perditas</item>
+    <item quantity="other">%s perditas</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s partitas nulle</item>
+    <item quantity="other">%s partitas nulle</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s jocante</item>
+    <item quantity="other">%s jocante</item>
+  </plurals>
   <string name="exportGames">Exportar partitas</string>
   <string name="ratingRange">Intervallo de classificationes</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">Dona %s secundas</item>
+    <item quantity="other">Dona %s secundas</item>
+  </plurals>
   <string name="giveMoreTime">Offerer plus tempore</string>
   <string name="thisPlayerUsesChessComputerAssistance">Iste jocator usa le assistentia de un computator de chacos</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Iste jocator altera su classification de maniera artificial</string>
@@ -208,6 +268,22 @@
   <string name="viewTournament">Vider torneo</string>
   <string name="backToTournament">Retro al torneo</string>
   <string name="thematic">Thematic</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s partitas classificatori</item>
+    <item quantity="other">≥ %s partitas classificatori</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s partitas classificatori de %2$s</item>
+    <item quantity="other">≥ %1$s partitas classificatori de %2$s</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Tu debe jocar plus %1$s partitas classificatori del variante %2$s</item>
+    <item quantity="other">Tu debe jocar plus %1$s partitas classificatori del variante %2$s</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Tu debe jocar plus %s partitas classificatori</item>
+    <item quantity="other">Tu debe jocar plus %s partitas classificatori</item>
+  </plurals>
   <string name="yourPerfRatingIsProvisional">Tu classification de %s es provisori</string>
   <string name="yourPerfRatingIsTooHigh">Tu classification (%2$s) de %1$s es troppo elevate</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Tu melior classification septimanal (%2$s) de %1$s es troppo elevate</string>
@@ -217,6 +293,10 @@
   <string name="backToGame">Retro al partite</string>
   <string name="siteDescription">Servitor de chacos gratis in linea. Joca al chacos ora in un interfacie simple. Nulle registration, nulle annuncios, nulle plugin requirite. Joca al chacos con le computator, con amicos o con adversarios aleatori.</string>
   <string name="teams">Equipas</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s membros</item>
+    <item quantity="other">%s membros</item>
+  </plurals>
   <string name="allTeams">Tote le equipas</string>
   <string name="newTeam">Nove equipa</string>
   <string name="myTeams">Mi equipas</string>
@@ -244,6 +324,10 @@
   <string name="continueFromHere">Continuar a partir de iste position</string>
   <string name="importGame">Importar partita</string>
   <string name="importGameExplanation">Quando tu colla un partita in PGN tu potera: revider la interactivemente, consultar un analyse de computator, utilisar le chat de joco, e publicar un ligamine URL.</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s partitas importate</item>
+    <item quantity="other">%s partitas importate</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">Isto es un CAPTCHA de chacos.</string>
   <string name="clickOnTheBoardToMakeYourMove">Clicca sur le tabuliero pro facer tu movimento e probar que tu es human.</string>
   <string name="captcha.fail">Per favor, resolve le enigma de chacos pro continuar.</string>
@@ -263,6 +347,14 @@
   <string name="unblock">Disblocar</string>
   <string name="followsYou">Te seque</string>
   <string name="xStartedFollowingY">%1$s comenciava a sequer %2$s</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s sequitores</item>
+    <item quantity="other">%s sequitores</item>
+  </plurals>
+  <plurals name="nbFollowing">
+    <item quantity="one">seque %s</item>
+    <item quantity="other">seque %s</item>
+  </plurals>
   <string name="more">Plus</string>
   <string name="memberSince">Membro desde</string>
   <string name="lastSeenActive">Ultime connexion %s</string>
