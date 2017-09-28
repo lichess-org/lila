@@ -16,6 +16,8 @@ Contributing
 2. Search to make sure it isn't a duplicate. [The advanced search syntax](https://help.github.com/articles/searching-issues/) may come in handy.
 3. It is not a trivial problem or demand unrealistic dev time to fix.
 
+Report mobile-only bugs to [Lichess mobile](https://github.com/veloce/lichobile/).
+
 ## I want to suggest a feature for Lichess
 
 Issue tickets on features that lack potential or effectiveness are not useful and may be closed. Discussions regarding whether a proposed new feature would be useful can be done on the [Lichess Feedback Forum](https://lichess.org/forum/lichess-feedback) to gauge feedback. The developers may also discuss the idea there, and if it is exemplary, a corresponding issue ticket will be made. __When you're ready, [make an issue ticket](https://github.com/ornicar/lila/issues/new)__ and link relevant, constructive comments regarding it in your issue ticket (such as a detailed Reddit post; linking to an empty forum thread with only your own commentary adds no value). Make sure that the feature you propose:
