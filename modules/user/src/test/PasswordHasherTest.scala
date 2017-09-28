@@ -17,7 +17,7 @@ class PasswordHasherTest extends Specification {
     def emptyArr(i: Int) = new Array[Byte](i)
 
     val aes = new Aes(secret)
-    val iv = emptyArr(16)
+    val iv = Aes.iv(emptyArr(16))
 
     "preserve size" in {
       aes.encrypt(iv, emptyArr(20)).size must_== 20

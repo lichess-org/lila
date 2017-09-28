@@ -15,14 +15,14 @@ final class Authenticator(
 ) {
   import Authenticator._
 
-  def passEnc(pass: String): Array[Byte] = passHasher.hash(pass)
+  def passEnc(pass: String): HashedPass = passHasher.hash(pass)
 
   def compare(auth: AuthData, p: String): Boolean = {
     val newP = auth.salt.fold(p) { s =>
       val salted = s"$p{$s}" // BC
       (~auth.sha512).fold(salted.sha512, salted.sha1).hex
     }
-    auth.bpass match {
+    auth.bcryptHash match {
       // Deprecated fallback. Log & fail after DB migration.
       case None => auth.password ?? { p => onShaLogin(); p == newP }
       case Some(bHash) => passHasher.check(bHash, newP)
@@ -38,9 +38,9 @@ final class Authenticator(
   // This creates a bcrypt hash using the existing sha as input,
   // allowing us to migrate all users in bulk.
   def upgradePassword(a: AuthData) = (a.bpass, a.password) match {
-    case (None, Some(pass)) => Some(userRepo.coll.update(
+    case (None, Some(shaHash)) => Some(userRepo.coll.update(
       $id(a._id),
-      $set(F.bpass -> passEnc(pass)) ++ $unset(F.password)
+      $set(F.bpass -> passEnc(shaHash).bytes) ++ $unset(F.password)
     ).void >>- lila.mon.user.auth.shaBcUpgrade())
 
     case _ => None
@@ -58,7 +58,7 @@ final class Authenticator(
   def setPassword(id: User.ID, pass: String): Funit =
     userRepo.coll.update(
       $id(id),
-      $set(F.bpass -> passEnc(pass)) ++ $unset(F.salt, F.password, F.sha512)
+      $set(F.bpass -> passEnc(pass).bytes) ++ $unset(F.salt, F.password, F.sha512)
     ).void
 
   private def authWithBenefits(auth: AuthData)(p: String): Boolean = {
@@ -85,6 +85,8 @@ object Authenticator {
       salt: Option[String] = None,
       sha512: Option[Boolean] = None
   ) {
+
+    def bcryptHash = bpass map HashedPass
 
     def hashToken: String = bpass.fold(~password) { _.sha512.hex }
   }
