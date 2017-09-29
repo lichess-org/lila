@@ -29,7 +29,9 @@ private final class OneSignalPush(
             "data" -> data.payload,
             "android_group" -> data.stacking.key,
             "android_group_message" -> Map("en" -> data.stacking.message),
-            "collapse_id" -> data.stacking.key
+            "collapse_id" -> data.stacking.key,
+            "ios_badgeType" -> "Increase",
+            "ios_badgeCount" -> 1
           )).flatMap {
             case res if res.status == 200 =>
               (res.json \ "errors").asOpt[List[String]] match {
