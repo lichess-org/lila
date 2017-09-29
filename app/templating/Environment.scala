@@ -17,9 +17,7 @@ object Environment
   with scalalib.OrnicarMonoid.Instances
   with scalalib.Zero.Instances
   with scalalib.OrnicarOption
-  with lila.BooleanSteroids
-  with lila.OptionSteroids
-  with lila.JodaTimeSteroids
+  with lila.LilaSteroids
   with StringHelper
   with JsonHelper
   with AssetHelper
