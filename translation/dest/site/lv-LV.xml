@@ -305,6 +305,11 @@
   <string name="player">Spēlētājs</string>
   <string name="list">Saraksts</string>
   <string name="graph">Grafiks</string>
+  <plurals name="lessThanNbMinutes">
+    <item quantity="zero">Mazāk kā %s minūtes</item>
+    <item quantity="one">Mazāk kā %s minūte</item>
+    <item quantity="other">Mazāk kā %s minūtes</item>
+  </plurals>
   <string name="required">Obligāts.</string>
   <string name="openTournaments">Atvērtie turnīri</string>
   <string name="duration">Ilgums</string>
@@ -354,6 +359,7 @@
   <string name="biography">Biogrāfija</string>
   <string name="country">Valsts</string>
   <string name="preferences">Uzstādījumi</string>
+  <string name="inlineNotation">Inline notācija</string>
   <string name="watchLichessTV">Skaties Lichess TV</string>
   <string name="previouslyOnLichessTV">Iepriekš Lichess TV</string>
   <string name="onlinePlayers">Spēlētāji tiešsaistē</string>
@@ -380,6 +386,11 @@
   <string name="pleaseVotePuzzle">Palīdzi uzlabot lichess, balsojot ar bultiņām uz augšu vai uz leju:</string>
   <string name="thankYou">Paldies!</string>
   <string name="ratingX">Reitings: %s</string>
+  <plurals name="playedXTimes">
+    <item quantity="zero">Spēlēts %s reizes</item>
+    <item quantity="one">Spēlēts %s reizi</item>
+    <item quantity="other">Spēlēts %s reizes</item>
+  </plurals>
   <string name="fromGameLink">No spēles %s</string>
   <string name="continueTraining">Turpināt treniņu</string>
   <string name="retryThisPuzzle">Atkārtot šo uzdevumu</string>
