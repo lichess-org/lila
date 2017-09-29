@@ -53,6 +53,7 @@ Escappa e vince le stellas!</string>
   <string name="protection">Protection</string>
   <string name="combat">Combatto</string>
   <string name="checkInOne">Chaco in 1</string>
+  <string name="outOfCheck">Escappa le chaco</string>
   <string name="defendYourKing">Defende tu rege</string>
   <string name="mateInOne">Mat in 1</string>
   <string name="intermediate">Intermedie</string>
@@ -65,6 +66,7 @@ Escappa e vince le stellas!</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Le partita es nulle</string>
   <string name="advanced">Avantiate</string>
+  <string name="pieceValue">Valor del pecias</string>
   <string name="checkInTwo">Chaco in 2</string>
   <string name="register">Crear conto</string>
   <string name="getAFreeLichessAccount">Obtene un conto Lichess gratis</string>
@@ -74,11 +76,18 @@ Escappa e vince le stellas!</string>
   <string name="exerciseYourTacticalSkills">Exercita tu habilitates tactic</string>
   <string name="videos">Videos</string>
   <string name="watchInstructiveChessVideos">Specta videos de chacos instructive</string>
+  <string name="playPeople">Adversarios</string>
+  <string name="playMachine">Computator</string>
   <string name="excellent">Excellente!</string>
   <string name="greatJob">Bravo!</string>
   <string name="perfect">Perfecte!</string>
   <string name="outstanding">Extraordinari!</string>
+  <string name="wayToGo">Continua assi!</string>
   <string name="yesYesYes">Si, si, si!</string>
+  <string name="youreGoodAtThis">Tu es bon in isto!</string>
+  <string name="nailedIt">Successo!</string>
+  <string name="rightOn">Correcte!</string>
+  <string name="stageXComplete">Nivello %s complete</string>
   <string name="yourScore">Tu punctos</string>
   <string name="next">Sequente</string>
   <string name="backToMenu">Retro al menu</string>
