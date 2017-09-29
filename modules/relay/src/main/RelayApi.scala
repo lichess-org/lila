@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import reactivemongo.bson._
 
 import lila.db.dsl._
-import lila.study.{ StudyApi, Study }
+import lila.study.{ StudyApi, Study, Settings }
 import lila.user.User
 
 final class RelayApi(
@@ -42,13 +42,20 @@ final class RelayApi(
   )).sort($sort asc "startsAt").list[Relay]()
 
   def closed = coll.find($doc(
-    "closedAt" $exists false
+    "closedAt" $exists true
   )).sort($sort asc "startsAt").list[Relay]()
 
   def create(data: RelayForm.Data, user: User): Fu[Relay] = {
     val relay = data make user
     coll.insert(relay) >>
-      studyApi.create(lila.study.DataForm.Data(), user, relay.studyId.some) inject relay
+      studyApi.create(lila.study.StudyMaker.Data(
+        id = relay.studyId.some,
+        name = Study.Name(relay.name).some,
+        settings = Settings.init.copy(
+          chat = Settings.UserSelection.Everyone,
+          sticky = false
+        ).some
+      ), user) inject relay
   }
 
   private def withStudy(relays: List[Relay]): Fu[List[Relay.WithStudy]] =

@@ -5,3 +5,99 @@
 .relay_form textarea.description {
   height: 10em;
 }
+.relays .list {
+  display: flex;
+  flex-flow: row wrap;
+  border-top: 1px solid #ccc;
+}
+.relays .norelays {
+  text-align: center;
+  font-size: 2em;
+}
+.relays .norelays p {
+  opacity: 0.6;
+}
+.relays .relay {
+  flex: 0 0 50%;
+  max-width: 50%;
+  border-bottom: 1px solid #ccc;
+  box-sizing: border-box;
+  padding: 10px 10px 20px 10px;
+  position: relative;
+}
+body.dark .relays .top .search input,
+body.dark .relays .list,
+body.dark .relays .relay {
+  border-color: #3d3d3d;
+}
+.relays .relay {
+  border-right: 1px solid #ccc;
+}
+.relays .relay:hover {
+  background: rgba(191, 231, 255, 0.5);
+}
+.relays .relay a.overlay {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.relays .body {
+  display: flex;
+  padding-left: 10px;
+}
+.relays .relay ol.chapters {
+  flex: 0 0 58%;
+  max-width: 58%;
+}
+.relays .relay ol.members {
+  flex: 0 0 40%;
+  max-width: 40%;
+  margin-left: 2%;
+}
+.relays .relay ol li {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.relays .relay ol li::before {
+  opacity: 0.5;
+}
+.relays .relay h2 {
+  display: block;
+  position: relative;
+  box-sizing: border-box;
+  height: 60px;
+  padding-left: 64px
+}
+.relays .relay h2 strong {
+  font-size: 1.5em;
+  font-weight: normal;
+  color: #3893E8;
+  display: block;
+  margin: 11px 0 1px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.relays .relay h2 span {
+  font-size: 1em;
+  display: block;
+  opacity: 0.8;
+}
+.relays .relay h2 span i {
+  opacity: 0.5;
+}
+.relays h2 .icon {
+  position: absolute;
+  top: 0;
+  left: 15px;
+}
+.relays h2 .icon::before {
+  color: #3893E8;
+  font-size: 34px;
+  line-height: 43px;
+  opacity: 0.8;
+}

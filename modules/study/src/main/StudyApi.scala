@@ -83,9 +83,9 @@ final class StudyApi(
 
   def studyIdOf = chapterRepo.studyIdOf _
 
-  def create(data: DataForm.Data, user: User, forceId: Option[Study.Id] = None): Fu[Option[Study.WithChapter]] = (data.as match {
+  def create(data: StudyMaker.Data, user: User): Fu[Option[Study.WithChapter]] = (data.form.as match {
     case DataForm.AsNewStudy =>
-      studyMaker(data, user, forceId) flatMap { res =>
+      studyMaker(data, user) flatMap { res =>
         studyRepo.insert(res.study) >>
           chapterRepo.insert(res.chapter) >>-
           indexStudy(res.study) >>-
@@ -100,7 +100,7 @@ final class StudyApi(
           _ <- addChapter(
             byUserId = user.id,
             studyId = study.id,
-            data = data.toChapterData,
+            data = data.form.toChapterData,
             sticky = study.settings.sticky,
             socket = socket,
             uid = Uid("") // the user is not in the study yet
@@ -108,7 +108,7 @@ final class StudyApi(
           made <- byIdWithChapter(studyId)
         } yield made
       case _ => fuccess(none)
-    } orElse create(data.copy(asStr = none), user)
+    } orElse create(data.copy(form = data.form.copy(asStr = none)), user)
   }) addEffect {
     _ ?? { sc =>
       bus.publish(actorApi.StartStudy(sc.study.id), 'startStudy)

@@ -10,21 +10,21 @@ private final class StudyMaker(
     chapterMaker: ChapterMaker
 ) {
 
-  def apply(data: DataForm.Data, user: User, forceId: Option[Study.Id] = None): Fu[Study.WithChapter] =
-    (data.gameId ?? GameRepo.gameWithInitialFen).flatMap {
-      case Some((game, initialFen)) => createFromPov(Pov(game, data.orientation), initialFen, user, forceId)
-      case None => createFromScratch(data, user, forceId)
+  def apply(data: StudyMaker.Data, user: User): Fu[Study.WithChapter] =
+    (data.form.gameId ?? GameRepo.gameWithInitialFen).flatMap {
+      case Some((game, initialFen)) => createFromPov(data, Pov(game, data.form.orientation), initialFen, user)
+      case None => createFromScratch(data, user)
     }
 
-  private def createFromScratch(data: DataForm.Data, user: User, forceId: Option[Study.Id] = None): Fu[Study.WithChapter] = {
-    val study = Study.make(user, Study.From.Scratch, forceId)
+  private def createFromScratch(data: StudyMaker.Data, user: User): Fu[Study.WithChapter] = {
+    val study = Study.make(user, Study.From.Scratch, data.id, data.name, data.settings)
     chapterMaker.fromFenOrPgnOrBlank(study, ChapterMaker.Data(
       game = none,
       name = Chapter.Name("Chapter 1"),
-      variant = data.variantStr,
-      fen = data.fenStr,
-      pgn = data.pgnStr,
-      orientation = data.orientation.name,
+      variant = data.form.variantStr,
+      fen = data.form.fenStr,
+      pgn = data.form.pgnStr,
+      orientation = data.form.orientation.name,
       mode = ChapterMaker.Mode.Normal.key,
       initial = true
     ),
@@ -34,9 +34,9 @@ private final class StudyMaker(
     }
   }
 
-  private def createFromPov(pov: Pov, initialFen: Option[FEN], user: User, forceId: Option[Study.Id] = None): Fu[Study.WithChapter] =
+  private def createFromPov(data: StudyMaker.Data, pov: Pov, initialFen: Option[FEN], user: User): Fu[Study.WithChapter] =
     chapterMaker.game2root(pov.game, initialFen) map { root =>
-      val study = Study.make(user, Study.From.Game(pov.game.id), forceId).copy(name = Study.Name("Game study"))
+      val study = Study.make(user, Study.From.Game(pov.game.id), data.id, Study.Name("Game study").some)
       val chapter: Chapter = Chapter.make(
         studyId = study.id,
         name = Chapter.Name(Namer.gameVsText(pov.game, withRatings = false)(lightUser)),
@@ -57,4 +57,14 @@ private final class StudyMaker(
     } addEffect { swc =>
       chapterMaker.notifyChat(swc.study, pov.game, user.id)
     }
+}
+
+object StudyMaker {
+
+  case class Data(
+      form: DataForm.Data = DataForm.Data(),
+      id: Option[Study.Id] = None,
+      name: Option[Study.Name] = None,
+      settings: Option[Settings] = None
+  )
 }

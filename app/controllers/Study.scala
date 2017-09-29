@@ -179,7 +179,7 @@ object Study extends LilaController {
   }
 
   private def createStudy(data: lila.study.DataForm.Data, me: lila.user.User)(implicit ctx: Context) =
-    env.api.create(data, me) flatMap {
+    env.api.create(lila.study.StudyMaker.Data(data), me) flatMap {
       _.fold(notFound) { sc =>
         Redirect(routes.Study.show(sc.study.id.value)).fuccess
       }
