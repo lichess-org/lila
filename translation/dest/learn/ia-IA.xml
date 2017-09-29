@@ -17,8 +17,16 @@ pro conducer lo al stella!</string>
   <string name="grabAllTheStars">Prende tote le stellas!</string>
   <string name="theFewerMoves">Quanto minus movimentos tu face,
 tanto plus punctos tu gania!</string>
+  <string name="useTwoRooks">Usa duo turres
+pro accelerar isto!</string>
+  <string name="rookComplete">Congratulationes! Tu ha maestrate con successo le turre.</string>
   <string name="theBishop">Le alfil</string>
   <string name="itMovesDiagonally">Illo move se in diagonales</string>
+  <string name="bishopIntro">Ora nos va apprender como manovrar un alfil!</string>
+  <string name="youNeedBothBishops">Un alfil pro placias clar,
+e un alfil pro placias obscur.
+Tu ha besonio de ambes!</string>
+  <string name="bishopComplete">Congratulationes! Tu pote commandar un alfil.</string>
   <string name="theQueen">Le dama</string>
   <string name="queenCombinesRookAndBishop">Dama = turre + alfil</string>
   <string name="queenIntro">Le plus potente pecia de chacos entra. Su majestate le regina!</string>
@@ -26,6 +34,7 @@ tanto plus punctos tu gania!</string>
   <string name="theMostImportantPiece">Le plus importante pecia</string>
   <string name="theKingIsSlow">Le rege es lente.</string>
   <string name="lastOne">Le ultime!</string>
+  <string name="theKnight">Le cavallo</string>
   <string name="thePawn">Le pedon</string>
   <string name="combat">Combatto</string>
   <string name="checkInOne">Chaco in 1</string>
