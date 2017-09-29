@@ -4,6 +4,7 @@
 @cssTag("analyse.css")
 @cssTag("study.css")
 @cssTag("relay.css")
+@cssTag("chat.css")
 }
 
 @moreJs = {
@@ -15,6 +16,17 @@ relay: @Html(J.stringify(data.relay)),
 study: @Html(J.stringify(data.study)),
 data: @Html(J.stringify(data.analysis)),
 i18n: @board.userAnalysisI18n(),
+tagTypes: '@lila.study.PgnTags.typesToString',
+userId: @jsUserId,
+chat: @jsOrNull(chatOption map { c =>
+chat.ChatJsData.json(
+c.chat,
+name = trans.chatRoom.txt(),
+timeout = c.timeout,
+writeable = ctx.userId.??(s.canChat),
+public = false,
+localMod = ctx.userId.??(s.canContribute))
+}),
 explorer: {
 endpoint: "@explorerEndpoint",
 tablebaseEndpoint: "@tablebaseEndpoint"
