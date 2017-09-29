@@ -98,6 +98,11 @@
   <string name="enable">Aktiv</string>
   <string name="bestMoveArrow">Ən yaxşı gedişi göstər</string>
   <string name="evaluationGauge">Dəyərləndirmə çubuğu</string>
+  <string name="multipleLines">Oxların sayı</string>
+  <string name="cpus">CPU sayı</string>
+  <string name="memory">Yaddaş</string>
+  <string name="infiniteAnalysis">Sonsuz təhlil</string>
+  <string name="removesTheDepthLimit">Dərinlik limitini ləğv edir və kompüterinizi isti saxlayır</string>
   <string name="blunders">Kobud səhvlər</string>
   <string name="mistakes">Səhvlər</string>
   <string name="inaccuracies">Qeyri-dəqiqliklər</string>
@@ -162,6 +167,12 @@
   <string name="passwordReset">Parolu yenilə</string>
   <string name="forgotPassword">Parolu unutdun?</string>
   <string name="rank">Təsnifat</string>
+  <string name="rankX">Sıralama: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Sıralama hər %s dəqiqədən bir güncəlləşir</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s məsələ</item>
+    <item quantity="other">%s məsələ</item>
+  </plurals>
   <string name="gamesPlayed">Oynadığı oyunlar</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s sizinle oyunlar</item>
