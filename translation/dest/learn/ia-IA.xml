@@ -30,11 +30,16 @@ Tu ha besonio de ambes!</string>
   <string name="theQueen">Le dama</string>
   <string name="queenCombinesRookAndBishop">Dama = turre + alfil</string>
   <string name="queenIntro">Le plus potente pecia de chacos entra. Su majestate le regina!</string>
+  <string name="queenComplete">Congratulationes! Damas non ha secretos pro te.</string>
   <string name="theKing">Le rege</string>
   <string name="theMostImportantPiece">Le plus importante pecia</string>
+  <string name="kingIntro">Tu es le rege. Si tu cade in battalia, le joco es perdite.</string>
   <string name="theKingIsSlow">Le rege es lente.</string>
   <string name="lastOne">Le ultime!</string>
+  <string name="kingComplete">Tu pote ora commandar le commandante!</string>
   <string name="theKnight">Le cavallo</string>
+  <string name="itMovesInAnLShape">Illo move se in un forma de L</string>
+  <string name="knightIntro">Ci es un defia pro te. Le cavallo es... un pecia special.</string>
   <string name="thePawn">Le pedon</string>
   <string name="combat">Combatto</string>
   <string name="checkInOne">Chaco in 1</string>
