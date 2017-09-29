@@ -40,9 +40,20 @@ Tu ha besonio de ambes!</string>
   <string name="theKnight">Le cavallo</string>
   <string name="itMovesInAnLShape">Illo move se in un forma de L</string>
   <string name="knightIntro">Ci es un defia pro te. Le cavallo es... un pecia special.</string>
+  <string name="knightsHaveAFancyWay">Cavallos ha un maniera pecular de saltar!</string>
+  <string name="knightsCanJumpOverObstacles">Cavallos pote saltar super obstaculos!
+Escappa e vince le stellas!</string>
+  <string name="knightComplete">Congratulationes! Tu ha maestrate le cavallo.</string>
   <string name="thePawn">Le pedon</string>
+  <string name="itMovesForwardOnly">Illo move se solmente in avante</string>
+  <string name="pawnIntro">Pedones es debile, ma illos possede multe potential.</string>
+  <string name="selectThePieceYouWant">Selectiona le pecia que tu vole!</string>
+  <string name="fundamentals">Fundamentos</string>
+  <string name="capture">Captura</string>
+  <string name="protection">Protection</string>
   <string name="combat">Combatto</string>
   <string name="checkInOne">Chaco in 1</string>
+  <string name="defendYourKing">Defende tu rege</string>
   <string name="mateInOne">Mat in 1</string>
   <string name="intermediate">Intermedie</string>
   <string name="boardSetup">Tabuliero</string>
