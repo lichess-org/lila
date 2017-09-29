@@ -203,6 +203,11 @@
   </plurals>
   <string name="exportGames">Eksportēt spēles</string>
   <string name="ratingRange">Reitinga diapazons</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="zero">Piešķirt %s sekundes</item>
+    <item quantity="one">Piešķirt %s sekundi</item>
+    <item quantity="other">Piešķirt %s sekundes</item>
+  </plurals>
   <string name="giveMoreTime">Dot vairāk laika</string>
   <string name="thisPlayerUsesChessComputerAssistance">Šis spēlētājs izmanto šaha programmu palīdzību</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Šis spēlētājs mākslīgi paaugstina/pazemina savu reitingu</string>
@@ -252,6 +257,11 @@
   <string name="backToGame">Atpakaļ pie spēles</string>
   <string name="siteDescription">Bezmaksas Šahs tiešsaistē. Spēlē Šahu tīrā saskarnē. Bez reģistrācijas, bez reklāmām, bez papildus programmatūras. Spēlē Šahu pret datoru, draugiem vai nejaušiem pretiniekiem.</string>
   <string name="teams">Komandas</string>
+  <plurals name="nbMembers">
+    <item quantity="zero">%s biedri</item>
+    <item quantity="one">%s biedrs</item>
+    <item quantity="other">%s biedri</item>
+  </plurals>
   <string name="allTeams">Visas komandas</string>
   <string name="newTeam">Jauna komanda</string>
   <string name="myTeams">Manas komandas</string>
