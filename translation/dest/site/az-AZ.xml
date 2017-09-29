@@ -49,6 +49,14 @@
   <string name="computerAnalysisAvailable">Kompüter təhlili hazırdır</string>
   <string name="analysis">Təhlil</string>
   <string name="depthX">Dərinlik %s</string>
+  <string name="usingServerAnalysis">Server təhlili istifadə olunur</string>
+  <string name="loadingEngine">Proqram yüklənir ...</string>
+  <string name="cloudAnalysis">Bulud təhlili</string>
+  <string name="goDeeper">Dərinliyi artır</string>
+  <string name="showThreat">Hədələri göstər</string>
+  <string name="inLocalBrowser">brauzerdə</string>
+  <string name="toggleLocalEvaluation">Brauzer təhlilini yandır/söndür</string>
+  <string name="move">Gediş</string>
   <string name="openingExplorer">Debut tədqiqatçısı və cədvəl bazası</string>
   <string name="blunders">Kobud səhvlər</string>
   <string name="mistakes">Səhvlər</string>
