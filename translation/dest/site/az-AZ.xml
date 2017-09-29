@@ -211,6 +211,8 @@
   <string name="play">Oyna</string>
   <string name="inbox">Gələnlər qutusu</string>
   <string name="chatRoom">Söhbət otağı</string>
+  <string name="loginToChat">Yazışmaq üçün qeydiyyatdan keçin</string>
+  <string name="youHaveBeenTimedOut">Siz yazışmadan 10 dəqiqəlik uzaqlaşdırıldınız.</string>
   <string name="spectatorRoom">Tamaşaçı otağı</string>
   <string name="composeMessage">Məktub yaz</string>
   <string name="noNewMessages">Yeni mesaj yoxdur</string>
@@ -220,6 +222,10 @@
   <string name="incrementInSeconds">saniyə artırma</string>
   <string name="freeOnlineChess">Pulsuz</string>
   <string name="spectators">tamaşaçı</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s reytinqli</item>
+    <item quantity="other">%s reytinqli</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s qalib gəldi</item>
     <item quantity="other">%s qalib gəldi</item>
@@ -232,14 +238,20 @@
     <item quantity="one">%s heç-heçə edirlər</item>
     <item quantity="other">%s heç-heçə edirlər</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s oynayır</item>
+    <item quantity="other">%s oynayır</item>
+  </plurals>
   <string name="exportGames">Oyunları ixrac et</string>
   <string name="ratingRange">Elo təsnifatı</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s saniyə ver</item>
     <item quantity="other">%s saniyə ver</item>
   </plurals>
+  <string name="giveMoreTime">Vaxt ver</string>
   <string name="thisPlayerUsesChessComputerAssistance">Bu oyunçu şahmat komputer köməkçisindən istifadə edir</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Bu oyunçu öz reytinqini süni şəklidə artırır</string>
+  <string name="openingExplorerAndTablebase">Debüt &amp; endşpil bazası</string>
   <string name="takeback">Gedişi geri götür</string>
   <string name="proposeATakeback">Gedişi geri götürmə təklifi ver</string>
   <string name="takebackPropositionSent">Gedişi geri götürmə təklifi göndərildi</string>
