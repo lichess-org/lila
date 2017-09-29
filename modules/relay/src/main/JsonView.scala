@@ -9,7 +9,9 @@ object JsonView {
       "id" -> r.id.value,
       "name" -> r.name,
       "description" -> r.description,
-      "ownerId" -> r.ownerId
+      "ownerId" -> r.ownerId,
+      "pgnUrl" -> r.pgnUrl,
+      "syncSeconds" -> r.syncSeconds
     )
   }
 

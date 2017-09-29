@@ -15,7 +15,7 @@ object RelayForm {
     "name" -> nonEmptyText(minLength = 3, maxLength = 80),
     "description" -> nonEmptyText(minLength = 3, maxLength = 4000),
     "pgnUrl" -> nonEmptyText,
-    "startsAt" -> utcDate
+    "startsAt" -> optional(utcDate)
   )(Data.apply)(Data.unapply))
 
   def create = form
@@ -24,7 +24,7 @@ object RelayForm {
       name: String,
       description: String,
       pgnUrl: String,
-      startsAt: DateTime
+      startsAt: Option[DateTime]
   ) {
 
     def update(relay: Relay) = relay.copy(
@@ -42,7 +42,8 @@ object RelayForm {
       ownerId = user.id,
       createdAt = DateTime.now,
       startsAt = startsAt,
-      closedAt = none
+      syncLog = SyncLog(Nil),
+      syncUntil = none
     )
   }
 

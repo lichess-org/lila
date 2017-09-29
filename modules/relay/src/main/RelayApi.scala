@@ -32,17 +32,19 @@ final class RelayApi(
         case c ~ s ~ t => Relay.Selection(c, s, t)
       }
 
+  def syncable = coll.find($doc("syncUntil" $exists true)).list[Relay]()
+
   def created = coll.find($doc(
     "startsAt" $gt DateTime.now
   )).sort($sort asc "startsAt").list[Relay]()
 
   def started = coll.find($doc(
-    "startsAt" $lt DateTime.now,
-    "closedAt" $exists false
+    "syncUntil" $exists true
   )).sort($sort asc "startsAt").list[Relay]()
 
   def closed = coll.find($doc(
-    "closedAt" $exists true
+    "startsAt" $lt DateTime.now.minusMinutes(30),
+    "syncUntil" $exists false
   )).sort($sort asc "startsAt").list[Relay]()
 
   def create(data: RelayForm.Data, user: User): Fu[Relay] = {

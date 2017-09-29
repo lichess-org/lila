@@ -6,5 +6,7 @@
 </h2>
 <div class="body">
   <p>@r.relay.description</p>
-  @momentFromNow(r.relay.startsAt)
+  @r.relay.startsAt.map { startsAt =>
+  @momentFromNow(startsAt)
+  }
 </div>

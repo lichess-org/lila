@@ -11,9 +11,10 @@ case class Relay(
     description: String,
     pgnUrl: String,
     ownerId: User.ID,
-    createdAt: DateTime,
-    startsAt: DateTime,
-    closedAt: Option[DateTime]
+    startsAt: Option[DateTime],
+    syncUntil: Option[DateTime],
+    syncLog: SyncLog,
+    createdAt: DateTime
 ) {
 
   def id = _id
@@ -21,6 +22,10 @@ case class Relay(
   def studyId = Study.Id(id.value)
 
   def slug = lila.common.String slugify name
+
+  def syncSeconds: Option[Int] = syncUntil map { until =>
+    (until.getSeconds - nowSeconds).toInt
+  } filter (0<)
 
   override def toString = s"id:$id pgnUrl:$pgnUrl"
 }

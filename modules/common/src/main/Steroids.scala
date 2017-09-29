@@ -5,7 +5,6 @@ import ornicar.scalalib.Zero
 import org.joda.time.DateTime
 import scala.util.Try
 
-
 trait Steroids
 
   extends scalalib.Validation

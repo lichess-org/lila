@@ -5,12 +5,14 @@ import { StudyPracticeCtrl } from './practice/interfaces';
 import { ChapterDescriptionCtrl } from './chapterDescription';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { GamebookOverride } from './gamebook/interfaces';
+import { RelayCtrl } from './relay/relayCtrl';
 
 export interface StudyCtrl {
   data: StudyData;
   currentChapter(): StudyChapterMeta;
   socketHandlers: { [key: string]: any };
   vm: StudyVm;
+  relay?: RelayCtrl;
   form: any;
   members: any;
   chapters: any;

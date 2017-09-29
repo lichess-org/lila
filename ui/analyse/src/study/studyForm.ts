@@ -5,6 +5,7 @@ import { prop, Prop } from 'common';
 import { bind, bindSubmit } from '../util';
 import { StudyData } from './interfaces';
 import { MaybeVNodes } from '../interfaces';
+import { RelayCtrl } from './relay/relayCtrl';
 
 export interface StudyFormCtrl {
   open: Prop<boolean>;
@@ -13,6 +14,7 @@ export interface StudyFormCtrl {
   getData(): StudyData;
   isNew(): boolean;
   redraw(): void;
+  relay?: RelayCtrl;
 }
 
 interface FormData {
@@ -24,6 +26,7 @@ interface Select {
   name: string;
   choices: Choice[];
   selected: string;
+  disabled?: boolean;
 }
 type Choice = [string, string];
 
@@ -42,7 +45,9 @@ const userSelectionChoices: Choice[] = [
 
 function select(s: Select): MaybeVNodes {
   return [
-    h('select#study-' + s.key, s.choices.map(function(o) {
+    h('select#study-' + s.key, {
+      attrs: { disabled: !!s.disabled }
+    }, s.choices.map(function(o) {
       return h('option', {
         attrs: {
           value: o[0],
@@ -57,7 +62,7 @@ function select(s: Select): MaybeVNodes {
   ];
 };
 
-export function ctrl(save: (data: FormData, isNew: boolean) => void, getData: () => StudyData, redraw: () => void): StudyFormCtrl {
+export function ctrl(save: (data: FormData, isNew: boolean) => void, getData: () => StudyData, redraw: () => void, relay?: RelayCtrl): StudyFormCtrl {
 
   const initAt = Date.now();
 
@@ -79,7 +84,8 @@ export function ctrl(save: (data: FormData, isNew: boolean) => void, getData: ()
     },
     getData,
     isNew,
-    redraw
+    redraw,
+    relay
   };
 }
 
@@ -100,7 +106,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
       ctrl.redraw();
     },
     content: [
-      h('h2', (isNew ? 'Create' : 'Edit') + ' study'),
+      h('h2', ctrl.relay ? 'Configure live broadcast' : (isNew ? 'Create' : 'Edit') + ' study'),
       h('form.material.form.align-left', {
         hook: bindSubmit(e => {
           const obj: FormData = {};
@@ -110,7 +116,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
           ctrl.save(obj, isNew);
         }, ctrl.redraw)
       }, [
-        h('div.form-group', [
+        ctrl.relay ? null : h('div.form-group', [
           h('input#study-name', {
             attrs: {
               minlength: 3,
@@ -162,7 +168,8 @@ export function view(ctrl: StudyFormCtrl): VNode {
               ['true', 'Yes: keep everyone on the same position'],
               ['false', 'No: let people browse freely']
             ],
-            selected: '' + data.settings.sticky
+            selected: '' + data.settings.sticky,
+            disabled: !!ctrl.relay
           })),
         ]),
         dialog.button(isNew ? 'Start' : 'Save')

@@ -25,6 +25,7 @@ import { view as forkView } from './fork'
 import { render as acplView } from './acpl'
 import AnalyseCtrl from './ctrl';
 import { ConcealOf } from './interfaces';
+import relayRender from './study/relay/relayView';
 
 function renderResult(ctrl: AnalyseCtrl): VNode[] {
   let result: string | undefined;
@@ -249,7 +250,8 @@ export default function(ctrl: AnalyseCtrl): VNode {
   studyStateClass = chapter ? chapter.id + ctrl.study!.vm.loading : 'nostudy',
   gamebookPlay = ctrl.gamebookPlay(),
   gamebookPlayView = gamebookPlay && gbPlay.render(gamebookPlay),
-  gamebookEditView = gbEdit.running(ctrl) ? gbEdit.render(ctrl) : undefined;
+  gamebookEditView = gbEdit.running(ctrl) ? gbEdit.render(ctrl) : undefined,
+  relayView = ctrl.study && ctrl.study.relay ? relayRender(ctrl.study.relay) : undefined;
   return h('div.analyse.cg-512', [
     h('div.' + studyStateClass, {
       hook: {
@@ -283,7 +285,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
           ]),
           menuIsOpen ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
           buttons(ctrl),
-          gamebookEditView
+          gamebookEditView || relayView
         ])
       ])
     ]),

@@ -27,7 +27,7 @@ final class Env(
 
   private val fetch = system.actorOf(Props(new RelayFetch(
     sync = sync,
-    getStarted = () => api.started
+    getSyncable = () => api.syncable
   )))
 }
 
