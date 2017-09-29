@@ -72,6 +72,17 @@
   <string name="averageRatingX">Orta reytinq: %s</string>
   <string name="recentGames">Son oyunlar</string>
   <string name="topGames">Ən yaxşı oyunlar</string>
+  <string name="masterDbExplanation">%1$s+ FIDE reytinqli oyunçuların %2$s ildən %3$s ilə kimi taxta üzərində oynadığı iki milyon oyun</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">%s yarımgedişə mat</item>
+    <item quantity="other">%s yarımgedişə mat</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Növbəti vurma və ya piyada gedişi %s yarımgediş sonra (50 gediş qaydasının sıfırlanmasına qalan məsafə)</item>
+    <item quantity="other">Növbəti vurma və ya piyada gedişi %s yarımgediş sonra (50 gediş qaydasının sıfırlanmasına qalan məsafə)</item>
+  </plurals>
+  <string name="noGameFound">Oyun tapılmadı</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Bəlkə seçimlər menyusunda daha çox oyun daxil edilməsini seçəsiniz?</string>
   <string name="openingExplorer">Debut tədqiqatçısı və cədvəl bazası</string>
   <string name="blunders">Kobud səhvlər</string>
   <string name="mistakes">Səhvlər</string>
