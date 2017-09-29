@@ -7,7 +7,7 @@
   <string name="gameOver">Uduzdunuz</string>
   <string name="waitingForOpponent">Rəqibi gözləyin</string>
   <string name="waiting">Gözləmə</string>
-  <string name="yourTurn">Sizin növbənizdir</string>
+  <string name="yourTurn">Sizin gedişinizdir</string>
   <string name="aiNameLevelAiLevel">%1$s səviyyə %2$s</string>
   <string name="level">Səviyyə</string>
   <string name="toggleTheChat">Söhbətə keçid</string>
