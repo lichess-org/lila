@@ -46,7 +46,9 @@
   <string name="viewTheComputerAnalysis">Kompüter analizinə baxa bilərsiniz</string>
   <string name="requestAComputerAnalysis">Kompüter analizi üçün müraciət</string>
   <string name="computerAnalysis">Kompüter analizi</string>
+  <string name="computerAnalysisAvailable">Kompüter təhlili hazırdır</string>
   <string name="analysis">Təhlil</string>
+  <string name="depthX">Dərinlik %s</string>
   <string name="openingExplorer">Debut tədqiqatçısı və cədvəl bazası</string>
   <string name="blunders">Kobud səhvlər</string>
   <string name="mistakes">Səhvlər</string>
