@@ -19,7 +19,7 @@ function stateOn(ctrl: RelayCtrl) {
   }, [
     iconTag('E'),
     h('div', [
-      'Currently connected to PGN source',
+      'Connected to PGN source',
       h('div.timer', {
         hook: {
           insert: vnode => $(vnode.elm as HTMLElement).clock({ time: ctrl.data.syncSeconds! })
@@ -37,6 +37,10 @@ function stateOff(ctrl: RelayCtrl) {
     hook: bind('click', _ => ctrl.setSync(true))
   }, [
     iconTag('G'),
-    h('div', 'Connect to PGN source' )
+    h('div', [
+      'Click to connect',
+      h('br'),
+      'to PGN source'
+    ])
   ]);
 }

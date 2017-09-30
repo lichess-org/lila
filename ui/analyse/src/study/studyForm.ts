@@ -26,7 +26,6 @@ interface Select {
   name: string;
   choices: Choice[];
   selected: string;
-  disabled?: boolean;
 }
 type Choice = [string, string];
 
@@ -45,9 +44,7 @@ const userSelectionChoices: Choice[] = [
 
 function select(s: Select): MaybeVNodes {
   return [
-    h('select#study-' + s.key, {
-      attrs: { disabled: !!s.disabled }
-    }, s.choices.map(function(o) {
+    h('select#study-' + s.key, s.choices.map(function(o) {
       return h('option', {
         attrs: {
           value: o[0],
@@ -161,15 +158,14 @@ export function view(ctrl: StudyFormCtrl): VNode {
             choices: userSelectionChoices,
             selected: data.settings.chat
           })),
-          h('div.form-group.half', select({
+          ctrl.relay ? null : h('div.form-group.half', select({
             key: 'sticky',
             name: 'Enable sync',
             choices: [
               ['true', 'Yes: keep everyone on the same position'],
               ['false', 'No: let people browse freely']
             ],
-            selected: '' + data.settings.sticky,
-            disabled: !!ctrl.relay
+            selected: '' + data.settings.sticky
           })),
         ]),
         dialog.button(isNew ? 'Start' : 'Save')

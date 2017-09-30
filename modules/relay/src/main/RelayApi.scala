@@ -69,6 +69,18 @@ final class RelayApi(
     }
   }
 
+  def addSyncLog(id: Relay.Id, event: SyncLog.Event): Funit =
+    coll.update(
+      $id(id),
+      $doc("$push" -> $doc(
+        "syncLog" -> $doc(
+          "$each" -> List(event),
+          "$slice" -> -SyncLog.historySize
+        )
+      )),
+      upsert = true
+    ).void >>- lila.mon.chat.message()
+
   private def withStudy(relays: List[Relay]): Fu[List[Relay.WithStudy]] =
     studyApi byIds relays.map(_.studyId) map { studies =>
       relays.flatMap { relay =>

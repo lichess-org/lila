@@ -10,7 +10,8 @@ object BSONHandlers {
 
   import SyncLog.Event
   implicit val syncLogEventHandler = Macros.handler[Event]
-  implicit val syncLogHandler = Macros.handler[SyncLog]
+
+  implicit val syncLogHandler = isoHandler[SyncLog, List[Event], Barr]((s: SyncLog) => s.events, SyncLog.apply _)
 
   implicit val relayHandler = Macros.handler[Relay]
 }
