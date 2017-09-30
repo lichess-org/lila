@@ -109,7 +109,7 @@
   <string name="draw">Remíza</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s pripojený hráč</item>
-    <item quantity="few">%s pripojení hráči</item>
+    <item quantity="few">%s pripojený hráči</item>
     <item quantity="other">%s pripojených hráčov</item>
   </plurals>
   <string name="currentGames">Práve prebiehajúce hry</string>
@@ -148,6 +148,11 @@
     <item quantity="few">%s dni</item>
     <item quantity="other">%s dní</item>
   </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s hodina</item>
+    <item quantity="few">%s hodiny</item>
+    <item quantity="other">%s hodín</item>
+  </plurals>
   <string name="time">Čas</string>
   <string name="rating">Hodnotenie</string>
   <string name="ratingStats">Štatistika hodnotení</string>
@@ -168,6 +173,11 @@
     <item quantity="other">%s úloh</item>
   </plurals>
   <string name="gamesPlayed">Odohraných hier</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s hra s tebou</item>
+    <item quantity="few">%s hry s tebou</item>
+    <item quantity="other">%s hier s tebou</item>
+  </plurals>
   <string name="cancel">Zrušiť</string>
   <string name="timeOut">Čas vypršal</string>
   <string name="drawOfferSent">Ponuka remízy odoslaná</string>
@@ -211,6 +221,16 @@
   <string name="incrementInSeconds">Prídavok v sekundách</string>
   <string name="freeOnlineChess">Online šach zdarma</string>
   <string name="spectators">Diváci:</string>
+  <plurals name="nbWins">
+    <item quantity="one">%s výhra</item>
+    <item quantity="few">%s výhry</item>
+    <item quantity="other">%s výhier</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s prehra</item>
+    <item quantity="few">%s prehry</item>
+    <item quantity="other">%s prehier</item>
+  </plurals>
   <plurals name="nbDraws">
     <item quantity="one">%s remíza</item>
     <item quantity="few">%s remízy</item>
@@ -301,6 +321,11 @@
     <item quantity="one">%s nasledovník</item>
     <item quantity="few">%s nasledovníci</item>
     <item quantity="other">%s nasledovníkov</item>
+  </plurals>
+  <plurals name="nbFollowing">
+    <item quantity="one">%s sledovaný</item>
+    <item quantity="few">%s sledovaný</item>
+    <item quantity="other">%s sledovaných</item>
   </plurals>
   <string name="more">Viac</string>
   <string name="memberSince">Členom od</string>
@@ -513,6 +538,11 @@
     <item quantity="few">Maximum: %s znaky.</item>
     <item quantity="other">Maximum: %s znakov.</item>
   </plurals>
+  <plurals name="blocks">
+    <item quantity="one">%s blokovaný hráč</item>
+    <item quantity="few">%s blokovaný hráči</item>
+    <item quantity="other">%s blokovaných hráčov</item>
+  </plurals>
   <string name="listBlockedPlayers">Zoznam zablokovaných hráčov</string>
   <string name="human">Človek</string>
   <string name="computer">Počítač</string>
@@ -552,6 +582,11 @@
   <string name="whiteCastlingQueenside">Biely O-O-O</string>
   <string name="blackCastlingKingside">Čierny O-O</string>
   <string name="blackCastlingQueenside">Čierny O-O-O</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s príspevok vo fóre</item>
+    <item quantity="few">%s príspevky vo fóre</item>
+    <item quantity="other">%s príspvkov vo fóre</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">Čas strávený hraním: %s</string>
   <string name="watchGames">Sledovať hry</string>
   <string name="tpTimeSpentOnTV">Čas strávený na TV: %s</string>
