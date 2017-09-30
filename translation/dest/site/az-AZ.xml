@@ -37,8 +37,8 @@
   <string name="forceDraw">Heç-heçəyə məcbur edin</string>
   <string name="talkInChat">Söhbət zamanı nəzakətli olun!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Bu ünvana daxil olmuş ilk şəxs sizinlə oynasın</string>
-  <string name="whiteResigned">Ağlar məğlub oldu</string>
-  <string name="blackResigned">Qaralar məğlub oldu</string>
+  <string name="whiteResigned">Ağlar təslim oldu</string>
+  <string name="blackResigned">Qaralar təslim oldu</string>
   <string name="whiteLeftTheGame">Ağlar oyunu tərk etdi</string>
   <string name="blackLeftTheGame">Qaralar oyunu tərk etdi</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Tamaşaçıların bu oyunu bu ünvanla görə bilərlər</string>
