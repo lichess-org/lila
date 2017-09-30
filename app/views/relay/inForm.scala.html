@@ -5,10 +5,10 @@
 }
 @defining(form("description")) { field =>
 @base.form.group(field, Html("Event description")) {
-<textarea class="description" name="@field.name" id="@field.id" required>@field.value</textarea>
+<textarea class="description" name="@field.name" id="@field.id" style="height: 7em" required>@field.value</textarea>
 }
 }
-@base.form.group(form("startsAt"), Html("Start date <strong>UTC</strong>")) {
+@base.form.group(form("startsAt"), Html("Start date <strong>UTC</strong>"), help = Html("Optional, if you know when the event starts").some) {
 @base.form.flatpickr(form("startsAt"))
 }
 @base.form.group(form("pgnUrl"), Html("Live PGN URL")) {

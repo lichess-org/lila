@@ -221,6 +221,8 @@ private final class Socket(
         else studyRepo.uids(studyId) flatMap { showSpectatorsAndMembers(_, members.values) }
       json foreach { notifyAll("crowd", _) }
 
+    case Broadcast(t, msg) => notifyAll(t, msg)
+
   }: Actor.Receive) orElse lila.chat.Socket.out(
     send = (t, d, _) => notifyVersion(t, d, noMessadata)
   )
@@ -271,7 +273,7 @@ private final class Socket(
   private val noMessadata = Messadata()
 }
 
-private object Socket {
+object Socket {
 
   case class Member(
       channel: JsChannel,
@@ -308,6 +310,7 @@ private object Socket {
   case class SetConceal(position: Position.Ref, ply: Option[Chapter.Ply])
   case class SetLiking(liking: Study.Liking, uid: Uid)
   case class SetTags(chapterId: Chapter.Id, tags: chess.format.pgn.Tags, uid: Uid)
+  case class Broadcast(t: String, msg: JsObject)
 
   case class Messadata(trollish: Boolean = false)
   case object NotifyCrowd

@@ -21,11 +21,18 @@ case class Relay(
 
   def studyId = Study.Id(id.value)
 
-  def slug = lila.common.String slugify name
+  def slug = {
+    val s = lila.common.String slugify name
+    if (s.isEmpty) "-" else s
+  }
 
   def syncSeconds: Option[Int] = syncUntil map { until =>
     (until.getSeconds - nowSeconds).toInt
   } filter (0<)
+
+  def setSync(v: Boolean) = copy(
+    syncUntil = v option DateTime.now.plusHours(3)
+  )
 
   override def toString = s"id:$id pgnUrl:$pgnUrl"
 }

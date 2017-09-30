@@ -1,6 +1,7 @@
 package controllers
 
 import play.api.mvc._
+import play.api.libs.json.JsValue
 
 import lila.api.Context
 import lila.app._
@@ -44,6 +45,20 @@ object Relay extends LilaController {
             chat <- Study.chatOf(sc.study)
             sVersion <- Env.study.version(sc.study.id)
           } yield Ok(html.relay.show(relay, sc.study, data, chat, sVersion))
+        }
+      }
+    }
+  }
+
+  def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
+    get("sri") ?? { uid =>
+      env.api byId RelayModel.Id(id) flatMap {
+        _ ?? { relay =>
+          env.socketHandler.join(
+            relayId = relay.id,
+            uid = lila.socket.Socket.Uid(uid),
+            user = ctx.me
+          )
         }
       }
     }

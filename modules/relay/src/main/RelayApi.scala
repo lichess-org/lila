@@ -1,5 +1,6 @@
 package lila.relay
 
+import akka.actor.ActorRef
 import org.joda.time.DateTime
 import reactivemongo.bson._
 
@@ -58,6 +59,14 @@ final class RelayApi(
           sticky = false
         ).some
       ), user) inject relay
+  }
+
+  def setSync(id: Relay.Id, user: User, v: Boolean, socket: ActorRef): Funit = byId(id) flatMap {
+    _.map(_ setSync v) ?? { relay =>
+      coll.update($id(relay.id.value), relay).void >>- {
+        socket ! lila.study.Socket.Broadcast("relay", JsonView.relayWrites writes relay)
+      }
+    }
   }
 
   private def withStudy(relays: List[Relay]): Fu[List[Relay.WithStudy]] =

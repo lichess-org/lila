@@ -25,6 +25,11 @@ final class Env(
     studyApi = studyEnv.api
   )
 
+  lazy val socketHandler = new SocketHandler(
+    studyHandler = studyEnv.socketHandler,
+    api = api
+  )
+
   private val fetch = system.actorOf(Props(new RelayFetch(
     sync = sync,
     getSyncable = () => api.syncable

@@ -155,6 +155,7 @@ GET   /relay/new                       controllers.Relay.form
 POST  /relay/new                       controllers.Relay.create
 GET   /relay/:slug/$id<\w{8}>          controllers.Relay.show(slug: String, id: String)
 # GET   /study/:slug/$id<\w{8}>/$chapterId<\w{8}> controllers.Relay.chapter(slug: String, id: String, chapterId: String)
+GET   /relay/$id<\w{8}>/socket/v:apiVersion controllers.Relay.websocket(id: String, apiVersion: Int)
 
 # Learn
 GET   /learn                           controllers.Learn.index

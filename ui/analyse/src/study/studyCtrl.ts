@@ -537,6 +537,9 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       crowd(d) {
         members.setSpectators(d.users);
       },
+      relay(d) {
+        if (relay) relay.setData(d);
+      },
       error(msg) {
         alert(msg);
       }

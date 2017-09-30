@@ -1,0 +1,55 @@
+.relay_edit .lichess_game .lichess_ground {
+  margin-bottom: -337px;
+}
+.relay_edit .relay_wrap {
+  height: 300px;
+}
+.relay_edit .relay_wrap h2 {
+  background: #666;
+  color: #fff;
+  font-size: 1.2em;
+  padding: 5px 10px;
+}
+.relay_edit .relay {
+  background: #e0e0e0;
+  display: flex;
+  flex-flow: column;
+  border: 1px solid #ccc;
+  border-width: 0 1px;
+}
+.relay_edit .relay .state {
+  display: flex;
+  border-bottom: 1px solid #ccc;
+  min-height: 3.5em;
+}
+.relay_edit .relay .state i {
+  flex: 0 0 50px;
+  font-size: 23px;
+  opacity: 0.7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.relay_edit .relay .state.clickable:hover {
+  cursor: pointer;
+  background: #3893E8;
+  color: #fff;
+}
+.relay_edit .relay .state.clickable:hover i {
+  opacity: 0.9;
+}
+.relay_edit .relay .state > div {
+  flex: 1 1 100%;
+  padding: 8px 10px;
+}
+.relay_edit .relay .state.off i {
+  background: #dc322f;
+  color: #fff;
+}
+.relay_edit .relay .state.on i {
+  background: #759900;
+  color: #fff;
+}
+.relay_edit .relay .time {
+  font-weight: bold;
+}

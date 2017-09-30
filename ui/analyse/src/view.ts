@@ -264,7 +264,8 @@ export default function(ctrl: AnalyseCtrl): VNode {
         'gauge_displayed': ctrl.showEvalGauge(),
         'no_computer': !ctrl.showComputer(),
         'gb_edit': !!gamebookEditView,
-        'gb_play': !!gamebookPlayView
+        'gb_play': !!gamebookPlayView,
+        'relay_edit': !!relayView
       }
     }, [
       h('div.lichess_game', {
