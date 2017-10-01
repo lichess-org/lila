@@ -21,7 +21,11 @@ private final class RelaySync(
         _ <- lila.common.Future.traverseSequentially(games) { game =>
           chapters.find(_.tags(idTag) has game.id) match {
             case Some(chapter) => updateChapter(study, chapter, game)
-            case None => createChapter(study, game)
+            case None => createChapter(study, game) flatMap { chapter =>
+              chapters.find(_.isEmptyInitial).ifTrue(chapter.order == 2) ?? { initial =>
+                studyApi.deleteChapter(study.ownerId, study.id, initial.id, socketUid)
+              }
+            }
           }
         }
       } yield ()
@@ -71,7 +75,7 @@ private final class RelaySync(
     }
   }
 
-  private def createChapter(study: Study, game: RelayGame): Funit =
+  private def createChapter(study: Study, game: RelayGame): Fu[Chapter] =
     chapterRepo.nextOrderByStudy(study.id) flatMap { order =>
       val chapter = Chapter.make(
         studyId = study.id,
@@ -89,7 +93,7 @@ private final class RelaySync(
         gamebook = false,
         conceal = none
       )
-      studyApi.doAddChapter(study, chapter, sticky = false, uid = socketUid)
+      studyApi.doAddChapter(study, chapter, sticky = false, uid = socketUid) inject chapter
     }
 
   private def multiGamePgnToGames(multiPgn: MultiPgn, logger: lila.log.Logger): Try[List[RelayGame]] =
