@@ -148,31 +148,31 @@ final class SocketHandler(
     case ("setChapter", o) => for {
       byUserId <- member.userId
       chapterId <- o.get[Chapter.Id]("d")
-    } api.setChapter(byUserId, studyId, chapterId, socket, uid)
+    } api.setChapter(byUserId, studyId, chapterId, uid)
 
     case ("editChapter", o) =>
       reading[ChapterMaker.EditData](o) { data =>
         member.userId foreach {
-          api.editChapter(_, studyId, data, socket, uid)
+          api.editChapter(_, studyId, data, uid)
         }
       }
 
     case ("descChapter", o) =>
       reading[ChapterMaker.DescData](o) { data =>
         member.userId foreach {
-          api.descChapter(_, studyId, data, socket, uid)
+          api.descChapter(_, studyId, data, uid)
         }
       }
 
     case ("deleteChapter", o) => for {
       byUserId <- member.userId
       id <- o.get[Chapter.Id]("d")
-    } api.deleteChapter(byUserId, studyId, id, socket, uid)
+    } api.deleteChapter(byUserId, studyId, id, uid)
 
     case ("sortChapters", o) => for {
       byUserId <- member.userId
       ids <- o.get[List[Chapter.Id]]("d")
-    } api.sortChapters(byUserId, studyId, ids, socket, uid)
+    } api.sortChapters(byUserId, studyId, ids, uid)
 
     case ("editStudy", o) => for {
       byUserId <- member.userId
@@ -231,7 +231,7 @@ final class SocketHandler(
     case ("like", o) => for {
       byUserId <- member.userId
       v <- (o \ "d" \ "liked").asOpt[Boolean]
-    } api.like(studyId, byUserId, v, socket, uid)
+    } api.like(studyId, byUserId, v, uid)
   }: Handler.Controller) orElse evalCacheHandler(member, user) orElse lila.chat.Socket.in(
     chatId = Chat.Id(studyId.value),
     member = member,
