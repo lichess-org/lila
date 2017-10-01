@@ -5,15 +5,12 @@
   height: 200px;
 }
 .relay_edit .relay_wrap h2 {
-  background: #666;
-  color: #fff;
+  background: #fff;
   font-size: 1.2em;
   padding: 5px 10px;
   display: flex;
   justify-content: space-between;
-}
-.relay_edit .relay_wrap h2 a {
-  color: #fff;
+  border: 1px solid #ccc;
 }
 .relay_edit .relay {
   background: #e0e0e0;
@@ -79,4 +76,16 @@
 }
 .relay_edit .relay .log .err i {
   color: #dc322f;
+}
+
+body.dark .relay_edit .relay {
+  background: #262626;
+}
+body.dark .relay_edit .relay,
+body.dark .relay_edit .relay .state,
+body.dark .relay_edit .relay_wrap h2 {
+  border-color: #3d3d3d;
+}
+body.dark .relay_edit .relay_wrap h2 {
+  background: #3d3d3d;
 }
