@@ -1,8 +1,8 @@
 .relay_edit .lichess_game .lichess_ground {
-  margin-bottom: -337px;
+  margin-bottom: -237px;
 }
 .relay_edit .relay_wrap {
-  height: 300px;
+  height: 200px;
 }
 .relay_edit .relay_wrap h2 {
   background: #666;
@@ -15,7 +15,7 @@
   display: flex;
   flex-flow: column;
   border: 1px solid #ccc;
-  border-width: 0 1px;
+  border-top-width: 0;
 }
 .relay_edit .relay .state {
   display: flex;
@@ -55,10 +55,12 @@
 }
 
 .relay_edit .relay .log {
+  overflow-x: hidden;
   overflow-y: auto;
+  max-height: 150px;
 }
 .relay_edit .relay .log > div {
-  margin: 3px 0;
+  margin: 4px 0;
   display: flex;
 }
 .relay_edit .relay .log time {

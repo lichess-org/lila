@@ -98,6 +98,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
     }
   }
   return dialog.form({
+    class: 'study-edit',
     onClose: function() {
       ctrl.open(false);
       ctrl.redraw();
@@ -108,7 +109,8 @@ export function view(ctrl: StudyFormCtrl): VNode {
         hook: bindSubmit(e => {
           const obj: FormData = {};
           'name visibility computer explorer cloneable chat sticky'.split(' ').forEach(n => {
-            obj[n] = ((e.target as HTMLElement).querySelector('#study-' + n) as HTMLInputElement).value;
+            const el = ((e.target as HTMLElement).querySelector('#study-' + n) as HTMLInputElement);
+            if (el) obj[n] = el.value;
           });
           ctrl.save(obj, isNew);
         }, ctrl.redraw)

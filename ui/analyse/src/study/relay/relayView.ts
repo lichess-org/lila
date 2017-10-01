@@ -22,7 +22,7 @@ function renderLog(log: LogEvent[]) {
     }, [
       iconTag(err ? 'j' : 'E'),
       h('div', [
-        err || 'Synchronisation successful',
+        err || 'Success',
         h('time', window.lichess.timeago.absolute(e.at))
       ])
     ]);
@@ -33,7 +33,7 @@ function stateOn(ctrl: RelayCtrl) {
   return h('div.state.on.clickable', {
     hook: bind('click', _ => ctrl.setSync(false))
   }, [
-    iconTag('E'),
+    iconTag('B'),
     h('div', [
       'Connected to PGN source',
       h('div.timer', {

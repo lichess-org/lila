@@ -44,14 +44,15 @@ private final class RelaySync(
         }
       case (found, _) => found
     } match {
-      case (path, None) => // no new nodes were found
-        !Path.isMainline(chapter.root, path) ?? studyApi.promote(
-          userId = chapter.ownerId,
-          studyId = study.id,
-          position = Position(chapter, path).ref,
-          toMainline = true,
-          uid = socketUid
-        )
+      // fix mainline, and call it a day
+      case (path, _) if !Path.isMainline(chapter.root, path) => studyApi.promote(
+        userId = chapter.ownerId,
+        studyId = study.id,
+        position = Position(chapter, path).ref,
+        toMainline = true,
+        uid = socketUid
+      )
+      case (path, None) => funit // no new nodes were found
       case (path, Some(node)) => // append new nodes to the chapter
         lila.common.Future.fold(node.mainline)(Position(chapter, path)) {
           case (position, n) => studyApi.doAddNode(

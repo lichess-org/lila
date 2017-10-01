@@ -55,7 +55,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
 
   const form: StudyFormCtrl = studyFormCtrl((d, isNew) => {
     send("editStudy", d);
-    if (isNew && data.chapter.setup.variant.key === 'standard' && ctrl.mainline.length === 1 && !data.chapter.setup.fromFen)
+    if (isNew && data.chapter.setup.variant.key === 'standard' && ctrl.mainline.length === 1 && !data.chapter.setup.fromFen && !relay)
       chapters.newForm.openInitial();
   }, () => data, redraw, relay);
 

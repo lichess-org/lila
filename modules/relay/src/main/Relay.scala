@@ -24,11 +24,7 @@ case class Relay(
     if (s.isEmpty) "-" else s
   }
 
-  def setSync(v: Boolean) = copy(
-    sync = sync.copy(
-      until = v option DateTime.now.plusHours(3)
-    )
-  )
+  def setSync(v: Boolean) = copy(sync = sync set v)
 
   override def toString = s"id:$id sync:$sync"
 }
@@ -44,6 +40,11 @@ object Relay {
     def seconds: Option[Int] = until map { until =>
       (until.getSeconds - nowSeconds).toInt
     } filter (0<)
+
+    def set(v: Boolean) = copy(
+      until = v option DateTime.now.plusHours(3),
+      log = SyncLog(Vector.empty)
+    )
   }
 
   object Sync {

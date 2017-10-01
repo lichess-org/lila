@@ -23,7 +23,7 @@ private final class RelayFetch(
   case object Tick
 
   def scheduleNext =
-    context.system.scheduler.scheduleOnce(3 seconds, self, Tick)
+    context.system.scheduler.scheduleOnce(5 seconds, self, Tick)
 
   def receive = {
 
@@ -34,10 +34,10 @@ private final class RelayFetch(
 
     case Tick =>
       val startAt = nowMillis
-      getSyncable().flatMap {
+      getSyncable().map(_ filter RelayFetch.shouldFetchNow).flatMap {
         _.map { relay =>
           RelayFetch(relay.sync.upstream)
-            .withTimeout(3 seconds, LilaException(s"Request timeout"))(context.system) flatMap {
+            .withTimeout(3 seconds, LilaException("Request timeout"))(context.system) flatMap {
               sync(relay, _)
             } flatMap { res =>
               addLog(relay.id, SyncLog.Event(none, DateTime.now)) inject res
@@ -52,6 +52,10 @@ private final class RelayFetch(
 }
 
 private object RelayFetch {
+
+  def shouldFetchNow(r: Relay) = !r.sync.log.alwaysFails || {
+    r.sync.log.updatedAt ?? { DateTime.now.minusSeconds(30).isAfter }
+  }
 
   import Relay.Sync.Upstream
   import RelaySync.MultiPgn
