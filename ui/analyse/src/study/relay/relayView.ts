@@ -4,12 +4,12 @@ import RelayCtrl from './relayCtrl';
 import { RelayData } from './interfaces';
 import { iconTag, bind } from '../../util';
 
-export default function(ctrl: RelayCtrl): VNode {
+export default function(ctrl: RelayCtrl): VNode | undefined {
   const d = ctrl.data;
-  return h('div.relay_wrap', [
+  if (ctrl.members.canContribute()) return h('div.relay_wrap', [
     h('h2', [
       'Relay manager',
-      ctrl.isOwner() ? h('a', {
+      ctrl.members.isOwner() ? h('a', {
         attrs: {
           href: `/relay/${d.slug}/${d.id}/edit`,
           'data-icon': '%'

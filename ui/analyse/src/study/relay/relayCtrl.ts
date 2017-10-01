@@ -5,7 +5,7 @@ export default class RelayCtrl {
   data: RelayData;
   log: LogEvent[] = [];
 
-  constructor(d: RelayData, readonly send: SocketSend, readonly redraw: () => void, readonly isOwner: () => boolean) {
+  constructor(d: RelayData, readonly send: SocketSend, readonly redraw: () => void, readonly members: any) {
     this.data = d;
   }
 

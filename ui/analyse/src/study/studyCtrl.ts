@@ -84,7 +84,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     return ctrl.opts.userId === data.chapter.ownerId;
   };
 
-  const relay = relayData ? new RelayCtrl(relayData, send, redraw, members.isOwner) : undefined;
+  const relay = relayData ? new RelayCtrl(relayData, send, redraw, members) : undefined;
 
   const form: StudyFormCtrl = studyFormCtrl((d, isNew) => {
     send("editStudy", d);
