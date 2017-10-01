@@ -1,6 +1,6 @@
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
-import { RelayCtrl, LogEvent } from './relayCtrl';
+import { RelayCtrl, RelayData } from './relayCtrl';
 import { iconTag, bind } from '../../util';
 
 export default function(ctrl: RelayCtrl): VNode {
@@ -9,14 +9,19 @@ export default function(ctrl: RelayCtrl): VNode {
     h('h2', 'Relay manager'),
     h('div.relay', [
       (d.sync.seconds ? stateOn : stateOff)(ctrl),
-      renderLog(d.sync.log)
+      renderLog(d)
     ])
   ]);
 }
 
-function renderLog(log: LogEvent[]) {
-  return h('div.log', log.slice(0).reverse().map(e => {
-    const err = e.error;
+function renderLog(d: RelayData) {
+  return h('div.log', d.sync.log.slice(0).reverse().map(e => {
+    const err = e.error && h('a', {
+      attrs: {
+        href: d.sync.url,
+        target: '_blank'
+      }
+    }, e.error);
     return h('div' + (err ? '.err' : ''), {
       key: e.at
     }, [

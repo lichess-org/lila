@@ -3,7 +3,7 @@ export interface RelayData {
   sync: RelaySync;
 }
 
-export interface LogEvent {
+interface LogEvent {
   error?: string;
   at: number;
 }

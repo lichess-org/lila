@@ -14,6 +14,8 @@ private final class RelayFetch(
     addLog: (Relay.Id, SyncLog.Event) => Funit
 ) extends Actor {
 
+  val frequency = 5.seconds
+
   override def preStart {
     logger.info("Start RelaySync")
     context setReceiveTimeout 15.seconds
@@ -23,7 +25,7 @@ private final class RelayFetch(
   case object Tick
 
   def scheduleNext =
-    context.system.scheduler.scheduleOnce(5 seconds, self, Tick)
+    context.system.scheduler.scheduleOnce(frequency, self, Tick)
 
   def receive = {
 
@@ -36,14 +38,13 @@ private final class RelayFetch(
       val startAt = nowMillis
       getSyncable().map(_ filter RelayFetch.shouldFetchNow).flatMap {
         _.map { relay =>
-          RelayFetch(relay.sync.upstream)
-            .withTimeout(3 seconds, LilaException("Request timeout"))(context.system) flatMap {
-              sync(relay, _)
-            } flatMap { res =>
-              addLog(relay.id, SyncLog.Event(none, DateTime.now)) inject res
-            } recover {
-              case e: Exception => addLog(relay.id, SyncLog.Event(e.getMessage.some, DateTime.now))
-            }
+          RelayFetch(relay.sync.upstream) flatMap {
+            sync(relay, _)
+          } flatMap { res =>
+            addLog(relay.id, SyncLog.event(none)) inject res
+          } recover {
+            case e: Exception => addLog(relay.id, SyncLog.event(e.some))
+          }
         }.sequenceFu.chronometer
           .logIfSlow(3000, logger)(_ => "RelaySync.tick")
           .result addEffectAnyway scheduleNext
@@ -72,28 +73,40 @@ private object RelayFetch {
     case Upstream.DgtManyFiles(dir) => dgtManyFiles(dir)
   }
 
+  private val httpTimeout = 4.seconds
+
+  private def get(url: String) =
+    WS.url(url).withRequestTimeout(httpTimeout.toMillis).get()
+
   private def dgtOneFile(file: String): Fu[MultiPgn] =
-    WS.url(file).get().flatMap {
-      case res if res.status == 200 => fuccess(MultiPgn(res.body))
+    get(file).flatMap {
+      case res if res.status == 200 => fuccess(splitPgn(res.body))
       case res => fufail(s"Cannot fetch $file (error ${res.status})")
     }
 
   private def dgtManyFiles(dir: String): Fu[MultiPgn] = {
     val roundUrl = s"$dir/round.json"
-    WS.url(roundUrl).get() flatMap {
+    get(roundUrl) flatMap {
       case res if res.status == 200 => roundReads reads res.json match {
         case JsError(err) => fufail(err.toString)
         case JsSuccess(round, _) => (1 to round.pairings.size).map { number =>
           val gameUrl = s"$dir/game-$number.pgn"
-          WS.url(gameUrl).get().flatMap {
-            case res if res.status == 200 => fuccess(res.body)
+          get(gameUrl).flatMap {
+            case res if res.status == 200 => fuccess(number -> res.body)
             case res => fufail(s"Cannot fetch $gameUrl (error ${res.status})")
           }
-        }.sequenceFu map { games =>
-          MultiPgn(games.mkString("\n\n"))
+        }.sequenceFu map { results =>
+          MultiPgn(results.sortBy(_._1).map(_._2).toList)
         }
       }
       case res => fufail(s"Cannot fetch $roundUrl (error ${res.status})")
+    }
+  }
+
+  private def splitPgn(str: String) = MultiPgn {
+    """\n\n\[""".r.split(str.replace("\r\n", "\n")).toList match {
+      case first :: rest => first :: rest.map(t => s"[$t")
+      case Nil => Nil
     }
   }
 }

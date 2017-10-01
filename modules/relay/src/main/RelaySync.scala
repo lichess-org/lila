@@ -1,8 +1,10 @@
 package lila.relay
 
 import chess.format.pgn.Tag
+import lila.common.LilaException
 import lila.socket.Socket.Uid
 import lila.study._
+import scala.util.{ Try, Success, Failure }
 
 private final class RelaySync(
     studyApi: StudyApi,
@@ -13,14 +15,16 @@ private final class RelaySync(
 
   def apply(relay: Relay, multiPgn: MultiPgn): Funit = studyApi byId relay.studyId flatMap {
     _ ?? { study =>
-      chapterRepo orderedByStudy study.id flatMap { chapters =>
-        multiGamePgnToGames(multiPgn, logger.branch(relay.toString)).map { game =>
+      for {
+        chapters <- chapterRepo orderedByStudy study.id
+        games <- multiGamePgnToGames(multiPgn, logger.branch(relay.toString)).future
+        _ <- lila.common.Future.traverseSequentially(games) { game =>
           chapters.find(_.tags(idTag) contains game.id) match {
             case Some(chapter) => updateChapter(study, chapter, game)
             case None => createChapter(study, game)
           }
-        }.sequenceFu.void
-      }
+        }
+      } yield ()
     }
   }
 
@@ -88,30 +92,23 @@ private final class RelaySync(
       studyApi.doAddChapter(study, chapter, sticky = false, uid = socketUid)
     }
 
-  private def multiGamePgnToGames(multiPgn: MultiPgn, logger: lila.log.Logger): List[RelayGame] =
-    splitGames(multiPgn).flatMap { pgn =>
-      PgnImport(pgn, Nil).fold(
-        err => {
-          logger.info(s"Invalid PGN $err")
-          none
-        },
-        res => for {
-          white <- res.tags(_.White)
-          black <- res.tags(_.Black)
-        } yield RelayGame(
-          tags = res.tags,
-          root = res.root,
-          whiteName = RelayGame.PlayerName(white),
-          blackName = RelayGame.PlayerName(black)
+  private def multiGamePgnToGames(multiPgn: MultiPgn, logger: lila.log.Logger): Try[List[RelayGame]] =
+    multiPgn.value.foldLeft[Try[List[RelayGame]]](Success(List.empty)) {
+      case (Success(acc), pgn) => for {
+        res <- PgnImport(pgn, Nil).fold(
+          err => Failure(LilaException(err)),
+          Success.apply
         )
-      )
-    }
-
-  private def splitGames(multiPgn: MultiPgn): List[String] =
-    """\n\n\[""".r.split(multiPgn.value.replace("\r\n", "\n")).toList match {
-      case first :: rest => first :: rest.map(t => s"[$t")
-      case Nil => Nil
-    }
+        white <- res.tags(_.White) toTry LilaException("Missing PGN White tag")
+        black <- res.tags(_.Black) toTry LilaException("Missing PGN Black tag")
+      } yield RelayGame(
+        tags = res.tags,
+        root = res.root,
+        whiteName = RelayGame.PlayerName(white),
+        blackName = RelayGame.PlayerName(black)
+      ) :: acc
+      case (acc, _) => acc
+    }.map(_.reverse)
 
   private val moveOpts = MoveOpts(
     write = true,
@@ -127,5 +124,5 @@ private final class RelaySync(
 
 private object RelaySync {
 
-  case class MultiPgn(value: String) extends AnyVal
+  case class MultiPgn(value: List[String]) extends AnyVal
 }

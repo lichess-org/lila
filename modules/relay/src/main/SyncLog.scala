@@ -22,4 +22,12 @@ object SyncLog {
     def isOk = error.isEmpty
     def isKo = error.nonEmpty
   }
+
+  def event(e: Option[Exception]) = Event(
+    error = e map {
+      case e: java.util.concurrent.TimeoutException => "Request timeout"
+      case e: Exception => e.getMessage take 100
+    },
+    at = DateTime.now
+  )
 }
