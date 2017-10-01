@@ -1,6 +1,6 @@
 package lila.relay
 
-import akka.actor.ActorRef
+import akka.actor._
 import org.joda.time.DateTime
 import reactivemongo.bson._
 
@@ -10,7 +10,8 @@ import lila.user.User
 
 final class RelayApi(
     coll: Coll,
-    studyApi: StudyApi
+    studyApi: StudyApi,
+    system: ActorSystem
 ) {
 
   import BSONHandlers._
@@ -33,19 +34,19 @@ final class RelayApi(
         case c ~ s ~ t => Relay.Selection(c, s, t)
       }
 
-  def syncable = coll.find($doc("syncUntil" $exists true)).list[Relay]()
+  def syncable = coll.find($doc("sync.until" $exists true)).list[Relay]()
 
   def created = coll.find($doc(
     "startsAt" $gt DateTime.now
   )).sort($sort asc "startsAt").list[Relay]()
 
   def started = coll.find($doc(
-    "syncUntil" $exists true
+    "sync.until" $exists true
   )).sort($sort asc "startsAt").list[Relay]()
 
   def closed = coll.find($doc(
     "startsAt" $lt DateTime.now.minusMinutes(30),
-    "syncUntil" $exists false
+    "sync.until" $exists false
   )).sort($sort asc "startsAt").list[Relay]()
 
   def create(data: RelayForm.Data, user: User): Fu[Relay] = {
@@ -64,22 +65,26 @@ final class RelayApi(
   def setSync(id: Relay.Id, user: User, v: Boolean, socket: ActorRef): Funit = byId(id) flatMap {
     _.map(_ setSync v) ?? { relay =>
       coll.update($id(relay.id.value), relay).void >>- {
-        socket ! lila.study.Socket.Broadcast("relay", JsonView.relayWrites writes relay)
+        socket ! lila.study.Socket.Broadcast("relayData", JsonView.relayWrites writes relay)
       }
     }
   }
 
-  def addSyncLog(id: Relay.Id, event: SyncLog.Event): Funit =
+  def addLog(id: Relay.Id, event: SyncLog.Event): Funit =
     coll.update(
       $id(id),
       $doc("$push" -> $doc(
-        "syncLog" -> $doc(
+        "sync.log" -> $doc(
           "$each" -> List(event),
           "$slice" -> -SyncLog.historySize
         )
       )),
       upsert = true
-    ).void >>- lila.mon.chat.message()
+    ).void >>- {
+        event.error foreach { err => logger.info(s"$id $err") }
+        system.actorSelection(s"/user/study-socket/${id.value}") !
+          lila.study.Socket.Broadcast("relayLog", JsonView.syncLogEventWrites writes event)
+      }
 
   private def withStudy(relays: List[Relay]): Fu[List[Relay.WithStudy]] =
     studyApi byIds relays.map(_.studyId) map { studies =>

@@ -11,8 +11,11 @@
 @base.form.group(form("startsAt"), Html("Start date <strong>UTC</strong>"), help = Html("Optional, if you know when the event starts").some) {
 @base.form.flatpickr(form("startsAt"))
 }
-@base.form.group(form("pgnUrl"), Html("Live PGN URL")) {
-@base.form.input(form("pgnUrl"), typ = "url", required = true)
+@base.form.group(form("syncType"), Html("Source format")) {
+@base.form.select(form("syncType"), lila.relay.RelayForm.syncTypes)
+}
+@base.form.group(form("syncUrl"), Html("Source URL")) {
+@base.form.input(form("syncUrl"), typ = "url", required = true)
 }
 
 @base.form.submit()

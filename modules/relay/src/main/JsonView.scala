@@ -4,14 +4,22 @@ import play.api.libs.json._
 
 object JsonView {
 
+  implicit val syncLogEventWrites = Json.writes[SyncLog.Event]
+
+  private implicit val syncWrites = OWrites[Relay.Sync] { s =>
+    Json.obj(
+      "seconds" -> s.seconds,
+      "log" -> s.log.events
+    )
+  }
+
   implicit val relayWrites = OWrites[Relay] { r =>
     Json.obj(
       "id" -> r.id.value,
       "name" -> r.name,
       "description" -> r.description,
       "ownerId" -> r.ownerId,
-      "pgnUrl" -> r.pgnUrl,
-      "syncSeconds" -> r.syncSeconds
+      "sync" -> r.sync
     )
   }
 

@@ -39,7 +39,8 @@ interface Lichess {
   topMenuIntent(): void;
   timeago: {
     render(nodes: HTMLElement | HTMLElement[]): void;
-    format(date: any): string;
+    absolute(date: number | Date): string;
+    relative(date: number | Date): string;
   }
 }
 

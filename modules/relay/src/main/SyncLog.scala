@@ -2,13 +2,9 @@ package lila.relay
 
 import org.joda.time.DateTime
 
-case class SyncLog(events: List[SyncLog.Event]) extends AnyVal {
+case class SyncLog(events: Vector[SyncLog.Event]) extends AnyVal {
 
-  def +(e: SyncLog.Event) = SyncLog {
-    e :: events.take(SyncLog.historySize - 1)
-  }
-
-  def isOk = events.headOption ?? (_.ok)
+  def isOk = events.lastOption ?? (_.isOk)
 }
 
 object SyncLog {
@@ -16,8 +12,9 @@ object SyncLog {
   val historySize = 5
 
   case class Event(
-      ok: Boolean,
-      msg: String,
+      error: Option[String],
       at: DateTime
-  )
+  ) {
+    def isOk = error.isEmpty
+  }
 }

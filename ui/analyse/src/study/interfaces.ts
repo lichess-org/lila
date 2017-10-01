@@ -10,7 +10,7 @@ import { RelayCtrl } from './relay/relayCtrl';
 export interface StudyCtrl {
   data: StudyData;
   currentChapter(): StudyChapterMeta;
-  socketHandlers: { [key: string]: any };
+  socketHandler(t: string, d: any): boolean;
   vm: StudyVm;
   relay?: RelayCtrl;
   form: any;

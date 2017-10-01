@@ -9,7 +9,9 @@ private final class RelaySync(
     chapterRepo: ChapterRepo
 ) {
 
-  def apply(relay: Relay, multiPgn: String): Funit = studyApi byId relay.studyId flatMap {
+  import RelaySync._
+
+  def apply(relay: Relay, multiPgn: MultiPgn): Funit = studyApi byId relay.studyId flatMap {
     _ ?? { study =>
       chapterRepo orderedByStudy study.id flatMap { chapters =>
         multiGamePgnToGames(multiPgn, logger.branch(relay.toString)).map { game =>
@@ -85,7 +87,7 @@ private final class RelaySync(
       studyApi.doAddChapter(study, chapter, sticky = false, uid = socketUid)
     }
 
-  private def multiGamePgnToGames(multiPgn: String, logger: lila.log.Logger): List[RelayGame] =
+  private def multiGamePgnToGames(multiPgn: MultiPgn, logger: lila.log.Logger): List[RelayGame] =
     splitGames(multiPgn).flatMap { pgn =>
       PgnImport(pgn, Nil).fold(
         err => {
@@ -104,8 +106,8 @@ private final class RelaySync(
       )
     }
 
-  private def splitGames(multiPgn: String): List[String] =
-    """\n\n\[""".r.split(multiPgn.replace("\r\n", "\n")).toList match {
+  private def splitGames(multiPgn: MultiPgn): List[String] =
+    """\n\n\[""".r.split(multiPgn.value.replace("\r\n", "\n")).toList match {
       case first :: rest => first :: rest.map(t => s"[$t")
       case Nil => Nil
     }
@@ -120,4 +122,9 @@ private final class RelaySync(
   private val socketUid = Uid("")
 
   private val idTag = "RelayId"
+}
+
+private object RelaySync {
+
+  case class MultiPgn(value: String) extends AnyVal
 }

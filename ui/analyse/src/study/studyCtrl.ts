@@ -260,6 +260,186 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     return obj;
   }
 
+  const socketHandlers = {
+    path(d) {
+      const position = d.p,
+      who = d.w;
+      setMemberActive(who);
+      if (!vm.mode.sticky) {
+        vm.behind++;
+        return redraw();
+      }
+      if (position.chapterId !== data.position.chapterId ||
+        !ctrl.tree.pathExists(position.path)) {
+        return xhrReload();
+      }
+      data.position.path = position.path;
+      if (who && who.s === sri) return;
+      ctrl.userJump(position.path);
+      redraw();
+    },
+    addNode(d) {
+      const position = d.p,
+      node = d.n,
+      who = d.w,
+      sticky = d.s;
+      setMemberActive(who);
+      if (sticky && !vm.mode.sticky) vm.behind++;
+      if (wrongChapter(d)) {
+        if (sticky && !vm.mode.sticky) redraw();
+        return;
+      }
+      // node author already has the node
+      if (sticky && who && who.s === sri) {
+        data.position.path = position.path + node.id;
+        return;
+      }
+      const newPath = ctrl.tree.addNode(node, position.path);
+      if (!newPath) return xhrReload();
+      ctrl.tree.addDests(d.d, newPath, d.o);
+      if (sticky) data.position.path = newPath;
+      if ((sticky && vm.mode.sticky) || (
+        position.path === ctrl.path &&
+          position.path === treePath.fromNodeList(ctrl.mainline)
+      )) ctrl.jump(newPath);
+      redraw();
+    },
+    deleteNode(d) {
+      const position = d.p,
+      who = d.w;
+      setMemberActive(who);
+      if (wrongChapter(d)) return;
+      // deleter already has it done
+      if (who && who.s === sri) return;
+      if (!ctrl.tree.pathExists(d.p.path)) return xhrReload();
+      ctrl.tree.deleteNodeAt(position.path);
+      if (vm.mode.sticky) ctrl.jump(ctrl.path);
+      redraw();
+    },
+    promote(d) {
+      const position = d.p,
+      who = d.w;
+      setMemberActive(who);
+      if (wrongChapter(d)) return;
+      if (who && who.s === sri) return;
+      if (!ctrl.tree.pathExists(d.p.path)) return xhrReload();
+      ctrl.tree.promoteAt(position.path, d.toMainline);
+      if (vm.mode.sticky) ctrl.jump(ctrl.path);
+      redraw();
+    },
+    reload: xhrReload,
+    changeChapter(d) {
+      setMemberActive(d.w);
+      if (!vm.mode.sticky) vm.behind++;
+      data.position = d.p;
+      if (vm.mode.sticky) xhrReload();
+      else redraw();
+    },
+    updateChapter(d) {
+      setMemberActive(d.w);
+      xhrReload();
+    },
+    descChapter(d) {
+      setMemberActive(d.w);
+      if (d.w && d.w.s === sri) return;
+      if (data.chapter.id === d.chapterId) {
+        data.chapter.description = d.description;
+        desc.set(d.description);
+      }
+      redraw();
+    },
+    addChapter(d) {
+      setMemberActive(d.w);
+      if (d.s && !vm.mode.sticky) vm.behind++;
+      if (d.s) data.position = d.p;
+      else if (d.w && d.w.s === sri) {
+        vm.mode.write = true;
+        vm.chapterId = d.p.chapterId;
+      }
+      xhrReload();
+    },
+    members(d) {
+      members.update(d);
+      configureAnalysis();
+      redraw();
+    },
+    chapters(d) {
+      chapters.list(d);
+      if (!currentChapter()) {
+        vm.chapterId = d[0].id;
+        if (!vm.mode.sticky) xhrReload();
+      }
+      redraw();
+    },
+    shapes(d) {
+      const position = d.p,
+      who = d.w;
+      setMemberActive(who);
+      if (wrongChapter(d)) return;
+      if (who && who.s === sri) return;
+      ctrl.tree.setShapes(d.s, ctrl.path);
+      if (ctrl.path === position.path) ctrl.withCg(cg => cg.setShapes(d.s));
+      redraw();
+    },
+    setComment(d) {
+      const position = d.p,
+      who = d.w;
+      setMemberActive(who);
+      if (wrongChapter(d)) return;
+      ctrl.tree.setCommentAt(d.c, position.path);
+      redraw();
+    },
+    setTags(d) {
+      setMemberActive(d.w);
+      if (d.chapterId !== vm.chapterId) return;
+      data.chapter.tags = d.tags;
+      redraw();
+    },
+    deleteComment(d) {
+      const position = d.p,
+      who = d.w;
+      setMemberActive(who);
+      if (wrongChapter(d)) return;
+      ctrl.tree.deleteCommentAt(d.id, position.path);
+      redraw();
+    },
+    glyphs(d) {
+      const position = d.p,
+      who = d.w;
+      setMemberActive(who);
+      if (wrongChapter(d)) return;
+      ctrl.tree.setGlyphsAt(d.g, position.path);
+      redraw();
+    },
+    clock(d) {
+      const position = d.p,
+      who = d.w;
+      setMemberActive(who);
+      if (wrongChapter(d)) return;
+      ctrl.tree.setClockAt(d.c, position.path);
+      redraw();
+    },
+    conceal(d) {
+      if (wrongChapter(d)) return;
+      data.chapter.conceal = d.ply;
+      redraw();
+    },
+    liking(d) {
+      data.likes = d.l.likes;
+      if (d.w && d.w.s === sri) data.liked = d.l.me;
+      redraw();
+    },
+    following_onlines: members.inviteForm.setFollowings,
+    following_leaves: members.inviteForm.delFollowing,
+    following_enters: members.inviteForm.addFollowing,
+    crowd(d) {
+      members.setSpectators(d.users);
+    },
+    error(msg) {
+      alert(msg);
+    }
+  }
+
   return {
     data,
     form,
@@ -362,187 +542,13 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       makeChange('explorerGame', withPosition({ gameId, insert }));
     },
     redraw,
-    socketHandlers: {
-      path(d) {
-        const position = d.p,
-        who = d.w;
-        setMemberActive(who);
-        if (!vm.mode.sticky) {
-          vm.behind++;
-          return redraw();
-        }
-        if (position.chapterId !== data.position.chapterId ||
-          !ctrl.tree.pathExists(position.path)) {
-          return xhrReload();
-        }
-        data.position.path = position.path;
-        if (who && who.s === sri) return;
-        ctrl.userJump(position.path);
-        redraw();
-      },
-      addNode(d) {
-        const position = d.p,
-        node = d.n,
-        who = d.w,
-        sticky = d.s;
-        setMemberActive(who);
-        if (sticky && !vm.mode.sticky) vm.behind++;
-        if (wrongChapter(d)) {
-          if (sticky && !vm.mode.sticky) redraw();
-          return;
-        }
-        // node author already has the node
-        if (sticky && who && who.s === sri) {
-          data.position.path = position.path + node.id;
-          return;
-        }
-        const newPath = ctrl.tree.addNode(node, position.path);
-        if (!newPath) return xhrReload();
-        ctrl.tree.addDests(d.d, newPath, d.o);
-        if (sticky) data.position.path = newPath;
-        if ((sticky && vm.mode.sticky) || (
-          position.path === ctrl.path &&
-            position.path === treePath.fromNodeList(ctrl.mainline)
-        )) ctrl.jump(newPath);
-        redraw();
-      },
-      deleteNode(d) {
-        const position = d.p,
-        who = d.w;
-        setMemberActive(who);
-        if (wrongChapter(d)) return;
-        // deleter already has it done
-        if (who && who.s === sri) return;
-        if (!ctrl.tree.pathExists(d.p.path)) return xhrReload();
-        ctrl.tree.deleteNodeAt(position.path);
-        if (vm.mode.sticky) ctrl.jump(ctrl.path);
-        redraw();
-      },
-      promote(d) {
-        const position = d.p,
-        who = d.w;
-        setMemberActive(who);
-        if (wrongChapter(d)) return;
-        if (who && who.s === sri) return;
-        if (!ctrl.tree.pathExists(d.p.path)) return xhrReload();
-        ctrl.tree.promoteAt(position.path, d.toMainline);
-        if (vm.mode.sticky) ctrl.jump(ctrl.path);
-        redraw();
-      },
-      reload: xhrReload,
-      changeChapter(d) {
-        setMemberActive(d.w);
-        if (!vm.mode.sticky) vm.behind++;
-        data.position = d.p;
-        if (vm.mode.sticky) xhrReload();
-        else redraw();
-      },
-      updateChapter(d) {
-        setMemberActive(d.w);
-        xhrReload();
-      },
-      descChapter(d) {
-        setMemberActive(d.w);
-        if (d.w && d.w.s === sri) return;
-        if (data.chapter.id === d.chapterId) {
-          data.chapter.description = d.description;
-          desc.set(d.description);
-        }
-        redraw();
-      },
-      addChapter(d) {
-        setMemberActive(d.w);
-        if (d.s && !vm.mode.sticky) vm.behind++;
-        if (d.s) data.position = d.p;
-        else if (d.w && d.w.s === sri) {
-          vm.mode.write = true;
-          vm.chapterId = d.p.chapterId;
-        }
-        xhrReload();
-      },
-      members(d) {
-        members.update(d);
-        configureAnalysis();
-        redraw();
-      },
-      chapters(d) {
-        chapters.list(d);
-        if (!currentChapter()) {
-          vm.chapterId = d[0].id;
-          if (!vm.mode.sticky) xhrReload();
-        }
-        redraw();
-      },
-      shapes(d) {
-        const position = d.p,
-        who = d.w;
-        setMemberActive(who);
-        if (wrongChapter(d)) return;
-        if (who && who.s === sri) return;
-        ctrl.tree.setShapes(d.s, ctrl.path);
-        if (ctrl.path === position.path) ctrl.withCg(cg => cg.setShapes(d.s));
-        redraw();
-      },
-      setComment(d) {
-        const position = d.p,
-        who = d.w;
-        setMemberActive(who);
-        if (wrongChapter(d)) return;
-        ctrl.tree.setCommentAt(d.c, position.path);
-        redraw();
-      },
-      setTags(d) {
-        setMemberActive(d.w);
-        if (d.chapterId !== vm.chapterId) return;
-        data.chapter.tags = d.tags;
-        redraw();
-      },
-      deleteComment(d) {
-        const position = d.p,
-        who = d.w;
-        setMemberActive(who);
-        if (wrongChapter(d)) return;
-        ctrl.tree.deleteCommentAt(d.id, position.path);
-        redraw();
-      },
-      glyphs(d) {
-        const position = d.p,
-        who = d.w;
-        setMemberActive(who);
-        if (wrongChapter(d)) return;
-        ctrl.tree.setGlyphsAt(d.g, position.path);
-        redraw();
-      },
-      clock(d) {
-        const position = d.p,
-        who = d.w;
-        setMemberActive(who);
-        if (wrongChapter(d)) return;
-        ctrl.tree.setClockAt(d.c, position.path);
-        redraw();
-      },
-      conceal(d) {
-        if (wrongChapter(d)) return;
-        data.chapter.conceal = d.ply;
-        redraw();
-      },
-      liking(d) {
-        data.likes = d.l.likes;
-        if (d.w && d.w.s === sri) data.liked = d.l.me;
-        redraw();
-      },
-      following_onlines: members.inviteForm.setFollowings,
-      following_leaves: members.inviteForm.delFollowing,
-      following_enters: members.inviteForm.addFollowing,
-      crowd(d) {
-        members.setSpectators(d.users);
-      },
-      relay(d) {
-        if (relay) relay.setData(d);
-      },
-      error(msg) {
-        alert(msg);
+    socketHandler: (t: string, d: any) => {
+      const handler = socketHandlers[t];
+      if (handler) {
+        handler(d);
+        return true;
       }
+      return !!relay && relay.socketHandler(t, d);
     }
   };
 };

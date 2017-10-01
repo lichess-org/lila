@@ -53,3 +53,23 @@
 .relay_edit .relay .time {
   font-weight: bold;
 }
+
+.relay_edit .relay .log {
+  overflow-y: auto;
+}
+.relay_edit .relay .log > div {
+  margin: 3px 0;
+  display: flex;
+}
+.relay_edit .relay .log time {
+  display: inline;
+  font-family: Roboto;
+  margin-left: 4px;
+}
+.relay_edit .relay .log i {
+  color: #759900;
+  margin: 0 5px;
+}
+.relay_edit .relay .log .err i {
+  color: #dc322f;
+}

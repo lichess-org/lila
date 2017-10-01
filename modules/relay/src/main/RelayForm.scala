@@ -11,10 +11,16 @@ object RelayForm {
 
   import lila.common.Form.UTCDate._
 
+  val syncTypes = List(
+    "dgt-one" -> "DGT (old): all games in a single file",
+    "dgt-many" -> "DGT (new): one file per game"
+  )
+
   val form = Form(mapping(
     "name" -> nonEmptyText(minLength = 3, maxLength = 80),
     "description" -> nonEmptyText(minLength = 3, maxLength = 4000),
-    "pgnUrl" -> nonEmptyText,
+    "syncType" -> text.verifying(syncTypes.map(_._1).contains _),
+    "syncUrl" -> nonEmptyText,
     "startsAt" -> optional(utcDate)
   )(Data.apply)(Data.unapply))
 
@@ -23,27 +29,41 @@ object RelayForm {
   case class Data(
       name: String,
       description: String,
-      pgnUrl: String,
+      syncType: String,
+      syncUrl: String,
       startsAt: Option[DateTime]
   ) {
+
+    def cleanUrl = {
+      val trimmed = syncUrl.trim
+      if (trimmed endsWith "/") trimmed.take(trimmed.size - 1)
+      else trimmed
+    }
 
     def update(relay: Relay) = relay.copy(
       name = name,
       description = description,
-      pgnUrl = pgnUrl,
+      sync = makeSync,
       startsAt = startsAt
+    )
+
+    def makeSync = Relay.Sync(
+      upstream = syncType match {
+        case "dgt-one" => Relay.Sync.Upstream.DgtOneFile(cleanUrl)
+        case _ => Relay.Sync.Upstream.DgtManyFiles(cleanUrl)
+      },
+      until = none,
+      log = SyncLog(Vector.empty)
     )
 
     def make(user: User) = Relay(
       _id = Relay.makeId,
       name = name,
       description = description,
-      pgnUrl = pgnUrl,
       ownerId = user.id,
+      sync = makeSync,
       createdAt = DateTime.now,
-      startsAt = startsAt,
-      syncLog = SyncLog(Nil),
-      syncUntil = none
+      startsAt = startsAt
     )
   }
 
@@ -52,7 +72,8 @@ object RelayForm {
     def make(relay: Relay) = Data(
       name = relay.name,
       description = relay.description,
-      pgnUrl = relay.pgnUrl,
+      syncType = relay.sync.upstream.key,
+      syncUrl = relay.sync.upstream.url,
       startsAt = relay.startsAt
     )
   }
