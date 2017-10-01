@@ -26,6 +26,8 @@ object RelayForm {
 
   def create = form
 
+  def edit(r: Relay) = form fill Data.make(r)
+
   case class Data(
       name: String,
       description: String,

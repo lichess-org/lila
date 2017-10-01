@@ -9,6 +9,11 @@
   color: #fff;
   font-size: 1.2em;
   padding: 5px 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.relay_edit .relay_wrap h2 a {
+  color: #fff;
 }
 .relay_edit .relay {
   background: #e0e0e0;

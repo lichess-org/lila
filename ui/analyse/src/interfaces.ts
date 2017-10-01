@@ -1,7 +1,7 @@
 import { Player, Status, Source } from 'game';
 import * as cg from 'chessground/types';
 import { StudyPracticeData, Goal as PracticeGoal } from './study/practice/interfaces';
-import { RelayData } from './study/relay/relayCtrl';
+import { RelayData } from './study/relay/interfaces';
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[]

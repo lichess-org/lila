@@ -1,12 +1,21 @@
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
-import { RelayCtrl, RelayData } from './relayCtrl';
+import RelayCtrl from './relayCtrl';
+import { RelayData } from './interfaces';
 import { iconTag, bind } from '../../util';
 
 export default function(ctrl: RelayCtrl): VNode {
   const d = ctrl.data;
   return h('div.relay_wrap', [
-    h('h2', 'Relay manager'),
+    h('h2', [
+      'Relay manager',
+      ctrl.isOwner() ? h('a', {
+        attrs: {
+          href: `/relay/${d.slug}/${d.id}/edit`,
+          'data-icon': '%'
+        }
+      }) : null
+    ]),
     h('div.relay', [
       (d.sync.seconds ? stateOn : stateOff)(ctrl),
       renderLog(d)

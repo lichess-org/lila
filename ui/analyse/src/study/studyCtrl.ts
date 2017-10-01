@@ -16,7 +16,8 @@ import { path as treePath } from 'tree';
 import { StudyCtrl, StudyVm, Tab, TagTypes, StudyData, StudyChapterMeta, ReloadData } from './interfaces';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { ChapterDescriptionCtrl } from './chapterDescription';
-import { RelayCtrl, RelayData } from './relay/relayCtrl';
+import RelayCtrl from './relay/relayCtrl';
+import { RelayData } from './relay/interfaces';
 
 const li = window.lichess;
 
@@ -49,15 +50,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     };
   })();
 
-  const relay = relayData ? new RelayCtrl(relayData, send, redraw) : undefined;
-
   const notif = notifCtrl(redraw);
-
-  const form: StudyFormCtrl = studyFormCtrl((d, isNew) => {
-    send("editStudy", d);
-    if (isNew && data.chapter.setup.variant.key === 'standard' && ctrl.mainline.length === 1 && !data.chapter.setup.fromFen && !relay)
-      chapters.newForm.openInitial();
-  }, () => data, redraw, relay);
 
   function startTour() {
     tours.study(ctrl);
@@ -90,6 +83,14 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
   function isChapterOwner() {
     return ctrl.opts.userId === data.chapter.ownerId;
   };
+
+  const relay = relayData ? new RelayCtrl(relayData, send, redraw, members.isOwner) : undefined;
+
+  const form: StudyFormCtrl = studyFormCtrl((d, isNew) => {
+    send("editStudy", d);
+    if (isNew && data.chapter.setup.variant.key === 'standard' && ctrl.mainline.length === 1 && !data.chapter.setup.fromFen && !relay)
+      chapters.newForm.openInitial();
+  }, () => data, redraw, relay);
 
   function isWriting(): boolean {
     return vm.mode.write && !isGamebookPlay();

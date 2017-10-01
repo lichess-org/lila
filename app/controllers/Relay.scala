@@ -29,14 +29,30 @@ object Relay extends LilaController {
     env.forms.create.bindFromRequest.fold(
       err => BadRequest(html.relay.create(err)).fuccess,
       setup => env.api.create(setup, me) map { relay =>
-        Redirect(routes.Relay.show(relay.slug, relay.id.value))
+        Redirect(showRoute(relay))
       }
     )
   }
 
+  def edit(slug: String, id: String) = Auth { implicit ctx => implicit me =>
+    OptionFuResult(env.api.byIdAndOwner(RelayModel.Id(id), me)) { relay =>
+      Ok(html.relay.edit(relay, env.forms.edit(relay))).fuccess
+    }
+  }
+
+  def update(slug: String, id: String) = AuthBody { implicit ctx => implicit me =>
+    OptionFuResult(env.api.byIdAndOwner(RelayModel.Id(id), me)) { relay =>
+      implicit val req = ctx.body
+      env.forms.edit(relay).bindFromRequest.fold(
+        err => BadRequest(html.relay.edit(relay, err)).fuccess,
+        data => env.api.update(data update relay) inject Redirect(showRoute(relay))
+      )
+    }
+  }
+
   def show(slug: String, id: String) = Open { implicit ctx =>
     OptionFuResult(env.api byId RelayModel.Id(id)) { relay =>
-      if (relay.slug != slug) Redirect(routes.Relay.show(relay.slug, relay.id.value)).fuccess
+      if (relay.slug != slug) Redirect(showRoute(relay)).fuccess
       else Env.study.api byIdWithChapter relay.studyId flatMap {
         _ ?? { oldSc =>
           for {
@@ -63,4 +79,6 @@ object Relay extends LilaController {
       }
     }
   }
+
+  private def showRoute(r: RelayModel) = routes.Relay.show(r.slug, r.id.value)
 }

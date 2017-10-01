@@ -1,25 +1,11 @@
+import { RelayData, LogEvent } from './interfaces';
 
-export interface RelayData {
-  sync: RelaySync;
-}
-
-interface LogEvent {
-  error?: string;
-  at: number;
-}
-
-interface RelaySync {
-  seconds?: number; // how long until lichess stops syncing
-  url: string;
-  log: LogEvent[];
-}
-
-export class RelayCtrl {
+export default class RelayCtrl {
 
   data: RelayData;
   log: LogEvent[] = [];
 
-  constructor(d: RelayData, readonly send: SocketSend, readonly redraw: () => void) {
+  constructor(d: RelayData, readonly send: SocketSend, readonly redraw: () => void, readonly isOwner: () => boolean) {
     this.data = d;
   }
 

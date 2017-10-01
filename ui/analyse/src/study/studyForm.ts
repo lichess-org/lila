@@ -5,7 +5,7 @@ import { prop, Prop } from 'common';
 import { bind, bindSubmit } from '../util';
 import { StudyData } from './interfaces';
 import { MaybeVNodes } from '../interfaces';
-import { RelayCtrl } from './relay/relayCtrl';
+import RelayCtrl from './relay/relayCtrl';
 
 export interface StudyFormCtrl {
   open: Prop<boolean>;

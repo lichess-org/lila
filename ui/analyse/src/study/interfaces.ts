@@ -5,7 +5,7 @@ import { StudyPracticeCtrl } from './practice/interfaces';
 import { ChapterDescriptionCtrl } from './chapterDescription';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { GamebookOverride } from './gamebook/interfaces';
-import { RelayCtrl } from './relay/relayCtrl';
+import RelayCtrl from './relay/relayCtrl';
 
 export interface StudyCtrl {
   data: StudyData;

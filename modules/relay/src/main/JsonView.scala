@@ -17,6 +17,7 @@ object JsonView {
   implicit val relayWrites = OWrites[Relay] { r =>
     Json.obj(
       "id" -> r.id.value,
+      "slug" -> r.slug,
       "name" -> r.name,
       "description" -> r.description,
       "ownerId" -> r.ownerId,

@@ -18,6 +18,10 @@ final class RelayApi(
 
   def byId(id: Relay.Id) = coll.byId[Relay](id.value)
 
+  def byIdAndOwner(id: Relay.Id, owner: User) = byId(id) map {
+    _.filter(_.ownerId == owner.id)
+  }
+
   def byIdWithStudy(id: Relay.Id): Fu[Option[Relay.WithStudy]] =
     byId(id) flatMap {
       _ ?? { relay =>
@@ -61,6 +65,9 @@ final class RelayApi(
         ).some
       ), user) inject relay
   }
+
+  def update(relay: Relay): Funit =
+    coll.update($id(relay.id), relay).void
 
   def setSync(id: Relay.Id, user: User, v: Boolean, socket: ActorRef): Funit = byId(id) flatMap {
     _.map(_ setSync v) ?? { relay =>
