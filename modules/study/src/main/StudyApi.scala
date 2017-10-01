@@ -455,11 +455,11 @@ final class StudyApi(
     }
   }
 
-  def setChapter(byUserId: User.ID, studyId: Study.Id, chapterId: Chapter.Id, socket: ActorRef, uid: Uid) = sequenceStudy(studyId) { study =>
-    study.canContribute(byUserId) ?? doSetChapter(study, chapterId, socket, uid)
+  def setChapter(byUserId: User.ID, studyId: Study.Id, chapterId: Chapter.Id, uid: Uid) = sequenceStudy(studyId) { study =>
+    study.canContribute(byUserId) ?? doSetChapter(study, chapterId, uid)
   }
 
-  private def doSetChapter(study: Study, chapterId: Chapter.Id, socket: ActorRef, uid: Uid) =
+  private def doSetChapter(study: Study, chapterId: Chapter.Id, uid: Uid) =
     (study.position.chapterId != chapterId) ?? {
       chapterRepo.byIdAndStudy(chapterId, study.id) flatMap {
         _ ?? { chapter =>
@@ -470,7 +470,7 @@ final class StudyApi(
       }
     }
 
-  def editChapter(byUserId: User.ID, studyId: Study.Id, data: ChapterMaker.EditData, socket: ActorRef, uid: Uid) = sequenceStudy(studyId) { study =>
+  def editChapter(byUserId: User.ID, studyId: Study.Id, data: ChapterMaker.EditData, uid: Uid) = sequenceStudy(studyId) { study =>
     Contribute(byUserId, study) {
       chapterRepo.byIdAndStudy(data.id, studyId) flatMap {
         _ ?? { chapter =>
@@ -512,7 +512,7 @@ final class StudyApi(
     }
   }
 
-  def descChapter(byUserId: User.ID, studyId: Study.Id, data: ChapterMaker.DescData, socket: ActorRef, uid: Uid) = sequenceStudy(studyId) { study =>
+  def descChapter(byUserId: User.ID, studyId: Study.Id, data: ChapterMaker.DescData, uid: Uid) = sequenceStudy(studyId) { study =>
     Contribute(byUserId, study) {
       chapterRepo.byIdAndStudy(data.id, studyId) flatMap {
         _ ?? { chapter =>
@@ -530,14 +530,14 @@ final class StudyApi(
     }
   }
 
-  def deleteChapter(byUserId: User.ID, studyId: Study.Id, chapterId: Chapter.Id, socket: ActorRef, uid: Uid) = sequenceStudy(studyId) { study =>
+  def deleteChapter(byUserId: User.ID, studyId: Study.Id, chapterId: Chapter.Id, uid: Uid) = sequenceStudy(studyId) { study =>
     Contribute(byUserId, study) {
       chapterRepo.byIdAndStudy(chapterId, studyId) flatMap {
         _ ?? { chapter =>
           chapterRepo.orderedMetadataByStudy(studyId).flatMap {
             case chaps if chaps.size > 1 => (study.position.chapterId == chapterId).?? {
               chaps.find(_.id != chapterId) ?? { newChap =>
-                doSetChapter(study, newChap.id, socket, uid)
+                doSetChapter(study, newChap.id, uid)
               }
             } >> chapterRepo.delete(chapter.id)
             case _ => funit
@@ -547,7 +547,7 @@ final class StudyApi(
     }
   }
 
-  def sortChapters(byUserId: User.ID, studyId: Study.Id, chapterIds: List[Chapter.Id], socket: ActorRef, uid: Uid) = sequenceStudy(studyId) { study =>
+  def sortChapters(byUserId: User.ID, studyId: Study.Id, chapterIds: List[Chapter.Id], uid: Uid) = sequenceStudy(studyId) { study =>
     Contribute(byUserId, study) {
       chapterRepo.sort(study, chapterIds) >>- reloadChapters(study)
     }
@@ -581,7 +581,7 @@ final class StudyApi(
       lightStudyCache.put(study.id, none)
   }
 
-  def like(studyId: Study.Id, userId: User.ID, v: Boolean, socket: ActorRef, uid: Uid): Funit =
+  def like(studyId: Study.Id, userId: User.ID, v: Boolean, uid: Uid): Funit =
     studyRepo.like(studyId, userId, v) map { likes =>
       sendTo(studyId, Socket.SetLiking(Study.Liking(likes, v), uid))
       if (v) studyRepo byId studyId foreach {
