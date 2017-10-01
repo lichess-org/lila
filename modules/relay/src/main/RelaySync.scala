@@ -19,7 +19,7 @@ private final class RelaySync(
         chapters <- chapterRepo orderedByStudy study.id
         games <- multiGamePgnToGames(multiPgn, logger.branch(relay.toString)).future
         _ <- lila.common.Future.traverseSequentially(games) { game =>
-          chapters.find(_.tags(idTag) contains game.id) match {
+          chapters.find(_.tags(idTag) has game.id) match {
             case Some(chapter) => updateChapter(study, chapter, game)
             case None => createChapter(study, game)
           }
