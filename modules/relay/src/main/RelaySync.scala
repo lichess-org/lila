@@ -1,23 +1,19 @@
 package lila.relay
 
 import chess.format.pgn.Tag
-import lila.common.LilaException
+import lila.common.{ LilaException, Chronometer }
 import lila.socket.Socket.Uid
 import lila.study._
-import scala.util.{ Try, Success, Failure }
 
 private final class RelaySync(
     studyApi: StudyApi,
     chapterRepo: ChapterRepo
 ) {
 
-  import RelaySync._
-
-  def apply(relay: Relay, multiPgn: MultiPgn): Funit = studyApi byId relay.studyId flatMap {
+  def apply(relay: Relay, games: RelayGames): Funit = studyApi byId relay.studyId flatMap {
     _ ?? { study =>
       for {
         chapters <- chapterRepo orderedByStudy study.id
-        games <- multiGamePgnToGames(multiPgn, logger.branch(relay.toString)).future
         _ <- lila.common.Future.traverseSequentially(games) { game =>
           chapters.find(_.tags(idTag) has game.id) match {
             case Some(chapter) => updateChapter(study, chapter, game)
@@ -96,24 +92,6 @@ private final class RelaySync(
       studyApi.doAddChapter(study, chapter, sticky = false, uid = socketUid) inject chapter
     }
 
-  private def multiGamePgnToGames(multiPgn: MultiPgn, logger: lila.log.Logger): Try[List[RelayGame]] =
-    multiPgn.value.foldLeft[Try[List[RelayGame]]](Success(List.empty)) {
-      case (Success(acc), pgn) => for {
-        res <- PgnImport(pgn, Nil).fold(
-          err => Failure(LilaException(err)),
-          Success.apply
-        )
-        white <- res.tags(_.White) toTry LilaException("Missing PGN White tag")
-        black <- res.tags(_.Black) toTry LilaException("Missing PGN Black tag")
-      } yield RelayGame(
-        tags = res.tags,
-        root = res.root,
-        whiteName = RelayGame.PlayerName(white),
-        blackName = RelayGame.PlayerName(black)
-      ) :: acc
-      case (acc, _) => acc
-    }.map(_.reverse)
-
   private val moveOpts = MoveOpts(
     write = true,
     sticky = false,
@@ -124,9 +102,4 @@ private final class RelaySync(
   private val socketUid = Uid("")
 
   private val idTag = "RelayId"
-}
-
-private object RelaySync {
-
-  case class MultiPgn(value: List[String]) extends AnyVal
 }

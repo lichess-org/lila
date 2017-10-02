@@ -11,6 +11,8 @@ case class RelayGame(
 ) {
 
   def id = s"$whiteName - $blackName, ${tags(_.Event) | "?"}"
+
+  override def toString = id
 }
 
 object RelayGame {

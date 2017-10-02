@@ -26,7 +26,7 @@ case class Relay(
 
   def setSync(v: Boolean) = copy(sync = sync set v)
 
-  override def toString = s"id:$id sync:$sync"
+  override def toString = s"""relay #$id "$name" $sync"""
 }
 
 object Relay {
@@ -45,10 +45,14 @@ object Relay {
       until = v option DateTime.now.plusHours(3),
       log = SyncLog(Vector.empty)
     )
+
+    override def toString = upstream.toString
   }
 
   object Sync {
-    sealed abstract class Upstream(val key: String, val url: String)
+    sealed abstract class Upstream(val key: String, val url: String) {
+      override def toString = s"$key $url"
+    }
     object Upstream {
       case class DgtOneFile(fileUrl: String) extends Upstream("dgt-one", fileUrl)
       case class DgtManyFiles(dirUrl: String) extends Upstream("dgt-many", dirUrl)

@@ -38,7 +38,9 @@ final class RelayApi(
         case c ~ s ~ t => Relay.Selection(c, s, t)
       }
 
-  def syncable = coll.find($doc("sync.until" $exists true)).list[Relay]()
+  def connected = coll.find($doc("sync.until" $exists true)).list[Relay]()
+
+  def disconnect(r: Relay) = coll.unsetField($id(r.id), "sync.until").void
 
   def created = coll.find($doc(
     "startsAt" $gt DateTime.now
