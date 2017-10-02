@@ -64,12 +64,12 @@ final class TournamentApi(
     TournamentRepo.insert(tour) >>- join(tour.id, me, tour.password) inject tour
   }
 
-  private[tournament] def createScheduled(schedule: Schedule): Funit =
-    (Schedule durationFor schedule) ?? { minutes =>
-      val created = Tournament.schedule(schedule, minutes)
-      logger.info(s"Create $created")
-      TournamentRepo.insert(created).void >>- publish()
-    }
+  private[tournament] def createFromPlan(plan: Schedule.Plan): Funit = {
+    val minutes = Schedule durationFor plan.schedule
+    val tournament = plan build Tournament.schedule(plan.schedule, minutes)
+    logger.info(s"Create $tournament")
+    TournamentRepo.insert(tournament).void >>- publish()
+  }
 
   private[tournament] def makePairings(oldTour: Tournament, users: WaitingUsers, startAt: Long) {
     Sequencing(oldTour.id)(TournamentRepo.startedById) { tour =>
