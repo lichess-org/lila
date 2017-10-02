@@ -35,7 +35,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     const sticked = data.features.sticky && !ctrl.initialPath && !isManualChapter && !practiceData;
     return {
       loading: false,
-      tab: prop<Tab>(data.chapters.length > 1 ? 'chapters' : 'members'),
+      tab: prop<Tab>(relayData || data.chapters.length > 1 ? 'chapters' : 'members'),
       chapterId: sticked ? data.position.chapterId : data.chapter.id,
       // path is at ctrl.vm.path
       mode: {

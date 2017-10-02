@@ -19,8 +19,8 @@ private final class RelayFetch(
 
   override def preStart {
     logger.info("Start RelaySync")
-    context setReceiveTimeout 15.seconds
-    scheduleNext
+    context setReceiveTimeout 20.seconds
+    context.system.scheduler.scheduleOnce(5.seconds)(scheduleNext)
   }
 
   case object Tick
@@ -41,7 +41,7 @@ private final class RelayFetch(
         relays.map { relay =>
           if (relay.sync.until.??(DateTime.now.isAfter)) disconnect(relay)
           else fetcher(relay.sync.upstream) flatMap { games =>
-            sync(relay, games)
+            sync(relay, games).withTimeout(300 millis, LilaException("Too slow"))(context.system)
           } flatMap { res =>
             addLog(relay.id, SyncLog.event(none)) inject res
           } recover {
@@ -72,7 +72,7 @@ private object RelayFetch {
     private val cache = new ConcurrentHashMap[Upstream, Fu[RelayGames]](capacity)
 
     private val fetchFunction = new java.util.function.Function[Upstream, Fu[RelayGames]] {
-      def apply(u: Upstream) = doFetch(u.pp("fetch"))
+      def apply(u: Upstream) = doFetch(u)
     }
 
     private def doFetch(upstream: Upstream): Fu[RelayGames] = (upstream match {
