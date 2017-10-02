@@ -6,8 +6,8 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">邀人下棋，请分享这个网址</string>
   <string name="gameOver">棋局结束</string>
   <string name="waitingForOpponent">等待对手</string>
-  <string name="waiting">等待中</string>
-  <string name="yourTurn">你的回合</string>
+  <string name="waiting">等候</string>
+  <string name="yourTurn">该你走</string>
   <string name="aiNameLevelAiLevel">%1$s级別%2$s</string>
   <string name="level">级别</string>
   <string name="toggleTheChat">聊天开关</string>
@@ -15,7 +15,7 @@
   <string name="chat">聊天</string>
   <string name="resign">认输</string>
   <string name="checkmate">将死</string>
-  <string name="stalemate">逼和</string>
+  <string name="stalemate">僵持</string>
   <string name="white">白方</string>
   <string name="black">黑方</string>
   <string name="randomColor">随机选色</string>
