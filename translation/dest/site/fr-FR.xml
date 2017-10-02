@@ -488,7 +488,7 @@
   <string name="troll">Troll</string>
   <string name="other">Autre</string>
   <string name="reportDescriptionHelp">Copiez le(s) lien(s) vers les parties et expliquez en quoi le comportement de cet utilisateur est inapproprié.</string>
-  <string name="by">de %s</string>
+  <string name="by">par %s</string>
   <string name="thisTopicIsNowClosed">Ce sujet est maintenant fermé.</string>
   <string name="theming">Thème</string>
   <string name="donate">Faire un don</string>
@@ -752,7 +752,7 @@ en %3$s</string>
   <string name="directlySupportLichess">Financer Lichess</string>
   <string name="playChessInStyle">Jouez aux échecs avec classe</string>
   <string name="chessBasics">Bases des échecs</string>
-  <string name="coaches">Coachs</string>
+  <string name="coaches">Entraîneurs</string>
   <string name="invalidPgn">PGN non valide</string>
   <string name="invalidFen">FEN non valide</string>
   <string name="error.minLength">Vous devez écrire au moins %s caractères</string>
