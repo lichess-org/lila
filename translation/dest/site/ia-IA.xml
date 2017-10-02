@@ -28,7 +28,7 @@
   <string name="variantEnding">Finite per regula variante</string>
   <string name="newOpponent">Nove adversario</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Tu adversario vole jocar un nove partita con te</string>
-  <string name="joinTheGame">Entrar in le joco</string>
+  <string name="joinTheGame">Entrar in le partita</string>
   <string name="whitePlays">Le blanc debe jocar</string>
   <string name="blackPlays">Le nigre debe jocar</string>
   <string name="opponentLeftChoices">Le altere jocator pote haber abandonate le partita. Tu pote declarar victoria, considerar le partita como nulle o attender.</string>
@@ -74,9 +74,11 @@
   <string name="topGames">Melior partitas</string>
   <string name="masterDbExplanation">Duo milliones de partitas de jocatores con classification FIDE super %1$s, de %2$s a %3$s</string>
   <plurals name="mateInXHalfMoves">
+    <item quantity="one">Chaco mat in %s medie-movimento</item>
     <item quantity="other">Chaco mat in %s medie-movimentos</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Proxime captura o movimento de pedon in %s medie-movimentos (distantia usque reinitiar le contator de 50 movimentos)</item>
     <item quantity="other">Proxime captura o movimento de pedon in %s medie-movimentos (distantia usque reinitiar le contator de 50 movimentos)</item>
   </plurals>
   <string name="noGameFound">Nulle partita trovate</string>
@@ -111,14 +113,17 @@
   <string name="offerDraw">Offerer que le partita sia nulle</string>
   <string name="draw">Partita nulle</string>
   <plurals name="nbPlayers">
+    <item quantity="one">%s jocatores</item>
     <item quantity="other">%s jocatores</item>
   </plurals>
   <string name="currentGames">Partitas currente</string>
   <plurals name="nbGames">
-    <item quantity="other">%s Jocos</item>
+    <item quantity="one">%s Jocos</item>
+    <item quantity="other">%s partitas</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="other">%s Favorites</item>
+    <item quantity="one">%s Favorites</item>
+    <item quantity="other">%s favorites</item>
   </plurals>
   <string name="viewInFullSize">Vider in plen dimension</string>
   <string name="logOut">Clauder session</string>
@@ -141,9 +146,11 @@
   <string name="daysPerTurn">Dies per torno</string>
   <string name="oneDay">Un die</string>
   <plurals name="nbDays">
+    <item quantity="one">%s dies</item>
     <item quantity="other">%s dies</item>
   </plurals>
   <plurals name="nbHours">
+    <item quantity="one">%s horas</item>
     <item quantity="other">%s horas</item>
   </plurals>
   <string name="time">Tempore</string>
@@ -163,10 +170,12 @@
   <string name="rankX">Classification: %s</string>
   <string name="rankIsUpdatedEveryXMinutes">Classification es actualisate cata %s minutas</string>
   <plurals name="nbPuzzles">
+    <item quantity="one">%s enigmas</item>
     <item quantity="other">%s enigmas</item>
   </plurals>
   <string name="gamesPlayed">Partitas jocate</string>
   <plurals name="nbGamesWithYou">
+    <item quantity="one">%s partitas con te</item>
     <item quantity="other">%s partitas con te</item>
   </plurals>
   <string name="cancel">Cancellar</string>
@@ -214,23 +223,29 @@
   <string name="freeOnlineChess">Chacos in linea gratis</string>
   <string name="spectators">Spectatores:</string>
   <plurals name="nbRated">
+    <item quantity="one">%s partitas classificatori</item>
     <item quantity="other">%s partitas classificatori</item>
   </plurals>
   <plurals name="nbWins">
+    <item quantity="one">%s victorias</item>
     <item quantity="other">%s victorias</item>
   </plurals>
   <plurals name="nbLosses">
+    <item quantity="one">%s perditas</item>
     <item quantity="other">%s perditas</item>
   </plurals>
   <plurals name="nbDraws">
+    <item quantity="one">%s partitas nulle</item>
     <item quantity="other">%s partitas nulle</item>
   </plurals>
   <plurals name="nbPlaying">
+    <item quantity="one">%s jocante</item>
     <item quantity="other">%s jocante</item>
   </plurals>
   <string name="exportGames">Exportar partitas</string>
   <string name="ratingRange">Intervallo de classificationes</string>
   <plurals name="giveNbSeconds">
+    <item quantity="one">Dona %s secundas</item>
     <item quantity="other">Dona %s secundas</item>
   </plurals>
   <string name="giveMoreTime">Offerer plus tempore</string>
@@ -254,15 +269,19 @@
   <string name="backToTournament">Retro al torneo</string>
   <string name="thematic">Thematic</string>
   <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s partitas classificatori</item>
     <item quantity="other">≥ %s partitas classificatori</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s partitas classificatori de %2$s</item>
     <item quantity="other">≥ %1$s partitas classificatori de %2$s</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
+    <item quantity="one">Tu debe jocar plus %1$s partitas classificatori del variante %2$s</item>
     <item quantity="other">Tu debe jocar plus %1$s partitas classificatori del variante %2$s</item>
   </plurals>
   <plurals name="needNbMoreGames">
+    <item quantity="one">Tu debe jocar plus %s partitas classificatori</item>
     <item quantity="other">Tu debe jocar plus %s partitas classificatori</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Tu classification de %s es provisori</string>
@@ -275,6 +294,7 @@
   <string name="siteDescription">Servitor de chacos gratis in linea. Joca al chacos ora in un interfacie simple. Nulle registration, nulle annuncios, nulle plugin requirite. Joca al chacos con le computator, con amicos o con adversarios aleatori.</string>
   <string name="teams">Equipas</string>
   <plurals name="nbMembers">
+    <item quantity="one">%s membros</item>
     <item quantity="other">%s membros</item>
   </plurals>
   <string name="allTeams">Tote le equipas</string>
@@ -305,6 +325,7 @@
   <string name="importGame">Importar partita</string>
   <string name="importGameExplanation">Quando tu colla un partita in PGN tu potera: revider la interactivemente, consultar un analyse de computator, utilisar le chat de joco, e publicar un ligamine URL.</string>
   <plurals name="nbImportedGames">
+    <item quantity="one">%s partitas importate</item>
     <item quantity="other">%s partitas importate</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Isto es un CAPTCHA de chacos.</string>
@@ -327,9 +348,11 @@
   <string name="followsYou">Te seque</string>
   <string name="xStartedFollowingY">%1$s comenciava a sequer %2$s</string>
   <plurals name="nbFollowers">
+    <item quantity="one">%s sequitores</item>
     <item quantity="other">%s sequitores</item>
   </plurals>
   <plurals name="nbFollowing">
+    <item quantity="one">seque %s</item>
     <item quantity="other">seque %s</item>
   </plurals>
   <string name="more">Plus</string>
@@ -340,6 +363,7 @@
   <string name="list">Lista</string>
   <string name="graph">Graphico</string>
   <plurals name="lessThanNbMinutes">
+    <item quantity="one">Minus de %s minutas</item>
     <item quantity="other">Minus de %s minutas</item>
   </plurals>
   <string name="required">Requirite.</string>
@@ -419,6 +443,7 @@
   <string name="thankYou">Gratias!</string>
   <string name="ratingX">Classification: %s</string>
   <plurals name="playedXTimes">
+    <item quantity="one">Jocate %s vices</item>
     <item quantity="other">Jocate %s vices</item>
   </plurals>
   <string name="fromGameLink">Extrahite del partita %s</string>
@@ -427,9 +452,11 @@
   <string name="thisPuzzleIsCorrect">Iste enigma es correcte e interessante</string>
   <string name="thisPuzzleIsWrong">Iste enigma es incorrecte o enoiose</string>
   <plurals name="youHaveNbSecondsToMakeYourFirstMove">
+    <item quantity="one">Tu ha %s secundas pro facer tu prime movimento!</item>
     <item quantity="other">Tu ha %s secundas pro facer tu prime movimento!</item>
   </plurals>
   <plurals name="nbGamesInPlay">
+    <item quantity="one">%s partitas in curso</item>
     <item quantity="other">%s partitas in curso</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Automaticamente proceder al joco sequente post le movimento</string>
@@ -540,9 +567,11 @@ in %3$s</string>
   <string name="yourCityRegionOrDepartment">Tu citate, region o provincia.</string>
   <string name="biographyDescription">Scribe super te, lo que tu ama in chacos, tu initios de joco preferite, partitas e jocatores favorite…</string>
   <plurals name="maximumNbCharacters">
+    <item quantity="one">Maximo: %s characteres.</item>
     <item quantity="other">Maximo: %s characteres.</item>
   </plurals>
   <plurals name="blocks">
+    <item quantity="one">%s jocatores blocate</item>
     <item quantity="other">%s jocatores blocate</item>
   </plurals>
   <string name="listBlockedPlayers">Lista de jocatores que tu blocava</string>
@@ -585,7 +614,8 @@ in %3$s</string>
   <string name="blackCastlingKingside">Nigre O-O</string>
   <string name="blackCastlingQueenside">Nigre O-O-O</string>
   <plurals name="nbForumPosts">
-    <item quantity="other">%s Messages in le Foro</item>
+    <item quantity="one">%s Messages in le Foro</item>
+    <item quantity="other">%s messages in le foro</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Tempore jocante: %s</string>
   <string name="watchGames">Spectar jocos</string>
@@ -637,6 +667,7 @@ in %3$s</string>
   <string name="returnToTournamentsHomepage">Retorna al pagina initial de torneos</string>
   <string name="weeklyPerfTypeRatingDistribution">Distribution del classification septimanal de %s</string>
   <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">%1$s jocatores de %2$s iste septimana.</item>
     <item quantity="other">%1$s jocatores de %2$s iste septimana.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Tu classification de %1$s es %2$s.</string>
@@ -692,6 +723,7 @@ in %3$s</string>
   <string name="viewTheSolution">Vider le solution</string>
   <string name="followAndChallengeFriends">Seque e defia amicos</string>
   <plurals name="availableInNbLanguages">
+    <item quantity="one">Disponibile in %s linguas!</item>
     <item quantity="other">Disponibile in %s linguas!</item>
   </plurals>
   <string name="gameAnalysis">Analyse de joco</string>
