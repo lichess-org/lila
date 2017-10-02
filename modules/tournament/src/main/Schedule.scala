@@ -53,10 +53,15 @@ case class Schedule(
 
   def perfType = PerfType.byVariant(variant) | Schedule.Speed.toPerfType(speed)
 
+  def plan = Schedule.Plan(this, identity)
+  def plan(build: Tournament => Tournament) = Schedule.Plan(this, build)
+
   override def toString = s"$freq $variant $speed $conditions $at"
 }
 
 object Schedule {
+
+  case class Plan(schedule: Schedule, build: Tournament => Tournament)
 
   sealed abstract class Freq(val id: Int, val importance: Int) extends Ordered[Freq] {
 
@@ -132,10 +137,11 @@ object Schedule {
     case object Winter extends Season
   }
 
-  private[tournament] def durationFor(s: Schedule): Option[Int] = {
+  private[tournament] def durationFor(s: Schedule): Int = {
     import Freq._, Speed._
     import chess.variant._
-    Some((s.freq, s.variant, s.speed) match {
+
+    (s.freq, s.variant, s.speed) match {
 
       case (Hourly, _, UltraBullet | HyperBullet | Bullet) => 27
       case (Hourly, _, HippoBullet | SuperBlitz | Blitz) => 57
@@ -170,9 +176,8 @@ object Schedule {
       case (Marathon, _, _) => 60 * 24 // lol
       case (ExperimentalMarathon, _, _) => 60 * 4
 
-      case (Unique, _, _) => 0
-
-    }) filter (0!=)
+      case (Unique, _, _) => 60 * 6
+    }
   }
 
   private val standardIncHours = Set(1, 7, 13, 19)
@@ -200,6 +205,8 @@ object Schedule {
       case (_, _, Classical) => TC(10 * 60, 0)
     }
   }
+  private[tournament] def addCondition(s: Schedule) =
+    s.copy(conditions = conditionFor(s))
 
   private[tournament] def conditionFor(s: Schedule) =
     if (s.conditions.relevant) s.conditions
