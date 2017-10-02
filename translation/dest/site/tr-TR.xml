@@ -415,6 +415,7 @@
   <string name="biography">Biyografi</string>
   <string name="country">Ülke</string>
   <string name="preferences">Seçenekler</string>
+  <string name="inlineNotation">Notasyonu aynı satırda göster</string>
   <string name="watchLichessTV">Lichess TV İzle</string>
   <string name="previouslyOnLichessTV">Daha Önce Lichess TV\'de</string>
   <string name="onlinePlayers">Çevrimiçi oyuncular</string>

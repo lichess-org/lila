@@ -57,9 +57,9 @@
   <string name="inLocalBrowser">im lokalen Browser</string>
   <string name="toggleLocalEvaluation">Lokale Auswertung an-/ausschalten</string>
   <string name="move">Zug</string>
-  <string name="variantLoss">Niederlage in der Schachvariante</string>
+  <string name="variantLoss">Niederlage in der Variante</string>
   <string name="variantWin">Sieg in der Schachvariante</string>
-  <string name="insufficientMaterial">Zu wenig Material</string>
+  <string name="insufficientMaterial">Ungenügendes Material</string>
   <string name="pawnMove">Bauernzug</string>
   <string name="capture">Schlagzug</string>
   <string name="close">Schließen</string>
@@ -138,8 +138,8 @@
   <string name="latestForumPosts">Neueste Forenbeiträge</string>
   <string name="players">Spieler</string>
   <string name="minutesPerSide">Minuten pro Spieler</string>
-  <string name="variant">Schachvariante</string>
-  <string name="variants">Schachvarianten</string>
+  <string name="variant">Variante</string>
+  <string name="variants">Varianten</string>
   <string name="timeControl">Zeitkontrolle</string>
   <string name="realTime">Normale Bedenkzeit</string>
   <string name="correspondence">Fernschach</string>
@@ -163,7 +163,7 @@
   <string name="changePassword">Passwort ändern</string>
   <string name="changeEmail">E-Mail-Adresse ändern</string>
   <string name="email">E-Mail</string>
-  <string name="emailIsOptional">Die E-Mail-Adresse ist optional. Lichess verwendet sie, um dein Passwort zurückzusetzen, wenn du es vergisst.</string>
+  <string name="emailIsOptional">Die E-Mail-Adresse ist optional. Lichess verwendet sie, um dein Passwort zurückzusetzen, falls du es vergisst.</string>
   <string name="passwordReset">Passwort zurücksetzen</string>
   <string name="forgotPassword">Passwort vergessen?</string>
   <string name="rank">Rang</string>
