@@ -23,11 +23,14 @@
   display: flex;
   border-bottom: 1px solid #ccc;
   min-height: 3.5em;
+  color: #555;
+}
+.relay_edit .relay .state a {
+  color: #fff;
 }
 .relay_edit .relay .state i {
   flex: 0 0 50px;
   font-size: 23px;
-  opacity: 0.7;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -37,18 +40,19 @@
   background: #3893E8;
   color: #fff;
 }
-.relay_edit .relay .state.clickable:hover i {
-  opacity: 0.9;
-}
 .relay_edit .relay .state > div {
   flex: 1 1 100%;
   padding: 8px 10px;
 }
-.relay_edit .relay .state.off i {
-  background: #3893E8;
+.relay_edit .relay .state .fat {
+  font-size: 1.4em;
+  text-transform: uppercase;
+}
+.relay_edit .relay .state.off {
+  background: rgba(56, 147, 232, 0.8);
   color: #fff;
 }
-.relay_edit .relay .state.on i {
+.relay_edit .relay .state.on {
   background: #759900;
   color: #fff;
 }
@@ -57,6 +61,7 @@
 }
 
 .relay_edit .relay .log {
+  background: #fff;
   overflow-x: hidden;
   overflow-y: auto;
   max-height: 150px;

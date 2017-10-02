@@ -8,7 +8,7 @@ export default function(ctrl: RelayCtrl): VNode | undefined {
   const d = ctrl.data;
   if (ctrl.members.canContribute()) return h('div.relay_wrap', [
     h('h2', [
-      'Relay manager',
+      'Broadcast source',
       ctrl.members.isOwner() ? h('a', {
         attrs: {
           href: `/relay/${d.slug}/${d.id}/edit`,
@@ -49,7 +49,7 @@ function stateOn(ctrl: RelayCtrl) {
   }, [
     iconTag('B'),
     h('div', [
-      'Connected to PGN source',
+      'Connected to source',
       h('div.timer', {
         hook: {
           insert: vnode => $(vnode.elm as HTMLElement).clock({ time: ctrl.data.sync.seconds! })
@@ -67,10 +67,6 @@ function stateOff(ctrl: RelayCtrl) {
     hook: bind('click', _ => ctrl.setSync(true))
   }, [
     iconTag('G'),
-    h('div', [
-      'Click to connect',
-      h('br'),
-      'to PGN source'
-    ])
+    h('div.fat', 'Click to connect')
   ]);
 }
