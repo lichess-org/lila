@@ -52,11 +52,14 @@ Escappa e vince le stellas!</string>
   <string name="capture">Captura</string>
   <string name="takeTheEnemyPieces">Prende le pecias inimic</string>
   <string name="protection">Protection</string>
+  <string name="keepYourPiecesSafe">Mantene tu pecias secur</string>
   <string name="combat">Combatto</string>
+  <string name="captureAndDefendPieces">Captura e defende pecias</string>
   <string name="checkInOne">Chaco in 1</string>
   <string name="outOfCheck">Escappa le chaco</string>
   <string name="defendYourKing">Defende tu rege</string>
   <string name="mateInOne">Mat in 1</string>
+  <string name="defeatTheOpponentsKing">Vince le rege del adversario</string>
   <string name="intermediate">Intermedie</string>
   <string name="boardSetup">Tabuliero</string>
   <string name="howTheGameStarts">Como le partita initia</string>
@@ -68,7 +71,9 @@ Escappa e vince le stellas!</string>
   <string name="theGameIsADraw">Le partita es nulle</string>
   <string name="advanced">Avantiate</string>
   <string name="pieceValue">Valor del pecias</string>
+  <string name="evaluatePieceStrength">Evaluta le fortia del pecias</string>
   <string name="checkInTwo">Chaco in 2</string>
+  <string name="twoMovesToGiveCheck">Duo movimentos pro dar un chaco</string>
   <string name="register">Crear conto</string>
   <string name="getAFreeLichessAccount">Obtene un conto Lichess gratis</string>
   <string name="practice">Practicar</string>
