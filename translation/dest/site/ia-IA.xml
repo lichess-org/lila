@@ -751,7 +751,7 @@ in %3$s</string>
   <string name="usernameUnacceptable">Iste nomine de usator non es acceptabile.</string>
   <string name="directlySupportLichess">Appoia directemente Lichess</string>
   <string name="playChessInStyle">Joca chacos con stilo</string>
-  <string name="chessBasics">Fundamentos del chacos</string>
+  <string name="chessBasics">Fundamentos</string>
   <string name="coaches">Tutores</string>
   <string name="invalidPgn">PGN invalide</string>
   <string name="invalidFen">FEN invalide</string>
