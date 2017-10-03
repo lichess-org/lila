@@ -60,7 +60,7 @@ Escappa e vince le stellas!</string>
   <string name="boardSetup">Tabuliero</string>
   <string name="howTheGameStarts">Como le partita initia</string>
   <string name="castling">Roc</string>
-  <string name="theSpecialKingMove">Le movimento special de rege</string>
+  <string name="theSpecialKingMove">Le movimento special del rege</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Le movimento special del pedon</string>
   <string name="stalemate">Pat</string>
@@ -71,7 +71,7 @@ Escappa e vince le stellas!</string>
   <string name="register">Crear conto</string>
   <string name="getAFreeLichessAccount">Obtene un conto Lichess gratis</string>
   <string name="practice">Practicar</string>
-  <string name="learnCommonChessPositions">Apprende positiones commun in chacos</string>
+  <string name="learnCommonChessPositions">Apprende positiones commun</string>
   <string name="puzzles">Enigmas</string>
   <string name="exerciseYourTacticalSkills">Exercita tu habilitates tactic</string>
   <string name="videos">Videos</string>
