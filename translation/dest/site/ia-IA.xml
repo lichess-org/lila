@@ -129,7 +129,7 @@
   <string name="logOut">Clauder session</string>
   <string name="signIn">Aperir session</string>
   <string name="newToLichess">Es tu nove in Lichess?</string>
-  <string name="youNeedAnAccountToDoThat">Un conto es requirite pro facer isto</string>
+  <string name="youNeedAnAccountToDoThat">Tu necessita un conto pro facer isto</string>
   <string name="signUp">Crear conto</string>
   <string name="computersAreNotAllowedToPlay">Le uso de computatores e programmas non es permittite. Per favor, non prende assistentia de motores de chacos, bases de datos o de altere jocatores durante que joca. De plus, nota que crear multiple contos es fortemente discoragiate e iste practica excessive conduce a interdiction de uso.</string>
   <string name="games">Jocos</string>
