@@ -42,40 +42,40 @@ Vous avez besoin des deux !</string>
   <string name="knightComplete">Félicitations ! Vous possédez la maîtrise du Cavalier.</string>
   <string name="thePawn">Le Pion</string>
   <string name="itMovesForwardOnly">Se déplace uniquement vers l\'avant</string>
-  <string name="pawnIntro">Les pions sont faibles, mais peuvent se révéler redoutables.</string>
+  <string name="pawnIntro">Les Pions sont faibles, mais ils ont beaucoup de potentiel.</string>
   <string name="pawnsMoveOneSquareOnly">Les pions avancent d\'une case vers l\'avant uniquement.
-Mais, lorsqu\'ils atteignent le bord opposé de l\'échiquier, ils deviennent une pièce plus puissante : c\'est une promotion!</string>
+Mais, lorsqu\'ils atteignent le bord opposé de l\'échiquier, ils deviennent une pièce plus puissante : c\'est une promotion !</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">La plupart du temps, la promotion s\'effectue en Dame.
 Mais parfois, une promotion en Cavalier est plus avantageuse!</string>
   <string name="pawnsMoveForward">Les pions se déplacent vers l\'avant,
-mais capturent en diagonale!</string>
-  <string name="captureThenPromote">Capturez, puis effectuez une promotion!</string>
-  <string name="useAllThePawns">Utilisez tous vos pions!
+mais capturent en diagonale !</string>
+  <string name="captureThenPromote">Capturez, puis effectuez une promotion !</string>
+  <string name="useAllThePawns">Utilisez tous vos pions !
 Inutile d\'effectuer des promotions.</string>
   <string name="aPawnOnTheSecondRank">Un pion sur sa case de départ peut se déplacer initialement de 2 cases d\'un coup!</string>
-  <string name="grabAllTheStarsNoNeedToPromote">Collecter toutes les étoiles! Inutile d\'effectuer des promotions.</string>
-  <string name="pawnComplete">Félicitations! Vous possédez la maîtrise du pion.</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Collecter toutes les étoiles ! Inutile d\'effectuer des promotions.</string>
+  <string name="pawnComplete">Félicitations ! Les pions n\'ont plus de secret pour vous.</string>
   <string name="pawnPromotion">La promotion du pion</string>
-  <string name="yourPawnReachedTheEndOfTheBoard">Votre pion a atteint le bord opposé!</string>
-  <string name="itNowPromotesToAStrongerPiece">Il est promu vers une pièce lourde.</string>
-  <string name="selectThePieceYouWant">Sélectionner la pièce de promotion!</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Votre pion a atteint le bord opposé !</string>
+  <string name="itNowPromotesToAStrongerPiece">Il est promu en une pièce lourde.</string>
+  <string name="selectThePieceYouWant">Sélectionnez la pièce de promotion !</string>
   <string name="fundamentals">Les fondamentaux</string>
   <string name="capture">La capture</string>
-  <string name="takeTheEnemyPieces">Prendre les pièces adverses</string>
-  <string name="captureIntro">Identifiez les pièces non défendues de l\'adversaire, et capturez-les!</string>
-  <string name="takeTheBlackPieces">Prenez les pièces noires!</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">Prenez les pièces noires! et ne perdez pas les vôtres.</string>
-  <string name="captureComplete">Félicitations! Vous connaissez maintenant le déplacement des pièces!</string>
+  <string name="takeTheEnemyPieces">Prenez les pièces adverses</string>
+  <string name="captureIntro">Identifiez les pièces non défendues de l\'adversaire, et capturez-les !</string>
+  <string name="takeTheBlackPieces">Prenez les pièces noires !</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Prenez les pièces noires ! Et ne perdez pas les vôtres.</string>
+  <string name="captureComplete">Félicitations ! Vous savez maintenant comment vous battre avec les pièces d\'échecs !</string>
   <string name="protection">Protéger</string>
-  <string name="keepYourPiecesSafe">Assurer la sécurité de vos pièces</string>
-  <string name="protectionIntro">Identifier vos pièces attaquées par l\'adversaire, et défendez-les!</string>
-  <string name="protectionComplete">Félicitations! Vous maîtrisez les mécanismes de protection!</string>
-  <string name="escape">Vous êtes attaqué! Protégez-vous!</string>
-  <string name="noEscape">Il n\'y a pas d\'échappatoire, mais vous pouvez vous défendre!</string>
-  <string name="dontLetThemTakeAnyUndefendedPiece">Ne laissez pas l\'adversaire prendre une pièce non défendue!</string>
-  <string name="combat">Combattre</string>
-  <string name="captureAndDefendPieces">Capturer et défendre les pièces</string>
-  <string name="combatIntro">Un bon guerrier sait comment attaquer et défendre!</string>
+  <string name="keepYourPiecesSafe">Assurez la sécurité de vos pièces</string>
+  <string name="protectionIntro">Identifiez vos pièces attaquées par l\'adversaire, et défendez-les !</string>
+  <string name="protectionComplete">Félicitations ! Une pièce que vous ne perdez pas est une pièce que vous gagnez !</string>
+  <string name="escape">Vous êtes attaqué ! Fuyez la menace !</string>
+  <string name="noEscape">Il n\'y a pas d\'échappatoire, mais vous pouvez vous défendre !</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Ne laissez pas l\'adversaire prendre une pièce non défendue !</string>
+  <string name="combat">Combat</string>
+  <string name="captureAndDefendPieces">Capturez et défendez les pièces</string>
+  <string name="combatIntro">Un bon guerrier sait à la fois attaquer et défendre !</string>
   <string name="combatComplete">Félicitations! Vous connaissez maintenant le déplacement des pièces!</string>
   <string name="checkInOne">Échec en un coup</string>
   <string name="attackTheOpponentsKing">Attaquer le Roi de l\'adversaire</string>
