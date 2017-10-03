@@ -50,6 +50,7 @@ Escappa e vince le stellas!</string>
   <string name="selectThePieceYouWant">Selectiona le pecia que tu vole!</string>
   <string name="fundamentals">Fundamentos</string>
   <string name="capture">Captura</string>
+  <string name="takeTheEnemyPieces">Prende le pecias inimic</string>
   <string name="protection">Protection</string>
   <string name="combat">Combatto</string>
   <string name="checkInOne">Chaco in 1</string>
@@ -77,7 +78,12 @@ Escappa e vince le stellas!</string>
   <string name="videos">Videos</string>
   <string name="watchInstructiveChessVideos">Specta videos de chacos instructive</string>
   <string name="playPeople">Adversarios</string>
+  <string name="opponentsFromAroundTheWorld">Personas de tote le mundo</string>
   <string name="playMachine">Computator</string>
+  <string name="testYourSkillsWithTheComputer">Testa tu habilitates</string>
+  <string name="letsGo">Que nos comencia!</string>
+  <string name="stageX">Stadio %s</string>
+  <string name="awesome">Stupende!</string>
   <string name="excellent">Excellente!</string>
   <string name="greatJob">Bravo!</string>
   <string name="perfect">Perfecte!</string>
