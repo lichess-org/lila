@@ -9,15 +9,7 @@ import play.twirl.api.Html
 import lila.api.Env.{ current => apiEnv }
 
 object Environment
-  extends scalaz.syntax.ToIdOps
-  with scalaz.std.OptionInstances
-  with scalaz.std.OptionFunctions
-  with scalaz.std.StringInstances
-  with scalaz.syntax.std.ToOptionIdOps
-  with scalalib.OrnicarMonoid.Instances
-  with scalalib.Zero.Instances
-  with scalalib.OrnicarOption
-  with lila.LilaSteroids
+  extends lila.Steroids
   with StringHelper
   with JsonHelper
   with AssetHelper
