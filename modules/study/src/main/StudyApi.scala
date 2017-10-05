@@ -182,7 +182,7 @@ final class StudyApi(
   }
 
   def doAddNode(userId: User.ID, study: Study, position: Position, rawNode: Node, uid: Uid, opts: MoveOpts): Fu[Option[Position]] = {
-    val node = rawNode.emptyChildren
+    val node = rawNode.withoutChildren
     position.chapter.addNode(node, position.path) match {
       case None =>
         fufail(s"Invalid addNode ${study.id} ${position.ref} $node") >>-

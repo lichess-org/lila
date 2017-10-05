@@ -44,7 +44,7 @@ case class Node(
       copy(children = newChildren)
     }
 
-  def emptyChildren = copy(children = Node.emptyChildren)
+  def withoutChildren = copy(children = Node.emptyChildren)
 
   def withClock(centis: Option[Centis]) = copy(clock = centis)
 
