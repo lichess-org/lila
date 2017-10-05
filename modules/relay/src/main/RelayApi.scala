@@ -64,7 +64,8 @@ final class RelayApi(
         settings = Settings.init.copy(
           chat = Settings.UserSelection.Everyone,
           sticky = false
-        ).some
+        ).some,
+        from = Study.From.Relay(none).some
       ), user) inject relay
   }
 

@@ -14,6 +14,9 @@ private final class StudyMaker(
     (data.form.gameId ?? GameRepo.gameWithInitialFen).flatMap {
       case Some((game, initialFen)) => createFromPov(data, Pov(game, data.form.orientation), initialFen, user)
       case None => createFromScratch(data, user)
+    } map { sc =>
+      // apply specified From if any
+      sc.copy(study = sc.study.copy(from = data.from | sc.study.from))
     }
 
   private def createFromScratch(data: StudyMaker.Data, user: User): Fu[Study.WithChapter] = {
@@ -65,6 +68,7 @@ object StudyMaker {
       form: DataForm.Data = DataForm.Data(),
       id: Option[Study.Id] = None,
       name: Option[Study.Name] = None,
-      settings: Option[Settings] = None
+      settings: Option[Settings] = None,
+      from: Option[Study.From] = None
   )
 }

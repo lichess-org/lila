@@ -116,6 +116,7 @@ object Study {
     case object Scratch extends From
     case class Game(id: String) extends From
     case class Study(id: Id) extends From
+    case class Relay(clonedFrom: Option[Id]) extends From
   }
 
   case class Data(

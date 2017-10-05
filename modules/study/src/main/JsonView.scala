@@ -135,6 +135,7 @@ object JsonView {
     case Study.From.Scratch => JsString("scratch")
     case Study.From.Game(id) => Json.obj("game" -> id)
     case Study.From.Study(id) => Json.obj("study" -> id)
+    case Study.From.Relay(id) => Json.obj("relay" -> id)
   }
   private[study] implicit val userSelectionWriter = Writes[Settings.UserSelection] { v =>
     JsString(v.key)
