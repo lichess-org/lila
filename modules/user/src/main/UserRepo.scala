@@ -1,6 +1,5 @@
 package lila.user
 
-import com.roundeights.hasher.Implicits._
 import org.joda.time.DateTime
 import reactivemongo.api._
 import reactivemongo.api.commands.GetLastError
@@ -20,7 +19,7 @@ object UserRepo {
   import User.{ BSONFields => F }
 
   // dirty
-  private val coll = Env.current.userColl
+  private[user] val coll = Env.current.userColl
   import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Match, Group, SumField }
 
   val normalize = User normalize _
@@ -225,39 +224,9 @@ object UserRepo {
   def incToints(id: ID, nb: Int) = coll.update($id(id), $inc("toints" -> nb))
   def removeAllToints = coll.update($empty, $unset("toints"), multi = true)
 
-  def authenticateById(id: ID, password: String): Fu[Option[User]] =
-    loginCandidateById(id) map { _ flatMap { _(password) } }
-
-  def authenticateByEmail(email: EmailAddress, password: String): Fu[Option[User]] =
-    loginCandidateByEmail(email) map { _ flatMap { _(password) } }
-
-  private case class AuthData(password: String, salt: String, sha512: Option[Boolean]) {
-    def compare(p: String) = password == (~sha512).fold(hash512(p, salt), hash(p, salt))
-  }
-
-  private implicit val AuthDataBSONHandler = Macros.handler[AuthData]
-
-  def loginCandidateById(id: ID): Fu[Option[User.LoginCandidate]] =
-    loginCandidate($id(id))
-
-  def loginCandidateByEmail(email: EmailAddress): Fu[Option[User.LoginCandidate]] =
-    loginCandidate($doc(F.email -> email))
-
-  def loginCandidate(u: User): Fu[User.LoginCandidate] =
-    loginCandidateById(u.id) map { _ | User.LoginCandidate(u, _ => false) }
-
-  private def loginCandidate(select: Bdoc): Fu[Option[User.LoginCandidate]] =
-    coll.uno[AuthData](select) zip coll.uno[User](select) map {
-      case (Some(login), Some(user)) if user.enabled => User.LoginCandidate(user, login.compare).some
-      case _ => none
-    }
-
-  def getPasswordHash(id: ID): Fu[Option[String]] =
-    coll.primitiveOne[String]($id(id), "password")
-
   def create(
     username: String,
-    password: String,
+    passwordHash: HashedPassword,
     email: EmailAddress,
     blind: Boolean,
     mobileApiVersion: Option[ApiVersion],
@@ -265,7 +234,7 @@ object UserRepo {
   ): Fu[Option[User]] =
     !nameExists(username) flatMap {
       _ ?? {
-        val doc = newUser(username, password, email, blind, mobileApiVersion, mustConfirmEmail) ++
+        val doc = newUser(username, passwordHash, email, blind, mobileApiVersion, mustConfirmEmail) ++
           ("len" -> BSONInteger(username.size))
         coll.insert(doc) >> named(normalize(username))
       }
@@ -332,14 +301,10 @@ object UserRepo {
     }
   )
 
-  def passwd(id: ID, password: String): Funit =
-    coll.primitiveOne[String]($id(id), "salt") flatMap { saltOption =>
-      saltOption ?? { salt =>
-        coll.update($id(id), $set(
-          "password" -> hash(password, salt),
-          "sha512" -> false
-        )).void
-      }
+  import Authenticator._
+  def getPasswordHash(id: User.ID): Fu[Option[String]] =
+    coll.byId[Authenticator.AuthData](id) map {
+      _.map { _.hashToken }
     }
 
   def email(id: ID, email: EmailAddress): Funit =
@@ -435,14 +400,13 @@ object UserRepo {
 
   private def newUser(
     username: String,
-    password: String,
+    passwordHash: HashedPassword,
     email: EmailAddress,
     blind: Boolean,
     mobileApiVersion: Option[ApiVersion],
     mustConfirmEmail: Boolean
   ) = {
 
-    val salt = ornicar.scalalib.Random secureString 32
     implicit def countHandler = Count.countBSONHandler
     implicit def perfsHandler = Perfs.perfsBSONHandler
     import lila.db.BSON.BSONJodaDateTimeHandler
@@ -452,8 +416,7 @@ object UserRepo {
       F.username -> username,
       F.email -> email,
       F.mustConfirmEmail -> mustConfirmEmail.option(DateTime.now),
-      "password" -> hash(password, salt),
-      "salt" -> salt,
+      F.bpass -> passwordHash,
       F.perfs -> $empty,
       F.count -> Count.default,
       F.enabled -> true,
@@ -465,7 +428,4 @@ object UserRepo {
         if (blind) $doc("blind" -> true) else $empty
       }
   }
-
-  private def hash(pass: String, salt: String): String = "%s{%s}".format(pass, salt).sha1
-  private def hash512(pass: String, salt: String): String = "%s{%s}".format(pass, salt).sha512
 }

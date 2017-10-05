@@ -3,7 +3,9 @@ package lila.user
 import play.api.data._
 import play.api.data.Forms._
 
-object DataForm {
+import User.ClearPassword
+
+final class DataForm(authenticator: Authenticator) {
 
   val note = Form(mapping(
     "text" -> nonEmptyText(minLength = 3, maxLength = 2000),
@@ -36,13 +38,16 @@ object DataForm {
     def samePasswords = newPasswd1 == newPasswd2
   }
 
-  def passwd(u: User) = UserRepo loginCandidate u map { candidate =>
+  def passwd(u: User) = authenticator loginCandidate u map { candidate =>
     Form(mapping(
-      "oldPasswd" -> nonEmptyText.verifying("incorrectPassword", candidate.check),
+      "oldPasswd" -> nonEmptyText.verifying("incorrectPassword", p => candidate.check(ClearPassword(p))),
       "newPasswd1" -> nonEmptyText(minLength = 2),
       "newPasswd2" -> nonEmptyText(minLength = 2)
     )(Passwd.apply)(Passwd.unapply).verifying("the new passwords don't match", _.samePasswords))
   }
+}
+
+object DataForm {
 
   val title = Form(single("title" -> optional(nonEmptyText)))
 }

@@ -17,6 +17,7 @@ final class SecurityApi(
     coll: Coll,
     firewall: Firewall,
     geoIP: GeoIP,
+    authenticator: lila.user.Authenticator,
     emailValidator: EmailAddressValidator
 ) {
 
@@ -39,14 +40,14 @@ final class SecurityApi(
 
   def loadLoginForm(str: String): Fu[Form[Option[User]]] = {
     emailValidator.validate(EmailAddress(str)) match {
-      case Some(email) => UserRepo.loginCandidateByEmail(email)
-      case None if User.couldBeUsername(str) => UserRepo.loginCandidateById(User normalize str)
+      case Some(email) => authenticator.loginCandidateByEmail(email)
+      case None if User.couldBeUsername(str) => authenticator.loginCandidateById(User normalize str)
       case _ => fuccess(none)
     }
   } map loadedLoginForm _
 
   private def authenticateCandidate(candidate: Option[User.LoginCandidate])(username: String, password: String): Option[User] =
-    candidate ?? { _(password) }
+    candidate ?? { _(User.ClearPassword(password)) }
 
   def saveAuthentication(userId: User.ID, apiVersion: Option[ApiVersion])(implicit req: RequestHeader): Fu[String] =
     UserRepo mustConfirmEmail userId flatMap {
