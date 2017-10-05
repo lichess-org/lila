@@ -6,9 +6,11 @@ import play.api.data.validation.Constraints
 
 import lila.common.{ LameName, EmailAddress }
 import lila.user.{ User, UserRepo }
+import User.ClearPassword
 
 final class DataForm(
     val captcher: akka.actor.ActorSelection,
+    authenticator: lila.user.Authenticator,
     emailValidator: EmailAddressValidator
 ) extends lila.hub.CaptchedForm {
 
@@ -81,9 +83,9 @@ final class DataForm(
       _.samePasswords
     ))
 
-  def changeEmail(u: User, old: Option[EmailAddress]) = UserRepo loginCandidate u map { candidate =>
+  def changeEmail(u: User, old: Option[EmailAddress]) = authenticator loginCandidate u map { candidate =>
     Form(mapping(
-      "passwd" -> nonEmptyText.verifying("incorrectPassword", candidate.check),
+      "passwd" -> nonEmptyText.verifying("incorrectPassword", p => candidate.check(ClearPassword(p))),
       "email" -> acceptableUniqueEmail(candidate.user.some).verifying(emailValidator differentConstraint old)
     )(ChangeEmail.apply)(ChangeEmail.unapply)).fill(ChangeEmail(
       passwd = "",

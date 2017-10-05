@@ -4,6 +4,7 @@ import lila.app._
 
 import play.api.mvc._
 import play.api.data._, Forms._
+import lila.user.User.ClearPassword
 
 object Cli extends LilaController {
 
@@ -24,7 +25,7 @@ object Cli extends LilaController {
   }
 
   private def CliAuth(password: String)(op: => Fu[Result]): Fu[Result] =
-    lila.user.UserRepo.authenticateById(Env.api.CliUsername, password).map(_.isDefined) flatMap {
+    Env.user.authenticator.authenticateById(Env.api.CliUsername, ClearPassword(password)).map(_.isDefined) flatMap {
       _.fold(op, fuccess(Unauthorized))
     }
 }

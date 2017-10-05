@@ -3,6 +3,7 @@ package lila.user
 import scala.concurrent.duration._
 
 import lila.common.{ LightUser, EmailAddress }
+import reactivemongo.bson.Macros
 
 import lila.rating.PerfType
 import org.joda.time.DateTime
@@ -110,9 +111,13 @@ object User {
 
   type ID = String
 
-  type CredentialCheck = String => Boolean
+  type CredentialCheck = ClearPassword => Boolean
   case class LoginCandidate(user: User, check: CredentialCheck) {
-    def apply(password: String): Option[User] = check(password) option user
+    def apply(p: ClearPassword): Option[User] = {
+      val res = check(p)
+      lila.mon.user.auth.result(res)()
+      res option user
+    }
   }
 
   val anonymous = "Anonymous"
@@ -125,6 +130,10 @@ object User {
   case class Active(user: User)
 
   case class Emails(current: Option[EmailAddress], previous: Option[EmailAddress])
+
+  case class ClearPassword(value: String) extends AnyVal {
+    override def toString = "ClearPassword(****)"
+  }
 
   case class PlayTime(total: Int, tv: Int) {
     import org.joda.time.Period
@@ -188,6 +197,10 @@ object User {
     val colorIt = "colorIt"
     val plan = "plan"
     val reportban = "reportban"
+    val salt = "salt"
+    val bpass = "bpass"
+    val password = "password"
+    val sha512 = "sha512"
   }
 
   import lila.db.BSON
