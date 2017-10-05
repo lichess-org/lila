@@ -1,7 +1,6 @@
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 import RelayCtrl from './relayCtrl';
-import { RelayData } from './interfaces';
 import { iconTag, bind } from '../../util';
 
 export default function(ctrl: RelayCtrl): VNode | undefined {
@@ -18,16 +17,17 @@ export default function(ctrl: RelayCtrl): VNode | undefined {
     ]),
     h('div.relay', [
       (d.sync.seconds ? stateOn : stateOff)(ctrl),
-      renderLog(d)
+      renderLog(ctrl)
     ])
   ]);
 }
 
-function renderLog(d: RelayData) {
-  return h('div.log', d.sync.log.slice(0).reverse().map(e => {
+function renderLog(ctrl: RelayCtrl) {
+  console.log(ctrl.loading());
+  const logLines = ctrl.data.sync.log.slice(0).reverse().map(e => {
     const err = e.error && h('a', {
       attrs: {
-        href: d.sync.url,
+        href: ctrl.data.sync.url,
         target: '_blank'
       }
     }, e.error);
@@ -40,7 +40,12 @@ function renderLog(d: RelayData) {
         h('time', window.lichess.timeago.absolute(e.at))
       ])
     ]);
-  }));
+  });
+  if (ctrl.loading()) logLines.unshift(h('div.load', [
+    h('i.ddloader'),
+    'Polling source...'
+  ]));
+  return h('div.log', logLines);
 }
 
 function stateOn(ctrl: RelayCtrl) {

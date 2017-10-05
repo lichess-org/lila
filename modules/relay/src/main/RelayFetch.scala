@@ -41,7 +41,8 @@ private final class RelayFetch(
         relays.map { relay =>
           if (relay.sync.until.??(DateTime.now.isAfter)) disconnect(relay)
           else fetcher(relay.sync.upstream) flatMap { games =>
-            sync(relay, games).withTimeout(300 millis, LilaException("Too slow"))(context.system)
+            sync(relay, games)
+              .withTimeout(300 millis, LilaException("In progress"))(context.system)
           } flatMap { res =>
             addLog(relay.id, SyncLog.event(none)) inject res
           } recover {

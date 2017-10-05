@@ -4,6 +4,7 @@ export default class RelayCtrl {
 
   data: RelayData;
   log: LogEvent[] = [];
+  cooldown: boolean = false;
 
   constructor(d: RelayData, readonly send: SocketSend, readonly redraw: () => void, readonly members: any) {
     this.data = d;
@@ -14,6 +15,8 @@ export default class RelayCtrl {
     this.redraw();
   }
 
+  loading = () => !this.cooldown && !!this.data.sync.seconds;
+
   socketHandlers = {
     relayData: (d: RelayData) => {
       this.data = d;
@@ -22,9 +25,10 @@ export default class RelayCtrl {
     relayLog: (event: LogEvent) => {
       this.data.sync.log.push(event);
       this.data.sync.log.splice(20);
+      this.cooldown = true;
+      setTimeout(() => { this.cooldown = false; this.redraw(); }, 3000);
       this.redraw();
-      if (event.error) console.warn(`lichess relay synchronisation error: ${event.error}`);
-      else console.log(`lichess relay synchronisation success`);
+      if (event.error) console.warn(`relay synchronisation error: ${event.error}`);
     }
   };
 

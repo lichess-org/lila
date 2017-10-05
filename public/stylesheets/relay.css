@@ -77,10 +77,14 @@
 }
 .relay_edit .relay .log i {
   color: #759900;
-  margin: 0 5px;
+  width: 32px;
+  text-align: center;
 }
 .relay_edit .relay .log .err i {
   color: #dc322f;
+}
+.relay_edit .relay .log .ddloader {
+  margin-top: 5px;
 }
 
 body.dark .relay_edit .relay {
@@ -93,4 +97,7 @@ body.dark .relay_edit .relay_wrap h2 {
 }
 body.dark .relay_edit .relay_wrap h2 {
   background: #3d3d3d;
+}
+body.dark .relay_edit .relay .log {
+  background: #262626;
 }
