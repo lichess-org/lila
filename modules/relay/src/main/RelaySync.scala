@@ -10,25 +10,28 @@ private final class RelaySync(
     chapterRepo: ChapterRepo
 ) {
 
-  def apply(relay: Relay, games: RelayGames): Funit = studyApi byId relay.studyId flatMap {
+  private type NbMoves = Int
+
+  def apply(relay: Relay, games: RelayGames): Fu[NbMoves] = studyApi byId relay.studyId flatMap {
     _ ?? { study =>
       for {
         chapters <- chapterRepo orderedByStudy study.id
-        _ <- lila.common.Future.traverseSequentially(games) { game =>
+        movesPerGame <- lila.common.Future.traverseSequentially(games) { game =>
           chapters.find(_.tags(idTag) has game.id) match {
             case Some(chapter) => updateChapter(study, chapter, game)
             case None => createChapter(study, game) flatMap { chapter =>
-              chapters.find(_.isEmptyInitial).ifTrue(chapter.order == 2) ?? { initial =>
+              chapters.find(_.isEmptyInitial).ifTrue(chapter.order == 2).?? { initial =>
                 studyApi.deleteChapter(study.ownerId, study.id, initial.id, socketUid)
-              }
+              } inject chapter.root.mainline.size
             }
           }
         }
-      } yield ()
+        nbMoves = movesPerGame.foldLeft(0)(_ + _)
+      } yield nbMoves
     }
   }
 
-  private def updateChapter(study: Study, chapter: Chapter, game: RelayGame): Funit = {
+  private def updateChapter(study: Study, chapter: Chapter, game: RelayGame): Fu[NbMoves] = {
     game.root.mainline.foldLeft(Path.root -> none[Node]) {
       case ((parentPath, None), gameNode) =>
         val path = parentPath + gameNode
@@ -55,8 +58,8 @@ private final class RelaySync(
         position = Position(chapter, path).ref,
         toMainline = true,
         uid = socketUid
-      )
-      case (path, None) => funit // no new nodes were found
+      ) inject 0
+      case (path, None) => fuccess(0) // no new nodes were found
       case (path, Some(node)) => // append new nodes to the chapter
         lila.common.Future.fold(node.mainline)(Position(chapter, path)) {
           case (position, n) => studyApi.doAddNode(
@@ -67,7 +70,7 @@ private final class RelaySync(
             uid = socketUid,
             opts = moveOpts.copy(clock = n.clock)
           ) flatten s"Can't add relay node $position $node"
-        } void
+        } inject node.mainline.size
     }
   }
 

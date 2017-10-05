@@ -2,6 +2,7 @@ import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 import RelayCtrl from './relayCtrl';
 import { iconTag, bind } from '../../util';
+import { LogEvent } from './interfaces';
 
 export default function(ctrl: RelayCtrl): VNode | undefined {
   const d = ctrl.data;
@@ -22,6 +23,13 @@ export default function(ctrl: RelayCtrl): VNode | undefined {
   ]);
 }
 
+function logSuccess(e: LogEvent) {
+  return [
+    e.moves ? h('strong', '' + e.moves) : e.moves,
+    ` new move${e.moves > 1 ? 's' : ''}`
+  ];
+}
+
 function renderLog(ctrl: RelayCtrl) {
   console.log(ctrl.loading());
   const logLines = ctrl.data.sync.log.slice(0).reverse().map(e => {
@@ -36,8 +44,8 @@ function renderLog(ctrl: RelayCtrl) {
     }, [
       iconTag(err ? 'j' : 'E'),
       h('div', [
-        err || 'Success',
-        h('time', window.lichess.timeago.absolute(e.at))
+        ...(err ? [err] : logSuccess(e)),
+        h('time', dateFormatter(new Date(e.at)))
       ])
     ]);
   });
@@ -75,3 +83,13 @@ function stateOff(ctrl: RelayCtrl) {
     h('div.fat', 'Click to connect')
   ]);
 }
+
+const dateFormatter: (date: Date) => string =
+  (window.Intl && Intl.DateTimeFormat) ?
+  new Intl.DateTimeFormat(document.documentElement.lang, {
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric'
+  }).format : function(d) { return d.toLocaleString(); }

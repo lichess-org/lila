@@ -16,6 +16,7 @@ object SyncLog {
   val historySize = 5
 
   case class Event(
+      moves: Int,
       error: Option[String],
       at: DateTime
   ) {
@@ -23,7 +24,8 @@ object SyncLog {
     def isKo = error.nonEmpty
   }
 
-  def event(e: Option[Exception]) = Event(
+  def event(moves: Int, e: Option[Exception]) = Event(
+    moves = moves,
     error = e map {
       case e: java.util.concurrent.TimeoutException => "Request timeout"
       case e: Exception => e.getMessage take 100

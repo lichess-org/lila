@@ -43,10 +43,10 @@ private final class RelayFetch(
           else fetcher(relay.sync.upstream) flatMap { games =>
             sync(relay, games)
               .withTimeout(300 millis, LilaException("In progress"))(context.system)
-          } flatMap { res =>
-            addLog(relay.id, SyncLog.event(none)) inject res
+          } flatMap { nbMoves =>
+            addLog(relay.id, SyncLog.event(nbMoves, none))
           } recover {
-            case e: Exception => addLog(relay.id, SyncLog.event(e.some))
+            case e: Exception => addLog(relay.id, SyncLog.event(0, e.some))
           }
         }.sequenceFu.chronometer
           .result addEffectAnyway scheduleNext
