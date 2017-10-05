@@ -31,7 +31,6 @@ function logSuccess(e: LogEvent) {
 }
 
 function renderLog(ctrl: RelayCtrl) {
-  console.log(ctrl.loading());
   const logLines = ctrl.data.sync.log.slice(0).reverse().map(e => {
     const err = e.error && h('a', {
       attrs: {

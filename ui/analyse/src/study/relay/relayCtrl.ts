@@ -24,7 +24,7 @@ export default class RelayCtrl {
     },
     relayLog: (event: LogEvent) => {
       this.data.sync.log.push(event);
-      this.data.sync.log.splice(20);
+      this.data.sync.log = this.data.sync.log.slice(-20);
       this.cooldown = true;
       setTimeout(() => { this.cooldown = false; this.redraw(); }, 3000);
       this.redraw();
