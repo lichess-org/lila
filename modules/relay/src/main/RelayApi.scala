@@ -99,7 +99,16 @@ final class RelayApi(
       upsert = true
     ).void >>- {
         event.error foreach { err => logger.info(s"$id $err") }
-        studySocketActor(id) ! lila.study.Socket.Broadcast("relayLog", JsonView.syncLogEventWrites writes event)
+        studyApi members Study.Id(id.value) foreach {
+          _.map(_.contributorIds).filter(_.nonEmpty) foreach { userIds =>
+            import lila.hub.actorApi.SendTos
+            import lila.socket.Socket.makeMessage
+            system.lilaBus.publish(SendTos(userIds, makeMessage(
+              "relayLog",
+              JsonView.syncLogEventWrites writes event
+            )), 'users)
+          }
+        }
       }
 
   private[relay] def getNbViewers(relay: Relay): Fu[Int] = {
