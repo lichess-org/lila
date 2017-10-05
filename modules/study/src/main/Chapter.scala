@@ -1,8 +1,8 @@
 package lila.study
 
-import chess.{ Color, Centis }
 import chess.format.pgn.{ Glyph, Tag, Tags }
 import chess.variant.Variant
+import chess.{ Color, Centis }
 import org.joda.time.DateTime
 
 import chess.opening.{ FullOpening, FullOpeningDB }
@@ -22,6 +22,7 @@ case class Chapter(
     practice: Option[Boolean] = None,
     gamebook: Option[Boolean] = None,
     description: Option[String] = None,
+    relayLastMoveAt: Option[DateTime] = None,
     createdAt: DateTime
 ) extends Chapter.Like {
 
@@ -30,9 +31,13 @@ case class Chapter(
       copy(root = newRoot)
     }
 
-  def addNode(node: Node, path: Path): Option[Chapter] =
+  def addNode(node: Node, path: Path, relayMoveAt: Option[DateTime] = None): Option[Chapter] =
     updateRoot { root =>
       root.withChildren(_.addNodeAt(node, path))
+    } map {
+      _.copy(
+        relayLastMoveAt = relayMoveAt orElse relayLastMoveAt
+      )
     }
 
   def setShapes(shapes: Shapes, path: Path): Option[Chapter] =
@@ -77,6 +82,10 @@ case class Chapter(
   def isConceal = conceal.isDefined
 
   def withoutChildren = copy(root = root.withoutChildren)
+
+  def relaySecondsSinceLastMove: Option[Int] = relayLastMoveAt.map { at =>
+    (nowSeconds - at.getSeconds).toInt
+  }
 }
 
 object Chapter {

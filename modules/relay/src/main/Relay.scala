@@ -49,8 +49,7 @@ object Relay {
 
     def set(v: Boolean) = copy(
       until = v option DateTime.now.plusHours(3),
-      nextAt = DateTime.now.plusSeconds(1).some,
-      log = SyncLog(Vector.empty)
+      nextAt = DateTime.now.plusSeconds(1).some
     )
 
     override def toString = upstream.toString

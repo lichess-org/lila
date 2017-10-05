@@ -1,5 +1,7 @@
 package lila.relay
 
+import org.joda.time.DateTime
+
 import chess.format.pgn.Tag
 import lila.common.{ LilaException, Chronometer }
 import lila.socket.Socket.Uid
@@ -68,7 +70,8 @@ private final class RelaySync(
             position = position,
             rawNode = n,
             uid = socketUid,
-            opts = moveOpts.copy(clock = n.clock)
+            opts = moveOpts.copy(clock = n.clock),
+            relayMoveAt = DateTime.now.some
           ) flatten s"Can't add relay node $position $node"
         } inject node.mainline.size
     }

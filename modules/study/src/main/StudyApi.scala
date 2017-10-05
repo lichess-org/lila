@@ -1,6 +1,7 @@
 package lila.study
 
 import akka.actor.{ ActorRef, ActorSelection }
+import org.joda.time.DateTime
 import scala.concurrent.duration._
 
 import chess.Centis
@@ -177,13 +178,13 @@ final class StudyApi(
 
   def addNode(userId: User.ID, studyId: Study.Id, position: Position.Ref, node: Node, uid: Uid, opts: MoveOpts) = sequenceStudyWithChapter(studyId, position.chapterId) {
     case Study.WithChapter(study, chapter) => Contribute(userId, study) {
-      doAddNode(userId, study, Position(chapter, position.path), node, uid, opts).void
+      doAddNode(userId, study, Position(chapter, position.path), node, uid, opts, none).void
     }
   }
 
-  def doAddNode(userId: User.ID, study: Study, position: Position, rawNode: Node, uid: Uid, opts: MoveOpts): Fu[Option[Position]] = {
+  def doAddNode(userId: User.ID, study: Study, position: Position, rawNode: Node, uid: Uid, opts: MoveOpts, relayMoveAt: Option[DateTime]): Fu[Option[Position]] = {
     val node = rawNode.withoutChildren
-    position.chapter.addNode(node, position.path) match {
+    position.chapter.addNode(node, position.path, relayMoveAt) match {
       case None =>
         fufail(s"Invalid addNode ${study.id} ${position.ref} $node") >>-
           reloadUidBecauseOf(study, uid, position.chapter.id) inject none
@@ -191,6 +192,7 @@ final class StudyApi(
         chapter.root.nodeAt(position.path) ?? { parent =>
           val newPosition = position.ref + node
           chapterRepo.setChildren(chapter, position.path, parent.children) >>
+            (relayMoveAt ?? { chapterRepo.setRelayLastMoveAt(chapter.id, _) }) >>
             (opts.sticky ?? studyRepo.setPosition(study.id, newPosition)) >>
             updateConceal(study, chapter, newPosition) >>- {
               sendTo(study, Socket.AddNode(position.ref, node, chapter.setup.variant, uid, sticky = opts.sticky))

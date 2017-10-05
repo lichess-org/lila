@@ -46,7 +46,8 @@ final class JsonView(
               "computer" -> allowed(study.settings.computer),
               "explorer" -> allowed(study.settings.explorer)
             )
-          ).add("description", currentChapter.description) |> addChapterMode(currentChapter)
+          ).add("description", currentChapter.description)
+            .add("relaySecondsSinceLastMove", currentChapter.relaySecondsSinceLastMove) |> addChapterMode(currentChapter)
         }
       )
     }

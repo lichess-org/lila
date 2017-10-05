@@ -3,15 +3,17 @@ package lila.study
 import akka.actor._
 import play.api.libs.json._
 import scala.concurrent.duration._
+import org.joda.time.DateTime
 
-import chess.format.pgn.Glyphs
 import chess.Centis
+import chess.format.pgn.Glyphs
 import lila.hub.TimeBomb
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Socket.Uid
 import lila.socket.{ SocketActor, History, Historical, AnaDests }
 import lila.tree.Node.{ Shapes, Comment }
 import lila.user.User
+import lila.common.PimpedJson._
 
 private final class Socket(
     studyId: Study.Id,
@@ -293,7 +295,13 @@ object Socket {
   case class ReloadUid(uid: Uid)
   case class ReloadUidBecauseOf(uid: Uid, chapterId: Chapter.Id)
 
-  case class AddNode(position: Position.Ref, node: Node, variant: chess.variant.Variant, uid: Uid, sticky: Boolean)
+  case class AddNode(
+      position: Position.Ref,
+      node: Node,
+      variant: chess.variant.Variant,
+      uid: Uid,
+      sticky: Boolean
+  )
   case class DeleteNode(position: Position.Ref, uid: Uid)
   case class Promote(position: Position.Ref, toMainline: Boolean, uid: Uid)
   case class SetPath(position: Position.Ref, uid: Uid)
