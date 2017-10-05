@@ -181,7 +181,8 @@ final class StudyApi(
     }
   }
 
-  def doAddNode(userId: User.ID, study: Study, position: Position, node: Node, uid: Uid, opts: MoveOpts): Fu[Option[Position]] =
+  def doAddNode(userId: User.ID, study: Study, position: Position, rawNode: Node, uid: Uid, opts: MoveOpts): Fu[Option[Position]] = {
+    val node = rawNode.emptyChildren
     position.chapter.addNode(node, position.path) match {
       case None =>
         fufail(s"Invalid addNode ${study.id} ${position.ref} $node") >>-
@@ -199,6 +200,7 @@ final class StudyApi(
             } inject Position(chapter, position.path + node).some
         }
     }
+  }
 
   private def updateConceal(study: Study, chapter: Chapter, position: Position.Ref) =
     chapter.conceal ?? { conceal =>

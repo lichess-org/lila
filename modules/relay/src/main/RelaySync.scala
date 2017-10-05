@@ -66,7 +66,7 @@ private final class RelaySync(
             userId = position.chapter.ownerId,
             study = study,
             position = position,
-            node = n,
+            rawNode = n,
             uid = socketUid,
             opts = moveOpts.copy(clock = n.clock)
           ) flatten s"Can't add relay node $position $node"
