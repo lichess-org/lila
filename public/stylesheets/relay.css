@@ -64,7 +64,7 @@
   background: #fff;
   overflow-x: hidden;
   overflow-y: auto;
-  max-height: 150px;
+  max-height: 200px;
 }
 .relay_edit .relay .log > div {
   margin: 4px 0;
@@ -76,8 +76,8 @@
   margin-left: 4px;
 }
 .relay_edit .relay .log i {
+  flex: 0 0 32px;
   color: #759900;
-  width: 32px;
   text-align: center;
 }
 .relay_edit .relay .log .err i {
