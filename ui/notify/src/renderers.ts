@@ -57,13 +57,13 @@ export const renderers: Renderers = {
     ]),
     text: n => "You have joined  « " + n.content.name + "  »."
   },
-  limitedTournamentInvitation: {
+  u: {
     html: n => generic(n, '/tournament/limited-invitation', 'g', [
       h('span', [
-        h('strong', 'Low rated tournament'),
+        h('strong', 'Rating limited tournament'),
         drawTime(n)
       ]),
-      h('span', 'A tournament you can win!')
+      h('span', 'An event you can win!')
     ]),
     text: n => 'Game with ' + n.content.opponentName + '.'
   },

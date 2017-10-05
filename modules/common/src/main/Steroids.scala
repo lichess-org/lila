@@ -2,6 +2,9 @@ package lila
 
 import ornicar.scalalib
 import ornicar.scalalib.Zero
+import org.joda.time.DateTime
+import scala.util.Try
+
 
 trait Steroids
 
@@ -35,56 +38,52 @@ trait Steroids
   with scalaz.syntax.ToTraverseOps
   with scalaz.syntax.ToShowOps
 
-  with BooleanSteroids
-  with IntSteroids
-  with FloatSteroids
-  with DoubleSteroids
-  with OptionSteroids
-  with ListSteroids
-  with ByteArraySteroids
+  with LilaSteroids
 
-  with JodaTimeSteroids
+trait LilaSteroids {
+  import Wrappers._
 
-trait JodaTimeSteroids {
-  import org.joda.time.DateTime
-  implicit final class LilaPimpedDateTime(date: DateTime) {
-    def getSeconds: Long = date.getMillis / 1000
-    def getCentis: Long = date.getMillis / 10
-  }
+  @inline implicit def toLilaPimpedOption[A](a: Option[A]) = new LilaPimpedOption(a)
+  @inline implicit def toLilaPimpedTryList[A](l: List[Try[A]]) = new LilaPimpedTryList(l)
+  @inline implicit def toLilaPimpedList[A](l: List[A]) = new LilaPimpedList(l)
+  @inline implicit def toLilaPimpedSeq[A](l: List[A]) = new LilaPimpedSeq(l)
+  @inline implicit def toLilaPimpedDateTime(d: DateTime) = new LilaPimpedDateTime(d)
+  @inline implicit def toLilaPimpedBoolean(b: Boolean) = new LilaPimpedBoolean(b)
+  @inline implicit def toLilaPimpedInt(i: Int) = new LilaPimpedInt(i)
+  @inline implicit def toLilaPimpedFloat(f: Float) = new LilaPimpedFloat(f)
+  @inline implicit def toLilaPimpedDouble(d: Double) = new LilaPimpedDouble(d)
+  @inline implicit def toLilaPimpedByteArray(ba: Array[Byte]) = new LilaPimpedByteArray(ba)
+
   implicit val dateTimeOrdering: Ordering[DateTime] = Ordering.fromLessThan(_ isBefore _)
 }
 
-trait ListSteroids {
+object Wrappers {
+  final class LilaPimpedDateTime(private val date: DateTime) extends AnyVal {
+    def getSeconds: Long = date.getMillis / 1000
+    def getCentis: Long = date.getMillis / 10
+  }
 
-  import scala.util.Try
-
-  implicit final class LilaPimpedTryList[A](list: List[Try[A]]) {
-
+  final class LilaPimpedTryList[A](private val list: List[Try[A]]) extends AnyVal {
     def sequence: Try[List[A]] = (Try(List[A]()) /: list) {
       (a, b) => a flatMap (c => b map (d => d :: c))
     } map (_.reverse)
   }
 
-  implicit final class LilaPimpedList[A](list: List[A]) {
-
+  final class LilaPimpedList[A](private val list: List[A]) extends AnyVal {
     def sortLike[B](other: List[B], f: A => B): List[A] = list.sortWith {
       case (x, y) => other.indexOf(f(x)) < other.indexOf(f(y))
     }
   }
 
-  implicit final class LilaPimpedSeq[A](seq: Seq[A]) {
-
+  final class LilaPimpedSeq[A](private val seq: Seq[A]) extends AnyVal {
     def has(a: A) = seq contains a
   }
-}
-
-trait BooleanSteroids {
 
   /*
    * Replaces scalaz boolean ops
    * so ?? works on Zero and not Monoid
    */
-  implicit final class LilaPimpedBoolean(self: Boolean) {
+  final class LilaPimpedBoolean(private val self: Boolean) extends AnyVal {
 
     def ??[A](a: => A)(implicit z: Zero[A]): A = if (self) a else Zero[A].zero
 
@@ -96,52 +95,37 @@ trait BooleanSteroids {
 
     def option[A](a: => A): Option[A] = if (self) Some(a) else None
   }
-}
 
-trait IntSteroids {
-
-  implicit final class LilaPimpedInt(self: Int) {
+  final class LilaPimpedInt(private val self: Int) extends AnyVal {
 
     def atLeast(bottomValue: Int): Int = self max bottomValue
 
     def atMost(topValue: Int): Int = self min topValue
   }
-}
 
-trait FloatSteroids {
-
-  implicit final class LilaPimpedFloat(self: Float) {
+  final class LilaPimpedFloat(private val self: Float) extends AnyVal {
 
     def atLeast(bottomValue: Float): Float = self max bottomValue
 
     def atMost(topValue: Float): Float = self min topValue
   }
-}
 
-trait DoubleSteroids {
-
-  implicit final class LilaPimpedDouble(self: Double) {
+  final class LilaPimpedDouble(private val self: Double) extends AnyVal {
 
     def atLeast(bottomValue: Double): Double = self max bottomValue
 
     def atMost(topValue: Double): Double = self min topValue
   }
-}
 
-trait ByteArraySteroids {
-
-  implicit final class LilaPimpedByteArray(self: Array[Byte]) {
+  final class LilaPimpedByteArray(private val self: Array[Byte]) extends AnyVal {
     def toBase64 = java.util.Base64.getEncoder.encodeToString(self)
   }
-}
-
-trait OptionSteroids {
 
   /*
    * Replaces scalaz option ops
    * so ~ works on Zero and not Monoid
    */
-  implicit final class LilaPimpedOption[A](self: Option[A]) {
+  final class LilaPimpedOption[A](private val self: Option[A]) extends AnyVal {
 
     import scalaz.std.{ option => o }
 

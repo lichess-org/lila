@@ -302,7 +302,7 @@
   <string name="pasteThePgnStringHere">ここにPGN形式の棋譜をペースト</string>
   <string name="fromPosition">特定の局面から</string>
   <string name="continueFromHere">中断した所から再開</string>
-  <string name="importGame">ゲームをインポート</string>
+  <string name="importGame">棋譜をインポート</string>
   <string name="importGameExplanation">ゲームの PGN を貼りつけると、ブラウザ上でのリプレイ、
 コンピュータ解析、ゲームチャット、共有可能 URL が得られます。</string>
   <plurals name="nbImportedGames">
@@ -392,6 +392,7 @@
   <string name="biography">自己紹介</string>
   <string name="country">国</string>
   <string name="preferences">設定</string>
+  <string name="inlineNotation">棋譜を行書き</string>
   <string name="watchLichessTV">Lichess TV を観戦</string>
   <string name="previouslyOnLichessTV">過去の Lichess TV 対局</string>
   <string name="onlinePlayers">接続中のプレイヤー</string>

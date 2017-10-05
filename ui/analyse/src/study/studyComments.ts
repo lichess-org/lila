@@ -31,7 +31,7 @@ export function currentComments(ctrl: AnalyseCtrl, includingMine: boolean): VNod
     if (!includingMine && isMine) return;
     const canDelete = isMine || study.members.isOwner();
     return h('div.comment.' + comment.id, [
-      canDelete ? h('a.edit', {
+      canDelete && study.vm.mode.write ? h('a.edit', {
         attrs: {
           'data-icon': 'q',
           title: 'Delete'
@@ -41,7 +41,7 @@ export function currentComments(ctrl: AnalyseCtrl, includingMine: boolean): VNod
           study.commentForm.delete(chapter.id, ctrl.path, comment.id);
         }, ctrl.redraw)
       }) : null,
-      isMine ? h('a.edit', {
+      isMine && study.vm.mode.write ? h('a.edit', {
         attrs: {
           'data-icon': 'm',
           title: 'Edit'

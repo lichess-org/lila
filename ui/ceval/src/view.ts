@@ -116,11 +116,11 @@ export function renderGauge(ctrl: ParentCtrl): VNode | undefined {
 export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
   const instance = ctrl.getCeval();
   if (!instance.allowed() || !instance.possible || !ctrl.showComputer()) return;
-  const enabled = instance.enabled();
-  const evs = ctrl.currentEvals();
-  const bestEv = getBestEval(evs);
-  const threatMode = ctrl.threatMode();
-  const threat = threatMode && ctrl.getNode().threat;
+  const enabled = instance.enabled(),
+  evs = ctrl.currentEvals(),
+  threatMode = ctrl.threatMode(),
+  threat = threatMode && ctrl.getNode().threat,
+  bestEv = threat || getBestEval(evs);
   let pearl: VNode | string, percent: number;
   if (bestEv && typeof bestEv.cp !== 'undefined') {
     pearl = renderEval(bestEv.cp);

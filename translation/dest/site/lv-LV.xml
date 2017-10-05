@@ -203,6 +203,11 @@
   </plurals>
   <string name="exportGames">Eksportēt spēles</string>
   <string name="ratingRange">Reitinga diapazons</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="zero">Piešķirt %s sekundes</item>
+    <item quantity="one">Piešķirt %s sekundi</item>
+    <item quantity="other">Piešķirt %s sekundes</item>
+  </plurals>
   <string name="giveMoreTime">Dot vairāk laika</string>
   <string name="thisPlayerUsesChessComputerAssistance">Šis spēlētājs izmanto šaha programmu palīdzību</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Šis spēlētājs mākslīgi paaugstina/pazemina savu reitingu</string>
@@ -252,6 +257,11 @@
   <string name="backToGame">Atpakaļ pie spēles</string>
   <string name="siteDescription">Bezmaksas Šahs tiešsaistē. Spēlē Šahu tīrā saskarnē. Bez reģistrācijas, bez reklāmām, bez papildus programmatūras. Spēlē Šahu pret datoru, draugiem vai nejaušiem pretiniekiem.</string>
   <string name="teams">Komandas</string>
+  <plurals name="nbMembers">
+    <item quantity="zero">%s biedri</item>
+    <item quantity="one">%s biedrs</item>
+    <item quantity="other">%s biedri</item>
+  </plurals>
   <string name="allTeams">Visas komandas</string>
   <string name="newTeam">Jauna komanda</string>
   <string name="myTeams">Manas komandas</string>
@@ -305,6 +315,11 @@
   <string name="player">Spēlētājs</string>
   <string name="list">Saraksts</string>
   <string name="graph">Grafiks</string>
+  <plurals name="lessThanNbMinutes">
+    <item quantity="zero">Mazāk kā %s minūtes</item>
+    <item quantity="one">Mazāk kā %s minūte</item>
+    <item quantity="other">Mazāk kā %s minūtes</item>
+  </plurals>
   <string name="required">Obligāts.</string>
   <string name="openTournaments">Atvērtie turnīri</string>
   <string name="duration">Ilgums</string>
@@ -354,6 +369,7 @@
   <string name="biography">Biogrāfija</string>
   <string name="country">Valsts</string>
   <string name="preferences">Uzstādījumi</string>
+  <string name="inlineNotation">Inline notācija</string>
   <string name="watchLichessTV">Skaties Lichess TV</string>
   <string name="previouslyOnLichessTV">Iepriekš Lichess TV</string>
   <string name="onlinePlayers">Spēlētāji tiešsaistē</string>
@@ -380,6 +396,11 @@
   <string name="pleaseVotePuzzle">Palīdzi uzlabot lichess, balsojot ar bultiņām uz augšu vai uz leju:</string>
   <string name="thankYou">Paldies!</string>
   <string name="ratingX">Reitings: %s</string>
+  <plurals name="playedXTimes">
+    <item quantity="zero">Spēlēts %s reizes</item>
+    <item quantity="one">Spēlēts %s reizi</item>
+    <item quantity="other">Spēlēts %s reizes</item>
+  </plurals>
   <string name="fromGameLink">No spēles %s</string>
   <string name="continueTraining">Turpināt treniņu</string>
   <string name="retryThisPuzzle">Atkārtot šo uzdevumu</string>
