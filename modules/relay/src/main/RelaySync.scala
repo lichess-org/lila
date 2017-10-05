@@ -17,7 +17,7 @@ private final class RelaySync(
       for {
         chapters <- chapterRepo orderedByStudy study.id
         movesPerGame <- lila.common.Future.traverseSequentially(games) { game =>
-          chapters.find(_.tags(idTag) has game.id) match {
+          chapters.find(game.is) match {
             case Some(chapter) => updateChapter(study, chapter, game)
             case None => createChapter(study, game) flatMap { chapter =>
               chapters.find(_.isEmptyInitial).ifTrue(chapter.order == 2).?? { initial =>
@@ -85,7 +85,7 @@ private final class RelaySync(
           chess.Color.White
         ),
         root = game.root,
-        tags = game.tags + Tag(idTag, game.id),
+        tags = game.tags,
         order = order,
         ownerId = study.ownerId,
         practice = false,
@@ -103,6 +103,4 @@ private final class RelaySync(
   )
 
   private val socketUid = Uid("")
-
-  private val idTag = "RelayId"
 }
