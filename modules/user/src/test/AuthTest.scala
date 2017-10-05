@@ -3,7 +3,7 @@ package lila.user
 import org.specs2.mutable.Specification
 import java.util.Base64
 import Authenticator.AuthData
-import User.{ClearPassword => P}
+import User.{ ClearPassword => P }
 
 class AuthTest extends Specification {
 

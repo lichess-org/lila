@@ -26,7 +26,6 @@ final class Env(
     val CollectionRanking = config getString "collection.ranking"
     val PasswordBPassSecret = config getString "password.bpass.secret"
     val PasswordUpgradeSha = config getBoolean "password.bpass.autoupgrade"
-    val PasswordParallelism = config getInt "password.bpass.parallelism"
   }
   import settings._
 
