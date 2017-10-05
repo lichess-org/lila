@@ -10,17 +10,15 @@ import lila.common.LilaException
 
 private final class RelayFetch(
     sync: RelaySync,
-    connected: () => Fu[List[Relay]],
-    addLog: (Relay.Id, SyncLog.Event) => Funit,
-    disconnect: Relay => Funit
+    api: RelayApi
 ) extends Actor {
 
-  val frequency = 5.seconds
+  val frequency = 1.seconds
 
   override def preStart {
     logger.info("Start RelaySync")
     context setReceiveTimeout 20.seconds
-    context.system.scheduler.scheduleOnce(5.seconds)(scheduleNext)
+    context.system.scheduler.scheduleOnce(10.seconds)(scheduleNext)
   }
 
   case object Tick
@@ -36,21 +34,42 @@ private final class RelayFetch(
       throw new RuntimeException(msg)
 
     case Tick =>
-      connected().map(_ filter RelayFetch.shouldFetchNow).flatMap { relays =>
+      api.toSync.map(_ filter RelayFetch.shouldFetchNow).flatMap { relays =>
         val fetcher = new RelayFetch.CachedFetcher(relays.size)
         relays.map { relay =>
-          if (relay.sync.until.??(DateTime.now.isAfter)) disconnect(relay)
-          else fetcher(relay.sync.upstream) flatMap { games =>
+          fetcher(relay.sync.upstream) flatMap { games =>
             sync(relay, games)
               .withTimeout(300 millis, LilaException("In progress"))(context.system)
           } flatMap { nbMoves =>
-            addLog(relay.id, SyncLog.event(nbMoves, none))
+            api.addLog(relay.id, SyncLog.event(nbMoves, none))
           } recover {
-            case e: Exception => addLog(relay.id, SyncLog.event(0, e.some))
-          }
+            case e: Exception => api.addLog(relay.id, SyncLog.event(0, e.some))
+          } flatMap { _ => updateSync(relay.id) }
         }.sequenceFu.chronometer
           .result addEffectAnyway scheduleNext
       }
+  }
+
+  def updateSync(id: Relay.Id): Funit = api byId id flatMap {
+    _ ?? { r =>
+      val sync = r.sync
+      (sync.until |@| sync.nextAt).tupled.fold(fuccess(sync set false)) {
+        case (until, nextAt) =>
+          if (until isBefore DateTime.now) fuccess(sync set false)
+          else if (sync.log.alwaysFails) fuccess(sync.copy(nextAt = DateTime.now plusSeconds 20 some))
+          else (sync.delay match {
+            case Some(delay) => fuccess(delay)
+            case None => api.getNbViewers(r) map {
+              case 0 => 30
+              case nb => (11 - nb / 2) atLeast 2
+            }
+          }) map { seconds =>
+            sync.copy(nextAt = DateTime.now plusSeconds {
+              seconds atLeast { if (sync.log.isOk) 2 else 5 }
+            } some)
+          }
+      } flatMap { api.setSync(r.id, _) }
+    }
   }
 }
 

@@ -33,9 +33,7 @@ final class Env(
 
   private val fetch = system.actorOf(Props(new RelayFetch(
     sync = sync,
-    connected = () => api.connected,
-    addLog = api.addLog _,
-    disconnect = api.disconnect _
+    api = api
   )))
 }
 

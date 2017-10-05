@@ -38,9 +38,16 @@ final class RelayApi(
         case c ~ s ~ t => Relay.Selection(c, s, t)
       }
 
-  def connected = coll.find($doc("sync.until" $exists true)).list[Relay]()
+  def toSync = coll.find($doc(
+    "sync.until" $exists true,
+    "sync.nextAt" $lt DateTime.now
+  )).list[Relay]()
 
-  def disconnect(r: Relay) = coll.unsetField($id(r.id), "sync.until").void
+  def setSync(id: Relay.Id, sync: Relay.Sync) =
+    coll.update($id(id), $set(
+      "sync.until" -> sync.until,
+      "sync.nextAt" -> sync.nextAt
+    )).void
 
   def created = coll.find($doc(
     "startsAt" $gt DateTime.now
@@ -92,9 +99,19 @@ final class RelayApi(
       upsert = true
     ).void >>- {
         event.error foreach { err => logger.info(s"$id $err") }
-        system.actorSelection(s"/user/study-socket/${id.value}") !
-          lila.study.Socket.Broadcast("relayLog", JsonView.syncLogEventWrites writes event)
+        studySocketActor(id) ! lila.study.Socket.Broadcast("relayLog", JsonView.syncLogEventWrites writes event)
       }
+
+  private[relay] def getNbViewers(relay: Relay): Fu[Int] = {
+    import makeTimeout.short
+    import akka.pattern.ask
+    import lila.study.Socket.{ GetNbMembers, NbMembers }
+    studySocketActor(relay.id) ? GetNbMembers mapTo manifest[NbMembers] map (_.value) recover {
+      case _: Exception => 0
+    }
+  }
+
+  private def studySocketActor(id: Relay.Id) = system actorSelection s"/user/study-socket/${id.value}"
 
   private def withStudy(relays: List[Relay]): Fu[List[Relay.WithStudy]] =
     studyApi byIds relays.map(_.studyId) map { studies =>

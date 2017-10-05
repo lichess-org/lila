@@ -223,6 +223,8 @@ private final class Socket(
 
     case Broadcast(t, msg) => notifyAll(t, msg)
 
+    case GetNbMembers => sender ! NbMembers(members.size)
+
   }: Actor.Receive) orElse lila.chat.Socket.out(
     send = (t, d, _) => notifyVersion(t, d, noMessadata)
   )
@@ -311,6 +313,9 @@ object Socket {
   case class SetLiking(liking: Study.Liking, uid: Uid)
   case class SetTags(chapterId: Chapter.Id, tags: chess.format.pgn.Tags, uid: Uid)
   case class Broadcast(t: String, msg: JsObject)
+
+  case object GetNbMembers
+  case class NbMembers(value: Int)
 
   case class Messadata(trollish: Boolean = false)
   case object NotifyCrowd

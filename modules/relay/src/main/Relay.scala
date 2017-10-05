@@ -35,7 +35,13 @@ object Relay {
 
   def makeId = Id(ornicar.scalalib.Random nextString 8)
 
-  case class Sync(upstream: Sync.Upstream, until: Option[DateTime], log: SyncLog) {
+  case class Sync(
+      upstream: Sync.Upstream,
+      until: Option[DateTime],
+      nextAt: Option[DateTime],
+      delay: Option[Int] = None,
+      log: SyncLog
+  ) {
 
     def seconds: Option[Int] = until map { until =>
       (until.getSeconds - nowSeconds).toInt
@@ -43,6 +49,7 @@ object Relay {
 
     def set(v: Boolean) = copy(
       until = v option DateTime.now.plusHours(3),
+      nextAt = DateTime.now.plusSeconds(1).some,
       log = SyncLog(Vector.empty)
     )
 

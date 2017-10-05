@@ -55,6 +55,7 @@ object RelayForm {
         case _ => Relay.Sync.Upstream.DgtManyFiles(cleanUrl)
       },
       until = none,
+      nextAt = none,
       log = SyncLog(Vector.empty)
     )
 
