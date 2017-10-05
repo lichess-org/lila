@@ -6,6 +6,9 @@ object PgnTags {
 
   def apply(tags: Tags): Tags = Tags(sort(tags.value filter isRelevant))
 
+  def setRootClockFromTags(c: Chapter): Option[Chapter] =
+    c.updateRoot { _.setClockAt(c.tags.clockConfig map (_.limit), Path.root) } filter (c !=)
+
   private def isRelevant(tag: Tag) =
     relevantTypeSet(tag.name) && !unknownValues(tag.value)
 

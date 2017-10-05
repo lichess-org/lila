@@ -306,7 +306,7 @@ final class StudyApi(
     }
   }
 
-  def doSetClock(userId: User.ID, study: Study, position: Position, clock: Option[Centis], uid: Uid) =
+  def doSetClock(userId: User.ID, study: Study, position: Position, clock: Option[Centis], uid: Uid): Funit =
     position.chapter.setClock(clock, position.path) match {
       case Some(newChapter) =>
         studyRepo.updateNow(study)
@@ -322,7 +322,11 @@ final class StudyApi(
       chapterRepo.byIdAndStudy(setTag.chapterId, studyId) flatMap {
         _ ?? { oldChapter =>
           val chapter = oldChapter.setTag(setTag.tag)
-          chapterRepo.setTagsFor(chapter) >>-
+          chapterRepo.setTagsFor(chapter) >> {
+            PgnTags.setRootClockFromTags(chapter) ?? { c =>
+              doSetClock(userId, study, Position(c, Path.root), c.root.clock, uid)
+            }
+          } >>-
             sendTo(study, Socket.SetTags(chapter.id, chapter.tags, uid))
         } >>- indexStudy(study)
       }
