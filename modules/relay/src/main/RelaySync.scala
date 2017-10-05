@@ -71,7 +71,10 @@ private final class RelaySync(
             rawNode = n,
             uid = socketUid,
             opts = moveOpts.copy(clock = n.clock),
-            relayMoveAt = DateTime.now.some
+            relay = Chapter.Relay(
+              path = position.path + n,
+              lastMoveAt = DateTime.now.some
+            ).some
           ) flatten s"Can't add relay node $position $node"
         } inject node.mainline.size
     }

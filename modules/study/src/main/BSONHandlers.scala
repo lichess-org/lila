@@ -237,6 +237,7 @@ object BSONHandlers {
       Tags(_)
     )
   private implicit val ChapterSetupBSONHandler = Macros.handler[Chapter.Setup]
+  implicit val ChapterRelayBSONHandler = Macros.handler[Chapter.Relay]
   import Chapter.Ply
   implicit val PlyBSONHandler = intAnyValHandler[Ply](_.value, Ply.apply)
   implicit val ChapterBSONHandler = Macros.handler[Chapter]

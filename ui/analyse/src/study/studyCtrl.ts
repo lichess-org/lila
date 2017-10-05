@@ -30,6 +30,8 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
 
   const sri: string = li.StrongSocket ? li.StrongSocket.sri : '';
 
+  convertRelayDate();
+
   const vm: StudyVm = (function() {
     const isManualChapter = data.chapter.id !== data.position.chapterId;
     const sticked = data.features.sticky && !ctrl.initialPath && !isManualChapter && !practiceData;
@@ -163,6 +165,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     members.dict(s.members);
     chapters.list(s.chapters);
     ctrl.flipped = false;
+    convertRelayDate();
 
     const merge = !vm.mode.write && sameChapter;
     ctrl.reloadData(d.analysis, merge);
@@ -193,6 +196,12 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     redraw();
     ctrl.startCeval();
   };
+
+  function convertRelayDate() {
+    const relay = data.chapter.relay;
+    if (relay && typeof relay.secondsSinceLastMove !== 'undefined' && !relay.lastMoveAt)
+      relay.lastMoveAt = Date.now() - relay.secondsSinceLastMove * 1000;
+  }
 
   function xhrReload() {
     vm.loading = true;
@@ -294,6 +303,10 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       if (sticky && who && who.s === sri) {
         data.position.path = position.path + node.id;
         return;
+      }
+      if (d.relay) {
+        data.chapter.relay = d.relay;
+        convertRelayDate();
       }
       const newPath = ctrl.tree.addNode(node, position.path);
       if (!newPath) return xhrReload();

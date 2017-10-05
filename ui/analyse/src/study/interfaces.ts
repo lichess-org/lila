@@ -125,6 +125,13 @@ export interface StudyChapter {
   gamebook: boolean;
   features: StudyChapterFeatures;
   description?: string;
+  relay?: StudyChapterRelay;
+}
+
+interface StudyChapterRelay {
+  path: Tree.Path;
+  secondsSinceLastMove?: number;
+  lastMoveAt?: number;
 }
 
 interface StudyChapterSetup {

@@ -1,19 +1,19 @@
 package lila.study
 
 import akka.actor._
+import org.joda.time.DateTime
 import play.api.libs.json._
 import scala.concurrent.duration._
-import org.joda.time.DateTime
 
 import chess.Centis
 import chess.format.pgn.Glyphs
+import lila.common.PimpedJson._
 import lila.hub.TimeBomb
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Socket.Uid
 import lila.socket.{ SocketActor, History, Historical, AnaDests }
 import lila.tree.Node.{ Shapes, Comment }
 import lila.user.User
-import lila.common.PimpedJson._
 
 private final class Socket(
     studyId: Study.Id,
@@ -69,7 +69,7 @@ private final class Socket(
         "w" -> who(uid).map(whoWriter.writes)
       ), noMessadata)
 
-    case AddNode(pos, node, variant, uid, sticky) =>
+    case AddNode(pos, node, variant, uid, sticky, relay) =>
       val dests = AnaDests(
         variant,
         node.fen,
@@ -83,7 +83,7 @@ private final class Socket(
         "d" -> dests.dests,
         "o" -> dests.opening,
         "s" -> sticky
-      ), noMessadata)
+      ).add("relay", relay), noMessadata)
 
     case DeleteNode(pos, uid) => notifyVersion("deleteNode", Json.obj(
       "p" -> pos,
@@ -300,7 +300,8 @@ object Socket {
       node: Node,
       variant: chess.variant.Variant,
       uid: Uid,
-      sticky: Boolean
+      sticky: Boolean,
+      relay: Option[Chapter.Relay]
   )
   case class DeleteNode(position: Position.Ref, uid: Uid)
   case class Promote(position: Position.Ref, toMainline: Boolean, uid: Uid)

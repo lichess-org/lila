@@ -20,7 +20,16 @@ export default function(ctrl: AnalyseCtrl): VNode | undefined {
     whiteCentis = clock;
     blackCentis = parentClock;
   }
-  const whitePov = ctrl.bottomColor() === 'white';
+  const study = ctrl.study,
+  whitePov = ctrl.bottomColor() === 'white';
+
+  const relay = study && study.data.chapter.relay;
+  if (relay && relay.lastMoveAt && relay.path === ctrl.path && ctrl.path !== '') {
+    const spent = (Date.now() - relay.lastMoveAt) / 10;
+    if (isWhiteTurn) whiteCentis -= spent;
+    else blackCentis -= spent;
+  }
+
   const opts = {
     tenths: !ctrl.study || !ctrl.study.relay
   };

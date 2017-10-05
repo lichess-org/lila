@@ -84,6 +84,8 @@ final class StudyApi(
 
   def studyIdOf = chapterRepo.studyIdOf _
 
+  def members(id: Study.Id): Fu[Option[StudyMembers]] = studyRepo membersById id
+
   def create(data: StudyMaker.Data, user: User): Fu[Option[Study.WithChapter]] = (data.form.as match {
     case DataForm.AsNewStudy =>
       studyMaker(data, user) flatMap { res =>
@@ -182,9 +184,9 @@ final class StudyApi(
     }
   }
 
-  def doAddNode(userId: User.ID, study: Study, position: Position, rawNode: Node, uid: Uid, opts: MoveOpts, relayMoveAt: Option[DateTime]): Fu[Option[Position]] = {
+  def doAddNode(userId: User.ID, study: Study, position: Position, rawNode: Node, uid: Uid, opts: MoveOpts, relay: Option[Chapter.Relay]): Fu[Option[Position]] = {
     val node = rawNode.withoutChildren
-    position.chapter.addNode(node, position.path, relayMoveAt) match {
+    position.chapter.addNode(node, position.path, relay) match {
       case None =>
         fufail(s"Invalid addNode ${study.id} ${position.ref} $node") >>-
           reloadUidBecauseOf(study, uid, position.chapter.id) inject none
@@ -192,10 +194,17 @@ final class StudyApi(
         chapter.root.nodeAt(position.path) ?? { parent =>
           val newPosition = position.ref + node
           chapterRepo.setChildren(chapter, position.path, parent.children) >>
-            (relayMoveAt ?? { chapterRepo.setRelayLastMoveAt(chapter.id, _) }) >>
+            (relay ?? { chapterRepo.setRelay(chapter.id, _) }) >>
             (opts.sticky ?? studyRepo.setPosition(study.id, newPosition)) >>
             updateConceal(study, chapter, newPosition) >>- {
-              sendTo(study, Socket.AddNode(position.ref, node, chapter.setup.variant, uid, sticky = opts.sticky))
+              sendTo(study, Socket.AddNode(
+                position.ref,
+                node,
+                chapter.setup.variant,
+                uid,
+                sticky = opts.sticky,
+                relay = relay
+              ))
               sendStudyEnters(study, userId)
               if (opts.promoteToMainline && !Path.isMainline(chapter.root, newPosition.path))
                 promote(userId, study.id, position.ref + node, toMainline = true, uid)

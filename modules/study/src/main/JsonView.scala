@@ -47,7 +47,7 @@ final class JsonView(
               "explorer" -> allowed(study.settings.explorer)
             )
           ).add("description", currentChapter.description)
-            .add("relaySecondsSinceLastMove", currentChapter.relaySecondsSinceLastMove) |> addChapterMode(currentChapter)
+            .add("relay", currentChapter.relay)(relayWrites) |> addChapterMode(currentChapter)
         }
       )
     }
@@ -177,4 +177,9 @@ object JsonView {
     JsNumber(p.value)
   }
   private[study] implicit val likingRefWrites: Writes[Study.Liking] = Json.writes[Study.Liking]
+
+  implicit val relayWrites = OWrites[Chapter.Relay] { r =>
+    Json.obj("path" -> r.path)
+      .add("secondsSinceLastMove", r.secondsSinceLastMove)
+  }
 }

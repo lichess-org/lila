@@ -60,8 +60,8 @@ final class ChapterRepo(coll: Coll) {
   def removeConceal(chapterId: Chapter.Id) =
     coll.unsetField($id(chapterId), "conceal").void
 
-  def setRelayLastMoveAt(chapterId: Chapter.Id, at: DateTime) =
-    coll.updateField($id(chapterId), "relayLastMoveAt", at).void
+  def setRelay(chapterId: Chapter.Id, relay: Chapter.Relay) =
+    coll.updateField($id(chapterId), "relay", relay).void
 
   def setTagsFor(chapter: Chapter) =
     coll.updateField($id(chapter.id), "tags", chapter.tags).void

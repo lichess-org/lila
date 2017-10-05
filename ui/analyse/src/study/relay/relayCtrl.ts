@@ -8,6 +8,7 @@ export default class RelayCtrl {
 
   constructor(d: RelayData, readonly send: SocketSend, readonly redraw: () => void, readonly members: any) {
     this.data = d;
+    setInterval(this.redraw, 1000);
   }
 
   setSync = (v: Boolean) => {
