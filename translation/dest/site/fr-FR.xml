@@ -488,7 +488,7 @@
   <string name="troll">Troll</string>
   <string name="other">Autre</string>
   <string name="reportDescriptionHelp">Copiez le(s) lien(s) vers les parties et expliquez en quoi le comportement de cet utilisateur est inapproprié.</string>
-  <string name="by">de %s</string>
+  <string name="by">par %s</string>
   <string name="thisTopicIsNowClosed">Ce sujet est maintenant fermé.</string>
   <string name="theming">Thème</string>
   <string name="donate">Faire un don</string>
@@ -699,7 +699,7 @@ en %3$s</string>
   <string name="withNobody">Avec personne</string>
   <string name="withFriends">Avec mes amis</string>
   <string name="withEverybody">Avec tout le monde</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">Cet email est deja associé à un compte existant : %s</string>
+  <string name="youHaveAlreadyRegisteredTheEmail">Cet email est déjà associé à un compte existant : %s</string>
   <string name="kidMode">Mode enfant</string>
   <string name="kidModeExplanation">Cela concerne la sécurité. Dans le mode enfants, toutes les communications du site sont désactivées. Activez ce mode pour vos enfants et pour les scolaires, afin de les protéger des autres utilisateurs.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Dans le mode enfants, l\'icône %s se rajoute au logo lichess pour que vous sachiez que les enfants sont en sécurité.</string>
@@ -709,7 +709,7 @@ en %3$s</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Voici une liste de périphériques qui sont connectés à votre compte. Supprimez les sessions que vous ne reconnaissez pas.</string>
   <string name="alternativelyYouCanX">Vous pouvez également %s.</string>
   <string name="revokeAllSessions">supprimer toutes les sessions</string>
-  <string name="playChessEverywhere">Jouer aux échecs partout</string>
+  <string name="playChessEverywhere">Jouez aux échecs partout</string>
   <string name="asFreeAsLichess">Aussi libre que lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Construit pour l\'amour du jeu d\'échecs, pas pour l\'argent</string>
   <string name="everybodyGetsAllFeaturesForFree">Toutes les fonctionnalités sont gratuites pour tout le monde</string>
@@ -750,9 +750,9 @@ en %3$s</string>
   <string name="usernameStartNoNumber">Le premier caractère du nom ne peut pas être un chiffre.</string>
   <string name="usernameUnacceptable">Ce nom d\'utilisateur existe déjà ou est insultant.</string>
   <string name="directlySupportLichess">Financer Lichess</string>
-  <string name="playChessInStyle">Jouez stylé</string>
+  <string name="playChessInStyle">Jouez aux échecs avec classe</string>
   <string name="chessBasics">Bases des échecs</string>
-  <string name="coaches">Coachs</string>
+  <string name="coaches">Entraîneurs</string>
   <string name="invalidPgn">PGN non valide</string>
   <string name="invalidFen">FEN non valide</string>
   <string name="error.minLength">Vous devez écrire au moins %s caractères</string>

@@ -481,7 +481,7 @@
   <string name="youArePlaying">أنت تلعب!</string>
   <string name="winRate">معدل الفوز</string>
   <string name="berserkRate">معدل المخاطرة</string>
-  <string name="performance">الأداء</string>
+  <string name="performance">تقييم الأداء</string>
   <string name="tournamentComplete">إكتملت البطولة</string>
   <string name="movesPlayed">نقلات اللعب</string>
   <string name="whiteWins">فوز الأبيض</string>

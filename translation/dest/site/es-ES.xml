@@ -460,7 +460,7 @@
     <item quantity="other">%s partidas en juego</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Proceder automáticamente a la siguiente partida en juego después de mi movimiento</string>
-  <string name="autoSwitch">Ajuste automático</string>
+  <string name="autoSwitch">Cambio automático</string>
   <string name="puzzles">Ejercicios</string>
   <string name="latestUpdates">Últimas actualizaciones</string>
   <string name="tournamentWinners">Ganadores del torneo</string>
