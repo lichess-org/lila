@@ -89,7 +89,9 @@
   <string name="allSet">Všetko nastavené!</string>
   <string name="importPgn">Vložiť PGN</string>
   <string name="delete">Zmazat</string>
+  <string name="deleteThisImportedGame">Vymazať túto dôležitú partiu?</string>
   <string name="replayMode">Mód prehrávania</string>
+  <string name="realtimeReplay">Skutočne</string>
   <string name="byCPL">CPL</string>
   <string name="enable">Povoliť analýzu</string>
   <string name="bestMoveArrow">Šípka pre najlepší ťah</string>
@@ -167,6 +169,7 @@
   <string name="passwordReset">Obnova hesla</string>
   <string name="forgotPassword">Zabudli ste heslo?</string>
   <string name="rank">Priečka</string>
+  <string name="rankX">Rank: %s</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s úloha</item>
     <item quantity="few">%s úlohy</item>

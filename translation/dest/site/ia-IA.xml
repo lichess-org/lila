@@ -129,7 +129,7 @@
   <string name="logOut">Clauder session</string>
   <string name="signIn">Aperir session</string>
   <string name="newToLichess">Es tu nove in Lichess?</string>
-  <string name="youNeedAnAccountToDoThat">Un conto es requirite pro facer isto</string>
+  <string name="youNeedAnAccountToDoThat">Tu necessita un conto pro facer isto</string>
   <string name="signUp">Crear conto</string>
   <string name="computersAreNotAllowedToPlay">Le uso de computatores e programmas non es permittite. Per favor, non prende assistentia de motores de chacos, bases de datos o de altere jocatores durante que joca. De plus, nota que crear multiple contos es fortemente discoragiate e iste practica excessive conduce a interdiction de uso.</string>
   <string name="games">Jocos</string>
@@ -751,7 +751,7 @@ in %3$s</string>
   <string name="usernameUnacceptable">Iste nomine de usator non es acceptabile.</string>
   <string name="directlySupportLichess">Appoia directemente Lichess</string>
   <string name="playChessInStyle">Joca chacos con stilo</string>
-  <string name="chessBasics">Fundamentos del chacos</string>
+  <string name="chessBasics">Fundamentos</string>
   <string name="coaches">Tutores</string>
   <string name="invalidPgn">PGN invalide</string>
   <string name="invalidFen">FEN invalide</string>
