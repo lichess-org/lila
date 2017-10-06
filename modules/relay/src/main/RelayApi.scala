@@ -64,8 +64,7 @@ final class RelayApi(
   )).sort($sort asc "startsAt").list[Relay]()
 
   def closed = coll.find($doc(
-    "startsAt" $lt DateTime.now.minusMinutes(30),
-    "sync.until" $exists false
+    "finishedAt" $exists true
   )).sort($sort asc "startsAt").list[Relay]()
 
   def create(data: RelayForm.Data, user: User): Fu[Relay] = {
