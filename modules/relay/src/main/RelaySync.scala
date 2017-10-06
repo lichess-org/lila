@@ -2,7 +2,7 @@ package lila.relay
 
 import org.joda.time.DateTime
 
-import chess.format.pgn.Tag
+import chess.format.pgn.{ Tag, Tags }
 import lila.common.{ LilaException, Chronometer }
 import lila.socket.Socket.Uid
 import lila.study._
@@ -34,18 +34,8 @@ private final class RelaySync(
   }
 
   private def updateChapter(study: Study, chapter: Chapter, game: RelayGame): Fu[NbMoves] =
-    updateChapterStatus(study, chapter, game) >>
+    updateChapterTags(study, chapter, game) >>
       updateChapterTree(study, chapter, game)
-
-  private def updateChapterStatus(study: Study, chapter: Chapter, game: RelayGame): Funit =
-    game.end ?? { end =>
-      (chapter.tags(_.Result).fold(true)(end.resultText !=)) ?? studyApi.setTag(
-        userId = chapter.ownerId,
-        studyId = study.id,
-        lila.study.actorApi.SetTag(chapter.id, "result", end.resultText),
-        uid = socketUid
-      )
-    }
 
   private def updateChapterTree(study: Study, chapter: Chapter, game: RelayGame): Fu[NbMoves] = {
     game.root.mainline.foldLeft(Path.root -> none[Node]) {
@@ -92,6 +82,28 @@ private final class RelaySync(
           ) flatten s"Can't add relay node $position $node"
         } inject node.mainline.size
     }
+  }
+
+  private def updateChapterTags(study: Study, chapter: Chapter, game: RelayGame): Funit = {
+    val gameTags = game.tags.value.foldLeft(Tags(Nil)) {
+      case (newTags, tag) =>
+        if (!chapter.tags(_ => tag.name).has(tag.value)) newTags + tag
+        else newTags
+    }
+    val tags = game.end
+      .ifFalse(gameTags(_.Result).isDefined)
+      .filterNot(end => chapter.tags(_.Result).??(end.resultText ==))
+      .fold(gameTags) { end =>
+        gameTags + Tag(_.Result, end.resultText)
+      }
+    lila.common.Future.traverseSequentially(tags.value) { tag =>
+      studyApi.setTag(
+        userId = chapter.ownerId,
+        studyId = study.id,
+        lila.study.actorApi.SetTag(chapter.id, tag.name.name, tag.value),
+        uid = socketUid
+      )
+    }.void
   }
 
   private def createChapter(study: Study, game: RelayGame): Fu[Chapter] =
