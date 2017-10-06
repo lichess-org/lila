@@ -4,7 +4,6 @@
 .relay_edit .relay_wrap {
   position: absolute;
   top: 100%;
-  height: 200px;
   width: calc(100% - 15px);
 }
 .relay_edit .relay_wrap h2 {
@@ -67,7 +66,7 @@
   background: #fff;
   overflow-x: hidden;
   overflow-y: auto;
-  max-height: 200px;
+  max-height: 180px;
 }
 .relay_edit .relay .log > div {
   margin: 4px 0;

@@ -128,7 +128,7 @@ export interface StudyChapter {
   relay?: StudyChapterRelay;
 }
 
-interface StudyChapterRelay {
+export interface StudyChapterRelay {
   path: Tree.Path;
   secondsSinceLastMove?: number;
   lastMoveAt?: number;
