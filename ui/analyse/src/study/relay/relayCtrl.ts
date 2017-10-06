@@ -20,6 +20,7 @@ export default class RelayCtrl {
 
   private socketHandlers = {
     relayData: (d: RelayData) => {
+      d.sync.log = this.data.sync.log;
       this.data = d;
       this.redraw();
     },

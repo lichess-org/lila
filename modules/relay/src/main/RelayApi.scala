@@ -48,8 +48,10 @@ final class RelayApi(
   def setSync(id: Relay.Id, sync: Relay.Sync) = byId(id) flatMap {
     _ ?? { r =>
       val relay = r.copy(sync = sync)
-      coll.update($id(id), relay) >>
-        sendToContributors(id, makeMessage("relayData", JsonView.relayWrites writes relay))
+      coll.update($id(id), relay) >> {
+        (r.sync.until != relay.sync.until) ??
+          sendToContributors(id, makeMessage("relayData", JsonView.relayWrites writes relay))
+      }
     }
   }
 
