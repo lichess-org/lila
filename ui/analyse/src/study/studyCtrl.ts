@@ -39,7 +39,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       loading: false,
       tab: prop<Tab>(relayData || data.chapters.length > 1 ? 'chapters' : 'members'),
       chapterId: sticked ? data.position.chapterId : data.chapter.id,
-      // path is at ctrl.vm.path
+      // path is at ctrl.path
       mode: {
         sticky: sticked,
         write: true
@@ -128,6 +128,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
   }
 
   if (vm.mode.sticky && !isGamebookPlay()) ctrl.userJump(data.position.path);
+  else if (data.chapter.relay) ctrl.userJump(data.chapter.relay.path);
 
   function configureAnalysis() {
     if (ctrl.embed) return;
@@ -183,7 +184,9 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
         (vm.justSetChapterId === vm.chapterId) && chapters.localPaths[vm.chapterId]
       ) || data.position.path;
     } else {
-      nextPath = sameChapter ? prevPath : (chapters.localPaths[vm.chapterId] || treePath.root);
+      nextPath = sameChapter ? prevPath : (
+        data.chapter.relay ? data.chapter.relay!.path : (chapters.localPaths[vm.chapterId] || treePath.root)
+      );
     }
 
     // path could be gone (because of subtree deletion), go as far as possible
@@ -200,7 +203,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
   function convertRelayDate() {
     const relay = data.chapter.relay;
     if (relay && typeof relay.secondsSinceLastMove !== 'undefined' && !relay.lastMoveAt)
-      relay.lastMoveAt = Date.now() - relay.secondsSinceLastMove * 1000;
+    relay.lastMoveAt = Date.now() - relay.secondsSinceLastMove * 1000;
   }
 
   function xhrReload() {

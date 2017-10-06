@@ -18,7 +18,7 @@ export default class RelayCtrl {
 
   loading = () => !this.cooldown && !!this.data.sync.seconds;
 
-  socketHandlers = {
+  private socketHandlers = {
     relayData: (d: RelayData) => {
       this.data = d;
       this.redraw();
