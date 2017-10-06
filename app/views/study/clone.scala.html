@@ -2,7 +2,7 @@
 
 @site.message(
 title = s"Clone ${s.name}",
-icon = Some(Html("")),
+icon = Some(Html("4")),
 back = false) {
 <form action="@routes.Study.cloneApply(s.id.value)" method="POST">
   <p>
@@ -18,7 +18,7 @@ back = false) {
     Deleting one study will <strong>not</strong> delete the other study.
   </p>
   <p>
-    <button type="submit" class="submit button large text" data-icon=""
+    <button type="submit" class="submit button large text" data-icon="4"
       style="margin: 30px auto; display: block; font-size: 2em;">Clone the study</button>
   </p>
   <p>

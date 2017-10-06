@@ -371,3 +371,6 @@
 .icon-mouse-pointer:before {
   content: "\7b";
 }
+.icon-delicious:before {
+  content: "\34";
+}

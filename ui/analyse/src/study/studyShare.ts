@@ -119,7 +119,7 @@ export function view(ctrl): VNode | undefined {
         h('div.downloads', [
           ctrl.cloneable ? h('a.button.text', {
             attrs: {
-              'data-icon': '',
+              'data-icon': '4',
               href: '/study/' + studyId + '/clone'
             }
           }, 'Clone') : null,

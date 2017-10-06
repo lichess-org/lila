@@ -94,7 +94,7 @@ function studyButton(ctrl: AnalyseCtrl) {
     }
   }, [
     h('i.icon', {
-      attrs: dataIcon('')
+      attrs: dataIcon('4')
     }),
     ctrl.trans.noarg('openStudy')
   ]);
@@ -115,7 +115,7 @@ function studyButton(ctrl: AnalyseCtrl) {
     hiddenInput('variant', ctrl.data.game.variant.key),
     hiddenInput('fen', ctrl.tree.root.fen),
     h('button.fbt', { attrs: { type: 'submit' } }, [
-      h('i.icon', { attrs: dataIcon('') }),
+      h('i.icon', { attrs: dataIcon('4') }),
       'Study'
     ])
   ]);

@@ -53,8 +53,8 @@ time {
 }
 @font-face {
   font-family: "lichess";
-  src: url("../font74/fonts/lichess.eot");
-  src: url("../font74/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font74/fonts/lichess.woff") format("woff"), url("../font74/fonts/lichess.ttf") format("truetype");
+  src: url("../font75/fonts/lichess.eot");
+  src: url("../font75/fonts/lichess.eot?#iefix") format("embedded-opentype"), url("../font75/fonts/lichess.woff") format("woff"), url("../font75/fonts/lichess.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }

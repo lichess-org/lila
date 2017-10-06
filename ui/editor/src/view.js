@@ -36,7 +36,7 @@ function studyButton(ctrl, fen) {
     }),
     m('button.button.text', {
       type: 'submit',
-      'data-icon': '',
+      'data-icon': '4',
       disabled: !ctrl.positionLooksLegit()
     },
     'Study')

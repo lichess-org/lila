@@ -15,7 +15,7 @@ export const renderers: Renderers = {
     text: n => userFullName(n.content.mentionedBy) + ' mentioned you in « ' + n.content.topic + ' ».'
   },
   invitedStudy: {
-    html: n => generic(n, "/study/" + n.content.studyId, '', [
+    html: n => generic(n, "/study/" + n.content.studyId, '4', [
       h('span', [
         h('strong', userFullName(n.content.invitedBy)),
         drawTime(n)
