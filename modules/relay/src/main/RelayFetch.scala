@@ -167,6 +167,7 @@ private object RelayFetch {
     } yield RelayGame(
       tags = res.tags,
       root = res.root,
+      end = res.end,
       whiteName = RelayGame.PlayerName(white),
       blackName = RelayGame.PlayerName(black)
     )

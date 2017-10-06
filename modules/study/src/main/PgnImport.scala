@@ -16,7 +16,15 @@ object PgnImport {
   case class Result(
       root: Node.Root,
       variant: chess.variant.Variant,
-      tags: Tags
+      tags: Tags,
+      end: Option[End]
+  )
+
+  case class End(
+      status: chess.Status,
+      winner: Option[chess.Color],
+      resultText: String,
+      statusText: String
   )
 
   def apply(pgn: String, contributors: List[LightUser]): Valid[Result] =
@@ -50,15 +58,28 @@ object PgnImport {
                   }
               )
             )
+            val end: Option[End] = {
+              (if (game.finished) game.status.some else result.map(_.status))
+                .filter(chess.Status.Aborted <=).map { status =>
+                  val winner = game.winnerColor orElse result.flatMap(_.winner)
+                  End(
+                    status = status,
+                    winner = winner,
+                    resultText = chess.Color.showResult(winner),
+                    statusText = lila.game.StatusText(status, winner, game.variant)
+                  )
+                }
+            }
             val commented =
               if (root.mainline.lastOption.??(_.isCommented)) root
-              else endComment(prep).fold(root) { comment =>
+              else end.map(endComment(prep)).fold(root) { comment =>
                 root updateMainlineLast { _.setComment(comment) }
               }
             Result(
               root = commented,
               variant = game.variant,
-              tags = PgnTags(parsedPgn.tags)
+              tags = PgnTags(parsedPgn.tags),
+              end = end
             )
         }
     }
@@ -73,18 +94,11 @@ object PgnImport {
       } getOrElse Comment.Author.External(a)
     }
 
-  private def endComment(prep: Preprocessed): Option[Comment] = {
+  private def endComment(prep: Preprocessed)(end: End): Comment = {
     import lila.tree.Node.Comment
-    import prep._
-    val winner = game.winnerColor orElse result.flatMap(_.winner)
-    val resultText = chess.Color.showResult(winner)
-    (if (game.finished) game.status.some else result.map(_.status)) flatMap { status =>
-      (status >= chess.Status.Aborted) option {
-        val statusText = lila.game.StatusText(status, winner, game.variant)
-        val text = s"$resultText $statusText"
-        Comment(Comment.Id.make, Comment.Text(text), Comment.Author.Lichess)
-      }
-    }
+    import end._
+    val text = s"$resultText $statusText"
+    Comment(Comment.Id.make, Comment.Text(text), Comment.Author.Lichess)
   }
 
   private def makeVariations(sans: List[San], game: chess.Game, annotator: Option[Comment.Author]) =

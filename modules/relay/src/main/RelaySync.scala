@@ -33,7 +33,21 @@ private final class RelaySync(
     }
   }
 
-  private def updateChapter(study: Study, chapter: Chapter, game: RelayGame): Fu[NbMoves] = {
+  private def updateChapter(study: Study, chapter: Chapter, game: RelayGame): Fu[NbMoves] =
+    updateChapterStatus(study, chapter, game) >>
+      updateChapterTree(study, chapter, game)
+
+  private def updateChapterStatus(study: Study, chapter: Chapter, game: RelayGame): Funit =
+    game.end ?? { end =>
+      (chapter.tags(_.Result).fold(true)(end.resultText !=)) ?? studyApi.setTag(
+        userId = chapter.ownerId,
+        studyId = study.id,
+        lila.study.actorApi.SetTag(chapter.id, "result", end.resultText),
+        uid = socketUid
+      )
+    }
+
+  private def updateChapterTree(study: Study, chapter: Chapter, game: RelayGame): Fu[NbMoves] = {
     game.root.mainline.foldLeft(Path.root -> none[Node]) {
       case ((parentPath, None), gameNode) =>
         val path = parentPath + gameNode
