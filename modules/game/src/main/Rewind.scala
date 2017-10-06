@@ -11,12 +11,12 @@ object Rewind {
     val variantTag = Some(chessPgn.Tag(_.Variant, game.variant.name))
     val fenTag = fen map (fenString => chessPgn.Tag(_.FEN, fenString))
 
-    List(variantTag, fenTag).flatten
+    chessPgn.Tags(List(variantTag, fenTag).flatten)
   }
 
   def apply(game: Game, initialFen: Option[String]): Valid[Progress] = chessPgn.Reader.movesWithSans(
     moveStrs = game.pgnMoves,
-    op = _.dropRight(1),
+    op = sans => chessPgn.Sans(sans.value.dropRight(1)),
     tags = createTags(initialFen, game)
   ) map { replay =>
       val rewindedGame = replay.state

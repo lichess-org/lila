@@ -126,7 +126,7 @@ export function main(ctrl: StudyCtrl): VNode {
 
   const tabs = h('div.study_tabs', [
     makeTab('members', plural('Member', ctrl.members.size())),
-    makeTab('chapters', plural('Chapter', ctrl.chapters.size())),
+    makeTab('chapters', plural(ctrl.relay ? 'Game' : 'Chapter', ctrl.chapters.size())),
     ctrl.members.isOwner() ? h('a.more', {
       hook: bind('click', () => ctrl.form.open(!ctrl.form.open()), ctrl.redraw)
     }, [ h('i', { attrs: dataIcon('[') }) ]) : null

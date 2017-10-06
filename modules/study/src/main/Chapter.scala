@@ -1,8 +1,8 @@
 package lila.study
 
-import chess.{ Color, Centis }
-import chess.format.pgn.{ Glyph, Tag }
+import chess.format.pgn.{ Glyph, Tag, Tags }
 import chess.variant.Variant
+import chess.{ Color, Centis }
 import org.joda.time.DateTime
 
 import chess.opening.{ FullOpening, FullOpeningDB }
@@ -15,13 +15,14 @@ case class Chapter(
     name: Chapter.Name,
     setup: Chapter.Setup,
     root: Node.Root,
-    tags: List[Tag],
+    tags: Tags,
     order: Int,
     ownerId: User.ID,
     conceal: Option[Chapter.Ply] = None,
     practice: Option[Boolean] = None,
     gamebook: Option[Boolean] = None,
     description: Option[String] = None,
+    relay: Option[Chapter.Relay] = None,
     createdAt: DateTime
 ) extends Chapter.Like {
 
@@ -30,9 +31,11 @@ case class Chapter(
       copy(root = newRoot)
     }
 
-  def addNode(node: Node, path: Path): Option[Chapter] =
-    updateRoot { root =>
-      root.withChildren(_.addNodeAt(node, path))
+  def addNode(node: Node, path: Path, newRelay: Option[Chapter.Relay] = None): Option[Chapter] =
+    updateRoot {
+      _.withChildren(_.addNodeAt(node, path))
+    } map {
+      _.copy(relay = newRelay orElse relay)
     }
 
   def setShapes(shapes: Shapes, path: Path): Option[Chapter] =
@@ -69,7 +72,7 @@ case class Chapter(
   def metadata = Chapter.Metadata(_id = _id, name = name, setup = setup)
 
   def setTag(tag: Tag) = copy(
-    tags = PgnTags(tag :: tags.filterNot(_.name == tag.name))
+    tags = PgnTags(tags + tag)
   )
 
   def isPractice = ~practice
@@ -105,6 +108,15 @@ object Chapter {
     def isFromFen = ~fromFen
   }
 
+  case class Relay(
+      path: Path,
+      lastMoveAt: Option[DateTime]
+  ) {
+    def secondsSinceLastMove: Option[Int] = lastMoveAt.map { at =>
+      (nowSeconds - at.getSeconds).toInt
+    }
+  }
+
   case class Metadata(
       _id: Chapter.Id,
       name: Chapter.Name,
@@ -128,7 +140,7 @@ object Chapter {
 
   def makeId = Id(scala.util.Random.alphanumeric take idSize mkString)
 
-  def make(studyId: Study.Id, name: Name, setup: Setup, root: Node.Root, tags: List[Tag], order: Int, ownerId: User.ID, practice: Boolean, gamebook: Boolean, conceal: Option[Ply]) = Chapter(
+  def make(studyId: Study.Id, name: Name, setup: Setup, root: Node.Root, tags: Tags, order: Int, ownerId: User.ID, practice: Boolean, gamebook: Boolean, conceal: Option[Ply]) = Chapter(
     _id = makeId,
     studyId = studyId,
     name = fixName(name),

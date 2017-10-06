@@ -1,0 +1,12 @@
+@(r: lila.relay.Relay.WithStudy)(implicit ctx: Context)
+<a class="overlay" href="@routes.Relay.show(r.relay.slug, r.relay.id.value)"></a>
+<h2>
+  <i class="icon" data-icon=""></i>
+  <strong>@r.relay.name</strong>
+</h2>
+<div class="body">
+  <p>@r.relay.description</p>
+  @r.relay.startsAt.map { startsAt =>
+  @momentFromNow(startsAt)
+  }
+</div>

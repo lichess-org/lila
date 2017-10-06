@@ -1,8 +1,8 @@
 package lila
 
+import org.joda.time.DateTime
 import ornicar.scalalib
 import ornicar.scalalib.Zero
-import org.joda.time.DateTime
 import scala.util.Try
 
 trait Steroids
@@ -141,6 +141,9 @@ object Wrappers {
     def toSuccess[E](e: => E): scalaz.Validation[E, A] = o.toSuccess(self)(e)
 
     def toFailure[B](b: => B): scalaz.Validation[A, B] = o.toFailure(self)(b)
+
+    def toTry(err: => Exception): Try[A] =
+      self.fold[Try[A]](scala.util.Failure(err))(scala.util.Success.apply)
 
     def err(message: => String): A = self.getOrElse(sys.error(message))
 

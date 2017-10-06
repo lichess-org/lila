@@ -1,5 +1,6 @@
 package lila.site
 
+import scala.collection.mutable.AnyRefMap
 import scala.concurrent.duration.Duration
 
 import akka.actor._
@@ -14,18 +15,24 @@ private[site] final class Socket(timeout: Duration) extends SocketActor[Member](
 
   override val startsOnApplicationBoot = true
 
+  type UID = String
+  type Flag = String
+
+  val flags = new lila.socket.MemberGroup[Member](_.flag)
+
   def receiveSpecific = {
 
-    case Join(uid, userId, tags) => {
+    case Join(uid, userId, flag) => {
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = Member(channel, userId, tags)
+      val member = Member(channel, userId, flag)
       addMember(uid.value, member)
+      flags.add(uid.value, member)
       sender ! Connected(enumerator, member)
     }
 
-    case SendToFlag(flag, message) =>
-      members.foreachValue { m =>
-        if (m hasFlag flag) m.channel push message
+    case SendToFlag(flag, msg) =>
+      flags get flag foreach {
+        _.foreachValue(_ push msg)
       }
   }
 
@@ -34,5 +41,10 @@ private[site] final class Socket(timeout: Duration) extends SocketActor[Member](
     members foreach {
       case (uid, member) => if (!aliveUids.get(uid) && !member.isApi) eject(uid)
     }
+  }
+
+  override def quit(uid: String) {
+    members get uid foreach { flags.remove(uid, _) }
+    super.quit(uid)
   }
 }

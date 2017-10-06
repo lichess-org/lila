@@ -46,7 +46,8 @@ final class JsonView(
               "computer" -> allowed(study.settings.computer),
               "explorer" -> allowed(study.settings.explorer)
             )
-          ).add("description", currentChapter.description) |> addChapterMode(currentChapter)
+          ).add("description", currentChapter.description)
+            .add("relay", currentChapter.relay)(relayWrites) |> addChapterMode(currentChapter)
         }
       )
     }
@@ -135,6 +136,7 @@ object JsonView {
     case Study.From.Scratch => JsString("scratch")
     case Study.From.Game(id) => Json.obj("game" -> id)
     case Study.From.Study(id) => Json.obj("study" -> id)
+    case Study.From.Relay(id) => Json.obj("relay" -> id)
   }
   private[study] implicit val userSelectionWriter = Writes[Settings.UserSelection] { v =>
     JsString(v.key)
@@ -162,6 +164,9 @@ object JsonView {
   implicit val pgnTagWrites: Writes[chess.format.pgn.Tag] = Writes[chess.format.pgn.Tag] { t =>
     Json.arr(t.name.toString, t.value)
   }
+  implicit val pgnTagsWrites = Writes[chess.format.pgn.Tags] { tags =>
+    JsArray(tags.value map pgnTagWrites.writes)
+  }
   private implicit val chapterSetupWrites = Json.writes[Chapter.Setup]
   private[study] implicit val chapterMetadataWrites = OWrites[Chapter.Metadata] { c =>
     Json.obj("id" -> c._id, "name" -> c.name)
@@ -172,4 +177,9 @@ object JsonView {
     JsNumber(p.value)
   }
   private[study] implicit val likingRefWrites: Writes[Study.Liking] = Json.writes[Study.Liking]
+
+  implicit val relayWrites = OWrites[Chapter.Relay] { r =>
+    Json.obj("path" -> r.path)
+      .add("secondsSinceLastMove", r.secondsSinceLastMove)
+  }
 }

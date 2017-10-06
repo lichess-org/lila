@@ -1,10 +1,13 @@
 package lila.study
 
-import chess.format.pgn.{ Tag, TagType }
+import chess.format.pgn.{ Tag, Tags, TagType }
 
 object PgnTags {
 
-  def apply(tags: List[Tag]): List[Tag] = sort(tags filter isRelevant)
+  def apply(tags: Tags): Tags = Tags(sort(tags.value filter isRelevant))
+
+  def setRootClockFromTags(c: Chapter): Option[Chapter] =
+    c.updateRoot { _.setClockAt(c.tags.clockConfig map (_.limit), Path.root) } filter (c !=)
 
   private def isRelevant(tag: Tag) =
     relevantTypeSet(tag.name) && !unknownValues(tag.value)
@@ -30,7 +33,8 @@ object PgnTags {
 
   private val typePositions: Map[TagType, Int] = sortedTypes.zipWithIndex.toMap
 
-  private def sort(tags: List[Tag]) = tags.sortBy { t =>
-    typePositions.getOrElse(t.name, Int.MaxValue)
-  }
+  private def sort(tags: List[Tag]) =
+    tags.sortBy { t =>
+      typePositions.getOrElse(t.name, Int.MaxValue)
+    }
 }

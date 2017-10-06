@@ -9,6 +9,7 @@ import play.api.libs.json._
 
 import chess.format.FEN
 import chess.format.pgn.Glyph
+import lila.chat.Chat
 import lila.common.PimpedJson._
 import lila.hub.actorApi.map._
 import lila.socket.actorApi.{ Connected => _, _ }
@@ -17,10 +18,9 @@ import lila.socket.Socket.Uid
 import lila.socket.{ Handler, AnaMove, AnaDrop, AnaAny }
 import lila.tree.Node.{ Shape, Shapes, Comment, Gamebook }
 import lila.user.User
-import lila.chat.Chat
 import makeTimeout.short
 
-private[study] final class SocketHandler(
+final class SocketHandler(
     hub: lila.hub.Env,
     socketHub: ActorRef,
     chat: ActorSelection,
@@ -62,7 +62,7 @@ private[study] final class SocketHandler(
       }
     }
 
-  private def controller(
+  def makeController(
     socket: ActorRef,
     studyId: Study.Id,
     uid: Uid,
@@ -135,16 +135,6 @@ private[study] final class SocketHandler(
           shapes <- (o \ "d" \ "shapes").asOpt[List[Shape]]
           userId <- member.userId
         } api.setShapes(userId, studyId, position.ref, Shapes(shapes take 32), uid)
-      }
-
-    case ("setClock", o) =>
-      import chess.Centis
-      import MoveOpts.clockReader
-      reading[AtPosition](o) { position =>
-        val clock = (o \ "d" \ "clock").asOpt[Centis]
-        member.userId foreach { userId =>
-          api.setClock(userId, studyId, position.ref, clock, uid)
-        }
       }
 
     case ("addChapter", o) =>
@@ -235,6 +225,9 @@ private[study] final class SocketHandler(
         }
       }
 
+    case ("relaySync", o) =>
+      (o \ "d").asOpt[Boolean]
+
     case ("like", o) => for {
       byUserId <- member.userId
       v <- (o \ "d" \ "liked").asOpt[Boolean]
@@ -269,16 +262,28 @@ private[study] final class SocketHandler(
   private implicit val gamebookReader = Json.reads[Gamebook]
   private implicit val explorerGame = Json.reads[actorApi.ExplorerGame]
 
+  def getSocket(id: Study.Id): Fu[ActorRef] =
+    socketHub ? Get(id.value) mapTo manifest[ActorRef]
+
   def join(
     studyId: Study.Id,
     uid: Uid,
     user: Option[User]
-  ): Fu[Option[JsSocketHandler]] = for {
-    socket ← socketHub ? Get(studyId.value) mapTo manifest[ActorRef]
-    join = Socket.Join(uid = uid, userId = user.map(_.id), troll = user.??(_.troll))
-    handler ← Handler(hub, socket, uid, join) {
-      case Socket.Connected(enum, member) =>
-        (controller(socket, studyId, uid, member, user = user), enum, member)
+  ): Fu[Option[JsSocketHandler]] =
+    getSocket(studyId) flatMap { socket =>
+      join(studyId, uid, user, socket, member => makeController(socket, studyId, uid, member, user = user))
     }
-  } yield handler.some
+
+  def join(
+    studyId: Study.Id,
+    uid: Uid,
+    user: Option[User],
+    socket: ActorRef,
+    controller: Socket.Member => Handler.Controller
+  ): Fu[Option[JsSocketHandler]] = {
+    val join = Socket.Join(uid = uid, userId = user.map(_.id), troll = user.??(_.troll))
+    Handler(hub, socket, uid, join) {
+      case Socket.Connected(enum, member) => (controller(member), enum, member)
+    } map some
+  }
 }

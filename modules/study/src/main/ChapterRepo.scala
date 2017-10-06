@@ -1,5 +1,6 @@
 package lila.study
 
+import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
 
 import lila.db.dsl._
@@ -58,6 +59,9 @@ final class ChapterRepo(coll: Coll) {
 
   def removeConceal(chapterId: Chapter.Id) =
     coll.unsetField($id(chapterId), "conceal").void
+
+  def setRelay(chapterId: Chapter.Id, relay: Chapter.Relay) =
+    coll.updateField($id(chapterId), "relay", relay).void
 
   def setTagsFor(chapter: Chapter) =
     coll.updateField($id(chapter.id), "tags", chapter.tags).void

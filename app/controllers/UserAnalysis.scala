@@ -89,8 +89,11 @@ object UserAnalysis extends LilaController with TheftPrevention {
         api = apiVersion => mobileAnalysis(pov, apiVersion)
       )
       else GameRepo initialFen game.id flatMap { initialFen =>
-        Env.api.roundApi.userAnalysisJson(pov, ctx.pref, initialFen, pov.color, owner = isMyPov(pov), me = ctx.me) map { data =>
-          Ok(html.board.userAnalysis(data, pov))
+        Env.api.roundApi.userAnalysisJson(pov, ctx.pref, initialFen, pov.color, owner = isMyPov(pov), me = ctx.me) flatMap { data =>
+          negotiate(
+            html = Ok(html.board.userAnalysis(data, pov)).fuccess,
+            api = _ => Ok(data).fuccess
+          )
         }
       } map NoCache
     }

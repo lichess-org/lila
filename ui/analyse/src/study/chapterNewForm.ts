@@ -140,6 +140,7 @@ export function view(ctrl): VNode {
   const currentChapterSetup = ctrl.root.study.data.chapter.setup;
 
   return dialog.form({
+    class: 'chapter-new',
     onClose() {
       ctrl.close();
       ctrl.redraw();

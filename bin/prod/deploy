@@ -74,8 +74,7 @@ RSYNC_OPTIONS=" \
   --exclude '*.h' \
   --exclude '*.cpp' \
   --exclude '.git/' \
-  --exclude bin/.translate_version
-  --exclude bin/node_modules"
+  --exclude node_modules"
 
 if [ $mode != "main" ] && [ $mode != "stage" ] && [ $mode != "koala" ]; then
   RSYNC_OPTIONS="$RSYNC_OPTIONS \

@@ -5,6 +5,7 @@ import scala.concurrent.Future
 import akka.actor._
 import akka.pattern.pipe
 import chess.format.{ Forsyth, pgn }
+import chess.format.pgn.{ Tags, Sans }
 import chess.{ Game => ChessGame }
 import scalaz.{ NonEmptyList, OptionT }
 
@@ -89,7 +90,7 @@ private final class Captcher extends Actor {
       } toNel
 
     private def rewind(game: Game, moves: PgnMoves): Option[ChessGame] =
-      pgn.Reader.movesWithSans(moves, safeInit, tags = Nil) map (_.state) toOption
+      pgn.Reader.movesWithSans(moves, sans => Sans(safeInit(sans.value)), tags = Tags.empty) map (_.state) toOption
 
     private def safeInit[A](list: List[A]): List[A] = list match {
       case x :: Nil => Nil

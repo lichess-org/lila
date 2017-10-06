@@ -3,7 +3,7 @@ package lila.study
 import scalaz.Validation.FlatMap._
 import scalaz.Validation.success
 
-import chess.format.pgn.{ Tag, Glyphs, San, Dumper, ParsedPgn }
+import chess.format.pgn.{ Tags, Glyphs, San, Dumper, ParsedPgn }
 import chess.format.{ Forsyth, FEN, Uci, UciCharPair }
 
 import chess.Centis
@@ -11,12 +11,20 @@ import lila.common.LightUser
 import lila.importer.{ ImportData, Preprocessed }
 import lila.tree.Node.{ Comment, Comments, Shapes }
 
-private object PgnImport {
+object PgnImport {
 
   case class Result(
       root: Node.Root,
       variant: chess.variant.Variant,
-      tags: List[Tag]
+      tags: Tags,
+      end: Option[End]
+  )
+
+  case class End(
+      status: chess.Status,
+      winner: Option[chess.Color],
+      resultText: String,
+      statusText: String
   )
 
   def apply(pgn: String, contributors: List[LightUser]): Valid[Result] =
@@ -32,11 +40,11 @@ private object PgnImport {
               shapes = shapes,
               comments = comments,
               glyphs = Glyphs.empty,
-              clock = parsedPgn.clockConfig.map(_.limit),
+              clock = parsedPgn.tags.clockConfig.map(_.limit),
               crazyData = replay.setup.situation.board.crazyData,
               children = makeNode(
                 prev = replay.setup,
-                sans = parsedPgn.sans,
+                sans = parsedPgn.sans.value,
                 annotator = annotator
               ).fold(
                 err => {
@@ -45,26 +53,39 @@ private object PgnImport {
                 },
                 node =>
                   Node.Children {
-                    val variations = makeVariations(parsedPgn.sans, replay.setup, annotator)
+                    val variations = makeVariations(parsedPgn.sans.value, replay.setup, annotator)
                     node.fold(variations)(_ :: variations).toVector
                   }
               )
             )
+            val end: Option[End] = {
+              (if (game.finished) game.status.some else result.map(_.status))
+                .filter(chess.Status.Aborted <=).map { status =>
+                  val winner = game.winnerColor orElse result.flatMap(_.winner)
+                  End(
+                    status = status,
+                    winner = winner,
+                    resultText = chess.Color.showResult(winner),
+                    statusText = lila.game.StatusText(status, winner, game.variant)
+                  )
+                }
+            }
             val commented =
               if (root.mainline.lastOption.??(_.isCommented)) root
-              else endComment(prep).fold(root) { comment =>
+              else end.map(endComment(prep)).fold(root) { comment =>
                 root updateMainlineLast { _.setComment(comment) }
               }
             Result(
               root = commented,
               variant = game.variant,
-              tags = PgnTags(parsedPgn.tags)
+              tags = PgnTags(parsedPgn.tags),
+              end = end
             )
         }
     }
 
   private def findAnnotator(pgn: ParsedPgn, contributors: List[LightUser]): Option[Comment.Author] =
-    pgn tag "annotator" map { a =>
+    pgn tags "annotator" map { a =>
       val lowered = a.toLowerCase
       contributors.find { c =>
         c.name == lowered || c.titleName == lowered || lowered.endsWith(s"/${c.id}")
@@ -73,24 +94,17 @@ private object PgnImport {
       } getOrElse Comment.Author.External(a)
     }
 
-  private def endComment(prep: Preprocessed): Option[Comment] = {
+  private def endComment(prep: Preprocessed)(end: End): Comment = {
     import lila.tree.Node.Comment
-    import prep._
-    val winner = game.winnerColor orElse result.flatMap(_.winner)
-    val resultText = chess.Color.showResult(winner)
-    (if (game.finished) game.status.some else result.map(_.status)) flatMap { status =>
-      (status >= chess.Status.Aborted) option {
-        val statusText = lila.game.StatusText(status, winner, game.variant)
-        val text = s"$resultText $statusText"
-        Comment(Comment.Id.make, Comment.Text(text), Comment.Author.Lichess)
-      }
-    }
+    import end._
+    val text = s"$resultText $statusText"
+    Comment(Comment.Id.make, Comment.Text(text), Comment.Author.Lichess)
   }
 
   private def makeVariations(sans: List[San], game: chess.Game, annotator: Option[Comment.Author]) =
     sans.headOption.?? {
       _.metas.variations.flatMap { variation =>
-        makeNode(game, variation, annotator).fold({ err =>
+        makeNode(game, variation.value, annotator).fold({ err =>
           logger.warn(s"$variation $err")
           none
         }, identity)

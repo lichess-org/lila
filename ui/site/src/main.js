@@ -246,6 +246,7 @@ lichess.topMenuIntent = function() {
     else if (lichess.user_analysis) startUserAnalysis(document.getElementById('lichess'), lichess.user_analysis);
     else if (lichess.study) startStudy(document.getElementById('lichess'), lichess.study);
     else if (lichess.practice) startPractice(document.getElementById('lichess'), lichess.practice);
+    else if (lichess.relay) startRelay(document.getElementById('lichess'), lichess.relay);
     else if (lichess.puzzle) startPuzzle(lichess.puzzle);
     else if (lichess.tournament) startTournament(document.getElementById('tournament'), lichess.tournament);
     else if (lichess.simul) startSimul(document.getElementById('simul'), lichess.simul);
@@ -1114,6 +1115,41 @@ lichess.topMenuIntent = function() {
     });
     cfg.socketSend = lichess.socket.send;
     analyse = LichessAnalyse.start(cfg);
+    lichess.topMenuIntent();
+  }
+
+  ////////////////
+  // relay.js //
+  ////////////////
+
+  function startRelay(element, cfg) {
+    var $watchers = $("div.watchers").watchers();
+    var analyse;
+    cfg.initialPly = 'url';
+    cfg.element = element.querySelector('.analyse');
+    cfg.sideElement = document.querySelector('#site_header .side_box');
+    lichess.socket = lichess.StrongSocket(cfg.socketUrl, cfg.socketVersion, {
+      options: {
+        name: "relay"
+      },
+      receive: function(t, d) {
+        analyse.socketReceive(t, d);
+      },
+      events: {
+        crowd: function(e) {
+          $watchers.watchers("set", e);
+        }
+      }
+    });
+    cfg.socketSend = lichess.socket.send;
+    cfg.trans = lichess.trans(cfg.i18n);
+    analyse = LichessAnalyse.start(cfg);
+    if (cfg.chat) {
+      lichess.pubsub.on('chat.enabled', function(v) {
+        $('#site_header .board_left').toggleClass('no_chat', !v);
+      });
+      lichess.makeChat('chat', cfg.chat);
+    }
     lichess.topMenuIntent();
   }
 

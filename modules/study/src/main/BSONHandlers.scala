@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.format.pgn.{ Glyph, Glyphs, Tag }
+import chess.format.pgn.{ Glyph, Glyphs, Tag, Tags }
 import chess.format.{ Uci, UciCharPair, FEN }
 import chess.variant.{ Variant, Crazyhouse }
 import chess.{ Centis, Pos, Role, PromotableRole }
@@ -231,7 +231,13 @@ object BSONHandlers {
     }
     def write(t: Tag) = BSONString(s"${t.name}:${t.value}")
   }
+  implicit val PgnTagsBSONHandler: BSONHandler[BSONArray, Tags] =
+    isoHandler[Tags, List[Tag], BSONArray](
+      (s: Tags) => s.value,
+      Tags(_)
+    )
   private implicit val ChapterSetupBSONHandler = Macros.handler[Chapter.Setup]
+  implicit val ChapterRelayBSONHandler = Macros.handler[Chapter.Relay]
   import Chapter.Ply
   implicit val PlyBSONHandler = intAnyValHandler[Ply](_.value, Ply.apply)
   implicit val ChapterBSONHandler = Macros.handler[Chapter]
@@ -270,12 +276,15 @@ object BSONHandlers {
       case Array("scratch") => From.Scratch
       case Array("game", id) => From.Game(id)
       case Array("study", id) => From.Study(Study.Id(id))
+      case Array("relay") => From.Relay(none)
+      case Array("relay", id) => From.Relay(Study.Id(id).some)
       case _ => sys error s"Invalid from ${bs.value}"
     }
     def write(x: From) = BSONString(x match {
       case From.Scratch => "scratch"
       case From.Game(id) => s"game $id"
       case From.Study(id) => s"study $id"
+      case From.Relay(id) => s"relay${id.fold("")(" " + _)}"
     })
   }
   import Settings.UserSelection

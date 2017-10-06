@@ -61,7 +61,7 @@ final class StudySearchApi(
   )
 
   private def chapterText(c: Chapter): String = {
-    nodeText(c.root) :: c.tags.collect {
+    nodeText(c.root) :: c.tags.value.collect {
       case Tag(name, value) if relevantPgnTags.contains(name) => value
     } :: extraText(c)
   }.mkString(" ").trim

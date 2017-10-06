@@ -18,7 +18,7 @@ private[analyse] final class Annotator(netDomain: String) {
       annotateOpening(opening) {
         annotateTurns(p, analysis ?? (_.advices))
       }.copy(
-        tags = p.tags :+ Tag("Annotator", netDomain)
+        tags = p.tags + Tag(_.Annotator, netDomain)
       )
     }
 

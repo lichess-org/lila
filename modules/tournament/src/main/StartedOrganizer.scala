@@ -8,7 +8,7 @@ import actorApi._
 import lila.hub.actorApi.map.Ask
 import makeTimeout.short
 
-private[tournament] final class StartedOrganizer(
+private final class StartedOrganizer(
     api: TournamentApi,
     reminder: ActorRef,
     isOnline: String => Boolean,

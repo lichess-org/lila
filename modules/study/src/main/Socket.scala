@@ -1,11 +1,13 @@
 package lila.study
 
 import akka.actor._
+import org.joda.time.DateTime
 import play.api.libs.json._
 import scala.concurrent.duration._
 
-import chess.format.pgn.Glyphs
 import chess.Centis
+import chess.format.pgn.Glyphs
+import lila.common.PimpedJson._
 import lila.hub.TimeBomb
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Socket.Uid
@@ -67,7 +69,7 @@ private final class Socket(
         "w" -> who(uid).map(whoWriter.writes)
       ), noMessadata)
 
-    case AddNode(pos, node, variant, uid, sticky) =>
+    case AddNode(pos, node, variant, uid, sticky, relay) =>
       val dests = AnaDests(
         variant,
         node.fen,
@@ -81,7 +83,7 @@ private final class Socket(
         "d" -> dests.dests,
         "o" -> dests.opening,
         "s" -> sticky
-      ), noMessadata)
+      ).add("relay", relay), noMessadata)
 
     case DeleteNode(pos, uid) => notifyVersion("deleteNode", Json.obj(
       "p" -> pos,
@@ -221,6 +223,10 @@ private final class Socket(
         else studyRepo.uids(studyId) flatMap { showSpectatorsAndMembers(_, members.values) }
       json foreach { notifyAll("crowd", _) }
 
+    case Broadcast(t, msg) => notifyAll(t, msg)
+
+    case GetNbMembers => sender ! NbMembers(members.size)
+
   }: Actor.Receive) orElse lila.chat.Socket.out(
     send = (t, d, _) => notifyVersion(t, d, noMessadata)
   )
@@ -271,7 +277,7 @@ private final class Socket(
   private val noMessadata = Messadata()
 }
 
-private object Socket {
+object Socket {
 
   case class Member(
       channel: JsChannel,
@@ -289,7 +295,14 @@ private object Socket {
   case class ReloadUid(uid: Uid)
   case class ReloadUidBecauseOf(uid: Uid, chapterId: Chapter.Id)
 
-  case class AddNode(position: Position.Ref, node: Node, variant: chess.variant.Variant, uid: Uid, sticky: Boolean)
+  case class AddNode(
+      position: Position.Ref,
+      node: Node,
+      variant: chess.variant.Variant,
+      uid: Uid,
+      sticky: Boolean,
+      relay: Option[Chapter.Relay]
+  )
   case class DeleteNode(position: Position.Ref, uid: Uid)
   case class Promote(position: Position.Ref, toMainline: Boolean, uid: Uid)
   case class SetPath(position: Position.Ref, uid: Uid)
@@ -307,7 +320,11 @@ private object Socket {
   case class AddChapter(uid: Uid, position: Position.Ref, sticky: Boolean)
   case class SetConceal(position: Position.Ref, ply: Option[Chapter.Ply])
   case class SetLiking(liking: Study.Liking, uid: Uid)
-  case class SetTags(chapterId: Chapter.Id, tags: List[chess.format.pgn.Tag], uid: Uid)
+  case class SetTags(chapterId: Chapter.Id, tags: chess.format.pgn.Tags, uid: Uid)
+  case class Broadcast(t: String, msg: JsObject)
+
+  case object GetNbMembers
+  case class NbMembers(value: Int)
 
   case class Messadata(trollish: Boolean = false)
   case object NotifyCrowd

@@ -1,7 +1,5 @@
 package lila.practice
 
-import chess.format.pgn.Tag
-
 sealed trait PracticeGoal
 
 object PracticeGoal {
@@ -22,10 +20,8 @@ object PracticeGoal {
 
   private val MultiSpaceR = """\s{2,}""".r
 
-  private def tagText(tag: Tag) = MultiSpaceR.replaceAllIn(tag.value.trim, " ")
-
   def apply(chapter: lila.study.Chapter): PracticeGoal =
-    chapter.tags.find(_.name == Tag.Termination).map(tagText).flatMap {
+    chapter.tags(_.Termination).map(v => MultiSpaceR.replaceAllIn(v.trim, " ")).flatMap {
       case MateR() => Mate.some
       case MateInR(movesStr) => parseIntOption(movesStr) map MateIn.apply
       case DrawInR(movesStr) => parseIntOption(movesStr) map DrawIn.apply
