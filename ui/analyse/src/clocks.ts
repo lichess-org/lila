@@ -9,43 +9,35 @@ interface ClockOpts {
 export default function(ctrl: AnalyseCtrl): VNode | undefined {
   const node = ctrl.node, clock = node.clock;
   if (!clock && clock !== 0) return;
-  const parentClock = ctrl.tree.getParentClock(node, ctrl.path);
-  let whiteCentis, blackCentis;
-  const isWhiteTurn = node.ply % 2 === 0;
-  if (isWhiteTurn) {
-    whiteCentis = parentClock;
-    blackCentis = clock;
-  }
-  else {
-    whiteCentis = clock;
-    blackCentis = parentClock;
-  }
-  const study = ctrl.study,
-  whitePov = ctrl.bottomColor() === 'white';
+  const parentClock = ctrl.tree.getParentClock(node, ctrl.path),
+  isWhiteTurn = node.ply % 2 === 0,
+  centis: Array<number | undefined> = [parentClock, clock];
+  if (!isWhiteTurn) centis.reverse();
 
-  const relay = study && study.data.chapter.relay;
+  const study = ctrl.study,
+  relay = study && study.data.chapter.relay;
   if (relay && relay.lastMoveAt && relay.path === ctrl.path && ctrl.path !== '') {
     const spent = (Date.now() - relay.lastMoveAt) / 10;
-    if (isWhiteTurn) whiteCentis -= spent;
-    else blackCentis -= spent;
+    const i = isWhiteTurn ? 0 : 1;
+    if (centis[i]) centis[i] = Math.max(0, centis[i]! - spent);
   }
 
   const opts = {
     tenths: !ctrl.study || !ctrl.study.relay
   };
-  const whiteEl = renderClock(whiteCentis, isWhiteTurn, opts);
-  const blackEl = renderClock(blackCentis, !isWhiteTurn, opts);
+  const whiteEl = renderClock(centis[0], isWhiteTurn, opts);
+  const blackEl = renderClock(centis[1], !isWhiteTurn, opts);
 
-  return h('div.aclocks', whitePov ? [blackEl, whiteEl] : [whiteEl, blackEl]);
+  return h('div.aclocks', ctrl.bottomColor() === 'white' ? [blackEl, whiteEl] : [whiteEl, blackEl]);
 }
 
-function renderClock(centis: number, active: boolean, opts: ClockOpts): VNode {
+function renderClock(centis: number | undefined, active: boolean, opts: ClockOpts): VNode {
   return h('div.aclock', {
     class: { active },
   }, clockContent(centis, opts));
 }
 
-function clockContent(centis: number, opts: ClockOpts): Array<string | VNode> {
+function clockContent(centis: number | undefined, opts: ClockOpts): Array<string | VNode> {
   if (!centis && centis !== 0) return ['-'];
   const date = new Date(centis * 10),
   millis = date.getUTCMilliseconds(),
