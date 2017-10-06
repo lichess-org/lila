@@ -66,6 +66,7 @@ object RelayForm {
       ownerId = user.id,
       sync = makeSync,
       createdAt = DateTime.now,
+      finishedAt = none,
       startsAt = startsAt
     )
   }

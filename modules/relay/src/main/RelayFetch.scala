@@ -39,9 +39,12 @@ private final class RelayFetch(
         relays.map { relay =>
           fetcher(relay.sync.upstream) flatMap { games =>
             sync(relay, games)
-              .withTimeout(300 millis, LilaException("In progress"))(context.system)
-          } flatMap { nbMoves =>
-            api.addLog(relay.id, SyncLog.event(nbMoves, none))
+              .withTimeout(300 millis, LilaException("In progress"))(context.system) flatMap { nbMoves =>
+                api.addLog(relay.id, SyncLog.event(nbMoves, none)) >> {
+                  (games.forall(_.finished) != relay.finishedAt.isDefined) ??
+                    api.setFinishedAt(relay.id, games.forall(_.finished) option DateTime.now)
+                }
+              }
           } recover {
             case e: Exception => api.addLog(relay.id, SyncLog.event(0, e.some))
           } flatMap { _ => updateSync(relay.id) }
@@ -56,6 +59,7 @@ private final class RelayFetch(
       (sync.until |@| sync.nextAt).tupled.fold(fuccess(sync set false)) {
         case (until, nextAt) =>
           if (until isBefore DateTime.now) fuccess(sync set false)
+          else if (r.finished) fuccess(sync set false)
           else if (sync.log.alwaysFails) fuccess(sync.copy(nextAt = DateTime.now plusSeconds 20 some))
           else (sync.delay match {
             case Some(delay) => fuccess(delay)

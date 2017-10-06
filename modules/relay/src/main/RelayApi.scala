@@ -2,9 +2,11 @@ package lila.relay
 
 import akka.actor._
 import org.joda.time.DateTime
+import play.api.libs.json.JsObject
 import reactivemongo.bson._
 
 import lila.db.dsl._
+import lila.socket.Socket.makeMessage
 import lila.study.{ StudyApi, Study, Settings }
 import lila.user.User
 
@@ -43,11 +45,13 @@ final class RelayApi(
     "sync.nextAt" $lt DateTime.now
   )).list[Relay]()
 
-  def setSync(id: Relay.Id, sync: Relay.Sync) =
-    coll.update($id(id), $set(
-      "sync.until" -> sync.until,
-      "sync.nextAt" -> sync.nextAt
-    )).void
+  def setSync(id: Relay.Id, sync: Relay.Sync) = byId(id) flatMap {
+    _ ?? { r =>
+      val relay = r.copy(sync = sync)
+      coll.update($id(id), relay) >>
+        sendToContributors(id, makeMessage("relayData", JsonView.relayWrites writes relay))
+    }
+  }
 
   def created = coll.find($doc(
     "startsAt" $gt DateTime.now
@@ -79,13 +83,15 @@ final class RelayApi(
   def update(relay: Relay): Funit =
     coll.update($id(relay.id), relay).void
 
-  def setSync(id: Relay.Id, user: User, v: Boolean, socket: ActorRef): Funit = byId(id) flatMap {
+  def setSync(id: Relay.Id, user: User, v: Boolean): Funit = byId(id) flatMap {
     _.map(_ setSync v) ?? { relay =>
-      coll.update($id(relay.id.value), relay).void >>- {
-        socket ! lila.study.Socket.Broadcast("relayData", JsonView.relayWrites writes relay)
-      }
+      coll.update($id(relay.id.value), relay).void >>
+        sendToContributors(id, makeMessage("relayData", JsonView.relayWrites writes relay))
     }
   }
+
+  def setFinishedAt(id: Relay.Id, v: Option[DateTime]) =
+    coll.updateField($id(id), "finishedAt", v).void
 
   def addLog(id: Relay.Id, event: SyncLog.Event): Funit =
     coll.update(
@@ -97,19 +103,18 @@ final class RelayApi(
         )
       )),
       upsert = true
-    ).void >>- {
-        event.error foreach { err => logger.info(s"$id $err") }
-        studyApi members Study.Id(id.value) foreach {
-          _.map(_.contributorIds).filter(_.nonEmpty) foreach { userIds =>
-            import lila.hub.actorApi.SendTos
-            import lila.socket.Socket.makeMessage
-            system.lilaBus.publish(SendTos(userIds, makeMessage(
-              "relayLog",
-              JsonView.syncLogEventWrites writes event
-            )), 'users)
-          }
-        }
+    ).void >>
+      sendToContributors(id, makeMessage("relayLog", JsonView.syncLogEventWrites writes event)) >>-
+      event.error.foreach { err => logger.info(s"$id $err") }
+
+  private def sendToContributors(id: Relay.Id, msg: JsObject): Funit =
+    studyApi members Study.Id(id.value) map {
+      _.map(_.contributorIds).filter(_.nonEmpty) foreach { userIds =>
+        import lila.hub.actorApi.SendTos
+        import lila.socket.Socket.makeMessage
+        system.lilaBus.publish(SendTos(userIds, msg), 'users)
       }
+    }
 
   private[relay] def getNbViewers(relay: Relay): Fu[Int] = {
     import makeTimeout.short
