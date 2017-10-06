@@ -25,10 +25,14 @@ class PasswordHasherTest extends Specification {
       aes.encrypt(iv, emptyArr(39)).size must_== 39
     }
 
-    val enc20 = aes.encrypt(iv, emptyArr(20))
-    "encrypt input" >> { enc20 !== emptyArr(20) }
-    "and decrypt" >> { aes.decrypt(iv, aes.encrypt(iv, emptyArr(20))).sum == 0 }
-    "constant encryption" >> { enc20 === aes.encrypt(iv, emptyArr(20)) }
+    val plaintext = (1 to 20).map(_.toByte).toArray
+    val encrypted = aes.encrypt(iv, plaintext)
+    "encrypt input" >> { encrypted !== plaintext }
+    "and decrypt" >> { aes.decrypt(iv, encrypted) === plaintext }
+    "constant encryption" >> { encrypted === aes.encrypt(iv, plaintext) }
+
+    val wrongIv = Aes.iv((1 to 16).map(_.toByte).toArray)
+    "iv matters" >> { aes.decrypt(wrongIv, encrypted) !== plaintext }
   }
 
   "hasher" should {
