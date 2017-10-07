@@ -25,11 +25,7 @@ export default class RelayCtrl {
     if (r) {
       c.relay = this.convertDate(r);
       if (!c.tags.find(t => t[0] === 'Result' && t[1] !== '*')) {
-        const delay = (Date.now() - r.lastMoveAt!) % 1000;
-        console.log(delay, r.lastMoveAt);
-        setTimeout(() => {
-          this.clockInterval = setInterval(this.redraw, 1000);
-        }, delay);
+        this.clockInterval = setInterval(this.redraw, 1000);
       }
     }
   }
