@@ -31,6 +31,7 @@ function logSuccess(e: LogEvent) {
 }
 
 function renderLog(ctrl: RelayCtrl) {
+  const dateFormatter = getDateFormatter();
   const logLines = ctrl.data.sync.log.slice(0).reverse().map(e => {
     const err = e.error && h('a', {
       attrs: {
@@ -83,12 +84,18 @@ function stateOff(ctrl: RelayCtrl) {
   ]);
 }
 
-const dateFormatter: (date: Date) => string =
-  (window.Intl && Intl.DateTimeFormat) ?
-  new Intl.DateTimeFormat(document.documentElement.lang, {
-    month: 'short',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-    second: 'numeric'
-  }).format : function(d) { return d.toLocaleString(); }
+let cachedDateFormatter: (date: Date) => string;
+
+function getDateFormatter(): (date: Date) => string {
+  if (!cachedDateFormatter)
+  cachedDateFormatter = (window.Intl && Intl.DateTimeFormat) ?
+    new Intl.DateTimeFormat(document.documentElement.lang, {
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric'
+    }).format : function(d) { return d.toLocaleString(); }
+
+    return cachedDateFormatter;
+}
