@@ -238,6 +238,7 @@ object mon {
       val bcFullMigrate = inc("user.auth.bc_full_migrate")
       val shaLogin = inc("user.auth.sha_login")
       val hashTime = rec("user.auth.hash_time")
+      val hashTimeInc = incX("user.auth.hash_time_inc")
       def result(v: Boolean) = inc(s"user.auth.result.$v")
 
       def passwordResetRequest(s: String) = inc(s"user.auth.password_reset_request.$s")
@@ -498,13 +499,13 @@ object mon {
     def pdf = inc("export.pdf.game")
   }
 
-  def measure[A](path: RecPath)(op: => A) = {
+  def measure[A](path: RecPath)(op: => A): A = {
     val start = System.nanoTime()
     val res = op
     path(this)(System.nanoTime() - start)
     res
   }
-  def measureIncMicros[A](path: IncXPath)(op: => A) = {
+  def measureIncMicros[A](path: IncXPath)(op: => A): A = {
     val start = System.nanoTime()
     val res = op
     path(this)(((System.nanoTime() - start) / 1000).toInt)

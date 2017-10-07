@@ -146,6 +146,6 @@ object PgnDump {
   )
 
   def result(game: Game) =
-    if (game.finished) game.winnerColor.fold("1/2-1/2")(_.fold("1-0", "0-1"))
+    if (game.finished) Color.showResult(game.winnerColor)
     else "*"
 }

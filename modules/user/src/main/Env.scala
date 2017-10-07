@@ -91,7 +91,11 @@ final class Env(
     passHasher = new PasswordHasher(
       secret = PasswordBPassSecret,
       logRounds = 10,
-      hashTimer = lila.mon.measure(_.user.auth.hashTime)
+      hashTimer = res => {
+        lila.mon.measure(_.user.auth.hashTime) {
+          lila.mon.measureIncMicros(_.user.auth.hashTimeInc)(res)
+        }
+      }
     ),
     userRepo = UserRepo,
     upgradeShaPasswords = PasswordUpgradeSha,
