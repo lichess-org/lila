@@ -59,9 +59,9 @@ object PgnImport {
               )
             )
             val end: Option[End] = {
-              (if (game.finished) game.status.some else result.map(_.status))
+              (if (game.finished) game.status else result.status).some
                 .filter(chess.Status.Aborted <=).map { status =>
-                  val winner = game.winnerColor orElse result.flatMap(_.winner)
+                  val winner = game.winnerColor orElse result.winner
                   End(
                     status = status,
                     winner = winner,

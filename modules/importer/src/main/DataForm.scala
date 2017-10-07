@@ -24,7 +24,7 @@ private[importer] case class Result(status: Status, winner: Option[Color])
 case class Preprocessed(
     game: Game,
     replay: Replay,
-    result: Option[Result],
+    result: Result,
     initialFen: Option[FEN],
     parsed: ParsedPgn
 )
@@ -63,13 +63,14 @@ case class ImportData(pgn: String, analyse: Option[String]) {
           case Some(_) => Status.UnknownFinish
         }
 
-        val result = parsed.tags(_.Result) ifFalse game.situation.end collect {
-          case "1-0" => Result(status, Color.White.some)
-          case "0-1" => Result(status, Color.Black.some)
-          case "*" => Result(Status.Started, none)
-          case "1/2-1/2" if status == Status.Outoftime => Result(status, none)
-          case "1/2-1/2" => Result(Status.Draw, none)
-        }
+        val result =
+          parsed.tags.resultColor
+            .ifFalse(game.situation.end)
+            .fold(Result(Status.Started, none)) {
+              case Some(color) => Result(status, color.some)
+              case None if status == Status.Outoftime => Result(status, none)
+              case None => Result(Status.Draw, none)
+            }
 
         val date = parsed.tags.anyDate
 
