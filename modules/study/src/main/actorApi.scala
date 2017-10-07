@@ -10,3 +10,4 @@ case class ExplorerGame(ch: Chapter.Id, path: String, gameId: String, insert: Bo
   def chapterId = ch
   val position = Position.Ref(chapterId, Path(path))
 }
+case class StudyLikes(studyId: Study.Id, likes: Study.Likes)

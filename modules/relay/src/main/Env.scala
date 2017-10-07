@@ -35,6 +35,13 @@ final class Env(
     sync = sync,
     api = api
   )))
+
+  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
+    import lila.study.actorApi._
+    def receive = {
+      case lila.study.actorApi.StudyLikes(id, likes) => api.setLikes(Relay.Id(id.value), likes)
+    }
+  })), 'studyLikes)
 }
 
 object Env {

@@ -11,6 +11,7 @@ case class Relay(
     description: String,
     sync: Relay.Sync,
     ownerId: User.ID,
+    likes: Study.Likes,
     startsAt: Option[DateTime],
     finishedAt: Option[DateTime],
     createdAt: DateTime
@@ -70,9 +71,11 @@ object Relay {
 
   case class WithStudy(relay: Relay, study: Study)
 
+  case class WithStudyAndLiked(relay: Relay, study: Study, liked: Boolean)
+
   case class Selection(
-      created: List[WithStudy],
-      started: List[WithStudy],
-      closed: List[WithStudy]
+      created: List[WithStudyAndLiked],
+      started: List[WithStudyAndLiked],
+      closed: List[WithStudyAndLiked]
   )
 }

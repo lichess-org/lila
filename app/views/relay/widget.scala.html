@@ -1,8 +1,13 @@
-@(r: lila.relay.Relay.WithStudy)(implicit ctx: Context)
+@(r: lila.relay.Relay.WithStudyAndLiked)(implicit ctx: Context)
 <a class="overlay" href="@routes.Relay.show(r.relay.slug, r.relay.id.value)"></a>
 <h2>
   <i class="icon" data-icon=""></i>
   <strong>@r.relay.name</strong>
+  <span>
+    <i data-icon="@if(r.liked){}else{}"></i> @r.relay.likes.value •
+    @usernameOrId(r.relay.ownerId) •
+    @momentFromNow(r.relay.startsAt | r.relay.createdAt)
+  </span>
 </h2>
 <div class="body">
   <p>@r.relay.description</p>

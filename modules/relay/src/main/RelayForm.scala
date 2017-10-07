@@ -65,6 +65,7 @@ object RelayForm {
       description = description,
       ownerId = user.id,
       sync = makeSync,
+      likes = lila.study.Study.Likes(1),
       createdAt = DateTime.now,
       finishedAt = none,
       startsAt = startsAt

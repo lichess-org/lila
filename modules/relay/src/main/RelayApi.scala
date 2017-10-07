@@ -17,6 +17,7 @@ final class RelayApi(
 ) {
 
   import BSONHandlers._
+  import lila.study.BSONHandlers.LikesBSONHandler
 
   def byId(id: Relay.Id) = coll.byId[Relay](id.value)
 
@@ -33,10 +34,10 @@ final class RelayApi(
       }
     }
 
-  def all: Fu[Relay.Selection] =
-    created.flatMap(withStudy) zip
-      started.flatMap(withStudy) zip
-      closed.flatMap(withStudy) map {
+  def all(me: Option[User]): Fu[Relay.Selection] =
+    created.flatMap(withStudyAndLiked(me)) zip
+      started.flatMap(withStudyAndLiked(me)) zip
+      closed.flatMap(withStudyAndLiked(me)) map {
         case c ~ s ~ t => Relay.Selection(c, s, t)
       }
 
@@ -54,6 +55,9 @@ final class RelayApi(
       }
     }
   }
+
+  def setLikes(id: Relay.Id, likes: lila.study.Study.Likes): Funit =
+    coll.updateField($id(id), "likes", likes).void
 
   def created = coll.find($doc(
     "startsAt" $gt DateTime.now
@@ -134,4 +138,14 @@ final class RelayApi(
         studies.find(_.id == relay.studyId) map { Relay.WithStudy(relay, _) }
       }
     }
+
+  private def withStudyAndLiked(me: Option[User])(relays: List[Relay]): Fu[List[Relay.WithStudyAndLiked]] =
+    studyApi byIds relays.map(_.studyId) flatMap studyApi.withLiked(me) map { s =>
+      relays.flatMap { relay =>
+        s.find(_.study.id == relay.studyId) map {
+          case Study.WithLiked(study, liked) => Relay.WithStudyAndLiked(relay, study, liked)
+        }
+      }
+    }
+
 }

@@ -5,6 +5,8 @@ import reactivemongo.bson._
 
 object BSONHandlers {
 
+  import lila.study.BSONHandlers.LikesBSONHandler
+
   implicit val relayIdHandler = stringAnyValHandler[Relay.Id](_.value, Relay.Id.apply)
 
   import Relay.Sync

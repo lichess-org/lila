@@ -451,6 +451,7 @@ body.dark div.user_show div.user-infos.scroll-shadow-hard {
 }
 body.dark div.game_row:hover,
 body.dark .studies .study:hover,
+body.dark .relays .relay:hover,
 body.dark .coaches .coach:hover {
   background: rgba(27, 51, 68, 0.5)!important;
 }

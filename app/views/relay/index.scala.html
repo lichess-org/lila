@@ -1,6 +1,6 @@
 @(sel: lila.relay.Relay.Selection)(implicit ctx: Context)
 
-@sublist(name: String, relays: List[lila.relay.Relay.WithStudy]) = {
+@sublist(name: String, relays: List[lila.relay.Relay.WithStudyAndLiked]) = {
 @if(relays.nonEmpty) {
 <section>
   <h2>@name</h2>

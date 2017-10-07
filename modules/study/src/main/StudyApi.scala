@@ -600,6 +600,7 @@ final class StudyApi(
   def like(studyId: Study.Id, userId: User.ID, v: Boolean, uid: Uid): Funit =
     studyRepo.like(studyId, userId, v) map { likes =>
       sendTo(studyId, Socket.SetLiking(Study.Liking(likes, v), uid))
+      bus.publish(actorApi.StudyLikes(studyId, likes), 'studyLikes)
       if (v) studyRepo byId studyId foreach {
         _ foreach { study =>
           if (userId != study.ownerId && study.isPublic)
@@ -614,6 +615,13 @@ final class StudyApi(
     chapterRepo.idNamesByStudyIds(studyIds)
 
   def chapterMetadatas = chapterRepo.orderedMetadataByStudy _
+
+  def withLiked(me: Option[User])(studies: Seq[Study]): Fu[Seq[Study.WithLiked]] =
+    me.?? { u => studyRepo.filterLiked(u, studies.map(_.id)) } map { liked =>
+      studies.map { study =>
+        Study.WithLiked(study, liked(study.id))
+      }
+    }
 
   private def sendStudyEnters(study: Study, userId: User.ID) = bus.publish(
     lila.hub.actorApi.study.StudyDoor(

@@ -305,7 +305,7 @@ object BSONHandlers {
   }
 
   import Study.Likes
-  private[study] implicit val LikesBSONHandler = intAnyValHandler[Likes](_.value, Likes.apply)
+  implicit val LikesBSONHandler = intAnyValHandler[Likes](_.value, Likes.apply)
   import Study.Rank
   private[study] implicit val RankBSONHandler = dateIsoHandler[Rank](Iso[DateTime, Rank](Rank.apply, _.value))
 

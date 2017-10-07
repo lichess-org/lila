@@ -13,7 +13,7 @@ object Relay extends LilaController {
   private val env = Env.relay
 
   def index = Open { implicit ctx =>
-    env.api.all map { sel =>
+    env.api.all(ctx.me) map { sel =>
       Ok(html.relay.index(sel))
     }
   }

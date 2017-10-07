@@ -147,6 +147,8 @@ object Study {
 
   case class WithChaptersAndLiked(study: Study, chapters: Seq[Chapter.Name], liked: Boolean)
 
+  case class WithLiked(study: Study, liked: Boolean)
+
   case class LightStudy(isPublic: Boolean, contributors: Set[User.ID])
 
   val idSize = 8
