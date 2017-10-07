@@ -5,6 +5,21 @@
 .relay_form textarea.description {
   height: 10em;
 }
+.relays .top {
+  display: flex;
+  align-items: center;
+}
+.relays .top h1 {
+  flex: 1 1 100%;
+}
+.relays .top .new_relay {
+  white-space: nowrap;
+  margin-right: 10px;
+}
+.relays .top .new_relay .button i::before {
+  color: #759900;
+  font-size: 40px;
+}
 .relays .list {
   display: flex;
   flex-flow: row wrap;
@@ -16,6 +31,14 @@
 }
 .relays .norelays p {
   opacity: 0.6;
+}
+.relays section > h2 {
+  font-size: 1.4em;
+  text-transform: uppercase;
+  text-align: center;
+  font-family: Roboto;
+  line-height: 2em;
+  letter-spacing: 0.1em;
 }
 .relays .relay {
   flex: 0 0 50%;

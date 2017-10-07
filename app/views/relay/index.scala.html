@@ -21,6 +21,9 @@ moreCss = cssTag("relay-list.css")) {
 <div class="content_box no_padding relays">
   <div class="top">
     <h1>Live tournament broadcasts</h1>
+    @if(isGranted(_.Beta)) {
+    @newForm()
+    }
   </div>
   @sublist("Ongoing", sel.started)
   @sublist("Upcoming", sel.created)
