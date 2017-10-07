@@ -11,7 +11,7 @@ export default function(ctrl: RelayCtrl): VNode | undefined {
       'Broadcast source',
       ctrl.members.isOwner() ? h('a', {
         attrs: {
-          href: `/relay/${d.slug}/${d.id}/edit`,
+          href: `/broadcast/${d.slug}/${d.id}/edit`,
           'data-icon': '%'
         }
       }) : null
