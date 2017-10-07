@@ -39,7 +39,14 @@ object DataForm {
   case class TopicData(
       name: String,
       post: PostData
-  )
+  ) {
+
+    def looksLikeVenting = List(name, post.text) exists { txt =>
+      ventingPattern.matcher(txt).find
+    }
+  }
+
+  private val ventingPattern = """cheat|engine|rating""".r.pattern
 
   case class PostEdit(changes: String)
 }

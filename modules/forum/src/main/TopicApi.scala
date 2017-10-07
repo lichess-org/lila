@@ -49,7 +49,7 @@ private[forum] final class TopicApi(
           slug = slug,
           name = data.name,
           troll = ctx.troll,
-          hidden = categ.quiet
+          hidden = categ.quiet || data.looksLikeVenting
         )
         val post = Post.make(
           topicId = topic.id,
