@@ -26,13 +26,15 @@ export default class RelayCtrl {
       c.relay = this.convertDate(r);
       if (!c.tags.find(t => t[0] === 'Result' && t[1] !== '*')) {
         const delay = (Date.now() - r.lastMoveAt!) % 1000;
-        console.log(delay);
-        setTimeout(() => setInterval(this.redraw, 1000), delay);
+        console.log(delay, r.lastMoveAt);
+        setTimeout(() => {
+          this.clockInterval = setInterval(this.redraw, 1000);
+        }, delay);
       }
     }
   }
 
-  convertDate = (r: StudyChapterRelay): StudyChapterRelay => {
+  private convertDate = (r: StudyChapterRelay): StudyChapterRelay => {
     if (typeof r.secondsSinceLastMove !== 'undefined' && !r.lastMoveAt) {
       r.lastMoveAt = Date.now() - r.secondsSinceLastMove * 1000;
     }
@@ -49,7 +51,7 @@ export default class RelayCtrl {
       this.data.sync.log.push(event);
       this.data.sync.log = this.data.sync.log.slice(-20);
       this.cooldown = true;
-      setTimeout(() => { this.cooldown = false; this.redraw(); }, 3000);
+      setTimeout(() => { this.cooldown = false; this.redraw(); }, 4500);
       this.redraw();
       if (event.error) console.warn(`relay synchronisation error: ${event.error}`);
     }

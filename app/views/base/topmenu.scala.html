@@ -25,6 +25,9 @@
     <div>
       <a href="@routes.Tv.index">Lichess TV</a>
       <a href="@routes.Tv.games">@trans.currentGames()</a>
+      @if(isGranted(_.Beta)) {
+      <a href="@routes.Relay.index">Broadcasts</a>
+      }
       <a href="@routes.Video.index">@trans.videoLibrary()</a>
     </div>
   </section>

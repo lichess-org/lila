@@ -65,11 +65,11 @@ private final class RelayFetch(
             case Some(delay) => fuccess(delay)
             case None => api.getNbViewers(r) map {
               case 0 => 30
-              case nb => (11 - nb / 2) atLeast 2
+              case nb => (16 - nb) atLeast 5
             }
           }) map { seconds =>
             sync.copy(nextAt = DateTime.now plusSeconds {
-              seconds atLeast { if (sync.log.isOk) 2 else 5 }
+              seconds atLeast { if (sync.log.isOk) 5 else 10 }
             } some)
           }
       } flatMap { api.setSync(r.id, _) }

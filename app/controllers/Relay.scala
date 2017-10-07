@@ -18,13 +18,13 @@ object Relay extends LilaController {
     }
   }
 
-  def form = Auth { implicit ctx => me =>
+  def form = Secure(_.Beta) { implicit ctx => me =>
     NoLame {
       Ok(html.relay.create(env.forms.create)).fuccess
     }
   }
 
-  def create = AuthBody { implicit ctx => implicit me =>
+  def create = SecureBody(_.Beta) { implicit ctx => me =>
     implicit val req = ctx.body
     env.forms.create.bindFromRequest.fold(
       err => BadRequest(html.relay.create(err)).fuccess,
@@ -34,13 +34,13 @@ object Relay extends LilaController {
     )
   }
 
-  def edit(slug: String, id: String) = Auth { implicit ctx => implicit me =>
+  def edit(slug: String, id: String) = Auth { implicit ctx => me =>
     OptionFuResult(env.api.byIdAndOwner(RelayModel.Id(id), me)) { relay =>
       Ok(html.relay.edit(relay, env.forms.edit(relay))).fuccess
     }
   }
 
-  def update(slug: String, id: String) = AuthBody { implicit ctx => implicit me =>
+  def update(slug: String, id: String) = AuthBody { implicit ctx => me =>
     OptionFuResult(env.api.byIdAndOwner(RelayModel.Id(id), me)) { relay =>
       implicit val req = ctx.body
       env.forms.edit(relay).bindFromRequest.fold(

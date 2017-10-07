@@ -1,18 +1,17 @@
 @(sel: lila.relay.Relay.Selection)(implicit ctx: Context)
 
-@sublist(relays: List[lila.relay.Relay.WithStudy]) = {
-@if(relays.isEmpty) {
-<div class="norelays">
-  <p>None yet.</p>
-</div>
-} else {
-<div class="list">
-  @relays.map { r =>
-  <div class="relay">
-    @widget(r)
+@sublist(name: String, relays: List[lila.relay.Relay.WithStudy]) = {
+@if(relays.nonEmpty) {
+<section>
+  <h2>@name</h2>
+  <div class="list">
+    @relays.map { r =>
+    <div class="relay">
+      @widget(r)
+    </div>
+    }
   </div>
-  }
-</div>
+</section>
 }
 }
 
@@ -23,17 +22,8 @@ moreCss = cssTag("relay-list.css")) {
   <div class="top">
     <h1>Live tournament broadcasts</h1>
   </div>
-  <section>
-    <h2>Ongoing</h2>
-    @sublist(sel.started)
-  </section>
-  <section>
-    <h2>Upcoming</h2>
-    @sublist(sel.created)
-  </section>
-  <section>
-    <h2>Completed</h2>
-    @sublist(sel.closed)
-  </section>
+  @sublist("Ongoing", sel.started)
+  @sublist("Upcoming", sel.created)
+  @sublist("Completed", sel.closed)
 </div>
 }
