@@ -122,7 +122,11 @@ private final class RelaySync(
         ownerId = study.ownerId,
         practice = false,
         gamebook = false,
-        conceal = none
+        conceal = none,
+        relay = Chapter.Relay(
+          path = game.root.mainlinePath,
+          lastMoveAt = DateTime.now.some
+        ).some
       )
       studyApi.doAddChapter(study, chapter, sticky = false, uid = socketUid) inject chapter
     }

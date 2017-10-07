@@ -224,6 +224,8 @@ object Node {
         case (node, _) => node.ply
       }
     }
+
+    def mainlinePath = Path(mainline.map(_.id))
   }
 
   object Root {

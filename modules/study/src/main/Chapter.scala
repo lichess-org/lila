@@ -140,7 +140,7 @@ object Chapter {
 
   def makeId = Id(scala.util.Random.alphanumeric take idSize mkString)
 
-  def make(studyId: Study.Id, name: Name, setup: Setup, root: Node.Root, tags: Tags, order: Int, ownerId: User.ID, practice: Boolean, gamebook: Boolean, conceal: Option[Ply]) = Chapter(
+  def make(studyId: Study.Id, name: Name, setup: Setup, root: Node.Root, tags: Tags, order: Int, ownerId: User.ID, practice: Boolean, gamebook: Boolean, conceal: Option[Ply], relay: Option[Relay] = None) = Chapter(
     _id = makeId,
     studyId = studyId,
     name = fixName(name),
@@ -152,6 +152,7 @@ object Chapter {
     practice = practice option true,
     gamebook = gamebook option true,
     conceal = conceal,
+    relay = relay,
     createdAt = DateTime.now
   )
 }
