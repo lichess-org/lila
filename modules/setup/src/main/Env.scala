@@ -3,7 +3,6 @@ package lila.setup
 import akka.actor._
 import com.typesafe.config.{ Config => AppConfig }
 
-import lila.common.PimpedConfig._
 import lila.user.UserContext
 
 final class Env(

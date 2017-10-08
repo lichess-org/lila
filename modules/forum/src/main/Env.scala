@@ -4,7 +4,7 @@ import akka.actor._
 import com.typesafe.config.Config
 
 import lila.common.DetectLanguage
-import lila.common.PimpedConfig._
+
 import lila.hub.actorApi.team.CreateTeam
 import lila.mod.ModlogApi
 import lila.notify.NotifyApi

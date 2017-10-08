@@ -5,7 +5,7 @@ import scala.util.Try
 
 import akka.actor._
 
-import lila.common.LilaException
+import lila.base.LilaException
 
 trait SequentialActor extends Actor {
 

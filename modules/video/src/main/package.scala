@@ -1,6 +1,6 @@
 package lila
 
-package object video extends PackageObject with WithPlay {
+package object video extends PackageObject {
 
   type Target = Int
   type Tag = String

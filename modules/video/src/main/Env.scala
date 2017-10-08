@@ -2,8 +2,6 @@ package lila.video
 
 import com.typesafe.config.Config
 
-import lila.common.PimpedConfig._
-
 final class Env(
     config: Config,
     scheduler: lila.common.Scheduler,

@@ -6,7 +6,7 @@ import play.api.libs.ws.{ WS, WSResponse }
 import play.api.Play.current
 import scala.concurrent.duration._
 
-import lila.common.LilaException
+import lila.base.LilaException
 
 private final class RelayFetch(
     sync: RelaySync,

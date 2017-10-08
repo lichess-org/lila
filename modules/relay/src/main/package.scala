@@ -1,6 +1,6 @@
 package lila
 
-package object relay extends PackageObject with WithPlay {
+package object relay extends PackageObject {
 
   private[relay] val logger = lila.log("relay")
 

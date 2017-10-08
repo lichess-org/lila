@@ -3,8 +3,6 @@ package lila.security
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
-import lila.common.PimpedConfig._
-
 final class Env(
     config: Config,
     captcher: akka.actor.ActorSelection,

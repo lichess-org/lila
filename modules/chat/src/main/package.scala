@@ -1,6 +1,6 @@
 package lila
 
-package object chat extends PackageObject with WithPlay {
+package object chat extends PackageObject {
 
   private[chat] val systemUserId = "lichess"
 }

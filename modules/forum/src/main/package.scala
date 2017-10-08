@@ -1,6 +1,6 @@
 package lila
 
-package object forum extends PackageObject with WithPlay {
+package object forum extends PackageObject {
 
   private[forum] def teamSlug(id: String) = s"team-$id"
 
