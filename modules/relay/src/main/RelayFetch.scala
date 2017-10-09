@@ -66,10 +66,7 @@ private final class RelayFetch(
         case (_, _, SyncResult.Error(_)) => continueRelay(r)
         case _ => fuccess(r.withSync(_.stop))
       }) flatMap { newRelay =>
-        (newRelay != r) ?? {
-          if (newRelay.sync.until != r.sync.until) api.publishRelay(newRelay)
-          api update newRelay
-        }
+        (newRelay != r) ?? api.update(newRelay, from = r.some)
       }
     }
   }

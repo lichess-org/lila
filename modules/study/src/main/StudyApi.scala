@@ -178,13 +178,14 @@ final class StudyApi(
     }
   }
 
-  def addNode(userId: User.ID, studyId: Study.Id, position: Position.Ref, node: Node, uid: Uid, opts: MoveOpts) = sequenceStudyWithChapter(studyId, position.chapterId) {
-    case Study.WithChapter(study, chapter) => Contribute(userId, study) {
-      doAddNode(userId, study, Position(chapter, position.path), node, uid, opts, none).void
+  def addNode(userId: User.ID, studyId: Study.Id, position: Position.Ref, node: Node, uid: Uid, opts: MoveOpts, relay: Option[Chapter.Relay] = None) =
+    sequenceStudyWithChapter(studyId, position.chapterId) {
+      case Study.WithChapter(study, chapter) => Contribute(userId, study) {
+        doAddNode(userId, study, Position(chapter, position.path), node, uid, opts, relay).void
+      }
     }
-  }
 
-  def doAddNode(userId: User.ID, study: Study, position: Position, rawNode: Node, uid: Uid, opts: MoveOpts, relay: Option[Chapter.Relay]): Fu[Option[Position]] = {
+  private def doAddNode(userId: User.ID, study: Study, position: Position, rawNode: Node, uid: Uid, opts: MoveOpts, relay: Option[Chapter.Relay]): Funit = {
     val node = rawNode.withoutChildren
     position.chapter.addNode(node, position.path, relay) match {
       case None =>
@@ -208,7 +209,7 @@ final class StudyApi(
               sendStudyEnters(study, userId)
               if (opts.promoteToMainline && !Path.isMainline(chapter.root, newPosition.path))
                 promote(userId, study.id, position.ref + node, toMainline = true, uid)
-            } inject Position(chapter, position.path + node).some
+            }
         }
     }
   }

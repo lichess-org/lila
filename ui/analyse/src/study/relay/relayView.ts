@@ -9,10 +9,10 @@ export default function(ctrl: RelayCtrl): VNode | undefined {
   if (ctrl.members.canContribute()) return h('div.relay_wrap', [
     h('h2', [
       h('span.text', { attrs: dataIcon('') }, [
-        h('a', { 
-          attrs: { href: d.sync.url, _target: 'blank' } 
+        h('a', {
+          attrs: { href: d.sync.url, _target: 'blank' }
         }, d.finishedAt ?
-        'Broadcoast finished ' + getDateFormatter()(new Date(d.finishedAt)) :
+        'Finished ' + getDateFormatter()(new Date(d.finishedAt)) :
         d.sync.url.replace(/https?:\/\//, ''))
       ]),
       ctrl.members.isOwner() ? h('a', {

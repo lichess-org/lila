@@ -64,19 +64,19 @@ private final class RelaySync(
       ) inject 0
       case (path, None) => fuccess(0) // no new nodes were found
       case (path, Some(node)) => // append new nodes to the chapter
-        lila.common.Future.fold(node.mainline)(Position(chapter, path)) {
-          case (position, n) => studyApi.doAddNode(
-            userId = position.chapter.ownerId,
-            study = study,
+        lila.common.Future.fold(node.mainline)(Position(chapter, path).ref) {
+          case (position, n) => studyApi.addNode(
+            userId = chapter.ownerId,
+            studyId = study.id,
             position = position,
-            rawNode = n,
+            node = n,
             uid = socketUid,
             opts = moveOpts.copy(clock = n.clock),
             relay = Chapter.Relay(
               path = position.path + n,
               lastMoveAt = DateTime.now
             ).some
-          ) flatten s"Can't add relay node $position $node"
+          ) inject position + n
         } inject node.mainline.size
     }
   }

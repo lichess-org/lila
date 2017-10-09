@@ -74,8 +74,10 @@ final class RelayApi(
       ), user) inject relay
   }
 
-  def update(relay: Relay): Funit =
-    coll.update($id(relay.id), relay).void
+  def update(relay: Relay, from: Option[Relay] = None): Funit =
+    coll.update($id(relay.id), relay).void >> from.?? { old =>
+      (old.finishedAt != relay.finishedAt || relay.sync.until != old.sync.until) ?? publishRelay(relay)
+    }
 
   def setSync(id: Relay.Id, user: User, v: Boolean): Funit = byId(id) flatMap {
     _ ?? { r =>
@@ -83,12 +85,6 @@ final class RelayApi(
       coll.update($id(relay.id.value), relay).void >> publishRelay(relay)
     }
   }
-
-  def setFinished(id: Relay.Id) =
-    coll.update(
-      $id(id),
-      $set("finishedAt" -> DateTime.now) ++ $unset("sync.until")
-    ).void >> publishRelay(id)
 
   def unFinish(id: Relay.Id) =
     coll.unsetField($id(id), "finishedAt").void >> publishRelay(id)
