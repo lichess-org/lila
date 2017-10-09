@@ -10,8 +10,8 @@ export default function(ctrl: RelayCtrl): VNode | undefined {
     h('h2', [
       iconTag(''),
       d.finishedAt ?
-        'Broadcoast finished ' + getDateFormatter()(new Date(d.finishedAt)) :
-         d.sync.url,
+      'Broadcoast finished ' + getDateFormatter()(new Date(d.finishedAt)) :
+      h('a', { attrs: { href: d.sync.url, _target: 'blank' } }, d.sync.url.replace(/https?:\/\//, '')),
       ctrl.members.isOwner() ? h('a', {
         attrs: {
           href: `/broadcast/${d.slug}/${d.id}/edit`,
