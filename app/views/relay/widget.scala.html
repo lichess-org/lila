@@ -1,17 +1,18 @@
 @(r: lila.relay.Relay.WithStudyAndLiked)(implicit ctx: Context)
-<a class="overlay" href="@routes.Relay.show(r.relay.slug, r.relay.id.value)"></a>
 <h2>
   <i class="icon" data-icon=""></i>
   <strong>@r.relay.name</strong>
-  <span>
-    <i data-icon="@if(r.liked){}else{}"></i> @r.relay.likes.value •
-    @usernameOrId(r.relay.ownerId) •
-    @momentFromNow(r.relay.startsAt | r.relay.createdAt)
-  </span>
+  <span>@r.relay.description</span>
 </h2>
 <div class="body">
-  <p>@r.relay.description</p>
-  @r.relay.startsAt.map { startsAt =>
-  @momentFromNow(startsAt)
+  <bit><i data-icon="@if(r.liked){}else{}"></i>&nbsp;@r.relay.likes.value •</bit>
+  <bit>@trans.by(usernameOrId(r.relay.ownerId))</bit>
+  <bit>@momentFromNow(r.relay.startsAt | r.relay.createdAt)</bit>
+  @*
+  @defining(r.relay.topPlayers(3)) { players =>
+  @if(players.nonEmpty) {
+  <bit>@players.map(_.fullName).mkString(", ")</bit>
   }
+  }*@
+  <
 </div>
