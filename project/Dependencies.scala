@@ -23,13 +23,12 @@ object Dependencies {
   }
 
   val scalaz = "org.scalaz" %% "scalaz-core" % "7.2.15"
-  val scalalib = "com.github.ornicar" %% "scalalib" % "6.4"
+  val scalalib = "com.github.ornicar" %% "scalalib" % "6.5"
   val typesafeConfig = "com.typesafe" % "config" % "1.3.1"
   val findbugs = "com.google.code.findbugs" % "jsr305" % "3.0.1"
   val hasher = "com.roundeights" %% "hasher" % "1.2.0"
   val jodaTime = "joda-time" % "joda-time" % "2.9.9"
-
-  val chess = "org.lichess" %% "scalachess" % "6.18"
+  val chess = "org.lichess" %% "scalachess" % "6.19"
   val maxmind = "com.sanoma.cda" %% "maxmind-geoip2-scala" % "1.2.3-THIB"
   val prismic = "io.prismic" %% "scala-kit" % "1.2.11-THIB"
   val java8compat = "org.scala-lang.modules" %% "scala-java8-compat" % "0.8.0"
