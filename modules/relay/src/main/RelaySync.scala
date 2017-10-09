@@ -84,7 +84,7 @@ private final class RelaySync(
   private def updateChapterTags(study: Study, chapter: Chapter, game: RelayGame): Funit = {
     val gameTags = game.tags.value.foldLeft(Tags(Nil)) {
       case (newTags, tag) =>
-        if (!chapter.tags(_ => tag.name).has(tag.value)) newTags + tag
+        if (!chapter.tags.value.exists(equalTags(tag))) newTags + tag
         else newTags
     }
     val tags = game.end
@@ -102,6 +102,14 @@ private final class RelaySync(
       )
     }.void
   }
+
+  private def equalTags(t1: Tag)(t2: Tag): Boolean =
+    (t1.name == t2.name) && {
+      t1.value == t2.value || {
+        t1.name == Tag.Result && normalizeDrawNotation(t1) == normalizeDrawNotation(t2)
+      }
+    }
+  private def normalizeDrawNotation(t: Tag): String = t.value.replace("1/2", "½")
 
   private def createChapter(study: Study, game: RelayGame): Fu[Chapter] =
     chapterRepo.nextOrderByStudy(study.id) flatMap { order =>

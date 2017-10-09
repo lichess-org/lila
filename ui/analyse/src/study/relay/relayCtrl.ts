@@ -55,7 +55,7 @@ export default class RelayCtrl {
 
   socketHandler = (t: string, d: any) => {
     const handler = this.socketHandlers[t];
-    if (handler) {
+    if (handler && d.id === this.data.id) {
       handler(d);
       return true;
     }
