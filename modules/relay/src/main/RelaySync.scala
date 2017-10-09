@@ -43,10 +43,10 @@ private final class RelaySync(
           case None => parentPath -> gameNode.some
           case Some(existing) =>
             gameNode.clock.filter(c => !existing.clock.has(c)) ?? { c =>
-              studyApi.doSetClock(
+              studyApi.setClock(
                 userId = chapter.ownerId,
-                study = study,
-                position = Position(chapter, path),
+                studyId = study.id,
+                position = Position(chapter, path).ref,
                 clock = c.some,
                 uid = socketUid
               )
