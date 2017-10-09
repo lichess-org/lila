@@ -4,8 +4,6 @@ import akka.actor._
 import com.typesafe.config.Config
 import play.api.libs.concurrent.Akka.system
 
-import lila.common.PimpedConfig._
-
 final class Env(
     config: Config,
     hub: lila.hub.Env,

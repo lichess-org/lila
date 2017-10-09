@@ -1,3 +1,3 @@
 package lila
 
-package object shutup extends PackageObject with WithPlay
+package object shutup extends PackageObject

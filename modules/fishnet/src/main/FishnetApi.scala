@@ -171,7 +171,7 @@ final class FishnetApi(
 
 object FishnetApi {
 
-  import lila.common.LilaException
+  import lila.base.LilaException
 
   case object WeakAnalysis extends LilaException {
     val message = "Analysis nodes per move is too low"

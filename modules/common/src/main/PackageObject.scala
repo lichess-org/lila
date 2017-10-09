@@ -6,7 +6,7 @@ import scala.concurrent.Future
 import ornicar.scalalib
 import scalaz.{ Monad, Monoid, OptionT, ~> }
 
-trait PackageObject extends Steroids with WithFuture {
+trait PackageObject extends Lilaisms with WithFuture {
 
   // case object Key(value: String) extends AnyVal with StringValue
   trait StringValue extends Any {
@@ -86,21 +86,6 @@ trait PackageObject extends Steroids with WithFuture {
 
   def doubleBox(in: Range.Inclusive)(v: Double): Double =
     math.max(in.start, math.min(v, in.end))
-}
-
-trait WithFuture extends scalalib.Validation {
-
-  type Fu[+A] = Future[A]
-  type Funit = Fu[Unit]
-
-  def fuccess[A](a: A) = Future successful a
-  def fufail[A <: Throwable, B](a: A): Fu[B] = Future failed a
-  def fufail[A](a: String): Fu[A] = fufail(common.LilaException(a))
-  def fufail[A](a: Failures): Fu[A] = fufail(common.LilaException(a))
-  val funit = fuccess(())
-}
-
-trait WithPlay { self: PackageObject =>
 
   import play.api.libs.json._
   import scalalib.Zero
@@ -134,13 +119,15 @@ trait WithPlay { self: PackageObject =>
       Future sequence t
   }
 
+  implicit def toPimpedConfig(c: com.typesafe.config.Config) = new common.LilaPimpedConfig(c)
+
   implicit def LilaPimpedFuture[A](fua: Fu[A]): PimpedFuture.LilaPimpedFuture[A] =
     new PimpedFuture.LilaPimpedFuture(fua)
 
   implicit final class LilaPimpedFutureZero[A: Zero](fua: Fu[A]) {
 
     def nevermind: Fu[A] = fua recover {
-      case e: lila.common.LilaException => zero[A]
+      case e: lila.base.LilaException => zero[A]
       case e: java.util.concurrent.TimeoutException => zero[A]
       case e: Exception =>
         lila.log("common").warn("Future.nevermind", e)
@@ -218,4 +205,16 @@ trait WithPlay { self: PackageObject =>
     def seconds(s: Int): Timeout = Timeout(s.seconds)
     def minutes(m: Int): Timeout = Timeout(m.minutes)
   }
+}
+
+trait WithFuture extends scalalib.Validation {
+
+  type Fu[+A] = Future[A]
+  type Funit = Fu[Unit]
+
+  def fuccess[A](a: A) = Future successful a
+  def fufail[A <: Throwable, B](a: A): Fu[B] = Future failed a
+  def fufail[A](a: String): Fu[A] = fufail(base.LilaException(a))
+  def fufail[A](a: Failures): Fu[A] = fufail(base.LilaException(a))
+  val funit = fuccess(())
 }

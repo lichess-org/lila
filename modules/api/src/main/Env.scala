@@ -2,7 +2,7 @@ package lila.api
 
 import akka.actor._
 import com.typesafe.config.Config
-import lila.common.PimpedConfig._
+
 import lila.simul.Simul
 
 final class Env(

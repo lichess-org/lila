@@ -1,6 +1,6 @@
 package lila
 
-package object puzzle extends PackageObject with WithPlay {
+package object puzzle extends PackageObject {
 
   type PuzzleId = Int
   type RoundId = Int

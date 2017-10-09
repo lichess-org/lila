@@ -3,7 +3,8 @@ package lila.relay
 import org.joda.time.DateTime
 
 import chess.format.pgn.{ Tag, Tags }
-import lila.common.{ LilaException, Chronometer }
+import lila.base.LilaException
+import lila.common.Chronometer
 import lila.socket.Socket.Uid
 import lila.study._
 

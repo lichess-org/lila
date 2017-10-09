@@ -4,7 +4,6 @@ import akka.actor._
 import com.typesafe.config.Config
 
 import lila.common.EmailAddress
-import lila.common.PimpedConfig._
 
 final class Env(
     config: Config,

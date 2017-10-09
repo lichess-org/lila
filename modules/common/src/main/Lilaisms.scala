@@ -5,7 +5,7 @@ import ornicar.scalalib
 import ornicar.scalalib.Zero
 import scala.util.Try
 
-trait Steroids
+trait Lilaisms
 
   extends scalalib.Validation
   with scalalib.Common

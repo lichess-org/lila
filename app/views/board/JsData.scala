@@ -8,7 +8,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.i18n.I18nKeys
 
-object JsData extends lila.Steroids {
+object JsData extends lila.Lilaisms {
 
   def apply(
     sit: chess.Situation,

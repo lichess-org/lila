@@ -1,6 +1,6 @@
 package lila
 
-package object analyse extends PackageObject with WithPlay {
+package object analyse extends PackageObject {
 
   type InfoAdvices = List[(Info, Option[Advice])]
 

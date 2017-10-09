@@ -72,7 +72,7 @@ private object AnalysisBuilder {
       case ((_, _), index) => Info(index + 1 + startedAtPly, Eval.empty)
     }
 
-  case class GameIsGone(id: String) extends lila.common.LilaException {
+  case class GameIsGone(id: String) extends lila.base.LilaException {
     val message = s"Analysis $id game is gone?!"
   }
 }

@@ -82,7 +82,7 @@ object PimpedFuture {
     }
 
     def prefixFailure(p: => String) = mapFailure { e =>
-      common.LilaException(s"$p ${e.getMessage}")
+      base.LilaException(s"$p ${e.getMessage}")
     }
 
     def thenPp: Fu[A] = {

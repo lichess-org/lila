@@ -1,6 +1,6 @@
 package lila
 
-package object search extends PackageObject with WithPlay {
+package object search extends PackageObject {
 
   object Date {
     import org.joda.time.format.{ DateTimeFormat, DateTimeFormatter }

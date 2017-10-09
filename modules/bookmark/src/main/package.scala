@@ -1,3 +1,3 @@
 package lila
 
-package object bookmark extends PackageObject with WithPlay
+package object bookmark extends PackageObject
