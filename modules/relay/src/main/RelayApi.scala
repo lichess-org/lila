@@ -46,16 +46,6 @@ final class RelayApi(
     "sync.nextAt" $lt DateTime.now
   )).list[Relay]()
 
-  def setSync(id: Relay.Id, sync: Relay.Sync) = byId(id) flatMap {
-    _ ?? { r =>
-      val relay = r.copy(sync = sync)
-      coll.update($id(id), relay) >> {
-        (r.sync.until != relay.sync.until) ??
-          sendToContributors(id, makeMessage("relayData", JsonView.relayWrites writes relay))
-      }
-    }
-  }
-
   def setLikes(id: Relay.Id, likes: lila.study.Study.Likes): Funit =
     coll.updateField($id(id), "likes", likes).void
 
@@ -90,13 +80,18 @@ final class RelayApi(
 
   def setSync(id: Relay.Id, user: User, v: Boolean): Funit = byId(id) flatMap {
     _.map(_ setSync v) ?? { relay =>
-      coll.update($id(relay.id.value), relay).void >>
-        sendToContributors(id, makeMessage("relayData", JsonView.relayWrites writes relay))
+      coll.update($id(relay.id.value), relay).void >> publishRelay(relay)
     }
   }
 
-  def setFinishedAt(id: Relay.Id, v: Option[DateTime]) =
-    coll.updateField($id(id), "finishedAt", v).void
+  def setFinished(id: Relay.Id) =
+    coll.update(
+      $id(id),
+      $set("finishedAt" -> DateTime.now) ++ $unset("sync.until")
+    ).void >> publishRelay(id)
+
+  def unFinish(id: Relay.Id) =
+    coll.unsetField($id(id), "finishedAt").void >> publishRelay(id)
 
   def addLog(id: Relay.Id, event: SyncLog.Event): Funit =
     coll.update(
@@ -111,6 +106,12 @@ final class RelayApi(
     ).void >>
       sendToContributors(id, makeMessage("relayLog", JsonView.syncLogEventWrites writes event)) >>-
       event.error.foreach { err => logger.info(s"$id $err") }
+
+  private[relay] def publishRelay(relay: Relay): Funit =
+    sendToContributors(relay.id, makeMessage("relayData", JsonView.relayWrites writes relay))
+
+  private def publishRelay(relayId: Relay.Id): Funit =
+    byId(relayId) flatMap { _ ?? publishRelay }
 
   private def sendToContributors(id: Relay.Id, msg: JsObject): Funit =
     studyApi members Study.Id(id.value) map {

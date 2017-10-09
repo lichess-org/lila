@@ -1,5 +1,6 @@
 package lila.study
 
+import chess.format.pgn.Tags
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
 
@@ -41,6 +42,15 @@ final class ChapterRepo(coll: Coll) {
       .sort($sort asc "order")
       .cursor[Chapter](readPreference = ReadPreference.secondaryPreferred)
       .gather[List](maxChapters)
+
+  def relaysAndTagsByStudyId(studyId: Study.Id): Fu[List[(Chapter.Relay, Tags)]] =
+    coll.find($doc("studyId" -> studyId), $doc("relay" -> true, "tags" -> true)).list[Bdoc]() map { docs =>
+      for {
+        doc <- docs
+        relay <- doc.getAs[Chapter.Relay]("relay")
+        tags <- doc.getAs[Tags]("tags")
+      } yield (relay, tags)
+    }
 
   def sort(study: Study, ids: List[Chapter.Id]): Funit = ids.zipWithIndex.map {
     case (id, index) =>

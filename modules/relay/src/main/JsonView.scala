@@ -21,7 +21,8 @@ object JsonView {
       "name" -> r.name,
       "description" -> r.description,
       "ownerId" -> r.ownerId,
-      "sync" -> r.sync
+      "sync" -> r.sync,
+      "finishedAt" -> r.finishedAt
     )
   }
 

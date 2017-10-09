@@ -179,7 +179,9 @@ object JsonView {
   private[study] implicit val likingRefWrites: Writes[Study.Liking] = Json.writes[Study.Liking]
 
   implicit val relayWrites = OWrites[Chapter.Relay] { r =>
-    Json.obj("path" -> r.path)
-      .add("secondsSinceLastMove", r.secondsSinceLastMove)
+    Json.obj(
+      "path" -> r.path,
+      "secondsSinceLastMove" -> r.secondsSinceLastMove
+    )
   }
 }

@@ -13,7 +13,8 @@ case class RelayGame(
 
   lazy val id = RelayGame.makeId(whiteName.value, blackName.value, tags(_.Event))
 
-  def is(c: Chapter) = id == RelayGame.makeId(~c.tags(_.White), ~c.tags(_.Black), c.tags(_.Event))
+  def is(c: Chapter): Boolean = is(c.tags)
+  def is(tags: Tags): Boolean = id == RelayGame.makeId(~tags(_.White), ~tags(_.Black), tags(_.Event))
 
   def finished = end.isDefined
 

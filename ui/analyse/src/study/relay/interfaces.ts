@@ -2,6 +2,7 @@ export interface RelayData {
   sync: RelaySync;
   id: string;
   slug: string;
+  finishedAt?: number;
 }
 
 export interface RelaySync {

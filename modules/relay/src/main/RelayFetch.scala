@@ -10,7 +10,8 @@ import lila.common.LilaException
 
 private final class RelayFetch(
     sync: RelaySync,
-    api: RelayApi
+    api: RelayApi,
+    chapterRepo: lila.study.ChapterRepo
 ) extends Actor {
 
   val frequency = 1.seconds
@@ -39,42 +40,68 @@ private final class RelayFetch(
         relays.map { relay =>
           fetcher(relay.sync.upstream) flatMap { games =>
             sync(relay, games)
-              .withTimeout(300 millis, LilaException("In progress"))(context.system) flatMap { nbMoves =>
-                api.addLog(relay.id, SyncLog.event(nbMoves, none)) >> {
-                  (games.forall(_.finished) != relay.finishedAt.isDefined) ??
-                    api.setFinishedAt(relay.id, games.forall(_.finished) option DateTime.now)
-                }
+              .withTimeout(300 millis, SyncResult.Timeout)(context.system) flatMap { res =>
+                api.addLog(relay.id, SyncLog.event(res.moves, none)) inject res
               }
-          } recover {
-            case e: Exception => api.addLog(relay.id, SyncLog.event(0, e.some))
-          } flatMap { _ => updateSync(relay.id) }
+          } recoverWith {
+            case e: Exception =>
+              api.addLog(relay.id, SyncLog.event(0, e.some)) inject (e match {
+                case res @ SyncResult.Timeout => res
+                case _ => SyncResult.Error(e.getMessage)
+              })
+          } flatMap updateRelay(relay.id)
         }.sequenceFu.chronometer
           .result addEffectAnyway scheduleNext
       }
   }
 
-  def updateSync(id: Relay.Id): Funit = api byId id flatMap {
+  def updateRelay(id: Relay.Id)(result: SyncResult): Funit = api byId id flatMap {
     _ ?? { r =>
-      val sync = r.sync
-      (sync.until |@| sync.nextAt).tupled.fold(fuccess(sync set false)) {
-        case (until, nextAt) =>
-          if (until isBefore DateTime.now) fuccess(sync set false)
-          else if (r.finished) fuccess(sync set false)
-          else if (sync.log.alwaysFails) fuccess(sync.copy(nextAt = DateTime.now plusSeconds 20 some))
-          else (sync.delay match {
-            case Some(delay) => fuccess(delay)
-            case None => api.getNbViewers(r) map {
-              case 0 => 30
-              case nb => (16 - nb) atLeast 5
+      ((r.sync.until, r.sync.nextAt, result) match {
+        case (Some(until), Some(nextAt), SyncResult.Ok(nbMoves, games)) =>
+          if (until isBefore DateTime.now) fuccess(r.withSync(_ set false))
+          else if (r.finished) fuccess(r.withSync(_ set false))
+          else finishRelay(r, nbMoves, games) getOrElse {
+            if (r.sync.log.alwaysFails) fuccess(r.withSync(_.copy(nextAt = DateTime.now plusSeconds 20 some)))
+            else (r.sync.delay match {
+              case Some(delay) => fuccess(delay)
+              case None => api.getNbViewers(r) map {
+                case 0 => 30
+                case nb => (16 - nb) atLeast 5
+              }
+            }) map { seconds =>
+              r.withSync(_.copy(nextAt = DateTime.now plusSeconds {
+                seconds atLeast { if (r.sync.log.isOk) 5 else 10 }
+              } some))
             }
-          }) map { seconds =>
-            sync.copy(nextAt = DateTime.now plusSeconds {
-              seconds atLeast { if (sync.log.isOk) 5 else 10 }
-            } some)
           }
-      } flatMap { api.setSync(r.id, _) }
+        case _ => fuccess(r)
+      }) flatMap { newRelay =>
+        (newRelay != r) ?? {
+          if (newRelay.sync.until != r.sync.until) api.publishRelay(newRelay)
+          api update newRelay
+        }
+      }
     }
   }
+
+  private def finishRelay(r: Relay, nbMoves: Int, games: RelayGames): Fu[Option[Relay]] =
+    if (r.finished) fuccess((nbMoves > 0) option r.setUnFinished)
+    else if (nbMoves > 0) fuccess(none)
+    else chapterRepo.relaysAndTagsByStudyId(r.studyId) map { chapters =>
+      games.forall { game =>
+        chapters.find(c => game is c._2) ?? {
+          case (chapterRelay, tags) =>
+            tags.resultColor.isDefined ||
+              game.end.isDefined ||
+              chapterRelay.lastMoveAt.isBefore {
+                DateTime.now.minusMinutes {
+                  tags.clockConfig.fold(60)(_.limitInMinutes.toInt atLeast 30 atMost 120)
+                }
+              }
+        }
+      } option r.setFinished
+    }
 }
 
 private object RelayFetch {

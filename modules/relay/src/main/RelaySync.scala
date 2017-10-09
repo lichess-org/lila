@@ -14,11 +14,10 @@ private final class RelaySync(
 
   private type NbMoves = Int
 
-  def apply(relay: Relay, games: RelayGames): Fu[NbMoves] = studyApi byId relay.studyId flatMap {
-    _ ?? { study =>
-      for {
-        chapters <- chapterRepo orderedByStudy study.id
-        movesPerGame <- lila.common.Future.traverseSequentially(games) { game =>
+  def apply(relay: Relay, games: RelayGames): Fu[SyncResult.Ok] =
+    studyApi byId relay.studyId flatten "Missing relay study!" flatMap { study =>
+      chapterRepo orderedByStudy study.id flatMap { chapters =>
+        lila.common.Future.traverseSequentially(games) { game =>
           chapters.find(game.is) match {
             case Some(chapter) => updateChapter(study, chapter, game)
             case None => createChapter(study, game) flatMap { chapter =>
@@ -27,11 +26,9 @@ private final class RelaySync(
               } inject chapter.root.mainline.size
             }
           }
-        }
-        nbMoves = movesPerGame.foldLeft(0)(_ + _)
-      } yield nbMoves
+        } map { _.foldLeft(0)(_ + _) } map { SyncResult.Ok(_, games) }
+      }
     }
-  }
 
   private def updateChapter(study: Study, chapter: Chapter, game: RelayGame): Fu[NbMoves] =
     updateChapterTags(study, chapter, game) >>
@@ -77,7 +74,7 @@ private final class RelaySync(
             opts = moveOpts.copy(clock = n.clock),
             relay = Chapter.Relay(
               path = position.path + n,
-              lastMoveAt = DateTime.now.some
+              lastMoveAt = DateTime.now
             ).some
           ) flatten s"Can't add relay node $position $node"
         } inject node.mainline.size
@@ -125,7 +122,7 @@ private final class RelaySync(
         conceal = none,
         relay = Chapter.Relay(
           path = game.root.mainlinePath,
-          lastMoveAt = DateTime.now.some
+          lastMoveAt = DateTime.now
         ).some
       )
       studyApi.doAddChapter(study, chapter, sticky = false, uid = socketUid) inject chapter
@@ -139,4 +136,13 @@ private final class RelaySync(
   )
 
   private val socketUid = Uid("")
+}
+
+sealed trait SyncResult
+object SyncResult {
+  case class Ok(moves: Int, games: RelayGames) extends SyncResult
+  case object Timeout extends Exception with SyncResult {
+    override def getMessage = "In progress..."
+  }
+  case class Error(msg: String) extends SyncResult
 }

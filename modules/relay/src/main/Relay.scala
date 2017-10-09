@@ -30,6 +30,11 @@ case class Relay(
 
   def finished = finishedAt.isDefined
 
+  def setFinished = setSync(false).copy(finishedAt = DateTime.now.some)
+  def setUnFinished = copy(finishedAt = none)
+
+  def withSync(f: Relay.Sync => Relay.Sync) = copy(sync = f(sync))
+
   override def toString = s"""relay #$id "$name" $sync"""
 }
 
@@ -53,7 +58,7 @@ object Relay {
 
     def set(v: Boolean) = copy(
       until = v option DateTime.now.plusHours(3),
-      nextAt = v option DateTime.now.plusSeconds(1)
+      nextAt = v option DateTime.now.plusSeconds(2)
     )
 
     override def toString = upstream.toString

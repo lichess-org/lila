@@ -13,17 +13,17 @@ final class Env(
 
   private val relayColl = db(config getString "collection.relay")
 
-  private val sync = new RelaySync(
-    studyApi = studyEnv.api,
-    chapterRepo = studyEnv.chapterRepo
-  )
-
   lazy val forms = RelayForm
 
   val api = new RelayApi(
     coll = relayColl,
     studyApi = studyEnv.api,
     system = system
+  )
+
+  private val sync = new RelaySync(
+    studyApi = studyEnv.api,
+    chapterRepo = studyEnv.chapterRepo
   )
 
   lazy val socketHandler = new SocketHandler(
@@ -33,7 +33,8 @@ final class Env(
 
   private val fetch = system.actorOf(Props(new RelayFetch(
     sync = sync,
-    api = api
+    api = api,
+    chapterRepo = studyEnv.chapterRepo
   )))
 
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {

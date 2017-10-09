@@ -110,11 +110,9 @@ object Chapter {
 
   case class Relay(
       path: Path,
-      lastMoveAt: Option[DateTime]
+      lastMoveAt: DateTime
   ) {
-    def secondsSinceLastMove: Option[Int] = lastMoveAt.map { at =>
-      (nowSeconds - at.getSeconds).toInt
-    }
+    def secondsSinceLastMove: Int = (nowSeconds - lastMoveAt.getSeconds).toInt
   }
 
   case class Metadata(

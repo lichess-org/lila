@@ -8,7 +8,10 @@ export default function(ctrl: RelayCtrl): VNode | undefined {
   const d = ctrl.data;
   if (ctrl.members.canContribute()) return h('div.relay_wrap', [
     h('h2', [
-      'Broadcast source',
+      iconTag(''),
+      d.finishedAt ?
+        'Broadcoast finished ' + getDateFormatter()(new Date(d.finishedAt)) :
+         d.sync.url,
       ctrl.members.isOwner() ? h('a', {
         attrs: {
           href: `/broadcast/${d.slug}/${d.id}/edit`,
