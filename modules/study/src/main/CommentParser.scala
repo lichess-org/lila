@@ -35,7 +35,9 @@ private[study] object CommentParser {
   } yield Centis(h * 360000 + m * 6000 + s * 100)
 
   def readCentis(str: String): Option[Centis] = str.split(':') match {
-    case Array(minutes, seconds) => readCentis("0", minutes, seconds)
+    // case Array(minutes, seconds) => readCentis("0", minutes, seconds)
+    // apparently some DGT clocks report as "HH:MM" without seconds
+    case Array(hours, minutes) => readCentis(hours, minutes, "0")
     case Array(hours, minutes, seconds) => readCentis(hours, minutes, seconds)
     case _ => none
   }
