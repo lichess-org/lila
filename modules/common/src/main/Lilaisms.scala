@@ -1,154 +1,74 @@
 package lila
 
-import org.joda.time.DateTime
-import ornicar.scalalib
-import ornicar.scalalib.Zero
 import scala.util.Try
+import scala.concurrent.duration._
+
+import ornicar.scalalib
+import org.joda.time.DateTime
+import com.typesafe.config.Config
+import play.api.libs.json.{ JsObject, JsValue }
+import lila.base._
 
 trait Lilaisms
-
-  extends scalalib.Validation
+  extends LilaTypes
   with scalalib.Common
-  with scalalib.Regex
-  with scalalib.OrnicarMonoid.Instances
-  with scalalib.Zero.Syntax
-  with scalalib.Zero.Instances
-  with scalalib.OrnicarOption
   with scalalib.OrnicarNonEmptyList
-
-  with scalaz.std.OptionInstances
-  with scalaz.std.OptionFunctions
-  with scalaz.syntax.std.ToOptionIdOps
-
-  with scalaz.std.ListInstances
+  with scalalib.OrnicarOption
+  with scalalib.OrnicarMonoids
+  with scalalib.Regex
+  with scalalib.Validation
+  with scalalib.Zeros
+  with scalalib.Zero.Syntax
   with scalaz.std.ListFunctions
-  with scalaz.syntax.std.ToListOps
-
+  with scalaz.std.ListInstances
+  with scalaz.std.OptionFunctions
+  with scalaz.std.OptionInstances
   with scalaz.std.StringInstances
-
   with scalaz.std.TupleInstances
-
-  with scalaz.syntax.ToIdOps
-  with scalaz.syntax.ToEqualOps
+  with scalaz.syntax.std.ToListOps
+  with scalaz.syntax.std.ToOptionIdOps
   with scalaz.syntax.ToApplyOps
-  with scalaz.syntax.ToValidationOps
+  with scalaz.syntax.ToEqualOps
   with scalaz.syntax.ToFunctorOps
+  with scalaz.syntax.ToIdOps
   with scalaz.syntax.ToMonoidOps
-  with scalaz.syntax.ToTraverseOps
   with scalaz.syntax.ToShowOps
+  with scalaz.syntax.ToTraverseOps
+  with scalaz.syntax.ToValidationOps {
 
-  with LilaSteroids
+  @inline implicit def toPimpedFuture[A](f: Fu[A]) = new PimpedFuture(f)
+  @inline implicit def toPimpedFutureBoolean(f: Fu[Boolean]) = new PimpedFutureBoolean(f)
+  @inline implicit def toPimpedFutureOption[A](f: Fu[Option[A]]) = new PimpedFutureOption(f)
+  @inline implicit def toPimpedFutureValid[A](f: Fu[Valid[A]]) = new PimpedFutureValid(f)
+  @inline implicit def toPimpedTraversableFuture[A, M[X] <: TraversableOnce[X]](t: M[Fu[A]]) =
+    new PimpedTraversableFuture(t)
 
-trait LilaSteroids {
-  import Wrappers._
+  @inline implicit def toPimpedJsObject(jo: JsObject) = new PimpedJsObject(jo)
+  @inline implicit def toPimpedJsValue(jv: JsValue) = new PimpedJsValue(jv)
 
-  @inline implicit def toLilaPimpedOption[A](a: Option[A]) = new LilaPimpedOption(a)
-  @inline implicit def toLilaPimpedTryList[A](l: List[Try[A]]) = new LilaPimpedTryList(l)
-  @inline implicit def toLilaPimpedList[A](l: List[A]) = new LilaPimpedList(l)
-  @inline implicit def toLilaPimpedSeq[A](l: List[A]) = new LilaPimpedSeq(l)
-  @inline implicit def toLilaPimpedDateTime(d: DateTime) = new LilaPimpedDateTime(d)
-  @inline implicit def toLilaPimpedBoolean(b: Boolean) = new LilaPimpedBoolean(b)
-  @inline implicit def toLilaPimpedInt(i: Int) = new LilaPimpedInt(i)
-  @inline implicit def toLilaPimpedFloat(f: Float) = new LilaPimpedFloat(f)
-  @inline implicit def toLilaPimpedDouble(d: Double) = new LilaPimpedDouble(d)
-  @inline implicit def toLilaPimpedByteArray(ba: Array[Byte]) = new LilaPimpedByteArray(ba)
+  @inline implicit def toPimpedBoolean(b: Boolean) = new PimpedBoolean(b)
+  @inline implicit def toPimpedInt(i: Int) = new PimpedInt(i)
+  @inline implicit def toPimpedLong(l: Long) = new PimpedLong(l)
+  @inline implicit def toPimpedFloat(f: Float) = new PimpedFloat(f)
+  @inline implicit def toPimpedDouble(d: Double) = new PimpedDouble(d)
 
-  implicit val dateTimeOrdering: Ordering[DateTime] = Ordering.fromLessThan(_ isBefore _)
+  @inline implicit def toPimpedTryList[A](l: List[Try[A]]) = new PimpedTryList(l)
+  @inline implicit def toPimpedList[A](l: List[A]) = new PimpedList(l)
+  @inline implicit def toPimpedSeq[A](l: List[A]) = new PimpedSeq(l)
+  @inline implicit def toPimpedByteArray(ba: Array[Byte]) = new PimpedByteArray(ba)
+
+  @inline implicit def toPimpedOption[A](a: Option[A]) = new PimpedOption(a)
+  @inline implicit def toPimpedString(s: String) = new PimpedString(s)
+  @inline implicit def toPimpedConfig(c: Config) = new PimpedConfig(c)
+  @inline implicit def toPimpedDateTime(d: DateTime) = new PimpedDateTime(d)
+  @inline implicit def toPimpedValid[A](v: Valid[A]) = new PimpedValid(v)
+  @inline implicit def toPimpedTry[A](t: Try[A]) = new PimpedTry(t)
+  @inline implicit def toPimpedFiniteDuration(d: FiniteDuration) = new PimpedFiniteDuration(d)
+
+  @inline implicit def toPimpedActorSystem(a: akka.actor.ActorSystem) = new PimpedActorSystem(a)
+
 }
 
-object Wrappers {
-  final class LilaPimpedDateTime(private val date: DateTime) extends AnyVal {
-    def getSeconds: Long = date.getMillis / 1000
-    def getCentis: Long = date.getMillis / 10
-  }
-
-  final class LilaPimpedTryList[A](private val list: List[Try[A]]) extends AnyVal {
-    def sequence: Try[List[A]] = (Try(List[A]()) /: list) {
-      (a, b) => a flatMap (c => b map (d => d :: c))
-    } map (_.reverse)
-  }
-
-  final class LilaPimpedList[A](private val list: List[A]) extends AnyVal {
-    def sortLike[B](other: List[B], f: A => B): List[A] = list.sortWith {
-      case (x, y) => other.indexOf(f(x)) < other.indexOf(f(y))
-    }
-  }
-
-  final class LilaPimpedSeq[A](private val seq: Seq[A]) extends AnyVal {
-    def has(a: A) = seq contains a
-  }
-
-  /*
-   * Replaces scalaz boolean ops
-   * so ?? works on Zero and not Monoid
-   */
-  final class LilaPimpedBoolean(private val self: Boolean) extends AnyVal {
-
-    def ??[A](a: => A)(implicit z: Zero[A]): A = if (self) a else Zero[A].zero
-
-    def !(f: => Unit) = if (self) f
-
-    def fold[A](t: => A, f: => A): A = if (self) t else f
-
-    def ?[X](t: => X) = new { def |(f: => X) = if (self) t else f }
-
-    def option[A](a: => A): Option[A] = if (self) Some(a) else None
-  }
-
-  final class LilaPimpedInt(private val self: Int) extends AnyVal {
-
-    def atLeast(bottomValue: Int): Int = self max bottomValue
-
-    def atMost(topValue: Int): Int = self min topValue
-  }
-
-  final class LilaPimpedFloat(private val self: Float) extends AnyVal {
-
-    def atLeast(bottomValue: Float): Float = self max bottomValue
-
-    def atMost(topValue: Float): Float = self min topValue
-  }
-
-  final class LilaPimpedDouble(private val self: Double) extends AnyVal {
-
-    def atLeast(bottomValue: Double): Double = self max bottomValue
-
-    def atMost(topValue: Double): Double = self min topValue
-  }
-
-  final class LilaPimpedByteArray(private val self: Array[Byte]) extends AnyVal {
-    def toBase64 = java.util.Base64.getEncoder.encodeToString(self)
-  }
-
-  /*
-   * Replaces scalaz option ops
-   * so ~ works on Zero and not Monoid
-   */
-  final class LilaPimpedOption[A](private val self: Option[A]) extends AnyVal {
-
-    import scalaz.std.{ option => o }
-
-    def fold[X](some: A => X, none: => X): X = self match {
-      case None => none
-      case Some(a) => some(a)
-    }
-
-    def |(a: => A): A = self getOrElse a
-
-    def unary_~(implicit z: Zero[A]): A = self getOrElse z.zero
-    def orDefault(implicit z: Zero[A]): A = self getOrElse z.zero
-
-    def toSuccess[E](e: => E): scalaz.Validation[E, A] = o.toSuccess(self)(e)
-
-    def toFailure[B](b: => B): scalaz.Validation[A, B] = o.toFailure(self)(b)
-
-    def toTry(err: => Exception): Try[A] =
-      self.fold[Try[A]](scala.util.Failure(err))(scala.util.Success.apply)
-
-    def err(message: => String): A = self.getOrElse(sys.error(message))
-
-    def ifNone(n: => Unit): Unit = if (self.isEmpty) n
-
-    def has(a: A) = self contains a
-  }
+final class PimpedActorSystem(private val a: akka.actor.ActorSystem) extends AnyVal {
+  def lilaBus = lila.common.Bus(a)
 }
