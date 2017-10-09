@@ -387,7 +387,7 @@
   <string name="none">Унсӑр</string>
   <string name="fast">Хӑвӑрт</string>
   <string name="normal">Виҫеллӗ</string>
-  <string name="slow">Вӑрах</string>
+  <string name="slow">Вӑрах вӑйӑ</string>
   <string name="insideTheBoard">Хӑма ӑшӗнче</string>
   <string name="outsideTheBoard">Хӑма тулӗнче</string>
   <string name="onSlowGames">Вӑрах вӑйӑра</string>
@@ -535,6 +535,7 @@
   </plurals>
   <string name="gameAnalysis">Вӑййа тишкересси</string>
   <string name="quickPairing">Хӑвӑрт пуҫласси</string>
+  <string name="lobby">Суйласси</string>
   <string name="language">Чӗлхе</string>
   <string name="background">Фон</string>
   <string name="light">Ҫутӑ</string>
