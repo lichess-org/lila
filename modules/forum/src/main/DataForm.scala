@@ -46,7 +46,7 @@ object DataForm {
     }
   }
 
-  private val ventingPattern = """cheat|engine|rating|loser""".r.pattern
+  private val ventingPattern = """cheat|engine|rating|loser|banned|abort""".r.pattern
 
   case class PostEdit(changes: String)
 }
