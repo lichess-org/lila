@@ -34,7 +34,7 @@ private final class RelaySync(
     updateChapterTags(study, chapter, game) >>
       updateChapterTree(study, chapter, game)
 
-  private def updateChapterTree(study: Study, chapter: Chapter, game: RelayGame): Fu[NbMoves] = {
+  private def updateChapterTree(study: Study, chapter: Chapter, game: RelayGame): Fu[NbMoves] =
     game.root.mainline.foldLeft(Path.root -> none[Node]) {
       case ((parentPath, None), gameNode) =>
         val path = parentPath + gameNode
@@ -54,32 +54,32 @@ private final class RelaySync(
         }
       case (found, _) => found
     } match {
-      // fix mainline, and call it a day
-      case (path, _) if !Path.isMainline(chapter.root, path) => studyApi.promote(
-        userId = chapter.ownerId,
-        studyId = study.id,
-        position = Position(chapter, path).ref,
-        toMainline = true,
-        uid = socketUid
-      ) inject 0
-      case (path, None) => fuccess(0) // no new nodes were found
-      case (path, Some(node)) => // append new nodes to the chapter
-        lila.common.Future.fold(node.mainline)(Position(chapter, path).ref) {
-          case (position, n) => studyApi.addNode(
+      case (path, newNode) =>
+        !Path.isMainline(chapter.root, path) ?? {
+          studyApi.promote(
             userId = chapter.ownerId,
             studyId = study.id,
-            position = position,
-            node = n,
-            uid = socketUid,
-            opts = moveOpts.copy(clock = n.clock),
-            relay = Chapter.Relay(
-              path = position.path + n,
-              lastMoveAt = DateTime.now
-            ).some
-          ) inject position + n
-        } inject node.mainline.size
+            position = Position(chapter, path).ref,
+            toMainline = true,
+            uid = socketUid
+          )
+        } >> newNode.?? { node =>
+          lila.common.Future.fold(node.mainline)(Position(chapter, path).ref) {
+            case (position, n) => studyApi.addNode(
+              userId = chapter.ownerId,
+              studyId = study.id,
+              position = position,
+              node = n,
+              uid = socketUid,
+              opts = moveOpts.copy(clock = n.clock),
+              relay = Chapter.Relay(
+                path = position.path + n,
+                lastMoveAt = DateTime.now
+              ).some
+            ) inject position + n
+          } inject node.mainline.size
+        }
     }
-  }
 
   private def updateChapterTags(study: Study, chapter: Chapter, game: RelayGame): Funit = {
     val gameTags = game.tags.value.foldLeft(Tags(Nil)) {
