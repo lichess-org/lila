@@ -52,7 +52,7 @@ trait LilaSocket { self: LilaController =>
           }
           f(ctx).map { resultOrSocket =>
             resultOrSocket.right.map {
-              case (readIn, writeOut) => (e, i) => {
+              case (readIn, writeOut) => (e: Enumerator[A], i: Iteratee[A, Unit]) => {
                 writeOut |>> i
                 e &> Enumeratee.mapInput { in =>
                   if (limiter(ip, 1)(true)) in
@@ -61,6 +61,7 @@ trait LilaSocket { self: LilaController =>
                     Input.EOF
                   }
                 } |>> readIn
+                ()
               }
             }
           }
