@@ -1,6 +1,6 @@
 package lila.base
 
-import ornicar.scalalib.ValidTypes._
+import ornicar.scalalib
 
 trait LilaException extends Exception {
   val message: String
@@ -9,9 +9,10 @@ trait LilaException extends Exception {
   override def toString = message
 }
 
-object LilaException extends scalaz.syntax.ToShowOps {
+object LilaException extends scalalib.Validation
+  with scalaz.syntax.ToShowOps {
 
-  def apply(msg: String) = new LilaException {
+  def apply(msg: String): LilaException = new LilaException {
     val message = msg
   }
 
