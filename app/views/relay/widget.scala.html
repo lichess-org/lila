@@ -1,18 +1,20 @@
 @(r: lila.relay.Relay.WithStudyAndLiked)(implicit ctx: Context)
-<h2>
+<a class="overlay" href="@routes.Relay.show(r.relay.slug, r.relay.id.value)"></a>
+<h3>
   <i class="icon" data-icon=""></i>
   <strong>@r.relay.name</strong>
   <span>@r.relay.description</span>
-</h2>
-<div class="body">
-  <bit><i data-icon="@if(r.liked){}else{}"></i>&nbsp;@r.relay.likes.value •</bit>
+</h3>
+<div class="bits">
+  <bit><i data-icon="@if(r.liked){}else{}"></i>&nbsp;@r.relay.likes.value</bit>
   <bit>@trans.by(usernameOrId(r.relay.ownerId))</bit>
-  <bit>@momentFromNow(r.relay.startsAt | r.relay.createdAt)</bit>
+  @*ı
+  Magnus Carlsen, Tony Rotella, Guybrush Threepwood*@
+  <bit>2 checkmates, 3 resignations, 5 draws, 7 ongoing games</bit>
   @*
   @defining(r.relay.topPlayers(3)) { players =>
   @if(players.nonEmpty) {
   <bit>@players.map(_.fullName).mkString(", ")</bit>
   }
   }*@
-  <
 </div>
