@@ -442,6 +442,7 @@
   <string name="error.email_acceptable">Ку ел. пуштӑна йышӑнма ҫук</string>
   <string name="error.email_unique">Ҫак ел. пуштӑпа усӑ кураҫҫӗ ӗнтӗ</string>
   <string name="blindfoldChess">Суккӑр шахмат (курӑнман кӗлетке)</string>
+  <string name="zenMode">Дсӑн решимӗ</string>
   <string name="moveConfirmation">Куҫӑма ҫирӗплетесси</string>
   <string name="inCorrespondenceGames">Куҫӑн мар вӑйӑсем</string>
   <string name="ifRatingIsPlusMinusX">Рейтингӗ ± %s пулсан</string>
@@ -533,10 +534,18 @@
     <item quantity="other">%s чӗлхене куҫарнӑ!</item>
   </plurals>
   <string name="gameAnalysis">Вӑййа тишкересси</string>
+  <string name="quickPairing">Хӑвӑрт пуҫласси</string>
   <string name="language">Чӗлхе</string>
+  <string name="background">Фон</string>
+  <string name="light">Ҫутӑ</string>
+  <string name="dark">Тӗттӗм</string>
+  <string name="transparent">Витӗр курӑнакан</string>
+  <string name="backgroundImageUrl">Фонри ӳкерчӗк каҫҫи:</string>
   <string name="boardGeometry">Хӑма геометрийӗ</string>
   <string name="boardTheme">Хӑма теми</string>
   <string name="boardSize">Хӑма калӑпӑшӗ</string>
+  <string name="pieceSet">Кӗлетке пуххи</string>
   <string name="chessBasics">Шахмат никӗсӗсем</string>
   <string name="coaches">Хӑнӑхтаруҫӑ</string>
+  <string name="challenges">Чӗнтерӳ</string>
 </resources>
