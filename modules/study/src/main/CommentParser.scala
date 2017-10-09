@@ -10,8 +10,8 @@ private[study] object CommentParser {
   private val circlesRemoveRegex = """\[\%csl[\s\r\n]+((?:\w{3}[,\s]*)+)\]""".r
   private val arrowsRegex = """(?s).*\[\%cal[\s\r\n]+((?:\w{5}[,\s]*)+)\].*""".r
   private val arrowsRemoveRegex = """\[\%cal[\s\r\n]+((?:\w{5}[,\s]*)+)\]""".r
-  private val clockRegex = """(?s).*\[\%clk[\s\r\n]+([\d:]+)\].*""".r
-  private val clockRemoveRegex = """\[\%clk[\s\r\n]+[\d:]+\]""".r
+  private val clockRegex = """(?s).*\[\%clk[\s\r\n]+([\d:\.]+)\].*""".r
+  private val clockRemoveRegex = """\[\%clk[\s\r\n]+[\d:\.]+\]""".r
 
   case class ParsedComment(
       shapes: Shapes,
@@ -34,11 +34,14 @@ private[study] object CommentParser {
     s <- parseIntOption(seconds)
   } yield Centis(h * 360000 + m * 6000 + s * 100)
 
-  def readCentis(str: String): Option[Centis] = str.split(':') match {
-    // case Array(minutes, seconds) => readCentis("0", minutes, seconds)
-    // apparently some DGT clocks report as "HH:MM" without seconds
-    case Array(hours, minutes) => readCentis(hours, minutes, "0")
-    case Array(hours, minutes, seconds) => readCentis(hours, minutes, seconds)
+  private val clockHourMinuteRegex = """^\d+:\d+$""".r // DGT...
+  private val clockHourMinuteSecondRegex = """^\d+:\d+:\d+$""".r // standard
+  private val clockHourMinuteSecondRegexAlt = """^\d+:\d+\.\d+$""".r // DGT...
+
+  def readCentis(str: String): Option[Centis] = str match {
+    case clockHourMinuteRegex(hours, minutes) => readCentis(hours, minutes, "0")
+    case clockHourMinuteSecondRegex(hours, minutes, seconds) => readCentis(hours, minutes, seconds)
+    case clockHourMinuteSecondRegexAlt(hours, minutes, seconds) => readCentis(hours, minutes, seconds)
     case _ => none
   }
 
