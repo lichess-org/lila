@@ -26,11 +26,9 @@ case class Relay(
     if (s.isEmpty) "-" else s
   }
 
-  def setSync(v: Boolean) = copy(sync = sync set v)
-
   def finished = finishedAt.isDefined
 
-  def setFinished = setSync(false).copy(finishedAt = DateTime.now.some)
+  def setFinished = copy(sync = sync.stop, finishedAt = DateTime.now.some)
   def setUnFinished = copy(finishedAt = none)
 
   def withSync(f: Relay.Sync => Relay.Sync) = copy(sync = f(sync))
@@ -56,10 +54,8 @@ object Relay {
       (until.getSeconds - nowSeconds).toInt
     } filter (0<)
 
-    def set(v: Boolean) = copy(
-      until = v option DateTime.now.plusHours(3),
-      nextAt = v option DateTime.now.plusSeconds(2)
-    )
+    def stop = copy(until = none, nextAt = none)
+    def start = copy(until = DateTime.now plusHours 3 some, nextAt = DateTime.now plusSeconds 3 some)
 
     override def toString = upstream.toString
   }

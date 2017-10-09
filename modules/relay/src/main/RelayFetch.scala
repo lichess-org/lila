@@ -57,25 +57,14 @@ private final class RelayFetch(
 
   def updateRelay(id: Relay.Id)(result: SyncResult): Funit = api byId id flatMap {
     _ ?? { r =>
-      ((r.sync.until, r.sync.nextAt, result) match {
+      if (r.sync.until exists (_ isBefore DateTime.now)) fuccess(r.withSync(_.stop))
+      else ((r.sync.until, r.sync.nextAt, result) match {
         case (Some(until), Some(nextAt), SyncResult.Ok(nbMoves, games)) =>
-          if (until isBefore DateTime.now) fuccess(r.withSync(_ set false))
-          else if (r.finished) fuccess(r.withSync(_ set false))
-          else finishRelay(r, nbMoves, games) getOrElse {
-            if (r.sync.log.alwaysFails) fuccess(r.withSync(_.copy(nextAt = DateTime.now plusSeconds 20 some)))
-            else (r.sync.delay match {
-              case Some(delay) => fuccess(delay)
-              case None => api.getNbViewers(r) map {
-                case 0 => 30
-                case nb => (16 - nb) atLeast 5
-              }
-            }) map { seconds =>
-              r.withSync(_.copy(nextAt = DateTime.now plusSeconds {
-                seconds atLeast { if (r.sync.log.isOk) 5 else 10 }
-              } some))
-            }
-          }
-        case _ => fuccess(r)
+          if (r.finished && nbMoves == 0) fuccess(r.withSync(_.stop))
+          else finishRelay(r, nbMoves, games) getOrElse continueRelay(r)
+        case (_, _, SyncResult.Timeout) => continueRelay(r)
+        case (_, _, SyncResult.Error(_)) => continueRelay(r)
+        case _ => fuccess(r.withSync(_.stop))
       }) flatMap { newRelay =>
         (newRelay != r) ?? {
           if (newRelay.sync.until != r.sync.until) api.publishRelay(newRelay)
@@ -85,9 +74,22 @@ private final class RelayFetch(
     }
   }
 
-  private def finishRelay(r: Relay, nbMoves: Int, games: RelayGames): Fu[Option[Relay]] =
-    if (r.finished) fuccess((nbMoves > 0) option r.setUnFinished)
-    else if (nbMoves > 0) fuccess(none)
+  def continueRelay(r: Relay): Fu[Relay] =
+    (if (r.sync.log.alwaysFails) fuccess(30) else (r.sync.delay match {
+      case Some(delay) => fuccess(delay)
+      case None => api.getNbViewers(r) map {
+        case 0 => 30
+        case nb => (16 - nb) atLeast 5
+      }
+    })) map { seconds =>
+      r.setUnFinished.withSync(_.copy(nextAt = DateTime.now plusSeconds {
+        seconds atLeast { if (r.sync.log.isOk) 5 else 10 }
+      } some))
+    }
+
+  def finishRelay(r: Relay, nbMoves: Int, games: RelayGames): Fu[Option[Relay]] =
+    if (nbMoves > 0) fuccess(none)
+    else if (games.forall(!_.started)) fuccess(none)
     else chapterRepo.relaysAndTagsByStudyId(r.studyId) map { chapters =>
       games.forall { game =>
         chapters.find(c => game is c._2) ?? {

@@ -2,11 +2,10 @@ package lila.relay
 
 import akka.actor._
 import org.joda.time.DateTime
-import play.api.libs.json.JsObject
+import play.api.libs.json._
 import reactivemongo.bson._
 
 import lila.db.dsl._
-import lila.socket.Socket.makeMessage
 import lila.study.{ StudyApi, Study, Settings }
 import lila.user.User
 
@@ -79,7 +78,8 @@ final class RelayApi(
     coll.update($id(relay.id), relay).void
 
   def setSync(id: Relay.Id, user: User, v: Boolean): Funit = byId(id) flatMap {
-    _.map(_ setSync v) ?? { relay =>
+    _ ?? { r =>
+      val relay = if (v) r.withSync(_.start) else r.withSync(_.stop)
       coll.update($id(relay.id.value), relay).void >> publishRelay(relay)
     }
   }

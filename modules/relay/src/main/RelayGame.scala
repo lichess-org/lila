@@ -16,6 +16,8 @@ case class RelayGame(
   def is(c: Chapter): Boolean = is(c.tags)
   def is(tags: Tags): Boolean = id == RelayGame.makeId(~tags(_.White), ~tags(_.Black), tags(_.Event))
 
+  def started = root.children.nodes.nonEmpty
+
   def finished = end.isDefined
 
   override def toString = id

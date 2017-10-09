@@ -1,7 +1,7 @@
 export interface RelayData {
-  sync: RelaySync;
   id: string;
   slug: string;
+  sync: RelaySync;
   finishedAt?: number;
 }
 
