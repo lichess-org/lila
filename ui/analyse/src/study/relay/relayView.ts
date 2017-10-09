@@ -1,17 +1,20 @@
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 import RelayCtrl from './relayCtrl';
-import { iconTag, bind } from '../../util';
+import { iconTag, dataIcon, bind } from '../../util';
 import { LogEvent } from './interfaces';
 
 export default function(ctrl: RelayCtrl): VNode | undefined {
   const d = ctrl.data;
   if (ctrl.members.canContribute()) return h('div.relay_wrap', [
     h('h2', [
-      iconTag(''),
-      d.finishedAt ?
-      'Broadcoast finished ' + getDateFormatter()(new Date(d.finishedAt)) :
-      h('a', { attrs: { href: d.sync.url, _target: 'blank' } }, d.sync.url.replace(/https?:\/\//, '')),
+      h('span.text', { attrs: dataIcon('') }, [
+        h('a', { 
+          attrs: { href: d.sync.url, _target: 'blank' } 
+        }, d.finishedAt ?
+        'Broadcoast finished ' + getDateFormatter()(new Date(d.finishedAt)) :
+        d.sync.url.replace(/https?:\/\//, ''))
+      ]),
       ctrl.members.isOwner() ? h('a', {
         attrs: {
           href: `/broadcast/${d.slug}/${d.id}/edit`,
