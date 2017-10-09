@@ -115,11 +115,12 @@ export function view(ctrl: StudyFormCtrl): VNode {
           ctrl.save(obj, isNew);
         }, ctrl.redraw)
       }, [
-        ctrl.relay ? null : h('div.form-group', [
+        h('div.form-group', [
           h('input#study-name', {
             attrs: {
               minlength: 3,
-              maxlength: 100
+              maxlength: 100,
+              type: ctrl.relay ? 'hidden' : 'text'
             },
             hook: {
               insert: vnode => updateName(vnode, false),
@@ -160,7 +161,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
             choices: userSelectionChoices,
             selected: data.settings.chat
           })),
-          ctrl.relay ? null : h('div.form-group.half', select({
+          h('div.form-group.half', select({
             key: 'sticky',
             name: 'Enable sync',
             choices: [
@@ -168,7 +169,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
               ['false', 'No: let people browse freely']
             ],
             selected: '' + data.settings.sticky
-          })),
+          }))
         ]),
         dialog.button(isNew ? 'Start' : 'Save')
       ]),
