@@ -428,6 +428,7 @@
   <string name="playOnTheBoardOffline">Пӗр хӑма ҫинче</string>
   <string name="playOfflineComputer">Компйутӑр</string>
   <string name="opponent">Ӑмӑртуҫӑ</string>
+  <string name="learnMenu">Вӗренӳ</string>
   <string name="community">Пӗрлешӳ</string>
   <string name="tools">Мехел</string>
   <string name="increment">Инкремент</string>
@@ -533,4 +534,9 @@
   </plurals>
   <string name="gameAnalysis">Вӑййа тишкересси</string>
   <string name="language">Чӗлхе</string>
+  <string name="boardGeometry">Хӑма геометрийӗ</string>
+  <string name="boardTheme">Хӑма теми</string>
+  <string name="boardSize">Хӑма калӑпӑшӗ</string>
+  <string name="chessBasics">Шахмат никӗсӗсем</string>
+  <string name="coaches">Хӑнӑхтаруҫӑ</string>
 </resources>
