@@ -6,6 +6,10 @@ object JsonView {
 
   implicit val syncLogEventWrites = Json.writes[SyncLog.Event]
 
+  implicit val idWrites = Writes[Relay.Id] { id =>
+    JsString(id.value)
+  }
+
   private implicit val syncWrites = OWrites[Relay.Sync] { s =>
     Json.obj(
       "seconds" -> s.seconds,
@@ -16,7 +20,7 @@ object JsonView {
 
   implicit val relayWrites = OWrites[Relay] { r =>
     Json.obj(
-      "id" -> r.id.value,
+      "id" -> r.id,
       "slug" -> r.slug,
       "name" -> r.name,
       "description" -> r.description,

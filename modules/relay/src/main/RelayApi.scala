@@ -104,21 +104,23 @@ final class RelayApi(
       )),
       upsert = true
     ).void >>
-      sendToContributors(id, makeMessage("relayLog", JsonView.syncLogEventWrites writes event)) >>-
+      sendToContributors(id, "relayLog", JsonView.syncLogEventWrites writes event) >>-
       event.error.foreach { err => logger.info(s"$id $err") }
 
   private[relay] def publishRelay(relay: Relay): Funit =
-    sendToContributors(relay.id, makeMessage("relayData", JsonView.relayWrites writes relay))
+    sendToContributors(relay.id, "relayData", JsonView.relayWrites writes relay)
 
   private def publishRelay(relayId: Relay.Id): Funit =
     byId(relayId) flatMap { _ ?? publishRelay }
 
-  private def sendToContributors(id: Relay.Id, msg: JsObject): Funit =
+  private def sendToContributors(id: Relay.Id, t: String, msg: JsObject): Funit =
     studyApi members Study.Id(id.value) map {
       _.map(_.contributorIds).filter(_.nonEmpty) foreach { userIds =>
         import lila.hub.actorApi.SendTos
+        import JsonView.idWrites
         import lila.socket.Socket.makeMessage
-        system.lilaBus.publish(SendTos(userIds, msg), 'users)
+        val payload = makeMessage(t, msg ++ Json.obj("id" -> id))
+        system.lilaBus.publish(SendTos(userIds, payload), 'users)
       }
     }
 
