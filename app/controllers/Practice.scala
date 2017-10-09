@@ -105,7 +105,7 @@ object Practice extends LilaController {
       FormFuResult(form) { err =>
         env.api.structure.get map { html.practice.config(_, err) }
       } { text =>
-        env.api.config.set(text).valueOr(_ => funit) >>-
+        ~env.api.config.set(text).right.toOption >>-
           env.api.structure.clear >>
           Env.mod.logApi.practiceConfig(me.id) inject Redirect(routes.Practice.config)
       }
