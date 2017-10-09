@@ -63,6 +63,7 @@ trait Lilaisms
   @inline implicit def toPimpedDateTime(d: DateTime) = new PimpedDateTime(d)
   @inline implicit def toPimpedValid[A](v: Valid[A]) = new PimpedValid(v)
   @inline implicit def toPimpedTry[A](t: Try[A]) = new PimpedTry(t)
+  @inline implicit def toPimpedEither[A, B](e: Either[A, B]) = new PimpedEither(e)
   @inline implicit def toPimpedFiniteDuration(d: FiniteDuration) = new PimpedFiniteDuration(d)
 
   @inline implicit def toPimpedActorSystem(a: akka.actor.ActorSystem) = new PimpedActorSystem(a)
