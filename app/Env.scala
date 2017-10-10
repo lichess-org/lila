@@ -76,6 +76,7 @@ final class Env(
 
   system.actorOf(Props(new actor.Renderer), name = RendererName)
 
+  lila.log.boot.info(s"Java version ${System.getProperty("java.version")}")
   lila.log.boot.info("Preloading modules")
   lila.common.Chronometer.syncEffect(List(
     Env.socket,
