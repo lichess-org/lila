@@ -5,7 +5,7 @@ import scala.util.Try
 import scalaz.{ Monad, Monoid, OptionT, ~> }
 
 trait PackageObject extends Lilaisms {
-  implicit lazy val playExecutionContext = play.api.libs.concurrent.Execution.defaultContext
+  implicit val playExecutionContext = play.api.libs.concurrent.Execution.defaultContext
 
   def !![A](msg: String): Valid[A] = msg.failureNel[A]
 
@@ -25,7 +25,7 @@ trait PackageObject extends Lilaisms {
       case (a, b) => a ⊹ b
     }, fuccess(∅[A]))
 
-  implicit lazy val monadFu = new Monad[Fu] {
+  implicit val monadFu = new Monad[Fu] {
     override def map[A, B](fa: Fu[A])(f: A => B) = fa map f
     def point[A](a: => A) = fuccess(a)
     def bind[A, B](fa: Fu[A])(f: A => Fu[B]) = fa flatMap f
