@@ -103,6 +103,9 @@ final class RelayApi(
       sendToContributors(id, "relayLog", JsonView.syncLogEventWrites writes event) >>-
       event.error.foreach { err => logger.info(s"$id $err") }
 
+  private[relay] def onStudyRemove(studyId: Study.Id) =
+    coll.remove($id(studyId)).void
+
   private[relay] def publishRelay(relay: Relay): Funit =
     sendToContributors(relay.id, "relayData", JsonView.relayWrites writes relay)
 
