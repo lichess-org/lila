@@ -59,8 +59,11 @@ class CommentParserTest extends Specification {
     "new lines" in {
       C("Hello there [%clk\n10:40:33]").clock must_== Some(Centis(3843300))
     }
-    "no hours" in {
-      C("Hello there [%clk 40:33] something else").clock must_== Some(Centis(243300))
+    "no seconds" in {
+      C("Hello there [%clk 2:10] something else").clock must_== Some(Centis(780000))
+    }
+    "alt format" in {
+      C("Hello there [%clk 2:10.33] something else").clock must_== Some(Centis(783300))
     }
   }
   "parse shapes" should {
