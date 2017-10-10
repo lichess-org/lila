@@ -419,7 +419,7 @@ body.piece_letter .fork move {
 
   div.analyse div.lichess_game div.lichess_ground {
     flex: 0 0 25vw;
-    max-width: 512px;
+    max-width: 25vw;
   }
   div.analyse .fork { left: 90px; }
 
