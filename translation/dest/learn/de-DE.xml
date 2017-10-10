@@ -70,7 +70,7 @@
   <string name="combat">Kampf</string>
   <string name="captureAndDefendPieces">Schlage und verteidige die Figuren</string>
   <string name="combatIntro">Ein guter Krieger beherrscht Angriff und Verteidigung gleichermaßen!</string>
-  <string name="combatComplete">Herzlichen Glückwunsch! Du weißt jetzt wie man mit Schachfiguren kämpft!</string>
+  <string name="combatComplete">Herzlichen Glückwunsch! Du weißt jetzt, wie man mit Schachfiguren kämpft!</string>
   <string name="checkInOne">Schach in 1</string>
   <string name="attackTheOpponentsKing">Greife den gegnerischen König an</string>
   <string name="checkInOneIntro">Um deinen Gegner Schach zu setzen, greife seinen König an. Er muss ihn verteidigen!</string>
