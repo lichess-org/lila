@@ -298,26 +298,36 @@
   <string name="viewTournament">Poglej turnir</string>
   <string name="backToTournament">Nazaj k turnirju</string>
   <string name="thematic">Tematski</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s rangirana partija</item>
+    <item quantity="two">≥ %s rangirani partiji</item>
+    <item quantity="few">≥ %s rangirane partije</item>
+    <item quantity="other">≥ %s rangiranih partij</item>
+  </plurals>
   <plurals name="moreThanNbPerfRatedGames">
     <item quantity="one">≥ %1$s %2$s rangirana partija</item>
-    <item quantity="two">≥ %1$s %2$s rangirana partija</item>
-    <item quantity="few">≥ %1$s %2$s rangirana partija</item>
-    <item quantity="other">≥ %1$s %2$s rangirana partija</item>
+    <item quantity="two">≥ %1$s %2$s rangirani partiji</item>
+    <item quantity="few">≥ %1$s %2$s rangirane partije</item>
+    <item quantity="other">≥ %1$s %2$s rangiranih partij</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Morate odigrati še %1$s rangiranih partij %2$s</item>
-    <item quantity="two">Morate odigrati še %1$s rangiranih partij %2$s</item>
+    <item quantity="two">Morate odigrati še %1$s rangirani partiji %2$s</item>
     <item quantity="few">Morate odigrati še %1$s rangiranih partij %2$s</item>
     <item quantity="other">Morate odigrati še %1$s rangiranih partij %2$s</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">Morate odigrati še %s rangiranih partij</item>
-    <item quantity="two">Morate odigrati še %s rangiranih partij</item>
-    <item quantity="few">Morate odigrati še %s rangiranih partij</item>
+    <item quantity="one">Morate odigrati še %s rangirano partijo</item>
+    <item quantity="two">Morate odigrati še %s rangirani partiji</item>
+    <item quantity="few">Morate odigrati še %s rangirane partije</item>
     <item quantity="other">Morate odigrati še %s rangiranih partij</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Vaš %s rejting je začasen</string>
   <string name="yourPerfRatingIsTooHigh">Vaš %1$s rejting (%2$s) je previsok</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Vaš najvišji %1$s rejting (%2$s) v tem tednu, je previsok</string>
+  <string name="yourPerfRatingIsTooLow">Vaš %1$s rejting (%2$s) je prenizek</string>
+  <string name="ratedMoreThanInPerf">Rejting ≥ %1$s v %2$s</string>
+  <string name="ratedLessThanInPerf">Rejting ≤ %1$s v %2$s</string>
   <string name="backToGame">Vrni se v igro</string>
   <string name="siteDescription">Brezplačni internetni šah. Igraj šah na enostavnem vmesniku. Brez registracije, brez reklam in brez dodatnih vtičnikov. Igraj šah proti računalniku, prijatelju ali naključnemu nasprotniku.</string>
   <string name="teams">Ekipe</string>
@@ -453,6 +463,7 @@
   <string name="biography">Biografija</string>
   <string name="country">Država</string>
   <string name="preferences">Nastavitve</string>
+  <string name="inlineNotation">Dodatna notacijja</string>
   <string name="watchLichessTV">Glej Lichess TV</string>
   <string name="previouslyOnLichessTV">Nazadnje na Lichess TV</string>
   <string name="onlinePlayers">Prijavljeni igralci</string>
