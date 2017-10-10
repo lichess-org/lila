@@ -590,11 +590,11 @@
   <string name="community">Gemeinschaft</string>
   <string name="tools">Werkzeuge</string>
   <string name="increment">Inkrement</string>
-  <string name="sharePGN">Teile PGN</string>
+  <string name="sharePGN">PGN teilen</string>
   <string name="playOnline">Spiele online</string>
   <string name="playOffline">Spiele offline</string>
   <string name="allowAnalytics">Anonyme Statistiken senden</string>
-  <string name="shareGameURL">Teile Partie-URL</string>
+  <string name="shareGameURL">Partie-URL teilen</string>
   <string name="error.required">Dieses Feld muss ausgefüllt werden</string>
   <string name="error.email">Diese E-Mail-Adresse ist ungültig</string>
   <string name="error.email_acceptable">Diese E-Mail-Adresse wird nicht akzeptiert</string>
