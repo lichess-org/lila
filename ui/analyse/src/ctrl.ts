@@ -207,6 +207,8 @@ export default class AnalyseCtrl {
     return this.flipped ? opposite(this.data.orientation) : this.data.orientation;
   }
 
+  bottomIsWhite = () => this.bottomColor() === 'white';
+
   getOrientation(): Color { // required by ui/ceval
     return this.bottomColor();
   }

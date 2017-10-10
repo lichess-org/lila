@@ -25,7 +25,8 @@ import { view as forkView } from './fork'
 import { render as acplView } from './acpl'
 import AnalyseCtrl from './ctrl';
 import { ConcealOf } from './interfaces';
-import relayRender from './study/relay/relayView';
+import relayManager from './study/relay/relayManagerView';
+import * as relayView from './study/relay/relayView';
 
 function renderResult(ctrl: AnalyseCtrl): VNode[] {
   let result: string | undefined;
@@ -122,15 +123,18 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
 }
 
 function visualBoard(ctrl: AnalyseCtrl) {
-  return h('div.lichess_board_wrap', [
+  const relayPlayers = relayView.renderPlayers(ctrl);
+  return h('div.lichess_board_wrap' + (relayPlayers ? '.' + ctrl.bottomColor() : ''), [
     ctrl.keyboardHelp ? keyboardView(ctrl) : null,
     ctrl.study ? studyView.overboard(ctrl.study) : null,
+    relayPlayers ? relayPlayers[ctrl.bottomIsWhite() ? 1 : 0] : null,
     h('div.lichess_board.' + ctrl.data.game.variant.key, {
       hook: ctrl.gamebookPlay() ? undefined : bind('wheel', e => wheel(ctrl, e as WheelEvent))
     }, [
       chessground.render(ctrl),
       renderPromotion(ctrl)
     ]),
+    relayPlayers ? relayPlayers[ctrl.bottomIsWhite() ? 0 : 1] : null,
     cevalView.renderGauge(ctrl)
   ]);
 }
@@ -244,14 +248,16 @@ let firstRender = true;
 
 export default function(ctrl: AnalyseCtrl): VNode {
   const concealOf = makeConcealOf(ctrl),
+  study = ctrl.study,
   showCevalPvs = !(ctrl.retro && ctrl.retro.isSolving()) && !ctrl.practice,
   menuIsOpen = ctrl.actionMenu.open,
-  chapter = ctrl.study && ctrl.study.data.chapter,
-  studyStateClass = chapter ? chapter.id + ctrl.study!.vm.loading : 'nostudy',
+  chapter = study && study.data.chapter,
+  studyStateClass = chapter ? chapter.id + study!.vm.loading : 'nostudy',
   gamebookPlay = ctrl.gamebookPlay(),
   gamebookPlayView = gamebookPlay && gbPlay.render(gamebookPlay),
   gamebookEditView = gbEdit.running(ctrl) ? gbEdit.render(ctrl) : undefined,
-  relayView = ctrl.study && ctrl.study.relay ? relayRender(ctrl.study.relay) : undefined;
+  relay = study && study.data.chapter.relay,
+  relayEdit = study && study.relay && relayManager(study.relay);
   return h('div.analyse.cg-512', [
     h('div.' + studyStateClass, {
       hook: {
@@ -265,7 +271,8 @@ export default function(ctrl: AnalyseCtrl): VNode {
         'no_computer': !ctrl.showComputer(),
         'gb_edit': !!gamebookEditView,
         'gb_play': !!gamebookPlayView,
-        'relay_edit': !!relayView
+        'relay_edit': !!relayEdit,
+        'relay_players': !!relay,
       }
     }, [
       h('div.lichess_game', {
@@ -275,7 +282,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
       }, [
         visualBoard(ctrl),
         h('div.lichess_ground', gamebookPlayView || [
-          menuIsOpen ? null : renderClocks(ctrl),
+          menuIsOpen || relay ? null : renderClocks(ctrl),
           menuIsOpen ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
           ...(menuIsOpen ? [actionMenu(ctrl)] : [
             cevalView.renderCeval(ctrl),
@@ -286,7 +293,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
           ]),
           menuIsOpen ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
           buttons(ctrl),
-          gamebookEditView || relayView
+          gamebookEditView || relayEdit
         ])
       ])
     ]),

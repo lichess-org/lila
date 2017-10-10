@@ -88,9 +88,7 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
       root.practice!.reset();
       onLoad();
     },
-    isWhite() {
-      return root.bottomColor() === 'white';
-    },
+    isWhite: root.bottomIsWhite,
     analysisUrl
   };
 }

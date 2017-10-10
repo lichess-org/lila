@@ -1,6 +1,39 @@
-.relay_edit .lichess_game .lichess_ground {
-  /* margin-bottom: -237px; */
+.relay_players  {
+  margin-bottom: 32px;
 }
+.relay_players .lichess_board_wrap {
+  margin-top: -26px;
+}
+.relay_player {
+  background: #759900;
+  color: #fff;
+  display: flex;
+  height: 26px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0.6em;
+  border-radius: 3px 3px 0 0;
+  font-size: 15px;
+  font-weight: bold;
+}
+.lichess_board_wrap.white .relay_player.white,
+.lichess_board_wrap.black .relay_player.black {
+  border-radius: 0 0 3px 3px;
+}
+.relay_player .elo {
+  margin-left: 0.5em;
+  font-weight: normal;
+}
+.relay_player .aclock {
+  font-family: 'Roboto Mono', 'Roboto';
+  font-size: 17px;
+  line-height: 26px;
+}
+/* .relay_player.black { */
+/*   background: #888; */
+/*   color: #fff; */
+/* } */
+
 .relay_edit .relay_wrap {
   position: absolute;
   top: 100%;
@@ -47,7 +80,7 @@
   padding: 8px 10px;
 }
 .relay_edit .relay .state .fat {
-  font-size: 1.4em;
+  font-size: 1.5em;
   text-transform: uppercase;
 }
 .relay_edit .relay .state.off {
