@@ -88,7 +88,7 @@ private final class RelayFetch(
     else if (games.forall(!_.started)) fuccess(none)
     else chapterRepo.relaysAndTagsByStudyId(r.studyId) map { chapters =>
       games.forall { game =>
-        chapters.find(c => game is c._2) ?? {
+        chapters.find(c => game is c._1) ?? {
           case (chapterRelay, tags) =>
             tags.resultColor.isDefined ||
               game.end.isDefined ||
@@ -181,28 +181,24 @@ private object RelayFetch {
     import com.github.blemale.scaffeine.{ LoadingCache, Scaffeine }
 
     def apply(multiPgn: MultiPgn): Fu[List[RelayGame]] =
-      multiPgn.value.foldLeft[Try[List[RelayGame]]](Success(List.empty)) {
-        case (Success(acc), pgn) => pgnCache.get(pgn) map (_ :: acc)
+      multiPgn.value.zipWithIndex.foldLeft[Try[List[RelayGame]]](Success(List.empty)) {
+        case (Success(acc), (pgn, index)) => pgnCache.get(pgn) map (f => f(index) :: acc)
         case (acc, _) => acc
       }.map(_.reverse).future
 
-    private val pgnCache: LoadingCache[String, Try[RelayGame]] = Scaffeine()
+    private val pgnCache: LoadingCache[String, Try[Int => RelayGame]] = Scaffeine()
       .expireAfterAccess(2 minutes)
       .build(compute)
 
-    private def compute(pgn: String): Try[RelayGame] = for {
-      res <- lila.study.PgnImport(pgn, Nil).fold(
+    private def compute(pgn: String): Try[Int => RelayGame] =
+      lila.study.PgnImport(pgn, Nil).fold(
         err => Failure(LilaException(err)),
-        Success.apply
+        res => Success(index => RelayGame(
+          index = index,
+          tags = res.tags,
+          root = res.root,
+          end = res.end
+        ))
       )
-      white <- res.tags(_.White) toTry LilaException("Missing PGN White tag")
-      black <- res.tags(_.Black) toTry LilaException("Missing PGN Black tag")
-    } yield RelayGame(
-      tags = res.tags,
-      root = res.root,
-      end = res.end,
-      whiteName = RelayGame.PlayerName(white),
-      blackName = RelayGame.PlayerName(black)
-    )
   }
 }

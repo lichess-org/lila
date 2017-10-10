@@ -74,6 +74,7 @@ private final class RelaySync(
               uid = socketUid,
               opts = moveOpts.copy(clock = n.clock),
               relay = Chapter.Relay(
+                index = game.index,
                 path = position.path + n,
                 lastMoveAt = DateTime.now
               ).some
@@ -114,9 +115,15 @@ private final class RelaySync(
 
   private def createChapter(study: Study, game: RelayGame): Fu[Chapter] =
     chapterRepo.nextOrderByStudy(study.id) flatMap { order =>
+      val name = {
+        for {
+          w <- game.tags(_.White)
+          b <- game.tags(_.Black)
+        } yield s"$w - $b"
+      } orElse game.tags("board") getOrElse "?"
       val chapter = Chapter.make(
         studyId = study.id,
-        name = Chapter.Name(s"${game.whiteName} - ${game.blackName}"),
+        name = Chapter.Name(name),
         setup = Chapter.Setup(
           none,
           game.tags.variant | chess.variant.Variant.default,
@@ -130,6 +137,7 @@ private final class RelaySync(
         gamebook = false,
         conceal = none,
         relay = Chapter.Relay(
+          index = game.index,
           path = game.root.mainlinePath,
           lastMoveAt = DateTime.now
         ).some
