@@ -1,5 +1,6 @@
 package lila.common
 
+import lila.common.PimpedJson._
 import play.api.libs.json.{ Json, OWrites }
 
 case class LightUser(
