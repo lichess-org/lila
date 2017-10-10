@@ -35,10 +35,9 @@ private final class RelayFetch(
       throw new RuntimeException(msg)
 
     case Tick =>
-      api.toSync.map(_ filter RelayFetch.shouldFetchNow).flatMap { relays =>
-        val fetcher = new RelayFetch.CachedFetcher(relays.size)
-        relays.map { relay =>
-          fetcher(relay.sync.upstream) flatMap { games =>
+      api.toSync.map(_ filter RelayFetch.shouldFetchNow).flatMap {
+        _.map { relay =>
+          RelayFetch(relay.sync.upstream, relay.id) flatMap { games =>
             sync(relay, games)
               .withTimeout(300 millis, SyncResult.Timeout)(context.system) flatMap { res =>
                 api.addLog(relay.id, SyncLog.event(res.moves, none)) inject res
@@ -111,64 +110,68 @@ private object RelayFetch {
     r.sync.log.updatedAt ?? { DateTime.now.minusSeconds(30).isAfter }
   }
 
-  final class CachedFetcher(capacity: Int) {
+  import Relay.Sync.Upstream
+  case class GamesSeenBy(games: Fu[RelayGames], seenBy: Set[Relay.Id])
 
-    import Relay.Sync.Upstream
-
-    def apply(upstream: Upstream): Fu[RelayGames] =
-      cache.computeIfAbsent(upstream, fetchFunction)
-
-    import java.util.concurrent.ConcurrentHashMap
-    private val cache = new ConcurrentHashMap[Upstream, Fu[RelayGames]](capacity)
-
-    private val fetchFunction = new java.util.function.Function[Upstream, Fu[RelayGames]] {
-      def apply(u: Upstream) = doFetch(u)
+  def apply(upstream: Upstream, relayId: Relay.Id): Fu[RelayGames] =
+    cache getIfPresent upstream match {
+      case Some(GamesSeenBy(games, seenBy)) if !seenBy(relayId) =>
+        cache.put(upstream, GamesSeenBy(games, seenBy + relayId))
+        games
+      case x =>
+        val games = doFetch(upstream)
+        cache.put(upstream, GamesSeenBy(games, Set(relayId)))
+        games
     }
 
-    private def doFetch(upstream: Upstream): Fu[RelayGames] = (upstream match {
-      case Upstream.DgtOneFile(file) => dgtOneFile(file)
-      case Upstream.DgtManyFiles(dir) => dgtManyFiles(dir)
-    }) flatMap multiPgnToGames.apply
+  import com.github.blemale.scaffeine.{ Cache, Scaffeine }
+  private val cache: Cache[Upstream, GamesSeenBy] = Scaffeine()
+    .expireAfterWrite(30.seconds)
+    .build[Upstream, GamesSeenBy]
 
-    private def dgtOneFile(file: String): Fu[MultiPgn] =
-      httpGet(file).flatMap {
-        case res if res.status == 200 => fuccess(splitPgn(res.body))
-        case res => fufail(s"Cannot fetch $file (error ${res.status})")
-      }
+  private def doFetch(upstream: Upstream): Fu[RelayGames] = (upstream match {
+    case Upstream.DgtOneFile(file) => dgtOneFile(file)
+    case Upstream.DgtManyFiles(dir) => dgtManyFiles(dir)
+  }) flatMap multiPgnToGames.apply
 
-    import play.api.libs.json._
+  private def dgtOneFile(file: String): Fu[MultiPgn] =
+    httpGet(file).flatMap {
+      case res if res.status == 200 => fuccess(splitPgn(res.body))
+      case res => fufail(s"Cannot fetch $file (error ${res.status})")
+    }
 
-    private case class RoundJsonPairing(live: Boolean)
-    private case class RoundJson(pairings: List[RoundJsonPairing])
-    private implicit val roundPairingReads = Json.reads[RoundJsonPairing]
-    private implicit val roundReads = Json.reads[RoundJson]
+  import play.api.libs.json._
 
-    private def dgtManyFiles(dir: String): Fu[MultiPgn] = {
-      val roundUrl = s"$dir/round.json"
-      httpGet(roundUrl) flatMap {
-        case res if res.status == 200 => roundReads reads res.json match {
-          case JsError(err) => fufail(err.toString)
-          case JsSuccess(round, _) => (1 to round.pairings.size).map { number =>
-            val gameUrl = s"$dir/game-$number.pgn"
-            httpGet(gameUrl).flatMap {
-              case res if res.status == 200 => fuccess(number -> res.body)
-              case res => fufail(s"Cannot fetch $gameUrl (error ${res.status})")
-            }
-          }.sequenceFu map { results =>
-            MultiPgn(results.sortBy(_._1).map(_._2).toList)
+  private case class RoundJsonPairing(live: Boolean)
+  private case class RoundJson(pairings: List[RoundJsonPairing])
+  private implicit val roundPairingReads = Json.reads[RoundJsonPairing]
+  private implicit val roundReads = Json.reads[RoundJson]
+
+  private def dgtManyFiles(dir: String): Fu[MultiPgn] = {
+    val roundUrl = s"$dir/round.json"
+    httpGet(roundUrl) flatMap {
+      case res if res.status == 200 => roundReads reads res.json match {
+        case JsError(err) => fufail(err.toString)
+        case JsSuccess(round, _) => (1 to round.pairings.size).map { number =>
+          val gameUrl = s"$dir/game-$number.pgn"
+          httpGet(gameUrl).flatMap {
+            case res if res.status == 200 => fuccess(number -> res.body)
+            case res => fufail(s"Cannot fetch $gameUrl (error ${res.status})")
           }
+        }.sequenceFu map { results =>
+          MultiPgn(results.sortBy(_._1).map(_._2).toList)
         }
-        case res => fufail(s"Cannot fetch $roundUrl (error ${res.status})")
       }
+      case res => fufail(s"Cannot fetch $roundUrl (error ${res.status})")
     }
+  }
 
-    private def httpGet(url: String) = WS.url(url).withRequestTimeout(4.seconds.toMillis).get()
+  private def httpGet(url: String) = WS.url(url).withRequestTimeout(4.seconds.toMillis).get()
 
-    private def splitPgn(str: String) = MultiPgn {
-      """\n\n\[""".r.split(str.replace("\r\n", "\n")).toList match {
-        case first :: rest => first :: rest.map(t => s"[$t")
-        case Nil => Nil
-      }
+  private def splitPgn(str: String) = MultiPgn {
+    """\n\n\[""".r.split(str.replace("\r\n", "\n")).toList match {
+      case first :: rest => first :: rest.map(t => s"[$t")
+      case Nil => Nil
     }
   }
 
