@@ -471,6 +471,7 @@
   <string name="xCommentedY">%1$s komentis %2$s</string>
   <string name="victory">Venko!</string>
   <string name="defeat">Malvenko</string>
+  <string name="xVsYinZ">%1$s kontraŭ %2$s en %3$s</string>
   <string name="timeline">Kronologio</string>
   <string name="seeAllTournaments">Montri ĉiujn turnirojn</string>
   <string name="starting">Komenciĝos je:</string>
@@ -512,6 +513,7 @@
   <string name="error.email_acceptable">Ĉi tiu retadreso estas malakceptata</string>
   <string name="error.email_unique">Ĉi tiu retadreso jam estas uzata</string>
   <string name="blindfoldChess">Blinda ŝako (nevideblaj ŝakpecoj)</string>
+  <string name="zenMode">Zen modo</string>
   <string name="moveConfirmation">Konfirmo de movoj</string>
   <string name="inCorrespondenceGames">En korespondaj ludoj</string>
   <string name="ifRatingIsPlusMinusX">Se taksado estas ± %s</string>
@@ -540,6 +542,7 @@
   <string name="sourceCode">Fontkodo</string>
   <string name="simultaneousExhibitions">Samtempludaj ekspozicioj</string>
   <string name="host">Gastiganto</string>
+  <string name="hostColorX">Koloro de gastiganto: %s</string>
   <string name="createdSimuls">Antaŭ nelonge kreitaj samtempludoj</string>
   <string name="hostANewSimul">Gastigi novan samtempludon</string>
   <string name="noSimulFound">Ne trovis samtempludon</string>
@@ -639,12 +642,14 @@
   <string name="xLikesY">%1$s ŝatas %2$s</string>
   <string name="quickPairing">Rapida parado</string>
   <string name="lobby">Lobio</string>
+  <string name="anonymous">Sennoma</string>
   <string name="yourScore">Via poentaro: %s</string>
   <string name="language">Lingvo</string>
   <string name="background">Fono</string>
   <string name="light">Hela</string>
   <string name="dark">Malhela</string>
   <string name="transparent">Travidebla</string>
+  <string name="backgroundImageUrl">Malantaŭografikaĵo URL:</string>
   <string name="boardGeometry">Tabula geometrio</string>
   <string name="boardTheme">Tabula temo</string>
   <string name="boardSize">Tabula grandeco</string>
