@@ -117,7 +117,7 @@ final class Env(
     Env.activity, // required to load the actor
     Env.relay // you know the drill by now
   )) { lap =>
-    lila.log("boot").info(s"${lap.millis}ms Preloading complete")
+    lila.log.boot.info(s"${lap.millis}ms Preloading complete")
   }
 
   scheduler.once(5 seconds) {
