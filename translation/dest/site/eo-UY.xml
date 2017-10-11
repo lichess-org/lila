@@ -48,6 +48,8 @@
   <string name="computerAnalysis">Komputila analizo</string>
   <string name="computerAnalysisAvailable">Komputila analizo haveblas</string>
   <string name="analysis">Analizo</string>
+  <string name="move">Moviĝi</string>
+  <string name="capture">Kapto</string>
   <string name="openingExplorer">Esplorilo pri malfermoj</string>
   <string name="blunders">Eraregoj</string>
   <string name="mistakes">Eraroj</string>
