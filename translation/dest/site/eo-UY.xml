@@ -48,11 +48,13 @@
   <string name="computerAnalysis">Komputila analizo</string>
   <string name="computerAnalysisAvailable">Komputila analizo haveblas</string>
   <string name="analysis">Analizo</string>
+  <string name="depthX">Profundo %s</string>
   <string name="loadingEngine">Komencu la maŝino ...</string>
   <string name="goDeeper">Iru pli profunde</string>
   <string name="showThreat">Montru la minaco</string>
   <string name="move">Moviĝi</string>
   <string name="insufficientMaterial">Nesufiĉa materialo</string>
+  <string name="pawnMove">Peonmovo</string>
   <string name="capture">Kapto</string>
   <string name="close">Fermu</string>
   <string name="winning">Venkant</string>
@@ -60,6 +62,7 @@
   <string name="unknown">Nekonata</string>
   <string name="database">Datumbazo</string>
   <string name="whiteDrawBlack">Blanka / Paŭzo / Nigra</string>
+  <string name="recentGames">Freŝdataj ludoj</string>
   <string name="openingExplorer">Esplorilo pri malfermoj</string>
   <string name="importPgn">Importu PGN</string>
   <string name="delete">Forigi</string>
