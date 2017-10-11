@@ -50,6 +50,11 @@
   <string name="analysis">Analizo</string>
   <string name="move">Moviĝi</string>
   <string name="capture">Kapto</string>
+  <string name="close">Fermu</string>
+  <string name="winning">Venkant</string>
+  <string name="losing">Malvenkant</string>
+  <string name="unknown">Nekonata</string>
+  <string name="database">Datumbazo</string>
   <string name="openingExplorer">Esplorilo pri malfermoj</string>
   <string name="blunders">Eraregoj</string>
   <string name="mistakes">Eraroj</string>
