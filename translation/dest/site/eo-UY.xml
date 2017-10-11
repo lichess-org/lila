@@ -55,7 +55,9 @@
   <string name="losing">Malvenkant</string>
   <string name="unknown">Nekonata</string>
   <string name="database">Datumbazo</string>
+  <string name="whiteDrawBlack">Blanka / Paŭzo / Nigra</string>
   <string name="openingExplorer">Esplorilo pri malfermoj</string>
+  <string name="delete">Forigi</string>
   <string name="blunders">Eraregoj</string>
   <string name="mistakes">Eraroj</string>
   <string name="inaccuracies">Eraretoj</string>
