@@ -64,6 +64,7 @@
   <string name="whiteDrawBlack">Blanka / Paŭzo / Nigra</string>
   <string name="recentGames">Freŝdataj ludoj</string>
   <string name="topGames">Pintaj ludoj</string>
+  <string name="masterDbExplanation">Du milionoj ludoj fizikaj far %1$s+ FIDE-taksitaj ludantoj de %2$s ĝis %3$s</string>
   <string name="openingExplorer">Esplorilo pri malfermoj</string>
   <string name="importPgn">Importu PGN</string>
   <string name="delete">Forigi</string>
@@ -214,6 +215,10 @@
   <string name="tournamentPoints">Turniraj poentoj</string>
   <string name="viewTournament">Vidi turniron</string>
   <string name="backToTournament">Reiri al turniro</string>
+  <string name="yourPerfRatingIsTooHigh">Via taksado %1$s (%2$s) estas tro alta</string>
+  <string name="yourPerfRatingIsTooLow">Via taksado %1$s (%2$s) estas tro malalta</string>
+  <string name="ratedMoreThanInPerf">Taksado de ≥ %1$s en %2$s</string>
+  <string name="ratedLessThanInPerf">Taksado de ≤ %1$s en %2$s</string>
   <string name="backToGame">Reiri al la ludo</string>
   <string name="siteDescription">Senpaga interreta ŝakludo. Ludu ŝakon nun per simpla interfaco. Sen registriĝo, sen reklamoj, sen neceso por aldonaĵo. Ludu ŝakon kun la komputilo, amikoj aŭ hazardaj kontraŭuloj.</string>
   <string name="teams">Teamoj</string>
