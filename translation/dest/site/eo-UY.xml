@@ -307,8 +307,11 @@
   <string name="whiteWins">Blanko venkas</string>
   <string name="blackWins">Nigro venkas</string>
   <string name="draws">Paŭzoj</string>
+  <string name="averageOpponent">Mezuma kontraŭulo</string>
   <string name="membersOnly">Nur membroj</string>
   <string name="boardEditor">Tabulredaktilo</string>
+  <string name="setTheBoard">Antaŭfaru la tabulo</string>
+  <string name="popularOpenings">Popularaj komencoj</string>
   <string name="startPosition">Komenca aranĝo</string>
   <string name="clearBoard">Malplenigi tabulon</string>
   <string name="savePosition">Savi aranĝon</string>
@@ -639,6 +642,9 @@
   <string name="yourScore">Via poentaro: %s</string>
   <string name="language">Lingvo</string>
   <string name="background">Fono</string>
+  <string name="light">Hela</string>
+  <string name="dark">Malhela</string>
+  <string name="transparent">Travidebla</string>
   <string name="boardGeometry">Tabula geometrio</string>
   <string name="boardTheme">Tabula temo</string>
   <string name="boardSize">Tabula grandeco</string>
