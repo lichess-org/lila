@@ -300,6 +300,13 @@
   <string name="tournamentPairingsAreNowClosed">La turniraj parigoj nun fermiĝis.</string>
   <string name="standByX">Atentu %s, parigante ludantojn, pretiĝu!</string>
   <string name="youArePlaying">Vi nun ludas!</string>
+  <string name="winRate">Venka procento</string>
+  <string name="berserkRate">Freneza procento</string>
+  <string name="performance">Efikeco</string>
+  <string name="tournamentComplete">Turniro finitis</string>
+  <string name="whiteWins">Blanko venkas</string>
+  <string name="blackWins">Nigro venkas</string>
+  <string name="draws">Paŭzoj</string>
   <string name="membersOnly">Nur membroj</string>
   <string name="boardEditor">Tabulredaktilo</string>
   <string name="startPosition">Komenca aranĝo</string>
