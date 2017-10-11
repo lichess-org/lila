@@ -48,6 +48,7 @@
   <string name="computerAnalysis">Komputila analizo</string>
   <string name="computerAnalysisAvailable">Komputila analizo haveblas</string>
   <string name="analysis">Analizo</string>
+  <string name="loadingEngine">Komencu la maŝino ...</string>
   <string name="move">Moviĝi</string>
   <string name="capture">Kapto</string>
   <string name="close">Fermu</string>
