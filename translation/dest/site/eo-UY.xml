@@ -304,9 +304,12 @@
   <string name="berserkRate">Freneza procento</string>
   <string name="performance">Efikeco</string>
   <string name="tournamentComplete">Turniro finitis</string>
+  <string name="movesPlayed">Moviĝoj luditaj</string>
   <string name="whiteWins">Blanko venkas</string>
   <string name="blackWins">Nigro venkas</string>
   <string name="draws">Paŭzoj</string>
+  <string name="nextXTournament">Proksima %s turniro:</string>
+  <string name="viewMoreTournaments">Spektu pli da turniroj</string>
   <string name="averageOpponent">Mezuma kontraŭulo</string>
   <string name="membersOnly">Nur membroj</string>
   <string name="boardEditor">Tabulredaktilo</string>
@@ -329,6 +332,7 @@
   <string name="biography">Biografio</string>
   <string name="country">Lando</string>
   <string name="preferences">Preferoj</string>
+  <string name="inlineNotation">Enlineaj markoj</string>
   <string name="watchLichessTV">Spekti Lichess-TV</string>
   <string name="previouslyOnLichessTV">Antaŭe ĉe Lichess-TV</string>
   <string name="onlinePlayers">Konektitaj ludantoj</string>
