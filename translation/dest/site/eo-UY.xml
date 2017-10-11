@@ -407,6 +407,7 @@
   <string name="closeAccountExplanation">Ĉu vi certas, ke vi volas fermi vian konton? Fermi vian konton estas ago nemalfarebla. Vi ne plu povos ensaluti, kaj via profila paĝo ne plu estos alirebla.</string>
   <string name="thisAccountIsClosed">Tiu ĉi konto estas fermita.</string>
   <string name="invalidUsernameOrPassword">Malĝusta uzantnomo aŭ pasvorto</string>
+  <string name="incorrectPassword">Malkorekta pasvorto</string>
   <string name="emailMeALink">Retpoŝte sendu al mi ligilon</string>
   <string name="currentPassword">Nuna pasvorto</string>
   <string name="newPassword">Nova pasvorto</string>
@@ -487,6 +488,7 @@
   <string name="playOnTheBoardOffline">Ludi fizike kun aliulo</string>
   <string name="playOfflineComputer">Ludi elrete kontraŭ komputilo</string>
   <string name="opponent">Kontraŭulo</string>
+  <string name="learnMenu">Lernu</string>
   <string name="community">Komunumo</string>
   <string name="tools">Iloj</string>
   <string name="increment">Pliiĝo</string>
