@@ -63,6 +63,7 @@
   <string name="database">Datumbazo</string>
   <string name="whiteDrawBlack">Blanka / Paŭzo / Nigra</string>
   <string name="recentGames">Freŝdataj ludoj</string>
+  <string name="topGames">Pintaj ludoj</string>
   <string name="openingExplorer">Esplorilo pri malfermoj</string>
   <string name="importPgn">Importu PGN</string>
   <string name="delete">Forigi</string>
