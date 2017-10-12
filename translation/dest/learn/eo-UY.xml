@@ -6,6 +6,7 @@
   <string name="menu">Menuo</string>
   <string name="progressX">Progreso: %s</string>
   <string name="resetMyProgress">Nulu mian progreson</string>
+  <string name="youWillLoseAllYourProgress">Vi tute perdos vian progreson!</string>
   <string name="play">ludu!</string>
   <string name="practice">Praktiki</string>
 </resources>
