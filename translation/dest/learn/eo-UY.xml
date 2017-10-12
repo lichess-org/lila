@@ -21,5 +21,14 @@
   <string name="theQueen">La damo</string>
   <string name="theKing">La reĝo</string>
   <string name="theMostImportantPiece">La plej grava peco</string>
+  <string name="theKingIsSlow">La reĝo estas malrapida.</string>
+  <string name="theKnight">La ĉevalo</string>
+  <string name="thePawn">La peono</string>
+  <string name="itMovesForwardOnly">Ĝi nur moviĝas antaŭe</string>
+  <string name="pawnIntro">Peonoj estas malfortaj, sed ili havas multe da potencialo.</string>
+  <string name="pawnPromotion">Promocio de peono</string>
+  <string name="selectThePieceYouWant">Elektu la pecojn, kiujn vi volas!</string>
+  <string name="capture">Kapti</string>
+  <string name="takeTheEnemyPieces">Mortigi la malamikajn pecojn</string>
   <string name="practice">Praktiki</string>
 </resources>
