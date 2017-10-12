@@ -84,7 +84,7 @@ object UserAnalysis extends LilaController with TheftPrevention {
   def game(id: String, color: String) = Open { implicit ctx =>
     OptionFuResult(GameRepo game id) { game =>
       val pov = Pov(game, chess.Color(color == "white"))
-      if (game.finished) negotiate(
+      if (game.replayable) negotiate(
         html = fuccess(Redirect(routes.Round.watcher(game.id, color))),
         api = apiVersion => mobileAnalysis(pov, apiVersion)
       )
