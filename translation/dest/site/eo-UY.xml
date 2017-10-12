@@ -72,6 +72,10 @@
   <string name="recentGames">Freŝdataj ludoj</string>
   <string name="topGames">Pintaj ludoj</string>
   <string name="masterDbExplanation">Du milionoj ludoj fizikaj far %1$s+ FIDE-taksitaj ludantoj de %2$s ĝis %3$s</string>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">La proksima kapto aŭ peonmovo %s duonmovoj for (por rekomenci la regulon pri 50-movan)</item>
+    <item quantity="other">La proksima kapto aŭ peonmovo %s duonmovoj for (por rekomenci la regulon pri 50-movan)</item>
+  </plurals>
   <string name="noGameFound">Neniu ludo trovita</string>
   <string name="openingExplorer">Esplorilo pri malfermoj</string>
   <string name="winPreventedBy50MoveRule">Venko blokita per la reglo pri 50-movoj</string>
@@ -79,7 +83,10 @@
   <string name="allSet">Preta!</string>
   <string name="importPgn">Importu PGN</string>
   <string name="delete">Forigi</string>
+  <string name="deleteThisImportedGame">Elimini ĉi tiun enmetitan ludon?</string>
   <string name="replayMode">Rapido de reludo</string>
+  <string name="byCPL">Per eraroj</string>
+  <string name="openStudy">Malfermi analizon</string>
   <string name="enable">Ebligi</string>
   <string name="bestMoveArrow">Sago por optimuma movo</string>
   <string name="multipleLines">Pluraj linioj</string>
@@ -238,8 +245,10 @@
   <string name="tournamentPoints">Turniraj poentoj</string>
   <string name="viewTournament">Vidi turniron</string>
   <string name="backToTournament">Reiri al turniro</string>
+  <string name="thematic">Tema</string>
   <string name="yourPerfRatingIsProvisional">Vi havas duman %s -taksadon</string>
   <string name="yourPerfRatingIsTooHigh">Via taksado %1$s (%2$s) estas tro alta</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Via plej alta semajna taksado en %1$s (%2$s) estas tro alta</string>
   <string name="yourPerfRatingIsTooLow">Via taksado %1$s (%2$s) estas tro malalta</string>
   <string name="ratedMoreThanInPerf">Taksado de ≥ %1$s en %2$s</string>
   <string name="ratedLessThanInPerf">Taksado de ≤ %1$s en %2$s</string>
