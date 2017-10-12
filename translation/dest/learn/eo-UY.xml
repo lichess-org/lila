@@ -94,6 +94,15 @@ en unu movo!</string>
   <string name="escapeWithTheKing">Eskapu kun la reĝo!</string>
   <string name="theKingCannotEscapeButBlock">La reĝo ne povas eskapi,
 Sed vi povas bloki la atakon!</string>
+  <string name="escapeOrBlock">Eskapu kun la reĝo
+Aŭ bloki la atakon!</string>
+  <string name="outOfCheckComplete">Gratulojn! Via reĝo neniam povas esti prenita, certigu, ke vi povas protekti kontraŭ ŝako!</string>
+  <string name="mateInOne">Mato unu</string>
+  <string name="defeatTheOpponentsKing">Malvenki la reĝon de la kontraŭulo</string>
+  <string name="mateInOneIntro">Vi venkas, kiam via kontraŭulo ne povas protekti kontraŭ ŝako.</string>
+  <string name="attackYourOpponentsKing">Ataku la reĝon de via kontraŭulo
+En vojo kiu ne povas esti protektita!</string>
+  <string name="mateInOneComplete">Gratulojn! Jen kiel vi venkas ŝakludojn!</string>
   <string name="intermediate">Meznivela</string>
   <string name="boardSetup">Antaŭfaro de la tabulo</string>
   <string name="howTheGameStarts">Kiel la ludo komencas</string>
@@ -103,6 +112,8 @@ de ĉiu ludo de ŝako!
 Faru iun movon por daŭrigi.</string>
   <string name="placeTheKing">Metu la reĝon!
 Ĝuste apud sia damo.</string>
+  <string name="theSpecialKingMove">La speciala reĝo moviĝas</string>
+  <string name="theSpecialPawnMove">La speciala peono moviĝas</string>
   <string name="advanced">Altnivela</string>
   <string name="takeThePieceWithTheHighestValue">Prenu la pecon
 kun la plej alta valoro!</string>
