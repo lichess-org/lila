@@ -81,7 +81,9 @@ lazy val api = module("api", moduleCPDeps)
       play.api, hasher, typesafeConfig, findbugs,
       reactivemongo.driver, reactivemongo.iteratees,
       kamon.core, kamon.influxdb
-    )
+    ),
+    aggregate in Runtime := false,
+    aggregate in Test := true  // Test <: Runtime
   ) aggregate (moduleRefs: _*)
 
 lazy val puzzle = module("puzzle", Seq(
