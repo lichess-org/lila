@@ -54,6 +54,7 @@
   <string name="cloudAnalysis">Analizo per la nubo</string>
   <string name="goDeeper">Iru pli profunde</string>
   <string name="showThreat">Montru la minaco</string>
+  <string name="inLocalBrowser">en loka foliumilo</string>
   <string name="move">Moviĝi</string>
   <string name="variantLoss">Variaĵa malvenko</string>
   <string name="variantWin">Variaĵa venko</string>
@@ -79,8 +80,11 @@
   <string name="delete">Forigi</string>
   <string name="enable">Ebligi</string>
   <string name="bestMoveArrow">Sago por optimuma movo</string>
+  <string name="multipleLines">Pluraj linioj</string>
   <string name="cpus">Ĉefprocesoroj</string>
   <string name="memory">Memoro</string>
+  <string name="infiniteAnalysis">Senfina analizo</string>
+  <string name="removesTheDepthLimit">Forigas la profundlimon, kaj tenas vian komputilon varma</string>
   <string name="blunders">Eraregoj</string>
   <string name="mistakes">Eraroj</string>
   <string name="inaccuracies">Eraretoj</string>
