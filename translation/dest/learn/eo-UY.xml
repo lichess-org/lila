@@ -23,7 +23,7 @@
   <string name="youNeedBothBishops">Unu hela-kvadrata kuriero,
 unu malhela-kvadrata kuriero.
 Vi bezonas ambaŭ!</string>
-  <string name="bishopComplete">Gratulojn! Vi povas ordoni episkopo.</string>
+  <string name="bishopComplete">Gratulojn! Vi povas ordoni kuriero.</string>
   <string name="theQueen">La damo</string>
   <string name="queenCombinesRookAndBishop">Damo = turo + kuriero</string>
   <string name="queenIntro">La plej potenca ŝako peco eniras. Ŝia majesto la damo!</string>
@@ -118,7 +118,7 @@ Faru iun movon por daŭrigi.</string>
 Ili iras en la anguloj.</string>
   <string name="thenPlaceTheKnights">Tiam metu la ĉevalojn!
 Ili iras apud la turoj.</string>
-  <string name="placeTheBishops">Metu la episkopojn!
+  <string name="placeTheBishops">Metu la kurierojn!
 Ili iras apud la ĉevaloj.</string>
   <string name="placeTheQueen">Metu la damon!
 Ŝi iras sur sian propran koloron.</string>
@@ -141,13 +141,13 @@ Faru iun movon por daŭrigi.</string>
   <string name="pieceValueIntro">Pecoj kun alta movebleco havas pli altan valoron!
 Damo = 9
 Turo = 5
-Episkopo = 3
+Kuriero = 3
 Ĉevalo = 3
 Peono = 1
 La reĝo estas senvalora! Perdi ĝin signifas perdi la ludon.</string>
   <string name="queenOverBishop">Prenu la pecon
 kun la plej alta valoro!
-Damo &gt; Episkopo</string>
+Damo &gt; Kuriero</string>
   <string name="takeThePieceWithTheHighestValue">Prenu la pecon
 kun la plej alta valoro!</string>
   <string name="pieceValueComplete">Pecoj kun alta movebleco havas pli altan valoron!
