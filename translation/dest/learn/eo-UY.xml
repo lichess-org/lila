@@ -22,12 +22,18 @@
   <string name="bishopIntro">Poste ni lernos kiel manovri episkopo!</string>
   <string name="bishopComplete">Gratulojn! Vi povas ordoni episkopo.</string>
   <string name="theQueen">La damo</string>
+  <string name="queenCombinesRookAndBishop">Damo = turo + kuriero</string>
   <string name="queenIntro">La plej potenca ŝako peco eniras. Ŝia majesto la damo!</string>
+  <string name="queenComplete">Gratulon! Damoj ne havas sekretojn por vi.</string>
   <string name="theKing">La reĝo</string>
   <string name="theMostImportantPiece">La plej grava peco</string>
+  <string name="kingIntro">Vi estas la reĝo. Se vi falos en batalo, la ludo perdiĝas.</string>
   <string name="theKingIsSlow">La reĝo estas malrapida.</string>
   <string name="lastOne">La lasta!</string>
+  <string name="kingComplete">Vi nun povas regi la reganto!</string>
   <string name="theKnight">La ĉevalo</string>
+  <string name="knightsHaveAFancyWay">Ĉevaloj havas malsimplan vojon
+salti ĉirkaŭe!</string>
   <string name="knightsCanJumpOverObstacles">Ĉevaloj povas salti super obstakloj!
 Eskapu kaj venku la stelojn!</string>
   <string name="knightComplete">Gratulon! Vi regis la ĉevalon.</string>
@@ -35,9 +41,17 @@ Eskapu kaj venku la stelojn!</string>
   <string name="itMovesForwardOnly">Ĝi nur moviĝas antaŭe</string>
   <string name="pawnIntro">Peonoj estas malfortaj, sed ili havas multe da potencialo.</string>
   <string name="pawnsMoveOneSquareOnly">Peonoj povas moviĝi nur unu spaco. Sed Kiam, ili atingas la alian flankon de la tabulo, ili fariĝas pli forta peco!</string>
+  <string name="pawnsMoveForward">Peonoj moviĝas antaŭe, sed kaptas oblikve!</string>
+  <string name="pawnComplete">Gratulon! Peonoj ne havas sekretojn por vi.</string>
   <string name="pawnPromotion">Promocio de peono</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Via peono atingis la fino de la tabulo!</string>
   <string name="selectThePieceYouWant">Elektu la pecojn, kiujn vi volas!</string>
+  <string name="fundamentals">Fundamentoj</string>
   <string name="capture">Kapti</string>
   <string name="takeTheEnemyPieces">Mortigi la malamikajn pecojn</string>
+  <string name="captureIntro">Rimarku kaj kaptu la malsekuraj pecoj de la oponanto!</string>
+  <string name="takeTheBlackPieces">Mortigi la nigrajn pecojn!</string>
+  <string name="advanced">Altnivela</string>
   <string name="practice">Praktiki</string>
+  <string name="videos">Videoj</string>
 </resources>
