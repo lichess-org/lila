@@ -76,6 +76,8 @@ Kaj ne perdu vian.</string>
 Eskapu la minacon!</string>
   <string name="noEscape">Ne ekzistas eskapilo,
 sed vi povas protekti!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Ne lasu ilin preni
+Iu ajn senŝanĝa peco!</string>
   <string name="combat">Batalo</string>
   <string name="captureAndDefendPieces">Kapti kaj protekti pecojn</string>
   <string name="combatIntro">Bona militisto konas ambaŭ atakojn kaj defendojn!</string>
@@ -86,23 +88,60 @@ sed vi povas protekti!</string>
   <string name="checkInOneGoal">Fino ĉe la reĝo de la kontraŭulo
 en unu movo!</string>
   <string name="checkInOneComplete">Gratulojn! Vi ŝakis vian kontraŭulon, devigante ilin defendi sian reĝon!</string>
+  <string name="outOfCheck">Ekstere de ŝako</string>
   <string name="defendYourKing">Defendu vian reĝon</string>
+  <string name="outOfCheckIntro">Vi estas en ŝako! Vi devas eskapi aŭ bloki la atakon.</string>
+  <string name="escapeWithTheKing">Eskapu kun la reĝo!</string>
+  <string name="theKingCannotEscapeButBlock">La reĝo ne povas eskapi,
+Sed vi povas bloki la atakon!</string>
   <string name="intermediate">Meznivela</string>
   <string name="boardSetup">Antaŭfaro de la tabulo</string>
   <string name="howTheGameStarts">Kiel la ludo komencas</string>
   <string name="boardSetupIntro">La du armeoj alfrontas unu la alian, pretaj por la batalo.</string>
+  <string name="thisIsTheInitialPosition">Ĉi tiu estas la komenca pozicio
+de ĉiu ludo de ŝako!
+Faru iun movon por daŭrigi.</string>
+  <string name="placeTheKing">Metu la reĝon!
+Ĝuste apud sia damo.</string>
   <string name="advanced">Altnivela</string>
+  <string name="takeThePieceWithTheHighestValue">Prenu la pecon
+kun la plej alta valoro!</string>
+  <string name="checkInTwo">Ŝaku du</string>
+  <string name="twoMovesToGiveCheck">Du movoj por doni ŝakon</string>
+  <string name="checkInTwoIntro">Trovu la ĝustan kombinon de du movoj, kiuj ŝakas la reĝon de la kontraŭulo!</string>
+  <string name="checkInTwoGoal">Minacas la reĝon de la kontraŭulo
+en du movoj!</string>
+  <string name="checkInTwoComplete">Gratulojn! Vi ŝakis vian kontraŭulon, devigante ilin defendi sian reĝon!</string>
+  <string name="whatNext">Kio proksime?</string>
+  <string name="youKnowHowToPlayChess">Vi scias kiel ludi ŝakon, gratulojn! Ĉu vi volas fariĝi pli forta ludanto?</string>
   <string name="register">Registriĝi</string>
+  <string name="getAFreeLichessAccount">Akiri liberan konton de Lichess</string>
   <string name="practice">Praktiki</string>
+  <string name="learnCommonChessPositions">Lernu komunajn ŝakajn poziciojn</string>
   <string name="puzzles">Puzloj</string>
+  <string name="exerciseYourTacticalSkills">Ekzerĉi viajn taktikajn kapablojn</string>
   <string name="videos">Videoj</string>
+  <string name="watchInstructiveChessVideos">Spektu instruajn ŝakajn filmetojn</string>
+  <string name="playPeople">Ludu homojn</string>
   <string name="opponentsFromAroundTheWorld">Kontraŭuloj de la tuta mondo</string>
+  <string name="playMachine">Ludu maŝinon</string>
+  <string name="testYourSkillsWithTheComputer">Provu viajn kapablojn per la komputilo</string>
+  <string name="letsGo">Ni iru!</string>
+  <string name="stageX">Nivelo %s</string>
   <string name="awesome">Mojosa!</string>
   <string name="excellent">Bonega!</string>
   <string name="greatJob">Bonega laboro!</string>
   <string name="perfect">Perfekta!</string>
+  <string name="outstanding">Elstara!</string>
+  <string name="wayToGo">Vojo iri!</string>
   <string name="yesYesYes">Jes, jes, jes!</string>
+  <string name="youreGoodAtThis">Vi estas bona pri tio!</string>
+  <string name="nailedIt">Perfekta.</string>
+  <string name="rightOn">Ĝuste!</string>
+  <string name="stageXComplete">Nivelo %s kompleta</string>
   <string name="yourScore">Via poentaro</string>
   <string name="next">Proksima</string>
+  <string name="backToMenu">Reveni al la menuo</string>
+  <string name="puzzleFailed">Puzilo malsukcesis!</string>
   <string name="retry">Reprovi</string>
 </resources>
