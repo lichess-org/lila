@@ -80,6 +80,7 @@
   <string name="noGameFound">Neniu ludo trovita</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Eble inkluzivas pli da ludoj de la menuo de preferoj?</string>
   <string name="openingExplorer">Esplorilo pri malfermoj</string>
+  <string name="xOpeningExplorer">%s esploristo de komencoj</string>
   <string name="winPreventedBy50MoveRule">Venko blokita per la reglo pri 50-movoj</string>
   <string name="lossSavedBy50MoveRule">Malvenko ne suferita dank\' al la reglo pri 50-movoj</string>
   <string name="allSet">Preta!</string>
@@ -87,10 +88,12 @@
   <string name="delete">Forigi</string>
   <string name="deleteThisImportedGame">Elimini ĉi tiun enmetitan ludon?</string>
   <string name="replayMode">Rapido de reludo</string>
+  <string name="realtimeReplay">Reala tempo</string>
   <string name="byCPL">Per eraroj</string>
   <string name="openStudy">Malfermi analizon</string>
   <string name="enable">Ebligi</string>
   <string name="bestMoveArrow">Sago por optimuma movo</string>
+  <string name="evaluationGauge">Gaŭĝo de taksado</string>
   <string name="multipleLines">Pluraj linioj</string>
   <string name="cpus">Ĉefprocesoroj</string>
   <string name="memory">Memoro</string>
@@ -232,6 +235,7 @@
   <string name="giveMoreTime">Doni pli da tempo</string>
   <string name="thisPlayerUsesChessComputerAssistance">Tiu ĉi ludanto uzas komputilan asiston por ludi</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Tiu ĉi ludanto fripone (mal)pligrandigas sian taksadon</string>
+  <string name="openingExplorerAndTablebase">Esploristo de komencoj &amp; tablobazo</string>
   <string name="takeback">Repreno</string>
   <string name="proposeATakeback">Proponi reprenon</string>
   <string name="takebackPropositionSent">Reprena propono estis sendita</string>
@@ -652,6 +656,7 @@
   <string name="crosstable">Kructabelo</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Vi povas ankaŭ rulumi sur la tabulo por movi en la ludo.</string>
   <string name="analysisShapesHowTo">Premu shift+click aŭ rekt-klaki por desegni cirklojn kaj sagojn sur la tabulo.</string>
+  <string name="confirmResignationAndDrawOffers">Konfirmi proponoj de resignoj kaj paŭzoj</string>
   <string name="inputMovesWithTheKeyboard">Enigi movojn per klavaro</string>
   <string name="letOtherPlayersMessageYou">Lasu aliajn ludantojn mesaĝi vin</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Aroka metodo</string>
