@@ -11,8 +11,25 @@
     <item quantity="one">Ludis %1$s %2$s ludon</item>
     <item quantity="other">Ludis %1$s %2$s ludojn</item>
   </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="one">Komencis sekvi %s ludanton</item>
+    <item quantity="other">Komencis sekvi %s ludantojn</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="one">Gajnis %s novan aŭton</item>
+    <item quantity="other">Gajnis %s novajn aŭtojn</item>
+  </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">Kreis %s novan studon</item>
+    <item quantity="other">Kreis %s novajn studojn</item>
+  </plurals>
   <plurals name="competedInNbTournaments">
     <item quantity="one">Konkurencis en %s turniro</item>
     <item quantity="other">Konkurencis en %s turniroj</item>
+  </plurals>
+  <string name="signedUp">Subskribis al lichess.org</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">Aliĝis %s teamo</item>
+    <item quantity="other">Aliĝis %s teamoj</item>
   </plurals>
 </resources>
