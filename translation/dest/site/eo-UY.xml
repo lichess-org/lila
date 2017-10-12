@@ -69,6 +69,7 @@
   <string name="unknown">Nekonata</string>
   <string name="database">Datumbazo</string>
   <string name="whiteDrawBlack">Blanka / Paŭzo / Nigra</string>
+  <string name="averageRatingX">Meznombra taksado: %s</string>
   <string name="recentGames">Freŝdataj ludoj</string>
   <string name="topGames">Pintaj ludoj</string>
   <string name="masterDbExplanation">Du milionoj ludoj fizikaj far %1$s+ FIDE-taksitaj ludantoj de %2$s ĝis %3$s</string>
@@ -77,6 +78,7 @@
     <item quantity="other">La proksima kapto aŭ peonmovo %s duonmovoj for (por rekomenci la regulon pri 50-movan)</item>
   </plurals>
   <string name="noGameFound">Neniu ludo trovita</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Eble inkluzivas pli da ludoj de la menuo de preferoj?</string>
   <string name="openingExplorer">Esplorilo pri malfermoj</string>
   <string name="winPreventedBy50MoveRule">Venko blokita per la reglo pri 50-movoj</string>
   <string name="lossSavedBy50MoveRule">Malvenko ne suferita dank\' al la reglo pri 50-movoj</string>
