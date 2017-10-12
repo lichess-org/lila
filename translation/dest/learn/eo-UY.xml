@@ -8,5 +8,11 @@
   <string name="resetMyProgress">Nulu mian progreson</string>
   <string name="youWillLoseAllYourProgress">Vi tute perdos vian progreson!</string>
   <string name="play">ludu!</string>
+  <string name="chessPieces">Ŝakludaj pecoj</string>
+  <string name="theRook">La turo</string>
+  <string name="itMovesInStraightLines">Ĝi moviĝas rekte</string>
+  <string name="rookIntro">La turo estas forta peco. Ĉu vi pretas regi ĝin?</string>
+  <string name="rookGoal">Alklaku la turon por movi ĝin al la stelo!</string>
+  <string name="grabAllTheStars">Kaptu la stelojn!</string>
   <string name="practice">Praktiki</string>
 </resources>
