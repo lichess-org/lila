@@ -26,6 +26,7 @@
   <string name="thePawn">La peono</string>
   <string name="itMovesForwardOnly">Ĝi nur moviĝas antaŭe</string>
   <string name="pawnIntro">Peonoj estas malfortaj, sed ili havas multe da potencialo.</string>
+  <string name="pawnsMoveOneSquareOnly">Peonoj povas moviĝi nur unu spaco. Sed Kiam, ili atingas la alian flankon de la tabulo, ili fariĝas pli forta peco!</string>
   <string name="pawnPromotion">Promocio de peono</string>
   <string name="selectThePieceYouWant">Elektu la pecojn, kiujn vi volas!</string>
   <string name="capture">Kapti</string>
