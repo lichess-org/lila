@@ -73,6 +73,10 @@
   <string name="recentGames">Freŝdataj ludoj</string>
   <string name="topGames">Pintaj ludoj</string>
   <string name="masterDbExplanation">Du milionoj ludoj fizikaj far %1$s+ FIDE-taksitaj ludantoj de %2$s ĝis %3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Mato post %s duonmovoj</item>
+    <item quantity="other">Mato post %s duonmovoj</item>
+  </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
     <item quantity="one">La proksima kapto aŭ peonmovo %s duonmovoj for (por rekomenci la regulon pri 50-movan)</item>
     <item quantity="other">La proksima kapto aŭ peonmovo %s duonmovoj for (por rekomenci la regulon pri 50-movan)</item>
@@ -165,6 +169,10 @@
   <string name="rank">Rango</string>
   <string name="rankX">Taksado: %s</string>
   <string name="rankIsUpdatedEveryXMinutes">Taksado ĝisdatigita ĉiujn %s minutojn</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s puzlo</item>
+    <item quantity="other">%s puzloj</item>
+  </plurals>
   <string name="gamesPlayed">Luditaj ludoj</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s ludoj kun vi</item>
@@ -214,6 +222,10 @@
   <string name="incrementInSeconds">Pliigo en sekundoj</string>
   <string name="freeOnlineChess">Senpaga Interreta Ŝako</string>
   <string name="spectators">Spektantoj:</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s taksa ludo</item>
+    <item quantity="other">%s taksaj ludoj</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s venkoj</item>
     <item quantity="other">%s venkoj</item>
@@ -225,6 +237,10 @@
   <plurals name="nbDraws">
     <item quantity="one">%s egalvenkoj</item>
     <item quantity="other">%s egalvenkoj</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s aktuala</item>
+    <item quantity="other">%s aktualaj</item>
   </plurals>
   <string name="exportGames">Eksporti ludojn</string>
   <string name="ratingRange">Poenta taksado</string>
@@ -252,6 +268,22 @@
   <string name="viewTournament">Vidi turniron</string>
   <string name="backToTournament">Reiri al turniro</string>
   <string name="thematic">Tema</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s taksa ludo</item>
+    <item quantity="other">≥ %s taksaj ludoj</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s taksa ludo de %2$s</item>
+    <item quantity="other">≥ %1$s taksaj ludoj de %2$s</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Vi devas ludi %1$s pli de taksa %2$s ludo</item>
+    <item quantity="other">Vi devas ludi %1$s pli de taksaj %2$s ludoj</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Vi devas ludi %s pli de taksa ludo</item>
+    <item quantity="other">Vi devas ludi %s pli de taksaj ludoj</item>
+  </plurals>
   <string name="yourPerfRatingIsProvisional">Vi havas duman %s -taksadon</string>
   <string name="yourPerfRatingIsTooHigh">Via taksado %1$s (%2$s) estas tro alta</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Via plej alta semajna taksado en %1$s (%2$s) estas tro alta</string>
