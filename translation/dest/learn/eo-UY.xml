@@ -114,6 +114,10 @@ En vojo kiu ne povas esti protektita!</string>
   <string name="thisIsTheInitialPosition">Ĉi tiu estas la komenca pozicio
 de ĉiu ludo de ŝako!
 Faru iun movon por daŭrigi.</string>
+  <string name="firstPlaceTheRooks">Unue loku la turojn!
+Ili iras en la anguloj.</string>
+  <string name="thenPlaceTheKnights">Tiam metu la ĉevalojn!
+Ili iras apud la turoj.</string>
   <string name="placeTheBishops">Metu la episkopojn!
 Ili iras apud la ĉevaloj.</string>
   <string name="placeTheQueen">Metu la damon!
@@ -124,7 +128,9 @@ Ili iras apud la ĉevaloj.</string>
 Faru iun movon por daŭrigi.</string>
   <string name="boardSetupComplete">Gratulojn! Vi scias kiel starigi la ŝakan tabulon.</string>
   <string name="theSpecialKingMove">La speciala reĝo moviĝas</string>
+  <string name="castlingIntro">Alportu vian reĝon en sekurecon, kaj lanĉu vian turon por atako!</string>
   <string name="theSpecialPawnMove">La speciala peono moviĝas</string>
+  <string name="stalemate">Pato</string>
   <string name="advanced">Altnivela</string>
   <string name="pieceValue">Peca valoro</string>
   <string name="evaluatePieceStrength">Taksi pecan forton</string>
