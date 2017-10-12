@@ -36,12 +36,12 @@
   <string name="forceResignation">Ogłoś wygraną</string>
   <string name="forceDraw">Ogłoś remis</string>
   <string name="talkInChat">Bądź miły na czacie</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Pierwsza osoba, która użyje tego linku, dołączy do Twojej gry</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Pierwsza osoba, która użyje tego linku, dołączy do Twojej partii.</string>
   <string name="whiteResigned">Białe zrezygnowały</string>
   <string name="blackResigned">Czarne zrezygnowały</string>
   <string name="whiteLeftTheGame">Białe opuściły grę</string>
   <string name="blackLeftTheGame">Czarne opuściły grę</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Podziel się tym linkiem, aby zaprosić innych do obserwowania tej gry</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Podziel się tym linkiem, aby zaprosić innych do obserwowania tej partii</string>
   <string name="theComputerAnalysisHasFailed">Nie udało się przeanalizować tej partii</string>
   <string name="viewTheComputerAnalysis">Zobacz analizę komputerową</string>
   <string name="requestAComputerAnalysis">Poproś o analizę komputerową</string>
@@ -343,7 +343,7 @@
   <string name="fromPosition">Z pozycji</string>
   <string name="continueFromHere">Kontynuuj z tej pozycji</string>
   <string name="importGame">Import partii</string>
-  <string name="importGameExplanation">Wklejając zapis gry będziesz miał możliwość jej odtworzenia, poproszenia o analizę komputerową, omówienia jej z innymi oraz udostępnienia linku do niej innym.</string>
+  <string name="importGameExplanation">Wklejając zapis partii będziesz miał możliwość jej odtworzenia, poproszenia o analizę komputerową, omówienia jej z innymi oraz udostępnienia linku do niej innym.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s zaimportowana partia</item>
     <item quantity="few">%s zaimportowana partie</item>
@@ -623,7 +623,7 @@
   <string name="playOnline">Graj online</string>
   <string name="playOffline">Graj offline</string>
   <string name="allowAnalytics">Wysyłaj anonimowe statystyki</string>
-  <string name="shareGameURL">Udostępnij link do gry</string>
+  <string name="shareGameURL">Udostępnij link do partii</string>
   <string name="error.required">To pole jest wymagane</string>
   <string name="error.email">Podany adres email jest nieprawidłowy</string>
   <string name="error.email_acceptable">Podany adres email nie został zaakceptowany</string>
@@ -647,7 +647,7 @@
     <item quantity="other">%s postów na forum</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Łączny czas gry: %s</string>
-  <string name="watchGames">Obserwuj gry</string>
+  <string name="watchGames">Obserwuj partie</string>
   <string name="tpTimeSpentOnTV">Czas w TV: %s</string>
   <string name="watch">Oglądaj</string>
   <string name="internationalEvents">Turnieje międzynarodowe</string>
