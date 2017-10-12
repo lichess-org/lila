@@ -51,7 +51,19 @@ Eskapu kaj venku la stelojn!</string>
   <string name="takeTheEnemyPieces">Mortigi la malamikajn pecojn</string>
   <string name="captureIntro">Rimarku kaj kaptu la malsekuraj pecoj de la oponanto!</string>
   <string name="takeTheBlackPieces">Mortigi la nigrajn pecojn!</string>
+  <string name="combat">Batalo</string>
   <string name="advanced">Altnivela</string>
+  <string name="register">Registriĝi</string>
   <string name="practice">Praktiki</string>
+  <string name="puzzles">Puzloj</string>
   <string name="videos">Videoj</string>
+  <string name="opponentsFromAroundTheWorld">Kontraŭuloj de la tuta mondo</string>
+  <string name="awesome">Mojosa!</string>
+  <string name="excellent">Bonega!</string>
+  <string name="greatJob">Bonega laboro!</string>
+  <string name="perfect">Perfekta!</string>
+  <string name="yesYesYes">Jes, jes, jes!</string>
+  <string name="yourScore">Via poentaro</string>
+  <string name="next">Proksima</string>
+  <string name="retry">Reprovi</string>
 </resources>
