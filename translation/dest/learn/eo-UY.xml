@@ -20,6 +20,9 @@
   <string name="theBishop">La kuriero</string>
   <string name="itMovesDiagonally">Ĝi moviĝas diagonale</string>
   <string name="bishopIntro">Poste ni lernos kiel manovri episkopo!</string>
+  <string name="youNeedBothBishops">Unu hela-kvadrata episkopo,
+unu malhela-kvadrata episkopo.
+Vi bezonas ambaŭ!</string>
   <string name="bishopComplete">Gratulojn! Vi povas ordoni episkopo.</string>
   <string name="theQueen">La damo</string>
   <string name="queenCombinesRookAndBishop">Damo = turo + kuriero</string>
@@ -32,6 +35,8 @@
   <string name="lastOne">La lasta!</string>
   <string name="kingComplete">Vi nun povas regi la reganto!</string>
   <string name="theKnight">La ĉevalo</string>
+  <string name="itMovesInAnLShape">Ĝi moviĝas en L formo</string>
+  <string name="knightIntro">Jen defio por vi. La ĉevalo estas... malklara peco.</string>
   <string name="knightsHaveAFancyWay">Ĉevaloj havas malsimplan vojon
 salti ĉirkaŭe!</string>
   <string name="knightsCanJumpOverObstacles">Ĉevaloj povas salti super obstakloj!
@@ -41,16 +46,29 @@ Eskapu kaj venku la stelojn!</string>
   <string name="itMovesForwardOnly">Ĝi nur moviĝas antaŭe</string>
   <string name="pawnIntro">Peonoj estas malfortaj, sed ili havas multe da potencialo.</string>
   <string name="pawnsMoveOneSquareOnly">Peonoj povas moviĝi nur unu spaco. Sed Kiam, ili atingas la alian flankon de la tabulo, ili fariĝas pli forta peco!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Plejparto de la tempo promocii damon estas la plej bona.
+Sed foje ĉevalo povas esti oportuna!</string>
   <string name="pawnsMoveForward">Peonoj moviĝas antaŭe, sed kaptas oblikve!</string>
+  <string name="captureThenPromote">Kaptu, poste promocii!</string>
+  <string name="useAllThePawns">Uzu ĉiujn peonojn!
+Ne necesas promocii.</string>
+  <string name="aPawnOnTheSecondRank">Peono sur la dua rango povas movi 2 kvadratojn samtempe!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Grabu ĉiujn stelojn!
+Ne necesas promocii.</string>
   <string name="pawnComplete">Gratulon! Peonoj ne havas sekretojn por vi.</string>
   <string name="pawnPromotion">Promocio de peono</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Via peono atingis la fino de la tabulo!</string>
+  <string name="itNowPromotesToAStrongerPiece">Ĝi nun promocias al pli forta peco.</string>
   <string name="selectThePieceYouWant">Elektu la pecojn, kiujn vi volas!</string>
   <string name="fundamentals">Fundamentoj</string>
   <string name="capture">Kapti</string>
   <string name="takeTheEnemyPieces">Mortigi la malamikajn pecojn</string>
   <string name="captureIntro">Rimarku kaj kaptu la malsekuraj pecoj de la oponanto!</string>
   <string name="takeTheBlackPieces">Mortigi la nigrajn pecojn!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Prenu la nigrajn pecojn!
+Kaj ne perdu vian.</string>
+  <string name="captureComplete">Gratulojn! Vi scias, kiel batali per ŝakaj pecoj!</string>
+  <string name="protection">Protekto</string>
   <string name="combat">Batalo</string>
   <string name="advanced">Altnivela</string>
   <string name="register">Registriĝi</string>
