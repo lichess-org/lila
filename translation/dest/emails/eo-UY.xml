@@ -4,6 +4,7 @@
   <string name="emailConfirm_subject">Konfirmu vian konton ĉe lichess.org, %s</string>
   <string name="emailConfirm_click">Alklaku la ligilon por ebligi vian konton ĉe Lichess:</string>
   <string name="emailConfirm_ignore">Se vi ne registris konton ĉe Lichess, vi povas ignori ĉi tiun mesaĝon.</string>
+  <string name="passwordReset_subject">Rekomencigu vian pasvorton de lichess.org, %s</string>
   <string name="passwordReset_intro">Ni ricevis peton por restarigi la pasvorton por via konto.</string>
   <string name="passwordReset_clickOrIgnore">Se vi kreis ĉi tiun peton, alklaku la suban ligilon. Se ne, vi povas ignori ĉi tiun retmesaĝon.</string>
   <string name="emailChange_subject">Konfirmu vian novan retpoŝtadreson, %s</string>
