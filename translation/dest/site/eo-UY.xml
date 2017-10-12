@@ -68,11 +68,15 @@
   <string name="masterDbExplanation">Du milionoj ludoj fizikaj far %1$s+ FIDE-taksitaj ludantoj de %2$s ĝis %3$s</string>
   <string name="noGameFound">Neniu ludo trovita</string>
   <string name="openingExplorer">Esplorilo pri malfermoj</string>
+  <string name="winPreventedBy50MoveRule">Venko blokita per la reglo pri 50-movoj</string>
+  <string name="lossSavedBy50MoveRule">Malvenko ne suferita dank\' al la reglo pri 50-movoj</string>
   <string name="allSet">Preta!</string>
   <string name="importPgn">Importu PGN</string>
   <string name="delete">Forigi</string>
   <string name="enable">Ebligi</string>
   <string name="bestMoveArrow">Sago por optimuma movo</string>
+  <string name="cpus">Ĉefprocesoroj</string>
+  <string name="memory">Memoro</string>
   <string name="blunders">Eraregoj</string>
   <string name="mistakes">Eraroj</string>
   <string name="inaccuracies">Eraretoj</string>
@@ -137,6 +141,7 @@
   <string name="passwordReset">Reagordo de pasvorto</string>
   <string name="forgotPassword">Ĉu vi forgesis la pasvorton?</string>
   <string name="rank">Rango</string>
+  <string name="rankX">Taksado: %s</string>
   <string name="gamesPlayed">Luditaj ludoj</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s ludoj kun vi</item>
@@ -175,6 +180,7 @@
   <string name="play">Ludi</string>
   <string name="inbox">Enirkesto</string>
   <string name="chatRoom">Babilejo</string>
+  <string name="youHaveBeenTimedOut">Vi estas en paŭzo dum 10 minutoj.</string>
   <string name="spectatorRoom">Spektantejo</string>
   <string name="composeMessage">Verki mesaĝon</string>
   <string name="noNewMessages">Neniuj novaj mesaĝoj</string>
