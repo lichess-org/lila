@@ -27,7 +27,7 @@
   <string name="raceFinished">Wyścig zakończony</string>
   <string name="variantEnding">Wariant zakończony</string>
   <string name="newOpponent">Nowy przeciwnik</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">Twój przeciwnik chce zagrać z Tobą nową grę</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Twój przeciwnik chce zagrać z Tobą nową partię</string>
   <string name="joinTheGame">Dołącz do gry</string>
   <string name="whitePlays">Ruch białych</string>
   <string name="blackPlays">Ruch czarnych</string>
@@ -202,7 +202,7 @@
   <string name="decline">Odrzuć</string>
   <string name="playingRightNow">W toku</string>
   <string name="finished">Zakończone</string>
-  <string name="abortGame">Przerwij grę</string>
+  <string name="abortGame">Przerwij partię</string>
   <string name="gameAborted">Gra została przerwana</string>
   <string name="standard">Standard</string>
   <string name="unlimited">Bez limitu</string>
@@ -486,7 +486,7 @@
     <item quantity="few">%s partie w toku</item>
     <item quantity="other">%s partii w toku</item>
   </plurals>
-  <string name="automaticallyProceedToNextGameAfterMoving">Przejdź do następnej gry po wykonaniu ruchu</string>
+  <string name="automaticallyProceedToNextGameAfterMoving">Przejdź do następnej partii po wykonaniu ruchu</string>
   <string name="autoSwitch">Przełącz po ruchu</string>
   <string name="puzzles">Łamigłówki</string>
   <string name="latestUpdates">Aktualności</string>
