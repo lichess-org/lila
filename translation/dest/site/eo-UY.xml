@@ -49,10 +49,14 @@
   <string name="computerAnalysisAvailable">Komputila analizo haveblas</string>
   <string name="analysis">Analizo</string>
   <string name="depthX">Profundo %s</string>
+  <string name="usingServerAnalysis">Analizanta per servilo</string>
   <string name="loadingEngine">Komencu la maŝino ...</string>
+  <string name="cloudAnalysis">Analizo per la nubo</string>
   <string name="goDeeper">Iru pli profunde</string>
   <string name="showThreat">Montru la minaco</string>
   <string name="move">Moviĝi</string>
+  <string name="variantLoss">Variaĵa malvenko</string>
+  <string name="variantWin">Variaĵa venko</string>
   <string name="insufficientMaterial">Nesufiĉa materialo</string>
   <string name="pawnMove">Peonmovo</string>
   <string name="capture">Kapto</string>
@@ -142,6 +146,7 @@
   <string name="forgotPassword">Ĉu vi forgesis la pasvorton?</string>
   <string name="rank">Rango</string>
   <string name="rankX">Taksado: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Taksado ĝisdatigita ĉiujn %s minutojn</string>
   <string name="gamesPlayed">Luditaj ludoj</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s ludoj kun vi</item>
@@ -180,6 +185,7 @@
   <string name="play">Ludi</string>
   <string name="inbox">Enirkesto</string>
   <string name="chatRoom">Babilejo</string>
+  <string name="loginToChat">Ensaluti por babili</string>
   <string name="youHaveBeenTimedOut">Vi estas en paŭzo dum 10 minutoj.</string>
   <string name="spectatorRoom">Spektantejo</string>
   <string name="composeMessage">Verki mesaĝon</string>
@@ -226,6 +232,7 @@
   <string name="tournamentPoints">Turniraj poentoj</string>
   <string name="viewTournament">Vidi turniron</string>
   <string name="backToTournament">Reiri al turniro</string>
+  <string name="yourPerfRatingIsProvisional">Vi havas duman %s -taksadon</string>
   <string name="yourPerfRatingIsTooHigh">Via taksado %1$s (%2$s) estas tro alta</string>
   <string name="yourPerfRatingIsTooLow">Via taksado %1$s (%2$s) estas tro malalta</string>
   <string name="ratedMoreThanInPerf">Taksado de ≥ %1$s en %2$s</string>
