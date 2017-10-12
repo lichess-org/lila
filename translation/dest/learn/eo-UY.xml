@@ -94,6 +94,10 @@ en unu movo!</string>
   <string name="escapeWithTheKing">Eskapu kun la reĝo!</string>
   <string name="theKingCannotEscapeButBlock">La reĝo ne povas eskapi,
 Sed vi povas bloki la atakon!</string>
+  <string name="youCanGetOutOfCheckByTaking">Vi povas eskapi ŝakon
+prenante la atakantan pecon.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Ĉi tiu ĉevalo ŝakas
+tra viaj arieruloj!</string>
   <string name="escapeOrBlock">Eskapu kun la reĝo
 Aŭ bloki la atakon!</string>
   <string name="outOfCheckComplete">Gratulojn! Via reĝo neniam povas esti prenita, certigu, ke vi povas protekti kontraŭ ŝako!</string>
@@ -110,11 +114,23 @@ En vojo kiu ne povas esti protektita!</string>
   <string name="thisIsTheInitialPosition">Ĉi tiu estas la komenca pozicio
 de ĉiu ludo de ŝako!
 Faru iun movon por daŭrigi.</string>
+  <string name="placeTheBishops">Metu la episkopojn!
+Ili iras apud la ĉevaloj.</string>
+  <string name="placeTheQueen">Metu la damon!
+Ŝi iras sur sian propran koloron.</string>
   <string name="placeTheKing">Metu la reĝon!
 Ĝuste apud sia damo.</string>
+  <string name="pawnsFormTheFrontLine">Peonoj de la antaŭa linio.
+Faru iun movon por daŭrigi.</string>
+  <string name="boardSetupComplete">Gratulojn! Vi scias kiel starigi la ŝakan tabulon.</string>
   <string name="theSpecialKingMove">La speciala reĝo moviĝas</string>
   <string name="theSpecialPawnMove">La speciala peono moviĝas</string>
   <string name="advanced">Altnivela</string>
+  <string name="pieceValue">Peca valoro</string>
+  <string name="evaluatePieceStrength">Taksi pecan forton</string>
+  <string name="queenOverBishop">Prenu la pecon
+kun la plej alta valoro!
+Damo &gt; Episkopo</string>
   <string name="takeThePieceWithTheHighestValue">Prenu la pecon
 kun la plej alta valoro!</string>
   <string name="checkInTwo">Ŝaku du</string>
