@@ -59,16 +59,20 @@
   <string name="close">Fermu</string>
   <string name="winning">Venkant</string>
   <string name="losing">Malvenkant</string>
+  <string name="drawn">Kaŭzas egalvenkon</string>
   <string name="unknown">Nekonata</string>
   <string name="database">Datumbazo</string>
   <string name="whiteDrawBlack">Blanka / Paŭzo / Nigra</string>
   <string name="recentGames">Freŝdataj ludoj</string>
   <string name="topGames">Pintaj ludoj</string>
   <string name="masterDbExplanation">Du milionoj ludoj fizikaj far %1$s+ FIDE-taksitaj ludantoj de %2$s ĝis %3$s</string>
+  <string name="noGameFound">Neniu ludo trovita</string>
   <string name="openingExplorer">Esplorilo pri malfermoj</string>
+  <string name="allSet">Preta!</string>
   <string name="importPgn">Importu PGN</string>
   <string name="delete">Forigi</string>
   <string name="enable">Ebligi</string>
+  <string name="bestMoveArrow">Sago por optimuma movo</string>
   <string name="blunders">Eraregoj</string>
   <string name="mistakes">Eraroj</string>
   <string name="inaccuracies">Eraretoj</string>
@@ -198,6 +202,7 @@
     <item quantity="one">Doni %s sekundojn</item>
     <item quantity="other">Doni %s sekundojn</item>
   </plurals>
+  <string name="giveMoreTime">Doni pli da tempo</string>
   <string name="thisPlayerUsesChessComputerAssistance">Tiu ĉi ludanto uzas komputilan asiston por ludi</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Tiu ĉi ludanto fripone (mal)pligrandigas sian taksadon</string>
   <string name="takeback">Repreno</string>
@@ -527,6 +532,7 @@
   <string name="error.email">Ĉi tiu retadreso ne estas valida</string>
   <string name="error.email_acceptable">Ĉi tiu retadreso estas malakceptata</string>
   <string name="error.email_unique">Ĉi tiu retadreso jam estas uzata</string>
+  <string name="error.email_different">Tiu estas jam via retpoŝtadreso</string>
   <string name="blindfoldChess">Blinda ŝako (nevideblaj ŝakpecoj)</string>
   <string name="zenMode">Zen modo</string>
   <string name="moveConfirmation">Konfirmo de movoj</string>
