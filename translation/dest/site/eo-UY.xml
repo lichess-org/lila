@@ -55,6 +55,7 @@
   <string name="goDeeper">Iru pli profunde</string>
   <string name="showThreat">Montru la minaco</string>
   <string name="inLocalBrowser">en loka foliumilo</string>
+  <string name="toggleLocalEvaluation">Mal/aktivigi lokan takson</string>
   <string name="move">Moviĝi</string>
   <string name="variantLoss">Variaĵa malvenko</string>
   <string name="variantWin">Variaĵa venko</string>
@@ -78,6 +79,7 @@
   <string name="allSet">Preta!</string>
   <string name="importPgn">Importu PGN</string>
   <string name="delete">Forigi</string>
+  <string name="replayMode">Rapido de reludo</string>
   <string name="enable">Ebligi</string>
   <string name="bestMoveArrow">Sago por optimuma movo</string>
   <string name="multipleLines">Pluraj linioj</string>
