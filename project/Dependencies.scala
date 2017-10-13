@@ -57,7 +57,7 @@ object Dependencies {
     val test = "com.typesafe.play" %% "play-test" % version
   }
   object akka {
-    val version = "2.4.16"
+    val version = "2.4.20"
     val actor = "com.typesafe.akka" %% "akka-actor" % version
     val slf4j = "com.typesafe.akka" %% "akka-slf4j" % version
   }
