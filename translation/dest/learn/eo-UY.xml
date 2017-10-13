@@ -141,22 +141,31 @@ Unue devas vi movi pecojn.</string>
   <string name="youCannotCastleIfMoved">Vi ne povas aroki
 se la reĝo jam moviĝis
 aŭ la turo jam moviĝis.</string>
+  <string name="youCannotCastleIfAttacked">Vi ne povas aroki se
+la reĝo estas atakita en la vojo.
+Bloku la ŝakon, poste aroku!</string>
   <string name="findAWayToCastleKingSide">Aroki reĝflanke iele!</string>
   <string name="findAWayToCastleQueenSide">Aroki damflanke iele!</string>
   <string name="castlingComplete">Gratulon! Vi devas preskaŭ ĉiam aroki dum ajna ludu.</string>
   <string name="enPassant">Sur paso</string>
   <string name="theSpecialPawnMove">La speciala peono moviĝas</string>
+  <string name="enPassantIntro">Kiam la kontraŭa peono moviĝis 2 kvadratojn, vi povas kapti ĝin kvazaŭ ĝi movus 1 kvadraton.</string>
   <string name="blackJustMovedThePawnByTwoSquares">La nigrulo ĵus movis la peonon du kvadratojn!
 Prenu ĝin pasante.</string>
+  <string name="enPassantOnlyWorksImmediately">Preni pasante funkcias nur
+tuj post la koncernata peonmovo 
+de la kontraŭulo.</string>
   <string name="enPassantOnlyWorksOnFifthRank">Preni pasante funkcias nur
 se via peono staras en kvina vico.</string>
   <string name="takeAllThePawnsEnPassant">Prenu ĉiujn paŭzulojn sur pasojn!</string>
   <string name="enPassantComplete">Gratulojn! Vi nun povas preni sur pason.</string>
   <string name="stalemate">Pato</string>
   <string name="theGameIsADraw">La ludo estas paŭzoj</string>
+  <string name="stalemateIntro">Kiam ludanto ne ŝakas kaj ne ekzistas permesebla movo, estas pato. La ludo estas remio: neniu venkas, neniu malvenkas.</string>
   <string name="stalemateGoal">Por pati la nigrulon:
 - Nigrulo ne povas movi iun pecon ien ajn.
 - Ne estas ŝako.</string>
+  <string name="stalemateComplete">Gratulon! Pli bona pati ol mati!</string>
   <string name="advanced">Altnivela</string>
   <string name="pieceValue">Peca valoro</string>
   <string name="evaluatePieceStrength">Taksi pecan forton</string>
