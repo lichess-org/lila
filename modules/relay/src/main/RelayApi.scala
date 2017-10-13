@@ -58,7 +58,7 @@ final class RelayApi(
 
   def closed = coll.find($doc(
     "finishedAt" $exists true
-  )).sort($sort asc "startsAt").list[Relay]()
+  )).sort($sort desc "startsAt").list[Relay]()
 
   def create(data: RelayForm.Data, user: User): Fu[Relay] = {
     val relay = data make user
