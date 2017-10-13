@@ -16,7 +16,7 @@
   <string name="resign">Rezigni</string>
   <string name="checkmate">Ŝakmato</string>
   <string name="stalemate">Pato</string>
-  <string name="white">Blanko</string>
+  <string name="white">Blanka</string>
   <string name="black">Nigro</string>
   <string name="randomColor">Hazarda koloro</string>
   <string name="createAGame">Krei ludon</string>
@@ -97,7 +97,7 @@
   <string name="openStudy">Malfermi analizon</string>
   <string name="enable">Ebligi</string>
   <string name="bestMoveArrow">Sago por optimuma movo</string>
-  <string name="evaluationGauge">Gaŭĝo de taksado</string>
+  <string name="evaluationGauge">Gaŭĝo de rangado</string>
   <string name="multipleLines">Pluraj linioj</string>
   <string name="cpus">Ĉefprocesoroj</string>
   <string name="memory">Memoro</string>
@@ -199,8 +199,8 @@
   <string name="unlimited">Senlime</string>
   <string name="mode">Moduso</string>
   <string name="casual">Amike</string>
-  <string name="rated">Takse</string>
-  <string name="thisGameIsRated">Ĉi tiu ludo estas taksa</string>
+  <string name="rated">Range</string>
+  <string name="thisGameIsRated">Ĉi tiu ludo estas ranga</string>
   <string name="rematch">Reludi</string>
   <string name="rematchOfferSent">Rematĉa oferto estis sendita</string>
   <string name="rematchOfferAccepted">Rematĉa oferto estis akceptita</string>
@@ -664,14 +664,14 @@
   <string name="tournamentDoesNotExist">Konkurso ne ekzistas</string>
   <string name="tournamentMayHaveBeenCanceled">Eble ĝi ne okazos ĉar malaliĝis ĉiuj ludontoj antaŭ la komenco de la konkurso.</string>
   <string name="returnToTournamentsHomepage">Returni al la hejmpaĝo de la konkursoj</string>
-  <string name="weeklyPerfTypeRatingDistribution">Monata takso distribuo de %s.</string>
+  <string name="weeklyPerfTypeRatingDistribution">Monata rango-distribuo de %s</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">Unu %2$s ludanto ĉi tiu semajno.</item>
     <item quantity="other">%1$s %2$s ludantoj ĉi tiu semajno.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Via rango je %1$s estas %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Vi estas pli bona ol %1$s de %2$s ludantoj.</string>
-  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Vi ne havas stabilan takson je %s.</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Vi ne havas stabilan rangon je %s.</string>
   <string name="checkYourEmail">Kontrolu vian retpoŝton</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Ni sendis al vi retmesaĝon . Klaku la ligilon en la poŝto por aktivigi vian konton.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se vi ne vidas la retpoŝton , kontrolu aliajn lokojn kie ĝi povas esti, kiel via rubo , spam, socia , aŭ aliaj dosierujoj.</string>
