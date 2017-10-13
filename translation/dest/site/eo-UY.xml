@@ -155,7 +155,7 @@
   </plurals>
   <string name="time">Tempo</string>
   <string name="rating">Rango</string>
-  <string name="ratingStats">Taksaj statistikoj</string>
+  <string name="ratingStats">Rangaj statistikoj</string>
   <string name="username">Uzantnomo</string>
   <string name="usernameOrEmail">Uzantnomo aŭ retpoŝtadreso</string>
   <string name="password">Pasvorto</string>
@@ -405,7 +405,7 @@
   <string name="isPrivate">Privata</string>
   <string name="reportXToModerators">Raporti %s al moderatoroj</string>
   <string name="profileCompletion">Profila kompletiĝo: %s</string>
-  <string name="xRating">%s-takso</string>
+  <string name="xRating">%s-rango</string>
   <string name="ifNoneLeaveEmpty">Se neniu, lasu malplena</string>
   <string name="gameCompletionRate">Kiomelcente kompletigas ludojn: %s</string>
   <string name="profile">Profilo</string>
