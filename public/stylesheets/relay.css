@@ -5,13 +5,14 @@
   margin-top: -26px;
 }
 .relay_player {
-  background: #759900;
-  color: #fff;
+  background: #bbb;
+  color: #444;
+  text-shadow: 0 .5px 1px #fff;
   display: flex;
   height: 26px;
   justify-content: space-between;
   align-items: center;
-  padding: 0 0.6em;
+  padding-left: 10px;
   border-radius: 3px 3px 0 0;
   font-size: 15px;
   font-weight: bold;
@@ -27,12 +28,20 @@
 .relay_player .aclock {
   font-family: 'Roboto Mono', 'Roboto';
   font-size: 17px;
+  height: 26px;
   line-height: 26px;
+  padding: 0 10px;
+  border-radius: 0 3px 0 0;
 }
-/* .relay_player.black { */
-/*   background: #888; */
-/*   color: #fff; */
-/* } */
+.lichess_board_wrap.white .relay_player.white .aclock,
+.lichess_board_wrap.black .relay_player.black .aclock {
+  border-radius: 0 0 3px 0;
+}
+.relay_player.ticking .aclock {
+  background: #759900;
+  color: #fff;
+  text-shadow: none;
+}
 
 .relay_edit .relay_wrap {
   position: absolute;
@@ -121,6 +130,11 @@
 .relay_edit .relay .log .ddloader {
   margin-top: 5px;
 }
+
+body.dark .relay_player {
+  background: #bbb;
+  color: #444;
+  text-shadow: 0 .5px 1px #fff;
 
 body.dark .relay_edit .relay {
   background: #262626;

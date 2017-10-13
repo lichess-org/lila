@@ -4,19 +4,19 @@ import { TagArray } from '../interfaces';
 import { renderClocks } from '../../clocks';
 import AnalyseCtrl from '../../ctrl';
 
-export function renderPlayers(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
+export function renderPlayers(ctrl: AnalyseCtrl): VNode[] | undefined {
   const study = ctrl.study;
   if (!study || !study.data.chapter.relay) return;
-  const clocks = renderClocks(ctrl);
-  const tags = study.data.chapter.tags;
-  return [
-    renderPlayer(tags, clocks, 'white'),
-    renderPlayer(tags, clocks, 'black')
-  ];
+  const relay = study.relay;
+  if (!relay) return;
+  const clocks = renderClocks(ctrl),
+  tags = study.data.chapter.tags,
+  ticking = !relay.isFinished(study.data.chapter) && ctrl.turnColor();
+  return (['white', 'black'] as Color[]).map(color => renderPlayer(tags, clocks, color, ticking === color));
 }
 
-function renderPlayer(tags: TagArray[], clocks: [VNode, VNode] | undefined, color: Color): VNode {
-  return h('div.relay_player.' + color, [
+function renderPlayer(tags: TagArray[], clocks: [VNode, VNode] | undefined, color: Color, ticking: boolean): VNode {
+  return h(`div.relay_player.${color}${ticking ? '.ticking' : ''}`, [
     h('div.left', [
       h('span.color'),
       playerInfo(tags, color)
