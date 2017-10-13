@@ -133,10 +133,10 @@ Faru iun movon por daŭrigi.</string>
   <string name="castleKingSide">Movi vian reĝon du kvadratojn por aroki reĝflanke!</string>
   <string name="castleQueenSide">Movi vian reĝon du kvadratojn por aroki damflanke!</string>
   <string name="theKnightIsInTheWay">La ĉevalo obstrukcas la vojon!
-Movi ĝin, poste aroki reĝflanke.</string>
-  <string name="castleKingSideMovePiecesFirst">Aroki reĝflanke!
+Movi ĝin, poste aroku reĝflanke.</string>
+  <string name="castleKingSideMovePiecesFirst">Aroku reĝflanke!
 Unue devas vi movi pecojn.</string>
-  <string name="castleQueenSideMovePiecesFirst">Aroki damflanke!
+  <string name="castleQueenSideMovePiecesFirst">Aroku damflanke!
 Unue devas vi movi pecojn.</string>
   <string name="youCannotCastleIfMoved">Vi ne povas aroki
 se la reĝo jam moviĝis
@@ -144,8 +144,8 @@ aŭ la turo jam moviĝis.</string>
   <string name="youCannotCastleIfAttacked">Vi ne povas aroki se
 la reĝo estas atakita en la vojo.
 Bloku la ŝakon, poste aroku!</string>
-  <string name="findAWayToCastleKingSide">Aroki reĝflanke iele!</string>
-  <string name="findAWayToCastleQueenSide">Aroki damflanke iele!</string>
+  <string name="findAWayToCastleKingSide">Aroku reĝflanke iele!</string>
+  <string name="findAWayToCastleQueenSide">Aroku damflanke iele!</string>
   <string name="castlingComplete">Gratulon! Vi devas preskaŭ ĉiam aroki dum ajna ludu.</string>
   <string name="enPassant">Sur paso</string>
   <string name="theSpecialPawnMove">La speciala peono moviĝas</string>
