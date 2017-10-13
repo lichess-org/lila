@@ -52,7 +52,7 @@ Sed foje ĉevalo povas esti oportuna!</string>
   <string name="captureThenPromote">Kaptu, poste promocii!</string>
   <string name="useAllThePawns">Uzu ĉiujn peonojn!
 Ne necesas promocii.</string>
-  <string name="aPawnOnTheSecondRank">Peono sur la dua rango povas movi 2 kvadratojn samtempe!</string>
+  <string name="aPawnOnTheSecondRank">Peono en la dua vico povas movi 2 kvadratojn samtempe!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Grabu ĉiujn stelojn!
 Ne necesas promocii.</string>
   <string name="pawnComplete">Gratulon! Peonoj ne havas sekretojn por vi.</string>
@@ -64,9 +64,9 @@ Ne necesas promocii.</string>
   <string name="capture">Kapti</string>
   <string name="takeTheEnemyPieces">Mortigi la malamikajn pecojn</string>
   <string name="captureIntro">Rimarku kaj kaptu la malsekuraj pecoj de la oponanto!</string>
-  <string name="takeTheBlackPieces">Mortigi la nigrajn pecojn!</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">Prenu la nigrajn pecojn!
-Kaj ne perdu vian.</string>
+  <string name="takeTheBlackPieces">Kaptu la nigrajn pecojn!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Kaptu la nigrajn pecojn!
+Kaj ne perdu la viajn.</string>
   <string name="captureComplete">Gratulojn! Vi scias, kiel batali per ŝakaj pecoj!</string>
   <string name="protection">Protekto</string>
   <string name="keepYourPiecesSafe">Protektu viajn pecojn</string>
@@ -138,15 +138,25 @@ Movi ĝin, poste aroki reĝflanke.</string>
 Unue devas vi movi pecojn.</string>
   <string name="castleQueenSideMovePiecesFirst">Aroki damflanke!
 Unue devas vi movi pecojn.</string>
+  <string name="youCannotCastleIfMoved">Vi ne povas aroki
+se la reĝo jam moviĝis
+aŭ la turo jam moviĝis.</string>
   <string name="findAWayToCastleKingSide">Aroki reĝflanke iele!</string>
   <string name="findAWayToCastleQueenSide">Aroki damflanke iele!</string>
   <string name="castlingComplete">Gratulon! Vi devas preskaŭ ĉiam aroki dum ajna ludu.</string>
   <string name="enPassant">Sur paso</string>
   <string name="theSpecialPawnMove">La speciala peono moviĝas</string>
+  <string name="blackJustMovedThePawnByTwoSquares">La nigrulo ĵus movis la peonon du kvadratojn!
+Prenu ĝin pasante.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Preni pasante funkcias nur
+se via peono staras en kvina vico.</string>
   <string name="takeAllThePawnsEnPassant">Prenu ĉiujn paŭzulojn sur pasojn!</string>
   <string name="enPassantComplete">Gratulojn! Vi nun povas preni sur pason.</string>
   <string name="stalemate">Pato</string>
   <string name="theGameIsADraw">La ludo estas paŭzoj</string>
+  <string name="stalemateGoal">Por pati la nigrulon:
+- Nigrulo ne povas movi iun pecon ien ajn.
+- Ne estas ŝako.</string>
   <string name="advanced">Altnivela</string>
   <string name="pieceValue">Peca valoro</string>
   <string name="evaluatePieceStrength">Taksi pecan forton</string>
