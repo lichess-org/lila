@@ -130,6 +130,7 @@ Faru iun movon por daŭrigi.</string>
   <string name="castling">Aroki</string>
   <string name="theSpecialKingMove">La speciala reĝo moviĝas</string>
   <string name="castlingIntro">Alportu vian reĝon en sekurecon, kaj lanĉu vian turon por atako!</string>
+  <string name="castleKingSide">Movi vian reĝon du kvadratojn por aroki reĝflanke!</string>
   <string name="findAWayToCastleKingSide">Aroki reĝflanke iele!</string>
   <string name="findAWayToCastleQueenSide">Aroki damflanke iele!</string>
   <string name="castlingComplete">Gratulon! Vi devas preskaŭ ĉiam aroki dum ajna ludu.</string>
