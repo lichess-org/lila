@@ -131,6 +131,13 @@ Faru iun movon por daŭrigi.</string>
   <string name="theSpecialKingMove">La speciala reĝo moviĝas</string>
   <string name="castlingIntro">Alportu vian reĝon en sekurecon, kaj lanĉu vian turon por atako!</string>
   <string name="castleKingSide">Movi vian reĝon du kvadratojn por aroki reĝflanke!</string>
+  <string name="castleQueenSide">Movi vian reĝon du kvadratojn por aroki damflanke!</string>
+  <string name="theKnightIsInTheWay">La ĉevalo obstrukcas la vojon!
+Movi ĝin, poste aroki reĝflanke.</string>
+  <string name="castleKingSideMovePiecesFirst">Aroki reĝflanke!
+Unue devas vi movi pecojn.</string>
+  <string name="castleQueenSideMovePiecesFirst">Aroki damflanke!
+Unue devas vi movi pecojn.</string>
   <string name="findAWayToCastleKingSide">Aroki reĝflanke iele!</string>
   <string name="findAWayToCastleQueenSide">Aroki damflanke iele!</string>
   <string name="castlingComplete">Gratulon! Vi devas preskaŭ ĉiam aroki dum ajna ludu.</string>
