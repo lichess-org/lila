@@ -147,8 +147,8 @@
 象=3
 马=3
 兵=1</string>
-  <string name="checkInTwo">二步杀</string>
-  <string name="twoMovesToGiveCheck">二步将</string>
+  <string name="checkInTwo">二步将</string>
+  <string name="twoMovesToGiveCheck">走两步棋并将军对方</string>
   <string name="checkInTwoIntro">请找到正确的两步棋对敌王将军。</string>
   <string name="checkInTwoGoal">二步将</string>
   <string name="checkInTwoComplete">恭喜！您成功地将对手将军，迫使对方保护王。</string>
@@ -179,7 +179,7 @@
   <string name="nailedIt">正确！</string>
   <string name="rightOn">好极了！</string>
   <string name="stageXComplete">阶段%s完成</string>
-  <string name="yourScore">呢的分</string>
+  <string name="yourScore">您的分数</string>
   <string name="next">下一个</string>
   <string name="backToMenu">返回菜单</string>
   <string name="puzzleFailed">解题失败!</string>
