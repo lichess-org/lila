@@ -5,7 +5,7 @@
   margin-top: -26px;
 }
 .relay_player {
-  background: #bbb;
+  background: #b0b0b0;
   color: #444;
   text-shadow: 0 .5px 1px #fff;
   display: flex;
@@ -130,11 +130,6 @@
 .relay_edit .relay .log .ddloader {
   margin-top: 5px;
 }
-
-body.dark .relay_player {
-  background: #bbb;
-  color: #444;
-  text-shadow: 0 .5px 1px #fff;
 
 body.dark .relay_edit .relay {
   background: #262626;
