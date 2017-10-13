@@ -131,6 +131,16 @@
   margin-top: 5px;
 }
 
+.relay_players .cg-board-wrap coords.files {
+  bottom: 0px;
+  text-align: left;
+}
+.relay_players .cg-board-wrap coords.files coord {
+  padding-left: 2px;
+  color: #fff;
+  text-shadow: 0 1px 2px #000;
+}
+
 body.dark .relay_edit .relay {
   background: #262626;
 }
