@@ -412,11 +412,6 @@ body.piece_letter .fork move {
 
 @media (min-width: 1050px) {
 
-  #puzzle div.lichess_game div.lichess_ground {
-    flex: 0 0 280px;
-  }
-  #puzzle .fork { left: 90px; }
-
   div.analyse div.lichess_game div.lichess_ground {
     flex: 0 0 25vw;
     max-width: 25vw;

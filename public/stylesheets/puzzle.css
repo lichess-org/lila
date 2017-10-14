@@ -1,3 +1,7 @@
+#puzzle div.lichess_game div.lichess_ground {
+  width: 280px;
+}
+
 #puzzle .game_control {
   justify-content: center;
 }
