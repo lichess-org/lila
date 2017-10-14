@@ -18,6 +18,7 @@ export interface Ctx {
   showGlyphs: boolean;
   showEval: boolean;
   truncateComments: boolean;
+  currentPath: Tree.Path | undefined;
 }
 
 export interface Opts {
@@ -63,22 +64,26 @@ export function ctrl(): TreeView {
   };
 }
 
-
 // entry point, dispatching to selected view
 export function render(ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
   return ctrl.treeView.inline() ? inline(ctrl) : column(ctrl, concealOf);
 }
 
-export function nodeClasses(c: AnalyseCtrl, path: Tree.Path): NodeClasses {
-  const current = (path === c.initialPath && game.playable(c.data)) || (
-    c.retro && c.retro.current() && c.retro.current().prev.path === path
-  );
+export function nodeClasses(ctx: Ctx, path: Tree.Path): NodeClasses {
   return {
-    active: path === c.path,
-    context_menu: path === c.contextMenuPath,
-    current,
-    nongame: !current && !!c.gamePath && treePath.contains(path, c.gamePath) && path !== c.gamePath
+    active: path === ctx.ctrl.path,
+    context_menu: path === ctx.ctrl.contextMenuPath,
+    current: path === ctx.currentPath,
+    nongame: !ctx.currentPath && !!ctx.ctrl.gamePath && treePath.contains(path, ctx.ctrl.gamePath) && path !== ctx.ctrl.gamePath
   };
+}
+
+export function findCurrentPath(c: AnalyseCtrl): Tree.Path | undefined {
+  return (game.playable(c.data) && c.initialPath) || (
+    c.retro && c.retro.current() && c.retro.current().prev.path
+  ) || (
+    c.study && c.study.data.chapter.relay && c.study.data.chapter.relay.path
+  );
 }
 
 export function renderInlineCommentsOf(ctx: Ctx, node: Tree.Node): MaybeVNodes {

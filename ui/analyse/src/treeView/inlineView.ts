@@ -5,7 +5,7 @@ import { path as treePath, ops as treeOps } from 'tree';
 import * as moveView from '../moveView';
 import AnalyseCtrl from '../ctrl';
 import { MaybeVNodes } from '../interfaces';
-import { mainHook, nodeClasses, renderInlineCommentsOf, retroLine } from './treeView';
+import { mainHook, nodeClasses, findCurrentPath, renderInlineCommentsOf, retroLine } from './treeView';
 import { Ctx, Opts } from './treeView';
 
 function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | undefined {
@@ -97,7 +97,7 @@ function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   if (node.glyphs) moveView.renderGlyphs(node.glyphs).forEach(g => content.push(g));
   return h('move', {
     attrs: { p: path },
-    class: nodeClasses(ctx.ctrl, path)
+    class: nodeClasses(ctx, path)
   }, content);
 }
 
@@ -108,7 +108,8 @@ export default function(ctrl: AnalyseCtrl): VNode {
     truncateComments: false,
     showComputer: ctrl.showComputer() && !ctrl.retro,
     showGlyphs: !!ctrl.study || ctrl.showComputer(),
-    showEval: !!ctrl.study || ctrl.showComputer()
+    showEval: !!ctrl.study || ctrl.showComputer(),
+    currentPath: findCurrentPath(ctrl)
   };
   const commentTags = renderInlineCommentsOf(ctx, root);
   return h('div.tview2.inline', {

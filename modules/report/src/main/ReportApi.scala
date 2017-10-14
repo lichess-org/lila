@@ -245,7 +245,7 @@ final class ReportApi(
     private val cache = asyncCache.clearable[User.ID, Int](
       name = "reporterAccuracy",
       f = forUser,
-      expireAfter = _.ExpireAfterWrite(1 hours)
+      expireAfter = _.ExpireAfterWrite(24 hours)
     )
 
     private def forUser(reporterId: User.ID): Fu[Int] = for {

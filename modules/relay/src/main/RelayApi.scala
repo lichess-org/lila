@@ -58,7 +58,7 @@ final class RelayApi(
 
   def closed = coll.find($doc(
     "finishedAt" $exists true
-  )).sort($sort asc "startsAt").list[Relay]()
+  )).sort($sort desc "startsAt").list[Relay]()
 
   def create(data: RelayForm.Data, user: User): Fu[Relay] = {
     val relay = data make user
@@ -102,6 +102,9 @@ final class RelayApi(
     ).void >>
       sendToContributors(id, "relayLog", JsonView.syncLogEventWrites writes event) >>-
       event.error.foreach { err => logger.info(s"$id $err") }
+
+  private[relay] def onStudyRemove(studyId: String) =
+    coll.remove($id(Relay.Id(studyId))).void
 
   private[relay] def publishRelay(relay: Relay): Funit =
     sendToContributors(relay.id, "relayData", JsonView.relayWrites writes relay)

@@ -181,7 +181,6 @@ div.lichess_game {
 }
 div.lichess_game div.lichess_board_wrap {
   position: relative;
-  flex: 0 0 512px;
 }
 body.blind_mode .cg-board-wrap {
   display: none;

@@ -30,7 +30,7 @@ export function make(root: AnalyseCtrl): RetroCtrl {
   };
 
   function findNextNode(): Tree.Node | undefined {
-    const colorModulo = root.bottomColor() === 'white' ? 1 : 0;
+    const colorModulo = root.bottomIsWhite() ? 1 : 0;
     candidateNodes = evalSwings(root.mainline, function(n) {
       return n.ply % 2 === colorModulo && !contains(explorerCancelPlies, n.ply);
     });

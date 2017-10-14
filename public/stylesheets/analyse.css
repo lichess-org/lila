@@ -419,7 +419,7 @@ body.piece_letter .fork move {
 
   div.analyse div.lichess_game div.lichess_ground {
     flex: 0 0 25vw;
-    max-width: 512px;
+    max-width: 25vw;
   }
   div.analyse .fork { left: 90px; }
 
@@ -1199,7 +1199,7 @@ body.dark .action_menu input[type=range]::-ms-fill-upper {
   box-sizing: border-box;
   line-height: 20px;
 }
-.aclock {
+.aclocks .aclock {
   height: 20px;
   line-height: 20px;
   padding: 5px 0;
@@ -1207,26 +1207,26 @@ body.dark .action_menu input[type=range]::-ms-fill-upper {
   border: 1px solid #ccc;
 }
 
-.aclock:first-child {
+.aclocks .aclock:first-child {
   border-width: 1px 1px 1px 0;
   border-radius: 0 4px 0 0;
 }
-.aclock:last-child {
+.aclocks .aclock:last-child {
   border-width: 0 1px 1px 0;
   border-radius: 0 0 4px 0;
 }
-.aclock.active {
+.aclocks .aclock.active {
   background: #fafafa;
   font-weight: bold;
 }
-.aclock tenths {
+.aclocks .aclock tenths {
   font-size: 80%;
 }
 
-body.dark .aclock {
+body.dark .aclocks .aclock {
   border-color: #3d3d3d;
 }
-body.dark .aclock.active {
+body.dark .aclocks .aclock.active {
   background: #303030;
 }
 

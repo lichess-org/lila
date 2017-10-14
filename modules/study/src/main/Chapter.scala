@@ -109,6 +109,7 @@ object Chapter {
   }
 
   case class Relay(
+      index: Int, // game index in the source URL
       path: Path,
       lastMoveAt: DateTime
   ) {

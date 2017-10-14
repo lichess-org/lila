@@ -41,8 +41,9 @@ final class Env(
     import lila.study.actorApi._
     def receive = {
       case lila.study.actorApi.StudyLikes(id, likes) => api.setLikes(Relay.Id(id.value), likes)
+      case lila.hub.actorApi.study.RemoveStudy(studyId, _) => api.onStudyRemove(studyId)
     }
-  })), 'studyLikes)
+  })), 'studyLikes, 'study)
 }
 
 object Env {

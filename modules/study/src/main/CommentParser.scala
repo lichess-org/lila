@@ -34,14 +34,12 @@ private[study] object CommentParser {
     s <- parseIntOption(seconds)
   } yield Centis(h * 360000 + m * 6000 + s * 100)
 
-  private val clockHourMinuteRegex = """^\d+:\d+$""".r // DGT...
-  private val clockHourMinuteSecondRegex = """^\d+:\d+:\d+$""".r // standard
-  private val clockHourMinuteSecondRegexAlt = """^\d+:\d+\.\d+$""".r // DGT...
+  private val clockHourMinuteRegex = """^(\d+):(\d+)$""".r
+  private val clockHourMinuteSecondRegex = """^(\d+):(\d+)[:\.](\d+)$""".r
 
   def readCentis(str: String): Option[Centis] = str match {
     case clockHourMinuteRegex(hours, minutes) => readCentis(hours, minutes, "0")
     case clockHourMinuteSecondRegex(hours, minutes, seconds) => readCentis(hours, minutes, seconds)
-    case clockHourMinuteSecondRegexAlt(hours, minutes, seconds) => readCentis(hours, minutes, seconds)
     case _ => none
   }
 

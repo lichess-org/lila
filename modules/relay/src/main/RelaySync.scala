@@ -74,6 +74,7 @@ private final class RelaySync(
               uid = socketUid,
               opts = moveOpts.copy(clock = n.clock),
               relay = Chapter.Relay(
+                index = game.index,
                 path = position.path + n,
                 lastMoveAt = DateTime.now
               ).some
@@ -85,7 +86,7 @@ private final class RelaySync(
   private def updateChapterTags(study: Study, chapter: Chapter, game: RelayGame): Funit = {
     val gameTags = game.tags.value.foldLeft(Tags(Nil)) {
       case (newTags, tag) =>
-        if (!chapter.tags.value.exists(equalTags(tag))) newTags + tag
+        if (!chapter.tags.value.exists(tag ==)) newTags + tag
         else newTags
     }
     val tags = game.end
@@ -104,19 +105,17 @@ private final class RelaySync(
     }.void
   }
 
-  private def equalTags(t1: Tag)(t2: Tag): Boolean =
-    (t1.name == t2.name) && {
-      t1.value == t2.value || {
-        t1.name == Tag.Result && normalizeDrawNotation(t1) == normalizeDrawNotation(t2)
-      }
-    }
-  private def normalizeDrawNotation(t: Tag): String = t.value.replace("1/2", "½")
-
   private def createChapter(study: Study, game: RelayGame): Fu[Chapter] =
     chapterRepo.nextOrderByStudy(study.id) flatMap { order =>
+      val name = {
+        for {
+          w <- game.tags(_.White)
+          b <- game.tags(_.Black)
+        } yield s"$w - $b"
+      } orElse game.tags("board") getOrElse "?"
       val chapter = Chapter.make(
         studyId = study.id,
-        name = Chapter.Name(s"${game.whiteName} - ${game.blackName}"),
+        name = Chapter.Name(name),
         setup = Chapter.Setup(
           none,
           game.tags.variant | chess.variant.Variant.default,
@@ -130,6 +129,7 @@ private final class RelaySync(
         gamebook = false,
         conceal = none,
         relay = Chapter.Relay(
+          index = game.index,
           path = game.root.mainlinePath,
           lastMoveAt = DateTime.now
         ).some

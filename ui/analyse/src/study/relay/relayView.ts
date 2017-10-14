@@ -1,107 +1,41 @@
 import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
-import RelayCtrl from './relayCtrl';
-import { iconTag, dataIcon, bind } from '../../util';
-import { LogEvent } from './interfaces';
+import { VNode } from 'snabbdom/vnode'
+import { TagArray } from '../interfaces';
+import { renderClocks } from '../../clocks';
+import AnalyseCtrl from '../../ctrl';
 
-export default function(ctrl: RelayCtrl): VNode | undefined {
-  const d = ctrl.data;
-  if (ctrl.members.canContribute()) return h('div.relay_wrap', [
-    h('h2', [
-      h('span.text', { attrs: dataIcon('') }, [
-        h('a', {
-          attrs: { href: d.sync.url, _target: 'blank' }
-        }, d.finishedAt ?
-        'Finished ' + getDateFormatter()(new Date(d.finishedAt)) :
-        d.sync.url.replace(/https?:\/\//, ''))
-      ]),
-      ctrl.members.isOwner() ? h('a', {
-        attrs: {
-          href: `/broadcast/${d.slug}/${d.id}/edit`,
-          'data-icon': '%'
-        }
-      }) : null
+export function renderPlayers(ctrl: AnalyseCtrl): VNode[] | undefined {
+  const study = ctrl.study;
+  if (!study || !study.data.chapter.relay) return;
+  const relay = study.relay;
+  if (!relay) return;
+  const clocks = renderClocks(ctrl),
+  tags = study.data.chapter.tags,
+  ticking = !relay.isFinished(study.data.chapter) && ctrl.turnColor();
+  return (['white', 'black'] as Color[]).map(color => renderPlayer(tags, clocks, color, ticking === color));
+}
+
+function renderPlayer(tags: TagArray[], clocks: [VNode, VNode] | undefined, color: Color, ticking: boolean): VNode {
+  return h(`div.relay_player.${color}${ticking ? '.ticking' : ''}`, [
+    h('div.left', [
+      h('span.color'),
+      playerInfo(tags, color)
     ]),
-    h('div.relay', [
-      (d.sync.seconds ? stateOn : stateOff)(ctrl),
-      renderLog(ctrl)
-    ])
+    clocks && clocks[color === 'white' ? 0 : 1]
   ]);
 }
 
-function logSuccess(e: LogEvent) {
-  return [
-    e.moves ? h('strong', '' + e.moves) : e.moves,
-    ` new move${e.moves > 1 ? 's' : ''}`
-  ];
-}
-
-function renderLog(ctrl: RelayCtrl) {
-  const dateFormatter = getDateFormatter();
-  const logLines = ctrl.data.sync.log.slice(0).reverse().map(e => {
-    const err = e.error && h('a', {
-      attrs: {
-        href: ctrl.data.sync.url,
-        target: '_blank'
-      }
-    }, e.error);
-    return h('div' + (err ? '.err' : ''), {
-      key: e.at
-    }, [
-      iconTag(err ? 'j' : 'E'),
-      h('div', [
-        ...(err ? [err] : logSuccess(e)),
-        h('time', dateFormatter(new Date(e.at)))
-      ])
-    ]);
-  });
-  if (ctrl.loading()) logLines.unshift(h('div.load', [
-    h('i.ddloader'),
-    'Polling source...'
-  ]));
-  return h('div.log', logLines);
-}
-
-function stateOn(ctrl: RelayCtrl) {
-  return h('div.state.on.clickable', {
-    hook: bind('click', _ => ctrl.setSync(false))
-  }, [
-    iconTag('B'),
-    h('div', [
-      'Connected to source',
-      h('div.timer', {
-        hook: {
-          insert: vnode => $(vnode.elm as HTMLElement).clock({ time: ctrl.data.sync.seconds! })
-        }
-      }, [
-        h('span.shy', 'Will disconnect in '),
-        h('span.time.text')
-      ])
-    ])
+function playerInfo(tags: TagArray[], color: Color): VNode {
+  const title = findTag(tags, `${color}title`),
+  elo = findTag(tags, `${color}elo`);
+  return h('span.info', [
+    title && h('span.title', title + ' '),
+    h('span.name', findTag(tags, color) || color),
+    elo && h('span.elo', elo)
   ]);
 }
 
-function stateOff(ctrl: RelayCtrl) {
-  return h('div.state.off.clickable', {
-    hook: bind('click', _ => ctrl.setSync(true))
-  }, [
-    iconTag('G'),
-    h('div.fat', 'Click to connect')
-  ]);
-}
-
-let cachedDateFormatter: (date: Date) => string;
-
-function getDateFormatter(): (date: Date) => string {
-  if (!cachedDateFormatter)
-  cachedDateFormatter = (window.Intl && Intl.DateTimeFormat) ?
-    new Intl.DateTimeFormat(document.documentElement.lang, {
-      month: 'short',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: 'numeric',
-      second: 'numeric'
-    }).format : function(d) { return d.toLocaleString(); }
-
-    return cachedDateFormatter;
+function findTag(tags: TagArray[], name: string): string | undefined {
+  const t = tags.find(t => t[0].toLowerCase() === name);
+  return t && t[1];
 }

@@ -1,12 +1,19 @@
-import AnalyseCtrl from './ctrl';
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
+import AnalyseCtrl from './ctrl';
 
 interface ClockOpts {
   tenths: boolean;
 }
 
 export default function(ctrl: AnalyseCtrl): VNode | undefined {
+  const clocks = renderClocks(ctrl);
+  if (!clocks) return;
+  if (ctrl.bottomIsWhite()) clocks.reverse();
+  return h('div.aclocks', clocks);
+}
+
+export function renderClocks(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
   const node = ctrl.node, clock = node.clock;
   if (!clock && clock !== 0) return;
   const parentClock = ctrl.tree.getParentClock(node, ctrl.path),
@@ -25,10 +32,11 @@ export default function(ctrl: AnalyseCtrl): VNode | undefined {
   const opts = {
     tenths: !ctrl.study || !ctrl.study.relay
   };
-  const whiteEl = renderClock(centis[0], isWhiteTurn, opts);
-  const blackEl = renderClock(centis[1], !isWhiteTurn, opts);
 
-  return h('div.aclocks', ctrl.bottomColor() === 'white' ? [blackEl, whiteEl] : [whiteEl, blackEl]);
+  return [
+    renderClock(centis[0], isWhiteTurn, opts),
+    renderClock(centis[1], !isWhiteTurn, opts)
+  ];
 }
 
 function renderClock(centis: number | undefined, active: boolean, opts: ClockOpts): VNode {
