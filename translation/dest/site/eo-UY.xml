@@ -16,7 +16,7 @@
   <string name="resign">Rezigni</string>
   <string name="checkmate">Ŝakmato</string>
   <string name="stalemate">Pato</string>
-  <string name="white">Blanko</string>
+  <string name="white">Blanka</string>
   <string name="black">Nigro</string>
   <string name="randomColor">Hazarda koloro</string>
   <string name="createAGame">Krei ludon</string>
@@ -48,7 +48,61 @@
   <string name="computerAnalysis">Komputila analizo</string>
   <string name="computerAnalysisAvailable">Komputila analizo haveblas</string>
   <string name="analysis">Analizo</string>
+  <string name="depthX">Profundo %s</string>
+  <string name="usingServerAnalysis">Analizanta per servilo</string>
+  <string name="loadingEngine">Komencu la maŝino ...</string>
+  <string name="cloudAnalysis">Analizo per la nubo</string>
+  <string name="goDeeper">Iru pli profunde</string>
+  <string name="showThreat">Montru la minaco</string>
+  <string name="inLocalBrowser">en loka foliumilo</string>
+  <string name="toggleLocalEvaluation">Mal/aktivigi lokan takson</string>
+  <string name="move">Moviĝi</string>
+  <string name="variantLoss">Variaĵa malvenko</string>
+  <string name="variantWin">Variaĵa venko</string>
+  <string name="insufficientMaterial">Nesufiĉa materialo</string>
+  <string name="pawnMove">Peonmovo</string>
+  <string name="capture">Kapto</string>
+  <string name="close">Fermu</string>
+  <string name="winning">Venkant</string>
+  <string name="losing">Malvenkant</string>
+  <string name="drawn">Kaŭzas egalvenkon</string>
+  <string name="unknown">Nekonata</string>
+  <string name="database">Datumbazo</string>
+  <string name="whiteDrawBlack">Blanka / Paŭzo / Nigra</string>
+  <string name="averageRatingX">Meznombra rango: %s</string>
+  <string name="recentGames">Freŝdataj ludoj</string>
+  <string name="topGames">Pintaj ludoj</string>
+  <string name="masterDbExplanation">Du milionoj ludoj fizikaj far %1$s+ FIDE-taksitaj ludantoj de %2$s ĝis %3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Mato post %s duonmovo</item>
+    <item quantity="other">Mato post %s duonmovoj</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">La proksima kapto aŭ peonmovo %s duonmovoj for (por rekomenci la regulon pri 50-movan)</item>
+    <item quantity="other">La proksima kapto aŭ peonmovo %s duonmovoj for (por rekomenci la regulon pri 50-movan)</item>
+  </plurals>
+  <string name="noGameFound">Neniu ludo trovita</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Eble inkluzivas pli da ludoj de la menuo de preferoj?</string>
   <string name="openingExplorer">Esplorilo pri malfermoj</string>
+  <string name="xOpeningExplorer">%s esploristo de komencoj</string>
+  <string name="winPreventedBy50MoveRule">Venko blokita per la reglo pri 50-movoj</string>
+  <string name="lossSavedBy50MoveRule">Malvenko ne suferita dank\' al la reglo pri 50-movoj</string>
+  <string name="allSet">Preta!</string>
+  <string name="importPgn">Importu PGN</string>
+  <string name="delete">Forigi</string>
+  <string name="deleteThisImportedGame">Elimini ĉi tiun enmetitan ludon?</string>
+  <string name="replayMode">Rapido de reludo</string>
+  <string name="realtimeReplay">Reala tempo</string>
+  <string name="byCPL">Per eraroj</string>
+  <string name="openStudy">Malfermi analizon</string>
+  <string name="enable">Ebligi</string>
+  <string name="bestMoveArrow">Sago por optimuma movo</string>
+  <string name="evaluationGauge">Gaŭĝo de rangado</string>
+  <string name="multipleLines">Pluraj linioj</string>
+  <string name="cpus">Ĉefprocesoroj</string>
+  <string name="memory">Memoro</string>
+  <string name="infiniteAnalysis">Senfina analizo</string>
+  <string name="removesTheDepthLimit">Forigas la profundlimon, kaj tenas vian komputilon varma</string>
   <string name="blunders">Eraregoj</string>
   <string name="mistakes">Eraroj</string>
   <string name="inaccuracies">Eraretoj</string>
@@ -100,8 +154,8 @@
     <item quantity="other">%s horoj</item>
   </plurals>
   <string name="time">Tempo</string>
-  <string name="rating">Taksado</string>
-  <string name="ratingStats">Taksaj statistikoj</string>
+  <string name="rating">Rango</string>
+  <string name="ratingStats">Rangaj statistikoj</string>
   <string name="username">Uzantnomo</string>
   <string name="usernameOrEmail">Uzantnomo aŭ retpoŝtadreso</string>
   <string name="password">Pasvorto</string>
@@ -113,6 +167,12 @@
   <string name="passwordReset">Reagordo de pasvorto</string>
   <string name="forgotPassword">Ĉu vi forgesis la pasvorton?</string>
   <string name="rank">Rango</string>
+  <string name="rankX">Rango: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Rango ĝisdatigita ĉiujn %s minutojn</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s puzlo</item>
+    <item quantity="other">%s puzloj</item>
+  </plurals>
   <string name="gamesPlayed">Luditaj ludoj</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s ludoj kun vi</item>
@@ -139,8 +199,8 @@
   <string name="unlimited">Senlime</string>
   <string name="mode">Moduso</string>
   <string name="casual">Amike</string>
-  <string name="rated">Takse</string>
-  <string name="thisGameIsRated">Ĉi tiu ludo estas taksa</string>
+  <string name="rated">Range</string>
+  <string name="thisGameIsRated">Ĉi tiu ludo estas ranga</string>
   <string name="rematch">Reludi</string>
   <string name="rematchOfferSent">Rematĉa oferto estis sendita</string>
   <string name="rematchOfferAccepted">Rematĉa oferto estis akceptita</string>
@@ -151,6 +211,8 @@
   <string name="play">Ludi</string>
   <string name="inbox">Enirkesto</string>
   <string name="chatRoom">Babilejo</string>
+  <string name="loginToChat">Ensaluti por babili</string>
+  <string name="youHaveBeenTimedOut">Vi estas en paŭzo dum 10 minutoj.</string>
   <string name="spectatorRoom">Spektantejo</string>
   <string name="composeMessage">Verki mesaĝon</string>
   <string name="noNewMessages">Neniuj novaj mesaĝoj</string>
@@ -160,6 +222,10 @@
   <string name="incrementInSeconds">Pliigo en sekundoj</string>
   <string name="freeOnlineChess">Senpaga Interreta Ŝako</string>
   <string name="spectators">Spektantoj:</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s taksa ludo</item>
+    <item quantity="other">%s taksaj ludoj</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s venkoj</item>
     <item quantity="other">%s venkoj</item>
@@ -172,14 +238,20 @@
     <item quantity="one">%s egalvenkoj</item>
     <item quantity="other">%s egalvenkoj</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s aktuala</item>
+    <item quantity="other">%s aktualaj</item>
+  </plurals>
   <string name="exportGames">Eksporti ludojn</string>
-  <string name="ratingRange">Poenta taksado</string>
+  <string name="ratingRange">Rangogamo</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Doni %s sekundojn</item>
     <item quantity="other">Doni %s sekundojn</item>
   </plurals>
+  <string name="giveMoreTime">Doni pli da tempo</string>
   <string name="thisPlayerUsesChessComputerAssistance">Tiu ĉi ludanto uzas komputilan asiston por ludi</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Tiu ĉi ludanto fripone (mal)pligrandigas sian taksadon</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">Tiu ĉi ludanto fripone (mal)pligrandigas sian rangon</string>
+  <string name="openingExplorerAndTablebase">Esploristo de komencoj &amp; tablobazo</string>
   <string name="takeback">Repreno</string>
   <string name="proposeATakeback">Proponi reprenon</string>
   <string name="takebackPropositionSent">Reprena propono estis sendita</string>
@@ -195,6 +267,29 @@
   <string name="tournamentPoints">Turniraj poentoj</string>
   <string name="viewTournament">Vidi turniron</string>
   <string name="backToTournament">Reiri al turniro</string>
+  <string name="thematic">Tema</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s taksa ludo</item>
+    <item quantity="other">≥ %s taksaj ludoj</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s taksa ludo de %2$s</item>
+    <item quantity="other">≥ %1$s taksaj ludoj de %2$s</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Vi devas ludi %1$s pli de taksa %2$s ludo</item>
+    <item quantity="other">Vi devas ludi %1$s pli de taksaj %2$s ludoj</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Vi devas ludi %s pli de taksa ludo</item>
+    <item quantity="other">Vi devas ludi %s pli de taksaj ludoj</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Vi havas duman %s -rangon</string>
+  <string name="yourPerfRatingIsTooHigh">Via rango %1$s (%2$s) estas tro malalta</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Via plej alta semajna rango en %1$s (%2$s) estas tro alta</string>
+  <string name="yourPerfRatingIsTooLow">Via rango %1$s (%2$s) estas tro malalta</string>
+  <string name="ratedMoreThanInPerf">Rango de ≥ %1$s en %2$s</string>
+  <string name="ratedLessThanInPerf">Rango de ≤ %1$s en %2$s</string>
   <string name="backToGame">Reiri al la ludo</string>
   <string name="siteDescription">Senpaga interreta ŝakludo. Ludu ŝakon nun per simpla interfaco. Sen registriĝo, sen reklamoj, sen neceso por aldonaĵo. Ludu ŝakon kun la komputilo, amikoj aŭ hazardaj kontraŭuloj.</string>
   <string name="teams">Teamoj</string>
@@ -216,7 +311,7 @@
   <string name="teamRecentMembers">Lastaj membroj</string>
   <string name="xJoinedTeamY">%1$s aliĝis al teamo %2$s</string>
   <string name="xCreatedTeamY">%1$s kreis teamon %2$s</string>
-  <string name="averageElo">Meznombra taksado</string>
+  <string name="averageElo">Meznombra rango</string>
   <string name="location">Loko</string>
   <string name="settings">Agordoj</string>
   <string name="filterGames">Filtri ludojn</string>
@@ -228,6 +323,7 @@
   <string name="fromPosition">De pozicio</string>
   <string name="continueFromHere">Daŭrigi de ĉi tie</string>
   <string name="importGame">Importi ludon</string>
+  <string name="importGameExplanation">Kiam vi enmetas PGN-on de ludo, vi povas reludi ĝin, vidi komputilan analizon, babili kun la kontraŭulon, kaj dissemi la ligilon URL.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Importitaj ludoj</item>
     <item quantity="other">%s Importitaj ludoj</item>
@@ -287,8 +383,21 @@
   <string name="tournamentPairingsAreNowClosed">La turniraj parigoj nun fermiĝis.</string>
   <string name="standByX">Atentu %s, parigante ludantojn, pretiĝu!</string>
   <string name="youArePlaying">Vi nun ludas!</string>
+  <string name="winRate">Venka procento</string>
+  <string name="berserkRate">Freneza procento</string>
+  <string name="performance">Efikeco</string>
+  <string name="tournamentComplete">Turniro finitis</string>
+  <string name="movesPlayed">Moviĝoj luditaj</string>
+  <string name="whiteWins">Blanko venkas</string>
+  <string name="blackWins">Nigro venkas</string>
+  <string name="draws">Paŭzoj</string>
+  <string name="nextXTournament">Proksima %s turniro:</string>
+  <string name="viewMoreTournaments">Spektu pli da turniroj</string>
+  <string name="averageOpponent">Mezuma kontraŭulo</string>
   <string name="membersOnly">Nur membroj</string>
   <string name="boardEditor">Tabulredaktilo</string>
+  <string name="setTheBoard">Antaŭfaru la tabulo</string>
+  <string name="popularOpenings">Popularaj komencoj</string>
   <string name="startPosition">Komenca aranĝo</string>
   <string name="clearBoard">Malplenigi tabulon</string>
   <string name="savePosition">Savi aranĝon</string>
@@ -296,7 +405,7 @@
   <string name="isPrivate">Privata</string>
   <string name="reportXToModerators">Raporti %s al moderatoroj</string>
   <string name="profileCompletion">Profila kompletiĝo: %s</string>
-  <string name="xRating">%s-takso</string>
+  <string name="xRating">%s-rango</string>
   <string name="ifNoneLeaveEmpty">Se neniu, lasu malplena</string>
   <string name="gameCompletionRate">Kiomelcente kompletigas ludojn: %s</string>
   <string name="profile">Profilo</string>
@@ -306,6 +415,7 @@
   <string name="biography">Biografio</string>
   <string name="country">Lando</string>
   <string name="preferences">Preferoj</string>
+  <string name="inlineNotation">Enlineaj markoj</string>
   <string name="watchLichessTV">Spekti Lichess-TV</string>
   <string name="previouslyOnLichessTV">Antaŭe ĉe Lichess-TV</string>
   <string name="onlinePlayers">Konektitaj ludantoj</string>
@@ -313,7 +423,7 @@
   <string name="activePlayers">Aktivaj ludantoj</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Atentu: la ludo estas taksa, sed ne havas tempolimon!</string>
   <string name="training">Trejnado</string>
-  <string name="yourPuzzleRatingX">Via puzla taksado: %s</string>
+  <string name="yourPuzzleRatingX">Via puzla rango: %s</string>
   <string name="findTheBestMoveForWhite">Trovu la plej bonan movon por la blanka ludanto.</string>
   <string name="findTheBestMoveForBlack">Trovu la plej bonan movon por la nigra ludanto.</string>
   <string name="toTrackYourProgress">Por atenti vian progreson:</string>
@@ -327,10 +437,11 @@
   <string name="keepGoing">Daŭrigu...</string>
   <string name="puzzleFailed">Vi malsukcesis</string>
   <string name="butYouCanKeepTrying">Sed vi rajtas daŭrigi la provon.</string>
+  <string name="success">Sukceso</string>
   <string name="wasThisPuzzleAnyGood">Ĉu vi ŝatis ĉi tiun puzlon?</string>
   <string name="pleaseVotePuzzle">Helpu al Lichess pliboniĝi per voĉdoni, uzante la supren- aŭ suben-sagbutonojn:</string>
   <string name="thankYou">Dankon!</string>
-  <string name="ratingX">Taksado: %s</string>
+  <string name="ratingX">Rango: %s</string>
   <plurals name="playedXTimes">
     <item quantity="one">Ludita %s-foje</item>
     <item quantity="other">Ludita %s-foje</item>
@@ -393,6 +504,7 @@
   <string name="closeAccountExplanation">Ĉu vi certas, ke vi volas fermi vian konton? Fermi vian konton estas ago nemalfarebla. Vi ne plu povos ensaluti, kaj via profila paĝo ne plu estos alirebla.</string>
   <string name="thisAccountIsClosed">Tiu ĉi konto estas fermita.</string>
   <string name="invalidUsernameOrPassword">Malĝusta uzantnomo aŭ pasvorto</string>
+  <string name="incorrectPassword">Malkorekta pasvorto</string>
   <string name="emailMeALink">Retpoŝte sendu al mi ligilon</string>
   <string name="currentPassword">Nuna pasvorto</string>
   <string name="newPassword">Nova pasvorto</string>
@@ -445,6 +557,8 @@
   <string name="xAnsweredY">%1$s respondis %2$s</string>
   <string name="xCommentedY">%1$s komentis %2$s</string>
   <string name="victory">Venko!</string>
+  <string name="defeat">Malvenko</string>
+  <string name="xVsYinZ">%1$s kontraŭ %2$s en %3$s</string>
   <string name="timeline">Kronologio</string>
   <string name="seeAllTournaments">Montri ĉiujn turnirojn</string>
   <string name="starting">Komenciĝos je:</string>
@@ -472,6 +586,7 @@
   <string name="playOnTheBoardOffline">Ludi fizike kun aliulo</string>
   <string name="playOfflineComputer">Ludi elrete kontraŭ komputilo</string>
   <string name="opponent">Kontraŭulo</string>
+  <string name="learnMenu">Lerni</string>
   <string name="community">Komunumo</string>
   <string name="tools">Iloj</string>
   <string name="increment">Pliiĝo</string>
@@ -484,10 +599,12 @@
   <string name="error.email">Ĉi tiu retadreso ne estas valida</string>
   <string name="error.email_acceptable">Ĉi tiu retadreso estas malakceptata</string>
   <string name="error.email_unique">Ĉi tiu retadreso jam estas uzata</string>
+  <string name="error.email_different">Tiu estas jam via retpoŝtadreso</string>
   <string name="blindfoldChess">Blinda ŝako (nevideblaj ŝakpecoj)</string>
+  <string name="zenMode">Zen modo</string>
   <string name="moveConfirmation">Konfirmo de movoj</string>
   <string name="inCorrespondenceGames">En korespondaj ludoj</string>
-  <string name="ifRatingIsPlusMinusX">Se taksado estas ± %s</string>
+  <string name="ifRatingIsPlusMinusX">Se rango estas ± %s</string>
   <string name="onlyFriends">Nur amikoj</string>
   <string name="menu">Menuo</string>
   <string name="castling">Arokado</string>
@@ -513,6 +630,7 @@
   <string name="sourceCode">Fontkodo</string>
   <string name="simultaneousExhibitions">Samtempludaj ekspozicioj</string>
   <string name="host">Gastiganto</string>
+  <string name="hostColorX">Koloro de gastiganto: %s</string>
   <string name="createdSimuls">Antaŭ nelonge kreitaj samtempludoj</string>
   <string name="hostANewSimul">Gastigi novan samtempludon</string>
   <string name="noSimulFound">Ne trovis samtempludon</string>
@@ -546,14 +664,14 @@
   <string name="tournamentDoesNotExist">Konkurso ne ekzistas</string>
   <string name="tournamentMayHaveBeenCanceled">Eble ĝi ne okazos ĉar malaliĝis ĉiuj ludontoj antaŭ la komenco de la konkurso.</string>
   <string name="returnToTournamentsHomepage">Returni al la hejmpaĝo de la konkursoj</string>
-  <string name="weeklyPerfTypeRatingDistribution">Monata takso distribuo de %s.</string>
+  <string name="weeklyPerfTypeRatingDistribution">Monata rango-distribuo de %s</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">Unu %2$s ludanto ĉi tiu semajno.</item>
     <item quantity="other">%1$s %2$s ludantoj ĉi tiu semajno.</item>
   </plurals>
-  <string name="yourPerfTypeRatingIsRating">Via taksado je %1$s estas %2$s.</string>
+  <string name="yourPerfTypeRatingIsRating">Via rango je %1$s estas %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Vi estas pli bona ol %1$s de %2$s ludantoj.</string>
-  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Vi ne havas stabilan takson je %s.</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Vi ne havas stabilan rangon je %s.</string>
   <string name="checkYourEmail">Kontrolu vian retpoŝton</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Ni sendis al vi retmesaĝon . Klaku la ligilon en la poŝto por aktivigi vian konton.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se vi ne vidas la retpoŝton , kontrolu aliajn lokojn kie ĝi povas esti, kiel via rubo , spam, socia , aŭ aliaj dosierujoj.</string>
@@ -570,6 +688,7 @@
   <string name="crosstable">Kructabelo</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Vi povas ankaŭ rulumi sur la tabulo por movi en la ludo.</string>
   <string name="analysisShapesHowTo">Premu shift+click aŭ rekt-klaki por desegni cirklojn kaj sagojn sur la tabulo.</string>
+  <string name="confirmResignationAndDrawOffers">Konfirmi proponoj de resignoj kaj paŭzoj</string>
   <string name="inputMovesWithTheKeyboard">Enigi movojn per klavaro</string>
   <string name="letOtherPlayersMessageYou">Lasu aliajn ludantojn mesaĝi vin</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Aroka metodo</string>
@@ -612,9 +731,14 @@
   <string name="xLikesY">%1$s ŝatas %2$s</string>
   <string name="quickPairing">Rapida parado</string>
   <string name="lobby">Lobio</string>
+  <string name="anonymous">Sennoma</string>
   <string name="yourScore">Via poentaro: %s</string>
   <string name="language">Lingvo</string>
   <string name="background">Fono</string>
+  <string name="light">Hela</string>
+  <string name="dark">Malhela</string>
+  <string name="transparent">Travidebla</string>
+  <string name="backgroundImageUrl">Malantaŭografikaĵo URL:</string>
   <string name="boardGeometry">Tabula geometrio</string>
   <string name="boardTheme">Tabula temo</string>
   <string name="boardSize">Tabula grandeco</string>
@@ -638,5 +762,5 @@
   <string name="custom">Propra</string>
   <string name="notifications">Sciigoj</string>
   <string name="challenges">Defioj</string>
-  <string name="perfRatingX">Taksado: %s</string>
+  <string name="perfRatingX">Rango: %s</string>
 </resources>

@@ -742,7 +742,7 @@ en %3$s</string>
   <string name="backgroundImageUrl">URL de l\'image de fond :</string>
   <string name="boardGeometry">Forme de l\'échiquier</string>
   <string name="boardTheme">Thème de l\'échiquier</string>
-  <string name="boardSize">Taile de l\'échiquier</string>
+  <string name="boardSize">Taille de l\'échiquier</string>
   <string name="pieceSet">Jeu de pièces</string>
   <string name="embedInYourWebsite">Intégrer dans votre site web</string>
   <string name="usernameAlreadyUsed">Ce nom d\'utilisateur existe déjà. Merci d\'en choisir un autre.</string>

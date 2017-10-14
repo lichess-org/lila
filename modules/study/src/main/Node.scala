@@ -52,6 +52,7 @@ case class Node(
 
   def setComment(comment: Comment) = copy(comments = comments set comment)
   def deleteComment(commentId: Comment.Id) = copy(comments = comments delete commentId)
+  def deleteComments = copy(comments = Comments.empty)
 
   def setGamebook(gamebook: Gamebook) = copy(gamebook = gamebook.some)
 
@@ -145,6 +146,13 @@ object Node {
     def update(child: Node): Children = Children(nodes.map {
       case n if child.id == n.id => child
       case n => n
+    })
+
+    def updateMainline(f: Node => Node): Children = Children(nodes match {
+      case main +: others =>
+        val newNode = f(main)
+        newNode.copy(children = newNode.children.updateMainline(f)) +: others
+      case x => x
     })
 
     // List(0, 0, 1, 0, 2)

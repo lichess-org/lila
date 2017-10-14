@@ -19,12 +19,6 @@ Lichess is intended to be a fun and friendly environment for everyone. Please no
 
 """, /* ---------------------------------------------------------------*/ """
 
-Warning: Leaving games / stalling on time
-
-In your game history, you have several games where you have left the game or just let the time run out instead of playing or resigning. This can be very annoying for your opponents. If this behavior continues to happen, your account will be terminated.
-
-""", /* ---------------------------------------------------------------*/ """
-
 Warning: Sandbagging
 
 In your game history, you have several games where you clearly have intentionally lost the game. Attempts to artificially manipulate your own or someone else's rating are unacceptable. If this behavior continues to happen, your account will be terminated.
@@ -46,12 +40,6 @@ Offering an excessive amount of draws in order to distract or annoy an opponent 
 Warning: Excessive cheat reports
 
 You have reported a significant number of players for cheating. However, none or very few of these cheat reports have turned out to be accurate. Please remember that these reports have to be checked manually by Lichess moderators. Before reporting anyone for cheating, please make sure that you have requested computer analysis of the relevant game(s) and do your absolute best to avoid false reports.
-
-""", /* ---------------------------------------------------------------*/ """
-
-Warning: Aborting games
-
-In your game history, you have many games where you aborted the game before play started. Repeatedly aborting games can be very annoying for your opponents. If this behavior continues to happen, your account will be terminated.
 
 """, /* ---------------------------------------------------------------*/ """
 

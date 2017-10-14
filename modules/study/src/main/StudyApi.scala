@@ -553,14 +553,21 @@ final class StudyApi(
     Contribute(byUserId, study) {
       chapterRepo.byIdAndStudy(chapterId, studyId) flatMap {
         _ ?? { chapter =>
-          chapterRepo.orderedMetadataByStudy(studyId).flatMap {
-            case chaps if chaps.size > 1 => (study.position.chapterId == chapterId).?? {
+          chapterRepo.orderedMetadataByStudy(studyId).flatMap { chaps =>
+            // deleting the only chapter? Automatically create an empty one
+            if (chaps.size < 2) {
+              chapterMaker(study, ChapterMaker.Data(Chapter.Name("Chapter 1")), 1, byUserId) flatMap {
+                _ ?? { c =>
+                  doAddChapter(study, c, sticky = true, uid) >> doSetChapter(study, c.id, uid)
+                }
+              }
+            } // deleting the current chapter? Automatically move to another one
+            else (study.position.chapterId == chapterId).?? {
               chaps.find(_.id != chapterId) ?? { newChap =>
                 doSetChapter(study, newChap.id, uid)
               }
-            } >> chapterRepo.delete(chapter.id)
-            case _ => funit
-          } >>- reloadChapters(study)
+            }
+          } >> chapterRepo.delete(chapter.id) >>- reloadChapters(study)
         } >>- indexStudy(study)
       }
     }

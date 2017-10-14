@@ -144,7 +144,7 @@ Wieża = 5
 Goniec = 3
 Skoczek = 3
 Pion = 1
-Król jest bezcenny! Tracąc króla przegrywasz grę.</string>
+Król jest bezcenny! Tracąc króla przegrywasz partię.</string>
   <string name="queenOverBishop">Zbij figurę o największej wartości!
 hetman &gt; goniec</string>
   <string name="takeThePieceWithTheHighestValue">Zbij figurę o najwyższej wartości!</string>
