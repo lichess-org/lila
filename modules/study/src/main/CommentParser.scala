@@ -12,6 +12,8 @@ private[study] object CommentParser {
   private val arrowsRemoveRegex = """\[\%cal[\s\r\n]+((?:\w{5}[,\s]*)+)\]""".r
   private val clockRegex = """(?s).*\[\%clk[\s\r\n]+([\d:\.]+)\].*""".r
   private val clockRemoveRegex = """\[\%clk[\s\r\n]+[\d:\.]+\]""".r
+  private val tcecClockRegex = """(?s).*tl=([\d:\.]+).*""".r
+  private val tcecClockRemoveRegex = """tl=[\d:\.]+""".r
 
   case class ParsedComment(
       shapes: Shapes,
@@ -45,6 +47,7 @@ private[study] object CommentParser {
 
   private def parseClock(comment: String): ClockAndComment = comment match {
     case clockRegex(str) => readCentis(str) -> clockRemoveRegex.replaceAllIn(comment, "").trim
+    case tcecClockRegex(str) => readCentis(str) -> tcecClockRemoveRegex.replaceAllIn(comment, "").trim
     case _ => None -> comment
   }
 

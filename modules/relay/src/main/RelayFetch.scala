@@ -7,6 +7,7 @@ import play.api.Play.current
 import scala.concurrent.duration._
 
 import lila.base.LilaException
+import lila.tree.Node.Comments
 
 private final class RelayFetch(
     sync: RelaySync,
@@ -198,7 +199,10 @@ private object RelayFetch {
         res => Success(index => RelayGame(
           index = index,
           tags = res.tags,
-          root = res.root,
+          root = res.root.copy(
+            comments = Comments.empty,
+            children = res.root.children.updateMainline(_.copy(comments = Comments.empty))
+          ),
           end = res.end
         ))
       )

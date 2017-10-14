@@ -181,13 +181,13 @@ private[study] object ChapterMaker {
 
   case class Data(
       name: Chapter.Name,
-      game: Option[String],
-      variant: Option[String],
-      fen: Option[String],
-      pgn: Option[String],
-      orientation: String,
-      mode: String,
-      initial: Boolean
+      game: Option[String] = None,
+      variant: Option[String] = None,
+      fen: Option[String] = None,
+      pgn: Option[String] = None,
+      orientation: String = "white",
+      mode: String = ChapterMaker.Mode.Normal.key,
+      initial: Boolean = false
   ) extends ChapterData
 
   case class EditData(
