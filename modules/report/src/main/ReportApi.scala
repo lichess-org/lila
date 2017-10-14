@@ -12,6 +12,7 @@ import lila.user.{ User, UserRepo, NoteApi }
 final class ReportApi(
     val coll: Coll,
     autoAnalysis: AutoAnalysis,
+    discarder: ReportDiscarder,
     noteApi: NoteApi,
     securityApi: lila.security.SecurityApi,
     isOnline: User.ID => Boolean,
@@ -35,20 +36,25 @@ final class ReportApi(
 
   def create(report: Report, reported: User, by: User): Funit = !by.reportban ?? {
     !isAlreadySlain(report, reported) ?? {
-      !discarder(report, Reporter(re
+      discarder(report, Reporter(by), accuracy(report)).flatMap {
+        case true =>
+          lila.log.info(s"Discarded report $report")
+          lila.mon.mod.report.discard(report.reason.key)()
+          funit
+        case false =>
+          lila.mon.mod.report.create(report.reason.key)()
 
-      lila.mon.mod.report.create(report.reason.key)()
+          def insert = coll.insert(report).void >>
+            autoAnalysis(report) >>-
+            bus.publish(lila.hub.actorApi.report.Created(reported.id, report.reason.key, by.id), 'report)
 
-      def insert = coll.insert(report).void >>
-        autoAnalysis(report) >>-
-        bus.publish(lila.hub.actorApi.report.Created(reported.id, report.reason.key, by.id), 'report)
-
-      if (by.id == UserRepo.lichessId) coll.update(
-        selectRecent(reported, report.reason),
-        $doc("$set" -> ReportBSONHandler.write(report).remove("processedBy", "_id"))
-      ) flatMap { res => (res.n == 0) ?? insert }
-      else insert
-    } >>- monitorUnprocessed
+          if (by.id == UserRepo.lichessId) coll.update(
+            selectRecent(reported, report.reason),
+            $doc("$set" -> ReportBSONHandler.write(report).remove("processedBy", "_id"))
+          ) flatMap { res => (res.n == 0) ?? insert }
+          else insert
+      } >>- monitorUnprocessed
+    }
   }
 
   private def monitorUnprocessed = {

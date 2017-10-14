@@ -24,9 +24,12 @@ final class Env(
     fishnet = hub.actor.fishnet
   )
 
+  private lazy val discarder = new ReportDiscarder
+
   lazy val api = new ReportApi(
     reportColl,
     autoAnalysis,
+    discarder = discarder,
     noteApi,
     securityApi,
     isOnline,
