@@ -38,7 +38,7 @@ final class ReportApi(
     !isAlreadySlain(report, reported) ?? {
       discarder(report, Reporter(by), accuracy(report)).flatMap {
         case true =>
-          lila.log.info(s"Discarded report $report")
+          logger.info(s"Discarded report $report")
           lila.mon.mod.report.discard(report.reason.key)()
           funit
         case false =>
