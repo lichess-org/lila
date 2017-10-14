@@ -10,3 +10,5 @@ case class Suspect(user: User) extends AnyVal {
 }
 
 case class Victim(user: User) extends AnyVal
+
+case class Reporter(user: User) extends AnyVal
