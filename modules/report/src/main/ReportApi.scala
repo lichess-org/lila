@@ -242,27 +242,30 @@ final class ReportApi(
 
   object accuracy {
 
-    private val cache = asyncCache.clearable[User.ID, Int](
+    private val cache = asyncCache.clearable[User.ID, Option[Int]](
       name = "reporterAccuracy",
       f = forUser,
       expireAfter = _.ExpireAfterWrite(24 hours)
     )
 
-    private def forUser(reporterId: User.ID): Fu[Int] = for {
-      reports <- coll.find($doc(
+    private def forUser(reporterId: User.ID): Fu[Option[Int]] =
+      coll.find($doc(
         "createdBy" -> reporterId,
         "reason" -> Reason.Cheat.key,
         "processedBy" $exists true
-      ))
-        .sort($sort.createdDesc)
-        .list[Report](20, ReadPreference.secondaryPreferred)
-      userIds = reports.map(_.user).distinct
-      nbEngines <- UserRepo countEngines userIds
-    } yield Math.round((nbEngines + 0.5f) / (userIds.length + 2f) * 100)
+      )).sort($sort.createdDesc).list[Report](20, ReadPreference.secondaryPreferred) flatMap { reports =>
+        if (reports.size < 5) fuccess(none) // not enough data to know
+        else {
+          val userIds = reports.map(_.user).distinct
+          UserRepo countEngines userIds map { nbEngines =>
+            Math.round((nbEngines + 0.5f) / (userIds.length + 2f) * 100).some
+          }
+        }
+      }
 
     def apply(report: Report): Fu[Option[Int]] =
       (report.reason == Reason.Cheat && !report.processed) ?? {
-        cache get report.createdBy map some
+        cache get report.createdBy
       }
 
     def invalidate(selector: Bdoc): Funit =
