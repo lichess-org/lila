@@ -50,7 +50,7 @@
   <string name="analysis">Analyse</string>
   <string name="depthX">Diepte %s</string>
   <string name="usingServerAnalysis">Met serveranalyse</string>
-  <string name="loadingEngine">Laden van computer ...</string>
+  <string name="loadingEngine">Laden van computer...</string>
   <string name="cloudAnalysis">Cloud-analyse</string>
   <string name="goDeeper">Dieper gaan</string>
   <string name="showThreat">Toon bedreiging</string>
@@ -64,10 +64,10 @@
   <string name="capture">Slagzet</string>
   <string name="close">Sluit</string>
   <string name="winning">Winnend</string>
-  <string name="losing">Verloren</string>
+  <string name="losing">Verliest</string>
   <string name="drawn">Remise</string>
   <string name="unknown">Onbekend</string>
-  <string name="database">Databases</string>
+  <string name="database">Databank</string>
   <string name="whiteDrawBlack">Wit / Remise / Zwart</string>
   <string name="averageRatingX">Gemiddelde rating: %s</string>
   <string name="recentGames">Recente partijen</string>
@@ -78,7 +78,7 @@
     <item quantity="other">Schaakmat in %s halfzetten</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Volgende slag- of pionzet in %s halfzetten (afstand tot het herstellen van de vijftig zetten teller)</item>
+    <item quantity="one">Volgende slag- of pionzet in %s halfzet (afstand tot het herstellen van de vijftig zetten teller)</item>
     <item quantity="other">Volgende slag- of pionzet in %s halfzetten (afstand tot het herstellen van de vijftig zetten teller)</item>
   </plurals>
   <string name="noGameFound">Geen partij gevonden</string>
@@ -94,7 +94,7 @@
   <string name="replayMode">Herhaal modus</string>
   <string name="realtimeReplay">Realtime</string>
   <string name="byCPL">Door CPL</string>
-  <string name="openStudy">Open studie</string>
+  <string name="openStudy">Open Study</string>
   <string name="enable">Aanzetten</string>
   <string name="bestMoveArrow">Beste zet-pijl</string>
   <string name="evaluationGauge">Evaluatie meter</string>
@@ -287,7 +287,7 @@
   <string name="yourPerfRatingIsProvisional">Je %s rating is een voorlopige</string>
   <string name="yourPerfRatingIsTooHigh">Je rating %1$s (%2$s) is te hoog</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Je beste hoogste rating deze week %1$s (%2$s) is te hoog</string>
-  <string name="yourPerfRatingIsTooLow">Je rating %1$s (%2$s) is te hoog</string>
+  <string name="yourPerfRatingIsTooLow">Je rating %1$s (%2$s) is te laag</string>
   <string name="ratedMoreThanInPerf">Met rating ≥ %1$s in %2$s</string>
   <string name="ratedLessThanInPerf">Met rating ≤ %1$s in %2$s</string>
   <string name="backToGame">Terug naar partij</string>
@@ -533,7 +533,7 @@
   <string name="privacy">Privacy</string>
   <string name="letOtherPlayersFollowYou">Andere spelers mogen je volgen</string>
   <string name="letOtherPlayersChallengeYou">Andere spelers mogen je uitdagen</string>
-  <string name="letOtherPlayersInviteYouToStudy">Laat andere spelers je uitnodigen voor een studie</string>
+  <string name="letOtherPlayersInviteYouToStudy">Laat andere spelers je uitnodigen voor een Study</string>
   <string name="sound">Geluid</string>
   <string name="yourPreferencesHaveBeenSaved">Uw voorkeuren werden opgeslagen.</string>
   <string name="none">Geen</string>

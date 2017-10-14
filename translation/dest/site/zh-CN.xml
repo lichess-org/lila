@@ -408,9 +408,9 @@
   <string name="puzzleOfTheDay">每日一题</string>
   <string name="clickToSolve">点击解题</string>
   <string name="goodMove">好棋</string>
-  <string name="butYouCanDoBetter">你还可以做得更好。</string>
+  <string name="butYouCanDoBetter">您还可以做得更好。</string>
   <string name="bestMove">最佳着！</string>
-  <string name="keepGoing">继续……</string>
+  <string name="keepGoing">请继续……</string>
   <string name="puzzleFailed">解题失败</string>
   <string name="butYouCanKeepTrying">但你可以继续尝试。</string>
   <string name="success">解题成功</string>
@@ -460,7 +460,7 @@
   <string name="insult">侮辱</string>
   <string name="troll">捣乱</string>
   <string name="other">其他</string>
-  <string name="reportDescriptionHelp">请附上游戏链接解释该用户的行为问题。例如如果您怀疑某用户作弊，请不要只说 “他／她作弊”。请解释为什么您认为他／她作弊。如果您用英语举报一个用户我们将会更快作出答复。</string>
+  <string name="reportDescriptionHelp">请附上棋局链接解释该用户的行为问题。例如如果您怀疑某用户作弊，请不要只说 “他／她作弊”。请解释为什么您认为他／她作弊。如果您用英语举报一个用户我们将会更快作出答复。</string>
   <string name="by">来自%s</string>
   <string name="thisTopicIsNowClosed">本主题已关闭。</string>
   <string name="theming">主题</string>
@@ -490,10 +490,10 @@
   <string name="chessPieceSymbol">国际象棋件符号</string>
   <string name="pgnLetter">字母 （K,Q,R,B,N）</string>
   <string name="chessClock">棋钟</string>
-  <string name="tenthsOfSeconds">十分之一秒</string>
+  <string name="tenthsOfSeconds">显示十分之一秒</string>
   <string name="never">从不</string>
   <string name="whenTimeRemainingLessThanTenSeconds">当剩余时间小于10秒</string>
-  <string name="horizontalGreenProgressBars">绿色横进度条</string>
+  <string name="horizontalGreenProgressBars">显示绿色横进度条</string>
   <string name="soundWhenTimeGetsCritical">时间不足时声音提醒</string>
   <string name="gameBehavior">对局行为</string>
   <string name="howDoYouMovePieces">您想通过什么方式走棋？</string>
@@ -659,7 +659,7 @@
   <string name="analysisShapesHowTo">按shift+左键单击或右键单击在棋盘上绘制圆圈和箭头。</string>
   <string name="confirmResignationAndDrawOffers">认输以及提出和棋需要确认</string>
   <string name="inputMovesWithTheKeyboard">用键盘输入棋步</string>
-  <string name="letOtherPlayersMessageYou">允许其他人给您发私信。</string>
+  <string name="letOtherPlayersMessageYou">允许其他人给您发私信</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">王车易位方法</string>
   <string name="castleByMovingTwoSquares">将王移动两格</string>
   <string name="castleByMovingOntoTheRook">将王移到车上</string>
