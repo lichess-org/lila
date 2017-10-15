@@ -40,7 +40,7 @@ private final class RelayFetch(
         _.map { relay =>
           RelayFetch(relay.sync.upstream, relay.id) flatMap { games =>
             sync(relay, games)
-              .withTimeout(300 millis, SyncResult.Timeout)(context.system) flatMap { res =>
+              .withTimeout(500 millis, SyncResult.Timeout)(context.system) flatMap { res =>
                 api.addLog(relay.id, SyncLog.event(res.moves, none)) inject res
               }
           } recoverWith {
