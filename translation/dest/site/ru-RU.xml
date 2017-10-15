@@ -71,7 +71,7 @@
   <string name="whiteDrawBlack">Белые / Ничья / Чёрные</string>
   <string name="averageRatingX">Средний рейтинг: %s</string>
   <string name="recentGames">Последние игры</string>
-  <string name="topGames">Игры сильнейших</string>
+  <string name="topGames">Лучшие игры</string>
   <string name="masterDbExplanation">Два миллиона официальных партий между игроками с FIDE-рейтингом %1$s+, сыгранных с %2$s по %3$s годы</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Мат в %s полуход</item>
@@ -568,7 +568,7 @@
   <string name="none">Нет</string>
   <string name="fast">Быстрая</string>
   <string name="normal">Нормальная</string>
-  <string name="slow">Медленная</string>
+  <string name="slow">Медленно</string>
   <string name="insideTheBoard">Внутри доски</string>
   <string name="outsideTheBoard">Вне доски</string>
   <string name="onSlowGames">В медленных играх</string>
@@ -764,14 +764,14 @@
   <string name="xJoinsY">%1$s присоединился к %2$s</string>
   <string name="xLikesY">%1$s отметил %2$s как понравившееся</string>
   <string name="quickPairing">Быстрый старт</string>
-  <string name="lobby">Лобби</string>
+  <string name="lobby">Вызовы</string>
   <string name="anonymous">Анонимно</string>
   <string name="yourScore">Ваш результат: %s</string>
   <string name="language">Язык</string>
   <string name="background">Фон</string>
-  <string name="light">Светлая</string>
-  <string name="dark">Тёмная</string>
-  <string name="transparent">Прозрачная</string>
+  <string name="light">Светлый</string>
+  <string name="dark">Тёмный</string>
+  <string name="transparent">Прозрачный</string>
   <string name="backgroundImageUrl">URL фонового изображения:</string>
   <string name="boardGeometry">Геометрия доски</string>
   <string name="boardTheme">Оформление доски</string>
@@ -793,7 +793,7 @@
   <string name="error.min">Значение должно быть больше либо равным %s</string>
   <string name="error.max">Значение должно быть меньше либо равным %s</string>
   <string name="error.unknown">Ошибка</string>
-  <string name="custom">Своя игра</string>
+  <string name="custom">Пользовательская партия</string>
   <string name="notifications">Уведомления</string>
   <string name="challenges">Вызовы</string>
   <string name="perfRatingX">Рейтинг: %s</string>
