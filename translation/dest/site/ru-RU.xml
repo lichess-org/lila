@@ -620,7 +620,7 @@
   <string name="learnMenu">Учиться</string>
   <string name="community">Сообщество</string>
   <string name="tools">Инструменты</string>
-  <string name="increment">Прибавка</string>
+  <string name="increment">Добавка</string>
   <string name="sharePGN">Экспорт PGN</string>
   <string name="playOnline">Играть онлайн</string>
   <string name="playOffline">Играть оффлайн</string>
@@ -644,9 +644,9 @@
   <string name="blackCastlingKingside">Черные О-О</string>
   <string name="blackCastlingQueenside">Черные О-О-О</string>
   <plurals name="nbForumPosts">
-    <item quantity="one">%s постов на форуме</item>
-    <item quantity="few">%s постов на форуме</item>
-    <item quantity="other">%s постов на форуме</item>
+    <item quantity="one">%s сообщений на форуме</item>
+    <item quantity="few">%s сообщений на форуме</item>
+    <item quantity="other">%s сообщений на форуме</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Времени за игрой: %s</string>
   <string name="watchGames">Смотреть игры</string>
@@ -712,7 +712,7 @@
   <string name="itWasNotRequiredForYourRegistration">Он не был обязателен при регистрации.</string>
   <string name="weHaveSentYouAnEmailTo">Мы отправили письмо по адресу %s. Нажмите на ссылку в нём для сброса пароля.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Регистрируясь, вы берёте на себя обязанность соблюдать наше %s</string>
-  <string name="networkLagBetweenYouAndLichess">Задержка сети между Вами и серверами lichess</string>
+  <string name="networkLagBetweenYouAndLichess">Задержка между Вами и серверами lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Время обработки хода на сервере</string>
   <string name="downloadAnnotated">Скачать с аннотациями</string>
   <string name="downloadRaw">Скачать без аннотаций</string>
