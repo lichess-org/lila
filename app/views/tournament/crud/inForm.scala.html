@@ -24,7 +24,7 @@
 @base.form.group(form("headline"), Html("Homepage headline")) {
 @base.form.input(form("headline"))
 }
-@base.form.group(form("description"), Html("Full description")) {
+@base.form.group(form("description"), Html("Full description<br />Link: [text](url)")) {
 <textarea name="@form("description").name" id="@form("description").id">@form("description").value</textarea>
 }
 <div>
