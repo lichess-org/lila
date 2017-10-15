@@ -266,6 +266,22 @@ object mon {
       val mark = inc(s"mod.report.irwin.mark")
     }
   }
+  object relay {
+    val unfinished = rec("relay.unfinished")
+    val moves = incX("relay.moves")
+    object sync {
+      def result(res: String) = inc(s"relay.sync.result.$res")
+      object duration {
+        val each = rec("relay.sync.duration.each")
+        val total = rec("relay.sync.duration.total")
+      }
+    }
+    object fetch {
+      object duration {
+        val each = rec("relay.sync.duration.each")
+      }
+    }
+  }
   object cheat {
     val cssBot = inc("cheat.css_bot")
     val holdAlert = inc("cheat.hold_alert")
