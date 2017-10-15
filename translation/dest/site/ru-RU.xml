@@ -466,14 +466,14 @@
   <string name="wasThisPuzzleAnyGood">Была ли задача интересной?</string>
   <string name="pleaseVotePuzzle">Помогите сделать lichess лучше, голосуя при помощи стрелок вверх или вниз.</string>
   <string name="thankYou">Спасибо!</string>
-  <string name="ratingX">Рейтинг %s</string>
+  <string name="ratingX">Место:%s</string>
   <plurals name="playedXTimes">
     <item quantity="one">Решено %s раз</item>
     <item quantity="few">Решено %s раза</item>
     <item quantity="other">Решено %s раз</item>
   </plurals>
   <string name="fromGameLink">Из игры %s</string>
-  <string name="continueTraining">Продолжить тренировку</string>
+  <string name="continueTraining">Следующая задача</string>
   <string name="retryThisPuzzle">Попробовать ещё раз</string>
   <string name="thisPuzzleIsCorrect">Задача правильная и интересная</string>
   <string name="thisPuzzleIsWrong">Задача неправильная или неинтересная</string>
@@ -489,9 +489,9 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Автоматически переходить к следующей игре после хода</string>
   <string name="autoSwitch">Автосмена</string>
-  <string name="puzzles">Задачки</string>
+  <string name="puzzles">Задачи</string>
   <string name="latestUpdates">Последние обновления</string>
-  <string name="tournamentWinners">Победители турнира</string>
+  <string name="tournamentWinners">Победители турниров</string>
   <string name="name">Имя</string>
   <string name="description">Описание</string>
   <string name="no">Нет</string>
@@ -500,13 +500,13 @@
   <string name="createANewTopic">Создать новую тему</string>
   <string name="topics">Темы</string>
   <string name="posts">Посты</string>
-  <string name="lastPost">Последний пост</string>
-  <string name="views">Прочитано</string>
+  <string name="lastPost">Последнее сообщение</string>
+  <string name="views">Просмотры</string>
   <string name="replies">Ответы</string>
-  <string name="replyToThisTopic">Принять участие в обсуждении</string>
+  <string name="replyToThisTopic">Ответить</string>
   <string name="reply">Ответ</string>
   <string name="message">Сообщение</string>
-  <string name="createTheTopic">Создать тему</string>
+  <string name="createTheTopic">Создать новую тему</string>
   <string name="reportAUser">Пожаловаться на пользователя</string>
   <string name="user">Пользователь</string>
   <string name="reason">Причина</string>
