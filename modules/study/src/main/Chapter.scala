@@ -80,6 +80,8 @@ case class Chapter(
   def isConceal = conceal.isDefined
 
   def withoutChildren = copy(root = root.withoutChildren)
+
+  def relayAndTags = relay map { Chapter.RelayAndTags(_, tags) }
 }
 
 object Chapter {
@@ -115,6 +117,8 @@ object Chapter {
   ) {
     def secondsSinceLastMove: Int = (nowSeconds - lastMoveAt.getSeconds).toInt
   }
+
+  case class RelayAndTags(relay: Relay, tags: Tags)
 
   case class Metadata(
       _id: Chapter.Id,

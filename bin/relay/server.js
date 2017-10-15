@@ -13,7 +13,7 @@ fs.readdir(dir).then(list => {
 });
 
 function serveIndex(index) {
-  if (!files[index]) return 'Done';
+  if (!files[index]) index = 0;
   const percent = Math.floor(index * 100 / files.length);
   if (percent > completion) {
     completion = percent;

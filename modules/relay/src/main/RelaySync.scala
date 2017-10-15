@@ -19,7 +19,7 @@ private final class RelaySync(
     studyApi byId relay.studyId flatten "Missing relay study!" flatMap { study =>
       chapterRepo orderedByStudy study.id flatMap { chapters =>
         lila.common.Future.traverseSequentially(games) { game =>
-          chapters.find(game.is) match {
+          findCorrespondingChapter(game, chapters, games.size) match {
             case Some(chapter) => updateChapter(study, chapter, game)
             case None => createChapter(study, game) flatMap { chapter =>
               chapters.find(_.isEmptyInitial).ifTrue(chapter.order == 2).?? { initial =>
@@ -30,6 +30,16 @@ private final class RelaySync(
         } map { _.foldLeft(0)(_ + _) } map { SyncResult.Ok(_, games) }
       }
     }
+
+  /*
+   * If the source contains several games, use their index to match them with the study chapter.
+   * If the source contains only one game, use the player tags to match with the study chapter.
+   * So the TCEC style - one game per file, reusing the file for all games - is supported.
+   * lichess will create a new chapter when the game player tags differ.
+   */
+  private def findCorrespondingChapter(game: RelayGame, chapters: List[Chapter], nbGames: Int): Option[Chapter] =
+    if (nbGames == 1) chapters.find(c => game staticTagsMatch c.tags)
+    else chapters.find(_.relay.exists(_.index == game.index))
 
   private def updateChapter(study: Study, chapter: Chapter, game: RelayGame): Fu[NbMoves] =
     updateChapterTags(study, chapter, game) >>

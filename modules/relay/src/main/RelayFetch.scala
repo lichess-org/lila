@@ -89,17 +89,17 @@ private final class RelayFetch(
   def finishRelay(r: Relay, nbMoves: Int, games: RelayGames): Fu[Option[Relay]] =
     if (nbMoves > 0) fuccess(none)
     else if (games.forall(!_.started)) fuccess(none)
+    else if (games.size == 1) fuccess(none) // probably TCEC style where single file/URL is used for many games in a row
     else chapterRepo.relaysAndTagsByStudyId(r.studyId) map { chapters =>
       games.forall { game =>
-        chapters.find(c => game is c._1) ?? {
-          case (chapterRelay, tags) =>
-            tags.resultColor.isDefined ||
-              game.end.isDefined ||
-              chapterRelay.lastMoveAt.isBefore {
-                DateTime.now.minusMinutes {
-                  tags.clockConfig.fold(60)(_.limitInMinutes.toInt atLeast 30 atMost 120)
-                }
+        chapters.find(_.relay.index == game.index) ?? { chapter =>
+          chapter.tags.resultColor.isDefined ||
+            game.end.isDefined ||
+            chapter.relay.lastMoveAt.isBefore {
+              DateTime.now.minusMinutes {
+                chapter.tags.clockConfig.fold(60)(_.limitInMinutes.toInt atLeast 30 atMost 120)
               }
+            }
         }
       } option r.setFinished
     }

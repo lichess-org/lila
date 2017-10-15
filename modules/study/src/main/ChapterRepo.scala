@@ -43,13 +43,13 @@ final class ChapterRepo(coll: Coll) {
       .cursor[Chapter](readPreference = ReadPreference.secondaryPreferred)
       .gather[List](maxChapters)
 
-  def relaysAndTagsByStudyId(studyId: Study.Id): Fu[List[(Chapter.Relay, Tags)]] =
+  def relaysAndTagsByStudyId(studyId: Study.Id): Fu[List[Chapter.RelayAndTags]] =
     coll.find($doc("studyId" -> studyId), $doc("relay" -> true, "tags" -> true)).list[Bdoc]() map { docs =>
       for {
         doc <- docs
         relay <- doc.getAs[Chapter.Relay]("relay")
         tags <- doc.getAs[Tags]("tags")
-      } yield (relay, tags)
+      } yield Chapter.RelayAndTags(relay, tags)
     }
 
   def sort(study: Study, ids: List[Chapter.Id]): Funit = ids.zipWithIndex.map {
