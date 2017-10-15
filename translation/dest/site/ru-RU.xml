@@ -36,7 +36,7 @@
   <string name="forceResignation">Запросить победу</string>
   <string name="forceDraw">Объявить ничью</string>
   <string name="talkInChat">Будьте вежливы в чате!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Первый, кто перейдёт по этой ссылке и присоединится к игре, будет играть с Вами.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Первый, кто перейдёт по этой ссылке, будет играть с Вами.</string>
   <string name="whiteResigned">Белые сдались</string>
   <string name="blackResigned">Чёрные сдались</string>
   <string name="whiteLeftTheGame">Белые покинули игру</string>
@@ -376,7 +376,7 @@
   </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">подписан на %s игрока</item>
-    <item quantity="few">подписан на %s игрока</item>
+    <item quantity="few">подписаны %s</item>
     <item quantity="other">подписан на %s игроков</item>
   </plurals>
   <string name="more">Ещё</string>
