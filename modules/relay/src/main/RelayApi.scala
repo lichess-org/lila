@@ -91,8 +91,8 @@ final class RelayApi(
   def unFinish(id: Relay.Id) =
     coll.unsetField($id(id), "finishedAt").void >> publishRelay(id)
 
-  def isOngoing(id: Relay.Id): Fu[Boolean] =
-    coll.exists($doc("_id" -> id, "finishedAt" $exists false))
+  def getOngoing(id: Relay.Id): Fu[Option[Relay]] =
+    coll.find($doc("_id" -> id, "finishedAt" $exists false)).uno[Relay]
 
   def addLog(id: Relay.Id, event: SyncLog.Event): Funit =
     coll.update(

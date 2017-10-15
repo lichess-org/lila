@@ -86,7 +86,18 @@ object Study extends LilaController {
     }
   }
 
-  private def showQuery(query: Fu[Option[WithChapter]])(implicit ctx: Context) =
+  private def orRelay(id: String, chapterId: Option[String] = None)(f: Fu[Result]): Fu[Result] =
+    Env.relay.api.getOngoing(lila.relay.Relay.Id(id)) flatMap {
+      _.fold(f) { relay =>
+        fuccess(Redirect {
+          chapterId.fold(routes.Relay.show(relay.slug, relay.id.value)) { c =>
+            routes.Relay.chapter(relay.slug, relay.id.value, c)
+          }
+        })
+      }
+    }
+
+  private def showQuery(query: Fu[Option[WithChapter]])(implicit ctx: Context): Fu[Result] =
     OptionFuResult(query) { oldSc =>
       CanViewResult(oldSc.study) {
         for {
@@ -125,11 +136,15 @@ object Study extends LilaController {
   )
 
   def show(id: String) = Open { implicit ctx =>
-    showQuery(env.api byIdWithChapter id)
+    orRelay(id) {
+      showQuery(env.api byIdWithChapter id)
+    }
   }
 
   def chapter(id: String, chapterId: String) = Open { implicit ctx =>
-    showQuery(env.api.byIdWithChapter(id, chapterId))
+    orRelay(id, chapterId.some) {
+      showQuery(env.api.byIdWithChapter(id, chapterId))
+    }
   }
 
   def chapterMeta(id: String, chapterId: String) = Open { implicit ctx =>

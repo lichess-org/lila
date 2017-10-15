@@ -37,7 +37,7 @@ private final class RelayFetch(
 
     case Tick =>
       api.unfinished.map(_ filter RelayFetch.shouldFetchNow).flatMap { relays =>
-        lila.mon.relay.unfinished(relays.size.pp)
+        lila.mon.relay.unfinished(relays.size)
         relays.map { relay =>
           if (relay.ongoing) RelayFetch(relay.sync.upstream, relay.id)
             .chronometer.mon(_.relay.fetch.duration.each).result flatMap { games =>
