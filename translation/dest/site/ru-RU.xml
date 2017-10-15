@@ -59,7 +59,7 @@
   <string name="move">Ход</string>
   <string name="variantLoss">Проигрывающий ход</string>
   <string name="variantWin">Победный ход</string>
-  <string name="insufficientMaterial">Недостаточно материала для мата</string>
+  <string name="insufficientMaterial">Недостаточно фигур для мата</string>
   <string name="pawnMove">Ход пешки</string>
   <string name="capture">Взятие</string>
   <string name="close">Закрыть</string>
@@ -72,7 +72,7 @@
   <string name="averageRatingX">Средний рейтинг: %s</string>
   <string name="recentGames">Последние игры</string>
   <string name="topGames">Лучшие игры</string>
-  <string name="masterDbExplanation">Два миллиона официальных партий между игроками с FIDE-рейтингом %1$s+, сыгранных с %2$s по %3$s годы</string>
+  <string name="masterDbExplanation">Два миллиона OTB игр %1$s+ FIDE игроков в рейтинге от %2$s до %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Мат в %s полуход</item>
     <item quantity="few">Мат в %s полухода</item>
@@ -88,7 +88,7 @@
   <string name="openingExplorer">База дебютов</string>
   <string name="xOpeningExplorer">База дебютов по варианту: %s</string>
   <string name="winPreventedBy50MoveRule">Победа предотвращена правилом 50-го хода</string>
-  <string name="lossSavedBy50MoveRule">Поражение предотвращено правилом 50-го хода</string>
+  <string name="lossSavedBy50MoveRule">Поражение предотвращено правилом 50-ти ходов</string>
   <string name="allSet">Готово!</string>
   <string name="importPgn">Импортировать PGN</string>
   <string name="delete">Удалить</string>
