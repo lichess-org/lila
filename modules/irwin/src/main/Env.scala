@@ -12,6 +12,7 @@ final class Env(
     scheduler: lila.common.Scheduler,
     tournamentApi: TournamentApi,
     modApi: lila.mod.ModApi,
+    reportApi: lila.report.ReportApi,
     notifyApi: lila.notify.NotifyApi,
     userCache: lila.user.Cached,
     db: lila.db.Env
@@ -24,6 +25,7 @@ final class Env(
     reportColl = reportColl,
     requestColl = requestColl,
     modApi = modApi,
+    reportApi = reportApi,
     notifyApi = notifyApi
   )
 
@@ -52,6 +54,7 @@ object Env {
     config = lila.common.PlayApp loadConfig "irwin",
     tournamentApi = lila.tournament.Env.current.api,
     modApi = lila.mod.Env.current.api,
+    reportApi = lila.report.Env.current.api,
     notifyApi = lila.notify.Env.current.api,
     userCache = lila.user.Env.current.cached,
     scheduler = lila.common.PlayApp.scheduler,

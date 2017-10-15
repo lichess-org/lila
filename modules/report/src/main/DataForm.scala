@@ -37,5 +37,7 @@ private[report] case class ReportSetup(
     move: String
 ) {
 
+  def suspect = Suspect(user)
+
   def export = (user.username, reason, text, gameId, move)
 }

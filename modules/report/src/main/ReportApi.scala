@@ -27,16 +27,16 @@ final class ReportApi(
   private implicit val InquiryBSONHandler = Macros.handler[Inquiry]
   private implicit val ReportBSONHandler = Macros.handler[Report]
 
-  def create(setup: ReportSetup, by: User): Funit = create(Report.make(
-    user = setup.user,
+  def create(setup: ReportSetup, by: Reporter): Funit = create(Report.make(
+    suspect = setup.suspect,
     reason = Reason(setup.reason).err(s"Invalid report reason ${setup.reason}"),
     text = setup.text,
-    createdBy = by
-  ), setup.user, by)
+    reporter = by
+  ), setup.suspect, by)
 
-  def create(report: Report, reported: User, by: User): Funit = !by.reportban ?? {
+  def create(report: Report, reported: Suspect, by: Reporter): Funit = !by.user.reportban ?? {
     !isAlreadySlain(report, reported) ?? {
-      discarder(report, Reporter(by), accuracy(report)).flatMap {
+      discarder(report, by, accuracy(report)).flatMap {
         case true =>
           logger.info(s"Discarded report $report")
           lila.mon.mod.report.discard(report.reason.key)()
@@ -46,9 +46,9 @@ final class ReportApi(
 
           def insert = coll.insert(report).void >>
             autoAnalysis(report) >>-
-            bus.publish(lila.hub.actorApi.report.Created(reported.id, report.reason.key, by.id), 'report)
+            bus.publish(lila.hub.actorApi.report.Created(reported.user.id, report.reason.key, by.user.id), 'report)
 
-          if (by.id == UserRepo.lichessId) coll.update(
+          if (by.user.id == UserRepo.lichessId) coll.update(
             selectRecent(reported, report.reason),
             $doc("$set" -> ReportBSONHandler.write(report).remove("processedBy", "_id"))
           ) flatMap { res => (res.n == 0) ?? insert }
@@ -64,10 +64,10 @@ final class ReportApi(
     }
   }
 
-  private def isAlreadySlain(report: Report, user: User) =
-    (report.isCheat && user.engine) ||
-      (report.isAutomatic && report.isOther && user.troll) ||
-      (report.isTrollOrInsult && user.troll)
+  private def isAlreadySlain(report: Report, suspect: Suspect) =
+    (report.isCheat && suspect.user.engine) ||
+      (report.isAutomatic && report.isOther && suspect.user.troll) ||
+      (report.isTrollOrInsult && suspect.user.troll)
 
   def getMod(username: String): Fu[Option[Mod]] =
     UserRepo named username map2 Mod.apply
@@ -85,7 +85,7 @@ final class ReportApi(
         text = "Shares print with known cheaters",
         gameId = "",
         move = ""
-      ), lichess)
+      ), Reporter(lichess))
       case _ => funit
     }
   }
@@ -99,7 +99,7 @@ final class ReportApi(
         text = text,
         gameId = "",
         move = ""
-      ), lichess)
+      ), Reporter(lichess))
       case _ => funit
     }
   }
@@ -112,7 +112,7 @@ final class ReportApi(
         text = s"""$name bot detected on ${referer | "?"}""",
         gameId = "",
         move = ""
-      ), lichess)
+      ), Reporter(lichess))
       case _ => funit
     }
   }
@@ -128,7 +128,7 @@ final class ReportApi(
             else s"Sandbagging - the winning player @${winner.username} has different IPs & prints",
           gameId = "",
           move = ""
-        ), lichess)
+        ), Reporter(lichess))
         case _ => funit
       }
 
@@ -171,7 +171,7 @@ final class ReportApi(
         text = text,
         gameId = "",
         move = ""
-      ), lichess)
+      ), Reporter(lichess))
       case _ => funit
     }
   } >>- monitorUnprocessed
@@ -307,9 +307,9 @@ final class ReportApi(
   private def findRecent(nb: Int, selector: Bdoc) =
     coll.find(selector).sort($sort.createdDesc).list[Report](nb)
 
-  private def selectRecent(user: User, reason: Reason): Bdoc = $doc(
+  private def selectRecent(suspect: Suspect, reason: Reason): Bdoc = $doc(
     "createdAt" $gt DateTime.now.minusDays(7),
-    "user" -> user.id,
+    "user" -> suspect.user.id,
     "reason" -> reason.key
   )
 
@@ -346,7 +346,7 @@ final class ReportApi(
     def spontaneous(mod: Mod, sus: Suspect): Fu[Report] = ofModId(mod.user.id) flatMap { current =>
       current.??(cancel(mod)) >> {
         val report = Report.make(
-          sus.user, Reason.Other, Report.spontaneousText, mod.user
+          sus, Reason.Other, Report.spontaneousText, Reporter(mod.user)
         ).copy(inquiry = Report.Inquiry(mod.user.id, DateTime.now).some)
         coll.insert(report) inject report
       }

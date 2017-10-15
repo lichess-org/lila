@@ -80,19 +80,19 @@ object Report {
   private[report] val spontaneousText = "Spontaneous inquiry"
 
   def make(
-    user: User,
+    suspect: Suspect,
     reason: Reason,
     text: String,
-    createdBy: User
+    reporter: Reporter
   ): Report = new Report(
     _id = Random nextString 8,
-    user = user.id,
+    user = suspect.user.id,
     reason = reason,
     room = Room(reason),
     text = text,
     inquiry = none,
     processedBy = none,
     createdAt = DateTime.now,
-    createdBy = createdBy.id
+    createdBy = reporter.user.id
   )
 }

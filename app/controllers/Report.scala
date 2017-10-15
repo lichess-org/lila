@@ -95,7 +95,7 @@ object Report extends LilaController {
           BadRequest(html.report.form(err, user, captcha))
         }
       },
-      data => api.create(data, me) map { report =>
+      data => api.create(data, lila.report.Reporter(me)) map { report =>
         Redirect(routes.Report.thanks(data.user.username))
       }
     )

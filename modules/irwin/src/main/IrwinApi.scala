@@ -5,6 +5,7 @@ import reactivemongo.bson._
 
 import lila.db.dsl._
 import lila.game.{ Pov, GameRepo }
+import lila.report.{ Report, Mod, Suspect, Reporter }
 import lila.tournament.{ Tournament, TournamentTop }
 import lila.user.{ User, UserRepo }
 
@@ -12,6 +13,7 @@ final class IrwinApi(
     reportColl: Coll,
     requestColl: Coll,
     modApi: lila.mod.ModApi,
+    reportApi: lila.report.ReportApi,
     notifyApi: lila.notify.NotifyApi
 ) {
 
@@ -32,7 +34,7 @@ final class IrwinApi(
       request <- requests get report.id
       _ <- request.??(r => requests.drop(r.id))
       _ <- request.??(notifyRequester)
-      _ <- actAsMod(report)
+      _ <- markOrReport(report)
     } yield ()
 
     def get(user: User): Fu[Option[IrwinReport]] =
@@ -49,21 +51,28 @@ final class IrwinApi(
       }
     }
 
-    private val hasTheSlaveWhip = false
+    private def getIrwinAndSuspect(suspectId: User.ID): Fu[(Mod, Suspect)] = for {
+      irwin <- UserRepo byId "irwin" flatten s"Irwin user not found" map Mod.apply
+      suspect <- UserRepo byId suspectId flatten s"suspect $suspectId not found" map Suspect.apply
+    } yield irwin -> suspect
 
-    private def getIrwin =
-      UserRepo byId "irwin" flatten s"Irwin user not found" map lila.report.Mod.apply
-
-    private def actAsMod(report: IrwinReport): Funit = hasTheSlaveWhip ?? {
-      report.isLegit ?? {
-        case false => for {
-          irwin <- getIrwin
-          sus <- UserRepo byId report.userId flatten s"suspect ${report.userId} not found" map lila.report.Suspect.apply
-          _ <- modApi.setEngine(irwin, sus, true)
-        } yield ()
-        case _ => funit // don't close report of legit player
+    private def markOrReport(report: IrwinReport): Funit =
+      if (report.activation > 90) getIrwinAndSuspect(report.userId) flatMap {
+        case (irwin, suspect) =>
+          lila.mon.mod.irwin.mark()
+          modApi.setEngine(irwin, suspect, true)
       }
-    }
+      else if (report.activation > 50) getIrwinAndSuspect(report.userId) flatMap {
+        case (irwin, suspect) =>
+          lila.mon.mod.irwin.report()
+          reportApi.create(Report.make(
+            suspect = suspect,
+            reason = lila.report.Reason.Cheat,
+            text = s"${report.activation}% over ${report.games.size} games",
+            reporter = Reporter(irwin.user)
+          ), suspect, Reporter(irwin.user))
+      }
+      else funit
   }
 
   object requests {

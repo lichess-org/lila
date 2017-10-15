@@ -45,11 +45,11 @@ object Coach extends LilaController {
           err => Redirect(routes.Coach.show(c.user.username)).fuccess,
           data => {
             if (data.score < 4) Env.report.api.create(lila.report.Report.make(
-              user = c.user,
+              suspect = lila.report.Suspect(c.user),
               reason = lila.report.Reason.Other,
               text = s"[COACH REVIEW rating=${data.score}/5] ${data.text}",
-              createdBy = me
-            ), c.user, me)
+              reporter = lila.report.Reporter(me)
+            ), lila.report.Suspect(c.user), lila.report.Reporter(me))
             api.reviews.add(me, c.coach, data) map { review =>
               Redirect(routes.Coach.show(c.user.username))
             }

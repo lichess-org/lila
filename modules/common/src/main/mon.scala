@@ -260,6 +260,11 @@ object mon {
     object log {
       val create = inc("mod.log.create")
     }
+    object irwin {
+      // val discard = inc(s"mod.report.irwin.discard")
+      val report = inc(s"mod.report.irwin.report")
+      val mark = inc(s"mod.report.irwin.mark")
+    }
   }
   object cheat {
     val cssBot = inc("cheat.css_bot")
