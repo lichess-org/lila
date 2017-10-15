@@ -5,8 +5,8 @@
   <string name="byPlaying">用玩的方式！</string>
   <string name="menu">菜单</string>
   <string name="progressX">进度：%s</string>
-  <string name="resetMyProgress">重置我的进步</string>
-  <string name="youWillLoseAllYourProgress">您将失去全部进度！</string>
+  <string name="resetMyProgress">重置我的进度</string>
+  <string name="youWillLoseAllYourProgress">请注意: 您的进度将被清空！</string>
   <string name="play">玩吧！</string>
   <string name="chessPieces">棋子</string>
   <string name="theRook">车</string>
@@ -33,7 +33,7 @@
   <string name="lastOne">最后一关！</string>
   <string name="kingComplete">您会掌控统帅者了！</string>
   <string name="theKnight">马</string>
-  <string name="itMovesInAnLShape">它以L字形方式移动。</string>
+  <string name="itMovesInAnLShape">它以L字形方式移动</string>
   <string name="knightIntro">给您一个挑战。马是……棘手的棋子。</string>
   <string name="knightsHaveAFancyWay">马以华丽的方式四处跳动！</string>
   <string name="knightsCanJumpOverObstacles">马能跳过障碍！逃脱并征服星星们！</string>
