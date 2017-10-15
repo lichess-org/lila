@@ -200,15 +200,15 @@
   <string name="yourOpponentOffersADraw">Ваш оппонент предлагает ничью</string>
   <string name="accept">Принять</string>
   <string name="decline">Отклонить</string>
-  <string name="playingRightNow">Идёт игра</string>
-  <string name="finished">Закончен</string>
+  <string name="playingRightNow">Активная партия</string>
+  <string name="finished">Турнир окончен</string>
   <string name="abortGame">Отменить игру</string>
   <string name="gameAborted">Игра отменена</string>
   <string name="standard">Классические шахматы</string>
   <string name="unlimited">Без лимита времени</string>
   <string name="mode">Режим</string>
-  <string name="casual">Нерейтинговая</string>
-  <string name="rated">Рейтинговая</string>
+  <string name="casual">Без рейтинга</string>
+  <string name="rated">На рейтинг</string>
   <string name="thisGameIsRated">Игра на рейтинг</string>
   <string name="rematch">Реванш</string>
   <string name="rematchOfferSent">Предложение реванша отправлено</string>
@@ -252,9 +252,9 @@
     <item quantity="other">%s ничьих</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="one">%s играет</item>
-    <item quantity="few">%s играет</item>
-    <item quantity="other">%s играет</item>
+    <item quantity="one">%s Текущих игр</item>
+    <item quantity="few">%2 Текущих игр</item>
+    <item quantity="other">%2 Текущих игр</item>
   </plurals>
   <string name="exportGames">Экспорт игр</string>
   <string name="ratingRange">Диапазон рейтинга</string>
@@ -264,16 +264,16 @@
     <item quantity="other">Дать %s секунд</item>
   </plurals>
   <string name="giveMoreTime">Добавить времени</string>
-  <string name="thisPlayerUsesChessComputerAssistance">Этот игрок использует помощь шахматного движка (читер)</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Этот игрок искусственно завышает/преуменьшает свой рейтинг</string>
+  <string name="thisPlayerUsesChessComputerAssistance">Этот игрок читер</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">Этот игрок искусственно повышает/уменьшает свой рейтинг</string>
   <string name="openingExplorerAndTablebase">Анализ дебютных вариантов</string>
-  <string name="takeback">Переходить</string>
-  <string name="proposeATakeback">Попросить переходить</string>
-  <string name="takebackPropositionSent">Просьба переходить отправлена</string>
-  <string name="takebackPropositionDeclined">Просьба переходить отклонена</string>
-  <string name="takebackPropositionAccepted">Просьба переходить принята</string>
-  <string name="takebackPropositionCanceled">Просьба переходить отменена</string>
-  <string name="yourOpponentProposesATakeback">Ваш оппонент просит переходить</string>
+  <string name="takeback">Вернуть ход</string>
+  <string name="proposeATakeback">Попросить вернуть ход</string>
+  <string name="takebackPropositionSent">Предложение возврата отправлено</string>
+  <string name="takebackPropositionDeclined">Предложение возврата отклонено</string>
+  <string name="takebackPropositionAccepted">Предложение возврата принято</string>
+  <string name="takebackPropositionCanceled">Предложение возврата отменено</string>
+  <string name="yourOpponentProposesATakeback">Ваш оппонент просит вернуть ход</string>
   <string name="bookmarkThisGame">Добавить игру в закладки</string>
   <string name="search">Поиск</string>
   <string name="advancedSearch">Расширенный поиск</string>
@@ -281,7 +281,7 @@
   <string name="tournaments">Турниры</string>
   <string name="tournamentPoints">Турнирные очки</string>
   <string name="viewTournament">Просмотр турнира</string>
-  <string name="backToTournament">Обратно к турниру</string>
+  <string name="backToTournament">Обратно в турнир</string>
   <string name="thematic">Тематический</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">%s рейтинговая игра</item>
