@@ -33,6 +33,8 @@ case class Relay(
 
   def withSync(f: Relay.Sync => Relay.Sync) = copy(sync = f(sync))
 
+  def ongoing = sync.until.isDefined
+
   override def toString = s"""relay #$id "$name" $sync"""
 }
 

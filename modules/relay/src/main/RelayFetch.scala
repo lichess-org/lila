@@ -36,21 +36,26 @@ private final class RelayFetch(
       throw new RuntimeException(msg)
 
     case Tick =>
-      api.toSync.map(_ filter RelayFetch.shouldFetchNow).flatMap {
-        _.map { relay =>
-          RelayFetch(relay.sync.upstream, relay.id) flatMap { games =>
-            sync(relay, games)
-              .withTimeout(500 millis, SyncResult.Timeout)(context.system) flatMap { res =>
-                api.addLog(relay.id, SyncLog.event(res.moves, none)) inject res
-              }
-          } recoverWith {
-            case e: Exception =>
-              api.addLog(relay.id, SyncLog.event(0, e.some)) inject (e match {
-                case res @ SyncResult.Timeout => res
-                case _ => SyncResult.Error(e.getMessage)
-              })
-          } flatMap updateRelay(relay.id)
+      api.unfinished.map(_ filter RelayFetch.shouldFetchNow).flatMap { relays =>
+        lila.mon.relay.unfinished(relays.size.pp)
+        relays.map { relay =>
+          if (relay.ongoing) RelayFetch(relay.sync.upstream, relay.id)
+            .chronometer.mon(_.relay.fetch.duration.each).result flatMap { games =>
+              sync(relay, games)
+                .chronometer.mon(_.relay.sync.duration.each).result
+                .withTimeout(500 millis, SyncResult.Timeout)(context.system) flatMap { res =>
+                  api.addLog(relay.id, SyncLog.event(res.moves, none)) inject res
+                }
+            } recoverWith {
+              case e: Exception =>
+                api.addLog(relay.id, SyncLog.event(0, e.some)) inject (e match {
+                  case res @ SyncResult.Timeout => res
+                  case _ => SyncResult.Error(e.getMessage)
+                })
+            } flatMap updateRelay(relay.id)
+          else finishNotSyncing(relay)
         }.sequenceFu.chronometer
+          .mon(_.relay.sync.duration.total)
           .result addEffectAnyway scheduleNext
       }
   }
@@ -58,9 +63,11 @@ private final class RelayFetch(
   def updateRelay(id: Relay.Id)(result: SyncResult): Funit = api byId id flatMap {
     _ ?? { r =>
       {
+        lila.mon.relay.sync.result(result.toString.toLowerCase)()
         if (r.sync.until exists (_ isBefore DateTime.now)) fuccess(r.withSync(_.stop))
         else ((r.sync.until, r.sync.nextAt, result) match {
           case (Some(until), Some(nextAt), SyncResult.Ok(nbMoves, games)) =>
+            lila.mon.relay.moves(nbMoves)
             if (r.finished && nbMoves == 0) fuccess(r.withSync(_.stop))
             else finishRelay(r, nbMoves, games) getOrElse continueRelay(r)
           case (_, _, SyncResult.Timeout) => continueRelay(r)
@@ -89,20 +96,28 @@ private final class RelayFetch(
   def finishRelay(r: Relay, nbMoves: Int, games: RelayGames): Fu[Option[Relay]] =
     if (nbMoves > 0) fuccess(none)
     else if (games.forall(!_.started)) fuccess(none)
-    else if (games.size == 1) fuccess(none) // probably TCEC style where single file/URL is used for many games in a row
     else chapterRepo.relaysAndTagsByStudyId(r.studyId) map { chapters =>
-      games.forall { game =>
-        chapters.find(_.relay.index == game.index) ?? { chapter =>
-          chapter.tags.resultColor.isDefined ||
-            game.end.isDefined ||
-            chapter.relay.lastMoveAt.isBefore {
-              DateTime.now.minusMinutes {
-                chapter.tags.clockConfig.fold(60)(_.limitInMinutes.toInt atLeast 30 atMost 120)
-              }
-            }
-        }
-      } option r.setFinished
+      // probably TCEC style where single file/URL is used for many games in a row
+      if (games.size == 1) chapters forall chapterLooksOver
+      else games.forall { game =>
+        chapters.find(_.relay.index == game.index) ?? chapterLooksOver
+      }
+    } map (_ option r.setFinished)
+
+  def finishNotSyncing(r: Relay): Funit =
+    chapterRepo.relaysAndTagsByStudyId(r.studyId) map {
+      _ forall chapterLooksOver
+    } flatMap {
+      _ ?? api.update(r.setFinished, from = r.some)
     }
+
+  private def chapterLooksOver(chapter: lila.study.Chapter.RelayAndTags) =
+    chapter.tags.resultColor.isDefined ||
+      chapter.relay.lastMoveAt.isBefore {
+        DateTime.now.minusMinutes {
+          chapter.tags.clockConfig.fold(60)(_.limitInMinutes.toInt atLeast 30 atMost 120)
+        }
+      }
 }
 
 private object RelayFetch {

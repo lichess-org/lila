@@ -36,7 +36,7 @@ final class RelayApi(
   def all(me: Option[User]): Fu[Relay.Selection] =
     created.flatMap(withStudyAndLiked(me)) zip
       started.flatMap(withStudyAndLiked(me)) zip
-      closed.flatMap(withStudyAndLiked(me)) map {
+      finished.flatMap(withStudyAndLiked(me)) map {
         case c ~ s ~ t => Relay.Selection(c, s, t)
       }
 
@@ -56,9 +56,11 @@ final class RelayApi(
     "sync.until" $exists true
   )).sort($sort asc "startsAt").list[Relay]()
 
-  def closed = coll.find($doc(
+  def finished = coll.find($doc(
     "finishedAt" $exists true
   )).sort($sort desc "startsAt").list[Relay]()
+
+  def unfinished = coll.find($doc("finishedAt" $exists false)).list[Relay]()
 
   def create(data: RelayForm.Data, user: User): Fu[Relay] = {
     val relay = data make user
@@ -88,6 +90,9 @@ final class RelayApi(
 
   def unFinish(id: Relay.Id) =
     coll.unsetField($id(id), "finishedAt").void >> publishRelay(id)
+
+  def isOngoing(id: Relay.Id): Fu[Boolean] =
+    coll.exists($doc("_id" -> id, "finishedAt" $exists false))
 
   def addLog(id: Relay.Id, event: SyncLog.Event): Funit =
     coll.update(
