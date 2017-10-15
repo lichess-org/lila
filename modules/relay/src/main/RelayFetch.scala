@@ -98,26 +98,18 @@ private final class RelayFetch(
     else if (games.forall(!_.started)) fuccess(none)
     else chapterRepo.relaysAndTagsByStudyId(r.studyId) map { chapters =>
       // probably TCEC style where single file/URL is used for many games in a row
-      if (games.size == 1) chapters forall chapterLooksOver
+      if (games.size == 1) chapters forall (_.looksOver)
       else games.forall { game =>
-        chapters.find(_.relay.index == game.index) ?? chapterLooksOver
+        chapters.find(_.relay.index == game.index) ?? (_.looksOver)
       }
     } map (_ option r.setFinished)
 
   def finishNotSyncing(r: Relay): Funit =
     chapterRepo.relaysAndTagsByStudyId(r.studyId) map {
-      _ forall chapterLooksOver
+      _ forall (_.looksOver)
     } flatMap {
       _ ?? api.update(r.setFinished, from = r.some)
     }
-
-  private def chapterLooksOver(chapter: lila.study.Chapter.RelayAndTags) =
-    chapter.tags.resultColor.isDefined ||
-      chapter.relay.lastMoveAt.isBefore {
-        DateTime.now.minusMinutes {
-          chapter.tags.clockConfig.fold(60)(_.limitInMinutes.toInt atLeast 30 atMost 120)
-        }
-      }
 }
 
 private object RelayFetch {

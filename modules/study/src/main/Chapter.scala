@@ -81,7 +81,7 @@ case class Chapter(
 
   def withoutChildren = copy(root = root.withoutChildren)
 
-  def relayAndTags = relay map { Chapter.RelayAndTags(_, tags) }
+  def relayAndTags = relay map { Chapter.RelayAndTags(id, _, tags) }
 }
 
 object Chapter {
@@ -118,7 +118,18 @@ object Chapter {
     def secondsSinceLastMove: Int = (nowSeconds - lastMoveAt.getSeconds).toInt
   }
 
-  case class RelayAndTags(relay: Relay, tags: Tags)
+  case class RelayAndTags(id: Id, relay: Relay, tags: Tags) {
+
+    def looksAlive =
+      tags.resultColor.isEmpty &&
+        relay.lastMoveAt.isAfter {
+          DateTime.now.minusMinutes {
+            tags.clockConfig.fold(40)(_.limitInMinutes.toInt / 2 atLeast 15 atMost 60)
+          }
+        }
+
+    def looksOver = !looksAlive
+  }
 
   case class Metadata(
       _id: Chapter.Id,

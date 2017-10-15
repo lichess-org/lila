@@ -51,22 +51,32 @@ object Relay extends LilaController {
   }
 
   def show(slug: String, id: String) = Open { implicit ctx =>
-    OptionFuResult(env.api byId id) { relay =>
-      if (relay.slug != slug) Redirect(showRoute(relay)).fuccess
-      else Env.study.api byIdWithChapter relay.studyId flatMap {
+    WithRelay(slug, id) { relay =>
+      val sc =
+        if (relay.ongoing) Env.study.chapterRepo relaysAndTagsByStudyId relay.studyId flatMap { chapters =>
+          chapters.find(_.looksAlive) orElse chapters.headOption match {
+            case Some(chapter) => Env.study.api.byIdWithChapter(relay.studyId, chapter.id)
+            case None => Env.study.api byIdWithChapter relay.studyId
+          }
+        }
+        else Env.study.api byIdWithChapter relay.studyId
+      sc flatMap { _ ?? { doShow(relay, _) } }
+    }
+  }
+
+  def chapter(slug: String, id: String, chapterId: String) = Open { implicit ctx =>
+    WithRelay(slug, id) { relay =>
+      Env.study.api.byIdWithChapter(relay.studyId, chapterId) flatMap {
         _ ?? { doShow(relay, _) }
       }
     }
   }
 
-  def chapter(slug: String, id: String, chapterId: String) = Open { implicit ctx =>
+  private def WithRelay(slug: String, id: String)(f: RelayModel => Fu[Result])(implicit ctx: Context): Fu[Result] =
     OptionFuResult(env.api byId id) { relay =>
       if (relay.slug != slug) Redirect(showRoute(relay)).fuccess
-      else Env.study.api.byIdWithChapter(relay.studyId, chapterId) flatMap {
-        _ ?? { doShow(relay, _) }
-      }
+      else f(relay)
     }
-  }
 
   private def doShow(relay: RelayModel, oldSc: lila.study.Study.WithChapter)(implicit ctx: Context): Fu[Result] = for {
     (sc, studyData) <- Study.getJsonData(oldSc)

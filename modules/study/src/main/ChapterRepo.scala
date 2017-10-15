@@ -47,9 +47,10 @@ final class ChapterRepo(coll: Coll) {
     coll.find($doc("studyId" -> studyId), $doc("relay" -> true, "tags" -> true)).list[Bdoc]() map { docs =>
       for {
         doc <- docs
+        id <- doc.getAs[Chapter.Id]("_id")
         relay <- doc.getAs[Chapter.Relay]("relay")
         tags <- doc.getAs[Tags]("tags")
-      } yield Chapter.RelayAndTags(relay, tags)
+      } yield Chapter.RelayAndTags(id, relay, tags)
     }
 
   def sort(study: Study, ids: List[Chapter.Id]): Funit = ids.zipWithIndex.map {
