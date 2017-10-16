@@ -76,7 +76,7 @@ private final class RelayFetch(
         else continueRelay(relay)
       case SyncResult.Ok(nbMoves, games) =>
         lila.mon.relay.moves(nbMoves)
-        continueRelay(relay.resume)
+        continueRelay(relay.ensureStarted.resume)
       case _ => continueRelay(relay)
     }
   }

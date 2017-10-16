@@ -47,16 +47,19 @@ final class RelayApi(
     coll.updateField($id(id), "likes", likes).void
 
   def created = coll.find($doc(
-    "startsAt" $gt DateTime.now
+    "startsAt" $gt DateTime.now.minusHours(1),
+    "startedAt" $exists false
   )).sort($sort asc "startsAt").list[Relay]()
 
   def started = coll.find($doc(
-    "started" -> true
-  )).sort($sort asc "startsAt").list[Relay]()
+    "startedAt" $exists true,
+    "finished" -> false
+  )).sort($sort asc "startedAt").list[Relay]()
 
   def finished = coll.find($doc(
+    "startedAt" $exists true,
     "finished" -> true
-  )).sort($sort desc "startsAt").list[Relay]()
+  )).sort($sort desc "startedAt").list[Relay]()
 
   def create(data: RelayForm.Data, user: User): Fu[Relay] = {
     val relay = data make user
