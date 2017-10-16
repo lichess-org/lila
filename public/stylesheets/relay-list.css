@@ -94,13 +94,3 @@ body.dark .relays .relay {
   line-height: 62px;
   opacity: 0.8;
 }
-.relays .bits {
-  margin: 10px 0 0 16px;
-}
-.relays bit {
-  padding: 0 10px;
-  white-space: nowrap;
-}
-.relays bit i {
-  opacity: 0.5;
-}
