@@ -83,7 +83,7 @@ final class RelayApi(
 
   def setSync(id: Relay.Id, user: User, v: Boolean): Funit = byId(id) flatMap {
     _ ?? { r =>
-      val relay = if (v) r.withSync(_.start) else r.withSync(_.stop)
+      val relay = if (v) r.withSync(_.start).setUnFinished else r.withSync(_.stop)
       coll.update($id(relay.id.value), relay).void >> publishRelay(relay)
     }
   }
