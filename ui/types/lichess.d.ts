@@ -193,6 +193,15 @@ declare namespace Tree {
     threefold?: boolean;
     fail?: boolean;
     puzzle?: string;
+    crazy?: NodeCrazy;
+  }
+
+  export interface NodeCrazy {
+    pockets: [CrazyPocket, CrazyPocket];
+  }
+
+  export interface CrazyPocket {
+    [role: string]: number;
   }
 
   export interface Comment {
