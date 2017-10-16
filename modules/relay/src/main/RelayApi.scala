@@ -57,10 +57,10 @@ final class RelayApi(
   )).sort($sort asc "startsAt").list[Relay]()
 
   def finished = coll.find($doc(
-    "finishedAt" $exists true
+    "finished" -> true
   )).sort($sort desc "startsAt").list[Relay]()
 
-  def unfinished = coll.find($doc("finishedAt" $exists false)).list[Relay]()
+  def unfinished = coll.find($doc("finished" -> false)).list[Relay]()
 
   def create(data: RelayForm.Data, user: User): Fu[Relay] = {
     val relay = data make user
@@ -76,23 +76,27 @@ final class RelayApi(
       ), user) inject relay
   }
 
-  def update(relay: Relay, from: Option[Relay] = None): Funit =
-    coll.update($id(relay.id), relay).void >> from.?? { old =>
-      (old.finishedAt != relay.finishedAt || relay.sync.until != old.sync.until) ?? publishRelay(relay)
-    }
-
-  def setSync(id: Relay.Id, user: User, v: Boolean): Funit = byId(id) flatMap {
+  def startPlay(id: Relay.Id, user: User, v: Boolean): Funit = byId(id) flatMap {
     _ ?? { r =>
-      val relay = if (v) r.withSync(_.start) else r.withSync(_.stop)
-      coll.update($id(relay.id.value), relay).void >> publishRelay(relay)
+      update(if (v) r.withSync(_.play) else r.withSync(_.pause), r.some)
     }
   }
 
-  def unFinish(id: Relay.Id) =
-    coll.unsetField($id(id), "finishedAt").void >> publishRelay(id)
+  def updateIfChanged(from: Relay)(f: Relay => Relay): Funit = {
+    val relay = f(from)
+    (relay != from) ?? {
+      coll.update($id(relay.id), relay).void >>
+        (relay.sync.playing != from.sync.playing) ?? publishRelay(relay)
+    }
+  }
+
+  // def update(relay: Relay, from: Option[Relay] = None): Funit =
+  //   coll.update($id(relay.id), relay).void >> from.?? { old =>
+  //     (old.sync.playing != relay.sync.playing) ?? publishRelay(relay)
+  //   }
 
   def getOngoing(id: Relay.Id): Fu[Option[Relay]] =
-    coll.find($doc("_id" -> id, "finishedAt" $exists false)).uno[Relay]
+    coll.find($doc("_id" -> id, "finished" -> false)).uno[Relay]
 
   def addLog(id: Relay.Id, event: SyncLog.Event): Funit =
     coll.update(

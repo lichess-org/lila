@@ -11,9 +11,7 @@ export default function(ctrl: RelayCtrl): VNode | undefined {
       h('span.text', { attrs: dataIcon('') }, [
         h('a', {
           attrs: { href: d.sync.url, _target: 'blank' }
-        }, d.finishedAt ?
-        'Finished ' + getDateFormatter()(new Date(d.finishedAt)) :
-        d.sync.url.replace(/https?:\/\//, ''))
+        }, d.sync.url.replace(/https?:\/\//, ''))
       ]),
       ctrl.members.isOwner() ? h('a', {
         attrs: {
@@ -23,7 +21,7 @@ export default function(ctrl: RelayCtrl): VNode | undefined {
       }) : null
     ]),
     h('div.relay', [
-      (d.sync.seconds ? stateOn : stateOff)(ctrl),
+      (d.sync.ongoing ? stateOn : stateOff)(ctrl),
       renderLog(ctrl)
     ])
   ]);
@@ -69,14 +67,8 @@ function stateOn(ctrl: RelayCtrl) {
     iconTag('B'),
     h('div', [
       'Connected to source',
-      h('div.timer', {
-        hook: {
-          insert: vnode => $(vnode.elm as HTMLElement).clock({ time: ctrl.data.sync.seconds! })
-        }
-      }, [
-        h('span.shy', 'Will disconnect in '),
-        h('span.time.text')
-      ])
+      h('br'),
+      'Click to disconnect'
     ])
   ]);
 }

@@ -2,11 +2,10 @@ export interface RelayData {
   id: string;
   slug: string;
   sync: RelaySync;
-  finishedAt?: number;
 }
 
 export interface RelaySync {
-  seconds?: number; // how long until lichess stops syncing
+  ongoing: boolean;
   url: string;
   log: LogEvent[];
 }

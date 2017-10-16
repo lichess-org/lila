@@ -18,7 +18,7 @@ export default class RelayCtrl {
     this.redraw();
   }
 
-  loading = () => !this.cooldown && !!this.data.sync.seconds;
+  loading = () => !this.cooldown && this.data.sync.ongoing;
 
   applyChapterRelay = (c: StudyChapter, r?: StudyChapterRelay) => {
     if (this.clockInterval) clearInterval(this.clockInterval);

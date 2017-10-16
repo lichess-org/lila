@@ -12,8 +12,14 @@ case class Relay(
     sync: Relay.Sync,
     ownerId: User.ID,
     likes: Study.Likes,
+    /* When it's planned to start */
     startsAt: Option[DateTime],
-    finishedAt: Option[DateTime],
+    /* When it actually starts */
+    startedAt: Option[DateTime],
+    /* at least it *looks* finished... but maybe it's not
+     * sync.nextAt is used for actually synchronising
+     */
+    finished: Boolean,
     createdAt: DateTime
 ) {
 
@@ -26,14 +32,21 @@ case class Relay(
     if (s.isEmpty) "-" else s
   }
 
-  def finished = finishedAt.isDefined
+  def finish = copy(
+    finished = true,
+    sync = sync.pause
+  )
 
-  def setFinished = copy(sync = sync.stop, finishedAt = DateTime.now.some)
-  def setUnFinished = copy(finishedAt = none)
+  def resume = copy(
+    finished = false,
+    sync = sync.play
+  )
+
+  def ensureStarted = copy(
+    startedAt = startedAt orElse DateTime.now.some
+  )
 
   def withSync(f: Relay.Sync => Relay.Sync) = copy(sync = f(sync))
-
-  def ongoing = sync.until.isDefined
 
   override def toString = s"""relay #$id "$name" $sync"""
 }
@@ -46,18 +59,16 @@ object Relay {
 
   case class Sync(
       upstream: Sync.Upstream,
-      until: Option[DateTime],
       nextAt: Option[DateTime],
       delay: Option[Int] = None,
       log: SyncLog
   ) {
 
-    def seconds: Option[Int] = until map { until =>
-      (until.getSeconds - nowSeconds).toInt
-    } filter (0<)
+    def play = copy(nextAt = nextAt orElse DateTime.now.plusSeconds(3).some)
+    def pause = copy(nextAt = none)
 
-    def stop = copy(until = none, nextAt = none)
-    def start = copy(until = DateTime.now plusHours 3 some, nextAt = DateTime.now plusSeconds 3 some)
+    def playing = nextAt.isDefined
+    def paused = !playing
 
     override def toString = upstream.toString
   }

@@ -39,7 +39,7 @@ private final class RelayFetch(
       api.unfinished.map(_ filter RelayFetch.shouldFetchNow).flatMap { relays =>
         lila.mon.relay.unfinished(relays.size)
         relays.map { relay =>
-          if (relay.ongoing) RelayFetch(relay.sync.upstream, relay.id)
+          if (relay.sync.playing) RelayFetch(relay.sync.upstream, relay.id)
             .chronometer.mon(_.relay.fetch.duration.each).result flatMap { games =>
               sync(relay, games)
                 .chronometer.mon(_.relay.sync.duration.each).result
@@ -52,7 +52,7 @@ private final class RelayFetch(
                   case res @ SyncResult.Timeout => res
                   case _ => SyncResult.Error(e.getMessage)
                 })
-            } flatMap updateRelay(relay.id)
+            } flatMap updateRelay(relay)
           else finishNotSyncing(relay)
         }.sequenceFu.chronometer
           .mon(_.relay.sync.duration.total)
@@ -60,24 +60,26 @@ private final class RelayFetch(
       }
   }
 
-  def updateRelay(id: Relay.Id)(result: SyncResult): Funit = api byId id flatMap {
+  def updateRelay(r: Relay)(result: SyncResult): Funit =  api byId id flatMap {
     _ ?? { r =>
-      {
-        lila.mon.relay.sync.result(result.toString.toLowerCase)()
-        if (r.sync.until exists (_ isBefore DateTime.now)) fuccess(r.withSync(_.stop))
-        else ((r.sync.until, r.sync.nextAt, result) match {
-          case (Some(until), Some(nextAt), SyncResult.Ok(nbMoves, games)) =>
-            lila.mon.relay.moves(nbMoves)
-            if (r.finished && nbMoves == 0) fuccess(r.withSync(_.stop))
-            else finishRelay(r, nbMoves, games) getOrElse continueRelay(r)
-          case (_, _, SyncResult.Timeout) => continueRelay(r)
-          case (_, _, SyncResult.Error(_)) => continueRelay(r)
-          case _ => fuccess(r.withSync(_.stop))
-        })
-      } flatMap { newRelay =>
-        (newRelay != r) ?? api.update(newRelay, from = r.some)
-      }
+    lila.mon.relay.sync.result(result.toString.toLowerCase)()
+    result match {
+      case SyncResult.Ok(0, games) =>
+        chapterRepo.relaysAndTagsByStudyId(r.studyId) map { chapters =>
+          relay.startedAt ?? { _ isBefore DateTime.now.minusMinutes(
+          if (chapters.isEmpty) relay.DateTime.now
+          chapters forall (_.looksOver)
+        } flatMap {
+          _ ?? api.updateIfChanged(r)(_.finish)
+        }
+      case SyncResult.Ok(nbMoves, games) =>
+        lila.mon.relay.moves(nbMoves)
+        api.update(r)(_.ensureStarted)
+      case SyncResult.Timeout => continueRelay(r)
+      case SyncResult.Error(_) => continueRelay(r)
     }
+  } flatMap { newRelay =>
+    (newRelay != r) ?? api.update(newRelay, from = r.some)
   }
 
   def continueRelay(r: Relay): Fu[Relay] =

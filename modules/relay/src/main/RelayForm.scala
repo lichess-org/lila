@@ -54,7 +54,6 @@ object RelayForm {
         case "dgt-one" => Relay.Sync.Upstream.DgtOneFile(cleanUrl)
         case _ => Relay.Sync.Upstream.DgtManyFiles(cleanUrl)
       },
-      until = none,
       nextAt = none,
       log = SyncLog(Vector.empty)
     )
@@ -67,7 +66,7 @@ object RelayForm {
       sync = makeSync,
       likes = lila.study.Study.Likes(1),
       createdAt = DateTime.now,
-      finishedAt = none,
+      finished = false,
       startsAt = startsAt
     )
   }
