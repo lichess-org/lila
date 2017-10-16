@@ -65,6 +65,17 @@ lichess.checkout = function(publicKey) {
     });
   });
 
+  Stripe.setPublishableKey(publicKey);
+
+  Stripe.applePay.checkAvailability(function(available) {
+    if (available) {
+      document.getElementById('apple-pay-div').style.display = 'flex';
+      $checkout.find('button.apple-pay-button').on('click', function() {
+        alert("we totally just charged you!");
+      });
+    }
+  });
+
   var stripeHandler = StripeCheckout.configure({
     key: publicKey,
     name: 'lichess.org',

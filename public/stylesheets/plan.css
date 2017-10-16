@@ -160,6 +160,11 @@ body.dark .motivation .plan_checkout group input:checked + label {
   border-color: #bbb!important;
   box-shadow: 0 0 7px rgba(0,0,0,0.5);
 }
+
+.motivation .plan_checkout .apple-pay-service {
+  display: none;
+}
+
 .motivation .plan_checkout .service button:first-child {
   margin-right: 25px;
 }
@@ -227,4 +232,50 @@ body.dark .recent_patrons h2 {
   overflow: hidden;
   text-overflow: ellipsis;
   padding: 7px 0;
+}
+
+
+
+@supports (-webkit-appearance: -apple-pay-button) { 
+    .apple-pay-button {
+        display: inline-block;
+        -webkit-appearance: -apple-pay-button;
+    }
+    .apple-pay-button-black {
+        -apple-pay-button-style: black;
+    }
+    .apple-pay-button-white {
+        -apple-pay-button-style: white;
+    }
+    
+    .apple-pay-button-white-with-line {
+        -apple-pay-button-style: white-outline;
+    }
+}
+@supports not (-webkit-appearance: -apple-pay-button) {
+    .apple-pay-button {
+        display: inline-block;
+        background-size: 100% 60%;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        border-radius: 5px;
+        padding: 0px;
+        box-sizing: border-box;
+        min-width: 200px;
+        min-height: 32px;
+        max-height: 64px;
+    }
+    .apple-pay-button-black {
+        background-image: -webkit-named-image(apple-pay-logo-white);
+        background-color: black;
+    }
+    .apple-pay-button-white {
+        background-image: -webkit-named-image(apple-pay-logo-black);
+        background-color: white;
+    }
+    .apple-pay-button-white-with-line {
+        background-image: -webkit-named-image(apple-pay-logo-black);
+        background-color: white;
+        border: .5px solid black;
+    } 
 }
