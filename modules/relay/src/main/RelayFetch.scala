@@ -62,7 +62,7 @@ private final class RelayFetch(
 
   def updateRelay(r: Relay)(result: SyncResult): Funit =  api byId id flatMap {
     _ ?? { r =>
-    lila.mon.relay.sync.result(result.toString.toLowerCase)()
+        lila.mon.relay.sync.result(result.toString.toLowerCase)()
     result match {
       case SyncResult.Ok(0, games) =>
         chapterRepo.relaysAndTagsByStudyId(r.studyId) map { chapters =>
@@ -71,7 +71,7 @@ private final class RelayFetch(
           chapters forall (_.looksOver)
         } flatMap {
           _ ?? api.updateIfChanged(r)(_.finish)
-        }
+      }
       case SyncResult.Ok(nbMoves, games) =>
         lila.mon.relay.moves(nbMoves)
         api.update(r)(_.ensureStarted)

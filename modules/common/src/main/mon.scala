@@ -161,7 +161,8 @@ object mon {
       }
       object lag {
         val avgReported = rec("round.move.lag.avg_reported")
-        val estimateError = rec("round.move.lag.estimate_error")
+        private val estErrorRec = rec("round.move.lag.estimate_error_1000")
+        def estimateError(e: Int) = estErrorRec(e + 1000)
         val compDeviation = rec("round.move.lag.comp_deviation")
         def uncomped(key: String) = rec(s"round.move.lag.uncomped.$key")
         val uncompedAll = rec(s"round.move.lag.uncomped.all")

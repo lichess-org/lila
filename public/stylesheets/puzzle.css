@@ -1,5 +1,6 @@
 #puzzle div.lichess_game div.lichess_ground {
-  width: 280px;
+  flex: 0 0 280px;
+  max-width: 280px;
 }
 
 #puzzle .game_control {

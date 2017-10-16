@@ -30,7 +30,7 @@ openGraph = lila.app.ui.OpenGraph(
 title = title,
 url = s"$netBaseUrl${routes.Plan.index.url}",
 description = "Free chess for everyone, forever!").some) {
-<div class="content_box no_padding plan motivation">
+<div class="content_box no_padding plan">
   @patron.ifTrue(ctx.me.??(_.isPatron)).map { p =>
   <div class="banner one_time_active">
     <i data-icon="@patronIconChar"></i>
@@ -161,6 +161,11 @@ description = "Free chess for everyone, forever!").some) {
         <dd>
           Yes, at any time, from this page.<br />
           Or you can <a href="@routes.Page.contact">contact lichess support</a>.
+        </dd>
+        <dt>Other methods of payment?</dt>
+        <dd>
+          We also accept <a href="@staticUrl("doc/iban_LICHESS_ORG_00022031601.pdf")">bank transfers</a>.<br />
+          And here's our bitcoin address: <code>15ZA4bBki3uu3yR2ENC2WYa9baVGUZ8Cf8</code>
         </dd>
       </dl>
       <dl>

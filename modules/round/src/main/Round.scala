@@ -253,7 +253,7 @@ private[round] final class Round(
             avgComp <- lt.avgLagComp
             uncomp <- (lt.totalLag - lt.totalComp) / lt.lagSteps
           } {
-            lRec.estimateError((avgComp - lowEst).centis + 100)
+            lRec.estimateError((avgComp - lowEst).centis)
             lRec.uncomped(f"${lt.quotaGain.roundTenths}%02d")(uncomp.centis)
             lRec.uncompedAll(uncomp.centis)
           }
