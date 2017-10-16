@@ -77,6 +77,7 @@ body.dark .relays .relay {
   overflow: hidden;
   text-overflow: ellipsis;
   display: block;
+  margin-bottom: .1em;
 }
 .relays .relay h3 span {
   display: block;
@@ -90,7 +91,7 @@ body.dark .relays .relay {
 .relays h3 .icon::before {
   color: #3893E8;
   font-size: 49px;
-  line-height: 58px;
+  line-height: 62px;
   opacity: 0.8;
 }
 .relays .bits {
