@@ -268,7 +268,7 @@ object mon {
     }
   }
   object relay {
-    val unfinished = rec("relay.unfinished")
+    val ongoing = rec("relay.ongoing")
     val moves = incX("relay.moves")
     object sync {
       def result(res: String) = inc(s"relay.sync.result.$res")

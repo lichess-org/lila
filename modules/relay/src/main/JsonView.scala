@@ -12,7 +12,7 @@ object JsonView {
 
   private implicit val syncWrites = OWrites[Relay.Sync] { s =>
     Json.obj(
-      "playing" -> s.playing,
+      "seconds" -> s.seconds,
       "log" -> s.log.events,
       "url" -> s.upstream.url
     )

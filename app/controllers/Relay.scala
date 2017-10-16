@@ -45,7 +45,7 @@ object Relay extends LilaController {
       implicit val req = ctx.body
       env.forms.edit(relay).bindFromRequest.fold(
         err => BadRequest(html.relay.edit(relay, err)).fuccess,
-        data => env.api.update(data update relay) inject Redirect(showRoute(relay))
+        data => env.api.update(relay)(data.update) map { r => Redirect(showRoute(r)) }
       )
     }
   }
@@ -53,7 +53,7 @@ object Relay extends LilaController {
   def show(slug: String, id: String) = Open { implicit ctx =>
     WithRelay(slug, id) { relay =>
       val sc =
-        if (relay.ongoing) Env.study.chapterRepo relaysAndTagsByStudyId relay.studyId flatMap { chapters =>
+        if (relay.sync.ongoing) Env.study.chapterRepo relaysAndTagsByStudyId relay.studyId flatMap { chapters =>
           chapters.find(_.looksAlive) orElse chapters.headOption match {
             case Some(chapter) => Env.study.api.byIdWithChapter(relay.studyId, chapter.id)
             case None => Env.study.api byIdWithChapter relay.studyId

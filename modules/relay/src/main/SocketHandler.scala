@@ -26,7 +26,7 @@ private[relay] final class SocketHandler(
     user: Option[User]
   ): Handler.Controller = ({
     case ("relaySync", o) => user foreach { u =>
-      api.setSync(relayId, u, ~(o \ "d").asOpt[Boolean])
+      api.requestPlay(relayId, u, ~(o \ "d").asOpt[Boolean])
     }
   }: Handler.Controller) orElse studyHandler.makeController(
     socket = socket,

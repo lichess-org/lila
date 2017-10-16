@@ -35,51 +35,50 @@ private final class RelayFetch(
       logger.error(msg)
       throw new RuntimeException(msg)
 
-    case Tick =>
-      api.unfinished.map(_ filter RelayFetch.shouldFetchNow).flatMap { relays =>
-        lila.mon.relay.unfinished(relays.size)
-        relays.map { relay =>
-          if (relay.sync.playing) RelayFetch(relay.sync.upstream, relay.id)
-            .chronometer.mon(_.relay.fetch.duration.each).result flatMap { games =>
-              sync(relay, games)
-                .chronometer.mon(_.relay.sync.duration.each).result
-                .withTimeout(500 millis, SyncResult.Timeout)(context.system) flatMap { res =>
-                  api.addLog(relay.id, SyncLog.event(res.moves, none)) inject res
-                }
-            } recoverWith {
-              case e: Exception =>
-                api.addLog(relay.id, SyncLog.event(0, e.some)) inject (e match {
-                  case res @ SyncResult.Timeout => res
-                  case _ => SyncResult.Error(e.getMessage)
-                })
-            } flatMap updateRelay(relay)
-          else finishNotSyncing(relay)
-        }.sequenceFu.chronometer
-          .mon(_.relay.sync.duration.total)
-          .result addEffectAnyway scheduleNext
-      }
+    case Tick => api.toSync.flatMap { relays =>
+      lila.mon.relay.ongoing(relays.size)
+      relays.map { relay =>
+        if (relay.sync.ongoing) processRelay(relay) flatMap { newRelay =>
+          api.update(relay)(_ => newRelay)
+        }
+        else if (relay.hasStarted) api.update(relay)(_.finish)
+        else fuccess(relay)
+      }.sequenceFu.chronometer
+        .mon(_.relay.sync.duration.total)
+        .result addEffectAnyway scheduleNext
+    }
   }
 
-  def updateRelay(r: Relay)(result: SyncResult): Funit =  api byId id flatMap {
-    _ ?? { r =>
-        lila.mon.relay.sync.result(result.toString.toLowerCase)()
+  // no writing the relay; only reading!
+  def processRelay(relay: Relay): Fu[Relay] =
+    if (!relay.sync.playing) fuccess(relay.withSync(_.play))
+    else RelayFetch(relay.sync.upstream, relay.id)
+      .chronometer.mon(_.relay.fetch.duration.each).result flatMap { games =>
+        sync(relay, games)
+          .chronometer.mon(_.relay.sync.duration.each).result
+          .withTimeout(500 millis, SyncResult.Timeout)(context.system) map { res =>
+            res -> relay.withSync(_ addLog SyncLog.event(res.moves, none))
+          }
+      } recover {
+        case e: Exception => (e match {
+          case res @ SyncResult.Timeout => res
+          case _ => SyncResult.Error(e.getMessage)
+        }) -> relay.withSync(_ addLog SyncLog.event(0, e.some))
+      } flatMap {
+        case (result, newRelay) => afterSync(result, newRelay)
+      }
+
+  def afterSync(result: SyncResult, relay: Relay): Fu[Relay] = {
+    lila.mon.relay.sync.result(result.toString.toLowerCase)()
     result match {
       case SyncResult.Ok(0, games) =>
-        chapterRepo.relaysAndTagsByStudyId(r.studyId) map { chapters =>
-          relay.startedAt ?? { _ isBefore DateTime.now.minusMinutes(
-          if (chapters.isEmpty) relay.DateTime.now
-          chapters forall (_.looksOver)
-        } flatMap {
-          _ ?? api.updateIfChanged(r)(_.finish)
-      }
+        if (games.size > 1 && games.forall(_.finished)) fuccess(relay.finish)
+        else continueRelay(relay)
       case SyncResult.Ok(nbMoves, games) =>
         lila.mon.relay.moves(nbMoves)
-        api.update(r)(_.ensureStarted)
-      case SyncResult.Timeout => continueRelay(r)
-      case SyncResult.Error(_) => continueRelay(r)
+        continueRelay(relay.resume)
+      case _ => continueRelay(relay)
     }
-  } flatMap { newRelay =>
-    (newRelay != r) ?? api.update(newRelay, from = r.some)
   }
 
   def continueRelay(r: Relay): Fu[Relay] =
@@ -90,37 +89,15 @@ private final class RelayFetch(
         case nb => (16 - nb) atLeast 5
       }
     })) map { seconds =>
-      r.setUnFinished.withSync(_.copy(nextAt = DateTime.now plusSeconds {
+      r.withSync(_.copy(nextAt = DateTime.now plusSeconds {
         seconds atLeast { if (r.sync.log.isOk) 5 else 10 }
       } some))
-    }
-
-  def finishRelay(r: Relay, nbMoves: Int, games: RelayGames): Fu[Option[Relay]] =
-    if (nbMoves > 0) fuccess(none)
-    else if (games.forall(!_.started)) fuccess(none)
-    else chapterRepo.relaysAndTagsByStudyId(r.studyId) map { chapters =>
-      // probably TCEC style where single file/URL is used for many games in a row
-      if (games.size == 1) chapters forall (_.looksOver)
-      else games.forall { game =>
-        chapters.find(_.relay.index == game.index) ?? (_.looksOver)
-      }
-    } map (_ option r.setFinished)
-
-  def finishNotSyncing(r: Relay): Funit =
-    chapterRepo.relaysAndTagsByStudyId(r.studyId) map {
-      _ forall (_.looksOver)
-    } flatMap {
-      _ ?? api.update(r.setFinished, from = r.some)
     }
 }
 
 private object RelayFetch {
 
   case class MultiPgn(value: List[String]) extends AnyVal
-
-  def shouldFetchNow(r: Relay) = !r.sync.log.alwaysFails || {
-    r.sync.log.updatedAt ?? { DateTime.now.minusSeconds(30).isAfter }
-  }
 
   import Relay.Sync.Upstream
   case class GamesSeenBy(games: Fu[RelayGames], seenBy: Set[Relay.Id])

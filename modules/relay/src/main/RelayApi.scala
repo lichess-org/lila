@@ -2,6 +2,7 @@ package lila.relay
 
 import akka.actor._
 import org.joda.time.DateTime
+import ornicar.scalalib.Zero
 import play.api.libs.json._
 import reactivemongo.bson._
 
@@ -24,14 +25,11 @@ final class RelayApi(
     _.filter(_.ownerId == owner.id)
   }
 
-  def byIdWithStudy(id: Relay.Id): Fu[Option[Relay.WithStudy]] =
-    byId(id) flatMap {
-      _ ?? { relay =>
-        studyApi.byId(relay.studyId) map2 { (study: Study) =>
-          Relay.WithStudy(relay, study)
-        }
-      }
+  def byIdWithStudy(id: Relay.Id): Fu[Option[Relay.WithStudy]] = WithRelay(id) { relay =>
+    studyApi.byId(relay.studyId) map2 { (study: Study) =>
+      Relay.WithStudy(relay, study)
     }
+  }
 
   def all(me: Option[User]): Fu[Relay.Selection] =
     created.flatMap(withStudyAndLiked(me)) zip
@@ -53,14 +51,12 @@ final class RelayApi(
   )).sort($sort asc "startsAt").list[Relay]()
 
   def started = coll.find($doc(
-    "sync.until" $exists true
+    "started" -> true
   )).sort($sort asc "startsAt").list[Relay]()
 
   def finished = coll.find($doc(
     "finished" -> true
   )).sort($sort desc "startsAt").list[Relay]()
-
-  def unfinished = coll.find($doc("finished" -> false)).list[Relay]()
 
   def create(data: RelayForm.Data, user: User): Fu[Relay] = {
     val relay = data make user
@@ -76,50 +72,35 @@ final class RelayApi(
       ), user) inject relay
   }
 
-  def startPlay(id: Relay.Id, user: User, v: Boolean): Funit = byId(id) flatMap {
-    _ ?? { r =>
-      update(if (v) r.withSync(_.play) else r.withSync(_.pause), r.some)
-    }
+  def requestPlay(id: Relay.Id, user: User, v: Boolean): Funit = WithRelay(id) { relay =>
+    update(relay) { r =>
+      if (v) r.withSync(_.play) else r.withSync(_.pause)
+    } void
   }
 
-  def updateIfChanged(from: Relay)(f: Relay => Relay): Funit = {
+  def update(from: Relay)(f: Relay => Relay): Fu[Relay] = {
     val relay = f(from)
-    (relay != from) ?? {
-      coll.update($id(relay.id), relay).void >>
-        (relay.sync.playing != from.sync.playing) ?? publishRelay(relay)
-    }
+    if (relay == from) fuccess(relay)
+    else coll.update($id(relay.id), relay).void >> {
+      (relay.sync.playing != from.sync.playing) ?? publishRelay(relay)
+    } >>- {
+      relay.sync.log.events.lastOption.ifTrue(relay.sync.log != from.sync.log).foreach { event =>
+        sendToContributors(relay.id, "relayLog", JsonView.syncLogEventWrites writes event)
+      }
+    } inject relay
   }
-
-  // def update(relay: Relay, from: Option[Relay] = None): Funit =
-  //   coll.update($id(relay.id), relay).void >> from.?? { old =>
-  //     (old.sync.playing != relay.sync.playing) ?? publishRelay(relay)
-  //   }
 
   def getOngoing(id: Relay.Id): Fu[Option[Relay]] =
     coll.find($doc("_id" -> id, "finished" -> false)).uno[Relay]
 
-  def addLog(id: Relay.Id, event: SyncLog.Event): Funit =
-    coll.update(
-      $id(id),
-      $doc("$push" -> $doc(
-        "sync.log" -> $doc(
-          "$each" -> List(event),
-          "$slice" -> -SyncLog.historySize
-        )
-      )),
-      upsert = true
-    ).void >>
-      sendToContributors(id, "relayLog", JsonView.syncLogEventWrites writes event) >>-
-      event.error.foreach { err => logger.info(s"$id $err") }
+  private[relay] def WithRelay[A: Zero](id: Relay.Id)(f: Relay => Fu[A]): Fu[A] =
+    byId(id) flatMap { _ ?? f }
 
   private[relay] def onStudyRemove(studyId: String) =
     coll.remove($id(Relay.Id(studyId))).void
 
   private[relay] def publishRelay(relay: Relay): Funit =
     sendToContributors(relay.id, "relayData", JsonView.relayWrites writes relay)
-
-  private def publishRelay(relayId: Relay.Id): Funit =
-    byId(relayId) flatMap { _ ?? publishRelay }
 
   private def sendToContributors(id: Relay.Id, t: String, msg: JsObject): Funit =
     studyApi members Study.Id(id.value) map {

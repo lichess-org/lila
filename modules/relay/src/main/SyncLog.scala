@@ -9,6 +9,10 @@ case class SyncLog(events: Vector[SyncLog.Event]) extends AnyVal {
   def alwaysFails = events.size == SyncLog.historySize && events.forall(_.isKo)
 
   def updatedAt = events.lastOption.map(_.at)
+
+  def add(event: SyncLog.Event) = copy(
+    events = events.take(SyncLog.historySize - 1) :+ event
+  )
 }
 
 object SyncLog {

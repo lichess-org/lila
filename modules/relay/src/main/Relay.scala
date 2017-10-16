@@ -46,6 +46,8 @@ case class Relay(
     startedAt = startedAt orElse DateTime.now.some
   )
 
+  def hasStarted = startedAt.isDefined
+
   def withSync(f: Relay.Sync => Relay.Sync) = copy(sync = f(sync))
 
   override def toString = s"""relay #$id "$name" $sync"""
@@ -59,16 +61,33 @@ object Relay {
 
   case class Sync(
       upstream: Sync.Upstream,
-      nextAt: Option[DateTime],
-      delay: Option[Int] = None,
+      until: Option[DateTime], // sync until then; resets on move
+      nextAt: Option[DateTime], // when to run next sync
+      delay: Option[Int], // override time between two sync (rare)
       log: SyncLog
   ) {
 
-    def play = copy(nextAt = nextAt orElse DateTime.now.plusSeconds(3).some)
-    def pause = copy(nextAt = none)
+    def renew = copy(
+      until = DateTime.now.plusHours(1).some
+    )
+    def ongoing = until ?? DateTime.now.isBefore
+
+    def play = renew.copy(
+      nextAt = nextAt orElse DateTime.now.plusSeconds(3).some
+    )
+    def pause = copy(
+      nextAt = none,
+      until = none
+    )
+
+    def seconds: Option[Int] = until map { u =>
+      (u.getSeconds - nowSeconds).toInt
+    } filter (0<)
 
     def playing = nextAt.isDefined
     def paused = !playing
+
+    def addLog(event: SyncLog.Event) = copy(log = log add event)
 
     override def toString = upstream.toString
   }

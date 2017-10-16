@@ -86,8 +86,8 @@ object Study extends LilaController {
     }
   }
 
-  private def orRelay(id: String, chapterId: Option[String] = None)(f: Fu[Result]): Fu[Result] =
-    Env.relay.api.getOngoing(lila.relay.Relay.Id(id)) flatMap {
+  private def orRelay(id: String, chapterId: Option[String] = None)(f: => Fu[Result])(implicit ctx: Context): Fu[Result] =
+    if (HTTPRequest isRedirectable ctx.req) Env.relay.api.getOngoing(lila.relay.Relay.Id(id)) flatMap {
       _.fold(f) { relay =>
         fuccess(Redirect {
           chapterId.fold(routes.Relay.show(relay.slug, relay.id.value)) { c =>
@@ -96,6 +96,7 @@ object Study extends LilaController {
         })
       }
     }
+    else f
 
   private def showQuery(query: Fu[Option[WithChapter]])(implicit ctx: Context): Fu[Result] =
     OptionFuResult(query) { oldSc =>

@@ -21,7 +21,7 @@ export default function(ctrl: RelayCtrl): VNode | undefined {
       }) : null
     ]),
     h('div.relay', [
-      (d.sync.ongoing ? stateOn : stateOff)(ctrl),
+      (d.sync.seconds ? stateOn : stateOff)(ctrl),
       renderLog(ctrl)
     ])
   ]);
@@ -67,8 +67,14 @@ function stateOn(ctrl: RelayCtrl) {
     iconTag('B'),
     h('div', [
       'Connected to source',
-      h('br'),
-      'Click to disconnect'
+      h('div.timer', {
+        hook: {
+          insert: vnode => $(vnode.elm as HTMLElement).clock({ time: ctrl.data.sync.seconds! })
+        }
+      }, [
+        h('span.shy', 'Will disconnect in '),
+        h('span.time.text')
+      ])
     ])
   ]);
 }
