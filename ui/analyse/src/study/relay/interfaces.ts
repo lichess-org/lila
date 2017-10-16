@@ -5,7 +5,7 @@ export interface RelayData {
 }
 
 export interface RelaySync {
-  seconds?: number; // how long until lichess stops syncing
+  ongoing: boolean;
   url: string;
   log: LogEvent[];
 }

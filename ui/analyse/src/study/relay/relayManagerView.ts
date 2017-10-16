@@ -8,11 +8,7 @@ export default function(ctrl: RelayCtrl): VNode | undefined {
   const d = ctrl.data;
   if (ctrl.members.canContribute()) return h('div.relay_wrap', [
     h('h2', [
-      h('span.text', { attrs: dataIcon('') }, [
-        h('a', {
-          attrs: { href: d.sync.url, _target: 'blank' }
-        }, d.sync.url.replace(/https?:\/\//, ''))
-      ]),
+      h('span.text', { attrs: dataIcon('') }, 'Broadcast manager'),
       ctrl.members.isOwner() ? h('a', {
         attrs: {
           href: `/broadcast/${d.slug}/${d.id}/edit`,
@@ -21,7 +17,7 @@ export default function(ctrl: RelayCtrl): VNode | undefined {
       }) : null
     ]),
     h('div.relay', [
-      (d.sync.seconds ? stateOn : stateOff)(ctrl),
+      (d.sync.ongoing ? stateOn : stateOff)(ctrl),
       renderLog(ctrl)
     ])
   ]);
@@ -67,14 +63,8 @@ function stateOn(ctrl: RelayCtrl) {
     iconTag('B'),
     h('div', [
       'Connected to source',
-      h('div.timer', {
-        hook: {
-          insert: vnode => $(vnode.elm as HTMLElement).clock({ time: ctrl.data.sync.seconds! })
-        }
-      }, [
-        h('span.shy', 'Will disconnect in '),
-        h('span.time.text')
-      ])
+      h('br'),
+      ctrl.data.sync.url.replace(/https?:\/\//, '')
     ])
   ]);
 }

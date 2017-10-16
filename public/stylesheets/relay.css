@@ -56,10 +56,6 @@
   justify-content: space-between;
   border: 1px solid #ccc;
 }
-.relay_edit .relay_wrap h2 .text {
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
 .relay_edit .relay {
   background: #e0e0e0;
   display: flex;
@@ -91,6 +87,8 @@
 .relay_edit .relay .state > div {
   flex: 1 1 100%;
   padding: 8px 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .relay_edit .relay .state .fat {
   font-size: 1.5em;
