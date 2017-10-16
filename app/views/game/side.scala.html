@@ -48,7 +48,7 @@
     </div>
     <div class="players">
       @List(game.whitePlayer, game.blackPlayer).map { p =>
-      <div class="player color-icon is @{p.color.name}">
+      <div class="player color-icon is @{p.color.name} text">
         @playerLink(p, withOnline = false, withDiff = true, withBerserk = true)
       </div>
       }
