@@ -65,15 +65,15 @@ private final class RelayFetch(
       {
         lila.mon.relay.sync.result(result.toString.toLowerCase)()
         if (r.sync.until exists (_ isBefore DateTime.now)) fuccess(r.withSync(_.stop))
-        else ((r.sync.until, r.sync.nextAt, result) match {
-          case (Some(until), Some(nextAt), SyncResult.Ok(nbMoves, games)) =>
+        else (r.sync.nextAt, result) match {
+          case (Some(nextAt), SyncResult.Ok(nbMoves, games)) =>
             lila.mon.relay.moves(nbMoves)
             if (r.finished && nbMoves == 0) fuccess(r.withSync(_.stop))
             else finishRelay(r, nbMoves, games) getOrElse continueRelay(r)
-          case (_, _, SyncResult.Timeout) => continueRelay(r)
-          case (_, _, SyncResult.Error(_)) => continueRelay(r)
+          case (_, SyncResult.Timeout) => continueRelay(r)
+          case (_, SyncResult.Error(_)) => continueRelay(r)
           case _ => fuccess(r.withSync(_.stop))
-        })
+        }
       } flatMap { newRelay =>
         (newRelay != r) ?? api.update(newRelay, from = r.some)
       }
