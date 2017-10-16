@@ -37,7 +37,7 @@ lichess.timeago = (function() {
     return lichess.timeagoLocale(diff, i, total_sec)[agoin].replace('%s', diff);
   }
 
-  // calculate the diff second between date to be formated now
+  // calculate the diff second between date to be formatted now
   function diffSec(date) {
     return (Date.now() - toDate(date)) / 1000;
   }

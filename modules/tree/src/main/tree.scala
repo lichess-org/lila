@@ -30,7 +30,7 @@ sealed trait Node {
   def dropFirstChild: Node
   def clock: Option[Centis]
 
-  // implementation dependant
+  // implementation dependent
   def idOption: Option[UciCharPair]
   def moveOption: Option[Uci.WithSan]
 

@@ -602,7 +602,7 @@ object WMMatching {
 
       val dt = new Delta()
 
-      // Compute delta1: the minumum value of any vertex dual.
+      // Compute delta1: the minimum value of any vertex dual.
       if (!maxcardinality) {
         dt.update(1, dualvar.slice(0, nvertex).min, -1)
       }
@@ -699,7 +699,7 @@ object WMMatching {
         blossombestedges(k) = null
       }
       // Loss of labeling means that we can not be sure that currently
-      // allowable edges remain allowable througout this stage.
+      // allowable edges remain allowable throughout this stage.
       allowedge = Array.fill(nedge)(false)
 
       // Make queue empty.

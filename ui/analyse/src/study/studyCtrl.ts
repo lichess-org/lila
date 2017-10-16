@@ -131,7 +131,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
   function configureAnalysis() {
     if (ctrl.embed) return;
     const canContribute = members.canContribute();
-    // unwrite if member lost priviledges
+    // unwrite if member lost privileges
     vm.mode.write = vm.mode.write && canContribute;
     li.pubsub.emit('chat.writeable')(data.features.chat);
     li.pubsub.emit('chat.permissions')({local: canContribute});

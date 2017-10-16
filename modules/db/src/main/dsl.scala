@@ -222,7 +222,7 @@ trait dsl extends LowPriorityDsl {
   //**********************************************************************************************//
 
   /**
-   * Represents the inital state of the expression which has only the name of the field.
+   * Represents the initial state of the expression which has only the name of the field.
    * It does not know the value of the expression.
    */
   trait ElementBuilder {
