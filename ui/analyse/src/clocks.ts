@@ -1,6 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import AnalyseCtrl from './ctrl';
+import { isFinished } from './study/studyChapters';
 
 interface ClockOpts {
   tenths: boolean;
@@ -23,7 +24,7 @@ export function renderClocks(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
 
   const study = ctrl.study,
   relay = study && study.data.chapter.relay;
-  if (relay && relay.lastMoveAt && relay.path === ctrl.path && ctrl.path !== '') {
+  if (relay && relay.lastMoveAt && relay.path === ctrl.path && ctrl.path !== '' && !isFinished(study!.data.chapter)) {
     const spent = (Date.now() - relay.lastMoveAt) / 10;
     const i = isWhiteTurn ? 0 : 1;
     if (centis[i]) centis[i] = Math.max(0, centis[i]! - spent);

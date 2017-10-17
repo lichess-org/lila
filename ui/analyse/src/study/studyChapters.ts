@@ -5,7 +5,7 @@ import { bind, dataIcon } from '../util';
 import { ctrl as chapterNewForm } from './chapterNewForm';
 import { ctrl as chapterEditForm } from './chapterEditForm';
 import AnalyseCtrl from '../ctrl';
-import { StudyCtrl, StudyChapterMeta, LocalPaths } from './interfaces';
+import { StudyCtrl, StudyChapterMeta, LocalPaths, StudyChapter } from './interfaces';
 
 export function ctrl(initChapters: StudyChapterMeta[], send: SocketSend, setTab: () => void, chapterConfig, root: AnalyseCtrl) {
 
@@ -40,6 +40,10 @@ export function ctrl(initChapters: StudyChapterMeta[], send: SocketSend, setTab:
     },
     localPaths
   };
+}
+
+export function isFinished(c: StudyChapter) {
+  return c.tags.find(t => t[0] === 'Result' && t[1] !== '*');
 }
 
 export function view(ctrl: StudyCtrl): VNode {

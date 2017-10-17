@@ -1,5 +1,6 @@
 import { RelayData, LogEvent } from './interfaces';
 import { StudyChapter, StudyChapterRelay } from '../interfaces';
+import { isFinished } from '../studyChapters';
 
 export default class RelayCtrl {
 
@@ -24,11 +25,9 @@ export default class RelayCtrl {
     if (this.clockInterval) clearInterval(this.clockInterval);
     if (r) {
       c.relay = this.convertDate(r);
-      if (!this.isFinished(c)) this.clockInterval = setInterval(this.redraw, 1000);
+      if (!isFinished(c)) this.clockInterval = setInterval(this.redraw, 1000);
     }
   }
-
-  isFinished = (c: StudyChapter) => c.tags.find(t => t[0] === 'Result' && t[1] !== '*');
 
   private convertDate = (r: StudyChapterRelay): StudyChapterRelay => {
     if (typeof r.secondsSinceLastMove !== 'undefined' && !r.lastMoveAt) {

@@ -3,6 +3,7 @@ import { VNode } from 'snabbdom/vnode'
 import { TagArray } from '../interfaces';
 import { renderClocks } from '../../clocks';
 import AnalyseCtrl from '../../ctrl';
+import { isFinished } from '../studyChapters';
 
 export function renderPlayers(ctrl: AnalyseCtrl): VNode[] | undefined {
   const study = ctrl.study;
@@ -11,7 +12,7 @@ export function renderPlayers(ctrl: AnalyseCtrl): VNode[] | undefined {
   if (!relay) return;
   const clocks = renderClocks(ctrl),
   tags = study.data.chapter.tags,
-  ticking = !relay.isFinished(study.data.chapter) && ctrl.turnColor();
+  ticking = !isFinished(study.data.chapter) && ctrl.turnColor();
   return (['white', 'black'] as Color[]).map(color => renderPlayer(tags, clocks, color, ticking === color));
 }
 
