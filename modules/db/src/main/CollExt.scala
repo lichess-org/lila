@@ -17,6 +17,9 @@ trait CollExt { self: dsl with QueryBuilderExt =>
     def uno[D: BSONDocumentReader](selector: Bdoc): Fu[Option[D]] =
       coll.find(selector).uno[D]
 
+    def uno[D: BSONDocumentReader](selector: Bdoc, projection: Bdoc): Fu[Option[D]] =
+      coll.find(selector, projection).uno[D]
+
     def list[D: BSONDocumentReader](selector: Bdoc, readPreference: ReadPreference = ReadPreference.primary): Fu[List[D]] =
       coll.find(selector).list[D](Int.MaxValue, readPreference = readPreference)
 
@@ -27,6 +30,7 @@ trait CollExt { self: dsl with QueryBuilderExt =>
       uno[D]($id(id))
 
     def byId[D: BSONDocumentReader](id: String): Fu[Option[D]] = uno[D]($id(id))
+    def byId[D: BSONDocumentReader](id: String, projection: Bdoc): Fu[Option[D]] = uno[D]($id(id), projection)
 
     def byId[D: BSONDocumentReader](id: Int): Fu[Option[D]] = uno[D]($id(id))
 

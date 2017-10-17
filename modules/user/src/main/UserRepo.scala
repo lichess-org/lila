@@ -303,7 +303,7 @@ object UserRepo {
 
   import Authenticator._
   def getPasswordHash(id: User.ID): Fu[Option[String]] =
-    coll.byId[Authenticator.AuthData](id) map {
+    coll.byId[AuthData](id, authProjection) map {
       _.map { _.hashToken }
     }
 

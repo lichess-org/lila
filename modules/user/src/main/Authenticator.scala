@@ -37,13 +37,12 @@ final class Authenticator(
 
   // This creates a bcrypt hash using the existing sha as input,
   // allowing us to migrate all users in bulk.
-  def upgradePassword(a: AuthData) = (a.bpass, a.password) match {
-    case (None, Some(shaHash)) => Some(userRepo.coll.update(
+  def upgradePassword(a: AuthData): Funit = (a.bpass, a.password) match {
+    case (None, Some(shaHash)) => userRepo.coll.update(
       $id(a._id),
       $set(F.bpass -> passEnc(ClearPassword(shaHash)).bytes) ++ $unset(F.password)
-    ).void >>- lila.mon.user.auth.shaBcUpgrade())
-
-    case _ => None
+    ).void >>- lila.mon.user.auth.shaBcUpgrade()
+    case _ => funit
   }
 
   def loginCandidate(u: User): Fu[User.LoginCandidate] =
@@ -69,7 +68,7 @@ final class Authenticator(
   }
 
   private def loginCandidate(select: Bdoc): Fu[Option[User.LoginCandidate]] =
-    userRepo.coll.uno[AuthData](select)(AuthDataBSONHandler) zip userRepo.coll.uno[User](select) map {
+    userRepo.coll.uno[AuthData](select, authProjection)(AuthDataBSONHandler) zip userRepo.coll.uno[User](select) map {
       case (Some(authData), Some(user)) if user.enabled =>
         User.LoginCandidate(user, authWithBenefits(authData)).some
       case _ => none
@@ -88,6 +87,13 @@ object Authenticator {
 
     def hashToken: String = bpass.fold(~password) { _.bytes.sha512.hex }
   }
+
+  val authProjection = $doc(
+    "bpass" -> true,
+    "password" -> true,
+    "salt" -> true,
+    "sha512" -> true
+  )
 
   implicit val HashedPasswordBsonHandler = new BSONHandler[BSONBinary, HashedPassword] {
     def read(b: BSONBinary) = HashedPassword(b.byteArray)
