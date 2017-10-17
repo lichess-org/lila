@@ -38,10 +38,8 @@ final class Authenticator(
   // This creates a bcrypt hash using the existing sha as input,
   // allowing us to migrate all users in bulk.
   def upgradePassword(a: AuthData): Funit = (a.bpass, a.password) match {
-    case (None, Some(shaHash)) => userRepo.coll.update(
-      $id(a._id),
-      $set(F.bpass -> passEnc(ClearPassword(shaHash)).bytes) ++ $unset(F.password)
-    ).void >>- lila.mon.user.auth.shaBcUpgrade()
+    case (None, Some(shaHash)) => setPassword(a._id, ClearPassword(shaHash)).void >>-
+      lila.mon.user.auth.shaBcUpgrade()
     case _ => funit
   }
 
