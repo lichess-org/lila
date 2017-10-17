@@ -20,6 +20,7 @@
   <string name="theBishop">비숍</string>
   <string name="itMovesDiagonally">대각선으로 움직입니다.</string>
   <string name="bishopIntro">비숍을 어떻게 옮기는지 배워볼까요?</string>
+  <string name="youNeedBothBishops">밝은 칸 비숍 한 개, 어두운 칸 비숍 한 개 모두 필요합니다!</string>
   <string name="theQueen">퀸</string>
   <string name="queenCombinesRookAndBishop">퀸 = 룩 + 비숍</string>
   <string name="theKing">킹</string>
@@ -33,6 +34,7 @@
   <string name="yourPawnReachedTheEndOfTheBoard">당신의 폰이 보드 끝을 도달하였습니다!</string>
   <string name="fundamentals">기본</string>
   <string name="protection">보호</string>
+  <string name="combatComplete">축하합니다! 당신은 체스 기물을 이용해 싸울 수 있습니다!</string>
   <string name="defendYourKing">킹을 보호하라</string>
   <string name="intermediate">중급</string>
   <string name="boardSetup">보드 준비</string>

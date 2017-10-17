@@ -274,7 +274,7 @@
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
     <item quantity="one">≥ %1$s %2%s partidas puntuadas</item>
-    <item quantity="other">≥ %1$s %2%s partidas por puntos</item>
+    <item quantity="other">≥ %1$s %2$s partidas puntuadas</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Necesitas jugar %1$s partida %2$s puntuada</item>

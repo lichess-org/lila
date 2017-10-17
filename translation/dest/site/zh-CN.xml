@@ -91,7 +91,7 @@
   <string name="deleteThisImportedGame">删打开的盘？</string>
   <string name="replayMode">重放模式</string>
   <string name="realtimeReplay">实时重放</string>
-  <string name="byCPL">输了中兵</string>
+  <string name="byCPL">按错误严重度</string>
   <string name="openStudy">进入研讨室</string>
   <string name="enable">启用</string>
   <string name="bestMoveArrow">箭头指示最佳着</string>
@@ -101,9 +101,9 @@
   <string name="memory">内存使用</string>
   <string name="infiniteAnalysis">无限分析</string>
   <string name="removesTheDepthLimit">取消深度限制，使你的电脑发热。</string>
-  <string name="blunders">漏著</string>
-  <string name="mistakes">錯著</string>
-  <string name="inaccuracies">失誤</string>
+  <string name="blunders">严重错误</string>
+  <string name="mistakes">错误</string>
+  <string name="inaccuracies">轻微失误</string>
   <string name="moveTimes">走棋時間</string>
   <string name="flipBoard">翻转棋盘</string>
   <string name="threefoldRepetition">三次重复局面</string>
