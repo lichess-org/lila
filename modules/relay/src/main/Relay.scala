@@ -17,8 +17,7 @@ case class Relay(
     /* When it actually starts */
     startedAt: Option[DateTime],
     /* at least it *looks* finished... but maybe it's not
-     * sync.nextAt is used for actually synchronising
-     */
+     * sync.nextAt is used for actually synchronising */
     finished: Boolean,
     createdAt: DateTime
 ) {
@@ -93,12 +92,12 @@ object Relay {
   }
 
   object Sync {
-    sealed abstract class Upstream(val key: String, val url: String) {
+    sealed abstract class Upstream(val key: String, val url: String, val heavy: Boolean) {
       override def toString = s"$key $url"
     }
     object Upstream {
-      case class DgtOneFile(fileUrl: String) extends Upstream("dgt-one", fileUrl)
-      case class DgtManyFiles(dirUrl: String) extends Upstream("dgt-many", dirUrl)
+      case class DgtOneFile(fileUrl: String) extends Upstream("dgt-one", fileUrl, false)
+      case class DgtManyFiles(dirUrl: String) extends Upstream("dgt-many", dirUrl, true)
     }
   }
 
