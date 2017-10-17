@@ -41,7 +41,7 @@ function makeConfig(ctrl: AnalyseCtrl): CgConfig {
     fen: opts.fen,
     check: opts.check,
     lastMove: opts.lastMove,
-    orientation: d.orientation,
+    orientation: ctrl.bottomColor(),
     coordinates: pref.coords !== 0 && !ctrl.embed,
     addPieceZIndex: pref.is3d,
     viewOnly: !!ctrl.embed,
