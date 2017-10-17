@@ -16,7 +16,9 @@ export function renderPlayers(ctrl: AnalyseCtrl): VNode[] | undefined {
 }
 
 function renderPlayer(tags: TagArray[], clocks: [VNode, VNode] | undefined, color: Color, ticking: boolean): VNode {
-  return h(`div.relay_player.${color}${ticking ? '.ticking' : ''}`, [
+  return h(`div.relay_player.${color}`, {
+    class: { ticking }
+  }, [
     h('div.left', [
       h('span.color'),
       playerInfo(tags, color)
