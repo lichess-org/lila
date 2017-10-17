@@ -19,6 +19,7 @@ case class Relay(
     /* at least it *looks* finished... but maybe it's not
      * sync.nextAt is used for actually synchronising */
     finished: Boolean,
+    official: Boolean,
     createdAt: DateTime
 ) {
 

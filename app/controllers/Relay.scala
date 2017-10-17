@@ -45,7 +45,7 @@ object Relay extends LilaController {
       implicit val req = ctx.body
       env.forms.edit(relay).bindFromRequest.fold(
         err => BadRequest(html.relay.edit(relay, err)).fuccess,
-        data => env.api.update(relay)(data.update) map { r => Redirect(showRoute(r)) }
+        data => env.api.update(relay) { data.update(_, me) } map { r => Redirect(showRoute(r)) }
       )
     }
   }

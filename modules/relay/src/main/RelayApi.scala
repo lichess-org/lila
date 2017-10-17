@@ -32,8 +32,8 @@ final class RelayApi(
   }
 
   def all(me: Option[User]): Fu[Relay.Selection] =
-    created.flatMap(withStudyAndLiked(me)) zip
-      started.flatMap(withStudyAndLiked(me)) zip
+    scheduled.flatMap(withStudyAndLiked(me)) zip
+      ongoing.flatMap(withStudyAndLiked(me)) zip
       finished.flatMap(withStudyAndLiked(me)) map {
         case c ~ s ~ t => Relay.Selection(c, s, t)
       }
@@ -46,20 +46,32 @@ final class RelayApi(
   def setLikes(id: Relay.Id, likes: lila.study.Study.Likes): Funit =
     coll.updateField($id(id), "likes", likes).void
 
-  def created = coll.find($doc(
-    "startsAt" $gt DateTime.now.minusHours(1),
-    "startedAt" $exists false
+  def scheduled = coll.find($doc(
+    selectors.scheduled ++ $doc("official" -> true)
   )).sort($sort asc "startsAt").list[Relay]()
 
-  def started = coll.find($doc(
-    "startedAt" $exists true,
-    "finished" -> false
+  def ongoing = coll.find($doc(
+    selectors.ongoing ++ $doc("official" -> true)
   )).sort($sort asc "startedAt").list[Relay]()
 
   def finished = coll.find($doc(
-    "startedAt" $exists true,
-    "finished" -> true
+    selectors.finished ++ $doc("official" -> true)
   )).sort($sort desc "startedAt").list[Relay]()
+
+  object selectors {
+    def scheduled = $doc(
+      "startsAt" $gt DateTime.now.minusHours(1),
+      "startedAt" $exists false
+    )
+    def ongoing = $doc(
+      "startedAt" $exists true,
+      "finished" -> false
+    )
+    def finished = $doc(
+      "startedAt" $exists true,
+      "finished" -> true
+    )
+  }
 
   def create(data: RelayForm.Data, user: User): Fu[Relay] = {
     val relay = data make user
