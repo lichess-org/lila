@@ -127,7 +127,7 @@ export default class AnalyseCtrl {
       const mainline = treeOps.mainlineNodeList(this.tree.root);
       if (plyStr === 'last') this.initialPath = treePath.fromNodeList(mainline);
       else {
-        var ply = parseInt(plyStr as string);
+        const ply = parseInt(plyStr as string);
         if (ply) this.initialPath = treeOps.takePathWhile(mainline, n => n.ply <= ply);
       }
     }
