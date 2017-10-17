@@ -1,9 +1,6 @@
 .relay_players  {
   margin-bottom: 32px;
 }
-.relay_players .lichess_board_wrap {
-  margin-top: -26px;
-}
 .relay_player {
   background: #b0b0b0;
   color: #444;
@@ -13,13 +10,21 @@
   justify-content: space-between;
   align-items: center;
   padding-left: 10px;
-  border-radius: 3px 3px 0 0;
   font-size: 16px;
   font-weight: bold;
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+.lichess_board_wrap.white .relay_player.black,
+.lichess_board_wrap.black .relay_player.white {
+  border-radius: 4px 4px 0 0;
+  top: -26px;
 }
 .lichess_board_wrap.white .relay_player.white,
 .lichess_board_wrap.black .relay_player.black {
-  border-radius: 0 0 3px 3px;
+  border-radius: 0 0 4px 4px;
+  bottom: -26px;
 }
 .relay_player .elo {
   margin-left: 0.5em;
@@ -31,11 +36,11 @@
   height: 26px;
   line-height: 26px;
   padding: 0 10px;
-  border-radius: 0 3px 0 0;
+  border-radius: 0 4px 0 0;
 }
 .lichess_board_wrap.white .relay_player.white .aclock,
 .lichess_board_wrap.black .relay_player.black .aclock {
-  border-radius: 0 0 3px 0;
+  border-radius: 0 0 4px 0;
 }
 .relay_player.ticking .aclock {
   background: #759900;
