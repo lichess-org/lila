@@ -16,7 +16,7 @@ export default function(ctrl: AnalyseCtrl, color: Color, position: Position) {
   if (captured) captured.role = captured.promoted ? 'pawn' : captured.role;
   const activeColor = color === ctrl.turnColor();
   const usable = !ctrl.embed && activeColor;
-  return h(`div.pocket.is2d.${position}.bot-${ctrl.bottomColor()}`, {
+  return h(`div.pocket.is2d.${position}.pos-${ctrl.bottomColor()}`, {
     class: { usable },
     hook: {
       insert: vnode => {
