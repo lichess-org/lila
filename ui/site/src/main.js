@@ -742,23 +742,24 @@ lichess.topMenuIntent = function() {
     };
     return {
       _create: function() {
-        var self = this;
+        var self = this,
+          el = self.element;
         var hideStorage = lichess.storage.make('friends-hide');
-        self.$list = self.element.find("div.list");
-        var $title = self.element.find('.title').click(function() {
+        self.$list = el.find("div.list");
+        var $title = el.find('.title').click(function() {
           var show = hideStorage.get() == 1;
-          self.element.find('.content_wrap').toggleNone(show);
+          el.find('.content_wrap').toggleNone(show);
           if (show) hideStorage.remove();
           else hideStorage.set(1);
         });
-        if (hideStorage.get() == 1) self.element.find('.content_wrap').addClass('none');
+        if (hideStorage.get() == 1) el.find('.content_wrap').addClass('none');
         self.$nbOnline = $title.find('.online');
-        self.$nobody = self.element.find(".nobody");
+        self.$nobody = el.find(".nobody");
 
-        var users = self.element.data('preload').split(',');
-        var playings = self.element.data('playing').split(',');
-        var studyings = self.element.data('studying').split(',');
-        var patrons = self.element.data('patrons').split(',');
+        var users = el.data('preload').split(','),
+          playings = el.data('playing').split(','),
+          studyings = el.data('studying').split(','),
+          patrons = el.data('patrons').split(',');
         self.set(users, playings, studyings, patrons);
       },
       _findByUsername: function(n) {
