@@ -176,7 +176,9 @@ lazy val mod = module("mod", Seq(common, db, user, hub, security, tournament, si
 )
 
 lazy val user = module("user", Seq(common, memo, db, hub, rating)).settings(
-  libraryDependencies ++= provided(play.api, play.test, reactivemongo.driver, hasher)
+  libraryDependencies ++= provided(play.api, play.test, reactivemongo.driver, hasher,
+    reactivemongo.iteratees // only for bcrypt migration
+    )
 )
 
 lazy val game = module("game", Seq(common, memo, db, hub, user, chat)).settings(

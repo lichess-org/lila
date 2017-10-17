@@ -53,6 +53,8 @@ final class Env(
     def process = {
       case "user" :: "email" :: userId :: email :: Nil =>
         UserRepo.email(User normalize userId, EmailAddress(email)) inject "done"
+      case "user" :: "bcrypt" :: "migrate" :: Nil =>
+        BcryptMigration(authenticator, userColl) inject "Migration complete."
     }
   }
 
