@@ -89,10 +89,10 @@ object Authenticator {
   }
 
   val authProjection = $doc(
-    "bpass" -> true,
-    "password" -> true,
-    "salt" -> true,
-    "sha512" -> true
+    F.bpass -> true,
+    F.password -> true,
+    F.salt -> true,
+    F.sha512 -> true
   )
 
   implicit val HashedPasswordBsonHandler = new BSONHandler[BSONBinary, HashedPassword] {
