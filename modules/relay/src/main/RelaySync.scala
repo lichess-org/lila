@@ -157,11 +157,18 @@ private final class RelaySync(
   private val socketUid = Uid("")
 }
 
-sealed abstract class SyncResult(val reportKey: String)
+sealed trait SyncResult {
+  val reportKey: String
+}
 object SyncResult {
-  case class Ok(moves: Int, games: RelayGames) extends SyncResult("ok")
-  case object Timeout extends Exception with SyncResult("timeout") {
+  case class Ok(moves: Int, games: RelayGames) extends SyncResult {
+    val reportKey = "ok"
+  }
+  case object Timeout extends Exception with SyncResult {
+    val reportKey = "timeout"
     override def getMessage = "In progress..."
   }
-  case class Error(msg: String) extends SyncResult("error")
+  case class Error(msg: String) extends SyncResult {
+    val reportKey = "error"
+  }
 }
