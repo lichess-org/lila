@@ -13,7 +13,7 @@ object RelayForm {
   import lila.common.Form.UTCDate._
 
   val syncTypes = List(
-    "dgt-one" -> "DGT (old): all games in a single file",
+    "dgt-one" -> "DGT (traditional): all games in a single file",
     "dgt-many" -> "DGT (new): one file per game"
   )
 
