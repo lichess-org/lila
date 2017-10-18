@@ -48,7 +48,7 @@ final class ReportApi(
             autoAnalysis(report) >>-
             bus.publish(lila.hub.actorApi.report.Created(reported.user.id, report.reason.key, by.user.id), 'report)
 
-          if (by.user.id == UserRepo.lichessId) coll.update(
+          if (List("irwin", UserRepo.lichessId) contains by.user.id) coll.update(
             selectRecent(reported, report.reason),
             $doc("$set" -> ReportBSONHandler.write(report).remove("processedBy", "_id"))
           ) flatMap { res => (res.n == 0) ?? insert }
