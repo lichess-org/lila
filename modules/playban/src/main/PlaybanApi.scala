@@ -55,8 +55,7 @@ final class PlaybanApi(
   def flag(game: Game, flaggerColor: Color): Funit = {
 
     def unreasonableTime = game.clock map { c =>
-      (c.estimateTotalSeconds / 20) atLeast 5 atMost (3 * 60)
-      // (c.estimateTotalSeconds / 8) atLeast 15 atMost (3 * 60)
+      (c.estimateTotalSeconds / 8) atLeast 15 atMost (3 * 60)
     }
 
     // flagged after waiting a long time
