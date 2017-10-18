@@ -74,7 +74,7 @@ export function main(ctrl: RoundController): VNode {
     score = util.getScore(pieces) * (bottomColor === 'white' ? 1 : -1);
   } else material = emptyMaterialDiff;
   return h('div.round.cg-512', [
-    h('div.lichess_game.variant_' + d.game.variant.key, {
+    h('div.lichess_game.gotomove.variant_' + d.game.variant.key, {
       hook: {
         insert: () => window.lichess.pubsub.emit('content_loaded')()
       }

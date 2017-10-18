@@ -77,27 +77,37 @@ final class PlaybanApi(
       if lastMovetime.toSeconds >= limit
     } yield save(Outcome.SitMoving)(userId)
 
-    sandbag(game, flaggerColor) >> IfBlameable(game) {
-      goodFinish(game, !flaggerColor) >> { // winner gets a good game result
-        sitting orElse
-          sitMoving getOrElse
-          goodFinish(game, flaggerColor)
+    sandbag(game, flaggerColor) flatMap { isSandbag =>
+      IfBlameable(game) {
+        goodOrSandbag(game, !flaggerColor, false) >> { // winner gets a good game result
+          sitting orElse
+            sitMoving getOrElse
+            goodOrSandbag(game, flaggerColor, isSandbag)
+        }
       }
     }
   }
 
   def other(game: Game, status: Status.type => Status, winner: Option[Color]): Funit =
-    winner.?? { w => sandbag(game, !w) } >> IfBlameable(game) {
-      ((for {
-        w <- winner
-        loserId <- game.player(!w).userId
-        if Status.NoStart is status
-      } yield List(save(Outcome.NoPlay)(loserId), goodFinish(game, w))) |
-        game.userIds.map(save(Outcome.Good))).sequenceFu.void
+    winner.?? { w => sandbag(game, !w) } flatMap { isSandbag =>
+      IfBlameable(game) {
+        ((for {
+          w <- winner
+          loserId <- game.player(!w).userId
+          if Status.NoStart is status
+        } yield List(
+          save(Outcome.NoPlay)(loserId),
+          goodOrSandbag(game, w, false)
+        )) | Color.all.map { c =>
+          goodOrSandbag(game, c, winner.exists(c!=))
+        }).sequenceFu.void
+      }
     }
 
-  private def goodFinish(game: Game, color: Color): Funit =
-    ~(game.player(color).userId.map(save(Outcome.Good)))
+  private def goodOrSandbag(game: Game, color: Color, isSandbag: Boolean): Funit =
+    game.player(color).userId ?? {
+      save(if (isSandbag) Outcome.Sandbag else Outcome.Good)
+    }
 
   def currentBan(userId: String): Fu[Option[TempBan]] = coll.find(
     $doc("_id" -> userId, "b.0" $exists true),
