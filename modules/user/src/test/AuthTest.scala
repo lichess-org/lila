@@ -72,7 +72,8 @@ class AuthTest extends Specification {
   "migrated user" in {
     val shaToBcrypt = shaUser.copy(
       // generated purely from stored data
-      bpass = shaUser.password map { p => auth.passEnc(P(p)) }
+      bpass = shaUser.password map { p => auth.passEnc(P(p)) },
+      password = None
     )
 
     val shaToBcryptNoPass = shaToBcrypt.copy(password = None)
