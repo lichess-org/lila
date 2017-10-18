@@ -79,11 +79,9 @@ final class PlaybanApi(
 
     sandbag(game, flaggerColor) flatMap { isSandbag =>
       IfBlameable(game) {
-        goodOrSandbag(game, !flaggerColor, false) >> { // winner gets a good game result
-          sitting orElse
-            sitMoving getOrElse
-            goodOrSandbag(game, flaggerColor, isSandbag)
-        }
+        sitting orElse
+          sitMoving getOrElse
+          goodOrSandbag(game, flaggerColor, isSandbag)
       }
     }
   }
@@ -91,16 +89,13 @@ final class PlaybanApi(
   def other(game: Game, status: Status.type => Status, winner: Option[Color]): Funit =
     winner.?? { w => sandbag(game, !w) } flatMap { isSandbag =>
       IfBlameable(game) {
-        ((for {
+        ~(for {
           w <- winner
           loserId <- game.player(!w).userId
-          if Status.NoStart is status
-        } yield List(
-          save(Outcome.NoPlay)(loserId),
-          goodOrSandbag(game, w, false)
-        )) | Color.all.map { c =>
-          goodOrSandbag(game, c, winner.exists(c!=))
-        }).sequenceFu.void
+        } yield {
+          if (Status.NoStart is status) save(Outcome.NoPlay)(loserId)
+          else goodOrSandbag(game, !w, isSandbag)
+        })
       }
     }
 
