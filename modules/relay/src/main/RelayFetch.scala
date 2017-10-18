@@ -69,7 +69,7 @@ private final class RelayFetch(
       }
 
   def afterSync(result: SyncResult, relay: Relay): Fu[Relay] = {
-    lila.mon.relay.sync.result(result.toString.toLowerCase)()
+    lila.mon.relay.sync.result(result.reportKey)()
     result match {
       case SyncResult.Ok(0, games) =>
         if (games.size > 1 && games.forall(_.finished)) fuccess(relay.finish)
