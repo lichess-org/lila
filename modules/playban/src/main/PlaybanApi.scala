@@ -52,19 +52,40 @@ final class PlaybanApi(
       game.player(quitterColor).userId ?? save(Outcome.RageQuit)
     }
 
-  def sittingOrGood(game: Game, sitterColor: Color): Funit =
-    sandbag(game, sitterColor) >> IfBlameable(game) {
-      List(
-        goodFinish(game, !sitterColor),
-        (for {
-          userId <- game.player(sitterColor).userId
-          seconds = nowSeconds - game.movedAt.getSeconds
-          clock <- game.clock
-          limit = (clock.estimateTotalSeconds / 8) atLeast 15 atMost (2 * 60)
-          if seconds >= limit
-        } yield save(Outcome.Sitting)(userId)) | goodFinish(game, sitterColor)
-      ).sequenceFu.void
+  def flag(game: Game, flaggerColor: Color): Funit = {
+
+    def unreasonableTime = game.clock map { c =>
+      (c.estimateTotalSeconds / 20) atLeast 5 atMost (3 * 60)
+      // (c.estimateTotalSeconds / 8) atLeast 15 atMost (3 * 60)
     }
+
+    // flagged after waiting a long time
+    def sitting = for {
+      userId <- game.player(flaggerColor).userId
+      seconds = nowSeconds - game.movedAt.getSeconds
+      limit <- unreasonableTime
+      if seconds >= limit
+    } yield save(Outcome.Sitting)(userId)
+
+    // flagged after waiting a short time;
+    // but the previous move used a long time.
+    // assumes game was already checked for sitting
+    def sitMoving = for {
+      userId <- game.player(flaggerColor).userId
+      movetimes <- game moveTimes flaggerColor
+      lastMovetime <- movetimes.lastOption
+      limit <- unreasonableTime
+      if lastMovetime.toSeconds >= limit
+    } yield save(Outcome.SitMoving)(userId)
+
+    sandbag(game, flaggerColor) >> IfBlameable(game) {
+      goodFinish(game, !flaggerColor) >> { // winner gets a good game result
+        sitting orElse
+          sitMoving getOrElse
+          goodFinish(game, flaggerColor)
+      }
+    }
+  }
 
   def other(game: Game, status: Status.type => Status, winner: Option[Color]): Funit =
     winner.?? { w => sandbag(game, !w) } >> IfBlameable(game) {

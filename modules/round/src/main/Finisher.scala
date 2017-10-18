@@ -42,7 +42,7 @@ private[round] final class Finisher(
         game.toChess.board.variant.insufficientWinningMaterial(game.toChess.situation.board, color)
       }
       apply(game, _.Outoftime, winner) >>-
-        winner.?? { color => playban.sittingOrGood(game, !color) }
+        winner.?? { w => playban.flag(game, !w) }
     }
   }
 
