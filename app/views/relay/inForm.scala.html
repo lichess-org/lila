@@ -11,10 +11,9 @@
 
 @if(isGranted(_.ModNote)) {
 @base.form.group(form("official"), Html("Official lichess broadcast")) {
-@base.form.input(form("official"), typ = "checkbox", required = true)
-<input type="checkbox" name="@form("official")" checked="@form("official").value" value="true" />
+<input type="checkbox" name="@form("official").name" @if(form("official").value){checked} value="true" />
 }
-} else { <input type="hidden" name="@form("official")" value="false" /> }
+} else { <input type="hidden" name="@form("official").name" value="false" /> }
 @base.form.group(form("syncUrl"), Html("Source URL")) {
 @base.form.input(form("syncUrl"), typ = "url", required = true)
 }
