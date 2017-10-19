@@ -7,15 +7,35 @@
   <string name="progressX">Progresas: %s</string>
   <string name="resetMyProgress">Atkurti mano progresą</string>
   <string name="youWillLoseAllYourProgress">Jūs neteksite viso progreso!</string>
+  <string name="play">Žaisk!</string>
+  <string name="chessPieces">Šachmatų figūros</string>
   <string name="theRook">Bokštas</string>
+  <string name="itMovesInStraightLines">Juda statmenai ir gulsčiai</string>
+  <string name="rookIntro">Bokštas yra galinga figūra. Ar pasirengę ją įvaldyti?</string>
+  <string name="rookGoal">Spustelk bokštą, kad perkeltum jį iki žvaigždės!</string>
+  <string name="grabAllTheStars">Griebk visas žvaigždes!</string>
+  <string name="theFewerMoves">Kuo mažiau ėjimų atliksi, tuo daugiau laimėsi taškų!</string>
+  <string name="useTwoRooks">Naudok abu bokštus, kad pagreitintum procesą!</string>
+  <string name="rookComplete">Sveikiname! Sėkmingai įvaldei bokštą.</string>
   <string name="theBishop">Rikis</string>
+  <string name="itMovesDiagonally">Jis juda įstrižai</string>
+  <string name="bishopIntro">Toliau mes išmoksime manevruoti rikiu!</string>
+  <string name="youNeedBothBishops">Vienas baltalaukis rikis,
+vienas juodalaukis rikis.
+Tau reikės abiejų!</string>
+  <string name="bishopComplete">Sveikiname! Įvaldei riki.</string>
   <string name="theQueen">Karalienė</string>
+  <string name="queenCombinesRookAndBishop">Valdovė = bokštas + rikis</string>
+  <string name="queenIntro">Tepasirodo stipriausioji šachmatų figūra, jos didenybė valdove!</string>
+  <string name="queenComplete">Sveikiname! Valdovės tau nekelia jokių problemų.</string>
   <string name="theKing">Karalius</string>
   <string name="theMostImportantPiece">Pati svarbiausia figūra</string>
   <string name="kingIntro">Jūs esate karalius. Jeigu krisite kovoje, partija bus pralošta.</string>
   <string name="theKingIsSlow">Karalius yra lėtas.</string>
   <string name="lastOne">Paskutinis!</string>
+  <string name="kingComplete">Dabar gebi vadovauti vadui!</string>
   <string name="theKnight">Žirgas</string>
+  <string name="itMovesInAnLShape">Jis juda L raidės forma</string>
   <string name="thePawn">Pėstininkas</string>
   <string name="itMovesForwardOnly">Eina tik į priekį</string>
   <string name="pawnIntro">Pėstininkai yra silpni, tačiau turi daug potencialo.</string>
