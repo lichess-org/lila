@@ -115,12 +115,11 @@ export function view(ctrl: StudyFormCtrl): VNode {
           ctrl.save(obj, isNew);
         }, ctrl.redraw)
       }, [
-        h('div.form-group', [
+        h('div.form-group' + (ctrl.relay ? '.none' : ''), [
           h('input#study-name', {
             attrs: {
               minlength: 3,
-              maxlength: 100,
-              type: ctrl.relay ? 'hidden' : 'text'
+              maxlength: 100
             },
             hook: {
               insert: vnode => updateName(vnode, false),
