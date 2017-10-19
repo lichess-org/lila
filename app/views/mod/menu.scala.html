@@ -33,6 +33,9 @@
 @if(isGranted(_.SeeReport)) {
 <a class="@active.active("irwin")" href="@routes.Irwin.dashboard">Irwin dashboard</a>
 }
+@if(isGranted(_.AssetVersion)) {
+<a class="@active.active("asset")" href="@routes.Dev.assetVersion">Asset version</a>
+}
 @if(isGranted(_.StaffForum)) {
 <a class="@active.active("forum")" href="@routes.ForumCateg.show(lila.forum.Categ.staffId)">Staff Forum</a>
 }

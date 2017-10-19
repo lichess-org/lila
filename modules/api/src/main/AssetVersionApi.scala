@@ -1,33 +1,28 @@
 package lila.api
 
-import reactivemongo.bson._
-import scala.concurrent.duration._
-
 import lila.common.AssetVersion
 import lila.db.dsl._
-import lila.memo.Syncache
+
+import reactivemongo.bson._
 
 final class AssetVersionApi(
-    initialVersion: AssetVersion,
+    val fromConfig: AssetVersion,
     coll: Coll
 )(implicit system: akka.actor.ActorSystem) {
 
-  def get: AssetVersion = cache sync true
+  private var current: AssetVersion = fromConfig
 
-  private var lastVersion = initialVersion
+  def get: AssetVersion = current
 
-  private val cache = new Syncache[Boolean, AssetVersion](
-    name = "asset.version",
-    compute = _ => coll.primitiveOne[BSONNumberLike]($id("asset"), "version").map {
-      _.fold(lastVersion) { v =>
-        AssetVersion(v.toInt max initialVersion.value)
-      }
-    } addEffect { version =>
-      lastVersion = version
-    },
-    default = _ => lastVersion,
-    strategy = Syncache.NeverWait,
-    expireAfter = Syncache.ExpireAfterWrite(5 seconds),
-    logger = lila.log("assetVersion")
-  )(system)
+  def set(v: AssetVersion): Funit = {
+    current = v
+    coll.updateField(dbId, dbField, v.value).void
+  }
+
+  private val dbId = $id("asset")
+  private val dbField = "version"
+
+  coll.primitiveOne[BSONNumberLike](dbId, dbField) map2 { (v: BSONNumberLike) =>
+    current = AssetVersion(v.toInt atLeast fromConfig.value)
+  }
 }
