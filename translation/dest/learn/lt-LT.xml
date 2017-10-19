@@ -6,6 +6,7 @@
   <string name="menu">Meniu</string>
   <string name="progressX">Progresas: %s</string>
   <string name="resetMyProgress">Atkurti mano progresą</string>
+  <string name="youWillLoseAllYourProgress">Jūs neteksite viso progreso!</string>
   <string name="theRook">Bokštas</string>
   <string name="theBishop">Rikis</string>
   <string name="theQueen">Karalienė</string>
