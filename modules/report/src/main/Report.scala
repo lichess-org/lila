@@ -26,6 +26,7 @@ case class Report(
   def isOther = reason == Reason.Other
   def isTroll = reason == Reason.Troll
   def isInsult = reason == Reason.Insult
+  def isPrint = reason == Reason.CheatPrint
   def isTrollOrInsult = reason == Reason.Troll || reason == Reason.Insult
 
   def unprocessedCheat = unprocessed && isCheat

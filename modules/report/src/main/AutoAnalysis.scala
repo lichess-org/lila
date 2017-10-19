@@ -1,12 +1,25 @@
 package lila.report
 
 import org.joda.time.DateTime
+import scala.concurrent.duration._
 
 import lila.game.{ Game, GameRepo }
 
-final class AutoAnalysis(fishnet: akka.actor.ActorSelection) {
+final class AutoAnalysis(
+    fishnet: akka.actor.ActorSelection,
+    system: akka.actor.ActorSystem
+) {
 
-  def apply(r: Report): Funit = r.isCheat ?? {
+  def apply(r: Report): Funit =
+    if (r.isCheat) doItNow(r)
+    else if (r.isPrint) fuccess {
+      List(30, 90) foreach { minutes =>
+        system.scheduler.scheduleOnce(minutes minutes) { doItNow(r) }
+      }
+    }
+    else funit
+
+  private def doItNow(r: Report) =
     gamesToAnalyse(r) map { games =>
       if (games.nonEmpty)
         logger.info(s"Auto-analyse ${games.size} games after report ${r.createdBy} -> ${r.user}")
@@ -15,7 +28,6 @@ final class AutoAnalysis(fishnet: akka.actor.ActorSelection) {
         fishnet ! lila.hub.actorApi.fishnet.AutoAnalyse(game.id)
       }
     }
-  }
 
   private def gamesToAnalyse(r: Report): Fu[List[Game]] = {
     GameRepo.recentAnalysableGamesByUserId(r.user, 10) |+|
