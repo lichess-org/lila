@@ -25,7 +25,7 @@ object Translator {
           }
         } catch {
           case e: Exception =>
-            logger.warn(s"Failed to format html $key -> $translation (${args.toList})", e)
+            logger.warn(s"Failed to format html $db/$lang/$key -> $translation (${args.toList})", e)
             Some(Html(key))
         }
       } getOrElse {
