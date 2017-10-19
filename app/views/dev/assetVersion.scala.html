@@ -23,7 +23,7 @@
   <br /><br />
   <p>
     Increment to force all clients to load a new version of static assets.<br />
-    Decrement to serve an previous revision of static assets.
+    Decrement to serve a previous revision of static assets.
   </p>
   <br /><br />
   <p>
@@ -32,11 +32,11 @@
   <p>
     DB version: <strong>@dbVersion</strong>
   </p>
-  <form action="@routes.Dev.assetVersion" method="GET">
+  <form action="@routes.Dev.assetVersion" method="POST">
     <input name="version" value="@dbVersion" />
     <button type="submit" class="submit button text" data-icon="E">@trans.apply()</button>
   </form>
-  <form action="@routes.Dev.assetVersion" method="GET">
+  <form action="@routes.Dev.assetVersion" method="POST">
     <input name="version" value="@{dbVersion.value + 1}" type="hidden" />
     <button type="submit" class="submit button text" data-icon="O">Just increment</button>
   </form>
