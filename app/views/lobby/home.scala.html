@@ -136,7 +136,7 @@ asyncJs = true) {
             <tr>
               <td>@lightUserLink(l.user)</td>
               @lila.rating.PerfType(l.perfKey).map { pt =>
-              <td data-icon="@pt.iconChar">@l.rating</td>
+              <td data-icon="@pt.iconChar" class="text">@l.rating</td>
               }
               <td>@showProgress(l.progress, withTitle = false)</td>
             </tr>
