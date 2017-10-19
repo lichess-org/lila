@@ -10,8 +10,6 @@ final class ChapterRepo(coll: Coll) {
 
   import BSONHandlers._
 
-  val maxChapters = 64
-
   val noRootProjection = $doc("root" -> false)
 
   def byId(id: Chapter.Id): Fu[Option[Chapter]] = coll.byId[Chapter, Chapter.Id](id)
@@ -34,14 +32,14 @@ final class ChapterRepo(coll: Coll) {
     coll.find(
       $studyId(studyId),
       noRootProjection
-    ).sort($sort asc "order").list[Chapter.Metadata](maxChapters)
+    ).sort($sort asc "order").list[Chapter.Metadata]()
 
   // loads all study chapters in memory! only used for search indexing and cloning
   def orderedByStudy(studyId: Study.Id): Fu[List[Chapter]] =
     coll.find($studyId(studyId))
       .sort($sort asc "order")
       .cursor[Chapter](readPreference = ReadPreference.secondaryPreferred)
-      .gather[List](maxChapters)
+      .gather[List]()
 
   def relaysAndTagsByStudyId(studyId: Study.Id): Fu[List[Chapter.RelayAndTags]] =
     coll.find($doc("studyId" -> studyId), $doc("relay" -> true, "tags" -> true)).list[Bdoc]() map { docs =>

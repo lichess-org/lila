@@ -451,14 +451,17 @@ final class StudyApi(
 
   def addChapter(byUserId: User.ID, studyId: Study.Id, data: ChapterMaker.Data, sticky: Boolean, socket: ActorRef, uid: Uid) = sequenceStudy(studyId) { study =>
     Contribute(byUserId, study) {
-      chapterRepo.nextOrderByStudy(study.id) flatMap { order =>
-        chapterMaker(study, data, order, byUserId) flatMap {
-          _ ?? { chapter =>
-            data.initial ?? {
-              chapterRepo.firstByStudy(study.id) flatMap {
-                _.filter(_.isEmptyInitial) ?? chapterRepo.delete
-              }
-            } >> doAddChapter(study, chapter, sticky, uid)
+      chapterRepo.countByStudyId(study.id) flatMap { count =>
+        if (count >= Study.maxChapters) funit
+        else chapterRepo.nextOrderByStudy(study.id) flatMap { order =>
+          chapterMaker(study, data, order, byUserId) flatMap {
+            _ ?? { chapter =>
+              data.initial ?? {
+                chapterRepo.firstByStudy(study.id) flatMap {
+                  _.filter(_.isEmptyInitial) ?? chapterRepo.delete
+                }
+              } >> doAddChapter(study, chapter, sticky, uid)
+            }
           }
         }
       }
