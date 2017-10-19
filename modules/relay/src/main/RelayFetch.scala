@@ -52,7 +52,7 @@ private final class RelayFetch(
   // no writing the relay; only reading!
   def processRelay(relay: Relay): Fu[Relay] =
     if (!relay.sync.playing) fuccess(relay.withSync(_.play))
-    else RelayFetch(relay.sync.upstream, relay.id)
+    else RelayFetch(relay)
       .chronometer.mon(_.relay.fetch.duration.each).result flatMap { games =>
         sync(relay, games)
           .chronometer.mon(_.relay.sync.duration.each).result
@@ -102,30 +102,33 @@ private object RelayFetch {
   import Relay.Sync.Upstream
   case class GamesSeenBy(games: Fu[RelayGames], seenBy: Set[Relay.Id])
 
-  def apply(upstream: Upstream, relayId: Relay.Id): Fu[RelayGames] =
-    cache getIfPresent upstream match {
-      case Some(GamesSeenBy(games, seenBy)) if !seenBy(relayId) =>
-        cache.put(upstream, GamesSeenBy(games, seenBy + relayId))
+  def apply(relay: Relay): Fu[RelayGames] =
+    cache getIfPresent relay.sync.upstream match {
+      case Some(GamesSeenBy(games, seenBy)) if !seenBy(relay.id) =>
+        cache.put(relay.sync.upstream, GamesSeenBy(games, seenBy + relay.id))
         games
       case x =>
-        val games = doFetch(upstream)
-        cache.put(upstream, GamesSeenBy(games, Set(relayId)))
+        val games = doFetch(relay.sync.upstream, maxChapters(relay))
+        cache.put(relay.sync.upstream, GamesSeenBy(games, Set(relay.id)))
         games
     }
+
+  def maxChapters(relay: Relay) =
+    lila.study.Study.maxChapters * relay.official.fold(2, 1)
 
   import com.github.blemale.scaffeine.{ Cache, Scaffeine }
   private val cache: Cache[Upstream, GamesSeenBy] = Scaffeine()
     .expireAfterWrite(30.seconds)
     .build[Upstream, GamesSeenBy]
 
-  private def doFetch(upstream: Upstream): Fu[RelayGames] = (upstream match {
-    case Upstream.DgtOneFile(file) => dgtOneFile(file)
-    case Upstream.DgtManyFiles(dir) => dgtManyFiles(dir)
+  private def doFetch(upstream: Upstream, max: Int): Fu[RelayGames] = (upstream match {
+    case Upstream.DgtOneFile(file) => dgtOneFile(file, max)
+    case Upstream.DgtManyFiles(dir) => dgtManyFiles(dir, max)
   }) flatMap multiPgnToGames.apply
 
-  private def dgtOneFile(file: String): Fu[MultiPgn] =
+  private def dgtOneFile(file: String, max: Int): Fu[MultiPgn] =
     httpGet(file).flatMap {
-      case res if res.status == 200 => fuccess(splitPgn(res.body))
+      case res if res.status == 200 => fuccess(splitPgn(res.body, max))
       case res => fufail(s"Cannot fetch $file (error ${res.status})")
     }
 
@@ -136,12 +139,12 @@ private object RelayFetch {
   private implicit val roundPairingReads = Json.reads[RoundJsonPairing]
   private implicit val roundReads = Json.reads[RoundJson]
 
-  private def dgtManyFiles(dir: String): Fu[MultiPgn] = {
+  private def dgtManyFiles(dir: String, max: Int): Fu[MultiPgn] = {
     val roundUrl = s"$dir/round.json"
     httpGet(roundUrl) flatMap {
       case res if res.status == 200 => roundReads reads res.json match {
         case JsError(err) => fufail(err.toString)
-        case JsSuccess(round, _) => (1 to round.pairings.size).map { number =>
+        case JsSuccess(round, _) => (1 to round.pairings.size.atMost(max)).map { number =>
           val gameUrl = s"$dir/game-$number.pgn"
           httpGet(gameUrl).flatMap {
             case res if res.status == 200 => fuccess(number -> res.body)
@@ -157,8 +160,8 @@ private object RelayFetch {
 
   private def httpGet(url: String) = WS.url(url).withRequestTimeout(4.seconds.toMillis).get()
 
-  private def splitPgn(str: String) = MultiPgn {
-    """\n\n\[""".r.split(str.replace("\r\n", "\n")).toList match {
+  private def splitPgn(str: String, max: Int) = MultiPgn {
+    """\n\n\[""".r.split(str.replace("\r\n", "\n")).toList take max match {
       case first :: rest => first :: rest.map(t => s"[$t")
       case Nil => Nil
     }
