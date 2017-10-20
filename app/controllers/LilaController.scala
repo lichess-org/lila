@@ -146,7 +146,7 @@ private[controllers] trait LilaController
           html = Lobby.renderHome(Results.Forbidden),
           api = _ => fuccess {
             Forbidden(jsonError(
-              s"Banned from playing for ${ban.remainingMinutes} minutes. Reason: Too many aborts or unplayed games"
+              s"Banned from playing for ${ban.remainingMinutes} minutes. Reason: Too many aborts, unplayed games, or rage quits."
             )) as JSON
           }
         )

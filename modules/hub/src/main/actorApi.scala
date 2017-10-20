@@ -61,6 +61,10 @@ package mod {
   case class KickFromRankings(userId: String)
 }
 
+package playban {
+  case class Playban(userId: String, mins: Int)
+}
+
 package captcha {
   case object AnyCaptcha
   case class GetCaptcha(id: String)

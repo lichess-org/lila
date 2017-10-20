@@ -12,7 +12,7 @@ case class UserRecord(
   def outcomes: List[Outcome] = ~o
   def bans: List[TempBan] = ~b
 
-  def banInEffect = bans.lastOption.??(_.inEffect)
+  def banInEffect = bans.lastOption.exists(_.inEffect)
 
   lazy val nbOutcomes = outcomes.size
 
@@ -24,10 +24,9 @@ case class UserRecord(
 
   def nbBadOutcomesBeforeBan = if (bans.isEmpty) 3 else 2
 
-  def newBan: Option[TempBan] = {
-    !banInEffect &&
-      nbBadOutcomes >= nbBadOutcomesBeforeBan &&
-      badOutcomeRatio >= 1d / 3
+  def bannable: Option[TempBan] = {
+    nbBadOutcomes.pp("nbOutcomes") >= nbBadOutcomesBeforeBan &&
+      badOutcomeRatio.pp("badOutcomeRatio") >= 1d / 3
   } option bans.lastOption.fold(TempBan.initial) { prev =>
     new Duration(prev.endsAt, DateTime.now).toStandardDays.getDays match {
       case d if d < 3 => TempBan.make(prev.mins * 3)

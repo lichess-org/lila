@@ -305,6 +305,17 @@ final class TournamentApi(
     userId <- player.userId
   } withdraw(tourId, userId)
 
+  def pausePlaybanned(userId: String) =
+    TournamentRepo.started.flatMap {
+      _.map { tour =>
+        PlayerRepo.exists(tour.id, userId) flatMap {
+          _ ?? {
+            PlayerRepo.withdraw(tour.id, userId) >>- socketReload(tour.id) >>- publish()
+          }
+        }
+      }.sequenceFu.void
+    }
+
   def ejectLame(userId: String) {
     TournamentRepo.recentAndNext foreach {
       _ foreach { tour =>

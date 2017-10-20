@@ -11,7 +11,8 @@ import lila.user.UserRepo
 final class PlaybanApi(
     coll: Coll,
     sandbag: SandbagWatch,
-    isRematch: String => Boolean
+    isRematch: String => Boolean,
+    bus: lila.common.Bus
 ) {
 
   import lila.db.BSON.BSONJodaDateTimeHandler
@@ -155,16 +156,19 @@ final class PlaybanApi(
     case Some(record) => legiferate(record)
   } logFailure lila.log("playban")
 
-  private def legiferate(record: UserRecord): Funit = record.newBan ?? { ban =>
-    coll.update(
-      $id(record.userId),
-      $unset("o") ++
-        $push(
-          "b" -> $doc(
-            "$each" -> List(ban),
-            "$slice" -> -30
+  private def legiferate(record: UserRecord): Funit = {
+    record.bannable ?? { ban =>
+      bus.publish(lila.hub.actorApi.playban.Playban(record.userId, ban.mins), 'playban)
+      (!record.banInEffect) ?? coll.update(
+        $id(record.userId),
+        $unset("o") ++
+          $push(
+            "b" -> $doc(
+              "$each" -> List(ban),
+              "$slice" -> -30
+            )
           )
-        )
-    ).void
+      ).void
+    }
   }
 }

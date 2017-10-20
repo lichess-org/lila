@@ -15,5 +15,7 @@ private[tournament] final class ApiActor(api: TournamentApi) extends Actor {
     case lila.hub.actorApi.mod.MarkBooster(userId) => api ejectLame userId
 
     case lila.hub.actorApi.round.Berserk(gameId, userId) => api.berserk(gameId, userId)
+
+    case lila.hub.actorApi.playban.Playban(userId, _) => api.pausePlaybanned(userId)
   }
 }
