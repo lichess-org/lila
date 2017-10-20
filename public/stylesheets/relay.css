@@ -1,53 +1,3 @@
-.relay_players  {
-  margin-bottom: 32px;
-}
-.relay_player {
-  background: #b0b0b0;
-  color: #444;
-  text-shadow: 0 .5px 1px #fff;
-  display: flex;
-  height: 26px;
-  justify-content: space-between;
-  align-items: center;
-  padding-left: 10px;
-  font-size: 16px;
-  font-weight: bold;
-  position: absolute;
-  left: 0;
-  right: 0;
-}
-.lichess_board_wrap.white .relay_player.black,
-.lichess_board_wrap.black .relay_player.white {
-  border-radius: 4px 4px 0 0;
-  top: -26px;
-}
-.lichess_board_wrap.white .relay_player.white,
-.lichess_board_wrap.black .relay_player.black {
-  border-radius: 0 0 4px 4px;
-  bottom: -26px;
-}
-.relay_player .elo {
-  margin-left: 0.5em;
-  font-weight: normal;
-}
-.relay_player .aclock {
-  font-family: 'Roboto Mono', 'Roboto';
-  font-size: 17px;
-  height: 26px;
-  line-height: 26px;
-  padding: 0 10px;
-  border-radius: 0 4px 0 0;
-}
-.lichess_board_wrap.white .relay_player.white .aclock,
-.lichess_board_wrap.black .relay_player.black .aclock {
-  border-radius: 0 0 4px 0;
-}
-.relay_player.ticking .aclock {
-  background: #759900;
-  color: #fff;
-  text-shadow: none;
-}
-
 .relay_edit .relay_wrap {
   position: absolute;
   top: 100%;
@@ -136,16 +86,6 @@
 }
 .relay_edit .relay .log .ddloader {
   margin-top: 5px;
-}
-
-.relay_players .cg-board-wrap coords.files {
-  bottom: 0px;
-  text-align: left;
-}
-.relay_players .cg-board-wrap coords.files coord {
-  padding-left: 2px;
-  color: #fff;
-  text-shadow: 0 1px 2px #000;
 }
 
 body.dark .relay_edit .relay {

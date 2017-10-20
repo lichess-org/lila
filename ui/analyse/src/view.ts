@@ -26,7 +26,7 @@ import { render as acplView } from './acpl'
 import AnalyseCtrl from './ctrl';
 import { ConcealOf } from './interfaces';
 import relayManager from './study/relay/relayManagerView';
-import * as relayView from './study/relay/relayView';
+import renderPlayerBars from './study/playerBars';
 
 function renderResult(ctrl: AnalyseCtrl): VNode[] {
   let result: string | undefined;
@@ -122,19 +122,18 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
   ]);
 }
 
-function visualBoard(ctrl: AnalyseCtrl) {
-  const relayPlayers = relayView.renderPlayers(ctrl);
-  return h('div.lichess_board_wrap' + (relayPlayers ? '.' + ctrl.bottomColor() : ''), [
+function visualBoard(ctrl: AnalyseCtrl, playerBars: VNode[] | undefined) {
+  return h('div.lichess_board_wrap' + (playerBars ? '.' + ctrl.bottomColor() : ''), [
     ctrl.keyboardHelp ? keyboardView(ctrl) : null,
     ctrl.study ? studyView.overboard(ctrl.study) : null,
-    relayPlayers ? relayPlayers[ctrl.bottomIsWhite() ? 1 : 0] : null,
+    playerBars ? playerBars[ctrl.bottomIsWhite() ? 1 : 0] : null,
     h('div.lichess_board.' + ctrl.data.game.variant.key, {
       hook: ctrl.gamebookPlay() ? undefined : bind('wheel', e => wheel(ctrl, e as WheelEvent))
     }, [
       chessground.render(ctrl),
       renderPromotion(ctrl)
     ]),
-    relayPlayers ? relayPlayers[ctrl.bottomIsWhite() ? 0 : 1] : null,
+    playerBars ? playerBars[ctrl.bottomIsWhite() ? 0 : 1] : null,
     cevalView.renderGauge(ctrl)
   ]);
 }
@@ -256,8 +255,8 @@ export default function(ctrl: AnalyseCtrl): VNode {
   gamebookPlay = ctrl.gamebookPlay(),
   gamebookPlayView = gamebookPlay && gbPlay.render(gamebookPlay),
   gamebookEditView = gbEdit.running(ctrl) ? gbEdit.render(ctrl) : undefined,
-  relay = study && study.data.chapter.relay,
-  relayEdit = study && study.relay && relayManager(study.relay);
+  relayEdit = study && study.relay && relayManager(study.relay),
+  playerBars = renderPlayerBars(ctrl);
   return h('div.analyse.cg-512', [
     h('div.' + studyStateClass, {
       hook: {
@@ -272,7 +271,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
         'gb_edit': !!gamebookEditView,
         'gb_play': !!gamebookPlayView,
         'relay_edit': !!relayEdit,
-        'relay_players': !!relay,
+        'player_bars': !!playerBars,
       }
     }, [
       h('div.lichess_game', {
@@ -280,9 +279,9 @@ export default function(ctrl: AnalyseCtrl): VNode {
           insert: _ => window.lichess.pubsub.emit('content_loaded')()
         }
       }, [
-        visualBoard(ctrl),
+        visualBoard(ctrl, playerBars),
         h('div.lichess_ground', gamebookPlayView || [
-          menuIsOpen || relay ? null : renderClocks(ctrl),
+          menuIsOpen || relayEdit ? null : renderClocks(ctrl),
           menuIsOpen ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
           ...(menuIsOpen ? [actionMenu(ctrl)] : [
             cevalView.renderCeval(ctrl),
