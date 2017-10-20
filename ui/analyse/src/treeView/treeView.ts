@@ -46,8 +46,8 @@ export interface TreeView {
   inline(): boolean;
 }
 
-export function ctrl(): TreeView {
-  const value = storedProp<TreeViewKey>('treeView', 'column');
+export function ctrl(initialValue: TreeViewKey = 'column'): TreeView {
+  const value = storedProp<TreeViewKey>('treeView', initialValue);
   function inline() {
     return value() === 'inline';
   }
