@@ -59,7 +59,8 @@ final class Env(
   lazy val recaptcha: Recaptcha =
     if (RecaptchaEnabled) new RecaptchaGoogle(
       privateKey = RecaptchaPrivateKey,
-      endpoint = RecaptchaEndpoint
+      endpoint = RecaptchaEndpoint,
+      lichessHostname = NetDomain
     )
     else RecaptchaSkip
 

@@ -2,7 +2,7 @@
 
 @moreJs = {
 @jsTag("signup.js")
-<script src='https://www.google.com/recaptcha/api.js'></script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 @fingerprintTag
 }
 
@@ -21,7 +21,7 @@ zen = true) {
   </div>
   <div class="signup_box">
     <h1 class="lichess_title">@trans.signUp()</h1>
-    <form action="@routes.Auth.signupPost" method="POST">
+    <form id="signup_form" action="@routes.Auth.signupPost" method="POST">
       <ul>
         @auth.formFields(form("username"), form("password"), form("email").some, register = true)
         <input id="signup-fp-input" name="fp" type="hidden" />
@@ -32,10 +32,7 @@ zen = true) {
           </small>
         </li>
         <li>
-          <div class="g-recaptcha" data-sitekey="@recaptchaPublicKey"></div>
-        </li>
-        <li>
-          <button type="submit" class="submit button" data-icon="F"> @trans.signUp()</button>
+          <button class="g-recaptcha submit button text" data-icon="F" data-sitekey="@recaptchaPublicKey" data-callback='signupSubmit'>@trans.signUp()</button>
         </li>
       </ul>
     </form>

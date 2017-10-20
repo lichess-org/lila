@@ -20,3 +20,6 @@ $(function() {
       runCheck();
     });
 });
+window.signupSubmit = function(token) {
+  document.getElementById("signup_form").submit();
+}
