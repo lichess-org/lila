@@ -35,8 +35,8 @@ export function ctrl(data: StudyData, currentChapter: () => StudyChapterMeta, cu
     },
     studyId: data.id,
     chapter: currentChapter,
-    isPublic() {
-      return data.visibility === 'public';
+    isPrivate() {
+      return data.visibility === 'private';
     },
     currentNode,
     withPly,
@@ -51,7 +51,7 @@ export function view(ctrl): VNode | undefined {
   const chapter = ctrl.chapter();
   let fullUrl = baseUrl + studyId + '/' + chapter.id;
   let embedUrl = baseUrl + 'embed/' + studyId + '/' + chapter.id;
-  const isPublic = ctrl.isPublic();
+  const isPrivate = ctrl.isPrivate();
   if (ctrl.withPly()) {
     const p = ctrl.currentNode().ply;
     fullUrl += '#' + p;
@@ -83,7 +83,7 @@ export function view(ctrl): VNode | undefined {
             }
           }),
           fromPly(ctrl),
-          isPublic ? h('p.form-help.text', {
+          !isPrivate ? h('p.form-help.text', {
             attrs: { 'data-icon': '' }
           }, 'You can paste this in the forum to embed the chapter.') : null,
           h('label.control-label', 'Current chapter URL'),
@@ -93,12 +93,12 @@ export function view(ctrl): VNode | undefined {
           h('input.has-value.autoselect', {
             attrs: {
               readonly: true,
-              disabled: !isPublic,
-              value: isPublic ? '<iframe width=600 height=371 src="' + embedUrl + '" frameborder=0></iframe>' : 'Only public studies can be embedded!'
+              disabled: isPrivate,
+              value: !isPrivate ? '<iframe width=600 height=371 src="' + embedUrl + '" frameborder=0></iframe>' : 'Only public studies can be embedded!'
             }
           })
         ].concat(
-          isPublic ? [
+          !isPrivate ? [
             fromPly(ctrl),
             h('a.form-help.text', {
               attrs: {
