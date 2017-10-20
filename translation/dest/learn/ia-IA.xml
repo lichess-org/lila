@@ -47,15 +47,23 @@ Escappa e vince le stellas!</string>
   <string name="thePawn">Le pedon</string>
   <string name="itMovesForwardOnly">Illo move se solmente in avante</string>
   <string name="pawnIntro">Pedones es debile, ma illos possede multe potential.</string>
+  <string name="pawnsMoveOneSquareOnly">Pedones move se solmente un placia cata torno.
+Ma quando illos arriva al altere latere del tabuliero, illos deveni un pecia plus forte!</string>
+  <string name="captureThenPromote">Captura, e alora promove!</string>
+  <string name="pawnPromotion">Promotion del pedon</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Tu pedon ha arrivate al fin del tabuliero!</string>
+  <string name="itNowPromotesToAStrongerPiece">Ora illo promove se a un pecia plus forte.</string>
   <string name="selectThePieceYouWant">Selectiona le pecia que tu vole!</string>
   <string name="fundamentals">Fundamentos</string>
   <string name="capture">Captura</string>
   <string name="takeTheEnemyPieces">Prende le pecias inimic</string>
+  <string name="takeTheBlackPieces">Prende le pecias nigre!</string>
   <string name="protection">Protection</string>
   <string name="keepYourPiecesSafe">Mantene tu pecias secur</string>
   <string name="combat">Combatto</string>
   <string name="captureAndDefendPieces">Captura e defende pecias</string>
   <string name="checkInOne">Chaco in 1</string>
+  <string name="attackTheOpponentsKing">Attacca le rege del adversario</string>
   <string name="outOfCheck">Escappa le chaco</string>
   <string name="defendYourKing">Defende tu rege</string>
   <string name="mateInOne">Mat in 1</string>
