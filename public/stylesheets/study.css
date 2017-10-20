@@ -756,8 +756,8 @@ div.chapter_embed {
   margin-bottom: 32px;
 }
 .player_bar {
-  background: #b0b0b0;
-  color: #444;
+  background: #ccc;
+  color: #555;
   text-shadow: 0 .5px 1px #fff;
   display: flex;
   height: 26px;
@@ -769,6 +769,11 @@ div.chapter_embed {
   position: absolute;
   left: 0;
   right: 0;
+}
+body.dark .player_bar {
+  background: #444;
+  color: #bbb;
+  text-shadow: 0 .5px 1px #000;
 }
 .lichess_board_wrap.white .player_bar.black,
 .lichess_board_wrap.black .player_bar.white {
