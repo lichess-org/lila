@@ -119,6 +119,9 @@ body.dark footer {
   border-color: #3d3d3d;
   background: #3a3a3a;
 }
+.tview2.inline {
+  font-size: 15px;
+}
 @media (max-width: 699px) {
   body,
   .tview2 {

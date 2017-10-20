@@ -1236,8 +1236,8 @@ body.dark .aclocks .aclock.active {
 }
 .tview2.inline {
   padding: 7px 3px 7px 7px;
-  font-size: 18px;
-  line-height: 1.05em;
+  font-size: 16px;
+  line-height: 1em;
 }
 .tview2 move {
   font-family: 'ChessSansPiratf', sans-serif;
