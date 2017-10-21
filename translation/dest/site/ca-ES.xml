@@ -79,6 +79,7 @@
   <string name="importPgn">Importar PGN</string>
   <string name="delete">Suprimir</string>
   <string name="deleteThisImportedGame">Voleu suprimir aquest joc importat?</string>
+  <string name="replayMode">Mode de reproducció</string>
   <string name="realtimeReplay">En temps real</string>
   <string name="byCPL">Per CPL</string>
   <string name="openStudy">Obrir estudi</string>
@@ -89,6 +90,7 @@
   <string name="cpus">CPUs</string>
   <string name="memory">Memòria</string>
   <string name="infiniteAnalysis">Anàlisi infinit</string>
+  <string name="removesTheDepthLimit">Treu el límit de profunditat i manté el seu ordinador calent</string>
   <string name="blunders">Errors greus</string>
   <string name="mistakes">Errades</string>
   <string name="inaccuracies">Imprecisions</string>
@@ -192,6 +194,8 @@
   <string name="play">Juga</string>
   <string name="inbox">Bústia d\'entrada</string>
   <string name="chatRoom">Sala de xat</string>
+  <string name="loginToChat">Entra al xat</string>
+  <string name="youHaveBeenTimedOut">S\'ha tancat la sessió.</string>
   <string name="spectatorRoom">Sala d\'espectadors</string>
   <string name="composeMessage">Escriu un missatge</string>
   <string name="noNewMessages">No hi ha missatges nous</string>
@@ -219,6 +223,7 @@
     <item quantity="one">Dóna %s segons</item>
     <item quantity="other">Dóna %s segons</item>
   </plurals>
+  <string name="giveMoreTime">Donar més temps</string>
   <string name="thisPlayerUsesChessComputerAssistance">Aquest jugador s\'ajuda amb un programa informàtic d\'escacs</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Aquest jugador incrementa/disminueix artificialment el seu ràting</string>
   <string name="takeback">Desfés la jugada</string>
@@ -323,6 +328,10 @@
   <string name="winStreak">Victòries consecutives</string>
   <string name="createdBy">Creat per</string>
   <string name="tournamentIsStarting">El torneig està començant</string>
+  <string name="youArePlaying">¡Estàs jugant!</string>
+  <string name="winRate">Percentatge de victòries</string>
+  <string name="berserkRate">Taxa de Berserk</string>
+  <string name="performance">Rendiment</string>
   <string name="tournamentComplete">Torneig completat</string>
   <string name="movesPlayed">Moviments jugats</string>
   <string name="whiteWins">Les blanques guanyen</string>
@@ -633,4 +642,32 @@
     <item quantity="other">Disponible en %s idiomes</item>
   </plurals>
   <string name="gameAnalysis">Anàlisi de la partida</string>
+  <string name="lobby">Lobby</string>
+  <string name="anonymous">Anònim</string>
+  <string name="yourScore">El seu resultat: %s</string>
+  <string name="language">Llenguatge</string>
+  <string name="background">Fons</string>
+  <string name="light">Clar</string>
+  <string name="dark">Fosc</string>
+  <string name="transparent">Transparent</string>
+  <string name="backgroundImageUrl">Imatge de fons URL:</string>
+  <string name="boardGeometry">Geometria del tauler</string>
+  <string name="boardTheme">Temàtica del tauler</string>
+  <string name="boardSize">Mida del tauler</string>
+  <string name="pieceSet">Conjunt de peces</string>
+  <string name="embedInYourWebsite">Integrar en el seu lloc web</string>
+  <string name="usernameAlreadyUsed">Aquest nom d\'usuari ja està en ús. Si us plau, tria un altre nom.</string>
+  <string name="usernameInvalid">Nom d\'usuari no vàlid. Empreu només lletres, números, subratllat i guió.</string>
+  <string name="usernameStartNoNumber">El nom d\'usuari no pot començar amb un nombre.</string>
+  <string name="usernameUnacceptable">Aquest nom d\'usuari no és acceptable.</string>
+  <string name="playChessInStyle">Juga a escacs amb estil</string>
+  <string name="chessBasics">Fonaments d\'escacs</string>
+  <string name="coaches">Entrenador</string>
+  <string name="invalidPgn">PGN no vàlid</string>
+  <string name="invalidFen">FEN no vàlid</string>
+  <string name="error.unknown">Error</string>
+  <string name="custom">Personalitzat</string>
+  <string name="notifications">Avisos</string>
+  <string name="challenges">Reptes</string>
+  <string name="perfRatingX">Classificació: %s</string>
 </resources>
