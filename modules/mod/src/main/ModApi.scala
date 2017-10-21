@@ -33,13 +33,13 @@ final class ModApi(
     }
   }
 
-  private[mod] def autoAdjust(username: String): Funit = for {
+  def autoMark(username: String, modId: User.ID): Funit = for {
     sus <- reportApi.getSuspect(username) flatten s"No such suspect $username"
     unengined <- logApi.wasUnengined(sus)
-    _ <- if (unengined) funit else reportApi.getLichess flatMap {
-      _ ?? { lichess =>
+    _ <- if (unengined) funit else reportApi.getMod(modId) flatMap {
+      _ ?? { mod =>
         lila.mon.cheat.autoMark.count()
-        setEngine(lichess, sus, true)
+        setEngine(mod, sus, true)
       }
     }
   } yield ()
