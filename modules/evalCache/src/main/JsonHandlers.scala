@@ -1,13 +1,11 @@
 package lila.evalCache
 
-import org.joda.time.DateTime
 import play.api.libs.json._
 
 import chess.format.{ Uci, FEN }
 import EvalCacheEntry._
 import lila.common.PimpedJson._
 import lila.tree.Eval._
-import lila.user.User
 
 object JsonHandlers {
 

@@ -1,6 +1,5 @@
 package lila.tournament
 
-import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
 import reactivemongo.bson.Macros
 import scala.concurrent.duration._
 

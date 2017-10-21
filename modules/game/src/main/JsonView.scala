@@ -5,7 +5,6 @@ import play.api.libs.json._
 import chess.format.Forsyth
 import chess.variant.Crazyhouse
 import chess.{ Color, Clock }
-import lila.common.PimpedJson._
 
 object JsonView {
 

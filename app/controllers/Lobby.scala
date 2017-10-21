@@ -2,7 +2,6 @@ package controllers
 
 import play.api.libs.json._
 import play.api.mvc._
-import play.twirl.api.Html
 import scala.concurrent.duration._
 
 import lila.api.Context

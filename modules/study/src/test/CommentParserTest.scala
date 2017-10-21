@@ -1,10 +1,8 @@
 package lila.study
 
 import org.specs2.mutable._
-import org.specs2.specification._
 
 import chess.Centis
-import lila.tree.Node.Shape._
 import lila.tree.Node.Shapes
 
 class CommentParserTest extends Specification {

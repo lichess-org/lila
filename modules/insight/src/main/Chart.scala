@@ -1,7 +1,6 @@
 package lila.insight
 
 import lila.common.LightUser
-import lila.common.PimpedJson._
 import play.api.libs.json._
 
 case class Chart(

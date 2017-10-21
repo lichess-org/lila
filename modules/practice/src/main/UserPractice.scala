@@ -7,8 +7,6 @@ case class UserPractice(
     progress: PracticeProgress
 ) {
 
-  import UserPractice._
-
   def progressOn(studyId: Study.Id) = {
     val chapterIds = structure.study(studyId).??(_.chapterIds)
     Completion(

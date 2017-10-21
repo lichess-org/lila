@@ -8,7 +8,6 @@ import play.api.libs.json._
 import lila.game.PerfPicker
 import lila.rating.RatingRange
 import lila.user.User
-import lila.common.PimpedJson._
 
 // correspondence chess, persistent
 case class Seek(

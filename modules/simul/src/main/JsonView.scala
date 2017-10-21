@@ -3,7 +3,6 @@ package lila.simul
 import play.api.libs.json._
 
 import lila.common.LightUser
-import lila.common.PimpedJson._
 import lila.game.{ Game, GameRepo }
 
 final class JsonView(getLightUser: LightUser.Getter) {

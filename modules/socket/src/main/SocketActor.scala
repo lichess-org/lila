@@ -1,7 +1,6 @@
 package lila.socket
 
 import scala.concurrent.duration._
-import scala.concurrent.Future
 import scala.util.Random
 
 import akka.actor.{ Deploy => _, _ }

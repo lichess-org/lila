@@ -1,9 +1,8 @@
 package lila.round
 
 import akka.actor._
-import play.api.mvc.RequestHeader
 
-import lila.common.{ IpAddress, HTTPRequest }
+import lila.common.IpAddress
 import lila.user.{ User, UserRepo }
 
 final class SelfReport(roundMap: ActorRef) {

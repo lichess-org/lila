@@ -3,7 +3,6 @@ package lila.challenge
 import play.api.libs.json._
 import play.api.i18n.Lang
 
-import lila.common.PimpedJson._
 import lila.socket.UserLagCache
 import lila.i18n.{ I18nKeys => trans }
 

@@ -4,7 +4,7 @@ import lila.common.Future
 import lila.notify.NotifyApi
 import lila.notify.{ Notification, MentionedInThread }
 import lila.relation.RelationApi
-import lila.user.{ UserRepo, User }
+import lila.user.UserRepo
 
 /**
  * Notifier to inform users if they have been mentioned in a post

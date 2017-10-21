@@ -1,7 +1,5 @@
 package lila.i18n
 
-import play.api.i18n.Lang
-
 object I18nDb {
 
   sealed trait Ref

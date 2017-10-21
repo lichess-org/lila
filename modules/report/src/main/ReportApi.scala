@@ -6,7 +6,6 @@ import reactivemongo.bson._
 import scala.concurrent.duration._
 
 import lila.db.dsl._
-import lila.memo.AsyncCache
 import lila.user.{ User, UserRepo, NoteApi }
 
 final class ReportApi(

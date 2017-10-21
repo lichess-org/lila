@@ -1,7 +1,5 @@
 package lila.pref
 
-import lila.user.User
-
 case class Pref(
     _id: String, // user id
     dark: Boolean,

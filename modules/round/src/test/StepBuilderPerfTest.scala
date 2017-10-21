@@ -3,7 +3,6 @@ package lila.round
 import org.specs2.mutable.Specification
 
 import chess._
-import Pos._
 
 class StepBuilderPerfTest extends Specification {
 

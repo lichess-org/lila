@@ -11,10 +11,8 @@ import lila.rating.PerfType
 import lila.simul.Simul
 import lila.study.JsonView.studyIdNameWrites
 import lila.team.Team
-import lila.tournament.JsonView._
 import lila.tournament.LeaderboardApi.{ Entry => TourEntry, Ratio => TourRatio }
 import lila.tournament.Tournament
-import lila.tournament.{ Cached => TourCached }
 import lila.user.User
 
 import activities._

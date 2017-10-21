@@ -1,10 +1,8 @@
 package controllers
 
 import ornicar.scalalib.Zero
-import play.api.i18n.Messages.Implicits._
 import play.api.libs.json._
 import play.api.mvc._
-import play.api.Play.current
 import scala.concurrent.duration._
 
 import lila.api.Context

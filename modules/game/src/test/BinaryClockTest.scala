@@ -1,10 +1,7 @@
 package lila.game
 
-import scala.concurrent.duration._
-
-import chess.{ Centis, Clock, White, Black }
+import chess.{ Centis, Clock, White }
 import org.specs2.mutable._
-import org.specs2.specification._
 
 import lila.db.ByteArray
 

@@ -6,7 +6,6 @@ import play.api.libs.json._
 
 import actorApi.{ StartGame, FinishGame }
 import chess.format.FEN
-import lila.common.PimpedJson._
 import lila.user.User
 
 final class GameStream(system: ActorSystem) {

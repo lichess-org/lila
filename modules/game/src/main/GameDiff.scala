@@ -3,7 +3,6 @@ package lila.game
 import chess.{ Color, White, Black, Clock, CheckCount, UnmovedRooks }
 import chess.variant.Crazyhouse
 import Game.BSONFields._
-import org.joda.time.DateTime
 import reactivemongo.bson._
 
 import lila.db.BSON.BSONJodaDateTimeHandler

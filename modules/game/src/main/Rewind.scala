@@ -2,7 +2,6 @@ package lila.game
 
 import org.joda.time.DateTime
 
-import chess.{ Color, White, Black }
 import chess.format.{ pgn => chessPgn }
 
 object Rewind {

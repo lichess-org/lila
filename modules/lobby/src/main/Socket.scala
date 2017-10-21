@@ -7,7 +7,6 @@ import play.api.libs.iteratee._
 import play.api.libs.json._
 
 import actorApi._
-import lila.common.PimpedJson._
 import lila.game.{ Game, AnonCookie }
 import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.actorApi.lobby._

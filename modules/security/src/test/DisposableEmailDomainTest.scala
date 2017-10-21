@@ -1,7 +1,6 @@
 package lila.security
 
 import org.specs2.mutable.Specification
-import play.api.libs.json._
 
 class DisposableEmailDomainTest extends Specification {
 

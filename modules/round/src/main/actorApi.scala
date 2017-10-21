@@ -1,7 +1,6 @@
 package lila.round
 package actorApi
 
-import scala.concurrent.duration.FiniteDuration
 import scala.concurrent.Promise
 
 import chess.{ MoveMetrics, Color }

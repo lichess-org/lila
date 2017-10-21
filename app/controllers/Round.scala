@@ -6,8 +6,7 @@ import play.api.mvc._
 import lila.api.Context
 import lila.app._
 import lila.chat.Chat
-import lila.common.PimpedJson._
-import lila.common.{ HTTPRequest, ApiVersion }
+import lila.common.HTTPRequest
 import lila.game.{ Pov, GameRepo, Game => GameModel, PgnDump }
 import lila.tournament.TourMiniView
 import lila.user.{ User => UserModel }

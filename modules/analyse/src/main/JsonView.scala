@@ -2,7 +2,6 @@ package lila.analyse
 
 import play.api.libs.json._
 
-import lila.common.PimpedJson._
 import lila.game.Game
 import lila.tree.Eval.JsonHandlers._
 

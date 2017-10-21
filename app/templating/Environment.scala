@@ -3,7 +3,6 @@ package templating
 
 import scala.concurrent.duration._
 
-import ornicar.scalalib
 import play.twirl.api.Html
 
 import lila.api.Env.{ current => apiEnv }

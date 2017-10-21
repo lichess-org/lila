@@ -5,7 +5,6 @@ import akka.pattern.ask
 
 import actorApi._
 import akka.actor.ActorSelection
-import lila.common.PimpedJson._
 import lila.hub.actorApi.map._
 import lila.security.Flood
 import lila.socket.actorApi.{ Connected => _, _ }

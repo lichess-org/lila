@@ -1,7 +1,5 @@
 package lila.game
 
-import org.joda.time.DateTime
-
 case class Crosstable(
     users: Crosstable.Users,
     results: List[Crosstable.Result]

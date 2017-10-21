@@ -1,7 +1,6 @@
 package lila.common
 
 import java.text.Normalizer
-import java.util.regex.Matcher.quoteReplacement
 import play.twirl.api.Html
 
 object String {

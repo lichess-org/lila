@@ -1,6 +1,5 @@
 package lila.game
 
-import lila.db.ByteArray
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
 

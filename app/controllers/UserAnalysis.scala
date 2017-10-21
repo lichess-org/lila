@@ -4,15 +4,13 @@ import chess.format.Forsyth
 import chess.format.Forsyth.SituationPlus
 import chess.Situation
 import chess.variant.{ Variant, Standard, FromPosition }
-import play.api.i18n.Messages.Implicits._
 import play.api.libs.json.Json
 import play.api.mvc._
 import scala.concurrent.duration._
 
 import lila.api.Context
 import lila.app._
-import lila.common.PimpedJson._
-import lila.game.{ GameRepo, Pov, PgnDump }
+import lila.game.{ GameRepo, Pov }
 import lila.i18n.I18nKeys
 import lila.round.Forecast.{ forecastStepJsonFormat, forecastJsonWriter }
 import lila.round.JsonView.WithFlags

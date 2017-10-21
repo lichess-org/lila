@@ -4,7 +4,6 @@ package actorApi
 import play.api.libs.json.JsObject
 
 import chess.Centis
-import lila.common.PimpedJson._
 
 case class Connected[M <: SocketMember](
     enumerator: JsEnumerator,

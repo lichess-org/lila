@@ -2,7 +2,6 @@ package lila.api
 
 import play.api.libs.json.{ Json, JsObject, JsArray }
 
-import lila.common.PimpedJson._
 import lila.game.{ GameRepo, Pov }
 import lila.lobby.SeekApi
 import lila.pool.JsonView.poolConfigJsonWriter

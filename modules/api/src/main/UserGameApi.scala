@@ -5,7 +5,6 @@ import play.api.libs.json._
 import chess.format.Forsyth
 import lila.common.LightUser
 import lila.common.paginator.Paginator
-import lila.common.PimpedJson._
 import lila.game.{ Game, PerfPicker }
 
 final class UserGameApi(
@@ -14,7 +13,6 @@ final class UserGameApi(
 ) {
 
   import lila.game.JsonView._
-  import lila.round.JsonView._
   import LightUser.lightUserWrites
 
   def jsPaginator(pag: Paginator[Game])(implicit ctx: Context): Fu[JsObject] =

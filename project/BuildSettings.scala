@@ -55,6 +55,7 @@ object BuildSettings {
     // "-Ywarn-unused-import",
     // "-Ywarn-unused",
     // "-Xlint:missing-interpolator",
+    // "-Ywarn-unused-import",
     "-Ybackend:GenBCode", "-Ydelambdafy:method", "-target:jvm-1.8"
   )
 

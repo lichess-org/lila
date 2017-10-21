@@ -91,8 +91,6 @@ object Message extends LilaController {
 
   def create = AuthBody { implicit ctx => implicit me =>
     NotForKids {
-      import play.api.Play.current
-      import play.api.i18n.Messages.Implicits._
       implicit val req = ctx.body
       negotiate(
         html = forms.thread(me).bindFromRequest.fold(

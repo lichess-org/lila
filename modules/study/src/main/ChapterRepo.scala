@@ -1,7 +1,6 @@
 package lila.study
 
 import chess.format.pgn.Tags
-import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
 
 import lila.db.dsl._

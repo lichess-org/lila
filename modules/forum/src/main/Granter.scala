@@ -2,7 +2,6 @@ package lila.forum
 
 import lila.security.{ Permission, Granter => Master }
 import lila.user.{ User, UserContext }
-import org.joda.time.DateTime
 
 trait Granter {
 

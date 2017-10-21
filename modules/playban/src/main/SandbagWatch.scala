@@ -4,7 +4,7 @@ import com.github.blemale.scaffeine.{ Cache, Scaffeine }
 import scala.concurrent.duration._
 
 import chess.Color
-import lila.game.{ Game, Pov }
+import lila.game.Game
 import lila.message.{ MessageApi, ModPreset }
 import lila.user.{ User, UserRepo }
 

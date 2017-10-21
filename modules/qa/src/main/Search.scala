@@ -1,7 +1,6 @@
 package lila.qa
 
 import reactivemongo.bson._
-import reactivemongo.core.commands._
 
 import lila.db.dsl._
 

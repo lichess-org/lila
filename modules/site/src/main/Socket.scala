@@ -1,6 +1,5 @@
 package lila.site
 
-import scala.collection.mutable.AnyRefMap
 import scala.concurrent.duration.Duration
 
 import akka.actor._

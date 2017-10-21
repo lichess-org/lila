@@ -3,7 +3,7 @@ package lila.evalCache
 import reactivemongo.bson._
 import scalaz.NonEmptyList
 
-import chess.format.{ FEN, Uci }
+import chess.format.Uci
 import lila.db.dsl._
 import lila.tree.Eval._
 

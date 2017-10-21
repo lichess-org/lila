@@ -1,7 +1,5 @@
 package lila.evalCache
 
-import scala.math.sqrt
-
 import EvalCacheEntry._
 
 /**

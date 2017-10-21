@@ -3,7 +3,6 @@ package lila.puzzle
 import play.api.libs.json._
 import scala.concurrent.duration._
 
-import lila.common.PimpedJson._
 import lila.game.{ Game, GameRepo, PerfPicker }
 import lila.tree.Node.partitionTreeJsonWriter
 

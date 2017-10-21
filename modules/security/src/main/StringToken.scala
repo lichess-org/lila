@@ -3,7 +3,6 @@ package lila.security
 import com.roundeights.hasher.Algo
 import lila.common.String.base64
 
-import lila.user.{ User, UserRepo }
 import StringToken.ValueChecker
 
 private[security] final class StringToken[A](

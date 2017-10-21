@@ -4,8 +4,6 @@ import chess.format.Forsyth
 import chess.format.pgn.{ Pgn, Tag, Tags, TagType, Parser, ParsedPgn }
 import chess.format.{ pgn => chessPgn }
 import chess.{ Centis, Color }
-import org.joda.time.DateTimeZone
-import org.joda.time.format.DateTimeFormat
 
 import lila.common.LightUser
 

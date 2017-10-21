@@ -4,7 +4,7 @@ package templating
 import ornicar.scalalib.Zero
 import play.twirl.api.Html
 
-import lila.user.{ User, UserContext }
+import lila.user.UserContext
 
 trait StringHelper { self: NumberHelper =>
 

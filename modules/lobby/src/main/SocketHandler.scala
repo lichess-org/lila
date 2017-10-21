@@ -4,7 +4,6 @@ import akka.actor._
 import scala.concurrent.duration._
 
 import actorApi._
-import lila.common.PimpedJson._
 import lila.pool.{ PoolApi, PoolConfig }
 import lila.rating.RatingRange
 import lila.socket.Handler

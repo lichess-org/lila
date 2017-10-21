@@ -4,7 +4,6 @@ import org.joda.time.DateTime
 import scala.concurrent.duration._
 
 import lila.db.dsl._
-import lila.memo._
 
 final class EventApi(
     coll: Coll,

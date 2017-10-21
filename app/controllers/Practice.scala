@@ -1,14 +1,13 @@
 package controllers
 
 import play.api.libs.json._
-import play.api.mvc._
 
 import lila.api.Context
 import lila.app._
 import lila.practice.JsonView._
 import lila.practice.{ UserStudy, PracticeSection, PracticeStudy }
 import lila.study.Study.WithChapter
-import lila.study.{ Chapter, Order, Study => StudyModel }
+import lila.study.{ Chapter, Study => StudyModel }
 import lila.tree.Node.partitionTreeJsonWriter
 import views._
 

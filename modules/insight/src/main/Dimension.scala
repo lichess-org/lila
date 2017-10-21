@@ -1,6 +1,5 @@
 package lila.insight
 
-import org.joda.time.DateTime
 import play.twirl.api.Html
 import reactivemongo.bson._
 import play.api.libs.json._

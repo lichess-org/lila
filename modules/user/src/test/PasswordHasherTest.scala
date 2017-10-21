@@ -1,7 +1,6 @@
 package lila.user
 
 import org.specs2.mutable.Specification
-import org.mindrot.BCrypt
 import User.{ ClearPassword => P }
 
 class PasswordHasherTest extends Specification {

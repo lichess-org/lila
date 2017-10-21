@@ -3,7 +3,6 @@ package lila.user
 import scala.concurrent.duration._
 
 import lila.common.{ LightUser, EmailAddress }
-import reactivemongo.bson.Macros
 
 import lila.rating.PerfType
 import org.joda.time.DateTime

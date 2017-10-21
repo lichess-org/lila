@@ -6,7 +6,7 @@ import akka.actor.ActorSelection
 import lila.db.dsl._
 import lila.db.paginator._
 import lila.hub.actorApi.timeline.{ Propagate, Follow => FollowUser }
-import lila.user.{ User, UserRepo }
+import lila.user.User
 
 import BSONHandlers._
 import reactivemongo.api._

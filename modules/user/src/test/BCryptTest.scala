@@ -2,7 +2,6 @@ package lila.user
 
 import org.specs2.mutable.Specification
 import org.mindrot.BCrypt
-import BCrypt.{ bytesEqualSecure => bcryptEq }
 
 class BCryptTest extends Specification {
 

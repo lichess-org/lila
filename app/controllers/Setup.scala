@@ -1,10 +1,8 @@
 package controllers
 
 import play.api.data.Form
-import play.api.i18n.Messages.Implicits._
 import play.api.libs.json.Json
 import play.api.mvc.{ Result, Results }
-import play.api.Play.current
 import scala.concurrent.duration._
 
 import lila.api.{ Context, BodyContext }

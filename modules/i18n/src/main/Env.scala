@@ -1,8 +1,6 @@
 package lila.i18n
 
 import com.typesafe.config.Config
-import play.api.i18n.Lang
-import play.api.libs.json._
 
 final class Env(
     config: Config,

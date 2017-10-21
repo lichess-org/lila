@@ -7,10 +7,8 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 
 import actorApi._
-import lila.common.PimpedJson._
 import lila.hub.actorApi.relation.ReloadOnlineFriends
 import lila.socket.Socket.makeMessage
-import lila.tree.Node.defaultNodeJsonWriter
 import makeTimeout.large
 
 object Handler {

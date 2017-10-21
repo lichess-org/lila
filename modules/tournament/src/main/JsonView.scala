@@ -7,7 +7,6 @@ import play.api.i18n.Lang
 import scala.concurrent.duration._
 
 import lila.common.LightUser
-import lila.common.PimpedJson._
 import lila.game.{ GameRepo, Pov }
 import lila.quote.Quote.quoteWriter
 import lila.rating.PerfType

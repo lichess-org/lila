@@ -1,7 +1,6 @@
 package lila.hub
 package actorApi
 
-import lila.common.LightUser
 import org.joda.time.DateTime
 
 import play.api.libs.json._

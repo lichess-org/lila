@@ -7,8 +7,7 @@ import reactivemongo.bson._
 import chess.variant.{ Variant, Crazyhouse }
 import chess.{ CheckCount, Color, Clock, White, Black, Status, Mode, UnmovedRooks }
 
-import lila.db.{ BSON, ByteArray }
-import chess.Centis
+import lila.db.BSON
 
 object BSONHandlers {
 

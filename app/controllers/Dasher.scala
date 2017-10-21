@@ -1,13 +1,10 @@
 package controllers
 
 import play.api.libs.json._
-import play.api.mvc._
-import scala.collection.breakOut
 
 import lila.api.Context
 import lila.app._
 import lila.common.LightUser.lightUserWrites
-import lila.pref.JsonView._
 import lila.i18n.{ I18nKeys, I18nLangPicker, enLang }
 
 object Dasher extends LilaController {

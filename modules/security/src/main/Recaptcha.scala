@@ -6,7 +6,6 @@ import play.api.Play.current
 import play.api.libs.json._
 
 import lila.common.HTTPRequest
-import lila.common.PimpedJson._
 
 trait Recaptcha {
 

@@ -1,7 +1,5 @@
 package lila.round
 
-import scala.concurrent.duration._
-
 import chess.{ Status, Color }
 
 import lila.game.actorApi.{ FinishGame, AbortedBy }

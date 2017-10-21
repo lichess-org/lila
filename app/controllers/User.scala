@@ -4,7 +4,6 @@ import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
 
-import chess.Centis
 import lila.api.{ Context, BodyContext }
 import lila.app._
 import lila.app.mashup.{ GameFilterMenu, GameFilter }
@@ -166,7 +165,6 @@ object User extends LilaController {
     filterName: String,
     page: Int
   )(implicit ctx: BodyContext[_]): Fu[Paginator[GameModel]] = {
-    import GameFilter.{ All, Playing }
     UserGamesRateLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = page, msg = s"on ${u.username}") {
       lila.mon.http.userGames.cost(page)
       GameFilterMenu.paginatorOf(

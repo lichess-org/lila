@@ -5,9 +5,8 @@ import play.api.data.Form
 
 import lila.api.Context
 import lila.bookmark.BookmarkApi
-import lila.common.paginator.Paginator
 import lila.forum.PostApi
-import lila.game.{ Game, Crosstable }
+import lila.game.Crosstable
 import lila.relation.RelationApi
 import lila.security.Granter
 import lila.user.{ User, Trophy, Trophies, TrophyApi }

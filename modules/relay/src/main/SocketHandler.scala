@@ -1,17 +1,11 @@
 package lila.relay
 
-import scala.concurrent.duration._
-
 import akka.actor._
-import akka.pattern.ask
-import play.api.libs.json._
 
-import lila.chat.Chat
 import lila.socket.Socket.Uid
 import lila.socket.{ Handler, JsSocketHandler }
 import lila.study.{ Study, Socket, SocketHandler => StudyHandler }
 import lila.user.User
-import makeTimeout.short
 
 private[relay] final class SocketHandler(
     studyHandler: StudyHandler,

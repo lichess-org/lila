@@ -1,12 +1,9 @@
 package lila.evaluation
 
-import scala.concurrent.duration._
-
 import chess.Centis
 import lila.common.{ Maths, Stats }
 
 object Statistics {
-  import scala.annotation._
 
   // Coefficient of Variance
   def coefVariation(a: List[Int]): Option[Float] = {

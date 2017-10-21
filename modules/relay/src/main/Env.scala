@@ -2,7 +2,6 @@ package lila.relay
 
 import akka.actor._
 import com.typesafe.config.Config
-import scala.concurrent.duration._
 
 final class Env(
     config: Config,
@@ -38,7 +37,6 @@ final class Env(
   )))
 
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {
-    import lila.study.actorApi._
     def receive = {
       case lila.study.actorApi.StudyLikes(id, likes) => api.setLikes(Relay.Id(id.value), likes)
       case lila.hub.actorApi.study.RemoveStudy(studyId, _) => api.onStudyRemove(studyId)

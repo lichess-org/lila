@@ -2,15 +2,12 @@ package lila.security
 
 import scala.concurrent.duration._
 
-import java.net.InetAddress
 import org.joda.time.DateTime
-import ornicar.scalalib.Random
-import play.api.mvc.Results.Redirect
-import play.api.mvc.{ RequestHeader, Action, Cookies }
+import play.api.mvc.{ RequestHeader, Cookies }
 import reactivemongo.api.commands.GetLastError
 import reactivemongo.api.ReadPreference
 
-import lila.common.{ IpAddress, LilaCookie }
+import lila.common.IpAddress
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 

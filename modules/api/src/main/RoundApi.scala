@@ -4,7 +4,6 @@ import play.api.libs.json._
 
 import lila.analyse.{ JsonView => analysisJson, Analysis }
 import lila.common.ApiVersion
-import lila.common.PimpedJson._
 import lila.game.{ Pov, Game, GameRepo }
 import lila.pref.Pref
 import lila.round.JsonView.WithFlags

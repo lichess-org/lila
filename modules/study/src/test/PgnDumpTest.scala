@@ -3,11 +3,8 @@ package lila.study
 import chess.format.pgn._
 import chess.format.{ FEN, Uci, UciCharPair }
 import chess.variant
-import lila.tree.Node.Shape._
-import lila.tree.Node.Shapes
 import Node._
 import org.specs2.mutable._
-import org.specs2.specification._
 
 class PgnDumpTest extends Specification {
 

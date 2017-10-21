@@ -1,7 +1,7 @@
 package lila.relay
 
 import chess.format.pgn.Tags
-import lila.study.{ Chapter, Node, PgnImport }
+import lila.study.{ Node, PgnImport }
 
 case class RelayGame(
     index: Int,

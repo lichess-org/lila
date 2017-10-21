@@ -4,13 +4,12 @@ import lila.api.Context
 import lila.app._
 import lila.chat.Chat
 import lila.common.{ IpAddress, EmailAddress }
-import lila.report.{ Room, Suspect, Mod => AsMod }
+import lila.report.{ Suspect, Mod => AsMod }
 import lila.user.{ UserRepo, User => UserModel }
 import views._
 
 import play.api.data._
 import play.api.data.Forms._
-import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
 

@@ -4,7 +4,6 @@ import akka.actor._
 import akka.pattern.ask
 
 import actorApi._
-import lila.common.PimpedJson._
 import lila.hub.actorApi.map._
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Handler

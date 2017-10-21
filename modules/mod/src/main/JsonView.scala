@@ -3,7 +3,6 @@ package lila.mod
 import play.api.libs.json._
 
 import chess.format.FEN
-import lila.common.PimpedJson._
 import lila.evaluation._
 import lila.game.JsonView.blursWriter
 import lila.game.{ Game, GameRepo }

@@ -9,7 +9,6 @@ import lila.user.User
 import lila.hub.actorApi.map.Ask
 import lila.hub.{ ActorMap, Sequencer }
 import lila.socket.actorApi.GetVersion
-import lila.socket.AnaDests
 import makeTimeout.short
 
 final class Env(

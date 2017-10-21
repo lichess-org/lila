@@ -6,7 +6,6 @@ import scala.util.Try
 import chess.format.pgn.{ Parser, ParsedPgn, Tag }
 import lila.common.LightUser
 import lila.game.{ Game, Namer }
-import lila.round.JsonView.WithFlags
 import lila.tree.Node.Comment
 import lila.user.User
 

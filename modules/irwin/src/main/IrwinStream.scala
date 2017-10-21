@@ -4,9 +4,6 @@ import akka.actor._
 import play.api.libs.iteratee._
 import play.api.libs.json._
 
-import lila.common.PimpedJson._
-import lila.hub.actorApi.report._
-
 final class IrwinStream(system: ActorSystem) {
 
   private val stringify =

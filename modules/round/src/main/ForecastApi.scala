@@ -5,7 +5,6 @@ import reactivemongo.bson._
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import org.joda.time.DateTime
-import scala.concurrent.duration.Duration
 import scala.concurrent.Promise
 
 import chess.format.Uci

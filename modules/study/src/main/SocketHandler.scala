@@ -7,7 +7,6 @@ import akka.pattern.ask
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
-import chess.format.FEN
 import chess.format.pgn.Glyph
 import lila.chat.Chat
 import lila.common.PimpedJson._

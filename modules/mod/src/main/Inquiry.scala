@@ -1,7 +1,5 @@
 package lila.mod
 
-import play.api.libs.json._
-
 import lila.common.LightUser
 import lila.report.{ Report, ReportApi }
 import lila.user.{ User, UserRepo, Note, NoteApi }
@@ -43,8 +41,5 @@ final class InquiryApi(
       }
     }
 
-  import lila.common.LightUser.lightUserWrites
-  import lila.report.JsonView.reportWrites
-  import lila.user.JsonView.modWrites
   // val inquiryWrites = Json.writes[Inquiry]
 }

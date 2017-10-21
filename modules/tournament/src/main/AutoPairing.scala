@@ -8,7 +8,7 @@ import chess.Color
 import lila.game.{ Game, Player => GamePlayer, GameRepo, PovRef, Source, PerfPicker }
 import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.round.NoStartColor
-import lila.user.{ User, UserRepo }
+import lila.user.User
 
 object SecondsToDoFirstMove {
   def secondsToMoveFor(tour: Tournament) = tour.speed match {

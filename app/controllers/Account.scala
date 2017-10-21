@@ -5,8 +5,7 @@ import play.api.mvc._
 import controllers.Auth.HasherRateLimit
 import lila.api.Context
 import lila.app._
-import lila.common.PimpedJson._
-import lila.common.{ LilaCookie, EmailAddress }
+import lila.common.LilaCookie
 import lila.user.{ User => UserModel, UserRepo }
 import UserModel.ClearPassword
 import views.html

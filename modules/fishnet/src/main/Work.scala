@@ -2,7 +2,6 @@ package lila.fishnet
 
 import org.joda.time.DateTime
 
-import chess.Centis
 import chess.format.{ Uci, FEN }
 import chess.variant.Variant
 import lila.common.IpAddress

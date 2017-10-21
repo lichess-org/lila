@@ -1,10 +1,8 @@
 package lila.importer
 
 import chess._
-import chess.Pos._
 import org.specs2.mutable._
 import org.specs2.matcher.ValidationMatchers
-import org.specs2.specification._
 
 class DataFormTest extends Specification with ValidationMatchers {
 

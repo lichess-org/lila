@@ -1,6 +1,6 @@
 package lila.activity
 
-import org.joda.time.{ DateTime, Interval }
+import org.joda.time.Interval
 
 import lila.game.Pov
 import lila.practice.PracticeStudy

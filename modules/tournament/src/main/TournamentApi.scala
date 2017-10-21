@@ -2,7 +2,6 @@ package lila.tournament
 
 import akka.actor.{ Props, ActorRef, ActorSelection, ActorSystem }
 import akka.pattern.{ ask, pipe }
-import chess.{ Mode, StartingPosition }
 import play.api.libs.json._
 import scala.concurrent.duration._
 

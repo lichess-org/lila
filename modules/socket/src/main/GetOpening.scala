@@ -2,7 +2,6 @@ package lila.socket
 
 import chess.opening._
 import chess.variant.Variant
-import lila.common.PimpedJson._
 import play.api.libs.json._
 
 object GetOpening {

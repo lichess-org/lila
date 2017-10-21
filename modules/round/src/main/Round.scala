@@ -6,7 +6,7 @@ import org.joda.time.DateTime
 import scala.concurrent.duration._
 
 import actorApi._, round._
-import chess.{ Centis, DecayingStats, Color }
+import chess.{ DecayingStats, Color }
 import lila.game.{ Game, Progress, Pov, Event }
 import lila.hub.actorApi.DeployPost
 import lila.hub.actorApi.map._

@@ -1,7 +1,6 @@
 package lila.plan
 
 import lila.db.dsl._
-import lila.memo._
 import lila.user.{ User, UserRepo }
 
 import org.joda.time.DateTime

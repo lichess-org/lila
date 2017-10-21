@@ -1,6 +1,6 @@
 package lila.game
 
-import com.github.blemale.scaffeine.{ AsyncLoadingCache, Scaffeine }
+import com.github.blemale.scaffeine.Scaffeine
 import scala.concurrent.duration._
 
 import lila.user.{ User, UserRepo }

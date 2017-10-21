@@ -1,6 +1,5 @@
 package lila.activity
 
-import lila.analyse.Analysis
 import lila.db.dsl._
 import lila.game.Game
 import lila.study.Study

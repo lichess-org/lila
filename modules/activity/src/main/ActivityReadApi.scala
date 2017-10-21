@@ -2,12 +2,10 @@ package lila.activity
 
 import org.joda.time.{ DateTime, Interval }
 
-import lila.analyse.Analysis
 import lila.db.dsl._
-import lila.game.{ Game, Pov, GameRepo }
+import lila.game.{ Pov, GameRepo }
 import lila.practice.PracticeStructure
 import lila.user.User
-import lila.user.UserRepo.lichessId
 
 final class ActivityReadApi(
     coll: Coll,
@@ -20,7 +18,6 @@ final class ActivityReadApi(
 
   import Activity._
   import BSONHandlers._
-  import activities._
   import model._
 
   private val recentNb = 7

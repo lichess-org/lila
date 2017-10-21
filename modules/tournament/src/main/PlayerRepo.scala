@@ -4,7 +4,6 @@ import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework
 import reactivemongo.bson._
 
 import BSONHandlers._
-import lila.db.BSON._
 import lila.db.dsl._
 import lila.rating.Perf
 import lila.user.{ User, Perfs }

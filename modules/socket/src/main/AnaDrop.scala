@@ -7,7 +7,6 @@ import play.api.libs.json._
 import play.api.libs.json.JsObject
 import scalaz.Validation.FlatMap._
 
-import lila.common.PimpedJson._
 import lila.tree.Branch
 
 case class AnaDrop(

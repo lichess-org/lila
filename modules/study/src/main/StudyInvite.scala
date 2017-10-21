@@ -6,7 +6,7 @@ import akka.pattern.ask
 import lila.hub.actorApi.HasUserId
 import lila.notify.{ InvitedToStudy, NotifyApi, Notification }
 import lila.pref.Pref
-import lila.relation.{ Relation, Block, Follow, RelationApi }
+import lila.relation.{ Block, Follow }
 import lila.user.{ User, UserRepo }
 import makeTimeout.short
 

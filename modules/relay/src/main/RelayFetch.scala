@@ -2,7 +2,7 @@ package lila.relay
 
 import akka.actor._
 import org.joda.time.DateTime
-import play.api.libs.ws.{ WS, WSResponse }
+import play.api.libs.ws.WS
 import play.api.Play.current
 import scala.concurrent.duration._
 

@@ -1,13 +1,11 @@
 package lila.study
 
 import akka.actor._
-import org.joda.time.DateTime
 import play.api.libs.json._
 import scala.concurrent.duration._
 
 import chess.Centis
 import chess.format.pgn.Glyphs
-import lila.common.PimpedJson._
 import lila.hub.TimeBomb
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Socket.Uid

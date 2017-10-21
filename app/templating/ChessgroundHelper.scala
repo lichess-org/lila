@@ -1,7 +1,6 @@
 package lila.app
 package templating
 
-import chess.format.Uci
 import chess.{ Color, Board, Pos }
 import lila.api.Context
 import play.twirl.api.Html

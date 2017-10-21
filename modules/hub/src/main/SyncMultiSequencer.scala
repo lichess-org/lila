@@ -1,7 +1,6 @@
 package lila.hub
 
 import akka.actor._
-import scala.concurrent.duration._
 import scala.concurrent.Promise
 
 /**

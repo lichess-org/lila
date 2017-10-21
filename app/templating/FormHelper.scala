@@ -5,7 +5,7 @@ import play.api.data._
 import play.twirl.api.Html
 
 import lila.api.Context
-import lila.i18n.{ I18nKeys, I18nDb }
+import lila.i18n.I18nDb
 
 trait FormHelper { self: I18nHelper =>
 

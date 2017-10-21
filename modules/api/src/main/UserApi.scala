@@ -3,7 +3,6 @@ package lila.api
 import play.api.libs.json._
 
 import lila.common.paginator.{ Paginator, PaginatorJson }
-import lila.common.PimpedJson._
 import lila.game.GameRepo
 import lila.user.{ UserRepo, User }
 

@@ -14,7 +14,7 @@ final class CrosstableApi(
     system: akka.actor.ActorSystem
 ) {
 
-  import Crosstable.{ Matchup, Result, Users, User }
+  import Crosstable.{ Matchup, Result }
   import Crosstable.{ BSONFields => F }
   import Game.{ BSONFields => GF }
 

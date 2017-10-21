@@ -1,7 +1,6 @@
 package lila.evalCache
 
 import com.typesafe.config.Config
-import scala.concurrent.duration._
 
 final class Env(
     config: Config,

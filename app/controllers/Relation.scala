@@ -79,7 +79,6 @@ object Relation extends LilaController {
   private def jsonRelatedPaginator(pag: Paginator[Related]) = {
     import lila.user.JsonView.nameWrites
     import lila.relation.JsonView.relatedWrites
-    import lila.common.PimpedJson._
     Json.obj("paginator" -> PaginatorJson(pag.mapResults { r =>
       relatedWrites.writes(r) ++ Json.obj(
         "perfs" -> r.user.perfs.bestPerfType.map { best =>

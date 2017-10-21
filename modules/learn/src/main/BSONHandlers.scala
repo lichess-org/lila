@@ -2,7 +2,6 @@ package lila.learn
 
 import reactivemongo.bson._
 
-import lila.common.Iso
 import lila.db.BSON
 import lila.db.dsl._
 

@@ -1,7 +1,6 @@
 package lila.study
 
 import akka.actor.{ ActorRef, ActorSelection }
-import org.joda.time.DateTime
 import scala.concurrent.duration._
 
 import chess.Centis
@@ -12,7 +11,7 @@ import lila.hub.actorApi.timeline.{ Propagate, StudyCreate, StudyLike }
 import lila.hub.Sequencer
 import lila.socket.Socket.Uid
 import lila.tree.Node.{ Shapes, Comment, Gamebook }
-import lila.user.{ User, UserRepo }
+import lila.user.User
 
 final class StudyApi(
     studyRepo: StudyRepo,

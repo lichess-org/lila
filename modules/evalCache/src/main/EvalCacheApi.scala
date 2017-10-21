@@ -4,11 +4,9 @@ import org.joda.time.DateTime
 import play.api.libs.json.JsObject
 import scala.concurrent.duration._
 
-import chess.format.{ FEN, Uci, Forsyth }
+import chess.format.{ FEN, Forsyth }
 import chess.variant.Variant
 import lila.db.dsl._
-import lila.socket.Handler.Controller
-import lila.user.User
 
 final class EvalCacheApi(
     coll: Coll,

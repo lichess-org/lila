@@ -8,7 +8,6 @@ import scala.concurrent.duration._
 
 import lila.analyse.{ JsonView => analysisJson, AnalysisRepo, Analysis }
 import lila.common.paginator.{ Paginator, PaginatorJson }
-import lila.common.PimpedJson._
 import lila.db.dsl._
 import lila.db.paginator.{ Adapter, CachedAdapter }
 import lila.game.BSONHandlers._

@@ -6,7 +6,7 @@ import views._
 
 import lila.api.{ Context, BodyContext }
 import lila.app._
-import lila.report.{ Room, Report => ReportModel, Mod => AsMod, Suspect }
+import lila.report.{ Room, Report => ReportModel, Mod => AsMod }
 import lila.user.{ UserRepo, User => UserModel }
 
 object Report extends LilaController {

@@ -8,7 +8,6 @@ import lila.app._
 import lila.challenge.{ Challenge => ChallengeModel }
 import lila.common.{ HTTPRequest, LilaCookie }
 import lila.game.{ Pov, GameRepo, AnonCookie }
-import lila.i18n.{ I18nKeys => trans }
 import lila.user.UserRepo
 import views.html
 

@@ -9,7 +9,7 @@ import org.joda.time.DateTime
 import lila.common.paginator._
 import lila.db.dsl._
 import lila.db.paginator._
-import lila.user.{ User, UserContext }
+import lila.user.User
 import lila.security.Granter
 
 final class QaApi(

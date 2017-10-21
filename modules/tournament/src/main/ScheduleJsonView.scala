@@ -3,14 +3,11 @@ package lila.tournament
 import play.api.libs.json._
 
 import lila.common.LightUser
-import lila.common.PimpedJson._
 import lila.rating.PerfType
-import lila.user.UserRepo.lichessId
 
 final class ScheduleJsonView(lightUser: LightUser.Getter) {
 
   import JsonView._
-  import Condition.JSONHandlers._
 
   def apply(tournaments: VisibleTournaments): Fu[JsObject] = for {
     created <- tournaments.created.map(tournamentJson).sequenceFu

@@ -12,7 +12,7 @@ import reactivemongo.bson.BSONBinary
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.ByteArray
 import lila.db.dsl._
-import lila.user.{ User, UidNb }
+import lila.user.User
 
 object GameRepo {
 

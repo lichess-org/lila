@@ -194,8 +194,6 @@ object Tournament extends LilaController {
 
   def create = AuthBody { implicit ctx => implicit me =>
     NoLame {
-      import play.api.i18n.Messages.Implicits._
-      import play.api.Play.current
       implicit val req = ctx.body
       negotiate(
         html = env.forms(me).bindFromRequest.fold(

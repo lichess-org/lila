@@ -3,7 +3,6 @@ package lila.evalCache
 import play.api.libs.json._
 
 import chess.format.FEN
-import lila.common.PimpedJson._
 import lila.socket._
 import lila.user.User
 
