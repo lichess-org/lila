@@ -32,7 +32,11 @@ div.lobby_and_ground {
   width: 512px;
   height: 512px;
   text-align: center;
-  background: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.8);
+}
+body.dark #lobby_playban,
+body.dark #lobby_current_game {
+  background: rgba(0,0,0,0.8);
 }
 #lobby_playban h2,
 #lobby_current_game h2 {

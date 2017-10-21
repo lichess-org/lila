@@ -1,11 +1,10 @@
-@(ban: lila.playban.TempBan)(implicit ctx: Context)
-
+@(seconds: Int)(implicit ctx: Context)
 <div id="lobby_playban">
-  <h2>Oh no!</h2>
-  <p>Temporarily banned from lobby games!</p>
+  <h2>Sorry :(</h2>
+  <p>We had to time you out for a @if(seconds < 3600){little }while.</h2>
   <br />
-  <p>You will be able to play again <strong>@secondsFromNow(ban.remainingSeconds)</strong>.</p>
-  <h2>Why?</h2>
+  <p>The timeout expires <strong>@secondsFromNow(seconds)</strong>.</p>
+  <h2>How to avoid timeouts</h2>
   <p>Either you have <strong>aborted too many games</strong>,<br />
     or you have <strong>not played</strong> the games you started,<br />
     or you <strong>quit games without resigning</strong>.

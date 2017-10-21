@@ -88,7 +88,8 @@ asyncJs = true) {
 <div class="lobby_and_ground@if(playban.isDefined){ playban}@if(currentGame.isDefined){ current_game}">
   @currentGame.map(currentGameInfo(_))
   <div id="hooks_wrap"></div>
-  @playban.map(playbanInfo(_))
+  @playban.map(ban => playbanInfo(ban.remainingSeconds))
+  @playbanInfo(2000)
   <div id="start_buttons" class="lichess_ground">
     <a class="fat button config_hook hint--bottom@if(playban.isDefined || currentGame.isDefined){ disabled}" href="@routes.Setup.hookForm" onclick="return false">@trans.createAGame()</a>
     <a class="fat button config_friend hint--bottom@if(currentGame.isDefined){ disabled}" href="@routes.Setup.friendForm(none)" onclick="return false">@trans.playWithAFriend()</a>

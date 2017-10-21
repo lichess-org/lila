@@ -467,10 +467,6 @@ body.dark ::-webkit-input-placeholder {
 body.dark :-ms-input-placeholder {
   color: #777;
 }
-body.dark #lobby_playban,
-body.dark #lobby_current_game {
-  background: rgba(0,0,0,0.7);
-}
 body.dark #topmenu section > a {
   color: #777;
   text-shadow: 0 1px 1px #000;
