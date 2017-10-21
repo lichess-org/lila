@@ -30,7 +30,7 @@ case class UserRecord(
   } option bans.lastOption.fold(TempBan.initial) { prev =>
     new Duration(prev.endsAt, DateTime.now).toStandardDays.getDays match {
       case d if d < 3 => TempBan.make(prev.mins * 3)
-      case d => TempBan.make((prev.mins / Math.log(d).toInt) atLeast 30)
+      case d => TempBan.make((prev.mins / Math.log(d)).toInt atLeast 30)
     }
   }
 }
