@@ -49,7 +49,9 @@ final class DataForm {
   )(TournamentSetup.apply)(TournamentSetup.unapply)
     .verifying("Invalid clock", _.validClock)
     .verifying("15s variant games cannot be rated", _.validRatedUltraBulletVariant)
-    .verifying("Increase tournament duration, or decrease game clock", _.validTiming))
+    .verifying("Increase tournament duration, or decrease game clock", _.validTiming)
+    .verifying("These settings will only work for private tournaments", _.validPublic) // very rare, do not translate
+  )
 }
 
 object DataForm {
@@ -116,6 +118,12 @@ private[tournament] case class TournamentSetup(
   def validClock = (clockTime + clockIncrement) > 0
 
   def validTiming = (minutes * 60) >= (3 * estimatedGameDuration)
+
+  def validPublic = isPrivate || {
+    DataForm.clockTimes.contains(clockTime) &&
+      DataForm.clockIncrements.contains(clockIncrement) &&
+      DataForm.minutes.contains(minutes)
+  }
 
   def realMode = mode.fold(Mode.default)(Mode.orDefault)
 
