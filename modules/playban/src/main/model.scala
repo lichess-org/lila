@@ -22,11 +22,10 @@ case class UserRecord(
     if (nbOutcomes == 0) 0
     else nbBadOutcomes.toDouble / nbOutcomes
 
-  def nbBadOutcomesBeforeBan = if (bans.isEmpty) 3 else 2
+  def nbBadOutcomesBeforeBan = if (bans.isEmpty) 4 else 3
 
   def bannable: Option[TempBan] = {
-    nbBadOutcomes.pp("nbOutcomes") >= nbBadOutcomesBeforeBan &&
-      badOutcomeRatio.pp("badOutcomeRatio") >= 1d / 3
+    nbBadOutcomes >= nbBadOutcomesBeforeBan && badOutcomeRatio >= 1d / 2
   } option bans.lastOption.fold(TempBan.initial) { prev =>
     new Duration(prev.endsAt, DateTime.now).toStandardDays.getDays match {
       case d if d < 3 => TempBan.make(prev.mins * 3)
