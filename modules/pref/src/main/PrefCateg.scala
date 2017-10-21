@@ -9,7 +9,7 @@ object PrefCateg {
   case object GameBehavior extends PrefCateg("game-behavior")
   case object Privacy extends PrefCateg("privacy")
 
-  val all = List(GameDisplay, ChessClock, GameBehavior, Privacy)
+  val all: List[PrefCateg] = List(GameDisplay, ChessClock, GameBehavior, Privacy)
 
   def apply(slug: String) = all find (_.slug == slug)
 }

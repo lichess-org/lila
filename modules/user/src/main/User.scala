@@ -89,8 +89,8 @@ case class User(
       -(perfs(pt).nb * PerfType.totalTimeRoughEstimation.get(pt).fold(0)(_.centis))
     } take 4
 
-  private val firstRow = List(PerfType.Bullet, PerfType.Blitz, PerfType.Classical, PerfType.Correspondence)
-  private val secondRow = List(PerfType.UltraBullet, PerfType.Crazyhouse, PerfType.Chess960, PerfType.KingOfTheHill, PerfType.ThreeCheck, PerfType.Antichess, PerfType.Atomic, PerfType.Horde, PerfType.RacingKings)
+  private val firstRow: List[PerfType] = List(PerfType.Bullet, PerfType.Blitz, PerfType.Classical, PerfType.Correspondence)
+  private val secondRow: List[PerfType] = List(PerfType.UltraBullet, PerfType.Crazyhouse, PerfType.Chess960, PerfType.KingOfTheHill, PerfType.ThreeCheck, PerfType.Antichess, PerfType.Atomic, PerfType.Horde, PerfType.RacingKings)
 
   def best8Perfs: List[PerfType] =
     best4Of(firstRow) ::: best4Of(secondRow)

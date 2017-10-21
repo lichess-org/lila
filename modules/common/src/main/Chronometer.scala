@@ -22,9 +22,7 @@ object Chronometer {
       result
     }
 
-    def showDuration =
-      if (millis >= 1) f"$millis%.2f ms"
-      else s"$micros micros"
+    def showDuration: String = if (millis >= 1) f"$millis%.2f ms" else s"$micros micros"
   }
 
   case class FuLap[A](lap: Fu[Lap[A]]) extends AnyVal {

@@ -181,7 +181,10 @@ object WMMatching {
     class BlossomLeavesTraversable(b: Int) extends Traversable[Int] {
       def foreach[U](f: Int => U): Unit = {
         def g(v: Int): Unit = {
-          blossomchilds(v).foreach(w => if (w < nvertex) f(w) else g(w))
+          blossomchilds(v).foreach { w =>
+            if (w < nvertex) f(w): Unit
+            else g(w)
+          }
         }
         if (b < nvertex) f(b) else g(b)
       }
