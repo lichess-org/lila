@@ -33,6 +33,7 @@ div.lobby_and_ground {
   height: 512px;
   text-align: center;
   background: rgba(255,255,255,0.8);
+  font-size: 1.1em;
 }
 body.dark #lobby_playban,
 body.dark #lobby_current_game {
@@ -46,6 +47,15 @@ body.dark #lobby_current_game {
 }
 #lobby_playban a {
   color: #3893E8;
+}
+#lobby_playban ul {
+  margin: 10px auto;
+  display: inline-block;
+  text-align: left;
+}
+#lobby_playban ul li {
+  list-style: disc outside;
+  font-size: 1.1em;
 }
 .current_game #hooks_wrap {
   visibility: hidden;
