@@ -348,8 +348,8 @@
   <string name="followsYou">Sekvas vin</string>
   <string name="xStartedFollowingY">%1$s eksekvis %2$s</string>
   <plurals name="nbFollowers">
-    <item quantity="one">%s sekvantoj</item>
-    <item quantity="other">%s abonantoj</item>
+    <item quantity="one">%s sekvanto</item>
+    <item quantity="other">%s sekvantoj</item>
   </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s sekvatoj</item>
@@ -694,7 +694,7 @@
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Aroka metodo</string>
   <string name="castleByMovingTwoSquares">Movi reĝon je du kampoj</string>
   <string name="castleByMovingOntoTheRook">Movi reĝon sur la turon</string>
-  <string name="shareYourInsightsData">Havebligi viajn komprenoj datumoj</string>
+  <string name="shareYourInsightsData">Havebligi viajn datumojn pri ŝaka kompreno</string>
   <string name="withNobody">Kun neniu</string>
   <string name="withFriends">Kun amikoj</string>
   <string name="withEverybody">Kun ĉiuj</string>
