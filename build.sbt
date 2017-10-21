@@ -16,7 +16,7 @@ lazy val root = Project("lila", file("."))
 
 scalaVersion := globalScalaVersion
 resolvers ++= Dependencies.Resolvers.commons
-scalacOptions := compilerOptions
+scalacOptions ++= compilerOptions
 incOptions := incOptions.value.withNameHashing(true)
 updateOptions := updateOptions.value.withCachedResolution(true)
 sources in doc in Compile := List()

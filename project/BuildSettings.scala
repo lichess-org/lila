@@ -43,7 +43,7 @@ object BuildSettings {
       .dependsOn(deps: _*)
       .settings(
         version := "2.0",
-        libraryDependencies := defaultDeps,
+        libraryDependencies ++= defaultDeps,
         buildSettings,
         srcMain
       )
