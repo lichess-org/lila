@@ -20,11 +20,7 @@ object Spam {
     cb
   )
 
-  private val spamBlacklist = List(
-    "sexual-health.ga"
-  )
-
-  private val fullBlacklist = referBlacklist ::: spamBlacklist
+  private val fullBlacklist = referBlacklist
 
   def replace(text: String) = replacements.foldLeft(text) {
     case (t, (regex, rep)) => regex.replaceAllIn(t, rep)
