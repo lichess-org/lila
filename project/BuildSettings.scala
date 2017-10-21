@@ -1,5 +1,6 @@
 import play.sbt.Play.autoImport._
 import sbt._, Keys._
+import scalafix.sbt.ScalafixPlugin.scalafixScalacOptions
 
 object BuildSettings {
 
@@ -11,7 +12,8 @@ object BuildSettings {
     organization := "org.lichess",
     scalaVersion := globalScalaVersion,
     resolvers ++= Dependencies.Resolvers.commons,
-    scalacOptions := compilerOptions,
+    scalacOptions ++= compilerOptions,
+    scalacOptions ++= scalafixScalacOptions.value,
     incOptions := incOptions.value.withNameHashing(true),
     updateOptions := updateOptions.value.withCachedResolution(true),
     sources in doc in Compile := List(),
