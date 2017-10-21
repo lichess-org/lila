@@ -51,27 +51,23 @@ final class IrwinApi(
       }
     }
 
-    private def getIrwinAndSuspect(suspectId: User.ID): Fu[(Mod, Suspect)] = for {
-      irwin <- UserRepo byId "irwin" flatten s"Irwin user not found" map Mod.apply
-      suspect <- UserRepo byId suspectId flatten s"suspect $suspectId not found" map Suspect.apply
-    } yield irwin -> suspect
+    private def getSuspect(suspectId: User.ID) =
+      UserRepo byId suspectId flatten s"suspect $suspectId not found" map Suspect.apply
 
     private def markOrReport(report: IrwinReport): Funit =
-      if (report.activation > 90) getIrwinAndSuspect(report.userId) flatMap {
-        case (irwin, suspect) =>
+      if (report.activation > 90)
+        modApi.autoMark(report.userId, "irwin") >>-
           lila.mon.mod.irwin.mark()
-          modApi.setEngine(irwin, suspect, true)
-      }
-      else if (report.activation > 50) getIrwinAndSuspect(report.userId) flatMap {
-        case (irwin, suspect) =>
-          lila.mon.mod.irwin.report()
-          reportApi.create(Report.make(
-            suspect = suspect,
-            reason = lila.report.Reason.Cheat,
-            text = s"${report.activation}% over ${report.games.size} games",
-            reporter = Reporter(irwin.user)
-          ), suspect, Reporter(irwin.user))
-      }
+      else if (report.activation > 50) for {
+        suspect <- getSuspect(report.userId)
+        irwin <- UserRepo byId "irwin" flatten s"Irwin user not found" map Mod.apply
+        _ <- reportApi.create(Report.make(
+          suspect = suspect,
+          reason = lila.report.Reason.Cheat,
+          text = s"${report.activation}% over ${report.games.size} games",
+          reporter = Reporter(irwin.user)
+        ), suspect, Reporter(irwin.user))
+      } yield lila.mon.mod.irwin.report()
       else funit
   }
 
