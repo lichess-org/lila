@@ -1,6 +1,7 @@
 import com.typesafe.sbt.SbtScalariform.autoImport.scalariformPreferences
 import play.sbt.Play.autoImport._
 import sbt._, Keys._
+import scalariform.formatter.preferences._
 import scalafix.sbt.ScalafixPlugin.scalafixScalacOptions
 
 object BuildSettings {
