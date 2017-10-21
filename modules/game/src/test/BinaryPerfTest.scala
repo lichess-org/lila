@@ -31,8 +31,8 @@ class BinaryPerfTest extends Specification {
 
   type Run = () => Unit
 
-  def readDataset() { encodedDataset foreach format.read }
-  def writeDataset() { dataset foreach format.write }
+  def readDataset(): Unit = { encodedDataset foreach format.read }
+  def writeDataset(): Unit = { dataset foreach format.write }
 
   def runTests(run: Run, name: String, iterations: Int) = {
     println(s"$name warming up")

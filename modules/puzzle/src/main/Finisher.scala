@@ -67,7 +67,7 @@ private[puzzle] final class Finisher(
   def incPuzzleAttempts(puzzle: Puzzle) =
     puzzleColl.incFieldUnchecked($id(puzzle.id), Puzzle.BSONFields.attempts)
 
-  private def updateRatings(u1: Rating, u2: Rating, result: Glicko.Result) {
+  private def updateRatings(u1: Rating, u2: Rating, result: Glicko.Result): Unit = {
     val results = new RatingPeriodResults()
     result match {
       case Glicko.Result.Draw => results.addDraw(u1, u2)

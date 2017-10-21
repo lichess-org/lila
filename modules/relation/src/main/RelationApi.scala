@@ -172,7 +172,7 @@ final class RelationApi(
   def searchFollowedBy(u: User, term: String, max: Int): Fu[List[User.ID]] =
     RelationRepo.followingLike(u.id, term) map { _.sorted take max }
 
-  private def reloadOnlineFriends(u1: ID, u2: ID) {
+  private def reloadOnlineFriends(u1: ID, u2: ID): Unit = {
     import lila.hub.actorApi.relation.ReloadOnlineFriends
     List(u1, u2).foreach(actor ! ReloadOnlineFriends(_))
   }

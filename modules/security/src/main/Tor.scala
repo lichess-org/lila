@@ -9,7 +9,7 @@ final class Tor(providerUrl: String) {
 
   private var ips = Set.empty[IpAddress]
 
-  private[security] def refresh(withIps: Iterable[IpAddress] => Funit) {
+  private[security] def refresh(withIps: Iterable[IpAddress] => Funit): Unit = {
     WS.url(providerUrl).get() map { res =>
       ips = res.body.lines.filterNot(_ startsWith "#").map(IpAddress.apply).toSet
       withIps(ips)

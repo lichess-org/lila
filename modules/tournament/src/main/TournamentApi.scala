@@ -70,7 +70,7 @@ final class TournamentApi(
     TournamentRepo.insert(tournament).void >>- publish()
   }
 
-  private[tournament] def makePairings(oldTour: Tournament, users: WaitingUsers, startAt: Long) {
+  private[tournament] def makePairings(oldTour: Tournament, users: WaitingUsers, startAt: Long): Unit = {
     Sequencing(oldTour.id)(TournamentRepo.startedById) { tour =>
       cached ranking tour flatMap { ranking =>
         tour.system.pairingSystem.createPairings(tour, users, ranking).flatMap {
@@ -128,7 +128,7 @@ final class TournamentApi(
     }
   }
 
-  def start(oldTour: Tournament) {
+  def start(oldTour: Tournament): Unit = {
     Sequencing(oldTour.id)(TournamentRepo.createdById) { tour =>
       TournamentRepo.setStatus(tour.id, Status.Started) >>-
         sendTo(tour.id, Reload) >>-
@@ -141,7 +141,7 @@ final class TournamentApi(
       PairingRepo.removeByTour(tour.id) >>
       PlayerRepo.removeByTour(tour.id) >>- publish() >>- socketReload(tour.id)
 
-  def finish(oldTour: Tournament) {
+  def finish(oldTour: Tournament): Unit = {
     Sequencing(oldTour.id)(TournamentRepo.startedById) { tour =>
       PairingRepo count tour.id flatMap {
         case 0 => wipe(tour)
@@ -166,7 +166,7 @@ final class TournamentApi(
     }
   }
 
-  def kill(tour: Tournament) {
+  def kill(tour: Tournament): Unit = {
     if (tour.isStarted) finish(tour)
     else if (tour.isCreated) wipe(tour)
   }
@@ -188,7 +188,7 @@ final class TournamentApi(
     case Some(user) => verify(tour.conditions, user)
   }
 
-  def join(tourId: String, me: User, p: Option[String]) {
+  def join(tourId: String, me: User, p: Option[String]): Unit = {
     Sequencing(tourId)(TournamentRepo.enterableById) { tour =>
       if (tour.password == p) {
         verdicts(tour, me.some) flatMap {
@@ -218,7 +218,7 @@ final class TournamentApi(
   private def updateNbPlayers(tourId: String) =
     PlayerRepo count tourId flatMap { TournamentRepo.setNbPlayers(tourId, _) }
 
-  private def withdrawOtherTournaments(tourId: String, userId: String) {
+  private def withdrawOtherTournaments(tourId: String, userId: String): Unit = {
     TournamentRepo toursToWithdrawWhenEntering tourId foreach {
       _ foreach { other =>
         PlayerRepo.exists(other.id, userId) foreach {
@@ -228,7 +228,7 @@ final class TournamentApi(
     }
   }
 
-  def withdraw(tourId: String, userId: String) {
+  def withdraw(tourId: String, userId: String): Unit = {
     Sequencing(tourId)(TournamentRepo.enterableById) {
       case tour if tour.isCreated =>
         PlayerRepo.remove(tour.id, userId) >> updateNbPlayers(tour.id) >>- socketReload(tour.id) >>- publish()
@@ -238,7 +238,7 @@ final class TournamentApi(
     }
   }
 
-  def withdrawAll(user: User) {
+  def withdrawAll(user: User): Unit = {
     TournamentRepo.nonEmptyEnterable foreach {
       _ foreach { tour =>
         PlayerRepo.exists(tour.id, user.id) foreach {
@@ -248,7 +248,7 @@ final class TournamentApi(
     }
   }
 
-  def berserk(gameId: String, userId: String) {
+  def berserk(gameId: String, userId: String): Unit = {
     GameRepo game gameId foreach {
       _.flatMap(_.tournamentId) foreach { tourId =>
         Sequencing(tourId)(TournamentRepo.startedById) { tour =>
@@ -270,7 +270,7 @@ final class TournamentApi(
     }
   }
 
-  def finishGame(game: Game) {
+  def finishGame(game: Game): Unit = {
     game.tournamentId foreach { tourId =>
       Sequencing(tourId)(TournamentRepo.startedById) { tour =>
         PairingRepo.finish(game) >>
@@ -315,7 +315,7 @@ final class TournamentApi(
       }.sequenceFu.void
     }
 
-  def ejectLame(userId: String) {
+  def ejectLame(userId: String): Unit = {
     TournamentRepo.recentAndNext foreach {
       _ foreach { tour =>
         PlayerRepo.exists(tour.id, userId) foreach {
@@ -325,7 +325,7 @@ final class TournamentApi(
     }
   }
 
-  def ejectLame(tourId: String, userId: String) {
+  def ejectLame(tourId: String, userId: String): Unit = {
     Sequencing(tourId)(TournamentRepo.byId) { tour =>
       PlayerRepo.remove(tour.id, userId) >> {
         if (tour.isStarted)
@@ -409,11 +409,11 @@ final class TournamentApi(
       }
     }
 
-  private def sequence(tourId: String)(work: => Funit) {
+  private def sequence(tourId: String)(work: => Funit): Unit = {
     sequencers ! Tell(tourId, Sequencer work work)
   }
 
-  private def Sequencing(tourId: String)(fetch: String => Fu[Option[Tournament]])(run: Tournament => Funit) {
+  private def Sequencing(tourId: String)(fetch: String => Fu[Option[Tournament]])(run: Tournament => Funit): Unit = {
     sequence(tourId) {
       fetch(tourId) flatMap {
         case Some(t) => run(t)
@@ -422,7 +422,7 @@ final class TournamentApi(
     }
   }
 
-  private def socketReload(tourId: String) {
+  private def socketReload(tourId: String): Unit = {
     sendTo(tourId, Reload)
   }
 
@@ -438,7 +438,7 @@ final class TournamentApi(
           } pipeToSelection lobby
         }
     })))
-    def apply() { debouncer ! Debouncer.Nothing }
+    def apply(): Unit = { debouncer ! Debouncer.Nothing }
   }
 
   private object updateTournamentStanding {

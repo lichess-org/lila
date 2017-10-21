@@ -8,7 +8,7 @@ import lila.hub.actorApi.{ DeployPre, DeployPost }
 
 private final class InfluxEvent(endpoint: String, env: String) extends Actor {
 
-  override def preStart() {
+  override def preStart(): Unit = {
     context.system.lilaBus.subscribe(self, 'deploy)
     event("lila_start", "Lila starts")
   }

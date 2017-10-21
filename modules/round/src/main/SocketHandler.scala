@@ -41,7 +41,7 @@ private[round] final class SocketHandler(
     me: Option[User]
   ): Handler.Controller = {
 
-    def send(msg: Any) { roundMap ! Tell(gameId, msg) }
+    def send(msg: Any): Unit = { roundMap ! Tell(gameId, msg) }
 
     member.playerIdOption.fold[Handler.Controller](({
       case ("p", o) => socket ! Ping(uid, o)

@@ -34,7 +34,7 @@ trait SequentialActor extends Actor {
 
   def receive = idle
 
-  def onFailure(e: Exception) {}
+  def onFailure(e: Exception): Unit = {}
 
   private val queue = collection.mutable.Queue[Any]()
   private def dequeue: Option[Any] = Try(queue.dequeue).toOption
@@ -45,7 +45,7 @@ trait SequentialActor extends Actor {
     case _ => funit
   }
 
-  private def processThenDone(work: Any) {
+  private def processThenDone(work: Any): Unit = {
     work match {
       // we don't want to send Done after actor death
       case SequentialActor.Terminate => self ! PoisonPill

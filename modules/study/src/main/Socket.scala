@@ -33,12 +33,12 @@ private final class Socket(
 
   private var delayedCrowdNotification = false
 
-  override def preStart() {
+  override def preStart(): Unit = {
     super.preStart()
     lilaBus.subscribe(self, Symbol(s"chat-$studyId"))
   }
 
-  override def postStop() {
+  override def postStop(): Unit = {
     super.postStop()
     lilaBus.unsubscribe(self)
   }
@@ -229,7 +229,7 @@ private final class Socket(
     send = (t, d, _) => notifyVersion(t, d, noMessadata)
   )
 
-  def notifyCrowd {
+  def notifyCrowd: Unit = {
     if (!delayedCrowdNotification) {
       delayedCrowdNotification = true
       context.system.scheduler.scheduleOnce(500 millis, self, NotifyCrowd)

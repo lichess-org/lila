@@ -198,10 +198,10 @@ object GameRepo {
     .cursor[Game]()
     .gather[List](nb)
 
-  def setAnalysed(id: ID) {
+  def setAnalysed(id: ID): Unit = {
     coll.updateFieldUnchecked($id(id), F.analysed, true)
   }
-  def setUnanalysed(id: ID) {
+  def setUnanalysed(id: ID): Unit = {
     coll.updateFieldUnchecked($id(id), F.analysed, false)
   }
 

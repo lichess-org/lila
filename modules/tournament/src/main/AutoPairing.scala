@@ -61,11 +61,11 @@ final class AutoPairing(
       game2
   }
 
-  private def scheduleIdleCheck(povRef: PovRef, secondsToMove: Int, thenAgain: Boolean) {
+  private def scheduleIdleCheck(povRef: PovRef, secondsToMove: Int, thenAgain: Boolean): Unit = {
     system.scheduler.scheduleOnce(secondsToMove seconds)(idleCheck(povRef, secondsToMove, thenAgain))
   }
 
-  private def idleCheck(povRef: PovRef, secondsToMove: Int, thenAgain: Boolean) {
+  private def idleCheck(povRef: PovRef, secondsToMove: Int, thenAgain: Boolean): Unit = {
     GameRepo pov povRef foreach {
       _.filter(_.game.playable) foreach { pov =>
         if (pov.game.playerHasMoved(pov.color)) {

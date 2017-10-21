@@ -13,11 +13,11 @@ object ResilientScheduler {
     atMost: FiniteDuration,
     system: ActorSystem,
     logger: lila.log.Logger
-  )(f: => Funit) {
+  )(f: => Funit): Unit = {
 
     system.actorOf(Props(new Actor {
 
-      override def preStart {
+      override def preStart: Unit = {
         context setReceiveTimeout (atMost + 2.second)
         scheduleNext
       }

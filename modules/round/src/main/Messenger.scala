@@ -11,13 +11,13 @@ import lila.i18n.{ I18nKeys, enLang }
 
 final class Messenger(val chat: ActorSelection) {
 
-  def system(game: Game, message: SelectI18nKey, args: Any*) {
+  def system(game: Game, message: SelectI18nKey, args: Any*): Unit = {
     val translated = message(I18nKeys).literalTxtTo(enLang, args)
     chat ! SystemTalk(Chat.Id(watcherId(game.id)), translated)
     if (game.nonAi) chat ! SystemTalk(Chat.Id(game.id), translated)
   }
 
-  def systemForOwners(gameId: Game.ID, message: SelectI18nKey, args: Any*) {
+  def systemForOwners(gameId: Game.ID, message: SelectI18nKey, args: Any*): Unit = {
     val translated = message(I18nKeys).literalTxtTo(enLang, args)
     chat ! SystemTalk(Chat.Id(gameId), translated)
   }

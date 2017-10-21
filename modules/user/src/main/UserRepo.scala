@@ -349,7 +349,7 @@ object UserRepo {
       }(scala.collection.breakOut)
     }
 
-  def setSeenAt(id: ID) {
+  def setSeenAt(id: ID): Unit = {
     coll.updateFieldUnchecked($id(id), "seenAt", DateTime.now)
   }
 

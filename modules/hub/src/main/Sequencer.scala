@@ -38,7 +38,7 @@ final class Sequencer(
 
   private case object Done
 
-  private def processThenDone(work: Any) {
+  private def processThenDone(work: Any): Unit = {
     work match {
       case ReceiveTimeout => self ! PoisonPill
       case Sequencer.Work(run, promiseOption, timeoutOption) =>

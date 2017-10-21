@@ -12,7 +12,7 @@ private[simul] final class SimulCleaner(
     socketHub: ActorRef
 ) {
 
-  def apply {
+  def apply: Unit = {
     repo.allCreated foreach { simuls =>
       simuls.map { simul =>
         socketHub ? Ask(simul.id, Socket.GetUserIds) mapTo

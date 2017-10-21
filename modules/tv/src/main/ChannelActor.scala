@@ -46,7 +46,7 @@ private[tv] final class ChannelActor(channel: Tv.Channel) extends Actor {
     }
   }
 
-  def elect(gameOption: Option[Game]) {
+  def elect(gameOption: Option[Game]): Unit = {
     gameOption foreach { self ! SetGame(_) }
   }
 

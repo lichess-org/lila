@@ -230,12 +230,12 @@ final class Env(
   val tvBroadcast = system.actorOf(Props(classOf[TvBroadcast]))
   bus.subscribe(tvBroadcast, 'moveEvent, 'changeFeaturedGame)
 
-  def checkOutoftime(game: Game) {
+  def checkOutoftime(game: Game): Unit = {
     if (game.playable && game.started && !game.isUnlimited)
       roundMap ! Tell(game.id, actorApi.round.QuietFlag)
   }
 
-  def resign(pov: Pov) {
+  def resign(pov: Pov): Unit = {
     if (pov.game.abortable)
       roundMap ! Tell(pov.game.id, actorApi.round.Abort(pov.playerId))
     else if (pov.game.playable)

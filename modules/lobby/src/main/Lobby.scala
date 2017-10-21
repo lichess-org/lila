@@ -131,7 +131,7 @@ private[lobby] final class Lobby(
       HookRepo byIds ids.toSet foreach remove
   }
 
-  private def NoPlayban(user: Option[LobbyUser])(f: => Unit) {
+  private def NoPlayban(user: Option[LobbyUser])(f: => Unit): Unit = {
     user.?? { u => playban(u.id) } foreach {
       case None => f
       case _ =>

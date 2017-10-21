@@ -86,7 +86,7 @@ private final class ExplorerIndexer(
   private object flowBuffer {
     private val max = 30
     private val buf = scala.collection.mutable.ArrayBuffer.empty[String]
-    def apply(pgn: String) {
+    def apply(pgn: String): Unit = {
       buf += pgn
       val startAt = nowMillis
       if (buf.size >= max) {

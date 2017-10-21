@@ -12,7 +12,7 @@ final class DisposableEmailDomain(
 
   private var matchers = List.empty[Matcher]
 
-  private[security] def refresh {
+  private[security] def refresh: Unit = {
     WS.url(providerUrl).get() map { res =>
       setDomains(textToDomains(res.body))
       lila.mon.email.disposableDomain(matchers.size)
@@ -38,7 +38,7 @@ final class DisposableEmailDomain(
 
   private var failed = false
 
-  private def onError(e: Exception) {
+  private def onError(e: Exception): Unit = {
     logger.error("Can't update disposable emails", e)
     if (!failed) {
       failed = true

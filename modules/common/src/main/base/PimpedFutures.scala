@@ -30,7 +30,7 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
 
   def injectAnyway[B](b: => B): Fu[B] = fold(_ => b, _ => b)
 
-  def effectFold(fail: Exception => Unit, succ: A => Unit) {
+  def effectFold(fail: Exception => Unit, succ: A => Unit): Unit = {
     fua onComplete {
       case scala.util.Failure(e: Exception) => fail(e)
       case scala.util.Failure(e) => throw e // Throwables

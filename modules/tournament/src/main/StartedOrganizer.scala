@@ -15,7 +15,7 @@ private final class StartedOrganizer(
     socketHub: ActorRef
 ) extends Actor {
 
-  override def preStart {
+  override def preStart: Unit = {
     pairingLogger.info("Start StartedOrganizer")
     context setReceiveTimeout 15.seconds
     scheduleNext

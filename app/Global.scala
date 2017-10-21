@@ -17,12 +17,12 @@ object Global extends GlobalSettings {
     }
   }
 
-  override def onStart(app: Application) {
+  override def onStart(app: Application): Unit = {
     kamon.Kamon.start()
     lila.app.Env.current
   }
 
-  override def onStop(app: Application) {
+  override def onStop(app: Application): Unit = {
     kamon.Kamon.shutdown()
   }
 

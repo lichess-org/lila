@@ -6,11 +6,11 @@ import play.api.libs.json.JsValue
 
 final class Channel extends Actor {
 
-  override def preStart() {
+  override def preStart(): Unit = {
     context.system.lilaBus.subscribe(self, 'socketDoor)
   }
 
-  override def postStop() {
+  override def postStop(): Unit = {
     super.postStop()
     context.system.lilaBus.unsubscribe(self)
   }

@@ -16,7 +16,7 @@ class JsonStringifyPerfTest extends Specification {
   def stringify = Json stringify jsonObj
 
   def runOne = stringify
-  def run { for (i ← 1 to nb) runOne }
+  def run: Unit = { for (i ← 1 to nb) runOne }
 
   "stringify a hook" should {
     "many times" in {

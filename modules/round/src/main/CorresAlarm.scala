@@ -29,7 +29,7 @@ private final class CorresAlarm(
 
   private implicit val AlarmHandler = reactivemongo.bson.Macros.handler[Alarm]
 
-  override def preStart() {
+  override def preStart(): Unit = {
     scheduleNext
     context setReceiveTimeout 1.minute
   }

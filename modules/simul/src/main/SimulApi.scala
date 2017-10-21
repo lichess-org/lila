@@ -57,7 +57,7 @@ final class SimulApi(
     } inject simul
   }
 
-  def addApplicant(simulId: Simul.ID, user: User, variantKey: String) {
+  def addApplicant(simulId: Simul.ID, user: User, variantKey: String): Unit = {
     WithSimul(repo.findCreated, simulId) { simul =>
       if (simul.nbAccepted >= Game.maxPlayingRealtime) simul
       else {
@@ -79,11 +79,11 @@ final class SimulApi(
     }
   }
 
-  def removeApplicant(simulId: Simul.ID, user: User) {
+  def removeApplicant(simulId: Simul.ID, user: User): Unit = {
     WithSimul(repo.findCreated, simulId) { _ removeApplicant user.id }
   }
 
-  def accept(simulId: Simul.ID, userId: String, v: Boolean) {
+  def accept(simulId: Simul.ID, userId: String, v: Boolean): Unit = {
     UserRepo byId userId foreach {
       _ foreach { user =>
         WithSimul(repo.findCreated, simulId) { _.accept(user.id, v) }
@@ -91,7 +91,7 @@ final class SimulApi(
     }
   }
 
-  def start(simulId: Simul.ID) {
+  def start(simulId: Simul.ID): Unit = {
     Sequence(simulId) {
       repo.findCreated(simulId) flatMap {
         _ ?? { simul =>
@@ -115,14 +115,14 @@ final class SimulApi(
     }
   }
 
-  def onPlayerConnection(game: Game, user: Option[User])(simul: Simul) {
+  def onPlayerConnection(game: Game, user: Option[User])(simul: Simul): Unit = {
     user.filter(_.id == simul.hostId) ifTrue simul.isRunning foreach { host =>
       repo.setHostGameId(simul, game.id)
       sendTo(simul.id, actorApi.HostIsOn(game.id))
     }
   }
 
-  def abort(simulId: Simul.ID) {
+  def abort(simulId: Simul.ID): Unit = {
     Sequence(simulId) {
       repo.findCreated(simulId) flatMap {
         _ ?? { simul =>
@@ -132,7 +132,7 @@ final class SimulApi(
     }
   }
 
-  def finishGame(game: Game) {
+  def finishGame(game: Game): Unit = {
     game.simulId foreach { simulId =>
       Sequence(simulId) {
         repo.findStarted(simulId) flatMap {
@@ -161,7 +161,7 @@ final class SimulApi(
     )
   }
 
-  def ejectCheater(userId: String) {
+  def ejectCheater(userId: String): Unit = {
     repo.allNotFinished foreach {
       _ foreach { oldSimul =>
         Sequence(oldSimul.id) {
@@ -214,7 +214,7 @@ final class SimulApi(
   private def WithSimul(
     finding: Simul.ID => Fu[Option[Simul]],
     simulId: Simul.ID
-  )(updating: Simul => Simul) {
+  )(updating: Simul => Simul): Unit = {
     Sequence(simulId) {
       finding(simulId) flatMap {
         _ ?? { simul => update(updating(simul)) }
@@ -222,7 +222,7 @@ final class SimulApi(
     }
   }
 
-  private def Sequence(simulId: Simul.ID)(work: => Funit) {
+  private def Sequence(simulId: Simul.ID)(work: => Funit): Unit = {
     sequencers ! Tell(simulId, lila.hub.Sequencer work work)
   }
 
@@ -237,14 +237,14 @@ final class SimulApi(
           } pipeToSelection lobby
         }
     })))
-    def apply() { debouncer ! Debouncer.Nothing }
+    def apply(): Unit = { debouncer ! Debouncer.Nothing }
   }
 
-  private def sendTo(simulId: Simul.ID, msg: Any) {
+  private def sendTo(simulId: Simul.ID, msg: Any): Unit = {
     socketHub ! Tell(simulId, msg)
   }
 
-  private def socketReload(simulId: Simul.ID) {
+  private def socketReload(simulId: Simul.ID): Unit = {
     sendTo(simulId, actorApi.Reload)
   }
 }

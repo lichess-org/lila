@@ -17,7 +17,7 @@ private final class RelayFetch(
 
   val frequency = 1.seconds
 
-  override def preStart {
+  override def preStart: Unit = {
     logger.info("Start RelaySync")
     context setReceiveTimeout 20.seconds
     context.system.scheduler.scheduleOnce(10.seconds)(scheduleNext)

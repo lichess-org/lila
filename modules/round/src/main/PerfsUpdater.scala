@@ -111,7 +111,7 @@ final class PerfsUpdater(
       case None => Glicko.Result.Draw
     }
 
-  private def updateRatings(white: Rating, black: Rating, result: Glicko.Result, system: RatingCalculator) {
+  private def updateRatings(white: Rating, black: Rating, result: Glicko.Result, system: RatingCalculator): Unit = {
     val results = new RatingPeriodResults()
     result match {
       case Glicko.Result.Draw => results.addDraw(white, black)

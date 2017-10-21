@@ -48,7 +48,7 @@ private[round] final class History(
     vevs.reverse
   }
 
-  private def waitForLoadedEvents {
+  private def waitForLoadedEvents: Unit = {
     if (events == null) {
       events = load awaitSeconds 3
     }
@@ -56,7 +56,7 @@ private[round] final class History(
 
   private var persistenceEnabled = withPersistence
 
-  def enablePersistence {
+  def enablePersistence: Unit = {
     if (!persistenceEnabled) {
       persistenceEnabled = true
       if (events != null) persist(events)

@@ -8,11 +8,11 @@ import lila.hub.actorApi.{ SendTo, SendTos, WithUserIds }
 
 private final class UserRegister extends Actor {
 
-  override def preStart() {
+  override def preStart(): Unit = {
     context.system.lilaBus.subscribe(self, 'users, 'socketDoor)
   }
 
-  override def postStop() {
+  override def postStop(): Unit = {
     super.postStop()
     context.system.lilaBus.unsubscribe(self)
   }
@@ -35,7 +35,7 @@ private final class UserRegister extends Actor {
     case SocketLeave(uid, member) => users.remove(uid, member)
   }
 
-  private def sendTo(userId: String, msg: JsObject) {
+  private def sendTo(userId: String, msg: JsObject): Unit = {
     users get userId foreach { members =>
       members.foreachValue(_ push msg)
     }

@@ -20,7 +20,7 @@ final class Flood(duration: Duration) {
     .expireAfterAccess(duration)
     .build[String, Messages]
 
-  def filterMessage[A](uid: String, text: String)(op: => Unit) {
+  def filterMessage[A](uid: String, text: String)(op: => Unit): Unit = {
     if (allowMessage(uid, text)) op
   }
 

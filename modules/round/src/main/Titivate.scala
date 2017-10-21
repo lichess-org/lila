@@ -24,7 +24,7 @@ private[round] final class Titivate(
   object Schedule
   object Run
 
-  override def preStart() {
+  override def preStart(): Unit = {
     scheduleNext
     context setReceiveTimeout 30.seconds
   }
