@@ -477,11 +477,6 @@
   <string name="retryThisPuzzle">Попробовать ещё раз</string>
   <string name="thisPuzzleIsCorrect">Задача правильная и интересная</string>
   <string name="thisPuzzleIsWrong">Задача неправильная или неинтересная</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">У Вас %s секунда, чтобы сделать свой первый ход!</item>
-    <item quantity="few">У Вас %s секунды, чтобы сделать свой первый ход!</item>
-    <item quantity="other">У Вас %s секунд, чтобы сделать свой первый ход!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s ведется партий</item>
     <item quantity="few">%s ведется партий</item>
