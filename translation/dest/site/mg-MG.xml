@@ -295,10 +295,6 @@
   <string name="retryThisPuzzle">Hamerina hamaha ny piozila</string>
   <string name="thisPuzzleIsCorrect">Marina ity piozila ity ary mahaliana</string>
   <string name="thisPuzzleIsWrong">Tsy marina ity piozila ity ary mankaleo</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Manana %s segondra ianao hanaovana ny hetsika voalohany!</item>
-    <item quantity="other">Manana %s segondra ianao hanaovana ny hetsika voalohany!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s ireo lalao amin\'izao fotoana izao</item>
     <item quantity="other">%s ireo lalao amin\'izao fotoana izao</item>
