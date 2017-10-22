@@ -80,6 +80,7 @@ E non perde le tues.</string>
 Escappa le menacia!</string>
   <string name="noEscape">Il non ha escappata,
 ma tu pote defender!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Non lassa le adversario capturar ulle pecia indefense!</string>
   <string name="combat">Combatto</string>
   <string name="captureAndDefendPieces">Captura e defende pecias</string>
   <string name="combatIntro">Un bon guerrero sape e attaccar e defender!</string>
