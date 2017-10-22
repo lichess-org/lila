@@ -314,9 +314,6 @@
   <string name="retryThisPuzzle">za\'ure\'u troci lo se namkei</string>
   <string name="thisPuzzleIsCorrect">le se namkei cu drani je cinri</string>
   <string name="thisPuzzleIsWrong">le se namkei cu toldra je tolzdi</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="other">fi\'o snidu li su\'e %s ko pa re\'u muvdu</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s cabna nunjvi</item>
   </plurals>
