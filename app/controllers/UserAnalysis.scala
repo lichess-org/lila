@@ -41,22 +41,6 @@ object UserAnalysis extends LilaController with TheftPrevention {
     }
   }
 
-  private lazy val keyboardI18nKeys = {
-    Seq(
-      I18nKeys.keyboardShortcuts,
-      I18nKeys.keyMoveBackwardOrForward,
-      I18nKeys.keyGoToStartOrEnd,
-      I18nKeys.keyShowOrHideComments,
-      I18nKeys.keyEnterOrExitVariation,
-      I18nKeys.youCanAlsoScrollOverTheBoardToMoveInTheGame,
-      I18nKeys.analysisShapesHowTo
-    )
-  }
-
-  def keyboardI18n = Open { implicit ctx =>
-    JsonOk(fuccess(lila.i18n.JsDump.keysToObject(keyboardI18nKeys, lila.i18n.I18nDb.Site, lang)))
-  }
-
   private[controllers] def makePov(fen: Option[String], variant: Variant): Pov = makePov {
     fen.filter(_.nonEmpty).flatMap {
       Forsyth.<<<@(variant, _)
@@ -173,5 +157,9 @@ object UserAnalysis extends LilaController with TheftPrevention {
         )
       }
     }
+  }
+
+  def help = Open { implicit ctx =>
+    Ok(html.analyse.help(getBool("study"))).fuccess
   }
 }

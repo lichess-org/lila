@@ -1,6 +1,6 @@
 import * as control from './control';
 import AnalyseCtrl from './ctrl';
-import { bind as bindEvent, dataIcon } from './util';
+import { bind as bindEvent, dataIcon, spinner } from './util';
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 
@@ -15,8 +15,6 @@ function preventing(f: () => void): (e: MouseEvent) => void {
     f();
   };
 }
-
-let i18nLoaded = false;
 
 export function bind(ctrl: AnalyseCtrl): void {
   if (!window.Mousetrap) return;
@@ -94,78 +92,18 @@ export function bind(ctrl: AnalyseCtrl): void {
 
 export function view(ctrl: AnalyseCtrl): VNode {
 
-  const trans = ctrl.trans;
-
-  if (!i18nLoaded) {
-    i18nLoaded = true;
-    $.ajax({
-      dataType: "json",
-      url: '/analysis/keyboard-i18n',
-      cache: true,
-      success: function(i18n) {
-        trans.merge(i18n);
-        ctrl.redraw();
-      }
-    });
-  }
-
-  function header(text: string) {
-    return h('tr', h('th', {
-      attrs: { colspan: 2 }
-    }, [h('p', text)]));
-  };
-  function row(keys: VNode[], desc: string) {
-    return h('tr', [
-      h('td.keys', keys),
-      h('td.desc', desc)
-    ]);
-  };
-  function k(key: string) { return h('kbd', key); }
-  function or() { return h('or', '/'); }
-
   return h('div.lichess_overboard.keyboard_help', {
     hook: {
-      insert: _ => window.lichess.loadCss('/assets/stylesheets/keyboard.css')
+      insert: vnode => {
+        window.lichess.loadCss('/assets/stylesheets/keyboard.css')
+        $(vnode.elm as HTMLElement).find('.scrollable').load('/analysis/help?study=' + (ctrl.study ? 1 : 0));
+      }
     }
   }, [
     h('a.close.icon', {
       attrs: dataIcon('L'),
       hook: bindEvent('click', () => ctrl.keyboardHelp = false, ctrl.redraw)
     }),
-    h('div.scrollable', [
-      h('h2', trans('keyboardShortcuts')),
-      h('table', h('tbody', [
-        header('Navigate the move tree'),
-        row([k('←'), or(), k('→')], trans('keyMoveBackwardOrForward')),
-        row([k('j'), or(), k('k')], trans('keyMoveBackwardOrForward')),
-        row([k('↑'), or(), k('↓')], trans('keyGoToStartOrEnd')),
-        row([k('0'), or(), k('$')], trans('keyGoToStartOrEnd')),
-        row([k('shift'), k('←'), or(), k('shift'), k('→')], trans('keyEnterOrExitVariation')),
-        row([k('shift'), k('J'), or(), k('shift'), k('K')], trans('keyEnterOrExitVariation')),
-        header('Analysis options'),
-        row([k('shift'), k('I')], trans('inlineNotation')),
-        row([k('l')], 'Local computer analysis'),
-        row([k('a')], 'Computer arrows'),
-        row([k('space')], 'Play computer best move'),
-        row([k('x')], 'Show threat'),
-        row([k('e')], 'Opening/endgame explorer'),
-        row([k('f')], trans('flipBoard')),
-        row([k('/')], 'Focus chat'),
-        row([k('shift'), k('C')], trans('keyShowOrHideComments')),
-        row([k('?')], 'Show this help dialog'),
-        ctrl.study ? [
-          header('Study actions'),
-          row([k('c')], 'Comment this position'),
-          row([k('s')], 'Annotate with symbols')
-        ] : null,
-        header('Mouse tricks'),
-        h('tr', h('td.mouse', {
-          attrs: { colspan: 2 }
-        }, [h('ul', [
-          h('li', trans('youCanAlsoScrollOverTheBoardToMoveInTheGame')),
-          h('li', trans('analysisShapesHowTo'))
-        ])]))
-      ])),
-    ])
+    h('div.scrollable', spinner())
   ]);
 }
