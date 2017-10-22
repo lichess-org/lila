@@ -136,6 +136,7 @@ final class PlaybanApi(
     }
 
   private def save(outcome: Outcome): String => Funit = userId => {
+    lila.mon.playban.outcome(outcome.key)()
     coll.findAndUpdate(
       selector = $id(userId),
       update = $doc("$push" -> $doc(
@@ -154,6 +155,8 @@ final class PlaybanApi(
 
   private def legiferate(record: UserRecord): Funit = {
     record.bannable ?? { ban =>
+      lila.mon.playban.ban.count()
+      lila.mon.playban.ban.mins(ban.mins)
       bus.publish(lila.hub.actorApi.playban.Playban(record.userId, ban.mins), 'playban)
       (!record.banInEffect) ?? coll.update(
         $id(record.userId),

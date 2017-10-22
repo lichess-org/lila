@@ -183,6 +183,16 @@ object mon {
       val time = rec("round.alarm.time")
       val count = rec("round.alarm.count")
     }
+    object expiration {
+      val count = inc("round.expiration.count")
+    }
+  }
+  object playban {
+    def outcome(out: String) = inc(s"playban.outcome.$out")
+    object ban {
+      val count = inc("playban.ban.count")
+      val mins = incX("playban.ban.mins")
+    }
   }
   object explorer {
     object index {

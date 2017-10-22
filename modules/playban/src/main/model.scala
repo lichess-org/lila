@@ -72,7 +72,9 @@ object TempBan {
 sealed abstract class Outcome(
     val id: Int,
     val name: String
-)
+) {
+  val key = toString.head.toLower + toString.tail
+}
 
 object Outcome {
 
