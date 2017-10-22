@@ -501,7 +501,7 @@ case class Game(
       case UltraBullet => 20
       case Bullet => 30
       case Blitz => 40
-      case _ => 60
+      case _ => 50
     }
     if (variant == chess.variant.Chess960) (base * 2) atMost 90
     else base
