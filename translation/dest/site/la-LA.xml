@@ -372,10 +372,6 @@
   <string name="retryThisPuzzle">Reconari hoc problema</string>
   <string name="thisPuzzleIsCorrect">Hoc problema probatum lepidumque est</string>
   <string name="thisPuzzleIsWrong">Hoc problema error vel malum est</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">%s secundas tuo primo motu habes!</item>
-    <item quantity="other">%s secundas tuo primo motu habes!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s ludi ludentes</item>
     <item quantity="other">%s ludi ludentes</item>
