@@ -551,14 +551,6 @@
   <string name="retryThisPuzzle">إعادة محاولة هذا اللغز</string>
   <string name="thisPuzzleIsCorrect">هذا اللغز صحيح ومثير للإهتمام</string>
   <string name="thisPuzzleIsWrong">هذا اللغز خطأ أوممل</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="zero">أمامك %s ثانية لتقوم بنقلتك الأولى!</item>
-    <item quantity="one">أمامك %s ثانية لتقوم بنقلتك الأولى!</item>
-    <item quantity="two">أمامك %s ثانية لتقوم بنقلتك الأولى!</item>
-    <item quantity="few">أمامك %s ثانية لتقوم بنقلتك الأولى!</item>
-    <item quantity="many">أمامك %s ثانية لتقوم بنقلتك الأولى!</item>
-    <item quantity="other">أمامك %s ثانية لتقوم بنقلتك الأولى!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="zero">%s مباراة جارية</item>
     <item quantity="one">%s مباراة جارية</item>
