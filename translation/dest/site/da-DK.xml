@@ -386,10 +386,6 @@
   <string name="retryThisPuzzle">Prøv denne opgave igen</string>
   <string name="thisPuzzleIsCorrect">Denne opgave er korrekt og interessant</string>
   <string name="thisPuzzleIsWrong">Denne opgave er forkert eller kedelig</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Du har %s sekunder til at udføre dit første træk!</item>
-    <item quantity="other">Du har %s sekunder til at udføre dit første træk!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partier i gang</item>
     <item quantity="other">%s partier i gang</item>
