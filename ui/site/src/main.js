@@ -614,7 +614,11 @@ lichess.topMenuIntent = function() {
       Mousetrap.bind('esc', function() {
         var $oc = $('.lichess_overboard .close');
         if ($oc[0]) $oc[0].click();
-        else $('#ham-plate').click();
+        else {
+          $input = $(':focus');
+          if ($input.length) $input.blur();
+          else $('#ham-plate').click();
+        }
         return false;
       });
 

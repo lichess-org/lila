@@ -6,20 +6,21 @@ function toggle() {
   var $input = $wrap.find('input');
   if (!$wrap.hasClass('init')) {
     $wrap.addClass('init');
-    $input
-      .on('blur', toggle)
-      .on('keypress', function(e) {
+    lichess.userAutocomplete($input, {
+      focus: 1,
+      friend: true,
+      onSelect: function(q) { if (q) location.href = '/@/' + q }
+    });
+    lichess.requestIdleCallback(function() {
+      $input.on('blur', toggle).on('keypress', function(e) {
         if (e.which == 10 || e.which == 13) {
           execute(e.target.value.trim());
           e.target.value = '';
-        }
+        } //else  if (e.which == 27) $input.blur();
       });
-      lichess.userAutocomplete($input, {
-        focus: 1,
-        friend: true,
-        onSelect: function(q) { if (q) location.href = '/@/' + q }
-      });
-  } else $input.focus();
+    });
+  }
+  if ($wrap.hasClass('shown')) $input.focus();
 }
 
 function execute(q) {
