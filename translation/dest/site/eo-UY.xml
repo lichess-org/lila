@@ -285,7 +285,7 @@
     <item quantity="other">Vi devas ludi %s pli de taksaj ludoj</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Vi havas duman %s -rangon</string>
-  <string name="yourPerfRatingIsTooHigh">Via rango %1$s (%2$s) estas tro malalta</string>
+  <string name="yourPerfRatingIsTooHigh">Via rango %1$s (%2$s) estas tro alta</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Via plej alta semajna rango en %1$s (%2$s) estas tro alta</string>
   <string name="yourPerfRatingIsTooLow">Via rango %1$s (%2$s) estas tro malalta</string>
   <string name="ratedMoreThanInPerf">Rango de ≥ %1$s en %2$s</string>
