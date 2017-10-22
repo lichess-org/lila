@@ -451,10 +451,6 @@
   <string name="retryThisPuzzle">Reintentar este ejercicio</string>
   <string name="thisPuzzleIsCorrect">Este ejercicio es correcto e interesante</string>
   <string name="thisPuzzleIsWrong">Este ejercicio es erróneo o aburrido</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">¡Dispones de %s segundos para hacer tu primer movimiento!</item>
-    <item quantity="other">¡Dispones de %s segundos para hacer tu primer movimiento!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partida en juego</item>
     <item quantity="other">%s partidas en juego</item>
