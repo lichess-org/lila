@@ -476,11 +476,6 @@
   <string name="retryThisPuzzle">Покушај поново ову вежбу</string>
   <string name="thisPuzzleIsCorrect">Ова вежба је правилна и занимљива</string>
   <string name="thisPuzzleIsWrong">Ова вежба је неправилна или досадна</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Имате %s секунд за први потез потез!</item>
-    <item quantity="few">Имате %s секунди за први потез потез!</item>
-    <item quantity="other">Имате %s секунди за први потез потез!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s партија се игра</item>
     <item quantity="few">%s партија се игра</item>
