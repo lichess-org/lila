@@ -451,10 +451,6 @@
   <string name="retryThisPuzzle">Reprovi ĉi tiun puzlon</string>
   <string name="thisPuzzleIsCorrect">Ĉi tiu puzlo estas ĝusta kaj interesa</string>
   <string name="thisPuzzleIsWrong">Ĉi tiu puzlo estas malĝusta aŭ enuiga</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Vi havas %s sekundojn por fari vian unuan movon!</item>
-    <item quantity="other">Vi havas %s sekundojn por fari vian unuan movon!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s aktivaj ludoj</item>
     <item quantity="other">%s aktivaj ludoj</item>
