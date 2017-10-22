@@ -55,7 +55,7 @@ final class PimpedConfig(private val config: Config) extends AnyVal {
 final class PimpedDateTime(private val date: DateTime) extends AnyVal {
   def getSeconds: Long = date.getMillis / 1000
   def getCentis: Long = date.getMillis / 10
-  def toNow: Duration = new Duration(date, DateTime.now)
+  def toNow = new Duration(date, DateTime.now)
 }
 
 final class PimpedValid[A](private val v: Valid[A]) extends AnyVal {
