@@ -172,31 +172,32 @@ lichess.topMenuIntent = function() {
         minLength: 3,
         hint: true,
         highlight: false,
-        source: function(query, sync, runAsync) {
+        source: function(query, _, runAsync) {
           $.ajax({
-            method: 'get',
             url: '/player/autocomplete',
+            cache: true,
             data: {
               term: query,
               friend: opts.friend ? 1 : 0,
               object: 1
             },
             success: function(res) {
+              res = res.result;
               // hack to fix typeahead limit bug
-              if (res.length === 10) {
-                res.push(null);
-              }
+              if (res.length === 10) res.push(null);
               runAsync(res);
             }
           });
         },
         limit: 10,
+        displayKey: 'name',
         templates: {
           empty: '<div class="empty">No player found</div>',
           pending: lichess.spinnerHtml,
           suggestion: function(o) {
-            console.log(o);
-            return '<a class="ulpt" href="/@/' + a + '">' + a + '</a>';
+            return '<a class="ulpt user_link' + (o.online ? ' online' : '') + '" href="/@/' + o.name + '">' +
+            '<i class="line' + (o.patron ? ' patron' : '') + '"></i>' + (o.title ? o.title + ' ' : '') + o.name +
+            '</a>';
           }
         }
       }).on('typeahead:render', function() {

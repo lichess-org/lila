@@ -249,20 +249,20 @@ object UserRepo {
    * @param usernames Usernames to filter out the non-existent usernames from, and return the IDs for
    * @return A list of IDs for the usernames that were given that were valid
    */
-  def existingUsernameIds(usernames: Set[String]): Fu[List[String]] =
-    coll.primitive[String]($inIds(usernames.map(normalize)), "_id")
+  def existingUsernameIds(usernames: Set[String]): Fu[List[User.ID]] =
+    coll.primitive[String]($inIds(usernames.map(normalize)), F.id)
 
-  def usernamesLike(text: String, max: Int = 10): Fu[List[String]] = {
+  def userIdsLike(text: String, max: Int = 10): Fu[List[User.ID]] = {
     val id = normalize(text)
     if (!User.idPattern.matcher(id).matches) fuccess(Nil)
     else coll.find(
-      $doc("_id".$regex("^" + id + ".*$", "")) ++ enabledSelect,
-      $doc(F.username -> true)
+      $doc(F.id.$regex("^" + id + ".*$", "")) ++ enabledSelect,
+      $doc(F.id -> true)
     )
       .sort($doc("len" -> 1))
       .cursor[Bdoc](ReadPreference.secondaryPreferred).gather[List](max)
       .map {
-        _ flatMap { _.getAs[String](F.username) }
+        _ flatMap { _.getAs[String](F.id) }
       }
   }
 

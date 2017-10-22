@@ -9,6 +9,7 @@ import lila.app._
 import lila.app.mashup.{ GameFilterMenu, GameFilter }
 import lila.common.paginator.Paginator
 import lila.common.{ IpAddress, HTTPRequest }
+import lila.common.PimpedJson._
 import lila.game.{ GameRepo, Game => GameModel }
 import lila.rating.PerfType
 import lila.socket.UserLagCache
@@ -311,16 +312,25 @@ object User extends LilaController {
   def autocomplete = Open { implicit ctx =>
     get("term", ctx.req).filter(_.nonEmpty) match {
       case None => BadRequest("No search term provided").fuccess
+      case Some(term) if getBool("exists") => UserRepo nameExists term map { r => Ok(JsBoolean(r)) }
       case Some(term) => {
         ctx.me.ifTrue(getBool("friend")) match {
-          case None if getBool("exists") => UserRepo nameExists term map { JsBoolean(_) }
-          case None => UserRepo usernamesLike term map { Json.toJson(_) }
+          case None => UserRepo userIdsLike term
           case Some(follower) =>
             Env.relation.api.searchFollowedBy(follower, term, 10) flatMap {
-              case Nil => UserRepo usernamesLike term
-              case userIds => UserRepo usernamesByIds userIds
-            } map { Json.toJson(_) }
+              case Nil => UserRepo userIdsLike term
+              case userIds => fuccess(userIds)
+            }
         }
+      } flatMap { userIds =>
+        if (getBool("object")) Env.user.lightUserApi.asyncMany(userIds) map { users =>
+          Json.obj(
+            "result" -> JsArray(users.flatten.map { u =>
+              lila.common.LightUser.lightUserWrites.writes(u).add("online" -> Env.user.isOnline(u.id))
+            })
+          )
+        }
+        else fuccess(Json toJson userIds)
       } map { Ok(_) as JSON }
     }
   }
