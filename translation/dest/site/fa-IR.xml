@@ -370,10 +370,6 @@
   <string name="retryThisPuzzle">این مسئله را دوباره امتحان کنید</string>
   <string name="thisPuzzleIsCorrect">این جدول صحیح و جالب است</string>
   <string name="thisPuzzleIsWrong">این جدول اشتباه یا خسته کننده است</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">شما برای انجام اولین حرکت خود فقط  %s ثانیه فرصت دارید!</item>
-    <item quantity="other">شما برای انجام اولین حرکت خود فقط  %s ثانیه فرصت دارید!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s بازی در حال انجام است</item>
     <item quantity="other">%s بازی در حال انجام است</item>
