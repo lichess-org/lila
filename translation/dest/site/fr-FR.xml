@@ -451,10 +451,6 @@
   <string name="retryThisPuzzle">Réessayer ce problème</string>
   <string name="thisPuzzleIsCorrect">Ce problème est correct et intéressant</string>
   <string name="thisPuzzleIsWrong">Ce problème est erroné ou ennuyeux</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Vous avez %s seconde pour jouer votre premier coup !</item>
-    <item quantity="other">Vous avez %s secondes pour jouer votre premier coup !</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partie en cours</item>
     <item quantity="other">%s parties en cours</item>
