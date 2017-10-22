@@ -371,9 +371,6 @@
   <string name="retryThisPuzzle">다시 풀기</string>
   <string name="thisPuzzleIsCorrect">이 퍼즐은 정확하고 재밌습니다</string>
   <string name="thisPuzzleIsWrong">이 퍼즐은 오류가 있거나 지루합니다</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="other">%s초 안에 첫 수를 놓으세요!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s개의 게임 플레이 중</item>
   </plurals>
