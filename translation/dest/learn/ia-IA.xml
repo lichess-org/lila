@@ -49,6 +49,10 @@ Escappa e vince le stellas!</string>
   <string name="pawnIntro">Pedones es debile, ma illos possede multe potential.</string>
   <string name="pawnsMoveOneSquareOnly">Pedones move se solmente un placia cata torno.
 Ma quando illos arriva al altere latere del tabuliero, illos deveni un pecia plus forte!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Le major parte del tempore, promover al dama es le melior.
+Ma alcun vices un cavallo pote esser avantagiose!</string>
+  <string name="pawnsMoveForward">Pedones move se in avante,
+ma illos captura per diagonales!</string>
   <string name="captureThenPromote">Captura, e alora promove!</string>
   <string name="pawnPromotion">Promotion del pedon</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Tu pedon ha arrivate al fin del tabuliero!</string>
