@@ -476,11 +476,6 @@
   <string name="retryThisPuzzle">Znovu zkusit tuto úlohu</string>
   <string name="thisPuzzleIsCorrect">Tato úloha je správná a zajímavá</string>
   <string name="thisPuzzleIsWrong">Tato úloha je špatná nebo nudná</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Máte %s sekundu na provedení prvního tahu!</item>
-    <item quantity="few">Máte %s sekundy na provedení prvního tahu!</item>
-    <item quantity="other">Máte %s sekund na provedení prvního tahu!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s rozehraná hra</item>
     <item quantity="few">%s rozehrané hry</item>
