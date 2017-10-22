@@ -451,10 +451,6 @@
   <string name="retryThisPuzzle">Tentar iste enigma de novo</string>
   <string name="thisPuzzleIsCorrect">Iste enigma es correcte e interessante</string>
   <string name="thisPuzzleIsWrong">Iste enigma es incorrecte o enoiose</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Tu ha %s secundas pro facer tu prime movimento!</item>
-    <item quantity="other">Tu ha %s secundas pro facer tu prime movimento!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partitas in curso</item>
     <item quantity="other">%s partitas in curso</item>
