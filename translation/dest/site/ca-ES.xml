@@ -390,10 +390,6 @@
   <string name="retryThisPuzzle">Reintenta aquest problema</string>
   <string name="thisPuzzleIsCorrect">Aquest problema és correcte i interessant</string>
   <string name="thisPuzzleIsWrong">Aquest problema està malament o és avorrit</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Disposes de %s segons per realitzar el teu primer moviment!</item>
-    <item quantity="other">Disposes de %s segons per realitzar el teu primer moviment!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partides en joc</item>
     <item quantity="other">%s partides en joc</item>
