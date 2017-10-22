@@ -476,11 +476,6 @@
   <string name="retryThisPuzzle">Reîncercați această problemă</string>
   <string name="thisPuzzleIsCorrect">Această problemă este corectă și interesantă</string>
   <string name="thisPuzzleIsWrong">Această problemă este incorectă sau plictisitoare</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Ai %s secundă ca să faci prima mutare!</item>
-    <item quantity="few">Ai %s secunde ca să faci prima mutare!</item>
-    <item quantity="other">Ai %s secunde ca să faci prima mutare!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partidă în desfășurare</item>
     <item quantity="few">%s partide în desfășurare</item>
