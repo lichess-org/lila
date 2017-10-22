@@ -450,10 +450,6 @@
   <string name="retryThisPuzzle">Probeer het opnieuw</string>
   <string name="thisPuzzleIsCorrect">Deze puzzel is correct en interessant</string>
   <string name="thisPuzzleIsWrong">Deze puzzel is fout of saai</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Je hebt %s seconde om je eerste zet te doen!</item>
-    <item quantity="other">Je hebt %s seconden om je eerste zet te doen!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partij bezig</item>
     <item quantity="other">%s partijen bezig</item>
