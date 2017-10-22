@@ -30,6 +30,11 @@ final class PimpedLong(private val self: Long) extends AnyVal {
   def atLeast(bottomValue: Long): Long = max(self, bottomValue)
 
   def atMost(topValue: Long): Long = min(self, topValue)
+
+  def truncInt: Int =
+    if (self.toInt == self) self.toInt
+    else if (self > 0) Integer.MAX_VALUE
+    else Integer.MIN_VALUE
 }
 
 final class PimpedInt(private val self: Int) extends AnyVal {
