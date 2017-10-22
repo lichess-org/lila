@@ -1,6 +1,6 @@
 package lila.playban
 
-import org.joda.time.{ DateTime, Duration }
+import org.joda.time.DateTime
 
 case class UserRecord(
     _id: String,
@@ -26,12 +26,7 @@ case class UserRecord(
 
   def bannable: Option[TempBan] = {
     nbBadOutcomes >= nbBadOutcomesBeforeBan && badOutcomeRatio >= 1d / 2
-  } option bans.lastOption.fold(TempBan.initial) { prev =>
-    new Duration(prev.endsAt, DateTime.now).toStandardDays.getDays match {
-      case d if d < 3 => TempBan.make(prev.mins * 3)
-      case d => TempBan.make((prev.mins / Math.log(d)).toInt atLeast 30)
-    }
-  }
+  } option TempBan.make(bans)
 }
 
 case class TempBan(
@@ -39,19 +34,39 @@ case class TempBan(
     mins: Int
 ) {
 
-  lazy val endsAt = date plusMinutes mins
+  def endsAt = date plusMinutes mins
 
-  def remainingSeconds: Int = (endsAt.getSeconds - nowSeconds).toInt max 0
+  def remainingSeconds: Int = (endsAt.getSeconds - nowSeconds).toInt atLeast 0
 
-  def remainingMinutes: Int = (remainingSeconds / 60) max 1
+  def remainingMinutes: Int = (remainingSeconds / 60) atLeast 1
 
   def inEffect = endsAt isAfter DateTime.now
+
 }
 
 object TempBan {
-  val initialMinutes = 15
-  def initial = make(initialMinutes)
-  def make(minutes: Int) = TempBan(DateTime.now, minutes atMost 60 * 48)
+  private def make(minutes: Int) = TempBan(
+    DateTime.now,
+    minutes atMost 48 * 60
+  )
+
+  /**
+   * Create a playban. First offense: 15 min.
+   * Multiplier of repeat offense after X days:
+   * - 0 days: 3x
+   * - 0 - 5 days: linear scale from 3x to 1x
+   * - >5 days slow drop off
+   */
+  def make(bans: List[TempBan]): TempBan = make(bans.lastOption.fold(15) { prev =>
+    prev.endsAt.toNow.getStandardHours.truncInt match {
+      case h if h < 120 => prev.mins * (180 - h) / 60
+      case h => {
+        // Scale cooldown period by total number of playbans
+        val t = (Math.sqrt(bans.size) * 20 * 24).toInt
+        (prev.mins * (t + 120 - h) / t) atLeast 30
+      }
+    }
+  })
 }
 
 sealed abstract class Outcome(
