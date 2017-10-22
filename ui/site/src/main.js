@@ -178,7 +178,8 @@ lichess.topMenuIntent = function() {
             url: '/player/autocomplete',
             data: {
               term: query,
-              friend: opts.friend ? 1 : 0
+              friend: opts.friend ? 1 : 0,
+              object: 1
             },
             success: function(res) {
               // hack to fix typeahead limit bug
@@ -193,7 +194,8 @@ lichess.topMenuIntent = function() {
         templates: {
           empty: '<div class="empty">No player found</div>',
           pending: lichess.spinnerHtml,
-          suggestion: function(a) {
+          suggestion: function(o) {
+            console.log(o);
             return '<a class="ulpt" href="/@/' + a + '">' + a + '</a>';
           }
         }

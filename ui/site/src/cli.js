@@ -29,7 +29,7 @@ function execute(q) {
 function command(q) {
   var parts = q.split(' '), exec = parts[0];
   if (exec === 'tv' || exec === 'follow') location.href = '/@/' + parts[1] + '/tv';
-  else if (exec === 'play' || exec === 'challenge') location.href = '/?user=' + parts[1] + '#friend';
+  else if (exec === 'play' || exec === 'challenge' || exec === 'match') location.href = '/?user=' + parts[1] + '#friend';
   else alert('Unknown command: ' + q);
 }
 

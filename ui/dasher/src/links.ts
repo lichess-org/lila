@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 
-import { DasherCtrl, DasherData, Mode } from './dasher'
+import { DasherCtrl, Mode } from './dasher'
 import { view as pingView } from './ping'
 import { bind } from './util'
 

@@ -4,7 +4,6 @@ import { VNode } from 'snabbdom/vnode'
 import { Redraw, Close, bind, header } from './util'
 
 type Key = string;
-type Name = string;
 
 export type Sound = string[];
 

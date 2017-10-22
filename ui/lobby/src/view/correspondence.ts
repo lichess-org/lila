@@ -35,6 +35,7 @@ function createSeek(ctrl: LobbyController): VNode | undefined {
       attrs: { href: '/?time=correspondence#hook' }
     }, ctrl.trans('createAGame'))
   ]);
+  return;
 }
 
 export default function(ctrl: LobbyController): MaybeVNodes {

@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 
-import { Redraw, Close, spinner, bind, header } from './util'
+import { Redraw, Close, spinner, header } from './util'
 import { get } from './xhr'
 
 export interface Lang {
