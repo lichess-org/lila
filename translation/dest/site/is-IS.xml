@@ -330,10 +330,6 @@
   <string name="retryThisPuzzle">Reyna aftur við þessa þraut</string>
   <string name="thisPuzzleIsCorrect">Þessi þraut er rétt og áhugaverð</string>
   <string name="thisPuzzleIsWrong">Þessi þraut er röng eða leiðinleg</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Þú hefur %s sekúndur til þess að leika fyrsta leik!</item>
-    <item quantity="other">Þú hefur %s sekúndur til þess að leika fyrsta leik!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s leikir í gangi</item>
     <item quantity="other">%s leikir í gangi</item>
