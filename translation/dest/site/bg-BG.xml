@@ -357,10 +357,6 @@
   <string name="retryThisPuzzle">Опитай отново тази задача</string>
   <string name="thisPuzzleIsCorrect">Тази задача е точна и интересна</string>
   <string name="thisPuzzleIsWrong">Тази задача е грешна или скучна</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Имате %s секунди да направите първия си ход!</item>
-    <item quantity="other">Имате %s секунди да направите първия си ход!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s игри в ход</item>
     <item quantity="other">%s игри в ход</item>
