@@ -54,6 +54,12 @@ Ma alcun vices un cavallo pote esser avantagiose!</string>
   <string name="pawnsMoveForward">Pedones move se in avante,
 ma illos captura per diagonales!</string>
   <string name="captureThenPromote">Captura, e alora promove!</string>
+  <string name="useAllThePawns">Usa omne pedones!
+Il non es necessari promover.</string>
+  <string name="aPawnOnTheSecondRank">In su prime movimento, le pedon pote mover se duo placias!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Prende tote le stellas!
+Il non es necessari promover.</string>
+  <string name="pawnComplete">Congratulationes! Pedones non ha secretos pro te.</string>
   <string name="pawnPromotion">Promotion del pedon</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Tu pedon ha arrivate al fin del tabuliero!</string>
   <string name="itNowPromotesToAStrongerPiece">Ora illo promove se a un pecia plus forte.</string>
@@ -61,6 +67,7 @@ ma illos captura per diagonales!</string>
   <string name="fundamentals">Fundamentos</string>
   <string name="capture">Captura</string>
   <string name="takeTheEnemyPieces">Prende le pecias inimic</string>
+  <string name="captureIntro">Identifica le pecias sin defensa del adversario, e captura los!</string>
   <string name="takeTheBlackPieces">Prende le pecias nigre!</string>
   <string name="protection">Protection</string>
   <string name="keepYourPiecesSafe">Mantene tu pecias secur</string>
