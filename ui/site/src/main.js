@@ -416,6 +416,29 @@ lichess.topMenuIntent = function() {
         };
       })();
 
+      lichess.cliApp = (function() {
+        var instance, booted;
+        var $toggle = $('#clinput');
+
+        var load = function() {
+        };
+
+        $toggle.one('click', function() {
+          load();
+        }).click(function() {
+          setTimeout(function() {
+            if (instance && isVisible()) instance.setVisible();
+          }, 200);
+        });
+
+        return {
+          update: function(data, incoming) {
+            if (!instance) load(data, incoming);
+            else instance.update(data, incoming);
+          }
+        };
+      })();
+
       // Zoom
       var currentZoom = (!lichess.isTrident && $('body').data('zoom') / 100) || 1;
 

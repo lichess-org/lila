@@ -523,6 +523,27 @@ body.offline #reconnecting,
   color: #dc322f;
 }
 
+#clinput input {
+  border: 0;
+  border: none;
+  border-bottom: 1px solid #888;
+  background: transparent;
+  font-size: 14px;
+  color: #555;
+  line-height: 24px;
+  margin-right: 14px;
+  display: none;
+}
+#clinput.shown input {
+  display: inline-block;
+}
+#clinput input:focus {
+  outline: none;
+}
+body.dark #clinput input {
+  color: #aaa;
+}
+
 #site_description {
   position: absolute;
   top: -100px;

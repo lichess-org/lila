@@ -3,3 +3,4 @@ require('./timeago');
 require('./trans');
 require('./socket');
 require('./main');
+require('./cli');
