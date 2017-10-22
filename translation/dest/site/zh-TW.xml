@@ -314,9 +314,6 @@
   <string name="retryThisPuzzle">重试本题</string>
   <string name="thisPuzzleIsCorrect">本题正确有趣</string>
   <string name="thisPuzzleIsWrong">本题错误无味</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="other">你还剩%s秒来走第一步！</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s场对局正在进行中</item>
   </plurals>
