@@ -544,6 +544,10 @@ body.offline #reconnecting,
 #clinput input:focus {
   outline: none;
 }
+#clinput .tt-menu .empty,
+#clinput .tt-menu .spinner {
+  display: none;
+}
 body.dark #clinput input {
   color: #aaa;
 }
