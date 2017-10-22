@@ -349,10 +349,6 @@
   <string name="retryThisPuzzle">Пробај повторно оваа загатка</string>
   <string name="thisPuzzleIsCorrect">Оваа загатка е точно и интересно</string>
   <string name="thisPuzzleIsWrong">Оваа загатка е во ред или здодевни</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Имате %s секунди да направите вашиот прв потег!</item>
-    <item quantity="other">Имате %s секунди да направите вашиот прв потег!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s Игри во тек</item>
     <item quantity="other">%s Игри во тек</item>
