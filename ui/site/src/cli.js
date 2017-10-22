@@ -1,4 +1,5 @@
 var $wrap = $('#clinput');
+if (!$wrap.length) return;
 
 function toggle() {
   $wrap.toggleClass('shown');
