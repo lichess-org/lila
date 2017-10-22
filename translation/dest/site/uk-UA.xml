@@ -477,11 +477,6 @@
   <string name="retryThisPuzzle">Спробувати цю задачу ще раз</string>
   <string name="thisPuzzleIsCorrect">Ця задача є правильною та цікавою</string>
   <string name="thisPuzzleIsWrong">Ця задача є неправильною чи нудною</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">У Вас %s секунда, аби зробити свій перший хід!</item>
-    <item quantity="few">У Вас %s секунди, аби зробити свій перший хід!</item>
-    <item quantity="other">У Вас %s секунд, аби зробити свій перший хід!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s ігор триває</item>
     <item quantity="few">%s ігор триває</item>
