@@ -167,7 +167,7 @@ lichess.topMenuIntent = function() {
   lichess.userAutocomplete = function($input, opts) {
     opts = opts || {};
     lichess.loadCss('/assets/stylesheets/autocomplete.css');
-    lichess.loadScript('/assets/javascripts/vendor/typeahead.jquery.min.js', {noVersion:true}).done(function() {
+    return lichess.loadScript('/assets/javascripts/vendor/typeahead.jquery.min.js', {noVersion:true}).done(function() {
       $input.typeahead(null, {
         minLength: 3,
         hint: true,

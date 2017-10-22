@@ -9,15 +9,12 @@ function toggle() {
     lichess.userAutocomplete($input, {
       focus: 1,
       friend: true,
-      onSelect: function(q) { if (q) location.href = '/@/' + q }
-    });
-    lichess.requestIdleCallback(function() {
-      $input.on('blur', toggle).on('keypress', function(e) {
-        if (e.which == 10 || e.which == 13) {
-          execute(e.target.value.trim());
-          e.target.value = '';
-        }
-      });
+      onSelect: function(q) {
+        execute(q);
+        $input.val('');
+      }
+    }).done(function() {
+      $input.on('blur', toggle);
     });
   }
   if ($wrap.hasClass('shown')) $input.focus();
