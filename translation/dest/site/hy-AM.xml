@@ -330,10 +330,6 @@
   <string name="retryThisPuzzle">Կրկին փորձել</string>
   <string name="thisPuzzleIsCorrect">Այս խնդիրը ստույգ է և հետաքրքիր</string>
   <string name="thisPuzzleIsWrong">Այս խնդիրը սխալ է կամ ձանձրալի</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Դուք ունեք %s վայրկյան Ձեր առաջին քայլը կատարելու համար։</item>
-    <item quantity="other">Դուք ունեք %s վայրկյան Ձեր առաջին քայլը կատարելու համար։</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">Ընթանում է %s խաղ</item>
     <item quantity="other">Ընթանում է %s խաղ</item>
