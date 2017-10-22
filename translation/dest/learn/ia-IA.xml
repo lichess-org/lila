@@ -69,8 +69,12 @@ Il non es necessari promover.</string>
   <string name="takeTheEnemyPieces">Prende le pecias inimic</string>
   <string name="captureIntro">Identifica le pecias sin defensa del adversario, e captura los!</string>
   <string name="takeTheBlackPieces">Prende le pecias nigre!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Captura le pecias nigre!
+E non perde le tues.</string>
+  <string name="captureComplete">Congratulationes! Tu sape como combatter con pecias de chacos!</string>
   <string name="protection">Protection</string>
   <string name="keepYourPiecesSafe">Mantene tu pecias secur</string>
+  <string name="protectionIntro">Identifica le pecias attaccate per tu adversario, e defende los!</string>
   <string name="combat">Combatto</string>
   <string name="captureAndDefendPieces">Captura e defende pecias</string>
   <string name="checkInOne">Chaco in 1</string>
