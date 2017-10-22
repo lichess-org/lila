@@ -16,12 +16,14 @@ function toggle() {
       });
       lichess.userAutocomplete($input, {
         focus: 1,
-        friend: true
+        friend: true,
+        onSelect: function(q) { if (q) location.href = '/@/' + q }
       });
   } else $input.focus();
 }
 
 function execute(q) {
+  if (!q) return;
   if (q[0] === '/') command(q.slice(1));
   else location.href = '/@/' + q;
 }
@@ -29,6 +31,7 @@ function execute(q) {
 function command(q) {
   var parts = q.split(' '), exec = parts[0];
   if (exec === 'tv' || exec === 'follow') location.href = '/@/' + parts[1] + '/tv';
+  else if (exec === 'play' || exec === 'challenge') location.href = '/?user=' + parts[1] + '#friend';
   else alert('Unknown command: ' + q);
 }
 

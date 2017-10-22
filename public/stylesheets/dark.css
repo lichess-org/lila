@@ -215,6 +215,7 @@ body.dark #hooks_wrap div.tabs a {
   color: #b0b0b0;
 }
 body.dark #top a.toggle:hover,
+body.dark #clinput a.link:hover,
 body.dark #top a.signin,
 body.dark #hooks_wrap .hook_filter .checkable {
   color: #c0c0c0;

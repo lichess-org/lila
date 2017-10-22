@@ -495,7 +495,7 @@ body > div.content {
   height: 28px;
 }
 #top .signin {
-  margin: 3px 0.5em 0 0;
+  margin: 3px .5em 0 .5em;
   border-color: #d85000;
   padding: 1px 5px;
   height: 17px;
@@ -526,6 +526,9 @@ body.offline #reconnecting,
 #clinput {
   display: flex;
   height: 24px;
+}
+#clinput a.link:hover {
+  color: #303030;
 }
 #clinput input {
   border: 0;
