@@ -18,13 +18,13 @@ object Relay extends LilaController {
     }
   }
 
-  def form = Secure(_.Beta) { implicit ctx => me =>
+  def form = Auth { implicit ctx => me =>
     NoLame {
       Ok(html.relay.create(env.forms.create)).fuccess
     }
   }
 
-  def create = SecureBody(_.Beta) { implicit ctx => me =>
+  def create = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
     env.forms.create.bindFromRequest.fold(
       err => BadRequest(html.relay.create(err)).fuccess,
