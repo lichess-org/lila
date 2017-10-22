@@ -10,7 +10,7 @@ function toggle() {
       .on('blur', toggle)
       .on('keypress', function(e) {
         if (e.which == 10 || e.which == 13) {
-          execute(e.target.value);
+          execute(e.target.value.trim());
           e.target.value = '';
         }
       });
@@ -21,9 +21,15 @@ function toggle() {
   } else $input.focus();
 }
 
-function execute(cmd) {
-  if (cmd[0] === '/') console.log(cmd);
-  else location.href = '/@/' + cmd;
+function execute(q) {
+  if (q[0] === '/') command(q.slice(1));
+  else location.href = '/@/' + q;
+}
+
+function command(q) {
+  var parts = q.split(' '), exec = parts[0];
+  if (exec === 'tv' || exec === 'follow') location.href = '/@/' + parts[1] + '/tv';
+  else alert('Unknown command: ' + q);
 }
 
 Mousetrap.bind('s', function() {
