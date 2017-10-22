@@ -489,6 +489,30 @@ case class Game(
   def estimateTotalTime = estimateClockTotalTime orElse
     correspondenceClock.map(_.estimateTotalTime) getOrElse 1200
 
+  def timeForFirstMove: Centis = Centis ofSeconds {
+    import chess.Speed._
+    val base = if (isTournament) speed match {
+      case UltraBullet => 15
+      case Bullet => 20
+      case Blitz => 25
+      case _ => 30
+    }
+    else speed match {
+      case UltraBullet => 20
+      case Bullet => 30
+      case Blitz => 40
+      case _ => 60
+    }
+    if (variant == chess.variant.Chess960) (base * 2) atMost 90
+    else base
+  }
+
+  def expirable = playable && !bothPlayersHaveMoved && nonAi && hasClock
+
+  def timeBeforeExpiration: Option[Centis] = expirable option {
+    Centis.ofMillis(movedAt.getMillis - nowMillis + timeForFirstMove.millis).nonNeg
+  }
+
   def playerWhoDidNotMove: Option[Player] = playedTurns match {
     case 0 => player(White).some
     case 1 => player(Black).some

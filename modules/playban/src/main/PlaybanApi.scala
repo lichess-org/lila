@@ -11,7 +11,6 @@ import lila.user.UserRepo
 final class PlaybanApi(
     coll: Coll,
     sandbag: SandbagWatch,
-    isRematch: String => Boolean,
     bus: lila.common.Bus
 ) {
 
@@ -29,7 +28,7 @@ final class PlaybanApi(
   private val blameableSources: Set[Source] = Set(Source.Lobby, Source.Pool, Source.Tournament)
 
   private def blameable(game: Game): Fu[Boolean] =
-    (game.source.exists(s => blameableSources(s)) && game.hasClock && !isRematch(game.id)) ?? {
+    (game.source.exists(s => blameableSources(s)) && game.hasClock) ?? {
       if (game.rated) fuccess(true)
       else UserRepo.containsEngine(game.userIds) map (!_)
     }
@@ -38,14 +37,11 @@ final class PlaybanApi(
     blameable(game) flatMap { _ ?? f }
 
   def abort(pov: Pov, isOnGame: Set[Color]): Funit = IfBlameable(pov.game) {
-    {
-      if (pov.game olderThan 30) pov.game.playerWhoDidNotMove map { Blame(_, Outcome.NoPlay) }
-      else if (pov.game olderThan 15) none
-      else if (isOnGame(pov.opponent.color)) pov.player.some map { Blame(_, Outcome.Abort) }
-      else none
-    } ?? {
-      case Blame(player, outcome) => player.userId.??(save(outcome))
-    }
+    pov.player.userId.ifTrue(isOnGame(pov.opponent.color)) ?? save(Outcome.Abort)
+  }
+
+  def noStart(pov: Pov): Funit = IfBlameable(pov.game) {
+    pov.player.userId ?? save(Outcome.NoPlay)
   }
 
   def rageQuit(game: Game, quitterColor: Color): Funit =

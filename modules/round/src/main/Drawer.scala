@@ -25,7 +25,7 @@ private[round] final class Drawer(
 
   def yes(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = pov match {
     case pov if pov.game.toChessHistory.threefoldRepetition =>
-      finisher.other(pov.game, _.Draw)
+      finisher.other(pov.game, _.Draw, None)
     case pov if pov.opponent.isOfferingDraw =>
       finisher.other(pov.game, _.Draw, None, Some(_.drawOfferAccepted))
     case Pov(g, color) if g playerCanOfferDraw color => proxy.save {
@@ -48,7 +48,7 @@ private[round] final class Drawer(
   }
 
   def claim(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =
-    (pov.game.playable && pov.game.toChessHistory.threefoldRepetition) ?? finisher.other(pov.game, _.Draw)
+    (pov.game.playable && pov.game.toChessHistory.threefoldRepetition) ?? finisher.other(pov.game, _.Draw, None)
 
   def force(game: Game)(implicit proxy: GameProxy): Fu[Events] = finisher.other(game, _.Draw, None, None)
 

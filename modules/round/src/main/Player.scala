@@ -126,7 +126,7 @@ private[round] final class Player(
   private def moveFinish(game: Game, color: Color)(implicit proxy: GameProxy): Fu[Events] = game.status match {
     case Status.Mate => finisher.other(game, _.Mate, game.toChess.situation.winner)
     case Status.VariantEnd => finisher.other(game, _.VariantEnd, game.toChess.situation.winner)
-    case status @ (Status.Stalemate | Status.Draw) => finisher.other(game, _ => status)
+    case status @ (Status.Stalemate | Status.Draw) => finisher.other(game, _ => status, None)
     case _ => fuccess(Nil)
   }
 }

@@ -113,6 +113,12 @@ final class JsonView(
             .add("crazyhouse" -> pov.game.crazyData)
             .add("possibleMoves" -> possibleMoves(pov))
             .add("possibleDrops" -> possibleDrops(pov))
+            .add("expiration" -> game.expirable.option {
+              Json.obj(
+                "idleMillis" -> (nowMillis - game.movedAt.getMillis),
+                "millisToMove" -> game.timeForFirstMove.millis
+              )
+            })
       }
 
   private def commonWatcherJson(g: Game, p: GamePlayer, user: Option[User], withFlags: WithFlags): JsObject =

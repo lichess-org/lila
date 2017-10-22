@@ -10,7 +10,7 @@ import lila.round.JsonView.WithFlags
 import lila.round.{ JsonView, Forecast }
 import lila.security.Granter
 import lila.simul.Simul
-import lila.tournament.{ SecondsToDoFirstMove, TourAndRanks }
+import lila.tournament.TourAndRanks
 import lila.tree.Node.partitionTreeJsonWriter
 import lila.user.User
 
@@ -158,9 +158,6 @@ private[api] final class RoundApi(
         "running" -> data.tour.isStarted
       ).add("secondsToFinish" -> data.tour.isStarted.option(data.tour.secondsToFinish))
         .add("berserkable" -> data.tour.isStarted.option(data.tour.berserkable))
-        .add("nbSecondsForFirstMove" -> data.tour.isStarted.option {
-          SecondsToDoFirstMove.secondsToMoveFor(data.tour)
-        })
         .add("ranks" -> data.tour.isStarted.option(Json.obj(
           "white" -> data.whiteRank,
           "black" -> data.blackRank

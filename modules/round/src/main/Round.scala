@@ -25,22 +25,27 @@ private[round] final class Round(
     drawer: Drawer,
     forecastApi: ForecastApi,
     socketHub: ActorRef,
+    /* Send a message to self,
+     * but by going through the actor map,
+     * so this actor is spaned again if it had died/expired */
+    awakeWith: Any => Unit,
     moretimeDuration: FiniteDuration,
     activeTtl: Duration
 ) extends SequentialActor {
 
   context setReceiveTimeout activeTtl
 
+  implicit val proxy = new GameProxy(gameId)
+
   override def preStart(): Unit = {
     context.system.lilaBus.subscribe(self, 'deploy)
+    scheduleExpiration
   }
 
   override def postStop(): Unit = {
     super.postStop()
     context.system.lilaBus.unsubscribe(self)
   }
-
-  implicit val proxy = new GameProxy(gameId)
 
   var takebackSituation = Round.TakebackSituation()
 
@@ -61,6 +66,7 @@ private[round] final class Round(
       } >>- {
         p.trace.finish()
         lila.mon.round.move.full.count()
+        scheduleExpiration
       }
 
     case FishnetPlay(uci, currentFen) => handle { game =>
@@ -94,10 +100,6 @@ private[round] final class Round(
       }
     }
 
-    case NoStartColor(color) => handle(color) { pov =>
-      finisher.other(pov.game, _.NoStart, Some(!pov.color))
-    }
-
     case DrawForce(playerId) => handle(playerId) { pov =>
       (pov.game.drawable && !pov.game.hasAi && pov.game.hasClock) ?? {
         socketHub ? Ask(pov.gameId, IsGone(!pov.color)) flatMap {
@@ -127,7 +129,7 @@ private[round] final class Round(
       proxy withGame { game =>
         game.abandoned ?? {
           self ! PoisonPill
-          if (game.abortable) finisher.other(game, _.Aborted)
+          if (game.abortable) finisher.other(game, _.Aborted, None)
           else finisher.other(game, _.Resign, Some(!game.player.color))
         }
       }
@@ -214,11 +216,15 @@ private[round] final class Round(
     case AbortForMaintenance => handle { game =>
       messenger.system(game, (_.untranslated("Game aborted for server maintenance")))
       messenger.system(game, (_.untranslated("Sorry for the inconvenience!")))
-      game.playable ?? finisher.other(game, _.Aborted)
+      game.playable ?? finisher.other(game, _.Aborted, None)
     }
 
     case AbortForce => handle { game =>
-      game.playable ?? finisher.other(game, _.Aborted)
+      game.playable ?? finisher.other(game, _.Aborted, None)
+    }
+
+    case NoStart => handle { game =>
+      game.timeBeforeExpiration.exists(_.centis == 0) ?? finisher.noStart(game)
     }
   }
 
@@ -261,6 +267,16 @@ private[round] final class Round(
       }
     }
 
+  private def scheduleExpiration: Funit = proxy.game map {
+    _ ?? { game =>
+      game.timeBeforeExpiration foreach { centis =>
+        context.system.scheduler.scheduleOnce((centis.millis + 1000).millis) {
+          awakeWith(NoStart)
+        }
+      }
+    }
+  }
+
   private def handle[A](op: Game => Fu[Events]): Funit =
     handleGame(proxy.game)(op)
 
@@ -292,11 +308,13 @@ private[round] final class Round(
   } recover errorHandler("handleGame")
 
   private def publish[A](op: Fu[Events]): Funit = op.map { events =>
-    if (events.nonEmpty) socketHub ! Tell(gameId, EventList(events))
-    if (events exists {
-      case e: Event.Move => e.threefold
-      case _ => false
-    }) self ! Threefold
+    if (events.nonEmpty) {
+      socketHub ! Tell(gameId, EventList(events))
+      if (events exists {
+        case e: Event.Move => e.threefold
+        case _ => false
+      }) self ! Threefold
+    }
   }
 
   private def errorHandler(name: String): PartialFunction[Throwable, Unit] = {
@@ -325,5 +343,4 @@ object Round {
 
     def reset = TakebackSituation()
   }
-
 }

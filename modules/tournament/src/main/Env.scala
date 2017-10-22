@@ -174,11 +174,7 @@ final class Env(
     }
   }
 
-  private lazy val autoPairing = new AutoPairing(
-    roundMap = roundMap,
-    system = system,
-    onStart = onStart
-  )
+  private lazy val autoPairing = new AutoPairing(onStart)
 
   private[tournament] lazy val tournamentColl = db(CollectionTournament)
   private[tournament] lazy val pairingColl = db(CollectionPairing)

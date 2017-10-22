@@ -107,6 +107,8 @@ export default class RoundController {
 
     setTimeout(this.delayedInit, 200);
 
+    setTimeout(this.showExpiration, 350);
+
     setTimeout(this.showYourMoveNotification, 500);
 
     // at the end:
@@ -119,6 +121,13 @@ export default class RoundController {
         });
         if (this.music && set !== 'music') this.music = undefined;
     });
+
+  }
+
+  private showExpiration = () => {
+    if (!this.data.expiration) return;
+    this.redraw();
+    setTimeout(this.showExpiration, 200);
   }
 
   private onUserMove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => {
@@ -390,6 +399,10 @@ export default class RoundController {
       else if (this.corresClock) this.corresClock.update(
         oc.white,
         oc.black);
+    }
+    if (this.data.expiration) {
+      if (this.data.steps.length > 2) this.data.expiration = undefined;
+      else this.data.expiration.movedAt = Date.now();
     }
     this.redraw();
     if (d.blind) blind.reload(this);

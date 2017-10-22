@@ -28,7 +28,6 @@ final class Env(
     notifyApi: lila.notify.NotifyApi,
     uciMemo: lila.game.UciMemo,
     rematch960Cache: lila.memo.ExpireSetMemo,
-    isRematchCache: lila.memo.ExpireSetMemo,
     onStart: String => Unit,
     divider: lila.game.Divider,
     prefApi: lila.pref.PrefApi,
@@ -75,9 +74,11 @@ final class Env(
       drawer = drawer,
       forecastApi = forecastApi,
       socketHub = socketHub,
+      awakeWith = tell(id),
       moretimeDuration = Moretime,
       activeTtl = ActiveTtl
     )
+    def tell(id: Game.ID)(msg: Any): Unit = self ! Tell(id, msg)
     def receive: Receive = ({
       case actorApi.GetNbRounds =>
         nbRounds = size
@@ -162,8 +163,7 @@ final class Env(
   private lazy val rematcher = new Rematcher(
     messenger = messenger,
     onStart = onStart,
-    rematch960Cache = rematch960Cache,
-    isRematchCache = isRematchCache
+    rematch960Cache = rematch960Cache
   )
 
   private lazy val player: Player = new Player(
@@ -260,7 +260,6 @@ object Env {
     notifyApi = lila.notify.Env.current.api,
     uciMemo = lila.game.Env.current.uciMemo,
     rematch960Cache = lila.game.Env.current.cached.rematch960,
-    isRematchCache = lila.game.Env.current.cached.isRematch,
     onStart = lila.game.Env.current.onStart,
     divider = lila.game.Env.current.divider,
     prefApi = lila.pref.Env.current.api,

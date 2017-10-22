@@ -14,8 +14,7 @@ import lila.user.{ User, UserRepo }
 private[round] final class Rematcher(
     messenger: Messenger,
     onStart: String => Unit,
-    rematch960Cache: ExpireSetMemo,
-    isRematchCache: ExpireSetMemo
+    rematch960Cache: ExpireSetMemo
 ) {
 
   private val rematchCreated: Cache[Game.ID, Game.ID] = Scaffeine()
@@ -55,7 +54,6 @@ private[round] final class Rematcher(
         _ ← (GameRepo insertDenormalized nextGame) >>
           GameRepo.saveNext(pov.game, nextGame.id) >>-
           messenger.system(pov.game, _.rematchOfferAccepted) >>- {
-            isRematchCache.put(nextGame.id)
             if (pov.game.variant == Chess960 && !rematch960Cache.get(pov.game.id))
               rematch960Cache.put(nextGame.id)
           }

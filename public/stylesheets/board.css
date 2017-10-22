@@ -443,6 +443,10 @@ body.piece_letter .lichess_ground .replay move {
   color: #d85000!important;
   font-weight: bold;
 }
+.lichess_ground .expiration {
+  margin: 10px 0;
+  text-align: center;
+}
 .lichess_ground .result_wrap {
   width: 100%;
 }

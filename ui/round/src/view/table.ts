@@ -5,6 +5,7 @@ import { game, status, Player }  from 'game';
 import { renderClock } from '../clock/clockView';
 import renderCorresClock from '../corresClock/corresClockView';
 import renderReplay from './replay';
+import renderExpiration from './expiration';
 import * as renderUser from './user';
 import * as button from './button';
 import RoundController from '../ctrl';
@@ -82,7 +83,7 @@ function renderTablePlay(ctrl: RoundController) {
     (d.tournament && game.nbMoves(d, d.player.color) === 0) ? tournamentStartWarning(ctrl) : null
   ]);
   return [
-    renderReplay(ctrl),
+    renderExpiration(ctrl) || renderReplay(ctrl),
     h('div.control.icons', {
       class: { 'confirm': !!(ctrl.drawConfirm || ctrl.resignConfirm) }
     }, icons),
