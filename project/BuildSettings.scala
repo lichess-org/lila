@@ -2,9 +2,6 @@ import com.typesafe.sbt.SbtScalariform.autoImport.scalariformPreferences
 import play.sbt.Play.autoImport._
 import sbt._, Keys._
 import scalariform.formatter.preferences._
-import scalafix.sbt.ScalafixPlugin
-import ScalafixPlugin.scalafixScalacOptions
-import ScalafixPlugin.autoImport._
 
 object BuildSettings {
 
@@ -17,7 +14,6 @@ object BuildSettings {
     scalaVersion := globalScalaVersion,
     resolvers ++= Dependencies.Resolvers.commons,
     scalacOptions ++= compilerOptions,
-    scalacOptions ++= scalafixScalacOptions.value,
     incOptions := incOptions.value.withNameHashing(true),
     updateOptions := updateOptions.value.withCachedResolution(true),
     sources in doc in Compile := List(),
@@ -25,9 +21,7 @@ object BuildSettings {
     publishArtifact in (Compile, packageDoc) := false,
     // disable publishing the main sources jar
     publishArtifact in (Compile, packageSrc) := false,
-    scalariformPreferences := scalariformPrefs(scalariformPreferences.value),
-    // dark magic to keep scalafix away from test code
-    scalafix := ScalafixPlugin.scalafixTaskImpl(Seq(Compile)).evaluated
+    scalariformPreferences := scalariformPrefs(scalariformPreferences.value)
   )
 
   def scalariformPrefs(prefs: IFormattingPreferences) = prefs
