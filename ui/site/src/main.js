@@ -194,7 +194,7 @@ lichess.topMenuIntent = function() {
           empty: '<div class="empty">No player found</div>',
           pending: lichess.spinnerHtml,
           suggestion: function(a) {
-            return '<span class="ulpt" data-href="/@/' + a + '">' + a + '</span>';
+            return '<a class="ulpt" href="/@/' + a + '">' + a + '</a>';
           }
         }
       }).on('typeahead:render', function() {

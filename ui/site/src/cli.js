@@ -16,7 +16,7 @@ function toggle() {
         if (e.which == 10 || e.which == 13) {
           execute(e.target.value.trim());
           e.target.value = '';
-        } //else  if (e.which == 27) $input.blur();
+        }
       });
     });
   }
