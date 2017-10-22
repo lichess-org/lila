@@ -404,10 +404,6 @@
   <string name="retryThisPuzzle">Bu tapmacanı yenidən sınayın</string>
   <string name="thisPuzzleIsCorrect">Bu tapmaca doğrudur və maraqlıdır</string>
   <string name="thisPuzzleIsWrong">Bu tapmaca yanlışdır və ya maraqsızdır</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">İlk gediş üçün %s saniyə qalır</item>
-    <item quantity="other">İlk gediş üçün %s saniyə qalır</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s oyun oynanılır</item>
     <item quantity="other">%s oyun oynanılır</item>
