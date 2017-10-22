@@ -1,0 +1,24 @@
+{
+  "name": "cli",
+  "version": "2.0.0",
+  "description": "lichess.org command line interface",
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0",
+  "dependencies": {
+    "snabbdom": "ornicar/snabbdom#lichess"
+  },
+  "devDependencies": {
+    "@types/jquery": "^2.0",
+    "@types/jqueryui": "^1.11",
+    "browserify": "^14",
+    "gulp": "^3",
+    "gulp-uglify": "^3",
+    "gulp-util": "^3",
+    "tsify": "^3",
+    "types": "link:../types",
+    "typescript": "^2",
+    "vinyl-buffer": "^1",
+    "vinyl-source-stream": "^1",
+    "watchify": "^3"
+  }
+}
