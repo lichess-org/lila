@@ -56,13 +56,6 @@ function renderTableWatch(ctrl: RoundController) {
   ]);
 }
 
-function tournamentStartWarning(ctrl: RoundController) {
-  return h('div.suggestion', [
-    h('div.text', { attrs: {'data-icon': 'j'} },
-      ctrl.trans('youHaveNbSecondsToMakeYourFirstMove', ctrl.data.tournament!.nbSecondsForFirstMove))
-  ]);
-}
-
 function renderTablePlay(ctrl: RoundController) {
   const d = ctrl.data,
   loading = isLoading(ctrl),
@@ -73,6 +66,7 @@ function renderTablePlay(ctrl: RoundController) {
     ctrl.drawConfirm ? button.drawConfirm(ctrl) : button.standard(ctrl, ctrl.canOfferDraw, '2', 'offerDraw', 'draw-yes', () => ctrl.offerDraw(true)),
     ctrl.resignConfirm ? button.resignConfirm(ctrl) : button.standard(ctrl, game.resignable, 'b', 'resign', 'resign-confirm', () => ctrl.resign(true))
   ],
+  expiration = renderExpiration(ctrl),
   buttons: MaybeVNodes = loading ? [loader()] : (submit ? [submit] : [
     button.forceResign(ctrl),
     button.threefoldClaimDraw(ctrl),
@@ -80,10 +74,11 @@ function renderTablePlay(ctrl: RoundController) {
     button.answerOpponentDrawOffer(ctrl),
     button.cancelTakebackProposition(ctrl),
     button.answerOpponentTakebackProposition(ctrl),
-    (d.tournament && game.nbMoves(d, d.player.color) === 0) ? tournamentStartWarning(ctrl) : null
+    expiration && expiration[1] ? expiration[0] : null
   ]);
   return [
-    renderExpiration(ctrl) || renderReplay(ctrl),
+    expiration && !expiration[1] ? expiration[0] : null,
+    renderReplay(ctrl),
     h('div.control.icons', {
       class: { 'confirm': !!(ctrl.drawConfirm || ctrl.resignConfirm) }
     }, icons),

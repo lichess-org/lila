@@ -443,10 +443,6 @@ body.piece_letter .lichess_ground .replay move {
   color: #d85000!important;
   font-weight: bold;
 }
-.lichess_ground .expiration {
-  margin: 10px 0;
-  text-align: center;
-}
 .lichess_ground .result_wrap {
   width: 100%;
 }
@@ -764,12 +760,17 @@ div.control .button.disabled {
 .lichess_ground .negotiation {
   padding: 10px 7px;
   background: #d0d0d0;
+  text-align: center;
 }
 .lichess_ground .suggestion p {
   margin-bottom: 7px;
 }
 .lichess_ground .suggestion .button {
   display: block;
+}
+.lichess_ground .expiration.emerg {
+  background: #dc322f!important;
+  color: #fff!important;
 }
 .lichess_ground .pending {
   display: flex;
