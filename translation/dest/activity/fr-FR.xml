@@ -48,7 +48,7 @@
     <item quantity="other">%s nouvelles études créées</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="one">A participé dans %s tournoi</item>
+    <item quantity="one">A participé à %s tournoi</item>
     <item quantity="other">A participé à %s tournois</item>
   </plurals>
   <plurals name="rankedInTournament">
