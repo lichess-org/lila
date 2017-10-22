@@ -523,6 +523,10 @@ body.offline #reconnecting,
   color: #dc322f;
 }
 
+#clinput {
+  display: flex;
+  height: 24px;
+}
 #clinput input {
   border: 0;
   border: none;
