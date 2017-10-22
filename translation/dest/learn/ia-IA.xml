@@ -75,8 +75,15 @@ E non perde le tues.</string>
   <string name="protection">Protection</string>
   <string name="keepYourPiecesSafe">Mantene tu pecias secur</string>
   <string name="protectionIntro">Identifica le pecias attaccate per tu adversario, e defende los!</string>
+  <string name="protectionComplete">Congratulationes! Un pecia que tu non perde es un pecia que tu gania!</string>
+  <string name="escape">Tu es sub attacco!
+Escappa le menacia!</string>
+  <string name="noEscape">Il non ha escappata,
+ma tu pote defender!</string>
   <string name="combat">Combatto</string>
   <string name="captureAndDefendPieces">Captura e defende pecias</string>
+  <string name="combatIntro">Un bon guerrero sape e attaccar e defender!</string>
+  <string name="combatComplete">Congratulationes! Tu sape como combatter con pecias de chacos!</string>
   <string name="checkInOne">Chaco in 1</string>
   <string name="attackTheOpponentsKing">Attacca le rege del adversario</string>
   <string name="outOfCheck">Escappa le chaco</string>
