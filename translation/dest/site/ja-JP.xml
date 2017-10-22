@@ -427,9 +427,6 @@
   <string name="retryThisPuzzle">この問題に再挑戦する</string>
   <string name="thisPuzzleIsCorrect">この問題は正しく、おもしろい。</string>
   <string name="thisPuzzleIsWrong">この問題はおかしい／つまらない</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="other">%s 秒以内に初手を指してください</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s 局プレイ中</item>
   </plurals>
