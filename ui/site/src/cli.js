@@ -23,7 +23,7 @@ function toggle() {
 function execute(q) {
   if (!q) return;
   if (q[0] === '/') command(q.slice(1));
-  else location.href = '/@/' + q;
+  else location.href = '/@/' + (q.name || q);
 }
 
 function command(q) {
