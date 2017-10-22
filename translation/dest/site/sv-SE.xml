@@ -450,10 +450,6 @@
   <string name="retryThisPuzzle">Testa detta schackproblem igen</string>
   <string name="thisPuzzleIsCorrect">Det här schackproblemet är korrekt och intressant</string>
   <string name="thisPuzzleIsWrong">Det här schackproblemet är fel eller tråkigt</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Du har %s sekunder för att göra första draget!</item>
-    <item quantity="other">Du har %s sekunder för att göra första draget!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partier spelas</item>
     <item quantity="other">%s partier spelas</item>
