@@ -66,18 +66,15 @@ function renderTablePlay(ctrl: RoundController) {
     ctrl.drawConfirm ? button.drawConfirm(ctrl) : button.standard(ctrl, ctrl.canOfferDraw, '2', 'offerDraw', 'draw-yes', () => ctrl.offerDraw(true)),
     ctrl.resignConfirm ? button.resignConfirm(ctrl) : button.standard(ctrl, game.resignable, 'b', 'resign', 'resign-confirm', () => ctrl.resign(true))
   ],
-  expiration = renderExpiration(ctrl),
   buttons: MaybeVNodes = loading ? [loader()] : (submit ? [submit] : [
     button.forceResign(ctrl),
     button.threefoldClaimDraw(ctrl),
     button.cancelDrawOffer(ctrl),
     button.answerOpponentDrawOffer(ctrl),
     button.cancelTakebackProposition(ctrl),
-    button.answerOpponentTakebackProposition(ctrl),
-    expiration && expiration[1] ? expiration[0] : null
+    button.answerOpponentTakebackProposition(ctrl)
   ]);
   return [
-    expiration && !expiration[1] ? expiration[0] : null,
     renderReplay(ctrl),
     h('div.control.icons', {
       class: { 'confirm': !!(ctrl.drawConfirm || ctrl.resignConfirm) }
@@ -110,17 +107,23 @@ function anyClock(ctrl: RoundController, position: Position) {
 }
 
 export default function(ctrl: RoundController): VNode {
-  const contents: MaybeVNodes = [
+  const playable = game.playable(ctrl.data),
+  contents: MaybeVNodes = [
     renderPlayer(ctrl, topPlayer(ctrl)),
     h('div.table_inner',
       ctrl.data.player.spectator ? renderTableWatch(ctrl) : (
-        game.playable(ctrl.data) ? renderTablePlay(ctrl) : renderTableEnd(ctrl)
+        playable ? renderTablePlay(ctrl) : renderTableEnd(ctrl)
       )
     )
-  ];
-  return h('div.table_wrap', [
+  ],
+  expiration = playable && renderExpiration(ctrl);
+  return h('div.table_wrap', {
+    class: { with_expiration: !!expiration }
+  }, [
     anyClock(ctrl, 'top'),
+    expiration && !expiration[1] ? expiration[0] : null,
     h('div.table', contents),
+    expiration && expiration[1] ? expiration[0] : null,
     anyClock(ctrl, 'bottom')
   ]);
 };

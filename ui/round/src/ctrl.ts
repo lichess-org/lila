@@ -127,7 +127,7 @@ export default class RoundController {
   private showExpiration = () => {
     if (!this.data.expiration) return;
     this.redraw();
-    setTimeout(this.showExpiration, 200);
+    setTimeout(this.showExpiration, 250);
   }
 
   private onUserMove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => {

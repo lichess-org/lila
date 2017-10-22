@@ -617,6 +617,9 @@ div.table_wrap .clock .bar span {
 div.table_wrap .clock .bar.berserk span {
   background: #dc322f;
 }
+div.table_wrap.with_expiration .clock .bar {
+  display: none;
+}
 div.table_wrap .clock > .time {
   display: inline-block;
   border: 1px solid #ccc;
@@ -758,9 +761,8 @@ div.control .button.disabled {
 .lichess_ground .suggestion,
 .lichess_ground .pending,
 .lichess_ground .negotiation {
-  padding: 10px 7px;
+  padding: 8px 7px;
   background: #d0d0d0;
-  text-align: center;
 }
 .lichess_ground .suggestion p {
   margin-bottom: 7px;
@@ -771,6 +773,15 @@ div.control .button.disabled {
 .lichess_ground .expiration.emerg {
   background: #dc322f!important;
   color: #fff!important;
+}
+.lichess_ground .expiration {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.lichess_ground .expiration strong {
+  font-size: 1.3em;
+  margin-right: .3em;
 }
 .lichess_ground .pending {
   display: flex;
