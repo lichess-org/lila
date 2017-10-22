@@ -311,9 +311,6 @@
   <string name="retryThisPuzzle">Thử lại câu này</string>
   <string name="thisPuzzleIsCorrect">Câu đố này đúng và rất thú vị</string>
   <string name="thisPuzzleIsWrong">Câu đố này sai hoặc dở ẹc</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="other">Bạn có %s để thực hiện nước đi đầu tiên!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s trận đang chơi</item>
   </plurals>
