@@ -451,10 +451,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="retryThisPuzzle">Riprova questo puzzle</string>
   <string name="thisPuzzleIsCorrect">Questo puzzle è corretto e interessante</string>
   <string name="thisPuzzleIsWrong">Questo puzzle è sbagliato o noioso</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Hai %s secondo per fare la tua prima mossa!</item>
-    <item quantity="other">Hai %s secondi per fare la tua prima mossa!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partite in gioco</item>
     <item quantity="other">%s partite in gioco</item>
