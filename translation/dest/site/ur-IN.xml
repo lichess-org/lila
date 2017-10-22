@@ -330,10 +330,6 @@
   <string name="retryThisPuzzle">دوبارہ کوشش کریں</string>
   <string name="thisPuzzleIsCorrect">یہ معمہ صحیح اور دلچسپ ہے</string>
   <string name="thisPuzzleIsWrong">یہ معمہ غلط یا بیکار ہے</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">آپ کے پاس چال چلنے کیلیے %s سیکنڈ ہیں</item>
-    <item quantity="other">آپ کے پاس چال چلنے کیلیے %s سیکنڈ ہیں</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s جاری مقابلے</item>
     <item quantity="other">%s جاری مقابلے</item>
