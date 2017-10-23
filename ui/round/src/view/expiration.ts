@@ -20,7 +20,7 @@ export default function(ctrl: RoundController): [VNode, boolean] | undefined {
       class: { emerg }
     }, [
       h('strong', '' + Math.round(timeLeft / 1000)),
-      'seconds to move'
+      'seconds to play the first move'
     ]),
     myTurn
   ];
