@@ -12,7 +12,7 @@ interface PlayerNames {
 
 export default function(ctrl: AnalyseCtrl): VNode[] | undefined {
   const study = ctrl.study;
-  if (!study) return;
+  if (!study || ctrl.embed) return;
   const tags = study.data.chapter.tags,
    playerNames = {
     white: findTag(tags, 'white')!,
