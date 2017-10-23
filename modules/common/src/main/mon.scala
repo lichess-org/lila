@@ -280,18 +280,18 @@ object mon {
     }
   }
   object relay {
-    val ongoing = stub.rec("relay.ongoing")
-    val moves = stub.incX("relay.moves")
+    val ongoing = rec("relay.ongoing")
+    val moves = incX("relay.moves")
     object sync {
-      def result(res: String) = stub.inc(s"relay.sync.result.$res")
+      def result(res: String) = inc(s"relay.sync.result.$res")
       object duration {
-        val each = stub.rec("relay.sync.duration.each")
-        val total = stub.rec("relay.sync.duration.total")
+        val each = rec("relay.sync.duration.each")
+        val total = rec("relay.sync.duration.total")
       }
     }
     object fetch {
       object duration {
-        val each = stub.rec("relay.sync.duration.each")
+        val each = rec("relay.sync.duration.each")
       }
     }
   }
@@ -575,12 +575,6 @@ object mon {
       if (value < 0) logger.warn(s"Negative histogram value: $name=$value")
       else hist.record(value)
     }
-  }
-
-  private object stub {
-    def inc(name: String): Inc = () => ()
-    def incX(name: String): IncX = _ => ()
-    def rec(name: String): Rec = _ => ()
   }
 
   // to record Double rates [0..1],
