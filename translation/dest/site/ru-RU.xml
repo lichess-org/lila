@@ -201,7 +201,7 @@
   <string name="accept">Принять</string>
   <string name="decline">Отклонить</string>
   <string name="playingRightNow">Активная партия</string>
-  <string name="finished">Турнир окончен</string>
+  <string name="finished">Сеанс окончен</string>
   <string name="abortGame">Отменить игру</string>
   <string name="gameAborted">Игра отменена</string>
   <string name="standard">Классические шахматы</string>
