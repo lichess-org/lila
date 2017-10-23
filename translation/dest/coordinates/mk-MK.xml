@@ -5,4 +5,6 @@
   <string name="coordinateTraining">Обука на координати</string>
   <string name="averageScoreAsWhiteX">Просечен резултат како бел: %s</string>
   <string name="averageScoreAsBlackX">Просечен резултат како црн: %s</string>
+  <string name="knowingTheChessBoard">Познавањето на координатите на шаховската табла е многу битна вештина:</string>
+  <string name="mostChessCourses">Повеќето курсеви за шах и вежби користат нотација со алгебра.</string>
 </resources>
