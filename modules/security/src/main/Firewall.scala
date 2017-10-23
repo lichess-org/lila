@@ -20,11 +20,7 @@ final class Firewall(
 
   system.scheduler.scheduleOnce(10 seconds)(loadFromDb)
 
-  private def loadFromDb: Funit =
-    coll.distinct[String, Set]("_id", none).map { ips =>
-      current = ips
-      lila.mon.security.firewall.ip(ips.size)
-    }
+  def blocksIp(ip: IpAddress): Boolean = current contains ip.value
 
   def blocks(req: RequestHeader): Boolean = enabled && {
     val v = blocksIp {
@@ -36,20 +32,24 @@ final class Firewall(
 
   def accepts(req: RequestHeader): Boolean = !blocks(req)
 
-  def blockIp(ip: IpAddress): Funit = validIp(ip) ?? {
-    coll.update(
-      $id(ip),
-      $doc("_id" -> ip, "date" -> DateTime.now),
-      upsert = true
-    ).void >>- loadFromDb
-  }
+  def blockIps(ips: List[IpAddress]): Funit = ips.map { ip =>
+    validIp(ip) ?? {
+      coll.update(
+        $id(ip),
+        $doc("_id" -> ip, "date" -> DateTime.now),
+        upsert = true
+      ).void
+    }
+  }.sequenceFu >> loadFromDb
 
   def unblockIps(ips: Iterable[IpAddress]): Funit =
-    coll.remove(
-      $inIds(ips.filter(validIp))
-    ).void >>- loadFromDb
+    coll.remove($inIds(ips.filter(validIp))).void >>- loadFromDb
 
-  def blocksIp(ip: IpAddress): Boolean = current contains ip.value
+  private def loadFromDb: Funit =
+    coll.distinct[String, Set]("_id", none).map { ips =>
+      current = ips
+      lila.mon.security.firewall.ip(ips.size)
+    }
 
   private def blocksCookies(cookies: Cookies, name: String) =
     (cookies get name).isDefined

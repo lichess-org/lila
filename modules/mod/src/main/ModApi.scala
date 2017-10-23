@@ -81,7 +81,7 @@ final class ModApi(
     sus = prev.set(_.copy(ipBan = value))
     _ <- UserRepo.setIpBan(sus.user.id, sus.user.ipBan)
     _ <- logApi.ban(mod, sus)
-    _ <- if (sus.user.ipBan) spy.ipStrings.map(firewall.blockIp).sequenceFu >> SecurityStore.disconnect(sus.user.id)
+    _ <- if (sus.user.ipBan) firewall.blockIps(spy.ipStrings) >> SecurityStore.disconnect(sus.user.id)
     else firewall unblockIps spy.ipStrings
   } yield ()
 
