@@ -158,6 +158,9 @@ private[api] final class RoundApi(
         "running" -> data.tour.isStarted
       ).add("secondsToFinish" -> data.tour.isStarted.option(data.tour.secondsToFinish))
         .add("berserkable" -> data.tour.isStarted.option(data.tour.berserkable))
+        .add("nbSecondsForFirstMove" -> data.tour.isStarted.option {
+          pov.game.timeForFirstMove.toSeconds
+        })
         .add("ranks" -> data.tour.isStarted.option(Json.obj(
           "white" -> data.whiteRank,
           "black" -> data.blackRank
