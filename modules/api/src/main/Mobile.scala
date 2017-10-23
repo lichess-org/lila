@@ -18,29 +18,33 @@ object Mobile {
         unsupportedAt: DateTime
     )
 
-    val currentVersion = ApiVersion(2)
+    val currentVersion = ApiVersion(3)
 
-    val acceptedVersions: Set[ApiVersion] = Set(1, 2) map ApiVersion.apply
+    val acceptedVersions: Set[ApiVersion] = Set(1, 2, 3) map ApiVersion.apply
 
     val oldVersions: List[Old] = List(
       Old( // chat messages are html escaped
         version = ApiVersion(1),
         deprecatedAt = new DateTime("2016-08-13"),
         unsupportedAt = new DateTime("2016-11-13")
+      ),
+      Old( // old puzzle API
+        version = ApiVersion(2),
+        deprecatedAt = new DateTime("2017-10-23"),
+        unsupportedAt = new DateTime("2018-03-23")
       )
     )
 
     private val PathPattern = """^.+/socket/v(\d+)$""".r
+    private val HeaderPattern = """^application/vnd\.lichess\.v(\d+)\+json$""".r
 
     def requestVersion(req: RequestHeader): Option[ApiVersion] = {
-      val accepts = ~req.headers.get(HeaderNames.ACCEPT)
-      if (accepts contains "application/vnd.lichess.v3+json") Some(ApiVersion(3))
-      else if (accepts contains "application/vnd.lichess.v2+json") Some(ApiVersion(2))
-      else if (accepts contains "application/vnd.lichess.v1+json") Some(ApiVersion(1))
-      else req.path match {
-        case PathPattern(version) => parseIntOption(version) map ApiVersion.apply
-        case _ => None
-      }
+      req.headers.get(HeaderNames.ACCEPT).flatMap {
+        case HeaderPattern(v) => parseIntOption(v) map ApiVersion.apply
+      } orElse (req.path match {
+        case PathPattern(v) => parseIntOption(v) map ApiVersion.apply
+        case _ => none
+      })
     } filter acceptedVersions.contains
 
     def requested(req: RequestHeader) = requestVersion(req).isDefined
