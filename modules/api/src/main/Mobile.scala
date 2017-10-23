@@ -18,7 +18,7 @@ object Mobile {
         unsupportedAt: DateTime
     )
 
-    val currentVersion = ApiVersion(3)
+    val currentVersion = ApiVersion(2)
 
     val acceptedVersions: Set[ApiVersion] = Set(1, 2, 3) map ApiVersion.apply
 
