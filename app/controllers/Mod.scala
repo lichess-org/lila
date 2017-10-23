@@ -75,10 +75,6 @@ object Mod extends LilaController {
     } inject redirect(username)
   }
 
-  def ipban(ip: String) = Secure(_.IpBan) { implicit ctx => me =>
-    modApi.ipban(me.id, ip)
-  }
-
   def closeAccount(username: String) = Secure(_.CloseAccount) { implicit ctx => me =>
     modApi.closeAccount(me.id, username) flatMap {
       _ ?? Account.doClose

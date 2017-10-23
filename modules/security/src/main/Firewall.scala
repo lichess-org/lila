@@ -23,7 +23,7 @@ final class Firewall(
   private def loadFromDb: Funit =
     coll.distinct[String, Set]("_id", none).map { ips =>
       current = ips
-      lila.mon.security.firewall.ip(ips.size.pp)
+      lila.mon.security.firewall.ip(ips.size)
     }
 
   def blocks(req: RequestHeader): Boolean = enabled && {

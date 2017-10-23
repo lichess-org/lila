@@ -114,9 +114,6 @@ final class ModApi(
       logApi.setPermissions(mod, user.id, permissions)
   }
 
-  def ipban(mod: String, ip: String): Funit =
-    (firewall blockIp IpAddress(ip)) >> logApi.ipban(mod, ip)
-
   def kickFromRankings(mod: String, username: String): Funit = withUser(username) { user =>
     lilaBus.publish(lila.hub.actorApi.mod.KickFromRankings(user.id), 'kickFromRankings)
     logApi.kickFromRankings(mod, user.id)
