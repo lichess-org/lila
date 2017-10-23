@@ -429,6 +429,15 @@
   <string name="materialDifference">Материјална разлика</string>
   <string name="closeAccount">Затвори го профилот</string>
   <string name="changedMindDoNotCloseAccount">Се предомислив, не го затварај мојот профил</string>
+  <string name="closeAccountExplanation">Дали сте сигурни дека сакате да го затворите профилот? Затворањето на профилот ќе биде трајно. Нема да можите да се најавите и вашиот профил нема да биди достапен.</string>
+  <string name="thisAccountIsClosed">Овој профил е затворен.</string>
+  <string name="invalidUsernameOrPassword">Невалидно корисничко име или лозинка</string>
+  <string name="incorrectPassword">Погрешна лозинка</string>
+  <string name="emailMeALink">Прати ми линк на емаил</string>
+  <string name="currentPassword">Тековна лозинка</string>
+  <string name="newPassword">Нова лозинка</string>
+  <string name="newPasswordAgain">Нова лозинка (повторно)</string>
+  <string name="boardHighlights">Нагласени полиња (последен потег и шах)</string>
   <string name="victory">Победа</string>
   <string name="opponent">Противник</string>
   <string name="phoneAndTablet">Телефон и таблет</string>
