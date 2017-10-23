@@ -37,7 +37,7 @@ module.exports = function(cfg, element) {
   };
   filterStreams();
   lichess.socket = lichess.StrongSocket(
-    '/lobby/socket/v2',
+    '/lobby/socket/v3',
     cfg.data.version, {
       receive: function(t, d) {
         lobby.socketReceive(t, d);

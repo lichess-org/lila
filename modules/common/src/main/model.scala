@@ -3,6 +3,7 @@ package lila.common
 case class ApiVersion(value: Int) extends AnyVal with IntValue {
   def v1 = value == 1
   def v2 = value == 2
+  def v3 = value == 3
 }
 
 case class AssetVersion(value: Int) extends AnyVal with IntValue

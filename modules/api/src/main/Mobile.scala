@@ -34,7 +34,8 @@ object Mobile {
 
     def requestVersion(req: RequestHeader): Option[ApiVersion] = {
       val accepts = ~req.headers.get(HeaderNames.ACCEPT)
-      if (accepts contains "application/vnd.lichess.v2+json") Some(ApiVersion(2))
+      if (accepts contains "application/vnd.lichess.v3+json") Some(ApiVersion(3))
+      else if (accepts contains "application/vnd.lichess.v2+json") Some(ApiVersion(2))
       else if (accepts contains "application/vnd.lichess.v1+json") Some(ApiVersion(1))
       else req.path match {
         case PathPattern(version) => parseIntOption(version) map ApiVersion.apply

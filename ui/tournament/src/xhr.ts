@@ -2,7 +2,7 @@ import { throttle } from 'common';
 import TournamentController from './ctrl';
 
 const headers = {
-  'Accept': 'application/vnd.lichess.v2+json'
+  'Accept': 'application/vnd.lichess.v3+json'
 };
 
 // when the tournament no longer exists

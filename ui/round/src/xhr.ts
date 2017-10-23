@@ -1,7 +1,7 @@
 import RoundController from './ctrl';
 
 const headers = {
-  'Accept': 'application/vnd.lichess.v2+json'
+  'Accept': 'application/vnd.lichess.v3+json'
 };
 
 export function reload(ctrl: RoundController) {
