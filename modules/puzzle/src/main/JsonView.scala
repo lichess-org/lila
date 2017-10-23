@@ -13,12 +13,12 @@ final class JsonView(
     puzzle: Puzzle,
     userInfos: Option[UserInfos],
     mode: String,
-    isMobileApi: Boolean,
+    isOldMobileApi: Boolean,
     round: Option[Round] = None,
     result: Option[Result] = None,
     voted: Option[Boolean]
   ): Fu[JsObject] =
-    (!isMobileApi ?? gameJson(puzzle.gameId, puzzle.initialPly).map(_.some)) map { gameJson =>
+    (!isOldMobileApi ?? gameJson(puzzle.gameId, puzzle.initialPly).map(_.some)) map { gameJson =>
       Json.obj(
         "game" -> gameJson,
         "puzzle" -> Json.obj(
@@ -27,16 +27,16 @@ final class JsonView(
           "attempts" -> puzzle.attempts,
           "fen" -> puzzle.fen,
           "color" -> puzzle.color.name,
-          "initialMove" -> isMobileApi.option(puzzle.initialMove.uci),
+          "initialMove" -> isOldMobileApi.option(puzzle.initialMove.uci),
           "initialPly" -> puzzle.initialPly,
           "gameId" -> puzzle.gameId,
           "lines" -> lila.puzzle.Line.toJson(puzzle.lines),
-          "branch" -> (!isMobileApi).option(makeBranch(puzzle)),
+          "branch" -> (!isOldMobileApi).option(makeBranch(puzzle)),
           "enabled" -> puzzle.enabled,
           "vote" -> puzzle.vote.sum
         ).noNull,
         "mode" -> mode,
-        "attempt" -> round.ifTrue(isMobileApi).map { r =>
+        "attempt" -> round.ifTrue(isOldMobileApi).map { r =>
           Json.obj(
             "userRatingDiff" -> r.ratingDiff,
             "win" -> r.result.win,
@@ -44,8 +44,8 @@ final class JsonView(
           )
         },
         "voted" -> voted,
-        "user" -> userInfos.map(JsonView.infos(isMobileApi)),
-        "difficulty" -> isMobileApi.option {
+        "user" -> userInfos.map(JsonView.infos(isOldMobileApi)),
+        "difficulty" -> isOldMobileApi.option {
           Json.obj(
             "choices" -> Json.arr(
               Json.arr(2, "Normal")
@@ -102,9 +102,9 @@ final class JsonView(
 
 object JsonView {
 
-  def infos(isMobileApi: Boolean)(i: UserInfos): JsObject = Json.obj(
+  def infos(isOldMobileApi: Boolean)(i: UserInfos): JsObject = Json.obj(
     "rating" -> i.user.perfs.puzzle.intRating,
-    "history" -> isMobileApi.option(i.history.map(_.rating)), // for mobile BC
+    "history" -> isOldMobileApi.option(i.history.map(_.rating)), // for mobile BC
     "recent" -> i.history.map { r =>
       Json.arr(r.puzzleId, r.ratingDiff, r.rating)
     }

@@ -26,7 +26,7 @@ object Puzzle extends LilaController {
     userInfos = userInfos,
     round = round,
     mode = mode,
-    isMobileApi = ctx.isMobileApi,
+    isOldMobileApi = ctx.mobileApiVersion.exists(_.value < 3),
     result = result,
     voted = voted
   )
