@@ -58,16 +58,14 @@ final class SecurityApi(
     }
 
   def restoreUser(req: RequestHeader): Fu[Option[FingerprintedUser]] =
-    firewall accepts req flatMap {
-      _ ?? {
-        reqSessionId(req) ?? { sessionId =>
-          Store userIdAndFingerprint sessionId flatMap {
-            _ ?? { d =>
-              if (d.isOld) Store.setDateToNow(sessionId)
-              UserRepo.byId(d.user) map {
-                _ map {
-                  FingerprintedUser(_, d.fp.isDefined)
-                }
+    firewall.accepts(req) ?? {
+      reqSessionId(req) ?? { sessionId =>
+        Store userIdAndFingerprint sessionId flatMap {
+          _ ?? { d =>
+            if (d.isOld) Store.setDateToNow(sessionId)
+            UserRepo.byId(d.user) map {
+              _ map {
+                FingerprintedUser(_, d.fp.isDefined)
               }
             }
           }

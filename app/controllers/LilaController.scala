@@ -119,11 +119,8 @@ private[controllers] trait LilaController
     SecureBody(BodyParsers.parse.anyContent)(perm(Permission))(f)
 
   protected def Firewall[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
-    Env.security.firewall.accepts(ctx.req) flatMap {
-      _ fold (a, {
-        fuccess { Redirect(routes.Lobby.home()) }
-      })
-    }
+    if (Env.security.firewall accepts ctx.req) a
+    else fuccess(Redirect(routes.Lobby.home()))
 
   protected def NoTor(res: => Fu[Result])(implicit ctx: Context) =
     if (Env.security.tor isExitNode HTTPRequest.lastRemoteAddress(ctx.req))

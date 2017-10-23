@@ -44,7 +44,7 @@ object UserSpy {
     user ← UserRepo named userId flatten "[spy] user not found"
     infos ← Store.findInfoByUser(user.id)
     ips = infos.map(_.ip).distinct
-    blockedIps ← (ips map firewall.blocksIp).sequenceFu
+    blockedIps = ips map firewall.blocksIp
     locations = ips map geoIP.orUnknown
     sharingIp ← exploreSimilar("ip")(user)(coll)
     sharingFingerprint ← exploreSimilar("fp")(user)(coll)

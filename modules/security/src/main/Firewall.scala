@@ -13,45 +13,43 @@ final class Firewall(
     coll: Coll,
     cookieName: Option[String],
     enabled: Boolean,
-    asyncCache: lila.memo.AsyncCache.Builder,
-    cachedIpsTtl: FiniteDuration
+    system: akka.actor.ActorSystem
 ) {
 
-  private val ipsCache = asyncCache.single[Set[String]](
-    name = "firewall.ips",
-    f = coll.distinct[String, Set]("_id", none).addEffect { ips =>
-      lila.mon.security.firewall.ip(ips.size)
-    },
-    expireAfter = _.ExpireAfterWrite(cachedIpsTtl)
-  )
+  private var current: Set[String] = Set.empty
 
-  private def ipOf(req: RequestHeader) =
-    lila.common.HTTPRequest lastRemoteAddress req
+  system.scheduler.scheduleOnce(10 seconds)(loadFromDb)
 
-  def blocks(req: RequestHeader): Fu[Boolean] = if (enabled) {
-    cookieName.fold(blocksIp(ipOf(req))) { cn =>
-      blocksIp(ipOf(req)) map (_ || blocksCookies(req.cookies, cn))
-    } addEffect { v =>
-      if (v) lila.mon.security.firewall.block()
+  private def loadFromDb: Funit =
+    coll.distinct[String, Set]("_id", none).map { ips =>
+      current = ips
+      lila.mon.security.firewall.ip(ips.size.pp)
     }
-  } else fuccess(false)
 
-  def accepts(req: RequestHeader): Fu[Boolean] = blocks(req) map (!_)
+  def blocks(req: RequestHeader): Boolean = enabled && {
+    val v = blocksIp {
+      lila.common.HTTPRequest lastRemoteAddress req
+    } || cookieName.?? { blocksCookies(req.cookies, _) }
+    if (v) lila.mon.security.firewall.block()
+    v
+  }
+
+  def accepts(req: RequestHeader): Boolean = !blocks(req)
 
   def blockIp(ip: IpAddress): Funit = validIp(ip) ?? {
     coll.update(
       $id(ip),
       $doc("_id" -> ip, "date" -> DateTime.now),
       upsert = true
-    ).void >>- ipsCache.refresh
+    ).void >>- loadFromDb
   }
 
   def unblockIps(ips: Iterable[IpAddress]): Funit =
     coll.remove(
       $inIds(ips.filter(validIp))
-    ).void >>- ipsCache.refresh
+    ).void >>- loadFromDb
 
-  def blocksIp(ip: IpAddress): Fu[Boolean] = ipsCache.get.dmap(_ contains ip.value)
+  def blocksIp(ip: IpAddress): Boolean = current contains ip.value
 
   private def blocksCookies(cookies: Cookies, name: String) =
     (cookies get name).isDefined

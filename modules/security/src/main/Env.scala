@@ -9,7 +9,6 @@ final class Env(
     authenticator: lila.user.Authenticator,
     system: akka.actor.ActorSystem,
     scheduler: lila.common.Scheduler,
-    asyncCache: lila.memo.AsyncCache.Builder,
     db: lila.db.Env
 ) {
 
@@ -24,7 +23,6 @@ final class Env(
     val FirewallCookieName = config getString "firewall.cookie.name"
     val FirewallCookieEnabled = config getBoolean "firewall.cookie.enabled"
     val FirewallCollectionFirewall = config getString "firewall.collection.firewall"
-    val FirewallCachedIpsTtl = config duration "firewall.cached.ips.ttl"
     val FloodDuration = config duration "flood.duration"
     val GeoIPFile = config getString "geoip.file"
     val GeoIPCacheTtl = config duration "geoip.cache_ttl"
@@ -50,8 +48,7 @@ final class Env(
     coll = firewallColl,
     cookieName = FirewallCookieName.some filter (_ => FirewallCookieEnabled),
     enabled = FirewallEnabled,
-    asyncCache = asyncCache,
-    cachedIpsTtl = FirewallCachedIpsTtl
+    system = system
   )
 
   lazy val flood = new Flood(FloodDuration)
@@ -148,7 +145,6 @@ object Env {
     authenticator = lila.user.Env.current.authenticator,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
-    asyncCache = lila.memo.Env.current.asyncCache,
     captcher = lila.hub.Env.current.actor.captcher
   )
 }
