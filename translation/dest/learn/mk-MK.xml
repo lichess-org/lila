@@ -63,4 +63,32 @@
 Мора прво да ги преместите фигурите.</string>
   <string name="youCannotCastleIfMoved">Не можете да направите рокада ако сте до поместиле кралот или топот.</string>
   <string name="youCannotCastleIfAttacked">Не можите да направите рокада ако некое од полињата по кое кралот се движи е нападнатп. Блокирајте го нападот па направете рокада!</string>
+  <string name="findAWayToCastleKingSide">Најдете начин да направите мала рокада!</string>
+  <string name="findAWayToCastleQueenSide">Најдете начин да направите голема рокада!</string>
+  <string name="castlingComplete">Честитки! Скоро во секоја партија треба да направите рокада.</string>
+  <string name="enPassant">Ан пасант</string>
+  <string name="theSpecialPawnMove">Посебен потег на пешакот</string>
+  <string name="enPassantIntro">Кога противничкиот пешак се движи за две полиња, можите да го земите исто како да се движел за едно поле.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Црниот го движи неговиот пешак за две полиња! Земете го ан пасант.</string>
+  <string name="enPassantOnlyWorksImmediately">Ан пасант можи да употребите веднаш откако вашиот противник го поместил пешакот.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Ан пасант се користи само ако вашиот пешак е на 5-тиот ред.</string>
+  <string name="takeAllThePawnsEnPassant">Земи ги сите пешаци со ан пасант!</string>
+  <string name="enPassantComplete">Честитки! Сега можите да земате ан пасант.</string>
+  <string name="stalemate">Пат</string>
+  <string name="theGameIsADraw">Партијата е реми</string>
+  <string name="stalemateIntro">Кога играчот не е под шах и нема легален потег, тогаш е пат. Партијата е реми: никој не победува, никој не губи.</string>
+  <string name="stalemateGoal">Да направите пат со црниот:
+- Црниот не може да се движи
+- Не е под шах.</string>
+  <string name="stalemateComplete">Честитки! Подобро да сте во пат, отколку да сте матирани!</string>
+  <string name="advanced">Напредно</string>
+  <string name="pieceValue">Вредност на фигурата</string>
+  <string name="evaluatePieceStrength">Процени ја силата на фигурата</string>
+  <string name="pieceValueIntro">Фигурите со поголема подвижност имаат поголема вредност!
+Кралица = 9
+Топ = 5
+Ловец = 3
+Коњ = 3
+Пешак = 1
+Кралот е бесценет! Неговото губење значи изгубена партија.</string>
 </resources>
