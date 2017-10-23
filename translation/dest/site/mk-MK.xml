@@ -49,6 +49,7 @@
   <string name="computerAnalysisAvailable">Достапна е компјутерска анализа</string>
   <string name="analysis">Анализа</string>
   <string name="depthX">Длабочина %s</string>
+  <string name="usingServerAnalysis">Користење на анализи од серверот</string>
   <string name="loadingEngine">Се вчитува компјутерската програма ...</string>
   <string name="cloudAnalysis">Анализа на облакот</string>
   <string name="goDeeper">Оди подлабоку</string>
@@ -68,6 +69,7 @@
   <string name="averageRatingX">Просечен пласман %s</string>
   <string name="recentGames">Неодамнешни игри</string>
   <string name="topGames">Топ игри</string>
+  <string name="masterDbExplanation">База на податоци од игри на %1$s+ ФИДЕ рангирани играчи, од %2$s до %3$s</string>
   <string name="blunders">Сериозни пропусти</string>
   <string name="mistakes">Грешки</string>
   <string name="inaccuracies">Неточности</string>
