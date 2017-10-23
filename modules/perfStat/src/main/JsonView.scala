@@ -64,7 +64,6 @@ object JsonView {
     Json.obj(
       "rating" -> round(p.rating),
       "deviation" -> round(p.deviation),
-      "volatility" -> round(p.volatility, 3),
       "provisional" -> p.provisional
     )
   }
