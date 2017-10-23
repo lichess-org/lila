@@ -44,5 +44,23 @@
   <string name="pawnsMoveOneSquareOnly">Пиуните се движат само за едно поле. Но кога ќе стигнат на крајот од таблата, стануваат помоќна фигура!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">Најчесто унапредувањето во кралица е најдобро. Но понекогаш и коњот можи добро да се употреби!</string>
   <string name="pawnsMoveForward">Пиуните одан на напред, но земаат дијагонално!</string>
-  <string name="captureThenPromote">Земи, па унапреди!</string>
+  <string name="captureThenPromote">Земи, па промовирај!</string>
+  <string name="useAllThePawns">Користи ги сите пешаци! Нема потреба од промоција.</string>
+  <string name="aPawnOnTheSecondRank">Пешакот на вториот ред може да се движи две полиња одеднаш!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Собери ги сите ѕвезди! Нема потреба за промовирање.</string>
+  <string name="pawnComplete">Честитки! Пешаците немаат тајни за вас.</string>
+  <string name="pawnPromotion">Промоција на пешак</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Вашиот пешак стигнал до крајот на таблата!</string>
+  <string name="boardSetupComplete">Честитки! Сега знаете како да ја поставите шаховската табла.</string>
+  <string name="castling">Рокада</string>
+  <string name="theSpecialKingMove">Специјален потек на кралот</string>
+  <string name="castlingIntro">Ставете го кралот на безбедно место и распоредете го вашиот топ за напад!</string>
+  <string name="castleKingSide">Поместете го вашиот крал две полиња да направите мала рокада на кралевата страна!</string>
+  <string name="castleQueenSide">Поместете го кралот две полиња да направите голема рокада на дамината страна!</string>
+  <string name="theKnightIsInTheWay">Коњот е на патот! Поместете го, па направете мала рокада.</string>
+  <string name="castleKingSideMovePiecesFirst">Направете мала рокада! Мора прво да ги преместите фигурите.</string>
+  <string name="castleQueenSideMovePiecesFirst">Направете голема рокада!
+Мора прво да ги преместите фигурите.</string>
+  <string name="youCannotCastleIfMoved">Не можете да направите рокада ако сте до поместиле кралот или топот.</string>
+  <string name="youCannotCastleIfAttacked">Не можите да направите рокада ако некое од полињата по кое кралот се движи е нападнатп. Блокирајте го нападот па направете рокада!</string>
 </resources>
