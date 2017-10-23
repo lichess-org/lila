@@ -451,10 +451,6 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="retryThisPuzzle">Prøv om att</string>
   <string name="thisPuzzleIsCorrect">Denne oppgåva er korrekt og interessant</string>
   <string name="thisPuzzleIsWrong">Denne oppgåva er feil eller keisam</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Du har %s sekund på å gjera ditt første trekk!</item>
-    <item quantity="other">Du har %s sekund på å gjera ditt første trekk!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s parti spelast</item>
     <item quantity="other">%s parti spelast</item>

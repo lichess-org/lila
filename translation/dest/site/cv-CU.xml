@@ -311,9 +311,6 @@
   <string name="retryThisPuzzle">Лартӑм ҫӗнерен шутла</string>
   <string name="thisPuzzleIsCorrect">Ку лартӑм тӗрӗс тата кӑсӑклӑ</string>
   <string name="thisPuzzleIsWrong">Ку лартӑм тӗрӗс мар йе йӑлӑхтармӑш</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="other">Пӗрремӗш утӑм тумашкӑн %s ҫеккунт йулчӗ!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s вӑйӑ пырать</item>
   </plurals>

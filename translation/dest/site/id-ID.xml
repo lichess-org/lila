@@ -394,9 +394,6 @@
   <string name="retryThisPuzzle">Coba lagi taktik ini</string>
   <string name="thisPuzzleIsCorrect">Taktik ini benar dan menarik</string>
   <string name="thisPuzzleIsWrong">Taktik ini salah atau membosankan</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="other">Anda punya waktu %s detik untuk langkah pertama.</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s pertandingan sedang berlangsung</item>
   </plurals>

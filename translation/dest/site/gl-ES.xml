@@ -451,10 +451,6 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="retryThisPuzzle">Reintentar este problema</string>
   <string name="thisPuzzleIsCorrect">Este problema é correcto e interesante</string>
   <string name="thisPuzzleIsWrong">Este problema é erróneo ou aburrido</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Tes %s segundos para facer a túa primeira xogada!</item>
-    <item quantity="other">Tes %s segundos para facer a túa primeira xogada!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partidas en xogo</item>
     <item quantity="other">%s partidas en xogo</item>

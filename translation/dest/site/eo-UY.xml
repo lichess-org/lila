@@ -285,7 +285,7 @@
     <item quantity="other">Vi devas ludi %s pli de taksaj ludoj</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Vi havas duman %s -rangon</string>
-  <string name="yourPerfRatingIsTooHigh">Via rango %1$s (%2$s) estas tro malalta</string>
+  <string name="yourPerfRatingIsTooHigh">Via rango %1$s (%2$s) estas tro alta</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Via plej alta semajna rango en %1$s (%2$s) estas tro alta</string>
   <string name="yourPerfRatingIsTooLow">Via rango %1$s (%2$s) estas tro malalta</string>
   <string name="ratedMoreThanInPerf">Rango de ≥ %1$s en %2$s</string>
@@ -451,10 +451,6 @@
   <string name="retryThisPuzzle">Reprovi ĉi tiun puzlon</string>
   <string name="thisPuzzleIsCorrect">Ĉi tiu puzlo estas ĝusta kaj interesa</string>
   <string name="thisPuzzleIsWrong">Ĉi tiu puzlo estas malĝusta aŭ enuiga</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Vi havas %s sekundojn por fari vian unuan movon!</item>
-    <item quantity="other">Vi havas %s sekundojn por fari vian unuan movon!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s aktivaj ludoj</item>
     <item quantity="other">%s aktivaj ludoj</item>
@@ -501,7 +497,7 @@
   <string name="materialDifference">Materiala diferenco</string>
   <string name="closeAccount">Fermi konton</string>
   <string name="changedMindDoNotCloseAccount">Mi ŝanĝis mian opinion, mi ne volas fermi mian konton</string>
-  <string name="closeAccountExplanation">Ĉu vi certas, ke vi volas fermi vian konton? Fermi vian konton estas ago nemalfarebla. Vi ne plu povos ensaluti, kaj via profila paĝo ne plu estos alirebla.</string>
+  <string name="closeAccountExplanation">Ĉu vi certas, ke vi volas fermi vian konton? Fermi vian konton estas ago permanenta. Vi ne plu povos ensaluti, kaj via profila paĝo ne plu estos alirebla.</string>
   <string name="thisAccountIsClosed">Tiu ĉi konto estas fermita.</string>
   <string name="invalidUsernameOrPassword">Malĝusta uzantnomo aŭ pasvorto</string>
   <string name="incorrectPassword">Malkorekta pasvorto</string>

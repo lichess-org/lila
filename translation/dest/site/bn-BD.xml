@@ -343,10 +343,6 @@
   <string name="retryThisPuzzle">এই ধাঁধাটি কে আবার চেষ্টা করুন</string>
   <string name="thisPuzzleIsCorrect">এই ধাঁধাটি ভালো এবং আকর্ষণীয়</string>
   <string name="thisPuzzleIsWrong">এই ধাঁধাটি ভুল এবং বিরক্তিকর</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">আপনার কাছে %s সেকেন্ড আছে প্রথম চাল দেবার জন্য</item>
-    <item quantity="other">আপনার কাছে %s সেকেন্ড আছে প্রথম চাল দেবার জন্য</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s খেলা চলছে</item>
     <item quantity="other">%s খেলা চলছে</item>

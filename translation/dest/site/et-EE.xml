@@ -449,10 +449,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="retryThisPuzzle">Proovi uuesti</string>
   <string name="thisPuzzleIsCorrect">See ülesanne on korrektne ja huvitav</string>
   <string name="thisPuzzleIsWrong">See ülesanne on vale ja igav</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Sul on %s sekundit esimese käigu tegemiseks!</item>
-    <item quantity="other">Sul on %s sekundit esimese käigu tegemiseks!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s mängitud mängu</item>
     <item quantity="other">%s mängitud mängu</item>

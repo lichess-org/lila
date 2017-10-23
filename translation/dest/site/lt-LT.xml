@@ -477,11 +477,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="retryThisPuzzle">Kartoti šią užduotį</string>
   <string name="thisPuzzleIsCorrect">Ši užduotis yra teisinga ir įdomi</string>
   <string name="thisPuzzleIsWrong">Šis užduotis yra klaidinga arba nuobodi</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Turite %s sekundę atlikti pirmąjį ėjimą!</item>
-    <item quantity="few">Turite %s sekundes atlikti pirmąjį ėjimą!</item>
-    <item quantity="other">Turite %s sekundžių atlikti pirmąjį ėjimą!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s vykstanti partija</item>
     <item quantity="few">%s vykstančios partijos</item>

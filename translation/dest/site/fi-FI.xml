@@ -450,10 +450,6 @@
   <string name="retryThisPuzzle">Yritä uudestaan</string>
   <string name="thisPuzzleIsCorrect">Tämä tehtävä toimii ja on mielenkiintoinen</string>
   <string name="thisPuzzleIsWrong">Tämä tehtävä on tylsä tai virheellinen</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Sinulla on %s sekuntia aikaa ensimmäisen siirtosi tekemiseen</item>
-    <item quantity="other">Sinulla on %s sekuntia aikaa ensimmäisen siirtosi tekemiseen</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s peliä meneillään</item>
     <item quantity="other">%s peliä meneillään</item>

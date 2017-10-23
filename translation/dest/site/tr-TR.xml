@@ -451,10 +451,6 @@
   <string name="retryThisPuzzle">Bu bulmacayı yeniden dene</string>
   <string name="thisPuzzleIsCorrect">Bu bulmaca doğru ve ilginç</string>
   <string name="thisPuzzleIsWrong">Bu bulmaca yanlış veya sıkıcı</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">İlk hamleni yapman için %s saniyen kaldı!</item>
-    <item quantity="other">İlk hamleni yapman için %s saniyen kaldı!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">Şu anda %s oyun oynanıyor</item>
     <item quantity="other">Şu anda %s oyun oynanıyor</item>

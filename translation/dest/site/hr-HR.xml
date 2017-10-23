@@ -477,11 +477,6 @@ računalnu analizu, pričaonicu partije i URL za dijeljenje.</string>
   <string name="retryThisPuzzle">Pokušaj ponovo ovaj problem</string>
   <string name="thisPuzzleIsCorrect">Ovaj problem je točan i zanimljiv</string>
   <string name="thisPuzzleIsWrong">Ovaj problem je pogrešan ili dosadan</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Imaš %s sekundi da napraviš svoj prvi potez!</item>
-    <item quantity="few">Imaš %s sekundi da napraviš svoj prvi potez!</item>
-    <item quantity="other">Imaš %s sekundi da napraviš svoj prvi potez!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partija u tijeku</item>
     <item quantity="few">%s partija u tijeku</item>

@@ -44,12 +44,12 @@
     <item quantity="other">Получено подписчиков: %s</item>
   </plurals>
   <plurals name="hostedNbSimuls">
-    <item quantity="one">Провел %s одновременную игру</item>
+    <item quantity="one">Провел %s сеанс</item>
     <item quantity="few">Провел %s одновременных игр</item>
     <item quantity="other">Провел %s одновременных игр</item>
   </plurals>
   <plurals name="joinedNbSimuls">
-    <item quantity="one">Участвовал в %s одновременном сеансе игр</item>
+    <item quantity="one">Участвовал в %s сеансе</item>
     <item quantity="few">Участвовал в %s одновременных сеансов игр</item>
     <item quantity="other">Участвовал в %s одновременных сеансов игр</item>
   </plurals>

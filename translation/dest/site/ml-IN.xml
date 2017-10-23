@@ -330,10 +330,6 @@
   <string name="retryThisPuzzle">ഈ സമസ്യക്കു വീണ്ടും ശ്രമിക്കൂ</string>
   <string name="thisPuzzleIsCorrect">ഈ സമസ്യ കൃത്യവും രസകരവുമാണ്</string>
   <string name="thisPuzzleIsWrong">ഈ സമസ്യ അബദ്ധം അല്ലെങ്കിൽ വിരസമാണ്</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">നിങ്ങളുടെ ആദ്യ നീക്കം നടത്താൻ നിങ്ങൾക്ക് %s സെക്കന്റുകൾ ഉണ്ട്!</item>
-    <item quantity="other">നിങ്ങളുടെ ആദ്യ നീക്കം നടത്താൻ നിങ്ങൾക്ക് %s സെക്കന്റുകൾ ഉണ്ട്!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s കളികൾ പുരോഗമിക്കുന്നു</item>
     <item quantity="other">%s കളികൾ പുരോഗമിക്കുന്നു</item>

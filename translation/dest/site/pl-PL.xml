@@ -476,11 +476,6 @@
   <string name="retryThisPuzzle">Powtórz to zadanie</string>
   <string name="thisPuzzleIsCorrect">To poprawne i ciekawe zadanie</string>
   <string name="thisPuzzleIsWrong">To zadanie jest niepoprawne lub nudne</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Masz %s sekundę na pierwszy ruch!</item>
-    <item quantity="few">Masz %s sekundy na pierwszy ruch!</item>
-    <item quantity="other">Masz %s sekund na pierwszy ruch!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partia w toku</item>
     <item quantity="few">%s partie w toku</item>

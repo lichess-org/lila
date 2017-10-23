@@ -330,10 +330,6 @@
   <string name="retryThisPuzzle">Энэ бодлогыг дахин оролдох</string>
   <string name="thisPuzzleIsCorrect">Энэ бодлого зөв бөгөөд сонирхолтой байлаа</string>
   <string name="thisPuzzleIsWrong">Энэ бодлого буруу бөгөөд сонирхолгүй байлаа</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Та эхний нүүдлээ %s секундын дотор хийх ёстой!</item>
-    <item quantity="other">Та эхний нүүдлээ %s секундын дотор хийх ёстой!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s өрөг тоглогдож байна</item>
     <item quantity="other">%s өрөг тоглогдож байна</item>

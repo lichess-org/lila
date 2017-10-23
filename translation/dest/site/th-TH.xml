@@ -426,9 +426,6 @@
   <string name="retryThisPuzzle">ลองแก้ปริศนานี้อีกครั้ง</string>
   <string name="thisPuzzleIsCorrect">ปริศนานี้ถูกต้อง และน่าสนใจ</string>
   <string name="thisPuzzleIsWrong">ปริศนานี้ไม่ถูกต้อง หรือน่าเบื่อ</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="other">คุณมีเวลา %s วินาที ในการเริ่มเดินตาแรกของคุณ!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s เกมที่กำลังเล่น</item>
   </plurals>

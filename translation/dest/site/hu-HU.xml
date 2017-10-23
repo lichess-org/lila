@@ -450,10 +450,6 @@
   <string name="retryThisPuzzle">Próbálja újra</string>
   <string name="thisPuzzleIsCorrect">Ez a feladvány helyes és érdekes</string>
   <string name="thisPuzzleIsWrong">Ez a feladvány hibás vagy unalmas</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">%s másodperced van, hogy megtedd az első lépést!</item>
-    <item quantity="other">%s másodperced van, hogy megtedd az első lépést!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s meccs zajlik épp</item>
     <item quantity="other">%s meccs zajlik épp</item>

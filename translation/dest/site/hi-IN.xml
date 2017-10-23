@@ -425,10 +425,6 @@
   <string name="retryThisPuzzle">यह पहेली पुनः खेलें</string>
   <string name="thisPuzzleIsCorrect">यह पहेली सही एवं दिलचस्प थी</string>
   <string name="thisPuzzleIsWrong">यह पहेली गलत एवं बेकार थी</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">आपके पास अपनी पहली चाल चलने के लिए %s सेकंड हैं!</item>
-    <item quantity="other">आपके पास अपनी पहली चाल चलने के लिए %s सेकंड हैं!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s खेल खेले जा रहे है</item>
     <item quantity="other">%s खेल खेले जा रहे है</item>

@@ -394,10 +394,6 @@
   <string name="retryThisPuzzle">Tentar novamente este quebra-cabeça</string>
   <string name="thisPuzzleIsCorrect">O quebra-cabeça está correto e é interessante</string>
   <string name="thisPuzzleIsWrong">O quebra-cabeça está errado ou é chato</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Tem %s segundos para fazer a primeira jogada!</item>
-    <item quantity="other">Tem %s segundos para fazer a primeira jogada!</item>
-  </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Passar automaticamente ao jogo seguinte após o lance</string>
   <string name="autoSwitch">Alternar automaticamente</string>
   <string name="puzzles">Quebra-cabeças</string>

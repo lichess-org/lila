@@ -477,11 +477,6 @@
   <string name="retryThisPuzzle">Паспрабаваць разьвязаць зноў</string>
   <string name="thisPuzzleIsCorrect">Гэтая галаваломка правільная і цікавая</string>
   <string name="thisPuzzleIsWrong">Гэтая галаваломка няправільная або нудная</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">У Вас %s секунда, каб зрабіць свой першы ход!</item>
-    <item quantity="few">У Вас %s секунды, каб зрабіць свой першы ход!</item>
-    <item quantity="other">У Вас %s секунд, каб зрабіць свой першы ход!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s гульняў</item>
     <item quantity="few">%s гульняў</item>

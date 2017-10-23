@@ -501,12 +501,6 @@
   <string name="retryThisPuzzle">Ponovno reši ta problem</string>
   <string name="thisPuzzleIsCorrect">Ta problem je pravilen in zanimiv</string>
   <string name="thisPuzzleIsWrong">Ta problem je napačen oz. dolgočasen</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Imaš %s sekundo za prvo potezo!</item>
-    <item quantity="two">Imaš %s sekundi za prvo potezo!</item>
-    <item quantity="few">Imaš %s sekunde za prvo potezo!</item>
-    <item quantity="other">Imaš %s sekund za prvo potezo!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s igrana partija</item>
     <item quantity="two">%s igrani partiji</item>

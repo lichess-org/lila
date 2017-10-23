@@ -363,10 +363,6 @@
   <string name="retryThisPuzzle">გაიმეორე ეს ფაზლი</string>
   <string name="thisPuzzleIsCorrect">ფაზლი სახალისო და საინტერესოა</string>
   <string name="thisPuzzleIsWrong">ფაზლი მოსაწყენია</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">თქვენ გაქვთ %s წამი, რათა გააკეთოთ პირველი სვლა!</item>
-    <item quantity="other">თქვენ გაქვთ %s წამი, რათა გააკეთოთ პირველი სვლა!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s მიმდინარე თამაში</item>
     <item quantity="other">%s მიმდინარე თამაში</item>

@@ -451,10 +451,6 @@
   <string name="retryThisPuzzle">Puzzle hau berriz egin</string>
   <string name="thisPuzzleIsCorrect">Puzzlea ondo dago, interesgarria da</string>
   <string name="thisPuzzleIsWrong">Puzzlea gaizki dago edo aspergarria da</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Segundu %s duzu lehen jokaldia egiteko!</item>
-    <item quantity="other">%s segundu dituzu lehen jokaldia egiteko!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partida une honetan</item>
     <item quantity="other">%s partida une honetan</item>

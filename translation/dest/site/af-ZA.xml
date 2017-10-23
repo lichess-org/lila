@@ -330,10 +330,6 @@
   <string name="retryThisPuzzle">Probeer kopkrapper weer</string>
   <string name="thisPuzzleIsCorrect">Hierdie kopkrapper is korrek en interessant</string>
   <string name="thisPuzzleIsWrong">Hierdie kopkrapper is foutief of vervelig</string>
-  <plurals name="youHaveNbSecondsToMakeYourFirstMove">
-    <item quantity="one">Jy het %s sekondes om jou eerste skuif te maak!</item>
-    <item quantity="other">Jy het %s sekondes om jou eerste skuif te maak!</item>
-  </plurals>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s spelle aan die gang</item>
     <item quantity="other">%s spelle aan die gang</item>
