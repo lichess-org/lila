@@ -514,6 +514,24 @@
   <string name="security">Безбедност</string>
   <string name="playChessEverywhere">Играј шах секаде</string>
   <string name="asFreeAsLichess">Бесплатно како lichess</string>
+  <string name="builtForTheLoveOfChessNotMoney">Направено од љубовта кон шахот, а не за пари</string>
+  <string name="everybodyGetsAllFeaturesForFree">Секој ги добива сите функции бесплатно</string>
+  <string name="zeroAdvertisement">Без реклами</string>
   <string name="phoneAndTablet">Телефон и таблет</string>
+  <string name="bulletBlitzClassical">Bullet, blitz, classical</string>
+  <string name="correspondenceChess">Дописен шах</string>
+  <string name="onlineAndOfflinePlay">Online и offline игра</string>
+  <string name="viewTheSolution">Види го решението</string>
   <string name="followAndChallengeFriends">Следи и предизвикај пријатели</string>
+  <plurals name="availableInNbLanguages">
+    <item quantity="one">Достапно на %s јазик!</item>
+    <item quantity="other">Достапно на %s јазици!</item>
+  </plurals>
+  <string name="gameAnalysis">Анализи на партијата</string>
+  <string name="quickPairing">Брзо спојување</string>
+  <string name="lobby">Лоби</string>
+  <string name="anonymous">Анонимен</string>
+  <string name="yourScore">Вашиот резултат: %s</string>
+  <string name="language">Јазик</string>
+  <string name="background">Позадина</string>
 </resources>
