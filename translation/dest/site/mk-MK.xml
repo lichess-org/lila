@@ -243,6 +243,20 @@
   <string name="viewTournament">Погледнете го турнирот</string>
   <string name="backToTournament">Врати се на турнир</string>
   <string name="thematic">Тематски</string>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2$s рангирана партија</item>
+    <item quantity="other">≥ %1$s %2$s рангирани партии</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Мора да одиграте уште %1$s рангирана %2$s партија</item>
+    <item quantity="other">Мора да одиграте уште %1$s рангирани %2$s партии</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Мора да одиграте уште %s рангирана партија</item>
+    <item quantity="other">Мора да одиграте уште %s рангирани партии</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Вашиот %s рејтинг е провизорен</string>
+  <string name="yourPerfRatingIsTooHigh">Вашиот %1$s рејтинг (%2$s) е превисок</string>
   <string name="siteDescription">Бесплатна онлајн шах игра. Играј шах во чист интерфејс. Без регистрација, без реклами, без додатни plugin-и. Играј шах со компјутер, пријатели или случајни противници.</string>
   <string name="teams">Тимови</string>
   <plurals name="nbMembers">
