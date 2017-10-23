@@ -499,6 +499,21 @@
   <string name="createdSimuls">Нови креирани симултанки</string>
   <string name="timeToProcessAMoveOnLichessServer">Време за процесирање потег на сервер на lichess</string>
   <string name="downloadAnnotated">Симни со коментари</string>
+  <string name="analysisShapesHowTo">Притисни shift+click или десен клик за да нацрташ кругови или стрелки на таблата.</string>
+  <string name="confirmResignationAndDrawOffers">Потврди предавање и понуда за реми</string>
+  <string name="inputMovesWithTheKeyboard">Внеси потези со тастатура</string>
+  <string name="letOtherPlayersMessageYou">Овозможи пораки од другите играчи</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Метод за рокада</string>
+  <string name="castleByMovingTwoSquares">Помести го кралот две полиња</string>
+  <string name="withNobody">Со никого</string>
+  <string name="withFriends">Со пријатели</string>
+  <string name="withEverybody">Со секого</string>
+  <string name="youHaveAlreadyRegisteredTheEmail">Веќе сте регистрирано со е-маилот: %s</string>
+  <string name="kidMode">Детска заштита</string>
+  <string name="kidModeExplanation">Ова е заради безбедност. Во детска заштита, сите комуникации се оневозможени. Вклучете го овој начин за вашите деца, да ги заштитите од останатите интернет корисници.</string>
+  <string name="security">Безбедност</string>
+  <string name="playChessEverywhere">Играј шах секаде</string>
+  <string name="asFreeAsLichess">Бесплатно како lichess</string>
   <string name="phoneAndTablet">Телефон и таблет</string>
   <string name="followAndChallengeFriends">Следи и предизвикај пријатели</string>
 </resources>
