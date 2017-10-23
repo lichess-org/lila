@@ -158,6 +158,7 @@ private[api] final class RoundApi(
         "running" -> data.tour.isStarted
       ).add("secondsToFinish" -> data.tour.isStarted.option(data.tour.secondsToFinish))
         .add("berserkable" -> data.tour.isStarted.option(data.tour.berserkable))
+        // mobile app API BC / should use game.expiration instead
         .add("nbSecondsForFirstMove" -> data.tour.isStarted.option {
           pov.game.timeForFirstMove.toSeconds
         })
