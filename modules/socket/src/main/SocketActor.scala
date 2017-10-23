@@ -103,7 +103,10 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
           member <- members get uid
           userId <- member.userId
           if monitoredTimeout(userId)
-        } logger.info(s"$userId WS ejected from server")
+        } {
+          lila.mon.socket.eject(userId)
+          lila.mon.socket.ejectAll()
+        }
         eject(uid)
       }
     }
