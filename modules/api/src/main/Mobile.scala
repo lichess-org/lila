@@ -39,12 +39,11 @@ object Mobile {
     private val HeaderPattern = """^application/vnd\.lichess\.v(\d+)\+json$""".r
 
     def requestVersion(req: RequestHeader): Option[ApiVersion] = {
-      req.headers.get(HeaderNames.ACCEPT).flatMap {
-        case HeaderPattern(v) => parseIntOption(v) map ApiVersion.apply
-      } orElse (req.path match {
-        case PathPattern(v) => parseIntOption(v) map ApiVersion.apply
+      (req.headers.get(HeaderNames.ACCEPT), req.path) match {
+        case (Some(HeaderPattern(v)), _) => parseIntOption(v) map ApiVersion.apply
+        case (_, PathPattern(v)) => parseIntOption(v) map ApiVersion.apply
         case _ => none
-      })
+      }
     } filter acceptedVersions.contains
 
     def requested(req: RequestHeader) = requestVersion(req).isDefined
