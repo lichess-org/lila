@@ -6,6 +6,7 @@ $(function() {
       if ($zone.is(':visible')) $zone.hide();
       else {
         $zone.html(lichess.spinnerHtml).show();
+        lichess.loadCss('/assets/stylesheets/user-mod.css');
         $zone.load($(this).attr('href'));
       }
       return false;

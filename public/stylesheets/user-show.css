@@ -381,6 +381,9 @@ div.sub_ratings h3 {
 .mod_zone {
   display: none;
 }
+.mod_zone .spinner {
+  margin: 100px auto;
+}
 div.crosstable {
   margin: 25px 10px 15px 10px;
 }

@@ -3,8 +3,6 @@
 @import lila.evaluation.Display
 @import lila.pref.Pref
 
-@cssTag("user-mod.css")
-
 <div class="actions clearfix">
   @if(isGranted(_.UserEvaluate)) {
   <form method="post" action="@routes.Mod.spontaneousInquiry(u.username)" data-hint="Start an inquiry" class="hint--bottom">
