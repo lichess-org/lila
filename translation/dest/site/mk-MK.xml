@@ -79,6 +79,15 @@
   <string name="importPgn">Внеси PGN</string>
   <string name="delete">Избриши</string>
   <string name="deleteThisImportedGame">Избриши ја внесената партија?</string>
+  <string name="openStudy">Отвори студија</string>
+  <string name="enable">Овозможи</string>
+  <string name="bestMoveArrow">Стрелка за најдобар потег</string>
+  <string name="evaluationGauge">Мерач за проценка</string>
+  <string name="multipleLines">Повеќе линии</string>
+  <string name="cpus">Процесори</string>
+  <string name="memory">Меморија</string>
+  <string name="infiniteAnalysis">Бесконечна анализа</string>
+  <string name="removesTheDepthLimit">Неограничена длабочина на анализа, го загрева вашиот компјутер</string>
   <string name="blunders">Сериозни пропусти</string>
   <string name="mistakes">Грешки</string>
   <string name="inaccuracies">Неточности</string>
@@ -143,6 +152,8 @@
   <string name="passwordReset">Задај нова лозинката</string>
   <string name="forgotPassword">Сте ја заборавиле лозинката?</string>
   <string name="rank">Ранг</string>
+  <string name="rankX">Ранк: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Ранкот се обновува на секои %s минути</string>
   <string name="gamesPlayed">Одиграни партии</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s игри со тебе</item>
@@ -181,6 +192,7 @@
   <string name="play">Играј</string>
   <string name="inbox">Сандаче</string>
   <string name="chatRoom">Прозор за разговор</string>
+  <string name="loginToChat">Најави се за да испратиш порака</string>
   <string name="spectatorRoom">Соба за набљудувачи</string>
   <string name="composeMessage">Креирај порака</string>
   <string name="noNewMessages">Немате нови пораки</string>
@@ -190,6 +202,10 @@
   <string name="incrementInSeconds">Зголемување во секунди</string>
   <string name="freeOnlineChess">Бесплатен Онлајн Шах</string>
   <string name="spectators">Набљудувачи</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s рангирани игри</item>
+    <item quantity="other">%s рангирани игри</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s победи</item>
     <item quantity="other">%s победи</item>
@@ -208,6 +224,7 @@
     <item quantity="one">Додај %s секунди</item>
     <item quantity="other">Додај %s секунди</item>
   </plurals>
+  <string name="giveMoreTime">Додај време</string>
   <string name="thisPlayerUsesChessComputerAssistance">Овој играч користи компјутерска помош</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Овој играч вештачки го зголемува/намалува рејтинго</string>
   <string name="takeback">Повлечете го потегот</string>
@@ -225,6 +242,7 @@
   <string name="tournamentPoints">Турнирски поени</string>
   <string name="viewTournament">Погледнете го турнирот</string>
   <string name="backToTournament">Врати се на турнир</string>
+  <string name="thematic">Тематски</string>
   <string name="siteDescription">Бесплатна онлајн шах игра. Играј шах во чист интерфејс. Без регистрација, без реклами, без додатни plugin-и. Играј шах со компјутер, пријатели или случајни противници.</string>
   <string name="teams">Тимови</string>
   <plurals name="nbMembers">
