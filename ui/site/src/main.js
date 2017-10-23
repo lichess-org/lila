@@ -1006,7 +1006,7 @@ lichess.topMenuIntent = function() {
     var $watchers = $("div.watchers").watchers();
     var tournament;
     lichess.socket = lichess.StrongSocket(
-      '/tournament/' + cfg.data.id + '/socket/v3', cfg.data.socketVersion, {
+      '/tournament/' + cfg.data.id + '/socket/v2', cfg.data.socketVersion, {
         receive: function(t, d) {
           return tournament.socketReceive(t, d);
         },
@@ -1052,7 +1052,7 @@ lichess.topMenuIntent = function() {
     var $watchers = $("div.watchers").watchers();
     var simul;
     lichess.socket = lichess.StrongSocket(
-      '/simul/' + cfg.data.id + '/socket/v3', cfg.socketVersion, {
+      '/simul/' + cfg.data.id + '/socket/v2', cfg.socketVersion, {
         receive: function(t, d) {
           simul.socketReceive(t, d);
         },
