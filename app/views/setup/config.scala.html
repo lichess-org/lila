@@ -1,7 +1,5 @@
 @(form: Form[_], typ: String, title: Html, route: Call, fields: Html, error: Option[Html] = None)(implicit ctx: Context)
 
-@cssTag("setup.css")
-
 <div class="lichess_overboard game_config game_config_@typ @if(error){error}"
   data-random-color-variants="@lila.game.Game.variantsWhereWhiteIsBetter.map(_.id).mkString(",")"
   @if(ctx.isAnon){data-anon="1"}>
