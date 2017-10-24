@@ -49,15 +49,6 @@ final class Env(
 
   def isOnline(userId: User.ID): Boolean = onlineUserIdMemo get userId
 
-  def cli = new lila.common.Cli {
-    def process = {
-      case "user" :: "email" :: userId :: email :: Nil =>
-        UserRepo.email(User normalize userId, EmailAddress(email)) inject "done"
-      case "user" :: "bcrypt" :: "migrate" :: Nil =>
-        BcryptMigration(authenticator, userColl) inject "Migration complete."
-    }
-  }
-
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
       case lila.hub.actorApi.mod.MarkCheater(userId, true) => rankingApi remove userId
