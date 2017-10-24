@@ -19,7 +19,7 @@ export default function(ctrl: RoundController): [VNode, boolean] | undefined {
     h('div.expiration.suggestion', {
       class: { emerg }
     }, [
-      h('strong', '' + Math.round(timeLeft / 1000)),
+      h('strong', '' + Math.floor(timeLeft / 1000)),
       'seconds to play the first move'
     ]),
     myTurn
