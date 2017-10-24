@@ -514,6 +514,32 @@ lichess.topMenuIntent = function() {
         });
       })();
 
+      // cli
+      (function() {
+        var $wrap = $('#clinput');
+        if (!$wrap.length) return;
+        var booted;
+        var boot = function() {
+          if (booted) return;
+          booted = true;
+          lichess.loadCss('/assets/stylesheets/cli.css');
+          lichess.loadScript("/assets/compiled/lichess.cli" + ($('body').data('dev') ? '' : '.min') + '.js').done(function() {
+            LichessCli.app($wrap, toggle);
+          });
+        }
+        var toggle = function() {
+          boot();
+          $wrap.toggleClass('shown');
+          if ($wrap.hasClass('shown')) $wrap.find('input').focus();
+        };
+        $wrap.children('a').one('mouseover click', function(e) {
+          if (e.type === 'mouseover') boot(); else toggle();
+        });
+        Mousetrap.bind('s', function() {
+          setTimeout(toggle, 150);
+        });
+      })();
+
       $('input.user-autocomplete').each(function() {
         var opts = {
           focus: 1,

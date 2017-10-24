@@ -1,0 +1,4 @@
+#clinput .tt-menu .empty,
+#clinput .tt-menu .spinner {
+  display: none;
+}

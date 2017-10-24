@@ -5,11 +5,9 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0",
   "dependencies": {
-    "snabbdom": "ornicar/snabbdom#lichess"
   },
   "devDependencies": {
     "@types/jquery": "^2.0",
-    "@types/jqueryui": "^1.11",
     "browserify": "^14",
     "gulp": "^3",
     "gulp-uglify": "^3",
