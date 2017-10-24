@@ -283,11 +283,11 @@
     <item quantity="other">%s خسارة</item>
   </plurals>
   <plurals name="nbDraws">
-    <item quantity="zero">%s تعادلات</item>
-    <item quantity="one">%s تعادلات</item>
+    <item quantity="zero">%s تعادل</item>
+    <item quantity="one">%s تعادل</item>
     <item quantity="two">%s تعادلات</item>
     <item quantity="few">%s تعادلات</item>
-    <item quantity="many">%s تعادلات</item>
+    <item quantity="many">%s تعادل</item>
     <item quantity="other">%s تعادلات</item>
   </plurals>
   <plurals name="nbPlaying">
@@ -469,7 +469,7 @@
   <string name="standing">الترتيب</string>
   <string name="createANewTournament">ابدأ مسابقة جديدة</string>
   <string name="join">انضم</string>
-  <string name="withdraw">انسحب</string>
+  <string name="withdraw">انسحاب</string>
   <string name="points">النقاط</string>
   <string name="wins">الفوز</string>
   <string name="losses">الخسارة</string>
@@ -486,7 +486,7 @@
   <string name="movesPlayed">نقلات اللعب</string>
   <string name="whiteWins">فوز الأبيض</string>
   <string name="blackWins">فوز الأسود</string>
-  <string name="draws">التعادلات</string>
+  <string name="draws">تعادل</string>
   <string name="nextXTournament">بطولة ال %s التالية:</string>
   <string name="viewMoreTournaments">عرض المزيد من البطولات</string>
   <string name="averageOpponent">معدل الخصم</string>
