@@ -691,7 +691,7 @@ export default class AnalyseCtrl {
     this.resetAutoShapes();
   }
 
-  toggleGauge() {
+  toggleGauge = () => {
     this.showGauge(!this.showGauge());
   }
 
