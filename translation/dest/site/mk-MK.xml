@@ -57,7 +57,10 @@
   <string name="inLocalBrowser">на вашиот прелистувач (локално)</string>
   <string name="toggleLocalEvaluation">Вклчи локална еваулација</string>
   <string name="move">Потег</string>
+  <string name="variantLoss">Варијантен пораз</string>
+  <string name="variantWin">Варијантна победа</string>
   <string name="insufficientMaterial">Нема доволно материјал</string>
+  <string name="pawnMove">Потег на пешак</string>
   <string name="capture">Зема</string>
   <string name="close">Затвори</string>
   <string name="winning">Победува</string>
@@ -70,6 +73,10 @@
   <string name="recentGames">Неодамнешни игри</string>
   <string name="topGames">Топ игри</string>
   <string name="masterDbExplanation">База на податоци од игри на %1$s+ ФИДЕ рангирани играчи, од %2$s до %3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Мат во %s полупотег</item>
+    <item quantity="other">Мат во %s полупотези</item>
+  </plurals>
   <string name="noGameFound">Не е пронајдена таква партија</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Додадете повеќе игри во менито</string>
   <string name="openingExplorer">Пребарувач на отворања</string>
