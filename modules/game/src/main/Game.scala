@@ -515,8 +515,8 @@ case class Game(
   }
 
   def playerWhoDidNotMove: Option[Player] = playedTurns match {
-    case 0 => player(White).some
-    case 1 => player(Black).some
+    case 0 => player(startColor).some
+    case 1 => player(!startColor).some
     case _ => none
   }
 
