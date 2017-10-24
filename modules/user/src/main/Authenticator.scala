@@ -22,11 +22,7 @@ final class Authenticator(
       val salted = s"${p.value}{$s}" // BC
       ClearPassword((~auth.sha512).fold(salted.sha512, salted.sha1))
     }
-    auth.bpass match {
-      // Deprecated fallback. Log & fail after DB migration.
-      case None => auth.password ?? { sHash => onShaLogin(); sHash == newP.value }
-      case Some(bpass) => passHasher.check(bpass, newP)
-    }
+    passHasher.check(auth.bpass, newP)
   }
 
   def authenticateById(id: User.ID, password: ClearPassword): Fu[Option[User]] =
@@ -34,16 +30,6 @@ final class Authenticator(
 
   def authenticateByEmail(email: EmailAddress, password: ClearPassword): Fu[Option[User]] =
     loginCandidateByEmail(email) map { _ flatMap { _(password) } }
-
-  // This creates a bcrypt hash using the existing sha as input,
-  // allowing us to migrate all users in bulk.
-  def upgradePassword(a: AuthData): Funit = (a.bpass, a.password) match {
-    case (None, Some(shaHash)) => userRepo.coll.update(
-      $id(a._id),
-      $set(F.bpass -> passEnc(ClearPassword(shaHash)).bytes) ++ $unset(F.password)
-    ).void >>- lila.mon.user.auth.shaBcUpgrade()
-    case _ => funit
-  }
 
   def loginCandidate(u: User): Fu[User.LoginCandidate] =
     loginCandidateById(u.id) map { _ | User.LoginCandidate(u, _ => false) }
@@ -57,7 +43,7 @@ final class Authenticator(
   def setPassword(id: User.ID, p: ClearPassword): Funit =
     userRepo.coll.update(
       $id(id),
-      $set(F.bpass -> passEnc(p).bytes) ++ $unset(F.salt, F.password, F.sha512)
+      $set(F.bpass -> passEnc(p).bytes) ++ $unset(F.salt, F.sha512)
     ).void
 
   private def authWithBenefits(auth: AuthData)(p: ClearPassword): Boolean = {
@@ -79,18 +65,16 @@ object Authenticator {
 
   case class AuthData(
       _id: User.ID,
-      bpass: Option[HashedPassword] = None,
-      password: Option[String] = None,
+      bpass: HashedPassword,
       salt: Option[String] = None,
       sha512: Option[Boolean] = None
   ) {
 
-    def hashToken: String = bpass.fold(~password) { _.bytes.sha512.hex }
+    def hashToken: String = bpass.bytes.sha512.hex
   }
 
   val authProjection = $doc(
     F.bpass -> true,
-    F.password -> true,
     F.salt -> true,
     F.sha512 -> true
   )
