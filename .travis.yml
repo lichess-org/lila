@@ -35,6 +35,8 @@ jobs:
     - stage: test
       language: scala
       jdk: openjdk8
+      before_install:
+       - echo "autoformat=false" > $HOME/.scalariform.conf
       script: sbt test:compile test stage
       after_success:
        - git log -n 1 --pretty=oneline > commit.txt
