@@ -520,7 +520,7 @@
   <string name="soundWhenTimeGetsCritical">Sono quando le tempore es critic</string>
   <string name="gameBehavior">Comportamento del joco</string>
   <string name="howDoYouMovePieces">Como tu vole mover le pecias?</string>
-  <string name="clickTwoSquares">Cliccar sur duo placias</string>
+  <string name="clickTwoSquares">Cliccar sur duo quadratos</string>
   <string name="dragPiece">Traher e deponer le pecia</string>
   <string name="bothClicksAndDrag">Ambe manieras</string>
   <string name="premovesPlayingDuringOpponentTurn">Preselection (jocar durante le torno del adversario)</string>
@@ -689,7 +689,7 @@ in %3$s</string>
   <string name="inputMovesWithTheKeyboard">Entrata de movimentos con le claviero</string>
   <string name="letOtherPlayersMessageYou">Permitter que altere jocatores te invia messages</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Methodo pro roccar</string>
-  <string name="castleByMovingTwoSquares">Mover le rege duo placias</string>
+  <string name="castleByMovingTwoSquares">Mover le rege duo quadratos</string>
   <string name="castleByMovingOntoTheRook">Mover le rege a super le turre</string>
   <string name="shareYourInsightsData">Divider con alteres tu datos de intuitiones</string>
   <string name="withNobody">Con nulle persona</string>
