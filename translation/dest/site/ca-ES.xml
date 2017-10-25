@@ -48,11 +48,11 @@
   <string name="computerAnalysis">Anàlisi computeritzada</string>
   <string name="computerAnalysisAvailable">Anàlisi de l\'ordinador disponible</string>
   <string name="analysis">Tauler d\'anàlisi</string>
-  <string name="depthX">Profunditat %s</string>
-  <string name="usingServerAnalysis">Utilitzant l\'anàlisi de servidor</string>
+  <string name="depthX">Profunditat %5</string>
+  <string name="usingServerAnalysis">Utilitzant l\'anàlisi del servidor</string>
   <string name="loadingEngine">Carregant motor...</string>
   <string name="cloudAnalysis">Anàlisi en el núvol</string>
-  <string name="goDeeper">Aprofundir</string>
+  <string name="goDeeper">Enfonsat més</string>
   <string name="showThreat">Mostra l\'amenaça</string>
   <string name="inLocalBrowser">en navegador local</string>
   <string name="move">Moviment</string>
