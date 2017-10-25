@@ -23,8 +23,8 @@ pro accelerar isto!</string>
   <string name="theBishop">Le alfil</string>
   <string name="itMovesDiagonally">Illo move se in diagonales</string>
   <string name="bishopIntro">Ora nos va apprender como manovrar un alfil!</string>
-  <string name="youNeedBothBishops">Un alfil pro placias clar,
-e un alfil pro placias obscur.
+  <string name="youNeedBothBishops">Un alfil pro quadratos clar,
+e un alfil pro quadratos obscur.
 Tu ha besonio de ambes!</string>
   <string name="bishopComplete">Congratulationes! Tu pote commandar un alfil.</string>
   <string name="theQueen">Le dama</string>
@@ -47,7 +47,7 @@ Escappa e vince le stellas!</string>
   <string name="thePawn">Le pedon</string>
   <string name="itMovesForwardOnly">Illo move se solmente in avante</string>
   <string name="pawnIntro">Pedones es debile, ma illos possede multe potential.</string>
-  <string name="pawnsMoveOneSquareOnly">Pedones move se solmente un placia cata torno.
+  <string name="pawnsMoveOneSquareOnly">Pedones move se solmente un quadrato cata torno.
 Ma quando illos arriva al altere latere del tabuliero, illos deveni un pecia plus forte!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">Le major parte del tempore, promover al dama es le melior.
 Ma alcun vices un cavallo pote esser avantagiose!</string>
@@ -56,7 +56,7 @@ ma illos captura per diagonales!</string>
   <string name="captureThenPromote">Captura, e alora promove!</string>
   <string name="useAllThePawns">Usa omne pedones!
 Il non es necessari promover.</string>
-  <string name="aPawnOnTheSecondRank">In su prime movimento, le pedon pote mover se duo placias!</string>
+  <string name="aPawnOnTheSecondRank">In su prime movimento, le pedon pote mover se duo quadratos!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Prende tote le stellas!
 Il non es necessari promover.</string>
   <string name="pawnComplete">Congratulationes! Pedones non ha secretos pro te.</string>
@@ -96,6 +96,10 @@ ma tu pote defender!</string>
   <string name="howTheGameStarts">Como le partita initia</string>
   <string name="castling">Roc</string>
   <string name="theSpecialKingMove">Le movimento special del rege</string>
+  <string name="castleKingSide">Move tu rege duo quadratos
+pro facer un roc curte!</string>
+  <string name="castleQueenSide">Move tu rege duo quadratos
+pro facer un roc longe!</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Le movimento special del pedon</string>
   <string name="stalemate">Pat</string>
