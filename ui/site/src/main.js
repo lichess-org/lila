@@ -195,9 +195,10 @@ lichess.topMenuIntent = function() {
           empty: '<div class="empty">No player found</div>',
           pending: lichess.spinnerHtml,
           suggestion: function(o) {
-            return '<a class="ulpt user_link' + (o.online ? ' online' : '') + '" href="/@/' + o.name + '">' +
+            var tag = opts.tag || 'a';
+            return '<' + tag + ' class="ulpt user_link' + (o.online ? ' online' : '') + '" ' + (tag === 'a' ? '' : 'data-') + 'href="/@/' + o.name + '">' +
             '<i class="line' + (o.patron ? ' patron' : '') + '"></i>' + (o.title ? o.title + ' ' : '') + o.name +
-            '</a>';
+            '</' + tag + '>';
           }
         }
       }).on('typeahead:render', function() {

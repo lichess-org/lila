@@ -143,7 +143,6 @@ export function ctrl(opts: Opts) {
     isOnline(userId: string) {
       return online[userId];
     },
-    titleNameToId,
     hasOnlineContributor() {
       const members = dict();
       for (let i in members) if (online[i] && members[i].role === 'w') return true;

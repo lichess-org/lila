@@ -13,7 +13,8 @@
   width: 20px;
   height: 20px;
 }
-a.tt-suggestion {
+a.tt-suggestion,
+span.tt-suggestion {
   color: #555;
   padding: 5px 0 5px 5px;
   line-height: 24px;
@@ -41,6 +42,7 @@ body.dark .tt-menu {
   border-color: #3d3d3d;
   background: #343434;
 }
-body.dark a.tt-suggestion {
+body.dark a.tt-suggestion,
+body.dark span.tt-suggestion {
   color: #aaa;
 }
