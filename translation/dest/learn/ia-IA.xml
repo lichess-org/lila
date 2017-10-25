@@ -103,11 +103,17 @@ capturante le pecia attaccator.</string>
 a transverso de tu defensas!</string>
   <string name="escapeOrBlock">Escappa con le rege 
 o bloca le attacco!</string>
+  <string name="outOfCheckComplete">Congratulationes! Tu rege es san e salve. Assecura te que tu pote defender te contra un chaco!</string>
   <string name="mateInOne">Mat in 1</string>
   <string name="defeatTheOpponentsKing">Vince le rege del adversario</string>
+  <string name="mateInOneIntro">Tu gania quando tu adversario non pote defender se contra un chaco.</string>
+  <string name="attackYourOpponentsKing">Attacca le rege del adversario
+in un modo que non pote esser defendite!</string>
+  <string name="mateInOneComplete">Congratulationes! Assi es como tu gania partitas de chacos!</string>
   <string name="intermediate">Intermedie</string>
   <string name="boardSetup">Tabuliero</string>
   <string name="howTheGameStarts">Como le partita initia</string>
+  <string name="boardSetupIntro">Le duo armeas affronta le un le altere, preste pro le battalia.</string>
   <string name="castling">Roc</string>
   <string name="theSpecialKingMove">Le movimento special del rege</string>
   <string name="castleKingSide">Move tu rege duo quadratos
