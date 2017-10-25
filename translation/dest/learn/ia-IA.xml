@@ -87,12 +87,22 @@ ma tu pote defender!</string>
   <string name="combatComplete">Congratulationes! Tu sape como combatter con pecias de chacos!</string>
   <string name="checkInOne">Chaco in 1</string>
   <string name="attackTheOpponentsKing">Attacca le rege del adversario</string>
-  <string name="checkInOneIntro">Pro mitter tu adversario in chaco, attacca su rege. Ille debe defender lo!</string>
+  <string name="checkInOneIntro">Pro dar un chaco, attacca le rege. Le adversario debe defender lo!</string>
   <string name="checkInOneGoal">Menacia le rege del adversario
 in un movimento!</string>
   <string name="checkInOneComplete">Congratulationes! Tu ha mittite le rege del adversario in chaco, fortiante le a defender su rege!</string>
   <string name="outOfCheck">Escappa le chaco</string>
   <string name="defendYourKing">Defende tu rege</string>
+  <string name="outOfCheckIntro">Tu es in chaco! Tu debe escappar o blocar le attacco.</string>
+  <string name="escapeWithTheKing">Escappa con le rege!</string>
+  <string name="theKingCannotEscapeButBlock">Le rege non pote escappar, 
+ma tu pote blocar le attacco!</string>
+  <string name="youCanGetOutOfCheckByTaking">Tu pote escappar del chaco
+capturante le pecia attaccator.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Le cavallo da le chaco
+a transverso de tu defensas!</string>
+  <string name="escapeOrBlock">Escappa con le rege 
+o bloca le attacco!</string>
   <string name="mateInOne">Mat in 1</string>
   <string name="defeatTheOpponentsKing">Vince le rege del adversario</string>
   <string name="intermediate">Intermedie</string>
