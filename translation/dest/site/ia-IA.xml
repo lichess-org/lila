@@ -110,7 +110,7 @@
   <string name="flipBoard">Girar le tabuliero</string>
   <string name="threefoldRepetition">Repetition triple</string>
   <string name="claimADraw">Declarar le partita como nulle</string>
-  <string name="offerDraw">Offerer que le partita sia nulle</string>
+  <string name="offerDraw">Proponer partita nulle</string>
   <string name="draw">Partita nulle</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s jocatores</item>
@@ -180,15 +180,15 @@
   </plurals>
   <string name="cancel">Cancellar</string>
   <string name="timeOut">Tempore finite</string>
-  <string name="drawOfferSent">Offerta de partita nulle inviate</string>
-  <string name="drawOfferDeclined">Offerta de partita nulle declinate</string>
-  <string name="drawOfferAccepted">Offerta de partita nulle acceptate</string>
-  <string name="drawOfferCanceled">Offerta de partita nulle cancellate</string>
+  <string name="drawOfferSent">Proposition de partita nulle inviate</string>
+  <string name="drawOfferDeclined">Proposition de partita nulle declinate</string>
+  <string name="drawOfferAccepted">Proposition de partita nulle acceptate</string>
+  <string name="drawOfferCanceled">Proposition de partita nulle cancellate</string>
   <string name="whiteOffersDraw">Le blanco propone le partita nulle</string>
   <string name="blackOffersDraw">Le nigro propone le partita nulle</string>
   <string name="whiteDeclinesDraw">Le blanc declina le partita nulle</string>
   <string name="blackDeclinesDraw">Le nigro declina le partita nulle</string>
-  <string name="yourOpponentOffersADraw">Tu adversario offere le partita nulle</string>
+  <string name="yourOpponentOffersADraw">Tu adversario propone le partita nulle</string>
   <string name="accept">Acceptar</string>
   <string name="decline">Declinar</string>
   <string name="playingRightNow">Jocante ora mesmo</string>
@@ -202,11 +202,11 @@
   <string name="rated">Classificatori</string>
   <string name="thisGameIsRated">Iste partita vale punctos classificatori</string>
   <string name="rematch">Vindicar</string>
-  <string name="rematchOfferSent">Offerta de vindicantia inviate</string>
-  <string name="rematchOfferAccepted">Offerta de vindicantia acceptate</string>
-  <string name="rematchOfferCanceled">Offerta de vindicantia cancellate</string>
-  <string name="rematchOfferDeclined">Offerta de vindicantia declinate</string>
-  <string name="cancelRematchOffer">Cancellar offerta de vindicantia</string>
+  <string name="rematchOfferSent">Proposition de vindicantia inviate</string>
+  <string name="rematchOfferAccepted">Proposition de vindicantia acceptate</string>
+  <string name="rematchOfferCanceled">Proposition de vindicantia cancellate</string>
+  <string name="rematchOfferDeclined">Proposition de vindicantia declinate</string>
+  <string name="cancelRematchOffer">Cancellar proposition de vindicantia</string>
   <string name="viewRematch">Vider le vindicantia a iste partita</string>
   <string name="play">Jocar</string>
   <string name="inbox">Cassa de entrata</string>
@@ -685,7 +685,7 @@ in %3$s</string>
   <string name="crosstable">Tabula</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Tu pote anque usar le rolamento del mouse super le tabuliero pro mover se trans le joco.</string>
   <string name="analysisShapesHowTo">Pulsa Shift + Clic, o altemente, clicca con le button dextre del mouse pro designar circulos e sagittas super le tabuliero.</string>
-  <string name="confirmResignationAndDrawOffers">Confirmar resignationes e offertas de partita nulle</string>
+  <string name="confirmResignationAndDrawOffers">Confirmar resignationes e propositiones de partita nulle</string>
   <string name="inputMovesWithTheKeyboard">Entrata de movimentos con le claviero</string>
   <string name="letOtherPlayersMessageYou">Permitter que altere jocatores te invia messages</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Methodo pro roccar</string>
