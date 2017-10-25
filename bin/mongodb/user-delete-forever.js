@@ -84,6 +84,11 @@ print(db.team_member.remove({
   user: userId
 }).nRemoved + ' done');
 
+print('Delete playbans');
+print(db.playban.remove({
+  _id: userId
+}).nRemoved + ' done');
+
 print('Delete user');
 print(db.user4.remove({
   _id: userId
