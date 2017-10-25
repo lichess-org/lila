@@ -87,6 +87,10 @@ ma tu pote defender!</string>
   <string name="combatComplete">Congratulationes! Tu sape como combatter con pecias de chacos!</string>
   <string name="checkInOne">Chaco in 1</string>
   <string name="attackTheOpponentsKing">Attacca le rege del adversario</string>
+  <string name="checkInOneIntro">Pro mitter tu adversario in chaco, attacca su rege. Ille debe defender lo!</string>
+  <string name="checkInOneGoal">Menacia le rege del adversario
+in un movimento!</string>
+  <string name="checkInOneComplete">Congratulationes! Tu ha mittite le rege del adversario in chaco, fortiante le a defender su rege!</string>
   <string name="outOfCheck">Escappa le chaco</string>
   <string name="defendYourKing">Defende tu rege</string>
   <string name="mateInOne">Mat in 1</string>
