@@ -143,12 +143,16 @@ Movimenta lo, e postea, rocca.</string>
 Primarimente tu debe mover le pecias.</string>
   <string name="castleQueenSideMovePiecesFirst">Face le roc longe!
 Primarimente tu debe mover le pecias.</string>
+  <string name="youCannotCastleIfMoved">Tu non pote roccar si 
+le rege o le turre 
+ja ha movite previemente.</string>
   <string name="findAWayToCastleKingSide">Trova un modo pro
 facer le roc curte!</string>
   <string name="findAWayToCastleQueenSide">Trova un modo pro
 facer le roc longe!</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Le movimento special del pedon</string>
+  <string name="takeAllThePawnsEnPassant">Captura tote le pedones en passant!</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Le partita es nulle</string>
   <string name="advanced">Avantiate</string>
