@@ -114,6 +114,22 @@ in un modo que non pote esser defendite!</string>
   <string name="boardSetup">Tabuliero</string>
   <string name="howTheGameStarts">Como le partita initia</string>
   <string name="boardSetupIntro">Le duo armeas affronta le un le altere, preste pro le battalia.</string>
+  <string name="thisIsTheInitialPosition">Isto es le position initial
+de omne partita de chacos!
+Movimenta ulle pecia pro continuar.</string>
+  <string name="firstPlaceTheRooks">In prime loco pone le turres!
+Illos va in le angulos.</string>
+  <string name="thenPlaceTheKnights">Alora pone le cavallos!
+Illos va presso al turres.</string>
+  <string name="placeTheBishops">Pone le alfiles!
+Illos va proxime al cavallos.</string>
+  <string name="placeTheQueen">Pone le dama!
+Illa va in su proprie color.</string>
+  <string name="placeTheKing">Pone le rege!
+Justo presso a su dama.</string>
+  <string name="pawnsFormTheFrontLine">Pedones forma le linea del fronte.
+Movimenta ulle pecia pro continuar.</string>
+  <string name="boardSetupComplete">Congratulationes! Tu sape como adjustar le tabuliero de chacos.</string>
   <string name="castling">Roc</string>
   <string name="theSpecialKingMove">Le movimento special del rege</string>
   <string name="castleKingSide">Move tu rege duo quadratos
