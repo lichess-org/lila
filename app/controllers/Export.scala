@@ -34,7 +34,7 @@ object Export extends LilaController {
       case Some(i) => fuccess(i.pgn)
       case None => for {
         initialFen <- GameRepo initialFen game
-        pgn <- Env.api.pgnDump(game, initialFen, PgnDump.WithFlags(clocks = true))
+        pgn <- Env.api.pgnDump(game, initialFen, PgnDump.WithFlags(clocks = !asRaw))
         analysis ← !asRaw ?? (Env.analyse.analyser get game.id)
       } yield Env.analyse.annotator(pgn, analysis, game.opening, game.winnerColor, game.status, game.clock).toString
     })
