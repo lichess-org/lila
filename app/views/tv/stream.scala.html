@@ -40,6 +40,10 @@
 </div>
 }
 
+@streamLink(link: Html) = {
+<div style="margin-top: 1em; text-align: center">@link</div>
+}
+
 
 @base.layout(
 title = title,
@@ -54,9 +58,9 @@ moreCss = moreCss) {
     width="694"
     height="418"
     allowfullscreen autoplay></iframe>
-  <div style="margin-top: 1em; text-align: center">
-    <a href="https://www.twitch.tv/@s.streamId">Follow @s.streamer.streamerName on Twitch</a>
-  </div>
+  @streamLink {
+  <a href="https://www.twitch.tv/@s.streamId">Follow @s.streamer.streamerName on Twitch</a>
+  }
   }
   case lila.tv.StreamerList.Youtube => {
   <iframe
@@ -64,6 +68,9 @@ moreCss = moreCss) {
     height="391"
     src="https://www.youtube.com/embed/@s.streamId?autoplay=1"
     frameborder="0" allowfullscreen></iframe>
+  @streamLink {
+  <a href="https://www.youtube.com/channel/@s.streamId">Follow @s.streamer.streamerName on YouTube</a>
+  }
   }
   }
 </div>
