@@ -132,6 +132,7 @@ Movimenta ulle pecia pro continuar.</string>
   <string name="boardSetupComplete">Congratulationes! Tu sape como adjustar le tabuliero de chacos.</string>
   <string name="castling">Roc</string>
   <string name="theSpecialKingMove">Le movimento special del rege</string>
+  <string name="castlingIntro">Duce tu rege al securitate, e positiona tu turre pro attaccar!</string>
   <string name="castleKingSide">Move tu rege duo quadratos
 pro facer un roc curte!</string>
   <string name="castleQueenSide">Move tu rege duo quadratos
@@ -147,10 +148,28 @@ facer le roc longe!</string>
   <string name="advanced">Avantiate</string>
   <string name="pieceValue">Valor del pecias</string>
   <string name="evaluatePieceStrength">Evaluta le fortia del pecias</string>
+  <string name="pieceValueIntro">Pecias con plus mobilitate ha un valor plus alte!
+Dama = 9    Turre = 5
+Alfil = 3      Cavallo = 3
+Pedon = 1
+Le rege es inestimabile! Perder lo significa perder le partita.</string>
+  <string name="queenOverBishop">Prende le pecia
+con le valor plus alte!
+Dama &gt; Alfil</string>
   <string name="takeThePieceWithTheHighestValue">Captura le pecia
 con le valor plus alte!</string>
+  <string name="pieceValueComplete">Congratulationes! Tu sape le valor material!
+Dama = 9
+Turre = 5
+Alfil = 3
+Cavallo = 3
+Pedon = 1</string>
   <string name="checkInTwo">Chaco in 2</string>
   <string name="twoMovesToGiveCheck">Duo movimentos pro dar un chaco</string>
+  <string name="checkInTwoIntro">Trova le combination correcte de duo movimentos que da chaco al rege del adversario!</string>
+  <string name="checkInTwoGoal">Menacia le rege del adversario
+in duo movimentos!</string>
+  <string name="checkInTwoComplete">Congratulationes! Tu ha mittite le rege del adversario in chaco, fortiante le a defender su rege!</string>
   <string name="whatNext">Que facer depost?</string>
   <string name="youKnowHowToPlayChess">Tu sape como jocar chacos, congratulationes! Esque tu vole devenir un jocator plus forte?</string>
   <string name="register">Crear conto</string>
