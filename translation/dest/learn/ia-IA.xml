@@ -137,6 +137,12 @@ Movimenta ulle pecia pro continuar.</string>
 pro facer un roc curte!</string>
   <string name="castleQueenSide">Move tu rege duo quadratos
 pro facer un roc longe!</string>
+  <string name="theKnightIsInTheWay">Le cavallo es impediente le roc!
+Movimenta lo, e postea, rocca.</string>
+  <string name="castleKingSideMovePiecesFirst">Face le roc curte!
+Primarimente tu debe mover le pecias.</string>
+  <string name="castleQueenSideMovePiecesFirst">Face le roc longe!
+Primarimente tu debe mover le pecias.</string>
   <string name="findAWayToCastleKingSide">Trova un modo pro
 facer le roc curte!</string>
   <string name="findAWayToCastleQueenSide">Trova un modo pro
