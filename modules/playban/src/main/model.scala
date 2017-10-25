@@ -14,18 +14,20 @@ case class UserRecord(
 
   def banInEffect = bans.lastOption.exists(_.inEffect)
 
-  lazy val nbOutcomes = outcomes.size
+  def nbOutcomes = outcomes.size
 
-  lazy val nbBadOutcomes = outcomes.count(_ != Outcome.Good)
+  def nbBadOutcomes = outcomes.count(_ != Outcome.Good)
 
-  def badOutcomeRatio: Double =
-    if (nbOutcomes == 0) 0
-    else nbBadOutcomes.toDouble / nbOutcomes
+  def badOutcomeRatio: Float = if (bans.size < 3) 0.4f else 0.3f
 
-  def nbBadOutcomesBeforeBan = if (bans.isEmpty) 4 else 3
+  def minBadOutcomes: Int = bans.size match {
+    case 0 => 4
+    case 1 | 2 | 3 => 3
+    case _ => 2
+  }
 
   def bannable: Option[TempBan] = {
-    nbBadOutcomes >= nbBadOutcomesBeforeBan && badOutcomeRatio >= 1d / 2
+    nbBadOutcomes >= (badOutcomeRatio * nbOutcomes atLeast minBadOutcomes)
   } option TempBan.make(bans)
 }
 
@@ -51,22 +53,22 @@ object TempBan {
   )
 
   /**
-   * Create a playban. First offense: 15 min.
+   * Create a playban. First offense: 10 min.
    * Multiplier of repeat offense after X days:
    * - 0 days: 3x
    * - 0 - 5 days: linear scale from 3x to 1x
    * - >5 days slow drop off
    */
-  def make(bans: List[TempBan]): TempBan = make(bans.lastOption.fold(15) { prev =>
+  def make(bans: List[TempBan]): TempBan = make(bans.lastOption.fold(10) { prev =>
     prev.endsAt.toNow.getStandardHours.truncInt match {
       case h if h < 120 => prev.mins * (180 - h) / 60
       case h => {
         // Scale cooldown period by total number of playbans
         val t = (Math.sqrt(bans.size) * 20 * 24).toInt
-        (prev.mins * (t + 120 - h) / t) atLeast 30
+        (prev.mins * (t + 120 - h) / t)
       }
     }
-  })
+  } atLeast (15 * bans.size + 10))
 }
 
 sealed abstract class Outcome(
