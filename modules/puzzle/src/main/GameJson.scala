@@ -4,14 +4,17 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 
 import lila.game.{ Game, GameRepo, PerfPicker }
-import lila.tree.Node.partitionTreeJsonWriter
+import lila.tree.Node.{ partitionTreeJsonWriter, minimalNodeJsonWriter }
 
 private final class GameJson(
     asyncCache: lila.memo.AsyncCache.Builder,
     lightUserApi: lila.user.LightUserApi
 ) {
 
-  case class CacheKey(gameId: Game.ID, plies: Int)
+  def apply(gameId: Game.ID, plies: Int, onlyLast: Boolean): Fu[JsObject] =
+    cache get CacheKey(gameId, plies, onlyLast)
+
+  private case class CacheKey(gameId: Game.ID, plies: Int, onlyLast: Boolean)
 
   private val cache = asyncCache.multi[CacheKey, JsObject](
     name = "puzzle.gameJson",
@@ -20,17 +23,14 @@ private final class GameJson(
     maxCapacity = 1024
   )
 
-  def apply(gameId: Game.ID, plies: Int): Fu[JsObject] = cache get CacheKey(gameId, plies)
-
-  def generate(ck: CacheKey): Fu[JsObject] = ck match {
-    case CacheKey(gameId, plies) => for {
+  private def generate(ck: CacheKey): Fu[JsObject] = ck match {
+    case CacheKey(gameId, plies, onlyLast) => for {
       game <- (GameRepo game gameId).flatten(s"Missing puzzle game $gameId!")
       _ <- lightUserApi preloadMany game.userIds
       perfType = lila.rating.PerfType orDefault PerfPicker.key(game)
       tree = TreeBuilder(game, plies)
     } yield Json.obj(
       "id" -> game.id,
-      "clock" -> game.clock.map(_.config.show),
       "perf" -> Json.obj(
         "icon" -> perfType.iconChar.toString,
         "name" -> perfType.name
@@ -43,7 +43,10 @@ private final class GameJson(
           "color" -> p.color.name
         )
       }),
-      "treeParts" -> partitionTreeJsonWriter.writes(tree)
-    ).noNull
+      "treeParts" -> onlyLast.fold(
+        tree.mainlineNodeList.lastOption.map(minimalNodeJsonWriter.writes),
+        partitionTreeJsonWriter.writes(tree).some
+      )
+    ).add("clock", game.clock.map(_.config.show))
   }
 }
