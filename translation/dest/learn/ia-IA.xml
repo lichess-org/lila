@@ -136,6 +136,10 @@ Movimenta ulle pecia pro continuar.</string>
 pro facer un roc curte!</string>
   <string name="castleQueenSide">Move tu rege duo quadratos
 pro facer un roc longe!</string>
+  <string name="findAWayToCastleKingSide">Trova un modo pro
+facer le roc curte!</string>
+  <string name="findAWayToCastleQueenSide">Trova un modo pro
+facer le roc longe!</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Le movimento special del pedon</string>
   <string name="stalemate">Pat</string>
@@ -143,6 +147,8 @@ pro facer un roc longe!</string>
   <string name="advanced">Avantiate</string>
   <string name="pieceValue">Valor del pecias</string>
   <string name="evaluatePieceStrength">Evaluta le fortia del pecias</string>
+  <string name="takeThePieceWithTheHighestValue">Captura le pecia
+con le valor plus alte!</string>
   <string name="checkInTwo">Chaco in 2</string>
   <string name="twoMovesToGiveCheck">Duo movimentos pro dar un chaco</string>
   <string name="whatNext">Que facer depost?</string>
