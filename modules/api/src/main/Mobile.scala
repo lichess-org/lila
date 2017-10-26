@@ -8,6 +8,14 @@ import lila.common.ApiVersion
 
 object Mobile {
 
+  object AppVersion {
+
+    val buggyVersions = Set(
+      "5.1.1"
+    )
+
+  }
+
   object Api {
 
     case class Old(
