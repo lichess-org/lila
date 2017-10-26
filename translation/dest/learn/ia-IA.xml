@@ -153,8 +153,15 @@ Bloca le chaco e depost rocca!</string>
 facer le roc curte!</string>
   <string name="findAWayToCastleQueenSide">Trova un modo pro
 facer le roc longe!</string>
+  <string name="castlingComplete">Congratulationes! Tu debe roccar in quasi tote le partitas.</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Le movimento special del pedon</string>
+  <string name="enPassantIntro">Quando le pedon del adversario move se duo quadratos, tu pote capturar lo como si illo habeva movite un sol quadrato.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Le nigro ha movite le pedon duo quadratos!
+Captura lo en passant.</string>
+  <string name="enPassantOnlyWorksImmediately">En passant solmente es possibile
+immediatemente post le movimento
+del pedon del adversario.</string>
   <string name="takeAllThePawnsEnPassant">Captura tote le pedones en passant!</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Le partita es nulle</string>
