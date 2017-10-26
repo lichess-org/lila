@@ -87,7 +87,7 @@ final class RelayApi(
       ), user) inject relay
   }
 
-  def requestPlay(id: Relay.Id, user: User, v: Boolean): Funit = WithRelay(id) { relay =>
+  def requestPlay(id: Relay.Id, v: Boolean): Funit = WithRelay(id) { relay =>
     update(relay) { r =>
       if (v) r.withSync(_.play) else r.withSync(_.pause)
     } void
@@ -107,6 +107,15 @@ final class RelayApi(
 
   def getOngoing(id: Relay.Id): Fu[Option[Relay]] =
     coll.find($doc("_id" -> id, "finished" -> false)).uno[Relay]
+
+  private[relay] def autoStart: Funit =
+    coll.primitive[Relay.Id]($doc(
+      "startsAt" $lt DateTime.now.plusMinutes(10), // start 10 minutes early to fetch boards
+      "startedAt" $exists false,
+      "sync.until" $exists false
+    ), "_id") flatMap {
+      _.map { requestPlay(_, true) }.sequenceFu.void
+    }
 
   private[relay] def WithRelay[A: Zero](id: Relay.Id)(f: Relay => Fu[A]): Fu[A] =
     byId(id) flatMap { _ ?? f }

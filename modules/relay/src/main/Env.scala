@@ -1,5 +1,6 @@
 package lila.relay
 
+import scala.concurrent.duration._
 import akka.actor._
 import com.typesafe.config.Config
 
@@ -35,6 +36,10 @@ final class Env(
     api = api,
     chapterRepo = studyEnv.chapterRepo
   )))
+
+  system.scheduler.schedule(1 minute, 1 minute) {
+    api.autoStart
+  }
 
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
