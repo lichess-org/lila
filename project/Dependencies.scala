@@ -22,7 +22,7 @@ object Dependencies {
     )
   }
 
-  val scalaz = "org.scalaz" %% "scalaz-core" % "7.2.15"
+  val scalaz = "org.scalaz" %% "scalaz-core" % "7.2.16"
   val scalalib = "com.github.ornicar" %% "scalalib" % "6.5"
   val typesafeConfig = "com.typesafe" % "config" % "1.3.1"
   val findbugs = "com.google.code.findbugs" % "jsr305" % "3.0.1"
@@ -51,7 +51,7 @@ object Dependencies {
   }
 
   object play {
-    val version = "2.4.6"
+    val version = "2.4.11"
     val api = "com.typesafe.play" %% "play" % version
     val test = "com.typesafe.play" %% "play-test" % version
   }
