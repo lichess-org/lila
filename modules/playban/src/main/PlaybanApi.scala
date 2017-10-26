@@ -150,6 +150,7 @@ final class PlaybanApi(
     ).map(_.value)
   } map2 UserRecordBSONHandler.read flatMap {
     case None => fufail(s"can't find record for user $userId")
+    case _ if outcome == Outcome.Good => funit
     case Some(record) => legiferate(record)
   } logFailure lila.log("playban")
 
