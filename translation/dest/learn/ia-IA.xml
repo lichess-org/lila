@@ -169,6 +169,10 @@ si tu pedon es in le quinte rango.</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Le partita es nulle</string>
   <string name="stalemateIntro">Quando un jocator non es in chaco e non ha un movimento legal, il ha un pat. Le partita es nulle: necuno gania e necuno perde.</string>
+  <string name="stalemateGoal">Le nigro es in pat si:
+- il non ha un movimento legal
+- il non ha chaco</string>
+  <string name="stalemateComplete">Congratulationes! Il es melior haber un pat que un chaco mat!</string>
   <string name="advanced">Avantiate</string>
   <string name="pieceValue">Valor del pecias</string>
   <string name="evaluatePieceStrength">Evaluta le fortia del pecias</string>
