@@ -52,7 +52,7 @@ final class PlaybanApi(
   def flag(game: Game, flaggerColor: Color): Funit = {
 
     def unreasonableTime = game.clock map { c =>
-      (c.estimateTotalSeconds / 8) atLeast 15 atMost (3 * 60)
+      (c.estimateTotalSeconds / 12) atLeast 15 atMost (3 * 60)
     }
 
     // flagged after waiting a long time
@@ -142,7 +142,7 @@ final class PlaybanApi(
       update = $doc("$push" -> $doc(
         "o" -> $doc(
           "$each" -> List(outcome),
-          "$slice" -> -20
+          "$slice" -> -30
         )
       )),
       fetchNewObject = true,
