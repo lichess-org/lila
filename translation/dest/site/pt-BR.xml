@@ -761,4 +761,5 @@ em %3$s</string>
   <string name="notifications">Notificações</string>
   <string name="challenges">Desafios</string>
   <string name="perfRatingX">Classificação: %s</string>
+  <string name="xSecondsToPlayTheFirstMove">%s segundos para fazer o primeiro movimento</string>
 </resources>
