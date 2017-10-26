@@ -9,12 +9,14 @@ private final class ReportDiscarder {
       getAccuracy map { _ exists discardCheatReportWithAccuracy }
     }
 
-  // 30% accuracy => 0% discard
-  // 20% accuracy => 33% discard
-  // 10% accuracy => 66% discard
+  // 50% accuracy => 0% discard
+  // 40% accuracy => 20% discard
+  // 30% accuracy => 40% discard
+  // 20% accuracy => 60% discard
+  // 10% accuracy => 80% discard
   // 5% accuracy => 100% discard
   private def discardCheatReportWithAccuracy(accuracy: Int): Boolean =
     accuracy <= 5 || {
-      accuracy < 30 && scala.util.Random.nextInt(100) > (30 - accuracy) * 33
+      accuracy < 50 && scala.util.Random.nextInt(100) > (50 - accuracy) * 2
     }
 }
