@@ -3,5 +3,9 @@
 <resources>
   <string name="coordinates">Coordinatas</string>
   <string name="coordinateTraining">Trainamento de coordinatas</string>
+  <string name="averageScoreAsWhiteX">Punctos medie como blanco: %s</string>
+  <string name="averageScoreAsBlackX">Punctos medie como nigro: %s</string>
+  <string name="knowingTheChessBoard">Recognoscer le coordinatas del tabuliero es un habilitate multo importante in le chacos:</string>
+  <string name="mostChessCourses">Le majoritate del cursos e exercitios de chacos usa le notation algebraic extensivemente.</string>
   <string name="startTraining">Comenciar a exercitar</string>
 </resources>
