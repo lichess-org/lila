@@ -10,8 +10,9 @@ object Mobile {
 
   object AppVersion {
 
-    val buggyVersions = Set(
-      "5.1.1"
+    // only call if a more recent version is available in both stores!
+    val callToUpgradeFromVersions = Set(
+      "5.1.0", "5.1.1"
     )
 
   }
