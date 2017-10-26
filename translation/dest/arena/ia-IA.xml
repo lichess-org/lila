@@ -6,6 +6,7 @@
   <string name="isRated">Iste torneo es classificate e illo affice tu classification.</string>
   <string name="isNotRated">Iste torneo *non* es classificate e illo *non* influentia tu classification.</string>
   <string name="someRated">Alcun torneos es classificate e affice tu classification.</string>
+  <string name="howAreScoresCalculated">Como le punctos es calculate?</string>
   <string name="berserk">Arena Berserk</string>
   <string name="otherRules">Altere regulas importante</string>
   <string name="thisIsPrivate">Iste es un torneo private</string>
