@@ -162,9 +162,13 @@ Captura lo en passant.</string>
   <string name="enPassantOnlyWorksImmediately">En passant solmente es possibile
 immediatemente post le movimento
 del pedon del adversario.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">En passant solmente es possibile
+si tu pedon es in le quinte rango.</string>
   <string name="takeAllThePawnsEnPassant">Captura tote le pedones en passant!</string>
+  <string name="enPassantComplete">Congratulationes! Tu ora pote capturar en passant.</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Le partita es nulle</string>
+  <string name="stalemateIntro">Quando un jocator non es in chaco e non ha un movimento legal, il ha un pat. Le partita es nulle: necuno gania e necuno perde.</string>
   <string name="advanced">Avantiate</string>
   <string name="pieceValue">Valor del pecias</string>
   <string name="evaluatePieceStrength">Evaluta le fortia del pecias</string>
