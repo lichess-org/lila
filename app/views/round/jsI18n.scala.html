@@ -31,9 +31,6 @@ trans.draw,
 trans.timeOut,
 trans.whiteIsVictorious,
 trans.blackIsVictorious,
-trans.kingInTheCenter,
-trans.threeChecks,
-trans.variantEnding,
 trans.withdraw,
 trans.rematch,
 trans.rematchOfferSent,
@@ -49,11 +46,18 @@ trans.giveNbSeconds,
 trans.giveMoreTime,
 trans.gameOver,
 trans.analysis,
-trans.yourOpponentWantsToPlayANewGameWithYou,
+trans.yourOpponentWantsToPlayANewGameWithYou
+) ++ g.isCorrespondence.fold(i18nJsObject(
 trans.oneDay,
 trans.nbDays,
 trans.nbHours
-) ++ g.isTournament.fold(i18nJsObject(
+), i18nJsObject(
+trans.xSecondsToPlayTheFirstMove
+)) ++ g.variant.exotic.fold(i18nJsObject(
+trans.kingInTheCenter,
+trans.threeChecks,
+trans.variantEnding
+), J.obj()) ++ g.isTournament.fold(i18nJsObject(
 trans.backToTournament,
 trans.viewTournament,
 trans.standing
