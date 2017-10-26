@@ -55,7 +55,7 @@ function buttons(root: AnalyseCtrl): VNode {
           h('i', { attrs: dataIcon('c') })
         ]),
         h('a.button.glyph.hint--top', {
-          attrs: { 'data-hint': 'Annotate with symbols' },
+          attrs: { 'data-hint': 'Annotate with glyphs' },
           class: {
             active: ctrl.glyphForm.isOpen(),
             disabled: !(root.path && ctrl.vm.mode.write)
@@ -153,7 +153,7 @@ export function contextMenu(ctrl: StudyCtrl, path: Tree.Path, node: Tree.Node): 
         ctrl.glyphForm.open();
         ctrl.userJump(path);
       })
-    }, 'Annotate with symbols')
+    }, 'Annotate with glyphs')
   ] : [];
 }
 

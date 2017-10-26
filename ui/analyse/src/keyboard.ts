@@ -82,7 +82,7 @@ export function bind(ctrl: AnalyseCtrl): void {
         this.click();
       });
     }));
-    kbd.bind('s', preventing(function() {
+    kbd.bind('g', preventing(function() {
       $('.study_buttons a.glyph').each(function(this: HTMLElement) {
         this.click();
       });
