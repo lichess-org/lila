@@ -89,6 +89,11 @@ print(db.playban.remove({
   _id: userId
 }).nRemoved + ' done');
 
+print('Delete perf stats');
+print(db.perf_stat.remove({
+  _id: new RegExp('^' + userId + '/')
+}).nRemoved + ' done');
+
 print('Delete user');
 print(db.user4.remove({
   _id: userId
