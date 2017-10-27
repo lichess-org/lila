@@ -10,7 +10,11 @@
 }
 
 @if(isGranted(_.ModNote)) {
-@base.form.group(form("official"), Html("Official lichess broadcast")) {
+@base.form.group(
+form("official"),
+Html("Official lichess broadcast"),
+klass = "checkbox",
+help = Html("Feature on /broadcast - for admins only").some) {
 <input type="checkbox" name="@form("official").name" @if(form("official").value){checked} value="true" />
 }
 } else { <input type="hidden" name="@form("official").name" value="false" /> }
