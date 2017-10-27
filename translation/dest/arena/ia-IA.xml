@@ -14,6 +14,13 @@ Isto es, un victoria valera 4 punctos; un partita nulle 2 punctos; e un perdita 
 
 Per exemplo, duo victorias sequite per un partita nulle valera 6 punctos: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Arena Berserk</string>
+  <string name="berserkAnswer">Quando un jocator clicca sur le button Berserk al initio del partita, ille/illa perdera le medietate de su tempore in le horologio, ma le victoria valera un puncto de tornero extra.
+
+Le modo Berserk in controlos de tempore con un incremento anque cancella le incremento. (un exception es 1+2, que devenira 1+0, proque solmente le incremento esseva cancellate)
+
+Berserk non es disponibile pro partitas con nulle tempore initial (0+1, 0+2).
+
+Berserk solmente concede un puncto supernumerari si tu joca al minus 7 movimentos in le partita.</string>
   <string name="howIsTheWinnerDecided">Como on decide le vincitor del torneo?</string>
   <string name="howIsTheWinnerDecidedAnswer">Le jocator(es) con plus punctos al fin del limite de tempore del torneo essera annunciate le vincitor(es).</string>
   <string name="howDoesPairingWork">Como functiona le junction de jocatores?</string>
