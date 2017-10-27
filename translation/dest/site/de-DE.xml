@@ -759,4 +759,5 @@
   <string name="notifications">Benachrichtigungen</string>
   <string name="challenges">Herausforderungen</string>
   <string name="perfRatingX">Wertungszahl: %s</string>
+  <string name="xSecondsToPlayTheFirstMove">%s Sekunden um den ersten Zug zu machen</string>
 </resources>
