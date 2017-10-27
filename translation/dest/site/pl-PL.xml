@@ -74,9 +74,9 @@
   <string name="topGames">Najlepsze partie</string>
   <string name="masterDbExplanation">Dwa miliony partii zawodników FIDE (2200+) od 1952 do 2016 roku</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">Mat w %s posunięciu</item>
-    <item quantity="few">Mat w %s posunięciach</item>
-    <item quantity="other">Mat w %s posunięciach</item>
+    <item quantity="one">Mat w %s ruchu</item>
+    <item quantity="few">Mat w %s ruchach</item>
+    <item quantity="other">Mat w %s ruchach</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
     <item quantity="one">Następne bicie lub ruch pionem w ciągu %s posunięcia (zerowanie licznika posunięć reguły 50 ruchów)</item>
