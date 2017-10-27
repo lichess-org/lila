@@ -8,6 +8,11 @@
   <string name="someRated">Alcun torneos es classificate e affice tu classification.</string>
   <string name="howAreScoresCalculated">Como le punctos es calculate?</string>
   <string name="berserk">Arena Berserk</string>
+  <string name="howIsTheWinnerDecided">Como on decide le vincitor del torneo?</string>
+  <string name="howIsTheWinnerDecidedAnswer">Le jocator(es) con plus punctos al fin del limite de tempore del torneo essera annunciate le vincitor(es).</string>
+  <string name="howDoesPairingWork">Como functiona le junction de jocatores?</string>
+  <string name="howDoesItEnd">Como fini le torneo?</string>
+  <string name="howDoesItEndAnswer">Le torneo ha un computo a retro. Quando illo attinge zero, le classificationes del torneo es gelate, e le vincitor es annunciate. Partitas in progresso debe continuar usque su fin, nonobstante illos non conta plus pro le torneo.</string>
   <string name="otherRules">Altere regulas importante</string>
   <string name="thisIsPrivate">Iste es un torneo private</string>
   <string name="shareUrl">Publica iste adresse URL pro invitar personas a unir se: %s</string>
