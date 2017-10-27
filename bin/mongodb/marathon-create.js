@@ -1,17 +1,17 @@
-var id = 'autumn17';
-var copyFromId = 'summer17';
+var id = 'winter17';
+var copyFromId = 'autumn17';
 
 var t = db.tournament2.findOne({_id:copyFromId});
 
 // overrides
 t._id = id;
-t.name = '2017 Autumn Marathon';
+t.name = '2017 Winter Marathon';
 t.clock = {
-  limit: NumberInt(3 * 60),
-  increment: NumberInt(2)
+  limit: NumberInt(5 * 60),
+  increment: NumberInt(3)
 };
 t.schedule.speed = 'blitz';
-t.startsAt = ISODate('2017-10-28');
+t.startsAt = ISODate('2017-12-28');
 
 // initialize values
 t.status = NumberInt(10);
