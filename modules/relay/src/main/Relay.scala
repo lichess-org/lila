@@ -109,6 +109,6 @@ object Relay {
   case class Selection(
       created: List[WithStudyAndLiked],
       started: List[WithStudyAndLiked],
-      closed: List[WithStudyAndLiked]
+      closed: Paginator[WithStudyAndLiked]
   )
 }

@@ -1,8 +1,8 @@
 package lila.relay
 
-import scala.concurrent.duration._
 import akka.actor._
 import com.typesafe.config.Config
+import scala.concurrent.duration._
 
 final class Env(
     config: Config,
@@ -11,14 +11,23 @@ final class Env(
     system: ActorSystem
 ) {
 
-  private val relayColl = db(config getString "collection.relay")
+  private val MaxPerPage = config getInt "paginator.max_per_page"
+
+  private val coll = db(config getString "collection.relay")
 
   lazy val forms = RelayForm
 
+  private val repo = new RelayRepo(coll)
+
   val api = new RelayApi(
-    coll = relayColl,
+    repo = repo,
     studyApi = studyEnv.api,
     system = system
+  )
+
+  lazy val pager = new RelayPager(
+    repo = repo,
+    maxPerPage = lila.common.MaxPerPage(MaxPerPage)
   )
 
   private val sync = new RelaySync(

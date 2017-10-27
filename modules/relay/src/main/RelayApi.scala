@@ -11,7 +11,8 @@ import lila.study.{ StudyApi, Study, Settings }
 import lila.user.User
 
 final class RelayApi(
-    coll: Coll,
+    repo: RelayRepo,
+    pager: RelayPager,
     studyApi: StudyApi,
     system: ActorSystem
 ) {
@@ -19,7 +20,7 @@ final class RelayApi(
   import BSONHandlers._
   import lila.study.BSONHandlers.LikesBSONHandler
 
-  def byId(id: Relay.Id) = coll.byId[Relay](id.value)
+  def byId(id: Relay.Id) = repo.coll.byId[Relay](id.value)
 
   def byIdAndOwner(id: Relay.Id, owner: User) = byId(id) map {
     _.filter(_.ownerId == owner.id)
@@ -38,40 +39,13 @@ final class RelayApi(
         case c ~ s ~ t => Relay.Selection(c, s, t)
       }
 
-  def toSync = coll.find($doc(
+  private[relay] def toSync = repo.coll.find($doc(
     "sync.until" $exists true,
     "sync.nextAt" $lt DateTime.now
   )).list[Relay]()
 
   def setLikes(id: Relay.Id, likes: lila.study.Study.Likes): Funit =
-    coll.updateField($id(id), "likes", likes).void
-
-  def scheduled = coll.find($doc(
-    selectors.scheduled ++ $doc("official" -> true)
-  )).sort($sort asc "startsAt").list[Relay]()
-
-  def ongoing = coll.find($doc(
-    selectors.ongoing ++ $doc("official" -> true)
-  )).sort($sort asc "startedAt").list[Relay]()
-
-  def finished = coll.find($doc(
-    selectors.finished ++ $doc("official" -> true)
-  )).sort($sort desc "startedAt").list[Relay]()
-
-  object selectors {
-    def scheduled = $doc(
-      "startsAt" $gt DateTime.now.minusHours(1),
-      "startedAt" $exists false
-    )
-    def ongoing = $doc(
-      "startedAt" $exists true,
-      "finished" -> false
-    )
-    def finished = $doc(
-      "startedAt" $exists true,
-      "finished" -> true
-    )
-  }
+    repo.coll.updateField($id(id), "likes", likes).void
 
   def create(data: RelayForm.Data, user: User): Fu[Relay] = {
     val relay = data make user
@@ -121,7 +95,7 @@ final class RelayApi(
     byId(id) flatMap { _ ?? f }
 
   private[relay] def onStudyRemove(studyId: String) =
-    coll.remove($id(Relay.Id(studyId))).void
+    repo.coll.remove($id(Relay.Id(studyId))).void
 
   private[relay] def publishRelay(relay: Relay): Funit =
     sendToContributors(relay.id, "relayData", JsonView.relayWrites writes relay)
@@ -163,5 +137,4 @@ final class RelayApi(
         }
       }
     }
-
 }
