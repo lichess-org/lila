@@ -416,6 +416,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="biography">Biografi</string>
   <string name="country">Land</string>
   <string name="preferences">Preferansar</string>
+  <string name="inlineNotation">Innbygd notasjon</string>
   <string name="watchLichessTV">Sjå på Lichess TV</string>
   <string name="previouslyOnLichessTV">Tidlegare på Lichess TV</string>
   <string name="onlinePlayers">Innlogga spelarar</string>
@@ -760,4 +761,5 @@ i %3$s</string>
   <string name="notifications">Meldingar</string>
   <string name="challenges">Utfordringar</string>
   <string name="perfRatingX">Rating: %s</string>
+  <string name="xSecondsToPlayTheFirstMove">%s sekund til første trekk må takast</string>
 </resources>
