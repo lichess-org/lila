@@ -24,6 +24,9 @@ Berserk solmente concede un puncto supernumerari si tu joca al minus 7 movimento
   <string name="howIsTheWinnerDecided">Como on decide le vincitor del torneo?</string>
   <string name="howIsTheWinnerDecidedAnswer">Le jocator(es) con plus punctos al fin del limite de tempore del torneo essera annunciate le vincitor(es).</string>
   <string name="howDoesPairingWork">Como functiona le junction de jocatores?</string>
+  <string name="howDoesPairingWorkAnswer">Al initio del torneo, le jocatores es jungite conforme a su classification.
+Si tosto que tu fini un partita, retorna al salon del torneo: tu essera jungite con un jocator proxime a tu classification. Isto assecura un periodo de attender minime, totevia tu forsan non confrontara tote le altere jocatores in le torneo.
+Joca rapidemente e retorna al salon pro jocar plus partitas e ganiar plus punctos.</string>
   <string name="howDoesItEnd">Como fini le torneo?</string>
   <string name="howDoesItEndAnswer">Le torneo ha un computo a retro. Quando illo attinge zero, le classificationes del torneo es gelate, e le vincitor es annunciate. Partitas in progresso debe continuar usque su fin, nonobstante illos non conta plus pro le torneo.</string>
   <string name="otherRules">Altere regulas importante</string>
