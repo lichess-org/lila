@@ -200,7 +200,7 @@
   <string name="yourOpponentOffersADraw">Ваш оппонент предлагает ничью</string>
   <string name="accept">Принять</string>
   <string name="decline">Отклонить</string>
-  <string name="playingRightNow">Активная партия</string>
+  <string name="playingRightNow">Текущая партия</string>
   <string name="finished">Сеанс окончен</string>
   <string name="abortGame">Отменить игру</string>
   <string name="gameAborted">Игра отменена</string>
@@ -792,4 +792,5 @@
   <string name="notifications">Уведомления</string>
   <string name="challenges">Вызовы</string>
   <string name="perfRatingX">Рейтинг: %s</string>
+  <string name="xSecondsToPlayTheFirstMove">%s секунд, чтобы сделать первый ход</string>
 </resources>
