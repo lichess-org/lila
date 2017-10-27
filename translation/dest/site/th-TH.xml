@@ -729,4 +729,5 @@
   <string name="notifications">การแจ้งเตือน</string>
   <string name="challenges">การท้าดวล</string>
   <string name="perfRatingX">ระดับคะแนน: %s</string>
+  <string name="xSecondsToPlayTheFirstMove">%s วินาทีต้องเริ่มเดินตาแรก</string>
 </resources>
