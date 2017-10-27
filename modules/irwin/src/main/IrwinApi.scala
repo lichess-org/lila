@@ -58,7 +58,7 @@ final class IrwinApi(
       if (report.activation > 90)
         modApi.autoMark(report.userId, "irwin") >>-
           lila.mon.mod.irwin.mark()
-      else if (report.activation > 50) for {
+      else if (report.activation >= 60) for {
         suspect <- getSuspect(report.userId)
         irwin <- UserRepo byId "irwin" flatten s"Irwin user not found" map Mod.apply
         _ <- reportApi.create(Report.make(
