@@ -12,9 +12,12 @@ object Relay extends LilaController {
 
   private val env = Env.relay
 
-  def index = Open { implicit ctx =>
-    env.api.all(ctx.me) map { sel =>
-      Ok(html.relay.index(sel))
+  def index(page: Int) = Open { implicit ctx =>
+    Reasonable(page) {
+      for {
+        fresh <- (page == 1).??(env.api.fresh(ctx.me) map some)
+        pager <- env.pager.finished(ctx.me, page)
+      } yield Ok(html.relay.index(fresh, pager, routes.Relay.index()))
     }
   }
 

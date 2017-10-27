@@ -12,8 +12,8 @@ import lila.user.User
 
 final class RelayApi(
     repo: RelayRepo,
-    pager: RelayPager,
     studyApi: StudyApi,
+    withStudy: RelayWithStudy,
     system: ActorSystem
 ) {
 
@@ -32,11 +32,10 @@ final class RelayApi(
     }
   }
 
-  def all(me: Option[User]): Fu[Relay.Selection] =
-    scheduled.flatMap(withStudyAndLiked(me)) zip
-      ongoing.flatMap(withStudyAndLiked(me)) zip
-      finished.flatMap(withStudyAndLiked(me)) map {
-        case c ~ s ~ t => Relay.Selection(c, s, t)
+  def fresh(me: Option[User]): Fu[Relay.Fresh] =
+    repo.scheduled.flatMap(withStudy andLiked me) zip
+      repo.ongoing.flatMap(withStudy andLiked me) map {
+        case c ~ s => Relay.Fresh(c, s)
       }
 
   private[relay] def toSync = repo.coll.find($doc(
@@ -49,7 +48,7 @@ final class RelayApi(
 
   def create(data: RelayForm.Data, user: User): Fu[Relay] = {
     val relay = data make user
-    coll.insert(relay) >>
+    repo.coll.insert(relay) >>
       studyApi.create(lila.study.StudyMaker.Data(
         id = relay.studyId.some,
         name = Study.Name(relay.name).some,
@@ -70,7 +69,7 @@ final class RelayApi(
   def update(from: Relay)(f: Relay => Relay): Fu[Relay] = {
     val relay = f(from)
     if (relay == from) fuccess(relay)
-    else coll.update($id(relay.id), relay).void >> {
+    else repo.coll.update($id(relay.id), relay).void >> {
       (relay.sync.playing != from.sync.playing) ?? publishRelay(relay)
     } >>- {
       relay.sync.log.events.lastOption.ifTrue(relay.sync.log != from.sync.log).foreach { event =>
@@ -80,10 +79,10 @@ final class RelayApi(
   }
 
   def getOngoing(id: Relay.Id): Fu[Option[Relay]] =
-    coll.find($doc("_id" -> id, "finished" -> false)).uno[Relay]
+    repo.coll.find($doc("_id" -> id, "finished" -> false)).uno[Relay]
 
   private[relay] def autoStart: Funit =
-    coll.primitive[Relay.Id]($doc(
+    repo.coll.primitive[Relay.Id]($doc(
       "startsAt" $lt DateTime.now.plusMinutes(10), // start 10 minutes early to fetch boards
       "startedAt" $exists false,
       "sync.until" $exists false
@@ -121,20 +120,4 @@ final class RelayApi(
   }
 
   private def studySocketActor(id: Relay.Id) = system actorSelection s"/user/study-socket/${id.value}"
-
-  private def withStudy(relays: List[Relay]): Fu[List[Relay.WithStudy]] =
-    studyApi byIds relays.map(_.studyId) map { studies =>
-      relays.flatMap { relay =>
-        studies.find(_.id == relay.studyId) map { Relay.WithStudy(relay, _) }
-      }
-    }
-
-  private def withStudyAndLiked(me: Option[User])(relays: List[Relay]): Fu[List[Relay.WithStudyAndLiked]] =
-    studyApi byIds relays.map(_.studyId) flatMap studyApi.withLiked(me) map { s =>
-      relays.flatMap { relay =>
-        s.find(_.study.id == relay.studyId) map {
-          case Study.WithLiked(study, liked) => Relay.WithStudyAndLiked(relay, study, liked)
-        }
-      }
-    }
 }

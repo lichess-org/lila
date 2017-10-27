@@ -106,9 +106,8 @@ object Relay {
 
   case class WithStudyAndLiked(relay: Relay, study: Study, liked: Boolean)
 
-  case class Selection(
-      created: List[WithStudyAndLiked],
-      started: List[WithStudyAndLiked],
-      closed: Paginator[WithStudyAndLiked]
+  case class Fresh(
+      created: Seq[WithStudyAndLiked],
+      started: Seq[WithStudyAndLiked]
   )
 }

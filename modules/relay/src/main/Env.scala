@@ -19,14 +19,18 @@ final class Env(
 
   private val repo = new RelayRepo(coll)
 
+  private val withStudy = new RelayWithStudy(studyEnv.api)
+
   val api = new RelayApi(
     repo = repo,
     studyApi = studyEnv.api,
+    withStudy = withStudy,
     system = system
   )
 
   lazy val pager = new RelayPager(
     repo = repo,
+    withStudy = withStudy,
     maxPerPage = lila.common.MaxPerPage(MaxPerPage)
   )
 

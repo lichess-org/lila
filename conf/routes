@@ -150,7 +150,7 @@ GET   /study/embed/$id<\w{8}>/$chapterId<\w{8}>  controllers.Study.embed(id: Str
 POST  /study/$id<\w{8}>/clear-chat     controllers.Study.clearChat(id: String)
 
 # Relay
-GET   /broadcast                           controllers.Relay.index
+GET   /broadcast                           controllers.Relay.index(page: Int ?= 1)
 GET   /broadcast/new                       controllers.Relay.form
 POST  /broadcast/new                       controllers.Relay.create
 GET   /broadcast/:slug/$id<\w{8}>          controllers.Relay.show(slug: String, id: String)
