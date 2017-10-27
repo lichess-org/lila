@@ -883,4 +883,5 @@
   <string name="notifications">إشعارات</string>
   <string name="challenges">التحديات</string>
   <string name="perfRatingX">التقييم: %s</string>
+  <string name="xSecondsToPlayTheFirstMove">%s ثانية للقيام بالنقلة الأولى</string>
 </resources>
