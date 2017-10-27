@@ -7,6 +7,12 @@
   <string name="isNotRated">Iste torneo *non* es classificate e illo *non* influentia tu classification.</string>
   <string name="someRated">Alcun torneos es classificate e affice tu classification.</string>
   <string name="howAreScoresCalculated">Como le punctos es calculate?</string>
+  <string name="howAreScoresCalculatedAnswer">Un victoria vale 2 punctos; un partita nulle 1 puncto; e un perdita nulle puncto.
+Si tu gania duo partitas consecutivemente, tu comenciara un sequentia de punctos duple, representate per un icone de flamma.
+Le partitas sequente continuara a valer punctos duple usque tu falle a vincer un partita. 
+Isto es, un victoria valera 4 punctos; un partita nulle 2 punctos; e un perdita remane valente nulle puncto.
+
+Per exemplo, duo victorias sequite per un partita nulle valera 6 punctos: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Arena Berserk</string>
   <string name="howIsTheWinnerDecided">Como on decide le vincitor del torneo?</string>
   <string name="howIsTheWinnerDecidedAnswer">Le jocator(es) con plus punctos al fin del limite de tempore del torneo essera annunciate le vincitor(es).</string>
