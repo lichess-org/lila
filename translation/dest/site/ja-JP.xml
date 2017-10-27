@@ -730,4 +730,5 @@
   <string name="notifications">通知</string>
   <string name="challenges">チャレンジ</string>
   <string name="perfRatingX">レーティング: %s</string>
+  <string name="xSecondsToPlayTheFirstMove">%s 秒以内に第 1 手を指してください</string>
 </resources>
