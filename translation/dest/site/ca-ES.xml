@@ -55,7 +55,10 @@
   <string name="goDeeper">Enfonsat més</string>
   <string name="showThreat">Mostra l\'amenaça</string>
   <string name="inLocalBrowser">en navegador local</string>
+  <string name="toggleLocalEvaluation">Activar avaluació local</string>
   <string name="move">Moviment</string>
+  <string name="variantLoss">Variant perdedora</string>
+  <string name="variantWin">Variant guanyadora</string>
   <string name="insufficientMaterial">Material insuficient</string>
   <string name="pawnMove">Moviment de peó</string>
   <string name="capture">Captura</string>
@@ -69,6 +72,7 @@
   <string name="averageRatingX">Puntuació mitjana: %s</string>
   <string name="recentGames">Partides recents</string>
   <string name="topGames">Millor partides</string>
+  <string name="masterDbExplanation">Dos mil·lions de partides OTB de jugadors amb ELO FIDE +%1$s des de %2$s fins a %3$s</string>
   <string name="noGameFound">No s\'ha trobat cap joc</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Potser incloure més jocs desde el menú de preferències?</string>
   <string name="openingExplorer">Explorador d\'obertures i tablebases</string>
