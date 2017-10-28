@@ -11,16 +11,14 @@ import views._
 
 object Editor extends LilaController {
 
-  private lazy val positionsJson = Html {
-    Json stringify {
-      JsArray(chess.StartingPosition.all map { p =>
-        Json.obj(
-          "eco" -> p.eco,
-          "name" -> p.name,
-          "fen" -> p.fen
-        )
-      })
-    }
+  private lazy val positionsJson = lila.common.String.html.safeJson {
+    JsArray(chess.StartingPosition.all map { p =>
+      Json.obj(
+        "eco" -> p.eco,
+        "name" -> p.name,
+        "fen" -> p.fen
+      )
+    })
   }
 
   def index = load("")
