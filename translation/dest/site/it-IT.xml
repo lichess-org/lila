@@ -416,6 +416,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="biography">Biografia</string>
   <string name="country">Paese</string>
   <string name="preferences">Preferenze</string>
+  <string name="inlineNotation">Notazione in linea</string>
   <string name="watchLichessTV">Guarda la TV di Lichess</string>
   <string name="previouslyOnLichessTV">Già visti sulla TV di Lichess</string>
   <string name="onlinePlayers">Giocatori online</string>
@@ -760,4 +761,5 @@ in %3$s</string>
   <string name="notifications">Notifiche</string>
   <string name="challenges">Sfide</string>
   <string name="perfRatingX">Punteggio: %s</string>
+  <string name="xSecondsToPlayTheFirstMove">%s secondi per giocare la prima mossa</string>
 </resources>
