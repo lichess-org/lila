@@ -54,8 +54,6 @@ object String {
     private def nl2brUnsafe(text: String): String =
       text.replace("\r\n", "<br />").replace("\n", "<br />")
 
-    def nl2br(text: String) = Html(nl2brUnsafe(text))
-
     def shortenWithBr(text: String, length: Int) = Html {
       nl2brUnsafe(escapeHtmlUnsafe(text.take(length))).replace("<br /><br />", "<br />")
     }
@@ -66,7 +64,7 @@ object String {
       else escapeHtml(t)
     }
 
-    def autoLink(text: String): Html = nl2br(addUserProfileLinksUnsafe(addLinksUnsafe(escapeHtmlUnsafe(text))))
+    def autoLink(text: String): Html = Html(nl2brUnsafe(addUserProfileLinksUnsafe(addLinksUnsafe(escapeHtmlUnsafe(text)))))
     private val urlRegex = """(?i)\b((https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,6}\/)((?:[`!\[\]{};:'".,<>?«»“”‘’]*[^\s`!\[\]{}\(\);:'".,<>?«»“”‘’])*))""".r
     // private val imgRegex = """(?:(?:https?:\/\/))[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b(?:[-a-zA-Z0-9@:%_\+.~#?&\/=]*(\.jpg|\.png|\.jpeg))""".r
     private val netDomain = "lichess.org" // whatever...
@@ -156,11 +154,11 @@ object String {
 
     private val markdownLinkRegex = """\[([^\[]+)\]\(([^\)]+)\)""".r
 
-    def markdownLinks(text: String): Html = nl2br {
+    def markdownLinks(text: String): Html = Html(nl2brUnsafe {
       markdownLinkRegex.replaceAllIn(escapeHtmlUnsafe(text), m => {
         s"""<a href="${m group 2}">${m group 1}</a>"""
       })
-    }
+    })
 
     private def safeJsonString(s: String): String = {
       // Slightly relaxed rule 3 from
