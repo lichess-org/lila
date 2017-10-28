@@ -11,7 +11,7 @@
     <div
       class="mini_board parse_fen is2d"
       data-playable="1"
-      data-x="@encodeFen(Json.stringify(Json.toJson(captcha.moves)))"
+      data-x="@encodeFen(safeJsonValue(Json.toJson(captcha.moves)))"
       data-y="@encodeFen(captcha.white.fold("white", "black"))"
       data-z="@encodeFen(captcha.fen)">@miniBoardContent</div>
   </div>

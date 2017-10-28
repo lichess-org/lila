@@ -6,7 +6,7 @@
 @jsAt("javascripts/vendor/dragscroll.js")
 @embedJs {
 var app = LichessTournamentSchedule.app(document.getElementById('tournament_schedule'), {
-data: @Html(J.stringify(json)),
+data: @safeJson(json),
 i18n: @jsI18n()
 });
 lichess.StrongSocket.defaults.params.flag = "tournament";

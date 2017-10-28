@@ -12,13 +12,7 @@ trait JsonHelper {
     map mapKeys (_.toString)
   }
 
-  def toJson[A: Writes](a: A): Html = Html {
-    Json stringify {
-      Json toJson a
-    }
-  }
-
-  def J = Json
+  def toJson[A: Writes](a: A): Html = lila.common.String.html.safeJson(Json toJson a)
 
   def htmlOrNull[A, B](a: Option[A])(f: A => Html) = a.fold(Html("null"))(f)
 

@@ -1,5 +1,7 @@
 @(data: play.api.libs.json.JsObject, userTimeline: Vector[lila.timeline.Entry], forumRecent: List[lila.forum.MiniForumPost], tours: List[Tournament], events: List[lila.event.Event], simuls: List[lila.simul.Simul], featured: Option[Game], leaderboard: List[User.LightPerf], tournamentWinners: List[lila.tournament.Winner], puzzle: Option[lila.puzzle.DailyPuzzle], streams: List[lila.tv.StreamOnAir], lastPost: List[lila.blog.MiniPost], playban: Option[lila.playban.TempBan], currentGame: Option[lila.app.mashup.Preload.CurrentGame], nbRounds: Int)(implicit ctx: Context)
 
+@import play.api.libs.json.Json
+
 @underchat = {
 <div id="featured_game">
   @featured.map { g =>
@@ -57,12 +59,12 @@
 @embedJs {
 window.customWS = true;
 lichess_lobby = {
-data: @Html(J.stringify(data)),
+data: @safeJson(data),
 playban: @playban.fold(Html("null")){ pb =>
-@Html(J.stringify(J.obj("minutes" -> pb.mins, "remainingSeconds" -> (pb.remainingSeconds + 3))))
+@safeJson(Json.obj("minutes" -> pb.mins, "remainingSeconds" -> (pb.remainingSeconds + 3)))
 },
 currentGame: @currentGame.fold(Html("null")) { cg =>
-@Html(J.stringify(cg.json))
+@safeJson(cg.json)
 },
 i18n: @jsI18n()
 };

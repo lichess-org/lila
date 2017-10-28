@@ -10,7 +10,7 @@
 window.customWS = true;
 window.onload = function() {
 LichessRound.boot({
-data: @Html(J.stringify(data)),
+data: @safeJson(data),
 i18n: @jsI18n(pov.game),
 userId: @jsUserId,
 @tour.map { t =>

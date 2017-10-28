@@ -6,7 +6,7 @@
 @moreJs = {
 @jsAt(s"compiled/lichess.editor${isProd??(".min")}.js")
 @embedJs {
-var data = @Html(J.stringify(JsData(sit, fen, animationDuration)));
+var data = @safeJson(JsData(sit, fen, animationDuration));
 data.positions = @positionsJson;
 LichessEditor(document.getElementById('board_editor'), data);
 }

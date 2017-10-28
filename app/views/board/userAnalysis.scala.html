@@ -14,7 +14,7 @@
 @embedJs {
 lichess = lichess || {};
 lichess.user_analysis = {
-data: @Html(play.api.libs.json.Json.stringify(data)),
+data: @safeJson(data),
 i18n: @userAnalysisI18n(),
 explorer: {
 endpoint: "@explorerEndpoint",
