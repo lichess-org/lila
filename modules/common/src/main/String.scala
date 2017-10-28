@@ -60,7 +60,7 @@ object String {
 
     def shorten(text: String, length: Int, sep: String = "…"): Html = {
       val t = text.replace("\n", " ")
-      if (t.size > (length + sep.size)) Html(escapeHtmlUnsafe(t take length) ++ sep)
+      if (t.size > (length + sep.size)) Html(escapeHtmlUnsafe(t.take(length) ++ sep))
       else escapeHtml(t)
     }
 
