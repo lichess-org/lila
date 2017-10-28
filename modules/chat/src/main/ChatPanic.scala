@@ -9,7 +9,7 @@ final class ChatPanic {
   private var until: Option[DateTime] = none
 
   def allowed(u: User) = !enabled || {
-    u.count.game > 10 && u.createdSinceDays(2)
+    u.count.game > 10 && u.createdSinceDays(1)
   }
 
   def enabled = until.isDefined
