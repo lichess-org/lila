@@ -72,6 +72,13 @@ final class SlackApi(
     channel = "commlog"
   ))
 
+  def chatPanic(mod: User, v: Boolean): Funit = client(SlackMessage(
+    username = mod.username,
+    icon = if (v) "anger" else "information_source",
+    text = if (v) "Enabled Chat Panic" else "Disabled Chat Panic",
+    channel = "tavern"
+  ))
+
   def publishError(msg: String): Funit = client(SlackMessage(
     username = "lichess error",
     icon = "lightning",

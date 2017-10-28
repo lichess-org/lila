@@ -299,7 +299,9 @@ object Mod extends LilaController {
 
   def chatPanicPost = SecureBody(_.MarkTroll) { implicit ctx => me =>
     implicit val req = ctx.body
-    Env.chat.panic.set(getBool("v"))
+    val v = getBool("v")
+    Env.chat.panic.set(v)
+    Env.slack.api.chatPanic(me, v)
     Redirect(routes.Mod.chatPanic).fuccess
   }
 
