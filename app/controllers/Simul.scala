@@ -39,11 +39,16 @@ object Simul extends LilaController {
         for {
           version <- env.version(sim.id)
           json <- env.jsonView(sim)
-          chat <- ctx.noKid ?? Env.chat.api.userChat.cached.findMine(Chat.Id(sim.id), ctx.me).map(some)
+          chat <- canHaveChat ?? Env.chat.api.userChat.cached.findMine(Chat.Id(sim.id), ctx.me).map(some)
           _ <- chat ?? { c => Env.user.lightUserApi.preloadMany(c.chat.userIds) }
         } yield html.simul.show(sim, version, json, chat)
       }
     } map NoCache
+  }
+
+  private[controllers] def canHaveChat(implicit ctx: Context): Boolean = ctx.me ?? { u =>
+    if (ctx.kid) false
+    else Env.chat.panic allowed u
   }
 
   def start(simulId: String) = Open { implicit ctx =>

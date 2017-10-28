@@ -293,6 +293,16 @@ object Mod extends LilaController {
     }
   }
 
+  def chatPanic = Secure(_.MarkTroll) { implicit ctx => me =>
+    Ok(html.mod.chatPanic(Env.chat.panic.get)).fuccess
+  }
+
+  def chatPanicPost = SecureBody(_.MarkTroll) { implicit ctx => me =>
+    implicit val req = ctx.body
+    Env.chat.panic.set(getBool("v"))
+    Redirect(routes.Mod.chatPanic).fuccess
+  }
+
   private def withSuspect(username: String)(f: Suspect => Fu[Result])(implicit ctx: Context) =
     Env.report.api getSuspect username flatMap {
       _.fold(notFound)(f)

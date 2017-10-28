@@ -36,6 +36,11 @@
 @if(isGranted(_.AssetVersion)) {
 <a class="@active.active("asset")" href="@routes.Dev.assetVersion">Asset version @ctx.pageData.assetVersion</a>
 }
+@if(isGranted(_.MarkTroll)) {
+<a class="@active.active("panic")" href="@routes.Mod.chatPanic">
+  Chat Panic <strong>@if(isChatPanicEnabled){ON}else{OFF}</strong>
+</a>
+}
 @if(isGranted(_.StaffForum)) {
 <a class="@active.active("forum")" href="@routes.ForumCateg.show(lila.forum.Categ.staffId)">Staff Forum</a>
 }

@@ -41,6 +41,8 @@ final class Env(
     netDomain = NetDomain
   )
 
+  val panic = new ChatPanic
+
   system.scheduler.schedule(TimeoutCheckEvery, TimeoutCheckEvery) {
     timeout.checkExpired foreach api.userChat.reinstate
   }
