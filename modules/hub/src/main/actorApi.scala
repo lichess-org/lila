@@ -57,6 +57,7 @@ package mod {
   case class MarkCheater(userId: String, value: Boolean)
   case class MarkBooster(userId: String)
   case class ChatTimeout(mod: String, user: String, reason: String)
+  case class Shadowban(user: String, value: Boolean)
   case class KickFromRankings(userId: String)
 }
 

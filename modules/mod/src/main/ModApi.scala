@@ -68,8 +68,10 @@ final class ModApi(
     val changed = value != prev.user.troll
     val sus = prev.set(_.copy(troll = value))
     changed ?? {
-      UserRepo.updateTroll(sus.user).void >>-
+      UserRepo.updateTroll(sus.user).void >>- {
         logApi.troll(mod, sus)
+        lilaBus.publish(lila.hub.actorApi.mod.Shadowban(sus.user.id, value), 'shadowban)
+      }
     } >>
       reportApi.process(mod, sus, Set(Room.Coms)) >>- {
         if (value) notifier.reporters(mod, sus)

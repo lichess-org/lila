@@ -1,6 +1,7 @@
 package lila.team
 
 import com.typesafe.config.Config
+import akka.actor._
 
 import lila.notify.NotifyApi
 
@@ -8,7 +9,7 @@ final class Env(
     config: Config,
     hub: lila.hub.Env,
     notifyApi: NotifyApi,
-    system: akka.actor.ActorSystem,
+    system: ActorSystem,
     asyncCache: lila.memo.AsyncCache.Builder,
     db: lila.db.Env
 ) {
@@ -52,6 +53,12 @@ final class Env(
   lazy val cached = new Cached(asyncCache)(system)
 
   private lazy val notifier = new Notifier(notifyApi = notifyApi)
+
+  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
+    def receive = {
+      case lila.hub.actorApi.mod.Shadowban(userId, true) => RequestRepo deleteByUserId userId
+    }
+  })), 'shadowban)
 }
 
 object Env {

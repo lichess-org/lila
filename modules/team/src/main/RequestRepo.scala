@@ -32,4 +32,7 @@ object RequestRepo {
   def selectId(teamId: ID, userId: ID) = $id(Request.makeId(teamId, userId))
   def teamQuery(teamId: ID) = $doc("team" -> teamId)
   def teamsQuery(teamIds: List[ID]) = $doc("team" $in teamIds)
+
+  def deleteByUserId(userId: lila.user.User.ID) =
+    coll.remove($doc("user" -> userId))
 }
