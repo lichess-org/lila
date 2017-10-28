@@ -96,13 +96,13 @@
   <string name="outOfCheckComplete">Поздравляем! Ваш король не сможет быть взят, убедитесь, что вы можете защитить его от шаха!</string>
   <string name="mateInOne">Мат в один ход</string>
   <string name="defeatTheOpponentsKing">Поражение короля противника</string>
-  <string name="mateInOneIntro">Вы выигрываете, когда ваш оппонент не может защищаться от шаха.</string>
+  <string name="mateInOneIntro">Вы выигрываете, когда ваш оппонент не может защититься от шаха.</string>
   <string name="attackYourOpponentsKing">Атакуйте короля вашего противника таким образом, чтобы его нельзя было защитить!</string>
   <string name="mateInOneComplete">Поздравляем! Таким образом вы выиграете в шахматы!</string>
   <string name="intermediate">Промежуточный этап</string>
   <string name="boardSetup">Позиция на доске</string>
   <string name="howTheGameStarts">Начало шахматной партии</string>
-  <string name="boardSetupIntro">Обе армии сражаются друг с другом, готовые к битве.</string>
+  <string name="boardSetupIntro">Две армии, друг напротив друга, готовы к битве.</string>
   <string name="thisIsTheInitialPosition">Это - начальная позиция в шахматах! Сделайте любой ход, чтобы продолжить.</string>
   <string name="firstPlaceTheRooks">Сначала расставьте ладьи!
 Они находятся по углам.</string>
