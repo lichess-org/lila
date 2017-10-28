@@ -6,10 +6,12 @@ import play.twirl.api.Html
 object String {
 
   private val slugR = """[^\w-]""".r
+  private val slugMultiDashRegex = """-{2,}""".r
 
   def slugify(input: String) = {
     val nowhitespace = input.trim.replace(" ", "-")
-    val normalized = Normalizer.normalize(nowhitespace, Normalizer.Form.NFD)
+    val singleDashes = slugMultiDashRegex.replaceAllIn(nowhitespace, "-")
+    val normalized = Normalizer.normalize(singleDashes, Normalizer.Form.NFD)
     val slug = slugR.replaceAllIn(normalized, "")
     slug.toLowerCase
   }
