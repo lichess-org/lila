@@ -11,7 +11,7 @@
 @embedJs {
 lichess = lichess || {};
 lichess.tournament = {
-data: @Html(play.api.libs.json.Json.stringify(data)),
+data: @safeJson(data),
 i18n: @jsI18n(),
 userId: @jsUserId,
 chat: @jsOrNull(chatOption map { c =>

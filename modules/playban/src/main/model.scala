@@ -27,7 +27,8 @@ case class UserRecord(
   }
 
   def bannable: Option[TempBan] = {
-    nbBadOutcomes >= (badOutcomeRatio * nbOutcomes atLeast minBadOutcomes)
+    outcomes.lastOption.exists(_ != Outcome.Good) &&
+      nbBadOutcomes >= (badOutcomeRatio * nbOutcomes atLeast minBadOutcomes)
   } option TempBan.make(bans)
 }
 

@@ -1,5 +1,5 @@
 @()(implicit ctx: Context)
-@Html(J.stringify(i18nJsObject(
+@safeJson(i18nJsObject(
 trans.standing,
 trans.starting,
 trans.tournamentIsStarting,
@@ -26,4 +26,4 @@ trans.viewMoreTournaments,
 trans.averageOpponent,
 trans.rated,
 trans.casual
-)))
+))

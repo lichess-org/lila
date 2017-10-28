@@ -1,5 +1,5 @@
 @()(implicit ctx: Context)
-@Html(J.stringify(i18nJsObject(
+@safeJson(i18nJsObject(
 trans.flipBoard,
 trans.gameAborted,
 trans.checkmate,
@@ -90,4 +90,4 @@ trans.maybeIncludeMoreGamesFromThePreferencesMenu,
 trans.winPreventedBy50MoveRule,
 trans.lossSavedBy50MoveRule,
 trans.allSet
-)))
+))

@@ -91,9 +91,6 @@ trait AssetHelper { self: I18nHelper =>
       s"""<script src="$local"></script>"""
   }
 
-  def embedJs(js: String): Html = Html {
-    val escaped = js.replace("</script", "<|script")
-    s"""<script>$escaped</script>"""
-  }
-  def embedJs(js: Html): Html = embedJs(js.body)
+  def embedJsUnsafe(js: String): Html = Html(s"""<script>$js</script>""")
+  def embedJs(js: Html): Html = embedJsUnsafe(js.body)
 }

@@ -1,5 +1,6 @@
 @(g: Game)(implicit ctx: Context)
-@Html(J.stringify(i18nJsObject(
+@import play.api.libs.json.Json
+@safeJson(i18nJsObject(
 trans.flipBoard,
 trans.aiNameLevelAiLevel,
 trans.yourTurn,
@@ -57,8 +58,8 @@ trans.xSecondsToPlayTheFirstMove
 trans.kingInTheCenter,
 trans.threeChecks,
 trans.variantEnding
-), J.obj()) ++ g.isTournament.fold(i18nJsObject(
+), Json.obj()) ++ g.isTournament.fold(i18nJsObject(
 trans.backToTournament,
 trans.viewTournament,
 trans.standing
-), J.obj())))
+), Json.obj()))
