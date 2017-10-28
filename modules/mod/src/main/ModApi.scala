@@ -64,7 +64,7 @@ final class ModApi(
       case true =>
     }
 
-  def setTroll(mod: Mod, prev: Suspect, value: Boolean): Funit = {
+  def setTroll(mod: Mod, prev: Suspect, value: Boolean): Fu[Suspect] = {
     val changed = value != prev.user.troll
     val sus = prev.set(_.copy(troll = value))
     changed ?? {
@@ -73,7 +73,7 @@ final class ModApi(
     } >>
       reportApi.process(mod, sus, Set(Room.Coms)) >>- {
         if (value) notifier.reporters(mod, sus)
-      }
+      } inject sus
   }
 
   def setBan(mod: Mod, prev: Suspect, value: Boolean): Funit = for {

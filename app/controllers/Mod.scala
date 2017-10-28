@@ -24,7 +24,7 @@ object Mod extends LilaController {
       for {
         inquiry <- Env.report.api.inquiries ofModId me.id
         _ <- modApi.setEngine(AsMod(me), sus, v)
-        res <- Report.onInquiryClose(inquiry, me)
+        res <- Report.onInquiryClose(inquiry, me, sus.some)
       } yield res
     }
   }
@@ -49,21 +49,21 @@ object Mod extends LilaController {
     withSuspect(username) { prev =>
       for {
         inquiry <- Env.report.api.inquiries ofModId me.id
-        _ <- modApi.setTroll(AsMod(me), prev, v)
-        res <- Report.onInquiryClose(inquiry, me)
+        suspect <- modApi.setTroll(AsMod(me), prev, v)
+        res <- Report.onInquiryClose(inquiry, me, suspect.some)
       } yield res
     }
   }
 
   def warn(username: String, subject: String) = SecureBody(_.ModMessage) { implicit ctx => me =>
     lila.message.ModPreset.bySubject(subject).fold(notFound) { preset =>
-      withSuspect(username) { sus =>
+      withSuspect(username) { prev =>
         for {
           inquiry <- Env.report.api.inquiries ofModId me.id
-          _ <- modApi.setTroll(AsMod(me), sus, sus.user.troll)
-          thread <- Env.message.api.sendPreset(me, sus.user, preset)
+          suspect <- modApi.setTroll(AsMod(me), prev, prev.user.troll)
+          thread <- Env.message.api.sendPreset(me, suspect.user, preset)
           _ <- Env.mod.logApi.modMessage(thread.creatorId, thread.invitedId, thread.name)
-          res <- Report.onInquiryClose(inquiry, me)
+          res <- Report.onInquiryClose(inquiry, me, suspect.some)
         } yield res
       }
     }
@@ -215,7 +215,7 @@ object Mod extends LilaController {
 
   def spontaneousInquiry(username: String) = Secure(_.SeeReport) { implicit ctx => me =>
     OptionFuResult(UserRepo named username) { user =>
-      Env.report.api.inquiries.spontaneous(AsMod(me), Suspect(user)) inject Redirect(routes.User.show(user.username) + "?mod")
+      Env.report.api.inquiries.spontaneous(AsMod(me), Suspect(user)) inject redirect(user.username, true)
     }
   }
 
