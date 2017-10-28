@@ -38,7 +38,7 @@ final class RatingChartApi(
 
   private def build(user: User): Fu[Option[String]] =
     historyApi get user.id map2 { (history: History) =>
-      Json stringify {
+      lila.common.String.html.safeJsonValue {
         Json.toJson {
           import lila.rating.PerfType._
           List(Bullet, Blitz, Classical, Correspondence, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings, Crazyhouse, Puzzle, UltraBullet) map { pt =>

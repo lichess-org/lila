@@ -177,7 +177,7 @@ object String {
       s""""${escaped}""""
     }
 
-    private def safeJsonValue(jsValue: JsValue): String = {
+    def safeJsonValue(jsValue: JsValue): String = {
       // Borrowed from:
       // https://github.com/playframework/play-json/blob/160f66a84a9c5461c52b50ac5e222534f9e05442/play-json/js/src/main/scala/StaticBinding.scala#L65
       jsValue match {
