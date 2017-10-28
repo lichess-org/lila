@@ -30,10 +30,7 @@ object Mod extends LilaController {
   }
 
   def publicChat = Secure(_.ChatTimeout) { implicit ctx => _ =>
-    val tourChats = Env.mod.publicChat.tournamentChats
-    val simulChats = Env.mod.publicChat.simulChats
-
-    tourChats zip simulChats map {
+    Env.mod.publicChat.all map {
       case (tournamentsAndChats, simulsAndChats) =>
         Ok(html.mod.publicChat(tournamentsAndChats, simulsAndChats))
     }
@@ -73,6 +70,10 @@ object Mod extends LilaController {
     withSuspect(username) { sus =>
       modApi.setBan(AsMod(me), sus, v)
     } inject redirect(username)
+  }
+
+  def deleteChats(username: String) = Secure(_.MarkTroll) { implicit ctx => me =>
+    withSuspect(username)(Env.mod.publicChat.delete) inject redirect(username)
   }
 
   def closeAccount(username: String) = Secure(_.CloseAccount) { implicit ctx => me =>

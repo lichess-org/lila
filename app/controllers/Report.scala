@@ -41,7 +41,7 @@ object Report extends LilaController {
   private def onInquiryStart(inquiry: ReportModel) =
     inquiry.room match {
       case Room.Coms => Redirect(routes.Mod.communicationPrivate(inquiry.user))
-      case _ => Mod.redirect(inquiry.user, true)
+      case _ => Mod.redirect(inquiry.user)
     }
 
   protected[controllers] def onInquiryClose(
@@ -57,7 +57,7 @@ object Report extends LilaController {
     inquiry match {
       case None => {
         goTo.fold(Redirect(routes.Report.list)) { s =>
-          Mod.redirect(s.user.username, true)
+          Mod.redirect(s.user.username)
         }.fuccess
       }
       case Some(prev) =>

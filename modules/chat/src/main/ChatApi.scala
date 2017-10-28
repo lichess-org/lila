@@ -1,8 +1,8 @@
 package lila.chat
 
-import scala.concurrent.duration._
 import chess.Color
 import reactivemongo.api.ReadPreference
+import scala.concurrent.duration._
 
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
@@ -123,6 +123,14 @@ final class ChatApi(
             mod = mod.id, user = user.id, reason = reason.key
           )
         }
+    }
+
+    def delete(c: UserChat, user: User): Funit = {
+      val chat = c.markDeleted(user)
+      coll.update($id(chat.id), chat).void >>- {
+        cached invalidate chat.id
+        lilaBus.publish(actorApi.OnTimeout(user.username), channelOf(chat.id))
+      }
     }
 
     private def isMod(user: User) = lila.security.Granter(_.ChatTimeout)(user)

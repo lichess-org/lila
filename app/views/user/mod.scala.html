@@ -33,6 +33,11 @@
   <form method="post" action="@routes.Mod.troll(u.username, !u.troll)" data-hint="@if(u.troll){En}else{Dis}able communication features for this user." class="hint--bottom">
     <input class="button@when(u.troll, " active")" type="submit" value="Shadowban" />
   </form>
+  @if(u.troll) {
+  <form method="post" action="@routes.Mod.deleteChats(u.username)" data-hint="Delete all chat messages in ongoing public chats" class="hint--bottom">
+    <input class="button" type="submit" value="Clear chats" />
+  </form>
+  }
   }
   @if(isGranted(_.IpBan)) {
   <form method="post" action="@routes.Mod.ban(u.username, !u.ipBan)" data-hint="Bans all @spy.ips.size IPs under this account from logging into this site." class="hint--bottom-left">

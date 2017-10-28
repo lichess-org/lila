@@ -39,6 +39,8 @@ case class UserChat(
     }
   )
 
+  def hasLinesOf(u: User) = lines.exists(_.userId == u.id)
+
   def add(line: UserLine) = copy(lines = lines :+ line)
 
   def mapLines(f: UserLine => UserLine) = copy(lines = lines map f)

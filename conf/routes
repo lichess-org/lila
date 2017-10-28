@@ -359,6 +359,7 @@ POST  /mod/:username/engine/:v         controllers.Mod.engine(username: String, 
 POST  /mod/:username/booster/:v        controllers.Mod.booster(username: String, v: Boolean)
 POST  /mod/:username/troll/:v          controllers.Mod.troll(username: String, v: Boolean)
 POST  /mod/:username/ban/:v            controllers.Mod.ban(username: String, v: Boolean)
+POST  /mod/:username/delete-chats      controllers.Mod.deleteChats(username: String)
 POST  /mod/:username/warn              controllers.Mod.warn(username: String, subject: String)
 POST  /mod/:username/close             controllers.Mod.closeAccount(username: String)
 POST  /mod/:username/reopen            controllers.Mod.reopenAccount(username: String)

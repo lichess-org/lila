@@ -1,6 +1,7 @@
 package lila.mod
 
 import lila.chat.{ Chat, UserChat }
+import lila.report.Suspect
 import lila.simul.Simul
 import lila.tournament.Tournament
 
@@ -10,7 +11,18 @@ final class PublicChat(
     simulEnv: lila.simul.Env
 ) {
 
-  def tournamentChats: Fu[List[(Tournament, UserChat)]] =
+  def all: Fu[(List[(Tournament, UserChat)], List[(Simul, UserChat)])] =
+    tournamentChats zip simulChats
+
+  def delete(suspect: Suspect): Funit = all.flatMap {
+    case (tours, simuls) =>
+      (tours.map(_._2) ::: simuls.map(_._2))
+        .filter(_ hasLinesOf suspect.user)
+        .map(chatApi.userChat.delete(_, suspect.user))
+        .sequenceFu.void
+  }
+
+  private def tournamentChats: Fu[List[(Tournament, UserChat)]] =
     tournamentApi.fetchVisibleTournaments.flatMap {
       visibleTournaments =>
         val ids = visibleTournaments.all.map(_.id) map Chat.Id.apply
@@ -22,7 +34,7 @@ final class PublicChat(
         } map sortTournamentsByRelevance
     }
 
-  def simulChats: Fu[List[(Simul, UserChat)]] =
+  private def simulChats: Fu[List[(Simul, UserChat)]] =
     fetchVisibleSimuls.flatMap {
       simuls =>
         val ids = simuls.map(_.id) map Chat.Id.apply

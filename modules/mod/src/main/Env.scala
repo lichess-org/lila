@@ -56,6 +56,8 @@ final class Env(
     wasUnengined = logApi.wasUnengined
   )
 
+  lazy val publicChat = new PublicChat(chatApi, tournamentApi, simulEnv)
+
   lazy val api = new ModApi(
     logApi = logApi,
     userSpy = userSpy,
@@ -90,8 +92,6 @@ final class Env(
     asyncCache = asyncCache,
     historyColl = db(CollectionGamingHistory)
   )
-
-  lazy val publicChat = new PublicChat(chatApi, tournamentApi, simulEnv)
 
   lazy val search = new UserSearch(
     securityApi = securityApi,
