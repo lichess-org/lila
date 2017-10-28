@@ -74,7 +74,7 @@ object String {
      * @param text The text to regex match
      * @return The text as a HTML hyperlink
      */
-    def addUserProfileLinks(text: String) = Html(addUserProfileLinksUnsafe(text))
+    def addUserProfileLinks(html: Html) = Html(addUserProfileLinksUnsafe(html.body))
 
     private def addUserProfileLinksUnsafe(text: String): String =
       atUsernameRegex.replaceAllIn(text, m => {
@@ -82,7 +82,7 @@ object String {
         s"""<a href="/@/$user">@$user</a>"""
       })
 
-    def addLinks(text: String) = Html(addLinksUnsafe(text))
+    def addLinks(html: Html) = Html(addLinksUnsafe(html.body))
 
     private def addLinksUnsafe(text: String): String = try {
       urlRegex.replaceAllIn(text, m => {
