@@ -1,8 +1,8 @@
 package lila.common
 
 import java.text.Normalizer
-import play.twirl.api.Html
 import play.api.libs.json._
+import play.twirl.api.Html
 
 object String {
 
@@ -162,21 +162,31 @@ object String {
       })
     }
 
-    private def safeJsonString(str: String): String = {
+    private def safeJsonString(s: String): String = {
       // Slightly relaxed rule 3 from
       // https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet:
       // We do not care about unquoted attributes.
-      val escaped = str.flatMap { c =>
-        val code = c.toInt
-        if (c != '<' && c != '>' && c != '&' && c != '"' && c != '\'' && /* html */
+      // benchmarks: https://github.com/ornicar/lila-jmh-benchmarks/blob/master/src/main/scala/SafeJsonStringTest.scala
+      val sb = new StringBuilder(s.size + 2)
+      sb.append('"')
+      var i = 0
+      while (i < s.length) {
+        val c = s charAt i
+        if (c >= ' ' && c <= '~' && /* printable ascii 32-126 */
+          c != '<' && c != '>' && c != '&' && c != '"' && c != '\'' && /* html */
           c != '\\' && /* remaining js */
-          c != '`' && c != '/' && /* extra care */
-          32 <= code && code <= 126 /* printable ascii */ ) Some(c) else {
-          def hexCode = code.toHexString.reverse.padTo(4, '0').reverse
-          '\\' +: s"u${hexCode.toUpperCase}"
+          c != '`' && c != '/' /* extra care */ ) sb.append(c)
+        else {
+          if (c <= '\u000f') sb.append("\\u000")
+          else if (c <= '\u00ff') sb.append("\\u00")
+          else if (c <= '\u0fff') sb.append("\\u0")
+          else sb.append("\\u")
+          sb.append(c.toInt.toHexString.toUpperCase)
         }
+        i += 1
       }
-      s""""${escaped}""""
+      sb.append('"')
+      sb.toString
     }
 
     def safeJsonValue(jsValue: JsValue): String = {
