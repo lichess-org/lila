@@ -2,6 +2,7 @@ package lila.common
 
 import java.text.Normalizer
 import play.twirl.api.Html
+import play.api.libs.json._
 
 object String {
 
@@ -158,5 +159,42 @@ object String {
         s"""<a href="${m group 2}">${m group 1}</a>"""
       })
     }
+
+    private def safeJsonString(str: String): String = {
+      // Slightly relaxed rule 3 from
+      // https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet:
+      // We do not care about unquoted attributes.
+      val escaped = str.flatMap { c =>
+        val code = c.toInt
+        if (c != '<' && c != '>' && c != '&' && c != '"' && c != '\'' && /* html */
+          c != '\\' && /* remaining js */
+          c != '`' && c != '/' && /* extra care */
+          32 <= code && code <= 126 /* printable ascii */ ) Some(c) else {
+          def hexCode = code.toHexString.reverse.padTo(4, '0').reverse
+          '\\' +: s"u${hexCode.toUpperCase}"
+        }
+      }
+      s""""${escaped}""""
+    }
+
+    private def safeJsonValue(jsValue: JsValue): String = {
+      // Borrowed from:
+      // https://github.com/playframework/play-json/blob/160f66a84a9c5461c52b50ac5e222534f9e05442/play-json/js/src/main/scala/StaticBinding.scala#L65
+      jsValue match {
+        case JsNull => "null"
+        case JsString(s) => safeJsonString(s)
+        case JsNumber(n) => n.toString
+        case JsBoolean(b) => if (b) "true" else "false"
+        case JsArray(items) => items.map(safeJsonValue).mkString("[", ",", "]")
+        case JsObject(fields) => {
+          fields.map {
+            case (key, value) =>
+              s"${safeJsonString(key)}:${safeJsonValue(value)}"
+          }.mkString("{", ",", "}")
+        }
+      }
+    }
+
+    def safeJson(jsValue: JsValue): Html = Html(safeJsonValue(jsValue))
   }
 }
