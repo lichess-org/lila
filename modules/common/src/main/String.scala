@@ -57,7 +57,7 @@ object String {
     def nl2br(text: String) = Html(nl2brUnsafe(text))
 
     def shortenWithBr(text: String, length: Int) = Html {
-      nl2brUnsafe(escapeHtmlUnsafe(text).take(length)).replace("<br /><br />", "<br />")
+      nl2brUnsafe(escapeHtmlUnsafe(text.take(length))).replace("<br /><br />", "<br />")
     }
 
     def shorten(text: String, length: Int, sep: String = "…"): Html = {
