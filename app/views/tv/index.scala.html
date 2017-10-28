@@ -8,7 +8,7 @@
 window.customWS = true;
 window.onload = function() {
 LichessRound.boot({
-data: @Html(J.stringify(data)),
+data: @safeJson(data),
 i18n: @round.jsI18n(pov.game)
 }, document.getElementById('lichess'));
 };

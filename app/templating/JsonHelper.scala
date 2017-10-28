@@ -14,8 +14,6 @@ trait JsonHelper {
 
   def toJson[A: Writes](a: A): Html = lila.common.String.html.safeJson(Json toJson a)
 
-  def J = Json
-
   def htmlOrNull[A, B](a: Option[A])(f: A => Html) = a.fold(Html("null"))(f)
 
   def jsOrNull[A: Writes](a: Option[A]) = a.fold(Html("null"))(x => toJson(x))

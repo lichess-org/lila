@@ -10,7 +10,7 @@
 @jsAt(s"compiled/lichess.simul${isProd??(".min")}.js")
 @embedJs {
 lichess.simul = {
-data: @Html(J.stringify(data)),
+data: @safeJson(data),
 i18n: @jsI18n(),
 socketVersion: @socketVersion,
 userId: @jsUserId,

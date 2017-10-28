@@ -1,5 +1,5 @@
 @()(implicit ctx: Context)
-@Html(J.stringify(i18nJsObject(
+@safeJson(i18nJsObject(
 trans.realTime,
 trans.correspondence,
 trans.nbGamesInPlay,
@@ -25,4 +25,4 @@ trans.quickPairing,
 trans.lobby,
 trans.custom,
 trans.anonymous
-)))
+))

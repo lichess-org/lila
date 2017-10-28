@@ -14,7 +14,7 @@
 @embedJs {
 lichess = lichess || {};
 lichess.analyse = {
-data: @Html(J.stringify(data)),
+data: @safeJson(data),
 i18n: @jsI18n(),
 userId: @jsUserId,
 chat: @jsOrNull(chatOption map { c =>
