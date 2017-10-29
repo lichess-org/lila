@@ -150,7 +150,7 @@ Springer = 3
 Bonde = 1
 Kongen er uvurderlig! Mister du den er spillet tapt.</string>
   <string name="queenOverBishop">Slå ut brikken 
-med med høyest verdi!
+med høyest verdi!
 Dronning &gt; løper</string>
   <string name="takeThePieceWithTheHighestValue">Slå ut brikken
 med høyest verdi!</string>
@@ -171,7 +171,7 @@ Bonde = 1</string>
   <string name="getAFreeLichessAccount">Få en gratis brukerkonto hos Lichess</string>
   <string name="practice">Øv</string>
   <string name="learnCommonChessPositions">Lær deg de oftest forekommende sjakkstillingene</string>
-  <string name="puzzles">Taktikkoppgaver</string>
+  <string name="puzzles">Sjakknøtter</string>
   <string name="exerciseYourTacticalSkills">Øv opp dine taktiske ferdigheter</string>
   <string name="videos">Videoer</string>
   <string name="watchInstructiveChessVideos">Se instruktive sjakkvideoer</string>
