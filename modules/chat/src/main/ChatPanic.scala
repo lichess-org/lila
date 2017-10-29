@@ -12,7 +12,12 @@ final class ChatPanic {
     u.count.game > 10 && u.createdSinceDays(1)
   }
 
-  def enabled = until.isDefined
+  def enabled = until exists { d =>
+    (d isAfter DateTime.now) || {
+      until = none
+      false
+    }
+  }
 
   def get = until
 
