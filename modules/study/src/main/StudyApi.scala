@@ -335,13 +335,15 @@ final class StudyApi(
       chapterRepo.byIdAndStudy(setTag.chapterId, studyId) flatMap {
         _ ?? { oldChapter =>
           val chapter = oldChapter.setTag(setTag.tag)
-          chapterRepo.setTagsFor(chapter) >> {
-            PgnTags.setRootClockFromTags(chapter) ?? { c =>
-              setClock(userId, study.id, Position(c, Path.root).ref, c.root.clock, uid)
-            }
-          } >>-
-            sendTo(study, Socket.SetTags(chapter.id, chapter.tags, uid))
-        } >>- indexStudy(study)
+          (chapter.tags != oldChapter.tags) ?? {
+            chapterRepo.setTagsFor(chapter) >> {
+              PgnTags.setRootClockFromTags(chapter) ?? { c =>
+                setClock(userId, study.id, Position(c, Path.root).ref, c.root.clock, uid)
+              }
+            } >>-
+              sendTo(study, Socket.SetTags(chapter.id, chapter.tags, uid))
+          } >>- indexStudy(study)
+        }
       }
     }
   }
