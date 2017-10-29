@@ -166,7 +166,7 @@ object String {
       case _ => true
     }
 
-    private def safeJsonString(s: String): String = if (s.forall(isSafe)) s else {
+    private def safeJsonString(s: String): String = if (s.forall(isSafe)) s""""$s"""" else {
       // Slightly relaxed rule 3 from
       // https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet:
       // We do not care about unquoted attributes.
