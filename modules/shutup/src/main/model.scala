@@ -30,6 +30,8 @@ case class TextAnalysis(
   def nbBadWords = badWords.size
 
   def ratio: Double = if (nbWords == 0) 0 else nbBadWords.toDouble / nbWords
+
+  def dirty = ratio > 0
 }
 
 sealed abstract class TextType(

@@ -41,6 +41,8 @@ case class Thread(
 
   def isTooBig = nbPosts > 200
 
+  def firstPost: Option[Post] = posts.headOption
+
   def firstPostUnreadBy(user: User): Option[Post] = posts find isPostUnreadBy(user)
 
   def unreadIndexesBy(user: User): List[Int] = posts.zipWithIndex collect {
