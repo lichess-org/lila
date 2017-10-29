@@ -52,7 +52,6 @@ private final class RelaySync(
           case Some(existing) =>
             gameNode.clock.filter(c => !existing.clock.has(c)) ?? { c =>
               studyApi.setClock(
-                userId = chapter.ownerId,
                 studyId = study.id,
                 position = Position(chapter, path).ref,
                 clock = c.some,
@@ -103,14 +102,16 @@ private final class RelaySync(
       .fold(gameTags) { end =>
         gameTags + Tag(_.Result, end.resultText)
       }
-    lila.common.Future.traverseSequentially(tags.value) { tag =>
-      studyApi.setTag(
-        userId = chapter.ownerId,
-        studyId = study.id,
-        lila.study.actorApi.SetTag(chapter.id, tag.name.name, tag.value),
-        uid = socketUid
-      )
-    }.void
+    val chapterNewTags = tags.value.foldLeft(chapter.tags) {
+      case (chapterTags, tag) => PgnTags(chapterTags + tag)
+    }
+    (chapterNewTags != chapter.tags) ?? studyApi.setTags(
+      userId = chapter.ownerId,
+      studyId = study.id,
+      chapterId = chapter.id,
+      tags = chapterNewTags,
+      uid = socketUid
+    )
   }
 
   private def createChapter(study: Study, game: RelayGame): Fu[Chapter] =

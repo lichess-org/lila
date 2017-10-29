@@ -71,10 +71,6 @@ case class Chapter(
 
   def metadata = Chapter.Metadata(_id = _id, name = name, setup = setup)
 
-  def setTag(tag: Tag) = copy(
-    tags = PgnTags(tags + tag)
-  )
-
   def isPractice = ~practice
   def isGamebook = ~gamebook
   def isConceal = conceal.isDefined

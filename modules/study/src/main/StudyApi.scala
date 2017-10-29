@@ -4,7 +4,7 @@ import akka.actor.{ ActorRef, ActorSelection }
 import scala.concurrent.duration._
 
 import chess.Centis
-import chess.format.pgn.Glyph
+import chess.format.pgn.{ Tags, Glyph }
 import lila.chat.Chat
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.timeline.{ Propagate, StudyCreate, StudyLike }
@@ -317,7 +317,7 @@ final class StudyApi(
     }
   }
 
-  def setClock(userId: User.ID, studyId: Study.Id, position: Position.Ref, clock: Option[Centis], uid: Uid): Funit =
+  def setClock(studyId: Study.Id, position: Position.Ref, clock: Option[Centis], uid: Uid): Funit =
     sequenceStudyWithChapter(studyId, position.chapterId) { sc =>
       sc.chapter.setClock(clock, position.path) match {
         case Some(newChapter) =>
@@ -330,22 +330,28 @@ final class StudyApi(
       }
     }
 
-  def setTag(userId: User.ID, studyId: Study.Id, setTag: actorApi.SetTag, uid: Uid) = sequenceStudy(studyId) { study =>
-    Contribute(userId, study) {
-      chapterRepo.byIdAndStudy(setTag.chapterId, studyId) flatMap {
-        _ ?? { oldChapter =>
-          val chapter = oldChapter.setTag(setTag.tag)
-          (chapter.tags != oldChapter.tags) ?? {
-            chapterRepo.setTagsFor(chapter) >> {
-              PgnTags.setRootClockFromTags(chapter) ?? { c =>
-                setClock(userId, study.id, Position(c, Path.root).ref, c.root.clock, uid)
-              }
-            } >>-
-              sendTo(study, Socket.SetTags(chapter.id, chapter.tags, uid))
-          } >>- indexStudy(study)
-        }
-      }
+  def setTag(userId: User.ID, studyId: Study.Id, setTag: actorApi.SetTag, uid: Uid) = sequenceStudyWithChapter(studyId, setTag.chapterId) {
+    case Study.WithChapter(study, chapter) => Contribute(userId, study) {
+      doSetTags(study, chapter, PgnTags(chapter.tags + setTag.tag), uid)
     }
+  }
+
+  def setTags(userId: User.ID, studyId: Study.Id, chapterId: Chapter.Id, tags: Tags, uid: Uid) = sequenceStudyWithChapter(studyId, chapterId) {
+    case Study.WithChapter(study, chapter) => Contribute(userId, study) {
+      doSetTags(study, chapter, tags, uid)
+    }
+  }
+
+  private def doSetTags(study: Study, oldChapter: Chapter, tags: Tags, uid: Uid): Funit = {
+    val chapter = oldChapter.copy(tags = tags)
+    (chapter.tags != oldChapter.tags) ?? {
+      chapterRepo.setTagsFor(chapter) >> {
+        PgnTags.setRootClockFromTags(chapter) ?? { c =>
+          setClock(study.id, Position(c, Path.root).ref, c.root.clock, uid)
+        }
+      } >>-
+        sendTo(study, Socket.SetTags(chapter.id, chapter.tags, uid))
+    } >>- indexStudy(study)
   }
 
   def setComment(userId: User.ID, studyId: Study.Id, position: Position.Ref, text: Comment.Text, uid: Uid) = sequenceStudyWithChapter(studyId, position.chapterId) {
