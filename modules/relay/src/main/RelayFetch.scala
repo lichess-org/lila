@@ -41,8 +41,10 @@ private final class RelayFetch(
         if (relay.sync.ongoing) processRelay(relay) flatMap { newRelay =>
           api.update(relay)(_ => newRelay)
         }
-        else if (relay.hasStarted) api.update(relay)(_.finish)
-        else fuccess(relay)
+        else if (relay.hasStarted) {
+          logger.warn(s"Finish by lack of activity $relay")
+          api.update(relay)(_.finish)
+        } else fuccess(relay)
       }.sequenceFu.chronometer
         .mon(_.relay.sync.duration.total)
         .result addEffectAnyway scheduleNext
@@ -61,8 +63,12 @@ private final class RelayFetch(
           }
       } recover {
         case e: Exception => (e match {
-          case res @ SyncResult.Timeout => res
-          case _ => SyncResult.Error(e.getMessage)
+          case res @ SyncResult.Timeout =>
+            logger.warn(s"Sync timeout $relay")
+            res
+          case _ =>
+            logger.warn(s"Sync error $relay", e)
+            SyncResult.Error(e.getMessage)
         }) -> relay.withSync(_ addLog SyncLog.event(0, e.some))
       } flatMap {
         case (result, newRelay) => afterSync(result, newRelay)
@@ -72,8 +78,10 @@ private final class RelayFetch(
     lila.mon.relay.sync.result(result.reportKey)()
     result match {
       case SyncResult.Ok(0, games) =>
-        if (games.size > 1 && games.forall(_.finished)) fuccess(relay.finish)
-        else continueRelay(relay)
+        if (games.size > 1 && games.forall(_.finished)) {
+          logger.warn(s"Finish because all games are over $relay")
+          fuccess(relay.finish)
+        } else continueRelay(relay)
       case SyncResult.Ok(nbMoves, games) =>
         lila.mon.relay.moves(nbMoves)
         continueRelay(relay.ensureStarted.resume)

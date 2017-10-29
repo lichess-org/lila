@@ -82,12 +82,15 @@ final class RelayApi(
     repo.coll.find($doc("_id" -> id, "finished" -> false)).uno[Relay]
 
   private[relay] def autoStart: Funit =
-    repo.coll.primitive[Relay.Id]($doc(
+    repo.coll.find($doc(
       "startsAt" $lt DateTime.now.plusMinutes(10), // start 10 minutes early to fetch boards
       "startedAt" $exists false,
       "sync.until" $exists false
-    ), "_id") flatMap {
-      _.map { requestPlay(_, true) }.sequenceFu.void
+    )).list[Relay]() flatMap {
+      _.map { relay =>
+        logger.info(s"Automatically start $relay")
+        requestPlay(relay.id, true)
+      }.sequenceFu.void
     }
 
   private[relay] def autoFinishNotSyncing: Funit =
@@ -97,6 +100,7 @@ final class RelayApi(
       "startedAt" $lt DateTime.now.minusHours(3)
     )).list[Relay]() flatMap {
       _.map { relay =>
+        logger.info(s"Automatically finish $relay")
         update(relay)(_.finish)
       }.sequenceFu.void
     }
