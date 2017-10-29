@@ -281,7 +281,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
       }, [
         visualBoard(ctrl, playerBars),
         h('div.lichess_ground', gamebookPlayView || [
-          menuIsOpen || relayEdit ? null : renderClocks(ctrl),
+          menuIsOpen || playerBars ? null : renderClocks(ctrl),
           menuIsOpen ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
           ...(menuIsOpen ? [actionMenu(ctrl)] : [
             cevalView.renderCeval(ctrl),
