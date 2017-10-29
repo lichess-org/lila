@@ -201,14 +201,14 @@
   <string name="accept">Принять</string>
   <string name="decline">Отклонить</string>
   <string name="playingRightNow">Текущая партия</string>
-  <string name="finished">Сеанс окончен</string>
+  <string name="finished">Закончено</string>
   <string name="abortGame">Отменить игру</string>
   <string name="gameAborted">Игра отменена</string>
   <string name="standard">Классические шахматы</string>
   <string name="unlimited">Без лимита времени</string>
   <string name="mode">Режим</string>
   <string name="casual">Без рейтинга</string>
-  <string name="rated">Рейтинговая</string>
+  <string name="rated">На рейтинг</string>
   <string name="thisGameIsRated">Игра на рейтинг</string>
   <string name="rematch">Реванш</string>
   <string name="rematchOfferSent">Предложение реванша отправлено</string>
