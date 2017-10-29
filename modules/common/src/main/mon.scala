@@ -245,9 +245,6 @@ object mon {
       def confirmEmailResult(v: Boolean) = inc(s"user.register.confirm_email.$v")
     }
     object auth {
-      val shaBcUpgrade = inc("user.auth.sha_bc_upgrade")
-      val bcFullMigrate = inc("user.auth.bc_full_migrate")
-      val shaLogin = inc("user.auth.sha_login")
       val hashTime = rec("user.auth.hash_time")
       val hashTimeInc = incX("user.auth.hash_time_inc")
       def result(v: Boolean) = inc(s"user.auth.result.$v")

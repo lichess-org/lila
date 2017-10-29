@@ -10,9 +10,7 @@ class AuthTest extends Specification {
   val secret = Array.fill(32)(1.toByte).toBase64
   def getAuth(passHasher: PasswordHasher) = new Authenticator(
     passHasher = passHasher,
-    userRepo = null,
-    upgradeShaPasswords = false,
-    onShaLogin = () => ()
+    userRepo = null
   )
 
   val auth = getAuth(new PasswordHasher(secret, 2))

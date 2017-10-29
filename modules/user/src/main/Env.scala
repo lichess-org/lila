@@ -24,7 +24,6 @@ final class Env(
     val CollectionTrophy = config getString "collection.trophy"
     val CollectionRanking = config getString "collection.ranking"
     val PasswordBPassSecret = config getString "password.bpass.secret"
-    val PasswordUpgradeSha = config getBoolean "password.bpass.autoupgrade"
   }
   import settings._
 
@@ -89,9 +88,7 @@ final class Env(
         }
       }
     ),
-    userRepo = UserRepo,
-    upgradeShaPasswords = PasswordUpgradeSha,
-    onShaLogin = lila.mon.user.auth.shaLogin
+    userRepo = UserRepo
   )
 
   lazy val forms = new DataForm(authenticator)

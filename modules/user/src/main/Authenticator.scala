@@ -9,9 +9,7 @@ import lila.user.User.{ ClearPassword, BSONFields => F }
 
 final class Authenticator(
     passHasher: PasswordHasher,
-    userRepo: UserRepo.type,
-    upgradeShaPasswords: Boolean,
-    onShaLogin: () => Unit
+    userRepo: UserRepo.type
 ) {
   import Authenticator._
 
@@ -46,17 +44,10 @@ final class Authenticator(
       $set(F.bpass -> passEnc(p).bytes) ++ $unset(F.salt, F.sha512)
     ).void
 
-  private def authWithBenefits(auth: AuthData)(p: ClearPassword): Boolean = {
-    val res = compare(auth, p)
-    if (res && auth.salt.isDefined && upgradeShaPasswords)
-      setPassword(id = auth._id, p) >>- lila.mon.user.auth.bcFullMigrate()
-    res
-  }
-
   private def loginCandidate(select: Bdoc): Fu[Option[User.LoginCandidate]] =
     userRepo.coll.uno[AuthData](select, authProjection)(AuthDataBSONHandler) zip userRepo.coll.uno[User](select) map {
       case (Some(authData), Some(user)) if user.enabled =>
-        User.LoginCandidate(user, authWithBenefits(authData)).some
+        User.LoginCandidate(user, compare(authData, _)).some
       case _ => none
     }
 }
