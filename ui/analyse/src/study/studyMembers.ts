@@ -172,7 +172,7 @@ export function view(ctrl: StudyCtrl): VNode {
       },
       attrs: { title: contrib ? 'Contributor' : 'Viewer' },
     }, [
-      h('i', { attrs: dataIcon(contrib ? '' : 'v') })
+      h('i', { attrs: dataIcon(contrib ? 'r' : 'v') })
     ]);
   };
 
