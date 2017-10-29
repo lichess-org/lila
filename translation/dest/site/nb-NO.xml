@@ -580,7 +580,7 @@ i %3$s</string>
   <string name="noInternetConnection">Ingen internettilkobling. Du kan fremdeles spille frakoblet fra menyen.</string>
   <string name="connectedToLichess">Du er nå tilkoblet lichess.org</string>
   <string name="signedOut">Du har blitt logget ut.</string>
-  <string name="loginSuccessful">Innlogging suksessfull</string>
+  <string name="loginSuccessful">Du er nå pålogget</string>
   <string name="playOnTheBoardOffline">Spill frakoblet, på enheten</string>
   <string name="playOfflineComputer">Spill frakoblet mot datamaskinen</string>
   <string name="opponent">Motstander</string>
@@ -636,13 +636,13 @@ i %3$s</string>
   <string name="returnToSimulHomepage">Returner til Simultanhjemmesiden</string>
   <string name="aboutSimul">Simultaner består av en enkelt spiller som spiller mot flere spillere samtidig.</string>
   <string name="aboutSimulImage">Mot 50 motstandere, vant Fischer 47 partier, spilte to remis og tapte ett.</string>
-  <string name="aboutSimulRealLife">Konseptet er tatt fra virkelige oppvisninger. I disse oppvisningen beveger den som gjør oppvisning seg fra brett til brett for å gjøre trekk.</string>
+  <string name="aboutSimulRealLife">Konseptet er tatt fra virkelige oppvisninger. I disse oppvisningene beveger den som gjør oppvisning seg fra brett til brett for å gjøre enkelttrekk.</string>
   <string name="aboutSimulRules">Når simultanen begynner, starter hver spiller et parti med den som gjør oppvisning. Den som gjør oppvisning spiller hvit i alle partier og simultanen slutter når alle partier er ferdig.</string>
-  <string name="aboutSimulSettings">Simultaner er alltid uformelle. Funksjoner som \"rematch\", \"takeback\" og \"moretime\" er utilgjengelige.</string>
+  <string name="aboutSimulSettings">Simultanoppvisninger er alltid uformelle. Funksjoner som \"omkamp\", \"ta tilbake trekk\" og \"mer tid\" er utilgjengelige.</string>
   <string name="create">Opprett</string>
-  <string name="whenCreateSimul">Når du oppretter en simultan får du spille mot flere spillere samtidig.</string>
+  <string name="whenCreateSimul">Når du oppretter en simultanoppvisning får du spille mot flere spillere samtidig.</string>
   <string name="simulVariantsHint">Hvis du velger flere varianter får hver spiller anledning til å velge hvilken de vil spille.</string>
-  <string name="simulClockHint">Fischeroppsett. Desto flere spillere som spiller mot deg, jo mer tid vil du antakeligvis trenge.</string>
+  <string name="simulClockHint">Fischeroppsett. Desto flere spillere som spiller mot deg, jo mer tid vil du antageligvis trenge.</string>
   <string name="simulAddExtraTime">Du kan legge til ekstra tid på klokken din for å håndtere simultanen.</string>
   <string name="simulHostExtraTime">Ekstra tid for simultanoppviseren</string>
   <string name="lichessTournaments">Lichessturneringer</string>
@@ -662,10 +662,10 @@ i %3$s</string>
   <string name="tournamentDoesNotExist">Turneringen eksisterer ikke.</string>
   <string name="tournamentMayHaveBeenCanceled">Den kan ha blitt avlyst fordi alle spillerne trakk seg før den startet.</string>
   <string name="returnToTournamentsHomepage">Tilbake til turneringsoversikt</string>
-  <string name="weeklyPerfTypeRatingDistribution">Månedlig %s-fordeling</string>
+  <string name="weeklyPerfTypeRatingDistribution">Ukentlig %s-ratingfordeling</string>
   <plurals name="nbPerfTypePlayersThisWeek">
-    <item quantity="one">En %2$s spiller denne uken.</item>
-    <item quantity="other">%1$s %2$s spiller denne uken.</item>
+    <item quantity="one">%1$s %2$s spiller denne uken.</item>
+    <item quantity="other">%1$s %2$s spillere denne uken.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Din %1$s-rating er %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du er bedre enn %1$s av %2$s-spillerne.</string>
@@ -725,7 +725,7 @@ i %3$s</string>
   </plurals>
   <string name="gameAnalysis">Analyse av parti</string>
   <string name="xHostsY">%1$s opprettet %2$s</string>
-  <string name="xJoinsY">%1$s ble med %2$s</string>
+  <string name="xJoinsY">%1$s ble med på %2$s</string>
   <string name="xLikesY">%1$s liker %2$s</string>
   <string name="quickPairing">Raskt parti</string>
   <string name="lobby">Lobby</string>
@@ -737,9 +737,9 @@ i %3$s</string>
   <string name="dark">Mørk</string>
   <string name="transparent">Gjennomsiktig</string>
   <string name="backgroundImageUrl">URL for bakgrunnsbilde:</string>
-  <string name="boardGeometry">Brett geometri</string>
-  <string name="boardTheme">Brett tema</string>
-  <string name="boardSize">Brett størrelse</string>
+  <string name="boardGeometry">Brettgeometri</string>
+  <string name="boardTheme">Brettema</string>
+  <string name="boardSize">Brettstørrelse</string>
   <string name="pieceSet">Brikkesett</string>
   <string name="embedInYourWebsite">Embed på nettsiden din</string>
   <string name="usernameAlreadyUsed">Brukernavnet er allerede i bruk, prøv et annet et.</string>
