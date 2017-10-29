@@ -51,7 +51,7 @@ final class Env(
   )))
 
   system.scheduler.schedule(1 minute, 1 minute) {
-    api.autoStart
+    api.autoStart >> api.autoFinishNotSyncing
   }
 
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {

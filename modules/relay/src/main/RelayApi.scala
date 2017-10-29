@@ -90,6 +90,17 @@ final class RelayApi(
       _.map { requestPlay(_, true) }.sequenceFu.void
     }
 
+  private[relay] def autoFinishNotSyncing: Funit =
+    repo.coll.find($doc(
+      "sync.until" $exists false,
+      "finished" -> false,
+      "startedAt" $lt DateTime.now.minusHours(3)
+    )).list[Relay]() flatMap {
+      _.map { relay =>
+        update(relay)(_.finish)
+      }.sequenceFu.void
+    }
+
   private[relay] def WithRelay[A: Zero](id: Relay.Id)(f: Relay => Fu[A]): Fu[A] =
     byId(id) flatMap { _ ?? f }
 
