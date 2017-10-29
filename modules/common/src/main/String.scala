@@ -160,7 +160,13 @@ object String {
       })
     })
 
-    private def safeJsonString(s: String): String = {
+    @inline private final def isSafe(c: Char): Boolean = c match {
+      case _ if c < ' ' || c > '~' => false
+      case '<' | '>' | '&' | '"' | '\'' | '\\' | '`' | '/' => false
+      case _ => true
+    }
+
+    private def safeJsonString(s: String): String = if (s.forall(isSafe)) s else {
       // Slightly relaxed rule 3 from
       // https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet:
       // We do not care about unquoted attributes.
@@ -170,11 +176,7 @@ object String {
       var i = 0
       while (i < s.length) {
         val c = s charAt i
-        if (c match {
-          case _ if c < ' ' || c > '~' => false
-          case '<' | '>' | '&' | '"' | '\'' | '\\' | '`' | '/' => false
-          case _ => true
-        }) sb.append(c)
+        if (isSafe(c)) sb.append(c)
         else {
           if (c <= '\u000f') sb.append("\\u000")
           else if (c <= '\u00ff') sb.append("\\u00")
