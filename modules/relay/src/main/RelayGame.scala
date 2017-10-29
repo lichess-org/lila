@@ -17,4 +17,6 @@ case class RelayGame(
   def started = root.children.nodes.nonEmpty
 
   def finished = end.isDefined
+
+  def isEmpty = tags.value.isEmpty && root.children.nodes.isEmpty
 }

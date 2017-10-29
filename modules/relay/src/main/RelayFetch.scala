@@ -56,7 +56,7 @@ private final class RelayFetch(
     if (!relay.sync.playing) fuccess(relay.withSync(_.play))
     else RelayFetch(relay)
       .chronometer.mon(_.relay.fetch.duration.each).result flatMap { games =>
-        sync(relay, games)
+        sync(relay, games.filterNot(_.isEmpty))
           .chronometer.mon(_.relay.sync.duration.each).result
           .withTimeout(500 millis, SyncResult.Timeout)(context.system) map { res =>
             res -> relay.withSync(_ addLog SyncLog.event(res.moves, none))
