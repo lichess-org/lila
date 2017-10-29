@@ -3,7 +3,7 @@ import { VNode } from 'snabbdom/vnode'
 import { TagArray } from './interfaces';
 import { renderClocks } from '../clocks';
 import AnalyseCtrl from '../ctrl';
-import { isFinished, findTag } from './studyChapters';
+import { isFinished, findTag, resultOf } from './studyChapters';
 
 interface PlayerNames {
   white: string;
@@ -26,12 +26,13 @@ export default function(ctrl: AnalyseCtrl): VNode[] | undefined {
 
 function renderPlayer(tags: TagArray[], clocks: [VNode, VNode] | undefined, playerNames: PlayerNames, color: Color, ticking: boolean): VNode {
   const title = findTag(tags, `${color}title`),
-  elo = findTag(tags, `${color}elo`);
+  elo = findTag(tags, `${color}elo`),
+  result = resultOf(tags, color === 'white');
   return h(`div.player_bar.${color}`, {
     class: { ticking }
   }, [
     h('div.left', [
-      h('span.color'),
+      result && h('span.result', result),
       h('span.info', [
         title && h('span.title', title + ' '),
         h('span.name', playerNames[color]),

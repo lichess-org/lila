@@ -52,6 +52,15 @@ export function findTag(tags: TagArray[], name: string): string | undefined {
   return t && t[1];
 }
 
+export function resultOf(tags: TagArray[], isWhite: boolean): string | undefined {
+  switch(findTag(tags, 'result')) {
+    case '1-0': return isWhite ? '1' : '0';
+    case '0-1': return isWhite ? '0' : '1';
+    case '1/2-1/2': return '1/2';
+    default: return;
+  }
+}
+
 export function view(ctrl: StudyCtrl): VNode {
 
   const configButton = ctrl.members.canContribute() ? h('i.action.config', { attrs: dataIcon('%') }) : null;

@@ -763,7 +763,6 @@ div.chapter_embed {
   height: 26px;
   justify-content: space-between;
   align-items: center;
-  padding-left: 10px;
   font-size: 16px;
   font-weight: bold;
   position: absolute;
@@ -785,9 +784,17 @@ body.dark .player_bar {
   border-radius: 0 0 4px 4px;
   bottom: -26px;
 }
-.player_bar .elo {
-  margin-left: 0.5em;
+.player_bar .left {
+  flex: 1 1 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+.player_bar .result {
+  flex: 0 0 auto;
+  margin-left: 10px;
   font-weight: normal;
+  padding-right: 10px;
+  border-right: 1px solid rgba(127,127,127,0.5);
 }
 .player_bar .aclock {
   font-family: 'Roboto Mono', 'Roboto';
@@ -805,6 +812,13 @@ body.dark .player_bar {
   background: #759900;
   color: #fff;
   text-shadow: none;
+}
+.player_bar .info {
+  margin-left: 10px;
+}
+.player_bar .elo {
+  margin-left: 0.5em;
+  font-weight: normal;
 }
 
 .relay_players .cg-board-wrap coords.files {
