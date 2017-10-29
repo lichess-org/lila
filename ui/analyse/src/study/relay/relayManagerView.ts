@@ -1,10 +1,10 @@
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
-import RelayCtrl from './relayCtrl';
+import RelayManager from './relayManager';
 import { iconTag, dataIcon, bind } from '../../util';
 import { LogEvent } from './interfaces';
 
-export default function(ctrl: RelayCtrl): VNode | undefined {
+export default function(ctrl: RelayManager): VNode | undefined {
   const d = ctrl.data;
   if (ctrl.members.canContribute()) return h('div.relay_wrap', [
     h('h2', [
@@ -30,7 +30,7 @@ function logSuccess(e: LogEvent) {
   ];
 }
 
-function renderLog(ctrl: RelayCtrl) {
+function renderLog(ctrl: RelayManager) {
   const dateFormatter = getDateFormatter();
   const logLines = ctrl.data.sync.log.slice(0).reverse().map(e => {
     const err = e.error && h('a', {
@@ -56,7 +56,7 @@ function renderLog(ctrl: RelayCtrl) {
   return h('div.log', logLines);
 }
 
-function stateOn(ctrl: RelayCtrl) {
+function stateOn(ctrl: RelayManager) {
   return h('div.state.on.clickable', {
     hook: bind('click', _ => ctrl.setSync(false))
   }, [
@@ -69,7 +69,7 @@ function stateOn(ctrl: RelayCtrl) {
   ]);
 }
 
-function stateOff(ctrl: RelayCtrl) {
+function stateOff(ctrl: RelayManager) {
   return h('div.state.off.clickable', {
     hook: bind('click', _ => ctrl.setSync(true))
   }, [
