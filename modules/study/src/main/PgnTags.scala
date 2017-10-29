@@ -4,13 +4,23 @@ import chess.format.pgn.{ Tag, Tags, TagType }
 
 object PgnTags {
 
-  def apply(tags: Tags): Tags = Tags(sort(tags.value filter isRelevant))
+  def apply(tags: Tags): Tags =
+    tags |> filterRelevant |> removeContradictingTermination |> sort
 
   def setRootClockFromTags(c: Chapter): Option[Chapter] =
     c.updateRoot { _.setClockAt(c.tags.clockConfig map (_.limit), Path.root) } filter (c !=)
 
-  private def isRelevant(tag: Tag) =
-    relevantTypeSet(tag.name) && !unknownValues(tag.value)
+  private def filterRelevant(tags: Tags) =
+    Tags(tags.value.filter { t =>
+      relevantTypeSet(t.name) && !unknownValues(t.value)
+    })
+
+  private def removeContradictingTermination(tags: Tags) =
+    if (tags.resultColor.isDefined)
+      Tags(tags.value.filterNot { t =>
+        t.name == Tag.Termination && t.value.toLowerCase == "unterminated"
+      })
+    else tags
 
   private val unknownValues = Set("", "?", "unknown")
 
@@ -33,8 +43,9 @@ object PgnTags {
 
   private val typePositions: Map[TagType, Int] = sortedTypes.zipWithIndex.toMap
 
-  private def sort(tags: List[Tag]) =
-    tags.sortBy { t =>
+  private def sort(tags: Tags) = Tags {
+    tags.value.sortBy { t =>
       typePositions.getOrElse(t.name, Int.MaxValue)
     }
+  }
 }
