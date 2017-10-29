@@ -170,10 +170,11 @@ object String {
       var i = 0
       while (i < s.length) {
         val c = s charAt i
-        if (c >= ' ' && c <= '~' && /* printable ascii 32-126 */
-          c != '<' && c != '>' && c != '&' && c != '"' && c != '\'' && /* html */
-          c != '\\' && /* remaining js */
-          c != '`' && c != '/' /* extra care */ ) sb.append(c)
+        if (c match {
+          case _ if c < ' ' || c > '~' => false
+          case '<' | '>' | '&' | '"' | '\'' | '\\' | '`' | '/' => false
+          case _ => true
+        }) sb.append(c)
         else {
           if (c <= '\u000f') sb.append("\\u000")
           else if (c <= '\u00ff') sb.append("\\u00")
