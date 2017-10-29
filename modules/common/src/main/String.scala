@@ -160,27 +160,33 @@ object String {
       })
     })
 
+    @inline private final def isSafe(c: Char): Boolean = c >= ' ' && c <= '~' && (c match {
+      case '<' | '>' | '&' | '"' | '\'' | '\\' | '`' | '/' => false
+      case _ => true
+    })
+
     private def safeJsonString(s: String): String = {
       // Slightly relaxed rule 3 from
       // https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet:
       // We do not care about unquoted attributes.
       // benchmarks: https://github.com/ornicar/lila-jmh-benchmarks/blob/master/src/main/scala/SafeJsonStringTest.scala
-      val sb = new StringBuilder(s.size + 2)
+      val len = s.length
+      val fact = if (len > 0 && isSafe(s charAt 0)) 1 else 6
+      val sb = new StringBuilder(fact * len + 2)
       sb.append('"')
       var i = 0
-      while (i < s.length) {
+      while (i < len) {
         val c = s charAt i
-        if (c match {
-          case _ if c < ' ' || c > '~' => false
-          case '<' | '>' | '&' | '"' | '\'' | '\\' | '`' | '/' => false
-          case _ => true
-        }) sb.append(c)
+        if (isSafe(c)) sb.append(c)
         else {
-          if (c <= '\u000f') sb.append("\\u000")
-          else if (c <= '\u00ff') sb.append("\\u00")
-          else if (c <= '\u0fff') sb.append("\\u0")
-          else sb.append("\\u")
-          sb.append(c.toInt.toHexString.toUpperCase)
+          sb.append(
+            if (c > '\u00ff') {
+              if (c > '\u0fff') "\\u" else "\\u0"
+            } else {
+              if (c > '\u000f') "\\u00" else "\\u000"
+            }
+          )
+          sb.append(Integer.toHexString(c).toUpperCase)
         }
         i += 1
       }
