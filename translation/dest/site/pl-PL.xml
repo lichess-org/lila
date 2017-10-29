@@ -74,9 +74,9 @@
   <string name="topGames">Najlepsze partie</string>
   <string name="masterDbExplanation">Dwa miliony partii zawodników FIDE (2200+) od 1952 do 2016 roku</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">Mat w %s posunięciu</item>
-    <item quantity="few">Mat w %s posunięciach</item>
-    <item quantity="other">Mat w %s posunięciach</item>
+    <item quantity="one">Mat w %s ruchu</item>
+    <item quantity="few">Mat w %s ruchach</item>
+    <item quantity="other">Mat w %s ruchach</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
     <item quantity="one">Następne bicie lub ruch pionem w ciągu %s posunięcia (zerowanie licznika posunięć reguły 50 ruchów)</item>
@@ -353,7 +353,7 @@
   <string name="clickOnTheBoardToMakeYourMove">Wykonaj ruch i udowodnij, że jesteś człowiekiem.</string>
   <string name="captcha.fail">Rozwiąż szachowe zadanie.</string>
   <string name="notACheckmate">To nie jest mat</string>
-  <string name="colorPlaysCheckmateInOne">%s zaczynają i dają mata w jednym posunięciu</string>
+  <string name="colorPlaysCheckmateInOne">%s zaczynają i dają mata w jednym ruchu</string>
   <string name="retry">Spróbuj jeszcze raz</string>
   <string name="reconnecting">Ponowne łączenie</string>
   <string name="onlineFriends">znajomych online</string>
@@ -665,7 +665,7 @@
   <string name="aboutSimulImage">Rok 1964 - Fischer grając na 50 szachownicach wygrał 47 partii, 2 zremisował i 1 przegrał.</string>
   <string name="aboutSimulRealLife">Pomysł został zaczerpnięty z rzeczywistych rozgrywek. Symultanista przemieszcza się pomiędzy szachownicami aby wykonać poszczególne posunięcia.</string>
   <string name="aboutSimulRules">Gdy symultana się rozpocznie, każdy gracz rozgrywa partię przeciwko symultaniście. Symultanista gra zawsze białymi. Symultana kończy się po zakończeniu wszystkich partii.</string>
-  <string name="aboutSimulSettings">Symultana to zawsze gra towarzyska. Podczas jej rozgrywania rewanż, cofanie posunięcia i dodawanie czasu nie są dostępne.</string>
+  <string name="aboutSimulSettings">Symultany są zawsze grami towarzyskimi. Rewanż, cofanie ruchów i dodawanie czasu nie są dostępne.</string>
   <string name="create">Stwórz</string>
   <string name="whenCreateSimul">Symultana pozwoli Ci zagrać z wieloma przeciwnikami równocześnie.</string>
   <string name="simulVariantsHint">Gdy zaznaczysz kilka wariantów gry, każdy przeciwnik będzie mógł wybrać, który wariant chce grać.</string>
@@ -790,4 +790,5 @@
   <string name="notifications">Powiadomienia</string>
   <string name="challenges">Wyzwania</string>
   <string name="perfRatingX">Ranking: %s</string>
+  <string name="xSecondsToPlayTheFirstMove">%s sekund na wykonanie pierwszego ruchu</string>
 </resources>

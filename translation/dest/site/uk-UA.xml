@@ -792,4 +792,5 @@
   <string name="notifications">Сповіщення</string>
   <string name="challenges">Виклики</string>
   <string name="perfRatingX">Рейтинг: %s</string>
+  <string name="xSecondsToPlayTheFirstMove">%s секунд, щоб зробити перший хід</string>
 </resources>

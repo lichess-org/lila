@@ -759,4 +759,5 @@
   <string name="notifications">Jakinarazpenak</string>
   <string name="challenges">Erronkak</string>
   <string name="perfRatingX">Sailkapena: %s</string>
+  <string name="xSecondsToPlayTheFirstMove">%s segundu lehenengo jokaldia egiteko</string>
 </resources>

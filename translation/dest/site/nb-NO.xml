@@ -761,4 +761,5 @@ i %3$s</string>
   <string name="notifications">Varsler</string>
   <string name="challenges">Utfordringer</string>
   <string name="perfRatingX">Rating: %s</string>
+  <string name="xSecondsToPlayTheFirstMove">%s til første trekk må tas</string>
 </resources>

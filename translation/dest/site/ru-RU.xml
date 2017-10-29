@@ -188,7 +188,7 @@
     <item quantity="other">%s партий с вами</item>
   </plurals>
   <string name="cancel">Отменить</string>
-  <string name="timeOut">Время окончено</string>
+  <string name="timeOut">Время истекло</string>
   <string name="drawOfferSent">Предложение ничьей отправлено</string>
   <string name="drawOfferDeclined">Предложение ничьей отклонено</string>
   <string name="drawOfferAccepted">Предложение ничьей принято</string>
@@ -200,7 +200,7 @@
   <string name="yourOpponentOffersADraw">Ваш оппонент предлагает ничью</string>
   <string name="accept">Принять</string>
   <string name="decline">Отклонить</string>
-  <string name="playingRightNow">Активная партия</string>
+  <string name="playingRightNow">Текущая партия</string>
   <string name="finished">Сеанс окончен</string>
   <string name="abortGame">Отменить игру</string>
   <string name="gameAborted">Игра отменена</string>
@@ -208,7 +208,7 @@
   <string name="unlimited">Без лимита времени</string>
   <string name="mode">Режим</string>
   <string name="casual">Без рейтинга</string>
-  <string name="rated">На рейтинг</string>
+  <string name="rated">Рейтинговая</string>
   <string name="thisGameIsRated">Игра на рейтинг</string>
   <string name="rematch">Реванш</string>
   <string name="rematchOfferSent">Предложение реванша отправлено</string>
@@ -268,7 +268,7 @@
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Этот игрок искусственно повышает/уменьшает свой рейтинг</string>
   <string name="openingExplorerAndTablebase">Анализ дебютных вариантов</string>
   <string name="takeback">Вернуть ход</string>
-  <string name="proposeATakeback">Попросить вернуть ход</string>
+  <string name="proposeATakeback">Попросить переходить</string>
   <string name="takebackPropositionSent">Предложение возврата отправлено</string>
   <string name="takebackPropositionDeclined">Предложение возврата отклонено</string>
   <string name="takebackPropositionAccepted">Предложение возврата принято</string>
@@ -309,7 +309,7 @@
   <string name="yourPerfRatingIsTooLow">Ваш рейтинг %1$s (%2$s) слишком низок</string>
   <string name="ratedMoreThanInPerf">Рейтинг ≥ %1$s в %2$s</string>
   <string name="ratedLessThanInPerf">Рейтинг ≤ %1$s в %2$s</string>
-  <string name="backToGame">Возврат к игре</string>
+  <string name="backToGame">Вернуться в игру</string>
   <string name="siteDescription">Бесплатные онлайн-шахматы. Играйте в шахматы прямо сейчас в простом интерфейсе без рекламы. Не требует регистрации и скачивания программы. Играйте в шахматы с компьютером, друзьями или случайными соперниками.</string>
   <string name="teams">Команды</string>
   <plurals name="nbMembers">
@@ -325,7 +325,7 @@
   <string name="quitTeam">Выйти из команды</string>
   <string name="anyoneCanJoin">Любой может присоединиться</string>
   <string name="aConfirmationIsRequiredToJoin">Для присоединения требуется подтверждение</string>
-  <string name="joiningPolicy">Условия писоединения</string>
+  <string name="joiningPolicy">Условия членства</string>
   <string name="teamLeader">Создатель команды</string>
   <string name="teamBestPlayers">Лучшие игроки команды</string>
   <string name="teamRecentMembers">Новые члены команды</string>
@@ -792,4 +792,5 @@
   <string name="notifications">Уведомления</string>
   <string name="challenges">Вызовы</string>
   <string name="perfRatingX">Рейтинг: %s</string>
+  <string name="xSecondsToPlayTheFirstMove">%s секунд, чтобы сделать первый ход</string>
 </resources>
