@@ -20,8 +20,7 @@ object String {
   def decodeUriPath(input: String): Option[String] = {
     try {
       play.utils.UriEncoding.decodePath(input, "UTF-8").some
-    }
-    catch {
+    } catch {
       case e: play.utils.InvalidUriEncodingException => None
     }
   }
@@ -39,8 +38,7 @@ object String {
       Base64.getEncoder.encodeToString(txt getBytes StandardCharsets.UTF_8)
     def decode(txt: String): Option[String] = try {
       Some(new String(Base64.getDecoder decode txt, StandardCharsets.UTF_8))
-    }
-    catch {
+    } catch {
       case _: java.lang.IllegalArgumentException => none
     }
   }
@@ -94,28 +92,24 @@ object String {
             // internal
             val link = m.group(3)
             s"""<a href="//$link">${urlOrImgUnsafe(link)}</a>"""
-          }
-          else {
+          } else {
             // external
             val link = m.group(1)
             s"""<a rel="nofollow" href="$link" target="_blank">${urlOrImgUnsafe(link)}</a>"""
           }
-        }
-        else {
+        } else {
           if (s"${m.group(2)}/" startsWith s"$netDomain/") {
             // internal
             val link = m.group(1)
             s"""<a href="//$link">${urlOrImgUnsafe(link)}</a>"""
-          }
-          else {
+          } else {
             // external
             val link = m.group(1)
             s"""<a rel="nofollow" href="http://$link" target="_blank">${urlOrImgUnsafe(link)}</a>"""
           }
         }
       })
-    }
-    catch {
+    } catch {
       case e: IllegalArgumentException =>
         lila.log("templating").error(s"addLinks($text)", e)
         text
@@ -155,8 +149,7 @@ object String {
           i += 1
         }
         sb.toString
-      }
-      else s
+      } else s
     }
 
     private val markdownLinkRegex = """\[([^\[]+)\]\(([^\)]+)\)""".r
