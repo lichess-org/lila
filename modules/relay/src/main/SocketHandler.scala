@@ -20,7 +20,7 @@ private[relay] final class SocketHandler(
     user: Option[User]
   ): Handler.Controller = ({
     case ("relaySync", o) =>
-      logger.info(s"${user.fold("Anon")(_.username)} starts #${relayId}")
+      logger.info(s"${user.fold("Anon")(_.username)} toggles #${relayId}")
       api.requestPlay(relayId, ~(o \ "d").asOpt[Boolean])
   }: Handler.Controller) orElse studyHandler.makeController(
     socket = socket,
