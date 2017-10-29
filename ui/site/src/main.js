@@ -420,29 +420,6 @@ lichess.topMenuIntent = function() {
         };
       })();
 
-      lichess.cliApp = (function() {
-        var instance, booted;
-        var $toggle = $('#clinput');
-
-        var load = function() {
-        };
-
-        $toggle.one('click', function() {
-          load();
-        }).click(function() {
-          setTimeout(function() {
-            if (instance && isVisible()) instance.setVisible();
-          }, 200);
-        });
-
-        return {
-          update: function(data, incoming) {
-            if (!instance) load(data, incoming);
-            else instance.update(data, incoming);
-          }
-        };
-      })();
-
       // Zoom
       var currentZoom = (!lichess.isTrident && $('body').data('zoom') / 100) || 1;
 
@@ -533,11 +510,11 @@ lichess.topMenuIntent = function() {
           $wrap.toggleClass('shown');
           if ($wrap.hasClass('shown')) $wrap.find('input').focus();
         };
-        $wrap.children('a').one('mouseover click', function(e) {
-          if (e.type === 'mouseover') boot(); else toggle();
+        $wrap.children('a').on('mouseover click', function(e) {
+          (e.type === 'mouseover' ? boot : toggle)();
         });
         Mousetrap.bind('s', function() {
-          setTimeout(toggle, 150);
+          setTimeout(toggle, 100);
         });
       })();
 
