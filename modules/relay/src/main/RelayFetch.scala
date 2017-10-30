@@ -56,7 +56,7 @@ private final class RelayFetch(
     if (!relay.sync.playing) fuccess(relay.withSync(_.play))
     else RelayFetch(relay)
       .chronometer.mon(_.relay.fetch.duration.each).result flatMap { games =>
-        sync(relay, games.filterNot(_.isEmpty))
+        sync(relay, games)
           .chronometer.mon(_.relay.sync.duration.each).result
           .withTimeout(500 millis, SyncResult.Timeout)(context.system) map { res =>
             res -> relay.withSync(_ addLog SyncLog.event(res.moves, none))
@@ -181,10 +181,14 @@ private object RelayFetch {
     import com.github.blemale.scaffeine.{ LoadingCache, Scaffeine }
 
     def apply(multiPgn: MultiPgn): Fu[List[RelayGame]] =
-      multiPgn.value.zipWithIndex.foldLeft[Try[List[RelayGame]]](Success(List.empty)) {
-        case (Success(acc), (pgn, index)) => pgnCache.get(pgn) map (f => f(index) :: acc)
+      multiPgn.value.foldLeft[Try[(List[RelayGame], Int)]](Success(List.empty -> 0)) {
+        case (Success((acc, index)), pgn) => pgnCache.get(pgn) map { f =>
+          val game = f(index)
+          if (game.isEmpty) acc -> index
+          else (game :: acc, index + 1)
+        }
         case (acc, _) => acc
-      }.map(_.reverse).future
+      }.map(_.reverse).future.map(_._1)
 
     private val pgnCache: LoadingCache[String, Try[Int => RelayGame]] = Scaffeine()
       .expireAfterAccess(2 minutes)
