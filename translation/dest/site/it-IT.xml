@@ -102,7 +102,7 @@
   <string name="cpus">Processori</string>
   <string name="memory">Memoria</string>
   <string name="infiniteAnalysis">Analisi infinita</string>
-  <string name="removesTheDepthLimit">Rimuove il limite di profondità di analisi e tiene il tuo computer caldo</string>
+  <string name="removesTheDepthLimit">Rimuove il limite di profondità di analisi e mantiene il tuo computer caldo</string>
   <string name="blunders">Errori gravi</string>
   <string name="mistakes">Errori</string>
   <string name="inaccuracies">Imprecisioni</string>
@@ -129,9 +129,9 @@
   <string name="logOut">Esci</string>
   <string name="signIn">Entra</string>
   <string name="newToLichess">Nuovo su Lichess?</string>
-  <string name="youNeedAnAccountToDoThat">Ti serve un account per farlo</string>
+  <string name="youNeedAnAccountToDoThat">Devi avere un account per farlo</string>
   <string name="signUp">Registrati</string>
-  <string name="computersAreNotAllowedToPlay">Non è permesso giocare a computer e a giocatori che si fanno aiutare dai computer. Mentre giochi, non farti aiutare da programmi di scacchi, da database o da altre persone. Inoltre si sconsiglia vivamente di creare account multipli, un eccesso in tal senso porterà alla cancellazione dal sito.</string>
+  <string name="computersAreNotAllowedToPlay">Non è permesso giocare a computer e a giocatori che si fanno aiutare dai computer. Mentre giochi, non farti aiutare da programmi di scacchi, da database o da altre persone. Inoltre si sconsiglia vivamente di creare account multipli e un uso eccessivo di account porterà alla cancellazione dal sito.</string>
   <string name="games">Partite</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s ha postato nel forum %2$s</string>
@@ -164,11 +164,11 @@
   <string name="changeEmail">Cambia email</string>
   <string name="email">Email</string>
   <string name="emailIsOptional">L\'indirizzo email è facoltativo. Lichess lo utilizzerà per reimpostare la tua password nel caso la dimenticassi.</string>
-  <string name="passwordReset">Reimposta password</string>
+  <string name="passwordReset">Reimpostare la password</string>
   <string name="forgotPassword">Password dimenticata?</string>
   <string name="rank">Livello</string>
-  <string name="rankX">Punteggio: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Il punteggio viene aggiornato ogni %s minuti</string>
+  <string name="rankX">Posizione: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">La posizione viene aggiornata ogni %s minuti</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s puzzle</item>
     <item quantity="other">%s puzzle</item>
