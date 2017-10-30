@@ -231,11 +231,11 @@
     <item quantity="other">%s vittorie</item>
   </plurals>
   <plurals name="nbLosses">
-    <item quantity="one">%s sconfitte</item>
+    <item quantity="one">%s sconfitta</item>
     <item quantity="other">%s sconfitte</item>
   </plurals>
   <plurals name="nbDraws">
-    <item quantity="one">%s pareggi</item>
+    <item quantity="one">%s pareggio</item>
     <item quantity="other">%s pareggi</item>
   </plurals>
   <plurals name="nbPlaying">
@@ -303,7 +303,7 @@
   <string name="noTeamFound">Nessun gruppo trovato</string>
   <string name="joinTeam">Unisciti al gruppo</string>
   <string name="quitTeam">Abbandona il gruppo</string>
-  <string name="anyoneCanJoin">Chiunque può unirsi</string>
+  <string name="anyoneCanJoin">Aperto a tutti</string>
   <string name="aConfirmationIsRequiredToJoin">È richiesta una conferma per unirsi</string>
   <string name="joiningPolicy">Regole di adesione</string>
   <string name="teamLeader">Capogruppo</string>
