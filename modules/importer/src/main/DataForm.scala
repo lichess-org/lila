@@ -35,9 +35,14 @@ case class ImportData(pgn: String, analyse: Option[String]) {
 
   private val maxPlies = 600
 
+  private def evenIncomplete(result: Reader.Result): Replay = result match {
+    case Reader.Result.Complete(replay) => replay
+    case Reader.Result.Incomplete(replay, _) => replay
+  }
+
   def preprocess(user: Option[String]): Valid[Preprocessed] = Parser.full(pgn) flatMap {
     case ParsedPgn(_, _, sans) if sans.value.size > maxPlies => !!("Replay is too long")
-    case parsed @ ParsedPgn(_, tags, sans) => Reader.full(pgn) map {
+    case parsed @ ParsedPgn(_, tags, sans) => Reader.full(pgn) map evenIncomplete map {
       case replay @ Replay(setup, _, game) =>
         val initBoard = parsed.tags.fen.map(_.value) flatMap Forsyth.<< map (_.board)
         val fromPosition = initBoard.nonEmpty && !parsed.tags.fen.contains(FEN(Forsyth.initial))

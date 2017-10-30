@@ -1,6 +1,7 @@
 package lila.fishnet
 
 import org.joda.time.DateTime
+import scalaz.Validation.FlatMap._
 
 import chess.format.Uci
 import JsonApi.Request.Evaluation
@@ -34,7 +35,7 @@ private object AnalysisBuilder {
       case Some(game) =>
         GameRepo.initialFen(game) flatMap { initialFen =>
           def debug = s"${game.variant.key} analysis for ${game.id} by ${client.fullId}"
-          chess.Replay(game.pgnMoves, initialFen, game.variant).fold(
+          chess.Replay(game.pgnMoves, initialFen, game.variant).flatMap(_.valid).fold(
             fufail(_),
             replay => UciToPgn(replay, uciAnalysis) match {
               case (analysis, errors) =>
