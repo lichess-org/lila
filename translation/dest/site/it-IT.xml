@@ -56,7 +56,7 @@
   <string name="showThreat">Mostra minaccia</string>
   <string name="inLocalBrowser">nel browser locale</string>
   <string name="toggleLocalEvaluation">Attiva/disattiva analisi locale</string>
-  <string name="move">Fai una mossa</string>
+  <string name="move">Mossa</string>
   <string name="variantLoss">Variante perdente</string>
   <string name="variantWin">Variante vincente</string>
   <string name="insufficientMaterial">Materiale insufficiente</string>
