@@ -42,7 +42,7 @@ private final class LeaderboardIndexer(
 
   private def generateTour(tour: Tournament): Fu[List[Entry]] = for {
     nbGames <- PairingRepo.countByTourIdAndUserIds(tour.id)
-    players <- PlayerRepo.bestByTourWithRank(tour.id, nb = 5000, skip = 0)
+    players <- PlayerRepo.bestByTourWithRank(tour.id, nb = 9000, skip = 0)
   } yield players.flatMap {
     case RankedPlayer(rank, player) => for {
       perfType <- tour.perfType
