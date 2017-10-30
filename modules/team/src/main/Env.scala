@@ -56,7 +56,7 @@ final class Env(
 
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
-      case lila.hub.actorApi.mod.Shadowban(userId, true) => RequestRepo deleteByUserId userId
+      case lila.hub.actorApi.mod.Shadowban(userId, true) => api deleteRequestsByUserId userId
     }
   })), 'shadowban)
 }

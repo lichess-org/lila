@@ -322,7 +322,7 @@ lazy val pref = module("pref", Seq(common, db, user)).settings(
   libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )
 
-lazy val message = module("message", Seq(common, db, user, hub, relation, security, notifyModule)).settings(
+lazy val message = module("message", Seq(common, db, user, hub, relation, security, shutup, notifyModule)).settings(
   libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )
 

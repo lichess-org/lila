@@ -12,7 +12,7 @@ final class MessageApi(
     maxPerPage: Int,
     blocks: (String, String) => Fu[Boolean],
     notifyApi: lila.notify.NotifyApi,
-    follows: (String, String) => Fu[Boolean],
+    security: MessageSecurity,
     lilaBus: lila.common.Bus
 ) {
 
@@ -56,7 +56,7 @@ final class MessageApi(
           invitedId = data.user.id,
           asMod = data.asMod
         )
-        muteThreadIfNecessary(t, me, invited, data) flatMap { thread =>
+        security.muteThreadIfNecessary(t, me, invited) flatMap { thread =>
           sendUnlessBlocked(thread, fromMod) flatMap {
             _ ?? {
               val text = s"${data.subject} ${data.text}"
@@ -68,13 +68,6 @@ final class MessageApi(
       }
     }
   }
-
-  private def muteThreadIfNecessary(thread: Thread, creator: User, invited: User, data: DataForm.ThreadData): Fu[Thread] =
-    if (lila.security.Spam.detect(data.subject, data.text)) fuccess(thread deleteFor invited)
-    else if (creator.troll) follows(invited.id, creator.id) map { following =>
-      if (following) thread else thread deleteFor invited
-    }
-    else fuccess(thread)
 
   private def sendUnlessBlocked(thread: Thread, fromMod: Boolean): Fu[Boolean] =
     if (fromMod) coll.insert(thread) inject true

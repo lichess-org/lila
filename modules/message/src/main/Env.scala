@@ -36,7 +36,7 @@ final class Env(
     maxPerPage = ThreadMaxPerPage,
     blocks = blocks,
     notifyApi = notifyApi,
-    follows = follows,
+    security = security,
     lilaBus = system.lilaBus
   )
 

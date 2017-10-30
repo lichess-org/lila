@@ -33,6 +33,8 @@ object RequestRepo {
   def teamQuery(teamId: ID) = $doc("team" -> teamId)
   def teamsQuery(teamIds: List[ID]) = $doc("team" $in teamIds)
 
-  def deleteByUserId(userId: lila.user.User.ID) =
-    coll.remove($doc("user" -> userId))
+  def getByUserId(userId: lila.user.User.ID) =
+    coll.find($doc("user" -> userId)).list[Request]()
+
+  def remove(id: ID) = coll.remove($id(id))
 }

@@ -2,10 +2,7 @@ package lila.security
 
 object Spam {
 
-  def detect(texts: String*) = {
-    val text = texts mkString " "
-    fullBlacklist exists text.contains
-  }
+  def detect(text: String) = fullBlacklist exists text.contains
 
   private[security] lazy val cb = "tob-ssehc".reverse
 
