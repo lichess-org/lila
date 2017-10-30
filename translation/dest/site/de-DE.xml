@@ -322,7 +322,7 @@
   <string name="pasteThePgnStringHere">Füge den PGN-Text hier ein</string>
   <string name="fromPosition">Von Stellung</string>
   <string name="continueFromHere">Von hier aus weiterspielen</string>
-  <string name="importGame">Importiere Partie</string>
+  <string name="importGame">Partie importieren</string>
   <string name="importGameExplanation">Wenn du ein PGN einfügst, hast du Zugriff auf eine Spielwiederholung, eine Computeranalyse, einen Spielchat und eine teilbare URL.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importierte Partie</item>
@@ -526,7 +526,7 @@
   <string name="premovesPlayingDuringOpponentTurn">Vorauszüge (Premoves), während der Gegner am Zug ist</string>
   <string name="takebacksWithOpponentApproval">Zugrücknahme (mit Erlaubnis des Gegners)</string>
   <string name="promoteToQueenAutomatically">Automatische Umwandlung zur Dame</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically">Reklamiere automatisch Remis bei dreifacher Stellungswiederholung</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatisch bei dreifacher Stellungswiederholung Remis reklamieren</string>
   <string name="privacy">Privatsphäre</string>
   <string name="letOtherPlayersFollowYou">Anderen erlauben, mir zu folgen</string>
   <string name="letOtherPlayersChallengeYou">Anderen erlauben, mich herauszufordern</string>
@@ -690,7 +690,7 @@
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rochiere, indem der König zwei Felder oder auf den Turm bewegt wird</string>
   <string name="castleByMovingTwoSquares">Rochiere, indem der König zwei Felder bewegt wird</string>
   <string name="castleByMovingOntoTheRook">Rochiere, indem der König auf den Turm bewegt wird</string>
-  <string name="shareYourInsightsData">Teile deine persönlichen Spielerstatistiken</string>
+  <string name="shareYourInsightsData">Deine persönlichen Spielerstatistiken teilen</string>
   <string name="withNobody">Mit niemandem</string>
   <string name="withFriends">Mit deinen Freunden</string>
   <string name="withEverybody">Mit jedem</string>
