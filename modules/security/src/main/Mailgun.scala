@@ -19,11 +19,9 @@ final class Mailgun(
     system: ActorSystem
 ) {
 
-  private val debug = false
-
   def send(msg: Mailgun.Message): Funit =
-    if (debug) {
-      println(msg)
+    if (apiUrl.isEmpty) {
+      println(msg, "No mailgun API URL")
       funit
     } else WS.url(s"$apiUrl/messages").withAuth("api", apiKey, WSAuthScheme.BASIC).post(Map(
       "from" -> Seq(msg.from | from),
