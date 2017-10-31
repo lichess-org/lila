@@ -149,9 +149,8 @@ lichess.topMenuIntent = function() {
     else {
       $('#deeplink').remove();
       var pane = $('<div id="deeplink">' +
-        '<h1>Open with...</h1>' +
-        '<a href="lichess://' + path + '">Mobile <strong>app</strong></a>' +
-        '<a><strong>Web</strong> browser</a>' +
+        '<a href="lichess://' + path + '">Open with <strong>Mobile app</strong></a>' +
+        '<a>X</a>' +
         '</div>'
       ).find('a').click(function() {
         $('#deeplink').remove();
