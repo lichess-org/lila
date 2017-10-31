@@ -424,8 +424,10 @@
   <string name="bewareTheGameIsRatedButHasNoClock">Attention, le partita es classificatori ma illo non ha controlo de tempore!</string>
   <string name="training">Exercitio</string>
   <string name="yourPuzzleRatingX">Tu classification de enigmas: %s</string>
-  <string name="findTheBestMoveForWhite">Trova le melior movimento pro le blanco.</string>
-  <string name="findTheBestMoveForBlack">Trova le melior movimento pro le nigro.</string>
+  <string name="findTheBestMoveForWhite">Trova le melior movimento 
+pro le blanco.</string>
+  <string name="findTheBestMoveForBlack">Trova le melior movimento 
+pro le nigro.</string>
   <string name="toTrackYourProgress">Pro traciar tu progresso:</string>
   <string name="trainingSignupExplanation">Lichess fornira enigmas que corresponde a tu habilitates, pro facer melior sessiones de exercitio.</string>
   <string name="puzzleId">Enigma %s</string>
