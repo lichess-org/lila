@@ -74,7 +74,7 @@ object Permission {
     Admin, Hunter, MarkTroll, ChatTimeout, ChangePermission, ViewBlurs, StaffForum, ModerateForum,
     UserSpy, MarkEngine, MarkBooster, IpBan, ModerateQa, StreamConfig, PracticeConfig,
     Beta, MessageAnyone, UserSearch, CloseTeam, TerminateTournament, ManageTournament, ManageEvent,
-    PublicMod, Developer, Coach, PreviewCoach, ModNote, RemoveRanking, ReportBan
+    PublicMod, Developer, Coach, PreviewCoach, ModNote, RemoveRanking, ReportBan, Cli
   )
 
   lazy private val all: List[Permission] = SuperAdmin :: allButSuperAdmin
