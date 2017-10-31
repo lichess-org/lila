@@ -21,7 +21,7 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
     if (!treeRoot.comments) return;
     const c = enrichText(treeRoot.comments[0].text, false);
     delete treeRoot.comments;
-    return c;
+    comment(c);
   }
 
   function onLoad() {
@@ -31,7 +31,7 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
     goal(root.data.practiceGoal!);
     nbMoves(0);
     success(null);
-    comment(makeComment(root.tree.root));
+    makeComment(root.tree.root);
     const chapter = studyData.chapter;
     history.replaceState(null, chapter.name, data.url + '/' + chapter.id);
     analysisUrl('/analysis/standard/' + root.node.fen.replace(/ /g, '_') + '?color=' + root.bottomColor());
@@ -70,7 +70,10 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
   }
 
   return {
-    onReload: onLoad,
+    onReload() {
+      comment('');
+      onLoad();
+    },
     onJump() {
       // reset failure state if no failed move found in mainline history
       if (success() === false && !root.nodeList.find(n => !!n.fail)) success(null);
