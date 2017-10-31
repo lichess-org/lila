@@ -506,8 +506,7 @@ export default class RoundController {
       }, 1000);
     }, _ => {
       this.challengeRematched = false;
-      // $.modal(data.error);
-      });
+    });
   };
 
   private makeCorrespondenceClock = (): void => {
