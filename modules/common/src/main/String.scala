@@ -4,8 +4,6 @@ import java.text.Normalizer
 import play.api.libs.json._
 import play.twirl.api.Html
 
-import lila.common.base.StringUtils._
-
 object String {
 
   private val slugR = """[^\w-]""".r
@@ -128,6 +126,8 @@ object String {
 
     private def urlOrImgUnsafe(url: String): String = urlToImgUnsafe(url) getOrElse url
 
+    val escapeHtmlUnsafe = lila.common.base.StringUtils.escapeHtmlUnsafe _
+
     // from https://github.com/android/platform_frameworks_base/blob/d59921149bb5948ffbcb9a9e832e9ac1538e05a0/core/java/android/text/TextUtils.java#L1361
     def escapeHtml(s: String): Html = Html(escapeHtmlUnsafe(s))
 
@@ -140,6 +140,7 @@ object String {
     })
 
     def safeJsonValue(jsValue: JsValue): String = {
+      import lila.common.base.StringUtils.safeJsonString
       // Borrowed from:
       // https://github.com/playframework/play-json/blob/160f66a84a9c5461c52b50ac5e222534f9e05442/play-json/js/src/main/scala/StaticBinding.scala#L65
       jsValue match {
