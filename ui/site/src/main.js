@@ -131,9 +131,7 @@ lichess.topMenuIntent = function() {
     params: {},
     options: {
       name: "site",
-      lagTag: null,
-      debug: location.search.indexOf('debug-ws') != -1,
-      resetUrl: location.search.indexOf('reset-ws') != -1
+      lagTag: null
     }
   });
 

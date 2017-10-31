@@ -21,7 +21,6 @@ lichess.StrongSocket = function(url, version, settings) {
   var autoReconnect = true;
   var nbConnects = 0;
   var storage = lichess.storage.make(options.baseUrlKey);
-  if (options.resetUrl) storage.remove();
 
   var connect = function() {
     destroy();
