@@ -66,28 +66,24 @@ object UserAnalysis extends LilaController with TheftPrevention {
   def game(id: String, color: String) = Open { implicit ctx =>
     OptionFuResult(GameRepo game id) { game =>
       val pov = Pov(game, chess.Color(color == "white"))
-      if (game.replayable) negotiate(
-        html = fuccess(Redirect(routes.Round.watcher(game.id, color))),
+      negotiate(
+        html =
+          if (game.replayable) Redirect(routes.Round.watcher(game.id, color)).fuccess
+          else for {
+            initialFen <- GameRepo initialFen game.id
+            data <- Env.api.roundApi.userAnalysisJson(pov, ctx.pref, initialFen, pov.color, owner = isMyPov(pov), me = ctx.me)
+          } yield NoCache(Ok(html.board.userAnalysis(data, pov))),
         api = apiVersion => mobileAnalysis(pov, apiVersion)
       )
-      else GameRepo initialFen game.id flatMap { initialFen =>
-        Env.api.roundApi.userAnalysisJson(pov, ctx.pref, initialFen, pov.color, owner = isMyPov(pov), me = ctx.me) flatMap { data =>
-          negotiate(
-            html = Ok(html.board.userAnalysis(data, pov)).fuccess,
-            api = _ => Ok(data).fuccess
-          )
-        }
-      } map NoCache
     }
   }
 
   private def mobileAnalysis(pov: Pov, apiVersion: lila.common.ApiVersion)(implicit ctx: Context): Fu[Result] =
     GameRepo initialFen pov.game.id flatMap { initialFen =>
       Game.preloadUsers(pov.game) zip
-        (Env.analyse.analyser get pov.game.id) zip
+        (Env.analyse.analyser get pov.game) zip
         Env.game.crosstableApi.withMatchup(pov.game) zip
         Env.bookmark.api.exists(pov.game, ctx.me) flatMap {
-          // case _ ~ analysis ~ analysisInProgress ~ simul ~ chat ~ crosstable ~ bookmarked ~ pgn =>
           case _ ~ analysis ~ crosstable ~ bookmarked =>
             import lila.game.JsonView.crosstableWithMatchupWrites
             Env.api.roundApi.review(pov, apiVersion,

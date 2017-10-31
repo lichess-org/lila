@@ -4,7 +4,7 @@ import akka.actor.ActorSelection
 
 import chess.format.FEN
 import lila.game.actorApi.InsertGame
-import lila.game.GameRepo
+import lila.game.{ GameRepo, Game }
 import lila.hub.actorApi.map.Tell
 
 final class Analyser(
@@ -13,6 +13,9 @@ final class Analyser(
     roundSocket: ActorSelection,
     bus: lila.common.Bus
 ) {
+
+  def get(game: Game): Fu[Option[Analysis]] =
+    game.analysable ?? get(game.id)
 
   def get(id: String): Fu[Option[Analysis]] = AnalysisRepo byId id
 
