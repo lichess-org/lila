@@ -585,6 +585,10 @@ div.side_box .refused {
   font-family: 'Roboto';
   font-weight: 300;
 }
+#tournament_side .player .pairings span.title {
+  color: #d59120;
+  font-weight: bold;
+}
 #tournament_side .player .pairings tr:hover th {
   border-left-color: #888!important;
 }

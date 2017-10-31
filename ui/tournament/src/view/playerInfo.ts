@@ -1,6 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
-import { spinner, bind, numberRow, player as renderPlayer } from './util';
+import { spinner, bind, numberRow, playerName, player as renderPlayer } from './util';
 import { status } from 'game';
 import TournamentController from '../ctrl';
 
@@ -80,7 +80,7 @@ export default function(ctrl: TournamentController): VNode {
           }
         }, [
           h('th', '' + (Math.max(nb.game, pairingsLen) - i)),
-          h('td', (p.op.title ? p.op.title + ' ' : '') + p.op.name),
+          h('td', playerName(p.op)),
           h('td', p.op.rating),
           h('td.is.color-icon.' + p.color),
           h('td', res)

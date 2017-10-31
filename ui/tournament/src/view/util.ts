@@ -37,6 +37,10 @@ export function ratio2percent(r: number) {
   return Math.round(100 * r) + '%';
 }
 
+export function playerName(p) {
+  return p.title ? [h('span.title', p.title), ' ' + p.name] : p.name;
+}
+
 export function player(p, asLink?: boolean) {
   let ratingDiff;
   if (p.ratingDiff > 0) ratingDiff = h('span.positive', {
@@ -46,7 +50,7 @@ export function player(p, asLink?: boolean) {
     attrs: { 'data-icon': 'M' }
   }, '' + -p.ratingDiff);
   const rating = p.rating + p.ratingDiff + (p.provisional ? '?' : ''),
-  fullName = p.title ? [h('span.title', p.title), ' ' + p.name] : p.name;
+  fullName = playerName(p);
 
   return h('a.ulpt.user_link' + (fullName.length > 15 ? '.long' : ''), {
     attrs: asLink ? { href: '/@/' + p.name } : { 'data-href': '/@/' + p.name },
