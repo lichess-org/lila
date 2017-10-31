@@ -328,7 +328,7 @@ Thank you all, you rock!"""
   }
 
   private def at(day: DateTime, hour: Int, minute: Int = 0): Option[DateTime] = try {
-    Some(day withHourOfDay hour withMinuteOfHour minute withSecondOfMinute 0 withMillisOfSecond 0)
+    Some(day.withTimeAtStartOfDay plusHours hour plusMinutes minute)
   } catch {
     case e: Exception =>
       logger.error(s"failed to schedule one: ${e.getMessage}")
