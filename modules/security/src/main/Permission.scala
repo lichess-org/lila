@@ -50,6 +50,7 @@ object Permission {
   case object PayPal extends Permission("ROLE_PAYPAL")
   case object Relay extends Permission("ROLE_RELAY")
   case object AssetVersion extends Permission("ROLE_ASSET_VERSION")
+  case object Cli extends Permission("ROLE_ClI")
 
   case object Hunter extends Permission("ROLE_HUNTER", List(
     ViewBlurs, MarkEngine, MarkBooster, StaffForum,
@@ -66,7 +67,7 @@ object Permission {
   ))
 
   case object SuperAdmin extends Permission("ROLE_SUPER_ADMIN", List(
-    Admin, ChangePermission, PublicMod, Developer, Impersonate, PayPal
+    Admin, ChangePermission, PublicMod, Developer, Impersonate, PayPal, Cli
   ))
 
   lazy val allButSuperAdmin: List[Permission] = List(

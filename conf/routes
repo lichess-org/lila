@@ -510,7 +510,6 @@ GET   /event/manager/new               controllers.Event.form
 POST  /event/manager                   controllers.Event.create
 
 # Misc
-POST  /cli                             controllers.Cli.command
 GET   /captcha/$id<\w{8}>              controllers.Main.captchaCheck(id: String)
 GET   /developers                      controllers.Main.developers
 GET   /embed                           controllers.Main.embed
@@ -520,6 +519,9 @@ GET   /fpmenu                          controllers.Main.fpmenu
 GET   /get-fishnet                     controllers.Main.getFishnet
 GET   /dev/asset-version               controllers.Dev.assetVersion
 POST  /dev/asset-version               controllers.Dev.assetVersionPost
+GET   /dev/cli                         controllers.Dev.cli
+POST  /dev/cli                         controllers.Dev.cliPost
+POST  /cli                             controllers.Dev.command
 
 # Mobile Push
 POST  /mobile/register/:platform/:deviceId controllers.Main.mobileRegister(platform: String, deviceId: String)

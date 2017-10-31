@@ -119,7 +119,7 @@ final class Env(
 
   private def makeUrl(path: String): String = s"${Net.BaseUrl}/$path"
 
-  lazy val cli = new Cli(system.lilaBus, renderer)
+  lazy val cli = new Cli(system.lilaBus)
 
   KamonPusher.start(system) {
     new KamonPusher(countUsers = () => userEnv.onlineUserIdMemo.count)

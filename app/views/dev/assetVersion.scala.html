@@ -2,7 +2,7 @@
 
 @title = @{ "Asset version" }
 
-@mod.layout( title = title, active = "asset") {
+@mod.layout(title = title, active = "asset") {
 
 <style type="text/css">
   #asset-version form {
@@ -32,11 +32,11 @@
   <p>
     DB version: <strong>@dbVersion</strong>
   </p>
-  <form action="@routes.Dev.assetVersion" method="POST">
+  <form action="@routes.Dev.assetVersionPost" method="POST">
     <input name="version" value="@dbVersion" />
     <button type="submit" class="submit button text" data-icon="E">@trans.apply()</button>
   </form>
-  <form action="@routes.Dev.assetVersion" method="POST">
+  <form action="@routes.Dev.assetVersionPost" method="POST">
     <input name="version" value="@{dbVersion.value + 1}" type="hidden" />
     <button type="submit" class="submit button text" data-icon="O">Just increment</button>
   </form>
