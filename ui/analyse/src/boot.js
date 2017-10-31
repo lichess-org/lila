@@ -2,7 +2,6 @@ var defined = require('common').defined;
 
 module.exports = function(element, cfg) {
   var data = cfg.data;
-  lichess.openInMobileApp('/analyse/' + data.game.id);
   var $watchers = $('#site_header div.watchers').watchers();
   var analyse, $panels;
   lichess.socket = lichess.StrongSocket(

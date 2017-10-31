@@ -1,8 +1,5 @@
 $(function() {
 
-  var newUserId = $('.new_player').data('id');
-  if (newUserId) lichess.openInMobileApp('/user/' + newUserId);
-
   $('div.user_show .mod_zone_toggle').each(function() {
     $(this).click(function() {
       var $zone = $('div.user_show .mod_zone');

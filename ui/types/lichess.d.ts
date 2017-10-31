@@ -34,7 +34,6 @@ interface Lichess {
   ab: any;
   challengeApp: any;
   hopscotch: any;
-  openInMobileApp(gameId: string): void;
   makeChat(id: string, data: any, callback?: (chat: any) => void): void;
   topMenuIntent(): void;
   timeago: {

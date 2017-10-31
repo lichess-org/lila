@@ -139,28 +139,6 @@ lichess.topMenuIntent = function() {
     return atob(t.split("").reverse().join(""));
   };
 
-  lichess.openInMobileApp = function(path) {
-    if (!/android.+mobile|ipad|iphone|ipod/i.test(navigator.userAgent || navigator.vendor)) return;
-    var storage = lichess.storage.make('deep-link');
-    var stored = storage.get();
-    if (stored > 0) storage.set(stored - 1);
-    else {
-      $('#deeplink').remove();
-      var pane = $('<div id="deeplink">' +
-        '<a href="lichess://' + path + '">Open with <strong>Mobile app</strong></a>' +
-        '<a>X</a>' +
-        '</div>'
-      ).find('a').click(function() {
-        $('#deeplink').remove();
-        document.body.dispatchEvent(new Event('chessground.resize'));
-        if ($(this).attr('href')) storage.remove();
-        else storage.set(20);
-        return true;
-      }).end();
-      $('body').prepend(pane);
-    }
-  };
-
   lichess.userAutocomplete = function($input, opts) {
     opts = opts || {};
     lichess.loadCss('/assets/stylesheets/autocomplete.css');

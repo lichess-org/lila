@@ -7,7 +7,6 @@ const li = window.lichess;
 
 export default function(opts: RoundOpts, element: HTMLElement): void {
   const data: RoundData = opts.data;
-  li.openInMobileApp(data.game.id);
   let round: RoundApi, chat: ChatCtrl | undefined;
   if (data.tournament) $('body').data('tournament-id', data.tournament.id);
   li.socket = li.StrongSocket(

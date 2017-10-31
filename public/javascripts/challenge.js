@@ -4,7 +4,6 @@ window.onload = function() {
   var element = document.getElementById('challenge');
   var challenge = opts.data.challenge;
   var accepting;
-  if (!opts.owner) lichess.openInMobileApp('/challenge/' + challenge.id);
   lichess.socket = new lichess.StrongSocket(
     opts.socketUrl,
     opts.data.socketVersion, {
