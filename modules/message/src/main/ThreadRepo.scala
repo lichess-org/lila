@@ -19,6 +19,9 @@ object ThreadRepo {
   def visibleByUserByIds(user: User, ids: List[String]): Fu[List[Thread]] =
     coll.find($inIds(ids) ++ visibleByUserQuery(user.id)).list[Thread]()
 
+  def createdByUser(user: ID): Fu[List[Thread]] =
+    coll.find(visibleByUserQuery(user) ++ $doc("creatorId" -> user)).list[Thread]()
+
   def setReadFor(user: User)(thread: Thread): Funit = {
     val indexes = thread.unreadIndexesBy(user)
     indexes.nonEmpty ?? coll.update($id(thread.id), $doc("$set" -> indexes.foldLeft($empty) {

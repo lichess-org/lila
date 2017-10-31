@@ -34,8 +34,8 @@
     <input class="button@when(u.troll, " active")" type="submit" value="Shadowban" />
   </form>
   @if(u.troll) {
-  <form method="post" action="@routes.Mod.deleteChats(u.username)" data-hint="Delete all chat messages in ongoing public chats" class="hint--bottom">
-    <input class="button" type="submit" value="Clear chats" />
+  <form method="post" action="@routes.Mod.deletePmsAndChats(u.username)" data-hint="Delete all PMs and public chat messages" class="hint--bottom">
+    <input class="button confirm" type="submit" value="Clear PMs & chats" />
   </form>
   }
   }

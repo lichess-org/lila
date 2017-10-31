@@ -72,8 +72,11 @@ object Mod extends LilaController {
     } inject redirect(username)
   }
 
-  def deleteChats(username: String) = Secure(_.MarkTroll) { implicit ctx => me =>
-    withSuspect(username)(Env.mod.publicChat.delete) inject redirect(username)
+  def deletePmsAndChats(username: String) = Secure(_.MarkTroll) { implicit ctx => me =>
+    withSuspect(username) { sus =>
+      Env.mod.publicChat.delete(sus) >>
+        Env.message.api.deleteThreadsBy(sus.user)
+    } inject redirect(username)
   }
 
   def closeAccount(username: String) = Secure(_.CloseAccount) { implicit ctx => me =>

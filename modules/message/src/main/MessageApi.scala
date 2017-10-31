@@ -104,6 +104,18 @@ final class MessageApi(
       }
     }
 
+  def deleteThreadsBy(user: User): Funit =
+    ThreadRepo.createdByUser(user.id) flatMap {
+      _.map { thread =>
+        val victimId = thread otherUserId user
+        ThreadRepo.deleteFor(victimId)(thread.id) zip
+          notifyApi.remove(
+            lila.notify.Notification.Notifies(victimId),
+            $doc("content.thread.id" -> thread.id)
+          ) void
+      }.sequenceFu.void
+    }
+
   def notify(thread: Thread): Funit = thread.posts.headOption ?? { post =>
     notify(thread, post)
   }
