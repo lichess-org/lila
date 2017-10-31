@@ -15,7 +15,7 @@
   <string name="chat">الدردشة</string>
   <string name="resign">إستسلام</string>
   <string name="checkmate">كش مات</string>
-  <string name="stalemate">طريق مسدود</string>
+  <string name="stalemate">مات مخنوق</string>
   <string name="white">أبيض</string>
   <string name="black">أسود</string>
   <string name="randomColor">جهة عشوائية</string>
