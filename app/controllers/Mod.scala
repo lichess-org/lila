@@ -282,7 +282,10 @@ object Mod extends LilaController {
         val email = query.headOption.map(EmailAddress.apply) flatMap Env.security.emailAddressValidator.validate
         val username = query lift 1
         def tryWith(setEmail: EmailAddress, q: String): Fu[Option[Result]] = Env.mod.search(q) flatMap {
-          case List(user) => (!user.everLoggedIn ?? modApi.setEmail(me.id, user.id, setEmail)) >>
+          case List(user) => (!user.everLoggedIn).?? {
+            lila.mon.user.register.modConfirmEmail()
+            modApi.setEmail(me.id, user.id, setEmail)
+          } >>
             UserRepo.email(user.id) map { email =>
               Ok(html.mod.emailConfirm("", user.some, email)).some
             }
