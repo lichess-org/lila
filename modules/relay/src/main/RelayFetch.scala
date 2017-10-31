@@ -42,7 +42,7 @@ private final class RelayFetch(
           api.update(relay)(_ => newRelay)
         }
         else if (relay.hasStarted) {
-          logger.warn(s"Finish by lack of activity $relay")
+          logger.info(s"Finish by lack of activity $relay")
           api.update(relay)(_.finish)
         } else fuccess(relay)
       }.sequenceFu.chronometer
@@ -64,10 +64,10 @@ private final class RelayFetch(
       } recover {
         case e: Exception => (e match {
           case res @ SyncResult.Timeout =>
-            logger.warn(s"Sync timeout $relay")
+            logger.info(s"Sync timeout $relay")
             res
           case _ =>
-            logger.warn(s"Sync error $relay", e)
+            logger.info(s"Sync error $relay", e)
             SyncResult.Error(e.getMessage)
         }) -> relay.withSync(_ addLog SyncLog.event(0, e.some))
       } flatMap {
@@ -79,7 +79,7 @@ private final class RelayFetch(
     result match {
       case SyncResult.Ok(0, games) =>
         if (games.size > 1 && games.forall(_.finished)) {
-          logger.warn(s"Finish because all games are over $relay")
+          logger.info(s"Finish because all games are over $relay")
           fuccess(relay.finish)
         } else continueRelay(relay)
       case SyncResult.Ok(nbMoves, games) =>
