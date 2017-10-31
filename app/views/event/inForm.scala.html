@@ -20,6 +20,9 @@
 @base.form.group(form("url"), Html("External URL")) {
 @base.form.input(form("url"))
 }
+@base.form.group(form("lang"), Html("Language")) {
+@base.form.select(form("lang"), lila.i18n.LangList.choices)
+}
 <div>
   @base.form.group(form("enabled"), Html("Enabled"), half = true) {
   @base.form.select(form("enabled"), booleanChoices)

@@ -160,7 +160,7 @@ lazy val timeline = module("timeline", Seq(common, db, game, user, hub, security
   libraryDependencies ++= provided(play.api, play.test, reactivemongo.driver)
 )
 
-lazy val event = module("event", Seq(common, db, memo)).settings(
+lazy val event = module("event", Seq(common, db, memo, i18n)).settings(
   libraryDependencies ++= provided(play.api, play.test, reactivemongo.driver)
 )
 

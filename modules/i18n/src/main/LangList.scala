@@ -8,6 +8,10 @@ object LangList {
 
   def nameByStr(str: String): String = I18nLangPicker.byStr(str).fold(str)(name)
 
+  lazy val choices = all.toList.map {
+    case (Lang(language, _), name) => language -> name
+  }.sortBy(_._1)
+
   val all = Map(
     Lang("en", "GB") -> "English",
     Lang("af", "ZA") -> "Afrikaans",
