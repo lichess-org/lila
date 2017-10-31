@@ -93,6 +93,7 @@
   <string name="passwordReset">ante e nimi sina pi sona ala</string>
   <string name="forgotPassword">sina sona ala e nimi sina pi sona ala?</string>
   <string name="rank">sona jan musi</string>
+  <string name="rankX">sona jan musi: %s</string>
   <string name="gamesPlayed">sina pini e musi ni</string>
   <string name="cancel">pali ala</string>
   <string name="timeOut">tenpo li pini</string>
