@@ -46,7 +46,7 @@ export function player(p, asLink?: boolean) {
     attrs: { 'data-icon': 'M' }
   }, '' + -p.ratingDiff);
   const rating = p.rating + p.ratingDiff + (p.provisional ? '?' : ''),
-  fullName = (p.title ? p.title + ' ' : '') + p.name;
+  fullName = p.title ? [h('span.title', p.title), ' ' + p.name] : p.name;
 
   return h('a.ulpt.user_link' + (fullName.length > 15 ? '.long' : ''), {
     attrs: asLink ? { href: '/@/' + p.name } : { 'data-href': '/@/' + p.name },
