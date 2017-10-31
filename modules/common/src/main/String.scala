@@ -4,6 +4,8 @@ import java.text.Normalizer
 import play.api.libs.json._
 import play.twirl.api.Html
 
+import lila.common.base.StringUtils._
+
 object String {
 
   private val slugR = """[^\w-]""".r
@@ -129,29 +131,6 @@ object String {
     // from https://github.com/android/platform_frameworks_base/blob/d59921149bb5948ffbcb9a9e832e9ac1538e05a0/core/java/android/text/TextUtils.java#L1361
     def escapeHtml(s: String): Html = Html(escapeHtmlUnsafe(s))
 
-    private val badChars = "[<>&\"']".r.pattern
-
-    def escapeHtmlUnsafe(s: String): String = {
-      if (badChars.matcher(s).find) {
-        val sb = new StringBuilder(s.size + 10) // wet finger style
-        var i = 0
-        while (i < s.length) {
-          sb.append {
-            s.charAt(i) match {
-              case '<' => "&lt;"
-              case '>' => "&gt;"
-              case '&' => "&amp;"
-              case '"' => "&quot;"
-              case '\'' => "&#39;"
-              case c => c
-            }
-          }
-          i += 1
-        }
-        sb.toString
-      } else s
-    }
-
     private val markdownLinkRegex = """\[([^\[]+)\]\(([^\)]+)\)""".r
 
     def markdownLinks(text: String): Html = Html(nl2brUnsafe {
@@ -159,40 +138,6 @@ object String {
         s"""<a href="${m group 2}">${m group 1}</a>"""
       })
     })
-
-    @inline private final def isSafe(c: Char): Boolean = c >= ' ' && c <= '~' && (c match {
-      case '<' | '>' | '&' | '"' | '\'' | '\\' | '`' | '/' => false
-      case _ => true
-    })
-
-    private def safeJsonString(s: String): String = {
-      // Slightly relaxed rule 3 from
-      // https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet:
-      // We do not care about unquoted attributes.
-      // benchmarks: https://github.com/ornicar/lila-jmh-benchmarks/blob/master/src/main/scala/SafeJsonStringTest.scala
-      val len = s.length
-      val fact = if (len > 0 && isSafe(s charAt 0)) 1 else 6
-      val sb = new StringBuilder(fact * len + 2)
-      sb.append('"')
-      var i = 0
-      while (i < len) {
-        val c = s charAt i
-        if (isSafe(c)) sb.append(c)
-        else {
-          sb.append(
-            if (c > '\u00ff') {
-              if (c > '\u0fff') "\\u" else "\\u0"
-            } else {
-              if (c > '\u000f') "\\u00" else "\\u000"
-            }
-          )
-          sb.append(Integer.toHexString(c).toUpperCase)
-        }
-        i += 1
-      }
-      sb.append('"')
-      sb.toString
-    }
 
     def safeJsonValue(jsValue: JsValue): String = {
       // Borrowed from:
