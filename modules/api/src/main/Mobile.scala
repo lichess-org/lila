@@ -10,8 +10,10 @@ object Mobile {
 
   object AppVersion {
 
+    def mustUpgrade(v: String) = mustUpgradeFromVersions(v)
+
     // only call if a more recent version is available in both stores!
-    val callToUpgradeFromVersions = Set(
+    private val mustUpgradeFromVersions = Set(
       "5.1.0", "5.1.1"
     )
 

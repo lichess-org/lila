@@ -8,6 +8,7 @@ import scala.concurrent.duration._
 
 import lila.api.Context
 import lila.app._
+import lila.common.PimpedJson._
 import lila.common.{ HTTPRequest, IpAddress }
 
 object Api extends LilaController {
@@ -17,9 +18,9 @@ object Api extends LilaController {
 
   private implicit val limitedDefault = Zero.instance[ApiResult](Limited)
 
-  private lazy val apiStatusResponse = {
+  private lazy val apiStatusJson = {
     val api = lila.api.Mobile.Api
-    Ok(Json.obj(
+    Json.obj(
       "api" -> Json.obj(
         "current" -> api.currentVersion.value,
         "olds" -> api.oldVersions.map { old =>
@@ -30,11 +31,12 @@ object Api extends LilaController {
           )
         }
       )
-    )) as JSON
+    )
   }
 
   val status = Action { req =>
-    apiStatusResponse
+    val mustUpgrade = get("v", req) exists lila.api.Mobile.AppVersion.mustUpgrade _
+    Ok(apiStatusJson.add("mustUpgrade", mustUpgrade)) as JSON
   }
 
   def user(name: String) = ApiRequest { implicit ctx =>
