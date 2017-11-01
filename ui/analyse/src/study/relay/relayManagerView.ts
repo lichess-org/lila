@@ -25,8 +25,8 @@ export default function(ctrl: RelayCtrl): VNode | undefined {
 
 function logSuccess(e: LogEvent) {
   return [
-    e.moves ? h('strong', '' + e.moves) : e.moves,
-    ` new move${e.moves > 1 ? 's' : ''}`
+    e.moves ? h('strong', '' + (e.moves > 0 ? e.moves : 'No')) : e.moves,
+    ` new move${e.moves > 1 || e.moves === 0 ? 's' : ''}`
   ];
 }
 
