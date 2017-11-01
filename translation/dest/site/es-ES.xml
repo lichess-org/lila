@@ -277,8 +277,8 @@
     <item quantity="other">≥ %1$s %2$s partidas puntuadas</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Necesitas jugar %1$s partida %2$s puntuada</item>
-    <item quantity="other">Necesitas jugar %1$s partidas %2$s puntuadas</item>
+    <item quantity="one">Necesitas jugar %1$s partida más de %2$s por puntos</item>
+    <item quantity="other">Necesitas jugar %1$s partidas más de %2$s por puntos</item>
   </plurals>
   <plurals name="needNbMoreGames">
     <item quantity="one">Necesitas jugar %s partidas puntuadas más</item>
@@ -597,7 +597,7 @@
   <string name="error.email_unique">Este correo ya está en uso</string>
   <string name="error.email_different">Esta es el mismo correo que tiene actualmente</string>
   <string name="blindfoldChess">Ajedrez a ciegas (piezas invisibles)</string>
-  <string name="zenMode">Modo Zen</string>
+  <string name="zenMode">Modo zen</string>
   <string name="moveConfirmation">Confirmación de movimiento</string>
   <string name="inCorrespondenceGames">Partidas por correspondencia</string>
   <string name="ifRatingIsPlusMinusX">Si la puntuación es ± %s</string>
@@ -683,10 +683,10 @@
   <string name="printFriendlyPDF">Imprimir en formato PDF simple</string>
   <string name="crosstable">Tablas cruzadas</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Puedes usar la rueda del ratón para desplazarte por la partida.</string>
-  <string name="analysisShapesHowTo">Presiona mayúsculas o clic derecho del ratón para marcar círculos y flechas en el tablero.</string>
+  <string name="analysisShapesHowTo">Haga clic con el botón derecho o Máyus+clic para dibujar círculos y flechas en el tablero.</string>
   <string name="confirmResignationAndDrawOffers">Confirmar abandono y ofertas de tablas</string>
   <string name="inputMovesWithTheKeyboard">Entrada de movimientos con el teclado</string>
-  <string name="letOtherPlayersMessageYou">Permitir que otras personas te envíen un mensaje</string>
+  <string name="letOtherPlayersMessageYou">Permitir que otras personas te envíen mensajes</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Método de enroque</string>
   <string name="castleByMovingTwoSquares">Moviendo el rey dos casillas</string>
   <string name="castleByMovingOntoTheRook">Moviendo el rey hasta la torre</string>
@@ -704,7 +704,7 @@
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Esta es una lista de dispositivos desde los que ha iniciado sesión. Cierre todas las sesiones que no reconozca.</string>
   <string name="alternativelyYouCanX">O también puedes %s.</string>
   <string name="revokeAllSessions">cerrar todas las sesiones</string>
-  <string name="playChessEverywhere">Jugar ajedrez donde sea</string>
+  <string name="playChessEverywhere">Juega al ajedrez donde sea</string>
   <string name="asFreeAsLichess">Tan gratis como lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Construido por amor al ajedrez, no por dinero</string>
   <string name="everybodyGetsAllFeaturesForFree">Todos tienen acceso gratuito a todas las opciones</string>
