@@ -86,7 +86,7 @@
   <string name="openingExplorer">Eröffnungsdatenbank &amp; Tablebases</string>
   <string name="xOpeningExplorer">%s Eröffnungsbuch</string>
   <string name="winPreventedBy50MoveRule">Sieg durch 50-Züge-Regel verhindert</string>
-  <string name="lossSavedBy50MoveRule">Verlust durch 50-Züge-Regel verhindert</string>
+  <string name="lossSavedBy50MoveRule">Niederlage durch 50-Züge-Regel verhindert</string>
   <string name="allSet">Fertig!</string>
   <string name="importPgn">PGN importieren</string>
   <string name="delete">Löschen</string>
@@ -647,7 +647,7 @@
   <string name="tournamentFAQ">Arena FAQ</string>
   <string name="tournamentOfficial">Offiziell</string>
   <string name="timeBeforeTournamentStarts">Zeit bis zum Start des Turniers</string>
-  <string name="averageCentipawnLoss">Ø Verlust von 1/100 Bauer p. Zug</string>
+  <string name="averageCentipawnLoss">Ø-Verlust von 1/100-Bauern p. Zug</string>
   <string name="keyboardShortcuts">Tastenkürzel</string>
   <string name="keyMoveBackwardOrForward">Zug zurück/vor</string>
   <string name="keyGoToStartOrEnd">zum Anfang/Ende</string>
