@@ -1749,13 +1749,3 @@ body.piece_letter #analyse-cm .title {
 #analyse-cm .action:hover {
   background: #fff;
 }
-
-.gauge_displayed .cg-board-wrap coords.ranks {
-  color: #fff;
-  text-shadow: 0 1px 2px #000;
-  right: -4px;
-  text-align: left;
-}
-.gauge_displayed .cg-board-wrap coords.ranks coord {
-  transform: none;
-}

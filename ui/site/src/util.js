@@ -188,6 +188,14 @@ lichess.loadCss = function(url) {
   lichess.loadedCss[url] = true;
   $('head').append($('<link rel="stylesheet" type="text/css" />').attr('href', lichess.assetUrl(url)));
 };
+lichess.unloadCss = function(url) {
+  if (lichess.loadedCss[url]) {
+    lichess.loadedCss[url]  = false;
+    $('head link[rel=stylesheet]')
+      .filter(function() { return this.href.indexOf(url) >= 0 })
+        .remove();
+  }
+}
 lichess.loadScript = function(url, opts) {
   return $.ajax({
     dataType: "script",

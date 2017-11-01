@@ -28,6 +28,8 @@ import { ConcealOf } from './interfaces';
 import relayManager from './study/relay/relayManagerView';
 import renderPlayerBars from './study/playerBars';
 
+const li = window.lichess;
+
 function renderResult(ctrl: AnalyseCtrl): VNode[] {
   let result: string | undefined;
   if (ctrl.data.game.status.id >= 30) switch (ctrl.data.game.winner) {
@@ -243,6 +245,15 @@ function renderChapterName(ctrl: AnalyseCtrl) {
   if (ctrl.embed && ctrl.study) return h('div.chapter_name', ctrl.study.currentChapter().name);
 }
 
+const innerCoordsCss = '/assets/stylesheets/board.coords.inner.css';
+
+function forceInnerCoords(ctrl: AnalyseCtrl, v: boolean) {
+  const pref = ctrl.data.pref.coords;
+  if (!pref) return;
+  if (v) li.loadCss(innerCoordsCss);
+  else if (pref === 2) li.unloadCss(innerCoordsCss);
+}
+
 let firstRender = true;
 
 export default function(ctrl: AnalyseCtrl): VNode {
@@ -256,17 +267,26 @@ export default function(ctrl: AnalyseCtrl): VNode {
   gamebookPlayView = gamebookPlay && gbPlay.render(gamebookPlay),
   gamebookEditView = gbEdit.running(ctrl) ? gbEdit.render(ctrl) : undefined,
   relayEdit = study && study.relay && relayManager(study.relay),
-  playerBars = renderPlayerBars(ctrl);
+  playerBars = renderPlayerBars(ctrl),
+  gaugeDisplayed = ctrl.showEvalGauge(),
+  needsInnerCoords = !!gaugeDisplayed || !!playerBars;
   return h('div.analyse.cg-512', [
     h('div.' + studyStateClass, {
       hook: {
         insert: _ => {
-          if (firstRender) firstRender = false;
-          else window.lichess.pubsub.emit('reset_zoom')();
+          if (firstRender) {
+            firstRender = false;
+            if (ctrl.data.pref.coords === 1) li.loadedCss[innerCoordsCss] = true;
+          }
+          else li.pubsub.emit('reset_zoom')();
+          forceInnerCoords(ctrl, needsInnerCoords);
+        },
+        update(_, _2) {
+          forceInnerCoords(ctrl, needsInnerCoords);
         }
       },
       class: {
-        'gauge_displayed': ctrl.showEvalGauge(),
+        'gauge_displayed': gaugeDisplayed,
         'no_computer': !ctrl.showComputer(),
         'gb_edit': !!gamebookEditView,
         'gb_play': !!gamebookPlayView,
@@ -276,7 +296,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
     }, [
       h('div.lichess_game', {
         hook: {
-          insert: _ => window.lichess.pubsub.emit('content_loaded')()
+          insert: _ => li.pubsub.emit('content_loaded')()
         }
       }, [
         visualBoard(ctrl, playerBars),
