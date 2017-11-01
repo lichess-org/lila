@@ -675,14 +675,14 @@
   <string name="itWasNotRequiredForYourRegistration">No se requirió para tu registro.</string>
   <string name="weHaveSentYouAnEmailTo">Te hemos enviado un correo a %s. Restablece tu contraseña haciendo clic en el enlace.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Al registrarte, aceptas las %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Demora en el intervalo de conexión entre tu equipo y Lichess</string>
+  <string name="networkLagBetweenYouAndLichess">Retardo de conexión entre tú y lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tiempo para procesar un movimiento en el servidor de Lichess</string>
   <string name="downloadAnnotated">Descargar la partida anotada</string>
   <string name="downloadRaw">Descargar partida simple</string>
   <string name="downloadImported">Descargar la partida importada</string>
   <string name="printFriendlyPDF">Imprimir en formato PDF simple</string>
-  <string name="crosstable">Tablas cruzadas</string>
-  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Puedes usar la rueda del ratón para desplazarte por la partida.</string>
+  <string name="crosstable">Tabla cruzada</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">También puedes usar la rueda del ratón para desplazarte por la partida.</string>
   <string name="analysisShapesHowTo">Haga clic con el botón derecho o Máyus+clic para dibujar círculos y flechas en el tablero.</string>
   <string name="confirmResignationAndDrawOffers">Confirmar abandono y ofertas de tablas</string>
   <string name="inputMovesWithTheKeyboard">Entrada de movimientos con el teclado</string>
