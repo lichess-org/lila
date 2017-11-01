@@ -7,6 +7,8 @@ object LameName {
 
   def anyName(name: String) = lameWords.matcher(name).find
 
+  def anyNameButLichessIsOk(name: String) = lameWords.matcher(name.replace("lichess", "")).find
+
   private val lameTitlePrefix =
     "[Ww]?[NCFIGl1L]M|(?i:w?[ncfigl1])m[-_A-Z0-9]".r.pattern
 

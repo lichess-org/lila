@@ -54,7 +54,7 @@ final class TournamentApi(
       variant = setup.realVariant,
       position = DataForm.startingPosition(setup.position, setup.realVariant)
     )
-    if (tour.name != me.titleUsername && lila.common.LameName.anyName(tour.name)) {
+    if (tour.name != me.titleUsername && lila.common.LameName.anyNameButLichessIsOk(tour.name)) {
       val msg = s"""@${me.username} created tournament "${tour.name} Arena" :kappa: https://lichess.org/tournament/${tour.id}"""
       logger warn msg
       bus.publish(lila.hub.actorApi.slack.Warning(msg), 'slack)
