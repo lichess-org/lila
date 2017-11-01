@@ -188,7 +188,7 @@ private object RelayFetch {
           else (game :: acc, index + 1)
         }
         case (acc, _) => acc
-      }.map(_.reverse).future.map(_._1)
+      }.future.map(_._1.reverse)
 
     private val pgnCache: LoadingCache[String, Try[Int => RelayGame]] = Scaffeine()
       .expireAfterAccess(2 minutes)
