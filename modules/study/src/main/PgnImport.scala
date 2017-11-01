@@ -42,21 +42,14 @@ object PgnImport {
               glyphs = Glyphs.empty,
               clock = parsedPgn.tags.clockConfig.map(_.limit),
               crazyData = replay.setup.situation.board.crazyData,
-              children = makeNode(
-                prev = replay.setup,
-                sans = parsedPgn.sans.value,
-                annotator = annotator
-              ).fold(
-                err => {
-                  logger.warn(s"PgnImport $err")
-                  Node.emptyChildren
-                },
-                node =>
-                  Node.Children {
-                    val variations = makeVariations(parsedPgn.sans.value, replay.setup, annotator)
-                    node.fold(variations)(_ :: variations).toVector
-                  }
-              )
+              children = Node.Children {
+                val variations = makeVariations(parsedPgn.sans.value, replay.setup, annotator)
+                makeNode(
+                  prev = replay.setup,
+                  sans = parsedPgn.sans.value,
+                  annotator = annotator
+                ).fold(variations)(_ :: variations).toVector
+              }
             )
             val end: Option[End] = {
               (if (game.finished) game.status else result.status).some
@@ -104,10 +97,7 @@ object PgnImport {
   private def makeVariations(sans: List[San], game: chess.Game, annotator: Option[Comment.Author]) =
     sans.headOption.?? {
       _.metas.variations.flatMap { variation =>
-        makeNode(game, variation.value, annotator).fold({ err =>
-          logger.warn(s"$variation $err")
-          none
-        }, identity)
+        makeNode(game, variation.value, annotator)
       }
     }
 
@@ -125,15 +115,15 @@ object PgnImport {
       }
     }
 
-  private def makeNode(prev: chess.Game, sans: List[San], annotator: Option[Comment.Author]): Valid[Option[Node]] =
+  private def makeNode(prev: chess.Game, sans: List[San], annotator: Option[Comment.Author]): Option[Node] =
     sans match {
-      case Nil => success(none)
-      case san :: rest => san(prev.situation) flatMap { moveOrDrop =>
-        val game = moveOrDrop.fold(prev.apply, prev.applyDrop)
-        val uci = moveOrDrop.fold(_.toUci, _.toUci)
-        val sanStr = moveOrDrop.fold(Dumper.apply, Dumper.apply)
-        makeNode(game, rest, annotator) map { mainline =>
-          val variations = makeVariations(rest, game, annotator)
+      case Nil => none
+      case san :: rest => san(prev.situation).fold(
+        _ => none, // illegal move; stop here.
+        moveOrDrop => {
+          val game = moveOrDrop.fold(prev.apply, prev.applyDrop)
+          val uci = moveOrDrop.fold(_.toUci, _.toUci)
+          val sanStr = moveOrDrop.fold(Dumper.apply, Dumper.apply)
           parseComments(san.metas.comments, annotator) match {
             case (shapes, clock, comments) => Node(
               id = UciCharPair(uci),
@@ -147,14 +137,15 @@ object PgnImport {
               crazyData = game.situation.board.crazyData,
               clock = clock,
               children = removeDuplicatedChildrenFirstNode {
+                val variations = makeVariations(rest, game, annotator)
                 Node.Children {
-                  mainline.fold(variations)(_ :: variations).toVector
+                  makeNode(game, rest, annotator).fold(variations)(_ :: variations).toVector
                 }
               }
             ).some
           }
         }
-      }
+      )
     }
 
   /*

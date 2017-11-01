@@ -37,10 +37,7 @@ case class ImportData(pgn: String, analyse: Option[String]) {
 
   private def evenIncomplete(result: Reader.Result): Replay = result match {
     case Reader.Result.Complete(replay) => replay
-    case Reader.Result.Incomplete(replay, err) => {
-      logger.info(s"$err $pgn")
-      replay
-    }
+    case Reader.Result.Incomplete(replay, _) => replay
   }
 
   def preprocess(user: Option[String]): Valid[Preprocessed] = Parser.full(pgn) flatMap {
