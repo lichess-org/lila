@@ -29,7 +29,7 @@ object Translator {
             Some(Html(key))
         }
       } getOrElse {
-        logger.warn(s"No translation found for $quantity $key in $lang")
+        logger.info(s"No translation found for $quantity $key in $lang")
         Html(key)
       }
 
@@ -61,7 +61,7 @@ object Translator {
             Some(key)
         }
       } getOrElse {
-        logger.warn(s"No translation found for $quantity $db/$lang/$key in $lang")
+        logger.info(s"No translation found for $quantity $db/$lang/$key in $lang")
         key
       }
   }
