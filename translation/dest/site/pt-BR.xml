@@ -382,7 +382,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="createdBy">Criado por</string>
   <string name="tournamentIsStarting">O torneio está a começar</string>
   <string name="tournamentPairingsAreNowClosed">Os pareamentos do torneio estão fechados agora.</string>
-  <string name="standByX">Aguarde por %s, pareamento em andamento, prepare-se!</string>
+  <string name="standByX">%s, aguarde: o pareamento está em andamento, prepare-se!</string>
   <string name="youArePlaying">Você está no jogo!</string>
   <string name="winRate">Taxa de vitórias</string>
   <string name="berserkRate">Taxa Berserk</string>

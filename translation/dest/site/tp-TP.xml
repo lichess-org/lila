@@ -46,6 +46,7 @@
   <string name="viewTheComputerAnalysis">lukin e sona musi</string>
   <string name="requestAComputerAnalysis">wile e sona musi</string>
   <string name="computerAnalysis">ilo nanpa li lukin e musi</string>
+  <string name="computerAnalysisAvailable">ilo nanpa li lukin e musi la lon</string>
   <string name="analysis">sona musi</string>
   <string name="openingExplorer">ilo open</string>
   <string name="blunders">pali pakala</string>
@@ -92,6 +93,7 @@
   <string name="passwordReset">ante e nimi sina pi sona ala</string>
   <string name="forgotPassword">sina sona ala e nimi sina pi sona ala?</string>
   <string name="rank">sona jan musi</string>
+  <string name="rankX">sona jan musi: %s</string>
   <string name="gamesPlayed">sina pini e musi ni</string>
   <string name="cancel">pali ala</string>
   <string name="timeOut">tenpo li pini</string>

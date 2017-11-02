@@ -792,4 +792,5 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="notifications">Pranešimai</string>
   <string name="challenges">Iššūkiai</string>
   <string name="perfRatingX">Reitingas: %s</string>
+  <string name="xSecondsToPlayTheFirstMove">%s sek. atlikti pirmąjį ėjimą</string>
 </resources>

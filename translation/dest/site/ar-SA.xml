@@ -14,8 +14,8 @@
   <string name="toggleSound">تعطيل/تشغيل الصوت</string>
   <string name="chat">الدردشة</string>
   <string name="resign">إستسلام</string>
-  <string name="checkmate">كش ملك</string>
-  <string name="stalemate">طريق مسدود</string>
+  <string name="checkmate">كش مات</string>
+  <string name="stalemate">مات مخنوق</string>
   <string name="white">أبيض</string>
   <string name="black">أسود</string>
   <string name="randomColor">جهة عشوائية</string>
@@ -468,7 +468,7 @@
   <string name="winner">الفائز</string>
   <string name="standing">الترتيب</string>
   <string name="createANewTournament">ابدأ مسابقة جديدة</string>
-  <string name="join">انضم</string>
+  <string name="join">إشترك</string>
   <string name="withdraw">انسحاب</string>
   <string name="points">النقاط</string>
   <string name="wins">الفوز</string>

@@ -381,7 +381,7 @@
   <string name="createdBy">Create per</string>
   <string name="tournamentIsStarting">Le torneo comencia ora</string>
   <string name="tournamentPairingsAreNowClosed">Le junction de jocatores in le torneo es claudite ora.</string>
-  <string name="standByX">Attende %s, connectente jocatores, prepara te!</string>
+  <string name="standByX">%s, attende un momento. On connecte le jocatores, prepara te!</string>
   <string name="youArePlaying">Tu es jocante!</string>
   <string name="winRate">Percentage de victorias</string>
   <string name="berserkRate">Percentage Berserk</string>
@@ -391,7 +391,7 @@
   <string name="whiteWins">Victorias del blanco</string>
   <string name="blackWins">Victorias del nigro</string>
   <string name="draws">Partitas nulle</string>
-  <string name="nextXTournament">Torneo %s sequente:</string>
+  <string name="nextXTournament">Proxime torneo %s:</string>
   <string name="viewMoreTournaments">Vider plus torneos</string>
   <string name="averageOpponent">Classification medie</string>
   <string name="membersOnly">Solmente membros</string>
@@ -424,8 +424,10 @@
   <string name="bewareTheGameIsRatedButHasNoClock">Attention, le partita es classificatori ma illo non ha controlo de tempore!</string>
   <string name="training">Exercitio</string>
   <string name="yourPuzzleRatingX">Tu classification de enigmas: %s</string>
-  <string name="findTheBestMoveForWhite">Trova le melior movimento pro le blanco.</string>
-  <string name="findTheBestMoveForBlack">Trova le melior movimento pro le nigro.</string>
+  <string name="findTheBestMoveForWhite">Trova le melior movimento 
+pro le blanco.</string>
+  <string name="findTheBestMoveForBlack">Trova le melior movimento 
+pro le nigro.</string>
   <string name="toTrackYourProgress">Pro traciar tu progresso:</string>
   <string name="trainingSignupExplanation">Lichess fornira enigmas que corresponde a tu habilitates, pro facer melior sessiones de exercitio.</string>
   <string name="puzzleId">Enigma %s</string>
