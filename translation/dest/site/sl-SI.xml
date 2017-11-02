@@ -822,4 +822,5 @@ v %3$s</string>
   <string name="notifications">Obvestila</string>
   <string name="challenges">Izzivi</string>
   <string name="perfRatingX">Rating: %s</string>
+  <string name="xSecondsToPlayTheFirstMove">%s sekund časa za prvo potezo</string>
 </resources>
