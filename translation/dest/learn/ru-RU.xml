@@ -37,7 +37,7 @@
   <string name="knightIntro">Вот вам задача. Конь — хитрая фигура.</string>
   <string name="knightsHaveAFancyWay">Кони имеют причудливый способ перепрыгивать!</string>
   <string name="knightsCanJumpOverObstacles">Кони могут прыгать через препятствия!
-Выберетесь и соберите все звезды!</string>
+Выберитесь и соберите все звезды!</string>
   <string name="knightComplete">Поздравляем! Вы освоили фигуру \"Конь\".</string>
   <string name="thePawn">Пешка</string>
   <string name="itMovesForwardOnly">Ходит только вперед</string>
