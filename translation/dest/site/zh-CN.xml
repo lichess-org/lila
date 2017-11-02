@@ -6,7 +6,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">邀人下棋，请分享这个网址</string>
   <string name="gameOver">棋局结束</string>
   <string name="waitingForOpponent">等待对手</string>
-  <string name="waiting">等候</string>
+  <string name="waiting">等待中</string>
   <string name="yourTurn">该你走</string>
   <string name="aiNameLevelAiLevel">%1$s级別%2$s</string>
   <string name="level">级别</string>
@@ -65,7 +65,7 @@
   <string name="close">关闭</string>
   <string name="winning">赢棋</string>
   <string name="losing">输棋</string>
-  <string name="drawn">和局</string>
+  <string name="drawn">和棋</string>
   <string name="unknown">结局未知</string>
   <string name="database">数据库</string>
   <string name="whiteDrawBlack">白胜／和棋／黑胜</string>
@@ -83,7 +83,7 @@
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">请尝试在“选择”菜单内包括更多棋局。</string>
   <string name="openingExplorer">开局浏览器</string>
   <string name="xOpeningExplorer">%s开局浏览器</string>
-  <string name="winPreventedBy50MoveRule">本局面本应赢棋，但因为50回合规则对方可以逼和。</string>
+  <string name="winPreventedBy50MoveRule">本棋局本应取胜，但由于50回合规则导致和棋。</string>
   <string name="lossSavedBy50MoveRule">本局面本应输棋，但因为50回合规则可以和棋。</string>
   <string name="allSet">好了！</string>
   <string name="importPgn">上传PGN</string>
@@ -695,7 +695,7 @@
   <string name="xJoinsY">%1$s 参加 %2$s</string>
   <string name="xLikesY">%1$s喜欢%2$s</string>
   <string name="quickPairing">快速配对</string>
-  <string name="lobby">大堂</string>
+  <string name="lobby">大厅</string>
   <string name="anonymous">匿名</string>
   <string name="yourScore">比分：%s</string>
   <string name="language">语言</string>
