@@ -487,7 +487,7 @@
   <string name="butYouCanKeepTrying">Lahko poskušaš še naprej</string>
   <string name="success">Uspešno</string>
   <string name="wasThisPuzzleAnyGood">Je bil problem zanimiv?</string>
-  <string name="pleaseVotePuzzle">Glasuj in pomagaj Lichess-u s tem da klikneš na eno od pušči, ki kažeta navzgor/navzdol:</string>
+  <string name="pleaseVotePuzzle">Pomagajte izboljšati Lichess z glasovanjem, uporabite navzgor ali navzdol puščico:</string>
   <string name="thankYou">Hvala!</string>
   <string name="ratingX">Rating: %s</string>
   <plurals name="playedXTimes">
