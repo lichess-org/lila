@@ -2,12 +2,12 @@ package lila.explorer
 
 import scala.util.Random.nextFloat
 import scala.util.{ Try, Success, Failure }
-
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import play.api.libs.iteratee._
 import play.api.libs.ws.WS
 import play.api.Play.current
+import chess.format.pgn.Tag
 
 import lila.db.dsl._
 import lila.game.BSONHandlers.gameBSONHandler
@@ -153,7 +153,7 @@ private final class ExplorerIndexer(
         usernames.find(_.toLowerCase == id)
       } orElse game.player(color).userId getOrElse "?"
       val fenTags = initialFen.?? { fen => List(s"[FEN $fen]") }
-      val timeControl = game.clock.fold("-") { c => s"${c.limit}+${c.increment}" }
+      val timeControl = Tag.timeControl(game.clock.map(_.config)).value
       val otherTags = List(
         s"[LichessID ${game.id}]",
         s"[Variant ${game.variant.name}]",

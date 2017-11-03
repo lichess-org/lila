@@ -94,7 +94,7 @@ final class PgnDump(
         wu.flatMap(_.title).map { t => Tag(_.WhiteTitle, t) },
         bu.flatMap(_.title).map { t => Tag(_.BlackTitle, t) },
         Tag(_.Variant, game.variant.name.capitalize).some,
-        Tag(_.TimeControl, game.clock.fold("-") { c => s"${c.limit.roundSeconds}+${c.increment.roundSeconds}" }).some,
+        Tag.timeControl(game.clock.map(_.config)).some,
         Tag(_.ECO, game.opening.fold("?")(_.opening.eco)).some,
         Tag(_.Opening, game.opening.fold("?")(_.opening.name)).some,
         Tag(_.Termination, {
