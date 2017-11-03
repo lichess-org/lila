@@ -120,6 +120,16 @@
     <item quantity="other">%s spēlētāji</item>
   </plurals>
   <string name="currentGames">Pašlaik spēlē</string>
+  <plurals name="nbGames">
+    <item quantity="zero">Apskatīt visas %s spēles</item>
+    <item quantity="one">Apskatīt %s spēli</item>
+    <item quantity="other">Apskatīt visas %s spēles</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="zero">%s grāmatzīmes</item>
+    <item quantity="one">%s grāmatzīme</item>
+    <item quantity="other">%s grāmatzīmes</item>
+  </plurals>
   <string name="viewInFullSize">Skatīt pilnā izmērā</string>
   <string name="logOut">Atslēgties</string>
   <string name="signIn">Pieslēgties</string>
@@ -140,6 +150,16 @@
   <string name="correspondence">Korespondencšahs</string>
   <string name="daysPerTurn">Dienu skaits uz gājienu</string>
   <string name="oneDay">Viena diena</string>
+  <plurals name="nbDays">
+    <item quantity="zero">%s dienas</item>
+    <item quantity="one">%s diena</item>
+    <item quantity="other">%s dienas</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="zero">%s stundas</item>
+    <item quantity="one">%s stunda</item>
+    <item quantity="other">%s stundas</item>
+  </plurals>
   <string name="time">Laiks</string>
   <string name="rating">Reitings</string>
   <string name="ratingStats">Reitinga statistika</string>
@@ -162,6 +182,11 @@
     <item quantity="other">%s puzles</item>
   </plurals>
   <string name="gamesPlayed">Izspēlētās spēles</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="zero">%s savstarpējās spēles</item>
+    <item quantity="one">%s savstarpējā spēle</item>
+    <item quantity="other">%s savstarpējās spēles</item>
+  </plurals>
   <string name="cancel">Atcelt</string>
   <string name="timeOut">Laiks beidzies</string>
   <string name="drawOfferSent">Neizšķirta piedāvājums nosūtīts</string>
@@ -210,6 +235,11 @@
     <item quantity="zero">%s ar reitingu</item>
     <item quantity="one">%s ar reitingu</item>
     <item quantity="other">%s ar reitingu</item>
+  </plurals>
+  <plurals name="nbWins">
+    <item quantity="zero">%s uzvaras</item>
+    <item quantity="one">%s uzvara</item>
+    <item quantity="other">%s uzvaras</item>
   </plurals>
   <plurals name="nbLosses">
     <item quantity="zero">%s zaudējumi</item>
