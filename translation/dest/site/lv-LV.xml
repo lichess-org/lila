@@ -512,6 +512,11 @@
   <string name="allInformationIsPublicAndOptional">Visa informācija ir publiska un nav obligāta.</string>
   <string name="yourCityRegionOrDepartment">Tava pilsēta, novads vai province.</string>
   <string name="biographyDescription">Pastāsti par sevi, kas tev šahā patīk, mīļākās atklātnes, spēles, šahisti…</string>
+  <plurals name="blocks">
+    <item quantity="zero">%s bloķētie</item>
+    <item quantity="one">%s bloķētais</item>
+    <item quantity="other">%s bloķētie</item>
+  </plurals>
   <string name="listBlockedPlayers">Parādīt bloķēto spēlētāju sarakstu</string>
   <string name="human">Cilvēks</string>
   <string name="computer">Dators</string>
@@ -551,6 +556,11 @@
   <string name="whiteCastlingQueenside">Baltajiem O-O-O</string>
   <string name="blackCastlingKingside">Melnajiem O-O</string>
   <string name="blackCastlingQueenside">Melnajiem O-O-O</string>
+  <plurals name="nbForumPosts">
+    <item quantity="zero">%s foruma ieraksti</item>
+    <item quantity="one">%s foruma ieraksts</item>
+    <item quantity="other">%s foruma ieraksti</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">Pavadītais laiks spēlējot: %s</string>
   <string name="watchGames">Skatīties spēles</string>
   <string name="tpTimeSpentOnTV">TV laiks: %s</string>
@@ -600,6 +610,11 @@
   <string name="tournamentMayHaveBeenCanceled">Var gadīties, ka tas tika atcelts, ja visi spēlētāji pameta turnīru pirms tā sākuma.</string>
   <string name="returnToTournamentsHomepage">Atgriezties turnīru lapā</string>
   <string name="weeklyPerfTypeRatingDistribution">Mēneša %s reitingu sadalījums</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="zero">%1$s %2$s spēlētāji šonedēļ.</item>
+    <item quantity="one">%1$s %2$s spēlētājs šonedēļ.</item>
+    <item quantity="other">%1$s %2$s spēlētāji šonedēļ.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">Tavs %1$s reitings ir %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Tu esi labāks kā %1$s starp %2$s spēlētājiem.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Tev vēl nav stabils %s reitings.</string>
@@ -652,6 +667,11 @@
   <string name="correspondenceAndUnlimited">Korespondencšahs un bezgalīgs</string>
   <string name="viewTheSolution">Skatīt atrisinājumu</string>
   <string name="followAndChallengeFriends">Seko un izaicini draugus</string>
+  <plurals name="availableInNbLanguages">
+    <item quantity="zero">Pieejama %s valodās!</item>
+    <item quantity="one">Pieejama %s valodā!</item>
+    <item quantity="other">Pieejama %s valodās!</item>
+  </plurals>
   <string name="gameAnalysis">Spēles analīze</string>
   <string name="xHostsY">%1$s saimnieko %2$s</string>
   <string name="xJoinsY">%1$s pievienojas %2$s</string>
@@ -690,4 +710,5 @@
   <string name="notifications">Paziņojumi</string>
   <string name="challenges">Izaicinājumi</string>
   <string name="perfRatingX">Reitings: %s</string>
+  <string name="xSecondsToPlayTheFirstMove">%s sekundes lai izdarītu pirmo gājienu</string>
 </resources>
