@@ -56,7 +56,8 @@ private[puzzle] final class Finisher(
     }
   } map {
     case (round, mode, ratingBefore, ratingAfter) =>
-      bus.publish(Puzzle.UserResult(puzzle.id, user.id, result, ratingBefore -> ratingAfter), 'finishPuzzle)
+      if (mode.rated)
+        bus.publish(Puzzle.UserResult(puzzle.id, user.id, result, ratingBefore -> ratingAfter), 'finishPuzzle)
       round -> mode
   }
 
