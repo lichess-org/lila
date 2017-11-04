@@ -55,6 +55,9 @@ object mon {
       val websocket = inc("http.csrf.websocket")
     }
   }
+  object mobile {
+    def version(v: String) = inc(s"mobile.version.$v")
+  }
   object syncache {
     def miss(name: String) = inc(s"syncache.miss.$name")
     def wait(name: String) = inc(s"syncache.wait.$name")

@@ -35,7 +35,9 @@ object Api extends LilaController {
   }
 
   val status = Action { req =>
-    val mustUpgrade = get("v", req) exists lila.api.Mobile.AppVersion.mustUpgrade _
+    val appVersion = get("v", req)
+    lila.mon.mobile.version(appVersion | "none")
+    val mustUpgrade = appVersion exists lila.api.Mobile.AppVersion.mustUpgrade _
     Ok(apiStatusJson.add("mustUpgrade", mustUpgrade)) as JSON
   }
 
