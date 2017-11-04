@@ -96,4 +96,7 @@ final class SeekApi(
       "_id" -> seekId,
       "user.id" -> userId
     )).void >>- cacheClear
+
+  def removeByUser(user: User) =
+    coll.remove($doc("user.id" -> user.id)).void >>- cacheClear
 }
