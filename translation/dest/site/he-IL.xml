@@ -32,8 +32,8 @@
   <string name="whitePlays">תור הלבן</string>
   <string name="blackPlays">תור השחור</string>
   <string name="opponentLeftChoices">יריבך עזב את המשחק. באפשרותך לכפות פרישה, להכריז על תיקו או להמתין לו.</string>
-  <string name="makeYourOpponentResign">גרום ליריבך לפרוש</string>
-  <string name="forceResignation">כפה פרישה על יריבך</string>
+  <string name="makeYourOpponentResign">טען שניצחת</string>
+  <string name="forceResignation">טען שניצחת</string>
   <string name="forceDraw">הכרז תיקו</string>
   <string name="talkInChat">בבקשה דבר בצ\'אט בצורה נאותה</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">האדם הראשון שיכנס לכתובת הזאת ישחק איתך</string>
@@ -44,11 +44,11 @@
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">שתף כתובת זו כדי לאפשר לצופים לראות את המשחק</string>
   <string name="theComputerAnalysisHasFailed">הניתוח הממוחשב נכשל</string>
   <string name="viewTheComputerAnalysis">צפה בניתוח הממוחשב</string>
-  <string name="requestAComputerAnalysis">בקש  ניתוח ממוחשב</string>
+  <string name="requestAComputerAnalysis">בקש ניתוח ממוחשב</string>
   <string name="computerAnalysis">ניתוח ע\"י המחשב</string>
   <string name="computerAnalysisAvailable">ניתוח מחשב זמין</string>
-  <string name="analysis">ניתוח</string>
-  <string name="depthX">%s עומק</string>
+  <string name="analysis">לוח ניתוח</string>
+  <string name="depthX">עומק %s</string>
   <string name="usingServerAnalysis">באמצעות ניתוח שרת</string>
   <string name="loadingEngine">טוען מנוע...</string>
   <string name="cloudAnalysis">ניתוח ענן</string>
