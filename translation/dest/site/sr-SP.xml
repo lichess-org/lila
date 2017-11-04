@@ -791,4 +791,5 @@
   <string name="notifications">Обавештења</string>
   <string name="challenges">Изазови</string>
   <string name="perfRatingX">Рејтинг: %s</string>
+  <string name="xSecondsToPlayTheFirstMove">%s секунди да одиграте први потез</string>
 </resources>
