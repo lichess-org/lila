@@ -68,6 +68,7 @@
   <string name="averageRatingX">דירוג ממוצע: %s</string>
   <string name="recentGames">משחקים אחרונים</string>
   <string name="topGames">המשחקים המובילים</string>
+  <string name="masterDbExplanation">שני מיליון משחקים על לוח פיזי של %1$s+ שחקני פידה מ %2$s עד %3$s</string>
   <string name="noGameFound">משחק לא נמצא</string>
   <string name="openingExplorer">סייר הפתיחות</string>
   <string name="allSet">הכול מוכן!</string>
@@ -153,6 +154,7 @@
   <string name="play">שחק</string>
   <string name="inbox">תיבת דואר</string>
   <string name="chatRoom">חדר צא\'ט</string>
+  <string name="loginToChat">התחבר כדי לדבר בצ\'אט</string>
   <string name="spectatorRoom">חדר צופים</string>
   <string name="composeMessage">כתוב הודעה</string>
   <string name="noNewMessages">אין הודעות כרגע</string>
@@ -164,6 +166,7 @@
   <string name="spectators">צופים:</string>
   <string name="exportGames">ייצא משחקים</string>
   <string name="ratingRange">טווח דירוג</string>
+  <string name="giveMoreTime">תן עוד זמן</string>
   <string name="thisPlayerUsesChessComputerAssistance">שחקן זה משתמש בסיוע מחשב שחמט</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">שחקן זה מעלה/מוריד את דירוגו באופן מלאכותי</string>
   <string name="takeback">החזר מהלך</string>
@@ -181,6 +184,7 @@
   <string name="tournamentPoints">נקודות טורניר</string>
   <string name="viewTournament">צפה בטורניר</string>
   <string name="backToTournament">חזור לטורניר</string>
+  <string name="thematic">נושאי</string>
   <string name="backToGame">חזור למשחק</string>
   <string name="siteDescription">משחק שחמט חינם ברשת.  שחק שחמט כעת בממשק נקי. בלי הרשמה, בלי פרסומות, בלי להתקין שום דבר. שחק שחמט עם המחשב, חברים או יריבים אקראיים.</string>
   <string name="teams">קבוצות</string>
@@ -212,6 +216,7 @@
   <string name="importGame">ייבא משחק</string>
   <string name="thisIsAChessCaptcha">זו קאפצ\'ה של שחמט.</string>
   <string name="clickOnTheBoardToMakeYourMove">לחץ על הלוח כדי לעשות מהלך, והוכח שאתה בן אנוש.</string>
+  <string name="captcha.fail">אנא בצע את המהלך הנכון בלוח, לצורך captcha.</string>
   <string name="notACheckmate">לא מט.</string>
   <string name="colorPlaysCheckmateInOne">%s משחק; מט במהלך אחד</string>
   <string name="retry">נסה שוב</string>
