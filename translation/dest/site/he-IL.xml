@@ -50,10 +50,13 @@
   <string name="analysis">ניתוח</string>
   <string name="depthX">%s עומק</string>
   <string name="usingServerAnalysis">באמצעות ניתוח שרת</string>
+  <string name="loadingEngine">טוען מנוע...</string>
   <string name="cloudAnalysis">ניתוח ענן</string>
   <string name="showThreat">הצג איום</string>
   <string name="inLocalBrowser">בדפדפן המקומי</string>
   <string name="move">מסע</string>
+  <string name="insufficientMaterial">אין מספיק כלים</string>
+  <string name="pawnMove">מסע רגלי</string>
   <string name="capture">הכאה</string>
   <string name="close">סגור</string>
   <string name="winning">זוכה</string>
@@ -61,7 +64,10 @@
   <string name="drawn">תיקו</string>
   <string name="unknown">לא ידוע</string>
   <string name="database">מסד נתונים</string>
+  <string name="whiteDrawBlack">שחור / תיקו / לבן</string>
   <string name="averageRatingX">דירוג ממוצע: %s</string>
+  <string name="recentGames">משחקים אחרונים</string>
+  <string name="topGames">המשחקים המובילים</string>
   <string name="noGameFound">משחק לא נמצא</string>
   <string name="openingExplorer">סייר הפתיחות</string>
   <string name="allSet">הכול מוכן!</string>
