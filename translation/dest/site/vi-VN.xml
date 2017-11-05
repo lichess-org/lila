@@ -69,6 +69,13 @@
   <string name="unknown">Không rõ</string>
   <string name="database">Cơ sở dữ liệu</string>
   <string name="whiteDrawBlack">Trắng / Hòa / Đen</string>
+  <string name="averageRatingX">Xếp loại bình quân: %s</string>
+  <string name="recentGames">Ván gần đây</string>
+  <string name="topGames">Các ván đấu hàng đầu</string>
+  <string name="masterDbExplanation">Hai triệu OTB trò chơi của %1$s + FIDE xếp hạng người chơi từ %2$s đến %3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="other">Chiếu hết trong %s nước đi</item>
+  </plurals>
   <string name="blunders">Nước sai nghiêm trọng</string>
   <string name="mistakes">Nước đi sai</string>
   <string name="inaccuracies">Nước đi không chính xác</string>
