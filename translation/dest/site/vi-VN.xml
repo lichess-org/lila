@@ -46,7 +46,9 @@
   <string name="viewTheComputerAnalysis">Xem phân tích</string>
   <string name="requestAComputerAnalysis">Yêu cầu máy tính phân tích</string>
   <string name="computerAnalysis">Máy tính phân tích</string>
+  <string name="computerAnalysisAvailable">Máy tính phân tích có sẵn</string>
   <string name="analysis">Phân tích</string>
+  <string name="depthX">Năng lực %s</string>
   <string name="blunders">Nước sai nghiêm trọng</string>
   <string name="mistakes">Nước đi sai</string>
   <string name="inaccuracies">Nước đi không chính xác</string>
