@@ -132,9 +132,8 @@ var retina = window.devicePixelRatio,
     return new Vector2(_vec0.x - _vec1.x, _vec0.y - _vec1.y, _vec0.z - _vec1.z);
   }
 
-  function EulerMass(_x, _y, _mass, _drag) {
+  function EulerMass(_x, _y, _drag) {
     this.position = new Vector2(_x, _y);
-    this.mass = _mass;
     this.drag = _drag;
     this.force = new Vector2(0, 0);
     this.velocity = new Vector2(0, 0);
@@ -143,7 +142,6 @@ var retina = window.devicePixelRatio,
     }
     this.Integrate = function(_dt) {
       var acc = this.CurrentForce(this.position);
-      acc.Div(this.mass);
       var posDelta = new Vector2(this.velocity.x, this.velocity.y);
       posDelta.Mul(_dt);
       this.position.Add(posDelta);
@@ -155,7 +153,7 @@ var retina = window.devicePixelRatio,
       var totalForce = new Vector2(this.force.x, this.force.y);
       var speed = this.velocity.Length();
       var dragVel = new Vector2(this.velocity.x, this.velocity.y);
-      dragVel.Mul(this.drag * this.mass * speed);
+      dragVel.Mul(this.drag * speed);
       totalForce.Sub(dragVel);
       return totalForce;
     }
@@ -209,10 +207,9 @@ var retina = window.devicePixelRatio,
   }
   ConfettiPaper.bounds = new Vector2(0, 0);
 
-  function ConfettiRibbon(_x, _y, _count, _dist, _thickness, _angle, _mass, _drag) {
+  function ConfettiRibbon(_x, _y, _count, _dist, _thickness, _angle, _drag) {
     this.particleDist = _dist;
     this.particleCount = _count;
-    this.particleMass = _mass;
     this.particleDrag = _drag;
     this.particles = new Array();
     var ci = round(random() * (colors.length - 1));
@@ -228,7 +225,7 @@ var retina = window.devicePixelRatio,
     this.oscillationDistance = (random() * 40 + 40);
     this.ySpeed = (random() * 40 + 80);
     for (var i = 0; i < this.particleCount; i++) {
-      this.particles[i] = new EulerMass(_x, _y - i * this.particleDist, this.particleMass, this.particleDrag);
+      this.particles[i] = new EulerMass(_x, _y - i * this.particleDist, this.particleDrag);
     }
     this.Update = function(_dt) {
       var i = 0;
@@ -275,7 +272,7 @@ var retina = window.devicePixelRatio,
       this.backColor = colors[ci][1];
       this.particles = new Array();
       for (var i = 0; i < this.particleCount; i++) {
-        this.particles[i] = new EulerMass(this.position.x, this.position.y - i * this.particleDist, this.particleMass, this.particleDrag);
+        this.particles[i] = new EulerMass(this.position.x, this.position.y - i * this.particleDist, this.particleDrag);
       }
     }
     this.Draw = function(_g) {
@@ -350,7 +347,7 @@ var retina = window.devicePixelRatio,
     var confettiRibbons = new Array();
     ConfettiRibbon.bounds = new Vector2(canvasWidth, canvasHeight);
     for (i = 0; i < confettiRibbonCount; i++) {
-      confettiRibbons[i] = new ConfettiRibbon(random() * canvasWidth, -random() * canvasHeight * 2, ribbonPaperCount, ribbonPaperDist, ribbonPaperThick, 45, 1, 0.05);
+      confettiRibbons[i] = new ConfettiRibbon(random() * canvasWidth, -random() * canvasHeight * 2, ribbonPaperCount, ribbonPaperDist, ribbonPaperThick, 45, 0.05);
     }
     var confettiPapers = new Array();
     ConfettiPaper.bounds = new Vector2(canvasWidth, canvasHeight);
