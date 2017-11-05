@@ -143,7 +143,6 @@ var retina = window.devicePixelRatio,
     }
     this.Integrate = function(_dt) {
       var acc = this.CurrentForce(this.position);
-      acc.Div(this.mass);
       var posDelta = new Vector2(this.velocity.x, this.velocity.y);
       posDelta.Mul(_dt);
       this.position.Add(posDelta);
@@ -155,7 +154,7 @@ var retina = window.devicePixelRatio,
       var totalForce = new Vector2(this.force.x, this.force.y);
       var speed = this.velocity.Length();
       var dragVel = new Vector2(this.velocity.x, this.velocity.y);
-      dragVel.Mul(this.drag * this.mass * speed);
+      dragVel.Mul(this.drag * speed);
       totalForce.Sub(dragVel);
       return totalForce;
     }
