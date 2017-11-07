@@ -82,7 +82,7 @@ object Api extends LilaController {
     val cost = usernames.size / 4
     UsersRateLimitPerIP(ip, cost = cost) {
       UsersRateLimitGlobal("-", cost = cost, msg = ip.value) {
-        lila.mon.api.users.cost(1)
+        lila.mon.api.users.cost(cost)
         lila.user.UserRepo nameds usernames map {
           _.map { Env.user.jsonView(_, none) }
         } map toApiResult map toHttp
