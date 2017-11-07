@@ -32,7 +32,7 @@
     <item quantity="other">Seguito da %s giocatori</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="one">Nuovi follower guadagnati %s</item>
+    <item quantity="one">Nuovo follower guadagnato %s</item>
     <item quantity="other">Nuovi follower guadagnati %s</item>
   </plurals>
   <plurals name="hostedNbSimuls">
@@ -45,7 +45,7 @@
   </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">Studi creati %s</item>
-    <item quantity="other">Studi creati %s</item>
+    <item quantity="other">Creato %s studi</item>
   </plurals>
   <plurals name="competedInNbTournaments">
     <item quantity="one">Gareggiato in %s torneo</item>
