@@ -46,7 +46,16 @@
   <string name="viewTheComputerAnalysis">Компьютерийн шинжилгээг үзэх</string>
   <string name="requestAComputerAnalysis">Өрөгт компьютерийн шинжилгээ хийх</string>
   <string name="computerAnalysis">Өрөг шинжлэгч</string>
+  <string name="computerAnalysisAvailable">Компьютерийн шинжилгээ хийх боломжтой</string>
   <string name="analysis">Өрөг шинжлэгч</string>
+  <string name="usingServerAnalysis">Серверийн шинжилгээг ашиглаж байна</string>
+  <string name="loadingEngine">Шинжилгээ ачааллагдаж байна...</string>
+  <string name="showThreat">Аюулыг үзүүл</string>
+  <string name="move">Нүүдэл</string>
+  <string name="insufficientMaterial">Хангалтгүй бод байна</string>
+  <string name="pawnMove">Хүүгийн нүүдэл</string>
+  <string name="capture">Идэх</string>
+  <string name="close">Хаах</string>
   <string name="openingExplorer">Шатрын нээлтүүдийг судлах</string>
   <string name="blunders">Ноцтой алдаа</string>
   <string name="mistakes">Алдаа</string>
