@@ -81,6 +81,10 @@ function showResult(winner?: Color): VNode {
 function showGameTable(ctrl: AnalyseCtrl, title: string, games: OpeningGame[]): VNode | null {
   if (!ctrl.explorer.withGames || !games.length) return null;
   const openedId = ctrl.explorer.gameMenu();
+  const uniqueGames: OpeningGame[] = [];
+  games.forEach(g => {
+    if (!uniqueGames.find(u => u.id === g.id)) uniqueGames.push(g);
+  });
   return h('table.games', [
     h('thead', [
       h('tr', [
@@ -97,7 +101,7 @@ function showGameTable(ctrl: AnalyseCtrl, title: string, games: OpeningGame[]): 
           ctrl.redraw();
         } else openGame(ctrl, id);
       })
-    }, games.map(game => {
+    }, uniqueGames.map(game => {
       return openedId === game.id ? gameActions(ctrl, game) : h('tr', {
         key: game.id,
         attrs: { 'data-id': game.id }
