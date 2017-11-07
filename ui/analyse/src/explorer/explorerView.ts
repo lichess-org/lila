@@ -47,12 +47,13 @@ function moveTableAttributes(ctrl: AnalyseCtrl, fen: Fen) {
 
 function showMoveTable(ctrl: AnalyseCtrl, moves: OpeningMoveStats[], fen: Fen): VNode | null {
   if (!moves.length) return null;
+  const trans = ctrl.trans.noarg;
   return h('table.moves', [
     h('thead', [
       h('tr', [
-        h('th', ctrl.trans.noarg('move')),
-        h('th', ctrl.trans.noarg('games')),
-        h('th', ctrl.trans.noarg('whiteDrawBlack'))
+        h('th', trans('move')),
+        h('th', trans('games')),
+        h('th', trans('whiteDrawBlack'))
       ])
     ]),
     h('tbody', moveTableAttributes(ctrl, fen), moves.map(move => {
@@ -60,7 +61,7 @@ function showMoveTable(ctrl: AnalyseCtrl, moves: OpeningMoveStats[], fen: Fen): 
         key: move.uci,
         attrs: {
           'data-uci': move.uci,
-          title: ctrl.trans('averageRatingX', move.averageRating)
+          title: trans('averageRatingX', move.averageRating)
         }
       }, [
         h('td', move.san[0] === 'P' ? move.san.slice(1) : move.san),
