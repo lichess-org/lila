@@ -56,6 +56,16 @@
   <string name="pawnMove">Хүүгийн нүүдэл</string>
   <string name="capture">Идэх</string>
   <string name="close">Хаах</string>
+  <string name="winning">Ялж явна</string>
+  <string name="losing">Ялагдаж явна</string>
+  <string name="drawn">Тэнцсэн</string>
+  <string name="unknown">Үл мэдэгдэх</string>
+  <string name="database">Сан</string>
+  <string name="whiteDrawBlack">Цагаан/ Тэнцсэн/ Хар</string>
+  <string name="averageRatingX">Дундаж зэрэг: %s</string>
+  <string name="recentGames">Сүүлд тоглогдсон өргүүд</string>
+  <string name="topGames">Өндөр үнэлгээтэй өргүүд</string>
+  <string name="noGameFound">Өрөг олдсонгүй</string>
   <string name="openingExplorer">Шатрын нээлтүүдийг судлах</string>
   <string name="blunders">Ноцтой алдаа</string>
   <string name="mistakes">Алдаа</string>
