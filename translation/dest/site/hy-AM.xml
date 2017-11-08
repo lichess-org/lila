@@ -106,7 +106,6 @@
   <string name="changePassword">Փոխել գաղտնաբառը</string>
   <string name="changeEmail">Փոխել էլ. փոստը</string>
   <string name="email">Էլ. փոստ</string>
-  <string name="emailIsOptional">էլ. փոստը ընտրված է: Մենք կօգտագործենք Ձեր էլեկտրոնային հասցեն վերականգնելու Ձեր գաղտնաբառը, եթե դուք մոռանաք այն:</string>
   <string name="passwordReset">վերականգնել ծածկագիրը</string>
   <string name="forgotPassword">Մոռացել ե՞ք գաղտնաբառը</string>
   <string name="rank">Միավորներ</string>
