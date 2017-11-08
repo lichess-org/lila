@@ -72,10 +72,12 @@ final class SlackApi(
     channel = "commlog"
   ))
 
+  def chatPanicLink = "<https://lichess.org/mod/chat-panic|Chat Panic>"
+
   def chatPanic(mod: User, v: Boolean): Funit = client(SlackMessage(
     username = mod.username,
     icon = if (v) "anger" else "information_source",
-    text = if (v) "Enabled Chat Panic" else "Disabled Chat Panic",
+    text = s"${if (v) "Enabled" else "Disabled"} $chatPanicLink",
     channel = "tavern"
   ))
 
