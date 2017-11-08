@@ -109,7 +109,6 @@
   <string name="changePassword">இரகசிய இலக்கத்தை மாற்று</string>
   <string name="changeEmail">மின்னஞ்சலை மாற்று</string>
   <string name="email">மின்னஞ்சல்</string>
-  <string name="emailIsOptional">மின்னஞ்சல் விருப்பமாகும்.  உங்கள் கடவுச்சொல்லை நீங்கள் மறந்து விட்டால் அதை மீட்டமைக்க உங்கள் மின்னஞ்சல் முகவரியை Lichess பயன்படுத்தும்.</string>
   <string name="passwordReset">கடவுச்சொல்லை மீட்டமை</string>
   <string name="forgotPassword">கடவுச்சொல்லை மறந்து விட்டீர்களா?</string>
   <string name="rank">வரிசை</string>
