@@ -170,7 +170,6 @@
   <string name="changePassword">Pasikeisti slaptažodį</string>
   <string name="changeEmail">Pasikeisti el. pašto adresą</string>
   <string name="email">El. paštas</string>
-  <string name="emailIsOptional">El. paštas nėra privalomas. „lichess“ naudos jūsų el. pašto adresą jūsų slaptažodžiui atkurti, jeigu jį pamiršite.</string>
   <string name="passwordReset">Slaptažodžio atkūrimas</string>
   <string name="forgotPassword">Pamiršote slaptažodį?</string>
   <string name="rank">Rangas</string>
@@ -703,8 +702,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="checkYourEmail">Pasitikrinkite el. paštą</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Išsiuntėme jums laišką. Spustelėję jame esančią nuorodą aktyvuosite savo paskyrą.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Jei nematote laiško, patikrinkite kitas galimas vietas: šlamšto, šiukšlių, socialinius ar kitus aplankus.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Ar esate tikri, kad susiejote savo el. pašto adresą su „lichess“?</string>
-  <string name="itWasNotRequiredForYourRegistration">Jis nebuvo privalomas registruojantis.</string>
   <string name="weHaveSentYouAnEmailTo">Išsiuntėme laišką į %s. Spustelėję jame esančią nurodą galėsite atstatyti savo slaptažodį.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registruodamiesi sutinkate su mūsų %s.</string>
   <string name="networkLagBetweenYouAndLichess">Tinklo delsa tarp jūsų ir „lichess“</string>
