@@ -163,7 +163,6 @@
   <string name="changePassword">Ŝanĝi pasvorton</string>
   <string name="changeEmail">Ŝanĝi retadreson</string>
   <string name="email">Retadreso</string>
-  <string name="emailIsOptional">Retadreso ne estas bezonata. Lichess povos uzi vian retadreson por reagordi vian pasvorton, se vi forgesos ĝin.</string>
   <string name="passwordReset">Reagordo de pasvorto</string>
   <string name="forgotPassword">Ĉu vi forgesis la pasvorton?</string>
   <string name="rank">Rango</string>
@@ -671,8 +670,6 @@
   <string name="checkYourEmail">Kontrolu vian retpoŝton</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Ni sendis al vi retmesaĝon . Klaku la ligilon en la poŝto por aktivigi vian konton.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se vi ne vidas la retpoŝton , kontrolu aliajn lokojn kie ĝi povas esti, kiel via rubo , spam, socia , aŭ aliaj dosierujoj.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Ĉu vi certe eĉ registris vian retpoŝtan sur Lichess?</string>
-  <string name="itWasNotRequiredForYourRegistration">Ĝi ne estis postulata por via registriĝo.</string>
   <string name="weHaveSentYouAnEmailTo">Ni sendis retmesaĝon al %s. Klaku la ligilon en la poŝto por rekomencigi vian pasvorton.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">De registranta , vi konsentas al esti ligita de nia %s.</string>
   <string name="networkLagBetweenYouAndLichess">Reto lag inter vi kaj Lichess</string>
