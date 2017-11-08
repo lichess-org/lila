@@ -163,7 +163,6 @@
   <string name="changePassword">Pasahitza aldatu</string>
   <string name="changeEmail">Posta elektronikoa aldatu</string>
   <string name="email">Posta elektronikoa</string>
-  <string name="emailIsOptional">Posta idaztea aukerakoa da. Lichessek zure pasahitza berrizteko erabiliko du, ahazten bazaizu.</string>
   <string name="passwordReset">Pasahitz berria eskatu</string>
   <string name="forgotPassword">Pasahitza ahaztu duzu?</string>
   <string name="rank">Maila</string>
@@ -671,8 +670,6 @@
   <string name="checkYourEmail">Zure emailean begiratu</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Email mezua  bidali dizugu. Zure kontua aktibatzeko, egizu klik mezuan.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ez baduzu mezua aurkitzen, begiratu beste tokietan: zaborrontzian, spam karpetan, ...</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Ziur zaude lichessen izena eman duzula inoiz?</string>
-  <string name="itWasNotRequiredForYourRegistration">Ez zen beharrezkoa izan erregistratzeko.</string>
   <string name="weHaveSentYouAnEmailTo">Mezu bat bidali dugu %s helbidera. Egizu klik mezuan zure pasahitza berrizteko.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Izena ematean, gure %s onartzen dituzu.</string>
   <string name="networkLagBetweenYouAndLichess">Sarearen atzerapena lichess-en eta zure artean.</string>
