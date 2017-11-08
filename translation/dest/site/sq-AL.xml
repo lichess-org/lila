@@ -136,7 +136,6 @@
   <string name="changePassword">Ndrysho fjalëkalimin</string>
   <string name="changeEmail">Ndrysho emailin</string>
   <string name="email">Email</string>
-  <string name="emailIsOptional">Email është fakultative. Lichess do ta përdorë për të rivendosur fjalëkalimin tuaj nëse ju harroni atë.</string>
   <string name="passwordReset">Rivendosja e fjalëkalimit</string>
   <string name="forgotPassword">Harruat fjalëkalimin?</string>
   <string name="rank">Renditja</string>
@@ -557,8 +556,6 @@
   <string name="checkYourEmail">Kontrolloni postën elektronike</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Ju kemi dërguar një e-letër. Kontrolloni postën tuaj elektronike.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Nëse nuk e shini letrën elektronike, kontrolloni në vendet e tjera ku mund të jetë, si junk, spam, social ose dosje të tjera.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">A jeni i sigurtë që e keni regjistruar postën elektronike në lichess?</string>
-  <string name="itWasNotRequiredForYourRegistration">Nuk ishte e nevojshme për regjistrimin tuaj.</string>
   <string name="weHaveSentYouAnEmailTo">Kemi dërguar një e-letër te %s. Klikoni lidhjen brenda në e-letër për të rivendosur fjalëkalimin tuaj.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Duke u regjistruar, ju pranoni të jeni të lidhur me %s.</string>
   <string name="networkLagBetweenYouAndLichess">Vonesë rrjeti ndërmjet juve dhe lichess.</string>
