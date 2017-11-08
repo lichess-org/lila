@@ -121,7 +121,6 @@
   <string name="changePassword">পাসওয়ার্ড পরিবর্তন</string>
   <string name="changeEmail">email -id পরিবর্তন করুন</string>
   <string name="email">ইমেল</string>
-  <string name="emailIsOptional">আপনি যদি password ভুলে যান তাহলে সেটিকে পরিবর্তন করার জন্য আপনার email প্রয়োজন হবে</string>
   <string name="passwordReset">password পরিবর্তন</string>
   <string name="forgotPassword">password ভুলে গেছেন ?</string>
   <string name="rank">মর্যাদাক্রম</string>
