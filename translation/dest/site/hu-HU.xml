@@ -163,7 +163,6 @@
   <string name="changePassword">Jelszó megváltoztatása</string>
   <string name="changeEmail">E-mail cím megváltoztatása</string>
   <string name="email">E-mail cím</string>
-  <string name="emailIsOptional">E-mail cím megadása nem kötelező. Esetlegesen elfelejtett jelszó visszanyeréséhez szükséges.</string>
   <string name="passwordReset">Jelszó visszaállítása</string>
   <string name="forgotPassword">Elfelejtetted a jelszavad?</string>
   <string name="rank">Rang</string>
@@ -670,8 +669,6 @@
   <string name="checkYourEmail">Ellenőrizd az email fiókod.</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Küldtünk neked egy email-t. A fiókod aktiválásához kattints az email-ben lévő linkre.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ha nem látod az email-t, ellenőrizd, hogy nincs-e a szemetes, a spam vagy a közösségi mappában, vagy egyéb mappákban.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Biztos, hogy regisztráltál ezzel az email címmel a lichess-en?</string>
-  <string name="itWasNotRequiredForYourRegistration">Ez nem volt szükséges a feliratkozáshoz.</string>
   <string name="weHaveSentYouAnEmailTo">Küldtünk egy üzenetet a %s email címre. A jelszavad megváltoztatásához kattints az üzenetben lévő linkre.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">A regisztrációval elfogadod a %s-t</string>
   <string name="networkLagBetweenYouAndLichess">Hálózati késleltetés a számítógéped és a lichess között</string>
