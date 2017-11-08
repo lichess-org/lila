@@ -128,7 +128,6 @@
   <string name="changePassword">Промени парола</string>
   <string name="changeEmail">Промени имейл</string>
   <string name="email">Ел. Поща</string>
-  <string name="emailIsOptional">Ел. поща не е задължителна.  Lichess ще използва вашия адрес, за да възстанови паролата ви, ако я забравите</string>
   <string name="passwordReset">Смяна на парола</string>
   <string name="forgotPassword">Забравена парола?</string>
   <string name="rank">Звание</string>
@@ -558,8 +557,6 @@
   <string name="checkYourEmail">Проверете вашата ел. поща</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Изпратихме ви писмо. Натиснете върху връзката в писмото, за да задействате вашата регистрация.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ако не намирате писмото, проверете и на другите места, в които може бъде, като например кошче, спам, социални или други папки.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Сигурни ли сте, че сте записали вашата електронна поща в lichess?</string>
-  <string name="itWasNotRequiredForYourRegistration">Това не се изискваше за записването ви.</string>
   <string name="weHaveSentYouAnEmailTo">Изпратихме писмо на %s. Натиснете върху връзката в писмото, за да преустановите паролата на вашата регистрация.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Със записването си, се съгласявате да спазвате нашите %s.</string>
   <string name="networkLagBetweenYouAndLichess">Мрежово забавяне между вас и lichess</string>
