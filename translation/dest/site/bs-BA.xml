@@ -105,7 +105,6 @@
   <string name="changePassword">Promjena lozinke</string>
   <string name="changeEmail">Promjena e-maila</string>
   <string name="email">E-mail</string>
-  <string name="emailIsOptional">E-mail nije obavezan. Lichess će ga koristiti da povrati Vašu lozinku ako je zaboravite.</string>
   <string name="passwordReset">Resetovanje lozinke</string>
   <string name="forgotPassword">Zaboravljena lozinka?</string>
   <string name="rank">Poredak</string>
@@ -467,8 +466,6 @@
   <string name="checkYourEmail">Provjerite Vaš e-mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Mi smo Vam poslali e-mail. Kliknite na link u e-mailu da biste aktivirali svoj račun.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ako ne vidite e-mail, provjerite na drugim mjestima, kao što su junk, spam, društvene ili druge mape.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Jeste li sigurni da ste registrirali svoj e-mail na Lichess?</string>
-  <string name="itWasNotRequiredForYourRegistration">To nije bilo potrebno za registraciju.</string>
   <string name="weHaveSentYouAnEmailTo">Poslali smo e-mail na %s. Kliknite na link u e-mailu za resetiranje vaše lozinke.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registriranjem, slažete se da ćete se pridržavati naših %s.</string>
   <string name="networkLagBetweenYouAndLichess">Mrežno kašnjenje između Vas i lichessa</string>
