@@ -116,7 +116,6 @@
   <string name="changePassword">שנה סיסמה</string>
   <string name="changeEmail">שנה כתובת דואר אלקטרוני</string>
   <string name="email">הדואר האלקטרוני</string>
-  <string name="emailIsOptional">שדה הדואר האלקטרוני הוא אופציונלי. האתר ישתמש בו לאפס את סיסמתך אם תישכח אותה.</string>
   <string name="passwordReset">איפוס סיסמה</string>
   <string name="forgotPassword">שכחת סיסמה?</string>
   <string name="rank">דרוג</string>
@@ -488,8 +487,6 @@
   <string name="checkYourEmail">בדוק את האימייל שלך</string>
   <string name="weHaveSentYouAnEmailClickTheLink">שלחנו לך אימייל. לחץ על הלינק באימייל על מנת להפעיל את חשבונך.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">אם אתה לא מוצא את האימייל, חפש במקומות אחרים, כמו דואר זבל, ספם או תיקיות אחרות.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">האם אתה בטוח שרשמת את האימייל נכון כשנרשמת?</string>
-  <string name="itWasNotRequiredForYourRegistration">הוא לא היה נחוץ להרשמתך</string>
   <string name="weHaveSentYouAnEmailTo">שלחנו אימייל ל%s. לחץ על הלינק באימייל על מנת לאפס את הסיסמא</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">.%s על ידי הרשמה, אתה מסכים ל</string>
   <string name="networkLagBetweenYouAndLichess">עיכוב רשת בינך לבין ליצ\'ס</string>
