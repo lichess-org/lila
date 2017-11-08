@@ -170,7 +170,6 @@
   <string name="changePassword">Змінити пароль</string>
   <string name="changeEmail">Змінити email</string>
   <string name="email">Email</string>
-  <string name="emailIsOptional">Вказувати email необов\'язково. Lichess використає його в разі, якщо ви забудете пароль.</string>
   <string name="passwordReset">Скинути пароль</string>
   <string name="forgotPassword">Забули пароль?</string>
   <string name="rank">Ранг</string>
@@ -703,8 +702,6 @@
   <string name="checkYourEmail">Перевірити пошту</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Ми надіслали вам листа. Перейдіть за посиланням у листі для активації облікового запису.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Якщо не знайшли листа, перевірте місця, де б він міг бути (наприклад, спам).</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Ви впевнені, що зареєстрували адресу своєї пошти на Lichess?</string>
-  <string name="itWasNotRequiredForYourRegistration">Вона не була потрібна для реєстрації.</string>
   <string name="weHaveSentYouAnEmailTo">Ми надіслали повідомлення на %s. Для перевстановлення паролю перейдіть за посиланням у повідомленні.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ваша рєєстрація означає згоду з обмеженням нашими %s.</string>
   <string name="networkLagBetweenYouAndLichess">Мережева затримка між вами та lichess</string>
