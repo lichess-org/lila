@@ -94,7 +94,7 @@ abstract class SocketActor[M <: SocketMember](uidTtl: Duration) extends Socket w
     }
   }
 
-  private val monitoredTimeout = Set("jannlee", "yasser-seirawan", "isaacl", "thibault")
+  private val monitoredTimeout = Set("jannlee", "yasser-seirawan", "isaacly", "thibault")
 
   def broom: Unit = {
     members.keys foreach { uid =>
