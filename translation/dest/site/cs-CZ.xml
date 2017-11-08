@@ -170,7 +170,6 @@
   <string name="changePassword">Změnit heslo</string>
   <string name="changeEmail">Změnit email</string>
   <string name="email">Email</string>
-  <string name="emailIsOptional">Email je dobrovolný. Lichess ho použije pro resetování hesla, když ho zapomenete.</string>
   <string name="passwordReset">Změna hesla</string>
   <string name="forgotPassword">Zapomněl jste heslo?</string>
   <string name="rank">Pořadí</string>
@@ -702,8 +701,6 @@ v %3$s</string>
   <string name="checkYourEmail">Zkontrolujte svoji emailovou složku</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Zaslali jsme vám email. Klikněte na odkaz v emailu pro aktivaci vašeho účtu.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Pokud email nenaleznete v doručené poště, zkontrolujte další místa, kde by mohl být, jako spam, zprávy ze sociálních sítí, koš nebo jiné složky.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Jste si jistí, že jste se pod touto emailovou adresou registrovali na lichess?</string>
-  <string name="itWasNotRequiredForYourRegistration">Nebylo vyžadováno k vaší registraci.</string>
   <string name="weHaveSentYouAnEmailTo">Zaslali jsme vám email na %s. Klikněte na odkaz v emailu pro přenastavení vašeho hesla.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registrací berete na vědomí naše %s.</string>
   <string name="networkLagBetweenYouAndLichess">Síťové zpoždění mezi vámi a lichess</string>
