@@ -108,7 +108,6 @@
   <string name="changePassword">Skipta um lykilorð</string>
   <string name="changeEmail">Breyta tölvupóstfangi</string>
   <string name="email">Tölvupóstfang</string>
-  <string name="emailIsOptional">Tölvupóstfang er valkvætt. Lichess mun nota það til þess að senda þér nýtt lykilorð ef þú týnir þínu.</string>
   <string name="passwordReset">Breyta lykilorði</string>
   <string name="forgotPassword">Gleymdirðu lykilorðinu?</string>
   <string name="rank">Staða</string>
@@ -529,8 +528,6 @@
   <string name="checkYourEmail">Gáðu í tölvupóstinn þinn</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Við sendum þér tölvupóst. Fylgdu hlekknum þar til þess að virkja aðganginn þinn.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ef þú sérð ekki póstinn, gáðu þá betur svo sem í ruslakistunni, ruslpóstinum eða öðrum möppum.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Ertu viss um að hafa skráð þig á lichess áður?</string>
-  <string name="itWasNotRequiredForYourRegistration">Þess var ekki þörf við skráningu yðar</string>
   <string name="weHaveSentYouAnEmailTo">Við sendum póst á %s. Fylgdu hlekknum þar til þess að skipta um lykilorð.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Með því að skrá þig, þá samþykkir þú %s okkar.</string>
   <string name="networkLagBetweenYouAndLichess">Hik í tengingu á milli þín og lichess</string>
