@@ -10,13 +10,10 @@ private final class ReportDiscarder {
     }
 
   // 50% accuracy => 0% discard
-  // 40% accuracy => 20% discard
-  // 30% accuracy => 40% discard
-  // 20% accuracy => 60% discard
-  // 10% accuracy => 80% discard
-  // 5% accuracy => 100% discard
+  // 40% accuracy => 75 -> 25% discard
+  // 30% accuracy => 50 -> 50% discard
+  // 20% accuracy => 25 -> 75% discard
+  // 10% accuracy => 0  -> 100% discard
   private def discardCheatReportWithAccuracy(accuracy: Int): Boolean =
-    accuracy <= 5 || {
-      accuracy < 50 && scala.util.Random.nextInt(100) > (50 - accuracy) * 2
-    }
+    scala.util.Random.nextInt(100) > (accuracy - 10) * 2.5
 }
