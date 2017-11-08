@@ -105,7 +105,6 @@
   <string name="changePassword">Palitan ang password</string>
   <string name="changeEmail">Palitan ang email</string>
   <string name="email">Email</string>
-  <string name="emailIsOptional">Ang email ay opsyonal. Ang Lichess gagamitin ang iyong email address upang i-reset ang iyong password kung makalimutan mo ito.</string>
   <string name="passwordReset">I-reset ang password</string>
   <string name="forgotPassword">Nakalimutan mo ba ang iyong password?</string>
   <string name="rank">Ranko</string>
