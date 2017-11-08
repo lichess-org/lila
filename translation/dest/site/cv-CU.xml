@@ -101,7 +101,6 @@
   <string name="changePassword">Кӗме сӑмах улӑштарни</string>
   <string name="changeEmail">Ел. пуштӑ улӑштарни</string>
   <string name="email">Ел. пуштӑ</string>
-  <string name="emailIsOptional">Ел. пуштӑ тивӗҫлӗ мар. Кӗме сӑмахна манса кайсан, ҫӗнӗ кӗме сӑмах лартас тесе Lichess сан пуштӑпа усӑ курӗ.</string>
   <string name="passwordReset">Кӗме сӑмах улӑштарасси</string>
   <string name="forgotPassword">Кӗме сӑмаха мансан</string>
   <string name="rank">Хаклав</string>
@@ -498,8 +497,6 @@
   <string name="checkYourEmail">Ел. пуштуна тӗрӗсле</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Епир сан патна ел. ҫыру йатӑмӑр. Аккаунтна тапратас тесе ҫырури каҫӑ ҫине пус.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ҫырӑвӗ курӑнмасть пулсан, вӑл пурри-ҫуккине спам папкинче йе ытти папкӑра тӗрӗсле.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Хӑвӑн ел. пуштӑна Lichess сайтра чӑн та регистратсиленӗ-и?</string>
-  <string name="itWasNotRequiredForYourRegistration">Есӗ регистратсиленнӗ чухне ку адресне ҫырса кӑтартман.</string>
   <string name="weHaveSentYouAnEmailTo">Епир %s ҫине ҫыру йатӑмӑр. Вӑрттӑн сӑмахна улӑштарас тесе ҫырури каҫӑ ҫине пус.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Регистратсилесси пирӗн %s килӗшессине пӗлтерет.</string>
   <string name="networkLagBetweenYouAndLichess">Санпа Lichess хушшинче тетел чӑрмантарса тӑни пур</string>
