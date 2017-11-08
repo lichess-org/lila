@@ -156,7 +156,6 @@
   <string name="changePassword">パスワードの変更</string>
   <string name="changeEmail">メールアドレスの変更</string>
   <string name="email">メールアドレス</string>
-  <string name="emailIsOptional">メールアドレスは必須ではありません。lichessではパスワードをリセットするために利用します</string>
   <string name="passwordReset">パスワードをリセットする</string>
   <string name="forgotPassword">パスワードを忘れた方はこちら</string>
   <string name="rank">ランク</string>
@@ -643,8 +642,6 @@
   <string name="checkYourEmail">メールを確認してください</string>
   <string name="weHaveSentYouAnEmailClickTheLink">メールを送信しました。リンクをクリックしてアカウントの作成を完了してください。</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">メールが見つからない場合は、他の場所（スパムフォルダなど）を確認してください。</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">ほんとうに以前にメールアドレスを登録しましたか？</string>
-  <string name="itWasNotRequiredForYourRegistration">メールアドレスは登録に必須ではありません。</string>
   <string name="weHaveSentYouAnEmailTo">%sにメールを送信しました。リンクをクリックしてパスワードの変更を完了してください。</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">登録するとあなたは %s に従うと同意したことになります。</string>
   <string name="networkLagBetweenYouAndLichess">あなたと Lichess の間のネットワークラグ</string>
