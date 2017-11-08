@@ -91,7 +91,6 @@
   <string name="changePassword">Newid cyfrinair</string>
   <string name="changeEmail">Newid cyfeiriad e-bost</string>
   <string name="email">Cyfeiriad e-bost</string>
-  <string name="emailIsOptional">Mae cyfeiriad e-bost yn ddiorfod. Defnydd Lichess eich cyfeiriad e-bost i ailosod eich cyfrinair os ydych chi wedi\'i anghofio.</string>
   <string name="passwordReset">Ailosod y cyfrinair</string>
   <string name="forgotPassword">Wedi anghofio\'r cyfrinair?</string>
   <string name="rank">Graddfa</string>
@@ -455,8 +454,6 @@
   <string name="checkYourEmail">Gwiria dy e-bost</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Anfonwyd e-bost atoch. Cliciwch y dolen yn y neges e-bost i ysgogi eich cyfrif.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Os nad ydych yn gweld y neges, gwiriwch llefydd arall fel y sbwriel, spam ac ati.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Ydych chi\'n siwr eich bod wedi cofrestru eich cyfeiriad e-bost gan lichess?</string>
-  <string name="itWasNotRequiredForYourRegistration">Dim angen i gofrestru.</string>
   <string name="weHaveSentYouAnEmailTo">Anfonwyd neges e-bost at %s. Cliciwch ar y dolen yn y neges i ailosod eich cyfrinair.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Gan gofrestru, ydych yn cytuno ar ein %s.</string>
   <string name="networkLagBetweenYouAndLichess">Oediad rhwng lichess a chi</string>
