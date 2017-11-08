@@ -170,7 +170,6 @@
   <string name="changePassword">Зьмяніць пароль</string>
   <string name="changeEmail">Змяніць адрас электроннай пошты</string>
   <string name="email">Электронная пошта</string>
-  <string name="emailIsOptional">Электронная пошта (не абавязкова). Lichess выкарыстоўвае для зьмены пароля, калі вы яго забылі.</string>
   <string name="passwordReset">Зьмяніць пароль</string>
   <string name="forgotPassword">Забылі пароль?</string>
   <string name="rank">Ранг</string>
@@ -703,8 +702,6 @@
   <string name="checkYourEmail">Пацвердзіце свой Email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Мы адправілі вам ліст. Націсніце на спасылку ў ім для актывацыі акаўнта.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Калі ліст не прыходзіць, праверце тэчку для спаму і іншыя месцы, куды яно магло трапіць.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Вы ўпэўнены, што рэгістравалі свой Email на Lichess?</string>
-  <string name="itWasNotRequiredForYourRegistration">Ён не быў абавязковы пры рэгістрацыі.</string>
   <string name="weHaveSentYouAnEmailTo">Мы адправілі ліст па адрасе %s. Націсніце на спасылку ў ім для скіду пароля.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Рэгіструючыся, вы бераце на сябе абавязак выконваць наша %s</string>
   <string name="networkLagBetweenYouAndLichess">Затрымка сеткі паміж вамі і Lichess</string>
