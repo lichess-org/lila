@@ -163,7 +163,6 @@
   <string name="changePassword">Alterar senha</string>
   <string name="changeEmail">Alterar email</string>
   <string name="email">E-mail</string>
-  <string name="emailIsOptional">E-mail é opcional. O Lichess usará seu endereço de e-mail para redefinir sua senha em caso de esquecimento.</string>
   <string name="passwordReset">Redefinição de senha</string>
   <string name="forgotPassword">Esqueceu sua senha?</string>
   <string name="rank">Rank</string>
@@ -673,8 +672,6 @@ em %3$s</string>
   <string name="checkYourEmail">Verifique seu e-mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Enviamos um e-mail. Clique no link do e-mail para ativar sua conta.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se você não vir o e-mail, verifique outros locais onde possa estar, como lixeira, spam ou outras pastas.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Você tem certeza que registrou seu e-mail no Lichess?</string>
-  <string name="itWasNotRequiredForYourRegistration">Isto não era necessário para seu registro.</string>
   <string name="weHaveSentYouAnEmailTo">Enviamos um e-mail para %s. Clique no link do e-mail para redefinir sua senha.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ao registrar, você concorda em se comprometer com nossa %s.</string>
   <string name="networkLagBetweenYouAndLichess">Atraso na rede</string>
