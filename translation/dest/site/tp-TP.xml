@@ -89,7 +89,6 @@
   <string name="changePassword">ante e nimi sina pi sona ala</string>
   <string name="changeEmail">ante e nimi sina pi pana toki</string>
   <string name="email">nimi pi pana toki</string>
-  <string name="emailIsOptional">nimi pi pana toki li wile ala. sina sona ala e nimi pi sona ala sina la, lipu Lichess li pana e nimi sina tawa ona.</string>
   <string name="passwordReset">ante e nimi sina pi sona ala</string>
   <string name="forgotPassword">sina sona ala e nimi sina pi sona ala?</string>
   <string name="rank">sona jan musi</string>
