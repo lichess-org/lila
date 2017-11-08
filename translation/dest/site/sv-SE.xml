@@ -163,7 +163,6 @@
   <string name="changePassword">Ändra lösenord</string>
   <string name="changeEmail">Ändra E-post</string>
   <string name="email">E-post</string>
-  <string name="emailIsOptional">E-post är valfritt. Lichess kan använda den för att återställa ditt lösenord om du glömmer det.</string>
   <string name="passwordReset">Återställ lösenord</string>
   <string name="forgotPassword">Glömt lösenord?</string>
   <string name="rank">Rankning</string>
@@ -670,8 +669,6 @@
   <string name="checkYourEmail">Kolla din email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Vi har skickat ett e-postmeddelande. Klicka på länken i meddelandet för att aktivera ditt konto.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Om du inte ser e-postmeddelandet, kontrollera andra ställen där det kan vara, som din skräppost, spam, sociala eller andra mappar.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Är du säker på att du även registrerat din e-post på lichess?</string>
-  <string name="itWasNotRequiredForYourRegistration">Det var inte obligatoriskt/ett krav för din registrering.</string>
   <string name="weHaveSentYouAnEmailTo">Vi har skickat ett e-postmeddelande till %s.Tryck på länken i eposten för att återställa ditt lösenord.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Genom att registrera samtycker du till att vara bunden av våra %s.</string>
   <string name="networkLagBetweenYouAndLichess">Nätverksfördröjning mellan dig och lichess</string>
