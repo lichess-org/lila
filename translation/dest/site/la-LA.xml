@@ -126,7 +126,6 @@
   <string name="changePassword">Tesseram mutare</string>
   <string name="changeEmail">Email mutare</string>
   <string name="email">Email</string>
-  <string name="emailIsOptional">Email voluntarium est. Lichess email tuo utetur ad tuam tesseram reponendam si eam oblivisceris.</string>
   <string name="passwordReset">Recrea tesseram</string>
   <string name="forgotPassword">Tessera oblita?</string>
   <string name="rank">Ordo</string>
@@ -578,8 +577,6 @@
   <string name="checkYourEmail">Specta tuas e-litteras</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Tibi electronicam inscriptionem misimus. Sequere ligamen in illa inscriptione ut tuam rationem aperias.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si inscriptionem electronicam non invenias, inspecta alios locos, tales tuas quisquilias, saginationem, sociales, vel alteros indices.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Vere email tuum iam apud Lichessem inscripsisti?</string>
-  <string name="itWasNotRequiredForYourRegistration">Inscriptionis tuae causa hoc iussum non fuit.</string>
   <string name="weHaveSentYouAnEmailTo">Ad %s nuntium missum est. Quod in nuntio missum link perge ut tesseram tuam mutes.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Cum te inscribis, annuis vinculo %s.</string>
   <string name="networkLagBetweenYouAndLichess">Error retis inter te ac Lichessem.</string>
