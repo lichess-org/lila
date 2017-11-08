@@ -163,7 +163,6 @@
   <string name="changePassword">Change password</string>
   <string name="changeEmail">Change email</string>
   <string name="email">Email</string>
-  <string name="emailIsOptional">Email is optional. Lichess will use your email address to reset your password if you forget it.</string>
   <string name="passwordReset">Password reset</string>
   <string name="forgotPassword">Forgot password?</string>
   <string name="rank">Rank</string>
@@ -673,8 +672,6 @@ in %3$s</string>
   <string name="checkYourEmail">Check your Email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">We\'ve sent you an email. Click the link in the email to activate your account.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">If you don\'t see the email, check other places it might be, like your junk, spam, social, or other folders.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Are you sure you even registered your email on lichess?</string>
-  <string name="itWasNotRequiredForYourRegistration">It was not required for your registration.</string>
   <string name="weHaveSentYouAnEmailTo">We\'ve sent an email to %s. Click the link in the email to reset your password.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">By registering, you agree to be bound by our %s.</string>
   <string name="networkLagBetweenYouAndLichess">Network lag between you and lichess</string>
