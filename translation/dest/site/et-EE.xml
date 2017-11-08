@@ -163,7 +163,6 @@
   <string name="changePassword">Muuda salasõna</string>
   <string name="changeEmail">Muuda email</string>
   <string name="email">Email</string>
-  <string name="emailIsOptional">Email on valikuline. Lichess kasutab teie e-posti aadressi, et lähtestada parool, kui sa unustad selle.</string>
   <string name="passwordReset">Salasõna lähtestamine</string>
   <string name="forgotPassword">Unustasid salasõna?</string>
   <string name="rank">Asetus</string>
@@ -648,8 +647,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="checkYourEmail">Kontrolli oma email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Saatsime sulle emaili. Konto aktiveerimiseks klikki emailis olevale lingile.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Kui sa ei näe e-posti, vaadata teistes kohtades võib olla, nagu oma Rämpspost, sotsiaal- või muid kaustu.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Oled kindel, et registreerisid oma emaili lichess-iga?</string>
-  <string name="itWasNotRequiredForYourRegistration">See polnud kohustuslik registratsiooni ajal.</string>
   <string name="weHaveSentYouAnEmailTo">Saatsime e %s. Kliki lingile e-posti salasõna uuendamise.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registreerides nõustute olema seotud meie %s.</string>
   <string name="networkLagBetweenYouAndLichess">Võrgu lag vahel teid ja Lichessi</string>
