@@ -170,7 +170,6 @@
   <string name="changePassword">Mainīt paroli</string>
   <string name="changeEmail">Mainīt e-pasta adresi</string>
   <string name="email">E-pasta adrese</string>
-  <string name="emailIsOptional">Norādīt e-pasta adresi nav obligāti. Lichess to izmantos lai atjaunotu tavu paroli, ja gadījumā to aizmirsīsi.</string>
   <string name="passwordReset">Atjaunot paroli</string>
   <string name="forgotPassword">Neatceries paroli?</string>
   <string name="rank">Rangs</string>
@@ -701,8 +700,6 @@
   <string name="checkYourEmail">Ieskaties savā E-pastā</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Mēs tev aizsūtījām e-pastu. Uzklikšķini uz saņemtās saites lai aktivizētu savu kontu.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ja nevari atrast e-pastu, pārbaudi citās vietās, kur tas varētu būt, piemēram, mēstules, draza, spam, junk, sociālie tīkli vai citās mapēs.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Vai esi pārliecināts, ka vispār reģistrēji savu e-pastu lichess?</string>
-  <string name="itWasNotRequiredForYourRegistration">Reģistrējoties tas nebija obligāts.</string>
   <string name="weHaveSentYouAnEmailTo">Mēs aizsūtījām e-pastu uz %s. Noklikšķini uz saites e-pastā lai atjaunotu savu paroli.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Reģistrējoties, tev jāpiekrīt saistībām atbilstoši mūsu %s.</string>
   <string name="networkLagBetweenYouAndLichess">Tīkla aizture starp tevi un lichess</string>
