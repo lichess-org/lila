@@ -127,7 +127,6 @@
   <string name="changePassword">Нэвтрэх үгээ өөрчлөх</string>
   <string name="changeEmail">Электрон шуудангийн хаягаа өөрчлөх</string>
   <string name="email">Электрон шуудангийн хаяг</string>
-  <string name="emailIsOptional">Электрон шуудангийн хаягаа сайн дураараа оруулж болно. Та нэвтрэх үгээ мартсан үед Личесс таны электрон шуудангийн хаяг руу шинэчилсэн нэвтрэх үгийг илгээх болно.</string>
   <string name="passwordReset">Нэвтрэх үгээ шинэчлэх</string>
   <string name="forgotPassword">Нэвтрэх үгээ мартсан уу?</string>
   <string name="rank">Зэрэг</string>
@@ -548,8 +547,6 @@
   <string name="checkYourEmail">Та цахим шуудангаа шалгана уу</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Бид тань руу зурвас илгээлээ. Зурвас доторх холбоос хаяг дээр дарснаар хэрэглэгчийн данс тань идэвхжинэ.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Хэрэв бидний зурвас үндсэн шуудангийн хайрцаг дотор тань олдохгүй байвал та бусад хайрцгуудаа ( junk, spam, social гэх мэт) шалгана уу.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Та энэ шуудангийн хаягаар хэрэглэгчийн данс үүсгэсэн гэдэгтээ илтгэлтэй байна уу?</string>
-  <string name="itWasNotRequiredForYourRegistration">Хэрэглэгчийн данс нээхэд энэ мэдээлэл шаардаагүй болно.</string>
   <string name="weHaveSentYouAnEmailTo">Бид %s хаяг руу зурвас илгээлээ. Зурвас доторх холбоос дээр дарж нэвтрэх үгээ шинэчилнэ үү.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Та энэ хуудсанд бүртгэл үүсгэснээр манай %sийг бүрэн дагаж мөрдөхөө хүлээн зөвшөөрч байна.</string>
   <string name="networkLagBetweenYouAndLichess">Таны ба манай сүлжээний хоорон дахь хоцрогдол</string>
