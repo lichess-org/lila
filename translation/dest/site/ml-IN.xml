@@ -108,7 +108,6 @@
   <string name="changePassword">പാസ്‌വേഡ് മാറ്റുക</string>
   <string name="changeEmail">ഇമെയില്‍ മാറ്റുക</string>
   <string name="email">ഇമെയില്‍</string>
-  <string name="emailIsOptional">ഇമെയില്‍ നിര്‍ബന്ധമില്ല. നിങ്ങള്‍ പാസ്‌വേഡ് മറന്നുപോവുകയാണെങ്കില്‍ അത് റീസെറ്റ് ചെയ്യാന്‍ നിങ്ങളുടെ ഇമെയില്‍ വിലാസം ഞങ്ങള്‍ ഉപയോഗിക്കും.</string>
   <string name="passwordReset">പാസ്‌വേഡ് റീസെറ്റ് ചെയ്യുക</string>
   <string name="forgotPassword">പാസ്‌വേഡ് മറന്നുപോയോ?</string>
   <string name="rank">റാങ്ക്</string>
@@ -505,8 +504,6 @@
   <string name="checkYourEmail">നിങ്ങളുടെ ഇമെയിൽ പരിശോധിക്കൂ</string>
   <string name="weHaveSentYouAnEmailClickTheLink">ഞങ്ങൾ നിങ്ങൾക്കൊരു ഇമെയിൽ അയച്ചിട്ടുണ്ട്. ഇമെയിലിലെ ലിങ്ക് ക്ലിക്ക് ചെയ്ത് നിങ്ങളുടെ അക്കൗണ്ട് ആക്ടിവേറ്റ് ചെയ്യൂ.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">നിങ്ങൾക്ക്  ഇമെയിൽ കണ്ടെത്താനായില്ലെങ്കിൽ, junk, spam, social അല്ലെങ്കിൽ മറ്റുള്ള ഫോൾഡറുകളിൽ ഉണ്ടോയെന്ന് പരിശോധിക്കാവുന്നതാണ്.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">നിങ്ങളുടെ ഇമെയിൽ lichess ഇൽ രജിസ്റ്റർ ചെയ്തതായി നിശ്ചയമുണ്ടോ?</string>
-  <string name="itWasNotRequiredForYourRegistration">നിങ്ങളുടെ രെജിസ്ട്രേഷന് ഇത് നിർബന്ധമില്ല</string>
   <string name="weHaveSentYouAnEmailTo">%s ഞങ്ങൾ ഒരു ഇമെയിൽ അയച്ചിട്ടുണ്ട്. ഇമെയിൽ ലിങ്കിൽ ക്ലിക്ക് ചെയ്ത് നിങ്ങളുടെ പാസ്സ്‌വേർഡ് പുനഃക്രമീകരിക്കാവുന്നതാണ്.</string>
   <string name="networkLagBetweenYouAndLichess">നിങ്ങളും lichessഉം തമ്മിലുള്ള നെറ്റ്വർക്ക് കാലയളവ്</string>
   <string name="printFriendlyPDF">പ്രിന്റ് സൗഹൃദമായ PDF</string>
