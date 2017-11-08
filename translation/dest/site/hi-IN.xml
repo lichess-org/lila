@@ -162,7 +162,6 @@
   <string name="changePassword">पासवर्ड बदलो</string>
   <string name="changeEmail">अपना इ-मेल बदलो</string>
   <string name="email">इ-मेल</string>
-  <string name="emailIsOptional">ई-मेल वैकल्पिक है। अगर आप अपना पासवर्ड भूल जाते हैं, तो लीचेस आपके ई-मेल द्वारा आपको नया पासवर्ड बनाने की अनुमति देगा।</string>
   <string name="passwordReset">पासवर्ड बदलें</string>
   <string name="forgotPassword">क्या आप अपना पासवर्ड भूल गए हैं?</string>
   <string name="rank">श्रेणी (रैंक)</string>
@@ -641,8 +640,6 @@
   <string name="checkYourEmail">अपना ई-मेल  देखें</string>
   <string name="weHaveSentYouAnEmailClickTheLink">हम आपको एक ईमेल भेज दिया है। अपने खाते को सक्रिय करने के लिए ईमेल में लिंक पर क्लिक करें।</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">आप ईमेल नहीं देखते हैं, तो अन्य स्थानों पर यह हो सकता है, आपकी कबाड़, स्पैम, सामाजिक, या अन्य फ़ोल्डर की तरह की जाँच करें।</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">क्या आप वाकई भी lichess पर अपने ईमेल पंजीकृत हैं?</string>
-  <string name="itWasNotRequiredForYourRegistration">यह अपने पंजीकरण के लिए आवश्यक नहीं था।</string>
   <string name="weHaveSentYouAnEmailTo">हम%s के लिए एक ईमेल भेज दिया है। अपना पासवर्ड रीसेट करने के लिए ईमेल में लिंक पर क्लिक करें।</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">दर्ज करके, आप हमारे %s द्वारा बाध्य होने के लिए सहमत हैं।</string>
   <string name="networkLagBetweenYouAndLichess">आप और lichess के बीच नेटवर्क के अंतराल</string>
