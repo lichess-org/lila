@@ -91,32 +91,34 @@ object Message extends LilaController {
 
   def create = AuthBody { implicit ctx => implicit me =>
     NotForKids {
-      implicit val req = ctx.body
-      negotiate(
-        html = forms.thread(me).bindFromRequest.fold(
-          err => renderForm(me, none, _ => err) map { BadRequest(_) },
-          data => {
-            val cost =
-              if (isGranted(_.ModMessage)) 0
-              else if (!me.createdSinceDays(3)) 2
-              else 1
-            ThreadLimitPerUser(me.id, cost = cost) {
-              ThreadLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = cost) {
-                api.makeThread(data, me) map { thread =>
-                  if (thread.asMod) Env.mod.logApi.modMessage(thread.creatorId, thread.invitedId, thread.name)
-                  Redirect(routes.Message.thread(thread.id))
+      Env.chat.panic.allowed(me) ?? {
+        implicit val req = ctx.body
+        negotiate(
+          html = forms.thread(me).bindFromRequest.fold(
+            err => renderForm(me, none, _ => err) map { BadRequest(_) },
+            data => {
+              val cost =
+                if (isGranted(_.ModMessage)) 0
+                else if (!me.createdSinceDays(3)) 2
+                else 1
+              ThreadLimitPerUser(me.id, cost = cost) {
+                ThreadLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = cost) {
+                  api.makeThread(data, me) map { thread =>
+                    if (thread.asMod) Env.mod.logApi.modMessage(thread.creatorId, thread.invitedId, thread.name)
+                    Redirect(routes.Message.thread(thread.id))
+                  }
                 }
               }
             }
-          }
-        ),
-        api = _ => forms.thread(me).bindFromRequest.fold(
-          err => fuccess(BadRequest(errorsAsJson(err))),
-          data => api.makeThread(data, me) map { thread =>
-            Ok(Json.obj("ok" -> true, "id" -> thread.id))
-          }
+          ),
+          api = _ => forms.thread(me).bindFromRequest.fold(
+            err => fuccess(BadRequest(errorsAsJson(err))),
+            data => api.makeThread(data, me) map { thread =>
+              Ok(Json.obj("ok" -> true, "id" -> thread.id))
+            }
+          )
         )
-      )
+      }
     }
   }
 
@@ -128,7 +130,8 @@ object Message extends LilaController {
           reqUser = user,
           reqTitle = title,
           reqMod = getBool("mod"),
-          canMessage = canMessage || Granter(_.MessageAnyone)(me)
+          canMessage = canMessage || Granter(_.MessageAnyone)(me),
+          oldEnough = Env.chat.panic.allowed(me)
         )
       }
     }
