@@ -77,6 +77,10 @@
     <item quantity="one">Мат в %s полуход</item>
     <item quantity="other">Мат в %s полухода</item>
   </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Следващо вземане на фигура или преместване на пешка след %s полуход (преди равенство от правилото за 50 хода)</item>
+    <item quantity="other">Следващо вземане на фигура или преместване на пешка след %s полухода (преди равенство от правилото за 50 хода)</item>
+  </plurals>
   <string name="noGameFound">Не е открита игра</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Защо не включите повече игри в датабазата от менюто?</string>
   <string name="openingExplorer">Изследовател на дебютите</string>
@@ -93,6 +97,7 @@
   <string name="openStudy">Проучване</string>
   <string name="enable">Включване</string>
   <string name="bestMoveArrow">Показване на най-добър ход</string>
+  <string name="evaluationGauge">Показване на оценка</string>
   <string name="multipleLines">Множество ходове</string>
   <string name="cpus">Процесори</string>
   <string name="memory">Памет</string>
@@ -376,17 +381,33 @@
   <string name="createdBy">от</string>
   <string name="tournamentIsStarting">Турнирът започва</string>
   <string name="tournamentPairingsAreNowClosed">Съчетаването на играчи вече приключи.</string>
+  <string name="standByX">Приготви се, %s, играчите ще бъдат съчетани!</string>
   <string name="youArePlaying">Играете!</string>
   <string name="winRate">Успеваемост</string>
+  <string name="berserkRate">Берсерк коефициент</string>
   <string name="performance">Производителност</string>
+  <string name="tournamentComplete">Турнирът завърши</string>
+  <string name="movesPlayed">Изиграни ходове</string>
+  <string name="whiteWins">Белите печелят</string>
+  <string name="blackWins">Черните печелят</string>
+  <string name="draws">Равенства</string>
+  <string name="nextXTournament">Следващ %s турнир:</string>
+  <string name="viewMoreTournaments">Покажи повече турнири</string>
+  <string name="averageOpponent">Среден противник</string>
   <string name="membersOnly">Само за записани</string>
   <string name="boardEditor">Шахматен редактор</string>
+  <string name="setTheBoard">Подреди дъската</string>
+  <string name="popularOpenings">Популярни дебюти</string>
   <string name="startPosition">Начална позиция</string>
   <string name="clearBoard">Празна дъска</string>
   <string name="savePosition">Запази позицията</string>
   <string name="loadPosition">Зареди позиция</string>
   <string name="isPrivate">Лично</string>
   <string name="reportXToModerators">Докладвай %s на съдийте</string>
+  <string name="profileCompletion">Завършеност на профила: %s</string>
+  <string name="xRating">%s рейтинг</string>
+  <string name="ifNoneLeaveEmpty">При липса оставете празно</string>
+  <string name="gameCompletionRate">Завършени игри: %s</string>
   <string name="profile">Профил</string>
   <string name="editProfile">Редактирай профила</string>
   <string name="firstName">Име</string>
@@ -394,6 +415,7 @@
   <string name="biography">Животопис</string>
   <string name="country">Страна</string>
   <string name="preferences">Предпочитания</string>
+  <string name="inlineNotation">Вградена нотация</string>
   <string name="watchLichessTV">Гледай Lichess TV</string>
   <string name="previouslyOnLichessTV">Приключили игри</string>
   <string name="onlinePlayers">Свързани играчи</string>
@@ -487,6 +509,9 @@
   <string name="pieceDestinations">Обозначение на ходовете (позволени ходове и предварително задаване)</string>
   <string name="boardCoordinates">Координати на дъската (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Списък на ходовете докато играя</string>
+  <string name="pgnPieceNotation">Нотация</string>
+  <string name="chessPieceSymbol">Символ</string>
+  <string name="pgnLetter">Буква (K, Q, R, B, N)</string>
   <string name="chessClock">Шахматен часовник</string>
   <string name="tenthsOfSeconds">Десети от секундата</string>
   <string name="never">Никога</string>
@@ -494,12 +519,18 @@
   <string name="horizontalGreenProgressBars">Водоравен стълб на времето</string>
   <string name="soundWhenTimeGetsCritical">Звук, когато времето привършва</string>
   <string name="gameBehavior">Настройки на играта</string>
+  <string name="howDoYouMovePieces">Как да премествате фигури?</string>
+  <string name="clickTwoSquares">Щракане върху две полета</string>
+  <string name="dragPiece">Влачене на фигури</string>
+  <string name="bothClicksAndDrag">И двете</string>
   <string name="premovesPlayingDuringOpponentTurn">Предварителни ходове (докато противникът е на ход)</string>
   <string name="takebacksWithOpponentApproval">Връщане на ход (с одобрение на противника)</string>
   <string name="promoteToQueenAutomatically">Автоматично изкарване на царица</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Автоматично реми при трикратно повторение</string>
   <string name="privacy">Поверителност</string>
   <string name="letOtherPlayersFollowYou">Позволи на другите играчи да ви следват</string>
   <string name="letOtherPlayersChallengeYou">Позволи на други играчи да ви предизвикват</string>
+  <string name="letOtherPlayersInviteYouToStudy">Позволяване на играчи да ви поканят в проучване</string>
   <string name="sound">Звук</string>
   <string name="yourPreferencesHaveBeenSaved">Вашите предпочитания бяха записани.</string>
   <string name="none">Не</string>
@@ -522,11 +553,15 @@
   <string name="xAnsweredY">%1$s отговори %2$s</string>
   <string name="xCommentedY">%1$s говори %2$s</string>
   <string name="victory">Успех!</string>
+  <string name="defeat">Загуба</string>
+  <string name="xVsYinZ">%1$s срещу %2$s
+на %3$s</string>
   <string name="timeline">Уведомления</string>
   <string name="seeAllTournaments">Виж всички турнири</string>
   <string name="starting">Начало:</string>
   <string name="allInformationIsPublicAndOptional">Всички данни са публични и са по избор.</string>
   <string name="yourCityRegionOrDepartment">Вашият град, област или община.</string>
+  <string name="biographyDescription">Разкажете за себе си, какво харесвате в шахмата, вашите любими дебюти, игри, играчи…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Max: %s знака.</item>
     <item quantity="other">Max: %s знака.</item>
@@ -548,6 +583,7 @@
   <string name="playOnTheBoardOffline">Играй на дъската</string>
   <string name="playOfflineComputer">Компютър</string>
   <string name="opponent">Противник</string>
+  <string name="learnMenu">Научи</string>
   <string name="community">Общност</string>
   <string name="tools">Инструменти</string>
   <string name="increment">Прибавяне</string>
@@ -560,6 +596,7 @@
   <string name="error.email">Адресът на ел. поща е невалиден</string>
   <string name="error.email_acceptable">Адресът на ел. поща е недопустим</string>
   <string name="error.email_unique">Тази ел. поща е вече заета</string>
+  <string name="error.email_different">Това е текущият ви имейл адрес</string>
   <string name="blindfoldChess">Блинд (невидими фигури)</string>
   <string name="zenMode">Режим Zen</string>
   <string name="moveConfirmation">Потвърждение на хода</string>
@@ -590,6 +627,7 @@
   <string name="sourceCode">Програмен Код</string>
   <string name="simultaneousExhibitions">Едновр. педизвикателство</string>
   <string name="host">Домакин</string>
+  <string name="hostColorX">Домакин: %s</string>
   <string name="createdSimuls">Нови предизвикателства</string>
   <string name="hostANewSimul">Приеми предизвикателство</string>
   <string name="noSimulFound">Предизвикателството не е намерено</string>
@@ -624,6 +662,10 @@
   <string name="tournamentMayHaveBeenCanceled">Може да е отменен, ако всички участници са напуснали преди да е започнало.</string>
   <string name="returnToTournamentsHomepage">Връщане към началната страница</string>
   <string name="weeklyPerfTypeRatingDistribution">Седмично разпределение на %s рейтинга</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">%1$s %2$s играч тази седмица.</item>
+    <item quantity="other">%1$s %2$s играчи тази седмица.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">Вашият %1$s рейтинг е %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Вие сте по-добър от %1$s от %2$s играчите.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Нямате установен %s рейтинг.</string>
@@ -641,6 +683,7 @@
   <string name="crosstable">Таблица</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Може още да скролираш върху дъската, за да местиш ходовете.</string>
   <string name="analysisShapesHowTo">Натисни shift едновременно с ляво или дясно копче за да рисуваш кръгове и стрелки върху дъската.</string>
+  <string name="confirmResignationAndDrawOffers">Потвърждаване на предаване и предложение за реми</string>
   <string name="letOtherPlayersMessageYou">Разреши на другите да ви пишат</string>
   <string name="shareYourInsightsData">Споделете измерванията върху вашата игра</string>
   <string name="withNobody">С никой</string>
