@@ -20,6 +20,7 @@ lichess.StrongSocket = function(url, version, settings) {
   var tryOtherUrl = false;
   var autoReconnect = true;
   var nbConnects = 0;
+  var wsReceivedVersion = false;
   var storage = lichess.storage.make(options.baseUrlKey);
 
   var connect = function() {
@@ -40,6 +41,7 @@ lichess.StrongSocket = function(url, version, settings) {
       };
       ws.onopen = function() {
         debug("connected to " + fullUrl);
+        wsReceivedVersion = false;
         onSuccess();
         $('body').removeClass('offline');
         pingNow();
@@ -54,8 +56,11 @@ lichess.StrongSocket = function(url, version, settings) {
         // }
         if (m.t === 'n') pong();
         // else debug(e.data);
-        if (m.t === 'b') m.d.forEach(handle);
-        else handle(m);
+        if (m.t === 'b') {
+          var sVersion = wsReceivedVersion ? version : NaN;
+          m.d.forEach(handle);
+          if (version > sVersion + 1) $.post('/jsmon/socket_gap');
+        } else handle(m);
       };
     } catch (e) {
       onError(e);
@@ -150,8 +155,10 @@ lichess.StrongSocket = function(url, version, settings) {
       }
       if (m.v > version + 1) {
         debug("event gap detected from " + version + " to " + m.v);
+        if (wsReceivedVersion) $.post('/jsmon/socket_gap');
         return;
       }
+      wsReceivedVersion = true;
       version = m.v;
     }
     switch (m.t || false) {
@@ -260,7 +267,7 @@ lichess.StrongSocket = function(url, version, settings) {
     }
   };
 };
-lichess.StrongSocket.sri = Math.random().toString(36).substring(2).slice(0, 10);
+lichess.StrongSocket.sri = Math.random().toString(36).slice(2, 12);
 lichess.StrongSocket.available = window.WebSocket || window.MozWebSocket;
 lichess.StrongSocket.defaults = {
   events: {

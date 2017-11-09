@@ -93,6 +93,15 @@ object Main extends LilaController {
     NoContent.fuccess
   }
 
+  /**
+   * Event monitoring endpoint
+   */
+  def jsmon(event: String) = Open { ctx =>
+    if (event == "socket_gap") lila.mon.jsmon.socketGap()
+    else lila.mon.jsmon.unknown()
+    NoContent.fuccess
+  }
+
   private lazy val glyphsResult: Result = {
     import chess.format.pgn.Glyph
     import lila.tree.Node.glyphWriter
