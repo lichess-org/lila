@@ -138,7 +138,6 @@
   <string name="changePassword">პაროლის შეცვლა</string>
   <string name="changeEmail">ელ. ფოსტის შეცვლა</string>
   <string name="email">ელ. ფოსტა</string>
-  <string name="emailIsOptional">ელ. ფოსტა ნებაყოფლობითია. თქვენი ელ. ფოსტა გამოყენებული იქნება პაროლის აღსადგენად, მისი დავიწყების შემთხვევაში.</string>
   <string name="passwordReset">პაროლის აღდგენა</string>
   <string name="forgotPassword">დაგავიწყდათ პაროლი?</string>
   <string name="rank">რანგი</string>

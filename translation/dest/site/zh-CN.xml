@@ -6,7 +6,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">邀人下棋，请分享这个网址</string>
   <string name="gameOver">棋局结束</string>
   <string name="waitingForOpponent">等待对手</string>
-  <string name="waiting">等候</string>
+  <string name="waiting">等待中</string>
   <string name="yourTurn">该你走</string>
   <string name="aiNameLevelAiLevel">%1$s级別%2$s</string>
   <string name="level">级别</string>
@@ -65,7 +65,7 @@
   <string name="close">关闭</string>
   <string name="winning">赢棋</string>
   <string name="losing">输棋</string>
-  <string name="drawn">和局</string>
+  <string name="drawn">和棋</string>
   <string name="unknown">结局未知</string>
   <string name="database">数据库</string>
   <string name="whiteDrawBlack">白胜／和棋／黑胜</string>
@@ -83,7 +83,7 @@
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">请尝试在“选择”菜单内包括更多棋局。</string>
   <string name="openingExplorer">开局浏览器</string>
   <string name="xOpeningExplorer">%s开局浏览器</string>
-  <string name="winPreventedBy50MoveRule">本局面本应赢棋，但因为50回合规则对方可以逼和。</string>
+  <string name="winPreventedBy50MoveRule">本棋局本应取胜，但由于50回合规则导致和棋。</string>
   <string name="lossSavedBy50MoveRule">本局面本应输棋，但因为50回合规则可以和棋。</string>
   <string name="allSet">好了！</string>
   <string name="importPgn">上传PGN</string>
@@ -156,7 +156,6 @@
   <string name="changePassword">修改密码</string>
   <string name="changeEmail">更改电子邮件地址</string>
   <string name="email">电子邮箱</string>
-  <string name="emailIsOptional">电子邮件地址是选填的。如果您忘记了密码 Lichess 将使用您的电子邮件地址来重置您的密码。</string>
   <string name="passwordReset">密码重置</string>
   <string name="forgotPassword">忘记密码？</string>
   <string name="rank">排名</string>
@@ -595,15 +594,15 @@
   <string name="contact">联系我们</string>
   <string name="termsOfService">服务条款</string>
   <string name="sourceCode">源代码</string>
-  <string name="simultaneousExhibitions">同步表演赛</string>
+  <string name="simultaneousExhibitions">车轮战</string>
   <string name="host">主持</string>
   <string name="hostColorX">主持颜色：%s</string>
-  <string name="createdSimuls">最近创建的同步表演赛</string>
-  <string name="hostANewSimul">主持新同步赛</string>
-  <string name="noSimulFound">找不到该同步赛</string>
-  <string name="noSimulExplanation">该同步表演赛不存在。</string>
-  <string name="returnToSimulHomepage">返回同步赛主页</string>
-  <string name="aboutSimul">同步表演赛涉及到一个人同时和几位棋手下棋。</string>
+  <string name="createdSimuls">最近创建的车轮战</string>
+  <string name="hostANewSimul">主持新车轮战</string>
+  <string name="noSimulFound">找不到该车轮战</string>
+  <string name="noSimulExplanation">该车轮战不存在。</string>
+  <string name="returnToSimulHomepage">返回车轮战主页</string>
+  <string name="aboutSimul">车轮战涉及到一个人同时和几位棋手下棋。</string>
   <string name="aboutSimulImage">在50个队手中，菲舍尔贏了47局，和了2局，输了1局。</string>
   <string name="aboutSimulRealLife">这个概念来自网下比赛。在网下这涉及到主持在桌与桌之间來回穿梭走棋。</string>
   <string name="aboutSimulRules">当同步赛开始时， 每个棋手都与主持开始下棋， 而主持用白方。当所有的对局都结束时，同步赛就结束了。</string>
@@ -641,8 +640,6 @@
   <string name="checkYourEmail">请查看您的电子邮件</string>
   <string name="weHaveSentYouAnEmailClickTheLink">一封电子邮件已发到您的邮箱。请点击邮件中的链接以激活您的帐户。</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">如果您没有收到我们的邮件, 请检查您的其他收件箱, 例如垃圾箱, 广告, 社交等.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">您确定您在Lichess上注册过您的电子邮箱吗？</string>
-  <string name="itWasNotRequiredForYourRegistration">注册时不需要邮箱。</string>
   <string name="weHaveSentYouAnEmailTo">我们给您的邮箱（%s）发了重置密码的链接。请点击链接来重置您的密码。</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">您一注册我们就假定您同意尊重我们的使用规则（%s）。</string>
   <string name="networkLagBetweenYouAndLichess">您和lichess 之间的网络延迟</string>
@@ -695,7 +692,7 @@
   <string name="xJoinsY">%1$s 参加 %2$s</string>
   <string name="xLikesY">%1$s喜欢%2$s</string>
   <string name="quickPairing">快速配对</string>
-  <string name="lobby">大堂</string>
+  <string name="lobby">大厅</string>
   <string name="anonymous">匿名</string>
   <string name="yourScore">比分：%s</string>
   <string name="language">语言</string>

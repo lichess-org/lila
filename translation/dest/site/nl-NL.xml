@@ -163,7 +163,6 @@
   <string name="changePassword">Wijzig wachtwoord</string>
   <string name="changeEmail">Verander email</string>
   <string name="email">Email</string>
-  <string name="emailIsOptional">Email is optioneel. Lichess gebruikt het om uw wachtwoord te herstellen indien u het vergeet.</string>
   <string name="passwordReset">Nieuw wachtwoord</string>
   <string name="forgotPassword">Wachtwoord vergeten?</string>
   <string name="rank">Positie</string>
@@ -670,8 +669,6 @@
   <string name="checkYourEmail">Controleer je email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">We hebben je een email gestuurd. Klik op de link in de email om je account te activeren.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Als je de email niet ziet, kijk dan op andere plaatsen, zoals je spam of andere mappen.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Weet je zeker dat je dit emailadres op Lichess geregistreed hebt?</string>
-  <string name="itWasNotRequiredForYourRegistration">Het was niet noodzakelijk geweest voor je registratie.</string>
   <string name="weHaveSentYouAnEmailTo">We hebben een email verstuurd naar %s. Klik op de link in de email om je wachtwoord te resetten.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Door je registratie ben je gebonden aan onze %s.</string>
   <string name="networkLagBetweenYouAndLichess">Netwerkvertraging tussen u en Lichess</string>

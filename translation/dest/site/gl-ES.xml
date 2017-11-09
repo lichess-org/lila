@@ -163,7 +163,6 @@
   <string name="changePassword">Cambiar contrasinal</string>
   <string name="changeEmail">Cambiar correo</string>
   <string name="email">Correo electrónico</string>
-  <string name="emailIsOptional">O correo é opcional. Lichess usará o teu enderezo de correo para cambiar o teu contrasinal se o esqueces.</string>
   <string name="passwordReset">Cambiar contrasinal</string>
   <string name="forgotPassword">Esqueciches o teu contrasinal?</string>
   <string name="rank">Clasificación</string>
@@ -672,8 +671,6 @@ en %3$s</string>
   <string name="checkYourEmail">Revisa o teu correo</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Enviámosche un correo electrónico. Fai clic na ligazón do correo para activar a súa conta.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se non ves o correo, revisa outras carpetas onde poda estar, coma a de spam ou correo basura.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Estás seguro de que rexistraches o teu correo en lichess?</string>
-  <string name="itWasNotRequiredForYourRegistration">Non foi necesario para o teu rexistro.</string>
   <string name="weHaveSentYouAnEmailTo">Enviámosche un correo a %s. Segue a ligazón no correo para restaurar o teu contrasinal.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ó rexistrarte, aceptas os nosos %s.</string>
   <string name="networkLagBetweenYouAndLichess">Retardo da rede entre ti e máis lichess</string>

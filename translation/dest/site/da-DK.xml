@@ -148,7 +148,6 @@
   <string name="changePassword">Skift adgangskode</string>
   <string name="changeEmail">Ændr email</string>
   <string name="email">Email</string>
-  <string name="emailIsOptional">Email er valgfri. Lichess vil bruge din email til at sende dig en ny adgangskode, hvis du glemmer den eksisterende.</string>
   <string name="passwordReset">Nulstil adgangskode</string>
   <string name="forgotPassword">Glemt adgangskode?</string>
   <string name="rank">Rang</string>
@@ -590,8 +589,6 @@
   <string name="checkYourEmail">Tjek din Email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Vi har sendt dig en Email. Klik på linket i Emailen for at aktivere din konto.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Hvis du ikke kan se Emailen, skal du kontrollere andre steder den kan være, som i din junk, spam, sociale eller andre mapper.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Er du sikker på at du har registreret din Email på lichess?</string>
-  <string name="itWasNotRequiredForYourRegistration">Det var ikke nødvendigt for din registrering.</string>
   <string name="weHaveSentYouAnEmailTo">Vi har sendt en Email til %s. Klik på linket i e-mailen for at nulstille din adgangskode.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ved at registrere, accepterer du at være bundet af vores %s.</string>
   <string name="networkLagBetweenYouAndLichess">Netværk forsinkelse mellem dig og lichess</string>

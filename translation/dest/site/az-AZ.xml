@@ -163,7 +163,6 @@
   <string name="changePassword">Parolu dəyiş</string>
   <string name="changeEmail">Emaili dəyiş</string>
   <string name="email">Email</string>
-  <string name="emailIsOptional">Email məcburi deyil, parolu unutsanız, dəyişmək üçün istifadə olunur.</string>
   <string name="passwordReset">Parolu yenilə</string>
   <string name="forgotPassword">Parolu unutdun?</string>
   <string name="rank">Təsnifat</string>
@@ -603,8 +602,6 @@
   <string name="checkYourEmail">E-poçtunu yoxla</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Biz sənə e-poçt göndərdik. Hesabını aktivləşdirmək üçün linkə kliklə</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Əgər e-poçtu görmürsünzsə, onun ola biləçəyi digər yerləri, məsələn, zibil qutusu, spam, sosial və digər qovluqları nəzərdən keçirin.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Sizin hətta öz e-poçtunuzun lichess-də qeydiyyatdan keçdiyindən əminsiniz?</string>
-  <string name="itWasNotRequiredForYourRegistration">Bu sizin qeydiyyatınız üçün gərəkli deyil</string>
   <string name="weHaveSentYouAnEmailTo">Biz %s-ə e-poçt göndərdik. Şifrəni yeniləmək üçün e-poçtundakı linki kliklə.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Qeydiyyatdan keçməklə sən, bizim %s-la razılaşırsan.</string>
   <string name="networkLagBetweenYouAndLichess">Sən və lichess arasında şəbəkə geçikməsi</string>

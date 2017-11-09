@@ -163,7 +163,6 @@
   <string name="changePassword">Endre passord</string>
   <string name="changeEmail">Endre e-postadresse</string>
   <string name="email">E-post</string>
-  <string name="emailIsOptional">E-postadresse er valfri. Lichess vil nytta den til å setja passordet på ny om du gløymer det.</string>
   <string name="passwordReset">Sett passordet på nytt.</string>
   <string name="forgotPassword">Har du gløymt passordet?</string>
   <string name="rank">Rangering</string>
@@ -673,8 +672,6 @@ i %3$s</string>
   <string name="checkYourEmail">Sjekk e-posten din</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Vi har sendt deg ein e-post. Trykk på lenka i e-posten for å aktivere kontoen din.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Hvis du ikkje ser e-posten, sjekk om den ligg i mappene spam, søppel, sosialt eller liknande.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Er du heilt sikker på at du registrerte e-posten din på lichess?</string>
-  <string name="itWasNotRequiredForYourRegistration">Det var ikke naudsynt for registreringa.</string>
   <string name="weHaveSentYouAnEmailTo">Vi har sendt en e-post til %s. Trykk på lenka i e-posten for å tilbakestille passordet ditt.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ved å registrere deg godtek du å binda deg til våre %s.</string>
   <string name="networkLagBetweenYouAndLichess">Nettverksforseinking mellom deg og lichess</string>

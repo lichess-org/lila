@@ -170,7 +170,6 @@
   <string name="changePassword">Сменить пароль</string>
   <string name="changeEmail">Сменить адрес электронной почты</string>
   <string name="email">Электронная почта</string>
-  <string name="emailIsOptional">Указывать электронную почту не обязательно. Lichess будет использовать её для сброса пароля, если Вы его забудете.</string>
   <string name="passwordReset">Сброс пароля</string>
   <string name="forgotPassword">Забыли пароль?</string>
   <string name="rank">Уровень</string>
@@ -336,7 +335,7 @@
   <string name="settings">Настройки</string>
   <string name="filterGames">Фильтр партий</string>
   <string name="reset">Сбросить</string>
-  <string name="apply">Соранить</string>
+  <string name="apply">Сохранить</string>
   <string name="leaderboard">Таблица лидеров</string>
   <string name="pasteTheFenStringHere">Вставьте строку в формате FEN</string>
   <string name="pasteThePgnStringHere">Вставьте строку в формате PGN</string>
@@ -703,8 +702,6 @@
   <string name="checkYourEmail">Подтвердите свой Email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Мы отправили Вам письмо. Нажмите на ссылку в нём для активации аккаунта.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Если письмо не приходит, проверьте папку для спама и другие места, куда оно могло попасть.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Вы уверены, что указывали свой Email на Lichess?</string>
-  <string name="itWasNotRequiredForYourRegistration">Он не был обязателен при регистрации.</string>
   <string name="weHaveSentYouAnEmailTo">Мы отправили письмо по адресу %s. Нажмите на ссылку в нём для сброса пароля.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Регистрируясь, вы берёте на себя обязанность соблюдать наше %s</string>
   <string name="networkLagBetweenYouAndLichess">Задержка между Вами и серверами lichess</string>

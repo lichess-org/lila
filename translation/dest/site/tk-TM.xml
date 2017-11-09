@@ -108,7 +108,6 @@
   <string name="changePassword">Açarsözi üýtget</string>
   <string name="changeEmail">Email üýtget</string>
   <string name="email">Email</string>
-  <string name="emailIsOptional">Email islege görä. Lichess emailiňizi açarsözüňizi unudaňyzda nollamak isleseňiz ulanar.</string>
   <string name="passwordReset">Açarsöz nollama</string>
   <string name="exportGames">Oýunlary eksport et</string>
   <string name="ratingRange">Reýting aralygy</string>

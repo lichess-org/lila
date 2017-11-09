@@ -163,7 +163,6 @@
   <string name="changePassword">Şifre değiştir</string>
   <string name="changeEmail">E-posta adresini değiştir</string>
   <string name="email">E-posta</string>
-  <string name="emailIsOptional">E-posta isteğe bağlıdır. Lichess, e-posta adresinizi şifrenizi unutursanız onu yenilemeniz için kullanacaktır.</string>
   <string name="passwordReset">Şifreyi yenile</string>
   <string name="forgotPassword">Şifremi unuttum</string>
   <string name="rank">Sıralama</string>
@@ -671,8 +670,6 @@
   <string name="checkYourEmail">E-postanızı kontrol edin</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Size e-posta yolladık. Hesabınızı aktifleştirmek için e-postanızdaki linke tıklayın.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Eğer e-postayı görmüyorsanız, diğer yerlere bakın: çöp kutusu, spam, sosyal ya da diğer klasörler</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Bu e-posta adresiyle kaydolduğunuzdan emin misiniz?</string>
-  <string name="itWasNotRequiredForYourRegistration">Kaydınız için gerekli değildir.</string>
   <string name="weHaveSentYouAnEmailTo">%s adresine e-posta yolladık. Şifrenizi tekrar ayarlamak için e-postadaki linke tıklayın.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Kaydolarak, %s \'ı kabul etmiş sayılırsınız.</string>
   <string name="networkLagBetweenYouAndLichess">Siz ve lichess arasındaki ağda gecikme</string>
@@ -745,7 +742,7 @@
   <string name="usernameStartNoNumber">Kullanıcı adı bir sayı ile başlayamaz.</string>
   <string name="usernameUnacceptable">Bu kullanıcı adı uygun değil.</string>
   <string name="directlySupportLichess">Lichess\'e doğrudan destek verin</string>
-  <string name="playChessInStyle">Tarzınızla satranç oynayın</string>
+  <string name="playChessInStyle">Satrancı tarz ile oynayın</string>
   <string name="chessBasics">Satrancın temel prensipleri</string>
   <string name="coaches">Eğitmenler</string>
   <string name="invalidPgn">Geçersiz PGN</string>

@@ -170,7 +170,6 @@
   <string name="changePassword">Promijeni lozinku</string>
   <string name="changeEmail">Promijeni email</string>
   <string name="email">Email</string>
-  <string name="emailIsOptional">Email je neobavezan. Lichess će koristiti tvoj email kako bi ti resetirao lozinku ako ju zaboraviš.</string>
   <string name="passwordReset">Resetiraj lozinku</string>
   <string name="forgotPassword">Zaboravio/la si lozinku?</string>
   <string name="rank">Rang</string>
@@ -703,8 +702,6 @@ u %3$s</string>
   <string name="checkYourEmail">Provjeri svoj e-mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Poslali smo ti e-mail. Klikni na link u e-mailu kako da aktiviraš svoj račun.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ako ne vidiš email, možda se nalazi u drugim mapama: smeće, neželjena pošta, društvene mreže ili druge mape.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Jesi li siguran/sigurna da si uopće registrirao/la svoj email na lichess-u?</string>
-  <string name="itWasNotRequiredForYourRegistration">nije traženo za tvoju registraciju</string>
   <string name="weHaveSentYouAnEmailTo">Poslali smo email na %s. Klikni na link u emailu da se resetia lozinka.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registracijom prihvaćaš naše %s.</string>
   <string name="networkLagBetweenYouAndLichess">mrežno kašnjenje između tebe i lichess-a</string>

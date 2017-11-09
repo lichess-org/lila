@@ -170,7 +170,6 @@
   <string name="changePassword">Zmień hasło</string>
   <string name="changeEmail">Zmień adres e-mail</string>
   <string name="email">E-mail</string>
-  <string name="emailIsOptional">E-mail jest opcjonalny. Lichess użyje tego adresu e-mail w celu zresetowania zapomnianego hasła.</string>
   <string name="passwordReset">Resetuj hasło</string>
   <string name="forgotPassword">Zapomniałeś hasła?</string>
   <string name="rank">Pozycja</string>
@@ -467,9 +466,9 @@
   <string name="thankYou">Dziękujemy!</string>
   <string name="ratingX">Ranking: %s</string>
   <plurals name="playedXTimes">
-    <item quantity="one">Rozwiązywane %s raz</item>
-    <item quantity="few">Rozwiązywane %s razy</item>
-    <item quantity="other">Rozwiązywane %s razy</item>
+    <item quantity="one">Rozwiązane %s raz</item>
+    <item quantity="few">Rozwiązane %s razy</item>
+    <item quantity="other">Rozwiązane %s razy</item>
   </plurals>
   <string name="fromGameLink">Pochodzi z partii %s</string>
   <string name="continueTraining">Kontynuuj trening</string>
@@ -701,8 +700,6 @@
   <string name="checkYourEmail">Sprawdź swoją skrzynkę e-mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Wysłaliśmy do Ciebie wiadomość e-mail. Kliknij w link znajdujący się w e-mailu aby aktywować swoje konto.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Jeśli nie widzisz wiadomości e-mail, sprawdź inne możliwe miejsca, takie jak kosz, spam lub inne foldery.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Czy jesteś pewien, że chcesz zarejestrować swój adres e-mail na lichess?</string>
-  <string name="itWasNotRequiredForYourRegistration">To nie jest wymagane aby się zarejestrować</string>
   <string name="weHaveSentYouAnEmailTo">Wysłaliśmy wiadomość e-mail do %s.Kliknij w link znajdujący się w wiadomości aby zresetować swoje hasło.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Rejestrując się wyrażasz zgodę na przestrzeganie %s.</string>
   <string name="networkLagBetweenYouAndLichess">Opóźnienie w połączeniu internetowym pomiędzy Tobą i lichess</string>

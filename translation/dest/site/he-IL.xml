@@ -32,8 +32,8 @@
   <string name="whitePlays">תור הלבן</string>
   <string name="blackPlays">תור השחור</string>
   <string name="opponentLeftChoices">יריבך עזב את המשחק. באפשרותך לכפות פרישה, להכריז על תיקו או להמתין לו.</string>
-  <string name="makeYourOpponentResign">גרום ליריבך לפרוש</string>
-  <string name="forceResignation">כפה פרישה על יריבך</string>
+  <string name="makeYourOpponentResign">טען שניצחת</string>
+  <string name="forceResignation">טען שניצחת</string>
   <string name="forceDraw">הכרז תיקו</string>
   <string name="talkInChat">בבקשה דבר בצ\'אט בצורה נאותה</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">האדם הראשון שיכנס לכתובת הזאת ישחק איתך</string>
@@ -44,16 +44,19 @@
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">שתף כתובת זו כדי לאפשר לצופים לראות את המשחק</string>
   <string name="theComputerAnalysisHasFailed">הניתוח הממוחשב נכשל</string>
   <string name="viewTheComputerAnalysis">צפה בניתוח הממוחשב</string>
-  <string name="requestAComputerAnalysis">בקש  ניתוח ממוחשב</string>
+  <string name="requestAComputerAnalysis">בקש ניתוח ממוחשב</string>
   <string name="computerAnalysis">ניתוח ע\"י המחשב</string>
   <string name="computerAnalysisAvailable">ניתוח מחשב זמין</string>
-  <string name="analysis">ניתוח</string>
-  <string name="depthX">%s עומק</string>
+  <string name="analysis">לוח ניתוח</string>
+  <string name="depthX">עומק %s</string>
   <string name="usingServerAnalysis">באמצעות ניתוח שרת</string>
+  <string name="loadingEngine">טוען מנוע...</string>
   <string name="cloudAnalysis">ניתוח ענן</string>
   <string name="showThreat">הצג איום</string>
   <string name="inLocalBrowser">בדפדפן המקומי</string>
   <string name="move">מסע</string>
+  <string name="insufficientMaterial">אין מספיק כלים</string>
+  <string name="pawnMove">מסע רגלי</string>
   <string name="capture">הכאה</string>
   <string name="close">סגור</string>
   <string name="winning">זוכה</string>
@@ -61,7 +64,11 @@
   <string name="drawn">תיקו</string>
   <string name="unknown">לא ידוע</string>
   <string name="database">מסד נתונים</string>
+  <string name="whiteDrawBlack">שחור / תיקו / לבן</string>
   <string name="averageRatingX">דירוג ממוצע: %s</string>
+  <string name="recentGames">משחקים אחרונים</string>
+  <string name="topGames">המשחקים המובילים</string>
+  <string name="masterDbExplanation">שני מיליון משחקים על לוח פיזי של %1$s+ שחקני פידה מ %2$s עד %3$s</string>
   <string name="noGameFound">משחק לא נמצא</string>
   <string name="openingExplorer">סייר הפתיחות</string>
   <string name="allSet">הכול מוכן!</string>
@@ -109,7 +116,6 @@
   <string name="changePassword">שנה סיסמה</string>
   <string name="changeEmail">שנה כתובת דואר אלקטרוני</string>
   <string name="email">הדואר האלקטרוני</string>
-  <string name="emailIsOptional">שדה הדואר האלקטרוני הוא אופציונלי. האתר ישתמש בו לאפס את סיסמתך אם תישכח אותה.</string>
   <string name="passwordReset">איפוס סיסמה</string>
   <string name="forgotPassword">שכחת סיסמה?</string>
   <string name="rank">דרוג</string>
@@ -147,6 +153,7 @@
   <string name="play">שחק</string>
   <string name="inbox">תיבת דואר</string>
   <string name="chatRoom">חדר צא\'ט</string>
+  <string name="loginToChat">התחבר כדי לדבר בצ\'אט</string>
   <string name="spectatorRoom">חדר צופים</string>
   <string name="composeMessage">כתוב הודעה</string>
   <string name="noNewMessages">אין הודעות כרגע</string>
@@ -158,6 +165,7 @@
   <string name="spectators">צופים:</string>
   <string name="exportGames">ייצא משחקים</string>
   <string name="ratingRange">טווח דירוג</string>
+  <string name="giveMoreTime">תן עוד זמן</string>
   <string name="thisPlayerUsesChessComputerAssistance">שחקן זה משתמש בסיוע מחשב שחמט</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">שחקן זה מעלה/מוריד את דירוגו באופן מלאכותי</string>
   <string name="takeback">החזר מהלך</string>
@@ -175,6 +183,7 @@
   <string name="tournamentPoints">נקודות טורניר</string>
   <string name="viewTournament">צפה בטורניר</string>
   <string name="backToTournament">חזור לטורניר</string>
+  <string name="thematic">נושאי</string>
   <string name="backToGame">חזור למשחק</string>
   <string name="siteDescription">משחק שחמט חינם ברשת.  שחק שחמט כעת בממשק נקי. בלי הרשמה, בלי פרסומות, בלי להתקין שום דבר. שחק שחמט עם המחשב, חברים או יריבים אקראיים.</string>
   <string name="teams">קבוצות</string>
@@ -206,6 +215,7 @@
   <string name="importGame">ייבא משחק</string>
   <string name="thisIsAChessCaptcha">זו קאפצ\'ה של שחמט.</string>
   <string name="clickOnTheBoardToMakeYourMove">לחץ על הלוח כדי לעשות מהלך, והוכח שאתה בן אנוש.</string>
+  <string name="captcha.fail">אנא בצע את המהלך הנכון בלוח, לצורך captcha.</string>
   <string name="notACheckmate">לא מט.</string>
   <string name="colorPlaysCheckmateInOne">%s משחק; מט במהלך אחד</string>
   <string name="retry">נסה שוב</string>
@@ -477,8 +487,6 @@
   <string name="checkYourEmail">בדוק את האימייל שלך</string>
   <string name="weHaveSentYouAnEmailClickTheLink">שלחנו לך אימייל. לחץ על הלינק באימייל על מנת להפעיל את חשבונך.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">אם אתה לא מוצא את האימייל, חפש במקומות אחרים, כמו דואר זבל, ספם או תיקיות אחרות.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">האם אתה בטוח שרשמת את האימייל נכון כשנרשמת?</string>
-  <string name="itWasNotRequiredForYourRegistration">הוא לא היה נחוץ להרשמתך</string>
   <string name="weHaveSentYouAnEmailTo">שלחנו אימייל ל%s. לחץ על הלינק באימייל על מנת לאפס את הסיסמא</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">.%s על ידי הרשמה, אתה מסכים ל</string>
   <string name="networkLagBetweenYouAndLichess">עיכוב רשת בינך לבין ליצ\'ס</string>

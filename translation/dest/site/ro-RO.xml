@@ -170,7 +170,6 @@
   <string name="changePassword">Schimbați parola</string>
   <string name="changeEmail">Schimbă e-mailul</string>
   <string name="email">E-mail</string>
-  <string name="emailIsOptional">E-mailul este opțional. Lichess va reseta parola ta dacă o uiți.</string>
   <string name="passwordReset">Resetează parola</string>
   <string name="forgotPassword">Ți-ai pierdut parola?</string>
   <string name="rank">Clasificare</string>
@@ -702,8 +701,6 @@
   <string name="checkYourEmail">Verificați-vă adresa de email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">V-am trimis un email. Fă click pe link-ul din email pentru a-ți activa contul.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Dacă nu vezi email-ul trimis, verifică și în alte locuri, cum ar fi folderul de spam, junk, mesaje sociale sau alte foldere.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Ești sigur(ă) că ai înregistrat adresa ta de email pe site-ul lichess?</string>
-  <string name="itWasNotRequiredForYourRegistration">Nu era necesar pentru înregistrarea ta.</string>
   <string name="weHaveSentYouAnEmailTo">Am trimis un email la %s. Fă click pe link-ul trimis în acel email pentru a-ți reseta parola.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Înregistrându-te, ești de acord cu %s.</string>
   <string name="networkLagBetweenYouAndLichess">Întârziere de rețea între tine și lichess</string>

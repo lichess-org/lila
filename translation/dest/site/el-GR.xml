@@ -163,7 +163,6 @@
   <string name="changePassword">Αλλάξτε κωδικό</string>
   <string name="changeEmail">Αλλαγή ηλ. ταχυδρομείου</string>
   <string name="email">Ηλ. ταχυδρομείο</string>
-  <string name="emailIsOptional">Το ηλ. ταχυδρομείο είναι προαιρετικό. Το Lichess θα το χρησιμοποιήσει μόνο σε περίπτωση που ξεχάσετε τον κωδικό σας για την επαναφορά του.</string>
   <string name="passwordReset">Επαναφορά κωδικού</string>
   <string name="forgotPassword">Ξεχάσατε τον κωδικό;</string>
   <string name="rank">Κατάταξη</string>
@@ -672,8 +671,6 @@
   <string name="checkYourEmail">Ελέγξτε το ηλ. ταχυδρομείο σας</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Σας έχουμε στείλει ένα μήνυμα ηλ. ταχυδρομείου. Κάντε κλικ τον σύνδεσμο στο ηλ.ταχυδρομείο για να ενεργοποιήσετε τον λογαριασμό σας.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Εάν δεν μπορείτε να δείτε το μήνυμα ηλ. ταχυδρομείου, ελέγξτε άλλες θέσεις που θα μπορούσε να είναι, όπως στα διαγραμμένα, ανεπιθύμητη αλληλογραφία, κοινωνικά, ή σε άλλους φακέλους.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Είστε σίγουροι ότι έχετε εγγραφεί με το ηλ. ταχυδρομείο σας στο lichess;</string>
-  <string name="itWasNotRequiredForYourRegistration">Δεν ήταν απαραίτητο για την εγγραφή σας.</string>
   <string name="weHaveSentYouAnEmailTo">Έχουμε στείλει ένα μήνυμα ηλ. ταχυδρομείου στο %s. Κάντε κλικ τον σύνδεσμο στο ηλ. ταχυδρομείο για να επαναφέρετε τον κωδικό πρόσβασής σας.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Με την εγγραφή σας συμφωνείτε ότι δεσμεύεστε από τους %s.</string>
   <string name="networkLagBetweenYouAndLichess">Υστέρηση δικτύου ανάμεσα σε εσάς και το lichess</string>

@@ -155,7 +155,6 @@
   <string name="changePassword">Променете ја шифрата</string>
   <string name="changeEmail">Променете ја е-поштата</string>
   <string name="email">е-пошта</string>
-  <string name="emailIsOptional">е-поштата е опционална. Lichess ќе ја употреби Вашата е-пошта за задавање нова лозинка,ако сте ја заборавиле старата.</string>
   <string name="passwordReset">Задај нова лозинката</string>
   <string name="forgotPassword">Сте ја заборавиле лозинката?</string>
   <string name="rank">Ранг</string>

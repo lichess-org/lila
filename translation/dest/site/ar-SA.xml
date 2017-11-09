@@ -191,7 +191,6 @@
   <string name="changePassword">تغيير كلمة السر</string>
   <string name="changeEmail">غير البريد الإلكتروني</string>
   <string name="email">البريد الإلكتروني</string>
-  <string name="emailIsOptional">البريد الإلكتروني اختياري. لن نستخدمه إلا إذا احتجت إعادة تعيين كلمة المرور</string>
   <string name="passwordReset">إعادة تعيين كلمة المرور</string>
   <string name="forgotPassword">هل نسيت كلمة المرور؟</string>
   <string name="rank">المرتبة</string>
@@ -791,8 +790,6 @@
   <string name="checkYourEmail">تحقق من بريدك الإلكتروني</string>
   <string name="weHaveSentYouAnEmailClickTheLink">أرسلنا رسالة لبريدك الإلكتروني. فضلا اضغط الرابط فيها لتفعيل حسابك</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">إذا لم تجد الرسالة، فابحث عنها في المهملات أو في مجلد spam</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">هل أنت متأكد انك سجلت بريدك الإلكتروني معنا؟</string>
-  <string name="itWasNotRequiredForYourRegistration">لم يكن ضروريا لتسجيل حسابك.</string>
   <string name="weHaveSentYouAnEmailTo">ارسلنا رسالة إلى %s. اضغط على الرابط فيها لإعادة تعيين كلمة المرور.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">بتسجيلك في الموقع فانت توافق على شروطنا %s</string>
   <string name="networkLagBetweenYouAndLichess">تأخر الاتصال بينك وبيننا</string>

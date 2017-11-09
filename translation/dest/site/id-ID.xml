@@ -156,7 +156,6 @@
   <string name="changePassword">Ganti kata kunci</string>
   <string name="changeEmail">Ubah email</string>
   <string name="email">Email</string>
-  <string name="emailIsOptional">Email tidak diwajibkan. Lichess akan menggunakan email anda untuk me-reset password anda bila anda lupa.</string>
   <string name="passwordReset">Reset password</string>
   <string name="forgotPassword">Lupa password?</string>
   <string name="rank">Peringkat</string>
@@ -606,8 +605,6 @@
   <string name="checkYourEmail">Cek email mu</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Kami telah mengirim Anda sebuah email. Buka link di dalam email untuk mengaktivasi akun Anda.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Jika anda tidak melihat surel, cek tempat-tempat lain; seperti junk, spam, sosial, atau berkas lainnya</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Apakah Anda yakin Anda sudah mendaftarkan email Anda di lichess?</string>
-  <string name="itWasNotRequiredForYourRegistration">Ini tidak dibutuhkan untuk registrasi anda.</string>
   <string name="weHaveSentYouAnEmailTo">Kami telah mengirim surel kepada %s. Klik tautan di dalam surel untuk mengubah kata sandi anda.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Dengan mendaftar, anda setuju untuk terikat dengan %s kita.</string>
   <string name="networkLagBetweenYouAndLichess">Hambatan jaringan antara anda dan lichess.</string>

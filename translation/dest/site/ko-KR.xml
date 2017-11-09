@@ -142,7 +142,6 @@
   <string name="changePassword">비밀번호 변경</string>
   <string name="changeEmail">메일 주소 변경</string>
   <string name="email">메일</string>
-  <string name="emailIsOptional">메일 주소는 선택 항목입니다. 비밀번호를 잊어버렸을 때 초기화하기 위해 메일 주소를 사용합니다.</string>
   <string name="passwordReset">비밀번호 초기화</string>
   <string name="forgotPassword">비밀번호를 잊어버리셨나요?</string>
   <string name="rank">순위</string>
@@ -585,8 +584,6 @@
   <string name="checkYourEmail">메일을 확인해 주세요.</string>
   <string name="weHaveSentYouAnEmailClickTheLink">메일을 보냈습니다. 메일에서 링크를 클릭해서 계정을 활성화해 주세요.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">메일을 확인할 수 없다면, 스팸 메일함이나 다른 폴더에 메일이 있지 않은지 확인해 주세요.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">이 메일 주소가 맞습니까? 기록을 찾을 수 없습니다.</string>
-  <string name="itWasNotRequiredForYourRegistration">이 메일이 아닌 것 같습니다.</string>
   <string name="weHaveSentYouAnEmailTo">%s 주소로 메일을 보냈습니다. 메일을 확인하고 비밀번호를 재설정하세요.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">이곳에 등록하면 당신은 이곳의 %s 약관에 동의하시는 것입니다.</string>
   <string name="networkLagBetweenYouAndLichess">당신과 lichess 서버 간의 네트워크 지연 시간</string>

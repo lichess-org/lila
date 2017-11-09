@@ -165,7 +165,6 @@
   <string name="changePassword">Zmeniť heslo</string>
   <string name="changeEmail">Zmeniť email</string>
   <string name="email">Email</string>
-  <string name="emailIsOptional">E-mail je nepovinný. Lichess použije vašu emailovú adresu na obnovenie hesla k účtu, ak by ste ho zabudli.</string>
   <string name="passwordReset">Obnova hesla</string>
   <string name="forgotPassword">Zabudli ste heslo?</string>
   <string name="rank">Priečka</string>
@@ -639,8 +638,6 @@
   <string name="checkYourEmail">Skontrolujte si svoj e-mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Práve sme Vám poslali správu na Váš e-mail. Kliknite na link v e-mail-i, na aktivovanie Vášho účtu.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ak nevidíte email, pozrite iné miesta kde by mohol byť, ako napríklad kôš, spam, sociálne, alebo iné priečinky.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Ste si istý, že už nie ste registrovaný tímto e-mailom na lichess?</string>
-  <string name="itWasNotRequiredForYourRegistration">Toto nebolo potrebné pre Vašu registráciu.</string>
   <string name="weHaveSentYouAnEmailTo">Poslali sme email na %s. Kliknite na link v emaili na obnovenie hesla.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registráciou súhlasíte aby ste boli viazaný s našimi %s.</string>
   <string name="networkLagBetweenYouAndLichess">Internetové oneskorenie medzi Vami a lichess</string>

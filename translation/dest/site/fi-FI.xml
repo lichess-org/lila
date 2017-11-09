@@ -163,7 +163,6 @@
   <string name="changePassword">Vaihda salasana</string>
   <string name="changeEmail">Vaihda sähköpostiosoitetta</string>
   <string name="email">Sähköpostiosoite</string>
-  <string name="emailIsOptional">Sähköposti ei ole pakollinen. Lichess käyttää sähköpostiasi salasanan uusimiseen jos unohdat sen.</string>
   <string name="passwordReset">Salasanan uusiminen</string>
   <string name="forgotPassword">Unohditko salasanasi?</string>
   <string name="rank">Sijoitus</string>
@@ -671,8 +670,6 @@
   <string name="checkYourEmail">Tarkista sähköpostisi</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Olemme lähettäneet sinulle sähköpostiviestin. Klikkaa viestissä olevaa linkkiä aktivoidaksesi tilisi.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Jos et näe viestiä, tarkista muut paikat joihin se voi olla joutunut (kuten roskaposti- ja spämmikansiot).</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Oletko varma että olet antanut sähköpostiosoitteesi lichessille?</string>
-  <string name="itWasNotRequiredForYourRegistration">Sitä ei tarvittu rekisteröitymiseen.</string>
   <string name="weHaveSentYouAnEmailTo">Olemme lähettäneet sähköpostiviestin osoitteeseen %s. Klikkaa viestissä olevaa linkkiä nollataksesi salasanasi.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Rekistöitymällä hyväksyt lichessin %s ja sitoudut noudattamaan niitä.</string>
   <string name="networkLagBetweenYouAndLichess">Verkkoviive sinun ja lichessin välillä</string>

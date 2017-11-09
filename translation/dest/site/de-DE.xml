@@ -163,7 +163,6 @@
   <string name="changePassword">Passwort ändern</string>
   <string name="changeEmail">E-Mail-Adresse ändern</string>
   <string name="email">E-Mail</string>
-  <string name="emailIsOptional">Die E-Mail-Adresse ist optional. Lichess verwendet sie, um dein Passwort zurückzusetzen, falls du es vergisst.</string>
   <string name="passwordReset">Passwort zurücksetzen</string>
   <string name="forgotPassword">Passwort vergessen?</string>
   <string name="rank">Rang</string>
@@ -671,8 +670,6 @@
   <string name="checkYourEmail">Prüfe deine E-Mails</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Wir haben dir eine E-Mail gesendet. Klicke den Link in der Email, um deinen Account zu aktivieren.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Wenn du die E-Mail nicht findest, prüfe in deinem E-Mail-Konto, ob sie in einem anderen Ordner wie z.B. dem Spamordner oder dem Papierkorb ist.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Bist du sicher, dass du dich mit dieser E-Mail bei Lichess registriert hast?</string>
-  <string name="itWasNotRequiredForYourRegistration">Beim Registrieren musstest du möglicherweise keine E-Mail angeben.</string>
   <string name="weHaveSentYouAnEmailTo">Wir haben dir eine Email an %s gesendet. Klicke auf den Link in der E-Mail, um dein Passwort zurück zu setzen.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Durch die Anmeldung wird den %s zugestimmt.</string>
   <string name="networkLagBetweenYouAndLichess">Netzwerkverzögerung zwischen dir und Lichess</string>

@@ -128,8 +128,8 @@ Faça qualquer movimento para continuar.</string>
   <string name="castleKingSide">Mova o rei duas casas para fazer o roque curto!</string>
   <string name="castleQueenSide">Mova o rei duas casas
 para fazer o roque longo!</string>
-  <string name="theKnightIsInTheWay">Os cavalos estão no caminho!
-Mova-os, e então faça um roque.</string>
+  <string name="theKnightIsInTheWay">O cavalo está no caminho!
+Mova-o, e então faça um roque.</string>
   <string name="castleKingSideMovePiecesFirst">Faça um roque curto!
 Mas antes você precisa retirar as peças do meio.</string>
   <string name="castleQueenSideMovePiecesFirst">Faça um roque longo!

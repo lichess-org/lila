@@ -163,7 +163,6 @@
   <string name="changePassword">Changer votre mot de passe</string>
   <string name="changeEmail">Changer votre courriel</string>
   <string name="email">Courriel</string>
-  <string name="emailIsOptional">Le courriel est facultatif. Lichess l\'utilisera pour réinitialiser votre mot de passe si vous l\'oubliez.</string>
   <string name="passwordReset">Réinitialisation du mot de passe</string>
   <string name="forgotPassword">Mot de passe oublié ?</string>
   <string name="rank">Rang</string>
@@ -672,8 +671,6 @@ en %3$s</string>
   <string name="checkYourEmail">Vérifiez vos emails</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Nous vous avons envoyé un email. Visitez le lien qui s\'y trouve pour activer votre compte.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si vous ne trouvez pas l\'email dans votre boîte de réception, vérifiez dans vos emails indésirables ou autres dossiers.</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Êtes-vous certain d\'avoir enregistré votre adresse électronique sur lichess ?</string>
-  <string name="itWasNotRequiredForYourRegistration">Elle n\'était pas nécessaire pour vous enregistrer initialement.</string>
   <string name="weHaveSentYouAnEmailTo">Nous avons envoyé un email à %s. Cliquez le lien qui s\'y trouve pour réinitialiser votre mot de passe.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">En vous inscrivant, vous acceptez d\'être lié à nos %s.</string>
   <string name="networkLagBetweenYouAndLichess">Latence du réseau entre vous et lichess</string>

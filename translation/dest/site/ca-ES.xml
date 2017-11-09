@@ -155,7 +155,6 @@
   <string name="changePassword">Canvia la contrasenya</string>
   <string name="changeEmail">Canvia el correu electrònic</string>
   <string name="email">Correu electrònic</string>
-  <string name="emailIsOptional">El correu electrònic és opcional. Lichess l\'utilitzarà per restablir la contrasenya si l\'oblides.</string>
   <string name="passwordReset">Restablir la contrasenya</string>
   <string name="forgotPassword">Has oblidat la contrasenya?</string>
   <string name="rank">Classificació</string>
@@ -597,8 +596,6 @@
   <string name="checkYourEmail">Comprova el teu email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">T\'hem enviat un email. Clica l\'enllaç de l\'email per a activar el teu compte</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si no veus l\'email, comprova altres llocs on pugui ser, com el correu brossa, spam, o altres carpetes</string>
-  <string name="areYouSureYouEvenRegisteredYourEmailOnLichess">Estàs segur d\'haver registrat en algun moment el teu email a lichess?</string>
-  <string name="itWasNotRequiredForYourRegistration">No es requeria per al teu registre.</string>
   <string name="weHaveSentYouAnEmailTo">Hem enviat un correu electrònic a %s. Clica a l\'enllaç per renovar la teva contrasenya.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">En registrar-te,dones la teva conformitat a estar legalment obligats per el nostre %s.</string>
   <string name="networkLagBetweenYouAndLichess">Retard de la xarxa entre tu i lichess</string>
