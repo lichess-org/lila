@@ -536,6 +536,11 @@ object mon {
     def pdf = inc("export.pdf.game")
   }
 
+  object jsmon {
+    val socketGap = inc("jsmon.socket_gap")
+    val unknown = inc("jsmon.unknown")
+  }
+
   def measure[A](path: RecPath)(op: => A): A = {
     val start = System.nanoTime()
     val res = op
