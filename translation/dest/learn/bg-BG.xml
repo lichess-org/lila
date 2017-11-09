@@ -103,5 +103,27 @@
   <string name="boardSetup">Подредба на дъската</string>
   <string name="howTheGameStarts">Как започва играта</string>
   <string name="boardSetupIntro">Двете армии са изправени една пред друга, готови за битка.</string>
+  <string name="thisIsTheInitialPosition">Това е първоначалната позиция на всяка игра на шах! Направете което и движение, за да продължите.</string>
+  <string name="firstPlaceTheRooks">Първо топовете! Те се поставят в ъглите.</string>
+  <string name="thenPlaceTheKnights">След това конете!
+Те са до топовете.</string>
+  <string name="placeTheBishops">Поставете офицерите!
+Те са до конете.</string>
+  <string name="placeTheQueen">Поставете царицата!
+Тя стъпва на собствения си цвят.</string>
+  <string name="placeTheKing">Поставете царя! Точно до царицата си.</string>
+  <string name="pawnsFormTheFrontLine">Пешките формират предния фронт.
+Направете какъвто и да е ход, за да продължите.</string>
+  <string name="boardSetupComplete">Поздравления! Вие знаете как се нарежда шахматната дъска.</string>
   <string name="castling">Рокада</string>
+  <string name="theSpecialKingMove">Специалните ходове на царя</string>
+  <string name="castlingIntro">Защити царя си, и приготви топа си за атака!</string>
+  <string name="castleKingSide">Премести царя си с две полета за царска рокада!</string>
+  <string name="castleQueenSide">Премести царя си с две полета за дамска рокада!</string>
+  <string name="theKnightIsInTheWay">Конят пречи! Премести го, след което направете царска рокада.</string>
+  <string name="castleKingSideMovePiecesFirst">Направете царска рокада!
+Първо трябва да раздвижите фигурите между тях.</string>
+  <string name="castleQueenSideMovePiecesFirst">Направете дамска рокада!
+Първо трябва да раздвижите фигурите между тях.</string>
+  <string name="youCannotCastleIfMoved">Не може да направите рокада, ако царят или топът вече са били премествани.</string>
 </resources>
