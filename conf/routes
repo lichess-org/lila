@@ -545,7 +545,7 @@ GET   /help/master                     controllers.Page.master
 GET   /help/stream-on-lichess          controllers.Page.streamHowTo
 
 POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id)
-POST  /jsmon/$id                       controllers.Main.jsmon(id)
+POST  /jsmon/$id<\w+>                  controllers.Main.jsmon(id)
 
 # Assets
 GET   /glyphs                          controllers.Main.glyphs

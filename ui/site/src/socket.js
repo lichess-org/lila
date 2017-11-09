@@ -155,6 +155,7 @@ lichess.StrongSocket = function(url, version, settings) {
       }
       if (m.v > version + 1) {
         debug("event gap detected from " + version + " to " + m.v);
+        if (wsReceivedVersion) $.post('/jsmon/socket_gap');
         return;
       }
       wsReceivedVersion = true;
@@ -266,7 +267,7 @@ lichess.StrongSocket = function(url, version, settings) {
     }
   };
 };
-lichess.StrongSocket.sri = Math.random().toString(36).substring(2).slice(0, 10);
+lichess.StrongSocket.sri = Math.random().toString(36).slice(2, 12);
 lichess.StrongSocket.available = window.WebSocket || window.MozWebSocket;
 lichess.StrongSocket.defaults = {
   events: {
