@@ -161,6 +161,12 @@
   <string name="passwordReset">Смяна на парола</string>
   <string name="forgotPassword">Забравена парола?</string>
   <string name="rank">Звание</string>
+  <string name="rankX">Класация: %s</string>
+  <string name="rankIsUpdatedEveryXMinutes">Класацията се обновява на %s минути</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s пъзел</item>
+    <item quantity="other">%s пъзели</item>
+  </plurals>
   <string name="gamesPlayed">Изиграни игри</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s игри с вас</item>
@@ -199,6 +205,8 @@
   <string name="play">Играй</string>
   <string name="inbox">Входящи</string>
   <string name="chatRoom">Чат на играчите</string>
+  <string name="loginToChat">Влез в профила си за чат</string>
+  <string name="youHaveBeenTimedOut">Вие бяхте отписани.</string>
   <string name="spectatorRoom">Зрителска стая</string>
   <string name="composeMessage">Напиши съобщение</string>
   <string name="noNewMessages">Нямате нови съобщения</string>
@@ -220,6 +228,10 @@
     <item quantity="one">%s равенства</item>
     <item quantity="other">%s равенства</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s текуща</item>
+    <item quantity="other">%s текущи</item>
+  </plurals>
   <string name="exportGames">Изтегли партиите</string>
   <string name="ratingRange">Рейтинг на съперника</string>
   <plurals name="giveNbSeconds">
@@ -229,6 +241,7 @@
   <string name="giveMoreTime">Дайте повече време</string>
   <string name="thisPlayerUsesChessComputerAssistance">Този играч използва компютърна помощ</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Този играч изкуствено увеличава/намалява своята оценка</string>
+  <string name="openingExplorerAndTablebase">&amp; - Изследовател на дебютите</string>
   <string name="takeback">Върни ход</string>
   <string name="proposeATakeback">Предложи връщане на ход</string>
   <string name="takebackPropositionSent">Предложение за връщане на ход изпратено</string>
@@ -244,6 +257,29 @@
   <string name="tournamentPoints">Точки от турнири</string>
   <string name="viewTournament">Виж турнира</string>
   <string name="backToTournament">Продължи турнира</string>
+  <string name="thematic">Тематичен</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s оценена игра</item>
+    <item quantity="other">≥ %s оценени игри</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2$s оценена игра</item>
+    <item quantity="other">≥ %1$s %2$s оценени игри</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Трябва да изиграете още %1$s оценена %2$s игра</item>
+    <item quantity="other">Трябва да изиграете още %1$s оценени %2$s игри</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Трябва да изиграете още %s оценена игра</item>
+    <item quantity="other">Трябва да изиграете още %s оценени игри</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Вашият %s рейтинг е условен</string>
+  <string name="yourPerfRatingIsTooHigh">Вашият %1$s рейтинг (%2$s) е твърде висок</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Вашият топ седмичен %1$s рейтинг (%2$s) е твърде висок</string>
+  <string name="yourPerfRatingIsTooLow">Вашият %1$s рейтинг (%2$s) е твърде висок</string>
+  <string name="ratedMoreThanInPerf">%2$s рейтинг ≥ %1$s</string>
+  <string name="ratedLessThanInPerf">%2$s рейтинг ≤ %1$s</string>
   <string name="backToGame">Връщане към играта</string>
   <string name="siteDescription">Безплатна онлайн шах игра. Играй шах сега в изчистен интерфейс. Без нужда от регистрация, реклами или добавки. Играй шах с компютъра, с приятели или случайни противници.</string>
   <string name="teams">Отбори</string>
@@ -277,6 +313,8 @@
   <string name="fromPosition">От позиция</string>
   <string name="continueFromHere">Продължи от тук</string>
   <string name="importGame">Добави игра</string>
+  <string name="importGameExplanation">При поставяне на PGN може да разгледате играта с чата,
+да получите компютърен анализ и линк за споделяне.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Добавени игри</item>
     <item quantity="other">%s Добавени игри</item>
@@ -333,6 +371,7 @@
   <string name="winStreak">Поредни победи</string>
   <string name="createdBy">от</string>
   <string name="tournamentIsStarting">Турнирът започва</string>
+  <string name="tournamentPairingsAreNowClosed">Съчетаването на играчи вече приключи.</string>
   <string name="youArePlaying">Играете!</string>
   <string name="winRate">Успеваемост</string>
   <string name="performance">Производителност</string>
