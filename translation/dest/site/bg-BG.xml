@@ -696,7 +696,13 @@
   <string name="youHaveAlreadyRegisteredTheEmail">Вече сте записали ел. поща: %s</string>
   <string name="kidMode">Детски режим</string>
   <string name="kidModeExplanation">В името на безопасността. В детския режим цялата комуникация в сайта е изключена. Включете детския режим, за да защитите вашите деца и ученици от другите потребители.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">В детския режим логото на Lichess става %s, за да сте сигурни в безопасността на своите деца.</string>
+  <string name="enableKidMode">Включване на детски режим</string>
+  <string name="disableKidMode">Изключване на детски режим</string>
   <string name="security">Сигурност</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Това е списъкът на устройствата, които са логнати във вашия акаунт. Отменете всички сесии, които не разпознавате.</string>
+  <string name="alternativelyYouCanX">Като алтернатива можете да %s.</string>
+  <string name="revokeAllSessions">отмени всички сесии</string>
   <string name="playChessEverywhere">Играй шах навсякъде</string>
   <string name="asFreeAsLichess">Така безплатно, както lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Създадено с любов към шаха, а не към парите</string>
@@ -715,6 +721,9 @@
     <item quantity="other">Преведена на %s езика!</item>
   </plurals>
   <string name="gameAnalysis">Анализ на партията</string>
+  <string name="xHostsY">%1$s води %2$s</string>
+  <string name="xJoinsY">%1$s се присъедини към %2$s</string>
+  <string name="xLikesY">%1$s хареса %2$s</string>
   <string name="quickPairing">Бързо свързване</string>
   <string name="lobby">Лоби</string>
   <string name="anonymous">Анонимен</string>
@@ -731,6 +740,7 @@
   <string name="pieceSet">Дизайн на фигури</string>
   <string name="embedInYourWebsite">Вграждане във Вашия сайт</string>
   <string name="usernameAlreadyUsed">Това потребителско име е заето. Изберете друго и опитайте отново.</string>
+  <string name="usernameInvalid">Невалидно потребителско име. Моля, използвайте само букви, цифри, долна черта и тире.</string>
   <string name="usernameStartNoNumber">Потребителското име не трябва да започва с цифра.</string>
   <string name="usernameUnacceptable">Това потребителско име не е приемливо.</string>
   <string name="directlySupportLichess">Подкрепи директно Lichess</string>
