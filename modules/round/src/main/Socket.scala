@@ -173,7 +173,7 @@ private[round] final class Socket(
       val member = Member(channel, user, color, playerId, ip, userTv = userTv)
       addMember(uid.value, member)
       notifyCrowd
-      playerDo(color, _.ping)
+      if (playerId.isDefined) playerDo(color, _.ping)
       sender ! Connected(enumerator, member)
       if (member.userTv.isDefined) buscriptions.tv
 
