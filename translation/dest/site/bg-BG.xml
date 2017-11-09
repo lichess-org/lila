@@ -216,6 +216,10 @@
   <string name="incrementInSeconds">Добавка в секунди</string>
   <string name="freeOnlineChess">Безплатен онлайн шах</string>
   <string name="spectators">Зрители:</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s оценена</item>
+    <item quantity="other">%s оценени</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s победи</item>
     <item quantity="other">%s победи</item>
@@ -663,6 +667,9 @@
     <item quantity="other">Преведена на %s езика!</item>
   </plurals>
   <string name="gameAnalysis">Анализ на партията</string>
+  <string name="quickPairing">Бързо свързване</string>
+  <string name="lobby">Лоби</string>
+  <string name="anonymous">Анонимен</string>
   <string name="yourScore">Резултатът ви: %s</string>
   <string name="language">Език</string>
   <string name="background">Фон</string>
@@ -670,8 +677,28 @@
   <string name="dark">Тъмен</string>
   <string name="transparent">Прозрачен</string>
   <string name="backgroundImageUrl">URL адрес на изображението за фон:</string>
+  <string name="boardGeometry">Геометрия на дъската</string>
+  <string name="boardTheme">Дизайн на дъската</string>
   <string name="boardSize">Големина на дъската</string>
+  <string name="pieceSet">Дизайн на фигури</string>
+  <string name="embedInYourWebsite">Вграждане във Вашия сайт</string>
+  <string name="usernameAlreadyUsed">Това потребителско име е заето. Изберете друго и опитайте отново.</string>
+  <string name="usernameStartNoNumber">Потребителското име не трябва да започва с цифра.</string>
+  <string name="usernameUnacceptable">Това потребителско име не е приемливо.</string>
+  <string name="directlySupportLichess">Подкрепи директно Lichess</string>
+  <string name="playChessInStyle">Играй шах в стил</string>
+  <string name="chessBasics">Основи на шаха</string>
+  <string name="coaches">Треньори</string>
+  <string name="invalidPgn">Невалиден PGN</string>
+  <string name="invalidFen">Невалиден FEN</string>
+  <string name="error.minLength">Минималната дължина е %s</string>
+  <string name="error.maxLength">Максималната дължина е %s</string>
+  <string name="error.min">Трябва да бъде по-голямо или равно на %s</string>
+  <string name="error.max">Трябва да бъде по-малко или равно на %s</string>
   <string name="error.unknown">Грешка</string>
+  <string name="custom">По избор</string>
   <string name="notifications">Известия</string>
   <string name="challenges">Предизвикателства</string>
+  <string name="perfRatingX">Рейтинг: %s</string>
+  <string name="xSecondsToPlayTheFirstMove">%s секунди за първия ход</string>
 </resources>
