@@ -126,4 +126,10 @@
   <string name="castleQueenSideMovePiecesFirst">Направете дамска рокада!
 Първо трябва да раздвижите фигурите между тях.</string>
   <string name="youCannotCastleIfMoved">Не може да направите рокада, ако царят или топът вече са били премествани.</string>
+  <string name="youCannotCastleIfAttacked">Не можеш да направиш рокада, ако царят е под шах. Първо блокада, после рокада!</string>
+  <string name="findAWayToCastleKingSide">Намери начин да
+направиш царска рокада!</string>
+  <string name="findAWayToCastleQueenSide">Намери начин да
+направиш дамска рокада!</string>
+  <string name="castlingComplete">Поздравления! Добре е да правите рокада в почти всяка игра.</string>
 </resources>
