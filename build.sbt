@@ -257,7 +257,7 @@ lazy val irwin = module("irwin", Seq(common, db, user, game, tournament, mod)).s
   libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )
 
-lazy val security = module("security", Seq(common, hub, db, user, i18n)).settings(
+lazy val security = module("security", Seq(common, hub, db, user, i18n, slack)).settings(
   libraryDependencies ++= provided(play.api, reactivemongo.driver, maxmind, hasher)
 )
 

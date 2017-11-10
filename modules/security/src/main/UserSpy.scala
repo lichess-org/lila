@@ -31,17 +31,11 @@ case class UserSpy(
   def otherUserIds = otherUsers.map(_.user.id)
 }
 
-object UserSpy {
+private[security] final class UserSpyApi(firewall: Firewall, geoIP: GeoIP, coll: Coll) {
 
-  case class OtherUser(user: User, byIp: Boolean, byFingerprint: Boolean)
+  import UserSpy._
 
-  type Fingerprint = String
-  type Value = String
-
-  case class IPData(ip: IpAddress, blocked: Boolean, location: Location)
-
-  private[security] def apply(firewall: Firewall, geoIP: GeoIP)(coll: Coll)(userId: String): Fu[UserSpy] = for {
-    user ← UserRepo named userId flatten "[spy] user not found"
+  def apply(user: User): Fu[UserSpy] = for {
     infos ← Store.findInfoByUser(user.id)
     ips = infos.map(_.ip).distinct
     blockedIps = ips map firewall.blocksIp
@@ -83,4 +77,14 @@ object UserSpy {
           userIds.nonEmpty ?? (UserRepo byIds userIds) map (_.toSet)
         }
     }
+}
+
+object UserSpy {
+
+  case class OtherUser(user: User, byIp: Boolean, byFingerprint: Boolean)
+
+  type Fingerprint = String
+  type Value = String
+
+  case class IPData(ip: IpAddress, blocked: Boolean, location: Location)
 }

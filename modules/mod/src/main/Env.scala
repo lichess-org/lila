@@ -4,6 +4,7 @@ import akka.actor._
 import com.typesafe.config.Config
 
 import lila.security.{ Firewall, UserSpy }
+import lila.user.User
 
 final class Env(
     config: Config,
@@ -14,7 +15,7 @@ final class Env(
     firewall: Firewall,
     reportApi: lila.report.ReportApi,
     lightUserApi: lila.user.LightUserApi,
-    userSpy: String => Fu[UserSpy],
+    userSpy: User => Fu[UserSpy],
     securityApi: lila.security.SecurityApi,
     tournamentApi: lila.tournament.TournamentApi,
     simulEnv: lila.simul.Env,

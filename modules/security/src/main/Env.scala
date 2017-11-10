@@ -7,13 +7,14 @@ final class Env(
     config: Config,
     captcher: akka.actor.ActorSelection,
     authenticator: lila.user.Authenticator,
+    slack: lila.slack.SlackApi,
+    asyncCache: lila.memo.AsyncCache.Builder,
     system: akka.actor.ActorSystem,
     scheduler: lila.common.Scheduler,
     db: lila.db.Env
 ) {
 
   private val settings = new {
-    val NetBaseUrl = config getString "net.base_url"
     val MailgunApiUrl = config getString "mailgun.api.url"
     val MailgunApiKey = config getString "mailgun.api.key"
     val MailgunSender = config getString "mailgun.sender"
@@ -38,7 +39,9 @@ final class Env(
     val RecaptchaPrivateKey = config getString "recaptcha.private_key"
     val RecaptchaEndpoint = config getString "recaptcha.endpoint"
     val RecaptchaEnabled = config getBoolean "recaptcha.enabled"
+    val NetBaseUrl = config getString "net.base_url"
     val NetDomain = config getString "net.domain"
+    val NetEmail = config getString "net.email"
   }
   import settings._
 
@@ -72,9 +75,14 @@ final class Env(
     cacheTtl = GeoIPCacheTtl
   )
 
-  lazy val userSpy = UserSpy(firewall, geoIP)(storeColl) _
+  lazy val userSpyApi = new UserSpyApi(firewall, geoIP, storeColl)
+  def userSpy = userSpyApi.apply _
 
   def store = Store
+
+  lazy val ipIntel = new IpIntel(asyncCache, NetEmail)
+
+  lazy val autoKill = new AutoKill(userSpyApi, ipIntel, slack, system)
 
   private lazy val mailgun = new Mailgun(
     apiUrl = MailgunApiUrl,
@@ -143,6 +151,8 @@ object Env {
     config = lila.common.PlayApp loadConfig "security",
     db = lila.db.Env.current,
     authenticator = lila.user.Env.current.authenticator,
+    slack = lila.slack.Env.current.api,
+    asyncCache = lila.memo.Env.current.asyncCache,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
     captcher = lila.hub.Env.current.actor.captcher

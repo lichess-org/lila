@@ -8,7 +8,7 @@ import lila.user.{ User, UserRepo, LightUserApi }
 
 final class ModApi(
     logApi: ModlogApi,
-    userSpy: User.ID => Fu[UserSpy],
+    userSpy: User => Fu[UserSpy],
     firewall: Firewall,
     reporter: akka.actor.ActorSelection,
     reportApi: lila.report.ReportApi,
@@ -79,7 +79,7 @@ final class ModApi(
   }
 
   def setBan(mod: Mod, prev: Suspect, value: Boolean): Funit = for {
-    spy <- userSpy(prev.user.id)
+    spy <- userSpy(prev.user)
     sus = prev.set(_.copy(ipBan = value))
     _ <- UserRepo.setIpBan(sus.user.id, sus.user.ipBan)
     _ <- logApi.ban(mod, sus)

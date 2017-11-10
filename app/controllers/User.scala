@@ -241,7 +241,7 @@ object User extends LilaController {
   def mod(username: String) = Secure(_.UserSpy) { implicit ctx => me =>
     OptionFuOk(UserRepo named username) { user =>
       UserRepo.emails(user.id) zip
-        (Env.security userSpy user.id) zip
+        (Env.security userSpy user) zip
         Env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id) zip
         Env.mod.logApi.userHistory(user.id) zip
         Env.plan.api.recentChargesOf(user) zip

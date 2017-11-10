@@ -81,6 +81,13 @@ final class SlackApi(
     channel = "tavern"
   ))
 
+  def autoKill(u: User): Funit = client(SlackMessage(
+    username = u.username,
+    icon = "skull_and_crossbones",
+    text = s"AutoKill candidate: ${userLink(u.username)}",
+    channel = "tavern"
+  ))
+
   def publishError(msg: String): Funit = client(SlackMessage(
     username = "lichess error",
     icon = "lightning",

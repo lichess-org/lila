@@ -158,7 +158,7 @@ object Mod extends LilaController {
             }
           } zip
           (Env.shutup.api getPublicLines user.id) zip
-          (Env.security userSpy user.id) zip
+          (Env.security userSpy user) zip
           Env.user.noteApi.forMod(user.id) zip
           Env.mod.logApi.userHistory(user.id) zip
           Env.report.api.inquiries.ofModId(me.id) map {
@@ -178,32 +178,8 @@ object Mod extends LilaController {
   def communicationPublic(username: String) = communications(username, false)
   def communicationPrivate(username: String) = communications(username, true)
 
-  private[controllers] val ipIntelCache =
-    Env.memo.asyncCache.multi[IpAddress, Int](
-      name = "ipIntel",
-      f = ip => {
-        import play.api.libs.ws.WS
-        import play.api.Play.current
-        val email = Env.api.Net.Email
-        val url = s"http://check.getipintel.net/check.php?ip=$ip&contact=$email"
-        WS.url(url).get().map(_.body).mon(_.security.proxy.request.time).flatMap { str =>
-          parseFloatOption(str).fold[Fu[Int]](fufail(s"Invalid ratio ${str.take(140)}")) { ratio =>
-            if (ratio < 0) fufail(s"Error code $ratio")
-            else fuccess((ratio * 100).toInt)
-          }
-        }.addEffects(
-          fail = _ => lila.mon.security.proxy.request.failure(),
-          succ = percent => {
-            lila.mon.security.proxy.percent(percent max 0)
-            lila.mon.security.proxy.request.success()
-          }
-        )
-      },
-      expireAfter = _.ExpireAfterAccess(3 days)
-    )
-
   def ipIntel(ip: String) = Secure(_.IpBan) { ctx => me =>
-    ipIntelCache.get(IpAddress(ip)).map { Ok(_) }.recover {
+    Env.security.ipIntel.failable(IpAddress(ip)).map { Ok(_) }.recover {
       case e: Exception => InternalServerError(e.getMessage)
     }
   }

@@ -7,7 +7,7 @@ import scala.concurrent.duration._
 
 import lila.api.Context
 import lila.app._
-import lila.common.{ LilaCookie, HTTPRequest, IpAddress }
+import lila.common.{ LilaCookie, HTTPRequest, IpAddress, EmailAddress }
 import lila.memo.RateLimit
 import lila.security.FingerPrint
 import lila.user.{ UserRepo, User => UserModel }
@@ -139,9 +139,7 @@ object Auth extends LilaController {
         if (ipExists) fuccess(YesBecauseIp)
         else print.??(api.recentByPrintExists) flatMap { printExists =>
           if (printExists) fuccess(YesBecausePrint)
-          else Mod.ipIntelCache.get(ip).map(80 <)
-            .recover { case _: Exception => false }
-            .map { _.fold(YesBecauseProxy, Nope) }
+          else Env.security.ipIntel(ip).map(80 <).map { _.fold(YesBecauseProxy, Nope) }
         }
       }
     }
@@ -178,9 +176,9 @@ object Auth extends LilaController {
                       case (user, email) if mustConfirm.value =>
                         env.emailConfirm.send(user, email) >> {
                           if (env.emailConfirm.effective) Redirect(routes.Auth.checkYourEmail(user.username)).fuccess
-                          else env.welcomeEmail(user, email) >> redirectNewUser(user)
+                          else welcome(user, email) >> redirectNewUser(user)
                         }
-                      case (user, email) => env.welcomeEmail(user, email) >> redirectNewUser(user)
+                      case (user, email) => welcome(user, email) >> redirectNewUser(user)
                     }
                 }
               }
@@ -205,9 +203,9 @@ object Auth extends LilaController {
                     case (user, email) if mustConfirm.value =>
                       env.emailConfirm.send(user, email) >> {
                         if (env.emailConfirm.effective) Ok(Json.obj("email_confirm" -> true)).fuccess
-                        else env.welcomeEmail(user, email) >> authenticateUser(user)
+                        else welcome(user, email) >> authenticateUser(user)
                       }
-                    case (user, _) => env.welcomeEmail(user, email) >> authenticateUser(user)
+                    case (user, _) => welcome(user, email) >> authenticateUser(user)
                   }
               }
             }
@@ -216,6 +214,10 @@ object Auth extends LilaController {
       }
     }
   }
+
+  private def welcome(user: UserModel, email: EmailAddress)(implicit ctx: Context) =
+    Env.security.autoKill(user, HTTPRequest lastRemoteAddress ctx.req, email) >>
+      env.welcomeEmail(user, email)
 
   def checkYourEmail(name: String) = Open { implicit ctx =>
     OptionOk(UserRepo named name) { user =>
@@ -232,7 +234,7 @@ object Auth extends LilaController {
         authLog(user.username, s"Confirmed email")
         lila.mon.user.register.confirmEmailResult(true)()
         UserRepo.email(user.id).flatMap {
-          _.?? { env.welcomeEmail(user, _) }
+          _.?? { welcome(user, _) }
         } >> redirectNewUser(user)
     }
   }
