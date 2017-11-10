@@ -96,10 +96,10 @@ object Main extends LilaController {
   /**
    * Event monitoring endpoint
    */
-  def jsmon(event: String) = Open { ctx =>
+  def jsmon(event: String) = Action {
     if (event == "socket_gap") lila.mon.jsmon.socketGap()
     else lila.mon.jsmon.unknown()
-    NoContent.fuccess
+    NoContent
   }
 
   private lazy val glyphsResult: Result = {
