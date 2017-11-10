@@ -28,7 +28,7 @@ object LameName {
       c => c -> s"[$c${c.toUpper}${~extras.get(c)}]"
     } toMap
 
-    (List(
+    List(
       "hitler",
       "fuck",
       "penis",
@@ -64,6 +64,8 @@ object LameName {
       "wanker",
       "feces",
       "fart"
-    ) map { _ map subs mkString } mkString "|" r).pattern
+    ).map {
+        _.map(subs).map(_ + "+").mkString
+      }.mkString("|").r.pattern
   }
 }
