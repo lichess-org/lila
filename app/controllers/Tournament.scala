@@ -75,7 +75,7 @@ object Tournament extends LilaController {
   private[controllers] def canHaveChat(tour: Tour)(implicit ctx: Context): Boolean = ctx.me ?? { u =>
     if (ctx.kid) false
     else if (tour.isPrivate) true
-    else Env.chat.panic allowed u
+    else Env.chat.panic.allowed(u, tighter = tour.variant == chess.variant.Antichess)
   }
 
   def show(id: String) = Open { implicit ctx =>
