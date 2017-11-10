@@ -61,4 +61,24 @@ Paversti nebūtina.</string>
   <string name="itNowPromotesToAStrongerPiece">Dabar jis virsta stipresne figūra.</string>
   <string name="selectThePieceYouWant">Pasirink, kurios figūros nori!</string>
   <string name="fundamentals">Pagrindai</string>
+  <string name="capture">Kirtimas</string>
+  <string name="takeTheEnemyPieces">Kirsti priešo figūras</string>
+  <string name="captureIntro">Indentifikuoti neapgintas priešo figūras ir jas nukirsti!</string>
+  <string name="takeTheBlackPieces">Nukirskite juodąsias figūras!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Nukirskite juodąsias figūras.
+Ir nepraraskite savųjų.</string>
+  <string name="captureComplete">Sveikiname. Jūs žinote kaip kautis su šachmatų figūromis!</string>
+  <string name="protection">Apsauga</string>
+  <string name="keepYourPiecesSafe">Saugokite savo figūras</string>
+  <string name="protectionIntro">Indentifikuokite kurias figūras puola jūsų priešas ir jas apginkite!</string>
+  <string name="protectionComplete">Sveikiname. Figūra kurios neprarandate yra figūra, kurią laimite!</string>
+  <string name="escape">Jus puola. Išvenkite grėsmės!</string>
+  <string name="noEscape">Pabėgti negalite, tačiau galite apsiginti!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Neleiskite jiems nukirsti neapgintų figūrų!</string>
+  <string name="combat">Mūšis</string>
+  <string name="captureAndDefendPieces">Nukirskite ir apsaugokite figūras</string>
+  <string name="combatIntro">Geras karys moka ir pulti, ir gintis!</string>
+  <string name="combatComplete">Sveikiname. Jūs žinote kaip kautis su šachmatų figūromis!</string>
+  <string name="checkInOne">Šachas vienu ėjimu</string>
+  <string name="attackTheOpponentsKing">Atakuokite priešo karalių</string>
 </resources>
