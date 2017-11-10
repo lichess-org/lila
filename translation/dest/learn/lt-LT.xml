@@ -114,4 +114,20 @@ Ir nepraraskite savųjų.</string>
   <string name="theSpecialKingMove">Specialus karaliaus ėjimas</string>
   <string name="letsGo">Pirmyn!</string>
   <string name="stageX">Stadija</string>
+  <string name="awesome">Nuostabu!</string>
+  <string name="excellent">Puiku!</string>
+  <string name="greatJob">Puikiai atlikta!</string>
+  <string name="perfect">Puiku!</string>
+  <string name="outstanding">Nepakartojama!</string>
+  <string name="wayToGo">Pasiruošęs!</string>
+  <string name="yesYesYes">Taip, taip, taip!</string>
+  <string name="youreGoodAtThis">Jūs įgudęs!</string>
+  <string name="nailedIt">Tiesiai į dešimtuką.</string>
+  <string name="rightOn">Tiksliai!</string>
+  <string name="stageXComplete">Stadija užbaigta</string>
+  <string name="yourScore">Jūsų rezultatas</string>
+  <string name="next">Sekantis</string>
+  <string name="backToMenu">Grįžti į meniu</string>
+  <string name="puzzleFailed">Suklydote užduotyje!</string>
+  <string name="retry">Bandykite dar kartą</string>
 </resources>
