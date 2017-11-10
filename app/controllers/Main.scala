@@ -6,6 +6,7 @@ import play.api.libs.json._
 import play.api.mvc._
 
 import lila.app._
+import lila.api.Context
 import lila.common.HTTPRequest
 import lila.hub.actorApi.captcha.ValidCaptcha
 import makeTimeout.large
@@ -111,11 +112,11 @@ object Main extends LilaController {
       "observation" -> Glyph.Observation.display
     )) as JSON
   }
-  def glyphs = Action { req =>
+  def glyphs = Action {
     glyphsResult
   }
 
-  def image(id: String, hash: String, name: String) = Action.async { req =>
+  def image(id: String, hash: String, name: String) = Action.async {
     Env.db.image.fetch(id) map {
       case None => NotFound
       case Some(image) =>
@@ -128,7 +129,7 @@ object Main extends LilaController {
     }
   }
 
-  val robots = Action { _ =>
+  val robots = Action {
     Ok {
       if (Env.api.Net.Crawlable) "User-agent: *\nAllow: /\nDisallow: /game/export"
       else "User-agent: *\nDisallow: /"
@@ -136,16 +137,12 @@ object Main extends LilaController {
   }
 
   def notFound(req: RequestHeader): Fu[Result] =
-    reqToCtx(req) map { implicit ctx =>
-      lila.mon.http.response.code404()
-      NotFound(html.base.notFound())
-    }
+    reqToCtx(req) map notFound
 
-  def authFailed(req: RequestHeader): Fu[Result] =
-    reqToCtx(req) map { implicit ctx =>
-      lila.mon.http.response.code403()
-      Forbidden(html.base.authFailed())
-    }
+  def notFound(ctx: Context): Result = {
+    lila.mon.http.response.code404()
+    NotFound(html.base.notFound()(ctx))
+  }
 
   def fpmenu = Open { implicit ctx =>
     Ok(html.base.fpmenu()).fuccess

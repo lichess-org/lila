@@ -219,7 +219,7 @@ private[controllers] trait LilaController
 
   def notFound(implicit ctx: Context): Fu[Result] = negotiate(
     html =
-      if (HTTPRequest isSynchronousHttp ctx.req) Main notFound ctx.req
+      if (HTTPRequest isSynchronousHttp ctx.req) Main notFound ctx
       else fuccess(Results.NotFound("Resource not found")),
     api = _ => notFoundJson("Resource not found")
   )
@@ -255,7 +255,10 @@ private[controllers] trait LilaController
 
   protected def authorizationFailed(implicit ctx: Context): Fu[Result] = negotiate(
     html =
-      if (HTTPRequest isSynchronousHttp ctx.req) Main authFailed ctx.req
+      if (HTTPRequest isSynchronousHttp ctx.req) fuccess {
+        lila.mon.http.response.code403()
+        Forbidden(views.html.base.authFailed())
+      }
       else fuccess(Results.Forbidden("Authorization failed")),
     api = _ => fuccess(Forbidden(jsonError("Authorization failed")))
   )
