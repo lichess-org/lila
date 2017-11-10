@@ -4,6 +4,8 @@ import java.text.Normalizer
 import play.api.libs.json._
 import play.twirl.api.Html
 
+import lila.common.base.StringUtils
+
 object String {
 
   private val slugR = """[^\w-]""".r
@@ -30,6 +32,8 @@ object String {
     if (t.size > (length + sep.size)) (t take length) ++ sep
     else t
   }
+
+  def levenshtein(s1: String, s2: String): Int = StringUtils.levenshtein(s1, s2)
 
   object base64 {
     import java.util.Base64
@@ -126,7 +130,7 @@ object String {
 
     private def urlOrImgUnsafe(url: String): String = urlToImgUnsafe(url) getOrElse url
 
-    val escapeHtmlUnsafe = lila.common.base.StringUtils.escapeHtmlUnsafe _
+    val escapeHtmlUnsafe = StringUtils.escapeHtmlUnsafe _
 
     // from https://github.com/android/platform_frameworks_base/blob/d59921149bb5948ffbcb9a9e832e9ac1538e05a0/core/java/android/text/TextUtils.java#L1361
     def escapeHtml(s: String): Html = Html(escapeHtmlUnsafe(s))
@@ -140,19 +144,18 @@ object String {
     })
 
     def safeJsonValue(jsValue: JsValue): String = {
-      import lila.common.base.StringUtils.safeJsonString
       // Borrowed from:
       // https://github.com/playframework/play-json/blob/160f66a84a9c5461c52b50ac5e222534f9e05442/play-json/js/src/main/scala/StaticBinding.scala#L65
       jsValue match {
         case JsNull => "null"
-        case JsString(s) => safeJsonString(s)
+        case JsString(s) => StringUtils.safeJsonString(s)
         case JsNumber(n) => n.toString
         case JsBoolean(b) => if (b) "true" else "false"
         case JsArray(items) => items.map(safeJsonValue).mkString("[", ",", "]")
         case JsObject(fields) => {
           fields.map {
             case (key, value) =>
-              s"${safeJsonString(key)}:${safeJsonValue(value)}"
+              s"${StringUtils.safeJsonString(key)}:${safeJsonValue(value)}"
           }.mkString("{", ",", "}")
         }
       }
