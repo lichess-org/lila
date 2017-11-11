@@ -182,7 +182,7 @@ private[round] final class Round(
     case Moretime(playerRef) => handle(playerRef) { pov =>
       (pov.game moretimeable !pov.color) ?? {
         val progress =
-          if (pov.game.hasClock) giveMoretime(pov.game, !pov.color, moretimeDuration)
+          if (pov.game.hasClock) giveMoretime(pov.game, List(!pov.color), moretimeDuration)
           else pov.game.correspondenceClock.fold(Progress(pov.game)) { clock =>
             messenger.system(pov.game, (_.untranslated(s"${!pov.color} gets more time")))
             val p = pov.game.correspondenceGiveTime
@@ -206,9 +206,7 @@ private[round] final class Round(
         val freeTime = 15.seconds
         messenger.system(game, (_.untranslated("Lichess has been updated")))
         messenger.system(game, (_.untranslated("Sorry for the inconvenience!")))
-        val progress = giveMoretime(game, Color.White, freeTime) flatMap {
-          g => giveMoretime(g, Color.Black, freeTime)
-        }
+        val progress = giveMoretime(game, Color.all, freeTime)
         proxy save progress inject progress.events
       }
     }
@@ -228,14 +226,18 @@ private[round] final class Round(
     }
   }
 
-  private def giveMoretime(game: Game, color: Color, duration: FiniteDuration): Progress =
+  private def giveMoretime(game: Game, colors: List[Color], duration: FiniteDuration): Progress =
     game.clock.fold(Progress(game)) { clock =>
       val centis = duration.toCentis
-      val newClock = clock.giveTime(color, centis)
-      messenger.system(game, (_.untranslated(
-        "%s + %d seconds".format(color, duration.toSeconds)
-      )))
-      (game withClock newClock) ++ List(Event.ClockInc(color, centis))
+      val newClock = colors.foldLeft(clock) {
+        case (c, color) => c.giveTime(color, centis)
+      }
+      colors.foreach { c =>
+        messenger.system(game, (_.untranslated(
+          "%s + %d seconds".format(c, duration.toSeconds)
+        )))
+      }
+      (game withClock newClock) ++ colors.map { Event.ClockInc(_, centis) }
     }
 
   private def recordLagStats(pov: Pov) =
