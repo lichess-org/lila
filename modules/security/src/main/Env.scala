@@ -7,7 +7,6 @@ final class Env(
     config: Config,
     captcher: akka.actor.ActorSelection,
     authenticator: lila.user.Authenticator,
-    slack: lila.slack.SlackApi,
     asyncCache: lila.memo.AsyncCache.Builder,
     system: akka.actor.ActorSystem,
     scheduler: lila.common.Scheduler,
@@ -82,8 +81,6 @@ final class Env(
 
   lazy val ipIntel = new IpIntel(asyncCache, NetEmail)
 
-  lazy val garbageCollector = new GarbageCollector(userSpyApi, ipIntel, slack, system)
-
   private lazy val mailgun = new Mailgun(
     apiUrl = MailgunApiUrl,
     apiKey = MailgunApiKey,
@@ -151,7 +148,6 @@ object Env {
     config = lila.common.PlayApp loadConfig "security",
     db = lila.db.Env.current,
     authenticator = lila.user.Env.current.authenticator,
-    slack = lila.slack.Env.current.api,
     asyncCache = lila.memo.Env.current.asyncCache,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,

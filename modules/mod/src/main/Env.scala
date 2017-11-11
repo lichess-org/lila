@@ -3,7 +3,7 @@ package lila.mod
 import akka.actor._
 import com.typesafe.config.Config
 
-import lila.security.{ Firewall, UserSpy }
+import lila.security.{ Firewall, UserSpy, IpIntel }
 import lila.user.User
 
 final class Env(
@@ -16,6 +16,7 @@ final class Env(
     reportApi: lila.report.ReportApi,
     lightUserApi: lila.user.LightUserApi,
     userSpy: User => Fu[UserSpy],
+    ipIntel: IpIntel,
     securityApi: lila.security.SecurityApi,
     tournamentApi: lila.tournament.TournamentApi,
     simulEnv: lila.simul.Env,
@@ -25,6 +26,7 @@ final class Env(
     rankingApi: lila.user.RankingApi,
     relationApi: lila.relation.RelationApi,
     noteApi: lila.user.NoteApi,
+    slack: lila.slack.SlackApi,
     userJson: lila.user.JsonView,
     asyncCache: lila.memo.AsyncCache.Builder,
     emailValidator: lila.security.EmailAddressValidator
@@ -112,6 +114,14 @@ final class Env(
 
   lazy val inquiryApi = new InquiryApi(reportApi, noteApi, logApi)
 
+  lazy val garbageCollector = new GarbageCollector(
+    userSpy = userSpy,
+    ipIntel = ipIntel,
+    slack = slack,
+    system = system,
+    modAction = api.garbageCollect _
+  )
+
   // api actor
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
@@ -140,6 +150,7 @@ object Env {
     firewall = lila.security.Env.current.firewall,
     reportApi = lila.report.Env.current.api,
     userSpy = lila.security.Env.current.userSpy,
+    ipIntel = lila.security.Env.current.ipIntel,
     lightUserApi = lila.user.Env.current.lightUserApi,
     securityApi = lila.security.Env.current.api,
     tournamentApi = lila.tournament.Env.current.api,
@@ -150,6 +161,7 @@ object Env {
     rankingApi = lila.user.Env.current.rankingApi,
     relationApi = lila.relation.Env.current.api,
     noteApi = lila.user.Env.current.noteApi,
+    slack = lila.slack.Env.current.api,
     userJson = lila.user.Env.current.jsonView,
     asyncCache = lila.memo.Env.current.asyncCache,
     emailValidator = lila.security.Env.current.emailAddressValidator

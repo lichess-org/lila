@@ -216,7 +216,7 @@ object Auth extends LilaController {
   }
 
   private def welcome(user: UserModel, email: EmailAddress)(implicit ctx: Context) = {
-    Env.security.garbageCollector.delay(user, HTTPRequest lastRemoteAddress ctx.req, email)
+    Env.mod.garbageCollector.delay(user, HTTPRequest lastRemoteAddress ctx.req, email)
     env.welcomeEmail(user, email)
   }
 

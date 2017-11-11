@@ -87,6 +87,15 @@ final class ModApi(
     else firewall unblockIps spy.ipStrings
   } yield ()
 
+  def garbageCollect(sus: Suspect): Funit = for {
+    mod <- reportApi.getLichess flatten "lichess user is missing"
+    _ <- setEngine(mod, sus, true)
+    _ <- setTroll(mod, sus, true)
+    _ <- setBan(mod, sus, true)
+    // need to move Account.close logic somewhere accessible
+    // need to move Mod.deletePmsAndChats logic somewhere accessible
+  } yield ()
+
   def closeAccount(mod: String, username: String): Fu[Option[User]] = withUser(username) { user =>
     user.enabled ?? {
       logApi.closeAccount(mod, user.id) inject user.some
