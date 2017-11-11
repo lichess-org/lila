@@ -1,6 +1,7 @@
 package lila.security
 
 import org.joda.time.DateTime
+import scala.concurrent.duration._
 
 import lila.common.{ EmailAddress, IpAddress }
 import lila.user.{ User, UserRepo }
@@ -12,7 +13,14 @@ final class AutoKill(
     system: akka.actor.ActorSystem
 ) {
 
-  def apply(user: User, ip: IpAddress, email: EmailAddress): Funit = checkable(user, email) ?? {
+  /* User just signed up and doesn't have security data yet,
+   * so wait a bit */
+  def delay(user: User, ip: IpAddress, email: EmailAddress): Unit =
+    if (checkable(email)) system.scheduler.scheduleOnce(5 seconds) {
+      apply(user, ip, email)
+    }
+
+  private def apply(user: User, ip: IpAddress, email: EmailAddress): Funit =
     userSpy(user) flatMap { spy =>
       val others = spy.usersSharingFingerprint
         .sortBy(-_.createdAt.getSeconds)
@@ -20,15 +28,14 @@ final class AutoKill(
         .take(5)
       (others.size > 2 && others.forall(killed)) ??
         ipIntel(ip).map { 75 < _ }
+    } map {
+      _ ?? kill(user)
     }
-  } map {
-    _ ?? kill(user)
-  }
 
   private def killed(user: User) =
     user.troll && user.engine && !user.enabled
 
-  private def checkable(user: User, email: EmailAddress) =
+  private def checkable(email: EmailAddress) =
     email.value.endsWith("@yandex.ru") ||
       email.value.endsWith("@yandex.com")
 
