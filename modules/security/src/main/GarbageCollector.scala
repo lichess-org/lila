@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 import lila.common.{ EmailAddress, IpAddress }
 import lila.user.{ User, UserRepo }
 
-final class AutoKill(
+final class GarbageCollector(
     userSpy: UserSpyApi,
     ipIntel: IpIntel,
     slack: lila.slack.SlackApi,
@@ -26,22 +26,22 @@ final class AutoKill(
         .sortBy(-_.createdAt.getSeconds)
         .takeWhile(_.createdAt.isAfter(DateTime.now minusDays 3))
         .take(5)
-      (others.size > 2 && others.forall(killed)) ??
+      (others.size > 2 && others.forall(closedSB)) ??
         ipIntel(ip).map { 75 < _ }
     } map {
-      _ ?? kill(user)
+      _ ?? collect(user)
     }
 
-  private def killed(user: User) =
+  private def closedSB(user: User) =
     user.troll && !user.enabled
 
   private def checkable(email: EmailAddress) =
     email.value.endsWith("@yandex.ru") ||
       email.value.endsWith("@yandex.com")
 
-  private def kill(user: User): Funit = {
+  private def collect(user: User): Funit = {
     logger.info(s"Autokill ${user.username}")
-    slack.autoKill(user)
+    slack.garbageCollector(user)
     // just log for now.
   }
 }

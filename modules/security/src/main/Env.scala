@@ -82,7 +82,7 @@ final class Env(
 
   lazy val ipIntel = new IpIntel(asyncCache, NetEmail)
 
-  lazy val autoKill = new AutoKill(userSpyApi, ipIntel, slack, system)
+  lazy val garbageCollector = new GarbageCollector(userSpyApi, ipIntel, slack, system)
 
   private lazy val mailgun = new Mailgun(
     apiUrl = MailgunApiUrl,
