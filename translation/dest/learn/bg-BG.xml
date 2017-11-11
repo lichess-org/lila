@@ -126,4 +126,85 @@
   <string name="castleQueenSideMovePiecesFirst">Направете дамска рокада!
 Първо трябва да раздвижите фигурите между тях.</string>
   <string name="youCannotCastleIfMoved">Не може да направите рокада, ако царят или топът вече са били премествани.</string>
+  <string name="youCannotCastleIfAttacked">Не можеш да направиш рокада, ако царят е под шах. Първо блокада, после рокада!</string>
+  <string name="findAWayToCastleKingSide">Намери начин да
+направиш царска рокада!</string>
+  <string name="findAWayToCastleQueenSide">Намери начин да
+направиш дамска рокада!</string>
+  <string name="castlingComplete">Поздравления! Добре е да правите рокада в почти всяка игра.</string>
+  <string name="enPassant">Ан-пасан</string>
+  <string name="theSpecialPawnMove">Специалният ход на пешката</string>
+  <string name="enPassantIntro">Когато противниковата пионка бъде преместена с две полета напред, тя може да се вземе, все едно е преместена само веднъж.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Черните току-що преместиха
+пешката с две полета напред!
+Вземи с ан-пасан.</string>
+  <string name="enPassantOnlyWorksImmediately">Ан-пасан работи само когато
+пешката е била току-що преместена.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Ан-пасан работи само когато
+пешката ти е на петия ред.</string>
+  <string name="takeAllThePawnsEnPassant">Вземете всички пешки с ан-пасан!</string>
+  <string name="enPassantComplete">Поздравления! Сега вече знаете какво е ан-пасан.</string>
+  <string name="stalemate">Пат</string>
+  <string name="theGameIsADraw">Партията е реми</string>
+  <string name="stalemateIntro">Когато един от играчите не е в шах, но няма нито един легален ход, ситуацията се нарича пат. Партията е реми - няма победители и победени.</string>
+  <string name="stalemateGoal">Пат за черните:
+- Черните не могат да се придвижат никъде;
+- Няма шах.</string>
+  <string name="stalemateComplete">Поздравления! По-добре в пат, отколкото в мат!</string>
+  <string name="advanced">За напреднали</string>
+  <string name="pieceValue">Цена на фигурите</string>
+  <string name="evaluatePieceStrength">Оценете силата на фигурата</string>
+  <string name="pieceValueIntro">По-мобилните фигури са по-ценни!
+Царица = 9
+Топ = 5
+Офицер = 3
+Кон = 3
+Пешка = 1
+Царят е безценен! Загубата му означава загуба на играта.</string>
+  <string name="queenOverBishop">Вземи най-ценната фигура!
+Царица &gt; Офицер</string>
+  <string name="takeThePieceWithTheHighestValue">Вземи най-ценната фигура!</string>
+  <string name="pieceValueComplete">Поздравления! Вече знаете колко ценни са фигурите!
+Царица = 9
+Топ = 5
+Офицер = 3
+Кон = 3
+Пешка = 1</string>
+  <string name="checkInTwo">Шах в два хода</string>
+  <string name="twoMovesToGiveCheck">Два хода до шах</string>
+  <string name="checkInTwoIntro">Намери правилната комбинация от два хода, която дава шах на противниковия цар!</string>
+  <string name="checkInTwoGoal">Заплаши противниковия цар в два хода!</string>
+  <string name="checkInTwoComplete">Поздравления! Вие поставихте противника си в шах, принуждавайки го да защити царя си!</string>
+  <string name="whatNext">А сега какво?</string>
+  <string name="youKnowHowToPlayChess">Вие знаете как се играе шах, поздравления! Искате ли да станете по-силен играч?</string>
+  <string name="register">Регистрирай се</string>
+  <string name="getAFreeLichessAccount">Създай безплатен Lichess акаунт</string>
+  <string name="practice">Упражнявай се</string>
+  <string name="learnCommonChessPositions">Научи основните позиции в шахмата</string>
+  <string name="puzzles">Пъзели</string>
+  <string name="exerciseYourTacticalSkills">Практикувайте своите тактически умения</string>
+  <string name="videos">Видеота</string>
+  <string name="watchInstructiveChessVideos">Гледайте поучителни шахматни видеа</string>
+  <string name="playPeople">Играй срещу хора</string>
+  <string name="opponentsFromAroundTheWorld">Противници от целия свят</string>
+  <string name="playMachine">Играй срещу машина</string>
+  <string name="testYourSkillsWithTheComputer">Тествайте уменията си срещу компютър</string>
+  <string name="letsGo">Да започваме!</string>
+  <string name="stageX">Етап %s</string>
+  <string name="awesome">Жестоко!</string>
+  <string name="excellent">Отлично!</string>
+  <string name="greatJob">Чудесна работа!</string>
+  <string name="perfect">Перфектно!</string>
+  <string name="outstanding">Изключително!</string>
+  <string name="wayToGo">Браво!</string>
+  <string name="yesYesYes">Поздравления!</string>
+  <string name="youreGoodAtThis">Наистина си добър в това!</string>
+  <string name="nailedIt">Невероятно.</string>
+  <string name="rightOn">Чудесно!</string>
+  <string name="stageXComplete">Етап %s завършен</string>
+  <string name="yourScore">Резултатът ви</string>
+  <string name="next">Следващ</string>
+  <string name="backToMenu">Обратно към менюто</string>
+  <string name="puzzleFailed">Неуспешно!</string>
+  <string name="retry">Опитай отново</string>
 </resources>
