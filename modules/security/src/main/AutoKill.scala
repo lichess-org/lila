@@ -33,7 +33,7 @@ final class AutoKill(
     }
 
   private def killed(user: User) =
-    user.troll && user.engine && !user.enabled
+    user.troll && !user.enabled
 
   private def checkable(email: EmailAddress) =
     email.value.endsWith("@yandex.ru") ||
