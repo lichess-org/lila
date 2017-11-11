@@ -95,6 +95,7 @@ read -n 1 -p "Press [Enter] to complete deployment to $mode server $REMOTE:$REMO
 if [ $mode = "main" ]; then
   lilalog "Notify post deploy"
   $CLI deploy post
+  sleep 1
 fi
 
 # ensure FS cache is ready before booting (slow hard drives)
