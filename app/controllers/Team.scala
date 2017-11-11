@@ -145,6 +145,7 @@ object Team extends LilaController {
   }
 
   def requests = Auth { implicit ctx => me =>
+    Env.team.cached.nbRequests invalidate me.id
     api requestsWithUsers me map { html.team.allRequests(_) }
   }
 
