@@ -29,7 +29,8 @@ final class AutoKill(
     user.troll && user.engine && !user.enabled
 
   private def checkable(user: User, email: EmailAddress) =
-    email.value.endsWith("@yandex.ru")
+    email.value.endsWith("@yandex.ru") ||
+      email.value.endsWith("@yandex.com")
 
   private def kill(user: User): Funit = {
     logger.info(s"Autokill ${user.username}")
