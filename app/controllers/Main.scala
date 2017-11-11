@@ -136,10 +136,10 @@ object Main extends LilaController {
     }
   }
 
-  def notFound(req: RequestHeader): Fu[Result] =
-    reqToCtx(req) map notFound
+  def renderNotFound(req: RequestHeader): Fu[Result] =
+    reqToCtx(req) map renderNotFound
 
-  def notFound(ctx: Context): Result = {
+  def renderNotFound(ctx: Context): Result = {
     lila.mon.http.response.code404()
     NotFound(html.base.notFound()(ctx))
   }

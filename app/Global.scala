@@ -40,7 +40,7 @@ object Global extends GlobalSettings {
   override def onHandlerNotFound(req: RequestHeader) = {
     if (niceError(req)) {
       logHttp(404, req)
-      controllers.Main.notFound(req)
+      controllers.Main.renderNotFound(req)
     } else fuccess(NotFound("404 - Resource not found"))
   }
 
