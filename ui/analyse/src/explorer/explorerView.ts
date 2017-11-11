@@ -61,7 +61,7 @@ function showMoveTable(ctrl: AnalyseCtrl, moves: OpeningMoveStats[], fen: Fen): 
         key: move.uci,
         attrs: {
           'data-uci': move.uci,
-          title: trans('averageRatingX', move.averageRating)
+          title: ctrl.trans('averageRatingX', move.averageRating)
         }
       }, [
         h('td', move.san[0] === 'P' ? move.san.slice(1) : move.san),
