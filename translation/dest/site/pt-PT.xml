@@ -97,6 +97,7 @@
   <string name="openStudy">Abrir estudo</string>
   <string name="enable">Ativar</string>
   <string name="bestMoveArrow">Seta de melhor movimento</string>
+  <string name="evaluationGauge">Indicador de avaliação</string>
   <string name="multipleLines">Múltiplas continuações</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Memória</string>
@@ -249,6 +250,7 @@
   <string name="giveMoreTime">Dê mais tempo</string>
   <string name="thisPlayerUsesChessComputerAssistance">Este jogador usa a ajuda de computador</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Este jogador aumentou o seu rating de maneira artificial.</string>
+  <string name="openingExplorerAndTablebase">Explorador de aberturas &amp; tabela</string>
   <string name="takeback">Voltar jogada</string>
   <string name="proposeATakeback">Propor voltar jogada</string>
   <string name="takebackPropositionSent">Proposta de voltar jogada enviada</string>
@@ -273,9 +275,17 @@
     <item quantity="one">≥ %1$s %2$s jogo classificado</item>
     <item quantity="other">≥ %1$s %2$s jogos classificados</item>
   </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Precisa de jogar mais %1$s jogo de %2$s classificado</item>
+    <item quantity="other">Precisa de jogar mais %1$s jogos de %2$s classificados</item>
+  </plurals>
   <string name="backToGame">Retorne à partida</string>
   <string name="siteDescription">Xadrez online gratuito. Jogue xadrez agora numa interface simples. Sem registro, sem anúncios, sem plugins. Jogue xadrez contra computador, amigos ou oponentes aleatórios.</string>
   <string name="teams">Equipas</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s membro</item>
+    <item quantity="other">%s membros</item>
+  </plurals>
   <string name="allTeams">Todas as equipas</string>
   <string name="newTeam">Nova equipa</string>
   <string name="myTeams">Minhas equipas</string>
@@ -302,8 +312,14 @@
   <string name="fromPosition">A partir da posição</string>
   <string name="continueFromHere">Continuar daqui</string>
   <string name="importGame">Importar partida</string>
+  <string name="importGameExplanation">Quando cola um jogo PGN tem acesso a um replay navegável, análise de computer, chat e um URL partilhável.</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s partida importada</item>
+    <item quantity="other">%s partidas importadas</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">Este é um CAPTCHA de xadrez.</string>
   <string name="clickOnTheBoardToMakeYourMove">Clique no tabuleiro para fazer sua jogada, provando que é humano.</string>
+  <string name="captcha.fail">Por favor resolva o captcha.</string>
   <string name="notACheckmate">Não é xeque-mate.</string>
   <string name="colorPlaysCheckmateInOne">%s joga; mate em um</string>
   <string name="retry">Tentar novamente</string>
@@ -311,6 +327,7 @@
   <string name="onlineFriends">Amigos online</string>
   <string name="noFriendsOnline">Não há amigos online</string>
   <string name="findFriends">Encontrar amigos</string>
+  <string name="favoriteOpponents">Oponentes favoritos</string>
   <string name="follow">Seguir</string>
   <string name="following">Seguindo</string>
   <string name="unfollow">Parar de seguir</string>
@@ -319,6 +336,10 @@
   <string name="unblock">Desbloquear</string>
   <string name="followsYou">Segue você</string>
   <string name="xStartedFollowingY">%1$s começou a seguir %2$s</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s seguidor</item>
+    <item quantity="other">%s seguidores</item>
+  </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s seguidos</item>
     <item quantity="other">%s seguidos</item>
