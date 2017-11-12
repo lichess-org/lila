@@ -127,7 +127,11 @@ final class ModlogApi(coll: Coll) {
   }
 
   def cli(by: String, command: String) = add {
-    Modlog(by, none, "cli", command.some)
+    Modlog(by, none, Modlog.cli, command.some)
+  }
+
+  def garbageCollect(mod: Mod, sus: Suspect) = add {
+    Modlog.make(mod, sus, Modlog.garbageCollect)
   }
 
   def recent = coll.find($empty).sort($sort naturalDesc).cursor[Modlog]().gather[List](100)

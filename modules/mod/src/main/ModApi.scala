@@ -92,9 +92,7 @@ final class ModApi(
     _ <- setEngine(mod, sus, true)
     _ <- setTroll(mod, sus, true)
     _ <- setBan(mod, sus, true)
-    // need to move Account.close logic somewhere accessible
-    // need to move Mod.deletePmsAndChats logic somewhere accessible
-  } yield ()
+  } yield logApi.garbageCollect(mod, sus)
 
   def closeAccount(mod: String, username: String): Fu[Option[User]] = withUser(username) { user =>
     user.enabled ?? {

@@ -45,6 +45,10 @@ package report {
   case class Processed(userId: String, reason: String)
 }
 
+package security {
+  case class GarbageCollect(userId: String)
+}
+
 package shutup {
   case class RecordPublicForumMessage(userId: String, text: String)
   case class RecordTeamForumMessage(userId: String, text: String)

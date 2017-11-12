@@ -50,6 +50,7 @@ case class Modlog(
     case Modlog.coachReview => "disapprove coach review"
     case Modlog.cheatDetected => "game lost by cheat detection"
     case Modlog.cli => "run CLI command"
+    case Modlog.garbageCollect => "garbage collect"
     case a => a
   }
 
@@ -103,4 +104,5 @@ object Modlog {
   val coachReview = "coachReview"
   val cheatDetected = "cheatDetected"
   val cli = "cli"
+  val garbageCollect = "garbageCollect"
 }

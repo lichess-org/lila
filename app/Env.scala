@@ -15,8 +15,6 @@ final class Env(
 
   private val RendererName = config getString "app.renderer.name"
 
-  lazy val bus = lila.common.Bus(system)
-
   lazy val preloader = new mashup.Preload(
     tv = Env.tv.tv,
     leaderboard = Env.user.cached.topWeek,
@@ -73,6 +71,26 @@ final class Env(
         lila.log("preloader").warn("daily puzzle", e)
         none
     }
+
+  def closeAccount(userId: lila.user.User.ID): Funit =
+    lila.user.UserRepo byId userId flatten s"No such user $userId" flatMap { user =>
+      (lila.user.UserRepo disable user) >>-
+        Env.user.onlineUserIdMemo.remove(user.id) >>
+        Env.relation.api.unfollowAll(user.id) >>
+        Env.user.rankingApi.remove(user.id) >>
+        Env.team.api.quitAll(user.id) >>-
+        Env.challenge.api.removeByUserId(user.id) >>-
+        Env.tournament.api.withdrawAll(user) >>
+        Env.plan.api.cancel(user).nevermind >>
+        Env.lobby.seekApi.removeByUser(user) >>
+        Env.security.store.disconnect(user.id)
+    }
+
+  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
+    def receive = {
+      case lila.hub.actorApi.security.GarbageCollect(userId) => closeAccount(userId)
+    }
+  })), 'garbageCollect)
 
   system.actorOf(Props(new actor.Renderer), name = RendererName)
 

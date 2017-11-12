@@ -1,17 +1,14 @@
-package lila.mod
+package lila.security
 
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 
 import lila.common.{ EmailAddress, IpAddress }
-import lila.security.{ UserSpy, IpIntel }
-import lila.report.Suspect
 import lila.user.{ User, UserRepo }
 
 final class GarbageCollector(
-    userSpy: User => Fu[UserSpy],
+    userSpy: UserSpyApi,
     ipIntel: IpIntel,
-    modAction: Suspect => Funit,
     slack: lila.slack.SlackApi,
     system: akka.actor.ActorSystem
 ) {
@@ -48,13 +45,18 @@ final class GarbageCollector(
       email.value.endsWith("@yandex.com")
 
   private def collect(user: User, email: EmailAddress, others: List[User]): Funit = {
-    val wait = (1 + scala.util.Random.nextInt(4)).minutes
+    val wait = (20 + scala.util.Random.nextInt(200)).seconds
     val othersStr = others.map(o => "@" + o.username).mkString(", ")
     val message = s"Will garbage collect @${user.username} in $wait. $email ($othersStr)${!effective ?? " [SIMULATION]"}"
     logger.info(message)
-    slack.garbageCollector(user)
-    effective ?? doCollect(user)
+    slack.garbageCollector(user) >>- {
+      effective ?? doCollect(user)
+    }
   }
 
-  private def doCollect(user: User): Funit = modAction(Suspect(user))
+  private def doCollect(user: User): Unit =
+    system.lilaBus.publish(
+      lila.hub.actorApi.security.GarbageCollect(user.id),
+      'garbageCollect
+    )
 }

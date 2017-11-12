@@ -40,7 +40,7 @@ object Account extends LilaController {
             lila.game.GameRepo.urgentGames(me) zip
             Env.challenge.api.countInFor.get(me.id) map {
               case nbFollowers ~ nbFollowing ~ prefs ~ povs ~ nbChallenges =>
-                Env.current.bus.publish(lila.user.User.Active(me), 'userActive)
+                Env.current.system.lilaBus.publish(lila.user.User.Active(me), 'userActive)
                 Ok {
                   import play.api.libs.json._
                   import lila.pref.JsonView._
@@ -142,24 +142,12 @@ object Account extends LilaController {
     } { password =>
       Env.user.authenticator.authenticateById(me.id, ClearPassword(password)).map(_.isDefined) flatMap {
         case false => BadRequest(html.account.close(me, Env.security.forms.closeAccount)).fuccess
-        case true => doClose(me) inject {
+        case true => Env.current.closeAccount(me.id) inject {
           Redirect(routes.User show me.username) withCookies LilaCookie.newSession
         }
       }
     }
   }
-
-  private[controllers] def doClose(user: UserModel) =
-    (UserRepo disable user) >>-
-      env.onlineUserIdMemo.remove(user.id) >>
-      relationEnv.api.unfollowAll(user.id) >>
-      Env.user.rankingApi.remove(user.id) >>
-      Env.team.api.quitAll(user.id) >>-
-      Env.challenge.api.removeByUserId(user.id) >>-
-      Env.tournament.api.withdrawAll(user) >>
-      Env.plan.api.cancel(user).nevermind >>
-      Env.lobby.seekApi.removeByUser(user) >>
-      (Env.security.store disconnect user.id)
 
   def kid = Auth { implicit ctx => me =>
     Ok(html.account.kid(me)).fuccess

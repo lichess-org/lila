@@ -325,7 +325,7 @@ private[controllers] trait LilaController
   private def restoreUser(req: RequestHeader): Fu[RestoredUser] =
     Env.security.api restoreUser req addEffect {
       _ ifTrue (HTTPRequest isSynchronousHttp req) foreach { d =>
-        Env.current.bus.publish(lila.user.User.Active(d.user), 'userActive)
+        Env.current.system.lilaBus.publish(lila.user.User.Active(d.user), 'userActive)
       }
     } flatMap {
       case None => fuccess(None -> None)
