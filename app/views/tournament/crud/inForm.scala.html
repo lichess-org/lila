@@ -24,7 +24,7 @@
 @base.form.group(form("headline"), Html("Homepage headline")) {
 @base.form.input(form("headline"))
 }
-@base.form.group(form("description"), Html("Full description<br />Link: [text](url)")) {
+@base.form.group(form("description"), Html("Full description | Link: [text](url)")) {
 <textarea name="@form("description").name" id="@form("description").id">@form("description").value</textarea>
 }
 <div>
@@ -71,5 +71,7 @@
   @base.form.select(form("conditions.minRating.perf"), Condition.DataForm.perfChoices)
   }
 </div>
-
+@base.form.group(form("conditions.titled"), Html("Only titled players")) {
+@base.form.select(form("conditions.titled"), booleanChoices)
+}
 @base.form.submit()

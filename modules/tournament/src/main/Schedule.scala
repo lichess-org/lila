@@ -247,7 +247,8 @@ object Schedule {
         minRating = minRating.some.filter(0<).map {
           Condition.MinRating(s.perfType, _)
         },
-        maxRating = none
+        maxRating = none,
+        titled = none
       )
     }
 }

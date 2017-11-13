@@ -29,6 +29,13 @@ object Condition {
 
   case class WithVerdict(condition: Condition, verdict: Verdict)
 
+  case object Titled extends Condition with FlatCond {
+    def name(lang: Lang) = "Only titled players"
+    def apply(user: User) =
+      if (user.hasTitle) Accepted
+      else Refused(name _)
+  }
+
   case class NbRatedGame(perf: Option[PerfType], nb: Int) extends Condition with FlatCond {
 
     def apply(user: User) =
@@ -92,10 +99,11 @@ object Condition {
   case class All(
       nbRatedGame: Option[NbRatedGame],
       maxRating: Option[MaxRating],
-      minRating: Option[MinRating]
+      minRating: Option[MinRating],
+      titled: Option[Titled.type]
   ) {
 
-    lazy val list: List[Condition] = List(nbRatedGame, maxRating, minRating).flatten
+    lazy val list: List[Condition] = List(nbRatedGame, maxRating, minRating, titled).flatten
 
     def relevant = list.nonEmpty
 
@@ -117,7 +125,12 @@ object Condition {
   }
 
   object All {
-    val empty = All(nbRatedGame = none, maxRating = none, minRating = none)
+    val empty = All(
+      nbRatedGame = none,
+      maxRating = none,
+      minRating = none,
+      titled = none
+    )
 
     case class WithVerdicts(list: List[WithVerdict]) extends AnyVal {
       def relevant = list.nonEmpty
@@ -139,6 +152,10 @@ object Condition {
     private implicit val NbRatedGameHandler = Macros.handler[NbRatedGame]
     private implicit val MaxRatingHandler = Macros.handler[MaxRating]
     private implicit val MinRatingHandler = Macros.handler[MinRating]
+    private implicit val TitledHandler = new BSONHandler[BSONValue, Titled.type] {
+      def read(x: BSONValue) = Titled
+      def write(x: Titled.type) = BSONBoolean(true)
+    }
     implicit val AllBSONHandler = Macros.handler[All]
   }
 
@@ -222,26 +239,35 @@ object Condition {
     val all = mapping(
       "nbRatedGame" -> nbRatedGame,
       "maxRating" -> maxRating,
-      "minRating" -> minRating
+      "minRating" -> minRating,
+      "titled" -> boolean
     )(AllSetup.apply)(AllSetup.unapply)
 
     case class AllSetup(
         nbRatedGame: NbRatedGameSetup,
         maxRating: MaxRatingSetup,
-        minRating: MinRatingSetup
+        minRating: MinRatingSetup,
+        titled: Boolean
     ) {
-      def convert = All(nbRatedGame.convert, maxRating.convert, minRating.convert)
+      def convert = All(
+        nbRatedGame.convert,
+        maxRating.convert,
+        minRating.convert,
+        titled option Titled
+      )
     }
     object AllSetup {
       val default = AllSetup(
         nbRatedGame = NbRatedGameSetup.default,
         maxRating = MaxRatingSetup.default,
-        minRating = MinRatingSetup.default
+        minRating = MinRatingSetup.default,
+        titled = false
       )
       def apply(all: All): AllSetup = AllSetup(
         nbRatedGame = all.nbRatedGame.fold(NbRatedGameSetup.default)(NbRatedGameSetup.apply),
         maxRating = all.maxRating.fold(MaxRatingSetup.default)(MaxRatingSetup.apply),
-        minRating = all.minRating.fold(MinRatingSetup.default)(MinRatingSetup.apply)
+        minRating = all.minRating.fold(MinRatingSetup.default)(MinRatingSetup.apply),
+        titled = all.titled.isDefined
       )
     }
   }
