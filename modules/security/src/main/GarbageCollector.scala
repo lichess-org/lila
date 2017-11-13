@@ -20,7 +20,7 @@ final class GarbageCollector(
   /* User just signed up and doesn't have security data yet,
    * so wait a bit */
   def delay(user: User, ip: IpAddress, email: EmailAddress): Unit =
-    if (checkable(email)) system.scheduler.scheduleOnce(5 seconds) {
+    if (checkable(user, email)) system.scheduler.scheduleOnce(5 seconds) {
       apply(user, ip, email)
     }
 
@@ -45,10 +45,12 @@ final class GarbageCollector(
   private def closedSB(user: User) =
     (user.troll || user.engine) && !user.enabled
 
-  private def checkable(email: EmailAddress): Boolean =
-    email.value.endsWith("@yandex.ru") ||
-      email.value.endsWith("@yandex.com") ||
-      email.value.endsWith("@mailfa.com")
+  private val emailSuffixes = "yandex.ru yandex.com mailfa.com"
+    .split(' ').toList.map("@" + _)
+
+  private def checkable(user: User, email: EmailAddress): Boolean =
+    user.createdAt.isAfter(DateTime.now minusDays 3) &&
+      emailSuffixes.exists(email.value.endsWith)
 
   private def isEffective =
     configColl.primitiveOne[Boolean]($id("ugc"), "value").map(~_)

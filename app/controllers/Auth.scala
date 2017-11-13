@@ -88,7 +88,11 @@ object Auth extends LilaController {
                 )
               }, {
                 case None => InternalServerError("Authentication error").fuccess
-                case Some(u) => authenticateUser(u)
+                case Some(u) =>
+                  UserRepo.email(u.id) foreach {
+                    _ foreach { garbageCollect(u, _) }
+                  }
+                  authenticateUser(u)
               }
             )
           }
@@ -216,9 +220,12 @@ object Auth extends LilaController {
   }
 
   private def welcome(user: UserModel, email: EmailAddress)(implicit ctx: Context) = {
-    Env.security.garbageCollector.delay(user, HTTPRequest lastRemoteAddress ctx.req, email)
+    garbageCollect(user, email)
     env.welcomeEmail(user, email)
   }
+
+  private def garbageCollect(user: UserModel, email: EmailAddress)(implicit ctx: Context) =
+    Env.security.garbageCollector.delay(user, HTTPRequest lastRemoteAddress ctx.req, email)
 
   def checkYourEmail(name: String) = Open { implicit ctx =>
     OptionOk(UserRepo named name) { user =>
