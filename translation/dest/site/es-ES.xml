@@ -384,7 +384,7 @@
   <string name="youArePlaying">¡Te toca jugar!</string>
   <string name="winRate">Tasa de victorias</string>
   <string name="berserkRate">Tasa de berserk</string>
-  <string name="performance">Rendimiento</string>
+  <string name="performance">Actuación</string>
   <string name="tournamentComplete">Torneo terminado</string>
   <string name="movesPlayed">Movimientos</string>
   <string name="whiteWins">Victorias blancas</string>
@@ -454,7 +454,7 @@
     <item quantity="one">%s partida en juego</item>
     <item quantity="other">%s partidas en juego</item>
   </plurals>
-  <string name="automaticallyProceedToNextGameAfterMoving">Proceder automáticamente a la siguiente partida en juego después de mi movimiento</string>
+  <string name="automaticallyProceedToNextGameAfterMoving">Pasar automáticamente a la siguiente partida después de mover</string>
   <string name="autoSwitch">Cambio automático</string>
   <string name="puzzles">Ejercicios</string>
   <string name="latestUpdates">Últimas actualizaciones</string>
@@ -474,7 +474,7 @@
   <string name="reply">Responder</string>
   <string name="message">Mensaje</string>
   <string name="createTheTopic">Crear tema</string>
-  <string name="reportAUser">Reportar un usuario</string>
+  <string name="reportAUser">Denunciar a un usuario</string>
   <string name="user">Usuario</string>
   <string name="reason">Motivo</string>
   <string name="whatIsIheMatter">¿Qué ocurre?</string>
@@ -490,7 +490,7 @@
   <string name="blog">Blog</string>
   <string name="questionsAndAnswers">Preguntas y respuestas</string>
   <string name="notes">Notas</string>
-  <string name="typePrivateNotesHere">Escribe aquí tus notas</string>
+  <string name="typePrivateNotesHere">Escribe aquí tus notas privadas</string>
   <string name="gameDisplay">Configuración visual del juego</string>
   <string name="pieceAnimation">Animación de las piezas</string>
   <string name="materialDifference">Diferencia de material</string>
@@ -553,7 +553,7 @@
   <string name="xCommentedY">%1$s comentó %2$s</string>
   <string name="victory">¡Victoria!</string>
   <string name="defeat">Derrota</string>
-  <string name="xVsYinZ">%1$s vs %2$s en %3$s</string>
+  <string name="xVsYinZ">%1$s contra %2$s en %3$s</string>
   <string name="timeline">Orden cronológico</string>
   <string name="seeAllTournaments">Ver todos los torneos</string>
   <string name="starting">Inicio:</string>
@@ -579,7 +579,7 @@
   <string name="signedOut">Has cerrado la sesión</string>
   <string name="loginSuccessful">Conectado</string>
   <string name="playOnTheBoardOffline">Jugar sin conexión</string>
-  <string name="playOfflineComputer">Computadora</string>
+  <string name="playOfflineComputer">Jugar vs CPU sin conexión</string>
   <string name="opponent">Oponente</string>
   <string name="learnMenu">Aprender</string>
   <string name="community">Comunidad</string>
@@ -665,7 +665,7 @@
     <item quantity="other">%1$s jugadores de %2$s esta semana.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Tu puntuación en %1$s es %2$s.</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">Eres mejor que el %1$s de los jugadores en %2$s.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Eres mejor que el %1$s de los jugadores de %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Careces de puntuación de %s establecida.</string>
   <string name="checkYourEmail">Revisa tu correo</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Te hemos enviado un correo. Activa tu cuenta en el enlace proporcionado.</string>
