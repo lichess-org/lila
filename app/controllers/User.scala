@@ -249,8 +249,9 @@ object User extends LilaController {
         Env.pref.api.getPref(user) zip
         Env.irwin.api.status(user) flatMap {
           case emails ~ spy ~ assess ~ history ~ charges ~ reports ~ pref ~ irwin =>
-            (Env.playban.api bans spy.usersSharingIp.map(_.id)) zip
-              Env.user.noteApi.forMod(user.id :: spy.otherUserIds) zip
+            val familyUserIds = user.id :: spy.otherUserIds.toList
+            Env.playban.api.bans(familyUserIds) zip
+              Env.user.noteApi.forMod(familyUserIds) zip
               Env.user.lightUserApi.preloadMany {
                 reports.userIds ::: assess.??(_.games).flatMap(_.userIds)
               } map {

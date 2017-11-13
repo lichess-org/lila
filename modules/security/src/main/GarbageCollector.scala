@@ -18,16 +18,16 @@ final class GarbageCollector(
   /* User just signed up and doesn't have security data yet,
    * so wait a bit */
   def delay(user: User, ip: IpAddress, email: EmailAddress): Unit =
-    if (checkable(email)) system.scheduler.scheduleOnce(5 seconds) {
+    if (checkable(email).pp("checkable")) system.scheduler.scheduleOnce(5 seconds) {
       apply(user, ip, email)
     }
 
   private def apply(user: User, ip: IpAddress, email: EmailAddress): Funit =
-    userSpy(user) flatMap { spy =>
-      val others = spy.usersSharingFingerprint
+    userSpy(user).thenPp flatMap { spy =>
+      val others = spy.usersSharingFingerprint.toList
         .sortBy(-_.createdAt.getSeconds)
         .takeWhile(_.createdAt.isAfter(DateTime.now minusDays 3))
-        .take(5)
+        .take(5).pp
       (others.size > 2 && others.forall(closedSB)) ?? {
         ipIntel(ip).map { 75 < _ }.map {
           _ ?? {

@@ -71,9 +71,9 @@ side = side.some) {
     case (pov, chat) => {
     <div class="game">
       <a href="@routes.Round.player(pov.fullId)"
-        @if(pov.game.fromFriend) { 
+        @if(pov.game.fromFriend) {
           class="title friend_title" title="Friend"
-        } else { 
+        } else {
           class="title"
         }
         >
@@ -113,9 +113,6 @@ side = side.some) {
   }
   <div class="alternate_accounts">
     <h2>Alternate accounts</h2>
-    @if(spy.otherUsers.size < 1) {
-    <strong>No similar user found</strong>
-    } else {
     <table class="others slist">
       <thead>
         <tr>
@@ -129,7 +126,7 @@ side = side.some) {
         </tr>
       </thead>
       <tbody>
-        @spy.otherUsers.map {
+        @spy.withMeSorted(u).map {
         case lila.security.UserSpy.OtherUser(o, byIp, byFp) => {
         <tr @if(o == u){class="same"}>
           <td>@userLink(o, withBestRating = true, params = "?mod")</td>
@@ -152,7 +149,6 @@ side = side.some) {
         }
       </tbody>
     </table>
-    }
   </div>
 </div>
 }
