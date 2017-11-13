@@ -280,8 +280,8 @@
     <item quantity="other">Necesitas jugar %1$s partidas más de %2$s por puntos</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">Necesitas jugar %s partidas puntuadas más</item>
-    <item quantity="other">Te falta jugar %s partidas puntuadas</item>
+    <item quantity="one">Necesitas jugar %s partida por puntos más</item>
+    <item quantity="other">Necesitas jugar %s partidas por puntos más</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Tu puntuación de %s es provisional</string>
   <string name="yourPerfRatingIsTooHigh">Tu puntuación de %1$s (%2$s) es demasiado alta</string>
