@@ -88,7 +88,7 @@ final class Env(
 
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
-      case lila.hub.actorApi.security.GarbageCollect(userId) => closeAccount(userId)
+      case lila.hub.actorApi.security.GarbageCollect(userId, _) => closeAccount(userId)
     }
   })), 'garbageCollect)
 
