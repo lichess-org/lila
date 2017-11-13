@@ -19,9 +19,14 @@ final class ScheduleJsonView(lightUser: LightUser.Getter) {
     "finished" -> finished
   )
 
+  def featured(tournaments: List[Tournament]): Fu[JsObject] =
+    tournaments.map(tournamentJson).sequenceFu map { objs =>
+      Json.obj("featured" -> objs)
+    }
+
   private def tournamentJson(tour: Tournament): Fu[JsObject] = for {
-    owner <- tour.nonLichessCreatedBy.??(lightUser)
-    winner <- tour.winnerId.??(lightUser)
+    owner <- tour.nonLichessCreatedBy ?? lightUser
+    winner <- tour.winnerId ?? lightUser
   } yield Json.obj(
     "id" -> tour.id,
     "createdBy" -> tour.createdBy,

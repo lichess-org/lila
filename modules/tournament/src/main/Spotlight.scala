@@ -16,11 +16,11 @@ object Spotlight {
 
   import Schedule.Freq._
 
-  def select(tours: List[Tournament], user: Option[User]): List[Tournament] =
-    user.fold(sort(tours) take 3) { select(tours, _) }
+  def select(tours: List[Tournament], user: Option[User], max: Int): List[Tournament] =
+    user.fold(sort(tours) take max) { select(tours, _, max) }
 
-  def select(tours: List[Tournament], user: User): List[Tournament] =
-    sort(tours.filter { select(_, user) }) take 3
+  def select(tours: List[Tournament], user: User, max: Int): List[Tournament] =
+    sort(tours.filter { select(_, user) }) take max
 
   private def sort(tours: List[Tournament]) = tours.sortBy { t =>
     -(t.schedule.??(_.freq.importance))

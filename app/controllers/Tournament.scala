@@ -220,4 +220,14 @@ object Tournament extends LilaController {
       env.socketHandler.join(id, uid, ctx.me)
     }
   }
+
+  def featured = Open { implicit ctx =>
+    negotiate(
+      html = notFound,
+      api = _ =>
+        Env.tournament.cached.promotable.get.nevermind map {
+          lila.tournament.Spotlight.select(_, ctx.me, 4)
+        } flatMap env.scheduleJsonView.featured map { Ok(_) }
+    )
+  }
 }

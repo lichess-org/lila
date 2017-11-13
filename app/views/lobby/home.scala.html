@@ -18,7 +18,7 @@
 @events.map { e =>
 @event.homepageSpotlight(e)
 }
-@lila.tournament.Spotlight.select(tours, ctx.me).map { tour =>
+@lila.tournament.Spotlight.select(tours, ctx.me, 3).map { tour =>
 @tournament.homepageSpotlight(tour)
 }
 @simuls.find(_.spotlightable).take(2).map { s =>
