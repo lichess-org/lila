@@ -2,14 +2,17 @@ package lila.security
 
 import org.joda.time.DateTime
 import scala.concurrent.duration._
+import reactivemongo.bson._
 
 import lila.common.{ EmailAddress, IpAddress }
 import lila.user.{ User, UserRepo }
+import lila.db.dsl._
 
 final class GarbageCollector(
     userSpy: UserSpyApi,
     ipIntel: IpIntel,
     slack: lila.slack.SlackApi,
+    configColl: Coll,
     system: akka.actor.ActorSystem
 ) {
 
@@ -17,9 +20,11 @@ final class GarbageCollector(
 
   /* User just signed up and doesn't have security data yet,
    * so wait a bit */
-  def delay(user: User, ip: IpAddress, email: EmailAddress): Unit =
-    if (checkable(email)) system.scheduler.scheduleOnce(5 seconds) {
-      apply(user, ip, email)
+  def delay(user: User, ip: IpAddress, email: EmailAddress): Funit =
+    checkable(email) map { is =>
+      if (is) system.scheduler.scheduleOnce(5 seconds) {
+        apply(user, ip, email)
+      }
     }
 
   private def apply(user: User, ip: IpAddress, email: EmailAddress): Funit =
@@ -43,12 +48,13 @@ final class GarbageCollector(
   private def closedSB(user: User) =
     (user.troll || user.engine) && !user.enabled
 
-  private def checkable(email: EmailAddress) =
+  private def checkable(email: EmailAddress): Fu[Boolean] = {
     email.value.endsWith("@yandex.ru") ||
       email.value.endsWith("@yandex.com")
+  } ?? configColl.primitiveOne[Boolean]($id("ugc"), "value").map(~_)
 
   private def collect(user: User, email: EmailAddress, others: List[User], ipBan: Boolean): Funit = {
-    val wait = (20 + scala.util.Random.nextInt(200)).seconds
+    val wait = (20 + scala.util.Random.nextInt(100)).seconds
     val othersStr = others.map(o => "@" + o.username).mkString(", ")
     val message = s"Will garbage collect @${user.username} in $wait. $email ($othersStr)${!effective ?? " [SIMULATION]"}"
     logger.info(message)
