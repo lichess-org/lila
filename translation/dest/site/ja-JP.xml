@@ -164,7 +164,7 @@
   <plurals name="nbPuzzles">
     <item quantity="other">%s タクティクス</item>
   </plurals>
-  <string name="gamesPlayed">局をプレイ</string>
+  <string name="gamesPlayed">対局数</string>
   <plurals name="nbGamesWithYou">
     <item quantity="other">あなたと %s 局対局</item>
   </plurals>
@@ -297,7 +297,7 @@
   <string name="reset">リセット</string>
   <string name="apply">適用</string>
   <string name="leaderboard">スコアボード</string>
-  <string name="pasteTheFenStringHere">ここにFEN形式の棋譜をペースト</string>
+  <string name="pasteTheFenStringHere">ここにFEN形式の局面をペースト</string>
   <string name="pasteThePgnStringHere">ここにPGN形式の棋譜をペースト</string>
   <string name="fromPosition">特定の局面から</string>
   <string name="continueFromHere">中断した所から再開</string>
