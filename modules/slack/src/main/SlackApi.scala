@@ -81,10 +81,10 @@ final class SlackApi(
     channel = "tavern"
   ))
 
-  def garbageCollector(u: User): Funit = client(SlackMessage(
-    username = u.username,
+  def garbageCollector(message: String): Funit = client(SlackMessage(
+    username = "lichess",
     icon = "put_litter_in_its_place",
-    text = s"Garbage collector candidate: ${userLink(u.username)}",
+    text = linkifyUsers(message),
     channel = "tavern"
   ))
 

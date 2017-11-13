@@ -1,13 +1,14 @@
 package lila.security
 
 import org.joda.time.DateTime
-import scala.concurrent.duration._
 import reactivemongo.bson._
+import scala.concurrent.duration._
 
 import lila.common.{ EmailAddress, IpAddress }
-import lila.user.{ User, UserRepo }
 import lila.db.dsl._
+import lila.user.{ User, UserRepo }
 
+// codename UGC
 final class GarbageCollector(
     userSpy: UserSpyApi,
     ipIntel: IpIntel,
@@ -16,15 +17,11 @@ final class GarbageCollector(
     system: akka.actor.ActorSystem
 ) {
 
-  private val effective = true
-
   /* User just signed up and doesn't have security data yet,
    * so wait a bit */
-  def delay(user: User, ip: IpAddress, email: EmailAddress): Funit =
-    checkable(email) map { is =>
-      if (is) system.scheduler.scheduleOnce(5 seconds) {
-        apply(user, ip, email)
-      }
+  def delay(user: User, ip: IpAddress, email: EmailAddress): Unit =
+    if (checkable(email)) system.scheduler.scheduleOnce(5 seconds) {
+      apply(user, ip, email)
     }
 
   private def apply(user: User, ip: IpAddress, email: EmailAddress): Funit =
@@ -48,24 +45,31 @@ final class GarbageCollector(
   private def closedSB(user: User) =
     (user.troll || user.engine) && !user.enabled
 
-  private def checkable(email: EmailAddress): Fu[Boolean] = {
+  private def checkable(email: EmailAddress): Boolean =
     email.value.endsWith("@yandex.ru") ||
-      email.value.endsWith("@yandex.com")
-  } ?? configColl.primitiveOne[Boolean]($id("ugc"), "value").map(~_)
+      email.value.endsWith("@yandex.com") ||
+      email.value.endsWith("@mailfa.com")
 
-  private def collect(user: User, email: EmailAddress, others: List[User], ipBan: Boolean): Funit = {
-    val wait = (20 + scala.util.Random.nextInt(100)).seconds
+  private def isEffective =
+    configColl.primitiveOne[Boolean]($id("ugc"), "value").map(~_)
+
+  private def collect(user: User, email: EmailAddress, others: List[User], ipBan: Boolean): Funit = isEffective flatMap { effective =>
+    val wait = (10 + scala.util.Random.nextInt(120)).seconds
     val othersStr = others.map(o => "@" + o.username).mkString(", ")
-    val message = s"Will garbage collect @${user.username} in $wait. $email ($othersStr)${!effective ?? " [SIMULATION]"}"
-    logger.info(message)
-    slack.garbageCollector(user) >>- {
-      effective ?? doCollect(user, ipBan)
+    val message = s"Will dispose of @${user.username} in $wait. Email: $email. Prev users: $othersStr${!effective ?? " [SIMULATION]"}"
+    logger.branch("GarbageCollector").info(message)
+    slack.garbageCollector(message) >>- {
+      if (effective) system.scheduler.scheduleOnce(wait) {
+        doCollect(user, ipBan)
+      }
     }
   }
 
-  private def doCollect(user: User, ipBan: Boolean): Unit =
+  private def doCollect(user: User, ipBan: Boolean): Unit = {
     system.lilaBus.publish(
       lila.hub.actorApi.security.GarbageCollect(user.id, ipBan),
       'garbageCollect
     )
+    slack.garbageCollector(s"@${user.username} has been dealt with.")
+  }
 }

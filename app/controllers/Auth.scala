@@ -232,10 +232,12 @@ object Auth extends LilaController {
         lila.mon.user.register.confirmEmailResult(false)()
         notFound
       case Some(user) =>
-        authLog(user.username, s"Confirmed email")
         lila.mon.user.register.confirmEmailResult(true)()
         UserRepo.email(user.id).flatMap {
-          _.?? { welcome(user, _) }
+          _.?? { email =>
+            authLog(user.username, s"Confirmed email $email")
+            welcome(user, email)
+          }
         } >> redirectNewUser(user)
     }
   }
@@ -311,7 +313,7 @@ object Auth extends LilaController {
         notFound
       }
       case Some(user) => {
-        authLog(user.username, s"Confirmed email")
+        authLog(user.username, "Reset password")
         lila.mon.user.auth.passwordResetConfirm("token_ok")()
         fuccess(html.auth.passwordResetConfirm(user, token, forms.passwdReset, none))
       }
