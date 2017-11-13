@@ -272,8 +272,8 @@
     <item quantity="other">≥ %s partidas por puntos</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2%s partidas puntuadas</item>
-    <item quantity="other">≥ %1$s %2$s partidas puntuadas</item>
+    <item quantity="one">≥ %1$s partida por puntos de %2$s</item>
+    <item quantity="other">≥ %1$s partidas por puntos de %2$s</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Necesitas jugar %1$s partida más de %2$s por puntos</item>
@@ -284,9 +284,9 @@
     <item quantity="other">Te falta jugar %s partidas puntuadas</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Tu puntuación de %s es provisional</string>
-  <string name="yourPerfRatingIsTooHigh">Tu puntuación de %1$s (%2$s) es muy alta</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Tu máxima puntación semanal de %1$s (%2$s) es muy alta</string>
-  <string name="yourPerfRatingIsTooLow">Tu puntuación de %1$s (%2$s) es muy baja</string>
+  <string name="yourPerfRatingIsTooHigh">Tu puntuación de %1$s (%2$s) es demasiado alta</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Tu máxima puntación semanal de %1$s (%2$s) es demasiado alta</string>
+  <string name="yourPerfRatingIsTooLow">Tu puntuación de %1$s (%2$s) es demasiado baja</string>
   <string name="ratedMoreThanInPerf">Puntuación ≥ %1$s en %2$s</string>
   <string name="ratedLessThanInPerf">Puntuación ≤ %1$s en %2$s</string>
   <string name="backToGame">Volver a la partida</string>
