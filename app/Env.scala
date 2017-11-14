@@ -83,7 +83,8 @@ final class Env(
         Env.tournament.api.withdrawAll(user) >>
         Env.plan.api.cancel(user).nevermind >>
         Env.lobby.seekApi.removeByUser(user) >>
-        Env.security.store.disconnect(user.id)
+        Env.security.store.disconnect(user.id) >>-
+        system.lilaBus.publish(lila.hub.actorApi.security.CloseAccount(user.id), 'accountClose)
     }
 
   system.lilaBus.subscribe(system.actorOf(Props(new Actor {

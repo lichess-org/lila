@@ -47,6 +47,7 @@ package report {
 
 package security {
   case class GarbageCollect(userId: String, ipBan: Boolean)
+  case class CloseAccount(userId: String)
 }
 
 package shutup {

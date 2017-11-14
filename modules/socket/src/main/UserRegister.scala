@@ -5,11 +5,12 @@ import play.api.libs.json.JsObject
 
 import actorApi.{ SocketLeave, SocketEnter }
 import lila.hub.actorApi.{ SendTo, SendTos, WithUserIds }
+import lila.hub.actorApi.security.CloseAccount
 
 private final class UserRegister extends Actor {
 
   override def preStart(): Unit = {
-    context.system.lilaBus.subscribe(self, 'users, 'socketDoor)
+    context.system.lilaBus.subscribe(self, 'users, 'socketDoor, 'accountClose)
   }
 
   override def postStop(): Unit = {
@@ -33,11 +34,13 @@ private final class UserRegister extends Actor {
     case SocketEnter(uid, member) => users.add(uid, member)
 
     case SocketLeave(uid, member) => users.remove(uid, member)
+
+    case CloseAccount(userId) => userDo(userId)(_.end)
   }
 
-  private def sendTo(userId: String, msg: JsObject): Unit = {
-    users get userId foreach { members =>
-      members.foreachValue(_ push msg)
-    }
-  }
+  private def sendTo(userId: String, msg: JsObject): Unit =
+    userDo(userId)(_ push msg)
+
+  private def userDo(userId: String)(f: SocketMember => Unit): Unit =
+    users get userId foreach { _ foreachValue f }
 }
