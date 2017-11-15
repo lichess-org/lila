@@ -108,6 +108,31 @@ export function throttle(delay: number, callback: (...args: any[]) => void): (..
   };
 }
 
+// Debounces calls to the wrapped function: Only forwards calls if there has
+// been silence for the given delay. Any extra calls are dropped, except the
+// last one.
+export function debounce(delay: number, callback: (...args: any[]) => void): (...args: any[]) => void {
+  let timer: number | undefined;
+  let lastBounce = 0;
+
+  return function(this: any, ...args: any[]): void {
+    const self: any = this;
+
+    const elapsed = Date.now() - lastBounce;
+    lastBounce = Date.now();
+
+    function exec() {
+      timer = undefined;
+      callback.apply(self, args);
+    }
+
+    if (timer) clearTimeout(timer);
+
+    if (elapsed > delay) exec();
+    else timer = setTimeout(exec, delay);
+  }
+}
+
 export type F = () => void;
 
 export function dropThrottle(delay: number): (f: F) => void  {
