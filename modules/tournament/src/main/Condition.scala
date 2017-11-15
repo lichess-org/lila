@@ -32,7 +32,7 @@ object Condition {
   case object Titled extends Condition with FlatCond {
     def name(lang: Lang) = "Only titled players"
     def apply(user: User) =
-      if (user.hasTitle) Accepted
+      if (user.title.exists(_ != "LM")) Accepted
       else Refused(name _)
   }
 

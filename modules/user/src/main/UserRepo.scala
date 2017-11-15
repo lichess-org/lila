@@ -166,10 +166,11 @@ object UserRepo {
       $set(F.profile -> Profile.profileBSONHandler.write(profile))
     ).void
 
-  def setTitle(id: ID, title: Option[String]): Funit = title match {
-    case Some(t) => coll.updateField($id(id), F.title, t).void
-    case None => coll.update($id(id), $unset(F.title)).void
-  }
+  def addTitle(id: ID, title: String): Funit =
+    coll.updateField($id(id), F.title, title).void
+
+  def removeTitle(id: ID): Funit =
+    coll.unsetField($id(id), F.title).void
 
   def setPlayTime(id: ID, playTime: User.PlayTime): Funit =
     coll.update($id(id), $set(F.playTime -> User.playTimeHandler.write(playTime))).void

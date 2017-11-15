@@ -107,9 +107,18 @@ final class ModApi(
   }
 
   def setTitle(mod: String, username: String, title: Option[String]): Funit = withUser(username) { user =>
-    UserRepo.setTitle(user.id, title) >>
-      logApi.setTitle(mod, user.id, title) >>-
-      lightUserApi.invalidate(user.id)
+    title match {
+      case None => {
+        UserRepo.removeTitle(user.id) >>-
+          logApi.removeTitle(mod, user.id) >>-
+          lightUserApi.invalidate(user.id)
+      }
+      case Some(t) => User.titlesMap.get(t) ?? { tFull =>
+        UserRepo.addTitle(user.id, t) >>-
+          logApi.addTitle(mod, user.id, s"$t ($tFull)") >>-
+          lightUserApi.invalidate(user.id)
+      }
+    }
   }
 
   def setEmail(mod: String, username: String, email: EmailAddress): Funit = withUser(username) { user =>

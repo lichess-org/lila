@@ -41,9 +41,12 @@ final class ModlogApi(coll: Coll) {
     Modlog(mod, user.some, Modlog.reopenAccount)
   }
 
-  def setTitle(mod: String, user: String, title: Option[String]) = add {
-    val name = title flatMap lila.user.User.titlesMap.get
-    Modlog(mod, user.some, name.isDefined.fold(Modlog.setTitle, Modlog.removeTitle), details = name)
+  def addTitle(mod: String, user: String, title: String) = add {
+    Modlog(mod, user.some, Modlog.setTitle, title.some)
+  }
+
+  def removeTitle(mod: String, user: String) = add {
+    Modlog(mod, user.some, Modlog.removeTitle)
   }
 
   def setEmail(mod: String, user: String) = add {

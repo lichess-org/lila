@@ -229,7 +229,7 @@
     @if(history.nonEmpty) {
     <ul>
       @history.map { e =>
-      <li>@userIdLink(e.mod.some) <b>@e.showAction</b> @u.username @e.details @momentFromNow(e.date)</li>
+      <li>@userIdLink(e.mod.some, withTitle=false) <b>@e.showAction</b> @e.details @momentFromNow(e.date)</li>
       }
     </ul>
     <br />
