@@ -55,7 +55,7 @@ export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
       failing(true);
       root.redraw();
     });
-  }, false);
+  }); // TODO: Debounce
 
   const empty = {
     opening: true,

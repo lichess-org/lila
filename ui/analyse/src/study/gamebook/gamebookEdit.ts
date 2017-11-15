@@ -125,7 +125,7 @@ function renderHint(ctrl: AnalyseCtrl): VNode {
   ]);
 }
 
-const saveNode = throttle(500, false, (ctrl: AnalyseCtrl, gamebook: Tree.Gamebook) => {
+const saveNode = throttle(500, (ctrl: AnalyseCtrl, gamebook: Tree.Gamebook) => {
   ctrl.socket.send('setGamebook', {
     path: ctrl.path,
     ch: ctrl.study!.vm.chapterId,
