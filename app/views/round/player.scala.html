@@ -33,11 +33,17 @@ chat.ChatJsData.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, p
 <link href="@routes.Round.atom(pov.gameId, pov.color.name)" type="application/atom+xml" rel="alternate" title="Game feed" />
 }
 
+@underchat = {
+@views.html.game.watchers()
+@round.blurs(pov.game)
+@round.holdAlerts(pov.game)
+}
+
 @round.layout(
 title = title,
 side = views.html.game.side(pov, (data\"game"\"initialFen").asOpt[String], tour.map(_.tour), simul, bookmarked = bookmarked),
 chat = chatOption.isDefined.option(chat.dom()),
-underchat = views.html.game.watchers().some,
+underchat = underchat.some,
 moreJs = moreJs,
 moreCss = cssTag("chat.css"),
 openGraph = povOpenGraph(pov).some,
