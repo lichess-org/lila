@@ -93,12 +93,12 @@ object UserRepo {
       .list[User](nb, ReadPreference.secondaryPreferred)
 
   // expensive, send to secondary
-  def idsByIdsSortRating(ids: Iterable[ID], nb: Int): Fu[List[User.ID]] =
+  def ratedIdsByIdsSortRating(ids: Iterable[ID], nb: Int): Fu[List[User.ID]] =
     coll.find(
-      $inIds(ids) ++ goodLadSelectBson,
+      $inIds(ids) ++ goodLadSelectBson ++ $doc("perfs.standard" $exists true),
       $id(true)
     )
-      .sort($doc(s"perfs.standard.gl.r" -> -1))
+      .sort($sort desc "perfs.standard.gl.r")
       .list[Bdoc](nb, ReadPreference.secondaryPreferred).map {
         _.flatMap { _.getAs[User.ID]("_id") }
       }
